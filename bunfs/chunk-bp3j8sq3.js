@@ -96,10 +96,10 @@ function g(e) {
   let r = `claude-${process.getuid?.() ?? 0}`,
     t = c(ly(), r);
   if (t !== e.ensured) {
-    if (typeof process.getuid === "function") s(t, { recursive: !0, mode: 448 }), uY(t);
+    if (typeof process.getuid === "function") s(t, { recursive: true, mode: 448 }), uY(t);
     else
       try {
-        s(t, { recursive: !0, mode: 448 });
+        s(t, { recursive: true, mode: 448 });
       } catch {}
     e.markEnsured(t);
   }
@@ -107,9 +107,9 @@ function g(e) {
 }
 function SEe() {
   let e = xl();
-  s(e, { recursive: !0, mode: 448 }), uY(e);
+  s(e, { recursive: true, mode: 448 }), uY(e);
   let r = c(e, "plugin-tool-staging");
-  return s(r, { recursive: !0, mode: 448 }), uY(r), r;
+  return s(r, { recursive: true, mode: 448 }), uY(r), r;
 }
 function dY() {
   let e = l.of(G().host),
@@ -121,7 +121,7 @@ function dY() {
   let n = c(t, `claude-${process.getuid?.() ?? 0}`),
     o = n;
   try {
-    s(n, { recursive: !0, mode: 448 }), uY(n);
+    s(n, { recursive: true, mode: 448 }), uY(n);
   } catch {
     o = r;
   }

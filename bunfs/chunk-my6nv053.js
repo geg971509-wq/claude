@@ -335,8 +335,8 @@ je(g, {
 });
 var M = 32;
 function c(o, t = "", r = 0) {
-  if (o === !0 || r > g.SCHEMA_DEPTH_MAX) return "unknown";
-  if (o === !1) return "never";
+  if (o === true || r > g.SCHEMA_DEPTH_MAX) return "unknown";
+  if (o === false) return "never";
   if (!He(o)) return "unknown";
   if ("const" in o) return p.literal(o.const);
   if (Array.isArray(o.enum)) return o.enum.map(p.literal).join(" | ") || "never";
@@ -437,7 +437,7 @@ var D = ".claude/types",
       w = await Promise.all(
         t
           .getMcp()
-          .tools.filter((i) => i.isMcp === !0)
+          .tools.filter((i) => i.isMcp === true)
           .map(async (i) => ({
             name: i.name,
             inputJSONSchema: i.inputJSONSchema,
@@ -457,7 +457,7 @@ var D = ".claude/types",
       S = await v(r).catch(() => r);
     if (!G0.escapes(_(r, e)) && G0.escapes(_(S, l)))
       return { type: "text", level: "error", value: `Did not write ${O}: ${e} resolves outside the project (${l}).` };
-    await P(l, { recursive: !0 });
+    await P(l, { recursive: true });
     let a = j(l, O),
       h = (i) => new Re.HooksError(`${a}: ${i}`);
     try {

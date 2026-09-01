@@ -15,7 +15,7 @@ import { dh, D8e, bt, Tt, Wd, I } from "/$bunfs/root/chunk-8tgj5dp2.js";
 import { Lk } from "/$bunfs/root/chunk-qd35gw0c.js";
 import { i, H, f, qm } from "/$bunfs/root/chunk-saay52v7.js";
 function bmt(e) {
-  if (e?.is_enabled === !0) return !0;
+  if (e?.is_enabled === true) return true;
   return D8e(e?.disabled_reason ?? null);
 }
 var l = [
@@ -67,7 +67,7 @@ function Gce(e, r) {
       limit: { utilization: t.percent, resets_at: t.resets_at },
     }));
 }
-async function dI(e, { atWall: r = !1 } = {}) {
+async function dI(e, { atWall: r = false } = {}) {
   return Hr(r ? "api_usage_fetch_at_wall" : "api_usage_fetch", async () => {
     if (!Tt() || !Wd()) return {};
     let o = r ? "/api/oauth/usage?at_wall=1&skip_spend=1" : "/api/oauth/usage",
@@ -77,7 +77,7 @@ async function dI(e, { atWall: r = !1 } = {}) {
         let a = await bt.get(o, {
           timeout: 5000,
           headers: { "Content-Type": "application/json" },
-          refreshOAuth: !0,
+          refreshOAuth: true,
           credentials: e,
         });
         if (!a.ok) throw Error(`Auth error: ${a.reason === "no-auth" ? a.detail : a.reason}`);

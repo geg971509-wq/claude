@@ -52,7 +52,7 @@ async function bIn(o, { delaysMs: e = J5t, siblingGraceMs: t = I, siblingStepMs:
   if (!l) {
     Y("error", "cli_worker_lifecycle_claim_token_wait", {
       attempts: r,
-      recovered: !1,
+      recovered: false,
       last_miss: _ ?? "other",
       waited_ms: Math.round(performance.now() - i),
     });
@@ -66,7 +66,7 @@ async function bIn(o, { delaysMs: e = J5t, siblingGraceMs: t = I, siblingStepMs:
   if (r > 0 || c > 0)
     Y("info", "cli_worker_lifecycle_claim_token_wait", {
       attempts: r,
-      recovered: !0,
+      recovered: true,
       sibling_attempts: c,
       sibling_present: m,
       waited_ms: Math.round(performance.now() - i),
@@ -74,9 +74,9 @@ async function bIn(o, { delaysMs: e = J5t, siblingGraceMs: t = I, siblingStepMs:
 }
 function wIn() {
   let o = !!a.CLAUDE_CODE_WEBSOCKET_AUTH_FILE_DESCRIPTOR;
-  if (YFe() !== null) return { recovered: !1, diag: { fd_env_set: o } };
+  if (YFe() !== null) return { recovered: false, diag: { fd_env_set: o } };
   let { token: e, miss: t } = RNe(g(), "session ingress token");
-  if (!e) return { recovered: !1, diag: { fd_env_set: o, last_miss: t ?? "other" } };
-  return Rj(e), n("Session ingress token re-read from well-known file"), { recovered: !0, diag: { fd_env_set: o } };
+  if (!e) return { recovered: false, diag: { fd_env_set: o, last_miss: t ?? "other" } };
+  return Rj(e), n("Session ingress token re-read from well-known file"), { recovered: true, diag: { fd_env_set: o } };
 }
 export { J5t, bIn, wIn };

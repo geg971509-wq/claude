@@ -12,7 +12,7 @@ import { Fe } from "/$bunfs/root/chunk-fv016jr6.js";
 var l = String.fromCharCode(0),
   p = /^\.[0-9a-f]{16}\.aside$/;
 function A5(e) {
-  if (e.charCodeAt(0) !== 46) return !1;
+  if (e.charCodeAt(0) !== 46) return false;
   return hS(e).some((n) => p.test(n));
 }
 var g =
@@ -82,7 +82,7 @@ function d(e, n, a) {
 }
 var Te = {
   transcript: m,
-  journal: (e, n, a) => ({ namespace: "transcript", projectKey: e, sessionId: n, agentRelPath: a, journal: !0 }),
+  journal: (e, n, a) => ({ namespace: "transcript", projectKey: e, sessionId: n, agentRelPath: a, journal: true }),
   sessionJournal: (e, n, a) => ({ namespace: "transcript", projectKey: e, sessionId: n, sessionJournal: a }),
   history: () => ({ namespace: "history" }),
   log: d,
@@ -92,8 +92,8 @@ var Te = {
   projectSettings: (e) => ({ namespace: "settings", layer: "project", projectKey: e }),
   localSettings: (e) => ({ namespace: "settings", layer: "local", consentRootKey: e }),
   task: (e, n) => ({ namespace: "task", listId: e, taskId: n }),
-  taskListMeta: (e) => ({ namespace: "task", listId: e, meta: !0 }),
-  taskListHighWaterMark: (e) => ({ namespace: "task", listId: e, highWaterMark: !0 }),
+  taskListMeta: (e) => ({ namespace: "task", listId: e, meta: true }),
+  taskListHighWaterMark: (e) => ({ namespace: "task", listId: e, highWaterMark: true }),
   memory: (e, n) => ({ namespace: "memory", projectKey: e, relPath: n }),
   pluginRegistry: (e) => ({ namespace: "pluginRegistry", file: e }),
   marketplaceCache: (e, n) => ({ namespace: "marketplaceCache", marketplace: e, form: n }),
@@ -202,7 +202,7 @@ function DRn(e) {
 function f(e) {
   switch (e.namespace) {
     case "transcript":
-      return e.journal === !0
+      return e.journal === true
         ? [e.namespace, e.projectKey, e.sessionId, null, e.agentRelPath, "journal"]
         : e.sessionJournal !== void 0
           ? [e.namespace, e.projectKey, e.sessionId, null, null, e.sessionJournal]

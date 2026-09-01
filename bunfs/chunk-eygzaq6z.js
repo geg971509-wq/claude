@@ -119,7 +119,7 @@ function U$e(e, t, o) {
     u = new Set(r.map(ei)),
     d = pu(t, "name")
       .filter((m) => !i.has(m.name))
-      .map((m) => (m.isMcp && u.has(ei(m)) ? { ...m, isHidden: !0 } : m));
+      .map((m) => (m.isMcp && u.has(ei(m)) ? { ...m, isHidden: true } : m));
   return [...r, ...d];
 }
 import { open as rt } from "fs/promises";
@@ -196,7 +196,7 @@ function Gt(e, t) {
     t.sessionId === e
   );
 }
-function He(e, t, { backgroundSession: o, liveHolder: r, jobStamped: i = !1, ui: u = "repl" }) {
+function He(e, t, { backgroundSession: o, liveHolder: r, jobStamped: i = false, ui: u = "repl" }) {
   let d = o ? "Open this session and ask Claude to watch it again" : "Ask Claude to watch it again";
   switch (t) {
     case "auto_replies_disabled":
@@ -261,8 +261,8 @@ function De(e, t, o) {
 }
 function lt(e) {
   return {
-    countsAsLoss: e.some((t) => t.stale !== !0),
-    warnings: e.slice(0, vde).map((t) => ({ slug: t.slug, reason: t.stale === !0 ? "stale_handoff" : "unavailable" })),
+    countsAsLoss: e.some((t) => t.stale !== true),
+    warnings: e.slice(0, vde).map((t) => ({ slug: t.slug, reason: t.stale === true ? "stale_handoff" : "unavailable" })),
   };
 }
 function fe(e, t) {
@@ -355,8 +355,8 @@ function jPn(e, t) {
   return _e(e, {}).filter((o) => !t(o));
 }
 function Ne(e) {
-  if (e.tool === void 0 || e.commentVerbsInSchema !== !0) return "comments_unavailable";
-  if (e.autoReactEnabled === !1) return "auto_replies_disabled";
+  if (e.tool === void 0 || e.commentVerbsInSchema !== true) return "comments_unavailable";
+  if (e.autoReactEnabled === false) return "auto_replies_disabled";
   return null;
 }
 function ft(e) {
@@ -376,7 +376,7 @@ function _e(e, t) {
         r.holder === void 0 &&
         o !== t.targetSlug &&
         o !== t.excludeSlug &&
-        !(t.named?.has(o) ?? !1),
+        !(t.named?.has(o) ?? false),
     )
     .sort(([, o], [, r]) => r.writtenAtMs - o.writtenAtMs)
     .map(([o]) => o);
@@ -403,12 +403,12 @@ function jt(e) {
     url: o,
     publishContext: e.publishContext,
     getKnownVer: () => e.getKnownVer(t),
-    sessionResume: !0,
-    ...(e.seedFromBoot && { seedKnownVerFromBoot: !0 }),
+    sessionResume: true,
+    ...(e.seedFromBoot && { seedKnownVerFromBoot: true }),
     tool: e.tool,
-    commentVerbsInSchema: !0,
+    commentVerbsInSchema: true,
     ...(r?.title !== void 0 && { title: r.title }),
-    resumedPublishConsent: !0,
+    resumedPublishConsent: true,
     onOpen: () => e.onResumedArmed?.(t),
     onGiveUp: () => e.onCarriedSkip?.(t, "ws_open_error"),
     context: e.context,
@@ -440,7 +440,7 @@ function ht(e) {
     T = _ === null && C !== null,
     p = C === null ? void 0 : m?.get(C.slug),
     S = new Set(),
-    A = (q) => (e.tornStops?.has(q) === !0 ? "record_incomplete" : "recorded_stop"),
+    A = (q) => (e.tornStops?.has(q) === true ? "record_incomplete" : "recorded_stop"),
     f = new Set(),
     b = o === void 0 ? qh : qh - 1,
     M = 0;
@@ -451,7 +451,7 @@ function ht(e) {
       let Y = ro({ slug: x.slug, env: q });
       if (kn(Y)?.slug !== x.slug) continue;
       if (x.slug === o) continue;
-      if (x.stale === !0) {
+      if (x.stale === true) {
         if (e.resumedIntent?.get(x.slug)?.state === "stopped") e.onCarriedSkip?.(x.slug, A(x.slug)), f.add(x.slug);
         else if (m?.get(x.slug)?.state !== "armed") e.onCarriedSkip?.(x.slug, "stale_handoff"), f.add(x.slug);
         continue;
@@ -479,8 +479,8 @@ function ht(e) {
         ...(e.tool !== void 0 && { tool: e.tool }),
         ...(e.commentVerbsInSchema !== void 0 && { commentVerbsInSchema: e.commentVerbsInSchema }),
         ...(x.title !== void 0 && { title: x.title }),
-        carriedPublishConsent: !0,
-        sessionResume: !0,
+        carriedPublishConsent: true,
+        sessionResume: true,
         context: i,
       }).then(
         (G) => {
@@ -494,7 +494,7 @@ function ht(e) {
   }
   let L = e.holderProbe ?? "unknown",
     U = L === "live" ? (e.freedSlugs ?? new Set()) : void 0,
-    H = (q) => (U?.has(q) === !0 ? "none" : L),
+    H = (q) => (U?.has(q) === true ? "none" : L),
     X = ct(p?.holder, C !== null ? H(C.slug) : L),
     B = (q) => {
       if (m === void 0) return;
@@ -514,15 +514,15 @@ function ht(e) {
       if (x !== void 0) for (let z of G) ae(x, z, ro({ slug: z, env: Oi() }), m.get(z), r(z) === void 0);
     };
   if (C === null || S.has(C.slug)) {
-    B(!1);
+    B(false);
     return;
   }
   if (p?.state === "stopped") {
     if (!f.has(C.slug)) e.onCarriedSkip?.(C.slug, A(C.slug));
-    B(!1);
+    B(false);
     return;
   }
-  let ie = !1;
+  let ie = false;
   if (p?.state === "armed" && f.has(C.slug));
   else if (p?.state === "armed" && X !== null) e.onCarriedSkip?.(C.slug, X);
   else if (p?.state === "armed")
@@ -530,7 +530,7 @@ function ht(e) {
     else {
       let q = Ne(e);
       if (q !== null) e.onCarriedSkip?.(C.slug, q);
-      else ie = !0;
+      else ie = true;
     }
   function ae(q, W, x, Y, G) {
     jt({
@@ -550,7 +550,7 @@ function ht(e) {
   }
   if (M >= b) {
     if (ie) e.onCarriedSkip?.(C.slug, "watch_cap");
-    B(!1);
+    B(false);
     return;
   }
   if (ie && e.tool !== void 0) ae(e.tool, C.slug, C.url, p, T);
@@ -560,11 +560,11 @@ function ht(e) {
       url: C.url,
       publishContext: u,
       getKnownVer: () => r(C.slug),
-      sessionResume: !0,
-      ...(T && { seedKnownVerFromBoot: !0 }),
+      sessionResume: true,
+      ...(T && { seedKnownVerFromBoot: true }),
       context: i,
     }).catch(() => {});
-  B(!0);
+  B(true);
 }
 function LKt(e, t, o) {
   try {
@@ -579,10 +579,10 @@ function Vt(e, t, o) {
     m = t.carried,
     _ = c(t.publishContext === "bg_session" ? "bg_session" : t.ui),
     C = "unknown",
-    T = !1,
+    T = false,
     p,
     S = [],
-    A = !1,
+    A = false,
     f,
     b,
     M = "not_attempted",
@@ -590,16 +590,16 @@ function Vt(e, t, o) {
     U = 0,
     H = new Set(),
     X = new Set(),
-    B = !1,
-    ie = !1,
+    B = false,
+    ie = false,
     ae = new Map(),
-    q = !1,
-    W = !1,
+    q = false,
+    W = false,
     x = [],
     Y = new Map(),
     G = (P, R, D, F) => {
       if (ie || B || (P !== "held_by_live_session" && P !== "held_by_job" && P !== "holder_unknown")) return;
-      (ie = !0),
+      (ie = true),
         sRt(P, {
           path: R,
           probed: T,
@@ -648,7 +648,7 @@ function Vt(e, t, o) {
     Me = (o?.readRecords ?? $6e)({ ...(i !== void 0 && { excludeSlug: i }), ...(u !== void 0 && { storageV5: u }) }),
     Z = K(),
     be = (P) => {
-      W = !1;
+      W = false;
       let R = x.splice(0);
       if (K() !== Z) return;
       let D = R.flatMap((F) => F.messages.slice(0, -1));
@@ -699,7 +699,7 @@ function Vt(e, t, o) {
           ...(ne.length > 0 ? [Dt(mt(ne, C, L(Date.now()), t.ui), "notice")] : []),
         ]);
     },
-    Ee = !1,
+    Ee = false,
     se;
   t.gate()
     .then(async ({ toolUseContext: P, allowed: R }) => {
@@ -710,7 +710,7 @@ function Vt(e, t, o) {
       if (F.length > 0 && j !== void 0 && ne.length === 0) return;
       se = F;
       for (let v of F.slice(0, vde)) if (v.unattendedReplies !== void 0) qZt(v.slug, v.unattendedReplies);
-      let ee = F.some((v) => v.stale !== !0);
+      let ee = F.some((v) => v.stale !== true);
       if (R && V !== void 0 && H.size > 0 && t.jobHolderVerdicts !== void 0)
         try {
           (Y = await t.jobHolderVerdicts(V, u, Date.now())), (V = b$n(V, Y)), Ke();
@@ -735,13 +735,13 @@ function Vt(e, t, o) {
       if (R && (Te() !== null || Ft))
         try {
           let v = await Xe();
-          (T = !0),
+          (T = true),
             (C = v.verdict),
             (p = v.holder),
             (S = v.otherHolders ?? []),
-            (A = v.verdict === "live" && v.unproven === !0);
+            (A = v.verdict === "live" && v.unproven === true);
         } catch {
-          (B = !0), g("artifact_live_subscribe", "holder_probe_failed", { surface: _ });
+          (B = true), g("artifact_live_subscribe", "holder_probe_failed", { surface: _ });
         }
       let ue = fe(t.readFrameState(), i),
         Qe =
@@ -785,17 +785,17 @@ function Vt(e, t, o) {
         xe;
       if (Je) xe = $e();
       let Oe = P.options.tools.find((v) => on(v, Si)),
-        Ze = Pt?.() ?? !1;
-      if (F.length > 0 && Uq()) m?.discloseUnattended({ willRearm: xe === !0 && Oe !== void 0 && Ze });
+        Ze = Pt?.() ?? false;
+      if (F.length > 0 && Uq()) m?.discloseUnattended({ willRearm: xe === true && Oe !== void 0 && Ze });
       if (!R) {
         if ((he(F), K() === Z)) qe(F);
         return;
       }
       if (K() !== Z) {
-        if (((Ee = !0), se !== void 0)) he(se);
+        if (((Ee = true), se !== void 0)) he(se);
         return;
       }
-      Ee = !0;
+      Ee = true;
       let tt = (v) =>
           ht({
             state: t.readFrameState(),
@@ -816,7 +816,7 @@ function Vt(e, t, o) {
                   dt(
                     ro({ slug: E, env: Oi() }),
                     t.ui === "repl" ? t.killChord?.() : void 0,
-                    b?.yielded.has(E) === !0 ? f : void 0,
+                    b?.yielded.has(E) === true ? f : void 0,
                   ),
                   "notice",
                 ),
@@ -916,7 +916,7 @@ function Vt(e, t, o) {
           (p = void 0),
           (S = []),
           be("drop"),
-          (q = !0),
+          (q = true),
           tt({
             holderProbe: "none",
             carried: [],
@@ -943,7 +943,7 @@ function Vt(e, t, o) {
       if ((n(`[frame-live] resume re-arm failed: ${l(P)}`, { level: "error" }), le(), Ee)) return;
       if ((b?.undo(), K() === Z)) qe(se);
       if (se !== void 0) {
-        if (Uq()) m?.discloseUnattended({ willRearm: !1 });
+        if (Uq()) m?.discloseUnattended({ willRearm: false });
         he(se);
         return;
       }
@@ -951,7 +951,7 @@ function Vt(e, t, o) {
         if (R === void 0 || R.entries.length === 0) return;
         if (R.park !== void 0 && R.park.take().length === 0) return;
         for (let D of R.entries.slice(0, vde)) if (D.unattendedReplies !== void 0) qZt(D.slug, D.unattendedReplies);
-        if (Uq()) m?.discloseUnattended({ willRearm: !1 });
+        if (Uq()) m?.discloseUnattended({ willRearm: false });
         he(R.entries);
       });
     });
@@ -962,7 +962,7 @@ function qPn(e) {
       i;
     try {
       if (
-        ((i = r?.publishContext ?? dae({ agentId: void 0, isNonInteractiveSession: !0 }).publishContext),
+        ((i = r?.publishContext ?? dae({ agentId: void 0, isNonInteractiveSession: true }).publishContext),
         i !== "interactive")
       )
         return;
@@ -981,7 +981,7 @@ function qPn(e) {
         r?.egressAllowed ??
         (async (p, S) => {
           let { isArtifactFetchEnabled: A } = await import("/$bunfs/root/chunk-gw8n3mp6.js");
-          return A(p, S, { promptless: !0 });
+          return A(p, S, { promptless: true });
         }),
       m = () => {
         let p = o();
@@ -994,10 +994,10 @@ function qPn(e) {
         if (C) {
           let S = await jqe(_.path, e.storageV5);
           if (S.artifactCommentMonitor === void 0) return new Map(p);
-          let A = !1,
+          let A = false,
             f = Eot(S.artifactCommentMonitor, {
               onTornStop: () => {
-                A = !0;
+                A = true;
               },
             });
           return A ? null : f;
@@ -1020,7 +1020,7 @@ function qPn(e) {
         readFrameState: m,
         getKnownVer: (p) => P1(o(), p),
         commentsGateOpen: r?.commentsGateOpen ?? vA,
-        mayRequestTakeover: () => !1,
+        mayRequestTakeover: () => false,
         rereadRecords: r?.rereadRecords ?? T,
       },
       r?.orchestration,
@@ -1059,9 +1059,9 @@ This session began as a fork (copy) of another session that is still running: ${
 </${Ol}>`,
         agentId: et(),
         mode: "task-notification",
-        skipAttachments: !0,
+        skipAttachments: true,
         priority: "next",
-        shouldQuery: !1,
+        shouldQuery: false,
       });
   }
 }
@@ -1070,7 +1070,7 @@ function Kt(e, t) {
     let o = e.attachment;
     return o.type === "queued_command" && typeof o.prompt === "string" && o.prompt.includes(t);
   }
-  return Yp(e)?.includes(t) ?? !1;
+  return Yp(e)?.includes(t) ?? false;
 }
 function bt(e) {
   return Uct().some((t) => typeof t.value === "string" && t.value.includes(e));
@@ -1150,28 +1150,28 @@ function Zt(e) {
       if (!Array.isArray(f)) continue;
       let b = A.toolUseResult;
       if (!je(b)) continue;
-      let M = !1,
-        L = !1,
-        U = !1;
+      let M = false,
+        L = false,
+        U = false;
       for (let H of f)
         if (H.type === "tool_result" && !H.is_error) {
-          if ((o.set(H.tool_use_id, b), C.has(H.tool_use_id))) (M = !0), (L ||= T.has(H.tool_use_id));
-          if (p.has(H.tool_use_id)) U = !0;
+          if ((o.set(H.tool_use_id, b), C.has(H.tool_use_id))) (M = true), (L ||= T.has(H.tool_use_id));
+          if (p.has(H.tool_use_id)) U = true;
           if (
-            b.success === !0 &&
+            b.success === true &&
             typeof b.message === "string" &&
             typeof b.resumedAgentId === "string" &&
             yb(b.resumedAgentId) !== null
           ) {
             m.delete(b.resumedAgentId);
             let B = i.get(b.resumedAgentId);
-            if (B) B.redispatched = !0;
+            if (B) B.redispatched = true;
             else
               i.set(b.resumedAgentId, {
                 agentId: b.resumedAgentId,
                 description: b.message,
-                isWebFetchLaunch: !1,
-                redispatched: !0,
+                isWebFetchLaunch: false,
+                redispatched: true,
               });
           }
           let X =
@@ -1211,7 +1211,7 @@ function Zt(e) {
         });
       if (
         b.status === "forked" &&
-        b.background === !0 &&
+        b.background === true &&
         typeof b.agentId === "string" &&
         !pe(b.agentId) &&
         !i.has(b.agentId)
@@ -1219,7 +1219,7 @@ function Zt(e) {
         i.set(b.agentId, {
           agentId: b.agentId,
           description: typeof b.commandName === "string" ? b.commandName : b.agentId,
-          isWebFetchLaunch: !1,
+          isWebFetchLaunch: false,
           launchedByForkedSkill: U,
         });
     } else if (A.type === "system" && A.subtype === "local_command" && typeof A.content === "string") {
@@ -1228,8 +1228,8 @@ function Zt(e) {
           i.set(f.agentId, {
             agentId: f.agentId,
             description: f.description,
-            isWebFetchLaunch: !1,
-            launchedByForkedSkill: !0,
+            isWebFetchLaunch: false,
+            launchedByForkedSkill: true,
           });
     } else if (
       A.type === "attachment" &&
@@ -1310,7 +1310,7 @@ async function nn({ asyncAgents: e, notifiedTaskIds: t }, o, r, i, u) {
   let _ = await Promise.all(
       d.map(async (S) => {
         let A = S.redispatched ? null : yb(S.agentId);
-        if (A === null) return { mtimeMs: null, hasMeta: !1, fetchable: !1 };
+        if (A === null) return { mtimeMs: null, hasMeta: false, fetchable: false };
         let f;
         try {
           f = await tn(A, u);
@@ -1319,7 +1319,7 @@ async function nn({ asyncAgents: e, notifiedTaskIds: t }, o, r, i, u) {
         }
         let b =
           r !== void 0 &&
-          (S.launchedByAgentTool === !0 || S.launchedByForkedSkill === !0) &&
+          (S.launchedByAgentTool === true || S.launchedByForkedSkill === true) &&
           f !== null &&
           (await KA(A, u).catch(Rye("resume orphan probe"))) !== null;
         return { mtimeMs: f, hasMeta: b, fetchable: f === null && Bpt() };
@@ -1329,10 +1329,10 @@ async function nn({ asyncAgents: e, notifiedTaskIds: t }, o, r, i, u) {
     T = { stopped: [], failed: [] },
     p = Date.now();
   for (let [S, A] of d.entries()) {
-    let { mtimeMs: f, hasMeta: b, fetchable: M } = _[S] ?? { mtimeMs: null, hasMeta: !1, fetchable: !1 };
+    let { mtimeMs: f, hasMeta: b, fetchable: M } = _[S] ?? { mtimeMs: null, hasMeta: false, fetchable: false };
     if (
       r !== void 0 &&
-      (A.launchedByAgentTool === !0 || A.launchedByForkedSkill === !0) &&
+      (A.launchedByAgentTool === true || A.launchedByForkedSkill === true) &&
       b &&
       f !== null &&
       p - f < Jt
@@ -1380,7 +1380,7 @@ function VPn(e, t) {
   let o = t.get(e.agentId),
     r = e.isWebFetchLaunch || (o?.type === "local_agent" && o.webFetchSavedFiles !== void 0);
   ge(
-    r ? { ...e, isWebFetchLaunch: !0 } : e,
+    r ? { ...e, isWebFetchLaunch: true } : e,
     "completed",
     `Background agent "${Wt(e.description)}" had already completed before the previous Claude Code process exited \u2014 only its completion notification was lost, so it was not restarted and no further task notification will arrive. ${r ? "Send it a message with SendMessage to get its report." : "Read its output file (and check its worktree, if any) for the result."}`,
   );
@@ -1409,9 +1409,9 @@ function ge(e, t, o) {
 </${Ol}>`,
     agentId: et(),
     mode: "task-notification",
-    skipAttachments: !0,
+    skipAttachments: true,
     priority: "next",
-    shouldQuery: !1,
+    shouldQuery: false,
   });
 }
 function rn(e, t) {
@@ -1442,9 +1442,9 @@ ${o}
 </${Ol}>`,
     agentId: et(),
     mode: "task-notification",
-    skipAttachments: !0,
+    skipAttachments: true,
     priority: "next",
-    shouldQuery: !1,
+    shouldQuery: false,
   });
 }
 function sn({ bgShells: e, notifiedTaskIds: t, stoppedTaskIds: o }, r) {
@@ -1478,9 +1478,9 @@ function sn({ bgShells: e, notifiedTaskIds: t, stoppedTaskIds: o }, r) {
 </${Ol}>`,
       agentId: et(),
       mode: "task-notification",
-      skipAttachments: !0,
+      skipAttachments: true,
       priority: "next",
-      shouldQuery: !1,
+      shouldQuery: false,
     }),
       ys(d.taskId, "stopped", {
         toolUseId: d.toolUseId,
@@ -1524,9 +1524,9 @@ function an({ workflows: e, notifiedTaskIds: t, stoppedTaskIds: o }, r) {
 </${Ol}>`,
       agentId: et(),
       mode: "task-notification",
-      skipAttachments: !0,
+      skipAttachments: true,
       priority: "next",
-      shouldQuery: !1,
+      shouldQuery: false,
     }),
       ys(d.taskId, "stopped", { toolUseId: d.toolUseId, summary: C });
   }
@@ -1550,9 +1550,9 @@ ${m}
 </${Ol}>`,
     agentId: et(),
     mode: "task-notification",
-    skipAttachments: !0,
+    skipAttachments: true,
     priority: "next",
-    shouldQuery: !1,
+    shouldQuery: false,
   });
 }
 function ln({ calls: e, results: t, deletedCronIds: o }) {
@@ -1564,12 +1564,12 @@ function ln({ calls: e, results: t, deletedCronIds: o }) {
   for (let m of e) {
     let _ = t.get(m.toolUseId);
     if (!_ || typeof _.id !== "string") continue;
-    if (_.durable === !0) continue;
+    if (_.durable === true) continue;
     if (o.has(_.id) || u.has(_.id)) continue;
     let C = m.input.cron,
       T = m.input.prompt;
     if (typeof C !== "string" || typeof T !== "string") continue;
-    let p = _.recurring !== !1;
+    let p = _.recurring !== false;
     if (p) {
       if (i.recurringMaxAgeMs !== 0 && r - m.createdAt >= i.recurringMaxAgeMs) continue;
     } else {
@@ -1578,7 +1578,7 @@ function ln({ calls: e, results: t, deletedCronIds: o }) {
     }
     G5({ id: _.id, cron: C, prompt: T, createdAt: m.createdAt, recurring: p }), d++;
   }
-  if (d > 0) RU(!0), n(`resume: resurrected ${d} session cron task(s)`);
+  if (d > 0) RU(true), n(`resume: resurrected ${d} session cron task(s)`);
 }
 function je(e) {
   return typeof e === "object" && e !== null;
@@ -1674,7 +1674,7 @@ function dn(e) {
   };
 }
 function nRe(e) {
-  let t = e.rateLimitGraceActive === !0 ? Nct() : null;
+  let t = e.rateLimitGraceActive === true ? Nct() : null;
   return I3n(
     {
       ...e,
@@ -1701,11 +1701,11 @@ function dRt(e, t) {
   return At(e, x3n(t.rate_limit_info));
 }
 function W$e(e, t) {
-  if (!u8e()) return !1;
+  if (!u8e()) return false;
   try {
     e.writeSdkMessages([t]);
   } catch (o) {
-    return n(`[bridge] rate_limit_event forward failed: ${l(o)}`, { level: "error" }), !1;
+    return n(`[bridge] rate_limit_event forward failed: ${l(o)}`, { level: "error" }), false;
   }
   try {
     let o = dRt(e, t);
@@ -1713,7 +1713,7 @@ function W$e(e, t) {
   } catch (o) {
     n(`[bridge] rate_limit_info metadata mirror failed: ${l(o)}`, { level: "error" });
   }
-  return !0;
+  return true;
 }
 function cet() {
   if (!u8e() || !Yxe()) return;
@@ -1775,17 +1775,17 @@ function uet({
 function q$e(e) {
   if (typeof e === "string") return e.trim().startsWith("/");
   for (let t of e) if (t.type === "text") return t.text.trim().startsWith("/");
-  return !1;
+  return false;
 }
 function G$e(e, t, o) {
   if (q$e(t)) return "later";
   if (e === "now") return "now";
   if (o) return "later";
   if (e !== void 0) return e;
-  return I("tengu_pencil_farmer", !1) ? "next" : "later";
+  return I("tengu_pencil_farmer", false) ? "next" : "later";
 }
 function Rt(e) {
-  return e.verifiedSlackHumanTurn === !0 && e.priority === "later";
+  return e.verifiedSlackHumanTurn === true && e.priority === "later";
 }
 function z$e(e) {
   return e.peek(Rt) !== void 0 || e.someInFlightDrainCommand(Rt);
@@ -1804,7 +1804,7 @@ function JPn(e, t) {
   return e.dequeue((r) => r === o);
 }
 function det(e) {
-  if (!I("tengu_bridge_initialize_commands", !1)) return [];
+  if (!I("tengu_bridge_initialize_commands", false)) return [];
   if (Eg()) return [];
   let t = qun(e);
   return y("bridge_initialize_commands"), t;
@@ -1837,7 +1837,7 @@ function Cn() {
     turnBaselines: new Map(),
     dirtyAttributions: new Map(),
     gitStatusInFlight: new Map(),
-    hooksRegistered: !1,
+    hooksRegistered: false,
     commitVerifyGateBlockCounts: new Map(),
   };
 }
@@ -1994,7 +1994,7 @@ async function set(e) {
           let { scope: S } = p;
           if (S !== "user" && S !== "project" && S !== "local") continue;
           try {
-            let A = await bq(_, S, !0, e);
+            let A = await bq(_, S, true, e);
             s("tengu_plugin_delisted_enforcement", {
               outcome: A.success ? w("uninstalled") : w("uninstall-failed"),
               scope: c(S),
@@ -2089,9 +2089,9 @@ function GPn({
   function T(f) {
     if (f.abandoned) return;
     if (f.finalized) {
-      if (!f.finalDispatched) p(f, !0);
+      if (!f.finalDispatched) p(f, true);
       else if (f.inFlight === 0 && !f.stats.summaryEmitted)
-        (f.stats.summaryEmitted = !0),
+        (f.stats.summaryEmitted = true),
           s("tengu_message_display_hooks", {
             flushCount: f.index,
             errorCount: f.stats.errorCount,
@@ -2111,7 +2111,7 @@ function GPn({
 `) + 1,
       L = f.raw.slice(f.flushedOffset, M);
     if (!b && L === "") return;
-    if (b) f.finalDispatched = !0;
+    if (b) f.finalDispatched = true;
     (f.flushedOffset = M), (f.lastFlushAt = Date.now());
     let U = f.index;
     f.index++, C(f, U, b, Bd(L));
@@ -2128,12 +2128,12 @@ function GPn({
       return;
     let M = Date.now() - f.lastFlushAt;
     if (M >= Et) {
-      p(f, !1);
+      p(f, false);
       return;
     }
     f.flushTimer = setTimeout(
       (L, U) => {
-        if (((L.flushTimer = null), !L.finalized && !L.abandoned)) U(L, !1);
+        if (((L.flushTimer = null), !L.finalized && !L.abandoned)) U(L, false);
       },
       Et - M,
       f,
@@ -2141,7 +2141,7 @@ function GPn({
     );
   }
   function A(f) {
-    if (((f.abandoned = !0), f.flushTimer !== null)) clearTimeout(f.flushTimer), (f.flushTimer = null);
+    if (((f.abandoned = true), f.flushTimer !== null)) clearTimeout(f.flushTimer), (f.flushTimer = null);
     f.abortController.abort();
   }
   return {
@@ -2168,11 +2168,11 @@ function GPn({
         flushTimer: null,
         inFlight: 0,
         abortController: new AbortController(),
-        finalized: !1,
-        finalDispatched: !1,
-        done: !1,
-        abandoned: !1,
-        stats: { totalDurationMs: 0, maxDurationMs: 0, errorCount: 0, summaryEmitted: !1 },
+        finalized: false,
+        finalDispatched: false,
+        done: false,
+        abandoned: false,
+        stats: { totalDurationMs: 0, maxDurationMs: 0, errorCount: 0, summaryEmitted: false },
       }),
         o("");
     },
@@ -2185,13 +2185,13 @@ function GPn({
       let b = m;
       if (b === null || b.apiMessageId !== f.message.id) return;
       if (b.raw === "" || !f.message.content.some((M) => M.type === "text")) return;
-      (b.done = !0), _(b), o("");
+      (b.done = true), _(b), o("");
     },
     finalize() {
       let f = m;
       if (f === null) return;
-      if (((f.finalized = !0), (m = null), o(null), f.raw === "" && f.index === 0)) return;
-      (f.done = !0), p(f, !0), _(f);
+      if (((f.finalized = true), (m = null), o(null), f.raw === "" && f.index === 0)) return;
+      (f.done = true), p(f, true), _(f);
     },
   };
 }
@@ -2234,10 +2234,10 @@ function aRt(e, t) {
   let o = new Set();
   for (let u of t) if (u.type === "assistant") o.add(u.message.id);
   let r = {},
-    i = !1;
+    i = false;
   for (let [u, d] of Object.entries(e.displayedMessageContent))
     if (o.has(u)) r[u] = d;
-    else i = !0;
+    else i = true;
   if (!i) return e;
   return { ...e, displayedMessageContent: r };
 }
@@ -2250,7 +2250,7 @@ async function lRt(e, t, o, r, i, u, d) {
   if (C === "") return _;
   let T;
   try {
-    for await (let S of rGe(e, { turnId: o, messageId: Re(), index: 0, final: !0, delta: C }, r, i, xt, u, d))
+    for await (let S of rGe(e, { turnId: o, messageId: Re(), index: 0, final: true, delta: C }, r, i, xt, u, d))
       if (S.displayContent !== void 0) T = S.displayContent;
   } catch (S) {
     return (
@@ -2262,7 +2262,7 @@ async function lRt(e, t, o, r, i, u, d) {
     );
   }
   if (T === void 0) return _;
-  let p = !0;
+  let p = true;
   return {
     ..._,
     message: {
@@ -2270,7 +2270,7 @@ async function lRt(e, t, o, r, i, u, d) {
       content: _.message.content.map((S) => {
         if (S.type !== "text") return S;
         let A = p ? T : "";
-        return (p = !1), { ...S, text: A };
+        return (p = false), { ...S, text: A };
       }),
     },
   };
@@ -2287,10 +2287,10 @@ var XPn = "tengu_juniper_vale",
     probability: 0.005,
   },
   cRt = { probability: 0 },
-  Hie = { enabled: !1, maxChars: 500, autoDismissAfterMs: 30000 };
+  Hie = { enabled: false, maxChars: 500, autoDismissAfterMs: 30000 };
 import { randomUUID as Mn } from "crypto";
 function eRe(e, t) {
-  j6t(e, t, { verifiedSlackHumanTurn: !0 });
+  j6t(e, t, { verifiedSlackHumanTurn: true });
 }
 function tRe(e, t) {
   return e || (t ? Mn() : void 0);

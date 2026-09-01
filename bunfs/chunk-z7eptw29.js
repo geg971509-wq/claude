@@ -15,7 +15,7 @@ class n {
     this.implementation = e;
   }
   isPlanArtifactEnabled() {
-    return this.implementation === null ? !1 : this.implementation.isPlanArtifactEnabled();
+    return this.implementation === null ? false : this.implementation.isPlanArtifactEnabled();
   }
   publishPlanArtifact(e, t, i) {
     if (this.implementation === null)

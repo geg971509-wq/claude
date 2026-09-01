@@ -100,7 +100,7 @@ import { i, v, q, _e, H, f, ot, nj, De, oe, N } from "/$bunfs/root/chunk-saay52v
 import { T } from "/$bunfs/root/chunk-ma6kk3k0.js";
 import { te } from "/$bunfs/root/chunk-wag5ye9w.js";
 class wn {
-  availability = () => !1;
+  availability = () => false;
   register(e) {
     this.availability = e;
   }
@@ -116,13 +116,13 @@ function vA() {
   return Sn.isAvailable();
 }
 function Gse() {
-  return a.CLAUDE_CODE_ARTIFACT_COMMENTS ?? I("tengu_teal_corbel", !1);
+  return a.CLAUDE_CODE_ARTIFACT_COMMENTS ?? I("tengu_teal_corbel", false);
 }
 function YFn() {
-  return a.CLAUDE_CODE_ARTIFACT_COMMENTS !== void 0 ? "env" : Um("tengu_teal_corbel", !1).source;
+  return a.CLAUDE_CODE_ARTIFACT_COMMENTS !== void 0 ? "env" : Um("tengu_teal_corbel", false).source;
 }
 function y0e() {
-  return I("tengu_medlar_quoin", !1);
+  return I("tengu_medlar_quoin", false);
 }
 var wo = 256;
 function So(e) {
@@ -149,14 +149,14 @@ function Ly(e) {
 }
 function Oe(e, t) {
   let n = Ly(t.createdAt);
-  if (n === null) return !1;
+  if (n === null) return false;
   return e.some((r) => {
     let o = Ly(r.toClaudeAt);
     return o !== null && o > n;
   });
 }
 function we(e) {
-  if (e.commentsDegraded === !0 || e.resolvedDegraded === !0 || e.comments.some((o) => Dg(o) === "unknown")) return [];
+  if (e.commentsDegraded === true || e.resolvedDegraded === true || e.comments.some((o) => Dg(o) === "unknown")) return [];
   let t = e.comments.findLastIndex((o) => Dg(o) === "agent"),
     n = t >= 0 ? e.comments[t] : void 0,
     r = e.resolved ? { id: "resolution-gesture", account: "", text: "", createdAt: e.resolvedAt } : void 0;
@@ -175,22 +175,22 @@ function rIt(e) {
       id: t.id,
       ...(t.createdAt !== void 0 && { created_at: t.createdAt }),
       resolved: t.resolved,
-      ...(t.resolvedDegraded && { resolved_degraded: !0 }),
-      ...(t.resolvedByClaude && { resolved_by_claude: !0 }),
+      ...(t.resolvedDegraded && { resolved_degraded: true }),
+      ...(t.resolvedByClaude && { resolved_by_claude: true }),
       claude_activated: t.claudeActivated,
-      ...(t.activatedAtDegraded && { activated_degraded: !0 }),
-      ...(t.carried && { carried: !0 }),
-      ...(t.commentsDegraded && { comments_degraded: !0 }),
+      ...(t.activatedAtDegraded && { activated_degraded: true }),
+      ...(t.carried && { carried: true }),
+      ...(t.commentsDegraded && { comments_degraded: true }),
       ...(t.anchorPath !== void 0 && { anchor_path: t.anchorPath }),
       ...(t.spanQuote !== void 0 && { span_quote: t.spanQuote }),
       ...(t.anchorFile !== void 0 && { anchor_file: t.anchorFile }),
-      ...(t.anchorFileDegraded && { anchor_file_degraded: !0 }),
+      ...(t.anchorFileDegraded && { anchor_file_degraded: true }),
       ...(t.anchorFileSha !== void 0 && { anchor_file_sha: t.anchorFileSha }),
       ...(t.anchorLabel !== void 0 && { anchor_label: t.anchorLabel }),
       comments: t.comments.map((r) => {
         let o = Dg(r),
           s = Ly(r.toClaudeAt) !== null,
-          d = r.toClaudeAtDegraded === !0 || (r.toClaudeAt !== void 0 && !s),
+          d = r.toClaudeAtDegraded === true || (r.toClaudeAt !== void 0 && !s),
           _ = s || d;
         return {
           id: r.id,
@@ -199,10 +199,10 @@ function rIt(e) {
           text: r.text,
           ...(r.createdAt !== void 0 && { created_at: r.createdAt }),
           ...(o === "human" &&
-            s && { sent_to_claude: !0, ...(r.sentByViewer !== void 0 && { sent_by_viewer: r.sentByViewer }) }),
-          ...(((o === "human" && d) || (o === "unknown" && _)) && { sent_to_claude_degraded: !0 }),
-          ...(r.postedByArtifact && { posted_by_artifact: !0 }),
-          ...(n.has(r) && { awaiting_reply: !0 }),
+            s && { sent_to_claude: true, ...(r.sentByViewer !== void 0 && { sent_by_viewer: r.sentByViewer }) }),
+          ...(((o === "human" && d) || (o === "unknown" && _)) && { sent_to_claude_degraded: true }),
+          ...(r.postedByArtifact && { posted_by_artifact: true }),
+          ...(n.has(r) && { awaiting_reply: true }),
         };
       }),
     };
@@ -210,19 +210,19 @@ function rIt(e) {
 }
 function vo(e) {
   if (
-    e.commentsDegraded === !0 ||
-    e.comments.some((o) => Dg(o) === "unknown" || (Dg(o) === "human" && o.toClaudeAtDegraded === !0))
+    e.commentsDegraded === true ||
+    e.comments.some((o) => Dg(o) === "unknown" || (Dg(o) === "human" && o.toClaudeAtDegraded === true))
   )
     return null;
   let t = e.comments.findLastIndex((o) => Dg(o) === "agent");
   if (t < 0) return null;
   let n = e.comments[t];
   if (Ly(n.createdAt) === null) return null;
-  let r = !1;
+  let r = false;
   for (let [o, s] of e.comments.entries()) {
     if (Dg(s) !== "human" || s.toClaudeAt == null) continue;
     if (Ly(s.toClaudeAt) === null) return null;
-    if (((r = !0), o > t || Oe([s], n))) return null;
+    if (((r = true), o > t || Oe([s], n))) return null;
   }
   return r ? n : null;
 }
@@ -231,12 +231,12 @@ function oIt(e, t) {
   return n === void 0 ? null : vo(n);
 }
 function Tn(e, t) {
-  if (e.err !== null || e.threadsDegraded === !0 || e.threadsDropped === !0) return;
+  if (e.err !== null || e.threadsDegraded === true || e.threadsDropped === true) return;
   return e.threads.find((n) => n.id === t);
 }
 function QFn(e, t) {
   let n = Tn(e, t);
-  if (n === void 0 || n.commentsDegraded === !0 || n.comments.some((o) => Dg(o) === "unknown")) return;
+  if (n === void 0 || n.commentsDegraded === true || n.comments.some((o) => Dg(o) === "unknown")) return;
   let r = n.comments.findLast((o) => Dg(o) === "agent");
   return r !== void 0 && Ve(r.id) ? r.id : void 0;
 }
@@ -245,10 +245,10 @@ var QK = 4096,
   Cn = /[\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\u2800]/u,
   Ro = /[ \t\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\u2800]{3,}/gu;
 function fhe(e) {
-  for (let t of e.match(Ro) ?? []) if (Cn.test(t)) return !0;
+  for (let t of e.match(Ro) ?? []) if (Cn.test(t)) return true;
   return Array.from(e).some((t) => {
     let n = t.codePointAt(0) ?? 0;
-    if (n === 10 || n === 9) return !1;
+    if (n === 10 || n === 9) return false;
     return OT(n) || En.test(t);
   });
 }
@@ -341,7 +341,7 @@ function xo(e, t) {
   return e.count++, "degraded";
 }
 function Po(e, t) {
-  if (t === "edit") return !0;
+  if (t === "edit") return true;
   if (t !== void 0 && t !== null && t !== "reply") e.count++;
   return;
 }
@@ -349,16 +349,16 @@ function Oo(e, t, n) {
   if (t === void 0 || t === null || t === "") return;
   if (t === "agent" && n === "assistant") return;
   if (t !== "page") e.count++;
-  return !0;
+  return true;
 }
 function Do(e, t) {
   if (t === void 0 || t === "") return;
   if (Ly(t) !== null) return { resolvedAt: t };
   if (t !== "degraded") e.count++;
-  return { resolvedDegraded: !0 };
+  return { resolvedDegraded: true };
 }
 function Io(e, t) {
-  if (t === "claude") return !0;
+  if (t === "claude") return true;
   if (t !== void 0 && t !== null) e.count++;
   return;
 }
@@ -392,8 +392,8 @@ var No = 512,
 function $o(e, t) {
   let n = t?.file;
   if (n === void 0 || n === null || n === "") return;
-  if (n === Dn) return { anchorFileDegraded: !0 };
-  let r = () => (e.count++, { anchorFileDegraded: !0 });
+  if (n === Dn) return { anchorFileDegraded: true };
+  let r = () => (e.count++, { anchorFileDegraded: true });
   if (typeof n !== "string") return r();
   if (!ku(n)) return r();
   if (new TextEncoder().encode(n).length > 512) return r();
@@ -442,9 +442,9 @@ function Bo(e, t) {
   return n === "" ? void 0 : n;
 }
 function vn(e, t) {
-  if (t === void 0) return !1;
-  if (x6e.test(t)) return !0;
-  return e.count++, !1;
+  if (t === void 0) return false;
+  if (x6e.test(t)) return true;
+  return e.count++, false;
 }
 function Wo(e, t = "artifact_comments_read") {
   let n = { count: 0 },
@@ -504,8 +504,8 @@ function Wo(e, t = "artifact_comments_read") {
         ...(L.to_claude_at !== void 0 &&
           L.to_claude_at !== "" &&
           L.to_claude_at !== "degraded" && { toClaudeAt: L.to_claude_at }),
-        ...(L.to_claude_at === "degraded" && { toClaudeAtDegraded: !0 }),
-        ...(Oo(n, L.source, z) === !0 && { postedByArtifact: !0 }),
+        ...(L.to_claude_at === "degraded" && { toClaudeAtDegraded: true }),
+        ...(Oo(n, L.source, z) === true && { postedByArtifact: true }),
         ...(L.sent_by_viewer !== void 0 && { sentByViewer: L.sent_by_viewer }),
       });
     }
@@ -514,42 +514,42 @@ function Wo(e, t = "artifact_comments_read") {
       id: E.id,
       ...(vn(n, E.created_at) && { createdAt: E.created_at }),
       resolved: Y !== void 0,
-      ...(Io(n, E.resolved_by) === !0 && { resolvedByClaude: !0 }),
+      ...(Io(n, E.resolved_by) === true && { resolvedByClaude: true }),
       ...Y,
       claudeActivated:
         E.claude_activated_at !== void 0 && E.claude_activated_at !== "" && E.claude_activated_at !== "degraded",
       ...(E.claude_activated_at !== void 0 &&
         E.claude_activated_at !== "" &&
         E.claude_activated_at !== "degraded" && { activatedAt: E.claude_activated_at }),
-      ...(E.claude_activated_at === "degraded" && { activatedAtDegraded: !0 }),
+      ...(E.claude_activated_at === "degraded" && { activatedAtDegraded: true }),
       ...(E.claude_activated_by !== void 0 &&
         E.claude_activated_by !== "" &&
         On(n, E.claude_activated_by) !== "unknown" && { activatedBy: E.claude_activated_by }),
-      ...((E.comments === Pn || R > P) && { commentsDegraded: !0 }),
-      carried: E.carried === !0,
+      ...((E.comments === Pn || R > P) && { commentsDegraded: true }),
+      carried: E.carried === true,
       ...(w !== void 0 && { anchorPath: w }),
       ...$o(n, E.anchor),
       ...(C !== void 0 && C.trim() !== "" && { spanQuote: C }),
       ...(O !== void 0 && { anchorLabel: O }),
-      ...(Po(n, E.claude_capability) === !0 && { editCapable: !0 }),
+      ...(Po(n, E.claude_capability) === true && { editCapable: true }),
       comments: A,
     });
   }
   if (u > 0 || R > 0 || n.count > 0)
     g(t, "rows_degraded", { dropped_threads: u, dropped_comments: R, degraded_fields: n.count });
   else y(t);
-  return { threads: d, ...(s && { threadsDegraded: !0 }), ...(u > 0 && { threadsDropped: !0 }) };
+  return { threads: d, ...(s && { threadsDegraded: true }), ...(u > 0 && { threadsDropped: true }) };
 }
 function qo(e, t) {
-  if (e.status === 403 && Ge(e.data).includes(Pt)) return g(t, "service_key_credential"), { err: jo, unavailable: !0 };
+  if (e.status === 403 && Ge(e.data).includes(Pt)) return g(t, "service_key_credential"), { err: jo, unavailable: true };
   if (e.status < 200 || e.status >= 300) return g(t, "server_read_unavailable", { status: e.status }), In(e.status);
   let n = Wo(e.data, t);
   if (n === null) return p(t, "malformed_body"), { err: "comments fetch failed (unexpected response)" };
   return {
     err: null,
     threads: n.threads,
-    ...(n.threadsDegraded && { threadsDegraded: !0 }),
-    ...(n.threadsDropped && { threadsDropped: !0 }),
+    ...(n.threadsDegraded && { threadsDegraded: true }),
+    ...(n.threadsDropped && { threadsDropped: true }),
   };
 }
 var Ko = { min: 300, max: 800 };
@@ -562,7 +562,7 @@ async function Rn(e, t, n, r) {
     s;
   try {
     s = await op.getRelayBound(`/api/frame/comments/${encodeURIComponent(e)}`, {
-      refreshOAuth: !0,
+      refreshOAuth: true,
       credentials: r,
       headers: Yu(),
       timeout: 15000,
@@ -623,7 +623,7 @@ async function Rn(e, t, n, r) {
 function In(e) {
   return {
     err: `comments are not available on this artifact right now (the comments service answered HTTP ${e})`,
-    unavailable: !0,
+    unavailable: true,
     status: e,
   };
 }
@@ -638,9 +638,9 @@ async function Vo(e, t, n, r) {
   }
   return s.fail();
 }
-async function JQ(e, t, n, r = "artifact_comments_read", { skipBootProbe: o = !1 } = {}) {
-  if (!I("tengu_onyx_sluice", !1))
-    return g(r, "cp_read_disabled"), { err: "comments are not available on this artifact right now", unavailable: !0 };
+async function JQ(e, t, n, r = "artifact_comments_read", { skipBootProbe: o = false } = {}) {
+  if (!I("tengu_onyx_sluice", false))
+    return g(r, "cp_read_disabled"), { err: "comments are not available on this artifact right now", unavailable: true };
   let s;
   if (!o) {
     let _ = await qR(e, r, t, { credentials: n });
@@ -686,26 +686,26 @@ function Ge(e) {
   return typeof t === "string" ? q6(t, 300) : "";
 }
 function Qe(e, t) {
-  return { refreshOAuth: !0, credentials: t, headers: Yu(), timeout: 30000, maxContentLength: Fn, signal: e };
+  return { refreshOAuth: true, credentials: t, headers: Yu(), timeout: 30000, maxContentLength: Fn, signal: e };
 }
 async function OZt(
   { slug: e, threadId: t, text: n, answersSummon: r, continuesReplyId: o, resend: s, credentials: d },
   _,
 ) {
   let u,
-    R = !1,
+    R = false,
     S = s ? { resend: s } : {},
     l = s ? [{ resend: s }] : [];
-  if (o !== void 0 && r !== !0 && y0e())
+  if (o !== void 0 && r !== true && y0e())
     if (jr.test(o)) u = o;
-    else R = !0;
+    else R = true;
   let E = de().accountEpoch,
     A = performance.now(),
     P;
   try {
     P = await op.postRelayBound(
       `/api/frame/comments/${encodeURIComponent(e)}/${encodeURIComponent(t)}`,
-      { text: n, ...(r === !0 && { answers_summon: !0 }), ...(u !== void 0 && { continues_reply_id: u }) },
+      { text: n, ...(r === true && { answers_summon: true }), ...(u !== void 0 && { continues_reply_id: u }) },
       Qe(_, d),
     );
   } catch (x) {
@@ -772,7 +772,7 @@ async function OZt(
   if (P.status === 409 && Ke(P.data) === Yo) {
     let x = E === de().accountEpoch ? Qo(P.data) : void 0;
     return (
-      g("artifact_comment_reply", x?.own === !0 ? "summon_answered_own" : "summon_answered_elsewhere", ...l),
+      g("artifact_comment_reply", x?.own === true ? "summon_answered_own" : "summon_answered_elsewhere", ...l),
       { kind: "summon_answered", ...(x && { standing: x }) }
     );
   }
@@ -815,7 +815,7 @@ async function $n(e, t, n) {
     r = await op.postRelayBound(
       `/api/frame/comments/${encodeURIComponent(e)}/${encodeURIComponent(t)}/summon-status`,
       n,
-      { isBackground: !0, headers: Yu(), timeout: 5000, maxContentLength: Fn },
+      { isBackground: true, headers: Yu(), timeout: 5000, maxContentLength: Fn },
     );
   } catch {
     return { kind: "failed", reason: "request_error" };
@@ -854,7 +854,7 @@ async function Hn(e) {
   try {
     _ = await op.postRelayBound(
       `/api/frame/comments/${encodeURIComponent(t)}/${encodeURIComponent(n)}/resolve`,
-      { resolved: !0, after_version: r },
+      { resolved: true, after_version: r },
       Qe(o, s),
     );
   } catch (R) {
@@ -897,14 +897,14 @@ var ra = "only the thread starter or a writer",
 async function ZFn({ slug: e, threadId: t, credentials: n }, r) {
   if (!jr.test(e) || !jr.test(t)) return { kind: "error", message: "invalid slug or thread id", reason: "input" };
   let o = (A) => `/api/frame/comments/${encodeURIComponent(e)}/${encodeURIComponent(t)}/${A}`,
-    s = (A) => op.post(o(A), { resolved: !0 }, Qe(r, n)),
+    s = (A) => op.post(o(A), { resolved: true }, Qe(r, n)),
     d = performance.now(),
     _ = iDt(sWe),
     u;
   try {
     if (VP(sWe) && !(_ && Ax(sWe))) {
       if (
-        ((u = await op.postRelayOnly(o("resolve"), { resolved: !0 }, Qe(r, n))),
+        ((u = await op.postRelayOnly(o("resolve"), { resolved: true }, Qe(r, n))),
         _ && !u.ok && u.reason === "relay-unavailable")
       )
         g("artifact_comment_session_resolve", "relay_declined", { status: u.status }), (u = void 0);
@@ -1013,7 +1013,7 @@ var ca = 86400000,
         seen: H(t).max(Dt),
         sent: H(nj([t, e.nullable()])).max(Dt),
         ownReplyIds: H(t).max(Dt),
-        ownReplyIdsIncomplete: N(!0).optional(),
+        ownReplyIdsIncomplete: N(true).optional(),
       }),
       r = v().refine(Number.isFinite),
       o = ot({
@@ -1023,7 +1023,7 @@ var ca = 86400000,
         everHadThreads: q(),
         turnTimestamps: H(r).max(Yn),
         threads: H(n).max(jn).optional(),
-        interrupted: N(!0).optional(),
+        interrupted: N(true).optional(),
       }),
       s = ot({
         type: N("artifact-autoreact-ledger"),
@@ -1069,7 +1069,7 @@ function et() {
       (e.ledgerOwnerSid ??= t),
       (e.pendingLedger = { sid: t, accountUuid: r, slugs: ma(n), touched: new Set(), loadedAccount: ha(n) });
     for (let [s, d] of e.pendingLedger.slugs)
-      if (d.interrupted === !0) {
+      if (d.interrupted === true) {
         let _ = cp(s);
         if ((Xye(s), !_)) Jut(s, d.savedAt);
       }
@@ -1092,12 +1092,12 @@ function fa(e) {
     s = n.ledgerLastWriteAccount !== void 0 ? n.ledgerLastWriteAccount : (n.pendingLedger?.loadedAccount ?? null),
     d = o !== null && s !== null && o !== s,
     _ = !n8(),
-    u = [...t.slugs.entries()].filter(([R, S]) => _ || d || (r?.has(R) ?? !1) || pa(R, S, n.userDisarmed));
+    u = [...t.slugs.entries()].filter(([R, S]) => _ || d || (r?.has(R) ?? false) || pa(R, S, n.userDisarmed));
   return t.own ? u : u.map(([R, S]) => [R, Mt(S)]);
 }
 function pa(e, t, n) {
   let r = !n && cp(e);
-  return (!r && lp(e)) || r !== (t.interrupted === !0);
+  return (!r && lp(e)) || r !== (t.interrupted === true);
 }
 function ha(e) {
   let t = typeof e === "object" && e !== null && "accountUuid" in e ? e.accountUuid : null;
@@ -1123,14 +1123,14 @@ function tt(e) {
   return {
     savedAt: e.savedAt,
     stampHighWater: null,
-    everBaselined: !1,
+    everBaselined: false,
     everHadThreads: e.everHadThreads,
     turnTimestamps: e.turnTimestamps,
     threads: [],
   };
 }
 function Mt(e) {
-  return { ...tt(e), ...(e.interrupted === !0 && { interrupted: !0 }) };
+  return { ...tt(e), ...(e.interrupted === true && { interrupted: true }) };
 }
 function Nt(e) {
   et();
@@ -1152,7 +1152,7 @@ function ya(e) {
       seen: [...n.seen],
       sent: [...n.sentToClaudeAt.entries()],
       ownReplyIds: [...n.ownReplyIds],
-      ...(n.ownReplyIdsIncomplete === !0 && { ownReplyIdsIncomplete: !0 }),
+      ...(n.ownReplyIdsIncomplete === true && { ownReplyIdsIncomplete: true }),
     }))
     .filter((t) => zn().thread.safeParse(t).success);
 }
@@ -1163,32 +1163,32 @@ function Aa(e, t, n, r) {
   return {
     savedAt: Math.max(t.lastScanAt ?? n, _an(e) ?? 0),
     stampHighWater: d ? null : t.stampHighWater,
-    everBaselined: d ? !1 : t.everBaselined,
+    everBaselined: d ? false : t.everBaselined,
     everHadThreads: t.everHadThreads,
     turnTimestamps: t.turnTimestamps.filter((_) => n - _ < 3600000).slice(-Yn),
     threads: d ? [] : ya(t),
-    ...(s && { interrupted: !0 }),
+    ...(s && { interrupted: true }),
   };
 }
 function ba(e) {
   return {
     savedAt: e,
     stampHighWater: null,
-    everBaselined: !1,
-    everHadThreads: !1,
+    everBaselined: false,
+    everHadThreads: false,
     turnTimestamps: [],
     threads: [],
-    interrupted: !0,
+    interrupted: true,
   };
 }
 function wa(e) {
   return {
     savedAt: e.savedAt,
     stampHighWater: null,
-    everBaselined: !1,
+    everBaselined: false,
     everHadThreads: e.everHadThreads,
     turnTimestamps: [],
-    interrupted: !0,
+    interrupted: true,
   };
 }
 function Sa(e, t, n) {
@@ -1199,7 +1199,7 @@ function Sa(e, t, n) {
       ? []
       : [...j3n()]
           .filter((A) => {
-            if (s.has(A)) return !1;
+            if (s.has(A)) return false;
             return !$ee(A);
           })
           .map((A) => [A, ba(t)]),
@@ -1212,7 +1212,7 @@ function Sa(e, t, n) {
             C = !D && lp(A),
             O = w.savedAt - t > Gn,
             x = t - w.savedAt <= Xn() && !O;
-          if (!x && !D && P !== !0) return [];
+          if (!x && !D && P !== true) return [];
           return [
             [
               A,
@@ -1220,7 +1220,7 @@ function Sa(e, t, n) {
                 ...(x && !C ? w : tt(w)),
                 savedAt: Math.max(O ? t : w.savedAt, _an(A) ?? 0),
                 turnTimestamps: w.turnTimestamps.filter((Y) => t - Y < 3600000).map((Y) => Math.min(Y, t)),
-                ...(D && { interrupted: !0 }),
+                ...(D && { interrupted: true }),
               },
             ],
           ];
@@ -1228,7 +1228,7 @@ function Sa(e, t, n) {
         .sort(([, A], [, P]) => P.savedAt - A.savedAt),
     ];
   for (let A = _.length - 1; A >= 0; A--) if (Tv(_[A][0])) _.splice(A, 1);
-  _.sort(([, A], [, P]) => Number(P.interrupted === !0) - Number(A.interrupted === !0));
+  _.sort(([, A], [, P]) => Number(P.interrupted === true) - Number(A.interrupted === true));
   let u = {},
     R = new Map(),
     S = _.slice(0, Vn),
@@ -1249,7 +1249,7 @@ function Sa(e, t, n) {
     if (E <= Ot) break;
     let P = u[A],
       w = b(P).length;
-    if (P.interrupted === !0) {
+    if (P.interrupted === true) {
       let D = wa(P),
         C = b(D).length;
       if (C < w) (u[A] = D), (E -= w - C);
@@ -1282,7 +1282,7 @@ function Zn(e, t) {
   if (Object.keys(r).length === 0) return null;
   return { type: "artifact-autoreact-ledger", v: 1, sessionId: e, accountUuid: n, artifacts: r };
 }
-function Ra({ force: e = !1, urgent: t = !1 }) {
+function Ra({ force: e = false, urgent: t = false }) {
   let { autoReact: n } = de();
   if (n.ledgerTimer !== void 0) clearTimeout(n.ledgerTimer), (n.ledgerTimer = void 0);
   let r = K(),
@@ -1336,8 +1336,8 @@ function QQ(e) {
   _ot(e?.storageV5), (t.ledgerExitCleanup ??= vt(ka));
   let n = t.ledgerDebounceMsOverride ?? Kn;
   if (t.ledgerOwnerSid === null || t.ledgerOwnerSid === K()) t.ledgerDeferredSince = null;
-  if (e?.flush === !0 || n <= 0) {
-    Lt({ urgent: e?.flush === !0 });
+  if (e?.flush === true || n <= 0) {
+    Lt({ urgent: e?.flush === true });
     return;
   }
   tr();
@@ -1348,7 +1348,7 @@ function tr() {
   if (e.ledgerTimer === void 0 && t > 0) (e.ledgerTimer = setTimeout(() => Lt(), t)), e.ledgerTimer.unref?.();
 }
 async function ka() {
-  Lt({ force: !0, urgent: !0 }), await de().autoReact.ledgerLastAppend, await hl();
+  Lt({ force: true, urgent: true }), await de().autoReact.ledgerLastAppend, await hl();
 }
 function Ta() {
   let { autoReact: e } = de(),
@@ -1363,7 +1363,7 @@ function Ta() {
 }
 function e$n(e) {
   let { autoReact: t } = de();
-  if (e?.stillCurrent !== !1) {
+  if (e?.stillCurrent !== false) {
     if (t.ledgerOwnerSid !== null) t.ledgerRetiredSids.add(t.ledgerOwnerSid);
     t.ledgerRetiredSids.add(K());
   }
@@ -1380,7 +1380,7 @@ function e$n(e) {
     (t.ledgerOwnerSid = null);
 }
 function LZt(e) {
-  Nt(e), QQ({ flush: !0 });
+  Nt(e), QQ({ flush: true });
 }
 function t$n(e) {
   let t = e.trim().toLowerCase();
@@ -1423,12 +1423,12 @@ function sIt(e, t) {
   let n = ["--watch-artifact", "--watch-artifact-no-autoreact"],
     r = AU(),
     o = [],
-    s = !1;
+    s = false;
   for (let d = 0; d < r.length; d++) {
     let _ = r[d];
     if (n.some((R) => (_ === R && r[d + 1]?.toLowerCase() === e) || _.toLowerCase() === `${R}=${e}`)) {
       if (_.indexOf("=") === -1) d++;
-      s = !0;
+      s = true;
       continue;
     }
     o.push(_);
@@ -1443,11 +1443,11 @@ function nr(e) {
     if (o === "--watch-artifact" && t[r + 1] !== void 0) n = t[r + 1].toLowerCase();
     else if (o.startsWith("--watch-artifact=")) n = o.slice(17).toLowerCase();
   }
-  if (n === void 0) return !1;
+  if (n === void 0) return false;
   return (
     aie([...O6e(AU()), "--watch-artifact-no-autoreact", n]),
     kD("--watch-artifact-no-autoreact", ["--watch-artifact"], n, void 0, e),
-    !0
+    true
   );
 }
 var aIt = 999,
@@ -1464,17 +1464,17 @@ function lIt(e, t = Date.now()) {
     generation: (n?.generation ?? 0) + 1,
     plain: n?.plain ?? 0,
     awaiting: n?.awaiting ?? 0,
-    partial: n?.partial ?? !1,
+    partial: n?.partial ?? false,
   });
 }
 function i$n(e) {
   let t = Ae().get(e);
-  if (t !== void 0) (t.dirty = !0), t.generation++;
+  if (t !== void 0) (t.dirty = true), t.generation++;
 }
 function L6e(e) {
   return Ae().get(e)?.generation;
 }
-function yot(e, t, n, r = !1) {
+function yot(e, t, n, r = false) {
   let o = Ae().get(e);
   if (o === void 0) return;
   let s = 0,
@@ -1483,24 +1483,24 @@ function yot(e, t, n, r = !1) {
     u = Math.floor(o.sinceMs / 1000) * 1000 - Ea;
   for (let R of t) {
     if (
-      R.commentsDegraded === !0 ||
-      R.resolvedDegraded === !0 ||
+      R.commentsDegraded === true ||
+      R.resolvedDegraded === true ||
       R.comments.some((l) => Dg(l) === "unknown" || Ly(l.createdAt) === null)
     )
-      _ = !0;
+      _ = true;
     let S = new Set(we(R).map((l) => l.id));
     for (let l of R.comments) {
       if (Dg(l) !== "human" || (Ly(l.createdAt) ?? -1) < u || (o.readIds !== null && o.readIds.has(l.id))) continue;
       if (Ly(l.toClaudeAt) !== null) {
         if (S.has(l.id)) d++;
-      } else if (l.toClaudeAtDegraded === !0 || l.toClaudeAt !== void 0) _ = !0;
+      } else if (l.toClaudeAtDegraded === true || l.toClaudeAt !== void 0) _ = true;
       else s++;
     }
   }
   if (((o.plain = Math.min(s, aIt)), (o.awaiting = Math.min(d, aIt)), (o.partial = _), n === o.generation))
-    o.dirty = !1;
+    o.dirty = false;
 }
-function s$n(e, t, n, r, o = !1) {
+function s$n(e, t, n, r, o = false) {
   if (!Ae().has(e)) lIt(e);
   let s = Ae().get(e),
     d = s.readIds ?? new Set();
@@ -1515,7 +1515,7 @@ function a$n(e) {
 }
 var Ft = 900000;
 class rr {
-  busy = !1;
+  busy = false;
   busySince = 0;
   idleWaiters = new Set();
   valveTimer = null;
@@ -1546,15 +1546,15 @@ function ar(e = performance.now()) {
 function ir(e, t) {
   if (t.aborted) return () => {};
   let n = it(),
-    r = !1,
+    r = false,
     o = () => {
       if ((t.removeEventListener("abort", s), !r && !t.aborted)) e();
     },
     s = () => {
-      (r = !0), n.idleWaiters.delete(o), t.removeEventListener("abort", s);
+      (r = true), n.idleWaiters.delete(o), t.removeEventListener("abort", s);
     };
   if (!Ut()) return queueMicrotask(o), s;
-  if ((n.idleWaiters.add(o), t.addEventListener("abort", s, { once: !0 }), n.valveTimer === null)) {
+  if ((n.idleWaiters.add(o), t.addEventListener("abort", s, { once: true }), n.valveTimer === null)) {
     let d = n.busySince + Ft - performance.now();
     (n.valveTimer = setTimeout(or, Math.max(0, d), n)), n.valveTimer.unref?.();
   }
@@ -1600,7 +1600,7 @@ function La(e) {
   return t === null ? null : je(t.slug, t.threadId, t.gestureAt);
 }
 function l$n(e) {
-  if (e.seededSummon !== !0 || e.shouldQuery === !1) return null;
+  if (e.seededSummon !== true || e.shouldQuery === false) return null;
   let t = $a(e.value),
     n = t === null ? null : La(t);
   if (n !== null) Fa([n]);
@@ -1608,9 +1608,9 @@ function l$n(e) {
 }
 function c$n(e) {
   return (
-    e.declared === !0 &&
+    e.declared === true &&
     !e.isRemoteIO &&
-    e.isSynthetic !== !0 &&
+    e.isSynthetic !== true &&
     !e.peerDelivered &&
     e.inboundOrigin === void 0 &&
     (e.clientPlatform === void 0 || e.clientPlatform === xa)
@@ -1632,7 +1632,7 @@ function mr(e, t, n) {
 function Fa(e) {
   mr(de().summonSeeds.claims, e, Da);
 }
-var Wt = { hostSeeded: !0 };
+var Wt = { hostSeeded: true };
 function Ua(e, t, n, r = Wt) {
   let { claims: o, readClaims: s } = de().summonSeeds,
     d = je(e, t, n);
@@ -1642,17 +1642,17 @@ function Ht(e, t, n, r = Wt) {
   return n.length > 0 && n.every((o) => Ua(e, t, o, r));
 }
 function qt(e, t, n, r = Wt) {
-  if (!Ht(e, t, n, r)) return !1;
+  if (!Ht(e, t, n, r)) return false;
   let { claims: o, readClaims: s } = de().summonSeeds;
   for (let d of n) if ((s.delete(je(e, t, d)), r.hostSeeded)) o.delete(je(e, t, d));
-  return !0;
+  return true;
 }
 async function fr(e, t, n, r) {
   let o = de().summonSeeds.graceMsOverride ?? Pa,
     s = Date.now() + o;
   while (Date.now() < s) {
-    if (r.aborted) return !1;
-    if (Ht(e, t, n)) return !0;
+    if (r.aborted) return false;
+    if (Ht(e, t, n)) return true;
     await ne(Math.min(Oa, Math.max(1, s - Date.now())), r);
   }
   return Ht(e, t, n);
@@ -1668,7 +1668,7 @@ function $a(e) {
 var Ha = 64;
 function pr(e) {
   let { staged: t, chainPublishIds: n } = de().autoEditAttribution,
-    r = { ...e, consumed: !1 };
+    r = { ...e, consumed: false };
   if ((t.set(e.slug, r), n.add(e.expectedToolUseId), n.size > Ha)) {
     let o = n.values().next().value;
     if (o !== void 0) n.delete(o);
@@ -1695,7 +1695,7 @@ function f$n(e, t) {
   let n = de().autoEditAttribution.staged.get(e);
   if (n === void 0 || n.consumed || t === void 0 || n.expectedToolUseId !== t) return null;
   return (
-    (n.consumed = !0),
+    (n.consumed = true),
     {
       threadId: n.threadId,
       commentId: n.commentId,
@@ -1710,24 +1710,24 @@ function hr(e) {
   if (t.get(e.slug) === e) t.delete(e.slug);
 }
 async function ghe(e) {
-  let t = !1,
+  let t = false,
     n = [];
   for (let s of e.records) {
     if (s.sessionId !== e.sessionId || s.pid === e.selfPid || s.parkedJobId !== void 0) continue;
     if (!e.isRunning(s.pid)) continue;
     let d = s.procStartFt ?? s.procStart;
     if (d === void 0) {
-      t = !0;
+      t = true;
       continue;
     }
     let _ = await e.isSameProcess(s.pid, d);
-    if (_ === !0) n.push(s);
-    else if (_ === void 0) t = !0;
+    if (_ === true) n.push(s);
+    else if (_ === void 0) t = true;
   }
   n.sort((s, d) => Number(Sot(d.kind)) - Number(Sot(s.kind)) || (d.statusUpdatedAt ?? 0) - (s.statusUpdatedAt ?? 0));
   let [r, ...o] = n;
   return r !== void 0
-    ? { verdict: "live", holder: r, otherHolders: o, ...(t && { unproven: !0 }) }
+    ? { verdict: "live", holder: r, otherHolders: o, ...(t && { unproven: true }) }
     : { verdict: t ? "unknown" : "none" };
 }
 function Sot(e) {
@@ -1794,9 +1794,9 @@ function NZt(e, t) {
     u = br(e, t),
     R =
       _ !== void 0 && _ >= 60000
-        ? `idle for ${$t(_, { mostSignificantOnly: !0 })}`
+        ? `idle for ${$t(_, { mostSignificantOnly: true })}`
         : u !== void 0 && u >= 60000
-          ? `open for ${$t(u, { mostSignificantOnly: !0 })}`
+          ? `open for ${$t(u, { mostSignificantOnly: true })}`
           : "";
   switch (Kt(e)) {
     case "background":
@@ -1835,7 +1835,7 @@ async function S$n(e, t, n) {
       if (_ === "unknown") return "unproven";
       if (_ === "alive") {
         let u = await n.isSameProcess(r, s);
-        if (u !== !1) return u === !0 ? "held" : "unproven";
+        if (u !== false) return u === true ? "held" : "unproven";
       }
     }
     if (!(await n.jobDirExists(o))) return "gone";
@@ -1847,7 +1847,7 @@ async function S$n(e, t, n) {
   }
 }
 function b$n(e, t) {
-  let n = !1,
+  let n = false,
     r = new Map();
   for (let [o, s] of e)
     if (t.get(o) === "gone") {
@@ -1860,7 +1860,7 @@ function b$n(e, t) {
         holderPidSpace: l,
         ...E
       } = s;
-      r.set(o, E), (n = !0);
+      r.set(o, E), (n = true);
     } else r.set(o, s);
   return n ? r : e;
 }
@@ -1886,7 +1886,7 @@ function Qa(e) {
     o = Number(e.slice(11, 13)),
     s = Number(e.slice(14, 16)),
     d = Number(e.slice(17, 19));
-  if (n < 1 || n > 12 || r < 1 || o > 23 || s > 59 || d > 59) return !1;
+  if (n < 1 || n > 12 || r < 1 || o > 23 || s > 59 || d > 59) return false;
   return new Date(Date.UTC(t, n - 1, r)).getUTCDate() === r;
 }
 function Sr(e) {
@@ -1980,7 +1980,7 @@ function Gt(e) {
   return e.replace(/\s+/g, " ");
 }
 function cIt() {
-  return I("tengu_teal_corbel_finial", !0);
+  return I("tengu_teal_corbel_finial", true);
 }
 async function Cr(e, t) {
   let n = new Map();
@@ -2033,14 +2033,14 @@ async function xr(e, t) {
 function ii(e, t, n) {
   let r = e;
   for (let o = t.length - 1; o >= 0; o--) {
-    if (r === void 0 || r === null || !st(r)) return !1;
+    if (r === void 0 || r === null || !st(r)) return false;
     let s = t[o];
     if ("id" in s) {
-      if (Jg(r, "id") !== s.id) return !1;
-    } else if (r.tagName !== s.tag || n.get(r) !== s.index) return !1;
+      if (Jg(r, "id") !== s.id) return false;
+    } else if (r.tagName !== s.tag || n.get(r) !== s.index) return false;
     r = r.parentNode;
   }
-  return !0;
+  return true;
 }
 function di(e) {
   let t = (e.attrs ?? []).map((S) => ` ${S.name}="${Gt(S.value).replaceAll('"', "&quot;")}"`).join(""),
@@ -2049,12 +2049,12 @@ function di(e) {
     o = r + (r.length < n.length ? "\u2026" : "");
   if (kr.has(e.tagName)) return o;
   let s = "",
-    d = !1,
+    d = false,
     _ = 0,
     u = [...(e.childNodes ?? [])].reverse();
   for (;;) {
     if (++_ > oi) {
-      d = !0;
+      d = true;
       break;
     }
     if ([...s].length > vr + 2) {
@@ -2080,7 +2080,7 @@ async function uIt(e) {
   if (e.signal.aborted) return;
   let t = new AbortController(),
     n = () => t.abort();
-  e.signal.addEventListener("abort", n, { once: !0 });
+  e.signal.addEventListener("abort", n, { once: true });
   let r = setTimeout((o) => o.abort(), Rr, t);
   try {
     let o = GP(
@@ -2110,8 +2110,8 @@ async function uIt(e) {
 function ui(e) {
   return e.anchor_path !== void 0 &&
     (e.span_quote === void 0 || e.span_quote === "") &&
-    e.anchor_file_degraded !== !0 &&
-    e.carried !== !0
+    e.anchor_file_degraded !== true &&
+    e.carried !== true
     ? e.anchor_path
     : void 0;
 }
@@ -2128,7 +2128,7 @@ async function m$n(e, t, n = {}) {
     _ = s.accountEpoch,
     u = (w) => (o === void 0 ? void 0 : d.get(`${o}|${w ?? ""}`)),
     R = (w) => (r === void 0 || r.has(w.id) ? ui(w) : void 0),
-    S = (w) => (w.comments.some((D) => D.sent_to_claude === !0) ? 0 : 2) + (w.resolved ? 1 : 0),
+    S = (w) => (w.comments.some((D) => D.sent_to_claude === true) ? 0 : 2) + (w.resolved ? 1 : 0),
     l = e.filter((w) => R(w) !== void 0).sort((w, D) => S(w) - S(D) || Tr(D).localeCompare(Tr(w))),
     E = new Map(),
     A = new Map();
@@ -2179,16 +2179,16 @@ async function m$n(e, t, n = {}) {
   );
 }
 function Vt(e) {
-  let t = { ...e, consumed: !1 };
+  let t = { ...e, consumed: false };
   return de().summonAnswers.set(e.slug, t), t;
 }
 function g$n(e, t, n) {
   let r = de().summonAnswers.get(e);
   if (r === void 0 || r.consumed || n === void 0 || r.expectedToolUseId !== n || r.threadId !== t)
-    return { answersSummon: !1 };
+    return { answersSummon: false };
   return (
-    (r.consumed = !0),
-    r.continuesReplyId === void 0 ? { answersSummon: !0 } : { answersSummon: !1, continuesReplyId: r.continuesReplyId }
+    (r.consumed = true),
+    r.continuesReplyId === void 0 ? { answersSummon: true } : { answersSummon: false, continuesReplyId: r.continuesReplyId }
   );
 }
 function Pr(e) {
@@ -2196,18 +2196,18 @@ function Pr(e) {
   if (t.get(e.slug) === e) t.delete(e.slug);
 }
 function Or(e) {
-  let t = { ...e, consumed: !1 };
+  let t = { ...e, consumed: false };
   return de().pipelineReplyOrigins.set(e.slug, t), t;
 }
 function h$n(e, t, n) {
   let r = de().pipelineReplyOrigins.get(e);
-  if (r === void 0 || r.consumed || n === void 0 || r.expectedToolUseId !== n || r.threadId !== t) return !1;
-  return (r.consumed = !0), !0;
+  if (r === void 0 || r.consumed || n === void 0 || r.expectedToolUseId !== n || r.threadId !== t) return false;
+  return (r.consumed = true), true;
 }
 function _$n(e) {
-  if (e === void 0) return !1;
-  for (let t of de().pipelineReplyOrigins.values()) if (t.expectedToolUseId === e) return !0;
-  return !1;
+  if (e === void 0) return false;
+  for (let t of de().pipelineReplyOrigins.values()) if (t.expectedToolUseId === e) return true;
+  return false;
 }
 function Dr(e) {
   let t = de().pipelineReplyOrigins;
@@ -2218,20 +2218,20 @@ function Mr(e, t) {
   let n = e;
   for (let r = 0; r < t.length; r++) {
     let { find: o, replace: s } = t[r];
-    if (!ku(o) || !ku(s)) return { ok: !1, reason: "malformed", op: r };
+    if (!ku(o) || !ku(s)) return { ok: false, reason: "malformed", op: r };
     let d = o === "" ? -1 : n.indexOf(o);
-    if (d === -1) return { ok: !1, reason: "not_found", op: r };
-    if (n.indexOf(o, d + 1) !== -1) return { ok: !1, reason: "ambiguous", op: r };
+    if (d === -1) return { ok: false, reason: "not_found", op: r };
+    if (n.indexOf(o, d + 1) !== -1) return { ok: false, reason: "ambiguous", op: r };
     n = n.slice(0, d) + s + n.slice(d + o.length);
   }
-  if (n === e) return { ok: !1, reason: "noop" };
-  return { ok: !0, content: n };
+  if (n === e) return { ok: false, reason: "noop" };
+  return { ok: true, content: n };
 }
 import { randomUUID as ci } from "crypto";
 function Lr() {
   let e = de().autoReact;
   return (
-    (e.responderDispatchOptIn ??= a.CLAUDE_CODE_ARTIFACT_COMMENT_RESPONDER ?? I("tengu_bracken_sluice", !1)),
+    (e.responderDispatchOptIn ??= a.CLAUDE_CODE_ARTIFACT_COMMENT_RESPONDER ?? I("tengu_bracken_sluice", false)),
     e.responderDispatchOptIn
   );
 }
@@ -2269,17 +2269,17 @@ Output the JSON verdict only.`;
     let d = await iX({
       messages: [xe({ content: s })],
       systemPrompt: si([pi]),
-      thinkingConfig: { type: "disabled", mechanical: !0 },
+      thinkingConfig: { type: "disabled", mechanical: true },
       tools: [],
       signal: e.context.abortController.signal,
       options: {
         model: gm(),
         querySource: "artifact_comment_triage",
-        isNonInteractiveSession: !0,
+        isNonInteractiveSession: true,
         agents: [],
-        hasAppendSystemPrompt: !1,
+        hasAppendSystemPrompt: false,
         mcpTools: [],
-        enablePromptCaching: !1,
+        enablePromptCaching: false,
         maxOutputTokensOverride: 128,
         stickyBetas: Sb(Ep()),
         proactivityLevel: mD(e.context),
@@ -2358,12 +2358,12 @@ async function Ur(e) {
       parentSessionId: nb(),
       agentType: "subagent",
       subagentName: u.agentType,
-      isBuiltIn: !0,
-      delegatedObservation: !0,
+      isBuiltIn: true,
+      delegatedObservation: true,
       displayName: "comment-thread-analyst",
-      isAsync: !1,
+      isAsync: false,
       invocationKind: "spawn",
-      invocationEmitted: !1,
+      invocationEmitted: false,
     },
     S = `Analyze artifact comment thread ${o.id} on artifact ${n} (triggering comment id ${e.triggerComment.id}). Follow your workflow and output the analysis brief.`;
   try {
@@ -2374,17 +2374,17 @@ async function Ur(e) {
           promptMessages: [xe({ content: S })],
           toolUseContext: t,
           canUseTool: _i(r, o.id),
-          isAsync: !1,
+          isAsync: false,
           querySource: "artifact_comment_analyst",
           availableTools: t.options.tools,
           override: {
             agentId: po(s),
             agentContext: R,
-            requireCanUseTool: !0,
+            requireCanUseTool: true,
             userContext: {},
             systemContext: {},
             systemPrompt: si([u.getSystemPrompt({ toolUseContext: t })]),
-            isolatedContext: !0,
+            isolatedContext: true,
           },
           description: `artifact comment thread ${o.id}`,
         }),
@@ -2400,12 +2400,12 @@ async function Ur(e) {
 }
 async function Ai(e) {
   let t = "",
-    n = !1;
+    n = false;
   for await (let r of e) {
     let o = r;
     if (o.type !== "assistant" || !Array.isArray(o.message?.content)) continue;
-    if (o.isApiErrorMessage === !0) {
-      n = !0;
+    if (o.isApiErrorMessage === true) {
+      n = true;
       continue;
     }
     let s = zr(
@@ -2413,7 +2413,7 @@ async function Ai(e) {
       `
 `,
     ).trim();
-    if (s !== "") (t = s), (n = !1);
+    if (s !== "") (t = s), (n = false);
   }
   return n ? null : t;
 }
@@ -2433,11 +2433,11 @@ var ki =
   Ei = "tengu_sorrel_trellis_weir",
   Ci = "tengu_madrone_spindle";
 function Yt() {
-  return I(Ci, !0) !== !1;
+  return I(Ci, true) !== false;
 }
 var xi = "tengu_sorrel_trellis_lintel";
 function Pi() {
-  return I(xi, !1) === !0;
+  return I(xi, false) === true;
 }
 var Di = 600000;
 function Hr(e, t) {
@@ -2487,7 +2487,7 @@ function qi(e) {
   return e.toClaudeAt !== void 0;
 }
 function zt(e) {
-  return e.toClaudeAtDegraded === !0 || (e.toClaudeAt !== void 0 && Ly(e.toClaudeAt) === null) || Dg(e) === "unknown";
+  return e.toClaudeAtDegraded === true || (e.toClaudeAt !== void 0 && Ly(e.toClaudeAt) === null) || Dg(e) === "unknown";
 }
 function Xt(e, t, n) {
   if (!n) {
@@ -2533,19 +2533,19 @@ function ze(e, t, n, r, o) {
   }
 }
 function ft(e, t) {
-  if (t === null) return { fire: !1, record: e };
+  if (t === null) return { fire: false, record: e };
   let n = Ly(t);
-  if (e === null) return n !== null ? { fire: !0, record: t } : { fire: !1, record: null };
-  if (t === e) return { fire: !1, record: e };
+  if (e === null) return n !== null ? { fire: true, record: t } : { fire: false, record: null };
+  if (t === e) return { fire: false, record: e };
   let r = Ly(e);
-  if (r !== null && n !== null) return n > r ? { fire: !0, record: t } : { fire: !1, record: e };
-  if (n !== null) return { fire: !1, record: t };
-  return { fire: !1, record: e };
+  if (r !== null && n !== null) return n > r ? { fire: true, record: t } : { fire: false, record: e };
+  if (n !== null) return { fire: false, record: t };
+  return { fire: false, record: e };
 }
 function no(e) {
   return [
-    e.activatedAtDegraded !== !0 ? (e.activatedAt ?? null) : null,
-    ...e.comments.map((t) => (t.toClaudeAtDegraded !== !0 ? (t.toClaudeAt ?? null) : null)),
+    e.activatedAtDegraded !== true ? (e.activatedAt ?? null) : null,
+    ...e.comments.map((t) => (t.toClaudeAtDegraded !== true ? (t.toClaudeAt ?? null) : null)),
   ];
 }
 function Wr(e, t) {
@@ -2557,17 +2557,17 @@ function Ki(e, t) {
 var Gi = 30000;
 function wot() {
   let e = de().autoReact;
-  return (e.optIn ??= a.CLAUDE_CODE_ARTIFACT_COMMENTS_AUTOREACT ?? I("tengu_sorrel_trellis", !1)), e.optIn;
+  return (e.optIn ??= a.CLAUDE_CODE_ARTIFACT_COMMENTS_AUTOREACT ?? I("tengu_sorrel_trellis", false)), e.optIn;
 }
 function nn() {
-  return a.CLAUDE_CODE_ARTIFACT_COMMENT_FAST_ACK ?? I("tengu_gorse_pylon", !1);
+  return a.CLAUDE_CODE_ARTIFACT_COMMENT_FAST_ACK ?? I("tengu_gorse_pylon", false);
 }
 var Vi = 3000;
 function ji(e) {
   let t = a.CLAUDE_CODE_ARTIFACT_COMMENT_FAST_ACK;
   if (
     (!e.summonPickupRequested &&
-      (t === !1 || (t !== void 0 && a.CLAUDE_CODE_ARTIFACT_COMMENT_FAST_ACK_FIXED !== void 0))) ||
+      (t === false || (t !== void 0 && a.CLAUDE_CODE_ARTIFACT_COMMENT_FAST_ACK_FIXED !== void 0))) ||
     oA()
   )
     return Promise.resolve();
@@ -2582,18 +2582,18 @@ function ji(e) {
 }
 var Ie = "I\u2019m on it. I\u2019ll reply here once I\u2019ve taken a look.";
 function Yi() {
-  if (!nn()) return !1;
-  return a.CLAUDE_CODE_ARTIFACT_COMMENT_FAST_ACK_FIXED ?? I("tengu_gorse_sill", !1);
+  if (!nn()) return false;
+  return a.CLAUDE_CODE_ARTIFACT_COMMENT_FAST_ACK_FIXED ?? I("tengu_gorse_sill", false);
 }
 var ct = Object.freeze(
     [
-      { text: Ie, edit: !1 },
-      { text: "I\u2019m making this change to the Artifact now. I\u2019ll reply here when it\u2019s done.", edit: !0 },
-      { text: "I\u2019m reading through the Artifact first, then I\u2019ll work on this change.", edit: !0 },
-      { text: "I\u2019m looking into this question and will answer here shortly.", edit: !1 },
-      { text: "Let me check the Artifact first. I\u2019ll reply here with what I find.", edit: !1 },
-      { text: "Thanks for the follow-up. I\u2019m taking another look and will reply here shortly.", edit: !1 },
-      { text: "Got it. I\u2019m revising the Artifact now and will reply here when it\u2019s done.", edit: !0 },
+      { text: Ie, edit: false },
+      { text: "I\u2019m making this change to the Artifact now. I\u2019ll reply here when it\u2019s done.", edit: true },
+      { text: "I\u2019m reading through the Artifact first, then I\u2019ll work on this change.", edit: true },
+      { text: "I\u2019m looking into this question and will answer here shortly.", edit: false },
+      { text: "Let me check the Artifact first. I\u2019ll reply here with what I find.", edit: false },
+      { text: "Thanks for the follow-up. I\u2019m taking another look and will reply here shortly.", edit: false },
+      { text: "Got it. I\u2019m revising the Artifact now and will reply here when it\u2019s done.", edit: true },
     ].map((e) => Object.freeze(e)),
   ),
   zi = 2000;
@@ -2603,7 +2603,7 @@ function pt(e, t) {
     mode: HH(e, n),
     autoActive: iw(),
     chainOnAllow: Kee(),
-    avoidPrompts: n.shouldAvoidPermissionPrompts === !0,
+    avoidPrompts: n.shouldAvoidPermissionPrompts === true,
     classifierDenyRules: opt(),
   };
 }
@@ -2614,8 +2614,8 @@ function w$n(e, t, n) {
   let r = he(n);
   return (
     ht(pt(e, n)) &&
-    n.hookAskFloor !== !0 &&
-    n.requireCanUseTool !== !0 &&
+    n.hookAskFloor !== true &&
+    n.requireCanUseTool !== true &&
     jg(r, e) === null &&
     QF(r, e, t, "ask") === null
   );
@@ -2643,10 +2643,10 @@ function Ji(e, t, n) {
         o.text === t.text &&
         ct.some((A) => A.text === o.text),
       l = () => Ld(r, o, s, d, _, u);
-    if (!S || u !== void 0 || s.hookAskFloor === !0 || s.requireCanUseTool === !0 || !R()) return l();
-    if ((await Jx(r, o, { ...s, toolUseId: _ }, { crashIsObjection: !0 })) !== null || !R()) return l();
+    if (!S || u !== void 0 || s.hookAskFloor === true || s.requireCanUseTool === true || !R()) return l();
+    if ((await Jx(r, o, { ...s, toolUseId: _ }, { crashIsObjection: true })) !== null || !R()) return l();
     return (
-      (n.rode = !0),
+      (n.rode = true),
       {
         behavior: "allow",
         updatedInput: o,
@@ -2670,15 +2670,15 @@ function pd() {
   return t;
 }
 function T$n(e) {
-  if (e?.kind !== "task-notification" || e.source !== "artifact-auto-react") return !1;
+  if (e?.kind !== "task-notification" || e.source !== "artifact-auto-react") return false;
   return !pd() || (e.slug !== void 0 && Pm(e.slug));
 }
 function Tot(e) {
   let t = de();
-  (t.autoReact.userDisarmed = !0), nr(e?.storageV5), H$n(e);
+  (t.autoReact.userDisarmed = true), nr(e?.storageV5), H$n(e);
   for (let n of [...t.wakes.takenFrom.keys()])
     import("/$bunfs/root/chunk-nbeprvb5.js").then((r) => r.notifyTakenOverSlugStopped(n));
-  Qn(), QQ({ flush: !0, storageV5: e?.storageV5 }), (t.autoReact.enabledMemo = !1), wan(t.live);
+  Qn(), QQ({ flush: true, storageV5: e?.storageV5 }), (t.autoReact.enabledMemo = false), wan(t.live);
 }
 function es(e) {
   if (e.messages !== void 0) return e.messages;
@@ -2703,14 +2703,14 @@ function Jt(e) {
       replyWithheldNotice: R,
       allowSiblingReset: S,
     } = e,
-    l = e.rulesOnlyProbe ? { rules_only: !0 } : {},
+    l = e.rulesOnlyProbe ? { rules_only: true } : {},
     E = e.rulesOnlyProbe ? l : void 0;
   if (t.kind === "refused") {
     if (t.denial) n.consecutivePipelineDenials += 1;
     if (((r.lastReplyDeclinedByAutoMode = t.autoModeDeclined), t.autoModeDeclined)) {
-      let A = !r.autoModeDeclineNoticed && e.editLanded !== !0 && pd() && !Pm(o) && eF(o) === s;
+      let A = !r.autoModeDeclineNoticed && e.editLanded !== true && pd() && !Pm(o) && eF(o) === s;
       if (A)
-        (r.autoModeDeclineNoticed = !0),
+        (r.autoModeDeclineNoticed = true),
           yM(o),
           d(
             ze(
@@ -2765,14 +2765,14 @@ function Jt(e) {
   }
   if (S) {
     for (let A of r.threads.values()) A.consecutivePipelineDenials = 0;
-    r.pipelineDeniedNoticed = !1;
+    r.pipelineDeniedNoticed = false;
   }
-  if (((r.lastReplyDeclinedByAutoMode = !1), (n.lastAutoReplyAt = Date.now()), !Uq())) WZt(o);
+  if (((r.lastReplyDeclinedByAutoMode = false), (n.lastAutoReplyAt = Date.now()), !Uq())) WZt(o);
   if ((ao(n, t), !pd() || Pm(o) || eF(o) !== s)) {
-    y("artifact_comments_autoreact", { replied: !0, post_stop_notice_suppressed: !0, ...l });
+    y("artifact_comments_autoreact", { replied: true, post_stop_notice_suppressed: true, ...l });
     return;
   }
-  yM(o), d(u), y("artifact_comments_autoreact", { replied: !0, ...l });
+  yM(o), d(u), y("artifact_comments_autoreact", { replied: true, ...l });
 }
 async function He(e) {
   let { tool: t, context: n, url: r, slug: o, threadId: s, text: d, declareAnswersSummon: _ } = e;
@@ -2818,7 +2818,7 @@ async function He(e) {
         (x) => typeof x === "object" && x !== null && x.type === "tool_result" && x.tool_use_id === R,
       );
       if (!C) continue;
-      if (C.is_error === !0) {
+      if (C.is_error === true) {
         let x = D.toolDenialKind;
         A = {
           kind: "refused",
@@ -2829,12 +2829,12 @@ async function He(e) {
         continue;
       }
       let O = D.toolUseResult;
-      if (O && O.replied === !0)
+      if (O && O.replied === true)
         A = { kind: "posted", commentId: typeof O.comment_id === "string" ? O.comment_id : void 0, epoch: u };
-      else if (O && O.replied === !1 && O.summon_answered === !0) A = { kind: "answered_elsewhere" };
-      else if (O && O.replied === !1 && O.summon_foreign === !0) A = { kind: "summon_foreign" };
-      else if (O && O.replied === !1 && O.already_answered === !0) A = { kind: "answered_post_time" };
-      else if (O && O.replied === !1) A = { kind: "not_activated" };
+      else if (O && O.replied === false && O.summon_answered === true) A = { kind: "answered_elsewhere" };
+      else if (O && O.replied === false && O.summon_foreign === true) A = { kind: "summon_foreign" };
+      else if (O && O.replied === false && O.already_answered === true) A = { kind: "answered_post_time" };
+      else if (O && O.replied === false) A = { kind: "not_activated" };
       else A = { kind: "unexpected_result_shape" };
     }
   } finally {
@@ -2852,13 +2852,13 @@ function F6e(e) {
   Nt(e);
   let t = de().autoReact.artifacts.get(e);
   if (!t) {
-    QQ({ flush: !0 });
+    QQ({ flush: true });
     return;
   }
-  oo(t), (t.accountUuid = Se() ?? t.accountUuid), QQ({ flush: !0 });
+  oo(t), (t.accountUuid = Se() ?? t.accountUuid), QQ({ flush: true });
 }
 function oo(e) {
-  e.threads.clear(), (e.baselined = !1), (e.everBaselined = !1), (e.stampHighWater = null), (e.lastReadDigest = null);
+  e.threads.clear(), (e.baselined = false), (e.everBaselined = false), (e.stampHighWater = null), (e.lastReadDigest = null);
 }
 function ts(e, t) {
   if (t === null) return;
@@ -2875,13 +2875,13 @@ function ts(e, t) {
       seen: new Set(n.seen),
       sentToClaudeAt: new Map(n.sent),
       ownReplyIds: new Set(n.ownReplyIds),
-      ...(n.ownReplyIdsIncomplete === !0 && { ownReplyIdsIncomplete: !0 }),
+      ...(n.ownReplyIdsIncomplete === true && { ownReplyIdsIncomplete: true }),
       consecutiveAuto: 0,
-      breakerOpen: !1,
+      breakerOpen: false,
       consecutivePipelineDenials: 0,
       deferNoticed: new Set(),
     });
-  y("artifact_comments_autoreact", { ledger_rehydrated: !0, ledger_threads: t.threads?.length ?? -1 });
+  y("artifact_comments_autoreact", { ledger_rehydrated: true, ledger_threads: t.threads?.length ?? -1 });
 }
 function ln(e) {
   let { artifacts: t } = de().autoReact,
@@ -2895,20 +2895,20 @@ function ln(e) {
     (n = {
       threads: new Map(),
       turnTimestamps: [],
-      scanning: !1,
-      defaultModeNoticed: !1,
-      autoModeDeclineNoticed: !1,
-      lastReplyDeclinedByAutoMode: !1,
-      capNoticed: !1,
-      planModeNoticed: !1,
-      lastProbeAllowed: !1,
+      scanning: false,
+      defaultModeNoticed: false,
+      autoModeDeclineNoticed: false,
+      lastReplyDeclinedByAutoMode: false,
+      capNoticed: false,
+      planModeNoticed: false,
+      lastProbeAllowed: false,
       lastProbeDeniedBy: null,
       lastScanAt: null,
-      pipelineDeniedNoticed: !1,
-      busyValveNoticed: !1,
-      baselined: !1,
-      everBaselined: !1,
-      everHadThreads: !1,
+      pipelineDeniedNoticed: false,
+      busyValveNoticed: false,
+      baselined: false,
+      everBaselined: false,
+      everHadThreads: false,
       stampHighWater: null,
       lastReadDigest: null,
       accountUuid: r,
@@ -2946,7 +2946,7 @@ function $q(e) {
     d = {
       ...e,
       suppressSummonStatus: e.suppressSummonStatus ?? t,
-      pickUpRecentSummons: e.pickUpRecentSummons === !0 && e.seed === !0 && !t,
+      pickUpRecentSummons: e.pickUpRecentSummons === true && e.seed === true && !t,
       publishTranscript: s,
       context: {
         ...r,
@@ -2965,8 +2965,8 @@ function $q(e) {
     R = to(),
     S = Date.now(),
     l = performance.now(),
-    E = d.seed !== !0 && d.confirm !== !0 && d.reentry !== !0;
-  if (E) (u.kickSettled = !1), (u.newestKickAt = l);
+    E = d.seed !== true && d.confirm !== true && d.reentry !== true;
+  if (E) (u.kickSettled = false), (u.newestKickAt = l);
   if (((u.lastWakeArgs = e), u.coalesceTimer || _.scanning)) {
     if (d.idlePass !== void 0) u.idlePassOwed = d.idlePass;
     let D = u.pendingConfirm;
@@ -2974,10 +2974,10 @@ function $q(e) {
       let C = D.wake,
         O = {
           ...d,
-          confirm: !0,
+          confirm: true,
           ...(C.confirmBase !== void 0 && { confirmBase: C.confirmBase }),
           ...(C.confirmAfter !== void 0 && { confirmAfter: C.confirmAfter }),
-          suppressSummonStatus: C.suppressSummonStatus !== !1 && d.suppressSummonStatus,
+          suppressSummonStatus: C.suppressSummonStatus !== false && d.suppressSummonStatus,
         };
       D.wake = O;
       let x = Math.min(l + dt(), D.armedAt + R);
@@ -2987,16 +2987,16 @@ function $q(e) {
     }
     if (((u.rescanWanted = _.scanning), _.scanning)) {
       let C = u.rescanArgs,
-        O = C?.seed === !0 && d.seed !== !0 ? { ...d, seed: !0, pickUpRecentSummons: C.pickUpRecentSummons } : d;
-      u.rescanArgs = C !== null && C.suppressSummonStatus === !1 ? { ...O, suppressSummonStatus: !1 } : O;
+        O = C?.seed === true && d.seed !== true ? { ...d, seed: true, pickUpRecentSummons: C.pickUpRecentSummons } : d;
+      u.rescanArgs = C !== null && C.suppressSummonStatus === false ? { ...O, suppressSummonStatus: false } : O;
     }
     return;
   }
   let A = u.lastScanScheduledAt !== 0 && S - u.lastScanScheduledAt < R,
     P = u.kickSettled ? 0 : Math.min(Math.max(0, u.newestKickAt + dt() - l), dt()),
-    w = d.confirm === !0 ? P : d.seed === !0 || A ? R : d.reentry === !0 ? P : 0;
-  if (d.confirm !== !0) u.lastScanScheduledAt = S + w;
-  (u.pendingConfirm = d.confirm === !0 ? { wake: d, armedAt: l, dueAt: l + w } : null),
+    w = d.confirm === true ? P : d.seed === true || A ? R : d.reentry === true ? P : 0;
+  if (d.confirm !== true) u.lastScanScheduledAt = S + w;
+  (u.pendingConfirm = d.confirm === true ? { wake: d, armedAt: l, dueAt: l + w } : null),
     (u.coalesceTimer = setTimeout(Kr, Br(w), u, d));
 }
 function Kr(e, t) {
@@ -3020,31 +3020,31 @@ async function as(e) {
     R = e8(e.getTitle, s);
   er(_.storageV5);
   let S = ln(o);
-  S.scanning = !0;
+  S.scanning = true;
   let l = eF(o),
-    E = S.baselined && e.seed !== !0,
+    E = S.baselined && e.seed !== true,
     A = S.stampHighWater;
-  if (e.seed === !0) S.baselined = !1;
+  if (e.seed === true) S.baselined = false;
   let { cancelGeneration: P, newestKickAt: w } = t,
     D = dt(),
     C = D === 0 || performance.now() - w >= D,
     O = "unread",
     x,
-    Y = !1,
-    B = !1;
+    Y = false,
+    B = false;
   try {
     let W = L6e(o),
       [, L] = await Promise.all([
-        ji({ summonPickupRequested: e.pickUpRecentSummons === !0 }),
+        ji({ summonPickupRequested: e.pickUpRecentSummons === true }),
         JQ(
           { slug: o, env: e.env },
           _.abortController.signal,
           _.credentials,
-          e.confirm === !0 ? "artifact_autoreact_confirm_read" : "artifact_autoreact_scan_read",
+          e.confirm === true ? "artifact_autoreact_confirm_read" : "artifact_autoreact_scan_read",
           { skipBootProbe: qq() },
         ),
       ]),
-      z = e.pickUpRecentSummons === !0 && Pi();
+      z = e.pickUpRecentSummons === true && Pi();
     if (L.err !== null) {
       if (
         (g("artifact_comments_autoreact", "read_failed"),
@@ -3055,20 +3055,20 @@ async function as(e) {
         e.onReadRefused?.();
       return;
     }
-    if (((S.lastScanAt = Date.now()), L.threadsDegraded === !0)) {
-      (S.everHadThreads = !0),
+    if (((S.lastScanAt = Date.now()), L.threadsDegraded === true)) {
+      (S.everHadThreads = true),
         g("artifact_comments_autoreact", "read_degraded"),
         (S.lastReadDigest = null),
         (B = r === "owed");
       return;
     }
-    if (L.threadsDropped === !0) B = r === "owed";
-    if (eF(o) === l) yot(o, L.threads, W, L.threadsDropped === !0);
-    let re = L.threadsDropped === !0 || eF(o) !== l ? null : is(L.threads, S);
-    if (e.confirm === !0) {
+    if (L.threadsDropped === true) B = r === "owed";
+    if (eF(o) === l) yot(o, L.threads, W, L.threadsDropped === true);
+    let re = L.threadsDropped === true || eF(o) !== l ? null : is(L.threads, S);
+    if (e.confirm === true) {
       let ie = e.confirmBase;
       y("artifact_comments_autoreact", {
-        confirm_read: !0,
+        confirm_read: true,
         rescued: re !== null && ie !== void 0 && ie !== re,
         noref: re === null || ie === void 0,
         after: c(e.confirmAfter ?? "unread"),
@@ -3079,8 +3079,8 @@ async function as(e) {
       (O = S.lastReadDigest === null ? "noref" : re !== S.lastReadDigest ? "changed" : "unchanged"),
         (S.lastReadDigest = re),
         (x = re);
-    if (L.threads.length > 0 || L.threadsDropped === !0) S.everHadThreads = !0;
-    let Z = !1;
+    if (L.threads.length > 0 || L.threadsDropped === true) S.everHadThreads = true;
+    let Z = false;
     for (let ie of L.threads) {
       if (eF(o) !== l) {
         g("artifact_comments_autoreact", "scan_stopped_by_kill");
@@ -3098,43 +3098,43 @@ async function as(e) {
         scanGen: l,
         actOnFirstSight: E,
         liveSightBoundary: A,
-        suppressSummonStatus: e.suppressSummonStatus !== !1,
+        suppressSummonStatus: e.suppressSummonStatus !== false,
         pickUpRecentSummons: z,
-        threadsDropped: L.threadsDropped === !0,
+        threadsDropped: L.threadsDropped === true,
         readThreads: L.threads,
       });
-      if (be === "deferred_first_sight") Z = !0;
-      if (be === "deferred_busy") Y = !0;
+      if (be === "deferred_first_sight") Z = true;
+      if (be === "deferred_busy") Y = true;
     }
     if (
       !Z &&
-      L.threadsDropped !== !0 &&
+      L.threadsDropped !== true &&
       !(L.threads.length === 0 && (S.threads.size > 0 || S.everHadThreads)) &&
       pd() &&
       !Pm(o) &&
       eF(o) === l
     )
-      (S.baselined = !0), (S.everBaselined = !0);
+      (S.baselined = true), (S.everBaselined = true);
   } finally {
-    if (((S.scanning = !1), QQ(), C && t.newestKickAt === w)) t.kickSettled = !0;
+    if (((S.scanning = false), QQ(), C && t.newestKickAt === w)) t.kickSettled = true;
     if (t.rescanWanted) {
-      t.rescanWanted = !1;
+      t.rescanWanted = false;
       let W = t.rescanArgs ?? e;
-      (t.rescanArgs = null), $q({ ...W, reentry: !0 });
+      (t.rescanArgs = null), $q({ ...W, reentry: true });
     } else if (!t.kickSettled && t.newestKickAt !== 0 && eF(o) === l && !Pm(o))
-      $q({ ...e, seed: void 0, reentry: void 0, idlePass: void 0, confirm: !0, confirmBase: x, confirmAfter: O });
+      $q({ ...e, seed: void 0, reentry: void 0, idlePass: void 0, confirm: true, confirmBase: x, confirmAfter: O });
     if ((Y || B) && eF(o) === l && t.cancelGeneration === P && !Pm(o)) {
-      let W = e.suppressSummonStatus === !1 || (t.idleRescanCancel !== null && t.idleRescanUnmuted);
+      let W = e.suppressSummonStatus === false || (t.idleRescanCancel !== null && t.idleRescanUnmuted);
       t.idleRescanCancel?.();
       let L = ir(() => {
-        if (t.idleRescanCancel === L) (t.idleRescanCancel = null), (t.idleRescanUnmuted = !1);
+        if (t.idleRescanCancel === L) (t.idleRescanCancel = null), (t.idleRescanUnmuted = false);
         if (!Pm(o))
           $q({
             ...e,
-            ...(W && { suppressSummonStatus: !1 }),
+            ...(W && { suppressSummonStatus: false }),
             seed: void 0,
             confirm: void 0,
-            reentry: !0,
+            reentry: true,
             idlePass: Y ? "owed" : "retry",
           });
       }, e.abort.signal);
@@ -3148,17 +3148,17 @@ function is(e, t) {
   for (let o of [...e].sort(n)) {
     let s = t.threads.get(o.id);
     if (
-      o.commentsDegraded === !0 ||
-      o.resolvedDegraded === !0 ||
-      o.activatedAtDegraded === !0 ||
-      s?.ownReplyIdsIncomplete === !0 ||
-      o.comments.some((_) => _.toClaudeAtDegraded === !0)
+      o.commentsDegraded === true ||
+      o.resolvedDegraded === true ||
+      o.activatedAtDegraded === true ||
+      s?.ownReplyIdsIncomplete === true ||
+      o.comments.some((_) => _.toClaudeAtDegraded === true)
     )
       return null;
-    let d = o.resolved && o.resolvedByClaude !== !0;
+    let d = o.resolved && o.resolvedByClaude !== true;
     r.update(`${o.id}|${d ? (o.resolvedAt ?? "r") : ""}|${o.activatedAt ?? ""}|`);
     for (let _ of [...o.comments].sort(n))
-      if (s?.ownReplyIds.has(_.id) !== !0) r.update(`${_.id}@${_.toClaudeAt ?? ""}|`);
+      if (s?.ownReplyIds.has(_.id) !== true) r.update(`${_.id}@${_.toClaudeAt ?? ""}|`);
     r.update(`
 `);
   }
@@ -3167,10 +3167,10 @@ function is(e, t) {
 function ao(e, { commentId: t, epoch: n }) {
   if (n !== de().accountEpoch && !(t !== void 0 && Ve(t))) return;
   if (t !== void 0 && t !== "") e.seen.add(t), e.ownReplyIds.add(t);
-  else e.ownReplyIdsIncomplete = !0;
+  else e.ownReplyIdsIncomplete = true;
 }
 function Qt(e, t) {
-  return e.ownReplyIdsIncomplete === !0 ? void 0 : { ownReplyIds: e.ownReplyIds, scanRowIds: t };
+  return e.ownReplyIdsIncomplete === true ? void 0 : { ownReplyIds: e.ownReplyIds, scanRowIds: t };
 }
 function ss(e) {
   let t = e.decisionReason;
@@ -3181,7 +3181,7 @@ function ss(e) {
       errorCode:
         t.reason === doe
           ? "auto_mode_unavailable"
-          : t.noVerdict === !0
+          : t.noVerdict === true
             ? "auto_mode_no_verdict"
             : "denied_by_auto_mode",
     };
@@ -3193,10 +3193,10 @@ async function ds(e) {
     S = () => (e.threadsDropped, []);
   if (!pd() || Pm(t)) return;
   let l = u.threads.get(o.id);
-  if (o.commentsDegraded === !0) return l ? void 0 : "deferred_first_sight";
-  if (o.resolvedDegraded === !0)
+  if (o.commentsDegraded === true) return l ? void 0 : "deferred_first_sight";
+  if (o.resolvedDegraded === true)
     return g("artifact_comments_autoreact", "resolution_degraded"), l ? void 0 : "deferred_first_sight";
-  let E = o.activatedAtDegraded === !0,
+  let E = o.activatedAtDegraded === true,
     A = new Set();
   if (!l) {
     if (E) return g("artifact_comments_autoreact", "activation_degraded"), "deferred_first_sight";
@@ -3213,7 +3213,7 @@ async function ds(e) {
       let X = Date.now(),
         Q = we(o);
       if (((A = new Set(Q.filter((ye) => Hr(ye, X)))), U)) {
-        if (A.size > 0) y("artifact_comments_autoreact", { first_sight_summon: !0 });
+        if (A.size > 0) y("artifact_comments_autoreact", { first_sight_summon: true });
         else if (Q.length > 0) g("artifact_comments_autoreact", "first_sight_summon_stale");
       }
     }
@@ -3228,19 +3228,19 @@ async function ds(e) {
         ),
         ownReplyIds: new Set(),
         consecutiveAuto: 0,
-        breakerOpen: !1,
+        breakerOpen: false,
         consecutivePipelineDenials: 0,
         deferNoticed: new Set(),
         activatedAt: J || F ? null : Ly(o.activatedAt) !== null ? (o.activatedAt ?? null) : null,
         activatedAtObserved: o.activatedAt === void 0 || Ly(o.activatedAt) !== null,
       }),
       u.threads.set(o.id, l),
-      (u.everHadThreads = !0),
+      (u.everHadThreads = true),
       Wr(u, o),
       !J && !F)
     ) {
       if (A.size === 0) return;
-      y("artifact_comments_autoreact", { summon_pickup: !0 });
+      y("artifact_comments_autoreact", { summon_pickup: true });
     }
   }
   if (E) {
@@ -3257,14 +3257,14 @@ async function ds(e) {
     O = D || C;
   if ((Xt(l, "newest_lane_unknown", O), O)) return;
   if (Yt() && Ut()) return "deferred_busy";
-  if (!(Yt() && ar())) u.busyValveNoticed = !1;
-  else if (!u.busyValveNoticed) (u.busyValveNoticed = !0), g("artifact_comments_autoreact", "foreground_busy_timeout");
+  if (!(Yt() && ar())) u.busyValveNoticed = false;
+  else if (!u.busyValveNoticed) (u.busyValveNoticed = true), g("artifact_comments_autoreact", "foreground_busy_timeout");
   Wr(u, o);
   let x = o.activatedAt ?? null,
     Y = l.activatedAt,
-    B = !1;
+    B = false;
   if (!l.activatedAtObserved) {
-    if (x === null || Ly(x) !== null) (l.activatedAtObserved = !0), (l.activatedAt = x);
+    if (x === null || Ly(x) !== null) (l.activatedAtObserved = true), (l.activatedAt = x);
   } else {
     let M = ft(l.activatedAt, x);
     (B = M.fire), (l.activatedAt = M.record);
@@ -3290,8 +3290,8 @@ async function ds(e) {
   for (let M of z) l.seen.add(M.id);
   let Z = z.filter(ut),
     ie = l.lastAutoReplyAt !== null && re - l.lastAutoReplyAt < Gi;
-  if ((Z.filter((M) => M.postedByArtifact !== !0).length > 0 || W.length > 0) && !ie)
-    (l.consecutiveAuto = 0), (l.breakerOpen = !1);
+  if ((Z.filter((M) => M.postedByArtifact !== true).length > 0 || W.length > 0) && !ie)
+    (l.consecutiveAuto = 0), (l.breakerOpen = false);
   let me = Z.filter(qi),
     At = B && o.comments.some((M) => Dg(M) !== "agent"),
     ve = o.resolved && (me.length > 0 || W.length > 0);
@@ -3312,19 +3312,19 @@ async function ds(e) {
         return (
           g("artifact_comments_autoreact", `stopped_during_${M}`),
           ee(j, { status: "declined", reason: "auto_reply_off" }),
-          !0
+          true
         );
-      return !1;
+      return false;
     },
     fe = (M) => {
-      if (Be(M)) return !0;
+      if (Be(M)) return true;
       if (he(d).mode === "plan")
         return (
           g("artifact_comments_autoreact", `plan_mode_during_${M}`),
           ee(j, { status: "declined", reason: "plan_mode" }),
-          !0
+          true
         );
-      return !1;
+      return false;
     },
     Me = o.comments.findLastIndex((M) => Dg(M) === "agent"),
     ue = Me >= 0 ? o.comments[Me] : void 0,
@@ -3369,7 +3369,7 @@ async function ds(e) {
   }
   if (l.consecutivePipelineDenials >= Wi) {
     if (!u.pipelineDeniedNoticed)
-      (u.pipelineDeniedNoticed = !0),
+      (u.pipelineDeniedNoticed = true),
         yM(t),
         _({
           summary: Y3n(r),
@@ -3383,32 +3383,32 @@ async function ds(e) {
   let hn =
     wt !== void 0 &&
     (me.length > 0 || B || W.length > 0) &&
-    W.every((M) => M.sentByViewer === !0 && M.postedByArtifact !== !0) &&
+    W.every((M) => M.sentByViewer === true && M.postedByArtifact !== true) &&
     me.every(
       (M) =>
-        M.postedByArtifact !== !0 &&
-        (M.sentByViewer === !0 ||
+        M.postedByArtifact !== true &&
+        (M.sentByViewer === true ||
           (M.account.toLowerCase() === wt && M.createdAt !== void 0 && M.toClaudeAt === M.createdAt)),
     ) &&
     (!B ||
       (o.activatedBy?.toLowerCase() === wt &&
-        !o.comments.some((M) => M.postedByArtifact === !0 && M.toClaudeAt !== void 0)));
+        !o.comments.some((M) => M.postedByArtifact === true && M.toClaudeAt !== void 0)));
   if (!hn && !ns(u, re)) {
     if (
       (g("artifact_comments_autoreact", "hourly_cap"),
       ee(j, { status: "declined", reason: "hourly_cap" }),
       u.lastProbeAllowed && !u.capNoticed && he(d).mode !== "plan")
     )
-      (u.capNoticed = !0), yM(t), _(ze(ae, "cap", n, r));
+      (u.capNoticed = true), yM(t), _(ze(ae, "cap", n, r));
     return;
   }
   if (!hn) {
-    if (u.turnTimestamps.length === 0) (u.capNoticed = !1), (u.planModeNoticed = !1);
+    if (u.turnTimestamps.length === 0) (u.capNoticed = false), (u.planModeNoticed = false);
     u.turnTimestamps.push(re);
   }
   if (he(d).mode === "plan") {
-    if (((u.lastProbeAllowed = !1), !u.planModeNoticed)) (u.planModeNoticed = !0), yM(t), _(ze(ae, "plan", n, r));
-    y("artifact_comments_autoreact", { plan_mode_notify: !0 }), ee(j, { status: "declined", reason: "plan_mode" });
+    if (((u.lastProbeAllowed = false), !u.planModeNoticed)) (u.planModeNoticed = true), yM(t), _(ze(ae, "plan", n, r));
+    y("artifact_comments_autoreact", { plan_mode_notify: true }), ee(j, { status: "declined", reason: "plan_mode" });
     return;
   }
   let St = { action: "reply", url: n, thread_id: o.id, text: "" },
@@ -3419,26 +3419,26 @@ async function ds(e) {
     bn = () => Ld(s, St, d, cn(o.id), yn),
     Te,
     kt = null,
-    pe = !1,
+    pe = false,
     Ee;
   try {
     if (_n) {
-      let M = await Jx(s, St, { ...d, toolUseId: yn }, { crashIsObjection: !0 });
+      let M = await Jx(s, St, { ...d, toolUseId: yn }, { crashIsObjection: true });
       if (M?.decisionReason?.type === "other" && M.decisionReason.reason === vSe)
         throw Error("artifact permission check crashed");
-      if (ht(pt(s, d))) (Te = M ?? { behavior: "allow", updatedInput: St }), (pe = !0), (kt = Rt ? gn : null);
+      if (ht(pt(s, d))) (Te = M ?? { behavior: "allow", updatedInput: St }), (pe = true), (kt = Rt ? gn : null);
       else Te = await bn();
     } else Te = await bn();
     Ee = Te.behavior === "deny" ? ss(Te) : null;
   } catch {
-    p("artifact_comments_autoreact", "permission_eval_error", _n ? { rules_only: !0 } : void 0),
+    p("artifact_comments_autoreact", "permission_eval_error", _n ? { rules_only: true } : void 0),
       ee(j, { status: "failed", reason: "post_failed" });
     return;
   }
   if (
     ((u.lastProbeAllowed = Te.behavior === "allow"),
     (u.lastProbeDeniedBy = Ee?.reason ?? null),
-    (u.lastReplyDeclinedByAutoMode = !1),
+    (u.lastReplyDeclinedByAutoMode = false),
     Vx(de().live, t),
     fe("probe"))
   )
@@ -3446,33 +3446,33 @@ async function ds(e) {
   if (Ee !== null) {
     let M =
       Ee.reason === "denied_by_auto_mode" && Ee.errorCode !== "auto_mode_unavailable" && !u.autoModeDeclineNoticed;
-    if (M) (u.autoModeDeclineNoticed = !0), yM(t), _(ze(ae, "auto_mode_declined", n, r));
-    g("artifact_comments_autoreact", Ee.errorCode, { notified: M, ...(pe && { rules_only: !0 }) }),
+    if (M) (u.autoModeDeclineNoticed = true), yM(t), _(ze(ae, "auto_mode_declined", n, r));
+    g("artifact_comments_autoreact", Ee.errorCode, { notified: M, ...(pe && { rules_only: true }) }),
       ee(j, { status: "declined", reason: Ee.reason });
     return;
   }
   if (Te.behavior !== "allow") {
     if (!u.defaultModeNoticed)
-      (u.defaultModeNoticed = !0),
+      (u.defaultModeNoticed = true),
         yM(t),
         _(ze(ae, "notify_only", n, r)),
-        y("artifact_comments_autoreact", { notified_only: !0, ...(pe && { rules_only: !0 }) });
-    else y("artifact_comments_autoreact", { notified_only: !0, notice_suppressed: !0, ...(pe && { rules_only: !0 }) });
+        y("artifact_comments_autoreact", { notified_only: true, ...(pe && { rules_only: true }) });
+    else y("artifact_comments_autoreact", { notified_only: true, notice_suppressed: true, ...(pe && { rules_only: true }) });
     ee(j, { status: "declined", reason: "ask_mode" });
     return;
   }
-  if (((j.suppressed = !1), ee(j, { status: "working" }), ie)) {
-    if (((l.consecutiveAuto += 1), l.consecutiveAuto >= Bi)) l.breakerOpen = !0;
+  if (((j.suppressed = false), ee(j, { status: "working" }), ie)) {
+    if (((l.consecutiveAuto += 1), l.consecutiveAuto >= Bi)) l.breakerOpen = true;
   }
   let ge,
-    Fe = !1;
-  if (le.length > 0 && o.claudeActivated && o.editCapable === !0 && !an(t) && !sn(t, d) && !o.resolved && nn()) {
+    Fe = false;
+  if (le.length > 0 && o.claudeActivated && o.editCapable === true && !an(t) && !sn(t, d) && !o.resolved && nn()) {
     let M = { trigger: ae, thread: o, context: d, slug: t, summons: le, scanGen: e.scanGen },
       J = Rt ? await fs(M) : await ms(M);
     if (fe("fast_ack_compose")) return;
     let F = null,
-      U = !1,
-      X = { rode: !1 };
+      U = false,
+      X = { rode: false };
     try {
       F = await He({
         tool: s,
@@ -3487,22 +3487,22 @@ async function ds(e) {
         ...(kt !== null && { canUseTool: Ji(kt, { tool: s, url: n, threadId: o.id, text: J }, X) }),
       });
     } catch {
-      U = !0;
+      U = true;
     }
     let Q = {
-      fast_ack: !0,
-      ...(Rt && { fast_ack_fixed: !0 }),
-      ...(X.rode && { fast_ack_on_probe_verdict: !0 }),
-      ...(pe && { rules_only: !0 }),
+      fast_ack: true,
+      ...(Rt && { fast_ack_fixed: true }),
+      ...(X.rode && { fast_ack_on_probe_verdict: true }),
+      ...(pe && { rules_only: true }),
     };
     if (F?.kind === "posted") {
-      if (((Ne = !1), (Fe = !0), (ge = F.commentId), y0e()))
+      if (((Ne = false), (Fe = true), (ge = F.commentId), y0e()))
         We =
           F.epoch === de().accountEpoch || (F.commentId !== void 0 && Ve(F.commentId)) ? (F.commentId ?? pn) : void 0;
       if ((ao(l, F), F.commentId !== void 0)) j.coversReplyId = F.commentId;
       if (((l.lastAutoReplyAt = Date.now()), !Uq())) WZt(t);
       let ye = !pd() || Pm(t) || eF(t) !== e.scanGen;
-      if ((y("artifact_comments_autoreact", { ...Q, ...(ye && { post_stop_notice_suppressed: !0 }) }), ye)) return;
+      if ((y("artifact_comments_autoreact", { ...Q, ...(ye && { post_stop_notice_suppressed: true }) }), ye)) return;
       let qe = he(d).mode === "plan";
       if (
         (yM(t),
@@ -3541,8 +3541,8 @@ async function ds(e) {
     }
   }
   let Ce;
-  if (o.claudeActivated && o.editCapable === !0 && !o.resolved) {
-    let M = { resolved: !1 },
+  if (o.claudeActivated && o.editCapable === true && !o.resolved) {
+    let M = { resolved: false },
       J = await ks(t, d);
     if (fe("editability")) return;
     let F = "unavailable";
@@ -3609,7 +3609,7 @@ async function ds(e) {
           recheck: Qt(l, Re),
         });
       } catch {
-        p("artifact_comments_autoreact", "permission_eval_error", pe ? { rules_only: !0 } : void 0),
+        p("artifact_comments_autoreact", "permission_eval_error", pe ? { rules_only: true } : void 0),
           ee(j, { status: "failed", reason: "post_failed" });
         return;
       }
@@ -3637,7 +3637,7 @@ async function ds(e) {
           summary: DIe(r),
           detail: `Auto-reply to thread ${o.id} on artifact ${n} was withheld: ${tn(Q.kind)}. ` + Hjt(X) + en(Q.kind),
         },
-        allowSiblingReset: !1,
+        allowSiblingReset: false,
       });
       return;
     } else if (F.kind === "edit") {
@@ -3744,7 +3744,7 @@ async function ds(e) {
       } else ee(j, { status: "failed", reason: "post_failed" });
       if (
         (U.outcome === "publish_refused" || U.outcome === "publish_error") &&
-        (U.publishDenied === !0 ||
+        (U.publishDenied === true ||
           U.failKind === "pin_paused" ||
           U.failKind === "disabled" ||
           U.failKind === "unexpected_result_shape" ||
@@ -3807,7 +3807,7 @@ async function ds(e) {
       recheck: Qt(l, Re),
     });
   } catch {
-    p("artifact_comments_autoreact", "permission_eval_error", pe ? { rules_only: !0 } : void 0),
+    p("artifact_comments_autoreact", "permission_eval_error", pe ? { rules_only: true } : void 0),
       ee(j, { status: "failed", reason: "post_failed" });
     return;
   }
@@ -3842,7 +3842,7 @@ async function ds(e) {
           en(Ue.kind),
       },
     }),
-    allowSiblingReset: !0,
+    allowSiblingReset: true,
   });
 }
 var io = 16000,
@@ -3855,10 +3855,10 @@ function cs(e, t, n = io, r = new Set()) {
     return {
       rendered: "",
       elidedCount: 0,
-      truncated: !1,
-      summoningTruncated: !1,
-      artifactPostedRendered: !1,
-      sentByOtherRendered: !1,
+      truncated: false,
+      summoningTruncated: false,
+      artifactPostedRendered: false,
+      sentByOtherRendered: false,
     };
   let s = (O) => {
       let x = e[O];
@@ -3867,8 +3867,8 @@ function cs(e, t, n = io, r = new Set()) {
     d = (O) => {
       let x = e[O],
         Y = Dg(x),
-        B = x.postedByArtifact === !0 ? rn : "human";
-      return `[${s(O) ? `${B}${x.sentByViewer === !1 ? on : us}` : Y === "unknown" ? "unverified lane" : Y === "human" ? B : "assistant"}] ${C1(x.text, t)}`;
+        B = x.postedByArtifact === true ? rn : "human";
+      return `[${s(O) ? `${B}${x.sentByViewer === false ? on : us}` : Y === "unknown" ? "unverified lane" : Y === "human" ? B : "assistant"}] ${C1(x.text, t)}`;
     },
     _ = o - 1,
     u = [_];
@@ -3876,8 +3876,8 @@ function cs(e, t, n = io, r = new Set()) {
   let S = Math.max(0, n - 40 * (u.length + 1)),
     l = new Map(),
     E = 0,
-    A = !1,
-    P = !1;
+    A = false,
+    P = false;
   for (let O of u) l.set(O, d(O)), (E += l.get(O).length + 1);
   if (E > S) {
     let O = S,
@@ -3903,8 +3903,8 @@ ${L}`,
         ),
         W)
       )
-        A = !0;
-      else P = !0;
+        A = true;
+      else P = true;
     }
   } else
     for (let O = _ - 1; O >= 0; O--) {
@@ -3934,7 +3934,7 @@ ${L}`,
     truncated: A,
     summoningTruncated: P,
     artifactPostedRendered: w.some((O) => O.startsWith(`[${rn}`)),
-    sentByOtherRendered: [...l.keys()].some((O) => s(O) && e[O].sentByViewer === !1),
+    sentByOtherRendered: [...l.keys()].some((O) => s(O) && e[O].sentByViewer === false),
   };
 }
 var Gr = "[which page of the artifact this thread is on could not be read]";
@@ -3984,12 +3984,12 @@ async function yt(e) {
             });
       C = O === void 0 ? void 0 : await xr(O, t.anchorPath);
     }
-    if (e.anchorSnippetMemo !== void 0) (e.anchorSnippetMemo.resolved = !0), (e.anchorSnippetMemo.snippet = C);
+    if (e.anchorSnippetMemo !== void 0) (e.anchorSnippetMemo.resolved = true), (e.anchorSnippetMemo.snippet = C);
     if (C !== void 0)
       E += `${I6e} ${C1(C, r)}
 `;
   }
-  if ((s > 0 || d || _) && e.silentElisionTelemetry !== !0)
+  if ((s > 0 || d || _) && e.silentElisionTelemetry !== true)
     g("artifact_comments_autoreact", "compose_thread_elided", {
       elided_comments: s,
       newest_truncated: d,
@@ -4014,7 +4014,7 @@ ${S}${l}${E}${o}
 }
 var Ye = { miss: "failed" };
 function so(e) {
-  return e.apiErrorStatus === 429 && e.error === "rate_limit" && e.apiErrorIsTransient !== !0;
+  return e.apiErrorStatus === 429 && e.error === "rate_limit" && e.apiErrorIsTransient !== true;
 }
 async function Vr(e) {
   let { context: t, thread: n } = e,
@@ -4037,25 +4037,25 @@ You are a reply-only composer with NO tools: you CANNOT edit the artifact, chang
 Write the reply you would post to this thread: directly useful, brief, no preamble, ${dn}. Reply with ONLY the comment text.`,
     R = w_(t.abortController),
     S = Date.now(),
-    l = !1;
+    l = false;
   try {
     let E = iX({
         messages: [xe({ content: u })],
         systemPrompt: si(["You write single comment replies on artifact comment threads. Output only the reply text."]),
-        thinkingConfig: { type: "disabled", mechanical: !0 },
+        thinkingConfig: { type: "disabled", mechanical: true },
         tools: [],
         signal: R.signal,
         options: {
           model: d,
           querySource: "artifact_comment_reply",
-          isNonInteractiveSession: !0,
+          isNonInteractiveSession: true,
           onRetryStatus(w) {
             l ||= w !== null;
           },
           agents: [],
-          hasAppendSystemPrompt: !1,
+          hasAppendSystemPrompt: false,
           mcpTools: [],
-          enablePromptCaching: !1,
+          enablePromptCaching: false,
           maxOutputTokensOverride: _ ? _s : gs,
           ...(_ && { effortValue: co }),
           stickyBetas: Sb(Ep()),
@@ -4090,24 +4090,24 @@ var ls = 400;
 async function ms(e) {
   try {
     let { anchorPath: t, ...n } = e.thread,
-      { framedThread: r } = await yt({ ...e, thread: n, silentElisionTelemetry: !0 }),
+      { framedThread: r } = await yt({ ...e, thread: n, silentElisionTelemetry: true }),
       o = `${r}
 
 You are about to start working on the newest comment sent to you in this thread; your full reply will follow separately. Write ONE short acknowledgement sentence (under 160 characters) telling the commenter their comment was received and what happens next, matched to what it is: for a change request, say you are working on it now; for a question, say you are finding the answer and will reply here. Do not answer the question or describe the change yet. ${un} Output only the sentence \u2014 no quotes, no code fences, no preamble, ${dn}.`,
       s = await iX({
         messages: [xe({ content: o })],
         systemPrompt: si([Qi]),
-        thinkingConfig: { type: "disabled", mechanical: !0 },
+        thinkingConfig: { type: "disabled", mechanical: true },
         tools: [],
         signal: e.context.abortController.signal,
         options: {
           model: gm(),
           querySource: "artifact_comment_fast_ack",
-          isNonInteractiveSession: !0,
+          isNonInteractiveSession: true,
           agents: [],
-          hasAppendSystemPrompt: !1,
+          hasAppendSystemPrompt: false,
           mcpTools: [],
-          enablePromptCaching: !1,
+          enablePromptCaching: false,
           maxOutputTokensOverride: 96,
           stickyBetas: Sb(Ep()),
           proactivityLevel: mD(e.context),
@@ -4130,12 +4130,12 @@ You are about to start working on the newest comment sent to you in this thread;
   }
 }
 async function fs(e) {
-  let t = e.thread.editCapable === !0,
+  let t = e.thread.editCapable === true,
     n = w_(e.context.abortController),
-    r = !1,
+    r = false,
     s = (async () => {
       let { anchorPath: _, ...u } = e.thread,
-        { framedThread: R } = await yt({ ...e, thread: u, silentElisionTelemetry: !0 }),
+        { framedThread: R } = await yt({ ...e, thread: u, silentElisionTelemetry: true }),
         S = ct
           .map((D, C) => `${C}.${D.edit ? " [edit]" : ""} ${D.text}`)
           .join(`
@@ -4148,17 +4148,17 @@ ${S}`,
         E = await iX({
           messages: [xe({ content: l })],
           systemPrompt: si([Zi]),
-          thinkingConfig: { type: "disabled", mechanical: !0 },
+          thinkingConfig: { type: "disabled", mechanical: true },
           tools: [],
           signal: n.signal,
           options: {
             model: gm(),
             querySource: "artifact_comment_fast_ack",
-            isNonInteractiveSession: !0,
+            isNonInteractiveSession: true,
             agents: [],
-            hasAppendSystemPrompt: !1,
+            hasAppendSystemPrompt: false,
             mcpTools: [],
-            enablePromptCaching: !1,
+            enablePromptCaching: false,
             maxOutputTokensOverride: 5,
             stickyBetas: Sb(Ep()),
             proactivityLevel: mD(e.context),
@@ -4185,7 +4185,7 @@ ${S}`,
       return 0;
     }),
     d = await jt(s, de().autoReact.fastAckSelectDeadlineMsOverride ?? zi);
-  if (d === void 0) (r = !0), n.abort(), g("artifact_comments_autoreact", "fast_ack_select_timeout");
+  if (d === void 0) (r = true), n.abort(), g("artifact_comments_autoreact", "fast_ack_select_timeout");
   return ct[d ?? 0]?.text ?? Ie;
 }
 var mn = 262144,
@@ -4266,27 +4266,27 @@ async function ks(e, t) {
   ).catch(() => {
     return;
   });
-  if (!n || n.err !== null || !n.html) return { editable: !1 };
-  if (an(e)) return g("artifact_comments_autoreact", "edit_target_kind"), { editable: !1, html: n.html };
-  if (n.typeLocked) return g("artifact_comments_autoreact", "edit_page_from_type"), { editable: !1, html: n.html };
-  if (sn(e, t)) return g("artifact_comments_autoreact", "edit_target_workshop_page"), { editable: !1, html: n.html };
+  if (!n || n.err !== null || !n.html) return { editable: false };
+  if (an(e)) return g("artifact_comments_autoreact", "edit_target_kind"), { editable: false, html: n.html };
+  if (n.typeLocked) return g("artifact_comments_autoreact", "edit_page_from_type"), { editable: false, html: n.html };
+  if (sn(e, t)) return g("artifact_comments_autoreact", "edit_target_workshop_page"), { editable: false, html: n.html };
   let r = sDe(at()),
     o = n.bytes,
     s = Math.min(mn, Math.max(0, r - ps) * 3);
   if (o > s) {
     if ((g("artifact_comments_autoreact", "edit_source_oversized"), hnn(n.html)))
       g("artifact_comments_autoreact", "edit_source_oversized_nested");
-    return { editable: !1, html: n.html };
+    return { editable: false, html: n.html };
   }
   let { favicon: d } = n;
   if (d === void 0 || d === "")
-    return g("artifact_comments_autoreact", "edit_favicon_unavailable"), { editable: !1, html: n.html };
-  return { editable: !0, read: n, favicon: d, modelOutputCap: r };
+    return g("artifact_comments_autoreact", "edit_favicon_unavailable"), { editable: false, html: n.html };
+  return { editable: true, read: n, favicon: d, modelOutputCap: r };
 }
 async function Ts(e, t) {
   let n = w_(e.context.abortController),
     r = Date.now(),
-    o = !1,
+    o = false,
     s = Es(e, t, n, r, (_) => {
       o ||= _ !== null;
     }).catch(() => {
@@ -4320,7 +4320,7 @@ async function Es(e, t, n, r, o) {
     { fence: A, framedThread: P } = await yt({ ...e, sourceHtml: E }),
     w = R.sourceFence,
     D = e.analystBrief === void 0 ? void 0 : mhe(e.analystBrief);
-  if (w === void 0 || w.ver !== d.ver || P.includes(w.nonce) || E.includes(w.nonce) || D?.includes(w.nonce) === !0)
+  if (w === void 0 || w.ver !== d.ver || P.includes(w.nonce) || E.includes(w.nonce) || D?.includes(w.nonce) === true)
     (w = { ver: d.ver, nonce: gt() }), (R.sourceFence = w);
   let C = `S${w.nonce}`,
     O =
@@ -4359,8 +4359,8 @@ Rules for an edit: change only what the thread asked for and preserve everything
     z = () => ({ source_bytes: d.bytes, hatch_offered: l, compose_ms: Date.now() - r, output_tokens: L });
   try {
     let re = "",
-      Z = !1,
-      ie = !1;
+      Z = false,
+      ie = false;
     for (;;) {
       let be = at(),
         me = TGe(be),
@@ -4377,19 +4377,19 @@ Rules for an edit: change only what the thread asked for and preserve everything
           systemPrompt: si([
             "You decide and compose artifact comment-thread responses, optionally with an artifact edit. Output only the decision JSON object.",
           ]),
-          thinkingConfig: { type: "disabled", mechanical: !0 },
+          thinkingConfig: { type: "disabled", mechanical: true },
           tools: [],
           signal: n.signal,
           options: {
             model: be,
             querySource: "artifact_comment_reply",
-            isNonInteractiveSession: !0,
+            isNonInteractiveSession: true,
             onRetryStatus: o,
             agents: [],
-            hasAppendSystemPrompt: !1,
+            hasAppendSystemPrompt: false,
             mcpTools: [],
             enablePromptCaching: me,
-            skipCacheWrite: !0,
+            skipCacheWrite: true,
             maxOutputTokensOverride: u,
             ...(lo(be) && { effortValue: co }),
             stickyBetas: Sb(Ep()),
@@ -4414,7 +4414,7 @@ Rules for an edit: change only what the thread asked for and preserve everything
       let se = Rs(ae);
       if (se === null) {
         if (!Z && W()) {
-          Z = !0;
+          Z = true;
           let j = Yr(ae, w.nonce, A);
           if (j === null) return g("artifact_comments_autoreact", "reformat_echo_refused"), null;
           (re = vs(j)), g("artifact_comments_autoreact", "edit_decision_reformat");
@@ -4428,7 +4428,7 @@ Rules for an edit: change only what the thread asked for and preserve everything
       }
       if (fhe(se.reply)) return g("artifact_comments_autoreact", "compose_hidden_codepoints"), null;
       let le,
-        Re = !1;
+        Re = false;
       if (se.kind === "patch") {
         let j = Mr(E, se.edits);
         if (!j.ok) {
@@ -4446,7 +4446,7 @@ Rules for an edit: change only what the thread asked for and preserve everything
             if (!W()) return g("artifact_comments_autoreact", "stopped_before_patch_retry"), null;
             let Be = Yr(se.edits[j.op].find, w.nonce, A);
             if (Be === null) return g("artifact_comments_autoreact", "patch_retry_echo_refused"), null;
-            (ie = !0), g("artifact_comments_autoreact", "edit_patch_retry_fired", { reason: c(j.reason) });
+            (ie = true), g("artifact_comments_autoreact", "edit_patch_retry_fired", { reason: c(j.reason) });
             let fe = rs(Be, ws),
               Me =
                 j.reason === "not_found"
@@ -4463,7 +4463,7 @@ Re-read the source, account for your earlier edits, and output the complete deci
             continue;
           }
           return (
-            g("artifact_comments_autoreact", "edit_patch_apply_failed", { reason: c(j.reason), retried: !0 }),
+            g("artifact_comments_autoreact", "edit_patch_apply_failed", { reason: c(j.reason), retried: true }),
             { kind: "patch_failed", reason: "unapplied" }
           );
         }
@@ -4472,11 +4472,11 @@ Re-read the source, account for your earlier edits, and output the complete deci
             g("artifact_comments_autoreact", "edit_patch_apply_failed", { reason: c("out_of_bounds"), retried: ie }),
             { kind: "patch_failed", reason: "unapplied" }
           );
-        (le = j.content), (Re = !0);
+        (le = j.content), (Re = true);
       } else {
         if (!l) {
           if (!Z && W()) {
-            (Z = !0), (re = Ss), g("artifact_comments_autoreact", "edit_rewrite_withheld_reask");
+            (Z = true), (re = Ss), g("artifact_comments_autoreact", "edit_rewrite_withheld_reask");
             continue;
           }
           return (
@@ -4633,11 +4633,11 @@ async function Ds(e) {
     u = `autoedit-${s}-${de().autoReact.postSeq++}-${Zr()}`,
     R,
     S = null,
-    l = !1,
-    E = !1,
+    l = false,
+    E = false,
     A,
-    P = !1,
-    w = !1,
+    P = false,
+    w = false,
     D,
     C;
   try {
@@ -4668,7 +4668,7 @@ async function Ds(e) {
         (Z) => typeof Z === "object" && Z !== null && Z.type === "tool_result" && Z.tool_use_id === u,
       );
       if (!re) continue;
-      if (((w = !0), re.is_error === !0)) {
+      if (((w = true), re.is_error === true)) {
         (A = z.toolDenialKind), (E = fn(A));
         let Z = re.content;
         S =
@@ -4679,15 +4679,15 @@ async function Ds(e) {
               : "publish refused";
       } else {
         let Z = z.toolUseResult;
-        if (Z !== void 0 && typeof Z.url === "string" && typeof Z.path === "string" && al(Z.url) === o) l = !0;
-        else P = !0;
+        if (Z !== void 0 && typeof Z.url === "string" && typeof Z.path === "string" && al(Z.url) === o) l = true;
+        else P = true;
       }
     }
   } catch {
     S = "publish pipeline error";
   } finally {
     if (R !== void 0) hr(R);
-    if (D !== void 0) await wi(D, { recursive: !0, force: !0 }).catch(() => {});
+    if (D !== void 0) await wi(D, { recursive: true, force: true }).catch(() => {});
     if (C !== void 0) U9(C);
   }
   if (!l) {
@@ -4708,7 +4708,7 @@ async function Ds(e) {
         threadTranscript: e.threadTranscript(),
         recheck: e.recheck,
       }).catch(() => null),
-      L = { failKind: B, ...(E && { publishDenied: !0 }) };
+      L = { failKind: B, ...(E && { publishDenied: true }) };
     return W === null || W.kind !== "posted"
       ? { outcome: "publish_error", post: W, ...L }
       : { outcome: "publish_refused", post: W, ...L };
@@ -4772,7 +4772,7 @@ async function Ds(e) {
     else g("artifact_comments_autoreact", "edit_resolve_refused");
     return { outcome: "completed_unresolved", post: x };
   }
-  return y("artifact_comments_autoreact", { auto_edit: !0, ...e.composeTelemetry }), { outcome: "completed", post: x };
+  return y("artifact_comments_autoreact", { auto_edit: true, ...e.composeTelemetry }), { outcome: "completed", post: x };
 }
 function _t(e, t) {
   let n = new TextEncoder();

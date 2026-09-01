@@ -25,7 +25,7 @@ import { yR } from "/$bunfs/root/chunk-a9qrd4qt.js";
 import { yg } from "/$bunfs/root/chunk-3m9p2z28.js";
 import { S } from "/$bunfs/root/chunk-yz031c9r.js";
 var z = S(function (ce) {
-  Object.defineProperty(ce, "__esModule", { value: !0 });
+  Object.defineProperty(ce, "__esModule", { value: true });
   ce.resolveHttpAuthSchemeConfig =
     ce.resolveStsAuthConfig =
     ce.defaultSTSHttpAuthSchemeProvider =
@@ -76,13 +76,13 @@ var z = S(function (ce) {
   ce.resolveHttpAuthSchemeConfig = Bt;
 });
 var B = S(function (le) {
-  Object.defineProperty(le, "__esModule", { value: !0 });
+  Object.defineProperty(le, "__esModule", { value: true });
   le.commonParams = le.resolveClientEndpointParameters = void 0;
   var Jt = (e) =>
     Object.assign(e, {
-      useDualstackEndpoint: e.useDualstackEndpoint ?? !1,
-      useFipsEndpoint: e.useFipsEndpoint ?? !1,
-      useGlobalEndpoint: e.useGlobalEndpoint ?? !1,
+      useDualstackEndpoint: e.useDualstackEndpoint ?? false,
+      useFipsEndpoint: e.useFipsEndpoint ?? false,
+      useGlobalEndpoint: e.useGlobalEndpoint ?? false,
       defaultSigningName: "sts",
     });
   le.resolveClientEndpointParameters = Jt;
@@ -95,15 +95,15 @@ var B = S(function (le) {
   };
 });
 var He = S(function (ke) {
-  Object.defineProperty(ke, "__esModule", { value: !0 });
+  Object.defineProperty(ke, "__esModule", { value: true });
   ke.ruleSet = void 0;
   var Ce = "required",
     o = "type",
     i = "fn",
     s = "argv",
     E = "ref",
-    pe = !1,
-    Q = !0,
+    pe = false,
+    Q = true,
     P = "booleanEquals",
     d = "stringEquals",
     Ae = "sigv4",
@@ -114,8 +114,8 @@ var He = S(function (ke) {
     _ = "tree",
     q = "error",
     J = "getAttr",
-    me = { [Ce]: !1, [o]: "string" },
-    Y = { [Ce]: !0, default: !1, [o]: "boolean" },
+    me = { [Ce]: false, [o]: "string" },
+    Y = { [Ce]: true, default: false, [o]: "boolean" },
     Ie = { [E]: "Endpoint" },
     he = { [i]: "isSet", [s]: [{ [E]: "Region" }] },
     p = { [E]: "Region" },
@@ -129,11 +129,11 @@ var He = S(function (ke) {
     },
     h = {},
     fe = { conditions: [{ [i]: d, [s]: [p, "aws-global"] }], [a]: m, [o]: a },
-    be = { [i]: P, [s]: [Te, !0] },
-    we = { [i]: P, [s]: [De, !0] },
+    be = { [i]: P, [s]: [Te, true] },
+    we = { [i]: P, [s]: [De, true] },
     Se = { [i]: J, [s]: [{ [E]: "PartitionResult" }, "supportsFIPS"] },
     qe = { [E]: "PartitionResult" },
-    Pe = { [i]: P, [s]: [!0, { [i]: J, [s]: [qe, "supportsDualStack"] }] },
+    Pe = { [i]: P, [s]: [true, { [i]: J, [s]: [qe, "supportsDualStack"] }] },
     Ee = [{ [i]: "isSet", [s]: [Ie] }],
     ve = [be],
     ye = [we],
@@ -278,7 +278,7 @@ var He = S(function (ke) {
   ke.ruleSet = Zt;
 });
 var je = S(function (Ne) {
-  Object.defineProperty(Ne, "__esModule", { value: !0 });
+  Object.defineProperty(Ne, "__esModule", { value: true });
   Ne.defaultEndpointResolver = void 0;
   var eo = vO(),
     X = VH(),
@@ -292,7 +292,7 @@ var je = S(function (Ne) {
   X.customEndpointFunctions.aws = eo.awsEndpointFunctions;
 });
 var $e = S(function (Le) {
-  Object.defineProperty(Le, "__esModule", { value: !0 });
+  Object.defineProperty(Le, "__esModule", { value: true });
   Le.getRuntimeConfig = void 0;
   var ro = gg(),
     io = xN(),
@@ -307,7 +307,7 @@ var $e = S(function (Le) {
       apiVersion: "2011-06-15",
       base64Decoder: e?.base64Decoder ?? Fe.fromBase64,
       base64Encoder: e?.base64Encoder ?? Fe.toBase64,
-      disableHostPrefix: e?.disableHostPrefix ?? !1,
+      disableHostPrefix: e?.disableHostPrefix ?? false,
       endpointProvider: e?.endpointProvider ?? lo.defaultEndpointResolver,
       extensions: e?.extensions ?? [],
       httpAuthSchemeProvider: e?.httpAuthSchemeProvider ?? uo.defaultSTSHttpAuthSchemeProvider,
@@ -339,7 +339,7 @@ var $e = S(function (Le) {
   Le.getRuntimeConfig = po;
 });
 var Qe = S(function (Ve) {
-  Object.defineProperty(Ve, "__esModule", { value: !0 });
+  Object.defineProperty(Ve, "__esModule", { value: true });
   Ve.getRuntimeConfig = void 0;
   var go = Coe(),
     mo = go.__importDefault(CYe()),
@@ -412,7 +412,7 @@ var Qe = S(function (Ve) {
   Ve.getRuntimeConfig = Co;
 });
 var Xe = S(function (Ye) {
-  Object.defineProperty(Ye, "__esModule", { value: !0 });
+  Object.defineProperty(Ye, "__esModule", { value: true });
   Ye.resolveHttpAuthRuntimeConfig = Ye.getHttpAuthExtensionConfiguration = void 0;
   var Ao = (e) => {
     let { httpAuthSchemes: t, httpAuthSchemeProvider: n, credentials: u } = e;
@@ -448,7 +448,7 @@ var Xe = S(function (Ye) {
   Ye.resolveHttpAuthRuntimeConfig = xo;
 });
 var it = S(function (nt) {
-  Object.defineProperty(nt, "__esModule", { value: !0 });
+  Object.defineProperty(nt, "__esModule", { value: true });
   nt.resolveRuntimeExtensions = void 0;
   var Ze = _P(),
     et = Pl(),
@@ -475,7 +475,7 @@ var it = S(function (nt) {
   nt.resolveRuntimeExtensions = Io;
 });
 var V = S(function (te) {
-  Object.defineProperty(te, "__esModule", { value: !0 });
+  Object.defineProperty(te, "__esModule", { value: true });
   te.STSClient = te.__Client = void 0;
   var st = EN(),
     To = AN(),
@@ -489,7 +489,7 @@ var V = S(function (te) {
     at = jT(),
     lt = Pt();
   Object.defineProperty(te, "__Client", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return lt.Client;
     },
@@ -832,7 +832,7 @@ var bCn = S(function (j) {
     jt = (e = {}, t) => Xn(e, Nt(O.STSClient, t)),
     Zn = (e) => (t) => e({ roleAssumer: Wt(t), roleAssumerWithWebIdentity: jt(t), ...t });
   Object.defineProperty(j, "$Command", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return H.Command;
     },
@@ -854,7 +854,7 @@ var bCn = S(function (j) {
   Object.keys(O).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(j, e))
       Object.defineProperty(j, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return O[e];
         },

@@ -57,12 +57,12 @@ class g {
   type = "iterm2";
   displayName = "iTerm2";
   teammateSessionIds = [];
-  firstPaneUsed = !1;
+  firstPaneUsed = false;
   paneCreationLock = WCe();
   async isAvailable() {
     let e = _M();
     if ((n(`[ITermBackend] isAvailable check: inITerm2=${e}`), !e))
-      return n("[ITermBackend] isAvailable: false (not in iTerm2)"), !1;
+      return n("[ITermBackend] isAvailable: false (not in iTerm2)"), false;
     let s = await iOe();
     return n(`[ITermBackend] isAvailable: ${s} (it2 CLI ${s ? "found" : "not found"})`), s;
   }
@@ -74,7 +74,7 @@ class g {
     n(`[ITermBackend] createTeammatePaneInSwarmView called for ${e} with color ${s}`);
     let o = await this.paneCreationLock.acquire();
     try {
-      while (!0) {
+      while (true) {
         let t = !this.firstPaneUsed;
         n(`[ITermBackend] Creating pane: isFirstTeammate=${t}, existingPanes=${this.teammateSessionIds.length}`);
         let r, i;
@@ -93,7 +93,7 @@ class g {
               n(`[ITermBackend] Split failed targeting dead session ${i}, pruning and retrying: ${m.stderr}`);
               let u = this.teammateSessionIds.indexOf(i);
               if (u !== -1) this.teammateSessionIds.splice(u, 1);
-              if (this.teammateSessionIds.length === 0) this.firstPaneUsed = !1;
+              if (this.teammateSessionIds.length === 0) this.firstPaneUsed = false;
               continue;
             }
           }
@@ -101,7 +101,7 @@ class g {
         }
         let c = f(m.stdout);
         if (!c) throw Error(`Failed to parse session ID from split output: ${m.stdout}`);
-        if ((n(`[ITermBackend] Created teammate pane for ${e}: ${c}`), t)) this.firstPaneUsed = !0;
+        if ((n(`[ITermBackend] Created teammate pane for ${e}: ${c}`), t)) this.firstPaneUsed = true;
         return this.teammateSessionIds.push(c), { paneId: c, isFirstTeammate: t };
       }
     } finally {
@@ -126,7 +126,7 @@ class g {
     let o = await d(["session", "close", "-f", "-s", e]),
       t = this.teammateSessionIds.indexOf(e);
     if (t !== -1) this.teammateSessionIds.splice(t, 1);
-    if (this.teammateSessionIds.length === 0) this.firstPaneUsed = !1;
+    if (this.teammateSessionIds.length === 0) this.firstPaneUsed = false;
     return o.code === 0;
   }
 }

@@ -27,7 +27,7 @@ function u(i, r, o, n = "connection", a) {
     );
   return new Promise((t, s) => {
     let c = () => s(e());
-    r.addEventListener("abort", c, { once: !0 }),
+    r.addEventListener("abort", c, { once: true }),
       i.then(
         (l) => {
           r.removeEventListener("abort", c), t(l);
@@ -40,7 +40,7 @@ function u(i, r, o, n = "connection", a) {
 }
 async function __e(i, r) {
   let o = r.timeoutMs ?? $c(),
-    { signal: n, cleanup: a } = Ja(r.signal, { timeoutMs: o, refTimer: !0 });
+    { signal: n, cleanup: a } = Ja(r.signal, { timeoutMs: o, refTimer: true });
   try {
     return await u(i, n, r.serverName, r.context, r.signal);
   } finally {

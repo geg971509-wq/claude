@@ -461,7 +461,7 @@ async function It(i, l) {
   let f;
   try {
     f = await op.get("/api/frame/frames?limit=200", {
-      refreshOAuth: !0,
+      refreshOAuth: true,
       credentials: i,
       headers: Yu(),
       timeout: 15000,
@@ -493,7 +493,7 @@ async function It(i, l) {
       continue;
     }
     let b = h.data;
-    if (b.softDeleted === !0) continue;
+    if (b.softDeleted === true) continue;
     let P = `https://claude.ai/code/artifact/${b.slug}`;
     if (al(P) !== b.slug) {
       v++;
@@ -524,7 +524,7 @@ async function It(i, l) {
     return p("artifact_gallery", "all_rows_dropped"), { err: "Couldn't load artifacts (unexpected response)" };
   if (v > 0) g("artifact_gallery", "rows_dropped", { count: v });
   else y("artifact_gallery");
-  return { err: null, frames: d, starsEnabled: w.data.starsEnabled === !0 };
+  return { err: null, frames: d, starsEnabled: w.data.starsEnabled === true };
 }
 var Br = 65536,
   Nr = m(() =>
@@ -543,11 +543,11 @@ async function Bt(i, l, f, w) {
       {
         host: "frame",
         auth: "claude-ai-oauth",
-        refreshOAuth: !0,
+        refreshOAuth: true,
         headers: Yu(),
         timeout: 15000,
         maxContentLength: Br,
-        validateStatus: () => !0,
+        validateStatus: () => true,
         signal: w,
         credentials: f,
       },
@@ -584,11 +584,11 @@ async function Nt(i, l, f, w) {
     v = {
       host: "frame",
       auth: "claude-ai-oauth",
-      refreshOAuth: !0,
+      refreshOAuth: true,
       headers: Yu(),
       timeout: 15000,
       maxContentLength: jr,
-      validateStatus: () => !0,
+      validateStatus: () => true,
       signal: w,
       credentials: f,
     },
@@ -627,25 +627,25 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
     { rows: h, columns: b } = Ui(Ee()),
     P = Ba(),
     [O, j] = u([]),
-    [ae, Be] = u(!1),
+    [ae, Be] = u(false),
     [ie, wt] = u(""),
     [cr, Ct] = u(0),
     _e = C(""),
     Ne = C(0),
     ve = C(null),
     [, ur] = u(0),
-    [le, Rt] = u(!0),
+    [le, Rt] = u(true),
     [ce, _t] = u(null),
     [ue, E] = u(null),
     [U, dr] = u({ mode: "list" }),
     [de, ne] = u(0),
-    [te, vt] = u(!1),
+    [te, vt] = u(false),
     we = C(te),
     J = C(U),
     G = B((n) => {
       (J.current = n), dr(n);
     }, []),
-    H = C(!1),
+    H = C(false),
     {
       query: Y,
       cursorOffset: mr,
@@ -654,7 +654,7 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
     } = np({
       isActive: te && U.mode === "list",
       onExit: () => {
-        (we.current = !1), (H.current = !0), vt(!1), ne(0);
+        (we.current = false), (H.current = true), vt(false), ne(0);
       },
       passthroughCtrlKeys: ["c", "d"],
     }),
@@ -663,10 +663,10 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
     Fe = C(new Map()),
     be = C(new Set()),
     Ft = C(new Set()),
-    Ve = C(!1),
+    Ve = C(false),
     Te = B(
       (n) => {
-        Rt(!0),
+        Rt(true),
           _t(null),
           It(S, n)
             .then((s) => {
@@ -692,7 +692,7 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
                 )
                   je((R) => (R === "pinned" ? "all" : R));
               }
-              Rt(!1);
+              Rt(false);
             })
             .catch(() => {});
       },
@@ -723,10 +723,10 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
       }
       let s = Q(n, (c) => c.rel === "mine");
       return {
-        list: K === "all" ? n : K === "pinned" ? n.filter((c) => c.starred === !0) : n.filter((c) => c.rel === K),
+        list: K === "all" ? n : K === "pinned" ? n.filter((c) => c.starred === true) : n.filter((c) => c.rel === K),
         mineCount: s,
         sharedCount: n.length - s,
-        pinnedCount: Q(n, (c) => c.starred === !0),
+        pinnedCount: Q(n, (c) => c.starred === true),
       };
     }, [De, Y, K]);
   A(() => {
@@ -745,9 +745,9 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
     if (s !== -1) ne(s), (Ke.current = n);
   }, [N]),
     A(() => {
-      (H.current = !1), (Ve.current = !1);
+      (H.current = false), (Ve.current = false);
     });
-  let wr = z(() => Q(De, (n) => n.starred === !0), [De]),
+  let wr = z(() => Q(De, (n) => n.starred === true), [De]),
     xt = ae && (wr > 0 || K === "pinned"),
     D = N[de],
     Xe = D?.rel === "mine",
@@ -761,8 +761,8 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
     }, []),
     Sr = B(
       (n) => {
-        if (Fe.current.has(n.slug)) return !1;
-        let s = n.starred !== !0,
+        if (Fe.current.has(n.slug)) return false;
+        let s = n.starred !== true,
           c = ye(n),
           R = (X) => j((he) => he.map((I) => (I.slug === n.slug ? { ...I, starred: X } : I)));
         Fe.current.set(n.slug, s), be.current.delete(n.slug);
@@ -781,7 +781,7 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
             .finally(() => {
               Fe.current.delete(n.slug), be.current.delete(n.slug);
             }),
-          !0
+          true
         );
       },
       [S],
@@ -830,23 +830,23 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
             E(R.title ? `Renamed to ${R.title}` : "Renamed");
         });
     }, [G, S]),
-    pe = C(!1),
-    $t = C(!1),
-    Je = C(!1),
+    pe = C(false),
+    $t = C(false),
+    Je = C(false),
     Z = C(null),
-    kt = C(!1),
+    kt = C(false),
     Fr = B(
       (n) => {
         if (pe.current) return;
-        (pe.current = !0),
+        (pe.current = true),
           E(`Attaching ${ye(n)}\u2026`),
           l(n).then(
             ({ status: s, metaMessage: c }) => {
               if ($t.current) return;
-              (Je.current = !0), i(s, { display: "system", ...(c !== void 0 && { metaMessages: [c] }) });
+              (Je.current = true), i(s, { display: "system", ...(c !== void 0 && { metaMessages: [c] }) });
             },
             () => {
-              (pe.current = !1), E("The artifact could not be attached. Select it and press Enter to try again.");
+              (pe.current = false), E("The artifact could not be attached. Select it and press Enter to try again.");
             },
           );
       },
@@ -854,18 +854,18 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
     ),
     ze = B(() => {
       if (J.current.mode !== "list") return;
-      E(null), (we.current = !0), vt(!0);
+      E(null), (we.current = true), vt(true);
     }, []);
   ht(
     {
       "confirm:previous": () => {
-        if ((E(null), (H.current = !0), de === 0)) ze();
+        if ((E(null), (H.current = true), de === 0)) ze();
         else ne((n) => Math.max(0, n - 1));
       },
       "confirm:next": () => {
         E(null);
         let n = Math.max(0, N.length - 1);
-        if (de < n) H.current = !0;
+        if (de < n) H.current = true;
         ne((s) => Math.min(n, s + 1));
       },
     },
@@ -879,11 +879,11 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
     }
     if (we.current) return;
     if (pe.current) {
-      ($t.current = !0), f(), i("Attach cancelled", { display: "system" });
+      ($t.current = true), f(), i("Attach cancelled", { display: "system" });
       return;
     }
     if (Z.current !== null) {
-      (kt.current = !0), E(`Still deleting ${Z.current} \u2014 the panel closes when it finishes`);
+      (kt.current = true), E(`Still deleting ${Z.current} \u2014 the panel closes when it finishes`);
       return;
     }
     i("Artifacts panel closed", { display: "system" });
@@ -923,7 +923,7 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
             X = q !== void 0 ? Date.parse(q) : Number.NaN;
           G({ mode: "list" }), E("Deleting\u2026"), (Z.current = R);
           let he = (I) => {
-            if (((Z.current = null), kt.current)) (Je.current = !0), i(I, { display: "system" });
+            if (((Z.current = null), kt.current)) (Je.current = true), i(I, { display: "system" });
             else E(I);
           };
           Wrt(c, S, {
@@ -933,7 +933,7 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
             (I) => {
               try {
                 if (I.err === null)
-                  (H.current = !0), Ft.current.add(c), j((Or) => Or.filter((Pr) => Pr.slug !== c)), v(c);
+                  (H.current = true), Ft.current.add(c), j((Or) => Or.filter((Pr) => Pr.slug !== c)), v(c);
               } finally {
                 he(I.err ?? (I.alreadyGone ? "Artifact was already deleted" : "Artifact deleted"));
               }
@@ -948,7 +948,7 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
       if (n.key === "/" && O.length > 0) n.preventDefault(), ze();
       else if ((n.key === "tab" || n.key === "right" || n.key === "left") && O.length > 0) {
         if ((n.preventDefault(), Ve.current)) return;
-        (H.current = !0),
+        (H.current = true),
           E(null),
           ne(0),
           je((c) => Yr(c, xt, n.key === "left" || (n.key === "tab" && n.shift) ? -1 : 1));
@@ -968,7 +968,7 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
         d(D), y("frame_link_dismiss_dialog"), E(`Dismissed ${ye(D)} from this session's list`);
       } else if (n.key === "p" && D && ae) {
         if ((n.preventDefault(), H.current || Z.current !== null)) return;
-        if (Sr(D)) (H.current = !0), (Ve.current = !0);
+        if (Sr(D)) (H.current = true), (Ve.current = true);
       } else if (n.key === "d" && D && Tt) {
         if ((n.preventDefault(), H.current || pe.current || Z.current !== null)) return;
         E(null),
@@ -997,19 +997,19 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
             marginTop: 1,
             flexDirection: "column",
             children: [
-              e(t, { bold: !0, children: "Rename artifact:" }),
+              e(t, { bold: true, children: "Rename artifact:" }),
               e(xn, {
                 value: ie,
                 onChange: Rr,
                 inputFilter: en,
                 onSubmit: vr,
-                disableCtrlCClear: !0,
+                disableCtrlCClear: true,
                 placeholder: "New name",
                 columns: Math.max(20, b - 8),
                 cursorOffset: cr,
                 onChangeCursorOffset: Ar,
-                focus: !0,
-                showCursor: !0,
+                focus: true,
+                showCursor: true,
               }),
             ],
           })
@@ -1017,14 +1017,14 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
   return e(o, {
     flexDirection: "column",
     tabIndex: 0,
-    autoFocus: !0,
+    autoFocus: true,
     onKeyDown: xr,
     onPaste: Tr,
     children: e(me, {
       title: "Artifacts",
       onCancel: Lt,
       color: "background",
-      isCancelActive: !1,
+      isCancelActive: false,
       inputGuide: e(Ds, {
         exitActive: U.mode !== "rename",
         onInterrupt: _r,
@@ -1052,14 +1052,14 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
                         Xe &&
                         e(M, { chord: "ctrl+r", action: "rename", format: { modCase: "title", charCase: "upper" } }),
                       oe && Tt && e(M, { chord: "d", action: "delete" }),
-                      oe && ae && D !== void 0 && e(M, { chord: "p", action: D.starred === !0 ? "unpin" : "pin" }),
+                      oe && ae && D !== void 0 && e(M, { chord: "p", action: D.starred === true ? "unpin" : "pin" }),
                       oe && e(M, { chord: "/", action: "search" }),
                       !le && e(M, { chord: "r", action: "refresh" }),
                     ],
                   }),
       }),
       children: le
-        ? e(rr, { message: "Loading artifacts\u2026", dimColor: !0 })
+        ? e(rr, { message: "Loading artifacts\u2026", dimColor: true })
         : ce !== null
           ? e(sr, { children: ce })
           : O.length === 0
@@ -1067,7 +1067,7 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
                 flexDirection: "column",
                 children: [
                   e(sr, { children: "No artifacts yet. Publish one with the Artifact tool." }),
-                  ue && U.mode === "list" && e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: ue }) }),
+                  ue && U.mode === "list" && e(o, { marginTop: 1, children: e(t, { dimColor: true, children: ue }) }),
                 ],
               })
             : r(o, {
@@ -1095,8 +1095,8 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
                         flexDirection: "column",
                         children: [
                           e(t, {
-                            dimColor: !0,
-                            italic: !0,
+                            dimColor: true,
+                            italic: true,
                             children: Y
                               ? K === "all"
                                 ? `No artifacts match "${Y}"`
@@ -1114,25 +1114,25 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
                           Mt,
                           ue &&
                             U.mode === "list" &&
-                            e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: ue }) }),
+                            e(o, { marginTop: 1, children: e(t, { dimColor: true, children: ue }) }),
                         ],
                       })
                     : r(o, {
                         flexDirection: "column",
                         children: [
-                          Pt > 0 && r(t, { dimColor: !0, children: ["  ", L.arrowUp, " ", Pt, " more above"] }),
+                          Pt > 0 && r(t, { dimColor: true, children: ["  ", L.arrowUp, " ", Pt, " more above"] }),
                           kr.map((n, s) => {
                             let c = Ot + s;
                             return e(tr, { frame: n, isSelected: c === de && !te, isAttached: w.has(n.slug) }, n.slug);
                           }),
-                          Ut > 0 && r(t, { dimColor: !0, children: ["  ", L.arrowDown, " ", Ut, " more below"] }),
+                          Ut > 0 && r(t, { dimColor: true, children: ["  ", L.arrowDown, " ", Ut, " more below"] }),
                           U.mode === "confirm-delete" &&
                             e(o, {
                               marginTop: 1,
                               children: r(t, {
                                 children: [
                                   "Delete ",
-                                  e(t, { bold: !0, children: U.title }),
+                                  e(t, { bold: true, children: U.title }),
                                   "? This cannot be undone.",
                                 ],
                               }),
@@ -1140,7 +1140,7 @@ function mt({ onDone: i, onAttach: l, onAbortAttach: f, attachedSlugs: w, onDeta
                           Mt,
                           ue &&
                             U.mode === "list" &&
-                            e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: ue }) }),
+                            e(o, { marginTop: 1, children: e(t, { dimColor: true, children: ue }) }),
                         ],
                       }),
                 ],
@@ -1183,7 +1183,7 @@ function er(Ao) {
       marginLeft: 1,
       children: Le.map((et) => {
         let [qt, _o] = et;
-        return e(pnt, { title: _o, isCurrent: jt === qt, headerFocused: !1, color: void 0, onClick: () => Ht(qt) }, qt);
+        return e(pnt, { title: _o, isCurrent: jt === qt, headerFocused: false, color: void 0, onClick: () => Ht(qt) }, qt);
       }),
     })),
       (Se[13] = Ht),
@@ -1251,11 +1251,11 @@ function tr(vo) {
   else lt = V[24];
   let ct;
   if (V[25] !== x.starred)
-    (ct = x.starred === !0 && r(t, { color: "warning", children: [L.star, " "] })), (V[25] = x.starred), (V[26] = ct);
+    (ct = x.starred === true && r(t, { color: "warning", children: [L.star, " "] })), (V[25] = x.starred), (V[26] = ct);
   else ct = V[26];
   let ut;
   if (V[27] !== it)
-    (ut = it.length > 0 && r(t, { dimColor: !0, children: ["  ", it.join(" \xB7 ")] })), (V[27] = it), (V[28] = ut);
+    (ut = it.length > 0 && r(t, { dimColor: true, children: ["  ", it.join(" \xB7 ")] })), (V[27] = it), (V[28] = ut);
   else ut = V[28];
   let dt;
   if (V[29] !== Jt || V[30] !== Yt || V[31] !== lt || V[32] !== ct || V[33] !== ut)
@@ -1288,7 +1288,7 @@ function Qt(i) {
 }
 function Zr(i) {
   return i.toSorted((l, f) => {
-    let w = Number(f.starred === !0) - Number(l.starred === !0);
+    let w = Number(f.starred === true) - Number(l.starred === true);
     if (w !== 0) return w;
     let d = Zt(l),
       v = Zt(f);
@@ -1322,14 +1322,14 @@ async function pt(i) {
     S = G_(l.slug),
     h = l.rel === "mine" ? l.title || l.slug : l.slug;
   if (Re(f, l.slug) !== void 0)
-    return y("artifact_attach", { already_attached: !0 }), { status: `${jl} ${h} is already attached` };
+    return y("artifact_attach", { already_attached: true }), { status: `${jl} ${h} is already attached` };
   let P = await xZt({ slug: l.slug, url: S, getKnownVer: () => d(l.slug), context: v });
   if (v.abortController.signal.aborted)
     return g("artifact_attach", "cancelled"), { status: `${jl} ${h} \u2014 attach cancelled` };
-  let O = !1;
+  let O = false;
   if (
     (w((ie) => {
-      if (Re(ie.frameUrls, l.slug) !== void 0) return (O = !0), ie;
+      if (Re(ie.frameUrls, l.slug) !== void 0) return (O = true), ie;
       return {
         ...ie,
         frameUrls: {
@@ -1340,7 +1340,7 @@ async function pt(i) {
     }),
     O)
   )
-    return y("artifact_attach", { already_attached: !0 }), { status: `${jl} ${h} is already attached` };
+    return y("artifact_attach", { already_attached: true }), { status: `${jl} ${h} is already attached` };
   if (l.rel === "mine") v.setArtifactContractTarget(l.slug);
   let j = P.outcome !== "skipped",
     ae = P.outcome === "skipped" && P.reason === "stop_latched",
@@ -1410,7 +1410,7 @@ function lr(Jo) {
   if (Ae[8] !== ee || Ae[9] !== re)
     (an = function Ie(sn) {
       d0e(sn, { updateAppState: re, context: ee }),
-        ee.applyMessageOp({ type: "append", messages: [xe({ content: VQt(G_(sn)), isMeta: !0 })] });
+        ee.applyMessageOp({ type: "append", messages: [xe({ content: VQt(G_(sn)), isMeta: true })] });
     }),
       (Ae[8] = ee),
       (Ae[9] = re),

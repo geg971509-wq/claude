@@ -17,7 +17,7 @@ import { yn, qn, F } from "/$bunfs/root/chunk-twm95mhz.js";
 F();
 import { PassThrough as R } from "stream";
 function l() {}
-var bke = yn(!1);
+var bke = yn(false);
 function Cb(k) {
   let u = _(5),
     { children: s } = k,
@@ -45,18 +45,18 @@ async function tv(r, t) {
 }
 async function cse(r, { columns: t, storageV5: n }) {
   let i = "",
-    c = !1,
+    c = false,
     o = new R();
   if (t !== void 0) o.columns = t;
   return (
     o.on("data", (d) => {
       if (c) return;
-      (c = !0), (i = d.toString());
+      (c = true), (i = d.toString());
     }),
     await (
       await Lx(
-        e(Cb, { children: e(bke.Provider, { value: !0, children: e(wlt, { value: l, children: r }) }) }),
-        { stdout: o, patchConsole: !1 },
+        e(Cb, { children: e(bke.Provider, { value: true, children: e(wlt, { value: l, children: r }) }) }),
+        { stdout: o, patchConsole: false },
         { storageV5: n },
       )
     ).waitUntilExit(),

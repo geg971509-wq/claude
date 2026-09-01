@@ -58,7 +58,7 @@ class u {
     if (t) {
       t(this.pendingResponse, e),
         (this.pendingResponse = null),
-        s("tengu_oauth_automatic_redirect", { custom_handler: !0 });
+        s("tengu_oauth_automatic_redirect", { custom_handler: true });
       return;
     }
     let r = Jk(e) ? zt().CLAUDEAI_SUCCESS_URL : zt().CONSOLE_SUCCESS_URL;
@@ -125,13 +125,13 @@ class u {
       this.reject(new wN(R(e), t === void 0 ? void 0 : R(t), n ? Toe(r) : void 0));
   }
   rejectOnStateMismatch(e, t) {
-    if (e === this.expectedState) return !1;
+    if (e === this.expectedState) return false;
     return (
       p("oauth_callback_listener", "oauth_callback_state_mismatch"),
       t.writeHead(400),
       t.end("Invalid state parameter"),
       this.reject(Error("Invalid state parameter")),
-      !0
+      true
     );
   }
   handleError(e) {
@@ -191,13 +191,13 @@ class jR {
         loginMethod: t?.loginMethod,
         oauthClient: t?.oauthClient,
       },
-      n = n4t({ ...o, isManual: !0 }),
-      m = n4t({ ...o, isManual: !1 }),
+      n = n4t({ ...o, isManual: true }),
+      m = n4t({ ...o, isManual: false }),
       k = await this.waitForAuthorizationCode(i, async () => {
         if (t?.skipBrowserOpen) await e(n, m);
         else await e(n), await Lr(m);
       }),
-      l = this.authCodeListener?.hasPendingResponse() ?? !1;
+      l = this.authCodeListener?.hasPendingResponse() ?? false;
     s("tengu_oauth_auth_code_received", { automatic: l });
     try {
       let a = await $bn(k, {
@@ -229,7 +229,7 @@ class jR {
       );
     } catch (a) {
       if ((p("oauth_login", "oauth_login_failed"), l)) this.authCodeListener?.handleErrorRedirect();
-      if (!t?.inferenceOnly && !t?.oauthClient) wX({ action: "login", success: !1, authMethod: "oauth", error: a });
+      if (!t?.inferenceOnly && !t?.oauthClient) wX({ action: "login", success: false, authMethod: "oauth", error: a });
       throw a;
     } finally {
       this.authCodeListener?.close();
@@ -259,7 +259,7 @@ class jR {
       accessToken: e.access_token,
       refreshToken: e.refresh_token,
       expiresAt: Date.now() + e.expires_in * 1000,
-      refreshTokenExpiresAt: t4t(e.refresh_token_expires_in, !0),
+      refreshTokenExpiresAt: t4t(e.refresh_token_expires_in, true),
       scopes: xbt(e.scope),
       subscriptionType: t,
       rateLimitTier: r,

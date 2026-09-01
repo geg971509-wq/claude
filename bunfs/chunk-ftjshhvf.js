@@ -276,7 +276,7 @@ function p(yo) {
     (L[0] = w), (L[1] = k), (L[2] = x), (L[3] = R);
   } else (k = L[1]), (x = L[2]), (R = L[3]);
   let q;
-  if (L[4] !== K) (q = e(t, { dimColor: !0, children: K })), (L[4] = K), (L[5] = q);
+  if (L[4] !== K) (q = e(t, { dimColor: true, children: K })), (L[4] = K), (L[5] = q);
   else q = L[5];
   let U;
   if (L[6] !== k || L[7] !== x || L[8] !== R || L[9] !== q)

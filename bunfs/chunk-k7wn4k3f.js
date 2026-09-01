@@ -44,7 +44,7 @@ function xst(t) {
   return `[SendFile: ${t} additional attachment(s) were dropped \u2014 max ${$x} per message]`;
 }
 function FDt(t, e) {
-  if (typeof e.file_size === "number" && t.length !== e.file_size) return !1;
+  if (typeof e.file_size === "number" && t.length !== e.file_size) return false;
   return Nn(t) === e.sha256;
 }
 function $Dt(t, e, r) {
@@ -103,7 +103,7 @@ async function vrn(t) {
   if (e === null) throw new R(Mlt, "peer file transfer: source unreadable or over the size limit");
   let r = Nn(e),
     o = AWe();
-  await O(o, { recursive: !0, mode: 448 });
+  await O(o, { recursive: true, mode: 448 });
   let a = b(t),
     l = F(o, `${r.slice(0, 8)}-${L().slice(0, 8)}-${EWe(a)}`);
   return await M(l, e, { mode: 384 }), { path: l, file_name: a, file_size: e.length, sha256: r, media_type: ODe(a) };
@@ -134,7 +134,7 @@ async function GEr(t) {
   if (o.length > $x) r.push(xst(o.length - $x)), (o = o.slice(0, $x));
   let a = Ffr(),
     l = AWe(),
-    x = !1,
+    x = false,
     z = [],
     D = 0;
   for (let u of o) {
@@ -171,7 +171,7 @@ async function GEr(t) {
     }
     let E = F(a, `${u.sha256.slice(0, 8)}-${L().slice(0, 8)}-${EWe(u.file_name)}`);
     try {
-      if (!x) await O(a, { recursive: !0, mode: 448 }), (x = !0);
+      if (!x) await O(a, { recursive: true, mode: 448 }), (x = true);
       await M(E, w, { mode: 384, flag: "wx" });
     } catch (_) {
       d("it could not be written to the uploads directory"), S(`write ${E} failed: ${_}`);

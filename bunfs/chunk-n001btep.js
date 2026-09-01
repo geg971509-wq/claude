@@ -107,18 +107,18 @@ import "/$bunfs/root/chunk-7s7jqj2f.js";
 import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 function e() {
-  if (ch()) return !0;
+  if (ch()) return true;
   try {
     return (
       h6() &&
       !eA() &&
       !TEe() &&
       Fl().source === "none" &&
-      py({ skipRetrievingKeyFromApiKeyHelper: !0 }).source === "none" &&
+      py({ skipRetrievingKeyFromApiKeyHelper: true }).source === "none" &&
       !upn.isC4EUpsellCommandEnabled()
     );
   } catch {
-    return !1;
+    return false;
   }
 }
 var r = {
@@ -135,7 +135,7 @@ var r = {
     get isHidden() {
       return !ch();
     },
-    immediate: !0,
+    immediate: true,
   },
   s = r;
 export { s as default };

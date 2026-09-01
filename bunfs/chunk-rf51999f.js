@@ -68,42 +68,42 @@ function U(e, t) {
   if (e.startsWith("*.")) r = `*.${m(e.slice(2))}`;
   else r = m(e);
   let o = m(t);
-  if (r === "*") return !0;
-  if (r === o) return !0;
-  if (r.startsWith("*.") && o.endsWith(r.slice(1))) return !0;
-  return !1;
+  if (r === "*") return true;
+  if (r === o) return true;
+  if (r.startsWith("*.") && o.endsWith(r.slice(1))) return true;
+  return false;
 }
 function $An(e, t) {
   return U(t, e);
 }
 function UAn(e, t) {
-  for (let r of t) if (U(r, e)) return !0;
-  return !1;
+  for (let r of t) if (U(r, e)) return true;
+  return false;
 }
 function yYe(e, t) {
   let r = t.lastIndexOf("/");
-  if (r < 0) return !1;
+  if (r < 0) return false;
   let o = t.slice(0, r),
     s = t.slice(r + 1);
-  if (!/^\d+$/.test(s)) return !1;
+  if (!/^\d+$/.test(s)) return false;
   let i = parseInt(s, 10),
     l = R(o);
-  if (!l) return !1;
-  if (l.zone) return !1;
+  if (!l) return false;
+  if (l.zone) return false;
   let c = R(e);
-  if (!c) return !1;
+  if (!c) return false;
   let u = X(c.bytes),
     f = l.bytes;
-  if (u.length !== f.length) return !1;
+  if (u.length !== f.length) return false;
   let p = f.length * 8;
-  if (i < 0 || i > p) return !1;
+  if (i < 0 || i > p) return false;
   return W(u, f, i);
 }
 function W(e, t, r) {
   let o = r >> 3;
-  for (let l = 0; l < o; l++) if (e[l] !== t[l]) return !1;
+  for (let l = 0; l < o; l++) if (e[l] !== t[l]) return false;
   let s = r & 7;
-  if (s === 0) return !0;
+  if (s === 0) return true;
   let i = (255 << (8 - s)) & 255;
   return ((e[o] ?? 0) & i) === ((t[o] ?? 0) & i);
 }
@@ -174,7 +174,7 @@ function M(e) {
   } else {
     let u = s[0] ?? "",
       f = s[1] ?? "",
-      p = l(u, !1),
+      p = l(u, false),
       x = l(f, t !== null);
     if (!p || !x) return null;
     let y = t ? 2 : 0,
@@ -236,9 +236,9 @@ class UTt extends I.HttpsProxyAgent {
   }
 }
 class w {
-  keepAliveDisabled = !1;
+  keepAliveDisabled = false;
   agents = ai(q);
-  proxyAuthHelperConfig = { helper: void 0, fromProjectOrLocal: !1, trustAccepted: () => !1 };
+  proxyAuthHelperConfig = { helper: void 0, fromProjectOrLocal: false, trustAccepted: () => false };
   proxyAuthCache = null;
   proxyAuthPendingChallenge = void 0;
 }
@@ -247,7 +247,7 @@ function d() {
   return rbr.of(G().host);
 }
 function BAn() {
-  d().keepAliveDisabled = !0;
+  d().keepAliveDisabled = true;
 }
 function obr(e) {
   switch (e.family) {
@@ -311,8 +311,8 @@ function jAn(e = process.env) {
   return cGt(e);
 }
 function DC(e, t = jAn()) {
-  if (!t) return !1;
-  if (t === "*") return !0;
+  if (!t) return false;
+  if (t === "*") return true;
   try {
     let r = new URL(e),
       o = r.hostname.toLowerCase(),
@@ -331,26 +331,26 @@ function DC(e, t = jAn()) {
         return o === u;
       });
   } catch {
-    return !1;
+    return false;
   }
 }
 function Hir(e, t) {
-  if (DC(e, t)) return !0;
-  if (!t) return !1;
+  if (DC(e, t)) return true;
+  if (!t) return false;
   let r;
   try {
     r = new URL(e).hostname.replace(/^\[|\]$/g, "");
   } catch {
-    return !1;
+    return false;
   }
-  if (b(r) === 0) return !1;
+  if (b(r) === 0) return false;
   return t
     .split(/[,\s]+/)
     .filter(Boolean)
     .some((o) => {
       if (o.includes("/")) return yYe(r, o);
       let s = b(o);
-      if (s === 0) return !1;
+      if (s === 0) return false;
       return yYe(r, `${o}/${s === 4 ? 32 : 128}`);
     });
 }
@@ -428,8 +428,8 @@ async function a1e() {
   }
   let i = await Qh(e, {
     timeout: 30000,
-    reject: !1,
-    useToolMemoryCgroup: !1,
+    reject: false,
+    useToolMemoryCgroup: false,
     env: {
       ...process.env,
       ...(o && { CLAUDE_CODE_PROXY_URL: o }),
@@ -461,7 +461,7 @@ function GAn() {
 function Ri(e) {
   let t = process.env.API_FORCE_IDLE_TIMEOUT,
     r = e.forAnthropicAPI && !Me(t) && (e.hasBodyIdleWatchdog || bo(t)),
-    o = { ...(d().keepAliveDisabled && { keepalive: !1 }), ...(r && { timeout: !1 }) };
+    o = { ...(d().keepAliveDisabled && { keepalive: false }), ...(r && { timeout: false }) };
   if (e.forAnthropicAPI) {
     let i = a.ANTHROPIC_UNIX_SOCKET;
     if (i) return { ...o, unix: i };
@@ -484,14 +484,14 @@ function Ri(e) {
   return { ...o, ...l1e() };
 }
 var h,
-  P = !1;
+  P = false;
 function dA() {
   let e = hoe(),
     t = yh(),
     r = VAn();
   if (h !== void 0) st.interceptors.request.eject(h), (h = void 0);
   if (((st.defaults.proxy = void 0), (st.defaults.httpAgent = void 0), (st.defaults.httpsAgent = void 0), e))
-    st.defaults.proxy = !1;
+    st.defaults.proxy = false;
   if (t) {
     let o = F(t);
     (h = st.interceptors.request.use((s) => {
@@ -502,11 +502,11 @@ function dA() {
       return s;
     })),
       ue("undici").setGlobalDispatcher(ibr(t)),
-      (P = !0);
+      (P = true);
   } else {
     if (P) {
       let o = ue("undici");
-      o.setGlobalDispatcher(new o.Agent()), (P = !1);
+      o.setGlobalDispatcher(new o.Agent()), (P = false);
     }
     if (r) st.defaults.httpsAgent = r;
   }

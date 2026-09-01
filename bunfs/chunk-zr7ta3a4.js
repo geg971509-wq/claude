@@ -108,15 +108,15 @@ function _() {
   return I(h, null) ?? {};
 }
 function NHt(e) {
-  if (!ZR()) return !1;
-  if (!Mt("allow_remote_sessions")) return !1;
-  return _()[e] === !0;
+  if (!ZR()) return false;
+  if (!Mt("allow_remote_sessions")) return false;
+  return _()[e] === true;
 }
 function tJt() {
-  return ie().hasRunUltrareview === !0;
+  return ie().hasRunUltrareview === true;
 }
 function HNn(e) {
-  Ae((r) => (r.hasRunUltrareview ? r : { ...r, hasRunUltrareview: !0 }), e);
+  Ae((r) => (r.hasRunUltrareview ? r : { ...r, hasRunUltrareview: true }), e);
 }
 function C(e) {
   s("tengu_ultrareview_awareness_shown", { surface: c(e) });

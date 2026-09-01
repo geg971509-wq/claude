@@ -119,17 +119,17 @@ import "/$bunfs/root/chunk-7s7jqj2f.js";
 import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 function u(e, o) {
-  if (e !== eu) return !1;
-  if (o.options.isNonInteractiveSession) return !1;
-  if (he(o).shouldAvoidPermissionPrompts) return !1;
-  if (wt()) return !1;
-  if (eHe()) return !1;
-  if (jv(o.options.mainLoopModel, tu(o), S5e(o))) return !1;
+  if (e !== eu) return false;
+  if (o.options.isNonInteractiveSession) return false;
+  if (he(o).shouldAvoidPermissionPrompts) return false;
+  if (wt()) return false;
+  if (eHe()) return false;
+  if (jv(o.options.mainLoopModel, tu(o), S5e(o))) return false;
   return !o.session.workflowUsageConsent.isGranted() && !fqt();
 }
 async function d(e, o) {
   if ((e.grant(), fqt())) return;
-  let { error: r } = await rn("userSettings", { skipWorkflowUsageWarning: !0 }, void 0, o);
+  let { error: r } = await rn("userSettings", { skipWorkflowUsageWarning: true }, void 0, o);
   if (r) {
     n(`Failed to persist skipWorkflowUsageWarning: ${r.message}`, { level: "error" });
     return;

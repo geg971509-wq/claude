@@ -57,12 +57,12 @@ function ge({ admission: e, readChoices: n, transport: r, clock: u, bound: w, on
     },
     P = null,
     D = null,
-    A = !1,
+    A = false,
     W = null,
-    O = !1,
+    O = false,
     F = null,
     I = null,
-    z = !1;
+    z = false;
   function B(t, d) {
     if (d === "read_failed" || d === "internal_error" || d === "refused_whole") p("ccr_cloud_plugins_forward", d, x);
     (j = d), E("skipped"), s("tengu_cloud_plugins_skipped", { reason: c(d), ...x, reattach: t.reattach });
@@ -95,7 +95,7 @@ function ge({ admission: e, readChoices: n, transport: r, clock: u, bound: w, on
     return Q(() => r.post(t), Ee);
   }
   function T(t, d, o, a) {
-    A = !0;
+    A = true;
     let l = q({ subtype: "apply_flag_settings", settings: { [kK]: d.patch } }),
       N = () => ue(t, a) === "current";
     return (
@@ -114,7 +114,7 @@ function ge({ admission: e, readChoices: n, transport: r, clock: u, bound: w, on
             }),
             M !== null && N())
           )
-            (F = { reason: M, generation: a }), Y(C(t, d, null, !0));
+            (F = { reason: M, generation: a }), Y(C(t, d, null, true));
         },
       ),
       l
@@ -131,7 +131,7 @@ function ge({ admission: e, readChoices: n, transport: r, clock: u, bound: w, on
       }),
       o.refusedWhole !== void 0)
     ) {
-      Y({ forwarded: 0, forwardedDisabled: 0, loaded: null, stayed: o.dropped, notApplied: !0, messageWentFirst: !1 }),
+      Y({ forwarded: 0, forwardedDisabled: 0, loaded: null, stayed: o.dropped, notApplied: true, messageWentFirst: false }),
         B(t, "refused_whole");
       return;
     }
@@ -148,8 +148,8 @@ function ge({ admission: e, readChoices: n, transport: r, clock: u, bound: w, on
           forwardedDisabled: 0,
           loaded: null,
           stayed: o.dropped,
-          notApplied: !1,
-          messageWentFirst: !1,
+          notApplied: false,
+          messageWentFirst: false,
         });
       B(t, "nothing_to_forward");
       return;
@@ -176,7 +176,7 @@ function ge({ admission: e, readChoices: n, transport: r, clock: u, bound: w, on
   function Z(t, d, o, a) {
     if (t.handledGeneration !== null && o <= t.handledGeneration) return;
     let l = t.handledGeneration !== null;
-    (t.handledGeneration = o), (t.reloadTaken = !1), (F = Ae(o, t, F)), (O = !1);
+    (t.handledGeneration = o), (t.reloadTaken = false), (F = Ae(o, t, F)), (O = false);
     let N = () => ue(t, o),
       se = (K) => {
         s("tengu_cloud_plugins_reload", {
@@ -199,7 +199,7 @@ function ge({ admission: e, readChoices: n, transport: r, clock: u, bound: w, on
           if (!G) {
             if (V) g("ccr_cloud_plugins_forward", "session_inactive", { ...x });
             else p("ccr_cloud_plugins_forward", "posts_refused", { ...x });
-            Y(C(t, d, null, !0));
+            Y(C(t, d, null, true));
           } else if (F !== null) g("ccr_cloud_plugins_forward", "refused_by_worker", { ...x });
           else y("ccr_cloud_plugins_forward", { ...x, message_went_first: t.messageWentFirst });
           E(G ? "settled" : "failed");
@@ -218,8 +218,8 @@ function ge({ admission: e, readChoices: n, transport: r, clock: u, bound: w, on
             }),
             N() === "current" && (G || V !== null))
           ) {
-            if ((Y(C(t, d, V?.loaded ?? null, !1)), (t.messageWentFirst = !1), V !== null)) {
-              if (((t.reloadTaken = !0), F === null)) I = { generation: o, patchKey: d.patchKey };
+            if ((Y(C(t, d, V?.loaded ?? null, false)), (t.messageWentFirst = false), V !== null)) {
+              if (((t.reloadTaken = true), F === null)) I = { generation: o, patchKey: d.patchKey };
               E("settled");
             }
           }
@@ -247,13 +247,13 @@ function ge({ admission: e, readChoices: n, transport: r, clock: u, bound: w, on
   function ae(t) {
     let d = z && !(I !== null && D === I.generation);
     return (
-      (z = !1),
+      (z = false),
       {
         reattach: t,
         workerKnownAtConnect: D !== null,
-        reloadTaken: !1,
+        reloadTaken: false,
         messageWentFirst: d,
-        closed: !1,
+        closed: false,
         plan: null,
         generation: D,
         handledGeneration: null,
@@ -264,7 +264,7 @@ function ge({ admission: e, readChoices: n, transport: r, clock: u, bound: w, on
   }
   return {
     connected({ reattach: t }) {
-      if (P !== null) P.closed = !0;
+      if (P !== null) P.closed = true;
       let d = ae(t);
       P = d;
       let o = Q(e, () => "internal_error");
@@ -305,13 +305,13 @@ function ge({ admission: e, readChoices: n, transport: r, clock: u, bound: w, on
     },
     messageSent() {
       if (P === null) {
-        z = !0;
+        z = true;
         return;
       }
-      if (!P.reloadTaken && U !== "skipped" && !de(P)) P.messageWentFirst = !0;
+      if (!P.reloadTaken && U !== "skipped" && !de(P)) P.messageWentFirst = true;
     },
     disconnected() {
-      if (P !== null) (P.closed = !0), (P = null);
+      if (P !== null) (P.closed = true), (P = null);
       E("idle");
     },
     state: () => U,
@@ -432,21 +432,21 @@ function Vtt(e) {
     I = (o) => {
       (O = o), me(o, R), F();
     },
-    z = !1,
-    B = !1,
-    Y = !1,
+    z = false,
+    B = false,
+    Y = false,
     C = ge({
       admission: () => A,
       readChoices: () =>
         U().then(
-          (o) => ((z = !1), o),
+          (o) => ((z = false), o),
           (o) => {
-            throw ((z = !0), o);
+            throw ((z = true), o);
           },
         ),
       transport: {
         post(o) {
-          let { posted: a, response: l } = u.postControlRequest(o, { answerExpected: !1 });
+          let { posted: a, response: l } = u.postControlRequest(o, { answerExpected: false });
           return { posted: a.then(({ outcome: N }) => N), response: l };
         },
       },
@@ -454,7 +454,7 @@ function Vtt(e) {
       ...(e.bound !== void 0 && { bound: e.bound }),
       onNotice: (o) => {
         if (o.forwarded > o.forwardedDisabled && o.loaded !== 0 && !o.notApplied && o.refusedByWorker === void 0)
-          B = !0;
+          B = true;
         me(o, R);
       },
       onOutcome: (o) => {
@@ -462,7 +462,7 @@ function Vtt(e) {
       },
       onState: () => F(),
     }),
-    q = !1,
+    q = false,
     T = null,
     X = (o) => {
       if (D.signal.aborted) return;
@@ -485,7 +485,7 @@ function Vtt(e) {
       )
         C.messageSent();
     },
-    Z = !1,
+    Z = false,
     de = w.decided.subscribe((o) => {
       try {
         X(o);
@@ -511,10 +511,10 @@ function Vtt(e) {
       )
         return;
       if (o.source === "read_failed" || o.source === "internal_error") {
-        if ((p("ccr_cloud_plugins_forward", o.source), (W = o.source), (q = !0), F(), T !== null)) X(T);
+        if ((p("ccr_cloud_plugins_forward", o.source), (W = o.source), (q = true), F(), T !== null)) X(T);
         return;
       }
-      if (((A = o.admission), (W = o.source), C.connected({ reattach: r }), (q = !0), F(), o.unsent.length > 0))
+      if (((A = o.admission), (W = o.source), C.connected({ reattach: r }), (q = true), F(), o.unsent.length > 0))
         I(Ie(o.unsent));
       if (T !== null) X(T);
     })
@@ -540,7 +540,7 @@ function Vtt(e) {
       return { admission: "no_consent", source: "untrusted_store", unsent: [] };
     }
     if (!w.pointedToCommand.shown && T === null)
-      (w.pointedToCommand.shown = !0),
+      (w.pointedToCommand.shown = true),
         R({ line: je(l.counts.forwarded - l.counts.forwardedDisabled, l.counts.forwarded), level: "debug" });
     return { admission: "no_consent", source: "undecided", unsent: [] };
   }
@@ -554,7 +554,7 @@ function Vtt(e) {
   return {
     workerKnownUp: d(() => C.workerUp(w.generations.known(n))),
     workerCameUp: d(() => {
-      if (A === "opted_out" && B && !Y) (Y = !0), R({ line: Le, level: "notice" });
+      if (A === "opted_out" && B && !Y) (Y = true), R({ line: Le, level: "notice" });
       if ((ae(), A === "admitted" && q && z)) {
         if (((O = void 0), C.disconnected(), C.connected({ reattach: r }), Z)) C.messageSent();
       }
@@ -562,7 +562,7 @@ function Vtt(e) {
     }),
     pluginInstallFrame: d(() => C.pluginInstallFrame()),
     messageSent: d(() => {
-      (Z = !0), C.messageSent();
+      (Z = true), C.messageSent();
     }),
     teardown: d(() => {
       if (D.signal.aborted) return;
@@ -605,7 +605,7 @@ function je(e, n) {
   return `${e > 0 ? `Your ${e} enabled ${k(e, "plugin")} can be used in` : `Your ${n} plugin ${k(n, "choice")} can apply to`} your cloud sessions from this machine \u2014 run /cloud-plugins to decide (nothing is sent until you do).`;
 }
 function Ie(e) {
-  return { forwarded: 0, forwardedDisabled: 0, loaded: null, stayed: e, notApplied: !1, messageWentFirst: !1 };
+  return { forwarded: 0, forwardedDisabled: 0, loaded: null, stayed: e, notApplied: false, messageWentFirst: false };
 }
 function me(e, n) {
   Be(e).forEach(n);
@@ -971,12 +971,12 @@ function LLn(e) {
         ? te
         : n.state === "armed"
           ? Re({
-              otherWindow: n.other_window === !0,
+              otherWindow: n.other_window === true,
               firstUploadPending: n.first_upload !== void 0 && n.first_upload !== "landed",
               syncedFiles: n.synced_files ?? null,
-              uploadOnly: !1,
+              uploadOnly: false,
             })
-          : _(ke(n.state, n.reason, { fromUpload: n.started_from_upload === !0 })),
+          : _(ke(n.state, n.reason, { fromUpload: n.started_from_upload === true })),
     settings: be(e.settings),
     plugins: be(e.plugins),
   };

@@ -40,7 +40,7 @@ class x {
             };
             y.write(i, o);
             let t = y.flush();
-            yield { [h]: !0, headers: r, body: t };
+            yield { [h]: true, headers: r, body: t };
           }
           for await (let r of a) yield r;
         },
@@ -70,12 +70,12 @@ class x {
           n = t[e].body;
         if (e === "initial-response") {
           let l = await this.deserializer.read(i, n);
-          return delete l[d], { [f]: !0, ...l };
+          return delete l[d], { [f]: true, ...l };
         } else if (e in y) {
           let l = y[e];
           if (l.isStructSchema()) {
             let c = {},
-              u = !1;
+              u = false;
             for (let [s, v] of l.structIterator()) {
               let { eventHeader: g, eventPayload: w } = v.getMergedTraits();
               if (((u = u || Boolean(g || w)), w)) {
@@ -109,7 +109,7 @@ class x {
     return {
       async *[Symbol.asyncIterator]() {
         if (!r?.value?.[f]) yield r.value;
-        while (!0) {
+        while (true) {
           let { done: t, value: e } = await S.next();
           if (t) break;
           yield e;

@@ -27,7 +27,7 @@ function vDn(e) {
 }
 function RDn(e) {
   let n = H7n(e, (r) => {
-    Y("error", "dir_sync_lane_verdict_listener_threw", { verdict: e, rejected: !0, first: r });
+    Y("error", "dir_sync_lane_verdict_listener_threw", { verdict: e, rejected: true, first: r });
   });
   switch (n.kind) {
     case "delivered":

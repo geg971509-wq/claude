@@ -415,6 +415,6 @@ import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-7jz6r17g.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 async function a(m, o) {
-  return e(Qet, { toolUseContext: o, onDone: m, promptVisibleBelow: o.isMidTurn === !0 });
+  return e(Qet, { toolUseContext: o, onDone: m, promptVisibleBelow: o.isMidTurn === true });
 }
 export { a as call };

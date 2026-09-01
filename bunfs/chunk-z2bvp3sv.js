@@ -72,7 +72,7 @@ function Gqt(e, t, s, r) {
     u = a.data;
   for (let c of s) {
     let d = St(c.timestamp);
-    if (u.isSidechain === void 0) u.isSidechain = c.isSidechain === !0;
+    if (u.isSidechain === void 0) u.isSidechain = c.isSidechain === true;
     if (u.createdAt === void 0 && d !== void 0) u.createdAt = d;
     if (u.cwd === void 0) {
       let p = c.cwd;
@@ -97,8 +97,8 @@ function Gqt(e, t, s, r) {
 }
 function Tir(e, t) {
   let s = e.data;
-  if (s.isSidechain === !0) return null;
-  let r = G(s.firstPromptLocked === !0 ? s.firstPrompt : s.commandFallback) || void 0,
+  if (s.isSidechain === true) return null;
+  let r = G(s.firstPromptLocked === true ? s.firstPrompt : s.commandFallback) || void 0,
     o = G(s.customTitle) || G(s.aiTitle) || void 0,
     a = o || G(s.lastPrompt) || G(s.summaryHint) || r;
   if (!a) return null;
@@ -131,7 +131,7 @@ function kt(e, t) {
   let s = { commandFallback: e.commandFallback ?? "" },
     r = kfe(t, s);
   if (s.commandFallback && !e.commandFallback) e.commandFallback = s.commandFallback;
-  if (r !== void 0) (e.firstPrompt = r), (e.firstPromptLocked = !0);
+  if (r !== void 0) (e.firstPrompt = r), (e.firstPromptLocked = true);
 }
 class EAn {
   store = new Map();
@@ -222,7 +222,7 @@ function Ce(e) {
   return typeof e === "number";
 }
 function Pt(e) {
-  return e === !0 || e === !1 || (Mt(e) && ze(e) == "[object Boolean]");
+  return e === true || e === false || (Mt(e) && ze(e) == "[object Boolean]");
 }
 function Te(e) {
   return typeof e === "object";
@@ -292,7 +292,7 @@ function ie(e) {
 }
 function Rt(e, t) {
   let s = [],
-    r = !1,
+    r = false,
     o = (a, u, c) => {
       if (!A(a)) return;
       if (!u[c]) s.push(a);
@@ -302,23 +302,23 @@ function Rt(e, t) {
         if (!A(p)) return;
         if (c === u.length - 1 && (F(p) || Ce(p) || Pt(p))) s.push(wt(p));
         else if (B(p)) {
-          r = !0;
+          r = true;
           for (let g = 0, h = p.length; g < h; g += 1) o(p[g], u, c + 1);
         } else if (u.length) o(p, u, c + 1);
       }
     };
   return o(e, F(t) ? t.split(".") : t, 0), r ? s : s[0];
 }
-var Ut = { includeMatches: !1, findAllMatches: !1, minMatchCharLength: 1 },
+var Ut = { includeMatches: false, findAllMatches: false, minMatchCharLength: 1 },
   Et = {
-    isCaseSensitive: !1,
-    includeScore: !1,
+    isCaseSensitive: false,
+    includeScore: false,
     keys: [],
-    shouldSort: !0,
+    shouldSort: true,
     sortFn: (e, t) => (e.score === t.score ? (e.idx < t.idx ? -1 : 1) : e.score < t.score ? -1 : 1),
   },
   At = { location: 0, threshold: 0.6, distance: 100 },
-  Ot = { useExtendedSearch: !1, getFn: Rt, ignoreLocation: !1, ignoreFieldNorm: !1, fieldNormWeight: 1 },
+  Ot = { useExtendedSearch: false, getFn: Rt, ignoreLocation: false, ignoreFieldNorm: false, fieldNormWeight: 1 },
   y = { ...Et, ...Ut, ...At, ...Ot },
   Kt = /[^ ]+/g;
 function Ht(e = 1, t = 3) {
@@ -339,7 +339,7 @@ function Ht(e = 1, t = 3) {
 }
 class ee {
   constructor({ getFn: e = y.getFn, fieldNormWeight: t = y.fieldNormWeight } = {}) {
-    (this.norm = Ht(t, 3)), (this.getFn = e), (this.isCreated = !1), this.setIndexRecords();
+    (this.norm = Ht(t, 3)), (this.getFn = e), (this.isCreated = false), this.setIndexRecords();
   }
   setSources(e = []) {
     this.docs = e;
@@ -356,7 +356,7 @@ class ee {
   }
   create() {
     if (this.isCreated || !this.docs.length) return;
-    if (((this.isCreated = !0), F(this.docs[0])))
+    if (((this.isCreated = true), F(this.docs[0])))
       this.docs.forEach((e, t) => {
         this._addString(e, t);
       });
@@ -527,7 +527,7 @@ function jt(
   let U = { isMatch: C >= 0, score: Math.max(0.001, _) };
   if (z) {
     let w = Nt(D, c);
-    if (!w.length) U.isMatch = !1;
+    if (!w.length) U.isMatch = false;
     else if (d) U.indices = w;
   }
   return U;
@@ -589,7 +589,7 @@ class ge {
     let { isCaseSensitive: t, includeMatches: s } = this.options;
     if (!t) e = e.toLowerCase();
     if (this.pattern === e) {
-      let k = { isMatch: !0, score: 0 };
+      let k = { isMatch: true, score: 0 };
       if (s) k.indices = [[0, e.length - 1]];
       return k;
     }
@@ -603,7 +603,7 @@ class ge {
       } = this.options,
       p = [],
       g = 0,
-      h = !1;
+      h = false;
     this.chunks.forEach(({ pattern: k, alphabet: C, startIndex: z }) => {
       let {
         isMatch: D,
@@ -618,7 +618,7 @@ class ge {
         includeMatches: s,
         ignoreLocation: d,
       });
-      if (D) h = !0;
+      if (D) h = true;
       if (((g += L), D && E)) p = [...p, ...E];
     });
     let b = { isMatch: h, score: h ? g / this.chunks.length : 1 };
@@ -825,12 +825,12 @@ function Wt(e, t = {}) {
       o = [];
     for (let a = 0, u = r.length; a < u; a += 1) {
       let c = r[a],
-        d = !1,
+        d = false,
         p = -1;
       while (!d && ++p < Me) {
         let g = ae[p],
           h = g.isMultiMatch(c);
-        if (h) o.push(new g(h, t)), (d = !0);
+        if (h) o.push(new g(h, t)), (d = true);
       }
       if (d) continue;
       p = -1;
@@ -880,7 +880,7 @@ class Fe {
   }
   searchIn(e) {
     let t = this.query;
-    if (!t) return { isMatch: !1, score: 1 };
+    if (!t) return { isMatch: false, score: 1 };
     let { includeMatches: s, isCaseSensitive: r } = this.options;
     e = r ? e : e.toLowerCase();
     let o = 0,
@@ -904,12 +904,12 @@ class Fe {
         }
       }
       if (o) {
-        let g = { isMatch: !0, score: u / o };
+        let g = { isMatch: true, score: u / o };
         if (s) g.indices = a;
         return g;
       }
     }
-    return { isMatch: !1, score: 1 };
+    return { isMatch: false, score: 1 };
   }
 }
 var le = [];
@@ -929,7 +929,7 @@ var J = { AND: "$and", OR: "$or" },
   Yt = (e) => !!e[pe.PATH],
   Vt = (e) => !B(e) && Te(e) && !de(e),
   Ie = (e) => ({ [J.AND]: Object.keys(e).map((t) => ({ [t]: e[t] })) });
-function Be(e, t, { auto: s = !0 } = {}) {
+function Be(e, t, { auto: s = true } = {}) {
   let r = (o) => {
     let a = Object.keys(o),
       u = Yt(o);
@@ -1013,7 +1013,7 @@ class Z3 {
     if (!A(e)) return;
     this._docs.push(e), this._myIndex.add(e);
   }
-  remove(e = () => !1) {
+  remove(e = () => false) {
     let t = [];
     for (let s = 0, r = this._docs.length; s < r; s += 1) {
       let o = this._docs[s];
@@ -1151,7 +1151,7 @@ class iYe {
       };
     });
     this.fuse = new Z3(t, {
-      includeScore: !0,
+      includeScore: true,
       threshold: 0.3,
       location: 0,
       distance: 100,
@@ -1266,19 +1266,19 @@ class lCe {
       let d = e[c];
       if (d.length > 0 && !r.has(d)) r.add(d), o.push(d);
       if ((c & 255) === 255 && performance.now() - a > sYe) {
-        if ((await gP(), this.buildGen !== s)) return t(), !1;
+        if ((await gP(), this.buildGen !== s)) return t(), false;
         a = performance.now();
       }
     }
     this.resetArrays(o), (a = performance.now());
-    let u = !0;
+    let u = true;
     for (let c = 0; c < o.length; c++)
       if ((this.indexPath(c), (c & 255) === 255 && performance.now() - a > sYe)) {
-        if (((this.readyCount = c + 1), u)) t(), (u = !1);
-        if ((await gP(), this.buildGen !== s)) return !1;
+        if (((this.readyCount = c + 1), u)) t(), (u = false);
+        if ((await gP(), this.buildGen !== s)) return false;
         a = performance.now();
       }
-    return (this.readyCount = o.length), t(), !0;
+    return (this.readyCount = o.length), t(), true;
   }
   buildIndex(e) {
     this.buildGen++, this.resetArrays(e);
@@ -1350,8 +1350,8 @@ class lCe {
       let T = g[_],
         j = k[_],
         P = o * $e + w - U;
-      P += Ge(T, z[0], !0);
-      for (let S = 1; S < o; S++) P += Ge(T, z[S], !1);
+      P += Ge(T, z[0], true);
+      for (let S = 1; S < o; S++) P += Ge(T, z[S], false);
       if (((P += Math.max(0, 32 - (j >> 2))), d.length < t)) {
         if ((d.push({ pathIndex: _, fuzzScore: P }), d.length === t))
           d.sort((S, O) => S.fuzzScore - O.fuzzScore), (p = d[0].fuzzScore);
@@ -1780,27 +1780,27 @@ var ws =
     /(?:official[^a-z0-9]*(anthropic|claude)|(?:anthropic|claude)[^a-z0-9]*official|^(?:anthropic|claude)[^a-z0-9]*(marketplace|plugins|official))/i,
   Ps = /[^\u0020-\u007E]/;
 function vAn(e) {
-  if (goe.has(e.toLowerCase())) return !1;
-  if (Ps.test(e)) return !0;
+  if (goe.has(e.toLowerCase())) return false;
+  if (Ps.test(e)) return true;
   return ws.test(e);
 }
 var te = "anthropics",
   Ms = new Set(["https:", "http:", "git:", "git+https:", "git+http:", "git+ssh:", "ssh:"]);
 function Is(e) {
   let t = e.trim();
-  if (ffe(t)) return !1;
+  if (ffe(t)) return false;
   let s = /^git@([^:]+):anthropics\/(.+)$/i.exec(t);
   if (s) {
-    if (!qo(s[1] ?? "")) return !1;
+    if (!qo(s[1] ?? "")) return false;
     return !(s[2] ?? "").split("/").includes("..");
   }
   try {
     let r = new URL(t);
-    if (!Ms.has(r.protocol.toLowerCase())) return !1;
-    if (r.pathname.split("/").includes("..")) return !1;
+    if (!Ms.has(r.protocol.toLowerCase())) return false;
+    if (r.pathname.split("/").includes("..")) return false;
     return qo(r.hostname) && r.pathname.toLowerCase().startsWith("/anthropics/");
   } catch {
-    return !1;
+    return false;
   }
 }
 function uCe(e, t) {
@@ -2165,8 +2165,8 @@ var ut = m(() =>
         .min(1)
         .refine(
           (e) => {
-            if (e.includes(" ") && !e.startsWith("/")) return !1;
-            return !0;
+            if (e.includes(" ") && !e.startsWith("/")) return false;
+            return true;
           },
           { message: "Command should not contain spaces. Use args array for arguments." },
         )
@@ -2462,12 +2462,12 @@ var jpe = m(() =>
 function PTt(e) {
   let t = e.toLowerCase().replace(/^\[|\]$/g, "");
   if (t.endsWith(".")) t = t.slice(0, -1);
-  if (t === "" || t === "localhost" || t.endsWith(".localhost")) return !0;
+  if (t === "" || t === "localhost" || t.endsWith(".localhost")) return true;
   if (ks(t)) {
     let [a = 0, u = 0, c = 0, d = 0] = t.split(".").map(Number);
     return a === 127 || (a === 169 && u === 254) || a === 0 || (a === 100 && u === 100 && c === 100 && d === 200);
   }
-  if (!xs(t)) return !1;
+  if (!xs(t)) return false;
   let s = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/.exec(t);
   if (s?.[1]) return PTt(s[1]);
   let r = /^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/.exec(t);
@@ -2476,7 +2476,7 @@ function PTt(e) {
       u = parseInt(r[2], 16);
     return PTt(`${a >> 8}.${a & 255}.${u >> 8}.${u & 255}`);
   }
-  if (t === "::1" || t === "::" || t === "fd00:ec2::254") return !0;
+  if (t === "::1" || t === "::" || t === "fd00:ec2::254") return true;
   let o = parseInt(/^([0-9a-f]{1,4}):/.exec(t)?.[1] ?? "0", 16);
   return o >= 65152 && o <= 65215;
 }
@@ -2486,7 +2486,7 @@ function Qqt(e) {
     let t = new URL(e);
     return t.protocol === "https:" && !PTt(t.hostname);
   } catch {
-    return !1;
+    return false;
   }
 }
 var Qs = m(() =>
@@ -2699,7 +2699,7 @@ var Zqt = m(() =>
         tags: H(i()).optional().describe("Tags for searchability and discovery"),
         strict: q()
           .optional()
-          .default(!0)
+          .default(true)
           .describe(
             "Require the plugin manifest to be present in the plugin folder. If false, the marketplace entry provides the manifest.",
           ),
@@ -2724,16 +2724,16 @@ function en(e) {
     if (a) {
       n(`Stubbing unparseable marketplace plugin entry (${a}): ${u}`, { level: "warn" });
       let c = nGt(He(s) ? s.source : void 0) ? ln : kAn(s) ? void 0 : (sn(o.error.issues) ?? tGt(o.error.issues));
-      return [{ name: a, source: { source: "unsupported", ...(c && { error: c }) }, strict: !0 }];
+      return [{ name: a, source: { source: "unsupported", ...(c && { error: c }) }, strict: true }];
     }
     return n(`Dropping unparseable marketplace plugin entry (index ${r}): ${u}`, { level: "warn" }), [];
   });
 }
 var tn = new Set(["npm", "url", "github", "git-subdir", "archive", "command", "unsupported"]);
 function kAn(e) {
-  if (!e || typeof e !== "object") return !1;
+  if (!e || typeof e !== "object") return false;
   let t = e.source;
-  if (!t || typeof t !== "object") return !1;
+  if (!t || typeof t !== "object") return false;
   let s = t.source;
   return typeof s === "string" && !tn.has(s);
 }

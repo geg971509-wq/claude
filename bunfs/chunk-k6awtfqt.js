@@ -370,7 +370,7 @@ import { d } from "/$bunfs/root/chunk-yz031c9r.js";
 F();
 F();
 function gt(n) {
-  if (!n || typeof n !== "object") return !1;
+  if (!n || typeof n !== "object") return false;
   let s = n,
     i = typeof s.filePath === "string",
     l = Array.isArray(s.structuredPatch) && s.structuredPatch.length > 0,
@@ -443,7 +443,7 @@ function pe(n) {
             let { added: N, removed: p } = Tt(v);
             (m.linesAdded += N), (m.linesRemoved += p);
           }
-          if (j) m.isNewFile = !0;
+          if (j) m.isNewFile = true;
         }
       }
     }
@@ -493,7 +493,7 @@ function ue(wn) {
     he = o;
     I = "column";
     if (Z[17] !== Se || Z[18] !== ee || Z[19] !== G)
-      (ae = ee && e(t, { dimColor: !0, children: Se ? ` \u2191 ${G} more ${k(G, "file")}` : " " })),
+      (ae = ee && e(t, { dimColor: true, children: Se ? ` \u2191 ${G} more ${k(G, "file")}` : " " })),
         (Z[17] = Se),
         (Z[18] = ee),
         (Z[19] = G),
@@ -522,7 +522,7 @@ function ue(wn) {
   } else (he = Z[11]), (ge = Z[12]), (ee = Z[13]), (I = Z[14]), (ae = Z[15]), (ye = Z[16]);
   let te;
   if (Z[25] !== K || Z[26] !== P.length || Z[27] !== ge || Z[28] !== ee)
-    (te = ee && e(t, { dimColor: !0, children: ge ? ` \u2193 ${P.length - K} more ${k(P.length - K, "file")}` : " " })),
+    (te = ee && e(t, { dimColor: true, children: ge ? ` \u2193 ${P.length - K} more ${k(P.length - K, "file")}` : " " })),
       (Z[25] = K),
       (Z[26] = P.length),
       (Z[27] = ge),
@@ -576,21 +576,21 @@ function Pe(Mn) {
   if (B.isUntracked) {
     const b = !Y;
     let W;
-    if (oe[0] !== b) (W = e(t, { dimColor: b, italic: !0, children: "untracked" })), (oe[0] = b), (oe[1] = W);
+    if (oe[0] !== b) (W = e(t, { dimColor: b, italic: true, children: "untracked" })), (oe[0] = b), (oe[1] = W);
     else W = oe[1];
     return W;
   }
   if (B.isBinary) {
     const b = !Y;
     let W;
-    if (oe[2] !== b) (W = e(t, { dimColor: b, italic: !0, children: "Binary file" })), (oe[2] = b), (oe[3] = W);
+    if (oe[2] !== b) (W = e(t, { dimColor: b, italic: true, children: "Binary file" })), (oe[2] = b), (oe[3] = W);
     else W = oe[3];
     return W;
   }
   if (B.isLargeFile) {
     const b = !Y;
     let W;
-    if (oe[4] !== b) (W = e(t, { dimColor: b, italic: !0, children: "Large file modified" })), (oe[4] = b), (oe[5] = W);
+    if (oe[4] !== b) (W = e(t, { dimColor: b, italic: true, children: "Large file modified" })), (oe[4] = b), (oe[5] = W);
     else W = oe[5];
     return W;
   }
@@ -626,9 +626,9 @@ function st(n) {
         path: l.filePath,
         linesAdded: l.linesAdded,
         linesRemoved: l.linesRemoved,
-        isBinary: !1,
-        isLargeFile: !1,
-        isTruncated: !1,
+        isBinary: false,
+        isLargeFile: false,
+        isTruncated: false,
         isNewFile: l.isNewFile,
       }))
       .sort((l, T) => l.path.localeCompare(T.path)),
@@ -638,7 +638,7 @@ function st(n) {
     stats: { filesCount: n.stats.filesChanged, linesAdded: n.stats.linesAdded, linesRemoved: n.stats.linesRemoved },
     files: s,
     hunks: i,
-    loading: !1,
+    loading: false,
     source: { kind: "working-tree" },
     baseMode: "auto",
   };
@@ -705,7 +705,7 @@ function un(_n) {
     (Ot = function w(nr) {
       let q = Ke?.handle;
       if (f !== "detail" || !q) {
-        return !1;
+        return false;
       }
       let St = Math.max(1, Math.floor(q.getViewportHeight() / 2));
       let zt = Math.max(1, q.getViewportHeight());
@@ -719,19 +719,19 @@ function un(_n) {
           break bb49;
         }
         case "pageUp": {
-          KU(q, -St, !1);
+          KU(q, -St, false);
           break bb49;
         }
         case "pageDown": {
-          KU(q, St, !1);
+          KU(q, St, false);
           break bb49;
         }
         case "fullPageUp": {
-          KU(q, -zt, !1);
+          KU(q, -zt, false);
           break bb49;
         }
         case "fullPageDown": {
-          KU(q, zt, !1);
+          KU(q, zt, false);
           break bb49;
         }
         case "top": {
@@ -845,7 +845,7 @@ function un(_n) {
   if (h[44] !== a.stats)
     (en = a.stats
       ? r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             a.stats.filesCount,
             " ",
@@ -861,7 +861,7 @@ function un(_n) {
       (h[45] = en);
   else en = h[45];
   let Xe = en,
-    tn = !S && a.noCommits === !0,
+    tn = !S && a.noCommits === true,
     ar = !S && a.source.kind === "branch",
     _e = S ? `Turn ${S.turnIndex}` : tn ? "Staged and new files" : ar ? "Branch changes" : "Uncommitted changes",
     we = S
@@ -891,7 +891,7 @@ function un(_n) {
   }
   let et = ce,
     ve;
-  if (h[46] !== we) (ve = we && r(t, { dimColor: !0, children: [" ", we] })), (h[46] = we), (h[47] = ve);
+  if (h[46] !== we) (ve = we && r(t, { dimColor: true, children: [" ", we] })), (h[46] = we), (h[47] = ve);
   else ve = h[47];
   let nn;
   if (h[48] !== _e || h[49] !== ve) (nn = r(t, { children: [_e, ve] })), (h[48] = _e), (h[49] = ve), (h[50] = nn);
@@ -919,8 +919,8 @@ function un(_n) {
     (Re =
       a.files.length === 0
         ? a.loading
-          ? e(rr, { message: "Loading diff\u2026", dimColor: !0 })
-          : e(t, { dimColor: !0, children: et })
+          ? e(rr, { message: "Loading diff\u2026", dimColor: true })
+          : e(t, { dimColor: true, children: et })
         : f === "list"
           ? e(o, { flexDirection: "column", children: e(ue, { files: a.files, selectedIndex: be }) })
           : e(o, {

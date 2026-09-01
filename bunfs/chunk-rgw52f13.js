@@ -103,27 +103,27 @@ function ut(e) {
 async function psr(e) {
   try {
     let o = (await le().stat(e)).size;
-    if (o === 0) return { success: !1, error: { reason: "empty", message: `PDF file is empty: ${e}` } };
+    if (o === 0) return { success: false, error: { reason: "empty", message: `PDF file is empty: ${e}` } };
     if (o > GEt)
       return {
-        success: !1,
+        success: false,
         error: { reason: "too_large", message: `PDF file exceeds maximum allowed size of ${Ft(GEt)}.` },
       };
     let i = await at(e);
     if (!i.subarray(0, 5).toString("ascii").startsWith("%PDF-"))
       return {
-        success: !1,
+        success: false,
         error: { reason: "corrupted", message: `File is not a valid PDF (missing %PDF- header): ${e}` },
       };
     let a = i.toString("base64");
-    return { success: !0, data: { type: "pdf", file: { filePath: e, base64: a, originalSize: o } } };
+    return { success: true, data: { type: "pdf", file: { filePath: e, base64: a, originalSize: o } } };
   } catch (t) {
     if (Zd(t)) throw t;
-    return { success: !1, error: { reason: "unknown", message: l(t), category: ne(t), site: "read" } };
+    return { success: false, error: { reason: "unknown", message: l(t), category: ne(t), site: "read" } };
   }
 }
 async function mzt(e) {
-  let { code: t, stdout: r } = await $e("pdfinfo", [e], { timeout: 1e4, useCwd: !1 });
+  let { code: t, stdout: r } = await $e("pdfinfo", [e], { timeout: 1e4, useCwd: false });
   if (t !== 0) return null;
   let o = /^Pages:\s+(\d+)/m.exec(r);
   if (!o) return null;
@@ -137,7 +137,7 @@ function oe(e) {
 class we {
   available = void 0;
   markAvailable() {
-    this.available = !0;
+    this.available = true;
   }
   reset() {
     this.available = void 0;
@@ -150,7 +150,7 @@ function dt() {
 async function pt() {
   let e = dt();
   if (e.available !== void 0) return e.available;
-  let { code: t, stderr: r } = await $e("pdftoppm", ["-v"], { timeout: 5000, useCwd: !1 }),
+  let { code: t, stderr: r } = await $e("pdftoppm", ["-v"], { timeout: 5000, useCwd: false }),
     o = t === 0 || (t !== 127 && r.length > 0);
   if (o) e.markAvailable();
   return o;
@@ -160,12 +160,12 @@ async function avn(e, t, r) {
     let o = await ot(e, oe("darwin")),
       i = await o.stat().finally(() => o.close());
     if (!i.isFile())
-      return { success: !1, error: { reason: "corrupted", message: `Path is not a regular file: ${e}` } };
+      return { success: false, error: { reason: "corrupted", message: `Path is not a regular file: ${e}` } };
     let s = i.size;
-    if (s === 0) return { success: !1, error: { reason: "empty", message: `PDF file is empty: ${e}` } };
+    if (s === 0) return { success: false, error: { reason: "empty", message: `PDF file is empty: ${e}` } };
     if (s > zEt)
       return {
-        success: !1,
+        success: false,
         error: {
           reason: "too_large",
           message: `PDF file exceeds maximum allowed size for text extraction (${Ft(zEt)}).`,
@@ -173,7 +173,7 @@ async function avn(e, t, r) {
       };
     if (!(await pt()))
       return {
-        success: !1,
+        success: false,
         error: {
           reason: "unavailable",
           message:
@@ -183,17 +183,17 @@ async function avn(e, t, r) {
     let u = rt(),
       b = he(I_(), `pdf-${u}`),
       m = r === void 0 ? void 0 : be(b);
-    await nt(b, { recursive: !0 });
+    await nt(b, { recursive: true });
     let w = he(b, "page"),
       d = ["-jpeg", "-r", "100"];
     if (t?.firstPage) d.push("-f", String(t.firstPage));
     if (t?.lastPage && t.lastPage !== 1 / 0) d.push("-l", String(t.lastPage));
     d.push(e, w);
-    let { code: c, stderr: f, exitCode: x } = await $e("pdftoppm", d, { timeout: 120000, useCwd: !1 });
+    let { code: c, stderr: f, exitCode: x } = await $e("pdftoppm", d, { timeout: 120000, useCwd: false });
     if (c !== 0) {
       if (/password/i.test(f))
         return {
-          success: !1,
+          success: false,
           error: {
             reason: "password_protected",
             message: "PDF is password-protected. Please provide an unprotected version.",
@@ -204,12 +204,12 @@ async function avn(e, t, r) {
         let A = Number(D[1]);
         if (A === 0)
           return {
-            success: !1,
+            success: false,
             error: { reason: "corrupted", message: "PDF reports 0 pages (empty page tree). The PDF may be invalid." },
           };
         let Ye = Math.min(A, koe);
         return {
-          success: !1,
+          success: false,
           error: {
             reason: "page_out_of_range",
             message: `Requested ${ut(t)} is outside the document (PDF has ${A} ${k(A, "page")}). Use a range within 1-${A}, maximum ${koe} pages per request (e.g. pages: "1-${Ye}").`,
@@ -218,7 +218,7 @@ async function avn(e, t, r) {
       }
       let re = /Syntax Error(?: \(\d+\))?: Couldn't (?:find trailer dictionary|read xref table)/i;
       if (/damaged|corrupt|invalid/i.test(f) || re.test(f))
-        return { success: !1, error: { reason: "corrupted", message: "PDF file is corrupted or invalid." } };
+        return { success: false, error: { reason: "corrupted", message: "PDF file is corrupted or invalid." } };
       let de = f.split(`
 `),
         z = de[0] ?? "";
@@ -226,9 +226,9 @@ async function avn(e, t, r) {
         ((z.startsWith("I/O Error: ") && z.includes(`'${e}'`)) || z.startsWith("Permission Error: ")) &&
         !de.some((A) => /^(Command Line Error|Internal Error)(?: \(\d+\))?: /.test(A))
       )
-        return { success: !1, error: { reason: "pdftoppm_input_error", message: `Could not render PDF: ${z}` } };
+        return { success: false, error: { reason: "pdftoppm_input_error", message: `Could not render PDF: ${z}` } };
       return {
-        success: !1,
+        success: false,
         error: { reason: "unknown", message: `pdftoppm failed: ${f}`, category: gt(f), site: "extract", exitCode: x },
       };
     }
@@ -237,7 +237,7 @@ async function avn(e, t, r) {
       let D = await lvn(r, b, m);
       if (!D.ok)
         return {
-          success: !1,
+          success: false,
           error: {
             reason: "unknown",
             message: `Failed to list extracted PDF pages: ${D.code}`,
@@ -247,7 +247,7 @@ async function avn(e, t, r) {
         };
       if (D.names.length === 0 && !D.directoryExists)
         return {
-          success: !1,
+          success: false,
           error: {
             reason: "unknown",
             message: `Extraction directory missing after pdftoppm ran: ${b}`,
@@ -259,12 +259,12 @@ async function avn(e, t, r) {
     } else _ = (await st(b)).filter((re) => re.endsWith(".jpg")).sort();
     if (_.length === 0)
       return {
-        success: !1,
+        success: false,
         error: { reason: "corrupted", message: "pdftoppm produced no output pages. The PDF may be invalid." },
       };
     let I = _.length;
     return {
-      success: !0,
+      success: true,
       data: {
         type: "parts",
         file: { filePath: e, originalSize: s, outputDir: b, count: I },
@@ -274,7 +274,7 @@ async function avn(e, t, r) {
   } catch (o) {
     let i = o && typeof o === "object" && "path" in o ? o.path : void 0;
     if (Zd(o) && (i === e || i === void 0)) throw o;
-    return { success: !1, error: { reason: "unknown", message: l(o), category: ne(o), site: "extract" } };
+    return { success: false, error: { reason: "unknown", message: l(o), category: ne(o), site: "extract" } };
   }
 }
 var mt = [
@@ -312,7 +312,7 @@ async function lvn(e, t, r) {
       (w) =>
         e.listEntries(
           { namespace: "sidecar", projectKey: i, sessionId: s, relPath: a },
-          { cursor: w, skipKeyStats: !0, skipScopeStats: !0 },
+          { cursor: w, skipKeyStats: true, skipScopeStats: true },
         ),
       (w) => {
         for (let d of w) {
@@ -328,20 +328,20 @@ async function lvn(e, t, r) {
     case "done":
       break;
     case "error":
-      return { ok: !1, code: b.error.code };
+      return { ok: false, code: b.error.code };
     case "capped":
-      return { ok: !1, code: ye };
+      return { ok: false, code: ye };
   }
   u.sort();
-  let m = !0;
+  let m = true;
   if (u.length === 0) {
-    m = !1;
+    m = false;
     let w = a.at(-1),
       d = await Ao(
         (c) =>
           e.listEntries(
             { namespace: "sidecar", projectKey: i, sessionId: s, relPath: a.slice(0, -1) },
-            { suffix: w, cursor: c, skipScopeStats: !0 },
+            { suffix: w, cursor: c, skipScopeStats: true },
           ),
         (c) => {
           m ||= c.some(
@@ -358,15 +358,15 @@ async function lvn(e, t, r) {
       case "done":
         break;
       case "error":
-        return { ok: !1, code: d.error.code };
+        return { ok: false, code: d.error.code };
       case "capped":
-        return { ok: !1, code: ye };
+        return { ok: false, code: ye };
     }
   }
-  return { ok: !0, names: u, directoryExists: m, scope: o };
+  return { ok: true, names: u, directoryExists: m, scope: o };
 }
 async function bP(e, t, r) {
-  let o = r?.fromTail === !0 ? "unreadable" : null,
+  let o = r?.fromTail === true ? "unreadable" : null,
     i;
   try {
     let s = r?.noFollow ? (ht.O_NOFOLLOW ?? 0) : 0;
@@ -383,31 +383,31 @@ async function bP(e, t, r) {
       }
       if (!r.verifyHandlePath(d)) return o;
     }
-    if (r?.fromTail === !0) {
+    if (r?.fromTail === true) {
       let d = a.size > t ? a.size - t : 0,
         c = Buffer.alloc(a.size - d),
         f = await _e(i, c, d),
         x = ie(c.subarray(0, f), r.sniffEncoding);
-      if (d === 0) return { content: x, truncated: !1 };
+      if (d === 0) return { content: x, truncated: false };
       let _ = x.indexOf(`
 `);
-      return { content: _ === -1 ? "" : x.slice(_ + 1), truncated: !0 };
+      return { content: _ === -1 ? "" : x.slice(_ + 1), truncated: true };
     }
     let u = Math.min(a.size, t + 1),
       b = Buffer.alloc(u),
       m = await _e(i, b, 0);
-    if (r?.sniffEncoding === !0) {
+    if (r?.sniffEncoding === true) {
       let d = a.size > t ? Math.min(m, t) : m,
         c = b.subarray(0, d),
-        f = ie(c, !0),
+        f = ie(c, true),
         x = a.size > t,
         _ = x
           ? `${f}
 \u2026[truncated at ${t} bytes of ${a.size} bytes]`
           : f;
-      return r.withBytes === !0 ? { content: _, bytes: c, truncated: x } : _;
+      return r.withBytes === true ? { content: _, bytes: c, truncated: x } : _;
     }
-    let w = ie(b.subarray(0, m), !1);
+    let w = ie(b.subarray(0, m), false);
     return w.length > t
       ? `${w.slice(0, t)}
 \u2026[truncated at ${t} chars of ${a.size} bytes]`
@@ -434,7 +434,7 @@ async function _e(e, t, r) {
   return o;
 }
 function ie(e, t) {
-  if (t !== !0) return e.toString("utf8");
+  if (t !== true) return e.toString("utf8");
   if (e.length >= 2 && e[0] === 255 && e[1] === 254) return e.subarray(2).toString("utf16le");
   if (e.length >= 3 && e[0] === 239 && e[1] === 187 && e[2] === 191) return e.subarray(3).toString("utf8");
   let r = e.subarray(0, Math.min(e.length, 512)),
@@ -450,37 +450,37 @@ function ie(e, t) {
 import { dirname as fe, isAbsolute as ar, join as v, relative as lr, resolve as W, sep as V } from "path";
 var Re = {
   ccr: {
-    controlChannel: !0,
-    modelCatalog: !0,
-    setPermissionMode: !0,
-    fanout: !0,
-    presence: !0,
-    catchupReplay: !0,
-    bashExec: !0,
-    fileRead: !0,
+    controlChannel: true,
+    modelCatalog: true,
+    setPermissionMode: true,
+    fanout: true,
+    presence: true,
+    catchupReplay: true,
+    bashExec: true,
+    fileRead: true,
   },
   ssh: {
-    controlChannel: !0,
-    modelCatalog: !0,
-    setPermissionMode: !0,
-    fanout: !1,
-    presence: !1,
-    catchupReplay: !1,
-    bashExec: !1,
-    fileRead: !0,
+    controlChannel: true,
+    modelCatalog: true,
+    setPermissionMode: true,
+    fanout: false,
+    presence: false,
+    catchupReplay: false,
+    bashExec: false,
+    fileRead: true,
   },
   direct: {
-    controlChannel: !1,
-    modelCatalog: !1,
-    setPermissionMode: !1,
-    fanout: !1,
-    presence: !1,
-    catchupReplay: !1,
-    bashExec: !1,
-    fileRead: !1,
+    controlChannel: false,
+    modelCatalog: false,
+    setPermissionMode: false,
+    fanout: false,
+    presence: false,
+    catchupReplay: false,
+    bashExec: false,
+    fileRead: false,
   },
 };
-var azt = { isRemoteMode: !1 };
+var azt = { isRemoteMode: false };
 function Gr() {
   return RR().remote;
 }
@@ -490,10 +490,10 @@ function sn() {
 }
 function ba() {
   let e = Gr();
-  return e?.caps?.controlChannel === !0 && !e.viewerOnly;
+  return e?.caps?.controlChannel === true && !e.viewerOnly;
 }
 function zT(e) {
-  return Gr()?.caps?.[e] === !0;
+  return Gr()?.caps?.[e] === true;
 }
 function lzt(e, t) {
   return t && !(e.isRemoteMode && e.viewerOnly);
@@ -505,7 +505,7 @@ function czt(e, t, r, o) {
   if (!t.isRemoteMode) return azt;
   return {
     kind: e,
-    isRemoteMode: !0,
+    isRemoteMode: true,
     viewerOnly: r,
     caps: Re[e],
     sessionId: o,
@@ -633,7 +633,7 @@ function xe(e) {
     r = 0;
   for (let o = 0; o < t; o++) {
     let i = e[o];
-    if (i === 0) return !0;
+    if (i === 0) return true;
     if (i < 32 && i !== 9 && i !== 10 && i !== 13) r++;
   }
   return r / t > 0.1;
@@ -651,7 +651,7 @@ async function ZYe(e, t, r, o) {
         if (w === 0) break;
         u += w;
       }
-      let b = !1;
+      let b = false;
       if (u === 1e6) {
         let w = Buffer.allocUnsafe(1),
           { bytesRead: d } = await i.read(w, 0, 1, u);
@@ -676,7 +676,7 @@ function se(e, t, r, o) {
 `),
     s = t.toLowerCase(),
     a = o.toLowerCase(),
-    u = !1;
+    u = false;
   for (let b of i) {
     let m = b.trim();
     if (m.length === 0 || m[0] === "#" || m[0] === ";") continue;
@@ -704,7 +704,7 @@ function xt(e) {
 }
 function Et(e, t) {
   let r = "",
-    o = !1,
+    o = false,
     i = t;
   while (i < e.length) {
     let s = e[i];
@@ -758,10 +758,10 @@ function Pt(e) {
 function Ct(e, t, r) {
   let o = 1;
   while (o < e.length && e[o] !== "]" && e[o] !== " " && e[o] !== "\t" && e[o] !== '"') o++;
-  if (e.slice(1, o).toLowerCase() !== t) return !1;
+  if (e.slice(1, o).toLowerCase() !== t) return false;
   if (r === null) return o < e.length && e[o] === "]";
   while (o < e.length && (e[o] === " " || e[o] === "\t")) o++;
-  if (o >= e.length || e[o] !== '"') return !1;
+  if (o >= e.length || e[o] !== '"') return false;
   o++;
   let s = "";
   while (o < e.length && e[o] !== '"') {
@@ -776,8 +776,8 @@ function Ct(e, t, r) {
     }
     (s += e[o]), o++;
   }
-  if (o >= e.length || e[o] !== '"') return !1;
-  if ((o++, o >= e.length || e[o] !== "]")) return !1;
+  if (o >= e.length || e[o] !== '"') return false;
+  if ((o++, o >= e.length || e[o] !== "]")) return false;
   return s === r;
 }
 function Dt(e) {
@@ -829,15 +829,15 @@ function ve(e, t) {
     let r = Ie(e);
     if (r.isSymbolicLink()) {
       let o = uvn(e);
-      if (o === null) return !1;
-      if (Sc(o, t)) return !1;
-      if (P_(o, t)) return !1;
+      if (o === null) return false;
+      if (Sc(o, t)) return false;
+      if (P_(o, t)) return false;
       let i = Fe(e);
       return i.isDirectory() || i.isFile();
     }
     return r.isDirectory() || r.isFile();
   } catch {
-    return !1;
+    return false;
   }
 }
 function Ae(e) {
@@ -849,14 +849,14 @@ function Ae(e) {
   while (r !== o) {
     let s = P(r, ".git");
     if ((i++, ve(s, r)))
-      return Y("info", "find_git_root_completed", { duration_ms: Date.now() - t, stat_count: i, found: !0 }), tr(r);
+      return Y("info", "find_git_root_completed", { duration_ms: Date.now() - t, stat_count: i, found: true }), tr(r);
     let a = H(r);
     if (a === r) break;
     r = a;
   }
   if ((i++, ve(P(o, ".git"), o)))
-    return Y("info", "find_git_root_completed", { duration_ms: Date.now() - t, stat_count: i, found: !0 }), tr(o);
-  return Y("info", "find_git_root_completed", { duration_ms: Date.now() - t, stat_count: i, found: !1 }), f0;
+    return Y("info", "find_git_root_completed", { duration_ms: Date.now() - t, stat_count: i, found: true }), tr(o);
+  return Y("info", "find_git_root_completed", { duration_ms: Date.now() - t, stat_count: i, found: false }), f0;
 }
 function Hn(e) {
   let t = rU(vd().rootByPath, e, Ae);
@@ -870,7 +870,7 @@ async function hzt(e, t) {
   let r = M(t),
     o = r.substring(0, r.indexOf(C) + 1) || C;
   for (;;) {
-    let i = await e.stat(su.workspace(P(r, ".git")), { follow: !1 });
+    let i = await e.stat(su.workspace(P(r, ".git")), { follow: false });
     if (!i.ok || i.value.kind === "link") return;
     if (i.value.kind === "directory" || i.value.kind === "file") return { gitRoot: tr(r), entry: i.value.kind };
     if (r === o) return { gitRoot: null };
@@ -1025,7 +1025,7 @@ function l4(e) {
 async function mHr() {
   let e = ee(),
     t = Hn(e);
-  if (!t) return !1;
+  if (!t) return false;
   try {
     let [r, o] = await Promise.all([Pe(e), Pe(t)]);
     return r === o;
@@ -1039,7 +1039,7 @@ var wvn = async (e) => Hn(e) !== null,
     if (e === void 0) return msr();
     let { stdout: t, code: r } = await qe(it(), [...cn, "rev-parse", "--abbrev-ref", "HEAD"], {
       cwd: e,
-      preserveOutputOnError: !1,
+      preserveOutputOnError: false,
     });
     return r === 0 ? t.trim() || "HEAD" : "HEAD";
   };
@@ -1048,7 +1048,7 @@ async function iJe(e, t) {
     (
       await qe(it(), [...cn, "show-ref", "--verify", "--quiet", `refs/remotes/origin/${e}`], {
         cwd: t ?? ee(),
-        preserveOutputOnError: !1,
+        preserveOutputOnError: false,
       })
     ).code === 0
   );
@@ -1062,7 +1062,7 @@ var Cw = async (e) => {
         (
           await qe(it(), [...cn, "show-ref", "--verify", "--quiet", `refs/remotes/origin/${r}`], {
             cwd: e,
-            preserveOutputOnError: !1,
+            preserveOutputOnError: false,
           })
         ).code === 0
       )
@@ -1072,7 +1072,7 @@ var Cw = async (e) => {
   yzt = async (e) => {
     let { stdout: t, code: r } = await qe(it(), [...cn, "symbolic-ref", "--short", "refs/remotes/origin/HEAD"], {
       cwd: e ?? ee(),
-      preserveOutputOnError: !1,
+      preserveOutputOnError: false,
     });
     if (r !== 0) return null;
     let o = t.trim().replace(/^origin\//, "");
@@ -1080,7 +1080,7 @@ var Cw = async (e) => {
     return (
       await qe(it(), [...cn, "show-ref", "--verify", "--quiet", `refs/remotes/origin/${o}`], {
         cwd: e ?? ee(),
-        preserveOutputOnError: !1,
+        preserveOutputOnError: false,
       })
     ).code === 0
       ? o
@@ -1088,13 +1088,13 @@ var Cw = async (e) => {
   },
   Wt = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
 async function JEt(e) {
-  let { stdout: t, code: r } = await $e(it(), [...cn, "config", "--get", e], { preserveOutputOnError: !1, useCwd: !0 });
+  let { stdout: t, code: r } = await $e(it(), [...cn, "config", "--get", e], { preserveOutputOnError: false, useCwd: true });
   if (r !== 0) return null;
   let o = t.trim();
   return o.length > 0 ? o : null;
 }
 async function $t() {
-  let { stdout: e, code: t } = await $e(it(), [...cn, "remote"], { preserveOutputOnError: !1, useCwd: !0 });
+  let { stdout: e, code: t } = await $e(it(), [...cn, "remote"], { preserveOutputOnError: false, useCwd: true });
   if (t !== 0) return null;
   let r = e
       .split(`
@@ -1161,7 +1161,7 @@ function Awr(e) {
 }
 async function Evn() {
   if (sn()) return null;
-  let [e, t] = await Promise.all([Vg(), c4()]).catch(() => [!1, null]),
+  let [e, t] = await Promise.all([Vg(), c4()]).catch(() => [false, null]),
     r = t ? u4(t) : null;
   return { is_git: e, has_remote: r !== null, remote_host_class: Awr(r ? St(r, "/") : null) };
 }
@@ -1189,12 +1189,12 @@ function aJe(e) {
 var Kt = 128000;
 function Avn(e) {
   try {
-    let t = !0;
+    let t = true;
     try {
       Ie(P(e, ".git"));
     } catch (i) {
       if (!X(i)) return null;
-      t = !1;
+      t = false;
     }
     let r = t ? P(e, ".git", "config") : P(e, "config");
     if (oU(r, e)) return null;
@@ -1213,25 +1213,25 @@ async function Cvn() {
   return kt("sha256").update(t).digest("hex").substring(0, 16);
 }
 var Szt = async () => {
-    let { code: e } = await $e(it(), [...cn, "rev-parse", "@{u}"], { preserveOutputOnError: !1 });
+    let { code: e } = await $e(it(), [...cn, "rev-parse", "@{u}"], { preserveOutputOnError: false });
     return e === 0;
   },
   lJe = async (e) => {
     let { stdout: t, code: r } = await qe(it(), [...cn, "rev-list", "--count", "@{u}..HEAD"], {
       cwd: e,
-      preserveOutputOnError: !1,
+      preserveOutputOnError: false,
     });
     return r === 0 && parseInt(t.trim(), 10) > 0;
   },
   cfe = async (e) => {
     let t = [...cn, "--no-optional-locks", "status", "--porcelain"];
     if (e?.ignoreUntracked) t.push("-uno");
-    let { stdout: r } = await $e(it(), t, { preserveOutputOnError: !1 });
+    let { stdout: r } = await $e(it(), t, { preserveOutputOnError: false });
     return r.trim().length === 0;
   },
   bzt = async () => {
     let { stdout: e } = await $e(it(), [...cn, "--no-optional-locks", "status", "--porcelain"], {
-        preserveOutputOnError: !1,
+        preserveOutputOnError: false,
       }),
       t = [],
       r = [];
@@ -1256,13 +1256,13 @@ var Szt = async () => {
       let t = e || `Claude Code auto-stash - ${new Date().toISOString()}`,
         { untracked: r } = await bzt();
       if (r.length > 0) {
-        let { code: i } = await $e(it(), [...cn, "add", "--", ...r], { preserveOutputOnError: !1 });
-        if (i !== 0) return !1;
+        let { code: i } = await $e(it(), [...cn, "add", "--", ...r], { preserveOutputOnError: false });
+        if (i !== 0) return false;
       }
-      let { code: o } = await $e(it(), [...cn, "stash", "push", "--message", t], { preserveOutputOnError: !1 });
+      let { code: o } = await $e(it(), [...cn, "stash", "push", "--message", t], { preserveOutputOnError: false });
       return o === 0;
     } catch (t) {
-      return !1;
+      return false;
     }
   };
 async function wzt() {
@@ -1293,17 +1293,17 @@ var Ce = 1048576,
   jt = 65536;
 async function Cwr() {
   let { stdout: e, code: t } = await $e(it(), [...cn, "rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"], {
-    preserveOutputOnError: !1,
+    preserveOutputOnError: false,
   });
   if (t === 0 && e.trim()) return e.trim();
   let { stdout: r, code: o } = await $e(it(), [...cn, "symbolic-ref", "--short", "refs/remotes/origin/HEAD"], {
-      preserveOutputOnError: !1,
+      preserveOutputOnError: false,
     }),
     i = ["origin/main", "origin/staging", "origin/master"],
     s = r.trim();
   if (o === 0 && s) i.unshift(s);
   for (let a of i) {
-    let { code: u } = await $e(it(), [...cn, "rev-parse", "--verify", a], { preserveOutputOnError: !1 });
+    let { code: u } = await $e(it(), [...cn, "rev-parse", "--verify", a], { preserveOutputOnError: false });
     if (u === 0) return a;
   }
   return null;
@@ -1313,7 +1313,7 @@ function Xt() {
 }
 async function Me(e) {
   let { stdout: t, code: r } = await $e(it(), [...cn, "ls-files", "--others", "--exclude-standard"], {
-      preserveOutputOnError: !1,
+      preserveOutputOnError: false,
       maxBuffer: e,
     }),
     o = t.trim();
@@ -1371,13 +1371,13 @@ function Ge(e) {
         `preserveGitStateForIssue: bounded git diff failed or overflowed (code=${e.code}, ${e.stdout.length} bytes buffered) \u2014 dropping patch`,
         { level: "warn" },
       ),
-      { patch: "", dropped: !0 }
+      { patch: "", dropped: true }
     );
-  return { patch: e.stdout || "", dropped: !1 };
+  return { patch: e.stdout || "", dropped: false };
 }
 async function ae(e, t) {
   n(e);
-  let [r, o] = await Promise.all([$e(it(), [...cn, "diff", ...oJe, "HEAD"], { useCwd: !0, maxBuffer: t }), Me(t)]),
+  let [r, o] = await Promise.all([$e(it(), [...cn, "diff", ...oJe, "HEAD"], { useCwd: true, maxBuffer: t }), Me(t)]),
     { patch: i, dropped: s } = Ge(r);
   return {
     remote_base_sha: null,
@@ -1397,14 +1397,14 @@ async function gHr(e) {
     if (await Xt()) return await ae("Shallow clone detected, using HEAD-only mode for issue", t);
     let o = await Cwr();
     if (!o) return await ae("No remote found, using HEAD-only mode for issue", t);
-    let { stdout: i, code: s } = await $e(it(), [...cn, "merge-base", "HEAD", o], { preserveOutputOnError: !1 });
+    let { stdout: i, code: s } = await $e(it(), [...cn, "merge-base", "HEAD", o], { preserveOutputOnError: false });
     if (s !== 0 || !i.trim()) return await ae("Merge-base failed, using HEAD-only mode for issue", t);
     let a = i.trim(),
       [u, b, { stdout: m, code: w }, { stdout: d }, { stdout: c }] = await Promise.all([
-        $e(it(), [...cn, "diff", ...oJe, a], { useCwd: !0, maxBuffer: t }),
+        $e(it(), [...cn, "diff", ...oJe, a], { useCwd: true, maxBuffer: t }),
         Me(t),
         $e(it(), [...cn, "format-patch", "--no-ext-diff", "--no-textconv", `${a}..HEAD`, "--stdout"], {
-          useCwd: !0,
+          useCwd: true,
           maxBuffer: t,
         }),
         $e(it(), [...cn, "rev-parse", "HEAD"]),
@@ -1432,7 +1432,7 @@ function Tzt(e) {
   let t = e.indexOf(":"),
     r = t === -1 ? e : e.slice(0, t),
     o = t === -1 ? "" : e.slice(t + 1);
-  if (o !== "" && !/^\d+$/.test(o)) return !1;
+  if (o !== "" && !/^\d+$/.test(o)) return false;
   return r === "localhost" || /^127\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(r);
 }
 var qt = 4096;
@@ -1492,7 +1492,7 @@ function ufe() {
     if (HR(c, t)) return null;
     if (Bn(c)) {
       if (!/^[\\/]{2}wsl(\$|\.localhost)[\\/]/i.test(c)) return null;
-      if (!Bn(t)) return { canonical: c.normalize("NFC"), crossOs: !0 };
+      if (!Bn(t)) return { canonical: c.normalize("NFC"), crossOs: true };
     }
     let f = ke(e, c, t);
     if (f === null) return null;
@@ -1501,53 +1501,53 @@ function ufe() {
     } catch {
       return null;
     }
-    return { canonical: f.normalize("NFC"), crossOs: !1 };
+    return { canonical: f.normalize("NFC"), crossOs: false };
   }
   function a(c, f) {
-    if (!f && i(c)) return !0;
-    for (let x of c.split(f ? /[\\/]+/ : C)) if (x.toLowerCase() === ".git") return !1;
-    return !0;
+    if (!f && i(c)) return true;
+    for (let x of c.split(f ? /[\\/]+/ : C)) if (x.toLowerCase() === ".git") return false;
+    return true;
   }
   function u(c) {
     try {
       let f = e.lstatSync(P(c, "HEAD"));
-      if (!f.isFile() || f.size > 4096) return !1;
+      if (!f.isFile() || f.size > 4096) return false;
       let x = F(P(c, "HEAD"), "utf8").slice(0, 255);
       return /^ref:[ \t]*refs\//.test(x) || /^[0-9a-f]{40}([0-9a-f]{24})?[ \t\n\r]*$/.test(x);
     } catch {
-      return !1;
+      return false;
     }
   }
   function b(c) {
     try {
       let f = P(c, "HEAD"),
         x = e.lstatSync(f);
-      if (!x.isFile() || x.size > 4096) return !1;
+      if (!x.isFile() || x.size > 4096) return false;
       let _ = F(f, "utf8").slice(0, 255);
-      if (!/^ref:[ \t]*refs\//.test(_) && !/^[0-9a-f]{40}([0-9a-f]{24})?[ \t\n\r]*$/.test(_)) return !1;
+      if (!/^ref:[ \t]*refs\//.test(_) && !/^[0-9a-f]{40}([0-9a-f]{24})?[ \t\n\r]*$/.test(_)) return false;
       for (let S of ["objects", "refs"]) {
         let I = P(c, S);
-        if (!e.statSync(I).isDirectory()) return !1;
+        if (!e.statSync(I).isDirectory()) return false;
         It(I, At.X_OK);
       }
       try {
-        return e.statSync(P(c, "commondir")), !1;
+        return e.statSync(P(c, "commondir")), false;
       } catch {}
-      return !0;
+      return true;
     } catch {
-      return !1;
+      return false;
     }
   }
   function m(c) {
     try {
       let f = e.lstatSync(P(c, "HEAD"));
-      if (f.isFile() || f.isSymbolicLink()) return !0;
+      if (f.isFile() || f.isSymbolicLink()) return true;
     } catch {}
     for (let f of ["objects", "refs"])
       try {
-        return e.statSync(P(c, f)), !0;
+        return e.statSync(P(c, f)), true;
       } catch {}
-    return !1;
+    return false;
   }
   function w(c) {
     let f = (x) => {
@@ -1589,7 +1589,7 @@ function ufe() {
     case "oversized":
       return "gitdir-file-oversized";
     case "trusted":
-      return y("git_bare_repo_gate"), !1;
+      return y("git_bare_repo_gate"), false;
     case "none":
       break;
   }
@@ -1600,7 +1600,7 @@ function ufe() {
     if (c === d) break;
     switch (w(c)) {
       case "trusted":
-        return y("git_bare_repo_gate"), !1;
+        return y("git_bare_repo_gate"), false;
       case "plantable":
         return "gitdir-redirect-plantable";
       case "oversized":
@@ -1610,7 +1610,7 @@ function ufe() {
     }
     d = c;
   }
-  return y("git_bare_repo_gate"), !1;
+  return y("git_bare_repo_gate"), false;
 }
 import { watchFile as Vt } from "fs";
 function VEt(e, t, r) {
@@ -1709,7 +1709,7 @@ async function Aw(e) {
   let s = v(i, ".git");
   try {
     if ((await Ke(s)).isFile()) {
-      let u = await bP(s, Ve, { sniffEncoding: !0, withBytes: !0 });
+      let u = await bP(s, Ve, { sniffEncoding: true, withBytes: true });
       if (u === null || u.truncated) return r.set(t, null), null;
       let b = u.content.trim();
       if (b.startsWith("gitdir:")) {
@@ -1746,13 +1746,13 @@ function uvn(e) {
   }
 }
 function KH(e, t) {
-  if (!U(e, t)) return !0;
+  if (!U(e, t)) return true;
   let r = je(e);
   return r === "symlink" || r === "other";
 }
 function oU(e, t) {
   let r = lr(t, e);
-  if (r === "" || r.startsWith("..") || ar(r)) return !0;
+  if (r === "" || r.startsWith("..") || ar(r)) return true;
   return !U(e, t);
 }
 function cr(e, t) {
@@ -1763,7 +1763,7 @@ var ur = /\/+/,
   Xe = /^\//,
   dr = /^\//;
 function U(e, t, r = 40, o = t) {
-  if (r <= 0) return !1;
+  if (r <= 0) return false;
   let i = dr.exec(e),
     s = i ? i[0] : "",
     a = e.slice(s.length).split(ur);
@@ -1774,23 +1774,23 @@ function U(e, t, r = 40, o = t) {
       s = fe(s);
       continue;
     }
-    if (((s = v(s, b)), HR(s, o))) return !1;
+    if (((s = v(s, b)), HR(s, o))) return false;
     let m = je(s);
-    if (m === "other") return !1;
+    if (m === "other") return false;
     if (m === "symlink") {
       let w = uvn(s);
-      if (w === null) return !1;
-      if (cr(w, fe(s))) return !1;
+      if (w === null) return false;
+      if (cr(w, fe(s))) return false;
       let d = Xe.test(w) ? w : fe(s) + V + w,
         c = a.slice(u + 1).join(V),
         f = c ? (fr.test(d) ? d + c : d + V + c) : d;
       return U(f, t, r - 1, o);
     }
   }
-  return !0;
+  return true;
 }
 function te(e, t, r = t) {
-  if (!U(Xe.test(e) ? e : t + V + e, t, void 0, r)) return !0;
+  if (!U(Xe.test(e) ? e : t + V + e, t, void 0, r)) return true;
   return !U(W(t, e), t, void 0, r);
 }
 function P_(e, t, r = t) {
@@ -1847,7 +1847,7 @@ var Ve = 65536;
 async function PO(e) {
   try {
     if (KH(v(e, "commondir"), e)) return null;
-    let t = await bP(v(e, "commondir"), Ve, { sniffEncoding: !0, withBytes: !0 });
+    let t = await bP(v(e, "commondir"), Ve, { sniffEncoding: true, withBytes: true });
     if (t === null || t.truncated) return null;
     let r = t.content.trim();
     if (Sc(r, e)) return null;
@@ -1876,7 +1876,7 @@ var ze = 1000;
 class Ze {
   gitDir = null;
   commonDir = null;
-  initialized = !1;
+  initialized = false;
   initPromise = null;
   watchedFiles = [];
   branchRefPath = null;
@@ -1895,12 +1895,12 @@ class Ze {
   async start() {
     let e = this.generation;
     if (sn()) {
-      (this.gitDir = null), (this.initialized = !0);
+      (this.gitDir = null), (this.initialized = true);
       return;
     }
     let t = await Aw();
     if (e !== this.generation) return;
-    if (((this.gitDir = t), (this.initialized = !0), !this.cleanupHandle))
+    if (((this.gitDir = t), (this.initialized = true), !this.cleanupHandle))
       this.cleanupHandle = vt(async () => {
         this.stopWatching();
       });
@@ -1949,7 +1949,7 @@ class Ze {
     this.invalidate(), await SQe(), await this.watchCurrentBranchRef();
   }
   invalidate() {
-    for (let e of this.cache.values()) e.dirty = !0;
+    for (let e of this.cache.values()) e.dirty = true;
     this.stateChanged.emit();
   }
   onStateChange(e) {
@@ -1966,12 +1966,12 @@ class Ze {
       await this.ensureStarted();
       let o = this.cache.get(e);
       if (o && !o.dirty) return o.value;
-      if (o) o.dirty = !1;
+      if (o) o.dirty = false;
       let i = await t();
       if (r !== this.generation) continue;
       let s = this.cache.get(e);
       if (s && !s.dirty) s.value = i;
-      if (!s) this.cache.set(e, { value: i, dirty: !1 });
+      if (!s) this.cache.set(e, { value: i, dirty: false });
       return i;
     }
   }
@@ -1981,7 +1981,7 @@ class Ze {
     let t = this.commonDir ?? this.gitDir;
     if (t && (await rj(t, `refs/remotes/origin/${e}`))) return e;
     let r = this.cache.get("defaultBranchIfKnown");
-    if (r) r.dirty = !0;
+    if (r) r.dirty = true;
     return this.get("defaultBranchIfKnown", this.computeDefaultBranchIfKnownAnchored);
   }
   computeDefaultBranchIfKnownAnchored = async () => {
@@ -2037,7 +2037,7 @@ class Ze {
       this.repoBranches.clear(),
       this.repoWatchers.clear(),
       (this.repoBranchListeners = []),
-      (this.initialized = !1),
+      (this.initialized = false),
       (this.initPromise = null),
       (this.gitDir = null),
       (this.commonDir = null);
@@ -2048,7 +2048,7 @@ class Ze {
     (this.watchedFiles = []),
       (this.branchRefPath = null),
       this.cache.clear(),
-      (this.initialized = !1),
+      (this.initialized = false),
       (this.initPromise = null),
       (this.gitDir = null),
       (this.commonDir = null);
@@ -2170,13 +2170,13 @@ async function TCe(e) {
 }
 async function _sr() {
   let e = await Aw();
-  if (!e) return !1;
+  if (!e) return false;
   let t = (await PO(e)) ?? e;
   try {
-    if (oU(v(t, "shallow"), t)) return !1;
-    return await Ke(v(t, "shallow")), !0;
+    if (oU(v(t, "shallow"), t)) return false;
+    return await Ke(v(t, "shallow")), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function ysr() {

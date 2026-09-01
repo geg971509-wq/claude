@@ -21,7 +21,7 @@ import { YBn, KP, op, Yu } from "/$bunfs/root/chunk-pj035rka.js";
 import { Qyt, gp } from "/$bunfs/root/chunk-g5y4mxg8.js";
 import { T } from "/$bunfs/root/chunk-ma6kk3k0.js";
 function HFn() {
-  return a.CLAUDE_CODE_ARTIFACT_DB ?? I("tengu_umber_lattice", !1);
+  return a.CLAUDE_CODE_ARTIFACT_DB ?? I("tengu_umber_lattice", false);
 }
 var X = "/api/frame/db/agent",
   W = String.raw`(?!\.\.?(?:/|$))[A-Za-z0-9_\-.~:@+]{1,200}`,
@@ -298,7 +298,7 @@ async function U(e, t, r, s, n, u) {
   }
   let k = h === null ? void 0 : i.get(h);
   if (h !== null && k !== void 0 && !O()) {
-    if (k.fingerprint === K()) return { ok: !0, id: k.id };
+    if (k.fingerprint === K()) return { ok: true, id: k.id };
     if (i.get(h) === k) i.delete(h);
   }
   let l;
@@ -318,12 +318,12 @@ async function U(e, t, r, s, n, u) {
     l = R === E ? await q(o, t, r, s, null, n, u) : R;
   }
   if (l.ok) return l;
-  if ("composed" in l) return { ok: !1, result: l.composed };
+  if ("composed" in l) return { ok: false, result: l.composed };
   let f = t === "artifact_db_read" ? "read" : "write";
   return (
     p(t, l.reason),
     {
-      ok: !1,
+      ok: false,
       result: { kind: "error", code: l.code, message: Re(l.code, l.reason, f, l.kind, l.limit), reason: l.reason },
     }
   );
@@ -334,20 +334,20 @@ async function q(e, t, r, s, n, u, o) {
     if ((await ee(o), (i = K()), i === null || O())) return E;
   }
   let c = await M(t, r, H, {}, { timeout: 15000, maxContentLength: j, credentials: o, reportSentAuth: n !== null }, s);
-  if (!c.ok) return { ok: !1, composed: c.result };
+  if (!c.ok) return { ok: false, composed: c.result };
   if (c.status !== 200) {
     let { code: h, reason: k, kind: l, limit: f } = x(c.status, c.data);
-    return { ok: !1, code: h, reason: `whoami_${k}`, kind: l, limit: f };
+    return { ok: false, code: h, reason: `whoami_${k}`, kind: l, limit: f };
   }
   let d = Fe().safeParse(c.data);
-  if (!d.success || !A1.test(d.data.id)) return { ok: !1, code: "store_unavailable", reason: "malformed_whoami_echo" };
+  if (!d.success || !A1.test(d.data.id)) return { ok: false, code: "store_unavailable", reason: "malformed_whoami_echo" };
   if (n !== null) {
     if (i === null || i !== c.sentAuthFingerprint || i !== K() || !(await L(r, n, u)))
       return g(t, "auth_unstable_me_key"), E;
     if (O()) return E;
     e.resolvedMeIds.set(n, { id: d.data.id, fingerprint: i });
   }
-  return { ok: !0, id: d.data.id };
+  return { ok: true, id: d.data.id };
 }
 async function M(e, t, r, s, n, u) {
   let o = r === "batch" ? "batch_" : "",
@@ -357,7 +357,7 @@ async function M(e, t, r, s, n, u) {
       X,
       { slug: t, verb: r, args: s },
       {
-        refreshOAuth: !0,
+        refreshOAuth: true,
         credentials: n.credentials,
         headers: Yu(),
         timeout: n.timeout,
@@ -372,7 +372,7 @@ async function M(e, t, r, s, n, u) {
     return (
       p(e, `${o}${d ? "relay_request_error" : "request_error"}`),
       {
-        ok: !1,
+        ok: false,
         result: {
           kind: "error",
           code: "store_unavailable",
@@ -388,7 +388,7 @@ async function M(e, t, r, s, n, u) {
     return (
       p(e, `${o}${i.reason.replace(/-/g, "_")}`),
       {
-        ok: !1,
+        ok: false,
         result: {
           kind: "error",
           code: "store_unavailable",
@@ -406,7 +406,7 @@ async function M(e, t, r, s, n, u) {
     return (
       p(e, `${o}${c ? "whoami_relay_error" : "relay_error"}`, { status: i.status }),
       {
-        ok: !1,
+        ok: false,
         result: {
           kind: "error",
           code: "store_unavailable",
@@ -420,7 +420,7 @@ async function M(e, t, r, s, n, u) {
       }
     );
   }
-  return { ok: !0, status: i.status, data: i.data, sentAuthFingerprint: i.sentAuthFingerprint };
+  return { ok: true, status: i.status, data: i.data, sentAuthFingerprint: i.sentAuthFingerprint };
 }
 async function OFn(e, t, r, s, n) {
   let { slug: u, op: o, query: i } = t,
@@ -546,14 +546,14 @@ async function ae(e, t, r = "") {
   let { collection: s, docId: n } = e;
   if (!pW.test(s) || !A1.test(n))
     return {
-      ok: !1,
+      ok: false,
       result: D(
         "invalid_segment",
         'collection must be a path of 1-15 "/"-separated segments and doc_id one segment (letters, digits, _ - . ~ : @ + per segment; "." and ".." reserved)',
         r,
       ),
     };
-  if (!m0e(s)) return { ok: !1, result: D("parity", eot(s), r) };
+  if (!m0e(s)) return { ok: false, result: D("parity", eot(s), r) };
   let u = te(s, n);
   if (u !== null) {
     let i = await t();
@@ -563,13 +563,13 @@ async function ae(e, t, r = "") {
   let o = `${s}/${n}`;
   if (o.length > CA)
     return {
-      ok: !1,
+      ok: false,
       result: D("path_too_long", `the composed document path is ${o.length} bytes \u2014 the limit is ${CA}`, r),
     };
-  return { ok: !0, path: o };
+  return { ok: true, path: o };
 }
 function oe(e, t, r) {
-  return e === "delete" ? { path: t } : e === "set" ? { path: t, data: r, replace: !0 } : { path: t, data: r };
+  return e === "delete" ? { path: t } : e === "set" ? { path: t, data: r, replace: true } : { path: t, data: r };
 }
 async function LFn(e, t, r, s, n) {
   let { slug: u, op: o, data: i } = t;
@@ -674,12 +674,12 @@ async function z(e, t, r, s) {
         results: n,
         failedIndex: o,
       });
-    if (r.aborted) return l(!1);
+    if (r.aborted) return l(false);
     let f;
     try {
       f = await ie(e, i, c, d, r, s);
     } catch (_) {
-      if (sa(_)) return l(!0);
+      if (sa(_)) return l(true);
       throw _;
     }
     if (f.kind === "error")

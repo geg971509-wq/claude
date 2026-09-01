@@ -163,7 +163,7 @@ function wr(e) {
 function qt(e, t) {
   let r = { ...e };
   if (!t) return r;
-  let o = t.enabled === !0 && t.failIfUnavailable === void 0 ? { ...t, failIfUnavailable: !0 } : t,
+  let o = t.enabled === true && t.failIfUnavailable === void 0 ? { ...t, failIfUnavailable: true } : t,
     u = r.settings;
   if (u && !wr(u))
     throw Error(
@@ -185,10 +185,10 @@ function tt(e) {
 }
 class zt {
   #e = new Set();
-  #t = !1;
+  #t = false;
   #s = () => this.killAll();
   track(e) {
-    if ((this.#e.add(e), !this.#t)) (this.#t = !0), process.on("exit", this.#s);
+    if ((this.#e.add(e), !this.#t)) (this.#t = true), process.on("exit", this.#s);
   }
   untrack(e) {
     this.#e.delete(e);
@@ -203,7 +203,7 @@ class zt {
     for (let e of this.#e) if (!e.killed) e.kill("SIGTERM");
   }
   reset() {
-    process.off("exit", this.#s), (this.#t = !1), this.#e.clear();
+    process.off("exit", this.#s), (this.#t = false), this.#e.clear();
   }
 }
 var Oe = new zt(),
@@ -253,16 +253,16 @@ class rt {
   process;
   processStdin;
   processStdout;
-  ready = !1;
+  ready = false;
   abortController;
   exitError;
-  exitEventDelivered = !1;
+  exitEventDelivered = false;
   stderrTail = "";
   exitListeners = [];
   abortHandler;
   forwardedAbort = gr();
   pendingWrites = [];
-  pendingEndInput = !1;
+  pendingEndInput = false;
   spawnResolve;
   spawnReject;
   spawnPromise;
@@ -285,7 +285,7 @@ class rt {
     if (((this.pendingWrites = []), this.spawnResolve))
       this.spawnResolve(), (this.spawnResolve = void 0), (this.spawnReject = void 0);
     for (let t of e) this.write(t);
-    if (this.pendingEndInput) (this.pendingEndInput = !1), this.processStdin?.end();
+    if (this.pendingEndInput) (this.pendingEndInput = false), this.processStdin?.end();
   }
   spawnAbort(e) {
     if (this.spawnReject)
@@ -303,11 +303,11 @@ class rt {
   }
   spawnLocalProcess(e) {
     let { command: t, args: r, cwd: o, env: u, signal: d } = e,
-      h = br(t, r, { cwd: o, stdio: ["pipe", "pipe", "pipe"], signal: d, env: u, windowsHide: !0 }),
+      h = br(t, r, { cwd: o, stdio: ["pipe", "pipe", "pipe"], signal: d, env: u, windowsHide: true }),
       S = new Cr("utf8"),
-      w = !1,
-      C = !1,
-      k = !1,
+      w = false,
+      C = false,
+      k = false,
       v,
       T = Me(u.DEBUG_CLAUDE_AGENT_SDK) || this.options.stderr !== void 0;
     h.stderr.on("data", (I) => {
@@ -321,7 +321,7 @@ class rt {
       });
     let _ = () => {
       if (k) return;
-      if (((k = !0), v)) clearTimeout(v);
+      if (((k = true), v)) clearTimeout(v);
       h.emit(Wt, h.exitCode, h.signalCode);
       let I = h.stderr;
       if (Ar(I)) I.unref();
@@ -329,10 +329,10 @@ class rt {
     };
     return (
       h.stderr.once("close", () => {
-        if (((this.stderrTail += S.end()), (w = !0), C)) _();
+        if (((this.stderrTail += S.end()), (w = true), C)) _();
       }),
       h.once("exit", () => {
-        if (((C = !0), (this.ready = !1), w)) _();
+        if (((C = true), (this.ready = false), w)) _();
         else v = setTimeout(_, Rr);
       }),
       {
@@ -463,7 +463,7 @@ class rt {
       if (this.options.resumeSessionAt) M.push(`--resume-session-at=${this.options.resumeSessionAt}`);
       if (this.options.resumeDropsTurn !== void 0) M.push(`--resume-drops-turn=${this.options.resumeDropsTurn}`);
       if (this.options.sessionId) M.push(`--session-id=${this.options.sessionId}`);
-      if (this.options.persistSession === !1) M.push("--no-session-persistence");
+      if (this.options.persistSession === false) M.push("--no-session-persistence");
       if (this.options.managedSettings) M.push("--managed-settings", this.options.managedSettings);
       let ke = { ...(h ?? {}) };
       if (this.options.settings) ke.settings = this.options.settings;
@@ -486,7 +486,7 @@ class rt {
         ((this.processStdin = this.process.stdin),
         (this.processStdout = this.process.stdout),
         this.processStdin.on("error", (D) => {
-          N(`[ProcessTransport] stdin write failed (child likely exited): ${D.code ?? D.message}`), (this.ready = !1);
+          N(`[ProcessTransport] stdin write failed (child likely exited): ${D.code ?? D.message}`), (this.ready = false);
         }),
         Oe.track(this.process),
         (this.abortHandler = () => this.close()),
@@ -496,7 +496,7 @@ class rt {
         this.close();
       let pe = this.process;
       pe.on("error", (D) => {
-        this.ready = !1;
+        this.ready = false;
         let W = D,
           H = W.syscall !== void 0 ? W.syscall.startsWith("spawn") : Ht(D);
         if (H && !pe.killed) Oe.untrack(pe);
@@ -519,7 +519,7 @@ class rt {
         }
       }),
         pe.on("exit", (D, W) => {
-          if (((this.exitEventDelivered = !0), (this.ready = !1), this.abortController.signal.aborted))
+          if (((this.exitEventDelivered = true), (this.ready = false), this.abortController.signal.aborted))
             this.exitError = Ue();
           else {
             let H = this.getProcessExitError(D, W);
@@ -528,7 +528,7 @@ class rt {
         }),
         (this.ready = !this.abortController.signal.aborted);
     } catch (e) {
-      throw ((this.ready = !1), e);
+      throw ((this.ready = false), e);
     }
   }
   getProcessExitError(e, t) {
@@ -577,7 +577,7 @@ class rt {
     try {
       if (!this.processStdin.write(e)) N("[ProcessTransport] Write buffer full, data queued");
     } catch (t) {
-      throw ((this.ready = !1), Error(`Failed to write to process stdin: ${l(t)}`));
+      throw ((this.ready = false), Error(`Failed to write to process stdin: ${l(t)}`));
     }
   }
   [Symbol.dispose]() {
@@ -597,7 +597,7 @@ class rt {
       o;
     if (r) {
       if (
-        ((this.exitEventDelivered = !0),
+        ((this.exitEventDelivered = true),
         (o = this.abortController.signal.aborted ? Ue() : this.getProcessExitError(e, t)),
         o && !this.exitError)
       )
@@ -639,7 +639,7 @@ class rt {
       ).unref(),
         h.once("exit", () => Oe.untrack(h));
     else if (h) Oe.untrack(h), d();
-    this.ready = !1;
+    this.ready = false;
   }
   isReady() {
     return this.ready;
@@ -677,7 +677,7 @@ class rt {
   }
   endInput() {
     if (this.spawnResolve) {
-      this.pendingEndInput = !0;
+      this.pendingEndInput = true;
       return;
     }
     if (this.processStdin) this.processStdin.end();
@@ -774,7 +774,7 @@ function Ar(e) {
 import { existsSync as Or } from "fs";
 var me = "@anthropic-ai/claude-agent-sdk";
 function Ur() {
-  return !1;
+  return false;
 }
 function Vt(e, t = {}) {
   let r = t.platform ?? "darwin",
@@ -815,7 +815,7 @@ class je {
   pendingControlResponses = new Map();
   unmatchedControlResponses = new Map();
   static UNMATCHED_CONTROL_RESPONSES_MAX = 1024;
-  cleanupPerformed = !1;
+  cleanupPerformed = false;
   sdkMessages;
   inputStream = new Z_();
   initialization;
@@ -826,7 +826,7 @@ class je {
   sdkMcpServers = new Map();
   pendingMcpResponses = new Map();
   firstResultReceivedResolve;
-  firstResultReceived = !1;
+  firstResultReceived = false;
   lastErrorResultText;
   latestCommands;
   transcriptMirrorBatcher;
@@ -888,14 +888,14 @@ class je {
     await this.request({ subtype: "stop_task", task_id: e });
   }
   async backgroundTasks(e) {
-    return (await this.request({ subtype: "background_tasks", tool_use_id: e })).response.backgrounded ?? !0;
+    return (await this.request({ subtype: "background_tasks", tool_use_id: e })).response.backgrounded ?? true;
   }
   close() {
     this.cleanup();
   }
   cleanup(e) {
     if (this.cleanupPromise) return this.cleanupPromise;
-    return (this.cleanupPerformed = !0), (this.cleanupPromise = this.performCleanup(e)), this.cleanupPromise;
+    return (this.cleanupPerformed = true), (this.cleanupPromise = this.performCleanup(e)), this.cleanupPromise;
   }
   async performCleanup(e) {
     for (let t of this.cleanupCallbacks)
@@ -993,7 +993,7 @@ class je {
                   .join("; ")
             : void 0;
           if (
-            ((this.lastErrorResultText = t || void 0), (this.firstResultReceived = !0), this.firstResultReceivedResolve)
+            ((this.lastErrorResultText = t || void 0), (this.firstResultReceived = true), this.firstResultReceivedResolve)
           )
             this.firstResultReceivedResolve();
           if (this.isSingleUserTurn)
@@ -1215,7 +1215,7 @@ class je {
   }
   async interrupt(e) {
     return Hr("sdk_interrupt", async () => {
-      let t = await this.request({ subtype: "interrupt", ...(e?.cancelQueued === !0 && { cancel_queued: !0 }) }),
+      let t = await this.request({ subtype: "interrupt", ...(e?.cancelQueued === true && { cancel_queued: true }) }),
         r = t.response?.still_queued;
       if (!Array.isArray(r)) return;
       let o = t.response?.cancelled;
@@ -1368,7 +1368,7 @@ class je {
           ? null
           : {
               response: o.response,
-              synthetic: o.synthetic ?? !1,
+              synthetic: o.synthetic ?? false,
               ...(o.refusal_fallback && {
                 refusalFallback: {
                   originalModel: o.refusal_fallback.original_model,
@@ -1382,7 +1382,7 @@ class je {
     );
   }
   async launchUltrareview(e, t) {
-    return (await this.request({ subtype: "ultrareview_launch", args: e, confirm: t?.confirm ?? !1 })).response;
+    return (await this.request({ subtype: "ultrareview_launch", args: e, confirm: t?.confirm ?? false })).response;
   }
   async messageRated(e) {
     await this.request({
@@ -1390,7 +1390,7 @@ class je {
       messageUuid: e.messageUuid,
       sentiment: e.sentiment,
       surface: e.surface,
-      cleared: e.cleared ?? !1,
+      cleared: e.cleared ?? false,
     });
   }
   processPendingPermissionRequests(e) {
@@ -1430,7 +1430,7 @@ class je {
           v();
           return;
         }
-        S.addEventListener("abort", v, { once: !0 }),
+        S.addEventListener("abort", v, { once: true }),
           (w = () => {
             S.removeEventListener("abort", v);
           });
@@ -1599,7 +1599,7 @@ class je {
         return;
       }
       let r = () => e();
-      t?.addEventListener("abort", r, { once: !0 }),
+      t?.addEventListener("abort", r, { once: true }),
         this.addCleanupCallback(() => {
           t?.removeEventListener("abort", r), e();
         }),
@@ -1673,7 +1673,7 @@ class je {
   }
 }
 function Qt(e, t) {
-  if (e === t) return !0;
+  if (e === t) return true;
   let r = e.slice(e.lastIndexOf("_") + 1),
     o = t.slice(t.lastIndexOf("_") + 1);
   return r.length >= 4 && r === o;
@@ -1899,11 +1899,11 @@ function it(e) {
   return typeof r === "string" ? r : void 0;
 }
 function qr(e) {
-  if (e.type !== "user" || !e.parentUuid) return !1;
+  if (e.type !== "user" || !e.parentUuid) return false;
   let t = e.message;
-  if (typeof t !== "object" || t === null) return !1;
+  if (typeof t !== "object" || t === null) return false;
   let r = t.content;
-  if (!Array.isArray(r)) return !1;
+  if (!Array.isArray(r)) return false;
   return r.some((o) => typeof o === "object" && o !== null && o.type === "tool_result");
 }
 function Br(e, t, r) {
@@ -1964,11 +1964,11 @@ function Br(e, t, r) {
 function Gr(e, t) {
   if (e.type === "user" || e.type === "assistant");
   else if (e.type === "system" && t);
-  else return !1;
-  if (e.isMeta) return !1;
-  if (e.isSidechain) return !1;
-  if (e.teamName) return !1;
-  return !0;
+  else return false;
+  if (e.isMeta) return false;
+  if (e.isSidechain) return false;
+  if (e.teamName) return false;
+  return true;
 }
 function ot(e, t, r) {
   return {
@@ -2003,7 +2003,7 @@ async function es(e, t) {
 }
 async function ts(e, t) {
   let r = await Kr(e),
-    o = t?.includeSystemMessages ?? !1,
+    o = t?.includeSystemMessages ?? false,
     d = r.filter((h) => Gr(h, o)).map((h) => ot(h));
   return at(d, t);
 }
@@ -2107,7 +2107,7 @@ function Qr(e, t) {
   let r = [],
     o = [],
     u,
-    d = { historySuppressed: !1 },
+    d = { historySuppressed: false },
     h = 10,
     S = e.length,
     w = 0;
@@ -2134,7 +2134,7 @@ function Jr(e, t) {
   let r = [],
     o = [],
     u,
-    d = { historySuppressed: !1 };
+    d = { historySuppressed: false };
   for (let h of e) {
     if (typeof h !== "object" || h === null) continue;
     u = ns(h, t, r, o, d) ?? u;
@@ -2150,7 +2150,7 @@ function Jr(e, t) {
 function ns(e, t, r, o, u) {
   if (Vr.has(e.type) && typeof e.uuid === "string") r.push(e);
   else if (e.type === "history-suppression") {
-    if (u) u.historySuppressed = !0;
+    if (u) u.historySuppressed = true;
   } else if (
     e.type === "atis-latch" &&
     e.sessionId === t &&
@@ -2239,7 +2239,7 @@ function as(e, t, r, o) {
     }
     let A = T === h.length - 1 ? C : _.timestamp,
       F = _.logicalParentUuid == null ? _.logicalParentUuid : (d.get(_.logicalParentUuid) ?? null),
-      U = _.type === "system" && _.subtype === "model_refusal_fallback" ? { neutralizedByFork: !0 } : void 0,
+      U = _.type === "system" && _.subtype === "model_refusal_fallback" ? { neutralizedByFork: true } : void 0,
       L = {
         ..._,
         ...U,
@@ -2248,7 +2248,7 @@ function as(e, t, r, o) {
         logicalParentUuid: F,
         sessionId: w,
         timestamp: A,
-        isSidechain: !1,
+        isSidechain: false,
         teamName: void 0,
         agentName: void 0,
         sessionKind: void 0,
@@ -2314,7 +2314,7 @@ async function fs(e, t) {
   async function u(d) {
     let h;
     try {
-      h = await en(d, { withFileTypes: !0 });
+      h = await en(d, { withFileTypes: true });
     } catch {
       return;
     }
@@ -2348,7 +2348,7 @@ async function on(e, t, r, o = nn) {
       if (
         (
           await Ao(
-            (v) => e.listEntries(w, { skipKeyStats: !0, skipScopeStats: !0, ...(v !== void 0 && { cursor: v }) }),
+            (v) => e.listEntries(w, { skipKeyStats: true, skipScopeStats: true, ...(v !== void 0 && { cursor: v }) }),
             (v) => {
               for (let T of v)
                 if (
@@ -2483,7 +2483,7 @@ async function ct(e, t, r, o, u, d = un) {
   let h = [],
     S = 0,
     w,
-    C = !1;
+    C = false;
   for (let k = 0; k < d; k++) {
     let v = await e.readRecords(t, { order: "forward", maxBytes: dn, ...(w !== void 0 && { fromSeq: w }) });
     if (!v.ok)
@@ -2505,7 +2505,7 @@ async function ct(e, t, r, o, u, d = un) {
       if (((S += _.length), h.length >= u || S >= ge)) await o.append(r, h), (h = []), (S = 0);
     }
     if (((w = v.value.nextSeq), w === void 0)) {
-      C = !0;
+      C = true;
       break;
     }
   }
@@ -2532,7 +2532,7 @@ async function ys(e, t, r, o = pn) {
     if (
       (
         await Ao(
-          (T) => e.listEntries(C, { skipKeyStats: !0, skipScopeStats: !0, ...(T !== void 0 && { cursor: T }) }),
+          (T) => e.listEntries(C, { skipKeyStats: true, skipScopeStats: true, ...(T !== void 0 && { cursor: T }) }),
           (T) => {
             for (let _ of T)
               if (_.kind === "key" && _.key.namespace === "transcript") {
@@ -2543,7 +2543,7 @@ async function ys(e, t, r, o = pn) {
                       ? Zt(_.key.agentId)
                         ? { kind: "agent", agentId: _.key.agentId, ...(P && { agentRelPath: P }) }
                         : void 0
-                      : _.key.journal === !0 && P !== void 0
+                      : _.key.journal === true && P !== void 0
                         ? { kind: "journal", agentRelPath: P }
                         : void 0,
                   x = I && Ke(I);
@@ -2616,7 +2616,7 @@ async function qe(e, t, r, o) {
     else await mn(e, t);
   } catch (u) {
     if (E(u) === void 0) throw u;
-    if (!X(u)) await ks(t, { force: !0 }).catch(() => {}), n(`sessionStore resume: skipping ${e} (${E(u)})`);
+    if (!X(u)) await ks(t, { force: true }).catch(() => {}), n(`sessionStore resume: skipping ${e} (${E(u)})`);
   }
 }
 async function hn({ backend: e, key: t }, r, o, u) {
@@ -2637,7 +2637,7 @@ async function hn({ backend: e, key: t }, r, o, u) {
     await vs(o, u ? u(S) : S, { mode: 384 });
   } catch (w) {
     if (E(w) === void 0) throw w;
-    if (!X(w)) await ks(o, { force: !0 }).catch(() => {}), n(`sessionStore resume: skipping ${r} (${E(w)})`);
+    if (!X(w)) await ks(o, { force: true }).catch(() => {}), n(`sessionStore resume: skipping ${r} (${E(w)})`);
   }
 }
 function Sn(e, t) {
@@ -2667,9 +2667,9 @@ var _s;
 var yn = /^[A-Za-z0-9._-]{1,128}$/;
 function wn(e) {
   let t = [];
-  if (e.length === 0) return { isValid: !1, warnings: ["Tool name cannot be empty"] };
+  if (e.length === 0) return { isValid: false, warnings: ["Tool name cannot be empty"] };
   if (e.length > 128)
-    return { isValid: !1, warnings: [`Tool name exceeds maximum length of 128 characters (current: ${e.length})`] };
+    return { isValid: false, warnings: [`Tool name exceeds maximum length of 128 characters (current: ${e.length})`] };
   if (e.includes(" ")) t.push("Tool name contains spaces, which may cause parsing issues");
   if (e.includes(",")) t.push("Tool name contains commas, which may cause parsing issues");
   if (e.startsWith("-") || e.endsWith("-"))
@@ -2686,10 +2686,10 @@ function wn(e) {
         `Tool name contains invalid characters: ${r.map((o) => `"${o}"`).join(", ")}`,
         "Allowed characters are: A-Z, a-z, 0-9, underscore (_), dash (-), and dot (.)",
       ),
-      { isValid: !1, warnings: t }
+      { isValid: false, warnings: t }
     );
   }
-  return { isValid: !0, warnings: t };
+  return { isValid: true, warnings: t };
 }
 function bn(e, t) {
   if (t.length > 0) {
@@ -2733,10 +2733,10 @@ class ht {
       (this._registeredResourceTemplates = {}),
       (this._registeredTools = {}),
       (this._registeredPrompts = {}),
-      (this._toolHandlersInitialized = !1),
-      (this._completionHandlerInitialized = !1),
-      (this._resourceHandlersInitialized = !1),
-      (this._promptHandlersInitialized = !1),
+      (this._toolHandlersInitialized = false),
+      (this._completionHandlerInitialized = false),
+      (this._resourceHandlersInitialized = false),
+      (this._promptHandlersInitialized = false),
       (this.server = new GH(e, t));
   }
   get experimental() {
@@ -2753,7 +2753,7 @@ class ht {
     if (this._toolHandlersInitialized) return;
     this.server.assertCanSetRequestHandler(se(pA)),
       this.server.assertCanSetRequestHandler(se(qT)),
-      this.server.registerCapabilities({ tools: { listChanged: !0 } }),
+      this.server.registerCapabilities({ tools: { listChanged: true } }),
       this.server.setRequestHandler(pA, () => ({
         tools: Object.entries(this._registeredTools)
           .filter(([, e]) => e.enabled)
@@ -2764,7 +2764,7 @@ class ht {
               description: t.description,
               inputSchema: (() => {
                 let o = HYe(t.inputSchema);
-                return o ? ICn(o, { strictUnions: !0, pipeStrategy: "input" }) : kn;
+                return o ? ICn(o, { strictUnions: true, pipeStrategy: "input" }) : kn;
               })(),
               annotations: t.annotations,
               execution: t.execution,
@@ -2772,7 +2772,7 @@ class ht {
             };
             if (t.outputSchema) {
               let o = HYe(t.outputSchema);
-              if (o) r.outputSchema = ICn(o, { strictUnions: !0, pipeStrategy: "output" });
+              if (o) r.outputSchema = ICn(o, { strictUnions: true, pipeStrategy: "output" });
             }
             return r;
           }),
@@ -2807,10 +2807,10 @@ class ht {
           return this.createToolError(r instanceof Error ? r.message : String(r));
         }
       }),
-      (this._toolHandlersInitialized = !0);
+      (this._toolHandlersInitialized = true);
   }
   createToolError(e) {
-    return { content: [{ type: "text", text: e }], isError: !0 };
+    return { content: [{ type: "text", text: e }], isError: true };
   }
   async validateToolInput(e, t, r) {
     if (!e.inputSchema) return;
@@ -2882,7 +2882,7 @@ class ht {
             throw new Er(Ir.InvalidParams, `Invalid completion reference: ${e.params.ref}`);
         }
       }),
-      (this._completionHandlerInitialized = !0);
+      (this._completionHandlerInitialized = true);
   }
   async handlePromptCompletion(e, t) {
     let r = this._registeredPrompts[t.name];
@@ -2914,7 +2914,7 @@ class ht {
     this.server.assertCanSetRequestHandler(se(kEt)),
       this.server.assertCanSetRequestHandler(se(HEt)),
       this.server.assertCanSetRequestHandler(se(xEt)),
-      this.server.registerCapabilities({ resources: { listChanged: !0 } }),
+      this.server.registerCapabilities({ resources: { listChanged: true } }),
       this.server.setRequestHandler(kEt, async (e, t) => {
         let r = Object.entries(this._registeredResources)
             .filter(([u, d]) => d.enabled)
@@ -2947,13 +2947,13 @@ class ht {
         }
         throw new Er(Ir.InvalidParams, `Resource ${r} not found`);
       }),
-      (this._resourceHandlersInitialized = !0);
+      (this._resourceHandlersInitialized = true);
   }
   setPromptRequestHandlers() {
     if (this._promptHandlersInitialized) return;
     this.server.assertCanSetRequestHandler(se(IEt)),
       this.server.assertCanSetRequestHandler(se(PEt)),
-      this.server.registerCapabilities({ prompts: { listChanged: !0 } }),
+      this.server.registerCapabilities({ prompts: { listChanged: true } }),
       this.server.setRequestHandler(IEt, () => ({
         prompts: Object.entries(this._registeredPrompts)
           .filter(([, e]) => e.enabled)
@@ -2984,7 +2984,7 @@ class ht {
           return await Promise.resolve(o(t));
         }
       }),
-      (this._promptHandlersInitialized = !0);
+      (this._promptHandlersInitialized = true);
   }
   resource(e, t, ...r) {
     let o;
@@ -3017,9 +3017,9 @@ class ht {
       title: t,
       metadata: o,
       readCallback: u,
-      enabled: !0,
-      disable: () => d.update({ enabled: !1 }),
-      enable: () => d.update({ enabled: !0 }),
+      enabled: true,
+      disable: () => d.update({ enabled: false }),
+      enable: () => d.update({ enabled: true }),
       remove: () => d.update({ uri: null }),
       update: (h) => {
         if (typeof h.uri < "u" && h.uri !== r) {
@@ -3041,9 +3041,9 @@ class ht {
       title: t,
       metadata: o,
       readCallback: u,
-      enabled: !0,
-      disable: () => d.update({ enabled: !1 }),
-      enable: () => d.update({ enabled: !0 }),
+      enabled: true,
+      disable: () => d.update({ enabled: false }),
+      enable: () => d.update({ enabled: true }),
       remove: () => d.update({ name: null }),
       update: (w) => {
         if (typeof w.name < "u" && w.name !== e) {
@@ -3068,9 +3068,9 @@ class ht {
       description: r,
       argsSchema: o === void 0 ? void 0 : T1e(o),
       callback: u,
-      enabled: !0,
-      disable: () => d.update({ enabled: !1 }),
-      enable: () => d.update({ enabled: !0 }),
+      enabled: true,
+      disable: () => d.update({ enabled: false }),
+      enable: () => d.update({ enabled: true }),
       remove: () => d.update({ name: null }),
       update: (h) => {
         if (typeof h.name < "u" && h.name !== e) {
@@ -3106,9 +3106,9 @@ class ht {
       execution: h,
       _meta: S,
       handler: w,
-      enabled: !0,
-      disable: () => C.update({ enabled: !1 }),
-      enable: () => C.update({ enabled: !0 }),
+      enabled: true,
+      disable: () => C.update({ enabled: false }),
+      enable: () => C.update({ enabled: true }),
       remove: () => C.update({ name: null }),
       update: (k) => {
         if (typeof k.name < "u" && k.name !== e) {
@@ -3197,9 +3197,9 @@ function Ds(e) {
   return "_def" in e || "_zod" in e || xs(e);
 }
 function gt(e) {
-  if (typeof e !== "object" || e === null) return !1;
-  if (Ds(e)) return !1;
-  if (Object.keys(e).length === 0) return !0;
+  if (typeof e !== "object" || e === null) return false;
+  if (Ds(e)) return false;
+  if (Object.keys(e).length === 0) return true;
   return Object.values(e).some(xs);
 }
 function Is(e) {
@@ -3227,11 +3227,11 @@ function se(e) {
 function Ms(e) {
   return { completion: { values: e.slice(0, 100), total: e.length, hasMore: e.length > 100 } };
 }
-var Pe = { completion: { values: [], hasMore: !1 } };
+var Pe = { completion: { values: [], hasMore: false } };
 function En(e, t, r, o, u) {
   let d = {};
   if (u?.searchHint) d["anthropic/searchHint"] = u.searchHint;
-  if (u?.alwaysLoad) d["anthropic/alwaysLoad"] = !0;
+  if (u?.alwaysLoad) d["anthropic/alwaysLoad"] = true;
   return {
     name: e,
     description: t,
@@ -3259,7 +3259,7 @@ function Cn(e) {
           description: o.description,
           inputSchema: o.inputSchema,
           annotations: o.annotations,
-          _meta: e.alwaysLoad ? { "anthropic/alwaysLoad": !0, ...o._meta } : o._meta,
+          _meta: e.alwaysLoad ? { "anthropic/alwaysLoad": true, ...o._meta } : o._meta,
         },
         o.handler,
       );
@@ -3285,8 +3285,8 @@ class Us {
   sessionId;
   workDir;
   abortController;
-  readyState = !1;
-  closed = !1;
+  readyState = false;
+  closed = false;
   exitError;
   messages = new Z_();
   readyPromise;
@@ -3294,7 +3294,7 @@ class Us {
   readyReject;
   abortHandler;
   partialChunks = [];
-  telemetryEmitted = !1;
+  telemetryEmitted = false;
   constructor(e) {
     this.options = e;
     (this.abortController = e.abortController ?? new AbortController()),
@@ -3358,7 +3358,7 @@ class Us {
     );
     r.addEventListener("open", () => {
       clearTimeout(o),
-        (this.readyState = !0),
+        (this.readyState = true),
         N(`[DirectConnectTransport] Connected to ${this.options.serverUrl}, session=${this.sessionId}`),
         this.readyResolve?.(),
         this.emitTelemetry("ok");
@@ -3398,7 +3398,7 @@ class Us {
       }),
       r.addEventListener("close", (u) => {
         let d = this.readyState;
-        (this.readyState = !1), (this.closed = !0);
+        (this.readyState = false), (this.closed = true);
         let h = u.code !== 1000 && u.code !== 1001;
         if (h && !this.exitError) this.exitError = new ee(`WebSocket closed abnormally: ${u.code} ${u.reason}`);
         if ((this.messages.done(), d && h && !this.abortController.signal.aborted))
@@ -3407,12 +3407,12 @@ class Us {
   }
   emitTelemetry(e, t) {
     if (this.telemetryEmitted) return;
-    if (((this.telemetryEmitted = !0), e === "ok")) y("transport_direct_connect");
+    if (((this.telemetryEmitted = true), e === "ok")) y("transport_direct_connect");
     else if (e === "bad") p("transport_direct_connect", t ?? "unknown");
     else g("transport_direct_connect", t ?? "unknown");
   }
   failInit(e) {
-    (this.exitError = e), (this.closed = !0), this.readyReject?.(e), this.messages.done();
+    (this.exitError = e), (this.closed = true), this.readyReject?.(e), this.messages.done();
   }
   async write(e) {
     if (this.abortController.signal.aborted) throw new e4("Operation aborted");
@@ -3429,7 +3429,7 @@ class Us {
   }
   close() {
     if (this.closed) return;
-    if (((this.closed = !0), (this.readyState = !1), this.abortHandler))
+    if (((this.closed = true), (this.readyState = false), this.abortHandler))
       this.abortController.signal.removeEventListener("abort", this.abortHandler), (this.abortHandler = void 0);
     if (!this.abortController.signal.aborted) this.abortController.abort();
     if (this.ws && this.ws.readyState === WebSocket.OPEN) this.ws.close(1000, "Normal closure");
@@ -3561,10 +3561,10 @@ function Ls(e) {
     return e;
   }
   if (!$s(t)) return e;
-  let r = !1;
-  for (let u of Gn) if (Object.hasOwn(t, u)) delete t[u], (r = !0);
+  let r = false;
+  for (let u of Gn) if (Object.hasOwn(t, u)) delete t[u], (r = true);
   let o = t.env;
-  if ($s(o) && Object.hasOwn(o, "CLAUDE_CONFIG_DIR")) delete o.CLAUDE_CONFIG_DIR, (r = !0);
+  if ($s(o) && Object.hasOwn(o, "CLAUDE_CONFIG_DIR")) delete o.CLAUDE_CONFIG_DIR, (r = true);
   return r ? b(t) : e;
 }
 function $s(e) {
@@ -3585,7 +3585,7 @@ function zn() {
     Un(
       "security",
       ["find-generic-password", "-a", IC(), "-w", "-s", e],
-      { encoding: "utf-8", timeout: 5000, windowsHide: !0 },
+      { encoding: "utf-8", timeout: 5000, windowsHide: true },
       (r, o) => t(r ? void 0 : o.trim() || void 0),
     );
   });
@@ -3602,7 +3602,7 @@ async function Ws(e, t, r, o, u = 60000, d) {
   let w = K(qn(), `claude-resume-${kt()}`);
   try {
     let C = K(w, "projects", h);
-    await St(C, { recursive: !0, mode: 448 });
+    await St(C, { recursive: true, mode: 448 });
     let k = K(C, `${t}.jsonl`);
     await yJ(k, S);
     let v = o?.CLAUDE_CONFIG_DIR ?? process.env.CLAUDE_CONFIG_DIR,
@@ -3654,11 +3654,11 @@ async function Vn(e, t, r, o) {
     for (let k of S)
       if (bt(k)) w.push(k);
       else C.push(k);
-    if (C.length > 0) await St(wt(h), { recursive: !0 }), await yJ(h, C);
+    if (C.length > 0) await St(wt(h), { recursive: true }), await yJ(h, C);
     if (w.length > 0) {
       let k = w.at(-1),
         v = Ie(r, d + ".meta.json");
-      await St(wt(v), { recursive: !0 });
+      await St(wt(v), { recursive: true });
       let { type: T, ..._ } = k;
       await Hs(v, b(_), { mode: 384 });
     }
@@ -3718,7 +3718,7 @@ function Et(e, t) {
       model: nr,
       outputFormat: Rt,
       permissionMode: ir,
-      allowDangerouslySkipPermissions: or = !1,
+      allowDangerouslySkipPermissions: or = false,
       permissionPromptToolName: ar,
       plugins: lr,
       getOAuthToken: Tt,
@@ -3733,7 +3733,7 @@ function Et(e, t) {
       strictMcpConfig: fr,
     } = k,
     Dt = ir ?? (e?.resolvePermissionModeInCli ? void 0 : "default");
-  if (Y && ie === !1)
+  if (Y && ie === false)
     throw Error(
       "sessionStore cannot be used with persistSession: false -- the storage adapter requires local writes to mirror from. Use CLAUDE_CONFIG_DIR=/tmp for ephemeral local writes with external mirroring.",
     );
@@ -3914,7 +3914,7 @@ var Qn = new Set(["EBUSY", "EMFILE", "ENFILE", "ENOTEMPTY", "EPERM"]);
 async function He(e) {
   for (let t = 0; ; t++)
     try {
-      return await $n(e, { recursive: !0, force: !0 });
+      return await $n(e, { recursive: true, force: true });
     } catch (r) {
       if (t >= 4 || !Qn.has(E(r) ?? "")) return;
       await ne((t + 1) * 100);
@@ -3936,7 +3936,7 @@ function Xn(e, t) {
       transport: o,
       abortController: u,
       processEnv: d,
-    } = Et({ ...t }, { isSingleUserTurn: typeof e === "string", deferSpawn: !0 }),
+    } = Et({ ...t }, { isSingleUserTurn: typeof e === "string", deferSpawn: true }),
     h = Ie(t.cwd ?? "."),
     S = t.sessionStore,
     w = t.loadTimeoutMs ?? 60000,
@@ -3985,9 +3985,9 @@ async function Tl({ options: e, initializeTimeoutMs: t = 60000 } = {}) {
   try {
     let _ = function () {
         if (T) return;
-        (T = !0), k.close();
+        (T = true), k.close();
       },
-      S = Et(r && o && o !== e?.resume ? { ...e, resume: o } : e, { isSingleUserTurn: !1, resumeConfigDir: r });
+      S = Et(r && o && o !== e?.resume ? { ...e, resume: o } : e, { isSingleUserTurn: false, resumeConfigDir: r });
     u = S.queryInstance;
     let { transport: w, abortController: C } = S;
     d = w;
@@ -4010,22 +4010,22 @@ async function Tl({ options: e, initializeTimeoutMs: t = 60000 } = {}) {
           })
         : P;
     });
-    let T = !1;
+    let T = false;
     return {
       query(P) {
         if (T) throw Error("WarmQuery.query() can only be called once");
-        T = !0;
+        T = true;
         try {
           Ct(k, w, P, C);
         } catch (I) {
           throw (k.close(), I);
         }
-        if (typeof P === "string") k.setIsSingleUserTurn(!0);
+        if (typeof P === "string") k.setIsSingleUserTurn(true);
         return k;
       },
       close: _,
       async [Symbol.asyncDispose]() {
-        (T = !0), k.close(), await h;
+        (T = true), k.close(), await h;
       },
     };
   } catch (S) {
@@ -4082,7 +4082,7 @@ async function jl(e, t, r, o) {
     k = d !== void 0 && C !== void 0 ? { backend: d, projectKey: C } : void 0;
   if (k !== void 0) await ct(k.backend, Te.transcript(k.projectKey, e), { projectKey: S, sessionId: e }, t, w);
   else await Ns(h.filePath, { projectKey: S, sessionId: e }, t, w);
-  if (r?.includeSubagents === !1) return;
+  if (r?.includeSubagents === false) return;
   if (k !== void 0) {
     let _ = await ys(k.backend, k.projectKey, e),
       P = await ws(k.backend, k.projectKey, e, _);
@@ -4147,7 +4147,7 @@ async function Yn(e) {
   async function r(o) {
     let u;
     try {
-      u = await Ln(o, { withFileTypes: !0 });
+      u = await Ln(o, { withFileTypes: true });
     } catch {
       return;
     }

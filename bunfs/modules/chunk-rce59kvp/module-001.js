@@ -81,7 +81,7 @@ var tj = {
   vim: () => import("/$bunfs/root/chunk-ne9jaavv.js"),
   "web-setup": () => import("/$bunfs/root/chunk-shv67rrq.js"),
   wellbeing: () => import("/$bunfs/root/chunk-wmd83fny.js"),
-  ...!1,
+  ...false,
   ...{},
   ...{},
   ...{
@@ -109,12 +109,12 @@ var Zoe = "idle-return-hint";
 class JE {
   #e;
   #t;
-  #o = !1;
+  #o = false;
   #r = null;
   #i = null;
-  #n = !1;
+  #n = false;
   #c;
-  #a = !1;
+  #a = false;
   constructor(S) {
     (this.#e = S), (this.#t = S.turn.getSnapshot()), (this.#c = S.turn.subscribe(this.#s)), this.#l(), this.#p();
   }
@@ -131,11 +131,11 @@ class JE {
       messageCount: S.length,
       contextTokens: this.#m(S),
     }),
-      (this.#n = !1);
+      (this.#n = false);
   }
   dispose() {
     if (this.#a) return;
-    (this.#a = !0), this.#c(), this.#d(), this.#u();
+    (this.#a = true), this.#c(), this.#d(), this.#u();
   }
   #s = () => {
     let S = this.#e.turn.getSnapshot(),
@@ -173,7 +173,7 @@ class JE {
   }
   #u() {
     let S = this.#i !== null;
-    if ((this.#i?.(), (this.#i = null), S)) this.#e.removeNotification(Zoe), (this.#n = !1);
+    if ((this.#i?.(), (this.#i = null), S)) this.#e.removeNotification(Zoe), (this.#n = false);
   }
   #p() {
     this.#u();
@@ -193,15 +193,15 @@ class JE {
             key: Zoe,
             kind: "contextual",
             segments: [
-              { text: "new task? ", dim: !0 },
+              { text: "new task? ", dim: true },
               { text: "/clear", color: "suggestion" },
-              { text: " to save ", dim: !0 },
+              { text: " to save ", dim: true },
               { text: `${Gn(de)} tokens`, color: "suggestion" },
             ],
             priority: "medium",
             timeoutMs: 2147483647,
           }),
-            (this.#n = !0),
+            (this.#n = true),
             s("tengu_idle_return_action", {
               action: w("hint_shown"),
               idleMinutes: Math.round(pe),
@@ -247,7 +247,7 @@ async function one(S, x, P) {
     { createFleetViewHost: pe },
   ] = await (x ?? oj());
   ue();
-  let Re = await Z(Fw(!1));
+  let Re = await Z(Fw(false));
   clearInterval(H);
   let be = pe();
   be.fleetNudgeStore = P?.fleetNudgeStore ?? null;
@@ -353,7 +353,7 @@ async function MEe(S, x, P) {
     await P.deleteScope({ namespace: "job", jobId: x }).catch(() => {});
     return;
   }
-  await TEe(S, { recursive: !0, force: !0 }).catch(() => {});
+  await TEe(S, { recursive: true, force: true }).catch(() => {});
 }
 
 function IEe(S) {
@@ -368,7 +368,7 @@ function EEe(S) {
 }
 
 async function nne(S, x, P, j, H, Z, re, ue, de, pe, Re) {
-  let be = !1;
+  let be = false;
   try {
     let Pe = await (async () => {
       n("[PERF:bg-leftarrow-start]");
@@ -408,7 +408,7 @@ async function nne(S, x, P, j, H, Z, re, ue, de, pe, Re) {
               ? {
                   path: Ke.worktreePath,
                   branch: Ke.worktreeBranch,
-                  hookBased: Ke.hookBased ?? !1,
+                  hookBased: Ke.hookBased ?? false,
                   originCwd: Ke.originalCwd,
                 }
               : void 0,
@@ -435,8 +435,8 @@ async function nne(S, x, P, j, H, Z, re, ue, de, pe, Re) {
           de?.via === "abort-then-fork" && Gt.length > 0 && !to && !lt?.payload?.agents?.length
             ? { text: Gt, boundaryUuid: de?.boundaryUuid }
             : void 0,
-        qt = !1,
-        lo = !1,
+        qt = false,
+        lo = false,
         To;
       if (lt || vo)
         try {
@@ -447,7 +447,7 @@ async function nne(S, x, P, j, H, Z, re, ue, de, pe, Re) {
               {},
               pe,
             ),
-            (lo = !0),
+            (lo = true),
             (qt = vo !== void 0),
             lt && de?.taskRegistry)
           )
@@ -466,7 +466,7 @@ async function nne(S, x, P, j, H, Z, re, ue, de, pe, Re) {
           nudge_active: ao !== void 0 && ao.needsInput > 0,
           nudge_needs_input_count: ao?.needsInput ?? 0,
           via: c(de?.via ?? "idle-fork"),
-          confirmed_interstitial: de?.confirmedInterstitial ?? !1,
+          confirmed_interstitial: de?.confirmedInterstitial ?? false,
           inflight_count: de?.inflightCount ?? 0,
           inflight_kinds: ky(de?.inflightKinds ?? []),
           restartable_count: de?.restartableCount ?? 0,
@@ -475,7 +475,7 @@ async function nne(S, x, P, j, H, Z, re, ue, de, pe, Re) {
           has_boundary_uuid: qt && de?.boundaryUuid !== void 0,
           prefill_truncated: jt.length > so,
           defer_wait_ms: de?.deferWaitMs ?? 0,
-          defer_cap_fired: de?.deferCapFired ?? !1,
+          defer_cap_fired: de?.deferCapFired ?? false,
           ...o2e(lt?.payload),
           ...(To !== void 0 && { adopted_frame_live: To }),
           undisclosed_frame_live: To === 0 ? 0 : Rt,
@@ -486,13 +486,13 @@ async function nne(S, x, P, j, H, Z, re, ue, de, pe, Re) {
         await Xt(to.flush(), No, "bridge flush").catch(() => {
           s("tengu_bg_bridge_flush_truncated", { via: c(de?.via ?? "idle-fork"), cap_ms: No });
         }),
-          to.teardown({ skipArchive: !0 });
+          to.teardown({ skipArchive: true });
       }
       if (de?.abortAfterFlush) await Xt(hl(), 2000, "flush timeout").catch(() => {});
       let jo = 2000,
         Qo = new AbortController();
       await Xt(xEe(Ve, Qo.signal, pe), jo, "task-list carry").catch(() => Qo.abort());
-      let uo = { settled: !1, ok: !1, forkSessionId: Ve };
+      let uo = { settled: false, ok: false, forkSessionId: Ve };
       if (
         (xRe(
           Ht,
@@ -515,9 +515,9 @@ async function nne(S, x, P, j, H, Z, re, ue, de, pe, Re) {
           }),
         )
           .then((No) => {
-            uo.settled = !0;
-            let cn = No.ok || No.alive === !0;
-            if (((uo.ok = cn), (uo.transcriptMaterialized = cn || No.queued === !0), !No.ok)) {
+            uo.settled = true;
+            let cn = No.ok || No.alive === true;
+            if (((uo.ok = cn), (uo.transcriptMaterialized = cn || No.queued === true), !No.ok)) {
               if (No.queued && lt) {
                 let tn = nj(yt, "adopt.json"),
                   nn = () =>
@@ -551,7 +551,7 @@ async function nne(S, x, P, j, H, Z, re, ue, de, pe, Re) {
             }
           })
           .catch((No) => {
-            if (!uo.settled) (uo.settled = !0), (uo.ok = !1);
+            if (!uo.settled) (uo.settled = true), (uo.ok = false);
             h(No);
           }),
         de?.abortAfterFlush?.abort(bu("background")),
@@ -560,7 +560,7 @@ async function nne(S, x, P, j, H, Z, re, ue, de, pe, Re) {
         cpt(de.sessionScratch), tqe(de.sessionScratch);
       re.removeByFilter(fwe), Pbn(Ht, pe).catch(() => {});
       let Pn = REe(P);
-      if (I("tengu_bg_leftarrow_inprocess", !0))
+      if (I("tengu_bg_leftarrow_inprocess", true))
         try {
           return await one(Ht, Ie, {
             ...(qC() && { dispatchExtraArgs: ["--restricted"] }),
@@ -609,9 +609,9 @@ class XE {
   #o = null;
   #r = null;
   #i = null;
-  #n = !1;
+  #n = false;
   #c = void 0;
-  #a = !1;
+  #a = false;
   #s = 0;
   constructor(S) {
     this.#e = S;
@@ -630,7 +630,7 @@ class XE {
     this.#r?.clearCapTimer(), (this.#r = null);
   }
   markForkInFlight() {
-    this.#n = !0;
+    this.#n = true;
   }
   markIdleForkMidTurn() {
     let S = this.#e.transcript.getSnapshot(),
@@ -646,13 +646,13 @@ class XE {
   onAttachRequest(S) {
     let { setAppState: x } = this.#e;
     if ((x((P) => (P.pendingAgentViewAttach === void 0 ? P : { ...P, pendingAgentViewAttach: void 0 })), wt())) return;
-    (this.#c = S), (this.#a = !0), this.onLeftArrow();
+    (this.#c = S), (this.#a = true), this.onLeftArrow();
   }
   confirm = () => {
     let S = this.#o;
     if (S === null) return;
     s("tengu_left_arrow_confirm", {
-      accepted: !0,
+      accepted: true,
       count: S.inFlight.count,
       kinds: ky(S.inFlight.kinds),
       carryover_count: S.carryOverCount,
@@ -668,7 +668,7 @@ class XE {
     let S = this.#o;
     if (S === null) return;
     s("tengu_left_arrow_confirm", {
-      accepted: !1,
+      accepted: false,
       count: S.inFlight.count,
       kinds: ky(S.inFlight.kinds),
       carryover_count: S.carryOverCount,
@@ -690,7 +690,7 @@ class XE {
         titles: pe,
       } = this.#e,
       { agentTitle: Re, haikuTitle: be } = pe.getSnapshot();
-    this.#n = !0;
+    this.#n = true;
     let Pe = x.getState(),
       { sessionEffort: Oe, toolPermissionContext: Ie } = Pe,
       He = this.#c;
@@ -721,7 +721,7 @@ class XE {
     let { store: S, transcript: x, turn: P, messageQueue: j, clock: H, now: Z, getInputValue: re } = this.#e,
       ue = x.replace,
       de = P.guard;
-    if (this.#a) this.#a = !1;
+    if (this.#a) this.#a = false;
     else this.#c = void 0;
     {
       if (this.#n || this.#o !== null) return;
@@ -771,7 +771,7 @@ class XE {
         return;
       }
       let He = (Ke) => {
-        (this.#n = !1),
+        (this.#n = false),
           Oe(mo(this.#e.session) ? iB("Couldn't open the agents view (detail withheld on this connection).", Ke) : Ke);
       };
       if (this.#r) {
@@ -802,7 +802,7 @@ class XE {
           this.clearPending(),
             this.#l({
               via: "abort-then-fork",
-              replyOnResume: !0,
+              replyOnResume: true,
               confirmedInterstitial: Ke.confirmedInterstitial,
               inflightCount: Re.count,
               inflightKinds: Re.kinds,
@@ -817,7 +817,7 @@ class XE {
         return;
       }
       let Fe = q6e({
-        isBg: !1,
+        isBg: false,
         isLoading: de.isActive,
         isExternalLoading: P.isExternalLoading,
         betweenCalls: Lot(x.getSnapshot(), P.stream.peekStreamingText() !== null),
@@ -838,7 +838,7 @@ class XE {
           Pt = EIt(x.getSnapshot(), st),
           kt = W6e(x.getSnapshot()),
           Ht = q6e({
-            isBg: !1,
+            isBg: false,
             isLoading: de.isActive,
             isExternalLoading: P.isExternalLoading,
             betweenCalls: Lot(x.getSnapshot(), P.stream.peekStreamingText() !== null),
@@ -895,7 +895,7 @@ class XE {
                 (this.#r = null),
                   this.#l({
                     via: "abort-then-fork",
-                    replyOnResume: !0,
+                    replyOnResume: true,
                     confirmedInterstitial: vo.confirmedInterstitial,
                     inflightCount: To.count,
                     inflightKinds: To.kinds,
@@ -904,7 +904,7 @@ class XE {
                     partialText: EIt(x.getSnapshot(), Qo),
                     boundaryUuid: W6e(x.getSnapshot()),
                     deferWaitMs: Z() - so,
-                    deferCapFired: !0,
+                    deferCapFired: true,
                     abortAfterFlush: jo,
                   }).then(He);
               }
@@ -916,13 +916,13 @@ class XE {
             clearCapTimer: Gt,
             carriedAtPress: Pe,
             proceed: () =>
-              this.#l({ ...to, replyOnResume: !0, deferWaitMs: Z() - so }).then((vo) => ((this.#n = !1), vo)),
+              this.#l({ ...to, replyOnResume: true, deferWaitMs: Z() - so }).then((vo) => ((this.#n = false), vo)),
           }),
             Oe("Backgrounding after the current tool finishes\u2026");
           return;
         }
         if (Rt === "abort-then-fork") {
-          this.#l({ ...to, replyOnResume: !0, partialText: Pt, boundaryUuid: kt, abortAfterFlush: lt ?? void 0 }).then(
+          this.#l({ ...to, replyOnResume: true, partialText: Pt, boundaryUuid: kt, abortAfterFlush: lt ?? void 0 }).then(
             He,
           );
           return;
@@ -955,7 +955,7 @@ class XE {
             .catch(h);
         return;
       }
-      Ve(!1);
+      Ve(false);
     }
   };
   backgroundQuery = () => {
@@ -1069,7 +1069,7 @@ function HEe(ZE, zft) {
     {
       paddingLeft: 2,
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [lne(ZE.timestamp), ZE.command ? ` ${ZE.command}:` : "", " ", ZE.line],
       }),
     },
@@ -1130,7 +1130,7 @@ function iv() {
   if (ux[8] !== ane || ux[9] !== Rb)
     (aj = e(o, {
       paddingLeft: 2,
-      children: r(t, { dimColor: !0, children: ["\u2026 showing last ", ane, " of ", Rb] }),
+      children: r(t, { dimColor: true, children: ["\u2026 showing last ", ane, " of ", Rb] }),
     })),
       (ux[8] = ane),
       (ux[9] = Rb),
@@ -1165,14 +1165,14 @@ function sDe(yne) {
   if (!yne.isBriefOnly) {
     return yne;
   }
-  return { ...yne, isBriefOnly: !1 };
+  return { ...yne, isBriefOnly: false };
 }
 
 function aDe(Sne) {
   if (!Sne.isBriefOnly) {
     return Sne;
   }
-  return { ...Sne, isBriefOnly: !1 };
+  return { ...Sne, isBriefOnly: false };
 }
 
 function lDe() {}
@@ -1184,7 +1184,7 @@ function cDe() {
 function xb(hgt) {
   let uy = _(22),
     { screen: lj, onToggleTranscript: une, showAllInTranscript: $Ee, messageCount: dne } = hgt,
-    mne = $Ee === void 0 ? !1 : $Ee,
+    mne = $Ee === void 0 ? false : $Ee,
     pne = W(tDe),
     fm = At();
   Or();
@@ -1263,7 +1263,7 @@ function xb(hgt) {
         return;
       }
       let gne = !av;
-      s("tengu_brief_mode_toggled", { enabled: gne, gated: !1, source: w("keybinding") }),
+      s("tengu_brief_mode_toggled", { enabled: gne, gated: false, source: w("keybinding") }),
         fm((hne) => {
           if (hne.isBriefOnly === gne) {
             return hne;
@@ -1333,7 +1333,7 @@ var sD = "verbose ",
 function wx(cht) {
   let Pb = _(17),
     { showAllInTranscript: uht, virtualScroll: dht, searchBadge: mj, suppressShowAll: uDe, status: eD } = cht,
-    mht = uDe === void 0 ? !1 : uDe,
+    mht = uDe === void 0 ? false : uDe,
     pj = Ro("app:toggleTranscript", "Global", "ctrl+o"),
     pht = Ro("transcript:toggleShowAll", "Transcript", "ctrl+e"),
     fj = Ege(),
@@ -1367,7 +1367,7 @@ function wx(cht) {
   const bne = mj ? "n/N to navigate" : dht ? ght : mht ? `v to ${pDe}` : `${pht} to ${uht ? "collapse" : "show all"}`;
   let yj;
   if (Pb[6] !== gj || Pb[7] !== hj || Pb[8] !== bne)
-    (yj = e(t, { dimColor: !0, wrap: "truncate-end", children: r(fe, { children: [gj, gDe, hj, bne] }) })),
+    (yj = e(t, { dimColor: true, wrap: "truncate-end", children: r(fe, { children: [gj, gDe, hj, bne] }) })),
       (Pb[6] = gj),
       (Pb[7] = hj),
       (Pb[8] = bne),
@@ -1383,13 +1383,13 @@ function wx(cht) {
   let yDe;
   if (Pb[14] !== yj || Pb[15] !== Sj)
     (yDe = r(o, {
-      noSelect: !0,
+      noSelect: true,
       alignItems: "center",
       alignSelf: "center",
-      borderTopDimColor: !0,
-      borderBottom: !1,
-      borderLeft: !1,
-      borderRight: !1,
+      borderTopDimColor: true,
+      borderBottom: false,
+      borderLeft: false,
+      borderRight: false,
       borderStyle: "single",
       marginTop: 1,
       paddingLeft: rD,
@@ -1415,7 +1415,7 @@ function CH(yht) {
   if (lv) {
     let Mb;
     if (kne[2] !== lv.count || kne[3] !== lv.current)
-      (Mb = r(t, { dimColor: !0, children: [lv.current, "/", lv.count, "  "] })),
+      (Mb = r(t, { dimColor: true, children: [lv.current, "/", lv.count, "  "] })),
         (kne[2] = lv.count),
         (kne[3] = lv.current),
         (kne[4] = Mb);
@@ -1423,16 +1423,16 @@ function CH(yht) {
     return Mb;
   }
   let Mb;
-  if (kne[5] === d) (Mb = e(t, { dimColor: !0, children: sD })), (kne[5] = Mb);
+  if (kne[5] === d) (Mb = e(t, { dimColor: true, children: sD })), (kne[5] = Mb);
   else Mb = kne[5];
   return Mb;
 }
 
 function are({ indexStatus: S, count: x, current: P, query: j }) {
-  if (S === "building") return e(t, { dimColor: !0, children: "indexing\u2026 " });
-  if (S) return r(t, { dimColor: !0, children: ["indexed in ", S.ms, "ms "] });
+  if (S === "building") return e(t, { dimColor: true, children: "indexing\u2026 " });
+  if (S) return r(t, { dimColor: true, children: ["indexed in ", S.ms, "ms "] });
   if (x === 0 && j) return e(t, { color: "error", children: "no matches " });
-  if (x > 0) return r(t, { dimColor: !0, children: [P, "/", x, "  "] });
+  if (x > 0) return r(t, { dimColor: true, children: [P, "/", x, "  "] });
   return null;
 }
 
@@ -1446,33 +1446,33 @@ function vH() {
   let Sht = SDe,
     bDe;
   if (su[1] === d)
-    (bDe = r(t, { dimColor: !0, children: [`${L.arrowUp}${L.arrowDown} j/k`.padEnd(9), "scroll"] })), (su[1] = bDe);
+    (bDe = r(t, { dimColor: true, children: [`${L.arrowUp}${L.arrowDown} j/k`.padEnd(9), "scroll"] })), (su[1] = bDe);
   else bDe = su[1];
   let vDe;
-  if (su[2] === d) (vDe = r(t, { dimColor: !0, children: ["ctrl+u/d".padEnd(9), "half page"] })), (su[2] = vDe);
+  if (su[2] === d) (vDe = r(t, { dimColor: true, children: ["ctrl+u/d".padEnd(9), "half page"] })), (su[2] = vDe);
   else vDe = su[2];
   let wDe;
-  if (su[3] === d) (wDe = r(t, { dimColor: !0, children: ["space b".padEnd(9), "page"] })), (su[3] = wDe);
+  if (su[3] === d) (wDe = r(t, { dimColor: true, children: ["space b".padEnd(9), "page"] })), (su[3] = wDe);
   else wDe = su[3];
   let TDe;
-  if (su[4] === d) (TDe = r(t, { dimColor: !0, children: ["g/G".padEnd(9), "top/bottom"] })), (su[4] = TDe);
+  if (su[4] === d) (TDe = r(t, { dimColor: true, children: ["g/G".padEnd(9), "top/bottom"] })), (su[4] = TDe);
   else TDe = su[4];
   let RDe;
   if (su[5] === d)
     (RDe = r(o, {
       flexDirection: "column",
-      children: [bDe, vDe, wDe, TDe, r(t, { dimColor: !0, children: ["{/}".padEnd(9), "prev/next prompt"] })],
+      children: [bDe, vDe, wDe, TDe, r(t, { dimColor: true, children: ["{/}".padEnd(9), "prev/next prompt"] })],
     })),
       (su[5] = RDe);
   else RDe = su[5];
   let xDe;
-  if (su[6] === d) (xDe = r(t, { dimColor: !0, children: ["/".padEnd(5), "search"] })), (su[6] = xDe);
+  if (su[6] === d) (xDe = r(t, { dimColor: true, children: ["/".padEnd(5), "search"] })), (su[6] = xDe);
   else xDe = su[6];
   let PDe;
-  if (su[7] === d) (PDe = r(t, { dimColor: !0, children: ["n/N".padEnd(5), "next/prev match"] })), (su[7] = PDe);
+  if (su[7] === d) (PDe = r(t, { dimColor: true, children: ["n/N".padEnd(5), "next/prev match"] })), (su[7] = PDe);
   else PDe = su[7];
   let MDe;
-  if (su[8] === d) (MDe = r(t, { dimColor: !0, children: ["[".padEnd(5), "print to scrollback"] })), (su[8] = MDe);
+  if (su[8] === d) (MDe = r(t, { dimColor: true, children: ["[".padEnd(5), "print to scrollback"] })), (su[8] = MDe);
   else MDe = su[8];
   let EDe;
   if (su[9] === d) (EDe = "v".padEnd(5)), (su[9] = EDe);
@@ -1481,7 +1481,7 @@ function vH() {
   if (su[10] === d)
     (DDe = r(o, {
       flexDirection: "column",
-      children: [xDe, PDe, MDe, r(t, { dimColor: !0, children: [EDe, "open in ", Sht ?? "editor"] })],
+      children: [xDe, PDe, MDe, r(t, { dimColor: true, children: [EDe, "open in ", Sht ?? "editor"] })],
     })),
       (su[10] = DDe);
   else DDe = su[10];
@@ -1489,25 +1489,25 @@ function vH() {
   if (su[11] !== Cne) (vj = Cne.padEnd(7)), (su[11] = Cne), (su[12] = vj);
   else vj = su[12];
   let wj;
-  if (su[13] !== vj) (wj = r(t, { dimColor: !0, children: [vj, "toggle transcript"] })), (su[13] = vj), (su[14] = wj);
+  if (su[13] !== vj) (wj = r(t, { dimColor: true, children: [vj, "toggle transcript"] })), (su[13] = vj), (su[14] = wj);
   else wj = su[14];
   let Tj;
   if (su[15] !== wne) (Tj = wne.padEnd(7)), (su[15] = wne), (su[16] = Tj);
   else Tj = su[16];
   let _j;
-  if (su[17] !== Tj) (_j = r(t, { dimColor: !0, children: [Tj, "exit"] })), (su[17] = Tj), (su[18] = _j);
+  if (su[17] !== Tj) (_j = r(t, { dimColor: true, children: [Tj, "exit"] })), (su[17] = Tj), (su[18] = _j);
   else _j = su[18];
   let NDe;
-  if (su[19] === d) (NDe = r(t, { dimColor: !0, children: ["?".padEnd(7), "close help"] })), (su[19] = NDe);
+  if (su[19] === d) (NDe = r(t, { dimColor: true, children: ["?".padEnd(7), "close help"] })), (su[19] = NDe);
   else NDe = su[19];
   let LDe;
   if (su[20] !== wj || su[21] !== _j)
     (LDe = r(o, {
-      noSelect: !0,
-      borderTopDimColor: !0,
-      borderBottom: !1,
-      borderLeft: !1,
-      borderRight: !1,
+      noSelect: true,
+      borderTopDimColor: true,
+      borderBottom: false,
+      borderLeft: false,
+      borderRight: false,
       borderStyle: "single",
       marginTop: 1,
       paddingLeft: 2,
@@ -1531,14 +1531,14 @@ function _H(bht) {
       cursorOffset: Tht,
       handleKeyDown: Pne,
       handlePaste: Ane,
-    } = np({ isActive: !0, initialQuery: vht, onExit: () => kht(Zl), onCancel: Cht }),
+    } = np({ isActive: true, initialQuery: vht, onExit: () => kht(Zl), onCancel: Cht }),
     Zl = wht,
     Mne = xt(),
     [Rj, oD] = u("building"),
     ODe;
   if (up[0] !== Mne || up[1] !== dx)
     (ODe = () => {
-      let Ine = !0;
+      let Ine = true;
       let FDe = dx.current?.warmSearchIndex;
       if (!FDe) {
         oD(null);
@@ -1554,7 +1554,7 @@ function _H(bht) {
           else oD({ ms: BDe }), Mne.setTimeout(() => Ine && oD(null), 2000);
         }),
         () => {
-          Ine = !1;
+          Ine = false;
         }
       );
     }),
@@ -1597,7 +1597,7 @@ function _H(bht) {
   if (up[16] !== xj) (Pj = e(t, { children: xj })), (up[16] = xj), (up[17] = Pj);
   else Pj = up[17];
   let Aj;
-  if (up[18] !== Ene) (Aj = e(t, { inverse: !0, children: Ene })), (up[18] = Ene), (up[19] = Aj);
+  if (up[18] !== Ene) (Aj = e(t, { inverse: true, children: Ene })), (up[18] = Ene), (up[19] = Aj);
   else Aj = up[19];
   let Mj;
   if (up[20] !== my || up[21] !== Zl)
@@ -1618,19 +1618,19 @@ function _H(bht) {
   let qDe;
   if (up[29] !== Pne || up[30] !== Ane || up[31] !== Mj || up[32] !== Ij || up[33] !== Pj || up[34] !== Aj)
     (qDe = r(o, {
-      borderTopDimColor: !0,
-      borderBottom: !1,
-      borderLeft: !1,
-      borderRight: !1,
+      borderTopDimColor: true,
+      borderBottom: false,
+      borderLeft: false,
+      borderRight: false,
       borderStyle: "single",
       marginTop: 1,
       paddingLeft: 2,
       tabIndex: 0,
-      autoFocus: !0,
+      autoFocus: true,
       onKeyDown: Pne,
       onPaste: Ane,
       width: "100%",
-      noSelect: !0,
+      noSelect: true,
       children: [$De, Pj, Aj, Mj, WDe, Ij],
     })),
       (up[29] = Pne),
@@ -1709,13 +1709,13 @@ function aD(Mht) {
     Wne = ct(),
     { storageV5: qne } = ge(),
     Vne = xt(),
-    [Iht, Eht] = u(!1),
+    [Iht, Eht] = u(false),
     df = Iht || dp,
-    [Gne, Hj] = u(!1),
+    [Gne, Hj] = u(false),
     [Gj, zDe] = u(""),
     Kj = C(0),
     Kne = C(void 0),
-    Qne = C(!1),
+    Qne = C(false),
     YDe,
     JDe;
   if (Lc[0] === d)
@@ -1728,7 +1728,7 @@ function aD(Mht) {
   else (YDe = Lc[0]), (JDe = Lc[1]);
   A(YDe, JDe);
   let mp = C(null),
-    [Vd, zj] = u(!1),
+    [Vd, zj] = u(false),
     [ym, XDe] = u(""),
     [py, zne] = u(0),
     [Yj, Yne] = u(0),
@@ -1756,7 +1756,7 @@ function aD(Mht) {
   if (Lc[6] !== Vd || Lc[7] !== ym || Lc[8] !== Nu || Lc[9] !== vx)
     (nNe = () => {
       if (oNe.current !== vx) {
-        if (((oNe.current = vx), ym || Vd)) zj(!1), XDe(""), zne(0), Yne(0), mp.current?.disarmSearch(), Nu("");
+        if (((oNe.current = vx), ym || Vd)) zj(false), XDe(""), zne(0), Yne(0), mp.current?.disarmSearch(), Nu("");
       }
     }),
       (rNe = [vx, ym, Vd, Nu]),
@@ -1770,7 +1770,7 @@ function aD(Mht) {
   A(nNe, rNe);
   let iNe = C(null),
     Jj = !Vd;
-  Cp(iNe, Jj, !0);
+  Cp(iNe, Jj, true);
   let sNe;
   if (
     Lc[12] !== Vne ||
@@ -1797,7 +1797,7 @@ function aD(Mht) {
         return;
       }
       if (kc.key === "/" && !dp) {
-        mp.current?.setAnchor(), zj(!0), Hj(!1), kc.preventDefault();
+        mp.current?.setAnchor(), zj(true), Hj(false), kc.preventDefault();
         return;
       }
       let Ib = kc.key[0];
@@ -1818,14 +1818,14 @@ function aD(Mht) {
         return;
       }
       if (kc.key === "[" && !dp && !jne) {
-        $ne(), Hj(!1), kc.preventDefault();
+        $ne(), Hj(false), kc.preventDefault();
         return;
       }
       if (kc.key === "v") {
-        if ((kc.preventDefault(), Hj(!1), Qne.current)) {
+        if ((kc.preventDefault(), Hj(false), Qne.current)) {
           return;
         }
-        Qne.current = !0;
+        Qne.current = true;
         let dNe = Kj.current;
         let ere = (Oht) => {
           if (dNe !== Kj.current) {
@@ -1839,7 +1839,7 @@ function aD(Mht) {
               let Fht = Math.max(80, (process.stdout.columns ?? 80) - 6);
               let Bht = (await OUe(Wne, gm.messages, kx, { columns: Fht, storageV5: qne })).replace(/[ \t]+$/gm, "");
               let mNe = xl();
-              await rre(mNe, { recursive: !0, mode: 448 });
+              await rre(mNe, { recursive: true, mode: 448 });
               let nH = sre(mNe, `cc-transcript-${Date.now()}.txt`);
               await ire(nH, Bht);
               let Uht = xse(nH);
@@ -1848,7 +1848,7 @@ function aD(Mht) {
               let ore = eH;
               ere(`render failed: ${ore instanceof Error ? ore.message : String(ore)}`);
             }
-            if (((Qne.current = !1), dNe !== Kj.current)) {
+            if (((Qne.current = false), dNe !== Kj.current)) {
               return;
             }
             Kne.current = Vne.setTimeout(() => zDe(""), 4000);
@@ -2001,10 +2001,10 @@ function aD(Mht) {
                 count: py,
                 current: Yj,
                 onClose: (SNe) => {
-                  if ((XDe(py > 0 ? SNe : ""), zj(!1), !SNe)) zne(0), Yne(0), mp.current?.setSearchQuery("");
+                  if ((XDe(py > 0 ? SNe : ""), zj(false), !SNe)) zne(0), Yne(0), mp.current?.setSearchQuery("");
                 },
                 onCancel: () => {
-                  zj(!1), mp.current?.setSearchQuery(""), mp.current?.setSearchQuery(ym), Nu(ym);
+                  zj(false), mp.current?.setSearchQuery(""), mp.current?.setSearchQuery(ym), Nu(ym);
                 },
                 setHighlight: Nu,
               })
@@ -2012,7 +2012,7 @@ function aD(Mht) {
               ? e(vH, {})
               : e(wx, {
                   showAllInTranscript: df,
-                  virtualScroll: !0,
+                  virtualScroll: true,
                   status: Gj || void 0,
                   searchBadge: ym && py > 0 ? { current: Yj, count: py } : void 0,
                 }),
@@ -2022,7 +2022,7 @@ function aD(Mht) {
             uH,
             Lj,
             Uj && e(iv, {}),
-            e(wx, { showAllInTranscript: df, virtualScroll: !1, suppressShowAll: dp, status: Gj || void 0 }),
+            e(wx, { showAllInTranscript: df, virtualScroll: false, suppressShowAll: dp, status: Gj || void 0 }),
           ],
         })),
       (Lc[66] = dp),
@@ -2056,7 +2056,7 @@ function aD(Mht) {
 F();
 
 function BNe() {
-  if (!xWt()) IWt(!0), s("tengu_auto_mode_env_onboarding_shown", {});
+  if (!xWt()) IWt(true), s("tengu_auto_mode_env_onboarding_shown", {});
 }
 
 function UNe(myt) {
@@ -2068,7 +2068,7 @@ function jNe(DNe) {
 }
 
 function HNe(NNe) {
-  return { ...NNe, autoModeEnvSetup: { ...NNe.autoModeEnvSetup, dismissed: !0 } };
+  return { ...NNe, autoModeEnvSetup: { ...NNe.autoModeEnvSetup, dismissed: true } };
 }
 
 var LNe = 604800000,
@@ -2076,16 +2076,16 @@ var LNe = 604800000,
   mD = 5;
 
 function IH() {
-  if (!_te()) return !1;
-  if ((U$()?.environment?.length ?? 0) > 0) return !1;
+  if (!_te()) return false;
+  if ((U$()?.environment?.length ?? 0) > 0) return false;
   let S = ie();
-  if (S.numStartups < ONe) return !1;
-  if ((S.autoModeEnvSetup?.denials ?? 0) < mD) return !1;
-  if (FNe()) return !1;
+  if (S.numStartups < ONe) return false;
+  if ((S.autoModeEnvSetup?.denials ?? 0) < mD) return false;
+  if (FNe()) return false;
   let x = S.autoModeEnvSetup;
-  if (x?.dismissed) return !1;
-  if (x?.dismissedAt && Date.now() - x.dismissedAt < LNe) return !1;
-  return !0;
+  if (x?.dismissed) return false;
+  if (x?.dismissedAt && Date.now() - x.dismissedAt < LNe) return false;
+  return true;
 }
 
 function FNe() {
@@ -2095,7 +2095,7 @@ function FNe() {
 
 function mre(S) {
   return (
-    Ryt() === !0 &&
+    Ryt() === true &&
     S.toolPermissionContext.mode === "auto" &&
     !S.showAutoModeEnvOnboarding &&
     !S.viewingAgentTaskId &&
@@ -2196,7 +2196,7 @@ F();
 
 var wg = yn(null);
 
-function Tg(S, x, { perReveal: P = !1 } = {}) {
+function Tg(S, x, { perReveal: P = false } = {}) {
   let j = We(wg),
     H = We(Tge),
     Z = br(x),
@@ -2210,20 +2210,20 @@ function Tg(S, x, { perReveal: P = !1 } = {}) {
 }
 
 function Sre() {
-  if (wt()) return !1;
-  if ($n()) return !1;
-  if (Kh() !== null) return !1;
-  if (a.CLAUDE_CODE_FORCE_FULLSCREEN_UPSELL) return !0;
-  if (Nt()) return !1;
-  if (fg()) return !1;
-  if (Je().tui !== void 0) return !1;
-  if (XOe() === "fullscreen") return !1;
-  if (g_t(qv())) return !1;
-  if (lJn()) return !1;
-  if (ix()) return !1;
-  if ((ie().fullscreenUpsellSeenCount ?? 0) >= YOe) return !1;
-  if (Avt()) return !1;
-  return !0;
+  if (wt()) return false;
+  if ($n()) return false;
+  if (Kh() !== null) return false;
+  if (a.CLAUDE_CODE_FORCE_FULLSCREEN_UPSELL) return true;
+  if (Nt()) return false;
+  if (fg()) return false;
+  if (Je().tui !== void 0) return false;
+  if (XOe() === "fullscreen") return false;
+  if (g_t(qv())) return false;
+  if (lJn()) return false;
+  if (ix()) return false;
+  if ((ie().fullscreenUpsellSeenCount ?? 0) >= YOe) return false;
+  if (Avt()) return false;
+  return true;
 }
 
 function NH($yt) {
@@ -2275,11 +2275,11 @@ function NH($yt) {
       flexDirection: "column",
       children: [
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: ["\xB7 Flicker-free output", Gyt ? " \u2014 fixes the flashing you see during long responses" : ""],
         }),
-        e(t, { dimColor: !0, children: "\xB7 Mouse support \u2014 click to move your cursor or expand results" }),
-        e(t, { dimColor: !0, children: "\xB7 Selected text auto-copies to your clipboard" }),
+        e(t, { dimColor: true, children: "\xB7 Mouse support \u2014 click to move your cursor or expand results" }),
+        e(t, { dimColor: true, children: "\xB7 Selected text auto-copies to your clipboard" }),
       ],
     })),
       (cv[8] = QNe);
@@ -2317,12 +2317,12 @@ var _x = go({
   payload: m(() => f({ currentMode: oe(gy) })),
   result: m(() => oe(["accept", "decline", "cancelled"])),
   default: "cancelled",
-  yieldsToPanels: !0,
-  yieldsToDraft: !0,
+  yieldsToPanels: true,
+  yieldsToDraft: true,
 });
 
 async function bre(S, x, P) {
-  let j = await S(_x, { currentMode: x }, { queueBehind: !0 });
+  let j = await S(_x, { currentMode: x }, { queueBehind: true });
   if (j === "cancelled" || dy()) return;
   YNe(j, x, P);
 }
@@ -2330,7 +2330,7 @@ async function bre(S, x, P) {
 function YNe(S, x, P) {
   let j = S === "accept" ? JNe(P) : "declined";
   if (j !== "gate_off")
-    Ae((H) => (H.hasSeenAutoDefaultNudge ? H : { ...H, hasSeenAutoDefaultNudge: !0 }), P.storageV5).catch(h);
+    Ae((H) => (H.hasSeenAutoDefaultNudge ? H : { ...H, hasSeenAutoDefaultNudge: true }), P.storageV5).catch(h);
   s("tengu_auto_default_nudge_resolved", { choice: c(S), outcome: c(j), current_mode: c(x) });
 }
 
@@ -2357,11 +2357,11 @@ var Lb = go({
   payload: m(() => f({})),
   result: m(() => oe(["accept", "dismiss", "cancelled"])),
   default: "cancelled",
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 
 async function wre(S, x) {
-  let P = await S(Lb, {}, { queueBehind: !0 });
+  let P = await S(Lb, {}, { queueBehind: true });
   await XNe(P, x);
 }
 
@@ -2405,7 +2405,7 @@ async function ZNe({ getAppState: S, getMessages: x, getIsResponseStreaming: P, 
   try {
     await bUe("fullscreen", pe, x(), { proactivityLevel: de, toolPermissionContext: re }, H, {
       responseStreaming: P(),
-      trial: !0,
+      trial: true,
     });
   } catch (Re) {
     h(Re);
@@ -2438,11 +2438,11 @@ var Ob = go({
   ),
   result: m(() => oe(["approved", "rejected", "deferred_no_consent_surface"])),
   default: "deferred_no_consent_surface",
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 
 function Tre(S) {
-  return lJt((x, P, j) => S(Ob, e0e(x, P, j), { queueBehind: !0 })), () => lJt(null);
+  return lJt((x, P, j) => S(Ob, e0e(x, P, j), { queueBehind: true })), () => lJt(null);
 }
 
 async function* e0e(S, x, P) {
@@ -2454,7 +2454,7 @@ async function* e0e(S, x, P) {
   }
 }
 
-var t0e = () => !1;
+var t0e = () => false;
 
 class CD {
   #e;
@@ -2465,7 +2465,7 @@ class CD {
   }
   start() {
     let { store: S, requestDialog: x, addNotification: P } = this.#e,
-      j = { stopped: !1 };
+      j = { stopped: false };
     if (Nt())
       uJn()
         .then((Z) => {
@@ -2480,7 +2480,7 @@ class CD {
     let H = Tre(x);
     if ((this.#r(j).catch(h), Ryt() === void 0)) LKe(S.getState().toolPermissionContext.mode === "auto" && IH());
     return () => {
-      (j.stopped = !0), H();
+      (j.stopped = true), H();
     };
   }
   async #r(S) {
@@ -2531,7 +2531,7 @@ class CD {
 var o0e = "Claude Code";
 
 function _re(S) {
-  return S.getState().settings.terminalTitleFromRename !== !1;
+  return S.getState().settings.terminalTitleFromRename !== false;
 }
 
 var n0e = ["disabled", "sessionTitle", "aiSessionTitle", "agentTitle", "haikuTitle", "terminalTitle"];
@@ -2542,14 +2542,14 @@ class vD {
   #o = [];
   #r;
   #i;
-  #n = !1;
-  #c = !1;
+  #n = false;
+  #c = false;
   constructor(S) {
     (this.#t = S), (this.#i = _re(S.store)), (this.#r = this.#s());
   }
   connect() {
     if (this.#n || this.#c) return;
-    this.#n = !0;
+    this.#n = true;
     let S = this.#t;
     this.#o.push(
       Jcn(this.#a),
@@ -2567,7 +2567,7 @@ class vD {
   subscribe = (S) => this.#e.subscribe(S);
   getSnapshot = () => this.#r;
   dispose = () => {
-    (this.#c = !0), (this.#n = !1);
+    (this.#c = true), (this.#n = false);
     for (let S of this.#o.splice(0)) S();
   };
   #a = () => {
@@ -2596,11 +2596,11 @@ class vD {
 var hf = go({
   kind: "sandbox_network_access",
   payload: m(() =>
-    f({ host: i(), port: v().optional(), forwardedFromWorker: N(!0).optional(), workerName: i().optional() }),
+    f({ host: i(), port: v().optional(), forwardedFromWorker: N(true).optional(), workerName: i().optional() }),
   ),
   result: m(() => dt([f({ allow: q(), persistToSettings: q(), persistRow: rDn().optional() }), N("cancelled")])),
   default: "cancelled",
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 
 class wD {
@@ -2609,13 +2609,13 @@ class wD {
   constructor(S) {
     this.deps = S;
   }
-  ask(S, { forwardToBridge: x = !0 } = {}) {
+  ask(S, { forwardToBridge: x = true } = {}) {
     if (zD(S.host))
       return (
         n(`[SandboxNetworkPrompts] Refusing to ask for a host srt would re-spell: ${BG(S.host) ?? "(unshowable)"}`, {
           level: "warn",
         }),
-        Promise.resolve(!1)
+        Promise.resolve(false)
       );
     let P = this.inFlight.get(S.host);
     if (P) return P;
@@ -2642,11 +2642,11 @@ class wD {
     let ue = await this.deps.requestDialog(
       hf,
       { host: S, port: x },
-      { signal: j.signal, queueBehind: !0, armInputGrace: !0 },
+      { signal: j.signal, queueBehind: true, armInputGrace: true },
     );
     if ((Z(H !== void 0), ue === "cancelled")) {
       if (H) pt.addSessionAllowedHost(S);
-      return H ?? !1;
+      return H ?? false;
     }
     return Are(ue, S, this.deps.applyPermissionUpdate), ue.allow;
   }
@@ -2656,8 +2656,8 @@ async function Pre({ host: S, workerName: x, requestId: P }, j) {
   for (let H = 0; H < 2; H++) {
     let Z = await j.requestDialog(
       hf,
-      { host: S, forwardedFromWorker: !0, workerName: x },
-      { queueBehind: !0, armInputGrace: !0 },
+      { host: S, forwardedFromWorker: true, workerName: x },
+      { queueBehind: true, armInputGrace: true },
     );
     if (Z === "cancelled") {
       n(
@@ -2728,7 +2728,7 @@ async function s0e(S) {
       if (P === null) return;
       let j = S.lastStartedAt + P - Date.now();
       if (j > 0) {
-        if ((await ne(j, x.signal, { unref: !0 }), x.signal.aborted)) return;
+        if ((await ne(j, x.signal, { unref: true }), x.signal.aborted)) return;
       }
       let H = S.requested;
       (S.requested = null), (S.lastStartedAt = Date.now());
@@ -2779,8 +2779,8 @@ async function a0e(S, x) {
         querySource: "narration",
         forkLabel: "narration",
         maxTurns: 1,
-        skipCacheWrite: !0,
-        skipTranscript: !0,
+        skipCacheWrite: true,
+        skipTranscript: true,
       });
     if (x.signal.aborted) return { kind: "aborted" };
     if (Z.some((ue) => ue.type === "assistant" && ue.isApiErrorMessage)) return { kind: "api-error" };
@@ -2834,10 +2834,10 @@ function Mre() {
     subscribe(re) {
       Z += 1;
       let ue = S.subscribe(re),
-        de = !1;
+        de = false;
       return () => {
         if (de) return;
-        (de = !0), (Z -= 1), ue();
+        (de = true), (Z -= 1), ue();
       };
     },
     onCancel: x.subscribe,
@@ -2856,7 +2856,7 @@ function Mre() {
         { promise: Ie, resolve: He } = Promise.withResolvers(),
         Fe = Pe?.signal;
       if (Fe?.aborted || Z === 0)
-        return queueMicrotask(() => He({ id: Oe, cancelled: !0 })), { id: Oe, replied: Ie, update: () => {} };
+        return queueMicrotask(() => He({ id: Oe, cancelled: true })), { id: Oe, replied: Ie, update: () => {} };
       let Ve;
       if (
         (j.set(Oe, (Ke) => {
@@ -2866,9 +2866,9 @@ function Mre() {
         Fe)
       )
         (Ve = () => {
-          if (j.delete(Oe)) He({ id: Oe, cancelled: !0 }), x.emit(Oe);
+          if (j.delete(Oe)) He({ id: Oe, cancelled: true }), x.emit(Oe);
         }),
-          Fe.addEventListener("abort", Ve, { once: !0 });
+          Fe.addEventListener("abort", Ve, { once: true });
       return (
         S.emit({
           id: Oe,
@@ -2969,7 +2969,7 @@ class FH {
       return;
     }
     try {
-      let Z = await fVn(j, !1, S, x);
+      let Z = await fVn(j, false, S, x);
       if ((this.#i(P, Z ? "valid" : "invalid"), Z)) y("auth_api_key_verify");
       else p("auth_api_key_verify", "invalid");
     } catch {
@@ -2980,7 +2980,7 @@ class FH {
 
 function d0e() {
   if (!El() || Tt()) return "valid";
-  let { key: S, source: x } = qg({ skipRetrievingKeyFromApiKeyHelper: !0 });
+  let { key: S, source: x } = qg({ skipRetrievingKeyFromApiKeyHelper: true });
   if (S || x === "apiKeyHelper") return "loading";
   return "missing";
 }
@@ -3033,8 +3033,8 @@ class _D {
   verdicts = new kme();
   verdictsPermissionContext;
   stops = [];
-  connected = !1;
-  disposed = !1;
+  connected = false;
+  disposed = false;
   narrowToWorker = dv(p0e);
   mergePluginCommands = dv(U$e);
   mergeMcpCommands = dv(U$e);
@@ -3084,7 +3084,7 @@ class _D {
           let j = this.requireHost(),
             H = `plugin-status-${x}`;
           if ((j.removeNotification(H), P !== void 0))
-            j.addNotification({ key: H, kind: "event", text: _be(x, P), priority: "low", pinned: !0 });
+            j.addNotification({ key: H, kind: "event", text: _be(x, P), priority: "low", pinned: true });
         },
         addMcpServer: (x, P) => this.updateDynamicMcpConfig((j) => ({ ...(j ?? {}), [x]: P })),
         removeMcpServer: (x) => this.updateDynamicMcpConfig((P) => gc(P ?? {}, (j, H) => H === x)),
@@ -3102,7 +3102,7 @@ class _D {
   connect() {
     if (this.connected || this.disposed) return;
     if (
-      ((this.connected = !0),
+      ((this.connected = true),
       ak.bindSession(this.sessionBinding),
       this.stops.push(
         this.store.subscribe(this.refreshOnStoreInputs),
@@ -3120,7 +3120,7 @@ class _D {
   }
   dispose() {
     if (this.disposed) return;
-    (this.disposed = !0), (this.connected = !1), ak.unbindSession(this.sessionBinding);
+    (this.disposed = true), (this.connected = false), ak.unbindSession(this.sessionBinding);
     for (let S of this.stops.splice(0)) S();
   }
   subscribe = (S) => this.changed.subscribe(S);
@@ -3280,7 +3280,7 @@ class _D {
       re = J$e(x, Z, S.toolPermissionContext.mode, [...x, ...S.mcp.tools]),
       ue = this.mainThreadAgent,
       de = ue
-        ? yE(ue, QB(ue, re, S.toolPermissionContext, { activeAgents: S.agentDefinitions.activeAgents }), !1, !0)
+        ? yE(ue, QB(ue, re, S.toolPermissionContext, { activeAgents: S.agentDefinitions.activeAgents }), false, true)
         : void 0,
       pe = Q$e(de ? de.resolvedTools : re, S.toolPermissionContext),
       Re = de?.allowedAgentTypes,
@@ -3313,7 +3313,7 @@ class _D {
     for (let x of S.nestedMemoryPaths) this.readFileState.delete(x), delete this.loadedNestedMemoryPaths[x];
   }
   seedMemoryFile(S, x) {
-    this.readFileState.set(S, x), (this.loadedNestedMemoryPaths[S] = !0);
+    this.readFileState.set(S, x), (this.loadedNestedMemoryPaths[S] = true);
   }
 }
 
@@ -3334,8 +3334,8 @@ function g0e(S, x) {
 }
 
 function BH(S, x) {
-  if (S === x) return !0;
-  if (S === void 0 || x === void 0) return !1;
+  if (S === x) return true;
+  if (S === void 0 || x === void 0) return false;
   return S.length === x.length && S.every((P, j) => P === x[j]);
 }
 
@@ -3359,7 +3359,7 @@ function UH({ store: S, scope: x, readPendingQueryParams: P }) {
     account: P7e(),
     outputStyle: zxe(),
     mcpServers: () => yvt(S.getState().mcp.clients),
-    hostOwnsPermissionMode: !0,
+    hostOwnsPermissionMode: true,
   });
 }
 
@@ -3426,16 +3426,16 @@ async function y0e(S = new Set(), x) {
     }
     if (re.size === 0) return P;
     n(`refresh-on-miss: ${re.size} marketplace(s) have enabled plugins missing from local catalog; refreshing`),
-      await ne(Math.floor(Math.random() * h0e), void 0, { unref: !0 });
+      await ne(Math.floor(Math.random() * h0e), void 0, { unref: true });
     for (let [de, pe] of re) {
       let Re;
       try {
-        await ED(de, x, void 0, { skipIfRecent: !0 });
+        await ED(de, x, void 0, { skipIfRecent: true });
       } catch (Oe) {
         (Re = Oe), n(`refresh-on-miss: failed to refresh marketplace '${de}': ${l(Oe)}`, { level: "warn" });
       }
       let be = Re !== void 0 ? null : await TE(de, x),
-        Pe = !1;
+        Pe = false;
       for (let Oe of pe) {
         let { name: Ie } = Vt(Oe),
           He = be !== null && be.plugins.some((Ve) => Ve.name === Ie);
@@ -3475,7 +3475,7 @@ async function S0e(S, x = Ire) {
       for (let pe of [...re]) if ((await TE(pe, S, { registryEntry: Z[pe] })) !== null) re.delete(pe), P.add(pe);
       let de = ue.shift();
       if (re.size === 0 || de === void 0) break;
-      await ne(de, void 0, { unref: !0 });
+      await ne(de, void 0, { unref: true });
     }
   } catch (j) {
     h(j);
@@ -3542,7 +3542,7 @@ async function Ere(S, x) {
           om("performBackgroundPluginInstallations: auto-refresh failed"),
           S((be) => {
             if (be.plugins.needsRefresh) return be;
-            return { ...be, plugins: { ...be.plugins, needsRefresh: !0 } };
+            return { ...be, plugins: { ...be.plugins, needsRefresh: true } };
           }),
           g("plugin_marketplace_bg_install", "auto_refresh_failed");
         return;
@@ -3552,7 +3552,7 @@ async function Ere(S, x) {
         om("performBackgroundPluginInstallations: marketplaces reconciled"),
         S((Re) => {
           if (Re.plugins.needsRefresh) return Re;
-          return { ...Re, plugins: { ...Re.plugins, needsRefresh: !0 } };
+          return { ...Re, plugins: { ...Re.plugins, needsRefresh: true } };
         });
     if (re.failed.length > 0) g("plugin_marketplace_bg_install", "reconcile_partial_failure");
     else y("plugin_marketplace_bg_install");
@@ -3572,7 +3572,7 @@ async function $H(S, x) {
         om("performStartupChecks: seed marketplaces changed"),
         S((j) => {
           if (j.plugins.needsRefresh) return j;
-          return { ...j, plugins: { ...j.plugins, needsRefresh: !0 } };
+          return { ...j, plugins: { ...j.plugins, needsRefresh: true } };
         });
     await Ere(S, x);
   } catch (P) {
@@ -3590,7 +3590,7 @@ function b0e() {
 function WH() {
   let S = mv();
   if (S.probeEventLogged) return;
-  S.probeEventLogged = !0;
+  S.probeEventLogged = true;
   let x = qv();
   mHn(m_t(x)), s("tengu_terminal_probe", C0e(x));
 }
@@ -3643,12 +3643,12 @@ var _0e = m(() =>
 );
 
 function GH(S, x) {
-  let P = C(!1),
+  let P = C(false),
     j = C(null);
   A(() => {
     let H = Ok(S);
     if (j.current !== (H ?? null))
-      (P.current = !1), (j.current = H || null), x({ lineCount: 0, lineStart: void 0, text: void 0, filePath: void 0 });
+      (P.current = false), (j.current = H || null), x({ lineCount: 0, lineStart: void 0, text: void 0, filePath: void 0 });
     if (P.current || !H) return;
     hH(H, _0e(), (Z) => {
       if (j.current !== H) return;
@@ -3664,7 +3664,7 @@ function GH(S, x) {
         h(re);
       }
     }),
-      (P.current = !0);
+      (P.current = true);
   }, [S, x]);
 }
 
@@ -3687,7 +3687,7 @@ async function Dre(S) {
   return QR().pluginThemes.setState(() => x), x;
 }
 
-function KH({ enabled: S = !0 } = {}) {
+function KH({ enabled: S = true } = {}) {
   let x = At(),
     P = W((de) => de.plugins.needsRefresh),
     { addNotification: j, removeNotification: H } = Or(),
@@ -3819,7 +3819,7 @@ function KH({ enabled: S = !0 } = {}) {
             mcp_count: 0,
             lsp_count: 0,
             theme_count: 0,
-            load_failed: !0,
+            load_failed: true,
             ant_enabled_names: void 0,
           }
         );
@@ -3837,17 +3837,17 @@ function KH({ enabled: S = !0 } = {}) {
   }, [ue, S, Z]),
     A(() => {
       if (!S) return;
-      let de = !0;
+      let de = true;
       return (
         re.firstSyncPromise?.then(
           (pe) => {
             if (pe && de)
-              x((Re) => (Re.plugins.needsRefresh ? Re : { ...Re, plugins: { ...Re.plugins, needsRefresh: !0 } }));
+              x((Re) => (Re.plugins.needsRefresh ? Re : { ...Re, plugins: { ...Re.plugins, needsRefresh: true } }));
           },
           () => {},
         ),
         () => {
-          de = !1;
+          de = false;
         }
       );
     }, [S, x, re]),
@@ -3894,10 +3894,10 @@ function QH() {
     H = Xn(),
     { addNotification: Z } = Or(),
     { host: re } = ct(),
-    ue = C(!0);
+    ue = C(true);
   A(() => {
     if ($n()) return;
-    if (ue.current) ue.current = !1;
+    if (ue.current) ue.current = false;
     else ktt(re);
     RRe(re, H.getState().toolPermissionContext, j, P, Z);
   }, [S, x, P]),
@@ -3929,7 +3929,7 @@ async function x0e(S, x, P) {
 
 async function P0e(S, x) {
   let P = [],
-    j = !1;
+    j = false;
   for (let H of S) {
     let Z = H.monitors;
     if (!Z) continue;
@@ -3937,7 +3937,7 @@ async function P0e(S, x) {
       try {
         P.push(await x0e(re, H, x));
       } catch (ue) {
-        (j = !0), n(`plugin ${H.name}: failed to resolve monitor "${re.name}": ${ue}`, { level: "error" });
+        (j = true), n(`plugin ${H.name}: failed to resolve monitor "${re.name}": ${ue}`, { level: "error" });
       }
   }
   if (j) p("plugin_load_monitors", "plugin_load_monitors_resolve_failed");
@@ -3974,8 +3974,8 @@ async function M0e(S, x, P) {
     Z = Aan(H.onBatch),
     re = await jG(S.command, P.abortController.signal, jD(), {
       host: x,
-      preventCwdChanges: !0,
-      shouldUseSandbox: !1,
+      preventCwdChanges: true,
+      shouldUseSandbox: false,
       onStdout: Z.onData,
       toolCgroupClass: "plugin",
       storageV5: P.storageV5,
@@ -3994,7 +3994,7 @@ async function M0e(S, x, P) {
       P,
     ),
     re.result.then(() => {
-      Z.flush(!0), H.onExit();
+      Z.flush(true), H.onExit();
     }),
     j.id
   );
@@ -4004,7 +4004,7 @@ async function zH(S, x, P, j, H = M0e, Z = Jt().armedMonitorKeys) {
   if (ho("pluginMonitors")) return;
   if (!xI()) return;
   if (Le()) return;
-  let re = !1;
+  let re = false;
   for (let ue of await P0e(S, j.credentials)) {
     if (!x(ue)) continue;
     let de = `${ue.pluginName}:${ue.name}`;
@@ -4013,7 +4013,7 @@ async function zH(S, x, P, j, H = M0e, Z = Jt().armedMonitorKeys) {
     try {
       if ((await H(ue, P, j)) === void 0) Z.delete(de);
     } catch (pe) {
-      Z.delete(de), (re = !0), n(`plugin monitor ${de}: failed to arm: ${pe}`, { level: "error" });
+      Z.delete(de), (re = true), n(`plugin monitor ${de}: failed to arm: ${pe}`, { level: "error" });
     }
   }
   if (re) g("plugin_arm_monitor", "plugin_arm_monitor_failed");
@@ -4135,7 +4135,7 @@ function ZH() {
   }, []),
     A(() => {
       if (!Px || !$X() || Eg()) return;
-      let re = !1;
+      let re = false;
       return (
         ZA(P, j)
           .then((ue) => {
@@ -4148,7 +4148,7 @@ function ZH() {
           })
           .catch(h),
         () => {
-          re = !0;
+          re = true;
         }
       );
     }, [S, x, H, P, j]);
@@ -4199,8 +4199,8 @@ async function e$(S, x, P, j, H) {
       "Stop",
       "",
       async (Pe, Oe) => {
-        gVe(Z, ue, !1, H);
-        let { result: Ie, summary: He } = Mhe(Pe, { emitTelemetry: !0 }),
+        gVe(Z, ue, false, H);
+        let { result: Ie, summary: He } = Mhe(Pe, { emitTelemetry: true }),
           Fe = ZDe(ue, { idleReason: "available", summary: He, result: Ie }),
           Ve;
         try {
@@ -4214,7 +4214,7 @@ async function e$(S, x, P, j, H) {
               ? `[TeammateInit] Sent idle notification to leader ${be}`
               : `[TeammateInit] Idle notification to leader ${be} not delivered (mailbox write returned no id)`,
           ),
-          !0
+          true
         );
       },
       "Failed to send idle notification to team leader",
@@ -4228,8 +4228,8 @@ async function Wre(S, x, P, j) {
   if (!H) return;
   let Z = Dzn(x);
   if (Z === void 0) return;
-  gVe(S.teamName, H, !1, j);
-  let { result: re, summary: ue } = Mhe(x, { emitTelemetry: !0 }),
+  gVe(S.teamName, H, false, j);
+  let { result: re, summary: ue } = Mhe(x, { emitTelemetry: true }),
     de = vi,
     pe = ZDe(H, { idleReason: "failed", failureReason: Z, summary: ue, result: re }),
     Re;
@@ -4248,7 +4248,7 @@ async function Wre(S, x, P, j) {
     );
 }
 
-function t$(S, { enabled: x = !0 } = {}) {
+function t$(S, { enabled: x = true } = {}) {
   let P = ct(),
     j = At(),
     H = wq(),
@@ -4403,12 +4403,12 @@ class n$ {
     if (FPn(S)) this.callbacks.onMessage(S);
   }
   async sendMessage(S) {
-    if (!this.ws) return { ok: !1, reason: "not connected" };
+    if (!this.ws) return { ok: false, reason: "not connected" };
     if (this.ws.readyState === WebSocket.CONNECTING)
-      return { ok: !1, reason: "the connection is still being established" };
-    if (this.ws.readyState !== WebSocket.OPEN) return { ok: !1, reason: "the connection was closed" };
+      return { ok: false, reason: "the connection is still being established" };
+    if (this.ws.readyState !== WebSocket.OPEN) return { ok: false, reason: "the connection was closed" };
     let x = b({ type: "user", message: { role: "user", content: S }, parent_tool_use_id: null, session_id: "" });
-    return this.ws.send(x), { ok: !0 };
+    return this.ws.send(x), { ok: true };
   }
   respondToPermissionRequest(S, x) {
     if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
@@ -4454,9 +4454,9 @@ function nLe(S) {
   return {
     name: S,
     isMcp: S.startsWith("mcp__"),
-    isReadOnly: () => !1,
-    isConcurrencySafe: () => !1,
-    isEnabled: () => !1,
+    isReadOnly: () => false,
+    isConcurrencySafe: () => false,
+    isEnabled: () => false,
     inputSchema: De(i(), _e()),
     maxResultSizeChars: 0,
     userFacingName: () => S,

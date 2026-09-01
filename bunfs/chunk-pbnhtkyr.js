@@ -367,16 +367,16 @@ function f(Jo) {
     let go = new Set();
     let O;
     if (mo[3] !== k)
-      (O = (so) => ({ label: `/${so.name}`, value: so.name, description: ir(rX(so), k, !0) })),
+      (O = (so) => ({ label: `/${so.name}`, value: so.name, description: ir(rX(so), k, true) })),
         (mo[3] = k),
         (mo[4] = O);
     else O = mo[4];
     yo = g
       .filter((xo) => {
         if (go.has(xo.name)) {
-          return !1;
+          return false;
         }
-        return go.add(xo.name), !0;
+        return go.add(xo.name), true;
       })
       .sort(bo)
       .map(O);
@@ -409,8 +409,8 @@ function f(Jo) {
                     options: ao,
                     visibleOptionCount: no,
                     onCancel: oo,
-                    disableSelection: !0,
-                    hideIndexes: !0,
+                    disableSelection: true,
+                    hideIndexes: true,
                     layout: "compact-vertical",
                     onUpFromFirstItem: to,
                     isDisabled: eo,
@@ -455,7 +455,7 @@ function v() {
       !w &&
       e(o, {
         children: r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             "New here? Run ",
             e(t, { color: "suggestion", children: "/powerup" }),
@@ -471,8 +471,8 @@ function v() {
     (No = r(o, {
       flexDirection: "column",
       children: [
-        e(o, { flexShrink: 0, children: e(t, { bold: !0, children: "Shortcuts" }) }),
-        e(qme, { gap: 2, fixedWidth: !0 }),
+        e(o, { flexShrink: 0, children: e(t, { bold: true, children: "Shortcuts" }) }),
+        e(qme, { gap: 2, fixedWidth: true }),
       ],
     })),
       (X[3] = No);
@@ -603,7 +603,7 @@ function Q(ge) {
       e(o, {
         marginTop: 1,
         flexShrink: 0,
-        children: e(t, { dimColor: !0, children: "Something else? Use /feedback to report bugs or request features." }),
+        children: e(t, { dimColor: true, children: "Something else? Use /feedback to report bugs or request features." }),
       })),
       (n[31] = po),
       (n[32] = V);
@@ -614,10 +614,10 @@ function Q(ge) {
       marginTop: 1,
       flexShrink: 0,
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: b.pending
           ? r(U, { children: ["Press ", b.keyName, " again to exit"] })
-          : r(t, { italic: !0, children: [uo, " to cancel"] }),
+          : r(t, { italic: true, children: [uo, " to cancel"] }),
       }),
     })),
       (n[33] = uo),

@@ -80,7 +80,7 @@ function DE(e, t, r, o, u) {
   s("tengu_plugin_remote_fetch", {
     source: c(e),
     host: c(t ? ht(t) : "unknown"),
-    is_official: e === "plugin_catalog" || (t ? yt(t) : !1),
+    is_official: e === "plugin_catalog" || (t ? yt(t) : false),
     outcome: c(r),
     duration_ms: Math.round(o),
     ...(u && { error_kind: c(u) }),
@@ -218,7 +218,7 @@ async function nC(e) {
       if (o === "ENOENT") {
         if (
           await St(e).then(
-            () => !1,
+            () => false,
             (u) => E(u) === "ENOENT",
           )
         )
@@ -267,34 +267,34 @@ function mM(e) {
 }
 function cgt(e, t) {
   let r = mM(e);
-  if (t.has(r)) return !0;
-  for (let o of t) if (wP(r, o)) return !0;
-  return !1;
+  if (t.has(r)) return true;
+  for (let o of t) if (wP(r, o)) return true;
+  return false;
 }
 function bwe(e) {
   return mM(e) === "node_modules";
 }
 function GDe() {
-  if (Ct()) return !1;
-  if (aue()) return !1;
+  if (Ct()) return false;
+  if (aue()) return false;
   return ae();
 }
 function ae() {
-  return I("tengu_plugin_command_source_refresh", !0);
+  return I("tengu_plugin_command_source_refresh", true);
 }
 var Nt = 30000;
 function aue() {
   let e = dc(),
     t = G4(Jy());
-  if (D() === "windows" ? icr(e) : ns(e)) return !0;
+  if (D() === "windows" ? icr(e) : ns(e)) return true;
   let r = Jt().provenLocalRoots,
     o = r.get(t);
   if (o === void 0 || !JF(o, Nt)) {
-    if (kve(t, { allowLocalWsl: !0 })) return r.delete(t), !0;
+    if (kve(t, { allowLocalWsl: true })) return r.delete(t), true;
     r.set(t, Date.now());
   }
-  if (n_(be(), t)) return !1;
-  return xt().some((u) => n_(t, u, { foldCase: !0 }) || n_(u, t, { foldCase: !0 }));
+  if (n_(be(), t)) return false;
+  return xt().some((u) => n_(t, u, { foldCase: true }) || n_(u, t, { foldCase: true }));
 }
 function xt() {
   return te(
@@ -314,7 +314,7 @@ async function tfn(e) {
   return (await Fe(e)).filter((r) => !Ue(r)).some($e);
 }
 async function ugt(e) {
-  let t = (await Fe(e, { withFileTypes: !0 })).filter((r) => !Ue(r.name));
+  let t = (await Fe(e, { withFileTypes: true })).filter((r) => !Ue(r.name));
   if (t.some((r) => r.name === ".claude-plugin")) return e;
   if (t.length === 1 && t[0].isDirectory()) {
     let r = Me(e, t[0].name);
@@ -328,9 +328,9 @@ function $e(e) {
 }
 async function Mt(e) {
   try {
-    return await Ot(e), !0;
+    return await Ot(e), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function Ue(e) {
@@ -361,7 +361,7 @@ async function lue(e, t) {
     let o = await hie(le(e, t.name));
     switch (o.kind) {
       case "junction":
-        return { isDirectory: !1, isFile: !1, isSymbolicLink: !0, linkTarget: o.target };
+        return { isDirectory: false, isFile: false, isSymbolicLink: true, linkTarget: o.target };
       case "directory":
         break;
       case "absent":
@@ -462,17 +462,17 @@ function je(e, { cwd: t, env: r, timeoutMs: o, maxStdoutBytes: u, maxStderrBytes
       w = "",
       k = 0,
       S = 0,
-      b = !1,
-      v = !1,
+      b = false,
+      v = false,
       x,
       N,
       A = Ut(e, [], {
-        shell: !0,
+        shell: true,
         cwd: t,
         env: r,
         stdio: ["ignore", "pipe", "pipe"],
         detached: D() !== "windows",
-        windowsHide: !0,
+        windowsHide: true,
         ...qi("plugin"),
       }),
       we = vt(async () => {
@@ -480,7 +480,7 @@ function je(e, { cwd: t, env: r, timeoutMs: o, maxStdoutBytes: u, maxStderrBytes
       });
     function O(P) {
       if (b) return;
-      if (((b = !0), we(), clearTimeout(Ee), N)) clearTimeout(N);
+      if (((b = true), we(), clearTimeout(Ee), N)) clearTimeout(N);
       A.stdout?.removeAllListeners("data"),
         A.stderr?.removeAllListeners("data"),
         A.stdout?.destroy(),
@@ -533,7 +533,7 @@ function je(e, { cwd: t, env: r, timeoutMs: o, maxStdoutBytes: u, maxStderrBytes
       else O({ kind: "signaled", signal: L ?? "unknown", stdout: h, stderr: w });
     }
     A.once("exit", (P, L) => {
-      if (((v = !0), b || x)) return;
+      if (((v = true), b || x)) return;
       if ((clearTimeout(Ee), (N = setTimeout((B, K, Q) => B(K, Q), Ge, Ae, P, L)), typeof N === "object")) N.unref();
     }),
       A.once("close", (P, L) => {
@@ -653,7 +653,7 @@ async function nt(e, t, r) {
     u = 0,
     d = 0;
   async function _(h) {
-    let w = await F(h, { withFileTypes: !0 });
+    let w = await F(h, { withFileTypes: true });
     for (let k of w) {
       if ((d++, d > Xe))
         throw new R(
@@ -746,7 +746,7 @@ async function nn(e, t) {
       e,
       r.map((d) => ({ name: d, path: C(e, d) })),
     );
-  await ue(t, { recursive: !0 });
+  await ue(t, { recursive: true });
   for (let { name: d, target: _, isDirectory: h } of o) await Qe(_, C(t, d), h ? "dir" : "file");
   await et(C(t, M), JSON.stringify({ target: e }), { flag: "wx" });
   let u = Je("sha256");
@@ -799,7 +799,7 @@ async function h8n(e, t) {
       "plugin command source relink target resolves to a network path",
     );
   let h = [];
-  for (let b of await F(r, { withFileTypes: !0 })) {
+  for (let b of await F(r, { withFileTypes: true })) {
     if (Kze(b.name)) continue;
     if ((await Twe(r, b))?.isSymbolicLink) h.push(b);
   }
@@ -826,7 +826,7 @@ async function h8n(e, t) {
     _,
     w.map((b) => ({ name: b.name, path: C(r, b.name) })),
   );
-  await ue(tt(o), { recursive: !0 });
+  await ue(tt(o), { recursive: true });
   let S = Ie(o, process.pid);
   await Tc(S), await ue(S);
   try {
@@ -846,7 +846,7 @@ function Kze(e) {
   return cgt(e, rn);
 }
 var rn = new Set([...zze, ".git"]);
-async function Xze(e, { unclassifiableIsFarm: t = !1 } = {}) {
+async function Xze(e, { unclassifiableIsFarm: t = false } = {}) {
   let r = await W2t(e);
   return r === "live" || (r === "unclassifiable" && t);
 }
@@ -857,7 +857,7 @@ async function W2t(e) {
     if (E(r) !== void 0) return t(r);
   }
   try {
-    for (let r of await F(e, { withFileTypes: !0 })) {
+    for (let r of await F(e, { withFileTypes: true })) {
       if (Kze(r.name)) continue;
       try {
         let o = await lue(e, r);
@@ -887,21 +887,21 @@ function an(e) {
 async function VDe(e, t) {
   let r = t.replace(/[\\/]+$/, "") + z;
   try {
-    for (let o of await F(e, { withFileTypes: !0 })) {
+    for (let o of await F(e, { withFileTypes: true })) {
       if (an(o.name)) continue;
       let u;
       try {
         let d = await lue(e, o);
         if (d.isFile && (sn(o.name) || cgt(o.name, zze))) continue;
-        if (!d.isSymbolicLink) return !0;
+        if (!d.isSymbolicLink) return true;
         u = d.linkTarget ?? (await W(C(e, o.name)));
       } catch (d) {
         if (E(d) === "ENOENT") continue;
-        return !0;
+        return true;
       }
-      if (!q(u) || IU(u) || SA(u) || !u.startsWith(r)) return !0;
+      if (!q(u) || IU(u) || SA(u) || !u.startsWith(r)) return true;
     }
-    return !1;
+    return false;
   } catch (o) {
     let u = E(o);
     return u !== "ENOENT" && u !== "ENOTDIR";
@@ -938,14 +938,14 @@ async function y8n(e, t, r, o) {
     tn(e, o),
     Hr("plugin_command_install", async () => {
       let u = await Zt(e);
-      if (n_(u, Se(), { foldCase: !0 }))
+      if (n_(u, Se(), { foldCase: true }))
         throw new Ys(
           `Plugin source command printed the working directory or one of its parents (${or(u, 300)}); refusing to use it as a plugin.`,
           "plugin command source printed cwd or an ancestor",
         );
       if ((mde(u), e.mode === "link")) return { contentSha256: await nn(u, t), producerDirectory: u };
       return (
-        await nt(u), await r(u, t), await rfn(t, { keepGit: !1 }), { contentSha256: await en(t), producerDirectory: u }
+        await nt(u), await r(u, t), await rfn(t, { keepGit: false }), { contentSha256: await en(t), producerDirectory: u }
       );
     })
   );
@@ -975,26 +975,26 @@ import { homedir as dn } from "os";
 var pn = 1e4,
   mn = 1e6;
 function gn(e) {
-  if (qd(e)) return !0;
+  if (qd(e)) return true;
   return (e === void 0 || e === dn()) && AR() && nxn();
 }
 async function dgt(e) {
-  if (e.isRepoResidentConfig && !gn(e.repoResidentOrigin)) return { ok: !1, reason: "missing_trust" };
-  let t = await qe(e.command, [], { shell: !0, timeout: pn, maxBuffer: mn, cwd: e.cwd, env: fn(e), extendEnv: !1 });
-  if (t.code !== 0 || !t.stdout) return { ok: !1, reason: "exec_failed" };
+  if (e.isRepoResidentConfig && !gn(e.repoResidentOrigin)) return { ok: false, reason: "missing_trust" };
+  let t = await qe(e.command, [], { shell: true, timeout: pn, maxBuffer: mn, cwd: e.cwd, env: fn(e), extendEnv: false });
+  if (t.code !== 0 || !t.stdout) return { ok: false, reason: "exec_failed" };
   let r;
   try {
     r = V(t.stdout.trim());
   } catch {
-    return { ok: !1, reason: "parse_failed" };
+    return { ok: false, reason: "parse_failed" };
   }
-  if (!He(r)) return { ok: !1, reason: "non_object" };
+  if (!He(r)) return { ok: false, reason: "non_object" };
   let o = {};
   for (let [u, d] of Object.entries(r)) {
-    if (typeof d !== "string") return { ok: !1, reason: "non_string_value" };
+    if (typeof d !== "string") return { ok: false, reason: "non_string_value" };
     o[u] = d;
   }
-  return { ok: !0, headers: o };
+  return { ok: true, headers: o };
 }
 function fn(e) {
   let t = { ...Na() };
@@ -1135,7 +1135,7 @@ var fgt = {
 };
 function Yze(e, t) {
   let { entry: r } = e;
-  return EX(r) && r.headersHelper !== void 0 && (!e.requireInlinedManifest || r.strict === !1)
+  return EX(r) && r.headersHelper !== void 0 && (!e.requireInlinedManifest || r.strict === false)
     ? { command: r.headersHelper, archiveUrl: t }
     : null;
 }
@@ -1213,24 +1213,24 @@ function Yte(e) {
       : e.trustedSettingsEntryAuth;
   if (t !== void 0) {
     let r = t.origin === "settings";
-    if (!Cn(t.archiveUrl, e.archiveUrl)) return { entry: {}, operatorAuthored: r, requireInlinedManifest: !1 };
+    if (!Cn(t.archiveUrl, e.archiveUrl)) return { entry: {}, operatorAuthored: r, requireInlinedManifest: false };
     if (t.headersHelper !== void 0 && t.operatorTier === "policySettings" && !Awe())
       throw new kF(`This plugin's headersHelper was not run: ${wgt}.`, "entry_helper_remote_policy_unconsented");
     return {
       entry: { headers: t.headers, headersHelper: t.origin === "addDir" ? void 0 : t.headersHelper },
       operatorAuthored: r,
-      requireInlinedManifest: !1,
+      requireInlinedManifest: false,
     };
   }
   if (e.marketplaceSource !== void 0 && e.marketplaceSource.source !== "settings")
-    return { entry: e.entry, operatorAuthored: !1, requireInlinedManifest: !0 };
-  return { entry: { headers: e.entry.headers }, operatorAuthored: !1, requireInlinedManifest: !0 };
+    return { entry: e.entry, operatorAuthored: false, requireInlinedManifest: true };
+  return { entry: { headers: e.entry.headers }, operatorAuthored: false, requireInlinedManifest: true };
 }
 async function _gt(e, t) {
   if (e?.source !== "url") return {};
   let r = t.trustedDeclaration,
     o = `marketplace ${Qt(t.marketplaceName ?? Tp(e.url))}`,
-    u = (h, w) => ygt(h, `${o} (${w})`, { operatorAuthored: r?.operatorAuthored === !0 }),
+    u = (h, w) => ygt(h, `${o} (${w})`, { operatorAuthored: r?.operatorAuthored === true }),
     d = u(
       r ? { ...r.headers } : { ...e.headers },
       r ? (r.operatorAuthored ? "operator declaration" : "repo-tier declaration") : "state copy",
@@ -1275,7 +1275,7 @@ async function An(e, t, r, o) {
   let u = await dgt({
     command: e,
     scrubCredentialEnv: !o,
-    isRepoResidentConfig: !1,
+    isRepoResidentConfig: false,
     cwd: be(),
     env: { CLAUDE_CODE_MARKETPLACE_URL: t, ...(r !== void 0 && { CLAUDE_CODE_MARKETPLACE_NAME: r }) },
   });
@@ -1287,7 +1287,7 @@ async function An(e, t, r, o) {
   return y("plugin_headers_helper"), u.headers;
 }
 async function Pn(e, t) {
-  let r = (d) => ygt(d, `plugin ${Qt(t.pluginName)}`, { operatorAuthored: t.operatorAuthored === !0 }),
+  let r = (d) => ygt(d, `plugin ${Qt(t.pluginName)}`, { operatorAuthored: t.operatorAuthored === true }),
     o = r(e.headers ?? {});
   if (!EX(e) || e.headersHelper === void 0) return o;
   at(e, { ...t, disabledByPolicy: CX(t.marketplaceSource, t.marketplaceName) });
@@ -1295,7 +1295,7 @@ async function Pn(e, t) {
     command: e.headersHelper,
     scrubCredentialEnv: !t.operatorAuthored,
     cwd: be(),
-    isRepoResidentConfig: !1,
+    isRepoResidentConfig: false,
     env: { CLAUDE_CODE_PLUGIN_NAME: t.pluginName, CLAUDE_CODE_PLUGIN_ARCHIVE_URL: t.archiveUrl },
   });
   if (!u.ok)
@@ -1334,7 +1334,7 @@ function afn(e) {
   let t = e.toLowerCase().replaceAll("_", "-");
   return Rn.has(t) || vn.some((r) => t.startsWith(r));
 }
-function ygt(e, t, { operatorAuthored: r = !1 } = {}) {
+function ygt(e, t, { operatorAuthored: r = false } = {}) {
   let o = {};
   for (let [u, d] of Object.entries(e)) {
     if (!Tn.test(u) || /[\r\n\0]/.test(d)) {
@@ -1363,7 +1363,7 @@ function at(e, t) {
         ? "entry_helper_remote_policy_unconsented"
         : "entry_helper_disabled_by_policy",
     );
-  if (t.requireInlinedManifest !== !1 && e.strict !== !1)
+  if (t.requireInlinedManifest !== false && e.strict !== false)
     throw new kF(
       `Plugin "${ge(t.pluginName)}" declares a headersHelper but is not strict:false \u2014 an entry with headersHelper must inline its manifest so its capabilities can be reviewed before the command runs.`,
       "entry_helper_not_inlined",
@@ -1435,7 +1435,7 @@ function Sgt(e, t) {
       o = new URL(t).origin;
     return r !== "null" && r === o;
   } catch {
-    return !1;
+    return false;
   }
 }
 function Nn(e) {
@@ -1459,34 +1459,34 @@ import { Transform as Un } from "stream";
 import { pipeline as Bn } from "stream/promises";
 var Z = "user:plugins";
 async function xn(e) {
-  if (!LAe("allow_plugin_skill_search")) return { ok: !1, reason: "policy_disabled" };
-  if (!pr()) return { ok: !1, reason: "wrong_provider" };
-  if (Ct()) return { ok: !1, reason: "essential_traffic_only" };
-  if (rl()) return { ok: !0, expanded: !1 };
+  if (!LAe("allow_plugin_skill_search")) return { ok: false, reason: "policy_disabled" };
+  if (!pr()) return { ok: false, reason: "wrong_provider" };
+  if (Ct()) return { ok: false, reason: "essential_traffic_only" };
+  if (rl()) return { ok: true, expanded: false };
   try {
     await Cs({ credentials: e });
   } catch (o) {
     n(`[plugins-scope] pre-ensure token freshen failed: ${l(o)}`);
   }
   let t = Yt();
-  if (!t?.accessToken) return { ok: !1, reason: "no_token" };
-  if (t.scopes?.includes(Z)) return { ok: !0, expanded: !1 };
-  if (t.clientId) return { ok: !1, reason: "custom_client" };
-  if (!t.refreshToken) return { ok: !1, reason: "no_refresh" };
-  if (await Qk(e)) return { ok: !1, reason: "no_refresh" };
+  if (!t?.accessToken) return { ok: false, reason: "no_token" };
+  if (t.scopes?.includes(Z)) return { ok: true, expanded: false };
+  if (t.clientId) return { ok: false, reason: "custom_client" };
+  if (!t.refreshToken) return { ok: false, reason: "no_refresh" };
+  if (await Qk(e)) return { ok: false, reason: "no_refresh" };
   if (Jbn(t.refreshToken))
-    return { ok: !1, reason: "expand_failed", detail: "expansion already attempted this session for this credential" };
-  let r = !1;
+    return { ok: false, reason: "expand_failed", detail: "expansion already attempted this session for this credential" };
+  let r = false;
   try {
     return await x7e(async ({ lockedTokens: o, isCompromised: u, signal: d }) => {
-      if (!o?.refreshToken) return { ok: !1, reason: "no_refresh" };
-      if (u()) return { ok: !1, reason: "lock_contended" };
-      if (o.scopes?.includes(Z)) return { ok: !0, expanded: !1 };
-      if (o.clientId) return { ok: !1, reason: "custom_client" };
-      if (await Qk(e)) return { ok: !1, reason: "no_refresh" };
+      if (!o?.refreshToken) return { ok: false, reason: "no_refresh" };
+      if (u()) return { ok: false, reason: "lock_contended" };
+      if (o.scopes?.includes(Z)) return { ok: true, expanded: false };
+      if (o.clientId) return { ok: false, reason: "custom_client" };
+      if (await Qk(e)) return { ok: false, reason: "no_refresh" };
       let _;
       try {
-        (r = !0),
+        (r = true),
           m4t(o.refreshToken),
           (_ = await C$(o.refreshToken, {
             clientId: o.clientId,
@@ -1496,24 +1496,24 @@ async function xn(e) {
           }));
       } catch (w) {
         if (v$(w) && !u()) await iNe(o.refreshToken, e);
-        if (u() || It(w)) return { ok: !1, reason: "lock_contended" };
+        if (u() || It(w)) return { ok: false, reason: "lock_contended" };
         throw w;
       }
       let h = await oNe({ isCompromised: u, postedRefreshToken: o.refreshToken, refreshedTokens: _, credentials: e });
       if (_.refreshToken) m4t(_.refreshToken);
-      if (h === "adopted_sibling") return { ok: !1, reason: "lock_contended" };
-      if (h === "save_failed") return g("plugins_scope_expansion", "save_failed"), { ok: !1, reason: "save_failed" };
+      if (h === "adopted_sibling") return { ok: false, reason: "lock_contended" };
+      if (h === "save_failed") return g("plugins_scope_expansion", "save_failed"), { ok: false, reason: "save_failed" };
       if (!_.scopes?.includes(Z))
         return (
           g("plugins_scope_expansion", "expand_failed"),
-          { ok: !1, reason: "expand_failed", detail: "refresh succeeded but user:plugins not granted" }
+          { ok: false, reason: "expand_failed", detail: "refresh succeeded but user:plugins not granted" }
         );
-      return y("plugins_scope_expansion"), { ok: !0, expanded: !0 };
+      return y("plugins_scope_expansion"), { ok: true, expanded: true };
     }, e);
   } catch (o) {
-    if (o instanceof dpe || It(o)) return { ok: !1, reason: "lock_contended" };
-    if (!r) return { ok: !1, reason: "lock_contended", detail: l(o) };
-    return g("plugins_scope_expansion", "expand_failed"), { ok: !1, reason: "expand_failed", detail: l(o) };
+    if (o instanceof dpe || It(o)) return { ok: false, reason: "lock_contended" };
+    if (!r) return { ok: false, reason: "lock_contended", detail: l(o) };
+    return g("plugins_scope_expansion", "expand_failed"), { ok: false, reason: "expand_failed", detail: l(o) };
   }
 }
 class lt {
@@ -1538,7 +1538,7 @@ function In(e, t) {
       })
       .catch((_) => {
         let h = l(_);
-        return n(`[plugins-scope] unexpected ensure error: ${h}`), { ok: !1, reason: "expand_failed", detail: h };
+        return n(`[plugins-scope] unexpected ensure error: ${h}`), { ok: false, reason: "expand_failed", detail: h };
       })
       .then((_) => (r.settle(u), d(), _)),
     d = vt(() => jt(u, Ln));
@@ -1554,7 +1554,7 @@ async function q2t(e, t, r, o = Dn) {
   }
   let d,
     _ = new Promise((h) => {
-      (d = () => h()), t.addEventListener("abort", d, { once: !0 });
+      (d = () => h()), t.addEventListener("abort", d, { once: true });
     });
   try {
     await jt(Promise.race([u, _]), o);
@@ -1592,7 +1592,7 @@ function ct(e) {
   };
 }
 function ut(e) {
-  return e.enabled !== !1;
+  return e.enabled !== false;
 }
 var Kn = 1e4,
   _e = 60000,
@@ -1626,28 +1626,28 @@ async function mt(e) {
           timeout: Kn,
           credentials: e.credentials,
         });
-      if (!u.ok) return { success: !1, error: u.reason === "no-auth" ? u.detail : u.reason };
+      if (!u.ok) return { success: false, error: u.reason === "no-auth" ? u.detail : u.reason };
       if (!Array.isArray(u.data?.plugins)) {
         let d = Ewe().safeParse(u.data);
         if (d.success) {
           let _ = d.data.error.type ?? "error_envelope_no_type";
           return (
             Y("warn", "plugins_sync_list_error", { serverError: _, status: u.status }),
-            { success: !1, error: _, status: u.status }
+            { success: false, error: _, status: u.status }
           );
         }
-        return Y("warn", "plugins_sync_list_malformed"), { success: !1, error: "malformed list-plugins response" };
+        return Y("warn", "plugins_sync_list_malformed"), { success: false, error: "malformed list-plugins response" };
       }
       for (let d of u.data.plugins) if (ut(d)) t.push(ct(d));
-      if (u.data.has_more !== !0) return { success: !0, plugins: t };
+      if (u.data.has_more !== true) return { success: true, plugins: t };
     }
     return (
       Y("warn", "plugins_sync_list_page_cap", { pages: he, collected: t.length }),
-      { success: !1, error: `list-plugins page cap (${he}) exceeded` }
+      { success: false, error: `list-plugins page cap (${he}) exceeded` }
     );
   } catch (r) {
     let { message: o } = os(r);
-    return { success: !1, error: o };
+    return { success: false, error: o };
   }
 }
 function cfn(e, t) {
@@ -1661,10 +1661,10 @@ async function Wn(e, t, r, o) {
   let u = cfn(e, r);
   if (a.CLAUDE_CODE_SYNC_PLUGINS_BUFFERED_DOWNLOAD) return Vn(u, t, o);
   let d = 0,
-    _ = !1;
+    _ = false;
   try {
     let b = function () {
-        (_ = !0), S.destroy(Error("plugin download stream stalled"));
+        (_ = true), S.destroy(Error("plugin download stream stalled"));
       },
       h = await bt.get(u, {
         auth: "teleport-org",
@@ -1675,7 +1675,7 @@ async function Wn(e, t, r, o) {
       });
     if (!h.ok || !h.data) {
       let A = h.ok ? "empty_body" : h.reason;
-      return Y("warn", "plugins_sync_download_not_ok", { reason: A }), { ok: !1, reason: A };
+      return Y("warn", "plugins_sync_download_not_ok", { reason: A }), { ok: false, reason: A };
     }
     let w = Gn(),
       k,
@@ -1704,13 +1704,13 @@ async function Wn(e, t, r, o) {
       await x.close();
     }
     if (N < 2 || v[0] !== 80 || v[1] !== 75) {
-      await dt(t, { force: !0 });
+      await dt(t, { force: true });
       let A = N === 0 ? "empty_body" : bgt(v.subarray(0, N));
-      return Y("warn", "plugins_sync_download_not_zip", { serverError: A, bodyLen: d }), { ok: !1, reason: A };
+      return Y("warn", "plugins_sync_download_not_zip", { serverError: A, bodyLen: d }), { ok: false, reason: A };
     }
-    return { ok: !0 };
+    return { ok: true };
   } catch (h) {
-    await dt(t, { force: !0 }).catch(() => {});
+    await dt(t, { force: true }).catch(() => {});
     let w = h?.response?.data;
     if (w !== null && typeof w === "object" && "destroy" in w && typeof w.destroy === "function") w.destroy();
     let k = h !== null && typeof h === "object" && "code" in h ? h.code : void 0,
@@ -1721,7 +1721,7 @@ async function Wn(e, t, r, o) {
           : k === "ECONNRESET" || k === "EPIPE" || k === "ETIMEDOUT"
             ? "network"
             : os(h).kind;
-    return Y("warn", "plugins_sync_download_exception", { kind: S }), { ok: !1, reason: S };
+    return Y("warn", "plugins_sync_download_exception", { kind: S }), { ok: false, reason: S };
   }
 }
 async function Vn(e, t, r) {
@@ -1736,17 +1736,17 @@ async function Vn(e, t, r) {
     });
     if (!o.ok || !o.data) {
       let d = o.ok ? "empty_body" : o.reason;
-      return Y("warn", "plugins_sync_download_not_ok", { reason: d }), { ok: !1, reason: d };
+      return Y("warn", "plugins_sync_download_not_ok", { reason: d }), { ok: false, reason: d };
     }
     let u = Buffer.from(o.data);
     if (u.length < 2 || u[0] !== 80 || u[1] !== 75) {
       let d = u.length === 0 ? "empty_body" : bgt(u);
-      return Y("warn", "plugins_sync_download_not_zip", { serverError: d, bodyLen: u.length }), { ok: !1, reason: d };
+      return Y("warn", "plugins_sync_download_not_zip", { serverError: d, bodyLen: u.length }), { ok: false, reason: d };
     }
-    return await $n(t, u), { ok: !0 };
+    return await $n(t, u), { ok: true };
   } catch (o) {
     let { kind: u } = os(o);
-    return Y("warn", "plugins_sync_download_exception", { kind: u }), { ok: !1, reason: u };
+    return Y("warn", "plugins_sync_download_exception", { kind: u }), { ok: false, reason: u };
   }
 }
 export {

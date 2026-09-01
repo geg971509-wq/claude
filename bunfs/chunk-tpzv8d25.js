@@ -120,7 +120,7 @@ async function m(o, a, l, u, s) {
   return n !== null ? { systemMessage: n } : {};
 }
 function C() {
-  let o = { type: "callback", callback: m, timeout: 1, internal: !0 };
+  let o = { type: "callback", callback: m, timeout: 1, internal: true };
   kU({ PostToolUse: [{ matcher: `${Qe}|${Bt}`, hooks: [o] }] });
 }
 export { m as handlePostCommitAwareness, C as registerUltrareviewPostCommitHook };

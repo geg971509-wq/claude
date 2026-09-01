@@ -145,13 +145,13 @@ var p = 1e4,
       return d();
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     async validateInput() {
-      return { result: !0 };
+      return { result: true };
     },
     async prompt() {
       return Lmn();

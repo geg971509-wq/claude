@@ -53,11 +53,11 @@ function yq(V) {
   const n = E !== void 0 ? `${E} ${b}` : void 0;
   let y;
   if (f[6] !== T || f[7] !== n || f[8] !== b)
-    (y = e(t, { "aria-label": n, bold: !0, color: T, children: b })), (f[6] = T), (f[7] = n), (f[8] = b), (f[9] = y);
+    (y = e(t, { "aria-label": n, bold: true, color: T, children: b })), (f[6] = T), (f[7] = n), (f[8] = b), (f[9] = y);
   else y = f[9];
   let h;
   if (f[10] !== d)
-    (h = d !== void 0 && r(t, { children: [e(t, { dimColor: !0, children: "\xB7 " }), d] })), (f[10] = d), (f[11] = h);
+    (h = d !== void 0 && r(t, { children: [e(t, { dimColor: true, children: "\xB7 " }), d] })), (f[10] = d), (f[11] = h);
   else h = f[11];
   let w;
   if (f[12] !== y || f[13] !== h)
@@ -65,7 +65,7 @@ function yq(V) {
   else w = f[14];
   let P;
   if (f[15] !== u)
-    (P = u != null && (typeof u === "string" ? e(t, { dimColor: !0, wrap: "truncate-start", children: u }) : u)),
+    (P = u != null && (typeof u === "string" ? e(t, { dimColor: true, wrap: "truncate-start", children: u }) : u)),
       (f[15] = u),
       (f[16] = P);
   else P = f[16];
@@ -119,9 +119,9 @@ function di(te) {
       flexDirection: "column",
       borderStyle: "round",
       borderColor: X,
-      borderLeft: !1,
-      borderRight: !1,
-      borderBottom: !1,
+      borderLeft: false,
+      borderRight: false,
+      borderBottom: false,
       marginTop: 1,
       children: [N, S],
     })),

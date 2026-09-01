@@ -302,8 +302,8 @@ function fp(kL) {
       lastToolInfo: qM,
       hideType: ew,
     } = kL,
-    xL = ZU === void 0 ? !1 : ZU,
-    GM = ew === void 0 ? !1 : ew,
+    xL = ZU === void 0 ? false : ZU,
+    GM = ew === void 0 ? false : ew,
     Br = xL && Tm,
     ow;
   if (Fs[0] !== Br || Fs[1] !== Tm || Fs[2] !== qM || Fs[3] !== $M)
@@ -333,13 +333,13 @@ function fp(kL) {
     (lp = GM
       ? r(U, {
           children: [
-            e(t, { bold: !0, children: rp ?? jn ?? tp }),
-            rp && jn && r(t, { dimColor: !0, children: [": ", jn] }),
+            e(t, { bold: true, children: rp ?? jn ?? tp }),
+            rp && jn && r(t, { dimColor: true, children: [": ", jn] }),
           ],
         })
       : r(U, {
           children: [
-            e(Dc, { color: HM, bold: !0, children: tp }),
+            e(Dc, { color: HM, bold: true, children: tp }),
             jn && r(U, { children: [" (", e(Dc, { color: FM, children: jn }), ")"] }),
           ],
         })),
@@ -381,7 +381,7 @@ function fp(kL) {
   if (Fs[25] !== KM || Fs[26] !== Br || Fs[27] !== ip)
     (pp =
       !Br &&
-      e(bge, { connectors: [ip ? "space" : "pipe"], children: r(t, { dimColor: !0, children: ["\u23BF  ", KM()] }) })),
+      e(bge, { connectors: [ip ? "space" : "pipe"], children: r(t, { dimColor: true, children: ["\u23BF  ", KM()] }) })),
       (Fs[25] = KM),
       (Fs[26] = Br),
       (Fs[27] = ip),
@@ -402,8 +402,8 @@ function hm() {
   if (UL[0] === d)
     (rw = r(U, {
       children: [
-        e(t, { dimColor: !0, children: "Interrupted " }),
-        e(t, { dimColor: !0, children: "\xB7 What should Claude do instead?" }),
+        e(t, { dimColor: true, children: "Interrupted " }),
+        e(t, { dimColor: true, children: "\xB7 What should Claude do instead?" }),
       ],
     })),
       (UL[0] = rw);
@@ -448,10 +448,10 @@ function Mm(zL) {
   if (Wn) {
     let Rm;
     if (Jt[2] === d)
-      (Rm = e(o, { minWidth: 2, children: e(t, { "aria-hidden": !0, color: "text", children: vr }) })), (Jt[2] = Rm);
+      (Rm = e(o, { minWidth: 2, children: e(t, { "aria-hidden": true, color: "text", children: vr }) })), (Jt[2] = Rm);
     else Rm = Jt[2];
     let $n;
-    if (Jt[3] === d) ($n = e(t, { bold: !0, children: "Summarized conversation" })), (Jt[3] = $n);
+    if (Jt[3] === d) ($n = e(t, { bold: true, children: "Summarized conversation" })), (Jt[3] = $n);
     else $n = Jt[3];
     let jr;
     if (Jt[4] !== It || Jt[5] !== Wn)
@@ -462,7 +462,7 @@ function Mm(zL) {
             flexDirection: "column",
             children: [
               r(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: [
                   "Summarized ",
                   Wn.messagesSummarized,
@@ -471,15 +471,15 @@ function Mm(zL) {
                   Wn.direction === "up_to" ? "up to this point" : "from this point",
                 ],
               }),
-              Wn.userContext && r(t, { dimColor: !0, children: ["Context: ", "\u201C", Wn.userContext, "\u201D"] }),
+              Wn.userContext && r(t, { dimColor: true, children: ["Context: ", "\u201C", Wn.userContext, "\u201D"] }),
               e(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: e(ze, {
                   action: "app:toggleTranscript",
                   context: "Global",
                   fallback: "ctrl+o",
                   description: "expand history",
-                  parens: !0,
+                  parens: true,
                 }),
               }),
             ],
@@ -511,14 +511,14 @@ function Mm(zL) {
   }
   let Rm;
   if (Jt[13] === d)
-    (Rm = e(o, { minWidth: 2, children: e(t, { "aria-hidden": !0, color: "text", children: vr }) })), (Jt[13] = Rm);
+    (Rm = e(o, { minWidth: 2, children: e(t, { "aria-hidden": true, color: "text", children: vr }) })), (Jt[13] = Rm);
   else Rm = Jt[13];
   let $n;
   if (Jt[14] !== It)
     ($n =
       !It &&
       r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [
           " ",
           e(ze, {
@@ -526,7 +526,7 @@ function Mm(zL) {
             context: "Global",
             fallback: "ctrl+o",
             description: "expand",
-            parens: !0,
+            parens: true,
           }),
         ],
       })),
@@ -539,7 +539,7 @@ function Mm(zL) {
       flexDirection: "row",
       children: [
         Rm,
-        e(o, { flexDirection: "column", children: r(t, { bold: !0, children: ["Compact summary", $n] }) }),
+        e(o, { flexDirection: "column", children: r(t, { bold: true, children: ["Compact summary", $n] }) }),
       ],
     })),
       (Jt[16] = $n),
@@ -578,7 +578,7 @@ var aw = 600;
 function XM(l, p = aw) {
   let g = Ba(),
     [R, y] = Bi(l && g ? p : null);
-  if (!l || !g) return [R, !0];
+  if (!l || !g) return [R, true];
   let x = Math.floor(y / p) % 2 === 0;
   return [R, x];
 }
@@ -642,15 +642,15 @@ function bm(PB) {
         (xo[11] = Rp);
     else Rp = xo[11];
     let lw;
-    if (xo[12] === d) (lw = e(t, { bold: !0, children: "Advising" })), (xo[12] = lw);
+    if (xo[12] === d) (lw = e(t, { bold: true, children: "Advising" })), (xo[12] = lw);
     else lw = xo[12];
     let yp;
     if (xo[13] !== Tp)
-      (yp = Tp ? r(t, { dimColor: !0, children: [" using ", cs(Tp)] }) : null), (xo[13] = Tp), (xo[14] = yp);
+      (yp = Tp ? r(t, { dimColor: true, children: [" using ", cs(Tp)] }) : null), (xo[13] = Tp), (xo[14] = yp);
     else yp = xo[14];
     let Mp;
     if (xo[15] !== hp)
-      (Mp = hp ? r(t, { dimColor: !0, children: [" \xB7 ", hp] }) : null), (xo[15] = hp), (xo[16] = Mp);
+      (Mp = hp ? r(t, { dimColor: true, children: [" \xB7 ", hp] }) : null), (xo[15] = hp), (xo[16] = Mp);
     else Mp = xo[16];
     let uw;
     if (xo[17] !== Sa || xo[18] !== Rp || xo[19] !== yp || xo[20] !== Mp)
@@ -688,7 +688,7 @@ function bm(PB) {
     if (xo[30] !== bp || xo[31] !== Yn || xo[32] !== Fr)
       (qn =
         Fr && Yn !== void 0
-          ? r(o, { flexDirection: "column", children: [bp, e(t, { dimColor: !0, children: Yn })] })
+          ? r(o, { flexDirection: "column", children: [bp, e(t, { dimColor: true, children: Yn })] })
           : bp),
         (xo[30] = bp),
         (xo[31] = Yn),
@@ -712,11 +712,11 @@ function bm(PB) {
         let Po;
         if (xo[36] !== He.content || xo[37] !== Fr)
           (Po = Fr
-            ? e(t, { dimColor: !0, children: He.content.text })
+            ? e(t, { dimColor: true, children: He.content.text })
             : r(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: [
-                  r(t, { "aria-hidden": !0, children: [L.tick, " "] }),
+                  r(t, { "aria-hidden": true, children: [L.tick, " "] }),
                   "Advisor has reviewed the conversation and will apply the feedback ",
                   e(Gc, {}),
                 ],
@@ -732,9 +732,9 @@ function bm(PB) {
         let Po;
         if (xo[39] === d)
           (Po = r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
-              r(t, { "aria-hidden": !0, children: [L.tick, " "] }),
+              r(t, { "aria-hidden": true, children: [L.tick, " "] }),
               "Advisor has reviewed the conversation and will apply the feedback",
             ],
           })),
@@ -758,13 +758,13 @@ function bm(PB) {
 function km(vB) {
   let cw = _(3),
     { addMargin: dw } = vB;
-  const ob = (dw === void 0 ? !1 : dw) ? 1 : 0;
+  const ob = (dw === void 0 ? false : dw) ? 1 : 0;
   let pw;
   if (cw[0] === d)
     (pw = r(t, {
-      dimColor: !0,
-      italic: !0,
-      children: [e(t, { "aria-hidden": !0, children: "\u273B " }), "Thinking\u2026"],
+      dimColor: true,
+      italic: true,
+      children: [e(t, { "aria-hidden": true, children: "\u273B " }), "Thinking\u2026"],
     })),
       (cw[0] = pw);
   else pw = cw[0];
@@ -834,7 +834,7 @@ function Em(a1) {
   else bw = qe[6];
   let sb = bw,
     kw;
-  if (qe[7] === d) (kw = I("tengu_coral_beacon", !1)), (qe[7] = kw);
+  if (qe[7] === d) (kw = I("tengu_coral_beacon", false)), (qe[7] = kw);
   else kw = qe[7];
   let d1 = kw,
     xw;
@@ -859,7 +859,7 @@ function Em(a1) {
   let p1 = Uw,
     Nw;
   if (qe[13] !== Ne.overageDisabledReason)
-    (Nw = I(BRe, !1) && !rb && Ne.overageDisabledReason === "org_level_disabled_until" && Sw && ib),
+    (Nw = I(BRe, false) && !rb && Ne.overageDisabledReason === "org_level_disabled_until" && Sw && ib),
       (qe[13] = Ne.overageDisabledReason),
       (qe[14] = Nw);
   else Nw = qe[14];
@@ -920,11 +920,11 @@ function Em(a1) {
   else Iw = qe[29];
   let ub = Iw,
     Dw;
-  if (qe[30] !== ub) (Dw = ub && I(Lct, !1)), (qe[30] = ub), (qe[31] = Dw);
+  if (qe[30] !== ub) (Dw = ub && I(Lct, false)), (qe[30] = ub), (qe[31] = Dw);
   else Dw = qe[31];
   let Cm = Dw,
     Sm = Nrt(),
-    mb = Cm && Sm?.committed === !0,
+    mb = Cm && Sm?.committed === true,
     Um = (f1 || g1) && !kp && !xp && ab === "pending" && _m && !wa && xm,
     wm = Cm && ab === "pending" && Mr !== void 0 && Pm,
     Lw,
@@ -980,7 +980,7 @@ function Em(a1) {
       break bb0;
     }
     let ei;
-    if (qe[44] !== _p) (ei = e(t, { dimColor: !0, children: _p })), (qe[44] = _p), (qe[45] = ei);
+    if (qe[44] !== _p) (ei = e(t, { dimColor: true, children: _p })), (qe[44] = _p), (qe[45] = ei);
     else ei = qe[45];
     Pp = ei;
   }
@@ -1004,21 +1004,21 @@ function Em(a1) {
   else Zn = qe[52];
   let ei;
   if (qe[53] !== Cm)
-    (ei = Cm ? r(t, { dimColor: !0, children: ["Press ", iCe, " to continue after reset"] }) : null),
+    (ei = Cm ? r(t, { dimColor: true, children: ["Press ", iCe, " to continue after reset"] }) : null),
       (qe[53] = Cm),
       (qe[54] = ei);
   else ei = qe[54];
   let Cp;
   if (qe[55] !== mb || qe[56] !== Sm)
     (Cp =
-      mb && Sm?.committed === !0
+      mb && Sm?.committed === true
         ? r(U, {
             children: [
               r(t, {
-                dimColor: !0,
-                children: [e(tt, { status: "success", withSpace: !0 }), "checkpointed \u2014 see ", Sm.resumePath],
+                dimColor: true,
+                children: [e(tt, { status: "success", withSpace: true }), "checkpointed \u2014 see ", Sm.resumePath],
               }),
-              r(t, { dimColor: !0, children: ["  ", "or /rewind to undo this turn's file edits"] }),
+              r(t, { dimColor: true, children: ["  ", "or /rewind to undo this turn's file edits"] }),
             ],
           })
         : null),
@@ -1032,7 +1032,7 @@ function Em(a1) {
       yr.phase === "armed"
         ? e(Ep, { state: yr, upgradePaths: Ne.upgradePaths })
         : yr.phase === "stale"
-          ? e(t, { dimColor: !0, children: Ytt(yr, !1) })
+          ? e(t, { dimColor: true, children: Ytt(yr, false) })
           : null),
       (qe[58] = yr),
       (qe[59] = Ne.upgradePaths),
@@ -1063,7 +1063,7 @@ function Ep(R1) {
     y1 = ad(Am.resetsAtSeconds),
     Up = cge(Am);
   const hb = t,
-    M1 = !0,
+    M1 = true,
     Rb = bb(y1, Up);
   let Np;
   if (yb[0] !== hb || yb[1] !== Rb)
@@ -1071,7 +1071,7 @@ function Ep(R1) {
   else Np = yb[2];
   let Ap;
   if (yb[3] !== Up || yb[4] !== Am || yb[5] !== gb)
-    (Ap = Jtt(Am, Up, Xtt(gb)) ? e(t, { dimColor: !0, children: Ykt }) : null),
+    (Ap = Jtt(Am, Up, Xtt(gb)) ? e(t, { dimColor: true, children: Ykt }) : null),
       (yb[3] = Up),
       (yb[4] = Am),
       (yb[5] = gb),
@@ -1093,7 +1093,7 @@ function Hp() {
   }
   let Fw;
   if (Y1[0] === d)
-    (Fw = e(t, { dimColor: !0, children: "\xB7 Run in another terminal: security unlock-keychain" })), (Y1[0] = Fw);
+    (Fw = e(t, { dimColor: true, children: "\xB7 Run in another terminal: security unlock-keychain" })), (Y1[0] = Fw);
   else Fw = Y1[0];
   return Fw;
 }
@@ -1351,7 +1351,7 @@ function zp(ej) {
         (nt =
           Cb &&
           e(md, {
-            fromLeftEdge: !0,
+            fromLeftEdge: true,
             minWidth: 2,
             children: e(t, { "aria-label": "claude:", color: "text", children: vr }),
           })),
@@ -1441,7 +1441,7 @@ function ni(gj) {
   let Vp = _(27),
     { param: Tj, addMargin: rN, isTranscriptMode: Ob, verbose: vb } = gj,
     { thinking: Ib } = Tj,
-    Db = rN === void 0 ? !1 : rN,
+    Db = rN === void 0 ? false : rN,
     Qp,
     Xp,
     Lb,
@@ -1468,7 +1468,7 @@ function ni(gj) {
       if (Vp[14] === d)
         (vm = e(o, {
           minWidth: 2,
-          children: e(t, { "aria-label": "thinking:", dimColor: !0, italic: !0, children: ZXe }),
+          children: e(t, { "aria-label": "thinking:", dimColor: true, italic: true, children: ZXe }),
         })),
           (Vp[14] = vm);
       else vm = Vp[14];
@@ -1476,8 +1476,8 @@ function ni(gj) {
       Jp = "column";
       Zp = 1;
       ef = Rj
-        ? e(Ni, { dimColor: !0, children: Bb.trim() })
-        : e(t, { dimColor: !0, italic: !0, children: Bb.trim().replace(/\s+/g, " ") });
+        ? e(Ni, { dimColor: true, children: Bb.trim() })
+        : e(t, { dimColor: true, italic: true, children: Bb.trim().replace(/\s+/g, " ") });
     }
     (Vp[0] = Db),
       (Vp[1] = Ob),
@@ -1561,7 +1561,7 @@ function Ys(l, p, g) {
   if (l.length <= p + g + 1) return l.map((R) => ({ line: R }));
   return [
     ...l.slice(0, p).map((R) => ({ line: R })),
-    { line: `\u2026 ${l.length - p - g} lines \u2026`, folded: !0 },
+    { line: `\u2026 ${l.length - p - g} lines \u2026`, folded: true },
     ...l.slice(-g).map((R) => ({ line: R })),
   ];
 }
@@ -1643,9 +1643,9 @@ function Kb({
         children: [
           x &&
             (p
-              ? e(o, { minWidth: 2, children: e(t, { dimColor: !0, children: vr }) })
+              ? e(o, { minWidth: 2, children: e(t, { dimColor: true, children: vr }) })
               : e(Eo, { shouldAnimate: y, isUnresolved: !g, isError: R })),
-          e(t, { bold: !0, children: "REPL" }),
+          e(t, { bold: true, children: "REPL" }),
           e(Vb, { state: E, elapsed: j, progress: O, error: Z?.error }),
         ],
       }),
@@ -1665,7 +1665,7 @@ function Vb($j) {
   switch (Hj) {
     case "writing": {
       let it;
-      if (br[2] === d) (it = e(t, { dimColor: !0, children: "(Writing\u2026)" })), (br[2] = it);
+      if (br[2] === d) (it = e(t, { dimColor: true, children: "(Writing\u2026)" })), (br[2] = it);
       else it = br[2];
       return it;
     }
@@ -1678,7 +1678,7 @@ function Vb($j) {
       let Fb = Im ? `Running ${Im.data.toolName}(${Gj})\u2026` : "Running\u2026";
       let Gr;
       if (br[6] !== Wb || br[7] !== Fb)
-        (Gr = r(t, { dimColor: !0, children: ["(", Fb, " ", Wb, ")"] })), (br[6] = Wb), (br[7] = Fb), (br[8] = Gr);
+        (Gr = r(t, { dimColor: true, children: ["(", Fb, " ", Wb, ")"] })), (br[6] = Wb), (br[7] = Fb), (br[8] = Gr);
       else Gr = br[8];
       return Gr;
     }
@@ -1694,7 +1694,7 @@ function Vb($j) {
       let zj = va;
       const Ia = zj.join(" \xB7 ");
       let uN;
-      if (br[14] !== Ia) (uN = r(t, { dimColor: !0, children: ["(", Ia, ")"] })), (br[14] = Ia), (br[15] = uN);
+      if (br[14] !== Ia) (uN = r(t, { dimColor: true, children: ["(", Ia, ")"] })), (br[14] = Ia), (br[15] = uN);
       else uN = br[15];
       return uN;
     }
@@ -1735,7 +1735,7 @@ function Qb(Qj) {
         {
           flexDirection: "row",
           children: [
-            e(t, { dimColor: !0, children: ii }),
+            e(t, { dimColor: true, children: ii }),
             e(t, { dimColor: Xj || pN.folded, children: pN.line }),
             pf === "writing" && fN === cN.length - 1 && e(t, { children: zb }),
           ],
@@ -1822,7 +1822,7 @@ function Jb(sW) {
 function Yb(l) {
   if (typeof l === "string") return l;
   try {
-    return MN(l, { colors: !1, depth: 3, customInspect: !1 });
+    return MN(l, { colors: false, depth: 3, customInspect: false });
   } catch {
     return "[non-serializable value]";
   }
@@ -1836,16 +1836,16 @@ function bN(l, p) {
   }, [g, l]);
 }
 function wf(l) {
-  return ki((p) => p.classifierApprovals.checking.has(l)) ?? !1;
+  return ki((p) => p.classifierApprovals.checking.has(l)) ?? false;
 }
 F();
 class pq extends Von {
   constructor(l) {
     super(l);
-    this.state = { hasError: !1 };
+    this.state = { hasError: false };
   }
   static getDerivedStateFromError() {
-    return { hasError: !0 };
+    return { hasError: true };
   }
   componentDidCatch(l, p) {
     h(l);
@@ -1877,14 +1877,14 @@ function di(VW) {
   if (Dt === "PreToolUse" || Dt === "PostToolUse") {
     if (QW) {
       let ui;
-      if (zr[4] !== li) (ui = r(t, { dimColor: !0, children: [li, " "] })), (zr[4] = li), (zr[5] = ui);
+      if (zr[4] !== li) (ui = r(t, { dimColor: true, children: [li, " "] })), (zr[4] = li), (zr[5] = ui);
       else ui = zr[5];
       let Kr;
-      if (zr[6] !== Dt) (Kr = e(t, { dimColor: !0, bold: !0, children: Dt })), (zr[6] = Dt), (zr[7] = Kr);
+      if (zr[6] !== Dt) (Kr = e(t, { dimColor: true, bold: true, children: Dt })), (zr[6] = Dt), (zr[7] = Kr);
       else Kr = zr[7];
       const mi = li === 1 ? " hook" : " hooks";
       let Yr;
-      if (zr[8] !== mi) (Yr = r(t, { dimColor: !0, children: [mi, " ran"] })), (zr[8] = mi), (zr[9] = Yr);
+      if (zr[8] !== mi) (Yr = r(t, { dimColor: true, children: [mi, " ran"] })), (zr[8] = mi), (zr[9] = Yr);
       else Yr = zr[9];
       let Lm;
       if (zr[10] !== ui || zr[11] !== Kr || zr[12] !== Yr)
@@ -1902,14 +1902,14 @@ function di(VW) {
     return null;
   }
   let ui;
-  if (zr[14] === d) (ui = e(t, { dimColor: !0, children: "Running " })), (zr[14] = ui);
+  if (zr[14] === d) (ui = e(t, { dimColor: true, children: "Running " })), (zr[14] = ui);
   else ui = zr[14];
   let Kr;
-  if (zr[15] !== Dt) (Kr = e(t, { dimColor: !0, bold: !0, children: Dt })), (zr[15] = Dt), (zr[16] = Kr);
+  if (zr[15] !== Dt) (Kr = e(t, { dimColor: true, bold: true, children: Dt })), (zr[15] = Dt), (zr[16] = Kr);
   else Kr = zr[16];
   const mi = li === 1 ? " hook\u2026" : " hooks\u2026";
   let Yr;
-  if (zr[17] !== mi) (Yr = e(t, { dimColor: !0, children: mi })), (zr[17] = mi), (zr[18] = Yr);
+  if (zr[17] !== mi) (Yr = e(t, { dimColor: true, children: mi })), (zr[17] = mi), (zr[18] = Yr);
   else Yr = zr[18];
   let Lm;
   if (zr[19] !== Kr || zr[20] !== Yr)
@@ -1926,14 +1926,14 @@ function Vs(nF) {
   const ok = iF ? 1 : 0;
   let SN;
   if (Of[0] === d)
-    (SN = e(o, { minWidth: 2, children: e(t, { "aria-hidden": !0, dimColor: !0, children: yAn }) })), (Of[0] = SN);
+    (SN = e(o, { minWidth: 2, children: e(t, { "aria-hidden": true, dimColor: true, children: yAn }) })), (Of[0] = SN);
   else SN = Of[0];
   let UN;
-  if (Of[1] === d) (UN = r(t, { dimColor: !0, bold: !0, children: ["recap:", " "] })), (Of[1] = UN);
+  if (Of[1] === d) (UN = r(t, { dimColor: true, bold: true, children: ["recap:", " "] })), (Of[1] = UN);
   else UN = Of[1];
   let If;
   if (Of[2] !== Zb)
-    (If = r(t, { children: [UN, e(t, { dimColor: !0, italic: !0, children: Zb })] })), (Of[2] = Zb), (Of[3] = If);
+    (If = r(t, { children: [UN, e(t, { dimColor: true, italic: true, children: Zb })] })), (Of[2] = Zb), (Of[3] = If);
   else If = Of[3];
   let wN;
   if (Of[4] !== ok || Of[5] !== If)
@@ -1956,10 +1956,10 @@ function FF(t0) {
 var AN = 1e4;
 function Df(l) {
   let p = l.at(-1);
-  if (!p?.data) return e(Pe, { height: 1, children: e(t, { dimColor: !0, children: "Running\u2026" }) });
+  if (!p?.data) return e(Pe, { height: 1, children: e(t, { dimColor: true, children: "Running\u2026" }) });
   let { progress: g, total: R } = p.data,
     y = sg(p.data.progressMessage);
-  if (g === void 0) return e(Pe, { height: 1, children: e(t, { dimColor: !0, children: "Running\u2026" }) });
+  if (g === void 0) return e(Pe, { height: 1, children: e(t, { dimColor: true, children: "Running\u2026" }) });
   if (R !== void 0 && R > 0) {
     let x = Math.min(1, Math.max(0, g / R)),
       P = Math.round(x * 100);
@@ -1967,17 +1967,17 @@ function Df(l) {
       children: r(o, {
         flexDirection: "column",
         children: [
-          y && e(t, { dimColor: !0, children: y }),
+          y && e(t, { dimColor: true, children: y }),
           r(o, {
             flexDirection: "row",
             gap: 1,
-            children: [e(Py, { ratio: x, width: 20 }), r(t, { dimColor: !0, children: [P, "%"] })],
+            children: [e(Py, { ratio: x, width: 20 }), r(t, { dimColor: true, children: [P, "%"] })],
           }),
         ],
       }),
     });
   }
-  return e(Pe, { height: 1, children: e(t, { dimColor: !0, children: y ?? `Processing\u2026 ${g}` }) });
+  return e(Pe, { height: 1, children: e(t, { dimColor: true, children: y ?? `Processing\u2026 ${g}` }) });
 }
 function Da(l, p, { verbose: g, input: R }) {
   let y = l;
@@ -2016,7 +2016,7 @@ function Lf(l, p) {
       justifyContent: "space-between",
       overflowX: "hidden",
       width: "100%",
-      children: e(Pe, { height: 1, children: e(t, { dimColor: !0, children: "(No content)" }) }),
+      children: e(Pe, { height: 1, children: e(t, { dimColor: true, children: "(No content)" }) }),
     });
   else x = e(i_, { content: l, verbose: p });
   if (y)
@@ -2085,7 +2085,7 @@ function FN(l, p, g) {
     ...rG,
     name: l,
     mcpInfo: { serverName: p, toolName: g },
-    isEnabled: () => !1,
+    isEnabled: () => false,
     outputSchema: jN(),
     isResultTruncated: (y, x) => {
       let P = $N(y);
@@ -2192,7 +2192,7 @@ function YN(l, p, g) {
       R = "Plan updated";
       break;
   }
-  if (R) return e(Pe, { height: 1, children: e(t, { dimColor: !0, children: R }) });
+  if (R) return e(Pe, { height: 1, children: e(t, { dimColor: true, children: R }) });
   return null;
 }
 function ck(l) {
@@ -2222,7 +2222,7 @@ function pk(l) {
     if (R || typeof p !== "object" || p === null) return null;
     let y = VN[l];
     if (!y) return null;
-    return e(Pe, { height: 1, children: e(t, { dimColor: !0, children: y }) });
+    return e(Pe, { height: 1, children: e(t, { dimColor: true, children: y }) });
   };
 }
 function fk(l) {
@@ -2292,8 +2292,8 @@ function Tk(l, p, { theme: g }) {
           children: r(o, {
             flexDirection: "column",
             children: [
-              y && r(t, { dimColor: !0, children: ["Plan file: ", P] }),
-              e(t, { dimColor: !0, children: "Waiting for team lead to review and approve..." }),
+              y && r(t, { dimColor: true, children: ["Plan file: ", P] }),
+              e(t, { dimColor: true, children: "Waiting for team lead to review and approve..." }),
             ],
           }),
         }),
@@ -2311,7 +2311,7 @@ function Tk(l, p, { theme: g }) {
         children: r(o, {
           flexDirection: "column",
           children: [
-            y && r(t, { dimColor: !0, children: ["Plan saved to: ", P, " \xB7 /plan to edit"] }),
+            y && r(t, { dimColor: true, children: ["Plan saved to: ", P, " \xB7 /plan to edit"] }),
             e(Ni, { children: R }),
           ],
         }),
@@ -2327,7 +2327,7 @@ function Wm($$) {
   let xr = _(26),
     { count: kr, countLabel: Bf, secondaryCount: ja, secondaryLabel: jm, content: Rk, verbose: H$ } = $$,
     jf;
-  if (xr[0] !== kr) (jf = r(t, { bold: !0, children: [kr, " "] })), (xr[0] = kr), (xr[1] = jf);
+  if (xr[0] !== kr) (jf = r(t, { bold: true, children: [kr, " "] })), (xr[0] = kr), (xr[1] = jf);
   else jf = xr[1];
   let Ff;
   if (xr[2] !== kr || xr[3] !== Bf)
@@ -2346,7 +2346,7 @@ function Wm($$) {
             children: [
               " ",
               "across ",
-              r(t, { bold: !0, children: [ja, " "] }),
+              r(t, { bold: true, children: [ja, " "] }),
               ja === 0 || ja > 1 ? jm : jm.slice(0, -1),
             ],
           })
@@ -2358,7 +2358,7 @@ function Wm($$) {
   let Fa = t0;
   if (H$) {
     let pi;
-    if (xr[11] === d) (pi = e(t, { dimColor: !0, children: "\xA0\xA0\u23BF \xA0" })), (xr[11] = pi);
+    if (xr[11] === d) (pi = e(t, { dimColor: true, children: "\xA0\xA0\u23BF \xA0" })), (xr[11] = pi);
     else pi = xr[11];
     let fi;
     if (xr[12] !== Wa || xr[13] !== Fa)
@@ -2442,7 +2442,7 @@ function Pk(J$) {
     (a0 =
       $a === "hover" && Qs > 0 && Ha.special
         ? r(t, { children: ["Hover info ", Ha.special] })
-        : r(t, { children: ["Found ", r(t, { bold: !0, children: [Qs, " "] }), Mk] })),
+        : r(t, { children: ["Found ", r(t, { bold: true, children: [Qs, " "] }), Mk] })),
       (Vr[2] = Mk),
       (Vr[3] = Ha.special),
       (Vr[4] = $a),
@@ -2452,14 +2452,14 @@ function Pk(J$) {
   let qa = a0,
     l0;
   if (Vr[7] !== Gf)
-    (l0 = Gf > 1 ? r(t, { children: [" ", "across ", r(t, { bold: !0, children: [Gf, " "] }), "files"] }) : null),
+    (l0 = Gf > 1 ? r(t, { children: [" ", "across ", r(t, { bold: true, children: [Gf, " "] }), "files"] }) : null),
       (Vr[7] = Gf),
       (Vr[8] = l0);
   else l0 = Vr[8];
   let Ga = l0;
   if (Z$) {
     let gi;
-    if (Vr[9] === d) (gi = e(t, { dimColor: !0, children: "\xA0\xA0\u23BF \xA0" })), (Vr[9] = gi);
+    if (Vr[9] === d) (gi = e(t, { dimColor: true, children: "\xA0\xA0\u23BF \xA0" })), (Vr[9] = gi);
     else gi = Vr[9];
     let Ti;
     if (Vr[10] !== qa || Vr[11] !== Ga)
@@ -2550,7 +2550,7 @@ function Dk(Uk) {
   const Ek = Vf ? "continued with the answers selected so far" : "continued without an answer";
   let eg;
   if (za[9] !== Xf || za[10] !== Ek)
-    (eg = r(t, { dimColor: !0, children: [vr, " No response after ", Xf, "s \u2014", " ", Ek] })),
+    (eg = r(t, { dimColor: true, children: [vr, " No response after ", Xf, "s \u2014", " ", Ek] })),
       (za[9] = Xf),
       (za[10] = Ek),
       (za[11] = eg);
@@ -2686,9 +2686,9 @@ function I0(Pr) {
     {
       flexDirection: "row",
       children: [
-        r(t, { dimColor: !0, children: [L.pointerSmall, " ", Pr.isImage ? "[image]" : "[file]", " "] }),
+        r(t, { dimColor: true, children: [L.pointerSmall, " ", Pr.isImage ? "[image]" : "[file]", " "] }),
         AH ? e(xg, { filePath: Pr.path, children: Fo(Pr.path) }) : e(t, { children: Fo(Pr.path) }),
-        r(t, { dimColor: !0, children: [" (", Ft(Pr.size), ")"] }),
+        r(t, { dimColor: true, children: [" (", Ft(Pr.size), ")"] }),
       ],
     },
     Pr.file_uuid ?? Pr.path,
@@ -2720,7 +2720,7 @@ function qk(l, p, g) {
           flexDirection: "row",
           children: [
             e(t, { color: "briefLabelClaude", children: "Claude" }),
-            y ? r(t, { dimColor: !0, children: [" ", y] }) : null,
+            y ? r(t, { dimColor: true, children: [" ", y] }) : null,
           ],
         }),
         r(o, {
@@ -2734,7 +2734,7 @@ function qk(l, p, g) {
     flexDirection: "row",
     marginTop: 1,
     children: [
-      e(md, { fromLeftEdge: !0, minWidth: 2, children: e(t, { color: "text", children: vr }) }),
+      e(md, { fromLeftEdge: true, minWidth: 2, children: e(t, { color: "text", children: vr }) }),
       r(o, {
         flexDirection: "column",
         children: [l.message ? e(Ni, { children: l.message }) : null, e(hi, { attachments: l.attachments })],
@@ -2759,7 +2759,7 @@ function hi(NH) {
 F();
 function Gk(l, p) {
   let g = l.at(-1)?.data;
-  return e(Pe, { children: e(t, { dimColor: !0, children: g ? `Running ${g.toolName}\u2026` : "Working\u2026" }) });
+  return e(Pe, { children: e(t, { dimColor: true, children: g ? `Running ${g.toolName}\u2026` : "Working\u2026" }) });
 }
 function zk() {
   return e(Pe, { children: e(t, { color: "warning", children: "Rejected" }) });
@@ -2862,7 +2862,7 @@ function rx(HH) {
                                 ? e(o, {
                                     flexShrink: 0,
                                     width: Qa,
-                                    children: e(t, { dimColor: !0, children: Lt.category ? `[${Lt.category}]` : "" }),
+                                    children: e(t, { dimColor: true, children: Lt.category ? `[${Lt.category}]` : "" }),
                                   })
                                 : null,
                               e(o, { flexGrow: 1, children: e(Ja, { finding: Lt }) }),
@@ -2875,7 +2875,7 @@ function rx(HH) {
                               children: [
                                 e(Xa, { finding: Lt }),
                                 Lt.line === void 0 ? null : r(t, { color: "suggestion", children: [" ", Lt.line] }),
-                                Lt.category ? r(t, { dimColor: !0, children: [" [", Lt.category, "]"] }) : null,
+                                Lt.category ? r(t, { dimColor: true, children: [" [", Lt.category, "]"] }) : null,
                                 " ",
                                 e(Ja, { finding: Lt }),
                               ],
@@ -2884,7 +2884,7 @@ function rx(HH) {
                       Hm &&
                         e(o, {
                           paddingLeft: 4,
-                          children: e(t, { dimColor: !0, wrap: "wrap", children: Lt.failure_scenario }),
+                          children: e(t, { dimColor: true, wrap: "wrap", children: Lt.failure_scenario }),
                         }),
                     ],
                   },
@@ -2931,7 +2931,7 @@ function Ja(QH) {
   if (H0[0] !== Js.outcome)
     (cg =
       Js.outcome && Js.outcome !== "fixed"
-        ? r(t, { dimColor: !0, children: [" [", Js.outcome === "skipped" ? "skipped" : "no change needed", "]"] })
+        ? r(t, { dimColor: true, children: [" [", Js.outcome === "skipped" ? "skipped" : "no change needed", "]"] })
         : null),
       (H0[0] = Js.outcome),
       (H0[1] = cg);
@@ -2971,10 +2971,10 @@ function ax(l) {
   let g = p.data;
   switch (g.type) {
     case "query_update":
-      return e(Pe, { children: r(t, { dimColor: !0, children: ["Searching: ", g.query] }) });
+      return e(Pe, { children: r(t, { dimColor: true, children: ["Searching: ", g.query] }) });
     case "search_results_received":
       return e(Pe, {
-        children: r(t, { dimColor: !0, children: ["Found ", g.resultCount, ' results for "', g.query, '"'] }),
+        children: r(t, { dimColor: true, children: ["Found ", g.resultCount, ' results for "', g.query, '"'] }),
       });
     default:
       return null;
@@ -3003,7 +3003,7 @@ function ux(l, p, g) {
       }),
       e(o, {
         paddingLeft: 2,
-        children: e(t, { dimColor: !0, children: "Claude is now exploring and designing an implementation approach." }),
+        children: e(t, { dimColor: true, children: "Claude is now exploring and designing an implementation approach." }),
       }),
     ],
   });
@@ -3024,11 +3024,11 @@ function cx(l, p, g) {
           children: [
             "Switched to worktree",
             l.worktreeBranch
-              ? r(t, { children: [" ", "on branch ", e(t, { bold: !0, children: l.worktreeBranch })] })
+              ? r(t, { children: [" ", "on branch ", e(t, { bold: true, children: l.worktreeBranch })] })
               : null,
           ],
         }),
-        e(t, { dimColor: !0, children: l.worktreePath }),
+        e(t, { dimColor: true, children: l.worktreePath }),
       ],
     }),
   });
@@ -3043,11 +3043,11 @@ function px(l, p, g) {
           children: [
             R,
             l.worktreeBranch
-              ? r(U, { children: [" ", "(branch ", e(t, { bold: !0, children: l.worktreeBranch }), ")"] })
+              ? r(U, { children: [" ", "(branch ", e(t, { bold: true, children: l.worktreeBranch }), ")"] })
               : null,
           ],
         }),
-        r(t, { dimColor: !0, children: ["Returned to ", l.originalCwd] }),
+        r(t, { dimColor: true, children: ["Returned to ", l.originalCwd] }),
       ],
     }),
   });
@@ -3064,7 +3064,7 @@ function gx(l) {
         "Monitor started",
         " ",
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             "\xB7 task ",
             l.taskId,
@@ -3085,10 +3085,10 @@ function Gm(Bq) {
   if (Za[0] === d) (rA = msn()), (Za[0] = rA);
   else rA = Za[0];
   let sA = rA,
-    [Tx, nA] = u(!1);
+    [Tx, nA] = u(false);
   if (!sA) {
     let yi;
-    if (Za[1] !== _r) (yi = r(t, { underline: !0, children: ["/", _r] })), (Za[1] = _r), (Za[2] = yi);
+    if (Za[1] !== _r) (yi = r(t, { underline: true, children: ["/", _r] })), (Za[1] = _r), (Za[2] = yi);
     else yi = Za[2];
     return yi;
   }
@@ -3101,11 +3101,11 @@ function Gm(Bq) {
       (Za[4] = yi);
   else yi = Za[4];
   let iA, aA;
-  if (Za[5] === d) (iA = () => nA(!0)), (aA = () => nA(!1)), (Za[5] = iA), (Za[6] = aA);
+  if (Za[5] === d) (iA = () => nA(true)), (aA = () => nA(false)), (Za[5] = iA), (Za[6] = aA);
   else (iA = Za[5]), (aA = Za[6]);
   let pg;
   if (Za[7] !== _r || Za[8] !== Tx)
-    (pg = r(t, { underline: !0, bold: Tx, children: ["/", _r] })), (Za[7] = _r), (Za[8] = Tx), (Za[9] = pg);
+    (pg = r(t, { underline: true, bold: Tx, children: ["/", _r] })), (Za[7] = _r), (Za[8] = Tx), (Za[9] = pg);
   else pg = Za[9];
   let lA;
   if (Za[10] !== yi || Za[11] !== pg)
@@ -3159,7 +3159,7 @@ function yx(l, p, { verbose: g }) {
       justifyContent: "space-between",
       overflowX: "hidden",
       width: "100%",
-      children: e(Pe, { height: 1, children: e(t, { dimColor: !0, children: "(No content)" }) }),
+      children: e(Pe, { height: 1, children: e(t, { dimColor: true, children: "(No content)" }) }),
     });
   let R = b(l, null, 2);
   return e(i_, { content: R, verbose: g });
@@ -3172,7 +3172,7 @@ function Mx(l) {
 `,
     ) + 1;
   return e(Pe, {
-    children: r(t, { children: ["HTTP ", l.status, " ", r(t, { dimColor: !0, children: ["(", p, " lines)"] })] }),
+    children: r(t, { children: ["HTTP ", l.status, " ", r(t, { dimColor: true, children: ["(", p, " lines)"] })] }),
   });
 }
 function bx(l) {
@@ -3180,15 +3180,15 @@ function bx(l) {
     children: r(t, {
       children: [
         "Scheduled ",
-        e(t, { bold: !0, children: l.id }),
+        e(t, { bold: true, children: l.id }),
         " ",
-        r(t, { dimColor: !0, children: ["(", l.humanSchedule, ")"] }),
+        r(t, { dimColor: true, children: ["(", l.humanSchedule, ")"] }),
       ],
     }),
   });
 }
 function kx(l) {
-  return e(Pe, { children: r(t, { children: ["Cancelled ", e(t, { bold: !0, children: l.id })] }) });
+  return e(Pe, { children: r(t, { children: ["Cancelled ", e(t, { bold: true, children: l.id })] }) });
 }
 function xx(l) {
   if (l.jobs.length === 0) return e(Pe, { children: e(sr, { children: "No scheduled jobs" }) });
@@ -3200,15 +3200,15 @@ function xx(l) {
           t,
           {
             children: [
-              e(t, { bold: !0, children: p.id }),
+              e(t, { bold: true, children: p.id }),
               " ",
               r(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: [
                   p.humanSchedule,
                   p.recurring ? " (recurring)" : " (one-shot)",
-                  p.durable === !1 ? " [session-only]" : "",
-                  p.prompt ? `: ${ir(p.prompt, 60, !0)}` : "",
+                  p.durable === false ? " [session-only]" : "",
+                  p.prompt ? `: ${ir(p.prompt, 60, true)}` : "",
                 ],
               }),
             ],
@@ -3220,17 +3220,17 @@ function xx(l) {
   });
 }
 function Px(l, p, { verbose: g }) {
-  let R = sen().safeParse(typeof l === "string" ? Ut(l, !1) : l);
+  let R = sen().safeParse(typeof l === "string" ? Ut(l, false) : l);
   if (!R.success) return typeof l === "string" ? e(i_, { content: Et(l), verbose: g }) : null;
   let y = aen(R.data);
-  return y === void 0 ? null : e(Pe, { children: e(t, { dimColor: !0, children: Ci(y) }) });
+  return y === void 0 ? null : e(Pe, { children: e(t, { dimColor: true, children: Ci(y) }) });
 }
 function _x(l) {
-  if (typeof l === "string") return e(Pe, { children: e(t, { dimColor: !0, children: Ci(l) }) });
+  if (typeof l === "string") return e(Pe, { children: e(t, { dimColor: true, children: Ci(l) }) });
   let p = l.files.filter((g) => g.error !== void 0);
   return r(Pe, {
     children: [
-      e(t, { dimColor: !0, children: Ci(l.message) }),
+      e(t, { dimColor: true, children: Ci(l.message) }),
       p.map((g) => r(t, { color: "warning", children: ["  ", Ci(`${g.path}: ${g.error}`)] }, g.path)),
     ],
   });
@@ -3643,7 +3643,7 @@ function Ag(Sz) {
         remoteHost: Aye(Si, vx),
         userFacingToolName: Ax ?? Si.userFacingName(vx, { activeAgents: _o }),
         userFacingToolNameBackgroundColor: Sf(Si, "userFacingNameBackgroundColor")?.(vx, { activeAgents: _o }),
-        isTransparentWrapper: Si.isTransparentWrapper?.() ?? !1,
+        isTransparentWrapper: Si.isTransparentWrapper?.() ?? false,
       };
     }
     (Oo[3] = _o), (Oo[4] = Ex), (Oo[5] = ge.input), (Oo[6] = ge.name), (Oo[7] = Ax), (Oo[8] = Uo), (Oo[9] = Qm);
@@ -3870,7 +3870,7 @@ function Ag(Sz) {
           if (Oo[153] !== rn || Oo[154] !== Zm)
             (Ui = e(o, {
               flexShrink: 0,
-              children: e(Dc, { color: Zm, bold: !0, wrap: "truncate-end", children: rn }),
+              children: e(Dc, { color: Zm, bold: true, wrap: "truncate-end", children: rn }),
             })),
               (Oo[153] = rn),
               (Oo[154] = Zm),
@@ -3883,7 +3883,7 @@ function Ag(Sz) {
               children: e(o, {
                 flexWrap: "nowrap",
                 children: r(t, {
-                  children: ["(", Bx, ")", Ng !== void 0 && r(t, { dimColor: !0, children: [" \xB7 on ", Ng] })],
+                  children: ["(", Bx, ")", Ng !== void 0 && r(t, { dimColor: true, children: [" \xB7 on ", Ng] })],
                 }),
               }),
             });
@@ -4119,7 +4119,7 @@ function Ag(Sz) {
     (_l =
       !Ur &&
       (pl
-        ? e(Pe, { height: 1, children: e(t, { dimColor: !0, children: "Waiting for permission\u2026" }) })
+        ? e(Pe, { height: 1, children: e(t, { dimColor: true, children: "Waiting for permission\u2026" }) })
         : ts
           ? Wx(gt)
           : ed(
@@ -4234,8 +4234,8 @@ var Pz = m(() => T.union([T.object({ file_path: T.string().min(1) }), T.object({
 F();
 import { basename as uC, sep as mC } from "path";
 function Sl() {
-  if (Le()) return !1;
-  return I("tengu_coordinator_panel", !0);
+  if (Le()) return false;
+  return I("tengu_coordinator_panel", true);
 }
 F();
 import { relative as Kx } from "path";
@@ -4247,7 +4247,7 @@ function FA(nn, Qz) {
     Pe,
     {
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         wrap: "wrap",
         children: [
           "  ",
@@ -4271,13 +4271,13 @@ function WA(rd, fileIndex) {
     children: [
       e(Pe, {
         children: r(t, {
-          dimColor: !0,
+          dimColor: true,
           wrap: "wrap",
           children: [
-            e(t, { bold: !0, children: Kx(ee(), rd.uri.replace("file://", "").replace("_claude_fs_right:", "")) }),
+            e(t, { bold: true, children: Kx(ee(), rd.uri.replace("file://", "").replace("_claude_fs_right:", "")) }),
             " ",
             e(t, {
-              dimColor: !0,
+              dimColor: true,
               children: rd.uri.startsWith("file://")
                 ? "(file://)"
                 : rd.uri.startsWith("_claude_fs_right:")
@@ -4311,7 +4311,7 @@ function sd(Kz) {
         break bb0;
       } else {
         let Ig;
-        if (qx[4] !== Og) (Ig = e(t, { bold: !0, children: Og })), (qx[4] = Og), (qx[5] = Ig);
+        if (qx[4] !== Og) (Ig = e(t, { bold: true, children: Og })), (qx[4] = Og), (qx[5] = Ig);
         else Ig = qx[5];
         const Gx = Og === 1 ? "issue" : "issues";
         const zx = vg === 1 ? "file" : "files";
@@ -4319,7 +4319,7 @@ function sd(Kz) {
         if (qx[6] !== vg || qx[7] !== Ig || qx[8] !== Gx || qx[9] !== zx)
           (BA = e(Pe, {
             children: r(t, {
-              dimColor: !0,
+              dimColor: true,
               wrap: "wrap",
               children: ["Found ", Ig, " new diagnostic", " ", Gx, " in ", vg, " ", zx, " (ctrl+o to expand)"],
             }),
@@ -4359,10 +4359,10 @@ function Ei(lK) {
     Fg = "column";
     $g = $A.map((id) => {
       let HA = id.kind === "read" ? (Lg ? "Recalling" : "Recalled") : Lg ? "Remembering" : "Remembered";
-      let mK = rt(ud(Z4e(id.path, Jx(id, uK, Vx)), !1), Qx - ld - se(`${HA} `));
+      let mK = rt(ud(Z4e(id.path, Jx(id, uK, Vx)), false), Qx - ld - se(`${HA} `));
       return r(
         t,
-        { dimColor: !0, children: [e(t, { "aria-hidden": !0, children: "  \u23BF  " }), HA, " ", mK] },
+        { dimColor: true, children: [e(t, { "aria-hidden": true, children: "  \u23BF  " }), HA, " ", mK] },
         `${id.kind}-${id.path}`,
       );
     });
@@ -4381,8 +4381,8 @@ function Ei(lK) {
     (Hg =
       nd > 0 &&
       r(t, {
-        dimColor: !0,
-        children: [e(t, { "aria-hidden": !0, children: "  \u23BF  " }), "+", nd, " more", " ", e(Gc, {})],
+        dimColor: true,
+        children: [e(t, { "aria-hidden": true, children: "  \u23BF  " }), "+", nd, " more", " ", e(Gc, {})],
       })),
       (Bg[11] = nd),
       (Bg[12] = Hg);
@@ -4451,7 +4451,7 @@ function iP(bK) {
   else Kg = zg[3];
   let QA;
   if (zg[4] === d)
-    (QA = e(t, { dimColor: !0, children: "Teammate is continuing to work. You may request shutdown again later." })),
+    (QA = e(t, { dimColor: true, children: "Teammate is continuing to work. You may request shutdown again later." })),
       (zg[4] = QA);
   else QA = zg[4];
   let XA;
@@ -4497,10 +4497,10 @@ function mP(AK) {
   let Xg = oE;
   const uP = `Task #${OK} assigned by ${vK}`;
   let Jg;
-  if (Oi[8] !== Vg) (Jg = Vg && e(t, { bold: !0, children: Vg })), (Oi[8] = Vg), (Oi[9] = Jg);
+  if (Oi[8] !== Vg) (Jg = Vg && e(t, { bold: true, children: Vg })), (Oi[8] = Vg), (Oi[9] = Jg);
   else Jg = Oi[9];
   let Zg;
-  if (Oi[10] !== Xg) (Zg = Xg && e(t, { dimColor: !0, children: Xg })), (Oi[10] = Xg), (Oi[11] = Zg);
+  if (Oi[10] !== Xg) (Zg = Xg && e(t, { dimColor: true, children: Xg })), (Oi[10] = Xg), (Oi[11] = Zg);
   else Zg = Oi[11];
   let tE;
   if (Oi[12] !== uP || Oi[13] !== Jg || Oi[14] !== Zg)
@@ -4536,10 +4536,10 @@ function gP(KK) {
   const fP = `Plan Approval Request from ${VK}`;
   let eT;
   if (dd[4] !== pP)
-    (eT = e(Iy, { children: e(Ni, { stripPromptTags: !1, children: pP }) })), (dd[4] = pP), (dd[5] = eT);
+    (eT = e(Iy, { children: e(Ni, { stripPromptTags: false, children: pP }) })), (dd[4] = pP), (dd[5] = eT);
   else eT = dd[5];
   let oT;
-  if (dd[6] !== cP) (oT = r(t, { dimColor: !0, children: ["Plan file: ", cP] })), (dd[6] = cP), (dd[7] = oT);
+  if (dd[6] !== cP) (oT = r(t, { dimColor: true, children: ["Plan file: ", cP] })), (dd[6] = cP), (dd[7] = oT);
   else oT = dd[7];
   let nE;
   if (dd[8] !== fP || dd[9] !== eT || dd[10] !== oT)
@@ -4565,7 +4565,7 @@ function TP(QK) {
     wl = XK || m_;
   if (tT.approved) {
     let cd;
-    if (Zt[2] === d) (cd = e(t, { "aria-hidden": !0, children: "\u2713 " })), (Zt[2] = cd);
+    if (Zt[2] === d) (cd = e(t, { "aria-hidden": true, children: "\u2713 " })), (Zt[2] = cd);
     else cd = Zt[2];
     let is;
     if (Zt[3] !== wl) (is = r(t, { children: [cd, "Plan Approved by ", wl] })), (Zt[3] = wl), (Zt[4] = is);
@@ -4595,7 +4595,7 @@ function TP(QK) {
     return fd;
   }
   let cd;
-  if (Zt[11] === d) (cd = e(t, { "aria-hidden": !0, children: "\u2717 " })), (Zt[11] = cd);
+  if (Zt[11] === d) (cd = e(t, { "aria-hidden": true, children: "\u2717 " })), (Zt[11] = cd);
   else cd = Zt[11];
   let is;
   if (Zt[12] !== wl) (is = r(t, { children: [cd, "Plan Rejected by ", wl] })), (Zt[12] = wl), (Zt[13] = is);
@@ -4607,7 +4607,7 @@ function TP(QK) {
   let pd;
   if (Zt[16] === d)
     (pd = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: "Please revise your plan based on the feedback and call ExitPlanMode again.",
     })),
       (Zt[16] = pd);
@@ -4654,7 +4654,7 @@ function un(gY) {
   let ln = _(18),
     { displayName: yP, inkColor: MP, summary: rT, taskId: bP, taskSubject: iT } = gY,
     aE;
-  if (ln[0] === d) (aE = e(t, { "aria-hidden": !0, children: L.pointer })), (ln[0] = aE);
+  if (ln[0] === d) (aE = e(t, { "aria-hidden": true, children: L.pointer })), (ln[0] = aE);
   else aE = ln[0];
   let aT;
   if (ln[1] !== yP || ln[2] !== MP)
@@ -4670,7 +4670,7 @@ function un(gY) {
   if (ln[9] === d) (lE = e(tt, { status: "success" })), (ln[9] = lE);
   else lE = ln[9];
   let dT;
-  if (ln[10] !== iT) (dT = iT && r(t, { dimColor: !0, children: [" (", iT, ")"] })), (ln[10] = iT), (ln[11] = dT);
+  if (ln[10] !== iT) (dT = iT && r(t, { dimColor: true, children: [" (", iT, ")"] })), (ln[10] = iT), (ln[11] = dT);
   else dT = ln[11];
   let cT;
   if (ln[12] !== dT || ln[13] !== bP)
@@ -4707,7 +4707,7 @@ function dn(CY) {
   else fE = Al[4];
   let kP = fE,
     hT;
-  if (Al[5] !== fT) (hT = fT ? r(t, { dimColor: !0, children: [" ", fT] }) : null), (Al[5] = fT), (Al[6] = hT);
+  if (Al[5] !== fT) (hT = fT ? r(t, { dimColor: true, children: [" ", fT] }) : null), (Al[5] = fT), (Al[6] = hT);
   else hT = Al[6];
   let gE;
   if (Al[7] !== kP || Al[8] !== hT) (gE = r(t, { children: [kP, hT] })), (Al[7] = kP), (Al[8] = hT), (Al[9] = gE);
@@ -4743,7 +4743,7 @@ function OE(CT, aV) {
 }
 var YT = `</${E0}>`;
 function cBe(l) {
-  if (l.startsWith(`<${E0} `)) return !0;
+  if (l.startsWith(`<${E0} `)) return true;
   return (
     l.startsWith(RX) &&
     l.startsWith(
@@ -4832,9 +4832,9 @@ function Wl(l) {
 }
 function XT(l) {
   return l.filter((p) => {
-    if (p.summary?.trim()) return !0;
-    if (qy(gue(), p.content)) return !1;
-    return !0;
+    if (p.summary?.trim()) return true;
+    if (qy(gue(), p.content)) return false;
+    return true;
   });
 }
 function HP(l) {
@@ -4878,7 +4878,7 @@ function Md(XY) {
           let rV = EP.trim()
             ? r(o, {
                 children: [
-                  r(t, { color: PT, children: ["@ ", yd, e(t, { "aria-hidden": !0, children: L.pointer })] }),
+                  r(t, { color: PT, children: ["@ ", yd, e(t, { "aria-hidden": true, children: L.pointer })] }),
                   r(t, { children: [" ", EP] }),
                 ],
               })
@@ -4968,7 +4968,7 @@ function ji(lV) {
   let jl = _(14),
     { displayName: OP, inkColor: vP, content: ST, summary: UT } = lV,
     kE;
-  if (jl[0] === d) (kE = e(t, { "aria-hidden": !0, children: L.pointer })), (jl[0] = kE);
+  if (jl[0] === d) (kE = e(t, { "aria-hidden": true, children: L.pointer })), (jl[0] = kE);
   else kE = jl[0];
   let wT;
   if (jl[1] !== OP || jl[2] !== vP)
@@ -4982,7 +4982,7 @@ function ji(lV) {
   else ET = jl[8];
   let OT;
   if (jl[9] !== ST)
-    (OT = ST && e(o, { paddingLeft: 2, children: e(Ni, { stripPromptTags: !1, children: ST }) })),
+    (OT = ST && e(o, { paddingLeft: 2, children: e(Ni, { stripPromptTags: false, children: ST }) })),
       (jl[9] = ST),
       (jl[10] = OT);
   else OT = jl[10];
@@ -5034,18 +5034,18 @@ function Wi(uV) {
   else wE = ht[11];
   let WT = wE,
     FT;
-  if (ht[12] !== jP) (FT = e(t, { "aria-hidden": !0, color: jP, children: vr })), (ht[12] = jP), (ht[13] = FT);
+  if (ht[12] !== jP) (FT = e(t, { "aria-hidden": true, color: jP, children: vr })), (ht[12] = jP), (ht[13] = FT);
   else FT = ht[13];
   let $T;
   if (ht[14] !== IP || ht[15] !== DP)
-    ($T = r(t, { color: DP, bold: !0, children: ["@", IP] })), (ht[14] = IP), (ht[15] = DP), (ht[16] = $T);
+    ($T = r(t, { color: DP, bold: true, children: ["@", IP] })), (ht[14] = IP), (ht[15] = DP), (ht[16] = $T);
   else $T = ht[16];
   let HT;
-  if (ht[17] !== LT) (HT = LT && r(t, { dimColor: !0, children: [": ", LT] })), (ht[17] = LT), (ht[18] = HT);
+  if (ht[17] !== LT) (HT = LT && r(t, { dimColor: true, children: [": ", LT] })), (ht[17] = LT), (ht[18] = HT);
   else HT = ht[18];
   let qT;
   if (ht[19] !== jT || ht[20] !== Wt)
-    (qT = Wt && jT ? r(t, { dimColor: !0, children: [" (task #", jT, ")"] }) : null),
+    (qT = Wt && jT ? r(t, { dimColor: true, children: [" (task #", jT, ")"] }) : null),
       (ht[19] = jT),
       (ht[20] = Wt),
       (ht[21] = qT);
@@ -5062,7 +5062,7 @@ function Wi(uV) {
   else GT = ht[27];
   let zT;
   if (ht[28] !== BT || ht[29] !== Wt)
-    (zT = Wt && BT ? e(o, { paddingLeft: 2, children: r(t, { dimColor: !0, children: ["Last DM: ", BT] }) }) : null),
+    (zT = Wt && BT ? e(o, { paddingLeft: 2, children: r(t, { dimColor: true, children: ["Last DM: ", BT] }) }) : null),
       (ht[28] = BT),
       (ht[29] = Wt),
       (ht[30] = zT);
@@ -5071,9 +5071,9 @@ function Wi(uV) {
   if (ht[31] !== cn || ht[32] !== Wt || ht[33] !== WT)
     (KT =
       Wt && cn
-        ? e(o, { paddingLeft: 2, children: e(Ni, { stripPromptTags: !1, children: cn }) })
+        ? e(o, { paddingLeft: 2, children: e(Ni, { stripPromptTags: false, children: cn }) })
         : WT
-          ? e(o, { paddingLeft: 2, children: e(t, { dimColor: !0, children: WT }) })
+          ? e(o, { paddingLeft: 2, children: e(t, { dimColor: true, children: WT }) })
           : null),
       (ht[31] = cn),
       (ht[32] = Wt),
@@ -5161,13 +5161,13 @@ function $i(xV) {
   let th = $E;
   const zP = PV ? 1 : 0;
   let rh;
-  if (Ht[15] !== GP) (rh = e(t, { "aria-hidden": !0, color: GP, children: vr })), (Ht[15] = GP), (Ht[16] = rh);
+  if (Ht[15] !== GP) (rh = e(t, { "aria-hidden": true, color: GP, children: vr })), (Ht[15] = GP), (Ht[16] = rh);
   else rh = Ht[16];
   let nh;
-  if (Ht[17] !== eh) (nh = eh && e(t, { dimColor: !0, children: eh })), (Ht[17] = eh), (Ht[18] = nh);
+  if (Ht[17] !== eh) (nh = eh && e(t, { dimColor: true, children: eh })), (Ht[17] = eh), (Ht[18] = nh);
   else nh = Ht[18];
   let ih;
-  if (Ht[19] !== th) (ih = th && e(t, { dimColor: !0, children: th })), (Ht[19] = th), (Ht[20] = ih);
+  if (Ht[19] !== th) (ih = th && e(t, { dimColor: true, children: th })), (Ht[19] = th), (Ht[20] = ih);
   else ih = Ht[20];
   let ah;
   if (Ht[21] !== ZT || Ht[22] !== nh || Ht[23] !== ih || Ht[24] !== rh)
@@ -5180,7 +5180,7 @@ function $i(xV) {
   else ah = Ht[25];
   let lh;
   if (Ht[26] !== Fi || Ht[27] !== qP)
-    (lh = qP && Fi ? e(o, { paddingLeft: 2, children: e(t, { dimColor: !0, children: Fi }) }) : null),
+    (lh = qP && Fi ? e(o, { paddingLeft: 2, children: e(t, { dimColor: true, children: Fi }) }) : null),
       (Ht[26] = Fi),
       (Ht[27] = qP),
       (Ht[28] = lh);
@@ -5334,7 +5334,7 @@ function Ad(RQ) {
     let rO = tO === null ? null : kC(tO);
     Pd = [];
     if (t_?.trim() && t_.trim() !== sf) Pd.push(e(Kl, { children: t_.trim() }, "stdout"));
-    if (rO?.trim()) Pd.push(e(Kl, { isError: !0, children: rO.trim() }, "stderr"));
+    if (rO?.trim()) Pd.push(e(Kl, { isError: true, children: rO.trim() }, "stderr"));
     (bQ[0] = fh), (bQ[1] = Pd);
   } else Pd = bQ[1];
   if (Pd.length === 0) {
@@ -5345,7 +5345,7 @@ function Ad(RQ) {
 function Kl(kQ) {
   let _d = _(10),
     { children: qt, isError: sO } = kQ,
-    r_ = sO === void 0 ? !1 : sO,
+    r_ = sO === void 0 ? false : sO,
     nO;
   if (_d[0] !== qt) (nO = B7t(qt)), (_d[0] = qt), (_d[1] = nO);
   else nO = _d[1];
@@ -5363,7 +5363,7 @@ function Kl(kQ) {
     return pn;
   }
   let pn;
-  if (_d[6] === d) (pn = e(t, { "aria-hidden": !0, dimColor: !0, children: "  \u23BF  " })), (_d[6] = pn);
+  if (_d[6] === d) (pn = e(t, { "aria-hidden": true, dimColor: true, children: "  \u23BF  " })), (_d[6] = pn);
   else pn = _d[6];
   let iO;
   if (_d[7] !== qt || _d[8] !== r_)
@@ -5376,7 +5376,7 @@ function Kl(kQ) {
           flexGrow: 1,
           children: r_
             ? e(t, { color: "error", wrap: "wrap", children: qt })
-            : e(Ni, { stripPromptTags: !1, children: qt }),
+            : e(Ni, { stripPromptTags: false, children: qt }),
         }),
       ],
     })),
@@ -5422,7 +5422,7 @@ function Bh(PQ) {
   let Ud = _(25),
     { fields: Cd } = PQ,
     Sd = At(),
-    [n_, uO] = u(!1),
+    [n_, uO] = u(false),
     { columns: a_ } = Ee(),
     or = Cd.id !== void 0 && !wt() ? Cd.id : void 0,
     yh,
@@ -5444,10 +5444,10 @@ function Bh(PQ) {
     let d_ = ms.name ?? ms.id;
     let mO = ms.name !== void 0 && ms.id !== void 0;
     yh = t;
-    bh = r(t, { dimColor: !0, children: [ms.state, (d_ !== void 0 || mO || ms.chips.length > 0) && " \xB7 "] });
-    kh = d_ !== void 0 && e(t, { bold: !0, underline: or !== void 0 && n_, children: e(Dh, { children: d_ }) });
-    xh = mO && e(t, { dimColor: !0, children: " \xB7 " + ms.id });
-    Ph = ms.chips.length > 0 && e(t, { dimColor: !0, children: " \xB7 " + ms.chips.join(" \xB7 ") });
+    bh = r(t, { dimColor: true, children: [ms.state, (d_ !== void 0 || mO || ms.chips.length > 0) && " \xB7 "] });
+    kh = d_ !== void 0 && e(t, { bold: true, underline: or !== void 0 && n_, children: e(Dh, { children: d_ }) });
+    xh = mO && e(t, { dimColor: true, children: " \xB7 " + ms.id });
+    Ph = ms.chips.length > 0 && e(t, { dimColor: true, children: " \xB7 " + ms.chips.join(" \xB7 ") });
     (Ud[0] = a_),
       (Ud[1] = Cd),
       (Ud[2] = n_),
@@ -5472,7 +5472,7 @@ function Bh(PQ) {
   else wd = Ud[19];
   let _h = wd,
     dO;
-  if (Ud[20] === d) (dO = e(t, { "aria-label": "fork:", dimColor: !0, children: Lh })), (Ud[20] = dO);
+  if (Ud[20] === d) (dO = e(t, { "aria-label": "fork:", dimColor: true, children: Lh })), (Ud[20] = dO);
   else dO = Ud[20];
   let cO;
   if (Ud[21] !== Mh || Ud[22] !== _h || Ud[23] !== or)
@@ -5480,7 +5480,7 @@ function Bh(PQ) {
       flexDirection: "row",
       children: [
         dO,
-        or ? e(o, { onClick: Mh, onMouseEnter: () => uO(!0), onMouseLeave: () => uO(!1), children: _h }) : _h,
+        or ? e(o, { onClick: Mh, onMouseEnter: () => uO(true), onMouseLeave: () => uO(false), children: _h }) : _h,
       ],
     })),
       (Ud[21] = Mh),
@@ -5510,13 +5510,13 @@ function jh(_Q) {
   let Nh = pO,
     Ah;
   if (Vi[4] !== c_)
-    (Ah = r(t, { "aria-hidden": !0, color: "background", children: [c_, " "] })), (Vi[4] = c_), (Vi[5] = Ah);
+    (Ah = r(t, { "aria-hidden": true, color: "background", children: [c_, " "] })), (Vi[4] = c_), (Vi[5] = Ah);
   else Ah = Vi[5];
   let Eh;
-  if (Vi[6] !== Ch) (Eh = e(t, { bold: !0, children: Ch })), (Vi[6] = Ch), (Vi[7] = Eh);
+  if (Vi[6] !== Ch) (Eh = e(t, { bold: true, children: Ch })), (Vi[6] = Ch), (Vi[7] = Eh);
   else Eh = Vi[7];
   let Oh;
-  if (Vi[8] !== Nh) (Oh = Nh && e(t, { dimColor: !0, children: Nh })), (Vi[8] = Nh), (Vi[9] = Oh);
+  if (Vi[8] !== Nh) (Oh = Nh && e(t, { dimColor: true, children: Nh })), (Vi[8] = Nh), (Vi[9] = Oh);
   else Oh = Vi[9];
   let vh;
   if (Vi[10] !== Ah || Vi[11] !== Eh || Vi[12] !== Oh)
@@ -5529,8 +5529,8 @@ function jh(_Q) {
       r(o, {
         flexDirection: "row",
         children: [
-          e(t, { "aria-hidden": !0, dimColor: !0, children: "  \u23BF  " }),
-          e(t, { dimColor: !0, children: Nd }),
+          e(t, { "aria-hidden": true, dimColor: true, children: "  \u23BF  " }),
+          e(t, { dimColor: true, children: Nd }),
         ],
       })),
       (Vi[14] = Nd),
@@ -5571,7 +5571,7 @@ function Ed(IQ) {
       (Yl[5] = Fh);
   else Fh = Yl[5];
   let RO;
-  if (Yl[6] === d) (RO = e(Pe, { height: 1, children: e(t, { dimColor: !0, children: LQ }) })), (Yl[6] = RO);
+  if (Yl[6] === d) (RO = e(Pe, { height: 1, children: e(t, { dimColor: true, children: LQ }) })), (Yl[6] = RO);
   else RO = Yl[6];
   let yO;
   if (Yl[7] !== g_ || Yl[8] !== Fh)
@@ -5613,7 +5613,7 @@ function Ukt(ZQ) {
   const k_ = qh * 2;
   let kO;
   if (x_[0] !== y_ || x_[1] !== M_ || x_[2] !== k_)
-    (kO = { isQueued: !0, isFirst: y_, paddingWidth: k_, selectionHighlight: M_ }),
+    (kO = { isQueued: true, isFirst: y_, paddingWidth: k_, selectionHighlight: M_ }),
       (x_[0] = y_),
       (x_[1] = M_),
       (x_[2] = k_),
@@ -5635,7 +5635,7 @@ function Ld(dX) {
   let tr = _(34),
     { text: ho, useBriefLayout: cX, timestamp: zh } = dX,
     Tn = vd(),
-    Id = Tn?.isQueued ?? !1,
+    Id = Tn?.isQueued ?? false,
     ds = typeof ho === "object",
     PO;
   if (tr[0] !== Id || tr[1] !== ho || tr[2] !== ds)
@@ -5660,7 +5660,7 @@ function Ld(dX) {
     if (tr[8] !== Xl) (Vh = e(t, { color: Xl, children: "You" })), (tr[8] = Xl), (tr[9] = Vh);
     else Vh = tr[9];
     let Qh;
-    if (tr[10] !== Kh) (Qh = Kh ? r(t, { dimColor: !0, children: [" ", Kh] }) : null), (tr[10] = Kh), (tr[11] = Qh);
+    if (tr[10] !== Kh) (Qh = Kh ? r(t, { dimColor: true, children: [" ", Kh] }) : null), (tr[10] = Kh), (tr[11] = Qh);
     else Qh = tr[11];
     let Xh;
     if (tr[12] !== ps || tr[13] !== Vh || tr[14] !== Qh)
@@ -5681,7 +5681,7 @@ function Ld(dX) {
             ],
           })
         : Vl
-          ? e(Ni, { promptMode: !0, color: Ql, children: ho })
+          ? e(Ni, { promptMode: true, color: Ql, children: ho })
           : e(t, { color: Ql, children: ho })),
         (tr[16] = Vl),
         (tr[17] = ho),
@@ -5727,7 +5727,7 @@ function Ld(dX) {
           ],
         })
       : Vl
-        ? e(Ni, { promptMode: !0, color: "text", children: ho })
+        ? e(Ni, { promptMode: true, color: "text", children: ho })
         : e(Mn, { text: ho })),
       (tr[26] = C_),
       (tr[27] = Vl),
@@ -5829,14 +5829,14 @@ function Fd(fs) {
   }
   const A_ = fs.addMargin ? 1 : 0;
   let LO;
-  if (eu[9] === d) (LO = r(t, { "aria-hidden": !0, children: [L.pointerSmall, " "] })), (eu[9] = LO);
+  if (eu[9] === d) (LO = r(t, { "aria-hidden": true, children: [L.pointerSmall, " "] })), (eu[9] = LO);
   else LO = eu[9];
   let sR;
   if (eu[10] !== bn) (sR = hbe(bn)), (eu[10] = bn), (eu[11] = sR);
   else sR = eu[11];
   let nR;
   if (eu[12] !== sR)
-    (nR = r(t, { dimColor: !0, children: [LO, "Prompt from the ", sR, " plugin"] })), (eu[12] = sR), (eu[13] = nR);
+    (nR = r(t, { dimColor: true, children: [LO, "Prompt from the ", sR, " plugin"] })), (eu[12] = sR), (eu[13] = nR);
   else nR = eu[13];
   let BO;
   if (eu[14] !== rR || eu[15] !== A_ || eu[16] !== nR)
@@ -5857,7 +5857,7 @@ function aR(DX) {
     WX = a.CLAUDE_CODE_BRIEF,
     jO;
   if (ou[0] !== O_ || ou[1] !== E_ || ou[2] !== v_)
-    (jO = C0() && (WX || I("tengu_kairos_brief", !1)) && O_ && !E_ && !v_),
+    (jO = C0() && (WX || I("tengu_kairos_brief", false)) && O_ && !E_ && !v_),
       (ou[0] = O_),
       (ou[1] = E_),
       (ou[2] = v_),
@@ -5935,10 +5935,10 @@ function zO(au, XX) {
         children: [
           e(t, { "aria-label": "update:", color: "success", children: hAn }),
           " ",
-          r(t, { dimColor: !0, children: [au.server, ":"] }),
+          r(t, { dimColor: true, children: [au.server, ":"] }),
           " ",
           e(t, { color: "suggestion", children: au.kind === "resource" ? G_(au.target) : au.target }),
-          au.reason && r(t, { dimColor: !0, children: [" \xB7 ", au.reason] }),
+          au.reason && r(t, { dimColor: true, children: [" \xB7 ", au.reason] }),
         ],
       }),
     },
@@ -6001,13 +6001,13 @@ function Hd(VX) {
   return GO;
 }
 function wLn(l, p) {
-  if (!p || p.trim() === sf) return !0;
-  if (l.planContent) return !1;
-  if (sre(l.origin)) return !1;
+  if (!p || p.trim() === sf) return true;
+  if (l.planContent) return false;
+  if (sre(l.origin)) return false;
   return uBe(p);
 }
 function uBe(l) {
-  if (!l || l.trim() === sf) return !0;
+  if (!l || l.trim() === sf) return true;
   if (io() && cBe(l)) return HP(l);
   if (
     l.startsWith(hj) ||
@@ -6018,22 +6018,22 @@ function uBe(l) {
 `) + 1,
       ))
   )
-    return !1;
-  if (Jte(l)) return !1;
-  if ($r(l, AP) !== null) return !0;
-  if (l.includes(`<${_U}>`)) return !0;
+    return false;
+  if (Jte(l)) return false;
+  if ($r(l, AP) !== null) return true;
+  if (l.includes(`<${_U}>`)) return true;
   if (l.startsWith(`<${jp}`) || l.startsWith(`<${_S}`)) {
     let p = $r(l, jp)?.trim(),
       g = $r(l, _S)?.trim();
     return !((p && p !== sf) || g);
   }
-  if (l.startsWith(`<${v4}`) || l.startsWith(`<${ZH}`)) return !1;
+  if (l.startsWith(`<${v4}`) || l.startsWith(`<${ZH}`)) return false;
   if (l.includes("<bash-input>")) return !$r(l, "bash-input");
   if (l.includes(`<${wp}>`)) return !$r(l, wp);
   if (l.includes("<user-memory-input>")) return !$r(l, "user-memory-input");
   if (l.includes(`<${Ol}`)) return !$r(l, "summary");
   if (l.includes("<mcp-resource-update") || l.includes("<mcp-polling-update")) return $d(l).length === 0;
-  return !1;
+  return false;
 }
 function fq(x5) {
   let Vo = _(51),
@@ -6088,7 +6088,7 @@ function fq(x5) {
   }
   if (Jte(ae.text)) {
     let { UserCrossSessionMessage: _5 } = import.meta.require("/$bunfs/root/chunk-43br29gr.js");
-    const ye = qd?.kind === "peer" && qd.hostInjected === !0;
+    const ye = qd?.kind === "peer" && qd.hostInjected === true;
     let Gd;
     if (Vo[11] !== Ce || Vo[12] !== Ar || Vo[13] !== ae || Vo[14] !== ye || Vo[15] !== Nr)
       (Gd = e(_5, { addMargin: Ce, param: ae, hostInjected: ye, verbose: Nr, isTranscriptMode: Ar })),
@@ -6191,7 +6191,7 @@ function fq(x5) {
 }
 function pv(rv) {
   if (HF(rv.summary)) {
-    return !0;
+    return true;
   }
   return !qy(gue(), rv.text);
 }
@@ -6220,7 +6220,7 @@ function yv(T4) {
 function Jd(n4) {
   let q = _(270),
     { attachment: w, addMargin: pR, verbose: lo, isTranscriptMode: vo, hasMetadataHeader: KO, messageId: Y_ } = n4,
-    Q_ = KO === void 0 ? !1 : KO,
+    Q_ = KO === void 0 ? false : KO,
     Zi = YU(lo, vo);
   if (io() && w.type === "teammate_mailbox") {
     const v = w.messages;
@@ -6242,7 +6242,7 @@ function Jd(n4) {
             let i4 = TR
               ? r(o, {
                   children: [
-                    r(t, { color: gR, children: ["@", zd, e(t, { "aria-hidden": !0, children: L.pointer })] }),
+                    r(t, { color: gR, children: ["@", zd, e(t, { "aria-hidden": true, children: L.pointer })] }),
                     r(t, { children: [" ", TR] }),
                   ],
                 })
@@ -6305,7 +6305,7 @@ function Jd(n4) {
       const v = w.displayPath + mC;
       let G;
       if (q[12] !== v)
-        (G = r(ie, { children: ["Listed directory ", e(t, { bold: !0, children: v })] })), (q[12] = v), (q[13] = G);
+        (G = r(ie, { children: ["Listed directory ", e(t, { bold: true, children: v })] })), (q[12] = v), (q[13] = G);
       else G = q[13];
       return G;
     }
@@ -6314,7 +6314,7 @@ function Jd(n4) {
       if (w.content.type === "notebook") {
         let v;
         if (q[14] !== w.displayPath)
-          (v = e(t, { bold: !0, children: w.displayPath })), (q[14] = w.displayPath), (q[15] = v);
+          (v = e(t, { bold: true, children: w.displayPath })), (q[14] = w.displayPath), (q[15] = v);
         else v = q[15];
         let G;
         if (q[16] !== w.content.file.cells.length || q[17] !== v)
@@ -6328,7 +6328,7 @@ function Jd(n4) {
       if (w.content.type === "file_unchanged") {
         let v;
         if (q[19] !== w.displayPath)
-          (v = r(ie, { children: ["Read ", e(t, { bold: !0, children: w.displayPath }), " (unchanged)"] })),
+          (v = r(ie, { children: ["Read ", e(t, { bold: true, children: w.displayPath }), " (unchanged)"] })),
             (q[19] = w.displayPath),
             (q[20] = v);
         else v = q[20];
@@ -6336,7 +6336,7 @@ function Jd(n4) {
       }
       let v;
       if (q[21] !== w.displayPath)
-        (v = e(t, { bold: !0, children: w.displayPath })), (q[21] = w.displayPath), (q[22] = v);
+        (v = e(t, { bold: true, children: w.displayPath })), (q[21] = w.displayPath), (q[22] = v);
       else v = q[22];
       let G;
       if (
@@ -6364,7 +6364,7 @@ function Jd(n4) {
     case "compact_file_reference": {
       let v;
       if (q[31] !== w.displayPath)
-        (v = r(ie, { children: ["Referenced file ", e(t, { bold: !0, children: w.displayPath })] })),
+        (v = r(ie, { children: ["Referenced file ", e(t, { bold: true, children: w.displayPath })] })),
           (q[31] = w.displayPath),
           (q[32] = v);
       else v = q[32];
@@ -6373,7 +6373,7 @@ function Jd(n4) {
     case "pdf_reference": {
       let v;
       if (q[33] !== w.displayPath)
-        (v = e(t, { bold: !0, children: w.displayPath })), (q[33] = w.displayPath), (q[34] = v);
+        (v = e(t, { bold: true, children: w.displayPath })), (q[33] = w.displayPath), (q[34] = v);
       else v = q[34];
       let G;
       if (q[35] !== w.pageCount || q[36] !== v)
@@ -6387,11 +6387,11 @@ function Jd(n4) {
     case "audio_transcript": {
       if (w.error !== void 0) {
         let v;
-        if (q[38] === d) (v = r(t, { "aria-hidden": !0, color: "warning", children: [TTt, " "] })), (q[38] = v);
+        if (q[38] === d) (v = r(t, { "aria-hidden": true, color: "warning", children: [TTt, " "] })), (q[38] = v);
         else v = q[38];
         let G;
         if (q[39] !== w.displayPath)
-          (G = e(t, { bold: !0, color: "warning", children: w.displayPath })), (q[39] = w.displayPath), (q[40] = G);
+          (G = e(t, { bold: true, color: "warning", children: w.displayPath })), (q[39] = w.displayPath), (q[40] = G);
         else G = q[40];
         let X;
         if (q[41] !== w.error)
@@ -6401,7 +6401,7 @@ function Jd(n4) {
         else X = q[42];
         let he;
         if (q[43] !== G || q[44] !== X)
-          (he = r(ie, { dimColor: !1, children: [v, G, X] })), (q[43] = G), (q[44] = X), (q[45] = he);
+          (he = r(ie, { dimColor: false, children: [v, G, X] })), (q[43] = G), (q[44] = X), (q[45] = he);
         else he = q[45];
         return he;
       }
@@ -6413,14 +6413,14 @@ function Jd(n4) {
       let RR = v;
       let G, X;
       if (q[49] === d)
-        (G = r(t, { "aria-hidden": !0, color: "claude", children: [TTt, " "] })),
-          (X = e(t, { dimColor: !0, children: "Transcribed " })),
+        (G = r(t, { "aria-hidden": true, color: "claude", children: [TTt, " "] })),
+          (X = e(t, { dimColor: true, children: "Transcribed " })),
           (q[49] = G),
           (q[50] = X);
       else (G = q[49]), (X = q[50]);
       let he;
       if (q[51] !== w.displayPath)
-        (he = e(t, { bold: !0, color: "claude", children: w.displayPath })), (q[51] = w.displayPath), (q[52] = he);
+        (he = e(t, { bold: true, color: "claude", children: w.displayPath })), (q[51] = w.displayPath), (q[52] = he);
       else he = q[52];
       const Ye = w.durationSec ?? 0;
       let Qo;
@@ -6441,7 +6441,7 @@ function Jd(n4) {
       else Rs = q[60];
       let ys;
       if (q[61] !== Rs || q[62] !== he)
-        (ys = r(ie, { dimColor: !1, children: [G, X, he, Rs] })), (q[61] = Rs), (q[62] = he), (q[63] = ys);
+        (ys = r(ie, { dimColor: false, children: [G, X, he, Rs] })), (q[61] = Rs), (q[62] = he), (q[63] = ys);
       else ys = q[63];
       let Ms;
       if (q[64] !== RR || q[65] !== pu)
@@ -6449,14 +6449,14 @@ function Jd(n4) {
           RR.length > 0
             ? e(o, {
                 borderStyle: "quote",
-                borderTop: !1,
-                borderBottom: !1,
-                borderRight: !1,
+                borderTop: false,
+                borderBottom: false,
+                borderRight: false,
                 borderLeftColor: "claude",
                 marginLeft: 5,
                 paddingLeft: 1,
                 children: r(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   wrap: "wrap",
                   children: [RR, pu ? null : r(U, { children: ["\u2026 ", e(Gc, {})] })],
                 }),
@@ -6474,15 +6474,15 @@ function Jd(n4) {
     }
     case "selected_lines_in_ide": {
       let v;
-      if (q[70] === d) (v = e(t, { "aria-hidden": !0, children: "\u29C9 " })), (q[70] = v);
+      if (q[70] === d) (v = e(t, { "aria-hidden": true, children: "\u29C9 " })), (q[70] = v);
       else v = q[70];
       const G = w.lineEnd - w.lineStart + 1;
       let X;
-      if (q[71] !== G) (X = e(t, { bold: !0, children: G })), (q[71] = G), (q[72] = X);
+      if (q[71] !== G) (X = e(t, { bold: true, children: G })), (q[71] = G), (q[72] = X);
       else X = q[72];
       let he;
       if (q[73] !== w.displayPath)
-        (he = e(t, { bold: !0, children: w.displayPath })), (q[73] = w.displayPath), (q[74] = he);
+        (he = e(t, { bold: true, children: w.displayPath })), (q[73] = w.displayPath), (q[74] = he);
       else he = q[74];
       let Ye;
       if (q[75] !== w.ideName || q[76] !== X || q[77] !== he)
@@ -6496,10 +6496,10 @@ function Jd(n4) {
     }
     case "selected_lines_in_diff": {
       let v;
-      if (q[79] === d) (v = e(t, { "aria-hidden": !0, children: "\u29C9 " })), (q[79] = v);
+      if (q[79] === d) (v = e(t, { "aria-hidden": true, children: "\u29C9 " })), (q[79] = v);
       else v = q[79];
       let G;
-      if (q[80] !== w.lineCount) (G = e(t, { bold: !0, children: w.lineCount })), (q[80] = w.lineCount), (q[81] = G);
+      if (q[80] !== w.lineCount) (G = e(t, { bold: true, children: w.lineCount })), (q[80] = w.lineCount), (q[81] = G);
       else G = q[81];
       let X;
       if (q[82] !== w.lineCount) (X = k(w.lineCount, "line")), (q[82] = w.lineCount), (q[83] = X);
@@ -6516,7 +6516,7 @@ function Jd(n4) {
     case "nested_memory": {
       let v;
       if (q[87] !== w.displayPath)
-        (v = r(ie, { children: ["Loaded ", e(t, { bold: !0, children: w.displayPath })] })),
+        (v = r(ie, { children: ["Loaded ", e(t, { bold: true, children: w.displayPath })] })),
           (q[87] = w.displayPath),
           (q[88] = v);
       else v = q[88];
@@ -6529,7 +6529,7 @@ function Jd(n4) {
       else G = q[89];
       let X;
       if (q[90] !== w.memories.length)
-        (X = e(t, { bold: !0, children: w.memories.length })), (q[90] = w.memories.length), (q[91] = X);
+        (X = e(t, { bold: true, children: w.memories.length })), (q[90] = w.memories.length), (q[91] = X);
       else X = q[91];
       const he = w.memories.length === 1 ? "memory" : "memories";
       let Ye;
@@ -6539,7 +6539,7 @@ function Jd(n4) {
       if (q[94] !== X || q[95] !== he || q[96] !== Ye)
         (Qo = r(o, {
           flexDirection: "row",
-          children: [G, r(t, { dimColor: !0, children: ["Recalled ", X, " ", he, Ye] })],
+          children: [G, r(t, { dimColor: true, children: ["Recalled ", X, " ", he, Ye] })],
         })),
           (q[94] = X),
           (q[95] = he),
@@ -6557,7 +6557,7 @@ function Jd(n4) {
                     flexDirection: "column",
                     children: [
                       e(Pe, {
-                        children: e(t, { dimColor: !0, children: e(xg, { filePath: yR.path, children: uC(yR.path) }) }),
+                        children: e(t, { dimColor: true, children: e(xg, { filePath: yR.path, children: uC(yR.path) }) }),
                       }),
                       vo && e(o, { paddingLeft: 5, children: e(t, { children: e(oo, { children: yR.content }) }) }),
                     ],
@@ -6565,7 +6565,7 @@ function Jd(n4) {
                   yR.path,
                 ),
               )
-            : B_t() && e(Ei, { ops: w.memories.map(Tv), relevantMemories: w.memories, isActiveGroup: !1 })),
+            : B_t() && e(Ei, { ops: w.memories.map(Tv), relevantMemories: w.memories, isActiveGroup: false })),
           (q[98] = w.memories),
           (q[99] = vo),
           (q[100] = lo),
@@ -6588,11 +6588,11 @@ function Jd(n4) {
       else v = q[107];
       let G;
       if (q[108] !== fu || q[109] !== v)
-        (G = r(t, { bold: !0, children: [fu, " ", v] })), (q[108] = fu), (q[109] = v), (q[110] = G);
+        (G = r(t, { bold: true, children: [fu, " ", v] })), (q[108] = fu), (q[109] = v), (q[110] = G);
       else G = q[110];
       let X;
       if (q[111] !== w.displayPath)
-        (X = e(t, { bold: !0, children: w.displayPath })), (q[111] = w.displayPath), (q[112] = X);
+        (X = e(t, { bold: true, children: w.displayPath })), (q[111] = w.displayPath), (q[112] = X);
       else X = q[112];
       let he;
       if (q[113] !== G || q[114] !== X)
@@ -6606,7 +6606,7 @@ function Jd(n4) {
       }
       let v;
       if (q[116] !== w.skillCount)
-        (v = e(t, { bold: !0, children: w.skillCount })), (q[116] = w.skillCount), (q[117] = v);
+        (v = e(t, { bold: true, children: w.skillCount })), (q[116] = w.skillCount), (q[117] = v);
       else v = q[117];
       let G;
       if (q[118] !== w.skillCount) (G = k(w.skillCount, "skill")), (q[118] = w.skillCount), (q[119] = G);
@@ -6627,7 +6627,7 @@ function Jd(n4) {
       }
       let gu = JO.length;
       let G;
-      if (q[125] !== gu) (G = e(t, { bold: !0, children: gu })), (q[125] = gu), (q[126] = G);
+      if (q[125] !== gu) (G = e(t, { bold: true, children: gu })), (q[125] = gu), (q[126] = G);
       else G = q[126];
       let X;
       if (q[127] !== gu) (X = k(gu, "type")), (q[127] = gu), (q[128] = X);
@@ -6687,7 +6687,7 @@ function Jd(n4) {
       if (q[148] !== w.imagePasteIds || q[149] !== X_ || q[150] !== MR)
         (he =
           MR &&
-          w.imagePasteIds?.map((ZO, m4) => e(dn, { imageId: ZO, startsUserTurn: X_ && m4 === 0 ? !0 : void 0 }, ZO))),
+          w.imagePasteIds?.map((ZO, m4) => e(dn, { imageId: ZO, startsUserTurn: X_ && m4 === 0 ? true : void 0 }, ZO))),
           (q[148] = w.imagePasteIds),
           (q[149] = X_),
           (q[150] = MR),
@@ -6734,7 +6734,7 @@ function Jd(n4) {
     }
     case "mcp_resource": {
       let v;
-      if (q[167] !== w.name) (v = e(t, { bold: !0, children: w.name })), (q[167] = w.name), (q[168] = v);
+      if (q[167] !== w.name) (v = e(t, { bold: true, children: w.name })), (q[167] = w.name), (q[168] = v);
       else v = q[168];
       let G;
       if (q[169] !== w.server || q[170] !== v)
@@ -6757,7 +6757,7 @@ function Jd(n4) {
       }
       let v;
       if (q[172] !== w.hookEvent)
-        (v = r(ie, { children: ["Async hook ", e(t, { bold: !0, children: w.hookEvent }), " completed"] })),
+        (v = r(ie, { children: ["Async hook ", e(t, { bold: true, children: w.hookEvent }), " completed"] })),
           (q[172] = w.hookEvent),
           (q[173] = v);
       else v = q[173];
@@ -6823,7 +6823,7 @@ function Jd(n4) {
       if (q[195] !== w.hookName || q[196] !== G)
         (X = r(ie, {
           color: "error",
-          dimColor: !1,
+          dimColor: false,
           children: [
             w.hookName,
             " hook timed out",
@@ -6880,7 +6880,7 @@ function Jd(n4) {
       if (w.sentinel) {
         return null;
       }
-      let Mt = w.failed === !0;
+      let Mt = w.failed === true;
       let Tu;
       if (
         q[206] !== w.durationMs ||
@@ -6894,7 +6894,7 @@ function Jd(n4) {
           if (w.durationMs !== void 0) {
             let v;
             if (q[212] !== w.durationMs)
-              (v = $t(w.durationMs, { mostSignificantOnly: !0 })), (q[212] = w.durationMs), (q[213] = v);
+              (v = $t(w.durationMs, { mostSignificantOnly: true })), (q[212] = w.durationMs), (q[213] = v);
             else v = q[213];
             Tu.push(v);
           }
@@ -6922,7 +6922,7 @@ function Jd(n4) {
       let xR = Tu.length > 0 ? ` (${Tu.join(" \xB7 ")})` : "";
       const v = Mt ? "error" : w.met ? "success" : "pending";
       let G;
-      if (q[218] !== v) (G = e(tt, { status: v, withSpace: !0 })), (q[218] = v), (q[219] = G);
+      if (q[218] !== v) (G = e(tt, { status: v, withSpace: true })), (q[218] = v), (q[219] = G);
       else G = q[219];
       const X = Mt ? "error" : void 0;
       const he = !w.met && !Mt;
@@ -6936,7 +6936,7 @@ function Jd(n4) {
           (q[223] = Qo);
       else Qo = q[223];
       let Rt;
-      if (q[224] !== xR) (Rt = xR ? e(t, { dimColor: !0, children: xR }) : null), (q[224] = xR), (q[225] = Rt);
+      if (q[224] !== xR) (Rt = xR ? e(t, { dimColor: true, children: xR }) : null), (q[224] = xR), (q[225] = Rt);
       else Rt = q[225];
       let rr;
       if (q[226] !== lo) (rr = !lo ? r(t, { children: [" ", e(Gc, {})] }) : null), (q[226] = lo), (q[227] = rr);
@@ -6954,7 +6954,7 @@ function Jd(n4) {
       if (q[233] !== w.reason || q[234] !== Mt)
         (Rs =
           Mt && w.reason
-            ? e(o, { paddingLeft: 2, children: e(t, { dimColor: !0, wrap: "wrap", children: w.reason }) })
+            ? e(o, { paddingLeft: 2, children: e(t, { dimColor: true, wrap: "wrap", children: w.reason }) })
             : null),
           (q[233] = w.reason),
           (q[234] = Mt),
@@ -6963,7 +6963,7 @@ function Jd(n4) {
       let ys;
       if (q[236] !== w.condition || q[237] !== lo)
         (ys = lo
-          ? e(o, { paddingLeft: 2, children: r(t, { dimColor: !0, wrap: "wrap", children: ["Goal: ", w.condition] }) })
+          ? e(o, { paddingLeft: 2, children: r(t, { dimColor: true, wrap: "wrap", children: ["Goal: ", w.condition] }) })
           : null),
           (q[236] = w.condition),
           (q[237] = lo),
@@ -6973,7 +6973,7 @@ function Jd(n4) {
       if (q[239] !== w.reason || q[240] !== Mt || q[241] !== lo)
         (Ms =
           lo && !Mt && w.reason
-            ? e(o, { paddingLeft: 2, children: r(t, { dimColor: !0, wrap: "wrap", children: ["Reason: ", w.reason] }) })
+            ? e(o, { paddingLeft: 2, children: r(t, { dimColor: true, wrap: "wrap", children: ["Reason: ", w.reason] }) })
             : null),
           (q[239] = w.reason),
           (q[240] = Mt),
@@ -7019,13 +7019,13 @@ function Jd(n4) {
     case "tool_host_result_lines": {
       let v;
       if (q[253] !== w.label || q[254] !== w.lines || q[255] !== w.unverified) {
-        let tv = [...(w.unverified === !0 && typeof w.label === "string" ? [w.label] : []), ...lu(w.lines)].filter(yv);
+        let tv = [...(w.unverified === true && typeof w.label === "string" ? [w.label] : []), ...lu(w.lines)].filter(yv);
         v =
           tv.length === 0
             ? null
             : e(ie, {
                 children: e(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: tv.join(`
 `),
                 }),
@@ -7037,7 +7037,7 @@ function Jd(n4) {
     case "hook_permission_decision": {
       let Z_ = w.decision === "allow" ? "Allowed" : "Denied";
       let v;
-      if (q[257] !== w.hookEvent) (v = e(t, { bold: !0, children: w.hookEvent })), (q[257] = w.hookEvent), (q[258] = v);
+      if (q[257] !== w.hookEvent) (v = e(t, { bold: true, children: w.hookEvent })), (q[257] = w.hookEvent), (q[258] = v);
       else v = q[258];
       let G;
       if (q[259] !== Z_ || q[260] !== v)
@@ -7053,7 +7053,7 @@ function Jd(n4) {
     }
     case "teammate_shutdown_batch": {
       let v;
-      if (q[264] === d) (v = r(t, { "aria-hidden": !0, dimColor: !0, children: [vr, " "] })), (q[264] = v);
+      if (q[264] === d) (v = r(t, { "aria-hidden": true, dimColor: true, children: [vr, " "] })), (q[264] = v);
       else v = q[264];
       const G = w.count;
       let X;
@@ -7065,7 +7065,7 @@ function Jd(n4) {
           flexDirection: "row",
           width: "100%",
           marginTop: 1,
-          children: [v, r(t, { dimColor: !0, children: [G, " ", X, " shut down gracefully"] })],
+          children: [v, r(t, { dimColor: true, children: [G, " ", X, " shut down gracefully"] })],
         })),
           (q[267] = w.count),
           (q[268] = X),
@@ -7107,11 +7107,11 @@ function bu(R4) {
             ? "still running in background"
             : ea.status,
     iv;
-  if (tC[0] === d) (iv = r(t, { "aria-hidden": !0, dimColor: !0, children: [vr, " "] })), (tC[0] = iv);
+  if (tC[0] === d) (iv = r(t, { "aria-hidden": true, dimColor: true, children: [vr, " "] })), (tC[0] = iv);
   else iv = tC[0];
   let _R;
   if (tC[1] !== ea.description)
-    (_R = e(t, { bold: !0, children: ea.description })), (tC[1] = ea.description), (tC[2] = _R);
+    (_R = e(t, { bold: true, children: ea.description })), (tC[1] = ea.description), (tC[2] = _R);
   else _R = tC[2];
   let av;
   if (tC[3] !== eC || tC[4] !== _R)
@@ -7119,7 +7119,7 @@ function bu(R4) {
       flexDirection: "row",
       width: "100%",
       marginTop: 1,
-      children: [iv, r(t, { dimColor: !0, children: ['Task "', _R, '" ', eC] })],
+      children: [iv, r(t, { dimColor: true, children: ['Task "', _R, '" ', eC] })],
     })),
       (tC[3] = eC),
       (tC[4] = _R),
@@ -7146,11 +7146,11 @@ function UR(y4) {
   let rC = Xd,
     sC = xn.status === "completed" ? "shut down gracefully" : xn.status,
     uv;
-  if (Mu[6] === d) (uv = r(t, { "aria-hidden": !0, dimColor: !0, children: [vr, " "] })), (Mu[6] = uv);
+  if (Mu[6] === d) (uv = r(t, { "aria-hidden": true, dimColor: true, children: [vr, " "] })), (Mu[6] = uv);
   else uv = Mu[6];
   let CR;
   if (Mu[7] !== rC || Mu[8] !== oa.identity.agentName)
-    (CR = r(t, { color: rC, bold: !0, dimColor: !1, children: ["@", oa.identity.agentName] })),
+    (CR = r(t, { color: rC, bold: true, dimColor: false, children: ["@", oa.identity.agentName] })),
       (Mu[7] = rC),
       (Mu[8] = oa.identity.agentName),
       (Mu[9] = CR);
@@ -7161,7 +7161,7 @@ function UR(y4) {
       flexDirection: "row",
       width: "100%",
       marginTop: 1,
-      children: [uv, r(t, { dimColor: !0, children: ["Teammate", " ", CR, " ", sC] })],
+      children: [uv, r(t, { dimColor: true, children: ["Teammate", " ", CR, " ", sC] })],
     })),
       (Mu[10] = sC),
       (Mu[11] = CR),
@@ -7197,7 +7197,7 @@ Expected schema:`,
 function ie(b4) {
   let x4 = _(4),
     { dimColor: dv, children: nC, color: iC } = b4,
-    aC = dv === void 0 ? !0 : dv,
+    aC = dv === void 0 ? true : dv,
     cv;
   if (x4[0] !== nC || x4[1] !== iC || x4[2] !== aC)
     (cv = e(o, { children: e(Pe, { children: e(t, { color: iC, dimColor: aC, wrap: "wrap", children: nC }) }) })),
@@ -7277,7 +7277,7 @@ function NR(I4) {
       ta.push(
         r(
           t,
-          { children: [D4, " ", e(t, { bold: !0, children: ku }), " team", " ", ku === 1 ? "memory" : "memories"] },
+          { children: [D4, " ", e(t, { bold: true, children: ku }), " team", " ", ku === 1 ? "memory" : "memories"] },
           "team-mem-read",
         ),
       ),
@@ -7302,7 +7302,7 @@ function NR(I4) {
         ta.push(bt);
       }
       let bt;
-      if (xu[9] !== Pn) (bt = e(t, { bold: !0, children: Pn })), (xu[9] = Pn), (xu[10] = bt);
+      if (xu[9] !== Pn) (bt = e(t, { bold: true, children: Pn })), (xu[9] = Pn), (xu[10] = bt);
       else bt = xu[10];
       const hC = Pn === 1 ? "memory" : "memories";
       let kv;
@@ -7324,7 +7324,7 @@ function ec() {
   let q4 = _(1),
     Pv;
   if (q4[0] === d)
-    (Pv = e(Pe, { height: 1, children: e(t, { dimColor: !0, children: "Tool use rejected" }) })), (q4[0] = Pv);
+    (Pv = e(Pe, { height: 1, children: e(t, { dimColor: true, children: "Tool use rejected" }) })), (q4[0] = Pv);
   else Pv = q4[0];
   return Pv;
 }
@@ -7375,18 +7375,18 @@ function _n(l7) {
     else oc = Er[8];
     let OR = oc;
     let _v;
-    if (Er[9] === d) (_v = r(t, { "aria-hidden": !0, children: [VY, " "] })), (Er[9] = _v);
+    if (Er[9] === d) (_v = r(t, { "aria-hidden": true, children: [VY, " "] })), (Er[9] = _v);
     else _v = Er[9];
     let vR;
     if (Er[10] !== OR)
-      (vR = OR && r(U, { children: [OR, " ", r(t, { "aria-hidden": !0, children: [VY, " "] })] })),
+      (vR = OR && r(U, { children: [OR, " ", r(t, { "aria-hidden": true, children: [VY, " "] })] })),
         (Er[10] = OR),
         (Er[11] = vR);
     else vR = Er[11];
     let Cv;
     if (Er[12] !== vR)
       (Cv = e(Pe, {
-        children: r(t, { dimColor: !0, children: ["Denied by auto mode classifier", " ", _v, vR, "see ", u7] }),
+        children: r(t, { dimColor: true, children: ["Denied by auto mode classifier", " ", _v, vR, "see ", u7] }),
       })),
         (Er[12] = vR),
         (Er[13] = Cv);
@@ -7613,15 +7613,15 @@ function XR(h6) {
       else $v = na[34];
       let Hv = $v;
       let qv =
-        Hv !== null ? Hv : Eu ? lge(Zo, Eu, { theme: LR, verbose: !0, isTranscriptMode: !0, activeAgents: rc }) : null;
+        Hv !== null ? Hv : Eu ? lge(Zo, Eu, { theme: LR, verbose: true, isTranscriptMode: true, activeAgents: rc }) : null;
       sc = lr.progressMessagesByToolUseID.get(Ue.id) ?? [];
       let NC =
         aa && !ia && Bv !== void 0
           ? Sf(Zo, "renderToolResultMessage")?.(Bv, zM(sc), {
-              verbose: !0,
+              verbose: true,
               tools: sa,
               theme: LR,
-              isTranscriptMode: !0,
+              isTranscriptMode: true,
               input: Ue.input,
               activeAgents: rc,
             })
@@ -7643,9 +7643,9 @@ function XR(h6) {
             e(Eo, { shouldAnimate: SC && R6, isUnresolved: !aa, isError: ia }),
             r(t, {
               children: [
-                e(t, { bold: !0, children: Fv }),
+                e(t, { bold: true, children: Fv }),
                 qv && r(t, { children: ["(", qv, ")"] }),
-                Wv !== void 0 && r(t, { dimColor: !0, children: [" \xB7 on ", Wv] }),
+                Wv !== void 0 && r(t, { dimColor: true, children: [" \xB7 on ", Wv] }),
               ],
             }),
             Eu &&
@@ -7807,10 +7807,10 @@ function JR(b6) {
             columns: AC,
             messages: [],
             tools: vu,
-            verbose: !0,
+            verbose: true,
             progressMessagesForMessage: zM(Du),
             theme: EC,
-            isTranscriptMode: !0,
+            isTranscriptMode: true,
           }) ?? e(zf, {});
       }
       (ua[9] = AC),
@@ -7832,9 +7832,9 @@ function JR(b6) {
       tool: Or,
       tools: vu,
       input: Ou,
-      verbose: !0,
+      verbose: true,
       progressMessagesForMessage: Du,
-      isTranscriptMode: !0,
+      isTranscriptMode: true,
     })),
       (ua[19] = Gt),
       (ua[20] = Ou),
@@ -7878,7 +7878,7 @@ function ZR(l) {
   let { calls: N } = S.current,
     E = ss.useRenderInput(
       "ToolGroup",
-      () => ({ requestId: p.uuid, props: { calls: N, active: x === !0, expanded: y } }),
+      () => ({ requestId: p.uuid, props: { calls: N, active: x === true, expanded: y } }),
       [p.uuid, N, x, y],
     );
   return ss.useRenderHook(E, (O) => e(mI, { ...l, verbose: O.props.expanded }));
@@ -7902,7 +7902,7 @@ function mI({
   tools: y,
   lookups: x,
   isActiveGroup: P,
-  addMargin: S = !0,
+  addMargin: S = true,
 }) {
   let {
       searchCount: N,
@@ -7994,7 +7994,7 @@ function mI({
       }
     }
   let QU = pC(js, tI),
-    Zc = P && l.isLiveBriefTurn === !0,
+    Zc = P && l.isLiveBriefTurn === true,
     IM = cC(P && !Zc ? l.latestThinkingSummary : void 0, rI),
     DM = P && IM !== void 0,
     op = DM ? IM : QU,
@@ -8015,7 +8015,7 @@ function mI({
           if (pe?.type !== "text" || !pe.text.includes(`<${Ol}`)) return null;
           return e(
             o,
-            { marginTop: 1, children: e($i, { addMargin: !1, param: { type: "text", text: pe.text } }) },
+            { marginTop: 1, children: e($i, { addMargin: false, param: { type: "text", text: pe.text } }) },
             Y.uuid,
           );
         }),
@@ -8024,7 +8024,7 @@ function mI({
           if (pe?.type === "thinking" && pe.thinking)
             return e(
               o,
-              { marginTop: 1, children: e(ni, { param: pe, addMargin: !1, isTranscriptMode: !0, verbose: !0 }) },
+              { marginTop: 1, children: e(ni, { param: pe, addMargin: false, isTranscriptMode: true, verbose: true }) },
               Y.uuid,
             );
           if (pe?.type !== "tool_use") return null;
@@ -8039,9 +8039,9 @@ function mI({
           r(U, {
             children: [
               r(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: [
-                  e(t, { "aria-hidden": !0, children: "  \u23BF  " }),
+                  e(t, { "aria-hidden": true, children: "  \u23BF  " }),
                   "Ran ",
                   l.hookCount,
                   " ",
@@ -8056,9 +8056,9 @@ function mI({
                 r(
                   t,
                   {
-                    dimColor: !0,
+                    dimColor: true,
                     children: [
-                      e(t, { "aria-hidden": !0, children: "     \u23BF " }),
+                      e(t, { "aria-hidden": true, children: "     \u23BF " }),
                       Y.command,
                       " (",
                       ECe(Y.durationMs ?? 0),
@@ -8078,8 +8078,8 @@ function mI({
               marginTop: 1,
               children: [
                 r(t, {
-                  dimColor: !0,
-                  children: [e(t, { "aria-hidden": !0, children: "  \u23BF  " }), "Recalled ", oI(Y.path)],
+                  dimColor: true,
+                  children: [e(t, { "aria-hidden": true, children: "  \u23BF  " }), "Recalled ", oI(Y.path)],
                 }),
                 e(o, { paddingLeft: 5, children: e(t, { children: e(oo, { children: Y.content }) }) }),
               ],
@@ -8140,7 +8140,7 @@ function mI({
         }
       }
       Y = e(jC, { baseMs: Jc, lastThinkingAtMs: pe });
-    } else Y = e(t, { bold: !0, children: $t(Math.max(1000, Jc)) });
+    } else Y = e(t, { bold: true, children: $t(Math.max(1000, Jc)) });
     Xt.push(r(t, { children: [de, " for ", Y] }, "thought"));
   }
   if (qo > 0)
@@ -8149,7 +8149,7 @@ function mI({
       P ? "editing" : "edited",
       r(t, {
         children: [
-          e(t, { bold: !0, children: qo }),
+          e(t, { bold: true, children: qo }),
           " ",
           qo === 1 ? "file" : "files",
           " ",
@@ -8163,7 +8163,7 @@ function mI({
       P ? "making" : "made",
       r(t, {
         children: [
-          e(t, { bold: !0, children: vt }),
+          e(t, { bold: true, children: vt }),
           " scratchpad",
           " ",
           vt === 1 ? "edit" : "edits",
@@ -8178,7 +8178,7 @@ function mI({
       P ? "making" : "made",
       r(t, {
         children: [
-          e(t, { bold: !0, children: hr }),
+          e(t, { bold: true, children: hr }),
           " page",
           " ",
           hr === 1 ? "edit" : "edits",
@@ -8191,16 +8191,16 @@ function mI({
     let de = { committed: "committed", amended: "amended commit", "cherry-picked": "cherry-picked" };
     for (let Y of ["committed", "amended", "cherry-picked"]) {
       let pe = l.commits.filter((ve) => ve.kind === Y).map((ve) => ve.sha);
-      if (pe.length) ro(Y, de[Y], e(t, { bold: !0, children: pe.join(", ") }));
+      if (pe.length) ro(Y, de[Y], e(t, { bold: true, children: pe.join(", ") }));
     }
   }
   if (Nt() && l.pushes?.length) {
     let de = te(l.pushes.map((Y) => Y.branch));
-    ro("push", "pushed to", e(t, { bold: !0, children: de.join(", ") }));
+    ro("push", "pushed to", e(t, { bold: true, children: de.join(", ") }));
   }
   if (Nt() && l.branches?.length) {
     let de = { merged: "merged", rebased: "rebased onto" };
-    for (let Y of l.branches) ro(`br-${Y.action}-${Y.ref}`, de[Y.action], e(t, { bold: !0, children: Y.ref }));
+    for (let Y of l.branches) ro(`br-${Y.action}-${Y.ref}`, de[Y.action], e(t, { bold: true, children: Y.ref }));
   }
   if (Nt() && l.prs?.length) {
     let de = {
@@ -8219,7 +8219,7 @@ function mI({
       ro(
         `pr-${Y.action}-${Y.number}`,
         de[Y.action],
-        Y.url ? e(qj, { number: Y.number, url: Y.url, bold: !0 }) : r(t, { bold: !0, children: ["PR #", Y.number] }),
+        Y.url ? e(qj, { number: Y.number, url: Y.url, bold: true }) : r(t, { bold: true, children: ["PR #", Y.number] }),
       );
   }
   if (Pt > 0) ro("frame", P ? "publishing" : "published", null);
@@ -8227,32 +8227,32 @@ function mI({
     ro(
       "search",
       P ? "searching for" : "searched for",
-      r(t, { children: [e(t, { bold: !0, children: Be }), " ", Be === 1 ? "pattern" : "patterns"] }),
+      r(t, { children: [e(t, { bold: true, children: Be }), " ", Be === 1 ? "pattern" : "patterns"] }),
     );
   if (Qt > 0)
     ro(
       "read",
       P ? "reading" : "read",
-      r(t, { children: [e(t, { bold: !0, children: Qt }), " ", Qt === 1 ? "file" : "files"] }),
+      r(t, { children: [e(t, { bold: true, children: Qt }), " ", Qt === 1 ? "file" : "files"] }),
     );
   if (Go > 0)
     ro(
       "list",
       P ? "listing" : "listed",
-      r(t, { children: [e(t, { bold: !0, children: Go }), " ", Go === 1 ? "directory" : "directories"] }),
+      r(t, { children: [e(t, { bold: true, children: Go }), " ", Go === 1 ? "directory" : "directories"] }),
     );
   if (D > 0)
     ro(
       "repl",
       P ? "REPL'ing" : "REPL'd",
-      r(t, { children: [e(t, { bold: !0, children: D }), " ", D === 1 ? "time" : "times"] }),
+      r(t, { children: [e(t, { bold: true, children: D }), " ", D === 1 ? "time" : "times"] }),
     );
   if (Lr > 0) {
     let de = l.mcpServerNames?.map((Y) => Y.replace(/^claude\.ai /, "")).join(", ") || "MCP";
     ro(
       "mcp",
       P ? "calling" : "called",
-      r(t, { children: [de, Lr > 1 && r(t, { children: [" ", e(t, { bold: !0, children: Lr }), " times"] })] }),
+      r(t, { children: [de, Lr > 1 && r(t, { children: [" ", e(t, { bold: true, children: Lr }), " times"] })] }),
     );
   }
   if (Mo > 0) {
@@ -8263,34 +8263,34 @@ function mI({
     if (pe !== void 0) {
       let Ao = Xt.length === 0;
       if (!Ao) Xt.push(e(t, { children: ", " }, "comma-agent"));
-      Xt.push(e(t, { children: e(t, { bold: !0, children: ud(P ? pe.running : pe.done, Ao) }) }, "agent"));
-    } else if (Y !== void 0) ro("agent", ve, r(t, { children: ["agent \xB7 ", e(t, { bold: !0, children: Y })] }));
-    else ro("agent", ve, r(t, { children: [e(t, { bold: !0, children: Mo }), " ", Mo === 1 ? "agent" : "agents"] }));
+      Xt.push(e(t, { children: e(t, { bold: true, children: ud(P ? pe.running : pe.done, Ao) }) }, "agent"));
+    } else if (Y !== void 0) ro("agent", ve, r(t, { children: ["agent \xB7 ", e(t, { bold: true, children: Y })] }));
+    else ro("agent", ve, r(t, { children: [e(t, { bold: true, children: Mo }), " ", Mo === 1 ? "agent" : "agents"] }));
   }
   if (ko > 0)
     ro(
       "other",
       P ? "calling" : "called",
-      r(t, { children: [e(t, { bold: !0, children: ko }), " ", ko === 1 ? "tool" : "tools"] }),
+      r(t, { children: [e(t, { bold: true, children: ko }), " ", ko === 1 ? "tool" : "tools"] }),
     );
   if (Nt() && pm > 0)
     ro(
       "bash",
       P ? "running" : "ran",
-      r(t, { children: [e(t, { bold: !0, children: pm }), " shell", " ", pm === 1 ? "command" : "commands"] }),
+      r(t, { children: [e(t, { bold: true, children: pm }), " shell", " ", pm === 1 ? "command" : "commands"] }),
     );
   if (oe > 0)
     ro(
       "mem-read",
       P ? "recalling" : "recalled",
-      r(t, { children: [e(t, { bold: !0, children: oe }), " ", oe === 1 ? "memory" : "memories"] }),
+      r(t, { children: [e(t, { bold: true, children: oe }), " ", oe === 1 ? "memory" : "memories"] }),
     );
   if (j > 0) ro("mem-search", P ? "searching" : "searched", "memories");
   if (Z > 0)
     ro(
       "mem-write",
       P ? "writing" : "wrote",
-      r(t, { children: [e(t, { bold: !0, children: Z }), " ", Z === 1 ? "memory" : "memories"] }),
+      r(t, { children: [e(t, { bold: true, children: Z }), " ", Z === 1 ? "memory" : "memories"] }),
     );
   let jM = Xt.length === 0 && (l.hookTotalMs ?? 0) > 0;
   if (jM)
@@ -8299,7 +8299,7 @@ function mI({
       "ran",
       r(t, {
         children: [
-          e(t, { bold: !0, children: l.hookCount }),
+          e(t, { bold: true, children: l.hookCount }),
           " PreToolUse",
           " ",
           l.hookCount === 1 ? "hook" : "hooks",
@@ -8316,7 +8316,7 @@ function mI({
       r(o, {
         flexDirection: "row",
         children: [
-          P ? e(Eo, { shouldAnimate: !0, isUnresolved: !0, isError: ue }) : e(o, { minWidth: 2 }),
+          P ? e(Eo, { shouldAnimate: true, isUnresolved: true, isError: ue }) : e(o, { minWidth: 2 }),
           r(t, {
             dimColor: !P,
             children: [
@@ -8342,17 +8342,17 @@ function mI({
             e(o, {
               width: 5,
               flexShrink: 0,
-              children: e(t, { "aria-hidden": !0, dimColor: !0, children: "  \u23BF  " }),
+              children: e(t, { "aria-hidden": true, dimColor: true, children: "  \u23BF  " }),
             }),
             e(o, {
               flexDirection: "column",
               flexGrow: 1,
               children: DM
-                ? e(Ni, { dimColor: !0, italic: !0, children: dI(op, xe - ld, sI) })
+                ? e(Ni, { dimColor: true, italic: true, children: dI(op, xe - ld, sI) })
                 : op
                     .split(`
 `)
-                    .map((de, Y, pe) => r(t, { dimColor: !0, children: [de, Y === pe.length - 1 && LM] }, `hint-${Y}`)),
+                    .map((de, Y, pe) => r(t, { dimColor: true, children: [de, Y === pe.length - 1 && LM] }, `hint-${Y}`)),
             }),
           ],
         }),
@@ -8360,9 +8360,9 @@ function mI({
         l.hookTotalMs !== void 0 &&
         l.hookTotalMs > 0 &&
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
-            e(t, { "aria-hidden": !0, children: "  \u23BF  " }),
+            e(t, { "aria-hidden": true, children: "  \u23BF  " }),
             "Ran ",
             l.hookCount,
             " PreToolUse",
@@ -8391,7 +8391,7 @@ function jC(x6) {
   if (vC[2] !== DC) (YR = $t(DC)), (vC[2] = DC), (vC[3] = YR);
   else YR = vC[3];
   let Jv;
-  if (vC[4] !== YR) (Jv = e(t, { bold: !0, children: YR })), (vC[4] = YR), (vC[5] = Jv);
+  if (vC[4] !== YR) (Jv = e(t, { bold: true, children: YR })), (vC[4] = YR), (vC[5] = Jv);
   else Jv = vC[5];
   return Jv;
 }
@@ -8407,7 +8407,7 @@ function WC(S6) {
   if (Zv[0] !== VR) (QR = $t(VR)), (Zv[0] = VR), (Zv[1] = QR);
   else QR = Zv[1];
   let eI;
-  if (Zv[2] !== QR) (eI = r(t, { dimColor: !0, children: [" \xB7 ", QR] })), (Zv[2] = QR), (Zv[3] = eI);
+  if (Zv[2] !== QR) (eI = r(t, { dimColor: true, children: [" \xB7 ", QR] })), (Zv[2] = QR), (Zv[3] = eI);
   else eI = Zv[3];
   return eI;
 }
@@ -8440,38 +8440,38 @@ function cI(l) {
     if (x.type !== "assistant") continue;
     for (let P of x.message.content)
       if (P.type === "tool_use" && (P.name === yt || P.name === xf)) {
-        if ((p.add(P.id), P.input?.run_in_background !== !1)) g.add(P.id);
+        if ((p.add(P.id), P.input?.run_in_background !== false)) g.add(P.id);
       }
   }
-  if (p.size === 0) return !1;
+  if (p.size === 0) return false;
   let R = new Set(),
-    y = !1;
+    y = false;
   for (let x of l) {
     if (x.type !== "user" || !Array.isArray(x.message.content)) continue;
-    let P = !1;
+    let P = false;
     for (let N of x.message.content)
       if (N.type === "tool_result" && p.has(N.tool_use_id)) {
-        if (((P = !0), R.add(N.tool_use_id), N.is_error === !0)) y = !0;
+        if (((P = true), R.add(N.tool_use_id), N.is_error === true)) y = true;
       }
     if (!P) continue;
     let S = x.toolUseResult?.status;
-    if (S === "async_launched" || S === "remote_launched" || S === "teammate_spawned") y = !0;
+    if (S === "async_launched" || S === "remote_launched" || S === "teammate_spawned") y = true;
   }
-  if (y) return !0;
-  for (let x of g) if (!R.has(x)) return !0;
-  return !1;
+  if (y) return true;
+  for (let x of g) if (!R.has(x)) return true;
+  return false;
 }
 function lc() {
   let TI = _(3),
     FC = Ro("app:toggleTranscript", "Global", "ctrl+o"),
     hI;
-  if (TI[0] === d) (hI = e(t, { "aria-hidden": !0, children: "\u273B " })), (TI[0] = hI);
+  if (TI[0] === d) (hI = e(t, { "aria-hidden": true, children: "\u273B " })), (TI[0] = hI);
   else hI = TI[0];
   let RI;
   if (TI[1] !== FC)
     (RI = e(o, {
       marginY: 1,
-      children: r(t, { dimColor: !0, children: [hI, "Conversation compacted (", FC, " for history)"] }),
+      children: r(t, { dimColor: true, children: [hI, "Conversation compacted (", FC, " for history)"] }),
     })),
       (TI[1] = FC),
       (TI[2] = RI);
@@ -8522,7 +8522,7 @@ function cc(X6) {
   const HC = J6 ? 1 : 0;
   let bI;
   if (ca[2] === d)
-    (bI = e(o, { minWidth: 2, children: e(t, { "aria-hidden": !0, color: "inactive", children: vr }) })), (ca[2] = bI);
+    (bI = e(o, { minWidth: 2, children: e(t, { "aria-hidden": true, color: "inactive", children: vr }) })), (ca[2] = bI);
   else bI = ca[2];
   const qC = Z6 - 10,
     GC = Bkt[Sn.entry];
@@ -8583,11 +8583,11 @@ function En(i9) {
   switch (wn.mark) {
     case "synced": {
       let An;
-      if (Nn[0] === d) (An = e(tt, { status: "success", withSpace: !0 })), (Nn[0] = An);
+      if (Nn[0] === d) (An = e(tt, { status: "success", withSpace: true })), (Nn[0] = An);
       else An = Nn[0];
       let zt;
       if (Nn[1] !== wn.note)
-        (zt = wn.note !== void 0 && r(t, { dimColor: !0, children: [" (", wn.note, ")"] })),
+        (zt = wn.note !== void 0 && r(t, { dimColor: true, children: [" (", wn.note, ")"] })),
           (Nn[1] = wn.note),
           (Nn[2] = zt);
       else zt = Nn[2];
@@ -8599,10 +8599,10 @@ function En(i9) {
     }
     case "pending": {
       let An;
-      if (Nn[6] === d) (An = e(tt, { status: "loading", withSpace: !0 })), (Nn[6] = An);
+      if (Nn[6] === d) (An = e(tt, { status: "loading", withSpace: true })), (Nn[6] = An);
       else An = Nn[6];
       let zt;
-      if (Nn[7] !== xs) (zt = r(t, { dimColor: !0, children: [An, xs] })), (Nn[7] = xs), (Nn[8] = zt);
+      if (Nn[7] !== xs) (zt = r(t, { dimColor: true, children: [An, xs] })), (Nn[7] = xs), (Nn[8] = zt);
       else zt = Nn[8];
       return zt;
     }
@@ -8612,7 +8612,7 @@ function En(i9) {
       else An = Nn[9];
       let zt;
       if (Nn[10] !== wn.words)
-        (zt = r(t, { dimColor: !0, children: [" \u2014 ", wn.words] })), (Nn[10] = wn.words), (Nn[11] = zt);
+        (zt = r(t, { dimColor: true, children: [" \u2014 ", wn.words] })), (Nn[10] = wn.words), (Nn[11] = zt);
       else zt = Nn[11];
       let dc;
       if (Nn[12] !== xs || Nn[13] !== zt)
@@ -8716,9 +8716,9 @@ function rD(VC, u3) {
   return r(
     t,
     {
-      dimColor: !0,
+      dimColor: true,
       children: [
-        e(t, { "aria-hidden": !0, children: "     \u23BF " }),
+        e(t, { "aria-hidden": true, children: "     \u23BF " }),
         VC.command === "prompt" ? `prompt: ${VC.promptText || ""}` : VC.command,
         "",
       ],
@@ -8730,9 +8730,9 @@ function sD(XC, m3) {
   return r(
     t,
     {
-      dimColor: !0,
+      dimColor: true,
       children: [
-        e(t, { "aria-hidden": !0, children: "\u23BF \xA0" }),
+        e(t, { "aria-hidden": true, children: "\u23BF \xA0" }),
         XC.command === "prompt" ? `prompt: ${XC.promptText || ""}` : XC.command,
         "",
       ],
@@ -8743,7 +8743,7 @@ function sD(XC, m3) {
 function nD(d3, c3) {
   return r(
     t,
-    { children: [e(t, { "aria-hidden": !0, dimColor: !0, children: "\u23BF \xA0" }), "Stop hook feedback: ", d3] },
+    { children: [e(t, { "aria-hidden": true, dimColor: true, children: "\u23BF \xA0" }), "Stop hook feedback: ", d3] },
     `feedback-${c3}`,
   );
 }
@@ -8783,8 +8783,8 @@ function yc(o3) {
     const be = je ? 1 : 0;
     let uo, Ve;
     if (Je[10] === d)
-      (uo = e(o, { minWidth: 2, children: e(t, { "aria-hidden": !0, color: "error", children: vr }) })),
-        (Ve = e(t, { dimColor: !0, children: "All background agents stopped" })),
+      (uo = e(o, { minWidth: 2, children: e(t, { "aria-hidden": true, color: "error", children: vr }) })),
+        (Ve = e(t, { dimColor: true, children: "All background agents stopped" })),
         (Je[10] = uo),
         (Je[11] = Ve);
     else (uo = Je[10]), (Ve = Je[11]);
@@ -8814,7 +8814,7 @@ function yc(o3) {
       (Ve = r(o, {
         flexDirection: "row",
         width: "100%",
-        children: [uo, e(_q, { color: "warning", bold: !0, children: me.content })],
+        children: [uo, e(_q, { color: "warning", bold: true, children: me.content })],
       })),
         (Je[15] = me.content),
         (Je[16] = Ve);
@@ -8824,9 +8824,9 @@ function yc(o3) {
       (mo =
         me.scope !== "local" &&
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
-            e(t, { "aria-hidden": !0, children: "  \u23BF  " }),
+            e(t, { "aria-hidden": true, children: "  \u23BF  " }),
             "Tip: You can configure model switch behavior in /config",
           ],
         })),
@@ -8884,11 +8884,11 @@ function yc(o3) {
   if (me.subtype === "scheduled_task_fire") {
     const be = je ? 1 : 0;
     let uo;
-    if (Je[36] === d) (uo = r(t, { "aria-hidden": !0, children: [ww, " "] })), (Je[36] = uo);
+    if (Je[36] === d) (uo = r(t, { "aria-hidden": true, children: [ww, " "] })), (Je[36] = uo);
     else uo = Je[36];
     let Ve;
     if (Je[37] !== me.content)
-      (Ve = r(t, { dimColor: !0, children: [uo, me.content] })), (Je[37] = me.content), (Je[38] = Ve);
+      (Ve = r(t, { dimColor: true, children: [uo, me.content] })), (Je[37] = me.content), (Je[38] = Ve);
     else Ve = Je[38];
     let mo;
     if (Je[39] !== be || Je[40] !== Ve)
@@ -8900,7 +8900,7 @@ function yc(o3) {
     const be = je ? 1 : 0;
     let uo, Ve;
     if (Je[42] === d)
-      (uo = r(t, { "aria-hidden": !0, dimColor: !0, children: [ww, " "] })),
+      (uo = r(t, { "aria-hidden": true, dimColor: true, children: [ww, " "] })),
         (Ve = e(t, { children: "Allowed " })),
         (Je[42] = uo),
         (Je[43] = Ve);
@@ -8909,7 +8909,7 @@ function yc(o3) {
     if (Je[44] !== me.commands) (mo = me.commands.join(", ")), (Je[44] = me.commands), (Je[45] = mo);
     else mo = Je[45];
     let pa;
-    if (Je[46] !== mo) (pa = e(t, { bold: !0, children: mo })), (Je[46] = mo), (Je[47] = pa);
+    if (Je[46] !== mo) (pa = e(t, { bold: true, children: mo })), (Je[46] = mo), (Je[47] = pa);
     else pa = Je[47];
     let UI;
     if (Je[48] !== be || Je[49] !== pa)
@@ -8982,12 +8982,12 @@ function Qy(t3) {
   }
   if (ur.hookLabel) {
     let Bu;
-    if (Io[2] === d) (Bu = e(t, { "aria-hidden": !0, children: "  \u23BF  " })), (Io[2] = Bu);
+    if (Io[2] === d) (Bu = e(t, { "aria-hidden": true, children: "  \u23BF  " })), (Io[2] = Bu);
     else Bu = Io[2];
     const ju = On === 1 ? "hook" : "hooks";
     let vn;
     if (Io[3] !== On || Io[4] !== ur.hookLabel || Io[5] !== ju)
-      (vn = r(t, { dimColor: !0, children: [Bu, "Ran ", On, " ", ur.hookLabel, " ", ju, ""] })),
+      (vn = r(t, { dimColor: true, children: [Bu, "Ran ", On, " ", ur.hookLabel, " ", ju, ""] })),
         (Io[3] = On),
         (Io[4] = ur.hookLabel),
         (Io[5] = ju),
@@ -9007,11 +9007,11 @@ function Qy(t3) {
   }
   const Bu = r3 ? 1 : 0;
   let ju;
-  if (Io[13] === d) (ju = e(o, { minWidth: 2, children: e(t, { "aria-hidden": !0, children: vr }) })), (Io[13] = ju);
+  if (Io[13] === d) (ju = e(o, { minWidth: 2, children: e(t, { "aria-hidden": true, children: vr }) })), (Io[13] = ju);
   else ju = Io[13];
   const vn = s3 - 10;
   let Ps;
-  if (Io[14] !== On) (Ps = e(t, { bold: !0, children: On })), (Io[14] = On), (Io[15] = Ps);
+  if (Io[14] !== On) (Ps = e(t, { bold: true, children: On })), (Io[14] = On), (Io[15] = Ps);
   else Ps = Io[15];
   const Wu = ur.hookLabel ?? "stop",
     YC = On === 1 ? "hook" : "hooks";
@@ -9034,7 +9034,7 @@ function Qy(t3) {
   else ky = Io[26];
   let xy;
   if (Io[27] !== Ry || Io[28] !== yy)
-    (xy = Ry && yy && r(t, { children: [e(t, { "aria-hidden": !0, dimColor: !0, children: "\u23BF \xA0" }), yy] })),
+    (xy = Ry && yy && r(t, { children: [e(t, { "aria-hidden": true, dimColor: true, children: "\u23BF \xA0" }), yy] })),
       (Io[27] = Ry),
       (Io[28] = yy),
       (Io[29] = xy);
@@ -9048,7 +9048,7 @@ function Qy(t3) {
           t,
           {
             children: [
-              e(t, { "aria-hidden": !0, dimColor: !0, children: "\u23BF \xA0" }),
+              e(t, { "aria-hidden": true, dimColor: true, children: "\u23BF \xA0" }),
               ur.hookLabel ?? "Stop",
               " hook error: ",
               n3,
@@ -9091,7 +9091,7 @@ function Xy(p3) {
   const eS = f3 ? 1 : 0;
   let Uy;
   if (Tc[0] !== Fu || Tc[1] !== Hu || Tc[2] !== ZC)
-    (Uy = ZC && e(o, { minWidth: 2, children: e(t, { "aria-hidden": !0, color: Fu, dimColor: Hu, children: vr }) })),
+    (Uy = ZC && e(o, { minWidth: 2, children: e(t, { "aria-hidden": true, color: Fu, dimColor: Hu, children: vr }) })),
       (Tc[0] = Fu),
       (Tc[1] = Hu),
       (Tc[2] = ZC),
@@ -9168,7 +9168,7 @@ function Zy(R3) {
       return {
         hasPendingAgents: LI.pendingAgents > 0,
         hasPendingWorkflows: LI.pendingWorkflows > 0,
-        showTurnDuration: Lo("showTurnDuration", !0).value,
+        showTurnDuration: Lo("showTurnDuration", true).value,
         doneAt: Jr(Bo.timestamp),
       };
     }),
@@ -9198,7 +9198,7 @@ function Zy(R3) {
       (ga =
         qu >= Gu
           ? r(t, {
-              children: [Wo(qu), " used (", Wo(Gu), " min", r(t, { "aria-hidden": !0, children: [" ", L.tick] }), ")"],
+              children: [Wo(qu), " used (", Wo(Gu), " min", r(t, { "aria-hidden": true, children: [" ", L.tick] }), ")"],
             })
           : `${Wo(qu)} / ${Wo(Gu)} (${Math.round((qu / Gu) * 100)}%)`),
         (_s[6] = Gu),
@@ -9226,7 +9226,7 @@ function Zy(R3) {
     (ga =
       Ra > 0 &&
       r(t, {
-        children: [" ", e(t, { bold: !0, dimColor: !0, children: Ra }), ` background ${Ra === 1 ? "agent" : "agents"}`],
+        children: [" ", e(t, { bold: true, dimColor: true, children: Ra }), ` background ${Ra === 1 ? "agent" : "agents"}`],
       })),
       (_s[13] = Ra),
       (_s[14] = ga);
@@ -9239,7 +9239,7 @@ function Zy(R3) {
       r(t, {
         children: [
           " ",
-          e(t, { bold: !0, dimColor: !0, children: Ma }),
+          e(t, { bold: true, dimColor: true, children: Ma }),
           ` ${Ma === 1 ? "dynamic workflow" : "dynamic workflows"}`,
         ],
       })),
@@ -9248,7 +9248,7 @@ function Zy(R3) {
   else ha = _s[16];
   let jI;
   if (_s[17] !== ga || _s[18] !== Ta || _s[19] !== ha)
-    (jI = r(t, { dimColor: !0, children: ["Waiting for", ga, Ta, ha, " to finish"] })),
+    (jI = r(t, { dimColor: true, children: ["Waiting for", ga, Ta, ha, " to finish"] })),
       (_s[17] = ga),
       (_s[18] = Ta),
       (_s[19] = ha),
@@ -9278,13 +9278,13 @@ function Zy(R3) {
           marginTop: nS ? 1 : 0,
           width: "100%",
           children: [
-            e(o, { minWidth: 2, children: e(t, { "aria-hidden": !0, dimColor: !0, children: ww }) }),
+            e(o, { minWidth: 2, children: e(t, { "aria-hidden": true, dimColor: true, children: ww }) }),
             r(t, {
               children: [
-                fa && (Ly ? hS : e(t, { dimColor: !0, children: `${iS} for ${mS}${Oy ? ` \xB7 done ${Oy}` : ""}` })),
-                Dy && e(t, { dimColor: !0, children: Dy }),
-                hc && e(t, { dimColor: !0, children: hc }),
-                !RS && vy && e(t, { dimColor: !0, children: ` \xB7 ${vy} still running` }),
+                fa && (Ly ? hS : e(t, { dimColor: true, children: `${iS} for ${mS}${Oy ? ` \xB7 done ${Oy}` : ""}` })),
+                Dy && e(t, { dimColor: true, children: Dy }),
+                hc && e(t, { dimColor: true, children: hc }),
+                !RS && vy && e(t, { dimColor: true, children: ` \xB7 ${vy} still running` }),
               ],
             }),
           ],
@@ -9332,7 +9332,7 @@ function eM(P3) {
   const CS = _3 ? 1 : 0;
   let zI;
   if (zu[5] === d)
-    (zI = e(o, { minWidth: 2, children: e(t, { "aria-hidden": !0, dimColor: !0, children: vr }) })), (zu[5] = zI);
+    (zI = e(o, { minWidth: 2, children: e(t, { "aria-hidden": true, dimColor: true, children: vr }) })), (zu[5] = zI);
   else zI = zu[5];
   const SS = Rc.verb ?? "Saved",
     US = C3.join(" \xB7 ");
@@ -9359,12 +9359,12 @@ function eM(P3) {
 function oM(S3) {
   let Ku = _(16),
     { path: Cs } = S3,
-    [Fy, VI] = u(!1),
+    [Fy, VI] = u(false),
     $y;
   if (Ku[0] !== Cs) ($y = () => void x9e(Cs)), (Ku[0] = Cs), (Ku[1] = $y);
   else $y = Ku[1];
   let QI, XI;
-  if (Ku[2] === d) (QI = () => VI(!0)), (XI = () => VI(!1)), (Ku[2] = QI), (Ku[3] = XI);
+  if (Ku[2] === d) (QI = () => VI(true)), (XI = () => VI(false)), (Ku[2] = QI), (Ku[3] = XI);
   else (QI = Ku[2]), (XI = Ku[3]);
   const wS = !Fy;
   let Hy;
@@ -9413,7 +9413,7 @@ function tM(U3) {
       children: [
         "/remote-control is active",
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [" \xB7 Continue here, on your phone, or at ", e(ut, { url: cr.url, children: cr.url })],
         }),
       ],
@@ -9428,8 +9428,8 @@ function tM(U3) {
       r(o, {
         flexDirection: "row",
         children: [
-          e(t, { "aria-hidden": !0, dimColor: !0, children: "\u23BF  " }),
-          e(t, { dimColor: !0, children: cr.upgradeNudge }),
+          e(t, { "aria-hidden": true, dimColor: true, children: "\u23BF  " }),
+          e(t, { dimColor: true, children: cr.upgradeNudge }),
         ],
       })),
       (Yu[5] = cr.upgradeNudge),
@@ -9483,10 +9483,10 @@ function ka(W3) {
     IS = typeof lD.text === "string" ? lD.text : "";
   const DS = rM ? 1 : 0;
   let uD;
-  if (ba[5] === d) (uD = r(t, { "aria-hidden": !0, children: [L.pointerSmall, " "] })), (ba[5] = uD);
+  if (ba[5] === d) (uD = r(t, { "aria-hidden": true, children: [L.pointerSmall, " "] })), (ba[5] = uD);
   else uD = ba[5];
   let sM;
-  if (ba[6] !== vS) (sM = r(t, { dimColor: !0, children: [uD, "Message from ", vS] })), (ba[6] = vS), (ba[7] = sM);
+  if (ba[6] !== vS) (sM = r(t, { dimColor: true, children: [uD, "Message from ", vS] })), (ba[6] = vS), (ba[7] = sM);
   else sM = ba[7];
   let nM;
   if (ba[8] !== IS) (nM = BS(IS)), (ba[8] = IS), (ba[9] = nM);
@@ -9701,7 +9701,7 @@ function Pc(h8) {
     (dM =
       nU &&
       pr.name !== yt &&
-      e(Pe, { height: 1, children: e(t, { dimColor: !0, children: "Allowed by auto mode classifier" }) })),
+      e(Pe, { height: 1, children: e(t, { dimColor: true, children: "Allowed by auto mode classifier" }) })),
       (In[25] = pr.name),
       (In[26] = nU),
       (In[27] = dM);
@@ -9773,7 +9773,7 @@ function MM(hM) {
   let AD = _(10),
     { param: Sc, message: Uc, toolUse: z8 } = hM,
     xa = Uc.toolUseResult,
-    RM = Sc.is_error === !0,
+    RM = Sc.is_error === true,
     yM = z8.toolUse.name,
     ED,
     OD;
@@ -9959,9 +9959,9 @@ function DU(NJ) {
       latestBashOutputUUID: AJ,
       disableDisplayOverride: Ic,
     } = NJ,
-    hU = LD === void 0 ? !1 : LD,
-    RU = BD === void 0 ? !1 : BD,
-    om = jD === void 0 ? !1 : jD;
+    hU = LD === void 0 ? false : LD,
+    RU = BD === void 0 ? false : BD,
+    om = jD === void 0 ? false : jD;
   switch (K.type) {
     case "attachment": {
       if (K.attachment.type === "queued_command" && sre(K.attachment.origin)) {
@@ -10099,7 +10099,7 @@ function DU(NJ) {
                 onOpenRateLimitOptions: Oc,
                 onRateLimitAutoQueueContinue: vc,
                 advisorModel: K.advisorModel,
-                isApiError: K.isApiErrorMessage === !0,
+                isApiError: K.isApiErrorMessage === true,
                 apiMessageId: Ic ? void 0 : K.message.id,
                 messageUuid: K.uuid,
                 isFirstTextBlock: rm === void 0 || rm === K.uuid,
@@ -10736,25 +10736,25 @@ function wM($J) {
   }
 }
 function KD(l, p) {
-  if (l.message.uuid !== p.message.uuid) return !1;
-  if (l.verbose !== p.verbose) return !1;
+  if (l.message.uuid !== p.message.uuid) return false;
+  if (l.verbose !== p.verbose) return false;
   let g = l.latestBashOutputUUID === l.message.uuid,
     R = p.latestBashOutputUUID === p.message.uuid;
-  if (g !== R) return !1;
-  if (l.isTranscriptMode !== p.isTranscriptMode) return !1;
+  if (g !== R) return false;
+  if (l.isTranscriptMode !== p.isTranscriptMode) return false;
   if (
     l.isUserContinuation !== p.isUserContinuation ||
     l.isSplitUserContinuation !== p.isSplitUserContinuation ||
     l.hasMetadataHeader !== p.hasMetadataHeader
   )
-    return !1;
-  if (l.containerWidth !== p.containerWidth) return !1;
+    return false;
+  if (l.containerWidth !== p.containerWidth) return false;
   if (l.isStatic && p.isStatic) {
     let y = l.message.type === "system" && l.message.subtype === "turn_duration" ? l.message.briefHiddenCount : void 0,
       x = p.message.type === "system" && p.message.subtype === "turn_duration" ? p.message.briefHiddenCount : void 0;
     return y === x;
   }
-  return !1;
+  return false;
 }
 var mx = du(DU, KD);
 function pL(SZ, oL) {
@@ -10768,17 +10768,17 @@ function gL(AZ) {
 }
 function TL(sL) {
   if (!bo(sL.data)) {
-    return !1;
+    return false;
   }
   let nL = sL.data.message;
   if (nL.type === "user" && nL.toolUseResult === void 0) {
-    return !1;
+    return false;
   }
-  return !0;
+  return true;
 }
 var WU = 3;
 function bo(l) {
-  if (!("message" in l)) return !1;
+  if (!("message" in l)) return false;
   let p = l.message;
   return p != null && typeof p === "object" && "type" in p;
 }
@@ -10819,9 +10819,9 @@ var aL = 9,
 function sge(_Z) {
   let QD = _(3),
     { prompt: LU, dim: VD } = _Z;
-  VD === void 0 ? !1 : VD;
+  VD === void 0 ? false : VD;
   let XD;
-  if (QD[0] === d) (XD = e(t, { color: "success", bold: !0, children: "Prompt:" })), (QD[0] = XD);
+  if (QD[0] === d) (XD = e(t, { color: "success", bold: true, children: "Prompt:" })), (QD[0] = XD);
   else XD = QD[0];
   let JD;
   if (QD[1] !== LU)
@@ -10838,7 +10838,7 @@ function pBe(CZ) {
   let jU = _(5),
     { content: BU } = CZ,
     ZD;
-  if (jU[0] === d) (ZD = e(t, { color: "success", bold: !0, children: "Response:" })), (jU[0] = ZD);
+  if (jU[0] === d) (ZD = e(t, { color: "success", bold: true, children: "Response:" })), (jU[0] = ZD);
   else ZD = jU[0];
   let NM;
   if (jU[1] !== BU) (NM = BU.map(pL)), (jU[1] = BU), (jU[2] = NM);
@@ -10868,16 +10868,16 @@ function GU(UZ) {
             children: e(mx, {
               message: rL.data.message,
               lookups: zc,
-              addMargin: !1,
+              addMargin: false,
               tools: Hc,
               commands: [],
               verbose: qc,
               inProgressToolUseIDs: Kc,
               progressMessagesForMessage: [],
-              shouldAnimate: !1,
-              shouldShowDot: !1,
-              isTranscriptMode: !1,
-              isStatic: !0,
+              shouldAnimate: false,
+              shouldShowDot: false,
+              isTranscriptMode: false,
+              isStatic: true,
             }),
           },
           rL.uuid,
@@ -10896,7 +10896,7 @@ function GU(UZ) {
   else Yc = EM[14];
   return Yc;
 }
-function ELn(l, p, { tools: g, verbose: R, theme: y, isTranscriptMode: x = !1, input: P, activeAgents: S }) {
+function ELn(l, p, { tools: g, verbose: R, theme: y, isTranscriptMode: x = false, input: P, activeAgents: S }) {
   let N = l;
   if (N.status === "remote_launched")
     return e(o, {
@@ -10907,7 +10907,7 @@ function ELn(l, p, { tools: g, verbose: R, theme: y, isTranscriptMode: x = !1, i
           children: [
             "Cloud agent launched",
             " ",
-            r(t, { dimColor: !0, children: ["\xB7 ", N.taskId, " \xB7 ", N.sessionUrl] }),
+            r(t, { dimColor: true, children: ["\xB7 ", N.taskId, " \xB7 ", N.sessionUrl] }),
           ],
         }),
       }),
@@ -10924,7 +10924,7 @@ function ELn(l, p, { tools: g, verbose: R, theme: y, isTranscriptMode: x = !1, i
               !x && ldt(p, S, g4e(P, S)) ? "Fetching in background" : "Backgrounded agent",
               !x &&
                 r(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: [
                     " (",
                     r(fe, {
@@ -11002,19 +11002,19 @@ function ELn(l, p, { tools: g, verbose: R, theme: y, isTranscriptMode: x = !1, i
         children: e(mx, {
           message: xe,
           lookups: vE,
-          addMargin: !1,
+          addMargin: false,
           tools: g,
           commands: [],
           verbose: R,
           inProgressToolUseIDs: new Set(),
           progressMessagesForMessage: [],
-          shouldAnimate: !1,
-          shouldShowDot: !1,
-          isTranscriptMode: !1,
-          isStatic: !0,
+          shouldAnimate: false,
+          shouldShowDot: false,
+          isTranscriptMode: false,
+          isStatic: true,
         }),
       }),
-      !x && r(t, { dimColor: !0, children: ["  ", e(Gc, {})] }),
+      !x && r(t, { dimColor: true, children: ["  ", e(Gc, {})] }),
     ],
   });
 }
@@ -11054,7 +11054,7 @@ function ALn(l, p) {
     g.push(
       e(
         o,
-        { flexWrap: "nowrap", marginLeft: 1, children: e(t, { dimColor: !0, children: R.map(cs).join(" \u2192 ") }) },
+        { flexWrap: "nowrap", marginLeft: 1, children: e(t, { dimColor: true, children: R.map(cs).join(" \u2192 ") }) },
         "model",
       ),
     );
@@ -11064,7 +11064,7 @@ function ALn(l, p) {
       let x = at(),
         P = Ot(l.model);
       if (y !== x || P !== y)
-        g.push(e(o, { flexWrap: "nowrap", marginLeft: 1, children: e(t, { dimColor: !0, children: cs(y) }) }, "model"));
+        g.push(e(o, { flexWrap: "nowrap", marginLeft: 1, children: e(t, { dimColor: true, children: cs(y) }) }, "model"));
     }
   }
   if (g.length === 0) return null;
@@ -11073,15 +11073,15 @@ function ALn(l, p) {
 var FU = "Initializing\u2026";
 function $Re(
   l,
-  { tools: p, verbose: g, terminalSize: R, inProgressToolCallCount: y, isTranscriptMode: x = !1, activeAgents: P },
+  { tools: p, verbose: g, terminalSize: R, inProgressToolCallCount: y, isTranscriptMode: x = false, activeAgents: P },
 ) {
-  if (!l.length) return e(Pe, { height: 1, children: e(t, { dimColor: !0, children: FU }) });
+  if (!l.length) return e(Pe, { height: 1, children: e(t, { dimColor: true, children: FU }) });
   if (!x && ldt(l, P)) return i0t();
   let S = (y ?? 1) * aL + lL,
     N = !x && R && R.rows && R.rows < S,
     E = () => {
       let re = Q(l, (ne) => {
-          if (!bo(ne.data)) return !1;
+          if (!bo(ne.data)) return false;
           return ne.data.message.message.content.some((Ke) => Ke.type === "tool_use");
         }),
         ue = l.findLast((ne) => bo(ne.data) && ne.data.message.type === "assistant"),
@@ -11101,10 +11101,10 @@ function $Re(
     return e(Pe, {
       height: 1,
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [
           "In progress\u2026 \xB7 ",
-          e(t, { bold: !0, children: re }),
+          e(t, { bold: true, children: re }),
           " tool",
           " ",
           re === 1 ? "use" : "uses",
@@ -11116,24 +11116,24 @@ function $Re(
             context: "Global",
             fallback: "ctrl+o",
             description: "expand",
-            parens: !0,
+            parens: true,
           }),
         ],
       }),
     });
   }
-  let O = iL(l, p, !0),
+  let O = iL(l, p, true),
     D = x ? O : O.slice(-WU),
     j = x ? [] : O.slice(0, Math.max(0, O.length - WU)),
     oe = Q(j, (re) => {
       if (re.type === "summary") return re.searchCount + re.readCount + re.replCount > 0;
       let ue = re.message.data;
-      if (!bo(ue)) return !1;
+      if (!bo(ue)) return false;
       return ue.message.message.content.some((Se) => Se.type === "tool_use");
     }),
     Z = l[0]?.data,
     le = Z && bo(Z) ? Z.prompt : void 0;
-  if (D.length === 0 && !(x && le)) return e(Pe, { height: 1, children: e(t, { dimColor: !0, children: FU }) });
+  if (D.length === 0 && !(x && le)) return e(Pe, { height: 1, children: e(t, { dimColor: true, children: FU }) });
   let { lookups: Te, inProgressToolUseIDs: xe } = qPe(l.filter((re) => bo(re.data)).map((re) => re.data));
   return e(Pe, {
     children: r(o, {
@@ -11145,31 +11145,31 @@ function $Re(
             D.map((re) => {
               if (re.type === "summary") {
                 let ue = f$t(re.searchCount, re.readCount, re.isActive, re.replCount);
-                return e(o, { height: 1, overflow: "hidden", children: e(t, { dimColor: !0, children: ue }) }, re.uuid);
+                return e(o, { height: 1, overflow: "hidden", children: e(t, { dimColor: true, children: ue }) }, re.uuid);
               }
               return e(
                 mx,
                 {
                   message: re.message.data.message,
                   lookups: Te,
-                  addMargin: !1,
+                  addMargin: false,
                   tools: p,
                   commands: [],
                   verbose: g,
                   inProgressToolUseIDs: xe,
                   progressMessagesForMessage: [],
-                  shouldAnimate: !1,
-                  shouldShowDot: !1,
+                  shouldAnimate: false,
+                  shouldShowDot: false,
                   style: "condensed",
-                  isTranscriptMode: !1,
-                  isStatic: !0,
+                  isTranscriptMode: false,
+                  isStatic: true,
                 },
                 re.message.uuid,
               );
             }),
           ],
         }),
-        e(Jm, { count: oe, unit: "tool use", expandable: !0 }),
+        e(Jm, { count: oe, unit: "tool use", expandable: true }),
       ],
     }),
   });
@@ -11195,7 +11195,7 @@ function vLn(
 }
 function cL(l) {
   let p = Q(l, (y) => {
-      if (!bo(y.data)) return !1;
+      if (!bo(y.data)) return false;
       let x = y.data.message;
       return x.type === "user" && x.message.content.some((P) => P.type === "tool_result");
     }),
@@ -11208,7 +11208,7 @@ function cL(l) {
   return { toolUseCount: p, tokens: R };
 }
 function RLn(l, p) {
-  let { shouldAnimate: g, tools: R, addMargin: y = !0 } = p,
+  let { shouldAnimate: g, tools: R, addMargin: y = true } = p,
     x = l.map(({ param: j, isResolved: oe, isError: Z, progressMessages: le, result: Te }) => {
       let xe = cL(le),
         re = Rur(le, R),
@@ -11230,7 +11230,7 @@ function RLn(l, p) {
           (Oe = ue.success ? ue.data.description?.replace(/\s+/g, " ").trim() || void 0 : void 0),
           (Ke = ue.success ? v4e(ue.data) : void 0),
           (_e = void 0);
-      let to = ue.success && "run_in_background" in ue.data && ue.data.run_in_background === !0,
+      let to = ue.success && "run_in_background" in ue.data && ue.data.run_in_background === true,
         Xe = Te?.output?.status,
         Mo = to || Xe === "async_launched" || Xe === "remote_launched" || Se,
         qo = ue.success ? ue.data.name : void 0;
@@ -11270,15 +11270,15 @@ function RLn(l, p) {
                 ? D
                   ? r(U, {
                       children: [
-                        e(t, { bold: !0, children: l.length }),
+                        e(t, { bold: true, children: l.length }),
                         " background agents launched",
                         " ",
-                        e(t, { dimColor: !0, children: e(M, { chord: "down", action: "manage", parens: !0 }) }),
+                        e(t, { dimColor: true, children: e(M, { chord: "down", action: "manage", parens: true }) }),
                       ],
                     })
                   : r(U, {
                       children: [
-                        e(t, { bold: !0, children: l.length }),
+                        e(t, { bold: true, children: l.length }),
                         " ",
                         O ? `${O} agents` : "agents",
                         " finished",
@@ -11287,7 +11287,7 @@ function RLn(l, p) {
                 : r(U, {
                     children: [
                       "Running ",
-                      e(t, { bold: !0, children: l.length }),
+                      e(t, { bold: true, children: l.length }),
                       " ",
                       O ? `${O} agents` : "agents",
                       "\u2026",
@@ -11347,9 +11347,9 @@ function Rur(l, p) {
       }
     } else break;
   }
-  if (R + y >= 2) return f$t(R, y, !0);
+  if (R + y >= 2) return f$t(R, y, true);
   let x = l.findLast((P) => {
-    if (!bo(P.data)) return !1;
+    if (!bo(P.data)) return false;
     let S = P.data.message;
     return S.type === "user" && S.message.content.some((N) => N.type === "tool_result");
   });

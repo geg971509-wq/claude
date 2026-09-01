@@ -41,10 +41,10 @@ var W = S(function (He, Z) {
   };
   m.prototype.retry = function (t) {
     if (this._timeout) clearTimeout(this._timeout);
-    if (!t) return !1;
+    if (!t) return false;
     var e = new Date().getTime();
     if (t && e - this._operationStart >= this._maxRetryTime)
-      return this._errors.unshift(Error("RetryOperation timeout occurred")), !1;
+      return this._errors.unshift(Error("RetryOperation timeout occurred")), false;
     this._errors.push(t);
     var r = this._timeouts.shift();
     if (r === void 0)
@@ -52,7 +52,7 @@ var W = S(function (He, Z) {
         this._errors.splice(this._errors.length - 1, this._errors.length),
           (this._timeouts = this._cachedTimeouts.slice(0)),
           (r = this._timeouts.shift());
-      else return !1;
+      else return false;
     var i = this,
       o = setTimeout(function () {
         if ((i._attempts++, i._operationTimeoutCb)) {
@@ -67,7 +67,7 @@ var W = S(function (He, Z) {
         i._fn(i._attempts);
       }, r);
     if (this._options.unref) o.unref();
-    return !0;
+    return true;
   };
   m.prototype.attempt = function (t, e) {
     if (((this._fn = t), e)) {
@@ -116,7 +116,7 @@ var te = S(function (_e) {
   };
   _e.timeouts = function (t) {
     if (t instanceof Array) return [].concat(t);
-    var e = { retries: 10, factor: 2, minTimeout: 1000, maxTimeout: 1 / 0, randomize: !1 };
+    var e = { retries: 10, factor: 2, minTimeout: 1000, maxTimeout: 1 / 0, randomize: false };
     for (var r in t) e[r] = t[r];
     if (e.minTimeout > e.maxTimeout) throw Error("minTimeout is greater than maxTimeout");
     var i = [];
@@ -188,10 +188,10 @@ var ne = S(function (Be, g) {
       O = O.EventEmitter;
     if (s.__signal_exit_emitter__) c = s.__signal_exit_emitter__;
     else (c = s.__signal_exit_emitter__ = new O()), (c.count = 0), (c.emitted = {});
-    if (!c.infinite) c.setMaxListeners(1 / 0), (c.infinite = !0);
+    if (!c.infinite) c.setMaxListeners(1 / 0), (c.infinite = true);
     (g.exports = function (t, e) {
       if (!v(global.process)) return function () {};
-      if ((q.equal(typeof t, "function", "a callback must be provided for exit handler"), k === !1)) b();
+      if ((q.equal(typeof t, "function", "a callback must be provided for exit handler"), k === false)) b();
       var r = "exit";
       if (e && e.alwaysLast) r = "afterexit";
       var i = function () {
@@ -201,7 +201,7 @@ var ne = S(function (Be, g) {
     }),
       (I = function () {
         if (!k || !v(global.process)) return;
-        (k = !1),
+        (k = false),
           x.forEach(function (e) {
             try {
               s.removeListener(e, D[e]);
@@ -214,7 +214,7 @@ var ne = S(function (Be, g) {
       (g.exports.unload = I),
       (y = function (e, r, i) {
         if (c.emitted[e]) return;
-        (c.emitted[e] = !0), c.emit(e, r, i);
+        (c.emitted[e] = true), c.emit(e, r, i);
       }),
       (D = {}),
       x.forEach(function (t) {
@@ -230,16 +230,16 @@ var ne = S(function (Be, g) {
       (g.exports.signals = function () {
         return x;
       }),
-      (k = !1),
+      (k = false),
       (b = function () {
         if (k || !v(global.process)) return;
-        (k = !0),
+        (k = true),
           (c.count += 1),
           (x = x.filter(function (e) {
             try {
-              return s.on(e, D[e]), !0;
+              return s.on(e, D[e]), true;
             } catch (r) {
-              return !1;
+              return false;
             }
           })),
           (s.emit = F),
@@ -279,7 +279,7 @@ var ie = S(function (Oe, K) {
         let h = f.mtime.getTime() % 1000 === 0 ? "s" : "ms";
         if (!(Q in e))
           try {
-            Object.defineProperty(e, Q, { value: h, configurable: !0 });
+            Object.defineProperty(e, Q, { value: h, configurable: true });
           } catch {}
         r(null, f.mtime, h);
       });
@@ -375,7 +375,7 @@ var fe = S(function (be, M) {
       r.updateTimeout.unref();
   }
   function X(t, e, r) {
-    if (((e.released = !0), e.updateTimeout)) clearTimeout(e.updateTimeout);
+    if (((e.released = true), e.updateTimeout)) clearTimeout(e.updateTimeout);
     if (p[t] === e) delete p[t];
     e.options.onCompromised(r);
   }
@@ -383,7 +383,7 @@ var fe = S(function (be, M) {
     (e = {
       stale: 1e4,
       update: null,
-      realpath: !0,
+      realpath: true,
       retries: 0,
       fs: H,
       onCompromised: (i) => {
@@ -407,28 +407,28 @@ var fe = S(function (be, M) {
             G(o, e),
               r(null, (T) => {
                 if (_.released) return T && T(Object.assign(Error("Lock is already released"), { code: "ERELEASED" }));
-                ce(o, { ...e, realpath: !1 }, T);
+                ce(o, { ...e, realpath: false }, T);
               });
           });
         });
       });
   }
   function ce(t, e, r) {
-    (e = { fs: H, realpath: !0, ...e }),
+    (e = { fs: H, realpath: true, ...e }),
       J(t, e, (i, o) => {
         if (i) return r(i);
         let u = p[o];
         if (!u) return r(Object.assign(Error("Lock is not acquired/owned by you"), { code: "ENOTACQUIRED" }));
-        u.updateTimeout && clearTimeout(u.updateTimeout), (u.released = !0), delete p[o], se(o, e, r);
+        u.updateTimeout && clearTimeout(u.updateTimeout), (u.released = true), delete p[o], se(o, e, r);
       });
   }
   function Le(t, e, r) {
-    (e = { stale: 1e4, realpath: !0, fs: H, ...e }),
+    (e = { stale: 1e4, realpath: true, fs: H, ...e }),
       (e.stale = Math.max(e.stale || 0, 2000)),
       J(t, e, (i, o) => {
         if (i) return r(i);
         e.fs.stat(L(o, e), (u, a) => {
-          if (u) return u.code === "ENOENT" ? r(null, !1) : r(u);
+          if (u) return u.code === "ENOENT" ? r(null, false) : r(u);
           return r(null, !ae(a, e));
         });
       });

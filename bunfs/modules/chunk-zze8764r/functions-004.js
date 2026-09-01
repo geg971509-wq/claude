@@ -50,19 +50,19 @@ function xfe(e, t) {
 
 function Cfe(e) {
   return (
-    n(`intersectConstraints: ${e} \u2014 treating as too complex`, { level: "warn" }), { ok: !1, reason: "too-complex" }
+    n(`intersectConstraints: ${e} \u2014 treating as too complex`, { level: "warn" }), { ok: false, reason: "too-complex" }
   );
 }
 
 function vct(e) {
-  if (e.length === 0) return { ok: !0, range: "*" };
+  if (e.length === 0) return { ok: true, range: "*" };
   let t = 0;
   for (let _ of e) t += _.length;
   if (t > G1e) return Cfe(`total input ${t} chars > ${G1e}`);
   let r = [];
   for (let _ of e) {
     let C = a_.validRange(_);
-    if (C === null) return { ok: !1, reason: "invalid" };
+    if (C === null) return { ok: false, reason: "invalid" };
     r.push(
       C.split("||")
         .map((A) => A.trim())
@@ -83,9 +83,9 @@ function vct(e) {
     let C = a_.validRange(_);
     return C !== null && a_.minVersion(C) !== null;
   });
-  if (u.length === 0) return { ok: !1, reason: "disjoint" };
+  if (u.length === 0) return { ok: false, reason: "disjoint" };
   let d = a_.validRange(u.join(" || "));
-  return d === null ? { ok: !1, reason: "disjoint" } : { ok: !0, range: d };
+  return d === null ? { ok: false, reason: "disjoint" } : { ok: true, range: d };
 }
 
 function MH(e) {
@@ -144,8 +144,8 @@ async function K1e(e, t, r, o = new Set(), u) {
     if (F !== e && r.has(F) && !u?.has(F)) return null;
     let B = Vt(F).marketplace;
     if (!r.has(F) && B !== d && !(B && o.has(B)))
-      return { ok: !1, reason: "cross-marketplace", dependency: F, requiredBy: U };
-    if (A.includes(F)) return { ok: !1, reason: "cycle", chain: [...A, F] };
+      return { ok: false, reason: "cross-marketplace", dependency: F, requiredBy: U };
+    if (A.includes(F)) return { ok: false, reason: "cycle", chain: [...A, F] };
     if (C.has(F)) return null;
     C.add(F);
     let W = await t(F);
@@ -154,7 +154,7 @@ async function K1e(e, t, r, o = new Set(), u) {
         return (
           n(`resolveDependencyClosure: force-included ${F} has no catalog entry; skipping (pinner stays demoted)`), null
         );
-      return { ok: !1, reason: "not-found", missing: F, requiredBy: U };
+      return { ok: false, reason: "not-found", missing: F, requiredBy: U };
     }
     A.push(F);
     for (let z of W.dependencies ?? []) {
@@ -166,7 +166,7 @@ async function K1e(e, t, r, o = new Set(), u) {
   }
   let M = await x(e, e);
   if (M) return M;
-  return { ok: !0, closure: _ };
+  return { ok: true, closure: _ };
 }
 
 function V1e(e) {
@@ -180,9 +180,9 @@ function V1e(e) {
     d.set(M, (d.get(M) ?? 0) + 1);
   }
   let _ = [],
-    C = !0;
+    C = true;
   while (C) {
-    C = !1;
+    C = false;
     for (let x of e) {
       if (!r.has(x.source)) continue;
       for (let M of x.manifest.dependencies ?? []) {
@@ -223,7 +223,7 @@ function V1e(e) {
             me = d.get(fe) ?? 0;
           if (me <= 1) d.delete(fe);
           else d.set(fe, me - 1);
-          _.push(pe), (C = !0);
+          _.push(pe), (C = true);
           break;
         }
       }
@@ -257,7 +257,7 @@ function kWn(e, t) {
 }
 
 function l_(e) {
-  return e === !0 || Array.isArray(e);
+  return e === true || Array.isArray(e);
 }
 
 function fye(e) {
@@ -274,7 +274,7 @@ function HWn(e, t, r, o) {
   for (let [F, U] of Object.entries(e)) {
     let B = U.find((W) => W.scope === r && W.projectPath === o);
     if (!B) continue;
-    if (B.auto === !0) d.add(F);
+    if (B.auto === true) d.add(F);
     else u.add(F);
   }
   if (d.size === 0) return { orphans: new Set(), unloadable: [], autoCount: 0 };
@@ -375,7 +375,7 @@ async function L9t(e) {
   try {
     return !!(await Va(e));
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -385,7 +385,7 @@ function s3e() {
 }
 
 function DWn() {
-  Jt().gitAvailable = Promise.resolve(!1);
+  Jt().gitAvailable = Promise.resolve(false);
 }
 
 function U9t(e) {
@@ -424,7 +424,7 @@ function Ife(e, t) {
 async function vNt(e, t, r = "workspace") {
   if (!O() || e === void 0) return F9t(t);
   if (t === "") throw Y1e(t);
-  let o = await e.hostFiles.stat(Ife(r, t), { follow: !0 });
+  let o = await e.hostFiles.stat(Ife(r, t), { follow: true });
   if (!o.ok)
     throw (
       Q1e(o.error) ??
@@ -460,13 +460,13 @@ async function a3e(e, t, r) {
 
 async function Ofe(e, t, r = "workspace") {
   if (!O() || e === void 0) return $a(t);
-  if (t === "") return !1;
-  let o = await e.hostFiles.stat(Ife(r, t), { follow: !0 });
+  if (t === "") return false;
+  let o = await e.hostFiles.stat(Ife(r, t), { follow: true });
   return o.ok && o.value.kind !== "absent";
 }
 
 function Dfe(e) {
-  if (!Z1e(e)) return !1;
+  if (!Z1e(e)) return false;
   return D() !== "windows" || /^(?:[A-Za-z]:[\\/]|[\\/]{2})/.test(e);
 }
 
@@ -606,11 +606,11 @@ function tze(e, t, r) {
 function G9t(e, t) {
   switch (e?.source) {
     case "url":
-      return !0;
+      return true;
     case void 0:
       return /\.json$/i.test(t);
     default:
-      return !1;
+      return false;
   }
 }
 
@@ -631,8 +631,8 @@ function xct(e, t, r) {
 }
 
 function Ict(e) {
-  if (k2(e.source)) return !0;
-  if (e.source === "userSettings" || e.source === "flagSettings") return !0;
+  if (k2(e.source)) return true;
+  if (e.source === "userSettings" || e.source === "flagSettings") return true;
   if (!e.baseDir) return qd();
   return j7e(sze(e.baseDir));
 }
@@ -681,7 +681,7 @@ function Vxe(e, t, r = "hooks") {
       what: c(r),
       source: c(e.source),
       surface: c(t),
-      fromAdditionalDirectory: c(e.fromAdditionalDirectory === !0 ? "true" : "false"),
+      fromAdditionalDirectory: c(e.fromAdditionalDirectory === true ? "true" : "false"),
     });
 }
 
@@ -689,14 +689,14 @@ async function HO(e, t, r = {}) {
   let o = le(),
     u = r.logLabel ?? "plugin",
     d = 0,
-    _ = !1;
+    _ = false;
   async function C(A, x) {
     if (x.length >= dze) {
       n(`Skipping ${u} directory beyond depth ${dze}: ${A}`, { level: "error" });
       return;
     }
     if (++d > gze) {
-      if (!_) (_ = !0), n(`Stopping ${u} scan after ${gze} directories (root=${e})`, { level: "error" });
+      if (!_) (_ = true), n(`Stopping ${u} scan after ${gze} directories (root=${e})`, { level: "error" });
       return;
     }
     try {
@@ -744,7 +744,7 @@ async function Tze(e, t, r, o, u, d, _, C) {
     let x = await eP(A, e, hze);
     if (x === null)
       return n(`Skipping plugin agent ${e}: not a regular file or exceeds ${hze} byte limit`, { level: "warn" }), null;
-    let { frontmatter: M, content: F } = ni(x, e, { normalizeKeys: !0 }),
+    let { frontmatter: M, content: F } = ni(x, e, { normalizeKeys: true }),
       U = (M.name != null ? String(M.name) : void 0) || Q9t(e).replace(/\.md$/, ""),
       W = [t, ...r, U].join(":"),
       z = i$(M.description, W) ?? i$(M.when_to_use, W) ?? i$(M["when-to-use"], W) ?? `Agent from ${t} plugin`,
@@ -758,7 +758,7 @@ async function Tze(e, t, r, o, u, d, _, C) {
       Ce = nn.toLowerCase() === "inherit" ? "inherit" : nn;
     }
     let Ie = M.background,
-      Ee = Ie === "true" || Ie === !0 ? !0 : void 0,
+      Ee = Ie === "true" || Ie === true ? true : void 0,
       Pe = bG(F.trim(), { path: u, source: o });
     if (d.userConfig) Pe = N2(Pe, await hv(o, C), d.userConfig);
     let Oe = M.memory,
@@ -887,8 +887,8 @@ function a6() {
 }
 
 function Ny() {
-  if (!Me("true")) return !1;
-  if (bHn()) return !1;
+  if (!Me("true")) return false;
+  if (bHn()) return false;
   return a.CLAUDE_CODE_ENTRYPOINT !== "local-agent";
 }
 
@@ -1045,7 +1045,7 @@ function j8(e, t) {
 }
 
 function c8t(e) {
-  if (Ne() !== "firstParty") return !1;
+  if (Ne() !== "firstParty") return false;
   let t = Cze.slice(0, Cze.indexOf(Pze) + 1);
   return !t3t(e, t);
 }
@@ -1158,7 +1158,7 @@ function sD(e, t) {
 }
 
 function aP(e) {
-  return e.agentType === "subagent" && e.isBuiltIn === !0 && e.subagentName === Wc;
+  return e.agentType === "subagent" && e.isBuiltIn === true && e.subagentName === Wc;
 }
 
 function INt(e) {
@@ -1219,11 +1219,11 @@ function Lze() {
 
 function PNt() {
   let e = Lze();
-  return (e.enabled ??= a.CLAUDE_CODE_WEB_FETCH_AGENT ?? I("tengu_clever_orbit", !1)), e.enabled;
+  return (e.enabled ??= a.CLAUDE_CODE_WEB_FETCH_AGENT ?? I("tengu_clever_orbit", false)), e.enabled;
 }
 
 function b6() {
-  if (!PNt() || a.CLAUDE_CODE_SIMPLE) return !1;
+  if (!PNt() || a.CLAUDE_CODE_SIMPLE) return false;
   let e = Lze(),
     t = e.policyAllowed;
   if (t === void 0) {
@@ -1374,7 +1374,7 @@ function fle(e, t) {
 }
 
 function Jin(e, t) {
-  if (!e.requiredMcpServers || e.requiredMcpServers.length === 0) return !0;
+  if (!e.requiredMcpServers || e.requiredMcpServers.length === 0) return true;
   return e.requiredMcpServers.every((r) => t.some((o) => o.toLowerCase().includes(r.toLowerCase())));
 }
 
@@ -1409,7 +1409,7 @@ async function w8t(e, t) {
               null
             );
           }
-          if (x.fromAdditionalDirectory) z.fromAdditionalDirectory = !0;
+          if (x.fromAdditionalDirectory) z.fromAdditionalDirectory = true;
           return z;
         })
         .filter((x) => x !== null),
@@ -1423,7 +1423,7 @@ async function w8t(e, t) {
     qv(
       "agent",
       [...C, ...A].map((x) => ({ name: x.agentType, source: x.source })),
-      { resolves: !0 },
+      { resolves: true },
     );
     for (let x of A) if (x.color) pVe(x.agentType, x.color);
     return { activeAgents: A, allAgents: C };
@@ -1501,7 +1501,7 @@ function Hmr(e, t, r = "flagSettings") {
       ...(o.isolation && { isolation: o.isolation }),
       ...(o.observer && { observer: o.observer }),
       ...(o.observerMessage && { observerMessage: o.observerMessage }),
-      ...(o.observeSubagents === !1 && { observeSubagents: !1 }),
+      ...(o.observeSubagents === false && { observeSubagents: false }),
     };
   } catch (o) {
     let u = o instanceof Error ? o.message : String(o);
@@ -1574,9 +1574,9 @@ function xmr(e, t, r, o, u) {
       x = dn.toLowerCase() === "inherit" ? "inherit" : dn;
     }
     let M = r.background;
-    if (M !== void 0 && M !== "true" && M !== "false" && M !== !0 && M !== !1)
+    if (M !== void 0 && M !== "true" && M !== "false" && M !== true && M !== false)
       n(`Agent file ${e} has invalid background value '${M}'. Must be 'true', 'false', or omitted.`);
-    let F = M === "true" || M === !0 ? !0 : void 0,
+    let F = M === "true" || M === true ? true : void 0,
       U = ["user", "project", "local"],
       B = r.memory,
       W;
@@ -1619,7 +1619,7 @@ function xmr(e, t, r, o, u) {
       nn = r.observerMessage,
       xt = typeof nn === "string" && nn.trim() ? nn : void 0,
       tt = r.observeSubagents,
-      lt = tt === "false" || tt === !1 ? !1 : void 0,
+      lt = tt === "false" || tt === false ? false : void 0,
       mt = r.mcpServers,
       Xe;
     if (Array.isArray(mt))
@@ -1753,7 +1753,7 @@ function YH(e) {
   let t = KE().parse(e);
   if (!t) return null;
   let r = [],
-    o = !0,
+    o = true,
     u = (d) => {
       if (!o) return;
       if (xGe.has(d.type) || d.type === "comment") return;
@@ -1773,7 +1773,7 @@ function YH(e) {
         r.push(d.text);
         return;
       }
-      o = !1;
+      o = false;
     };
   return u(t), o ? r : null;
 }
@@ -1788,12 +1788,12 @@ function uu(e) {
 }
 
 function qfe(e) {
-  if (Wfe.has(e.type)) return !0;
+  if (Wfe.has(e.type)) return true;
   return e.children.some(qfe);
 }
 
 function Yfe(e) {
-  if (C8t.has(e.type)) return !0;
+  if (C8t.has(e.type)) return true;
   return e.children.some(Yfe);
 }
 
@@ -1803,7 +1803,7 @@ function Qfe(e) {
       r = e.children.some((d) => d.type === ">&-" || d.type === "<&-"),
       o = !r && e.children.some((d) => d.type === ">&" || d.type === "<&") && t.some((d) => GH(d).startsWith("-")),
       u = e.type === "heredoc_redirect" || r || o ? 0 : 1;
-    if (t.length > u) return !0;
+    if (t.length > u) return true;
   }
   return e.children.some(Qfe);
 }
@@ -1815,16 +1815,16 @@ function Jfe(e) {
       !(r.length >= 2 && ((r.startsWith("'") && r.endsWith("'")) || (r.startsWith('"') && r.endsWith('"')))) ||
       r.includes("\\")
     )
-      return !0;
+      return true;
   }
   return e.children.some(Jfe);
 }
 
 function IGe(e, t) {
-  if (!e) return !1;
-  if (e.length > oS || qH(e)) return !0;
+  if (!e) return false;
+  if (e.length > oS || qH(e)) return true;
   let r = KE().parse(e);
-  if (!r || VH(r)) return !0;
+  if (!r || VH(r)) return true;
   let o = (_) =>
       Qfe(_) ||
       Jfe(_) ||
@@ -1845,23 +1845,23 @@ function IGe(e, t) {
       return C;
     },
     d = (_) => {
-      if (Wfe.has(_.type)) return !1;
+      if (Wfe.has(_.type)) return false;
       if (_.type === "redirected_statement") {
         let C = _.children.find((x) => x.type === "command") ?? u(_),
-          A = C ? t(C.text) : !0;
+          A = C ? t(C.text) : true;
         for (let x of _.children)
           if (x.type.endsWith("_redirect")) {
-            if (A && o(x)) return !0;
-          } else if (d(x)) return !0;
-        return !1;
+            if (A && o(x)) return true;
+          } else if (d(x)) return true;
+        return false;
       }
       if (_.type === "command") {
         let C = t(_.text);
         for (let A of _.children)
           if (A.type.endsWith("_redirect")) {
-            if (C && o(A)) return !0;
-          } else if (d(A)) return !0;
-        return !1;
+            if (C && o(A)) return true;
+          } else if (d(A)) return true;
+        return false;
       }
       if (_.type.endsWith("_redirect")) return o(_);
       return _.children.some(d);
@@ -1869,13 +1869,13 @@ function IGe(e, t) {
   return d(r);
 }
 
-function ege(e, t = !1) {
+function ege(e, t = false) {
   if (e.type === "concatenation") return e.children.every((r) => ege(r, t));
   if (e.type === "word") {
-    if (Mhn.test(e.text)) return !1;
-    if (R8t.test(e.text) || P8t.test(e.text)) return !1;
-    if (t && Nhn.test(e.text)) return !1;
-    return !0;
+    if (Mhn.test(e.text)) return false;
+    if (R8t.test(e.text) || P8t.test(e.text)) return false;
+    if (t && Nhn.test(e.text)) return false;
+    return true;
   }
   if (e.type === "string" || e.type === "raw_string") {
     let r = e.type === "raw_string" ? "'" : '"';
@@ -1886,8 +1886,8 @@ function ege(e, t = !1) {
 
 function OGe(e) {
   let t = null,
-    r = !1,
-    o = !1;
+    r = false,
+    o = false;
   for (let u = 0; u < e.length; u++) {
     let d = e[u];
     if (t === "'") {
@@ -1899,8 +1899,8 @@ function OGe(e) {
         u++;
         continue;
       }
-      if (d === "`") return !0;
-      if (d === "$" && /[A-Za-z0-9_{(@*#?$!-]/.test(e[u + 1] ?? "")) return !0;
+      if (d === "`") return true;
+      if (d === "$" && /[A-Za-z0-9_{(@*#?$!-]/.test(e[u + 1] ?? "")) return true;
       if (d === '"') t = null;
       continue;
     }
@@ -1908,11 +1908,11 @@ function OGe(e) {
       u++;
       continue;
     }
-    if (d === "`") return !0;
-    if (d === "$" && (e[u + 1] === "'" || e[u + 1] === '"')) return !0;
-    if (d === "$" && /[A-Za-z0-9_{(@*#?$!-]/.test(e[u + 1] ?? "")) return !0;
-    if (d === "=" && e[u + 1] === "(") return !0;
-    if (d === "*" || d === "?" || d === "[") return !0;
+    if (d === "`") return true;
+    if (d === "$" && (e[u + 1] === "'" || e[u + 1] === '"')) return true;
+    if (d === "$" && /[A-Za-z0-9_{(@*#?$!-]/.test(e[u + 1] ?? "")) return true;
+    if (d === "=" && e[u + 1] === "(") return true;
+    if (d === "*" || d === "?" || d === "[") return true;
     if (d === "'" || d === '"') {
       t = d;
       continue;
@@ -1922,46 +1922,46 @@ function OGe(e) {
       `
 `
     )
-      return !1;
+      return false;
     if (d === " " || d === "\t") {
-      (r = !1), (o = !1);
+      (r = false), (o = false);
       continue;
     }
     if (d === "{") {
-      r = !0;
+      r = true;
       continue;
     }
     if (r && (d === "," || (d === "." && e[u + 1] === "."))) {
-      o = !0;
+      o = true;
       continue;
     }
-    if (d === "}" && r && o) return !0;
+    if (d === "}" && r && o) return true;
   }
   return t !== null;
 }
 
 function v6(e) {
-  if (!e || e.length > oS) return !0;
-  if (qH(e)) return !0;
-  if (OGe(e)) return !0;
+  if (!e || e.length > oS) return true;
+  if (qH(e)) return true;
+  if (OGe(e)) return true;
   let t = KE().parse(e);
-  if (!t || VH(t)) return !0;
+  if (!t || VH(t)) return true;
   let r = t.children.filter((u) => u.type !== "comment");
   if (
     r.length !== 1 ||
     (r[0].type !== "command" &&
       !(r[0].type === "redirected_statement" && r[0].children.some((u) => u.type === "command")))
   )
-    return !0;
-  if (qfe(t) || Yfe(t) || Qfe(t) || Jfe(t)) return !0;
+    return true;
+  if (qfe(t) || Yfe(t) || Qfe(t) || Jfe(t)) return true;
   let o = dV(t, null);
-  if (!o) return !0;
+  if (!o) return true;
   for (let u of o.children) {
     if (u.type === "command_name" || u.type === "variable_assignment") continue;
     if (u.type.endsWith("_redirect")) continue;
-    if (!ege(u, /\s/.test(u.text))) return !0;
+    if (!ege(u, /\s/.test(u.text))) return true;
   }
-  return !1;
+  return false;
 }
 
 function GH(e) {
@@ -1993,56 +1993,56 @@ function Tee(e) {
   let t = {
     commandWithoutRedirections: e,
     redirections: [],
-    hasDangerousRedirection: !1,
+    hasDangerousRedirection: false,
     dangerousRedirectionReason: void 0,
   };
   if (!e || e.length > oS) return t;
   let r = KE().parse(e);
   if (!r) return t;
   let o = [],
-    u = !1,
+    u = false,
     d,
     _ = (x) => {
       if (x.type === "file_redirect") {
         let M = null,
-          F = !1,
+          F = false,
           U = null,
           B = 0;
         for (let pe of x.children)
           if (pe.type === ">" || pe.type === "&>" || pe.type === ">|") M = ">";
           else if (pe.type === ">>" || pe.type === "&>>" || pe.type === ">>|") M = ">>";
-          else if (pe.type === ">&") (M = ">"), (F = !0);
+          else if (pe.type === ">&") (M = ">"), (F = true);
           else if (pe.type === "<&") {
             let fe = x.children.filter((me) => me !== pe && me.type !== "file_descriptor");
             if (fe.length > 1 || fe.some((me) => GH(me).startsWith("-"))) {
-              if (((u = !0), d !== "network_device")) d = "shell_expansion";
+              if (((u = true), d !== "network_device")) d = "shell_expansion";
             }
             return;
           } else if (pe.type === ">&-" || pe.type === "<&-") {
             if (x.children.filter((me) => me !== pe && me.type !== "file_descriptor").length > 0) {
-              if (((u = !0), d !== "network_device")) d = "shell_expansion";
+              if (((u = true), d !== "network_device")) d = "shell_expansion";
             }
             return;
           } else if (pe.type === "<") {
             let fe = x.children.filter((ge) => ge !== pe && ge.type !== "file_descriptor");
             if (fe.length > 1) {
-              if (((u = !0), d !== "network_device")) d = "shell_expansion";
+              if (((u = true), d !== "network_device")) d = "shell_expansion";
               return;
             }
             let me = fe[0];
             if (me) {
               let ge = GH(me);
-              if (/^\/dev\/(tcp|udp)\//.test(ge)) (u = !0), (d = "network_device");
+              if (/^\/dev\/(tcp|udp)\//.test(ge)) (u = true), (d = "network_device");
             }
             return;
           } else if (pe.type !== "file_descriptor") (U = pe), B++;
         if (!M || !U) return;
         if (B > 1) {
-          if (((u = !0), d !== "network_device")) d = "shell_expansion";
+          if (((u = true), d !== "network_device")) d = "shell_expansion";
           return;
         }
         if (F && GH(U).startsWith("-")) {
-          if (((u = !0), d !== "network_device")) d = "shell_expansion";
+          if (((u = true), d !== "network_device")) d = "shell_expansion";
           return;
         }
         if (U.type === "number" && U.children.length === 0 && F) return;
@@ -2054,24 +2054,24 @@ function Tee(e) {
             (U.type === "string" && !U.children.some((pe) => pe.type !== "string_content" && pe.type !== '"'))
           )
         ) {
-          if (((u = !0), d !== "network_device")) d = "shell_expansion";
+          if (((u = true), d !== "network_device")) d = "shell_expansion";
           return;
         }
         let z = GH(U);
         if (/^~|[*?[]/.test(z)) {
-          if (((u = !0), d !== "network_device")) d = "shell_expansion";
+          if (((u = true), d !== "network_device")) d = "shell_expansion";
           return;
         }
         if (z.startsWith("!") || z.startsWith("=")) {
-          if (((u = !0), d !== "network_device")) d = "shell_expansion";
+          if (((u = true), d !== "network_device")) d = "shell_expansion";
           return;
         }
         if (F && !/^[A-Za-z0-9./_-]+$/.test(z)) {
-          if (((u = !0), d !== "network_device")) d = "shell_expansion";
+          if (((u = true), d !== "network_device")) d = "shell_expansion";
           return;
         }
         if (/^\/dev\/(tcp|udp)\//.test(z)) {
-          (u = !0), (d = "network_device");
+          (u = true), (d = "network_device");
           return;
         }
         o.push({ target: z, operator: M });
@@ -2149,7 +2149,7 @@ function k9n(e, t) {
   return r.map((o) => `[${o}]`).join(" ");
 }
 
-function PE(e, t, r = !0, o = [], u) {
+function PE(e, t, r = true, o = [], u) {
   if (t === void 0 || t === null) return e;
   e = e.replaceAll(WO, "\uFFFD").replaceAll(XH, "\uFFFD");
   let d = (M) => {
@@ -2163,20 +2163,20 @@ function PE(e, t, r = !0, o = [], u) {
       .sort((M, F) => F.name.length - M.name.length),
     A = ["\\d", "ARGUMENTS", ...C.map(({ name: M }) => `${Vu(M)}(?![\\[\\w])`)].join("|");
   e = e.replace(new RegExp(`(?<!\\\\)\\\\\\$(?=${A})`, "g"), WO);
-  let x = !1;
-  for (let { name: M, i: F } of C) e = e.replace(new RegExp(`\\$${Vu(M)}(?![\\[\\w])`, "g"), () => ((x = !0), d(_[F])));
+  let x = false;
+  for (let { name: M, i: F } of C) e = e.replace(new RegExp(`\\$${Vu(M)}(?![\\[\\w])`, "g"), () => ((x = true), d(_[F])));
   if (
     ((e = e.replace(/\$ARGUMENTS\[(\d+)\]/g, (M, F) => {
       let U = parseInt(F, 10);
       if (_[U] === void 0) return WO + M.slice(1);
-      return (x = !0), d(_[U]);
+      return (x = true), d(_[U]);
     })),
     (e = e.replace(/\$(\d+)(?!\w)/g, (M, F) => {
       let U = parseInt(F, 10);
       if (_[U] === void 0) return M;
-      return (x = !0), d(_[U]);
+      return (x = true), d(_[U]);
     })),
-    (e = e.replaceAll("$ARGUMENTS", () => ((x = !0), d(t)))),
+    (e = e.replaceAll("$ARGUMENTS", () => ((x = true), d(t)))),
     !x && r && t)
   )
     e =
@@ -2191,7 +2191,7 @@ async function I6(e, t) {
   let r = [],
     o;
   do {
-    let u = await e.listEntries(t, { skipScopeStats: !0, skipKeyStats: !0, ...(o !== void 0 && { cursor: o }) });
+    let u = await e.listEntries(t, { skipScopeStats: true, skipKeyStats: true, ...(o !== void 0 && { cursor: o }) });
     if (!u.ok) return { names: r, error: u.error };
     for (let d of u.value.items) {
       let _ = d.kind === "scope" ? d.scope : d.key;
@@ -2205,8 +2205,8 @@ async function I6(e, t) {
 }
 
 function LGe(e, t) {
-  if (t) return !0;
-  return !1;
+  if (t) return true;
+  return false;
 }
 
 async function FGe(e) {
@@ -2277,7 +2277,7 @@ async function FGe(e) {
           }
         }
       else {
-        let _ = await I8t(u, { withFileTypes: !0 });
+        let _ = await I8t(u, { withFileTypes: true });
         for (let C of _) if (C.isDirectory() || C.isSymbolicLink()) o.push({ dir: lP(u, C.name), scope: d });
       }
     } catch (_) {
@@ -2334,9 +2334,9 @@ function JH(e) {
 }
 
 function O6() {
-  if (a.CLAUDE_CODE_IS_COWORK) return !0;
-  if (ye("policySettings")?.disableSkillShellExecution === !0) return !0;
-  return En().disableSkillShellExecution === !0;
+  if (a.CLAUDE_CODE_IS_COWORK) return true;
+  if (ye("policySettings")?.disableSkillShellExecution === true) return true;
+  return En().disableSkillShellExecution === true;
 }
 
 function eD(e, t = $8t) {
@@ -2377,7 +2377,7 @@ function UGe(e, t) {
 
 function Hsn() {
   let e = KFe();
-  if (!e.featureOkLogged && YVt() === "org") (e.featureOkLogged = !0), y("mcp_host_otel_route");
+  if (!e.featureOkLogged && YVt() === "org") (e.featureOkLogged = true), y("mcp_host_otel_route");
 }
 
 function K8t(e) {
@@ -2389,8 +2389,8 @@ function K8t(e) {
     (t.rateLastRefillMs = Math.max(o, e)),
     t.rateTokens < 1)
   )
-    return !1;
-  return (t.rateTokens -= 1), !0;
+    return false;
+  return (t.rateTokens -= 1), true;
 }
 
 function xsn(e) {
@@ -2416,14 +2416,14 @@ function xsn(e) {
             t.otlpInitFailed,
             `host OTLP ${e} record dropped: telemetry init failed before producing a logger; further drops are not logged this session`,
           ),
-          !1
+          false
         );
       return (
         UGe(
           t.otlpNotConfigured,
           `host OTLP ${e} record dropped: no OTLP logs exporter configured; further drops are not logged this session`,
         ),
-        !1
+        false
       );
     }
     return (
@@ -2431,7 +2431,7 @@ function xsn(e) {
         t.loggerNotReady,
         `host OTLP ${e} record dropped: telemetry logger not ready; further drops are not logged this session`,
       ),
-      !1
+      false
     );
   }
   if (!K8t(Date.now()))
@@ -2441,40 +2441,40 @@ function xsn(e) {
         `host OTLP ${e} record dropped: rate cap reached; further drops are not logged this session`,
         "warn",
       ),
-      !1
+      false
     );
-  return !0;
+  return true;
 }
 
 function V8t(e, t, r) {
-  if (typeof e !== "string" || !U8t.test(e)) return { ok: !1, reason: "bad_event_name" };
-  if (e.startsWith("claude_code.") || e.startsWith(BGe)) return { ok: !1, reason: "bad_event_name" };
+  if (typeof e !== "string" || !U8t.test(e)) return { ok: false, reason: "bad_event_name" };
+  if (e.startsWith("claude_code.") || e.startsWith(BGe)) return { ok: false, reason: "bad_event_name" };
   if (
     typeof t !== "object" ||
     t === null ||
     Array.isArray(t) ||
     (Object.getPrototypeOf(t) !== Object.prototype && Object.getPrototypeOf(t) !== null)
   )
-    return { ok: !1, reason: "bad_attributes_shape" };
+    return { ok: false, reason: "bad_attributes_shape" };
   let o = Object.getOwnPropertyDescriptors(t);
-  if (Object.getOwnPropertySymbols(o).length > 0) return { ok: !1, reason: "bad_attributes_shape" };
+  if (Object.getOwnPropertySymbols(o).length > 0) return { ok: false, reason: "bad_attributes_shape" };
   let u = [];
   for (let C of Object.getOwnPropertyNames(o)) {
     let A = o[C];
-    if (A === void 0 || A.get !== void 0 || A.set !== void 0 || A.enumerable !== !0)
-      return { ok: !1, reason: "bad_attributes_shape" };
+    if (A === void 0 || A.get !== void 0 || A.set !== void 0 || A.enumerable !== true)
+      return { ok: false, reason: "bad_attributes_shape" };
     u.push([C, A.value]);
   }
-  if (u.length > H8t) return { ok: !1, reason: "too_many_attributes" };
+  if (u.length > H8t) return { ok: false, reason: "too_many_attributes" };
   let d = {},
     _ = e.length;
   for (let [C, A] of u) {
-    if (!B8t.test(C)) return { ok: !1, reason: "bad_attribute_key" };
-    if (typeof A !== "string" || A.length > ySn) return { ok: !1, reason: "bad_attribute_value" };
-    if (((_ += C.length + A.length), _ > j8t)) return { ok: !1, reason: "payload_too_large" };
+    if (!B8t.test(C)) return { ok: false, reason: "bad_attribute_key" };
+    if (typeof A !== "string" || A.length > ySn) return { ok: false, reason: "bad_attribute_value" };
+    if (((_ += C.length + A.length), _ > j8t)) return { ok: false, reason: "payload_too_large" };
     d[G8t + C] = hY(A);
   }
-  return (d[W8t] = "sdk_host"), (d[z8t] = hY(r)), { ok: !0, eventName: e, attributes: d };
+  return (d[W8t] = "sdk_host"), (d[z8t] = hY(r)), { ok: true, eventName: e, attributes: d };
 }
 
 function E9n(e, t) {
@@ -2574,21 +2574,21 @@ function A9n(e, t) {
       }),
       (Ji(r.client).onerror = ZNt("vscode_notification_channel_error", "claude-vscode"));
     let o = {
-        tengu_vscode_review_upsell: I("tengu_vscode_review_upsell", !1),
-        tengu_cobalt_harbor_notice: I("tengu_cobalt_harbor_notice", !0),
-        tengu_vscode_onboarding: I("tengu_vscode_onboarding", !1),
-        tengu_vscode_resume_precheck: I("tengu_vscode_resume_precheck", !0),
-        tengu_quiet_fern: !0,
-        tengu_vscode_cc_auth: !0,
-        tengu_slate_ribbon: !0,
-        tengu_brick_follow: I("tengu_brick_follow", !1),
-        tengu_vellum_siding: I("tengu_vellum_siding", !1),
-        tengu_lantern_sconce: I("tengu_lantern_sconce", !1),
-        tengu_loggia_carousel: t?.refusalFallbackLaneEnabled ?? !1,
-        tengu_loggia_carousel_config: t?.refusalFallbackSettingToggleVisible ?? !1,
-        fable5_launch_show: t?.fable5LaunchShow ?? !1,
-        startup_announcement: t?.startupAnnouncement ?? !1,
-        tengu_harbor_willow: t?.autoDefaultLaunchEnabled ?? !1,
+        tengu_vscode_review_upsell: I("tengu_vscode_review_upsell", false),
+        tengu_cobalt_harbor_notice: I("tengu_cobalt_harbor_notice", true),
+        tengu_vscode_onboarding: I("tengu_vscode_onboarding", false),
+        tengu_vscode_resume_precheck: I("tengu_vscode_resume_precheck", true),
+        tengu_quiet_fern: true,
+        tengu_vscode_cc_auth: true,
+        tengu_slate_ribbon: true,
+        tengu_brick_follow: I("tengu_brick_follow", false),
+        tengu_vellum_siding: I("tengu_vellum_siding", false),
+        tengu_lantern_sconce: I("tengu_lantern_sconce", false),
+        tengu_loggia_carousel: t?.refusalFallbackLaneEnabled ?? false,
+        tengu_loggia_carousel_config: t?.refusalFallbackSettingToggleVisible ?? false,
+        fable5_launch_show: t?.fable5LaunchShow ?? false,
+        startup_announcement: t?.startupAnnouncement ?? false,
+        tengu_harbor_willow: t?.autoDefaultLaunchEnabled ?? false,
       },
       u = X8t();
     (o.tengu_auto_mode_state = u === "opt-in" ? "enabled" : u),
@@ -2649,12 +2649,12 @@ function WGe(e) {
 function vee() {
   let e = Zn.CLAUDE_CODE_HANDBACK_PROVENANCE;
   if (e !== void 0) return e;
-  return I("tengu_melodic_wolf", !1);
+  return I("tengu_melodic_wolf", false);
 }
 
 function KGe(e) {
-  if (e !== "auto") return !1;
-  return Xl()?.classifyHandoff === !1;
+  if (e !== "auto") return false;
+  return Xl()?.classifyHandoff === false;
 }
 
 function N6(e) {
@@ -2738,23 +2738,23 @@ function Z8t(e) {
     let r = t.trim();
     if (r === "") continue;
     if (r.startsWith("#")) continue;
-    return !0;
+    return true;
   }
-  return !1;
+  return false;
 }
 
 function eQt(e) {
   for (let t = 0; t < e.length; t++) {
     let r = e.charCodeAt(t);
-    if (r < 32 || (r >= 127 && r <= 159)) return !0;
+    if (r < 32 || (r >= 127 && r <= 159)) return true;
   }
-  return !1;
+  return false;
 }
 
 function ID(e, t) {
   if (!(e.endsWith(".md") && lN(e)) || !wH.test(t)) return t;
   let o = new Date().toISOString(),
-    u = Z2(e) ? null : zv(t, e, { quoteLossyValues: !0 }),
+    u = Z2(e) ? null : zv(t, e, { quoteLossyValues: true }),
     d = u !== null && Que(u.frontmatter, "originSessionId") === null ? u : null;
   if (d !== null) {
     if (d.rewriteHazard === void 0) return DJn(PJn(d.frontmatter, { originSessionId: K(), modified: o }), d.body);
@@ -2858,8 +2858,8 @@ function tj(e, t) {
 }
 
 function d3e(e, t) {
-  for (let r of e) if (!t.has(r)) return !1;
-  return !0;
+  for (let r of e) if (!t.has(r)) return false;
+  return true;
 }
 
 function YGe() {
@@ -2953,14 +2953,14 @@ function W6(e, t) {
 }
 
 function TKe(e) {
-  if (e.normalize("NFKC").includes("*") || /%2a/i.test(e)) return !0;
+  if (e.normalize("NFKC").includes("*") || /%2a/i.test(e)) return true;
   if (e.includes("%"))
     try {
       return decodeURIComponent(e).normalize("NFKC").includes("*");
     } catch {
-      return !1;
+      return false;
     }
-  return !1;
+  return false;
 }
 
 function Fin(e) {
@@ -3010,7 +3010,7 @@ async function Bxe(e, t) {
     return null;
   }
   let [d, _, C] = u;
-  if (!EKe(d, _, !0) || !EKe(_, C, !1))
+  if (!EKe(d, _, true) || !EKe(_, C, false))
     return (
       n(
         `Skipping "${t}" for directory-loaded plugin "${e.name}": it resolves outside the plugin directory (or the plugin directory resolves outside ${d}), which a directory-loaded plugin may not reference here.`,
@@ -3300,10 +3300,10 @@ async function o1t(e, t = [], r, o) {
 
 async function NKe(e, t) {
   let r = {},
-    o = !1;
+    o = false;
   try {
     let { enabled: u, errors: d } = await is(e);
-    if (d.some(rY)) o = !0;
+    if (d.some(rY)) o = true;
     let _ = await Promise.all(
       u.map(async (C) => {
         let A = [];
@@ -3312,7 +3312,7 @@ async function NKe(e, t) {
           return { plugin: C, scopedServers: x, errors: A };
         } catch (x) {
           return (
-            (o = !0),
+            (o = true),
             n(`Failed to load LSP servers for plugin ${C.name}: ${x}`, { level: "error" }),
             { plugin: C, scopedServers: void 0, errors: A }
           );
@@ -3322,11 +3322,11 @@ async function NKe(e, t) {
     for (let { plugin: C, scopedServers: A, errors: x } of _) {
       let M = A ? Object.keys(A).length : 0;
       if (M > 0) Object.assign(r, A), n(`Loaded ${M} LSP server(s) from plugin: ${C.name}`);
-      if (x.length > 0) (o = !0), n(`${x.length} error(s) loading LSP servers from plugin: ${C.name}`);
+      if (x.length > 0) (o = true), n(`${x.length} error(s) loading LSP servers from plugin: ${C.name}`);
     }
     n(`Total LSP servers loaded: ${Object.keys(r).length}`);
   } catch (u) {
-    (o = !0), n(`Error loading LSP servers: ${l(u)}`, { level: "error" });
+    (o = true), n(`Error loading LSP servers: ${l(u)}`, { level: "error" });
   }
   return { servers: r, loadFailed: o };
 }
@@ -3348,7 +3348,7 @@ function qKe(e, t) {
     u,
     d = 0,
     _ = 0,
-    C = !1,
+    C = false,
     A,
     x = r(e, (ge) => {
       (o = "error"),
@@ -3356,7 +3356,7 @@ function qKe(e, t) {
         _++,
         g(
           "lsp_server_start",
-          ge.oomKilledInToolCgroup === !0 ? "lsp_server_oom_killed_tool_cgroup" : "lsp_server_crashed",
+          ge.oomKilledInToolCgroup === true ? "lsp_server_oom_killed_tool_cgroup" : "lsp_server_crashed",
         );
     });
   async function M() {
@@ -3372,12 +3372,12 @@ function qKe(e, t) {
     );
   }
   async function F() {
-    if (o === "error" && _ > 0 && t.restartOnCrash === !1)
+    if (o === "error" && _ > 0 && t.restartOnCrash === false)
       throw u ?? Error(`LSP server '${e}' crashed (restartOnCrash is false)`);
     let ge = t.maxRestarts ?? 3;
     if (o === "error" && _ > ge) {
       if (!C)
-        (C = !0),
+        (C = true),
           (u = Error(
             `LSP server '${e}' exceeded max crash recovery attempts (${ge})` + (u ? `; last crash: ${u.message}` : ""),
           )),
@@ -3423,21 +3423,21 @@ function qKe(e, t) {
           rootPath: Ee,
           rootUri: Pe,
           capabilities: {
-            workspace: { configuration: t.settings != null, workspaceFolders: !1 },
+            workspace: { configuration: t.settings != null, workspaceFolders: false },
             textDocument: {
-              synchronization: { dynamicRegistration: !1, willSave: !1, willSaveWaitUntil: !1, didSave: !0 },
+              synchronization: { dynamicRegistration: false, willSave: false, willSaveWaitUntil: false, didSave: true },
               publishDiagnostics: {
-                relatedInformation: !0,
+                relatedInformation: true,
                 tagSupport: { valueSet: [1, 2] },
-                versionSupport: !1,
-                codeDescriptionSupport: !0,
-                dataSupport: !1,
+                versionSupport: false,
+                codeDescriptionSupport: true,
+                dataSupport: false,
               },
-              hover: { dynamicRegistration: !1, contentFormat: ["markdown", "plaintext"] },
-              definition: { dynamicRegistration: !1, linkSupport: !0 },
-              references: { dynamicRegistration: !1 },
-              documentSymbol: { dynamicRegistration: !1, hierarchicalDocumentSymbolSupport: !0 },
-              callHierarchy: { dynamicRegistration: !1 },
+              hover: { dynamicRegistration: false, contentFormat: ["markdown", "plaintext"] },
+              definition: { dynamicRegistration: false, linkSupport: true },
+              references: { dynamicRegistration: false },
+              documentSymbol: { dynamicRegistration: false, hierarchicalDocumentSymbolSupport: true },
+              callHierarchy: { dynamicRegistration: false },
             },
             general: { positionEncodings: ["utf-16"] },
           },
@@ -3446,7 +3446,7 @@ function qKe(e, t) {
         await Xt(Ce, t.startupTimeout, `LSP server '${e}' timed out after ${t.startupTimeout}ms during initialization`);
       else await Ce;
       if (o !== "starting") throw u ?? Error("LSP server crashed during startup");
-      if (((o = "running"), (_ = 0), (C = !1), t.settings != null))
+      if (((o = "running"), (_ = 0), (C = false), t.settings != null))
         x.sendNotification("workspace/didChangeConfiguration", { settings: t.settings }).catch((Fe) => {
           n(`LSP: workspace/didChangeConfiguration push failed for ${e}: ${l(Fe)}`, { level: "warn" });
         });
@@ -3586,7 +3586,7 @@ function KKe(e, t) {
     o = new Map(),
     u = new Map(),
     d = new Map(),
-    _ = !1;
+    _ = false;
   function C(Ee) {
     let Pe = (d.get(Ee) ?? 0) + 1;
     return d.set(Ee, Pe), Pe;
@@ -3616,13 +3616,13 @@ function KKe(e, t) {
         n(`[LSP SERVER MANAGER] getAllLspServers returned ${Object.keys(Ee).length} server(s)`);
     } catch (Oe) {
       throw (
-        ((_ = !0),
+        ((_ = true),
         xM(Error(`Failed to load LSP server configuration: ${l(Oe)}`), "Failed to load LSP server configuration"),
         p("lsp_config_load", "lsp_config_load_failed"),
         Oe)
       );
     }
-    let Pe = !1;
+    let Pe = false;
     for (let [Oe, Fe] of Object.entries(Ee))
       try {
         if (!Fe.command) throw Error(`Server ${Oe} missing required 'command' field`);
@@ -3647,10 +3647,10 @@ function KKe(e, t) {
         let ze = Be;
         xM(ze, "Failed to initialize LSP server"),
           n(`Failed to initialize LSP server ${Oe}: ${ze.message}`, { level: "error" }),
-          (Pe = !0);
+          (Pe = true);
       }
     if ((n(`LSP manager initialized with ${r.size} servers`), Pe))
-      (_ = !0), g("lsp_config_load", "lsp_server_config_invalid");
+      (_ = true), g("lsp_config_load", "lsp_server_config_invalid");
     else if (_) g("lsp_config_load", "config_load_failed");
     else y("lsp_config_load");
   }
@@ -3760,7 +3760,7 @@ function KKe(e, t) {
   function Ce(Ee) {
     let Pe = aj(Ow.resolve(Ee)).href,
       Oe = u.get(Pe);
-    if (Oe === void 0) return !1;
+    if (Oe === void 0) return false;
     let Fe = r.get(Oe);
     return Fe !== void 0 && Fe.state === "running";
   }
@@ -3830,7 +3830,7 @@ function YKe(e, t) {
     _ = 0;
   for (let [A, x] of r.entries())
     try {
-      if (x?.config?.diagnostics === !1) {
+      if (x?.config?.diagnostics === false) {
         n(`Diagnostics disabled for ${A}, skipping`), _++;
         continue;
       }
@@ -3922,15 +3922,15 @@ function YKe(e, t) {
 function Psn() {
   if (
     !(
-      a.CLAUDE_CODE_REMOTE === !0 ||
+      a.CLAUDE_CODE_REMOTE === true ||
       Boolean(a.CLAUDE_CODE_REMOTE_SESSION_ID) ||
       Boolean(a.CLAUDE_CODE_REMOTE_ENVIRONMENT_TYPE)
     )
   )
-    return !1;
-  let t = Um("tengu_moonlit_panda", !1);
+    return false;
+  let t = Um("tengu_moonlit_panda", false);
   return (
-    n(`[LSP MANAGER] Remote session: tengu_moonlit_panda=${String(t.value)} (source: ${t.source})`), t.value === !0
+    n(`[LSP MANAGER] Remote session: tengu_moonlit_panda=${String(t.value)} (source: ${t.source})`), t.value === true
   );
 }
 
@@ -3941,7 +3941,7 @@ function OQt() {
     o = 0,
     u,
     d,
-    _ = !1;
+    _ = false;
   function C() {
     if (t === "failed") return;
     return e;
@@ -3953,17 +3953,17 @@ function OQt() {
     return { status: "success" };
   }
   function x() {
-    if (t === "failed") return !1;
+    if (t === "failed") return false;
     let pe = C();
-    if (!pe) return !1;
+    if (!pe) return false;
     let fe = pe.getAllServers();
-    if (fe.size === 0) return !1;
-    for (let me of fe.values()) if (me.state !== "error") return !0;
-    return !1;
+    if (fe.size === 0) return false;
+    for (let me of fe.values()) if (me.state !== "error") return true;
+    return false;
   }
-  let M = !1;
+  let M = false;
   function F() {
-    if (!M && x()) M = !0;
+    if (!M && x()) M = true;
     return M;
   }
   async function U() {
@@ -3973,10 +3973,10 @@ function OQt() {
   function B(pe, fe, me) {
     if (ho("lspServers")) return;
     if (Psn()) {
-      (d = pe), (_ = !0), (M = !1), o++;
+      (d = pe), (_ = true), (M = false), o++;
       return;
     }
-    if (((_ = !1), n("[LSP MANAGER] initializeLspServerManager() called"), e !== void 0 && t !== "failed")) {
+    if (((_ = false), n("[LSP MANAGER] initializeLspServerManager() called"), e !== void 0 && t !== "failed")) {
       n("[LSP MANAGER] Already initialized or initializing, skipping");
       return;
     }
@@ -3989,7 +3989,7 @@ function OQt() {
         .then(() => {
           if (ge === o) {
             if (((t = "success"), n("LSP server manager initialized successfully"), y("lsp_init"), e)) {
-              if ((YKe(e, pe), e.getAllServers().size === 0 && !e.didLastConfigLoadFail())) M = !1;
+              if ((YKe(e, pe), e.getAllServers().size === 0 && !e.didLastConfigLoadFail())) M = false;
             }
           }
         })
@@ -4014,7 +4014,7 @@ function OQt() {
   }
   async function z() {
     if (e === void 0) {
-      _ = !1;
+      _ = false;
       return;
     }
     try {
@@ -4042,7 +4042,7 @@ function DQt() {
   try {
     return (Y2() ?? []).some((e) => e.scope === "user" && e.mode === "rw");
   } catch {
-    return !1;
+    return false;
   }
 }
 

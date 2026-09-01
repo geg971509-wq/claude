@@ -160,9 +160,9 @@ class I {
     async (e, r) => {
       if (!Zgn(e.capabilities)) return [];
       let o = null,
-        m = !1,
+        m = false,
         t = await H(e, () => {
-          (m = !0), (e.discoveryBearerRejected = !0);
+          (m = true), (e.discoveryBearerRejected = true);
         });
       if (t.length === 0) {
         if (m) this.invalidate(ur(e.name, e.config)), g("skill_mcp_load", "skill_mcp_claudeai_bearer_rejected");
@@ -171,7 +171,7 @@ class I {
       j("parsed_nonempty", e, t.length), Z(e.name, `Found ${t.length} ${k(t.length, "skill")} via skills/list`);
       let a = A_t(),
         f = (d) => {
-          if (d === "skill_mcp_claudeai_bearer_rejected") m = !0;
+          if (d === "skill_mcp_claudeai_bearer_rejected") m = true;
           else o = d;
         },
         h = await Promise.all(t.map((d) => W(e, d, a, f, r))),
@@ -183,7 +183,7 @@ class I {
               return S === void 0 ? d : { ...d, description: S };
             })
           : _;
-      if (m) this.invalidate(ur(e.name, e.config)), (e.discoveryBearerRejected = !0);
+      if (m) this.invalidate(ur(e.name, e.config)), (e.discoveryBearerRejected = true);
       if (o) p("skill_mcp_load", o, { mcp_server_sha12: Vn(e.name) });
       else if (m) g("skill_mcp_load", "skill_mcp_claudeai_bearer_rejected");
       else if (u.length > 0) y("skill_mcp_load");
@@ -221,7 +221,7 @@ function we(e) {
 async function H(e, r) {
   let o = [],
     m = 0,
-    t = !1,
+    t = false,
     a,
     f = 0;
   do {
@@ -237,7 +237,7 @@ async function H(e, r) {
           )
             g("skill_mcp_load", "skill_mcp_claudeai_bearer_rejected"),
               M().invalidate(ur(e.name, e.config)),
-              (e.discoveryBearerRejected = !0);
+              (e.discoveryBearerRejected = true);
           else g("skill_mcp_load", "skill_mcp_list_failed");
         return [];
       }
@@ -254,7 +254,7 @@ async function H(e, r) {
     }
     for (let i of h.skills) {
       if (o.length >= B) {
-        t = !0;
+        t = true;
         break;
       }
       let _ = G(i.frontmatter?.name);
@@ -323,24 +323,24 @@ async function J(e, r, o, m, t) {
       if (O() && t) await Tjn(t, f, a, o);
       else {
         let u = b(h, `.tmp-${process.pid}-${z(4).toString("hex")}`);
-        await K(u, { recursive: !0 });
-        let d = !1;
+        await K(u, { recursive: true });
+        let d = false;
         try {
           await N(b(u, Ilt), o);
           try {
-            await R(u, i), (d = !0);
+            await R(u, i), (d = true);
           } catch (S) {
             if (!(await iin(f, a, i, void 0))) {
               let C = E(S);
               if (C !== "EEXIST" && C !== "ENOTEMPTY" && C !== "ENOTDIR" && C !== "EPERM" && C !== "EACCES") throw S;
               Z(e, `Replacing ${i}, which has no SKILL.md, with the fetched copy`),
-                await x(i, { recursive: !0, force: !0 }),
+                await x(i, { recursive: true, force: true }),
                 await R(u, i),
-                (d = !0);
+                (d = true);
             }
           }
         } finally {
-          if (!d) await x(u, { recursive: !0, force: !0 }).catch(() => {});
+          if (!d) await x(u, { recursive: true, force: true }).catch(() => {});
         }
       }
     await Ejn({ slug: f, slugDir: h }, r, a, t);
@@ -356,7 +356,7 @@ function D({
   builders: { createSkillCommand: t, parseSkillFrontmatterFields: a },
 }) {
   let f = hg(m),
-    { frontmatter: h, content: i } = ni(f, r, { normalizeKeys: !0 }),
+    { frontmatter: h, content: i } = ni(f, r, { normalizeKeys: true }),
     _ = E_t(i),
     u = a(h, _, o),
     d = ln(o);

@@ -85,9 +85,9 @@ function N(e, n) {
 }
 class yon {
   ws = null;
-  connected = !1;
-  authenticated = !1;
-  connecting = !1;
+  connected = false;
+  authenticated = false;
+  connecting = false;
   reconnectTimer = null;
   handshakeTimer = null;
   reconnectAttempts = 0;
@@ -100,8 +100,8 @@ class yon {
   connectionStartTime = null;
   connectionEstablishedTime = null;
   selectedDeviceId;
-  discoveryComplete = !1;
-  multiBrowserPendingSelection = !1;
+  discoveryComplete = false;
+  multiBrowserPendingSelection = false;
   lastKnownExtensionIds = [];
   discoveryPromise = null;
   pendingDiscovery = null;
@@ -109,7 +109,7 @@ class yon {
   previousSelectedDeviceId;
   peerConnectedWaiters = [];
   pendingPairingRequestId;
-  pairingInProgress = !1;
+  pairingInProgress = false;
   persistedDeviceId;
   pendingSwitchResolve = null;
   pairingPromptAbort = null;
@@ -128,7 +128,7 @@ class yon {
       ),
       this.connected && this.authenticated && this.ws?.readyState === g.OPEN)
     )
-      return e.info(`[${n}] Already connected and authenticated`), !0;
+      return e.info(`[${n}] Already connected and authenticated`), true;
     if (!this.connecting && !this.reconnectTimer)
       e.info(`[${n}] Not connecting, starting connection...`), await this.connect();
     else e.info(`[${n}] Connect in progress or reconnect scheduled, waiting...`);
@@ -136,12 +136,12 @@ class yon {
       let o = null,
         i = setTimeout(() => {
           if (o) clearTimeout(o);
-          e.info(`[${n}] Connection timeout, connected=${this.connected}, authenticated=${this.authenticated}`), t(!1);
+          e.info(`[${n}] Connection timeout, connected=${this.connected}, authenticated=${this.authenticated}`), t(false);
         }, 1e4),
         s = () => {
-          if (this.connected && this.authenticated) e.info(`[${n}] Connection successful`), clearTimeout(i), t(!0);
+          if (this.connected && this.authenticated) e.info(`[${n}] Connection successful`), clearTimeout(i), t(true);
           else if (!this.connecting && !this.reconnectTimer)
-            e.info(`[${n}] No longer connecting, giving up`), clearTimeout(i), t(!1);
+            e.info(`[${n}] No longer connecting, giving up`), clearTimeout(i), t(false);
           else o = setTimeout(s, 200);
         };
       s();
@@ -194,12 +194,12 @@ class yon {
         client_type: this.context.clientTypeId,
         tool: e,
         args: n,
-        supports_tool_result_notices: !0,
+        supports_tool_result_notices: true,
       };
     if (this.selectedDeviceId) h.target_device_id = this.selectedDeviceId;
     if (m) h.permission_mode = m;
     if (p?.length) h.allowed_domains = p;
-    if (t?.onPermissionRequest) h.handle_permission_prompts = !0;
+    if (t?.onPermissionRequest) h.handle_permission_prompts = true;
     if (t?.sessionScope) h.session_scope = t.sessionScope;
     return new Promise((v, k) => {
       let S = this.createTimeoutTimer(d, u);
@@ -225,7 +225,7 @@ class yon {
     if (!this.selectedDeviceId)
       return (
         o.info(`[${i}] external_message refused: no extension selected`),
-        Promise.resolve({ ok: !1, error: "no_target" })
+        Promise.resolve({ ok: false, error: "no_target" })
       );
     let s = crypto.randomUUID(),
       r = t?.timeoutMs,
@@ -241,7 +241,7 @@ class yon {
     return new Promise((d) => {
       let l = setTimeout(() => {
         if (this.pendingExternalMessages.delete(s))
-          o.warn(`[${i}] external_message timed out locally (${s.slice(0, 8)})`), d({ ok: !1, error: "timeout" });
+          o.warn(`[${i}] external_message timed out locally (${s.slice(0, 8)})`), d({ ok: false, error: "timeout" });
       }, c + R);
       this.pendingExternalMessages.set(s, { resolve: d, timer: l }),
         o.debug(`[${i}] Sending external_message (${s.slice(0, 8)})`);
@@ -251,15 +251,15 @@ class yon {
         clearTimeout(l),
           this.pendingExternalMessages.delete(s),
           o.warn(`[${i}] external_message serialization/send failed: ${u instanceof Error ? u.message : String(u)}`),
-          d({ ok: !1, error: "send_failed" });
+          d({ ok: false, error: "send_failed" });
       }
     });
   }
   pushExternalConfig(e) {
-    if (this.ws?.readyState !== g.OPEN) return !1;
+    if (this.ws?.readyState !== g.OPEN) return false;
     let n = e;
     if (!n) {
-      if (!this.context.getExternalRelayConfig) return !1;
+      if (!this.context.getExternalRelayConfig) return false;
       n = this.context.getExternalRelayConfig() ?? { extensionIds: [] };
     }
     return (
@@ -270,7 +270,7 @@ class yon {
           ...(n.hooks !== void 0 && { hooks: n.hooks }),
         }),
       ),
-      !0
+      true
     );
   }
   isConnected() {
@@ -296,7 +296,7 @@ class yon {
     if (this.context.getRequirePairedDevice?.()) {
       if (!this.persistedDeviceId) {
         e.info(`[${n}] requirePairedDevice set but no persistedDeviceId; refusing to auto-select`),
-          (this.discoveryComplete = !0);
+          (this.discoveryComplete = true);
         return;
       }
       let o = this.persistedDeviceId,
@@ -310,11 +310,11 @@ class yon {
         )
           (t = await this.queryBridgeExtensions()), (i = t.find((s) => s.deviceId === o));
       }
-      if (((this.discoveryComplete = !0), i)) this.selectExtension(i.deviceId);
+      if (((this.discoveryComplete = true), i)) this.selectExtension(i.deviceId);
       else e.info(`[${n}] requirePairedDevice: persisted device never arrived; refusing to auto-select`);
       return;
     }
-    if (((this.discoveryComplete = !0), this.selectedDeviceId)) return;
+    if (((this.discoveryComplete = true), this.selectedDeviceId)) return;
     if (t.length === 0) {
       e.info(`[${n}] No extensions found after waiting`);
       return;
@@ -334,10 +334,10 @@ class yon {
       }
     }
     if (this.context.askUserToolName) {
-      this.multiBrowserPendingSelection = !0;
+      this.multiBrowserPendingSelection = true;
       return;
     }
-    this.broadcastPairingRequest(), (this.pairingInProgress = !0), this.firePairingPrompt();
+    this.broadcastPairingRequest(), (this.pairingInProgress = true), this.firePairingPrompt();
   }
   queryBridgeExtensions() {
     if (this.listExtensionsPromise) return this.listExtensionsPromise;
@@ -372,17 +372,17 @@ class yon {
   clearSelection() {
     (this.selectedDeviceId = void 0),
       (this.previousSelectedDeviceId = void 0),
-      (this.discoveryComplete = !1),
-      (this.multiBrowserPendingSelection = !1),
+      (this.discoveryComplete = false),
+      (this.multiBrowserPendingSelection = false),
       (this.lastKnownExtensionIds = []),
-      (this.pairingInProgress = !1),
+      (this.pairingInProgress = false),
       this.abortPairingPrompt();
   }
   selectExtension(e) {
     let { logger: n, serverName: t } = this.context;
     (this.selectedDeviceId = e),
       (this.previousSelectedDeviceId = void 0),
-      (this.multiBrowserPendingSelection = !1),
+      (this.multiBrowserPendingSelection = false),
       n.info(`[${t}] Selected Chrome extension: ${e.slice(0, 8)}...`);
   }
   async listConnectedExtensions() {
@@ -391,8 +391,8 @@ class yon {
   }
   selectExtensionById(e, n, t) {
     if (
-      ((this.discoveryComplete = !0),
-      (this.pairingInProgress = !1),
+      ((this.discoveryComplete = true),
+      (this.pairingInProgress = false),
       (this.pendingPairingRequestId = void 0),
       this.selectExtension(e),
       this.context.onExtensionPaired?.(e, n, t ?? this.lastKnownExtensionIds),
@@ -413,13 +413,13 @@ class yon {
     if (this.pairingPromptAbort) this.pairingPromptAbort.abort(), (this.pairingPromptAbort = null);
   }
   isLocalExtension(e) {
-    if (!e.osPlatform) return !1;
+    if (!e.osPlatform) return false;
     return e.osPlatform === _on();
   }
   waitForPeerConnected(e) {
     return new Promise((n) => {
       let t = setTimeout(() => {
-          (this.peerConnectedWaiters = this.peerConnectedWaiters.filter((i) => i !== o)), n(!1);
+          (this.peerConnectedWaiters = this.peerConnectedWaiters.filter((i) => i !== o)), n(false);
         }, e),
         o = (i) => {
           clearTimeout(t), n(i);
@@ -438,8 +438,8 @@ class yon {
     if (e.length === 0 || (e.length === 1 && (!n || e[0].deviceId === n))) return "no_other_browsers";
     (this.previousSelectedDeviceId = this.selectedDeviceId),
       (this.selectedDeviceId = void 0),
-      (this.discoveryComplete = !1),
-      (this.pairingInProgress = !1);
+      (this.discoveryComplete = false),
+      (this.pairingInProgress = false);
     let t = crypto.randomUUID();
     if (((this.pendingPairingRequestId = t), this.ws?.readyState !== g.OPEN)) return null;
     if (
@@ -465,8 +465,8 @@ class yon {
       return;
     }
     if (this.connecting) return;
-    (this.connecting = !0),
-      (this.authenticated = !1),
+    (this.connecting = true),
+      (this.authenticated = false),
       (this.connectionStartTime = Date.now()),
       this.closeSocket(),
       (this.handshakeTimer = setTimeout(() => {
@@ -481,7 +481,7 @@ class yon {
           c === void 0)
         )
           return;
-        (this.connecting = !1), this.closeSocket(), this.scheduleReconnect();
+        (this.connecting = false), this.closeSocket(), this.scheduleReconnect();
       }, b));
     let i, s;
     if (t.devUserId) (i = t.devUserId), e.debug(`[${n}] Using dev user ID for bridge connection`);
@@ -502,7 +502,7 @@ class yon {
             error_detail: c,
             reconnect_attempt: this.reconnectAttempts,
           }),
-          (this.connecting = !1),
+          (this.connecting = false),
           this.scheduleReconnect();
         return;
       }
@@ -514,7 +514,7 @@ class yon {
             error_type: "no_oauth_token",
             reconnect_attempt: this.reconnectAttempts,
           }),
-          (this.connecting = !1),
+          (this.connecting = false),
           this.scheduleReconnect();
         return;
       }
@@ -536,7 +536,7 @@ class yon {
           error_code: c?.code,
           reconnect_attempt: this.reconnectAttempts,
         }),
-        (this.connecting = !1),
+        (this.connecting = false),
         this.scheduleReconnect();
       return;
     }
@@ -565,9 +565,9 @@ class yon {
             duration_since_connect_ms: a,
             reconnect_attempt: this.reconnectAttempts + 1,
           }),
-          (this.connected = !1),
-          (this.authenticated = !1),
-          (this.connecting = !1),
+          (this.connected = false),
+          (this.authenticated = false),
+          (this.connecting = false),
           (this.connectionEstablishedTime = null),
           this.rejectPendingCalls(new DA("Bridge connection closed mid-call")),
           this.scheduleReconnect();
@@ -581,9 +581,9 @@ class yon {
             error_code: c.code,
             reconnect_attempt: this.reconnectAttempts,
           }),
-          (this.connected = !1),
-          (this.authenticated = !1),
-          (this.connecting = !1),
+          (this.connected = false),
+          (this.authenticated = false),
+          (this.connecting = false),
           this.rejectPendingCalls(new DA(`Bridge connection error: ${c.message}`));
       });
   }
@@ -593,9 +593,9 @@ class yon {
       case "paired": {
         let i = this.connectionStartTime ? Date.now() - this.connectionStartTime : 0;
         n.info(`[${t}] Paired with Chrome extension (duration: ${i}ms)`),
-          (this.connected = !0),
-          (this.authenticated = !0),
-          (this.connecting = !1),
+          (this.connected = true),
+          (this.authenticated = true),
+          (this.connecting = false),
           (this.reconnectAttempts = 0),
           (this.connectionEstablishedTime = Date.now()),
           this.startKeepAlive(),
@@ -607,9 +607,9 @@ class yon {
       case "waiting": {
         let i = this.connectionStartTime ? Date.now() - this.connectionStartTime : 0;
         n.info(`[${t}] Waiting for Chrome extension to connect (duration: ${i}ms)`),
-          (this.connected = !0),
-          (this.authenticated = !0),
-          (this.connecting = !1),
+          (this.connected = true),
+          (this.authenticated = true),
+          (this.connecting = false),
           (this.reconnectAttempts = 0),
           (this.connectionEstablishedTime = Date.now()),
           this.startKeepAlive(),
@@ -622,7 +622,7 @@ class yon {
           o?.("chrome_bridge_peer_connected", null),
           !this.selectedDeviceId)
         )
-          this.discoveryComplete = !1;
+          this.discoveryComplete = false;
         if (this.previousSelectedDeviceId && e.deviceId === this.previousSelectedDeviceId && !this.pendingSwitchResolve)
           n.info(`[${t}] Previously selected extension reconnected, auto-reselecting`),
             this.selectExtension(this.previousSelectedDeviceId),
@@ -630,7 +630,7 @@ class yon {
         if (this.peerConnectedWaiters.length > 0) {
           let i = this.peerConnectedWaiters;
           this.peerConnectedWaiters = [];
-          for (let s of i) s(!0);
+          for (let s of i) s(true);
         }
         this.pushExternalConfig(), this.context.onPeerRosterChanged?.();
         break;
@@ -655,10 +655,10 @@ class yon {
           n.info(`[${t}] Selected extension disconnected, clearing selection`),
             (this.previousSelectedDeviceId = this.selectedDeviceId),
             (this.selectedDeviceId = void 0),
-            (this.discoveryComplete = !1),
+            (this.discoveryComplete = false),
             this.rejectPendingCalls(new Bae("Chrome extension disconnected mid-call"));
         else if (!this.selectedDeviceId && this.multiBrowserPendingSelection)
-          (this.discoveryComplete = !1), (this.multiBrowserPendingSelection = !1);
+          (this.discoveryComplete = false), (this.multiBrowserPendingSelection = false);
         this.context.onPeerRosterChanged?.();
         break;
       }
@@ -672,7 +672,7 @@ class yon {
           mcp_sockets: e.mcp_sockets ?? null,
         });
         let i = this.pendingCalls.get(e.tool_use_id ?? "");
-        if (i) (i.routingAckReceived = !0), (i.routingAckPongAgeMs = e.target_pong_age_ms ?? null);
+        if (i) (i.routingAckReceived = true), (i.routingAckPongAgeMs = e.target_pong_age_ms ?? null);
         break;
       }
       case "extensions_list":
@@ -684,7 +684,7 @@ class yon {
       case "pairing_response": {
         let i = e.request_id;
         if (this.pendingPairingRequestId !== i) break;
-        if (e.dismissed === !0) {
+        if (e.dismissed === true) {
           n.info(`[${t}] Pairing prompt dismissed in extension`), this.abortPairingPrompt();
           break;
         }
@@ -693,7 +693,7 @@ class yon {
         if (s && r) {
           if (
             ((this.pendingPairingRequestId = void 0),
-            (this.pairingInProgress = !1),
+            (this.pairingInProgress = false),
             this.selectExtension(s),
             this.context.onExtensionPaired?.(s, r, this.lastKnownExtensionIds),
             this.abortPairingPrompt(),
@@ -720,11 +720,11 @@ class yon {
           n.debug(`[${t}] external_message_result for unknown request: ${i?.slice(0, 8) ?? "none"}`);
           break;
         }
-        if ((clearTimeout(s.timer), this.pendingExternalMessages.delete(i), e.ok === !0))
-          s.resolve({ ok: !0, response: e.response });
+        if ((clearTimeout(s.timer), this.pendingExternalMessages.delete(i), e.ok === true))
+          s.resolve({ ok: true, response: e.response });
         else {
           let r = e.error;
-          s.resolve({ ok: !1, error: r === "no_target" || r === "timeout" ? r : "send_failed" });
+          s.resolve({ ok: false, error: r === "no_target" || r === "timeout" ? r : "send_failed" });
         }
         break;
       }
@@ -739,7 +739,7 @@ class yon {
         break;
       case "error":
         if ((n.warn(`[${t}] Bridge error: ${e.error}`), this.selectedDeviceId))
-          (this.selectedDeviceId = void 0), (this.discoveryComplete = !1);
+          (this.selectedDeviceId = void 0), (this.discoveryComplete = false);
         break;
       default:
         n.warn(`[${t}] Unrecognized bridge message type: ${e.type}`);
@@ -766,12 +766,12 @@ class yon {
       actionData: e.action_data,
       category: A(e.category),
     };
-    clearTimeout(s.timer), (s.permissionPaused = !0);
+    clearTimeout(s.timer), (s.permissionPaused = true);
     try {
       let a = await s.onPermissionRequest(r);
       this.sendPermissionResponse(i, a);
     } catch (a) {
-      n.error(`[${t}] Error handling permission request:`, a), this.sendPermissionResponse(i, !1);
+      n.error(`[${t}] Error handling permission request:`, a), this.sendPermissionResponse(i, false);
     }
     let c = this.pendingCalls.get(o);
     if (c) c.timer = this.createTimeoutTimer(o, c.timeoutMs);
@@ -848,7 +848,7 @@ class yon {
         }),
         !this.selectedDeviceId && !this.pairingInProgress)
       ) {
-        (this.discoveryComplete = !1),
+        (this.discoveryComplete = false),
           s.reject(new Bae(`[${t}] Extension disconnected during tool call: ${s.toolName}`));
         return;
       }
@@ -907,9 +907,9 @@ class yon {
           timeout_ms: n,
           session_id: s.sessionId,
           user_message_uuid: s.userMessageUuid,
-          routing_ack_received: s.routingAckReceived ?? !1,
+          routing_ack_received: s.routingAckReceived ?? false,
           routing_ack_pong_age_ms: s.routingAckPongAgeMs ?? null,
-          permission_paused: s.permissionPaused ?? !1,
+          permission_paused: s.permissionPaused ?? false,
           ...c,
         }),
         this.isConnected())
@@ -953,14 +953,14 @@ class yon {
   closeSocket() {
     if ((this.stopKeepAlive(), this.handshakeTimer)) clearTimeout(this.handshakeTimer), (this.handshakeTimer = null);
     if (this.ws) this.ws.removeAllListeners(), this.ws.on("error", () => {}), this.ws.close(), (this.ws = null);
-    if (((this.connected = !1), (this.authenticated = !1), this.selectedDeviceId))
+    if (((this.connected = false), (this.authenticated = false), this.selectedDeviceId))
       this.previousSelectedDeviceId = this.selectedDeviceId;
     if (
       ((this.selectedDeviceId = void 0),
-      (this.discoveryComplete = !1),
-      (this.multiBrowserPendingSelection = !1),
+      (this.discoveryComplete = false),
+      (this.multiBrowserPendingSelection = false),
       (this.pendingPairingRequestId = void 0),
-      (this.pairingInProgress = !1),
+      (this.pairingInProgress = false),
       this.abortPairingPrompt(),
       this.pendingSwitchResolve)
     )
@@ -970,7 +970,7 @@ class yon {
     if (this.peerConnectedWaiters.length > 0) {
       let e = this.peerConnectedWaiters;
       this.peerConnectedWaiters = [];
-      for (let n of e) n(!1);
+      for (let n of e) n(false);
     }
     this.context.onPeerRosterChanged?.();
   }
@@ -980,7 +980,7 @@ class yon {
   }
   drainExternalRelays() {
     for (let e of this.pendingExternalMessages.values())
-      clearTimeout(e.timer), e.resolve({ ok: !1, error: "send_failed" });
+      clearTimeout(e.timer), e.resolve({ ok: false, error: "send_failed" });
     this.pendingExternalMessages.clear();
   }
   cleanup() {
@@ -1047,11 +1047,11 @@ class P {
     let { logger: e, serverName: n } = this.context;
     await this.refreshClients();
     let t = [];
-    for (let i of this.clients.values()) if (!i.isConnected()) t.push(i.ensureConnected().catch(() => !1));
+    for (let i of this.clients.values()) if (!i.isConnected()) t.push(i.ensureConnected().catch(() => false));
     if (t.length > 0) await Promise.all(t);
     let o = this.getConnectedClients().length;
-    if (o === 0) return e.info(`[${n}] No connected sockets in pool`), !1;
-    return e.info(`[${n}] Socket pool: ${o} connected`), !0;
+    if (o === 0) return e.info(`[${n}] No connected sockets in pool`), false;
+    return e.info(`[${n}] Socket pool: ${o} connected`), true;
   }
   async callTool(e, n, t) {
     if (e === "tabs_context_mcp") return this.callTabsContext(n, t);
@@ -1175,7 +1175,7 @@ class P {
         e.info(`[${n}] Adding socket to pool: ${i}`);
         let s = { ...this.context, socketPath: i, getSocketPath: void 0, getSocketPaths: void 0 },
           r = jLt(s);
-        if (((r.disableAutoReconnect = !0), this.notificationHandler))
+        if (((r.disableAutoReconnect = true), this.notificationHandler))
           r.setNotificationHandler(this.notificationHandler);
         this.clients.set(i, r);
       }
@@ -1198,7 +1198,7 @@ function K6n(e) {
 function BLt(e, n) {
   let { serverName: t, logger: o } = e,
     i = n ?? K6n(e),
-    s = new GH({ name: t, version: "1.0.0" }, { capabilities: { tools: { listChanged: !0 }, logging: {} } });
+    s = new GH({ name: t, version: "1.0.0" }, { capabilities: { tools: { listChanged: true }, logging: {} } });
   return (
     s.setRequestHandler(pA, () => {
       if (e.isDisabled?.()) return { tools: [] };

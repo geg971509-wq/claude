@@ -66,7 +66,7 @@ function q0t(e, o, r, t) {
       if (e.client.discoveryBearerRejected)
         return {
           message: `Reconnected to ${Rr(o)}, but your claude.ai session token was rejected. Run /login, then reconnect.`,
-          success: !1,
+          success: false,
         };
       if (e.client.toolsListError) {
         if (r.persistsOffBox)
@@ -74,21 +74,21 @@ function q0t(e, o, r, t) {
             n(`mcp reconnect tools/list failed for ${Qn(o)}: ${e.client.toolsListError}`, { level: "error" }),
             {
               message: `Reconnected to ${Rr(o)}, but fetching tools failed (detail withheld on this connection).`,
-              success: !1,
+              success: false,
             }
           );
         return {
           message: `Reconnected to ${Rr(o)}, but fetching tools failed: ${Da(e.client.toolsListError)}`,
-          success: !1,
+          success: false,
         };
       }
-      return { message: `Reconnected to ${Rr(o)}.`, success: !0 };
+      return { message: `Reconnected to ${Rr(o)}.`, success: true };
     case "needs-auth":
       return {
         message: t?.hasHeadersHelper
           ? `${Rr(o)} requires authentication. Use 'Authenticate' if the upstream server uses OAuth, or check the headersHelper script and use 'Reconnect'.`
           : `${Rr(o)} requires authentication. Use the 'Authenticate' option.`,
-        success: !1,
+        success: false,
       };
     case "failed": {
       let s = W0t(e.client);
@@ -96,16 +96,16 @@ function q0t(e, o, r, t) {
         if (s) n(`mcp reconnect failed for ${Qn(o)}: ${s}`, { level: "error" });
         return {
           message: `Failed to reconnect to ${Rr(o)}${s ? " (detail withheld on this connection)" : ""}.`,
-          success: !1,
+          success: false,
         };
       }
       return {
         message: s ? `Failed to reconnect to ${Rr(o)}: ${Da(s)}` : `Failed to reconnect to ${Rr(o)}.`,
-        success: !1,
+        success: false,
       };
     }
     default:
-      return { message: `Unknown result when reconnecting to ${Rr(o)}.`, success: !1 };
+      return { message: `Unknown result when reconnecting to ${Rr(o)}.`, success: false };
   }
 }
 function Ant(e, o, r) {

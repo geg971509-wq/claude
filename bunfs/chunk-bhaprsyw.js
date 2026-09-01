@@ -137,7 +137,7 @@ async function irt(n) {
         .filter((e) => e !== void 0),
     ),
     g = a.filter((e) => {
-      if (e.owner !== "mcp") return !1;
+      if (e.owner !== "mcp") return false;
       let s = u(e);
       return s === void 0 || !I.has(s);
     }),

@@ -416,7 +416,7 @@ var r = async (s, o) => {
   return e(itt, {
     onComplete: s,
     args: "stats",
-    showSkillDoctorRedirectMessage: !0,
+    showSkillDoctorRedirectMessage: true,
     commands: o.options.commands,
     getSessionContext: () => GZe(o.messages, o.readFileState),
     getSkillStatsInputs: () => Gge(o),

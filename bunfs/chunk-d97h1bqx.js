@@ -78,7 +78,7 @@ async function RFn(n, e, o = {}) {
   let a = n.get();
   if (!a.some((t) => t.sessionId === String(K())))
     return {
-      ok: !1,
+      ok: false,
       reason:
         "no artifact-pr-review invocation is recorded in this session \u2014 composed review pages publish only from the skill flow (run /artifact-pr-review)",
     };
@@ -93,25 +93,25 @@ async function RFn(n, e, o = {}) {
       continue;
     }
     let l = e.reviewed_head_sha.toLowerCase();
-    if (o.acceptReviewedShaAsAnchor === !0) return { ok: !0, identity: { ...r, headSha: l } };
+    if (o.acceptReviewedShaAsAnchor === true) return { ok: true, identity: { ...r, headSha: l } };
     let c = await h([cHe(r.owner, r.repo, r.number)], t.cwd);
     if (c === null)
       return {
-        ok: !1,
+        ok: false,
         reason: `the recorded review target ${r.owner}/${r.repo}#${r.number} could not be re-resolved through gh at publish time \u2014 check gh auth and retry`,
       };
     if (c.headSha !== l)
       return {
-        ok: !1,
+        ok: false,
         reason:
           `the PR moved since the review: the payload reviewed ${e.reviewed_head_sha.slice(0, 12)}\u2026 but ` +
           `${r.owner}/${r.repo}#${r.number} is now at ${c.headSha.slice(0, 12)}\u2026 \u2014 re-gather the PR (step 1) and re-author the payload against the current head`,
       };
-    return { ok: !0, identity: { ...r, headSha: c.headSha } };
+    return { ok: true, identity: { ...r, headSha: c.headSha } };
   }
   let u = i.map((t) => `${t.owner}/${t.repo}#${t.number}`).join(", ");
   return {
-    ok: !1,
+    ok: false,
     reason:
       `the payload names ${e.owner}/${e.repo}#${e.number}, ` +
       (u === ""

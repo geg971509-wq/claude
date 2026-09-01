@@ -20,10 +20,10 @@ import { GCt } from "/$bunfs/root/chunk-56sxk8k2.js";
 import { te } from "/$bunfs/root/chunk-wag5ye9w.js";
 import { je } from "/$bunfs/root/chunk-yz031c9r.js";
 function TR() {
-  return !0;
+  return true;
 }
 function Wl() {
-  return typeof Bun < "u" && Bun.isStandaloneExecutable === !0;
+  return typeof Bun < "u" && Bun.isStandaloneExecutable === true;
 }
 import { delimiter as H, isAbsolute as V } from "path";
 function y(t) {
@@ -43,8 +43,8 @@ function VJe(t, o) {
   return _.length === 0 ? null : X(t, _.join(H));
 }
 function h(t) {
-  if (!V(t)) return !1;
-  return !0;
+  if (!V(t)) return false;
+  return true;
 }
 function X(t, o) {
   return d(t, Bun.which(t, { PATH: o }));
@@ -54,13 +54,13 @@ import { access as I, readdir as k, readFile as Z, readlink as j } from "fs/prom
 import { homedir as z } from "os";
 import { delimiter as Q, join as p } from "path";
 function F() {
-  return !1;
+  return false;
 }
 function f() {
   return;
 }
 function K() {
-  return !1;
+  return false;
 }
 function q() {
   if (le().existsSync(p(be(), ".config.json"))) return p(be(), ".config.json");
@@ -79,9 +79,9 @@ function nlr(t) {
 async function ot() {
   try {
     let { externalHttp: t } = await import("/$bunfs/root/chunk-wt9wvmth.js");
-    return await t.head("http://1.1.1.1", { signal: AbortSignal.timeout(1000) }), !0;
+    return await t.head("http://1.1.1.1", { signal: AbortSignal.timeout(1000) }), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function _t() {
@@ -91,7 +91,7 @@ async function O(t) {
   try {
     return !!(await Va(t));
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Et() {
@@ -153,7 +153,7 @@ async function et(t) {
   try {
     return /appinstaller/i.test(await j(t));
   } catch {
-    return !1;
+    return false;
   }
 }
 async function ZRn(t, o) {
@@ -170,7 +170,7 @@ async function ZRn(t, o) {
     C.map(async (r) => {
       let s;
       try {
-        s = await k(r, { withFileTypes: !0 });
+        s = await k(r, { withFileTypes: true });
       } catch {
         return;
       }
@@ -210,12 +210,12 @@ function rlr() {
 }
 function Ct(t) {
   try {
-    if (!t.isWslEnvironment()) return !1;
+    if (!t.isWslEnvironment()) return false;
     let o = $C("npm");
-    if (o === null) return !1;
+    if (o === null) return false;
     return o.startsWith("/mnt/c/");
   } catch (o) {
-    return !1;
+    return false;
   }
 }
 function At() {
@@ -339,7 +339,7 @@ class W {
     return (this.detectedBuildTools ??= nt());
   }
   isWslEnvironment() {
-    return (this.wslEnvironment ??= this.primedWslInteropExists ?? !1);
+    return (this.wslEnvironment ??= this.primedWslInteropExists ?? false);
   }
   isNpmFromWindowsPath() {
     return (this.npmFromWindowsPath ??= Ct(this));
@@ -403,7 +403,7 @@ function Tt(t) {
   if (Me(process.env.GITLAB_CI)) return "gitlab-ci";
   if (process.env.CIRCLECI) return "circleci";
   if (process.env.BUILDKITE) return "buildkite";
-  if (Me(!1)) return "ci";
+  if (Me(false)) return "ci";
   if (process.env.KUBERNETES_SERVICE_HOST) return "kubernetes";
   if (t.isDockerenvPresent()) return "docker";
   if (T.platform === "darwin") return "unknown-darwin";
@@ -419,7 +419,7 @@ var T = {
     return e().hasInternetAccess();
   },
   probeInternalNetworkAccess: _t,
-  isCI: Me(!1),
+  isCI: Me(false),
   platform: ["win32", "darwin"].includes("darwin") ? "darwin" : "linux",
   arch: "arm64",
   nodeVersion: process.version,
@@ -722,7 +722,7 @@ var lo = x.bool(),
   R_ = x.int({ min: 0 }),
   S_ = x.int({ min: 0 }),
   I_ = x.int({ min: 0 }),
-  U_ = x.int({ min: 1, digitsOnly: !0 }),
+  U_ = x.int({ min: 1, digitsOnly: true }),
   x_ = x.bool(),
   i_ = x.triBool(),
   N_ = x.bool(),
@@ -1075,7 +1075,7 @@ var F_ = x.triBool(),
   Lr = x.bool(),
   cr = x.bool(),
   pr = x.bool(),
-  Rr = x.int({ min: 1, digitsOnly: !0 }),
+  Rr = x.int({ min: 1, digitsOnly: true }),
   Sr = x.triBool(),
   Ir = x.bool(),
   Ur = x.triBool(),
@@ -1167,7 +1167,7 @@ var F_ = x.triBool(),
   $s = x.bool(),
   qs = x.bool(),
   oe = x.triBool(),
-  _e = x.int({ min: 1, digitsOnly: !0 }),
+  _e = x.int({ min: 1, digitsOnly: true }),
   Ee = x.bool(),
   re = x.bool(),
   se = x.bool(),
@@ -1444,8 +1444,8 @@ var cn = x.str(),
   Kn = x.str(),
   vn = x.str(),
   Wn = x.str(),
-  gn = x.int({ min: 0, digitsOnly: !0 }),
-  Yn = x.int({ min: 0, digitsOnly: !0 }),
+  gn = x.int({ min: 0, digitsOnly: true }),
+  Yn = x.int({ min: 0, digitsOnly: true }),
   Vn = x.str(),
   yn = x.str(),
   hn = x.str(),
@@ -2105,19 +2105,19 @@ var hO = x.str(),
   Xc = x.int(),
   wc = x.int(),
   kc = x.int(),
-  Zc = x.int({ min: 1, max: 2147483647, digitsOnly: !0 }),
+  Zc = x.int({ min: 1, max: 2147483647, digitsOnly: true }),
   jc = x.int(),
   Jc = x.int(),
-  zc = x.int({ min: 1, max: 86400, digitsOnly: !0 }),
-  Qc = x.int({ min: 1, max: 86400, digitsOnly: !0 }),
+  zc = x.int({ min: 1, max: 86400, digitsOnly: true }),
+  Qc = x.int({ min: 1, max: 86400, digitsOnly: true }),
   $c = x.int(),
   qc = x.int({ min: 1 }),
-  tp = x.int({ min: 0, max: 10080, digitsOnly: !0 }),
+  tp = x.int({ min: 0, max: 10080, digitsOnly: true }),
   op = x.int(),
   _p = x.int(),
-  Ep = x.int({ min: 1, digitsOnly: !0 }),
-  rp = x.int({ min: 1, digitsOnly: !0 }),
-  sp = x.int({ min: 1, digitsOnly: !0 }),
+  Ep = x.int({ min: 1, digitsOnly: true }),
+  rp = x.int({ min: 1, digitsOnly: true }),
+  sp = x.int({ min: 1, digitsOnly: true }),
   ep = x.int(),
   np = x.int(),
   Cp = x.int(),
@@ -2458,8 +2458,8 @@ function b(t, o) {
         if (s !== C) (r = n.parse(s)), (C = s);
         return r;
       },
-      enumerable: !0,
-      configurable: !0,
+      enumerable: true,
+      configurable: true,
     });
   }
   return (

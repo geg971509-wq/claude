@@ -78,7 +78,7 @@ var Z4t = {
         mantle: null,
         gateway: "claude-3-5-haiku-20241022",
       },
-      eager_input_streaming: { vertex: !0 },
+      eager_input_streaming: { vertex: true },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_3_5_HAIKU",
       max_output_tokens: { default: 8192, upper: 8192 },
       pricing: "haiku_35",
@@ -100,7 +100,7 @@ var Z4t = {
         gateway: "claude-haiku-4-5-20251001",
       },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_HAIKU_4_5",
-      context: { window: 200000, supports_1m_suffix: !0 },
+      context: { window: 200000, supports_1m_suffix: true },
       max_output_tokens: { default: 32000, upper: 64000 },
       pricing: "haiku_45",
       capabilities: ["context_management"],
@@ -159,9 +159,9 @@ var Z4t = {
         mantle: null,
         gateway: "claude-sonnet-4-20250514",
       },
-      eager_input_streaming: { vertex: !0 },
+      eager_input_streaming: { vertex: true },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_4_0_SONNET",
-      context: { window: 200000, supports_1m_beta: !0, supports_1m_suffix: !0 },
+      context: { window: 200000, supports_1m_beta: true, supports_1m_suffix: true },
       max_output_tokens: { default: 32000, upper: 64000 },
       pricing: "tier_3_15",
       capabilities: ["context_management"],
@@ -181,10 +181,10 @@ var Z4t = {
         mantle: null,
         gateway: "claude-sonnet-4-5-20250929",
       },
-      eager_input_streaming: { vertex: !0 },
+      eager_input_streaming: { vertex: true },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_4_5_SONNET",
       fallback_3p: "claude-sonnet-4-0",
-      context: { window: 200000, supports_1m_beta: !0, supports_1m_suffix: !0 },
+      context: { window: 200000, supports_1m_beta: true, supports_1m_suffix: true },
       max_output_tokens: { default: 32000, upper: 64000 },
       pricing: "tier_3_15",
       capabilities: ["context_management"],
@@ -204,10 +204,10 @@ var Z4t = {
         mantle: null,
         gateway: "claude-sonnet-4-6",
       },
-      eager_input_streaming: { bedrock: !0, vertex: !0 },
+      eager_input_streaming: { bedrock: true, vertex: true },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_4_6_SONNET",
       fallback_3p: "claude-sonnet-4-5",
-      context: { window: 200000, supports_1m_beta: !0, supports_1m_suffix: !0 },
+      context: { window: 200000, supports_1m_beta: true, supports_1m_suffix: true },
       max_output_tokens: { default: 32000, upper: 128000 },
       pricing: "tier_3_15",
       capabilities: ["effort", "max_effort", "adaptive_thinking", "context_management"],
@@ -228,14 +228,14 @@ var Z4t = {
         mantle: "anthropic.claude-sonnet-5",
         gateway: "claude-sonnet-5",
       },
-      eager_input_streaming: { bedrock: !0, vertex: !0 },
+      eager_input_streaming: { bedrock: true, vertex: true },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_5_SONNET",
       fallback_3p: "claude-sonnet-4-6",
       context: {
         window: 1e6,
-        native_1m: !0,
-        native_1m_3p: { bedrock: !0, vertex: !0, foundry: !0 },
-        supports_1m_beta: !0,
+        native_1m: true,
+        native_1m_3p: { bedrock: true, vertex: true, foundry: true },
+        supports_1m_beta: true,
       },
       max_output_tokens: { default: 64000, upper: 128000 },
       pricing: "tier_2_10",
@@ -268,7 +268,7 @@ var Z4t = {
         gateway: "claude-opus-4-20250514",
       },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_4_0_OPUS",
-      context: { window: 200000, supports_1m_suffix: !0 },
+      context: { window: 200000, supports_1m_suffix: true },
       max_output_tokens: { default: 32000, upper: 32000 },
       pricing: "tier_15_75",
       capabilities: ["context_management"],
@@ -289,7 +289,7 @@ var Z4t = {
         gateway: "claude-opus-4-1-20250805",
       },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_4_1_OPUS",
-      context: { window: 200000, supports_1m_suffix: !0 },
+      context: { window: 200000, supports_1m_suffix: true },
       max_output_tokens: { default: 32000, upper: 32000 },
       pricing: "tier_15_75",
       capabilities: ["context_management"],
@@ -309,10 +309,10 @@ var Z4t = {
         mantle: null,
         gateway: "claude-opus-4-5-20251101",
       },
-      eager_input_streaming: { vertex: !0 },
+      eager_input_streaming: { vertex: true },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_4_5_OPUS",
       fallback_3p: "claude-opus-4-1",
-      context: { window: 200000, supports_1m_suffix: !0 },
+      context: { window: 200000, supports_1m_suffix: true },
       max_output_tokens: { default: 32000, upper: 64000 },
       pricing: "tier_5_25",
       capabilities: ["context_management"],
@@ -332,10 +332,10 @@ var Z4t = {
         mantle: null,
         gateway: "claude-opus-4-6",
       },
-      eager_input_streaming: { vertex: !0 },
+      eager_input_streaming: { vertex: true },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_4_6_OPUS",
       fallback_3p: "claude-opus-4-5",
-      context: { window: 200000, supports_1m_beta: !0, supports_1m_suffix: !0 },
+      context: { window: 200000, supports_1m_beta: true, supports_1m_suffix: true },
       max_output_tokens: { default: 64000, upper: 128000 },
       pricing: "tier_5_25",
       capabilities: ["effort", "max_effort", "adaptive_thinking", "context_management"],
@@ -356,10 +356,10 @@ var Z4t = {
         mantle: "anthropic.claude-opus-4-7",
         gateway: "claude-opus-4-7",
       },
-      eager_input_streaming: { bedrock: !0, vertex: !0 },
+      eager_input_streaming: { bedrock: true, vertex: true },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_4_7_OPUS",
       fallback_3p: "claude-opus-4-6",
-      context: { window: 1e6, native_1m: !0, supports_1m_beta: !0, supports_1m_suffix: !0 },
+      context: { window: 1e6, native_1m: true, supports_1m_beta: true, supports_1m_suffix: true },
       max_output_tokens: { default: 64000, upper: 128000 },
       pricing: "tier_5_25",
       capabilities: ["effort", "max_effort", "xhigh_effort", "adaptive_thinking", "context_management"],
@@ -382,10 +382,10 @@ var Z4t = {
         mantle: "anthropic.claude-opus-4-8",
         gateway: "claude-opus-4-8",
       },
-      eager_input_streaming: { bedrock: !0, vertex: !0 },
+      eager_input_streaming: { bedrock: true, vertex: true },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_4_8_OPUS",
       fallback_3p: "claude-opus-4-7",
-      context: { window: 1e6, native_1m: !0, supports_1m_beta: !0, supports_1m_suffix: !0 },
+      context: { window: 1e6, native_1m: true, supports_1m_beta: true, supports_1m_suffix: true },
       max_output_tokens: { default: 64000, upper: 128000 },
       pricing: "tier_5_25",
       capabilities: [
@@ -418,10 +418,10 @@ var Z4t = {
         mantle: "anthropic.claude-opus-5",
         gateway: "claude-opus-5",
       },
-      eager_input_streaming: { bedrock: !0, vertex: !0 },
+      eager_input_streaming: { bedrock: true, vertex: true },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_5_OPUS",
       fallback_3p: "claude-opus-4-8",
-      context: { window: 1e6, native_1m: !0, supports_1m_beta: !0, supports_1m_suffix: !0 },
+      context: { window: 1e6, native_1m: true, supports_1m_beta: true, supports_1m_suffix: true },
       max_output_tokens: { default: 64000, upper: 128000 },
       pricing: "tier_5_25",
       capabilities: [
@@ -457,10 +457,10 @@ var Z4t = {
         mantle: "anthropic.claude-fable-5",
         gateway: "claude-fable-5",
       },
-      eager_input_streaming: { bedrock: !0, vertex: !0 },
+      eager_input_streaming: { bedrock: true, vertex: true },
       vertex_region_env_var: "VERTEX_REGION_CLAUDE_FABLE_5",
       fallback_3p: "claude-opus-5",
-      context: { window: 1e6, native_1m: !0, supports_1m_beta: !0 },
+      context: { window: 1e6, native_1m: true, supports_1m_beta: true },
       max_output_tokens: { default: 64000, upper: 128000 },
       pricing: "tier_10_50",
       capabilities: [
@@ -495,7 +495,7 @@ var Z4t = {
         mantle: null,
         gateway: null,
       },
-      context: { window: 1e6, native_1m: !0, supports_1m_beta: !0 },
+      context: { window: 1e6, native_1m: true, supports_1m_beta: true },
       max_output_tokens: { default: 64000, upper: 128000 },
       pricing: "tier_10_50",
       capabilities: [],
@@ -577,7 +577,7 @@ var E = m(() =>
       slogan: i().optional(),
       knowledge_cutoff: i().optional(),
       provider_ids: E(),
-      eager_input_streaming: f({ bedrock: N(!0).optional(), vertex: N(!0).optional() })
+      eager_input_streaming: f({ bedrock: N(true).optional(), vertex: N(true).optional() })
         .loose()
         .optional(),
       vertex_region_env_var: i().optional(),
@@ -585,7 +585,7 @@ var E = m(() =>
       context: f({
         window: v(),
         native_1m: q().optional(),
-        native_1m_3p: f({ bedrock: N(!0).optional(), vertex: N(!0).optional(), foundry: N(!0).optional() })
+        native_1m_3p: f({ bedrock: N(true).optional(), vertex: N(true).optional(), foundry: N(true).optional() })
           .loose()
           .optional(),
         supports_1m_beta: q().optional(),
@@ -688,7 +688,7 @@ function CTn(e) {
 function hh(e, t) {
   let o = e.replace(/\[1m\]/gi, ""),
     n = Ql(o);
-  if (n !== void 0) return n.capabilities.includes(t) ? !0 : void 0;
+  if (n !== void 0) return n.capabilities.includes(t) ? true : void 0;
   return uXe().runtimeCapabilityLookup?.(o, t);
 }
 function Drr(e, t) {
@@ -779,7 +779,7 @@ var J = s(so.haiku35),
     anthropicGoogleCloud: "claude-mythos-5",
     mantle: "anthropic.claude-mythos-5",
     gateway: "claude-mythos-5",
-    eagerInputStreaming: { bedrock: !0, vertex: !0 },
+    eagerInputStreaming: { bedrock: true, vertex: true },
   },
   vTn = ["opus5", "opus48", "opus47", "opus46", "opus45"],
   Lrr = Object.values(so).map((e) => e.firstParty),
@@ -839,25 +839,25 @@ function h(e) {
   }
 }
 function eqt(e, t) {
-  if (typeof e !== "string") return !1;
+  if (typeof e !== "string") return false;
   let o = vwt(e),
     n = vwt(t);
-  if (!Rwt(o) || !Rwt(n)) return !1;
+  if (!Rwt(o) || !Rwt(n)) return false;
   let r = h(o.family),
     u = h(n.family);
-  if (r === void 0 || u === void 0) return !1;
+  if (r === void 0 || u === void 0) return false;
   return u >= r && kTn(n, o) >= 0;
 }
 function S(e) {
   let t = /^claude-([a-z]+)-(\d{1,2})(?!\d)(?:-(\d{1,2})(?!\d))?/.exec(e);
   if (t) {
     let [n, r = "", u = "", l] = t;
-    return { family: r, major: Number(u), minor: l === void 0 ? void 0 : Number(l), legacyVersionFirst: !1, base: n };
+    return { family: r, major: Number(u), minor: l === void 0 ? void 0 : Number(l), legacyVersionFirst: false, base: n };
   }
   let o = /^claude-(\d{1,2})(?!\d)(?:-(\d{1,2})(?!\d))?-([a-z]+)/.exec(e);
   if (o) {
     let [n, r = "", u, l = ""] = o;
-    return { family: l, major: Number(r), minor: u === void 0 ? void 0 : Number(u), legacyVersionFirst: !0, base: n };
+    return { family: l, major: Number(r), minor: u === void 0 ? void 0 : Number(u), legacyVersionFirst: true, base: n };
   }
   return null;
 }
@@ -866,13 +866,13 @@ function Vkr(e) {
     case "bedrock":
     case "anthropicAws":
     case "mantle":
-      return !0;
+      return true;
     case "firstParty":
     case "vertex":
     case "foundry":
     case "anthropicGoogleCloud":
     case "gateway":
-      return !1;
+      return false;
   }
 }
 var sA = {
@@ -949,12 +949,12 @@ function zg() {
   return Ne() === "firstParty" && jo();
 }
 function jo() {
-  if (a._CLAUDE_CODE_ASSUME_FIRST_PARTY_BASE_URL) return !0;
+  if (a._CLAUDE_CODE_ASSUME_FIRST_PARTY_BASE_URL) return true;
   return M$();
 }
 function M$() {
   let e = process.env.ANTHROPIC_BASE_URL;
-  if (!e) return !0;
+  if (!e) return true;
   return FT(e);
 }
 function FT(e) {
@@ -962,7 +962,7 @@ function FT(e) {
     let t = new URL(e).host;
     return ["api.anthropic.com"].includes(t);
   } catch {
-    return !1;
+    return false;
   }
 }
 function vpe() {

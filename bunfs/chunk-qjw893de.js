@@ -18,7 +18,7 @@ import { Wr, I5, EP, UC, YN, A4, wFe, EJ, AJ } from "/$bunfs/root/chunk-ma6kk3k0
 import { j, S, ue } from "/$bunfs/root/chunk-yz031c9r.js";
 var kt = S(function (Zm, yn) {
   var Qa = ue("tty"),
-    ec = Qa?.WriteStream?.prototype?.hasColors?.() ?? !1,
+    ec = Qa?.WriteStream?.prototype?.hasColors?.() ?? false,
     E = (e, t) => {
       if (!ec) return (i) => i;
       let r = `\x1B[${e}m`,
@@ -102,7 +102,7 @@ var bn = S(function (Ep, xn) {
   }
 });
 var Bn = S(function (Fp, vn) {
-  vn.exports = ({ onlyFirst: e = !1 } = {}) => {
+  vn.exports = ({ onlyFirst: e = false } = {}) => {
     let t = [
       "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)",
       "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))",
@@ -116,7 +116,7 @@ var On = S(function (wp, kn) {
 });
 var An = S(function (Cp, cr) {
   var Pn = (e) => {
-    if (Number.isNaN(e)) return !1;
+    if (Number.isNaN(e)) return false;
     if (
       e >= 4352 &&
       (e <= 4447 ||
@@ -136,8 +136,8 @@ var An = S(function (Cp, cr) {
         (127488 <= e && e <= 127569) ||
         (131072 <= e && e <= 262141))
     )
-      return !0;
-    return !1;
+      return true;
+    return false;
   };
   cr.exports = Pn;
   cr.exports.default = Pn;
@@ -169,7 +169,7 @@ var Rn = S(function (xp, lr) {
   lr.exports.default = Tn;
 });
 var Ln = S(function (bp, Nn) {
-  Nn.exports = ({ onlyFirst: e = !1 } = {}) => {
+  Nn.exports = ({ onlyFirst: e = false } = {}) => {
     let t = [
       "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)",
       "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))",
@@ -964,10 +964,10 @@ var Zn = S(function (Ap, Xn) {
       Object.defineProperty(e, t, {
         get: () => {
           let n = r();
-          return Object.defineProperty(e, t, { value: n, enumerable: !0, configurable: !0 }), n;
+          return Object.defineProperty(e, t, { value: n, enumerable: true, configurable: true }), n;
         },
-        enumerable: !0,
-        configurable: !0,
+        enumerable: true,
+        configurable: true,
       });
     },
     mr,
@@ -1039,22 +1039,22 @@ var Zn = S(function (Ap, Xn) {
     for (let [r, n] of Object.entries(t)) {
       for (let [i, o] of Object.entries(n))
         (t[i] = { open: `\x1B[${o[0]}m`, close: `\x1B[${o[1]}m` }), (n[i] = t[i]), e.set(o[0], o[1]);
-      Object.defineProperty(t, r, { value: n, enumerable: !1 });
+      Object.defineProperty(t, r, { value: n, enumerable: false });
     }
     return (
-      Object.defineProperty(t, "codes", { value: e, enumerable: !1 }),
+      Object.defineProperty(t, "codes", { value: e, enumerable: false }),
       (t.color.close = "\x1B[39m"),
       (t.bgColor.close = "\x1B[49m"),
-      je(t.color, "ansi", () => Ue(Kn, "ansi16", Pt, !1)),
-      je(t.color, "ansi256", () => Ue(Gn, "ansi256", Pt, !1)),
-      je(t.color, "ansi16m", () => Ue(Hn, "rgb", Yn, !1)),
-      je(t.bgColor, "ansi", () => Ue(Kn, "ansi16", Pt, !0)),
-      je(t.bgColor, "ansi256", () => Ue(Gn, "ansi256", Pt, !0)),
-      je(t.bgColor, "ansi16m", () => Ue(Hn, "rgb", Yn, !0)),
+      je(t.color, "ansi", () => Ue(Kn, "ansi16", Pt, false)),
+      je(t.color, "ansi256", () => Ue(Gn, "ansi256", Pt, false)),
+      je(t.color, "ansi16m", () => Ue(Hn, "rgb", Yn, false)),
+      je(t.bgColor, "ansi", () => Ue(Kn, "ansi16", Pt, true)),
+      je(t.bgColor, "ansi256", () => Ue(Gn, "ansi256", Pt, true)),
+      je(t.bgColor, "ansi16m", () => Ue(Hn, "rgb", Yn, true)),
       t
     );
   }
-  Object.defineProperty(Xn, "exports", { enumerable: !0, get: Sc });
+  Object.defineProperty(Xn, "exports", { enumerable: true, get: Sc });
 });
 var ti = S(function (qp, ei) {
   var ot = Rn(),
@@ -1065,15 +1065,15 @@ var ti = S(function (qp, ei) {
     vc = (e) => e.split(" ").map((t) => ot(t)),
     pr = (e, t, r) => {
       let n = [...t],
-        i = !1,
+        i = false,
         o = ot(xc(e[e.length - 1]));
       for (let [u, s] of n.entries()) {
         let a = ot(s);
         if (o + a <= r) e[e.length - 1] += s;
         else e.push(s), (o = 0);
-        if (hr.has(s)) i = !0;
+        if (hr.has(s)) i = true;
         else if (i && s === "m") {
-          i = !1;
+          i = false;
           continue;
         }
         if (i) continue;
@@ -1092,18 +1092,18 @@ var ti = S(function (qp, ei) {
       return t.slice(0, r).join(" ") + t.slice(r).join("");
     },
     kc = (e, t, r = {}) => {
-      if (r.trim !== !1 && e.trim() === "") return "";
+      if (r.trim !== false && e.trim() === "") return "";
       let n = "",
         i = "",
         o,
         u = vc(e),
         s = [""];
       for (let [a, l] of e.split(" ").entries()) {
-        if (r.trim !== !1) s[s.length - 1] = s[s.length - 1].trimLeft();
+        if (r.trim !== false) s[s.length - 1] = s[s.length - 1].trimLeft();
         let c = ot(s[s.length - 1]);
         if (a !== 0) {
-          if (c >= t && (r.wordWrap === !1 || r.trim === !1)) s.push(""), (c = 0);
-          if (c > 0 || r.trim === !1) (s[s.length - 1] += " "), c++;
+          if (c >= t && (r.wordWrap === false || r.trim === false)) s.push(""), (c = 0);
+          if (c > 0 || r.trim === false) (s[s.length - 1] += " "), c++;
         }
         if (r.hard && u[a] > t) {
           let f = t - c,
@@ -1113,19 +1113,19 @@ var ti = S(function (qp, ei) {
           continue;
         }
         if (c + u[a] > t && c > 0 && u[a] > 0) {
-          if (r.wordWrap === !1 && c < t) {
+          if (r.wordWrap === false && c < t) {
             pr(s, l, t);
             continue;
           }
           s.push("");
         }
-        if (c + u[a] > t && r.wordWrap === !1) {
+        if (c + u[a] > t && r.wordWrap === false) {
           pr(s, l, t);
           continue;
         }
         s[s.length - 1] += l;
       }
-      if (r.trim !== !1) s = s.map(Bc);
+      if (r.trim !== false) s = s.map(Bc);
       n = s.join(`
 `);
       for (let [a, l] of [...n].entries()) {
@@ -1171,12 +1171,12 @@ var ci = S(function (Ip, ai) {
     #e = null;
     constructor(e = {}) {
       super(e);
-      (this.writable = this.readable = !0),
-        (this.muted = !1),
+      (this.writable = this.readable = true),
+        (this.muted = false),
         this.on("pipe", this._onpipe),
         (this.replace = e.replace),
         (this._prompt = e.prompt || null),
-        (this._hadControl = !1);
+        (this._hadControl = false);
     }
     #t(e, t) {
       if (this._dest) return this._dest[e];
@@ -1189,7 +1189,7 @@ var ci = S(function (Ip, ai) {
     }
     get isTTY() {
       if (this.#e !== null) return this.#e;
-      return this.#t("isTTY", !1);
+      return this.#t("isTTY", false);
     }
     set isTTY(e) {
       this.#e = e;
@@ -1201,10 +1201,10 @@ var ci = S(function (Ip, ai) {
       return this.#t("columns");
     }
     mute() {
-      this.muted = !0;
+      this.muted = true;
     }
     unmute() {
-      this.muted = !1;
+      this.muted = false;
     }
     _onpipe(e) {
       this._src = e;
@@ -1220,14 +1220,14 @@ var ci = S(function (Ip, ai) {
     }
     write(e) {
       if (this.muted) {
-        if (!this.replace) return !0;
+        if (!this.replace) return true;
         if (e.match(/^\u001b/)) {
           if (e.indexOf(this._prompt) === 0)
             (e = e.slice(this._prompt.length)), (e = e.replace(/./g, this.replace)), (e = this._prompt + e);
-          return (this._hadControl = !0), this.emit("data", e);
+          return (this._hadControl = true), this.emit("data", e);
         } else {
           if (this._prompt && this._hadControl && e.indexOf(this._prompt) === 0)
-            (this._hadControl = !1), this.emit("data", this._prompt), (e = e.slice(this._prompt.length));
+            (this._hadControl = false), this.emit("data", this._prompt), (e = e.slice(this._prompt.length));
           e = e.toString().replace(/./g, this.replace);
         }
       }
@@ -1308,7 +1308,7 @@ var fi = S(function (qc, gr) {
     let r = `${st}1337;File=inline=1`;
     if (t.width) r += `;width=${t.width}`;
     if (t.height) r += `;height=${t.height}`;
-    if (t.preserveAspectRatio === !1) r += ";preserveAspectRatio=0";
+    if (t.preserveAspectRatio === false) r += ";preserveAspectRatio=0";
     return r + ":" + e.toString("base64") + Ie;
   };
   F.iTerm = {
@@ -1382,7 +1382,7 @@ var Ei = S(function (Nc, Fr) {
     let r = `${at}1337;File=inline=1`;
     if (t.width) r += `;width=${t.width}`;
     if (t.height) r += `;height=${t.height}`;
-    if (t.preserveAspectRatio === !1) r += ";preserveAspectRatio=0";
+    if (t.preserveAspectRatio === false) r += ";preserveAspectRatio=0";
     return r + ":" + e.toString("base64") + We;
   };
   C.iTerm = {
@@ -1521,8 +1521,8 @@ var qi = S(function (Yc, vr) {
       if (typeof e === "number") return e;
       return { ...t, ...e }.mode;
     };
-  Yc.makeDir = async (e, t) => (Pi(e), Oi.mkdir(e, { mode: Ai(t), recursive: !0 }));
-  Yc.makeDirSync = (e, t) => (Pi(e), Oi.mkdirSync(e, { mode: Ai(t), recursive: !0 }));
+  Yc.makeDir = async (e, t) => (Pi(e), Oi.mkdir(e, { mode: Ai(t), recursive: true }));
+  Yc.makeDirSync = (e, t) => (Pi(e), Oi.mkdirSync(e, { mode: Ai(t), recursive: true }));
 });
 var ne = S(function (Yh, Mi) {
   var Qc = A().fromPromise,
@@ -1535,8 +1535,8 @@ var me = S(function (Xh, Ri) {
     Ti = Me();
   function rl(e) {
     return Ti.access(e)
-      .then(() => !0)
-      .catch(() => !1);
+      .then(() => true)
+      .catch(() => false);
   }
   Ri.exports = { pathExists: tl(rl), pathExistsSync: Ti.existsSync };
 });
@@ -1563,7 +1563,7 @@ var Te = S(function (Qh, $i) {
     z = ue("path"),
     ol = ue("util");
   function ul(e, t, r) {
-    let n = r.dereference ? (i) => Ke.stat(i, { bigint: !0 }) : (i) => Ke.lstat(i, { bigint: !0 });
+    let n = r.dereference ? (i) => Ke.stat(i, { bigint: true }) : (i) => Ke.lstat(i, { bigint: true });
     return Promise.all([
       n(e),
       n(t).catch((i) => {
@@ -1574,7 +1574,7 @@ var Te = S(function (Qh, $i) {
   }
   function sl(e, t, r) {
     let n,
-      i = r.dereference ? (u) => Ke.statSync(u, { bigint: !0 }) : (u) => Ke.lstatSync(u, { bigint: !0 }),
+      i = r.dereference ? (u) => Ke.statSync(u, { bigint: true }) : (u) => Ke.lstatSync(u, { bigint: true }),
       o = i(e);
     try {
       n = i(t);
@@ -1593,7 +1593,7 @@ var Te = S(function (Qh, $i) {
           let l = z.basename(e),
             c = z.basename(t);
           if (r === "move" && l !== c && l.toLowerCase() === c.toLowerCase())
-            return i(null, { srcStat: s, destStat: a, isChangingCase: !0 });
+            return i(null, { srcStat: s, destStat: a, isChangingCase: true });
           return i(Error("Source and destination must not be the same."));
         }
         if (s.isDirectory() && !a.isDirectory())
@@ -1612,7 +1612,7 @@ var Te = S(function (Qh, $i) {
         let u = z.basename(e),
           s = z.basename(t);
         if (r === "move" && u !== s && u.toLowerCase() === s.toLowerCase())
-          return { srcStat: i, destStat: o, isChangingCase: !0 };
+          return { srcStat: i, destStat: o, isChangingCase: true };
         throw Error("Source and destination must not be the same.");
       }
       if (i.isDirectory() && !o.isDirectory())
@@ -1627,7 +1627,7 @@ var Te = S(function (Qh, $i) {
     let o = z.resolve(z.dirname(e)),
       u = z.resolve(z.dirname(r));
     if (u === o || u === z.parse(u).root) return i();
-    Ke.stat(u, { bigint: !0 }, (s, a) => {
+    Ke.stat(u, { bigint: true }, (s, a) => {
       if (s) {
         if (s.code === "ENOENT") return i();
         return i(s);
@@ -1642,7 +1642,7 @@ var Te = S(function (Qh, $i) {
     if (o === i || o === z.parse(o).root) return;
     let u;
     try {
-      u = Ke.statSync(o, { bigint: !0 });
+      u = Ke.statSync(o, { bigint: true });
     } catch (s) {
       if (s.code === "ENOENT") return;
       throw s;
@@ -1662,7 +1662,7 @@ var Te = S(function (Qh, $i) {
         .resolve(t)
         .split(z.sep)
         .filter((i) => i);
-    return r.reduce((i, o, u) => i && n[u] === o, !0);
+    return r.reduce((i, o, u) => i && n[u] === o, true);
   }
   function Nt(e, t, r) {
     return `Cannot ${r} '${e}' to a subdirectory of itself, '${t}'.`;
@@ -1688,7 +1688,7 @@ var Ki = S(function (e0, Ji) {
     else if (typeof r === "function") r = { filter: r };
     (n = n || function () {}),
       (r = r || {}),
-      (r.clobber = "clobber" in r ? !!r.clobber : !0),
+      (r.clobber = "clobber" in r ? !!r.clobber : true),
       (r.overwrite = "overwrite" in r ? !!r.overwrite : r.clobber),
       r.preserveTimestamps,
       ft.checkPaths(e, t, "copy", r, (i, o) => {
@@ -1856,7 +1856,7 @@ var Zi = S(function (t0, Xi) {
   function kl(e, t, r) {
     if (typeof r === "function") r = { filter: r };
     (r = r || {}),
-      (r.clobber = "clobber" in r ? !!r.clobber : !0),
+      (r.clobber = "clobber" in r ? !!r.clobber : true),
       (r.overwrite = "overwrite" in r ? !!r.overwrite : r.clobber),
       r.preserveTimestamps;
     let { srcStat: n, destStat: i } = dt.checkPathsSync(e, t, "copy", r);
@@ -2074,11 +2074,11 @@ var mt = S(function (i0, ao) {
     Vl = A().fromCallback,
     so = uo();
   function Jl(e, t) {
-    if (_t.rm) return _t.rm(e, { recursive: !0, force: !0 }, t);
+    if (_t.rm) return _t.rm(e, { recursive: true, force: true }, t);
     so(e, t);
   }
   function Kl(e) {
-    if (_t.rmSync) return _t.rmSync(e, { recursive: !0, force: !0 });
+    if (_t.rmSync) return _t.rmSync(e, { recursive: true, force: true });
     so.sync(e);
   }
   ao.exports = { remove: Vl(Jl), removeSync: Kl };
@@ -2251,7 +2251,7 @@ var ko = S(function (a0, Bo) {
 var Ao = S(function (c0, Po) {
   var Oo = wh();
   function uf(e, t, r) {
-    if (((r = typeof t === "function" ? t : r), (t = typeof t === "function" ? !1 : t), t)) return r(null, t);
+    if (((r = typeof t === "function" ? t : r), (t = typeof t === "function" ? false : t), t)) return r(null, t);
     Oo.lstat(e, (n, i) => {
       if (n) return r(null, "file");
       (t = i && i.isDirectory() ? "dir" : "file"), r(null, t);
@@ -2286,7 +2286,7 @@ var $o = S(function (l0, zo) {
     { areIdentical: Lo } = Te();
   function hf(e, t, r, n) {
     (n = typeof r === "function" ? r : n),
-      (r = typeof r === "function" ? !1 : r),
+      (r = typeof r === "function" ? false : r),
       ie.lstat(t, (i, o) => {
         if (!i && o.isSymbolicLink())
           Promise.all([ie.stat(e), ie.stat(t)]).then(([u, s]) => {
@@ -2357,7 +2357,7 @@ var Ge = S(function (D0, Go) {
     {
       EOL: t = `
 `,
-      finalEOL: r = !0,
+      finalEOL: r = true,
       replacer: n = null,
       spaces: i,
     } = {},
@@ -2383,7 +2383,7 @@ var Rr = S(function (d0, Xo) {
   async function Ff(e, t = {}) {
     if (typeof t === "string") t = { encoding: t };
     let r = t.fs || He,
-      n = "throws" in t ? t.throws : !0,
+      n = "throws" in t ? t.throws : true,
       i = await jt.fromCallback(r.readFile)(e, t);
     i = Yo(i);
     let o;
@@ -2399,7 +2399,7 @@ var Rr = S(function (d0, Xo) {
   function Cf(e, t = {}) {
     if (typeof t === "string") t = { encoding: t };
     let r = t.fs || He,
-      n = "throws" in t ? t.throws : !0;
+      n = "throws" in t ? t.throws : true;
     try {
       let i = r.readFileSync(e, t);
       return (i = Yo(i)), JSON.parse(i, t.reviver);
@@ -2498,10 +2498,10 @@ var du = S(function (E0, Du) {
   function Uf(e, t, r, n) {
     if (typeof r === "function") (n = r), (r = {});
     r = r || {};
-    let i = r.overwrite || r.clobber || !1;
+    let i = r.overwrite || r.clobber || false;
     cu.checkPaths(e, t, "move", r, (o, u) => {
       if (o) return n(o);
-      let { srcStat: s, isChangingCase: a = !1 } = u;
+      let { srcStat: s, isChangingCase: a = false } = u;
       cu.checkParentPaths(e, s, t, "move", (l) => {
         if (l) return n(l);
         if (If(t)) return lu(e, t, i, a, n);
@@ -2537,7 +2537,7 @@ var du = S(function (E0, Du) {
     });
   }
   function Wf(e, t, r, n) {
-    $f(e, t, { overwrite: r, errorOnExist: !0 }, (o) => {
+    $f(e, t, { overwrite: r, errorOnExist: true }, (o) => {
       if (o) return n(o);
       return fu(e, n);
     });
@@ -2553,8 +2553,8 @@ var gu = S(function (F0, yu) {
     mu = Te();
   function Kf(e, t, r) {
     r = r || {};
-    let n = r.overwrite || r.clobber || !1,
-      { srcStat: i, isChangingCase: o = !1 } = mu.checkPathsSync(e, t, "move", r);
+    let n = r.overwrite || r.clobber || false,
+      { srcStat: i, isChangingCase: o = false } = mu.checkPathsSync(e, t, "move", r);
     if ((mu.checkParentPathsSync(e, i, t, "move"), !Gf(t))) Jf($r.dirname(t));
     return Hf(e, t, n, o);
   }
@@ -2577,7 +2577,7 @@ var gu = S(function (F0, yu) {
     }
   }
   function Yf(e, t, r) {
-    return Vf(e, t, { overwrite: r, errorOnExist: !0 }), hu(e);
+    return Vf(e, t, { overwrite: r, errorOnExist: true }), hu(e);
   }
   yu.exports = Kf;
 });
@@ -2683,8 +2683,8 @@ var Ou = S(function (iD, jr) {
       if (typeof e === "number") return e;
       return { ...t, ...e }.mode;
     };
-  iD.makeDir = async (e, t) => (Bu(e), vu.mkdir(e, { mode: ku(t), recursive: !0 }));
-  iD.makeDirSync = (e, t) => (Bu(e), vu.mkdirSync(e, { mode: ku(t), recursive: !0 }));
+  iD.makeDir = async (e, t) => (Bu(e), vu.mkdir(e, { mode: ku(t), recursive: true }));
+  iD.makeDirSync = (e, t) => (Bu(e), vu.mkdirSync(e, { mode: ku(t), recursive: true }));
 });
 var oe = S(function (B0, Pu) {
   var sD = A().fromPromise,
@@ -2697,8 +2697,8 @@ var ge = S(function (k0, qu) {
     Au = Re();
   function lD(e) {
     return Au.access(e)
-      .then(() => !0)
-      .catch(() => !1);
+      .then(() => true)
+      .catch(() => false);
   }
   qu.exports = { pathExists: cD(lD), pathExistsSync: Au.existsSync };
 });
@@ -2725,7 +2725,7 @@ var Ne = S(function (P0, Nu) {
     _ = ue("path"),
     dD = ue("util");
   function mD(e, t, r) {
-    let n = r.dereference ? (i) => Xe.stat(i, { bigint: !0 }) : (i) => Xe.lstat(i, { bigint: !0 });
+    let n = r.dereference ? (i) => Xe.stat(i, { bigint: true }) : (i) => Xe.lstat(i, { bigint: true });
     return Promise.all([
       n(e),
       n(t).catch((i) => {
@@ -2736,7 +2736,7 @@ var Ne = S(function (P0, Nu) {
   }
   function pD(e, t, r) {
     let n,
-      i = r.dereference ? (u) => Xe.statSync(u, { bigint: !0 }) : (u) => Xe.lstatSync(u, { bigint: !0 }),
+      i = r.dereference ? (u) => Xe.statSync(u, { bigint: true }) : (u) => Xe.lstatSync(u, { bigint: true }),
       o = i(e);
     try {
       n = i(t);
@@ -2755,7 +2755,7 @@ var Ne = S(function (P0, Nu) {
           let l = _.basename(e),
             c = _.basename(t);
           if (r === "move" && l !== c && l.toLowerCase() === c.toLowerCase())
-            return i(null, { srcStat: s, destStat: a, isChangingCase: !0 });
+            return i(null, { srcStat: s, destStat: a, isChangingCase: true });
           return i(Error("Source and destination must not be the same."));
         }
         if (s.isDirectory() && !a.isDirectory())
@@ -2774,7 +2774,7 @@ var Ne = S(function (P0, Nu) {
         let u = _.basename(e),
           s = _.basename(t);
         if (r === "move" && u !== s && u.toLowerCase() === s.toLowerCase())
-          return { srcStat: i, destStat: o, isChangingCase: !0 };
+          return { srcStat: i, destStat: o, isChangingCase: true };
         throw Error("Source and destination must not be the same.");
       }
       if (i.isDirectory() && !o.isDirectory())
@@ -2789,7 +2789,7 @@ var Ne = S(function (P0, Nu) {
     let o = _.resolve(_.dirname(e)),
       u = _.resolve(_.dirname(r));
     if (u === o || u === _.parse(u).root) return i();
-    Xe.stat(u, { bigint: !0 }, (s, a) => {
+    Xe.stat(u, { bigint: true }, (s, a) => {
       if (s) {
         if (s.code === "ENOENT") return i();
         return i(s);
@@ -2804,7 +2804,7 @@ var Ne = S(function (P0, Nu) {
     if (o === i || o === _.parse(o).root) return;
     let u;
     try {
-      u = Xe.statSync(o, { bigint: !0 });
+      u = Xe.statSync(o, { bigint: true });
     } catch (s) {
       if (s.code === "ENOENT") return;
       throw s;
@@ -2822,7 +2822,7 @@ var Ne = S(function (P0, Nu) {
       n = _.resolve(t)
         .split(_.sep)
         .filter((i) => i);
-    return r.reduce((i, o, u) => i && n[u] === o, !0);
+    return r.reduce((i, o, u) => i && n[u] === o, true);
   }
   function Wt(e, t, r) {
     return `Cannot ${r} '${e}' to a subdirectory of itself, '${t}'.`;
@@ -2848,7 +2848,7 @@ var Wu = S(function (A0, Iu) {
     else if (typeof r === "function") r = { filter: r };
     (n = n || function () {}),
       (r = r || {}),
-      (r.clobber = "clobber" in r ? !!r.clobber : !0),
+      (r.clobber = "clobber" in r ? !!r.clobber : true),
       (r.overwrite = "overwrite" in r ? !!r.overwrite : r.clobber),
       r.preserveTimestamps,
       Et.checkPaths(e, t, "copy", r, (i, o) => {
@@ -3016,7 +3016,7 @@ var Hu = S(function (q0, Gu) {
   function ND(e, t, r) {
     if (typeof r === "function") r = { filter: r };
     (r = r || {}),
-      (r.clobber = "clobber" in r ? !!r.clobber : !0),
+      (r.clobber = "clobber" in r ? !!r.clobber : true),
       (r.overwrite = "overwrite" in r ? !!r.overwrite : r.clobber),
       r.preserveTimestamps;
     let { srcStat: n, destStat: i } = wt.checkPathsSync(e, t, "copy", r);
@@ -3234,11 +3234,11 @@ var Ct = S(function (R0, os) {
     QD = A().fromCallback,
     is = ns();
   function ed(e, t) {
-    if (Gt.rm) return Gt.rm(e, { recursive: !0, force: !0 }, t);
+    if (Gt.rm) return Gt.rm(e, { recursive: true, force: true }, t);
     is(e, t);
   }
   function td(e) {
-    if (Gt.rmSync) return Gt.rmSync(e, { recursive: !0, force: !0 });
+    if (Gt.rmSync) return Gt.rmSync(e, { recursive: true, force: true });
     is.sync(e);
   }
   os.exports = { remove: QD(ed), removeSync: td };
@@ -3411,7 +3411,7 @@ var xs = S(function ($0, Ss) {
 var Bs = S(function (_0, vs) {
   var bs = wh();
   function dd(e, t, r) {
-    if (((r = typeof t === "function" ? t : r), (t = typeof t === "function" ? !1 : t), t)) return r(null, t);
+    if (((r = typeof t === "function" ? t : r), (t = typeof t === "function" ? false : t), t)) return r(null, t);
     bs.lstat(e, (n, i) => {
       if (n) return r(null, "file");
       (t = i && i.isDirectory() ? "dir" : "file"), r(null, t);
@@ -3446,7 +3446,7 @@ var Rs = S(function (j0, Ts) {
     { areIdentical: Ms } = Ne();
   function Sd(e, t, r, n) {
     (n = typeof r === "function" ? r : n),
-      (r = typeof r === "function" ? !1 : r),
+      (r = typeof r === "function" ? false : r),
       se.lstat(t, (i, o) => {
         if (!i && o.isSymbolicLink())
           Promise.all([se.stat(e), se.stat(t)]).then(([u, s]) => {
@@ -3587,10 +3587,10 @@ var oa = S(function (G0, ia) {
   function _d(e, t, r, n) {
     if (typeof r === "function") (n = r), (r = {});
     r = r || {};
-    let i = r.overwrite || r.clobber || !1;
+    let i = r.overwrite || r.clobber || false;
     ta.checkPaths(e, t, "move", r, (o, u) => {
       if (o) return n(o);
-      let { srcStat: s, isChangingCase: a = !1 } = u;
+      let { srcStat: s, isChangingCase: a = false } = u;
       ta.checkParentPaths(e, s, t, "move", (l) => {
         if (l) return n(l);
         if (jd(t)) return ra(e, t, i, a, n);
@@ -3626,7 +3626,7 @@ var oa = S(function (G0, ia) {
     });
   }
   function Ud(e, t, r, n) {
-    Ld(e, t, { overwrite: r, errorOnExist: !0 }, (o) => {
+    Ld(e, t, { overwrite: r, errorOnExist: true }, (o) => {
       if (o) return n(o);
       return na(e, n);
     });
@@ -3642,8 +3642,8 @@ var la = S(function (H0, ca) {
     ua = Ne();
   function Vd(e, t, r) {
     r = r || {};
-    let n = r.overwrite || r.clobber || !1,
-      { srcStat: i, isChangingCase: o = !1 } = ua.checkPathsSync(e, t, "move", r);
+    let n = r.overwrite || r.clobber || false,
+      { srcStat: i, isChangingCase: o = false } = ua.checkPathsSync(e, t, "move", r);
     if ((ua.checkParentPathsSync(e, i, t, "move"), !Jd(t))) Wd(en.dirname(t));
     return Kd(e, t, n, o);
   }
@@ -3666,7 +3666,7 @@ var la = S(function (H0, ca) {
     }
   }
   function Gd(e, t, r) {
-    return Id(e, t, { overwrite: r, errorOnExist: !0 }), aa(e);
+    return Id(e, t, { overwrite: r, errorOnExist: true }), aa(e);
   }
   ca.exports = Vd;
 });
@@ -3678,7 +3678,7 @@ var ma = S(function (X0, da) {
   da.exports = { ...Re(), ...Kt(), ...ds(), ...Is(), ...ea(), ...oe(), ...Da(), ...Yt(), ...ge(), ...Ct() };
 });
 var tn = S(function (ha) {
-  Object.defineProperty(ha, "__esModule", { value: !0 });
+  Object.defineProperty(ha, "__esModule", { value: true });
   ha.childDepType = ha.depTypeGreater = ha.DepType = void 0;
   var y;
   (function (e) {
@@ -3695,11 +3695,11 @@ var tn = S(function (ha) {
           case y.OPTIONAL:
           case y.PROD:
           case y.ROOT:
-            return !0;
+            return true;
           case y.DEV:
           case y.DEV_OPTIONAL:
           default:
-            return !1;
+            return false;
         }
       case y.DEV_OPTIONAL:
         switch (e) {
@@ -3707,32 +3707,32 @@ var tn = S(function (ha) {
           case y.PROD:
           case y.ROOT:
           case y.DEV:
-            return !0;
+            return true;
           case y.DEV_OPTIONAL:
           default:
-            return !1;
+            return false;
         }
       case y.OPTIONAL:
         switch (e) {
           case y.PROD:
           case y.ROOT:
-            return !0;
+            return true;
           case y.OPTIONAL:
           case y.DEV:
           case y.DEV_OPTIONAL:
           default:
-            return !1;
+            return false;
         }
       case y.PROD:
         switch (e) {
           case y.ROOT:
-            return !0;
+            return true;
           case y.PROD:
           case y.OPTIONAL:
           case y.DEV:
           case y.DEV_OPTIONAL:
           default:
-            return !1;
+            return false;
         }
       case y.ROOT:
         switch (e) {
@@ -3742,10 +3742,10 @@ var tn = S(function (ha) {
           case y.DEV:
           case y.DEV_OPTIONAL:
           default:
-            return !1;
+            return false;
         }
       default:
-        return !1;
+        return false;
     }
   };
   ha.depTypeGreater = Yd;
@@ -3769,7 +3769,7 @@ var tn = S(function (ha) {
   ha.childDepType = Xd;
 });
 var Ea = S(function (ga) {
-  Object.defineProperty(ga, "__esModule", { value: !0 });
+  Object.defineProperty(ga, "__esModule", { value: true });
   ga.NativeModuleType = void 0;
   var Qd;
   (function (e) {
@@ -3777,7 +3777,7 @@ var Ea = S(function (ga) {
   })((Qd = ga.NativeModuleType || (ga.NativeModuleType = {})));
 });
 var Sa = S(function (wa) {
-  Object.defineProperty(wa, "__esModule", { value: !0 });
+  Object.defineProperty(wa, "__esModule", { value: true });
   wa.Walker = void 0;
   var em = hfe(),
     Xt = ma(),
@@ -3892,7 +3892,7 @@ var on = S(function (Se) {
             var i = Object.getOwnPropertyDescriptor(t, r);
             if (!i || ("get" in i ? !t.__esModule : i.writable || i.configurable))
               i = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -3908,12 +3908,12 @@ var on = S(function (Se) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) tm(t, e, r);
       };
-  Object.defineProperty(Se, "__esModule", { value: !0 });
+  Object.defineProperty(Se, "__esModule", { value: true });
   xa(Sa(), Se);
   xa(tn(), Se);
 });
 var ka = S(function (va) {
-  Object.defineProperty(va, "__esModule", { value: !0 });
+  Object.defineProperty(va, "__esModule", { value: true });
   va.DestroyerOfModules = void 0;
   var Zt = Cu(),
     Ze = ue("path"),
@@ -3935,7 +3935,7 @@ var ka = S(function (va) {
           else await this.destroyModule(Ze.resolve(n, i), t);
       } else await Zt.remove(e);
     }
-    async collectKeptModules({ relativePaths: e = !1 }) {
+    async collectKeptModules({ relativePaths: e = false }) {
       let t = await this.walker.walkTree(),
         r = new Map(),
         n = Ze.resolve(this.walker.getRootModule());
@@ -3948,7 +3948,7 @@ var ka = S(function (va) {
       return r;
     }
     async destroy() {
-      await this.destroyModule(this.walker.getRootModule(), await this.collectKeptModules({ relativePaths: !1 }));
+      await this.destroyModule(this.walker.getRootModule(), await this.collectKeptModules({ relativePaths: false }));
     }
     shouldKeepModule(e) {
       let t = e.depType === un.DepType.DEV || e.depType === un.DepType.DEV_OPTIONAL;
@@ -3966,7 +3966,7 @@ var Pa = S(function (xe) {
             var i = Object.getOwnPropertyDescriptor(t, r);
             if (!i || ("get" in i ? !t.__esModule : i.writable || i.configurable))
               i = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -3982,7 +3982,7 @@ var Pa = S(function (xe) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) rm(t, e, r);
       };
-  Object.defineProperty(xe, "__esModule", { value: !0 });
+  Object.defineProperty(xe, "__esModule", { value: true });
   Oa(ka(), xe);
   Oa(on(), xe);
 });
@@ -3994,12 +3994,12 @@ var Ma = S(function (iy, qa) {
     Aa = (e, t, r) => {
       let n = e;
       if (typeof t === "string" || Array.isArray(t)) n = e.toLocaleString(t, r);
-      else if (t === !0 || r !== void 0) n = e.toLocaleString(void 0, r);
+      else if (t === true || r !== void 0) n = e.toLocaleString(void 0, r);
       return n;
     };
   qa.exports = (e, t) => {
     if (!Number.isFinite(e)) throw TypeError(`Expected a finite number, got ${typeof e}: ${e}`);
-    t = Object.assign({ bits: !1, binary: !1 }, t);
+    t = Object.assign({ bits: false, binary: false }, t);
     let r = t.bits ? (t.binary ? um : om) : t.binary ? im : nm;
     if (t.signed && e === 0) return ` 0 ${r[0]}`;
     let n = e < 0,
@@ -4074,10 +4074,10 @@ function sr() {
 function ar(e) {
   let t = (...r) => {
     let n = ve(),
-      i = !1,
+      i = false,
       o = n.handleChange;
     n.handleChange = () => {
-      i = !0;
+      i = true;
     };
     let u = e(...r);
     if (i) o();
@@ -4458,7 +4458,7 @@ var Fn = {
   },
 };
 function wn(e) {
-  if (typeof e !== "object" || e === null) return !1;
+  if (typeof e !== "object" || e === null) return false;
   let t = e;
   while (Object.getPrototypeOf(t) !== null) t = Object.getPrototypeOf(t);
   return Object.getPrototypeOf(e) === t;
@@ -4477,7 +4477,7 @@ function le(...e) {
   return Cn(...t);
 }
 function Oe({ status: e = "idle", theme: t }) {
-  let [r, n] = I(!1),
+  let [r, n] = I(false),
     [i, o] = I(0),
     { prefix: u, spinner: s } = le(t);
   if (
@@ -4487,7 +4487,7 @@ function Oe({ status: e = "idle", theme: t }) {
           c = -1,
           f = setTimeout(
             Sn.bind(() => {
-              n(!0),
+              n(true),
                 (l = setInterval(
                   Sn.bind(() => {
                     (c = c + 1), o(c % s.frames.length);
@@ -4500,7 +4500,7 @@ function Oe({ status: e = "idle", theme: t }) {
         return () => {
           clearTimeout(f), clearInterval(l);
         };
-      } else n(!1);
+      } else n(false);
     }, [e]),
     r)
   )
@@ -4524,7 +4524,7 @@ function Pe(e) {
   let t = De(e);
   (t.current = e),
     ke((r) => {
-      let n = !1,
+      let n = false,
         i = ar((o, u) => {
           if (n) return;
           t.current(u, r);
@@ -4532,7 +4532,7 @@ function Pe(e) {
       return (
         r.input.on("keypress", i),
         () => {
-          (n = !0), r.input.removeListener("keypress", i);
+          (n = true), r.input.removeListener("keypress", i);
         }
       );
     }, []);
@@ -4545,7 +4545,7 @@ function ut(e, t) {
 `)
     .flatMap((r) =>
       ni
-        .default(r, t, { trim: !1, hard: !0 })
+        .default(r, t, { trim: false, hard: true })
         .split(`
 `)
         .map((n) => n.trimEnd()),
@@ -4597,7 +4597,7 @@ function ui({ active: e, lastActive: t, total: r, pageSize: n, pointer: i }) {
   if (t < e && e - t < n) return Math.min(Math.floor(n / 2), i + e - t);
   return i;
 }
-function yr({ items: e, active: t, renderItem: r, pageSize: n, loop: i = !0 }) {
+function yr({ items: e, active: t, renderItem: r, pageSize: n, loop: i = true }) {
   let o = De({ position: 0, lastActive: 0 }),
     u = i
       ? ui({ active: t, lastActive: o.current.lastActive, total: e.length, pageSize: n, pointer: o.current.position })
@@ -4693,7 +4693,7 @@ function Ae(e) {
       u = new Set(),
       s = new hi.default();
     s.pipe(n.output ?? process.stdout);
-    let a = pi.createInterface({ terminal: !0, input: i, output: s }),
+    let a = pi.createInterface({ terminal: true, input: i, output: s }),
       l = new Mt(a),
       { promise: c, resolve: f, reject: d } = Er.withResolver(),
       m = () => d(new ir());
@@ -4765,21 +4765,21 @@ var v = Ae((e, t) => {
     a = Oe({ status: n, theme: s });
   Pe((d, m) => {
     if (Le(d)) {
-      let p = e.default !== !1;
-      if (/^(y|yes)/i.test(o)) p = !0;
-      else if (/^(n|no)/i.test(o)) p = !1;
+      let p = e.default !== false;
+      if (/^(y|yes)/i.test(o)) p = true;
+      else if (/^(n|no)/i.test(o)) p = false;
       u(r(p)), i("done"), t(p);
     } else u(m.line);
   });
   let l = o,
     c = "";
   if (n === "done") l = s.style.answer(o);
-  else c = ` ${s.style.defaultAnswer(e.default === !1 ? "y/N" : "Y/n")}`;
+  else c = ` ${s.style.defaultAnswer(e.default === false ? "y/N" : "Y/n")}`;
   let f = s.style.message(e.message, n);
   return `${a} ${f}${c} ${l}`;
 });
 var w = Ae((e, t) => {
-  let { required: r, validate: n = () => !0 } = e,
+  let { required: r, validate: n = () => true } = e,
     i = le(e.theme),
     [o, u] = I("idle"),
     [s = "", a] = I(e.default),
@@ -4792,7 +4792,7 @@ var w = Ae((e, t) => {
       let U = f || s;
       u("loading");
       let x = r && !U ? "You must provide a value" : await n(U);
-      if (x === !0) d(U), u("done"), t(U);
+      if (x === true) d(U), u("done"), t(U);
       else L.write(f), c(x || "You must provide a valid value"), u("idle");
     } else if (Bt(q) && !f) a(void 0);
     else if (q.name === "tab" && !f) a(void 0), L.clearLine(0), L.write(s), d(s);
@@ -4821,14 +4821,14 @@ function Ve(e) {
 function $c(e) {
   return e.map((t) => {
     if (qe.isSeparator(t)) return t;
-    if (typeof t === "string") return { value: t, name: t, short: t, disabled: !1 };
+    if (typeof t === "string") return { value: t, name: t, short: t, disabled: false };
     let r = t.name ?? String(t.value);
-    return { value: t.value, name: r, description: t.description, short: t.short ?? r, disabled: t.disabled ?? !1 };
+    return { value: t.value, name: r, description: t.description, short: t.short ?? r, disabled: t.disabled ?? false };
   });
 }
 var Rt = Ae((e, t) => {
-  let { loop: r = !0, pageSize: n = 7 } = e,
-    i = De(!0),
+  let { loop: r = true, pageSize: n = 7 } = e,
+    i = De(true),
     o = le(zc, e.theme),
     [u, s] = I("idle"),
     a = Oe({ status: u, theme: o }),
@@ -4865,7 +4865,7 @@ var Rt = Ae((e, t) => {
     else {
       let ee = J.line.toLowerCase(),
         P = c.findIndex((M) => {
-          if (qe.isSeparator(M) || !Ve(M)) return !1;
+          if (qe.isSeparator(M) || !Ve(M)) return false;
           return M.name.toLowerCase().startsWith(ee);
         });
       if (P >= 0) p(P);
@@ -4884,7 +4884,7 @@ var Rt = Ae((e, t) => {
     b = "",
     q = "";
   if (o.helpMode === "always" || (o.helpMode === "auto" && i.current))
-    if (((i.current = !1), c.length > n))
+    if (((i.current = false), c.length > n))
       q = `
 ${o.style.help("(Use arrow keys to reveal more choices)")}`;
     else b = o.style.help("(Use arrow keys)");
@@ -5045,7 +5045,7 @@ function vvr(e, t, r, n) {
       { type: T.default.pki.oids.signingTime },
     ],
   }),
-    a.sign({ detached: !0 });
+    a.sign({ detached: true });
   let f = T.default.asn1.toDer(a.toAsn1()),
     d = Buffer.from(f.getBytes(), "binary"),
     m = mm(d),
@@ -5066,7 +5066,7 @@ async function Rvr(e) {
     let a = s[0],
       l = T.default.util.createBuffer(r);
     try {
-      u.verify({ authenticatedAttributes: !0 });
+      u.verify({ authenticatedAttributes: true });
       let h = u.signerInfos?.[0];
       if (h) {
         let B = T.default.md.sha256.create();
@@ -5140,16 +5140,16 @@ async function Lyr(e, t) {
 `);
     await lm(n, i);
     try {
-      return await dm("security", ["verify-cert", "-c", n, "-p", "codeSign"]), !0;
+      return await dm("security", ["verify-cert", "-c", n, "-p", "codeSign"]), true;
     } catch (o) {
-      return !1;
+      return false;
     }
   } catch (n) {
-    return !1;
+    return false;
   } finally {
     if (r)
       try {
-        await cm(r, { recursive: !0, force: !0 });
+        await cm(r, { recursive: true, force: true });
       } catch {}
   }
 }
@@ -5158,7 +5158,7 @@ function kvr(e) {
     { originalContent: r } = d9t(t);
   Ra(e, r);
 }
-function Qt({ silent: e = !1 } = {}) {
+function Qt({ silent: e = false } = {}) {
   return {
     log: (...t) => {
       if (!e) console.log(...t);
@@ -5180,14 +5180,14 @@ function Qt({ silent: e = !1 } = {}) {
 async function BZn({ mcpbPath: e, outputDir: t, silent: r }) {
   let n = Qt({ silent: r }),
     i = er(e);
-  if (!sn(i)) return n.error(`ERROR: MCPB file not found: ${e}`), !1;
+  if (!sn(i)) return n.error(`ERROR: MCPB file not found: ${e}`), false;
   let o = t ? er(t) : process.cwd();
-  if (!sn(o)) za(o, { recursive: !0 });
+  if (!sn(o)) za(o, { recursive: true });
   try {
     let u = hm(i),
       { originalContent: s } = d9t(u),
       a = new Map(),
-      l = !0;
+      l = true;
     {
       let f = s,
         d = -1;
@@ -5222,18 +5222,18 @@ async function BZn({ mcpbPath: e, outputDir: t, silent: r }) {
           h = er(o);
         if (!p.startsWith(h + gm) && p !== h) throw Error(`Path traversal attempt detected: ${f}`);
         let B = $a(m, "..");
-        if (!sn(B)) za(B, { recursive: !0 });
+        if (!sn(B)) za(B, { recursive: true });
         if ((ym(m, d), a.has(f)))
           try {
             let b = a.get(f);
             if (b !== void 0) pm(m, b);
           } catch (b) {}
       }
-    return n.log(`Extension unpacked successfully to ${o}`), !0;
+    return n.log(`Extension unpacked successfully to ${o}`), true;
   } catch (u) {
     if (u instanceof Error) n.error(`ERROR: Failed to unpack extension: ${u.message}`);
     else n.error("ERROR: An unknown error occurred during unpacking.");
-    return !1;
+    return false;
   }
 }
 var a8e = "0.2",
@@ -5368,7 +5368,7 @@ function jZn(e) {
     let n = Om(r, "utf-8"),
       i = JSON.parse(n),
       o = u9t.safeParse(i);
-    if (o.success) return console.log("Manifest schema validation passes!"), !0;
+    if (o.success) return console.log("Manifest schema validation passes!"), true;
     else
       return (
         console.log(`ERROR: Manifest validation failed:
@@ -5377,7 +5377,7 @@ function jZn(e) {
           let s = u.path.join(".");
           console.log(`  - ${s ? `${s}: ` : ""}${u.message}`);
         }),
-        !1
+        false
       );
   } catch (t) {
     if (t instanceof Error)
@@ -5387,7 +5387,7 @@ function jZn(e) {
       } else if (t.message.includes("JSON")) console.error(`ERROR: Invalid JSON in manifest file: ${t.message}`);
       else console.error(`ERROR: Error reading manifest: ${t.message}`);
     else console.error("ERROR: Unknown error occurred");
-    return !1;
+    return false;
   }
 }
 async function Hvr(e) {
@@ -5396,7 +5396,7 @@ async function Hvr(e) {
     n = be(t, "out");
   console.log(" -- Cleaning MCPB...");
   try {
-    await Q.copyFile(e, r), console.log(" -- Unpacking MCPB..."), await BZn({ mcpbPath: r, silent: !0, outputDir: n });
+    await Q.copyFile(e, r), console.log(" -- Unpacking MCPB..."), await BZn({ mcpbPath: r, silent: true, outputDir: n });
     let i = be(n, "manifest.json"),
       o = await Q.readFile(i, "utf-8"),
       u = JSON.parse(o),
@@ -5420,14 +5420,14 @@ async function Hvr(e) {
     } else console.log(" -- No node_modules, not pruning");
     let l = await Q.stat(e),
       { packExtension: c } = await import("/$bunfs/root/chunk-fty4h1se.js");
-    await c({ extensionPath: n, outputPath: e, silent: !0 });
+    await c({ extensionPath: n, outputPath: e, silent: true });
     let f = await Q.stat(e);
     console.log(`
 Clean Complete:`),
       console.log("Before:", cn.default(l.size)),
       console.log("After:", cn.default(f.size));
   } finally {
-    await Q.rm(t, { recursive: !0, force: !0 });
+    await Q.rm(t, { recursive: true, force: true });
   }
 }
 import { existsSync as Va, readFileSync as Am, writeFileSync as qm } from "fs";
@@ -5510,7 +5510,7 @@ async function byr(e, t) {
       validate: (a) => {
         if (!a.trim()) return "Version is required";
         if (!/^\d+\.\d+\.\d+/.test(a)) return "Version must follow semantic versioning (e.g., 1.0.0)";
-        return !0;
+        return true;
       },
     }),
     s = await w({
@@ -5540,44 +5540,44 @@ async function Tyr(e) {
   return { serverType: t, entryPoint: r, mcp_config: n };
 }
 async function Eyr() {
-  let e = await v({ message: "Does your MCP Server provide tools you want to advertise (optional)?", default: !0 }),
+  let e = await v({ message: "Does your MCP Server provide tools you want to advertise (optional)?", default: true }),
     t = [],
-    r = !1;
+    r = false;
   if (e) {
-    let n = !0;
+    let n = true;
     while (n) {
       let i = await w({ message: "Tool name:", validate: (u) => u.trim().length > 0 || "Tool name is required" }),
         o = await w({ message: "Tool description (optional):" });
       t.push({ name: i, ...(o ? { description: o } : {}) }),
-        (n = await v({ message: "Add another tool?", default: !1 }));
+        (n = await v({ message: "Add another tool?", default: false }));
     }
-    r = await v({ message: "Does your server generate additional tools at runtime?", default: !1 });
+    r = await v({ message: "Does your server generate additional tools at runtime?", default: false });
   }
   return { tools: t, toolsGenerated: r };
 }
 async function Ayr() {
-  let e = await v({ message: "Does your MCP Server provide prompts you want to advertise (optional)?", default: !1 }),
+  let e = await v({ message: "Does your MCP Server provide prompts you want to advertise (optional)?", default: false }),
     t = [],
-    r = !1;
+    r = false;
   if (e) {
-    let n = !0;
+    let n = true;
     while (n) {
       let i = await w({ message: "Prompt name:", validate: (l) => l.trim().length > 0 || "Prompt name is required" }),
         o = await w({ message: "Prompt description (optional):" }),
-        u = await v({ message: "Does this prompt have arguments?", default: !1 }),
+        u = await v({ message: "Does this prompt have arguments?", default: false }),
         s = [];
       if (u) {
-        let l = !0;
+        let l = true;
         while (l) {
           let c = await w({
             message: "Argument name:",
             validate: (f) => {
               if (!f.trim()) return "Argument name is required";
               if (s.includes(f)) return "Argument names must be unique";
-              return !0;
+              return true;
             },
           });
-          s.push(c), (l = await v({ message: "Add another argument?", default: !1 }));
+          s.push(c), (l = await v({ message: "Add another argument?", default: false }));
         }
       }
       let a = await w({
@@ -5585,9 +5585,9 @@ async function Ayr() {
         validate: (l) => l.trim().length > 0 || "Prompt text is required",
       });
       t.push({ name: i, ...(o ? { description: o } : {}), ...(s.length > 0 ? { arguments: s } : {}), text: a }),
-        (n = await v({ message: "Add another prompt?", default: !1 }));
+        (n = await v({ message: "Add another prompt?", default: false }));
     }
-    r = await v({ message: "Does your server generate additional prompts at runtime?", default: !1 });
+    r = await v({ message: "Does your server generate additional prompts at runtime?", default: false });
   }
   return { prompts: t, promptsGenerated: r };
 }
@@ -5603,7 +5603,7 @@ async function Cyr(e) {
   return { keywords: t, license: r, repository: i };
 }
 async function vyr(e) {
-  if (await v({ message: "Add a detailed long description?", default: !1 }))
+  if (await v({ message: "Add a detailed long description?", default: false }))
     return await w({ message: "Long description (supports basic markdown):", default: e });
   return;
 }
@@ -5611,9 +5611,9 @@ async function Ryr() {
   let e = await w({
       message: "Homepage URL (optional):",
       validate: (n) => {
-        if (!n.trim()) return !0;
+        if (!n.trim()) return true;
         try {
-          return new URL(n), !0;
+          return new URL(n), true;
         } catch {
           return "Must be a valid URL (e.g., https://example.com)";
         }
@@ -5622,9 +5622,9 @@ async function Ryr() {
     t = await w({
       message: "Documentation URL (optional):",
       validate: (n) => {
-        if (!n.trim()) return !0;
+        if (!n.trim()) return true;
         try {
-          return new URL(n), !0;
+          return new URL(n), true;
         } catch {
           return "Must be a valid URL";
         }
@@ -5633,9 +5633,9 @@ async function Ryr() {
     r = await w({
       message: "Support URL (optional):",
       validate: (n) => {
-        if (!n.trim()) return !0;
+        if (!n.trim()) return true;
         try {
-          return new URL(n), !0;
+          return new URL(n), true;
         } catch {
           return "Must be a valid URL";
         }
@@ -5647,43 +5647,43 @@ async function kyr() {
   let e = await w({
       message: "Icon file path (optional, relative to manifest):",
       validate: (n) => {
-        if (!n.trim()) return !0;
+        if (!n.trim()) return true;
         if (n.includes("..")) return "Relative paths cannot include '..'";
-        return !0;
+        return true;
       },
     }),
-    t = await v({ message: "Add screenshots?", default: !1 }),
+    t = await v({ message: "Add screenshots?", default: false }),
     r = [];
   if (t) {
-    let n = !0;
+    let n = true;
     while (n) {
       let i = await w({
         message: "Screenshot file path (relative to manifest):",
         validate: (o) => {
           if (!o.trim()) return "Screenshot path is required";
           if (o.includes("..")) return "Relative paths cannot include '..'";
-          return !0;
+          return true;
         },
       });
-      r.push(i), (n = await v({ message: "Add another screenshot?", default: !1 }));
+      r.push(i), (n = await v({ message: "Add another screenshot?", default: false }));
     }
   }
   return { icon: e, screenshots: r };
 }
 async function Hyr(e) {
-  if (!(await v({ message: "Add compatibility constraints?", default: !1 }))) return;
-  let r = await v({ message: "Specify supported platforms?", default: !1 }),
+  if (!(await v({ message: "Add compatibility constraints?", default: false }))) return;
+  let r = await v({ message: "Specify supported platforms?", default: false }),
     n;
   if (r) {
     let o = [];
-    if (await v({ message: "Support macOS (darwin)?", default: !0 })) o.push("darwin");
-    if (await v({ message: "Support Windows (win32)?", default: !0 })) o.push("win32");
-    if (await v({ message: "Support Linux?", default: !0 })) o.push("linux");
+    if (await v({ message: "Support macOS (darwin)?", default: true })) o.push("darwin");
+    if (await v({ message: "Support Windows (win32)?", default: true })) o.push("win32");
+    if (await v({ message: "Support Linux?", default: true })) o.push("linux");
     n = o.length > 0 ? o : void 0;
   }
   let i;
   if (e !== "binary") {
-    if (await v({ message: "Specify runtime version constraints?", default: !1 })) {
+    if (await v({ message: "Specify runtime version constraints?", default: false })) {
       if (e === "python")
         i = {
           python: await w({
@@ -5703,16 +5703,16 @@ async function Hyr(e) {
   return { ...(n ? { platforms: n } : {}), ...(i ? { runtimes: i } : {}) };
 }
 async function xyr() {
-  if (!(await v({ message: "Add user-configurable options?", default: !1 }))) return {};
+  if (!(await v({ message: "Add user-configurable options?", default: false }))) return {};
   let t = {},
-    r = !0;
+    r = true;
   while (r) {
     let n = await w({
         message: "Configuration option key (unique identifier):",
         validate: (c) => {
           if (!c.trim()) return "Key is required";
           if (t[c]) return "Key must be unique";
-          return !0;
+          return true;
         },
       }),
       i = await Rt({
@@ -5733,17 +5733,17 @@ async function xyr() {
         message: "Option description:",
         validate: (c) => c.trim().length > 0 || "Description is required",
       }),
-      s = await v({ message: "Is this option required?", default: !1 }),
-      a = await v({ message: "Is this option sensitive (like a password)?", default: !1 }),
+      s = await v({ message: "Is this option required?", default: false }),
+      a = await v({ message: "Is this option sensitive (like a password)?", default: false }),
       l = { type: i, title: o, description: u, required: s, sensitive: a };
     if (!s) {
       let c;
-      if (i === "boolean") c = await v({ message: "Default value:", default: !1 });
+      if (i === "boolean") c = await v({ message: "Default value:", default: false });
       else if (i === "number") {
         let f = await w({
           message: "Default value (number):",
           validate: (d) => {
-            if (!d.trim()) return !0;
+            if (!d.trim()) return true;
             return !isNaN(Number(d)) || "Must be a valid number";
           },
         });
@@ -5752,18 +5752,18 @@ async function xyr() {
       if (c !== void 0 && c !== "") l.default = c;
     }
     if (i === "number") {
-      if (await v({ message: "Add min/max constraints?", default: !1 })) {
+      if (await v({ message: "Add min/max constraints?", default: false })) {
         let f = await w({
             message: "Minimum value (optional):",
             validate: (m) => {
-              if (!m.trim()) return !0;
+              if (!m.trim()) return true;
               return !isNaN(Number(m)) || "Must be a valid number";
             },
           }),
           d = await w({
             message: "Maximum value (optional):",
             validate: (m) => {
-              if (!m.trim()) return !0;
+              if (!m.trim()) return true;
               return !isNaN(Number(m)) || "Must be a valid number";
             },
           });
@@ -5771,7 +5771,7 @@ async function xyr() {
         if (d) l.max = Number(d);
       }
     }
-    (t[n] = l), (r = await v({ message: "Add another configuration option?", default: !1 }));
+    (t[n] = l), (r = await v({ message: "Add another configuration option?", default: false }));
   }
   return t;
 }
@@ -5795,9 +5795,9 @@ function Iyr(e, t, r, n, i, o, u, s, a, l, c, f, d) {
     ...(i.screenshots.length > 0 ? { screenshots: i.screenshots } : {}),
     server: { type: U, entry_point: x, mcp_config: J },
     ...(u.length > 0 ? { tools: u } : {}),
-    ...(s ? { tools_generated: !0 } : {}),
+    ...(s ? { tools_generated: true } : {}),
     ...(a.length > 0 ? { prompts: a } : {}),
-    ...(l ? { prompts_generated: !0 } : {}),
+    ...(l ? { prompts_generated: true } : {}),
     ...(c ? { compatibility: c } : {}),
     ...(Object.keys(f).length > 0 ? { user_config: f } : {}),
     ...(ee
@@ -5818,13 +5818,13 @@ Next steps:`),
     console.log("1. Ensure all your production dependencies are in this directory"),
     console.log("2. Run 'mcpb pack' to create your .mcpb file");
 }
-async function $Zn(e = process.cwd(), t = !1) {
+async function $Zn(e = process.cwd(), t = false) {
   let r = Mm(e),
     n = Ka(r, "manifest.json");
   if (Va(n)) {
-    if (t) return console.log("manifest.json already exists. Use --force to overwrite in non-interactive mode."), !1;
-    if (!(await v({ message: "manifest.json already exists. Overwrite?", default: !1 })))
-      return console.log("Cancelled"), !1;
+    if (t) return console.log("manifest.json already exists. Use --force to overwrite in non-interactive mode."), false;
+    if (!(await v({ message: "manifest.json already exists. Overwrite?", default: false })))
+      return console.log("Cancelled"), false;
   }
   if (!t)
     console.log("This utility will help you create a manifest.json file for your MCPB bundle."),
@@ -5839,8 +5839,8 @@ async function $Zn(e = process.cwd(), t = !1) {
       a = t ? { homepage: "", documentation: "", support: "" } : await Ryr(),
       l = t ? { icon: "", screenshots: [] } : await kyr(),
       c = t ? yyr(i) : await Tyr(i),
-      f = t ? { tools: [], toolsGenerated: !1 } : await Eyr(),
-      d = t ? { prompts: [], promptsGenerated: !1 } : await Ayr(),
+      f = t ? { tools: [], toolsGenerated: false } : await Eyr(),
+      d = t ? { prompts: [], promptsGenerated: false } : await Ayr(),
       m = t ? void 0 : await Hyr(c.serverType),
       p = t ? {} : await xyr(),
       h = t ? Syr(i) : await Cyr(i),
@@ -5855,14 +5855,14 @@ async function $Zn(e = process.cwd(), t = !1) {
       console.log(`
 Created manifest.json at ${n}`),
       Pyr(),
-      !0
+      true
     );
   } catch (i) {
     if (i instanceof Error && i.message.includes("User force closed"))
       return (
         console.log(`
 Cancelled`),
-        !1
+        false
       );
     throw i;
   }
@@ -5884,17 +5884,17 @@ function Um(e) {
 async function Myr({ extensionPath: e, outputPath: t, silent: r }) {
   let n = ln(e),
     i = Qt({ silent: r });
-  if (!Ga(n) || !Lm(n).isDirectory()) return i.error(`ERROR: Directory not found: ${e}`), !1;
+  if (!Ga(n) || !Lm(n).isDirectory()) return i.error(`ERROR: Directory not found: ${e}`), false;
   let o = Ha(n, "manifest.json");
   if (!Ga(o))
     if (
       (i.log(`No manifest.json found in ${e}`),
-      await v({ message: "Would you like to create a manifest.json file?", default: !0 }))
+      await v({ message: "Would you like to create a manifest.json file?", default: true }))
     ) {
-      if (!(await $Zn(e))) return i.error("ERROR: Failed to create manifest"), !1;
-    } else return i.error("ERROR: Cannot pack extension without manifest.json"), !1;
+      if (!(await $Zn(e))) return i.error("ERROR: Failed to create manifest"), false;
+    } else return i.error("ERROR: Cannot pack extension without manifest.json"), false;
   if ((i.log("Validating manifest..."), !jZn(o)))
-    return i.error("ERROR: Cannot pack extension with invalid manifest"), !1;
+    return i.error("ERROR: Cannot pack extension with invalid manifest"), false;
   let u;
   try {
     let f = Nm(o, "utf-8"),
@@ -5902,19 +5902,19 @@ async function Myr({ extensionPath: e, outputPath: t, silent: r }) {
     u = u9t.parse(d);
   } catch (f) {
     if ((i.error("ERROR: Failed to parse manifest.json"), f instanceof Error)) i.error(`  ${f.message}`);
-    return !1;
+    return false;
   }
   let s = u.manifest_version || u.dxt_version;
   if (s !== a8e)
     return (
       i.error(`ERROR: Manifest version mismatch. Expected "${a8e}", found "${s}"`),
       i.error(`  Please update the manifest_version in your manifest.json to "${a8e}"`),
-      !1
+      false
     );
   let a = $m(n),
     l = t ? ln(t) : ln(`${a}.mcpb`),
     c = Ha(l, "..");
-  Rm(c, { recursive: !0 });
+  Rm(c, { recursive: true });
   try {
     let f = UZn(n),
       { files: d, ignoredCount: m } = uyn(n, n, {}, f);
@@ -5947,7 +5947,7 @@ async function Myr({ extensionPath: e, outputPath: t, silent: r }) {
         i.log(`${bt(tt).padStart(8)} ${et}`);
       } else i.log(`${bt(ae).padStart(8)} ${P}/ [and ${M.length} more files]`);
     let q = {},
-      L = !0;
+      L = true;
     for (let [P, M] of Object.entries(d))
       if (L) q[P] = [M.data, { os: 3, attrs: (M.mode & 511) << 16 }];
       else q[P] = M.data;
@@ -5968,12 +5968,12 @@ Archive Details`),
       i.log(`ignored (.mcpbignore) files: ${m}`),
       i.log(`
 Output: ${l}`),
-      !0
+      true
     );
   } catch (f) {
     if (f instanceof Error) i.error(`ERROR: Archive error: ${f.message}`);
     else i.error("ERROR: Unknown archive error occurred");
-    return !1;
+    return false;
   }
 }
 export {

@@ -386,7 +386,7 @@ async function Ye(a, n, { signal: f, onProgress: x }) {
   try {
     let m = h ?? ee(),
       [N, K, X, q] = p
-        ? [void 0, void 0, await Iee({ cwd: m, storageV5: n.storageV5, credentials: n.credentials }), !1]
+        ? [void 0, void 0, await Iee({ cwd: m, storageV5: n.storageV5, credentials: n.credentials }), false]
         : await Promise.all([
             cl(m),
             Cw(m),
@@ -421,7 +421,7 @@ ${i}`,
       stdout: y,
       code: R,
       error: le,
-    } = await qe("gh", Y, { timeout: 1e4, preserveOutputOnError: !0, abortSignal: f, cwd: m });
+    } = await qe("gh", Y, { timeout: 1e4, preserveOutputOnError: true, abortSignal: f, cwd: m });
     if (f.aborted) return se();
     if (R !== 0 || !y.trim()) {
       if (le?.includes("ENOENT")) return B("gh CLI is required but not found.", "gh_not_found");
@@ -501,7 +501,7 @@ ${E.join(`
         branchName: z,
         reuseOutcomeBranch: z,
         title: `Autofix PR: ${I}/${D}#${v} (${z})`,
-        useDefaultEnvironment: !0,
+        useDefaultEnvironment: true,
         signal: f,
         githubPr: { owner: I, repo: D, number: v },
         cwd: m,
@@ -527,7 +527,7 @@ ${E.join(`
       remoteTaskType: "autofix-pr",
       session: { id: G.id, title: G.title },
       command: Ne,
-      isLongRunning: !0,
+      isLongRunning: true,
       remoteTaskMetadata: { owner: I, repo: D, prNumber: v },
       context: {
         abortController: new AbortController(),
@@ -581,10 +581,10 @@ function se() {
 async function Je(a, n, f, x) {
   let g = Oa(),
     O = rc() && !!g,
-    T = O && g ? await g.subscribePR(n, f) : { ok: !1 },
+    T = O && g ? await g.subscribePR(n, f) : { ok: false },
     h = `${Be}${a} (created in this session). Check state with \`gh pr view ${f} -R ${n} --json state,mergeable,mergeStateStatus,statusCheckRollup\` and new review comments with \`gh api --paginate repos/${n}/pulls/${f}/comments\`. If MERGED or CLOSED, delete this cron with ${$S} and report the outcome. If CI is failing, comments are unaddressed, or there are merge conflicts, fix and push.${x} Otherwise nothing to do \u2014 complete the turn without commentary.`,
-    H = (await U2()).some((N) => N.durable === !1 && N.prompt.startsWith(`${Be}${a} `));
-  if (!H) await cTe("*/30 * * * *", h, !0, !1), RU(!0);
+    H = (await U2()).some((N) => N.durable === false && N.prompt.startsWith(`${Be}${a} `));
+  if (!H) await cTe("*/30 * * * *", h, true, false), RU(true);
   let m = [`Monitoring ${a} in this session.`];
   if (T.ok) m.push("Webhook events (CI failures, reviews, close/reopen) will arrive as user messages.");
   else if (O)
@@ -613,7 +613,7 @@ function lr() {
   return !ie().hasSeenAutofixPrChatOpsNotice;
 }
 function fr(Ue) {
-  return Ue.hasSeenAutofixPrChatOpsNotice ? Ue : { ...Ue, hasSeenAutofixPrChatOpsNotice: !0 };
+  return Ue.hasSeenAutofixPrChatOpsNotice ? Ue : { ...Ue, hasSeenAutofixPrChatOpsNotice: true };
 }
 function cr(ft) {
   return ft.settings?.prUrlTemplate;
@@ -654,7 +654,7 @@ function He(Zr) {
   let he;
   if (W[9] !== Q || W[10] !== S)
     (he = (tt) => {
-      if (tt === "continue") Ae(fr, Q.storageV5), rt(!1);
+      if (tt === "continue") Ae(fr, Q.storageV5), rt(false);
       else S("Autofix PR cancelled", { display: "system" });
     }),
       (W[9] = Q),
@@ -691,10 +691,10 @@ function ye(ot) {
     [Ge, nt] = u("checking"),
     [ae, st] = u(null),
     [b, it] = u(null),
-    [oe, at] = u(!1),
+    [oe, at] = u(false),
     er = C(null),
-    Pe = C(!1),
-    tr = C(!1),
+    Pe = C(false),
+    tr = C(false),
     or;
   if (j[0] !== Z)
     (or = function P(..._e) {
@@ -702,7 +702,7 @@ function ye(ot) {
       if (tr.current) {
         return;
       }
-      (tr.current = !0), Z(...lt);
+      (tr.current = true), Z(...lt);
     }),
       (j[0] = Z),
       (j[1] = or);
@@ -768,7 +768,7 @@ function ye(ot) {
         P("Autofix PR cancelled");
         return;
       }
-      (Pe.current = !0), at(!0), er.current?.abort();
+      (Pe.current = true), at(true), er.current?.abort();
     }),
       (j[10] = P),
       (j[11] = b),
@@ -812,7 +812,7 @@ function ye(ot) {
         : r(U, {
             children: [
               e(rr, { message: oe ? "Cancelling\u2026" : de[Ge] }),
-              ae && r(t, { dimColor: !0, children: ["PR:", " ", e(ut, { url: jB(ae.url, De), children: ae.ref })] }),
+              ae && r(t, { dimColor: true, children: ["PR:", " ", e(ut, { url: jB(ae.url, De), children: ae.ref })] }),
             ],
           }),
     })),

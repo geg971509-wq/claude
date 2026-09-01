@@ -294,14 +294,14 @@ import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-7jz6r17g.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 function T() {
-  if (Me(!1) || Boolean(a.IS_DEMO) || a.CLAUBBIT) return "skip";
+  if (Me(false) || Boolean(a.IS_DEMO) || a.CLAUBBIT) return "skip";
   return ri() && !Rie() ? "trusted" : "ask";
 }
 async function B(s, i, t) {
   switch (i) {
     case "skip":
       if (!a.CLAUBBIT && ri()) {
-        v0(!0);
+        v0(true);
         let { primePlanSlugCollisions: o } = await import("/$bunfs/root/chunk-njzvrpjb.js");
         o(t);
       }
@@ -311,7 +311,7 @@ async function B(s, i, t) {
       }
       return;
     case "trusted": {
-      v0(!0);
+      v0(true);
       let [{ primePlanSlugCollisions: o }, { capturePolicySnapshot: r }] = await Promise.all([
         import("/$bunfs/root/chunk-njzvrpjb.js"),
         import("/$bunfs/root/chunk-wj3cbkne.js"),
@@ -331,7 +331,7 @@ async function B(s, i, t) {
           e(o, { session: G(), storageV5: t, children: e(r, { commands: p, onDone: () => k() }) }, "agents-trust"),
         );
       }),
-        v0(!0);
+        v0(true);
       let { clearPluginCache: c } = await import("/$bunfs/root/chunk-9p2m1eg6.js");
       c("post-trust: re-discover project @skills-dir plugins");
       let [
@@ -345,7 +345,7 @@ async function B(s, i, t) {
         import("/$bunfs/root/chunk-gb16vkjf.js"),
         import("/$bunfs/root/chunk-wj3cbkne.js"),
       ]);
-      m({ preservePendingExposures: !0 }), u().catch(d), l(t), g();
+      m({ preservePendingExposures: true }), u().catch(d), l(t), g();
       return;
     }
   }

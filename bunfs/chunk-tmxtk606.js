@@ -14,12 +14,12 @@ import { Ro } from "/$bunfs/root/chunk-59pkbjrf.js";
 import { uv } from "/$bunfs/root/chunk-wnc75h2x.js";
 import { B, z, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
 F();
-function Hi(i, r, e = !0) {
+function Hi(i, r, e = true) {
   let { handleInterrupt: n, handleExit: t, exitState: o } = d(r, i),
     a = z(() => ({ "app:interrupt": n, "app:exit": t }), [n, t]);
   return ht(a, { context: "Global", isActive: e }), o;
 }
-function Con(i, r, e = !0) {
+function Con(i, r, e = true) {
   let { handleInterrupt: n, handleExit: t, exitState: o } = d(r, i);
   return {
     entries: z(
@@ -37,7 +37,7 @@ function Con(i, r, e = !0) {
 }
 function d(i, r) {
   let { exit: e } = Dx(),
-    [n, t] = u({ pending: !1, keyName: null }),
+    [n, t] = u({ pending: false, keyName: null }),
     o = z(() => r ?? e, [r, e]),
     a = uv(),
     l = Ro("app:interrupt", "Global", "Ctrl-C"),

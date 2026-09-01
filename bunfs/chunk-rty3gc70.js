@@ -414,7 +414,7 @@ import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-7jz6r17g.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 F();
-var q = async (o, r) => e(T, { onExit: o, context: r, exposure: { logged: !1 } });
+var q = async (o, r) => e(T, { onExit: o, context: r, exposure: { logged: false } });
 function C(o, r, c) {
   Zet(o, r, c),
     r((p) => (Object.keys(p.sendMessagePins).length === 0 ? p : { ...p, sendMessagePins: {} })),
@@ -444,7 +444,7 @@ function T(V) {
       (i[5] = O);
   else O = i[5];
   let [v] = u(O);
-  if (v && I("tengu_teleport_send_to_cloud", !1)) {
+  if (v && I("tengu_teleport_send_to_cloud", false)) {
     let { TeleportMenu: w } = import.meta.require("/$bunfs/root/chunk-bcw06fp0.js");
     let m;
     if (i[6] !== n || i[7] !== S || i[8] !== t || i[9] !== l)
@@ -481,7 +481,7 @@ function T(V) {
   else (d = i[16]), (f = i[17]);
   let A;
   if (i[18] !== m || i[19] !== d || i[20] !== f)
-    (A = e(Nme, { onComplete: m, onCancel: d, onError: f, isEmbedded: !0, source: "localCommand" })),
+    (A = e(Nme, { onComplete: m, onCancel: d, onError: f, isEmbedded: true, source: "localCommand" })),
       (i[18] = m),
       (i[19] = d),
       (i[20] = f),

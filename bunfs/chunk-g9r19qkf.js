@@ -83,7 +83,7 @@ class oDn {
   key = void 0;
   timestamp = 0;
   recorder = null;
-  failed = !1;
+  failed = false;
   setFile(e, o, t) {
     (this.filePath = e), (this.key = t), (this.timestamp = o);
   }
@@ -94,7 +94,7 @@ class oDn {
     this.recorder = e;
   }
   markFailed() {
-    this.failed = !0;
+    this.failed = true;
   }
 }
 function j(e, o, t) {
@@ -134,7 +134,7 @@ async function Wcr(e, o, t, r) {
           (u) =>
             e.listEntries(
               { namespace: "transcript", projectKey: o, sessionId: r },
-              { skipKeyStats: !0, skipScopeStats: !0, ...(u !== void 0 && { cursor: u }) },
+              { skipKeyStats: true, skipScopeStats: true, ...(u !== void 0 && { cursor: u }) },
             ),
           (u) => {
             for (let m of u) if (m.kind === "key" && m.key.namespace === "recording") d.push(`${m.key.stamp}.cast`);
@@ -313,9 +313,9 @@ function Iie(e) {
   $Ct(void 0);
 }
 class W {
-  restored = !1;
+  restored = false;
   markRestored() {
-    this.restored = !0;
+    this.restored = true;
   }
 }
 var U = new J(() => new W());
@@ -339,10 +339,10 @@ function ce(e) {
   return [];
 }
 function YKt(e) {
-  if (typeof e.resume !== "string" || e.forkSession || e.hasSessionIdFlag) return !1;
+  if (typeof e.resume !== "string" || e.forkSession || e.hasSessionIdFlag) return false;
   let o = Kr(e.resume);
-  if (!o) return !1;
-  return Gp(Gu(o), "resume"), !0;
+  if (!o) return false;
+  return Gp(Gu(o), "resume"), true;
 }
 function sRe(e, o, t, r) {
   if (e.fileHistorySnapshots && e.fileHistorySnapshots.length > 0)
@@ -420,9 +420,9 @@ async function eQ(e, o) {
   }
 }
 function JKt(e) {
-  if (!e.resumedAgentSetting || e.mainThreadAgentType) return { attempt: !1, loud: !1 };
-  if (e.hasStreamingInput) return { attempt: !e.explicitAgentFlag, loud: !1 };
-  return { attempt: !0, loud: !0 };
+  if (!e.resumedAgentSetting || e.mainThreadAgentType) return { attempt: false, loud: false };
+  if (e.hasStreamingInput) return { attempt: !e.explicitAgentFlag, loud: false };
+  return { attempt: true, loud: true };
 }
 async function zcr(e, o) {
   if (o || !e) return;
@@ -462,7 +462,7 @@ function tQ(e, o, t, r = (i) => i()) {
   let i = X(e, o);
   if (i.kind === "none") return;
   if (i.kind === "mode_dependent_setting") {
-    r(() => s("tengu_resume_model_restore", { outcome: c("skipped_mode_dependent_setting"), is_eap: !1 }));
+    r(() => s("tengu_resume_model_restore", { outcome: c("skipped_mode_dependent_setting"), is_eap: false }));
     return;
   }
   if (i.kind === "declined")
@@ -483,7 +483,7 @@ function QKt(e, o) {
 function pe(e, o) {
   if (e === "opusplan") return o.includes("opus") || o.includes("sonnet");
   if (e === "haiku") return o.includes("haiku") || o.includes("sonnet");
-  return !1;
+  return false;
 }
 function X(e, o) {
   let t = new Set(Lrr.map((d) => Ye(d))),
@@ -518,7 +518,7 @@ function Q(e) {
 }
 function Vcr(e, o) {
   let t = Q(e);
-  if (!t) return !1;
+  if (!t) return false;
   let r = hr(t.fallbackModel),
     i = hr(o);
   return r === i || Ye(r) === Ye(i);
@@ -526,12 +526,12 @@ function Vcr(e, o) {
 function cRe(e) {
   for (let o = e.length - 1; o >= 0; o--) {
     let t = e[o];
-    if (t?.type === "system" && t.subtype === "model_refusal_fallback") t.neutralizedByFork = !0;
+    if (t?.type === "system" && t.subtype === "model_refusal_fallback") t.neutralizedByFork = true;
   }
 }
 function ge(e) {
   let o = Q(e);
-  return o?.neutralizedByFork === !0 ? { fallbackModel: o.fallbackModel } : void 0;
+  return o?.neutralizedByFork === true ? { fallbackModel: o.fallbackModel } : void 0;
 }
 function M(e, o) {
   s("tengu_resume_model_restore", { outcome: c(e), is_eap: Vne(o) });
@@ -569,8 +569,8 @@ function rQ(e, o) {
   let t = e.flatMap((r) =>
     r?.type === "system" &&
     r.subtype === "model_refusal_fallback" &&
-    (r.apiRefusalCategory === "cyber" || r.sawCyberRefusal === !0) &&
-    r.neutralizedByFork !== !0
+    (r.apiRefusalCategory === "cyber" || r.sawCyberRefusal === true) &&
+    r.neutralizedByFork !== true
       ? [r]
       : [],
   );
@@ -628,9 +628,9 @@ function uRe(e) {
 function ZKt(e) {
   if (Qi(e) || vu(e) || vu(Y.normalize(e)))
     return (
-      n("[sessionRestore] transcript path is a network/NT-namespace path \u2014 not chdir-ing", { level: "warn" }), !0
+      n("[sessionRestore] transcript path is a network/NT-namespace path \u2014 not chdir-ing", { level: "warn" }), true
     );
-  return !1;
+  return false;
 }
 function SK(e, o, t, r) {
   let i = he(o, t, r);
@@ -638,7 +638,7 @@ function SK(e, o, t, r) {
 }
 function he(e, o, t) {
   let r = ha();
-  if (r && t?.preserveBinding !== !0) return XA(r), null;
+  if (r && t?.preserveBinding !== true) return XA(r), null;
   if (!e) {
     if (e === null)
       return (
@@ -659,7 +659,7 @@ function he(e, o, t) {
     if ((Lc(o), Xle(o, ySe(R7)))) yS(ee());
     return Z7(), yG("resume"), va.cache.clear?.(), ah(t?.storageV5), iU(), lfe(), Oa()?.refreshGitBranch?.(), null;
   }
-  let i = t?.preserveBinding === !0;
+  let i = t?.preserveBinding === true;
   if (ZKt(e.worktreePath) || ns(e.worktreePath) || Kg(_A, e.worktreePath) !== void 0) {
     if (!i) XA(null);
     return (
@@ -668,7 +668,7 @@ function he(e, o, t) {
         worktreePath: e.worktreePath,
         reason: "invalid-linked-worktree",
         message: "its recorded path has a network spelling, which can never be a local isolation worktree.",
-        poisoned: !0,
+        poisoned: true,
       }
     );
   }
@@ -681,7 +681,7 @@ function he(e, o, t) {
         worktreePath: e.worktreePath,
         reason: "worktree-gone",
         message: "the worktree directory no longer exists",
-        poisoned: !0,
+        poisoned: true,
       }
     );
   }
@@ -693,13 +693,13 @@ function he(e, o, t) {
         worktreePath: e.worktreePath,
         reason: "unverifiable",
         message: "the worktree directory could not be examined right now",
-        poisoned: !1,
+        poisoned: false,
       }
     );
   let l = t?.liveLaunchDir ?? R7,
     u = ZFt(ee(), e.worktreePath),
     m = S3n(e.worktreePath, Fb(e.originalCwd), te([G(l), ...Fb(l), G(R7), ...Fb(R7)]), {
-      declineSelfOwningPinUnderLiveRoot: !0,
+      declineSelfOwningPinUnderLiveRoot: true,
     });
   if (!m.ok) {
     let y = m.reason !== "unverifiable" && m.reason !== "pin-is-own-launch-tree";
@@ -720,7 +720,7 @@ function he(e, o, t) {
             f = q4(e.worktreePath),
             p = f !== null ? [f] : [],
             S = [...Fb(l), ...p].filter((P) => !v(P));
-          if (Xle(h, S, { requireCovered: !0 })) yS(h);
+          if (Xle(h, S, { requireCovered: true })) yS(h);
           Z7(), yG("resume"), lfe(), va.cache.clear?.(), ah(t?.storageV5), iU(), Oa()?.refreshGitBranch?.();
         } catch {}
       }
@@ -739,7 +739,7 @@ function he(e, o, t) {
           worktreePath: e.worktreePath,
           reason: "worktree-gone",
           message: "the worktree directory no longer exists",
-          poisoned: !0,
+          poisoned: true,
         }
       );
     }
@@ -749,7 +749,7 @@ function he(e, o, t) {
         worktreePath: e.worktreePath,
         reason: "unverifiable",
         message: "the worktree directory could not be entered right now",
-        poisoned: !1,
+        poisoned: false,
       }
     );
   }
@@ -788,7 +788,7 @@ function e8t(e, o) {
   if (
     r === void 0 ||
     Xle(t.originalCwd, ySe(r, t.worktreePath), {
-      requireCovered: !0,
+      requireCovered: true,
       coveredWitnesses: nPe(r, t.worktreePath),
       extraCoveredRoots: (() => {
         let i = q4(t.worktreePath);
@@ -807,7 +807,7 @@ async function Pet(e, o, t) {
   if (i) Gp(i, "resume", o.transcriptPath ? q(o.transcriptPath) : null), await Iet(t.session, t.storageV5), await JL();
   if (d) {
     if (
-      (await ite(e, { stripWorktreeSession: !0, stripRelocatedCwd: !0, storageV5: t.storageV5 }),
+      (await ite(e, { stripWorktreeSession: true, stripRelocatedCwd: true, storageV5: t.storageV5 }),
       e.contentReplacements?.length)
     )
       await zSe(e.contentReplacements, void 0, t.storageV5);
@@ -825,8 +825,8 @@ async function Pet(e, o, t) {
       onResolveMiss: (R) => e.messages.push(Dt(R, "warning")),
     }),
     y = e.permissionMode,
-    k = !1,
-    h = await zcr(y, t.permissionModeCliSet || !1),
+    k = false,
+    h = await zcr(y, t.permissionModeCliSet || false),
     v = null;
   if (d) cRe(e.messages);
   let f = tQ(e.messages, t.initialState.mainLoopModel, (R) => e.messages.push(Dt(R, "warning"))),
@@ -882,8 +882,8 @@ async function Pet(e, o, t) {
         initialMessage: F,
         ...(!d &&
           e.bridgeSessionId &&
-          !(T.replBridgeEnabled && !T.replBridgeOutboundOnly) && { replBridgeEnabled: !0, replBridgeOutboundOnly: !1 }),
-        ...(e.endedByModel ? { endedByModel: !0 } : {}),
+          !(T.replBridgeEnabled && !T.replBridgeOutboundOnly) && { replBridgeEnabled: true, replBridgeOutboundOnly: false }),
+        ...(e.endedByModel ? { endedByModel: true } : {}),
         ...(m && { agent: m }),
         ...(v && { attentionBudget: v }),
         ...(p && { mainLoopModel: p }),

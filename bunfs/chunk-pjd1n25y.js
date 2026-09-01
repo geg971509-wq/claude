@@ -41,7 +41,7 @@ async function pdr(u, o = 0) {
   let g, _, v;
   try {
     let { heapStats: p } = await import("bun:jsc"),
-      S = p(!0);
+      S = p(true);
     (g = S.objectTypeCounts), (_ = S.protectedObjectTypeCounts), (v = S.mimalloc || void 0);
   } catch {}
   let x = t.rss - t.heapUsed,
@@ -137,20 +137,20 @@ async function zYt(u = "manual", o = 0) {
       n(`[HeapDump] Diagnostics written to ${c}`),
       await T(r),
       n(`[HeapDump] Heap dump written to ${r}`),
-      s("tengu_heap_dump", { triggerManual: !0, triggerAuto15GB: !1, dumpNumber: o, success: !0 }),
-      { success: !0, heapPath: r, diagPath: c, diagnostics: e }
+      s("tengu_heap_dump", { triggerManual: true, triggerAuto15GB: false, dumpNumber: o, success: true }),
+      { success: true, heapPath: r, diagPath: c, diagnostics: e }
     );
   } catch (t) {
     let e = we(t);
     if ($o(e)) n(`[HeapDump] Failed to write dump: ${e.message}`, { level: "error" });
     else h(e);
     return (
-      s("tengu_heap_dump", { triggerManual: !0, triggerAuto15GB: !1, dumpNumber: o, success: !1 }),
-      { success: !1, error: e.message }
+      s("tengu_heap_dump", { triggerManual: true, triggerAuto15GB: false, dumpNumber: o, success: false }),
+      { success: false, error: e.message }
     );
   }
 }
 async function T(u) {
-  k(u, Bun.generateHeapSnapshot("v8", "arraybuffer"), { mode: 384 }), Bun.gc(!0);
+  k(u, Bun.generateHeapSnapshot("v8", "arraybuffer"), { mode: 384 }), Bun.gc(true);
 }
 export { pdr, zYt };

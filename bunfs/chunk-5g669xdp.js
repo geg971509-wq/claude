@@ -123,43 +123,43 @@ class j {
     return (this.apk ??= this.ownsExecutable(["alpine"], "apk", ["info", "--who-owns"]));
   }
   async ownsExecutable(e, t, i) {
-    if (this.sources.platform() !== "linux") return !1;
+    if (this.sources.platform() !== "linux") return false;
     let r = await this.getOsRelease();
-    if (r && !Z(r, e)) return !1;
+    if (r && !Z(r, e)) return false;
     let o = await this.sources.execFileNoThrow(t, [...i, this.sources.execPath()], {
       timeout: 5000,
-      useCwd: !1,
-      useToolMemoryCgroup: !1,
+      useCwd: false,
+      useToolMemoryCgroup: false,
     });
-    if (o.code === 0 && o.stdout) return n(`Detected ${t} installation: ${o.stdout.trim()}`), !0;
-    return !1;
+    if (o.code === 0 && o.stdout) return n(`Detected ${t} installation: ${o.stdout.trim()}`), true;
+    return false;
   }
   detectHomebrew() {
     let e = this.sources.platform();
-    if (e !== "macos" && e !== "linux" && e !== "wsl") return !1;
+    if (e !== "macos" && e !== "linux" && e !== "wsl") return false;
     let t = this.sources.execPath();
-    if (t.includes("/Caskroom/")) return n(`Detected Homebrew cask installation: ${t}`), !0;
-    return !1;
+    if (t.includes("/Caskroom/")) return n(`Detected Homebrew cask installation: ${t}`), true;
+    return false;
   }
   getHomebrewCaskName() {
     return this.sources.execPath().match(/\/Caskroom\/([^/]+)\//)?.[1] ?? null;
   }
   detectWinget() {
-    if (this.sources.platform() !== "windows") return !1;
+    if (this.sources.platform() !== "windows") return false;
     let e = this.sources.execPath();
     for (let t of [/Microsoft[/\\]WinGet[/\\]Packages/i, /Microsoft[/\\]WinGet[/\\]Links/i])
-      if (t.test(e)) return n(`Detected winget installation: ${e}`), !0;
-    return !1;
+      if (t.test(e)) return n(`Detected winget installation: ${e}`), true;
+    return false;
   }
   detectMise() {
     let e = this.sources.execPath();
-    if (/[/\\]mise[/\\]installs[/\\]/i.test(e)) return n(`Detected mise installation: ${e}`), !0;
-    return !1;
+    if (/[/\\]mise[/\\]installs[/\\]/i.test(e)) return n(`Detected mise installation: ${e}`), true;
+    return false;
   }
   detectAsdf() {
     let e = this.sources.execPath();
-    if (/[/\\]\.?asdf[/\\]installs[/\\]/i.test(e)) return n(`Detected asdf installation: ${e}`), !0;
-    return !1;
+    if (/[/\\]\.?asdf[/\\]installs[/\\]/i.test(e)) return n(`Detected asdf installation: ${e}`), true;
+    return false;
   }
   getPackageManager() {
     return (this.packageManager ??= this.detectPackageManager());
@@ -251,7 +251,7 @@ async function nee() {
   )
     return "npm-global";
   if (e.includes("/npm/") || e.includes("/nvm/")) return "npm-global";
-  let r = await Qh("npm config get prefix", { reject: !1 }),
+  let r = await Qh("npm config get prefix", { reject: false }),
     o = r.exitCode === 0 ? r.stdout.trim() : null;
   if (o && e.startsWith(o)) return "npm-global";
   return "unknown";
@@ -332,21 +332,21 @@ async function re() {
     let s = o.stdout.trim(),
       h = D() === "windows",
       d = h ? g(s, "claude") : g(s, "bin", "claude"),
-      u = !1;
+      u = false;
     try {
-      await e.stat(d), (u = !0);
+      await e.stat(d), (u = true);
     } catch {}
     if (u) {
-      let p = !1;
+      let p = false;
       try {
         if ((await K(d)).includes("/Caskroom/")) p = $lt();
       } catch {}
       if (!p) {
-        let l = !1;
+        let l = false;
         for (let v of r) {
           let k = h ? g(s, "node_modules", v) : g(s, "lib", "node_modules", v);
           try {
-            await e.stat(k), (l = !0);
+            await e.stat(k), (l = true);
             break;
           } catch {}
         }
@@ -422,7 +422,7 @@ async function ue(e) {
       h = x(),
       d = g(h, ".local", "bin"),
       u = g(ZD(), "claude");
-    if (!(await Ixe(u)) && !(await rye(u).catch(() => !1)))
+    if (!(await Ixe(u)) && !(await rye(u).catch(() => false)))
       t.push({
         issue: `${u} was not created by the native installer (it is not a symlink into the versions/ directory), so auto-update leaves it untouched.`,
         fix: `If you put a launcher wrapper there on purpose, this is expected \u2014 new versions still install under $XDG_DATA_HOME/claude/versions, your launcher decides what runs, and automatic version cleanup is disabled on this machine (the installer cannot tell which version your launcher needs, so it keeps them all). To let Claude Code manage the launcher again, remove ${u} and run \`claude update\`.`,
@@ -484,9 +484,9 @@ async function de() {
     i = Buffer.from("probe", "utf-8").toString("hex"),
     r = `add-generic-password -U -a "${t}" -s "${e}" -X "${i}"
 `,
-    o = await Ff("security", ["-i"], { input: r, reject: !1, timeout: 5000 });
+    o = await Ff("security", ["-i"], { input: r, reject: false, timeout: 5000 });
   if (o.exitCode === 0)
-    return Ff("security", ["delete-generic-password", "-a", t, "-s", e], { reject: !1, timeout: 5000 }), null;
+    return Ff("security", ["delete-generic-password", "-a", t, "-s", e], { reject: false, timeout: 5000 }), null;
   let c = (o.stderr || o.stdout || "").trim().replace(/\s*\n\s*/g, "; ");
   return {
     issue: `macOS Keychain is not writable${c ? ` (${c})` : ""}. Console login will fail to save your API key.`,
@@ -556,7 +556,7 @@ function ge() {
     },
   ];
 }
-async function J_e({ probeKeychain: e = !1, storageV5: t } = {}) {
+async function J_e({ probeKeychain: e = false, storageV5: t } = {}) {
   let i = await nee(),
     r =
       typeof {
@@ -647,7 +647,7 @@ async function J_e({ probeKeychain: e = !1, storageV5: t } = {}) {
       });
   }
   let l = eYn(),
-    v = { working: l.working ?? !0, mode: l.mode, systemPath: l.mode === "system" ? l.path : null },
+    v = { working: l.working ?? true, mode: l.mode, systemPath: l.mode === "system" ? l.path : null },
     k = i === "package-manager" ? await tee() : void 0,
     C = await DMt(t);
   return {

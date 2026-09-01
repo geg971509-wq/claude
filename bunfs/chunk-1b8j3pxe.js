@@ -73,7 +73,7 @@ function qme(mt) {
     te = uu("chat:externalEditor", "Chat", "ctrl+g");
   p(Ro("app:toggleTerminal", "Global", "meta+j"));
   let oe = uu("chat:imagePaste", "Chat", "ctrl+v");
-  ki(ltt) ?? !1;
+  ki(ltt) ?? false;
   const re = ge ? 24 : void 0;
   let u;
   if (a[2] !== i) (u = e(o, { children: e(t, { dimColor: i, children: "! for shell mode" }) })), (a[2] = i), (a[3] = u);

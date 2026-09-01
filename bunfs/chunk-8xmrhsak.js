@@ -217,7 +217,7 @@ import "/$bunfs/root/chunk-a4q326ap.js";
 import { d } from "/$bunfs/root/chunk-yz031c9r.js";
 import { relative as Rn } from "path";
 function me(An, Nn) {
-  return e(t, { dimColor: !0, children: An }, Nn);
+  return e(t, { dimColor: true, children: An }, Nn);
 }
 function G() {
   let Ao = _(3),
@@ -254,8 +254,8 @@ function G() {
         r(o, {
           flexDirection: "column",
           children: [
-            e(t, { bold: !0, color: "permission", children: "Excluded Commands:" }),
-            e(t, { dimColor: !0, children: ce.length > 0 ? ce.join(", ") : "None" }),
+            e(t, { bold: true, color: "permission", children: "Excluded Commands:" }),
+            e(t, { dimColor: true, children: ce.length > 0 ? ce.join(", ") : "None" }),
           ],
         }),
         M.denyOnly.length > 0 &&
@@ -263,11 +263,11 @@ function G() {
             marginTop: 1,
             flexDirection: "column",
             children: [
-              e(t, { bold: !0, color: "permission", children: "Filesystem Read Restrictions:" }),
-              r(t, { dimColor: !0, children: ["Denied: ", M.denyOnly.join(", ")] }),
+              e(t, { bold: true, color: "permission", children: "Filesystem Read Restrictions:" }),
+              r(t, { dimColor: true, children: ["Denied: ", M.denyOnly.join(", ")] }),
               M.allowWithinDeny &&
                 M.allowWithinDeny.length > 0 &&
-                r(t, { dimColor: !0, children: ["Allowed within denied: ", M.allowWithinDeny.join(", ")] }),
+                r(t, { dimColor: true, children: ["Allowed within denied: ", M.allowWithinDeny.join(", ")] }),
             ],
           }),
         Z.allowOnly.length > 0 &&
@@ -275,10 +275,10 @@ function G() {
             marginTop: 1,
             flexDirection: "column",
             children: [
-              e(t, { bold: !0, color: "permission", children: "Filesystem Write Restrictions:" }),
-              r(t, { dimColor: !0, children: ["Allowed: ", Z.allowOnly.join(", ")] }),
+              e(t, { bold: true, color: "permission", children: "Filesystem Write Restrictions:" }),
+              r(t, { dimColor: true, children: ["Allowed: ", Z.allowOnly.join(", ")] }),
               Z.denyWithinAllow.length > 0 &&
-                r(t, { dimColor: !0, children: ["Denied within allowed: ", Z.denyWithinAllow.join(", ")] }),
+                r(t, { dimColor: true, children: ["Denied within allowed: ", Z.denyWithinAllow.join(", ")] }),
             ],
           }),
         ((S.allowedHosts && S.allowedHosts.length > 0) || (S.deniedHosts && S.deniedHosts.length > 0)) &&
@@ -287,16 +287,16 @@ function G() {
             flexDirection: "column",
             children: [
               r(t, {
-                bold: !0,
+                bold: true,
                 color: "permission",
                 children: ["Network Restrictions", vne() ? " (Managed)" : "", ":"],
               }),
               S.allowedHosts &&
                 S.allowedHosts.length > 0 &&
-                r(t, { dimColor: !0, children: ["Allowed: ", S.allowedHosts.join(", ")] }),
+                r(t, { dimColor: true, children: ["Allowed: ", S.allowedHosts.join(", ")] }),
               S.deniedHosts &&
                 S.deniedHosts.length > 0 &&
-                r(t, { dimColor: !0, children: ["Denied: ", S.deniedHosts.join(", ")] }),
+                r(t, { dimColor: true, children: ["Denied: ", S.deniedHosts.join(", ")] }),
             ],
           }),
         Eo &&
@@ -305,8 +305,8 @@ function G() {
             marginTop: 1,
             flexDirection: "column",
             children: [
-              e(t, { bold: !0, color: "permission", children: "Allowed Unix Sockets:" }),
-              e(t, { dimColor: !0, children: Eo.join(", ") }),
+              e(t, { bold: true, color: "permission", children: "Allowed Unix Sockets:" }),
+              e(t, { dimColor: true, children: Eo.join(", ") }),
             ],
           }),
         oo.length > 0 &&
@@ -315,12 +315,12 @@ function G() {
             flexDirection: "column",
             children: [
               e(t, {
-                bold: !0,
+                bold: true,
                 color: "warning",
                 children: "\u26A0 Warning: Glob patterns not fully supported on Linux",
               }),
               r(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: [
                   "The following patterns will be ignored:",
                   " ",
@@ -355,12 +355,12 @@ function Ue(ye) {
 }
 function He(Ho) {
   let De = null;
-  let Pe = !0;
+  let Pe = true;
   if (Oue()) (De = Ho.user.caCertThumb !== void 0 && _jt(Ho.user.caCertThumb)), (Pe = WX().source === "managed");
   return { ...Ho, caTrusted: De, caManaged: Pe };
 }
 function Ie(Yn) {
-  return { probeError: q2(l(Yn), { omitCcRemedy: !0 }) };
+  return { probeError: q2(l(Yn), { omitCcRemedy: true }) };
 }
 function Fe() {
   return p5e({ srtWin: OOe() }).then(He).catch(Ie);
@@ -424,7 +424,7 @@ function E(Gn) {
           N ? e(t, { color: "error", children: "not found" }) : e(t, { color: "success", children: "found" }),
         ],
       })),
-        (no = N && r(t, { dimColor: !0, children: ["  ", "\xB7 ", Vn] })),
+        (no = N && r(t, { dimColor: true, children: ["  ", "\xB7 ", Vn] })),
         (k[16] = N),
         (k[17] = eo),
         (k[18] = no);
@@ -451,7 +451,7 @@ function E(Gn) {
                       : e(t, { color: "success", children: "installed" }),
                   ],
                 }),
-                B && r(t, { dimColor: !0, children: ["  ", "\xB7 apt install bubblewrap"] }),
+                B && r(t, { dimColor: true, children: ["  ", "\xB7 apt install bubblewrap"] }),
               ],
             }),
             r(o, {
@@ -466,7 +466,7 @@ function E(Gn) {
                       : e(t, { color: "success", children: "installed" }),
                   ],
                 }),
-                H && r(t, { dimColor: !0, children: ["  ", "\xB7 apt install socat"] }),
+                H && r(t, { dimColor: true, children: ["  ", "\xB7 apt install socat"] }),
               ],
             }),
             r(o, {
@@ -479,20 +479,20 @@ function E(Gn) {
                     A
                       ? e(t, { color: "warning", children: "not installed" })
                       : e(t, { color: "success", children: "installed" }),
-                    A && e(t, { dimColor: !0, children: " (required to block unix domain sockets)" }),
+                    A && e(t, { dimColor: true, children: " (required to block unix domain sockets)" }),
                   ],
                 }),
                 A &&
                   r(o, {
                     flexDirection: "column",
                     children: [
-                      r(t, { dimColor: !0, children: ["  ", "\xB7 npm install -g @anthropic-ai/sandbox-runtime"] }),
+                      r(t, { dimColor: true, children: ["  ", "\xB7 npm install -g @anthropic-ai/sandbox-runtime"] }),
                       r(t, {
-                        dimColor: !0,
+                        dimColor: true,
                         children: ["  ", "\xB7 or copy vendor/seccomp/* from sandbox-runtime and set"],
                       }),
                       r(t, {
-                        dimColor: !0,
+                        dimColor: true,
                         children: ["    ", "sandbox.seccomp.bpfPath and applyPath in settings.json"],
                       }),
                     ],
@@ -516,7 +516,7 @@ function ao(Xn) {
     { depCheck: Uo } = Xn,
     [Fo] = u(Fe),
     ke;
-  if (Se[0] === d) (ke = e(t, { dimColor: !0, children: "Checking Windows sandbox status\u2026" })), (Se[0] = ke);
+  if (Se[0] === d) (ke = e(t, { dimColor: true, children: "Checking Windows sandbox status\u2026" })), (Se[0] = ke);
   else ke = Se[0];
   let Re;
   if (Se[1] !== Uo || Se[2] !== Fo)
@@ -540,7 +540,7 @@ function co(Zn) {
             children: [
               r(t, { color: "error", children: ["could not check sandbox status: ", f.probeError] }),
               r(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: [
                   "  ",
                   "\xB7 ask your administrator to install the network filters, or see https://code.claude.com/docs/en/sandboxing",
@@ -586,12 +586,12 @@ function co(Zn) {
               (!f.user.provisioned ||
                 !f.user.credPresent ||
                 f.wfp.state === "absent" ||
-                (f.caTrusted === !1 && f.caManaged)) &&
-                r(t, { dimColor: !0, children: ["  ", "\xB7 run /sandbox install"] }),
-              f.caTrusted === !1 &&
+                (f.caTrusted === false && f.caManaged)) &&
+                r(t, { dimColor: true, children: ["  ", "\xB7 run /sandbox install"] }),
+              f.caTrusted === false &&
                 !f.caManaged &&
                 r(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: [
                     "  ",
                     "\xB7 ask your administrator to trust the configured sandbox CA \u2014 see https://code.claude.com/docs/en/sandboxing",
@@ -653,7 +653,7 @@ function K(ut) {
           e(o, {
             marginTop: 1,
             children: r(t, {
-              dimColor: !0,
+              dimColor: true,
               children: ["Current setting:", " ", Me ? "Allow unsandboxed fallback" : "Strict sandbox mode"],
             }),
           }),
@@ -706,7 +706,7 @@ function xo(gt) {
   let V = _e,
     Je;
   if (C[11] === d)
-    (Je = e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Configure overrides" }) })), (C[11] = Je);
+    (Je = e(o, { marginBottom: 1, children: e(t, { bold: true, children: "Configure overrides" }) })), (C[11] = Je);
   else Je = C[11];
   let bo;
   if (C[12] !== I) (bo = () => I(void 0, { display: "skip" })), (C[12] = I), (C[13] = bo);
@@ -724,10 +724,10 @@ function xo(gt) {
   let Qe;
   if (C[20] === d)
     (Qe = r(t, {
-      dimColor: !0,
+      dimColor: true,
       wrap: "wrap-trim",
       children: [
-        e(t, { bold: !0, dimColor: !0, children: "Allow unsandboxed fallback:" }),
+        e(t, { bold: true, dimColor: true, children: "Allow unsandboxed fallback:" }),
         " ",
         "When a command fails due to sandbox restrictions, Claude can retry with dangerouslyDisableSandbox to run outside the sandbox (falling back to default permissions).",
       ],
@@ -743,10 +743,10 @@ function xo(gt) {
       children: [
         Qe,
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           wrap: "wrap-trim",
           children: [
-            e(t, { bold: !0, dimColor: !0, children: "Strict sandbox mode:" }),
+            e(t, { bold: true, dimColor: true, children: "Strict sandbox mode:" }),
             " ",
             "All bash commands invoked by the model must run in the sandbox unless they are explicitly listed in excludedCommands.",
           ],
@@ -824,17 +824,17 @@ function vo(Ot) {
     (cn = async function J(Kt) {
       bb41: switch (Kt) {
         case "auto-allow": {
-          await pt.setSandboxSettings({ enabled: !0, autoAllowBashIfSandboxed: !0 }),
+          await pt.setSandboxSettings({ enabled: true, autoAllowBashIfSandboxed: true }),
             y("\u2713 Sandbox enabled with auto-allow for bash commands");
           break bb41;
         }
         case "regular": {
-          await pt.setSandboxSettings({ enabled: !0, ...(z && { autoAllowBashIfSandboxed: !1 }) }),
+          await pt.setSandboxSettings({ enabled: true, ...(z && { autoAllowBashIfSandboxed: false }) }),
             y(z ? "\u2713 Sandbox enabled with regular bash permissions" : "\u2713 Sandbox enabled");
           break bb41;
         }
         case "disabled": {
-          await pt.setSandboxSettings({ enabled: !1, ...(z && { autoAllowBashIfSandboxed: !1 }) }),
+          await pt.setSandboxSettings({ enabled: false, ...(z && { autoAllowBashIfSandboxed: false }) }),
             y("\u25CB Sandbox disabled");
         }
       }
@@ -939,7 +939,7 @@ function Wo(zt) {
   else So = P[1];
   let yn;
   if (P[2] === d)
-    (yn = e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Configure mode" }) })), (P[2] = yn);
+    (yn = e(o, { marginBottom: 1, children: e(t, { bold: true, children: "Configure mode" }) })), (P[2] = yn);
   else yn = P[2];
   let ko;
   if (P[3] !== Yo) (ko = () => Yo(void 0, { display: "skip" })), (P[3] = Yo), (P[4] = ko);
@@ -965,16 +965,16 @@ function Wo(zt) {
   else Ro = P[11];
   let Do;
   if (P[12] !== Co)
-    (Do = Co && e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: Co }) })), (P[12] = Co), (P[13] = Do);
+    (Do = Co && e(o, { marginTop: 1, children: e(t, { dimColor: true, children: Co }) })), (P[12] = Co), (P[13] = Do);
   else Do = P[13];
   let Po;
   if (P[14] !== L)
     (Po =
       L.some(kn) &&
       r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [
-          e(t, { bold: !0, dimColor: !0, children: "Auto-allow mode:" }),
+          e(t, { bold: true, dimColor: true, children: "Auto-allow mode:" }),
           " ",
           "Commands will try to run in the sandbox automatically, and attempts to run outside of the sandbox fallback to regular permissions. Explicit ask/deny rules are always respected.",
         ],

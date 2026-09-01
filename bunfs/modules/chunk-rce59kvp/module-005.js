@@ -23,10 +23,10 @@ class hTe {
   restartInterval = null;
   pendingKillTimeout = null;
   refCount = 0;
-  cleanupRegistered = !1;
-  spawnDisabledForTests = !1;
+  cleanupRegistered = false;
+  spawnDisabledForTests = false;
   linuxInhibitor = "systemd-inhibit";
-  linuxDetectionStarted = !1;
+  linuxDetectionStarted = false;
   setSpawnDisabledForTests(S) {
     this.spawnDisabledForTests = S;
   }
@@ -72,13 +72,13 @@ class hTe {
     if (S === null) return;
     if (this.inhibitorProcess !== null) return;
     if (!this.cleanupRegistered)
-      (this.cleanupRegistered = !0),
+      (this.cleanupRegistered = true),
         vt(async () => {
           this.forceStop();
         });
     try {
       let [x, P] = S,
-        j = Rtt(x, P, { stdio: "ignore", windowsHide: !0 });
+        j = Rtt(x, P, { stdio: "ignore", windowsHide: true });
       (this.inhibitorProcess = j),
         j.unref(),
         j.on("error", (H) => {
@@ -120,7 +120,7 @@ function t8() {
 
 function o8(S) {
   let x = Ett(S);
-  if (x !== void 0) return { status: "waiting", waitingFor: x, working: !1 };
+  if (x !== void 0) return { status: "waiting", waitingFor: x, working: false };
   return { status: S.isLoading || S.delegatedActive ? "busy" : "idle", waitingFor: void 0, working: S.isQueryActive };
 }
 
@@ -157,7 +157,7 @@ function lB(zMo) {
     Ftt = Xe(Dtt, Htt),
     Btt = Xe(Dtt, $tt),
     YMo = Ba(),
-    Utt = x5e() !== null && I("tengu_static_title_under_mux", !0),
+    Utt = x5e() !== null && I("tengu_static_title_under_mux", true),
     [JMo, XMo] = u(0),
     jtt;
   if (ZMo[0] === d) (jtt = () => XMo(Wtt)), (ZMo[0] = jtt);
@@ -239,7 +239,7 @@ function i8(S, x, P) {
   let de = br(P);
   A(
     () => () => {
-      mIt(!de(), !1);
+      mIt(!de(), false);
     },
     [],
   );
@@ -286,7 +286,7 @@ function Iot(ZIo) {
 }
 
 function Uot() {
-  return dot(!1);
+  return dot(false);
 }
 
 function Eot() {
@@ -294,7 +294,7 @@ function Eot() {
 }
 
 function jot() {
-  return fot(!1);
+  return fot(false);
 }
 
 function Dot() {
@@ -436,8 +436,8 @@ function mB(FIo) {
   A(mot, got), i8(BIo, dB, UIo);
   let hot;
   if (cg[32] === d) {
-    let VIo = I("tengu_terminal_sidebar", !1);
-    hot = VIo && (ie().showStatusInTerminalTab ?? !1);
+    let VIo = I("tengu_terminal_sidebar", false);
+    hot = VIo && (ie().showStatusInTerminalTab ?? false);
     cg[32] = hot;
   } else hot = cg[32];
   let yot = hot;
@@ -581,7 +581,7 @@ function iR(LEo) {
     Jot;
   if (Wl[20] !== yI || Wl[21] !== Ru)
     (Jot = () => {
-      if (yI) Ru.repin(!1, "lastMsgIsHuman");
+      if (yI) Ru.repin(false, "lastMsgIsHuman");
     }),
       (Wl[20] = yI),
       (Wl[21] = Ru),
@@ -596,7 +596,7 @@ function iR(LEo) {
     Zot;
   if (Wl[27] !== Ru)
     (Zot = () => {
-      Ru.repin(!0, "agent-view-change");
+      Ru.repin(true, "agent-view-change");
     }),
       (Wl[27] = Ru),
       (Wl[28] = Zot);
@@ -716,7 +716,7 @@ function gB() {
   else pnt = sR[2];
   let b8;
   if (sR[3] !== VTe || sR[4] !== Wh.identity.agentName)
-    (b8 = r(t, { color: VTe, bold: !0, children: ["@", Wh.identity.agentName] })),
+    (b8 = r(t, { color: VTe, bold: true, children: ["@", Wh.identity.agentName] })),
       (sR[3] = VTe),
       (sR[4] = Wh.identity.agentName),
       (sR[5] = b8);
@@ -724,7 +724,7 @@ function gB() {
   let gnt;
   if (sR[6] === d)
     (gnt = r(t, {
-      dimColor: !0,
+      dimColor: true,
       children: [" \xB7 ", e(M, { chord: "escape", action: "return", format: { keyCase: "lower" } })],
     })),
       (sR[6] = gnt);
@@ -733,7 +733,7 @@ function gB() {
   if (sR[7] !== b8) (k8 = r(o, { children: [pnt, b8, gnt] })), (sR[7] = b8), (sR[8] = k8);
   else k8 = sR[8];
   let _8;
-  if (sR[9] !== Wh.prompt) (_8 = e(t, { dimColor: !0, children: Wh.prompt })), (sR[9] = Wh.prompt), (sR[10] = _8);
+  if (sR[9] !== Wh.prompt) (_8 = e(t, { dimColor: true, children: Wh.prompt })), (sR[9] = Wh.prompt), (sR[10] = _8);
   else _8 = sR[10];
   let hnt;
   if (sR[11] !== k8 || sR[12] !== _8)
@@ -774,7 +774,7 @@ function Vh(yDo) {
     hB = o9(ib?.id ?? ""),
     CDo = Yn(vb, hB),
     vDo = hB === 0 || CDo,
-    wDo = ib !== null && ib.userInvoked === !0 && !vDo,
+    wDo = ib !== null && ib.userInvoked === true && !vDo,
     Tnt;
   if (P8[0] !== um || P8[1] !== x8)
     (Tnt =
@@ -790,7 +790,7 @@ function Vh(yDo) {
   if (P8[3] !== CI || P8[4] !== um || P8[5] !== zTe || P8[6] !== kI)
     (_nt =
       um !== null && zTe === "draft" && $p(CI, um) === kI
-        ? e(t, { dimColor: !0, children: jh.has(um.kind) ? e_e : ZTe })
+        ? e(t, { dimColor: true, children: jh.has(um.kind) ? e_e : ZTe })
         : null),
       (P8[3] = CI),
       (P8[4] = um),
@@ -880,10 +880,10 @@ function n9(IDo) {
     (Dnt = function jC() {
       let U8 = lR.getState().open.find((DDo) => DDo.id === Rl.id);
       if (!U8) {
-        return !1;
+        return false;
       }
       if (U8.payload !== Rl.payload) {
-        return !1;
+        return false;
       }
       let NDo = Math.max(U8.swappedAt ?? 0, U8.userInvoked ? 0 : XTe);
       return !bc(NDo);
@@ -906,9 +906,9 @@ function n9(IDo) {
   if (vI[8] !== lR || vI[9] !== Rl.id || vI[10] !== jC)
     ($8 = (LDo) => {
       if (!jC()) {
-        return !1;
+        return false;
       }
-      return lR.answer(Rl.id, LDo), !0;
+      return lR.answer(Rl.id, LDo), true;
     }),
       (vI[8] = lR),
       (vI[9] = Rl.id),
@@ -945,7 +945,7 @@ function wI(ODo) {
   qb(FDo, K4[BDo] ?? "permission_prompt");
   let UDo = oge(),
     Ont;
-  if (jDo[0] === d) (Ont = { perReveal: !0 }), (jDo[0] = Ont);
+  if (jDo[0] === d) (Ont = { perReveal: true }), (jDo[0] = Ont);
   else Ont = jDo[0];
   return Tg("bell", UDo, Ont), null;
 }
@@ -999,11 +999,11 @@ function cR(qh) {
         if (!kB.delete(CB.id)) {
           return;
         }
-        qh.reply(CB.type === "answered" ? { id: CB.id, result: CB.result } : { id: CB.id, cancelled: !0 });
+        qh.reply(CB.type === "answered" ? { id: CB.id, result: CB.result } : { id: CB.id, cancelled: true });
       });
       return () => {
         WDo(), VDo(), QDo(), zDo();
-        for (const Wnt of kB) HC.dismiss(Wnt), qh.reply({ id: Wnt, cancelled: !0 });
+        for (const Wnt of kB) HC.dismiss(Wnt), qh.reply({ id: Wnt, cancelled: true });
         kB.clear();
       };
     }),
@@ -1104,7 +1104,7 @@ function l9({ turn: S, focused: x, showSpinner: P, isRemoteSession: j }) {
       let Pt = ot.filter((Rt) => Rt.toolUseID === st),
         kt = Pt.length,
         Ht = Q(Re, (Rt) => {
-          if (Rt.type !== "attachment") return !1;
+          if (Rt.type !== "attachment") return false;
           let to = Rt.attachment;
           return (
             (to.type === "hook_success" ||
@@ -1273,7 +1273,7 @@ class xB {
   #i = null;
   #n = -1;
   #c = null;
-  #a = !1;
+  #a = false;
   #s = void 0;
   constructor(S) {
     (this.#e = S), (this.#o = S.transcript.subscribe(this.#u));
@@ -1289,23 +1289,23 @@ class xB {
   dispose() {
     this.#o();
   }
-  repin = (S = !1, x = "?") => {
-    if (!S && !Lo("autoScrollEnabled", !0).value) return;
+  repin = (S = false, x = "?") => {
+    if (!S && !Lo("autoScrollEnabled", true).value) return;
     let P = this.viewport.handle;
     if (P && !P.isSticky())
       n(
         `repinScroll(${x}, force=${S}): yanking from scrollTop=${P.getScrollTop()} (max=${Math.max(0, P.getScrollHeight() - P.getViewportHeight())})`,
       );
-    P?.scrollToBottom(), this.#l(), (this.#a = !1);
+    P?.scrollToBottom(), this.#l(), (this.#a = false);
   };
   onPromptEdit(S, x) {
     if (x !== "" || S === "" || this.#a) return;
-    this.repin(!1, "typedIntoEmpty");
+    this.repin(false, "typedIntoEmpty");
   }
   onBelowTranscriptSlotChange(S) {
     let x = this.#s;
     if (((this.#s = S), x === void 0 || x === S)) return;
-    if (this.viewport.handle?.isSticky() ?? !0) this.repin(!1, `progressOrPanel\u2192${S}`);
+    if (this.viewport.handle?.isSticky() ?? true) this.repin(false, `progressOrPanel\u2192${S}`);
   }
   onUserScroll = (S, x) => {
     if ((this.#e.awaySummary.markUserScrolled(), (this.#a = !S), S)) this.#l();
@@ -1366,7 +1366,7 @@ function b_e(S) {
 }
 
 async function k_e(S) {
-  if (En().spinnerTipsEnabled === !1) return;
+  if (En().spinnerTipsEnabled === false) return;
   let x = await Ovt(S);
   if (x.length === 0) return;
   return b_e(x);
@@ -1401,7 +1401,7 @@ function irt() {
 }
 
 async function w_e(S) {
-  if (En().spinnerTipsEnabled === !1) return;
+  if (En().spinnerTipsEnabled === false) return;
   let x = YJ.of(S.session.host);
   if (Sge()) return;
   let P = await x.getMarketplacePluginTips(S.storageV5);
@@ -1433,7 +1433,7 @@ function PB(S, x = "spinner", P) {
 
 function T_e(S, x) {
   let P = Ex(S);
-  if (!P) return !0;
+  if (!P) return true;
   let j = ua(P.commandName, x);
   if (!j) return !Dje(P.commandName) && !P.commandName.includes("://");
   return j.type !== "local" && j.type !== "local-jsx";
@@ -1450,9 +1450,9 @@ function crt(S, x) {
 }
 
 function R_e(S) {
-  if (!EL() || (S.mode ?? "prompt") !== "prompt" || !S.turn.guard.isActive || !zNt(S.queue)) return !1;
-  if (!S.interruptRunningTurn()) return g("input_send_queued_now", "no_live_controller"), !1;
-  return y("input_send_queued_now"), crt(w("queued_send_now"), S), !0;
+  if (!EL() || (S.mode ?? "prompt") !== "prompt" || !S.turn.guard.isActive || !zNt(S.queue)) return false;
+  if (!S.interruptRunningTurn()) return g("input_send_queued_now", "no_live_controller"), false;
+  return y("input_send_queued_now"), crt(w("queued_send_now"), S), true;
 }
 
 async function _I(S) {
@@ -1565,19 +1565,19 @@ async function _I(S) {
           S.addNotification?.({ key: `immediate-${pn.name}`, kind: "feedback", text: lx(pn), priority: "immediate" });
         return;
       }
-      let dn = !1,
+      let dn = false,
         Xo,
         zo = (Uo, Rn) => {
-          if (((dn = !0), Xo?.close(), Uo && Rn?.display !== "skip" && S.addNotification))
+          if (((dn = true), Xo?.close(), Uo && Rn?.display !== "skip" && S.addNotification))
             S.addNotification({ key: `immediate-${pn.name}`, kind: "feedback", text: Ew(Uo), priority: "immediate" });
           if (Rn?.nextInput)
             if (Rn.submitNextInput)
               Fe.enqueue({ agentId: et(), value: Rn.nextInput, mode: "prompt", origin: { kind: "auto-continuation" } });
             else H(Rn.nextInput);
         },
-        un = await (await Go()).call(zo, { ...Oo, isMidTurn: !0, dispatchedAsImmediate: !0 }, cn, No);
+        un = await (await Go()).call(zo, { ...Oo, isMidTurn: true, dispatchedAsImmediate: true }, cn, No);
       if ((y(w4(pn.name)), un && !dn))
-        Xo = xo.show(un, { commandName: ei(pn), immediate: !0, hidesPrompt: !1, retireAtTurnBoundary: !0 });
+        Xo = xo.show(un, { commandName: ei(pn), immediate: true, hidesPrompt: false, retireAtTurnBoundary: true });
       return;
     }
   }
@@ -1594,10 +1594,10 @@ async function _I(S) {
       uuid: yt,
       origin: { kind: "human" },
       historyEntry: S.historyEntry,
-      ...(S.wait === !0 && { wait: !0 }),
+      ...(S.wait === true && { wait: true }),
     },
     uo = kt === "prompt" && T_e(Pt, j),
-    Pn = () => S.resumesStaleQuotaWait === !0 && !MJt();
+    Pn = () => S.resumesStaleQuotaWait === true && !MJt();
   if (st.isActive || nt) {
     if (kt !== "prompt" && kt !== "bash") {
       p("prompt_queued", "mode_not_queueable");
@@ -1616,15 +1616,15 @@ async function _I(S) {
         ...Qo,
         value: jt.trim(),
         preExpansionValue: Qo.preExpansionValue?.trim(),
-        ...(tn && { screeningPending: !0 }),
-        ...((cn || nn) && { drainOnly: !0 }),
+        ...(tn && { screeningPending: true }),
+        ...((cn || nn) && { drainOnly: true }),
       }),
       !tn)
     ) {
       y("prompt_queued");
       return;
     }
-    let pn = { messages: [], shouldQuery: !0 },
+    let pn = { messages: [], shouldQuery: true },
       Go,
       Oo;
     try {
@@ -1636,7 +1636,7 @@ async function _I(S) {
           bridgeOrigin: Qo.bridgeOrigin,
           mode: Qo.mode,
           turnId: Yt,
-          wait: S.wait === !0,
+          wait: S.wait === true,
           context: dn,
           result: pn,
           promptSource: $ct({
@@ -1649,7 +1649,7 @@ async function _I(S) {
       if (!It(dn)) n(`prompt.submit at Enter failed, leaving it to the drain: ${l(dn)}`, { level: "error" });
     }
     if (Oo?.ended !== void 0 && Oo.stopped === void 0) {
-      if (!Fe.settleScreening(yt, { dropped: !0 })) {
+      if (!Fe.settleScreening(yt, { dropped: true })) {
         n("prompt.submit at Enter dropped a prompt that had left the queue"), y("prompt_queued");
         return;
       }
@@ -1659,11 +1659,11 @@ async function _I(S) {
         kind: "feedback",
         text: Oo.ended.resultText ?? "Prompt dropped by a hook",
         priority: "immediate",
-        requeueOnPreempt: !0,
+        requeueOnPreempt: true,
       });
       return;
     }
-    let xo = Oo?.wasCancelled === !0;
+    let xo = Oo?.wasCancelled === true;
     Fe.settleScreening(yt, {
       promptSubmitted:
         Oo === void 0 || Go === void 0 || xo
@@ -1683,7 +1683,7 @@ async function _I(S) {
                 under: Go,
                 ...(Oo.proceeds.sessionTitle !== void 0 && { sessionTitle: Oo.proceeds.sessionTitle }),
               },
-      drainOnly: Oo === void 0 || xo || Oo.ended !== void 0 ? !0 : void 0,
+      drainOnly: Oo === void 0 || xo || Oo.ended !== void 0 ? true : void 0,
     }),
       y("prompt_queued");
     return;
@@ -1692,7 +1692,7 @@ async function _I(S) {
     P.stream.setUserInputOnProcessing(void 0);
     return;
   }
-  if ((S.onSubmitProceed?.(), fqe(), y("prompt_submit"), uo)) Trt(yt, { dispatching: !0 });
+  if ((S.onSubmitProceed?.(), fqe(), y("prompt_submit"), uo)) Trt(yt, { dispatching: true });
   await __e({
     inputSource: S.inputSource ?? "typed",
     queuedCommands: [Qo],
@@ -1744,12 +1744,12 @@ async function __e(S) {
     return { ...Z.buildToolUseContext(x, [], Ke, P), deferSlashToEngine: S.deferSlashToEngine };
   }
   let Pt = [],
-    kt = !1,
+    kt = false,
     Ht;
   try {
     He.reserve(), Mc("query_process_user_input_start");
     let yt = [],
-      lt = !1,
+      lt = false,
       Rt,
       to,
       so,
@@ -1840,7 +1840,7 @@ async function __e(S) {
               verifiedSlackHumanTurn: Go.verifiedSlackHumanTurn,
               inlinedImagePaths: Go.inlinedImagePaths,
               promptSubmitted: Go.promptSubmitted,
-              wait: Go.wait === !0,
+              wait: Go.wait === true,
             });
           if (xo) KPe(zo.messages, xo);
           if (Go.priority === "later") {
@@ -1852,7 +1852,7 @@ async function __e(S) {
           if (Go.origin?.kind === "task-notification" && Go.mode === "prompt") {
             for (let en of zo.messages) if (en.type === "user") en.queueMode = "prompt";
           }
-          if (Go.skipAttachments === !0 || Go.mode === "poll-event") XPe(zo.messages);
+          if (Go.skipAttachments === true || Go.mode === "poll-event") XPe(zo.messages);
           if (Go.taskDelivery) YPe(zo.messages, Go.taskDelivery, Xo);
           if (Go.verifiedSlackHumanTurn && Xo) eRe(zo.messages, Xo);
           if ((yt.push(...zo.messages), zo.engineDeferredSlash)) vo = zo.engineDeferredSlash;
@@ -1876,7 +1876,7 @@ async function __e(S) {
             Go = pn?.mode ?? "prompt",
             Oo = pn && typeof pn.value === "string" ? pn.value : void 0,
             xo = Go === "prompt" || (Go === "bash" && lt),
-            dn = qt.some((en) => en.stopHookActive) ? !0 : void 0,
+            dn = qt.some((en) => en.stopHookActive) ? true : void 0,
             Xo = pn?.clientPlatform,
             zo = Cbt(qt);
           (ot = s1n({
@@ -1885,7 +1885,7 @@ async function __e(S) {
             humanCommandUuids: qt.filter(See).map((en) => en.uuid),
             willQuery: lt,
           })),
-            (kt = !0),
+            (kt = true),
             await Fe(
               yt,
               Ke,
@@ -1911,7 +1911,7 @@ async function __e(S) {
     );
   } finally {
     let yt = kt;
-    if (((kt = !0), !yt)) Ht?.();
+    if (((kt = true), !yt)) Ht?.();
     a1n(ot, st), He.cancelReservation(), Ve(void 0), pz();
     for (let lt of Pt) lt.close();
   }
@@ -1978,7 +1978,7 @@ function frt(S, x, P) {
   try {
     return DS.anythingScreens(S.buildToolUseContext(x, [], gr(), P));
   } catch (j) {
-    return n(`prompt.submit at Enter could not read the hooks: ${l(j)}`, { level: "error" }), !0;
+    return n(`prompt.submit at Enter could not read the hooks: ${l(j)}`, { level: "error" }), true;
   }
 }
 
@@ -1987,8 +1987,8 @@ class S9 {
   _generation = 0;
   _changed = Ue();
   reserve() {
-    if (this._status !== "idle") return !1;
-    return (this._status = "dispatching"), this._notify(), !0;
+    if (this._status !== "idle") return false;
+    return (this._status = "dispatching"), this._notify(), true;
   }
   cancelReservation() {
     if (this._status !== "dispatching") return;
@@ -1999,9 +1999,9 @@ class S9 {
     return (this._status = "running"), ++this._generation, this._notify(), this._generation;
   }
   end(S) {
-    if (this._generation !== S) return !1;
-    if (this._status !== "running") return !1;
-    return (this._status = "idle"), this._notify(), !0;
+    if (this._generation !== S) return false;
+    if (this._status !== "running") return false;
+    return (this._status = "idle"), this._notify(), true;
   }
   forceEnd() {
     if (this._status === "idle") return;
@@ -2072,7 +2072,7 @@ var w9 = (S, x, P) =>
 
 function _9(S, x) {
   let P = $C(S.getSnapshot(), x).findLast((j) => j.type === "assistant" && !j.isVirtual);
-  return P?.type === "assistant" && P.isApiErrorMessage === !0;
+  return P?.type === "assistant" && P.isApiErrorMessage === true;
 }
 
 function x9(S) {
@@ -2080,7 +2080,7 @@ function x9(S) {
     return S.subtype === "model_refusal_no_fallback"
       ? { category: S.apiRefusalCategory ?? null, explanation: S.apiRefusalExplanation ?? null }
       : void 0;
-  return S.type === "assistant" && S.isApiErrorMessage === !0 && S.message.stop_reason === "refusal"
+  return S.type === "assistant" && S.isApiErrorMessage === true && S.message.stop_reason === "refusal"
     ? { category: S.message.stop_details?.category ?? null, explanation: S.message.stop_details?.explanation ?? null }
     : void 0;
 }
@@ -2144,7 +2144,7 @@ async function P_e({
   if (Re >= Srt) n(`[engine] turn read waited ${Re}ms for the previous turn's result`);
   try {
     re?.();
-    while (!0) {
+    while (true) {
       let { value: be, done: Pe } = await S.next();
       if (Pe) break;
       if (be.type === "system" && be.subtype === "api_retry") continue;
@@ -2335,7 +2335,7 @@ class A9 {
   _isStreamingTextVisible;
   _getTranscriptLength;
   _cancelThinkingHide = null;
-  _disposed = !1;
+  _disposed = false;
   _responseLength = 0;
   _lastTokenFlushTime = 0;
   _apiMetrics = [];
@@ -2505,7 +2505,7 @@ class A9 {
       this.previewStore.setSalvage(null);
   }
   dispose() {
-    (this._disposed = !0), this._cancelThinkingHide?.(), (this._cancelThinkingHide = null), this._coalescer.dispose();
+    (this._disposed = true), this._cancelThinkingHide?.(), (this._cancelThinkingHide = null), this._coalescer.dispose();
   }
   _publish(S) {
     this._snapshot = { ...this._snapshot, ...S };
@@ -2544,16 +2544,16 @@ class AB {
   _swarmBudgetInfo = void 0;
   _unwatchSwarm = null;
   _backgroundWaitStartTime = null;
-  _tipPickedThisTurn = !1;
+  _tipPickedThisTurn = false;
   _bashTools = new Set();
   _bashHosts = new Set();
   _toolsUsed = new Set();
   _signalsAbsorbedLength = 0;
-  _initialMessageInFlight = !1;
-  _disposed = !1;
+  _initialMessageInFlight = false;
+  _disposed = false;
   _openTurnSpans = new Set();
   _autoContinueResetsAt = null;
-  _autoContinueLive = !1;
+  _autoContinueLive = false;
   _autoOpenedRateLimitKeys = new Set();
   _scheduleTimeout;
   _unwatchQueue = null;
@@ -2595,7 +2595,7 @@ class AB {
         },
       }),
       (this._snapshot = {
-        isQueryActive: !1,
+        isQueryActive: false,
         isExternalLoading: P,
         isLoading: P,
         submitCount: 0,
@@ -2650,14 +2650,14 @@ class AB {
       try {
         let Z = x.getState().thinkingEnabled;
         if (this._engineThinkingEnabled !== null && this._engineThinkingEnabled.value === Z) return;
-        (this._engineThinkingEnabled = { value: Z }), this._engine.setMaxThinkingTokens(Z === !1 ? 0 : null);
+        (this._engineThinkingEnabled = { value: Z }), this._engine.setMaxThinkingTokens(Z === false ? 0 : null);
       } catch (Z) {
         h(Z);
       }
     };
     (this._unwatchThinking = x.subscribe(H)), H();
     try {
-      hx.recordUserActivity(), D4(!0);
+      hx.recordUserActivity(), D4(true);
     } catch (Z) {
       h(Z);
     }
@@ -2732,9 +2732,9 @@ class AB {
   };
   markSubmit() {
     let S = this._snapshot.submitCount + 1;
-    this._publish({ submitCount: S }), (this._tipPickedThisTurn = !1);
+    this._publish({ submitCount: S }), (this._tipPickedThisTurn = false);
     try {
-      hx.recordUserActivity(), D4(!0);
+      hx.recordUserActivity(), D4(true);
       let x = this._host;
       if (S === 1 && x !== null) UKt(x.session.host, x.storageV5);
     } catch (x) {
@@ -2752,7 +2752,7 @@ class AB {
   }
   resetLoadingState = () => {
     let { spinnerStore: S, setAppState: x, session: P } = this._requireHost();
-    this.setExternalLoading(!1),
+    this.setExternalLoading(false),
       this.stream.reset(),
       S.main.resetOverrides(),
       S.main.setMode("responding"),
@@ -2766,7 +2766,7 @@ class AB {
   };
   pickNewSpinnerTip() {
     if (this._tipPickedThisTurn) return;
-    this._tipPickedThisTurn = !0;
+    this._tipPickedThisTurn = true;
     let {
         session: S,
         theme: x,
@@ -2858,7 +2858,7 @@ class AB {
   }
   _isBlockingDialogOpen() {
     let S = this._host?.dialogStore;
-    if (S === void 0) return !1;
+    if (S === void 0) return false;
     return Up(S.getState()) !== null;
   }
   setPaused(S, x = Date.now()) {
@@ -2881,14 +2881,14 @@ class AB {
       ue = H.replace,
       de = this.abortController;
     if (S === "remote" && !x.isRemoteMode) this._engine.interrupt("remote-cancel", uKt(S));
-    if (P === "elicitation") return !0;
-    if (!de && !this.guard.isActive && !lzt(x, this.isExternalLoading)) return !1;
+    if (P === "elicitation") return true;
+    if (!de && !this.guard.isActive && !lzt(x, this.isExternalLoading)) return false;
     n(`[onCancel] source=${S} focusedInputDialog=${P} streamMode=${j.get().mode}`),
       re.clearPending(),
       this.guard.forceEnd();
     let pe = this.stream.getSnapshot().streamingThinking?.thinking?.trim();
     if (pe && j.get().thinkingStartedAt !== null)
-      ue((He) => [...He, Qc({ content: [{ type: "thinking", thinking: pe, signature: "" }], isVirtual: !0 })]);
+      ue((He) => [...He, Qc({ content: [{ type: "thinking", thinking: pe, signature: "" }], isVirtual: true })]);
     let { salvage: Re } = this.stream.previewStore.getState(),
       be = this.stream.continuationReplacesUuids,
       Pe = this.stream.peekStreamingText();
@@ -2907,12 +2907,12 @@ class AB {
     let Ie = S === "remote" ? "remote-cancel" : "user-cancel";
     if (x.isRemoteMode) x.cancelRequest(), de?.abort(bu(Ie));
     else if ((de?.abort(bu(Ie)), S !== "remote")) this._engine.interrupt(Ie, uKt(S));
-    return this.setAbortController(null), Z(), !0;
+    return this.setAbortController(null), Z(), true;
   };
   interruptForSubmit = () => {
     let S = this.abortController;
-    if (!S || S.signal.aborted) return !1;
-    return HCt(this.stream.inFlightMessageId), S.abort(bu("user-cancel")), !0;
+    if (!S || S.signal.aborted) return false;
+    return HCt(this.stream.inFlightMessageId), S.abort(bu("user-cancel")), true;
   };
   buildToolUseContext = (S, x, P, j) => this._buildToolUseContextWith(this._requireHost(), S, x, P, j);
   _buildToolUseContextWith(S, x, P, j, H) {
@@ -2970,7 +2970,7 @@ class AB {
         mcpClients: re.computeMcpClients(),
         mcpResources: jo.mcp.resources,
         ideInstallationStatus: Oe,
-        isNonInteractiveSession: !1,
+        isNonInteractiveSession: false,
         resolveCommandDialog: Ie,
         renderDebugControls: Io.get(process.stdout)?.renderDebug,
         requiresStructuredOutput: Qo.some((Yt) => on(Yt, qs)),
@@ -3012,7 +3012,7 @@ class AB {
       getMessages: () => kt.getSnapshot(),
       getIsResponseStreaming: () => this.guard.isRunning,
       reloadPlugins: async () => {
-        await D0(Ke, Ht, yt, { applyStagedInstalls: !1 });
+        await D0(Ke, Ht, yt, { applyStagedInstalls: false });
       },
       retireDepartedAdditionalDirectories: (Yt) => {
         Ke((No) => {
@@ -3043,7 +3043,7 @@ class AB {
             });
           },
           Yt,
-          { preCheckpoint: !0 },
+          { preCheckpoint: true },
         ),
       applyAttributionOp(Yt) {
         Ke((No) => {
@@ -3192,7 +3192,7 @@ class AB {
       onSetStreamMode: j.main.setMode,
       onStreamingToolUses: this.stream.setStreamingToolUses,
       replInputAccumulator: this._replInputAccumulator,
-      authoringProgressSurface: !0,
+      authoringProgressSurface: true,
       onTombstone: (Ie) => {
         if ((be({ type: "remove-by-uuid", uuid: Ie.uuid }), this.stream.transcriptRetractedUuids.delete(Ie.uuid)))
           return;
@@ -3266,12 +3266,12 @@ class AB {
     if (io()) {
       let To = ds(),
         ao = gf();
-      if (To && ao) gVe(To, ao, !0, Fe);
+      if (To && ao) gVe(To, ao, true, Fe);
     }
     let jt = this.guard.tryStart();
     if (jt === null) {
       s("tengu_concurrent_onquery_detected", {});
-      let To = !1;
+      let To = false;
       for (let ao of S) {
         if (ao.type !== "user") continue;
         let jo = oxt(ao.uuid);
@@ -3322,12 +3322,12 @@ class AB {
           }),
           !To)
         )
-          (To = !0), s("tengu_concurrent_onquery_enqueued", {});
+          (To = true), s("tengu_concurrent_onquery_enqueued", {});
       }
       return;
     }
     Oe.dialogStore.dismissKind(Rg.kind), Oe.dialogStore.dismissKind(Rh.kind);
-    let Gt = !1,
+    let Gt = false,
       vo = null,
       qt = { before: He.getSnapshot().at(-1)?.uuid, next: void 0 };
     if (P) {
@@ -3343,7 +3343,7 @@ class AB {
         this.stream.beginTurn(),
         this._displayTransform(Oe).newTurn(),
         Ve(),
-        (Gt = !0),
+        (Gt = true),
         P)
       )
         ot.sandboxClassifierVerdicts().clear();
@@ -3462,16 +3462,16 @@ class AB {
         zo = Xo ? kE(Xo.message.content) : null,
         en = zo !== null && awe(zo, (un) => k9(un, Ie.commands));
       if (zo && !nM(zo) && !en) {
-        this.haikuTitleAttempted = !0;
+        this.haikuTitleAttempted = true;
         let un = He.id;
         this._engine.generateSessionTitle(zo, { credentials: vo }).then(
           (Rn) => {
             if (un !== He.id) return;
             if (Rn) Ve(Rn), l2(un, Rn, Ke), Oa()?.adoptLocalAiTitle?.();
-            else this.haikuTitleAttempted = !1;
+            else this.haikuTitleAttempted = false;
           },
           () => {
-            this.haikuTitleAttempted = !1;
+            this.haikuTitleAttempted = false;
           },
         );
       }
@@ -3481,7 +3481,7 @@ class AB {
         let zo = Xo.toolPermissionContext.alwaysAllowRules.command;
         if (
           (zo === Z || ((zo?.length ?? 0) === Z.length && (zo ?? []).every((en, un) => en === Z[un]))) &&
-          Xo.toolPermissionContext.pollEventDeliveryGuard !== !0
+          Xo.toolPermissionContext.pollEventDeliveryGuard !== true
         )
           return Xo;
         return {
@@ -3600,7 +3600,7 @@ class AB {
       }),
       mre(nt.getState()))
     )
-      ot((Xo) => ({ ...Xo, showAutoModeEnvOnboarding: !0 }));
+      ot((Xo) => ({ ...Xo, showAutoModeEnvOnboarding: true }));
     Mc("query_end"), this.resetLoadingState(), lpt(), await jt?.(Rt.getSnapshot());
   }
   get isInitialMessageInFlight() {
@@ -3608,7 +3608,7 @@ class AB {
   }
   submitInitial(S) {
     if (this._initialMessageInFlight) return;
-    this._initialMessageInFlight = !0;
+    this._initialMessageInFlight = true;
     let x = this._requireHost(),
       {
         store: P,
@@ -3683,14 +3683,14 @@ ${st.text}`,
 <interrupted-output>
 ${yt}
 </interrupted-output>`,
-                  isMeta: !0,
+                  isMeta: true,
                 }),
               ]),
                 n(`[reply-on-resume] partial-hint ${st.text.length} chars`);
             }
             n("[reply-on-resume] \u2192 onQuery");
             let Ht = gr();
-            this.setAbortController(Ht), this.run([], Ht, !0, [], pe);
+            this.setAbortController(Ht), this.run([], Ht, true, [], pe);
           } else n("[reply-on-resume] \u2192 markReplayNoOp"), aQt().catch(() => {});
         }
         return;
@@ -3764,7 +3764,7 @@ ${yt}
         });
       else {
         let st = gr();
-        this.setAbortController(st), this.run([Ke.message], st, !0, [], pe);
+        this.setAbortController(st), this.run([Ke.message], st, true, [], pe);
       }
     })(S)
       .catch((Ke) => {
@@ -3777,20 +3777,20 @@ ${yt}
       })
       .finally(() => {
         this._scheduleTimeout(() => {
-          if (((this._initialMessageInFlight = !1), this._disposed)) return;
+          if (((this._initialMessageInFlight = false), this._disposed)) return;
           let Ke = P.getState().initialMessage;
           if (Ke !== null && Ke !== S && !this._snapshot.isLoading) this.submitInitial(Ke);
         }, 100);
       });
   }
   submitIncomingPrompt = (S, x) => {
-    if (this.guard.isActive) return !1;
+    if (this.guard.isActive) return false;
     let { mainLoopModel: P, messageQueue: j } = this._requireHost();
-    if (j.getCommandQueue().some((re) => re.mode === "prompt" || re.mode === "bash")) return !1;
+    if (j.getCommandQueue().some((re) => re.mode === "prompt" || re.mode === "bash")) return false;
     let H = gr();
     this.setAbortController(H);
-    let Z = xe({ content: S, isMeta: x?.isMeta ? !0 : void 0 });
-    return this.run([Z], H, !0, [], P), !0;
+    let Z = xe({ content: S, isMeta: x?.isMeta ? true : void 0 });
+    return this.run([Z], H, true, [], P), true;
   };
   executeQueuedInput = async (S) => {
     let {
@@ -3841,13 +3841,13 @@ ${yt}
     });
   };
   armRateLimitAutoContinue = (S) => {
-    if (S === this._autoContinueResetsAt) return !1;
-    if (dy()) return !1;
-    if (PJt() || t6e(S)) return !1;
+    if (S === this._autoContinueResetsAt) return false;
+    if (dy()) return false;
+    if (PJt() || t6e(S)) return false;
     let { store: x, session: P, draft: j } = this._requireHost();
     if (
       ((this._autoContinueResetsAt = S),
-      (this._autoContinueLive = !0),
+      (this._autoContinueLive = true),
       import("/$bunfs/root/chunk-bdjnr093.js")
         .then(({ performRateLimitCheckpoint: H }) =>
           H({ todos: x.getState().todos[P.id] ?? [], trigger: "rate_limited" }),
@@ -3856,23 +3856,23 @@ ${yt}
       j.value === "")
     )
       j.setValueRaw(KQ);
-    return !0;
+    return true;
   };
   openRateLimitOptions = () => {
     let S = Id().resetsAt ?? "no-reset";
-    if (this._autoOpenedRateLimitKeys.has(S)) return !1;
-    if (PJt()) return this._autoOpenedRateLimitKeys.add(S), !1;
-    if (dy()) return !1;
+    if (this._autoOpenedRateLimitKeys.has(S)) return false;
+    if (PJt()) return this._autoOpenedRateLimitKeys.add(S), false;
+    if (dy()) return false;
     let { onSubmit: x } = this._requireHost();
     return (
       this._autoOpenedRateLimitKeys.add(S),
       x("/rate-limit-options", { setCursorOffset: () => {}, clearBuffer: () => {}, resetHistory: () => {} }).catch(h),
-      !0
+      true
     );
   };
   cancelRateLimitAutoContinue = () => {
     if (!this._autoContinueLive) return;
-    (this._autoContinueLive = !1), s("tengu_rl_checkpoint_auto_continue_cancelled_by_upsell", {});
+    (this._autoContinueLive = false), s("tengu_rl_checkpoint_auto_continue_cancelled_by_upsell", {});
     let { draft: S } = this._requireHost();
     if (S.value === KQ) S.replaceValue("");
   };
@@ -3883,21 +3883,21 @@ ${yt}
   rewriteInputOverAutoContinuePrefill(S, x) {
     let P = S1n(S, x, this._autoContinueLive);
     if (P !== S && this._autoContinueLive)
-      (this._autoContinueLive = !1), s("tengu_rl_checkpoint_auto_continue_cancelled_by_slash", {});
+      (this._autoContinueLive = false), s("tengu_rl_checkpoint_auto_continue_cancelled_by_slash", {});
     return P;
   }
   retractRateLimitAutoContinue = () => {
     if (!this._autoContinueLive) return;
-    this._autoContinueLive = !1;
+    this._autoContinueLive = false;
     let { draft: S } = this._requireHost();
     if (S.value === KQ) S.setValueRaw("");
   };
   resetRateLimitAutoContinue() {
-    (this._autoContinueResetsAt = null), (this._autoContinueLive = !1);
+    (this._autoContinueResetsAt = null), (this._autoContinueLive = false);
   }
   dispose() {
     if (
-      ((this._disposed = !0),
+      ((this._disposed = true),
       this.stream.dispose(),
       this._unwatchQueue?.(),
       (this._unwatchQueue = null),
@@ -4035,13 +4035,13 @@ function D9() {
       return (
         u6e(S, (Z) => {
           let re = Z.trim();
-          if (!re || re.startsWith("!") || re.startsWith("/")) return !1;
+          if (!re || re.startsWith("!") || re.startsWith("/")) return false;
           let ue = H.questions[0];
-          if (!ue) return !1;
+          if (!ue) return false;
           u6e(S, null);
           let pe = ue.options?.find((Re) => Re.label.toLowerCase() === re.toLowerCase())?.label ?? re;
           return (
-            x.answer(P.id, { behavior: "allow", updatedInput: { ...H.input, answers: { [ue.question]: pe } } }), !0
+            x.answer(P.id, { behavior: "allow", updatedInput: { ...H.input, answers: { [ue.question]: pe } } }), true
           );
         }),
         () => u6e(S, null)
@@ -4108,16 +4108,16 @@ class N9 {
   }
   isNonLoggableTailIntact(S, x) {
     let P = this.lastLoggable;
-    if (P !== void 0 && S[P.index]?.uuid !== P.uuid) return !1;
+    if (P !== void 0 && S[P.index]?.uuid !== P.uuid) return false;
     for (let j = P === void 0 ? 0 : P.index + 1; j < x; j++) {
       let H = S[j];
-      if (H === void 0 || tM(H)) return !1;
+      if (H === void 0 || tM(H)) return false;
     }
-    return !0;
+    return true;
   }
 }
 
-function L9(S, x = !1, P = !1) {
+function L9(S, x = false, P = false) {
   let j = ct(),
     H = W((de) => de.teamContext?.teamName),
     Z = W((de) => de.teamContext?.selfAgentName),

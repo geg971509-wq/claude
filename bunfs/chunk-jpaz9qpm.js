@@ -22,7 +22,7 @@ var wCn = S(function (B) {
         return { response: o, output: s };
       } catch (s) {
         if (
-          (Object.defineProperty(s, "$response", { value: o, enumerable: !1, writable: !1, configurable: !1 }),
+          (Object.defineProperty(s, "$response", { value: o, enumerable: false, writable: false, configurable: false }),
           !("$metadata" in s))
         ) {
           try {
@@ -65,8 +65,8 @@ var wCn = S(function (B) {
       let c = await r(n.input, { ...e, endpoint: s });
       return t({ ...n, request: c });
     },
-    v = { name: "deserializerMiddleware", step: "deserialize", tags: ["DESERIALIZER"], override: !0 },
-    x = { name: "serializerMiddleware", step: "serialize", tags: ["SERIALIZER"], override: !0 };
+    v = { name: "deserializerMiddleware", step: "deserialize", tags: ["DESERIALIZER"], override: true },
+    x = { name: "serializerMiddleware", step: "serialize", tags: ["SERIALIZER"], override: true };
   function j(e, r, t) {
     return {
       applyToStack: (i) => {
@@ -134,7 +134,7 @@ var oa = S(function (C) {
       step: "serialize",
       tags: ["HTTP_AUTH_SCHEME"],
       name: "httpAuthSchemeMiddleware",
-      override: !0,
+      override: true,
       relation: "before",
       toMiddleware: "endpointV2Middleware",
     },
@@ -147,7 +147,7 @@ var oa = S(function (C) {
       step: "serialize",
       tags: ["HTTP_AUTH_SCHEME"],
       name: "httpAuthSchemeMiddleware",
-      override: !0,
+      override: true,
       relation: "before",
       toMiddleware: U.serializerMiddlewareOption.name,
     },
@@ -177,7 +177,7 @@ var oa = S(function (C) {
       tags: ["HTTP_SIGNING"],
       name: "httpSigningMiddleware",
       aliases: ["apiKeyMiddleware", "tokenMiddleware", "awsAuthMiddleware"],
-      override: !0,
+      override: true,
       relation: "after",
       toMiddleware: "retryMiddleware",
     },
@@ -199,7 +199,7 @@ var oa = S(function (C) {
     return async function* (s, c, ...d) {
       let a = c,
         p = s.startingToken ?? a[t],
-        u = !0,
+        u = true,
         h;
       while (u) {
         if (((a[t] = p), n)) a[n] = a[n] ?? s.pageSize;
@@ -280,11 +280,11 @@ var oa = S(function (C) {
         n,
         o,
         s,
-        c = !1,
+        c = false,
         d = async (a) => {
           if (!o) o = i(a);
           try {
-            (n = await o), (s = !0), (c = !1);
+            (n = await o), (s = true), (c = false);
           } finally {
             o = void 0;
           }
@@ -298,13 +298,13 @@ var oa = S(function (C) {
       return async (a) => {
         if (!s || a?.forceRefresh) n = await d(a);
         if (c) return n;
-        if (!t(n)) return (c = !0), n;
+        if (!t(n)) return (c = true), n;
         if (r(n)) return await d(a), n;
         return n;
       };
     };
   Object.defineProperty(C, "requestBuilder", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return V.requestBuilder;
     },

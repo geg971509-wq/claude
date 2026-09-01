@@ -128,12 +128,12 @@ import { appendFile as Pn, mkdir as An, readFile as On, writeFile as Rn } from "
 import { homedir as We } from "os";
 import { dirname as Tn, isAbsolute as Ke, join as Ae } from "path";
 async function oqt(e, t) {
-  let { code: r } = await qe("git", ["check-ignore", "--", e], { preserveOutputOnError: !1, cwd: t });
+  let { code: r } = await qe("git", ["check-ignore", "--", e], { preserveOutputOnError: false, cwd: t });
   return r === 0;
 }
 async function hn(e) {
   let { stdout: t, code: r } = await qe("git", ["config", "--global", "--get", "core.excludesfile"], {
-      preserveOutputOnError: !1,
+      preserveOutputOnError: false,
       cwd: e,
     }),
     o = r === 0 ? t.trim() : "";
@@ -147,14 +147,14 @@ async function hn(e) {
 }
 async function iqt(e, t = ee()) {
   try {
-    if (!(await wvn(t))) return { written: !1, effective: !1 };
+    if (!(await wvn(t))) return { written: false, effective: false };
     let r = e.replaceAll("\\", "/"),
       o = `**/${r}`,
       u = r.endsWith("/") ? `${r}sample-file.txt` : r;
-    if (await oqt(u, t)) return { written: !1, effective: !0 };
+    if (await oqt(u, t)) return { written: false, effective: true };
     let d = await hn(t),
       _ = Tn(d);
-    await An(_, { recursive: !0 });
+    await An(_, { recursive: true });
     try {
       if ((await On(d, { encoding: "utf-8" })).includes(o)) {
         let T = (await Be(u, t)) ? "already_tracked" : "excludesfile_not_read";
@@ -162,7 +162,7 @@ async function iqt(e, t = ee()) {
           n(`[gitignore] '${o}' already present in ${d} but git check-ignore reports not-ignored \u2014 ${Ve(T, u)}`, {
             level: "warn",
           }),
-          { written: !1, effective: !1, reason: T }
+          { written: false, effective: false, reason: T }
         );
       }
       await Pn(
@@ -187,21 +187,21 @@ ${o}
         n(`[gitignore] wrote '${o}' to ${d} but git check-ignore still reports not-ignored \u2014 ${Ve(P, u)}`, {
           level: "warn",
         }),
-        { written: !0, effective: !1, reason: P }
+        { written: true, effective: false, reason: P }
       );
     }
-    return { written: !0, effective: !0 };
+    return { written: true, effective: true };
   } catch (r) {
     return (
       n(`Failed to add gitignore entry to global gitignore: ${r instanceof Error ? r.message : String(r)}`, {
         level: "error",
       }),
-      { written: !1, effective: !1 }
+      { written: false, effective: false }
     );
   }
 }
 async function Be(e, t) {
-  let { code: r } = await qe("git", ["ls-files", "--error-unmatch", "--", e], { preserveOutputOnError: !1, cwd: t });
+  let { code: r } = await qe("git", ["ls-files", "--error-unmatch", "--", e], { preserveOutputOnError: false, cwd: t });
   return r === 0;
 }
 function Ve(e, t) {
@@ -216,8 +216,8 @@ function Pwt(e) {
 function Dwt(e, t) {
   let r = Ha().internalWrites,
     o = r.get(e);
-  if (o !== void 0 && Date.now() - o < t) return r.delete(e), !0;
-  return !1;
+  if (o !== void 0 && Date.now() - o < t) return r.delete(e), true;
+  return false;
 }
 function Yrr() {
   Ha().internalWrites.clear();
@@ -628,13 +628,13 @@ function Yn(e) {
     r = new URL(t ? `https:${e}` : e);
   } catch {
     let S = e.replace(/^([a-z][a-z0-9+.-]*:)?\/\/[^/?#]*@/i, "$1//");
-    return HC(S) ? { text: K, cut: !0 } : { text: S, cut: !1, stripped: S !== e };
+    return HC(S) ? { text: K, cut: true } : { text: S, cut: false, stripped: S !== e };
   }
   let o = r.password !== "" || (r.username !== "" && /(^|\+)https?:$/i.test(r.protocol)),
     u = o;
   if (o) (r.username = ""), (r.password = "");
-  let d = !1;
-  if (HC(Jn(r.search))) (r.search = ""), (r.hash = ""), (d = !0);
+  let d = false;
+  if (HC(Jn(r.search))) (r.search = ""), (r.hash = ""), (d = true);
   let _ = r.href;
   return { text: t ? _.replace(/^https:/, "") : _, cut: d, stripped: u };
 }
@@ -646,12 +646,12 @@ function Jn(e) {
   }
 }
 function LTn(e, t) {
-  if (t.trim() === "") return { value: t, cut: !1, stripped: !1 };
+  if (t.trim() === "") return { value: t, cut: false, stripped: false };
   let r = /^(?:INPUT_)?GOPROXY$/i.test(e),
     o = !/^INPUT_/i.test(e) && dt(e) !== void 0,
-    u = !1,
-    d = !1,
-    _ = !1,
+    u = false,
+    d = false,
+    _ = false,
     S = r ? /(\s*[,|]\s*|\s+)/ : o ? /(\s+)/ : null,
     A = (S === null ? [t] : t.split(S))
       .flatMap((C) => {
@@ -660,18 +660,18 @@ function LTn(e, t) {
           F = U ? U[1] : "",
           N = C.slice(F.length);
         if (!N.startsWith("//") && !jn.test(N)) {
-          if (C.trim() !== "" && HC(C)) return (u = !0), (d = !0), [r ? "off" : K];
+          if (C.trim() !== "" && HC(C)) return (u = true), (d = true), [r ? "off" : K];
           return [C];
         }
         let v = Yn(N);
-        if (((d ||= v.cut || v.stripped === !0), v.cut || (v.stripped && (r || o)))) {
-          if (((u = !0), r)) return (_ = !0), ["off"];
+        if (((d ||= v.cut || v.stripped === true), v.cut || (v.stripped && (r || o)))) {
+          if (((u = true), r)) return (_ = true), ["off"];
         }
         return [F + v.text];
       })
       .join("");
   if (r) A = A.replace(/[,|\s]+$/, "");
-  if (A !== "" && HC(A)) return { value: r ? "off" : K, cut: !0, stripped: !0 };
+  if (A !== "" && HC(A)) return { value: r ? "off" : K, cut: true, stripped: true };
   return { value: A === "" ? K : A, cut: u, stripped: d };
 }
 function Jrr(e) {
@@ -816,7 +816,7 @@ function fXe(e, t) {
   sqt();
   let o = r.map((_, S) => {
     let P = S > 0 && /^(?:-D|--define)$/.test(kpe(r[S - 1])) ? `-D${_}` : Nt(kpe(_));
-    return { raw: _, word: P, residual: It.test(P), goes: !1 };
+    return { raw: _, word: P, residual: It.test(P), goes: false };
   });
   for (let _ = 0; _ < o.length; _++) {
     let S = o[_];
@@ -830,11 +830,11 @@ function fXe(e, t) {
         (T !== void 0 && !T.residual && !ne(T.word) && Ce.test(S.word) && HC(`${S.word} ${T.word}`))),
       S.goes && T !== void 0 && !ne(T.word) && Ce.test(S.word))
     )
-      T.goes = !0;
+      T.goes = true;
   }
   for (let _ = 1; _ < o.length; _++) {
-    if (sr.test(o[_ - 1].word)) o[_].goes = !0;
-    if (o[_].goes && !kpe(o[_].raw).startsWith("-") && ir(o[_ - 1].word)) o[_ - 1].goes = !0;
+    if (sr.test(o[_ - 1].word)) o[_].goes = true;
+    if (o[_].goes && !kpe(o[_].raw).startsWith("-") && ir(o[_ - 1].word)) o[_ - 1].goes = true;
   }
   let u = o.filter((_) => !_.goes);
   e: while (Lwt(u.filter((_) => !_.residual).flatMap(st))) {
@@ -843,12 +843,12 @@ function fXe(e, t) {
       for (let P = 0; P + S <= _.length; P++) {
         let T = _.slice(P, P + S);
         if (Lwt(T.flatMap(st))) {
-          for (let A of T) A.goes = !0;
+          for (let A of T) A.goes = true;
           u = u.filter((A) => !A.goes);
           continue e;
         }
       }
-    for (let S of _) S.goes = !0;
+    for (let S of _) S.goes = true;
     u = u.filter((S) => !S.goes);
   }
   if (u.length === o.length) return t;
@@ -908,22 +908,22 @@ function ur(e) {
   return t !== null && BAe(t[1]) === null;
 }
 function at(e, t) {
-  if (ar.test(e)) return !0;
+  if (ar.test(e)) return true;
   let r = /^-D([^=]+)=(.+)$/s.exec(e);
   if (r !== null) {
     let [, o, u] = r;
-    if (yt(o, u) || HC(u)) return !0;
-    if (q === !0)
+    if (yt(o, u) || HC(u)) return true;
+    if (q === true)
       return (
         $Tn.test(o) ||
         e.includes("\\") ||
         (!_r.test(o) && !(/^sonar\./i.test(o) && !cqt(o) && !/key.?store|cert|pkcs|p12|pfx|\.pem$/i.test(o)) && lt(u))
       );
-    return !1;
+    return false;
   }
-  if (HC(e)) return !0;
-  if (q === !0) return !dr.test(e) && !(t !== null && Tt.test(t)) && lt(e);
-  return !1;
+  if (HC(e)) return true;
+  if (q === true) return !dr.test(e) && !(t !== null && Tt.test(t)) && lt(e);
+  return false;
 }
 function lt(e) {
   return /[\\/]|^[@~]/.test(e);
@@ -967,7 +967,7 @@ var gr = new Set(["JAVA_TOOL_OPTIONS", "JDK_JAVA_OPTIONS", "_JAVA_OPTIONS", "IBM
 function BAe(e) {
   let t = [],
     r = "",
-    o = !1,
+    o = false,
     u = 0;
   while (u < e.length) {
     let d = e[u];
@@ -979,17 +979,17 @@ function BAe(e) {
 ` ||
       d === "\r"
     ) {
-      if (o) t.push(r), (r = ""), (o = !1);
+      if (o) t.push(r), (r = ""), (o = false);
       u++;
       continue;
     }
     if (d === "'" || d === '"') {
       let _ = e.indexOf(d, u + 1);
       if (_ === -1) return null;
-      (r += e.slice(u + 1, _)), (o = !0), (u = _ + 1);
+      (r += e.slice(u + 1, _)), (o = true), (u = _ + 1);
       continue;
     }
-    (r += d), (o = !0), u++;
+    (r += d), (o = true), u++;
   }
   if (o) t.push(r);
   return t;
@@ -1045,7 +1045,7 @@ function jTn(e, t) {
   return /^(?:\d+[a-z]{0,2}|true|false)$/i.test(t) && !Hpe(r.replace(/-/g, "_")) && !Le(e);
 }
 function cqt(e) {
-  if (fr.has(e.toLowerCase())) return !0;
+  if (fr.has(e.toLowerCase())) return true;
   let t = e.split(".").at(-1) ?? "",
     r = ce(t)
       .split(/[_-]+/)
@@ -1053,12 +1053,12 @@ function cqt(e) {
       .map((u) => u.toUpperCase().replace(/\d+$/, ""))
       .filter(Boolean),
     o = r.at(-1);
-  if (!o) return !1;
+  if (!o) return false;
   if (/^sonar\./i.test(e)) {
-    if (o === "SECURED") return !0;
-    if ((Sr.test(t) || Er.has(e.toLowerCase())) && !Le(e)) return !1;
+    if (o === "SECURED") return true;
+    if ((Sr.test(t) || Er.has(e.toLowerCase())) && !Le(e)) return false;
   }
-  if (Hpe(t.replace(/-/g, "_")) || Le(e) || Ne.test(ce(e).replace(/[.-]/g, "_"))) return !0;
+  if (Hpe(t.replace(/-/g, "_")) || Le(e) || Ne.test(ce(e).replace(/[.-]/g, "_"))) return true;
   return o === "USERNAME" || (o === "USER" && r.length > 1);
 }
 function Le(e) {
@@ -1214,19 +1214,19 @@ function HC(e) {
       let d = u.search(/\s/),
         _ = d === -1 ? u : u.slice(0, d),
         S = _.lastIndexOf("@");
-      if (S === -1) return !1;
+      if (S === -1) return false;
       let P = _.slice(0, S);
-      if (ct(P, _.slice(S + 1))) return !1;
+      if (ct(P, _.slice(S + 1))) return false;
       return P.includes(":") || (!/[/?#]/.test(P) && Dr(P));
     },
     o = t.indexOf("://");
   while (o !== -1) {
     if (o > 0 && /[a-z0-9+.-]/i.test(t[o - 1] ?? "")) {
-      if (r(t.slice(o + 3))) return !0;
+      if (r(t.slice(o + 3))) return true;
     }
     o = t.indexOf("://", o + 3);
   }
-  if (t.startsWith("//") && r(t.slice(2))) return !0;
+  if (t.startsWith("//") && r(t.slice(2))) return true;
   return (
     (/^[^\s/@:]+:(?!\/\/)(?![\\/])[^\s@]*@[^\s/@]+/.test(t) &&
       !/^[a-z]:[\\/]/i.test(t) &&
@@ -1255,11 +1255,11 @@ function Dr(e) {
 }
 function ct(e, t) {
   let r = /^([a-z0-9_-]+(?:\.[a-z0-9_-]+)*):\d+([/?#].*)$/is.exec(e);
-  if (!r) return !1;
-  if (/[?#&]/.test(r[2])) return !0;
-  if (Hr.test(t)) return !1;
-  if (e.endsWith("/")) return !0;
-  if (/^(?:v?\d|sha\d*:)/i.test(t)) return !0;
+  if (!r) return false;
+  if (/[?#&]/.test(r[2])) return true;
+  if (Hr.test(t)) return false;
+  if (e.endsWith("/")) return true;
+  if (/^(?:v?\d|sha\d*:)/i.test(t)) return true;
   return !vr.test(t);
 }
 var br =
@@ -1274,7 +1274,7 @@ var br =
     /(?:(?:^|[;&?#,{]|\/:)\s*|\s)["']?(?!-*jobserver-auth\s*[=:])(?:[a-z0-9_.-]{0,64}(?:password|passwd|pwd|secret|token|(?:account|access|api|private|subscription)[-_]?key|signature|sig|credential)|[a-z0-9_.-]{0,63}[_.-]auth)["']?\s*[=:]\s*["']?(?!(?:true|false|none|null|yes|no|on|off|enabled|disabled|required|optional)(?:$|[;&,\s"']))[^;&,\s"']+/i;
 function $r(e) {
   let t = e.split(/\s+/).filter(Boolean),
-    r = !1,
+    r = false,
     o = t.map((S) => {
       let P = S.replace(/["']/g, ""),
         T = P.replace(/^--?[\w-]+=/, ""),
@@ -1293,7 +1293,7 @@ function $r(e) {
       let T = o.slice(S, S + P);
       if (T.some((A) => A.goes) || T.slice(1).some((A) => A.bare.startsWith("-"))) break;
       if (HC(T.map((A) => A.contribution).join(" "))) {
-        for (let A of T) A.goes = !0;
+        for (let A of T) A.goes = true;
         break;
       }
     }
@@ -1318,13 +1318,13 @@ function $r(e) {
     d !== -1)
   )
     o.forEach((S, P) => {
-      if (u[P] === d) S.goes = !0;
+      if (u[P] === d) S.goes = true;
     });
   if (
     (o.forEach((S, P) => {
       if (S.goes && u[P] !== -1)
         o.forEach((T, A) => {
-          if (u[A] === u[P]) T.goes = !0;
+          if (u[A] === u[P]) T.goes = true;
         });
     }),
     o.every((S) => !S.goes))
@@ -1434,13 +1434,13 @@ function z() {
 class Ft {
   state = null;
   selectionWarnings = [];
-  initializeAttempted = !1;
-  structuralRefusalLogged = !1;
-  noEntrySadLogged = !1;
+  initializeAttempted = false;
+  structuralRefusalLogged = false;
+  noEntrySadLogged = false;
   defaultFallback = null;
   payloadRefusalError = null;
   refreshTimer = null;
-  refreshInFlight = !1;
+  refreshInFlight = false;
   pendingStats = new Map();
   remoteArmGeneration = 0;
   remoteArmingConfig = null;
@@ -1448,8 +1448,8 @@ class Ft {
   remoteNoticeSubject = null;
   refreshed = Ue();
   claimInitialize() {
-    if (this.initializeAttempted) return !1;
-    return (this.initializeAttempted = !0), !0;
+    if (this.initializeAttempted) return false;
+    return (this.initializeAttempted = true), true;
   }
   apply(e) {
     if (((this.state = e), z(), e.config)) this.startRefreshTimer(e.config, e.fromPerOs, e.armedFromRemote);
@@ -1467,12 +1467,12 @@ class Ft {
       (this.state = null),
       this.retiredHelperPaths.clear(),
       (this.selectionWarnings = []),
-      (this.initializeAttempted = !1),
-      (this.structuralRefusalLogged = !1),
-      (this.noEntrySadLogged = !1),
+      (this.initializeAttempted = false),
+      (this.structuralRefusalLogged = false),
+      (this.noEntrySadLogged = false),
       (this.defaultFallback = null),
       (this.payloadRefusalError = null),
-      (this.refreshInFlight = !1),
+      (this.refreshInFlight = false),
       this.stopRefreshTimer(),
       z();
   }
@@ -1494,7 +1494,7 @@ class Ft {
     (this.refreshTimer = setInterval(
       (u, d, _) => {
         if (this.refreshInFlight) return;
-        this.refreshInFlight = !0;
+        this.refreshInFlight = true;
         let S = this.state;
         Qt(u, d, _)
           .then((P) => {
@@ -1539,7 +1539,7 @@ class Ft {
             h(P);
           })
           .finally(() => {
-            this.refreshInFlight = !1;
+            this.refreshInFlight = false;
           });
       },
       o,
@@ -1558,7 +1558,7 @@ async function $wt(e, t, r) {
   let o = r.find((C) => C.startupFatal && (C.path === "policyHelpers" || C.path.startsWith("policyHelpers.")));
   if (o) {
     if (!I.structuralRefusalLogged)
-      (I.structuralRefusalLogged = !0),
+      (I.structuralRefusalLogged = true),
         p(
           "settings_policy_helpers_per_os",
           o.path === "policyHelpers" ? "structural_invalid" : "default_payload_invalid",
@@ -1572,10 +1572,10 @@ async function $wt(e, t, r) {
     d = t === "remote" ? Fe(e) : void 0,
     _ = d !== void 0,
     S = _ ? void 0 : e?.policyHelper;
-  if (!u && !S) return (I.initializeAttempted = !1), null;
+  if (!u && !S) return (I.initializeAttempted = false), null;
   if (_) {
     if (!VNe()) {
-      if (((I.initializeAttempted = !1), _N()))
+      if (((I.initializeAttempted = false), _N()))
         be("not yet approved in the managed-settings dialog", d),
           g("settings_policy_helpers_per_os", "remote_consent_missing");
       else be("remote settings not verified this session", d);
@@ -1585,24 +1585,24 @@ async function $wt(e, t, r) {
   } else if (t === "remote" && u)
     return (
       n("remote policyHelpers names no binary this platform can arm", { level: "debug" }),
-      (I.initializeAttempted = !1),
+      (I.initializeAttempted = false),
       null
     );
   else if (t === null || !Zr.has(t)) {
     if (
       (n(`policyHelper ignored: delivered via non-admin source '${t ?? "unknown"}'`, { level: "warn" }), t === "remote")
     )
-      I.initializeAttempted = !1;
+      I.initializeAttempted = false;
     return null;
   }
   let P = u ? $e() : null,
     T = _ ? null : Qr(u, P?.chain ?? []);
   if (T) return (I.payloadRefusalError = T), T;
   let A = ei(u, S, P, _);
-  if (!A) return (I.initializeAttempted = !1), null;
-  if (A.kind === "default") return vt(null, I.defaultFallback?.mergesOutput === !0), null;
+  if (!A) return (I.initializeAttempted = false), null;
+  if (A.kind === "default") return vt(null, I.defaultFallback?.mergesOutput === true), null;
   try {
-    if (A.fromPerOs && I.defaultFallback) await ve(A, { suppressBadEvents: !0 }), y("settings_policy_helpers_per_os");
+    if (A.fromPerOs && I.defaultFallback) await ve(A, { suppressBadEvents: true }), y("settings_policy_helpers_per_os");
     else if (A.fromPerOs) {
       let C;
       try {
@@ -1643,7 +1643,7 @@ function be(e, t) {
       path: "policyHelpers",
       message: u,
       severity: "warning",
-      statusOnly: !0,
+      statusOnly: true,
     }),
     z(),
     n(u, { level: "warn" });
@@ -1673,17 +1673,17 @@ function Qr(e, t) {
       r.push({
         field: `policyHelpers.${u}.defaultSettings`,
         raw: _,
-        onChain: !0,
+        onChain: true,
         mergesOutput: d?.outputBehavior === "merge",
       });
   }
   for (let u of Q6) {
     let d = e[u]?.defaultSettings;
     if (d !== void 0 && d !== null && !t.includes(u))
-      r.push({ field: `policyHelpers.${u}.defaultSettings`, raw: d, onChain: !1, mergesOutput: !1 });
+      r.push({ field: `policyHelpers.${u}.defaultSettings`, raw: d, onChain: false, mergesOutput: false });
   }
   if (e.default !== void 0 && e.default !== null)
-    r.push({ field: "policyHelpers.default", raw: e.default, onChain: !0, mergesOutput: !1 });
+    r.push({ field: "policyHelpers.default", raw: e.default, onChain: true, mergesOutput: false });
   let o = null;
   for (let u of r) {
     if (u.raw !== null && typeof u.raw === "object" && !Array.isArray(u.raw)) {
@@ -1704,7 +1704,7 @@ function Qr(e, t) {
     if (u.onChain && !o)
       o = {
         settings: d.settings,
-        warnings: d.warnings.map((_) => ({ ..._, statusOnly: !0 })),
+        warnings: d.warnings.map((_) => ({ ..._, statusOnly: true })),
         sourceField: u.field,
         mergesOutput: u.mergesOutput,
       };
@@ -1712,16 +1712,16 @@ function Qr(e, t) {
   return (I.defaultFallback = o), null;
 }
 function Wt(e, t) {
-  return e.outputBehavior === "merge" || t?.mergesOutput === !0;
+  return e.outputBehavior === "merge" || t?.mergesOutput === true;
 }
 function vt(e, t) {
   let r = I.defaultFallback;
   if (!r) return;
   I.apply({
     config: e?.config ?? null,
-    fromPerOs: e?.fromPerOs ?? !1,
+    fromPerOs: e?.fromPerOs ?? false,
     serving: "default",
-    armedFromRemote: !1,
+    armedFromRemote: false,
     mergesOutput: t,
     output: { managedSettings: r.settings },
     warnings: r.warnings,
@@ -1762,13 +1762,13 @@ function Kt(e, t, r) {
 }
 function Fe(e) {
   let t = e?.policyHelpers;
-  return t ? Mqt(Kt(t, $e().chain, !0)) : void 0;
+  return t ? Mqt(Kt(t, $e().chain, true)) : void 0;
 }
 function ei(e, t, r, o) {
-  if (!e || !r) return t ? { kind: "helper", config: t, fromPerOs: !1 } : null;
+  if (!e || !r) return t ? { kind: "helper", config: t, fromPerOs: false } : null;
   let { platform: u, chain: d } = r,
     _ = Kt(e, d, o);
-  if (_) return { kind: "helper", config: _, fromPerOs: !0 };
+  if (_) return { kind: "helper", config: _, fromPerOs: true };
   if (I.defaultFallback)
     return (
       g("settings_policy_helpers_per_os", "fell_back_to_default"),
@@ -1779,7 +1779,7 @@ function ei(e, t, r, o) {
       { kind: "default" }
     );
   if (t)
-    return g("settings_policy_helpers_per_os", "fell_back_to_singular"), { kind: "helper", config: t, fromPerOs: !1 };
+    return g("settings_policy_helpers_per_os", "fell_back_to_singular"), { kind: "helper", config: t, fromPerOs: false };
   let S = `${xt}"${u}", no default settings payload, and no policyHelper fallback; no policy helper will run`;
   if (
     (I.selectionWarnings.push({
@@ -1787,13 +1787,13 @@ function ei(e, t, r, o) {
       path: "policyHelpers",
       message: S,
       severity: "warning",
-      statusOnly: !0,
+      statusOnly: true,
     }),
     z(),
     n(S, { level: "warn" }),
     !I.noEntrySadLogged)
   )
-    (I.noEntrySadLogged = !0), g("settings_policy_helpers_per_os", "no_entry_for_platform");
+    (I.noEntrySadLogged = true), g("settings_policy_helpers_per_os", "no_entry_for_platform");
   return null;
 }
 class pe extends Error {
@@ -1804,7 +1804,7 @@ class pe extends Error {
   }
 }
 async function ve({ config: e, fromPerOs: t }, r) {
-  let o = r?.armedFromRemote === !0,
+  let o = r?.armedFromRemote === true,
     u = I.remoteArmGeneration;
   I.remoteArmingConfig = o ? e : null;
   let d;
@@ -1816,7 +1816,7 @@ async function ve({ config: e, fromPerOs: t }, r) {
   if (o && I.remoteArmGeneration !== u) {
     if (e.path !== void 0 && !("error" in d && d.code === "bad_path")) I.retiredHelperPaths.add(e.path);
     return (
-      (I.initializeAttempted = !1),
+      (I.initializeAttempted = false),
       n("policyHelper: remote arming revoked during exec; discarding output", { level: "warn" }),
       g("settings_policy_helpers_per_os", "deactivated_during_exec"),
       "dropped"
@@ -1861,16 +1861,16 @@ function sor() {
   return I.initializeAttempted;
 }
 function zt() {
-  return I.state?.armedFromRemote === !0;
+  return I.state?.armedFromRemote === true;
 }
 function Yt() {
-  return I.state?.mergesOutput === !0;
+  return I.state?.mergesOutput === true;
 }
 function aor(e) {
-  if (e !== "remote" || !I.initializeAttempted || I.state?.armedFromRemote === !0) return;
+  if (e !== "remote" || !I.initializeAttempted || I.state?.armedFromRemote === true) return;
   I.stopRefreshTimer();
   let t = I.state !== null;
-  if ((I.retireState(), (I.defaultFallback = null), (I.payloadRefusalError = null), (I.initializeAttempted = !1), !t))
+  if ((I.retireState(), (I.defaultFallback = null), (I.payloadRefusalError = null), (I.initializeAttempted = false), !t))
     return;
   n(
     "policyHelper: OS-admin helper pass retired; the remote payload that landed shadows the MDM/file policy it was read from",
@@ -1880,10 +1880,10 @@ function aor(e) {
     I.announceTierChange();
 }
 function Jt() {
-  if ((I.remoteArmGeneration++, we(), I.state?.armedFromRemote !== !0)) return;
+  if ((I.remoteArmGeneration++, we(), I.state?.armedFromRemote !== true)) return;
   I.stopRefreshTimer(),
     I.retireState(),
-    (I.initializeAttempted = !1),
+    (I.initializeAttempted = false),
     n("policyHelper: remote-armed helper deactivated", { level: "info" }),
     I.announceTierChange();
 }
@@ -1910,12 +1910,12 @@ function dor(e) {
       ? $e()
           .chain.map((d) => t[d])
           .filter((d) => d != null)
-          .map((d) => ({ config: d, fromPerOs: !0 }))
+          .map((d) => ({ config: d, fromPerOs: true }))
       : [];
-  if (e?.policyHelper != null) r.push({ config: e.policyHelper, fromPerOs: !1 });
+  if (e?.policyHelper != null) r.push({ config: e.policyHelper, fromPerOs: false });
   let o = qt(),
     u = [];
-  for (let { config: d, fromPerOs: _ } of r) if (typeof d.path === "string" && en(d, o, _, !1) === null) u.push(d.path);
+  for (let { config: d, fromPerOs: _ } of r) if (typeof d.path === "string" && en(d, o, _, false) === null) u.push(d.path);
   return u;
 }
 function por() {
@@ -1959,7 +1959,7 @@ async function Qt(e, t, r) {
     } = await qe(_.file, _.args, {
       timeout: A,
       cwd: C,
-      useToolMemoryCgroup: !1,
+      useToolMemoryCgroup: false,
       maxBuffer: ge + 1,
       env: {
         ...et(F, _),
@@ -1975,7 +1975,7 @@ async function Qt(e, t, r) {
           DD_SOURCEMAP_GROUP: "darwin",
         }.VERSION,
       },
-      extendEnv: !1,
+      extendEnv: false,
       stdin: _.input === void 0 ? "ignore" : "pipe",
       input: _.input,
     });
@@ -1983,7 +1983,7 @@ async function Qt(e, t, r) {
   if (xe) return { error: `${v.length > N.length ? "stderr" : "stdout"} exceeded ${ge} bytes`, code: "oversize" };
   if (M !== 0) return { error: `exited with code ${M}: ${v || N || j || ""}`, code: "exit_nonzero" };
   if (Buffer.byteLength(N, "utf8") > ge) return { error: `stdout exceeded ${ge} bytes`, code: "oversize" };
-  let oe = Ut(N, !1);
+  let oe = Ut(N, false);
   if (oe === null || typeof oe !== "object") return { error: "stdout is not a JSON object", code: "parse_failed" };
   let k = Xr().safeParse(oe);
   if (!k.success) return { error: `invalid envelope: ${k.error.message}`, code: "envelope_invalid" };
@@ -2078,7 +2078,7 @@ function XTn(e, t) {
 }
 async function ii(e, t) {
   if (!e.serves("userNamed")) return { kind: "failing", code: lCt };
-  return si(e, su.userNamed(t), t, !1);
+  return si(e, su.userNamed(t), t, false);
 }
 async function oi(e, t, r) {
   let o = await tn(e, su.system(t));
@@ -2087,7 +2087,7 @@ async function oi(e, t, r) {
     kind: "seeded",
     contentHash: o.contentHash,
     size: o.size,
-    parsed: r !== void 0 && r.contentHash === o.contentHash ? r.parsed : MNe(Cfe(o.bytes), t, !0),
+    parsed: r !== void 0 && r.contentHash === o.contentHash ? r.parsed : MNe(Cfe(o.bytes), t, true),
   };
 }
 async function si(e, t, r, o) {
@@ -2227,17 +2227,17 @@ function eEn() {
   return Ror(L());
 }
 function V3(e) {
-  return bqt(e, L(), { includeLegacyLocalSettings: !1 });
+  return bqt(e, L(), { includeLegacyLocalSettings: false });
 }
 function Ykr() {
   let e = L();
-  if (!He(e.flagInline)) return !1;
-  if (!Ee(e.flagInline)) return !1;
+  if (!He(e.flagInline)) return false;
+  if (!Ee(e.flagInline)) return false;
   return Ywt(e).settings === null;
 }
 function tEn(e) {
   let t = L();
-  if (!He(t.flagInline) || !(e in t.flagInline)) return !1;
+  if (!He(t.flagInline) || !(e in t.flagInline)) return false;
   return Ywt(t).settings === null;
 }
 function xpe() {
@@ -2250,18 +2250,18 @@ function mXe() {
   return CEn(L());
 }
 function Ee(e) {
-  if (!He(e)) return !1;
+  if (!He(e)) return false;
   let t = e.attribution;
   return "includeCoAuthoredBy" in e || (He(t) && ("commitTrailers" in t || "commit" in t || "pr" in t));
 }
 function Jkr() {
   let e = L(),
     t = BY("flagSettings", e);
-  if (!t) return !1;
-  if (r5(t, e.store, e.flagExpectedContent).settings !== null) return !1;
+  if (!t) return false;
+  if (r5(t, e.store, e.flagExpectedContent).settings !== null) return false;
   if (e.flagExpectedContent !== void 0) {
-    let r = Ut(e.flagExpectedContent, !1);
-    if (!He(r)) return !0;
+    let r = Ut(e.flagExpectedContent, false);
+    if (!He(r)) return true;
     return Ee(r);
   }
   return Me(t);
@@ -2270,35 +2270,35 @@ function Me(e) {
   let t;
   try {
     let { resolvedPath: r } = Qo(le(), e);
-    t = Ut(SR(r, sb), !1);
+    t = Ut(SR(r, sb), false);
   } catch (r) {
-    if (X(r)) return !1;
-    return !0;
+    if (X(r)) return false;
+    return true;
   }
-  if (!He(t)) return !0;
+  if (!He(t)) return true;
   return Ee(t);
 }
 async function Qkr(e, t) {
   let r = L(),
     o = BY(e, r);
-  if (!o) return !1;
+  if (!o) return false;
   let u = r5(o, r.store);
-  if (u.settings !== null) return !1;
-  if (u.errors.length === 0) return !1;
+  if (u.settings !== null) return false;
+  if (u.errors.length === 0) return false;
   if (O() && t !== void 0 && me(e, o)) {
     let d;
     try {
       d = await cn(t);
     } catch {
-      return !0;
+      return true;
     }
     switch (d.kind) {
       case "absent":
-        return !1;
+        return false;
       case "object":
         return Ee(d.raw);
       default:
-        return !0;
+        return true;
     }
   }
   return Me(o);
@@ -2314,17 +2314,17 @@ async function cn(e) {
   if (r.totalBytes > sb) return { kind: "oversize" };
   let o = Cfe(r.value);
   if (!o.trim()) return { kind: "empty" };
-  let u = Ut(o, !1);
+  let u = Ut(o, false);
   if (!He(u)) return { kind: "non-object" };
   return { kind: "object", raw: u };
 }
 function Zkr() {
   let e = L(),
     t = XAe(e);
-  if (!t) return !1;
+  if (!t) return false;
   let r = r5(t, e.store);
-  if (r.settings !== null) return !1;
-  if (r.errors.length === 0) return !1;
+  if (r.settings !== null) return false;
+  if (r.errors.length === 0) return false;
   return Me(t);
 }
 function pqt() {
@@ -2376,13 +2376,13 @@ function ob() {
 }
 function iEn() {
   for (let e of LNe(l0())) {
-    let { settings: t } = xC(ie(e, "managed-settings.json"), void 0, !0),
+    let { settings: t } = xC(ie(e, "managed-settings.json"), void 0, true),
       r = t !== null && pP(t),
-      o = !1;
+      o = false;
     try {
       let u = ie(e, "managed-settings.d"),
         d = (S) => {
-          let { settings: P } = xC(ie(u, S), void 0, !0);
+          let { settings: P } = xC(ie(u, S), void 0, true);
           return P !== null && pP(P);
         },
         _ = Ha().primedFolderListing(u);
@@ -2391,13 +2391,13 @@ function iEn() {
         o = le()
           .readdirSync(u)
           .some((S) => {
-            if (!(S.isFile() || S.isSymbolicLink()) || !Xwt(S.name)) return !1;
+            if (!(S.isFile() || S.isSymbolicLink()) || !Xwt(S.name)) return false;
             return d(S.name);
           });
     } catch {}
     if (r || o) return { hasBase: r, hasDropIns: o };
   }
-  return { hasBase: !1, hasDropIns: !1 };
+  return { hasBase: false, hasDropIns: false };
 }
 function ci() {
   let e = X6();
@@ -2516,7 +2516,7 @@ async function di(e, t, r, o, u) {
     P;
   using T = { [Symbol.dispose]: () => P?.() };
   try {
-    let A = bqt(e, L(), { includeLegacyLocalSettings: !1 });
+    let A = bqt(e, L(), { includeLegacyLocalSettings: false });
     if (!A) {
       let N = null;
       try {
@@ -2525,7 +2525,7 @@ async function di(e, t, r, o, u) {
         if (!X(v)) throw v;
       }
       if (N !== null && N.trim() !== "") {
-        let v = Ut(N, !1);
+        let v = Ut(N, false);
         if (v === null)
           return (
             n(`updateSettingsForSource: invalid JSON in settings file at ${r}`, { level: "error" }),
@@ -2632,8 +2632,8 @@ function _i(e, t) {
   return o.seedParsedFile(e, "userSettings", r, o.epoch), o.retainLayer(e, r);
 }
 function _n(e) {
-  if (e === void 0 || Array.isArray(e)) return !0;
-  if (e === null || typeof e !== "object") return !1;
+  if (e === void 0 || Array.isArray(e)) return true;
+  if (e === null || typeof e !== "object") return false;
   return Object.values(e).some(_n);
 }
 function sn(e) {
@@ -2645,20 +2645,20 @@ function sn(e) {
 }
 async function an(e) {
   let t = XAe(L());
-  if (!t) return { changed: !1, error: null };
+  if (!t) return { changed: false, error: null };
   let r;
   try {
     r = (await db(t, sb)).content;
   } catch (T) {
-    if (X(T)) return { changed: !1, error: null };
+    if (X(T)) return { changed: false, error: null };
     let A = new R(
       `Failed to read legacy settings.local.json at ${t}: ${T}`,
       "Failed to read legacy settings.local.json",
     );
-    return n(A.message, { level: "error" }), { changed: !1, error: A, phase: "read" };
+    return n(A.message, { level: "error" }), { changed: false, error: A, phase: "read" };
   }
-  let o = Ut(r, !1);
-  if (!o || typeof o !== "object" || Array.isArray(o)) return { changed: !1, error: null };
+  let o = Ut(r, false);
+  if (!o || typeof o !== "object" || Array.isArray(o)) return { changed: false, error: null };
   let u = Wp(o);
   J6(u, t);
   let d = u,
@@ -2670,9 +2670,9 @@ async function an(e) {
       `Transform failed against legacy settings.local.json at ${t} (malformed legacy content?): ${T}`,
       "Transform failed against legacy settings.local.json",
     );
-    return n(A.message, { level: "error" }), { changed: !1, error: A, phase: "transform" };
+    return n(A.message, { level: "error" }), { changed: false, error: A, phase: "transform" };
   }
-  if (_ === null) return { changed: !1, error: null };
+  if (_ === null) return { changed: false, error: null };
   let S = dP(Wp(d), _, (T, A, C, U) => {
       if (A === void 0 && U && typeof C === "string") {
         delete U[C];
@@ -2682,7 +2682,7 @@ async function an(e) {
       return;
     }),
     P = hor(d, S);
-  if (b(P) === b(d)) return { changed: !1, error: null };
+  if (b(P) === b(d)) return { changed: false, error: null };
   try {
     Pwt(t);
     let T = Y5(re(t));
@@ -2695,14 +2695,14 @@ async function an(e) {
         { encoding: "utf-8", allowSymlink: T, checkParentDir: !T, stagingDir: ie(re(t), cU) },
       ),
       Hc(),
-      { changed: !0, error: null }
+      { changed: true, error: null }
     );
   } catch (T) {
     let A = new R(
       `Failed to revoke from legacy settings.local.json at ${t}: ${T}`,
       "Failed to revoke from legacy settings.local.json",
     );
-    return n(A.message, { level: "error" }), { changed: !1, error: A };
+    return n(A.message, { level: "error" }), { changed: false, error: A };
   }
 }
 function hor(e, t) {
@@ -2773,13 +2773,13 @@ function fqt() {
   );
 }
 function noe() {
-  return xi().some((e) => ye(e)?.isolatePeerMachines === !0);
+  return xi().some((e) => ye(e)?.isolatePeerMachines === true);
 }
 function UY() {
-  return xi().some((e) => ye(e)?.disableClaudeAiConnectors === !0);
+  return xi().some((e) => ye(e)?.disableClaudeAiConnectors === true);
 }
 function uEn() {
-  return !0;
+  return true;
 }
 function Wwt(e) {
   return ![
@@ -2790,7 +2790,7 @@ function Wwt(e) {
     ye("userSettings"),
     ye("localSettings"),
     pqt(),
-  ].some((t) => t?.[e] === !1);
+  ].some((t) => t?.[e] === false);
 }
 function dEn() {
   return Wwt("useAutoModeDuringPlan");
@@ -2828,7 +2828,7 @@ function U$() {
       if (S === "projectSettings" && $T()) continue;
       let P = ye(S)?.autoMode;
       if (P && e.safeParse(P).success)
-        (t.autoModeUntrustedSourceWarned = !0),
+        (t.autoModeUntrustedSourceWarned = true),
           n(
             `settings autoMode in ${S} ignored \u2014 only user/flag/managed settings may set classifier rules (projectSettings and localSettings are repo-controllable)`,
             { level: "warn" },
@@ -2839,7 +2839,7 @@ function U$() {
     o = [],
     u = [],
     d = [],
-    _ = !1;
+    _ = false;
   for (let S of roe) {
     let P = ye(S);
     if (!P) continue;
@@ -2862,14 +2862,14 @@ function U$() {
   return;
 }
 function fEn() {
-  for (let e of roe) if (ye(e)?.autoMode?.classifyAllShell === !0) return !0;
-  return !1;
+  for (let e of roe) if (ye(e)?.autoMode?.classifyAllShell === true) return true;
+  return false;
 }
 async function PNe(e, t, r) {
   let o = L(),
     u = Kwt(o),
-    d = !1,
-    _ = !1;
+    d = false,
+    _ = false;
   for (let S of u) {
     let P = S !== "policySettings" && (r?.presenceSources === void 0 || r.presenceSources.includes(S));
     if (
@@ -2880,12 +2880,12 @@ async function PNe(e, t, r) {
       e !== "attribution" &&
       e !== "includeCoAuthoredBy"
     )
-      d = !0;
+      d = true;
     if (S === "flagSettings" && o.flagExpectedContent !== void 0) {
       if (!o.flagExpectedContent.trim()) continue;
-      let F = Ut(o.flagExpectedContent, !1);
-      if (F === null || typeof F !== "object" || Array.isArray(F)) _ = !0;
-      else if (P && e in F && e !== "attribution" && e !== "includeCoAuthoredBy") d = !0;
+      let F = Ut(o.flagExpectedContent, false);
+      if (F === null || typeof F !== "object" || Array.isArray(F)) _ = true;
+      else if (P && e in F && e !== "attribution" && e !== "includeCoAuthoredBy") d = true;
       continue;
     }
     let T = BY(S, o);
@@ -2899,14 +2899,14 @@ async function PNe(e, t, r) {
         let N = await cn(t);
         switch (N.kind) {
           case "unreadable":
-            n(`rawSettingsKeyPresence: v5 user-settings read failed: ${N.code}`), (_ = !0);
+            n(`rawSettingsKeyPresence: v5 user-settings read failed: ${N.code}`), (_ = true);
             break;
           case "oversize":
           case "non-object":
-            _ = !0;
+            _ = true;
             break;
           case "object":
-            if (P && e in N.raw && !(e === "attribution" || e === "includeCoAuthoredBy")) d = !0;
+            if (P && e in N.raw && !(e === "attribution" || e === "includeCoAuthoredBy")) d = true;
             break;
           case "absent":
           case "empty":
@@ -2918,11 +2918,11 @@ async function PNe(e, t, r) {
         let { resolvedPath: N } = Qo(le(), F),
           v = SR(N, sb);
         if (!v.trim()) continue;
-        let M = Ut(v, !1);
-        if (M === null || typeof M !== "object" || Array.isArray(M)) _ = !0;
-        else if (P && e in M && !(e === "attribution" || e === "includeCoAuthoredBy")) d = !0;
+        let M = Ut(v, false);
+        if (M === null || typeof M !== "object" || Array.isArray(M)) _ = true;
+        else if (P && e in M && !(e === "attribution" || e === "includeCoAuthoredBy")) d = true;
       } catch (N) {
-        if ((TEn(N, F), !X(N))) _ = !0;
+        if ((TEn(N, F), !X(N))) _ = true;
       }
     }
   }

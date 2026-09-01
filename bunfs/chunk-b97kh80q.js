@@ -34,54 +34,54 @@ var ve = S(function (pu) {
     return e;
   }
   var Tr = Se({
-    allowfullscreen: !0,
-    async: !0,
-    autofocus: !0,
-    autoplay: !0,
-    checked: !0,
-    controls: !0,
-    default: !0,
-    defer: !0,
-    disabled: !0,
-    formnovalidate: !0,
-    hidden: !0,
-    ismap: !0,
-    itemscope: !0,
-    loop: !0,
-    multiple: !0,
-    muted: !0,
-    nomodule: !0,
-    novalidate: !0,
-    open: !0,
-    playsinline: !0,
-    readonly: !0,
-    required: !0,
-    reversed: !0,
-    selected: !0,
+    allowfullscreen: true,
+    async: true,
+    autofocus: true,
+    autoplay: true,
+    checked: true,
+    controls: true,
+    default: true,
+    defer: true,
+    disabled: true,
+    formnovalidate: true,
+    hidden: true,
+    ismap: true,
+    itemscope: true,
+    loop: true,
+    multiple: true,
+    muted: true,
+    nomodule: true,
+    novalidate: true,
+    open: true,
+    playsinline: true,
+    readonly: true,
+    required: true,
+    reversed: true,
+    selected: true,
   });
   function uu(e) {
     return Ce(Tr, e.toLowerCase());
   }
   var Nr = Se({
-    area: !0,
-    base: !0,
-    br: !0,
-    col: !0,
-    embed: !0,
-    hr: !0,
-    img: !0,
-    input: !0,
-    link: !0,
-    meta: !0,
-    param: !0,
-    source: !0,
-    track: !0,
-    wbr: !0,
+    area: true,
+    base: true,
+    br: true,
+    col: true,
+    embed: true,
+    hr: true,
+    img: true,
+    input: true,
+    link: true,
+    meta: true,
+    param: true,
+    source: true,
+    track: true,
+    wbr: true,
   });
   function su(e) {
     return Ce(Nr, e.toLowerCase());
   }
-  var Qe = Se({ script: !1, style: !1, textarea: !0, title: !0 });
+  var Qe = Se({ script: false, style: false, textarea: true, title: true });
   function au(e) {
     var t = e.toLowerCase();
     return Ce(Qe, t) && !Qe[t];
@@ -137,7 +137,7 @@ var Je = S(function (Lu) {
   function vr(e, t) {
     e.prototype = Object.create(Error.prototype, {
       constructor: { value: e },
-      name: { value: e.name, enumerable: !0, writable: t },
+      name: { value: e.name, enumerable: true, writable: t },
     });
   }
   var $e = Su.freeze({
@@ -191,10 +191,10 @@ var Je = S(function (Lu) {
     else (this.message = e), (this.name = Mu(t) ? t : $e.Error);
     if (Error.captureStackTrace) Error.captureStackTrace(this, Ze);
   }
-  vr(Ze, !0);
+  vr(Ze, true);
   Object.defineProperties(Ze.prototype, {
     code: {
-      enumerable: !0,
+      enumerable: true,
       get: function () {
         var e = br.indexOf(this.name);
         if (Or(e)) return e;
@@ -248,7 +248,7 @@ var rr = S(function (Fs) {
       var t = new e("\uD834\uDF06", "u").exec("\uD834\uDF06");
       return !!t && t[0].length === 2;
     } catch (i) {}
-    return !1;
+    return false;
   }
   var Re = _r();
   function Ee(e) {
@@ -436,7 +436,7 @@ var cr = S(function (Ua) {
     return e ? e.split(/[\t\n\f\r ]+/).filter(ba) : [];
   }
   function Ia(e, t) {
-    if (!Be(e, t)) e[t] = !0;
+    if (!Be(e, t)) e[t] = true;
     return e;
   }
   function Ur(e) {
@@ -528,14 +528,14 @@ var cr = S(function (Ua) {
     },
     toString: function (e) {
       var t;
-      if (typeof e === "function") t = { requireWellFormed: !1, splitCDATASections: !0, nodeFilter: e };
+      if (typeof e === "function") t = { requireWellFormed: false, splitCDATASections: true, nodeFilter: e };
       else if (e)
         t = {
           requireWellFormed: !!e.requireWellFormed,
-          splitCDATASections: e.splitCDATASections !== !1,
+          splitCDATASections: e.splitCDATASections !== false,
           nodeFilter: e.nodeFilter || null,
         };
-      else t = { requireWellFormed: !1, splitCDATASections: !0, nodeFilter: null };
+      else t = { requireWellFormed: false, splitCDATASections: true, nodeFilter: null };
       for (var i = [], r = 0; r < this.length; r++) lr(this[r], i, null, t);
       return i.join("");
     },
@@ -551,11 +551,11 @@ var cr = S(function (Ua) {
       t = 0;
     return {
       next: function () {
-        if (t < e.length) return { value: e[t++], done: !1 };
-        else return { done: !0 };
+        if (t < e.length) return { value: e[t++], done: false };
+        else return { done: true };
       },
       return: function () {
-        return { done: !0 };
+        return { done: true };
       },
     };
   };
@@ -654,18 +654,18 @@ var cr = S(function (Ua) {
       t = 0;
     return {
       next: function () {
-        if (t < e.length) return { value: e[t++], done: !1 };
-        else return { done: !0 };
+        if (t < e.length) return { value: e[t++], done: false };
+        else return { done: true };
       },
       return: function () {
-        return { done: !0 };
+        return { done: true };
       },
     };
   };
   function Zr() {}
   Zr.prototype = {
     hasFeature: function (e, t) {
-      return !0;
+      return true;
     },
     createDocument: function (e, t, i) {
       var r = ut.XML_APPLICATION;
@@ -694,7 +694,7 @@ var cr = S(function (Ua) {
     },
     createHTMLDocument: function (e) {
       var t = new pe(Z, { contentType: ut.HTML });
-      if (((t.implementation = this), (t.childNodes = new Y()), e !== !1)) {
+      if (((t.implementation = this), (t.childNodes = new Y()), e !== false)) {
         (t.doctype = this.createDocumentType("html")), (t.doctype.ownerDocument = t), t.appendChild(t.doctype);
         var i = t.createElement("html");
         t.appendChild(i);
@@ -732,13 +732,13 @@ var cr = S(function (Ua) {
       return e && e.nodeType === e.DOCUMENT_NODE;
     },
     contains: function (e) {
-      if (!e) return !1;
+      if (!e) return false;
       var t = e;
       do {
-        if (this === t) return !0;
+        if (this === t) return true;
         t = t.parentNode;
       } while (t);
-      return !1;
+      return false;
     },
     getRootNode: function (e) {
       var t = this;
@@ -748,49 +748,49 @@ var cr = S(function (Ua) {
       } while (t);
     },
     isEqualNode: function (e) {
-      if (!e) return !1;
+      if (!e) return false;
       var t = [{ node: this, other: e }];
       while (t.length > 0) {
         var i = t.pop(),
           r = i.node,
           n = i.other;
-        if (r.nodeType !== n.nodeType) return !1;
+        if (r.nodeType !== n.nodeType) return false;
         switch (r.nodeType) {
           case r.DOCUMENT_TYPE_NODE:
-            if (r.name !== n.name) return !1;
-            if (r.publicId !== n.publicId) return !1;
-            if (r.systemId !== n.systemId) return !1;
+            if (r.name !== n.name) return false;
+            if (r.publicId !== n.publicId) return false;
+            if (r.systemId !== n.systemId) return false;
             break;
           case r.ELEMENT_NODE:
-            if (r.namespaceURI !== n.namespaceURI) return !1;
-            if (r.prefix !== n.prefix) return !1;
-            if (r.localName !== n.localName) return !1;
-            if (r.attributes.length !== n.attributes.length) return !1;
+            if (r.namespaceURI !== n.namespaceURI) return false;
+            if (r.prefix !== n.prefix) return false;
+            if (r.localName !== n.localName) return false;
+            if (r.attributes.length !== n.attributes.length) return false;
             for (var s = 0; s < r.attributes.length; s++) {
               var a = r.attributes.item(s),
                 m = n.getAttributeNodeNS(a.namespaceURI, a.localName);
-              if (!m) return !1;
+              if (!m) return false;
               t.push({ node: a, other: m });
             }
             break;
           case r.ATTRIBUTE_NODE:
-            if (r.namespaceURI !== n.namespaceURI) return !1;
-            if (r.localName !== n.localName) return !1;
-            if (r.value !== n.value) return !1;
+            if (r.namespaceURI !== n.namespaceURI) return false;
+            if (r.localName !== n.localName) return false;
+            if (r.value !== n.value) return false;
             break;
           case r.PROCESSING_INSTRUCTION_NODE:
-            if (r.target !== n.target || r.data !== n.data) return !1;
+            if (r.target !== n.target || r.data !== n.data) return false;
             break;
           case r.TEXT_NODE:
           case r.CDATA_SECTION_NODE:
           case r.COMMENT_NODE:
-            if (r.data !== n.data) return !1;
+            if (r.data !== n.data) return false;
             break;
         }
-        if (r.childNodes.length !== n.childNodes.length) return !1;
+        if (r.childNodes.length !== n.childNodes.length) return false;
         for (var s = r.childNodes.length - 1; s >= 0; s--) t.push({ node: r.childNodes[s], other: n.childNodes[s] });
       }
-      return !0;
+      return true;
     },
     isSameNode: function (e) {
       return this === e;
@@ -822,7 +822,7 @@ var cr = S(function (Ua) {
             if (i !== null && i.nodeType === gt && t.nodeType === gt) e.removeChild(i), t.appendData(i.data);
             else t = i;
           }
-          return !0;
+          return true;
         },
       });
     },
@@ -918,7 +918,7 @@ var cr = S(function (Ua) {
   function Et(e, t) {
     K(e, null, {
       enter: function (i) {
-        return t(i) ? K.STOP : !0;
+        return t(i) ? K.STOP : true;
       },
     });
   }
@@ -1005,7 +1005,7 @@ var cr = S(function (Ua) {
   }
   function jr(e, t) {
     var i = e.childNodes || [];
-    if (oe(i, fe) || we(t)) return !1;
+    if (oe(i, fe) || we(t)) return false;
     var r = oe(i, we);
     return !(t && r && i.indexOf(r) > i.indexOf(t));
   }
@@ -1014,7 +1014,7 @@ var cr = S(function (Ua) {
     function r(s) {
       return fe(s) && s !== t;
     }
-    if (oe(i, r)) return !1;
+    if (oe(i, r)) return false;
     var n = oe(i, we);
     return !(t && n && i.indexOf(n) > i.indexOf(t));
   }
@@ -1127,7 +1127,7 @@ var cr = S(function (Ua) {
       return (
         Et(this.documentElement, function (i) {
           if (i.nodeType == ue) {
-            if (i.getAttribute("id") == e) return (t = i), !0;
+            if (i.getAttribute("id") == e) return (t = i), true;
           }
         }),
         t
@@ -1177,7 +1177,7 @@ var cr = S(function (Ua) {
         (t.name = e),
         (t.nodeName = e),
         (t.localName = e),
-        (t.specified = !0),
+        (t.specified = true),
         t
       );
     },
@@ -1211,7 +1211,7 @@ var cr = S(function (Ua) {
         (r.childNodes = new Y()),
         (r.nodeName = t),
         (r.name = t),
-        (r.specified = !0),
+        (r.specified = true),
         (r.namespaceURI = i[0]),
         (r.prefix = i[1]),
         (r.localName = i[2]),
@@ -1436,14 +1436,14 @@ var cr = S(function (Ua) {
   P.prototype.toString = si;
   function si(e) {
     var t;
-    if (typeof e === "function") t = { requireWellFormed: !1, splitCDATASections: !0, nodeFilter: e };
+    if (typeof e === "function") t = { requireWellFormed: false, splitCDATASections: true, nodeFilter: e };
     else if (e != null)
       t = {
         requireWellFormed: !!e.requireWellFormed,
-        splitCDATASections: e.splitCDATASections !== !1,
+        splitCDATASections: e.splitCDATASections !== false,
         nodeFilter: e.nodeFilter || null,
       };
-    else t = { requireWellFormed: !1, splitCDATASections: !0, nodeFilter: null };
+    else t = { requireWellFormed: false, splitCDATASections: true, nodeFilter: null };
     var i = [],
       r = (this.nodeType === _e && this.documentElement) || this,
       n = r.prefix,
@@ -1457,14 +1457,14 @@ var cr = S(function (Ua) {
   function Hr(e, t, i) {
     var r = e.prefix || "",
       n = e.namespaceURI;
-    if (!n) return !1;
-    if ((r === "xml" && n === le.XML) || n === le.XMLNS) return !1;
+    if (!n) return false;
+    if ((r === "xml" && n === le.XML) || n === le.XMLNS) return false;
     var s = i.length;
     while (s--) {
       var a = i[s];
       if (a.prefix === r) return a.namespace !== n;
     }
-    return !0;
+    return true;
   }
   function Dt(e, t, i) {
     e.push(" ", t, '="', i.replace(/[<>&"\t\n\r]/g, Jr), '"');
@@ -1627,7 +1627,7 @@ var cr = S(function (Ua) {
     return (
       K(t, null, {
         enter: function (n, s) {
-          var a = n.cloneNode(!1);
+          var a = n.cloneNode(false);
           if (((a.ownerDocument = e), (a.parentNode = null), s === null)) r = a;
           else s.appendChild(a);
           var m = n.nodeType === Pe || i;
@@ -1659,10 +1659,10 @@ var cr = S(function (Ua) {
                 D = (a.attributes = new qe()),
                 A = h.length;
               D._ownerElement = a;
-              for (var T = 0; T < A; T++) a.setAttributeNode(ai(e, h.item(T), !0));
+              for (var T = 0; T < A; T++) a.setAttributeNode(ai(e, h.item(T), true));
               break;
             case Pe:
-              f = !0;
+              f = true;
           }
           if (s !== null) s.appendChild(a);
           else r = a;
@@ -1698,7 +1698,7 @@ var cr = S(function (Ua) {
               return (
                 K(this, null, {
                   enter: function (t) {
-                    if (t.nodeType === ue || t.nodeType === Ae) return !0;
+                    if (t.nodeType === ue || t.nodeType === Ae) return true;
                     if (t.nodeType === ur || t.nodeType === sr) return null;
                     e.push(t.nodeValue);
                   },
@@ -3960,7 +3960,7 @@ var Ti = S(function (wo) {
     var v = [{ currentNSMap: t }],
       M = [],
       x = 0;
-    while (!0) {
+    while (true) {
       try {
         var L = e.indexOf("<", x);
         if (L < 0) {
@@ -4015,7 +4015,7 @@ var Ti = S(function (wo) {
               I = Do(e, L, N, b, m, n, s),
               j = N.length;
             if (!N.closed)
-              if (s && Ye.isHTMLVoidElement(N.tagName)) N.closed = !0;
+              if (s && Ye.isHTMLVoidElement(N.tagName)) N.closed = true;
               else M.push(N.tagName);
             if (A && j) {
               var R = di(A, {});
@@ -4051,7 +4051,7 @@ var Ti = S(function (wo) {
       f,
       h = ++t,
       D = at;
-    while (!0) {
+    while (true) {
       var A = e.charAt(h);
       switch (A) {
         case "=":
@@ -4080,12 +4080,12 @@ var Ti = S(function (wo) {
             case He:
             case lt:
             case bt:
-              (D = bt), (i.closed = !0);
+              (D = bt), (i.closed = true);
             case Xe:
             case ye:
               break;
             case je:
-              i.closed = !0;
+              i.closed = true;
               break;
             default:
               throw Error("attribute invalid close char('/')");
@@ -4104,7 +4104,7 @@ var Ti = S(function (wo) {
               break;
             case Xe:
             case ye:
-              if (((f = e.slice(t, h)), f.slice(-1) === "/")) (i.closed = !0), (f = f.slice(0, -1));
+              if (((f = e.slice(t, h)), f.slice(-1) === "/")) (i.closed = true), (f = f.slice(0, -1));
             case je:
               if (D === je) f = p;
               if (D == Xe) s.warning('attribute "' + f + '" missed quot(")!'), m(p, f, t);
@@ -4170,7 +4170,7 @@ var Ti = S(function (wo) {
           f = a.slice(A + 1),
           h = p === "xmlns" && f;
       else (f = a), (p = null), (h = a === "xmlns" && "");
-      if (((s.localName = f), h !== !1)) {
+      if (((s.localName = f), h !== false)) {
         if (n == null) (n = Object.create(null)), gi(i, (i = Object.create(null)));
         (i[h] = n[h] = m), (s.uri = fi.XMLNS), t.startPrefixMapping(h, m);
       }
@@ -4189,7 +4189,7 @@ var Ti = S(function (wo) {
       if ((t.endElement(T, f, r), n)) {
         for (p in n) if (ct(n, p)) t.endPrefixMapping(p);
       }
-    } else return (e.currentNSMap = i), (e.localNSMap = n), !0;
+    } else return (e.currentNSMap = i), (e.localNSMap = n), true;
   }
   function Eo(e, t, i, r, n) {
     var s = co(i);
@@ -4444,7 +4444,7 @@ var xi = S(function (_o) {
       );
   }
   function Ii(e) {
-    if (((e = e || {}), e.locator === void 0)) e.locator = !0;
+    if (((e = e || {}), e.locator === void 0)) e.locator = true;
     if (
       ((this.assign = e.assign || Oe.assign),
       (this.domHandler = e.domHandler || It),
@@ -4481,7 +4481,7 @@ var xi = S(function (_o) {
     var t = e || {};
     (this.mimeType = t.mimeType || bi.XML_APPLICATION),
       (this.defaultNamespace = t.defaultNamespace || null),
-      (this.cdata = !1),
+      (this.cdata = false),
       (this.currentElement = void 0),
       (this.doc = void 0),
       (this.locator = void 0),
@@ -4493,7 +4493,7 @@ var xi = S(function (_o) {
   It.prototype = {
     startDocument: function () {
       var e = new Oo();
-      this.doc = xo(this.mimeType) ? e.createHTMLDocument(!1) : e.createDocument(this.defaultNamespace, "");
+      this.doc = xo(this.mimeType) ? e.createHTMLDocument(false) : e.createDocument(this.defaultNamespace, "");
     },
     startElement: function (e, t, i, r) {
       var n = this.doc,
@@ -4541,10 +4541,10 @@ var xi = S(function (_o) {
       this.locator && Ge(this.locator, r), Ot(this, r);
     },
     startCDATA: function () {
-      this.cdata = !0;
+      this.cdata = true;
     },
     endCDATA: function () {
-      this.cdata = !1;
+      this.cdata = false;
     },
     startDTD: function (e, t, i, r) {
       var n = this.doc.implementation;
@@ -4663,8 +4663,8 @@ var Li = S(function (Cl) {
     return e.nodeType === Mt || e.nodeType === Tl || e.nodeType === Mi;
   }
   function me(e) {
-    if (!e.childNodes || e.childNodes.length === 0) return !0;
-    else return !1;
+    if (!e.childNodes || e.childNodes.length === 0) return true;
+    else return false;
   }
   function Ie(e, t) {
     if (!e) throw Error(t);
@@ -4734,8 +4734,8 @@ var Li = S(function (Cl) {
     } else if (e.nodeName === "date")
       return Ie(!me(e), 'Cannot parse "" as Date.'), new Date(e.childNodes[0].nodeValue);
     else if (e.nodeName === "null") return null;
-    else if (e.nodeName === "true") return !0;
-    else if (e.nodeName === "false") return !1;
+    else if (e.nodeName === "true") return true;
+    else if (e.nodeName === "false") return false;
     else throw Error("Invalid PLIST tag " + e.nodeName);
   }
 });
@@ -4778,9 +4778,9 @@ var ce = S(function (Fi, Te) {
         else {
           for (f in p) {
             if (!m.call(p, f)) continue;
-            return !1;
+            return false;
           }
-          return !0;
+          return true;
         }
       }),
       (a = function (p) {
@@ -4812,7 +4812,7 @@ var dr = S(function (Ri, _i) {
     var e;
     _i.exports = e = class {
       hasFeature(i, r) {
-        return !0;
+        return true;
       }
       createDocumentType(i, r, n) {
         throw Error("This DOM method is not implemented.");
@@ -4877,23 +4877,23 @@ var Hi = S(function (ji, Xi) {
             constructor() {
               var n;
               (this.defaultParams = {
-                "canonical-form": !1,
-                "cdata-sections": !1,
-                comments: !1,
-                "datatype-normalization": !1,
-                "element-content-whitespace": !0,
-                entities: !0,
+                "canonical-form": false,
+                "cdata-sections": false,
+                comments: false,
+                "datatype-normalization": false,
+                "element-content-whitespace": true,
+                entities: true,
                 "error-handler": new t(),
-                infoset: !0,
-                "validate-if-schema": !1,
-                namespaces: !0,
-                "namespace-declarations": !0,
-                "normalize-characters": !1,
+                infoset: true,
+                "validate-if-schema": false,
+                namespaces: true,
+                "namespace-declarations": true,
+                "normalize-characters": false,
                 "schema-location": "",
                 "schema-type": "",
-                "split-cdata-sections": !0,
-                validate: !1,
-                "well-formed": !0,
+                "split-cdata-sections": true,
+                validate: false,
+                "well-formed": true,
               }),
                 (this.params = n = Object.create(this.defaultParams));
             }
@@ -4902,7 +4902,7 @@ var Hi = S(function (ji, Xi) {
               else return null;
             }
             canSetParameter(n, s) {
-              return !0;
+              return true;
             }
             setParameter(n, s) {
               if (s != null) return (this.params[n] = s);
@@ -4958,7 +4958,7 @@ var mr = S(function (Wi, zi) {
               (this.name = this.stringify.name(s)),
                 (this.value = this.stringify.attValue(a)),
                 (this.type = e.Attribute),
-                (this.isId = !1),
+                (this.isId = false),
                 (this.schemaTypeInfo = null);
             }
             clone() {
@@ -4972,11 +4972,11 @@ var mr = S(function (Wi, zi) {
               else return "attribute: {" + n + "}, parent: <" + this.parent.name + ">";
             }
             isEqualNode(n) {
-              if (n.namespaceURI !== this.namespaceURI) return !1;
-              if (n.prefix !== this.prefix) return !1;
-              if (n.localName !== this.localName) return !1;
-              if (n.value !== this.value) return !1;
-              return !0;
+              if (n.namespaceURI !== this.namespaceURI) return false;
+              if (n.prefix !== this.prefix) return false;
+              if (n.localName !== this.localName) return false;
+              if (n.value !== this.value) return false;
+              return true;
             }
           }
           return (
@@ -5015,7 +5015,7 @@ var mr = S(function (Wi, zi) {
             }),
             Object.defineProperty(r.prototype, "specified", {
               get: function () {
-                return !0;
+                return true;
               },
             }),
             r
@@ -5101,7 +5101,7 @@ var Ft = S(function ($i, Zi) {
               )
                 this.attribute(A);
               if (h.type === e.Document) {
-                if (((this.isRoot = !0), (this.documentObject = h), (h.rootObject = this), h.children)) {
+                if (((this.isRoot = true), (this.documentObject = h), (h.rootObject = this), h.children)) {
                   x = h.children;
                   for (v = 0, M = x.length; v < M; v++)
                     if (((T = x[v]), T.type === e.DocType)) {
@@ -5225,14 +5225,14 @@ var Ft = S(function ($i, Zi) {
             }
             isEqualNode(h) {
               var D, A, T;
-              if (!super.isEqualNode(h)) return !1;
-              if (h.namespaceURI !== this.namespaceURI) return !1;
-              if (h.prefix !== this.prefix) return !1;
-              if (h.localName !== this.localName) return !1;
-              if (h.attribs.length !== this.attribs.length) return !1;
+              if (!super.isEqualNode(h)) return false;
+              if (h.namespaceURI !== this.namespaceURI) return false;
+              if (h.prefix !== this.prefix) return false;
+              if (h.localName !== this.localName) return false;
+              if (h.attribs.length !== this.attribs.length) return false;
               for (D = A = 0, T = this.attribs.length - 1; 0 <= T ? A <= T : A >= T; D = 0 <= T ? ++A : --A)
-                if (!this.attribs[D].isEqualNode(h.attribs[D])) return !1;
-              return !0;
+                if (!this.attribs[D].isEqualNode(h.attribs[D])) return false;
+              return true;
             }
           }
           return (
@@ -5312,9 +5312,9 @@ var ht = S(function (Ji, en) {
               throw Error("This DOM method is not implemented." + this.debugInfo());
             }
             isEqualNode(r) {
-              if (!super.isEqualNode(r)) return !1;
-              if (r.data !== this.data) return !1;
-              return !0;
+              if (!super.isEqualNode(r)) return false;
+              if (r.data !== this.data) return false;
+              return true;
             }
           }
           return (
@@ -5458,7 +5458,7 @@ var qt = S(function (cn, hn) {
               if (m == null) throw Error("Missing DTD entity name. " + this.debugInfo(m));
               if (p == null) throw Error("Missing DTD entity value. " + this.debugInfo(m));
               if (((this.pe = !!a), (this.name = this.stringify.name(m)), (this.type = e.EntityDeclaration), !r(p)))
-                (this.value = this.stringify.dtdEntityValue(p)), (this.internal = !0);
+                (this.value = this.stringify.dtdEntityValue(p)), (this.internal = true);
               else {
                 if (!p.pubID && !p.sysID)
                   throw Error(
@@ -5466,7 +5466,7 @@ var qt = S(function (cn, hn) {
                   );
                 if (p.pubID && !p.sysID)
                   throw Error("System identifier is required for a public external entity. " + this.debugInfo(m));
-                if (((this.internal = !1), p.pubID != null)) this.pubID = this.stringify.dtdPubID(p.pubID);
+                if (((this.internal = false), p.pubID != null)) this.pubID = this.stringify.dtdPubID(p.pubID);
                 if (p.sysID != null) this.sysID = this.stringify.dtdSysID(p.sysID);
                 if (p.nData != null) this.nData = this.stringify.dtdNData(p.nData);
                 if (this.pe && this.nData)
@@ -5611,11 +5611,11 @@ var Vt = S(function (Dn, En) {
               return this.children.push(M), this;
             }
             entity(h, D) {
-              var A = new r(this, !1, h, D);
+              var A = new r(this, false, h, D);
               return this.children.push(A), this;
             }
             pEntity(h, D) {
-              var A = new r(this, !0, h, D);
+              var A = new r(this, true, h, D);
               return this.children.push(A), this;
             }
             notation(h, D) {
@@ -5644,11 +5644,11 @@ var Vt = S(function (Dn, En) {
               return this.root() || this.documentObject;
             }
             isEqualNode(h) {
-              if (!super.isEqualNode(h)) return !1;
-              if (h.name !== this.name) return !1;
-              if (h.publicId !== this.publicId) return !1;
-              if (h.systemId !== this.systemId) return !1;
-              return !0;
+              if (!super.isEqualNode(h)) return false;
+              if (h.name !== this.name) return false;
+              if (h.publicId !== this.publicId) return false;
+              if (h.systemId !== this.systemId) return false;
+              return true;
             }
           }
           return (
@@ -5782,9 +5782,9 @@ var Ht = S(function (Tn, Nn) {
             return this.options.writer.processingInstruction(this, this.options.writer.filterOptions(n));
           }
           isEqualNode(n) {
-            if (!super.isEqualNode(n)) return !1;
-            if (n.target !== this.target) return !1;
-            return !0;
+            if (!super.isEqualNode(n)) return false;
+            if (n.target !== this.target) return false;
+            return true;
           }
         });
   }).call(Tn);
@@ -6158,11 +6158,11 @@ var re = S(function (Ln, Fn) {
               if (
                 ((g = u.root().clone()),
                 (g.parent = this),
-                (g.isRoot = !1),
+                (g.isRoot = false),
                 this.children.push(g),
                 this.type === t.Document)
               ) {
-                if (((g.isRoot = !0), (g.documentObject = this), (this.rootObject = g), this.children)) {
+                if (((g.isRoot = true), (g.documentObject = this), (this.rootObject = g), this.children)) {
                   E = this.children;
                   for (w = 0, o = E.length; w < o; w++)
                     if (((c = E[w]), c.type === t.DocType)) {
@@ -6262,7 +6262,7 @@ var re = S(function (Ln, Fn) {
               throw Error("This DOM method is not implemented." + this.debugInfo());
             }
             isSupported(u, c) {
-              return !0;
+              return true;
             }
             hasAttributes() {
               return this.attribs.length !== 0;
@@ -6293,11 +6293,11 @@ var re = S(function (Ln, Fn) {
             }
             isEqualNode(u) {
               var c, g, w;
-              if (u.nodeType !== this.nodeType) return !1;
-              if (u.children.length !== this.children.length) return !1;
+              if (u.nodeType !== this.nodeType) return false;
+              if (u.children.length !== this.children.length) return false;
               for (c = g = 0, w = this.children.length - 1; 0 <= w ? g <= w : g >= w; c = 0 <= w ? ++g : --g)
-                if (!this.children[c].isEqualNode(u.children[c])) return !1;
-              return !0;
+                if (!this.children[c].isEqualNode(u.children[c])) return false;
+              return true;
             }
             getFeature(u, c) {
               throw Error("This DOM method is not implemented." + this.debugInfo());
@@ -6309,38 +6309,38 @@ var re = S(function (Ln, Fn) {
               throw Error("This DOM method is not implemented." + this.debugInfo());
             }
             contains(u) {
-              if (!u) return !1;
+              if (!u) return false;
               return u === this || this.isDescendant(u);
             }
             isDescendant(u) {
               var c, g, w, o, E;
               E = this.children;
               for (w = 0, o = E.length; w < o; w++) {
-                if (((c = E[w]), u === c)) return !0;
-                if (((g = c.isDescendant(u)), g)) return !0;
+                if (((c = E[w]), u === c)) return true;
+                if (((g = c.isDescendant(u)), g)) return true;
               }
-              return !1;
+              return false;
             }
             isAncestor(u) {
               return u.isDescendant(this);
             }
             isPreceding(u) {
               var c, g;
-              if (((c = this.treePosition(u)), (g = this.treePosition(this)), c === -1 || g === -1)) return !1;
+              if (((c = this.treePosition(u)), (g = this.treePosition(this)), c === -1 || g === -1)) return false;
               else return c < g;
             }
             isFollowing(u) {
               var c, g;
-              if (((c = this.treePosition(u)), (g = this.treePosition(this)), c === -1 || g === -1)) return !1;
+              if (((c = this.treePosition(u)), (g = this.treePosition(this)), c === -1 || g === -1)) return false;
               else return c > g;
             }
             treePosition(u) {
               var c, g;
               if (
                 ((g = 0),
-                (c = !1),
+                (c = false),
                 this.foreachTreeNode(this.document(), function (w) {
-                  if ((g++, !c && w === u)) return (c = !0);
+                  if ((g++, !c && w === u)) return (c = true);
                 }),
                 c)
               )
@@ -6651,8 +6651,8 @@ var gr = S(function (qn, Un) {
               (d || (d = {}),
               (d = x({}, this.options, d)),
               (l = { writer: this }),
-              (l.pretty = d.pretty || !1),
-              (l.allowEmpty = d.allowEmpty || !1),
+              (l.pretty = d.pretty || false),
+              (l.allowEmpty = d.allowEmpty || false),
               (l.indent = (u = d.indent) != null ? u : "  "),
               (l.newline =
                 (c = d.newline) != null
@@ -6664,7 +6664,7 @@ var gr = S(function (qn, Un) {
               (l.dontPrettyTextNodes =
                 (o = (E = d.dontPrettyTextNodes) != null ? E : d.dontprettytextnodes) != null ? o : 0),
               (l.spaceBeforeSlash = (y = (N = d.spaceBeforeSlash) != null ? N : d.spacebeforeslash) != null ? y : ""),
-              l.spaceBeforeSlash === !0)
+              l.spaceBeforeSlash === true)
             )
               l.spaceBeforeSlash = " ";
             return (l.suppressPrettyCount = 0), (l.user = {}), (l.state = t.None), l;
@@ -6768,7 +6768,7 @@ var gr = S(function (qn, Un) {
             var c, g, w, o, E, y, N, b, I, j, R, W, H, B, z, he, De, Gt, xe;
             if (
               (u || (u = 0),
-              (W = !1),
+              (W = false),
               this.openNode(d, l, u),
               (l.state = t.OpenTag),
               (H = this.indent(d, l, u) + "<" + d.name),
@@ -6807,10 +6807,10 @@ var gr = S(function (qn, Un) {
               (H += ">"),
                 (l.state = t.InsideTag),
                 l.suppressPrettyCount++,
-                (W = !0),
+                (W = true),
                 (H += this.writeChildNode(E, l, u + 1)),
                 l.suppressPrettyCount--,
-                (W = !1),
+                (W = false),
                 (l.state = t.CloseTag),
                 (H += "</" + d.name + ">" + this.endline(d, l, u));
             else {
@@ -6818,7 +6818,7 @@ var gr = S(function (qn, Un) {
                 De = d.children;
                 for (y = 0, I = De.length; y < I; y++)
                   if (((w = De[y]), (w.type === e.Text || w.type === e.Raw || w.type === e.CData) && w.value != null)) {
-                    l.suppressPrettyCount++, (W = !0);
+                    l.suppressPrettyCount++, (W = true);
                     break;
                   }
               }
@@ -7142,7 +7142,7 @@ var Ar = S(function (jn, Xn) {
             }),
             Object.defineProperty(p.prototype, "strictErrorChecking", {
               get: function () {
-                return !1;
+                return false;
               },
             }),
             Object.defineProperty(p.prototype, "xmlEncoding", {
@@ -7156,7 +7156,7 @@ var Ar = S(function (jn, Xn) {
               get: function () {
                 if (this.children.length !== 0 && this.children[0].type === e.Declaration)
                   return this.children[0].standalone === "yes";
-                else return !1;
+                else return false;
               },
             }),
             Object.defineProperty(p.prototype, "xmlVersion", {
@@ -7257,8 +7257,8 @@ var Gn = S(function (Hn, Yn) {
               (this.currentNode = null),
               (this.currentLevel = -1),
               (this.openTags = {}),
-              (this.documentStarted = !1),
-              (this.documentCompleted = !1),
+              (this.documentStarted = false),
+              (this.documentCompleted = false),
               (this.root = null);
           }
           createChildNode(o) {
@@ -7309,7 +7309,7 @@ var Gn = S(function (Hn, Yn) {
             if (((E = d(E)), !u(E))) [y, E] = [E, y];
             if (
               ((this.currentNode = new T(this, o, E)),
-              (this.currentNode.children = !1),
+              (this.currentNode.children = false),
               this.currentLevel++,
               (this.openTags[this.currentLevel] = this.currentNode),
               y != null)
@@ -7322,7 +7322,7 @@ var Gn = S(function (Hn, Yn) {
             if (this.currentNode && this.currentNode.type === e.DocType) this.dtdElement(...arguments);
             else if (Array.isArray(o) || u(o) || l(o)) {
               (j = this.options.noValidation),
-                (this.options.noValidation = !0),
+                (this.options.noValidation = true),
                 (W = new D(this.options).element("TEMP_ROOT")),
                 W.element(o),
                 (this.options.noValidation = j),
@@ -7422,7 +7422,7 @@ var Gn = S(function (Hn, Yn) {
             return (
               (this.currentNode = new h(this, E, y)),
               (this.currentNode.rootNodeName = o),
-              (this.currentNode.children = !1),
+              (this.currentNode.children = false),
               this.currentLevel++,
               (this.openTags[this.currentLevel] = this.currentNode),
               this
@@ -7450,7 +7450,7 @@ var Gn = S(function (Hn, Yn) {
             var y;
             return (
               this.openCurrent(),
-              (y = new m(this, !1, o, E)),
+              (y = new m(this, false, o, E)),
               this.onData(this.writer.dtdEntity(y, this.writerOptions, this.currentLevel + 1), this.currentLevel + 1),
               this
             );
@@ -7459,7 +7459,7 @@ var Gn = S(function (Hn, Yn) {
             var y;
             return (
               this.openCurrent(),
-              (y = new m(this, !0, o, E)),
+              (y = new m(this, true, o, E)),
               this.onData(this.writer.dtdEntity(y, this.writerOptions, this.currentLevel + 1), this.currentLevel + 1),
               this
             );
@@ -7487,7 +7487,7 @@ var Gn = S(function (Hn, Yn) {
             return this.onEnd();
           }
           openCurrent() {
-            if (this.currentNode) return (this.currentNode.children = !0), this.openNode(this.currentNode);
+            if (this.currentNode) return (this.currentNode.children = true), this.openNode(this.currentNode);
           }
           openNode(o) {
             var E, y, N, b;
@@ -7515,7 +7515,7 @@ var Gn = S(function (Hn, Yn) {
                 else (this.writerOptions.state = t.CloseTag), (y += ">");
                 y += this.writer.endline(o, this.writerOptions, this.currentLevel);
               }
-              return this.onData(y, this.currentLevel), (o.isOpen = !0);
+              return this.onData(y, this.currentLevel), (o.isOpen = true);
             }
           }
           closeNode(o) {
@@ -7533,14 +7533,14 @@ var Gn = S(function (Hn, Yn) {
                   this.writer.indent(o, this.writerOptions, this.currentLevel) +
                   "]>" +
                   this.writer.endline(o, this.writerOptions, this.currentLevel);
-              return (this.writerOptions.state = t.None), this.onData(E, this.currentLevel), (o.isClosed = !0);
+              return (this.writerOptions.state = t.None), this.onData(E, this.currentLevel), (o.isClosed = true);
             }
           }
           onData(o, E) {
-            return (this.documentStarted = !0), this.onDataCallback(o, E + 1);
+            return (this.documentStarted = true), this.onDataCallback(o, E + 1);
           }
           onEnd() {
-            return (this.documentCompleted = !0), this.onEndCallback();
+            return (this.documentCompleted = true), this.onEndCallback();
           }
           debugInfo(o) {
             if (o == null) return "";
@@ -7719,10 +7719,10 @@ var Qn = S(function (Wn, zn) {
               this.stream.write(">"),
                 (m.state = t.InsideTag),
                 m.suppressPrettyCount++,
-                (k = !0),
+                (k = true),
                 this.writeChildNode(T, m, p + 1),
                 m.suppressPrettyCount--,
-                (k = !1),
+                (k = false),
                 (m.state = t.CloseTag),
                 this.stream.write("</" + a.name + ">");
             else {
@@ -7825,7 +7825,7 @@ var eu = S(function (Sl) {
       n = bl.create("plist");
     if ((n.dec(i.version, i.encoding, i.standalone), n.dtd(r.pubid, r.sysid), n.att("version", "1.0"), wr(e, n), !t))
       t = {};
-    return (t.pretty = t.pretty !== !1), n.end(t);
+    return (t.pretty = t.pretty !== false), n.end(t);
   }
   function wr(e, t) {
     var i,

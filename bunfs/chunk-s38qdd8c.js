@@ -396,14 +396,14 @@ function x(L) {
   if (u[2] !== p || u[3] !== M) (N = [M, ...p.map(q)]), (u[2] = p), (u[3] = M), (u[4] = N);
   else N = u[4];
   let V = N,
-    b = C(!1),
+    b = C(false),
     P;
   if (u[5] !== v || u[6] !== p || u[7] !== c)
     (P = function S(T) {
       if (b.current) {
         return;
       }
-      if (((b.current = !0), T === R)) {
+      if (((b.current = true), T === R)) {
         y(k(p), v, c);
         return;
       }
@@ -426,7 +426,7 @@ function x(L) {
     A;
   if (u[9] !== c)
     (A = function m() {
-      (b.current = !0), c(void 0, { display: "skip" });
+      (b.current = true), c(void 0, { display: "skip" });
     }),
       (u[9] = c),
       (u[10] = A);
@@ -437,7 +437,7 @@ function x(L) {
     (B = e(o, {
       flexDirection: "column",
       marginBottom: 1,
-      children: e(t, { dimColor: !0, children: "Select a version to view its notes." }),
+      children: e(t, { dimColor: true, children: "Select a version to view its notes." }),
     })),
       (u[11] = B);
   else B = u[11];

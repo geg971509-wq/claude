@@ -54,10 +54,10 @@ function o(e, t) {
   let h = t.get(e);
   if (h !== void 0) return h;
   let s = `<${e.tagName ?? e.nodeName}`,
-    i = !1;
+    i = false;
   for (let f of e.attrs ?? []) {
     if (s.length > N) {
-      i = !0;
+      i = true;
       break;
     }
     s += ` ${ce(f.name, 40).replace(/[<>"'=]/g, "")}="\u2026"`;
@@ -363,10 +363,10 @@ function G(e, t, h, s) {
   }
   return d;
 }
-function b(e, t, h, s, i = !1, r = 0) {
+function b(e, t, h, s, i = false, r = 0) {
   if (r > x) {
     if (!t.nestingTruncated)
-      (t.nestingTruncated = !0),
+      (t.nestingTruncated = true),
         t.violations.push({
           rule: "markup-nests-too-deeply",
           where: o(e, t.snippets),
@@ -387,13 +387,13 @@ function b(e, t, h, s, i = !1, r = 0) {
       });
   }
   for (let p of e.childNodes ?? []) b(p, t, h, a, i, r + 1);
-  for (let p of e.content?.childNodes ?? []) b(p, t, h, a, !0, r + 1);
+  for (let p of e.content?.childNodes ?? []) b(p, t, h, a, true, r + 1);
 }
 function ee(e, t, h = "strict") {
   try {
     if (Htn(e))
       return {
-        ok: !1,
+        ok: false,
         violations: [
           {
             rule: "markup-nests-too-deeply",
@@ -405,7 +405,7 @@ function ee(e, t, h = "strict") {
     return z(e, t, h);
   } catch (s) {
     return {
-      ok: !1,
+      ok: false,
       violations: [
         {
           rule: "verifier-error",
@@ -423,7 +423,7 @@ function z(e, t, h) {
     r = C(i, t, "strict");
   if (!r.ok)
     return {
-      ok: !1,
+      ok: false,
       violations: [
         {
           rule: "reparse-divergence",
@@ -445,7 +445,7 @@ function z(e, t, h) {
       u = c.charCodeAt(c.length - 1);
     if (u >= 55296 && u <= 56319) c = c.slice(0, -1);
     return {
-      ok: !1,
+      ok: false,
       violations: [
         {
           rule: "reparse-not-fixed-point",
@@ -481,7 +481,7 @@ function C(e, t, h) {
   let s = {
       violations: new E(),
       snippets: new WeakMap(),
-      nestingTruncated: !1,
+      nestingTruncated: false,
       islands: [],
       banners: [],
       deliverableKinds: [],
@@ -489,7 +489,7 @@ function C(e, t, h) {
       items: new Map(),
       orphanChoices: [],
     },
-    i = O1(Iit(e, { sourceCodeLocationInfo: !0 }));
+    i = O1(Iit(e, { sourceCodeLocationInfo: true }));
   b(i, s, t, null);
   let r = s.violations,
     a = 0,
@@ -497,7 +497,7 @@ function C(e, t, h) {
     f = THe(e, "ws-decisions").length,
     g = s.nestingTruncated;
   if (h === "probe" && !g && s.islands.length === 0 && s.wsIdMisuse.length === 0 && f === 0)
-    return { ok: !0, workshopSurface: !1 };
+    return { ok: true, workshopSurface: false };
   for (let c of s.islands) {
     let u = c.node.sourceCodeLocation?.startTag;
     if (u === void 0 || u === null) {
@@ -645,8 +645,8 @@ function C(e, t, h) {
       hint: `${r.overflow} more violations were found but not recorded \u2014 fix the violation classes listed above and re-publish.`,
     };
   return r.length === 0
-    ? { ok: !0, workshopSurface: !0, decisionCount: a, workshopState: p, deliverables: Zit(s.deliverableKinds) }
-    : { ok: !1, violations: r };
+    ? { ok: true, workshopSurface: true, decisionCount: a, workshopState: p, deliverables: Zit(s.deliverableKinds) }
+    : { ok: false, violations: r };
 }
 var U = new Set(["in-progress", "ready", "started"]);
 function L(e, t, h) {

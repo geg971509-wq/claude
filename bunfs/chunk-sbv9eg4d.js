@@ -276,7 +276,7 @@ function wf(Vu, Cb) {
 }
 function Gu({ sessionId: i, cwd: m, accountStatus: f, webSetupStatus: v }) {
   let I = a.CLAUDE_CODE_TMUX_SESSION,
-    E = G7(i) ?? e(t, { dimColor: !0, children: "/rename to add a name" }),
+    E = G7(i) ?? e(t, { dimColor: true, children: "/rename to add a name" }),
     H = hf(),
     P = "";
   if (H.length > 0) {
@@ -384,13 +384,13 @@ function Ys(ab) {
     ef;
   if (eo[6] !== Eo)
     (Zp = () => {
-      let tf = !0;
+      let tf = true;
       return (
         Eo?.settled.then(() => {
           if (tf) rb(Eo.current());
         }),
         () => {
-          tf = !1;
+          tf = false;
         }
       );
     }),
@@ -423,7 +423,7 @@ function Ys(ab) {
   let of;
   if (eo[19] === d)
     (of = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "cancel" }),
     })),
       (eo[19] = of);
@@ -474,7 +474,7 @@ function ba(Iu) {
   else af = fa[8];
   let Wu = af,
     rf;
-  if (fa[9] === d) (rf = [{ bold: !0 }, { width: "fill" }]), (fa[9] = rf);
+  if (fa[9] === d) (rf = [{ bold: true }, { width: "fill" }]), (fa[9] = rf);
   else rf = fa[9];
   let ga;
   if (fa[10] !== Wu) (ga = Wu.filter(Cf).flatMap(kf)), (fa[10] = Wu), (fa[11] = ga);
@@ -492,7 +492,7 @@ function Ca(Sb) {
     return null;
   }
   let df;
-  if (Hu[0] === d) (df = e(t, { bold: !0, children: "System diagnostics" })), (Hu[0] = df);
+  if (Hu[0] === d) (df = e(t, { bold: true, children: "System diagnostics" })), (Hu[0] = df);
   else df = Hu[0];
   let ya;
   if (Hu[1] !== ha) (ya = ha.map(wf)), (Hu[1] = ha), (Hu[2] = ya);
@@ -535,7 +535,7 @@ function xa(Ab) {
       (Ro[5] = Da);
   else Da = Ro[5];
   let vf;
-  if (Ro[6] === d) (vf = e(t, { dimColor: !0, children: "How would you like to handle this?" })), (Ro[6] = vf);
+  if (Ro[6] === d) (vf = e(t, { dimColor: true, children: "How would you like to handle this?" })), (Ro[6] = vf);
   else vf = Ro[6];
   let xf;
   if (Ro[7] === d) (xf = { label: "Allow possible downgrade to stable version", value: "downgrade" }), (Ro[7] = xf);
@@ -554,8 +554,8 @@ function xa(Ab) {
       title: "Switch to Stable Channel",
       onCancel: Xs,
       color: "permission",
-      hideBorder: !0,
-      hideInputGuide: !0,
+      hideBorder: true,
+      hideInputGuide: true,
       children: [Da, vf, va],
     })),
       (Ro[13] = Xs),
@@ -590,12 +590,12 @@ function Ia(Vb) {
   if (Js[3] === d)
     (Rf = e(o, {
       marginTop: 1,
-      children: e(t, { dimColor: !0, children: "This changes how Claude Code communicates with you" }),
+      children: e(t, { dimColor: true, children: "This changes how Claude Code communicates with you" }),
     })),
       (Js[3] = Rf);
   else Rf = Js[3];
   let If;
-  if (Js[4] === d) (If = e(t, { dimColor: !0, children: "Loading output styles\u2026" })), (Js[4] = If);
+  if (Js[4] === d) (If = e(t, { dimColor: true, children: "Loading output styles\u2026" })), (Js[4] = If);
   else If = Js[4];
   let Ma;
   if (Js[5] !== Yu || Js[6] !== qu || Js[7] !== Zu)
@@ -637,7 +637,7 @@ function _a(Gb) {
     (Ea =
       nd &&
       e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: `Your saved output style "${to}" is a custom style disabled in safe mode \u2014 ${_f()} to use it; selecting a style here replaces it`,
       })),
       (Qs[3] = to),
@@ -699,8 +699,8 @@ function La(sC) {
           value: ad,
           onChange: aC,
           onSubmit: ei,
-          focus: !0,
-          showCursor: !0,
+          focus: true,
+          showCursor: true,
           placeholder: `e.g., Japanese, \u65E5\u672C\u8A9E, Espa\xF1ol${L.ellipsis}`,
           columns: 60,
           cursorOffset: id,
@@ -714,7 +714,7 @@ function La(sC) {
       (tn[9] = Oa);
   else Oa = tn[9];
   let Gf;
-  if (tn[10] === d) (Gf = e(t, { dimColor: !0, children: "Leave empty for default (English)" })), (tn[10] = Gf);
+  if (tn[10] === d) (Gf = e(t, { dimColor: true, children: "Leave empty for default (English)" })), (tn[10] = Gf);
   else Gf = tn[10];
   let Kf;
   if (tn[11] !== Oa)
@@ -742,7 +742,7 @@ function Ka(MC) {
     } = MC,
     [Zn, zf] = u(0),
     Yf = C(null);
-  Cp(Yf, !0);
+  Cp(Yf, true);
   let qf;
   if (Xe[0] !== ld) (qf = JHt(ld)), (Xe[0] = ld), (Xe[1] = qf);
   else qf = Xe[1];
@@ -797,7 +797,7 @@ function Ka(MC) {
       (Xe[25] = Zf);
   else Zf = Xe[25];
   let eg;
-  if (Xe[26] === d) (eg = { context: "Select", isActive: !0 }), (Xe[26] = eg);
+  if (Xe[26] === d) (eg = { context: "Select", isActive: true }), (Xe[26] = eg);
   else eg = Xe[26];
   ht(Zf, eg);
   let tg;
@@ -836,7 +836,7 @@ function Ka(MC) {
               children: r(t, {
                 color: Ha ? "suggestion" : void 0,
                 wrap: "truncate-end",
-                children: [r(t, { "aria-hidden": !0, children: [Ha ? L.pointer : " ", " "] }), hd.label],
+                children: [r(t, { "aria-hidden": true, children: [Ha ? L.pointer : " ", " "] }), hd.label],
               }),
             }),
             e(t, { color: Ha ? "suggestion" : void 0, wrap: "truncate-end", children: hd.value }),
@@ -854,7 +854,7 @@ function Ka(MC) {
   else Va = Xe[35];
   let Ga;
   if (Xe[36] !== ti || Xe[37] !== ja || Xe[38] !== Va)
-    (Ga = r(o, { flexDirection: "column", ref: Yf, tabIndex: 0, autoFocus: !0, onKeyDown: ti, children: [ja, Va] })),
+    (Ga = r(o, { flexDirection: "column", ref: Yf, tabIndex: 0, autoFocus: true, onKeyDown: ti, children: [ja, Va] })),
       (Xe[36] = ti),
       (Xe[37] = ja),
       (Xe[38] = Va),
@@ -862,7 +862,7 @@ function Ka(MC) {
   else Ga = Xe[39];
   let sg;
   if (Xe[40] !== fd || Xe[41] !== Ga)
-    (sg = e(me, { title: "Notifications", onCancel: fd, hideBorder: !0, inputGuide: ng, children: Ga })),
+    (sg = e(me, { title: "Notifications", onCancel: fd, hideBorder: true, inputGuide: ng, children: Ga })),
       (Xe[40] = fd),
       (Xe[41] = Ga),
       (Xe[42] = sg);
@@ -871,7 +871,7 @@ function Ka(MC) {
 }
 function on() {
   let _C = _(1);
-  if (Lt(hrt, grt, rg)?.has_active_channel !== !1) {
+  if (Lt(hrt, grt, rg)?.has_active_channel !== false) {
     return null;
   }
   let ig;
@@ -1030,7 +1030,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
     pe = C(Je()),
     [de, xe] = u(Q?.outputStyle || Qw),
     Ue = C(de),
-    [He, he] = u(() => ci().hasClaudeMdExternalIncludesApproved === !0),
+    [He, he] = u(() => ci().hasClaudeMdExternalIncludesApproved === true),
     [We, Ut] = u(Q?.language),
     Mo = C(We),
     [Oe, Wt, Le] = Dy(0),
@@ -1049,7 +1049,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
     fu = IK() ?? Bs,
     bp = W((T) => T.verbose),
     gu = W((T) => T.thinkingEnabled),
-    hu = W((T) => (Yr() ? T.fastMode : !1)),
+    hu = W((T) => (Yr() ? T.fastMode : false)),
     kp = W((T) => T.promptSuggestionEnabled),
     wp = W((T) => T.awaySummaryEnabled),
     Dp = import.meta.require("/$bunfs/root/chunk-dbahgvc8.js").isBriefEntitled(),
@@ -1057,7 +1057,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
     [yu, vp] = u({}),
     xp = C(gu);
   A(() => YNn(() => q(Yke())), []);
-  let [Nn, $s] = u(!1),
+  let [Nn, $s] = u(false),
     [Jo, Fs] = u(null),
     [Ie, Se] = u(null),
     [Su, bu] = u(null);
@@ -1073,23 +1073,23 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
       cursorOffset: Mp,
       handleKeyDown: Cu,
       handlePaste: Ep,
-    } = np({ isActive: lt && Ie === null && !R, onExit: () => st(!1), onExitUp: J, passthroughCtrlKeys: ["c", "d"] }),
+    } = np({ isActive: lt && Ie === null && !R, onExit: () => st(false), onExitUp: J, passthroughCtrlKeys: ["c", "d"] }),
     ku = !R;
   A(() => {
     v(ku);
   }, [ku, v]);
   let Ap = RTe(m.options.mcpClients),
     Rp = !a.CLAUDE_CODE_DISABLE_FILE_CHECKPOINTING,
-    wu = Lo("disableWorkflows", !1),
-    Du = Lo("enableWorkflows", !1),
+    wu = Lo("disableWorkflows", false),
+    Du = Lo("enableWorkflows", false),
     _p =
       Zht() &&
-      (wu.value !== !0 || wu.source === "userSettings") &&
+      (wu.value !== true || wu.source === "userSettings") &&
       (Du.source === "default" || Du.source === "userSettings"),
     Ip = !xbe(),
     Pp = Srt(),
     Op = e8e(),
-    Tu = zn(J_(H, !0, x, E)),
+    Tu = zn(J_(H, true, x, E)),
     Lp = Sun(Tu),
     pt = DY(),
     ea = e3() && !Ct() && Yl(),
@@ -1140,16 +1140,16 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
       if (!Ht) return T;
       let re = Ht.toLowerCase();
       return T.filter((ue) => {
-        if (ue.id.toLowerCase().includes(re)) return !0;
-        if (("searchText" in ue ? ue.searchText : ue.label).toLowerCase().includes(re)) return !0;
+        if (ue.id.toLowerCase().includes(re)) return true;
+        if (("searchText" in ue ? ue.searchText : ue.label).toLowerCase().includes(re)) return true;
         if (ue.type === "enum") return ue.options.some((Fe) => Fe.toLowerCase().includes(re));
-        return !1;
+        return false;
       });
     }, [Bn, Ht, Qe]),
     Ws =
       Lt(hrt, grt, () => {
         return;
-      })?.has_active_channel === !1
+      })?.has_active_channel === false
         ? 1
         : 0,
     ta = Math.max(1, Go - 2 * (oe ? cv + Px : lv)),
@@ -1238,7 +1238,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
       T.push(`${Z.copyFullResponse ? "Enabled" : "Disabled"} always copy full response`);
     if (Z.copyOnSelect !== N.current.copyOnSelect) T.push(`${Z.copyOnSelect ? "Enabled" : "Disabled"} copy on select`);
     if (Z.leftArrowOpensAgents !== N.current.leftArrowOpensAgents)
-      T.push(`${(Z.leftArrowOpensAgents ?? !0) ? "Enabled" : "Disabled"} ${fP} opens agents`);
+      T.push(`${(Z.leftArrowOpensAgents ?? true) ? "Enabled" : "Disabled"} ${fP} opens agents`);
     if (Z.defaultToAgentsView !== N.current.defaultToAgentsView)
       T.push(`${Z.defaultToAgentsView ? "Enabled" : "Disabled"} open agents view by default`);
     if (Z.terminalProgressBarEnabled !== N.current.terminalProgressBarEnabled)
@@ -1269,7 +1269,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
   }, [Ie, yu, Z, Bs, de, We, Q?.autoUpdatesChannel, Yr() ? Q?.fastMode : void 0, i]);
   Be("confirm:no", vu, { context: "Settings", isActive: Ie === null && !lt && !R && !Ke });
   let aa = B((T) => Qe && T.type === "managedEnum" && T.id === "showExternalIncludesDialog" && He, [Qe, He]),
-    Kp = B((T) => oi.find((re) => re.id === T)?.isSet({ settingsData: Q, globalConfig: Z }) ?? !1, [Q, Z]),
+    Kp = B((T) => oi.find((re) => re.id === T)?.isSet({ settingsData: Q, globalConfig: Z }) ?? false, [Q, Z]),
     ra = B((T, re) => {
       T.onChange(re), s("tengu_config_changed", { setting: T.id, value: re });
     }, []),
@@ -1278,13 +1278,13 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
       return T && T.type === "enum" ? T : void 0;
     }, [Bn, Su]),
     la = B(() => {
-      bu(null), Se(null), f(!1);
+      bu(null), Se(null), f(false);
     }, [f]),
     Hs = B(() => {
       let T = Pe[Le()];
       if (!T || !T.onChange) return;
-      if (T.id === "remoteHomeSettings" && T.value === !1) {
-        Se("RemoteHomeSettings"), f(!0);
+      if (T.id === "remoteHomeSettings" && T.value === false) {
+        Se("RemoteHomeSettings"), f(true);
         return;
       }
       if (T.type === "boolean") {
@@ -1331,21 +1331,21 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
           s("tengu_config_changed", { setting: T.id, value: re }),
           T.id === "thinking")
         ) {
-          if (re === xp.current) $s(!1);
-          else if (m.messages.some((Fe) => Fe.type === "assistant")) $s(!0);
+          if (re === xp.current) $s(false);
+          else if (m.messages.some((Fe) => Fe.type === "assistant")) $s(true);
         }
         return;
       }
       if (aa(T)) {
-        rnt(!1, "config_toggle", x), he(!1);
+        rnt(false, "config_toggle", x), he(false);
         return;
       }
       if (T.id === "agentsView") {
-        Qi(0), Se("AgentsView"), f(!0);
+        Qi(0), Se("AgentsView"), f(true);
         return;
       }
       if (T.id === "notifChannel" && T.type === "managedEnum") {
-        Se("Notifications"), f(!0);
+        Se("Notifications"), f(true);
         return;
       }
       if (
@@ -1357,27 +1357,27 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
       )
         switch (T.id) {
           case "theme":
-            Se("Theme"), f(!0);
+            Se("Theme"), f(true);
             return;
           case "model":
-            Se("Model"), f(!0);
+            Se("Model"), f(true);
             return;
           case "showExternalIncludesDialog":
-            Se("ExternalIncludes"), f(!0);
+            Se("ExternalIncludes"), f(true);
             return;
           case "outputStyle":
-            Se("OutputStyle"), f(!0);
+            Se("OutputStyle"), f(true);
             return;
           case "language":
-            Se("Language"), f(!0);
+            Se("Language"), f(true);
             return;
         }
       if (T.id === "autoUpdatesChannel") {
         if (pt) {
-          Se("EnableAutoUpdates"), f(!0);
+          Se("EnableAutoUpdates"), f(true);
           return;
         }
-        if ((Q?.autoUpdatesChannel ?? "latest") === "latest") Se("ChannelDowngrade"), f(!0);
+        if ((Q?.autoUpdatesChannel ?? "latest") === "latest") Se("ChannelDowngrade"), f(true);
         else
           rn("userSettings", { autoUpdatesChannel: void 0, minimumVersion: void 0 }, void 0, x),
             te((ue) => ({ ...ue, autoUpdatesChannel: void 0, minimumVersion: void 0 })),
@@ -1385,7 +1385,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
         return;
       }
       if (T.type === "enum" && T.pickToCommit) {
-        bu(T.id), Se("EnumPicker"), f(!0);
+        bu(T.id), Se("EnumPicker"), f(true);
         return;
       }
       if (T.type === "enum") {
@@ -1395,7 +1395,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
       }
     }, [G, pt, ra, aa, Pe, Le, Q?.autoUpdatesChannel, f, x]),
     Vs = (T) => {
-      $s(!1);
+      $s(false);
       let re = Math.max(0, Math.min(Pe.length - 1, Le() + T));
       Wt(re);
       let ue = (ce) => (ce === "thinking" ? 0 : $n(ce));
@@ -1409,7 +1409,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
   ht(
     {
       "select:previous": () => {
-        if (Le() === 0) $s(!1), st(!0), je(0);
+        if (Le() === 0) $s(false), st(true), je(0);
         else Vs(-1);
       },
       "select:next": () => Vs(1),
@@ -1417,7 +1417,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
       "scroll:lineDown": () => Vs(1),
       "select:accept": () => Hs(),
       "settings:search": () => {
-        st(!0), Us("");
+        st(true), Us("");
       },
     },
     { context: "Settings", isActive: Ie === null && !lt && !R && !Ke },
@@ -1425,10 +1425,10 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
   let Un = z(
       () => [
         ...(tZ()
-          ? [{ id: "leftArrowOpensAgents", label: `${fP} opens agents`, value: Z.leftArrowOpensAgents ?? !0 }]
+          ? [{ id: "leftArrowOpensAgents", label: `${fP} opens agents`, value: Z.leftArrowOpensAgents ?? true }]
           : []),
         ...(cy()
-          ? [{ id: "defaultToAgentsView", label: "Start in agent view", value: Z.defaultToAgentsView ?? !1 }]
+          ? [{ id: "defaultToAgentsView", label: "Start in agent view", value: Z.defaultToAgentsView ?? false }]
           : []),
       ],
       [Z.leftArrowOpensAgents, Z.defaultToAgentsView],
@@ -1460,10 +1460,10 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
       if (lt) {
         if ((Cu(T), T.key === "escape")) {
           if ((T.preventDefault(), Ht.length > 0)) Us("");
-          else st(!1);
+          else st(false);
           return;
         }
-        if (T.key === "return" || T.key === "down") T.preventDefault(), st(!1), Wt(0), je(0);
+        if (T.key === "return" || T.key === "down") T.preventDefault(), st(false), Wt(0), je(0);
         return;
       }
       if (T.key === "left" || T.key === "right" || T.key === "tab") {
@@ -1471,7 +1471,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
         return;
       }
       if (T.ctrl || T.meta) return;
-      if (T.key.length === 1 && T.key !== " ") T.preventDefault(), st(!0), Us(T.key === "/" ? "" : T.key);
+      if (T.key.length === 1 && T.key !== " ") T.preventDefault(), st(true), Us(T.key === "/" ? "" : T.key);
     },
     [Ie, R, lt, Ht, Us, Cu, Wt, Hs],
   );
@@ -1485,21 +1485,21 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
             children: [
               e(EQ, {
                 onThemeSelect: (T) => {
-                  ee(T), Se(null), f(!1);
+                  ee(T), Se(null), f(false);
                 },
                 onCancel: () => {
-                  Se(null), f(!1);
+                  Se(null), f(false);
                 },
                 helpText: ho("themes")
                   ? `Custom themes are disabled in safe mode \u2014 ${_f()} to load them${Mb(ne) ? `. Your saved theme "${Mb(ne)}" is a custom theme; selecting a preset here replaces it` : ""}`
                   : "",
-                hideEscToCancel: !0,
-                skipExitHandling: !0,
+                hideEscToCancel: true,
+                skipExitHandling: true,
               }),
               e(o, {
                 children: e(t, {
-                  dimColor: !0,
-                  italic: !0,
+                  dimColor: true,
+                  italic: true,
                   children: r(fe, {
                     children: [
                       e(M, { chord: "enter", action: "select" }),
@@ -1516,7 +1516,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                 e(AQ, {
                   initial: Bs,
                   sessionModel: Sp,
-                  skipSettingsWrite: !0,
+                  skipSettingsWrite: true,
                   onSelect: (T, re) => {
                     Promise.resolve(Np(T, re))
                       .then((ue) => {
@@ -1540,15 +1540,15 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                           });
                       }),
                       Se(null),
-                      f(!1);
+                      f(false);
                   },
                   onCancel: () => {
-                    Se(null), f(!1);
+                    Se(null), f(false);
                   },
-                  showFastModeNotice: Yr() ? hu && lf(fu) && Zy() : !1,
+                  showFastModeNotice: Yr() ? hu && lf(fu) && Zy() : false,
                 }),
                 e(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: r(fe, {
                     children: [
                       e(M, { chord: "enter", action: "confirm" }),
@@ -1572,10 +1572,10 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                     ),
                     T === "forward")
                   )
-                    s("tengu_config_changed", { setting: w("remoteHomeSettings"), value: !0 });
+                    s("tengu_config_changed", { setting: w("remoteHomeSettings"), value: true });
                   if (T === "forward" || T === "keep_local")
                     q((re) => ({ ...re, remoteHomeSettingsMode: ie().remoteHomeSettingsMode }));
-                  Se(null), f(!1);
+                  Se(null), f(false);
                 },
               })
             : Ie === "ExternalIncludes"
@@ -1583,12 +1583,12 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                   children: [
                     e(u0t, {
                       onDone: () => {
-                        he(ci().hasClaudeMdExternalIncludesApproved === !0), Se(null), f(!1);
+                        he(ci().hasClaudeMdExternalIncludesApproved === true), Se(null), f(false);
                       },
                       externalIncludes: pGe(Tu),
                     }),
                     e(t, {
-                      dimColor: !0,
+                      dimColor: true,
                       children: r(fe, {
                         children: [
                           e(M, { chord: "enter", action: "confirm" }),
@@ -1611,7 +1611,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                         onComplete: (T) => {
                           xe(T ?? Qw),
                             Se(null),
-                            f(!1),
+                            f(false),
                             XO().delete(kce),
                             zC("output_style"),
                             rn("localSettings", { outputStyle: T }, void 0, x),
@@ -1622,11 +1622,11 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                             });
                         },
                         onCancel: () => {
-                          Se(null), f(!1);
+                          Se(null), f(false);
                         },
                       }),
                       e(t, {
-                        dimColor: !0,
+                        dimColor: true,
                         children: r(fe, {
                           children: [
                             e(M, { chord: "enter", action: "confirm" }),
@@ -1649,16 +1649,16 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                           onComplete: (T) => {
                             Ut(T),
                               Se(null),
-                              f(!1),
+                              f(false),
                               rn("userSettings", { language: T }, void 0, x),
                               s("tengu_language_changed", { language: T ?? "default", source: w("config_panel") });
                           },
                           onCancel: () => {
-                            Se(null), f(!1);
+                            Se(null), f(false);
                           },
                         }),
                         e(t, {
-                          dimColor: !0,
+                          dimColor: true,
                           children: r(fe, {
                             children: [
                               e(M, { chord: "enter", action: "confirm" }),
@@ -1677,17 +1677,17 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                     ? r(me, {
                         title: "Agents view",
                         onCancel: () => {
-                          Se(null), f(!1);
+                          Se(null), f(false);
                         },
-                        hideBorder: !0,
-                        hideInputGuide: !0,
+                        hideBorder: true,
+                        hideInputGuide: true,
                         children: [
                           Ke
                             ? e(sr, {
                                 rows: Un.map((T) => ({ id: T.id, label: T.label, value: String(T.value) })),
                                 onSelect: (T) => xu(T),
                                 onCancel: () => {
-                                  Se(null), f(!1);
+                                  Se(null), f(false);
                                 },
                                 cancelHint: "Escape to close",
                               })
@@ -1708,7 +1708,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                             color: ue ? "suggestion" : void 0,
                                             wrap: "truncate-end",
                                             children: [
-                                              r(t, { "aria-hidden": !0, children: [ue ? L.pointer : " ", " "] }),
+                                              r(t, { "aria-hidden": true, children: [ue ? L.pointer : " ", " "] }),
                                               T.label,
                                             ],
                                           }),
@@ -1722,7 +1722,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                               }),
                           !Ke &&
                             e(t, {
-                              dimColor: !0,
+                              dimColor: true,
                               children: r(fe, {
                                 children: [
                                   e(M, { chord: ["enter", "space"], action: "toggle" }),
@@ -1743,8 +1743,8 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                             e(me, {
                               title: Zo.label,
                               onCancel: la,
-                              hideBorder: !0,
-                              hideInputGuide: !0,
+                              hideBorder: true,
+                              hideInputGuide: true,
                               children: e(Ce, {
                                 options: Zo.options.map((T) => ({ label: T, value: T })),
                                 defaultValue: String(Zo.value),
@@ -1756,7 +1756,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                               }),
                             }),
                             e(t, {
-                              dimColor: !0,
+                              dimColor: true,
                               children: r(fe, {
                                 children: [
                                   e(M, { chord: "enter", action: "confirm" }),
@@ -1775,10 +1775,10 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                         ? e(me, {
                             title: "Enable Auto-Updates",
                             onCancel: () => {
-                              Se(null), f(!1);
+                              Se(null), f(false);
                             },
-                            hideBorder: !0,
-                            hideInputGuide: !0,
+                            hideBorder: true,
+                            hideInputGuide: true,
                             children:
                               pt?.type !== "config"
                                 ? r(U, {
@@ -1791,7 +1791,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                       }),
                                       pt?.type === "env" &&
                                         r(t, {
-                                          dimColor: !0,
+                                          dimColor: true,
                                           children: ["Unset ", pt.envVar, " to re-enable auto-updates."],
                                         }),
                                     ],
@@ -1804,9 +1804,9 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                     onChange: (T) => {
                                       let re = T;
                                       Se(null),
-                                        f(!1),
-                                        Ae((ue) => ({ ...ue, autoUpdates: !0 }), x),
-                                        q((ue) => ({ ...ue, autoUpdates: !0 })),
+                                        f(false),
+                                        Ae((ue) => ({ ...ue, autoUpdates: true }), x),
+                                        q((ue) => ({ ...ue, autoUpdates: true })),
                                         rn(
                                           "userSettings",
                                           { autoUpdatesChannel: re, minimumVersion: void 0 },
@@ -1833,7 +1833,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                 DD_SOURCEMAP_GROUP: "darwin",
                               }.VERSION,
                               onChoice: (T) => {
-                                if ((Se(null), f(!1), T === "cancel")) return;
+                                if ((Se(null), f(false), T === "cancel")) return;
                                 let re = { autoUpdatesChannel: "stable" };
                                 if (T === "stay")
                                   re.minimumVersion = {
@@ -1862,23 +1862,23 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                 channel: Z.preferredNotifChannel,
                                 showInputNeededRow: ea && Iht(),
                                 showDoneRow: ea,
-                                inputNeededEnabled: Z.inputNeededNotifEnabled ?? !1,
-                                doneEnabled: Z.agentPushNotifEnabled ?? !1,
+                                inputNeededEnabled: Z.inputNeededNotifEnabled ?? false,
+                                doneEnabled: Z.agentPushNotifEnabled ?? false,
                                 onCycleChannel: () => {
                                   let T = z$.indexOf(Z.preferredNotifChannel),
                                     re = z$[(T + 1) % z$.length];
                                   Bp(re), s("tengu_config_changed", { setting: w("notifChannel"), value: c(re) });
                                 },
                                 onToggleInputNeeded: () => {
-                                  let T = !(Z.inputNeededNotifEnabled ?? !1);
+                                  let T = !(Z.inputNeededNotifEnabled ?? false);
                                   $p(T), s("tengu_config_changed", { setting: w("inputNeededNotifEnabled"), value: T });
                                 },
                                 onToggleDone: () => {
-                                  let T = !(Z.agentPushNotifEnabled ?? !1);
+                                  let T = !(Z.agentPushNotifEnabled ?? false);
                                   Fp(T), s("tengu_config_changed", { setting: w("agentPushNotifEnabled"), value: T });
                                 },
                                 onClose: () => {
-                                  Se(null), f(!1);
+                                  Se(null), f(false);
                                 },
                               })
                             : Ke
@@ -1923,15 +1923,15 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                       children:
                                         Pe.length === 0
                                           ? r(t, {
-                                              dimColor: !0,
-                                              italic: !0,
+                                              dimColor: true,
+                                              italic: true,
                                               wrap: "truncate-end",
                                               children: ['No settings match "', oa, '"'],
                                             })
                                           : r(U, {
                                               children: [
                                                 $e > 0 &&
-                                                  r(t, { dimColor: !0, children: [L.arrowUp, " ", $e, " more above"] }),
+                                                  r(t, { dimColor: true, children: [L.arrowUp, " ", $e, " more above"] }),
                                                 Pe.slice($e, $e + Qo).map((T, re) => {
                                                   let ue = $e + re,
                                                     ce = ue === Oe && !R && !lt,
@@ -1950,7 +1950,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                                           e(o, {
                                                             marginTop: ue === $e ? 0 : 1,
                                                             children: e(t, {
-                                                              dimColor: !0,
+                                                              dimColor: true,
                                                               wrap: "truncate-end",
                                                               children: Cd(Fe, T.id),
                                                             }),
@@ -1968,12 +1968,12 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                                                 wrap: "truncate-end",
                                                                 children: [
                                                                   r(t, {
-                                                                    "aria-hidden": !0,
+                                                                    "aria-hidden": true,
                                                                     children: [ce ? L.pointer : " ", " "],
                                                                   }),
                                                                   T.label,
                                                                   "labelBoldSuffix" in T &&
-                                                                    e(t, { bold: !0, children: T.labelBoldSuffix }),
+                                                                    e(t, { bold: true, children: T.labelBoldSuffix }),
                                                                 ],
                                                               }),
                                                             }),
@@ -2030,7 +2030,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                                                                 wrap: "truncate-end",
                                                                                 children: Qun(
                                                                                   T.value.toString(),
-                                                                                  T.isDefaultValue ?? !1,
+                                                                                  T.isDefaultValue ?? false,
                                                                                 ),
                                                                               })
                                                                             : T.id === "autoUpdatesChannel" && pt
@@ -2042,7 +2042,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                                                                     "disabled",
                                                                                     " ",
                                                                                     r(t, {
-                                                                                      dimColor: !0,
+                                                                                      dimColor: true,
                                                                                       children: ["(", hNe(pt), ")"],
                                                                                     }),
                                                                                   ],
@@ -2054,7 +2054,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                                                                   children: T.value.toString(),
                                                                                 }),
                                                                   Qe &&
-                                                                    ((T.type === "enum" && T.pickToCommit === !0) ||
+                                                                    ((T.type === "enum" && T.pickToCommit === true) ||
                                                                       (T.type === "managedEnum" &&
                                                                         !aa(T) &&
                                                                         (T.id !== "autoUpdatesChannel" ||
@@ -2094,7 +2094,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                                 }),
                                                 $e + Qo < Pe.length &&
                                                   r(t, {
-                                                    dimColor: !0,
+                                                    dimColor: true,
                                                     children: [
                                                       L.arrowDown,
                                                       " ",
@@ -2112,7 +2112,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                       flexShrink: 0,
                                       children: R
                                         ? e(t, {
-                                            dimColor: !0,
+                                            dimColor: true,
                                             children: r(fe, {
                                               children: [
                                                 e(M, {
@@ -2132,7 +2132,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                           })
                                         : lt
                                           ? e(t, {
-                                              dimColor: !0,
+                                              dimColor: true,
                                               children: r(fe, {
                                                 children: [
                                                   e(t, { children: "Type to filter" }),
@@ -2148,7 +2148,7 @@ function ir({ onClose: i, context: m, setTabsHidden: f, onIsSearchModeChange: v,
                                               }),
                                             })
                                           : e(t, {
-                                              dimColor: !0,
+                                              dimColor: true,
                                               children: r(fe, {
                                                 children: [
                                                   e(M, { chord: ["enter", "space"], action: "change" }),
@@ -2220,28 +2220,28 @@ function ar(uw) {
     case "iterm2": {
       let Mt;
       if (qa[0] === d)
-        (Mt = r(t, { children: ["iTerm2 ", e(t, { dimColor: !0, children: "(OSC 9)" })] })), (qa[0] = Mt);
+        (Mt = r(t, { children: ["iTerm2 ", e(t, { dimColor: true, children: "(OSC 9)" })] })), (qa[0] = Mt);
       else Mt = qa[0];
       return Mt;
     }
     case "terminal_bell": {
       let Mt;
       if (qa[1] === d)
-        (Mt = r(t, { children: ["Terminal Bell ", e(t, { dimColor: !0, children: "(\\a)" })] })), (qa[1] = Mt);
+        (Mt = r(t, { children: ["Terminal Bell ", e(t, { dimColor: true, children: "(\\a)" })] })), (qa[1] = Mt);
       else Mt = qa[1];
       return Mt;
     }
     case "kitty": {
       let Mt;
       if (qa[2] === d)
-        (Mt = r(t, { children: ["Kitty ", e(t, { dimColor: !0, children: "(OSC 99)" })] })), (qa[2] = Mt);
+        (Mt = r(t, { children: ["Kitty ", e(t, { dimColor: true, children: "(OSC 99)" })] })), (qa[2] = Mt);
       else Mt = qa[2];
       return Mt;
     }
     case "ghostty": {
       let Mt;
       if (qa[3] === d)
-        (Mt = r(t, { children: ["Ghostty ", e(t, { dimColor: !0, children: "(OSC 777)" })] })), (qa[3] = Mt);
+        (Mt = r(t, { children: ["Ghostty ", e(t, { dimColor: true, children: "(OSC 777)" })] })), (qa[3] = Mt);
       else Mt = qa[3];
       return Mt;
     }
@@ -2260,7 +2260,7 @@ function bg(i, m) {
   let f = String(i.value);
   if (i.id === "theme") return Id[f] ?? f;
   if (i.id === "permissionMode") return K$(i.value);
-  if (i.id === "workflowSizeGuideline") return Qun(f, i.isDefaultValue ?? !1);
+  if (i.id === "workflowSizeGuideline") return Qun(f, i.isDefaultValue ?? false);
   if (i.id === "autoUpdatesChannel" && m.autoUpdaterDisabledReason)
     return `disabled (${hNe(m.autoUpdaterDisabledReason)})`;
   if (i.id === "notifChannel" && !m.revampSections) return rE(ar({ value: f }));
@@ -2273,7 +2273,7 @@ function sr(dw) {
     si = C(""),
     [Xa, Md] = u(null),
     dg = C(null);
-  Cp(dg, !0);
+  Cp(dg, true);
   let mg;
   if (nn[0] === d)
     (mg = (pw) => {
@@ -2340,7 +2340,7 @@ function sr(dw) {
       ref: dg,
       flexDirection: "column",
       tabIndex: 0,
-      autoFocus: !0,
+      autoFocus: true,
       onKeyDown: Ad,
       children: [Za, er, tr],
     })),
@@ -2369,9 +2369,9 @@ function Og(ii) {
     {
       flexDirection: "row",
       children: [
-        e(o, { width: 28, children: e(t, { dimColor: !0, children: ii.pluginName }) }),
+        e(o, { width: 28, children: e(t, { dimColor: true, children: ii.pluginName }) }),
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [ii.skillCount, " ", k(ii.skillCount, "skill"), " \xB7 ~", ii.approxTokens, " ", "tok/turn"],
         }),
       ],
@@ -2395,9 +2395,9 @@ function ai() {
   }
   let vg, xg;
   if (ts[4] === d)
-    (vg = e(t, { bold: !0, children: "Plugin skill-listing footprint" })),
+    (vg = e(t, { bold: true, children: "Plugin skill-listing footprint" })),
       (xg = e(t, {
-        dimColor: !0,
+        dimColor: true,
         wrap: "wrap",
         children:
           "What each plugin's skill descriptions add to the system prompt (cached input after the first turn). Agents and MCP tools not yet counted.",
@@ -2512,11 +2512,11 @@ function Hr(qw) {
   let [cr] = u(Ng);
   if (cr === null || !ns.allowed) {
     let ri;
-    if (sn[3] === d) (ri = e($o, { withSubtitle: !1 })), (sn[3] = ri);
+    if (sn[3] === d) (ri = e($o, { withSubtitle: false })), (sn[3] = ri);
     else ri = sn[3];
     const ss = ns.allowed ? null : ns.reason;
     let ln;
-    if (sn[4] !== ss) (ln = e(t, { dimColor: !0, wrap: "wrap", children: ss })), (sn[4] = ss), (sn[5] = ln);
+    if (sn[4] !== ss) (ln = e(t, { dimColor: true, wrap: "wrap", children: ss })), (sn[4] = ss), (sn[5] = ln);
     else ln = sn[5];
     let Bg;
     if (sn[6] !== os || sn[7] !== ln)
@@ -2536,7 +2536,7 @@ function Hr(qw) {
       flexDirection: "column",
       children: [
         ri,
-        e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: "Scanning local sessions\u2026" }) }),
+        e(o, { marginTop: 1, children: e(t, { dimColor: true, children: "Scanning local sessions\u2026" }) }),
       ],
     })),
       (sn[10] = ss);
@@ -2605,7 +2605,7 @@ function Vr(Zw) {
       (ui = e(o, {
         marginTop: 1,
         children: r(t, {
-          dimColor: !0,
+          dimColor: true,
           wrap: "wrap",
           children: ["Last ", Oo, " \xB7 these are independent characteristics of your usage, not a breakdown"],
         }),
@@ -2619,7 +2619,7 @@ function Vr(Zw) {
     gr = 1;
     hr =
       Gg.length === 0 && !ao(Ze)
-        ? r(t, { dimColor: !0, children: ["Nothing over ", fs, "% in this period \u2014 try the other window."] })
+        ? r(t, { dimColor: true, children: ["Nothing over ", fs, "% in this period \u2014 try the other window."] })
         : r(U, {
             children: [
               Gg.map((Kg) => e(zr, { stat: Kg, totalCost: Ze.totalCost, maxWidth: Po }, Kg.key)),
@@ -2651,9 +2651,9 @@ function Vr(Zw) {
                 ? r(o, {
                     flexDirection: "column",
                     children: [
-                      e(t, { bold: !0, children: "Skills, subagents, plugins, and MCP servers" }),
+                      e(t, { bold: true, children: "Skills, subagents, plugins, and MCP servers" }),
                       e(t, {
-                        dimColor: !0,
+                        dimColor: true,
                         wrap: "wrap",
                         children: "No attribution data yet \xB7 accumulates as you use Claude",
                       }),
@@ -2707,7 +2707,7 @@ function Vr(Zw) {
     (zg = e(o, {
       marginTop: 1,
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: r(fe, {
           children: [
             e(ze, { action: "settings:periodDay", context: "Settings", fallback: "d", description: "day" }),
@@ -2733,17 +2733,17 @@ function Vr(Zw) {
 function $o(uD) {
   let Wd = _(5),
     { withSubtitle: qg } = uD,
-    Ud = qg === void 0 ? !0 : qg,
+    Ud = qg === void 0 ? true : qg,
     Xg;
   if (Wd[0] === d)
-    (Xg = e(t, { bold: !0, wrap: "wrap", children: "What's contributing to your limits usage?" })), (Wd[0] = Xg);
+    (Xg = e(t, { bold: true, wrap: "wrap", children: "What's contributing to your limits usage?" })), (Wd[0] = Xg);
   else Xg = Wd[0];
   let Sr;
   if (Wd[1] !== Ud)
     (Sr =
       Ud &&
       e(t, {
-        dimColor: !0,
+        dimColor: true,
         wrap: "wrap",
         children:
           "Approximate, based on local sessions on this machine \u2014 does not include other devices or claude.ai",
@@ -2772,7 +2772,7 @@ function zt(dD) {
     if (cn[8] !== di) (so = e(t, { children: di })), (cn[8] = di), (cn[9] = so);
     else so = cn[9];
     let gi;
-    if (cn[10] === d) (gi = e(t, { dimColor: !0, children: "% of usage" })), (cn[10] = gi);
+    if (cn[10] === d) (gi = e(t, { dimColor: true, children: "% of usage" })), (cn[10] = gi);
     else gi = cn[10];
     if (cn[11] !== so)
       (pi = r(o, { width: Ci + ki, justifyContent: "space-between", children: [so, gi] })),
@@ -2788,12 +2788,12 @@ function zt(dD) {
             children: [
               e(o, {
                 width: Ci,
-                children: e(t, { dimColor: !0, wrap: "truncate-end", children: is ? is(wr.name) : wr.name }),
+                children: e(t, { dimColor: true, wrap: "truncate-end", children: is ? is(wr.name) : wr.name }),
               }),
               e(o, {
                 width: ki,
                 justifyContent: "flex-end",
-                children: r(t, { dimColor: !0, children: [wr.pct, "%"] }),
+                children: r(t, { dimColor: true, children: [wr.pct, "%"] }),
               }),
             ],
           },
@@ -2807,7 +2807,7 @@ function zt(dD) {
   } else (br = cn[3]), (Cr = cn[4]), (pi = cn[5]), (kr = cn[6]), (fi = cn[7]);
   let so;
   if (cn[15] !== fi)
-    (so = fi > 0 && r(t, { dimColor: !0, children: ["\u2026 ", fi, " more"] })), (cn[15] = fi), (cn[16] = so);
+    (so = fi > 0 && r(t, { dimColor: true, children: ["\u2026 ", fi, " more"] })), (cn[15] = fi), (cn[16] = so);
   else so = cn[16];
   let gi;
   if (cn[17] !== br || cn[18] !== Cr || cn[19] !== pi || cn[20] !== kr || cn[21] !== so)
@@ -2891,7 +2891,7 @@ function Kr(pD) {
         o,
         {
           children: [
-            e(o, { width: as, children: e(t, { dimColor: !0, wrap: "truncate-end", children: _t.prompt }) }),
+            e(o, { width: as, children: e(t, { dimColor: true, wrap: "truncate-end", children: _t.prompt }) }),
             e(Re, { width: ls, text: Qd(_t) }),
             e(Re, { width: us, text: String(_t.runs) }),
             e(Re, { width: ds, text: Gn(_t.tokens) }),
@@ -2907,7 +2907,7 @@ function Kr(pD) {
   } else (Dr = io[3]), (Tr = io[4]), (yi = io[5]), (vr = io[6]), (Si = io[7]);
   let dn;
   if (io[20] !== Si)
-    (dn = Si > 0 && r(t, { dimColor: !0, children: ["\u2026 ", Si, " more"] })), (io[20] = Si), (io[21] = dn);
+    (dn = Si > 0 && r(t, { dimColor: true, children: ["\u2026 ", Si, " more"] })), (io[20] = Si), (io[21] = dn);
   else dn = io[21];
   let pn;
   if (io[22] !== Dr || io[23] !== Tr || io[24] !== yi || io[25] !== vr || io[26] !== dn)
@@ -2925,7 +2925,7 @@ function Re(yD) {
   let sh = _(5),
     { width: jd, text: Vd } = yD,
     Mr;
-  if (sh[0] !== Vd) (Mr = e(t, { dimColor: !0, wrap: "truncate-end", children: Vd })), (sh[0] = Vd), (sh[1] = Mr);
+  if (sh[0] !== Vd) (Mr = e(t, { dimColor: true, wrap: "truncate-end", children: Vd })), (sh[0] = Vd), (sh[1] = Mr);
   else Mr = sh[1];
   let ih;
   if (sh[2] !== Mr || sh[3] !== jd)
@@ -2948,7 +2948,7 @@ function Yt(SD) {
   else Rr = Er[5];
   let _r;
   if (Er[6] !== zd)
-    (_r = e(o, { paddingLeft: 1, children: e(t, { dimColor: !0, wrap: "wrap", children: zd }) })),
+    (_r = e(o, { paddingLeft: 1, children: e(t, { dimColor: true, wrap: "wrap", children: zd }) })),
       (Er[6] = zd),
       (Er[7] = _r);
   else _r = Er[7];
@@ -2997,7 +2997,7 @@ function zr(bD) {
   else Wr = Pr[13];
   let jr;
   if (Pr[14] !== rs.body)
-    (jr = e(o, { paddingLeft: 1, children: e(t, { dimColor: !0, wrap: "wrap", children: rs.body }) })),
+    (jr = e(o, { paddingLeft: 1, children: e(t, { dimColor: true, wrap: "wrap", children: rs.body }) })),
       (Pr[14] = rs.body),
       (Pr[15] = jr);
   else jr = Pr[15];
@@ -3021,7 +3021,7 @@ function Yh(Vh) {
 }
 function qh(am) {
   let { title: b0, displayName: C0, limit: w0 } = am;
-  return { bar: C0, title: b0, limit: w0, alwaysShowDateInReset: !0 };
+  return { bar: C0, title: b0, limit: w0, alwaysShowDateInReset: true };
 }
 function Jt(JD) {
   let et = _(41),
@@ -3035,8 +3035,8 @@ function Jt(JD) {
       trailingLines: hs,
       subtextOverride: hh,
     } = JD,
-    em = fh === void 0 ? !0 : fh,
-    tm = gh === void 0 ? !1 : gh,
+    em = fh === void 0 ? true : fh,
+    tm = gh === void 0 ? false : gh,
     { utilization: Xr, resets_at: Jr } = QD;
   if (Xr === null) {
     return null;
@@ -3046,7 +3046,7 @@ function Jt(JD) {
   if (Jr) {
     let gt;
     if (et[0] !== tm || et[1] !== Jr || et[2] !== em)
-      (gt = N1e(Jr, !0, em, tm)), (et[0] = tm), (et[1] = Jr), (et[2] = em), (et[3] = gt);
+      (gt = N1e(Jr, true, em, tm)), (et[0] = tm), (et[1] = Jr), (et[2] = em), (et[3] = gt);
     else gt = et[3];
     it = `Resets ${gt}`;
   }
@@ -3057,7 +3057,7 @@ function Jt(JD) {
   if (hh !== void 0) it = hh;
   if (qr >= 62) {
     let gt;
-    if (et[4] !== gs) (gt = e(t, { bold: !0, children: gs })), (et[4] = gs), (et[5] = gt);
+    if (et[4] !== gs) (gt = e(t, { bold: true, children: gs })), (et[4] = gs), (et[5] = gt);
     else gt = et[5];
     const Fo = Xr / 100;
     let lo;
@@ -3074,7 +3074,7 @@ function Jt(JD) {
       (Uo = r(o, { flexDirection: "row", gap: 1, children: [lo, co] })), (et[10] = lo), (et[11] = co), (et[12] = Uo);
     else Uo = et[12];
     let uo;
-    if (et[13] !== it) (uo = it && e(t, { dimColor: !0, children: it })), (et[13] = it), (et[14] = uo);
+    if (et[13] !== it) (uo = it && e(t, { dimColor: true, children: it })), (et[13] = it), (et[14] = uo);
     else uo = et[14];
     let mo;
     if (et[15] !== hs) (mo = e(xi, { lines: hs })), (et[15] = hs), (et[16] = mo);
@@ -3091,11 +3091,11 @@ function Jt(JD) {
     return Di;
   } else {
     let gt;
-    if (et[22] !== gs) (gt = e(t, { bold: !0, children: gs })), (et[22] = gs), (et[23] = gt);
+    if (et[22] !== gs) (gt = e(t, { bold: true, children: gs })), (et[22] = gs), (et[23] = gt);
     else gt = et[23];
     let Fo;
     if (et[24] !== it)
-      (Fo = it && r(U, { children: [e(t, { children: " " }), r(t, { dimColor: !0, children: ["\xB7 ", it] })] })),
+      (Fo = it && r(U, { children: [e(t, { children: " " }), r(t, { dimColor: true, children: ["\xB7 ", it] })] })),
         (et[24] = it),
         (et[25] = Fo);
     else Fo = et[25];
@@ -3166,7 +3166,7 @@ function Mi() {
             : t0
               ? e(Ml, { maxWidth: Qr })
               : e(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: e(ze, {
                     action: "confirm:no",
                     context: "Settings",
@@ -3199,18 +3199,18 @@ function Dl(n0) {
             resets_at: new Date(nm.resets_at * 1000).toISOString(),
           },
           maxWidth: om,
-          alwaysShowDateInReset: !0,
+          alwaysShowDateInReset: true,
         })
       : Yxe()
         ? null
-        : e(t, { dimColor: !0, children: "Spend limit \xB7 shown once your gateway reports one" })),
+        : e(t, { dimColor: true, children: "Spend limit \xB7 shown once your gateway reports one" })),
       (el[1] = om),
       (el[2] = tl);
   else tl = el[2];
   let Dh;
   if (el[3] === d)
     (Dh = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "cancel" }),
     })),
       (el[3] = Dh);
@@ -3239,10 +3239,10 @@ function Tl(s0) {
   if (Ti[5] !== nl)
     (il = nl
       ? e(Jn, {
-          fallback: e(t, { dimColor: !0, children: "Loading remote cost\u2026" }),
+          fallback: e(t, { dimColor: true, children: "Loading remote cost\u2026" }),
           children: e(vl, { costPromise: nl }),
         })
-      : e(t, { dimColor: !0, children: i0 })),
+      : e(t, { dimColor: true, children: i0 })),
       (Ti[5] = nl),
       (Ti[6] = il);
   else il = Ti[6];
@@ -3257,7 +3257,7 @@ function vl(a0) {
     { costPromise: r0 } = a0;
   const im = zn(r0);
   let Eh;
-  if (l0[0] !== im) (Eh = e(t, { dimColor: !0, children: im })), (l0[0] = im), (l0[1] = Eh);
+  if (l0[0] !== im) (Eh = e(t, { dimColor: true, children: im })), (l0[0] = im), (l0[1] = Eh);
   else Eh = l0[1];
   return Eh;
 }
@@ -3299,11 +3299,11 @@ function Ml(am) {
   let [c0, lm] = u(Rh),
     { utilization: Me, enrichError: It } = c0,
     [vi, al] = u(null),
-    [rl, _h] = u(!0),
+    [rl, _h] = u(true),
     Ih;
   if (_e[6] !== rm || _e[7] !== Ss)
     (Ih = async () => {
-      _h(!0), al(null), lm(zh);
+      _h(true), al(null), lm(zh);
       let Ye = await ort(Ss, rm);
       bb34: switch (Ye.status) {
         case "ok": {
@@ -3353,7 +3353,7 @@ function Ml(am) {
           else al(Ye.responseBody ? `${Cn}: ${Ye.responseBody}` : Cn), p("usage_plan_limits", "load_failed");
         }
       }
-      _h(!1);
+      _h(false);
     }),
       (_e[6] = rm),
       (_e[7] = Ss),
@@ -3391,7 +3391,7 @@ function Ml(am) {
     let Xt;
     if (_e[18] === d)
       (Xt = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: r(fe, {
           children: [
             e(ze, { action: "settings:retry", context: "Settings", fallback: "r", description: "retry" }),
@@ -3409,7 +3409,7 @@ function Ml(am) {
   }
   if (!Me) {
     let qt;
-    if (_e[21] === d) (qt = e(t, { dimColor: !0, children: "Loading usage data\u2026" })), (_e[21] = qt);
+    if (_e[21] === d) (qt = e(t, { dimColor: true, children: "Loading usage data\u2026" })), (_e[21] = qt);
     else qt = _e[21];
     let Xt;
     if (_e[22] === d)
@@ -3419,7 +3419,7 @@ function Ml(am) {
         children: [
           qt,
           e(t, {
-            dimColor: !0,
+            dimColor: true,
             children: e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "cancel" }),
           }),
         ],
@@ -3447,15 +3447,15 @@ function Ml(am) {
     let m0 = cpn();
     let g0 = (p0) => m0.filter((f0) => f0.bar.toLowerCase() === p0.toLowerCase()).map(Yh);
     let h0 = [
-      { bar: "five_hour", title: "Current session", limit: Me.five_hour, alwaysShowDateInReset: !1 },
-      { bar: "seven_day", title: "Current week (all models)", limit: Me.seven_day, alwaysShowDateInReset: !0 },
+      { bar: "five_hour", title: "Current session", limit: Me.five_hour, alwaysShowDateInReset: false },
+      { bar: "seven_day", title: "Current week (all models)", limit: Me.seven_day, alwaysShowDateInReset: true },
       ...(d0
         ? [
             {
               bar: "seven_day_sonnet",
               title: "Current week (Sonnet only)",
               limit: Me.seven_day_sonnet,
-              alwaysShowDateInReset: !0,
+              alwaysShowDateInReset: true,
             },
           ]
         : []),
@@ -3505,11 +3505,11 @@ function Ml(am) {
       (_e[40] = pl);
   else pl = _e[40];
   let fl;
-  if (_e[41] !== It) (fl = It && e(t, { dimColor: !0, children: It })), (_e[41] = It), (_e[42] = fl);
+  if (_e[41] !== It) (fl = It && e(t, { dimColor: true, children: It })), (_e[41] = It), (_e[42] = fl);
   else fl = _e[42];
   let gl;
   if (_e[43] !== It || _e[44] !== rl)
-    (gl = rl && !It && e(t, { dimColor: !0, children: "Refreshing\u2026" })),
+    (gl = rl && !It && e(t, { dimColor: true, children: "Refreshing\u2026" })),
       (_e[43] = It),
       (_e[44] = rl),
       (_e[45] = gl);
@@ -3526,7 +3526,7 @@ function Ml(am) {
   else jh = _e[48];
   let yl;
   if (_e[49] !== hl)
-    (yl = e(t, { dimColor: !0, children: r(fe, { children: [hl, jh] }) })), (_e[49] = hl), (_e[50] = yl);
+    (yl = e(t, { dimColor: true, children: r(fe, { children: [hl, jh] }) })), (_e[49] = hl), (_e[50] = yl);
   else yl = _e[50];
   let Hh;
   if (
@@ -3636,8 +3636,8 @@ function El(D0) {
     (Kh = e(bl, {
       title: kl,
       limit: wl,
-      showTimeInReset: !1,
-      alwaysShowDateInReset: !0,
+      showTimeInReset: false,
+      alwaysShowDateInReset: true,
       extraSubtext: gm,
       maxWidth: mm,
     })),
@@ -3665,7 +3665,7 @@ function Xh(i) {
   };
 }
 function Ai(i, m = {}) {
-  let { terminalWidth: f = 80, showMonthLabels: v = !0 } = m,
+  let { terminalWidth: f = 80, showMonthLabels: v = true } = m,
     I = 4,
     x = f - 4,
     E = Math.min(52, Math.max(10, x)),
@@ -3753,7 +3753,7 @@ import { join as Cm } from "path";
 async function km(i, m) {
   try {
     let f = Cm(xl(), "screenshots");
-    await ty(f, { recursive: !0, mode: 448 });
+    await ty(f, { recursive: true, mode: 448 });
     let v = Cm(f, `screenshot-${Date.now()}.png`),
       { ansiToPng: I } = await import("/$bunfs/root/chunk-xkf9v74v.js"),
       x = I(i, m);
@@ -3765,7 +3765,7 @@ async function km(i, m) {
       return (
         h(H),
         p("clipboard_write", "copy_failed"),
-        { success: !1, message: `Failed to copy screenshot: ${H instanceof Error ? H.message : "Unknown error"}` }
+        { success: false, message: `Failed to copy screenshot: ${H instanceof Error ? H.message : "Unknown error"}` }
       );
     } finally {
       await oy(v).catch(() => {});
@@ -3777,7 +3777,7 @@ async function km(i, m) {
     return (
       h(f),
       p("clipboard_write", "render_failed"),
-      { success: !1, message: `Failed to copy screenshot: ${f instanceof Error ? f.message : "Unknown error"}` }
+      { success: false, message: `Failed to copy screenshot: ${f instanceof Error ? f.message : "Unknown error"}` }
     );
   }
 }
@@ -3786,36 +3786,36 @@ async function sy(i) {
   if (m === "macos") {
     let v = `set the clipboard to (read (POSIX file "${i.replaceAll("\\", "\\\\").replaceAll('"', '\\"')}") as \xABclass PNGf\xBB)`,
       I = await qe("osascript", ["-e", v], { timeout: 5000 });
-    if (I.code === 0) return { success: !0, message: "Screenshot copied to clipboard" };
-    return { success: !1, message: `Failed to copy to clipboard: ${I.stderr}` };
+    if (I.code === 0) return { success: true, message: "Screenshot copied to clipboard" };
+    return { success: false, message: `Failed to copy to clipboard: ${I.stderr}` };
   }
   if (m === "linux") {
     if ((await iy("xclip", ["-selection", "clipboard", "-t", "image/png", "-i", i])) === 0)
-      return { success: !0, message: "Screenshot copied to clipboard" };
-    return { success: !1, message: "Failed to copy to clipboard. Please install xclip: sudo apt install xclip" };
+      return { success: true, message: "Screenshot copied to clipboard" };
+    return { success: false, message: "Failed to copy to clipboard. Please install xclip: sudo apt install xclip" };
   }
   if (m === "windows") {
     let f = `Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.Clipboard]::SetImage([System.Drawing.Image]::FromFile(${MDe(i, "the screenshot temp path (override with CLAUDE_CODE_TMPDIR)")}))`,
       v = await qe("powershell", ["-NoProfile", "-Command", f], { timeout: 5000 });
-    if (v.code === 0) return { success: !0, message: "Screenshot copied to clipboard" };
-    return { success: !1, message: `Failed to copy to clipboard: ${v.stderr}` };
+    if (v.code === 0) return { success: true, message: "Screenshot copied to clipboard" };
+    return { success: false, message: `Failed to copy to clipboard: ${v.stderr}` };
   }
-  return { success: !1, message: `Screenshot to clipboard is not supported on ${m}` };
+  return { success: false, message: `Screenshot to clipboard is not supported on ${m}` };
 }
 function iy(i, m, f = 5000) {
   return new Promise((v) => {
     let I;
     try {
-      I = ey(i, m, { cwd: void 0, detached: !0, stdio: "ignore", windowsHide: !0 });
+      I = ey(i, m, { cwd: void 0, detached: true, stdio: "ignore", windowsHide: true });
     } catch {
       v(null);
       return;
     }
     fS(I.pid);
-    let x = !1;
+    let x = false;
     function E(P) {
       if (x) return;
-      (x = !0), clearTimeout(H), v(P);
+      (x = true), clearTimeout(H), v(P);
     }
     let H = setTimeout(() => {
       I.kill("SIGKILL"), E(null);
@@ -4140,12 +4140,12 @@ async function ks(i, m = {}, f, v) {
               try {
                 let te = O() && f !== void 0 ? v?.get(N) : void 0,
                   pe = Co(te !== void 0 ? new Date(te) : (await E.stat(N)).mtime);
-                if (ko(pe, I)) return { sessionFile: N, entries: null, error: null, skipped: !0 };
+                if (ko(pe, I)) return { sessionFile: N, entries: null, error: null, skipped: true };
               } catch {}
             let Q = await NCe(N);
-            return { sessionFile: N, entries: Q, error: null, skipped: !1 };
+            return { sessionFile: N, entries: Q, error: null, skipped: false };
           } catch (Q) {
-            return { sessionFile: N, entries: null, error: Q, skipped: !1 };
+            return { sessionFile: N, entries: null, error: Q, skipped: false };
           }
         }),
       );
@@ -4289,12 +4289,12 @@ async function gy(i, m) {
   let f = new Map(),
     v = new Set(),
     I = (K) => {
-      if (Zt(K)) return !0;
+      if (Zt(K)) return true;
       if (!v.has(K)) v.add(K), n(`stats: skipped listed transcript name ${b(K)}: not a single path segment`);
-      return !1;
+      return false;
     },
     x = (K, Y, R) =>
-      Ao((J) => i.listEntries(K, { skipScopeStats: !0, ...(J !== void 0 && { cursor: J }) }), Y, {
+      Ao((J) => i.listEntries(K, { skipScopeStats: true, ...(J !== void 0 && { cursor: J }) }), Y, {
         ...(R !== void 0 && { budget: R }),
       }),
     E = new Set(),
@@ -4323,7 +4323,7 @@ async function gy(i, m) {
                     N.kind === "key" &&
                     N.key.namespace === "transcript" &&
                     N.key.agentId === void 0 &&
-                    N.key.journal !== !0 &&
+                    N.key.journal !== true &&
                     !J.has(N.key.sessionId) &&
                     I(N.key.sessionId)
                   ) {
@@ -4743,7 +4743,7 @@ function nu(qT) {
     else dt = ot[15];
     let mt;
     if (ot[16] !== at || ot[17] !== dt)
-      (mt = e(o, { marginTop: 1, tabIndex: 0, autoFocus: !0, onKeyDown: at, children: dt })),
+      (mt = e(o, { marginTop: 1, tabIndex: 0, autoFocus: true, onKeyDown: at, children: dt })),
         (ot[16] = at),
         (ot[17] = dt),
         (ot[18] = mt);
@@ -4757,7 +4757,7 @@ function nu(qT) {
     else dt = ot[19];
     let mt;
     if (ot[20] !== at)
-      (mt = e(o, { marginTop: 1, tabIndex: 0, autoFocus: !0, onKeyDown: at, children: dt })),
+      (mt = e(o, { marginTop: 1, tabIndex: 0, autoFocus: true, onKeyDown: at, children: dt })),
         (ot[20] = at),
         (ot[21] = mt);
     else mt = ot[21];
@@ -4769,7 +4769,7 @@ function nu(qT) {
     else (dt = ot[22]), (mt = ot[23]);
     let Mn;
     if (ot[24] !== at)
-      (Mn = r(o, { marginTop: 1, tabIndex: 0, autoFocus: !0, onKeyDown: at, children: [dt, mt] })),
+      (Mn = r(o, { marginTop: 1, tabIndex: 0, autoFocus: true, onKeyDown: at, children: [dt, mt] })),
         (ot[24] = at),
         (ot[25] = Mn);
     else Mn = ot[25];
@@ -4814,7 +4814,7 @@ function nu(qT) {
       gap: 1,
       marginBottom: 1,
       children: r(Pg, {
-        initialHeaderFocused: !0,
+        initialHeaderFocused: true,
         title: null,
         color: "claude",
         selectedTab: Ms,
@@ -4835,7 +4835,7 @@ function nu(qT) {
   if (ot[43] !== Wm || ot[44] !== jm)
     (Bl = e(o, {
       paddingLeft: 2,
-      children: r(t, { dimColor: !0, children: [Wm, " \xB7 r to cycle dates \xB7 ctrl+s to copy", jm] }),
+      children: r(t, { dimColor: true, children: [Wm, " \xB7 r to cycle dates \xB7 ctrl+s to copy", jm] }),
     })),
       (ot[43] = Wm),
       (ot[44] = jm),
@@ -4843,7 +4843,7 @@ function nu(qT) {
   else Bl = ot[45];
   let $y;
   if (ot[46] !== at || ot[47] !== Bl || ot[48] !== Ll)
-    ($y = r(o, { flexDirection: "column", tabIndex: 0, autoFocus: !0, onKeyDown: at, children: [Ll, Bl] })),
+    ($y = r(o, { flexDirection: "column", tabIndex: 0, autoFocus: true, onKeyDown: at, children: [Ll, Bl] })),
       (ot[46] = at),
       (ot[47] = Bl),
       (ot[48] = Ll),
@@ -4861,10 +4861,10 @@ function Os(av) {
         t,
         {
           children: [
-            rv > 0 && e(t, { dimColor: !0, children: " \xB7 " }),
+            rv > 0 && e(t, { dimColor: true, children: " \xB7 " }),
             Ul === Hm
-              ? e(t, { bold: !0, color: "claude", children: qi[Ul] })
-              : e(t, { dimColor: !0, children: qi[Ul] }),
+              ? e(t, { bold: true, color: "claude", children: qi[Ul] })
+              : e(t, { dimColor: true, children: qi[Ul] }),
           ],
         },
         Ul,
@@ -4966,7 +4966,7 @@ function ru(uv) {
       Uy &&
       r(t, {
         wrap: "truncate",
-        children: ["Favorite model:", " ", e(t, { color: "claude", bold: !0, children: cs(Uy[0]) })],
+        children: ["Favorite model:", " ", e(t, { color: "claude", bold: true, children: cs(Uy[0]) })],
       });
     (De[0] = Qt.dailyActivity),
       (De[1] = Hl),
@@ -5091,7 +5091,7 @@ function ru(uv) {
   else fc = De[63];
   let gc;
   if (De[64] !== ke.streaks.longestStreak)
-    (gc = e(t, { color: "claude", bold: !0, children: ke.streaks.longestStreak })),
+    (gc = e(t, { color: "claude", bold: true, children: ke.streaks.longestStreak })),
       (De[64] = ke.streaks.longestStreak),
       (De[65] = gc);
   else gc = De[65];
@@ -5127,7 +5127,7 @@ function ru(uv) {
   else bc = De[75];
   let Cc;
   if (De[76] !== Qt.streaks.currentStreak)
-    (Cc = e(t, { color: "claude", bold: !0, children: Qt.streaks.currentStreak })),
+    (Cc = e(t, { color: "claude", bold: true, children: Qt.streaks.currentStreak })),
       (De[76] = Qt.streaks.currentStreak),
       (De[77] = Cc);
   else Cc = De[77];
@@ -5417,7 +5417,7 @@ function cu(zm) {
       Wc = "column";
       jc = 1;
       Hc = 0;
-      Ic = !0;
+      Ic = true;
       Oc = Qm;
       Lc =
         Gc &&
@@ -5425,7 +5425,7 @@ function cu(zm) {
           flexDirection: "column",
           marginBottom: 1,
           children: [
-            e(t, { bold: !0, children: "Tokens per Day" }),
+            e(t, { bold: true, children: "Tokens per Day" }),
             e(oo, { children: Gc.chart }),
             e(t, { color: "subtle", children: Gc.xAxisLabels }),
             e(o, { children: Gc.legend.map(lS) }),
@@ -5545,7 +5545,7 @@ function cu(zm) {
             kt.length,
             " models",
             " ",
-            e(M, { chord: ["up", "down"], action: "scroll", parens: !0 }),
+            e(M, { chord: ["up", "down"], action: "scroll", parens: true }),
           ],
         }),
       })),
@@ -5602,7 +5602,7 @@ function Is(Cv) {
   if (Bt[3] !== tp) (Kc = cs(tp)), (Bt[3] = tp), (Bt[4] = Kc);
   else Kc = Bt[4];
   let Yc;
-  if (Bt[5] !== Kc) (Yc = e(t, { bold: !0, children: Kc })), (Bt[5] = Kc), (Bt[6] = Yc);
+  if (Bt[5] !== Kc) (Yc = e(t, { bold: true, children: Kc })), (Bt[5] = Kc), (Bt[6] = Yc);
   else Yc = Bt[6];
   let qc;
   if (Bt[7] !== sp) (qc = r(t, { color: "subtle", children: ["(", sp, "%)"] })), (Bt[7] = sp), (Bt[8] = qc);
@@ -5788,9 +5788,9 @@ function hq($v) {
   let Ft = _(33),
     { onClose: xo, context: nt, defaultTab: up } = $v,
     [Ls, Fv] = u(up),
-    [In, Uv] = u(!1),
-    [Wv, jv] = u(!1),
-    [Hv] = u(!1),
+    [In, Uv] = u(false),
+    [Wv, jv] = u(false),
+    [Hv] = u(false),
     Vv = Ua(),
     { rows: cS } = Ui(Ee()),
     dp = Vv ? cS + 1 : Math.max(15, Math.min(Math.floor(cS * 0.8), 30)),

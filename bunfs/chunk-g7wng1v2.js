@@ -188,17 +188,17 @@ function B(k) {
     { tierLabel: q, fromName: x, toName: a, toProviderId: y, onDone: i } = k;
   const N = `Newer ${q} model available`;
   let p;
-  if (l[0] !== i) (p = () => i(!1)), (l[0] = i), (l[1] = p);
+  if (l[0] !== i) (p = () => i(false)), (l[0] = i), (l[1] = p);
   else p = l[1];
   let s;
   if (l[2] !== x)
-    (s = r(t, { children: ["Currently pinned: ", e(t, { bold: !0, children: x })] })), (l[2] = x), (l[3] = s);
+    (s = r(t, { children: ["Currently pinned: ", e(t, { bold: true, children: x })] })), (l[2] = x), (l[3] = s);
   else s = l[3];
   let m;
-  if (l[4] !== a) (m = e(t, { bold: !0, children: a })), (l[4] = a), (l[5] = m);
+  if (l[4] !== a) (m = e(t, { bold: true, children: a })), (l[4] = a), (l[5] = m);
   else m = l[5];
   let f;
-  if (l[6] !== y) (f = r(t, { dimColor: !0, children: ["(", y, ")"] })), (l[6] = y), (l[7] = f);
+  if (l[6] !== y) (f = r(t, { dimColor: true, children: ["(", y, ")"] })), (l[6] = y), (l[7] = f);
   else f = l[7];
   let c;
   if (l[8] !== m || l[9] !== f)
@@ -209,13 +209,13 @@ function B(k) {
     (C = r(o, { flexDirection: "column", children: [s, c] })), (l[11] = s), (l[12] = c), (l[13] = C);
   else C = l[13];
   let L;
-  if (l[14] === d) (L = e(t, { dimColor: !0, children: "Claude Code will restart to apply." })), (l[14] = L);
+  if (l[14] === d) (L = e(t, { dimColor: true, children: "Claude Code will restart to apply." })), (l[14] = L);
   else L = l[14];
   let g;
   if (l[15] !== a) (g = r(t, { children: ["Update settings to use ", a, "?", " ", L] })), (l[15] = a), (l[16] = g);
   else g = l[16];
   let b;
-  if (l[17] !== i) (b = e(wn, { onConfirm: () => i(!0), onCancel: () => i(!1) })), (l[17] = i), (l[18] = b);
+  if (l[17] !== i) (b = e(wn, { onConfirm: () => i(true), onCancel: () => i(false) })), (l[17] = i), (l[18] = b);
   else b = l[18];
   let u;
   if (l[19] !== b || l[20] !== C || l[21] !== g)

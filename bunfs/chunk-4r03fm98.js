@@ -23,14 +23,14 @@ var T = "/home/claude/.claude/remote",
   nqt = `${T}/.api_key`,
   K6 = `${T}/.session_ingress_token`,
   Yre = 65536;
-function A(e, s, t, { skipInReviewOrigin: r = !1 } = {}) {
+function A(e, s, t, { skipInReviewOrigin: r = false } = {}) {
   if (!a.CLAUDE_CODE_REMOTE) return;
   if (r && FY()) {
     n(`Skipping ${t} disk persistence in review-origin session`);
     return;
   }
   try {
-    k(T, { recursive: !0, mode: 448 }),
+    k(T, { recursive: true, mode: 448 }),
       I(e, s, { encoding: "utf8", mode: 384 }),
       n(`Persisted ${t} to ${e} for subprocess access`);
   } catch (o) {
@@ -53,7 +53,7 @@ function RNe(e, s) {
     );
   }
 }
-async function h(e, s, t, r, { skipInReviewOrigin: o = !1 } = {}) {
+async function h(e, s, t, r, { skipInReviewOrigin: o = false } = {}) {
   if (!a.CLAUDE_CODE_REMOTE) return;
   if (o && FY()) {
     n(`Skipping ${t} disk persistence in review-origin session`);
@@ -80,7 +80,7 @@ async function O(e, s, t) {
       return n(`Failed to read ${s} from ${e}: ${r.code ?? "unknown error"}`, { level: "debug" }), null;
   }
 }
-function F({ envVar: e, wellKnownPath: s, label: t, getCached: r, setCached: o, skipInReviewOrigin: i = !1 }) {
+function F({ envVar: e, wellKnownPath: s, label: t, getCached: r, setCached: o, skipInReviewOrigin: i = false }) {
   let d = r();
   if (d !== void 0) return d;
   let f = process.env[e];
@@ -111,7 +111,7 @@ async function C({
   getCached: i,
   setCached: d,
   credentials: f,
-  skipInReviewOrigin: p = !1,
+  skipInReviewOrigin: p = false,
 }) {
   let u = i();
   if (u !== void 0) return u;
@@ -153,7 +153,7 @@ function y() {
       n("bg auth snapshot missing accessToken", { level: "warn" });
       return;
     }
-    if ((sx(r.accessToken), JFe(!0), Array.isArray(r.scopes))) QFe(r.scopes);
+    if ((sx(r.accessToken), JFe(true), Array.isArray(r.scopes))) QFe(r.scopes);
     if (r.subscriptionType) process.env.CLAUDE_CODE_SUBSCRIPTION_TYPE = r.subscriptionType;
     if (r.rateLimitTier) process.env.CLAUDE_CODE_RATE_LIMIT_TIER = r.rateLimitTier;
     n("Consumed bg auth snapshot from sockDir");
@@ -184,7 +184,7 @@ async function ITn(e) {
       n("bg auth snapshot missing accessToken", { level: "warn" });
       return;
     }
-    if ((sx(r.accessToken), JFe(!0), Array.isArray(r.scopes))) QFe(r.scopes);
+    if ((sx(r.accessToken), JFe(true), Array.isArray(r.scopes))) QFe(r.scopes);
     if (r.subscriptionType) a.set("CLAUDE_CODE_SUBSCRIPTION_TYPE", String(r.subscriptionType));
     if (r.rateLimitTier) a.set("CLAUDE_CODE_RATE_LIMIT_TIER", String(r.rateLimitTier));
     n("Consumed bg auth snapshot from sockDir");
@@ -201,7 +201,7 @@ function F$() {
       label: "OAuth token",
       getCached: OJ,
       setCached: sx,
-      skipInReviewOrigin: !0,
+      skipInReviewOrigin: true,
     })
   );
 }
@@ -216,7 +216,7 @@ async function PTn(e) {
     getCached: OJ,
     setCached: sx,
     credentials: e,
-    skipInReviewOrigin: !0,
+    skipInReviewOrigin: true,
   });
 }
 function xwt() {
@@ -263,7 +263,7 @@ function w() {
     return (
       n(`Successfully read token from file descriptor ${t}`),
       Rj(o),
-      A(K6, o, "session ingress token", { skipInReviewOrigin: !0 }),
+      A(K6, o, "session ingress token", { skipInReviewOrigin: true }),
       o
     );
   } catch (r) {
@@ -284,7 +284,7 @@ async function Xrr(e) {
     getCached: YFe,
     setCached: Rj,
     credentials: e,
-    skipInReviewOrigin: !0,
+    skipInReviewOrigin: true,
   });
 }
 function rl() {

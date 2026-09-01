@@ -18,22 +18,22 @@ import { Nt } from "/$bunfs/root/chunk-z9bhq3k9.js";
 import { rM } from "/$bunfs/root/chunk-zze8764r.js";
 class p {
   lastLoggedSessionId = null;
-  autoOpenPending = !1;
+  autoOpenPending = false;
 }
 var hBe = new J(() => new p());
 var bQ = 110,
   Zkt = 144,
   e0t = "The diff panel shows git changes \u2014 the current directory isn\u2019t in a git repository";
 function t0t(e) {
-  hBe.of(e).autoOpenPending = !0;
+  hBe.of(e).autoOpenPending = true;
 }
 function W7t(e) {
   let t = hBe.of(e),
     o = t.autoOpenPending;
-  return (t.autoOpenPending = !1), o;
+  return (t.autoOpenPending = false), o;
 }
 function $Ln(e) {
-  hBe.of(e).autoOpenPending = !1;
+  hBe.of(e).autoOpenPending = false;
 }
 function jRe() {
   return a4(ee()) !== null;
@@ -43,8 +43,8 @@ function n0t({ columns: e, isThinClient: t, isMainFocused: o, hasGitRepo: n }) {
 }
 function r0t(e) {
   let t = ie().diffSidebarOpen;
-  if (t === !1) return !1;
-  return e >= (t === !0 ? bQ : Zkt) && jRe();
+  if (t === false) return false;
+  return e >= (t === true ? bQ : Zkt) && jRe();
 }
 function o0t(e, t, o, n) {
   let r = o === "diff" ? "convo" : "diff";
@@ -58,7 +58,7 @@ function wQ(e, t) {
     t((o) => (o.replTab === "convo" && o.panelFileView === null ? o : { ...o, replTab: "convo", panelFileView: null }));
 }
 function q7t(e, t, o) {
-  if ((wQ(e, t), ie().diffSidebarOpen !== !1)) Ae((n) => ({ ...n, diffSidebarOpen: !1 }), o);
+  if ((wQ(e, t), ie().diffSidebarOpen !== false)) Ae((n) => ({ ...n, diffSidebarOpen: false }), o);
   y("repl_tab_switch", { tab: c("convo") });
 }
 var a = ["session", "uncommitted", "branch"];

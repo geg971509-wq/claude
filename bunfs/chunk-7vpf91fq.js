@@ -13,13 +13,13 @@ import { b, V } from "/$bunfs/root/chunk-fv016jr6.js";
 import { i, H, f } from "/$bunfs/root/chunk-saay52v7.js";
 class HA {
   cachedSessionId = null;
-  initialized = !1;
+  initialized = false;
   initializeInFlight = null;
   discoverInFlight = null;
   servedCatalogHashes = new Map();
   approvedPlans = new Map();
   verifiedProjectGrants = new Set();
-  recardAllProjects = !1;
+  recardAllProjects = false;
   recardProjects = new Set();
   grantIneligibleProjects = new Set();
   planStore = new Map();
@@ -77,18 +77,18 @@ function h(e) {
 }
 function Jst(e, t) {
   let n = Vw(e);
-  if (!n) return !1;
-  if (n.length > FHe) return !1;
-  if (n.split("/").includes("..") || n.includes("\x00")) return !1;
+  if (!n) return false;
+  if (n.length > FHe) return false;
+  if (n.split("/").includes("..") || n.includes("\x00")) return false;
   for (let o of t) {
     let r = Vw(o);
     if (NHe(r))
       try {
-        if (h(r).test(n)) return !0;
+        if (h(r).test(n)) return true;
       } catch {}
-    else if (r === n) return !0;
+    else if (r === n) return true;
   }
-  return !1;
+  return false;
 }
 function g6n(e, t) {
   let n = {
@@ -131,14 +131,14 @@ function u(e) {
   return R.test(e);
 }
 function k(e, t) {
-  if (e.length > p || t.length > p) return !1;
-  for (let r of [...e, ...t]) if (r.length > vWe || u(r)) return !1;
+  if (e.length > p || t.length > p) return false;
+  for (let r of [...e, ...t]) if (r.length > vWe || u(r)) return false;
   let n = (r) => (r.length === 0 ? 0 : 32 + r.reduce((s, l) => s + l.length, 0) + 2 * Math.max(0, r.length - 1));
   return 240 + n(e) + n(t) <= x;
 }
 function Nrn(e) {
-  if (e === void 0 || e.length === 0 || e.length > p) return !1;
-  for (let r of e) if ((b(r)?.length ?? 1 / 0) > vWe || u(r)) return !1;
+  if (e === void 0 || e.length === 0 || e.length > p) return false;
+  for (let r of e) if ((b(r)?.length ?? 1 / 0) > vWe || u(r)) return false;
   let t = Math.max(0, Math.min(200, Math.floor(1800 / e.length) - 95)),
     n = 44 + (t > 0 ? t + 3 : 0);
   return 272 + e.reduce((r, s) => r + s.length + n, 0) + 2 * Math.max(0, e.length - 1) <= x;
@@ -173,7 +173,7 @@ function g_e(e, t) {
   e.recardProjects.add(a(t));
 }
 function y6n(e) {
-  e.verifiedProjectGrants.clear(), (e.recardAllProjects = !0);
+  e.verifiedProjectGrants.clear(), (e.recardAllProjects = true);
 }
 function S6n(e, t) {
   if (typeof t !== "string" || t.length === 0) return;
@@ -183,11 +183,11 @@ function b6n(e, t) {
   return e.grantIneligibleProjects.has(a(t));
 }
 function w6n(e, t, n, o = Date.now()) {
-  if (typeof t !== "string" || t.length === 0) return !1;
-  if ((MZ(e, n.projectId), !F(n.projectId) || !k(n.writes, n.deletes))) return !1;
+  if (typeof t !== "string" || t.length === 0) return false;
+  if ((MZ(e, n.projectId), !F(n.projectId) || !k(n.writes, n.deletes))) return false;
   let r = n.serverExpiresAtMs;
-  if (typeof r === "number" && !Number.isFinite(r)) return !1;
-  if (typeof r === "number" && Number.isFinite(r) && r <= o) return !1;
+  if (typeof r === "number" && !Number.isFinite(r)) return false;
+  if (typeof r === "number" && Number.isFinite(r) && r <= o) return false;
   return (
     e.approvedPlans.set(t, {
       projectId: n.projectId,
@@ -195,7 +195,7 @@ function w6n(e, t, n, o = Date.now()) {
       deletes: new Set(n.deletes.map(Vw)),
       expiresAt: typeof r === "number" && Number.isFinite(r) ? Math.min(r, o + y) : o + y,
     }),
-    !0
+    true
   );
 }
 var S = {

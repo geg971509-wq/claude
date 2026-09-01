@@ -23,7 +23,7 @@ var jnn = 20971520,
   w = "HEAD",
   R = 16;
 function i(e, r) {
-  return { ok: !1, reason: "git_error", stage: e, detail: r };
+  return { ok: false, reason: "git_error", stage: e, detail: r };
 }
 function x(e, r) {
   return `${e} exited ${r ?? "with no status (killed, timed out, or not spawned)"}`;
@@ -38,41 +38,41 @@ async function o2n({ gitRoot: e, prerequisiteSha: r, maxBytes: o = jnn, signal: 
 async function D({ gitRoot: e, prerequisiteSha: r, maxBytes: o, signal: t }) {
   if (!tn.test(r)) return i("arguments", "prerequisite is not an object id");
   if (!(o > 0)) return i("arguments", "maxBytes is not a positive number");
-  if (Rt(t)) return { ok: !1, reason: "aborted" };
+  if (Rt(t)) return { ok: false, reason: "aborted" };
   let l = { gitRoot: e, signal: t ?? new AbortController().signal, timeoutMs: C },
     u = await Pb(l, ["rev-parse", "-q", "--verify", "HEAD"]),
     a = u.stdout.trim();
   if (u.exitCode !== 0 || !tn.test(a))
-    return Rt(t) ? { ok: !1, reason: "aborted" } : i("head", "HEAD does not resolve");
+    return Rt(t) ? { ok: false, reason: "aborted" } : i("head", "HEAD does not resolve");
   let [_, b] = await Promise.all([
     Pb(l, ["rev-list", "--count", `${r}..${a}`, "--"]),
     Pb(l, ["merge-base", "--is-ancestor", r, a]),
   ]);
-  if (Rt(t)) return { ok: !1, reason: "aborted" };
-  if (b.exitCode === 1) return { ok: !1, reason: "not_ancestor" };
+  if (Rt(t)) return { ok: false, reason: "aborted" };
+  if (b.exitCode === 1) return { ok: false, reason: "not_ancestor" };
   let f = /^\d+$/.test(_.stdout.trim()) ? Number(_.stdout.trim()) : null;
   if (_.exitCode !== 0 || f === null || b.exitCode !== 0)
     return i("placement", `${x("rev-list", _.exitCode)}, ${x("merge-base", b.exitCode)}`);
-  if (f === 0) return { ok: !1, reason: "not_diverged" };
+  if (f === 0) return { ok: false, reason: "not_diverged" };
   let m = await Pb(l, ["rev-list", "--objects", "--disk-usage", a, `^${r}`, "--"]);
-  if (Rt(t)) return { ok: !1, reason: "aborted" };
+  if (Rt(t)) return { ok: false, reason: "aborted" };
   let v = /^\d+$/.test(m.stdout.trim()) ? Number(m.stdout.trim()) : null;
-  if (m.exitCode === 0 && v !== null && v > R * o) return { ok: !1, reason: "too_large", sizeBytes: v, aheadCount: f };
+  if (m.exitCode === 0 && v !== null && v > R * o) return { ok: false, reason: "too_large", sizeBytes: v, aheadCount: f };
   let k = pY("ccr-overlay", ".bundle");
   try {
     let O = await Pb(l, ["bundle", "create", "--quiet", k, `^${r}`, w, "--"]);
-    if (Rt(t)) return { ok: !1, reason: "aborted" };
+    if (Rt(t)) return { ok: false, reason: "aborted" };
     if (O.exitCode !== 0) return i("bundle_create", x("bundle create", O.exitCode));
     let d = await xHe(k, o);
-    if (d.kind === "too_large") return { ok: !1, reason: "too_large", sizeBytes: d.sizeBytes, aheadCount: f };
+    if (d.kind === "too_large") return { ok: false, reason: "too_large", sizeBytes: d.sizeBytes, aheadCount: f };
     let B = srn(d.content);
     if (B === null) return i("header", "the bundle does not open with a well-formed header");
     let [E, ...A] = B.refs;
     if (E === void 0 || A.length > 0 || E.name !== w || E.id !== a)
       return i("header", "the bundle does not carry exactly HEAD at the id read before packing");
-    if (Rt(t)) return { ok: !1, reason: "aborted" };
+    if (Rt(t)) return { ok: false, reason: "aborted" };
     return {
-      ok: !0,
+      ok: true,
       content: d.content,
       sizeBytes: d.content.length,
       sha256: Nn(d.content),

@@ -44,7 +44,7 @@ async function Jnt() {
 var JTr = async (d, t) => {
   let i = wt() ? a.CLAUDE_JOB_DIR : void 0;
   if (wt() && (!O3() || !i)) {
-    s("tengu_update_refused", { bg_session: !0 });
+    s("tengu_update_refused", { bg_session: true });
     let e = O3() ? null : fu();
     return {
       type: "text",
@@ -60,7 +60,7 @@ var JTr = async (d, t) => {
     if (e && e !== r) {
       let u = c();
       return (
-        s("tengu_update_refused", { transcript_path_drift: !0, comment_monitor: u }),
+        s("tengu_update_refused", { transcript_path_drift: true, comment_monitor: u }),
         {
           type: "text",
           value: `Cannot /update \u2014 this session was resumed from a different project directory. Restart manually with --resume to continue on the latest version${u ? " (restarting stops the auto-replies to artifact comments)" : ""}.`,
@@ -86,7 +86,7 @@ var JTr = async (d, t) => {
       let r = E9(he(t), ix());
       if (r.length === 0) return g(e);
       let u = c();
-      s("tengu_update_refused", { uncarriable: !0, comment_monitor: u });
+      s("tengu_update_refused", { uncarriable: true, comment_monitor: u });
       let p = Xc() ? "" : " (add --continue to return to this conversation)";
       return `Can't switch to the new version from inside this session \u2014 it has restrictions a restart can't carry over (${r.join("; ")}). Nothing was changed; exit and start claude again for the new version${p}.${u ? " Exiting also stops the auto-replies to artifact comments until the next publish." : ""}`;
     },
@@ -97,19 +97,19 @@ var JTr = async (d, t) => {
     if (
       (await $P(t.messages, t.storageV5),
       !(await Xt(hl(), 30000, "session flush").then(
-        () => !0,
-        () => !1,
+        () => true,
+        () => false,
       )))
     )
       return (
-        s("tengu_update_refused", { bg_flush_failed: !0 }),
+        s("tengu_update_refused", { bg_flush_failed: true }),
         {
           type: "text",
           value: "Couldn't save the session to disk, so nothing was restarted \u2014 try /restart again in a moment.",
         }
       );
     let u = await Jnt(),
-      p = g(!0);
+      p = g(true);
     if (p !== void 0) return { type: "text", value: p };
     let f = { ...process.env };
     for (let o of yEe) delete f[o];
@@ -118,9 +118,9 @@ var JTr = async (d, t) => {
     s("tengu_update_bg_respawn", { carried_comment_monitor: kHt() && VYt(t.taskRegistry.all()) });
     try {
       let o = N(u.cmd, [...u.prefixArgs, "respawn", e], {
-        detached: !0,
+        detached: true,
         stdio: "ignore",
-        windowsHide: !0,
+        windowsHide: true,
         env: f,
         cwd: O(),
       });
@@ -132,7 +132,7 @@ var JTr = async (d, t) => {
     } catch (o) {
       return (
         h(o),
-        s("tengu_update_refused", { bg_spawn_failed: !0 }),
+        s("tengu_update_refused", { bg_spawn_failed: true }),
         {
           type: "text",
           value: `Couldn't restart automatically \u2014 press \u2190 to detach, then run \`claude respawn ${e}\` to restart it on the latest build.`,
@@ -145,13 +145,13 @@ var JTr = async (d, t) => {
     };
   }
   await $P(t.messages, t.storageV5);
-  let _ = w(!0);
+  let _ = w(true);
   if (_ !== void 0) return { type: "text", value: _ };
   let v = he(t),
     A = [...lX(v, Mue(t)), ...cX(v, TU())],
     b = na() ? void 0 : t.getAppState().teamContext?.teamName;
   await A2e();
-  let R = w(!0);
+  let R = w(true);
   if (R !== void 0) return { type: "text", value: R };
   let n = Oa(),
     S = n?.bridgeSessionId,
@@ -159,10 +159,10 @@ var JTr = async (d, t) => {
     I = n?.outboundOnly,
     T = n?.sessionGroupingId;
   if (S)
-    t.setAppState((e) => (e.replBridgeSkipNextArchive ? e : { ...e, replBridgeSkipNextArchive: !0 })),
+    t.setAppState((e) => (e.replBridgeSkipNextArchive ? e : { ...e, replBridgeSkipNextArchive: true })),
       n.writeSdkMessages([x9t("Switching to latest Claude Code\u2026 reconnecting", K())]),
       await Xt(n.flush(), 2000, "bridge flush").catch(() => {}),
-      await n.teardown({ skipArchive: !0 });
+      await n.teardown({ skipArchive: true });
   let m = {};
   if (b) m.CLAUDE_INTERNAL_ASSISTANT_TEAM_NAME = b;
   Object.assign(m, O6()), Object.assign(m, lz(S, E, I, T, xGe(n, dF())) ?? {});
@@ -173,7 +173,7 @@ var JTr = async (d, t) => {
       C,
       {
         launcher: B,
-        freshIfNoTranscript: !0,
+        freshIfNoTranscript: true,
         extraArgs: A,
         proactivity: { proactivityLevel: t.getProactivityLevel(), toolPermissionContext: v },
         env: Object.keys(m).length > 0 ? m : void 0,

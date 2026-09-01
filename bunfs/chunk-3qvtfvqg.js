@@ -75,29 +75,29 @@ var Hbe = S(function (Ce, wt) {
     function we(e, t) {
       var i = 65536;
       for (var s = 0; s < t.length; s += 2) {
-        if (((i += t[s]), i > e)) return !1;
-        if (((i += t[s + 1]), i >= e)) return !0;
+        if (((i += t[s]), i > e)) return false;
+        if (((i += t[s + 1]), i >= e)) return true;
       }
-      return !1;
+      return false;
     }
     function B(e, t) {
       if (e < 65) return e === 36;
-      if (e < 91) return !0;
+      if (e < 91) return true;
       if (e < 97) return e === 95;
-      if (e < 123) return !0;
+      if (e < 123) return true;
       if (e <= 65535) return e >= 170 && It.test(String.fromCharCode(e));
-      if (t === !1) return !1;
+      if (t === false) return false;
       return we(e, P);
     }
     function M(e, t) {
       if (e < 48) return e === 36;
-      if (e < 58) return !0;
-      if (e < 65) return !1;
-      if (e < 91) return !0;
+      if (e < 58) return true;
+      if (e < 65) return false;
+      if (e < 91) return true;
       if (e < 97) return e === 95;
-      if (e < 123) return !0;
+      if (e < 123) return true;
       if (e <= 65535) return e >= 170 && Pt.test(String.fromCharCode(e));
-      if (t === !1) return !1;
+      if (t === false) return false;
       return we(e, P) || we(e, x);
     }
     var b = function (t, i) {
@@ -114,10 +114,10 @@ var Hbe = S(function (Ce, wt) {
         (this.updateContext = null);
     };
     function T(e, t) {
-      return new b(e, { beforeExpr: !0, binop: t });
+      return new b(e, { beforeExpr: true, binop: t });
     }
-    var N = { beforeExpr: !0 },
-      I = { startsExpr: !0 },
+    var N = { beforeExpr: true },
+      I = { startsExpr: true },
       le = {};
     function v(e, t) {
       if (t === void 0) t = {};
@@ -130,11 +130,11 @@ var Hbe = S(function (Ce, wt) {
         name: new b("name", I),
         privateId: new b("privateId", I),
         eof: new b("eof"),
-        bracketL: new b("[", { beforeExpr: !0, startsExpr: !0 }),
+        bracketL: new b("[", { beforeExpr: true, startsExpr: true }),
         bracketR: new b("]"),
-        braceL: new b("{", { beforeExpr: !0, startsExpr: !0 }),
+        braceL: new b("{", { beforeExpr: true, startsExpr: true }),
         braceR: new b("}"),
-        parenL: new b("(", { beforeExpr: !0, startsExpr: !0 }),
+        parenL: new b("(", { beforeExpr: true, startsExpr: true }),
         parenR: new b(")"),
         comma: new b(",", N),
         semi: new b(";", N),
@@ -147,11 +147,11 @@ var Hbe = S(function (Ce, wt) {
         invalidTemplate: new b("invalidTemplate"),
         ellipsis: new b("...", N),
         backQuote: new b("`", I),
-        dollarBraceL: new b("${", { beforeExpr: !0, startsExpr: !0 }),
-        eq: new b("=", { beforeExpr: !0, isAssign: !0 }),
-        assign: new b("_=", { beforeExpr: !0, isAssign: !0 }),
-        incDec: new b("++/--", { prefix: !0, postfix: !0, startsExpr: !0 }),
-        prefix: new b("!/~", { beforeExpr: !0, prefix: !0, startsExpr: !0 }),
+        dollarBraceL: new b("${", { beforeExpr: true, startsExpr: true }),
+        eq: new b("=", { beforeExpr: true, isAssign: true }),
+        assign: new b("_=", { beforeExpr: true, isAssign: true }),
+        incDec: new b("++/--", { prefix: true, postfix: true, startsExpr: true }),
+        prefix: new b("!/~", { beforeExpr: true, prefix: true, startsExpr: true }),
         logicalOR: T("||", 1),
         logicalAND: T("&&", 2),
         bitwiseOR: T("|", 3),
@@ -160,11 +160,11 @@ var Hbe = S(function (Ce, wt) {
         equality: T("==/!=/===/!==", 6),
         relational: T("</>/<=/>=", 7),
         bitShift: T("<</>>/>>>", 8),
-        plusMin: new b("+/-", { beforeExpr: !0, binop: 9, prefix: !0, startsExpr: !0 }),
+        plusMin: new b("+/-", { beforeExpr: true, binop: 9, prefix: true, startsExpr: true }),
         modulo: T("%", 10),
         star: T("*", 10),
         slash: T("/", 10),
-        starstar: new b("**", { beforeExpr: !0 }),
+        starstar: new b("**", { beforeExpr: true }),
         coalesce: T("??", 1),
         _break: v("break"),
         _case: v("case", N),
@@ -172,10 +172,10 @@ var Hbe = S(function (Ce, wt) {
         _continue: v("continue"),
         _debugger: v("debugger"),
         _default: v("default", N),
-        _do: v("do", { isLoop: !0, beforeExpr: !0 }),
+        _do: v("do", { isLoop: true, beforeExpr: true }),
         _else: v("else", N),
         _finally: v("finally"),
-        _for: v("for", { isLoop: !0 }),
+        _for: v("for", { isLoop: true }),
         _function: v("function", I),
         _if: v("if"),
         _return: v("return", N),
@@ -184,9 +184,9 @@ var Hbe = S(function (Ce, wt) {
         _try: v("try"),
         _var: v("var"),
         _const: v("const"),
-        _while: v("while", { isLoop: !0 }),
+        _while: v("while", { isLoop: true }),
         _with: v("with"),
-        _new: v("new", { beforeExpr: !0, startsExpr: !0 }),
+        _new: v("new", { beforeExpr: true, startsExpr: true }),
         _this: v("this", I),
         _super: v("super", I),
         _class: v("class", I),
@@ -196,11 +196,11 @@ var Hbe = S(function (Ce, wt) {
         _null: v("null", I),
         _true: v("true", I),
         _false: v("false", I),
-        _in: v("in", { beforeExpr: !0, binop: 7 }),
-        _instanceof: v("instanceof", { beforeExpr: !0, binop: 7 }),
-        _typeof: v("typeof", { beforeExpr: !0, prefix: !0, startsExpr: !0 }),
-        _void: v("void", { beforeExpr: !0, prefix: !0, startsExpr: !0 }),
-        _delete: v("delete", { beforeExpr: !0, prefix: !0, startsExpr: !0 }),
+        _in: v("in", { beforeExpr: true, binop: 7 }),
+        _instanceof: v("instanceof", { beforeExpr: true, binop: 7 }),
+        _typeof: v("typeof", { beforeExpr: true, prefix: true, startsExpr: true }),
+        _void: v("void", { beforeExpr: true, prefix: true, startsExpr: true }),
+        _delete: v("delete", { beforeExpr: true, prefix: true, startsExpr: true }),
       },
       A = /\r\n?|\n|\u2028|\u2029/,
       Be = new RegExp(A.source, "g");
@@ -261,29 +261,29 @@ var Hbe = S(function (Ce, wt) {
         onInsertedSemicolon: null,
         onTrailingComma: null,
         allowReserved: null,
-        allowReturnOutsideFunction: !1,
-        allowImportExportEverywhere: !1,
+        allowReturnOutsideFunction: false,
+        allowImportExportEverywhere: false,
         allowAwaitOutsideFunction: null,
         allowSuperOutsideMethod: null,
-        allowHashBang: !1,
-        checkPrivateFields: !0,
-        locations: !1,
+        allowHashBang: false,
+        checkPrivateFields: true,
+        locations: false,
         onToken: null,
         onComment: null,
-        ranges: !1,
+        ranges: false,
         program: null,
         sourceFile: null,
         directSourceFile: null,
-        preserveParens: !1,
+        preserveParens: false,
       },
-      Ue = !1;
+      Ue = false;
     function Lt(e) {
       var t = {};
       for (var i in pe) t[i] = e && X(e, i) ? e[i] : pe[i];
       if (t.ecmaVersion === "latest") t.ecmaVersion = 1e8;
       else if (t.ecmaVersion == null) {
         if (!Ue && typeof console === "object" && console.warn)
-          (Ue = !0),
+          (Ue = true),
             console.warn(`Since Acorn 8.0.0, options.ecmaVersion is required.
 Defaulting to 2020, but this will stop working in the future.`);
         t.ecmaVersion = 11;
@@ -332,7 +332,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           (this.sourceFile = t.sourceFile),
           (this.keywords = j(At[t.ecmaVersion >= 6 ? 6 : t.sourceType === "module" ? "5module" : 5]));
         var r = "";
-        if (t.allowReserved !== !0) {
+        if (t.allowReserved !== true) {
           if (((r = H[t.ecmaVersion >= 6 ? 6 : t.ecmaVersion === 5 ? 5 : 3]), t.sourceType === "module")) r += " await";
         }
         this.reservedWords = j(r);
@@ -341,7 +341,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           ((this.reservedWordsStrict = j(n)),
           (this.reservedWordsStrictBind = j(n + " " + H.strictBind)),
           (this.input = String(i)),
-          (this.containsEsc = !1),
+          (this.containsEsc = false),
           s)
         )
           (this.pos = s),
@@ -361,11 +361,11 @@ Defaulting to 2020, but this will stop working in the future.`);
           (this.lastTokEndLoc = this.lastTokStartLoc = null),
           (this.lastTokStart = this.lastTokEnd = this.pos),
           (this.context = this.initialContext()),
-          (this.exprAllowed = !0),
+          (this.exprAllowed = true),
           (this.inModule = t.sourceType === "module"),
           (this.strict = this.inModule || this.strictDirective(this.pos)),
           (this.potentialArrowAt = -1),
-          (this.potentialArrowInForAwait = !1),
+          (this.potentialArrowInForAwait = false),
           (this.yieldPos = this.awaitPos = this.awaitIdentPos = 0),
           (this.labels = []),
           (this.undefinedExports = Object.create(null)),
@@ -375,15 +375,15 @@ Defaulting to 2020, but this will stop working in the future.`);
         (this.scopeStack = []), this.enterScope(re), (this.regexpState = null), (this.privateNameStack = []);
       },
       D = {
-        inFunction: { configurable: !0 },
-        inGenerator: { configurable: !0 },
-        inAsync: { configurable: !0 },
-        canAwait: { configurable: !0 },
-        allowSuper: { configurable: !0 },
-        allowDirectSuper: { configurable: !0 },
-        treatFunctionsAsVar: { configurable: !0 },
-        allowNewDotTarget: { configurable: !0 },
-        inClassStaticBlock: { configurable: !0 },
+        inFunction: { configurable: true },
+        inGenerator: { configurable: true },
+        inAsync: { configurable: true },
+        canAwait: { configurable: true },
+        allowSuper: { configurable: true },
+        allowDirectSuper: { configurable: true },
+        treatFunctionsAsVar: { configurable: true },
+        allowNewDotTarget: { configurable: true },
+        inClassStaticBlock: { configurable: true },
       };
     (_.prototype.parse = function () {
       var t = this.options.program || this.startNode();
@@ -402,7 +402,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         for (var e = this.scopeStack.length - 1; e >= 0; e--) {
           var t = this.scopeStack[e],
             i = t.flags;
-          if (i & (Y | ne)) return !1;
+          if (i & (Y | ne)) return false;
           if (i & J) return (i & Ie) > 0;
         }
         return (this.inModule && this.options.ecmaVersion >= 13) || this.options.allowAwaitOutsideFunction;
@@ -422,9 +422,9 @@ Defaulting to 2020, but this will stop working in the future.`);
         for (var e = this.scopeStack.length - 1; e >= 0; e--) {
           var t = this.scopeStack[e],
             i = t.flags;
-          if (i & (Y | ne) || (i & J && !(i & Pe))) return !0;
+          if (i & (Y | ne) || (i & J && !(i & Pe))) return true;
         }
-        return !1;
+        return false;
       }),
       (D.inClassStaticBlock.get = function () {
         return (this.currentVarScope().flags & Y) > 0;
@@ -451,11 +451,11 @@ Defaulting to 2020, but this will stop working in the future.`);
     var E = _.prototype,
       Ot = /^(?:'((?:\\[^]|[^'\\])*?)'|"((?:\\[^]|[^"\\])*?)")/;
     (E.strictDirective = function (e) {
-      if (this.options.ecmaVersion < 5) return !1;
+      if (this.options.ecmaVersion < 5) return false;
       for (;;) {
         (C.lastIndex = e), (e += C.exec(this.input)[0].length);
         var t = Ot.exec(this.input.slice(e));
-        if (!t) return !1;
+        if (!t) return false;
         if ((t[1] || t[2]) === "use strict") {
           C.lastIndex = e + t[0].length;
           var i = C.exec(this.input),
@@ -471,15 +471,15 @@ Defaulting to 2020, but this will stop working in the future.`);
       }
     }),
       (E.eat = function (e) {
-        if (this.type === e) return this.next(), !0;
-        else return !1;
+        if (this.type === e) return this.next(), true;
+        else return false;
       }),
       (E.isContextual = function (e) {
         return this.type === a.name && this.value === e && !this.containsEsc;
       }),
       (E.eatContextual = function (e) {
-        if (!this.isContextual(e)) return !1;
-        return this.next(), !0;
+        if (!this.isContextual(e)) return false;
+        return this.next(), true;
       }),
       (E.expectContextual = function (e) {
         if (!this.eatContextual(e)) this.unexpected();
@@ -490,7 +490,7 @@ Defaulting to 2020, but this will stop working in the future.`);
       (E.insertSemicolon = function () {
         if (this.canInsertSemicolon()) {
           if (this.options.onInsertedSemicolon) this.options.onInsertedSemicolon(this.lastTokEnd, this.lastTokEndLoc);
-          return !0;
+          return true;
         }
       }),
       (E.semicolon = function () {
@@ -500,7 +500,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         if (this.type === e) {
           if (this.options.onTrailingComma) this.options.onTrailingComma(this.lastTokStart, this.lastTokStartLoc);
           if (!t) this.next();
-          return !0;
+          return true;
         }
       }),
       (E.expect = function (e) {
@@ -524,7 +524,7 @@ Defaulting to 2020, but this will stop working in the future.`);
       if (i > -1) this.raiseRecoverable(i, t ? "Assigning to rvalue" : "Parenthesized pattern");
     }),
       (E.checkExpressionErrors = function (e, t) {
-        if (!e) return !1;
+        if (!e) return false;
         var { shorthandAssign: i, doubleProto: s } = e;
         if (!t) return i >= 0 || s >= 0;
         if (i >= 0) this.raise(i, "Shorthand property assignments are valid only in destructuring patterns");
@@ -544,7 +544,7 @@ Defaulting to 2020, but this will stop working in the future.`);
       var t = Object.create(null);
       if (!e.body) e.body = [];
       while (this.type !== a.eof) {
-        var i = this.parseStatement(null, !0, t);
+        var i = this.parseStatement(null, true, t);
         e.body.push(i);
       }
       if (this.inModule)
@@ -562,25 +562,25 @@ Defaulting to 2020, but this will stop working in the future.`);
     var Ve = { kind: "loop" },
       Bt = { kind: "switch" };
     (p.isLet = function (e) {
-      if (this.options.ecmaVersion < 6 || !this.isContextual("let")) return !1;
+      if (this.options.ecmaVersion < 6 || !this.isContextual("let")) return false;
       C.lastIndex = this.pos;
       var t = C.exec(this.input),
         i = this.pos + t[0].length,
         s = this.input.charCodeAt(i);
-      if (s === 91 || s === 92) return !0;
-      if (e) return !1;
-      if (s === 123 || (s > 55295 && s < 56320)) return !0;
-      if (B(s, !0)) {
+      if (s === 91 || s === 92) return true;
+      if (e) return false;
+      if (s === 123 || (s > 55295 && s < 56320)) return true;
+      if (B(s, true)) {
         var r = i + 1;
-        while (M((s = this.input.charCodeAt(r)), !0)) ++r;
-        if (s === 92 || (s > 55295 && s < 56320)) return !0;
+        while (M((s = this.input.charCodeAt(r)), true)) ++r;
+        if (s === 92 || (s > 55295 && s < 56320)) return true;
         var n = this.input.slice(i, r);
-        if (!Et.test(n)) return !0;
+        if (!Et.test(n)) return true;
       }
-      return !1;
+      return false;
     }),
       (p.isAsyncFunction = function () {
-        if (this.options.ecmaVersion < 8 || !this.isContextual("async")) return !1;
+        if (this.options.ecmaVersion < 8 || !this.isContextual("async")) return false;
         C.lastIndex = this.pos;
         var e = C.exec(this.input),
           t = this.pos + e[0].length,
@@ -592,11 +592,11 @@ Defaulting to 2020, but this will stop working in the future.`);
         );
       }),
       (p.isUsingKeyword = function (e, t) {
-        if (this.options.ecmaVersion < 17 || !this.isContextual(e ? "await" : "using")) return !1;
+        if (this.options.ecmaVersion < 17 || !this.isContextual(e ? "await" : "using")) return false;
         C.lastIndex = this.pos;
         var i = C.exec(this.input),
           s = this.pos + i[0].length;
-        if (A.test(this.input.slice(this.pos, s))) return !1;
+        if (A.test(this.input.slice(this.pos, s))) return false;
         if (e) {
           var r = s + 5,
             n;
@@ -606,26 +606,26 @@ Defaulting to 2020, but this will stop working in the future.`);
             M((n = this.input.charCodeAt(r))) ||
             (n > 55295 && n < 56320)
           )
-            return !1;
+            return false;
           C.lastIndex = r;
           var o = C.exec(this.input);
-          if (o && A.test(this.input.slice(r, r + o[0].length))) return !1;
+          if (o && A.test(this.input.slice(r, r + o[0].length))) return false;
         }
         if (t) {
           var u = s + 2,
             c;
           if (this.input.slice(s, u) === "of") {
-            if (u === this.input.length || (!M((c = this.input.charCodeAt(u))) && !(c > 55295 && c < 56320))) return !1;
+            if (u === this.input.length || (!M((c = this.input.charCodeAt(u))) && !(c > 55295 && c < 56320))) return false;
           }
         }
         var f = this.input.charCodeAt(s);
-        return B(f, !0) || f === 92;
+        return B(f, true) || f === 92;
       }),
       (p.isAwaitUsing = function (e) {
-        return this.isUsingKeyword(!0, e);
+        return this.isUsingKeyword(true, e);
       }),
       (p.isUsing = function (e) {
-        return this.isUsingKeyword(!1, e);
+        return this.isUsingKeyword(false, e);
       }),
       (p.parseStatement = function (e, t, i) {
         var s = this.type,
@@ -644,10 +644,10 @@ Defaulting to 2020, but this will stop working in the future.`);
             return this.parseForStatement(r);
           case a._function:
             if (e && (this.strict || (e !== "if" && e !== "label")) && this.options.ecmaVersion >= 6) this.unexpected();
-            return this.parseFunctionStatement(r, !1, !e);
+            return this.parseFunctionStatement(r, false, !e);
           case a._class:
             if (e) this.unexpected();
-            return this.parseClass(r, !0);
+            return this.parseClass(r, true);
           case a._if:
             return this.parseIfStatement(r);
           case a._return:
@@ -667,7 +667,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           case a._with:
             return this.parseWithStatement(r);
           case a.braceL:
-            return this.parseBlock(!0, r);
+            return this.parseBlock(true, r);
           case a.semi:
             return this.parseEmptyStatement(r);
           case a._export:
@@ -688,9 +688,9 @@ Defaulting to 2020, but this will stop working in the future.`);
           default:
             if (this.isAsyncFunction()) {
               if (e) this.unexpected();
-              return this.next(), this.parseFunctionStatement(r, !0, !e);
+              return this.next(), this.parseFunctionStatement(r, true, !e);
             }
-            var f = this.isAwaitUsing(!1) ? "await using" : this.isUsing(!1) ? "using" : null;
+            var f = this.isAwaitUsing(false) ? "await using" : this.isUsing(false) ? "using" : null;
             if (f) {
               if (t && this.options.sourceType === "script")
                 this.raise(this.start, "Using declaration cannot appear in the top level when source type is `script`");
@@ -698,7 +698,7 @@ Defaulting to 2020, but this will stop working in the future.`);
                 if (!this.canAwait) this.raise(this.start, "Await using cannot appear outside of async function");
                 this.next();
               }
-              return this.next(), this.parseVar(r, !1, f), this.semicolon(), this.finishNode(r, "VariableDeclaration");
+              return this.next(), this.parseVar(r, false, f), this.semicolon(), this.finishNode(r, "VariableDeclaration");
             }
             var m = this.value,
               k = this.parseExpression();
@@ -753,34 +753,34 @@ Defaulting to 2020, but this will stop working in the future.`);
             r = i ? "let" : this.value;
           return (
             this.next(),
-            this.parseVar(s, !0, r),
+            this.parseVar(s, true, r),
             this.finishNode(s, "VariableDeclaration"),
             this.parseForAfterInit(e, s, t)
           );
         }
         var n = this.isContextual("let"),
-          o = !1,
-          u = this.isUsing(!0) ? "using" : this.isAwaitUsing(!0) ? "await using" : null;
+          o = false,
+          u = this.isUsing(true) ? "using" : this.isAwaitUsing(true) ? "await using" : null;
         if (u) {
           var c = this.startNode();
           if ((this.next(), u === "await using")) this.next();
-          return this.parseVar(c, !0, u), this.finishNode(c, "VariableDeclaration"), this.parseForAfterInit(e, c, t);
+          return this.parseVar(c, true, u), this.finishNode(c, "VariableDeclaration"), this.parseForAfterInit(e, c, t);
         }
         var f = this.containsEsc,
           m = new xe(),
           k = this.start,
-          w = t > -1 ? this.parseExprSubscripts(m, "await") : this.parseExpression(!0, m);
+          w = t > -1 ? this.parseExprSubscripts(m, "await") : this.parseExpression(true, m);
         if (this.type === a._in || (o = this.options.ecmaVersion >= 6 && this.isContextual("of"))) {
           if (t > -1) {
             if (this.type === a._in) this.unexpected(t);
-            e.await = !0;
+            e.await = true;
           } else if (o && this.options.ecmaVersion >= 8) {
             if (w.start === k && !f && w.type === "Identifier" && w.name === "async") this.unexpected();
-            else if (this.options.ecmaVersion >= 9) e.await = !1;
+            else if (this.options.ecmaVersion >= 9) e.await = false;
           }
           if (n && o) this.raise(w.start, "The left-hand side of a for-of loop may not start with 'let'.");
-          return this.toAssignable(w, !1, m), this.checkLValPattern(w), this.parseForIn(e, w);
-        } else this.checkExpressionErrors(m, !0);
+          return this.toAssignable(w, false, m), this.checkLValPattern(w), this.parseForIn(e, w);
+        } else this.checkExpressionErrors(m, true);
         if (t > -1) this.unexpected(t);
         return this.parseFor(e, w);
       }),
@@ -799,7 +799,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         return this.parseFor(e, t);
       }),
       (p.parseFunctionStatement = function (e, t, i) {
-        return this.next(), this.parseFunction(e, oe | (i ? 0 : Le), !1, t);
+        return this.next(), this.parseFunction(e, oe | (i ? 0 : Le), false, t);
       }),
       (p.parseIfStatement = function (e) {
         return (
@@ -825,7 +825,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           this.labels.push(Bt),
           this.enterScope(0);
         var t;
-        for (var i = !1; this.type !== a.braceR; )
+        for (var i = false; this.type !== a.braceR; )
           if (this.type === a._case || this.type === a._default) {
             var s = this.type === a._case;
             if (t) this.finishNode(t, "SwitchCase");
@@ -833,7 +833,7 @@ Defaulting to 2020, but this will stop working in the future.`);
               t.test = this.parseExpression();
             else {
               if (i) this.raiseRecoverable(this.lastTokStart, "Multiple default clauses");
-              (i = !0), (t.test = null);
+              (i = true), (t.test = null);
             }
             this.expect(a.colon);
           } else {
@@ -862,14 +862,14 @@ Defaulting to 2020, but this will stop working in the future.`);
             if (this.options.ecmaVersion < 10) this.unexpected();
             (t.param = null), this.enterScope(0);
           }
-          (t.body = this.parseBlock(!1)), this.exitScope(), (e.handler = this.finishNode(t, "CatchClause"));
+          (t.body = this.parseBlock(false)), this.exitScope(), (e.handler = this.finishNode(t, "CatchClause"));
         }
         if (((e.finalizer = this.eat(a._finally) ? this.parseBlock() : null), !e.handler && !e.finalizer))
           this.raise(e.start, "Missing catch or finally clause");
         return this.finishNode(e, "TryStatement");
       }),
       (p.parseVarStatement = function (e, t, i) {
-        return this.next(), this.parseVar(e, !1, t, i), this.semicolon(), this.finishNode(e, "VariableDeclaration");
+        return this.next(), this.parseVar(e, false, t, i), this.semicolon(), this.finishNode(e, "VariableDeclaration");
       }),
       (p.parseWhileStatement = function (e) {
         return (
@@ -916,14 +916,14 @@ Defaulting to 2020, but this will stop working in the future.`);
         return (e.expression = t), this.semicolon(), this.finishNode(e, "ExpressionStatement");
       }),
       (p.parseBlock = function (e, t, i) {
-        if (e === void 0) e = !0;
+        if (e === void 0) e = true;
         if (t === void 0) t = this.startNode();
         if (((t.body = []), this.expect(a.braceL), e)) this.enterScope(0);
         while (this.type !== a.braceR) {
           var s = this.parseStatement(null);
           t.body.push(s);
         }
-        if (i) this.strict = !1;
+        if (i) this.strict = false;
         if ((this.next(), e)) this.exitScope();
         return this.finishNode(t, "BlockStatement");
       }),
@@ -992,7 +992,7 @@ Defaulting to 2020, but this will stop working in the future.`);
       }),
       (p.parseVarId = function (e, t) {
         (e.id = t === "using" || t === "await using" ? this.parseIdent() : this.parseBindingAtom()),
-          this.checkLValPattern(e.id, t === "var" ? Ne : U, !1);
+          this.checkLValPattern(e.id, t === "var" ? Ne : U, false);
       });
     var oe = 1,
       Le = 2,
@@ -1020,7 +1020,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         e.id = this.type === a.name ? this.parseIdent() : null;
       return (
         this.parseFunctionParams(e),
-        this.parseFunctionBody(e, i, !1, r),
+        this.parseFunctionBody(e, i, false, r),
         (this.yieldPos = n),
         (this.awaitPos = o),
         (this.awaitIdentPos = u),
@@ -1029,23 +1029,23 @@ Defaulting to 2020, but this will stop working in the future.`);
     }),
       (p.parseFunctionParams = function (e) {
         this.expect(a.parenL),
-          (e.params = this.parseBindingList(a.parenR, !1, this.options.ecmaVersion >= 8)),
+          (e.params = this.parseBindingList(a.parenR, false, this.options.ecmaVersion >= 8)),
           this.checkYieldAwaitInDefaultParams();
       }),
       (p.parseClass = function (e, t) {
         this.next();
         var i = this.strict;
-        (this.strict = !0), this.parseClassId(e, t), this.parseClassSuper(e);
+        (this.strict = true), this.parseClassId(e, t), this.parseClassSuper(e);
         var s = this.enterClassBody(),
           r = this.startNode(),
-          n = !1;
+          n = false;
         (r.body = []), this.expect(a.braceL);
         while (this.type !== a.braceR) {
           var o = this.parseClassElement(e.superClass !== null);
           if (o) {
             if ((r.body.push(o), o.type === "MethodDefinition" && o.kind === "constructor")) {
               if (n) this.raiseRecoverable(o.start, "Duplicate constructor in the same class");
-              n = !0;
+              n = true;
             } else if (o.key && o.key.type === "PrivateIdentifier" && Ft(s, o))
               this.raiseRecoverable(o.key.start, "Identifier '#" + o.key.name + "' has already been declared");
           }
@@ -1063,19 +1063,19 @@ Defaulting to 2020, but this will stop working in the future.`);
         var t = this.options.ecmaVersion,
           i = this.startNode(),
           s = "",
-          r = !1,
-          n = !1,
+          r = false,
+          n = false,
           o = "method",
-          u = !1;
+          u = false;
         if (this.eatContextual("static")) {
           if (t >= 13 && this.eat(a.braceL)) return this.parseClassStaticBlock(i), i;
-          if (this.isClassElementNameStart() || this.type === a.star) u = !0;
+          if (this.isClassElementNameStart() || this.type === a.star) u = true;
           else s = "static";
         }
         if (((i.static = u), !s && t >= 8 && this.eatContextual("async")))
-          if ((this.isClassElementNameStart() || this.type === a.star) && !this.canInsertSemicolon()) n = !0;
+          if ((this.isClassElementNameStart() || this.type === a.star) && !this.canInsertSemicolon()) n = true;
           else s = "async";
-        if (!s && (t >= 9 || !n) && this.eat(a.star)) r = !0;
+        if (!s && (t >= 9 || !n) && this.eat(a.star)) r = true;
         if (!s && !n && !r) {
           var c = this.value;
           if (this.eatContextual("get") || this.eatContextual("set"))
@@ -1083,7 +1083,7 @@ Defaulting to 2020, but this will stop working in the future.`);
             else s = c;
         }
         if (s)
-          (i.computed = !1),
+          (i.computed = false),
             (i.key = this.startNodeAt(this.lastTokStart, this.lastTokStartLoc)),
             (i.key.name = s),
             this.finishNode(i.key, "Identifier");
@@ -1110,7 +1110,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         if (this.type === a.privateId) {
           if (this.value === "constructor")
             this.raise(this.start, "Classes can't have an element named '#constructor'");
-          (e.computed = !1), (e.key = this.parsePrivateIdent());
+          (e.computed = false), (e.key = this.parsePrivateIdent());
         } else this.parsePropertyName(e);
       }),
       (p.parseClassMethod = function (e, t, i, s) {
@@ -1148,14 +1148,14 @@ Defaulting to 2020, but this will stop working in the future.`);
       }),
       (p.parseClassId = function (e, t) {
         if (this.type === a.name) {
-          if (((e.id = this.parseIdent()), t)) this.checkLValSimple(e.id, U, !1);
+          if (((e.id = this.parseIdent()), t)) this.checkLValSimple(e.id, U, false);
         } else {
-          if (t === !0) this.unexpected();
+          if (t === true) this.unexpected();
           e.id = null;
         }
       }),
       (p.parseClassSuper = function (e) {
-        e.superClass = this.eat(a._extends) ? this.parseExprSubscripts(null, !1) : null;
+        e.superClass = this.eat(a._extends) ? this.parseExprSubscripts(null, false) : null;
       }),
       (p.enterClassBody = function () {
         var e = { declared: Object.create(null), used: [] };
@@ -1187,9 +1187,9 @@ Defaulting to 2020, but this will stop working in the future.`);
         (s === "sget" && r === "sset") ||
         (s === "sset" && r === "sget")
       )
-        return (e[i] = "true"), !1;
-      else if (!s) return (e[i] = r), !1;
-      else return !0;
+        return (e[i] = "true"), false;
+      else if (!s) return (e[i] = r), false;
+      else return true;
     }
     function ge(e, t) {
       var { computed: i, key: s } = e;
@@ -1242,7 +1242,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         if (this.type === a._function || (e = this.isAsyncFunction())) {
           var t = this.startNode();
           if ((this.next(), e)) this.next();
-          return this.parseFunction(t, oe | Qe, !1, e);
+          return this.parseFunction(t, oe | Qe, false, e);
         } else if (this.type === a._class) {
           var i = this.startNode();
           return this.parseClass(i, "nullableID");
@@ -1255,7 +1255,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         if (!e) return;
         if (typeof t !== "string") t = t.type === "Identifier" ? t.name : t.value;
         if (X(e, t)) this.raiseRecoverable(i, "Duplicate export '" + t + "'");
-        e[t] = !0;
+        e[t] = true;
       }),
       (p.checkPatternExport = function (e, t) {
         var i = t.type;
@@ -1302,12 +1302,12 @@ Defaulting to 2020, but this will stop working in the future.`);
       }),
       (p.parseExportSpecifiers = function (e) {
         var t = [],
-          i = !0;
+          i = true;
         this.expect(a.braceL);
         while (!this.eat(a.braceR)) {
           if (!i) {
             if ((this.expect(a.comma), this.afterTrailingComma(a.braceR))) break;
-          } else i = !1;
+          } else i = false;
           t.push(this.parseExportSpecifier(e));
         }
         return t;
@@ -1345,7 +1345,7 @@ Defaulting to 2020, but this will stop working in the future.`);
       }),
       (p.parseImportSpecifiers = function () {
         var e = [],
-          t = !0;
+          t = true;
         if (this.type === a.name) {
           if ((e.push(this.parseImportDefaultSpecifier()), !this.eat(a.comma))) return e;
         }
@@ -1354,7 +1354,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         while (!this.eat(a.braceR)) {
           if (!t) {
             if ((this.expect(a.comma), this.afterTrailingComma(a.braceR))) break;
-          } else t = !1;
+          } else t = false;
           e.push(this.parseImportSpecifier());
         }
         return e;
@@ -1364,15 +1364,15 @@ Defaulting to 2020, but this will stop working in the future.`);
         if (!this.eat(a._with)) return e;
         this.expect(a.braceL);
         var t = {},
-          i = !0;
+          i = true;
         while (!this.eat(a.braceR)) {
           if (!i) {
             if ((this.expect(a.comma), this.afterTrailingComma(a.braceR))) break;
-          } else i = !1;
+          } else i = false;
           var s = this.parseImportAttribute(),
             r = s.key.type === "Identifier" ? s.key.name : s.key.value;
           if (X(t, r)) this.raiseRecoverable(s.key.start, "Duplicate attribute key '" + r + "'");
-          (t[r] = !0), e.push(s);
+          (t[r] = true), e.push(s);
         }
         return e;
       }),
@@ -1393,7 +1393,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           if (Vt.test(e.value)) this.raise(e.start, "An export name cannot include a lone surrogate.");
           return e;
         }
-        return this.parseIdent(!0);
+        return this.parseIdent(true);
       }),
       (p.adaptDirectivePrologue = function (e) {
         for (var t = 0; t < e.length && this.isDirectiveCandidate(e[t]); ++t)
@@ -1422,7 +1422,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           case "RestElement":
             break;
           case "ObjectExpression":
-            if (((e.type = "ObjectPattern"), i)) this.checkPatternErrors(i, !0);
+            if (((e.type = "ObjectPattern"), i)) this.checkPatternErrors(i, true);
             for (var s = 0, r = e.properties; s < r.length; s += 1) {
               var n = r[s];
               if (
@@ -1437,7 +1437,7 @@ Defaulting to 2020, but this will stop working in the future.`);
             this.toAssignable(e.value, t);
             break;
           case "ArrayExpression":
-            if (((e.type = "ArrayPattern"), i)) this.checkPatternErrors(i, !0);
+            if (((e.type = "ArrayPattern"), i)) this.checkPatternErrors(i, true);
             this.toAssignableList(e.elements, t);
             break;
           case "SpreadElement":
@@ -1460,7 +1460,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           default:
             this.raise(e.start, "Assigning to rvalue");
         }
-      else if (i) this.checkPatternErrors(i, !0);
+      else if (i) this.checkPatternErrors(i, true);
       return e;
     }),
       (V.toAssignableList = function (e, t) {
@@ -1478,7 +1478,7 @@ Defaulting to 2020, but this will stop working in the future.`);
       }),
       (V.parseSpread = function (e) {
         var t = this.startNode();
-        return this.next(), (t.argument = this.parseMaybeAssign(!1, e)), this.finishNode(t, "SpreadElement");
+        return this.next(), (t.argument = this.parseMaybeAssign(false, e)), this.finishNode(t, "SpreadElement");
       }),
       (V.parseRestBinding = function () {
         var e = this.startNode();
@@ -1492,19 +1492,19 @@ Defaulting to 2020, but this will stop working in the future.`);
               var e = this.startNode();
               return (
                 this.next(),
-                (e.elements = this.parseBindingList(a.bracketR, !0, !0)),
+                (e.elements = this.parseBindingList(a.bracketR, true, true)),
                 this.finishNode(e, "ArrayPattern")
               );
             case a.braceL:
-              return this.parseObj(!0);
+              return this.parseObj(true);
           }
         return this.parseIdent();
       }),
       (V.parseBindingList = function (e, t, i, s) {
         var r = [],
-          n = !0;
+          n = true;
         while (!this.eat(e)) {
-          if (n) n = !1;
+          if (n) n = false;
           else this.expect(a.comma);
           if (t && this.type === a.comma) r.push(null);
           else if (i && this.afterTrailingComma(e)) break;
@@ -1542,7 +1542,7 @@ Defaulting to 2020, but this will stop working in the future.`);
                 this.raiseRecoverable(e.start, "let is disallowed as a lexically bound name");
               if (i) {
                 if (X(i, e.name)) this.raiseRecoverable(e.start, "Argument name clash");
-                i[e.name] = !0;
+                i[e.name] = true;
               }
               if (t !== Ke) this.declareName(e.name, t, e.start);
             }
@@ -1599,18 +1599,18 @@ Defaulting to 2020, but this will stop working in the future.`);
         (this.token = t), (this.isExpr = !!i), (this.preserveSpace = !!s), (this.override = r), (this.generator = !!n);
       },
       y = {
-        b_stat: new L("{", !1),
-        b_expr: new L("{", !0),
-        b_tmpl: new L("${", !1),
-        p_stat: new L("(", !1),
-        p_expr: new L("(", !0),
-        q_tmpl: new L("`", !0, !0, function (e) {
+        b_stat: new L("{", false),
+        b_expr: new L("{", true),
+        b_tmpl: new L("${", false),
+        p_stat: new L("(", false),
+        p_expr: new L("(", true),
+        q_tmpl: new L("`", true, true, function (e) {
           return e.tryReadTemplateToken();
         }),
-        f_stat: new L("function", !1),
-        f_expr: new L("function", !0),
-        f_expr_gen: new L("function", !0, !1, null, !0),
-        f_gen: new L("function", !1, !1, null, !0),
+        f_stat: new L("function", false),
+        f_expr: new L("function", true),
+        f_expr_gen: new L("function", true, false, null, true),
+        f_gen: new L("function", false, false, null, true),
       },
       ee = _.prototype;
     (ee.initialContext = function () {
@@ -1621,13 +1621,13 @@ Defaulting to 2020, but this will stop working in the future.`);
       }),
       (ee.braceIsBlock = function (e) {
         var t = this.curContext();
-        if (t === y.f_expr || t === y.f_stat) return !0;
+        if (t === y.f_expr || t === y.f_stat) return true;
         if (e === a.colon && (t === y.b_stat || t === y.b_expr)) return !t.isExpr;
         if (e === a._return || (e === a.name && this.exprAllowed))
           return A.test(this.input.slice(this.lastTokEnd, this.start));
-        if (e === a._else || e === a.semi || e === a.eof || e === a.parenR || e === a.arrow) return !0;
+        if (e === a._else || e === a.semi || e === a.eof || e === a.parenR || e === a.arrow) return true;
         if (e === a.braceL) return t === y.b_stat;
-        if (e === a._var || e === a._const || e === a.name) return !1;
+        if (e === a._var || e === a._const || e === a.name) return false;
         return !this.exprAllowed;
       }),
       (ee.inGeneratorContext = function () {
@@ -1635,12 +1635,12 @@ Defaulting to 2020, but this will stop working in the future.`);
           var t = this.context[e];
           if (t.token === "function") return t.generator;
         }
-        return !1;
+        return false;
       }),
       (ee.updateContext = function (e) {
         var t,
           i = this.type;
-        if (i.keyword && e === a.dot) this.exprAllowed = !1;
+        if (i.keyword && e === a.dot) this.exprAllowed = false;
         else if ((t = i.updateContext)) t.call(this, e);
         else this.exprAllowed = i.beforeExpr;
       }),
@@ -1650,7 +1650,7 @@ Defaulting to 2020, but this will stop working in the future.`);
       (a.parenR.updateContext = a.braceR.updateContext =
         function () {
           if (this.context.length === 1) {
-            this.exprAllowed = !0;
+            this.exprAllowed = true;
             return;
           }
           var e = this.context.pop();
@@ -1658,14 +1658,14 @@ Defaulting to 2020, but this will stop working in the future.`);
           this.exprAllowed = !e.isExpr;
         }),
       (a.braceL.updateContext = function (e) {
-        this.context.push(this.braceIsBlock(e) ? y.b_stat : y.b_expr), (this.exprAllowed = !0);
+        this.context.push(this.braceIsBlock(e) ? y.b_stat : y.b_expr), (this.exprAllowed = true);
       }),
       (a.dollarBraceL.updateContext = function () {
-        this.context.push(y.b_tmpl), (this.exprAllowed = !0);
+        this.context.push(y.b_tmpl), (this.exprAllowed = true);
       }),
       (a.parenL.updateContext = function (e) {
         var t = e === a._if || e === a._for || e === a._with || e === a._while;
-        this.context.push(t ? y.p_stat : y.p_expr), (this.exprAllowed = !0);
+        this.context.push(t ? y.p_stat : y.p_expr), (this.exprAllowed = true);
       }),
       (a.incDec.updateContext = function () {}),
       (a._function.updateContext = a._class.updateContext =
@@ -1679,16 +1679,16 @@ Defaulting to 2020, but this will stop working in the future.`);
           )
             this.context.push(y.f_expr);
           else this.context.push(y.f_stat);
-          this.exprAllowed = !1;
+          this.exprAllowed = false;
         }),
       (a.colon.updateContext = function () {
         if (this.curContext().token === "function") this.context.pop();
-        this.exprAllowed = !0;
+        this.exprAllowed = true;
       }),
       (a.backQuote.updateContext = function () {
         if (this.curContext() === y.q_tmpl) this.context.pop();
         else this.context.push(y.q_tmpl);
-        this.exprAllowed = !1;
+        this.exprAllowed = false;
       }),
       (a.star.updateContext = function (e) {
         if (e === a._function) {
@@ -1696,13 +1696,13 @@ Defaulting to 2020, but this will stop working in the future.`);
           if (this.context[t] === y.f_expr) this.context[t] = y.f_expr_gen;
           else this.context[t] = y.f_gen;
         }
-        this.exprAllowed = !0;
+        this.exprAllowed = true;
       }),
       (a.name.updateContext = function (e) {
-        var t = !1;
+        var t = false;
         if (this.options.ecmaVersion >= 6 && e !== a.dot) {
           if ((this.value === "of" && !this.exprAllowed) || (this.value === "yield" && this.inGeneratorContext()))
-            t = !0;
+            t = true;
         }
         this.exprAllowed = t;
       });
@@ -1729,7 +1729,7 @@ Defaulting to 2020, but this will stop working in the future.`);
             if (i) {
               if (i.doubleProto < 0) i.doubleProto = s.start;
             } else this.raiseRecoverable(s.start, "Redefinition of __proto__ property");
-          t.proto = !0;
+          t.proto = true;
         }
         return;
       }
@@ -1740,8 +1740,8 @@ Defaulting to 2020, but this will stop working in the future.`);
         if (n === "init") u = (this.strict && o.init) || o.get || o.set;
         else u = o.init || o[n];
         if (u) this.raiseRecoverable(s.start, "Redefinition of property");
-      } else o = t[r] = { init: !1, get: !1, set: !1 };
-      o[n] = !0;
+      } else o = t[r] = { init: false, get: false, set: false };
+      o[n] = true;
     }),
       (d.parseExpression = function (e, t) {
         var i = this.start,
@@ -1758,8 +1758,8 @@ Defaulting to 2020, but this will stop working in the future.`);
       (d.parseMaybeAssign = function (e, t, i) {
         if (this.isContextual("yield"))
           if (this.inGenerator) return this.parseYield(e);
-          else this.exprAllowed = !1;
-        var s = !1,
+          else this.exprAllowed = false;
+        var s = false,
           r = -1,
           n = -1,
           o = -1;
@@ -1768,7 +1768,7 @@ Defaulting to 2020, but this will stop working in the future.`);
             (n = t.trailingComma),
             (o = t.doubleProto),
             (t.parenthesizedAssign = t.trailingComma = -1);
-        else (t = new xe()), (s = !0);
+        else (t = new xe()), (s = true);
         var u = this.start,
           c = this.startLoc;
         if (this.type === a.parenL || this.type === a.name)
@@ -1777,14 +1777,14 @@ Defaulting to 2020, but this will stop working in the future.`);
         if (i) f = i.call(this, f, u, c);
         if (this.type.isAssign) {
           var m = this.startNodeAt(u, c);
-          if (((m.operator = this.value), this.type === a.eq)) f = this.toAssignable(f, !1, t);
+          if (((m.operator = this.value), this.type === a.eq)) f = this.toAssignable(f, false, t);
           if (!s) t.parenthesizedAssign = t.trailingComma = t.doubleProto = -1;
           if (t.shorthandAssign >= f.start) t.shorthandAssign = -1;
           if (this.type === a.eq) this.checkLValPattern(f);
           else this.checkLValSimple(f);
           if (((m.left = f), this.next(), (m.right = this.parseMaybeAssign(e)), o > -1)) t.doubleProto = o;
           return this.finishNode(m, "AssignmentExpression");
-        } else if (s) this.checkExpressionErrors(t, !0);
+        } else if (s) this.checkExpressionErrors(t, true);
         if (r > -1) t.parenthesizedAssign = r;
         if (n > -1) t.trailingComma = n;
         return f;
@@ -1809,7 +1809,7 @@ Defaulting to 2020, but this will stop working in the future.`);
       (d.parseExprOps = function (e, t) {
         var i = this.start,
           s = this.startLoc,
-          r = this.parseMaybeUnary(t, !1, !1, e);
+          r = this.parseMaybeUnary(t, false, false, e);
         if (this.checkExpressionErrors(t)) return r;
         return r.start === i && r.type === "ArrowFunctionExpression" ? r : this.parseExprOp(r, i, s, -1, e);
       }),
@@ -1824,7 +1824,7 @@ Defaulting to 2020, but this will stop working in the future.`);
             this.next();
             var f = this.start,
               m = this.startLoc,
-              k = this.parseExprOp(this.parseMaybeUnary(null, !1, !1, r), f, m, n, r),
+              k = this.parseExprOp(this.parseMaybeUnary(null, false, false, r), f, m, n, r),
               w = this.buildBinary(t, i, e, k, c, o || u);
             if ((o && this.type === a.coalesce) || (u && (this.type === a.logicalOR || this.type === a.logicalAND)))
               this.raiseRecoverable(
@@ -1851,16 +1851,16 @@ Defaulting to 2020, but this will stop working in the future.`);
         var r = this.start,
           n = this.startLoc,
           o;
-        if (this.isContextual("await") && this.canAwait) (o = this.parseAwait(s)), (t = !0);
+        if (this.isContextual("await") && this.canAwait) (o = this.parseAwait(s)), (t = true);
         else if (this.type.prefix) {
           var u = this.startNode(),
             c = this.type === a.incDec;
           if (
             ((u.operator = this.value),
-            (u.prefix = !0),
+            (u.prefix = true),
             this.next(),
-            (u.argument = this.parseMaybeUnary(null, !0, c, s)),
-            this.checkExpressionErrors(e, !0),
+            (u.argument = this.parseMaybeUnary(null, true, c, s)),
+            this.checkExpressionErrors(e, true),
             c)
           )
             this.checkLValSimple(u.argument);
@@ -1868,7 +1868,7 @@ Defaulting to 2020, but this will stop working in the future.`);
             this.raiseRecoverable(u.start, "Deleting local variable in strict mode");
           else if (u.operator === "delete" && Re(u.argument))
             this.raiseRecoverable(u.start, "Private fields can not be deleted");
-          else t = !0;
+          else t = true;
           o = this.finishNode(u, c ? "UpdateExpression" : "UnaryExpression");
         } else if (!t && this.type === a.privateId) {
           if ((s || this.privateNameStack.length === 0) && this.options.checkPrivateFields) this.unexpected();
@@ -1878,7 +1878,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           while (this.type.postfix && !this.canInsertSemicolon()) {
             var f = this.startNodeAt(r, n);
             (f.operator = this.value),
-              (f.prefix = !1),
+              (f.prefix = false),
               (f.argument = o),
               this.checkLValSimple(o),
               this.next(),
@@ -1887,7 +1887,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         }
         if (!i && this.eat(a.starstar))
           if (t) this.unexpected(this.lastTokStart);
-          else return this.buildBinary(r, n, o, this.parseMaybeUnary(null, !1, !1, s), "**", !1);
+          else return this.buildBinary(r, n, o, this.parseMaybeUnary(null, false, false, s), "**", false);
         else return o;
       });
     function Ye(e) {
@@ -1906,7 +1906,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         r = this.parseExprAtom(e, t);
       if (r.type === "ArrowFunctionExpression" && this.input.slice(this.lastTokStart, this.lastTokEnd) !== ")")
         return r;
-      var n = this.parseSubscripts(r, i, s, !1, t);
+      var n = this.parseSubscripts(r, i, s, false, t);
       if (e && n.type === "MemberExpression") {
         if (e.parenthesizedAssign >= n.start) e.parenthesizedAssign = -1;
         if (e.parenthesizedBind >= n.start) e.parenthesizedBind = -1;
@@ -1923,10 +1923,10 @@ Defaulting to 2020, but this will stop working in the future.`);
             !this.canInsertSemicolon() &&
             e.end - e.start === 5 &&
             this.potentialArrowAt === e.start,
-          o = !1;
-        while (!0) {
+          o = false;
+        while (true) {
           var u = this.parseSubscript(e, t, i, s, n, o, r);
-          if (u.optional) o = !0;
+          if (u.optional) o = true;
           if (u === e || u.type === "ArrowFunctionExpression") {
             if (o) {
               var c = this.startNodeAt(t, i);
@@ -1941,7 +1941,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         return !this.canInsertSemicolon() && this.eat(a.arrow);
       }),
       (d.parseSubscriptAsyncArrow = function (e, t, i, s) {
-        return this.parseArrowExpression(this.startNodeAt(e, t), i, !0, s);
+        return this.parseArrowExpression(this.startNodeAt(e, t), i, true, s);
       }),
       (d.parseSubscript = function (e, t, i, s, r, n, o) {
         var u = this.options.ecmaVersion >= 11,
@@ -1961,9 +1961,9 @@ Defaulting to 2020, but this will stop working in the future.`);
             ce = this.awaitPos,
             te = this.awaitIdentPos;
           (this.yieldPos = 0), (this.awaitPos = 0), (this.awaitIdentPos = 0);
-          var Se = this.parseExprList(a.parenR, this.options.ecmaVersion >= 8, !1, k);
+          var Se = this.parseExprList(a.parenR, this.options.ecmaVersion >= 8, false, k);
           if (r && !c && this.shouldParseAsyncArrow()) {
-            if ((this.checkPatternErrors(k, !1), this.checkYieldAwaitInDefaultParams(), this.awaitIdentPos > 0))
+            if ((this.checkPatternErrors(k, false), this.checkYieldAwaitInDefaultParams(), this.awaitIdentPos > 0))
               this.raise(this.awaitIdentPos, "Cannot use 'await' as identifier inside an async function");
             return (
               (this.yieldPos = w),
@@ -1972,7 +1972,7 @@ Defaulting to 2020, but this will stop working in the future.`);
               this.parseSubscriptAsyncArrow(t, i, Se, o)
             );
           }
-          this.checkExpressionErrors(k, !0),
+          this.checkExpressionErrors(k, true),
             (this.yieldPos = w || this.yieldPos),
             (this.awaitPos = ce || this.awaitPos),
             (this.awaitIdentPos = te || this.awaitIdentPos);
@@ -1984,7 +1984,7 @@ Defaulting to 2020, but this will stop working in the future.`);
             this.raise(this.start, "Optional chaining cannot appear in the tag of tagged template expressions");
           var se = this.startNodeAt(t, i);
           (se.tag = e),
-            (se.quasi = this.parseTemplate({ isTagged: !0 })),
+            (se.quasi = this.parseTemplate({ isTagged: true })),
             (e = this.finishNode(se, "TaggedTemplateExpression"));
         }
         return e;
@@ -2006,7 +2006,7 @@ Defaulting to 2020, but this will stop working in the future.`);
             var n = this.start,
               o = this.startLoc,
               u = this.containsEsc,
-              c = this.parseIdent(!1);
+              c = this.parseIdent(false);
             if (
               this.options.ecmaVersion >= 8 &&
               !u &&
@@ -2014,9 +2014,9 @@ Defaulting to 2020, but this will stop working in the future.`);
               !this.canInsertSemicolon() &&
               this.eat(a._function)
             )
-              return this.overrideContext(y.f_expr), this.parseFunction(this.startNodeAt(n, o), 0, !1, !0, t);
+              return this.overrideContext(y.f_expr), this.parseFunction(this.startNodeAt(n, o), 0, false, true, t);
             if (r && !this.canInsertSemicolon()) {
-              if (this.eat(a.arrow)) return this.parseArrowExpression(this.startNodeAt(n, o), [c], !1, t);
+              if (this.eat(a.arrow)) return this.parseArrowExpression(this.startNodeAt(n, o), [c], false, t);
               if (
                 this.options.ecmaVersion >= 8 &&
                 c.name === "async" &&
@@ -2024,8 +2024,8 @@ Defaulting to 2020, but this will stop working in the future.`);
                 !u &&
                 (!this.potentialArrowInForAwait || this.value !== "of" || this.containsEsc)
               ) {
-                if (((c = this.parseIdent(!1)), this.canInsertSemicolon() || !this.eat(a.arrow))) this.unexpected();
-                return this.parseArrowExpression(this.startNodeAt(n, o), [c], !0, t);
+                if (((c = this.parseIdent(false)), this.canInsertSemicolon() || !this.eat(a.arrow))) this.unexpected();
+                return this.parseArrowExpression(this.startNodeAt(n, o), [c], true, t);
               }
             }
             return c;
@@ -2057,15 +2057,15 @@ Defaulting to 2020, but this will stop working in the future.`);
             return (
               (s = this.startNode()),
               this.next(),
-              (s.elements = this.parseExprList(a.bracketR, !0, !0, e)),
+              (s.elements = this.parseExprList(a.bracketR, true, true, e)),
               this.finishNode(s, "ArrayExpression")
             );
           case a.braceL:
-            return this.overrideContext(y.b_expr), this.parseObj(!1, e);
+            return this.overrideContext(y.b_expr), this.parseObj(false, e);
           case a._function:
             return (s = this.startNode()), this.next(), this.parseFunction(s, 0);
           case a._class:
-            return this.parseClass(this.startNode(), !1);
+            return this.parseClass(this.startNode(), false);
           case a._new:
             return this.parseNew();
           case a.backQuote:
@@ -2109,7 +2109,7 @@ Defaulting to 2020, but this will stop working in the future.`);
       (d.parseImportMeta = function (e) {
         this.next();
         var t = this.containsEsc;
-        if (((e.property = this.parseIdent(!0)), e.property.name !== "meta"))
+        if (((e.property = this.parseIdent(true)), e.property.name !== "meta"))
           this.raiseRecoverable(e.property.start, "The only valid meta property for import is 'import.meta'");
         if (t) this.raiseRecoverable(e.start, "'import.meta' must not contain escaped characters");
         if (this.options.sourceType !== "module" && !this.options.allowImportExportEverywhere)
@@ -2142,27 +2142,27 @@ Defaulting to 2020, but this will stop working in the future.`);
           var o = this.start,
             u = this.startLoc,
             c = [],
-            f = !0,
-            m = !1,
+            f = true,
+            m = false,
             k = new xe(),
             w = this.yieldPos,
             ce = this.awaitPos,
             te;
           (this.yieldPos = 0), (this.awaitPos = 0);
           while (this.type !== a.parenR)
-            if ((f ? (f = !1) : this.expect(a.comma), n && this.afterTrailingComma(a.parenR, !0))) {
-              m = !0;
+            if ((f ? (f = false) : this.expect(a.comma), n && this.afterTrailingComma(a.parenR, true))) {
+              m = true;
               break;
             } else if (this.type === a.ellipsis) {
               if (((te = this.start), c.push(this.parseParenItem(this.parseRestBinding())), this.type === a.comma))
                 this.raiseRecoverable(this.start, "Comma is not permitted after the rest element");
               break;
-            } else c.push(this.parseMaybeAssign(!1, k, this.parseParenItem));
+            } else c.push(this.parseMaybeAssign(false, k, this.parseParenItem));
           var Se = this.lastTokEnd,
             ie = this.lastTokEndLoc;
           if ((this.expect(a.parenR), e && this.shouldParseArrow(c) && this.eat(a.arrow)))
             return (
-              this.checkPatternErrors(k, !1),
+              this.checkPatternErrors(k, false),
               this.checkYieldAwaitInDefaultParams(),
               (this.yieldPos = w),
               (this.awaitPos = ce),
@@ -2171,7 +2171,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           if (!c.length || m) this.unexpected(this.lastTokStart);
           if (te) this.unexpected(te);
           if (
-            (this.checkExpressionErrors(k, !0),
+            (this.checkExpressionErrors(k, true),
             (this.yieldPos = w || this.yieldPos),
             (this.awaitPos = ce || this.awaitPos),
             c.length > 1)
@@ -2188,7 +2188,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         return e;
       }),
       (d.parseParenArrowList = function (e, t, i, s) {
-        return this.parseArrowExpression(this.startNodeAt(e, t), i, !1, s);
+        return this.parseArrowExpression(this.startNodeAt(e, t), i, false, s);
       });
     var Mt = [];
     (d.parseNew = function () {
@@ -2198,7 +2198,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         var t = this.startNodeAt(e.start, e.loc && e.loc.start);
         (t.name = "new"), (e.meta = this.finishNode(t, "Identifier")), this.next();
         var i = this.containsEsc;
-        if (((e.property = this.parseIdent(!0)), e.property.name !== "target"))
+        if (((e.property = this.parseIdent(true)), e.property.name !== "target"))
           this.raiseRecoverable(e.property.start, "The only valid meta property for new is 'new.target'");
         if (i) this.raiseRecoverable(e.start, "'new.target' must not contain escaped characters");
         if (!this.allowNewDotTarget)
@@ -2207,8 +2207,8 @@ Defaulting to 2020, but this will stop working in the future.`);
       }
       var s = this.start,
         r = this.startLoc;
-      if (((e.callee = this.parseSubscripts(this.parseExprAtom(null, !1, !0), s, r, !0, !1)), this.eat(a.parenL)))
-        e.arguments = this.parseExprList(a.parenR, this.options.ecmaVersion >= 8, !1);
+      if (((e.callee = this.parseSubscripts(this.parseExprAtom(null, false, true), s, r, true, false)), this.eat(a.parenL)))
+        e.arguments = this.parseExprList(a.parenR, this.options.ecmaVersion >= 8, false);
       else e.arguments = Mt;
       return this.finishNode(e, "NewExpression");
     }),
@@ -2239,7 +2239,7 @@ Defaulting to 2020, but this will stop working in the future.`);
       (d.parseTemplate = function (e) {
         if (e === void 0) e = {};
         var t = e.isTagged;
-        if (t === void 0) t = !1;
+        if (t === void 0) t = false;
         var i = this.startNode();
         this.next(), (i.expressions = []);
         var s = this.parseTemplateElement({ isTagged: t });
@@ -2269,13 +2269,13 @@ Defaulting to 2020, but this will stop working in the future.`);
       }),
       (d.parseObj = function (e, t) {
         var i = this.startNode(),
-          s = !0,
+          s = true,
           r = {};
         (i.properties = []), this.next();
         while (!this.eat(a.braceR)) {
           if (!s) {
             if ((this.expect(a.comma), this.options.ecmaVersion >= 5 && this.afterTrailingComma(a.braceR))) break;
-          } else s = !1;
+          } else s = false;
           var n = this.parseProperty(e, t);
           if (!e) this.checkPropClash(n, r, t);
           i.properties.push(n);
@@ -2290,27 +2290,27 @@ Defaulting to 2020, but this will stop working in the future.`);
           o;
         if (this.options.ecmaVersion >= 9 && this.eat(a.ellipsis)) {
           if (e) {
-            if (((i.argument = this.parseIdent(!1)), this.type === a.comma))
+            if (((i.argument = this.parseIdent(false)), this.type === a.comma))
               this.raiseRecoverable(this.start, "Comma is not permitted after the rest element");
             return this.finishNode(i, "RestElement");
           }
-          if (((i.argument = this.parseMaybeAssign(!1, t)), this.type === a.comma && t && t.trailingComma < 0))
+          if (((i.argument = this.parseMaybeAssign(false, t)), this.type === a.comma && t && t.trailingComma < 0))
             t.trailingComma = this.start;
           return this.finishNode(i, "SpreadElement");
         }
         if (this.options.ecmaVersion >= 6) {
-          if (((i.method = !1), (i.shorthand = !1), e || t)) (n = this.start), (o = this.startLoc);
+          if (((i.method = false), (i.shorthand = false), e || t)) (n = this.start), (o = this.startLoc);
           if (!e) s = this.eat(a.star);
         }
         var u = this.containsEsc;
         if ((this.parsePropertyName(i), !e && !u && this.options.ecmaVersion >= 8 && !s && this.isAsyncProp(i)))
-          (r = !0), (s = this.options.ecmaVersion >= 9 && this.eat(a.star)), this.parsePropertyName(i);
-        else r = !1;
+          (r = true), (s = this.options.ecmaVersion >= 9 && this.eat(a.star)), this.parsePropertyName(i);
+        else r = false;
         return this.parsePropertyValue(i, e, s, r, n, o, t, u), this.finishNode(i, "Property");
       }),
       (d.parseGetterSetter = function (e) {
         var t = e.key.name;
-        this.parsePropertyName(e), (e.value = this.parseMethod(!1)), (e.kind = t);
+        this.parsePropertyName(e), (e.value = this.parseMethod(false)), (e.kind = t);
         var i = e.kind === "get" ? 0 : 1;
         if (e.value.params.length !== i) {
           var s = e.value.start;
@@ -2322,11 +2322,11 @@ Defaulting to 2020, but this will stop working in the future.`);
       (d.parsePropertyValue = function (e, t, i, s, r, n, o, u) {
         if ((i || s) && this.type === a.colon) this.unexpected();
         if (this.eat(a.colon))
-          (e.value = t ? this.parseMaybeDefault(this.start, this.startLoc) : this.parseMaybeAssign(!1, o)),
+          (e.value = t ? this.parseMaybeDefault(this.start, this.startLoc) : this.parseMaybeAssign(false, o)),
             (e.kind = "init");
         else if (this.options.ecmaVersion >= 6 && this.type === a.parenL) {
           if (t) this.unexpected();
-          (e.method = !0), (e.value = this.parseMethod(i, s)), (e.kind = "init");
+          (e.method = true), (e.value = this.parseMethod(i, s)), (e.kind = "init");
         } else if (
           !t &&
           !u &&
@@ -2348,22 +2348,22 @@ Defaulting to 2020, but this will stop working in the future.`);
             if (o.shorthandAssign < 0) o.shorthandAssign = this.start;
             e.value = this.parseMaybeDefault(r, n, this.copyNode(e.key));
           } else e.value = this.copyNode(e.key);
-          (e.kind = "init"), (e.shorthand = !0);
+          (e.kind = "init"), (e.shorthand = true);
         } else this.unexpected();
       }),
       (d.parsePropertyName = function (e) {
         if (this.options.ecmaVersion >= 6)
           if (this.eat(a.bracketL))
-            return (e.computed = !0), (e.key = this.parseMaybeAssign()), this.expect(a.bracketR), e.key;
-          else e.computed = !1;
+            return (e.computed = true), (e.key = this.parseMaybeAssign()), this.expect(a.bracketR), e.key;
+          else e.computed = false;
         return (e.key =
           this.type === a.num || this.type === a.string
             ? this.parseExprAtom()
             : this.parseIdent(this.options.allowReserved !== "never"));
       }),
       (d.initFunction = function (e) {
-        if (((e.id = null), this.options.ecmaVersion >= 6)) e.generator = e.expression = !1;
-        if (this.options.ecmaVersion >= 8) e.async = !1;
+        if (((e.id = null), this.options.ecmaVersion >= 6)) e.generator = e.expression = false;
+        if (this.options.ecmaVersion >= 8) e.async = false;
       }),
       (d.parseMethod = function (e, t, i) {
         var s = this.startNode(),
@@ -2378,9 +2378,9 @@ Defaulting to 2020, but this will stop working in the future.`);
           (this.awaitIdentPos = 0),
           this.enterScope(Te(t, s.generator) | fe | (i ? je : 0)),
           this.expect(a.parenL),
-          (s.params = this.parseBindingList(a.parenR, !1, this.options.ecmaVersion >= 8)),
+          (s.params = this.parseBindingList(a.parenR, false, this.options.ecmaVersion >= 8)),
           this.checkYieldAwaitInDefaultParams(),
-          this.parseFunctionBody(s, !1, !0, !1),
+          this.parseFunctionBody(s, false, true, false),
           (this.yieldPos = r),
           (this.awaitPos = n),
           (this.awaitIdentPos = o),
@@ -2391,13 +2391,13 @@ Defaulting to 2020, but this will stop working in the future.`);
         var r = this.yieldPos,
           n = this.awaitPos,
           o = this.awaitIdentPos;
-        if ((this.enterScope(Te(i, !1) | Pe), this.initFunction(e), this.options.ecmaVersion >= 8)) e.async = !!i;
+        if ((this.enterScope(Te(i, false) | Pe), this.initFunction(e), this.options.ecmaVersion >= 8)) e.async = !!i;
         return (
           (this.yieldPos = 0),
           (this.awaitPos = 0),
           (this.awaitIdentPos = 0),
-          (e.params = this.toAssignableList(t, !0)),
-          this.parseFunctionBody(e, !0, !1, s),
+          (e.params = this.toAssignableList(t, true)),
+          this.parseFunctionBody(e, true, false, s),
           (this.yieldPos = r),
           (this.awaitPos = n),
           (this.awaitIdentPos = o),
@@ -2407,8 +2407,8 @@ Defaulting to 2020, but this will stop working in the future.`);
       (d.parseFunctionBody = function (e, t, i, s) {
         var r = t && this.type !== a.braceL,
           n = this.strict,
-          o = !1;
-        if (r) (e.body = this.parseMaybeAssign(s)), (e.expression = !0), this.checkParams(e, !1);
+          o = false;
+        if (r) (e.body = this.parseMaybeAssign(s)), (e.expression = true), this.checkParams(e, false);
         else {
           var u = this.options.ecmaVersion >= 7 && !this.isSimpleParamList(e.params);
           if (!n || u) {
@@ -2419,11 +2419,11 @@ Defaulting to 2020, but this will stop working in the future.`);
               );
           }
           var c = this.labels;
-          if (((this.labels = []), o)) this.strict = !0;
+          if (((this.labels = []), o)) this.strict = true;
           if ((this.checkParams(e, !n && !o && !t && !i && this.isSimpleParamList(e.params)), this.strict && e.id))
             this.checkLValSimple(e.id, Ke);
-          (e.body = this.parseBlock(!1, void 0, o && !n)),
-            (e.expression = !1),
+          (e.body = this.parseBlock(false, void 0, o && !n)),
+            (e.expression = false),
             this.adaptDirectivePrologue(e.body.body),
             (this.labels = c);
         }
@@ -2432,9 +2432,9 @@ Defaulting to 2020, but this will stop working in the future.`);
       (d.isSimpleParamList = function (e) {
         for (var t = 0, i = e; t < i.length; t += 1) {
           var s = i[t];
-          if (s.type !== "Identifier") return !1;
+          if (s.type !== "Identifier") return false;
         }
-        return !0;
+        return true;
       }),
       (d.checkParams = function (e, t) {
         var i = Object.create(null);
@@ -2445,17 +2445,17 @@ Defaulting to 2020, but this will stop working in the future.`);
       }),
       (d.parseExprList = function (e, t, i, s) {
         var r = [],
-          n = !0;
+          n = true;
         while (!this.eat(e)) {
           if (!n) {
             if ((this.expect(a.comma), t && this.afterTrailingComma(e))) break;
-          } else n = !1;
+          } else n = false;
           var o = void 0;
           if (i && this.type === a.comma) o = null;
           else if (this.type === a.ellipsis) {
             if (((o = this.parseSpread(s)), s && this.type === a.comma && s.trailingComma < 0))
               s.trailingComma = this.start;
-          } else o = this.parseMaybeAssign(!1, s);
+          } else o = this.parseMaybeAssign(false, s);
           r.push(o);
         }
         return r;
@@ -2517,14 +2517,14 @@ Defaulting to 2020, but this will stop working in the future.`);
           (this.next(),
           this.type === a.semi || this.canInsertSemicolon() || (this.type !== a.star && !this.type.startsExpr))
         )
-          (t.delegate = !1), (t.argument = null);
+          (t.delegate = false), (t.argument = null);
         else (t.delegate = this.eat(a.star)), (t.argument = this.parseMaybeAssign(e));
         return this.finishNode(t, "YieldExpression");
       }),
       (d.parseAwait = function (e) {
         if (!this.awaitPos) this.awaitPos = this.start;
         var t = this.startNode();
-        return this.next(), (t.argument = this.parseMaybeUnary(null, !0, !1, e)), this.finishNode(t, "AwaitExpression");
+        return this.next(), (t.argument = this.parseMaybeUnary(null, true, false, e)), this.finishNode(t, "AwaitExpression");
       });
     var ve = _.prototype;
     (ve.raise = function (e, t) {
@@ -2551,7 +2551,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         return e.flags & J || (!this.inModule && e.flags & re);
       }),
       (q.declareName = function (e, t, i) {
-        var s = !1;
+        var s = false;
         if (t === U) {
           var r = this.currentScope();
           if (
@@ -2575,7 +2575,7 @@ Defaulting to 2020, but this will stop working in the future.`);
               (c.lexical.indexOf(e) > -1 && !(c.flags & We && c.lexical[0] === e)) ||
               (!this.treatFunctionsAsVarInScope(c) && c.functions.indexOf(e) > -1)
             ) {
-              s = !0;
+              s = true;
               break;
             }
             if ((c.var.push(e), this.inModule && c.flags & re)) delete this.undefinedExports[e];
@@ -2676,8 +2676,8 @@ Defaulting to 2020, but this will stop working in the future.`);
         (this.parent = t), (this.base = i || this);
       };
     (be.prototype.separatedFrom = function (t) {
-      for (var i = this; i; i = i.parent) for (var s = t; s; s = s.parent) if (i.base === s.base && i !== s) return !0;
-      return !1;
+      for (var i = this; i; i = i.parent) for (var s = t; s; s = s.parent) if (i.base === s.base && i !== s) return true;
+      return false;
     }),
       (be.prototype.sibling = function () {
         return new be(this.parent, this.base);
@@ -2694,13 +2694,13 @@ Defaulting to 2020, but this will stop working in the future.`);
         (this.source = ""),
         (this.flags = ""),
         (this.start = 0),
-        (this.switchU = !1),
-        (this.switchV = !1),
-        (this.switchN = !1),
+        (this.switchU = false),
+        (this.switchV = false),
+        (this.switchN = false),
         (this.pos = 0),
         (this.lastIntValue = 0),
         (this.lastStringValue = ""),
-        (this.lastAssertionIsQuantifiable = !1),
+        (this.lastAssertionIsQuantifiable = false),
         (this.numCapturingParens = 0),
         (this.maxBackReference = 0),
         (this.groupNames = Object.create(null)),
@@ -2711,17 +2711,17 @@ Defaulting to 2020, but this will stop working in the future.`);
       var r = s.indexOf("v") !== -1,
         n = s.indexOf("u") !== -1;
       if (((this.start = t | 0), (this.source = i + ""), (this.flags = s), r && this.parser.options.ecmaVersion >= 15))
-        (this.switchU = !0), (this.switchV = !0), (this.switchN = !0);
+        (this.switchU = true), (this.switchV = true), (this.switchN = true);
       else
         (this.switchU = n && this.parser.options.ecmaVersion >= 6),
-          (this.switchV = !1),
+          (this.switchV = false),
           (this.switchN = n && this.parser.options.ecmaVersion >= 9);
     }),
       (F.prototype.raise = function (t) {
         this.parser.raiseRecoverable(this.start, "Invalid regular expression: /" + this.source + "/: " + t);
       }),
       (F.prototype.at = function (t, i) {
-        if (i === void 0) i = !1;
+        if (i === void 0) i = false;
         var s = this.source,
           r = s.length;
         if (t >= r) return -1;
@@ -2731,7 +2731,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         return o >= 56320 && o <= 57343 ? (n << 10) + o - 56613888 : n;
       }),
       (F.prototype.nextIndex = function (t, i) {
-        if (i === void 0) i = !1;
+        if (i === void 0) i = false;
         var s = this.source,
           r = s.length;
         if (t >= r) return r;
@@ -2749,60 +2749,60 @@ Defaulting to 2020, but this will stop working in the future.`);
         return t + 2;
       }),
       (F.prototype.current = function (t) {
-        if (t === void 0) t = !1;
+        if (t === void 0) t = false;
         return this.at(this.pos, t);
       }),
       (F.prototype.lookahead = function (t) {
-        if (t === void 0) t = !1;
+        if (t === void 0) t = false;
         return this.at(this.nextIndex(this.pos, t), t);
       }),
       (F.prototype.advance = function (t) {
-        if (t === void 0) t = !1;
+        if (t === void 0) t = false;
         this.pos = this.nextIndex(this.pos, t);
       }),
       (F.prototype.eat = function (t, i) {
-        if (i === void 0) i = !1;
-        if (this.current(i) === t) return this.advance(i), !0;
-        return !1;
+        if (i === void 0) i = false;
+        if (this.current(i) === t) return this.advance(i), true;
+        return false;
       }),
       (F.prototype.eatChars = function (t, i) {
-        if (i === void 0) i = !1;
+        if (i === void 0) i = false;
         var s = this.pos;
         for (var r = 0, n = t; r < n.length; r += 1) {
           var o = n[r],
             u = this.at(s, i);
-          if (u === -1 || u !== o) return !1;
+          if (u === -1 || u !== o) return false;
           s = this.nextIndex(s, i);
         }
-        return (this.pos = s), !0;
+        return (this.pos = s), true;
       }),
       (l.validateRegExpFlags = function (e) {
         var { validFlags: t, flags: i } = e,
-          s = !1,
-          r = !1;
+          s = false,
+          r = false;
         for (var n = 0; n < i.length; n++) {
           var o = i.charAt(n);
           if (t.indexOf(o) === -1) this.raise(e.start, "Invalid regular expression flag");
           if (i.indexOf(o, n + 1) > -1) this.raise(e.start, "Duplicate regular expression flag");
-          if (o === "u") s = !0;
-          if (o === "v") r = !0;
+          if (o === "u") s = true;
+          if (o === "v") r = true;
         }
         if (this.options.ecmaVersion >= 15 && s && r) this.raise(e.start, "Invalid regular expression flag");
       });
     function Xt(e) {
-      for (var t in e) return !0;
-      return !1;
+      for (var t in e) return true;
+      return false;
     }
     (l.validateRegExpPattern = function (e) {
       if ((this.regexp_pattern(e), !e.switchN && this.options.ecmaVersion >= 9 && Xt(e.groupNames)))
-        (e.switchN = !0), this.regexp_pattern(e);
+        (e.switchN = true), this.regexp_pattern(e);
     }),
       (l.regexp_pattern = function (e) {
         if (
           ((e.pos = 0),
           (e.lastIntValue = 0),
           (e.lastStringValue = ""),
-          (e.lastAssertionIsQuantifiable = !1),
+          (e.lastAssertionIsQuantifiable = false),
           (e.numCapturingParens = 0),
           (e.maxBackReference = 0),
           (e.groupNames = Object.create(null)),
@@ -2829,7 +2829,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           this.regexp_alternative(e);
         }
         if (t) e.branchID = e.branchID.parent;
-        if (this.regexp_eatQuantifier(e, !0)) e.raise("Nothing to repeat");
+        if (this.regexp_eatQuantifier(e, true)) e.raise("Nothing to repeat");
         if (e.eat(123)) e.raise("Lone quantifier brackets");
       }),
       (l.regexp_alternative = function (e) {
@@ -2840,33 +2840,33 @@ Defaulting to 2020, but this will stop working in the future.`);
           if (e.lastAssertionIsQuantifiable && this.regexp_eatQuantifier(e)) {
             if (e.switchU) e.raise("Invalid quantifier");
           }
-          return !0;
+          return true;
         }
         if (e.switchU ? this.regexp_eatAtom(e) : this.regexp_eatExtendedAtom(e))
-          return this.regexp_eatQuantifier(e), !0;
-        return !1;
+          return this.regexp_eatQuantifier(e), true;
+        return false;
       }),
       (l.regexp_eatAssertion = function (e) {
         var t = e.pos;
-        if (((e.lastAssertionIsQuantifiable = !1), e.eat(94) || e.eat(36))) return !0;
+        if (((e.lastAssertionIsQuantifiable = false), e.eat(94) || e.eat(36))) return true;
         if (e.eat(92)) {
-          if (e.eat(66) || e.eat(98)) return !0;
+          if (e.eat(66) || e.eat(98)) return true;
           e.pos = t;
         }
         if (e.eat(40) && e.eat(63)) {
-          var i = !1;
+          var i = false;
           if (this.options.ecmaVersion >= 9) i = e.eat(60);
           if (e.eat(61) || e.eat(33)) {
             if ((this.regexp_disjunction(e), !e.eat(41))) e.raise("Unterminated group");
-            return (e.lastAssertionIsQuantifiable = !i), !0;
+            return (e.lastAssertionIsQuantifiable = !i), true;
           }
         }
-        return (e.pos = t), !1;
+        return (e.pos = t), false;
       }),
       (l.regexp_eatQuantifier = function (e, t) {
-        if (t === void 0) t = !1;
-        if (this.regexp_eatQuantifierPrefix(e, t)) return e.eat(63), !0;
-        return !1;
+        if (t === void 0) t = false;
+        if (this.regexp_eatQuantifierPrefix(e, t)) return e.eat(63), true;
+        return false;
       }),
       (l.regexp_eatQuantifierPrefix = function (e, t) {
         return e.eat(42) || e.eat(43) || e.eat(63) || this.regexp_eatBracedQuantifier(e, t);
@@ -2880,13 +2880,13 @@ Defaulting to 2020, but this will stop working in the future.`);
             if (((s = e.lastIntValue), e.eat(44) && this.regexp_eatDecimalDigits(e))) r = e.lastIntValue;
             if (e.eat(125)) {
               if (r !== -1 && r < s && !t) e.raise("numbers out of order in {} quantifier");
-              return !0;
+              return true;
             }
           }
           if (e.switchU && !t) e.raise("Incomplete quantifier");
           e.pos = i;
         }
-        return !1;
+        return false;
       }),
       (l.regexp_eatAtom = function (e) {
         return (
@@ -2901,10 +2901,10 @@ Defaulting to 2020, but this will stop working in the future.`);
       (l.regexp_eatReverseSolidusAtomEscape = function (e) {
         var t = e.pos;
         if (e.eat(92)) {
-          if (this.regexp_eatAtomEscape(e)) return !0;
+          if (this.regexp_eatAtomEscape(e)) return true;
           e.pos = t;
         }
-        return !1;
+        return false;
       }),
       (l.regexp_eatUncapturingGroup = function (e) {
         var t = e.pos;
@@ -2930,22 +2930,22 @@ Defaulting to 2020, but this will stop working in the future.`);
               }
             }
             if (e.eat(58)) {
-              if ((this.regexp_disjunction(e), e.eat(41))) return !0;
+              if ((this.regexp_disjunction(e), e.eat(41))) return true;
               e.raise("Unterminated group");
             }
           }
           e.pos = t;
         }
-        return !1;
+        return false;
       }),
       (l.regexp_eatCapturingGroup = function (e) {
         if (e.eat(40)) {
           if (this.options.ecmaVersion >= 9) this.regexp_groupSpecifier(e);
           else if (e.current() === 63) e.raise("Invalid group");
-          if ((this.regexp_disjunction(e), e.eat(41))) return (e.numCapturingParens += 1), !0;
+          if ((this.regexp_disjunction(e), e.eat(41))) return (e.numCapturingParens += 1), true;
           e.raise("Unterminated group");
         }
-        return !1;
+        return false;
       }),
       (l.regexp_eatModifiers = function (e) {
         var t = "",
@@ -2968,13 +2968,13 @@ Defaulting to 2020, but this will stop working in the future.`);
       );
     }),
       (l.regexp_eatInvalidBracedQuantifier = function (e) {
-        if (this.regexp_eatBracedQuantifier(e, !0)) e.raise("Nothing to repeat");
-        return !1;
+        if (this.regexp_eatBracedQuantifier(e, true)) e.raise("Nothing to repeat");
+        return false;
       }),
       (l.regexp_eatSyntaxCharacter = function (e) {
         var t = e.current();
-        if (ct(t)) return (e.lastIntValue = t), e.advance(), !0;
-        return !1;
+        if (ct(t)) return (e.lastIntValue = t), e.advance(), true;
+        return false;
       });
     function ct(e) {
       return e === 36 || (e >= 40 && e <= 43) || e === 46 || e === 63 || (e >= 91 && e <= 94) || (e >= 123 && e <= 125);
@@ -2988,8 +2988,8 @@ Defaulting to 2020, but this will stop working in the future.`);
       (l.regexp_eatExtendedPatternCharacter = function (e) {
         var t = e.current();
         if (t !== -1 && t !== 36 && !(t >= 40 && t <= 43) && t !== 46 && t !== 63 && t !== 91 && t !== 94 && t !== 124)
-          return e.advance(), !0;
-        return !1;
+          return e.advance(), true;
+        return false;
       }),
       (l.regexp_groupSpecifier = function (e) {
         if (e.eat(63)) {
@@ -3004,45 +3004,45 @@ Defaulting to 2020, but this will stop working in the future.`);
               }
             else e.raise("Duplicate capture group name");
           if (t) (i || (e.groupNames[e.lastStringValue] = [])).push(e.branchID);
-          else e.groupNames[e.lastStringValue] = !0;
+          else e.groupNames[e.lastStringValue] = true;
         }
       }),
       (l.regexp_eatGroupName = function (e) {
         if (((e.lastStringValue = ""), e.eat(60))) {
-          if (this.regexp_eatRegExpIdentifierName(e) && e.eat(62)) return !0;
+          if (this.regexp_eatRegExpIdentifierName(e) && e.eat(62)) return true;
           e.raise("Invalid capture group name");
         }
-        return !1;
+        return false;
       }),
       (l.regexp_eatRegExpIdentifierName = function (e) {
         if (((e.lastStringValue = ""), this.regexp_eatRegExpIdentifierStart(e))) {
           e.lastStringValue += G(e.lastIntValue);
           while (this.regexp_eatRegExpIdentifierPart(e)) e.lastStringValue += G(e.lastIntValue);
-          return !0;
+          return true;
         }
-        return !1;
+        return false;
       }),
       (l.regexp_eatRegExpIdentifierStart = function (e) {
         var t = e.pos,
           i = this.options.ecmaVersion >= 11,
           s = e.current(i);
         if ((e.advance(i), s === 92 && this.regexp_eatRegExpUnicodeEscapeSequence(e, i))) s = e.lastIntValue;
-        if (Jt(s)) return (e.lastIntValue = s), !0;
-        return (e.pos = t), !1;
+        if (Jt(s)) return (e.lastIntValue = s), true;
+        return (e.pos = t), false;
       });
     function Jt(e) {
-      return B(e, !0) || e === 36 || e === 95;
+      return B(e, true) || e === 36 || e === 95;
     }
     l.regexp_eatRegExpIdentifierPart = function (e) {
       var t = e.pos,
         i = this.options.ecmaVersion >= 11,
         s = e.current(i);
       if ((e.advance(i), s === 92 && this.regexp_eatRegExpUnicodeEscapeSequence(e, i))) s = e.lastIntValue;
-      if ($t(s)) return (e.lastIntValue = s), !0;
-      return (e.pos = t), !1;
+      if ($t(s)) return (e.lastIntValue = s), true;
+      return (e.pos = t), false;
     };
     function $t(e) {
-      return M(e, !0) || e === 36 || e === 95 || e === 8204 || e === 8205;
+      return M(e, true) || e === 36 || e === 95 || e === 8204 || e === 8205;
     }
     (l.regexp_eatAtomEscape = function (e) {
       if (
@@ -3051,12 +3051,12 @@ Defaulting to 2020, but this will stop working in the future.`);
         this.regexp_eatCharacterEscape(e) ||
         (e.switchN && this.regexp_eatKGroupName(e))
       )
-        return !0;
+        return true;
       if (e.switchU) {
         if (e.current() === 99) e.raise("Invalid unicode escape");
         e.raise("Invalid escape");
       }
-      return !1;
+      return false;
     }),
       (l.regexp_eatBackReference = function (e) {
         var t = e.pos;
@@ -3064,19 +3064,19 @@ Defaulting to 2020, but this will stop working in the future.`);
           var i = e.lastIntValue;
           if (e.switchU) {
             if (i > e.maxBackReference) e.maxBackReference = i;
-            return !0;
+            return true;
           }
-          if (i <= e.numCapturingParens) return !0;
+          if (i <= e.numCapturingParens) return true;
           e.pos = t;
         }
-        return !1;
+        return false;
       }),
       (l.regexp_eatKGroupName = function (e) {
         if (e.eat(107)) {
-          if (this.regexp_eatGroupName(e)) return e.backReferenceNames.push(e.lastStringValue), !0;
+          if (this.regexp_eatGroupName(e)) return e.backReferenceNames.push(e.lastStringValue), true;
           e.raise("Invalid named reference");
         }
-        return !1;
+        return false;
       }),
       (l.regexp_eatCharacterEscape = function (e) {
         return (
@@ -3084,7 +3084,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           this.regexp_eatCControlLetter(e) ||
           this.regexp_eatZero(e) ||
           this.regexp_eatHexEscapeSequence(e) ||
-          this.regexp_eatRegExpUnicodeEscapeSequence(e, !1) ||
+          this.regexp_eatRegExpUnicodeEscapeSequence(e, false) ||
           (!e.switchU && this.regexp_eatLegacyOctalEscapeSequence(e)) ||
           this.regexp_eatIdentityEscape(e)
         );
@@ -3092,34 +3092,34 @@ Defaulting to 2020, but this will stop working in the future.`);
       (l.regexp_eatCControlLetter = function (e) {
         var t = e.pos;
         if (e.eat(99)) {
-          if (this.regexp_eatControlLetter(e)) return !0;
+          if (this.regexp_eatControlLetter(e)) return true;
           e.pos = t;
         }
-        return !1;
+        return false;
       }),
       (l.regexp_eatZero = function (e) {
-        if (e.current() === 48 && !ye(e.lookahead())) return (e.lastIntValue = 0), e.advance(), !0;
-        return !1;
+        if (e.current() === 48 && !ye(e.lookahead())) return (e.lastIntValue = 0), e.advance(), true;
+        return false;
       }),
       (l.regexp_eatControlEscape = function (e) {
         var t = e.current();
-        if (t === 116) return (e.lastIntValue = 9), e.advance(), !0;
-        if (t === 110) return (e.lastIntValue = 10), e.advance(), !0;
-        if (t === 118) return (e.lastIntValue = 11), e.advance(), !0;
-        if (t === 102) return (e.lastIntValue = 12), e.advance(), !0;
-        if (t === 114) return (e.lastIntValue = 13), e.advance(), !0;
-        return !1;
+        if (t === 116) return (e.lastIntValue = 9), e.advance(), true;
+        if (t === 110) return (e.lastIntValue = 10), e.advance(), true;
+        if (t === 118) return (e.lastIntValue = 11), e.advance(), true;
+        if (t === 102) return (e.lastIntValue = 12), e.advance(), true;
+        if (t === 114) return (e.lastIntValue = 13), e.advance(), true;
+        return false;
       }),
       (l.regexp_eatControlLetter = function (e) {
         var t = e.current();
-        if (lt(t)) return (e.lastIntValue = t % 32), e.advance(), !0;
-        return !1;
+        if (lt(t)) return (e.lastIntValue = t % 32), e.advance(), true;
+        return false;
       });
     function lt(e) {
       return (e >= 65 && e <= 90) || (e >= 97 && e <= 122);
     }
     l.regexp_eatRegExpUnicodeEscapeSequence = function (e, t) {
-      if (t === void 0) t = !1;
+      if (t === void 0) t = false;
       var i = e.pos,
         s = t || e.switchU;
       if (e.eat(117)) {
@@ -3129,30 +3129,30 @@ Defaulting to 2020, but this will stop working in the future.`);
             var n = e.pos;
             if (e.eat(92) && e.eat(117) && this.regexp_eatFixedHexDigits(e, 4)) {
               var o = e.lastIntValue;
-              if (o >= 56320 && o <= 57343) return (e.lastIntValue = (r - 55296) * 1024 + (o - 56320) + 65536), !0;
+              if (o >= 56320 && o <= 57343) return (e.lastIntValue = (r - 55296) * 1024 + (o - 56320) + 65536), true;
             }
             (e.pos = n), (e.lastIntValue = r);
           }
-          return !0;
+          return true;
         }
-        if (s && e.eat(123) && this.regexp_eatHexDigits(e) && e.eat(125) && ei(e.lastIntValue)) return !0;
+        if (s && e.eat(123) && this.regexp_eatHexDigits(e) && e.eat(125) && ei(e.lastIntValue)) return true;
         if (s) e.raise("Invalid unicode escape");
         e.pos = i;
       }
-      return !1;
+      return false;
     };
     function ei(e) {
       return e >= 0 && e <= 1114111;
     }
     (l.regexp_eatIdentityEscape = function (e) {
       if (e.switchU) {
-        if (this.regexp_eatSyntaxCharacter(e)) return !0;
-        if (e.eat(47)) return (e.lastIntValue = 47), !0;
-        return !1;
+        if (this.regexp_eatSyntaxCharacter(e)) return true;
+        if (e.eat(47)) return (e.lastIntValue = 47), true;
+        return false;
       }
       var t = e.current();
-      if (t !== 99 && (!e.switchN || t !== 107)) return (e.lastIntValue = t), e.advance(), !0;
-      return !1;
+      if (t !== 99 && (!e.switchN || t !== 107)) return (e.lastIntValue = t), e.advance(), true;
+      return false;
     }),
       (l.regexp_eatDecimalEscape = function (e) {
         e.lastIntValue = 0;
@@ -3160,9 +3160,9 @@ Defaulting to 2020, but this will stop working in the future.`);
         if (t >= 49 && t <= 57) {
           do (e.lastIntValue = 10 * e.lastIntValue + (t - 48)), e.advance();
           while ((t = e.current()) >= 48 && t <= 57);
-          return !0;
+          return true;
         }
-        return !1;
+        return false;
       });
     var pt = 0,
       z = 1,
@@ -3170,7 +3170,7 @@ Defaulting to 2020, but this will stop working in the future.`);
     l.regexp_eatCharacterClassEscape = function (e) {
       var t = e.current();
       if (ti(t)) return (e.lastIntValue = -1), e.advance(), z;
-      var i = !1;
+      var i = false;
       if (e.switchU && this.options.ecmaVersion >= 9 && ((i = t === 80) || t === 112)) {
         (e.lastIntValue = -1), e.advance();
         var s;
@@ -3236,9 +3236,9 @@ Defaulting to 2020, but this will stop working in the future.`);
             i = this.regexp_classContents(e);
           if (!e.eat(93)) e.raise("Unterminated character class");
           if (t && i === R) e.raise("Negated character class may contain strings");
-          return !0;
+          return true;
         }
-        return !1;
+        return false;
       }),
       (l.regexp_classContents = function (e) {
         if (e.current() === 93) return z;
@@ -3258,7 +3258,7 @@ Defaulting to 2020, but this will stop working in the future.`);
       (l.regexp_eatClassAtom = function (e) {
         var t = e.pos;
         if (e.eat(92)) {
-          if (this.regexp_eatClassEscape(e)) return !0;
+          if (this.regexp_eatClassEscape(e)) return true;
           if (e.switchU) {
             var i = e.current();
             if (i === 99 || xt(i)) e.raise("Invalid class escape");
@@ -3267,15 +3267,15 @@ Defaulting to 2020, but this will stop working in the future.`);
           e.pos = t;
         }
         var s = e.current();
-        if (s !== 93) return (e.lastIntValue = s), e.advance(), !0;
-        return !1;
+        if (s !== 93) return (e.lastIntValue = s), e.advance(), true;
+        return false;
       }),
       (l.regexp_eatClassEscape = function (e) {
         var t = e.pos;
-        if (e.eat(98)) return (e.lastIntValue = 8), !0;
-        if (e.switchU && e.eat(45)) return (e.lastIntValue = 45), !0;
+        if (e.eat(98)) return (e.lastIntValue = 8), true;
+        if (e.switchU && e.eat(45)) return (e.lastIntValue = 45), true;
         if (!e.switchU && e.eat(99)) {
-          if (this.regexp_eatClassControlLetter(e)) return !0;
+          if (this.regexp_eatClassControlLetter(e)) return true;
           e.pos = t;
         }
         return this.regexp_eatCharacterClassEscape(e) || this.regexp_eatCharacterEscape(e);
@@ -3314,11 +3314,11 @@ Defaulting to 2020, but this will stop working in the future.`);
           if (e.eat(45) && this.regexp_eatClassSetCharacter(e)) {
             var s = e.lastIntValue;
             if (i !== -1 && s !== -1 && i > s) e.raise("Range out of order in character class");
-            return !0;
+            return true;
           }
           e.pos = t;
         }
-        return !1;
+        return false;
       }),
       (l.regexp_eatClassSetOperand = function (e) {
         if (this.regexp_eatClassSetCharacter(e)) return z;
@@ -3366,14 +3366,14 @@ Defaulting to 2020, but this will stop working in the future.`);
       (l.regexp_eatClassSetCharacter = function (e) {
         var t = e.pos;
         if (e.eat(92)) {
-          if (this.regexp_eatCharacterEscape(e) || this.regexp_eatClassSetReservedPunctuator(e)) return !0;
-          if (e.eat(98)) return (e.lastIntValue = 8), !0;
-          return (e.pos = t), !1;
+          if (this.regexp_eatCharacterEscape(e) || this.regexp_eatClassSetReservedPunctuator(e)) return true;
+          if (e.eat(98)) return (e.lastIntValue = 8), true;
+          return (e.pos = t), false;
         }
         var i = e.current();
-        if (i < 0 || (i === e.lookahead() && si(i))) return !1;
-        if (ai(i)) return !1;
-        return e.advance(), (e.lastIntValue = i), !0;
+        if (i < 0 || (i === e.lookahead() && si(i))) return false;
+        if (ai(i)) return false;
+        return e.advance(), (e.lastIntValue = i), true;
       });
     function si(e) {
       return (
@@ -3392,8 +3392,8 @@ Defaulting to 2020, but this will stop working in the future.`);
     }
     l.regexp_eatClassSetReservedPunctuator = function (e) {
       var t = e.current();
-      if (ri(t)) return (e.lastIntValue = t), e.advance(), !0;
-      return !1;
+      if (ri(t)) return (e.lastIntValue = t), e.advance(), true;
+      return false;
     };
     function ri(e) {
       return (
@@ -3411,17 +3411,17 @@ Defaulting to 2020, but this will stop working in the future.`);
     }
     (l.regexp_eatClassControlLetter = function (e) {
       var t = e.current();
-      if (ye(t) || t === 95) return (e.lastIntValue = t % 32), e.advance(), !0;
-      return !1;
+      if (ye(t) || t === 95) return (e.lastIntValue = t % 32), e.advance(), true;
+      return false;
     }),
       (l.regexp_eatHexEscapeSequence = function (e) {
         var t = e.pos;
         if (e.eat(120)) {
-          if (this.regexp_eatFixedHexDigits(e, 2)) return !0;
+          if (this.regexp_eatFixedHexDigits(e, 2)) return true;
           if (e.switchU) e.raise("Invalid escape");
           e.pos = t;
         }
-        return !1;
+        return false;
       }),
       (l.regexp_eatDecimalDigits = function (e) {
         var t = e.pos,
@@ -3456,14 +3456,14 @@ Defaulting to 2020, but this will stop working in the future.`);
           if (t <= 3 && this.regexp_eatOctalDigit(e)) e.lastIntValue = t * 64 + i * 8 + e.lastIntValue;
           else e.lastIntValue = t * 8 + i;
         } else e.lastIntValue = t;
-        return !0;
+        return true;
       }
-      return !1;
+      return false;
     }),
       (l.regexp_eatOctalDigit = function (e) {
         var t = e.current();
-        if (xt(t)) return (e.lastIntValue = t - 48), e.advance(), !0;
-        return (e.lastIntValue = 0), !1;
+        if (xt(t)) return (e.lastIntValue = t - 48), e.advance(), true;
+        return (e.lastIntValue = 0), false;
       });
     function xt(e) {
       return e >= 48 && e <= 55;
@@ -3473,10 +3473,10 @@ Defaulting to 2020, but this will stop working in the future.`);
       e.lastIntValue = 0;
       for (var s = 0; s < t; ++s) {
         var r = e.current();
-        if (!dt(r)) return (e.pos = i), !1;
+        if (!dt(r)) return (e.pos = i), false;
         (e.lastIntValue = 16 * e.lastIntValue + mt(r)), e.advance();
       }
-      return !0;
+      return true;
     };
     var ke = function (t) {
         if (
@@ -3542,7 +3542,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           for (var s = void 0, r = t; (s = De(this.input, r, this.pos)) > -1; )
             ++this.curLine, (r = this.lineStart = s);
         if (this.options.onComment)
-          this.options.onComment(!0, this.input.slice(t + 2, i), t, this.pos, e, this.curPosition());
+          this.options.onComment(true, this.input.slice(t + 2, i), t, this.pos, e, this.curPosition());
       }),
       (g.skipLineComment = function (e) {
         var t = this.pos,
@@ -3550,7 +3550,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           s = this.input.charCodeAt((this.pos += e));
         while (this.pos < this.input.length && !Q(s)) s = this.input.charCodeAt(++this.pos);
         if (this.options.onComment)
-          this.options.onComment(!1, this.input.slice(t + e, this.pos), t, this.pos, i, this.curPosition());
+          this.options.onComment(false, this.input.slice(t + e, this.pos), t, this.pos, i, this.curPosition());
       }),
       (g.skipSpace = function () {
         e: while (this.pos < this.input.length) {
@@ -3592,7 +3592,7 @@ Defaulting to 2020, but this will stop working in the future.`);
       }),
       (g.readToken_dot = function () {
         var e = this.input.charCodeAt(this.pos + 1);
-        if (e >= 48 && e <= 57) return this.readNumber(!0);
+        if (e >= 48 && e <= 57) return this.readNumber(true);
         var t = this.input.charCodeAt(this.pos + 2);
         if (this.options.ecmaVersion >= 6 && e === 46 && t === 46) return (this.pos += 3), this.finishToken(a.ellipsis);
         else return ++this.pos, this.finishToken(a.dot);
@@ -3694,7 +3694,7 @@ Defaulting to 2020, but this will stop working in the future.`);
         var e = this.options.ecmaVersion,
           t = 35;
         if (e >= 13) {
-          if ((++this.pos, (t = this.fullCharCodeAtPos()), B(t, !0) || t === 92))
+          if ((++this.pos, (t = this.fullCharCodeAtPos()), B(t, true) || t === 92))
             return this.finishToken(a.privateId, this.readWord1());
         }
         this.raise(this.pos, "Unexpected character '" + G(t) + "'");
@@ -3740,7 +3740,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           case 55:
           case 56:
           case 57:
-            return this.readNumber(!1);
+            return this.readNumber(false);
           case 34:
           case 39:
             return this.readString(e);
@@ -3785,11 +3785,11 @@ Defaulting to 2020, but this will stop working in the future.`);
           var s = this.input.charAt(this.pos);
           if (A.test(s)) this.raise(i, "Unterminated regular expression");
           if (!e) {
-            if (s === "[") t = !0;
-            else if (s === "]" && t) t = !1;
+            if (s === "[") t = true;
+            else if (s === "]" && t) t = false;
             else if (s === "/" && !t) break;
             e = s === "\\";
-          } else e = !1;
+          } else e = false;
           ++this.pos;
         }
         var r = this.input.slice(i, this.pos);
@@ -3853,7 +3853,7 @@ Defaulting to 2020, but this will stop working in the future.`);
     }),
       (g.readNumber = function (e) {
         var t = this.pos;
-        if (!e && this.readInt(10, void 0, !0) === null) this.raise(t, "Invalid number");
+        if (!e && this.readInt(10, void 0, true) === null) this.raise(t, "Invalid number");
         var i = this.pos - t >= 2 && this.input.charCodeAt(t) === 48;
         if (i && this.strict) this.raise(t, "Invalid number");
         var s = this.input.charCodeAt(this.pos);
@@ -3862,7 +3862,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           if ((++this.pos, B(this.fullCharCodeAtPos()))) this.raise(this.pos, "Identifier directly after number");
           return this.finishToken(a.num, r);
         }
-        if (i && /[89]/.test(this.input.slice(t, this.pos))) i = !1;
+        if (i && /[89]/.test(this.input.slice(t, this.pos))) i = false;
         if (s === 46 && !i) ++this.pos, this.readInt(10), (s = this.input.charCodeAt(this.pos));
         if ((s === 69 || s === 101) && !i) {
           if (((s = this.input.charCodeAt(++this.pos)), s === 43 || s === 45)) ++this.pos;
@@ -3890,7 +3890,7 @@ Defaulting to 2020, but this will stop working in the future.`);
           if (this.pos >= this.input.length) this.raise(this.start, "Unterminated string constant");
           var s = this.input.charCodeAt(this.pos);
           if (s === e) break;
-          if (s === 92) (t += this.input.slice(i, this.pos)), (t += this.readEscapedChar(!1)), (i = this.pos);
+          if (s === 92) (t += this.input.slice(i, this.pos)), (t += this.readEscapedChar(false)), (i = this.pos);
           else if (s === 8232 || s === 8233) {
             if (this.options.ecmaVersion < 10) this.raise(this.start, "Unterminated string constant");
             if ((++this.pos, this.options.locations)) this.curLine++, (this.lineStart = this.pos);
@@ -3903,14 +3903,14 @@ Defaulting to 2020, but this will stop working in the future.`);
       });
     var vt = {};
     (g.tryReadTemplateToken = function () {
-      this.inTemplateElement = !0;
+      this.inTemplateElement = true;
       try {
         this.readTmplToken();
       } catch (e) {
         if (e === vt) this.readInvalidTemplateToken();
         else throw e;
       }
-      this.inTemplateElement = !1;
+      this.inTemplateElement = false;
     }),
       (g.invalidStringToken = function (e, t) {
         if (this.inTemplateElement && this.options.ecmaVersion >= 9) throw vt;
@@ -3928,7 +3928,7 @@ Defaulting to 2020, but this will stop working in the future.`);
               else return ++this.pos, this.finishToken(a.backQuote);
             return (e += this.input.slice(t, this.pos)), this.finishToken(a.template, e);
           }
-          if (i === 92) (e += this.input.slice(t, this.pos)), (e += this.readEscapedChar(!0)), (t = this.pos);
+          if (i === 92) (e += this.input.slice(t, this.pos)), (e += this.readEscapedChar(true)), (t = this.pos);
           else if (Q(i)) {
             switch (((e += this.input.slice(t, this.pos)), ++this.pos, i)) {
               case 13:
@@ -4034,16 +4034,16 @@ Defaulting to 2020, but this will stop working in the future.`);
         return i;
       }),
       (g.readWord1 = function () {
-        this.containsEsc = !1;
+        this.containsEsc = false;
         var e = "",
-          t = !0,
+          t = true,
           i = this.pos,
           s = this.options.ecmaVersion >= 6;
         while (this.pos < this.input.length) {
           var r = this.fullCharCodeAtPos();
           if (M(r, s)) this.pos += r <= 65535 ? 1 : 2;
           else if (r === 92) {
-            (this.containsEsc = !0), (e += this.input.slice(i, this.pos));
+            (this.containsEsc = true), (e += this.input.slice(i, this.pos));
             var n = this.pos;
             if (this.input.charCodeAt(++this.pos) !== 117)
               this.invalidStringToken(this.pos, "Expecting Unicode escape sequence \\uXXXX");
@@ -4052,7 +4052,7 @@ Defaulting to 2020, but this will stop working in the future.`);
             if (!(t ? B : M)(o, s)) this.invalidStringToken(n, "Invalid Unicode escape");
             (e += G(o)), (i = this.pos);
           } else break;
-          t = !1;
+          t = false;
         }
         return e + this.input.slice(i, this.pos);
       }),
@@ -4169,7 +4169,7 @@ function Md(h, x, P, O) {
     startTime: Date.now(),
     outputFile: Sl(h),
     outputOffset: 0,
-    notified: !1,
+    notified: false,
   };
 }
 function lT(h) {
@@ -4219,7 +4219,7 @@ function xbe() {
 }
 function Ete(h) {
   let x = xft(Sw()?.settings.workflowSizeGuideline) ?? xft(h);
-  return x === void 0 ? { size: kt, isDefault: !0 } : { size: x, isDefault: !1 };
+  return x === void 0 ? { size: kt, isDefault: true } : { size: x, isDefault: false };
 }
 function Ift(h) {
   let x = Fa();

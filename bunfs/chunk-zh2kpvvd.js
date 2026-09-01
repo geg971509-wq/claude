@@ -310,14 +310,14 @@ var q = new Set([
 ]);
 function P(t) {
   if (t instanceof DOMException) return t.name === "TimeoutError";
-  if (!(t instanceof Error)) return !1;
-  if (t instanceof R) return !0;
-  if (t instanceof PW) return !0;
+  if (!(t instanceof Error)) return false;
+  if (t instanceof R) return true;
+  if (t instanceof PW) return true;
   if (
     (("errorCode" in t && typeof t.errorCode === "string") || ("code" in t && typeof t.code === "string")) &&
     /^HTTP 40[13]\b/.test(t.message)
   )
-    return !0;
+    return true;
   let r = t.name !== "Error" ? t.name : (t.constructor?.name ?? "");
   return q.has(r);
 }
@@ -326,13 +326,13 @@ function f() {
 }
 var K = 120000,
   V = new Set(["sse-ide", "ws-ide"]);
-function lt(t, { isNonInteractiveSession: r = !1 } = {}) {
+function lt(t, { isNonInteractiveSession: r = false } = {}) {
   if (V.has(t?.type ?? "")) return 0;
   if ($d()) return 0;
   if (r && !a.CLAUDE_AUTO_BACKGROUND_TASKS) return 0;
   let i = a.CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS;
   if (i !== void 0) return Math.min(Math.max(0, i), eT);
-  return I("tengu_mcp_auto_background", !0) ? K : 0;
+  return I("tengu_mcp_auto_background", true) ? K : 0;
 }
 async function ut({
   run: t,
@@ -358,7 +358,7 @@ async function ut({
     ),
     E = new AbortController();
   try {
-    while (!0) {
+    while (true) {
       if ((await Promise.race([H, ne(D, E.signal).then(() => "timeout")])) === "settled" || _.signal.aborted)
         return T(), await u;
       if (B?.()) continue;
@@ -376,19 +376,19 @@ async function ut({
   function S(e, M, F, b) {
     if (l?.becameTask) return;
     let C = f().boundMcpStatusMessage(F),
-      A = !1;
+      A = false;
     if (
       (k.update(o, (c) => {
         if (c.notified) return c;
         return (
-          (A = !0),
+          (A = true),
           {
             ...c,
             status: e,
             mcpStatus: e,
             statusMessage: C,
             endTime: Date.now(),
-            notified: !0,
+            notified: true,
             abortController: void 0,
           }
         );
@@ -413,7 +413,7 @@ async function ut({
           statusMessage: C,
         }),
         mode: "task-notification",
-        skipAttachments: !0,
+        skipAttachments: true,
         priority: "next",
         agentId: et(),
         taskId: o,
@@ -424,7 +424,7 @@ async function ut({
         Wa({
           value: `MCP task ${o} ${e}; the result could not be rendered.`,
           mode: "task-notification",
-          skipAttachments: !0,
+          skipAttachments: true,
           priority: "next",
           agentId: et(),
           taskId: o,

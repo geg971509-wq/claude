@@ -49,8 +49,8 @@ function _Ae({
   label: c,
   refreshBufferMs: p = P,
   maxFailures: x = C,
-  adaptiveBuffer: y = !1,
-  rescheduleFromNewToken: M = !1,
+  adaptiveBuffer: y = false,
+  rescheduleFromNewToken: M = false,
   decodeExpiry: R = cR,
   formatDelay: _ = L,
 }) {

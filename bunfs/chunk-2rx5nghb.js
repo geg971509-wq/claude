@@ -116,7 +116,7 @@ function LN(t, r) {
   }
   return e;
 }
-function ir(t, r, n = !1) {
+function ir(t, r, n = false) {
   let e = t;
   if (n) {
     let i = t.indexOf(`
@@ -146,7 +146,7 @@ function Ezt(t, r) {
 }
 function ZEt(t, r, n) {
   if (n <= 0 || r <= 0) return "";
-  let e = Nf(t, r, { trim: !0, hard: !0 }).split(`
+  let e = Nf(t, r, { trim: true, hard: true }).split(`
 `);
   if (e.length <= n)
     return e.join(`
@@ -262,7 +262,7 @@ function uJe(t) {
   if (t.prNumber) n.push(t.prRepository ? `${t.prRepository}#${t.prNumber}` : `#${t.prNumber}`);
   return n.join(" \xB7 ");
 }
-function ad(t, r = !1, n = !0, e = !1) {
+function ad(t, r = false, n = true, e = false) {
   if (!t) return;
   let i = new Date(t * 1000),
     o = new Date(),
@@ -274,7 +274,7 @@ function ad(t, r = !1, n = !0, e = !1) {
       day: "numeric",
       hour: n ? "numeric" : void 0,
       minute: !n || s === 0 ? void 0 : "2-digit",
-      hour12: n ? !0 : void 0,
+      hour12: n ? true : void 0,
     };
     if (i.getFullYear() !== o.getFullYear()) c.year = "numeric";
     return (
@@ -283,11 +283,11 @@ function ad(t, r = !1, n = !0, e = !1) {
   }
   return (
     i
-      .toLocaleTimeString("en-US", { hour: "numeric", minute: s === 0 ? void 0 : "2-digit", hour12: !0 })
+      .toLocaleTimeString("en-US", { hour: "numeric", minute: s === 0 ? void 0 : "2-digit", hour12: true })
       .replace(/[ \u202f]([AP]M)/i, (c, a) => a.toLowerCase()) + (r ? ` (${Hvn()})` : "")
   );
 }
-function N1e(t, r = !1, n = !0, e = !1) {
+function N1e(t, r = false, n = true, e = false) {
   let i = new Date(t);
   return `${ad(Math.floor(i.getTime() / 1000), r, n, e)}`;
 }

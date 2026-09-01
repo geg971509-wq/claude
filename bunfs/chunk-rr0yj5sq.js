@@ -20,18 +20,18 @@ function ug(e) {
     .replace(/\u017F/g, "s");
 }
 async function m3(e) {
-  if (D() !== "windows") return !0;
+  if (D() !== "windows") return true;
   let t = await s(k(e)).catch(() => null);
   return !(await c(e, t == null ? null : ug(u(t, g(e)))));
 }
 async function c(e, t) {
   try {
-    return await w(e), n(`[worktree] unlinked reparse point before removal: ${e}`), !1;
+    return await w(e), n(`[worktree] unlinked reparse point before removal: ${e}`), false;
   } catch {}
   try {
-    return await p(e), n(`[worktree] removed reparse point or empty directory before removal: ${e}`), !1;
+    return await p(e), n(`[worktree] removed reparse point or empty directory before removal: ${e}`), false;
   } catch (r) {
-    if (X(r)) return !1;
+    if (X(r)) return false;
     if (E(r) !== "ENOTEMPTY") {
       let i =
         (await m(e).then(
@@ -43,12 +43,12 @@ async function c(e, t) {
               .then((o) => ug(o))
               .catch(() => null);
       if (i == null || (i !== t && !i.startsWith(t + b)))
-        return n(`[worktree] refusing to enumerate unremovable entry before removal: ${e}`, { level: "warn" }), !0;
+        return n(`[worktree] refusing to enumerate unremovable entry before removal: ${e}`, { level: "warn" }), true;
     }
   }
-  let l = await f(e, { withFileTypes: !0 }).catch((r) => (X(r) ? [] : null));
-  if (l == null) return n(`[worktree] could not enumerate ${e} before removal; not certifying`, { level: "warn" }), !0;
-  let a = !1;
+  let l = await f(e, { withFileTypes: true }).catch((r) => (X(r) ? [] : null));
+  if (l == null) return n(`[worktree] could not enumerate ${e} before removal; not certifying`, { level: "warn" }), true;
+  let a = false;
   for (let r of l) if (r.isSymbolicLink() || r.isDirectory()) a = (await c(u(e, r.name), t)) || a;
   return a;
 }

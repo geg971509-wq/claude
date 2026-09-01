@@ -135,7 +135,7 @@ function cn(e) {
 }
 var Ke = cn;
 function un(e) {
-  return N5(e) ? HVt(e, !0) : Ke(e);
+  return N5(e) ? HVt(e, true) : Ke(e);
 }
 var aoe = un;
 function pn(e) {
@@ -801,10 +801,10 @@ var Ze = [
   Cn =
     /auth|key|token|cookie|secret|credential|session|signature|passw|jwt|assertion|cert|oidc|org|tenant|account|project|workspace|user|email|identity|principal|consumer|client|host|url|base|target|upstream|endpoint|proxy|forward|route|fallback|override|apigw|x-goog-|l5d-|bypass|guardrail|amz|x-ms-|azureml|extra-parameters|envoy|helicone|litellm|cf-aig|cf-access|beta|version/;
 function Tn(e) {
-  if (/\r(?!\n)/.test(e)) return !0;
+  if (/\r(?!\n)/.test(e)) return true;
   return e.split(/\n|\r\n/).some((t) => {
     let o = t.indexOf(":");
-    if (o === -1) return !1;
+    if (o === -1) return false;
     let s = t.slice(0, o).trim();
     return !Rn.test(s) || Hqt(t.slice(o + 1)) !== null || Cn.test(s.toLowerCase());
   });
@@ -834,13 +834,13 @@ function qor() {
 }
 import { createHash as vt } from "crypto";
 function Oo(e) {
-  return SCe(e, " ", { keepEmojiJoiners: !0 });
+  return SCe(e, " ", { keepEmojiJoiners: true });
 }
 function Of(e) {
-  return SCe(e, " ", { keepNewlines: !0 });
+  return SCe(e, " ", { keepNewlines: true });
 }
 function Qe(e) {
-  return SCe(e, "", { keepEmojiJoiners: !0 });
+  return SCe(e, "", { keepEmojiJoiners: true });
 }
 function qNe(e, t = Oo) {
   if (e === void 0) return;
@@ -899,11 +899,11 @@ function OXe(e) {
   return { destination: Tp(e.archiveUrl), hiddenCharactersWarning: o ? wn : null, command: t };
 }
 function Y(e) {
-  let t = !1;
+  let t = false;
   return {
     text: e.replace(/[^\x20-\x5b\x5d-\x7e]/gu, (s) => {
       if (s === "\\") return "\\\\";
-      return (t = !0), `\\u{${s.codePointAt(0).toString(16)}}`;
+      return (t = true), `\\u{${s.codePointAt(0).toString(16)}}`;
     }),
     escaped: t,
   };
@@ -1410,7 +1410,7 @@ function tir(e) {
 var xn = ["autoMode", "deepLink", "voice", "briefView", "screenReader"];
 var ue = {
   autoMode: {
-    buildGate: () => !0,
+    buildGate: () => true,
     shape: () => ({
       skipAutoPermissionPrompt: q().optional().describe("Whether the user has accepted the auto mode opt-in dialog"),
       useAutoModeDuringPlan: q()
@@ -1432,7 +1432,7 @@ var ue = {
           .describe(
             'Rules for the auto mode classifier HARD BLOCK section \u2014 security boundaries that user intent does NOT clear. Include the literal string "$defaults" to inherit the built-in rules at that position.',
           ),
-        ...!1,
+        ...false,
         ...{},
         environment: H(i())
           .optional()
@@ -1452,7 +1452,7 @@ var ue = {
     permissionModes: () => gy.filter((e) => !wO.includes(e)),
   },
   deepLink: {
-    buildGate: () => !0,
+    buildGate: () => true,
     shape: () => ({
       disableDeepLinkRegistration: oe(["disable"])
         .optional()
@@ -1460,11 +1460,11 @@ var ue = {
     }),
   },
   voice: {
-    buildGate: () => !0,
+    buildGate: () => true,
     shape: () => ({ voiceEnabled: q().optional().describe("Enable voice mode (hold-to-talk dictation)") }),
   },
   briefView: {
-    buildGate: () => !0,
+    buildGate: () => true,
     shape: () => ({
       defaultView: oe(["chat", "transcript"])
         .optional()
@@ -1472,7 +1472,7 @@ var ue = {
     }),
   },
   screenReader: {
-    buildGate: () => !0,
+    buildGate: () => true,
     shape: () => ({
       axScreenReader: q()
         .optional()
@@ -1597,29 +1597,29 @@ var coe = {
     WebSearch: (e) => {
       if (e.includes("*") || e.includes("?"))
         return {
-          valid: !1,
+          valid: false,
           error: "WebSearch does not support wildcards",
           suggestion: "Use exact search terms without * or ?",
           examples: ["WebSearch(claude ai)", "WebSearch(typescript tutorial)"],
         };
-      return { valid: !0 };
+      return { valid: true };
     },
     WebFetch: (e) => {
       if (e.includes("://") || e.startsWith("http"))
         return {
-          valid: !1,
+          valid: false,
           error: "WebFetch permissions use domain format, not URLs",
           suggestion: 'Use "domain:hostname" format',
           examples: ["WebFetch(domain:example.com)", "WebFetch(domain:github.com)"],
         };
       if (!e.startsWith("domain:"))
         return {
-          valid: !1,
+          valid: false,
           error: 'WebFetch permissions must use "domain:" prefix',
           suggestion: 'Use "domain:hostname" format',
           examples: ["WebFetch(domain:example.com)", "WebFetch(domain:*.google.com)"],
         };
-      return { valid: !0 };
+      return { valid: true };
     },
   },
 };
@@ -1646,28 +1646,28 @@ function Ae(e, t) {
 function Un(e) {
   for (let t = 0; t < e.length - 1; t++)
     if (e[t] === "(" && e[t + 1] === ")") {
-      if (!Oe(e, t)) return !0;
+      if (!Oe(e, t)) return true;
     }
-  return !1;
+  return false;
 }
 var Mn = /^(?:[|&;<>]|\d+[<>])/;
 function Hn(e) {
   return Mn.test(e);
 }
 function pt(e) {
-  for (let t = 0; t < e.length; t++) if (e[t] === "*" && !Oe(e, t)) return !0;
-  return !1;
+  for (let t = 0; t < e.length; t++) if (e[t] === "*" && !Oe(e, t)) return true;
+  return false;
 }
 function zn(e) {
   if (e.endsWith(":*")) return;
   let t = e.trim().split(/\s+/).filter(Boolean),
     o = t[0];
   if (t.length < 3 || o === void 0 || pt(o)) return;
-  let s = !1;
+  let s = false;
   for (let r of t.slice(1)) {
     if (Hn(r)) return;
     if (pt(r)) {
-      s = !0;
+      s = true;
       continue;
     }
     if (r.startsWith("-")) continue;
@@ -1680,7 +1680,7 @@ function GNe(e) {
   let t = ya(e);
   if (t && !d0(t.serverName)) return null;
   return {
-    valid: !1,
+    valid: false,
     error: `Wildcard tool name "${e}" is not supported in allow rules`,
     suggestion:
       "An allow pattern must name the scope it widens \u2014 globs are permitted only in the tool position after a literal mcp__<server>__ prefix. Deny and ask rules accept wildcards anywhere",
@@ -1688,12 +1688,12 @@ function GNe(e) {
   };
 }
 function Npe(e, t) {
-  if (!e || e.trim() === "") return { valid: !1, error: "Permission rule cannot be empty" };
+  if (!e || e.trim() === "") return { valid: false, error: "Permission rule cannot be empty" };
   let o = Ae(e, "("),
     s = Ae(e, ")");
   if (o !== s)
     return {
-      valid: !1,
+      valid: false,
       error: "Mismatched parentheses",
       suggestion: "Ensure all opening parentheses have matching closing parentheses",
     };
@@ -1701,12 +1701,12 @@ function Npe(e, t) {
     let u = e.substring(0, e.indexOf("("));
     if (!u)
       return {
-        valid: !1,
+        valid: false,
         error: "Empty parentheses with no tool name",
         suggestion: "Specify a tool name before the parentheses",
       };
     return {
-      valid: !1,
+      valid: false,
       error: "Empty parentheses",
       suggestion: `Either specify a pattern or use just "${u}" without parentheses`,
       examples: [`${u}`, `${u}(some-pattern)`],
@@ -1717,7 +1717,7 @@ function Npe(e, t) {
   if (c) {
     if (r.ruleContent !== void 0 || Ae(e, "(") > 0)
       return {
-        valid: !1,
+        valid: false,
         error: "MCP rules do not support patterns in parentheses",
         suggestion: `Use "${r.toolName}" without parentheses, or use "mcp__${c.serverName}__*" for all tools`,
         examples: [
@@ -1730,15 +1730,15 @@ function Npe(e, t) {
       let u = GNe(r.toolName);
       if (u) return u;
     }
-    return { valid: !0 };
+    return { valid: true };
   }
-  if (!r.toolName || r.toolName.length === 0) return { valid: !1, error: "Tool name cannot be empty" };
+  if (!r.toolName || r.toolName.length === 0) return { valid: false, error: "Tool name cannot be empty" };
   if (t === "allow") {
     let u = GNe(r.toolName);
     if (u) return u;
   }
   if (!r.toolName.includes("_") && r.toolName[0] !== r.toolName[0]?.toUpperCase())
-    return { valid: !1, error: "Tool names must start with uppercase", suggestion: `Use "${Wf(String(r.toolName))}"` };
+    return { valid: false, error: "Tool names must start with uppercase", suggestion: `Use "${Wf(String(r.toolName))}"` };
   let g = ut(r.toolName);
   if (g && r.ruleContent !== void 0) {
     let u = g(r.ruleContent);
@@ -1748,14 +1748,14 @@ function Npe(e, t) {
     let u = r.ruleContent;
     if (u.includes(":*") && !u.endsWith(":*"))
       return {
-        valid: !1,
+        valid: false,
         error: "The :* pattern must be at the end",
         suggestion: "Move :* to the end for prefix matching, or use * for wildcard matching",
         examples: ["Bash(npm run:*) - prefix matching (legacy)", "Bash(npm run *) - wildcard matching"],
       };
     if (u === ":*")
       return {
-        valid: !1,
+        valid: false,
         error: "Prefix cannot be empty before :*",
         suggestion: "Specify a command prefix before :*",
         examples: ["Bash(npm *)", "Bash(git *)"],
@@ -1767,7 +1767,7 @@ function Npe(e, t) {
           E = A ? " For git, options such as -c and --exec-path can run arbitrary commands." : "",
           _ = A ? " (for example Bash(git status *))" : "";
         return {
-          valid: !0,
+          valid: true,
           warning: `${eo(r)} has a wildcard before the rest of the command, so it also matches any options inserted at that position and approves them without a prompt.${E} Replace that * with the exact value you mean, or only use * after the subcommand${_}.`,
         };
       }
@@ -1776,7 +1776,7 @@ function Npe(e, t) {
   if (lt(r.toolName) && r.ruleContent !== void 0) {
     if (r.ruleContent.includes(":*"))
       return {
-        valid: !1,
+        valid: false,
         error: 'The ":*" syntax is only for Bash prefix rules',
         suggestion: 'Use glob patterns like "*" or "**" for file matching',
         examples: [
@@ -1795,11 +1795,11 @@ function Npe(e, t) {
           : void 0;
     if (u !== void 0 && !r.ruleContent.includes(":*"))
       return {
-        valid: !0,
+        valid: true,
         warning: `${eo(r)} is not matched by file permission checks \u2014 only ${u}(path) rules are. Use ${eo({ toolName: u, ruleContent: r.ruleContent })} instead (${u} rules cover all file-${u === "Edit" ? "editing" : "reading"} tools).`,
       };
   }
-  return { valid: !0 };
+  return { valid: true };
 }
 var Ce = m(() => mt()),
   ft = m(() => mt("allow"));
@@ -1919,7 +1919,7 @@ var rir = m(() => bt(ZAe())),
   Vn = /[\x00-\x1f\x7f-\x9f\u2028\u2029]|\p{DI}/u;
 function jEn(e) {
   let t = e.replaceAll("/", "\\");
-  if (JO(t)) return !1;
+  if (JO(t)) return false;
   return /^\\{2}[^\\]/.test(t);
 }
 function $Xe(e) {
@@ -1931,25 +1931,25 @@ function WEn(e) {
 function qEn(e, t, o = {}) {
   if (t === "win32") {
     let s = e.replaceAll("/", "\\");
-    if (JO(s)) return !1;
+    if (JO(s)) return false;
     let r = jEn(s);
-    if (o.rejectUnc && r) return !1;
+    if (o.rejectUnc && r) return false;
     if (o.rejectDriveRelative) {
-      if (!/^[A-Za-z]:\\/.test(s) && !r && /^(\\|[A-Za-z]:)/.test(s)) return !1;
+      if (!/^[A-Za-z]:\\/.test(s) && !r && /^(\\|[A-Za-z]:)/.test(s)) return false;
     }
-    if (St.normalize(s) !== s) return !1;
+    if (St.normalize(s) !== s) return false;
     let c = s.split("\\");
-    if (c.some((u) => u === "." || u === "..")) return !1;
-    if (c.some((u, y) => /[. ]$/.test(u) || (u.includes(":") && !(y === 0 && /^[A-Za-z]:$/.test(u))))) return !1;
+    if (c.some((u) => u === "." || u === "..")) return false;
+    if (c.some((u, y) => /[. ]$/.test(u) || (u.includes(":") && !(y === 0 && /^[A-Za-z]:$/.test(u))))) return false;
     let g = s.startsWith("\\\\") ? s.slice(2) : s;
-    if (/\\{2}/.test(g)) return !1;
+    if (/\\{2}/.test(g)) return false;
     return !s.endsWith("\\") || /^([A-Za-z]:)?\\$/.test(s);
   }
-  if (o.rejectNetworkRoot && $Xe(e)) return !1;
-  if (o.rejectMagicLinkRoot && WEn(e)) return !1;
-  if (yt.normalize(e) !== e) return !1;
-  if (e.split("/").some((s) => s === "." || s === "..")) return !1;
-  if (/\/{2}/.test(e)) return !1;
+  if (o.rejectNetworkRoot && $Xe(e)) return false;
+  if (o.rejectMagicLinkRoot && WEn(e)) return false;
+  if (yt.normalize(e) !== e) return false;
+  if (e.split("/").some((s) => s === "." || s === "..")) return false;
+  if (/\/{2}/.test(e)) return false;
   return !e.endsWith("/") || e === "/";
 }
 var GEn = /\.(exe|ps1)$/i;
@@ -1965,7 +1965,7 @@ var KEn =
   ee = (e) => Sa((t) => (t === null ? void 0 : t), e.optional()).optional(),
   ht = ["path", "script", "defaultSettings"];
 function At(e) {
-  if (!e || typeof e !== "object" || Array.isArray(e)) return !1;
+  if (!e || typeof e !== "object" || Array.isArray(e)) return false;
   let t = e;
   return ht.some((o) => t[o] === null) && ht.every((o) => t[o] === null || t[o] === void 0);
 }
@@ -2075,7 +2075,7 @@ function Zn(e) {
 }
 function Rt(e, t) {
   return me()
-    .omit({ path: !0 })
+    .omit({ path: true })
     .extend({
       path: ee(Yn(e)),
       script: ee(Tt(e)),
@@ -2137,7 +2137,7 @@ var Jn = m(() =>
       .max(YNe)
       .optional()
       .catch(void 0);
-function tCe(e, { strictPolicyHelperKeys: t = !1 } = {}) {
+function tCe(e, { strictPolicyHelperKeys: t = false } = {}) {
   function o(r) {
     return De(i(), FEn()).check((c) => {
       for (let [g, u] of Object.entries(c.value))
@@ -2301,7 +2301,7 @@ function tCe(e, { strictPolicyHelperKeys: t = !1 } = {}) {
         .describe(
           "Whether to append the claude.ai session link to commits and PRs created from web or Remote Control sessions (default: true). Set to false to omit the Claude-Session trailer and PR-body link.",
         ),
-      ...!1,
+      ...false,
     })
       .passthrough()
       .optional()
@@ -2313,8 +2313,8 @@ function tCe(e, { strictPolicyHelperKeys: t = !1 } = {}) {
       .describe(
         "Deprecated: Use attribution instead. Whether to include Claude's co-authored by attribution in commits and PRs (defaults to true)",
       ),
-    ...!1,
-    ...!1,
+    ...false,
+    ...false,
     includeGitInstructions: q()
       .optional()
       .describe("Include built-in commit and PR workflow instructions in Claude's system prompt (default: true)"),
@@ -2790,7 +2790,7 @@ function tCe(e, { strictPolicyHelperKeys: t = !1 } = {}) {
           "interactive toggles never persist it. Requires workflows to be enabled and an xhigh-capable model.",
       ),
     autoCompactWindow: Qn().describe("Auto-compact window size"),
-    ...!1,
+    ...false,
     advisorModel: i().optional().describe("Advisor model for the server-side advisor tool."),
     fastMode: q().optional().describe("When true, fast mode is enabled. When absent or false, fast mode is off."),
     fastModePerSessionOptIn: q()
@@ -2886,7 +2886,7 @@ function tCe(e, { strictPolicyHelperKeys: t = !1 } = {}) {
       .describe(
         'Terminal UI renderer. "fullscreen" uses the flicker-free alt-screen renderer with virtualized scrollback (equivalent to CLAUDE_CODE_NO_FLICKER=1). "default" uses the classic main-screen renderer.',
       ),
-    ...!1,
+    ...false,
     voice: f({
       enabled: q().optional(),
       mode: oe(["hold", "tap"])
@@ -3123,7 +3123,7 @@ function YEn(e, t) {
           message:
             '"allowManagedHooksOnly" was present but invalid; treating it as true (only managed hooks run; command-sourced plugins disabled) until it is fixed.',
         }),
-        !0
+        true
       ),
     )),
     (s.syncClaudeAiSkills = o.shape.syncClaudeAiSkills.catch(
@@ -3133,7 +3133,7 @@ function YEn(e, t) {
           message:
             '"syncClaudeAiSkills" was present but invalid; treating it as false (claude.ai skills sync off) until it is fixed.',
         }),
-        !1
+        false
       ),
     )),
     (s.syncClaudeAiPlugins = o.shape.syncClaudeAiPlugins.catch(
@@ -3143,7 +3143,7 @@ function YEn(e, t) {
           message:
             '"syncClaudeAiPlugins" was present but invalid; treating it as false (claude.ai plugins sync off) until it is fixed.',
         }),
-        !1
+        false
       ),
     )),
     (s.disableCommandPluginSources = o.shape.disableCommandPluginSources.catch(
@@ -3153,7 +3153,7 @@ function YEn(e, t) {
           message:
             '"disableCommandPluginSources" was present but invalid; treating it as true (command-sourced plugins disabled) until it is fixed.',
         }),
-        !0
+        true
       ),
     )),
     (s.allowManagedMcpServersOnly = o.shape.allowManagedMcpServersOnly.catch(
@@ -3162,7 +3162,7 @@ function YEn(e, t) {
           path: "allowManagedMcpServersOnly",
           message: '"allowManagedMcpServersOnly" was present but invalid; treating it as true until it is fixed.',
         }),
-        !0
+        true
       ),
     )),
     (s.enforceAvailableModels = o.shape.enforceAvailableModels.catch(
@@ -3171,7 +3171,7 @@ function YEn(e, t) {
           path: "enforceAvailableModels",
           message: '"enforceAvailableModels" was present but invalid; treating it as true until it is fixed.',
         }),
-        !0
+        true
       ),
     )),
     (s.availableModels = H(_e())
@@ -3207,7 +3207,7 @@ function YEn(e, t) {
         []
       ),
     ));
-  let r = !1,
+  let r = false,
     c = (d, p) => {
       let h = d.safeParse(p);
       if (h.success) return;
@@ -3218,49 +3218,49 @@ function YEn(e, t) {
     },
     g;
   s.policyHelper = Sa((d) => {
-    if (((r = !1), (g = d), d && typeof d === "object" && !Array.isArray(d))) {
+    if (((r = false), (g = d), d && typeof d === "object" && !Array.isArray(d))) {
       let p = d;
       for (let h of ["defaultSettings", "default", ...fe])
         if (p[h] !== void 0 && p[h] !== null)
           e({
             path: "policyHelper",
             message: `"${h}" on the singular policyHelper is ignored \u2014 static fallback payloads belong on the policyHelpers per-OS entries ("defaultSettings") or the map's "default" key. The intended fallback will NOT apply from here.`,
-            statusOnly: !0,
+            statusOnly: true,
           });
       for (let h of ["policyHelper", "policyHelpers"])
         if (p[h] !== void 0 && p[h] !== null)
           e({
             path: "policyHelper",
             message: `"${h}" inside the singular policyHelper is ignored \u2014 "policyHelper" and "policyHelpers" are TOP-LEVEL settings keys; nothing nests inside the singular entry. The nested config will NOT apply from here.`,
-            statusOnly: !0,
+            statusOnly: true,
           });
       for (let h of Q6)
         if (p[h] !== void 0 && p[h] !== null)
           e({
             path: "policyHelper",
             message: `"${h}" on the singular policyHelper is ignored \u2014 per-OS entries live on the policyHelpers MAP ("policyHelpers": {"${h}": ...}), not inside the singular key. The intended per-OS config will NOT apply from here.`,
-            statusOnly: !0,
+            statusOnly: true,
           });
       if (p.claudeMd !== void 0 && p.claudeMd !== null)
         e({
           path: "policyHelper",
           message: `"claudeMd" on the singular policyHelper is ignored \u2014 "claudeMd" is a managed-settings key: put it at the settings top level or inside a static payload, or emit it from the helper's stdout envelope. The intended instructions will NOT apply from here.`,
-          statusOnly: !0,
+          statusOnly: true,
         });
       if (p.outputBehavior !== void 0 && p.outputBehavior !== null)
         e({
           path: "policyHelper",
           message: `"outputBehavior" on the singular policyHelper is ignored \u2014 it is only honored on the policyHelpers per-OS entries (policyHelpers.${Q6.join("/")}); this helper's output REPLACES the policy tier whatever the value says.`,
-          statusOnly: !0,
+          statusOnly: true,
         });
-      if (p.path === null || p.path === void 0) r = !0;
+      if (p.path === null || p.path === void 0) r = true;
     }
     return d === null ? void 0 : d;
   }, me().optional()).catch((d) => {
     e({
       path: "policyHelper",
       message: `${d.issues[0]?.message ?? c(me(), g) ?? "Failed schema validation"}. This field was ignored.`,
-      ...(r && { statusOnly: !0 }),
+      ...(r && { statusOnly: true }),
     });
     return;
   });
@@ -3268,18 +3268,18 @@ function YEn(e, t) {
       e({
         path: d,
         message: `"${d}" is not a valid static settings payload: ${p ?? "failed validation"}. When delivered from an OS-admin policy source (MDM or the managed settings file), Claude Code will not start until this is fixed.`,
-        startupFatal: !0,
+        startupFatal: true,
       });
     },
     y = (d) => {
-      let p = !1,
+      let p = false,
         h,
         S = we(
           d,
           Fpe()
             .optional()
             .catch((C) => {
-              (p = !0),
+              (p = true),
                 u(
                   `policyHelpers.${d}.defaultSettings`,
                   C.issues[0]?.message ??
@@ -3289,34 +3289,34 @@ function YEn(e, t) {
             }),
         );
       return Sa((C) => {
-        if (((p = !1), (h = C), d !== "default" && C && typeof C === "object" && !Array.isArray(C))) {
+        if (((p = false), (h = C), d !== "default" && C && typeof C === "object" && !Array.isArray(C))) {
           let R = C;
           for (let T of [...fe, "claudeMd"])
             if (R[T] !== void 0 && R[T] !== null)
               e({
                 path: `policyHelpers.${d}`,
                 message: `"${T}" on the policyHelpers.${d} entry is ignored \u2014 helper output cannot be pre-seeded on an entry; a static fallback payload goes under this entry's "defaultSettings" (a managed-settings object). The intended content will NOT apply from here.`,
-                statusOnly: !0,
+                statusOnly: true,
               });
           for (let T of ["policyHelper", "policyHelpers"])
             if (R[T] !== void 0 && R[T] !== null)
               e({
                 path: `policyHelpers.${d}`,
                 message: `"${T}" on the policyHelpers.${d} entry is ignored \u2014 "policyHelper" and "policyHelpers" are TOP-LEVEL settings keys; nothing nests inside an entry. The nested config will NOT apply from here.`,
-                statusOnly: !0,
+                statusOnly: true,
               });
           for (let T of Q6)
             if (R[T] !== void 0 && R[T] !== null)
               e({
                 path: `policyHelpers.${d}`,
                 message: `"${T}" on the policyHelpers.${d} entry is ignored \u2014 per-OS entries are SIBLINGS on the policyHelpers map, not nested inside each other. The intended ${T} config will NOT apply from here.`,
-                statusOnly: !0,
+                statusOnly: true,
               });
           if (R.default !== void 0 && R.default !== null)
             e({
               path: `policyHelpers.${d}`,
               message: `"default" on the policyHelpers.${d} entry is ignored \u2014 the per-entry static payload field is spelled "defaultSettings"; "default" is the MAP's any-platform catch-all key (a sibling of the OS entries). The intended fallback will NOT apply from here.`,
-              statusOnly: !0,
+              statusOnly: true,
             });
           if (At(C)) return;
         }
@@ -3341,7 +3341,7 @@ function YEn(e, t) {
                 e({
                   path: `policyHelpers.${d}`,
                   message: `Invalid entry was ignored: ${R}. Its "defaultSettings" static payload was NOT kept: "outputBehavior" is unrecognized, so whether the payload replaces or merges over this source's settings is unknown. No policy helper runs on ${d} from this entry.`,
-                  statusOnly: !0,
+                  statusOnly: true,
                 });
                 return;
               }
@@ -3349,7 +3349,7 @@ function YEn(e, t) {
                 e({
                   path: `policyHelpers.${d}`,
                   message: `Invalid entry: its helper fields were ignored (${R}), but its "defaultSettings" static payload was kept. No policy helper runs on ${d} from this entry.`,
-                  statusOnly: !0,
+                  statusOnly: true,
                 }),
                 { defaultSettings: K.data, ...(x && { outputBehavior: x.data }) }
               );
@@ -3359,7 +3359,7 @@ function YEn(e, t) {
         e({
           path: `policyHelpers.${d}`,
           message: `Invalid entry was ignored: ${R}. No policy helper runs on ${d} from this entry.`,
-          statusOnly: !0,
+          statusOnly: true,
         });
         return;
       });
@@ -3373,14 +3373,14 @@ function YEn(e, t) {
             e({
               path: "policyHelpers",
               message: `"${h}" directly on the policyHelpers map is ignored \u2014 static fallback payloads go on a per-OS entry's "defaultSettings" or the map's "default" key (a managed-settings object), and helper-output keys come from the helper's stdout. The intended content will NOT apply from here.`,
-              statusOnly: !0,
+              statusOnly: true,
             });
         for (let h of ["policyHelper", "policyHelpers"])
           if (p[h] !== void 0 && p[h] !== null)
             e({
               path: "policyHelpers",
               message: `"${h}" inside the policyHelpers map is ignored \u2014 "policyHelper" and "policyHelpers" are TOP-LEVEL settings keys; the map's keys are the per-OS entries and "default". The nested config will NOT apply from here.`,
-              statusOnly: !0,
+              statusOnly: true,
             });
         for (let h of Re.filter((S) => S !== "defaultSettings"))
           if (p[h] !== void 0 && p[h] !== null) {
@@ -3393,7 +3393,7 @@ function YEn(e, t) {
             e({
               path: "policyHelpers",
               message: `"${h}" directly on the policyHelpers map is ignored \u2014 helper configs go on a per-OS entry (policyHelpers.${Q6.join("/")})${S}. No helper runs from this field here.`,
-              statusOnly: !0,
+              statusOnly: true,
             });
           }
       }
@@ -3410,7 +3410,7 @@ function YEn(e, t) {
           e({
             path: "policyHelpers",
             message: `"policyHelpers" could not be parsed: expected an object mapping OS keys (${Q6.join(", ")}) to helper entries, plus an optional "default" settings payload (${d.issues[0]?.message ?? "failed schema validation"}). When delivered from an OS-admin policy source (MDM or the managed settings file), Claude Code will not start until this is fixed.`,
-            startupFatal: !0,
+            startupFatal: true,
           }),
           {}
         ),
@@ -3549,7 +3549,7 @@ function YEn(e, t) {
               path: "sandbox.credentials.allowPlaintextInject",
               message: `${d.issues[0]?.message ?? "Invalid value"}. "allowPlaintextInject" was degraded to an explicit false; plaintext credential injection stays disabled (lower-precedence values cannot enable it) until it is fixed.`,
             }),
-            !1
+            false
           ),
         ),
       awsPairs: H(
@@ -3650,7 +3650,7 @@ function YEn(e, t) {
         });
         return (
           (w.length = 0),
-          { allowPlaintextInject: !1, awsPairs: p, sigv4: { streaming: "deny", presigned: "deny", sigv4a: "deny" } }
+          { allowPlaintextInject: false, awsPairs: p, sigv4: { streaming: "deny", presigned: "deny", sigv4a: "deny" } }
         );
       });
   return (
@@ -3710,7 +3710,7 @@ function cTt(e) {
   return `sha256:${to("sha256").update(o).digest("hex")}`;
 }
 function G$(e) {
-  if (!e) return { shellSettings: {}, envVars: {}, sandboxSettings: {}, hasHooks: !1, hasClaudeMd: !1 };
+  if (!e) return { shellSettings: {}, envVars: {}, sandboxSettings: {}, hasHooks: false, hasClaudeMd: false };
   let t = {},
     o;
   for (let A of Ze) {
@@ -3818,19 +3818,19 @@ function he(e, t) {
   return o;
 }
 function so(e, t) {
-  if (t === void 0 || t === null || t === !1) return !1;
-  if (Array.isArray(t) && t.length === 0) return !1;
+  if (t === void 0 || t === null || t === false) return false;
+  if (Array.isArray(t) && t.length === 0) return false;
   return !(e === "credentials" && ro(t));
 }
 function ro(e) {
-  if (typeof e !== "object" || e === null) return !1;
+  if (typeof e !== "object" || e === null) return false;
   return Object.entries(e).every(([t, o]) => {
-    if (o === void 0) return !0;
+    if (o === void 0) return true;
     if (t === "files" || t === "envVars")
       return Array.isArray(o) && o.every((s) => typeof s === "object" && s !== null && s.mode === "deny");
     if (t === "sigv4")
       return typeof o === "object" && o !== null && Object.values(o).every((s) => s === void 0 || s === "deny");
-    return t === "allowPlaintextInject" && o === !1;
+    return t === "allowPlaintextInject" && o === false;
   });
 }
 function io(e) {
@@ -3914,7 +3914,7 @@ function uTt(e) {
   return vt("sha256").update(Pe(e)).digest("hex");
 }
 function uo(e) {
-  let t = Ut(e, !1);
+  let t = Ut(e, false);
   if (!Array.isArray(t) || t.length !== 3 || typeof t[0] !== "string") return;
   return { command: t[0], url: typeof t[2] === "string" ? t[2] : void 0 };
 }
@@ -3924,8 +3924,8 @@ function Dt(e, t, o) {
 function wt(e, t) {
   let o = G$(e),
     s = G$(t);
-  if (!l5(s)) return !1;
-  if (!l5(o)) return !0;
+  if (!l5(s)) return false;
+  if (!l5(o)) return true;
   return Pe(o) !== Pe(s);
 }
 function iir(e, t) {
@@ -3934,8 +3934,8 @@ function iir(e, t) {
       return wt(e.settings, t);
     case "org_record": {
       let o = G$(t);
-      if (!l5(o)) return !1;
-      if (uTt(o) === e.dangerousSettingsHash) return !1;
+      if (!l5(o)) return false;
+      if (uTt(o) === e.dangerousSettingsHash) return false;
       return wt(e.consentedPayload, t);
     }
   }
@@ -4028,7 +4028,7 @@ function BXe(e) {
   return e.replace(/[^\x20-\x7e]/gu, "?");
 }
 function ZEn(e, t) {
-  let o = Ut(e, !1);
+  let o = Ut(e, false);
   if (!Array.isArray(o)) return;
   let [s, r, c] = o,
     g;
@@ -4137,7 +4137,7 @@ class jt {
   ineligibleReason = void 0;
   lastLoadStatus = void 0;
   lastLoadStatusChanged = Ue();
-  policySettingsNotified = !1;
+  policySettingsNotified = false;
   verifiedPayload = null;
   unverifiedView = null;
   consentedPayload = null;
@@ -4155,7 +4155,7 @@ class jt {
     this.consentedPayload = e;
   }
   markPolicySettingsNotified() {
-    this.policySettingsNotified = !0;
+    this.policySettingsNotified = true;
   }
   recordEligibility(e, t) {
     if (((this.eligible = e), t.memoize))
@@ -4175,7 +4175,7 @@ class jt {
       (this.eligibilityMemo = void 0),
       (this.ineligibleReason = void 0),
       (this.lastLoadStatus = void 0),
-      (this.policySettingsNotified = !1),
+      (this.policySettingsNotified = false),
       (this.verifiedPayload = null),
       (this.unverifiedView = null),
       (this.consentedPayload = null),
@@ -4228,10 +4228,10 @@ function oAn() {
   return D().policySettingsNotified;
 }
 function a0r(e) {
-  return D().recordEligibility(e, { memoize: !1 }), e;
+  return D().recordEligibility(e, { memoize: false }), e;
 }
 function zY(e, t) {
-  return D().recordEligibility(e, { memoize: !0, ineligibleReason: t }), e;
+  return D().recordEligibility(e, { memoize: true, ineligibleReason: t }), e;
 }
 function KNe() {
   return D().eligibilityMemo;
@@ -4332,7 +4332,7 @@ async function Po(e, t, o) {
     }
     if (!(await e.settled()) || !(await e.readUnobserved())) return;
     if (e.stoodDown) return;
-    (e.ready = !0),
+    (e.ready = true),
       n(
         `Remote settings: primed from storage (${Yt(e.content)}; helper consent ${e.attestation === void 0 ? "not attested" : "attested"}${o.sessionCache !== null ? "; cache already loaded, serving later loads" : ""})`,
       );
@@ -4344,14 +4344,14 @@ class Ft {
   storageV5;
   content = null;
   attestation = void 0;
-  ready = !1;
+  ready = false;
   priming = Promise.resolve();
-  stoodDown = !1;
+  stoodDown = false;
   configHome = be();
   subscriptions = [];
   cache = Vt(ve, "cache file");
   sidecar = Vt(ke, "helper consent sidecar");
-  work = Promise.resolve(!0);
+  work = Promise.resolve(true);
   steps = 0;
   lastCacheStep = 0;
   constructor(e) {
@@ -4378,7 +4378,7 @@ class Ft {
   written(e, t) {
     let o = this.stoodDown ? void 0 : this.heldOf(e);
     if (o === void 0) return;
-    if (((o.begun = !0), o.generation++, o === this.cache)) this.sidecar.generation++;
+    if (((o.begun = true), o.generation++, o === this.cache)) this.sidecar.generation++;
     if ((this.advance(o), t !== null && Buffer.byteLength(t, "utf8") > ge)) {
       this.standDown(`oversize ${o.label}`);
       return;
@@ -4390,7 +4390,7 @@ class Ft {
     return t === this.cache.id ? this.cache : t === this.sidecar.id ? this.sidecar : void 0;
   }
   take(e, t) {
-    if (((e.begun = !0), t !== void 0)) {
+    if (((e.begun = true), t !== void 0)) {
       e.pendingRead = void 0;
       let o = e.generation;
       this.queue(e, () => (e.generation === o ? this.fill(e, t) : !this.stoodDown));
@@ -4411,7 +4411,7 @@ class Ft {
   }
   queue(e, t) {
     let o = this.advance(e);
-    return (this.work = this.work.then(t).catch((s) => (this.standDown(`refresh failed: ${l(s)}`), !1))), o;
+    return (this.work = this.work.then(t).catch((s) => (this.standDown(`refresh failed: ${l(s)}`), false))), o;
   }
   advance(e) {
     let t = ++this.steps;
@@ -4419,7 +4419,7 @@ class Ft {
     return t;
   }
   async read(e) {
-    if (this.stoodDown) return !1;
+    if (this.stoodDown) return false;
     let t = e.generation;
     try {
       let o = await this.storageV5.read([{ key: e.key, offset: 0, length: ge + 1 }]);
@@ -4436,38 +4436,38 @@ class Ft {
             ),
             this.fill(e, null)
           );
-        return this.standDown(`read failed: ${Ge(o.error)}`), !1;
+        return this.standDown(`read failed: ${Ge(o.error)}`), false;
       }
       let s = o.value.items[0];
-      if (s.found && s.totalBytes > ge) return this.standDown(`oversize ${e.label}`), !1;
+      if (s.found && s.totalBytes > ge) return this.standDown(`oversize ${e.label}`), false;
       return this.fill(e, s.found ? s.value : null);
     } catch (o) {
-      return this.standDown(`read failed: ${l(o)}`), !1;
+      return this.standDown(`read failed: ${l(o)}`), false;
     }
   }
   fill(e, t) {
-    if (this.stoodDown) return !1;
-    if (t !== null && t.byteLength > ge) return this.standDown(`oversize ${e.label}`), !1;
-    return this.install(e, t === null ? null : Cfe(t)), !0;
+    if (this.stoodDown) return false;
+    if (t !== null && t.byteLength > ge) return this.standDown(`oversize ${e.label}`), false;
+    return this.install(e, t === null ? null : Cfe(t)), true;
   }
   install(e, t) {
     if (e === this.cache) {
       if (e.observed && this.ready) n(`Remote settings: storage view refreshed (${Yt(t)})`);
       (this.content = t), (this.attestation = void 0);
     } else this.attestation = t?.trim() || void 0;
-    e.observed = !0;
+    e.observed = true;
   }
   standDown(e, t = "debug") {
     let o = D();
     if (o.backendView === this) o.backendView = void 0;
     if (this.stoodDown) return;
-    (this.stoodDown = !0), (this.content = null), (this.attestation = void 0);
+    (this.stoodDown = true), (this.content = null), (this.attestation = void 0);
     for (let s of this.subscriptions.splice(0)) $t(s);
     n(`Remote settings: storage view stood down (${e}); disk probe serves`, { level: t });
   }
 }
 function Vt(e, t) {
-  return { key: e, id: ld(e), label: t, observed: !1, begun: !1, pendingRead: void 0, generation: 0 };
+  return { key: e, id: ld(e), label: t, observed: false, begun: false, pendingRead: void 0, generation: 0 };
 }
 function $t(e) {
   try {
@@ -4573,7 +4573,7 @@ function vo(e) {
 }
 function Bqt() {
   let e = D();
-  if (!BT() && e.eligible !== !0) return null;
+  if (!BT() && e.eligible !== true) return null;
   if (e.sessionCache) return e.sessionCache;
   let t = Ne() !== void 0,
     o = Ro();

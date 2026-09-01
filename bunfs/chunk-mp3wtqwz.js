@@ -50,7 +50,7 @@ function r(n, e, i) {
 }
 function k(n, e, i) {
   if (e.hookEventName !== i) {
-    t(n, "hookSpecificOutput_event_mismatch", !0);
+    t(n, "hookSpecificOutput_event_mismatch", true);
     return;
   }
   switch (e.hookEventName) {
@@ -72,7 +72,7 @@ function k(n, e, i) {
     case "UserPromptSubmit":
       return (
         t(n, "sessionTitle", e.sessionTitle !== void 0),
-        { ...r(n, "UserPromptSubmit", e), ...(e.suppressOriginalPrompt === !0 && { suppressOriginalPrompt: !0 }) }
+        { ...r(n, "UserPromptSubmit", e), ...(e.suppressOriginalPrompt === true && { suppressOriginalPrompt: true }) }
       );
     case "PostToolUse":
       return (
@@ -84,7 +84,7 @@ function k(n, e, i) {
     case "UserPromptExpansion":
       return {
         ...r(n, "UserPromptExpansion", e),
-        ...(e.suppressOriginalPrompt === !0 && { suppressOriginalPrompt: !0 }),
+        ...(e.suppressOriginalPrompt === true && { suppressOriginalPrompt: true }),
       };
     case "PostToolUseFailure":
       return r(n, "PostToolUseFailure", e);
@@ -99,13 +99,13 @@ function k(n, e, i) {
     case "PermissionDenied":
       return t(n, "retry", e.retry !== void 0), { hookEventName: "PermissionDenied" };
     default:
-      t(n, "hookSpecificOutput_unsupported_event", !0);
+      t(n, "hookSpecificOutput_unsupported_event", true);
       return;
   }
 }
 function Wie(n, e) {
   let i = { report: { dropped: [], truncated: [] } };
-  if ("async" in n) return t(i, "async", !0), { answer: {}, report: i.report };
+  if ("async" in n) return t(i, "async", true), { answer: {}, report: i.report };
   let o = n;
   t(i, "approve", o.decision === "approve"),
     t(i, "reason", o.decision === "approve" && o.reason !== void 0),
@@ -121,8 +121,8 @@ function Wie(n, e) {
   let f = c ? k(i, a, e) : void 0;
   return {
     answer: {
-      ...(o.continue === !1 && { continue: !1 }),
-      ...(o.suppressOutput === !0 && { suppressOutput: !0 }),
+      ...(o.continue === false && { continue: false }),
+      ...(o.suppressOutput === true && { suppressOutput: true }),
       ...(s !== void 0 && { stopReason: s }),
       ...(o.decision === "block" && { decision: "block" }),
       ...(u !== void 0 && { systemMessage: u }),
@@ -133,8 +133,8 @@ function Wie(n, e) {
   };
 }
 function Gf(n) {
-  if ("decision" in n && n.decision === "block") return !0;
-  if ("continue" in n && n.continue === !1) return !0;
+  if ("decision" in n && n.decision === "block") return true;
+  if ("continue" in n && n.continue === false) return true;
   let e = "hookSpecificOutput" in n ? n.hookSpecificOutput : void 0;
   return (
     e !== void 0 &&
@@ -145,7 +145,7 @@ function Gf(n) {
   );
 }
 function z8t(n) {
-  if ("decision" in n && n.decision === "block") return !0;
+  if ("decision" in n && n.decision === "block") return true;
   let e = "hookSpecificOutput" in n ? n.hookSpecificOutput : void 0;
   return (
     e !== void 0 && typeof e === "object" && e !== null && "permissionDecision" in e && e.permissionDecision === "deny"

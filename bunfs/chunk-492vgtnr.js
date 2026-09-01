@@ -13,7 +13,7 @@ class n {
   filterPolicy = void 0;
   dropNotifier = void 0;
   senderDropWriter = void 0;
-  malformedConfigReported = !1;
+  malformedConfigReported = false;
   knownInboundRequestIds = new Set();
   knownOutboundRequestIds = new Set();
   automatedOutboundRequestIds = new Set();
@@ -37,7 +37,7 @@ class n {
     (this.filterPolicy = void 0),
       (this.dropNotifier = void 0),
       (this.senderDropWriter = void 0),
-      (this.malformedConfigReported = !1),
+      (this.malformedConfigReported = false),
       this.clearWindowsForTesting(),
       this.reportedStrayDropCodes.clear();
   }
@@ -45,8 +45,8 @@ class n {
 class o {
   outboundPeers = new Set();
   outboundPosts = new Set();
-  subscriberStarted = !1;
-  subscriberStopping = !1;
+  subscriberStarted = false;
+  subscriberStopping = false;
   liveSocket = null;
   enqueuePeerMessage = null;
   getCurrentMode = null;
@@ -83,8 +83,8 @@ class s {
   bridgeStateFramesGate = void 0;
   cseShimGate = void 0;
   placeholderWriteChain = Promise.resolve();
-  placeholderSweepStarted = !1;
-  rcActiveImpressionRecorded = !1;
+  placeholderSweepStarted = false;
+  rcActiveImpressionRecorded = false;
   verboseRcActive = void 0;
   teleportedSessionIds = new Set();
   nameTagWriteChain = Promise.resolve();

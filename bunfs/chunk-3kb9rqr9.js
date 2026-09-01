@@ -42,12 +42,12 @@ function Uj(
     DD_SOURCEMAP_GROUP: "darwin",
   }.VERSION,
 ) {
-  if (!wre(a)) return !1;
-  if (!wre(n)) return !0;
+  if (!wre(a)) return false;
+  if (!wre(n)) return true;
   try {
     return ff(a, n);
   } catch {
-    return !0;
+    return true;
   }
 }
 function Se(J) {
@@ -121,8 +121,8 @@ function iq(x) {
   if (y[0] !== x) (te = x === void 0 ? {} : x), (y[0] = x), (y[1] = te);
   else te = y[1];
   let { autoplay: re, sequence: De, delayMs: Ue, onComplete: Te, reserveCrouchRow: fe } = te,
-    Ve = re === void 0 ? !1 : re,
-    Qe = fe === void 0 ? !1 : fe,
+    Ve = re === void 0 ? false : re,
+    Qe = fe === void 0 ? false : fe,
     { pose: Q, bounceOffset: h, x: K, poof: b, onClick: B } = Z(Ve, De, Ue, Te);
   const Y = Qe ? l + 1 : l;
   let M;
@@ -201,7 +201,7 @@ function Z(n, a, d, i) {
   A(() => {
     if (s === -1) return;
     if (s >= E.current.length) {
-      (D.current = !0), L(), c(n && !a ? 0 : -1);
+      (D.current = true), L(), c(n && !a ? 0 : -1);
       return;
     }
     return T.setTimeout(() => c(pe), ee);
@@ -215,7 +215,7 @@ var W = ["skip", "jump", "look", "spin"];
 function q() {
   if (fi.clawdEntranceTaken) return;
   if (!vtt() && !Uj(ie().lastClawdEntranceVersion)) return;
-  return (fi.clawdEntranceTaken = !0), W[Math.floor(Math.random() * W.length)];
+  return (fi.clawdEntranceTaken = true), W[Math.floor(Math.random() * W.length)];
 }
 function Skt(j) {
   let ue = _(6),

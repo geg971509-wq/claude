@@ -73,7 +73,7 @@ var v = (e) => async (o) => {
     }
   throw r;
 };
-var m = !1,
+var m = false,
   TN = (e = {}) =>
     g(
       [
@@ -92,11 +92,11 @@ var m = !1,
     Please ensure that your environment only sets either the AWS_PROFILE or the
     AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY pair.
 `),
-                  (m = !0);
+                  (m = true);
             }
             throw new c.CredentialsProviderError("AWS_PROFILE is set, skipping fromEnv provider.", {
               logger: e.logger,
-              tryNextLink: !0,
+              tryNextLink: true,
             });
           }
           return e.logger?.debug("@aws-sdk/credential-provider-node - defaultProvider::fromEnv"), AYe(e)();
@@ -132,7 +132,7 @@ var m = !1,
         ),
         async () => {
           throw new c.CredentialsProviderError("Could not load credentials from any providers", {
-            tryNextLink: !1,
+            tryNextLink: false,
             logger: e.logger,
           });
         },

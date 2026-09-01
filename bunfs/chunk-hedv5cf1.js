@@ -155,23 +155,23 @@ var X = kt({
   get outputSchema() {
     return O();
   },
-  shouldDefer: !0,
+  shouldDefer: true,
   isEnabled() {
-    if (Le() || $n()) return !1;
-    if (wt()) return !1;
-    if (!Yot()) return !1;
+    if (Le() || $n()) return false;
+    if (wt()) return false;
+    if (!Yot()) return false;
     let e = WAe();
-    if (e === "disabled") return !1;
-    return T(e), !0;
+    if (e === "disabled") return false;
+    return T(e), true;
   },
   isConcurrencySafe() {
-    return !1;
+    return false;
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   toAutoClassifierInput(e) {
-    return `ask_user=${e.ask_user !== !1}: ${e.condition ?? ""}`;
+    return `ask_user=${e.ask_user !== false}: ${e.condition ?? ""}`;
   },
   async description() {
     return PXn;
@@ -220,7 +220,7 @@ var X = kt({
           "The user has disabled model-proposed goals in their settings. Do not propose goals; the user can set one themselves with /goal.",
         ))
       );
-    let l = b === "alwaysAsk" || r !== !1,
+    let l = b === "alwaysAsk" || r !== false,
       { messageQueue: S, requestDialog: k } = a;
     if (k === void 0)
       throw Error("Goal proposals need an interactive session to render the approval prompt; none is available here.");
@@ -229,20 +229,20 @@ var X = kt({
         "A goal proposal is already awaiting the user's decision. Keep working; if it is approved you will receive a kickoff message.",
       );
     if (
-      (s("tengu_goal_proposed", { promptLength: t.length, askUser: l, forcedAsk: l && r === !1 }),
+      (s("tengu_goal_proposed", { promptLength: t.length, askUser: l, forcedAsk: l && r === false }),
       y("goal_propose"),
       !l)
     )
       return (
         zpn(a.setAppState, t, "proposal_direct"),
         S.enqueue({ agentId: et(), mode: "prompt", value: `/goal ${t}`, origin: { kind: "task-notification" } }),
-        { data: { condition: t, askUser: !1 } }
+        { data: { condition: t, askUser: false } }
       );
     let { setAppState: p } = a,
       d = P();
     return (
       p((o) => ({ ...o, pendingGoalProposal: d })),
-      k(H1, { condition: t }, { queueBehind: !0 })
+      k(H1, { condition: t }, { queueBehind: true })
         .then((o) => {
           let u = a.getAppState().pendingGoalProposal !== d,
             v = WAe() === "disabled",
@@ -257,7 +257,7 @@ var X = kt({
                     : _
                       ? w("approved_plan_mode")
                       : w("approved")
-                : o.explicit === !0
+                : o.explicit === true
                   ? w("declined")
                   : w("unanswered"),
             }),
@@ -278,7 +278,7 @@ var X = kt({
         .finally(() => {
           p((o) => (o.pendingGoalProposal === d ? { ...o, pendingGoalProposal: void 0 } : o));
         }),
-      { data: { condition: t, askUser: !0 } }
+      { data: { condition: t, askUser: true } }
     );
   },
   mapToolResultToToolResultBlockParam(e, r) {
@@ -286,7 +286,7 @@ var X = kt({
       tool_use_id: r,
       type: "tool_result",
       content:
-        e.askUser === !1
+        e.askUser === false
           ? "Setting the goal now, without an approval dialog \u2014 the user sees it being set and can clear it with /goal clear. It becomes active at the end of this turn, when you will receive a kickoff message confirming it; until that message arrives, any previously set goal remains in effect. Continue working \u2014 do not wait for the kickoff."
           : "Shown the goal proposal to the user for approval. Continue working \u2014 do not wait for their decision. If they approve, the proposed goal is set and you will receive a kickoff message; until then, no new goal is active \u2014 any previously set goal remains in effect. If they decline you will not be notified \u2014 do not ask about the decision or re-propose the same condition.",
     };

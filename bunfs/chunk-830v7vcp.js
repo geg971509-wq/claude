@@ -33,7 +33,7 @@ var k_ = S(function (wr) {
         return { response: n, output: f };
       } catch (f) {
         if (
-          (Object.defineProperty(f, "$response", { value: n, enumerable: !1, writable: !1, configurable: !1 }),
+          (Object.defineProperty(f, "$response", { value: n, enumerable: false, writable: false, configurable: false }),
           !("$metadata" in f))
         ) {
           try {
@@ -76,8 +76,8 @@ var k_ = S(function (wr) {
         f = await e.protocol.serializeRequest(fe(i, a, o, c, u), s.input, { ...e, ...r, endpoint: h });
       return t({ ...s, request: f });
     },
-    Ne = { name: "deserializerMiddleware", step: "deserialize", tags: ["DESERIALIZER"], override: !0 },
-    ze = { name: "serializerMiddleware", step: "serialize", tags: ["SERIALIZER"], override: !0 };
+    Ne = { name: "deserializerMiddleware", step: "deserialize", tags: ["DESERIALIZER"], override: true },
+    ze = { name: "serializerMiddleware", step: "serialize", tags: ["SERIALIZER"], override: true };
   function fr(e) {
     return {
       applyToStack: (t) => {
@@ -176,8 +176,8 @@ var k_ = S(function (wr) {
       let r = [],
         s = e,
         n = e;
-      this._isMemberSchema = !1;
-      while (he(s)) r.push(s[1]), (s = s[0]), (n = Y(s)), (this._isMemberSchema = !0);
+      this._isMemberSchema = false;
+      while (he(s)) r.push(s[1]), (s = s[0]), (n = Y(s)), (this._isMemberSchema = true);
       if (r.length > 0) {
         this.memberTraits = {};
         for (let i = r.length - 1; i >= 0; --i) {
@@ -197,7 +197,7 @@ var k_ = S(function (wr) {
         (this.name = `${this.schema[1]}#${this.schema[2]}`), (this.traits = this.schema[3]);
       else (this.name = this.memberName ?? String(n)), (this.traits = 0);
       if (this._isMemberSchema && !t)
-        throw Error(`@smithy/core/schema - NormalizedSchema member init ${this.getName(!0)} missing member name.`);
+        throw Error(`@smithy/core/schema - NormalizedSchema member init ${this.getName(true)} missing member name.`);
     }
     static [Symbol.hasInstance](e) {
       let t = this.prototype.isPrototypeOf(e);
@@ -219,7 +219,7 @@ var k_ = S(function (wr) {
       if (e[0] === 0) return e[4];
       return e;
     }
-    getName(e = !1) {
+    getName(e = false) {
       let { name: t } = this;
       return !e && t && t.includes("#") ? t.split("#")[1] : t || void 0;
     }
@@ -290,7 +290,7 @@ var k_ = S(function (wr) {
     }
     getKeySchema() {
       let [e, t] = [this.isDocumentSchema(), this.isMapSchema()];
-      if (!e && !t) throw Error(`@smithy/core/schema - cannot get key for non-map: ${this.getName(!0)}`);
+      if (!e && !t) throw Error(`@smithy/core/schema - cannot get key for non-map: ${this.getName(true)}`);
       let r = this.getSchema(),
         s = e ? 15 : (r[4] ?? 0);
       return j([s, 0], "key");
@@ -300,7 +300,7 @@ var k_ = S(function (wr) {
         [t, r, s] = [this.isDocumentSchema(), this.isMapSchema(), this.isListSchema()],
         n = typeof e === "number" ? 63 & e : e && typeof e === "object" && (r || s) ? e[3 + e[0]] : t ? 15 : void 0;
       if (n != null) return j([n, 0], r ? "value" : "member");
-      throw Error(`@smithy/core/schema - ${this.getName(!0)} has no value member.`);
+      throw Error(`@smithy/core/schema - ${this.getName(true)} has no value member.`);
     }
     getMemberSchema(e) {
       let t = this.getSchema();
@@ -310,7 +310,7 @@ var k_ = S(function (wr) {
         return j(he(s) ? s : [s, 0], e);
       }
       if (this.isDocumentSchema()) return j([15, 0], e);
-      throw Error(`@smithy/core/schema - ${this.getName(!0)} has no no member=${e}.`);
+      throw Error(`@smithy/core/schema - ${this.getName(true)} has no no member=${e}.`);
     }
     getMemberSchemas() {
       let e = {};
@@ -333,7 +333,7 @@ var k_ = S(function (wr) {
     }
   }
   function j(e, t) {
-    if (e instanceof M) return Object.assign(e, { memberName: t, _isMemberSchema: !0 });
+    if (e instanceof M) return Object.assign(e, { memberName: t, _isMemberSchema: true });
     return new M(e, t);
   }
   var he = (e) => Array.isArray(e) && e.length === 2,
@@ -439,7 +439,7 @@ var k_ = S(function (wr) {
   wr.translateTraits = U;
 });
 var de = S(function (qe) {
-  Object.defineProperty(qe, "__esModule", { value: !0 });
+  Object.defineProperty(qe, "__esModule", { value: true });
   qe.ChecksumStream = void 0;
   var Jr = H_(),
     Wr = ue("stream");
@@ -487,7 +487,7 @@ var de = S(function (qe) {
   qe.ChecksumStream = De;
 });
 var B = S(function (Ue) {
-  Object.defineProperty(Ue, "__esModule", { value: !0 });
+  Object.defineProperty(Ue, "__esModule", { value: true });
   Ue.isBlob = Ue.isReadableStream = void 0;
   var Vr = (e) =>
     typeof ReadableStream === "function" &&
@@ -497,14 +497,14 @@ var B = S(function (Ue) {
   Ue.isBlob = Qr;
 });
 var ve = S(function (Fe) {
-  Object.defineProperty(Fe, "__esModule", { value: !0 });
+  Object.defineProperty(Fe, "__esModule", { value: true });
   Fe.ChecksumStream = void 0;
   var Yr = typeof ReadableStream === "function" ? ReadableStream : function () {};
   class ke extends Yr {}
   Fe.ChecksumStream = ke;
 });
 var Ve = S(function (Je) {
-  Object.defineProperty(Je, "__esModule", { value: !0 });
+  Object.defineProperty(Je, "__esModule", { value: true });
   Je.createChecksumStream = void 0;
   var Zr = H_(),
     Kr = B(),
@@ -538,7 +538,7 @@ var Ve = S(function (Je) {
   Je.createChecksumStream = es;
 });
 var Ge = S(function (Qe) {
-  Object.defineProperty(Qe, "__esModule", { value: !0 });
+  Object.defineProperty(Qe, "__esModule", { value: true });
   Qe.createChecksumStream = ns;
   var ts = B(),
     rs = de(),
@@ -550,7 +550,7 @@ var Ge = S(function (Qe) {
   }
 });
 var me = S(function (Ze) {
-  Object.defineProperty(Ze, "__esModule", { value: !0 });
+  Object.defineProperty(Ze, "__esModule", { value: true });
   Ze.ByteArrayCollector = void 0;
   class Ye {
     allocByteArray;
@@ -582,7 +582,7 @@ var me = S(function (Ze) {
   Ze.ByteArrayCollector = Ye;
 });
 var nt = S(function (rt) {
-  Object.defineProperty(rt, "__esModule", { value: !0 });
+  Object.defineProperty(rt, "__esModule", { value: true });
   rt.createBufferedReadable = void 0;
   rt.createBufferedReadableStream = Xe;
   rt.merge = et;
@@ -592,7 +592,7 @@ var nt = S(function (rt) {
   var os = me();
   function Xe(e, t, r) {
     let s = e.getReader(),
-      n = !1,
+      n = false,
       i = 0,
       a = ["", new os.ByteArrayCollector((u) => new Uint8Array(u))],
       o = -1,
@@ -606,7 +606,7 @@ var nt = S(function (rt) {
           }
           u.close();
         } else {
-          let l = tt(d, !1);
+          let l = tt(d, false);
           if (o !== l) {
             if (o >= 0) u.enqueue(te(a, o));
             o = l;
@@ -622,7 +622,7 @@ var nt = S(function (rt) {
           else {
             let g = et(a, o, d);
             if (!n && i > t * 2)
-              (n = !0),
+              (n = true),
                 r?.warn(
                   `@smithy/util-stream - stream chunk size ${m} is below threshold of ${t}, automatically buffering.`,
                 );
@@ -657,7 +657,7 @@ var nt = S(function (rt) {
   function N(e) {
     return e?.byteLength ?? e?.length ?? 0;
   }
-  function tt(e, t = !0) {
+  function tt(e, t = true) {
     if (t && typeof Buffer < "u" && e instanceof Buffer) return 2;
     if (e instanceof Uint8Array) return 1;
     if (typeof e === "string") return 0;
@@ -665,7 +665,7 @@ var nt = S(function (rt) {
   }
 });
 var at = S(function (ot) {
-  Object.defineProperty(ot, "__esModule", { value: !0 });
+  Object.defineProperty(ot, "__esModule", { value: true });
   ot.createBufferedReadable = ls;
   var ds = ue("stream"),
     it = me(),
@@ -674,7 +674,7 @@ var at = S(function (ot) {
   function ls(e, t, r) {
     if ((0, ms.isReadableStream)(e)) return (0, C.createBufferedReadableStream)(e, t, r);
     let s = new ds.Readable({ read() {} }),
-      n = !1,
+      n = false,
       i = 0,
       a = [
         "",
@@ -684,7 +684,7 @@ var at = S(function (ot) {
       o = -1;
     return (
       e.on("data", (c) => {
-        let u = (0, C.modeOf)(c, !0);
+        let u = (0, C.modeOf)(c, true);
         if (o !== u) {
           if (o >= 0) s.push((0, C.flush)(a, o));
           o = u;
@@ -700,7 +700,7 @@ var at = S(function (ot) {
         else {
           let d = (0, C.merge)(a, o, c);
           if (!n && i > t * 2)
-            (n = !0),
+            (n = true),
               r?.warn(
                 `@smithy/util-stream - stream chunk size ${h} is below threshold of ${t}, automatically buffering.`,
               );
@@ -719,7 +719,7 @@ var at = S(function (ot) {
   }
 });
 var ht = S(function (ct) {
-  Object.defineProperty(ct, "__esModule", { value: !0 });
+  Object.defineProperty(ct, "__esModule", { value: true });
   ct.getAwsChunkedEncodingStream = void 0;
   var ys = ue("stream"),
     bs = (e, t) => {
@@ -762,13 +762,13 @@ var ht = S(function (ct) {
   ct.getAwsChunkedEncodingStream = bs;
 });
 var dt = S(function (ft) {
-  Object.defineProperty(ft, "__esModule", { value: !0 });
+  Object.defineProperty(ft, "__esModule", { value: true });
   ft.headStream = gs;
   async function gs(e, t) {
     let r = 0,
       s = [],
       n = e.getReader(),
-      i = !1;
+      i = false;
     while (!i) {
       let { done: c, value: u } = await n.read();
       if (u) s.push(u), (r += u?.byteLength ?? 0);
@@ -789,7 +789,7 @@ var dt = S(function (ft) {
   }
 });
 var yt = S(function (lt) {
-  Object.defineProperty(lt, "__esModule", { value: !0 });
+  Object.defineProperty(lt, "__esModule", { value: true });
   lt.headStream = void 0;
   var ws = ue("stream"),
     xs = dt(),
@@ -826,7 +826,7 @@ var yt = S(function (lt) {
   }
 });
 var Tt = S(function (wt) {
-  Object.defineProperty(wt, "__esModule", { value: !0 });
+  Object.defineProperty(wt, "__esModule", { value: true });
   wt.sdkStreamMixin = void 0;
   var _s = p5(),
     Ms = H_(),
@@ -839,10 +839,10 @@ var Tt = S(function (wt) {
         let n = e?.__proto__?.constructor?.name || e;
         throw Error(`Unexpected stream implementation, expect Blob or ReadableStream, got ${n}`);
       }
-      let t = !1,
+      let t = false,
         r = async () => {
           if (t) throw Error(gt);
-          return (t = !0), await (0, _s.streamCollector)(e);
+          return (t = true), await (0, _s.streamCollector)(e);
         },
         s = (n) => {
           if (typeof n.stream !== "function")
@@ -862,7 +862,7 @@ If you are using React Native, this API is not yet supported, see: https://react
         },
         transformToWebStream: () => {
           if (t) throw Error(gt);
-          if (((t = !0), St(e))) return s(e);
+          if (((t = true), St(e))) return s(e);
           else if ((0, bt.isReadableStream)(e)) return e;
           else throw Error(`Cannot transform payload to web stream, got ${e}`);
         },
@@ -872,7 +872,7 @@ If you are using React Native, this API is not yet supported, see: https://react
   var St = (e) => typeof Blob === "function" && e instanceof Blob;
 });
 var Ct = S(function (_t) {
-  Object.defineProperty(_t, "__esModule", { value: !0 });
+  Object.defineProperty(_t, "__esModule", { value: true });
   _t.sdkStreamMixin = void 0;
   var Rs = WT(),
     Bs = HCe(),
@@ -887,10 +887,10 @@ var Ct = S(function (_t) {
           let n = e?.__proto__?.constructor?.name || e;
           throw Error(`Unexpected stream implementation, expect Stream.Readable instance, got ${n}`);
         }
-      let t = !1,
+      let t = false,
         r = async () => {
           if (t) throw Error(Et);
-          return (t = !0), await (0, Rs.streamCollector)(e);
+          return (t = true), await (0, Rs.streamCollector)(e);
         };
       return Object.assign(e, {
         transformToByteArray: r,
@@ -905,14 +905,14 @@ var Ct = S(function (_t) {
           if (e.readableFlowing !== null) throw Error("The stream has been consumed by other callbacks.");
           if (typeof le.Readable.toWeb !== "function")
             throw Error("Readable.toWeb() is not supported. Please ensure a polyfill is available.");
-          return (t = !0), le.Readable.toWeb(e);
+          return (t = true), le.Readable.toWeb(e);
         },
       });
     };
   _t.sdkStreamMixin = Ps;
 });
 var $t = S(function (Ot) {
-  Object.defineProperty(Ot, "__esModule", { value: !0 });
+  Object.defineProperty(Ot, "__esModule", { value: true });
   Ot.splitStream = Ns;
   async function Ns(e) {
     if (typeof e.stream === "function") e = e.stream();
@@ -920,7 +920,7 @@ var $t = S(function (Ot) {
   }
 });
 var Pt = S(function (It) {
-  Object.defineProperty(It, "__esModule", { value: !0 });
+  Object.defineProperty(It, "__esModule", { value: true });
   It.splitStream = Ds;
   var Rt = ue("stream"),
     As = $t(),
@@ -963,7 +963,7 @@ var TCn = S(function (y) {
   Object.keys(At).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(y, e))
       Object.defineProperty(y, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return At[e];
         },
@@ -972,7 +972,7 @@ var TCn = S(function (y) {
   Object.keys(Dt).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(y, e))
       Object.defineProperty(y, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return Dt[e];
         },
@@ -981,7 +981,7 @@ var TCn = S(function (y) {
   Object.keys(qt).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(y, e))
       Object.defineProperty(y, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return qt[e];
         },
@@ -990,7 +990,7 @@ var TCn = S(function (y) {
   Object.keys(jt).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(y, e))
       Object.defineProperty(y, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return jt[e];
         },
@@ -999,7 +999,7 @@ var TCn = S(function (y) {
   Object.keys(Ut).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(y, e))
       Object.defineProperty(y, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return Ut[e];
         },
@@ -1008,7 +1008,7 @@ var TCn = S(function (y) {
   Object.keys(Lt).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(y, e))
       Object.defineProperty(y, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return Lt[e];
         },
@@ -1017,7 +1017,7 @@ var TCn = S(function (y) {
   Object.keys(kt).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(y, e))
       Object.defineProperty(y, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return kt[e];
         },
@@ -1026,7 +1026,7 @@ var TCn = S(function (y) {
   Object.keys(Ft).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(y, e))
       Object.defineProperty(y, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return Ft[e];
         },
@@ -1034,7 +1034,7 @@ var TCn = S(function (y) {
   });
 });
 var Wt = S(function (vt) {
-  Object.defineProperty(vt, "__esModule", { value: !0 });
+  Object.defineProperty(vt, "__esModule", { value: true });
   vt.randomUUID = void 0;
   var Us = Coe(),
     Ht = Us.__importDefault(ue("crypto"));
@@ -1080,9 +1080,9 @@ var S1e = S(function (rr) {
     Js = (e) => {
       switch (e) {
         case "true":
-          return !0;
+          return true;
         case "false":
-          return !1;
+          return false;
         default:
           throw Error(`Unable to parse boolean value "${e}"`);
       }
@@ -1091,14 +1091,14 @@ var S1e = S(function (rr) {
       if (e === null || e === void 0) return;
       if (typeof e === "number") {
         if (e === 0 || e === 1) W.warn(se(`Expected boolean, got ${typeof e}: ${e}`));
-        if (e === 0) return !1;
-        if (e === 1) return !0;
+        if (e === 0) return false;
+        if (e === 1) return true;
       }
       if (typeof e === "string") {
         let t = e.toLowerCase();
         if (t === "false" || t === "true") W.warn(se(`Expected boolean, got ${typeof e}: ${e}`));
-        if (t === "false") return !1;
-        if (t === "true") return !0;
+        if (t === "false") return false;
+        if (t === "true") return true;
       }
       if (typeof e === "boolean") return e;
       throw TypeError(`Expected boolean, got ${typeof e}: ${e}`);
@@ -1515,7 +1515,7 @@ var S1e = S(function (rr) {
   var Dn = (e) => {
       let t = e.length,
         r = [],
-        s = !1,
+        s = false,
         n = void 0,
         i = 0;
       for (let a = 0; a < t; ++a) {
@@ -1555,7 +1555,7 @@ var S1e = S(function (rr) {
       return this.string;
     }
     static [Symbol.hasInstance](e) {
-      if (!e || typeof e !== "object") return !1;
+      if (!e || typeof e !== "object") return false;
       let t = e;
       return ne.prototype.isPrototypeOf(e) || (t.type === "bigDecimal" && Qt.test(t.string));
     }
@@ -1564,7 +1564,7 @@ var S1e = S(function (rr) {
     return new ne(String(e), "bigDecimal");
   }
   Object.defineProperty(rr, "generateIdempotencyToken", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Hs.v4;
     },
@@ -1752,7 +1752,7 @@ var yCe = S(function (Ci) {
         o = await r.endpoint(),
         c = T.NormalizedSchema.of(e?.input),
         u = c.getSchema(),
-        h = !1,
+        h = false,
         f,
         d = new V.HttpRequest({
           protocol: "",
@@ -1801,7 +1801,7 @@ var yCe = S(function (Ci) {
           }
           delete s[l];
         } else if (p.httpQuery || p.httpQueryParams) this.serializeQuery(m, g, i), delete s[l];
-        else h = !0;
+        else h = true;
       }
       if (h && s) n.write(u, s), (f = n.flush());
       return (d.headers = a), (d.query = i), (d.body = f), d;
@@ -1859,14 +1859,14 @@ var yCe = S(function (Ci) {
       let i;
       if (s instanceof Set) i = n;
       else i = s;
-      let a = !0,
+      let a = true,
         o = this.deserializer,
         c = T.NormalizedSchema.of(e),
         u = [];
       for (let [h, f] of c.structIterator()) {
         let d = f.getMemberTraits();
         if (d.httpPayload) {
-          if (((a = !1), f.isStreaming()))
+          if (((a = false), f.isStreaming()))
             if (f.isStructSchema()) i[h] = await this.deserializeEventStream({ response: r, responseSchema: c });
             else i[h] = ie.sdkStreamMixin(r.body);
           else if (r.body) {
@@ -2134,7 +2134,7 @@ var yCe = S(function (Ci) {
           if (r.isTimestampSchema()) {
             if (!(t instanceof Date))
               throw Error(
-                `@smithy/core/protocols - received non-Date value ${t} when schema expected Date in ${r.getName(!0)}`,
+                `@smithy/core/protocols - received non-Date value ${t} when schema expected Date in ${r.getName(true)}`,
               );
             switch ($e(r, this.settings)) {
               case 5:

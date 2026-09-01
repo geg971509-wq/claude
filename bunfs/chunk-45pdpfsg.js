@@ -424,7 +424,7 @@ function ue(a) {
   return o;
 }
 async function Un(a, o, i) {
-  if (i.cowork) vU(!0);
+  if (i.cowork) vU(true);
   let d;
   try {
     d = await $Be(o);
@@ -464,7 +464,7 @@ async function Wn(a, o, i) {
     );
   u.push(`Tag:     ${m.tag}`, "");
   let E = i.remote ?? "origin",
-    w = i.force ?? !1,
+    w = i.force ?? false,
     S = ike(m, i.message),
     P = `git -C ${m.gitRoot} push ${w ? "--force " : ""}${E} refs/tags/${m.tag}`;
   if (i.dryRun) {
@@ -477,7 +477,7 @@ async function Wn(a, o, i) {
       K(a, u, 0);
     return;
   }
-  let f = await BBe(m, { push: i.push ?? !1, force: w, message: i.message, remote: E });
+  let f = await BBe(m, { push: i.push ?? false, force: w, message: i.message, remote: E });
   if (!f.ok) {
     p("cli_plugin_tag", "cli_plugin_tag_create_failed"), u.push(`${L.cross} ${f.error}`), K(a, u, 1);
     return;
@@ -548,7 +548,7 @@ async function Gn(a, o, i, d) {
   let H = `${o}@${nu}`;
   u.push(`${L.tick} Created plugin "${o}" at ${Yd(S)}`);
   let W = En().enabledPlugins ?? {},
-    j = xd()?.has(o) ?? !1,
+    j = xd()?.has(o) ?? false,
     X = await cc(d),
     I = Object.keys(W).find((x) => {
       let U = Vt(x);
@@ -560,7 +560,7 @@ async function Gn(a, o, i, d) {
         X[U.marketplace] !== void 0
       );
     }),
-    A = W[H] === !1;
+    A = W[H] === false;
   if (j)
     u.push(
       `  ${L.warning} A plugin named "${o}" is locked by managed settings, which takes precedence \u2014 ${H} won't load. To load this copy, give it a different "name" in .claude-plugin/plugin.json.`,
@@ -579,7 +579,7 @@ async function Gn(a, o, i, d) {
   u.push(`  ${C ? `Disable: ${C}. ` : "Disable: in /plugin. "}Remove: delete the directory.`), K(a, u, 0);
 }
 async function Kn(a, o, i, d) {
-  if (o.cowork) vU(!0);
+  if (o.cowork) vU(true);
   V4.registerBuiltinPluginsForPluginCommands(), s("tengu_plugin_list_command", {});
   let u = await s2(i),
     { getPluginEditableScopes: m, editableScopeOf: E } = await import("/$bunfs/root/chunk-2grp2ad0.js"),
@@ -597,7 +597,7 @@ async function Kn(a, o, i, d) {
         standaloneErrorScope: "session",
         standaloneWarningScope: "session",
         pathOf: (I) => I.path,
-        showScope: !1,
+        showScope: false,
         ...ce(Nm, H),
       },
       {
@@ -606,7 +606,7 @@ async function Kn(a, o, i, d) {
         standaloneErrorScope: "synced",
         standaloneWarningScope: "synced",
         pathOf: (I) => I.path,
-        showScope: !1,
+        showScope: false,
         ...ce(um, H),
       },
       {
@@ -615,7 +615,7 @@ async function Kn(a, o, i, d) {
         standaloneErrorScope: "user",
         standaloneWarningScope: "project",
         pathOf: FSe,
-        showScope: !0,
+        showScope: true,
         ...ce(nu, H),
       },
     ];
@@ -631,7 +631,7 @@ async function Kn(a, o, i, d) {
       for (let D of x) {
         let z;
         if (U) {
-          let v = U.mcpServers || (await DL(U, void 0, i, void 0, { readOnlyListing: !0 }));
+          let v = U.mcpServers || (await DL(U, void 0, i, void 0, { readOnlyListing: true }));
           if (v && Object.keys(v).length > 0) z = v;
         }
         I.push({
@@ -720,7 +720,7 @@ function he(lt) {
   return Re;
 }
 async function qn(a, o, i, d, u) {
-  if (i.cowork) vU(!0);
+  if (i.cowork) vU(true);
   let m, E, w;
   try {
     let P = await _nt(o);
@@ -787,7 +787,7 @@ async function qn(a, o, i, d, u) {
     await Vi(0);
 }
 async function Yn(a, o, i) {
-  if (o.cowork) vU(!0);
+  if (o.cowork) vU(true);
   let d;
   try {
     d = await zl(i);
@@ -847,7 +847,7 @@ async function Yn(a, o, i) {
   await tv(E, m);
 }
 async function Qn(a, o, i, d) {
-  if (i.cowork) vU(!0);
+  if (i.cowork) vU(true);
   let u;
   if (i.scope !== void 0) {
     let m = i.scope;
@@ -897,7 +897,7 @@ function ye(ut) {
   return Te;
 }
 async function Xn(a, o, i, d) {
-  if (i.cowork) vU(!0);
+  if (i.cowork) vU(true);
   let u,
     m = 0,
     E;
@@ -998,7 +998,7 @@ function ee(a, o, i) {
   s(a, { _PROTO_plugin_name: d, ...(u && { _PROTO_marketplace_name: u }), ...(i !== void 0 && { scope: i }) });
 }
 async function Zn(a, o, i, d) {
-  if (i.cowork) vU(!0);
+  if (i.cowork) vU(true);
   let u = pe(i);
   ee("tengu_plugin_install_command", o, c(u));
   let m,
@@ -1040,21 +1040,21 @@ async function Zn(a, o, i, d) {
     await Ln(0);
 }
 async function et(a, o, i, d) {
-  if (i.cowork) vU(!0);
+  if (i.cowork) vU(true);
   let u = pe(i);
   ee("tengu_plugin_uninstall_command", o, c(u));
   let m = await OIn(o, u, i.keepData, i.prune, i.yes, d);
   await tv(a, e(t, { children: Of(i.prune ? m : `${L.tick} ${m}`) })), await Zs("cli_plugin_uninstall"), await Vi(0);
 }
 async function nt(a, o, i) {
-  if (o.cowork) vU(!0);
+  if (o.cowork) vU(true);
   let d = pe(o);
-  s("tengu_plugin_prune_command", { scope: c(d), dry_run: o.dryRun ?? !1 });
+  s("tengu_plugin_prune_command", { scope: c(d), dry_run: o.dryRun ?? false });
   let u = await LIn(d, { dryRun: o.dryRun, yes: o.yes }, i);
   await tv(a, e(t, { children: Of(u) })), await Zs("cli_plugin_prune"), await Vi(0);
 }
 async function tt(a, o, i, d) {
-  if (i.cowork) vU(!0);
+  if (i.cowork) vU(true);
   let u = Se(i);
   ee("tengu_plugin_enable_command", o, c(u ?? "auto"));
   let m;
@@ -1072,7 +1072,7 @@ async function tt(a, o, i, d) {
 async function rt(a, o, i, d) {
   if (i.all && o) Tn("Cannot use --all with a specific plugin");
   if (!i.all && !o) Tn("Please specify a plugin name or use --all to disable all plugins");
-  if (i.cowork) vU(!0);
+  if (i.cowork) vU(true);
   let u;
   if (i.all) {
     if (i.scope) Tn("Cannot use --scope with --all");
@@ -1087,7 +1087,7 @@ async function rt(a, o, i, d) {
   await tv(a, e(t, { children: Of(u) })), await Zs("cli_plugin_disable"), await Vi(0);
 }
 async function ot(a, o, i) {
-  if (o.cowork) vU(!0);
+  if (o.cowork) vU(true);
   ee("tengu_plugin_update_command", a);
   let d = "user";
   if (o.scope) {
@@ -1098,7 +1098,7 @@ async function ot(a, o, i) {
   await FIn(a, d, { yes: o.yes }, i);
 }
 async function st(a, o, i, d, u) {
-  if (i.cowork) vU(!0);
+  if (i.cowork) vU(true);
   V4.registerBuiltinPluginsForPluginCommands(), s("tengu_plugin_details_command", {});
   let {
       getPluginInventory: m,
@@ -1231,7 +1231,7 @@ function Le(a) {
     let m = a.errors.filter((S) => I0t(S, u)),
       E = a.warnings.filter((S) => P0t(S, u)),
       w =
-        u.enabled === !1 ? `${L.cross} disabled` : m.length > 0 ? `${L.cross} loaded with errors` : `${L.tick} loaded`;
+        u.enabled === false ? `${L.cross} disabled` : m.length > 0 ? `${L.cross} loaded with errors` : `${L.tick} loaded`;
     if ((d.push(`  ${L.pointer} ${u.source}`), d.push(`    Version: ${u.manifest.version ?? "unknown"}`), a.showScope))
       d.push(`    Scope: ${a.scopeOf(u)}`);
     d.push(`    Path: ${a.pathOf(u)}`), d.push(`    Status: ${w}`);
@@ -1245,14 +1245,14 @@ function Le(a) {
 async function Fe(a, o) {
   let i = [];
   for (let d of a.plugins) {
-    let u = d.mcpServers || (await DL(d, void 0, o, void 0, { readOnlyListing: !0 })),
+    let u = d.mcpServers || (await DL(d, void 0, o, void 0, { readOnlyListing: true })),
       m = a.errors.filter((w) => I0t(w, d)).map(jh),
       E = a.warnings.filter((w) => P0t(w, d)).map(YF);
     i.push({
       id: d.source,
       version: d.manifest.version ?? "unknown",
       scope: a.scopeOf(d),
-      enabled: d.enabled !== !1,
+      enabled: d.enabled !== false,
       installPath: d.path,
       mcpServers: u && Object.keys(u).length > 0 ? u : void 0,
       errors: m.length > 0 ? m : void 0,
@@ -1264,7 +1264,7 @@ async function Fe(a, o) {
       id: d.source,
       version: "unknown",
       scope: a.standaloneErrorScope,
-      enabled: !1,
+      enabled: false,
       installPath: "path" in d ? d.path : "",
       errors: [jh(d)],
     });

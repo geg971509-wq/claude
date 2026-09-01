@@ -96,8 +96,8 @@ async function l(g, t) {
 async function uOn(g) {
   let t = await a(g),
     i = Date.now(),
-    o = !1;
-  for (let [r, e] of Object.entries(t)) if (e.seenAt && i - new Date(e.seenAt).getTime() >= y) delete t[r], (o = !0);
+    o = false;
+  for (let [r, e] of Object.entries(t)) if (e.seenAt && i - new Date(e.seenAt).getTime() >= y) delete t[r], (o = true);
   if (((Jt().flaggedPlugins = t), o)) await l(t, g);
 }
 function Bme() {
@@ -113,11 +113,11 @@ async function pOn(g, t) {
   let i = Jt();
   if (i.flaggedPlugins === null) i.flaggedPlugins = await a(t);
   let o = new Date().toISOString(),
-    r = !1,
+    r = false,
     e = { ...i.flaggedPlugins };
   for (let s of g) {
     let d = e[s];
-    if (d && !d.seenAt) (e[s] = { ...d, seenAt: o }), (r = !0);
+    if (d && !d.seenAt) (e[s] = { ...d, seenAt: o }), (r = true);
   }
   if (r) await l(e, t);
 }

@@ -22,7 +22,7 @@ import { Cf, Dt, Qc, Tce, b9, dbe, pbe, wce, xe, zr } from "/$bunfs/root/modules
 import { Jc, K7, Ucn, V7, VSe, Wpt, X7, Yc, ZSe, dzn, gzn, mzn, p2, tI } from "/$bunfs/root/modules/chunk-zze8764r/functions-020.js";
 
 function Lmr(e) {
-  if (typeof e !== "object" || e === null || !("type" in e) || typeof e.type !== "string") return !1;
+  if (typeof e !== "object" || e === null || !("type" in e) || typeof e.type !== "string") return false;
   switch (e.type) {
     case "invoked_skills":
       return "skills" in e && Array.isArray(e.skills) && e.skills.every((t) => typeof t === "object" && t !== null);
@@ -39,15 +39,15 @@ function Lmr(e) {
     case "hook_additional_context":
       return "content" in e && Array.isArray(e.content) && e.content.every((t) => typeof t === "string");
     default:
-      return !0;
+      return true;
   }
 }
 
 function _ut(e) {
   let t = 0,
     r = e.filter((o) => {
-      if (o.type === "attachment" && !Lmr(o.attachment)) return (t += 1), !1;
-      return !0;
+      if (o.type === "attachment" && !Lmr(o.attachment)) return (t += 1), false;
+      return true;
     });
   if (t === 0) return e;
   return (
@@ -91,21 +91,21 @@ function yut() {
 }
 
 function jtt(e, t) {
-  if (t === void 0) return !1;
+  if (t === void 0) return false;
   for (let r = e.length - 1; r >= 0; r--) {
     let o = e[r];
     if (o.type !== "user" && o.type !== "assistant") continue;
-    if (o.uuid === t) return !0;
-    if (!dbe(o)) return !1;
+    if (o.uuid === t) return true;
+    if (!dbe(o)) return false;
   }
-  return !1;
+  return false;
 }
 
 function Wtt(e) {
   let t = a.CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS;
-  if (!t) return !1;
+  if (!t) return false;
   let r = Number(t);
-  if (r === 0) return !1;
+  if (r === 0) return false;
   let o = Number.isFinite(r) && r > 0 ? r : 3600000;
   for (let u = e.length - 1; u >= 0; u--) {
     let d = e[u];
@@ -113,7 +113,7 @@ function Wtt(e) {
     let _ = Date.parse(d.timestamp ?? "");
     if (Number.isFinite(_)) return Date.now() - _ >= o;
   }
-  return !0;
+  return true;
 }
 
 function W3e(e, t, r, o) {
@@ -150,7 +150,7 @@ function Oyn(e) {
 }
 
 function Dyn(e) {
-  if (e.type !== "user" || e.isMeta !== !0 || e.promptSource !== void 0) return !1;
+  if (e.type !== "user" || e.isMeta !== true || e.promptSource !== void 0) return false;
   let t = RZ(e.message.content);
   return t === yut() || t === Xtt;
 }
@@ -210,10 +210,10 @@ function s3n(e, t, r, o) {
         t,
         pe && !z
           ? {
-              dropSiblingBlocks: !0,
+              dropSiblingBlocks: true,
               outSupersededToolUseIds: U,
               outSupersededToolNames: B,
-              shutdownUnwindResultsDoNotResolve: !0,
+              shutdownUnwindResultsDoNotResolve: true,
             }
           : void 0,
       ),
@@ -228,7 +228,7 @@ function s3n(e, t, r, o) {
     let Be;
     if (Oe || Fe) Be = { kind: "none" };
     else if (Pe.kind === "interrupted_turn") {
-      let [We] = Cf([xe({ content: yut(), isMeta: !0 })]);
+      let [We] = Cf([xe({ content: yut(), isMeta: true })]);
       Ce.push(We), (Be = { kind: "interrupted_prompt", message: We });
     } else Be = Pe;
     let ze = Ce.findLastIndex((We) => We.type !== "system" && We.type !== "progress");
@@ -247,9 +247,9 @@ function s3n(e, t, r, o) {
 
 function Lyn(e) {
   let t = new Set(),
-    r = pbe(e, void 0, { dropSiblingBlocks: !0, outSupersededToolUseIds: t, shutdownUnwindResultsDoNotResolve: !0 });
+    r = pbe(e, void 0, { dropSiblingBlocks: true, outSupersededToolUseIds: t, shutdownUnwindResultsDoNotResolve: true });
   if (t.size === 0) return { kind: "none" };
-  return Qtt(wce(Tce(r)), !0);
+  return Qtt(wce(Tce(r)), true);
 }
 
 function Qtt(e, t) {
@@ -315,8 +315,8 @@ function Gtt(e) {
 }
 
 function Fyn(e) {
-  if (e.origin?.kind !== "task-notification") return !1;
-  return RZ(e.message.content)?.startsWith(`<${Ol}>`) ?? !1;
+  if (e.origin?.kind !== "task-notification") return false;
+  return RZ(e.message.content)?.startsWith(`<${Ol}>`) ?? false;
 }
 
 function Nyn(e) {
@@ -326,14 +326,14 @@ function Nyn(e) {
 
 function Uyn(e) {
   let t = e.toolUseResult;
-  return typeof t === "object" && t !== null && "backgroundedByTurnAbort" in t && t.backgroundedByTurnAbort === !0;
+  return typeof t === "object" && t !== null && "backgroundedByTurnAbort" in t && t.backgroundedByTurnAbort === true;
 }
 
 function qtt(e, t, r) {
   let o = e.message.content;
-  if (!Array.isArray(o)) return !1;
+  if (!Array.isArray(o)) return false;
   let u = o[0];
-  if (u?.type !== "tool_result") return !1;
+  if (u?.type !== "tool_result") return false;
   let d = u.tool_use_id;
   for (let _ = r - 1; _ >= 0; _--) {
     let C = t[_];
@@ -342,7 +342,7 @@ function qtt(e, t, r) {
       if (A.type === "tool_use" && A.id === d)
         return A.name === vyn || A.name === Eyn || A.name === Cyn || (Fke().has(A.name) && !u.is_error);
   }
-  return !1;
+  return false;
 }
 
 function Mmr(e) {
@@ -366,10 +366,10 @@ async function OAr(e) {
     let x = new Date(A.timestamp).getTime();
     if (x > d) (d = x), (u = A);
   }
-  if (!u) return jce({ messages: [], sessionId: void 0 }, !1);
+  if (!u) return jce({ messages: [], sessionId: void 0 }, false);
   let _ = VSe(t, u),
     C = u.sessionId;
-  return jce({ messages: Wpt(_), sessionId: C }, C ? o.has(C) : !1);
+  return jce({ messages: Wpt(_), sessionId: C }, C ? o.has(C) : false);
 }
 
 function EIe(e, t) {
@@ -377,7 +377,7 @@ function EIe(e, t) {
   let r = new Set();
   for (let d of e) for (let _ of Ktt(d)) r.add(_);
   if (r.size === 0) return [...t];
-  let o = !1,
+  let o = false,
     u = [];
   for (let d of t) {
     let _ = Ktt(d);
@@ -389,11 +389,11 @@ function EIe(e, t) {
     if (C.type === "hook_additional_context" && C.content.length > 1) {
       let A = C.content.filter((x) => !r.has(Nke(x)));
       if (A.length === 0) continue;
-      (o = !0), u.push(A.length === C.content.length ? d : { ...d, attachment: { ...C, content: A } });
+      (o = true), u.push(A.length === C.content.length ? d : { ...d, attachment: { ...C, content: A } });
       continue;
     }
     if (r.has(_[0])) continue;
-    (o = !0), u.push(d);
+    (o = true), u.push(d);
   }
   if (!o) return [];
   return u;
@@ -444,7 +444,7 @@ async function NG(e, t, r) {
   try {
     let _ = null,
       C = null,
-      A = !1,
+      A = false,
       x,
       M;
     if (e === void 0) {
@@ -458,7 +458,7 @@ async function NG(e, t, r) {
       _ = await mzn(
         await ge,
         (Ie) => {
-          if (Ie.sessionKind) return !1;
+          if (Ie.sessionKind) return false;
           let Ee = Jc(Ie);
           return !Ee || !Ce.has(Ee);
         },
@@ -609,7 +609,7 @@ function tnt(e) {
 }
 
 function nnt(e) {
-  if (e.data.type === "user") return !0;
+  if (e.data.type === "user") return true;
   let t = tnt(e);
   return t !== void 0 && jyn.has(t);
 }
@@ -646,7 +646,7 @@ function Bke(e) {
       ...(e.model && { model: e.model }),
       ...(e.effortLevel && { effort_level: e.effortLevel }),
       ...(e.seedBundleFileId && { seed_bundle_file_id: e.seedBundleFileId }),
-      ...(e.reuseOutcomeBranches && { reuse_outcome_branches: !0 }),
+      ...(e.reuseOutcomeBranches && { reuse_outcome_branches: true }),
       ...(e.appendSystemPrompt && { append_system_prompt: e.appendSystemPrompt }),
       ...(e.customSystemPrompt && { custom_system_prompt: e.customSystemPrompt }),
       ...(e.appendSubagentSystemPrompt && { append_subagent_system_prompt: e.appendSubagentSystemPrompt }),
@@ -696,7 +696,7 @@ function w1t(e, t, r, o) {
 }
 
 function but() {
-  return { commitRouteMissing: !1 };
+  return { commitRouteMissing: false };
 }
 
 function C1t(e) {
@@ -783,9 +783,9 @@ async function wut({
       default:
         break;
     }
-    _.commitRouteMissing = !1;
+    _.commitRouteMissing = false;
   }
-  let F = !1;
+  let F = false;
   for (let U = 1; ; U += 1) {
     if (Rt(u)) return { kind: "aborted" };
     let B = await e.beginUpload(t, r.length, M, u);
@@ -804,7 +804,7 @@ async function wut({
       }),
       (W.verdict === "expired" || W.verdict === "cut" || W.verdict === "retriable") && !F)
     ) {
-      if (((F = !0), W.verdict !== "expired")) await ne(A, u);
+      if (((F = true), W.verdict !== "expired")) await ne(A, u);
       continue;
     }
     switch (W.verdict) {
@@ -829,13 +829,13 @@ async function wut({
           : { kind: "rejected" };
       case "not_found":
         if (!F) {
-          F = !0;
+          F = true;
           continue;
         }
         return { kind: "failed", status: 404 };
       case "unsupported":
         return (
-          (_.commitRouteMissing = !0), { kind: "route_unavailable", ...(z.status !== void 0 && { status: z.status }) }
+          (_.commitRouteMissing = true), { kind: "route_unavailable", ...(z.status !== void 0 && { status: z.status }) }
         );
       case "hash_mismatch":
         return (
@@ -869,7 +869,7 @@ async function p_n(e, t, r, o) {
   let u = m_n({ filesystem_id: e.filesystemId, path: e.uploadPath, media_type: Jyn }),
     d = new AbortController(),
     _ = () => d.abort();
-  r?.addEventListener("abort", _, { once: !0 });
+  r?.addEventListener("abort", _, { once: true });
   let C = A3t(d, o),
     A = Date.now(),
     x = 0,
@@ -886,7 +886,7 @@ async function p_n(e, t, r, o) {
           if (((x = B), B === t.length)) C.relax(nbn(t.length, o));
           else C.touch();
         }),
-        { objectMode: !1 },
+        { objectMode: false },
       ),
       U = await bt.post(Vyn, F, {
         auth: "none",
@@ -899,7 +899,7 @@ async function p_n(e, t, r, o) {
         },
         timeout: 0,
         signal: d.signal,
-        validateStatus: () => !0,
+        validateStatus: () => true,
         maxBodyLength: 1 / 0,
         maxContentLength: Xyn,
         maxRedirects: 0,
@@ -1025,7 +1025,7 @@ async function b_n(e, t, r, o, u) {
     if (Rt(r)) return { kind: "aborted" };
     let A = new AbortController(),
       x = () => A.abort();
-    r?.addEventListener("abort", x, { once: !0 });
+    r?.addEventListener("abort", x, { once: true });
     let M = A3t(A, o);
     try {
       let F = await bt.post(
@@ -1043,7 +1043,7 @@ async function b_n(e, t, r, o, u) {
           responseType: "stream",
           timeout: 0,
           signal: A.signal,
-          validateStatus: () => !0,
+          validateStatus: () => true,
           maxRedirects: 0,
         },
       );
@@ -1058,18 +1058,18 @@ async function b_n(e, t, r, o, u) {
       }
       u.content ??= Buffer.allocUnsafe(t);
       let U = u.content,
-        B = !1,
-        W = !1;
+        B = false,
+        W = false;
       try {
         for await (let z of k_n(F.data)) {
           if ((M.touch(), u.received + z.length > t)) {
-            W = !0;
+            W = true;
             break;
           }
           z.copy(U, u.received), (u.received += z.length), d.update(z), _.update(z);
         }
       } catch {
-        B = !0;
+        B = true;
       }
       if (W) return ont(F.data), { kind: "not_found" };
       if (u.received === t)
@@ -1118,13 +1118,13 @@ function gnt(e) {
 }
 
 function L_n(e) {
-  if (e !== mnt.normalize(e) || e.includes("\\") || e.includes("\x00")) return !1;
+  if (e !== mnt.normalize(e) || e.includes("\\") || e.includes("\x00")) return false;
   return !mnt.isAbsolute(e) && (e === bM || e.startsWith(`${bM}/`));
 }
 
 function E1(e) {
-  if (L_n(e)) return !1;
-  return h(new R(`dir-sync lane path escapes the lane root: ${e}`, "dir-sync lane path escapes the lane root")), !0;
+  if (L_n(e)) return false;
+  return h(new R(`dir-sync lane path escapes the lane root: ${e}`, "dir-sync lane path escapes the lane root")), true;
 }
 
 function v1() {
@@ -1189,8 +1189,8 @@ function Eut({ sessionId: e, credentials: t }) {
       d
     );
   }
-  async function x(me, ge, Ce, { retryTimeouts: Ie = !1, attempts: Ee = Gke } = {}) {
-    let Pe = !1;
+  async function x(me, ge, Ce, { retryTimeouts: Ie = false, attempts: Ee = Gke } = {}) {
+    let Pe = false;
     for (let Oe = 0; ; Oe++) {
       if (Rt(ge)) return "aborted";
       let Fe = _,
@@ -1216,7 +1216,7 @@ function Eut({ sessionId: e, credentials: t }) {
         continue;
       }
       if (Be.status === 403 && !Pe && S6(Be.data, $m(Be.data)) === "untrusted_device") {
-        Pe = !0;
+        Pe = true;
         let We = await A(Fe);
         if (We !== void 0 && We !== Fe) continue;
       }
@@ -1235,7 +1235,7 @@ function Eut({ sessionId: e, credentials: t }) {
     }
     return Ee;
   }
-  async function F(me, ge, { ifMatchSha256: Ce, signal: Ie, oneTryIfLong: Ee = !1 } = {}) {
+  async function F(me, ge, { ifMatchSha256: Ce, signal: Ie, oneTryIfLong: Ee = false } = {}) {
     let Pe = hnt(me, ge);
     if (Pe !== null) return { kind: Pe };
     if (Ce === "") return { kind: "failed" };
@@ -1259,7 +1259,7 @@ function Eut({ sessionId: e, credentials: t }) {
             credentials: t,
             headers: { ...u },
             timeout: Oe,
-            validateStatus: () => !0,
+            validateStatus: () => true,
             signal: Ie,
             maxBodyLength: M_n,
           },
@@ -1281,7 +1281,7 @@ function Eut({ sessionId: e, credentials: t }) {
             credentials: t,
             headers: { ...u },
             timeout: Ee,
-            validateStatus: () => !0,
+            validateStatus: () => true,
             signal: ge,
             maxContentLength: I_n,
           }),
@@ -1314,7 +1314,7 @@ function Eut({ sessionId: e, credentials: t }) {
             credentials: t,
             headers: { ...u },
             timeout: iN,
-            validateStatus: () => !0,
+            validateStatus: () => true,
             signal: Ie,
           },
         ),
@@ -1357,13 +1357,13 @@ function Eut({ sessionId: e, credentials: t }) {
             credentials: t,
             headers: { ...u },
             timeout: D_n,
-            validateStatus: () => !0,
+            validateStatus: () => true,
             signal: Ee,
           },
         ),
       Ee,
       v1(),
-      { retryTimeouts: !0 },
+      { retryTimeouts: true },
     );
     if (typeof Pe === "string") return pT(Pe);
     if (pN(Pe.status)) {
@@ -1385,7 +1385,7 @@ function Eut({ sessionId: e, credentials: t }) {
             credentials: t,
             headers: { ...u },
             timeout: iN,
-            validateStatus: () => !0,
+            validateStatus: () => true,
             signal: ge,
           }),
         ge,
@@ -1480,7 +1480,7 @@ function ynt(e) {
 function pT(e) {
   if (e === "aborted") return { kind: "aborted" };
   if (e === "failed") return { kind: "failed" };
-  if (e === "timed_out") return { kind: "failed", timedOut: !0 };
+  if (e === "timed_out") return { kind: "failed", timedOut: true };
   if (e === "gated") return { kind: "lane_unavailable" };
   if (e === "no_auth") return { kind: "unauthorized" };
   if (e.status === 501 || e.status === 404) return { kind: "lane_unavailable" };
@@ -1541,7 +1541,7 @@ function W_n(e, { rules: t, complete: r }) {
       try {
         return A(z, o) || A(z, d);
       } catch {
-        return !0;
+        return true;
       }
     };
   return (W) => (k5(C, () => A(F(W), o) || (!(_ && Yke.test(W)) && B(W))) ? "read_denied" : null);
@@ -1595,7 +1595,7 @@ function rwe(e, t, r, o, u, d, _, C) {
 
 function Ant({ sessionId: e, gitRoot: t, reason: r, line: o }) {
   if ((g("ccr_dir_sync_seed", r), o === null || !Gs())) return;
-  rwe(e, t, !1, !1, void 0, void 0, Promise.resolve({ kind: "not_armed", reason: r, line: o }), void 0)
+  rwe(e, t, false, false, void 0, void 0, Promise.resolve({ kind: "not_armed", reason: r, line: o }), void 0)
     .then((u) => u.status.publish(o, "warning"))
     .catch(h);
 }
@@ -1625,11 +1625,11 @@ async function Rnt({
   let U = Promise.withResolvers(),
     B = "pending",
     W = "off",
-    z = !1,
+    z = false,
     pe = Zke();
   pe.publish({ completion: U.promise, state: () => B, cutShortLine: K_n });
   try {
-    let fe = { kind: "folder", pin: r.seedCommit, seedTree: r.seedTree, seeded: !1 },
+    let fe = { kind: "folder", pin: r.seedCommit, seedTree: r.seedTree, seeded: false },
       me = rwe(
         e,
         t,
@@ -1666,7 +1666,7 @@ async function Rnt({
     else if (Ee.state === "stopped")
       if (xnt(Ee.reason)) p("ccr_dir_sync_seed", "folder_engine_open_failed");
       else g("ccr_dir_sync_seed", "folder_engine_stopped_early");
-    else y("ccr_dir_sync_seed", { folder_git: !0, first_pass_done: z });
+    else y("ccr_dir_sync_seed", { folder_git: true, first_pass_done: z });
   } catch (fe) {
     (B = "refused"), h(fe), p("ccr_dir_sync_seed", "folder_engine_register_failed");
   } finally {
@@ -1677,10 +1677,10 @@ async function Rnt({
 
 async function Pnt(e, t, r) {
   let o = jt(
-    e.drain(t).catch(() => !1),
+    e.drain(t).catch(() => false),
     t,
-  ).then((u) => u === !0);
-  return r === void 0 ? o : OU(o, r, () => new Ze()).catch(() => !1);
+  ).then((u) => u === true);
+  return r === void 0 ? o : OU(o, r, () => new Ze()).catch(() => false);
 }
 
 function xnt(e) {
@@ -1721,7 +1721,7 @@ async function Mnt({
       if (r.kind === "overlay") fe(Q_n, "warning");
     },
     ge = { kind: "skipped", why: "not_opted_in" },
-    Ce = !1;
+    Ce = false;
   try {
     let Ie = !zwe()
         ? { line: d7n, sad: "git_engine_declined", reason: "engine_declined" }
@@ -1769,7 +1769,7 @@ async function Mnt({
                   kind: "stopped",
                   reason: Ie?.reason ?? Oe.reason ?? "arm_failed",
                   line: Oe.line ?? xZ,
-                  silent: !0,
+                  silent: true,
                   ...(r.kind === "overlay" && Oe.line !== null && { withholdFirstSend: { reason: Jke } }),
                 },
         ),
@@ -1784,7 +1784,7 @@ async function Mnt({
     if (Pe.kind === "git") {
       W = "started";
       let Oe = A ?? Kke,
-        Fe = pe === null ? !1 : await Pnt(pe.sync, Oe, _),
+        Fe = pe === null ? false : await Pnt(pe.sync, Oe, _),
         Be = pe?.sync.state();
       if (Be?.state === "stopped" && Be.reason !== "shut_down") {
         if (xnt(Be.reason)) p("ccr_dir_sync_seed", "git_engine_open_failed");
@@ -1800,7 +1800,7 @@ async function Mnt({
         );
       let ze = Fe && !(Be?.state === "stopped" && Be.reason === "shut_down");
       return (
-        y("ccr_dir_sync_seed", { git_engine: !0, first_pass_done: ze }),
+        y("ccr_dir_sync_seed", { git_engine: true, first_pass_done: ze }),
         (ge = { kind: "git_engine", firstPassDone: ze }),
         ge
       );
@@ -1812,7 +1812,7 @@ async function Mnt({
     if (Ie !== null) g("ccr_dir_sync_seed", Ie.sad);
     if (Pe.line === null)
       return (
-        (Ce = Pe.recorded === !0),
+        (Ce = Pe.recorded === true),
         (ge = Ce ? { kind: "skipped", why: "aborted" } : { kind: "skipped", why: "engine_unavailable" }),
         ge
       );
@@ -1841,7 +1841,7 @@ async function J_n({ sessionId: e, gitRoot: t, containerOrigin: r, uploadOnly: o
     x = u === void 0 ? A : AbortSignal.any([u, A]),
     F = (async () => {
       let { readGitLayout: U } = await import("/$bunfs/root/chunk-yzm7n6ra.js"),
-        B = await U(t, x, { linkedTrees: !0 });
+        B = await U(t, x, { linkedTrees: true });
       if (B.kind === "failed")
         return B.why === "git_not_found" && !B.withinReach ? { kind: "git_not_found" } : { kind: "layout_unread" };
       if (B.kind !== "read") return { kind: "unsupported_layout" };
@@ -1865,7 +1865,7 @@ async function J_n({ sessionId: e, gitRoot: t, containerOrigin: r, uploadOnly: o
   F.catch(() => {});
   try {
     let U = await jt(F, C);
-    if (Rt(u)) return U?.kind === "armed" ? { ..._(null), recorded: !0 } : _(null);
+    if (Rt(u)) return U?.kind === "armed" ? { ..._(null), recorded: true } : _(null);
     if (U === void 0 || U.kind === "too_late") return g("ccr_dir_sync_seed", "git_engine_arm_timeout"), _(Tnt);
     if (U.kind === "head_unreadable") return g("ccr_dir_sync_seed", "git_engine_head_unreadable"), _(xZ);
     if (U.kind === "layout_unread") return g("ccr_dir_sync_seed", "git_engine_layout_unread"), _(vnt);
@@ -1882,7 +1882,7 @@ async function J_n({ sessionId: e, gitRoot: t, containerOrigin: r, uploadOnly: o
       engine: {
         kind: "git",
         start: U.start,
-        uploadAtOpen: !0,
+        uploadAtOpen: true,
         ...(r.kind === "overlay" && { withholdFirstSendOnOpenFailure: { reason: Jke } }),
       },
     };
@@ -1923,18 +1923,18 @@ function Int(e = Xke()) {
   return {
     withholdFor: async (t) => {
       let r = await z_n(t).catch(() => null);
-      if (r === null) return () => !0;
+      if (r === null) return () => true;
       let o = z0(t, { realRoot: r, readRules: e });
       return (u) => {
-        switch (o(u, !0)) {
+        switch (o(u, true)) {
           case "read_denied":
           case "rules_unreadable":
           case "sensitive":
           case "sensitive_tracked":
           case "content_filter":
-            return !0;
+            return true;
           case null:
-            return !1;
+            return false;
         }
       };
     },
@@ -1956,7 +1956,7 @@ function bSn(e, t, r) {
   return `File sync is off for this session and your untracked files were not uploaded: this checkout could not be compared with ${t} as last fetched here ${e === "deadline" ? "in the time allowed" : "(the comparison failed; details in the debug log)"}, so the session started from the tip of ${t} as it is on ${r?.reason === "other_host" ? "its git host" : "GitHub"} now, without any commits or uncommitted changes that exist only on this machine. ${r?.reason === "explicit_ref" ? `Run without ${r.flag} to sync.` : "Start a new session to retry."}`;
 }
 
-function TSn(e, t, r = !1, o = !0) {
+function TSn(e, t, r = false, o = true) {
   return `Started from ${e} as last fetched here, with ${t ? (o ? "your unpushed commits and uncommitted changes" : "your unpushed commits") : "your uncommitted changes"} applied on top; ${r ? "your changes here keep syncing to this session, but the files it changes are not copied back to this directory" : "this session syncs files back here"}${t ? " and it can push your commits to GitHub" : ""}.`;
 }
 
@@ -2187,14 +2187,14 @@ async function jSn(e, t) {
           validateStatus: (_) => _ < 500,
         });
         if (d.status === 200)
-          return gT(`Downloaded file ${e} (${d.data.length} bytes)`), { done: !0, value: Buffer.from(d.data) };
+          return gT(`Downloaded file ${e} (${d.data.length} bytes)`), { done: true, value: Buffer.from(d.data) };
         if (d.status === 404) throw Error(`File not found: ${e}`);
         if (d.status === 401) throw Error("Authentication failed: invalid or missing API key");
         if (d.status === 403) throw Error(`Access denied to file: ${e}`);
-        return { done: !1, error: `status ${d.status}` };
+        return { done: false, error: `status ${d.status}` };
       } catch (d) {
         if (!st.isAxiosError(d)) throw d;
-        return { done: !1, error: d.message };
+        return { done: false, error: d.message };
       }
     })
   );
@@ -2212,18 +2212,18 @@ function WSn(e, t, r) {
 async function zSn(e, t) {
   let { fileId: r, relativePath: o } = e,
     u = WSn(ee(), t.sessionId, o);
-  if (!u) return { fileId: r, path: "", success: !1, error: `Invalid file path: ${o}` };
+  if (!u) return { fileId: r, path: "", success: false, error: `Invalid file path: ${o}` };
   try {
     let d = await jSn(r, t),
       _ = Mh.dirname(u);
     return (
-      await yN.mkdir(_, { recursive: !0 }),
+      await yN.mkdir(_, { recursive: true }),
       await yN.writeFile(u, d),
       gT(`Saved file ${r} to ${u} (${d.length} bytes)`),
-      { fileId: r, path: u, success: !0, bytesWritten: d.length }
+      { fileId: r, path: u, success: true, bytesWritten: d.length }
     );
   } catch (d) {
-    return fwe(`Failed to download file ${r}: ${l(d)}`), { fileId: r, path: u, success: !1, error: l(d) };
+    return fwe(`Failed to download file ${r}: ${l(d)}`), { fileId: r, path: u, success: false, error: l(d) };
   }
 }
 
@@ -2248,7 +2248,7 @@ async function Wnt(e, t, r, o) {
   } catch (d) {
     return (
       s("tengu_file_upload_failed", { error_type: w("file_read") }),
-      { path: t, error: l(d), success: !1, reason: "file_read" }
+      { path: t, error: l(d), success: false, reason: "file_read" }
     );
   }
   return qSn(u, t, r, o);
@@ -2262,7 +2262,7 @@ async function qSn(e, t, r, o) {
   if (C > Unt)
     return (
       s("tengu_file_upload_failed", { error_type: w("file_too_large") }),
-      { path: t, error: `File exceeds maximum size of ${Unt} bytes (actual: ${C})`, success: !1, reason: "too_large" }
+      { path: t, error: `File exceeds maximum size of ${Unt} bytes (actual: ${C})`, success: false, reason: "too_large" }
     );
   let A = `----FormBoundary${NSn()}`,
     x = VSn(Mh.basename(t)),
@@ -2299,7 +2299,7 @@ user_data\r
           throw (
             (s("tengu_file_upload_failed", { error_type: w("server") }), new fT(`${W} after ${fN} attempts`, "server"))
           );
-        return { done: !1, error: W };
+        return { done: false, error: W };
       };
       try {
         let W = await st.post(d, F, {
@@ -2316,7 +2316,7 @@ user_data\r
           let z = W.data?.id;
           if (!z) return B("Upload succeeded but no file ID returned");
           return (
-            gT(`Uploaded ${t} -> ${z} (${C} bytes)`), { done: !0, value: { path: t, fileId: z, size: C, success: !0 } }
+            gT(`Uploaded ${t} -> ${z} (${C} bytes)`), { done: true, value: { path: t, fileId: z, size: C, success: true } }
           );
         }
         if (W.status === 401)
@@ -2337,15 +2337,15 @@ user_data\r
       } catch (W) {
         if (W instanceof fT) throw W;
         if (st.isCancel(W)) throw new fT("Upload canceled", "canceled");
-        if (st.isAxiosError(W)) return { done: !1, error: W.message };
+        if (st.isAxiosError(W)) return { done: false, error: W.message };
         throw W;
       }
     });
   } catch (U) {
-    if (U instanceof fT) return { path: t, error: U.message, success: !1, reason: U.reason };
+    if (U instanceof fT) return { path: t, error: U.message, success: false, reason: U.reason };
     return (
       s("tengu_file_upload_failed", { error_type: w("network") }),
-      { path: t, error: l(U), success: !1, reason: "network" }
+      { path: t, error: l(U), success: false, reason: "network" }
     );
   }
 }
@@ -2373,7 +2373,7 @@ function p3n(e) {
 
 async function Gnt(e, t = ly(), r = "out.bundle") {
   let o = await YSn(znt(t, `${e}-`));
-  return { path: znt(o, r), dispose: () => tbn(o, { recursive: !0, force: !0 }).catch(() => {}) };
+  return { path: znt(o, r), dispose: () => tbn(o, { recursive: true, force: true }).catch(() => {}) };
 }
 
 async function qnt(e, t) {
@@ -2409,7 +2409,7 @@ function Knt(e = Date.now()) {
 
 function Vnt(e, t = Date.now()) {
   return e.filter((r) => {
-    if (r === SN || r === kN) return !0;
+    if (r === SN || r === kN) return true;
     let o = fbn.exec(r);
     return o !== null && Math.abs(t - Number(o[1])) > pbn;
   });
@@ -2418,34 +2418,34 @@ function Vnt(e, t = Date.now()) {
 async function Ynt(e, t, r, o) {
   let u = new Xnt(r);
   try {
-    return await cbn(sbn(e), u, ibn(t, { flags: "wx" }), { signal: o }), { ok: !0, sizeBytes: u.outputBytes };
+    return await cbn(sbn(e), u, ibn(t, { flags: "wx" }), { signal: o }), { ok: true, sizeBytes: u.outputBytes };
   } catch (d) {
     if (E(d) !== "EEXIST") await abn(t).catch(() => {});
-    return { ok: !1, error: l(d) };
+    return { ok: false, error: l(d) };
   }
 }
 
 async function Aut(e, t, r, o, u = {}) {
   let d = r.find((z) => !$D(z));
-  if (d !== void 0) return { refused: `${d}: not a path git writes`, tooLarge: !1, momentary: !1 };
+  if (d !== void 0) return { refused: `${d}: not a path git writes`, tooLarge: false, momentary: false };
   let _ = 0,
     C = null,
     A = G3e(r),
     x = new Set(r),
-    M = !1,
+    M = false,
     F = No(bbn, async (z) => {
       await u.beforeOpen?.(z);
       let pe = await Ple(e, z);
       if (pe === "symlink") return { kind: "absent", path: z };
       if (pe === "unreadable")
-        return { refused: `${z}: a directory above it could not be inspected`, tooLarge: !1, momentary: !0 };
+        return { refused: `${z}: a directory above it could not be inspected`, tooLarge: false, momentary: true };
       let fe = await vbn(e, z);
       switch (fe.kind) {
         case "absent":
           return { kind: "absent", path: z };
         case "refused":
           return x.has(z)
-            ? { refused: `${z}: ${fe.why}`, tooLarge: !1, momentary: fe.momentary }
+            ? { refused: `${z}: ${fe.why}`, tooLarge: false, momentary: fe.momentary }
             : { kind: "absent", path: z };
         case "hardlinked":
           return { kind: "hardlinked", path: z };
@@ -2459,11 +2459,11 @@ async function Aut(e, t, r, o, u = {}) {
             if (_ > o)
               return {
                 refused: `${C.path} (largest, ${C.size} bytes): ${_} bytes of changed files exceed the ${o}-byte cap`,
-                tooLarge: !0,
-                momentary: !1,
+                tooLarge: true,
+                momentary: false,
               };
             let me = wN(t, z);
-            await ybn(Sbn(me), { recursive: !0 });
+            await ybn(Sbn(me), { recursive: true });
             let ge;
             try {
               ge = await Jnt(me, "wx", fe.executable ? 493 : 420);
@@ -2471,13 +2471,13 @@ async function Aut(e, t, r, o, u = {}) {
               if (E(Ce) === "EEXIST")
                 return {
                   refused: `${z}: collides with another changed path that differs only in case or normalization`,
-                  tooLarge: !1,
-                  momentary: !1,
+                  tooLarge: false,
+                  momentary: false,
                 };
               throw Ce;
             }
             try {
-              let Ce = await fe.handle.stat({ bigint: !0 }),
+              let Ce = await fe.handle.stat({ bigint: true }),
                 Ie = Qnt("sha256"),
                 Ee = Buffer.allocUnsafe(Math.min(fe.size, Znt)),
                 Pe = 0;
@@ -2493,7 +2493,7 @@ async function Aut(e, t, r, o, u = {}) {
                 Pe += ze;
               }
               await u.afterRead?.(z);
-              let Oe = await fe.handle.stat({ bigint: !0 });
+              let Oe = await fe.handle.stat({ bigint: true });
               if (
                 BigInt(Pe) !== Ce.size ||
                 Oe.size !== Ce.size ||
@@ -2514,7 +2514,7 @@ async function Aut(e, t, r, o, u = {}) {
               )
                 return await ge.close(), await _we(me).catch(() => {}), { kind: "changed", path: z };
               await ge.utimes(fe.atime, fe.mtime);
-              let Be = await ge.stat({ bigint: !0 });
+              let Be = await ge.stat({ bigint: true });
               return {
                 kind: "file",
                 path: z,
@@ -2534,7 +2534,7 @@ async function Aut(e, t, r, o, u = {}) {
             let ge = E(me);
             return {
               refused: `${z}: could not be staged (${ge ?? l(me)})`,
-              tooLarge: !1,
+              tooLarge: false,
               momentary: ge === void 0 || !Swe.has(ge),
             };
           } finally {
@@ -2558,15 +2558,15 @@ async function R1t(e, t) {
       t.map(async (o) => {
         if (o.kind === "absent")
           return OZ(wN(e, o.path)).then(
-            () => !1,
+            () => false,
             (u) => {
               let d = E(u);
               return d === "ENOENT" || d === "ENOTDIR";
             },
           );
-        if (o.kind !== "file") return !0;
+        if (o.kind !== "file") return true;
         try {
-          let u = await OZ(wN(e, o.path), { bigint: !0 });
+          let u = await OZ(wN(e, o.path), { bigint: true });
           return (
             u.isFile() &&
             u.nlink === 1n &&
@@ -2577,7 +2577,7 @@ async function R1t(e, t) {
             Number(u.size) === o.copy.size
           );
         } catch {
-          return !1;
+          return false;
         }
       }),
     )
@@ -2595,7 +2595,7 @@ async function wbn(e, t, r) {
   for (;;) {
     let { bytesRead: _ } = await e.read(u, 0, u.length, d);
     if (_ === 0) break;
-    if ((o.update(u.subarray(0, _)), (d += _), d > t)) return !1;
+    if ((o.update(u.subarray(0, _)), (d += _), d > t)) return false;
   }
   return d === t && o.digest().equals(r);
 }
@@ -2636,15 +2636,15 @@ async function vbn(e, t) {
           ? { kind: "symlink", target: A }
           : x === "symlink"
             ? { kind: "absent" }
-            : { kind: "refused", why: "a directory above it could not be inspected", momentary: !0 };
+            : { kind: "refused", why: "a directory above it could not be inspected", momentary: true };
       } catch {
-        return { kind: "refused", why: "changed while being read", momentary: !0 };
+        return { kind: "refused", why: "changed while being read", momentary: true };
       }
     return { kind: "refused", why: `could not be opened (${C ?? "unknown"})`, momentary: C === void 0 || !Swe.has(C) };
   }
   try {
     let _ = await d.stat();
-    if (!_.isFile()) return await d.close(), { kind: "refused", why: "not a regular file", momentary: !1 };
+    if (!_.isFile()) return await d.close(), { kind: "refused", why: "not a regular file", momentary: false };
     if (_.nlink > 1) return await d.close(), { kind: "hardlinked" };
     return {
       kind: "file",
@@ -2689,20 +2689,20 @@ function Ubn(e) {
 async function lrt(e, t, r = {}) {
   let o = r.probes ?? Oz(),
     u = a7(e, t, r.signal, void 0, o),
-    d = (Fe) => vI(Fe) || (r.alsoLeaveOut?.(Fe) ?? !1),
+    d = (Fe) => vI(Fe) || (r.alsoLeaveOut?.(Fe) ?? false),
     _ = await Wbn(u);
   if (_.kind !== "inspected") return _;
   let { gitDir: C, workTree: A } = t,
     { base: x, baseTree: M, iTree: F } = _.inspection,
     U = zbn(_.inspection);
   if (U.length > 0) return { kind: "refused", refused: U, decidedOn: "listing" };
-  let B = r.leaveOutUncommittedCredentialFiles ? await Gbn(A, _.inspection, d, (Fe) => r.alsoLeaveOut?.(Fe) ?? !1) : [],
+  let B = r.leaveOutUncommittedCredentialFiles ? await Gbn(A, _.inspection, d, (Fe) => r.alsoLeaveOut?.(Fe) ?? false) : [],
     W = new Set(B.map(({ path: Fe }) => Fe)),
     z = new Set(_.inspection.staged.map(({ path: Fe }) => Fe)),
     pe = new Set(_.inspection.staged.flatMap(({ path: Fe, status: Be }) => (Be === "D" ? [Fe] : []))),
     fe = Date.now(),
     me = No(DZ, (Fe) =>
-      r.signal?.aborted === !0 || W.has(Fe.path) || z.has(Fe.path) ? Promise.resolve(!1) : urt(A, Fe, Hbn, r.signal),
+      r.signal?.aborted === true || W.has(Fe.path) || z.has(Fe.path) ? Promise.resolve(false) : urt(A, Fe, Hbn, r.signal),
     ),
     ge = await Promise.all(_.inspection.working.map(me)),
     Ce = _.inspection.working.filter((Fe, Be) => !ge[Be]),
@@ -2842,14 +2842,14 @@ async function lrt(e, t, r = {}) {
   } finally {
     await Promise.all(
       [Ee, `${Ee}.lock`, ...(Pe === null ? [] : [Pe])].map((Fe) =>
-        irt(Fe, { recursive: !0, force: !0 }).catch(() => {}),
+        irt(Fe, { recursive: true, force: true }).catch(() => {}),
       ),
     );
   }
 }
 
 async function crt(e, t, r) {
-  let o = await Zp(e, ["stash", "create"], { hardened: !1, signal: r });
+  let o = await Zp(e, ["stash", "create"], { hardened: false, signal: r });
   if (o.code === 0) {
     let u = o.stdout.trim();
     return u === "" ? { kind: "none", leftOut: [] } : { kind: "created", commit: u, leftOut: [], deletedUnstaged: [] };
@@ -2897,7 +2897,7 @@ function z3e(e) {
 
 function a7(e, t, r, o, u = Oz()) {
   return (d, _, C) =>
-    Zp(e, d, { hardened: !0, layout: t, signal: r, probes: u, env: _, input: C, ...(o !== void 0 && { reach: o }) });
+    Zp(e, d, { hardened: true, layout: t, signal: r, probes: u, env: _, input: C, ...(o !== void 0 && { reach: o }) });
 }
 
 async function Wbn(e) {
@@ -2927,7 +2927,7 @@ function zbn({ staged: e, working: t }) {
     .flatMap((o) => (!Uye(o) ? [{ path: o, why: "forged" }] : CIe(o) ? [{ path: o, why: "alias" }] : []));
 }
 
-async function Gbn(e, { staged: t, working: r }, o, u = () => !1) {
+async function Gbn(e, { staged: t, working: r }, o, u = () => false) {
   let d = te([...t, ...r].map(({ path: Ee }) => Ee)),
     _ = d.filter((Ee) => !Uye(Ee)),
     C = d.filter((Ee) => Uye(Ee) && CIe(Ee)),
@@ -3076,7 +3076,7 @@ async function Jbn(e, t, r) {
 }
 
 async function Zbn(e, t) {
-  if (t.includes("\uFFFD") || (await Ple(e, t)) !== "clear") return !0;
+  if (t.includes("\uFFFD") || (await Ple(e, t)) !== "clear") return true;
   try {
     return !(await C1(Tk(e, t))).isDirectory();
   } catch (r) {
@@ -3086,29 +3086,29 @@ async function Zbn(e, t) {
 }
 
 async function urt(e, { path: t, status: r, oldMode: o, newMode: u, oldId: d, newId: _ }, C = Bbn, A) {
-  if (r !== "M" || o !== u || !Dbn.test(_) || d.length !== 40 || t.includes("\uFFFD")) return !1;
-  if ((await Ple(e, t)) !== "clear") return !1;
+  if (r !== "M" || o !== u || !Dbn.test(_) || d.length !== 40 || t.includes("\uFFFD")) return false;
+  if ((await Ple(e, t)) !== "clear") return false;
   let x = Tk(e, t);
   if (u === art)
     try {
       return Ubn(Buffer.from(await Pbn(x))) === d;
     } catch {
-      return !1;
+      return false;
     }
-  if (!Obn.includes(u)) return !1;
+  if (!Obn.includes(u)) return false;
   try {
-    if (!(await C1(x)).isFile()) return !1;
+    if (!(await C1(x)).isFile()) return false;
     let M = await srt(x, ea());
     try {
       let F = await M.stat();
-      if (!F.isFile() || F.nlink !== 1 || F.size > C) return !1;
+      if (!F.isFile() || F.nlink !== 1 || F.size > C) return false;
       let U = kwe("sha1").update(`blob ${F.size}\x00`),
         B = Buffer.allocUnsafe(Math.min(F.size, 1048576)),
         W = 0;
       while (W < F.size) {
-        if (A?.aborted) return !1;
+        if (A?.aborted) return false;
         let { bytesRead: z } = await M.read(B, 0, Math.min(B.length, F.size - W), W);
-        if (z === 0) return !1;
+        if (z === 0) return false;
         U.update(B.subarray(0, z)), (W += z);
       }
       return U.digest("hex") === d;
@@ -3116,7 +3116,7 @@ async function urt(e, { path: t, status: r, oldMode: o, newMode: u, oldId: d, ne
       await M.close();
     }
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -3127,7 +3127,7 @@ async function nkn(e) {
         let r = ekn.exec(t)?.[1];
         if (r === void 0) return;
         let o = Tk(e, t);
-        if (Date.now() - (await C1(o)).mtimeMs > tkn && !rkn(Number(r))) await irt(o, { force: !0 });
+        if (Date.now() - (await C1(o)).mtimeMs > tkn && !rkn(Number(r))) await irt(o, { force: true });
       }),
     );
   } catch {}
@@ -3135,7 +3135,7 @@ async function nkn(e) {
 
 function rkn(e) {
   try {
-    return process.kill(e, 0), !0;
+    return process.kill(e, 0), true;
   } catch (t) {
     return E(t) === "EPERM";
   }
@@ -3150,7 +3150,7 @@ async function lkn(e) {
   try {
     return (await C1(e)).isDirectory();
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -3187,7 +3187,7 @@ async function ckn(e, t, r, o, u) {
   let U = await Promise.all(C.map((fe) => ort(Tk(o, fe)))),
     B = new Set(F.copies.flatMap((fe) => (fe.kind === "file" ? [fe.path] : []))),
     W = C.find((fe, me) => (x.has(fe) ? !B.has(fe) : M[me] === null || M[me] !== U[me]));
-  if (W !== void 0) return { refused: `${W}: changed while it was being read`, tooLarge: !1, momentary: !0 };
+  if (W !== void 0) return { refused: `${W}: changed while it was being read`, tooLarge: false, momentary: true };
   let z = new Set([...d, ...C]),
     pe = new Set(d);
   return {
@@ -3269,13 +3269,13 @@ async function Tkn(e) {
 async function Ckn(e, t, r = null, o = Oz()) {
   let u = ["rev-parse", "--is-shallow-repository", "--git-path", "shallow"],
     d = r
-      ? await Zp(e, u, { hardened: !0, layout: r.layout, signal: t, probes: o })
+      ? await Zp(e, u, { hardened: true, layout: r.layout, signal: t, probes: o })
       : await qe(it(), [...cn, ...u], { cwd: e, abortSignal: t }),
     [_, C] = d.stdout.split(/\r?\n/);
   if (d.code !== 0 || _ !== "true") return "not_shallow";
   let A = (B) =>
       r
-        ? Zp(e, B, { hardened: !0, layout: r.layout, signal: t, probes: o, env: TN })
+        ? Zp(e, B, { hardened: true, layout: r.layout, signal: t, probes: o, env: TN })
         : qe(it(), [...cn, ...B], { cwd: e, env: TN, abortSignal: t, maxBuffer: bkn }),
     M = (await A(["rev-parse", "--verify", "--quiet", "HEAD^{commit}"])).exitCode === 1,
     F = M ? "unborn_cut" : "cut",
@@ -3330,9 +3330,9 @@ async function Crt(e, t, r, o, u, d) {
 
 async function vIe() {
   let e = Hn(ee());
-  if (!e) return { tooLarge: !1, sizeBytes: null, inPackCount: null };
-  let { sizeBytes: t, inPackCount: r } = await Crt(e, !1, void 0, void 0, null, Oz());
-  if (t === null) return { tooLarge: !1, sizeBytes: null, inPackCount: r };
+  if (!e) return { tooLarge: false, sizeBytes: null, inPackCount: null };
+  let { sizeBytes: t, inPackCount: r } = await Crt(e, false, void 0, void 0, null, Oz());
+  if (t === null) return { tooLarge: false, sizeBytes: null, inPackCount: r };
   let o = vut();
   return { tooLarge: t > 3 * o && (t > Pwe * o || (r !== null && r > Mwe)), sizeBytes: t, inPackCount: r };
 }
@@ -3344,7 +3344,7 @@ async function Akn(e, t, r) {
     x = ["--glob=refs/heads/*", "--glob=refs/tags/*", ...(r.headResolves ? ["HEAD"] : [])],
     M = async (We, Ve) => {
       let Pt = u === void 0 ? void 0 : await Lkn(e, u, C, d, _);
-      if (Pt === null) return { ok: !1, ...VC() };
+      if (Pt === null) return { ok: false, ...VC() };
       let ct = await Zp(e, ["bundle", "create", t, ...Ve, ...A, "--"], {
         hardened: o,
         layout: u,
@@ -3352,11 +3352,11 @@ async function Akn(e, t, r) {
         probes: _,
         ...(!o && { env: TN }),
       });
-      if (u && !(await RI(u, C))) return { ok: !1, ...VC() };
+      if (u && !(await RI(u, C))) return { ok: false, ...VC() };
       if (ct.code !== 0)
         return {
-          ok: !1,
-          error: `git bundle create ${o ? vk(Ve.join(" "), !0) : Ve.join(" ")} failed (${ct.code}): ${vk(ct.stderr, o)}`,
+          ok: false,
+          error: `git bundle create ${o ? vk(Ve.join(" "), true) : Ve.join(" ")} failed (${ct.code}): ${vk(ct.stderr, o)}`,
           failReason: "git_error",
         };
       let { size: ut } = await prt(t);
@@ -3380,8 +3380,8 @@ async function Akn(e, t, r) {
                 shown: Pt,
               })
             : yrt;
-        if (u && !(await RI(u, C))) return { ok: !1, ...VC() };
-        return Srt(xt, o) ?? { ok: !0, path: nn, size: en === null ? ut : en.sizeBytes, scope: We };
+        if (u && !(await RI(u, C))) return { ok: false, ...VC() };
+        return Srt(xt, o) ?? { ok: true, path: nn, size: en === null ? ut : en.sizeBytes, scope: We };
       }
       return (
         n(
@@ -3411,9 +3411,9 @@ async function Akn(e, t, r) {
       signal: d,
       probes: _,
     });
-    if (We.exitCode === 1) return { ok: !1, error: "The current branch has no commits yet", failReason: "empty_repo" };
+    if (We.exitCode === 1) return { ok: false, error: "The current branch has no commits yet", failReason: "empty_repo" };
     if (We.code !== 0)
-      return { ok: !1, error: `git rev-parse HEAD failed (${We.code}): ${vk(We.stderr, o)}`, failReason: "git_error" };
+      return { ok: false, error: `git rev-parse HEAD failed (${We.code}): ${vk(We.stderr, o)}`, failReason: "git_error" };
     if (!fe) {
       let Ve = We.stdout.trim(),
         Pt = Ve === "HEAD" ? await M("head", ["HEAD"]) : await M("current_branch", [Ve, "HEAD"]);
@@ -3431,15 +3431,15 @@ async function Akn(e, t, r) {
   }
   if (me)
     return {
-      ok: !1,
+      ok: false,
       error: `Repo is too large to bundle (pack ${Cwe(F)}). Please set up GitHub on https://claude.ai/code`,
       failReason: "too_large",
       sizeBytes: F ?? void 0,
     };
   let ge = o && !r.hasStash ? await Dkn(e, u, C, d, _) : void 0;
-  if (ge === null) return { ok: !1, ...VC() };
+  if (ge === null) return { ok: false, ...VC() };
   if (o && !r.hasStash && ge === void 0)
-    return { ok: !1, error: "git rev-parse HEAD^{tree} failed: HEAD names no commit", failReason: "git_error" };
+    return { ok: false, error: "git rev-parse HEAD^{tree} failed: HEAD names no commit", failReason: "git_error" };
   let Ce = { ...(o ? {} : TN), ...AIe },
     Ie = r.hasStash ? `${r.stashCommit ?? r.seedRefs.stash}^{tree}` : (ge ?? "HEAD^{tree}"),
     Ee = [];
@@ -3451,7 +3451,7 @@ async function Akn(e, t, r) {
     );
     if (We?.code === 0 && We.stdout.trim() === Ve?.stdout.trim())
       return {
-        ok: !1,
+        ok: false,
         error:
           r.leftOutCount > 0
             ? `It doesn't look like you have any new commits or changes to review: the only uncommitted changes here are to ${r.leftOutCount} ${k(r.leftOutCount, "file")} that ${k(r.leftOutCount, "stays", "stay")} on this machine (named like credentials or keys, ${r.withheldByRules ? "covered by a Read rule in your settings, " : ""}hard-linked to another file, kept by a git filter such as LFS, or still being written while read) and ${k(r.leftOutCount, "is", "are")} not uploaded. Stage or commit any other work first.`
@@ -3476,12 +3476,12 @@ async function Akn(e, t, r) {
     env: Ce,
   });
   if (Pe.code !== 0)
-    return { ok: !1, error: `git commit-tree failed (${Pe.code}): ${vk(Pe.stderr, o)}`, failReason: "git_error" };
+    return { ok: false, error: `git commit-tree failed (${Pe.code}): ${vk(Pe.stderr, o)}`, failReason: "git_error" };
   let Oe = Pe.stdout.trim();
-  if (u && !(await RI(u, C))) return { ok: !1, ...VC() };
+  if (u && !(await RI(u, C))) return { ok: false, ...VC() };
   let Fe = await LZ(e, [r.seedRefs.root, Oe], { hardened: o, layout: u, probes: _, ...(o && { signal: d }) });
-  if (o && d?.aborted) return { ok: !1, error: "Bundle upload aborted", failReason: "git_error" };
-  if (Fe.code !== 0) return { ok: !1, ...xrt(Fe.stderr), heldSeedRef: { exitCode: Fe.code } };
+  if (o && d?.aborted) return { ok: false, error: "Bundle upload aborted", failReason: "git_error" };
+  if (Fe.code !== 0) return { ok: false, ...xrt(Fe.stderr), heldSeedRef: { exitCode: Fe.code } };
   let Be = await Zp(e, ["bundle", "create", t, r.seedRefs.root, "--"], {
     hardened: o,
     layout: u,
@@ -3489,10 +3489,10 @@ async function Akn(e, t, r) {
     probes: _,
     ...(!o && { env: TN }),
   });
-  if (u && !(await RI(u, C))) return { ok: !1, ...VC() };
+  if (u && !(await RI(u, C))) return { ok: false, ...VC() };
   if (Be.code !== 0)
     return {
-      ok: !1,
+      ok: false,
       error: r.partialClone
         ? `This partial clone does not hold every file of its working tree locally (a sparse checkout, or blobs never downloaded), so it cannot be uploaded without fetching from its remote, which the upload does not do. Start the cloud session from the repository's GitHub source instead. (git: ${vk(Be.stderr, o)})`
         : `git bundle create for the squashed root failed (${Be.code}): ${vk(Be.stderr, o)}`,
@@ -3516,11 +3516,11 @@ async function Akn(e, t, r) {
           shown: new Map(),
         })
       : yrt;
-    if (u && !(await RI(u, C))) return { ok: !1, ...VC() };
-    return Srt(Ve, o) ?? { ok: !0, path: r.relabelledPath, size: We.sizeBytes, scope: "squashed", rootCommit: Oe };
+    if (u && !(await RI(u, C))) return { ok: false, ...VC() };
+    return Srt(Ve, o) ?? { ok: true, path: r.relabelledPath, size: We.sizeBytes, scope: "squashed", rootCommit: Oe };
   }
   return {
-    ok: !1,
+    ok: false,
     error: `Repo is too large to bundle (${Cwe(ze)} > ${Cwe(r.maxBytes)} cap). Please set up GitHub on https://claude.ai/code`,
     failReason: "too_large",
     sizeBytes: ze,
@@ -3531,12 +3531,12 @@ async function frt(e, t, r, o, u) {
   let d = await Ynt(t, r, o, u.signal);
   if (!d.ok) return d;
   let _ = await Zp(e, ["bundle", "list-heads", r], u);
-  return _.code === 0 ? d : { ok: !1, error: `git bundle list-heads exited ${_.code}: ${vk(_.stderr, u.hardened)}` };
+  return _.code === 0 ? d : { ok: false, error: `git bundle list-heads exited ${_.code}: ${vk(_.stderr, u.hardened)}` };
 }
 
 function grt(e) {
   return {
-    ok: !1,
+    ok: false,
     error: `Could not prepare the upload of this working tree (${e}). Retry; if it keeps failing, check that the temporary directory has room for a second copy of the bundle and that nothing else is writing to this checkout.`,
     failReason: "git_error",
   };
@@ -3587,7 +3587,7 @@ function xkn(e) {
 }
 
 function hrt(e, t) {
-  return { success: !1, error: t, failReason: "unsupported_layout", layoutKind: e };
+  return { success: false, error: t, failReason: "unsupported_layout", layoutKind: e };
 }
 
 async function Art(e, t) {
@@ -3597,7 +3597,7 @@ async function Art(e, t) {
       [
         ["diff", "--name-only", "-z", "--no-renames", "HEAD", "--"],
         ["diff", "--cached", "--name-only", "-z", "--no-renames", "HEAD", "--"],
-      ].map((_) => Zp(r, _, { hardened: !1, signal: t })),
+      ].map((_) => Zp(r, _, { hardened: false, signal: t })),
     ),
     d = [o, u].flatMap((_) => (_?.code === 0 ? _.stdout.split("\x00") : []));
   return te(d)
@@ -3630,13 +3630,13 @@ function Rrt(e, t = []) {
 }
 
 function Okn() {
-  return a.CLAUDE_CODE_LEGACY_BUNDLE === !0;
+  return a.CLAUDE_CODE_LEGACY_BUNDLE === true;
 }
 
 async function _rt(e, t, r, o) {
   let u = r.filter((F) => !F.startsWith("-")),
     d = await Zp(e, ["bundle", "list-heads", t], {
-      hardened: !0,
+      hardened: true,
       layout: o.layout,
       signal: o.signal,
       probes: o.probes,
@@ -3662,7 +3662,7 @@ async function _rt(e, t, r, o) {
         : [..._].flatMap(([F, U]) => (Object.hasOwn(o.expected, F) || o.shown?.get(F) === U ? [] : [F]));
   if (o.shown === void 0 || C.length > 0 || A.length > 0) return { missing: C, foreign: A };
   let x = await Zp(e, ["cat-file", "--batch-check"], {
-      hardened: !0,
+      hardened: true,
       layout: o.layout,
       signal: o.signal,
       probes: o.probes,
@@ -3680,7 +3680,7 @@ async function _rt(e, t, r, o) {
 async function Dkn(e, t, r, o, u) {
   if (t === void 0 || !(await RI(t, r))) return null;
   let d = await Zp(e, ["rev-parse", "-q", "--verify", "HEAD^{tree}"], {
-      hardened: !0,
+      hardened: true,
       layout: t,
       signal: o,
       probes: u,
@@ -3694,12 +3694,12 @@ async function Lkn(e, t, r, o, u) {
   if (!(await RI(t, r))) return null;
   let [d, _] = await Promise.all([
     Zp(e, ["for-each-ref", "--format=%(objectname) %(refname)", "refs/heads/", "refs/tags/"], {
-      hardened: !0,
+      hardened: true,
       layout: t,
       signal: o,
       probes: u,
     }),
-    Zp(e, ["rev-parse", "-q", "--verify", "HEAD"], { hardened: !0, layout: t, signal: o, probes: u }),
+    Zp(e, ["rev-parse", "-q", "--verify", "HEAD"], { hardened: true, layout: t, signal: o, probes: u }),
   ]);
   if (d.code !== 0 || (_.code !== 0 && _.exitCode !== 1) || !(await RI(t, r))) return null;
   let C = _.code === 0 ? [["HEAD", _.stdout.trim()]] : [];
@@ -3717,7 +3717,7 @@ async function Lkn(e, t, r, o, u) {
 
 function Srt(e, t) {
   if (e.unlisted !== void 0)
-    return { ok: !1, error: `git bundle list-heads failed: ${vk(e.unlisted, t)}`, failReason: "git_error" };
+    return { ok: false, error: `git bundle list-heads failed: ${vk(e.unlisted, t)}`, failReason: "git_error" };
   if (e.missing.length > 0) return Fkn(e.missing);
   if (e.foreign.length > 0) return brt(e.foreign);
   return (e.notHeld?.length ?? 0) > 0 ? brt(e.notHeld ?? [], "not_held") : null;
@@ -3725,19 +3725,19 @@ function Srt(e, t) {
 
 function brt(e, t = "changed") {
   return {
-    ok: !1,
+    ok: false,
     error:
       t === "changed"
         ? `git bundle create packed ${C_(e)}, which this checkout did not show when the upload read its refs: its refs changed, or were redirected elsewhere, while the bundle was made. Make sure nothing else is writing to this checkout, inspect its git directory (a commondir file there was not written by git), then retry.`
         : `git bundle create packed ${C_(e)} at commits this checkout's own object store does not hold: another object store stood in while the bundle was made. Make sure nothing else is writing to this checkout's git directory (objects/info in particular), then retry.`,
     failReason: "git_dir_tampered",
-    refsChanged: !0,
+    refsChanged: true,
   };
 }
 
 function Fkn(e) {
   return {
-    ok: !1,
+    ok: false,
     error: `git bundle create left out or altered ${C_(e)}: another ref in this repository (a branch or tag spelled like it) makes the name ambiguous, or the temporary ref was rewritten while the bundle was made, so the upload would not carry your changes as captured. Make sure nothing else is writing to this checkout, rename or delete such a branch or tag (see \`git for-each-ref\`), then retry.`,
     failReason: "git_error",
   };
@@ -3788,11 +3788,11 @@ function Iwe(e) {
   return `${e.length} tracked ${k(e.length, "file")} ${k(e.length, "was", "were")} missing when read and ${k(e.length, "is", "are")} uploaded as deleted (${C_(e, 3)}) \u2014 if a build was rewriting ${k(e.length, "it", "them")} just then, start the session again once it settles.`;
 }
 
-function Dwe(e, { readRules: t = !1 } = {}) {
+function Dwe(e, { readRules: t = false } = {}) {
   return `Left on this machine: ${e.length} uncommitted ${k(e.length, "file")} named like credentials or keys, ${t ? "covered by a Read rule in your settings, " : ""}hard-linked to another file, kept by a git filter such as LFS, or still being written by another program while ${k(e.length, "it was", "they were")} read (${C_(e)}), ${k(e.length, "was", "were")} not uploaded \u2014 the cloud session starts with the version git already holds for ${k(e.length, "it", "them")} (committed or staged), or without ${k(e.length, "it", "them")}.`;
 }
 
-function $kn(e, t = !1) {
+function $kn(e, t = false) {
   let r = (A) => e.filter((x) => x.why === A).map(({ path: x }) => x),
     o = r("forged");
   if (o.length > 0)
@@ -3835,23 +3835,23 @@ function Cwe(e) {
 
 async function Lwe(e, t) {
   let r = t?.cwd ?? ee(),
-    o = t?.currentBranchOnly === !0,
+    o = t?.currentBranchOnly === true,
     u = Hn(r);
   if (!u)
     return (
       s("tengu_ccr_bundle_upload", { outcome: w("not_a_repo") }),
       p("teleport_git_bundle_upload", "not_a_repo"),
-      { success: !1, error: "Not in a git repository", failReason: "not_a_repo" }
+      { success: false, error: "Not in a git repository", failReason: "not_a_repo" }
     );
-  let d = t?.hardenForDeviceSessions === !0,
+  let d = t?.hardenForDeviceSessions === true,
     _ = t?.hardenForDeviceSessions ?? (D() !== "windows" && !Okn()),
-    C = _ ? { hardened: !0 } : { legacy_bundle: !0 },
+    C = _ ? { hardened: true } : { legacy_bundle: true },
     A = emn(u, t?.rootAnchors);
   if (A !== null)
     return (
       s("tengu_ccr_bundle_upload", { outcome: w("refused_home_root"), root_kind: c(A), ...C }),
       p("teleport_git_bundle_upload", "refused_home_root"),
-      { success: !1, error: Mkn[A], failReason: "git_dir_tampered" }
+      { success: false, error: Mkn[A], failReason: "git_dir_tampered" }
     );
   let x = Knt(),
     M = [x.stash, x.root],
@@ -3862,16 +3862,16 @@ async function Lwe(e, t) {
     z = new eTe(),
     pe = (xt) => {
       let tt = { phase: c(xt), elapsed_ms: Date.now() - B };
-      if (F?.aborted === !0 || U?.aborted !== !0)
+      if (F?.aborted === true || U?.aborted !== true)
         return (
           s("tengu_ccr_bundle_upload", { ...C, outcome: w("aborted"), current_branch_only: o, ...tt }),
-          { success: !1, error: "Bundle cancelled" }
+          { success: false, error: "Bundle cancelled" }
         );
       return (
         s("tengu_ccr_bundle_upload", { ...C, outcome: w("build_budget_expired"), current_branch_only: o, ...tt }),
         p("teleport_git_bundle_upload", "build_budget_expired"),
         {
-          success: !1,
+          success: false,
           error:
             "Preparing the upload took too long and was stopped (a file in this checkout that git reads, such as a .gitattributes, may be a pipe or otherwise blocking). Check the checkout, then retry.",
           failReason: "git_error",
@@ -3899,7 +3899,7 @@ async function Lwe(e, t) {
       p("teleport_git_bundle_upload", tt);
     return xt !== null && !d
       ? { ...hrt(xt, krt(fe)), ...(lt !== null && { gitFileKind: lt }) }
-      : { success: !1, error: krt(fe), failReason: "git_dir_tampered" };
+      : { success: false, error: krt(fe), failReason: "git_dir_tampered" };
   }
   if (fe?.kind === "failed") {
     n(`[gitBundle] could not read the checkout's git layout: ${fe.detail.slice(0, 200)}`);
@@ -3910,19 +3910,19 @@ async function Lwe(e, t) {
       xt
         ? d
           ? {
-              success: !1,
+              success: false,
               error:
                 "Not uploading this working tree: git was not found on the PATH this process was started with once the directories a cloud session can write here were left out (those inside this checkout or a checkout enclosing it, such as a worktree\u2019s main checkout; a session temp directory; or one whose git links into them). Install git outside those, or put that directory on PATH, then retry.",
               failReason: "refused",
             }
           : {
-              success: !1,
+              success: false,
               error:
                 "git was not found on the PATH this process was started with, so nothing was uploaded. Install git, or put its directory on PATH, then retry.",
               failReason: "git_error",
             }
         : {
-            success: !1,
+            success: false,
             error:
               "Could not read where git keeps this checkout (git rev-parse did not name its git directory), so nothing was uploaded. Check `git status` here, then retry.",
             failReason: "git_error",
@@ -3939,7 +3939,7 @@ async function Lwe(e, t) {
       p("teleport_git_bundle_upload", "partial_clone_old_git");
     let xt =
       "Not uploading this working tree: the checkout is configured as a partial clone (a promisor remote), and the installed git is too old to be kept from fetching from that remote while the upload is prepared. Update git (2.45 or newer, or a current maintenance release of your version), or start from a full clone.";
-    return d ? { success: !1, error: xt, failReason: "refused" } : hrt("partial_clone_old_git", xt);
+    return d ? { success: false, error: xt, failReason: "refused" } : hrt("partial_clone_old_git", xt);
   }
   if (ge) n("[gitBundle] partial clone \u2014 bundling a snapshot of the working tree, without history");
   let Ce = me !== void 0 && d,
@@ -3953,7 +3953,7 @@ async function Lwe(e, t) {
         steered_by: ke(Ie.kind === "unreadable" ? void 0 : Amn.find((xt) => xt === Ie.name.toUpperCase())),
       }),
       p("teleport_git_bundle_upload", "admin_dir_failed"),
-      { success: !1, error: xkn(Ie), failReason: "refused" }
+      { success: false, error: xkn(Ie), failReason: "refused" }
     );
   let Ee = _ ? vmn() : ly();
   await using Pe = me !== void 0 && Ce ? await Cmn(u, me, W, z) : void 0;
@@ -3964,7 +3964,7 @@ async function Lwe(e, t) {
       p("teleport_git_bundle_upload", "admin_dir_failed");
     let xt = Ku(An(wr(Pe.detail)), Rwe);
     return {
-      success: !1,
+      success: false,
       error:
         Pe.reason === "placement"
           ? `Not uploading this working tree this way: the private git directory the upload must trust would stand where a cloud session can write \u2014 ${xt}. Nothing was uploaded; retry once that is changed.`
@@ -4023,7 +4023,7 @@ async function Lwe(e, t) {
       s("tengu_ccr_bundle_upload", { ...C, outcome: w("empty_repo"), current_branch_only: o }),
       p("teleport_git_bundle_upload", "empty_repo"),
       {
-        success: !1,
+        success: false,
         error: "Repository has no local branch, tag, or checkout to seed from yet",
         failReason: "empty_repo",
       }
@@ -4032,7 +4032,7 @@ async function Lwe(e, t) {
     ? await lrt(u, me, {
         signal: W,
         probes: z,
-        leaveOutUncommittedCredentialFiles: !0,
+        leaveOutUncommittedCredentialFiles: true,
         alsoLeaveOut: await t?.withholdFor?.(u),
         maxStagedBytes: 2 * vut(),
       })
@@ -4050,14 +4050,14 @@ async function Lwe(e, t) {
         refused_on: c(We.decidedOn),
       }),
       p("teleport_git_bundle_upload", "uncommitted_credentials"),
-      { success: !1, error: $kn(We.refused, t?.withholdFor !== void 0), failReason: "uncommitted_credentials" }
+      { success: false, error: $kn(We.refused, t?.withholdFor !== void 0), failReason: "uncommitted_credentials" }
     );
   if (We.kind === "failed" && We.step === "path-encoding") {
     s("tengu_ccr_bundle_upload", { ...C, outcome: w("wip_path_encoding") }),
       p("teleport_git_bundle_upload", "wip_path_encoding");
     let xt =
       "A changed file in this checkout has a name \u2014 or a changed symbolic link a target \u2014 that is not valid UTF-8, which this upload cannot carry yet. Commit or rename it, then retry.";
-    return { success: !1, error: xt, advice: xt, failReason: "stash_failed" };
+    return { success: false, error: xt, advice: xt, failReason: "stash_failed" };
   }
   if (We.kind === "failed" && hkn.includes(We.step))
     return (
@@ -4065,7 +4065,7 @@ async function Lwe(e, t) {
       s("tengu_ccr_bundle_upload", { ...C, outcome: w("wip_unreadable") }),
       p("teleport_git_bundle_upload", "wip_unreadable"),
       {
-        success: !1,
+        success: false,
         error:
           "Could not read the uncommitted changes of this checkout with git before uploading them (HEAD or the index is not in a state git reports on cleanly), so nothing was uploaded. Check `git status` here, then retry.",
         failReason: "git_error",
@@ -4090,7 +4090,7 @@ async function Lwe(e, t) {
                   ? "Another git process is running in this checkout; retry in a moment."
                   : "Run `git add .` or commit, then retry.";
     return {
-      success: !1,
+      success: false,
       error: `Could not capture uncommitted changes (git ${We.step}: ${xt}). ${tt}`,
       advice: tt,
       failReason: "stash_failed",
@@ -4121,7 +4121,7 @@ async function Lwe(e, t) {
           n(`[gitBundle] no private bundle directory: ${l(Lt)}`),
           s("tengu_ccr_bundle_upload", { ...C, outcome: w("git_error"), current_branch_only: o }),
           p("teleport_git_bundle_upload", "git_error"),
-          { success: !1, error: "Could not create a private directory for the bundle.", failReason: "git_error" }
+          { success: false, error: "Could not create a private directory for the bundle.", failReason: "git_error" }
         );
       }
       nn = en.path;
@@ -4134,7 +4134,7 @@ async function Lwe(e, t) {
       Xe =
         lt === "unborn_cut"
           ? {
-              ok: !1,
+              ok: false,
               error:
                 "The current branch has no commits yet, and the other branches of this shallow clone are cut short, so nothing here can be bundled; commit first, or deepen the clone (git fetch --unshallow)",
               failReason: "empty_repo",
@@ -4161,7 +4161,7 @@ async function Lwe(e, t) {
     if (!Xe.ok) {
       if (_ && W?.aborted) return pe("bundle_create");
       n(`[gitBundle] ${Xe.error}`);
-      let Lt = F?.aborted === !0,
+      let Lt = F?.aborted === true,
         fn = Xe.heldSeedRef ? "seed_ref_held" : Xe.refsChanged ? "bundle_refs_changed" : Xe.failReason;
       if (
         (s("tengu_ccr_bundle_upload", {
@@ -4179,7 +4179,7 @@ async function Lwe(e, t) {
         !Lt)
       )
         p("teleport_git_bundle_upload", fn);
-      return { success: !1, error: Xe.error, failReason: Xe.failReason };
+      return { success: false, error: Xe.error, failReason: Xe.failReason };
     }
     if (t?.signal?.aborted)
       return (
@@ -4190,7 +4190,7 @@ async function Lwe(e, t) {
           current_branch_only: o,
           build_ms: Date.now() - mt,
         }),
-        { success: !1, error: "Bundle cancelled" }
+        { success: false, error: "Bundle cancelled" }
       );
     s("tengu_ccr_bundle_built", {
       scope: c(Xe.scope),
@@ -4210,7 +4210,7 @@ async function Lwe(e, t) {
           s("tengu_ccr_bundle_upload", { ...C, outcome: w("git_error"), max_bytes: tt, current_branch_only: o }),
           p("teleport_git_bundle_upload", "git_error"),
           {
-            success: !1,
+            success: false,
             error: `The bundle could not be read back for upload (${Ku(An(fn), 200)}).`,
             failReason: "git_error",
           }
@@ -4222,7 +4222,7 @@ async function Lwe(e, t) {
       At = await Wnt(Xe.path, "_source_seed.bundle", e, { signal: F, ...(nt !== void 0 && { content: nt }) }),
       dn = Date.now() - ht;
     if (!At.success) {
-      let Lt = t?.signal?.aborted === !0;
+      let Lt = t?.signal?.aborted === true;
       if (
         (s("tengu_ccr_bundle_upload", {
           ...C,
@@ -4238,7 +4238,7 @@ async function Lwe(e, t) {
         !Lt)
       )
         p("teleport_git_bundle_upload", "upload_failed");
-      return { success: !1, error: At.error, failReason: "upload_failed" };
+      return { success: false, error: At.error, failReason: "upload_failed" };
     }
     if (
       (n(`[gitBundle] Uploaded ${At.size} bytes as file_id ${At.fileId}`),
@@ -4268,7 +4268,7 @@ async function Lwe(e, t) {
     else if (Xe.scope === "squashed") g("teleport_git_bundle_upload", "fallback_squashed");
     else y("teleport_git_bundle_upload");
     return {
-      success: !0,
+      success: true,
       fileId: At.fileId,
       bundleSizeBytes: At.size,
       scope: Xe.scope,
@@ -4296,8 +4296,8 @@ async function Lwe(e, t) {
 }
 
 async function Hkn(e, t, r, o) {
-  let u = await Zp(e, ["config", "-z", "--list"], { hardened: !0, layout: t, signal: r, probes: o });
-  if (u.code !== 0) return !0;
+  let u = await Zp(e, ["config", "-z", "--list"], { hardened: true, layout: t, signal: r, probes: o });
+  if (u.code !== 0) return true;
   return Prt(u.stdout);
 }
 
@@ -4316,12 +4316,12 @@ function Prt(e) {
 }
 
 async function Wkn(e, t, r, o) {
-  let u = await Zp(e, ["version"], { hardened: !0, layout: t, signal: r, probes: o }),
+  let u = await Zp(e, ["version"], { hardened: true, layout: t, signal: r, probes: o }),
     d = u.code === 0 ? qVe(u.stdout) : null;
-  if (d === null) return !1;
+  if (d === null) return false;
   let { major: _, minor: C, patch: A } = d;
   if (_ !== 2) return _ > 2;
-  if (C >= 45) return !0;
+  if (C >= 45) return true;
   let x = jkn.get(C);
   return x !== void 0 && A >= x;
 }
@@ -4334,9 +4334,9 @@ function Awe() {
   let e = VC();
   return (
     n(`[gitBundle] ${e.error}`),
-    s("tengu_ccr_bundle_upload", { hardened: !0, outcome: w("git_dir_tampered"), tampered_on: w("mid_build") }),
+    s("tengu_ccr_bundle_upload", { hardened: true, outcome: w("git_dir_tampered"), tampered_on: w("mid_build") }),
     p("teleport_git_bundle_upload", "git_dir_tampered"),
-    { success: !1, ...e }
+    { success: false, ...e }
   );
 }
 
@@ -4345,7 +4345,7 @@ function zkn(e, t, r) {
   return (
     s("tengu_ccr_bundle_upload", { ...t, outcome: w("seed_ref_held"), ...r }),
     p("teleport_git_bundle_upload", "seed_ref_held"),
-    { success: !1, ...o }
+    { success: false, ...o }
   );
 }
 
@@ -4383,9 +4383,9 @@ function Irt(e) {
     case "endpoint":
     case "pool":
     case "correlation":
-      return !1;
+      return false;
     default:
-      return !0;
+      return true;
   }
 }
 
@@ -4438,10 +4438,10 @@ function g3n(e) {
 }
 
 function h3n(e) {
-  if (!u$()) return !1;
+  if (!u$()) return false;
   let t = Kkn(e);
-  if (t !== null) return s("tengu_home_settings_mode_prompt_skipped", { reason: c(t) }), !1;
-  return !0;
+  if (t !== null) return s("tengu_home_settings_mode_prompt_skipped", { reason: c(t) }), false;
+  return true;
 }
 
 function Kkn({ staysAttached: e, launchMayForward: t, hostConsent: r }) {
@@ -4463,7 +4463,7 @@ function Xkn(e) {
 function Qkn() {
   return xe({
     content: `This session is being continued from another machine. Application state may have changed. The updated working directory is ${Se()}`,
-    isMeta: !0,
+    isMeta: true,
   });
 }
 
@@ -4478,15 +4478,15 @@ async function Fmr(e, t, r, o) {
           type: "object",
           properties: { title: { type: "string" }, branch: { type: "string" } },
           required: ["title", "branch"],
-          additionalProperties: !1,
+          additionalProperties: false,
         },
       },
       signal: r,
       options: {
         querySource: "teleport_generate_title",
         agents: [],
-        isNonInteractiveSession: !1,
-        hasAppendSystemPrompt: !1,
+        isNonInteractiveSession: false,
+        hasAppendSystemPrompt: false,
         mcpTools: [],
         agentContext: _a(),
         credentials: o,
@@ -4494,7 +4494,7 @@ async function Fmr(e, t, r, o) {
     })
   ).message.content[0];
   if (d?.type !== "text") return null;
-  let _ = Ut(h0(d.text), !1),
+  let _ = Ut(h0(d.text), false),
     C = f({ title: i(), branch: i() }).safeParse(_);
   return C.success ? C.data : null;
 }
@@ -4511,7 +4511,7 @@ async function Jkn(e, t, r) {
 }
 
 async function LAr() {
-  if (!(await cfe({ ignoreUntracked: !0 })))
+  if (!(await cfe({ ignoreUntracked: true })))
     throw (
       (s("tengu_teleport_error_git_not_clean", {}),
       new Hu(
@@ -4775,9 +4775,9 @@ function Drt(e, t, r, o, u) {
     }),
     r.project && !ci().hasUsedRemoteSession)
   )
-    jc((d) => (d.hasUsedRemoteSession ? d : { ...d, hasUsedRemoteSession: !0 }), u);
+    jc((d) => (d.hasUsedRemoteSession ? d : { ...d, hasUsedRemoteSession: true }), u);
   if (r.global && !ie().hasRemoteEnvironment)
-    Ae((d) => (d.hasRemoteEnvironment ? d : { ...d, hasRemoteEnvironment: !0 }), u);
+    Ae((d) => (d.hasRemoteEnvironment ? d : { ...d, hasRemoteEnvironment: true }), u);
 }
 
 function _3n(e) {
@@ -4845,7 +4845,7 @@ async function Qsn(e, t) {
       deviceBinding: t.deviceBinding,
       storageV5: t.storageV5,
       credentials: t.credentials,
-      allowBundle: !0,
+      allowBundle: true,
       seedDirSync: t.staysAttached,
       dirSyncConsent: t.dirSyncConsent,
       staysAttached: t.staysAttached,
@@ -4885,8 +4885,8 @@ ${A}
 `);
       },
     });
-  if (C) return { ok: !0, session: C, notices: d };
-  return { ok: !1, failReason: o ?? (t.signal.aborted ? "aborted" : "unknown"), failMessage: u, failDetail: _ };
+  if (C) return { ok: true, session: C, notices: d };
+  return { ok: false, failReason: o ?? (t.signal.aborted ? "aborted" : "unknown"), failMessage: u, failDetail: _ };
 }
 
 async function $mr(e, t, r, o, u) {
@@ -4944,7 +4944,7 @@ async function Zsn(e, t, r) {
     M = 0,
     F = 0,
     U = 0,
-    B = !1,
+    B = false,
     W = Date.now();
   while (Date.now() - W < u) {
     if (t?.aborted) throw Error("Workflow aborted");
@@ -4956,7 +4956,7 @@ async function Zsn(e, t, r) {
         for (let ge of me.message.content) if (ge.type === "tool_use") M++;
       } else if (me.type === "result") x = me;
     if (fe.sessionStatus === "archived") {
-      B = !0;
+      B = true;
       break;
     }
     if (fe.sessionStatus === "requires_action")
@@ -4971,7 +4971,7 @@ async function Zsn(e, t, r) {
     } else U = 0;
     if (fe.sessionStatus === "idle" && fe.newEvents.length === 0) {
       if ((F++, F >= d)) {
-        B = !0;
+        B = true;
         break;
       }
     } else F = 0;
@@ -5087,7 +5087,7 @@ async function rwn({ sessionId: e, v2: t, orgUUID: r }) {
 async function Nrt(e, t, r) {
   let o =
       r === void 0 ? void 0 : import("/$bunfs/root/chunk-c1faqx7r.js").then(({ deviceEventSignerFor: d }) => d(r), Tre),
-    u = await ubn(e, Grt(t), { eventSigner: o }).catch((d) => ({ ok: !1, reason: l(d) }));
+    u = await ubn(e, Grt(t), { eventSigner: o }).catch((d) => ({ ok: false, reason: l(d) }));
   if ((s("tengu_device_bind_title_latched", { success: u.ok }), !u.ok))
     n(`[deviceBind] rename_session after bound create failed: ${u.reason}`);
 }
@@ -5159,25 +5159,25 @@ function uwn(e) {
 
 async function Hrt(e) {
   let { prepared: t, buildBody: r, drops: o, post: u } = e;
-  if (!t?.ok) return { response: await u(r(void 0)), bind: t, attested: !1 };
+  if (!t?.ok) return { response: await u(r(void 0)), bind: t, attested: false };
   let d = t.value,
     _ = d.sign();
-  if (!_) return { response: await u(r(void 0)), bind: P("sign"), attested: !1 };
+  if (!_) return { response: await u(r(void 0)), bind: P("sign"), attested: false };
   s("tengu_device_bind_prepared", { dropped_env_vars: o.envVars, dropped_events: o.events.length });
   let C = [...(o.envVars ? ["environment_variables"] : []), ...o.events];
   if (C.length > 0) n(`[deviceBind] bound create dropped ${C.join(", ")}`);
   let A = await u(r(_));
   if (A.status === 200 || A.status === 201) {
     if (uwn(A.data) === _.deviceUUID.toLowerCase())
-      return y("device_bind_session"), { response: A, bind: re(_.deviceUUID), attested: !0 };
+      return y("device_bind_session"), { response: A, bind: re(_.deviceUUID), attested: true };
     return (
       s("tengu_device_bind_failed", { phase: w("create"), status: A.status, reason: w("silent_drop") }),
       g("device_bind_session", "silent_drop"),
       n("[deviceBind] create returned 200 but the session is not bound to this device; continuing unbound"),
-      { response: A, bind: P("silent_drop"), attested: !0 }
+      { response: A, bind: P("silent_drop"), attested: true }
     );
   }
-  if (!swn(A.status)) return { response: A, attested: !0 };
+  if (!swn(A.status)) return { response: A, attested: true };
   let x = lwn(A.data);
   if (
     (s("tengu_device_bind_failed", { phase: w("create"), status: A.status, ...(x !== void 0 && { reason: c(x) }) }),
@@ -5187,7 +5187,7 @@ async function Hrt(e) {
     d.clearRegistration().catch(() => {});
   let M = await u(r(void 0));
   if (M.status === 200 || M.status === 201) g("device_bind_session", x ?? "create_refused");
-  return { response: M, bind: P(cwn(A.status, x)), attested: !1 };
+  return { response: M, bind: P(cwn(A.status, x)), attested: false };
 }
 
 function jrt(e, t) {
@@ -5211,7 +5211,7 @@ function Wrt(e, t) {
 async function zrt(e, t, r) {
   let o = await Lwe(e, t);
   if (
-    t.hardenForDeviceSessions === !0 ||
+    t.hardenForDeviceSessions === true ||
     o.success ||
     o.failReason !== "unsupported_layout" ||
     r === null ||
@@ -5225,11 +5225,11 @@ async function zrt(e, t, r) {
       outcome: w("fallback_legacy_capture"),
       layout_kind: c(o.layoutKind),
       ...(o.gitFileKind !== void 0 && { git_file_kind: c(o.gitFileKind) }),
-      legacy_bundle: !0,
+      legacy_bundle: true,
       credential_named_wip: u.length,
     }),
     r?.(Rrt(o.layoutKind, u)),
-    Lwe(e, { ...t, hardenForDeviceSessions: !1 })
+    Lwe(e, { ...t, hardenForDeviceSessions: false })
   );
 }
 
@@ -5237,7 +5237,7 @@ async function wv(e) {
   let { initialMessage: t, signal: r } = e,
     o = e.cwd ?? ee(),
     u,
-    d = () => (u ??= Ec().catch(() => !1)),
+    d = () => (u ??= Ec().catch(() => false)),
     _ = od("allow_remote_sessions", "Cloud sessions", "are");
   if (_) return e.onCreateFail?.(_, "policy_denied"), null;
   if (qC()) return e.onCreateFail?.(O1t, "restricted_session"), null;
@@ -5251,7 +5251,7 @@ async function wv(e) {
       null
     );
   try {
-    e.onProgress?.({ kind: "checking", ...(Hn(o) === null && { folder: !0 }) });
+    e.onProgress?.({ kind: "checking", ...(Hn(o) === null && { folder: true }) });
     let C =
       $ke(e) &&
       ((Object.keys(e.environmentVariables ?? {}).length === 0 && (await d())) ||
@@ -5328,7 +5328,7 @@ async function wv(e) {
               signal: r,
               baseRef: e.bundleBaseRef,
               forceScope: e.bundleForceScope,
-              ...(Ki && { hardenForDeviceSessions: !0 }),
+              ...(Ki && { hardenForDeviceSessions: true }),
               ...Wrt(Ki, e.onBundleNotice),
             },
             e.onBundleNotice,
@@ -5453,7 +5453,7 @@ async function wv(e) {
         (Drt(
           jl.id,
           e.source,
-          { project: !1, global: !1 },
+          { project: false, global: false },
           { endpoint: C, grouped: e.sessionGroupingId != null },
           e.storageV5,
         ),
@@ -5559,9 +5559,9 @@ async function wv(e) {
     if (e.sourceUrl) Pe = { type: "git_repository", url: e.sourceUrl, revision: e.branchName };
     n("[teleport] phase: branch-detect");
     let We = Pe || e.agentId ? null : await x_(e.cwd),
-      Ve = !1,
+      Ve = false,
       Pt = null,
-      ct = !1,
+      ct = false,
       ut = e.sourceUrl ? "explicit_source_url" : e.agentId ? "agent_defaults" : "no_git_at_all",
       en = Hn(o),
       nn = B || Ie?.kind === "byoc",
@@ -5575,25 +5575,25 @@ async function wv(e) {
         en !== null &&
         (a.CCR_ENABLE_BUNDLE || (await Mp("tengu_ccr_bundle_seed_enabled"))),
       Xe =
-        e.seedDirSync === !0 &&
+        e.seedDirSync === true &&
         en === null &&
         !nn &&
         !e.agentId &&
         PX() &&
         bue(Bwe(o)) &&
         (await d()) &&
-        (await Ygt(o, e.dirSyncConsent).catch(() => !1)) &&
+        (await Ygt(o, e.dirSyncConsent).catch(() => false)) &&
         !(await qwe(Bwe(o)))
           ? Bwe(o)
           : null,
       nt =
-        e.seedDirSync === !0 &&
+        e.seedDirSync === true &&
         en !== null &&
         !nn &&
         !e.agentId &&
         (await d()) &&
-        (await Ygt(en, e.dirSyncConsent).catch(() => !1));
-    if (e.seedDirSync === !0 && en !== null && !nn && !e.agentId && !nt && (await d())) {
+        (await Ygt(en, e.dirSyncConsent).catch(() => false));
+    if (e.seedDirSync === true && en !== null && !nn && !e.agentId && !nt && (await d())) {
       let zn = A6t(en);
       if (zn !== null && zn !== "monorepo_or_unreadable_config") e.onBundleNotice?.(e7n(zn));
     }
@@ -5614,14 +5614,14 @@ async function wv(e) {
     }
     if (r.aborted) throw new Ze();
     if (We && !lt)
-      if (nn) (Ve = !0), (ut = "byoc_env_skip_preflight");
+      if (nn) (Ve = true), (ut = "byoc_env_skip_preflight");
       else if (qo(We.host)) {
         let zn = await Pye(We.owner, We.name, r);
         (Ve = zn.appInstalled),
           (Pt = zn.defaultBranch),
           (ct = zn.transient),
           (ut = Ve ? "github_preflight_ok" : "github_preflight_failed");
-      } else (Ve = !0), (ut = "ghes_optimistic");
+      } else (Ve = true), (ut = "ghes_optimistic");
     else if (lt) ut = "forced_bundle";
     else if (en && !e.agentId) ut = "no_github_remote";
     if (r.aborted) throw new Ze();
@@ -5632,7 +5632,7 @@ async function wv(e) {
           return zn !== null && H_n(zn);
         },
         gitRoot: en,
-        gitUsable: !0,
+        gitUsable: true,
       }),
       Lt = null,
       fn = null,
@@ -5655,7 +5655,7 @@ async function wv(e) {
             : zn?.verdict.reason === "head_behind_remote"
               ? zn.verdict.head.commit
               : null;
-      if (zn?.verdict.diverged === !0 && Sn === null) {
+      if (zn?.verdict.diverged === true && Sn === null) {
         let oo =
           zn.verdict.reason === "head_not_at_remote"
             ? zn.verdict.remote.placement === "unknown"
@@ -5702,7 +5702,7 @@ async function wv(e) {
         else fn = oo;
       }
     }
-    if (!Ve && !mt && We) Ve = !0;
+    if (!Ve && !mt && We) Ve = true;
     if (Ve && We) {
       let { host: zn, owner: oo, name: Br } = We;
       ht ??= e.branchName ?? (await Cw());
@@ -5713,7 +5713,7 @@ async function wv(e) {
             a.CCR_ON_BRANCH_DEFAULT_GUARD ??
             (Wr != null && String(Wr).trim()
               ? "enforce"
-              : (await Mp("tengu_on_branch_default_guard_observe").catch(() => !1))
+              : (await Mp("tengu_on_branch_default_guard_observe").catch(() => false))
                 ? "observe"
                 : "enforce");
         if (pi !== "off") {
@@ -5775,7 +5775,7 @@ async function wv(e) {
           type: "git_repository",
           url: `https://${zn}/${oo}/${Br}`,
           revision: Sn ?? qn,
-          ...(e.reuseOutcomeBranch && { allow_unrestricted_git_push: !0 }),
+          ...(e.reuseOutcomeBranch && { allow_unrestricted_git_push: true }),
         }),
         (Oe = `${oo}/${Br}`);
     }
@@ -5823,7 +5823,7 @@ async function wv(e) {
           {
             signal: r,
             currentBranchOnly: nt,
-            ...(oo && { hardenForDeviceSessions: !0 }),
+            ...(oo && { hardenForDeviceSessions: true }),
             ...Wrt(oo, e.onBundleNotice),
             onBundled: (qn) => e.onProgress?.({ kind: "bundled", ...qn }),
           },
@@ -6006,7 +6006,7 @@ async function wv(e) {
                   ? {
                       source: "github",
                       revision: ht,
-                      pin: Lr ? { pinned: !0 } : { pinned: !1, unpinnable: mn },
+                      pin: Lr ? { pinned: true } : { pinned: false, unpinnable: mn },
                       preflightFailed: ut === "github_preflight_failed",
                       divergence: Rr,
                       ...(bn !== null && {
@@ -6085,7 +6085,7 @@ async function wv(e) {
         Oee(),
       ki = e.ultraplan ? `ultraplan: ${jn}` : jn,
       Xn =
-        e.deferInitialMessage === !0 && t !== null && (nt || Xe !== null || tt !== null)
+        e.deferInitialMessage === true && t !== null && (nt || Xe !== null || tt !== null)
           ? { content: t, uuid: e.initialMessageUuid ?? yT() }
           : void 0,
       Rn = Lrt({
@@ -6136,7 +6136,7 @@ async function wv(e) {
                   outcomes: Tn ? [Tn] : [],
                   model: lr,
                   ...(Mr && { effort_level: Mr }),
-                  ...(e.reuseOutcomeBranch && { reuse_outcome_branches: !0 }),
+                  ...(e.reuseOutcomeBranch && { reuse_outcome_branches: true }),
                   ...(e.githubPr && { github_pr: e.githubPr }),
                   ...(Object.keys(M).length > 0 && { environment_variables: M }),
                   ...(e.appendSystemPrompt && { append_system_prompt: e.appendSystemPrompt }),
@@ -6231,7 +6231,7 @@ Response data: ${b(Qn.data, null, 2)}`,
       );
     let xr = Ui && xn,
       vo = async (zn) => {
-        if (xr && mr?.ok === !0 && !zn) await rwn({ sessionId: ss.id, v2: C === "v1alpha2", orgUUID: x });
+        if (xr && mr?.ok === true && !zn) await rwn({ sessionId: ss.id, v2: C === "v1alpha2", orgUUID: x });
       };
     if (Pr !== null && en !== null)
       switch (Pr.kind) {
@@ -6241,7 +6241,7 @@ Response data: ${b(Qn.data, null, 2)}`,
             gitRoot: en,
             containerOrigin: Pr.containerOrigin,
             signal: e.seedSignal,
-            boundToThisMachine: mr?.ok === !0 && e.dirSyncConsent !== "upload_only",
+            boundToThisMachine: mr?.ok === true && e.dirSyncConsent !== "upload_only",
             hostConsent: e.dirSyncConsent,
             preface: Pr.preface,
             createFacts: { ...Pr.createFacts, plannedEngine: dn },
@@ -6263,7 +6263,7 @@ Response data: ${b(Qn.data, null, 2)}`,
         folder: Xe,
         seed: nr,
         signal: e.seedSignal,
-        boundToThisMachine: mr?.ok === !0 && e.dirSyncConsent !== "upload_only",
+        boundToThisMachine: mr?.ok === true && e.dirSyncConsent !== "upload_only",
         hostConsent: e.dirSyncConsent,
         createFacts: { origin: { kind: "folder" }, plannedEngine: dn },
         credentials: e.credentials,
@@ -6272,7 +6272,7 @@ Response data: ${b(Qn.data, null, 2)}`,
       });
     if ((Brt(e.deviceBinding, mr, ss.id, e.storageV5), Pr !== null || nr !== null))
       s("tengu_teleport_client_directory_sync", {
-        declared: w(!xr ? "not_sent" : mr?.ok === !0 ? "accepted" : "unbound"),
+        declared: w(!xr ? "not_sent" : mr?.ok === true ? "accepted" : "unbound"),
       });
     if (xn && e.title) Nrt(ss.id, e.title, mr?.ok ? mr.value : void 0);
     let Jo =
@@ -6281,7 +6281,7 @@ Response data: ${b(Qn.data, null, 2)}`,
         : await dwn({
             sessionId: ss.id,
             planning: tt,
-            bound: mr?.ok === !0,
+            bound: mr?.ok === true,
             consentMode: e.homeSettingsConsent,
             signal: r,
             credentials: e.credentials,
@@ -6299,14 +6299,14 @@ Response data: ${b(Qn.data, null, 2)}`,
 }
 
 async function MAr(e, t = 1e4) {
-  if (!pr()) return n(`[interruptRemoteSession] ${e} skipped: non-first-party provider`), !1;
+  if (!pr()) return n(`[interruptRemoteSession] ${e} skipped: non-first-party provider`), false;
   let r = Ere();
-  if (!r) return !1;
+  if (!r) return false;
   try {
     let o = Ad(e);
-    if (!/^session_[A-Za-z0-9_-]+$/.test(o)) return !1;
+    if (!/^session_[A-Za-z0-9_-]+$/.test(o)) return false;
     let u = await oP();
-    if (!u) return !1;
+    if (!u) return false;
     let { url: d, body: _ } = yIe(
         zt().BASE_API_URL,
         o,
@@ -6324,10 +6324,10 @@ async function MAr(e, t = 1e4) {
         timeout: t,
         validateStatus: (x) => x < 500,
       });
-    if (A.status >= 200 && A.status < 300) return n(`[interruptRemoteSession] interrupted ${e}`), !0;
-    return n(`[interruptRemoteSession] ${e} failed ${A.status}: ${b(A.data)}`), !1;
+    if (A.status >= 200 && A.status < 300) return n(`[interruptRemoteSession] interrupted ${e}`), true;
+    return n(`[interruptRemoteSession] ${e} failed ${A.status}: ${b(A.data)}`), false;
   } catch (o) {
-    return n(`[interruptRemoteSession] ${e} failed: ${l(o)}`, { level: "error" }), !1;
+    return n(`[interruptRemoteSession] ${e} failed: ${l(o)}`, { level: "error" }), false;
   }
 }
 
@@ -6407,11 +6407,11 @@ async function Wwe(e) {
       return W.some(([z]) => z.includes("\uFFFD")) ? null : W;
     },
     r = await t("--local");
-  if (r === null) return { ok: !1, reason: "config_unreadable" };
+  if (r === null) return { ok: false, reason: "config_unreadable" };
   let o = await t("--worktree");
-  if (o === null) return { ok: !1, reason: "config_unreadable" };
+  if (o === null) return { ok: false, reason: "config_unreadable" };
   let u = [...r, ...o];
-  if (u.some(([_]) => Ewn.test(_))) return { ok: !1, reason: "conditional_include" };
+  if (u.some(([_]) => Ewn.test(_))) return { ok: false, reason: "conditional_include" };
   let d = bwn(u.map(([_]) => _));
   if (
     d.some(
@@ -6421,8 +6421,8 @@ async function Wwe(e) {
 `),
     )
   )
-    return { ok: !1, reason: "filter_name_unrepresentable" };
-  return { ok: !0, args: kwn(d).flatMap(([_, C]) => ["-c", `${_}=${C}`]) };
+    return { ok: false, reason: "filter_name_unrepresentable" };
+  return { ok: true, args: kwn(d).flatMap(([_, C]) => ["-c", `${_}=${C}`]) };
 }
 
 async function l7(e, t, r = [], o) {
@@ -6430,8 +6430,8 @@ async function l7(e, t, r = [], o) {
     _ = new Set(t),
     C = new Set(r),
     A = te([...t, ...r]),
-    x = o?.requireWitnessForSelfOwningPins === !0,
-    M = o?.declineSelfOwningPinUnderLiveRoot === !0;
+    x = o?.requireWitnessForSelfOwningPins === true,
+    M = o?.declineSelfOwningPinUnderLiveRoot === true;
   if (typeof u.ids !== "object") return NZ(e, u, d, A, _, C, [], x, M);
   let F = await Promise.all(oot(e, A, u.ids).map(async (U) => ({ root: U, ...(await Krt(U)) })));
   return NZ(e, u, d, A, _, C, F, x, M);
@@ -6443,26 +6443,26 @@ function S3n(e, t, r = [], o) {
     _ = new Set(t),
     C = new Set(r),
     A = te([...t, ...r]),
-    x = o?.requireWitnessForSelfOwningPins === !0,
-    M = o?.declineSelfOwningPinUnderLiveRoot === !0;
+    x = o?.requireWitnessForSelfOwningPins === true,
+    M = o?.declineSelfOwningPinUnderLiveRoot === true;
   if (typeof u.ids !== "object") return NZ(e, u, d, A, _, C, [], x, M);
   let F = oot(e, A, u.ids).map((U) => ({ root: U, ...Vrt(U) }));
   return NZ(e, u, d, A, _, C, F, x, M);
 }
 
-function NZ(e, t, r, o, u, d, _, C = !1, A = !1) {
+function NZ(e, t, r, o, u, d, _, C = false, A = false) {
   if (r) return SS(e, "it is a symbolic link, so the tree it would isolate into cannot be pinned down");
   if (t.entry === "unverifiable") return SS(e, "its .git entry exists but could not be examined");
   let x = t.ids;
   if (x === "error") return SS(e, "git could not be run to resolve it");
-  if (typeof x === "object" && x.isBare === !0) return SS(e, "it is a bare repository, not a working tree");
+  if (typeof x === "object" && x.isBare === true) return SS(e, "it is a bare repository, not a working tree");
   if (x === "no-repo") {
     if (t.entry !== "absent") return SS(e, "a .git entry exists there but git could not resolve it");
     for (let B of o) {
       if (!u.has(B)) continue;
       if (A1(e, B))
         return {
-          ok: !1,
+          ok: false,
           reason: "pin-is-protected-checkout",
           message: X_(
             `Refusing to use ${e} as an isolation worktree: it contains the protected checkout ${B}, so adopting it would disarm every isolation check for that checkout.`,
@@ -6472,17 +6472,17 @@ function NZ(e, t, r, o, u, d, _, C = !1, A = !1) {
     for (let B of d)
       if (A1(e, B))
         return {
-          ok: !1,
+          ok: false,
           reason: "pin-is-own-launch-tree",
           message: X_(
             `This resume was started from inside ${e}, a non-git directory \u2014 nothing can confirm it as a separate isolation tree from there. Run the resume from the project checkout instead.`,
           ),
         };
-    return { ok: !0, reason: "not-a-git-worktree" };
+    return { ok: true, reason: "not-a-git-worktree" };
   }
   if (x.symlinkedRefStore.length > 0)
     return {
-      ok: !1,
+      ok: false,
       reason: "invalid-linked-worktree",
       message: X_(
         `Refusing to use ${e} as an isolation worktree: its git metadata has symbolic links in place of ${x.symlinkedRefStore.join(", ")}, which aliases another repository's refs into this tree. Recreate the worktree with git worktree add, then retry.`,
@@ -6495,7 +6495,7 @@ function NZ(e, t, r, o, u, d, _, C = !1, A = !1) {
     return SS(e, `its working tree resolves to a path that cannot be safely compared (${x.topLevel})`);
   if (M === "distinct")
     return {
-      ok: !1,
+      ok: false,
       reason: "work-tree-elsewhere",
       message: X_(
         `Refusing to use ${e} as an isolation worktree: git resolves its working tree to ${x.topLevel} (a core.worktree redirect, or a checkout discovered above it), so commands run there would write outside the worktree. Remove the redirect, restore the worktree's own .git, or recreate the worktree, then retry.`,
@@ -6509,14 +6509,14 @@ function NZ(e, t, r, o, u, d, _, C = !1, A = !1) {
       if (!F && Zrt(e, x.commonDir)) continue;
       if (!F)
         return {
-          ok: !1,
+          ok: false,
           reason: "pin-is-own-launch-tree",
           message: X_(
             `The worktree ${e} contains the directory this resume ran from, and nothing in this session vouches for its worktree registration \u2014 an isolation worktree never contains its own launch position. Run the resume from the project checkout instead.`,
           ),
         };
       return {
-        ok: !1,
+        ok: false,
         reason: "pin-is-own-launch-tree",
         message: X_(
           `This resume was started from inside ${e} (or a directory it contains), which is its own repository \u2014 it cannot be confirmed as a separate isolation worktree from there. Run the resume from the project checkout instead.`,
@@ -6526,7 +6526,7 @@ function NZ(e, t, r, o, u, d, _, C = !1, A = !1) {
     if (z === "same") {
       if (W && u.has(B.root))
         return {
-          ok: !1,
+          ok: false,
           reason: "pin-is-protected-checkout",
           message: X_(
             `Refusing to use ${e} as an isolation worktree: it is the checkout this session launched from. An honest launch-from-inside and a forged record are indistinguishable here, so both are refused \u2014 launch from the parent checkout to enter or resume this worktree.`,
@@ -6534,7 +6534,7 @@ function NZ(e, t, r, o, u, d, _, C = !1, A = !1) {
         };
       if (W && F)
         return {
-          ok: !1,
+          ok: false,
           reason: "pin-is-own-launch-tree",
           message: X_(
             `This resume was started from inside ${e}, which is its own repository \u2014 it cannot be confirmed as a separate isolation worktree from there. Run the resume from the project checkout instead.`,
@@ -6553,7 +6553,7 @@ function NZ(e, t, r, o, u, d, _, C = !1, A = !1) {
       return SS(e, `its git directory (${x.gitDir}) could not be safely compared with the protected checkout's`);
     if (pe === "same")
       return {
-        ok: !1,
+        ok: false,
         reason: "shared-git-dir",
         message: X_(
           `Refusing to use ${e} as an isolation worktree: its git directory is the shared checkout's own (${x.gitDir}), so git commands there move the protected checkout's branches and refs. This usually means the worktree's .git file is stale or was rewritten \u2014 recreate the worktree, then retry.`,
@@ -6563,7 +6563,7 @@ function NZ(e, t, r, o, u, d, _, C = !1, A = !1) {
   if (F && u.size === 0) {
     if (C)
       return {
-        ok: !1,
+        ok: false,
         reason: "pin-is-own-launch-tree",
         message: X_(
           `The worktree ${e} is its own repository and nothing vouches for it from this session \u2014 it cannot be resumed or re-entered. Re-create it (a fresh isolated tree); the existing tree and its work remain on disk at ${e} for manual recovery.`,
@@ -6573,7 +6573,7 @@ function NZ(e, t, r, o, u, d, _, C = !1, A = !1) {
       for (let B of d)
         if (R1(B, e) !== "same" && A1(B, e))
           return {
-            ok: !1,
+            ok: false,
             reason: "pin-is-own-launch-tree",
             message: X_(
               `The worktree ${e} sits under the directory this resume ran from, and nothing else vouches for it \u2014 it cannot be resumed or re-entered. Re-create it (a fresh isolated tree); the existing tree and its work remain on disk at ${e} for manual recovery. Where it has a parent checkout, resuming from there also works.`,
@@ -6588,14 +6588,14 @@ function NZ(e, t, r, o, u, d, _, C = !1, A = !1) {
       if (!F && Zrt(e, x.commonDir)) continue;
       if (!F)
         return {
-          ok: !1,
+          ok: false,
           reason: "pin-is-own-launch-tree",
           message: X_(
             `The worktree ${e} contains the directory this resume ran from, and nothing in this session vouches for its worktree registration \u2014 an isolation worktree never contains its own launch position. Run the resume from the project checkout instead.`,
           ),
         };
       return {
-        ok: !1,
+        ok: false,
         reason: "pin-is-own-launch-tree",
         message: X_(
           `This resume was started from inside ${e} (or a directory it contains), which is its own repository \u2014 it cannot be confirmed as a separate isolation worktree from there. Run the resume from the project checkout instead.`,
@@ -6603,7 +6603,7 @@ function NZ(e, t, r, o, u, d, _, C = !1, A = !1) {
       };
     }
     return {
-      ok: !1,
+      ok: false,
       reason: "pin-is-protected-checkout",
       message: X_(
         `Refusing to use ${e} as an isolation worktree: it contains the protected checkout ${B}, so adopting it would disarm every isolation check for that checkout.`,
@@ -6617,14 +6617,14 @@ function NZ(e, t, r, o, u, d, _, C = !1, A = !1) {
       W = x.backPointer !== null && VB(rot(x.gitDir, x.backPointer), Yg(e, ".git")) === "same";
     if (B !== "same" || !W)
       return {
-        ok: !1,
+        ok: false,
         reason: "invalid-linked-worktree",
         message: X_(
           `Refusing to use ${e} as an isolation worktree: it uses another repository's refs (${x.commonDir}) without being a registered worktree of it (its admin directory or back-pointer does not check out). Recreate the worktree with git worktree add, then retry.`,
         ),
       };
   }
-  return { ok: !0, reason: "verified" };
+  return { ok: true, reason: "verified" };
 }
 
 function oot(e, t, r) {
@@ -6634,7 +6634,7 @@ function oot(e, t, r) {
 
 function SS(e, t) {
   return {
-    ok: !1,
+    ok: false,
     reason: "unverifiable",
     message: X_(
       `Refusing to use ${e} as an isolation worktree: ${t}, so its git identity could not be verified. Isolation is refused rather than assumed \u2014 recreate the worktree (or remove the corrupt .git entry) and retry.`,
@@ -6671,7 +6671,7 @@ async function Dwn(e) {
   try {
     return (await CN(e)).isSymbolicLink();
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -6679,7 +6679,7 @@ function Lwn(e) {
   try {
     return EN(e).isSymbolicLink();
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -6693,8 +6693,8 @@ async function Fwn(e) {
     cwd: e,
     env: ii({ LC_ALL: "C" }),
     timeout: $Z,
-    useToolMemoryCgroup: !1,
-    preserveOutputOnError: !0,
+    useToolMemoryCgroup: false,
+    preserveOutputOnError: true,
   });
   if (t.code !== 0) {
     if (await $wn(e)) return "no-repo";
@@ -6703,8 +6703,8 @@ async function Fwn(e) {
         cwd: e,
         env: ii({ LC_ALL: "C" }),
         timeout: $Z,
-        useToolMemoryCgroup: !1,
-        preserveOutputOnError: !0,
+        useToolMemoryCgroup: false,
+        preserveOutputOnError: true,
       });
       if (d.code === 0) {
         let _ = lot(e, d.stdout);
@@ -6729,9 +6729,9 @@ function Nwn(e) {
     t = Dvn(it(), [...sot], {
       cwd: e,
       env: ii({ LC_ALL: "C" }),
-      reject: !1,
+      reject: false,
       timeout: $Z,
-      useToolMemoryCgroup: !1,
+      useToolMemoryCgroup: false,
       stdio: ["ignore", "pipe", "pipe"],
     });
   } catch {
@@ -6745,9 +6745,9 @@ function Nwn(e) {
         u = Dvn(it(), [...cn, "rev-parse", "--absolute-git-dir", "--git-common-dir"], {
           cwd: e,
           env: ii({ LC_ALL: "C" }),
-          reject: !1,
+          reject: false,
           timeout: $Z,
-          useToolMemoryCgroup: !1,
+          useToolMemoryCgroup: false,
           stdio: ["ignore", "pipe", "pipe"],
         });
       } catch {
@@ -6785,7 +6785,7 @@ function iot(e) {
 
 async function $wn(e) {
   try {
-    return await CN(e), !1;
+    return await CN(e), false;
   } catch (t) {
     let r = E(t);
     return r === "ENOENT" || r === "ENOTDIR";
@@ -6794,7 +6794,7 @@ async function $wn(e) {
 
 function Uwn(e) {
   try {
-    return EN(e), !1;
+    return EN(e), false;
   } catch (t) {
     let r = E(t);
     return r === "ENOENT" || r === "ENOTDIR";
@@ -6813,7 +6813,7 @@ function lot(e, t) {
   if (r.length !== 2) return null;
   if (r.some((u) => /[\u0000-\u001f\u007f-\u009f]/.test(u))) return null;
   let o = r[1];
-  return { gitDir: r[0], topLevel: e, commonDir: not(o) ? o : Yg(e, o), isBare: !0 };
+  return { gitDir: r[0], topLevel: e, commonDir: not(o) ? o : Yg(e, o), isBare: true };
 }
 
 function cot(e, t) {
@@ -6984,8 +6984,8 @@ function mot(e, t, r) {
 function A1(e, t) {
   let r = Jm(e),
     o = Jm(t);
-  if (Kp(r) || Kp(o)) return !0;
-  if (r.skipped !== o.skipped) return !0;
+  if (Kp(r) || Kp(o)) return true;
+  if (r.skipped !== o.skipped) return true;
   return Lw(o, r);
 }
 
@@ -7068,21 +7068,21 @@ async function oan(e, t) {
   for (;;)
     try {
       let o = await ca(r);
-      if (ug(o) !== ug(t) && !ug(o).startsWith(ug(t + kT))) return !0;
+      if (ug(o) !== ug(t) && !ug(o).startsWith(ug(t + kT))) return true;
       break;
     } catch (o) {
-      if (E(o) !== "ENOENT") return !0;
-      if ((await Nf(r).catch((_) => (E(_) === "ENOENT" ? null : _))) != null) return !0;
+      if (E(o) !== "ENOENT") return true;
+      if ((await Nf(r).catch((_) => (E(_) === "ENOENT" ? null : _))) != null) return true;
       let d = R_(r);
-      if (d === r) return !0;
+      if (d === r) return true;
       r = d;
     }
   try {
-    if ((await Nf(e)).isSymbolicLink()) return !0;
+    if ((await Nf(e)).isSymbolicLink()) return true;
   } catch (o) {
-    if (E(o) !== "ENOENT") return !0;
+    if (E(o) !== "ENOENT") return true;
   }
-  return !1;
+  return false;
 }
 
 async function Umr(e, t, r) {
@@ -7222,7 +7222,7 @@ async function T3n(e, t) {
   }
   let o = ml(r, cTe);
   try {
-    let u = !1;
+    let u = false;
     try {
       let _ = await Nf(o);
       u = !_.isFile() || _.nlink !== 1;
@@ -7284,7 +7284,7 @@ async function Ywn(e, t, r, o, u) {
 async function Xwn(e, t, r) {
   let o = await PN(t);
   if (!o) return;
-  let u = !1;
+  let u = false;
   try {
     await M1(o);
   } catch (A) {
@@ -7327,7 +7327,7 @@ async function Xwn(e, t, r) {
   }
   await Zwe(e, t);
   try {
-    await bot(t, { recursive: !0, force: !0 }), n(`[worktree] removed orphaned worktree directory at ${t}`);
+    await bot(t, { recursive: true, force: true }), n(`[worktree] removed orphaned worktree directory at ${t}`);
   } catch (A) {
     throw Error(`Cannot self-heal orphaned worktree at ${t}: ${l(A)}. Remove manually to proceed.`);
   }
@@ -7360,9 +7360,9 @@ async function uTe(e, t, r) {
       Ie = new Date();
     if ((await jwn(o, Ie, Ie).catch(() => {}), !d && !r?.prNumber)) {
       let Ee = await Ywn(e, o, u, _, Ce);
-      if (Ee) return { worktreePath: o, worktreeBranch: u, headCommit: Ee, existed: !0, refreshed: !0 };
+      if (Ee) return { worktreePath: o, worktreeBranch: u, headCommit: Ee, existed: true, refreshed: true };
     }
-    return { worktreePath: o, worktreeBranch: u, headCommit: Ce ?? _, existed: !0 };
+    return { worktreePath: o, worktreeBranch: u, headCommit: Ce ?? _, existed: true };
   }
   await Xwn(e, o, u);
   let C = await Lle(o, e).catch((fe) => {
@@ -7379,7 +7379,7 @@ async function uTe(e, t, r) {
     !(await mTe(C))
   )
     await XB(o, e), await qe(it(), [...cn, "worktree", "prune"], { cwd: e, env: ii() });
-  await oTe(MT(e), { recursive: !0 });
+  await oTe(MT(e), { recursive: true });
   let A = vCe(),
     x,
     M = null;
@@ -7482,7 +7482,7 @@ async function uTe(e, t, r) {
       if (await m3(o)) await qe(it(), [...cn, "worktree", "remove", "--force", o], { cwd: e, env: ii() });
       else if (
         await Xwe(o).then(
-          () => !1,
+          () => false,
           (ge) => E(ge) === "EINVAL" || X(ge),
         )
       )
@@ -7496,7 +7496,7 @@ async function uTe(e, t, r) {
         await qe(it(), [...cn, "worktree", "prune"], { cwd: e, env: ii() });
     else if (
       await Xwe(o).then(
-        () => !1,
+        () => false,
         (me) => E(me) === "EINVAL" || X(me),
       )
     )
@@ -7523,7 +7523,7 @@ async function uTe(e, t, r) {
       if (await m3(o)) await qe(it(), [...cn, "worktree", "remove", "--force", o], { cwd: e, env: ii() });
       else if (
         await Xwe(o).then(
-          () => !1,
+          () => false,
           (We) => E(We) === "EINVAL" || X(We),
         )
       )
@@ -7554,7 +7554,7 @@ async function uTe(e, t, r) {
       p("git_worktree_create", "git_worktree_create_sparse_checkout_failed"),
         await fe(`Failed to checkout sparse worktree: ${ap(ran(Be))}`);
   }
-  return await T3n(o, M), { worktreePath: o, worktreeBranch: u, headCommit: M, baseBranch: x, existed: !1 };
+  return await T3n(o, M), { worktreePath: o, worktreeBranch: u, headCommit: M, baseBranch: x, existed: false };
 }
 
 async function Bmr(e, t) {
@@ -7586,11 +7586,11 @@ async function Bmr(e, t) {
       if (
         o.some((B) => {
           let W = B.startsWith("/") ? B.slice(1) : B;
-          if (W.startsWith(U)) return !0;
+          if (W.startsWith(U)) return true;
           let z = W.search(/[*?[]/);
           if (z > 0) {
             let fe = W.slice(0, z);
-            if (U.startsWith(fe)) return !0;
+            if (U.startsWith(fe)) return true;
           }
           let pe = W;
           while (pe.startsWith("**/")) pe = pe.slice(3);
@@ -7602,15 +7602,15 @@ async function Bmr(e, t) {
               let Ie = U.slice(0, -1)
                 .split("/")
                 .map((Ee) => Ee.toLowerCase());
-              if (me === -1 ? Ie.includes(Ce) : Ie.some((Ee) => Ee.startsWith(Ce))) return !0;
+              if (me === -1 ? Ie.includes(Ce) : Ie.some((Ee) => Ee.startsWith(Ce))) return true;
             }
           }
-          return !1;
+          return false;
         })
       )
-        return !0;
-      if (_.ignores(U.slice(0, -1)) || _.ignores(U)) return !0;
-      return !1;
+        return true;
+      if (_.ignores(U.slice(0, -1)) || _.ignores(U)) return true;
+      return false;
     });
   if (x.length > 0) {
     let U = await qe(it(), [...cn, "ls-files", "--others", "--ignored", "--exclude-standard", "--", ...x], {
@@ -7647,7 +7647,7 @@ async function Bmr(e, t) {
         });
         continue;
       }
-      await oTe(R_(W), { recursive: !0 }), await Sot(B, W), M.push(U);
+      await oTe(R_(W), { recursive: true }), await Sot(B, W), M.push(U);
     } catch (z) {
       n(`Failed to copy ${U} to worktree: ${l(z)}`, { level: "warn" });
     }
@@ -7675,7 +7675,7 @@ async function Qwn(e, t, r) {
       n("Skipping settings.local.json copy: destination escapes worktree via committed symlink", { level: "warn" });
       return;
     }
-    await oTe(R_(_), { recursive: !0 }), await Sot(u, _), n(`Copied settings.local.json to worktree: ${_}`);
+    await oTe(R_(_), { recursive: true }), await Sot(u, _), n(`Copied settings.local.json to worktree: ${_}`);
   } catch (d) {
     if (E(d) !== "ENOENT") n(`Failed to copy settings.local.json: ${l(d)}`, { level: "warn" });
   }
@@ -7732,11 +7732,11 @@ function san() {
 
 async function aan(e, t) {
   let { code: r, stderr: o } = await $e("tmux", ["new-session", "-d", "-s", e, "-c", t], {
-    useCwd: !0,
-    useToolMemoryCgroup: !1,
+    useCwd: true,
+    useToolMemoryCgroup: false,
   });
-  if (r !== 0) return { created: !1, error: o };
-  return { created: !0 };
+  if (r !== 0) return { created: false, error: o };
+  return { created: true };
 }
 
 async function u7(e) {
@@ -7751,22 +7751,22 @@ function Z3e(e) {
 
 async function vot(e) {
   let t = e?.match(XC);
-  if (!t) return !1;
+  if (!t) return false;
   let r = Number(t[1]);
-  if (r === process.pid || !ms(r)) return !1;
-  return !0;
+  if (r === process.pid || !ms(r)) return false;
+  return true;
 }
 
 async function mTe(e) {
   let t = e?.match(XC);
-  if (!t) return !1;
+  if (!t) return false;
   let r = Number(t[1]);
   return r !== process.pid && ms(r) && (await Bm(r, t[2]));
 }
 
 async function Ole(e) {
-  if (e === void 0) return !0;
-  if (!XC.test(e)) return !1;
+  if (e === void 0) return true;
+  if (!XC.test(e)) return false;
   return !(await vot(e));
 }
 
@@ -7791,7 +7791,7 @@ async function t4e(e, t, r, o) {
       d = u ? `claude ${o} ${r} (pid ${process.pid} start ${u})` : `claude ${o} ${r} (pid ${process.pid})`,
       _ = () => qe(it(), [...cn, "worktree", "lock", "--reason", d, e], { cwd: t, env: ii() }),
       C = await _();
-    if (C.code === 0) return !0;
+    if (C.code === 0) return true;
     let A;
     try {
       A = await Lle(e, t);
@@ -7800,25 +7800,25 @@ async function t4e(e, t, r, o) {
         n(
           `[worktree] failed to lock ${o} worktree ${e} and could not read the registry (${l(M)}); treating this session as a guest`,
         ),
-        !1
+        false
       );
     }
-    if (A === void 0) return n(`[worktree] failed to lock ${o} worktree ${e}: ${C.stderr.trim()}`), !0;
+    if (A === void 0) return n(`[worktree] failed to lock ${o} worktree ${e}: ${C.stderr.trim()}`), true;
     if (!XC.test(A) || (await vot(A)))
       return (
         n(
           `[worktree] ${e} is already locked (${A || "no reason"}); leaving the existing lock in place \u2014 this session is a guest, not the owner`,
         ),
-        !1
+        false
       );
-    if (Number(A.match(XC)?.[1]) === process.pid) return !0;
+    if (Number(A.match(XC)?.[1]) === process.pid) return true;
     await XB(e, t);
     let x = await _();
     if (x.code !== 0)
       n(`[worktree] failed to re-lock ${o} worktree ${e} after clearing a stale lock: ${x.stderr.trim()}`);
-    return !0;
+    return true;
   } catch (u) {
-    return n(`[worktree] failed to lock ${o} worktree ${e}: ${l(u)}`), !0;
+    return n(`[worktree] failed to lock ${o} worktree ${e}: ${l(u)}`), true;
   }
 }
 
@@ -7870,7 +7870,7 @@ async function Dut(e, t, r, o) {
         worktreeName: t,
         sessionId: e,
         tmuxSessionName: r,
-        hookBased: !0,
+        hookBased: true,
       });
   } else {
     let A = o.repoRoot ?? Vr(u);
@@ -7901,7 +7901,7 @@ async function Dut(e, t, r, o) {
       sessionId: e,
       tmuxSessionName: r,
       creationDurationMs: fe,
-      enteredExisting: me ? void 0 : !0,
+      enteredExisting: me ? void 0 : true,
       resumedExisting: z || void 0,
       resetToFreshBase: pe || void 0,
       usedSparsePaths: (Je().worktree?.sparsePaths?.length ?? 0) > 0,
@@ -7934,19 +7934,19 @@ async function d7(e) {
       _ = { worktreePath: C.slice(9) };
     } else if (C.startsWith("branch ") && _) _.worktreeBranch = C.slice(7).replace(/^refs\/heads\//, "");
     else if ((C === "locked" || C.startsWith("locked ")) && _) _.lockReason = C.slice(6).trim();
-    else if ((C === "prunable" || C.startsWith("prunable ")) && _) _.prunable = !0;
+    else if ((C === "prunable" || C.startsWith("prunable ")) && _) _.prunable = true;
   if (_) d.push(_);
   return d;
 }
 
 function N1t(e, t) {
   let r = HZ.normalize(e);
-  return RN(r) || S_(r, !0) || Sc(e, t);
+  return RN(r) || S_(r, true) || Sc(e, t);
 }
 
 function x1(e) {
   let t = HZ.normalize(e);
-  return RN(t) || S_(t, !0) || _r(e);
+  return RN(t) || S_(t, true) || _r(e);
 }
 
 async function lan(e) {
@@ -7965,7 +7965,7 @@ async function lan(e) {
     let _ = YC(d.worktreePath),
       C = d.worktreeBranch ?? "";
     if (
-      d.prunable === !0 ||
+      d.prunable === true ||
       !_ ||
       /\s/.test(_) ||
       Jwn.test(d.worktreePath) ||
@@ -7999,9 +7999,9 @@ function RN(e) {
   return D() === "windows" && /^[\\/]{2}/.test(e);
 }
 
-async function can(e, { requireManagedLocation: t, requireCwdInsideRepo: r = !1 }) {
+async function can(e, { requireManagedLocation: t, requireCwdInsideRepo: r = false }) {
   let o = HZ.normalize(e);
-  if (RN(o) || S_(o, !0)) throw new Kc(`Cannot enter worktree: ${e} is a UNC network path.`);
+  if (RN(o) || S_(o, true)) throw new Kc(`Cannot enter worktree: ${e} is a UNC network path.`);
   let u = ee();
   if (HR(e, u) || HR(pp(u, e), u)) throw new Kc(`Cannot enter worktree: ${e} is a network automount path.`);
   let d = Vr(u);
@@ -8013,7 +8013,7 @@ async function can(e, { requireManagedLocation: t, requireCwdInsideRepo: r = !1 
     throw new Kc(`Cannot enter worktree: ${e}: ${l(pe)}`);
   }
   let x = Z5(_);
-  if ((RN(_) || S_(_, !0)) && (x === null || /^[\\/]{2}[?.][\\/]/.test(_) || (x !== Z5(C) && x !== Z5(A))))
+  if ((RN(_) || S_(_, true)) && (x === null || /^[\\/]{2}[?.][\\/]/.test(_) || (x !== Z5(C) && x !== Z5(A))))
     throw new Kc(`Cannot enter worktree: ${e} resolves to a UNC network path (${_}).`);
   if (HR(_, C) && HR(_, A)) throw new Kc(`Cannot enter worktree: ${e} resolves to a network automount path (${_}).`);
   if (_ === C) throw new Kc(`Cannot enter worktree: ${e} is the main working tree, not a linked worktree.`);
@@ -8112,7 +8112,7 @@ async function E3n(e, t, r) {
     worktreeName: YC(_),
     worktreeBranch: C,
     sessionId: e,
-    enteredExisting: !0,
+    enteredExisting: true,
     nestedRepoRoot: x,
     liveLaunchAnchor: o?.liveLaunchAnchor,
   };
@@ -8122,7 +8122,7 @@ async function E3n(e, t, r) {
 async function A3n(e) {
   try {
     let t = HZ.normalize(e);
-    if (RN(t) || S_(t, !0)) return null;
+    if (RN(t) || S_(t, true)) return null;
     let r = ee();
     if (HR(e, r) || HR(pp(r, e), r)) return null;
     let o = Vr(r);
@@ -8131,7 +8131,7 @@ async function A3n(e) {
       d = await ca(o),
       _ = await ca(r),
       C = Z5(u);
-    if ((RN(u) || S_(u, !0)) && (C === null || /^[\\/]{2}[?.][\\/]/.test(u) || (C !== Z5(d) && C !== Z5(_))))
+    if ((RN(u) || S_(u, true)) && (C === null || /^[\\/]{2}[?.][\\/]/.test(u) || (C !== Z5(d) && C !== Z5(_))))
       return null;
     if (HR(u, d) && HR(u, _)) return null;
     let A = MT(d),
@@ -8146,11 +8146,11 @@ async function A3n(e) {
 async function C3n(e) {
   try {
     let t = Vr(ee());
-    if (!t) return !1;
+    if (!t) return false;
     let r = MT(await ca(t));
     return fg(e).startsWith(fg(r + kT));
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -8181,7 +8181,7 @@ async function Mee(e) {
 
 async function jye(e, t) {
   let r = ha();
-  if (!r) return !0;
+  if (!r) return true;
   try {
     let { worktreePath: o, originalCwd: u, worktreeBranch: d, hookBased: _ } = r,
       C = fTe(u, o);
@@ -8190,8 +8190,8 @@ async function jye(e, t) {
     } catch (x) {
       n(`Could not chdir to original directory while cleaning up worktree: ${x}`);
     }
-    if (r.enteredExisting) return KB(null, e), !0;
-    let A = !1;
+    if (r.enteredExisting) return KB(null, e), true;
+    let A = false;
     if (_)
       if (
         ((A = await tft({ id: K(), project: { originalCwd: Se(), projectRoot: gn() } }, o, {
@@ -8203,7 +8203,7 @@ async function jye(e, t) {
         n(`Removed hook-based worktree at: ${o}`);
       else if (b3n())
         return (
-          n(`WorktreeRemove hook did not remove worktree, kept at: ${o}`, { level: "warn" }), T$(), KB(null, e), !1
+          n(`WorktreeRemove hook did not remove worktree, kept at: ${o}`, { level: "warn" }), T$(), KB(null, e), false
         );
       else n(`No WorktreeRemove hook configured; falling back to git worktree remove for: ${o}`);
     if (!A) {
@@ -8213,8 +8213,8 @@ async function jye(e, t) {
       } catch (B) {
         if (
           await Nf(o).then(
-            () => !0,
-            () => !1,
+            () => true,
+            () => false,
           )
         )
           return (
@@ -8224,7 +8224,7 @@ async function jye(e, t) {
             ),
             T$(),
             KB(null, e),
-            !1
+            false
           );
         n(
           `cleanupWorktree: worktree registry unreadable and ${o} is already gone (${l(B)}); continuing to the already-removed path`,
@@ -8238,46 +8238,46 @@ async function jye(e, t) {
           ),
           T$(),
           KB(null, e),
-          !1
+          false
         );
       await XB(o, C);
-      let M = !1;
+      let M = false;
       if (_ && D() === "windows") {
         let B = await d7(C).catch(() => null);
         if (B != null) {
-          M = !0;
+          M = true;
           let W = await ca(o).catch(() => o);
           for (let z of B)
             if (W === (await ca(z.worktreePath).catch(() => z.worktreePath))) {
-              M = !1;
+              M = false;
               break;
             }
         }
       }
       if (!M && !(await m3(o)))
         return (
-          n(`Kept linked worktree \u2014 unremovable reparse point in ${o}`, { level: "warn" }), T$(), KB(null, e), !1
+          n(`Kept linked worktree \u2014 unremovable reparse point in ${o}`, { level: "warn" }), T$(), KB(null, e), false
         );
       let { code: F, stderr: U } = await qe(it(), [...cn, "worktree", "remove", "--force", o], { cwd: C, env: ii() });
       if (
         F !== 0 &&
         (await Nf(o).then(
-          () => !0,
-          () => !1,
+          () => true,
+          () => false,
         ))
       )
-        return n(`Failed to remove linked worktree, kept ${o}: ${U.trim()}`, { level: "warn" }), T$(), KB(null, e), !1;
+        return n(`Failed to remove linked worktree, kept ${o}: ${U.trim()}`, { level: "warn" }), T$(), KB(null, e), false;
       n(`Removed linked worktree at: ${o}`), await n4e(C);
     }
-    if ((T$(), KB(null, e), !_ && d)) await ne(100), await Cot(C, d, { logSuccess: !0 });
-    return n("Linked worktree cleaned up completely"), !0;
+    if ((T$(), KB(null, e), !_ && d)) await ne(100), await Cot(C, d, { logSuccess: true });
+    return n("Linked worktree cleaned up completely"), true;
   } catch (o) {
-    return n(`Error cleaning up worktree: ${o}`, { level: "error" }), !1;
+    return n(`Error cleaning up worktree: ${o}`, { level: "error" }), false;
   }
 }
 
 async function hot(e, t) {
-  let r = !1;
+  let r = false;
   try {
     r = (await hx(e)).isDirectory();
   } catch {}
@@ -8321,13 +8321,13 @@ async function Wye(e, t) {
           ))
         );
     }
-    await hot(x.worktreePath, !0), n(`Created hook-based agent worktree at: ${x.worktreePath}`);
+    await hot(x.worktreePath, true), n(`Created hook-based agent worktree at: ${x.worktreePath}`);
     let F = await l7(x.worktreePath, [], Fb(M));
     if (!F.ok) throw (p("git_worktree_create", "git_worktree_create_root_rejected"), new Kc(F.message));
     let U = await qe(it(), [...cn, "rev-parse", "HEAD"], { cwd: x.worktreePath, env: ii() });
     return (
       y("git_worktree_create"),
-      { worktreePath: x.worktreePath, hookBased: !0, headCommit: U.code === 0 ? U.stdout.trim() : void 0 }
+      { worktreePath: x.worktreePath, hookBased: true, headCommit: U.code === 0 ? U.stdout.trim() : void 0 }
     );
   }
   let r = t?.fromCwd ?? ee(),
@@ -8341,7 +8341,7 @@ async function Wye(e, t) {
   } = await uTe(o, e, { fromHead: t?.fromHead, fromCwd: r });
   if (!C) n(`Created agent worktree at: ${u} on branch: ${d}`), await pTe(o, u);
   else n(`Resuming existing agent worktree at: ${u}`);
-  await t4e(u, o, e, "agent"), await hot(u, !1);
+  await t4e(u, o, e, "agent"), await hot(u, false);
   let A = await l7(u, [], Fb(r, o));
   if (!A.ok) throw (p("git_worktree_create", "git_worktree_create_root_rejected"), new Kc(A.message));
   return y("git_worktree_create"), { worktreePath: u, worktreeBranch: d, headCommit: _, gitRoot: o };
@@ -8350,23 +8350,23 @@ async function Wye(e, t) {
 async function Eot(e) {
   let t = await qe(it(), [...cn, "rev-parse", "--show-toplevel"], { cwd: e, env: ii({ LC_ALL: "C" }) }),
     r = t.stdout.trim();
-  if (t.code !== 0 || !r) return !1;
+  if (t.code !== 0 || !r) return false;
   let o = pp(await ca(r).catch(() => r)),
     u = pp(await ca(e).catch(() => e));
-  if (o === u) return !1;
-  return D() === "windows" ? ug(o) !== ug(u) : !0;
+  if (o === u) return false;
+  return D() === "windows" ? ug(o) !== ug(u) : true;
 }
 
 async function HIe(e, t, r) {
   let o = await gTe(e);
-  if (o === null) return { dirty: !0, commitsAhead: 0, gitError: await Dot(e) };
+  if (o === null) return { dirty: true, commitsAhead: 0, gitError: await Dot(e) };
   let u = await qe(it(), [...o, ...cn, "status", "--porcelain"], { cwd: e, env: ii() });
-  if (u.code !== 0) return { dirty: !0, commitsAhead: 0, gitError: !0 };
-  if (!r?.hookBased && (await Eot(e))) return { dirty: !0, commitsAhead: 0, gitError: !0 };
+  if (u.code !== 0) return { dirty: true, commitsAhead: 0, gitError: true };
+  if (!r?.hookBased && (await Eot(e))) return { dirty: true, commitsAhead: 0, gitError: true };
   let d = u.stdout.trim().length > 0;
   if (!t) return { dirty: d, commitsAhead: 0 };
   let _ = await qe(it(), [...cn, "rev-list", "--count", `${t}..HEAD`], { cwd: e, env: ii() });
-  if (_.code !== 0) return { dirty: !0, commitsAhead: 0, gitError: !0 };
+  if (_.code !== 0) return { dirty: true, commitsAhead: 0, gitError: true };
   return { dirty: d, commitsAhead: parseInt(_.stdout.trim(), 10) || 0 };
 }
 
@@ -8376,9 +8376,9 @@ async function XB(e, t) {
 
 async function Cot(e, t, r) {
   let { code: o, stderr: u } = await qe(it(), [...cn, "branch", "-D", "--end-of-options", t], { cwd: e, env: ii() });
-  if (o !== 0) return n(`${r?.errorLabel ?? "Could not delete worktree branch"}: ${u}`, { level: "error" }), !1;
+  if (o !== 0) return n(`${r?.errorLabel ?? "Could not delete worktree branch"}: ${u}`, { level: "error" }), false;
   if (r?.logSuccess) n(`Deleted worktree branch: ${t}`);
-  return !0;
+  return true;
 }
 
 async function AN(e, t, r, o) {
@@ -8391,7 +8391,7 @@ async function AN(e, t, r, o) {
         source: c(t),
         changed_files: 0,
         commits: 0,
-        ...(z?.hook_based ? { hook_based: !0 } : { no_root: 1 }),
+        ...(z?.hook_based ? { hook_based: true } : { no_root: 1 }),
         ...(z?.already_gone && { already_gone: 1 }),
       }),
       { outcome: "removed" }
@@ -8401,7 +8401,7 @@ async function AN(e, t, r, o) {
     C = (z) => N1t(z, _);
   if (C(e)) return u("network path (UNC or automount)");
   if (oc(e)) return u("unverifiable symlinked ancestor");
-  let A = tx(le(), e, { surfaceNetworkRaw: !0, anchor: _ });
+  let A = tx(le(), e, { surfaceNetworkRaw: true, anchor: _ });
   if (A === D5) return u("unverifiable symlinked ancestor");
   if (A !== void 0 && C(A)) return u("network path (UNC or automount)");
   if (A !== void 0 && oc(A)) return u("unverifiable symlinked ancestor");
@@ -8416,7 +8416,7 @@ async function AN(e, t, r, o) {
           ? `removeAgentWorktree: ${e} already gone \u2014 nothing left to remove (hook-managed)`
           : `removeAgentWorktree: ${e} already gone and no git root resolves \u2014 nothing left to remove`,
       ),
-      d(o ? { already_gone: 1, hook_based: !0 } : { already_gone: 1 })
+      d(o ? { already_gone: 1, hook_based: true } : { already_gone: 1 })
     );
   }
   if (!x.isDirectory()) return u("not a directory");
@@ -8437,7 +8437,7 @@ async function AN(e, t, r, o) {
         { level: "warn" },
       ),
       s("tengu_worktree_removed", { source: c(t), changed_files: 0, commits: 0, no_root: 1, aborted: 1 }),
-      { outcome: "failed", errorSummary: Out, needsForce: !0 }
+      { outcome: "failed", errorSummary: Out, needsForce: true }
     );
   if ((await ca(M).catch(() => null)) !== M) return u(Mle);
   if (!(await m3(M)))
@@ -8446,22 +8446,22 @@ async function AN(e, t, r, o) {
       { outcome: "failed", errorSummary: Aot }
     );
   if ((await ca(M).catch((z) => (X(z) ? M : null))) !== M) return u(Mle);
-  return await bot(M, { recursive: !0, force: !0 }), n(`Removed agent worktree with no git root at: ${e}`), d();
+  return await bot(M, { recursive: true, force: true }), n(`Removed agent worktree with no git root at: ${e}`), d();
 }
 
 async function XW(e, t, r, o, u = "unknown", d, _, { storageV5: C, credentials: A } = {}) {
   if (o) {
-    if (!I1(e) || oc(e) || N1t(e, ee())) return AN(e, u, d, !0);
+    if (!I1(e) || oc(e) || N1t(e, ee())) return AN(e, u, d, true);
     let fe = e;
     if (d !== void 0) {
       let ge = ee(),
-        Ce = tx(le(), e, { surfaceNetworkRaw: !0, anchor: ge });
-      if (Ce === D5 || (Ce !== void 0 && (N1t(Ce, ge) || oc(Ce)))) return AN(e, u, d, !0);
+        Ce = tx(le(), e, { surfaceNetworkRaw: true, anchor: ge });
+      if (Ce === D5 || (Ce !== void 0 && (N1t(Ce, ge) || oc(Ce)))) return AN(e, u, d, true);
       let Ie;
       try {
         Ie = await Nf(e);
       } catch (Pe) {
-        if (X(Pe) || E(Pe) === "ENOTDIR") return AN(e, u, d, !0);
+        if (X(Pe) || E(Pe) === "ENOTDIR") return AN(e, u, d, true);
         return { outcome: "failed", errorSummary: `cannot stat the worktree path (${E(Pe) ?? "unknown error"})` };
       }
       if (Ie.isSymbolicLink())
@@ -8499,15 +8499,15 @@ async function XW(e, t, r, o, u = "unknown", d, _, { storageV5: C, credentials: 
               `removeAgentWorktree: kept hook worktree ${e} \u2014 ${Pe.length} unverifiable file(s); only an explicit discard may dispatch the remove hook`,
               { level: "warn" },
             ),
-            s("tengu_worktree_removed", { source: c(u), changed_files: 0, commits: 0, hook_based: !0, aborted: 1 }),
-            { outcome: "failed", errorSummary: Out, needsForce: !0 }
+            s("tengu_worktree_removed", { source: c(u), changed_files: 0, commits: 0, hook_based: true, aborted: 1 }),
+            { outcome: "failed", errorSummary: Out, needsForce: true }
           );
       }
       let Ee;
       try {
         Ee = await ca(e);
       } catch (Pe) {
-        if (X(Pe) || E(Pe) === "ENOTDIR") return AN(e, u, d, !0);
+        if (X(Pe) || E(Pe) === "ENOTDIR") return AN(e, u, d, true);
         return { outcome: "failed", errorSummary: `cannot resolve the worktree path (${E(Pe) ?? "unknown error"})` };
       }
       if (Ee !== d)
@@ -8515,12 +8515,12 @@ async function XW(e, t, r, o, u = "unknown", d, _, { storageV5: C, credentials: 
           n(`removeAgentWorktree: refused hook removal of ${e} \u2014 ${Mle}`, { level: "warn" }),
           { outcome: "failed", errorSummary: Mle }
         );
-      if (N1t(Ee, ge)) return AN(e, u, d, !0);
+      if (N1t(Ee, ge)) return AN(e, u, d, true);
       fe = d;
     }
     if (await tft({ id: K(), project: { originalCwd: Se(), projectRoot: gn() } }, fe, { storageV5: C, credentials: A }))
       return (
-        s("tengu_worktree_removed", { source: c(u), changed_files: 0, commits: 0, hook_based: !0 }),
+        s("tengu_worktree_removed", { source: c(u), changed_files: 0, commits: 0, hook_based: true }),
         n(`Removed hook-based agent worktree at: ${e}`),
         { outcome: "removed" }
       );
@@ -8542,7 +8542,7 @@ async function XW(e, t, r, o, u = "unknown", d, _, { storageV5: C, credentials: 
 `,
           ) + 1
         : 0;
-  if ((U > 0 || F) && (await Eot(e))) (U = 0), (F = !1);
+  if ((U > 0 || F) && (await Eot(e))) (U = 0), (F = false);
   if ((U > 0 || F) && u !== "exit_tool" && u !== "exit_dialog" && u !== "job_delete_force") {
     let fe = F
       ? "could not verify the worktree is clean (git status failed or repository git config unpinnable)"
@@ -8553,10 +8553,10 @@ async function XW(e, t, r, o, u = "unknown", d, _, { storageV5: C, credentials: 
       { outcome: "failed", errorSummary: fe }
     );
   }
-  let B = !1;
+  let B = false;
   if (d !== void 0) {
     let fe = await ca(e).catch((me) => (X(me) || E(me) === "ENOTDIR" ? null : void 0));
-    if (fe === null) B = !0;
+    if (fe === null) B = true;
     else if (fe === void 0 || fe !== d) return { outcome: "failed", errorSummary: Mle };
   }
   if (!B && !(await m3(e)))
@@ -8576,8 +8576,8 @@ async function XW(e, t, r, o, u = "unknown", d, _, { storageV5: C, credentials: 
   if (
     z !== 0 &&
     (await Nf(e).then(
-      () => !0,
-      () => !1,
+      () => true,
+      () => false,
     ))
   ) {
     if (Zwn.test(pe)) {
@@ -8640,7 +8640,7 @@ async function n4e(e) {
       }
       if (
         (await Nf(d.worktreePath).then(
-          () => !1,
+          () => false,
           (C) => X(C) || E(C) === "ENOTDIR",
         )) &&
         (await Ole(d.lockReason))
@@ -8672,9 +8672,9 @@ function Mot(e) {
 async function Iot(e, t) {
   let r = await qe(it(), [...cn, "symbolic-ref", "-q", "HEAD"], { cwd: e, env: ii() }),
     o = r.stdout.trim();
-  if (r.code !== 0 || !o) return !1;
+  if (r.code !== 0 || !o) return false;
   let u = await qe(it(), [...cn, "for-each-ref", "--format=%(upstream:track,nobracket)", o], { cwd: e, env: ii() });
-  if (u.code !== 0 || u.stdout.trim() !== "gone") return !1;
+  if (u.code !== 0 || u.stdout.trim() !== "gone") return false;
   let d = await qe(
     it(),
     [...cn, "rev-list", "--cherry-pick", "--right-only", "--no-merges", "--max-count=1", `${t}...HEAD`],
@@ -8694,17 +8694,17 @@ async function r4e(e) {
 async function F1t(e, t, { primaryCheckoutVouches: r }) {
   let o = [...cn, "rev-list", "--max-count=1", "HEAD", "--not", "--remotes"],
     u = await qe(it(), o, { cwd: e, env: ii() });
-  if (u.code !== 0) return !1;
-  if (u.stdout.trim().length === 0) return !0;
+  if (u.code !== 0) return false;
+  if (u.stdout.trim().length === 0) return true;
   if (r) {
     let A = await tTn(e, t);
     if (A) {
       let x = await qe(it(), [...o, A, "--"], { cwd: e, env: ii() });
-      if (x.code === 0 && !x.stdout.trim()) return !0;
+      if (x.code === 0 && !x.stdout.trim()) return true;
     }
   }
   let [d, _] = await Promise.all([qe(it(), [...cn, "rev-parse", "HEAD"], { cwd: e, env: ii() }), Q3e(e)]);
-  if (d.code === 0 && _ !== null && d.stdout.trim() === _) return !0;
+  if (d.code === 0 && _ !== null && d.stdout.trim() === _) return true;
   return t !== null && (await Iot(e, t));
 }
 
@@ -8743,10 +8743,10 @@ async function tTn(e, t) {
 
 async function Oot(e, t) {
   let r = await gTe(e);
-  if (r === null) return !1;
+  if (r === null) return false;
   let o = await qe(it(), [...r, ...cn, "--no-optional-locks", "status", "--porcelain"], { cwd: e, env: ii() });
-  if (o.code !== 0 || o.stdout.trim().length > 0) return !1;
-  return F1t(e, t, { primaryCheckoutVouches: !1 });
+  if (o.code !== 0 || o.stdout.trim().length > 0) return false;
+  return F1t(e, t, { primaryCheckoutVouches: false });
 }
 
 async function uan(e) {
@@ -8789,7 +8789,7 @@ async function uan(e) {
       );
       continue;
     }
-    if ((await XW(x, Dle(A), t, !1, "stale_cleanup")).outcome !== "failed") C++;
+    if ((await XW(x, Dle(A), t, false, "stale_cleanup")).outcome !== "failed") C++;
   }
   if (C > 0)
     await qe(it(), [...cn, "worktree", "prune"], { cwd: t, env: ii() }),
@@ -8799,27 +8799,27 @@ async function uan(e) {
 
 async function dan(e) {
   let { worktreePath: t, worktreeBranch: r, originCwd: o, hookBased: u, cutoff: d } = e;
-  if (u) return !1;
+  if (u) return false;
   let _ = Iut(t, o);
-  if (!_ || !Put(t, _)) return !1;
+  if (!_ || !Put(t, _)) return false;
   let C;
   try {
     C = (await hx(t)).mtimeMs;
   } catch {
-    return !1;
+    return false;
   }
-  if (C >= d.getTime()) return !1;
+  if (C >= d.getTime()) return false;
   if ((await Q3e(t)) === null)
     return (
       n(
         `reapJobWorktreeIfSafe: kept ${t} \u2014 no Claude Code creation marker (${cTe}) in its git admin dir, so Claude Code did not create it; not ours to remove`,
         { level: "warn" },
       ),
-      !1
+      false
     );
   let A = await ca(t).catch(() => t),
     x = ha()?.worktreePath;
-  if (x && A === (await ca(x).catch(() => x))) return !1;
+  if (x && A === (await ca(x).catch(() => x))) return false;
   let M = await d7(_).catch(() => null),
     F;
   for (let U of M ?? [])
@@ -8832,16 +8832,16 @@ async function dan(e) {
       n(
         `reapJobWorktreeIfSafe: kept ${t} \u2014 locked by a live Claude Code process, or with a reason we did not write (${F?.lockReason})`,
       ),
-      !1
+      false
     );
-  if (!(await Oot(t, await r4e(_)))) return !1;
-  return (await XW(t, r, _, !1, "job_retention_sweep")).outcome !== "failed";
+  if (!(await Oot(t, await r4e(_)))) return false;
+  return (await XW(t, r, _, false, "job_retention_sweep")).outcome !== "failed";
 }
 
 function _ot(e) {
-  if (e === void 0 || e.length > 512) return !1;
+  if (e === void 0 || e.length > 512) return false;
   let t = e.match(XC);
-  if (!t) return !1;
+  if (!t) return false;
   return Gg(Number(t[1]));
 }
 
@@ -8860,8 +8860,8 @@ async function jmr(e) {
     if (!_ot(d.lockReason)) continue;
     if (
       !(await Nf(ml(d.worktreePath, ".git")).then(
-        () => !0,
-        () => !1,
+        () => true,
+        () => false,
       ))
     )
       continue;
@@ -8906,15 +8906,15 @@ async function Lut(e, t) {
 async function NAr(e, t, r) {
   if (!ri())
     return {
-      handled: !1,
+      handled: false,
       error:
         "Workspace trust not yet accepted. Run `claude` once in this directory and accept the trust dialog, then retry with --worktree.",
     };
   qrt();
   let o = await $e("tmux", ["-V"]);
-  if (o.code !== 0) return { handled: !1, error: "Error: tmux is not installed. Install tmux with: brew install tmux" };
+  if (o.code !== 0) return { handled: false, error: "Error: tmux is not installed. Install tmux with: brew install tmux" };
   let u,
-    d = !1;
+    d = false;
   for (let We = 0; We < e.length; We++) {
     let Ve = e[We];
     if (!Ve) continue;
@@ -8922,7 +8922,7 @@ async function NAr(e, t, r) {
       let Pt = e[We + 1];
       if (Pt && !Pt.startsWith("-")) u = Pt;
     } else if (Ve.startsWith("--worktree=")) u = Ve.slice(11);
-    else if (Ve === "--tmux=classic") d = !0;
+    else if (Ve === "--tmux=classic") d = true;
   }
   let _ = null;
   if (u) {
@@ -8939,7 +8939,7 @@ async function NAr(e, t, r) {
   try {
     Bye(u);
   } catch (We) {
-    return { handled: !1, error: `Error: ${l(We)}` };
+    return { handled: false, error: `Error: ${l(We)}` };
   }
   let C, A;
   if (c7()) {
@@ -8966,19 +8966,19 @@ async function NAr(e, t, r) {
       }
       C = We.worktreePath;
     } catch (We) {
-      return { handled: !1, error: `Error: ${l(We)}` };
+      return { handled: false, error: `Error: ${l(We)}` };
     }
     (A = YC(Vr(ee()) ?? ee())), console.log(`Using worktree via hook: ${C}`);
   } else {
     let We = ee(),
       Ve = Vr(We);
-    if (!Ve) return { handled: !1, error: "Error: --worktree requires a git repository" };
+    if (!Ve) return { handled: false, error: "Error: --worktree requires a git repository" };
     (A = YC(Ve)), (C = Tot(Ve, u));
     try {
       let Pt = await uTe(Ve, u, _ !== null ? { prNumber: _, fromCwd: We } : { fromCwd: We });
       if (!Pt.existed) console.log(`Created worktree: ${C} (based on ${Pt.baseBranch})`), await pTe(Ve, C);
     } catch (Pt) {
-      return { handled: !1, error: `Error: ${l(Pt)}` };
+      return { handled: false, error: `Error: ${l(Pt)}` };
     }
   }
   let x = `${A}_${Dle(u)}`.replace(/[/.]/g, "_"),
@@ -9020,12 +9020,12 @@ ${We("\u2502")} iTerm2 > Settings > General > tmux > "Tabs in attaching window" 
 ${We("\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256F")}
 `);
   }
-  if (!1)
+  if (false)
     if (
       (await qe("tmux", ["new-session", "-d", "-s", x, ...me, "-c", C, "--", process.execPath, ...M], {
         cwd: C,
         env: ge,
-        useToolMemoryCgroup: !1,
+        useToolMemoryCgroup: false,
       }),
       await qe("tmux", ["split-window", "-h", "-t", x, "-c", C], { cwd: C }),
       await qe("tmux", ["send-keys", "-t", x, "bun run watch", "Enter"], { cwd: C }),
@@ -9034,28 +9034,28 @@ ${We("\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u
       await qe("tmux", ["select-pane", "-t", `${x}:0.0`], { cwd: C }),
       Ee)
     )
-      await Ff("tmux", ["switch-client", "-t", x], { stdio: "inherit", cwd: C, reject: !1 });
+      await Ff("tmux", ["switch-client", "-t", x], { stdio: "inherit", cwd: C, reject: false });
     else
       await Ff("tmux", [...Oe, "attach-session", "-t", x], {
         stdio: "inherit",
         cwd: C,
-        reject: !1,
-        useToolMemoryCgroup: !1,
+        reject: false,
+        useToolMemoryCgroup: false,
       });
   else if (Ee)
-    if (Ie) await Ff("tmux", ["switch-client", "-t", x], { stdio: "inherit", cwd: C, reject: !1 });
+    if (Ie) await Ff("tmux", ["switch-client", "-t", x], { stdio: "inherit", cwd: C, reject: false });
     else
       await qe("tmux", ["new-session", "-d", "-s", x, ...me, "-c", C, "--", process.execPath, ...M], {
         cwd: C,
         env: ge,
-        useToolMemoryCgroup: !1,
+        useToolMemoryCgroup: false,
       }),
-        await Ff("tmux", ["switch-client", "-t", x], { stdio: "inherit", cwd: C, reject: !1 });
+        await Ff("tmux", ["switch-client", "-t", x], { stdio: "inherit", cwd: C, reject: false });
   else {
     let We = [...Oe, "new-session", "-A", "-s", x, ...me, "-c", C, "--", process.execPath, ...M];
-    await Ff("tmux", We, { stdio: "inherit", cwd: C, env: ge, reject: !1, useToolMemoryCgroup: !1 });
+    await Ff("tmux", We, { stdio: "inherit", cwd: C, env: ge, reject: false, useToolMemoryCgroup: false });
   }
-  return { handled: !0 };
+  return { handled: true };
 }
 
 async function Jwe(e) {
@@ -9094,7 +9094,7 @@ async function gTe(e) {
 async function Dot(e) {
   let t = await PN(e);
   try {
-    return await (t ? hx(t) : Nf(ml(e, ".git"))), !1;
+    return await (t ? hx(t) : Nf(ml(e, ".git"))), false;
   } catch (r) {
     return X(r) || E(r) === "ENOTDIR";
   }

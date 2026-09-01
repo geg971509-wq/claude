@@ -84,7 +84,7 @@ ${u}`,
           type: "object",
           properties: { title: { type: "string" } },
           required: ["title"],
-          additionalProperties: !1,
+          additionalProperties: false,
         },
       },
       signal: t,
@@ -92,15 +92,15 @@ ${u}`,
         querySource: "generate_session_title",
         agents: [],
         isNonInteractiveSession: Le(),
-        hasAppendSystemPrompt: !1,
+        hasAppendSystemPrompt: false,
         mcpTools: [],
         agentContext: _a(),
-        promptTooLongIsHandled: !0,
+        promptTooLongIsHandled: true,
         credentials: e,
       },
     }),
     p = zr(c.message.content),
-    d = v().safeParse(Ut(h0(p), !1));
+    d = v().safeParse(Ut(h0(p), false));
   return d.success ? d.data.title.trim() || null : null;
 }
 async function Cq(r, l, o) {
@@ -112,7 +112,7 @@ async function Cq(r, l, o) {
   } catch (e) {
     return (
       n(`generateSessionTitle failed: ${e}`, { level: "error" }),
-      s("tengu_session_title_generated", { success: !1 }),
+      s("tengu_session_title_generated", { success: false }),
       null
     );
   }

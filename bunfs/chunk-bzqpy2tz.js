@@ -28,7 +28,7 @@ import { te } from "/$bunfs/root/chunk-wag5ye9w.js";
 import { watch as qe } from "fs";
 var ce = 50;
 function Xe(e, t, r) {
-  let a = qe(e, { recursive: !0, persistent: !1, encoding: "utf8" }, t);
+  let a = qe(e, { recursive: true, persistent: false, encoding: "utf8" }, t);
   return (
     a.on("error", r),
     a.unref(),
@@ -64,12 +64,12 @@ function _st({
   nowMs: u = Date.now,
 }) {
   let p = null,
-    d = !1,
+    d = false,
     g = 0,
     _ = 0,
-    w = !1;
+    w = false;
   function S() {
-    d = !1;
+    d = false;
     let x = p;
     p = null;
     try {
@@ -89,7 +89,7 @@ function _st({
         h = (I) => {
           if (!d) return;
           S(),
-            (w = !0),
+            (w = true),
             n(`dir-sync: directory watch lost (${I}); sync points carry on without it`),
             A({ kind: "overflow", at: u() });
         },
@@ -116,17 +116,17 @@ function _st({
         },
         P;
       try {
-        (d = !0), (P = t(e, B, (I) => h(`watcher error: ${l(I)}`)));
+        (d = true), (P = t(e, B, (I) => h(`watcher error: ${l(I)}`)));
       } catch (I) {
-        d = !1;
+        d = false;
         let R = `watch unavailable: ${l(I)} (${E(I) ?? "no code"})`;
-        return n(`dir-sync: ${R}`), { stop() {}, started: !1, startError: R };
+        return n(`dir-sync: ${R}`), { stop() {}, started: false, startError: R };
       }
       if (!d) {
         try {
           P.close();
         } catch {}
-        return { stop() {}, started: !1, startError: "watcher error at start" };
+        return { stop() {}, started: false, startError: "watcher error at start" };
       }
       return (
         n("dir-sync: directory watch started on the synced root"),
@@ -135,7 +135,7 @@ function _st({
           stop() {
             if (p === P) S();
           },
-          started: !0,
+          started: true,
         }
       );
     },
@@ -206,28 +206,28 @@ function O2n(e, { timers: t = pe } = {}) {
     a = null,
     u = drn,
     p = null,
-    d = !1,
-    g = !0,
+    d = false,
+    g = true,
     _ = -1 / 0,
     w = null,
-    S = !1,
+    S = false,
     x = -1 / 0,
     A = null,
-    h = !1,
+    h = false,
     B = 0,
     P = 0,
-    I = !1,
+    I = false,
     R = new Set(),
     M = null,
     G = [],
-    Z = !1,
-    z = !1,
+    Z = false,
+    z = false,
     we = -1 / 0,
-    U = !1,
-    ee = !1,
-    V = !0,
+    U = false,
+    ee = false,
+    V = true,
     j = 0,
-    re = !1,
+    re = false,
     Se = 0,
     F = {
       hints: 0,
@@ -274,14 +274,14 @@ function O2n(e, { timers: t = pe } = {}) {
       (F.feedDropped += y?.dropped ?? 0),
       (r = null),
       (a = null),
-      (V = !0),
+      (V = true),
       (j += 1),
       p?.cancel(),
       (p = null),
       A !== null)
     )
       t.clearTimeout(A), (A = null);
-    if (((S = !1), (z = !1), o !== null)) o.stop(), ie("stopped");
+    if (((S = false), (z = false), o !== null)) o.stop(), ie("stopped");
   }
   let Y = null;
   function K(o) {
@@ -297,7 +297,7 @@ function O2n(e, { timers: t = pe } = {}) {
       return;
     }
     if (
-      ((F.hints += 1), (_ = Math.max(_, o.at, e.nowMs())), (g = !0), (V = o.kind === "overflow"), o.kind === "overflow")
+      ((F.hints += 1), (_ = Math.max(_, o.at, e.nowMs())), (g = true), (V = o.kind === "overflow"), o.kind === "overflow")
     )
       F.overflows += 1;
     if (U || e.nowMs() < we) {
@@ -305,7 +305,7 @@ function O2n(e, { timers: t = pe } = {}) {
       return;
     }
     if (R.size > 0) {
-      K("a command runs on this machine"), (z = !0);
+      K("a command runs on this machine"), (z = true);
       return;
     }
     if (!e.turnOpen()) {
@@ -344,12 +344,12 @@ function O2n(e, { timers: t = pe } = {}) {
     );
   }
   async function We(o) {
-    if (e.inScope === void 0 || re || o === "many" || o.includes(fe) || o.length > Ae) return !0;
-    re = !0;
+    if (e.inScope === void 0 || re || o === "many" || o.includes(fe) || o.length > Ae) return true;
+    re = true;
     try {
       return await e.inScope(o);
     } finally {
-      re = !1;
+      re = false;
     }
   }
   function ae(o = "owed") {
@@ -362,23 +362,23 @@ function O2n(e, { timers: t = pe } = {}) {
       return;
     }
     if (!g) {
-      (S = !1), n(`dir-sync: burst of ${o} already carried by a pass that began after it; nothing to upload`);
+      (S = false), n(`dir-sync: burst of ${o} already carried by a pass that began after it; nothing to upload`);
       return;
     }
     if (w !== null || A !== null) {
-      (S = !0), n(`dir-sync: burst of ${o} rides the next upload (one in flight or the gap not yet passed)`);
+      (S = true), n(`dir-sync: burst of ${o} rides the next upload (one in flight or the gap not yet passed)`);
       return;
     }
     let y = x + u.minGapMs - e.nowMs();
     if (y > 0) {
-      (S = !0),
+      (S = true),
         (A = t.setTimeout(() => {
           (A = null), J();
         }, y));
       return;
     }
-    if (e.mayShip?.(e.facts().gen + 1) === !1) {
-      (S = !0),
+    if (e.mayShip?.(e.facts().gen + 1) === false) {
+      (S = true),
         n(`dir-sync: burst of ${o} held back by the barrier ledger (the peer has not taken the last generation)`);
       return;
     }
@@ -396,11 +396,11 @@ function O2n(e, { timers: t = pe } = {}) {
             )
               F.ships += 1;
             if (!k.landed && k.reason === "held_for_command") {
-              z = !0;
+              z = true;
               return;
             }
             if (!k.landed) {
-              (h = !0),
+              (h = true),
                 n(
                   `dir-sync: a watcher-triggered upload did not land (${k.reason ?? k.outcome}); the next sync point uploads instead`,
                 );
@@ -411,21 +411,21 @@ function O2n(e, { timers: t = pe } = {}) {
               return;
             }
             if (((B = k.outcome === "sent" || k.trigger !== "watch" ? 0 : B + 1), B >= nn))
-              (h = !0),
+              (h = true),
                 n(
                   "dir-sync: the watcher keeps firing with nothing to upload; pausing it until the next sync point ships",
                 );
             if (k.trigger === "watch" && k.outcome === "sent") {
               if (((P += 1), P >= rn))
                 (I = !h),
-                  (h = !0),
+                  (h = true),
                   n(
                     "dir-sync: several uploads went up with no sign of life from the cloud session; pausing the watcher until the next message or sync point lands",
                   );
             }
           },
           (k) => {
-            (h = !0), n(`dir-sync: a watcher-triggered upload failed: ${l(k)}`);
+            (h = true), n(`dir-sync: a watcher-triggered upload failed: ${l(k)}`);
           },
         )
         .finally(() => {
@@ -433,7 +433,7 @@ function O2n(e, { timers: t = pe } = {}) {
         }));
   }
   function J() {
-    if (S) (S = !1), ae();
+    if (S) (S = false), ae();
   }
   function be() {
     if (U || ee) return;
@@ -444,20 +444,20 @@ function O2n(e, { timers: t = pe } = {}) {
     let o = M === null ? 0 : e.nowMs() - M;
     if (((M = null), Z)) {
       if (
-        ((Z = !1),
+        ((Z = false),
         n(`dir-sync: install deferred while serving a command on this machine, running now (held for ${o} ms)`),
         !d && e.notRunning() === null)
       )
         e.pull();
     }
-    if (z) (z = !1), p?.touch(fe);
+    if (z) (z = false), p?.touch(fe);
   }
   function Ue(o) {
     if (!o.landed) return;
     if (o.tookSnapshot) {
-      if (o.trigger !== "watch" || o.outcome === "sent") (h = !1), (I = !1), (B = 0);
+      if (o.trigger !== "watch" || o.outcome === "sent") (h = false), (I = false), (B = 0);
       if (o.trigger !== "watch") P = 0;
-      if (o.startedAtMs >= _) (g = !1), (S = !1);
+      if (o.startedAtMs >= _) (g = false), (S = false);
       if (o.trigger !== "watch") x = Math.max(x, o.endedAtMs);
     }
     if (w === null && A === null) J();
@@ -478,13 +478,13 @@ function O2n(e, { timers: t = pe } = {}) {
   function Ee(o, y) {
     return {
       trigger: "settle",
-      landed: !1,
+      landed: false,
       outcome: "not_run",
       reason: o,
-      kept: !1,
+      kept: false,
       generation: e.facts().gen,
       files: 0,
-      tookSnapshot: !1,
+      tookSnapshot: false,
       startedAtMs: y,
       endedAtMs: e.nowMs(),
     };
@@ -500,7 +500,7 @@ function O2n(e, { timers: t = pe } = {}) {
           (r = o.start($e)),
           r.started)
         ) {
-          (V = !1), ie("started");
+          (V = false), ie("started");
           return;
         }
         ie("start_failed", r.startError),
@@ -518,7 +518,7 @@ function O2n(e, { timers: t = pe } = {}) {
           await a.flush().catch((de) => {
             n(`dir-sync: change feed flush failed: ${l(de)}`);
           });
-        p?.cancel(), (j += 1), (S = !1), (z = !1);
+        p?.cancel(), (j += 1), (S = false), (z = false);
         let ve = e.notRunning(),
           le = () => _e(Ee("aborted", k)),
           _e = () => {},
@@ -528,8 +528,8 @@ function O2n(e, { timers: t = pe } = {}) {
               : Ve(
                   await (() => {
                     let de = new Promise((ue) => {
-                      if (((_e = ue), y?.aborted === !0)) le();
-                      else y?.addEventListener("abort", le, { once: !0 });
+                      if (((_e = ue), y?.aborted === true)) le();
+                      else y?.addEventListener("abort", le, { once: true });
                     });
                     return Promise.race([
                       e
@@ -579,8 +579,8 @@ function O2n(e, { timers: t = pe } = {}) {
       },
     },
     deferPull() {
-      if (R.size === 0 || d) return !1;
-      return (Z = !0), !0;
+      if (R.size === 0 || d) return false;
+      return (Z = true), true;
     },
     held: () => R.size > 0 && !d,
     dropHolds() {
@@ -589,7 +589,7 @@ function O2n(e, { timers: t = pe } = {}) {
     },
     peerAlive() {
       if (((P = 0), I))
-        (I = !1), (h = !1), n("dir-sync: the cloud session showed a sign of life; the watcher streams again"), J();
+        (I = false), (h = false), n("dir-sync: the cloud session showed a sign of life; the watcher streams again"), J();
     },
     installing(o) {
       if (((U = o), !o)) (we = e.nowMs() + ce), be();
@@ -599,7 +599,7 @@ function O2n(e, { timers: t = pe } = {}) {
     },
     passEnded: Ue,
     halt() {
-      (d = !0), se();
+      (d = true), se();
     },
   };
 }
@@ -621,12 +621,12 @@ function L2n(e, t) {
         (
           r ??
           (await new Promise((w) => {
-            if (g?.aborted === !0) {
+            if (g?.aborted === true) {
               w(null);
               return;
             }
             let S = () => w(null);
-            g?.addEventListener("abort", S, { once: !0 }),
+            g?.addEventListener("abort", S, { once: true }),
               jt(p, t).then((x) => {
                 g?.removeEventListener("abort", S), w(x);
               });
@@ -652,7 +652,7 @@ function L2n(e, t) {
       }
       return (
         (a += 1),
-        { side: "laptop", gen: 0, tree: null, taken: 0, dirty: !0, shipping: null, takes: !1, instance: on, seq: a }
+        { side: "laptop", gen: 0, tree: null, taken: 0, dirty: true, shipping: null, takes: false, instance: on, seq: a }
       );
     },
   };
@@ -676,11 +676,11 @@ async function Fe(e, t) {
       return { kind: "unreadable" };
     }
   try {
-    let r = await sn(e, { bigint: !0 });
+    let r = await sn(e, { bigint: true });
     if (!r.isFile()) return { kind: "unreadable" };
     let a = await ln(e, ea());
     try {
-      let u = await a.stat({ bigint: !0 });
+      let u = await a.stat({ bigint: true });
       if (u.dev !== r.dev || u.ino !== r.ino || !u.isFile() || u.size > L) return { kind: "unreadable" };
       return { kind: "ok", content: await hne(a, Number(u.size)) };
     } finally {
@@ -697,13 +697,13 @@ async function Oe(e, t, r) {
     if (!a.ok) throw Error("dir-sync: session record write failed", { cause: a.error });
     return;
   }
-  await an(dn(e), { recursive: !0, mode: cn }), await Wn(e, t, me);
+  await an(dn(e), { recursive: true, mode: cn }), await Wn(e, t, me);
 }
 async function Ie(e, t, r) {
   if (e.length > L) throw Error("session record too large to store");
-  let a = !1;
+  let a = false;
   async function* u() {
-    if ((yield e, t.aborted)) throw ((a = !0), new Ze());
+    if ((yield e, t.aborted)) throw ((a = true), new Ze());
   }
   let p = await r.backend.writeFromStream(r.key, u(), { maxBytes: L, mode: me });
   if (p.ok) return;
@@ -721,9 +721,9 @@ function EDt(e) {
     case "clone":
       return e.origin !== "remote";
     case "seed":
-      return !0;
+      return true;
     case "folder":
-      return e.seeded !== !1;
+      return e.seeded !== false;
   }
 }
 function ADt(e) {
@@ -731,7 +731,7 @@ function ADt(e) {
     case "clone":
       return [e.pin];
     case "folder":
-      return e.seeded === !1 ? [] : [e.pin];
+      return e.seeded === false ? [] : [e.pin];
     case "seed":
       return [e.worktreeCommit, e.head];
   }
@@ -741,7 +741,7 @@ function M2n(e) {
     case "clone":
       return [e.pin];
     case "folder":
-      return e.seeded === !1 ? [] : [e.pin];
+      return e.seeded === false ? [] : [e.pin];
     case "seed":
       return [];
   }
@@ -805,9 +805,9 @@ var T = m(() => i().regex(tn).refine(_ne)),
             .catch(void 0),
         }),
         f({ kind: N("seed"), head: T(), indexCommit: T(), worktreeCommit: T() }),
-        f({ kind: N("folder"), pin: T(), seedTree: T(), seeded: N(!1).optional() }),
+        f({ kind: N("folder"), pin: T(), seedTree: T(), seeded: N(false).optional() }),
       ]),
-      uploadOnly: N(!0).optional(),
+      uploadOnly: N(true).optional(),
       sent: H(pn())
         .max(yst)
         .refine((e) => e.every((t, r) => r === 0 || t.generation < e[r - 1].generation)),
@@ -831,7 +831,7 @@ var T = m(() => i().regex(tn).refine(_ne)),
         .transform((e) => e ?? []),
       parkedRemovalsOverflow: q()
         .optional()
-        .transform((e) => e ?? !1),
+        .transform((e) => e ?? false),
       downApplied: H(Ge()).max(V9),
       peerNeed: T().nullable(),
       peerBasedOn: T().nullable().default(null),
@@ -852,16 +852,16 @@ var T = m(() => i().regex(tn).refine(_ne)),
   ),
   fn = m(() => un({ engine: i().optional() }));
 function mn(e) {
-  return e.kind === "folder" && e.seeded === !1 ? Ne : ze;
+  return e.kind === "folder" && e.seeded === false ? Ne : ze;
 }
-function Sst({ sessionId: e, armedAtMs: t, start: r, uploadOnly: a = !1 }) {
+function Sst({ sessionId: e, armedAtMs: t, start: r, uploadOnly: a = false }) {
   return {
     version: mn(r),
     engine: "git",
     sessionId: e,
     armedAtMs: t,
     start: r,
-    ...(a && { uploadOnly: !0 }),
+    ...(a && { uploadOnly: true }),
     sent: [],
     outboundEtag: null,
     journalEtag: null,
@@ -871,7 +871,7 @@ function Sst({ sessionId: e, armedAtMs: t, start: r, uploadOnly: a = !1 }) {
     installedSinceUpload: [],
     installedEarlier: [],
     parkedRemovals: [],
-    parkedRemovalsOverflow: !1,
+    parkedRemovalsOverflow: false,
     downApplied: [],
     peerNeed: null,
     peerBasedOn: null,
@@ -903,7 +903,7 @@ function Le(e) {
 async function RZ(e, t, r) {
   let a = await Fe(e, r);
   if (a.kind !== "ok") return a;
-  let u = Ut(a.content.toString("utf8"), !1),
+  let u = Ut(a.content.toString("utf8"), false),
     p = fn().safeParse(u);
   if (!p.success) return { kind: "unreadable" };
   switch (p.data.engine) {
@@ -1042,7 +1042,7 @@ function q2n(e, t) {
       turn: t.turn,
       notInstalled: w.slice(0, sC),
       truncated:
-        (!g && (r?.truncated ?? !1)) ||
+        (!g && (r?.truncated ?? false)) ||
         t.truncated ||
         a.length !== t.installed.length ||
         d.length !== t.notInstalled.length ||

@@ -395,7 +395,7 @@ function q(e, m, f, S, a, C = "raw") {
     }),
     E.setRequestHandler(pA, async () => {
       let r = pm(),
-        R = wE(r, { skipReplFilter: !0, skipSimpleModeFilter: c }).filter((i) => !Yv(i)),
+        R = wE(r, { skipReplFilter: true, skipSimpleModeFilter: c }).filter((i) => !Yv(i)),
         T = c ? R.filter((i) => N.has(i.name)) : R;
       return {
         tools: await Promise.all(
@@ -414,14 +414,14 @@ function q(e, m, f, S, a, C = "raw") {
     }),
     E.setRequestHandler(qT, async ({ params: { name: r, arguments: R } }, { signal: T }) => {
       let i = pm(),
-        _ = wE(i, { skipReplFilter: !0, skipSimpleModeFilter: c }).filter((o) => !Yv(o)),
+        _ = wE(i, { skipReplFilter: true, skipSimpleModeFilter: c }).filter((o) => !Yv(o)),
         v = c ? _.filter((o) => N.has(o.name)) : _,
         s = no(v, r);
       if (!s) throw Error(`Tool ${r} not found`);
       let I = w_(P),
         M = () => I.abort(bu("remote-cancel"));
       if (T.aborted) M();
-      else T.addEventListener("abort", M, { once: !0 });
+      else T.addEventListener("abort", M, { once: true });
       let F = new D(H),
         x = {
           abortController: I,
@@ -432,10 +432,10 @@ function q(e, m, f, S, a, C = "raw") {
             commands: [],
             tools: v,
             mainLoopModel: at(),
-            thinkingConfig: { type: "disabled", mechanical: !0 },
+            thinkingConfig: { type: "disabled", mechanical: true },
             mcpClients: [],
             mcpResources: {},
-            isNonInteractiveSession: !0,
+            isNonInteractiveSession: true,
             debug: e,
             verbose: m,
             agentDefinitions: { activeAgents: [], allAgents: [] },
@@ -443,7 +443,7 @@ function q(e, m, f, S, a, C = "raw") {
           getAppState: () => oB(),
           setAppState: () => {},
           markPrResolvedThisSession: () => {},
-          isUltrareviewOverageConfirmed: () => !1,
+          isUltrareviewOverageConfirmed: () => false,
           markUltrareviewOverageConfirmed: () => {},
           getMcp: () => oB().mcp,
           getProactivityLevel: () => oB().proactivityLevel,
@@ -465,7 +465,7 @@ function q(e, m, f, S, a, C = "raw") {
           messages: [],
           turnStartIndex: 0,
           readFileState: B,
-          dedupUnchangedReads: !1,
+          dedupUnchangedReads: false,
           toolState: F,
           permissionRelays: UK,
           getFileHistoryState: () => {
@@ -479,7 +479,7 @@ function q(e, m, f, S, a, C = "raw") {
       try {
         if (!s.isEnabled()) {
           let t = `Tool ${r} is not enabled`;
-          return n(`MCP server: ${t}`, { level: "error" }), { isError: !0, content: [{ type: "text", text: t }] };
+          return n(`MCP server: ${t}`, { level: "error" }), { isError: true, content: [{ type: "text", text: t }] };
         }
         let o = { ...(R ?? {}) },
           O = [];
@@ -489,12 +489,12 @@ function q(e, m, f, S, a, C = "raw") {
         let d = AT(s, o);
         if (!d.success) {
           let t = `Tool ${r} arguments failed schema validation: ${d.error.message}`;
-          return n(`MCP server: ${t}`, { level: "error" }), { isError: !0, content: [{ type: "text", text: t }] };
+          return n(`MCP server: ${t}`, { level: "error" }), { isError: true, content: [{ type: "text", text: t }] };
         }
         let u = await s.validateInput?.(d.data, x);
         if (u && !u.result) {
           let t = `Tool ${r} input is invalid: ${u.message}`;
-          return n(`MCP server: ${t}`, { level: "error" }), { isError: !0, content: [{ type: "text", text: t }] };
+          return n(`MCP server: ${t}`, { level: "error" }), { isError: true, content: [{ type: "text", text: t }] };
         }
         let A = await s.call(d.data, x, Ld, Qc({ content: [] })),
           l;
@@ -523,7 +523,7 @@ ${t}`;
             h("telemetryMessage" in l ? l : ft(l, `mcp server tool '${s.name}' threw`)), p(K4e(s.name), u);
           }
         }
-        return { isError: !0, content: [{ type: "text", text: d }] };
+        return { isError: true, content: [{ type: "text", text: d }] };
       } finally {
         F.get(CM).release(F2);
       }

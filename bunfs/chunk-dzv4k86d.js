@@ -141,7 +141,7 @@ async function _X(e = "Default", t, o) {
               { name: "python", version: "3.11" },
               { name: "node", version: "20" },
             ],
-            network_config: { allowed_hosts: [], allow_default_hosts: !0 },
+            network_config: { allowed_hosts: [], allow_default_hosts: true },
           },
         },
         {
@@ -244,7 +244,7 @@ async function PCr({
     z = {
       ...(t !== void 0 && { title: t }),
       events: o,
-      session_context: { sources: B, outcomes: G, model: N(), cwd: D(), reuse_outcome_branches: !0 },
+      session_context: { sources: B, outcomes: G, model: N(), cwd: D(), reuse_outcome_branches: true },
       ...Rze(e),
       source: "remote-control",
       ...(d && { permission_mode: d }),
@@ -292,7 +292,7 @@ async function w2t(e, t) {
     return (
       n("[bridge] No access token for session fetch"),
       p("bridge_session_get", "bridge_session_get_no_token"),
-      { session: null, notFound: !1 }
+      { session: null, notFound: false }
     );
   let u = c(),
     _;
@@ -302,7 +302,7 @@ async function w2t(e, t) {
       return (
         n("[bridge] No org UUID for session fetch"),
         p("bridge_session_get", "bridge_session_get_no_org"),
-        { session: null, notFound: !1 }
+        { session: null, notFound: false }
       );
   }
   let d = await i(t?.baseUrl ?? s().BASE_API_URL, a, e, 1e4, { useV2: u, orgUUID: _ });
@@ -329,7 +329,7 @@ async function w2t(e, t) {
         updated_at: d.updated_at,
         tags: d.tags,
       },
-      notFound: !1,
+      notFound: false,
     }
   );
 }
@@ -366,6 +366,6 @@ async function Tpn(e, t, o, r) {
   await k(e, { add_tags: c, remove_tags: i }, "color tag", r);
 }
 async function DCr(e, t, o) {
-  return !1;
+  return false;
 }
 export { AKn, CKn, vKn, Omt, RKn, Lmt, b2t, H9, ID, AF, PD, Rze, DD, _X, Mmt, PCr, uwe, w2t, wpn, kKn, Tpn, DCr };

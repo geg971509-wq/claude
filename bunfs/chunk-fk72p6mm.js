@@ -394,7 +394,7 @@ Set it to the space-separated scopes the refresh token was issued with
       if (!f.valid) await T(f.message);
       await Ae((H) => {
         if (H.hasCompletedOnboarding) return H;
-        return { ...H, hasCompletedOnboarding: !0 };
+        return { ...H, hasCompletedOnboarding: true };
       }, g),
         s("tengu_oauth_success", { loginWithClaudeAi: Jk(r.scopes) }),
         y("cli_auth_login"),
@@ -436,7 +436,7 @@ ${
       async (r) => {
         process.stdout.write(`Opening browser to sign in\u2026
 `),
-          process.stdout.write(`If the browser didn't open, visit: ${Yg(r, void 0, { assumeSupport: !0 })}
+          process.stdout.write(`If the browser didn't open, visit: ${Yg(r, void 0, { assumeSupport: true })}
 `),
           process.stdout.write("Paste code here if prompted > ");
       },
@@ -536,7 +536,7 @@ async function le(a, w, _) {
 }
 async function ue(a, w, _) {
   try {
-    await oW({ clearOnboarding: !1, storageV5: w, credentials: _ });
+    await oW({ clearOnboarding: false, storageV5: w, credentials: _ });
   } catch (d) {
     p("cli_auth_logout", "cli_auth_logout_failed"),
       h(d),

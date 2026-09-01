@@ -56,7 +56,7 @@ function v$e(e, t) {
 
 function w$e(e, t) {
   return typeof e === "object" && e !== null && !Array.isArray(e)
-    ? { ...e, stampHighWater: null, everBaselined: !1, threads: [], ...(t && { interrupted: !0 }) }
+    ? { ...e, stampHighWater: null, everBaselined: false, threads: [], ...(t && { interrupted: true }) }
     : e;
 }
 
@@ -66,15 +66,15 @@ function Dce(e) {
 }
 
 function tzt(e) {
-  return e?.interrupted === !0;
+  return e?.interrupted === true;
 }
 
 function nzt(e) {
   if (typeof e !== "object" || e === null || Array.isArray(e)) return 0;
   let t = e;
-  if (t.interrupted === !0) return 2;
+  if (t.interrupted === true) return 2;
   let r = t.threads === void 0 || (Array.isArray(t.threads) && t.threads.length === 0);
-  return t.stampHighWater === null && r && t.everBaselined === !1 ? 1 : 0;
+  return t.stampHighWater === null && r && t.everBaselined === false ? 1 : 0;
 }
 
 async function E$e(e) {
@@ -93,7 +93,7 @@ async function E$e(e) {
       return `${pe.type}:${fe ?? ""}`;
     },
     U = new Lce(),
-    B = !1;
+    B = false;
   for await (let pe of e) {
     let fe = Jcr(pe);
     if (fe) {
@@ -133,7 +133,7 @@ async function E$e(e) {
       if (Ce) U.torn(Ie, t);
       B = Ie === null;
     }
-    if (fe) B = !1;
+    if (fe) B = false;
     t++;
   }
   let W = new Map();
@@ -248,7 +248,7 @@ async function ozt(e, t, r, o) {
         return;
       }
     }
-    await tur(rur(u), { recursive: !0, mode: 448 }), await Wn(u, b({ customTitle: r }), 384);
+    await tur(rur(u), { recursive: true, mode: 448 }), await Wn(u, b({ customTitle: r }), 384);
   } catch (d) {
     n(`writeSessionTitleSidecar: ${l(d)}`, { level: "error" });
   }
@@ -264,7 +264,7 @@ async function R$e(e, t, r) {
         return;
       }
     }
-    await nur(tmt(e, t), { force: !0 });
+    await nur(tmt(e, t), { force: true });
   } catch (o) {
     n(`deleteSessionTitleSidecar: ${l(o)}`, { level: "error" });
   }
@@ -274,7 +274,7 @@ async function* tNt(e, t) {
   let r,
     o,
     u = our,
-    d = !1;
+    d = false;
   for (;;) {
     let _ = await e.readRecords(
       t,
@@ -304,10 +304,10 @@ async function* tNt(e, t) {
     }
     if (C.length === 0) {
       if (_.value.nextSeq === void 0) return;
-      d = !0;
+      d = true;
       continue;
     }
-    d = !1;
+    d = false;
     let A;
     for (let x of C) {
       let { data: M } = x,
@@ -330,12 +330,12 @@ function azt(e) {
 
 function lzt(e, t) {
   let r = Buffer.from(e.data.buffer, e.data.byteOffset, e.data.byteLength);
-  if (!r.includes(`"uuid":"${t}"`)) return !1;
+  if (!r.includes(`"uuid":"${t}"`)) return false;
   try {
     let o = Ps(r.toString("utf8").replace(/\r?\n$/, ""));
     return typeof o === "object" && o !== null && "uuid" in o && o.uuid === t;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -414,21 +414,21 @@ async function sur(e, t, r, o, u, d, _) {
 }
 
 function cur(e, t) {
-  if (e === void 0) return !1;
+  if (e === void 0) return false;
   return aur.has(e) || (t !== "win32" && lur.has(e));
 }
 
 function mur(e, t) {
-  if (e.liveServing === null) return !1;
-  if (t === e.liveServing.mainFile) return !0;
-  if (e.liveServing.sidecarPrefix !== null && t.startsWith(e.liveServing.sidecarPrefix)) return !0;
+  if (e.liveServing === null) return false;
+  if (t === e.liveServing.mainFile) return true;
+  if (e.liveServing.sidecarPrefix !== null && t.startsWith(e.liveServing.sidecarPrefix)) return true;
   return e.liveServing.sidMarker !== null && t.includes(e.liveServing.sidMarker);
 }
 
 function fur(e, t) {
-  if (e.abandonedPaths.has(t) || e.abandonedPendingPaths.has(t)) return !0;
-  for (let r of e.abandonedPrefixes) if (t.startsWith(r)) return !0;
-  return !1;
+  if (e.abandonedPaths.has(t) || e.abandonedPendingPaths.has(t)) return true;
+  for (let r of e.abandonedPrefixes) if (t.startsWith(r)) return true;
+  return false;
 }
 
 function sv(e, t, r, o, u = Date.now()) {
@@ -467,7 +467,7 @@ function _zt(e, t, r, o = iur, u = []) {
   let d = (M) => (M.endsWith(".jsonl") ? `${M.slice(0, -6)}${o}` : null),
     _ = r === null ? null : d(r);
   if (r !== null) {
-    if (((e.latchingEnabled = !0), e.abandonedPaths.delete(r), e.abandonedPendingPaths.delete(r), _ !== null))
+    if (((e.latchingEnabled = true), e.abandonedPaths.delete(r), e.abandonedPendingPaths.delete(r), _ !== null))
       e.abandonedPrefixes.delete(_);
     let M = r.slice(r.lastIndexOf(o) + 1),
       F = M.endsWith(".jsonl") ? M.slice(0, -6) : null,
@@ -479,7 +479,7 @@ function _zt(e, t, r, o = iur, u = []) {
   }
   if (t === null || t === r) {
     if (r === null) {
-      (e.latchingEnabled = !1), (e.liveServing = null);
+      (e.latchingEnabled = false), (e.liveServing = null);
       for (let M of e.failuresByFile.keys()) if (M !== bK) e.abandonedPaths.add(M);
       for (let M of u) if (!e.failuresByFile.has(M)) e.abandonedPendingPaths.add(M);
       if ((e.failuresByFile.clear(), e.degradedStore.getState() !== null)) e.degradedStore.setState(() => null);
@@ -489,7 +489,7 @@ function _zt(e, t, r, o = iur, u = []) {
   let C = d(t);
   if (r === null) {
     if (
-      ((e.latchingEnabled = !1),
+      ((e.latchingEnabled = false),
       (e.liveServing = null),
       e.abandonedPaths.clear(),
       e.abandonedPrefixes.clear(),
@@ -522,7 +522,7 @@ function _zt(e, t, r, o = iur, u = []) {
 }
 
 function tI(e) {
-  if (!He(e)) return !1;
+  if (!He(e)) return false;
   return e.type === "user" || e.type === "assistant" || e.type === "attachment" || e.type === "system";
 }
 
@@ -621,7 +621,7 @@ async function nGt(e, t, r) {
   if (r !== void 0 && d !== void 0) {
     let C = await r.write(d, b(o), { mode: 438 & ~process.umask() });
     if (!C.ok) throw Error("persistAgentMetadata: storage write failed", { cause: C.error });
-  } else await pR(sh(e), { recursive: !0 }), await Wn(e, b(o));
+  } else await pR(sh(e), { recursive: true }), await Wn(e, b(o));
   let _ = e.replace(/\.meta\.json$/, ".jsonl");
   qr().fireMirror(_, [
     {
@@ -637,7 +637,7 @@ async function nGt(e, t, r) {
       ...(o.name && { name: o.name }),
       ...(o.toolUseId && { toolUseId: o.toolUseId }),
       ...(o.parentAgentId && { parentAgentId: o.parentAgentId }),
-      ...(o.stoppedByUser && { stoppedByUser: !0 }),
+      ...(o.stoppedByUser && { stoppedByUser: true }),
       ...(o.spawnDepth !== void 0 && { spawnDepth: o.spawnDepth }),
       ...(o.taskKind && { taskKind: o.taskKind }),
       ...(o.teamName && { teamName: o.teamName }),
@@ -684,7 +684,7 @@ function aGt(e) {
 
 async function ZGn(e, t, r) {
   let o = aGt(e);
-  if ((await pR(sh(o), { recursive: !0 }), O() && r !== void 0)) {
+  if ((await pR(sh(o), { recursive: true }), O() && r !== void 0)) {
     let u = cJe(o);
     if (u !== void 0) {
       let d = await r.write(u, b(t), { publishDiscipline: "inPlace" });
@@ -735,7 +735,7 @@ async function ezn(e) {
   }
   let r;
   try {
-    r = await uR(t, { withFileTypes: !0 });
+    r = await uR(t, { withFileTypes: true });
   } catch (u) {
     if (Ht(u)) return [];
     throw u;
@@ -761,7 +761,7 @@ async function ezn(e) {
 async function xur(e, t) {
   let r = [],
     o = await Ao(
-      (_) => e.listEntries(t, { skipKeyStats: !0, skipScopeStats: !0, ...(_ !== void 0 && { cursor: _ }) }),
+      (_) => e.listEntries(t, { skipKeyStats: true, skipScopeStats: true, ...(_ !== void 0 && { cursor: _ }) }),
       (_) => {
         for (let C of _)
           if (
@@ -806,9 +806,9 @@ function Opt(e) {
     r = wa(t, `${e}.jsonl`),
     o = le();
   try {
-    return o.statSync(r), !0;
+    return o.statSync(r), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -837,7 +837,7 @@ function lGt() {
 }
 
 function pce() {
-  return !0;
+  return true;
 }
 
 function cGt(e, t) {
@@ -858,7 +858,7 @@ async function Mur(e, t, r) {
             .split(`
 `)
             .includes(t)
-            ? { skip: !0 }
+            ? { skip: true }
             : {
                 write:
                   (d?.value ?? "") +
@@ -929,7 +929,7 @@ async function pUt(e, t) {
       return;
     }
     try {
-      await pR(sh(_), { recursive: !0, mode: 448 });
+      await pR(sh(_), { recursive: true, mode: 448 });
     } catch (A) {
       if (Ht(A)) {
         n(`recordSessionAlias: mkdir failed for ${_}: ${A}`);
@@ -1025,7 +1025,7 @@ function Ccn() {
     } catch {}
   if (t !== void 0) {
     for (let { path: o, entry: u, tornTailEntry: d } of t) {
-      if (r?.has(Ozt(o, u)) === !0) continue;
+      if (r?.has(Ozt(o, u)) === true) continue;
       try {
         F$e(o, u, d);
       } catch {}
@@ -1078,9 +1078,9 @@ async function lhr() {
     if (O() && t !== null && r !== void 0) {
       if (
         (await jt(
-          t.reStampAtExitAsync(r).then(() => !0),
+          t.reStampAtExitAsync(r).then(() => true),
           Pzt,
-        )) !== !0
+        )) !== true
       )
         n(
           `Exit re-stamp through the storage backend did not finish within ${Pzt} ms; the synchronous re-stamp runs instead`,
@@ -1129,8 +1129,8 @@ function iCr(e, t, r) {
   return _Gt(e, t, r);
 }
 
-async function sCr(e = !0, t) {
-  await qr().reAppendSessionMetadataAsync(!1, e, t);
+async function sCr(e = true, t) {
+  await qr().reAppendSessionMetadataAsync(false, e, t);
 }
 
 async function aCr(e, t, r) {
@@ -1173,7 +1173,7 @@ function cCr(e, t) {
   qr().fireMirror(e, t);
 }
 
-function Uqe(e, t, r, o = !1) {
+function Uqe(e, t, r, o = false) {
   qr().setInternalEventReader(e),
     qr().setInternalSubagentEventReader(t),
     qr().setInternalAgentEventReader(r ?? null, o);
@@ -1191,12 +1191,12 @@ async function Wb(e, t, r, o, u) {
     x = [],
     M = r;
   if (M && !Xc() && !A.has(M)) s("tengu_phantom_parent_hint", {});
-  let F = !1;
+  let F = false;
   for (let B of d)
     if (A.has(B.uuid)) {
       if (!F && dce(B)) M = B.uuid;
-    } else x.push(B), (F = !0);
-  if (x.length > 0) await qr().insertMessageChain(x, !1, void 0, M, t, _, C, u);
+    } else x.push(B), (F = true);
+  if (x.length > 0) await qr().insertMessageChain(x, false, void 0, M, t, _, C, u);
   return x.findLast(dce)?.uuid ?? M ?? null;
 }
 
@@ -1209,8 +1209,8 @@ async function GSe(e, t, r) {
         type: "last-prompt",
         ...(o.currentSessionLastPrompt && { lastPrompt: o.currentSessionLastPrompt }),
         leafUuid: e,
-        explicit: !0,
-        ...(t?.rewound && { rewound: !0 }),
+        explicit: true,
+        ...(t?.rewound && { rewound: true }),
         sessionId: K(),
       },
       void 0,
@@ -1225,8 +1225,8 @@ async function Npt(e, t) {
     type: "last-prompt",
     ...(r.currentSessionLastPrompt && { lastPrompt: r.currentSessionLastPrompt }),
     leafUuid: e,
-    explicit: !0,
-    ...(t?.rewound && { rewound: !0 }),
+    explicit: true,
+    ...(t?.rewound && { rewound: true }),
     sessionId: K(),
   });
 }
@@ -1242,7 +1242,7 @@ function Icn(e, t, r) {
 async function ote(e, t, r, o) {
   let u = K(),
     d = Gpt(Ta(u));
-  await qr().insertMessageChain(IPe(e), !0, t, r, void 0, u, d, o);
+  await qr().insertMessageChain(IPe(e), true, t, r, void 0, u, d, o);
 }
 
 async function nzn(e, t) {
@@ -1267,12 +1267,12 @@ async function ozn(e, t) {
   if (O() && t !== void 0)
     try {
       let r = Jh(mp(e));
-      if (r !== void 0 && (await t.stat(r)).ok) return !0;
+      if (r !== void 0 && (await t.stat(r)).ok) return true;
     } catch {}
   try {
-    return await Dy(mp(e)), !0;
+    return await Dy(mp(e)), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -1431,15 +1431,15 @@ function Dzt(e) {
 
 async function Uce(e, t, r, o, u) {
   let d = Ai(),
-    _ = o !== !0 && d.project?.tornTailSealPending(e) === !0;
+    _ = o !== true && d.project?.tornTailSealPending(e) === true;
   if (_)
     t =
       `
 ` + t;
-  let C = !1,
+  let C = false,
     A = r !== void 0 ? Jh(e) : void 0;
   if (O() && r !== void 0 && A !== void 0) {
-    if (o === !0) {
+    if (o === true) {
       let M = await r.stat(A);
       if (!M.ok) {
         if (M.error.code === "NotFound") return "skipped";
@@ -1462,24 +1462,24 @@ async function Uce(e, t, r, o, u) {
         (t =
           `
 ` + (u ?? t)),
-          (C = !0);
+          (C = true);
     }
-    let x = await r.append(A, Dur(t), o === !0 ? { precondition: { type: "ifExists" } } : void 0);
+    let x = await r.append(A, Dur(t), o === true ? { precondition: { type: "ifExists" } } : void 0);
     if (!x.ok) {
-      if (o === !0 && x.error.code === "NotFound") return "skipped";
+      if (o === true && x.error.code === "NotFound") return "skipped";
       throw Lur(x.error);
     }
     if (_) d.project?.tornTailSealLanded(e);
     return C ? "backend-torn" : "backend";
   }
-  if (o === !0) {
+  if (o === true) {
     let x = await $ur(e, t, u);
-    return x === !1 ? "skipped" : x === "torn" ? "direct-torn" : "direct";
+    return x === false ? "skipped" : x === "torn" ? "direct-torn" : "direct";
   }
   try {
     await O$e(e, t, { mode: 384 });
   } catch {
-    await pR(sh(e), { recursive: !0, mode: 448 }), await O$e(e, t, { mode: 384 });
+    await pR(sh(e), { recursive: true, mode: 448 }), await O$e(e, t, { mode: 384 });
   }
   if (_) d.project?.tornTailSealLanded(e);
   return "direct";
@@ -1491,12 +1491,12 @@ async function $ur(e, t, r) {
     o = await lR(e, lI.O_RDWR | lI.O_APPEND);
   } catch (u) {
     let d = E(u);
-    if (d === "ENOENT" || d === "ENOTDIR") return !1;
+    if (d === "ENOENT" || d === "ENOTDIR") return false;
     throw u;
   }
   try {
     let { size: u } = await o.stat();
-    if (u === 0) return !1;
+    if (u === 0) return false;
     let d = Buffer.alloc(1),
       { bytesRead: _ } = await o.read(d, 0, 1, u - 1),
       C = _ === 1 && d[0] === 10,
@@ -1514,7 +1514,7 @@ async function $ur(e, t, r) {
       if (F <= 0) throw Error("appendToExistingTranscript: short write");
       if (((M += F), x !== void 0)) x += F;
     }
-    return C ? !0 : "torn";
+    return C ? true : "torn";
   } finally {
     await o.close();
   }
@@ -1531,11 +1531,11 @@ async function Xce(e, t, r) {
 
 function szn(e, t, r) {
   return r.read([{ key: e, tail: t }]).then((o) => {
-    if (!o.ok) return PFe(o.error) ? Hur(e, t, r) : { ok: !1, error: o.error };
+    if (!o.ok) return PFe(o.error) ? Hur(e, t, r) : { ok: false, error: o.error };
     let [u] = o.value.items;
     if (!u.found) return null;
     return {
-      ok: !0,
+      ok: true,
       content: Buffer.from(u.value.buffer, u.value.byteOffset, u.value.byteLength).toString("utf8"),
       totalBytes: u.totalBytes,
       byteLength: u.value.byteLength,
@@ -1604,9 +1604,9 @@ async function Fzt(e, t, r) {
 
 async function Hur(e, t, r) {
   let o = await r.readRecords(e, { order: "backward", maxBytes: t });
-  if (!o.ok) return o.error.code === "NotFound" ? null : { ok: !1, error: o.error };
+  if (!o.ok) return o.error.code === "NotFound" ? null : { ok: false, error: o.error };
   let u = Buffer.concat(o.value.items.map((d) => d.data).reverse());
-  return { ok: !0, content: u.toString("utf8"), totalBytes: void 0, byteLength: u.byteLength, cut: !1 };
+  return { ok: true, content: u.toString("utf8"), totalBytes: void 0, byteLength: u.byteLength, cut: false };
 }
 
 async function azn(e, t) {
@@ -1728,7 +1728,7 @@ function m9() {
   let r = new Date();
   Qzt(t, r, r).catch(() => {});
   try {
-    e.reAppendSessionMetadata(!0);
+    e.reAppendSessionMetadata(true);
   } catch (o) {
     let u = E(o);
     if ($o(o)) n(`Resume re-append failed (${u}): ${l(o)}`, { level: "error" });
@@ -1742,7 +1742,7 @@ async function g9(e) {
     r = Hl();
   if ((t.setSessionFile(r), t.adoptAppendSource(e), hGt(r, e), Xc())) return;
   try {
-    await t.reAppendSessionMetadataAsync(!0, !1, e, !0);
+    await t.reAppendSessionMetadataAsync(true, false, e, true);
   } catch (o) {
     let u = E(o);
     if ($o(o)) n(`Resume re-append failed (${u}): ${l(o)}`, { level: "error" });
@@ -1812,12 +1812,12 @@ async function CPe(e) {
   }
   u.beginTranscriptRelocation(), Uzt(d);
   try {
-    await u.flush(), await qpt(), await pR(o, { recursive: !0, mode: 448 });
+    await u.flush(), await qpt(), await pR(o, { recursive: true, mode: 448 });
     let C = Nu(e),
       A = (await Al(sh(d), C)) === (await Al(o, C));
     if (!A)
       try {
-        let [fe, me] = await Promise.all([Dy(sh(d), { bigint: !0 }), Dy(o, { bigint: !0 })]);
+        let [fe, me] = await Promise.all([Dy(sh(d), { bigint: true }), Dy(o, { bigint: true })]);
         A = fe.dev === me.dev && fe.ino === me.ino;
       } catch (fe) {
         if (!X(fe)) throw fe;
@@ -1827,7 +1827,7 @@ async function CPe(e) {
     let M = t && Jh(d),
       F = t && Jh(_),
       U = t !== void 0 && M !== void 0 && F !== void 0,
-      B = !0;
+      B = true;
     try {
       await Nzt(d, _, t, U ? { from: M, to: F } : void 0);
     } catch (fe) {
@@ -1841,7 +1841,7 @@ async function CPe(e) {
             }),
             fe)
           );
-        n(`relocateSessionTranscript: old file missing: ${fe}`), (B = !1);
+        n(`relocateSessionTranscript: old file missing: ${fe}`), (B = false);
       } else {
         if (x !== void 0)
           await aI(x, _).catch((me) => {
@@ -1854,11 +1854,11 @@ async function CPe(e) {
     }
     let W = wa(sh(d), r),
       z = wa(o, r),
-      pe = !0;
+      pe = true;
     try {
       await Nzt(W, z, t, U ? { fromScope: Mzt(M), toScope: Mzt(F) } : void 0);
     } catch (fe) {
-      if (((pe = !1), !X(fe))) h(fe);
+      if (((pe = false), !X(fe))) h(fe);
     }
     if ((u.setSessionFile(_), Gp(r, "cd", o), (u.currentSessionRelocatedCwd = Se()), B))
       try {
@@ -1965,8 +1965,8 @@ async function Nzt(e, t, r, o) {
     throw fGt(d.error);
   }
   async function u(d, _) {
-    await pR(_, { recursive: !0, mode: 448 });
-    for (let C of await uR(d, { withFileTypes: !0 }))
+    await pR(_, { recursive: true, mode: 448 });
+    for (let C of await uR(d, { withFileTypes: true }))
       if (C.isDirectory()) await u(wa(d, C.name), wa(_, C.name));
       else await Szt(wa(d, C.name), wa(_, C.name));
   }
@@ -1998,12 +1998,12 @@ async function Nzt(e, t, r, o) {
             await u(e, t);
           } catch (M) {
             if (x !== void 0)
-              await bzt(t, { recursive: !0, force: !0 }).catch(() => {}), await aI(x, t).catch(() => {});
+              await bzt(t, { recursive: true, force: true }).catch(() => {}), await aI(x, t).catch(() => {});
             throw M;
           }
         } else throw C;
       }
-      await bzt(e, { recursive: !0, force: !0 });
+      await bzt(e, { recursive: true, force: true });
       return;
     }
     throw d;
@@ -2054,7 +2054,7 @@ function Lcn(e) {
 }
 
 function AK(e) {
-  if (typeof e !== "object" || e === null) return !1;
+  if (typeof e !== "object" || e === null) return false;
   let t = e.type;
   return t === "user" || t === "assistant";
 }
@@ -2074,7 +2074,7 @@ async function Upt(e, t) {
   let r = 65536,
     o = null;
   try {
-    if (((o = await yGt(e)), o === null)) return !1;
+    if (((o = await yGt(e)), o === null)) return false;
     let u = Buffer.allocUnsafe(r),
       d = new eGt("utf8"),
       _ = "";
@@ -2084,11 +2084,11 @@ async function Upt(e, t) {
       let x = (_ + d.write(u.subarray(0, C))).split(`
 `);
       _ = x.pop() ?? "";
-      for (let M of x) if (vK(M)) return !0;
+      for (let M of x) if (vK(M)) return true;
     }
     return vK(_ + d.end());
   } catch {
-    return !1;
+    return false;
   } finally {
     if (o)
       try {
@@ -2103,15 +2103,15 @@ async function Vur(e, t) {
   try {
     let o = await t.readRecords(r, { order: "forward", maxBytes: Kur });
     if (o.ok) {
-      let u = new TextDecoder("utf-8", { ignoreBOM: !0 }),
+      let u = new TextDecoder("utf-8", { ignoreBOM: true }),
         d = 0,
-        _ = !0;
+        _ = true;
       for (let C of o.value.items) {
-        if (C.truncated === !0) {
-          _ = !1;
+        if (C.truncated === true) {
+          _ = false;
           break;
         }
-        if (vK(u.decode(C.data))) return !0;
+        if (vK(u.decode(C.data))) return true;
         d += C.data.byteLength;
       }
       if (_) return await Yur(e, d);
@@ -2123,7 +2123,7 @@ async function Vur(e, t) {
 async function Yur(e, t) {
   let o = null;
   try {
-    if (((o = await yGt(e)), o === null)) return !1;
+    if (((o = await yGt(e)), o === null)) return false;
     let u = Buffer.allocUnsafe(65536),
       d = new eGt("utf8"),
       _ = "",
@@ -2135,11 +2135,11 @@ async function Yur(e, t) {
       let M = (_ + d.write(u.subarray(0, A))).split(`
 `);
       _ = M.pop() ?? "";
-      for (let F of M) if (vK(F)) return !0;
+      for (let F of M) if (vK(F)) return true;
     }
     return vK(_ + d.end());
   } catch {
-    return !1;
+    return false;
   } finally {
     if (o)
       try {
@@ -2155,11 +2155,11 @@ function vK(e) {
     !e.includes('"type":"assistant"') &&
     !e.includes('"type": "assistant"')
   )
-    return !1;
+    return false;
   try {
     return AK(Ps(e));
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -2177,11 +2177,11 @@ async function Mcn(e, t, r) {
           `Skipping remote hydration: server set of ${u.length} entries has no content-bearing entries but the local transcript does`,
         ),
         Y("info", "hydrate_skip_zero_content_replace", { path: "v1_session_ingress", server_entry_count: u.length }),
-        !0
+        true
       );
     return await yJ(_, u, _d(oU(_, r))), n(`Hydrated ${u.length} entries from remote`), u.length > 0;
   } catch (u) {
-    return n(`Error hydrating session from remote: ${u}`), Y("error", "hydrate_remote_session_fail"), !1;
+    return n(`Error hydrating session from remote: ${u}`), Y("error", "hydrate_remote_session_fail"), false;
   } finally {
     o.setRemoteIngressUrl(t);
   }
@@ -2247,7 +2247,7 @@ async function z$e(e, t) {
       return;
     }
   }
-  await pR(e, { recursive: !0, mode: 448 });
+  await pR(e, { recursive: true, mode: 448 });
 }
 
 function oU(e, t) {
@@ -2261,7 +2261,7 @@ function fce(e) {
 }
 
 async function vPe(e) {
-  await pR(sh(e), { recursive: !0, mode: 448 });
+  await pR(sh(e), { recursive: true, mode: 448 });
 }
 
 function SGt(e) {
@@ -2427,12 +2427,12 @@ function Bpt() {
   return qr().hasInternalAgentEventReader();
 }
 
-async function Fcn(e, t, r = !1, o = !1, u) {
+async function Fcn(e, t, r = false, o = false, u) {
   let d = Date.now();
   Gp(Gu(e), "hydrate");
   let _ = qr(),
     C = _.getInternalEventReader();
-  if (!C) return n("No internal event reader registered for CCR v2 resume"), !1;
+  if (!C) return n("No internal event reader registered for CCR v2 resume"), false;
   try {
     let A = im(e),
       x = _Gt(A, 65536, u),
@@ -2446,7 +2446,7 @@ async function Fcn(e, t, r = !1, o = !1, u) {
       let lt = performance.now();
       (M = await C(F)), Wi("resume_hydrate_fetch_ms", performance.now() - lt, lt);
     }
-    if (!M) return n("Failed to read internal events for resume"), Y("error", "hydrate_ccr_v2_read_fail"), !1;
+    if (!M) return n("Failed to read internal events for resume"), Y("error", "hydrate_ccr_v2_read_fail"), false;
     let { events: B, stats: W } = M,
       z = bl(Se());
     await z$e(z, u);
@@ -2467,7 +2467,7 @@ async function Fcn(e, t, r = !1, o = !1, u) {
     }
     let Ie = Ce === void 0 ? B.length : B.length - 1 - Ce;
     SVn(fe, W?.bytesReceived ?? null, B.length, Ie, F !== void 0, ge?.walkback);
-    let Ee = !1,
+    let Ee = false,
       Pe = M.anchorFallback !== void 0,
       Oe = F !== void 0 && !Pe && B.some((tt) => (tt.event_id !== void 0 ? tt.event_id === F : tt.payload.uuid === F)),
       Fe = F !== void 0 && pe ? czn(pe.content) : null,
@@ -2479,19 +2479,19 @@ async function Fcn(e, t, r = !1, o = !1, u) {
         let tt = await C();
         if (!tt)
           return (
-            n("Failed to refetch full read after incoherent local tail"), Y("error", "hydrate_ccr_v2_read_fail"), !1
+            n("Failed to refetch full read after incoherent local tail"), Y("error", "hydrate_ccr_v2_read_fail"), false
           );
         ze = tt.events;
       }
     }
-    let We = !1;
+    let We = false;
     if (F && !Pe && !Oe && Be) {
       let tt = B.map((lt) => lt.payload).filter((lt) => {
         let mt = lt.uuid;
         return typeof mt !== "string" || !Fe.has(mt);
       });
       if (tt.length > 0) await jRn(A, tt, _d(oU(A, u)));
-      if (((Ee = !0), (We = !0), Ai().localGcEnabled)) {
+      if (((Ee = true), (We = true), Ai().localGcEnabled)) {
         let lt = 0;
         for (let mt of tt) lt += Buffer.byteLength(P5(mt), "utf8");
         if (fe + lt > ZM) qr().requestCompact(A, u);
@@ -2516,7 +2516,7 @@ async function Fcn(e, t, r = !1, o = !1, u) {
           ze.map((lt) => lt.payload),
           _d(oU(A, u)),
         ),
-          (We = !0),
+          (We = true),
           n(`Hydrated ${ze.length} foreground entries from CCR v2 internal events`);
     }
     let Ve = Ee ? B : ze;
@@ -2556,11 +2556,11 @@ async function Fcn(e, t, r = !1, o = !1, u) {
         }
         for (let [nt, ht] of Xe)
           await uzn(nt, ht, u).catch(() => {
-            lt = !1;
+            lt = false;
           });
         n(`Hydrated ${mt.length} subagent entries across ${Xe.size} agents`);
       }
-      if (lt) _.setInternalAgentEventReader(null, !1);
+      if (lt) _.setInternalAgentEventReader(null, false);
     }
     return (
       Y("info", "hydrate_ccr_v2_completed", {
@@ -2591,7 +2591,7 @@ async function Fcn(e, t, r = !1, o = !1, u) {
     );
   } catch (A) {
     if (A instanceof Error && A.message === "CCRClient: Epoch mismatch (409)") throw A;
-    return n(`Error hydrating session from CCR v2: ${A}`), Y("error", "hydrate_ccr_v2_fail"), !1;
+    return n(`Error hydrating session from CCR v2: ${A}`), Y("error", "hydrate_ccr_v2_fail"), false;
   }
 }
 
@@ -2964,14 +2964,14 @@ function KSe(e) {
 }
 
 function q$e(e, t, r) {
-  let o = cI(e.messages.values(), () => !0)?.sessionId ?? r;
+  let o = cI(e.messages.values(), () => true)?.sessionId ?? r;
   return {
     ...t,
     messages: [],
     value: t.value ?? 0,
     firstPrompt: "",
     messageCount: 0,
-    isSidechain: !1,
+    isSidechain: false,
     sessionId: o,
     customTitle: e.customTitles.get(o) ?? t.customTitle,
     aiTitle: e.aiTitles.get(o) ?? t.aiTitle,
@@ -2993,7 +2993,7 @@ function q$e(e, t, r) {
     bridgeNoHistoryBackfill: e.bridgeNoBackfill.get(o),
     bridgeOwnerAccountUuid: e.bridgeOwnerAccountUuids.get(o),
     bridgeOwnerOrganizationUuid: e.bridgeOwnerOrganizationUuids.get(o),
-    sessionHistorySuppressed: e.historySuppressed.has(o) ? !0 : void 0,
+    sessionHistorySuppressed: e.historySuppressed.has(o) ? true : void 0,
     worktreeSession: e.worktreeStates.has(o) ? e.worktreeStates.get(o) : t.worktreeSession,
     artifactCommentMonitor: e.artifactCommentMonitors.get(o),
     artifactAutoReactLedger: e.artifactAutoReactLedgers.get(o),
@@ -3084,7 +3084,7 @@ async function jqe(e, t) {
       bridgeNoHistoryBackfill: en.get(dn),
       bridgeOwnerAccountUuid: nn.get(dn),
       bridgeOwnerOrganizationUuid: xt.get(dn),
-      sessionHistorySuppressed: tt.has(dn) ? !0 : void 0,
+      sessionHistorySuppressed: tt.has(dn) ? true : void 0,
     };
   }
   let o = await Dy(e);
@@ -3107,19 +3107,19 @@ async function jqe(e, t) {
 }
 
 function sdr(e) {
-  if (e.type !== "user") return !1;
-  if (e.isMeta) return !1;
+  if (e.type !== "user") return false;
+  if (e.isMeta) return false;
   let t = e.message?.content;
-  if (!t) return !1;
+  if (!t) return false;
   if (typeof t === "string") return t.trim().length > 0;
   if (Array.isArray(t)) return t.some((r) => r.type === "text" || r.type === "image" || r.type === "document");
-  return !1;
+  return false;
 }
 
 function idr(e) {
-  if (e.type !== "assistant") return !1;
+  if (e.type !== "assistant") return false;
   let t = e.message?.content;
-  if (!t || !Array.isArray(t)) return !1;
+  if (!t || !Array.isArray(t)) return false;
   return t.some((r) => r.type === "text" && typeof r.text === "string" && r.text.trim().length > 0);
 }
 
@@ -3211,9 +3211,9 @@ async function Ucn(e, t) {
       }
     _ = x;
   }
-  if (N$e.test(r) && (await Gce(_, r, t))) _ = await $$e(r, o, e, !1, void 0, t);
+  if (N$e.test(r) && (await Gce(_, r, t))) _ = await $$e(r, o, e, false, void 0, t);
   if (d.length > 0) {
-    let C = (await Promise.all(d.map((A) => cte(A, e, void 0, t)))).flat().map((A) => ({ ...A, isAlias: !0 }));
+    let C = (await Promise.all(d.map((A) => cte(A, e, void 0, t)))).flat().map((A) => ({ ...A, isAlias: true }));
     if (((_ = TK(_.concat(C))), e !== void 0)) _ = _.slice(0, e);
   }
   return await adr(_), _;
@@ -3430,7 +3430,7 @@ async function yCr(e, t, r, o, u, d) {
 }
 
 function vGt(e, t, r) {
-  return Boolean(e.sessionFile) || (r?.targetExists === !0 && t !== void 0);
+  return Boolean(e.sessionFile) || (r?.targetExists === true && t !== void 0);
 }
 
 function XSe(e, t, r, o, u, d, _, C, A, x) {
@@ -3445,7 +3445,7 @@ function XSe(e, t, r, o, u, d, _, C, A, x) {
         lastSequenceNum: r,
         ...(u?.length && { declaredDialogKinds: u }),
         ...(d && { sessionGroupingId: d }),
-        ...(_ && { noHistoryBackfill: !0 }),
+        ...(_ && { noHistoryBackfill: true }),
         ...(C?.accountUuid && { ownerAccountUuid: C.accountUuid }),
         ...(C?.organizationUuid && { ownerOrganizationUuid: C.organizationUuid }),
       },
@@ -3458,7 +3458,7 @@ function XSe(e, t, r, o, u, d, _, C, A, x) {
       (M.currentSessionBridgeSeq = r),
       (M.currentSessionBridgeDialogKinds = u?.length ? u : void 0),
       (M.currentSessionBridgeGroupingId = d),
-      (M.currentSessionBridgeNoBackfill = _ ? !0 : void 0),
+      (M.currentSessionBridgeNoBackfill = _ ? true : void 0),
       (M.currentSessionBridgeOwnerAccountUuid = C?.accountUuid),
       (M.currentSessionBridgeOwnerOrganizationUuid = C?.organizationUuid);
 }
@@ -3471,12 +3471,12 @@ function YSe(e, t, r, o, u) {
     _ = pk(t ?? im(d), R5(d, r, o), u).catch((C) => {
       n(`writeHistorySuppression: transcript append failed: ${l(C)}`);
     });
-  if ((qcn(d), d === K())) qr().currentSessionHistorySuppressed = !0;
+  if ((qcn(d), d === K())) qr().currentSessionHistorySuppressed = true;
   return _;
 }
 
 function QL() {
-  return qr().currentSessionHistorySuppressed === !0;
+  return qr().currentSessionHistorySuppressed === true;
 }
 
 async function jcn(e) {
@@ -3524,12 +3524,12 @@ function qqe(e) {
 }
 
 function bUt(e, t = {}) {
-  if (!e.includes('"history-suppression"')) return !1;
+  if (!e.includes('"history-suppression"')) return false;
   try {
     let r = V(e);
     return r.type === "history-suppression" && (t.sid === void 0 || r.sessionId === t.sid);
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -3552,9 +3552,9 @@ function kPe(e, t = {}) {
 
 async function ite(e, t) {
   let r = t.destSid ?? Ta(K()),
-    o = e.sessionHistorySuppressed === !0 || ZG(Ta(e.sessionId));
+    o = e.sessionHistorySuppressed === true || ZG(Ta(e.sessionId));
   if (o) await YSe(r, void 0, "fork_inherit", void 0, t.storageV5);
-  rH(kPe(o && !e.sessionHistorySuppressed ? { ...e, sessionHistorySuppressed: !0 } : e, t), {
+  rH(kPe(o && !e.sessionHistorySuppressed ? { ...e, sessionHistorySuppressed: true } : e, t), {
     taintSid: r,
     storageV5: t.storageV5,
   }),
@@ -3562,11 +3562,11 @@ async function ite(e, t) {
 }
 
 function Wcn() {
-  qr().currentSessionHistorySuppressed = !0;
+  qr().currentSessionHistorySuppressed = true;
 }
 
 function Gqe(e) {
-  if ((qcn(e), e !== void 0 && e === K())) qr().currentSessionHistorySuppressed = !0;
+  if ((qcn(e), e !== void 0 && e === K())) qr().currentSessionHistorySuppressed = true;
 }
 
 function qcn(e) {
@@ -3576,7 +3576,7 @@ function qcn(e) {
 }
 
 function ZG(e) {
-  return e !== void 0 && qr().knownTaintedSessionIds?.has(e) === !0;
+  return e !== void 0 && qr().knownTaintedSessionIds?.has(e) === true;
 }
 
 function Gcn() {
@@ -3617,7 +3617,7 @@ function zqe(e) {
 }
 
 function Vcn(e) {
-  return e !== void 0 && qr().scanUncertaintyHoldSids?.has(e) === !0;
+  return e !== void 0 && qr().scanUncertaintyHoldSids?.has(e) === true;
 }
 
 function ste(e) {
@@ -3639,7 +3639,7 @@ function ghr() {
 }
 
 function c2(e) {
-  return e !== void 0 && qr().currentSessionPrecautionarySuppression?.has(e) === !0;
+  return e !== void 0 && qr().currentSessionPrecautionarySuppression?.has(e) === true;
 }
 
 function wUt(e, t) {
@@ -3656,17 +3656,17 @@ function mce(e) {
 }
 
 function hhr() {
-  return Ai().liveSuppressionProbe?.() === !0;
+  return Ai().liveSuppressionProbe?.() === true;
 }
 
 function gce() {
-  return tue?.().foreign === !0;
+  return tue?.().foreign === true;
 }
 
 function Gpt(e) {
   let t = tue?.();
-  if (t?.foreign !== !0) return !1;
-  if (!e || !t.boundSid) return !0;
+  if (t?.foreign !== true) return false;
+  if (!e || !t.boundSid) return true;
   return e !== t.boundSid;
 }
 
@@ -3675,7 +3675,7 @@ function Xcn() {
 }
 
 function W7() {
-  return QL() || dF()?.noHistoryBackfill === !0 || hhr() || ghr();
+  return QL() || dF()?.noHistoryBackfill === true || hhr() || ghr();
 }
 
 function q7(e) {
@@ -3786,14 +3786,14 @@ function rH(e, t) {
       (r.currentSessionBridgeSeq = e.bridgeLastSeq),
       (r.currentSessionBridgeDialogKinds = e.bridgeDialogKinds?.length ? e.bridgeDialogKinds : void 0),
       (r.currentSessionBridgeGroupingId = e.bridgeSessionGroupingId),
-      (r.currentSessionBridgeNoBackfill = e.bridgeNoHistoryBackfill ? !0 : void 0),
+      (r.currentSessionBridgeNoBackfill = e.bridgeNoHistoryBackfill ? true : void 0),
       (r.currentSessionBridgeOwnerAccountUuid = e.bridgeOwnerAccountUuid),
       (r.currentSessionBridgeOwnerOrganizationUuid = e.bridgeOwnerOrganizationUuid);
   if (e.sessionHistorySuppressed) {
     let o = t?.taintSid ?? Ta(K()),
       u = o !== void 0 && o === K(),
       d = u && !r.currentSessionHistorySuppressed;
-    if (u) r.currentSessionHistorySuppressed = !0;
+    if (u) r.currentSessionHistorySuppressed = true;
     if ((qcn(o), d && o !== void 0)) {
       let _ = gl();
       if (!(_ !== null && !j7(o, _))) {
@@ -3840,7 +3840,7 @@ function wCr() {
     bridgeNoHistoryBackfill: e.currentSessionBridgeNoBackfill,
     bridgeOwnerAccountUuid: e.currentSessionBridgeOwnerAccountUuid,
     bridgeOwnerOrganizationUuid: e.currentSessionBridgeOwnerOrganizationUuid,
-    sessionHistorySuppressed: e.currentSessionHistorySuppressed ? !0 : void 0,
+    sessionHistorySuppressed: e.currentSessionHistorySuppressed ? true : void 0,
     lastPrompt: e.currentSessionLastPrompt,
     leafUuid: e.currentSessionLeafUuid,
     leafTs: e.currentSessionLeafTs,
@@ -3880,13 +3880,13 @@ function Kqe() {
 }
 
 function _hr() {
-  qr().reAppendSessionMetadata(!1, !0);
+  qr().reAppendSessionMetadata(false, true);
 }
 
 async function Vpt(e) {
   if (O() && e !== void 0) {
     if (Xc()) return;
-    await qr().reAppendSessionMetadataAsync(!1, !0, e, !0);
+    await qr().reAppendSessionMetadataAsync(false, true, e, true);
     return;
   }
   await qpt(), _hr();
@@ -3943,7 +3943,7 @@ function QSe(e) {
 function HPe(e, t, r) {
   let o = Yc(e),
     u = o && Us(o);
-  if (!u) return !0;
+  if (!u) return true;
   let d = Sr(u);
   return d === Sr(t) || (r !== void 0 && d === Sr(r));
 }
@@ -4131,7 +4131,7 @@ async function V7(e, t) {
       bridgeNoHistoryBackfill: Lt ? Ee.get(Lt) : e.bridgeNoHistoryBackfill,
       bridgeOwnerAccountUuid: Lt ? Pe.get(Lt) : e.bridgeOwnerAccountUuid,
       bridgeOwnerOrganizationUuid: Lt ? Oe.get(Lt) : e.bridgeOwnerOrganizationUuid,
-      sessionHistorySuppressed: Lt ? (Fe.has(Lt) ? !0 : void 0) : e.sessionHistorySuppressed,
+      sessionHistorySuppressed: Lt ? (Fe.has(Lt) ? true : void 0) : e.sessionHistorySuppressed,
       gitBranch: At?.gitBranch ?? e.gitBranch,
       isSidechain: dn[0]?.isSidechain ?? e.isSidechain,
       teamName: dn[0]?.teamName ?? e.teamName,
@@ -4160,7 +4160,7 @@ async function eM(e, t, r) {
     A = e.toLowerCase().trim(),
     x = C.filter((U) => {
       let B = (U.customTitle ?? U.aiTitle)?.toLowerCase().trim();
-      if (!B) return !1;
+      if (!B) return false;
       return u ? B === A : B.includes(A);
     }),
     M = new Map();
@@ -4180,21 +4180,21 @@ function udr(e, t, r, o) {
   let A = o[0],
     x = o.length,
     M = 0,
-    F = !1,
-    U = !1;
+    F = false,
+    U = false;
   for (let B = t; B < r; B++) {
     let W = e[B];
     if (U) {
-      U = !1;
+      U = false;
       continue;
     }
     if (F) {
-      if (W === 92) U = !0;
-      else if (W === 34) F = !1;
+      if (W === 92) U = true;
+      else if (W === 34) F = false;
       continue;
     }
     if (M === 1 && W === A && B + x <= r && e.compare(o, 0, x, B, B + x) === 0) return B;
-    if (W === 34) F = !0;
+    if (W === 34) F = true;
     else if (W === 123) M++;
     else if (W === 125) M--;
   }
@@ -4203,8 +4203,8 @@ function udr(e, t, r, o) {
 
 function EGt(e, t, r) {
   let C = 0,
-    A = !1,
-    x = !1,
+    A = false,
+    x = false,
     M = 0;
   for (let F = t; M < r.length; F++) {
     if (F === r[M]) {
@@ -4212,11 +4212,11 @@ function EGt(e, t, r) {
       M++;
     }
     let U = e[F];
-    if (x) x = !1;
+    if (x) x = false;
     else if (A) {
-      if (U === 92) x = !0;
-      else if (U === 34) A = !1;
-    } else if (U === 34) A = !0;
+      if (U === 92) x = true;
+      else if (U === 34) A = false;
+    } else if (U === 34) A = true;
     else if (U === 123) C++;
     else if (U === 125) C--;
   }
@@ -4371,7 +4371,7 @@ function CGt(e, t, r, o) {
     Ce = new Map(),
     Ie = [],
     Ee = new Set(),
-    Pe = !1,
+    Pe = false,
     Oe = -1,
     Fe = 0,
     Be = [],
@@ -4428,14 +4428,14 @@ function CGt(e, t, r, o) {
         Sn = null;
       }
       if (Sn?.type === "system" && Sn.subtype === "compact_boundary")
-        if (Sn.compactMetadata?.preservedSegment || Sn.compactMetadata?.preservedMessages) Pe = !0;
+        if (Sn.compactMetadata?.preservedSegment || Sn.compactMetadata?.preservedMessages) Pe = true;
         else
           Ee.add(lt),
             (fe.length = 0),
             (me.length = 0),
             (ge.length = 0),
             Ce.clear(),
-            (Pe = !1),
+            (Pe = false),
             (Oe = -1),
             (Fe = 0),
             (We = void 0);
@@ -4471,7 +4471,7 @@ function CGt(e, t, r, o) {
         }
       nn = new Set();
       let mt = new Set(),
-        Xe = !1,
+        Xe = false,
         nt = (At) => {
           let dn = At;
           while (dn !== void 0 && !mt.has(dn)) {
@@ -4483,7 +4483,7 @@ function CGt(e, t, r, o) {
             }
             let fn = Ce.get(Lt);
             if (fn === void 0) {
-              Xe = !0;
+              Xe = true;
               break;
             }
             dn = fn;
@@ -4530,7 +4530,7 @@ function fdr(e, t) {
 }
 
 async function gdr(e, t) {
-  if (t === 0) return !0;
+  if (t === 0) return true;
   let r = await lR(e, "r");
   try {
     let o = Buffer.alloc(1),
@@ -4604,13 +4604,13 @@ function Nce(e, t, r) {
 }
 
 function $ce(e) {
-  if (e === null) return !0;
-  if (SK(e)) return !1;
+  if (e === null) return true;
+  if (SK(e)) return false;
   try {
     let t = V(e.toString("utf8", _K(e, 0, e.length)));
     return t === null || typeof t !== "object";
   } catch {
-    return !0;
+    return true;
   }
 }
 
@@ -4647,7 +4647,7 @@ function kUt(e, t) {
   let r = t.artifacts,
     o = e.artifacts;
   if (typeof r !== "object" || r === null)
-    return typeof o === "object" && o !== null ? (e.crossLineMerged === !0 ? e : { ...e, crossLineMerged: !0 }) : t;
+    return typeof o === "object" && o !== null ? (e.crossLineMerged === true ? e : { ...e, crossLineMerged: true }) : t;
   let u = new Map(Object.entries(r));
   if (typeof o === "object" && o !== null)
     for (let [C, A] of Object.entries(o)) {
@@ -4687,7 +4687,7 @@ function kUt(e, t) {
   let d = Object.keys(r),
     _ = u.size === d.length && d.every((C) => u.get(C) === r[C]);
   if (_ && t.crossLineMerged === void 0) return t;
-  return { ...t, ...(_ ? {} : { crossLineMerged: !0 }), artifacts: Object.fromEntries(u) };
+  return { ...t, ...(_ ? {} : { crossLineMerged: true }), artifacts: Object.fromEntries(u) };
 }
 
 function PGt(e) {
@@ -4728,12 +4728,12 @@ function PGt(e) {
     xt = new Map(),
     tt = [],
     lt,
-    mt = !1,
+    mt = false,
     Xe,
     nt,
-    ht = !1,
-    At = !1,
-    dn = !1,
+    ht = false,
+    At = false,
+    dn = false,
     Lt = new Map();
   return {
     processEntry: (hn) => {
@@ -4747,16 +4747,16 @@ function PGt(e) {
       }
       if (tI(Ke)) {
         if (Ke.parentUuid && Lt.has(Ke.parentUuid)) Rzt("rewrote"), (Ke.parentUuid = Lt.get(Ke.parentUuid) ?? null);
-        if ((qJ(Ke), t.set(Ke.uuid, Ke), !Ke.isSidechain)) (Xe = Ke.uuid), (ht = !1), (At = !1), (dn = !1);
-        if (Ou(Ke)) (tt.length = 0), (lt = void 0), (nt = void 0), (ht = !1);
+        if ((qJ(Ke), t.set(Ke.uuid, Ke), !Ke.isSidechain)) (Xe = Ke.uuid), (ht = false), (At = false), (dn = false);
+        if (Ou(Ke)) (tt.length = 0), (lt = void 0), (nt = void 0), (ht = false);
       } else if (Ke.type === "summary" && Ke.leafUuid) r.set(Ke.leafUuid, Ke.summary);
       else if (Ke.type === "last-prompt") {
         if (Ke.leafUuid)
-          (ht = Ke.explicit === !0 || (ht && Ke.leafUuid === nt)),
-            (dn = Ke.rewound === !0 || (dn && Ke.leafUuid === nt)),
+          (ht = Ke.explicit === true || (ht && Ke.leafUuid === nt)),
+            (dn = Ke.rewound === true || (dn && Ke.leafUuid === nt)),
             (nt = Ke.leafUuid),
-            (At = !1);
-        else if (Ke.leafUuid === null && Ke.explicit === !0) (At = !0), (nt = void 0), (ht = !1), (dn = !1);
+            (At = false);
+        else if (Ke.leafUuid === null && Ke.explicit === true) (At = true), (nt = void 0), (ht = false), (dn = false);
       } else if (Ke.type === "custom-title" && Ke.sessionId) o.set(Ke.sessionId, Ke.customTitle);
       else if (Ke.type === "ended-by-model" && Ke.sessionId && !nmt()) u.add(Ke.sessionId);
       else if (Ke.type === "ai-title" && Ke.sessionId) d.set(Ke.sessionId, Ke.aiTitle);
@@ -4784,7 +4784,7 @@ function PGt(e) {
         if ((W.set(Ke.sessionId, Ke.bridgeSessionId), z.set(Ke.sessionId, Ke.lastSequenceNum), Ke.sessionGroupingId))
           fe.set(Ke.sessionId, Ke.sessionGroupingId);
         else fe.delete(Ke.sessionId);
-        if (Ke.noHistoryBackfill) me.set(Ke.sessionId, !0);
+        if (Ke.noHistoryBackfill) me.set(Ke.sessionId, true);
         else me.delete(Ke.sessionId);
         {
           let { ownerAccountUuid: yn, ownerOrganizationUuid: er } = Ke,
@@ -4833,7 +4833,7 @@ function PGt(e) {
     finish: () => Sn(Zur(t)),
   };
   function Sn(hn) {
-    if (mt) for (let [nr, Rr] of ze) ze.set(nr, { ...Rr, tailTorn: !0 });
+    if (mt) for (let [nr, Rr] of ze) ze.set(nr, { ...Rr, tailTorn: true });
     if (!e && At) return bn(new Set());
     let Ke = new Set(),
       mn = ht && nt && t.has(nt) && !t.get(nt)?.isSidechain;
@@ -4876,13 +4876,13 @@ function PGt(e) {
       }
     let Cn = [];
     for (let nr of t.values()) if (!yn.has(nr.uuid)) Cn.push(nr);
-    let Pn = !1;
+    let Pn = false;
     for (let nr of Cn) {
       let Rr = new Set(),
         Lr = nr;
       while (Lr) {
         if (Rr.has(Lr.uuid)) {
-          Pn = !0;
+          Pn = true;
           break;
         }
         if ((Rr.add(Lr.uuid), Lr.type === "user" || Lr.type === "assistant")) {
@@ -4956,13 +4956,13 @@ function PGt(e) {
 }
 
 function ECr(e, t) {
-  let r = PGt(t?.keepAllLeaves ?? !1);
+  let r = PGt(t?.keepAllLeaves ?? false);
   for (let o of e) r.processEntry(o);
   return r.finish();
 }
 
 async function K7(e, t) {
-  let r = PGt(t?.keepAllLeaves ?? !1),
+  let r = PGt(t?.keepAllLeaves ?? false),
     { processEntry: o, artifactCommentMonitors: u, artifactAutoReactLedgers: d } = r,
     _ = Me(process.env.CLAUDE_CODE_DISABLE_PRECOMPACT_SKIP);
   if (O() && t?.storageV5) {
@@ -5000,7 +5000,7 @@ async function K7(e, t) {
           return Ce.ok && (Ce.value.tornTailBytes ?? 0) > 0;
         };
       if (!_ && (pe ?? fe.length) > b4) {
-        let Ce = CGt(pdr(fe), o, r.dropPreBoundaryEntries, t?.keepAllLeaves ?? !1),
+        let Ce = CGt(pdr(fe), o, r.dropPreBoundaryEntries, t?.keepAllLeaves ?? false),
           Ie = _dr(fe, Ce.lastAttributionOffset, Ce.lastAttributionLength);
         if (Ie) r.attributionSnapshots.set(Ie.messageId, Ie);
         let Ee =
@@ -5013,7 +5013,7 @@ async function K7(e, t) {
           Oe = Ee && $ce(Pe.pop() ?? null);
         if ((Nce(Pe, d, Oe), u.size > 0 || d.size > 0)) {
           let Fe = await me();
-          if ((r.setTailTorn(Fe), Fe)) for (let [Be, ze] of d) d.set(Be, v$e(ze, !1));
+          if ((r.setTailTorn(Fe), Fe)) for (let [Be, ze] of d) d.set(Be, v$e(ze, false));
         }
         return Object.assign(r.finish(), W);
       }
@@ -5022,7 +5022,7 @@ async function K7(e, t) {
       for (let Ce of yfe(fe)) o(Ce);
       if ((Nce(Wzt(fe), d, ge), u.size > 0 || d.size > 0)) {
         let Ce = await me();
-        if ((r.setTailTorn(Ce), Ce)) for (let [Ie, Ee] of d) d.set(Ie, v$e(Ee, !1));
+        if ((r.setTailTorn(Ce), Ce)) for (let [Ie, Ee] of d) d.set(Ie, v$e(Ee, false));
       }
     }
     return Object.assign(r.finish(), W);
@@ -5031,7 +5031,7 @@ async function K7(e, t) {
     if (!_) {
       let { size: x } = await Dy(e);
       if (x > b4) {
-        let M = mdr(e, x, o, r.dropPreBoundaryEntries, t?.keepAllLeaves ?? !1),
+        let M = mdr(e, x, o, r.dropPreBoundaryEntries, t?.keepAllLeaves ?? false),
           F = hdr(e, M.lastAttributionOffset, M.lastAttributionLength);
         if (F) r.attributionSnapshots.set(F.messageId, F);
         let U =
@@ -5106,7 +5106,7 @@ async function bdr(e, t) {
       do {
         let fe = await t.listEntries(
           { namespace: "transcript" },
-          { skipScopeStats: !0, ...(W !== void 0 && { cursor: W }) },
+          { skipScopeStats: true, ...(W !== void 0 && { cursor: W }) },
         );
         if (!fe.ok) break;
         for (let me of fe.value.items)
@@ -5124,7 +5124,7 @@ async function bdr(e, t) {
       } while (W && ++z < aVt);
     } catch {}
     let pe = { backend: t, transcriptKey: Te.transcript, isKeySegment: Zt, realWorkspacePath: Gwe(t) };
-    for (let fe of B) if (await SJ(wa(Nl(), fe), o, !1, _d(pe))) d.push(fe);
+    for (let fe of B) if (await SJ(wa(Nl(), fe), o, false, _d(pe))) d.push(fe);
   }
   for (let A of d) {
     let x = tU(Te.transcript(A, e));
@@ -5171,29 +5171,29 @@ async function Jqe(e, t, r) {
       n(`isMessageTurnUnanswered: loadSessionFile failed: ${o instanceof Error ? o.message : String(o)}`, {
         level: "error",
       }),
-      !1
+      false
     );
   }
 }
 
 function Shr(e, t) {
   let r = e.findIndex((d) => d.uuid === t);
-  if (r === -1) return !1;
+  if (r === -1) return false;
   let o = [];
   for (let d = r + 1; d < e.length; d++) {
     let _ = e[d];
     if ((_.type === "user" || _.type === "assistant") && !_.isSidechain) o.push(_);
   }
-  if (o.length === 0) return !0;
+  if (o.length === 0) return true;
   let u = o.at(-1);
-  if (!(u.type === "user" && u.interruptedByShutdown === !0)) return !1;
+  if (!(u.type === "user" && u.interruptedByShutdown === true)) return false;
   for (let d = o.length - 2; d >= 0; d--) {
     let _ = o[d];
     if (_.type === "assistant") continue;
-    if (("isCompactSummary" in _ && _.isCompactSummary === !0) || NA(_) || gk(_) || M0e(_)) continue;
-    return !1;
+    if (("isCompactSummary" in _ && _.isCompactSummary === true) || NA(_) || gk(_) || M0e(_)) continue;
+    return false;
   }
-  return !0;
+  return true;
 }
 
 async function X7(e, t, r) {
@@ -5288,7 +5288,7 @@ async function bhr(e, t, r) {
     bridgeNoHistoryBackfill: Ce.get(At),
     bridgeOwnerAccountUuid: Ie.get(At),
     bridgeOwnerOrganizationUuid: Ee.get(At),
-    sessionHistorySuppressed: Pe.has(At) ? !0 : void 0,
+    sessionHistorySuppressed: Pe.has(At) ? true : void 0,
     worktreeSession: We.get(At),
     artifactCommentMonitor: Ve.get(At),
     artifactAutoReactLedger: Pt.get(At),
@@ -5332,7 +5332,7 @@ async function pue(e) {
     do {
       let u = await e.listEntries(
         { namespace: "transcript" },
-        { skipScopeStats: !0, ...(r !== void 0 && { cursor: r }) },
+        { skipScopeStats: true, ...(r !== void 0 && { cursor: r }) },
       );
       if (!u.ok) return;
       for (let d of u.value.items) {
@@ -5369,7 +5369,7 @@ async function wdr(e, t) {
   }
   let u;
   try {
-    u = await uR(r, { withFileTypes: !0 });
+    u = await uR(r, { withFileTypes: true });
   } catch {
     return [];
   }
@@ -5398,7 +5398,7 @@ async function xPe(e, t = mue, r) {
   else {
     let M;
     try {
-      M = await uR(o, { withFileTypes: !0 });
+      M = await uR(o, { withFileTypes: true });
     } catch {
       return { logs: [], allStatLogs: [], nextIndex: 0 };
     }
@@ -5448,14 +5448,14 @@ async function MGt(e, t, r) {
     F = te((await Promise.all((x && x !== u ? [u, x] : [u]).map((Fe) => uGt(Fe, r)))).flat()),
     U =
       F.length > 0
-        ? (await Promise.all(F.map((Fe) => cte(Fe, t, void 0, r)))).flat().map((Fe) => ({ ...Fe, isAlias: !0 }))
+        ? (await Promise.all(F.map((Fe) => cte(Fe, t, void 0, r)))).flat().map((Fe) => ({ ...Fe, isAlias: true }))
         : [];
   if (e.length <= 1) {
     let Fe = bl(u),
       Be = await cte(Fe, void 0, u, r),
-      ze = N$e.test(u) && (await Gce(Be, u, r)) ? await $$e(u, Fe, t, !1, void 0, r, _) : [],
+      ze = N$e.test(u) && (await Gce(Be, u, r)) ? await $$e(u, Fe, t, false, void 0, r, _) : [],
       We = x ?? u,
-      Ve = !1,
+      Ve = false,
       ct = `${hA(We)}--claude-worktrees-`,
       ut = [],
       en = O() && r ? await _(r) : void 0;
@@ -5463,7 +5463,7 @@ async function MGt(e, t, r) {
       ut = (await Promise.all(en.filter((nn) => nn.startsWith(ct)).map((nn) => cte(wa(o, nn), t, void 0, r)))).flat();
     else
       try {
-        let nn = await uR(o, { withFileTypes: !0 });
+        let nn = await uR(o, { withFileTypes: true });
         ut = (
           await Promise.all(
             nn
@@ -5477,7 +5477,7 @@ async function MGt(e, t, r) {
     if (U.length > 0 || ze.length > 0 || ut.length > 0) return TK([...Be, ...ze, ...ut, ...U]);
     return Be;
   }
-  let B = !1,
+  let B = false,
     W = e.map((Fe) => {
       let Be = Cm(Fe),
         ze = B ? Be.toLowerCase() : Be;
@@ -5491,7 +5491,7 @@ async function MGt(e, t, r) {
   else {
     let Fe;
     try {
-      Fe = await uR(o, { withFileTypes: !0 });
+      Fe = await uR(o, { withFileTypes: true });
     } catch (Be) {
       n(`Failed to read projects dir ${o}, falling back to current project: ${Be}`);
       let ze = bl(Se()),
@@ -5544,28 +5544,28 @@ async function MGt(e, t, r) {
               );
           } else Be = tr(await Yzt(Fe));
         } catch {}
-        return $$e(Be, bl(Fe), t, !0, Pe, r);
+        return $$e(Be, bl(Fe), t, true, Pe, r);
       }),
     );
   return TK(Ce.flat().concat(Oe.flat(), U));
 }
 
 function X$e(e) {
-  return pFe(e, !1);
+  return pFe(e, false);
 }
 
 async function Gce(e, t, r, o) {
   let u = Buffer.alloc(bp);
-  for (let d of e) if (!(await IGt(d, t, u, r, o))) return !1;
-  return !0;
+  for (let d of e) if (!(await IGt(d, t, u, r, o))) return false;
+  return true;
 }
 
 async function IGt(e, t, r, o, u) {
-  if (!e.fullPath) return !1;
+  if (!e.fullPath) return false;
   let d = await Q$e(e.fullPath, e.fileSize ?? 0, r, o),
     _ = d.relocatedCwd ?? d.headCwdStrict;
-  if (_ === void 0) return !1;
-  if (mFe(_, u, Goe())) return !1;
+  if (_ === void 0) return false;
+  if (mFe(_, u, Goe())) return false;
   return fFe(_, t, Goe(), nQe, Nu(o));
 }
 
@@ -5577,7 +5577,7 @@ async function OGt(e, t) {
   else {
     let C;
     try {
-      C = await uR(r, { withFileTypes: !0 });
+      C = await uR(r, { withFileTypes: true });
     } catch {
       return [];
     }
@@ -5598,7 +5598,7 @@ async function OGt(e, t) {
   return (await Promise.all(o.map((C) => d(C)))).filter((C) => C !== null);
 }
 
-async function $$e(e, t, r, o = !1, u, d, _) {
+async function $$e(e, t, r, o = false, u, d, _) {
   let C = u ?? (await OGt(d, _)),
     A = X$e(e),
     x = [];
@@ -5611,7 +5611,7 @@ async function $$e(e, t, r, o = !1, u, d, _) {
       x.push({
         date: new Date(pe.mtime).toISOString(),
         messages: [],
-        isLite: !0,
+        isLite: true,
         fullPath: pe.path,
         value: 0,
         created: new Date(pe.ctime),
@@ -5619,7 +5619,7 @@ async function $$e(e, t, r, o = !1, u, d, _) {
         firstPrompt: "",
         messageCount: 0,
         fileSize: pe.size,
-        isSidechain: !1,
+        isSidechain: false,
         sessionId: z,
         projectPath: e,
       });
@@ -5712,7 +5712,7 @@ async function run(e) {
 }
 
 function tM(e) {
-  if (e.type === "progress") return !1;
+  if (e.type === "progress") return false;
   if (
     e.type === "attachment" &&
     e.attachment.type === "hook_success" &&
@@ -5720,9 +5720,9 @@ function tM(e) {
     !e.attachment.stdout?.trim() &&
     !e.attachment.stderr?.trim()
   )
-    return !1;
-  if (e.type === "attachment" && Acn() !== "ant" && vdr.has(e.attachment.type)) return !1;
-  return !0;
+    return false;
+  if (e.type === "attachment" && Acn() !== "ant" && vdr.has(e.attachment.type)) return false;
+  return true;
 }
 
 function IUt(e, t = new Set()) {
@@ -5735,7 +5735,7 @@ function IUt(e, t = new Set()) {
 
 function Edr(e, t) {
   let r = new Set();
-  if (e.some((o) => o.type === "assistant" && o.resumedFromIncompleteThinking === !0))
+  if (e.some((o) => o.type === "assistant" && o.resumedFromIncompleteThinking === true))
     for (let { fromIdx: o, toIdx: u } of oBt(e)) for (let d = o; d <= u; d++) r.add(d);
   return e.flatMap((o, u) => {
     if (o.type === "assistant" && Array.isArray(o.message.content)) {
@@ -5744,7 +5744,7 @@ function Edr(e, t) {
           ? d.filter((A) => !(A.type === "tool_use" && A.name === $s))
           : d;
       if (C.length === 0) return [];
-      if (o.isVirtual && !r.has(u) && o.virtualInResumeRun !== !0) {
+      if (o.isVirtual && !r.has(u) && o.virtualInResumeRun !== true) {
         let { isVirtual: A, ...x } = o;
         return [{ ...x, message: { ...o.message, content: C } }];
       }
@@ -5757,7 +5757,7 @@ function Edr(e, t) {
           ? d.filter((A) => !(A.type === "tool_result" && t.has(A.tool_use_id)))
           : d;
       if (C.length === 0) return [];
-      if (o.isVirtual && !r.has(u) && o.virtualInResumeRun !== !0) {
+      if (o.isVirtual && !r.has(u) && o.virtualInResumeRun !== true) {
         let { isVirtual: A, ...x } = o;
         return [{ ...x, message: { ...o.message, content: C } }];
       }
@@ -5768,7 +5768,7 @@ function Edr(e, t) {
       "isVirtual" in o &&
       o.isVirtual &&
       !r.has(u) &&
-      ("virtualInResumeRun" in o ? o.virtualInResumeRun !== !0 : !0)
+      ("virtualInResumeRun" in o ? o.virtualInResumeRun !== true : true)
     ) {
       let { isVirtual: d, ..._ } = o;
       return [_];
@@ -5887,7 +5887,7 @@ async function DGt(e, t) {
         (u) =>
           e.listEntries(
             { namespace: "transcript", projectKey: t },
-            { skipScopeStats: !0, ...(u !== void 0 && { cursor: u }) },
+            { skipScopeStats: true, ...(u !== void 0 && { cursor: u }) },
           ),
         (u) => {
           for (let d of u) {
@@ -5934,7 +5934,7 @@ async function PPe(e, t) {
   let o = new Map(),
     u;
   try {
-    u = await uR(e, { withFileTypes: !0 });
+    u = await uR(e, { withFileTypes: true });
   } catch {
     return o;
   }
@@ -5984,7 +5984,7 @@ async function Zqe(e, t, r) {
     attributionSnapshots: Ee,
     contentReplacements: Pe,
     leafUuids: Oe,
-  } = await K7(e, O() && r ? { keepAllLeaves: !0, storageV5: r } : { keepAllLeaves: !0 });
+  } = await K7(e, O() && r ? { keepAllLeaves: true, storageV5: r } : { keepAllLeaves: true });
   if (o.size === 0) return [];
   let Fe = [];
   for (let We of o.values()) if (Oe.has(We.uuid)) Fe.push(We);
@@ -6004,7 +6004,7 @@ async function Zqe(e, t, r) {
       modified: new Date(We.timestamp),
       firstPrompt: G$e(Ve),
       messageCount: K$e(Ve),
-      isSidechain: Pt.isSidechain ?? !1,
+      isSidechain: Pt.isSidechain ?? false,
       sessionId: ct,
       leafUuid: We.uuid,
       summary: u.get(We.uuid),
@@ -6076,7 +6076,7 @@ async function qzt(e, t, r) {
 
 async function Q$e(e, t, r, o) {
   let { head: u, tail: d } = await qJe(e, t, r, _d(Nc(e, o)));
-  if (!u) return { firstPrompt: "", isSidechain: !1 };
+  if (!u) return { firstPrompt: "", isSidechain: false };
   let _ = u.includes('"isSidechain":true') || u.includes('"isSidechain": true'),
     C = KN(u, "cwd"),
     A = _J(u, "cwd"),
@@ -6181,18 +6181,18 @@ function Pdr(e) {
       continue;
     }
     if (_.type !== "user") continue;
-    if (_.isMeta === !0 || _.isCompactSummary === !0) continue;
+    if (_.isMeta === true || _.isCompactSummary === true) continue;
     let C = _.message;
     if (!C) continue;
     let A = C.content,
       x = [];
     if (typeof A === "string") x.push(A);
     else if (Array.isArray(A)) {
-      let M = !1;
+      let M = false;
       for (let F of A) {
         if (!F || typeof F !== "object") continue;
         if (F.type === "tool_result") {
-          M = !0;
+          M = true;
           break;
         }
         if (F.type === "text" && typeof F.text === "string") x.push(F.text);
@@ -6201,12 +6201,12 @@ function Pdr(e) {
     }
     return x.some((M) => M.includes("<command-name>/loop</command-name>"));
   }
-  return !1;
+  return false;
 }
 
 function xdr(e) {
   let t = 0,
-    r = !1,
+    r = false,
     o = "";
   while (t < e.length) {
     let u = e.indexOf(
@@ -6251,7 +6251,7 @@ function xdr(e) {
         let B = $r(F, "bash-input");
         if (B) return `! ${B}`;
         if (tGt.test(F)) {
-          if (F.startsWith(`<${AP}>`)) r = !0;
+          if (F.startsWith(`<${AP}>`)) r = true;
           continue;
         }
         if (F.length > 200) F = ce(F, 200).trim() + "\u2026";
@@ -6325,7 +6325,7 @@ async function cte(e, t, r, o, u) {
     C.push({
       date: new Date(M.mtime).toISOString(),
       messages: [],
-      isLite: !0,
+      isLite: true,
       fullPath: M.path,
       value: 0,
       created: new Date(M.ctime),
@@ -6333,7 +6333,7 @@ async function cte(e, t, r, o, u) {
       firstPrompt: "",
       messageCount: 0,
       fileSize: M.size,
-      isSidechain: !1,
+      isSidechain: false,
       sessionId: x,
       projectPath: r,
       ownWorktrees: u,
@@ -6372,7 +6372,7 @@ async function FGt(e, t, r) {
     M = {
       ...e,
       ...(x !== void 0 && { date: x.toISOString(), modified: x }),
-      isLite: !1,
+      isLite: false,
       firstPrompt: o.firstPrompt,
       gitBranch: o.gitBranch,
       isSidechain: o.isSidechain,
@@ -6425,7 +6425,7 @@ function MW() {
 function NGt(e) {
   let t = Amr(e);
   if (!(!t && e instanceof Error)) {
-    if (typeof e === "string") return { error_name: "string", error_message: co(e).slice(0, 2000), isHostError: !1 };
+    if (typeof e === "string") return { error_name: "string", error_message: co(e).slice(0, 2000), isHostError: false };
     let C = t ? Din(e, "name") : Cmr(e, "name"),
       A = Din(e, "message"),
       x = [];
@@ -6437,7 +6437,7 @@ function NGt(e) {
       error_name: "non-error",
       error_message: M,
       error_stack: F !== void 0 ? co(F).slice(0, 4000) : void 0,
-      isHostError: !1,
+      isHostError: false,
     };
   }
   let o = e,
@@ -6457,19 +6457,19 @@ function NGt(e) {
     error_name: typeof u === "string" ? u : "Error",
     error_message: typeof d === "string" ? co(d).slice(0, 2000) : void 0,
     error_stack: typeof _ === "string" ? co(_).slice(0, 4000) : void 0,
-    isHostError: !0,
+    isHostError: true,
   };
 }
 
 function Amr(e) {
-  if (e === null || (typeof e !== "object" && typeof e !== "function")) return !1;
+  if (e === null || (typeof e !== "object" && typeof e !== "function")) return false;
   let t = e;
   for (let r = 0; r < 128; r++) {
-    if (t === null) return !1;
-    if (e0e.isProxy(t)) return !0;
+    if (t === null) return false;
+    if (e0e.isProxy(t)) return true;
     t = Object.getPrototypeOf(t);
   }
-  return !0;
+  return true;
 }
 
 function Din(e, t) {
@@ -6494,7 +6494,7 @@ function Cmr(e, t) {
 
 function vmr(e) {
   try {
-    if (!(e instanceof Error)) return !1;
+    if (!(e instanceof Error)) return false;
     let t = e.code;
     return (
       (e.name === "McpError" && t === -32000) ||
@@ -6502,7 +6502,7 @@ function vmr(e) {
       (e.name === "ProtocolError" && t === -32000)
     );
   } catch {
-    return !1;
+    return false;
   }
 }
 

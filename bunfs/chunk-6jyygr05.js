@@ -538,7 +538,7 @@ function Ee(Fr) {
     let pe = Pe.length > 0;
     const P = eo && D ? `Fork ${D.name} to your themes` : "New custom theme";
     let N;
-    if (s[57] !== P) (N = e(t, { bold: !0, color: "permission", children: P })), (s[57] = P), (s[58] = N);
+    if (s[57] !== P) (N = e(t, { bold: true, color: "permission", children: P })), (s[57] = P), (s[58] = N);
     else N = s[58];
     let R;
     if (s[59] === d) (R = e(t, { children: "Name: " })), (s[59] = R);
@@ -594,10 +594,10 @@ function Ee(Fr) {
             columns: 40,
             cursorOffset: oo,
             onChangeCursorOffset: Qr,
-            disableCursorMovementForUpDownKeys: !0,
-            disableEscapeDoublePress: !0,
-            focus: !0,
-            showCursor: !0,
+            disableCursorMovementForUpDownKeys: true,
+            disableEscapeDoublePress: true,
+            focus: true,
+            showCursor: true,
           }),
         ],
       })),
@@ -612,7 +612,7 @@ function Ee(Fr) {
     else B = s[74];
     let oe;
     if (s[75] !== h || s[76] !== K)
-      (oe = r(t, { dimColor: !0, children: ["based on ", h, " \xB7 saved to ", B, lo, K, ".json"] })),
+      (oe = r(t, { dimColor: true, children: ["based on ", h, " \xB7 saved to ", B, lo, K, ".json"] })),
         (s[75] = h),
         (s[76] = K),
         (s[77] = oe);
@@ -628,7 +628,7 @@ function Ee(Fr) {
     if (s[83] === d) (Ne = e(M, { chord: "escape", action: "cancel" })), (s[83] = Ne);
     else Ne = s[83];
     let V;
-    if (s[84] !== I) (V = e(t, { dimColor: !0, children: r(fe, { children: [I, Ne] }) })), (s[84] = I), (s[85] = V);
+    if (s[84] !== I) (V = e(t, { dimColor: true, children: r(fe, { children: [I, Ne] }) })), (s[84] = I), (s[85] = V);
     else V = s[85];
     let ie;
     if (s[86] !== N || s[87] !== G || s[88] !== V)
@@ -646,7 +646,7 @@ function Ee(Fr) {
     else Y = s[91];
     let Ue = Y;
     let P;
-    if (s[92] !== l) (P = e(t, { bold: !0, color: "permission", children: l })), (s[92] = l), (s[93] = P);
+    if (s[92] !== l) (P = e(t, { bold: true, color: "permission", children: l })), (s[92] = l), (s[93] = P);
     else P = s[93];
     const N = Ue ? O : v[a];
     let R;
@@ -656,14 +656,14 @@ function Ee(Fr) {
     if (s[96] === d) (L = e(t, { children: " " })), (s[96] = L);
     else L = s[96];
     let y;
-    if (s[97] !== a) (y = e(t, { bold: !0, children: a })), (s[97] = a), (s[98] = y);
+    if (s[97] !== a) (y = e(t, { bold: true, children: a })), (s[97] = a), (s[98] = y);
     else y = s[98];
     let B;
     if (s[99] !== R || s[100] !== y) (B = r(o, { children: [R, L, y] })), (s[99] = R), (s[100] = y), (s[101] = B);
     else B = s[101];
     const oe = v[a];
     let G;
-    if (s[102] !== oe) (G = r(t, { dimColor: !0, children: ["preset: ", oe] })), (s[102] = oe), (s[103] = G);
+    if (s[102] !== oe) (G = r(t, { dimColor: true, children: ["preset: ", oe] })), (s[102] = oe), (s[103] = G);
     else G = s[103];
     let I;
     if (s[104] !== B || s[105] !== G)
@@ -686,10 +686,10 @@ function Ee(Fr) {
             columns: 40,
             cursorOffset: so,
             onChangeCursorOffset: Qo,
-            disableCursorMovementForUpDownKeys: !0,
-            disableEscapeDoublePress: !0,
-            focus: !0,
-            showCursor: !0,
+            disableCursorMovementForUpDownKeys: true,
+            disableEscapeDoublePress: true,
+            focus: true,
+            showCursor: true,
           }),
         ],
       })),
@@ -709,7 +709,7 @@ function Ee(Fr) {
         (s[115] = ie);
     else ie = s[115];
     let Qe;
-    if (s[116] !== ie) (Qe = e(t, { dimColor: !0, children: ie })), (s[116] = ie), (s[117] = Qe);
+    if (s[116] !== ie) (Qe = e(t, { dimColor: true, children: ie })), (s[116] = ie), (s[117] = Qe);
     else Qe = s[117];
     let ir;
     if (s[118] !== P || s[119] !== I || s[120] !== V || s[121] !== Qe)
@@ -781,7 +781,7 @@ function Ee(Fr) {
         flexDirection: "column",
         children: [
           r(t, { children: ["current: ", e(U, { value: E(Oe) }), " ", E(Oe)] }),
-          m[Oe] !== void 0 && r(t, { dimColor: !0, children: ["preset: ", e(U, { value: v[Oe] }), " ", v[Oe]] }),
+          m[Oe] !== void 0 && r(t, { dimColor: true, children: ["preset: ", e(U, { value: v[Oe] }), " ", v[Oe]] }),
         ],
       })),
       (s[138] = m),
@@ -914,7 +914,7 @@ function Co(ls) {
   if (w[21] !== Z || w[22] !== me || w[23] !== Xe)
     (gr = e(fo, {
       color: "permission",
-      children: e(EQ, { onThemeSelect: Z, onCustomTheme: Re, helpText: me, onCancel: Xe, skipExitHandling: !0 }),
+      children: e(EQ, { onThemeSelect: Z, onCustomTheme: Re, helpText: me, onCancel: Xe, skipExitHandling: true }),
     })),
       (w[21] = Z),
       (w[22] = me),

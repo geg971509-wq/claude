@@ -316,12 +316,12 @@ function m() {
   return y().mcpClientModule();
 }
 async function v(t, e, o, u) {
-  await oL({ hasDynamicMcpConfig: !1 });
+  await oL({ hasDynamicMcpConfig: false });
   let {
       servers: a,
       pendingProjectServers: r,
       rejectedProjectServers: i,
-    } = await EE({ includePendingProjectServers: !0, includeRejectedProjectServers: !0, storageV5: o, credentials: u }),
+    } = await EE({ includePendingProjectServers: true, includeRejectedProjectServers: true, storageV5: o, credentials: u }),
     p = a[t];
   if (!p) {
     await Pn(e, "not_found");
@@ -354,7 +354,7 @@ async function C(t, e) {
 }
 function w(t, e) {
   return `${t ? "If the browser didn't open, visit:" : "Visit this URL to authorize:"}
-  ${Yg(e, void 0, { assumeSupport: !0 })}
+  ${Yg(e, void 0, { assumeSupport: true })}
 
 `;
 }
@@ -420,14 +420,14 @@ async function q(t, e, o, u) {
       let p = "Or paste the redirect URL here: ",
         s = new AbortController(),
         n,
-        g = !1,
+        g = false,
         A = setInterval(() => {}, 60000),
         _ = new Promise((c, f) => {
-          s.signal.addEventListener("abort", () => f(new (d().AuthenticationCancelledError)()), { once: !0 });
+          s.signal.addEventListener("abort", () => f(new (d().AuthenticationCancelledError)()), { once: true });
         });
       _.catch(() => {});
       try {
-        await d().revokeServerTokens(t, r.config, { preserveStepUpState: !0 }),
+        await d().revokeServerTokens(t, r.config, { preserveStepUpState: true }),
           await Promise.race([
             _,
             d().performMCPOAuthFlow(
@@ -449,7 +449,7 @@ async function q(t, e, o, u) {
                 skipBrowserOpen: !e.browser,
                 onWaitingForCallback: (c) => {
                   if (!process.stdin.isTTY) {
-                    (g = !0), s.abort();
+                    (g = true), s.abort();
                     return;
                   }
                   if (!process.stdout.isTTY) return;

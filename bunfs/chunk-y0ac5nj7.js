@@ -204,8 +204,8 @@ function Z(z, ct) {
     vl.Node,
     {
       children: U
-        ? r(t, { children: [U, ": ", e(t, { dimColor: !0, children: z.message })] })
-        : e(t, { dimColor: !0, children: z.message }),
+        ? r(t, { children: [U, ": ", e(t, { dimColor: true, children: z.message })] })
+        : e(t, { dimColor: true, children: z.message }),
     },
     ct,
   );
@@ -217,7 +217,7 @@ function tt(w, mt) {
       flexDirection: "column",
       marginBottom: 1,
       children: [
-        w.suggestion && e(t, { dimColor: !0, wrap: "wrap", children: w.suggestion }),
+        w.suggestion && e(t, { dimColor: true, wrap: "wrap", children: w.suggestion }),
         w.docLink && e(tp, { url: w.docLink }),
       ],
     },
@@ -328,7 +328,7 @@ function at(Et) {
     ? "Files with errors are skipped entirely, not just the invalid settings."
     : "The values listed above were skipped; the rest of the file is in effect.";
   let b;
-  if (f[10] !== q) (b = e(t, { dimColor: !0, children: q })), (f[10] = q), (f[11] = b);
+  if (f[10] !== q) (b = e(t, { dimColor: true, children: q })), (f[10] = q), (f[11] = b);
   else b = f[11];
   let N;
   if (f[12] !== v || f[13] !== M) (N = e(Ce, { options: M, onChange: v })), (f[12] = v), (f[13] = M), (f[14] = N);

@@ -32,11 +32,11 @@ function zi(Y) {
   if (F[0] !== N)
     (E = e(o, {
       borderStyle: "single",
-      borderLeft: !0,
-      borderRight: !1,
-      borderTop: !1,
-      borderBottom: !1,
-      borderDimColor: !0,
+      borderLeft: true,
+      borderRight: false,
+      borderTop: false,
+      borderBottom: false,
+      borderDimColor: true,
       paddingLeft: 1,
       children: N,
     })),
@@ -75,9 +75,9 @@ var wK = 8,
   A = new Set(["localSettings", "session"]);
 function iOn(n, u, l) {
   let f = L(n).filter((s) => {
-      if (!u.has(s.type)) return !1;
+      if (!u.has(s.type)) return false;
       if ((s.type === "addRules" || s.type === "replaceRules" || s.type === "removeRules") && s.behavior !== "allow")
-        return !1;
+        return false;
       return s.destination !== void 0 && A.has(s.destination);
     }),
     a = [];
@@ -108,14 +108,14 @@ function I(n) {
   return n.trim() !== n || n === "" || KL(n) || Ci(n) !== n || /[\t\n]/.test(n) || se(n) === 0;
 }
 function AUe(n) {
-  if (n === jre) return !1;
-  if (I(n)) return !1;
+  if (n === jre) return false;
+  if (I(n)) return false;
   let u = Ur(eo({ toolName: n }));
-  if (u.toolName !== n || u.ruleContent !== void 0) return !1;
-  if (d0(n)) return !1;
+  if (u.toolName !== n || u.ruleContent !== void 0) return false;
+  if (d0(n)) return false;
   let l = ya(n);
-  if (l !== null && !l.toolName) return !1;
-  return !0;
+  if (l !== null && !l.toolName) return false;
+  return true;
 }
 function aOn(n) {
   if (typeof n !== "string" || n.trim() === "" || se(n) === 0 || !UG(n)) return null;
@@ -126,30 +126,30 @@ function b(n) {
     case 0:
       return "";
     case 1:
-      return e(t, { bold: !0, children: n[0] });
+      return e(t, { bold: true, children: n[0] });
     case 2:
-      return r(t, { children: [e(t, { bold: !0, children: n[0] }), " and ", e(t, { bold: !0, children: n[1] })] });
+      return r(t, { children: [e(t, { bold: true, children: n[0] }), " and ", e(t, { bold: true, children: n[1] })] });
     default:
       return r(t, {
         children: [
-          e(t, { bold: !0, children: n.slice(0, -1).join(", ") }),
+          e(t, { bold: true, children: n.slice(0, -1).join(", ") }),
           ", and",
           " ",
-          e(t, { bold: !0, children: n.slice(-1)[0] }),
+          e(t, { bold: true, children: n.slice(-1)[0] }),
         ],
       });
   }
 }
 function Fie(n) {
   if (n.length === 0) return "";
-  if (n.length === 1) return e(t, { bold: !0, children: n[0] });
+  if (n.length === 1) return e(t, { bold: true, children: n[0] });
   if (n.length === 2)
-    return r(t, { children: [e(t, { bold: !0, children: n[0] }), " and ", e(t, { bold: !0, children: n[1] })] });
+    return r(t, { children: [e(t, { bold: true, children: n[0] }), " and ", e(t, { bold: true, children: n[1] })] });
   return r(t, {
     children: [
-      n.slice(0, -1).map((u, l) => r(t, { children: [e(t, { bold: !0, children: u }), ",", " "] }, l)),
+      n.slice(0, -1).map((u, l) => r(t, { children: [e(t, { bold: true, children: u }), ",", " "] }, l)),
       "and ",
-      e(t, { bold: !0, children: n.at(-1) }),
+      e(t, { bold: true, children: n.at(-1) }),
     ],
   });
 }
@@ -163,11 +163,11 @@ function x(n) {
 function vUe(n, u, l) {
   if (n.toolName === u) {
     let f = x(n.ruleContent);
-    if (!f) return !1;
+    if (!f) return false;
     return Boolean(l ? l(f) : f);
   }
   if (n.toolName === _t) return Boolean(CUe(n.ruleContent));
-  return !1;
+  return false;
 }
 function i1(n) {
   return n !== void 0 && Ci(n) === n && !/[\t\n\u2028\u2029]/.test(n) && !KL(n) ? orr(n) : void 0;
@@ -222,7 +222,7 @@ function zRt(n, u, l) {
   if (h && !y && !T) return r(t, { children: ["Yes, and always allow access to ", Fie(R), " from this project"] });
   if (T && !h && !y)
     return r(t, {
-      children: ["Yes, and don't ask again for ", b(p), " commands in", " ", e(t, { bold: !0, children: nr(Se()) })],
+      children: ["Yes, and don't ask again for ", b(p), " commands in", " ", e(t, { bold: true, children: nr(Se()) })],
     });
   if ((h || y) && !T) {
     let i = [...R, ...g];

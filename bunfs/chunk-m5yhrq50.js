@@ -28,8 +28,8 @@ var V = {
   voiceError: null,
   voiceInterimTranscript: "",
   voiceAudioLevels: [],
-  voiceWarmingUp: !1,
-  awaitingVoiceSubmitDoubleTap: !1,
+  voiceWarmingUp: false,
+  awaitingVoiceSubmitDoubleTap: false,
 };
 class a {
   #e = 0;

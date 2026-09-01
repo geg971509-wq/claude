@@ -153,13 +153,13 @@ var NE = "TodoWrite";
 var EM = [Qe, Bt];
 function Hk() {
   let e = a.CLAUDE_CODE_USE_POWERSHELL_TOOL;
-  if (D() !== "windows") return e === !0;
+  if (D() !== "windows") return e === true;
   if (e !== void 0) return e;
-  if (qN() === null) return !0;
-  return I("tengu_cobalt_ridge", !1);
+  if (qN() === null) return true;
+  return I("tengu_cobalt_ridge", false);
 }
 function as() {
-  if (D() !== "windows") return !0;
+  if (D() !== "windows") return true;
   return qN() !== null;
 }
 function jD() {
@@ -213,9 +213,9 @@ var U = new Set([
   H = 1e5;
 function U6t(e) {
   let t = O(e, G, { remaining: H });
-  if ("reason" in t) return { ok: !1, reason: t.reason };
-  if (t.node.type !== "object") return { ok: !1, reason: "root_not_object" };
-  return { ok: !0, schema: { ...t.node, type: "object" } };
+  if ("reason" in t) return { ok: false, reason: t.reason };
+  if (t.node.type !== "object") return { ok: false, reason: "root_not_object" };
+  return { ok: true, schema: { ...t.node, type: "object" } };
 }
 function A(e) {
   return e === null || typeof e === "string" || (typeof e === "number" && Number.isFinite(e)) || typeof e === "boolean";
@@ -274,7 +274,7 @@ function O(e, t, r) {
   if (p === "object") {
     let d = e.properties;
     if (!He(d)) return { reason: "no_properties" };
-    if (e.additionalProperties !== void 0 && e.additionalProperties !== !1) return { reason: "additional_properties" };
+    if (e.additionalProperties !== void 0 && e.additionalProperties !== false) return { reason: "additional_properties" };
     if (e.required !== void 0) {
       if (
         !Array.isArray(e.required) ||
@@ -290,7 +290,7 @@ function O(e, t, r) {
       if ("reason" in _) return _;
       u.push([l, _.node]);
     }
-    (o.properties = Object.fromEntries(u)), (o.additionalProperties = !1);
+    (o.properties = Object.fromEntries(u)), (o.additionalProperties = false);
   } else if (p === "array") {
     let d = e.items;
     if (d === void 0 || Array.isArray(d)) return { reason: "unsupported_items" };
@@ -304,7 +304,7 @@ var j = m(() => f({}).passthrough()),
   K = m(() => i().describe("Structured output tool result")),
   qs = "StructuredOutput";
 function rXn(e) {
-  return e.isNonInteractiveSession || e.isBgSession === !0;
+  return e.isNonInteractiveSession || e.isBgSession === true;
 }
 function VVe(e, t) {
   if (e?.type !== "tool_use" || e.name !== qs) return null;
@@ -314,18 +314,18 @@ function VVe(e, t) {
   return typeof o === "string" && o.length > 0 ? o : null;
 }
 var Hmn = kt({
-    isMcp: !1,
+    isMcp: false,
     isEnabled() {
-      return !0;
+      return true;
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     isOpenWorld() {
-      return !1;
+      return false;
     },
     name: qs,
     searchHint: "return the final response as structured JSON",
@@ -343,7 +343,7 @@ var Hmn = kt({
       return K();
     },
     async call(e) {
-      return { data: "Structured output provided successfully", structured_output: e, endsTurn: !0 };
+      return { data: "Structured output provided successfully", structured_output: e, endsTurn: true };
     },
     async checkPermissions(e) {
       return { behavior: "allow", updatedInput: e };
@@ -368,16 +368,16 @@ function oTe(e) {
 var Y = 1e5,
   q = 1e4;
 function v(e, t, r) {
-  if (--t.n < 0 || r > q) return !0;
-  if (typeof e !== "object" || e === null) return !1;
-  for (let o of Object.values(e)) if (v(o, t, r + 1)) return !0;
-  return !1;
+  if (--t.n < 0 || r > q) return true;
+  if (typeof e !== "object" || e === null) return false;
+  for (let o of Object.values(e)) if (v(o, t, r + 1)) return true;
+  return false;
 }
 function B(e) {
   try {
     if (v(e, { n: Y }, 0)) return { error: "schema too large" };
     let { Ajv: t } = NEt(),
-      r = new t({ allErrors: !0, validateFormats: !1 });
+      r = new t({ allErrors: true, validateFormats: false });
     if (!r.validateSchema(e)) return { error: r.errorsText(r.errors) };
     let p = r.compile(e),
       d;
@@ -405,7 +405,7 @@ function B(e) {
               _ = p.errors?.map((T) => T.keyword).join(",");
             throw new R(`Output does not match required schema: ${h}`, `StructuredOutput schema mismatch: ${_ ?? ""}`);
           }
-          return { data: "Structured output provided successfully", structured_output: u, endsTurn: !0 };
+          return { data: "Structured output provided successfully", structured_output: u, endsTurn: true };
         },
       },
     };
@@ -526,7 +526,7 @@ function pXn() {
 var fXn = new Set([FE, X9, hT, $E, Xr, lm, $S, Ene]),
   bht = new Set([yt, ny, Xr, qs, Do, Sne, Js, eu]);
 function UE() {
-  return !1;
+  return false;
 }
 function Z() {
   let { isScratchpadEnabled: e } = import.meta.require("/$bunfs/root/chunk-1xvahg9x.js");
@@ -538,7 +538,7 @@ function te(e) {
     let { isPluginSkillToolAdvertised: t } = import.meta.require("/$bunfs/root/chunk-tvmkj9va.js");
     return t(e);
   }
-  return !0;
+  return true;
 }
 var re =
     'Your bare assistant text does NOT reach the user. Your comms tools are the only channel to them: every turn must end in a comms-tool call (reply, react, or an explicit no-reply), and "tell the user" below always means a comms-tool call.',
@@ -571,7 +571,7 @@ function tvr(e, t) {
       ? [...(as() ? [Qe] : []), ...(Hk() ? [Bt] : []), _t, Kt, ...(r ? [yt] : [])].sort()
       : [...(r ? [yt] : []), ...Array.from(KVe)]
           .filter((l) => !ee.has(l))
-          .filter((l) => l !== eu || !1)
+          .filter((l) => l !== eu || false)
           .filter((l) => l !== Si || YM())
           .filter((l) => l !== uH || UE())
           .filter((l) => te(l))

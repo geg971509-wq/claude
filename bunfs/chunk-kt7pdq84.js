@@ -23,12 +23,12 @@ function p(e, t) {
 }
 function f(e) {
   let { inFlight: t } = e;
-  if (e.isBg) return { ok: !0, via: "detach", inFlight: t };
-  if (!e.fleetEnabled) return { ok: !1, reason: "fleet-disabled", inFlight: t };
-  if (e.isRemote) return { ok: !1, reason: "remote", inFlight: t };
-  if (e.persistenceDisabled) return { ok: !1, reason: "persistence", inFlight: t };
-  if (e.isExternalLoading) return { ok: !1, reason: "loading", inFlight: t };
-  return { ok: !0, via: p(e.isLoading, e.betweenCalls), inFlight: t };
+  if (e.isBg) return { ok: true, via: "detach", inFlight: t };
+  if (!e.fleetEnabled) return { ok: false, reason: "fleet-disabled", inFlight: t };
+  if (e.isRemote) return { ok: false, reason: "remote", inFlight: t };
+  if (e.persistenceDisabled) return { ok: false, reason: "persistence", inFlight: t };
+  if (e.isExternalLoading) return { ok: false, reason: "loading", inFlight: t };
+  return { ok: true, via: p(e.isLoading, e.betweenCalls), inFlight: t };
 }
 function Lot(e, t) {
   return !t && !d(e);
@@ -37,9 +37,9 @@ function d(e) {
   for (let t = e.length - 1; t >= 0; t--) {
     let r = e[t];
     if (r.type === "assistant") return r.message?.stop_reason === null;
-    if (r.type === "user") return !1;
+    if (r.type === "user") return false;
   }
-  return !1;
+  return false;
 }
 function TIt(e) {
   let t = 0;
@@ -71,13 +71,13 @@ function EIt(e, t) {
 }
 function AIt(e) {
   let t,
-    r = !1;
+    r = false;
   return (o) => {
-    if (r) return !0;
+    if (r) return true;
     try {
       return (t ??= DS.screenedUnder(e())), DS.screeningStale(o.under, t);
     } catch (i) {
-      return (r = !0), n(`heldScreening could not read the screening: ${i}`, { level: "error" }), !0;
+      return (r = true), n(`heldScreening could not read the screening: ${i}`, { level: "error" }), true;
     }
   };
 }
@@ -87,8 +87,8 @@ function CIt(e, t) {
     if (fwe(o)) continue;
     if (
       o.priority === "later" ||
-      o.drainOnly === !0 ||
-      o.screeningPending === !0 ||
+      o.drainOnly === true ||
+      o.screeningPending === true ||
       (o.promptSubmitted !== void 0 && t !== void 0 && t(o.promptSubmitted)) ||
       o.mode === "bash" ||
       o.mode === "poll-event" ||
@@ -102,22 +102,22 @@ function Z$n(e) {
   return `Still backgrounding after the current tool \u2014 waiting for ${e} running ${k(e, "subagent")} so the work carries over. Press \u2190 again to skip ahead and restart ${e === 1 ? "it" : "them"} from the beginning.`;
 }
 function a(e) {
-  if (e.type !== "user") return !1;
+  if (e.type !== "user") return false;
   let t = e.message?.content;
   return Array.isArray(t) && t.length > 0 && t.every((r) => r.type === "tool_result");
 }
 function g(e) {
-  if (e.type === "system") return !0;
+  if (e.type === "system") return true;
   if (e.type === "assistant") {
     let t = e.message?.stop_reason;
     return t === null || t === "tool_use";
   }
   if (e.type === "user") return NA(e);
-  return !1;
+  return false;
 }
 function T0e(e) {
   let t = e.length,
-    r = !1;
+    r = false;
   while (t > 0) {
     let i = e[t - 1];
     if (i.type === "user")
@@ -126,7 +126,7 @@ function T0e(e) {
       else break;
     else if (i.type === "assistant") {
       if (!g(i)) break;
-      r = !1;
+      r = false;
     }
     t--;
   }
@@ -143,22 +143,22 @@ function W6e(e) {
   return;
 }
 function eUn(e, t) {
-  if (e === null || e.length < 1 || e.length > t.length) return !1;
+  if (e === null || e.length < 1 || e.length > t.length) return false;
   let r = e.length - 1;
-  if (t[r]?.uuid !== e.uuid) return !1;
+  if (t[r]?.uuid !== e.uuid) return false;
   for (let o = e.length; o < t.length; o++) {
     let i = t[o].type;
-    if (i === "user" || i === "assistant") return !1;
+    if (i === "user" || i === "assistant") return false;
   }
-  return !0;
+  return true;
 }
 function Mot(e) {
   for (let t = e.length - 1; t >= 0; t--) {
     let r = e[t];
     if (r.type === "user") return !NA(r);
-    if (r.type === "assistant") return !1;
+    if (r.type === "assistant") return false;
   }
-  return !1;
+  return false;
 }
 function vIt(e) {
   return e.ok && e.via !== "detach";

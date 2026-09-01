@@ -81,14 +81,14 @@ function Kgn(e) {
     let s = fp(t),
       d = y(t, i),
       o = n.get(s);
-    if (o === void 0 || o.enabled) n.set(s, { key: t, enabled: d && (o?.enabled ?? !0) });
+    if (o === void 0 || o.enabled) n.set(s, { key: t, enabled: d && (o?.enabled ?? true) });
   }
   return { record: e, byFold: n };
 }
 function y(e, n) {
-  if (n === void 0) return !1;
+  if (n === void 0) return false;
   let t = Ud(BF(e));
-  return t === Nm || t === nu ? n !== !1 : n === !0;
+  return t === Nm || t === nu ? n !== false : n === true;
 }
 function DTe(e) {
   let n = Ud(BF(e));
@@ -111,7 +111,7 @@ function OTe(e, n) {
     if (l !== void 0) return { index: d, enabled: l.enabled, key: l.key };
     if (s !== void 0) {
       let c = o.byFold.get(s);
-      if (c !== void 0 && !c.enabled) return { index: d, enabled: !1, key: c.key };
+      if (c !== void 0 && !c.enabled) return { index: d, enabled: false, key: c.key };
     }
   }
   return;
@@ -120,10 +120,10 @@ function Xgn(e, n) {
   return zgn(e, n)?.enabled;
 }
 function mJn(e, n, t) {
-  return Xgn(e, n) ?? t !== !1;
+  return Xgn(e, n) ?? t !== false;
 }
 function Ygn(e, n, t) {
-  return OTe(e, n)?.enabled ?? t !== !1;
+  return OTe(e, n)?.enabled ?? t !== false;
 }
 function __t(e) {
   return uc(e) || e === Uh;
@@ -244,11 +244,11 @@ function A(e) {
     case "plugin":
     case "managed":
     case "bundled":
-      return !1;
+      return false;
     case "syncedSkills":
     case "mcp":
     case "memoryStore":
-      return !0;
+      return true;
   }
 }
 function Vue(e) {
@@ -346,7 +346,7 @@ function MM(e) {
     r.type === "stdio" || (r.type === void 0 && "command" in r))
   )
     (r.type = "stdio"), (r.args = r.args ?? []);
-  if ($5e(e)) r.unconfigured = !0;
+  if ($5e(e)) r.unconfigured = true;
   if (s !== void 0) r.agentSource = s;
   let E = b(r, (h, u) => {
     if (u && typeof u === "object" && !Array.isArray(u)) {

@@ -24,7 +24,7 @@ function k(b) {
   if (b.remoteDialogSeen) {
     return b;
   }
-  return { ...b, remoteDialogSeen: !0 };
+  return { ...b, remoteDialogSeen: true };
 }
 function WRt(X) {
   let l = _(15),
@@ -111,9 +111,9 @@ function WRt(X) {
   return O;
 }
 function D8t() {
-  if (ie().remoteDialogSeen) return !1;
-  if (!ch()) return !1;
-  if (!Yl()) return !1;
-  return !0;
+  if (ie().remoteDialogSeen) return false;
+  if (!ch()) return false;
+  if (!Yl()) return false;
+  return true;
 }
 export { WRt, D8t };

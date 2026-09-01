@@ -23,8 +23,8 @@ function w(e) {
   return Bun.hash(e).toString(36);
 }
 function Qne(e) {
-  if ((e.offset ?? 1) > 1 || e.isPartialView) return !1;
-  if (e.limit === void 0) return !0;
+  if ((e.offset ?? 1) > 1 || e.isPartialView) return false;
+  if (e.limit === void 0) return true;
   return (
     e.content !== "" &&
     Dn(
@@ -122,7 +122,7 @@ function S3(e, t) {
   let r = GS(e.max, e.maxSize),
     o = e.dump();
   if (t?.stripSeededFromContext) {
-    for (let i of o) if (i[1].value?.seededFromContext) i[1].value = { ...i[1].value, seededFromContext: !1 };
+    for (let i of o) if (i[1].value?.seededFromContext) i[1].value = { ...i[1].value, seededFromContext: false };
   }
   return r.load(o), r;
 }
@@ -141,7 +141,7 @@ function WWt(e) {
   return new Map(e.map((t) => [h(t), t]));
 }
 function R_n(e) {
-  if (typeof e !== "object" || e === null) return !1;
+  if (typeof e !== "object" || e === null) return false;
   let t = Object.getPrototypeOf(e);
   return t === Object.prototype || t === null;
 }
@@ -374,13 +374,13 @@ function ni(e, t, r) {
 }
 function k_n(e) {
   try {
-    return { ok: !0, value: bH(e) };
+    return { ok: true, value: bH(e) };
   } catch {
     try {
       let t = M(e).replace(/^\t+/gm, (r) => "  ".repeat(r.length));
-      return { ok: !0, value: bH(t) };
+      return { ok: true, value: bH(t) };
     } catch (t) {
-      return { ok: !1, error: t instanceof Error ? t.message : String(t) };
+      return { ok: false, error: t instanceof Error ? t.message : String(t) };
     }
   }
 }
@@ -466,14 +466,14 @@ function VWt(e) {
   return te([...Object.keys(e), ...t(e.experimental)]);
 }
 function VKe(e) {
-  return w3(e) ?? !1;
+  return w3(e) ?? false;
 }
 function w3(e) {
   if (typeof e === "boolean") return e;
   if (typeof e !== "string" && typeof e !== "number") return;
   let t = String(e);
-  if (Me(t)) return !0;
-  if (bo(t)) return !1;
+  if (Me(t)) return true;
+  if (bo(t)) return false;
   return;
 }
 var A = ["bash", "powershell"];

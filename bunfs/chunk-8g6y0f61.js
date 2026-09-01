@@ -263,17 +263,17 @@ ${o}`);
 
 `);
 }
-function K({ disabled: a = !1 } = {}) {
+function K({ disabled: a = false } = {}) {
   Zr({
     name: S,
     menuDescription: "Answer questions about Claude Code features and settings",
     description: E,
     allowedTools: ["Read", "Grep", "Glob", "WebFetch"],
     argumentHint: "[question]",
-    userInvocable: !0,
+    userInvocable: true,
     files: () => v().then((o) => o.SKILL_FILES),
     isEnabled() {
-      return !a && I("tengu_birch_kettle", !1);
+      return !a && I("tengu_birch_kettle", false);
     },
     async getPromptForCommand(o, n) {
       s("tengu_claude_code_skill_loaded", { has_args: o.trim().length > 0 });

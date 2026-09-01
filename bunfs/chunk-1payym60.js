@@ -111,7 +111,7 @@ var o = {
     aliases: [],
     description: "Browse running and completed workflows",
     isEnabled: () => Zu(),
-    immediate: !0,
+    immediate: true,
   },
   m = o;
 export { m as default };

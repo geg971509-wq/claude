@@ -44,7 +44,7 @@ function B7t(e) {
     d = i === -1 ? [] : t.slice(i + 1);
   return { state: r, name: a, id: n, chips: d };
 }
-function j7t(e, t, r = !0) {
+function j7t(e, t, r = true) {
   let i = (s) => se(Qkt(s)),
     n = { ...e, chips: [...e.chips] };
   if (i(n) <= t) return n;

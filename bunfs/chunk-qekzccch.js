@@ -243,8 +243,8 @@ function wu() {
   return QM.setScrubEnabledLatched(e), e;
 }
 function X() {
-  if (wu()) return !0;
-  if (bo(process.env.CLAUDE_CODE_SUBPROCESS_ENV_SCRUB)) return !1;
+  if (wu()) return true;
+  if (bo(process.env.CLAUDE_CODE_SUBPROCESS_ENV_SCRUB)) return false;
   return process.env.CLAUDE_CODE_ENTRYPOINT === "local-agent";
 }
 var P = [
@@ -268,7 +268,7 @@ function N(t) {
 }
 function a$() {
   if (QM.scrubSandboxAvailableLatched !== void 0) return QM.scrubSandboxAvailableLatched;
-  return !1;
+  return false;
 }
 async function syn() {
   if ((sqt(), !wu())) return;
@@ -276,7 +276,7 @@ async function syn() {
     e = Se(),
     n = process.env.GITHUB_ENV ? A(process.env.GITHUB_ENV) : void 0,
     r = process.env.GITHUB_WORKSPACE;
-  QM.setScrubSandboxAvailableLatched(!1);
+  QM.setScrubSandboxAvailableLatched(false);
   let u = (process.env.PATH ?? "")
     .split(":")
     .map((o) => (o ? h.normalize(o).replace(/\/+$/, "") : o))
@@ -363,11 +363,11 @@ function Na() {
       a.CLAUDE_BG_PTY_AUTH !== void 0,
     o = JAe(process.env),
     _ = _wt(),
-    S = !1;
+    S = false;
   S = yEe.some((s) => process.env[s] !== void 0);
   let w = Object.keys(process.env).some((s) => s.startsWith("OTEL_") || s === "CLAUDE_CODE_OTEL_DIAG_STDERR"),
     I = a.CLAUDE_CODE_PLUGIN_ATTRIBUTION !== void 0,
-    b = !1;
+    b = false;
   if (!n && !l && !c && !S && !p && !o.length && !_.length && !w && !u && !I && !b) return process.env;
   let d = { ...process.env, ...r, ...e, ...i };
   delete d.CLAUDE_CODE_OAUTH_TOKEN, delete d.CLAUDE_CODE_ARTIFACTS_API_TOKEN, delete d.CLAUDE_CODE_SLACK_TAG_TOKEN;
@@ -421,8 +421,8 @@ function Na() {
 }
 function s8e() {
   let t = process.env.CLAUDE_CODE_MCP_ALLOWLIST_ENV;
-  if (Me(t)) return !0;
-  if (bo(t)) return !1;
+  if (Me(t)) return true;
+  if (bo(t)) return false;
   return process.env.CLAUDE_CODE_ENTRYPOINT === "local-agent";
 }
 function lyn() {
@@ -529,7 +529,7 @@ function lyn() {
   };
 }
 function M(t) {
-  return !1;
+  return false;
 }
 var O;
 function F() {

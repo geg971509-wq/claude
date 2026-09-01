@@ -61,7 +61,7 @@ function M(e, t) {
   for (let i = 0; i < r.length; i++) {
     let l = r[i];
     if (l.type === "literal") {
-      if (!e.startsWith(l.value, a)) return !1;
+      if (!e.startsWith(l.value, a)) return false;
       a += l.value.length;
     } else {
       let o = i + 1;
@@ -69,7 +69,7 @@ function M(e, t) {
       let s = r[o];
       if (s?.type === "literal") {
         let u = o === r.length - 1 ? e.lastIndexOf(s.value) : e.indexOf(s.value, a);
-        if (u <= a) return !1;
+        if (u <= a) return false;
         (a = u), (i = o - 1);
       } else return e.length > a;
     }
@@ -85,7 +85,7 @@ function oBn(e) {
     if (a === r) return t[i + 1]?.type === "literal" && t[i + 2]?.type === "variable";
     a++;
   }
-  return !1;
+  return false;
 }
 function b(e) {
   let t = [],
@@ -175,10 +175,10 @@ function Ex(e) {
   let { name: r, args: a } = Xce(t);
   if (!r) return null;
   let i = "(MCP)";
-  if (a === i) return { commandName: `${r} ${i}`, args: "", isMcp: !0 };
+  if (a === i) return { commandName: `${r} ${i}`, args: "", isMcp: true };
   if (a.startsWith(i) && /\s/.test(a.charAt(i.length)))
-    return { commandName: `${r} ${i}`, args: a.slice(i.length).trimStart(), isMcp: !0 };
-  return { commandName: r, args: a, isMcp: !1 };
+    return { commandName: `${r} ${i}`, args: a.slice(i.length).trimStart(), isMcp: true };
+  return { commandName: r, args: a, isMcp: false };
 }
 function $he(e, t) {
   if (!e.subcommands) return;
@@ -293,15 +293,15 @@ function fPt(e) {
 }
 function iae() {
   let e = f();
-  if (!e || e.audience !== "claimant") return !1;
-  if (!e.campaign.command) return !1;
+  if (!e || e.audience !== "claimant") return false;
+  if (!e.campaign.command) return false;
   let t = C(e.orgId, e.campaign.feature);
   return t !== null && t.eligible && t.available;
 }
 function rHe() {
   let e = f();
-  if (!e || e.audience !== "viewer") return !1;
-  if (!e.campaign.command) return !1;
+  if (!e || e.audience !== "viewer") return false;
+  if (!e.campaign.command) return false;
   return !j(e.orgId, e.campaign.feature);
 }
 function Bq() {
@@ -345,7 +345,7 @@ async function k(e) {
   }
   if (!i.ok || i.status >= 400) return g("api_fotw_eligibility_fetch", "unavailable"), null;
   if ((y("api_fotw_eligibility_fetch"), i.data.granted)) F(a, r.feature);
-  if (i.data.eligible && i.data.needs_payment_setup === !0) {
+  if (i.data.eligible && i.data.needs_payment_setup === true) {
     if (i.data.amount_minor_units == null || !i.data.currency) return null;
     return { amountMinorUnits: i.data.amount_minor_units, currency: i.data.currency };
   }
@@ -361,7 +361,7 @@ async function k(e) {
         amount_minor_units: i.data.amount_minor_units ?? null,
         currency: i.data.currency ?? null,
       },
-      { onlyIfAbsent: !0 },
+      { onlyIfAbsent: true },
     ),
     null
   );
@@ -382,7 +382,7 @@ async function aBn(e, t) {
   try {
     o = await bt.post(
       "/api/oauth/organizations/:orgUUID/overage_credit_grant",
-      { campaign: v, feature: a.feature, enable_overages: !0 },
+      { campaign: v, feature: a.feature, enable_overages: true },
       { auth: "teleport-org", timeout: 60000, validateStatus: (s) => s < 500, credentials: t },
     );
   } catch (s) {
@@ -395,7 +395,7 @@ async function aBn(e, t) {
     if (D(o.data) === "Failed to grant credit") return p("api_fotw_claim", "grant_failed"), { outcome: "failed" };
     return (
       g("api_fotw_claim", "not_available"),
-      S(i, a.feature, { available: !1, eligible: !1, granted: !1, amount_minor_units: null, currency: null }),
+      S(i, a.feature, { available: false, eligible: false, granted: false, amount_minor_units: null, currency: null }),
       { outcome: "not_available" }
     );
   }
@@ -441,7 +441,7 @@ function lBn(e) {
     return { ...i, fotwUpsellFulfilled: { ...i.fotwUpsellFulfilled, [r]: [...l, a.feature] } };
   });
 }
-function S(e, t, r, { onlyIfAbsent: a = !1 } = {}) {
+function S(e, t, r, { onlyIfAbsent: a = false } = {}) {
   Ae((i) => {
     let l = i.fotwEligibilityCache?.[e]?.[t],
       o = l && Date.now() - l.timestamp <= x;

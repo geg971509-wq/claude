@@ -99,7 +99,7 @@ import { FZt, v$n, fW, Cot, hhe, x$n } from "/$bunfs/root/chunk-4vfft545.js";
 import { jZt } from "/$bunfs/root/chunk-qvvgsfrp.js";
 import { Ma } from "/$bunfs/root/chunk-nwb64bac.js";
 import { i, v, q, _e, f } from "/$bunfs/root/chunk-saay52v7.js";
-var dt = Ma({ working: !1 });
+var dt = Ma({ working: false });
 function dot(e) {
   dt.setState((t) => (t.working === e ? t : { working: e }));
 }
@@ -107,7 +107,7 @@ function pot() {
   return dt.getState().working;
 }
 var nn = dt.subscribe,
-  hr = Ma({ pending: !1 });
+  hr = Ma({ pending: false });
 function fot(e) {
   hr.setState((t) => (t.pending === e ? t : { pending: e }));
 }
@@ -115,7 +115,7 @@ var ft = 120,
   rn = `act:${ft}`,
   gr = "act:0";
 function on(e) {
-  if (!e.activityOkReported) (e.activityOkReported = !0), y("artifact_activity_emit");
+  if (!e.activityOkReported) (e.activityOkReported = true), y("artifact_activity_emit");
 }
 function sn(e, t, r) {
   t(r), on(e);
@@ -133,7 +133,7 @@ function un(e) {
 function pt(e) {
   if (un(e) === 0) return;
   if (e.activityRefreshTimer !== void 0) return;
-  (e.activityRefreshTimer = setInterval((t) => lt(t, !0), e.activityRefreshMs, e)), e.activityRefreshTimer.unref?.();
+  (e.activityRefreshTimer = setInterval((t) => lt(t, true), e.activityRefreshMs, e)), e.activityRefreshTimer.unref?.();
 }
 function cn(e) {
   if (un(e) === 0 && e.activityRefreshTimer !== void 0)
@@ -147,7 +147,7 @@ function br(e, t) {
     }
     (e.activityOnsetTimer ??= setTimeout(
       (r) => {
-        (r.activityOnsetTimer = void 0), lt(r, !0), pt(r);
+        (r.activityOnsetTimer = void 0), lt(r, true), pt(r);
       },
       e.activityEdgeDebounceMs,
       e,
@@ -162,7 +162,7 @@ function br(e, t) {
       (r) => {
         if (((r.activityClearTimer = void 0), r.activityRefreshTimer !== void 0))
           clearInterval(r.activityRefreshTimer), (r.activityRefreshTimer = void 0);
-        lt(r, !1);
+        lt(r, false);
       },
       e.activityEdgeDebounceMs,
       e,
@@ -199,7 +199,7 @@ function hn(e, t, r) {
 var gn = "frame-sync.v1",
   mt = /^(?=.{1,1024}$)[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+){5}$/;
 function ht(e) {
-  if (!mt.test(e)) return !1;
+  if (!mt.test(e)) return false;
   let t = e.split(".", 4)[2];
   return t !== void 0 && t.endsWith("_agent");
 }
@@ -243,8 +243,8 @@ async function vn(e, t) {
     c = Date.now();
   try {
     o = await qR({ slug: e.slug, env: Oi() }, t.feature, e.abort.signal, {
-      agentPeer: !0,
-      speculative: !0,
+      agentPeer: true,
+      speculative: true,
       credentials: e.context.credentials,
     });
   } catch {
@@ -261,7 +261,7 @@ async function vn(e, t) {
   if (e.owner !== void 0 && u !== void 0 && !Xh(e.owner, u)) return { outcome: "owner_changed" };
   let d = typeof s === "string" && ht(s) ? u : void 0;
   if (typeof s !== "string" || d === void 0) return { outcome: "not_admitted" };
-  return (e.owner = d), (e.rebootNeeded = !1), { outcome: "token", token: s, boot: o.data };
+  return (e.owner = d), (e.rebootNeeded = false), { outcome: "token", token: s, boot: o.data };
 }
 function _n(e, t, r) {
   switch (t) {
@@ -269,33 +269,33 @@ function _n(e, t, r) {
       let o = Rr().safeParse(r);
       if (o.success && ht(o.data.cap) && Xh(e.owner, gt(o.data.cap)))
         e.storedCap = { cap: o.data.cap, exp: o.data.exp };
-      return !0;
+      return true;
     }
     case "ctrl:token_refresh_declined": {
       let o = kr().safeParse(r);
-      if (o.success && o.data.reason === _r) (e.rebootNeeded = !0), (e.storedCap = void 0);
-      return !0;
+      if (o.success && o.data.reason === _r) (e.rebootNeeded = true), (e.storedCap = void 0);
+      return true;
     }
     default:
-      return !1;
+      return false;
   }
 }
 function Ar(e, t, r) {
   if (t()) return;
   if (e.taskId !== void 0)
     try {
-      em(e.taskId, e.context.taskRegistry, { quiet: !0 });
+      em(e.taskId, e.context.taskRegistry, { quiet: true });
     } catch {}
   r("error");
 }
 function Ie(e) {
-  if (((e.stopped = !0), e.abort.abort(), e.reconnectTimer !== void 0))
+  if (((e.stopped = true), e.abort.abort(), e.reconnectTimer !== void 0))
     clearTimeout(e.reconnectTimer), (e.reconnectTimer = void 0);
   if (((e.send = void 0), (e.state = "closed"), e.taskId !== void 0)) {
     let t = e.taskId;
     e.taskId = void 0;
     try {
-      em(t, e.context.taskRegistry, { quiet: !0 });
+      em(t, e.context.taskRegistry, { quiet: true });
     } catch {}
   }
 }
@@ -340,7 +340,7 @@ function yn(e, t, r) {
     let u = Math.min(t.stallMinMs * 2 ** e.stalls, t.stallMaxMs / 2),
       d = Math.min(u * 2, t.stallMaxMs);
     return (
-      e.stalls++, { next: "redial", delayMs: Math.round(u + Math.random() * (d - u)), stalled: !0, stallRunStarted: s }
+      e.stalls++, { next: "redial", delayMs: Math.round(u + Math.random() * (d - u)), stalled: true, stallRunStarted: s }
     );
   }
   if (((e.stalledSince = void 0), o === "refused")) {
@@ -351,7 +351,7 @@ function yn(e, t, r) {
     if (r.uptimeMs >= t.minUptimeMs) e.backoff = 0;
   }
   let c = Math.min(t.capMs, t.baseMs * 2 ** Math.min(e.backoff, 5));
-  return e.backoff++, { next: "redial", delayMs: Math.round(Math.random() * c), stalled: !1, stallRunStarted: !1 };
+  return e.backoff++, { next: "redial", delayMs: Math.round(Math.random() * c), stalled: false, stallRunStarted: false };
 }
 function St(e, t, r) {
   if (e.reconnectTimer !== void 0) clearTimeout(e.reconnectTimer);
@@ -363,8 +363,8 @@ function Lr(e, t) {
 async function An(e, t, r, o) {
   let { slug: c } = e,
     { live: s } = de(),
-    u = !1,
-    d = !1,
+    u = false,
+    d = false,
     S,
     l,
     _ = () => d || !o(),
@@ -372,7 +372,7 @@ async function An(e, t, r, o) {
     L = () => (u && e.openedAt > 0 ? Date.now() - e.openedAt : 0),
     T = (R) => {
       if (_()) return;
-      d = !0;
+      d = true;
       let k = L(),
         V = Date.now() - x;
       if (e.send === S) (e.send = void 0), (e.state = "closed"), (e.openedAt = 0);
@@ -385,9 +385,9 @@ async function An(e, t, r, o) {
         headers: { "User-Agent": WI() },
         description: r.description,
         timeout_ms: 0,
-        persistent: !0,
-        quietLifecycle: !0,
-        ambient: !0,
+        persistent: true,
+        quietLifecycle: true,
+        ambient: true,
         handshakeDeadlineMs: r.handshakeDeadlineMs,
         ...(e.taskId !== void 0 && { reuseTaskId: e.taskId }),
         transform: (k) => (r.onFrame(k), null),
@@ -413,7 +413,7 @@ async function An(e, t, r, o) {
         onLifecycle: (k, V) => {
           if (_()) return;
           if (k === "open") {
-            (u = !0), (e.everOpened = !0), (e.openedAt = Date.now()), r.onOpen();
+            (u = true), (e.everOpened = true), (e.openedAt = Date.now()), r.onOpen();
             return;
           }
           T(V);
@@ -422,7 +422,7 @@ async function An(e, t, r, o) {
       e.context,
     );
     if (((e.taskId = R.data.taskId), !o()))
-      return em(R.data.taskId, e.context.taskRegistry, { quiet: !0 }), { outcome: "stale" };
+      return em(R.data.taskId, e.context.taskRegistry, { quiet: true }), { outcome: "stale" };
     return { outcome: "armed" };
   } catch (R) {
     return (
@@ -437,7 +437,7 @@ function Ir(e) {
   return e * 3 + 5000;
 }
 function Mr() {
-  return a.CLAUDE_CODE_ARTIFACT_PRESENCE ?? I("tengu_brass_plover", !1);
+  return a.CLAUDE_CODE_ARTIFACT_PRESENCE ?? I("tengu_brass_plover", false);
 }
 function xn(e) {
   if (!Mr()) return "flag_off";
@@ -481,34 +481,34 @@ function Pr(e, t, r, o) {
     state: "connecting",
     storedCap: void 0,
     owner: void 0,
-    rebootNeeded: !1,
+    rebootNeeded: false,
     backoff: 0,
     refusals: 0,
     stalledSince: void 0,
     stalls: 0,
     openedAt: 0,
-    everOpened: !1,
+    everOpened: false,
     reconnectTimer: void 0,
     taskId: void 0,
-    stopped: !1,
+    stopped: false,
     abort: new AbortController(),
   };
   e.conns.set(t, c),
     m4n(Fr),
     Wn(c, "initial").catch((s) => {
       n(`[artifactPresence] connect threw slug=${t}: ${s instanceof Error ? s.name : "error"}`),
-        Re(c, { on: "dial_error", deterministic: !1 });
+        Re(c, { on: "dial_error", deterministic: false });
     });
 }
 var Fr = { closeByTaskId: (e) => Vr(e) };
 function Vr(e) {
   let t = TZn();
-  if (t === void 0) return !1;
+  if (t === void 0) return false;
   for (let r of t.conns.values()) {
     if (r.taskId !== e) continue;
-    return (r.taskId = void 0), t.declined.add(r.slug), Y(r), !0;
+    return (r.taskId = void 0), t.declined.add(r.slug), Y(r), true;
   }
-  return !1;
+  return false;
 }
 async function Wn(e, t) {
   let r = xn(e.slug);
@@ -562,7 +562,7 @@ async function Dr(e, t) {
         },
         onFrame: (d) => Nr(e, d),
         onOpen: () => {
-          if (c) y("artifact_presence", { connected: !0 });
+          if (c) y("artifact_presence", { connected: true });
         },
         onEnded: (d, S) => {
           if (S.opened) {
@@ -609,7 +609,7 @@ function Ln(e) {
   if (!ve(e)) return;
   Wn(e, "reconnect").catch((t) => {
     n(`[artifactPresence] reconnect threw slug=${e.slug}: ${t instanceof Error ? t.name : "error"}`),
-      Re(e, { on: "dial_error", deterministic: !1 });
+      Re(e, { on: "dial_error", deterministic: false });
   });
 }
 function Y(e) {
@@ -720,12 +720,12 @@ function Ve(e, t, r, o) {
   e.set(t, r);
 }
 function De(e, t, r) {
-  if (e.has(t)) return !1;
+  if (e.has(t)) return false;
   if (e.size >= r) {
     let o = e.values().next().value;
     if (o !== void 0) e.delete(o);
   }
-  return e.add(t), !0;
+  return e.add(t), true;
 }
 function Ne(e, t) {
   for (let r of e) if (r.startsWith(`${t}:`)) e.delete(r);
@@ -857,15 +857,15 @@ var $dr = "frame-live.v1",
     "If this wasn't intended, kill the task again to stop them for this artifact, or use the kill-all-agents gesture to disarm auto-replies for the whole session.";
 function Qr(e, t, r) {
   let o = e.supervisors.get(t);
-  if (o !== void 0) o.explicit = !1;
+  if (o !== void 0) o.explicit = false;
   for (let c of Object.values(r.all()))
     if (Ev(c) && c.status === "running" && c.frameLive?.slug === t && c.frameLive.explicit)
       r.update(c.id, (s) =>
         Ev(s) && s.frameLive !== void 0
           ? {
               ...s,
-              description: kt(ro({ slug: t, env: Oi() }), !1, s.frameLive.armedVia),
-              frameLive: { ...s.frameLive, explicit: !1 },
+              description: kt(ro({ slug: t, env: Oi() }), false, s.frameLive.armedVia),
+              frameLive: { ...s.frameLive, explicit: false },
             }
           : s,
       );
@@ -883,15 +883,15 @@ function Xr(e, t) {
       taskRegistry: t.taskRegistry,
       announce: !t.running,
       killRow: (u) => {
-        if (u.id !== t.taskId) em(u.id, t.taskRegistry, { userStop: !0 });
+        if (u.id !== t.taskId) em(u.id, t.taskRegistry, { userStop: true });
       },
     });
     c = s;
   } else {
-    if (!Jr(r, e, t)) return !1;
-    H(r, e), (c = !0);
+    if (!Jr(r, e, t)) return false;
+    H(r, e), (c = true);
   }
-  if (t.modelOrigin !== !0) sIt(e, o);
+  if (t.modelOrigin !== true) sIt(e, o);
   return c;
 }
 function At(e) {
@@ -904,15 +904,15 @@ function At(e) {
   if (e.announce && c !== void 0 && !c.stopped && u.length === 0 && (c.taskId !== void 0 || c.timer !== void 0))
     $e(o, c, "watching this artifact was stopped just now");
   else H(o, t);
-  for (let d of u) (s = !0), e.killRow(d);
+  for (let d of u) (s = true), e.killRow(d);
   if (s && cp(t)) odt(t);
   return LZt(t), { wasWatching: s };
 }
 function Jr(e, t, r) {
   let o = e.supervisors.get(t);
-  if (o === void 0 || o.stopped) return !1;
+  if (o === void 0 || o.stopped) return false;
   if (r.running) return o.taskId === void 0 || o.taskId === r.taskId;
-  if (o.taskId === void 0 || o.taskId !== r.taskId) return !1;
+  if (o.taskId === void 0 || o.taskId !== r.taskId) return false;
   return o.timer !== void 0 || e.inFlightSubscribes.has(t);
 }
 function H(e, t) {
@@ -921,19 +921,19 @@ function H(e, t) {
   Zyt(t);
 }
 function me(e, t, r) {
-  if (r) return { ...t, humanTurnSnapshot: !0 };
+  if (r) return { ...t, humanTurnSnapshot: true };
   if (e === void 0) return t;
   let { humanTurnSnapshot: o, ...c } = t;
   return {
     ...c,
     context: e.context,
     publishTranscript: e.publishTranscript,
-    ...(e.humanTurnSnapshot && { humanTurnSnapshot: !0 }),
+    ...(e.humanTurnSnapshot && { humanTurnSnapshot: true }),
   };
 }
 function Mn(e, t, r) {
   let o = e.supervisors.get(t)?.autoReactWiring;
-  return o?.humanTurnSnapshot === !0 && (r?.humanTurnSnapshot !== !0 || o.context !== r.context);
+  return o?.humanTurnSnapshot === true && (r?.humanTurnSnapshot !== true || o.context !== r.context);
 }
 function Pn(e, t) {
   let r = e.supervisors.get(t.slug);
@@ -954,7 +954,7 @@ function Pn(e, t) {
       if (c && r.armedVia !== "mcp_write") Vx(e, t.slug);
     }
     if (((r.explicit = r.explicit || t.explicit), t.autoReactWiring !== void 0))
-      r.autoReactWiring = me(r.autoReactWiring, t.autoReactWiring, t.humanTurnWiring === !0);
+      r.autoReactWiring = me(r.autoReactWiring, t.autoReactWiring, t.humanTurnWiring === true);
     return r;
   }
   let o = {
@@ -965,13 +965,13 @@ function Pn(e, t) {
     context: t.context,
     abort: new AbortController(),
     explicit: t.explicit,
-    stopped: !1,
+    stopped: false,
     watchedSince: Date.now(),
     lastActivityAt: Date.now(),
     armedVia: t.armedVia,
     consecutiveFailures: 0,
     ...(t.carriedVer !== void 0 && { carriedVer: t.carriedVer }),
-    ...(t.autoReactWiring !== void 0 && { autoReactWiring: me(void 0, t.autoReactWiring, t.humanTurnWiring === !0) }),
+    ...(t.autoReactWiring !== void 0 && { autoReactWiring: me(void 0, t.autoReactWiring, t.humanTurnWiring === true) }),
   };
   return e.supervisors.set(t.slug, o), lIt(t.slug, o.watchedSince), o;
 }
@@ -980,7 +980,7 @@ function Zr(e, t, r, o) {
 }
 function ei(e, t) {
   let { rewatchTiming: r } = e;
-  if (r.idleTtlMs <= 0) return !1;
+  if (r.idleTtlMs <= 0) return false;
   let o = t.autoReactWiring !== void 0 && pd() && (!lp(t.slug) || cp(t.slug));
   return !t.explicit && !o && !Nn(e, t) && Date.now() - t.lastActivityAt >= r.idleTtlMs;
 }
@@ -1041,7 +1041,7 @@ function ti(e, t) {
       t.armedVia === "watch"
         ? "(your watch request was later stopped; idle auto-armed watches are retired)"
         : "(idle auto-armed watches are retired)";
-  return `it was armed ${r} and has seen no activity for over ${$t(e.rewatchTiming.idleTtlMs, { mostSignificantOnly: !0 })} ${o}`;
+  return `it was armed ${r} and has seen no activity for over ${$t(e.rewatchTiming.idleTtlMs, { mostSignificantOnly: true })} ${o}`;
 }
 function Udr(e, t, r) {
   return e === ait || t >= r.stallThresholdMs;
@@ -1054,7 +1054,7 @@ function ni(e) {
   return Math.max(e.stallMaxMs, e.longStallMaxMs) + 2 * vPt + e.handshakeDeadlineMs + 60000;
 }
 function Tt(e, t, r) {
-  let { uptimeMs: o, resumeNeverOpened: c = !1, stalled: s = !1 } = r,
+  let { uptimeMs: o, resumeNeverOpened: c = false, stalled: s = false } = r,
     { rewatchTiming: u } = e,
     d = e.supervisors.get(t);
   if (!d || d.stopped) return;
@@ -1071,11 +1071,11 @@ function Tt(e, t, r) {
     return;
   }
   if (ei(e, d)) {
-    y("artifact_live_subscribe", { idle_retired: !0 }), ue(e, d, ti(e, d), "idle");
+    y("artifact_live_subscribe", { idle_retired: true }), ue(e, d, ti(e, d), "idle");
     return;
   }
-  let S = !1,
-    l = !1;
+  let S = false,
+    l = false;
   if (s) {
     let T = Date.now();
     if (
@@ -1090,22 +1090,22 @@ function Tt(e, t, r) {
         boot: r.closeCode === void 0,
         ...(R !== void 0 && { http_status: R }),
       });
-    } else l = !0;
+    } else l = true;
     (d.lastStalledAt = T), (S = T - d.stalledSince >= d.stallOutAfterMs);
   } else if (((d.stalledSince = void 0), (d.lastStalledAt = void 0), (d.stallOutAfterMs = void 0), o >= u.minUptimeMs))
     d.consecutiveFailures = 0;
-  else if (r.reuseRefused !== !0) d.consecutiveFailures++;
+  else if (r.reuseRefused !== true) d.consecutiveFailures++;
   if (d.consecutiveFailures > u.maxConsecutiveFailures || S) {
-    if (S) g("artifact_live_subscribe", "rewatch_gave_up", { stalled: !0 });
+    if (S) g("artifact_live_subscribe", "rewatch_gave_up", { stalled: true });
     else g("artifact_live_subscribe", "rewatch_gave_up");
-    ue(e, d, "the live connection kept failing and reconnecting has stopped", zn, { advice: Ge, passive: !0 });
+    ue(e, d, "the live connection kept failing and reconnecting has stopped", zn, { advice: Ge, passive: true });
     return;
   }
   let _ = qq(),
     x =
       s &&
       l &&
-      (fZ(r.closeCode)?.cfMitigated === !0 ||
+      (fZ(r.closeCode)?.cfMitigated === true ||
         !_ ||
         d.lease === void 0 ||
         !Ean(d.lease, u, de().accountEpoch, Date.now() + u.stallMinMs)),
@@ -1120,7 +1120,7 @@ function Tt(e, t, r) {
   if (d.timer !== void 0) clearTimeout(d.timer);
   (d.timer = setTimeout(Un, L, e, t)), d.timer.unref?.(), (d.nextRewatchAt = Date.now() + L);
 }
-function ue(e, t, r, o, { advice: c = "watch it again if you still need that", passive: s = !1 } = {}) {
+function ue(e, t, r, o, { advice: c = "watch it again if you still need that", passive: s = false } = {}) {
   if (e.supervisors.get(t.slug) === t) {
     if ((H(e, t.slug), !de().durable.stopLatches.isStopped(t.slug))) {
       if ((jn(e, t.slug, "ended", o), t.autoReactWiring !== void 0))
@@ -1139,23 +1139,23 @@ function ue(e, t, r, o, { advice: c = "watch it again if you still need that", p
 <event>${Wt(`Watch on ${t.url} ended \u2014 ${r}. This session will no longer hear when it is republished; ${c}.`)}</event>`,
     }),
     mode: "task-notification",
-    ...(s && { passive: !0 }),
+    ...(s && { passive: true }),
     priority: "next",
-    origin: { kind: "task-notification", source: ex, slug: t.slug, displayName: d, watchEnded: !0 },
+    origin: { kind: "task-notification", source: ex, slug: t.slug, displayName: d, watchEnded: true },
     agentId: et(),
   });
 }
 function $e(e, t, r = "watching this artifact was stopped earlier in this session") {
   (t.resumeAnnounce = void 0), ue(e, t, r, "stopped", { advice: "do not watch it again unless the user asks you to" });
 }
-function Q(e, t, r, o, c, { unavailable: s = !1, httpStatus: u } = {}) {
+function Q(e, t, r, o, c, { unavailable: s = false, httpStatus: u } = {}) {
   return (
     xt(e, t, r, { unavailable: s, httpStatus: u }),
     pi(e, t, r, o, c),
-    { outcome: "skipped", reason: o, ...(s && { unavailable: !0 }), ...(s && u !== void 0 && { httpStatus: u }) }
+    { outcome: "skipped", reason: o, ...(s && { unavailable: true }), ...(s && u !== void 0 && { httpStatus: u }) }
   );
 }
-function xt(e, t, r, { unavailable: o = !1, httpStatus: c } = {}) {
+function xt(e, t, r, { unavailable: o = false, httpStatus: c } = {}) {
   if (r) return;
   let s = e.supervisors.get(t);
   if (s !== void 0 && !s.stopped && s.timer === void 0)
@@ -1169,7 +1169,7 @@ async function Un(e, t) {
     return;
   }
   if (r.autoReactWiring !== void 0 && lp(t) && !cp(t)) delete r.autoReactWiring;
-  y("artifact_live_subscribe", { rewatch_attempt: !0 });
+  y("artifact_live_subscribe", { rewatch_attempt: true });
   let o = await ae(e, {
     slug: r.slug,
     url: r.url,
@@ -1177,14 +1177,14 @@ async function Un(e, t) {
     ownPublishes: r.ownPublishes,
     context: r.context,
     signal: r.abort.signal,
-    machineArm: !0,
-    seedKnownVerFromBoot: !0,
+    machineArm: true,
+    seedKnownVerFromBoot: true,
     ...(r.carriedVer !== void 0 && { seedSurfacedVer: r.carriedVer }),
     ...(r.autoReactWiring !== void 0 && { autoReactWiring: r.autoReactWiring }),
   });
   if (o.outcome === "skipped" && o.reason === "stop_latched") return;
   if (r.stopped || e.supervisors.get(t) !== r) {
-    if (o.outcome === "skipped") xt(e, t, void 0, { unavailable: o.unavailable === !0, httpStatus: o.httpStatus });
+    if (o.outcome === "skipped") xt(e, t, void 0, { unavailable: o.unavailable === true, httpStatus: o.httpStatus });
     return;
   }
   if (o.outcome === "skipped")
@@ -1192,7 +1192,7 @@ async function Un(e, t) {
       (r.lastFailure = o.reason),
         Tt(e, t, {
           uptimeMs: 0,
-          stalled: o.unavailable === !0,
+          stalled: o.unavailable === true,
           ...(o.httpStatus !== void 0 && { httpStatus: o.httpStatus }),
         });
     else
@@ -1203,7 +1203,7 @@ async function ri(e, t) {
   let r = e.supervisors.get(t),
     o = r?.lease;
   if (!qq() || r === void 0 || r.stopped || o === void 0 || o.probed) return;
-  o.probed = !0;
+  o.probed = true;
   let c;
   try {
     c = await RPt({ slug: t, env: Oi() }, r.abort.signal, { credentials: r.context.credentials });
@@ -1212,14 +1212,14 @@ async function ri(e, t) {
   }
   if (e.supervisors.get(t) !== r || r.stopped) return;
   if (c.err === null && CPt(c.data) !== void 0) {
-    y("artifact_live_subscribe", { read_refused_boot_ok: !0 });
+    y("artifact_live_subscribe", { read_refused_boot_ok: true });
     return;
   }
   if (c.err !== null && (c.status === 404 || mB(c))) {
     let d = mB(c) ? "other_org" : "not_found";
     g("artifact_live_subscribe", `read_stopped_${d}`), ue(e, r, Wse(d) ?? d, Et[d] ?? d, { advice: qse(d) });
     for (let S of Object.values(r.context.taskRegistry.all()))
-      if (Ev(S) && S.status === "running" && S.frameLive?.slug === t) em(S.id, r.context.taskRegistry, { quiet: !0 });
+      if (Ev(S) && S.status === "running" && S.frameLive?.slug === t) em(S.id, r.context.taskRegistry, { quiet: true });
     return;
   }
   let s = c.err === null ? "tokenless" : (c.status ?? c.errorCode);
@@ -1241,8 +1241,8 @@ function jdr(e) {
   }
   if (e.seedSurfacedVer !== void 0 && !S.includes(e.seedSurfacedVer)) l(e.seedSurfacedVer);
   let _ = LIe(OIe, Yye),
-    x = !1,
-    L = !1;
+    x = false,
+    L = false;
   function T() {
     let k = de().live.supervisors.get(t);
     if (k && !k.stopped && k.armedVia !== "mcp_write") k.lastActivityAt = Date.now();
@@ -1263,26 +1263,26 @@ function jdr(e) {
   }
   function R(k, V) {
     if (!k || !$0.test(k) || S.includes(k)) return;
-    let U = V === "sync" && { via_sync: !0 };
+    let U = V === "sync" && { via_sync: true };
     if (e.presenceOnly?.()) return;
     if (gHe(o, t, k)) {
-      y("artifact_live_subscribe", { ...(x ? { suppressed_own: !0 } : { suppressed_catch_up: !0 }), ...U }), (x = !0);
+      y("artifact_live_subscribe", { ...(x ? { suppressed_own: true } : { suppressed_catch_up: true }), ...U }), (x = true);
       return;
     }
     if (k === c()) return;
     if (rnn(o, t)) {
-      y("artifact_live_subscribe", { suppressed_in_flight: !0, ...U });
+      y("artifact_live_subscribe", { suppressed_in_flight: true, ...U });
       return;
     }
     if (!_.tryConsume()) {
-      if ((n4n(t, "artifact-changed"), !L)) (L = !0), g("artifact_live_subscribe", "ver_rate_suppressed", { ...U });
+      if ((n4n(t, "artifact-changed"), !L)) (L = true), g("artifact_live_subscribe", "ver_rate_suppressed", { ...U });
       return;
     }
-    (L = !1), l(k);
+    (L = false), l(k);
     try {
       u?.(k);
     } catch {}
-    y("artifact_live_subscribe", { notified: !0, ...U });
+    y("artifact_live_subscribe", { notified: true, ...U });
     let Be = `Artifact ${r} appears to have been republished elsewhere (by another session, or by someone saving from the page itself) \u2014 it is now version ${k}. Your copy is stale; re-read before editing or republishing (${Nit()}).`;
     San({ queue: Dn, slug: t, family: "artifact-changed", artifactName: e8(d, r), detail: Be, mergeDetails: "latest" });
   }
@@ -1305,7 +1305,7 @@ function Wdr(e) {
 }
 function $n(e, t, r, o, c, s) {
   if (!s(e, r)) return "dead";
-  return o && (lp(t) ? c && (e.autoReactArmed !== !0 || !cp(t) || $ee(t)) : e.autoReactArmed !== !0)
+  return o && (lp(t) ? c && (e.autoReactArmed !== true || !cp(t) || $ee(t)) : e.autoReactArmed !== true)
     ? "replace"
     : "keep";
 }
@@ -1320,13 +1320,13 @@ function si(e, t, r, o) {
     let d = $n(u, t, c, r, o, Qye);
     if (d !== "dead") {
       if (d === "replace") {
-        em(u.id, e.taskRegistry, { quiet: !0 });
+        em(u.id, e.taskRegistry, { quiet: true });
         continue;
       }
       s = u.id;
       continue;
     }
-    em(u.id, e.taskRegistry, { quiet: !0, connectionLost: !0 });
+    em(u.id, e.taskRegistry, { quiet: true, connectionLost: true });
   }
   return s;
 }
@@ -1334,7 +1334,7 @@ function Gn(e, t) {
   return Object.values(e.all()).some((r) => Ev(r) && r.status === "running" && r.frameLive?.slug === t);
 }
 function qdr(e) {
-  return sFt(e, pd, { includeStopLatched: !0 });
+  return sFt(e, pd, { includeStopLatched: true });
 }
 function R6e(e) {
   return sFt(e, pd);
@@ -1342,14 +1342,14 @@ function R6e(e) {
 function Mq(e, t) {
   _ot(t?.storageV5), JW(), PIe();
   let r = de().live,
-    o = t?.durable !== !1,
+    o = t?.durable !== false,
     c = 0,
     s = new Set();
   for (let u of Object.values(e.all()))
     if (qdr(u)) {
       let d = u.autoReactSlug !== void 0 && lp(u.autoReactSlug) && (!cp(u.autoReactSlug) || Tv(u.autoReactSlug));
       if (o) {
-        if ((em(u.id, e, { quiet: !0, userStop: !0 }), u.autoReactSlug !== void 0))
+        if ((em(u.id, e, { quiet: true, userStop: true }), u.autoReactSlug !== void 0))
           F6e(u.autoReactSlug), s.add(u.autoReactSlug);
       } else if (u.autoReactSlug !== void 0) s.add(u.autoReactSlug);
       if (!d && !(u.autoReactSlug !== void 0 && !o && lp(u.autoReactSlug))) {
@@ -1367,7 +1367,7 @@ function Mq(e, t) {
       else Xye(u.slug);
   }
   if (o) Tot({ storageV5: t?.storageV5 });
-  else if (c > 0) QQ({ flush: !0, storageV5: t?.storageV5 });
+  else if (c > 0) QQ({ flush: true, storageV5: t?.storageV5 });
   return c;
 }
 function Ct(e, t, r, o) {
@@ -1383,7 +1383,7 @@ function Ct(e, t, r, o) {
     r?.(d),
     $q({
       ...d,
-      seed: !1,
+      seed: false,
       confirm: void 0,
       confirmBase: void 0,
       confirmAfter: void 0,
@@ -1396,7 +1396,7 @@ function Ct(e, t, r, o) {
 }
 function Bn(e, t) {
   return Object.values(e.all()).find(
-    (r) => Ev(r) && r.status === "running" && r.autoReactArmed === !0 && r.autoReactSlug === t && Qye(r),
+    (r) => Ev(r) && r.status === "running" && r.autoReactArmed === true && r.autoReactSlug === t && Qye(r),
   );
 }
 function Gdr(e) {
@@ -1429,7 +1429,7 @@ function Nq(e, t) {
       tokenExpiresAt: S?.lease?.expMs ?? d.frameLive.armedAt + J1t,
       armedVia: S?.armedVia ?? d.frameLive.armedVia,
       autoReply:
-        d.autoReactArmed !== !0
+        d.autoReactArmed !== true
           ? Pm(d.frameLive.slug)
             ? u
               ? "disarmed"
@@ -1456,7 +1456,7 @@ function ai(e) {
   let t = de().autoReact.artifacts.get(e),
     r = t?.lastProbeDeniedBy ?? null;
   if (r !== null) return r === "denied_by_auto_mode" ? "declined" : "denied";
-  return t?.lastReplyDeclinedByAutoMode === !0 ? "declined" : "armed";
+  return t?.lastReplyDeclinedByAutoMode === true ? "declined" : "armed";
 }
 function Yxt(e, t) {
   let { live: r, autoReact: o, wakes: c } = de(),
@@ -1502,36 +1502,36 @@ function Ue(e, t) {
 }
 function Kn(e, t, r, o) {
   let c = e.supervisors.get(t.slug);
-  if ((em(t.taskId, r.taskRegistry, { quiet: !0 }), c !== void 0 && !c.stopped))
+  if ((em(t.taskId, r.taskRegistry, { quiet: true }), c !== void 0 && !c.stopped))
     ue(
       e,
       c,
       o?.why ?? `this session reached its limit of ${qh} artifact watches and made room to watch a newer one`,
       o?.shortReason ?? "made room for a newer watch",
-      o !== void 0 ? { advice: Ge, passive: !0 } : void 0,
+      o !== void 0 ? { advice: Ge, passive: true } : void 0,
     );
   else H(e, t.slug);
-  y("artifact_live_subscribe", { evicted_least_active: !0 });
+  y("artifact_live_subscribe", { evicted_least_active: true });
 }
 function Rt(e, t) {
   let r = e.supervisors.get(t);
-  if (r === void 0 || r.stopped) return !1;
+  if (r === void 0 || r.stopped) return false;
   return r.explicit || (r.autoReactWiring !== void 0 && pd() && (!lp(t) || cp(t))) || Nn(e, r);
 }
 function ui(e, t) {
   let r = Ue(e, t);
-  if (r.length === 0) return !1;
+  if (r.length === 0) return false;
   return (
     Kn(e, r[0], t, {
       why: `this session reached its limit of ${qh} artifact watches and made room for a protected watch to reconnect`,
       shortReason: Lt,
     }),
-    !0
+    true
   );
 }
 function gZt() {
   let e = de().live;
-  (e.handoffGeneration += 1), e.bootingWiredArms.clear(), aie(O6e(AU())), QQ({ flush: !0 }), e$n(), JW(), PIe();
+  (e.handoffGeneration += 1), e.bootingWiredArms.clear(), aie(O6e(AU())), QQ({ flush: true }), e$n(), JW(), PIe();
   for (let t of [...e.supervisors.keys()]) H(e, t);
   e.armOutcomes.clear(), e.announcedArmFailures.clear(), b4n();
 }
@@ -1548,7 +1548,7 @@ function zdr(e) {
     delete s.autoReactWiring, H(t, s.slug);
     for (let u of Object.values(s.context.taskRegistry.all())) {
       if (!Ev(u) || u.status !== "running" || u.frameLive?.slug !== s.slug) continue;
-      em(u.id, s.context.taskRegistry, { quiet: !0 });
+      em(u.id, s.context.taskRegistry, { quiet: true });
     }
   }
   if ((t.armOutcomes.clear(), t.announcedArmFailures.clear(), r === 0)) return r;
@@ -1566,7 +1566,7 @@ function zdr(e) {
 <event>${Wt(c)}</event>`,
       }),
       mode: "task-notification",
-      passive: !0,
+      passive: true,
       priority: "next",
       origin: { kind: "task-notification", source: ex },
       agentId: et(),
@@ -1587,7 +1587,7 @@ function hZt(e, t, r) {
 function _Zt(e, t) {
   sIt(e, t.storageV5);
   let { wasWatching: r } = Hn(e, t);
-  if (r) y("artifact_live_subscribe", { unwatched: !0, artifact_deleted: !0 });
+  if (r) y("artifact_live_subscribe", { unwatched: true, artifact_deleted: true });
 }
 function Hn(e, t) {
   let r = de().live;
@@ -1596,11 +1596,11 @@ function Hn(e, t) {
     { wasWatching: c } = At({
       slug: e,
       taskRegistry: t.taskRegistry,
-      announce: !1,
+      announce: false,
       killRow: (s) => {
-        let u = s.autoReactArmed === !0;
+        let u = s.autoReactArmed === true;
         if (
-          (em(s.id, t.taskRegistry, u ? { quiet: !0, userStop: !0, modelOrigin: !0 } : { quiet: !0 }),
+          (em(s.id, t.taskRegistry, u ? { quiet: true, userStop: true, modelOrigin: true } : { quiet: true }),
           u && s.autoReactSlug !== void 0)
         )
           F6e(s.autoReactSlug);
@@ -1613,9 +1613,9 @@ function _Er(e, t) {
   At({
     slug: e,
     taskRegistry: t,
-    announce: !0,
+    announce: true,
     killRow: (r) => {
-      em(r.id, t, { userStop: !0 });
+      em(r.id, t, { userStop: true });
     },
   });
 }
@@ -1623,7 +1623,7 @@ async function yZt(e) {
   let { slug: t, url: r, publishContext: o, getKnownVer: c, context: s, tool: u, commentVerbsInSchema: d } = e;
   if (!Fq(o)) return { outcome: "skipped", reason: "publish_context" };
   let S = de().live,
-    l = u !== void 0 && d === !0 && pd(),
+    l = u !== void 0 && d === true && pd(),
     _ = !l
       ? void 0
       : !ire(s.messages)
@@ -1634,7 +1634,7 @@ async function yZt(e) {
             ? "declined"
             : S.nonEditorSlugs.has(t)
               ? "not_editor"
-              : e.repliesApproved !== !0
+              : e.repliesApproved !== true
                 ? "not_approved"
                 : void 0,
     x = zFn({ tool: l && _ === void 0 ? u : void 0, commentVerbsInSchema: d, context: s }),
@@ -1650,7 +1650,7 @@ async function yZt(e) {
       pickUpRecentSummons: L,
       ...(x.autoReactWiring !== void 0 && {
         autoReactWiring: { ...x.autoReactWiring, title: T },
-        editorGatedWiring: !0,
+        editorGatedWiring: true,
       }),
     });
   if (L && R.outcome === "armed" && R.degraded === void 0 && !(lp(t) && !cp(t)) && ke())
@@ -1665,7 +1665,7 @@ function SZt(e) {
 var bZt = { kind: "repliesConsentWriter" };
 function wZt(e, t, r, o) {
   let c = de().live.repliesConsent;
-  if (e === void 0) return { declined: c.declined.has(t), approved: !1 };
+  if (e === void 0) return { declined: c.declined.has(t), approved: false };
   let s = c.outstanding.get(t);
   if (r !== void 0 && s !== void 0 && s.toolUseId !== r)
     c.outstanding.delete(t), c.declined.set(t, { namingMessages: s.namingMessages });
@@ -1693,7 +1693,7 @@ function EZt(e, t) {
 }
 function AZt(e, t, r, o) {
   let c = de().live.repliesConsent;
-  if (e === void 0) return !1;
+  if (e === void 0) return false;
   let s = t?.slug === r;
   if (s && o) c.approved.add(r);
   return s || c.approved.has(r);
@@ -1703,7 +1703,7 @@ function CZt(e) {
 }
 function di(e, t) {
   let r = e.mcpWriteSlugs.get(t);
-  if (r === void 0) (r = { arming: !1 }), e.mcpWriteSlugs.set(t, r);
+  if (r === void 0) (r = { arming: false }), e.mcpWriteSlugs.set(t, r);
   return r;
 }
 var li = new Set(["not_found", "no_subscription_token", "publish_context", "invalid_slug", "remote"]),
@@ -1741,21 +1741,21 @@ async function yEr(e, t, r) {
     if (!Fq(S)) return;
     if (d.declinedEpoch === o.accountEpoch) return;
     let l = o.accountEpoch;
-    (d.arming = !0),
+    (d.arming = true),
       await ae(c, {
         slug: e,
         url: ro({ slug: e, env: Oi() }),
         getKnownVer: r,
         ownPublishes: u,
         ...he(t),
-        seedKnownVerFromBoot: !0,
-        mcpWrite: !0,
+        seedKnownVerFromBoot: true,
+        mcpWrite: true,
       }).then(
         (_) => {
-          if (((d.arming = !1), _.outcome === "skipped" && li.has(_.reason))) d.declinedEpoch = l;
+          if (((d.arming = false), _.outcome === "skipped" && li.has(_.reason))) d.declinedEpoch = l;
         },
         (_) => {
-          (d.arming = !1), h(_);
+          (d.arming = false), h(_);
         },
       );
   } catch (o) {
@@ -1788,14 +1788,14 @@ async function vZt(e) {
           l.autoReactWiring = me(
             l.autoReactWiring,
             { tool: e.tool, commentVerbsInSchema: e.commentVerbsInSchema, context: s, title: l.autoReactWiring?.title },
-            !0,
+            true,
           );
       },
     );
   if (S !== null && d !== void 0) {
-    if ((y("artifact_live_subscribe", { resumed_in_place: !0 }), S === "cleared"))
+    if ((y("artifact_live_subscribe", { resumed_in_place: true }), S === "cleared"))
       de().wakes.pendingResumeDisclosure.add(t);
-    return { outcome: "armed", taskId: d, inPlace: S === "lifted", ...(S === "cleared" && { connecting: !0 }) };
+    return { outcome: "armed", taskId: d, inPlace: S === "lifted", ...(S === "cleared" && { connecting: true }) };
   }
   return ae(u, {
     slug: t,
@@ -1803,14 +1803,14 @@ async function vZt(e) {
     getKnownVer: c,
     ownPublishes: s.artifactRegistries.ownPublishes,
     ...he(s),
-    seedKnownVerFromBoot: !0,
+    seedKnownVerFromBoot: true,
     autoReactWiring: {
       tool: e.tool,
       commentVerbsInSchema: e.commentVerbsInSchema,
       context: s,
       title: u.supervisors.get(t)?.autoReactWiring?.title,
     },
-    userResumeWiring: !0,
+    userResumeWiring: true,
     approvedRelatchGen: e.approvedRelatchGen,
   });
 }
@@ -1842,16 +1842,16 @@ async function RZt(e) {
       ...he(u),
       ...zFn({ tool: c, commentVerbsInSchema: s, context: u }),
     });
-  if (c !== void 0 && s === !0 && S.outcome !== "skipped" && ke()) Cot(t, { storageV5: u.storageV5 });
+  if (c !== void 0 && s === true && S.outcome !== "skipped" && ke()) Cot(t, { storageV5: u.storageV5 });
   return S;
 }
 function zFn(e) {
   let { tool: t, commentVerbsInSchema: r, context: o } = e;
   return {
-    seedKnownVerFromBoot: !0,
-    explicit: !0,
-    pickUpRecentSummons: !0,
-    ...(t !== void 0 && r === !0 && { autoReactWiring: { tool: t, commentVerbsInSchema: r, context: o } }),
+    seedKnownVerFromBoot: true,
+    explicit: true,
+    pickUpRecentSummons: true,
+    ...(t !== void 0 && r === true && { autoReactWiring: { tool: t, commentVerbsInSchema: r, context: o } }),
   };
 }
 async function h0e(e) {
@@ -1878,9 +1878,9 @@ async function h0e(e) {
     if (R !== void 0 && !R.stopped) R.lastActivityAt = Date.now();
     if (Fq(c)) x.mostRecentPublishSlug = t;
   }
-  if (!Fq(c) && !(e.carriedPublishConsent === !0 && c === "bg_session"))
+  if (!Fq(c) && !(e.carriedPublishConsent === true && c === "bg_session"))
     return { outcome: "skipped", reason: "publish_context" };
-  let L = u !== void 0 && d === !0,
+  let L = u !== void 0 && d === true,
     T = await ae(x, {
       slug: t,
       url: r,
@@ -1888,11 +1888,11 @@ async function h0e(e) {
       ownPublishes: _,
       ...he(l),
       ...(e.onOpen !== void 0 && e.onGiveUp !== void 0 && { onOpen: e.onOpen, onGiveUp: e.onGiveUp }),
-      ...(e.seedKnownVerFromBoot === !0 && { seedKnownVerFromBoot: !0 }),
-      ...((e.resumedPublishConsent === !0 || e.carriedPublishConsent === !0) && { requireEditor: !0 }),
-      ...(e.sessionResume === !0 && { sessionResume: !0 }),
-      ...(e.announceArmlessEnd === !0 && { announceArmlessEnd: !0 }),
-      ...(e.resumedPublishConsent === !0 && L && { pickUpRecentSummons: !0 }),
+      ...(e.seedKnownVerFromBoot === true && { seedKnownVerFromBoot: true }),
+      ...((e.resumedPublishConsent === true || e.carriedPublishConsent === true) && { requireEditor: true }),
+      ...(e.sessionResume === true && { sessionResume: true }),
+      ...(e.announceArmlessEnd === true && { announceArmlessEnd: true }),
+      ...(e.resumedPublishConsent === true && L && { pickUpRecentSummons: true }),
       ...(L && {
         autoReactWiring: {
           tool: u,
@@ -1901,16 +1901,16 @@ async function h0e(e) {
           title: S,
           ...(e.publishTranscript !== void 0 && { publishTranscript: e.publishTranscript }),
         },
-        ...(e.carriedPublishConsent !== !0 &&
-          e.resumedPublishConsent !== !0 &&
-          e.chainPublish !== !0 &&
-          ire(l.messages) && { freshPublishWiring: !0 }),
+        ...(e.carriedPublishConsent !== true &&
+          e.resumedPublishConsent !== true &&
+          e.chainPublish !== true &&
+          ire(l.messages) && { freshPublishWiring: true }),
       }),
     });
   if (
     L &&
     T.outcome !== "skipped" &&
-    !(T.outcome === "already_watching" && (e.resumedPublishConsent === !0 || e.carriedPublishConsent === !0)) &&
+    !(T.outcome === "already_watching" && (e.resumedPublishConsent === true || e.carriedPublishConsent === true)) &&
     !(T.outcome === "armed" && T.degraded !== void 0) &&
     ke()
   )
@@ -1947,8 +1947,8 @@ function kZt(e) {
   let { context: t, slug: r, wantWiring: o, canClearLatch: c } = e,
     s = Date.now();
   for (let u of Object.values(t.taskRegistry.all()))
-    if (Ev(u) && u.status === "running" && u.frameLive?.slug === r && $n(u, r, s, o, c, oi) === "keep") return !0;
-  return !1;
+    if (Ev(u) && u.status === "running" && u.frameLive?.slug === r && $n(u, r, s, o, c, oi) === "keep") return true;
+  return false;
 }
 function HZt(e) {
   if (de().durable.stopLatches.isStopped(e.slug)) return "stop_latched";
@@ -2031,7 +2031,7 @@ async function xZt(e) {
     getKnownVer: o,
     ownPublishes: c.artifactRegistries.ownPublishes,
     ...he(c),
-    seedKnownVerFromBoot: !0,
+    seedKnownVerFromBoot: true,
   });
 }
 async function ae(e, t) {
@@ -2043,7 +2043,7 @@ async function ae(e, t) {
     context: u,
     seedKnownVerFromBoot: d,
     seedSurfacedVer: S,
-    explicit: l = !1,
+    explicit: l = false,
     signal: _,
   } = t;
   S0e();
@@ -2051,13 +2051,13 @@ async function ae(e, t) {
   e.endAll ??= zdr;
   let L = t.autoReactWiring !== void 0 && t.autoReactWiring.commentVerbsInSchema,
     T =
-      t.userResumeWiring === !0
+      t.userResumeWiring === true
         ? "resume"
         : l
           ? "watch"
-          : t.sessionResume === !0
+          : t.sessionResume === true
             ? "session_resume"
-            : t.mcpWrite === !0
+            : t.mcpWrite === true
               ? "mcp_write"
               : d
                 ? "attach"
@@ -2066,7 +2066,7 @@ async function ae(e, t) {
   e.armOutcomes.delete(r);
   let R = de().durable.stopLatches;
   fW({ storageV5: u.storageV5 });
-  let k = t.userResumeWiring === !0 ? t.approvedRelatchGen : void 0,
+  let k = t.userResumeWiring === true ? t.approvedRelatchGen : void 0,
     V = () => R.isStopped(r) && (k === void 0 || R.latchGeneration(r) !== k);
   if (V()) return g("artifact_live_subscribe", "stop_latched"), { outcome: "skipped", reason: "stop_latched" };
   let U = qn(r);
@@ -2080,7 +2080,7 @@ async function ae(e, t) {
     return { outcome: "skipped", reason: U.reason };
   }
   let Be = GFn(r),
-    ge = (t.freshPublishWiring === !0 || t.userResumeWiring === !0) && !t.signal.aborted,
+    ge = (t.freshPublishWiring === true || t.userResumeWiring === true) && !t.signal.aborted,
     Ke = e.supervisors.get(r)?.autoReactWiring,
     Z = si(u, r, L, ge);
   if (Z !== null || e.inFlightSubscribes.has(r)) {
@@ -2096,8 +2096,8 @@ async function ae(e, t) {
         explicit: l,
         machineArm: t.machineArm,
         armedVia: T,
-        ...(t.requireEditor !== !0 &&
-          t.editorGatedWiring !== !0 && { autoReactWiring: t.autoReactWiring, humanTurnWiring: ge }),
+        ...(t.requireEditor !== true &&
+          t.editorGatedWiring !== true && { autoReactWiring: t.autoReactWiring, humanTurnWiring: ge }),
       });
     if (Z !== null) {
       let C = e.supervisors.get(r);
@@ -2111,16 +2111,16 @@ async function ae(e, t) {
         });
       }
     }
-    if (Z !== null && t.freshPublishWiring === !0 && !t.signal.aborted) Ct(u.taskRegistry, r);
+    if (Z !== null && t.freshPublishWiring === true && !t.signal.aborted) Ct(u.taskRegistry, r);
     if (
       Z === null &&
       t.autoReactWiring !== void 0 &&
       t.autoReactWiring.commentVerbsInSchema &&
-      t.requireEditor !== !0 &&
-      t.editorGatedWiring !== !0
+      t.requireEditor !== true &&
+      t.editorGatedWiring !== true
     ) {
       let C = e.pendingInFlightWiring.get(r),
-        D = t.freshPublishWiring === !0 && !t.signal.aborted,
+        D = t.freshPublishWiring === true && !t.signal.aborted,
         E =
           D || C === void 0
             ? { scanGeneration: de().wakes.scanGeneration, stopGeneration: jL(r) }
@@ -2128,20 +2128,20 @@ async function ae(e, t) {
       if (
         (e.pendingInFlightWiring.set(r, {
           wiring: me(C?.wiring, t.autoReactWiring, ge),
-          freshPublishWiring: D || C?.freshPublishWiring === !0,
+          freshPublishWiring: D || C?.freshPublishWiring === true,
           ...E,
         }),
         e.inFlightWiredIntent.add(r),
         ke())
       )
         x$n(r, { storageV5: u.storageV5 });
-      if (D && wot()) e.bootingWiredArms.set(r, { title: t.autoReactWiring.title, freshPublish: !0, ...E });
+      if (D && wot()) e.bootingWiredArms.set(r, { title: t.autoReactWiring.title, freshPublish: true, ...E });
     }
     return { outcome: "already_watching", ...(Z !== null && { taskId: Z }) };
   }
   let j = {
       url: o,
-      announce: t.announceArmlessEnd === !0 && !t.machineArm,
+      announce: t.announceArmlessEnd === true && !t.machineArm,
       handoffGen: e.handoffGeneration,
       getTitle: () => e.supervisors.get(r)?.autoReactWiring?.title ?? t.autoReactWiring?.title,
     },
@@ -2167,18 +2167,18 @@ async function ae(e, t) {
   )
     e.inFlightWiredIntent.add(r);
   let Ae,
-    Se = !1;
+    Se = false;
   try {
     if (
-      t.autoReactWiring?.commentVerbsInSchema === !0 &&
-      t.requireEditor !== !0 &&
-      t.machineArm !== !0 &&
-      t.userResumeWiring !== !0 &&
+      t.autoReactWiring?.commentVerbsInSchema === true &&
+      t.requireEditor !== true &&
+      t.machineArm !== true &&
+      t.userResumeWiring !== true &&
       wot()
     )
       e.bootingWiredArms.set(r, {
         title: t.autoReactWiring.title,
-        freshPublish: t.freshPublishWiring === !0 && !t.signal.aborted,
+        freshPublish: t.freshPublishWiring === true && !t.signal.aborted,
         scanGeneration: be,
         stopGeneration: ye,
       });
@@ -2189,24 +2189,24 @@ async function ae(e, t) {
       if (w !== void 0) delete w.lease, delete w.renewable;
     }
     let E = de().accountEpoch,
-      He = D && t.machineArm === !0 ? e.supervisors.get(r)?.lease : void 0,
+      He = D && t.machineArm === true ? e.supervisors.get(r)?.lease : void 0,
       z = He !== void 0 && Ean(He, e.rewatchTiming, E) ? He : void 0,
       O,
-      Pt = !1,
+      Pt = false,
       Ft = 0;
-    if (z !== void 0) O = { err: null, token: z.token, ver: z.ver, editor: void 0, tokenExp: void 0, renewable: !1 };
+    if (z !== void 0) O = { err: null, token: z.token, ver: z.ver, editor: void 0, tokenExp: void 0, renewable: false };
     else {
-      let w = D && t.machineArm === !0 && e.supervisors.get(r)?.renewable === !0;
+      let w = D && t.machineArm === true && e.supervisors.get(r)?.renewable === true;
       try {
         let P;
         if (w) {
           let ce = await TBn(r, _, u.credentials);
-          if (ce.err === null) (P = ce), (Pt = !0);
+          if (ce.err === null) (P = ce), (Pt = true);
           else {
             g("artifact_live_subscribe", `renew_miss_${ce.status ?? "no_response"}`);
             let ee = e.supervisors.get(r);
             if (ee !== void 0) delete ee.renewable;
-            if (_.aborted || C()) return Q(e, r, !0, "cancelled", j);
+            if (_.aborted || C()) return Q(e, r, true, "cancelled", j);
           }
         }
         (Ft = Date.now()), (O = P ?? (await wBn(r, _, u.credentials)));
@@ -2220,13 +2220,13 @@ async function ae(e, t) {
       let w = _.aborted ? "cancelled" : O.status === 404 ? "not_found" : mB(O) ? "other_org" : "boot_failed",
         P =
           w === "boot_failed" &&
-          (O.unavailable === !0 || (O.noAnswer === !0 && Date.now() - Ft >= e.rewatchTiming.stallThresholdMs));
+          (O.unavailable === true || (O.noAnswer === true && Date.now() - Ft >= e.rewatchTiming.stallThresholdMs));
       return Q(e, r, t.machineArm, w, j, { unavailable: P, httpStatus: O.status });
     }
-    let Te = t.requireEditor === !0 && !O.editor,
-      X = Te || (t.editorGatedWiring === !0 && t.autoReactWiring !== void 0 && O.editor !== !0),
+    let Te = t.requireEditor === true && !O.editor,
+      X = Te || (t.editorGatedWiring === true && t.autoReactWiring !== void 0 && O.editor !== true),
       Vt = Te ? "restored_consent_not_editor" : "watch_not_editor";
-    if (O.editor === !0) e.nonEditorSlugs.delete(r);
+    if (O.editor === true) e.nonEditorSlugs.delete(r);
     if (X) {
       if ((e.inFlightWiredIntent.delete(r), e.bootingWiredArms.delete(r), !Te && de().accountEpoch === E))
         e.nonEditorSlugs.add(r);
@@ -2248,7 +2248,7 @@ async function ae(e, t) {
     if (_.aborted || C()) return Q(e, r, t.machineArm, "cancelled", j);
     let xe = Nq(u).length + e.inFlightSubscribes.size - 1,
       ze = e.supervisors.get(r),
-      er = t.machineArm === !0 && It !== void 0 && ze !== void 0 && !ze.stopped && ze.lastActivityAt > It,
+      er = t.machineArm === true && It !== void 0 && ze !== void 0 && !ze.stopped && ze.lastActivityAt > It,
       Ut = Nq(u).length + e.pendingRegistrations;
     if (t.machineArm && !er && xe >= qh) {
       if (Ut >= qh) {
@@ -2282,7 +2282,7 @@ async function ae(e, t) {
             : void 0,
         );
     }
-    e.pendingRegistrations++, (Se = !0);
+    e.pendingRegistrations++, (Se = true);
     let F = e.supervisors.get(r),
       tr = F !== void 0 && !F.stopped && F.explicit,
       Ye = l || tr,
@@ -2293,7 +2293,7 @@ async function ae(e, t) {
       Bt = !t.machineArm && F !== void 0 && F.armedVia === "mcp_write" && T !== "publish" && T !== "mcp_write",
       Kt = Bt ? F.autoReactWiring : void 0,
       Ht = ne !== void 0 && !Mn(e, r, Ke),
-      qt = t.userResumeWiring === !0 && Ht && Qe && F.autoReactWiring?.humanTurnSnapshot === !0,
+      qt = t.userResumeWiring === true && Ht && Qe && F.autoReactWiring?.humanTurnSnapshot === true,
       Xe = e.supervisors.get(r)?.carriedVer,
       Je = Xe !== void 0 && Xe !== x ? Xe : S,
       A = Pn(e, {
@@ -2311,35 +2311,35 @@ async function ae(e, t) {
       }),
       ir = A.autoReactWiring;
     if (N !== void 0 && N.accountEpoch === de().accountEpoch) {
-      if (((A.lease = N), z === void 0 && O.renewable)) A.renewable = !0;
+      if (((A.lease = N), z === void 0 && O.renewable)) A.renewable = true;
       else if (z === void 0) delete A.renewable;
     } else delete A.lease, delete A.renewable;
     let or = A.lastActivityAt;
     if (qe !== void 0 && Dt !== void 0) A.resumeAnnounce = { onOpen: qe, onGiveUp: Dt, wired: ne !== void 0 };
     let Ze = T === "resume" && A.armedVia !== "watch" && A.armedVia !== "resume" ? A.armedVia : void 0;
     if (Ze !== void 0) A.armedVia = "resume";
-    let re = !1,
+    let re = false,
       jt = K(),
-      zt = !1,
+      zt = false,
       tt,
       sr = new AbortController(),
       G = X ? void 0 : e.pendingInFlightWiring.get(r);
     if (!X) e.pendingInFlightWiring.delete(r);
     let ie = ne ?? G?.wiring,
-      ar = G?.wiring.humanTurnSnapshot === !0 && (Ke?.humanTurnSnapshot !== !0 || G.wiring.context !== Ke.context);
+      ar = G?.wiring.humanTurnSnapshot === true && (Ke?.humanTurnSnapshot !== true || G.wiring.context !== Ke.context);
     if (G !== void 0 && (ne === void 0 || ar) && G.stopGeneration === jL(r)) {
       let w = e.supervisors.get(r);
       if (w !== void 0 && !w.stopped)
         w.autoReactWiring = me(
           w.autoReactWiring,
           { ...G.wiring, title: G.wiring.title ?? w.autoReactWiring?.title },
-          G.wiring.humanTurnSnapshot === !0,
+          G.wiring.humanTurnSnapshot === true,
         );
     }
-    let Yt = t.freshPublishWiring === !0 || G?.freshPublishWiring === !0;
-    if (G?.freshPublishWiring === !0) (be = G.scanGeneration), (ye = G.stopGeneration);
-    let B = t.userResumeWiring === !0,
-      ur = ge || ie?.humanTurnSnapshot === !0,
+    let Yt = t.freshPublishWiring === true || G?.freshPublishWiring === true;
+    if (G?.freshPublishWiring === true) (be = G.scanGeneration), (ye = G.stopGeneration);
+    let B = t.userResumeWiring === true,
+      ur = ge || ie?.humanTurnSnapshot === true,
       Ce = () => e.supervisors.get(r)?.autoReactWiring?.title ?? ie?.title,
       W =
         ie === void 0 || !ie.commentVerbsInSchema
@@ -2351,7 +2351,7 @@ async function ae(e, t) {
               ...(ie.publishTranscript !== void 0 && { publishTranscript: ie.publishTranscript }),
               getWiring: () => {
                 let w = e.supervisors.get(r)?.autoReactWiring;
-                return w?.humanTurnSnapshot === !0 || !ur ? w : void 0;
+                return w?.humanTurnSnapshot === true || !ur ? w : void 0;
               },
               abort: sr,
               getTitle: Ce,
@@ -2403,17 +2403,17 @@ ${Wt(w.detail)}`,
       });
     A.wake = nt;
     let rt = 0,
-      cr = z?.opened === !0 ? z : void 0;
+      cr = z?.opened === true ? z : void 0;
     try {
       let w = await Tje(
         {
           ws: { url: Be, protocols: [$dr, je] },
           description: kt(o, Ye, A.armedVia),
           timeout_ms: 0,
-          persistent: !0,
-          quietLifecycle: !0,
+          persistent: true,
+          quietLifecycle: true,
           ...(Gt !== void 0 && { reuseTaskId: Gt }),
-          ambient: !0,
+          ambient: true,
           handshakeDeadlineMs: e.rewatchTiming.handshakeDeadlineMs,
           autoReactArmed: W !== void 0,
           autoReactSlug: W !== void 0 ? r : void 0,
@@ -2429,7 +2429,7 @@ ${Wt(w.detail)}`,
           onLifecycle: (J, oe, lr) => {
             if (J === "open") {
               if (
-                ((re = !0),
+                ((re = true),
                 (A.lastFailure = void 0),
                 (A.stalledSince = void 0),
                 (A.lastStalledAt = void 0),
@@ -2437,21 +2437,21 @@ ${Wt(w.detail)}`,
                 (rt = Date.now()),
                 N !== void 0)
               )
-                N.opened = !0;
+                N.opened = true;
               if (k !== void 0 && _.aborted && R.isStopped(r) && A.taskId !== void 0) {
-                em(A.taskId, u.taskRegistry, { quiet: !0 }), H(e, r), g("artifact_live_subscribe", "stop_latched");
+                em(A.taskId, u.taskRegistry, { quiet: true }), H(e, r), g("artifact_live_subscribe", "stop_latched");
                 return;
               }
               let fe = e.supervisors.get(r);
               if (fe !== void 0 && !fe.stopped) Cn({ slug: r, url: o, context: u });
               y("artifact_live_subscribe", {
-                armed: !0,
-                ...(Ye && { explicit: !0 }),
+                armed: true,
+                ...(Ye && { explicit: true }),
                 ...(z !== void 0 && {
-                  token_reused: !0,
+                  token_reused: true,
                   lease_remaining_min: Math.max(0, Math.floor((z.expMs - rt) / 60000)),
                 }),
-                ...(Pt && { token_renewed: !0 }),
+                ...(Pt && { token_renewed: true }),
               });
               let we = W !== void 0 && de().wakes.scanGeneration !== be,
                 fr = jL(r) !== ye,
@@ -2460,7 +2460,7 @@ ${Wt(w.detail)}`,
                   te.liftedAtScanGeneration.get(r) === te.scanGeneration ||
                   te.humanTurnAtScanGeneration === te.scanGeneration;
               if (we && !pr && !lp(r) && pd())
-                Xye(r), pD(1, [], { catchUp: !1, nameChordGesture: !Le(), passive: !Le() }), QQ({ flush: !0 });
+                Xye(r), pD(1, [], { catchUp: false, nameChordGesture: !Le(), passive: !Le() }), QQ({ flush: true });
               if (k !== void 0 && !_.aborted) R.clearByApprovedRewatch(r, k);
               if (W !== void 0) Fee(r).lastWakeArgs = { slug: r, url: o, ...W };
               let Zt = B && V();
@@ -2474,7 +2474,7 @@ ${Wt(w.detail)}`,
                   Zut(r),
                     te.liftedAtScanGeneration.set(r, te.scanGeneration),
                     Vx(e, r),
-                    $q({ slug: r, url: o, ...W, seed: !1 });
+                    $q({ slug: r, url: o, ...W, seed: false });
                 else if (lp(r) && (we || fr || Zt || !(Yt || B)));
                 else if (lp(r)) {
                   let M = cp(r),
@@ -2486,7 +2486,7 @@ ${Wt(w.detail)}`,
                         detail: `Auto-replies on artifact ${o} were ${B ? "resumed by a resume_replies request" : "re-enabled by this publish"} \u2014 they had been ${se ? "handed to another session of this conversation that resumed it or published there" : M ? "paused when the user interrupted the session (Ctrl+C or Stop) and the watch had since dropped" : "stopped when their live-updates task was killed"}. ${M && !se ? _t : Yr}`,
                       });
                   if (!M || se) F6e(r);
-                  V3n(r), $$n(r), Zut(r), Vx(e, r), $q({ slug: r, url: o, ...W, seed: !0 });
+                  V3n(r), $$n(r), Zut(r), Vx(e, r), $q({ slug: r, url: o, ...W, seed: true });
                 } else {
                   if (te.pendingResumeDisclosure.delete(r))
                     yM(r),
@@ -2498,8 +2498,8 @@ ${Wt(w.detail)}`,
                     slug: r,
                     url: o,
                     ...W,
-                    seed: !0,
-                    ...(t.pickUpRecentSummons === !0 && t.machineArm !== !0 && { pickUpRecentSummons: !0 }),
+                    seed: true,
+                    ...(t.pickUpRecentSummons === true && t.machineArm !== true && { pickUpRecentSummons: true }),
                   });
                 }
               let We = e.supervisors.get(r),
@@ -2507,7 +2507,7 @@ ${Wt(w.detail)}`,
               if (We !== void 0 && ut !== void 0) {
                 We.resumeAnnounce = void 0;
                 let { autoReact: M } = de(),
-                  se = W !== void 0 && !Pm(r) && !M.userDisarmed && M.enabledMemo === !0;
+                  se = W !== void 0 && !Pm(r) && !M.userDisarmed && M.enabledMemo === true;
                 if (!_.aborted && !We.stopped && !R.isStopped(r) && (se || (!ut.wired && W === void 0))) ut.onOpen();
               }
               if (
@@ -2518,9 +2518,9 @@ ${Wt(w.detail)}`,
                 !R.isStopped(r) &&
                 !Pm(r) &&
                 !de().autoReact.userDisarmed &&
-                de().autoReact.enabledMemo === !0
+                de().autoReact.enabledMemo === true
               ) {
-                zt = !0;
+                zt = true;
                 let M = n8() ? L$n([r], Date.now()) : void 0;
                 (async () => {
                   let se = await import("/$bunfs/root/chunk-j0bs780t.js"),
@@ -2540,15 +2540,15 @@ ${Wt(w.detail)}`,
                     ct = (
                       await mr({
                         holders: [Ee.holder, ...Ee.otherHolders],
-                        holdersIncomplete: Ee.unproven === !0,
+                        holdersIncomplete: Ee.unproven === true,
                         conversationId: jt,
                         slugs: [r],
                         reason: "claim",
-                        alreadyReplying: !0,
+                        alreadyReplying: true,
                         ...(M !== void 0 && { claim: M }),
                       })
                     ).yielded.has(r),
-                    tn = !ct && (M?.lost.has(r) ?? !1),
+                    tn = !ct && (M?.lost.has(r) ?? false),
                     Oe = e8(() => Ce(), o);
                   Wa({
                     value: Du({
@@ -2564,7 +2564,7 @@ ${Wt(w.detail)}`,
 <event>${Wt(ct ? `Another live session of this same conversation was also armed to reply to comments on ${o}; it paused its replies at this session's request, so only this session answers them now. Nothing to do; do not stop a watch on your own.` : tn ? `Another live session of this same conversation claimed the replies to comments on ${o} a moment after this one; this session paused its own at that session's request, so only that session answers them now. Nothing to do \u2014 a publish the user asks for here takes them back; do not republish or stop a watch on your own.` : `Another live session of this same conversation is running. If it is also replying to comments on ${o}, every comment will get a reply from both sessions until one stops. Tell the user; they can end either session's live-updates task in /tasks. Do not stop a watch on your own.`)}</event>`,
                     }),
                     mode: "task-notification",
-                    passive: !0,
+                    passive: true,
                     priority: "next",
                     origin: { kind: "task-notification", source: ex, slug: r, displayName: Oe },
                     agentId: et(),
@@ -2591,14 +2591,14 @@ ${Wt(w.detail)}`,
             }
             if (re)
               g("artifact_live_subscribe", `socket_closed_${oe ?? "unknown"}`, {
-                chain_spared: de().autoReact.artifacts.get(r)?.scanning === !0,
+                chain_spared: de().autoReact.artifacts.get(r)?.scanning === true,
               });
             else if (at !== void 0) g("artifact_live_subscribe", "reuse_connect_failed");
             else {
               let fe = fZ(oe),
                 we = {
-                  ...(st && { stalled: !0 }),
-                  ...(ot && { shed: !0 }),
+                  ...(st && { stalled: true }),
+                  ...(ot && { shed: true }),
                   ...(fe !== null && { http_status: fe.status, cf_mitigated: fe.cfMitigated }),
                 };
               if (Object.keys(we).length > 0) p("artifact_live_subscribe", "connect_failed", we);
@@ -2617,19 +2617,19 @@ ${Wt(w.detail)}`,
         },
         u,
       );
-      if ((Zr(e, A, r, w.data.taskId), Se)) e.pendingRegistrations--, (Se = !1);
+      if ((Zr(e, A, r, w.data.taskId), Se)) e.pendingRegistrations--, (Se = false);
       let P = e.supervisors.get(r);
       if (P === void 0 || P !== A)
         return (
-          em(w.data.taskId, u.taskRegistry, { quiet: !0 }),
+          em(w.data.taskId, u.taskRegistry, { quiet: true }),
           xt(e, r, t.machineArm),
           { outcome: "skipped", reason: "cancelled" }
         );
       if (C())
-        return em(w.data.taskId, u.taskRegistry, { quiet: !0 }), H(e, r), { outcome: "skipped", reason: "cancelled" };
+        return em(w.data.taskId, u.taskRegistry, { quiet: true }), H(e, r), { outcome: "skipped", reason: "cancelled" };
       if (V()) {
         if (
-          (em(w.data.taskId, u.taskRegistry, { quiet: !0 }),
+          (em(w.data.taskId, u.taskRegistry, { quiet: true }),
           g("artifact_live_subscribe", "stop_latched"),
           e.armOutcomes.delete(r),
           yt(e, r),
@@ -2641,14 +2641,14 @@ ${Wt(w.detail)}`,
       }
       let ce = B && _.aborted;
       if (ce && k !== void 0 && R.isStopped(r))
-        return em(w.data.taskId, u.taskRegistry, { quiet: !0 }), H(e, r), { outcome: "skipped", reason: "cancelled" };
+        return em(w.data.taskId, u.taskRegistry, { quiet: true }), H(e, r), { outcome: "skipped", reason: "cancelled" };
       if ((e.armOutcomes.delete(r), yt(e, r), ce)) return { outcome: "skipped", reason: "cancelled" };
       if (B && (de().wakes.scanGeneration !== be || jL(r) !== ye))
         return { outcome: "skipped", reason: "stopped_again" };
       if (qt && ne !== void 0) {
         let J = e.supervisors.get(r);
         if (J === A && !J.stopped && !Mn(e, r, ir))
-          J.autoReactWiring = me(J.autoReactWiring, { ...ne, title: J.autoReactWiring?.title ?? ne.title }, !0);
+          J.autoReactWiring = me(J.autoReactWiring, { ...ne, title: J.autoReactWiring?.title ?? ne.title }, true);
       }
       let ee = X ? void 0 : e.pendingInFlightWiring.get(r),
         Xt = lp(r),
@@ -2660,11 +2660,11 @@ ${Wt(w.detail)}`,
           ee.stopGeneration === jL(r);
       if (ee === void 0 || _.aborted || !(W === void 0 ? !Xt || Jt : !B && dr && Jt))
         return { outcome: "armed", taskId: w.data.taskId, ...(X && { degraded: "not_editor" }) };
-      e.pendingInFlightWiring.delete(r), (Ae = ee), em(w.data.taskId, u.taskRegistry, { quiet: !0 });
+      e.pendingInFlightWiring.delete(r), (Ae = ee), em(w.data.taskId, u.taskRegistry, { quiet: true });
     } catch {
       let w = e.supervisors.get(r);
       if (nr && w === A && !(w !== void 0 && w.explicit && !l)) H(e, r);
-      else if (rr && w !== void 0 && w === F) w.explicit = !1;
+      else if (rr && w !== void 0 && w === F) w.explicit = false;
       if (Ze !== void 0 && w === A && w.armedVia === "resume") w.armedVia = Ze;
       else if (Bt && w === A && w.armedVia === T && !w.explicit) {
         if (((w.armedVia = "mcp_write"), Kt === void 0)) delete w.autoReactWiring;
@@ -2675,7 +2675,7 @@ ${Wt(w.detail)}`,
         if (Qt === void 0) delete w.wake;
         else w.wake = Qt;
       if (w !== void 0 && qe !== void 0) w.resumeAnnounce = void 0;
-      if (N !== void 0 && w?.lease === N && !Tan(N, { closeCode: void 0, refused: !1, healthy: !1 })) {
+      if (N !== void 0 && w?.lease === N && !Tan(N, { closeCode: void 0, refused: false, healthy: false })) {
         if ((delete w.lease, !N.opened)) delete w.renewable;
       }
       return (
@@ -2697,7 +2697,7 @@ ${Wt(w.detail)}`,
       } catch (E) {
         h(E);
       }
-    if ((e.pendingInFlightWiring.delete(r), Se)) e.pendingRegistrations--, (Se = !1);
+    if ((e.pendingInFlightWiring.delete(r), Se)) e.pendingRegistrations--, (Se = false);
   }
   if (Ae === void 0) throw Error("armLiveSubscription: late-park fall-through lost its park");
   return ae(e, {
@@ -2740,9 +2740,9 @@ function hi(e) {
     case "other_org":
       return { advice: qse(e) };
     case "flag_off":
-      return { advice: mi, passive: !0 };
+      return { advice: mi, passive: true };
     default:
-      return { advice: Ge, passive: !0 };
+      return { advice: Ge, passive: true };
   }
 }
 function qse(e) {
@@ -2783,7 +2783,7 @@ function hot(e) {
       t.origin?.kind === "task-notification" &&
       t.origin.source === ex &&
       t.origin.slug === e &&
-      (t.origin.armFailed === !0 || t.origin.watchEnded === !0),
+      (t.origin.armFailed === true || t.origin.watchEnded === true),
   );
 }
 function gi(e, t, r, o) {
@@ -2807,7 +2807,7 @@ function Xn(e) {
     }),
     mode: "task-notification",
     priority: "next",
-    origin: { kind: "task-notification", source: ex, slug: e.slug, displayName: e.artifactName, armFailed: !0 },
+    origin: { kind: "task-notification", source: ex, slug: e.slug, displayName: e.artifactName, armFailed: true },
     agentId: et(),
   });
 }

@@ -114,20 +114,20 @@ var { dirname: O, isAbsolute: h, join: m, normalize: T, relative: I, sep: P } = 
   S = 120000,
   X = m(O(hWt), "outputs");
 class g {
-  rootEnsured = !1;
-  sdkUrlRejectionLogged = !1;
-  passInFlight = !1;
+  rootEnsured = false;
+  sdkUrlRejectionLogged = false;
+  passInFlight = false;
   pendingSince = void 0;
   canPushToCcr() {
-    if (!XTe(a.CLAUDE_CODE_REMOTE_SESSION_ID, a.CLAUDE_CODE_ENVIRONMENT_KIND)) return !1;
+    if (!XTe(a.CLAUDE_CODE_REMOTE_SESSION_ID, a.CLAUDE_CODE_ENVIRONMENT_KIND)) return false;
     let e = Kre();
     if (e.status === "rejected" && !this.sdkUrlRejectionLogged)
-      (this.sdkUrlRejectionLogged = !0), Y("warn", "outputs_push_sdk_url_rejected", { code: e.code });
+      (this.sdkUrlRejectionLogged = true), Y("warn", "outputs_push_sdk_url_rejected", { code: e.code });
     return e.status === "ok";
   }
   async ensureRoot() {
     if (this.rootEnsured || !this.canPushToCcr()) return;
-    (this.rootEnsured = !0), await _(f, { recursive: !0 }).catch(() => {});
+    (this.rootEnsured = true), await _(f, { recursive: true }).catch(() => {});
   }
   async pushModified(e) {
     if (!this.canPushToCcr()) return;
@@ -135,12 +135,12 @@ class g {
       this.pendingSince = Math.min(this.pendingSince ?? e, e);
       return;
     }
-    this.passInFlight = !0;
+    this.passInFlight = true;
     try {
       let t = e;
       while (t !== void 0) (this.pendingSince = void 0), await R(t), (t = this.pendingSince);
     } finally {
-      this.passInFlight = !1;
+      this.passInFlight = false;
     }
   }
 }
@@ -156,10 +156,10 @@ function b(e) {
 async function F(e, t) {
   let r;
   try {
-    if ((await E(e)).size > y) return { ok: !1, skipped: "too_large" };
+    if ((await E(e)).size > y) return { ok: false, skipped: "too_large" };
     r = await k(e);
   } catch {
-    return { ok: !1, skipped: "enoent" };
+    return { ok: false, skipped: "enoent" };
   }
   try {
     if (
@@ -177,12 +177,12 @@ async function F(e, t) {
         )
       ).ok
     )
-      return { ok: !1, skipped: "gate_off" };
-    return { ok: !0, bytes: r.length };
+      return { ok: false, skipped: "gate_off" };
+    return { ok: true, bytes: r.length };
   } catch (u) {
     let { kind: i, status: o } = os(u);
-    if (o === 501 || o === 404) return { ok: !1, skipped: "gate_off" };
-    return { ok: !1, error: `push failed: ${i}${o ? ` ${o}` : ""}` };
+    if (o === 501 || o === 404) return { ok: false, skipped: "gate_off" };
+    return { ok: false, error: `push failed: ${i}${o ? ` ${o}` : ""}` };
   }
 }
 async function R(e) {

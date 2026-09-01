@@ -13,7 +13,7 @@ import { Myt } from "/$bunfs/root/chunk-8sbwe0jk.js";
 import { gs } from "/$bunfs/root/chunk-manh1369.js";
 import { se } from "/$bunfs/root/chunk-q1fyd2qk.js";
 function C(t) {
-  if (t === 9 || t === 10) return !1;
+  if (t === 9 || t === 10) return false;
   return t < 32 || (t >= 127 && t <= 159);
 }
 function E(t) {
@@ -64,9 +64,9 @@ function b(t) {
     n += e;
     let o = se(n),
       s = o - r;
-    if (((r = o), s !== S(e))) return !1;
+    if (((r = o), s !== S(e))) return false;
   }
-  return !0;
+  return true;
 }
 function P(t) {
   let n = "",
@@ -143,11 +143,11 @@ function v(t) {
 `);
 }
 function t$(t) {
-  for (let n = 0; n < t.length; n++) if (C(t.charCodeAt(n))) return !1;
-  return !0;
+  for (let n = 0; n < t.length; n++) if (C(t.charCodeAt(n))) return false;
+  return true;
 }
 function Ci(t) {
-  return I(t, !0);
+  return I(t, true);
 }
 function I(t, n) {
   let r = "";
@@ -164,6 +164,6 @@ function qKe(t) {
   return t.replace(N, "");
 }
 function hV(t) {
-  return I(qKe(Kd(t)), !1);
+  return I(qKe(Kd(t)), false);
 }
 export { qLe, jQn, t$, Ci, qKe, hV };

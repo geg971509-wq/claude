@@ -407,15 +407,15 @@ If the tool returns 'unavailable' at any point, skip that call and use the manua
     contentLength: 0,
     isEnabled: () => Mt("allow_team_onboarding"),
     policyGate: { policy: "allow_team_onboarding", featureLabel: "Team onboarding" },
-    isHidden: !1,
+    isHidden: false,
     progressMessage: "scanning usage data",
     effort: "low",
-    requires: { workspace: !0 },
+    requires: { workspace: true },
     userFacingName() {
       return "team-onboarding";
     },
     source: "builtin",
-    disableModelInvocation: !0,
+    disableModelInvocation: true,
     async getPromptForCommand(u, i) {
       let t = I("tengu_flint_harbor_prompt", {}),
         m = typeof t?.prompt === "string" ? t.prompt : H,

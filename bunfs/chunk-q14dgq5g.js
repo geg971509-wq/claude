@@ -30,7 +30,7 @@ class z {
   powerShellPath = null;
   resolvedPowerShellPath = void 0;
   gitBashPath = void 0;
-  warnedShortTmpDir = !1;
+  warnedShortTmpDir = false;
 }
 var _0 = new z();
 function FAt() {
@@ -369,9 +369,9 @@ function BCe(e, t) {
 }
 async function $a(e) {
   try {
-    return await re(e), !0;
+    return await re(e), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 var Efe = 262144;
@@ -382,7 +382,7 @@ function Afe(e, { maxBytes: t }) {
     let s = [],
       o = 0,
       c = Buffer.alloc(8192);
-    while (!0) {
+    while (true) {
       let f = we(i, c, 0, c.length, null);
       if (f === 0) return Buffer.concat(s).toString("utf8");
       if (((o += f), o > t))
@@ -503,7 +503,7 @@ async function fj(e) {
     return;
   }
 }
-function eVt({ content: e, startLine: t, tabAwareSeparator: r = !1 }) {
+function eVt({ content: e, startLine: t, tabAwareSeparator: r = false }) {
   if (!e) return "";
   let i =
       r &&
@@ -543,7 +543,7 @@ function ae(e, t) {
     try {
       if (e.cause === void 0)
         (e.message += ` (atomic write failed first: ${l(t)})`),
-          Object.defineProperty(e, "cause", { value: t, writable: !0, configurable: !0, enumerable: !1 });
+          Object.defineProperty(e, "cause", { value: t, writable: true, configurable: true, enumerable: false });
     } catch {}
   throw e;
 }
@@ -552,7 +552,7 @@ function MRn(e, t, r = { encoding: "utf-8" }) {
     s = r.allowSymlink ? 0 : g.O_NOFOLLOW,
     o = e,
     c,
-    f = !1;
+    f = false;
   if (r.allowSymlink)
     try {
       let d = i.readlinkSync(e);
@@ -572,17 +572,17 @@ function MRn(e, t, r = { encoding: "utf-8" }) {
         throw new Gm(
           `Refusing to write through symlink: ${e}. Resolve the symlink and pass the real target path explicitly.`,
         );
-      (c = d.mode), (f = !0);
+      (c = d.mode), (f = true);
     } catch (d) {
       if (!X(d)) throw d;
     }
   }
   let b = `.tmp.${process.pid}.${Q(6).toString("hex")}`,
-    u = oe(r.stagingDir, o, b, r.allowSymlink ?? !1),
-    _ = !1;
+    u = oe(r.stagingDir, o, b, r.allowSymlink ?? false),
+    _ = false;
   if (r.allowSymlink && !f)
     try {
-      (c = i.statSync(o).mode), (f = !0);
+      (c = i.statSync(o).mode), (f = true);
     } catch (d) {
       if (!X(d)) throw d;
     }
@@ -591,7 +591,7 @@ function MRn(e, t, r = { encoding: "utf-8" }) {
   try {
     n(`Writing to temp file: ${u}`);
     let d = T(u, g.O_WRONLY | g.O_CREAT | g.O_EXCL | s, !f && r.mode !== void 0 ? r.mode : void 0),
-      O = !1,
+      O = false,
       L;
     try {
       if (y(u) !== y(o)) C(r.stagingDir);
@@ -608,9 +608,9 @@ function MRn(e, t, r = { encoding: "utf-8" }) {
         if (!w0(m)) throw m;
         n(`fsync unsupported on this filesystem: ${m}`);
       }
-      _ = !0;
+      _ = true;
     } catch (m) {
-      (O = !0), (L = m);
+      (O = true), (L = m);
     }
     try {
       P(d);
@@ -681,7 +681,7 @@ async function O_(e, t, r = { encoding: "utf-8" }) {
     s = r.allowSymlink ? 0 : g.O_NOFOLLOW,
     o = e,
     c,
-    f = !1;
+    f = false;
   if (r.allowSymlink)
     try {
       let d = await Ee(e);
@@ -701,17 +701,17 @@ async function O_(e, t, r = { encoding: "utf-8" }) {
         throw new Gm(
           `Refusing to write through symlink: ${e}. Resolve the symlink and pass the real target path explicitly.`,
         );
-      (c = d.mode), (f = !0);
+      (c = d.mode), (f = true);
     } catch (d) {
       if (!X(d)) throw d;
     }
   }
   let b = `.tmp.${process.pid}.${Q(6).toString("hex")}`,
-    u = oe(r.stagingDir, o, b, r.allowSymlink ?? !1),
-    _ = !1;
+    u = oe(r.stagingDir, o, b, r.allowSymlink ?? false),
+    _ = false;
   if (r.allowSymlink && !f)
     try {
-      (c = (await i.stat(o)).mode), (f = !0);
+      (c = (await i.stat(o)).mode), (f = true);
     } catch (d) {
       if (!X(d)) throw d;
     }
@@ -720,7 +720,7 @@ async function O_(e, t, r = { encoding: "utf-8" }) {
   try {
     n(`Writing to temp file: ${u}`);
     let d = await A(u, g.O_WRONLY | g.O_CREAT | g.O_EXCL | s, !f && r.mode !== void 0 ? r.mode : void 0),
-      O = !1,
+      O = false,
       L;
     try {
       if (y(u) !== y(o)) C(r.stagingDir);
@@ -737,9 +737,9 @@ async function O_(e, t, r = { encoding: "utf-8" }) {
         if (!w0(m)) throw m;
         n(`fsync unsupported on this filesystem: ${m}`);
       }
-      _ = !0;
+      _ = true;
     } catch (m) {
-      (O = !0), (L = m);
+      (O = true), (L = m);
     }
     try {
       await d.close();
@@ -836,7 +836,7 @@ async function nVt(e, t = Efe) {
   try {
     return (await le().stat(e)).size <= t;
   } catch {
-    return !1;
+    return false;
   }
 }
 function Up(e) {

@@ -20,14 +20,14 @@ import { ea } from "/$bunfs/root/chunk-9yzzw213.js";
 import { te } from "/$bunfs/root/chunk-wag5ye9w.js";
 function G() {
   return {
-    async: !1,
-    breaks: !1,
+    async: false,
+    breaks: false,
     extensions: null,
-    gfm: !0,
+    gfm: true,
     hooks: null,
-    pedantic: !1,
+    pedantic: false,
     renderer: null,
-    silent: !1,
+    silent: false,
     tokenizer: null,
     walkTokens: null,
   };
@@ -367,7 +367,7 @@ function re(e) {
 }
 function ie(e, t) {
   let n = e.replace(k.findPipe, (r, l, o) => {
-      let c = !1,
+      let c = false,
         p = l;
       while (--p >= 0 && o[p] === "\\") c = !c;
       if (c) return "|";
@@ -408,9 +408,9 @@ function le(e, t, n, s, i) {
     l = t.title || null,
     o = e[1].replace(i.other.outputLinkReplace, "$1");
   if (e[0].charAt(0) !== "!") {
-    s.state.inLink = !0;
+    s.state.inLink = true;
     let c = { type: "link", raw: n, href: r, title: l, text: o, tokens: s.inlineTokens(o) };
-    return (s.state.inLink = !1), c;
+    return (s.state.inLink = false), c;
   }
   return { type: "image", raw: n, href: r, title: l, text: o };
 }
@@ -510,11 +510,11 @@ class aOe {
         i = "",
         r = [];
       while (n.length > 0) {
-        let l = !1,
+        let l = false,
           o = [],
           c;
         for (c = 0; c < n.length; c++)
-          if (this.rules.other.blockquoteStart.test(n[c])) o.push(n[c]), (l = !0);
+          if (this.rules.other.blockquoteStart.test(n[c])) o.push(n[c]), (l = true);
           else if (!l) o.push(n[c]);
           else break;
         n = n.slice(c);
@@ -536,7 +536,7 @@ ${p}`
 ${u}`
             : u);
         let d = this.lexer.state.top;
-        if (((this.lexer.state.top = !0), this.lexer.blockTokens(u, r, !0), (this.lexer.state.top = d), n.length === 0))
+        if (((this.lexer.state.top = true), this.lexer.blockTokens(u, r, true), (this.lexer.state.top = d), n.length === 0))
           break;
         let f = r.at(-1);
         if (f?.type === "code") break;
@@ -578,12 +578,12 @@ ${u}`
     if (t) {
       let n = t[1].trim(),
         s = n.length > 1,
-        i = { type: "list", raw: "", ordered: s, start: s ? +n.slice(0, -1) : "", loose: !1, items: [] };
+        i = { type: "list", raw: "", ordered: s, start: s ? +n.slice(0, -1) : "", loose: false, items: [] };
       if (((n = s ? `\\d{1,9}\\${n.slice(-1)}` : `\\${n}`), this.options.pedantic)) n = s ? n : "[*+-]";
       let r = this.rules.other.listItemRegex(n),
-        l = !1;
+        l = false;
       while (e) {
-        let c = !1,
+        let c = false,
           p = "",
           u = "";
         if (!(t = r.exec(e))) break;
@@ -613,7 +613,7 @@ ${u}`
             `
 `),
             (e = e.substring(f.length + 1)),
-            (c = !0);
+            (c = true);
         if (!c) {
           let D = this.rules.other.nextBulletRegex(g),
             K = this.rules.other.hrRegex(g),
@@ -648,7 +648,7 @@ ${u}`
                 `
 ` + f;
             }
-            if (!m && !f.trim()) m = !0;
+            if (!m && !f.trim()) m = true;
             (p +=
               N +
               `
@@ -658,8 +658,8 @@ ${u}`
           }
         }
         if (!i.loose) {
-          if (l) i.loose = !0;
-          else if (this.rules.other.doubleBlankLine.test(p)) l = !0;
+          if (l) i.loose = true;
+          else if (this.rules.other.doubleBlankLine.test(p)) l = true;
         }
         let x = null,
           W;
@@ -667,7 +667,7 @@ ${u}`
           if (((x = this.rules.other.listIsTask.exec(u)), x))
             (W = x[0] !== "[ ] "), (u = u.replace(this.rules.other.listReplaceTask, ""));
         }
-        i.items.push({ type: "list_item", raw: p, task: !!x, checked: W, loose: !1, text: u, tokens: [] }),
+        i.items.push({ type: "list_item", raw: p, task: !!x, checked: W, loose: false, text: u, tokens: [] }),
           (i.raw += p);
       }
       let o = i.items.at(-1);
@@ -676,13 +676,13 @@ ${u}`
       i.raw = i.raw.trimEnd();
       for (let c = 0; c < i.items.length; c++)
         if (
-          ((this.lexer.state.top = !1), (i.items[c].tokens = this.lexer.blockTokens(i.items[c].text, [])), !i.loose)
+          ((this.lexer.state.top = false), (i.items[c].tokens = this.lexer.blockTokens(i.items[c].text, [])), !i.loose)
         ) {
           let p = i.items[c].tokens.filter((d) => d.type === "space"),
             u = p.length > 0 && p.some((d) => this.rules.other.anyLine.test(d.raw));
           i.loose = u;
         }
-      if (i.loose) for (let c = 0; c < i.items.length; c++) i.items[c].loose = !0;
+      if (i.loose) for (let c = 0; c < i.items.length; c++) i.items[c].loose = true;
       return i;
     }
   }
@@ -691,7 +691,7 @@ ${u}`
     if (t)
       return {
         type: "html",
-        block: !0,
+        block: true,
         raw: t[0],
         pre: t[1] === "pre" || t[1] === "script" || t[1] === "style",
         text: t[0],
@@ -726,13 +726,13 @@ ${u}`
       else if (this.rules.other.tableAlignLeft.test(l)) r.align.push("left");
       else r.align.push(null);
     for (let l = 0; l < n.length; l++)
-      r.header.push({ text: n[l], tokens: this.lexer.inline(n[l]), header: !0, align: r.align[l] });
+      r.header.push({ text: n[l], tokens: this.lexer.inline(n[l]), header: true, align: r.align[l] });
     for (let l of i)
       r.rows.push(
         ie(l, r.header.length).map((o, c) => ({
           text: o,
           tokens: this.lexer.inline(o),
-          header: !1,
+          header: false,
           align: r.align[c],
         })),
       );
@@ -772,18 +772,18 @@ ${u}`
   tag(e) {
     let t = this.rules.inline.tag.exec(e);
     if (t) {
-      if (!this.lexer.state.inLink && this.rules.other.startATag.test(t[0])) this.lexer.state.inLink = !0;
-      else if (this.lexer.state.inLink && this.rules.other.endATag.test(t[0])) this.lexer.state.inLink = !1;
+      if (!this.lexer.state.inLink && this.rules.other.startATag.test(t[0])) this.lexer.state.inLink = true;
+      else if (this.lexer.state.inLink && this.rules.other.endATag.test(t[0])) this.lexer.state.inLink = false;
       if (!this.lexer.state.inRawBlock && this.rules.other.startPreScriptTag.test(t[0]))
-        this.lexer.state.inRawBlock = !0;
+        this.lexer.state.inRawBlock = true;
       else if (this.lexer.state.inRawBlock && this.rules.other.endPreScriptTag.test(t[0]))
-        this.lexer.state.inRawBlock = !1;
+        this.lexer.state.inRawBlock = false;
       return {
         type: "html",
         raw: t[0],
         inLink: this.lexer.state.inLink,
         inRawBlock: this.lexer.state.inRawBlock,
-        block: !1,
+        block: false,
         text: t[0],
       };
     }
@@ -937,7 +937,7 @@ class SM {
       (this.tokenizer.options = this.options),
       (this.tokenizer.lexer = this),
       (this.inlineQueue = []),
-      (this.state = { inLink: !1, inRawBlock: !1, top: !0 });
+      (this.state = { inLink: false, inRawBlock: false, top: true });
     let t = { other: k, block: j.normal, inline: v.normal };
     if (this.options.pedantic) (t.block = j.pedantic), (t.inline = v.pedantic);
     else if (this.options.gfm)
@@ -967,14 +967,14 @@ class SM {
     }
     return (this.inlineQueue = []), this.tokens;
   }
-  blockTokens(e, t = [], n = !1) {
+  blockTokens(e, t = [], n = false) {
     if (this.options.pedantic) e = e.replace(k.tabCharGlobal, "    ").replace(k.spaceLine, "");
     while (e) {
       let s;
       if (
         this.options.extensions?.block?.some((r) => {
-          if ((s = r.call({ lexer: this }, e, t))) return (e = e.substring(s.raw.length)), t.push(s), !0;
-          return !1;
+          if ((s = r.call({ lexer: this }, e, t))) return (e = e.substring(s.raw.length)), t.push(s), true;
+          return false;
         })
       )
         continue;
@@ -1098,7 +1098,7 @@ class SM {
         } else throw Error(r);
       }
     }
-    return (this.state.top = !0), t;
+    return (this.state.top = true), t;
   }
   inline(e, t = []) {
     return this.inlineQueue.push({ src: e, tokens: t }), t;
@@ -1128,16 +1128,16 @@ class SM {
         n.slice(this.tokenizer.rules.inline.blockSkip.lastIndex);
     while ((s = this.tokenizer.rules.inline.anyPunctuation.exec(n)) != null)
       n = n.slice(0, s.index) + "++" + n.slice(this.tokenizer.rules.inline.anyPunctuation.lastIndex);
-    let i = !1,
+    let i = false,
       r = "";
     while (e) {
       if (!i) r = "";
-      i = !1;
+      i = false;
       let l;
       if (
         this.options.extensions?.inline?.some((c) => {
-          if ((l = c.call({ lexer: this }, e, t))) return (e = e.substring(l.raw.length)), t.push(l), !0;
-          return !1;
+          if ((l = c.call({ lexer: this }, e, t))) return (e = e.substring(l.raw.length)), t.push(l), true;
+          return false;
         })
       )
         continue;
@@ -1199,7 +1199,7 @@ class SM {
       }
       if ((l = this.tokenizer.inlineText(o))) {
         if (((e = e.substring(l.raw.length)), l.raw.slice(-1) !== "_")) r = l.raw.slice(-1);
-        i = !0;
+        i = true;
         let c = t.at(-1);
         if (c?.type === "text") (c.raw += l.raw), (c.text += l.text);
         else t.push(l);
@@ -1234,7 +1234,7 @@ class z {
     if (!s)
       return (
         "<pre><code>" +
-        (n ? i : y(i, !0)) +
+        (n ? i : y(i, true)) +
         `</code></pre>
 `
       );
@@ -1242,7 +1242,7 @@ class z {
       '<pre><code class="language-' +
       y(s) +
       '">' +
-      (n ? i : y(i, !0)) +
+      (n ? i : y(i, true)) +
       `</code></pre>
 `
     );
@@ -1296,8 +1296,8 @@ ${this.parser.parse(e)}</blockquote>
             e.tokens[0].tokens && e.tokens[0].tokens.length > 0 && e.tokens[0].tokens[0].type === "text")
           )
             (e.tokens[0].tokens[0].text = n + " " + y(e.tokens[0].tokens[0].text)),
-              (e.tokens[0].tokens[0].escaped = !0);
-        } else e.tokens.unshift({ type: "text", raw: n + " ", text: n + " ", escaped: !0 });
+              (e.tokens[0].tokens[0].escaped = true);
+        } else e.tokens.unshift({ type: "text", raw: n + " ", text: n + " ", escaped: true });
       else t += n + " ";
     }
     return (
@@ -1360,7 +1360,7 @@ ${e}</tr>
     return `<em>${this.parser.parseInline(e)}</em>`;
   }
   codespan({ text: e }) {
-    return `<code>${y(e, !0)}</code>`;
+    return `<code>${y(e, true)}</code>`;
   }
   br(e) {
     return "<br>";
@@ -1440,7 +1440,7 @@ class w {
   static parseInline(e, t) {
     return new w(t).parseInline(e);
   }
-  parse(e, t = !0) {
+  parse(e, t = true) {
     let n = "";
     for (let s = 0; s < e.length; s++) {
       let i = e[s];
@@ -1448,7 +1448,7 @@ class w {
         let l = i,
           o = this.options.extensions.renderers[l.type].call({ parser: this }, l);
         if (
-          o !== !1 ||
+          o !== false ||
           !["space", "hr", "heading", "code", "table", "blockquote", "list", "html", "paragraph", "text"].includes(
             l.type,
           )
@@ -1508,7 +1508,7 @@ class w {
               type: "paragraph",
               raw: o,
               text: o,
-              tokens: [{ type: "text", raw: o, text: o, escaped: !0 }],
+              tokens: [{ type: "text", raw: o, text: o, escaped: true }],
             });
           else n += o;
           continue;
@@ -1529,7 +1529,7 @@ class w {
       if (this.options.extensions?.renderers?.[i.type]) {
         let l = this.options.extensions.renderers[i.type].call({ parser: this }, i);
         if (
-          l !== !1 ||
+          l !== false ||
           !["escape", "html", "link", "image", "strong", "em", "codespan", "br", "del", "text"].includes(i.type)
         ) {
           n += l || "";
@@ -1614,8 +1614,8 @@ class P {
 class O2 {
   defaults = G();
   options = this.setOptions;
-  parse = this.parseMarkdown(!0);
-  parseInline = this.parseMarkdown(!1);
+  parse = this.parseMarkdown(true);
+  parseInline = this.parseMarkdown(false);
   Parser = w;
   Renderer = z;
   TextRenderer = q;
@@ -1657,7 +1657,7 @@ class O2 {
     return (
       e.forEach((n) => {
         let s = { ...n };
-        if (((s.async = this.defaults.async || s.async || !1), n.extensions))
+        if (((s.async = this.defaults.async || s.async || false), n.extensions))
           n.extensions.forEach((i) => {
             if (!i.name) throw Error("extension name required");
             if ("renderer" in i) {
@@ -1665,7 +1665,7 @@ class O2 {
               if (r)
                 t.renderers[i.name] = function (...l) {
                   let o = i.renderer.apply(this, l);
-                  if (o === !1) o = r.apply(this, l);
+                  if (o === false) o = r.apply(this, l);
                   return o;
                 };
               else t.renderers[i.name] = i.renderer;
@@ -1698,7 +1698,7 @@ class O2 {
               c = i[l];
             i[l] = (...p) => {
               let u = o.apply(i, p);
-              if (u === !1) u = c.apply(i, p);
+              if (u === false) u = c.apply(i, p);
               return u || "";
             };
           }
@@ -1714,7 +1714,7 @@ class O2 {
               c = i[l];
             i[l] = (...p) => {
               let u = o.apply(i, p);
-              if (u === !1) u = c.apply(i, p);
+              if (u === false) u = c.apply(i, p);
               return u;
             };
           }
@@ -1737,7 +1737,7 @@ class O2 {
             else
               i[l] = (...p) => {
                 let u = o.apply(i, p);
-                if (u === !1) u = c.apply(i, p);
+                if (u === false) u = c.apply(i, p);
                 return u;
               };
           }
@@ -1771,7 +1771,7 @@ class O2 {
       let i = { ...s },
         r = { ...this.defaults, ...i },
         l = this.onError(!!r.silent, !!r.async);
-      if (this.defaults.async === !0 && i.async === !1)
+      if (this.defaults.async === true && i.async === false)
         return l(
           Error(
             "marked(): The async option was set to true by an extension. Remove async: false from the parse options object to return a Promise.",
@@ -1813,7 +1813,7 @@ class O2 {
 Please report this to https://github.com/markedjs/marked.`),
         e)
       ) {
-        let s = "<p>An error occurred:</p><pre>" + y(n.message + "", !0) + "</pre>";
+        let s = "<p>An error occurred:</p><pre>" + y(n.message + "", true) + "</pre>";
         if (t) return Promise.resolve(s);
         return s;
       }
@@ -1952,7 +1952,7 @@ function Hz() {
   );
 }
 function lOe() {
-  return gpe("tengu_tab_read_sep", !1);
+  return gpe("tengu_tab_read_sep", false);
 }
 var Uwe = /^[a-z][a-z_-]{0,31}$/;
 var Fwe = {
@@ -2373,7 +2373,7 @@ var FD = "live-doc",
 import { lstat as J, open as ot, realpath as be } from "fs/promises";
 import * as S from "path";
 async function vVe(e) {
-  return (await J(e).catch(() => null))?.isDirectory() === !0;
+  return (await J(e).catch(() => null))?.isDirectory() === true;
 }
 async function Bwe(e, t) {
   let n = e;

@@ -138,8 +138,8 @@ function s() {
     name: "run-skill-generator",
     menuDescription: "Create a skill that knows how to run this project\u2019s app",
     description: n,
-    userInvocable: !0,
-    disableModelInvocation: !0,
+    userInvocable: true,
+    disableModelInvocation: true,
     files: async () => {
       let [{ TEMPLATE_MD: t }, { RUN_EXAMPLE_FILES: e }] = await Promise.all([
         import("/$bunfs/root/chunk-kygkyhwa.js"),

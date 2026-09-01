@@ -159,7 +159,7 @@ function h(L) {
   let c = x;
   const m = b ? 1 : 0;
   let T;
-  if (i[2] === d) (T = e(t, { "aria-label": "fork:", dimColor: !0, children: R_ })), (i[2] = T);
+  if (i[2] === d) (T = e(t, { "aria-label": "fork:", dimColor: true, children: R_ })), (i[2] = T);
   else T = i[2];
   let p;
   if (i[3] !== c) (p = e(o, { paddingLeft: 1, children: e(t, { children: c }) })), (i[3] = c), (i[4] = p);

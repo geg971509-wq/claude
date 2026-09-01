@@ -71,10 +71,10 @@ async function c(t) {
             n.close(() => e());
           });
       }),
-      !0
+      true
     );
   } catch {
-    return !1;
+    return false;
   }
 }
 export { cE, FWe, UHe, b8 };

@@ -62,9 +62,9 @@ function Cnt(n, l) {
     );
 }
 function xe(n, l) {
-  if (n.length !== l.length) return !1;
-  for (let a = 0; a < n.length; a++) if (!Object.is(n[a], l[a])) return !1;
-  return !0;
+  if (n.length !== l.length) return false;
+  for (let a = 0; a < n.length; a++) if (!Object.is(n[a], l[a])) return false;
+  return true;
 }
 F();
 var pe = "clipboard-image-hint",
@@ -121,7 +121,7 @@ function ie(n, l, a) {
     let m = h[i] ?? 0;
     c.push({ textStart: d, renderedStart: s, length: m }), (s += m + 1);
   }
-  return n.map((i) => ({ ...i, start: oe(c, i.start, !1), end: oe(c, i.end, !0) })).filter((i) => i.end > i.start);
+  return n.map((i) => ({ ...i, start: oe(c, i.start, false), end: oe(c, i.end, true) })).filter((i) => i.end > i.start);
 }
 function oe(n, l, a) {
   let h = 0,
@@ -375,7 +375,7 @@ function X0t({
   A(() => {
     if (I) I(k);
   }, [k, I]);
-  let y = i.focus !== !1;
+  let y = i.focus !== false;
   Cp(P, y);
   let T = z(kW, []),
     v = hn(),
@@ -388,7 +388,7 @@ function X0t({
       invert: h,
       hidePlaceholderText: c || v,
     }),
-    Z = y ? { tabIndex: 0, autoFocus: !0, onKeyDown: H, onPaste: N } : {},
+    Z = y ? { tabIndex: 0, autoFocus: true, onKeyDown: H, onPaste: N } : {},
     ge = (i.value && i.value.trim().indexOf(" ") === -1) || (i.value && i.value.endsWith(" ")),
     ee = Boolean(i.argumentHint && i.value && ge && i.value.startsWith("/")),
     L =
@@ -401,9 +401,9 @@ function X0t({
       ref: f,
       ...Z,
       children: [
-        e(o, { flexShrink: 0, "aria-preserve-whitespace": !0, children: e(J, { text: m, highlights: U }) }),
+        e(o, { flexShrink: 0, "aria-preserve-whitespace": true, children: e(J, { text: m, highlights: U }) }),
         ee &&
-          r(t, { dimColor: !0, wrap: "truncate-end", children: [i.value?.endsWith(" ") ? "" : " ", i.argumentHint] }),
+          r(t, { dimColor: true, wrap: "truncate-end", children: [i.value?.endsWith(" ") ? "" : " ", i.argumentHint] }),
         l,
       ],
     });
@@ -414,8 +414,8 @@ function X0t({
       wrap: "truncate-end",
       dimColor: i.dimColor,
       children: [
-        fe && Q ? e(oo, { children: Q }) : e(t, { "aria-preserve-whitespace": !0, children: e(oo, { children: m }) }),
-        ee && r(t, { dimColor: !0, children: [i.value?.endsWith(" ") ? "" : " ", i.argumentHint] }),
+        fe && Q ? e(oo, { children: Q }) : e(t, { "aria-preserve-whitespace": true, children: e(oo, { children: m }) }),
+        ee && r(t, { dimColor: true, children: [i.value?.endsWith(" ") ? "" : " ", i.argumentHint] }),
         l,
       ],
     }),
@@ -426,9 +426,9 @@ function Be({
   value: l,
   showCursor: a,
   focus: h,
-  terminalFocus: c = !0,
+  terminalFocus: c = true,
   invert: s = Fre,
-  hidePlaceholderText: i = !1,
+  hidePlaceholderText: i = false,
 }) {
   let d = void 0;
   if (n) {

@@ -21,7 +21,7 @@ var st = S(function (Mt) {
             var r = Object.getOwnPropertyDescriptor(t, n);
             if (!r || ("get" in r ? !t.__esModule : r.writable || r.configurable))
               r = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[n];
                 },
@@ -36,7 +36,7 @@ var st = S(function (Mt) {
       (Mt && Mt.__setModuleDefault) ||
       (Object.create
         ? function (e, t) {
-            Object.defineProperty(e, "default", { enumerable: !0, value: t });
+            Object.defineProperty(e, "default", { enumerable: true, value: t });
           }
         : function (e, t) {
             e.default = t;
@@ -56,7 +56,7 @@ var st = S(function (Mt) {
       function (e, t) {
         for (var n in e) if (n !== "default" && !Object.prototype.hasOwnProperty.call(t, n)) Fv(t, e, n);
       };
-  Object.defineProperty(Mt, "__esModule", { value: !0 });
+  Object.defineProperty(Mt, "__esModule", { value: true });
   Mt.z = void 0;
   var Bv = iZ(Td());
   Mt.z = Bv;
@@ -65,7 +65,7 @@ var st = S(function (Mt) {
 });
 
 var ht = S(function (Wv) {
-  Object.defineProperty(Wv, "__esModule", { value: !0 });
+  Object.defineProperty(Wv, "__esModule", { value: true });
   Wv.DEPENDENCY_INSTALL_DOMAINS =
     Wv.PYTHON_EXTENSION_RUNTIME_HOSTS =
     Wv.AWS_REGION_RE =
@@ -175,7 +175,7 @@ var ht = S(function (Wv) {
   function Gv(e) {
     return [Vv(e), Hv(e)];
   }
-  function cZ(e, t, n, i = !0) {
+  function cZ(e, t, n, i = true) {
     var r;
     let o = (r = Ad(n)) !== null && r !== void 0 ? r : Kv(e),
       s = i ? [qv(e)] : [];
@@ -212,7 +212,7 @@ var ht = S(function (Wv) {
   var lZ = /^[a-z0-9_-]+(?:\.[a-z0-9_-]+)*$/i,
     dZ = /^[1-9][0-9]{0,4}$/;
   function fZ(e) {
-    if (e === "localhost") return !0;
+    if (e === "localhost") return true;
     let t = e.startsWith("*.") ? e.slice(2) : e;
     return lZ.test(t) && t.includes(".");
   }
@@ -246,7 +246,7 @@ var ht = S(function (Wv) {
 });
 
 var zu = S(function (tw) {
-  Object.defineProperty(tw, "__esModule", { value: !0 });
+  Object.defineProperty(tw, "__esModule", { value: true });
   tw.KIND_PRECEDENCE =
     tw.INFERENCE_CREDENTIAL_KINDS =
     tw.getProviderLabel =
@@ -271,7 +271,7 @@ var zu = S(function (tw) {
 });
 
 var Ze = S(function (Kn) {
-  Object.defineProperty(Kn, "__esModule", { value: !0 });
+  Object.defineProperty(Kn, "__esModule", { value: true });
   Kn.ZodKind =
     Kn.SHORT_DESCRIPTION_MAX_LENGTH =
     Kn.PROVIDERS =
@@ -339,37 +339,37 @@ var Ze = S(function (Kn) {
   var nw = st(),
     Xi = zu();
   Object.defineProperty(Kn, "DEFAULT_INFERENCE_PROVIDER", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Xi.DEFAULT_INFERENCE_PROVIDER;
     },
   });
   Object.defineProperty(Kn, "getProviderLabel", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Xi.getProviderLabel;
     },
   });
   Object.defineProperty(Kn, "INFERENCE_CREDENTIAL_KINDS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Xi.INFERENCE_CREDENTIAL_KINDS;
     },
   });
   Object.defineProperty(Kn, "KIND_PRECEDENCE", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Xi.KIND_PRECEDENCE;
     },
   });
   Object.defineProperty(Kn, "PROVIDER_DISPLAY", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Xi.PROVIDER_DISPLAY;
     },
   });
   Object.defineProperty(Kn, "PROVIDERS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Xi.PROVIDERS;
     },
@@ -481,13 +481,13 @@ var Ze = S(function (Kn) {
     return bi(e, { pathKind: "folder" });
   }
   function c4(e) {
-    return bi(e, { url: !0 });
+    return bi(e, { url: true });
   }
   function l4(e) {
-    return bi(e, { hostedServable: !1 });
+    return bi(e, { hostedServable: false });
   }
   function d4(e) {
-    return bi(e, { glob: !0 });
+    return bi(e, { glob: true });
   }
   function f4(e, t = "drop") {
     return bi(e, { redact: t });
@@ -503,16 +503,16 @@ var Ze = S(function (Kn) {
     return i ? Bn(i).pathKind : void 0;
   }
   function g4(e) {
-    return Bn(e).glob === !0;
+    return Bn(e).glob === true;
   }
   function h4(e) {
-    return Bn(e).url === !0;
+    return Bn(e).url === true;
   }
   function _4(e) {
-    return Bn(e).gatewayServable === !1;
+    return Bn(e).gatewayServable === false;
   }
   function y4(e) {
-    return Bn(e).hostedServable === !1;
+    return Bn(e).hostedServable === false;
   }
   function b4(e) {
     var t;
@@ -570,7 +570,7 @@ var Ze = S(function (Kn) {
     return sw(e, (t) => t.type === "remote-disabled");
   }
   function E4(e) {
-    return sw(e, (t) => t.requiresUserConsent === !0);
+    return sw(e, (t) => t.requiresUserConsent === true);
   }
   Kn.ZodKind = {
     ZodString: "string",
@@ -653,7 +653,7 @@ var Ze = S(function (Kn) {
     return ut(e) === Kn.ZodKind.ZodRecord ? Rt(e).valueType : void 0;
   }
   function R4(e) {
-    return ut(e) === Kn.ZodKind.ZodNumber && e.isInt === !0;
+    return ut(e) === Kn.ZodKind.ZodNumber && e.isInt === true;
   }
   function j4(e) {
     if (ut(e) !== Kn.ZodKind.ZodNumber) return { min: void 0, max: void 0 };
@@ -663,8 +663,8 @@ var Ze = S(function (Kn) {
     for (let r of t !== null && t !== void 0 ? t : []) {
       let o = r._zod.def;
       if (typeof o.value !== "number") continue;
-      if (o.check === "greater_than") n = { value: o.value, inclusive: o.inclusive === !0 };
-      else if (o.check === "less_than") i = { value: o.value, inclusive: o.inclusive === !0 };
+      if (o.check === "greater_than") n = { value: o.value, inclusive: o.inclusive === true };
+      else if (o.check === "less_than") i = { value: o.value, inclusive: o.inclusive === true };
     }
     return { min: n, max: i };
   }
@@ -681,9 +681,9 @@ var Ze = S(function (Kn) {
   function D4(e) {
     let t = e;
     for (;;) {
-      if (ut(t) === Kn.ZodKind.ZodOptional) return !0;
+      if (ut(t) === Kn.ZodKind.ZodOptional) return true;
       let n = Yi(t);
-      if (n === t) return !1;
+      if (n === t) return false;
       t = n;
     }
   }
@@ -739,7 +739,7 @@ var Ze = S(function (Kn) {
     if (s.length > 0) {
       let c = new Map(),
         d = new Map(),
-        f = !1;
+        f = false;
       for (let h of s)
         for (let y of cw(h)) {
           let v = c.get(y.key);
@@ -756,7 +756,7 @@ var Ze = S(function (Kn) {
             let k = (n = d.get(y.key)) !== null && n !== void 0 ? n : new Set();
             for (let P of (i = y.options) !== null && i !== void 0 ? i : []) k.add(P);
             d.set(y.key, k);
-          } else f = !0;
+          } else f = true;
         }
       let p = [...c.values()];
       if (!f) return p;
@@ -794,14 +794,14 @@ var Ze = S(function (Kn) {
 });
 
 var pt = S(function (lw) {
-  Object.defineProperty(lw, "__esModule", { value: !0 });
+  Object.defineProperty(lw, "__esModule", { value: true });
   lw.msg = void 0;
   var Z6 = (e) => e;
   lw.msg = Z6;
 });
 
 var Zu = S(function (gw) {
-  Object.defineProperty(gw, "__esModule", { value: !0 });
+  Object.defineProperty(gw, "__esModule", { value: true });
   gw.TOOL_POLICY_EDITOR_VALUES = gw.TOOL_POLICY_VALUES = void 0;
   gw.strictestToolPolicy = pw;
   gw.isApprovalRequiredToolPolicy = F6;
@@ -827,7 +827,7 @@ var Zu = S(function (gw) {
       if (n < e.length && e[n] === "*") (r = n), (o = i), n++;
       else if (n < e.length && e[n] === t[i]) n++, i++;
       else if (r >= 0) o++, (n = r + 1), (i = o);
-      else return !1;
+      else return false;
     while (n < e.length && e[n] === "*") n++;
     return n === e.length;
   }
@@ -841,7 +841,7 @@ var Zu = S(function (gw) {
 });
 
 var Wt = S(function (Gn) {
-  Object.defineProperty(Gn, "__esModule", { value: !0 });
+  Object.defineProperty(Gn, "__esModule", { value: true });
   Gn.GatewayOidc =
     Gn.BootstrapFetchOidc =
     Gn.BootstrapOidc =
@@ -915,37 +915,37 @@ var Wt = S(function (Gn) {
     zt = Zu(),
     no = Zu();
   Object.defineProperty(Gn, "isApprovalRequiredToolPolicy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return no.isApprovalRequiredToolPolicy;
     },
   });
   Object.defineProperty(Gn, "lookupMcpToolPolicy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return no.lookupMcpToolPolicy;
     },
   });
   Object.defineProperty(Gn, "strictestToolPolicy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return no.strictestToolPolicy;
     },
   });
   Object.defineProperty(Gn, "TOOL_POLICY_EDITOR_VALUES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return no.TOOL_POLICY_EDITOR_VALUES;
     },
   });
   Object.defineProperty(Gn, "TOOL_POLICY_VALUES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return no.TOOL_POLICY_VALUES;
     },
   });
   Object.defineProperty(Gn, "toolPolicyKeyGlobMatch", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return no.toolPolicyKeyGlobMatch;
     },
@@ -970,7 +970,7 @@ var Wt = S(function (Gn) {
                 if (n === "https:") return !e.rejectLoopback || !Gn.LOOPBACK_HOSTS.has(i);
                 return !!e.allowLoopbackHttp && n === "http:" && Gn.LOOPBACK_HOSTS.has(i);
               } catch (n) {
-                return !1;
+                return false;
               }
             },
             {
@@ -982,10 +982,10 @@ var Wt = S(function (Gn) {
             },
           ),
       ),
-      { url: !0 },
+      { url: true },
     );
   }
-  Gn.httpsUrl = ma({ allowLoopbackHttp: !0 });
+  Gn.httpsUrl = ma({ allowLoopbackHttp: true });
   Gn.CALLBACK_HOST_OPTIONS = ["127.0.0.1", "localhost"];
   Gn.ToolPolicySchema = C.z.record(C.z.string(), C.z.enum(zt.TOOL_POLICY_VALUES));
   Gn.LenientToolPolicy = C.z.preprocess((e) => {
@@ -1034,7 +1034,7 @@ var Wt = S(function (Gn) {
     Y6 = C.z.object({
       serverName: (0, z.subfield)(C.z.string().min(1), {
         label: (0, E.msg)({ defaultMessage: "Server name", id: "SsD9TTwUkB" }),
-        isPrimaryKey: !0,
+        isPrimaryKey: true,
         placeholder: (0, E.msg)({ defaultMessage: "server-name", id: "EvwX+qKToR" }),
       }),
       tools: (0, z.subfield)(
@@ -1085,7 +1085,7 @@ var Wt = S(function (Gn) {
     to = (e) => !eo(e) && !Vn(e),
     Zd = (0, z.subfield)(C.z.string().min(1), {
       label: (0, E.msg)({ defaultMessage: "Name", id: "HAlOn1ZsuY" }),
-      isPrimaryKey: !0,
+      isPrimaryKey: true,
       placeholder: (0, E.msg)({ defaultMessage: "github", id: "Zejj2Gw5fy" }),
     }),
     ga = (0, z.subfield)(Gn.ToolPolicySchema.optional(), {
@@ -1110,7 +1110,7 @@ var Wt = S(function (Gn) {
       'clientId must be a non-empty string (a pre-registered client requires it; for automatic registration use `"oauth": true` or an object with only scope/appendOfflineAccess/additionalRedirectReferrerHosts)',
     Ku = (0, z.subfield)(C.z.string().optional(), {
       label: (0, E.msg)({ defaultMessage: "Additional redirect referrer hosts", id: "sxWy/sz/Fr" }),
-      mono: !0,
+      mono: true,
       placeholder: (0, E.msg)({ defaultMessage: "(authorization URL host only)", id: "7lyDghlOiR" }),
       description: {
         short: (0, z.shortDescription)(
@@ -1132,12 +1132,12 @@ var Wt = S(function (Gn) {
   Gn.ByoOauth = C.z.object({
     clientId: (0, z.subfield)(C.z.string().trim().min(1, { error: zd }).optional(), {
       label: (0, E.msg)({ defaultMessage: "Client ID", id: "U5+MBCY8VU" }),
-      mono: !0,
+      mono: true,
       placeholder: (0, E.msg)({ defaultMessage: "From your IdP app registration", id: "UBXsZZ/YgR" }),
     }),
     clientSecret: (0, z.subfield)((0, z.annotate)(C.z.string().min(1).optional(), { redact: "drop" }), {
       label: (0, E.msg)({ defaultMessage: "Client secret", id: "B7p2EChIPJ" }),
-      mono: !0,
+      mono: true,
       predicates: { show: (e) => Boolean(e.clientSecret) || !e.clientSecretHelper },
       description: {
         short: (0, z.shortDescription)(
@@ -1151,8 +1151,8 @@ var Wt = S(function (Gn) {
     }),
     clientSecretHelper: (0, z.subfield)(C.z.string().min(1).optional(), {
       label: (0, E.msg)({ defaultMessage: "Client secret helper script", id: "97Wza/xUot" }),
-      mono: !0,
-      remotePolicy: { requiresUserConsent: !0 },
+      mono: true,
+      remotePolicy: { requiresUserConsent: true },
       predicates: { show: (e) => Boolean(e.clientSecretHelper) || !e.clientSecret },
       placeholder: (0, E.msg)({ defaultMessage: "Absolute path", id: "StnRZmM3Xn" }),
       description: {
@@ -1166,7 +1166,7 @@ var Wt = S(function (Gn) {
     }),
     authorizationServer: (0, z.subfield)(C.z.array(ma()).min(1).optional(), {
       label: (0, E.msg)({ defaultMessage: "Authorization server", id: "la+WYl1g5R" }),
-      mono: !0,
+      mono: true,
       placeholder: (0, E.msg)({ defaultMessage: '["https://api.box.com"]', id: "Kq/aajRMhf" }),
       predicates: { required: (e) => Boolean(e.clientSecret) || Boolean(e.clientSecretHelper) },
       requiredMessage: (0, E.msg)({
@@ -1185,7 +1185,7 @@ var Wt = S(function (Gn) {
     }),
     authorizationUrl: (0, z.subfield)(Gn.httpsUrl.optional(), {
       label: (0, E.msg)({ defaultMessage: "Authorization URL", id: "uiL7XCPiaV" }),
-      mono: !0,
+      mono: true,
       predicates: {
         show: (e) => !e.tenantId && !(Array.isArray(e.authorizationServer) && e.authorizationServer.length > 0),
       },
@@ -1201,7 +1201,7 @@ var Wt = S(function (Gn) {
     }),
     tokenUrl: (0, z.subfield)(Gn.httpsUrl.optional(), {
       label: (0, E.msg)({ defaultMessage: "Token URL", id: "PJhe0HJqkm" }),
-      mono: !0,
+      mono: true,
       predicates: {
         show: (e) => !e.tenantId && !(Array.isArray(e.authorizationServer) && e.authorizationServer.length > 0),
       },
@@ -1217,7 +1217,7 @@ var Wt = S(function (Gn) {
     }),
     tenantId: (0, z.subfield)(C.z.union([C.z.guid(), C.z.enum(Bu)]).optional(), {
       label: (0, E.msg)({ defaultMessage: "Tenant ID", id: "VdfqU5wMCX" }),
-      mono: !0,
+      mono: true,
       description: {
         short: (0, z.shortDescription)(
           (0, E.msg)({
@@ -1252,7 +1252,7 @@ var Wt = S(function (Gn) {
     }),
     scope: (0, z.subfield)(C.z.string().min(1).optional(), {
       label: (0, E.msg)({ defaultMessage: "Scope", id: "nso3MjkMl+" }),
-      mono: !0,
+      mono: true,
       placeholder: (0, E.msg)({ defaultMessage: "api://\u2026/access_as_user offline_access", id: "1fPbl8sb8U" }),
       predicates: { required: (e) => typeof e.tenantId === "string" && e.tenantId.trim() !== "" },
       requiredMessage: (0, E.msg)({ defaultMessage: "Scope is required when Tenant ID is set.", id: "EThsmphP7E" }),
@@ -1391,7 +1391,7 @@ var Wt = S(function (Gn) {
       });
   }
   function Ew(e) {
-    if (typeof e !== "object" || e === null) return e ? !0 : void 0;
+    if (typeof e !== "object" || e === null) return e ? true : void 0;
     let t = {};
     for (let [n, i] of Object.entries(e)) if (i !== null && i !== void 0) t[n] = i;
     if ((delete t.asSelection, Array.isArray(t.scope) && t.scope.every((n) => typeof n === "string"))) {
@@ -1434,7 +1434,7 @@ var Wt = S(function (Gn) {
     Ew,
     C.z
       .union([
-        C.z.literal(!0).transform(() => ({ mode: "dcr" })),
+        C.z.literal(true).transform(() => ({ mode: "dcr" })),
         nF.transform((e) =>
           e.scope !== void 0 || e.appendOfflineAccess !== void 0 || e.additionalRedirectReferrerHosts !== void 0
             ? { ...e, mode: "byo" }
@@ -1465,7 +1465,7 @@ var Wt = S(function (Gn) {
     }),
     url: (0, z.subfield)(Gn.httpsUrl, {
       label: (0, E.msg)({ defaultMessage: "URL", id: "bWjdfaXOzU" }),
-      mono: !0,
+      mono: true,
       predicates: { show: to },
     }),
     oauth: (0, z.subfield)(Gn.McpOauth, {
@@ -1488,8 +1488,8 @@ var Wt = S(function (Gn) {
     headersHelper: (0, z.subfield)(C.z.string().min(1).optional(), {
       label: (0, E.msg)({ defaultMessage: "Headers helper script", id: "x+MG25XWVf" }),
       placeholder: (0, E.msg)({ defaultMessage: "Absolute path", id: "StnRZmM3Xn" }),
-      mono: !0,
-      remotePolicy: { requiresUserConsent: !0 },
+      mono: true,
+      remotePolicy: { requiresUserConsent: true },
       predicates: { show: to },
     }),
     headersHelperTtlSec: (0, z.subfield)(C.z.number().int().positive().optional(), {
@@ -1508,23 +1508,23 @@ var Wt = S(function (Gn) {
     $w = /(^|\/)\.\.($|\/)/,
     sF = /[\t\n\r\0;|`$<>"]/;
   function Iw(e) {
-    if (e.length === 0 || e !== e.trim()) return !1;
-    if (e.startsWith("~")) return !1;
-    if (aF.test(e)) return !0;
+    if (e.length === 0 || e !== e.trim()) return false;
+    if (e.startsWith("~")) return false;
+    if (aF.test(e)) return true;
     let t = e.replace(/\\/g, "/");
-    if (t.startsWith("//")) return !1;
-    if (sF.test(t)) return !1;
-    if ($w.test(t)) return !1;
+    if (t.startsWith("//")) return false;
+    if (sF.test(t)) return false;
+    if ($w.test(t)) return false;
     return t.startsWith("/") || /^[A-Za-z]:\//.test(t);
   }
   var uF = /["%\r\n\u0000]/,
     cF = /[. ]$/;
   function lF(e) {
-    if (e !== e.trim() || e.startsWith("~")) return !1;
-    if (uF.test(e) || cF.test(e)) return !1;
+    if (e !== e.trim() || e.startsWith("~")) return false;
+    if (uF.test(e) || cF.test(e)) return false;
     let t = e.replace(/\\/g, "/");
-    if (t.startsWith("//")) return !1;
-    if ($w.test(t)) return !1;
+    if (t.startsWith("//")) return false;
+    if ($w.test(t)) return false;
     return t.startsWith("/") || /^[A-Za-z]:\//.test(t);
   }
   var dF = C.z.object({
@@ -1540,7 +1540,7 @@ var Wt = S(function (Gn) {
       }),
       {
         label: (0, E.msg)({ defaultMessage: "Command", id: "9WyylR0I6U" }),
-        mono: !0,
+        mono: true,
         placeholder: (0, E.msg)({ defaultMessage: "/usr/local/bin/uvx", id: "lKL06F7LOG" }),
         description: {
           short: (0, z.shortDescription)(
@@ -1550,14 +1550,14 @@ var Wt = S(function (Gn) {
             }),
           ),
         },
-        remotePolicy: { requiresUserConsent: !0 },
+        remotePolicy: { requiresUserConsent: true },
         predicates: { show: eo },
       },
     ),
     args: (0, z.subfield)(C.z.array(C.z.string()).optional(), {
       label: (0, E.msg)({ defaultMessage: "Arguments", id: "nc7BrwYVL+" }),
-      mono: !0,
-      remotePolicy: { requiresUserConsent: !0 },
+      mono: true,
+      remotePolicy: { requiresUserConsent: true },
       placeholder: (0, E.msg)({ defaultMessage: '["mcp-server-fetch"]', id: "xtIyoIFEkB" }),
       predicates: { show: eo },
     }),
@@ -1567,7 +1567,7 @@ var Wt = S(function (Gn) {
         key: (0, E.msg)({ defaultMessage: "API_KEY", id: "H/zM1IFCUA" }),
         value: (0, E.msg)({ defaultMessage: "value", id: "7CyD7ey2Aw" }),
       },
-      remotePolicy: { requiresUserConsent: !0 },
+      remotePolicy: { requiresUserConsent: true },
       predicates: { show: eo },
     }),
     envHelper: (0, z.subfield)(
@@ -1596,8 +1596,8 @@ var Wt = S(function (Gn) {
               "- A helper-emitted `PATH` replaces the static map\u2019s `PATH` and supports the same `${PATH}` placeholder expansion as a static entry.",
           ),
         },
-        mono: !0,
-        remotePolicy: { requiresUserConsent: !0 },
+        mono: true,
+        remotePolicy: { requiresUserConsent: true },
         predicates: { show: eo },
       },
     ),
@@ -1760,7 +1760,7 @@ var Wt = S(function (Gn) {
             ]),
             {
               label: (0, E.msg)({ defaultMessage: "Tenant ID", id: "McpBuiltinTenantId" }),
-              mono: !0,
+              mono: true,
               placeholder: (0, E.msg)({
                 defaultMessage: "00000000-0000-0000-0000-000000000000",
                 id: "McpBuiltinTenantIdPh",
@@ -1782,7 +1782,7 @@ var Wt = S(function (Gn) {
           ),
           clientId: (0, z.subfield)(C.z.string().trim().min(1), {
             label: (0, E.msg)({ defaultMessage: "Client ID", id: "McpBuiltinClientId" }),
-            mono: !0,
+            mono: true,
             description: {
               short: (0, z.shortDescription)(
                 (0, E.msg)({
@@ -1907,8 +1907,8 @@ var Wt = S(function (Gn) {
               'Absolute path to an executable that prints a single JSON object of request headers to stdout, e.g. `{"X-Subscription-Token": "\u2026"}`. The app runs it before each request and caches the result for the TTL below. Use this to pull the key from a secrets manager instead of storing it inline in `headers`.',
             ),
           },
-          mono: !0,
-          remotePolicy: { requiresUserConsent: !0 },
+          mono: true,
+          remotePolicy: { requiresUserConsent: true },
           predicates: { show: (e) => vi(e) || to(e), required: bw },
         }),
         headersHelperTtlSec: (0, z.subfield)(C.z.number().int().positive().optional(), {
@@ -1923,7 +1923,7 @@ var Wt = S(function (Gn) {
         }),
         customUrl: (0, z.subfield)(ma().optional(), {
           label: (0, E.msg)({ defaultMessage: "Custom URL", id: "McpBuiltinWebSearchCustomUrl" }),
-          mono: !0,
+          mono: true,
           description: {
             short: (0, z.shortDescription)(
               (0, E.msg)({
@@ -1969,7 +1969,7 @@ var Wt = S(function (Gn) {
           }),
         {
           label: (0, E.msg)({ defaultMessage: "Client ID", id: "McpBuiltinClientId" }),
-          mono: !0,
+          mono: true,
           description: {
             short: (0, z.shortDescription)(
               (0, E.msg)({
@@ -1987,7 +1987,7 @@ var Wt = S(function (Gn) {
       ),
       host: (0, z.subfield)(
         Fu(
-          ma({ rejectLoopback: !0 })
+          ma({ rejectLoopback: true })
             .transform((e, t) => {
               try {
                 return new URL(e).origin;
@@ -1999,7 +1999,7 @@ var Wt = S(function (Gn) {
         ),
         {
           label: (0, E.msg)({ defaultMessage: "GitHub Enterprise Server URL", id: "McpBuiltinGithubHost" }),
-          mono: !0,
+          mono: true,
           placeholder: (0, E.msg)({ defaultMessage: "https://github.example.com", id: "McpBuiltinGithubHostPh" }),
           description: {
             short: (0, z.shortDescription)(
@@ -2028,7 +2028,7 @@ var Wt = S(function (Gn) {
         ),
         {
           label: (0, E.msg)({ defaultMessage: "Access", id: "McpBuiltinGithubScope" }),
-          mono: !0,
+          mono: true,
           placeholder: (0, E.msg)({ defaultMessage: "repo read:org", id: "McpBuiltinGithubScopePh" }),
           description: {
             short: (0, z.shortDescription)(
@@ -2065,7 +2065,7 @@ var Wt = S(function (Gn) {
         ),
         {
           label: (0, E.msg)({ defaultMessage: "Toolsets", id: "McpBuiltinGithubToolsets" }),
-          mono: !0,
+          mono: true,
           placeholder: (0, E.msg)({
             defaultMessage: "context,repos,issues,pull_requests",
             id: "McpBuiltinGithubToolsetsPh",
@@ -2083,7 +2083,7 @@ var Wt = S(function (Gn) {
         },
       ),
       readOnly: (0, z.subfield)(
-        C.z.preprocess((e) => (e === "true" ? !0 : e === "false" ? !1 : e), C.z.boolean().optional()),
+        C.z.preprocess((e) => (e === "true" ? true : e === "false" ? false : e), C.z.boolean().optional()),
         {
           label: (0, E.msg)({ defaultMessage: "Read-only", id: "McpBuiltinGithubReadOnly" }),
           description: {
@@ -2133,20 +2133,20 @@ var Wt = S(function (Gn) {
   );
   function _F(e, t, n) {
     if (t === "source") return e.source === "managed" || e.source === "org-plugin" || e.source === "user";
-    if (e.server === void 0) return !1;
+    if (e.server === void 0) return false;
     switch (t) {
       case "transport":
         return e.transport === "builtin";
       case "scope":
         return e.scope === null || (typeof e.scope === "string" && e.scope.trim() === "");
       case "scopes":
-        if (e.scopes === null) return !0;
-        if (!Array.isArray(e.scopes) || !e.scopes.every((i) => typeof i === "string")) return !1;
+        if (e.scopes === null) return true;
+        if (!Array.isArray(e.scopes) || !e.scopes.every((i) => typeof i === "string")) return false;
         return e.scopes.join(" ") === "" || n.has("scope");
       case "authorityHost":
         return Aw(e) !== e && n.has("azureCloud");
       default:
-        return !1;
+        return false;
     }
   }
   function ro(e) {
@@ -2306,7 +2306,7 @@ var Wt = S(function (Gn) {
     let u = Gn.BUILTIN_DEFAULT_TOOL_POLICY[e.server];
     for (let c of t) {
       if (
-        ((n = c.annotations) === null || n === void 0 ? void 0 : n.readOnlyHint) === !0 ||
+        ((n = c.annotations) === null || n === void 0 ? void 0 : n.readOnlyHint) === true ||
         Object.hasOwn(u !== null && u !== void 0 ? u : {}, c.name)
       )
         continue;
@@ -2359,9 +2359,9 @@ var Wt = S(function (Gn) {
   }
   function EF(e) {
     var t;
-    if (e.transport !== "http" && e.transport !== "sse") return !1;
-    if (e.oauth) return !0;
-    if (e.headersHelper) return !1;
+    if (e.transport !== "http" && e.transport !== "sse") return false;
+    if (e.oauth) return true;
+    if (e.headersHelper) return false;
     return !Object.keys((t = e.headers) !== null && t !== void 0 ? t : {}).some(
       (n) => n.toLowerCase() === "authorization",
     );
@@ -2479,26 +2479,26 @@ var Wt = S(function (Gn) {
     pa = {
       clientId: (0, z.subfield)(C.z.string().min(1), {
         label: (0, E.msg)({ defaultMessage: "Client ID", id: "U5+MBCY8VU" }),
-        mono: !0,
+        mono: true,
       }),
       issuer: (0, z.subfield)(Gn.httpsUrl.optional(), {
         label: (0, E.msg)({ defaultMessage: "Issuer URL", id: "159pClRrG6" }),
-        mono: !0,
+        mono: true,
       }),
       authorizationUrl: (0, z.subfield)(Gn.httpsUrl.optional(), {
         label: (0, E.msg)({ defaultMessage: "Authorization URL", id: "uiL7XCPiaV" }),
-        mono: !0,
+        mono: true,
         predicates: { show: (e) => !e.issuer },
       }),
       tokenUrl: (0, z.subfield)(Gn.httpsUrl.optional(), {
         label: (0, E.msg)({ defaultMessage: "Token URL", id: "PJhe0HJqkm" }),
-        mono: !0,
+        mono: true,
         predicates: { show: (e) => !e.issuer },
       }),
     },
     xw = (0, z.subfield)(Gn.httpsUrl.optional(), {
       label: (0, E.msg)({ defaultMessage: "Issuer URL", id: "159pClRrG6" }),
-      mono: !0,
+      mono: true,
       placeholder: xF,
     }),
     Gd = (0, z.subfield)(C.z.number().int().min(1024).max(65535).optional(), {
@@ -2564,7 +2564,7 @@ var Wt = S(function (Gn) {
     );
   var zF = new Set(["openid", "profile", "email", "address", "phone", "offline_access"]);
   function LF(e) {
-    if (typeof e !== "string") return !1;
+    if (typeof e !== "string") return false;
     return e
       .split(/\s+/)
       .filter(Boolean)
@@ -2606,9 +2606,9 @@ var Wt = S(function (Gn) {
         },
       }),
       scopes: UF,
-      appendOfflineAccess: (0, z.subfield)(C.z.boolean().default(!0), {
+      appendOfflineAccess: (0, z.subfield)(C.z.boolean().default(true), {
         label: (0, E.msg)({ defaultMessage: "Append offline_access", id: "aZEuarDLlh" }),
-        default: !0,
+        default: true,
         predicates: { show: (e) => e.bearerTokenType === "access_token" },
         description: {
           short: (0, z.shortDescription)(
@@ -2637,7 +2637,7 @@ var Wt = S(function (Gn) {
 });
 
 var Lt = S(function (Qw) {
-  Object.defineProperty(Qw, "__esModule", { value: !0 });
+  Object.defineProperty(Qw, "__esModule", { value: true });
   Qw._test =
     Qw.MODELS_GROUP =
     Qw.HELPER_SCRIPT_GROUP =
@@ -2680,7 +2680,7 @@ var Lt = S(function (Qw) {
       (e) => (typeof e === "string" && e && !/^[a-z][a-z0-9+.-]*:\/\//i.test(e) ? `https://${e}` : e),
       Wn.z.string().url(),
     ),
-    { url: !0 },
+    { url: true },
   );
   function PB(e) {
     let t = e;
@@ -2697,7 +2697,7 @@ var Lt = S(function (Qw) {
     var t, n;
     return (
       Boolean((t = e.bootstrap) === null || t === void 0 ? void 0 : t.url) &&
-      ((n = e.bootstrap) === null || n === void 0 ? void 0 : n.enabled) !== !1
+      ((n = e.bootstrap) === null || n === void 0 ? void 0 : n.enabled) !== false
     );
   };
   Qw.hasActiveBootstrap = EB;
@@ -2723,7 +2723,7 @@ var Lt = S(function (Qw) {
 });
 
 var On = S(function (sS) {
-  Object.defineProperty(sS, "__esModule", { value: !0 });
+  Object.defineProperty(sS, "__esModule", { value: true });
   sS.providerHasDiscovery =
     sS.isBedrockFamily =
     sS.PROVIDER_CLI_FLAG =
@@ -2796,7 +2796,7 @@ var On = S(function (sS) {
     ZB = (0, D.field)((0, D.annotate)(F.z.string().trim().optional(), { pathKind: "file" }), {
       flatKey: "inferenceCredentialHelper",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
-      remotePolicy: { requiresUserConsent: !0 },
+      remotePolicy: { requiresUserConsent: true },
       title: (0, x.msg)({ defaultMessage: "Helper script", id: "DnXPcFgmqb" }),
       category: "connection",
       group: $e.HELPER_SCRIPT_GROUP,
@@ -2832,7 +2832,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
     FB = (0, D.field)(F.z.coerce.number().int().positive().optional(), {
       flatKey: "inferenceCredentialHelperTtlSec",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
-      remotePolicy: { requiresUserConsent: !0 },
+      remotePolicy: { requiresUserConsent: true },
       title: (0, x.msg)({ defaultMessage: "Helper script TTL", id: "RtLYfLZ2bT" }),
       default: 3600,
       category: "connection",
@@ -2853,7 +2853,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
     BB = (0, D.field)(F.z.coerce.number().int().positive().max(600).optional(), {
       flatKey: "inferenceCredentialHelperTimeoutSec",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.8089.0" } },
-      remotePolicy: { requiresUserConsent: !0 },
+      remotePolicy: { requiresUserConsent: true },
       title: (0, x.msg)({ defaultMessage: "Credential helper timeout", id: "x8r3+rMaHq" }),
       default: 60,
       category: "connection",
@@ -2874,10 +2874,10 @@ If this field is set, static credential fields (API key, bearer token) are ignor
     KB = (0, D.field)(F.z.boolean().optional(), {
       flatKey: "inferenceCredentialHelperSilentRefreshEnabled",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.10628.0" } },
-      remotePolicy: { requiresUserConsent: !0 },
+      remotePolicy: { requiresUserConsent: true },
       title: (0, x.msg)({ defaultMessage: "Re-run helper for silent refresh", id: "iLlsz1BLkf" }),
-      default: !0,
-      failClosedValue: !1,
+      default: true,
+      failClosedValue: false,
       category: "connection",
       group: $e.HELPER_SCRIPT_GROUP,
       order: -7,
@@ -2895,7 +2895,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
     qB = (0, D.field)((0, D.annotate)(F.z.string().optional(), { redact: "hash" }), {
       flatKey: "inferenceBedrockProfile",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
-      remotePolicy: { requiresUserConsent: !0 },
+      remotePolicy: { requiresUserConsent: true },
       title: (0, x.msg)({ defaultMessage: "AWS profile name", id: "7vTavgWpok" }),
       category: "connection",
       placeholder: (0, x.msg)({ defaultMessage: "default", id: "FiXNt10l2f" }),
@@ -2905,14 +2905,14 @@ If this field is set, static credential fields (API key, bearer token) are ignor
             defaultMessage: "AWS named profile to use for Bedrock inference credentials.",
             id: "InfBedrockProfileHint",
           }),
-          { docsOnly: !0 },
+          { docsOnly: true },
         ),
       },
     }),
     HB = (0, D.field)((0, D.annotate)(F.z.string().optional(), { pathKind: "folder" }), {
       flatKey: "inferenceBedrockAwsDir",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
-      remotePolicy: { requiresUserConsent: !0 },
+      remotePolicy: { requiresUserConsent: true },
       title: (0, x.msg)({ defaultMessage: "AWS config directory", id: "+/yYn89HLV" }),
       category: "connection",
       placeholder: (0, x.msg)({ defaultMessage: "~/.aws", id: "pz/AYYggAV" }),
@@ -2928,7 +2928,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
     VB = (0, D.field)((0, D.annotate)(F.z.string().trim().optional(), { pathKind: "file" }), {
       flatKey: "inferenceBedrockAwsCliPath",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.13576.0" } },
-      remotePolicy: { requiresUserConsent: !0 },
+      remotePolicy: { requiresUserConsent: true },
       title: (0, x.msg)({ defaultMessage: "AWS CLI path", id: "tiw5Kg3lNu" }),
       category: "connection",
       placeholder: (0, x.msg)({ defaultMessage: "/usr/local/bin/aws", id: "r5vv3VwyH+" }),
@@ -2971,7 +2971,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
     rS = (0, D.field)((0, D.annotate)($e.urlWithSchemeCoercion.optional(), { redact: "hostname" }), {
       flatKey: "inferenceBedrockBaseUrl",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
-      remotePolicy: { rejectLoopback: !0, originPinned: { carries: "local-credential" } },
+      remotePolicy: { rejectLoopback: true, originPinned: { carries: "local-credential" } },
       title: (0, x.msg)({ defaultMessage: "Bedrock base URL", id: "GzwfABozww" }),
       category: "connection",
       placeholder: (e, t) => {
@@ -3012,7 +3012,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
               "Static bearer token for inference. For providers that support profile or helper-script credentials, prefer those.",
             id: "InfBedrockBearerHint",
           }),
-          { docsOnly: !0 },
+          { docsOnly: true },
         ),
       },
     }),
@@ -3085,7 +3085,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
         description: {
           short: (0, D.shortDescription)(
             (0, x.msg)({ defaultMessage: "API key for the configured inference gateway.", id: "InfGatewayApiKeyHint" }),
-            { docsOnly: !0 },
+            { docsOnly: true },
           ),
         },
       }),
@@ -3101,7 +3101,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
           support: { enabled: { scopes: ["3p"], availableInVersion: "1.25927.0" } },
           title: (0, x.msg)({ defaultMessage: "Gateway sign-in flow", id: "InfGatewayOidcAuthFlow" }),
           category: "connection",
-          notAPresenceSignal: !0,
+          notAPresenceSignal: true,
           description: {
             short: (0, D.shortDescription)(
               (0, x.msg)({
@@ -3119,7 +3119,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
         oidc: (0, D.field)(Qd.GatewayOidc.optional(), {
           flatKey: "inferenceGatewayOidc",
           support: { enabled: { scopes: ["3p"], availableInVersion: "1.6889.0" } },
-          remotePolicy: { requiresUserConsent: !0 },
+          remotePolicy: { requiresUserConsent: true },
           title: (0, x.msg)({ defaultMessage: "Gateway SSO IdP (OIDC)", id: "FcISn6aVjf" }),
           predicates: {
             warn: (e) =>
@@ -3163,9 +3163,9 @@ If this field is set, static credential fields (API key, bearer token) are ignor
         flatKey: "inferenceGatewayBaseUrl",
         support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
         remotePolicy: {
-          rejectLoopback: !0,
+          rejectLoopback: true,
           originPinned: { carries: "server-issued-credential" },
-          requiresUserConsent: !0,
+          requiresUserConsent: true,
         },
         title: (0, x.msg)({ defaultMessage: "Gateway base URL", id: "JQs8c3pGcl" }),
         egressRequirements: (e, t) => {
@@ -3217,7 +3217,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
       ssoStartUrl: (0, D.field)($e.urlWithSchemeCoercion.optional(), {
         flatKey: "inferenceBedrockSsoStartUrl",
         support: { enabled: { scopes: ["3p"], availableInVersion: "1.6259.0" } },
-        remotePolicy: { rejectLoopback: !0, requiresUserConsent: !0 },
+        remotePolicy: { rejectLoopback: true, requiresUserConsent: true },
         title: (0, x.msg)({ defaultMessage: "AWS SSO start URL", id: "M1ekod7Ohm" }),
         category: "connection",
         predicates: { required: (e) => !(0, $e.hasActiveBootstrap)(e) },
@@ -3236,7 +3236,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
         {
           flatKey: "inferenceBedrockSsoRegion",
           support: { enabled: { scopes: ["3p"], availableInVersion: "1.6259.0" } },
-          remotePolicy: { requiresUserConsent: !0 },
+          remotePolicy: { requiresUserConsent: true },
           title: (0, x.msg)({ defaultMessage: "AWS SSO region", id: "fVSO74vxG+" }),
           egressRequirements: (e, t) => {
             var n;
@@ -3257,7 +3257,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
       ssoAccountId: (0, D.field)(F.z.string().trim().min(1).optional(), {
         flatKey: "inferenceBedrockSsoAccountId",
         support: { enabled: { scopes: ["3p"], availableInVersion: "1.6259.0" } },
-        remotePolicy: { requiresUserConsent: !0 },
+        remotePolicy: { requiresUserConsent: true },
         title: (0, x.msg)({ defaultMessage: "AWS SSO account ID", id: "SM396mPAdJ" }),
         category: "connection",
         predicates: { required: (e) => !(0, $e.hasActiveBootstrap)(e) },
@@ -3274,7 +3274,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
       ssoRoleName: (0, D.field)(F.z.string().trim().min(1).optional(), {
         flatKey: "inferenceBedrockSsoRoleName",
         support: { enabled: { scopes: ["3p"], availableInVersion: "1.6259.0" } },
-        remotePolicy: { requiresUserConsent: !0 },
+        remotePolicy: { requiresUserConsent: true },
         title: (0, x.msg)({ defaultMessage: "AWS SSO role name", id: "Us/KWk8ZwZ" }),
         category: "connection",
         predicates: { required: (e) => !(0, $e.hasActiveBootstrap)(e) },
@@ -3327,7 +3327,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
         clientId: (0, D.field)(F.z.string().trim().min(1).optional(), {
           flatKey: "inferenceVertexOAuthClientId",
           support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
-          remotePolicy: { requiresUserConsent: !0 },
+          remotePolicy: { requiresUserConsent: true },
           title: (0, x.msg)({ defaultMessage: "Vertex OAuth client ID", id: "uV5y1u6H7A" }),
           category: "connection",
           predicates: { required: (e) => !(0, $e.hasActiveBootstrap)(e) },
@@ -3394,7 +3394,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
         audience: (0, D.field)(F.z.string().trim().min(1).optional(), {
           flatKey: "inferenceVertexWorkforceAudience",
           support: { enabled: { scopes: ["3p"], availableInVersion: "1.10628.0" } },
-          remotePolicy: { requiresUserConsent: !0 },
+          remotePolicy: { requiresUserConsent: true },
           title: (0, x.msg)({ defaultMessage: "Workforce Identity audience", id: "B9l27BNEGU" }),
           egressRequirements: (e, t) => {
             var n, i;
@@ -3440,7 +3440,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
           support: { enabled: { scopes: ["3p"], availableInVersion: "1.25927.0" } },
           title: (0, x.msg)({ defaultMessage: "Workforce Identity sign-in flow", id: "InfVertexWifAuthFlow" }),
           category: "connection",
-          notAPresenceSignal: !0,
+          notAPresenceSignal: true,
           description: {
             short: (0, D.shortDescription)(
               (0, x.msg)({
@@ -3458,7 +3458,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
         oidc: (0, D.field)(Qd.BootstrapOidc.optional(), {
           flatKey: "inferenceVertexWorkforceOidc",
           support: { enabled: { scopes: ["3p"], availableInVersion: "1.10628.0" } },
-          remotePolicy: { requiresUserConsent: !0 },
+          remotePolicy: { requiresUserConsent: true },
           title: (0, x.msg)({ defaultMessage: "Workforce Identity IdP (OIDC)", id: "8uN+pRpuBV" }),
           egressRequirements: (e, t) => {
             var n, i;
@@ -3489,7 +3489,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
         credentialsFile: (0, D.field)((0, D.annotate)(F.z.string().optional(), { pathKind: "file" }), {
           flatKey: "inferenceVertexCredentialsFile",
           support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
-          remotePolicy: { requiresUserConsent: !0 },
+          remotePolicy: { requiresUserConsent: true },
           title: (0, x.msg)({ defaultMessage: "GCP credentials file path", id: "vr+XA6xjAJ" }),
           category: "connection",
           placeholder: (0, x.msg)({ defaultMessage: "/etc/claude/vertex-sa.json", id: "p8Z4FQ25gZ" }),
@@ -3520,7 +3520,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
               defaultMessage: "Google Cloud project ID for Vertex AI inference.",
               id: "InfVertexProjectIdHint",
             }),
-            { docsOnly: !0 },
+            { docsOnly: true },
           ),
         },
       }),
@@ -3550,7 +3550,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
       baseUrl: (0, D.field)((0, D.annotate)($e.urlWithSchemeCoercion.optional(), { redact: "hostname" }), {
         flatKey: "inferenceVertexBaseUrl",
         support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
-        remotePolicy: { rejectLoopback: !0, originPinned: { carries: "local-credential" } },
+        remotePolicy: { rejectLoopback: true, originPinned: { carries: "local-credential" } },
         title: (0, x.msg)({ defaultMessage: "Vertex AI base URL", id: "TAuycZeIjw" }),
         category: "connection",
         placeholder: (0, x.msg)({
@@ -3578,7 +3578,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
           description: {
             short: (0, D.shortDescription)(
               (0, x.msg)({ defaultMessage: "API key for Azure AI Foundry inference.", id: "InfFoundryApiKeyHint" }),
-              { docsOnly: !0 },
+              { docsOnly: true },
             ),
           },
         }),
@@ -3588,7 +3588,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
         tenantId: (0, D.field)(F.z.string().trim().min(1).optional(), {
           flatKey: "inferenceFoundryTenantId",
           support: { enabled: { scopes: ["3p"], availableInVersion: "1.9255.0" } },
-          remotePolicy: { requiresUserConsent: !0 },
+          remotePolicy: { requiresUserConsent: true },
           title: (0, x.msg)({ defaultMessage: "Entra ID tenant ID", id: "Ah1hvJZNYr" }),
           egressRequirements: (e, t) => {
             var n;
@@ -3612,7 +3612,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
         clientId: (0, D.field)(F.z.string().trim().min(1).optional(), {
           flatKey: "inferenceFoundryClientId",
           support: { enabled: { scopes: ["3p"], availableInVersion: "1.9255.0" } },
-          remotePolicy: { requiresUserConsent: !0 },
+          remotePolicy: { requiresUserConsent: true },
           title: (0, x.msg)({ defaultMessage: "Entra ID client ID", id: "bLvD/3lRxB" }),
           category: "connection",
           predicates: { required: (e) => !(0, $e.hasActiveBootstrap)(e) },
@@ -3684,12 +3684,12 @@ If this field is set, static credential fields (API key, bearer token) are ignor
     (0, D.variantMeta)(tK, {}),
     (0, D.variantMeta)(nK, {
       cliFlag: "CLAUDE_CODE_USE_BEDROCK",
-      bedrockFamily: !0,
+      bedrockFamily: true,
       noDiscoveryFor: ["interactive", "vendor-profile"],
     }),
     (0, D.variantMeta)(oK, {
       cliFlag: "CLAUDE_CODE_USE_MANTLE",
-      bedrockFamily: !0,
+      bedrockFamily: true,
       noDiscoveryFor: ["static", "helper-script"],
     }),
     (0, D.variantMeta)(sK, {
@@ -3720,7 +3720,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
       return t ? [[e, t]] : [];
     }),
   );
-  var lK = (e) => e !== void 0 && tf(e).bedrockFamily === !0;
+  var lK = (e) => e !== void 0 && tf(e).bedrockFamily === true;
   sS.isBedrockFamily = lK;
   function dK(e) {
     let t = {};
@@ -3730,9 +3730,9 @@ If this field is set, static credential fields (API key, bearer token) are ignor
     return t;
   }
   function aS(e, t) {
-    if (!e) return !0;
+    if (!e) return true;
     let n = sS.CREDENTIAL_KINDS_FOR_PROVIDER[e];
-    if (n.length === 0) return !1;
+    if (n.length === 0) return false;
     let i = tf(e).noDiscoveryFor;
     if (t === void 0) return n.some((r) => !(i === null || i === void 0 ? void 0 : i.includes(r)));
     return n.includes(t) && !(i === null || i === void 0 ? void 0 : i.includes(t));
@@ -3745,7 +3745,7 @@ If this field is set, static credential fields (API key, bearer token) are ignor
 });
 
 var Si = S(function (fS) {
-  Object.defineProperty(fS, "__esModule", { value: !0 });
+  Object.defineProperty(fS, "__esModule", { value: true });
   fS.GROUP_DESCRIPTIONS =
     fS.BOOTSTRAP_GROUP =
     fS.MCP_SERVERS_GROUP =
@@ -3766,7 +3766,7 @@ var Si = S(function (fS) {
 });
 
 var Vu = S(function (_S) {
-  Object.defineProperty(_S, "__esModule", { value: !0 });
+  Object.defineProperty(_S, "__esModule", { value: true });
   _S.FeatureDiscoveryConfig =
     _S.AutoUpdateConfig =
     _S.ExtensionsConfig =
@@ -3786,11 +3786,11 @@ var Vu = S(function (_S) {
   _S.OTLP_CONTENT_CATEGORIES = ["userPrompts", "assistantResponses", "toolDetails", "toolContent", "rawApiBodies"];
   _S.OtlpConfig = rt.z.object({
     endpoint: (0, oe.field)(
-      (0, oe.annotate)(Hu.urlWithSchemeCoercion.optional(), { redact: "hostname", gatewayServable: !1 }),
+      (0, oe.annotate)(Hu.urlWithSchemeCoercion.optional(), { redact: "hostname", gatewayServable: false }),
       {
         flatKey: "otlpEndpoint",
         support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
-        remotePolicy: { rejectLoopback: !0 },
+        remotePolicy: { rejectLoopback: true },
         title: (0, J.msg)({ defaultMessage: "OpenTelemetry collector endpoint", id: "xovdJlXIM6" }),
         egressRequirements: (e) => {
           let t = (0, hS.safeHostname)(e);
@@ -3811,7 +3811,7 @@ var Vu = S(function (_S) {
       },
     ),
     protocol: (0, oe.field)(
-      (0, oe.annotate)(rt.z.enum(["http/protobuf", "http/json", "grpc"]).optional(), { gatewayServable: !1 }),
+      (0, oe.annotate)(rt.z.enum(["http/protobuf", "http/json", "grpc"]).optional(), { gatewayServable: false }),
       {
         flatKey: "otlpProtocol",
         support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
@@ -3831,7 +3831,7 @@ var Vu = S(function (_S) {
         },
       },
     ),
-    headers: (0, oe.field)((0, oe.annotate)(Hu.kvRecord.optional(), { redact: "drop", gatewayServable: !1 }), {
+    headers: (0, oe.field)((0, oe.annotate)(Hu.kvRecord.optional(), { redact: "drop", gatewayServable: false }), {
       flatKey: "otlpHeaders",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
       title: (0, J.msg)({ defaultMessage: "OpenTelemetry exporter headers", id: "fO2poeLmt6" }),
@@ -3856,7 +3856,7 @@ var Vu = S(function (_S) {
       },
     }),
     resourceAttributes: (0, oe.field)(
-      (0, oe.annotate)(Hu.kvRecord.optional(), { redact: "presence", gatewayServable: !1 }),
+      (0, oe.annotate)(Hu.kvRecord.optional(), { redact: "presence", gatewayServable: false }),
       {
         flatKey: "otlpResourceAttributes",
         support: { enabled: { scopes: ["3p"], availableInVersion: "1.5354.0" } },
@@ -4030,21 +4030,21 @@ var Vu = S(function (_S) {
     nf = {
       coworkSurface: (e) => {
         var t;
-        return ((t = e.coworkSurface) === null || t === void 0 ? void 0 : t.enabled) !== !1;
+        return ((t = e.coworkSurface) === null || t === void 0 ? void 0 : t.enabled) !== false;
       },
       codeSurface: (e) => {
         var t;
-        return ((t = e.codeSurface) === null || t === void 0 ? void 0 : t.enabled) !== !1;
+        return ((t = e.codeSurface) === null || t === void 0 ? void 0 : t.enabled) !== false;
       },
       chatSurface: (e) => {
         var t;
-        return ((t = e.chatSurface) === null || t === void 0 ? void 0 : t.enabled) === !0;
+        return ((t = e.chatSurface) === null || t === void 0 ? void 0 : t.enabled) === true;
       },
     },
     vK = (0, J.msg)({ defaultMessage: "At least one surface must remain enabled.", id: "LastSurfaceReason" });
   function uf(e, t) {
-    if (!nf[t](e)) return !1;
-    for (let n of Object.keys(nf)) if (n !== t && nf[n](e)) return !1;
+    if (!nf[t](e)) return false;
+    for (let n of Object.keys(nf)) if (n !== t && nf[n](e)) return false;
     return vK;
   }
   _S.CoworkSurfaceConfig = rt.z.object({
@@ -4057,7 +4057,7 @@ var Vu = S(function (_S) {
           "\u201CCowork\u201D is a product name \u2014 keep it untranslated in Latin script; translate the rest of the sentence naturally.",
         id: "pq8krELyA1",
       }),
-      default: !0,
+      default: true,
       groupOverride: "verbatim",
       category: "sandbox",
       group: sf,
@@ -4085,7 +4085,7 @@ var Vu = S(function (_S) {
       flatKey: "isClaudeCodeForDesktopEnabled",
       support: { enabled: { scopes: ["3p", "1p"], availableInVersion: "1.2581.0" } },
       title: (0, J.msg)({ defaultMessage: "Allow Code", id: "5fWJP5tZx6" }),
-      default: !0,
+      default: true,
       groupOverride: "verbatim",
       category: "sandbox",
       group: sf,
@@ -4127,7 +4127,7 @@ var Vu = S(function (_S) {
       predicates: {
         show: (e) => {
           var t;
-          return ((t = e.chatSurface) === null || t === void 0 ? void 0 : t.enabled) !== !1;
+          return ((t = e.chatSurface) === null || t === void 0 ? void 0 : t.enabled) !== false;
         },
       },
       description: {
@@ -4150,10 +4150,10 @@ var Vu = S(function (_S) {
       flatKey: "isDesktopExtensionEnabled",
       support: { enabled: { scopes: ["3p", "1p"], availableInVersion: "1.2581.0" } },
       title: (0, J.msg)({ defaultMessage: "Allow desktop extensions", id: "knHnvzpkOf" }),
-      default: !1,
+      default: false,
       groupOverride: "verbatim",
       legacyFlatKey: "isDxtEnabled",
-      egressRequirements: (e) => (e === !1 ? [] : hS.PYTHON_EXTENSION_RUNTIME_HOSTS),
+      egressRequirements: (e) => (e === false ? [] : hS.PYTHON_EXTENSION_RUNTIME_HOSTS),
       egressRequirementsLabel: (0, J.msg)({ defaultMessage: "Desktop extensions (Python runtime)", id: "8Jc9WEC0S8" }),
       category: "connectors",
       group: of,
@@ -4170,7 +4170,7 @@ var Vu = S(function (_S) {
       support: { enabled: { scopes: ["1p"], availableInVersion: "1.2581.0" } },
       groupOverride: "verbatim",
       title: (0, J.msg)({ defaultMessage: "Show extension directory", id: "bqOLf0vLQm" }),
-      default: { displayOnly: !0 },
+      default: { displayOnly: true },
       legacyFlatKey: "isDxtDirectoryEnabled",
       category: "connectors",
       group: of,
@@ -4186,7 +4186,7 @@ var Vu = S(function (_S) {
       predicates: {
         show: (e) => {
           var t;
-          return ((t = e.extensions) === null || t === void 0 ? void 0 : t.enabled) !== !1;
+          return ((t = e.extensions) === null || t === void 0 ? void 0 : t.enabled) !== false;
         },
       },
     }),
@@ -4194,7 +4194,7 @@ var Vu = S(function (_S) {
       flatKey: "isDesktopExtensionSignatureRequired",
       support: { enabled: { scopes: ["3p", "1p"], availableInVersion: "1.2581.0" } },
       title: (0, J.msg)({ defaultMessage: "Require signed extensions", id: "bmP92ZCban" }),
-      default: !1,
+      default: false,
       groupOverride: "verbatim",
       legacyFlatKey: "isDxtSignatureRequired",
       category: "connectors",
@@ -4211,7 +4211,7 @@ var Vu = S(function (_S) {
       predicates: {
         show: (e) => {
           var t;
-          return ((t = e.extensions) === null || t === void 0 ? void 0 : t.enabled) !== !1;
+          return ((t = e.extensions) === null || t === void 0 ? void 0 : t.enabled) !== false;
         },
       },
     }),
@@ -4221,9 +4221,9 @@ var Vu = S(function (_S) {
     disabled: (0, oe.field)(rt.z.boolean().optional(), {
       flatKey: "disableAutoUpdates",
       support: { enabled: { scopes: ["3p", "1p"], availableInVersion: "1.2581.0" } },
-      appBehaviorOnly: !0,
+      appBehaviorOnly: true,
       title: (0, J.msg)({ defaultMessage: "Block auto-updates", id: "OX1+jdVwLL" }),
-      default: !1,
+      default: false,
       category: "telemetry",
       group: af,
       order: 20,
@@ -4237,7 +4237,7 @@ var Vu = S(function (_S) {
       },
       predicates: {
         warn: (e) =>
-          e === !0
+          e === true
             ? (0, J.msg)({
                 defaultMessage:
                   "Security and compatibility fixes will not install automatically. Make sure IT has another distribution path.",
@@ -4249,7 +4249,7 @@ var Vu = S(function (_S) {
     enforcementHours: (0, oe.field)(rt.z.coerce.number().int().gt(0).lte(72).optional(), {
       flatKey: "autoUpdaterEnforcementHours",
       support: { enabled: { scopes: ["3p", "1p"], availableInVersion: "1.2581.0" } },
-      appBehaviorOnly: !0,
+      appBehaviorOnly: true,
       title: (0, J.msg)({ defaultMessage: "Auto-update enforcement window", id: "jJz20QocAd" }),
       category: "telemetry",
       group: af,
@@ -4266,16 +4266,16 @@ var Vu = S(function (_S) {
       predicates: {
         show: (e) => {
           var t;
-          return ((t = e.autoUpdate) === null || t === void 0 ? void 0 : t.disabled) !== !0;
+          return ((t = e.autoUpdate) === null || t === void 0 ? void 0 : t.disabled) !== true;
         },
       },
     }),
     viaUpdatesHost: (0, oe.field)(rt.z.boolean().optional(), {
       flatKey: "updateViaUpdatesHost",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.26832.0" } },
-      appBehaviorOnly: !0,
+      appBehaviorOnly: true,
       title: (0, J.msg)({ defaultMessage: "Check for updates on releases.claude.com", id: "UpdateViaUpdatesHost" }),
-      default: !1,
+      default: false,
       category: "telemetry",
       group: af,
       order: 22,
@@ -4293,7 +4293,7 @@ var Vu = S(function (_S) {
       predicates: {
         show: (e) => {
           var t;
-          return ((t = e.autoUpdate) === null || t === void 0 ? void 0 : t.disabled) !== !0;
+          return ((t = e.autoUpdate) === null || t === void 0 ? void 0 : t.disabled) !== true;
         },
       },
     }),
@@ -4304,8 +4304,8 @@ var Vu = S(function (_S) {
       flatKey: "disableFeatureDiscovery",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.21459.0" } },
       title: (0, J.msg)({ defaultMessage: "Hide feature announcements", id: "DisableFeatureDiscoveryTitle" }),
-      default: !1,
-      failClosedValue: !0,
+      default: false,
+      failClosedValue: true,
       category: "appearance",
       group: wK,
       order: 10,
@@ -4329,7 +4329,7 @@ var Vu = S(function (_S) {
 });
 
 var lf = S(function (SS) {
-  Object.defineProperty(SS, "__esModule", { value: !0 });
+  Object.defineProperty(SS, "__esModule", { value: true });
   SS.BootstrapConfig = void 0;
   var cf = st(),
     TK = ht(),
@@ -4344,7 +4344,7 @@ var lf = S(function (SS) {
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.10628.0" } },
       remotePolicy: { type: "remote-disabled" },
       title: (0, gr.msg)({ defaultMessage: "Use bootstrap config", id: "Q6zr1vGzlF" }),
-      default: !0,
+      default: true,
       category: "source",
       group: Gu.BOOTSTRAP_GROUP,
       description: {
@@ -4370,7 +4370,7 @@ var lf = S(function (SS) {
       title: (0, gr.msg)({ defaultMessage: "Bootstrap config URL", id: "MPdK0gXvRA" }),
       egressRequirements: (e, t) => {
         var n;
-        if (((n = t.bootstrap) === null || n === void 0 ? void 0 : n.enabled) === !1) return [];
+        if (((n = t.bootstrap) === null || n === void 0 ? void 0 : n.enabled) === false) return [];
         let i = (0, TK.safeHostname)(e);
         return i ? [i] : [];
       },
@@ -4395,7 +4395,7 @@ var lf = S(function (SS) {
       title: (0, gr.msg)({ defaultMessage: "Bootstrap OIDC parameters", id: "zS5yI0rzXy" }),
       egressRequirements: (e, t) => {
         var n;
-        return ((n = t.bootstrap) === null || n === void 0 ? void 0 : n.enabled) === !1
+        return ((n = t.bootstrap) === null || n === void 0 ? void 0 : n.enabled) === false
           ? []
           : (0, vS.oidcEgressHosts)(e);
       },
@@ -4427,7 +4427,7 @@ var lf = S(function (SS) {
       legacyFlatKey: "trustBootstrapLocalExec",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.25927.0" } },
       title: (0, gr.msg)({ defaultMessage: "Trust bootstrap-delivered settings", id: "vRHCNG9xkY" }),
-      default: !1,
+      default: false,
       category: "source",
       group: Gu.BOOTSTRAP_GROUP,
       remotePolicy: { type: "remote-disabled" },
@@ -4451,7 +4451,7 @@ var lf = S(function (SS) {
 });
 
 var ff = S(function (PS) {
-  Object.defineProperty(PS, "__esModule", { value: !0 });
+  Object.defineProperty(PS, "__esModule", { value: true });
   PS.ModelsConfig = PS.InferenceModel = void 0;
   PS.modelDiscoveryUrlHint = df;
   var Jt = st(),
@@ -4465,8 +4465,8 @@ var ff = S(function (PS) {
   PS.InferenceModel = Jt.z.object({
     name: (0, Ot.subfield)(Jt.z.string().trim().min(1), {
       label: (0, Ut.msg)({ defaultMessage: "Model ID", id: "/m0q/Dre6A" }),
-      isPrimaryKey: !0,
-      mono: !0,
+      isPrimaryKey: true,
+      mono: true,
       placeholder: (0, Ut.msg)({ defaultMessage: "claude-opus-4", id: "s+j6yEtVLW" }),
     }),
     labelOverride: (0, Ot.subfield)(
@@ -4569,7 +4569,7 @@ var ff = S(function (PS) {
     discoveryEnabled: (0, Ot.field)(Jt.z.boolean().optional(), {
       flatKey: "modelDiscoveryEnabled",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.8089.0" } },
-      default: { displayOnly: !0 },
+      default: { displayOnly: true },
       title: (0, Ut.msg)({ defaultMessage: "Model discovery", id: "jU4z+3Uk7+" }),
       category: "connection",
       group: _a.MODELS_GROUP,
@@ -4606,11 +4606,11 @@ var ff = S(function (PS) {
             e.map((t) => {
               let n = typeof t === "string" ? { name: t } : t,
                 i = n.name.match(/^(.+?)\[1m\]$/i);
-              return i ? { ...n, name: i[1].trim(), supports1m: !0 } : n;
+              return i ? { ...n, name: i[1].trim(), supports1m: true } : n;
             }),
           )
           .optional(),
-        { redact: "hash", gatewayServable: !1 },
+        { redact: "hash", gatewayServable: false },
       ),
       {
         flatKey: "inferenceModels",
@@ -4624,7 +4624,7 @@ var ff = S(function (PS) {
         description: {
           short: (0, Ot.shortDescription)((e, t) => {
             var n;
-            return ((n = t.models) === null || n === void 0 ? void 0 : n.discoveryEnabled) === !1 ||
+            return ((n = t.models) === null || n === void 0 ? void 0 : n.discoveryEnabled) === false ||
               !(0, Wu.providerHasDiscovery)(t)
               ? e.formatMessage({
                   defaultMessage: "Models to show in the picker. First entry is the default.",
@@ -4645,7 +4645,7 @@ var ff = S(function (PS) {
             var t;
             return (
               !(0, _a.hasActiveBootstrap)(e) &&
-              (((t = e.models) === null || t === void 0 ? void 0 : t.discoveryEnabled) === !1 ||
+              (((t = e.models) === null || t === void 0 ? void 0 : t.discoveryEnabled) === false ||
                 !(0, Wu.providerHasDiscovery)(e))
             );
           },
@@ -4668,7 +4668,7 @@ var ff = S(function (PS) {
 });
 
 var Ju = S(function (CS) {
-  Object.defineProperty(CS, "__esModule", { value: !0 });
+  Object.defineProperty(CS, "__esModule", { value: true });
   CS.PluginsConfig =
     CS.AllowedPluginMarketplace =
     CS.MARKETPLACE_CREDENTIAL_KINDS =
@@ -4760,7 +4760,7 @@ var Ju = S(function (CS) {
       }),
       credentialHelper: (0, Ke.subfield)((0, Ke.annotate)(Nt.z.string().min(1).optional(), { redact: "drop" }), {
         label: (0, qe.msg)({ defaultMessage: "Credential helper", id: "9bQZ2JN+mX" }),
-        remotePolicy: { requiresUserConsent: !0 },
+        remotePolicy: { requiresUserConsent: true },
         description: {
           short: (0, Ke.shortDescription)(
             (0, qe.msg)({
@@ -4778,7 +4778,7 @@ var Ju = S(function (CS) {
         github: (0, qe.msg)({ defaultMessage: "GitHub", id: "SYEyDpPjNk" }),
         git: (0, qe.msg)({ defaultMessage: "Git URL", id: "TpLDdW3nvS" }),
       },
-      predicates: { required: () => !0 },
+      predicates: { required: () => true },
     };
   CS.AllowedPluginMarketplace = Nt.z
     .discriminatedUnion("source", [
@@ -4791,7 +4791,7 @@ var Ju = S(function (CS) {
             .transform((e) => e.toLowerCase()),
           {
             label: (0, qe.msg)({ defaultMessage: "Repository", id: "ZHK3DVhcxt" }),
-            isPrimaryKey: !0,
+            isPrimaryKey: true,
             placeholder: (0, qe.msg)({ defaultMessage: "owner/repo", id: "3pZ8Ut7zIL" }),
             predicates: { show: TS, required: TS },
           },
@@ -4800,7 +4800,7 @@ var Ju = S(function (CS) {
       }),
       Nt.z.object({
         source: (0, Ke.subfield)(Nt.z.literal("git"), jS),
-        url: (0, Ke.subfield)((0, ya.urlSchema)({ allowLoopbackHttp: !0 }), {
+        url: (0, Ke.subfield)((0, ya.urlSchema)({ allowLoopbackHttp: true }), {
           label: (0, qe.msg)({ defaultMessage: "URL", id: "5M+YdqOWGS" }),
           predicates: { show: AS, required: AS },
         }),
@@ -4837,11 +4837,11 @@ var Ju = S(function (CS) {
     remoteUrl: (0, Ke.field)((0, Ke.annotate)((0, ya.urlSchema)().optional(), { redact: "hostname" }), {
       flatKey: "organizationPluginsUrl",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.10628.0" }, visibility: "public-undocumented" },
-      remotePolicy: { rejectLoopback: !0, originPinned: { carries: "local-credential" } },
+      remotePolicy: { rejectLoopback: true, originPinned: { carries: "local-credential" } },
       title: (0, qe.msg)({ defaultMessage: "Organization plugins endpoint", id: "OrgPluginsUrl" }),
       egressRequirements: (e, t) => {
         var n;
-        if (((n = t.bootstrap) === null || n === void 0 ? void 0 : n.enabled) === !1) return [];
+        if (((n = t.bootstrap) === null || n === void 0 ? void 0 : n.enabled) === false) return [];
         let i = (0, IS.safeHostname)(e);
         return i ? [i] : [];
       },
@@ -4886,7 +4886,7 @@ var Ju = S(function (CS) {
         flatKey: "allowedPluginMarketplaces",
         support: { enabled: { scopes: ["3p"], availableInVersion: "1.17377.1" } },
         betaFeatureKey: "pluginMarketplaces",
-        remotePolicy: { marketplaceUrlHygiene: !0 },
+        remotePolicy: { marketplaceUrlHygiene: true },
         title: (0, qe.msg)({ defaultMessage: "Plugin marketplaces", id: "SbDWhfly4c" }),
         description: {
           short: (0, Ke.shortDescription)(
@@ -4916,7 +4916,7 @@ var Ju = S(function (CS) {
 });
 
 var pf = S(function (US) {
-  Object.defineProperty(US, "__esModule", { value: !0 });
+  Object.defineProperty(US, "__esModule", { value: true });
   US.TelemetryConfig = void 0;
   var ba = st(),
     Yt = Ze(),
@@ -4948,9 +4948,9 @@ var pf = S(function (US) {
     disableEssential: (0, Yt.field)(ba.z.boolean().optional(), {
       flatKey: "disableEssentialTelemetry",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
-      remotePolicy: { default: !0 },
+      remotePolicy: { default: true },
       title: (0, sr.msg)({ defaultMessage: "Block essential telemetry", id: "rdKIIOydC8" }),
-      default: !1,
+      default: false,
       category: "telemetry",
       group: Yu.ANTHROPIC_TELEMETRY_GROUP,
       order: 0,
@@ -4969,7 +4969,7 @@ var pf = S(function (US) {
       },
       predicates: {
         warn: (e) =>
-          e === !0
+          e === true
             ? (0, sr.msg)({
                 defaultMessage:
                   "Crash and error reports are how we diagnose failures specific to your inference setup. Support turnaround will be slower without them.",
@@ -4981,9 +4981,9 @@ var pf = S(function (US) {
     disableNonessential: (0, Yt.field)(ba.z.boolean().optional(), {
       flatKey: "disableNonessentialTelemetry",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
-      remotePolicy: { default: !0 },
+      remotePolicy: { default: true },
       title: (0, sr.msg)({ defaultMessage: "Block nonessential telemetry", id: "oo4Av05fBn" }),
-      default: !1,
+      default: false,
       category: "telemetry",
       group: Yu.ANTHROPIC_TELEMETRY_GROUP,
       order: 1,
@@ -5001,7 +5001,7 @@ var pf = S(function (US) {
       },
       predicates: {
         warn: (e) =>
-          e === !0
+          e === true
             ? (0, sr.msg)({
                 defaultMessage:
                   "Usage analytics help us prioritize improvements for third-party inference. Diagnostic-report uploads will also be blocked. No message content is included in either.",
@@ -5014,7 +5014,7 @@ var pf = S(function (US) {
       flatKey: "disableNonessentialServices",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.2581.0" } },
       title: (0, sr.msg)({ defaultMessage: "Block nonessential services", id: "HA2UIzGsaT" }),
-      default: !1,
+      default: false,
       category: "telemetry",
       group: Yu.ANTHROPIC_TELEMETRY_GROUP,
       order: 2,
@@ -5035,7 +5035,7 @@ Destinations are listed under Egress Requirements \u2192 Nonessential services.`
       },
       predicates: {
         warn: (e) =>
-          e === !0
+          e === true
             ? (0, sr.msg)({
                 defaultMessage:
                   "This disables connector icons, the connector directory lookup, artifact previews, and MCP Apps widgets. Artifacts will not render in conversations, and connectors that return MCP Apps show the text tool result instead of the widget.",
@@ -5048,23 +5048,23 @@ Destinations are listed under Egress Requirements \u2192 Nonessential services.`
 });
 
 var mf = S(function (FS) {
-  Object.defineProperty(FS, "__esModule", { value: !0 });
+  Object.defineProperty(FS, "__esModule", { value: true });
   FS.MANAGED_MCP_PRESETS = void 0;
   FS.isAnthropicM365ConnectorUrl = ZS;
   FS.isAnthropicM365Connector = zK;
   var xK = "07c030f6-5743-41b7-ba00-0a6e85f37c17",
     MK = [".claude.com", ".fedstart.com"];
   function ZS(e) {
-    if (!e) return !1;
-    if (!MK.some((t) => e.hostname.endsWith(t))) return !1;
+    if (!e) return false;
+    if (!MK.some((t) => e.hostname.endsWith(t))) return false;
     return e.hostname.startsWith("microsoft365.mcp.") || e.pathname.includes("/m365/");
   }
   function zK(e) {
-    if (!(e === null || e === void 0 ? void 0 : e.url) || e.custom_oauth_client_id) return !1;
+    if (!(e === null || e === void 0 ? void 0 : e.url) || e.custom_oauth_client_id) return false;
     try {
       return ZS(new URL(e.url));
     } catch (t) {
-      return !1;
+      return false;
     }
   }
   FS.MANAGED_MCP_PRESETS = [
@@ -5098,7 +5098,7 @@ var mf = S(function (FS) {
 });
 
 var yf = S(function (qS) {
-  Object.defineProperty(qS, "__esModule", { value: !0 });
+  Object.defineProperty(qS, "__esModule", { value: true });
   qS.McpConfig = void 0;
   qS.isMcpPersistentAlwaysAllowEnabled = FK;
   var gf = st(),
@@ -5152,7 +5152,7 @@ var yf = S(function (qS) {
           { scopes: ["1p"], availableInVersion: "1.24012.11" },
         ],
       },
-      remotePolicy: { mcpUrlHygiene: !0 },
+      remotePolicy: { mcpUrlHygiene: true },
       title: (0, Jn.msg)({ defaultMessage: "Managed MCP servers", id: "DC+lIM7C8k" }),
       checkDropped: ao.checkManagedMcpServersForDrops,
       failClosedValue: [],
@@ -5199,8 +5199,8 @@ var yf = S(function (qS) {
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.24012.9" } },
       groupOverride: "verbatim",
       title: (0, Jn.msg)({ defaultMessage: "Allow persistent tool approvals", id: "OmQqCV/O12" }),
-      default: !0,
-      failClosedValue: !1,
+      default: true,
+      failClosedValue: false,
       category: "connectors",
       group: _f.MCP_SERVERS_GROUP,
       order: 1,
@@ -5222,9 +5222,9 @@ var yf = S(function (qS) {
       flatKey: "isLocalDevMcpEnabled",
       support: { enabled: { scopes: ["3p", "1p"], availableInVersion: "1.2581.0" } },
       title: (0, Jn.msg)({ defaultMessage: "Allow user-added MCP servers", id: "1QKV7FS8FM" }),
-      default: !0,
+      default: true,
       groupOverride: "verbatim",
-      egressRequirements: (e) => (e === !1 ? [] : hf.PYTHON_EXTENSION_RUNTIME_HOSTS),
+      egressRequirements: (e) => (e === false ? [] : hf.PYTHON_EXTENSION_RUNTIME_HOSTS),
       egressRequirementsLabel: (0, Jn.msg)({ defaultMessage: "User-added MCP (Python runtime)", id: "O0zxaLsWs9" }),
       category: "connectors",
       group: _f.MCP_SERVERS_GROUP,
@@ -5242,12 +5242,12 @@ var yf = S(function (qS) {
   });
   function FK(e) {
     var t;
-    return ((t = e.mcp) === null || t === void 0 ? void 0 : t.persistentAlwaysAllowEnabled) !== !1;
+    return ((t = e.mcp) === null || t === void 0 ? void 0 : t.persistentAlwaysAllowEnabled) !== false;
   }
 });
 
 var ec = S(function (XS) {
-  Object.defineProperty(XS, "__esModule", { value: !0 });
+  Object.defineProperty(XS, "__esModule", { value: true });
   XS.WorkspaceConfig = XS.BUILTIN_ASK_POLICY_VALUES = XS.BUILTIN_TOOL_NAMES = XS.AllowedWorkspaceFolder = void 0;
   XS.checkBuiltinToolPolicyForDrops = GS;
   XS.checkEgressHostsForDrops = WS;
@@ -5267,8 +5267,8 @@ var ec = S(function (XS) {
   XS.AllowedWorkspaceFolder = Ve.z.object({
     path: (0, fe.subfield)((0, fe.annotate)(Ve.z.string().min(1), { pathKind: "folder" }), {
       label: (0, be.msg)({ defaultMessage: "Path", id: "P6LP7JosNq" }),
-      isPrimaryKey: !0,
-      mono: !0,
+      isPrimaryKey: true,
+      mono: true,
       placeholder: (0, be.msg)({ defaultMessage: "~/Documents/work", id: "/dk65J5QxC" }),
     }),
     isDefaultSelected: (0, fe.subfield)(Ve.z.boolean().optional(), {
@@ -5402,8 +5402,8 @@ In Code, read-only applies to Claude file tools only; Bash in Code sessions and 
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.25927.0" } },
       groupOverride: "verbatim",
       title: (0, be.msg)({ defaultMessage: "Allow user-created skills", id: "y486fMBVj/" }),
-      default: { displayOnly: !0 },
-      failClosedValue: !1,
+      default: { displayOnly: true },
+      failClosedValue: false,
       category: "sandbox",
       group: Dn.GENERAL_RESTRICTIONS_GROUP,
       order: 6.5,
@@ -5466,7 +5466,7 @@ In Code, read-only applies to Claude file tools only; Bash in Code sessions and 
       flatKey: "autoModeEnabled",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.10628.0" } },
       title: (0, be.msg)({ defaultMessage: "Allow Auto mode", id: "0QsHlMb8HD" }),
-      default: !1,
+      default: false,
       groupOverride: "verbatim",
       category: "sandbox",
       group: Dn.GENERAL_RESTRICTIONS_GROUP,
@@ -5493,7 +5493,7 @@ In Code sessions, a separately deployed Claude Code [managed-settings](${ki.COWO
       flatKey: "toolSearchEnabled",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.21459.0" } },
       title: (0, be.msg)({ defaultMessage: "Enable tool search", id: "3b6nGnLx6b" }),
-      default: !1,
+      default: false,
       category: "sandbox",
       group: Dn.GENERAL_RESTRICTIONS_GROUP,
       order: 10,
@@ -5513,7 +5513,7 @@ In Code sessions, a separately deployed Claude Code [managed-settings](${ki.COWO
       predicates: {
         warn: (e, t) => {
           var n;
-          return e === !0 && ((n = t.inference) === null || n === void 0 ? void 0 : n.provider) === "vertex"
+          return e === true && ((n = t.inference) === null || n === void 0 ? void 0 : n.provider) === "vertex"
             ? (0, be.msg)({
                 defaultMessage:
                   "Not supported on Vertex \u2014 enabling this will cause tool-search requests to fail instead of degrading. See the description above.",
@@ -5529,7 +5529,7 @@ In Code sessions, a separately deployed Claude Code [managed-settings](${ki.COWO
           .array(Ve.z.union([Ve.z.string().min(1), XS.AllowedWorkspaceFolder]))
           .transform((e) => e.map((t) => (typeof t === "string" ? { path: t } : t)))
           .optional(),
-        { pathKind: "folder", hostedServable: !1 },
+        { pathKind: "folder", hostedServable: false },
       ),
       {
         flatKey: "allowedWorkspaceFolders",
@@ -5561,7 +5561,7 @@ In Code sessions, a separately deployed Claude Code [managed-settings](${ki.COWO
         enabled: { scopes: ["3p", "1p"], availableInVersion: "1.19367.0" },
         visibility: "public-undocumented",
       },
-      appBehaviorOnly: !0,
+      appBehaviorOnly: true,
       title: (0, be.msg)({ defaultMessage: "Block WSL sessions", id: "DpHm4YbvWC" }),
       category: "sandbox",
       group: Dn.GENERAL_RESTRICTIONS_GROUP,
@@ -5586,7 +5586,7 @@ In Code sessions, a separately deployed Claude Code [managed-settings](${ki.COWO
             Array.isArray(e) ? e.filter((t) => typeof t === "string" && (0, Xu.parseEgressHostEntry)(t) !== null) : e,
           Ve.z.array(Ve.z.string().min(1)).optional(),
         ),
-        { glob: !0 },
+        { glob: true },
       ),
       {
         checkDropped: WS,
@@ -5638,7 +5638,7 @@ Hosts you add here also need to be open on your network firewall, on the listed 
             defaultMessage: "Enable additional VM-level isolation for the Cowork sandbox.",
             id: "SecureVmFeaturesHint",
           }),
-          { docsOnly: !0 },
+          { docsOnly: true },
         ),
       },
     }),
@@ -5646,7 +5646,7 @@ Hosts you add here also need to be open on your network firewall, on the listed 
       flatKey: "hardwareBuddyEnabled",
       support: { enabled: { scopes: ["1p"], availableInVersion: "1.18286.0" } },
       title: (0, be.msg)({ defaultMessage: "Allow Hardware Buddy devices", id: "HardwareBuddyEnabled" }),
-      default: !0,
+      default: true,
       category: "connectors",
       description: {
         short: (0, fe.shortDescription)(
@@ -5654,7 +5654,7 @@ Hosts you add here also need to be open on your network firewall, on the listed 
             defaultMessage: "Allow pairing Hardware Buddy Bluetooth devices in Cowork.",
             id: "HardwareBuddyHint",
           }),
-          { docsOnly: !0 },
+          { docsOnly: true },
         ),
       },
     }),
@@ -5665,7 +5665,7 @@ Hosts you add here also need to be open on your network firewall, on the listed 
         deprecated: { scopes: ["3p"], availableInVersion: "1.2581.0" },
       },
       title: (0, be.msg)({ defaultMessage: "Require full VM sandbox", id: "wQRUBw9rk7" }),
-      default: !1,
+      default: false,
       category: "sandbox",
       description: {
         short: (0, fe.shortDescription)(
@@ -5678,7 +5678,7 @@ Hosts you add here also need to be open on your network firewall, on the listed 
       },
       predicates: {
         warn: (e) =>
-          e === !0
+          e === true
             ? (0, be.msg)({
                 defaultMessage:
                   "The default host-native mode starts faster and works behind restricted networks. Shell commands run inside the VM; file tools run on the host with path-based access control. Enable this only if your security review requires the agent loop itself to run in the VM.",
@@ -5691,8 +5691,8 @@ Hosts you add here also need to be open on your network firewall, on the listed 
       flatKey: "endUserAttribution",
       legacyFlatKey: "enduserAttribution",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.24012.0" } },
-      failClosedValue: !1,
-      default: { displayOnly: !0 },
+      failClosedValue: false,
+      default: { displayOnly: true },
       title: (0, be.msg)({ defaultMessage: "End-user attribution", id: "enduserAttrTtl" }),
       category: "appearance",
       description: {
@@ -5708,10 +5708,10 @@ Hosts you add here also need to be open on your network firewall, on the listed 
         ),
       },
     }),
-    userContentRendererUrl: (0, fe.field)((0, KK.urlSchema)({ rejectLoopback: !0 }).optional(), {
+    userContentRendererUrl: (0, fe.field)((0, KK.urlSchema)({ rejectLoopback: true }).optional(), {
       flatKey: "userContentRendererUrl",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.24012.0" } },
-      remotePolicy: { rejectLoopback: !0 },
+      remotePolicy: { rejectLoopback: true },
       title: (0, be.msg)({ defaultMessage: "Artifact preview iframe origin", id: "ucrUrlTitle" }),
       category: "connection",
       egressRequirements: (e) => [(0, Xu.safeHostname)(e)].filter((t) => !!t),
@@ -5744,16 +5744,16 @@ Hosts you add here also need to be open on your network firewall, on the listed 
   }
   function HK(e) {
     var t;
-    return ((t = e.chatSurface) === null || t === void 0 ? void 0 : t.enabled) === !0;
+    return ((t = e.chatSurface) === null || t === void 0 ? void 0 : t.enabled) === true;
   }
   function VK(e) {
     var t;
-    return ((t = e.workspace) === null || t === void 0 ? void 0 : t.skillCreationEnabled) !== !1;
+    return ((t = e.workspace) === null || t === void 0 ? void 0 : t.skillCreationEnabled) !== false;
   }
   function GK(e) {
     var t;
     return (
-      ((t = e.chatSurface) === null || t === void 0 ? void 0 : t.advancedFileAnalysis) === !0 &&
+      ((t = e.chatSurface) === null || t === void 0 ? void 0 : t.advancedFileAnalysis) === true &&
       !vf(e).includes(JS.Bash)
     );
   }
@@ -5770,7 +5770,7 @@ Hosts you add here also need to be open on your network firewall, on the listed 
 });
 
 var Sf = S(function (rO) {
-  Object.defineProperty(rO, "__esModule", { value: !0 });
+  Object.defineProperty(rO, "__esModule", { value: true });
   rO.AuthenticationConfig = void 0;
   var Pi = st(),
     ur = Ze(),
@@ -5782,7 +5782,7 @@ var Sf = S(function (rO) {
       flatKey: "disableDeploymentModeChooser",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.3834.0" } },
       title: (0, Zt.msg)({ defaultMessage: "Disable Claude.ai sign-in", id: "DHdnIxD7G9" }),
-      default: !1,
+      default: false,
       category: "sandbox",
       group: wf.GENERAL_RESTRICTIONS_GROUP,
       order: 8,
@@ -5831,7 +5831,7 @@ var Sf = S(function (rO) {
       flatKey: "disableDeepLinkRegistration",
       support: { enabled: { scopes: ["3p"], availableInVersion: "1.6889.0" } },
       title: (0, Zt.msg)({ defaultMessage: "Disable claude:// deep-link handling", id: "CCUxBOb3va" }),
-      default: !1,
+      default: false,
       category: "sandbox",
       group: wf.GENERAL_RESTRICTIONS_GROUP,
       order: 9,
@@ -5885,7 +5885,7 @@ var Sf = S(function (rO) {
             defaultMessage: "Allow optional client-certificate fallback for mTLS endpoints.",
             id: "AllowOptionalClientAuthHint",
           }),
-          { docsOnly: !0 },
+          { docsOnly: true },
         ),
       },
       title: (0, Zt.msg)({ defaultMessage: "Allow optional client-certificate fallback", id: "auto" }),
@@ -5895,7 +5895,7 @@ var Sf = S(function (rO) {
 });
 
 var kf = S(function (oO) {
-  Object.defineProperty(oO, "__esModule", { value: !0 });
+  Object.defineProperty(oO, "__esModule", { value: true });
   oO.AppearanceConfig = void 0;
   var Of = st(),
     Yn = Ze(),
@@ -5963,7 +5963,7 @@ var kf = S(function (oO) {
 });
 
 var tc = S(function (uO) {
-  Object.defineProperty(uO, "__esModule", { value: !0 });
+  Object.defineProperty(uO, "__esModule", { value: true });
   uO.MAX_BANNER_TEXT_CHARS = uO.BANNER_DEFAULT_TEXT_COLOR = uO.BANNER_DEFAULT_BACKGROUND_COLOR = void 0;
   uO.isValidBannerHexColor = Pf;
   uO.isValidBannerLinkUrl = sO;
@@ -5977,25 +5977,25 @@ var tc = S(function (uO) {
     return typeof e === "string" && iq.test(e);
   }
   function sO(e) {
-    if (typeof e !== "string") return !1;
-    if (!e.startsWith("https://")) return !1;
+    if (typeof e !== "string") return false;
+    if (!e.startsWith("https://")) return false;
     try {
-      return new URL(e), !0;
+      return new URL(e), true;
     } catch (t) {
-      return !1;
+      return false;
     }
   }
   function oq(e) {
     var t, n;
-    if (!e || Object.keys(e).length === 0) return { renders: !1, reason: "absent" };
-    if (e.enabled !== !0) return { renders: !1, reason: "disabled" };
+    if (!e || Object.keys(e).length === 0) return { renders: false, reason: "absent" };
+    if (e.enabled !== true) return { renders: false, reason: "disabled" };
     let i = typeof e.text === "string" ? e.text.trim() : "";
-    if (i.length === 0 || i.length > uO.MAX_BANNER_TEXT_CHARS) return { renders: !1, reason: "invalid", field: "text" };
+    if (i.length === 0 || i.length > uO.MAX_BANNER_TEXT_CHARS) return { renders: false, reason: "invalid", field: "text" };
     let r = (t = e.backgroundColor) !== null && t !== void 0 ? t : uO.BANNER_DEFAULT_BACKGROUND_COLOR;
-    if (!Pf(r)) return { renders: !1, reason: "invalid", field: "backgroundColor" };
+    if (!Pf(r)) return { renders: false, reason: "invalid", field: "backgroundColor" };
     let o = (n = e.textColor) !== null && n !== void 0 ? n : uO.BANNER_DEFAULT_TEXT_COLOR;
-    if (!Pf(o)) return { renders: !1, reason: "invalid", field: "textColor" };
-    let s = { renders: !0, text: i, backgroundColor: r.toUpperCase(), textColor: o.toUpperCase() };
+    if (!Pf(o)) return { renders: false, reason: "invalid", field: "textColor" };
+    let s = { renders: true, text: i, backgroundColor: r.toUpperCase(), textColor: o.toUpperCase() };
     if (sO(e.linkUrl)) s.linkUrl = e.linkUrl;
     return s;
   }
@@ -6006,7 +6006,7 @@ var tc = S(function (uO) {
 });
 
 var nc = S(function (pO) {
-  Object.defineProperty(pO, "__esModule", { value: !0 });
+  Object.defineProperty(pO, "__esModule", { value: true });
   pO.PASSTHROUGH_FIELDS = pO.CLAUDE_AI_IMPORT_SHAPE = pO.BannerConfig = void 0;
   var Pn = st(),
     dO = tc(),
@@ -6014,7 +6014,7 @@ var nc = S(function (pO) {
     ct = Ze(),
     We = pt(),
     fO = Wt(),
-    wa = (e) => e.enabled === !0;
+    wa = (e) => e.enabled === true;
   pO.BannerConfig = Pn.z.object({
     enabled: (0, ct.subfield)(Pn.z.boolean().optional(), {
       label: (0, We.msg)({ defaultMessage: "Show banner", id: "+zZ6KeQPTP" }),
@@ -6081,7 +6081,7 @@ var nc = S(function (pO) {
           }),
         ),
       },
-      mono: !0,
+      mono: true,
       predicates: { show: wa },
     }),
   });
@@ -6091,15 +6091,15 @@ var nc = S(function (pO) {
       id: "c4gImpReq0",
     });
   pO.CLAUDE_AI_IMPORT_SHAPE = {
-    url: (0, ct.subfield)((0, fO.urlSchema)({ allowLoopbackHttp: !0 }).optional(), {
+    url: (0, ct.subfield)((0, fO.urlSchema)({ allowLoopbackHttp: true }).optional(), {
       label: (0, We.msg)({ defaultMessage: "Export URL", id: "c4gImpUrl0" }),
-      mono: !0,
+      mono: true,
       predicates: { required: rc },
       requiredMessage: $f,
     }),
-    oauthIssuer: (0, ct.subfield)((0, fO.urlSchema)({ allowLoopbackHttp: !0 }).optional(), {
+    oauthIssuer: (0, ct.subfield)((0, fO.urlSchema)({ allowLoopbackHttp: true }).optional(), {
       label: (0, We.msg)({ defaultMessage: "OAuth issuer", id: "c4gImpIss0" }),
-      mono: !0,
+      mono: true,
       predicates: { required: rc },
       requiredMessage: $f,
     }),
@@ -6108,7 +6108,7 @@ var nc = S(function (pO) {
       predicates: { required: rc },
       requiredMessage: $f,
     }),
-    enabled: (0, ct.subfield)(Pn.z.boolean().default(!1), {
+    enabled: (0, ct.subfield)(Pn.z.boolean().default(false), {
       label: (0, We.msg)({ defaultMessage: "Enable import", id: "c4gImpEnbl" }),
     }),
     bannerBehavior: (0, ct.subfield)(Pn.z.enum(["off", "detect", "show"]).optional(), {
@@ -6134,7 +6134,7 @@ var nc = S(function (pO) {
             .filter((t) => !!t),
         egressRequirementsLabel: (0, We.msg)({ defaultMessage: "Claude.ai data import", id: "c4gImpEgrs" }),
         category: "connectors",
-        predicates: { show: () => !1 },
+        predicates: { show: () => false },
         group: (0, We.msg)({ defaultMessage: "Claude.ai data import", id: "c4gImpGrp0" }),
         description: {
           short: (0, ct.shortDescription)(
@@ -6170,7 +6170,7 @@ var nc = S(function (pO) {
 });
 
 var uo = S(function (vO) {
-  Object.defineProperty(vO, "__esModule", { value: !0 });
+  Object.defineProperty(vO, "__esModule", { value: true });
   vO.ManagedConfig = vO.DISCRIMINATORS = void 0;
   var If = st(),
     yO = ht(),
@@ -6241,7 +6241,7 @@ var uo = S(function (vO) {
     },
   };
   vO.ManagedConfig = If.z.object({
-    inference: (0, Qn.annotate)(fq.InferenceConfig.optional(), { gatewayServable: !1 }),
+    inference: (0, Qn.annotate)(fq.InferenceConfig.optional(), { gatewayServable: false }),
     otlp: Xn.OtlpConfig.optional(),
     tokenLimits: Xn.TokenLimitsConfig.optional(),
     coworkSurface: Xn.CoworkSurfaceConfig.optional(),
@@ -6263,7 +6263,7 @@ var uo = S(function (vO) {
 });
 
 var lo = S(function (kO) {
-  Object.defineProperty(kO, "__esModule", { value: !0 });
+  Object.defineProperty(kO, "__esModule", { value: true });
   kO.isStaticTier3pKey =
     kO.staticTierKeys =
     kO.nonBootstrapableKeys =
@@ -6306,12 +6306,12 @@ var lo = S(function (kO) {
                     path: r,
                     providers: new Set(),
                     credentialKinds: new Set(),
-                    kindAgnostic: !1,
+                    kindAgnostic: false,
                   })
                   .get(d.flatKey);
           if (o === null || o === void 0 ? void 0 : o.provider)
             if ((h.providers.add(o.provider), o.kind)) h.credentialKinds.add(o.kind);
-            else h.kindAgnostic = !0;
+            else h.kindAgnostic = true;
           return;
         }
         let f = (0, Ie.unwrapZod)(i),
@@ -6432,7 +6432,7 @@ var lo = S(function (kO) {
           n(f, p, o || y);
         }
       };
-    n(co.ManagedConfig, "ManagedConfig", !1);
+    n(co.ManagedConfig, "ManagedConfig", false);
   }
   Aq();
   kO.FlatManagedConfig = Pq.z.object(SO);
@@ -6522,7 +6522,7 @@ var lo = S(function (kO) {
 });
 
 var Lf = S(function ($O) {
-  Object.defineProperty($O, "__esModule", { value: !0 });
+  Object.defineProperty($O, "__esModule", { value: true });
   $O.CREDENTIAL_SPEC = void 0;
   $O.credentialSpecCell = xf;
   $O.validateCredentialConfig = cH;
@@ -6556,7 +6556,7 @@ var Lf = S(function ($O) {
         f[p] = {
           requiredLeaves: [...((i = c[p]) !== null && i !== void 0 ? i : [])],
           presenceLeaves: [...((r = d[p]) !== null && r !== void 0 ? r : [])],
-          ...(h === !1 && { supportsDiscovery: !1 }),
+          ...(h === false && { supportsDiscovery: false }),
         };
       }
       o[u] = f;
@@ -6579,7 +6579,7 @@ var Lf = S(function ($O) {
   }
   function Mf(e, t, n) {
     let i = xf(t, n);
-    if (!i) return !1;
+    if (!i) return false;
     return i.requiredLeaves.length > 0
       ? i.requiredLeaves.every((r) => Df(e[r]))
       : i.presenceLeaves.some((r) => Df(e[r]));
@@ -6604,7 +6604,7 @@ var Lf = S(function ($O) {
 });
 
 var oc = S(function (jO) {
-  Object.defineProperty(jO, "__esModule", { value: !0 });
+  Object.defineProperty(jO, "__esModule", { value: true });
   jO._test = void 0;
   jO.toBoolean = Uf;
   jO.normalizeWinPathJSON = Nf;
@@ -6626,14 +6626,14 @@ var oc = S(function (jO) {
     if (e === null || e === void 0) return;
     if (typeof e === "boolean") return e;
     if (typeof e === "number") {
-      if (e === 1) return !0;
-      if (e === 0) return !1;
+      if (e === 1) return true;
+      if (e === 0) return false;
       return;
     }
     if (typeof e !== "string") return;
     let t = e.trim().replace(/\r/g, "").toLowerCase();
-    if (t === "true" || t === "1") return !0;
-    if (t === "false" || t === "0") return !1;
+    if (t === "true" || t === "1") return true;
+    if (t === "false" || t === "0") return false;
     return;
   }
   function Nf(e) {
@@ -6775,8 +6775,8 @@ var oc = S(function (jO) {
       for (let i of _t.allKeys)
         if ((0, _t.deprecatedScopes)((0, _t.getFieldMeta)(i)).includes(t.mode) && n[i] !== void 0) delete n[i];
     }
-    if (n.coworkTabEnabled === !1 && n.isClaudeCodeForDesktopEnabled === !1 && n.chatTabEnabled !== !0)
-      n.coworkTabEnabled = !0;
+    if (n.coworkTabEnabled === false && n.isClaudeCodeForDesktopEnabled === false && n.chatTabEnabled !== true)
+      n.coworkTabEnabled = true;
     return n;
   }
   function $H(e, t) {
@@ -6790,7 +6790,7 @@ var oc = S(function (jO) {
             delete r[o];
     }
     if (
-      r.modelDiscoveryEnabled === !1 &&
+      r.modelDiscoveryEnabled === false &&
       ((n = r.inferenceModels) === null || n === void 0
         ? void 0
         : n.some(
@@ -6816,7 +6816,7 @@ var oc = S(function (jO) {
             "Gateway baseUrl is an anthropic.com host but authScheme is not x-api-key. Consider switching to inferenceProvider: anthropic",
           );
       } catch (o) {}
-    if (r.coworkTabEnabled === !1 && r.isClaudeCodeForDesktopEnabled === !1 && r.chatTabEnabled !== !0)
+    if (r.coworkTabEnabled === false && r.isClaudeCodeForDesktopEnabled === false && r.chatTabEnabled !== true)
       i.push("At least one surface must remain enabled; Cowork has been re-enabled.");
     return i;
   }
@@ -6825,7 +6825,7 @@ var oc = S(function (jO) {
 
 var UO = S(function (LO) {
   var ac, Zf, Ff;
-  Object.defineProperty(LO, "__esModule", { value: !0 });
+  Object.defineProperty(LO, "__esModule", { value: true });
   LO.isSensitiveDropped = MO;
   LO.resolveRedactPolicy = zO;
   LO.redactedSnapshot = ZH;
@@ -6915,7 +6915,7 @@ var _r = S(function (ee) {
             var r = Object.getOwnPropertyDescriptor(t, n);
             if (!r || ("get" in r ? !t.__esModule : r.writable || r.configurable))
               r = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[n];
                 },
@@ -6931,7 +6931,7 @@ var _r = S(function (ee) {
       function (e, t) {
         for (var n in e) if (n !== "default" && !Object.prototype.hasOwnProperty.call(t, n)) VH(t, e, n);
       };
-  Object.defineProperty(ee, "__esModule", { value: !0 });
+  Object.defineProperty(ee, "__esModule", { value: true });
   ee.MODELS_GROUP =
     ee.HELPER_SCRIPT_GROUP =
     ee.hasActiveBootstrap =
@@ -6954,112 +6954,112 @@ var _r = S(function (ee) {
   var NO = Wt(),
     GH = Ze();
   Object.defineProperty(ee, "unwrapZod", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return GH.unwrapZod;
     },
   });
   var fo = zu();
   Object.defineProperty(ee, "DEFAULT_INFERENCE_PROVIDER", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return fo.DEFAULT_INFERENCE_PROVIDER;
     },
   });
   Object.defineProperty(ee, "getProviderLabel", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return fo.getProviderLabel;
     },
   });
   Object.defineProperty(ee, "INFERENCE_CREDENTIAL_KINDS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return fo.INFERENCE_CREDENTIAL_KINDS;
     },
   });
   Object.defineProperty(ee, "KIND_PRECEDENCE", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return fo.KIND_PRECEDENCE;
     },
   });
   Object.defineProperty(ee, "PROVIDER_DISPLAY", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return fo.PROVIDER_DISPLAY;
     },
   });
   Object.defineProperty(ee, "PROVIDERS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return fo.PROVIDERS;
     },
   });
   var po = On();
   Object.defineProperty(ee, "CREDENTIAL_KINDS_FOR_PROVIDER", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return po.CREDENTIAL_KINDS_FOR_PROVIDER;
     },
   });
   Object.defineProperty(ee, "isBedrockFamily", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return po.isBedrockFamily;
     },
   });
   Object.defineProperty(ee, "kindSupportsDiscovery", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return po.kindSupportsDiscovery;
     },
   });
   Object.defineProperty(ee, "PROVIDER_CLI_FLAG", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return po.PROVIDER_CLI_FLAG;
     },
   });
   Object.defineProperty(ee, "providerCliFlagEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return po.providerCliFlagEnv;
     },
   });
   Object.defineProperty(ee, "providerHasDiscovery", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return po.providerHasDiscovery;
     },
   });
   var Pa = Lt();
   Object.defineProperty(ee, "COWORK_3P_DOCS_BASE", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Pa.COWORK_3P_DOCS_BASE;
     },
   });
   Object.defineProperty(ee, "credentialKindOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Pa.credentialKindOf;
     },
   });
   Object.defineProperty(ee, "hasActiveBootstrap", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Pa.hasActiveBootstrap;
     },
   });
   Object.defineProperty(ee, "HELPER_SCRIPT_GROUP", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Pa.HELPER_SCRIPT_GROUP;
     },
   });
   Object.defineProperty(ee, "MODELS_GROUP", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Pa.MODELS_GROUP;
     },
@@ -7085,7 +7085,7 @@ var _r = S(function (ee) {
 });
 
 var lc = S(function (FO) {
-  Object.defineProperty(FO, "__esModule", { value: !0 });
+  Object.defineProperty(FO, "__esModule", { value: true });
   FO.pruneSchema = WH;
   FO.emitTypeSource = mo;
   FO.leafPaths = cc;
@@ -7224,7 +7224,7 @@ ${i}  )`;
 });
 
 var Bf = S(function (KO) {
-  Object.defineProperty(KO, "__esModule", { value: !0 });
+  Object.defineProperty(KO, "__esModule", { value: true });
   KO.GroupSettings = KO.GroupServableConfig = void 0;
   KO.buildGroupServableSchema = BO;
   var yr = st(),
@@ -7259,7 +7259,7 @@ var Bf = S(function (KO) {
 });
 
 var XO = S(function (WO) {
-  Object.defineProperty(WO, "__esModule", { value: !0 });
+  Object.defineProperty(WO, "__esModule", { value: true });
   WO.HYBRID_SERVABLE_PROVIDERS = WO.HYBRID_SERVABLE_CREDENTIAL_KINDS = WO.refuseForHybrid = void 0;
   WO.buildHybridServableSchema = GO;
   WO.emitHybridServableConfigSource = dV;
@@ -7286,7 +7286,7 @@ var XO = S(function (WO) {
     let n = (t = (0, ri.discriminatorKeyOf)(e)) !== null && t !== void 0 ? t : "kind";
     return (0, ri.discriminatorArmsOf)(e)
       .filter((i) => {
-        if (!i.id || !i.schema || WO.refuseForHybrid(i.schema)) return !1;
+        if (!i.id || !i.schema || WO.refuseForHybrid(i.schema)) return false;
         let r = i.schema.shape;
         return Object.entries(r).some(([o, s]) => o !== n && !WO.refuseForHybrid(s));
       })
@@ -7322,7 +7322,7 @@ export type GroupServableConfig = ${t};
 });
 
 var Vf = S(function (r0) {
-  Object.defineProperty(r0, "__esModule", { value: !0 });
+  Object.defineProperty(r0, "__esModule", { value: true });
   r0.gatewayOverlayDropChecks = wV;
   r0.gatewayRefusedPathPrefixes = t0;
   r0.gatewayServableKeys = SV;
@@ -7367,7 +7367,7 @@ var Vf = S(function (r0) {
       for (let r of i) if (typeof r !== "string") n(`${e} entry ${JSON.stringify(r)} dropped: entries must be strings`);
     },
     fc =
-      (e, t, n = () => !1) =>
+      (e, t, n = () => false) =>
       (i, r) => {
         let o = Ii(i);
         if (!Array.isArray(o)) return;
@@ -7456,7 +7456,7 @@ var Vf = S(function (r0) {
       n = (i) => t.some((r) => i === r || i.startsWith(`${r}.`));
     return (0, Hf.bootstrapableKeys)(e).filter((i) => {
       var r;
-      if (!(0, ni.isReleasedFor3p)((0, Hf.getFieldMeta)(i))) return !1;
+      if (!(0, ni.isReleasedFor3p)((0, Hf.getFieldMeta)(i))) return false;
       let o = (r = Hf.FLAT_KEY_TO_NESTED_PATH.get(i)) === null || r === void 0 ? void 0 : r.join(".");
       return o !== void 0 && !n(o);
     });
@@ -7464,7 +7464,7 @@ var Vf = S(function (r0) {
 });
 
 var Gf = S(function (i0) {
-  Object.defineProperty(i0, "__esModule", { value: !0 });
+  Object.defineProperty(i0, "__esModule", { value: true });
   i0.LEGACY_WIRE_SHAPES = void 0;
   var n0 = Wt();
   i0.LEGACY_WIRE_SHAPES = {
@@ -7473,7 +7473,7 @@ var Gf = S(function (i0) {
 });
 
 var ii = S(function (l0) {
-  Object.defineProperty(l0, "__esModule", { value: !0 });
+  Object.defineProperty(l0, "__esModule", { value: true });
   l0.CLUSTER_NAMES = l0.CLUSTER_REGISTRY = void 0;
   l0.unflattenInference = u0;
   l0.flattenInference = c0;
@@ -7632,7 +7632,7 @@ var ii = S(function (l0) {
 });
 
 var f0 = S(function (d0) {
-  Object.defineProperty(d0, "__esModule", { value: !0 });
+  Object.defineProperty(d0, "__esModule", { value: true });
   d0.mergeTiers = UV;
   d0.materializeRaw = NV;
   var hc = ii(),
@@ -7672,7 +7672,7 @@ var f0 = S(function (d0) {
 });
 
 var m0 = S(function (p0) {
-  Object.defineProperty(p0, "__esModule", { value: !0 });
+  Object.defineProperty(p0, "__esModule", { value: true });
   p0.normalize = BV;
   function BV(e, t) {
     return e;
@@ -7680,7 +7680,7 @@ var m0 = S(function (p0) {
 });
 
 var _0 = S(function (h0) {
-  Object.defineProperty(h0, "__esModule", { value: !0 });
+  Object.defineProperty(h0, "__esModule", { value: true });
   h0.normalize = VV;
   var g0 = ii(),
     qV = (e) => e !== null && typeof e === "object" && !Array.isArray(e),
@@ -7723,7 +7723,7 @@ var Qf = S(function (Ft) {
             var r = Object.getOwnPropertyDescriptor(t, n);
             if (!r || ("get" in r ? !t.__esModule : r.writable || r.configurable))
               r = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[n];
                 },
@@ -7738,7 +7738,7 @@ var Qf = S(function (Ft) {
       (Ft && Ft.__setModuleDefault) ||
       (Object.create
         ? function (e, t) {
-            Object.defineProperty(e, "default", { enumerable: !0, value: t });
+            Object.defineProperty(e, "default", { enumerable: true, value: t });
           }
         : function (e, t) {
             e.default = t;
@@ -7767,7 +7767,7 @@ var Qf = S(function (Ft) {
           return JV(n, t), n;
         };
       })();
-  Object.defineProperty(Ft, "__esModule", { value: !0 });
+  Object.defineProperty(Ft, "__esModule", { value: true });
   Ft.NORMALIZERS = void 0;
   Ft.normalize = rG;
   var YV = ii(),
@@ -7795,7 +7795,7 @@ var Qf = S(function (Ft) {
 });
 
 var _c = S(function (ep) {
-  Object.defineProperty(ep, "__esModule", { value: !0 });
+  Object.defineProperty(ep, "__esModule", { value: true });
   ep.FORM_FIELD_BY_ID = ep.FORM_FIELDS = ep.subFieldsOf = void 0;
   ep.setInferenceProvider = aG;
   ep.setInferenceCredentialKind = sG;
@@ -7810,7 +7810,7 @@ var _c = S(function (ep) {
   ep.controlTypeOf = mG;
   var we = Ze();
   Object.defineProperty(ep, "subFieldsOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return we.subFieldsOf;
     },
@@ -7867,9 +7867,9 @@ var _c = S(function (ep) {
       e.providers.length < we.PROVIDERS.length &&
       !e.providers.includes((n = t.inference) === null || n === void 0 ? void 0 : n.provider)
     )
-      return !1;
+      return false;
     let r = (0, nG.credentialKindOf)(t);
-    if (e.credentialKinds.length > 0 && !e.credentialKinds.includes(r)) return !1;
+    if (e.credentialKinds.length > 0 && !e.credentialKinds.includes(r)) return false;
     let o = (i = e.meta.predicates) === null || i === void 0 ? void 0 : i.show;
     return !o || o(t);
   }
@@ -7888,7 +7888,7 @@ var _c = S(function (ep) {
       set: (c, d) => oG(c, e, d),
     };
   }
-  ep.FORM_FIELDS = (0, Ta.flatConfigKeys)({ includeInternal: !0 }).map((e) => {
+  ep.FORM_FIELDS = (0, Ta.flatConfigKeys)({ includeInternal: true }).map((e) => {
     let t = Ta.FlatManagedConfig.shape[e],
       n = (0, we.fieldMetaForNode)(t);
     if (!n) throw Error(`FORM_FIELDS: no meta for ${e}`);
@@ -7950,7 +7950,7 @@ var _c = S(function (ep) {
 });
 
 var D0 = S(function (A0) {
-  Object.defineProperty(A0, "__esModule", { value: !0 });
+  Object.defineProperty(A0, "__esModule", { value: true });
   A0._test =
     A0.BOOTSTRAP_RESPONSE_ENVELOPE =
     A0.bootstrapJsonSchemaId =
@@ -7966,7 +7966,7 @@ var D0 = S(function (A0) {
     _o = _r();
   A0.BOOTSTRAP_SCHEMA_VERSIONS = [1, 2];
   function $0() {
-    return (0, _o.bootstrapableKeys)({ includeInternal: !1 }).filter((e) => {
+    return (0, _o.bootstrapableKeys)({ includeInternal: false }).filter((e) => {
       let t = (0, _o.getFieldMeta)(e);
       return (
         (0, oi.effectiveVisibility)(t) === "public" &&
@@ -7989,7 +7989,7 @@ var D0 = S(function (A0) {
       return;
     }
     let t = e;
-    if (t.additionalProperties === !1) delete t.additionalProperties;
+    if (t.additionalProperties === false) delete t.additionalProperties;
     for (let n of Object.values(t)) rp(n);
   }
   A0.BOOTSTRAP_RESPONSE_ENVELOPE = {
@@ -8116,7 +8116,7 @@ A failed re-fetch keeps the last good response from the current session and retr
 });
 
 var ip = S(function (z0) {
-  Object.defineProperty(z0, "__esModule", { value: !0 });
+  Object.defineProperty(z0, "__esModule", { value: true });
   z0.isEmptySubValue = z0.CONFIGURATION_CATEGORIES = void 0;
   z0.stripHiddenSubFields = DG;
   z0.missingSubFields = MG;
@@ -8154,7 +8154,7 @@ var ip = S(function (z0) {
           "Hosts your network firewall must allow, derived from your current settings. This list is read-only and updates as you make changes. Traffic is HTTPS on port 443 unless a custom port is specified (OTLP, gateway, or MCP server URLs).",
         id: "Lpq+8Nau5X",
       }),
-      derived: !0,
+      derived: true,
     },
     source: {
       title: (0, Bt.msg)({ defaultMessage: "Source", id: "aH4De2Y20k" }),
@@ -8197,11 +8197,11 @@ var ip = S(function (z0) {
       }
       let o = (0, ai.itemColumnsOf)(n);
       if (o.length > 0 && Array.isArray(i)) {
-        let s = !1,
+        let s = false,
           u = i.map((c) => {
             if (!c || typeof c !== "object") return c;
             let d = x0(o, c);
-            if (d) s = !0;
+            if (d) s = true;
             return d !== null && d !== void 0 ? d : c;
           });
         if (s) t = n.set(t, u);
@@ -8239,7 +8239,7 @@ var ip = S(function (z0) {
 });
 
 var G0 = S(function (K0) {
-  Object.defineProperty(K0, "__esModule", { value: !0 });
+  Object.defineProperty(K0, "__esModule", { value: true });
   K0._test = K0.DOCS_GROUPS = K0.anchorSlug = void 0;
   K0.typeStringOf = yo;
   K0.docsTableRows = B0;
@@ -8468,7 +8468,7 @@ var G0 = S(function (K0) {
 });
 
 var ap = S(function (X0) {
-  Object.defineProperty(X0, "__esModule", { value: !0 });
+  Object.defineProperty(X0, "__esModule", { value: true });
   X0.egressServiceKeys = X0.EGRESS_SERVICES = void 0;
   X0.asHostContext = W0;
   X0.resolveEndpoints = op;
@@ -8495,12 +8495,12 @@ var ap = S(function (X0) {
         t
           ? [
               { host: Et.UPDATE_FEED_HOST, path: "/api/desktop/", pathSuffix: "/update", origin: "main" },
-              { host: Et.VM_BUNDLE_HOST, path: "/releases/", followRedirects: !0, origin: "main" },
+              { host: Et.VM_BUNDLE_HOST, path: "/releases/", followRedirects: true, origin: "main" },
             ]
           : [
               { host: e, path: "/api/desktop/", pathSuffix: "/update", origin: "renderer" },
               { host: Et.ANTHROPIC_API_HOST, path: "/api/desktop/", pathSuffix: "/update", origin: "renderer" },
-              { host: Et.VM_BUNDLE_HOST, path: "/releases/", followRedirects: !0, origin: "main" },
+              { host: Et.VM_BUNDLE_HOST, path: "/releases/", followRedirects: true, origin: "main" },
             ],
     },
     sentry: {
@@ -8544,7 +8544,7 @@ var ap = S(function (X0) {
         {
           host: Et.FAVICON_PROXY_HOST,
           path: "/s2/favicons",
-          followRedirects: !0,
+          followRedirects: true,
           origin: "renderer",
           cspDirective: "img-src",
         },
@@ -8593,26 +8593,26 @@ var ap = S(function (X0) {
         return (
           ((i = (n = e.autoUpdate) === null || n === void 0 ? void 0 : n.disabled) !== null && i !== void 0
             ? i
-            : e.disableAutoUpdates) === !0
+            : e.disableAutoUpdates) === true
         );
       case "disableEssentialTelemetry":
         return (
           ((o = (r = e.telemetry) === null || r === void 0 ? void 0 : r.disableEssential) !== null && o !== void 0
             ? o
-            : e.disableEssentialTelemetry) === !0
+            : e.disableEssentialTelemetry) === true
         );
       case "disableNonessentialTelemetry":
         return (
           ((u = (s = e.telemetry) === null || s === void 0 ? void 0 : s.disableNonessential) !== null && u !== void 0
             ? u
-            : e.disableNonessentialTelemetry) === !0
+            : e.disableNonessentialTelemetry) === true
         );
       case "disableNonessentialServices":
         return (
           ((d = (c = e.telemetry) === null || c === void 0 ? void 0 : c.disableNonessentialServices) !== null &&
           d !== void 0
             ? d
-            : e.disableNonessentialServices) === !0
+            : e.disableNonessentialServices) === true
         );
     }
   }
@@ -8650,7 +8650,7 @@ var ap = S(function (X0) {
 });
 
 var tk = S(function (ek) {
-  Object.defineProperty(ek, "__esModule", { value: !0 });
+  Object.defineProperty(ek, "__esModule", { value: true });
   ek.computeEgressRequirements = mW;
   ek.egressRequirementLabel = gW;
   var dW = ht(),
@@ -8701,7 +8701,7 @@ var lp = S(function (_) {
             var r = Object.getOwnPropertyDescriptor(t, n);
             if (!r || ("get" in r ? !t.__esModule : r.writable || r.configurable))
               r = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[n];
                 },
@@ -8717,7 +8717,7 @@ var lp = S(function (_) {
       function (e, t) {
         for (var n in e) if (n !== "default" && !Object.prototype.hasOwnProperty.call(t, n)) yW(t, e, n);
       };
-  Object.defineProperty(_, "__esModule", { value: !0 });
+  Object.defineProperty(_, "__esModule", { value: true });
   _.unlistedBuiltinWriteTools =
     _.builtinWriteToolCoverageGaps =
     _.TOOL_POLICY_LABEL =
@@ -8925,1156 +8925,1156 @@ var lp = S(function (_) {
   _.toolPolicyKeyGlobMatch = void 0;
   var vo = Xl();
   Object.defineProperty(_, "checkModel", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return vo.checkModel;
     },
   });
   Object.defineProperty(_, "containsAnthropicToken", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return vo.containsAnthropicToken;
     },
   });
   Object.defineProperty(_, "isDefinitelyNotAnthropicModel", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return vo.isDefinitelyNotAnthropicModel;
     },
   });
   Object.defineProperty(_, "isLikelyAnthropicModelId", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return vo.isLikelyAnthropicModelId;
     },
   });
   Object.defineProperty(_, "TIER_ALIASES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return vo.TIER_ALIASES;
     },
   });
   Object.defineProperty(_, "verdictToFallbackReason", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return vo.verdictToFallbackReason;
     },
   });
   var nk = Jo();
   Object.defineProperty(_, "ANTHROPIC_TIER_NAMES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return nk.ANTHROPIC_TIER_NAMES;
     },
   });
   Object.defineProperty(_, "TIER_DESCRIPTIONS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return nk.TIER_DESCRIPTIONS;
     },
   });
   var he = Wt();
   Object.defineProperty(_, "adaptPluginMcp", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.adaptPluginMcp;
     },
   });
   Object.defineProperty(_, "AZURE_CLOUD_HOSTS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.AZURE_CLOUD_HOSTS;
     },
   });
   Object.defineProperty(_, "BootstrapOidc", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.BootstrapOidc;
     },
   });
   Object.defineProperty(_, "BootstrapFetchOidc", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.BootstrapFetchOidc;
     },
   });
   Object.defineProperty(_, "GatewayOidc", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.GatewayOidc;
     },
   });
   Object.defineProperty(_, "BUILTIN_DEFAULT_TOOL_POLICY", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.BUILTIN_DEFAULT_TOOL_POLICY;
     },
   });
   Object.defineProperty(_, "BUILTIN_MCP_SERVERS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.BUILTIN_MCP_SERVERS;
     },
   });
   Object.defineProperty(_, "findWebSearchBuiltin", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.findWebSearchBuiltin;
     },
   });
   Object.defineProperty(_, "hostsForBuiltinMcpEntry", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.hostsForBuiltinMcpEntry;
     },
   });
   Object.defineProperty(_, "WEB_SEARCH_PROVIDERS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.WEB_SEARCH_PROVIDERS;
     },
   });
   Object.defineProperty(_, "WEB_SEARCH_PROVIDER_HOSTS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.WEB_SEARCH_PROVIDER_HOSTS;
     },
   });
   Object.defineProperty(_, "CALLBACK_HOST_OPTIONS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.CALLBACK_HOST_OPTIONS;
     },
   });
   Object.defineProperty(_, "checkManagedMcpServersForDrops", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.checkManagedMcpServersForDrops;
     },
   });
   Object.defineProperty(_, "relevantMcpEntryIssues", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.relevantMcpEntryIssues;
     },
   });
   Object.defineProperty(_, "DirectMcpServerConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.DirectMcpServerConfig;
     },
   });
   Object.defineProperty(_, "hasOAuthConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.hasOAuthConfig;
     },
   });
   Object.defineProperty(_, "httpsUrl", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.httpsUrl;
     },
   });
   Object.defineProperty(_, "wantsOAuthProvider", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.wantsOAuthProvider;
     },
   });
   Object.defineProperty(_, "isBuiltinMcpEntry", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.isBuiltinMcpEntry;
     },
   });
   Object.defineProperty(_, "isBuiltinMcpItem", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.isBuiltinMcpItem;
     },
   });
   Object.defineProperty(_, "isOrgPluginSettingsParseFailed", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.isOrgPluginSettingsParseFailed;
     },
   });
   Object.defineProperty(_, "isSafeMcpCommand", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.isSafeMcpCommand;
     },
   });
   Object.defineProperty(_, "LOOPBACK_HOSTS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.LOOPBACK_HOSTS;
     },
   });
   Object.defineProperty(_, "M365_ADMIN_CONSENT_SCOPES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.M365_ADMIN_CONSENT_SCOPES;
     },
   });
   Object.defineProperty(_, "M365_ALWAYS_REQUESTED_SCOPES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.M365_ALWAYS_REQUESTED_SCOPES;
     },
   });
   Object.defineProperty(_, "M365_DEFAULT_DELEGATED_SCOPES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.M365_DEFAULT_DELEGATED_SCOPES;
     },
   });
   Object.defineProperty(_, "M365_GRANTABLE_DELEGATED_SCOPES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.M365_GRANTABLE_DELEGATED_SCOPES;
     },
   });
   Object.defineProperty(_, "M365_WRITE_DELEGATED_SCOPES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.M365_WRITE_DELEGATED_SCOPES;
     },
   });
   Object.defineProperty(_, "ManagedMcpServers", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.ManagedMcpServers;
     },
   });
   Object.defineProperty(_, "resolveByoAsSelection", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.resolveByoAsSelection;
     },
   });
   Object.defineProperty(_, "byoAsSelectionUrls", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.byoAsSelectionUrls;
     },
   });
   Object.defineProperty(_, "resolveOidcEndpointSelection", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.resolveOidcEndpointSelection;
     },
   });
   Object.defineProperty(_, "oidcEndpointSelectionUrls", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.oidcEndpointSelectionUrls;
     },
   });
   Object.defineProperty(_, "orgPluginSettingsFromPolicyMap", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.orgPluginSettingsFromPolicyMap;
     },
   });
   Object.defineProperty(_, "orgPluginSettingsToPolicyMap", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.orgPluginSettingsToPolicyMap;
     },
   });
   Object.defineProperty(_, "RemoteDirectMcpServerConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.RemoteDirectMcpServerConfig;
     },
   });
   Object.defineProperty(_, "resolveEffectiveMcpToolPolicy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.resolveEffectiveMcpToolPolicy;
     },
   });
   Object.defineProperty(_, "resolveManagedToolPolicy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.resolveManagedToolPolicy;
     },
   });
   Object.defineProperty(_, "resolveMcpToolPolicies", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.resolveMcpToolPolicies;
     },
   });
   Object.defineProperty(_, "TOOL_POLICY_LABEL", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.TOOL_POLICY_LABEL;
     },
   });
   Object.defineProperty(_, "builtinWriteToolCoverageGaps", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.builtinWriteToolCoverageGaps;
     },
   });
   Object.defineProperty(_, "unlistedBuiltinWriteTools", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return he.unlistedBuiltinWriteTools;
     },
   });
   var ne = _r();
   Object.defineProperty(_, "AllowedPluginMarketplace", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.AllowedPluginMarketplace;
     },
   });
   Object.defineProperty(_, "MARKETPLACE_CREDENTIAL_KINDS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.MARKETPLACE_CREDENTIAL_KINDS;
     },
   });
   Object.defineProperty(_, "MARKETPLACE_INSTALL_PREFS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.MARKETPLACE_INSTALL_PREFS;
     },
   });
   Object.defineProperty(_, "assignParsedKey", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.assignParsedKey;
     },
   });
   Object.defineProperty(_, "BannerConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.BannerConfig;
     },
   });
   Object.defineProperty(_, "FlatManagedConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.FlatManagedConfig;
     },
   });
   Object.defineProperty(_, "flatConfigKeys", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.flatConfigKeys;
     },
   });
   Object.defineProperty(_, "FLAT_KEY_TO_NESTED_PATH", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.FLAT_KEY_TO_NESTED_PATH;
     },
   });
   Object.defineProperty(_, "RETIRED_FLAT_KEYS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.RETIRED_FLAT_KEYS;
     },
   });
   Object.defineProperty(_, "ManagedConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.ManagedConfig;
     },
   });
   Object.defineProperty(_, "enabledScopes", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.enabledScopes;
     },
   });
   Object.defineProperty(_, "deprecatedScopes", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.deprecatedScopes;
     },
   });
   Object.defineProperty(_, "getFieldMeta", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.getFieldMeta;
     },
   });
   Object.defineProperty(_, "tryGetFieldMeta", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.tryGetFieldMeta;
     },
   });
   Object.defineProperty(_, "isSensitiveDropped", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.isSensitiveDropped;
     },
   });
   Object.defineProperty(_, "CREDENTIAL_SPEC", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.CREDENTIAL_SPEC;
     },
   });
   Object.defineProperty(_, "credentialSpecCell", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.credentialSpecCell;
     },
   });
   Object.defineProperty(_, "kindSupportsDiscovery", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.kindSupportsDiscovery;
     },
   });
   Object.defineProperty(_, "validateCredentialConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.validateCredentialConfig;
     },
   });
   Object.defineProperty(_, "CREDENTIAL_KINDS_FOR_PROVIDER", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.CREDENTIAL_KINDS_FOR_PROVIDER;
     },
   });
   Object.defineProperty(_, "deriveInferenceCredentialKind", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.deriveInferenceCredentialKind;
     },
   });
   Object.defineProperty(_, "kindIsPresent", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.kindIsPresent;
     },
   });
   Object.defineProperty(_, "presentCredentialKinds", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.presentCredentialKinds;
     },
   });
   Object.defineProperty(_, "configurationWarnings", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.configurationWarnings;
     },
   });
   Object.defineProperty(_, "enforceConfigurationValues", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.enforceConfigurationValues;
     },
   });
   Object.defineProperty(_, "materializeDefaults", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.materializeDefaults;
     },
   });
   Object.defineProperty(_, "redactedSnapshot", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.redactedSnapshot;
     },
   });
   Object.defineProperty(_, "resolveBuiltinAskTools", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.resolveBuiltinAskTools;
     },
   });
   Object.defineProperty(_, "BUILTIN_ASK_POLICY_VALUES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.BUILTIN_ASK_POLICY_VALUES;
     },
   });
   Object.defineProperty(_, "checkBuiltinToolPolicyForDrops", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.checkBuiltinToolPolicyForDrops;
     },
   });
   Object.defineProperty(_, "resolveDisabledBuiltinTools", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.resolveDisabledBuiltinTools;
     },
   });
   Object.defineProperty(_, "isChatAdvancedFileAnalysisEnabled", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.isChatAdvancedFileAnalysisEnabled;
     },
   });
   Object.defineProperty(_, "isChatTabEnabled", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.isChatTabEnabled;
     },
   });
   Object.defineProperty(_, "isMcpPersistentAlwaysAllowEnabled", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.isMcpPersistentAlwaysAllowEnabled;
     },
   });
   Object.defineProperty(_, "isSkillCreationEnabled", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.isSkillCreationEnabled;
     },
   });
   Object.defineProperty(_, "resolveRedactPolicy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.resolveRedactPolicy;
     },
   });
   Object.defineProperty(_, "parseConfigRecord", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.parseConfigRecord;
     },
   });
   Object.defineProperty(_, "resolveLegacyFlatKeys", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.resolveLegacyFlatKeys;
     },
   });
   Object.defineProperty(_, "parseForceLoginOrgUUIDs", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.parseForceLoginOrgUUIDs;
     },
   });
   Object.defineProperty(_, "isBedrockFamily", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.isBedrockFamily;
     },
   });
   Object.defineProperty(_, "fieldProviders", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.fieldProviders;
     },
   });
   Object.defineProperty(_, "requiredProviderLeaves", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.requiredProviderLeaves;
     },
   });
   Object.defineProperty(_, "PROVIDER_CLI_FLAG", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.PROVIDER_CLI_FLAG;
     },
   });
   Object.defineProperty(_, "providerCliFlagEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.providerCliFlagEnv;
     },
   });
   Object.defineProperty(_, "redactSensitiveKeys", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.redactSensitiveKeys;
     },
   });
   Object.defineProperty(_, "stripEmptyKeys", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.stripEmptyKeys;
     },
   });
   Object.defineProperty(_, "bootstrapableKeys", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.bootstrapableKeys;
     },
   });
   Object.defineProperty(_, "nonBootstrapableKeys", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.nonBootstrapableKeys;
     },
   });
   Object.defineProperty(_, "remotePolicyDefaults", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.remotePolicyDefaults;
     },
   });
   Object.defineProperty(_, "staticTierKeys", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.staticTierKeys;
     },
   });
   Object.defineProperty(_, "isStaticTier3pKey", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.isStaticTier3pKey;
     },
   });
   Object.defineProperty(_, "keysWithRemotePolicy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.keysWithRemotePolicy;
     },
   });
   Object.defineProperty(_, "appBehaviorMdmKeys", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.appBehaviorMdmKeys;
     },
   });
   Object.defineProperty(_, "GROUP_DESCRIPTIONS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.GROUP_DESCRIPTIONS;
     },
   });
   Object.defineProperty(_, "OTLP_CONTENT_CATEGORIES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ne.OTLP_CONTENT_CATEGORIES;
     },
   });
   var ik = On();
   Object.defineProperty(_, "HelperScriptCreds", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ik.HelperScriptCreds;
     },
   });
   Object.defineProperty(_, "InferenceConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ik.InferenceConfig;
     },
   });
   var sp = Bf();
   Object.defineProperty(_, "buildGroupServableSchema", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return sp.buildGroupServableSchema;
     },
   });
   Object.defineProperty(_, "GroupServableConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return sp.GroupServableConfig;
     },
   });
   Object.defineProperty(_, "GroupSettings", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return sp.GroupSettings;
     },
   });
   var Oc = XO();
   Object.defineProperty(_, "buildHybridServableSchema", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Oc.buildHybridServableSchema;
     },
   });
   Object.defineProperty(_, "HYBRID_SERVABLE_CREDENTIAL_KINDS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Oc.HYBRID_SERVABLE_CREDENTIAL_KINDS;
     },
   });
   Object.defineProperty(_, "HYBRID_SERVABLE_PROVIDERS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Oc.HYBRID_SERVABLE_PROVIDERS;
     },
   });
   Object.defineProperty(_, "refuseForHybrid", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Oc.refuseForHybrid;
     },
   });
   var up = Vf();
   Object.defineProperty(_, "gatewayOverlayDropChecks", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return up.gatewayOverlayDropChecks;
     },
   });
   Object.defineProperty(_, "gatewayRefusedPathPrefixes", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return up.gatewayRefusedPathPrefixes;
     },
   });
   Object.defineProperty(_, "gatewayServableKeys", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return up.gatewayServableKeys;
     },
   });
   var bW = lc();
   Object.defineProperty(_, "pruneSchema", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return bW.pruneSchema;
     },
   });
   var vW = Gf();
   Object.defineProperty(_, "LEGACY_WIRE_SHAPES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return vW.LEGACY_WIRE_SHAPES;
     },
   });
   var Aa = ii();
   Object.defineProperty(_, "CLUSTER_REGISTRY", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Aa.CLUSTER_REGISTRY;
     },
   });
   Object.defineProperty(_, "flattenAll", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Aa.flattenAll;
     },
   });
   Object.defineProperty(_, "flattenInference", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Aa.flattenInference;
     },
   });
   Object.defineProperty(_, "unflattenAll", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Aa.unflattenAll;
     },
   });
   Object.defineProperty(_, "unflattenInference", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Aa.unflattenInference;
     },
   });
   var ok = f0();
   Object.defineProperty(_, "materializeRaw", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ok.materializeRaw;
     },
   });
   Object.defineProperty(_, "mergeTiers", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ok.mergeTiers;
     },
   });
   var wW = Qf();
   Object.defineProperty(_, "normalizeVersionedConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return wW.normalize;
     },
   });
   var lr = _c();
   Object.defineProperty(_, "controlTypeOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return lr.controlTypeOf;
     },
   });
   Object.defineProperty(_, "FORM_FIELD_BY_ID", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return lr.FORM_FIELD_BY_ID;
     },
   });
   Object.defineProperty(_, "FORM_FIELDS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return lr.FORM_FIELDS;
     },
   });
   Object.defineProperty(_, "getFormField", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return lr.getFormField;
     },
   });
   Object.defineProperty(_, "isFormFieldVisible", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return lr.isFormFieldVisible;
     },
   });
   Object.defineProperty(_, "itemColumnsOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return lr.itemColumnsOf;
     },
   });
   Object.defineProperty(_, "objectColumnsOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return lr.objectColumnsOf;
     },
   });
   Object.defineProperty(_, "optionValuesOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return lr.optionValuesOf;
     },
   });
   Object.defineProperty(_, "recordValueOptionsOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return lr.recordValueOptionsOf;
     },
   });
   Object.defineProperty(_, "setInferenceCredentialKind", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return lr.setInferenceCredentialKind;
     },
   });
   Object.defineProperty(_, "setInferenceProvider", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return lr.setInferenceProvider;
     },
   });
   Object.defineProperty(_, "subFieldsOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return lr.subFieldsOf;
     },
   });
   var wo = tc();
   Object.defineProperty(_, "BANNER_DEFAULT_BACKGROUND_COLOR", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return wo.BANNER_DEFAULT_BACKGROUND_COLOR;
     },
   });
   Object.defineProperty(_, "BANNER_DEFAULT_TEXT_COLOR", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return wo.BANNER_DEFAULT_TEXT_COLOR;
     },
   });
   Object.defineProperty(_, "isValidBannerHexColor", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return wo.isValidBannerHexColor;
     },
   });
   Object.defineProperty(_, "isValidBannerLinkUrl", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return wo.isValidBannerLinkUrl;
     },
   });
   Object.defineProperty(_, "resolveBannerConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return wo.resolveBannerConfig;
     },
   });
   Object.defineProperty(_, "toRenderableBannerConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return wo.toRenderableBannerConfig;
     },
   });
   var ak = G0();
   Object.defineProperty(_, "anchorSlug", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ak.anchorSlug;
     },
   });
   Object.defineProperty(_, "docsTableRows", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ak.docsTableRows;
     },
   });
   var kc = ip();
   Object.defineProperty(_, "CONFIGURATION_CATEGORIES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return kc.CONFIGURATION_CATEGORIES;
     },
   });
   Object.defineProperty(_, "isEmptySubValue", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return kc.isEmptySubValue;
     },
   });
   Object.defineProperty(_, "missingSubFields", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return kc.missingSubFields;
     },
   });
   Object.defineProperty(_, "stripHiddenSubFields", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return kc.stripHiddenSubFields;
     },
   });
   var Ye = Ze();
   Object.defineProperty(_, "acceptsWildcard", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.acceptsWildcard;
     },
   });
   Object.defineProperty(_, "annotate", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.annotate;
     },
   });
   Object.defineProperty(_, "annotationsOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.annotationsOf;
     },
   });
   Object.defineProperty(_, "discriminatorArmsOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.discriminatorArmsOf;
     },
   });
   Object.defineProperty(_, "discriminatorKeyOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.discriminatorKeyOf;
     },
   });
   Object.defineProperty(_, "displayDefault", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.displayDefault;
     },
   });
   Object.defineProperty(_, "effectiveVisibility", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.effectiveVisibility;
     },
   });
   Object.defineProperty(_, "field", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.field;
     },
   });
   Object.defineProperty(_, "fieldMetaForNode", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.fieldMetaForNode;
     },
   });
   Object.defineProperty(_, "filePath", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.filePath;
     },
   });
   Object.defineProperty(_, "folderPath", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.folderPath;
     },
   });
   Object.defineProperty(_, "globPattern", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.globPattern;
     },
   });
   Object.defineProperty(_, "isNotHostedServable", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.isNotHostedServable;
     },
   });
   Object.defineProperty(_, "isUrlString", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.isUrlString;
     },
   });
   Object.defineProperty(_, "longDescription", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.longDescription;
     },
   });
   Object.defineProperty(_, "pathKindOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.pathKindOf;
     },
   });
   Object.defineProperty(_, "presetForItem", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.presetForItem;
     },
   });
   Object.defineProperty(_, "notHostedServable", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.notHostedServable;
     },
   });
   Object.defineProperty(_, "redact", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.redact;
     },
   });
   Object.defineProperty(_, "redactPolicyOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.redactPolicyOf;
     },
   });
   Object.defineProperty(_, "remotePolicyOf", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.remotePolicyOf;
     },
   });
   Object.defineProperty(_, "runtimeDefault", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.runtimeDefault;
     },
   });
   Object.defineProperty(_, "SHORT_DESCRIPTION_MAX_LENGTH", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.SHORT_DESCRIPTION_MAX_LENGTH;
     },
   });
   Object.defineProperty(_, "shortDescription", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.shortDescription;
     },
   });
   Object.defineProperty(_, "subfield", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.subfield;
     },
   });
   Object.defineProperty(_, "urlString", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ye.urlString;
     },
   });
   var cp = Lt();
   Object.defineProperty(_, "hasActiveBootstrap", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return cp.hasActiveBootstrap;
     },
   });
   Object.defineProperty(_, "HELPER_SCRIPT_GROUP", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return cp.HELPER_SCRIPT_GROUP;
     },
   });
   Object.defineProperty(_, "MODELS_GROUP", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return cp.MODELS_GROUP;
     },
   });
   var SW = On();
   Object.defineProperty(_, "providerHasDiscovery", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return SW.providerHasDiscovery;
     },
   });
   var sk = tk();
   Object.defineProperty(_, "computeEgressRequirements", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return sk.computeEgressRequirements;
     },
   });
   Object.defineProperty(_, "egressRequirementLabel", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return sk.egressRequirementLabel;
     },
   });
   var So = ap();
   Object.defineProperty(_, "EGRESS_SERVICES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return So.EGRESS_SERVICES;
     },
   });
   Object.defineProperty(_, "egressServiceKeys", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return So.egressServiceKeys;
     },
   });
   Object.defineProperty(_, "enabledServicesFromConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return So.enabledServicesFromConfig;
     },
   });
   Object.defineProperty(_, "hostsForService", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return So.hostsForService;
     },
   });
   Object.defineProperty(_, "rendererEgressRules", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return So.rendererEgressRules;
     },
   });
   Object.defineProperty(_, "resolveEndpoints", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return So.resolveEndpoints;
     },
@@ -10083,74 +10083,74 @@ var lp = S(function (_) {
   rk(mf(), _);
   var Oo = zu();
   Object.defineProperty(_, "DEFAULT_INFERENCE_PROVIDER", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Oo.DEFAULT_INFERENCE_PROVIDER;
     },
   });
   Object.defineProperty(_, "getProviderLabel", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Oo.getProviderLabel;
     },
   });
   Object.defineProperty(_, "INFERENCE_CREDENTIAL_KINDS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Oo.INFERENCE_CREDENTIAL_KINDS;
     },
   });
   Object.defineProperty(_, "KIND_PRECEDENCE", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Oo.KIND_PRECEDENCE;
     },
   });
   Object.defineProperty(_, "PROVIDER_DISPLAY", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Oo.PROVIDER_DISPLAY;
     },
   });
   Object.defineProperty(_, "PROVIDERS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Oo.PROVIDERS;
     },
   });
   var ko = Zu();
   Object.defineProperty(_, "isApprovalRequiredToolPolicy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ko.isApprovalRequiredToolPolicy;
     },
   });
   Object.defineProperty(_, "lookupMcpToolPolicy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ko.lookupMcpToolPolicy;
     },
   });
   Object.defineProperty(_, "strictestToolPolicy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ko.strictestToolPolicy;
     },
   });
   Object.defineProperty(_, "TOOL_POLICY_EDITOR_VALUES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ko.TOOL_POLICY_EDITOR_VALUES;
     },
   });
   Object.defineProperty(_, "TOOL_POLICY_VALUES", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ko.TOOL_POLICY_VALUES;
     },
   });
   Object.defineProperty(_, "toolPolicyKeyGlobMatch", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ko.toolPolicyKeyGlobMatch;
     },
@@ -10158,7 +10158,7 @@ var lp = S(function (_) {
 });
 
 var dk = S(function ($c) {
-  Object.defineProperty($c, "__esModule", { value: !0 });
+  Object.defineProperty($c, "__esModule", { value: true });
   $c.HYBRID_CONSENT_EXEMPT_KEYS = $c.nonBootstrapableKeys = $c.bootstrapableKeys = void 0;
   $c.parseBootstrapConfig = PW;
   $c.collectConsentTargets = jW;
@@ -10168,13 +10168,13 @@ var dk = S(function ($c) {
     xn = _r(),
     ck = _r();
   Object.defineProperty($c, "bootstrapableKeys", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ck.bootstrapableKeys;
     },
   });
   Object.defineProperty($c, "nonBootstrapableKeys", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ck.nonBootstrapableKeys;
     },
@@ -10185,7 +10185,7 @@ var dk = S(function ($c) {
     "inferenceBedrockSsoRoleName",
     "inferenceBedrockSsoStartUrl",
   ]);
-  function PW(e, t, n, i = { includeInternal: !1 }, r) {
+  function PW(e, t, n, i = { includeInternal: false }, r) {
     var o;
     if (!e || typeof e !== "object" || Array.isArray(e))
       return { config: {}, rejected: [], warnings: [], keyedParseErrors: [] };
@@ -10225,7 +10225,7 @@ var dk = S(function ($c) {
   function EW(e, t) {
     var n, i, r, o, s;
     let u = [];
-    for (let c of (0, xn.bootstrapableKeys)({ includeInternal: !0 })) {
+    for (let c of (0, xn.bootstrapableKeys)({ includeInternal: true })) {
       let d = e[c];
       if (d === void 0) continue;
       let f = (0, xn.getFieldMeta)(c).remotePolicy;
@@ -10333,7 +10333,7 @@ var dk = S(function ($c) {
     try {
       return new URL(e).origin === t;
     } catch (n) {
-      return !1;
+      return false;
     }
   }
   var RW = (e, t) =>
@@ -10350,7 +10350,7 @@ var dk = S(function ($c) {
       let o = e[r];
       if (o !== void 0) i.push({ label: r, value: uk(o), key: r });
     }
-    for (let r of (0, xn.bootstrapableKeys)({ includeInternal: !0 })) {
+    for (let r of (0, xn.bootstrapableKeys)({ includeInternal: true })) {
       let o = e[r];
       if (!Array.isArray(o)) continue;
       let s = (0, OW.consentRequiringSubfieldKeys)(xn.FlatManagedConfig.shape[r]);
@@ -10379,13 +10379,13 @@ var dk = S(function ($c) {
       let { protocol: t, hostname: n } = new URL(e);
       return t !== "https:" || Pc.LOOPBACK_HOSTS.has(n);
     } catch (t) {
-      return !0;
+      return true;
     }
   }
 });
 
 var hk = S(function (gk) {
-  Object.defineProperty(gk, "__esModule", { value: !0 });
+  Object.defineProperty(gk, "__esModule", { value: true });
   gk.findingBlocksServing = dp;
   gk.validateForGatewayServing = ZW;
   var fk = tc(),
@@ -10398,7 +10398,7 @@ var hk = S(function (gk) {
     return e.kind !== "intake-warning" && e.kind !== "banner-text-unused";
   }
   function MW(e, t) {
-    let n = Object.keys((0, mk.resolveLegacyFlatKeys)({ [e]: !0 }))[0];
+    let n = Object.keys((0, mk.resolveLegacyFlatKeys)({ [e]: true }))[0];
     if (n !== void 0 && n !== e)
       return t.has(n)
         ? `deprecated name for ${n} \u2014 use ${n}`
@@ -10423,7 +10423,7 @@ var hk = S(function (gk) {
   }
   var Ra;
   function LW() {
-    return (Ra !== null && Ra !== void 0) || (Ra = new Set((0, fp.nonBootstrapableKeys)({ includeInternal: !0 }))), Ra;
+    return (Ra !== null && Ra !== void 0) || (Ra = new Set((0, fp.nonBootstrapableKeys)({ includeInternal: true }))), Ra;
   }
   var ja;
   function UW() {
@@ -10442,7 +10442,7 @@ var hk = S(function (gk) {
     var n, i;
     if (e === null || typeof e !== "object" || Array.isArray(e))
       return [{ key: "", kind: "overlay-not-object", msg: "expected a mapping of desktop keys" }];
-    let r = (n = t.includeInternal) !== null && n !== void 0 ? n : !1,
+    let r = (n = t.includeInternal) !== null && n !== void 0 ? n : false,
       { list: o, set: s } = NW(r),
       u = [],
       c = () => u.some(dp),
@@ -10496,14 +10496,14 @@ var hk = S(function (gk) {
       }
       if (!c() && p.banner !== void 0) {
         let y = (0, fk.resolveBannerConfig)(p.banner);
-        if (y.renders === !1 && y.reason === "invalid")
+        if (y.renders === false && y.reason === "invalid")
           u.push({
             key: "banner",
             kind: "banner-suppressed",
             msg: `banner: every desktop would suppress this banner (invalid ${(i = y.field) !== null && i !== void 0 ? i : "value"} \u2014 colors are six-digit hex; text has a hard length cap)`,
           });
         let v = p.banner.linkUrl,
-          k = y.renders === !1 && y.reason === "disabled";
+          k = y.renders === false && y.reason === "disabled";
         if (!k && v !== void 0 && !(0, fk.isValidBannerLinkUrl)(v))
           u.push({
             key: "banner",

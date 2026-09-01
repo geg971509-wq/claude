@@ -95,29 +95,29 @@ function Cgt(e) {
   }
 }
 
-async function gSe(e, t, r, o = !1, u = !1, d) {
+async function gSe(e, t, r, o = false, u = false, d) {
   let _ = await N4e(e, t, r, o, u, d);
   return _ === null ? null : _.name;
 }
 
-async function N4e(e, t, r, o = !1, u = !1, d) {
+async function N4e(e, t, r, o = false, u = false, d) {
   let _ = Us(e);
   if (!_) return null;
   let C = [Pgt(), _],
     A = await Rgt(_, t, o),
     { name: x } = A;
-  if (A.settle === "superseded") return { name: x, outcome: "superseded", registryUpdated: !0 };
+  if (A.settle === "superseded") return { name: x, outcome: "superseded", registryUpdated: true };
   if (t !== "auto" && xgt(x, u)) {
     if (A.settle === "held")
       await kD("--name", ["-n"], x, { name: x, nameSource: "collision" }, r, C), await iM(fu(), x, "collision", r, C);
-    return { name: x, outcome: "unchanged", registryUpdated: !0 };
+    return { name: x, outcome: "unchanged", registryUpdated: true };
   }
   let M = K(),
     F = gl() ?? Hl();
   if (t === "auto") l2(M, x, r);
   else await nI(M, x, F, Agt(t), r);
   if (q7(Ta(M))) {
-    let pe = { registryUpdated: !0 };
+    let pe = { registryUpdated: true };
     return await ZIe(x, t, r, A, o, C, d, pe), { name: x, outcome: Cgt(A), registryUpdated: pe.registryUpdated };
   }
   let U = Oa(),
@@ -130,7 +130,7 @@ async function N4e(e, t, r, o = !1, u = !1, d) {
         baseUrl: s3(),
         getAccessToken: pe ? () => pe : void 0,
         shouldSend: () => {
-          if (q7(fe) || Oa()?.bridgeSessionId !== B) return !1;
+          if (q7(fe) || Oa()?.bridgeSessionId !== B) return false;
           return !$y(B);
         },
         userInitiated: u,
@@ -138,7 +138,7 @@ async function N4e(e, t, r, o = !1, u = !1, d) {
       };
     U.titleWriter.update(B, x, me).catch(() => {});
   }
-  let W = { registryUpdated: !0 };
+  let W = { registryUpdated: true };
   await ZIe(x, t, r, A, o, C, d, W);
   let z = Gr();
   if (z?.kind === "ccr" && z.sessionId) {
@@ -148,14 +148,14 @@ async function N4e(e, t, r, o = !1, u = !1, d) {
   return { name: x, outcome: Cgt(A), registryUpdated: W.registryUpdated };
 }
 
-async function ZIe(e, t, r, o, u = !1, d, _, C) {
+async function ZIe(e, t, r, o, u = false, d, _, C) {
   let A = Us(e);
   if (!A) return null;
   let x = d ?? [Pgt(), A],
     M = o?.name === A ? o : await Rgt(A, t, u),
     { name: F } = M;
   if (M.settle === "superseded") return F;
-  if (o === void 0 && t !== "auto" && xgt(F, !1)) return F;
+  if (o === void 0 && t !== "auto" && xgt(F, false)) return F;
   let U = K(),
     B = gl() ?? Hl();
   if ((await z7(U, F, B, Agt(t), r), u)) ih().userTypedName = F;
@@ -172,7 +172,7 @@ async function ZIe(e, t, r, o, u = !1, d, _, C) {
       suffixBase: M.settle === "yielded" ? M.requested : void 0,
       onYield: async (z, pe) => {
         if (ih().hasAdopter) await oN(z, r, "collision");
-        else await gSe(z, "collision", r, !1, !1, _);
+        else await gSe(z, "collision", r, false, false, _);
         ih().announceYield(z, pe);
       },
     });
@@ -190,7 +190,7 @@ function Pgt() {
 }
 
 function xgt(e, t) {
-  if (t) return !1;
+  if (t) return false;
   return nS()?.name === e && Yc(K()) === e && ez() === e;
 }
 
@@ -201,12 +201,12 @@ async function F4e(e, t, r, o) {
   let d = Yc(e),
     _ = d && Us(d);
   if (u === _ || Qce(u, _ || void 0) !== void 0) return;
-  n(`Hook sessionTitle applied (${[...u].length} chars)`), await gSe(u, "hook", r, !1, !1, o);
+  n(`Hook sessionTitle applied (${[...u].length} chars)`), await gSe(u, "hook", r, false, false, o);
 }
 
 async function* $4e(e, t, r, o, u, d) {
   if (!iT("UserPromptSubmit", t, e.id)) return;
-  let _ = { ...Ea(e, ee(), o), hook_event_name: "UserPromptSubmit", prompt: r, ...!1, session_title: Yc(e.id) };
+  let _ = { ...Ea(e, ee(), o), hook_event_name: "UserPromptSubmit", prompt: r, ...false, session_title: Yc(e.id) };
   yield* jy({
     session: e,
     hookInput: _,
@@ -225,7 +225,7 @@ async function* hSe(e, t, r, o, u = {}) {
     ...Ea(r.session, ee(), t),
     hook_event_name: "UserPromptSubmit",
     prompt: e,
-    ...!1,
+    ...false,
     session_title: Yc(r.session.id),
   };
   yield* jy({
@@ -242,17 +242,17 @@ async function* hSe(e, t, r, o, u = {}) {
 function uA(e) {
   try {
     let t = e;
-    if (t === null || (typeof t !== "object" && typeof t !== "function")) return !1;
+    if (t === null || (typeof t !== "object" && typeof t !== "function")) return false;
     for (let r = 0; r < 64; r++) {
-      if (KIn.isProxy(t)) return !1;
+      if (KIn.isProxy(t)) return false;
       let o = Reflect.getPrototypeOf(t);
-      if (o === null) return !1;
-      if (o === Error.prototype) return !0;
+      if (o === null) return false;
+      if (o === Error.prototype) return true;
       t = o;
     }
-    return !1;
+    return false;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -313,7 +313,7 @@ ${Ogt(t, Igt)}`,
   }
   if (F !== void 0)
     (x = A(Ogt(`eval #${e} settled, but its output was withheld \u2014 ${F}`, Igt), "withheld")), (M = "hook_blocked");
-  VNt({ kind: "repl-eval", element: x, wake: !0 }).then(
+  VNt({ kind: "repl-eval", element: x, wake: true }).then(
     () => {
       if (M !== void 0) g("repl_async_settle", M);
       else y("repl_async_settle");
@@ -328,7 +328,7 @@ ${Ogt(t, Igt)}`,
 }
 
 function YN() {
-  return I("tengu_repl_mcp_error_throw", !0);
+  return I("tengu_repl_mcp_error_throw", true);
 }
 
 function JIn() {
@@ -459,13 +459,13 @@ function ZIn(e, t) {
     inputSchema: r,
     inputJSONSchema: e.schema,
     isEnabled() {
-      return !0;
+      return true;
     },
     isConcurrencySafe() {
-      return !1;
+      return false;
     },
     isReadOnly() {
-      return !1;
+      return false;
     },
     toAutoClassifierInput(u) {
       let d = Object.keys(u);
@@ -625,7 +625,7 @@ function tCe(e, t, r) {
               querySource: "repl_sampling",
               agents: [],
               isNonInteractiveSession: t.options.isNonInteractiveSession,
-              hasAppendSystemPrompt: !1,
+              hasAppendSystemPrompt: false,
               mcpTools: [],
               agentContext: t.agentContext,
               proactivityLevel: mD(t),
@@ -666,7 +666,7 @@ function eCe(e) {
   let t = e,
     r = {};
   for (let o of Object.keys(t)) r[o] = eCe(t[o]);
-  if (r.type === "object" && !("additionalProperties" in r)) r.additionalProperties = !1;
+  if (r.type === "object" && !("additionalProperties" in r)) r.additionalProperties = false;
   return r;
 }
 
@@ -688,7 +688,7 @@ function _re(e, t, r, o) {
         timestamp: _,
         offset: void 0,
         limit: void 0,
-        ...((!x || d.contentNotInModelContext) && { contentNotInModelContext: !0 }),
+        ...((!x || d.contentNotInModelContext) && { contentNotInModelContext: true }),
       }),
       x)
     )
@@ -736,7 +736,7 @@ function C7(e = null, t) {
 }
 
 function iOn() {
-  return I(zgt, !1) && pSn(sOn);
+  return I(zgt, false) && pSn(sOn);
 }
 
 function gqn(e, t) {
@@ -769,7 +769,7 @@ function qgt(e, t = wre) {
 }
 
 function U4e(e, t, r = wre) {
-  if (!I(zgt, !1)) return null;
+  if (!I(zgt, false)) return null;
   let o = new Map(t.map((u) => [u.name, u]));
   for (let u of e) {
     if (u.type !== "assistant") continue;
@@ -817,12 +817,12 @@ function pOn(e, t, r = wre) {
     return Uz(J9, u.server, r);
   }
   if (o === void 0) return "connectors";
-  let d = !1;
+  let d = false;
   for (let _ of o) {
     if (_.type !== "connected") continue;
     let C = Uz(J9, _.name, r);
     if (C === "connectors") return "connectors";
-    if (C === "web") d = !0;
+    if (C === "web") d = true;
   }
   return d ? "web" : null;
 }
@@ -872,7 +872,7 @@ function nCe(e, t, r, o, u, d) {
 function gOn(e, t, r, o, u, d, _, C) {
   let A = async (x, M) => {
     let F = M?.toolUseID ?? `repl_${fOn()}`,
-      U = e.isMcp === !0 && YN(),
+      U = e.isMcp === true && YN(),
       B = (fe) => {
         if (
           (u.push({ id: F, name: e.name, input: x }),
@@ -884,7 +884,7 @@ function gOn(e, t, r, o, u, d, _, C) {
           U)
         )
           throw (
-            (s("tengu_repl_mcp_error_thrown", { toolName: f7e(e.name) ? Un(e.name) : w("mcp_tool"), preExecution: !0 }),
+            (s("tengu_repl_mcp_error_thrown", { toolName: f7e(e.name) ? Un(e.name) : w("mcp_tool"), preExecution: true }),
             new vx(e.name, fe))
           );
         return Qgt(e.name, fe);
@@ -927,10 +927,10 @@ ${en}`;
           s("tengu_tool_use_isolation_latch_denied", {
             toolName: Un(e.name),
             toolUseID: F,
-            isMcp: e.isMcp ?? !1,
+            isMcp: e.isMcp ?? false,
             isolationLatch: ke(ge.activeLatch),
             isolationClassifiedAs: ke(ge.classifiedAs),
-            replInnerCall: !0,
+            replInnerCall: true,
           }),
           B(ge.denyMessage)
         );
@@ -944,7 +944,7 @@ ${en}`;
           messages: [
             ...t.messages,
             ...u.map((ut) =>
-              Qc({ content: [{ type: "tool_use", id: ut.id, name: ut.name, input: ut.input }], isVirtual: !0 }),
+              Qc({ content: [{ type: "tool_use", id: ut.id, name: ut.name, input: ut.input }], isVirtual: true }),
             ),
           ],
         },
@@ -1001,7 +1001,7 @@ ${en}`;
       let ze = Xgt(e, z);
       if (
         (W(z, ze),
-        s("tengu_repl_inner_executing", { toolName: Un(e.name), nativeTimeoutMs: ze, isMcp: e.isMcp ?? !1 }),
+        s("tengu_repl_inner_executing", { toolName: Un(e.name), nativeTimeoutMs: ze, isMcp: e.isMcp ?? false }),
         xo() && !t.abortController.signal.aborted)
       )
         await fm();
@@ -1012,8 +1012,8 @@ ${en}`;
         {
           ...t,
           toolUseId: F,
-          innerCall: !0,
-          userModified: Be.userModified ?? !1,
+          innerCall: true,
+          userModified: Be.userModified ?? false,
           fileReadingLimits: { maxTokens: 1 / 0, maxSizeBytes: 268435456 },
           globLimits: { maxResults: 25000 },
         },
@@ -1030,9 +1030,9 @@ ${en}`;
       }
       let Ve = Date.now() - pe;
       W(z, void 0);
-      let Pt = !1;
+      let Pt = false;
       for await (let ut of HL(t, e, F, o.message.id, z, We.data, o.requestId, void 0, void 0, Ve))
-        if (((Pt = !0), "updatedToolOutput" in ut && e.outputSchema?.safeParse(ut.updatedToolOutput)?.success !== !1)) {
+        if (((Pt = true), "updatedToolOutput" in ut && e.outputSchema?.safeParse(ut.updatedToolOutput)?.success !== false)) {
           let en = ut.updatedToolOutput;
           if (e.restoreTransientForRemap)
             try {
@@ -1103,13 +1103,13 @@ ${en}`;
         e.name === Qe &&
           fe instanceof dx &&
           fe.hadSandboxViolation &&
-          x?.dangerouslyDisableSandbox !== !0 &&
+          x?.dangerouslyDisableSandbox !== true &&
           pt.isSandboxingEnabled() &&
           pt.areUnsandboxedCommandsAllowed())
       )
         return (
           n("REPL Bash sandbox violation \u2014 auto-retrying unsandboxed"),
-          A({ ...x, dangerouslyDisableSandbox: !0, ...!1 }, { toolUseID: F })
+          A({ ...x, dangerouslyDisableSandbox: true, ...false }, { toolUseID: F })
         );
       if ((u.push({ id: F, name: e.name, input: z }), _(fe), U))
         throw (
@@ -1168,7 +1168,7 @@ function zz(e) {
 
 function tc(e, t, r) {
   try {
-    Object.defineProperty(e, t, { value: r, writable: !0, enumerable: !0, configurable: !0 });
+    Object.defineProperty(e, t, { value: r, writable: true, enumerable: true, configurable: true });
   } catch {
     throw new Wz(t);
   }
@@ -1433,7 +1433,7 @@ function kOn(e) {
     }
     return typeof x === "string" ? x : "<unprintable thrown value>";
   }
-  function u(A, x = new WeakMap(), M = !0) {
+  function u(A, x = new WeakMap(), M = true) {
     if (typeof A === "function") return;
     if (A === null || typeof A !== "object") return A;
     if (tht.isProxy(A)) return;
@@ -1472,9 +1472,9 @@ function kOn(e) {
       let W = Object.getOwnPropertyDescriptor(A, B);
       Object.defineProperty(U, B, {
         value: u(W && "value" in W ? W.value : void 0, x, M),
-        writable: !0,
-        enumerable: !0,
-        configurable: !0,
+        writable: true,
+        enumerable: true,
+        configurable: true,
       });
     }
     return U;
@@ -1516,7 +1516,7 @@ function kOn(e) {
       return _(t.wrapPropagate(x, u, t.Err, r));
     },
     asyncDataVM: (A) => {
-      let x = (F) => u(F, void 0, !1),
+      let x = (F) => u(F, void 0, false),
         M = t.wrap(A, u);
       return _(
         Bz((F) => {
@@ -1628,14 +1628,14 @@ function sht(e, t, r, o, u, d, _, C, A) {
       e,
       "unregisterTool",
       t.fn((U) => {
-        if (!d.has(U)) return !1;
+        if (!d.has(U)) return false;
         d.delete(U);
         try {
           delete e[U];
         } catch {
           throw new Wz(U);
         }
-        return !0;
+        return true;
       }),
     ),
     tc(
@@ -1753,7 +1753,7 @@ ${pe}`,
             await d(eht, {
               pattern: t.toStr(M),
               output_mode: "content",
-              "-n": !0,
+              "-n": true,
               ...A(F),
               ...(B.A !== void 0 && { "-A": B.A }),
               ...(B.B !== void 0 && { "-B": B.B }),
@@ -1836,7 +1836,7 @@ function Rre(e, t, r, o, u, d) {
     C = new Set(),
     A = new Set(),
     x = { cwd: ee(), repo: void 0 },
-    M = Cx.createContext({ __proto__: null }, { codeGeneration: { strings: !0, wasm: !1 } }),
+    M = Cx.createContext({ __proto__: null }, { codeGeneration: { strings: true, wasm: false } }),
     F = kOn(M),
     U = SOn(F);
   Cx.runInContext(
@@ -1872,7 +1872,7 @@ function Rre(e, t, r, o, u, d) {
       registeredTools: _,
       reservedGlobals: C,
       toolWrapperNames: new Set([...Object.keys(B), ...Object.keys(W)]),
-      mcpToolNames: new Set(e.filter((z) => z.isMcp === !0).map((z) => z.name)),
+      mcpToolNames: new Set(e.filter((z) => z.isMcp === true).map((z) => z.name)),
       boundaryUuid: null,
       console: U,
       sealers: F,
@@ -1900,7 +1900,7 @@ function aht(e, t, r, o, u, d, _) {
   sht(e.vmContext, e.sealers, e.console, C, A, e.registeredTools, e.reservedGlobals, e.activeTimers, e.helperState);
   for (let x of Object.keys(C)) e.toolWrapperNames.add(x);
   for (let x of Object.keys(A)) e.toolWrapperNames.add(x);
-  for (let x of t) if (x.isMcp === !0) e.mcpToolNames.add(x.name);
+  for (let x of t) if (x.isMcp === true) e.mcpToolNames.add(x.name);
 }
 
 function sCe(e) {
@@ -1920,8 +1920,8 @@ function cht(e, t) {
 }
 
 function POn(e, t) {
-  if (e === null || typeof e !== "object") return !1;
-  return e[t] === !0;
+  if (e === null || typeof e !== "object") return false;
+  return e[t] === true;
 }
 
 function xOn(e) {
@@ -1959,10 +1959,10 @@ function OOn(e, t) {
 }
 
 function DOn(e, t) {
-  if (e.type !== "user" || e.isVirtual) return !1;
+  if (e.type !== "user" || e.isVirtual) return false;
   let r = e.message.content;
-  if (!Array.isArray(r)) return !1;
-  if (!r.some((o) => o.type === "tool_result" && o.tool_use_id === t)) return !1;
+  if (!Array.isArray(r)) return false;
+  if (!r.some((o) => o.type === "tool_result" && o.tool_use_id === t)) return false;
   return POn(e.toolUseResult, "asyncDispatched");
 }
 
@@ -1991,7 +1991,7 @@ function BFt(e) {
     }
     let d = xOn(u);
     if (d.length > 0) {
-      for (let _ of d) o(), (r = { replId: _.id, code: _.code, calls: [], threw: !1, pendingName: void 0 });
+      for (let _ of d) o(), (r = { replId: _.id, code: _.code, calls: [], threw: false, pendingName: void 0 });
       continue;
     }
     if (r) {
@@ -2126,7 +2126,7 @@ function aCe(e, t) {
   let r = WOn(e);
   if (r !== void 0) return r;
   try {
-    return $On(e, { colors: !1, depth: t, customInspect: !1 });
+    return $On(e, { colors: false, depth: t, customInspect: false });
   } catch {
     return "[non-serializable value]";
   }
@@ -2157,7 +2157,7 @@ function ght(e) {
   for (let r of e.values()) {
     if (r.phase === "start" || r.phase === "executing") continue;
     t.push(
-      Qc({ content: [{ type: "tool_use", id: r.toolUseId, name: r.toolName, input: r.toolInput }], isVirtual: !0 }),
+      Qc({ content: [{ type: "tool_use", id: r.toolUseId, name: r.toolName, input: r.toolInput }], isVirtual: true }),
     ),
       t.push(
         xe({
@@ -2170,7 +2170,7 @@ function ght(e) {
             },
           ],
           toolUseResult: XN(r.toolName, r.result),
-          isVirtual: !0,
+          isVirtual: true,
         }),
       );
   }
@@ -2455,7 +2455,7 @@ async function iCe(e, t, r, o, u, d) {
       nn = t.abortController.signal,
       xt = () => me.reject(Error("REPL execution interrupted"));
     if (nn.aborted) xt();
-    else nn.addEventListener("abort", xt, { once: !0 });
+    else nn.addEventListener("abort", xt, { once: true });
     ge.start();
     let tt = setTimeout(
       (mn) =>
@@ -2502,7 +2502,7 @@ async function iCe(e, t, r, o, u, d) {
       },
       Ke = mt.length > 0 ? Hgt(We, Ee.sealers) : void 0;
     return (
-      Ee.replayLog.push({ code: x, calls: sCe(fe), threw: !1 }),
+      Ee.replayLog.push({ code: x, calls: sCe(fe), threw: false }),
       pe({ data: hn, newMessages: ght(fe), ...(Ke && { newTools: Ke }) })
     );
   } catch (ct) {
@@ -2526,7 +2526,7 @@ Inner tool errors (likely root cause):
 `)
         : en,
       xt = { code: x, result: null, stdout: Ve.getStdout(), stderr: Ve.getStderr(), error: nn };
-    return Ee.replayLog.push({ code: x, calls: sCe(fe), threw: !0 }), pe({ data: xt, newMessages: ght(fe) });
+    return Ee.replayLog.push({ code: x, calls: sCe(fe), threw: true }), pe({ data: xt, newMessages: ght(fe) });
   } finally {
     U.abort(), ge.cancel(), Ce.cancel(), Ee.clearAllTimers();
   }
@@ -2570,16 +2570,16 @@ function eDn(e, t) {
     o = e,
     u = 0,
     d,
-    _ = !1;
+    _ = false;
   function C() {
     if (_ || d !== void 0 || r > 0) return;
     if (o <= 0) {
-      (_ = !0), t();
+      (_ = true), t();
       return;
     }
     (u = Date.now()),
       (d = setTimeout(() => {
-        (_ = !0), t();
+        (_ = true), t();
       }, o)),
       d.unref?.();
   }
@@ -2596,7 +2596,7 @@ function eDn(e, t) {
       if (--r === 0) C();
     },
     cancel: () => {
-      (_ = !0), A();
+      (_ = true), A();
     },
   };
 }
@@ -2632,25 +2632,25 @@ function oDn(e) {
 }
 
 function lDn() {
-  return gpe(aDn, !0);
+  return gpe(aDn, true);
 }
 
 function cDn() {
   return aee("TASK_MAX_OUTPUT_LENGTH", process.env.TASK_MAX_OUTPUT_LENGTH, Zan, Qan).effective;
 }
 
-function Iht(e, t, { omitPath: r = !1 } = {}) {
+function Iht(e, t, { omitPath: r = false } = {}) {
   let o = cDn();
-  if (e.length <= o) return { content: e, wasTruncated: !1 };
+  if (e.length <= o) return { content: e, wasTruncated: false };
   if (r) {
     let _ = vg(e, Math.max(0, o - Mht(o).length));
-    return { content: Mht(_.length) + _, wasTruncated: !0 };
+    return { content: Mht(_.length) + _, wasTruncated: true };
   }
   let u = `[Truncated. Full output: ${Sl(t)}]
 
 `,
     d = vg(e, Math.max(0, o - u.length));
-  return { content: u + d, wasTruncated: !0 };
+  return { content: u + d, wasTruncated: true };
 }
 
 function Mht(e) {
@@ -2712,7 +2712,7 @@ async function Lre(e) {
       error: o.error,
       ...(A && { harnessHead: A }),
       ...(U && { webFetchSavedFiles: o.webFetchSavedFiles, webFetchReportCutNote: B }),
-      ...(u && { omitOutputPath: !0 }),
+      ...(u && { omitOutputPath: true }),
     };
   }
   if (e.type === "mcp_task") {
@@ -2740,11 +2740,11 @@ async function Lre(e) {
       ...t,
       output: _.filter((C) => C !== void 0).join(`
 `),
-      omitOutputPath: !0,
+      omitOutputPath: true,
     };
   }
   let r = await I_t(e.id);
-  if (e.type === "remote_agent") return { ...t, output: r, prompt: e.command, isRawTranscript: !0 };
+  if (e.type === "remote_agent") return { ...t, output: r, prompt: e.command, isRawTranscript: true };
   return { ...t, output: r };
 }
 
@@ -2765,8 +2765,8 @@ function Dht(e, t) {
 }
 
 function Fht(e) {
-  if (Ne() !== "firstParty") return !1;
-  if (!a.CLAUDE_CODE_WEBSEARCH_USE_CCR_PROXY) return !1;
+  if (Ne() !== "firstParty") return false;
+  if (!a.CLAUDE_CODE_WEBSEARCH_USE_CCR_PROXY) return false;
   return !!dye(e);
 }
 
@@ -2786,7 +2786,7 @@ async function Nht(e, t, r, o) {
     signal: r,
   });
   if (!u.ok) return u;
-  return { ok: !0, results: u.data.results.filter((d) => d.url).map((d) => ({ title: d.title, url: d.url })) };
+  return { ok: true, results: u.data.results.filter((d) => d.url).map((d) => ({ title: d.title, url: d.url })) };
 }
 
 function yDn(e, t, r) {
@@ -2871,7 +2871,7 @@ function DDn(e) {
   try {
     return eKe(e), Ure(e);
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -2896,7 +2896,7 @@ function LDn(e) {
 
 async function qz(e) {
   let t = await Px(e).catch(Fre);
-  if (t?.isFile() !== !0 || t.size > nyt) return null;
+  if (t?.isFile() !== true || t.size > nyt) return null;
   let r = await SCe(e, Zht).catch(Fre);
   if (r === null) return null;
   try {
@@ -2937,14 +2937,14 @@ async function FDn(e, t) {
   }
 }
 
-async function _yt(e, t, r = !1) {
+async function _yt(e, t, r = false) {
   let o = await qz(e).catch((d) => {
     throw Rx(d, t);
   });
   if (o !== null) return o.mode;
   let u = await Px(e).catch(() => null);
   if (u === null || u.isDirectory()) return;
-  if (u.isFile() && !r) return _yt(e, t, !0);
+  if (u.isFile() && !r) return _yt(e, t, true);
   throw new nd("not_a_document", `something that is not a memory document occupies ${t}`);
 }
 
@@ -2993,7 +2993,7 @@ function UDn() {
     id: Rk,
     kind: "personal",
     description: "your personal memory store on this machine",
-    writable: !0,
+    writable: true,
     promptIndex: void 0,
     backend: () => new ECe({ rootDir: Di(), label: Rk, mode: "rw", excludeKey: tD }),
   };
@@ -3038,7 +3038,7 @@ function MCe() {
   return null;
 }
 
-function r$({ storeId: e, write: t = !1 }) {
+function r$({ storeId: e, write: t = false }) {
   let r = MCe();
   if (r) return r;
   let o = Hre();
@@ -3164,7 +3164,7 @@ function xyt(e) {
   return !DCe.test(e) && e.split("/").every((t) => !t.startsWith(".") || t === "");
 }
 
-function mA(e, { trailingSlashAllowed: t = !1, rejectUnsafeSegments: r = !1 } = {}) {
+function mA(e, { trailingSlashAllowed: t = false, rejectUnsafeSegments: r = false } = {}) {
   let o = t && e.endsWith("/") ? e.slice(0, -1) : e,
     u = o.slice(1) === "" ? [] : o.slice(1).split("/");
   if (
@@ -3189,7 +3189,7 @@ async function Kz(e, t, r) {
   let o = t.slice(0, t.lastIndexOf("/") + 1),
     u;
   try {
-    u = await e.list(o, { depthOne: !0, signal: r?.signal });
+    u = await e.list(o, { depthOne: true, signal: r?.signal });
   } catch (_) {
     if (_ instanceof Fm && _.kind === "store") return null;
     throw _;
@@ -3458,7 +3458,7 @@ function t_t(e) {
 }
 
 function Qyt(e) {
-  if (mA(e, { rejectUnsafeSegments: !0 }) !== null || ICe("personal", e) !== null) return null;
+  if (mA(e, { rejectUnsafeSegments: true }) !== null || ICe("personal", e) !== null) return null;
   let t = ao(jT(e)),
     r = (u) => u.endsWith(".md") && (Mre(u) || Mre(mWt(u)));
   return !IY() && t.every(r) ? null : (t.at(-1) ?? jT(e));
@@ -3474,15 +3474,15 @@ function s_t(e) {
   for (;;) {
     if (r.startsWith('"')) {
       let o = -1,
-        u = !1;
+        u = false;
       for (let d = 1; d < r.length; d++) {
         let _ = r[d];
         if (u) {
-          u = !1;
+          u = false;
           continue;
         }
         if (_ === "\\") {
-          u = !0;
+          u = true;
           continue;
         }
         if (_ === '"') {
@@ -3513,9 +3513,9 @@ function s_t(e) {
 }
 
 function hye() {
-  if (hf().length > 0 && Le()) return !1;
-  if (Le() && !CU()) return !1;
-  return !0;
+  if (hf().length > 0 && Le()) return false;
+  if (Le() && !CU()) return false;
+  return true;
 }
 
 function a_t(e) {
@@ -3636,7 +3636,7 @@ function Qre(e) {
 async function BLn(e) {
   let t = [],
     r = await Ao(
-      (o) => e.listEntries({ namespace: "feedbackDraft" }, { cursor: o, skipKeyStats: !0 }),
+      (o) => e.listEntries({ namespace: "feedbackDraft" }, { cursor: o, skipKeyStats: true }),
       (o) => {
         for (let u of o) if (u.kind === "key" && u.key.namespace === "feedbackDraft") t.push(u.key);
       },
@@ -3706,9 +3706,9 @@ function YFt(e, t) {
       continue;
     }
     if (typeof u !== "object" || u === null) continue;
-    if ("sessionId" in u && "cwd" in u && u.sessionId === t.source_session_id && u.cwd === t.cwd) return !0;
+    if ("sessionId" in u && "cwd" in u && u.sessionId === t.source_session_id && u.cwd === t.cwd) return true;
   }
-  return !1;
+  return false;
 }
 
 function f$(e, t) {
@@ -3754,7 +3754,7 @@ function jLn(e) {
 
 async function JFt(e, t = new Date(), r) {
   let o = b(e, null, 2);
-  if (o === void 0 || Buffer.byteLength(o, "utf8") > Vre) return { success: !1, reason: "too_large" };
+  if (o === void 0 || Buffer.byteLength(o, "utf8") > Vre) return { success: false, reason: "too_large" };
   if (r) {
     let d;
     try {
@@ -3762,13 +3762,13 @@ async function JFt(e, t = new Date(), r) {
     } catch (_) {
       return (
         n(`feedbackDrafts: draft write failed: ${_ instanceof Error ? _.name : "unknown"}`, { level: "error" }),
-        { success: !1, reason: "write_failed" }
+        { success: false, reason: "write_failed" }
       );
     }
     if (!d.ok)
       return (
         n(`feedbackDrafts: draft write failed: ${Qre(d.error)}`, { level: "error" }),
-        { success: !1, reason: "write_failed" }
+        { success: false, reason: "write_failed" }
       );
   } else {
     let d = an();
@@ -3777,13 +3777,13 @@ async function JFt(e, t = new Date(), r) {
     } catch (_) {
       return (
         n(`feedbackDrafts: draft write failed: ${_ instanceof Error ? _.name : "unknown"}`, { level: "error" }),
-        { success: !1, reason: "write_failed" }
+        { success: false, reason: "write_failed" }
       );
     }
   }
   let u = [];
   try {
-    let { queued: d } = await r9({ now: t, skipTranscriptCheck: !0 }, r);
+    let { queued: d } = await r9({ now: t, skipTranscriptCheck: true }, r);
     if (d.length > Yre) {
       let _ = d.slice().sort((C, A) => C.created_at.localeCompare(A.created_at));
       for (let C of _.slice(0, d.length - Yre)) await $dt(C.draft_id, r), u.push(C);
@@ -3791,13 +3791,13 @@ async function JFt(e, t = new Date(), r) {
   } catch (d) {
     n(`feedbackDrafts: eviction sweep failed: ${d instanceof Error ? d.name : "unknown"}`, { level: "error" });
   }
-  return { success: !0, draft: e, evicted: u };
+  return { success: true, draft: e, evicted: u };
 }
 
 async function r9(e, t) {
   let r = e?.now ?? new Date(),
-    o = e?.lightweight === !0,
-    u = o || e?.skipTranscriptCheck === !0,
+    o = e?.lightweight === true,
+    u = o || e?.skipTranscriptCheck === true,
     d,
     _,
     C = t ? void 0 : an();
@@ -3848,7 +3848,7 @@ async function r9(e, t) {
     let z = Date.parse(W.created_at);
     if (Number.isFinite(z) && r.getTime() - z > xLn) {
       if (o) continue;
-      if (await $dt(W.draft_id, t).catch(() => !1))
+      if (await $dt(W.draft_id, t).catch(() => false))
         x.push(W),
           s("tengu_feedback_draft_expired", {
             type: c(W.type),
@@ -3857,7 +3857,7 @@ async function r9(e, t) {
           });
       continue;
     }
-    A.push({ ...W, transcriptAvailable: u ? !1 : await zLn(W, t) });
+    A.push({ ...W, transcriptAvailable: u ? false : await zLn(W, t) });
   }
   if ((A.sort((U, B) => B.created_at.localeCompare(U.created_at)), M > 0))
     s("tengu_feedback_draft_invalid_id", { count: bi(M) });
@@ -3877,7 +3877,7 @@ function WLn(e, t) {
 
 async function zLn(e, t) {
   let r = await eln(e);
-  if (r === null) return !1;
+  if (r === null) return false;
   let { getSessionId: o } = await import("/$bunfs/root/chunk-bb8gz7wa.js"),
     u = e.source_session_id === o();
   if (t) {
@@ -3887,24 +3887,24 @@ async function zLn(e, t) {
       try {
         if (u) return (await t.statMeta(_)).ok;
         let C = await t.read([{ key: _, tail: m_t }]);
-        if (!C.ok) return !1;
+        if (!C.ok) return false;
         let [A] = C.value.items;
         return A.found && YFt(Buffer.from(A.value).toString("utf8"), e);
       } catch {
-        return !1;
+        return false;
       }
   }
   if (u)
     try {
-      return await an().stat(r), !0;
+      return await an().stat(r), true;
     } catch {
-      return !1;
+      return false;
     }
   try {
     let d = await an().readTail(r, m_t);
     return YFt(d.toString("utf8"), e);
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -3912,21 +3912,21 @@ async function $dt(e, t) {
   if (t) {
     let r = await t.delete(T_t(e));
     if (!r.ok) {
-      if (TA(GCe(r.error))) return !1;
+      if (TA(GCe(r.error))) return false;
       throw new R(`feedback draft delete failed: ${Qre(r.error)}`, "feedback draft delete failed");
     }
     return r.value.existed;
   }
   try {
-    return await an().delete(k_t(e)), !0;
+    return await an().delete(k_t(e)), true;
   } catch (r) {
     if (!X(r) && !Ht(r)) throw r;
-    return !1;
+    return false;
   }
 }
 
 async function Sqn(e, t) {
-  let { queued: r } = await r9({ lightweight: !0 }, t);
+  let { queued: r } = await r9({ lightweight: true }, t);
   return Q(r, (o) => o.source_session_id === e);
 }
 
@@ -3935,14 +3935,14 @@ function q4e() {
 }
 
 function tln() {
-  if (v9() !== null) return !1;
-  if (jrr()) return !1;
-  if (uP()) return !1;
-  if (Ne() !== "firstParty") return !1;
+  if (v9() !== null) return false;
+  if (jrr()) return false;
+  if (uP()) return false;
+  if (Ne() !== "firstParty") return false;
   let e = a.CLAUDE_CODE_SEND_FEEDBACK;
-  if (e === !1) return !1;
-  if (e === !0) return I("tengu_juniper_relay", !1);
-  return I("tengu_juniper_relay", !1);
+  if (e === false) return false;
+  if (e === true) return I("tengu_juniper_relay", false);
+  return I("tengu_juniper_relay", false);
 }
 
 function gD() {
@@ -3971,11 +3971,11 @@ function N_t(e) {
 }
 
 function $_t() {
-  let e = !1;
+  let e = false;
   return (
     fi.feedbackNotice.setState((t) => {
       if (t.toolCallCount >= Kre()) return t;
-      return (e = !0), { ...t, toolCallCount: t.toolCallCount + 1 };
+      return (e = true), { ...t, toolCallCount: t.toolCallCount + 1 };
     }),
     e
   );
@@ -3990,11 +3990,11 @@ function nln() {
 }
 
 function Tqn(e) {
-  let t = !1;
+  let t = false;
   return (
     fi.feedbackNotice.setState((r) => {
       if (r.shownLoggedForDraftId === e) return r;
-      return (t = !0), { ...r, shownLoggedForDraftId: e };
+      return (t = true), { ...r, shownLoggedForDraftId: e };
     }),
     t
   );
@@ -4005,11 +4005,11 @@ function Bdt(e = 1) {
 }
 
 function Eqn() {
-  let e = !1;
+  let e = false;
   return (
     fi.feedbackNotice.setState((t) => {
       if (t.seedStarted || t.seededFromDisk) return t;
-      return (e = !0), { ...t, seedStarted: !0 };
+      return (e = true), { ...t, seedStarted: true };
     }),
     e
   );
@@ -4018,13 +4018,13 @@ function Eqn() {
 function Aqn(e) {
   fi.feedbackNotice.setState((t) => {
     if (t.seededFromDisk) return t;
-    return { ...t, seededFromDisk: !0, sessionDraftCount: Math.max(t.sessionDraftCount, e) };
+    return { ...t, seededFromDisk: true, sessionDraftCount: Math.max(t.sessionDraftCount, e) };
   });
 }
 
 function Cqn(e) {
   fi.feedbackNotice.setState((t) =>
-    t.sessionDraftCount === e && t.seededFromDisk ? t : { ...t, seededFromDisk: !0, sessionDraftCount: e },
+    t.sessionDraftCount === e && t.seededFromDisk ? t : { ...t, seededFromDisk: true, sessionDraftCount: e },
   );
 }
 
@@ -4424,7 +4424,7 @@ function oFn(e, t) {
     case "findReferences":
       return {
         method: "textDocument/references",
-        params: { textDocument: { uri: r }, position: o, context: { includeDeclaration: !0 } },
+        params: { textDocument: { uri: r }, position: o, context: { includeDeclaration: true } },
       };
     case "hover":
       return { method: "textDocument/hover", params: { textDocument: { uri: r }, position: o } };
@@ -4472,7 +4472,7 @@ async function fSt(e, t) {
     d = 50;
   for (let _ = 0; _ < o.length; _ += d) {
     let C = o.slice(_, _ + d),
-      A = await qe("git", ["check-ignore", ...C], { cwd: t, preserveOutputOnError: !1, timeout: 5000 });
+      A = await qe("git", ["check-ignore", ...C], { cwd: t, preserveOutputOnError: false, timeout: 5000 });
     if (A.code === 0 && A.stdout)
       for (let x of A.stdout.split(`
 `)) {
@@ -4621,7 +4621,7 @@ function cFn(e, t) {
   };
 }
 
-function ysn(e, t, r = !1) {
+function ysn(e, t, r = false) {
   let o = e.trimEnd();
   if (!o) return "";
   let u = Math.max(t - hSt, 10),
@@ -4653,7 +4653,7 @@ function ysn(e, t, r = !1) {
 }
 
 function ik(e, t) {
-  if (typeof e !== "string") return !1;
+  if (typeof e !== "string") return false;
   let r = e.trimEnd(),
     o = 0,
     u = 0;
@@ -4669,22 +4669,22 @@ function ik(e, t) {
       break;
     u++, o++;
   }
-  if (o !== -1 && o < r.length) return !0;
-  if (t === void 0) return !1;
+  if (o !== -1 && o < r.length) return true;
+  if (t === void 0) return false;
   let d = Math.max(t - hSt, 10),
     _ = fA + 1,
     C = fA * d * 4;
-  if (r.length > C) return !0;
+  if (r.length > C) return true;
   if (u === 0) {
     let x = _ * d;
-    if (r.length <= x) return !1;
+    if (r.length <= x) return false;
     return se(r) > x;
   }
   let A = 0;
   for (let x of r.split(`
 `))
-    if (((A += Math.max(1, Math.ceil(se(x) / d))), A > _)) return !0;
-  return !1;
+    if (((A += Math.max(1, Math.ceil(se(x) / d))), A > _)) return true;
+  return false;
 }
 
 function Ho() {
@@ -4700,10 +4700,10 @@ function g9n() {
 }
 
 function Ssn() {
-  if (a.MCP_DISCOVERY_CACHE === !1) return "env-disabled";
+  if (a.MCP_DISCOVERY_CACHE === false) return "env-disabled";
   let e = hE().killSwitch?.();
-  if (e === !1) return "kill-switch";
-  if (a.MCP_DISCOVERY_CACHE !== !0 && e !== !0) return "not-enabled";
+  if (e === false) return "kill-switch";
+  if (a.MCP_DISCOVERY_CACHE !== true && e !== true) return "not-enabled";
   return;
 }
 
@@ -4810,7 +4810,7 @@ function bSt() {
 }
 
 function RFn(e, t) {
-  if (b_() && c6(e) && !l6(Ye(e))) return !1;
+  if (b_() && c6(e) && !l6(Ye(e))) return false;
   return lAe(t).length > 0;
 }
 
@@ -4962,8 +4962,8 @@ function vSt(e) {
 function ZFt(e, t) {
   let r = Jm(e),
     o = Jm(t);
-  if (Kp(r) || Kp(o)) return !0;
-  if (r.skipped !== o.skipped) return !0;
+  if (Kp(r) || Kp(o)) return true;
+  if (r.skipped !== o.skipped) return true;
   return Lw(r, o);
 }
 
@@ -4988,28 +4988,28 @@ function nPe(e, t) {
 }
 
 function Xle(e, t, r) {
-  if (t.length === 0) return !1;
+  if (t.length === 0) return false;
   if (
     !t.every((u) => {
       let d = VB(e, u);
-      if (d === "indeterminate") return !1;
-      if (d === "same") return !0;
+      if (d === "indeterminate") return false;
+      if (d === "same") return true;
       return !ZFt(u, e);
     })
   )
-    return !1;
-  if (r?.requireCovered === !0) {
+    return false;
+  if (r?.requireCovered === true) {
     let u = Jm(e);
-    if (Kp(u)) return !1;
+    if (Kp(u)) return false;
     let d = (_) =>
       _.some((C) => {
         let A = Jm(C);
-        if (Kp(A)) return !1;
+        if (Kp(A)) return false;
         return HD(u, A);
       });
     return d(r.coveredWitnesses ?? t) || d(r.extraCoveredRoots ?? []);
   }
-  return !0;
+  return true;
 }
 
 function G4e(e) {
@@ -5066,7 +5066,7 @@ async function ASt(e, t) {
 
 async function PSt(e, t, r, o, u, d, _) {
   let C = t,
-    A = !1,
+    A = false,
     x = CP(t);
   try {
     if (x) throw Error("network-spelled original cwd (screened, never touched)");
@@ -5080,7 +5080,7 @@ async function PSt(e, t, r, o, u, d, _) {
         W = X(z);
       }
     if (!W) throw B;
-    (A = !0), (C = "");
+    (A = true), (C = "");
     for (let z of [u, HFn(), ly()])
       try {
         Lc(z, e), (C = z);
@@ -5094,7 +5094,7 @@ async function PSt(e, t, r, o, u, d, _) {
     U =
       d !== void 0 &&
       !Xle(F, ySe(d, u), {
-        requireCovered: !0,
+        requireCovered: true,
         coveredWitnesses: nPe(d, u),
         extraCoveredRoots: (() => {
           let B = q4(u);
@@ -5233,7 +5233,7 @@ ${r}`;
 
 function ibt(e) {
   return e.filter((t) => {
-    if (t.mcpInfo?.serverName !== k7) return !0;
+    if (t.mcpInfo?.serverName !== k7) return true;
     let r = t.mcpInfo.toolName,
       o = due(r);
     return !qG.has(r) && (o === void 0 || !qG.has(o));
@@ -5250,7 +5250,7 @@ function e$t(e, t = e) {
 }
 
 function vqn() {
-  hHn(!0);
+  hHn(true);
 }
 
 function lbt() {
@@ -5387,7 +5387,7 @@ function uNn() {
   let t = Xl();
   return typeof t?.outcomeVisibility === "boolean"
     ? { value: t.outcomeVisibility, src: "gb" }
-    : { value: !1, src: "default" };
+    : { value: false, src: "default" };
 }
 
 function Dbt(e, t, r) {
@@ -5400,7 +5400,7 @@ function Dbt(e, t, r) {
     Le() ||
     !ik(t.stdout)
   )
-    return !1;
+    return false;
   return Sw("bash_output_audience_note", a.CLAUDE_CODE_BASH_OUTPUT_AUDIENCE_NOTE, Ye(r));
 }
 
@@ -5445,16 +5445,16 @@ function _Ae(e) {
 function pNn() {
   if (!Hnr()) return "off";
   if (a.CLAUDE_CODE_SIMPLE || a.CLAUDE_CODE_DISABLE_ATTACHMENTS) return "off";
-  let { value: e, source: t } = Um(dNn, !1);
+  let { value: e, source: t } = Um(dNn, false);
   if (t === "fallback") return "cold";
-  return e === !0 ? "on" : "off";
+  return e === true ? "on" : "off";
 }
 
 function soe() {
   let e = Fa();
   if (e.keptDeferredToolsEnabled === void 0) {
     let t = pNn();
-    if (t === "cold") return !1;
+    if (t === "cold") return false;
     e.keptDeferredToolsEnabled = t === "on";
   }
   return e.keptDeferredToolsEnabled;
@@ -5468,7 +5468,7 @@ function x7() {
   return sln.of(G());
 }
 
-function Nbt(e, t, r, o = !0) {
+function Nbt(e, t, r, o = true) {
   let u = new Set(r.map((x) => x.name)),
     d = new Map();
   for (let x of t) {
@@ -5495,7 +5495,7 @@ function Nbt(e, t, r, o = !0) {
   return { kept: d, strippedReferenceKeys: _, resolvedAgainstKept: C, unrecordedDepartures: A };
 }
 
-async function $bt(e, t, r, { stripIsFinal: o, keepMcp: u = !0 }) {
+async function $bt(e, t, r, { stripIsFinal: o, keepMcp: u = true }) {
   try {
     if (!soe()) return;
     let d = _Ae(e);
@@ -5518,7 +5518,7 @@ async function $bt(e, t, r, { stripIsFinal: o, keepMcp: u = !0 }) {
   }
 }
 
-function Ubt(e, t, { keepMcp: r = !0 } = {}) {
+function Ubt(e, t, { keepMcp: r = true } = {}) {
   try {
     let o = x7();
     if (!soe() || o.failedClosed) return;
@@ -5542,7 +5542,7 @@ function Bbt(e, t, r, { requestCarriesStructuredOutputs: o }) {
       d = [];
     for (let [x, M] of e.kept) {
       if (r.has(x)) continue;
-      if (!o && "strict" in M.schema && M.schema.strict === !0) {
+      if (!o && "strict" in M.schema && M.schema.strict === true) {
         let { strict: F, ...U } = M.schema;
         d.push(U);
       } else d.push(M.schema);
@@ -5572,7 +5572,7 @@ function Bbt(e, t, r, { requestCarriesStructuredOutputs: o }) {
       if (e.strippedReferenceKeys.has(ooe(x))) continue;
       let M = Vd(x.toolName),
         F = r.get(M);
-      if (!F || !("defer_loading" in F.schema) || F.schema.defer_loading !== !0) continue;
+      if (!F || !("defer_loading" in F.schema) || F.schema.defer_loading !== true) continue;
       let U = A.get(M);
       if (U === void 0) (U = { schema: F.schema, isMcp: F.isMcp }), A.set(M, U);
       _.set(x, { kind: "sent", entry: U });
@@ -5583,15 +5583,15 @@ function Bbt(e, t, r, { requestCarriesStructuredOutputs: o }) {
 }
 
 function Gbt(e) {
-  return e?._meta?.[Wbt] === !0;
+  return e?._meta?.[Wbt] === true;
 }
 
 function qbt(e) {
-  if (e.type !== "user") return !1;
-  let t = e.toolEndsTurn ? "tool" : Gbt(e.mcpMeta) ? "mcp_meta" : !1;
-  if (!t) return !1;
+  if (e.type !== "user") return false;
+  let t = e.toolEndsTurn ? "tool" : Gbt(e.mcpMeta) ? "mcp_meta" : false;
+  if (!t) return false;
   let r = e.message.content;
-  if (Array.isArray(r) && r.some((o) => o.type === "tool_result" && o.is_error === !0)) return !1;
+  if (Array.isArray(r) && r.some((o) => o.type === "tool_result" && o.is_error === true)) return false;
   return t;
 }
 
@@ -5722,19 +5722,19 @@ function Qbt(e, t) {
         .filter((x) => x.length >= 4 && !Xbt.has(x.toLowerCase()))
         .map((x) => `</${x.toLowerCase()}>`),
       C = 0,
-      A = !1;
+      A = false;
     for (let x of Object.values(u)) {
       if (typeof x !== "string") continue;
       if (x.length > C) C = x.length;
       if (A) continue;
       let M = x.toLowerCase();
       if (M.includes("</parameter>") || M.includes("<parameter name=") || M.includes("</invoke>")) {
-        A = !0;
+        A = true;
         continue;
       }
       for (let F of _)
         if (M.includes(F)) {
-          A = !0;
+          A = true;
           break;
         }
     }
@@ -5752,7 +5752,7 @@ function Qbt(e, t) {
 
 function aln() {
   let e = a.CLAUDE_CODE_ENABLE_NARRATION;
-  if (e === !1) return null;
+  if (e === false) return null;
   if (e === void 0 && (Le() || Fs())) return null;
   let t = I("tengu_pewter_kite_ms", 0);
   if (t > 0) return t;
@@ -5785,14 +5785,14 @@ function TAe(e) {
     case "denied":
     case "disabled":
     case "not_configured":
-      return !0;
+      return true;
     case "reconnecting":
     case "needs_auth":
     case "disconnected":
     case "auth_completed":
     case "not_offered":
     case "withdrawn":
-      return !1;
+      return false;
   }
 }
 
@@ -5801,7 +5801,7 @@ function ekt(e) {
     case "policy_blocked":
     case "org_blocked":
     case "disabled":
-      return !0;
+      return true;
     case "denied":
       return e.serverName !== void 0;
     case "not_configured":
@@ -5811,7 +5811,7 @@ function ekt(e) {
     case "auth_completed":
     case "not_offered":
     case "withdrawn":
-      return !1;
+      return false;
   }
 }
 
@@ -5851,9 +5851,9 @@ function SNn(e, t, r) {
 }
 
 function bNn(e, t) {
-  if (!("toolPermissions" in e.config)) return !1;
+  if (!("toolPermissions" in e.config)) return false;
   let r = e.config.toolPermissions;
-  if (!r) return !1;
+  if (!r) return false;
   return Object.entries(r).some(([o, u]) => u === "blocked" && ln(o) === t);
 }
 
@@ -5966,19 +5966,19 @@ function ikt(e, t) {
 }
 
 function s$t(e) {
-  if (e instanceof FL) return { code: "tool_mcp_auth_error", isSad: !0 };
+  if (e instanceof FL) return { code: "tool_mcp_auth_error", isSad: true };
   if (
     e instanceof Error &&
     (("code" in e && typeof e.code === "string") || ("errorCode" in e && typeof e.errorCode === "string")) &&
     /^HTTP 40[13]\b/.test(e.message)
   )
-    return { code: "tool_mcp_oauth_error", isSad: !0 };
-  if (e instanceof dx) return { code: "tool_shell_error", isSad: !0 };
-  if (e instanceof Eee) return { code: "tool_mcp_call_error", isSad: !0 };
-  if (Zd(e) || Vp(e)) return { code: "tool_fs_error", isSad: !0 };
-  if (e instanceof ane) return { code: "tool_read_budget_exceeded", isSad: !0 };
-  if (e instanceof R) return { code: "tool_telemetry_safe_error", isSad: !0 };
-  if (e instanceof kP) return { code: "tool_malformed_command", isSad: !0 };
+    return { code: "tool_mcp_oauth_error", isSad: true };
+  if (e instanceof dx) return { code: "tool_shell_error", isSad: true };
+  if (e instanceof Eee) return { code: "tool_mcp_call_error", isSad: true };
+  if (Zd(e) || Vp(e)) return { code: "tool_fs_error", isSad: true };
+  if (e instanceof ane) return { code: "tool_read_budget_exceeded", isSad: true };
+  if (e instanceof R) return { code: "tool_telemetry_safe_error", isSad: true };
+  if (e instanceof kP) return { code: "tool_malformed_command", isSad: true };
   if (e instanceof Error) {
     let r = e.name !== "Error" ? e.name : (e.constructor?.name ?? "");
     if (lln.has(r))
@@ -5987,13 +5987,13 @@ function s$t(e) {
           "reasonCode" in e && typeof e.reasonCode === "string" && /^[a-z][a-z0-9_]{2,39}$/.test(e.reasonCode)
             ? e.reasonCode
             : "tool_expected_error",
-        isSad: !0,
+        isSad: true,
       };
   }
-  if (e instanceof DOMException && e.name === "TimeoutError") return { code: "tool_mcp_transport_error", isSad: !0 };
+  if (e instanceof DOMException && e.name === "TimeoutError") return { code: "tool_mcp_transport_error", isSad: true };
   let t = E(e);
-  if (t !== void 0 && GTe.has(t)) return { code: "tool_mcp_transport_error", isSad: !0 };
-  return { code: "tool_call_threw", isSad: !1 };
+  if (t !== void 0 && GTe.has(t)) return { code: "tool_mcp_transport_error", isSad: true };
+  return { code: "tool_call_threw", isSad: false };
 }
 
 function ENn(e, t) {
@@ -6144,13 +6144,13 @@ function eH(e) {
 }
 
 function akt(e, t) {
-  if (!e.startsWith("mcp__")) return { connection: void 0, ambiguous: !1 };
+  if (!e.startsWith("mcp__")) return { connection: void 0, ambiguous: false };
   let r = ya(e);
-  if (!r) return { connection: void 0, ambiguous: !1 };
+  if (!r) return { connection: void 0, ambiguous: false };
   let o = t.filter((d) => ln(d.name) === r.serverName),
     u = o.filter(Zo);
-  if (u.length > 1) return { connection: void 0, ambiguous: !0 };
-  return { connection: u[0] ?? o[0], ambiguous: !1 };
+  if (u.length > 1) return { connection: void 0, ambiguous: true };
+  return { connection: u[0] ?? o[0], ambiguous: false };
 }
 
 async function* i9(e, t, r, o, u) {
@@ -6175,7 +6175,7 @@ async function* i9(e, t, r, o, u) {
             {
               type: "tool_result",
               content: `<tool_use_error>Error: No such tool available: ${d}${ge}</tool_use_error>`,
-              is_error: !0,
+              is_error: true,
               tool_use_id: e.id,
             },
           ],
@@ -6200,7 +6200,7 @@ async function* i9(e, t, r, o, u) {
       s("tengu_tool_use_cancelled", {
         toolName: Un(_.name),
         toolUseID: ve(e.id),
-        isMcp: _.isMcp ?? !1,
+        isMcp: _.isMcp ?? false,
         phase: w("entry"),
         abortKind: c(zLe(o.abortController.signal.reason)),
         queryChainId: ve(o.queryTracking?.chainId),
@@ -6230,7 +6230,7 @@ async function* i9(e, t, r, o, u) {
         s("tengu_tool_use_isolation_latch_denied", {
           toolName: Un(_.name),
           toolUseID: ve(e.id),
-          isMcp: _.isMcp ?? !1,
+          isMcp: _.isMcp ?? false,
           isolationLatch: ke(ge.activeLatch),
           isolationClassifiedAs: ke(ge.classifiedAs),
           queryChainId: ve(o.queryTracking?.chainId),
@@ -6247,7 +6247,7 @@ async function* i9(e, t, r, o, u) {
               {
                 type: "tool_result",
                 content: `<tool_use_error>${ge.denyMessage}</tool_use_error>`,
-                is_error: !0,
+                is_error: true,
                 tool_use_id: e.id,
               },
             ],
@@ -6267,7 +6267,7 @@ async function* i9(e, t, r, o, u) {
             {
               type: "tool_result",
               content: `<tool_use_error>${Ce.message}</tool_use_error>`,
-              is_error: !0,
+              is_error: true,
               tool_use_id: e.id,
             },
           ],
@@ -6305,7 +6305,7 @@ async function* i9(e, t, r, o, u) {
     yield {
       message: xe({
         content: [
-          { type: "tool_result", content: `<tool_use_error>${Ee}</tool_use_error>`, is_error: !0, tool_use_id: e.id },
+          { type: "tool_result", content: `<tool_use_error>${Ee}</tool_use_error>`, is_error: true, tool_use_id: e.id },
         ],
         toolUseResult: Ee,
         toolDenialKind: ikt(ge, o.abortController.signal),
@@ -6328,7 +6328,7 @@ function PNn(e, t, r, o, u, d, _, C, A, x, M, F) {
       s("tengu_tool_use_progress", {
         messageID: ve(_),
         toolName: Un(e.name),
-        isMcp: e.isMcp ?? !1,
+        isMcp: e.isMcp ?? false,
         queryChainId: ve(o.queryTracking?.chainId),
         queryDepth: o.queryTracking?.depth,
         ...(A && { mcpServerType: c(A) }),
@@ -6402,7 +6402,7 @@ function ioe(e) {
   s("tengu_tool_use_cancelled", {
     toolName: Un(r.name),
     toolUseID: ve(o),
-    isMcp: r.isMcp ?? !1,
+    isMcp: r.isMcp ?? false,
     phase: c(t),
     abortKind: c(zLe(u.abortController.signal.reason)),
     queryChainId: ve(u.queryTracking?.chainId),
@@ -6467,7 +6467,7 @@ Common causes: unescaped backslashes in file paths (use / or \\\\), unescaped co
         errorDetailsHash: Vn(`${e.name}: unparsed tool input`),
         messageID: ve(_),
         toolName: Un(e.name),
-        isMcp: e.isMcp ?? !1,
+        isMcp: e.isMcp ?? false,
         ...rpe(o.agentContext),
         ...Ix(o),
         toolInputSizeBytes: Sn,
@@ -6486,7 +6486,7 @@ Common causes: unescaped backslashes in file paths (use / or \\\\), unescaped co
               {
                 type: "tool_result",
                 content: `<tool_use_error>InputValidationError: ${hn}</tool_use_error>`,
-                is_error: !0,
+                is_error: true,
                 tool_use_id: t,
               },
             ],
@@ -6513,10 +6513,10 @@ Common causes: unescaped backslashes in file paths (use / or \\\\), unescaped co
     });
   if (!me.success) {
     let fn = Kle(e.name, me.error),
-      Sn = !1;
+      Sn = false;
     if (Mnr() && ywn(r)) {
       let Ke = Fnr(e.name, e.inputSchema);
-      if (Ke !== null) (fn = Ke), (Sn = !0);
+      if (Ke !== null) (fn = Ke), (Sn = true);
     }
     let bn = e.validationErrorSteer?.(r, me.error);
     if (bn)
@@ -6524,7 +6524,7 @@ Common causes: unescaped backslashes in file paths (use / or \\\\), unescaped co
 
 ${bn}`;
     let hn = xNn(e, o.messages, o.options.tools);
-    if (hn) s("tengu_deferred_tool_schema_not_sent", { toolName: Un(e.name), isMcp: e.isMcp ?? !1 }), (fn += hn);
+    if (hn) s("tengu_deferred_tool_schema_not_sent", { toolName: Un(e.name), isMcp: e.isMcp ?? false }), (fn += hn);
     return (
       n(`${e.name} tool input error: ${fn.slice(0, 200)}`),
       g(B, "tool_input_validation_failed"),
@@ -6535,11 +6535,11 @@ ${bn}`;
         errorDetailsHash: Vn(fn),
         messageID: ve(_),
         toolName: Un(e.name),
-        isMcp: e.isMcp ?? !1,
+        isMcp: e.isMcp ?? false,
         ...rpe(o.agentContext),
         ...Ix(o),
         toolInputSizeBytes: W,
-        ...(Sn && { emptyInputRepaired: !0 }),
+        ...(Sn && { emptyInputRepaired: true }),
         queryChainId: ve(o.queryTracking?.chainId),
         queryDepth: o.queryTracking?.depth,
         ...(o.options.messageClientPlatform && { messageClientPlatform: o.options.messageClientPlatform }),
@@ -6556,7 +6556,7 @@ ${bn}`;
               {
                 type: "tool_result",
                 content: `<tool_use_error>InputValidationError: ${fn}</tool_use_error>`,
-                is_error: !0,
+                is_error: true,
                 tool_use_id: t,
               },
             ],
@@ -6573,7 +6573,7 @@ ${bn}`;
     if (fn !== null)
       s("tengu_mcp_input_missing_required", {
         toolName: Un(e.name),
-        isMcp: !0,
+        isMcp: true,
         toolUseID: ve(t),
         messageID: ve(_),
         toolInputSizeBytes: W,
@@ -6606,7 +6606,7 @@ ${bn}`;
       requestId: C,
       now: F,
     });
-  if (ge?.result === !1)
+  if (ge?.result === false)
     return (
       n(`${e.name} tool validation error: ${ge.message?.slice(0, 200)}`),
       g(B, "tool_validate_input_rejected"),
@@ -6616,7 +6616,7 @@ ${bn}`;
         error: w("ValidateInputError"),
         ..._m(ge.message),
         errorCode: ge.errorCode,
-        isMcp: e.isMcp ?? !1,
+        isMcp: e.isMcp ?? false,
         ...rpe(o.agentContext),
         ...Ix(o),
         queryChainId: ve(o.queryTracking?.chainId),
@@ -6635,7 +6635,7 @@ ${bn}`;
               {
                 type: "tool_result",
                 content: `<tool_use_error>${ge.message}</tool_use_error>`,
-                is_error: !0,
+                is_error: true,
                 tool_use_id: t,
               },
             ],
@@ -6655,7 +6655,7 @@ ${bn}`;
   let Ee = Ie,
     Pe = e.backfillObservableInput && typeof Ie === "object" && Ie !== null ? { ...Ie } : null;
   if (Pe) e.backfillObservableInput(Pe), (Ie = Pe);
-  let Oe = !1,
+  let Oe = false,
     Fe,
     Be,
     ze = [],
@@ -6820,7 +6820,7 @@ ${bn}`;
   if (
     (Eet({
       toolName: e.name,
-      isMcp: e.isMcp ?? !1,
+      isMcp: e.isMcp ?? false,
       messageId: _,
       toolUseID: t,
       permissionMode: he(o).mode,
@@ -6888,7 +6888,7 @@ ${bn}`;
     let Sn = xt.message;
     if (Oe && !Sn) Sn = `Execution stopped by PreToolUse hook${Fe ? `: ${Fe}` : ""}`;
     if (xt.decisionReason?.type === "hook") Sn += fit(e.name, Ie, o.options.tools, he(o), H1(o));
-    let bn = [{ type: "tool_result", content: Sn, is_error: !0, tool_use_id: t }],
+    let bn = [{ type: "tool_result", content: Sn, is_error: true, tool_use_id: t }],
       hn = xt.behavior === "ask" ? xt.contentBlocks : void 0;
     if (hn?.length) bn.push(...hn);
     let Ke;
@@ -6912,7 +6912,7 @@ ${bn}`;
     )
       eG(Ce, { toolName: e.name, toolUseID: t, message: Fe ?? Sn });
     if (xt.decisionReason?.type === "classifier" && xt.decisionReason.classifier === "auto-mode") {
-      let mn = !1;
+      let mn = false;
       try {
         for await (let yn of f1t(
           e.name,
@@ -6923,13 +6923,13 @@ ${bn}`;
           ut,
           o.abortController.signal,
         ))
-          if (yn.retry) mn = !0;
+          if (yn.retry) mn = true;
       } catch (yn) {
         if (!(yn instanceof la)) throw yn;
         n("PermissionDenied hooks cancelled (control stream closed)");
       }
       if (mn && !xt.decisionReason.noVerdict)
-        Ce.push({ message: xe({ content: Vlt, isMeta: !0, turnCompanion: !0, now: F }) });
+        Ce.push({ message: xe({ content: Vlt, isMeta: true, turnCompanion: true, now: F }) });
     }
     return Ce;
   }
@@ -6967,7 +6967,7 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
           errorDetailsHash: Vn(bn),
           messageID: ve(_),
           toolName: Un(e.name),
-          isMcp: e.isMcp ?? !1,
+          isMcp: e.isMcp ?? false,
           ...rpe(o.agentContext),
           ...Ix(o),
           toolInputSizeBytes: W,
@@ -6982,7 +6982,7 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
         Ce.push({
           message: xe({
             content: [
-              { type: "tool_result", content: `<tool_use_error>${bn}</tool_use_error>`, is_error: !0, tool_use_id: t },
+              { type: "tool_result", content: `<tool_use_error>${bn}</tool_use_error>`, is_error: true, tool_use_id: t },
             ],
             toolUseResult: `InputValidationError: permission handler updatedInput failed schema for ${e.name}`,
             sourceToolAssistantUUID: d.uuid,
@@ -7030,7 +7030,7 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
   if (xo() && !o.abortController.signal.aborted) await fm();
   U({ type: "set_in_progress_tool_use_ids", op: { action: "add", ids: [t] } }),
     n(`[Stall] tool_dispatch_start tool=${e.name} toolUseId=${t} permissionDecisionMs=${tt}`, { level: "info" });
-  let dn = !1,
+  let dn = false,
     Lt = Y3t(o.agentContext) ?? (o.isBackgroundAgent ? o.agentId : void 0);
   try {
     if ((ix("tool_exec", Lt), Tj(e) && oY(Ee).requested !== void 0))
@@ -7042,11 +7042,11 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
         At = Date.now();
       };
     if (o.abortController.signal.aborted) At = nt;
-    o.abortController.signal.addEventListener("abort", Sn, { once: !0 });
+    o.abortController.signal.addEventListener("abort", Sn, { once: true });
     let bn = !e.isReadOnly(Ee),
       hn;
     try {
-      hn = await e.call(Ee, { ...o, toolUseId: t, userModified: xt.userModified ?? !1 }, u, d, U);
+      hn = await e.call(Ee, { ...o, toolUseId: t, userModified: xt.userModified ?? false }, u, d, U);
     } finally {
       if ((fn(), o.abortController.signal.removeEventListener("abort", Sn), bn)) rkt();
     }
@@ -7055,7 +7055,7 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
     if (
       (BVt(Ke),
       n(`[Stall] tool_dispatch_end tool=${e.name} toolUseId=${t} outcome=ok durationMs=${Ke}`, { level: "info" }),
-      (dn = !0),
+      (dn = true),
       hn.data && typeof hn.data === "object")
     ) {
       let Qn = {};
@@ -7098,7 +7098,7 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
       });
     if (typeof hn === "object" && "structured_output" in hn)
       Ce.push({ message: In({ type: "structured_output", data: hn.structured_output, toolUseID: t }) });
-    fpn({ success: !0 });
+    fpn({ success: true });
     let yn =
       v2() || (MS() && QMe()) ? (hn.data && typeof hn.data === "object" ? b(hn.data) : String(hn.data ?? "")) : void 0;
     bze(ct, yn);
@@ -7153,7 +7153,7 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
       s("tengu_tool_use_success", {
         messageID: ve(_),
         toolName: Un(e.name),
-        isMcp: e.isMcp ?? !1,
+        isMcp: e.isMcp ?? false,
         ...rpe(o.agentContext),
         ...Ix(o),
         durationMs: Ke,
@@ -7216,10 +7216,10 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
     let jn = hn.data,
       Ar = [],
       Tn = 0,
-      Zr = !1,
+      Zr = false,
       br = [];
     if (hn.classifierContext !== void 0 && (!e.isMcp || A === "sdk"))
-      br.push({ value: ce(hn.classifierContext, FR), hostPrincipal: !0, pairedRewriteSeq: 0 });
+      br.push({ value: ce(hn.classifierContext, FR), hostPrincipal: true, pairedRewriteSeq: 0 });
     let { contextLayers: So, mcpMeta: Ui, endsTurn: ki } = hn;
     async function Xn(Qn, mr) {
       let xn = pS(o.session),
@@ -7235,12 +7235,12 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
       let Jo = Qn;
       try {
         if (e.stripForCreation) Jo = e.stripForCreation(Qn);
-        else if (e.stripToolUseResultAtCreation && e.stripForStorage) Jo = e.stripForStorage(Qn, !1);
+        else if (e.stripToolUseResultAtCreation && e.stripForStorage) Jo = e.stripForStorage(Qn, false);
       } catch (pi) {
         h(pi), (Jo = void 0);
       }
       let zn = br.filter((pi) => {
-        if (pi.pairedRewriteSeq === void 0) return !0;
+        if (pi.pairedRewriteSeq === void 0) return true;
         if (pi.pairedRewriteSeq === 0) return Tn === 0 || Zr;
         return !Zr && pi.pairedRewriteSeq === Tn;
       });
@@ -7276,12 +7276,12 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
     }
     let Rn = [],
       lr = Date.now(),
-      Mr = !1,
-      Io = !1;
+      Mr = false,
+      Io = false;
     for await (let Qn of HL(o, e, t, d.message.id, Ie, jn, C, A, x, Ke, {
       managedHooksExcluded: o.managedPass?.toolUseId === t && Gb.keepsToolUseResult(o, e),
     }))
-      if (((Mr = !0), "updatedToolOutput" in Qn)) (jn = Qn.updatedToolOutput), (Io = !0), (Tn += 1);
+      if (((Mr = true), "updatedToolOutput" in Qn)) (jn = Qn.updatedToolOutput), (Io = true), (Tn += 1);
       else if ("classifierContext" in Qn)
         br.push({
           ...Qn.classifierContext,
@@ -7312,28 +7312,28 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
           e.name === $s &&
           hn.data !== null &&
           typeof hn.data === "object" &&
-          hn.data.asyncDispatched === !0 &&
+          hn.data.asyncDispatched === true &&
           jn !== null &&
           typeof jn === "object"
         )
-          jn = { ...jn, asyncDispatched: !0 };
+          jn = { ...jn, asyncDispatched: true };
         if (
           (e.name === yt || e.name === Xr) &&
           hn.data !== null &&
           typeof hn.data === "object" &&
-          hn.data.handoffReviewSkipped === !0 &&
+          hn.data.handoffReviewSkipped === true &&
           jn !== null &&
           typeof jn === "object" &&
           !Array.isArray(jn)
         )
-          jn = { ...jn, handoffReviewSkipped: !0 };
+          jn = { ...jn, handoffReviewSkipped: true };
         let mr = e.outputSchema?.safeParse(jn),
           xn = (Fr) => {
             n(`PostToolUse hook returned updatedToolOutput that does not match ${e.name}'s output shape: ${Fr}`, {
               level: "error",
             }),
               (jn = hn.data),
-              (Zr = !0);
+              (Zr = true);
             let ss = Q(br, (xr) => xr.pairedRewriteSeq === Tn);
             Ar.push({
               message: In({
@@ -7373,12 +7373,12 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
     if (hn.newMessages && hn.newMessages.length > 0)
       for (let Qn of hn.newMessages)
         if (Qn.type === "user") {
-          let mr = { ...Qn, turnCompanion: !0 };
+          let mr = { ...Qn, turnCompanion: true };
           Ce.push({ message: mr });
         } else Ce.push({ message: Qn });
     if (Oe && !o.abortController.signal.aborted)
       eG(Ce, { toolName: e.name, toolUseID: t, message: Fe || "Execution stopped by hook" });
-    return Lyt(hn, Zz(o.abortController.signal, { name: e.name, ran: !0 }, FA.shellCallerOf(o)) !== null, h), Ce;
+    return Lyt(hn, Zz(o.abortController.signal, { name: e.name, ran: true }, FA.shellCallerOf(o)) !== null, h), Ce;
   } catch (fn) {
     let Sn = Date.now() - nt,
       bn = process.memoryUsage();
@@ -7392,7 +7392,7 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
     else n(`[Stall] tool_dispatch_post_error tool=${e.name} toolUseId=${t} durationMs=${Sn}`, { level: "warn" });
     let Ke = l(fn),
       mn = i$t(fn);
-    if ((fpn({ success: !1, error: Tl() ? Ke : mn }), bze(ct), fn instanceof FL)) {
+    if ((fpn({ success: false, error: Tl() ? Ke : mn }), bze(ct), fn instanceof FL)) {
       let { markMcpClientNeedsAuth: Rr } = import.meta.require("/$bunfs/root/chunk-qadpp1g1.js").mcpClientModule();
       Rr(fn.serverName, o.setAppState);
     }
@@ -7401,7 +7401,7 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
         messageID: ve(_),
         toolName: Un(e.name),
         toolUseID: ve(t),
-        isMcp: e.isMcp ?? !1,
+        isMcp: e.isMcp ?? false,
         toolInputSizeBytes: W,
         ...(!dn && {
           durationMs: Sn,
@@ -7434,7 +7434,7 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
         error: mn,
         ..._m(fn),
         errorCode: mn,
-        ...(e.isMcp === !0 && { mcpErrorSource: c(IG(fn)) }),
+        ...(e.isMcp === true && { mcpErrorSource: c(IG(fn)) }),
         rssDeltaBytes: bn.rss - ht.rss,
         heapUsedDeltaBytes: bn.heapUsed - ht.heapUsed,
         externalDeltaBytes: bn.external - ht.external,
@@ -7481,7 +7481,7 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
       (Ce.push(
         {
           message: xe({
-            content: [{ type: "tool_result", content: Cn, is_error: !0, tool_use_id: t }],
+            content: [{ type: "tool_result", content: Cn, is_error: true, tool_use_id: t }],
             toolUseResult: `Error: ${Cn}`,
             toolDenialKind: ikt(fn, o.abortController.signal),
             mcpMeta: bAe(o.agentId, Pn),
@@ -7494,7 +7494,7 @@ This is a configuration issue in your canUseTool callback, PermissionRequest hoo
       Oe && !hn && !o.abortController.signal.aborted)
     )
       eG(Ce, { toolName: e.name, toolUseID: t, message: Fe || "Execution stopped by hook" });
-    return Lyt(fn, Zz(o.abortController.signal, { name: e.name, ran: !0 }, FA.shellCallerOf(o)) !== null, h), Ce;
+    return Lyt(fn, Zz(o.abortController.signal, { name: e.name, ran: true }, FA.shellCallerOf(o)) !== null, h), Ce;
   } finally {
     if ((lx("tool_exec", Lt), Xe && o.toolDecisions)) delete o.toolDecisions[t];
   }
@@ -7575,14 +7575,14 @@ async function tG(e, t) {
       input: o,
       caller: { type: "direct" },
     },
-    z = Qc({ content: [W], isVirtual: !0 }),
+    z = Qc({ content: [W], isVirtual: true }),
     pe = Date.now();
   n(`$.tool.call (${_}): ${M.name} (${Object.keys(o).join(", ") || "no input"})`);
   let fe = "",
     me,
-    ge = !1,
-    Ce = !1,
-    Ie = !1;
+    ge = false,
+    Ce = false,
+    Ie = false;
   try {
     for await (let Pe of i9(W, z, A.canUseTool, B, () => new Date().toISOString())) {
       let Oe = ES.userMessageOf(Pe);
@@ -7591,9 +7591,9 @@ async function tG(e, t) {
       if (typeof Fe === "string") continue;
       for (let Be of Fe)
         if (Be.type === "tool_result" && Be.tool_use_id === W.id)
-          (Ie = !0),
+          (Ie = true),
             (fe = jf.toolResultText(Be.content)),
-            (ge = Be.is_error === !0),
+            (ge = Be.is_error === true),
             (Ce = Oe.toolDenialKind !== void 0);
       if (Oe.toolUseResult !== void 0 && me === void 0)
         try {
@@ -7622,13 +7622,13 @@ async function tG(e, t) {
     let Pe = await Ox.awaitAgentTask({ registry: B.taskRegistry, agentId: Ee, pluginName: _, signal: d ?? F.signal });
     if (Pe.isError) {
       if (Pe.settled !== void 0) t.leftRunning?.(Pe.settled);
-      return { result: void 0, text: Pe.text, isError: !0 };
+      return { result: void 0, text: Pe.text, isError: true };
     }
     n(`$.tool.call (${_}): Agent ${Ee} settled in ${Date.now() - pe}ms, ${Pe.text.length} chars`);
     let Oe = Pve.resolvedModelOf(me);
     return { result: { agentId: Ee, ...(Oe !== void 0 && { resolvedModel: Oe }) }, text: Pe.text };
   }
-  return { result: me, text: fe, ...(ge && { isError: !0 }) };
+  return { result: me, text: fe, ...(ge && { isError: true }) };
 }
 
 function mkt(e = tG) {
@@ -7655,12 +7655,12 @@ function mkt(e = tG) {
       let A = () => {
           r.set(d, (r.get(d) ?? 1) - 1);
         },
-        x = !1;
+        x = false;
       try {
         return await e(o, {
           ...u,
           leftRunning: (M) => {
-            (x = !0), M.finally(A);
+            (x = true), M.finally(A);
           },
         });
       } finally {
@@ -7673,7 +7673,7 @@ function mkt(e = tG) {
 function hoe(e, t, r) {
   let o = S$(e, t);
   return o === ""
-    ? { text: `${r}: $.agent.spawn: the subagent's record was evicted before its answer was read`, isError: !0 }
+    ? { text: `${r}: $.agent.spawn: the subagent's record was evicted before its answer was read`, isError: true }
     : { text: o };
 }
 
@@ -7696,7 +7696,7 @@ async function hkt({ registry: e, agentId: t, pluginName: r, signal: o }) {
         let A = S$(e, t);
         if (_.status === "completed") return { text: A };
         let x = "error" in _ && typeof _.error === "string" ? _.error : A;
-        return { text: `${r}: $.agent.spawn: the subagent ${_.status}${x ? `: ${x}` : ""}`, isError: !0 };
+        return { text: `${r}: $.agent.spawn: the subagent ${_.status}${x ? `: ${x}` : ""}`, isError: true };
       }
     } else if (d !== void 0) return hoe(e, t, r);
     let C = o.aborted
@@ -7705,8 +7705,8 @@ async function hkt({ registry: e, agentId: t, pluginName: r, signal: o }) {
         ? `${r}: $.agent.spawn: no answer within ${WT.AGENT_WAIT_MINUTES} minutes`
         : void 0;
     if (C !== void 0) {
-      if (d === void 0) return { text: C, isError: !0 };
-      return e.update(d, (A) => ({ ...A, notified: !1 })), { text: C, isError: !0, settled: yoe(e, d) };
+      if (d === void 0) return { text: C, isError: true };
+      return e.update(d, (A) => ({ ...A, notified: false })), { text: C, isError: true, settled: yoe(e, d) };
     }
     await ne(WT.AGENT_POLL_MS);
   }

@@ -72,7 +72,7 @@ function W(e) {
 function l(e) {
   let t = e;
   if (typeof t === "string") t = Y.encode(t);
-  if (Uint8Array.prototype.toBase64) return t.toBase64({ alphabet: "base64url", omitPadding: !0 });
+  if (Uint8Array.prototype.toBase64) return t.toBase64({ alphabet: "base64url", omitPadding: true });
   return pe(t).replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
 }
 var H = (e, t = "algorithm.name") => TypeError(`CryptoKey does not support this operation, its ${t} must be ${e}`),
@@ -323,11 +323,11 @@ function ne(e) {
   if (!O(e)) throw Error("CryptoKey instance expected");
 }
 var O = (e) => {
-    if (e?.[Symbol.toStringTag] === "CryptoKey") return !0;
+    if (e?.[Symbol.toStringTag] === "CryptoKey") return true;
     try {
       return e instanceof CryptoKey;
     } catch {
-      return !1;
+      return false;
     }
   },
   Q = (e) => e?.[Symbol.toStringTag] === "KeyObject",
@@ -378,8 +378,8 @@ function rt(e, t) {
 async function nt(e, t, r) {
   if (!(t instanceof Uint8Array)) throw TypeError(R(t, "Uint8Array"));
   let n = parseInt(e.slice(1, 4), 10),
-    i = await crypto.subtle.importKey("raw", t.subarray(n >> 3), "AES-CBC", !1, [r]),
-    o = await crypto.subtle.importKey("raw", t.subarray(0, n >> 3), { hash: `SHA-${n << 1}`, name: "HMAC" }, !1, [
+    i = await crypto.subtle.importKey("raw", t.subarray(n >> 3), "AES-CBC", false, [r]),
+    o = await crypto.subtle.importKey("raw", t.subarray(0, n >> 3), { hash: `SHA-${n << 1}`, name: "HMAC" }, false, [
       "sign",
     ]);
   return { encKey: i, macKey: o, keySize: n };
@@ -398,7 +398,7 @@ async function Zt(e, t) {
   if (!(e instanceof Uint8Array)) throw TypeError("First argument must be a buffer");
   if (!(t instanceof Uint8Array)) throw TypeError("Second argument must be a buffer");
   let r = { name: "HMAC", hash: "SHA-256" },
-    n = await crypto.subtle.generateKey(r, !1, ["sign"]),
+    n = await crypto.subtle.generateKey(r, false, ["sign"]),
     i = new Uint8Array(await crypto.subtle.sign(r, n, e)),
     o = new Uint8Array(await crypto.subtle.sign(r, n, t)),
     a = 0,
@@ -424,7 +424,7 @@ async function jt(e, t, r, n, i, o) {
 }
 async function er(e, t, r, n, i) {
   let o;
-  if (r instanceof Uint8Array) o = await crypto.subtle.importKey("raw", r, "AES-GCM", !1, ["encrypt"]);
+  if (r instanceof Uint8Array) o = await crypto.subtle.importKey("raw", r, "AES-GCM", false, ["encrypt"]);
   else T(r, e, "encrypt"), (o = r);
   let a = new Uint8Array(
       await crypto.subtle.encrypt({ additionalData: i, iv: n, name: "AES-GCM", tagLength: 128 }, o, t),
@@ -434,7 +434,7 @@ async function er(e, t, r, n, i) {
 }
 async function tr(e, t, r, n, i, o) {
   let a;
-  if (t instanceof Uint8Array) a = await crypto.subtle.importKey("raw", t, "AES-GCM", !1, ["decrypt"]);
+  if (t instanceof Uint8Array) a = await crypto.subtle.importKey("raw", t, "AES-GCM", false, ["decrypt"]);
   else T(t, e, "decrypt"), (a = t);
   try {
     return new Uint8Array(
@@ -502,15 +502,15 @@ async function He(e, t) {
 }
 var rr = (e) => typeof e === "object" && e !== null;
 function m(e) {
-  if (!rr(e) || Object.prototype.toString.call(e) !== "[object Object]") return !1;
-  if (Object.getPrototypeOf(e) === null) return !0;
+  if (!rr(e) || Object.prototype.toString.call(e) !== "[object Object]") return false;
+  if (Object.getPrototypeOf(e) === null) return true;
   let t = e;
   while (Object.getPrototypeOf(t) !== null) t = Object.getPrototypeOf(t);
   return Object.getPrototypeOf(e) === t;
 }
 function k(...e) {
   let t = e.filter(Boolean);
-  if (t.length === 0 || t.length === 1) return !0;
+  if (t.length === 0 || t.length === 1) return true;
   let r;
   for (let n of t) {
     let i = Object.keys(n);
@@ -519,11 +519,11 @@ function k(...e) {
       continue;
     }
     for (let o of i) {
-      if (r.has(o)) return !1;
+      if (r.has(o)) return false;
       r.add(o);
     }
   }
-  return !0;
+  return true;
 }
 var Z = (e) => m(e) && typeof e.kty === "string",
   at = (e) => e.kty !== "oct" && ((e.kty === "AKP" && typeof e.priv === "string") || typeof e.d === "string"),
@@ -533,19 +533,19 @@ function pt(e, t) {
   if (e.algorithm.length !== parseInt(t.slice(1, 4), 10)) throw TypeError(`Invalid key size for alg: ${t}`);
 }
 function dt(e, t, r) {
-  if (e instanceof Uint8Array) return crypto.subtle.importKey("raw", e, "AES-KW", !0, [r]);
+  if (e instanceof Uint8Array) return crypto.subtle.importKey("raw", e, "AES-KW", true, [r]);
   return T(e, t, r), e;
 }
 async function he(e, t, r) {
   let n = await dt(t, e, "wrapKey");
   pt(n, e);
-  let i = await crypto.subtle.importKey("raw", r, { hash: "SHA-256", name: "HMAC" }, !0, ["sign"]);
+  let i = await crypto.subtle.importKey("raw", r, { hash: "SHA-256", name: "HMAC" }, true, ["sign"]);
   return new Uint8Array(await crypto.subtle.wrapKey("raw", i, n, "AES-KW"));
 }
 async function me(e, t, r) {
   let n = await dt(t, e, "unwrapKey");
   pt(n, e);
-  let i = await crypto.subtle.unwrapKey("raw", r, n, "AES-KW", { hash: "SHA-256", name: "HMAC" }, !0, ["sign"]);
+  let i = await crypto.subtle.unwrapKey("raw", r, n, "AES-KW", { hash: "SHA-256", name: "HMAC" }, true, ["sign"]);
   return new Uint8Array(await crypto.subtle.exportKey("raw", i));
 }
 function _e(e) {
@@ -584,13 +584,13 @@ function ke(e) {
     case "P-256":
     case "P-384":
     case "P-521":
-      return !0;
+      return true;
     default:
       return e.algorithm.name === "X25519";
   }
 }
 function sr(e, t) {
-  if (e instanceof Uint8Array) return crypto.subtle.importKey("raw", e, "PBKDF2", !1, ["deriveBits"]);
+  if (e instanceof Uint8Array) return crypto.subtle.importKey("raw", e, "PBKDF2", false, ["deriveBits"]);
   return T(e, t, "deriveBits"), e;
 }
 var cr = (e, t) => b(S(e), Uint8Array.of(0), t);
@@ -649,7 +649,7 @@ function lt(e, t) {
 async function yt(e, t, r) {
   if (t instanceof Uint8Array) {
     if (!e.startsWith("HS")) throw TypeError(R(t, "CryptoKey", "KeyObject", "JSON Web Key"));
-    return crypto.subtle.importKey("raw", t, { hash: `SHA-${e.slice(-3)}`, name: "HMAC" }, !1, [r]);
+    return crypto.subtle.importKey("raw", t, { hash: `SHA-${e.slice(-3)}`, name: "HMAC" }, false, [r]);
   }
   return Ze(t, e, r), t;
 }
@@ -666,7 +666,7 @@ async function St(e, t, r, n) {
   try {
     return await crypto.subtle.verify(o, i, r, n);
   } catch {
-    return !1;
+    return false;
   }
 }
 var Et = (e) => {
@@ -772,11 +772,11 @@ async function ie(e) {
   let { algorithm: t, keyUsages: r } = fr(e),
     n = { ...e };
   if (n.kty !== "AKP") delete n.alg;
-  return delete n.use, crypto.subtle.importKey("jwk", n, t, e.ext ?? (e.d || e.priv ? !1 : !0), e.key_ops ?? r);
+  return delete n.use, crypto.subtle.importKey("jwk", n, t, e.ext ?? (e.d || e.priv ? false : true), e.key_ops ?? r);
 }
 var oe = "given KeyObject instance cannot be used for this algorithm",
   ae,
-  bt = async (e, t, r, n = !1) => {
+  bt = async (e, t, r, n = false) => {
     ae ||= new WeakMap();
     let i = ae.get(e);
     if (i?.[r]) return i[r];
@@ -791,7 +791,7 @@ var oe = "given KeyObject instance cannot be used for this algorithm",
     let r = ae.get(e);
     if (r?.[t]) return r[t];
     let n = e.type === "public",
-      i = n ? !0 : !1,
+      i = n ? true : false,
       o;
     if (e.asymmetricKeyType === "x25519") {
       switch (t) {
@@ -879,7 +879,7 @@ async function U(e, t) {
   }
   if (Z(e)) {
     if (e.k) return W(e.k);
-    return bt(e, e, t, !0);
+    return bt(e, e, t, true);
   }
   throw Error("unreachable");
 }
@@ -903,9 +903,9 @@ ${r}
   Ct = (e) => xt("public", "spki", e),
   Pt = (e) => xt("private", "pkcs8", e),
   Le = (e, t) => {
-    if (e.byteLength !== t.length) return !1;
-    for (let r = 0; r < e.byteLength; r++) if (e[r] !== t[r]) return !1;
-    return !0;
+    if (e.byteLength !== t.length) return false;
+    for (let r = 0; r < e.byteLength; r++) if (e[r] !== t[r]) return false;
+    return true;
   },
   $e = (e) => ({ data: e, pos: 0 }),
   M = (e) => {
@@ -1017,7 +1017,7 @@ var Jt = (e) => {
       default:
         throw new f('Invalid or unsupported "alg" (Algorithm) value');
     }
-    return crypto.subtle.importKey(e, t, i, n?.extractable ?? (a ? !0 : !1), o);
+    return crypto.subtle.importKey(e, t, i, n?.extractable ?? (a ? true : false), o);
   },
   Ge = (e, t) => Ae(e.replace(t, "")),
   Ht = (e, t, r) => {
@@ -1227,7 +1227,7 @@ async function Te(e, t, r, n, i = {}) {
       let { apu: p, apv: d } = i,
         u;
       if (i.epk) u = await U(i.epk, e);
-      else u = (await crypto.subtle.generateKey(r.algorithm, !0, ["deriveBits"])).privateKey;
+      else u = (await crypto.subtle.generateKey(r.algorithm, true, ["deriveBits"])).privateKey;
       let { x: y, y: A, crv: v, kty: g } = await olt(u),
         E = await Ne(r, u, e === "ECDH-ES" ? t : e, e === "ECDH-ES" ? Pe(t) : parseInt(e.slice(-5, -2), 10), p, d);
       if (((a = { epk: { x: y, crv: v, kty: g } }), g === "EC")) a.epk.y = A;
@@ -1318,7 +1318,7 @@ var se = (e) => e?.[Symbol.toStringTag],
       throw TypeError(`Invalid key for this operation, its "alg" must be "${e}" when present`);
     if (Array.isArray(t.key_ops)) {
       let n;
-      switch (!0) {
+      switch (true) {
         case r === "sign" || r === "verify":
         case e === "dir":
         case e.includes("CBC-HS"):
@@ -1338,10 +1338,10 @@ var se = (e) => e?.[Symbol.toStringTag],
           n = e.startsWith("RSA") ? "unwrapKey" : "deriveBits";
           break;
       }
-      if (n && t.key_ops?.includes?.(n) === !1)
+      if (n && t.key_ops?.includes?.(n) === false)
         throw TypeError(`Invalid key for this operation, its "key_ops" must include "${n}" when present`);
     }
-    return !0;
+    return true;
   },
   Sr = (e, t, r) => {
     if (t instanceof Uint8Array) return;
@@ -1470,8 +1470,8 @@ async function ilt(e, t, r) {
   if (p && !p.has(a)) throw new q('"enc" (Encryption Algorithm) Header Parameter value not allowed');
   let d;
   if (e.encrypted_key !== void 0) d = I(e.encrypted_key, "encrypted_key", c);
-  let u = !1;
-  if (typeof t === "function") (t = await t(n, e)), (u = !0);
+  let u = false;
+  if (typeof t === "function") (t = await t(n, e)), (u = true);
   G(o === "dir" ? a : o, t, "decrypt");
   let y = await U(t, o),
     A;
@@ -1737,7 +1737,7 @@ class J6n {
           .setSharedUnprotectedHeader(this.#n)
           .setUnprotectedHeader(i.unprotectedHeader)
           .setKeyManagementParameters(i.keyManagementParameters)
-          .encrypt(i.key, { ...i.options, [ve]: !0 });
+          .encrypt(i.key, { ...i.options, [ve]: true });
         if (((r.ciphertext = u.ciphertext), (r.iv = u.iv), (r.tag = u.tag), u.aad)) r.aad = u.aad;
         if (u.protected) r.protected = u.protected;
         if (u.unprotected) r.unprotected = u.unprotected;
@@ -1771,8 +1771,8 @@ async function slt(e, t, r) {
     }
   if (!k(n, e.header)) throw new h("JWS Protected and JWS Unprotected Header Parameter names must be disjoint");
   let i = { ...n, ...e.header },
-    o = B(h, new Map([["b64", !0]]), r?.crit, n, i),
-    a = !0;
+    o = B(h, new Map([["b64", true]]), r?.crit, n, i),
+    a = true;
   if (o.has("b64")) {
     if (((a = n.b64), typeof a !== "boolean"))
       throw new h('The "b64" (base64url-encode payload) Header Parameter must be a boolean');
@@ -1785,8 +1785,8 @@ async function slt(e, t, r) {
     if (typeof e.payload !== "string") throw new h("JWS Payload must be a string");
   } else if (typeof e.payload !== "string" && !(e.payload instanceof Uint8Array))
     throw new h("JWS Payload must be a string or an Uint8Array instance");
-  let d = !1;
-  if (typeof t === "function") (t = await t(n, e)), (d = !0);
+  let d = false;
+  if (typeof t === "function") (t = await t(n, e)), (d = true);
   G(s, t, "verify");
   let u = b(
       e.protected !== void 0 ? S(e.protected) : new Uint8Array(),
@@ -1889,7 +1889,7 @@ var Lt = (e) => {
   Kr = (e, t) => {
     if (typeof e === "string") return t.includes(e);
     if (Array.isArray(e)) return t.some(Set.prototype.has.bind(new Set(e)));
-    return !1;
+    return false;
   };
 function ce(e, t, r = {}) {
   let n;
@@ -1996,7 +1996,7 @@ class ee {
 }
 async function d9e(e, t, r) {
   let n = await Aon(e, t, r);
-  if (n.protectedHeader.crit?.includes("b64") && n.protectedHeader.b64 === !1)
+  if (n.protectedHeader.crit?.includes("b64") && n.protectedHeader.b64 === false)
     throw new K("JWTs MUST NOT use unencoded payload");
   let o = { payload: ce(n.protectedHeader, n.payload, r), protectedHeader: n.protectedHeader };
   if (typeof t === "function") return { ...o, key: n.key };
@@ -2057,8 +2057,8 @@ class p9e {
       throw new h("either setProtectedHeader or setUnprotectedHeader must be called before #sign()");
     if (!k(this.#t, this.#r)) throw new h("JWS Protected and JWS Unprotected Header Parameter names must be disjoint");
     let r = { ...this.#t, ...this.#r },
-      n = B(h, new Map([["b64", !0]]), t?.crit, this.#t, r),
-      i = !0;
+      n = B(h, new Map([["b64", true]]), t?.crit, this.#t, r),
+      i = true;
     if (n.has("b64")) {
       if (((i = this.#t.b64), typeof i !== "boolean"))
         throw new h('The "b64" (base64url-encode payload) Header Parameter must be a boolean');
@@ -2179,7 +2179,7 @@ class uxe {
     let r = new XLt(this.#t.data());
     if (
       (r.setProtectedHeader(this.#e),
-      Array.isArray(this.#e?.crit) && this.#e.crit.includes("b64") && this.#e.b64 === !1)
+      Array.isArray(this.#e?.crit) && this.#e.crit.includes("b64") && this.#e.b64 === false)
     )
       throw new K("JWTs MUST NOT use unencoded payload");
     return r.sign(e, t);
@@ -2231,13 +2231,13 @@ class alt {
     return w(this.#t, "setInitializationVector"), (this.#t = e), this;
   }
   replicateIssuerAsHeader() {
-    return (this.#o = !0), this;
+    return (this.#o = true), this;
   }
   replicateSubjectAsHeader() {
-    return (this.#a = !0), this;
+    return (this.#a = true), this;
   }
   replicateAudienceAsHeader() {
-    return (this.#s = !0), this;
+    return (this.#s = true), this;
   }
   async encrypt(e, t) {
     let r = new KLt(this.#i.data());
@@ -2302,7 +2302,7 @@ async function omr(e, t) {
 async function imr(e, t) {
   let r = { ...e, ...t?.header };
   if (!m(r.jwk)) throw new h('"jwk" (JSON Web Key) Header Parameter must be a JSON object');
-  let n = await qZ({ ...r.jwk, ext: !0 }, r.alg);
+  let n = await qZ({ ...r.jwk, ext: true }, r.alg);
   if (n instanceof Uint8Array || n.type !== "public")
     throw new h('"jwk" (JSON Web Key) Header Parameter must be a public key');
   return n;
@@ -2386,7 +2386,7 @@ class Vt {
 async function Ft(e, t, r) {
   let n = e.get(t) || e.set(t, {}).get(t);
   if (n[r] === void 0) {
-    let i = await qZ({ ...t, ext: !0 }, r);
+    let i = await qZ({ ...t, ext: true }, r);
     if (i instanceof Uint8Array || i.type !== "public") throw new fe("JSON Web Key Set members must be public keys");
     n[r] = i;
   }
@@ -2397,7 +2397,7 @@ function YLt(e) {
     r = async (n, i) => t.getKey(n, i);
   return (
     Object.defineProperties(r, {
-      jwks: { value: () => structuredClone(t.jwks()), enumerable: !1, configurable: !1, writable: !1 },
+      jwks: { value: () => structuredClone(t.jwks()), enumerable: false, configurable: false, writable: false },
     }),
     r
   );
@@ -2426,11 +2426,11 @@ async function Jr(e, t, r, n = fetch) {
 }
 var JLt = Symbol();
 function vr(e, t) {
-  if (typeof e !== "object" || e === null) return !1;
-  if (!("uat" in e) || typeof e.uat !== "number" || Date.now() - e.uat >= t) return !1;
+  if (typeof e !== "object" || e === null) return false;
+  if (!("uat" in e) || typeof e.uat !== "number" || Date.now() - e.uat >= t) return false;
   if (!("jwks" in e) || !m(e.jwks) || !Array.isArray(e.jwks.keys) || !Array.prototype.every.call(e.jwks.keys, m))
-    return !1;
-  return !0;
+    return false;
+  return true;
 }
 class zt {
   #e;
@@ -2464,10 +2464,10 @@ class zt {
     return !!this.#a;
   }
   coolingDown() {
-    return typeof this.#o === "number" ? Date.now() < this.#o + this.#r : !1;
+    return typeof this.#o === "number" ? Date.now() < this.#o + this.#r : false;
   }
   fresh() {
-    return typeof this.#o === "number" ? Date.now() < this.#o + this.#n : !1;
+    return typeof this.#o === "number" ? Date.now() < this.#o + this.#n : false;
   }
   jwks() {
     return this.#c?.jwks();
@@ -2478,7 +2478,7 @@ class zt {
       return await this.#c(e, t);
     } catch (r) {
       if (r instanceof te) {
-        if (this.coolingDown() === !1) return await this.reload(), this.#c(e, t);
+        if (this.coolingDown() === false) return await this.reload(), this.#c(e, t);
       }
       throw r;
     }
@@ -2501,11 +2501,11 @@ function smr(e, t) {
     n = async (i, o) => r.getKey(i, o);
   return (
     Object.defineProperties(n, {
-      coolingDown: { get: () => r.coolingDown(), enumerable: !0, configurable: !1 },
-      fresh: { get: () => r.fresh(), enumerable: !0, configurable: !1 },
-      reload: { value: () => r.reload(), enumerable: !0, configurable: !1, writable: !1 },
-      reloading: { get: () => r.pendingFetch(), enumerable: !0, configurable: !1 },
-      jwks: { value: () => r.jwks(), enumerable: !0, configurable: !1, writable: !1 },
+      coolingDown: { get: () => r.coolingDown(), enumerable: true, configurable: false },
+      fresh: { get: () => r.fresh(), enumerable: true, configurable: false },
+      reload: { value: () => r.reload(), enumerable: true, configurable: false, writable: false },
+      reloading: { get: () => r.pendingFetch(), enumerable: true, configurable: false },
+      jwks: { value: () => r.jwks(), enumerable: true, configurable: false, writable: false },
     }),
     n
   );
@@ -2681,7 +2681,7 @@ async function lmr(e, t) {
     default:
       throw new f('Invalid or unsupported JWK "alg" (Algorithm) Parameter value');
   }
-  return crypto.subtle.generateKey(r, t?.extractable ?? !1, n);
+  return crypto.subtle.generateKey(r, t?.extractable ?? false, n);
 }
 async function cmr(e, t) {
   let r, n, i;
@@ -2711,7 +2711,7 @@ async function cmr(e, t) {
     default:
       throw new f('Invalid or unsupported JWK "alg" (Algorithm) Parameter value');
   }
-  return crypto.subtle.generateKey(n, t?.extractable ?? !1, i);
+  return crypto.subtle.generateKey(n, t?.extractable ?? false, i);
 }
 var RAr = "WebCryptoAPI";
 export {

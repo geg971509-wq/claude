@@ -85,7 +85,7 @@ function I() {
 var Jlr = ai(() => (s() ? Gxn(_()) : void 0), I);
 function Y5(e) {
   let n = be();
-  if (t(e) === t(n)) return !0;
+  if (t(e) === t(n)) return true;
   return p(e) === p(n);
 }
 function p(e) {
@@ -96,7 +96,7 @@ function p(e) {
 }
 function a$e(e) {
   let n = process.env.NODE_OPTIONS;
-  if (!n) return !1;
+  if (!n) return false;
   return n.split(/\s+/).includes(e);
 }
 function ume(e, n) {
@@ -162,10 +162,10 @@ function ecr() {
   return Me(process.env.CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR);
 }
 function t_() {
-  return !1;
+  return false;
 }
 function YO() {
-  return !1;
+  return false;
 }
 function tcr() {
   return { namespace: void 0, cluster: void 0 };

@@ -166,7 +166,7 @@ async function U() {
           fallbackKey: l.key,
           fallbackName: d,
           fallbackVertexId: so[l.key].vertex,
-          ...(l.crossTier && { crossTier: !0 }),
+          ...(l.crossTier && { crossTier: true }),
         };
       }),
     ),
@@ -180,12 +180,12 @@ async function y(i, o, u) {
   for (let [r, f] of t.entries()) if (f) return { key: e[r] };
   if (o === "opus") {
     let r = vH;
-    if (await g(so[r].vertex)) return { key: r, crossTier: !0 };
+    if (await g(so[r].vertex)) return { key: r, crossTier: true };
   }
   return null;
 }
 async function g(i) {
-  if (i === null) return !1;
+  if (i === null) return false;
   try {
     let [{ AnthropicVertex: o }, { getProxyFetchOptions: u }] = await Promise.all([
         import("/$bunfs/root/chunk-msjfzscp.js"),
@@ -206,16 +206,16 @@ async function g(i) {
           region: d,
           googleAuth: m,
           maxRetries: 0,
-          defaultHeaders: Kz(e ? { wireAuthorization: _ } : !1),
+          defaultHeaders: Kz(e ? { wireAuthorization: _ } : false),
           timeout: 8000,
           fetchOptions: u({ url: a.ANTHROPIC_VERTEX_BASE_URL || Cve(d) }),
         }),
       ).messages.create({ model: i, max_tokens: 1, messages: [{ role: "user", content: "." }] }),
-      !0
+      true
     );
   } catch (o) {
-    if (o?.status === 429) return !0;
-    return !1;
+    if (o?.status === 429) return true;
+    return false;
   }
 }
 export {

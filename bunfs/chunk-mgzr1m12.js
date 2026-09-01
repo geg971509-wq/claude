@@ -64,7 +64,7 @@ function Xot(e) {
   throw new N0e("missing_api_base_url");
 }
 function F0e(e, r) {
-  if (e === r) return !0;
+  if (e === r) return true;
   let s = e.slice(e.lastIndexOf("_") + 1),
     t = r.slice(r.lastIndexOf("_") + 1);
   return s.length >= 4 && s === t;

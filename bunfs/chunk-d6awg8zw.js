@@ -64,7 +64,7 @@ function lq(oo) {
               A,
               ". Switching to",
               " ",
-              e(t, { bold: !0, children: a }),
+              e(t, { bold: true, children: a }),
               " means the full history gets re-read on your next message.",
             ],
           })),
@@ -92,7 +92,7 @@ function lq(oo) {
   else h = f[19];
   let R;
   if (f[20] !== i || f[21] !== S || f[22] !== h || f[23] !== k)
-    (R = e(me, { title: k, subtitle: S, color: "warning", onCancel: i, hideInputGuide: !0, children: h })),
+    (R = e(me, { title: k, subtitle: S, color: "warning", onCancel: i, hideInputGuide: true, children: h })),
       (f[20] = i),
       (f[21] = S),
       (f[22] = h),

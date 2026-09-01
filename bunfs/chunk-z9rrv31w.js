@@ -102,8 +102,8 @@ async function ue(e, t, r) {
   }
 }
 function Jb() {
-  if (a.CLAUDE_CODE_ENABLE_TASKS === !1) return !1;
-  return !0;
+  if (a.CLAUDE_CODE_ENABLE_TASKS === false) return false;
+  return true;
 }
 async function I8n(e, t) {
   let r = Ek(e),
@@ -114,19 +114,19 @@ async function I8n(e, t) {
     let u = [];
     if (t) {
       let d = await Y(t, e);
-      if (d === null) return !1;
+      if (d === null) return false;
       if (((u = d.filter((k) => !k.startsWith("."))), u.length > 0)) {
         let k = await t.read(u.map((p) => x(e, p)));
-        if (!k.ok) return n(`[Tasks] Failed to read task list ${e} before a reset: ${k.error.code}`), !1;
-        if (k.value.items.length !== u.length) return !1;
+        if (!k.ok) return n(`[Tasks] Failed to read task list ${e} before a reset: ${k.error.code}`), false;
+        if (k.value.items.length !== u.length) return false;
         for (let [p, g] of k.value.items.entries()) {
           if (!g.found) continue;
           let P = N(u[p], Buffer.from(g.value).toString("utf8"));
           if (P === null) continue;
-          if (P.status !== "completed") return !1;
+          if (P.status !== "completed") return false;
         }
       }
-    } else if ((await iC(e)).some((k) => k.status !== "completed")) return !1;
+    } else if ((await iC(e)).some((k) => k.status !== "completed")) return false;
     let s = t ? J(u) : await L(e);
     if (s > 0) {
       let d = await F(e, t);
@@ -148,7 +148,7 @@ async function I8n(e, t) {
           } catch {}
         }
     }
-    return v(), !0;
+    return v(), true;
   } finally {
     await KT(o, "[Tasks] resetTaskList");
   }
@@ -175,7 +175,7 @@ async function Y(e, t) {
   let r = { namespace: "task", listId: fT(t) },
     c = [],
     o = await Ao(
-      (u) => e.listEntries(r, { cursor: u, skipKeyStats: !0 }),
+      (u) => e.listEntries(r, { cursor: u, skipKeyStats: true }),
       (u) => {
         for (let s of u) if (s.kind === "key" && s.key.namespace === "task" && "taskId" in s.key) c.push(s.key.taskId);
       },
@@ -195,7 +195,7 @@ async function Z(e, t) {
     o;
   try {
     o = await Ao(
-      (s) => e.listEntries(r, { cursor: s, includeValue: !0 }),
+      (s) => e.listEntries(r, { cursor: s, includeValue: true }),
       (s) => {
         for (let d of s) {
           if (d.kind !== "key" || d.key.namespace !== "task" || !("taskId" in d.key)) continue;
@@ -356,7 +356,7 @@ async function D(e, t, r, c) {
     let s = await e.update(o, (k) => {
       let p = k === void 0 ? null : N(r, Buffer.from(k.value).toString("utf8")),
         g = c(p);
-      return "write" in g ? { write: b(g.write, null, 2), result: g.result } : { skip: !0, result: g.result };
+      return "write" in g ? { write: b(g.write, null, 2), result: g.result } : { skip: true, result: g.result };
     });
     if (s.ok) {
       if (s.value.written) v();
@@ -391,7 +391,7 @@ async function nne(e, t, r, c) {
     let d;
     try {
       return (
-        (d = await Gi(`${o}.v5-lock-anchor`, { lockfilePath: `${o}.lock`, realpath: !1, ...S })), await se(c, e, t, r)
+        (d = await Gi(`${o}.v5-lock-anchor`, { lockfilePath: `${o}.lock`, realpath: false, ...S })), await se(c, e, t, r)
       );
     } finally {
       await KT(d, "[Tasks] updateTask");
@@ -415,13 +415,13 @@ async function l6t(e, t, r) {
     }
     if (r) {
       let s = await r.delete(x(e, t));
-      if (!s.ok) return n(`[Tasks] Failed to delete task ${t}: ${s.error.code}`), !1;
-      if (!s.value.existed) return !1;
+      if (!s.ok) return n(`[Tasks] Failed to delete task ${t}: ${s.error.code}`), false;
+      if (!s.value.existed) return false;
     } else
       try {
         await X(c);
       } catch (s) {
-        if (E(s) === "ENOENT") return !1;
+        if (E(s) === "ENOENT") return false;
         throw s;
       }
     let u = await iC(e, r);
@@ -431,9 +431,9 @@ async function l6t(e, t, r) {
       if (d.length !== s.blocks.length || k.length !== s.blockedBy.length)
         await nne(e, s.id, { blocks: d, blockedBy: k }, r);
     }
-    return v(), !0;
+    return v(), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function iC(e, t) {
@@ -452,10 +452,10 @@ async function iC(e, t) {
 }
 async function Pfn(e, t, r, c) {
   let [o, u] = await Promise.all([Ez(e, t, c), Ez(e, r, c)]);
-  if (!o || !u) return !1;
+  if (!o || !u) return false;
   if (!o.blocks.includes(r)) await nne(e, t, { blocks: [...o.blocks, r] }, c);
   if (!u.blockedBy.includes(t)) await nne(e, r, { blockedBy: [...u.blockedBy, t] }, c);
-  return !0;
+  return true;
 }
 async function M(e, t) {
   await fVe(e, t);
@@ -467,46 +467,46 @@ async function M(e, t) {
 }
 async function O8n(e, t, r, c = {}, o) {
   let u = _(e, t);
-  if (!(await Ez(e, t, o))) return { success: !1, reason: "task_not_found" };
+  if (!(await Ez(e, t, o))) return { success: false, reason: "task_not_found" };
   if (c.checkAgentBusy) return me(e, t, r, o);
   let d;
   try {
     if (
-      ((d = o ? await Gi(`${u}.v5-lock-anchor`, { lockfilePath: `${u}.lock`, realpath: !1, ...S }) : await Gi(u, S)), o)
+      ((d = o ? await Gi(`${u}.v5-lock-anchor`, { lockfilePath: `${u}.lock`, realpath: false, ...S }) : await Gi(u, S)), o)
     ) {
       let y = await D(o, e, t, (w) => W(w, t, r, void 0));
-      if (y !== "needs_open_blockers") return y ?? { success: !1, reason: "task_not_found" };
+      if (y !== "needs_open_blockers") return y ?? { success: false, reason: "task_not_found" };
       let re = await iC(e, o),
         ae = new Set(re.filter((w) => w.status !== "completed").map((w) => w.id)),
         A = await D(o, e, t, (w) => W(w, t, r, ae));
-      return A === void 0 || A === "needs_open_blockers" ? { success: !1, reason: "task_not_found" } : A;
+      return A === void 0 || A === "needs_open_blockers" ? { success: false, reason: "task_not_found" } : A;
     }
     let k = await Ez(e, t, o);
-    if (!k) return { success: !1, reason: "task_not_found" };
-    if (k.owner && k.owner !== r) return { success: !1, reason: "already_claimed", task: k };
-    if (k.status === "completed") return { success: !1, reason: "already_resolved", task: k };
+    if (!k) return { success: false, reason: "task_not_found" };
+    if (k.owner && k.owner !== r) return { success: false, reason: "already_claimed", task: k };
+    if (k.status === "completed") return { success: false, reason: "already_resolved", task: k };
     let p = await iC(e, o),
       g = new Set(p.filter((y) => y.status !== "completed").map((y) => y.id)),
       P = k.blockedBy.filter((y) => g.has(y));
-    if (P.length > 0) return { success: !1, reason: "blocked", task: k, blockedByTasks: P };
-    return { success: !0, task: await ee(e, t, { owner: r }, o) };
+    if (P.length > 0) return { success: false, reason: "blocked", task: k, blockedByTasks: P };
+    return { success: true, task: await ee(e, t, { owner: r }, o) };
   } catch (k) {
-    return n(`[Tasks] Failed to claim task ${t}: ${l(k)}`), h(k), { success: !1, reason: "task_not_found" };
+    return n(`[Tasks] Failed to claim task ${t}: ${l(k)}`), h(k), { success: false, reason: "task_not_found" };
   } finally {
     await KT(d, "[Tasks] claimTask");
   }
 }
 function W(e, t, r, c) {
-  if (!e) return { result: { success: !1, reason: "task_not_found" } };
-  if (e.owner && e.owner !== r) return { result: { success: !1, reason: "already_claimed", task: e } };
-  if (e.status === "completed") return { result: { success: !1, reason: "already_resolved", task: e } };
+  if (!e) return { result: { success: false, reason: "task_not_found" } };
+  if (e.owner && e.owner !== r) return { result: { success: false, reason: "already_claimed", task: e } };
+  if (e.status === "completed") return { result: { success: false, reason: "already_resolved", task: e } };
   if (e.blockedBy.length > 0) {
     if (!c) return { result: "needs_open_blockers" };
     let u = e.blockedBy.filter((s) => c.has(s));
-    if (u.length > 0) return { result: { success: !1, reason: "blocked", task: e, blockedByTasks: u } };
+    if (u.length > 0) return { result: { success: false, reason: "blocked", task: e, blockedByTasks: u } };
   }
   let o = te(e, { owner: r }, t);
-  return { write: o, result: { success: !0, task: o } };
+  return { write: o, result: { success: true, task: o } };
 }
 async function me(e, t, r, c) {
   let o = await M(e, c),
@@ -515,18 +515,18 @@ async function me(e, t, r, c) {
     u = await Gi(o, S);
     let s = await iC(e, c),
       d = s.find((T) => T.id === t);
-    if (!d) return { success: !1, reason: "task_not_found" };
-    if (d.owner && d.owner !== r) return { success: !1, reason: "already_claimed", task: d };
-    if (d.status === "completed") return { success: !1, reason: "already_resolved", task: d };
+    if (!d) return { success: false, reason: "task_not_found" };
+    if (d.owner && d.owner !== r) return { success: false, reason: "already_claimed", task: d };
+    if (d.status === "completed") return { success: false, reason: "already_resolved", task: d };
     let k = new Set(s.filter((T) => T.status !== "completed").map((T) => T.id)),
       p = d.blockedBy.filter((T) => k.has(T));
-    if (p.length > 0) return { success: !1, reason: "blocked", task: d, blockedByTasks: p };
+    if (p.length > 0) return { success: false, reason: "blocked", task: d, blockedByTasks: p };
     let g = s.filter((T) => T.status !== "completed" && T.owner === r && T.id !== t);
-    if (g.length > 0) return { success: !1, reason: "agent_busy", task: d, busyWithTasks: g.map((T) => T.id) };
-    return { success: !0, task: await nne(e, t, { owner: r }, c) };
+    if (g.length > 0) return { success: false, reason: "agent_busy", task: d, busyWithTasks: g.map((T) => T.id) };
+    return { success: true, task: await nne(e, t, { owner: r }, c) };
   } catch (s) {
     return (
-      n(`[Tasks] Failed to claim task ${t} with busy check: ${l(s)}`), h(s), { success: !1, reason: "task_not_found" }
+      n(`[Tasks] Failed to claim task ${t} with busy check: ${l(s)}`), h(s), { success: false, reason: "task_not_found" }
     );
   } finally {
     await KT(u, "[Tasks] claimTaskWithBusyCheck");

@@ -22,7 +22,7 @@ function Sq(e, o, t) {
 function yMn({
   count: e,
   visibleCount: o,
-  isDisabled: t = !1,
+  isDisabled: t = false,
   onAccept: s,
   onRowKeyDown: i,
   onCursorChange: w,

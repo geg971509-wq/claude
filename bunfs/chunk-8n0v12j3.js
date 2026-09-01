@@ -22,23 +22,23 @@ async function Kp(f, a) {
   try {
     r = m(lI());
   } catch (t) {
-    return { ok: !1, code: "ENOCONN", error: p_(l(t)), errno: E(t) };
+    return { ok: false, code: "ENOCONN", error: p_(l(t)), errno: E(t) };
   }
   let o = a?.timeoutMs ?? 5000,
     e,
     s = new Promise((t) => {
       e = t;
     }),
-    u = !1,
-    n = !1,
+    u = false,
+    n = false,
     d = (t) => {
       if (u) return;
-      (u = !0), r.destroy(), e(t);
+      (u = true), r.destroy(), e(t);
     };
-  r.setTimeout(o, () => d({ ok: !1, code: "ETIMEOUT", error: "control socket timeout", connected: n })),
-    r.on("error", (t) => d({ ok: !1, code: "ENOCONN", error: p_(l(t)), connected: n, errno: E(t) })),
+  r.setTimeout(o, () => d({ ok: false, code: "ETIMEOUT", error: "control socket timeout", connected: n })),
+    r.on("error", (t) => d({ ok: false, code: "ENOCONN", error: p_(l(t)), connected: n, errno: E(t) })),
     r.once("connect", () => {
-      (n = !0),
+      (n = true),
         r.write(
           b(f) +
             `
@@ -57,13 +57,13 @@ async function Kp(f, a) {
       try {
         d(V(C));
       } catch (y) {
-        d({ ok: !1, code: "ENOCONN", error: p_(l(y)), connected: n });
+        d({ ok: false, code: "ENOCONN", error: p_(l(y)), connected: n });
       }
     }),
     r.once("close", () => {
       if (!u)
         d({
-          ok: !1,
+          ok: false,
           code: "ENOCONN",
           error: "connection dropped mid-request \u2014 it may have restarted; retry",
           connected: n,
@@ -74,7 +74,7 @@ async function Kp(f, a) {
 }
 function SBe(f) {
   let a = { label: f, cwd: ee(), pid: process.pid },
-    r = !1,
+    r = false,
     o = null,
     e = null,
     s = () => {
@@ -103,7 +103,7 @@ function SBe(f) {
   return (
     s(),
     () => {
-      if (((r = !0), e)) clearTimeout(e);
+      if (((r = true), e)) clearTimeout(e);
       o?.destroy();
     }
   );
@@ -115,11 +115,11 @@ function V7t(f, a, r, o) {
   } catch (c) {
     return queueMicrotask(() => o(p_(l(c)))), () => {};
   }
-  let s = !1,
-    u = !1,
+  let s = false,
+    u = false,
     n = (c) => {
       if (s) return;
-      (s = !0), o(c);
+      (s = true), o(c);
     };
   e.setTimeout(1e4, () => {
     if (!u) n(`${ou()} did not respond \u2014 it may be stalled${rre("restart")}`), e.destroy();
@@ -134,15 +134,15 @@ function V7t(f, a, r, o) {
       ),
     );
   let d = ent(e, (c) => {
-    if (!u) (u = !0), e.setTimeout(0);
+    if (!u) (u = true), e.setTimeout(0);
     try {
       let i = V(c);
-      if ("ok" in i && i.ok === !1) n(i.error);
+      if ("ok" in i && i.ok === false) n(i.error);
       else r(i);
     } catch {}
   });
   return () => {
-    (s = !0), d(), e.destroy();
+    (s = true), d(), e.destroy();
   };
 }
 export { Kp, SBe, V7t };

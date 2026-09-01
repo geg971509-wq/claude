@@ -24,10 +24,10 @@ class s {
   currentOnProgress = void 0;
   callsInFlight = 0;
   unregisterLockCleanup = void 0;
-  activeThisTurn = !1;
+  activeThisTurn = false;
   runLoopPump = void 0;
   runLoopPumpRetainCount = 0;
-  escHotkeyRegistered = !1;
+  escHotkeyRegistered = false;
   frozenCoordinateMode = void 0;
   hostAdapter = void 0;
   swiftModule = void 0;
@@ -41,7 +41,7 @@ class s {
       (this.currentToolUseContext = void 0),
       (this.currentOnProgress = void 0),
       (this.callsInFlight = 0),
-      (this.activeThisTurn = !1),
+      (this.activeThisTurn = false),
       (this.runLoopPumpRetainCount = 0),
       (this.frozenCoordinateMode = void 0),
       (this.hostAdapter = void 0),
@@ -96,21 +96,21 @@ async function zz(e, o = U) {
   }
 }
 function MYn(e) {
-  if (tf().escHotkeyRegistered) return !0;
+  if (tf().escHotkeyRegistered) return true;
   if (!fH().hotkey.registerEscape(e))
     return (
       n("[cu-esc] registerEscape returned false", { level: "warn" }),
       g("computeruse_esc_register", "tap_create_failed"),
-      !1
+      false
     );
-  return f(), (tf().escHotkeyRegistered = !0), n("[cu-esc] registered"), y("computeruse_esc_register"), !0;
+  return f(), (tf().escHotkeyRegistered = true), n("[cu-esc] registered"), y("computeruse_esc_register"), true;
 }
 function NYn() {
   if (!tf().escHotkeyRegistered) return;
   try {
     fH().hotkey.unregister();
   } finally {
-    a(), (tf().escHotkeyRegistered = !1), n("[cu-esc] unregistered");
+    a(), (tf().escHotkeyRegistered = false), n("[cu-esc] unregistered");
   }
 }
 function Ogn() {

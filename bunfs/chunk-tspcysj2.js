@@ -18,10 +18,10 @@ F();
 function GZ({
   scope: t,
   bindings: i,
-  active: o = !0,
-  preemptive: a = !1,
-  swallowAll: f = !1,
-  claimFocus: l = !1,
+  active: o = true,
+  preemptive: a = false,
+  swallowAll: f = false,
+  claimFocus: l = false,
   ref: d,
   flexGrow: D = 0,
   flexDirection: O,
@@ -60,23 +60,23 @@ function GZ({
       let r = y.current;
       if (!r) return;
       let c = AB(r),
-        s = !1,
+        s = false,
         m = () => {
           if (s) return;
           let u = y.current;
           if (!u) return;
           let E = c.activeElement;
           if (E && EB(E, u)) return;
-          s = !0;
+          s = true;
           try {
             c.focus(u);
           } finally {
-            s = !1;
+            s = false;
           }
         };
       return c.pushAutoFocusFallback(r), m(), c.subscribe(m);
     }, [l]);
-  let x = C(!1);
+  let x = C(false);
   qn(() => {
     return;
   }, [t, l, p]);
@@ -102,7 +102,7 @@ function M(t, i) {
   for (let o of i) {
     if (o.action !== t.action) continue;
     if (o.chordOnly && !t.isChordCompletion) continue;
-    if (o.run() === !1) continue;
+    if (o.run() === false) continue;
     t.consume();
     return;
   }

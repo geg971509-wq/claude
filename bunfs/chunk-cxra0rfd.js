@@ -39,7 +39,7 @@ var i = j(qc(), 1);
 var QTt = (e = {}) =>
   i.memoize(
     i.chain(nEt(e), async () => {
-      throw new i.TokenProviderError("Could not load token from any providers", !1);
+      throw new i.TokenProviderError("Could not load token from any providers", false);
     }),
     (n) => n.expiration !== void 0 && n.expiration.getTime() - Date.now() < 300000,
     (n) => n.expiration !== void 0,

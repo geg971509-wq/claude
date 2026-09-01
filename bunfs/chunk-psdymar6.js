@@ -20,8 +20,8 @@ import { ue } from "/$bunfs/root/chunk-yz031c9r.js";
 var h = ["bundled", "system"],
   f = new Set();
 function c(e) {
-  if (f.has(e)) return !1;
-  return f.add(e), !0;
+  if (f.has(e)) return false;
+  return f.add(e), true;
 }
 class E {
   extraCACerts = null;
@@ -35,20 +35,20 @@ var woe = wR(async () => {
   let e = _(),
     r = a.NODE_EXTRA_CA_CERTS;
   if (!r) {
-    if (e.extraCACerts !== null) return (e.extraCACerts = null), u(e), !0;
-    return !1;
+    if (e.extraCACerts !== null) return (e.extraCACerts = null), u(e), true;
+    return false;
   }
   try {
     let t = await le().readFile(r, { encoding: "utf8" });
-    if (e.extraCACerts?.path === r && e.extraCACerts.content === t) return !1;
+    if (e.extraCACerts?.path === r && e.extraCACerts.content === t) return false;
     e.extraCACerts = { path: r, content: t };
   } catch (t) {
     if ((n(`CA certs: Failed to read NODE_EXTRA_CA_CERTS file (${r}): ${t}`, { level: "error" }), c("read_failed")))
       p("ca_certs_load", "read_failed");
-    if (e.extraCACerts === null) return !1;
+    if (e.extraCACerts === null) return false;
     e.extraCACerts = null;
   }
-  return u(e), !0;
+  return u(e), true;
 });
 function S() {
   let e = a.CLAUDE_CODE_CERT_STORE;
@@ -80,10 +80,10 @@ function x(e) {
       try {
         let C = new r(l),
           o = new Date(C.validTo).getTime();
-        if (Number.isNaN(o) || o > t) return !0;
-        return s++, !1;
+        if (Number.isNaN(o) || o > t) return true;
+        return s++, false;
       } catch {
-        return !0;
+        return true;
       }
     });
   if (s > 0) {

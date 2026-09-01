@@ -17,7 +17,7 @@ import { Gg, r0 } from "/$bunfs/root/chunk-tzhtxm67.js";
 import { Fu, II, qD } from "/$bunfs/root/chunk-qnrh4abv.js";
 import { i, v, q, _e, H, f, oe, N } from "/$bunfs/root/chunk-saay52v7.js";
 function n8() {
-  return I("tengu_cobalt_plinth_thistle", !1);
+  return I("tengu_cobalt_plinth_thistle", false);
 }
 var b = 4000,
   B6e = 16,
@@ -130,23 +130,23 @@ function N$n(e) {
 }
 function F$n(e, r) {
   let t = s.outstanding.get(e.orig_msg_id);
-  if (t === void 0) return !1;
+  if (t === void 0) return false;
   if (t.expectPid !== void 0 && r !== void 0 && r !== t.expectPid)
-    return g("artifact_live_subscribe", "yield_answer_pid_mismatch"), !1;
+    return g("artifact_live_subscribe", "yield_answer_pid_mismatch"), false;
   t.timers.clearTimeout(t.timer);
   let l = (d) => (Array.isArray(d) ? d.filter((o) => typeof o === "string" && t.asked.has(o)) : []),
-    u = e.refused === !0 ? { kind: "refused" } : { kind: "yielded", yielded: l(e.yielded), notHeld: l(e.not_held) };
+    u = e.refused === true ? { kind: "refused" } : { kind: "yielded", yielded: l(e.yielded), notHeld: l(e.not_held) };
   if (t.resolve !== null)
     s.outstanding.delete(e.orig_msg_id), t.resolve({ ...u, lost: [...t.lost.keys()], lostTo: [...t.lost] });
   else {
-    s.outstanding.delete(e.orig_msg_id), y("artifact_live_subscribe", { yield_answer_late: !0 });
+    s.outstanding.delete(e.orig_msg_id), y("artifact_live_subscribe", { yield_answer_late: true });
     try {
       t.onLate?.({ ...u, lost: [...t.lost.keys()], lostTo: [...t.lost] });
     } catch (d) {
       h(d);
     }
   }
-  return !0;
+  return true;
 }
 function $Zt(e, r = null) {
   (s.holder = e), (s.reverter = r);
@@ -171,10 +171,10 @@ function Y(e, r, t) {
   k(s.delivered, d);
 }
 function S(e) {
-  if (s.delivered.size < R) return !1;
-  if (e === void 0) return !0;
-  for (let r of s.delivered.values()) if (r.pid === e) return !1;
-  return !0;
+  if (s.delivered.size < R) return false;
+  if (e === void 0) return true;
+  for (let r of s.delivered.values()) if (r.pid === e) return false;
+  return true;
 }
 function pIt(e) {
   let r = [];
@@ -193,8 +193,8 @@ async function z() {
     } catch {
       t = void 0;
     }
-    if (t === !1 && s.delivered.get(e) === r)
-      y("artifact_comments_autoreact", { yield_taker_reused: !0 }), w(e, [...r.slugs]);
+    if (t === false && s.delivered.get(e) === r)
+      y("artifact_comments_autoreact", { yield_taker_reused: true }), w(e, [...r.slugs]);
   }
 }
 function w(e, r, t) {
@@ -214,7 +214,7 @@ function UZt(e, r = null) {
 }
 function T(e) {
   let r = e.claimed_at ?? e.sent_at,
-    t = !1,
+    t = false,
     l = [...s.pendingClaims.values()];
   for (let [u, d] of s.outstanding)
     if (d.resolve !== null) l.push({ id: u, slugs: d.asked, sentAt: d.sentAt, lost: d.lost });
@@ -222,7 +222,7 @@ function T(e) {
     if (!e.slugs.some((o) => u.slugs.has(o))) continue;
     if (r > u.sentAt || (r === u.sentAt && e.from > (s.ownAddress ?? ""))) {
       for (let o of e.slugs) if (u.slugs.has(o)) u.lost.set(o, e.from);
-    } else t = !0;
+    } else t = true;
   }
   return t ? "refuse" : "proceed";
 }
@@ -232,7 +232,7 @@ function BZt(e, r, t, l, u) {
     c = s.sendAnswer;
   if (c === null) return;
   let a;
-  if (u?.refuse === !0) a = "refused";
+  if (u?.refuse === true) a = "refused";
   else if (
     l - e.sent_at > b - 500 ||
     e.sent_at > l + 1000 ||
@@ -257,7 +257,7 @@ function BZt(e, r, t, l, u) {
     }
   let x =
       a === "refused"
-        ? { orig_msg_id: e.msg_id, yielded: [], not_held: [], refused: !0 }
+        ? { orig_msg_id: e.msg_id, yielded: [], not_held: [], refused: true }
         : { orig_msg_id: e.msg_id, yielded: a.yielded.slice(0, B6e), not_held: a.notHeld.slice(0, B6e) },
     p = a !== "refused" && a.yielded.length > 0 ? a : null;
   if (p !== null) Y(e.msg_id, p.yielded, t);
@@ -277,10 +277,10 @@ function BZt(e, r, t, l, u) {
 }
 function U$n(e, r) {
   let t = s.delivered.get(e.orig_msg_id);
-  if (t === void 0) return !1;
+  if (t === void 0) return false;
   if (t.pid !== void 0 && r !== void 0 && r !== t.pid)
-    return g("artifact_comments_autoreact", "unyield_pid_mismatch"), !1;
-  let l = w(e.orig_msg_id, e.slugs, { ...(e.stopped === !0 && { stopped: new Set(e.slugs) }) });
-  return l.push(...pIt()), y("artifact_comments_autoreact", { yield_handed_back: l.length }), !0;
+    return g("artifact_comments_autoreact", "unyield_pid_mismatch"), false;
+  let l = w(e.orig_msg_id, e.slugs, { ...(e.stopped === true && { stopped: new Set(e.slugs) }) });
+  return l.push(...pIt()), y("artifact_comments_autoreact", { yield_handed_back: l.length }), true;
 }
 export { n8, B6e, I$n, P$n, D$n, Rot, O$n, L$n, M$n, N$n, F$n, $Zt, pIt, $$n, UZt, BZt, U$n };

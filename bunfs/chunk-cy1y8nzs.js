@@ -20,13 +20,13 @@ F();
 function P(p, L) {
   let b = p.match(S);
   if (!b) {
-    return e(t, { dimColor: !0, children: p }, L);
+    return e(t, { dimColor: true, children: p }, L);
   }
   let y = b[0];
   let N = b.index ?? 0;
   let H = p.slice(0, N);
   let J = p.slice(N + y.length);
-  return r(t, { dimColor: !0, children: [H, e(ut, { url: y, children: y }), J] }, L);
+  return r(t, { dimColor: true, children: [H, e(ut, { url: y, children: y }), J] }, L);
 }
 var S = /https?:\/\/\S+/;
 function _ge() {

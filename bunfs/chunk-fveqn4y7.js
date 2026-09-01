@@ -44,17 +44,17 @@ var C = {
   end: "end",
 };
 function kjt(e, t, o) {
-  let n = !1,
+  let n = false,
     r;
   for (let c = 0; c < o.length; c++) {
     let i = o[c];
     if (!i || i.context !== t || i.action !== e) continue;
-    n = !0;
-    let u = !1;
+    n = true;
+    let u = false;
     for (let l = c + 1; l < o.length; l++) {
       let s = o[l];
       if (s && s.context === t && f(s.chord, i.chord)) {
-        u = !0;
+        u = true;
         break;
       }
     }
@@ -72,7 +72,7 @@ function jYn(e, t, o) {
     if (u) u.push(i);
     else r.set(i.context, [i]);
   }
-  let c = !1;
+  let c = false;
   for (let i = 0; i < t.length; i++) {
     let u = t[i];
     if (u === void 0) continue;
@@ -80,7 +80,7 @@ function jYn(e, t, o) {
     if (!l) continue;
     let s = kjt(e, u, l);
     if (s === null) {
-      c = !0;
+      c = true;
       continue;
     }
     if (s) {
@@ -106,13 +106,13 @@ function WYn(e, t, o) {
   return n;
 }
 function f(e, t) {
-  if (e.length !== t.length) return !1;
+  if (e.length !== t.length) return false;
   for (let o = 0; o < e.length; o++) {
     let n = e[o],
       r = t[o];
-    if (!n || !r || !A5e(n, r)) return !1;
+    if (!n || !r || !A5e(n, r)) return false;
   }
-  return !0;
+  return true;
 }
 function Bue(e, t, o) {
   let n = kjt(e, t, o);
@@ -125,7 +125,7 @@ function k(e) {
 `
         : e.key,
     o = e.meta;
-  if (D() === "macos" && !e.meta && !e.ctrl && m(t)) (t = p[t]), (o = !0);
+  if (D() === "macos" && !e.meta && !e.ctrl && m(t)) (t = p[t]), (o = true);
   let n = C[e.name] ?? (t.length === 1 ? t.toLowerCase() : null);
   if (!n) return null;
   let r = e.shift || (t.length === 1 && t !== t.toLowerCase() && t === t.toUpperCase());
@@ -141,14 +141,14 @@ function A5e(e, t) {
   );
 }
 function x(e, t) {
-  if (e.length >= t.chord.length) return !1;
+  if (e.length >= t.chord.length) return false;
   for (let o = 0; o < e.length; o++) {
     let n = e[o],
       r = t.chord[o];
-    if (!n || !r) return !1;
-    if (!A5e(n, r)) return !1;
+    if (!n || !r) return false;
+    if (!A5e(n, r)) return false;
   }
-  return !0;
+  return true;
 }
 function jue(e, t, o, n) {
   if (e.name === "escape" && n !== null) return { type: "chord_cancelled" };

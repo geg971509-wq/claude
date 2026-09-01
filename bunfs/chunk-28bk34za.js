@@ -425,13 +425,13 @@ function qt() {
 function rt({ agentServer: s, onCancel: i, onComplete: l }) {
   let f = B((T, ...w) => l(typeof T === "string" ? Qn(T) : T, ...w), [l]),
     [m] = mn(),
-    [p, R] = u(!1),
+    [p, R] = u(false),
     [v, K] = u(null),
     [D, q] = u(null),
     I = C(null);
   A(() => () => I.current?.abort(), []);
   let ne = B(() => {
-    if (p) I.current?.abort(), (I.current = null), R(!1), q(null);
+    if (p) I.current?.abort(), (I.current = null), R(false), q(null);
   }, [p]);
   Be("confirm:no", ne, { context: "Confirmation", isActive: p });
   let a = B(async () => {
@@ -446,7 +446,7 @@ function rt({ agentServer: s, onCancel: i, onComplete: l }) {
         return;
       }
       if (T.kind !== "oauth") return;
-      R(!0), K(null);
+      R(true), K(null);
       let w = new AbortController();
       I.current = w;
       try {
@@ -455,7 +455,7 @@ function rt({ agentServer: s, onCancel: i, onComplete: l }) {
       } catch (oe) {
         if (oe instanceof Error && !(oe instanceof qt().AuthenticationCancelledError)) K(oe.message);
       } finally {
-        R(!1), (I.current = null);
+        R(false), (I.current = null);
       }
     }, [s, f]),
     b = Wf(String(s.name));
@@ -471,14 +471,14 @@ function rt({ agentServer: s, onCancel: i, onComplete: l }) {
           r(o, {
             flexDirection: "column",
             children: [
-              e(t, { dimColor: !0, children: "If your browser doesn't open automatically, copy this URL manually:" }),
-              e(ut, { url: D, assumeSupport: !0 }),
+              e(t, { dimColor: true, children: "If your browser doesn't open automatically, copy this URL manually:" }),
+              e(ut, { url: D, assumeSupport: true }),
             ],
           }),
         e(o, {
           marginLeft: 3,
           children: r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
               "Return here after authenticating in your browser.",
               " ",
@@ -505,20 +505,20 @@ function rt({ agentServer: s, onCancel: i, onComplete: l }) {
       }),
       children: [
         r(zs, {
-          columns: [{ bold: !0, width: 8 }, {}],
+          columns: [{ bold: true, width: 8 }, {}],
           children: [
-            r(zs.Row, { children: [e(U, { children: "Type:" }), e(t, { dimColor: !0, children: s.transport })] }),
-            s.url && r(zs.Row, { children: [e(U, { children: "URL:" }), e(t, { dimColor: !0, children: s.url })] }),
+            r(zs.Row, { children: [e(U, { children: "Type:" }), e(t, { dimColor: true, children: s.transport })] }),
+            s.url && r(zs.Row, { children: [e(U, { children: "URL:" }), e(t, { dimColor: true, children: s.url })] }),
             s.command &&
-              r(zs.Row, { children: [e(U, { children: "Command:" }), e(t, { dimColor: !0, children: s.command })] }),
+              r(zs.Row, { children: [e(U, { children: "Command:" }), e(t, { dimColor: true, children: s.command })] }),
             r(zs.Row, {
-              children: [e(U, { children: "Used by:" }), e(t, { dimColor: !0, children: s.sourceAgents.join(", ") })],
+              children: [e(U, { children: "Used by:" }), e(t, { dimColor: true, children: s.sourceAgents.join(", ") })],
             }),
           ],
         }),
         e(o, {
           children: r(zs, {
-            columns: [{ bold: !0, width: 8 }, {}],
+            columns: [{ bold: true, width: 8 }, {}],
             children: [
               r(zs.Row, {
                 children: [
@@ -536,7 +536,7 @@ function rt({ agentServer: s, onCancel: i, onComplete: l }) {
             ],
           }),
         }),
-        e(o, { children: e(t, { dimColor: !0, children: "This server connects only when running the agent." }) }),
+        e(o, { children: e(t, { dimColor: true, children: "This server connects only when running the agent." }) }),
         v && e(o, { children: e(Br, { error: v }) }),
         e(o, {
           children: e(Ce, {
@@ -590,7 +590,7 @@ function xo(Jr) {
   if (de.duplicateOf.startsWith("plugin:")) {
     let se;
     if (Ie[0] === d)
-      (se = e(t, { dimColor: !0, children: "To use this connector instead, disable the plugin server in /plugins" })),
+      (se = e(t, { dimColor: true, children: "To use this connector instead, disable the plugin server in /plugins" })),
         (Ie[0] = se);
     else se = Ie[0];
     return se;
@@ -606,7 +606,7 @@ function xo(Jr) {
       let it;
       if (Ie[3] !== st || Ie[4] !== de.duplicateOf || Ie[5] !== de.duplicateOfScope)
         (it = st
-          ? r(U, { children: ["run ", e(t, { bold: !0, children: st })] })
+          ? r(U, { children: ["run ", e(t, { bold: true, children: st })] })
           : `remove the ${de.duplicateOfScope}-scope server "${de.duplicateOf}"`),
           (Ie[3] = st),
           (Ie[4] = de.duplicateOf),
@@ -615,7 +615,7 @@ function xo(Jr) {
       else it = Ie[6];
       let Xo;
       if (Ie[7] !== it)
-        (Xo = r(t, { dimColor: !0, children: ["To use this connector instead,", " ", it] })),
+        (Xo = r(t, { dimColor: true, children: ["To use this connector instead,", " ", it] })),
           (Ie[7] = it),
           (Ie[8] = Xo);
       else Xo = Ie[8];
@@ -624,7 +624,7 @@ function xo(Jr) {
     case "dynamic": {
       let se;
       if (Ie[9] === d)
-        (se = e(t, { dimColor: !0, children: "To use this connector instead, drop it from your --mcp-config flag" })),
+        (se = e(t, { dimColor: true, children: "To use this connector instead, drop it from your --mcp-config flag" })),
           (Ie[9] = se);
       else se = Ie[9];
       return se;
@@ -633,7 +633,7 @@ function xo(Jr) {
     case "managed": {
       let se;
       if (Ie[10] === d)
-        (se = e(t, { dimColor: !0, children: "An admin-managed server takes precedence here" })), (Ie[10] = se);
+        (se = e(t, { dimColor: true, children: "An admin-managed server takes precedence here" })), (Ie[10] = se);
       else se = Ie[10];
       return se;
     }
@@ -641,7 +641,7 @@ function xo(Jr) {
       let se;
       if (Ie[11] === d)
         (se = e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: "To use this connector instead, remove the duplicate server from your configuration",
         })),
           (Ie[11] = se);
@@ -664,9 +664,9 @@ function Fe(qr) {
   let Nt = _(8),
     { label: Kt, path: at } = qr,
     lt;
-  if (Nt[0] !== Kt) (lt = e(t, { bold: !0, children: Kt })), (Nt[0] = Kt), (Nt[1] = lt);
+  if (Nt[0] !== Kt) (lt = e(t, { bold: true, children: Kt })), (Nt[0] = Kt), (Nt[1] = lt);
   else lt = Nt[1];
-  const Yt = at ?? !1;
+  const Yt = at ?? false;
   let pt;
   if (Nt[2] !== at || Nt[3] !== Yt) (pt = e(DR, { when: Yt, children: at })), (Nt[2] = at), (Nt[3] = Yt), (Nt[4] = pt);
   else pt = Nt[4];
@@ -794,7 +794,7 @@ function At({
                 e(t, { children: "  " }),
                 e(t, { children: g.name }),
                 r(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: [" ", "\xB7 ", L.radioOff, " hidden \u2014 same URL as your server '", g.duplicateOf, "'"],
                 }),
               ],
@@ -810,7 +810,7 @@ function At({
           c.push({ key: `spacer-agent-${V}`, node: e(t, { children: " " }) }),
             c.push({
               key: `subheading-agent-${V}`,
-              node: e(o, { paddingLeft: 2, children: r(t, { dimColor: !0, children: ["@", V] }) }),
+              node: e(o, { paddingLeft: 2, children: r(t, { dimColor: true, children: ["@", V] }) }),
             });
           for (let ae of b.filter((we) => we.sourceAgents.includes(V))) {
             let we = g + b.indexOf(ae);
@@ -853,28 +853,28 @@ function At({
         title: "Manage MCP servers",
         subtitle: `${Vt} ${k(Vt, "server")}`,
         onCancel: qe,
-        hideInputGuide: !0,
+        hideInputGuide: true,
         children: r(o, {
           flexDirection: "column",
           children: [
             Gt > 0 &&
-              e(o, { paddingLeft: 2, children: r(t, { dimColor: !0, children: [qH, " ", Gt, " more above"] }) }),
+              e(o, { paddingLeft: 2, children: r(t, { dimColor: true, children: [qH, " ", Gt, " more above"] }) }),
             Xt.map((c) => e(ml, { children: c.node }, c.key)),
             Jt > 0 &&
-              e(o, { paddingLeft: 2, children: r(t, { dimColor: !0, children: [mR, " ", Jt, " more below"] }) }),
+              e(o, { paddingLeft: 2, children: r(t, { dimColor: true, children: [mR, " ", Jt, " more below"] }) }),
             r(o, {
               flexDirection: "column",
               marginTop: Wt ? 0 : 1,
               children: [
                 zt &&
                   e(t, {
-                    dimColor: !0,
+                    dimColor: true,
                     children: tt
                       ? "\u203B Error logs shown inline with --debug"
                       : "\u203B Run claude --debug to see error logs",
                   }),
                 r(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: [
                     e(ut, {
                       url: "https://code.claude.com/docs/en/mcp",
@@ -892,8 +892,8 @@ function At({
       e(o, {
         paddingX: 1,
         children: e(t, {
-          dimColor: !0,
-          italic: !0,
+          dimColor: true,
+          italic: true,
           children: r(fe, {
             children: [
               e(M, { chord: ["up", "down"], action: "navigate" }),
@@ -917,7 +917,7 @@ function So(Kr) {
     to = Ne ? `${L.pointer} ` : "  ",
     oo = Nr ? L.arrowDown : L.arrowRight;
   let ft;
-  if (dt[2] !== Qt) (ft = r(t, { dimColor: !0, children: ["(", Qt, ")"] })), (dt[2] = Qt), (dt[3] = ft);
+  if (dt[2] !== Qt) (ft = r(t, { dimColor: true, children: ["(", Qt, ")"] })), (dt[2] = Qt), (dt[3] = ft);
   else ft = dt[3];
   let gt;
   if (dt[4] !== eo || dt[5] !== to || dt[6] !== oo || dt[7] !== ft)
@@ -1136,7 +1136,7 @@ function We(fs) {
   if (j[1] === d) (pn = []), (j[1] = pn);
   else pn = j[1];
   let [be, gs] = u(pn),
-    [Po, hs] = u(!1),
+    [Po, hs] = u(false),
     dn;
   if (j[2] !== To.allAgents) (dn = Asn(To.allAgents)), (j[2] = To.allAgents), (j[3] = dn);
   else dn = j[3];
@@ -1156,7 +1156,7 @@ function We(fs) {
     hn;
   if (j[9] !== ie || j[10] !== Z.tools)
     (gn = () => {
-      let Cn = !1;
+      let Cn = false;
       let It = async function It(Pt, Cs) {
         let { ClaudeAuthProvider: ys } = import.meta.require("/$bunfs/root/chunk-qadpp1g1.js").mcpAuthModule();
         let vs = await new ys(Pt.name, Cs).tokens().catch(Mn);
@@ -1170,7 +1170,7 @@ function We(fs) {
             let kt = { name: ce.name, client: ce, scope: ce.config.scope };
             switch (ce.config.type) {
               case "claudeai-proxy": {
-                return { ...kt, transport: "claudeai-proxy", isAuthenticated: !1, config: ce.config };
+                return { ...kt, transport: "claudeai-proxy", isAuthenticated: false, config: ce.config };
               }
               case "sse": {
                 return { ...kt, transport: "sse", isAuthenticated: await It(ce, ce.config), config: ce.config };
@@ -1192,7 +1192,7 @@ function We(fs) {
       return (
         $o(),
         () => {
-          Cn = !0;
+          Cn = true;
         }
       );
     }),
@@ -1398,7 +1398,7 @@ function Ft(ni) {
     Ot = Uie(),
     { storageV5: Et } = ge(),
     Ye = ct(),
-    [si, Xe] = u(!0),
+    [si, Xe] = u(true),
     [Bt, Qe] = u(null),
     $t,
     An;
@@ -1408,22 +1408,22 @@ function Ft(ni) {
         try {
           let Pn = Dt.getState().mcp.clients.find((ii) => ii.name === G);
           if (!Pn) {
-            Qe(`MCP server "${Rr(G)}" not found`), Xe(!1), le(`MCP server "${Rr(G)}" not found`);
+            Qe(`MCP server "${Rr(G)}" not found`), Xe(false), le(`MCP server "${Rr(G)}" not found`);
             return;
           }
           if (Vke(Pn) === "disabled") {
             let In = BQ(G);
-            Qe(In), Xe(!1), le(In);
+            Qe(In), Xe(false), le(In);
             return;
           }
           let ai = await Ot(G);
           bb91: switch (ai.client.type) {
             case "connected": {
-              Xe(!1), le(`Successfully reconnected to ${Rr(G)}`);
+              Xe(false), le(`Successfully reconnected to ${Rr(G)}`);
               break bb91;
             }
             case "needs-auth": {
-              if ((Qe(`${Rr(G)} requires authentication`), Xe(!1), hm())) {
+              if ((Qe(`${Rr(G)} requires authentication`), Xe(false), hm())) {
                 let ci = await jme(
                   Ye.host,
                   w7(`authenticate ${Rr(G)} \u2014 open this session and run /mcp`),
@@ -1441,7 +1441,7 @@ function Ft(ni) {
             case "pending":
             case "failed":
             case "disabled": {
-              Qe(`Failed to reconnect to ${Rr(G)}`), Xe(!1), le(`Failed to reconnect to ${Rr(G)}`);
+              Qe(`Failed to reconnect to ${Rr(G)}`), Xe(false), le(`Failed to reconnect to ${Rr(G)}`);
               break bb91;
             }
             default:
@@ -1449,7 +1449,7 @@ function Ft(ni) {
         } catch (ye) {
           let Lt = ye;
           let Ut = Lt instanceof Error ? Lt.message : String(Lt);
-          if ((Qe(Ut), Xe(!1), Lt instanceof js)) le(Da(Ut));
+          if ((Qe(Ut), Xe(false), Lt instanceof js)) le(Da(Ut));
           else if (mo(Ye))
             n(`mcp reconnect (typed) error for ${Qn(G)}: ${Ut}`, { level: "error" }),
               le(`Error reconnecting to ${Rr(G)} (detail withheld on this connection).`);
@@ -1471,7 +1471,7 @@ function Ft(ni) {
   if ((A($t, An), si)) {
     let ye;
     if (he[10] !== G)
-      (ye = r(t, { color: "text", children: ["Reconnecting to ", e(t, { bold: !0, children: G })] })),
+      (ye = r(t, { color: "text", children: ["Reconnecting to ", e(t, { bold: true, children: G })] })),
         (he[10] = G),
         (he[11] = ye);
     else ye = he[11];
@@ -1500,7 +1500,7 @@ function Ft(ni) {
       (_t = r(o, { children: [De, Oe] })), (he[21] = De), (he[22] = Oe), (he[23] = _t);
     else _t = he[23];
     let jt;
-    if (he[24] !== Bt) (jt = r(t, { dimColor: !0, children: ["Error: ", Bt] })), (he[24] = Bt), (he[25] = jt);
+    if (he[24] !== Bt) (jt = r(t, { dimColor: true, children: ["Error: ", Bt] })), (he[24] = Bt), (he[25] = jt);
     else jt = he[25];
     let kn;
     if (he[26] !== _t || he[27] !== jt)
@@ -1531,14 +1531,14 @@ function Vo(_i) {
     Ge = W(Vn),
     Ue = TK(),
     Uo = ct(),
-    $n = C(!1),
+    $n = C(false),
     On;
   if (Dn[0] !== Le || Dn[1] !== Ge || Dn[2] !== Re || Dn[3] !== Uo || Dn[4] !== J || Dn[5] !== Ue)
     (On = () => {
       if ($n.current) {
         return;
       }
-      $n.current = !0;
+      $n.current = true;
       let Pe = Le === "enable";
       let En = Ge.filter(Wn);
       let Je = J === "all" ? En : En.filter((ji) => ji.name === J);
@@ -1554,11 +1554,11 @@ function Vo(_i) {
               ? `MCP server "${Rr(J)}" not found`
               : Je.some(Gn)
                 ? `MCP server "${Rr(J)}" is pending approval \u2014 approve it via /mcp first`
-                : Pe && Bn === !0
+                : Pe && Bn === true
                   ? Je.some(Zo)
                     ? F2e(J)
                     : _1(J)
-                  : !Pe && Bn === !1
+                  : !Pe && Bn === false
                     ? N2e(J)
                     : `MCP server "${Rr(J)}" is already ${Pe ? "enabled" : "disabled"}`,
         );

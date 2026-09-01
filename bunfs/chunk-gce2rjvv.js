@@ -44,7 +44,7 @@ async function xHt(t, r) {
   return 0;
 }
 async function D0(t, r, u, m = {}) {
-  let d = m.applyStagedInstalls ?? !0;
+  let d = m.applyStagedInstalls ?? true;
   if ((n("refreshActivePlugins: clearing all plugin caches"), d)) WGn();
   if ((Qu(r, u), d)) j4n();
   let o = await Dh(r, u);
@@ -84,17 +84,17 @@ async function D0(t, r, u, m = {}) {
       commands: p,
       errors: O(e.plugins.errors, S),
       warnings: M(e.plugins.warnings, P),
-      needsRefresh: !1,
+      needsRefresh: false,
     },
     agentDefinitions: f,
     mcp: { ...e.mcp, pluginReconnectKey: e.mcp.pluginReconnectKey + 1 },
   })),
     Yct(r, u);
-  let A = !1;
+  let A = false;
   try {
     await s7(r, u);
   } catch (e) {
-    (A = !0), h(e), n(`refreshActivePlugins: loadPluginHooks failed: ${l(e)}`);
+    (A = true), h(e), n(`refreshActivePlugins: loadPluginHooks failed: ${l(e)}`);
   }
   let j = i.reduce((e, c) => {
     if (!c.hooksConfig) return e;
@@ -106,8 +106,8 @@ async function D0(t, r, u, m = {}) {
       `refreshActivePlugins: ${i.length} enabled, ${p.length} commands, ${y.length} skills, ${f.allAgents.length} agents, ${j} hooks, ${b} MCP, ${_} LSP`,
     ),
     {
-      enabled_count: Q(i, (e) => e.isBuiltin !== !0),
-      disabled_count: Q(g, (e) => e.isBuiltin !== !0),
+      enabled_count: Q(i, (e) => e.isBuiltin !== true),
+      disabled_count: Q(g, (e) => e.isBuiltin !== true),
       command_count: p.length,
       skill_count: y.length,
       agent_count: f.allAgents.length,
@@ -148,7 +148,7 @@ async function NQ(t) {
     g = null;
   if (tPe() && !f && i && !ho("lspServers")) {
     let a = Psn()
-      ? { hasServers: !1, loaderFailed: !1, loaderFailedApplyHealable: !1, derivationFailed: !1 }
+      ? { hasServers: false, loaderFailed: false, loaderFailedApplyHealable: false, derivationFailed: false }
       : await T(m, t.storageV5, t.credentials);
     if (!Ale()) {
       if (a.hasServers) g = "adds";
@@ -168,26 +168,26 @@ async function NQ(t) {
 }
 async function T(t, r, u) {
   let { enabled: m, errors: d } = await t(),
-    o = !1,
+    o = false,
     p = d.some(rY),
     y = d.some(
       (i) =>
         rY(i) &&
-        !(i.type === "plugin-not-installed" && i.registryReadFailed !== !0) &&
+        !(i.type === "plugin-not-installed" && i.registryReadFailed !== true) &&
         i.type !== "marketplace-not-found" &&
         i.type !== "dependency-version-unsatisfied" &&
         !(i.type === "dependency-unsatisfied" && i.reason !== "not-found"),
     ),
-    f = !1;
+    f = false;
   for (let i of m) {
     let g = [];
     try {
       let w = await o1t(i, g, r, u);
-      if (w !== void 0 && Object.keys(w).length > 0) o = !0;
+      if (w !== void 0 && Object.keys(w).length > 0) o = true;
     } catch {
-      f = !0;
+      f = true;
     }
-    if (g.length > 0) f = !0;
+    if (g.length > 0) f = true;
   }
   return { hasServers: o, loaderFailed: p, loaderFailedApplyHealable: y, derivationFailed: f };
 }

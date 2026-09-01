@@ -79,7 +79,7 @@ function gMn(t) {
 }
 function hMn(t, a = "address") {
   let e = s(t.trim().toLowerCase()).replace(/\.+$/, "");
-  if (a === "address" ? nse(e) : dXt(e)) return !0;
+  if (a === "address" ? nse(e) : dXt(e)) return true;
   return (
     /^(?:(?:\d+|0x[0-9a-f]+)\.){1,3}(?:\d+|0x[0-9a-f]+)$/i.test(e) ||
     /^(?:127\.|0\d+\.|0x[0-9a-f]*\.)[0-9a-fx.]*$/i.test(e) ||

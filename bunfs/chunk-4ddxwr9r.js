@@ -86,7 +86,7 @@ function h$e(t) {
   return t.replace(a, "");
 }
 function qJ(t) {
-  let n = !1,
+  let n = false,
     e = [t];
   while (e.length > 0) {
     let r = e.pop();
@@ -94,7 +94,7 @@ function qJ(t) {
       for (let i = 0; i < r.length; i++) {
         let o = r[i];
         if (typeof o === "string") {
-          if (!ku(o)) (r[i] = Ry(o)), (n = !0);
+          if (!ku(o)) (r[i] = Ry(o)), (n = true);
         } else if (o !== null && typeof o === "object") e.push(o);
       }
     else if (r !== null && typeof r === "object") {
@@ -102,7 +102,7 @@ function qJ(t) {
       for (let o of Object.keys(i)) {
         let s = i[o];
         if (typeof s === "string") {
-          if (!ku(s)) (i[o] = Ry(s)), (n = !0);
+          if (!ku(s)) (i[o] = Ry(s)), (n = true);
         } else if (s !== null && typeof s === "object") e.push(s);
       }
     }
@@ -117,7 +117,7 @@ function uZe(t) {
       for (let r = 0; r < e.length; r++) {
         let i = e[r];
         if (typeof i === "string") {
-          if (!ku(i)) return !0;
+          if (!ku(i)) return true;
         } else if (i !== null && typeof i === "object") n.push(i);
       }
     else if (e !== null && typeof e === "object") {
@@ -125,12 +125,12 @@ function uZe(t) {
       for (let i of Object.keys(r)) {
         let o = r[i];
         if (typeof o === "string") {
-          if (!ku(o)) return !0;
+          if (!ku(o)) return true;
         } else if (o !== null && typeof o === "object") n.push(o);
       }
     }
   }
-  return !1;
+  return false;
 }
 function St(t, n) {
   let e = t.indexOf(n);
@@ -174,7 +174,7 @@ function M5t(t, n = ",", e = p) {
 class dZe {
   maxSize;
   content = "";
-  isTruncated = !1;
+  isTruncated = false;
   totalBytesReceived = 0;
   constructor(t = p) {
     this.maxSize = t;
@@ -185,7 +185,7 @@ class dZe {
     if (this.content.length + n.length > this.maxSize) {
       let e = this.maxSize - this.content.length;
       if (e > 0) this.content += n.slice(0, e);
-      this.isTruncated = !0;
+      this.isTruncated = true;
     } else this.content += n;
   }
   toString() {
@@ -199,7 +199,7 @@ class dZe {
     );
   }
   clear() {
-    (this.content = ""), (this.isTruncated = !1), (this.totalBytesReceived = 0);
+    (this.content = ""), (this.isTruncated = false), (this.totalBytesReceived = 0);
   }
   get length() {
     return this.content.length;

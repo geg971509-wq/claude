@@ -23,7 +23,7 @@ function Gd(e, t) {
   return n === void 0 ? void 0 : e[n];
 }
 class l {
-  #e = !1;
+  #e = false;
   get forcedUnavailable() {
     return this.#e;
   }
@@ -33,14 +33,14 @@ class l {
 }
 var _ = new l();
 function c() {
-  return !1;
+  return false;
 }
 function ms(e) {
-  if (e <= 1) return !1;
+  if (e <= 1) return false;
   try {
-    return process.kill(e, 0), !0;
+    return process.kill(e, 0), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function $4t(e) {
@@ -61,9 +61,9 @@ function rrr(e) {
   return Number.isInteger(e) && e > 1 && e <= g;
 }
 function Gg(e) {
-  if (!rrr(e)) return !1;
+  if (!rrr(e)) return false;
   try {
-    return process.kill(e, 0), !1;
+    return process.kill(e, 0), false;
   } catch (t) {
     return E(t) === "ESRCH";
   }
@@ -71,12 +71,12 @@ function Gg(e) {
 var h = 16;
 async function jwn() {
   let e = D();
-  if (e !== "linux" && e !== "wsl") return !0;
+  if (e !== "linux" && e !== "wsl") return true;
   let t = le(),
     n = await t.readlink("/proc/self").catch(() => null);
-  if (n === null || n !== String(process.pid)) return !1;
+  if (n === null || n !== String(process.pid)) return false;
   let r = await t.readdir("/proc").catch(() => null);
-  if (!r) return !1;
+  if (!r) return false;
   return r.filter((i) => /^\d+$/.test(i.name)).length >= h;
 }
 function ZV(e, t) {
@@ -100,18 +100,18 @@ function ZV(e, t) {
         Math.abs(n[0]),
         t,
       ).unref(),
-      !0
+      true
     );
   }
-  return !1;
+  return false;
 }
 async function G3(e, t, n = "SIGTERM") {
-  if (!e || e <= 1 || t === void 0) return !1;
-  if ((await f(e, t)) === "other") return !1;
+  if (!e || e <= 1 || t === void 0) return false;
+  if ((await f(e, t)) === "other") return false;
   try {
     process.kill(-e, n);
   } catch {
-    return !1;
+    return false;
   }
   if (n !== "SIGKILL")
     setTimeout(
@@ -127,7 +127,7 @@ async function G3(e, t, n = "SIGTERM") {
       e,
       t,
     ).unref();
-  return !0;
+  return true;
 }
 async function f(e, t) {
   let n = await Bre(e);
@@ -182,28 +182,28 @@ function $re(e) {
   }
 }
 function nwt(e, t) {
-  if (t === void 0) return !0;
+  if (t === void 0) return true;
   return p(t, $re(e));
 }
 function V7e(e, t) {
-  if (t === e) return !0;
-  return !1;
+  if (t === e) return true;
+  return false;
 }
 function p(e, t) {
   return t === void 0 || t === e || S(e, t);
 }
 function S(e, t) {
-  if (!c()) return !1;
+  if (!c()) return false;
   let n = Number(e),
     r = Number(t);
   return Number.isFinite(n) && Number.isFinite(r) && n > 300000000000000000 !== r > 300000000000000000;
 }
 async function Bm(e, t) {
-  if (t === void 0) return !0;
+  if (t === void 0) return true;
   return p(t, await Ga(e));
 }
 async function r0(e, t) {
-  let n = await Ga(e, { skipCache: !0 });
+  let n = await Ga(e, { skipCache: true });
   return n === void 0 ? void 0 : V7e(t, n);
 }
 class b {
@@ -257,17 +257,17 @@ async function Ga(e, t) {
     i = { at: n, p: o };
   r.set(e, i);
   let s = await o;
-  if (s === void 0 && r.get(e) === i) i.miss = !0;
+  if (s === void 0 && r.get(e) === i) i.miss = true;
   return s;
 }
 var d = 250;
 async function Bre(e) {
-  let t = await Ga(e, { skipCache: !0 });
+  let t = await Ga(e, { skipCache: true });
   if (t !== void 0) return t;
-  return await ne(d + Math.floor(Math.random() * d)), Ga(e, { skipCache: !0 });
+  return await ne(d + Math.floor(Math.random() * d)), Ga(e, { skipCache: true });
 }
 async function m(e, t) {
-  let n = t === void 0 ? {} : { env: t, extendEnv: !1 };
+  let n = t === void 0 ? {} : { env: t, extendEnv: false };
   try {
     let r = t === void 0 ? "ps" : VJe("ps", Gd(t, "PATH") ?? "");
     if (r === null) return;

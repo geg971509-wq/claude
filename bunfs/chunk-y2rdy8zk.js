@@ -108,14 +108,14 @@ var je = m(() =>
   vme = m(() => dt([ie(), ae()])),
   zvt = "Expected {behavior: 'allow', updatedInput?: object} or {behavior: 'deny', message: string}.";
 function U(t, e, o, r, u) {
-  if (r.forRemoteExecution === !0 || E$(r)) return;
-  if (t && e.suppressesAllPermissionUpdates?.(o) === !0) {
+  if (r.forRemoteExecution === true || E$(r)) return;
+  if (t && e.suppressesAllPermissionUpdates?.(o) === true) {
     let l = _D(t);
     return l.length > 0 ? l : void 0;
   }
-  return t && (e.suppressesAlwaysAllowRule?.(o) === !0 || u) ? a9(t, e, he(r)) : t;
+  return t && (e.suppressesAlwaysAllowRule?.(o) === true || u) ? a9(t, e, he(r)) : t;
 }
-function Vvt(t, e, o, r, u = e, l = !1) {
+function Vvt(t, e, o, r, u = e, l = false) {
   let d = { type: "permissionPromptTool", permissionPromptToolName: e.name, toolResult: t };
   if (t.behavior === "allow") {
     let p = U(t.updatedPermissions, u, o, r, l);
@@ -199,8 +199,8 @@ function de(t, e, o, r, u) {
     action_description: p,
     raw_command: d,
     tool_use_id: o,
-    request_id: u?.localDisplayOnly === !0 ? "" : r,
-    ...(u?.localDisplayOnly === !0 && r && { suppressed_request_id: r }),
+    request_id: u?.localDisplayOnly === true ? "" : r,
+    ...(u?.localDisplayOnly === true && r && { suppressed_request_id: r }),
     input: e,
   };
 }
@@ -230,9 +230,9 @@ function be(t, e) {
 function qe(t) {
   switch (t) {
     case "delivered":
-      return !0;
+      return true;
     case "queued":
-      return !1;
+      return false;
     case "sending":
     case "indeterminate":
       return;
@@ -242,7 +242,7 @@ class Rme {
   input;
   replayUserMessages;
   isRemoteTransport() {
-    return !1;
+    return false;
   }
   structuredInput;
   pendingRequests = new Map();
@@ -257,24 +257,24 @@ class Rme {
     return Promise.resolve(null);
   }
   hydratePrefetch = Promise.resolve(null);
-  inputClosed = !1;
-  tracksRequestDelivery = !1;
+  inputClosed = false;
+  tracksRequestDelivery = false;
   unexpectedResponseCallback;
   resolvedToolUseIds = new Set();
   prependedLines = [];
   locallyPrependedMessages = new WeakSet();
   prependWaker = null;
   stallTimer;
-  stallFired = !1;
+  stallFired = false;
   createdAt = Date.now();
   onControlRequestSent;
   onControlRequestResolved;
   onStreamClosedWithParkedQuestion;
   onUserDialogParked;
   onCommandLifecycle;
-  commandLifecycleForwarderInstalled = !1;
-  hostOwnsStdinOrigin = !0;
-  persistsOutboundFrames = !1;
+  commandLifecycleForwarderInstalled = false;
+  hostOwnsStdinOrigin = true;
+  persistsOutboundFrames = false;
   sessionState;
   outbound = new Z_();
   constructor(t, e, o) {
@@ -300,13 +300,13 @@ class Rme {
     return Promise.resolve();
   }
   flushClientEvents() {
-    return Promise.resolve(!0);
+    return Promise.resolve(true);
   }
   flushInternalEventsConfirmed() {
-    return Promise.resolve(!0);
+    return Promise.resolve(true);
   }
   flushSessionState() {
-    return Promise.resolve(!0);
+    return Promise.resolve(true);
   }
   get internalEventsPending() {
     return 0;
@@ -342,20 +342,20 @@ class Rme {
       }.bind(this),
       o = this.input[Symbol.asyncIterator](),
       r = null,
-      u = !1;
+      u = false;
     try {
       for (;;) {
         yield* e(), (r ??= o.next());
         let d = await Promise.race([
-          r.then(() => !1),
+          r.then(() => false),
           new Promise((g) => {
-            this.prependWaker = () => g(!0);
+            this.prependWaker = () => g(true);
           }),
         ]);
         if (((this.prependWaker = null), d)) continue;
         let p = await r;
         if (((r = null), p.done)) {
-          u = !0;
+          u = true;
           break;
         }
         t += p.value;
@@ -367,7 +367,7 @@ class Rme {
       let d = await this.processLine(t);
       if (d) yield d;
     }
-    this.inputClosed = !0;
+    this.inputClosed = true;
     let l = xo();
     if (!l && M()) {
       for (let [d, p] of this.pendingRequests.entries())
@@ -426,7 +426,7 @@ class Rme {
     return o;
   }
   cancelDialogByMachine(t) {
-    if (!this.pendingRequests.has(t) || xo()) return !1;
+    if (!this.pendingRequests.has(t) || xo()) return false;
     return this.injectControlResponse({
       type: "control_response",
       response: { subtype: "success", request_id: t, response: { behavior: "cancelled" } },
@@ -440,7 +440,7 @@ class Rme {
   }
   mainLoopLiveness;
   ignoresErrorShapedDialogResponse(t, e) {
-    if (e.subtype !== "error" || t.request.request.subtype !== "request_user_dialog" || t.forwarded) return !1;
+    if (e.subtype !== "error" || t.request.request.subtype !== "request_user_dialog" || t.forwarded) return false;
     return (
       s("tengu_request_user_dialog_response_ignored", {
         shape: c("error"),
@@ -449,7 +449,7 @@ class Rme {
       n(
         `Ignoring error-shaped control_response for parked request_user_dialog request_id=${e.request_id} \u2014 not a human choice; dialog stays parked (error: ${te(e.error)})`,
       ),
-      !0
+      true
     );
   }
   asksOurHuman(t) {
@@ -461,18 +461,18 @@ class Rme {
     return t;
   }
   ignoresResponseAtShutdown(t, e) {
-    if (!this.asksOurHuman(t) || !xo()) return !1;
+    if (!this.asksOurHuman(t) || !xo()) return false;
     return (
       n(
         `Leaving control_response for request_id=${e.request_id} to the next process \u2014 this one is shutting down and settles no question`,
       ),
       this.repliesLeftForNextProcess++,
-      !0
+      true
     );
   }
   ignoresUnsettlingDeviceResponse(t, e) {
     let o = this.deviceRequests.get(e.request_id);
-    if (!o) return !1;
+    if (!o) return false;
     let r = t.request.request.subtype;
     if (e.subtype === "error")
       return (
@@ -480,7 +480,7 @@ class Rme {
         n(
           `Ignoring error-shaped control_response for device ${r} request_id=${e.request_id} \u2014 not the device's answer; still waiting (error: ${te(e.error)})`,
         ),
-        !0
+        true
       );
     if (!o.accepts(e.response))
       return (
@@ -488,25 +488,25 @@ class Rme {
         n(
           `Ignoring malformed control_response for device ${r} request_id=${e.request_id} \u2014 not an answer to it; still waiting`,
         ),
-        !0
+        true
       );
-    return !1;
+    return false;
   }
   hasCanUseToolNameMismatch(t, e) {
     let o = t.request.request;
-    if (o.subtype !== "can_use_tool" || e.subtype !== "success") return !1;
+    if (o.subtype !== "can_use_tool" || e.subtype !== "success") return false;
     return Gye(e.response?.toolName, o.tool_name, e.request_id);
   }
   injectControlResponse(t) {
     let e = t.response?.request_id;
-    if (!e) return !1;
+    if (!e) return false;
     let o = this.pendingRequests.get(e);
     if (!o)
-      return s("tengu_inject_control_response_unknown_id", { pending_control_requests: this.pendingRequests.size }), !1;
-    if (this.ignoresErrorShapedDialogResponse(o, t.response)) return !1;
-    if (this.ignoresResponseAtShutdown(o, t.response)) return !1;
-    if (this.ignoresUnsettlingDeviceResponse(o, t.response)) return !1;
-    if (this.hasCanUseToolNameMismatch(o, t.response)) return !1;
+      return s("tengu_inject_control_response_unknown_id", { pending_control_requests: this.pendingRequests.size }), false;
+    if (this.ignoresErrorShapedDialogResponse(o, t.response)) return false;
+    if (this.ignoresResponseAtShutdown(o, t.response)) return false;
+    if (this.ignoresUnsettlingDeviceResponse(o, t.response)) return false;
+    if (this.hasCanUseToolNameMismatch(o, t.response)) return false;
     if (
       (this.trackResolvedToolUseId(o.request),
       this.pendingRequests.delete(e),
@@ -524,7 +524,7 @@ class Rme {
         }
       else o.resolve({});
     }
-    return !0;
+    return true;
   }
   setOnControlRequestSent(t) {
     this.onControlRequestSent = t;
@@ -752,7 +752,7 @@ class Rme {
     }
   }
   resetStallWatchdog() {
-    this.stallFired = !1;
+    this.stallFired = false;
   }
   recordUserDrivenInbound(t) {
     cUn();
@@ -767,7 +767,7 @@ class Rme {
       (this.stallTimer = setTimeout(
         (e) => {
           if (this.sessionState.getState() !== "running") return;
-          (this.stallFired = !0),
+          (this.stallFired = true),
             s("tengu_sdk_stall", {
               session_age_ms: Date.now() - this.createdAt,
               session_state: c(this.sessionState.getState()),
@@ -802,9 +802,9 @@ class Rme {
   passControlRequestToHost(t, { requestId: e, schema: o, signal: r }) {
     if (this.pendingRequests.has(e))
       return Promise.reject(new Ze("a control request with this request_id is already pending"));
-    return this.sendRequest(t, o, r, { requestId: e, forwarded: !0 });
+    return this.sendRequest(t, o, r, { requestId: e, forwarded: true });
   }
-  async sendRequest(t, e, o, { requestId: r = C(), forwarded: u = !1, deviceHook: l = !1 } = {}) {
+  async sendRequest(t, e, o, { requestId: r = C(), forwarded: u = false, deviceHook: l = false } = {}) {
     let d = { type: "control_request", request_id: r, request: t },
       p = !u && Ehe(d);
     if (p && xo() && !o?.aborted) return fm();
@@ -826,7 +826,7 @@ class Rme {
         this.pendingRequests.delete(r), _.reject(new Ze());
       }
     };
-    if (o) o.addEventListener("abort", g, { once: !0 });
+    if (o) o.addEventListener("abort", g, { once: true });
     try {
       return await new Promise((_, y) => {
         this.pendingRequests.set(r, {
@@ -886,20 +886,20 @@ class Rme {
         R = r.abortController.signal,
         x = R.aborted && !xo(),
         z = () => {
-          if (!xo()) x = !0;
+          if (!xo()) x = true;
           y.abort();
         };
-      R.addEventListener("abort", z, { once: !0 });
+      R.addEventListener("abort", z, { once: true });
       let T = C(),
         O = Btr(r.agentContext),
-        F = !1,
+        F = false,
         k;
       try {
         let v = Ae(e, l, g, r, _).then((S) => ({ source: "hook", outcome: S }));
         if ((v.catch(() => {}), t)) {
-          let S = de(e, g, l, T, { localDisplayOnly: p.localDisplayOnly === !0 });
+          let S = de(e, g, l, T, { localDisplayOnly: p.localDisplayOnly === true });
           if ((this.publishedPendingActionDetails.set(T, S), O !== void 0))
-            (F = !0), this.sessionState.notifyNestedPromptBlocking(O);
+            (F = true), this.sessionState.notifyNestedPromptBlocking(O);
           t(S);
         }
         let P = p.decisionReason,
@@ -960,7 +960,7 @@ class Rme {
               toolUseID: l,
               permissionMode: he(r).mode,
               agentContext: r.agentContext,
-              appliedAllowUpdates: (S) => U(S, e, g, r, p.suppressAlwaysAllowRule === !0),
+              appliedAllowUpdates: (S) => U(S, e, g, r, p.suppressAlwaysAllowRule === true),
             },
             shownAtMs: Date.now(),
           }),
@@ -987,7 +987,7 @@ class Rme {
         }
         let Q = D.source === "hook" ? (await E).result : D.result;
         if (k) s1t(k.logContext, { kind: "host_answer", answer: Q }, k.shownAtMs);
-        return Vvt(Q, e, g, r, e, p.suppressAlwaysAllowRule === !0);
+        return Vvt(Q, e, g, r, e, p.suppressAlwaysAllowRule === true);
       } catch (v) {
         if (xo() && this.pendingRequests.has(T)) await fm();
         if (this.streamCloseInterruptRequestIds.has(T) && M()) {
@@ -1019,7 +1019,7 @@ class Rme {
           (this.publishedPendingActionDetails.delete(T),
           this.getPendingPermissionRequests().length === 0 && this.getPendingUserDialogRequests().length === 0)
         ) {
-          if (!xo()) this.sessionState.notifyStateChanged(this.mainLoopLiveness?.() === !1 ? "idle" : "running");
+          if (!xo()) this.sessionState.notifyStateChanged(this.mainLoopLiveness?.() === false ? "idle" : "running");
         } else this.sessionState.reteeWaitingOnUser(), this.republishSurvivingPendingAction();
         R.removeEventListener("abort", z);
       }
@@ -1061,12 +1061,12 @@ class Rme {
         },
         _e(),
         u,
-        { requestId: e, deviceHook: !0 },
+        { requestId: e, deviceHook: true },
       )
         .then(
           (d) => {
             let p = ee(d);
-            return p === null ? { malformed: !0 } : { answer: p };
+            return p === null ? { malformed: true } : { answer: p };
           },
           (d) => {
             if (It(d)) throw d;
@@ -1074,7 +1074,7 @@ class Rme {
               n(`Device hook_callback request_id=${e} settled with a non-answer; treating as no opinion`, {
                 level: "warn",
               }),
-              { malformed: !0 }
+              { malformed: true }
             );
           },
         )
@@ -1149,18 +1149,18 @@ class Rme {
       let d = Promise.reject(new la("Stream closed"));
       return (
         d.catch(() => {}),
-        { requestId: e, sent: !1, delivered: () => !1, reply: d, cancel: () => {}, errorRepliesIgnored: () => 0 }
+        { requestId: e, sent: false, delivered: () => false, reply: d, cancel: () => {}, errorRepliesIgnored: () => 0 }
       );
     }
     let o = this.trackDeviceRequest(e, "served_call", t.accepts, t.request.instance_id),
       r = new AbortController(),
       u = t.signal ? AbortSignal.any([t.signal, r.signal]) : r.signal,
-      l = this.sendRequest(t.request, _e(), u, { requestId: e, deviceHook: !0 }).finally(() => {
+      l = this.sendRequest(t.request, _e(), u, { requestId: e, deviceHook: true }).finally(() => {
         this.deviceRequests.delete(e);
       });
     return {
       requestId: e,
-      sent: !0,
+      sent: true,
       delivered: () => (this.tracksRequestDelivery ? qe(o.delivery) : void 0),
       reply: l,
       cancel: () => r.abort(),
@@ -1234,7 +1234,7 @@ class Rme {
         (this.publishedPendingActionDetails.delete(r),
         this.getPendingUserDialogRequests().length === 0 && this.getPendingPermissionRequests().length === 0)
       ) {
-        if (!xo()) this.sessionState.notifyStateChanged(this.mainLoopLiveness?.() === !1 ? "idle" : "running");
+        if (!xo()) this.sessionState.notifyStateChanged(this.mainLoopLiveness?.() === false ? "idle" : "running");
       } else {
         if (!this.timedOutUserDialogs.has(r)) this.sessionState.reteeWaitingOnUser();
         this.republishSurvivingPendingAction();
@@ -1249,7 +1249,7 @@ class Rme {
             n(`[StructuredIO] Refusing a sandbox network ask for a host srt would re-spell: ${b(l)}`, {
               level: "warn",
             }),
-            !1
+            false
           );
         try {
           let d = {
@@ -1276,12 +1276,12 @@ class Rme {
           } finally {
             p();
           }
-          if (g.behavior !== "allow") return !1;
+          if (g.behavior !== "allow") return false;
           let _ = g.updatedPermissions;
           if (_ && _.length > 0) t?.((y) => yH(y, _)), await FM(_, e);
-          return pt.addSessionAllowedHost(l), !0;
+          return pt.addSessionAllowedHost(l), true;
         } catch {
-          return !1;
+          return false;
         }
       };
     return (l) => {
@@ -1295,7 +1295,7 @@ class Rme {
     };
   }
   async sendMcpMessage(t, e, o = ye) {
-    let u = Xst(e) ? void 0 : Ja(void 0, { timeoutMs: o, refTimer: !0 });
+    let u = Xst(e) ? void 0 : Ja(void 0, { timeoutMs: o, refTimer: true });
     try {
       return (
         await this.sendRequest(
@@ -1365,12 +1365,12 @@ async function j(t) {
   console.error(t);
   let e = Date.now() + 2000;
   await Xt(FH(), 2000, "write queue drain timeout (exit)").catch(() => {}),
-    await MFe(Math.max(0, e - Date.now()), { scaleBudgetToQueue: !1 }),
+    await MFe(Math.max(0, e - Date.now()), { scaleBudgetToQueue: false }),
     process.exit(1);
 }
 var ve = new Set(["type", "message", "uuid", "session_id", "parent_tool_use_id", "timestamp"]);
 function ke([t, e]) {
-  return ve.has(t) || (t === "isSynthetic" && e === !1) || (t === "shouldQuery" && e === !0);
+  return ve.has(t) || (t === "isSynthetic" && e === false) || (t === "shouldQuery" && e === true);
 }
 function we(t) {
   if (t === void 0 || t === null) return "no_message";
@@ -1427,22 +1427,22 @@ async function Ae(t, e, o, r, u) {
                       decideLocation: "ask-path",
                     }
                   : { ...R, decideLocation: "ask-path" },
-              interrupt: !1,
-              permanent: !1,
+              interrupt: false,
+              permanent: false,
             };
         }
         if (!I$t(t, g.updatedInput) && t.requiresUserInteraction?.()) return;
         let y =
-          t.suppressesAllPermissionUpdates?.(o) === !0 ? _D(g.updatedPermissions ?? []) : (g.updatedPermissions ?? []);
+          t.suppressesAllPermissionUpdates?.(o) === true ? _D(g.updatedPermissions ?? []) : (g.updatedPermissions ?? []);
         if (y.length > 0) r.setSessionToolPermissionContext((R) => yH(R, y)), await FM(y, r.storageV5);
         return {
           decision: {
             behavior: "allow",
             updatedInput: _,
-            userModified: !1,
+            userModified: false,
             decisionReason: { type: "hook", hookName: "PermissionRequest" },
           },
-          interrupt: !1,
+          interrupt: false,
           permanent: y.some((R) => ade(R.destination)),
         };
       } else
@@ -1453,8 +1453,8 @@ async function Ae(t, e, o, r, u) {
             decisionReason: { type: "hook", hookName: "PermissionRequest" },
             decideLocation: "ask-path",
           },
-          interrupt: g.interrupt === !0,
-          permanent: !1,
+          interrupt: g.interrupt === true,
+          permanent: false,
         };
     }
   return;
@@ -1472,7 +1472,7 @@ function UU(t, e, o) {
     subtype: "error_during_execution",
     duration_ms: 0,
     duration_api_ms: 0,
-    is_error: !0,
+    is_error: true,
     num_turns: 0,
     stop_reason: null,
     session_id: t,

@@ -331,10 +331,10 @@ import "/$bunfs/root/chunk-7jz6r17g.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 import { ue } from "/$bunfs/root/chunk-yz031c9r.js";
 function q(e, o) {
-  let r = !1,
+  let r = false,
     m = Yh(() => {
       if (r || ks() || $n() || !Yo()) return;
-      return (r = !0), m(), oe(e, o);
+      return (r = true), m(), oe(e, o);
     });
   return vt(async () => m()), m;
 }
@@ -361,8 +361,8 @@ async function oe(e, o) {
   }
   n("[uds-messaging] Late bind: gate enabled by a GrowthBook refresh after startup"), A0e();
   let d = r.getUdsStartDegradedCause();
-  if (d) g("agents_cross_session_inbox", d, { bind_late: !0 });
-  else y("agents_cross_session_inbox", { bind_late: !0 });
+  if (d) g("agents_cross_session_inbox", d, { bind_late: true });
+  else y("agents_cross_session_inbox", { bind_late: true });
   let { updateSessionMessagingSocketPath: _ } = await import("/$bunfs/root/chunk-0p166wkt.js"),
     S = r.getUdsMessagingSocketPath();
   if (S !== void 0) await _(S, o);
@@ -372,9 +372,9 @@ import { open as re } from "fs/promises";
 import { isatty as N } from "tty";
 async function L() {
   try {
-    return await (await re("/dev/tty", X.O_RDWR | X.O_NOCTTY)).close(), !0;
+    return await (await re("/dev/tty", X.O_RDWR | X.O_NOCTTY)).close(), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function z() {
@@ -409,11 +409,11 @@ import { copyFile as ce, stat as me } from "fs/promises";
 import { homedir as pe } from "os";
 import { join as de } from "path";
 async function B(e) {
-  await Ae((o) => ({ ...o, iterm2SetupInProgress: !1 }), e);
+  await Ae((o) => ({ ...o, iterm2SetupInProgress: false }), e);
 }
 function fe() {
   let e = ie();
-  return { inProgress: e.iterm2SetupInProgress ?? !1, backupPath: e.iterm2BackupPath || null };
+  return { inProgress: e.iterm2SetupInProgress ?? false, backupPath: e.iterm2BackupPath || null };
 }
 function ge() {
   return de(pe(), "Library", "Preferences", "com.googlecode.iterm2.plist");
@@ -467,8 +467,8 @@ async function V(e, o) {
     worktreeBranch: Dle(_),
     originalHeadCommit: (await Q3e(e)) ?? void 0,
     sessionId: K(),
-    hookBased: !1,
-    enteredExisting: !1,
+    hookBased: false,
+    enteredExisting: false,
   };
   return kIe(w), XA(w), w;
 }
@@ -476,7 +476,7 @@ async function Q(e, o) {
   try {
     return Z3e(await Lle(e, o)) === process.pid;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function po(e, o, r, m, d, _, S, k, w, i, T) {
@@ -485,7 +485,7 @@ async function po(e, o, r, m, d, _, S, k, w, i, T) {
   if (!W || parseInt(W) < 22)
     console.error(ae.bold.red("Error: Claude Code requires Node.js version 22 or higher.")), process.exit(1);
   if (a.CLAUDE_BG_BACKEND === "daemon") {
-    let t = I("tengu_bg_worker_ctty", !0) ? await z() : (await L()) ? "already" : "switched_off";
+    let t = I("tengu_bg_worker_ctty", true) ? await z() : (await L()) ? "already" : "switched_off";
     switch ((Y("info", "bg_worker_ctty", { outcome: t }), t)) {
       case "acquired":
         ZMt(), y("bg_worker_ctty");
@@ -627,11 +627,11 @@ async function po(e, o, r, m, d, _, S, k, w, i, T) {
         process.exit(1);
     }
     s("tengu_worktree_created", { tmux_enabled: _ });
-    let H = !1;
+    let H = false;
     if (_ && b) {
       let E = await aan(b, v.worktreePath);
       if (E.created)
-        (H = !0),
+        (H = true),
           console.log(
             ae.green(`Created tmux session: ${ae.bold(b)}
 To attach: ${ae.bold(`tmux attach -t ${b}`)}`),
@@ -758,26 +758,26 @@ To attach: ${ae.bold(`tmux attach -t ${b}`)}`),
       last_session_total_cache_read_input_tokens: u.lastTotalCacheReadInputTokens,
       last_session_fps_average: u.lastFpsAverage,
       last_session_fps_low_1_pct: u.lastFpsLow1Pct,
-      last_session_graceful_shutdown: u.lastGracefulShutdown ?? !1,
+      last_session_graceful_shutdown: u.lastGracefulShutdown ?? false,
       last_session_version_base: u.lastVersionBase ?? "unknown",
       last_session_id: ve(u.lastSessionId),
       ...u.lastSessionMetrics,
     });
 }
 function fo(e) {
-  return !1;
+  return false;
 }
 function go(e) {
-  return !1;
+  return false;
 }
 function be({ isNonInteractiveSession: e, isRemoteMode: o, isBareMode: r, exitAfterFirstRender: m, trustAccepted: d }) {
   return !e && !o && !r && !m && d;
 }
 class te {
-  fired = !1;
+  fired = false;
   claim() {
-    if (this.fired) return !1;
-    return (this.fired = !0), !0;
+    if (this.fired) return false;
+    return (this.fired = true), true;
   }
 }
 var we = new J(() => new te());

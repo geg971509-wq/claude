@@ -45,7 +45,7 @@ var Cx = 422,
   d = { kind: "failed", status: Cx };
 function ust({ client: o, direct: a, inboundMaxBytes: e = wW, stallMs: u, restartPauseMs: t }) {
   let i = {
-      put: (r, l, s, f) => o.putLaneRow(r, l, { ifMatchSha256: s, signal: f, oneTryIfLong: !0 }),
+      put: (r, l, s, f) => o.putLaneRow(r, l, { ifMatchSha256: s, signal: f, oneTryIfLong: true }),
       get: (r, l, s) => o.getLaneFile(r, l, s),
     },
     c = but();
@@ -87,7 +87,7 @@ function ust({ client: o, direct: a, inboundMaxBytes: e = wW, stallMs: u, restar
       }
     },
     publishJournal: (r, { ifMatchEtag: l, createOnly: s, signal: f }) =>
-      s === !0 && l === null ? i.put(pne, r, void 0, f) : E(i, pne, r, l, f),
+      s === true && l === null ? i.put(pne, r, void 0, f) : E(i, pne, r, l, f),
     readPeerJournal: (r) => i.get(Eue, r),
     readOwnJournal: (r) => i.get(pne, r),
   };

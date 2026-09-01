@@ -27,12 +27,12 @@ function lt() {
 }
 function LS(e) {
   let t = lt();
-  if (e.length <= t) return { content: e, truncated: !1 };
+  if (e.length <= t) return { content: e, truncated: false };
   let s = `
 
 [TRUNCATED - Content exceeds ${t >= 1024 ? `${Math.floor(t / 1024)}KB` : `${t} character`} limit]`;
-  if (s.length >= t) return { content: e.slice(0, t), truncated: !0 };
-  return { content: e.slice(0, t - s.length) + s, truncated: !0 };
+  if (s.length >= t) return { content: e.slice(0, t), truncated: true };
+  return { content: e.slice(0, t - s.length) + s, truncated: true };
 }
 import { createHash as mt } from "crypto";
 function x() {
@@ -49,8 +49,8 @@ function Y5n() {
   e.seenHashes.clear(), e.lastReportedMessage.clear();
 }
 function MS() {
-  if (!(a.ENABLE_BETA_TRACING_DETAILED && Boolean(process.env.BETA_TRACING_ENDPOINT))) return !1;
-  return Le() || I("tengu_trace_lantern", !1);
+  if (!(a.ENABLE_BETA_TRACING_DETAILED && Boolean(process.env.BETA_TRACING_ENDPOINT))) return false;
+  return Le() || I("tengu_trace_lantern", false);
 }
 function O(e) {
   return mt("sha256").update(e).digest("hex").slice(0, 12);
@@ -107,7 +107,7 @@ function H(e, t) {
   if (!MS() || !x()) return;
   let { content: r, truncated: s } = LS(`[USER PROMPT]
 ${t}`);
-  e.setAttributes({ new_context: r, ...(s && { new_context_truncated: !0, new_context_original_length: t.length }) });
+  e.setAttributes({ new_context: r, ...(s && { new_context_truncated: true, new_context_original_length: t.length }) });
 }
 function W(e, t, r) {
   if (!MS()) return;
@@ -134,7 +134,7 @@ function W(e, t, r) {
       let { content: i, truncated: u } = LS(t.userSystemPrompt);
       e.setAttributes({
         user_system_prompt: i,
-        ...(u && { user_system_prompt_truncated: !0, user_system_prompt_original_length: t.userSystemPrompt.length }),
+        ...(u && { user_system_prompt_truncated: true, user_system_prompt_original_length: t.userSystemPrompt.length }),
       });
     }
   }
@@ -154,7 +154,7 @@ function W(e, t, r) {
           Po("tool", { tool_name: Un(u), tool_hash: p, tool: g, ...(d && { tool_truncated: "true" }) });
         }
     } catch {
-      e.setAttribute("tools_parse_error", !0);
+      e.setAttribute("tools_parse_error", true);
     }
   if (r && r.length > 0 && t?.querySource) {
     let o = t.querySource,
@@ -179,7 +179,7 @@ function W(e, t, r) {
           { content: L, truncated: w } = LS(k);
         e.setAttributes({
           new_context: L,
-          ...(w && { new_context_truncated: !0, new_context_original_length: k.length }),
+          ...(w && { new_context_truncated: true, new_context_original_length: k.length }),
         });
       }
       if (C.length > 0 && d) {
@@ -191,7 +191,7 @@ function W(e, t, r) {
           { content: L, truncated: w } = LS(k);
         e.setAttributes({
           system_reminders: L,
-          ...(w && { system_reminders_truncated: !0, system_reminders_original_length: k.length }),
+          ...(w && { system_reminders_truncated: true, system_reminders_original_length: k.length }),
         });
       }
     }
@@ -205,20 +205,20 @@ function Y(e, t) {
   if (t.modelOutput !== void 0) {
     let { content: r, truncated: s } = LS(t.modelOutput);
     if (((e["response.model_output"] = r), s))
-      (e["response.model_output_truncated"] = !0), (e["response.model_output_original_length"] = t.modelOutput.length);
+      (e["response.model_output_truncated"] = true), (e["response.model_output_original_length"] = t.modelOutput.length);
   }
 }
 function z(e, t, r) {
   if (!MS() || !Tl()) return;
   let { content: s, truncated: o } = LS(`[TOOL INPUT: ${t}]
 ${r}`);
-  e.setAttributes({ tool_input: s, ...(o && { tool_input_truncated: !0, tool_input_original_length: r.length }) });
+  e.setAttributes({ tool_input: s, ...(o && { tool_input_truncated: true, tool_input_original_length: r.length }) });
 }
 function X(e, t, r) {
   if (!MS() || !QMe()) return;
   let { content: s, truncated: o } = LS(`[TOOL RESULT: ${t}]
 ${r}`);
-  if (((e.new_context = s), o)) (e.new_context_truncated = !0), (e.new_context_original_length = r.length);
+  if (((e.new_context = s), o)) (e.new_context_truncated = true), (e.new_context_original_length = r.length);
 }
 class Z {
   recorder = null;
@@ -303,15 +303,15 @@ class pt {
 var Tt = new J(() => new pt());
 function dpn() {
   let e = process.env.CLAUDE_CODE_ENHANCED_TELEMETRY_BETA ?? process.env.ENABLE_ENHANCED_TELEMETRY_BETA;
-  if (Me(e)) return !0;
-  if (bo(e)) return !1;
-  return !1;
+  if (Me(e)) return true;
+  if (bo(e)) return false;
+  return false;
 }
 function h() {
   return dpn() || MS();
 }
 function v2() {
-  return !1;
+  return false;
 }
 function Amt(e, t) {
   return;
@@ -339,7 +339,7 @@ function E(e, t) {
   if ((bX.enterWith(r), e === S)) Kpn(r);
 }
 function v(e, t) {
-  if (((t.ended = !0), e === S && Xpn()?.getValue(e) === t)) Kpn(void 0);
+  if (((t.ended = true), e === S && Xpn()?.getValue(e) === t)) Kpn(void 0);
   if (m().getValue(e) === t) bX.enterWith(t.priorContext);
 }
 function y(e, t = {}) {
@@ -449,7 +449,7 @@ function ppn(e, t) {
   if (!e) return;
   let r = T.get(e);
   if (!r || r.ended) return;
-  r.ended = !0;
+  r.ended = true;
   let s = Math.max(0, Math.round(performance.now() - r.startTime));
   if (r.perfettoSpanId)
     tt(r.perfettoSpanId, {
@@ -486,7 +486,7 @@ function ppn(e, t) {
   if ((r.span.setAttributes(o), t?.stopReason !== void 0))
     r.span.setAttribute("stop_reason", t.stopReason),
       r.span.setAttribute("gen_ai.response.finish_reasons", [t.stopReason]);
-  if (t?.success === !1) r.span.setStatus({ code: c.SpanStatusCode.ERROR, message: t.error });
+  if (t?.success === false) r.span.setStatus({ code: c.SpanStatusCode.ERROR, message: t.error });
   if (t?.traceresponse) {
     let i = It(t.traceresponse);
     if (i) r.span.addLink({ context: i, attributes: { "link.type": "parent_of" } });
@@ -577,14 +577,14 @@ function fpn(e) {
     if (e.success !== void 0) s.success = e.success;
     if (e.error !== void 0) s.error = e.error;
   }
-  if ((t.span.setAttributes(s), e?.success === !1))
+  if ((t.span.setAttributes(s), e?.success === false))
     t.span.setStatus({ code: c.SpanStatusCode.ERROR, message: e.error });
   t.span.end(), v(U, t);
 }
 function bze(e, t, r) {
   let s = e ? T.get(e) : P(A);
   if (!s || s.ended) return;
-  if (s.perfettoSpanId) nt(s.perfettoSpanId, { success: !0, resultTokens: r });
+  if (s.perfettoSpanId) nt(s.perfettoSpanId, { success: true, resultTokens: r });
   if (!h()) {
     v(A, s);
     return;
@@ -605,7 +605,7 @@ function rKn(e, t) {
   for (let [o, i] of Object.entries(t))
     if (typeof i === "string") {
       let { content: u, truncated: p } = LS(i);
-      if (((s[o] = u), p)) (s[`${o}_truncated`] = !0), (s[`${o}_original_length`] = i.length);
+      if (((s[o] = u), p)) (s[`${o}_truncated`] = true), (s[`${o}_original_length`] = i.length);
     } else s[o] = i;
   r.span.addEvent(e, s);
 }
@@ -689,7 +689,7 @@ function cKn(e, t) {
   if (!gt()) return;
   let r = T.get(e);
   if (!r || r.ended) return;
-  r.ended = !0;
+  r.ended = true;
   let o = { duration_ms: Math.max(0, Math.round(performance.now() - r.startTime)) };
   if (t) {
     if (t.numSuccess !== void 0) o.num_success = t.numSuccess;

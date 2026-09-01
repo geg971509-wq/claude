@@ -23,13 +23,13 @@ function o(e) {
 function d() {
   let e = qt();
   if (!e.identityTrippedHandler) {
-    e.identityTripUnowned = !0;
+    e.identityTripUnowned = true;
     return;
   }
   queueMicrotask(() => {
     let t = qt().identityTrippedHandler;
     if (!t) {
-      qt().identityTripUnowned = !0;
+      qt().identityTripUnowned = true;
       return;
     }
     try {
@@ -51,7 +51,7 @@ function yat(e) {
 function Sat() {
   let e = qt(),
     t = e.identityTripUnowned;
-  return (e.identityTripUnowned = !1), t;
+  return (e.identityTripUnowned = false), t;
 }
 function r() {
   if (!Ho()) return;
@@ -80,7 +80,7 @@ function lE(e) {
 function NWe() {
   let e = qt();
   if (e.identityChangedThisProcess) return;
-  (e.identityChangedThisProcess = !0), g("mcp_discovery_cache", "identity_changed");
+  (e.identityChangedThisProcess = true), g("mcp_discovery_cache", "identity_changed");
 }
 function L6n() {
   return r(), qt().identityChangedThisProcess;

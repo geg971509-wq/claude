@@ -94,7 +94,7 @@ class f {
     );
   }
   async doFlush(e, t) {
-    let i = Lo("breakReminder", { enabled: !1 }).value;
+    let i = Lo("breakReminder", { enabled: false }).value;
     if (((this.cachedBreakThresholdMs = (i.breakThresholdMinutes ?? wnt) * 60000), this.pendingSeconds <= 0)) return;
     let a = this.pendingSeconds;
     try {

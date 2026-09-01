@@ -158,7 +158,7 @@ async function* UJt({
             ...krt(e),
             tasks: s,
             runningSubagents: p === 0 ? 0 : e.runningSubagents,
-            ...{ endedByModel: !1 },
+            ...{ endedByModel: false },
             attribution: $ye(),
             cacheBreakerPhrase: void 0,
             sendMessagePins: {},
@@ -196,8 +196,8 @@ async function* UJt({
   yield { type: "conversation_reset", newConversationId: P }, P0n(o), Jfe();
   let R = Ta(K()),
     J = H || (f && EUt(R));
-  if ((Dkn({ setCurrentAsParent: !0 }), f && l !== void 0)) pF(l);
-  let Z = Promise.resolve(!0);
+  if ((Dkn({ setCurrentAsParent: true }), f && l !== void 0)) pF(l);
+  let Z = Promise.resolve(true);
   if ((Kue(), _Ee(), GJt.of(t).reset(), dye(t), a.CLAUDE_CODE_SESSION_ID)) process.env.CLAUDE_CODE_SESSION_ID = K();
   if ((await JL(), Gcn(), zcn(R), await sdn(K(), Hl(), o), u)) await nI(x, u, G, "user", o);
   else if (l) {
@@ -219,7 +219,7 @@ async function* UJt({
   if (D.length > 0) c(() => D);
 }
 function O(t) {
-  return "isBackgrounded" in t && t.isBackgrounded === !1;
+  return "isBackgrounded" in t && t.isBackgrounded === false;
 }
 var X = new Set(["local_bash", "monitor_mcp", "monitor_ws", "mcp_task"]),
   Y = new Set(["local_agent", "in_process_teammate", "local_workflow", "dream"]);

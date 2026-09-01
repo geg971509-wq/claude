@@ -126,11 +126,11 @@ function B(t, e) {
       `Once the user completes authorization in their browser, the server's real tools will become ${P()}.`;
   return {
     name: xc(t, A3e),
-    isMcp: !0,
-    mcpInfo: { serverName: t, toolName: A3e, serverType: r, isAuthStub: !0 },
-    isEnabled: () => !0,
-    isConcurrencySafe: () => !1,
-    isReadOnly: () => !1,
+    isMcp: true,
+    mcpInfo: { serverName: t, toolName: A3e, serverType: r, isAuthStub: true },
+    isEnabled: () => true,
+    isConcurrencySafe: () => false,
+    isReadOnly: () => false,
     toAutoClassifierInput: () => t,
     userFacingName: () => `${t} - authenticate (MCP)`,
     maxResultSizeChars: 1e4,
@@ -170,7 +170,7 @@ function B(t, e) {
           A = o;
         }),
         { getAppState: k, setAppState: _ } = s,
-        b = C().performMCPOAuthFlow(t, c.config, (o) => A?.(o), void 0, { skipBrowserOpen: !0 });
+        b = C().performMCPOAuthFlow(t, c.config, (o) => A?.(o), void 0, { skipBrowserOpen: true });
       C().setActiveOAuthPromise(t, b);
       let S = lr();
       b.then(async () => {
@@ -197,7 +197,7 @@ function B(t, e) {
               .catch((d) => Z(t, `Orphan-connection cleanup failed: ${l(d)}`));
           return;
         }
-        _((d) => f_e(d, t, o, { appendIfAbsent: !1 })),
+        _((d) => f_e(d, t, o, { appendIfAbsent: false })),
           Z(t, `OAuth complete, reconnected with ${o.tools.length} tool(s)`);
       }).catch((o) => {
         to(t, `OAuth flow failed after tool-triggered start: ${l(o)}`);
@@ -254,11 +254,11 @@ function j(t, e) {
       "on remote sessions that page fails to load, but the URL in the address bar is still valid. Pass that full URL here as `callback_url`.";
   return {
     name: xc(t, C3e),
-    isMcp: !0,
-    mcpInfo: { serverName: t, toolName: C3e, serverType: e.type ?? "stdio", isAuthStub: !0 },
-    isEnabled: () => !0,
-    isConcurrencySafe: () => !1,
-    isReadOnly: () => !1,
+    isMcp: true,
+    mcpInfo: { serverName: t, toolName: C3e, serverType: e.type ?? "stdio", isAuthStub: true },
+    isEnabled: () => true,
+    isConcurrencySafe: () => false,
+    isReadOnly: () => false,
     toAutoClassifierInput: () => t,
     userFacingName: () => `${t} - complete authentication (MCP)`,
     maxResultSizeChars: 1e4,
@@ -285,7 +285,7 @@ function j(t, e) {
             message: `No OAuth flow is in progress for ${Rr(t)}. Call \`${r}\` first, then retry with the callback URL.`,
           },
         };
-      let c = !1;
+      let c = false;
       try {
         let p = new URL(h);
         c = p.searchParams.has("code") || p.searchParams.has("error");
@@ -323,10 +323,10 @@ function j(t, e) {
 }
 function nG() {
   if (g9n()) return;
-  let t = !1,
+  let t = false,
     e;
   m9n(() => {
-    if (!t) (t = !0), (e = I("tengu_mcp_discovery_cache_enable", null) ?? void 0);
+    if (!t) (t = true), (e = I("tengu_mcp_discovery_cache_enable", null) ?? void 0);
     return e;
   });
 }

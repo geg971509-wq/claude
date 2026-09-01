@@ -15,13 +15,13 @@ async function ID(S) {
   let x = S.tool,
     P = { ...S, description: typeof S.description === "string" ? S.description : "" },
     j = typeof S.input === "object" && S.input !== null && !Array.isArray(S.input),
-    H = { ...P, hasExternalRacer: !0 };
+    H = { ...P, hasExternalRacer: true };
   if (!j)
     return {
       dialog: kre,
       descriptor: {
         ...WR(H),
-        toolUseRenderFailed: !0,
+        toolUseRenderFailed: true,
         renderedToolUseMessage: "parameters could not be rendered \u2014 deny unless expected",
       },
     };
@@ -31,17 +31,17 @@ async function ID(S) {
     let re = mit(x, S.input);
     if (re !== null) {
       let ue =
-          S.remoteWorkspace === !0 && sLe(x) && !S.signal?.aborted
+          S.remoteWorkspace === true && sLe(x) && !S.signal?.aborted
             ? aLe({ lookup: S.heldServedCall, tool: x, toolUseId: S.toolUseID, input: S.input, filePath: re })
             : void 0,
         de = async () =>
           Lhe({
             ...P,
             filePath: re,
-            remoteWorkspace: S.remoteWorkspace === !0,
-            remoteOldContent: S.remoteWorkspace === !0 && NUn(x) && !S.signal?.aborted ? await dLe(re) : void 0,
+            remoteWorkspace: S.remoteWorkspace === true,
+            remoteOldContent: S.remoteWorkspace === true && NUn(x) && !S.signal?.aborted ? await dLe(re) : void 0,
           }),
-        pe = () => Lhe({ ...P, filePath: re, remoteWorkspace: !0, remoteOldContent: void 0 });
+        pe = () => Lhe({ ...P, filePath: re, remoteWorkspace: true, remoteOldContent: void 0 });
       try {
         let { descriptor: Re, outcome: be } =
           ue === void 0
@@ -56,7 +56,7 @@ async function ID(S) {
           dialog: kre,
           descriptor: {
             ...WR(H),
-            toolUseRenderFailed: !0,
+            toolUseRenderFailed: true,
             renderedToolUseMessage: "parameters could not be rendered \u2014 deny unless expected",
           },
         };
@@ -91,7 +91,7 @@ async function lLe(S) {
   try {
     return {
       descriptor: {
-        ...(await Lhe({ ...P, filePath: x, remoteWorkspace: !1 })),
+        ...(await Lhe({ ...P, filePath: x, remoteWorkspace: false })),
         input: S.args.input,
         subtitle: nr(rLe(S.startCwd, x)),
         workingDir: S.startCwd,
@@ -101,7 +101,7 @@ async function lLe(S) {
   } catch (j) {
     n(`buildForwardedPermissionDialog: local preview of a held call failed: ${l(j)}`, { level: "error" });
     let H = {
-        ...(await Lhe({ ...P, filePath: x, remoteWorkspace: !0, remoteOldContent: void 0 })),
+        ...(await Lhe({ ...P, filePath: x, remoteWorkspace: true, remoteOldContent: void 0 })),
         input: S.args.input,
       },
       Z = E(j);
@@ -139,7 +139,7 @@ async function dLe(S) {
       uLe,
       "remote read_file timed out",
     );
-    if (x.truncated === !0) return;
+    if (x.truncated === true) return;
     return x.contents;
   } catch (x) {
     let P = x instanceof Error ? x.message : String(x);
@@ -167,14 +167,14 @@ class Ax {
     this.inputs = S;
   }
   dispatch = (S) => {
-    if (S.request.subtype !== "can_use_tool") return !1;
+    if (S.request.subtype !== "can_use_tool") return false;
     if (typeof S.request_id !== "string")
       return (
         n(
           "[TransportPermissionDispatcher] Dropping can_use_tool whose request_id is not a string \u2014 no response is possible",
           { level: "error" },
         ),
-        !1
+        false
       );
     if (!eDn(S.request)) {
       let be = S.request.tool_use_id;
@@ -185,7 +185,7 @@ class Ax {
           message: "Malformed permission request from worker",
           ...(typeof be === "string" && { toolUseID: be }),
         }),
-        !1
+        false
       );
     }
     let { request: P, request_id: j } = S,
@@ -196,7 +196,7 @@ class Ax {
           `[TransportPermissionDispatcher] can_use_tool ${i$(j).slice(0, 80)} is already open here \u2014 not dispatching it again`,
           { level: "warn" },
         ),
-        !1
+        false
       );
     let { toolRegistry: Z, toolPermissionContext: re, theme: ue } = this.inputs,
       de = Qre(P.tool_name, Z),
@@ -239,7 +239,7 @@ class Ax {
                   ? {
                       type: "safetyCheck",
                       reason: Ci(Et(P.decision_reason)),
-                      classifierApprovable: P.classifier_approvable ?? !1,
+                      classifierApprovable: P.classifier_approvable ?? false,
                     }
                   : {
                       type: "other",
@@ -261,7 +261,7 @@ class Ax {
       })
         .then(({ dialog: be, descriptor: Pe }) => {
           if (!H.has(j)) return Promise.resolve({ behavior: "cancelled" });
-          return this.inputs.requestDialog(be, Pe, { signal: Re.signal, queueBehind: !0 });
+          return this.inputs.requestDialog(be, Pe, { signal: Re.signal, queueBehind: true });
         })
         .then((be) => {
           if (!H.delete(j)) return;
@@ -280,7 +280,7 @@ class Ax {
               Pe(j, {
                 behavior: "deny",
                 message: be.feedback ?? "User denied permission",
-                ...(Ie && { interrupt: !0 }),
+                ...(Ie && { interrupt: true }),
                 toolUseID: P.tool_use_id,
               });
               return;
@@ -289,7 +289,7 @@ class Ax {
               Pe(j, {
                 behavior: "deny",
                 message: "User aborted",
-                ...(Oe && { interrupt: !0 }),
+                ...(Oe && { interrupt: true }),
                 toolUseID: P.tool_use_id,
               });
               return;
@@ -303,7 +303,7 @@ class Ax {
             toolUseID: P.tool_use_id,
           });
         }),
-      !0
+      true
     );
   };
   cancel = (S) => {
@@ -429,7 +429,7 @@ function Jre(S, x = gLe) {
                   n(
                     `[remote] set_permission_mode ${Fe} failed; ${Fe} is the worker's last confirmed mode \u2014 keeping it and re-sending`,
                   ),
-                    ot(0, !0);
+                    ot(0, true);
                   return;
                 }
                 if (
@@ -481,7 +481,7 @@ function Jre(S, x = gLe) {
                 (j.lastBroadcast?.seq ?? 0) !== kt.broadcastSeq || de.getState().toolPermissionContext.mode !== Fe)
               )
                 return;
-              ot(nt + 1, !0);
+              ot(nt + 1, true);
             });
         };
       ot(0, Ve);
@@ -514,11 +514,11 @@ function DD({
     be = ue?.setInProgressToolUseIDs,
     { setMessages: Pe, setIsLoading: Oe, onPermissionModeChange: Ie, onConversationReset: He, onTurnComplete: Fe } = x,
     Ve = C(null),
-    Ke = C(!1),
-    ot = C(!1),
+    Ke = C(false),
+    ot = C(false),
     [st] = u(eRt),
     nt = P !== void 0,
-    Pt = C(P ?? !1);
+    Pt = C(P ?? false);
   if (nt) Pt.current = P;
   let kt = B(
       (cn) => {
@@ -527,11 +527,11 @@ function DD({
       },
       [Oe, nt],
     ),
-    Ht = C(!1),
+    Ht = C(false),
     yt = C(0),
     lt = B(() => {
       if (!Ht.current) yt.current++;
-      (Ht.current = !0), kt(!1);
+      (Ht.current = true), kt(false);
     }, [kt]),
     Rt = At(),
     to = Xn(),
@@ -550,7 +550,7 @@ function DD({
       sendResponse: (cn, tn) => {
         let nn = Ve.current;
         if (!nn) return;
-        if ((nn.respondToPermissionRequest(cn, tn), tn.behavior === "allow")) kt(!0);
+        if ((nn.respondToPermissionRequest(cn, tn), tn.behavior === "allow")) kt(true);
         else if (tn.interrupt) lt();
       },
       requestDialog: j,
@@ -566,14 +566,14 @@ function DD({
     A(() => {
       if (!S) return;
       let { label: cn, createManager: tn, onDisconnected: nn, cleanup: pn } = S;
-      Ke.current = !1;
-      let Go = !1;
-      (Ht.current = !1), (yt.current = 0), n(`[${cn}] connecting`);
+      Ke.current = false;
+      let Go = false;
+      (Ht.current = false), (yt.current = 0), n(`[${cn}] connecting`);
       function Oo(zo) {
         if (Go || S?.readOnly) return;
         let en = to.getState().toolPermissionContext.mode;
         if (en === "bubble") return;
-        Go = !0;
+        Go = true;
         let un = zo.sendControlRequest?.bind(zo);
         if (!un) {
           zo.setPermissionMode?.(en);
@@ -615,7 +615,7 @@ function DD({
             if (Zvt(zo)) {
               if (yt.current > 0) yt.current--;
               else Fe?.();
-              (Ht.current = !1), kt(!1);
+              (Ht.current = false), kt(false);
             }
             if (
               !Ht.current &&
@@ -623,14 +623,14 @@ function DD({
                 zo.type === "stream_event" ||
                 (zo.type === "system" && zo.subtype === "status" && zo.status === "requesting"))
             )
-              kt(!0);
+              kt(true);
             if (zo.type === "system" && zo.subtype === "status") {
               let Uo = dbt(zo);
               if (Uo !== void 0) Ie(Uo);
             }
             if (zo.type === "system" && zo.subtype === "init") {
               if (Ke.current) return;
-              (Ke.current = !0), re?.(zo);
+              (Ke.current = true), re?.(zo);
             }
             if (zo.type === "system") {
               if (zo.subtype === "task_started") {
@@ -687,7 +687,7 @@ function DD({
               pe?.setStreamingToolUses((Uo) => (Uo.length > 0 ? [] : Uo)),
                 be?.({ action: "clear" }),
                 st.inProgressToolUses.clear(),
-                kt(!1),
+                kt(false),
                 He?.(un.newConversationId);
               return;
             }
@@ -713,33 +713,33 @@ function DD({
           },
           onPermissionRequest: (zo, en) => {
             if ((n(`[${cn}] permission request: ${zo.tool_name}`), S.readOnly)) {
-              kt(!1);
+              kt(false);
               return;
             }
-            if (jo.dispatch({ type: "control_request", request_id: en, request: zo })) kt(!1);
+            if (jo.dispatch({ type: "control_request", request_id: en, request: zo })) kt(false);
           },
           onPermissionCancelled: (zo, en) => {
-            if ((n(`[${cn}] permission cancelled: ${zo}`), jo.cancel(zo), !Ht.current)) kt(!0);
+            if ((n(`[${cn}] permission cancelled: ${zo}`), jo.cancel(zo), !Ht.current)) kt(true);
           },
           onConnected: () => {
-            n(`[${cn}] connected`), (ot.current = !0), Gt("connected"), Oo(dn);
+            n(`[${cn}] connected`), (ot.current = true), Gt("connected"), Oo(dn);
           },
           onReconnecting: (zo, en) => {
             if (
-              ((Go = !1),
+              ((Go = false),
               n(`[${cn}] dropped, reconnecting${zo != null ? ` (${zo}/${en})` : ""}`),
-              (ot.current = !1),
+              (ot.current = false),
               Gt("reconnecting"),
               !S.replaysOnReconnect)
             )
-              kt(!1);
-            if (((Ht.current = !1), (yt.current = 0), lo(), zo != null))
+              kt(false);
+            if (((Ht.current = false), (yt.current = 0), lo(), zo != null))
               Pe((un) => [...un, Dt(`Connection dropped \u2014 reconnecting (attempt ${zo}/${en})...`, "warning")]);
           },
           onDisconnected: () => {
             n(`[${cn}] disconnected`);
             let zo = ot.current;
-            (ot.current = !1), Gt("disconnected"), (Ht.current = !1), (yt.current = 0), kt(!1), lo(), nn(zo);
+            (ot.current = false), Gt("disconnected"), (Ht.current = false), (yt.current = 0), kt(false), lo(), nn(zo);
           },
           onError: (zo) => {
             n(`[${cn}] error: ${zo.message}`);
@@ -764,10 +764,10 @@ function DD({
         if (!nn)
           return (
             Pe((Oo) => [...Oo, Dt("Not connected to the remote session \u2014 your message wasn't sent.", "warning")]),
-            !1
+            false
           );
         let pn = Ht.current;
-        (Ht.current = !1), kt(!0);
+        (Ht.current = false), kt(true);
         let Go = await nn.sendMessage(cn, tn);
         if (!Go.ok)
           return (
@@ -779,10 +779,10 @@ function DD({
                 "warning",
               ),
             ]),
-            kt(!1),
-            !1
+            kt(false),
+            false
           );
-        return !0;
+        return true;
       },
       [kt, Pe],
     ),
@@ -791,10 +791,10 @@ function DD({
         Ve.current?.sendInterrupt(), lt();
         return;
       }
-      kt(!1);
+      kt(false);
     }, [S, kt, lt]),
     Pn = B(() => {
-      Ve.current?.disconnect(), (Ve.current = null), (ot.current = !1);
+      Ve.current?.disconnect(), (Ve.current = null), (ot.current = false);
     }, []),
     Yt = S?.label,
     No = B(
@@ -838,10 +838,10 @@ Failed to connect to server at ${S.wsUrl}
 
 F();
 
-function Zre(S, x, P, j = () => mgn({ bridgeStore: !1 }), H = kl) {
+function Zre(S, x, P, j = () => mgn({ bridgeStore: false }), H = kl) {
   if (H.isWatching()) return { subscribe: (de) => H.subscribe(de), dispose: () => Promise.resolve() };
   let Z = j();
-  Z.initialize(S, x, { machineServesSession: !0 }).then(
+  Z.initialize(S, x, { machineServesSession: true }).then(
     () => y("remote_served_settings_watch"),
     () => p("remote_served_settings_watch", "watch_failed_to_start"),
   );
@@ -881,13 +881,13 @@ class s$ {
   }
   onResetFrame() {
     let S = this.#e.shift();
-    if (!S) return { ownClear: !1, preserved: new Set() };
+    if (!S) return { ownClear: false, preserved: new Set() };
     let x = new Set(S.sends);
     for (let P of this.#e) {
       if (P.uuid !== void 0) x.add(P.uuid);
       for (let j of P.sends) x.add(j);
     }
-    return { ownClear: !0, preserved: x };
+    return { ownClear: true, preserved: x };
   }
   forget() {
     this.#e = [];
@@ -969,7 +969,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
     st = ct(),
     nt = C(void 0),
     Pt = br(() => H),
-    kt = br((Eo) => P(Nj, _et(Eo), { signal: Eo.signal, queueBehind: !0 })),
+    kt = br((Eo) => P(Nj, _et(Eo), { signal: Eo.signal, queueBehind: true })),
     { columns: Ht } = Ee(),
     yt = br(() => Ht),
     lt = B(
@@ -979,9 +979,9 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
       },
       [de, ue],
     ),
-    Rt = C(!1),
-    to = C(!1),
-    so = C(!1),
+    Rt = C(false),
+    to = C(false),
+    so = C(false),
     jt = C(0),
     Gt = B(() => {
       be.applyStreamingText(() => null), be.setStreamingToolUses((Eo) => (Eo.length > 0 ? [] : Eo));
@@ -1007,7 +1007,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
     }, [No]),
     nn = C(null),
     pn = C(Date.now()),
-    Go = C(!1),
+    Go = C(false),
     Oo = C(null),
     xo = C(null),
     dn = C(null),
@@ -1029,13 +1029,13 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
       },
       [Xo, re],
     ),
-    en = C(!0),
+    en = C(true),
     un = C([]),
-    Uo = C(!1),
+    Uo = C(false),
     Rn = C(() => {}),
     [mr] = u(() => new s$()),
     Pr = B(
-      (Eo = !0) => {
+      (Eo = true) => {
         let Ho = un.current.length;
         if (((un.current = []), mr.forget(), Ho > 0)) {
           if (Eo) g("remote_bootstrap", "queue_dropped");
@@ -1055,22 +1055,22 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
       let Eo = nn.current;
       if (Eo !== null && !Eo.terminal) zo(gKt(Eo, Date.now()));
       if (!en.current) {
-        if (((so.current = !1), (Rt.current = !1), (jt.current = 0), (en.current = !0), Eo === null))
+        if (((so.current = false), (Rt.current = false), (jt.current = 0), (en.current = true), Eo === null))
           Oo.current?.workerCameUp(), xo.current?.onWorkerUp();
         let Ho = un.current.length === 0;
-        if ((Rn.current(), Ho && de() && !S?.initialPromptUuid)) lt(!1);
+        if ((Rn.current(), Ho && de() && !S?.initialPromptUuid)) lt(false);
       }
     }, [zo, S, de, lt]),
     An = B(() => {
       if ((tn(), !Rt.current)) jt.current++;
-      (Rt.current = !0), (so.current = !0), lt(!1);
+      (Rt.current = true), (so.current = true), lt(false);
       let Eo = nn.current;
-      if (Eo !== null && !Eo.terminal && !Eo.dismissed) Xo({ ...Eo, dismissed: !0 });
+      if (Eo !== null && !Eo.terminal && !Eo.dismissed) Xo({ ...Eo, dismissed: true });
     }, [tn, lt, Xo]),
     Wr = C(yLe()),
-    Kn = C(!1),
+    Kn = C(false),
     Tn = C(null),
-    tr = C(!1),
+    tr = C(false),
     hi = br((Eo, Ho) => {
       if (Rt.current) return;
       if (Ho === "provisioning" && tr.current) return;
@@ -1110,7 +1110,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
       (ti.current = void 0), qt((Eo) => (Eo.cloudSessionSync === void 0 ? Eo : { ...Eo, cloudSessionSync: void 0 }));
     }, [qt]),
     Ki = B(() => {
-      tr.current = !1;
+      tr.current = false;
       let Eo = Tn.current;
       if (Eo === null) return;
       if (((Tn.current = null), To.get().overrideMessage === Eo)) To.main.setMessage(null);
@@ -1126,20 +1126,20 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
         Ki(),
         Xo(null),
         yi(),
-        (Go.current = !1),
+        (Go.current = false),
         uo.current.clear(),
         Pn(),
         Oe({ action: "clear" }),
-        (to.current = !1),
-        qt((Eo) => (Eo.hasRemoteReplyChannel ? { ...Eo, hasRemoteReplyChannel: !1 } : Eo)),
+        (to.current = false),
+        qt((Eo) => (Eo.hasRemoteReplyChannel ? { ...Eo, hasRemoteReplyChannel: false } : Eo)),
         qt((Eo) => (Eo.activeGoal === void 0 ? Eo : { ...Eo, activeGoal: void 0 })),
         qt((Eo) => (Eo.remoteAutocompactState === void 0 ? Eo : { ...Eo, remoteAutocompactState: void 0 }));
     }, [Qo, Ki, Xo, yi, Pn, Oe, qt]),
     Xr = C(0),
     as = C(0),
     Li = C(null),
-    Bs = C(!1),
-    Pl = C(!1),
+    Bs = C(false),
+    Pl = C(false),
     [Hr] = u(() => new vEe(50)),
     $i = C(0),
     Zi = C(new Set()),
@@ -1148,7 +1148,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
       sendResponse: (Eo, Ho) => {
         let Cn = pr.current;
         if (!Cn) return;
-        if ((Cn.respondToPermissionRequest(Eo, Ho), Ho.behavior === "allow")) lt(!0);
+        if ((Cn.respondToPermissionRequest(Eo, Ho), Ho.behavior === "allow")) lt(true);
         else if (Ho.interrupt) An();
       },
       requestDialog: P,
@@ -1212,29 +1212,29 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
     A(() => {
       let Eo = S?.deviceNotBoundNotice;
       if (!Eo) return;
-      let Ho = !0;
+      let Ho = true;
       return (
         Eo.then((Cn) => {
           if (!Ho || Cn === void 0) return;
           ao(m3n(Cn));
         }),
         () => {
-          Ho = !1;
+          Ho = false;
         }
       );
     }, [S?.deviceNotBoundNotice, ao]),
     A(() => {
       if (!S) {
         if (Bs.current)
-          (Bs.current = !1),
-            lt(!1),
-            (Pl.current = !1),
-            (Kn.current = !1),
-            (Rt.current = !1),
-            (so.current = !1),
+          (Bs.current = false),
+            lt(false),
+            (Pl.current = false),
+            (Kn.current = false),
+            (Rt.current = false),
+            (so.current = false),
             (jt.current = 0),
             ($i.current = 0),
-            (en.current = !0),
+            (en.current = true),
             Pr(),
             us(),
             Fe.inProgressToolUses.clear(),
@@ -1243,38 +1243,38 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
         return;
       }
       if (
-        ((Bs.current = !0),
+        ((Bs.current = true),
         (en.current = Boolean(S.isAttachToExisting || S.viewerOnly)),
         Pr(),
         Xo(null),
-        (Go.current = !1),
+        (Go.current = false),
         ($i.current = 0),
         (pn.current = Date.now()),
         S.initialPromptUuid)
       )
         Hr.add(S.initialPromptUuid);
       n(`[useRemoteSession] Initializing for session ${S.sessionId}`);
-      let Eo = !1,
-        Ho = !1,
+      let Eo = false,
+        Ho = false,
         Cn = new Set(),
-        Zn = !1,
+        Zn = false,
         Er = new Set(Mv !== null ? (S.seedReplyChannelToolUseIds ?? []) : []);
       to.current = Mv !== null && lo.getState().hasRemoteReplyChannel;
       let Ai = to.current;
       function ii() {
         let Vo = Ai;
-        if (((Ai = !1), to.current)) {
+        if (((Ai = false), to.current)) {
           if (Vo) s("tengu_remote_reply_channel_init", {});
           return;
         }
-        (to.current = !0),
+        (to.current = true),
           s("tengu_remote_reply_channel_init", {}),
-          qt((ur) => (ur.hasRemoteReplyChannel ? ur : { ...ur, hasRemoteReplyChannel: !0 }));
+          qt((ur) => (ur.hasRemoteReplyChannel ? ur : { ...ur, hasRemoteReplyChannel: true }));
       }
       if (S.seedActiveGoal !== void 0) {
         let Vo = S.seedActiveGoal ?? void 0;
         if ((qt((ur) => (ur.activeGoal === Vo ? ur : { ...ur, activeGoal: Vo })), Vo !== void 0))
-          s("tengu_remote_active_goal_adopted", { via: w("seed"), active: !0 });
+          s("tengu_remote_active_goal_adopted", { via: w("seed"), active: true });
       }
       if (S.seedAutocompactState !== void 0) {
         let Vo = S.seedAutocompactState;
@@ -1288,7 +1288,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
       }
       let As = new Fb(),
         Ss = null,
-        Ii = !1,
+        Ii = false,
         Ha = ({ line: Vo, level: ur }) => {
           if (ur === "debug") n(`[useRemoteSession] hooks: ${Vo}`);
           re((Vr) => [...Vr, Dt(Vo, ur === "warning" ? "warning" : ur === "debug" ? "info" : "notice")]);
@@ -1372,7 +1372,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
               if (en.current && !Kr && P$e(Vo, Mr)) return;
               let Ri = JJ(Vo);
               if (!Rt.current && Ri.type === "env_log" && Ri.message !== "") {
-                if (!en.current) lt(!0);
+                if (!en.current) lt(true);
                 hi(Ri.message, "provisioning");
               }
               {
@@ -1380,20 +1380,20 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
                   Sl = VZe(ws, Vo, Ri.type === "env_log" ? Ri.message : "", Mr, pn.current);
                 if (Sl !== nn.current) {
                   if (ws.terminal && !Sl.terminal && Sl.dismissed && !Go.current)
-                    (Go.current = !0), s("tengu_remote_bootstrap_cycle_hidden", {});
+                    (Go.current = true), s("tengu_remote_bootstrap_cycle_hidden", {});
                   if (
                     (zo(Sl),
                     Sl.steps.some((ia) => ia.status === "failed") && !ws.steps.some((ia) => ia.status === "failed"))
                   ) {
                     if (
                       (p("remote_bootstrap", "step_failed"),
-                      (Go.current = !1),
-                      Pr(!1),
-                      (en.current = !0),
-                      (so.current = !1),
-                      (Rt.current = !1),
+                      (Go.current = false),
+                      Pr(false),
+                      (en.current = true),
+                      (so.current = false),
+                      (Rt.current = false),
                       (jt.current = 0),
-                      lt(!1),
+                      lt(false),
                       Sl.dismissed)
                     )
                       re((ia) => [
@@ -1401,7 +1401,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
                         Dt("Cloud container provisioning failed \u2014 reconnect or check the session logs", "warning"),
                       ]);
                   }
-                  if (Sl.terminal) (Go.current = !1), Rs(), Ir();
+                  if (Sl.terminal) (Go.current = false), Rs(), Ir();
                 }
               }
               return;
@@ -1413,12 +1413,12 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
                 Vo.type === "stream_event" ||
                 (Vo.type === "system" && Vo.subtype === "status" && Vo.status === "requesting"))
             )
-              lt(!0), ns?.onTurnInFlight();
+              lt(true), ns?.onTurnInFlight();
             if (Vo.type === "tool_progress") ns?.onTurnInFlight();
             if (Vo.type === "user" && Vo.uuid && Hr.has(Vo.uuid)) {
               let Mr = Vo.uuid;
               if (Mr === S.initialPromptUuid) {
-                let Ri = JJ(Vo, { convertUserTextMessages: !0 });
+                let Ri = JJ(Vo, { convertUserTextMessages: true });
                 re((ws) => (Ri.type !== "message" || ws.some((Sl) => Sl.uuid === Mr) ? ws : [...ws, Ri.message]));
                 return;
               }
@@ -1427,7 +1427,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
                 let ws = Ri.findLastIndex((ia) => ia.uuid === Mr);
                 if (ws === -1) {
                   if (!Kr) return Ri;
-                  let ia = JJ(Vo, { convertUserTextMessages: !0 });
+                  let ia = JJ(Vo, { convertUserTextMessages: true });
                   return ia.type === "message" ? [...Ri, ia.message] : Ri;
                 }
                 if (ws === Ri.length - 1) return Ri;
@@ -1445,9 +1445,9 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
               ) {
                 if (Mv.hasReplyChannelInit({ mcp_servers: Mr.mcpServers, tools: Mr.tools })) ii();
                 else if (!to.current || Ai)
-                  (to.current = !1),
-                    (Ai = !1),
-                    qt((Kr) => (Kr.hasRemoteReplyChannel ? { ...Kr, hasRemoteReplyChannel: !1 } : Kr));
+                  (to.current = false),
+                    (Ai = false),
+                    qt((Kr) => (Kr.hasRemoteReplyChannel ? { ...Kr, hasRemoteReplyChannel: false } : Kr));
               }
               if (Mr.cwd)
                 if (Bn(Mr.cwd) || vu(Mr.cwd) || vu(kLe.normalize(Mr.cwd)) || _r(Mr.cwd) || _r(bLe(Mr.cwd)))
@@ -1471,15 +1471,15 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
                 n("[useRemoteSession] Ignoring fast_mode_state that is not on/cooldown/off", { level: "error" });
               else {
                 let Kr = Mr !== "off",
-                  Ri = !1;
+                  Ri = false;
                 if (
                   (qt((ws) => {
                     if (!!ws.fastMode === Kr) return ws;
-                    return (Ri = !0), { ...ws, fastMode: Kr };
+                    return (Ri = true), { ...ws, fastMode: Kr };
                   }),
                   Ri)
                 )
-                  s("tengu_fast_mode_toggled", { enabled: Kr, source: w("remote_wire_adopt"), remote: !0 });
+                  s("tengu_fast_mode_toggled", { enabled: Kr, source: w("remote_wire_adopt"), remote: true });
               }
             }
             if (Vo.type === "active_goal") {
@@ -1516,10 +1516,10 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
                 let Mr = Kn.current;
                 if (((Kn.current = Vo.status === "compacting"), Mr && Kn.current)) return;
               }
-              if (Vo.subtype === "compact_boundary") Kn.current = !1;
+              if (Vo.subtype === "compact_boundary") Kn.current = false;
             }
             if (Zvt(Vo))
-              if (((Kn.current = !1), (Rt.current = !1), (so.current = !1), lt(!1), Gt(), be.resetMetrics(), Vr)) {
+              if (((Kn.current = false), (Rt.current = false), (so.current = false), lt(false), Gt(), be.resetMetrics(), Vr)) {
                 if (jt.current > 0) jt.current--;
               } else Ie?.();
             if (Vo.type === "user") {
@@ -1565,7 +1565,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
               }
               return;
             }
-            let rs = JJ(Vo, { convertUserTextMessages: !0 });
+            let rs = JJ(Vo, { convertUserTextMessages: true });
             if (rs.type === "conversation_reset") {
               let { ownClear: Mr, preserved: Kr } = mr.onResetFrame();
               re((Ri) => {
@@ -1578,7 +1578,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
                 be.applyStreamingText(() => null),
                 Oe({ action: "clear" }),
                 Fe.inProgressToolUses.clear(),
-                lt(!1),
+                lt(false),
                 He?.(rs.newConversationId);
               return;
             }
@@ -1593,7 +1593,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
               if (!Zn && Vo.type === "user") {
                 let Kr = Vo.message?.content;
                 if (Array.isArray(Kr) && Kr.some((Ri) => Ri.type === "tool_result"))
-                  (Zn = !0),
+                  (Zn = true),
                     s("tengu_remote_tool_result_rendered", { viewer_only: c(S.viewerOnly ? "true" : "false") });
               }
               let Mr = rs.message.uuid;
@@ -1615,16 +1615,16 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
           },
           onPermissionRequest: (Vo, ur) => {
             if ((n(`[useRemoteSession] Permission request for tool: ${Vo.tool_name}`), S.viewerOnly)) {
-              lt(!1);
+              lt(false);
               return;
             }
-            if (qo.dispatch({ type: "control_request", request_id: ur, request: Vo })) lt(!1);
+            if (qo.dispatch({ type: "control_request", request_id: ur, request: Vo })) lt(false);
           },
           onPermissionCancelled: (Vo, ur) => {
-            if ((n(`[useRemoteSession] Permission request cancelled: ${Vo}`), qo.cancel(Vo), !Rt.current)) lt(!0);
+            if ((n(`[useRemoteSession] Permission request cancelled: ${Vo}`), qo.cancel(Vo), !Rt.current)) lt(true);
           },
           onUserDialogRequest: (Vo, ur) => {
-            if ((n(`[useRemoteSession] User dialog request: ${Vo.dialog_kind}`), lt(!1), S.viewerOnly)) return;
+            if ((n(`[useRemoteSession] User dialog request: ${Vo.dialog_kind}`), lt(false), S.viewerOnly)) return;
             So.dispatch({ type: "control_request", request_id: ur, request: Vo });
           },
           onUserDialogCancelled: (Vo) => {
@@ -1633,7 +1633,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
           ...(ns !== null && ns.callbacks),
           ...(Ja !== null && Ja.callbacks),
           onWorkerLive: () => {
-            Ja?.requestAnnounce(Ii ? "reconnected" : "attached"), Ja?.callbacks.onWorkerLive?.(), (Ii = !0);
+            Ja?.requestAnnounce(Ii ? "reconnected" : "attached"), Ja?.callbacks.onWorkerLive?.(), (Ii = true);
           },
           onConnected: () => {
             n("[useRemoteSession] Connected"), Qo("connected"), ns?.onStreamConnected(), Ms();
@@ -1641,8 +1641,8 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
           onReconnecting: () => {
             n("[useRemoteSession] Reconnecting"),
               Qo("reconnecting"),
-              (Rt.current = !1),
-              (so.current = !1),
+              (Rt.current = false),
+              (so.current = false),
               (jt.current = 0),
               uo.current.clear(),
               Pn(),
@@ -1666,7 +1666,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
               ]),
               $i.current === 0)
             )
-              lt(!1);
+              lt(false);
           },
           onResponseUndelivered: (Vo, ur, Vr) => {
             if (Ic.has(ur)) return;
@@ -1684,26 +1684,26 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
               qt((Vo) => (Vo.remoteAutocompactState === void 0 ? Vo : { ...Vo, remoteAutocompactState: void 0 })),
               Eo)
             )
-              Ho = !0;
+              Ho = true;
             else {
-              Eo = !0;
+              Eo = true;
               let Vo = S.sessionId;
               (async () => {
                 try {
                   do {
-                    Ho = !1;
+                    Ho = false;
                     try {
                       if ((await ur()) === "stale") return;
                     } catch {}
                   } while (Ho);
                 } finally {
-                  Eo = !1;
+                  Eo = false;
                 }
               })();
               async function ur() {
                 let Vr = await xme(Vo, Ve);
                 if (pr.current !== bs) return "stale";
-                let Ji = await vet(Vr, void 0, { reportFeatureHealth: !1 }),
+                let Ji = await vet(Vr, void 0, { reportFeatureHealth: false }),
                   rs = 0,
                   Mr = 0;
                 while (Ji && Mr < eie) {
@@ -1728,13 +1728,13 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
               (n("[useRemoteSession] Disconnected"),
               Vo === "session_stale_relogin" || (Vo === "untrusted_device" && Gs() && C3()))
             )
-              re((ur) => [...ur, Dt(r8({ terminal: !0, reason: Vo }), "warning")]);
+              re((ur) => [...ur, Dt(r8({ terminal: true, reason: Vo }), "warning")]);
             tn(),
               Qo("disconnected"),
-              (Rt.current = !1),
-              (so.current = !1),
+              (Rt.current = false),
+              (so.current = false),
               (jt.current = 0),
-              lt(!1),
+              lt(false),
               Ki(),
               uo.current.clear(),
               Pn(),
@@ -1766,7 +1766,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
             n("[useRemoteSession] Create permission mode already pushed for this session");
             return;
           }
-          Jl.pushed = !0;
+          Jl.pushed = true;
           let { mode: ur } = Jl,
             Vr = yet({
               manager: bs,
@@ -1831,7 +1831,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
       }
       function Dr() {
         if (((Xl = null), !Qu || pr.current !== bs)) return;
-        if (((Qu = !1), Fa === null || Fa === ca || Xr.current !== Al)) return;
+        if (((Qu = false), Fa === null || Fa === ca || Xr.current !== Al)) return;
         ao({
           key: "remote-launch-mode-not-applied",
           kind: "warning",
@@ -1844,7 +1844,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
         Zr = ki === void 0;
       function Ms() {
         if (Zr || pr.current !== bs) return;
-        if (((Zr = !0), ki === void 0 || !Gs())) return;
+        if (((Zr = true), ki === void 0 || !Gs())) return;
         try {
           let Vo = lo.getState().toolPermissionContext.mode;
           Re(ki),
@@ -1953,7 +1953,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
         ui = null,
         Ps = () =>
           (ui ?? Promise.resolve())
-            .then(() => bs.releaseHeldSends(ui === null ? void 0 : 100, { exiting: !0, final: !0 }))
+            .then(() => bs.releaseHeldSends(ui === null ? void 0 : 100, { exiting: true, final: true }))
             .then((Vo) =>
               er({
                 unsent: Nr.unsent + Vo.unsent,
@@ -1964,7 +1964,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
         Wa = vt(Ps),
         Zs = () => {
           Wa();
-          let Vo = bs.releaseHeldSends(void 0, { exiting: !0, final: ks() });
+          let Vo = bs.releaseHeldSends(void 0, { exiting: true, final: ks() });
           ui = Vo.catch(() => {});
           let ur = vt(Ps);
           Vo.then((Vr) => {
@@ -1994,9 +1994,9 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
             yi(),
             tn(),
             Qo("disconnected"),
-            lt(!1),
-            (Rt.current = !1),
-            (so.current = !1),
+            lt(false),
+            (Rt.current = false),
+            (so.current = false),
             (jt.current = 0),
             Ki(),
             uo.current.clear(),
@@ -2011,11 +2011,11 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
             qo.drain(),
             So.drain(),
             tn(),
-            (Qu = !1),
+            (Qu = false),
             Xl?.(),
             (Xl = null),
             Sc(),
-            WMe(S.sessionId, Cs, !0),
+            WMe(S.sessionId, Cs, true),
             X8e(S.sessionId),
             us(),
             Is?.teardown(),
@@ -2071,7 +2071,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
       (Eo) => {
         if (Pl.current || !S || S.initialPromptUuid || S.hasExplicitTitle || S.viewerOnly || S.isAttachToExisting)
           return;
-        Pl.current = !0;
+        Pl.current = true;
         let Ho = S.sessionId,
           Cn = typeof Eo === "string" ? Eo : zr(Eo, " ");
         if (Cn)
@@ -2084,11 +2084,11 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
     Qt = B(
       async (Eo, Ho) => {
         let Cn = pr.current;
-        if (!Cn) return n("[useRemoteSession] Cannot send - no manager"), !1;
+        if (!Cn) return n("[useRemoteSession] Cannot send - no manager"), false;
         No();
         let Zn = cn.current,
           Er = Rt.current;
-        if (((Rt.current = !1), lt(!0), Ho?.uuid)) Hr.add(Ho.uuid);
+        if (((Rt.current = false), lt(true), Ho?.uuid)) Hr.add(Ho.uuid);
         mr.noteSend(Ho), Oo.current?.messageSent();
         let Ai = await Cn.sendMessage(Eo, Ho);
         if ((Wi(), !Ai.ok))
@@ -2096,8 +2096,8 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
             (Rt.current = Rt.current || (Er && so.current)),
             mr.noteSendFailed(Ho),
             re((ii) => [...ii, Dt(wLe(Ai.reason), "warning")]),
-            lt(!1),
-            !1
+            lt(false),
+            false
           );
         if ((Mo(Eo), !S?.viewerOnly && cn.current === Zn)) {
           let ii = wet(Kn.current);
@@ -2107,13 +2107,13 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
             re((Ss) => [...Ss, As]), Cn.reconnect();
           }, ii);
         }
-        return !0;
+        return true;
       },
       [S, lt, re, vo, No, Wi, Mo, mr],
     ),
     Jo = B(async () => {
       if (Uo.current) return;
-      Uo.current = !0;
+      Uo.current = true;
       try {
         while (un.current.length > 0) {
           let Eo = un.current.shift();
@@ -2123,7 +2123,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
           await Qt(Eo.content, Eo.opts);
         }
       } finally {
-        Uo.current = !1;
+        Uo.current = false;
       }
     }, [Qt, Xo]);
   A(() => {
@@ -2133,16 +2133,16 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
   }, [Jo]);
   let lr = B(
       async (Eo, Ho) => {
-        if (!pr.current) return n("[useRemoteSession] Cannot send - no manager"), !1;
+        if (!pr.current) return n("[useRemoteSession] Cannot send - no manager"), false;
         if ((($i.current += 1), !S?.viewerOnly && (!en.current || Uo.current || un.current.length > 0))) {
           if (Ho?.uuid) Hr.add(Ho.uuid);
-          mr.noteSend(Ho), (Rt.current = !1), lt(!0), un.current.push({ content: Eo, opts: Ho });
+          mr.noteSend(Ho), (Rt.current = false), lt(true), un.current.push({ content: Eo, opts: Ho });
           let Er = nn.current ?? pK(Date.now());
           return (
             Xo({ ...Er, queuedCount: un.current.length }),
             Mo(Eo),
             n(`[useRemoteSession] Queued message during bootstrap (${un.current.length} queued)`),
-            !0
+            true
           );
         }
         return Qt(Eo, Ho);
@@ -2154,7 +2154,7 @@ function tie({ config: S, sink: x, requestDialog: P, toolPermissionContext: j, t
         pr.current?.cancelSession(), An();
         return;
       }
-      tn(), lt(!1);
+      tn(), lt(false);
     }, [S, lt, tn, An, Ki]),
     bn = B((Eo, Ho) => {
       let Cn = pr.current;
@@ -2265,9 +2265,9 @@ function aie(S, x) {
 
 function lie({ ssh: S, direct: x, ccr: P, ccrViewerOnly: j, ccrSessionId: H }) {
   return S.isRemoteMode
-    ? czt("ssh", S, !1)
+    ? czt("ssh", S, false)
     : x.isRemoteMode
-      ? czt("direct", x, !1)
+      ? czt("direct", x, false)
       : P.isRemoteMode
         ? czt("ccr", P, j, H)
         : azt;
@@ -2353,8 +2353,8 @@ class d$ {
     n(`[remote] Applied permission-mode broadcast: ${S}`);
   };
   refuseSubmit(S, x) {
-    if (!this.activeRemote.isRemoteMode) return !1;
-    if (!S.trim()) return !0;
+    if (!this.activeRemote.isRemoteMode) return false;
+    if (!S.trim()) return true;
     if (x === "bash")
       return (
         this.#n().addNotification({
@@ -2363,9 +2363,9 @@ class d$ {
           text: "'!' commands aren't available in cloud sessions yet",
           priority: "medium",
         }),
-        !0
+        true
       );
-    return !1;
+    return false;
   }
   submit(S, { pastedContents: x, fromKeybinding: P, recordHistory: j }) {
     let H = this.activeRemote;
@@ -2387,7 +2387,7 @@ class d$ {
             : `/${be} isn't available in cloud sessions yet`,
           priority: "medium",
         }),
-        j({ startsTurn: !1 }),
+        j({ startsTurn: false }),
         Promise.resolve()
       );
     if (Re !== "post-text") return null;
@@ -2419,8 +2419,8 @@ class d$ {
     if (
       (this.#e.transcript.replace((Pe) => [...Pe, Re]),
       this.#e.turn.stream.clearApiMetrics(),
-      H({ startsTurn: !0 }),
-      (await S.sendMessage(pe, { uuid: Re.uuid, ...(j && { clearsConversation: !0 }) })) && j)
+      H({ startsTurn: true }),
+      (await S.sendMessage(pe, { uuid: Re.uuid, ...(j && { clearsConversation: true }) })) && j)
     )
       this.#e.transcript.replace(() => []), this.#e.applyLocalConversationReset(_Le());
   }
@@ -2497,7 +2497,7 @@ function m$({
     Fe = Xre({ config: x, sink: be, requestDialog: Z.requestDialog, toolPermissionContext: Pe, tools: Oe }),
     Ve = nie({ session: P, sink: be, requestDialog: Z.requestDialog, toolPermissionContext: Pe, tools: Oe }),
     Ke = z(
-      () => lie({ ssh: Ve, direct: Fe, ccr: He, ccrViewerOnly: S?.viewerOnly ?? !1, ccrSessionId: S?.sessionId }),
+      () => lie({ ssh: Ve, direct: Fe, ccr: He, ccrViewerOnly: S?.viewerOnly ?? false, ccrSessionId: S?.sessionId }),
       [Ve, Fe, He, S?.viewerOnly, S?.sessionId],
     );
   return (
@@ -2577,7 +2577,7 @@ function Gd() {
 function ALe() {
   let S = qMn(),
     x = n2e();
-  return x !== null && (x.parksBlockingDialogs === !0 || S);
+  return x !== null && (x.parksBlockingDialogs === true || S);
 }
 
 function MLe() {
@@ -2625,9 +2625,9 @@ function fie(S) {
       let x = S.getState(),
         P = u1(x),
         j = t2e(x),
-        H = j !== null && (j.parksBlockingDialogs === !0 || P?.yieldsToPanels === !0),
+        H = j !== null && (j.parksBlockingDialogs === true || P?.yieldsToPanels === true),
         Z = j_.getState(),
-        re = Z.value.trim() !== "" && P?.yieldsToDraft === !0;
+        re = Z.value.trim() !== "" && P?.yieldsToDraft === true;
       return Ux() || uie() || H || re || Z.active || die() ? void 0 : P?.kind;
     },
   };
@@ -2641,7 +2641,7 @@ var Rg = go({
 });
 
 function gie(S, x) {
-  if (!I("tengu_gleaming_fair", !1)) return null;
+  if (!I("tengu_gleaming_fair", false)) return null;
   if (ie().resumeReturnDismissed) return null;
   let P = a.CLAUDE_CODE_RESUME_THRESHOLD_MINUTES ?? 70,
     j = a.CLAUDE_CODE_RESUME_TOKEN_THRESHOLD ?? 1e5,
@@ -2669,7 +2669,7 @@ async function hie(S, x, { getMessageCount: P, storage: j, runCompact: H }) {
   )
     await Ae((re) => {
       if (re.resumeReturnDismissed) return re;
-      return { ...re, resumeReturnDismissed: !0 };
+      return { ...re, resumeReturnDismissed: true };
     }, j);
   if (Z === "compact") H();
 }
@@ -2715,11 +2715,11 @@ async function Sie(S, x, P) {
           }),
         jobDirExists: (He) =>
           Ie("dir:" + He, async () => {
-            if (x !== void 0) return !0;
+            if (x !== void 0) return true;
             try {
-              return await yie(pe(He)), !0;
+              return await yie(pe(He)), true;
             } catch (Fe) {
-              if (X(Fe)) return !1;
+              if (X(Fe)) return false;
               throw Fe;
             }
           }),
@@ -2730,16 +2730,16 @@ async function Sie(S, x, P) {
                 Ve = P - Fe.mtimeMs;
               return Ve <= Pe && -Ve <= Pe + Oe;
             } catch (Fe) {
-              if (X(Fe)) return !1;
+              if (X(Fe)) return false;
               throw Fe;
             }
           }),
         jobPresent: (He) =>
           Ie("present:" + He, async () => {
             let Fe = await Re(He, x);
-            if (Fe.daemonUp && Fe.present) return !0;
-            let Ve = await Ie("roster", () => be({ silent: !0 }, x));
-            if (Ve.parseFailed === !0 || Ve.inspectFailed === !0) throw Error("roster unreadable");
+            if (Fe.daemonUp && Fe.present) return true;
+            let Ve = await Ie("roster", () => be({ silent: true }, x));
+            if (Ve.parseFailed === true || Ve.inspectFailed === true) throw Error("roster unreadable");
             return Ve.workers[He] !== void 0;
           }),
         freshConsentFor: (He, Fe) => Ie("consent:" + He + ":" + Fe, () => NLe(He, Fe, x, P, pe, Pe, Oe)),
@@ -2753,10 +2753,10 @@ async function NLe(S, x, P, j, H, Z, re = 60000) {
   let ue;
   if (P !== void 0) {
     let de = await P.read([{ key: Te.job(S, ["adopt.json"]), offset: 0, length: S$ + 1 }]);
-    if (!de.ok) return !0;
+    if (!de.ok) return true;
     let pe = de.value.items[0];
-    if (pe === void 0 || !pe.found) return !1;
-    if (pe.totalBytes > S$) return !0;
+    if (pe === void 0 || !pe.found) return false;
+    if (pe.totalBytes > S$) return true;
     ue = Buffer.from(pe.value).toString("utf8");
   } else {
     let de = ILe(H(S), "adopt.json"),
@@ -2766,7 +2766,7 @@ async function NLe(S, x, P, j, H, Z, re = 60000) {
       if (!Re.ok) return Re.error.kind !== "absent";
       pe = Re.value;
       let be = await pe.stat();
-      if (!be.isFile() || be.size > S$) return !0;
+      if (!be.isFile() || be.size > S$) return true;
       let Pe = Buffer.alloc(be.size),
         { bytesRead: Oe } = await pe.read(Pe, 0, be.size, 0);
       ue = Pe.subarray(0, Oe).toString("utf8");
@@ -2778,21 +2778,21 @@ async function NLe(S, x, P, j, H, Z, re = 60000) {
   }
   try {
     let de = JSON.parse(ue);
-    if (typeof de !== "object" || de === null || Array.isArray(de)) return !0;
+    if (typeof de !== "object" || de === null || Array.isArray(de)) return true;
     let pe = de,
       Re = typeof pe.writtenAtMs === "number" ? pe.writtenAtMs : void 0;
-    if (pe.frameLive === void 0) return !1;
-    if (!Array.isArray(pe.frameLive)) return !0;
-    if (pe.frameLive.length > DLe) return !0;
+    if (pe.frameLive === void 0) return false;
+    if (!Array.isArray(pe.frameLive)) return true;
+    if (pe.frameLive.length > DLe) return true;
     return pe.frameLive.some((be) => {
-      if (typeof be !== "object" || be === null) return !0;
+      if (typeof be !== "object" || be === null) return true;
       let Pe = be;
-      if (Pe.slug !== x) return !1;
+      if (Pe.slug !== x) return false;
       let Oe = typeof Pe.writtenAtMs === "number" ? Pe.writtenAtMs : Re;
       return Oe === void 0 || (j - Oe <= Z && Oe - j <= Z + re);
     });
   } catch {
-    return !0;
+    return true;
   }
 }
 
@@ -2836,9 +2836,9 @@ function b$(S, x) {
     P.warnUnknownPlaceholders(Z, re, ue);
     let Re = 0,
       be = [],
-      Pe = !1,
-      Oe = !1,
-      Ie = !1,
+      Pe = false,
+      Oe = false,
+      Ie = false,
       He = performance.now();
     try {
       for (let Ve of x.matchAll(de)) {
@@ -2857,7 +2857,7 @@ function b$(S, x) {
           ot = jLe(re, Ke);
         if (ot !== null && ot.length > wie) {
           if (!Oe)
-            (Oe = !0),
+            (Oe = true),
               n(`[footerLinks] dropping over-length url (${ot.length} > ${wie} chars) for pattern ${Z}`, {
                 level: "warn",
               }),
@@ -2867,7 +2867,7 @@ function b$(S, x) {
         let st = ot === null ? null : xie(ot);
         if (ot === null || !st || Rie(st) !== pe) {
           if (!Pe)
-            (Pe = !0),
+            (Pe = true),
               n(
                 `[footerLinks] dropping ${ot === null ? "dot-segment" : st ? "origin-shifted" : "unparseable"} url for pattern ${Z}`,
                 { level: "warn" },
@@ -2878,7 +2878,7 @@ function b$(S, x) {
         let nt = rt($Le(ue ? WLe(ue, Ke) : Ve[0]).trim(), LLe);
         if (nt === "") {
           if (!Ie)
-            (Ie = !0),
+            (Ie = true),
               n(`[footerLinks] dropping match with empty label for pattern ${Z}`, { level: "warn" }),
               g("repl_footer_links", "empty_label");
           continue;
@@ -3087,7 +3087,7 @@ function Uie(S) {
     if (!KLe(H)) continue;
     P++;
     let Z = [];
-    for (let re of Cf([H], !0)) {
+    for (let re of Cf([H], true)) {
       let ue = JLe(re);
       if (ue) Z.push(ue);
     }
@@ -3109,14 +3109,14 @@ function KLe(S) {
   if (S.type === "assistant")
     return Array.isArray(S.message.content) && S.message.content.some((x) => x.type === "text");
   if (S.type === "user") {
-    if (S.isMeta || !Array.isArray(S.message.content)) return !1;
+    if (S.isMeta || !Array.isArray(S.message.content)) return false;
     return S.message.content.some(
       (x) =>
         x.type === "tool_result" &&
         (typeof x.content === "string" || (Array.isArray(x.content) && x.content.some((P) => P.type === "text"))),
     );
   }
-  return !1;
+  return false;
 }
 
 function QLe(S) {
@@ -3128,7 +3128,7 @@ function QLe(S) {
 }
 
 function zLe(S) {
-  if (S.type !== "user" || !Array.isArray(S.message.content)) return !1;
+  if (S.type !== "user" || !Array.isArray(S.message.content)) return false;
   let x = S.message.content[0];
   return x?.type === "text" && (x.text === V_ || x.text === Vc);
 }
@@ -3137,7 +3137,7 @@ var Iie = `<system-reminder>
 `;
 
 function YLe(S) {
-  if (S.type !== "user") return !1;
+  if (S.type !== "user") return false;
   let x = S.message.content,
     P = typeof x === "string" ? x : Array.isArray(x) && x[0]?.type === "text" ? x[0].text : "",
     j = P.startsWith(Iie) ? P.slice(Iie.length) : P;
@@ -3216,7 +3216,7 @@ class T$ {
       this.#t === void 0 && this.#o !== void 0)
     )
       mYt("liveness");
-    (this.taskOutput = new Bx(S.taskId, null, !0)),
+    (this.taskOutput = new Bx(S.taskId, null, true)),
       (this.result = new Promise((x) => {
         this.#n = x;
       })),
@@ -3225,18 +3225,18 @@ class T$ {
   }
   async #c() {
     if (this.#r !== "backgrounded") return;
-    let S = !0;
+    let S = true;
     try {
       if ((process.kill(this.#e, 0), this.#t !== void 0)) {
-        if (!(await Bm(this.#e, this.#t))) S = !1;
+        if (!(await Bm(this.#e, this.#t))) S = false;
       } else if (this.#o !== void 0) {
         let x = await Cke(this.#e);
-        if (x !== null && x !== this.#o) S = !1;
+        if (x !== null && x !== this.#o) S = false;
       }
     } catch {
-      S = !1;
+      S = false;
     }
-    if (!S) await this.#a(!1);
+    if (!S) await this.#a(false);
   }
   async #a(S) {
     if (this.#r !== "backgrounded") return;
@@ -3266,10 +3266,10 @@ ${P}
     return this.#r;
   }
   background() {
-    return !0;
+    return true;
   }
   async kill() {
-    kge(this.#e, this.#o, this.#t), await this.#a(!0);
+    kge(this.#e, this.#o, this.#t), await this.#a(true);
   }
   cleanup() {
     if (this.#i) clearInterval(this.#i), (this.#i = null);
@@ -3285,7 +3285,7 @@ function $ie(S) {
 }
 
 function ZLe(S, x) {
-  if (S == null) return !1;
+  if (S == null) return false;
   let P = hr(S),
     j = hr(x);
   return P === j || Ye(P) === Ye(j);
@@ -3319,39 +3319,39 @@ function _$(S, x, P) {
     try {
       return x(S.getState());
     } catch {
-      return !1;
+      return false;
     }
   };
-  if (j()) return Promise.resolve(!0);
+  if (j()) return Promise.resolve(true);
   return new Promise((H) => {
     let Z = setTimeout(() => {
-        re(), H(!1);
+        re(), H(false);
       }, P.timeoutMs),
       re = S.subscribe(() => {
-        if (j()) clearTimeout(Z), re(), H(!0);
+        if (j()) clearTimeout(Z), re(), H(true);
       });
   });
 }
 
 function Sm(S, x, P) {
-  let j = !1,
-    H = !1,
+  let j = false,
+    H = false,
     Z = x(),
     re = void 0,
     ue = () => {
-      if (((H = !1), j)) return;
+      if (((H = false), j)) return;
       let be = x();
       if (be.every((Pe, Oe) => Object.is(Pe, Z[Oe]))) return;
       (Z = be), re?.(), (re = void 0), (re = P(...be));
     },
     de = () => {
       if (H || j) return;
-      (H = !0), queueMicrotask(ue);
+      (H = true), queueMicrotask(ue);
     },
     pe = S.map((be) => be.subscribe(de)),
     Re = () => {
       if (j) return;
-      j = !0;
+      j = true;
       for (let be of pe) be();
       re?.(), (re = void 0);
     };
@@ -3367,7 +3367,7 @@ var x$ = 60000,
   oOe = x$;
 
 function qie({ clock: S, store: x, queue: P, taskRegistry: j, dispatchWake: H }) {
-  let Z = !1,
+  let Z = false,
     re = new Set(),
     ue = new Map(),
     de = (Re) => {
@@ -3382,10 +3382,10 @@ function qie({ clock: S, store: x, queue: P, taskRegistry: j, dispatchWake: H })
         Oe = () => {
           P.consume(be.consumedCommands, { reason: "delivered_to_agent" });
         },
-        Ie = !1;
+        Ie = false;
       H(Re, be.prompt, Oe)
         .catch((He) => {
-          if (((Ie = !0), He instanceof SL || He instanceof yhe))
+          if (((Ie = true), He instanceof SL || He instanceof yhe))
             P.remove(be.consumedCommands, { reason: "agent_stopped" }),
               D7(Re, j),
               n(`[wakeRouter] dropping ${be.consumedCommands.length} event(s) for ${Re}: ${l(He)}`);
@@ -3414,7 +3414,7 @@ function qie({ clock: S, store: x, queue: P, taskRegistry: j, dispatchWake: H })
       },
     );
   return () => {
-    (Z = !0), pe();
+    (Z = true), pe();
     for (let Re of ue.values()) clearTimeout(Re);
     ue.clear();
   };
@@ -3436,7 +3436,7 @@ async function nOe(S, x, P) {
     let de = [H, ...lPe(S, x)];
     if (P$(ue)) throw (Ydt(S, de, x), ue);
     let pe = oFt(x.get(S), de);
-    if (ue instanceof SL && pe && nFt(x.get(S), { userInitiated: !0 }))
+    if (ue instanceof SL && pe && nFt(x.get(S), { userInitiated: true }))
       throw (
         (Ydt(S, de, x),
         new uB(
@@ -3462,7 +3462,7 @@ var aOe = { setTimeout: (S, x) => setTimeout(S, x), clearTimeout: (S) => clearTi
 
 function lOe({ taskRegistry: S, resume: x, onFailed: P, timers: j = aOe, random: H = Math.random }) {
   let Z = new Map(),
-    re = !1,
+    re = false,
     ue = (Re) => {
       let be = Z.get(Re)?.timer;
       if (be !== void 0) j.clearTimeout(be);
@@ -3477,7 +3477,7 @@ function lOe({ taskRegistry: S, resume: x, onFailed: P, timers: j = aOe, random:
         let Oe = { attempt: (Pe?.attempt ?? 0) + 1, transient: (Pe?.transient ?? 0) + (be instanceof uB ? 1 : 0) };
         if (Oe.transient > R$)
           throw (
-            (dr().agentResumeFailed.emit(Re, { error: be, undeliverable: lPe(Re, S), terminal: !0 }),
+            (dr().agentResumeFailed.emit(Re, { error: be, undeliverable: lPe(Re, S), terminal: true }),
             new fd(`still failing after ${R$} retries: ${l(be)}`))
           );
         let Ie = sOe(Oe.attempt, H);
@@ -3497,10 +3497,10 @@ function lOe({ taskRegistry: S, resume: x, onFailed: P, timers: j = aOe, random:
             if (!nFt(He, { userInitiated: Fe })) {
               ue(Re);
               let ot =
-                Ve === !0
+                Ve === true
                   ? new SL(`Agent ${Re} was stopped by the user and won't be resumed.`)
                   : new fd(`Agent ${Re} is ${Ke} and cannot take queued messages.`);
-              dr().agentResumeFailed.emit(Re, { error: ot, undeliverable: lPe(Re, S), terminal: !0 }), P(Re, ot);
+              dr().agentResumeFailed.emit(Re, { error: ot, undeliverable: lPe(Re, S), terminal: true }), P(Re, ot);
               return;
             }
             pe(Re);
@@ -3521,7 +3521,7 @@ function lOe({ taskRegistry: S, resume: x, onFailed: P, timers: j = aOe, random:
   return {
     dispatch: pe,
     dispose: () => {
-      re = !0;
+      re = true;
       for (let Re of [...Z.keys()]) ue(Re);
     },
   };
@@ -3600,8 +3600,8 @@ function Xie({ clock: S, transcript: x, queue: P }) {
               agentId: et(),
               value: fOe(de, Re, be),
               priority: "later",
-              skipSlashCommands: !0,
-              isMeta: !0,
+              skipSlashCommands: true,
+              isMeta: true,
             });
         }
         if (ue.dropped.length > 0) {
@@ -3620,8 +3620,8 @@ function Xie({ clock: S, transcript: x, queue: P }) {
               agentId: et(),
               value: hOe(de, pe, Re),
               priority: "later",
-              skipSlashCommands: !0,
-              isMeta: !0,
+              skipSlashCommands: true,
+              isMeta: true,
             });
         }
       },
@@ -3749,7 +3749,7 @@ var Iv = go({
     ),
   ),
   default: { behavior: "cancelled" },
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 
 function Zie({ clock: S, store: x, transcript: P, requestDialog: j, visibleDialog: H }) {
@@ -3758,7 +3758,7 @@ function Zie({ clock: S, store: x, transcript: P, requestDialog: j, visibleDialo
     ue = (Ie, He) => {
       let Fe = re.get(Ie);
       if (!Fe) return;
-      (Fe.superseded = !0), Fe.clearDeadline(), Fe.abort.abort(He), re.delete(Ie);
+      (Fe.superseded = true), Fe.clearDeadline(), Fe.abort.abort(He), re.delete(Ie);
     };
   z6e((Ie, He, Fe) => {
     ue(Ie, "superseded");
@@ -3776,7 +3776,7 @@ function Zie({ clock: S, store: x, transcript: P, requestDialog: j, visibleDialo
       j && (Fe === "mode-mismatch" || Fe === "no-mode-asserted"))
     ) {
       let st = new AbortController(),
-        nt = !1,
+        nt = false,
         Pt = R9(),
         kt = null,
         Ht = () => {
@@ -3787,7 +3787,7 @@ function Zie({ clock: S, store: x, transcript: P, requestDialog: j, visibleDialo
               return;
             }
             if ((oZ("policy-accepts"), yt.superseded)) return;
-            (nt = !0), st.abort("expired");
+            (nt = true), st.abort("expired");
           }, Pt);
         },
         yt = {
@@ -3798,7 +3798,7 @@ function Zie({ clock: S, store: x, transcript: P, requestDialog: j, visibleDialo
           rearmDeadline: () => {
             kt?.(), (kt = null), Ht();
           },
-          superseded: !1,
+          superseded: false,
         };
       re.set(Ie, yt),
         Ht(),
@@ -3811,7 +3811,7 @@ function Zie({ clock: S, store: x, transcript: P, requestDialog: j, visibleDialo
             holdCause: Fe,
             preview: Ve.dialogBody,
           },
-          { signal: st.signal, queueBehind: !0 },
+          { signal: st.signal, queueBehind: true },
         )
           .then((lt) => {
             if ((yt.clearDeadline(), yt.superseded)) return;
@@ -3986,7 +3986,7 @@ var COe = 50,
   ese = new WeakMap();
 
 async function vOe(S, x) {
-  let P = await S.listEntries({ namespace: "job", jobId: x }, { limit: 1, skipKeyStats: !0, skipScopeStats: !0 });
+  let P = await S.listEntries({ namespace: "job", jobId: x }, { limit: 1, skipKeyStats: true, skipScopeStats: true });
   if (!P.ok) return { refused: Ge(P.error) };
   return { present: P.value.items.length > 0 || P.value.cursor !== void 0 };
 }
@@ -4005,13 +4005,13 @@ function wOe(S, x) {
 }
 
 function HD(S, x, P, j, H) {
-  let Z = !1,
+  let Z = false,
     re,
     ue = 0,
-    de = !1,
+    de = false,
     pe,
-    Re = !1,
-    be = !1,
+    Re = false,
+    be = false,
     Pe = () => {
       if (H?.deferWhile?.()) {
         if (pe === void 0)
@@ -4022,17 +4022,17 @@ function HD(S, x, P, j, H) {
         return;
       }
       if (Re) {
-        be = !0;
+        be = true;
         return;
       }
-      (Re = !0),
+      (Re = true),
         Promise.resolve()
           .then(P)
           .catch((Ke) => {
             n(`${j} re-read failed: ${l(Ke)}`, { level: "warn" });
           })
           .finally(() => {
-            if (((Re = !1), be && !Z)) (be = !1), Pe();
+            if (((Re = false), be && !Z)) (be = false), Pe();
           });
     },
     Oe = (Ke) => {
@@ -4049,7 +4049,7 @@ function HD(S, x, P, j, H) {
         ue++;
         return;
       }
-      (de = !0), He();
+      (de = true), He();
     },
     He = () => {
       let Ke = ++ue,
@@ -4094,7 +4094,7 @@ function HD(S, x, P, j, H) {
       He();
     })(),
     () => {
-      (Z = !0), clearTimeout(pe), re?.unsubscribe(), (re = void 0);
+      (Z = true), clearTimeout(pe), re?.unsubscribe(), (re = void 0);
     }
   );
 }
@@ -4151,19 +4151,19 @@ function ROe({ session: S, storageV5: x, credentials: P, setAppState: j }) {
       let Oe = be.nameSource ?? "auto";
       await ose(Pe, Oe === "user" ? "peer" : Oe, x, P);
     },
-    de = !1,
-    pe = !1,
+    de = false,
+    pe = false,
     Re = async () => {
       if (de) {
-        pe = !0;
+        pe = true;
         return;
       }
-      de = !0;
+      de = true;
       try {
-        do (pe = !1), await ue();
+        do (pe = false), await ue();
         while (pe);
       } finally {
-        de = !1;
+        de = false;
       }
     };
   if (x && Zt(H)) return HD(x, H, Re, "[jobStateNameSync]", { deferWhile: kBt });
@@ -4198,24 +4198,24 @@ function POe({ session: S, storageV5: x, credentials: P, setAppState: j, onYield
       if (!be || nS()?.name !== pe) return;
       if ((j((Pe) => Pse(Pe, { name: be })), !gl())) {
         if (HPe(S.id, Re, be)) pF(be), QSe(be);
-      } else if (HPe(S.id, Re, be)) gSe(be, "collision", x, !1, !1, P);
-      else ZIe(be, "collision", x, void 0, !1, void 0, P);
+      } else if (HPe(S.id, Re, be)) gSe(be, "collision", x, false, false, P);
+      else ZIe(be, "collision", x, void 0, false, void 0, P);
       H?.(be, Re);
     },
     re = ih(),
     ue = x2t();
   if (ue) Z(...ue);
-  re.hasAdopter = !0;
+  re.hasAdopter = true;
   let de = re.yielded.subscribe((pe, Re) => {
     x2t(), Z(pe, Re);
   });
   return () => {
-    (re.hasAdopter = !1), de();
+    (re.hasAdopter = false), de();
   };
 }
 
 function ose(S, x, P, j) {
-  return N4e(S, x, P, !1, !1, j).then(
+  return N4e(S, x, P, false, false, j).then(
     () => {},
     (H) => h(H),
   );
@@ -4316,7 +4316,7 @@ function ase({ initialMessages: S, transcript: x, store: P, storageV5: j, addNot
   let re = S ?? [],
     ue = (Pe) => {
       if (Pe === void 0) return;
-      x.replace((Oe) => [...Oe, xe({ content: Pe, isMeta: !0 })]);
+      x.replace((Oe) => [...Oe, xe({ content: Pe, isMeta: true })]);
     },
     de = r$n();
   if (de === null) {
@@ -4389,7 +4389,7 @@ function cse({ store: S, setAppState: x, storageV5: P }) {
               Dee(Pe),
               {
                 ...ue,
-                tasks: { ...ue.tasks, [Z]: { ...de, diskLoaded: !0 } },
+                tasks: { ...ue.tasks, [Z]: { ...de, diskLoaded: true } },
                 transcripts: {
                   ...ue.transcripts,
                   [Z]: { inProgressToolUseIDs: new Set(), ...pe, messages: [...Pe, ...Re] },
@@ -4431,7 +4431,7 @@ class $D {
   _spinnerStore;
   _pendingHookMessages;
   _hookMessagesLanded;
-  _disposed = !1;
+  _disposed = false;
   adoptedPrefillRef;
   _adoptedPrefill = void 0;
   _adoptedFrameLive = void 0;
@@ -4523,7 +4523,7 @@ class $D {
     this._publish({ conversationId: dse() });
   };
   applyConversationReset = (S) => {
-    (this.turn.haikuTitleAttempted = !1),
+    (this.turn.haikuTitleAttempted = false),
       this._publish({ conversationId: S, haikuTitle: void 0 }),
       this.turn.resetSessionSignals(),
       this.turn.clearBackgroundWaitAnchor(),
@@ -4630,7 +4630,7 @@ class $D {
         dr().inheritPredecessorLinks(ohn(yt), x.modified.getTime());
       if (P !== "fork") R$n(x.artifactCommentMonitor, { ...(Re !== void 0 && { storageV5: Re }) });
       if (kt) {
-        let so = nQ(Ke, kt, !1, Re, be);
+        let so = nQ(Ke, kt, false, Re, be);
         if (so)
           Z((jt) => {
             if (jt.mainLoopModel === so) return jt;
@@ -4650,7 +4650,7 @@ class $D {
         (sRe(Ve, H.setState, this.sessionHooks, { preserveLiveBudget: P === "fork" || P === "rewind_pre_clear" }),
         Wqe(Hte(x), Z),
         Kqe(),
-        rH(P === "fork" ? kPe(x, { stripRelocatedCwd: !0 }) : { ...x, artifactCommentMonitor: void 0 }, {
+        rH(P === "fork" ? kPe(x, { stripRelocatedCwd: true }) : { ...x, artifactCommentMonitor: void 0 }, {
           taintSid: lt,
           storageV5: Re,
         }),
@@ -4664,9 +4664,9 @@ class $D {
         Z((so) =>
           so.replBridgeEnabled && !so.replBridgeOutboundOnly
             ? so
-            : { ...so, replBridgeEnabled: !0, replBridgeOutboundOnly: !1 },
+            : { ...so, replBridgeEnabled: true, replBridgeOutboundOnly: false },
         );
-      if (((re.haikuTitleAttempted = !0), this._publish({ haikuTitle: void 0 }), P !== "fork")) {
+      if (((re.haikuTitleAttempted = true), this._publish({ haikuTitle: void 0 }), P !== "fork")) {
         e8t(x.worktreeSession === void 0 ? x.projectPath : x.worktreeSession?.worktreePath, Re);
         let so = SK(dL.of(j.host), x.worktreeSession, x.projectPath, { storageV5: Re });
         if (so) Ke.push(Dt(uRe(so), "warning"));
@@ -4686,7 +4686,7 @@ class $D {
               lo = "unknown",
               To,
               ao = 0,
-              jo = !1;
+              jo = false;
             try {
               let { listRegisteredSessionRecords: Yt } = await import("/$bunfs/root/chunk-j0bs780t.js"),
                 No = await ghe({
@@ -4696,7 +4696,7 @@ class $D {
                   isRunning: ms,
                   isSameProcess: r0,
                 });
-              (jo = !0), (lo = No.verdict), (To = No.holder), (ao = No.otherHolders?.length ?? 0);
+              (jo = true), (lo = No.verdict), (To = No.holder), (ao = No.otherHolders?.length ?? 0);
             } catch {
               g("artifact_live_subscribe", "holder_probe_failed");
             }
@@ -4744,14 +4744,14 @@ class $D {
       if (P !== "fork") this.maybePromptStaleResume(Ke);
       s("tengu_session_resumed", {
         entrypoint: c(P),
-        success: !0,
+        success: true,
         resume_duration_ms: Math.round(performance.now() - Fe),
       });
     } catch (Ve) {
       throw (
         (s("tengu_session_resumed", {
           entrypoint: c(P),
-          success: !1,
+          success: false,
           failure_reason: w("processing_error"),
           error_name: Oj(we(Ve)),
         }),
@@ -4759,14 +4759,14 @@ class $D {
       );
     }
   };
-  rehydrateResumedFrameState(S, x = !1) {
+  rehydrateResumedFrameState(S, x = false) {
     let { _setAppState: P } = this;
     dhe(P, nMe() ? w6e(S) : { frameUrls: {}, artifactReadVersions: {}, artifactRefs: [], createdFromType: {} }, {
       legacyConflict: sv(),
       continuesConversation: x,
     });
   }
-  restoreReadFileState(S, x, P = !1) {
+  restoreReadFileState(S, x, P = false) {
     let { scope: j, turn: H, store: Z } = this;
     j.mergeReadFileStateFrom(S, x),
       H.resetSessionSignals(),
@@ -4777,7 +4777,7 @@ class $D {
   start() {
     let S = [],
       x = () => {
-        this._disposed = !0;
+        this._disposed = true;
         for (let P = S.length - 1; P >= 0; P--) S[P]();
         Ree.of(this.session).shutdown();
       };
@@ -4942,7 +4942,7 @@ class $D {
     });
   }
   _landHookMessages(S) {
-    if (((this._hookMessagesLanded = !0), (this._pendingHookMessages = null), S.length > 0))
+    if (((this._hookMessagesLanded = true), (this._pendingHookMessages = null), S.length > 0))
       this.transcript.replace((x) => [...S, ...x]);
   }
   awaitPendingHooks = () => {
@@ -5075,8 +5075,8 @@ class $D {
               sYt(
                 Pe.cron.filter((Ve) => {
                   if (Ve.agentId !== void 0 && !Oe.has(Ve.agentId))
-                    return g("task_local_agent", "adopt_owner_skipped", { skipped_kind: c("cron") }), !1;
-                  return !0;
+                    return g("task_local_agent", "adopt_owner_skipped", { skipped_kind: c("cron") }), false;
+                  return true;
                 }),
                 Pe.loopWakeFires,
               );
@@ -5148,7 +5148,7 @@ class $D {
           gW({
             agentId: pe.agentId,
             prompt: pe.description ?? "(resumed agent)",
-            continueInterruptedTurn: !0,
+            continueInterruptedTurn: true,
             toolUseContext: this._buildIdleToolUseContext(),
             canUseTool: de,
           })
@@ -5183,7 +5183,7 @@ class $D {
           gW({
             agentId: re.agentId,
             prompt: re.description,
-            continueInterruptedTurn: !0,
+            continueInterruptedTurn: true,
             toolUseContext: this._buildIdleToolUseContext(),
             canUseTool: Z,
             isWebFetchLaunch: re.isWebFetchLaunch,
@@ -5213,7 +5213,7 @@ class $D {
         new AbortController(),
         this._requireHost().mainLoopModel,
       ),
-      x = await m4e(S.options.tools, this.store.getState().toolPermissionContext, { promptless: !0 });
+      x = await m4e(S.options.tools, this.store.getState().toolPermissionContext, { promptless: true });
     return { toolUseContext: S, allowed: x };
   };
   discloseUnattendedActivity = (S) => {
@@ -5230,7 +5230,7 @@ class $D {
       ue = j.bySlug.size === 1 && re.length === 1 ? ` on ${re[0]}` : "",
       de = Nh("chat:killAgents", "Chat", "ctrl+x ctrl+k"),
       pe =
-        H.length > 0 || S?.willRearm === !0 || _he().size > 0
+        H.length > 0 || S?.willRearm === true || _he().size > 0
           ? ` To turn off automatic replies, stop the Artifact comment monitor task, or press ${de} twice to turn them off for this session.`
           : "";
     P((Re) => [...Re, xot(j.total, { where: ue, stop: pe })]);
@@ -5363,8 +5363,8 @@ class $D {
             Fe[He] = { id: He, type: "image", content: Pe.source.data, mediaType: Pe.source.media_type };
           }
         });
-        let de = yee({ display: H?.text ?? "", pastedContents: ue, allowCurrentEpochSkip: !1 }),
-          pe = yee({ display: de.display, pastedContents: re, allowCurrentEpochSkip: !0 }),
+        let de = yee({ display: H?.text ?? "", pastedContents: ue, allowCurrentEpochSkip: false }),
+          pe = yee({ display: de.display, pastedContents: re, allowCurrentEpochSkip: true }),
           Re = { ...de.pastedContents, ...pe.pastedContents };
         if (H && pe.display !== H.text) j.replaceValue(pe.display);
         let be = p6(P, "storedImagePaths");
@@ -5430,7 +5430,7 @@ class $D {
   async onInit() {
     let { session: S, scope: x, engine: P, storageV5: j, credentials: H } = this;
     x.apiKeyVerification.verify({ credentials: H, storageV5: j });
-    let Z = gH() ? [] : await J_(S, !1, j, H);
+    let Z = gH() ? [] : await J_(S, false, j, H);
     if (Z.length > 0) {
       let ue = Z.map(
         (de) =>
@@ -5455,8 +5455,8 @@ ${ue}`);
         limit: void 0,
         isPartialView: ue.contentDiffersFromDisk,
         seededFromContext: de,
-        ...(!de && { contentNotInModelContext: !0 }),
-        keepContent: !0,
+        ...(!de && { contentNotInModelContext: true }),
+        keepContent: true,
       }),
         P.seedReadState(ue.path, pe);
   }
@@ -5481,7 +5481,7 @@ Error: sandbox required but unavailable: ${j}
 `,
         ),
         Jr(1, "other"),
-        { stop: () => {}, refused: !0 }
+        { stop: () => {}, refused: true }
       );
     if (j) n(`sandbox disabled: ${j}`, { level: "warn" });
     let H = j ? void 0 : pt.getMaskCredentialWarning();
@@ -5492,7 +5492,7 @@ Error: sandbox required but unavailable: ${j}
           if (re.setupIssues.sandboxIssueCount === 1) return re;
           return { ...re, setupIssues: { ...re.setupIssues, sandboxIssueCount: 1 } };
         });
-    if (P) return { stop: () => {}, refused: !1 };
+    if (P) return { stop: () => {}, refused: false };
     return {
       stop: Sm(
         [S],
@@ -5507,7 +5507,7 @@ Error: sandbox required but unavailable: ${j}
           });
         },
       ),
-      refused: !1,
+      refused: false,
     };
   }
   ask = async (S) => {
@@ -5524,14 +5524,14 @@ Error: sandbox required but unavailable: ${j}
       { mode: pe, isBypassPermissionsModeAvailable: Re } = de.toolPermissionContext;
     switch (e1e(pe, Re)) {
       case "allow":
-        return !0;
+        return true;
       case "deny":
-        return !1;
+        return false;
       case "classify":
         return Z.sandboxClassifierVerdicts().getOrClassify(S.host, S.port, Qve(re()), () =>
           eDe(S.host, S.port, re(), Z.computeTools(), de.toolPermissionContext, new AbortController().signal, {
             isSubagentLoop: sP(void 0),
-            recordPresumed: !0,
+            recordPresumed: true,
             storageV5: j,
             credentials: H,
           }),
@@ -5546,10 +5546,10 @@ Error: sandbox required but unavailable: ${j}
             `[sandbox] Refusing to forward a worker ask for a host srt would re-spell: ${BG(S.host) ?? "(unshowable)"}`,
             { level: "warn" },
           ),
-          !1
+          false
         );
       let Pe = ZUn();
-      if (!(await eBn(S.host, Pe, void 0, j))) return ue.ask(S, { forwardToBridge: !1 });
+      if (!(await eBn(S.host, Pe, void 0, j))) return ue.ask(S, { forwardToBridge: false });
       return new Promise((Ie) => {
         KUn({ requestId: Pe, host: S.host, resolve: Ie }),
           P((He) => ({ ...He, pendingSandboxRequest: { requestId: Pe, host: S.host } }));

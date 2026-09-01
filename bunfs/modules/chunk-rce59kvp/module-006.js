@@ -102,26 +102,26 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
     Ht = C(new Set()),
     yt = C(new Map()),
     lt = C({}),
-    Rt = C(!1),
-    to = C(!1),
-    so = C(!1),
+    Rt = C(false),
+    to = C(false),
+    so = C(false),
     jt = C(void 0);
   A(() => (TUt(() => ({ foreign: Rt.current || so.current, boundSid: jt.current })), () => TUt(void 0)), []);
   let Gt = C(void 0),
     vo = C(0),
     qt = C(void 0),
     lo = C(void 0),
-    To = C(!1),
+    To = C(false),
     ao = C(void 0),
-    jo = C(!1);
+    jo = C(false);
   A(
     () =>
       $5(() => {
-        if (Ve.current) jo.current = !0;
+        if (Ve.current) jo.current = true;
       }),
     [],
   );
-  let Qo = C(!1),
+  let Qo = C(false),
     uo = C(a.CLAUDE_BRIDGE_REATTACH_SESSION !== void 0),
     Pn = C(void 0),
     Yt = C(void 0),
@@ -132,7 +132,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
     pn = C(void 0),
     Go = C(void 0),
     Oo = C(void 0),
-    xo = C(!1),
+    xo = C(false),
     dn = C(void 0),
     Xo = C(void 0),
     zo = C(0),
@@ -150,26 +150,26 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
       (Uo.current = void 0),
       (ao.current = void 0);
     let Qt = nn.current;
-    if (((nn.current = void 0), !Qt)) return !1;
-    if (Mo) return Qt.fire().finally(() => Qt.unregister()), !0;
-    return Qt.unregister(), !1;
+    if (((nn.current = void 0), !Qt)) return false;
+    if (Mo) return Qt.fire().finally(() => Qt.unregister()), true;
+    return Qt.unregister(), false;
   }
   let mr = C([]);
   function Pr() {
-    for (let Mo of mr.current) u2(Mo.sessionId, Mo.path, { targetExists: !0 }, be);
+    for (let Mo of mr.current) u2(Mo.sessionId, Mo.path, { targetExists: true }, be);
     mr.current = [];
   }
   let Ir = At(),
     An = br(() => j),
     Wr = br(() => H),
     Kn = br((Mo) => {
-      if (!de) return !1;
+      if (!de) return false;
       let Qt = Urt(Mo, j);
-      if (!Qt) return !1;
+      if (!Qt) return false;
       return (
-        s("tengu_immediate_command_executed", { commandName: Qt.displayName, fromKeybinding: !1, bridgeOrigin: !0 }),
+        s("tengu_immediate_command_executed", { commandName: Qt.displayName, fromKeybinding: false, bridgeOrigin: true }),
         de(Qt.target, Qt.args, Qt.displayName),
-        !0
+        true
       );
     }),
     Tn = Xn(),
@@ -192,7 +192,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
     Zi = Wn && !Xr,
     Ca = Zi ? hW(at(), Hr) : null,
     [va, qo] = u(() => process.env.CLAUDE_BG_SOURCE === "spare");
-  if (va && S.some(RV)) qo(!1);
+  if (va && S.some(RV)) qo(false);
   A(() => (r5e(kVe), () => r5e(void 0)), []),
     A(() => {
       if (sn() || va) return;
@@ -253,17 +253,17 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
           );
       let Qt = Tn.getState().replBridgeExplicit,
         Jo = uo.current;
-      function lr(Fr, ai = !1) {
+      function lr(Fr, ai = false) {
         if ((n(`[bridge:repl] notifyBridgeFailed detail="${Fr}" outboundOnly=${Mo} wasConnected=${ai}`), Mo)) return;
         hi({
           key: FR,
           kind: "warning",
           segments: [
             { text: `Remote Control ${ai ? "disconnected" : "failed"}`, color: "error" },
-            { text: ` \xB7 ${Fr || "/remote-control"}`, dim: !0 },
+            { text: ` \xB7 ${Fr || "/remote-control"}`, dim: true },
           ],
           priority: "immediate",
-          requeueOnPreempt: !0,
+          requeueOnPreempt: true,
           invalidates: [FR],
         });
       }
@@ -328,7 +328,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
               ...Fr,
               replBridgeError: Mge,
               replBridgeErrorKind: "terminal",
-              replBridgeEnabled: !1,
+              replBridgeEnabled: false,
               replBridgeSessionGroupingId: void 0,
             };
           });
@@ -344,7 +344,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
               kind: "warning",
               segments: [
                 { text: "Remote Control: unsigned activity burst rejected", color: "error" },
-                { text: " \xB7 further warnings suppressed", dim: !0 },
+                { text: " \xB7 further warnings suppressed", dim: true },
               ],
               priority: "immediate",
             }),
@@ -361,7 +361,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
             kind: "warning",
             segments: [
               { text: `Remote Control: unsigned ${Ms} rejected`, color: "error" },
-              { text: ` \xB7 attestation: ${ai}${Is ? ` \u2014 ${Is}` : ""}`, dim: !0 },
+              { text: ` \xB7 attestation: ${ai}${Is ? ` \u2014 ${Is}` : ""}`, dim: true },
             ],
             priority: "immediate",
           });
@@ -376,25 +376,25 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
           )
             Ve.current?.sendControlResponse(
               { type: "control_response", response: { subtype: "error", request_id: ki, error: y8e(Fr) } },
-              { skipStateReport: !0 },
+              { skipStateReport: true },
             );
         });
-      let Eo = !1,
+      let Eo = false,
         Ho = S.length,
-        Cn = !1,
+        Cn = false,
         Zn = K();
       jt.current = Zn;
       let Er = Hl(),
         Ai = Zn,
         ii = null,
         As = () => (Zn === K() ? (gl() ?? Er) : Er);
-      if (tn.current !== void 0 && tn.current !== Zn) Rn({ archiveAbandoned: !0 });
+      if (tn.current !== void 0 && tn.current !== Zn) Rn({ archiveAbandoned: true });
       let Ss =
         (No.current !== void 0 && S[0]?.uuid !== No.current) ||
         (cn.current !== void 0 && S[cn.current.index]?.uuid !== cn.current.uuid);
       if (Ss) zpt();
       let Ii = !Ss && Yt.current !== void 0 ? Math.min(Yt.current, S.length) : void 0,
-        Ha = !1;
+        Ha = false;
       function Ac() {
         let Fr = lt.current.head,
           ai = lt.current.eligible;
@@ -429,13 +429,13 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
           Ir((ki) => {
             if (!ki.replBridgeError) return ki;
             return (
-              (Ha = !0),
+              (Ha = true),
               s("tengu_bridge_repl_auto_disabled", { had_session: Dr !== null }),
               {
                 ...ki,
-                replBridgeEnabled: !1,
+                replBridgeEnabled: false,
                 replBridgeSessionGroupingId: void 0,
-                ...(Dr && { replBridgeSkipNextArchive: !0 }),
+                ...(Dr && { replBridgeSkipNextArchive: true }),
               }
             );
           });
@@ -445,14 +445,14 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
         ns = new Map(),
         la = new Set();
       if (!Ss && qt.current !== void 0) for (let Fr of Pn.current ?? []) la.add(Fr);
-      (Rt.current = !1), (to.current = !1);
+      (Rt.current = false), (to.current = false);
       let bs = UD.of(Ie).subscribe(() => {
           if (Eo) return;
           if (Rt.current) {
-            to.current = !0;
+            to.current = true;
             return;
           }
-          (to.current = !1), (so.current = !1);
+          (to.current = false), (so.current = false);
         }),
         wa = au((Fr, ai) => {
           if (Eo) return;
@@ -475,13 +475,13 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
             }
             return;
           }
-          (Rt.current = !1), (to.current = !1), (so.current = !1);
+          (Rt.current = false), (to.current = false), (so.current = false);
           try {
             if (!Mo) {
               let Zr = Dr === Zn ? gl() : ii;
               if (Zr !== null) mr.current.push({ sessionId: Zn, path: Zr });
             }
-            (ii = null), (Zn = K()), (jt.current = Zn), (Er = Hl()), (kt.current = 0), (Cn = !0);
+            (ii = null), (Zn = K()), (jt.current = Zn), (Er = Hl()), (kt.current = 0), (Cn = true);
             let ki = Ve.current;
             if (ki && !Mo)
               rH({
@@ -499,7 +499,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
         });
       function Jl(Fr) {
         let ai = Fr.response?.request_id;
-        if (!ai) return !1;
+        if (!ai) return false;
         let Dr = ns.get(ai);
         if (Dr) {
           let Ms = Fr.response;
@@ -508,9 +508,9 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
               n(`[bridge:repl] Ignoring non-dialog-shaped control_response for pending dialog request_id=${ai}`, {
                 level: "verbose",
               }),
-              !1
+              false
             );
-          return ns.delete(ai), Dr.handler(Ms.response), !0;
+          return ns.delete(ai), Dr.handler(Ms.response), true;
         }
         let ki = Ja.get(ai);
         if (!ki)
@@ -519,18 +519,18 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
               `[bridge:repl] No handler for control_response request_id=${ai} (late response after local resolve, stale reattach dialog, or unknown id)`,
               { level: "verbose" },
             ),
-            !1
+            false
           );
         let Zr = Fr.response;
         if (Zr.subtype === "success" && Zr.response) {
           let Ms = k3n(Zr.response);
-          if (!Ms) return !1;
-          if (Gye(Ms.toolName, ki.toolName, ai)) return !1;
-          return Ja.delete(ai), ki.handler(Ms), !0;
+          if (!Ms) return false;
+          if (Gye(Ms.toolName, ki.toolName, ai)) return false;
+          return Ja.delete(ai), ki.handler(Ms), true;
         }
-        return Ja.delete(ai), !0;
+        return Ja.delete(ai), true;
       }
-      let Au = !1,
+      let Au = false,
         ca = null,
         Al = void 0,
         ap;
@@ -550,13 +550,13 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
           if ((n(`[bridge:repl] Mirror state=${Fr}${ai ? ` detail=${ai}` : ""}`), Fr === "failed"))
             Ir((Zr) => {
               if (!Zr.replBridgeConnected) return Zr;
-              return { ...Zr, replBridgeConnected: !1 };
+              return { ...Zr, replBridgeConnected: false };
             });
           else if (Fr === "ready" || Fr === "connected") {
             if (Fr === "connected" && Ve.current && !Tn.getState().replBridgeConnected) Hme(Ve.current);
             Ir((Zr) => {
               if (Zr.replBridgeConnected) return Zr;
-              return { ...Zr, replBridgeConnected: !0 };
+              return { ...Zr, replBridgeConnected: true };
             });
           }
           return;
@@ -581,9 +581,9 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                   return Zr;
                 return {
                   ...Zr,
-                  replBridgeConnected: !0,
-                  replBridgeSessionActive: !1,
-                  replBridgeReconnecting: !1,
+                  replBridgeConnected: true,
+                  replBridgeSessionActive: false,
+                  replBridgeReconnecting: false,
                   replBridgeSessionUrl: Ms,
                   replBridgeEnvironmentId: Is,
                   replBridgeSessionId: Ra,
@@ -599,9 +599,9 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                 if (Zr.replBridgeSessionActive) return Zr;
                 return {
                   ...Zr,
-                  replBridgeConnected: !0,
-                  replBridgeSessionActive: !0,
-                  replBridgeReconnecting: !1,
+                  replBridgeConnected: true,
+                  replBridgeSessionActive: true,
+                  replBridgeReconnecting: false,
                   replBridgeError: void 0,
                   replBridgeErrorKind: void 0,
                 };
@@ -611,7 +611,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
             ) {
               let Zr = aPn();
               if (Zr && lPn(Zr, Qt, Jo)) {
-                if (((Qo.current = !0), Zr.probability >= 1 || Math.random() < Zr.probability))
+                if (((Qo.current = true), Zr.probability >= 1 || Math.random() < Zr.probability))
                   ki.writeSdkMessages([cer(JIn, K())]), cPn(Zr, be);
               }
             }
@@ -620,7 +620,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
           case "reconnecting":
             Ir((Zr) => {
               if (Zr.replBridgeReconnecting) return Zr;
-              return { ...Zr, replBridgeReconnecting: !0, replBridgeSessionActive: !1 };
+              return { ...Zr, replBridgeReconnecting: true, replBridgeSessionActive: false };
             });
             break;
           case "failed": {
@@ -631,9 +631,9 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                 ...Ms,
                 replBridgeError: ai,
                 replBridgeErrorKind: Zr,
-                replBridgeReconnecting: !1,
-                replBridgeSessionActive: !1,
-                replBridgeConnected: !1,
+                replBridgeReconnecting: false,
+                replBridgeSessionActive: false,
+                replBridgeConnected: false,
               })),
               Zr === "auth")
             )
@@ -644,7 +644,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
         }
       }
       let yc = xo.current;
-      xo.current = !1;
+      xo.current = false;
       let Qu = dn.current;
       dn.current = void 0;
       let Fa = Zn,
@@ -663,8 +663,8 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
             let { initReplBridge: Fr, REPL_WORKSPACE_DIFF_COMPUTE_BUDGET: ai } = await import(
                 "/$bunfs/root/chunk-6mqwse1h.js"
               ),
-              Dr = !1,
-              ki = !1,
+              Dr = false,
+              ki = false,
               Zr;
             if (qt.current !== void 0) {
               let er = Uo.current,
@@ -681,10 +681,10 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                   n("[bridge:repl] Auto-revive aborted: stash owner vs current account mismatch/unreadable at init"),
                     nn.current?.unregister(),
                     (nn.current = void 0),
-                    (Ha = !0),
+                    (Ha = true),
                     Ir((Wa) => ({
                       ...Wa,
-                      replBridgeEnabled: !1,
+                      replBridgeEnabled: false,
                       replBridgeError: KGe,
                       replBridgeErrorKind: "terminal",
                     }));
@@ -696,7 +696,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                       ? "[bridge:repl] Reattach stash owner differs from current credential account \u2014 dropping stash, minting fresh (history not uploaded)"
                       : "[bridge:repl] Current account identity unreadable with an owned stash \u2014 dropping stash, minting fresh (history not uploaded)",
                   ),
-                  (Dr = !0),
+                  (Dr = true),
                   nn.current?.unregister(),
                   (nn.current = void 0),
                   ZL(Ta(Fa)),
@@ -712,7 +712,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                     "[bridge:repl] Chokepoint veto under a TORN entry pair: precautionary suppression only, no permanent taint write",
                     { level: "warn" },
                   );
-                if ((Rn({ archiveAbandoned: !1 }), la.clear(), K() === Fa)) zpt();
+                if ((Rn({ archiveAbandoned: false }), la.clear(), K() === Fa)) zpt();
               }
             }
             let Ms = ao.current === Fa;
@@ -733,12 +733,12 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                 onHistoryBackfillSuppressed: (er) => {
                   if (Eo) return;
                   if (er?.uncertaintyOnly) return;
-                  (To.current = !0), (ao.current = Fa);
+                  (To.current = true), (ao.current = Fa);
                 },
                 reattachOrFail: (yc && qt.current !== void 0) || ki,
                 reviveInitiated: yc,
                 onReattachPointerDead: () => {
-                  if ((Rn({ archiveAbandoned: !1 }), (ao.current = To.current ? Fa : void 0), wt())) U_e(be);
+                  if ((Rn({ archiveAbandoned: false }), (ao.current = To.current ? Fa : void 0), wt())) U_e(be);
                 },
                 localHolderGuard:
                   !Qt || yc
@@ -835,7 +835,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                         priority: "immediate",
                       }),
                       p("model_switch", "not_allowed"),
-                      { ok: !1, error: Vr }
+                      { ok: false, error: Vr }
                     );
                   }
                   let Sc = () => {
@@ -891,7 +891,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                               color: "warning",
                               priority: "immediate",
                             }),
-                            { ok: !1, error: Vr }
+                            { ok: false, error: Vr }
                           );
                         }
                         if (ur.messages.length > 0)
@@ -901,9 +901,9 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                             text: ur.messages.map(ac).join(" \xB7 "),
                             priority: "immediate",
                           });
-                        return ng(Ie, Tn.getState(), Ps(Cs), "sdk"), Sc(), { ok: !0, notices: ur.messages.map(ac) };
+                        return ng(Ie, Tn.getState(), Ps(Cs), "sdk"), Sc(), { ok: true, notices: ur.messages.map(ac) };
                       })
-                      .catch((ur) => (h(we(ur)), { ok: !1, error: "Model switch failed" })),
+                      .catch((ur) => (h(we(ur)), { ok: false, error: "Model switch failed" })),
                   );
                 },
                 onSetMaxThinkingTokens(er) {
@@ -921,7 +921,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                   if (!Ps.ok) return Ps;
                   if (hW(Nr, sl(Tn.getState())) === ui) jn();
                   else $i();
-                  return { ok: !0 };
+                  return { ok: true };
                 },
                 onMcpStatus() {
                   return Tn.getState().mcp.clients.map((er) => {
@@ -961,7 +961,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                     if (!ur) throw new js("Unable to build claude.ai connector auth URL (missing org or server id)");
                     return (
                       s("tengu_claudeai_mcp_auth_started", {}),
-                      { authUrl: ur, requiresUserAction: !0, callbackExpected: !1 }
+                      { authUrl: ur, requiresUserAction: true, callbackExpected: false }
                     );
                   }
                   if (Zs.kind === "unsupported-transport")
@@ -975,7 +975,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                         rs,
                         Mr,
                         Kr = IB().performMCPOAuthFlow(er, Zs.config, (Ri) => Vr(Ri), void 0, {
-                          skipBrowserOpen: !0,
+                          skipBrowserOpen: true,
                           redirectUri: ur,
                           onWaitingForCallback: (Ri, ws, Sl) => {
                             (rs = ws), (Mr = Sl);
@@ -1002,11 +1002,11 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                       n(`[bridge:mcp] AS rejected custom redirectUri for ${er}; falling back to localhost: ${l(ur)}`);
                     }
                   if (Vo === "localhost") Sc = await Cs();
-                  if (!Sc) return { requiresUserAction: !1, callbackExpected: !1 };
+                  if (!Sc) return { requiresUserAction: false, callbackExpected: false };
                   return {
                     authUrl: Sc.authUrl,
-                    requiresUserAction: !0,
-                    callbackExpected: !0,
+                    requiresUserAction: true,
+                    callbackExpected: true,
                     redirectScheme: Vo,
                     state: Sc.state,
                     ...(Vo === "localhost" && { callbackPort: Sc.callbackPort }),
@@ -1055,12 +1055,12 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                 },
                 async onGetUsage() {
                   let { collectUsageData: er } = await import("/$bunfs/root/chunk-fdmfg22q.js");
-                  return er({ includeBehaviors: !1, storageV5: be, credentials: Pe });
+                  return er({ includeBehaviors: false, storageV5: be, credentials: Pe });
                 },
                 onSetColor(er) {
                   let Nr = er === "default";
                   if (!Nr && !Qp.includes(er))
-                    return { ok: !1, error: `Unknown color "${er}". Available: ${Qp.join(", ")}, default` };
+                    return { ok: false, error: `Unknown color "${er}". Available: ${Qp.join(", ")}, default` };
                   let ui = Nr ? void 0 : er,
                     Ps = K();
                   Xqe(Ps, er, gl() ?? Hl(), be).catch((Cs) => {
@@ -1081,7 +1081,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                         },
                       };
                     }),
-                    { ok: !0 }
+                    { ok: true }
                   );
                 },
                 onStateChange: nu,
@@ -1118,7 +1118,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
               }
               Ir((er) =>
                 er.replBridgeEnabled || er.replBridgeAutoOnByDefault
-                  ? { ...er, replBridgeEnabled: !1, replBridgeSessionGroupingId: void 0, replBridgeAutoOnByDefault: !1 }
+                  ? { ...er, replBridgeEnabled: false, replBridgeSessionGroupingId: void 0, replBridgeAutoOnByDefault: false }
                   : er,
               );
               return;
@@ -1133,7 +1133,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                 );
               Ir((Nr) =>
                 Nr.replBridgeEnabled || Nr.replBridgeAutoOnByDefault
-                  ? { ...Nr, replBridgeEnabled: !1, replBridgeSessionGroupingId: void 0, replBridgeAutoOnByDefault: !1 }
+                  ? { ...Nr, replBridgeEnabled: false, replBridgeSessionGroupingId: void 0, replBridgeAutoOnByDefault: false }
                   : Nr,
               );
               return;
@@ -1152,14 +1152,14 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
               else if (Qt && !Mo && ch()) bn(qbe, "auth");
               else
                 Ir((er) =>
-                  er.replBridgeEnabled ? { ...er, replBridgeEnabled: !1, replBridgeSessionGroupingId: void 0 } : er,
+                  er.replBridgeEnabled ? { ...er, replBridgeEnabled: false, replBridgeSessionGroupingId: void 0 } : er,
                 );
               return;
             }
             if (
               ((Ve.current = vs),
               Vgt(vs, be),
-              mce(() => Oa()?.noHistoryBackfill === !0),
+              mce(() => Oa()?.noHistoryBackfill === true),
               (pn.current = Xo.current),
               cne(Tn.getState().toolPermissionContext.mode),
               UFt("bridge_connected", Pe),
@@ -1177,7 +1177,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
               ((kt.current = Cn ? 0 : Xa !== void 0 && vs.bridgeSessionId === Xa ? (Ii ?? Ho) : Ho),
               (Ht.current = new Set(S.slice(0, kt.current).map((er) => er.uuid))),
               (lt.current = kt.current > 0 ? { head: S[0]?.uuid } : {}),
-              (so.current = !1),
+              (so.current = false),
               wt())
             )
               Grt(
@@ -1206,7 +1206,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                 if (er.replBridgeConnected && er.replBridgeSessionId === vs.bridgeSessionId) return er;
                 return {
                   ...er,
-                  replBridgeConnected: !0,
+                  replBridgeConnected: true,
                   replBridgeSessionId: vs.bridgeSessionId,
                   replBridgeSessionUrl: void 0,
                   replBridgeConnectUrl: void 0,
@@ -1219,7 +1219,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
               if (
                 (Ir((Nr) => ({
                   ...Nr,
-                  replBridgeConnected: !0,
+                  replBridgeConnected: true,
                   replBridgeSessionUrl: er,
                   replBridgeEnvironmentId: vs.environmentId,
                   replBridgeSessionId: vs.bridgeSessionId,
@@ -1242,13 +1242,13 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
             let ai = l(Fr);
             if ((n(`[bridge:repl] Init failed: ${ai}; consecutive failures: ${vo.current}`), Gt.current?.(), Mo))
               Ir((Dr) =>
-                Dr.replBridgeEnabled ? { ...Dr, replBridgeEnabled: !1, replBridgeSessionGroupingId: void 0 } : Dr,
+                Dr.replBridgeEnabled ? { ...Dr, replBridgeEnabled: false, replBridgeSessionGroupingId: void 0 } : Dr,
               );
             else bn(ai, yc ? "auth" : "terminal");
           }
         })(),
         () => {
-          (Eo = !0), wa(), bs(), _8e(void 0), Gt.current?.(), (Gt.current = void 0);
+          (Eo = true), wa(), bs(), _8e(void 0), Gt.current?.(), (Gt.current = void 0);
           let Fr = Tn.getState().replBridgeSkipNextArchive,
             ai = !Mo && ISn((Dr) => Dr.type === "conversation_reset");
           if (ai)
@@ -1258,14 +1258,14 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
           if (Fr)
             Ir((Dr) => {
               if (!Dr.replBridgeSkipNextArchive) return Dr;
-              return { ...Dr, replBridgeSkipNextArchive: !1 };
+              return { ...Dr, replBridgeSkipNextArchive: false };
             });
           if (Ve.current) {
             let Dr = Ve.current,
               ki = !Tn.getState().replBridgeEnabled && !Ha,
               Zr = (ki && !Fr) || ai,
               Ms = Fr && !(Ha && ai);
-            if (!Ha) Rn({ archiveAbandoned: !1 });
+            if (!Ha) Rn({ archiveAbandoned: false });
             if (((pn.current = void 0), !Mo))
               if (Zr) {
                 if ((u2(Zn, As(), void 0, be), Pr(), wt())) U_e(be);
@@ -1313,9 +1313,9 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
                 return Dr;
               return {
                 ...Dr,
-                replBridgeConnected: !1,
-                replBridgeSessionActive: !1,
-                replBridgeReconnecting: !1,
+                replBridgeConnected: false,
+                replBridgeSessionActive: false,
+                replBridgeReconnecting: false,
                 replBridgeConnectUrl: void 0,
                 replBridgeSessionUrl: void 0,
                 replBridgeEnvironmentId: void 0,
@@ -1336,7 +1336,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
       if (!Mo) return;
       if (B_e(Mo, Ki)) return;
       let Qt = to.current;
-      to.current = !1;
+      to.current = false;
       try {
         let Jo = Ht.current,
           { head: lr, tail: Nn, eligible: bn } = lt.current,
@@ -1344,7 +1344,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
           Eo = bn === void 0 || S[bn.index]?.uuid === bn.uuid,
           Ho = 0;
         if (Qt)
-          (so.current = !0),
+          (so.current = true),
             n(
               `[bridge:repl] Transcript replaced under a detached binding \u2014 ${S.length} message(s) accounted as seen, not uploaded`,
             );
@@ -1387,7 +1387,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
           Mo.writeMessages(Zn);
         if (Er.length > 0) Mo.writeSdkMessages(Er);
       } catch (Jo) {
-        if (Qt) to.current = !0;
+        if (Qt) to.current = true;
         h(Jo);
       }
     }, [S, Wn, Ki]),
@@ -1404,11 +1404,11 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
     A(() => {
       if (!pr) {
         let Mo = NEe(),
-          Qt = !1,
-          Jo = !1;
+          Qt = false,
+          Jo = false;
         for (let lr of Mo)
-          if (lr.subtype === "task_notification") Qt = !0;
-          else if (lr.subtype === "background_tasks_changed") Jo = !0;
+          if (lr.subtype === "task_notification") Qt = true;
+          else if (lr.subtype === "background_tasks_changed") Jo = true;
         if (Qt || Jo)
           g(
             "ccr_task_status_publish",
@@ -1419,7 +1419,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
     }, [pr]),
     A(() => {
       if (pr || Wi === void 0 || Rs !== "auth" || Xr || !lMe()) return;
-      let Mo = !1,
+      let Mo = false,
         Qt,
         Jo = 300000;
       async function lr() {
@@ -1454,17 +1454,17 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
             return;
           }
           n("[bridge:repl] Auth-revive watcher: fresh same-account credential \u2014 re-enabling Remote Control");
-          let Ai = !1;
+          let Ai = false;
           if (
             (Ir((ii) => {
               if (ii.replBridgeEnabled || ii.replBridgeError === void 0) return ii;
-              return (Ai = !0), { ...ii, replBridgeEnabled: !0, replBridgeError: void 0, replBridgeErrorKind: void 0 };
+              return (Ai = true), { ...ii, replBridgeEnabled: true, replBridgeError: void 0, replBridgeErrorKind: void 0 };
             }),
             Ai)
           )
             s("tengu_bridge_repl_auth_revive", {}),
               zo.current++,
-              (xo.current = !0),
+              (xo.current = true),
               (dn.current = { accountUuid: Ho.accountUuid, organizationUuid: Ho.organizationUuid });
           return;
         }
@@ -1475,7 +1475,7 @@ function H_e(S, x, P, j, H, Z, re, ue, de, pe, Re) {
       return (
         lr(),
         () => {
-          (Mo = !0), Qt?.();
+          (Mo = true), Qt?.();
         }
       );
     }, [pr, Wi, Rs, us, Ir, He, Tn, Xr, be, Pe]),
@@ -1518,21 +1518,21 @@ async function Hrt(S, x, P, j, H, Z, re, ue) {
       ot = typeof Ve === "string" ? Ve.slice(0, 80) : `[${Ve.length} content blocks]`;
     n(`[bridge:repl] Injecting inbound user message: ${ot}${be ? ` uuid=${be}` : ""}`);
     let st,
-      nt = !1;
+      nt = false;
     if (Pe?.kind === "peer")
-      st = { origin: Zde(Pe, Ve, Re.content), isMeta: !0, skipAttachments: !0, ...(V$e(S) && { priority: "later" }) };
+      st = { origin: Zde(Pe, Ve, Re.content), isMeta: true, skipAttachments: true, ...(V$e(S) && { priority: "later" }) };
     else {
       let Ht = pje(Pe, Re.clientPlatform, Re.inboundOrigin);
       (nt = Gh(Ht)),
         (st = {
-          bridgeOrigin: !0,
+          bridgeOrigin: true,
           clientPlatform: Re.clientPlatform,
           ...(Ht && { origin: Ht }),
-          ...(Ht !== void 0 && !Gh(Ht) && { skipAttachments: !0 }),
+          ...(Ht !== void 0 && !Gh(Ht) && { skipAttachments: true }),
           ...(Ht?.kind === "task-notification" && uje(void 0, Re.clientPlatform) === "later" && { priority: "later" }),
           ...(Yse(Re.clientPlatform, Re.inboundOrigin) && {
             priority: G$e(void 0, Ve, z$e(S)),
-            verifiedSlackHumanTurn: !0,
+            verifiedSlackHumanTurn: true,
           }),
         });
     }
@@ -1546,7 +1546,7 @@ async function Hrt(S, x, P, j, H, Z, re, ue) {
         uuid: be,
         ...(Pt && { turnAttributionKey: Pt }),
         ...(Ke.length > 0 && { inlinedImagePaths: Ke }),
-        skipSlashCommands: !0,
+        skipSlashCommands: true,
         ...st,
       };
     if (eje(Pe, kt) !== "accept") return;
@@ -1573,7 +1573,7 @@ function Wrt(S, x, P) {
     setImmediate(() => {
       m7.emit();
     }),
-    { ok: !0 }
+    { ok: true }
   );
 }
 
@@ -1680,7 +1680,7 @@ async function Grt(S, x, P, j, H, Z) {
         ue.bridgeSessionGroupingId === P &&
         ue.bridgeOwnerAccountUuid === j?.accountUuid &&
         ue.bridgeOwnerOrganizationUuid === j?.organizationUuid &&
-        (ue.bridgeNoHistoryBackfill ?? !1) === H)
+        (ue.bridgeNoHistoryBackfill ?? false) === H)
     )
       return;
     hd(re);
@@ -1739,7 +1739,7 @@ function B9({
 function EB(AHo) {
   let Qrt = _(5),
     { hideSessionTitle: Krt } = AHo,
-    $_e = Krt === void 0 ? !1 : Krt,
+    $_e = Krt === void 0 ? false : Krt,
     zrt;
   if (Qrt[0] !== $_e) (zrt = { hideSessionTitle: $_e }), (Qrt[0] = $_e), (Qrt[1] = zrt);
   else zrt = Qrt[1];
@@ -1785,7 +1785,7 @@ function j9(S, x) {
             key: pR,
             text: `Thanks for trying the feature of the week. ${ue} in usage credits on its way!`,
             priority: "immediate",
-            requeueOnPreempt: !0,
+            requeueOnPreempt: true,
             timeoutMs: Jrt,
           });
           return;
@@ -1795,7 +1795,7 @@ function j9(S, x) {
             text: `${ue} in usage credits added to your account \xB7 expires in 90 days`,
             color: "success",
             priority: "immediate",
-            requeueOnPreempt: !0,
+            requeueOnPreempt: true,
             timeoutMs: DB,
           });
           return;
@@ -1805,7 +1805,7 @@ function j9(S, x) {
             text: "Something went wrong when adding your usage credits. Contact support for help.",
             color: "error",
             priority: "immediate",
-            requeueOnPreempt: !0,
+            requeueOnPreempt: true,
             timeoutMs: DB,
           });
           return;
@@ -1814,7 +1814,7 @@ function j9(S, x) {
             key: pR,
             text: `To claim ${ue} in usage credits, add a payment method at ${Xrt}, then run /${P.command} again to claim (claiming turns on extra usage billing)`,
             priority: "immediate",
-            requeueOnPreempt: !0,
+            requeueOnPreempt: true,
             timeoutMs: DB,
           });
           return;
@@ -1822,7 +1822,7 @@ function j9(S, x) {
     }, [P, S, x]);
 }
 
-var Zrt = { debug: !0, embedded: !0, onDetachToCaller: !0, hasSuppressedDialogs: !0 },
+var Zrt = { debug: true, embedded: true, onDetachToCaller: true, hasSuppressedDialogs: true },
   eit = Object.keys(Zrt),
   q_e = { kind: "none" };
 
@@ -1841,7 +1841,7 @@ class NB {
       (this.#r = P),
       (this.#i = j),
       (this.exitReaders = H),
-      (this.#n = { ...Z, ideSelection: void 0, bashesDialog: !1, exit: q_e });
+      (this.#n = { ...Z, ideSelection: void 0, bashesDialog: false, exit: q_e });
   }
   subscribe = (S) => this.#e.subscribe(S);
   getSnapshot = () => this.#n;
@@ -1862,10 +1862,10 @@ class NB {
     this.setIdeSelection(S);
   };
   openBashesDialog = (S) => {
-    this.#s(S ?? !0);
+    this.#s(S ?? true);
   };
   closeBashesDialog = () => {
-    this.#s(!1);
+    this.#s(false);
   };
   #s(S) {
     if (S === this.#n.bashesDialog) return;
@@ -1973,7 +1973,7 @@ class OB {
       lt = be.getSnapshot().isLoading,
       Rt = He.commands,
       to = Ie.getSnapshot().ideSelection;
-    ot.repin(!1, "onSubmit"), de.dismissKind(Rg.kind);
+    ot.repin(false, "onSubmit"), de.dismissKind(Rg.kind);
     let so = P?.fromKeybinding ? void 0 : { display: Lse(S, Ht), pastedContents: yt };
     if (S.trim().startsWith("/")) {
       let jo = gz(S, yt).trim(),
@@ -2005,7 +2005,7 @@ class OB {
           pn = nn.length,
           Go = nn.reduce((Oo, xo) => Oo + (yt[xo.id]?.content.length ?? 0), 0);
         s("tengu_paste_text", { pastedTextCount: pn, pastedTextBytes: Go }),
-          s("tengu_immediate_command_executed", { commandName: Yt.name, fromKeybinding: P?.fromKeybinding ?? !1 }),
+          s("tengu_immediate_command_executed", { commandName: Yt.name, fromKeybinding: P?.fromKeybinding ?? false }),
           this.#r({
             command: Yt,
             commandName: Qo,
@@ -2035,7 +2035,7 @@ class OB {
     }
     let qt = Ke.submit(S, {
       pastedContents: yt,
-      fromKeybinding: P?.fromKeybinding ?? !1,
+      fromKeybinding: P?.fromKeybinding ?? false,
       recordHistory: ({ startsTurn: jo }) => {
         if (!so) return;
         if (jo) hX(so, ue, { submitMode: Ht });
@@ -2091,10 +2091,10 @@ class OB {
   async #r({ command: S, commandName: x, commandArgs: P, dispatchedAsImmediate: j, loadDialog: H, mainLoopModel: Z }) {
     let { transcript: re, turn: ue, draft: de, messageQueue: pe, scope: Re, addNotification: be } = this.#e,
       Pe = Re.localJsx,
-      Oe = !1,
+      Oe = false,
       Ie,
       He = (ot, st) => {
-        (Oe = !0), Ie?.close();
+        (Oe = true), Ie?.close();
         let nt = [];
         if (ot && st?.shouldQuery)
           pe.enqueue({ agentId: et(), value: ot, mode: "prompt", origin: { kind: "auto-continuation" } });
@@ -2102,7 +2102,7 @@ class OB {
           if ((be({ key: `immediate-${S.name}`, kind: "feedback", text: Ew(ot), priority: "immediate" }), !Nt()))
             nt.push(sm(oz(ei(S), P)), sm(`<${jp}>${Wt(ot)}</${jp}>`));
         }
-        if (st?.metaMessages?.length) nt.push(...st.metaMessages.map((Pt) => xe({ content: Pt, isMeta: !0 })));
+        if (st?.metaMessages?.length) nt.push(...st.metaMessages.map((Pt) => xe({ content: Pt, isMeta: true })));
         if (nt.length) re.replace((Pt) => [...Pt, ...nt]);
         if (de.stashedPrompt !== void 0 && de.value.trim() === "") {
           if ((de.popStash("outside"), !st?.nextInput))
@@ -2114,9 +2114,9 @@ class OB {
           else de.replaceValue(st.nextInput);
       },
       Fe = ue.buildToolUseContext(re.getSnapshot(), [], gr(), Z),
-      Ke = await (await H()).call(He, { ...Fe, isMidTurn: !0, dispatchedAsImmediate: j }, P, x);
+      Ke = await (await H()).call(He, { ...Fe, isMidTurn: true, dispatchedAsImmediate: j }, P, x);
     if ((y(w4(S.name)), Ke && !Oe))
-      Ie = Pe.show(Ke, { commandName: ei(S), immediate: !0, hidesPrompt: !1, retireAtTurnBoundary: !0 });
+      Ie = Pe.show(Ke, { commandName: ei(S), immediate: true, hidesPrompt: false, retireAtTurnBoundary: true });
   }
   submitEmpty = () => {
     let { store: S, spinnerStore: x, turn: P, draft: j, messageQueue: H } = this.#e,
@@ -2137,19 +2137,19 @@ class OB {
       be = gz(S, j ?? ue.pastedContents);
     if (Cr(x))
       if ((Jdt(x.id, xe({ content: be, origin: { kind: "human" } }), H), x.status === "running"))
-        nqe(x.id, be, H, { isMeta: !0, origin: { kind: "human" } });
+        nqe(x.id, be, H, { isMeta: true, origin: { kind: "human" } });
       else
         gW({
           agentId: x.id,
           prompt: be,
-          promptIsMeta: !0,
+          promptIsMeta: true,
           promptOrigin: { kind: "human" },
           toolUseContext: re.buildToolUseContext(Z.getSnapshot(), [], new AbortController(), pe),
           canUseTool: Re,
-          userInitiated: !0,
+          userInitiated: true,
         }).catch((Pe) => {
           if (Pe instanceof mW) {
-            if (Zle(x.id, be, H, { isMeta: !0, origin: { kind: "human" }, userInitiated: !0 })) {
+            if (Zle(x.id, be, H, { isMeta: true, origin: { kind: "human" }, userInitiated: true })) {
               n("resumeAgentBackground lost the resume lock; typed message queued");
               return;
             }
@@ -2222,13 +2222,13 @@ function H9(S) {
     if ($n()) return;
     let j = ci(),
       H = m7e();
-    if (j.lastGracefulShutdown !== !1 || j.lastVersionBase !== H)
-      jc((de) => ({ ...de, lastGracefulShutdown: !1, lastVersionBase: H }), P);
-    let Z = !1,
+    if (j.lastGracefulShutdown !== false || j.lastVersionBase !== H)
+      jc((de) => ({ ...de, lastGracefulShutdown: false, lastVersionBase: H }), P);
+    let Z = false,
       re =
         O() && P !== void 0
           ? BC(async () => {
-              await B9n(S?.(), P), (Z = !0);
+              await B9n(S?.(), P), (Z = true);
             })
           : void 0;
     M0n(), rte(Msn);
@@ -2269,7 +2269,7 @@ function $9() {
     ue = C(void 0);
   if (Cr(P)) ue.current = P.parentAgentId;
   else if (P !== void 0) ue.current = void 0;
-  let de = W((pe) => (ue.current ? pe.tasks[ue.current] !== void 0 : !1));
+  let de = W((pe) => (ue.current ? pe.tasks[ue.current] !== void 0 : false));
   A(() => {
     if (!x) return;
     if (!re) {
@@ -2295,9 +2295,9 @@ async function W9(S) {
     ue = j ?? x.input;
   try {
     let de = () => x.toolUseContext.setAppState((Oe) => ({ ...Oe, pendingWorkerRequest: null })),
-      pe = !1,
+      pe = false,
       Re = null,
-      be = !1,
+      be = false,
       Pe = await new Promise((Oe) => {
         let { resolve: Ie, claim: He, isResolved: Fe } = tPt(Oe),
           Ve = Eit({
@@ -2337,13 +2337,13 @@ async function W9(S) {
           },
           onUnboundVerdict() {
             if (Fe()) return;
-            be = !0;
+            be = true;
           },
         }),
           Ait(Ve, x.toolUseContext.storageV5).then((Ke) => {
             if (Ke || !He()) return;
             kje(Ve.id),
-              (pe = !0),
+              (pe = true),
               de(),
               Ie({
                 behavior: "ask",
@@ -2359,9 +2359,9 @@ async function W9(S) {
             "abort",
             () => {
               if (!He()) return;
-              kje(Ve.id), de(), x.logCancelled(), Ie(x.cancelAndAbort(void 0, !0));
+              kje(Ve.id), de(), x.logCancelled(), Ie(x.cancelAndAbort(void 0, true));
             },
-            { once: !0 },
+            { once: true },
           );
       });
     if (pe) p("permission_swarm_forward", "mailbox_write_failed");
@@ -2456,8 +2456,8 @@ function X_e() {
                 priority: "immediate",
                 segments: [
                   { text: `${(Vp.userFacingName(WC) || Vp.name).toLowerCase()} denied by auto mode`, color: "error" },
-                  ...(FB ? [{ text: ` \xB7 ${FB}`, dim: !0 }] : []),
-                  { text: " \xB7 /permissions", dim: !0 },
+                  ...(FB ? [{ text: ` \xB7 ${FB}`, dim: true }] : []),
+                  { text: " \xB7 /permissions", dim: true },
                 ],
               });
             };
@@ -2484,16 +2484,16 @@ function X_e() {
                 }
                 let Cit =
                   Gl.localDisplayOnly ||
-                  Gl.forcedByCaller === !0 ||
+                  Gl.forcedByCaller === true ||
                   Gl.denialLimitFallback !== void 0 ||
-                  hR.forRemoteExecution === !0
+                  hR.forRemoteExecution === true
                     ? null
                     : await W9({
                         ctx: Xm,
                         description: J_e,
                         updatedInput: Gl.updatedInput,
                         suggestions: Gl.suggestions,
-                        askSuppressesAlwaysAllowRule: Gl.suppressAlwaysAllowRule === !0,
+                        askSuppressesAlwaysAllowRule: Gl.suppressAlwaysAllowRule === true,
                         matchedAskRule: Gl.matchedAskRule,
                       });
                 if (Cit) {
@@ -2520,8 +2520,8 @@ function X_e() {
             if (UB instanceof Ze || UB instanceof sc)
               n(`Permission check threw ${UB.constructor.name} for tool=${Vp.name}: ${UB.message}`),
                 Xm.logCancelled(),
-                dg(Xm.cancelAndAbort(void 0, !0));
-            else h(ft(we(UB), "useCanUseTool permission flow failed")), dg(Xm.cancelAndAbort(void 0, !0));
+                dg(Xm.cancelAndAbort(void 0, true));
+            else h(ft(we(UB), "useCanUseTool permission flow failed")), dg(Xm.cancelAndAbort(void 0, true));
           })
           .finally(() => {
             V8(RI, V9);
@@ -2533,7 +2533,7 @@ function X_e() {
           if (Pit.behavior === "allow")
             s("tengu_auto_mode_subsequent_approval", {
               toolName: Un(Vp.name),
-              isMcp: Vp.isMcp ?? !1,
+              isMcp: Vp.isMcp ?? false,
               msSinceDeny: Date.now() - xit.timestamp,
               allowReasonType: ke(Pit.decisionReason?.type),
             }),
@@ -2588,7 +2588,7 @@ function CRe() {
 
 function yRe(S, x) {
   let P = wF(),
-    j = S.phase === "active" ? ad(S.resetsAtSeconds, !1) : void 0,
+    j = S.phase === "active" ? ad(S.resetsAtSeconds, false) : void 0,
     H = P.statusLine.includes("{reset}")
       ? P.statusLine.replace("{reset}", j ?? "your usage limit resets")
       : P.statusLine,
@@ -2614,7 +2614,7 @@ function bRe(S, x = Ite()) {
     case "extra_usage":
       return "Extra usage is now covering your requests \xB7 lower-priority mode ended";
     case "max_wait": {
-      let P = x === void 0 ? void 0 : ad(Math.ceil(x / 1000), !1);
+      let P = x === void 0 ? void 0 : ad(Math.ceil(x / 1000), false);
       return `No room for lower-priority work for a while \xB7 lower-priority mode stopped; new messages wait for your usage limit to reset${P ? ` \xB7 /${uz} again after ${P}` : ""}`;
     }
   }
@@ -2726,35 +2726,35 @@ function Z9() {
 F();
 
 function wRe(S) {
-  if (S.skipSlashCommands && mSt(S.origin)) return !1;
+  if (S.skipSlashCommands && mSt(S.origin)) return false;
   if (typeof S.value === "string") return S.value.trim().startsWith("/");
   for (let x of S.value) if (x.type === "text") return x.text.trim().startsWith("/");
-  return !1;
+  return false;
 }
 
 function e7({ queue: S, executeInput: x }) {
-  if (S.getCommandQueue().find(eIe)?.screeningPending === !0) return { processed: !1 };
+  if (S.getCommandQueue().find(eIe)?.screeningPending === true) return { processed: false };
   let P = NKt(S, eIe);
-  if (!P) return { processed: !1 };
+  if (!P) return { processed: false };
   if (wRe(P) || P.mode === "bash") {
     let de = [S.dequeue((pe) => pe === P)];
-    return S.setInFlightDrainBatch(de), x(de).finally(() => S.clearInFlightDrainBatch(de)), { processed: !0 };
+    return S.setInFlightDrainBatch(de), x(de).finally(() => S.clearInFlightDrainBatch(de)), { processed: true };
   }
   let j = P.mode,
-    H = !1,
+    H = false,
     Z = 0,
     re = S.dequeueAllMatching((ue) => {
-      if (H) return !1;
-      if (mu(ue) && ue.screeningPending === !0) return (H = !0), !1;
-      if (mu(ue) && (ue.promptSubmitted !== void 0 || ue.drainOnly === !0)) {
-        if (((H = !0), Z > 0)) return !1;
+      if (H) return false;
+      if (mu(ue) && ue.screeningPending === true) return (H = true), false;
+      if (mu(ue) && (ue.promptSubmitted !== void 0 || ue.drainOnly === true)) {
+        if (((H = true), Z > 0)) return false;
       }
-      let de = mu(ue) && !wRe(ue) && ue.passive !== !0 && ue.mode === j;
+      let de = mu(ue) && !wRe(ue) && ue.passive !== true && ue.mode === j;
       if (de) Z++;
       return de;
     });
-  if (re.length === 0) return { processed: !1 };
-  return S.setInFlightDrainBatch(re), x(re).finally(() => S.clearInFlightDrainBatch(re)), { processed: !0 };
+  if (re.length === 0) return { processed: false };
+  return S.setInFlightDrainBatch(re), x(re).finally(() => S.clearInFlightDrainBatch(re)), { processed: true };
 }
 
 var Zit = () => () => {},
@@ -2766,7 +2766,7 @@ function t7({ turn: S, hasActiveLocalJsxUI: x }) {
     H = Iu(),
     Z = Zd(),
     re = We(Tge),
-    ue = B(() => re !== null && re.getState().open.some((Oe) => Oe.userInvoked !== !0 && est.has(Oe.kind)), [re]),
+    ue = B(() => re !== null && re.getState().open.some((Oe) => Oe.userInvoked !== true && est.has(Oe.kind)), [re]),
     de = Lt(re?.subscribe ?? Zit, ue, ue),
     pe = Lt(jNn, art, art),
     Re = ct(),
@@ -2778,7 +2778,7 @@ function t7({ turn: S, hasActiveLocalJsxUI: x }) {
     if (Z.length === 0) return;
     let Oe = kv.of(Re);
     if (Oe.pending > 0) {
-      let Ie = !0;
+      let Ie = true;
       return (
         Oe.tail.then(() => {
           if (!Ie) return;
@@ -2794,7 +2794,7 @@ function t7({ turn: S, hasActiveLocalJsxUI: x }) {
           Pe((He) => He + 1);
         }),
         () => {
-          Ie = !1;
+          Ie = false;
         }
       );
     }
@@ -2844,7 +2844,7 @@ function u7(I1o) {
   const PRe = `<bash-input>${E1o}</bash-input>`;
   let l7;
   if (ARe[0] !== PRe)
-    (l7 = e(NRe, { addMargin: !1, param: { text: PRe, type: "text" } })), (ARe[0] = PRe), (ARe[1] = l7);
+    (l7 = e(NRe, { addMargin: false, param: { text: PRe, type: "text" } })), (ARe[0] = PRe), (ARe[1] = l7);
   else l7 = ARe[1];
   let c7;
   if (ARe[2] !== yR || ARe[3] !== a7)
@@ -2871,20 +2871,20 @@ function u7(I1o) {
   return tst;
 }
 
-var ost = { background_hint: !1, bash_mode_progress: !0, agent_progress: !1 };
+var ost = { background_hint: false, bash_mode_progress: true, agent_progress: false };
 
 function d7(S) {
-  for (let x of S.values()) if (ost[x.kind]) return !0;
-  return !1;
+  for (let x of S.values()) if (ost[x.kind]) return true;
+  return false;
 }
 
 function p7(S) {
   let x = [],
-    P = !1;
+    P = false;
   for (let j of S.values()) {
     if (j.kind === "background_hint") {
       if (P) continue;
-      P = !0;
+      P = true;
     }
     x.push(j);
   }
@@ -2894,7 +2894,7 @@ function p7(S) {
 var S7 = {
   background_hint: () => e(s0t, {}),
   bash_mode_progress: (S) => e(u7, { input: S.input, progress: S.progress, verbose: S.verbose }),
-  agent_progress: (S, { tools: x }) => $Re(S.progressMessages, { tools: x, verbose: !1 }),
+  agent_progress: (S, { tools: x }) => $Re(S.progressMessages, { tools: x, verbose: false }),
 };
 
 function IRe(S, x) {

@@ -65,7 +65,7 @@ function Eit(e) {
   };
 }
 function _(e) {
-  if (!(e || ds())) return !1;
+  if (!(e || ds())) return false;
   let o = rb();
   return !o || o === "team-lead";
 }
@@ -81,12 +81,12 @@ async function w(e, r) {
   return vi;
 }
 async function u(e, r, o, s, i) {
-  if ((await $g(e, r, o, i)) === void 0) return n(`[PermissionSync] FAILED to deliver ${s}`, { level: "error" }), !1;
-  return n(`[PermissionSync] Sent ${s}`), !0;
+  if ((await $g(e, r, o, i)) === void 0) return n(`[PermissionSync] FAILED to deliver ${s}`, { level: "error" }), false;
+  return n(`[PermissionSync] Sent ${s}`), true;
 }
 async function Ait(e, r) {
   let o = await w(e.teamName, r);
-  if (!o) return n("[PermissionSync] Cannot send permission request: leader name not found"), !1;
+  if (!o) return n("[PermissionSync] Cannot send permission request: leader name not found"), false;
   try {
     let s = yfn({
       request_id: e.id,
@@ -105,12 +105,12 @@ async function Ait(e, r) {
       r,
     );
   } catch (s) {
-    return n(`[PermissionSync] Failed to send permission request via mailbox: ${s}`), h(s), !1;
+    return n(`[PermissionSync] Failed to send permission request via mailbox: ${s}`), h(s), false;
   }
 }
 async function gtn(e, r, o, s, i, a) {
   let m = s || ds();
-  if (!m) return n("[PermissionSync] Cannot send permission response: team name not found"), !1;
+  if (!m) return n("[PermissionSync] Cannot send permission response: team name not found"), false;
   try {
     let t = Sfn({
       request_id: o,
@@ -129,7 +129,7 @@ async function gtn(e, r, o, s, i, a) {
       i,
     );
   } catch (t) {
-    return n(`[PermissionSync] Failed to send permission response via mailbox: ${t}`), h(t), !1;
+    return n(`[PermissionSync] Failed to send permission response via mailbox: ${t}`), h(t), false;
   }
 }
 function ZUn() {
@@ -141,14 +141,14 @@ async function eBn(e, r, o, s) {
     return (
       n("[PermissionSync] Cannot send sandbox permission request: team name not found"),
       p("swarm_sandbox_permission_request", "no_team_name"),
-      !1
+      false
     );
   let a = await w(i, s);
   if (!a)
     return (
       n("[PermissionSync] Cannot send sandbox permission request: leader name not found"),
       p("swarm_sandbox_permission_request", "no_leader"),
-      !1
+      false
     );
   let m = rb(),
     t = gf(),
@@ -157,7 +157,7 @@ async function eBn(e, r, o, s) {
     return (
       n("[PermissionSync] Cannot send sandbox permission request: worker ID or name not found"),
       p("swarm_sandbox_permission_request", "no_worker_identity"),
-      !1
+      false
     );
   try {
     let d = bfn({ requestId: r, workerId: m, workerName: t, workerColor: c, host: e }),
@@ -176,13 +176,13 @@ async function eBn(e, r, o, s) {
       n(`[PermissionSync] Failed to send sandbox permission request via mailbox: ${d}`),
       h(d),
       p("swarm_sandbox_permission_request", "mailbox_write_failed"),
-      !1
+      false
     );
   }
 }
 async function sPt(e, r, o, s, i, a) {
   let m = i || ds();
-  if (!m) return n("[PermissionSync] Cannot send sandbox permission response: team name not found"), !1;
+  if (!m) return n("[PermissionSync] Cannot send sandbox permission response: team name not found"), false;
   try {
     let t = wfn({ requestId: r, host: o, allow: s });
     return await u(
@@ -193,7 +193,7 @@ async function sPt(e, r, o, s, i, a) {
       a,
     );
   } catch (t) {
-    return n(`[PermissionSync] Failed to send sandbox permission response via mailbox: ${t}`), h(t), !1;
+    return n(`[PermissionSync] Failed to send sandbox permission response via mailbox: ${t}`), h(t), false;
   }
 }
 export { Z0e, Eit, eHe, Ait, gtn, ZUn, eBn, sPt };

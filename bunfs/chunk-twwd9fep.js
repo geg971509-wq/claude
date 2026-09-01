@@ -14,7 +14,7 @@ var pm = () => ({
   alwaysAllowRules: {},
   alwaysDenyRules: {},
   alwaysAskRules: {},
-  isBypassPermissionsModeAvailable: !1,
+  isBypassPermissionsModeAvailable: false,
   mcpPermissionModeOverrides: {},
 });
 function zM(e) {
@@ -34,7 +34,7 @@ function Lyt(e, o, t) {
   }
 }
 function on(e, o) {
-  return e.name === o || (e.aliases?.includes(o) ?? !1);
+  return e.name === o || (e.aliases?.includes(o) ?? false);
 }
 function Kne(e, o) {
   return e.name.localeCompare(o.name);
@@ -73,15 +73,15 @@ function AT(e, o) {
   let t = e.coerceInput?.(o) ?? null;
   return e.inputSchema.safeParse(t === null ? o : t.input);
 }
-var u = Object.freeze({ supported: !1 });
+var u = Object.freeze({ supported: false });
 function d6(e) {
   return e.remoteExecution ?? u;
 }
 var m = {
-  isEnabled: () => !0,
-  isConcurrencySafe: (e) => !1,
-  isReadOnly: (e) => !1,
-  isDestructive: (e) => !1,
+  isEnabled: () => true,
+  isConcurrencySafe: (e) => false,
+  isReadOnly: (e) => false,
+  isDestructive: (e) => false,
   remoteExecution: u,
   checkPermissions: (e, o) => Promise.resolve({ behavior: "allow", updatedInput: e }),
   toAutoClassifierInput: (e) => "",

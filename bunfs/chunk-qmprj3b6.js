@@ -684,7 +684,7 @@ var ko = S(function (di) {
     constructor(t, o) {
       switch (
         ((this.description = o || ""),
-        (this.variadic = !1),
+        (this.variadic = false),
         (this.parseArg = void 0),
         (this.defaultValue = void 0),
         (this.defaultValueDescription = void 0),
@@ -692,17 +692,17 @@ var ko = S(function (di) {
         t[0])
       ) {
         case "<":
-          (this.required = !0), (this._name = t.slice(1, -1));
+          (this.required = true), (this._name = t.slice(1, -1));
           break;
         case "[":
-          (this.required = !1), (this._name = t.slice(1, -1));
+          (this.required = false), (this._name = t.slice(1, -1));
           break;
         default:
-          (this.required = !0), (this._name = t);
+          (this.required = true), (this._name = t);
           break;
       }
       if (this._name.length > 3 && this._name.slice(-3) === "...")
-        (this.variadic = !0), (this._name = this._name.slice(0, -3));
+        (this.variadic = true), (this._name = this._name.slice(0, -3));
     }
     name() {
       return this._name;
@@ -729,14 +729,14 @@ var ko = S(function (di) {
       );
     }
     argRequired() {
-      return (this.required = !0), this;
+      return (this.required = true), this;
     }
     argOptional() {
-      return (this.required = !1), this;
+      return (this.required = false), this;
     }
   }
   function li(t) {
-    let o = t.name() + (t.variadic === !0 ? "..." : "");
+    let o = t.name() + (t.variadic === true ? "..." : "");
     return t.required ? "<" + o + ">" : "[" + o + "]";
   }
   di.Argument = wr;
@@ -746,7 +746,7 @@ var Wo = S(function (fi) {
   var { humanReadableArgName: ui } = ko();
   class Sr {
     constructor() {
-      (this.helpWidth = void 0), (this.sortSubcommands = !1), (this.sortOptions = !1), (this.showGlobalOptions = !1);
+      (this.helpWidth = void 0), (this.sortSubcommands = false), (this.sortOptions = false), (this.showGlobalOptions = false);
     }
     visibleCommands(t) {
       let o = t.commands.filter((u) => !u._hidden),
@@ -939,16 +939,16 @@ var Go = S(function (yi) {
         (this.required = t.includes("<")),
         (this.optional = t.includes("[")),
         (this.variadic = /\w\.\.\.[>\]]$/.test(t)),
-        (this.mandatory = !1);
+        (this.mandatory = false);
       let d = Si(t);
-      if (((this.short = d.shortFlag), (this.long = d.longFlag), (this.negate = !1), this.long))
+      if (((this.short = d.shortFlag), (this.long = d.longFlag), (this.negate = false), this.long))
         this.negate = this.long.startsWith("--no-");
       (this.defaultValue = void 0),
         (this.defaultValueDescription = void 0),
         (this.presetArg = void 0),
         (this.envVar = void 0),
         (this.parseArg = void 0),
-        (this.hidden = !1),
+        (this.hidden = false),
         (this.argChoices = void 0),
         (this.conflictsWith = []),
         (this.implied = void 0);
@@ -964,7 +964,7 @@ var Go = S(function (yi) {
     }
     implies(t) {
       let o = t;
-      if (typeof t === "string") o = { [t]: !0 };
+      if (typeof t === "string") o = { [t]: true };
       return (this.implied = Object.assign(this.implied || {}, o)), this;
     }
     env(t) {
@@ -973,10 +973,10 @@ var Go = S(function (yi) {
     argParser(t) {
       return (this.parseArg = t), this;
     }
-    makeOptionMandatory(t = !0) {
+    makeOptionMandatory(t = true) {
       return (this.mandatory = !!t), this;
     }
-    hideHelp(t = !0) {
+    hideHelp(t = true) {
       return (this.hidden = !!t), this;
     }
     _concatValue(t, o) {
@@ -1023,9 +1023,9 @@ var Go = S(function (yi) {
     }
     valueFromOption(t, o) {
       let d = o.attributeName();
-      if (!this.dualOptions.has(d)) return !0;
+      if (!this.dualOptions.has(d)) return true;
       let u = this.negativeOptions.get(d).presetArg,
-        _ = u !== void 0 ? u : !1;
+        _ = u !== void 0 ? u : false;
       return o.negate === (_ === t);
     }
   }
@@ -1111,8 +1111,8 @@ var kr = S(function (xi) {
       (this.commands = []),
         (this.options = []),
         (this.parent = null),
-        (this._allowUnknownOption = !1),
-        (this._allowExcessArguments = !0),
+        (this._allowUnknownOption = false),
+        (this._allowExcessArguments = true),
         (this.registeredArguments = []),
         (this._args = this.registeredArguments),
         (this.args = []),
@@ -1122,23 +1122,23 @@ var kr = S(function (xi) {
         (this._name = t || ""),
         (this._optionValues = {}),
         (this._optionValueSources = {}),
-        (this._storeOptionsAsProperties = !1),
+        (this._storeOptionsAsProperties = false),
         (this._actionHandler = null),
-        (this._executableHandler = !1),
+        (this._executableHandler = false),
         (this._executableFile = null),
         (this._executableDir = null),
         (this._defaultCommandName = null),
         (this._exitCallback = null),
         (this._aliases = []),
-        (this._combineFlagAndOptionalValue = !0),
+        (this._combineFlagAndOptionalValue = true),
         (this._description = ""),
         (this._summary = ""),
         (this._argsDescription = void 0),
-        (this._enablePositionalOptions = !1),
-        (this._passThroughOptions = !1),
+        (this._enablePositionalOptions = false),
+        (this._passThroughOptions = false),
         (this._lifeCycleHooks = {}),
-        (this._showHelpAfterError = !1),
-        (this._showSuggestionAfterError = !0),
+        (this._showHelpAfterError = false),
+        (this._showSuggestionAfterError = true),
         (this._outputConfiguration = {
           writeOut: (o) => me.stdout.write(o),
           writeErr: (o) => me.stderr.write(o),
@@ -1146,7 +1146,7 @@ var kr = S(function (xi) {
           getErrHelpWidth: () => (me.stderr.isTTY ? me.stderr.columns : void 0),
           outputError: (o, d) => d(o),
         }),
-        (this._hidden = !1),
+        (this._hidden = false),
         (this._helpOption = void 0),
         (this._addImplicitHelpCommand = void 0),
         (this._helpCommand = void 0),
@@ -1180,7 +1180,7 @@ var kr = S(function (xi) {
       _ = _ || {};
       let [, C, k] = t.match(/([^ ]+) *(.*)/),
         v = this.createCommand(C);
-      if (u) v.description(u), (v._executableHandler = !0);
+      if (u) v.description(u), (v._executableHandler = true);
       if (_.isDefault) this._defaultCommandName = v._name;
       if (((v._hidden = !!(_.noHelp || _.hidden)), (v._executableFile = _.executableFile || null), k)) v.arguments(k);
       if ((this._registerCommand(v), (v.parent = this), v.copyInheritedSettings(this), u)) return this;
@@ -1200,11 +1200,11 @@ var kr = S(function (xi) {
       if (t === void 0) return this._outputConfiguration;
       return Object.assign(this._outputConfiguration, t), this;
     }
-    showHelpAfterError(t = !0) {
+    showHelpAfterError(t = true) {
       if (typeof t !== "string") t = !!t;
       return (this._showHelpAfterError = t), this;
     }
-    showSuggestionAfterError(t = !0) {
+    showSuggestionAfterError(t = true) {
       return (this._showSuggestionAfterError = !!t), this;
     }
     addCommand(t, o) {
@@ -1212,7 +1212,7 @@ var kr = S(function (xi) {
         throw Error(`Command passed to .addCommand() must have a name
 - specify the name in Command constructor or using .name()`);
       if (((o = o || {}), o.isDefault)) this._defaultCommandName = t._name;
-      if (o.noHelp || o.hidden) t._hidden = !0;
+      if (o.noHelp || o.hidden) t._hidden = true;
       return this._registerCommand(t), (t.parent = this), t._checkForBrokenPassThrough(), this;
     }
     createArgument(t, o) {
@@ -1248,13 +1248,13 @@ var kr = S(function (xi) {
       let [, d, u] = t.match(/([^ ]+) *(.*)/),
         _ = o ?? "display help for command",
         C = this.createCommand(d);
-      if ((C.helpOption(!1), u)) C.arguments(u);
+      if ((C.helpOption(false), u)) C.arguments(u);
       if (_) C.description(_);
-      return (this._addImplicitHelpCommand = !0), (this._helpCommand = C), this;
+      return (this._addImplicitHelpCommand = true), (this._helpCommand = C), this;
     }
     addHelpCommand(t, o) {
       if (typeof t !== "object") return this.helpCommand(t, o), this;
-      return (this._addImplicitHelpCommand = !0), (this._helpCommand = t), this;
+      return (this._addImplicitHelpCommand = true), (this._helpCommand = t), this;
     }
     _getHelpCommand() {
       if (
@@ -1337,7 +1337,7 @@ Expecting one of '${d.join("', '")}'`);
       if (t.negate) {
         let _ = t.long.replace(/^--no-/, "--");
         if (!this._findOption(_))
-          this.setOptionValueWithSource(d, t.defaultValue === void 0 ? !0 : t.defaultValue, "default");
+          this.setOptionValueWithSource(d, t.defaultValue === void 0 ? true : t.defaultValue, "default");
       } else if (t.defaultValue !== void 0) this.setOptionValueWithSource(d, t.defaultValue, "default");
       let u = (_, C, k) => {
         if (_ == null && t.presetArg !== void 0) _ = t.presetArg;
@@ -1345,8 +1345,8 @@ Expecting one of '${d.join("', '")}'`);
         if (_ !== null && t.parseArg) _ = this._callParseArg(t, _, v, C);
         else if (_ !== null && t.variadic) _ = t._concatValue(_, v);
         if (_ == null)
-          if (t.negate) _ = !1;
-          else if (t.isBoolean() || t.optional) _ = !0;
+          if (t.negate) _ = false;
+          else if (t.isBoolean() || t.optional) _ = true;
           else _ = "";
         this.setOptionValueWithSource(d, _, k);
       };
@@ -1382,21 +1382,21 @@ Expecting one of '${d.join("', '")}'`);
       return this._optionEx({}, t, o, d, u);
     }
     requiredOption(t, o, d, u) {
-      return this._optionEx({ mandatory: !0 }, t, o, d, u);
+      return this._optionEx({ mandatory: true }, t, o, d, u);
     }
-    combineFlagAndOptionalValue(t = !0) {
+    combineFlagAndOptionalValue(t = true) {
       return (this._combineFlagAndOptionalValue = !!t), this;
     }
-    allowUnknownOption(t = !0) {
+    allowUnknownOption(t = true) {
       return (this._allowUnknownOption = !!t), this;
     }
-    allowExcessArguments(t = !0) {
+    allowExcessArguments(t = true) {
       return (this._allowExcessArguments = !!t), this;
     }
-    enablePositionalOptions(t = !0) {
+    enablePositionalOptions(t = true) {
       return (this._enablePositionalOptions = !!t), this;
     }
-    passThroughOptions(t = !0) {
+    passThroughOptions(t = true) {
       return (this._passThroughOptions = !!t), this._checkForBrokenPassThrough(), this;
     }
     _checkForBrokenPassThrough() {
@@ -1405,7 +1405,7 @@ Expecting one of '${d.join("', '")}'`);
           `passThroughOptions cannot be used for '${this._name}' without turning on enablePositionalOptions for parent command(s)`,
         );
     }
-    storeOptionsAsProperties(t = !0) {
+    storeOptionsAsProperties(t = true) {
       if (this.options.length) throw Error("call .storeOptionsAsProperties() before adding options");
       if (Object.keys(this._optionValues).length)
         throw Error("call .storeOptionsAsProperties() before setting option values");
@@ -1476,7 +1476,7 @@ Expecting one of '${d.join("', '")}'`);
     }
     _executeSubCommand(t, o) {
       o = o.slice();
-      let d = !1,
+      let d = false,
         u = [".js", ".ts", ".tsx", ".mjs", ".cjs"];
       function _(P, A) {
         let M = bt.resolve(P, A);
@@ -1515,7 +1515,7 @@ Expecting one of '${d.join("', '")}'`);
       if (!v.killed)
         ["SIGUSR1", "SIGUSR2", "SIGTERM", "SIGINT", "SIGHUP"].forEach((A) => {
           me.on(A, () => {
-            if (v.killed === !1 && v.exitCode === null) v.kill(A);
+            if (v.killed === false && v.exitCode === null) v.kill(A);
           });
         });
       let R = this._exitCallback;
@@ -1544,7 +1544,7 @@ Expecting one of '${d.join("', '")}'`);
     }
     _dispatchSubcommand(t, o, d) {
       let u = this._findCommand(t);
-      if (!u) this.help({ error: !0 });
+      if (!u) this.help({ error: true });
       let _;
       return (
         (_ = this._chainOrCallSubCommandHook(_, u, "preSubcommand")),
@@ -1644,7 +1644,7 @@ Expecting one of '${d.join("', '")}'`);
       if (this._defaultCommandName)
         return this._outputHelpIfRequested(o), this._dispatchSubcommand(this._defaultCommandName, t, o);
       if (this.commands.length && this.args.length === 0 && !this._actionHandler && !this._defaultCommandName)
-        this.help({ error: !0 });
+        this.help({ error: true });
       this._outputHelpIfRequested(d.unknown),
         this._checkForMissingMandatoryOptions(),
         this._checkForConflictingOptions();
@@ -1671,7 +1671,7 @@ Expecting one of '${d.join("', '")}'`);
         if (this.listenerCount("command:*")) this.emit("command:*", t, o);
         else if (this.commands.length) this.unknownCommand();
         else u(), this._processArguments();
-      } else if (this.commands.length) u(), this.help({ error: !0 });
+      } else if (this.commands.length) u(), this.help({ error: true });
       else u(), this._processArguments();
     }
     _findCommand(t) {
@@ -1691,7 +1691,7 @@ Expecting one of '${d.join("', '")}'`);
     _checkForConflictingLocalOptions() {
       let t = this.options.filter((d) => {
         let u = d.attributeName();
-        if (this.getOptionValue(u) === void 0) return !1;
+        if (this.getOptionValue(u) === void 0) return false;
         return this.getOptionValueSource(u) !== "default";
       });
       t.filter((d) => d.conflictsWith.length > 0).forEach((d) => {
@@ -1807,7 +1807,7 @@ Expecting one of '${d.join("', '")}'`);
       else if (this._showHelpAfterError)
         this._outputConfiguration.writeErr(`
 `),
-          this.outputHelp({ error: !0 });
+          this.outputHelp({ error: true });
       let d = o || {},
         u = d.exitCode || 1,
         _ = d.code || "commander.error";
@@ -1859,7 +1859,7 @@ Expecting one of '${d.join("', '")}'`);
             v = this.getOptionValue(k),
             R = this.options.find((A) => A.negate && k === A.attributeName()),
             P = this.options.find((A) => !A.negate && k === A.attributeName());
-          if (R && ((R.presetArg === void 0 && v === !1) || (R.presetArg !== void 0 && v === R.presetArg))) return R;
+          if (R && ((R.presetArg === void 0 && v === false) || (R.presetArg !== void 0 && v === R.presetArg))) return R;
           return P || C;
         },
         u = (C) => {
@@ -2109,7 +2109,7 @@ var xr = S(function (ze, Ir) {
   ze.createArgument = (t, o) => new rt.Argument(t, o);
 });
 function hr() {
-  Z$({ jitless: !0 });
+  Z$({ jitless: true });
 }
 var Hr = j(xr(), 1),
   {
@@ -2181,10 +2181,10 @@ function Qo(t, o) {
     }
     let k = "",
       v = 0,
-      R = !1;
+      R = false;
     for (let P of C) {
       let A = se(P);
-      if (!R) (k = P), (v = A), (R = !0);
+      if (!R) (k = P), (v = A), (R = true);
       else if (v + A <= d) (k += P), (v += A);
       else {
         u.push(k);
@@ -2285,7 +2285,7 @@ function Qi(t, o) {
 function gt() {
   let t = (o) => o.long?.replace(/^--/, "") ?? o.short?.replace(/^-/, "") ?? "";
   return Object.assign(
-    { sortSubcommands: !0, sortOptions: !0, formatHelp: Qi },
+    { sortSubcommands: true, sortOptions: true, formatHelp: Qi },
     { compareOptions: (o, d) => t(o).localeCompare(t(d)) },
   );
 }
@@ -2376,7 +2376,7 @@ Usage: claude mcp add <name> <command> [args...]`);
                   ? {
                       ...(v.clientId && { clientId: v.clientId }),
                       ...(V && { callbackPort: V }),
-                      ...(x && { xaa: !0 }),
+                      ...(x && { xaa: true }),
                     }
                   : void 0,
               { readClientSecret: N, saveMcpClientSecret: K } = import.meta
@@ -2523,7 +2523,7 @@ function Lr(t, o) {
             callbackPort: _.callbackPort,
             onAuthorizationUrl: (k) => {
               process.stdout.write(`If the browser did not open, visit:
-  ${Yg(k, void 0, { assumeSupport: !0 })}
+  ${Yg(k, void 0, { assumeSupport: true })}
 `);
             },
           }),
@@ -2578,8 +2578,8 @@ function jr(t, o) {
     (d
       .command("serve")
       .description("Start the Claude Code MCP server")
-      .option("-d, --debug", "Enable debug mode", () => !0)
-      .option("--verbose", "Override verbose mode setting from config", () => !0)
+      .option("-d, --debug", "Enable debug mode", () => true)
+      .option("--verbose", "Override verbose mode setting from config", () => true)
       .action(
         o(async (_, C) => {
           let { mcpServeHandler: k } = await import("/$bunfs/root/chunk-f47rae7a.js");
@@ -3085,13 +3085,13 @@ class Zo {
 }
 function ts(t) {
   if (a.CLAUBBIT || !ri()) return;
-  v0(!0), ah(t);
+  v0(true), ah(t);
 }
 function os(t) {
   Ae(
     (o) => ({
       ...o,
-      hasCompletedOnboarding: !0,
+      hasCompletedOnboarding: true,
       lastOnboardingVersion: {
         ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
         PACKAGE_URL: "@anthropic-ai/claude-code",
@@ -3212,7 +3212,7 @@ async function Nt(t, o, d, u, _) {
     await t.waitUntilExit();
   } catch (C) {
     let k = we(C),
-      R = (await vvt().catch(() => !1))
+      R = (await vvt().catch(() => false))
         ? " It happened while the fullscreen renderer was starting, so the next launch will use the classic renderer (CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1 forces that any time)."
         : "";
     if ((tr(`Claude Code exited after an unrecoverable interface error (${k.message}).${R}`), wt() || eZe())) throw C;
@@ -3230,8 +3230,8 @@ async function zr(t, o, d, u, _, C, k, v, R, P) {
   let A = null;
   if (wt() || a.CLAUDE_BRIDGE_REATTACH_SESSION)
     return (
-      v0(!0),
-      lNe({ preservePendingExposures: !0 }),
+      v0(true),
+      lNe({ preservePendingExposures: true }),
       mh().catch((B) => h(we(B))),
       xh(t),
       (A = await Wr(o, t, R)),
@@ -3240,18 +3240,18 @@ async function zr(t, o, d, u, _, C, k, v, R, P) {
       ah(R),
       Htt(),
       setImmediate(Bve, R),
-      { onboardingShown: !1, mcpApprovalSkipWarning: A, claudeInChromeAccepted: !1 }
+      { onboardingShown: false, mcpApprovalSkipWarning: A, claudeInChromeAccepted: false }
     );
-  if (Me(!1) || a.IS_DEMO)
-    return ts(R), Htt(), { onboardingShown: !1, mcpApprovalSkipWarning: A, claudeInChromeAccepted: !1 };
+  if (Me(false) || a.IS_DEMO)
+    return ts(R), Htt(), { onboardingShown: false, mcpApprovalSkipWarning: A, claudeInChromeAccepted: false };
   let M = ie(),
-    x = !1;
+    x = false;
   if (
     !M.hasCompletedOnboarding ||
     a.CLAUDE_CODE_POWERUP_ONBOARDING === "banner" ||
     a.CLAUDE_CODE_POWERUP_ONBOARDING === "step"
   ) {
-    x = !0;
+    x = true;
     let { Onboarding: B } = await import("/$bunfs/root/chunk-yvpcsfwy.js");
     await Ce(
       o,
@@ -3265,18 +3265,18 @@ async function zr(t, o, d, u, _, C, k, v, R, P) {
       { onChangeAppState: KJ },
     );
   }
-  let T = !1,
-    H = !0;
+  let T = false,
+    H = true;
   if (!a.CLAUBBIT) {
     if (((H = ri()), !H || Rie())) {
-      T = !0;
+      T = true;
       let { TrustDialog: B } = await import("/$bunfs/root/chunk-0dt2cbhf.js");
       await Ce(o, (N) => e(B, { commands: _, onDone: N }));
     }
-    if ((v0(!0), T)) {
+    if ((v0(true), T)) {
       if ((om("post-trust: re-discover project @skills-dir plugins"), d9(P))) is(R, P).catch(() => {});
     }
-    if ((lNe({ preservePendingExposures: !0 }), !M.hasCompletedOnboarding)) {
+    if ((lNe({ preservePendingExposures: true }), !M.hasCompletedOnboarding)) {
       d$();
       let B = Date.now();
       try {
@@ -3290,9 +3290,9 @@ async function zr(t, o, d, u, _, C, k, v, R, P) {
       }
     } else mh().catch((B) => h(we(B)));
     if ((xh(t), (A = await Wr(o, t, R)), await Izn(t, R))) {
-      let B = pGe(await J_(t, !0, R, P)),
+      let B = pGe(await J_(t, true, R, P)),
         { ClaudeMdExternalIncludesDialog: N } = await import("/$bunfs/root/chunk-87s209ew.js");
-      await Ce(o, (K) => e(N, { onDone: K, isStandaloneDialog: !0, externalIncludes: B }));
+      await Ce(o, (K) => e(N, { onDone: K, isStandaloneDialog: true, externalIncludes: B }));
     }
   }
   if (
@@ -3310,13 +3310,13 @@ async function zr(t, o, d, u, _, C, k, v, R, P) {
     let { GroveDialog: B } = await import("/$bunfs/root/chunk-8bwwgjg6.js");
     if (
       (await Ce(o, (K) =>
-        e(B, { showIfAlreadyViewed: !1, location: x ? "onboarding" : "policy_update_modal", onDone: K }),
+        e(B, { showIfAlreadyViewed: false, location: x ? "onboarding" : "policy_update_modal", onDone: K }),
       )) === "escape"
     )
       return (
         s("tengu_grove_policy_exited", {}),
         Jr(0),
-        { onboardingShown: !1, mcpApprovalSkipWarning: A, claudeInChromeAccepted: !1 }
+        { onboardingShown: false, mcpApprovalSkipWarning: A, claudeInChromeAccepted: false }
       );
   }
   let { getProTrialState: F } = await import("/$bunfs/root/chunk-8g8n5ef9.js");
@@ -3363,14 +3363,14 @@ async function zr(t, o, d, u, _, C, k, v, R, P) {
       import("/$bunfs/root/chunk-vbxndy62.js"),
     ]);
     if (!B() || Ne() !== "firstParty" || N(K("policySettings")))
-      FJ([...hf(), ...k.map((oe) => ({ ...oe, dev: !0 }))]), w5t(!0);
+      FJ([...hf(), ...k.map((oe) => ({ ...oe, dev: true }))]), w5t(true);
     else {
       let { DevChannelsDialog: oe } = await import("/$bunfs/root/chunk-y1z35q5g.js");
       await Ce(o, (ne) =>
         e(oe, {
           channels: k,
           onAccept: () => {
-            FJ([...hf(), ...k.map((fe) => ({ ...fe, dev: !0 }))]), w5t(!0), ne();
+            FJ([...hf(), ...k.map((fe) => ({ ...fe, dev: true }))]), w5t(true), ne();
           },
         }),
       );
@@ -3380,10 +3380,10 @@ async function zr(t, o, d, u, _, C, k, v, R, P) {
     let { ClaudeInChromeOnboarding: B } = await import("/$bunfs/root/chunk-htwst9ej.js");
     await Ce(o, (N) => e(B, { onDone: N }));
   }
-  let V = !1;
+  let V = false;
   if (v) {
     let { isChromeExtensionInstalled: B } = await import("/$bunfs/root/chunk-cra979hh.js"),
-      N = await Xt(B(), 1500, "chrome extension scan timed out before offer").catch(() => !0),
+      N = await Xt(B(), 1500, "chrome extension scan timed out before offer").catch(() => true),
       K = Boolean(ie().chromeExtension?.pairedDeviceId);
     if (N || K) {
       await Xt(
@@ -3391,7 +3391,7 @@ async function zr(t, o, d, u, _, C, k, v, R, P) {
         1500,
         "GrowthBook init timed out before chrome offer",
       ).catch(() => {});
-      let oe = I("tengu_chrome_auto_enable", !1),
+      let oe = I("tengu_chrome_auto_enable", false),
         ne = ie().claudeInChromeDefaultEnabled !== void 0,
         { doesEnterpriseMcpConfigExist: fe, isMcpServerDenied: et } = await import("/$bunfs/root/chunk-qap36z11.js"),
         { CLAUDE_IN_CHROME_MCP_SERVER_NAME: nt } = await import("/$bunfs/root/chunk-5zy2mxqr.js"),
@@ -3400,7 +3400,7 @@ async function zr(t, o, d, u, _, C, k, v, R, P) {
         n("[Claude in Chrome] Skipping offer: blocked by enterprise MCP config or managed deniedMcpServers policy");
       else if (ne)
         n("[Claude in Chrome] Skipping offer: decision already recorded (another instance answered)"),
-          (V = ie().claudeInChromeDefaultEnabled === !0);
+          (V = ie().claudeInChromeDefaultEnabled === true);
       else if (oe) {
         let { ChromeAutoEnableDialog: ge } = await import("/$bunfs/root/chunk-ctv6k5w7.js");
         V = await Ce(o, (ht) => e(ge, { onDone: ht, isDontAskMode: d === "dontAsk", isAutoMode: d === "auto" }));
@@ -3421,7 +3421,7 @@ async function ns(t, o) {
   if (k.length === 0) return;
   let { updateSettingsForSource: v } = await import("/$bunfs/root/chunk-vbxndy62.js"),
     { ThirdPartyModelUpgradeDialog: R } = await import("/$bunfs/root/chunk-g7wng1v2.js"),
-    P = !1;
+    P = false;
   for (let A of k)
     if (
       await Ce(t, (x) =>
@@ -3454,7 +3454,7 @@ async function ns(t, o) {
         );
       } else {
         for (let H of Object.keys(x)) process.env[H] = A.toBedrockId;
-        (P = !0), s("tengu_bedrock_upgrade_accepted", { tier: c(A.tier), from_key: c(A.fromKey), to_key: c(A.toKey) });
+        (P = true), s("tengu_bedrock_upgrade_accepted", { tier: c(A.tier), from_key: c(A.fromKey), to_key: c(A.toKey) });
       }
     } else
       await Ae((x) => ({ ...x, bedrockDeclinedUpgrades: { ...x.bedrockDeclinedUpgrades, [A.tier]: u(A) } }), o),
@@ -3463,7 +3463,7 @@ async function ns(t, o) {
 }
 async function Xr(t) {
   let { Text: o } = await import("/$bunfs/root/chunk-rqhz2e1a.js");
-  t.render(e(o, { dimColor: !0, children: "Restarting Claude Code to apply the new model\u2026" }));
+  t.render(e(o, { dimColor: true, children: "Restarting Claude Code to apply the new model\u2026" }));
   let { sleep: d } = await import("/$bunfs/root/chunk-j3e3xnzy.js");
   await d(250), t.unmount();
   let { execRelaunch: u } = await import("/$bunfs/root/chunk-e11r672p.js");
@@ -3494,7 +3494,7 @@ async function as(t, o) {
   if (k.length === 0) return;
   let { updateSettingsForSource: v } = await import("/$bunfs/root/chunk-vbxndy62.js"),
     { ThirdPartyModelUpgradeDialog: R } = await import("/$bunfs/root/chunk-g7wng1v2.js"),
-    P = !1;
+    P = false;
   for (let A of k)
     if (
       await Ce(t, (x) =>
@@ -3527,7 +3527,7 @@ async function as(t, o) {
         );
       } else {
         for (let H of Object.keys(x)) process.env[H] = A.toVertexId;
-        (P = !0), s("tengu_vertex_upgrade_accepted", { tier: c(A.tier), from_key: c(A.fromKey), to_key: c(A.toKey) });
+        (P = true), s("tengu_vertex_upgrade_accepted", { tier: c(A.tier), from_key: c(A.fromKey), to_key: c(A.toKey) });
       }
     } else
       await Ae((x) => ({ ...x, vertexDeclinedUpgrades: { ...x.vertexDeclinedUpgrades, [A.tier]: u(A) } }), o),
@@ -3604,7 +3604,7 @@ async function tn(t, o) {
 async function on(t, o) {
   let { TeleportHostUnverifiedDialog: d } = await import("/$bunfs/root/chunk-xcbfjvc3.js");
   return Ce(t, (u) =>
-    e(d, { sessionRepo: o.sessionRepo, rawRemoteUrl: o.rawRemoteUrl, onConfirm: () => u(!0), onCancel: () => u(!1) }),
+    e(d, { sessionRepo: o.sessionRepo, rawRemoteUrl: o.rawRemoteUrl, onConfirm: () => u(true), onCancel: () => u(false) }),
   );
 }
 async function nn(t, o) {
@@ -3623,10 +3623,10 @@ function ln(t, o) {
   let d = import("/$bunfs/root/chunk-5534cgpg.js"),
     u = null,
     _ = null,
-    C = !1,
-    k = !1;
+    C = false,
+    k = false;
   function v(x) {
-    if (!k) (k = !0), x();
+    if (!k) (k = true), x();
   }
   let R = d.then(
     (x) => x,
@@ -3648,7 +3648,7 @@ function ln(t, o) {
     let T = u;
     if (T === null || C || Ame(T) === "created") return;
     if (_ !== null) {
-      (C = !0), s("tengu_cloud_create_cancel_forced", { waited_ms: Date.now() - _ }), A(T);
+      (C = true), s("tengu_cloud_create_cancel_forced", { waited_ms: Date.now() - _ }), A(T);
       return;
     }
     (_ = Date.now()),
@@ -3692,7 +3692,7 @@ async function dn(t, o, d, u) {
         messageQueue: P,
         initialState: o.initialState,
         onChangeAppState: (A) => KJ(A, k, v, R),
-        writesExitHandoff: !0,
+        writesExitHandoff: true,
         getFpsMetrics: o.getFpsMetrics,
         stats: o.stats,
         children: e(C, { ...u, worktreePaths: _ }),
@@ -3718,7 +3718,7 @@ function ds() {
 var cs = [/MaxListenersExceededWarning.*AbortSignal/, /MaxListenersExceededWarning.*EventTarget/];
 function fn() {
   let t = new Map();
-  if (!ds()) process.removeAllListeners("warning"), (process.noProcessWarnings = !0);
+  if (!ds()) process.removeAllListeners("warning"), (process.noProcessWarnings = true);
   let d = (u) => {
     try {
       if (mn.isProxy(u) || !mn.isNativeError(u)) return;
@@ -3736,7 +3736,7 @@ function fn() {
           is_internal: M ? 1 : 0,
           occurrence_count: P + 1,
           classname: IR(v) ?? w("Error"),
-          ...!1,
+          ...false,
         }),
         a.CLAUDE_DEBUG)
       )
@@ -3818,8 +3818,8 @@ async function Sn() {
       (v) => {
         let R = v ?? {},
           P = {};
-        if (d && t.enableAllProjectMcpServers === !0 && R.enableAllProjectMcpServers === void 0)
-          P.enableAllProjectMcpServers = !0;
+        if (d && t.enableAllProjectMcpServers === true && R.enableAllProjectMcpServers === void 0)
+          P.enableAllProjectMcpServers = true;
         if (u && Array.isArray(t.enabledMcpjsonServers)) {
           let A = R.enabledMcpjsonServers || [],
             M = new Set(A);
@@ -3860,52 +3860,52 @@ async function Sn() {
 }
 var ms = {};
 async function yn(t = ms, o) {
-  if (Ne() !== "firstParty") return !0;
+  if (Ne() !== "firstParty") return true;
   let d = ye("userSettings")?.model;
-  if (!d) return !0;
+  if (!d) return true;
   let u = pn(d);
-  if (!Object.hasOwn(t, u)) return !0;
+  if (!Object.hasOwn(t, u)) return true;
   let _ = t[u];
-  if (_ === void 0) return !0;
+  if (_ === void 0) return true;
   let C = u !== d,
     { error: k } = await rn("userSettings", { model: C ? `${_}[1m]` : _ }, void 0, o);
-  if (k) return n(`Failed to apply model alias migration: ${k}`, { level: "error" }), !1;
-  return s("tengu_alias_migration", { from_model: _n(u), to_model: _n(_), has_1m: C }), !0;
+  if (k) return n(`Failed to apply model alias migration: ${k}`, { level: "error" }), false;
+  return s("tengu_alias_migration", { from_model: _n(u), to_model: _n(_), has_1m: C }), true;
 }
 async function Cn(t) {
   let o = ie();
-  if (o.autoUpdates !== !1 || o.autoUpdatesProtectedForNative === !0) return !0;
+  if (o.autoUpdates !== false || o.autoUpdatesProtectedForNative === true) return true;
   try {
     let d = ye("userSettings") || {},
       { error: u } = await rn("userSettings", { env: { DISABLE_AUTOUPDATER: "1" } }, void 0, t);
     if (u) throw u;
     return (
       s("tengu_migrate_autoupdates_to_settings", {
-        was_user_preference: !0,
+        was_user_preference: true,
         already_had_env_var: !!d.env?.DISABLE_AUTOUPDATER,
       }),
-      a.set("DISABLE_AUTOUPDATER", !0),
+      a.set("DISABLE_AUTOUPDATER", true),
       await Ae((_) => {
         let { autoUpdates: C, autoUpdatesProtectedForNative: k, ...v } = _;
         return v;
       }, t),
       y("migration_auto_updates_to_settings"),
-      !0
+      true
     );
   } catch (d) {
     return (
       n(`Failed to migrate auto-updates: ${d}`, { level: "error" }),
-      s("tengu_migrate_autoupdates_error", { has_error: !0 }),
+      s("tengu_migrate_autoupdates_error", { has_error: true }),
       p("migration_auto_updates_to_settings", "migration_auto_updates_write_failed"),
-      !1
+      false
     );
   }
 }
 async function vn(t) {
-  if (!ie().bypassPermissionsModeAccepted) return !0;
+  if (!ie().bypassPermissionsModeAccepted) return true;
   try {
     if (!lA()) {
-      let { error: d } = await rn("userSettings", { skipDangerousModePermissionPrompt: !0 }, void 0, t);
+      let { error: d } = await rn("userSettings", { skipDangerousModePermissionPrompt: true }, void 0, t);
       if (d) throw d;
     }
     return (
@@ -3916,19 +3916,19 @@ async function vn(t) {
         return _;
       }, t),
       y("migration_bypass_permissions_to_settings"),
-      !0
+      true
     );
   } catch (d) {
     return (
       n(`Failed to migrate bypass permissions accepted: ${d}`, { level: "error" }),
       p("migration_bypass_permissions_to_settings", "migration_bypass_permissions_write_failed"),
-      !1
+      false
     );
   }
 }
 async function bn(t) {
-  if (Ne() !== "firstParty") return !0;
-  if (!LMe()) return !0;
+  if (Ne() !== "firstParty") return true;
+  if (!LMe()) return true;
   let o = ye("userSettings")?.model;
   if (
     o !== "claude-opus-4-20250514" &&
@@ -3936,19 +3936,19 @@ async function bn(t) {
     o !== "claude-opus-4-0" &&
     o !== "claude-opus-4-1"
   )
-    return !0;
+    return true;
   let { error: d } = await rn("userSettings", { model: "opus" }, void 0, t);
   if (d)
     return (
       n(`Failed to migrate legacy Opus model setting: ${d}`, { level: "error" }),
       p("migration_legacy_opus_to_current", "migration_legacy_opus_write_failed"),
-      !1
+      false
     );
   return (
     Ae((u) => ({ ...u, legacyOpusMigrationTimestamp: Date.now() }), t),
     s("tengu_legacy_opus_migration", { from_model: c(o) }),
     y("migration_legacy_opus_to_current"),
-    !0
+    true
   );
 }
 var fs = { "subscription-switch": "subscriptionNoticeCount" };
@@ -3959,57 +3959,57 @@ function An(t) {
   for (let [u, _] of Object.entries(fs)) {
     let C = o[_];
     if (typeof C === "number" && C > 0) d[u] = C;
-    else if (C === !0) d[u] = 1;
+    else if (C === true) d[u] = 1;
   }
   Ae((u) => (u.seenNotifications !== void 0 ? u : { ...u, seenNotifications: d }), t),
     y("migration_notification_dismissals");
 }
 async function kn(t) {
-  if (!YS()) return !0;
-  if (ye("userSettings")?.model !== "opus") return !0;
+  if (!YS()) return true;
+  if (ye("userSettings")?.model !== "opus") return true;
   let { error: d } = await rn("userSettings", { model: "opus[1m]" }, void 0, t);
   if (d)
     return (
       n(`Failed to migrate opus model setting: ${d}`, { level: "error" }),
       p("migration_opus_to_opus1m", "migration_opus_to_opus1m_write_failed"),
-      !1
+      false
     );
-  return s("tengu_opus_to_opus1m_migration", {}), y("migration_opus_to_opus1m"), !0;
+  return s("tengu_opus_to_opus1m_migration", {}), y("migration_opus_to_opus1m"), true;
 }
 function On(t) {
-  let o = !1;
+  let o = false;
   if (
     (Ae((d) => {
       let u = d.replBridgeEnabled;
       if (u === void 0) return d;
       if (d.remoteControlAtStartup !== void 0) return d;
       let _ = { ...d, remoteControlAtStartup: Boolean(u) };
-      return delete _.replBridgeEnabled, (o = !0), _;
+      return delete _.replBridgeEnabled, (o = true), _;
     }, t),
     o)
   )
     y("migration_repl_bridge_to_remote_control");
 }
 async function Pn(t) {
-  if (ie().sonnet1m45MigrationComplete) return !0;
-  let d = !1;
+  if (ie().sonnet1m45MigrationComplete) return true;
+  let d = false;
   if (ye("userSettings")?.model === "sonnet[1m]") {
     let { error: C } = await rn("userSettings", { model: "sonnet-4-5-20250929[1m]" }, void 0, t);
     if (C)
       return (
         n(`Failed to migrate sonnet[1m] model setting: ${C}`, { level: "error" }),
         p("migration_sonnet1m_to_sonnet45", "migration_sonnet1m_write_failed"),
-        !1
+        false
       );
-    d = !0;
+    d = true;
   }
-  if (nc() === "sonnet[1m]") dd("sonnet-4-5-20250929[1m]"), (d = !0);
-  if ((Ae((C) => ({ ...C, sonnet1m45MigrationComplete: !0 }), t), d)) y("migration_sonnet1m_to_sonnet45");
-  return !0;
+  if (nc() === "sonnet[1m]") dd("sonnet-4-5-20250929[1m]"), (d = true);
+  if ((Ae((C) => ({ ...C, sonnet1m45MigrationComplete: true }), t), d)) y("migration_sonnet1m_to_sonnet45");
+  return true;
 }
 async function Rn(t) {
-  if (Ne() !== "firstParty") return !0;
-  if (!Dre() && !uAe() && !qbt()) return !0;
+  if (Ne() !== "firstParty") return true;
+  if (!Dre() && !uAe() && !qbt()) return true;
   let o = ye("userSettings")?.model;
   if (
     o !== "claude-sonnet-4-5-20250929" &&
@@ -4017,17 +4017,17 @@ async function Rn(t) {
     o !== "sonnet-4-5-20250929" &&
     o !== "sonnet-4-5-20250929[1m]"
   )
-    return !0;
+    return true;
   let d = o.endsWith("[1m]"),
     { error: u } = await rn("userSettings", { model: d ? "sonnet[1m]" : "sonnet" }, void 0, t);
   if (u)
     return (
       n(`Failed to migrate Sonnet 4.5 model setting: ${u}`, { level: "error" }),
       p("migration_sonnet45_to_sonnet46", "migration_sonnet45_write_failed"),
-      !1
+      false
     );
   if (ie().numStartups > 1) Ae((C) => ({ ...C, sonnet45To46MigrationTimestamp: Date.now() }), t);
-  return s("tengu_sonnet45_to_46_migration", { from_model: c(o), has_1m: d }), y("migration_sonnet45_to_sonnet46"), !0;
+  return s("tengu_sonnet45_to_46_migration", { from_model: c(o), has_1m: d }), y("migration_sonnet45_to_sonnet46"), true;
 }
 async function In(t) {
   let o = ie(),
@@ -4040,26 +4040,26 @@ async function In(t) {
     if (d?.[_] !== void 0) continue;
     u[_] = C;
   }
-  if (Object.keys(u).length === 0) return !0;
+  if (Object.keys(u).length === 0) return true;
   try {
     let { error: _ } = await rn("userSettings", u, void 0, t);
     if (_) throw _;
     return (
       s("tengu_migrate_user_intent_to_settings", { migrated_count: Object.keys(u).length }),
       y("migration_user_intent_to_settings"),
-      !0
+      true
     );
   } catch (_) {
     return (
       h(Error(`Failed to migrate user-intent settings: ${_}`)),
       p("migration_user_intent_to_settings", "migration_user_intent_write_failed"),
-      !1
+      false
     );
   }
 }
 async function xn(t) {
-  if (ie().hasResetAutoModeOptInForDefaultOffer) return !0;
-  if (Lan() !== "enabled") return !0;
+  if (ie().hasResetAutoModeOptInForDefaultOffer) return true;
+  if (Lan() !== "enabled") return true;
   try {
     let d = ye("userSettings");
     if (d?.skipAutoPermissionPrompt && d?.permissions?.defaultMode !== "auto") {
@@ -4069,30 +4069,30 @@ async function xn(t) {
     }
     Ae((u) => {
       if (u.hasResetAutoModeOptInForDefaultOffer) return u;
-      return { ...u, hasResetAutoModeOptInForDefaultOffer: !0 };
+      return { ...u, hasResetAutoModeOptInForDefaultOffer: true };
     }, t);
   } catch (d) {
     return (
       h(Error(`Failed to reset auto mode opt-in: ${d}`)),
       p("migration_reset_auto_mode_opt_in", "migration_reset_auto_mode_write_failed"),
-      !1
+      false
     );
   }
-  return !0;
+  return true;
 }
 function Mn(t) {
   if (ie().opusProMigrationComplete) return;
   if (Ne() !== "firstParty" || !Dre()) {
-    Ae((_) => ({ ..._, opusProMigrationComplete: !0 }), t), s("tengu_reset_pro_to_opus_default", { skipped: !0 });
+    Ae((_) => ({ ..._, opusProMigrationComplete: true }), t), s("tengu_reset_pro_to_opus_default", { skipped: true });
     return;
   }
   if (En()?.model === void 0) {
     let _ = Date.now();
-    Ae((C) => ({ ...C, opusProMigrationComplete: !0, opusProMigrationTimestamp: _ }), t),
-      s("tengu_reset_pro_to_opus_default", { skipped: !1, had_custom_model: !1 });
+    Ae((C) => ({ ...C, opusProMigrationComplete: true, opusProMigrationTimestamp: _ }), t),
+      s("tengu_reset_pro_to_opus_default", { skipped: false, had_custom_model: false });
   } else
-    Ae((_) => ({ ..._, opusProMigrationComplete: !0 }), t),
-      s("tengu_reset_pro_to_opus_default", { skipped: !1, had_custom_model: !0 });
+    Ae((_) => ({ ..._, opusProMigrationComplete: true }), t),
+      s("tengu_reset_pro_to_opus_default", { skipped: false, had_custom_model: true });
   y("migration_reset_pro_to_opus_default");
 }
 var rr = 13;
@@ -4178,8 +4178,8 @@ async function Hn(t, o) {
       verbose: lo,
     } = t;
   if ((nHn(Te ?? "text"), it)) {
-    if ((OFe(!0), eR(), Bve(t.storageV5), Gs() && !Co()))
-      kl.initialize(Kve(lt, t.storageV5, t.credentials), t.storageV5, { machineServesSession: !0 });
+    if ((OFe(true), eR(), Bve(t.storageV5), Gs() && !Co()))
+      kl.initialize(Kve(lt, t.storageV5, t.credentials), t.storageV5, { machineServesSession: true });
     let { runHeadlessCloudAttach: de, runHeadlessCloudCreate: Ie } = await import("/$bunfs/root/chunk-g2wrqkxa.js");
     return V === null ? Ie(t, o, G().host) : de(t, o, V, G().host);
   }
@@ -4210,11 +4210,11 @@ async function Hn(t, o) {
             )
           : void 0,
       Xe =
-        tt !== null ? { ok: !1, reason: tt } : Ot === void 0 ? await Xde(V, je) : await Xde(V, je, { eventSigner: Ot });
+        tt !== null ? { ok: false, reason: tt } : Ot === void 0 ? await Xde(V, je) : await Xde(V, je, { eventSigner: Ot });
     if (!Xe.ok) {
       if ((await Ss("tengu_remote_send_headless_error", { entry_point: c("cloud_attach_headless") }), Te === "json"))
         process.stdout.write(
-          b({ ok: !1, session_id: V, error: Xe.reason }) +
+          b({ ok: false, session_id: V, error: Xe.reason }) +
             `
 `,
         );
@@ -4224,7 +4224,7 @@ async function Hn(t, o) {
     let Qe = da(V, void 0, { from: "cli", m: "0" });
     if (Te === "json")
       process.stdout.write(
-        b({ ok: !0, session_id: V, url: Qe }) +
+        b({ ok: true, session_id: V, url: Qe }) +
           `
 `,
       );
@@ -4293,7 +4293,7 @@ async function Hn(t, o) {
         Te === "json")
       )
         process.stdout.write(
-          b({ ok: !1, error: Ot ?? "Unable to create cloud session" }) +
+          b({ ok: false, error: Ot ?? "Unable to create cloud session" }) +
             `
 `,
         );
@@ -4307,7 +4307,7 @@ async function Hn(t, o) {
     let mo = da(re.id, void 0, { from: "cli", m: "0" });
     if (Te === "json")
       process.stdout.write(
-        b({ ok: !0, session_id: re.id, title: re.title, url: mo, pool_id: At }) +
+        b({ ok: true, session_id: re.id, title: re.title, url: mo, pool_id: At }) +
           `
 `,
       );
@@ -4323,7 +4323,7 @@ async function Hn(t, o) {
     await Ln(0);
     return;
   }
-  if (Te === "stream-json" || Te === "json") OFe(!0);
+  if (Te === "stream-json" || Te === "json") OFe(true);
   eR(), Bve(t.storageV5);
   let kt = (o.continue || o.resume || Y) && !lRe() ? null : LSn(Bt ?? Lt);
   if (kt && Te !== "json" && Te !== "stream-json") AS(kt);
@@ -4366,9 +4366,9 @@ async function Hn(t, o) {
         return { ...Ie, toolPermissionContext: je };
       });
     }),
-    o.sessionPersistence === !1)
+    o.sessionPersistence === false)
   )
-    rxn(!0);
+    rxn(true);
   R0n(Ke);
   let Do = vPn({
     regularMcpConfigs: Ge,
@@ -4425,7 +4425,7 @@ async function Hn(t, o) {
       includePartialMessages: fe,
       forwardSubagentText: ne,
       sessionMirror: x,
-      forkSession: o.forkSession || !1,
+      forkSession: o.forkSession || false,
       resumeSessionAt: o.resumeSessionAt || void 0,
       resumeDropsTurn: o.resumeDropsTurn,
       rewindFiles: o.rewindFiles,
@@ -4442,8 +4442,8 @@ async function Hn(t, o) {
   return;
 }
 function gs() {
-  if (BT()) return !1;
-  if (sor()) return !1;
+  if (BT()) return false;
+  if (sor()) return false;
   let t = Zre(),
     o = eoe();
   if (o === "remote") return ror(t);
@@ -4456,7 +4456,7 @@ function _s(t, o) {
 function Nn(t) {
   let o = new Tt().configureHelp(gt()).enablePositionalOptions();
   Mr("run_commander_initialized");
-  let d = !1,
+  let d = false,
     u,
     _,
     C =
@@ -4502,7 +4502,7 @@ function Nn(t) {
         );
     } else if (gs() && !L)
       await Promise.resolve(t.showSecurityDialog?.())
-        .then((N) => crt(N, u, { singleAttempt: !0, credentials: _ }))
+        .then((N) => crt(N, u, { singleAttempt: true, credentials: _ }))
         .catch(h);
     else
       Promise.resolve(t.showSecurityDialog?.())
@@ -4550,7 +4550,7 @@ function Nn(t) {
       if (Array.isArray(N) && N.every((K) => typeof K === "string")) B4(N);
       V4.registerBuiltinPluginsForEarlyScan(),
         is(u, _).catch(() => {}),
-        (d = !0),
+        (d = true),
         Mr("preAction_after_plugin_early_kick");
     }
     Wi("pre_action_ms", performance.now() - M, M), Lin(A === o);
@@ -4563,34 +4563,34 @@ function Nn(t) {
       .option(
         "-d, --debug [filter]",
         'Enable debug mode with optional category filtering (e.g., "api,hooks" or "!1p,!file")',
-        (P) => !0,
+        (P) => true,
       )
       .addOption(
         new U("-d2e, --debug-to-stderr", "(deprecated) Enable debug mode (to stderr)")
           .argParser(Boolean)
           .hideHelp()
-          .implies({ debug: !0 }),
+          .implies({ debug: true }),
       )
       .option(
         "--debug-file <path>",
         "Write debug logs to a specific file path (implicitly enables debug mode)",
-        () => !0,
+        () => true,
       )
-      .option("--verbose", "Override verbose mode setting from config", () => !0)
+      .option("--verbose", "Override verbose mode setting from config", () => true)
       .option(
         "-p, --print",
         "Print response and exit (useful for pipes). Note: The workspace trust dialog is skipped when Claude is run in non-interactive mode (via -p, or when stdout is not a TTY, e.g. piped or redirected output). Only use this in directories you trust. Settings files that fail validation are silently ignored in this mode (no error dialog is shown).",
-        () => !0,
+        () => true,
       )
       .option(
         "--bare",
         "Minimal mode: skip hooks, LSP, plugin sync, attribution, auto-memory, background prefetches, keychain reads, and CLAUDE.md auto-discovery. Sets CLAUDE_CODE_SIMPLE=1. Anthropic auth is strictly ANTHROPIC_API_KEY or apiKeyHelper via --settings (OAuth and keychain are never read). 3P providers (Bedrock/Vertex/Foundry) use their own credentials. Skills still resolve via /skill-name. Explicitly provide context via: --system-prompt[-file], --append-system-prompt[-file], --add-dir (CLAUDE.md dirs), --mcp-config, --settings, --agents, --plugin-dir.",
-        () => !0,
+        () => true,
       )
       .option(
         "--safe-mode",
         "Start with all customizations (CLAUDE.md, skills, plugins, hooks, MCP servers, custom commands and agents, output styles, workflows, custom themes, keybindings, and more) disabled \u2014 useful for troubleshooting a broken configuration. Admin-managed (policy) settings still apply. Auth, model selection, built-in tools, and permissions work normally. Sets CLAUDE_CODE_SAFE_MODE=1.",
-        () => !0,
+        () => true,
       )
       .addOption(new U("--init", "Run Setup hooks with init trigger, then continue").hideHelp())
       .addOption(new U("--init-only", "Run Setup and SessionStart:startup hooks, then exit").hideHelp())
@@ -4610,17 +4610,17 @@ function Nn(t) {
       .option(
         "--include-hook-events",
         "Include all hook lifecycle events in the output stream (only works with --output-format=stream-json)",
-        () => !0,
+        () => true,
       )
       .option(
         "--include-partial-messages",
         "Include partial message chunks as they arrive (only works with --print and --output-format=stream-json)",
-        () => !0,
+        () => true,
       )
       .option(
         "--forward-subagent-text",
         "Forward subagent text and thinking blocks as assistant/user messages with parent_tool_use_id set (only works with --print and --output-format=stream-json)",
-        () => !0,
+        () => true,
       )
       .addOption(
         new U(
@@ -4637,12 +4637,12 @@ function Nn(t) {
       .option(
         "--dangerously-skip-permissions",
         "Bypass all permission checks. Recommended only for sandboxes with no internet access.",
-        () => !0,
+        () => true,
       )
       .option(
         "--allow-dangerously-skip-permissions",
         "Enable bypassing all permission checks as an option, without it being enabled by default. Recommended only for sandboxes with no internet access.",
-        () => !0,
+        () => true,
       )
       .addOption(
         new U("--thinking <mode>", "Thinking mode: enabled (equivalent to adaptive), disabled")
@@ -4692,7 +4692,7 @@ function Nn(t) {
       .option(
         "--replay-user-messages",
         "Re-emit user messages from stdin back on stdout for acknowledgment (only works with --input-format=stream-json and --output-format=stream-json)",
-        () => !0,
+        () => true,
       )
       .addOption(
         new U(
@@ -4706,7 +4706,7 @@ function Nn(t) {
             return !bo(P);
           }),
       )
-      .addOption(new U("--enable-auth-status", "Enable auth status messages in SDK mode").default(!1).hideHelp())
+      .addOption(new U("--enable-auth-status", "Enable auth status messages in SDK mode").default(false).hideHelp())
       .option(
         "--allowedTools, --allowed-tools <tools...>",
         'Comma or space-separated list of tool names to allow (e.g. "Bash(git *) Edit")',
@@ -4764,19 +4764,19 @@ function Nn(t) {
         new U(
           "--exclude-dynamic-system-prompt-sections",
           "Move per-machine sections (cwd, env info, memory paths, git status) from the system prompt into the first user message. Improves cross-user prompt-cache reuse. Only applies with the default system prompt (ignored with --system-prompt).",
-        ).default(!1),
+        ).default(false),
       )
       .addOption(new U("--permission-mode <mode>", "Permission mode to use for the session").choices(or).argParser(wn))
-      .option("-c, --continue", "Continue the most recent conversation in the current directory", () => !0)
+      .option("-c, --continue", "Continue the most recent conversation in the current directory", () => true)
       .option(
         "-r, --resume [value]",
         "Resume a conversation by session ID, or open interactive picker with optional search term",
-        (P) => P || !0,
+        (P) => P || true,
       )
       .option(
         "--fork-session",
         "When resuming, create a new session ID instead of reusing the original (use with --resume or --continue)",
-        () => !0,
+        () => true,
       )
       .addOption(
         new U(
@@ -4814,7 +4814,7 @@ function Nn(t) {
       .option(
         "--from-pr [value]",
         "Resume a session linked to a PR by PR number/URL, or open interactive picker with optional search term",
-        (P) => P || !0,
+        (P) => P || true,
       )
       .option(
         "--no-session-persistence",
@@ -4884,11 +4884,11 @@ function Nn(t) {
         ).hideHelp(),
       )
       .option("--add-dir <directories...>", "Additional directories to allow tool access to")
-      .option("--ide", "Automatically connect to IDE on startup if exactly one valid IDE is available", () => !0)
+      .option("--ide", "Automatically connect to IDE on startup if exactly one valid IDE is available", () => true)
       .option(
         "--strict-mcp-config",
         "Only use MCP servers from --mcp-config, ignoring all other MCP configurations",
-        () => !0,
+        () => true,
       )
       .option("--session-id <uuid>", "Use a specific session ID for the conversation (must be a valid UUID)")
       .option(
@@ -4921,7 +4921,7 @@ function Nn(t) {
         (P, A) => [...A, ...P.split(/\s+/).filter(Boolean)],
         [],
       )
-      .option("--disable-slash-commands", "Disable all skills", () => !0)
+      .option("--disable-slash-commands", "Disable all skills", () => true)
       .option("--chrome", "Enable Claude in Chrome integration")
       .option("--no-chrome", "Disable Claude in Chrome integration")
       .option(
@@ -5059,9 +5059,9 @@ function Nn(t) {
       new U(
         "--remote-control [name]",
         "Start an interactive session with Remote Control enabled (optionally named)",
-      ).argParser((P) => P || !0),
+      ).argParser((P) => P || true),
     ),
-    o.addOption(new U("--rc [name]", "Alias for --remote-control").argParser((P) => P || !0).hideHelp()),
+    o.addOption(new U("--rc [name]", "Alias for --remote-control").argParser((P) => P || true).hideHelp()),
     o.option(
       "--remote-control-session-name-prefix <prefix>",
       "Prefix for auto-generated Remote Control session names (default: hostname)",
@@ -5082,8 +5082,8 @@ function Bn({ remoteControlFlag: t, isRemoteThinClient: o }) {
   let d = a.CLAUDE_CODE_REMOTE,
     u = x4t(),
     _ = !o && !d && !t && u.value === void 0 ? T9t() : void 0,
-    C = !o && !d && (t || (u.value ?? _?.value ?? !1)),
-    k = !1,
+    C = !o && !d && (t || (u.value ?? _?.value ?? false)),
+    k = false,
     v = Boolean(a.CLAUDE_BRIDGE_REATTACH_SESSION),
     R = a.CLAUDE_BRIDGE_REATTACH_OUTBOUND_ONLY,
     P = C || k || (v && !R),
@@ -5171,16 +5171,16 @@ function As() {
 }
 function ks() {
   let t = {};
-  if (a.NODE_EXTRA_CA_CERTS) t.has_node_extra_ca_certs = !0;
-  if (a.CLAUDE_CODE_CLIENT_CERT) t.has_client_cert = !0;
-  if (a$e("--use-system-ca")) t.has_use_system_ca = !0;
-  if (a$e("--use-openssl-ca")) t.has_use_openssl_ca = !0;
+  if (a.NODE_EXTRA_CA_CERTS) t.has_node_extra_ca_certs = true;
+  if (a.CLAUDE_CODE_CLIENT_CERT) t.has_client_cert = true;
+  if (a$e("--use-system-ca")) t.has_use_system_ca = true;
+  if (a$e("--use-openssl-ca")) t.has_use_openssl_ca = true;
   if (a.CLAUDE_CODE_CERT_STORE) t.cert_store = a.CLAUDE_CODE_CERT_STORE;
   return t;
 }
 async function Ps(t, o) {
   if (zh()) return;
-  let [d, u, _, C] = await Promise.all([Vg(), O1e(), Vve({ allowNetworkFallbackForOldGh: !1 }), null]),
+  let [d, u, _, C] = await Promise.all([Vg(), O1e(), Vve({ allowNetworkFallbackForOldGh: false }), null]),
     k = hPn(),
     v = _Pn(t),
     R = yPn(Je());
@@ -5188,14 +5188,14 @@ async function Ps(t, o) {
     is_git: d,
     worktree_count: u,
     ...o,
-    ...!1,
+    ...false,
     warm_spare_claimed: hVn(),
     gh_auth_status: c(_.status),
     sandbox_enabled: pt.isSandboxingEnabled(),
     are_unsandboxed_commands_allowed: pt.areUnsandboxedCommandsAllowed(),
     is_auto_bash_allowed_if_sandbox_enabled: pt.isAutoAllowBashIfSandboxedEnabled(),
     auto_updater_disabled: j3(),
-    prefers_reduced_motion: Je().prefersReducedMotion ?? !1,
+    prefers_reduced_motion: Je().prefersReducedMotion ?? false,
     precompute_compaction_setting_enabled: Lo("precomputeCompactionEnabled", gPe()).value,
     theme: Lo("theme", "dark").value,
     set_env_var_count: k.length,
@@ -5293,7 +5293,7 @@ async function Rs(t, o, d) {
         }
       });
     u.hook("preSubcommand", (H, F) => {
-      if (F === T) DHn(!0);
+      if (F === T) DHn(true);
     });
   }
   jr(u, _);
@@ -5355,19 +5355,19 @@ async function Rs(t, o, d) {
     u
       .command("setup-token")
       .description("Set up a long-lived authentication token (requires Claude subscription)")
-      .allowExcessArguments(!1)
+      .allowExcessArguments(false)
       .action(async (T) => {
         let [{ setupTokenHandler: H }, { createRoot: F }] = await Promise.all([
             import("/$bunfs/root/chunk-tmvfz13y.js"),
             import("/$bunfs/root/chunk-rqhz2e1a.js"),
           ]),
-          L = await F(Fw(!1));
+          L = await F(Fw(false));
         await H(L, T);
       }),
     u
       .command("agents")
       .description("Manage background agents")
-      .allowExcessArguments(!1)
+      .allowExcessArguments(false)
       .option("--setting-sources <sources>", "Comma-separated list of setting sources to load (user, project, local).")
       .option("--cwd <path>", "Show only background sessions started under <path>")
       .option(
@@ -5485,12 +5485,12 @@ async function Rs(t, o, d) {
         );
   }
   u
-    .command("remote-control", { hidden: !0 })
+    .command("remote-control", { hidden: true })
     .alias("rc")
     .description("Control local sessions from claude.ai/code or the Claude mobile app")
-    .helpOption(!1)
+    .helpOption(false)
     .allowUnknownOption()
-    .allowExcessArguments(!0)
+    .allowExcessArguments(true)
     .action(
       C(async (T, H, F, L) => {
         let {
@@ -5515,7 +5515,7 @@ async function Rs(t, o, d) {
           await H(T);
         }),
       );
-  let x = u.command("sandbox", { hidden: !0 });
+  let x = u.command("sandbox", { hidden: true });
   return (
     x
       .command("install")
@@ -5573,7 +5573,7 @@ async function Rs(t, o, d) {
 Starts an interactive session and runs /import.`);
       }),
     u
-      .command("import-conversations <exportPath>", { hidden: !0 })
+      .command("import-conversations <exportPath>", { hidden: true })
       .option("--cwd <dir>", "Archive directory the imported sessions anchor to")
       .option("--dry-run", "Parse and verify manifest without writing files")
       .action(
@@ -5629,9 +5629,9 @@ async function Is(t) {
       inputPrompt: ht,
       prompt: It,
     } = t,
-    Et = !1,
+    Et = false,
     xt = null,
-    Te = Qr(!1),
+    Te = Qr(false),
     _t = Te.getFpsMetrics,
     At = Te.stats;
   GIn({ storageV5: ne });
@@ -5644,12 +5644,12 @@ async function Is(t) {
   }),
     n("[STARTUP] Running showSetupScreens()...");
   let Bt = Date.now(),
-    Ge = !1,
+    Ge = false,
     Lt = w8t({
       isSSHPending: v,
       isRemoteMode: $n(),
       hasTeleport: Boolean(u),
-      isSafeMode: Dr() || C.restricted === !0,
+      isSafeMode: Dr() || C.restricted === true,
       permissionMode: _,
       isBypassPermissionsModeAvailable: C.isBypassPermissionsModeAvailable,
       teammateAgentId: k?.agentId,
@@ -5659,7 +5659,7 @@ async function Is(t) {
       onboardingShown: Et,
       mcpApprovalSkipWarning: xt,
       claudeInChromeAccepted: Ge,
-    } = await zr(o, he, v ? "default" : _, v ? !1 : R, et, P || (A && M) ? !1 : A, x, Lt ? !1 : T, ne, fe)),
+    } = await zr(o, he, v ? "default" : _, v ? false : R, et, P || (A && M) ? false : A, x, Lt ? false : T, ne, fe)),
     YHn(Et),
     n(`[STARTUP] showSetupScreens() completed in ${Date.now() - Bt}ms`),
     ((!H && ri()) || (!F && qd())) && !L && !Co() && !$n())
@@ -5740,7 +5740,7 @@ ${K ? "--rc and --project ignored." : "--rc flag ignored."}`);
           await Ae(
             (Z) => ({
               ...Z,
-              hasCompletedOnboarding: !0,
+              hasCompletedOnboarding: true,
               lastOnboardingVersion: {
                 ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
                 PACKAGE_URL: "@anthropic-ai/claude-code",
@@ -5910,16 +5910,16 @@ async function xs(t, o, d, u) {
       agentNameRegistry: new Map(),
       sendMessagePins: {},
       agentTypesInvokedThisSession: new Set(),
-      verbose: uo ?? Lo("verbose", !1).value,
-      showMessageTimestamps: Lo("showMessageTimestamps", !1).value,
+      verbose: uo ?? Lo("verbose", false).value,
+      showMessageTimestamps: Lo("showMessageTimestamps", false).value,
       mainLoopModel: st,
       mainLoopModelForSession: null,
       isBriefOnly: Ot,
-      slackTagConnected: !1,
+      slackTagConnected: false,
       replTab: "convo",
-      diffPanelVisible: !1,
+      diffPanelVisible: false,
       panelFileView: null,
-      briefTranscript: uo ? !1 : it,
+      briefTranscript: uo ? false : it,
       expandedView: ie().showExpandedTodos ? "tasks" : "none",
       coordinatorTaskIndex: -1,
       workflowFooterIndex: 0,
@@ -5939,7 +5939,7 @@ async function xs(t, o, d, u) {
         errors: [],
         warnings: [],
         installationStatus: { marketplaces: [], plugins: [] },
-        needsRefresh: !1,
+        needsRefresh: false,
       },
       setupIssues: {
         settingsErrorCount: 0,
@@ -5955,21 +5955,21 @@ async function xs(t, o, d, u) {
       },
       statusLineText: void 0,
       prStatus: null,
-      prNeedsAuth: !1,
+      prNeedsAuth: false,
       remoteSessionUrl: void 0,
       projectsSelfIdentity: pHt,
       remoteConnectionStatus: "connecting",
       remoteBootstrap: null,
       remoteBackgroundTaskCount: 0,
-      hasRemoteReplyChannel: !1,
+      hasRemoteReplyChannel: false,
       replBridgeEnabled: Xe.replBridgeEnabled,
       replBridgeAutoOnByDefault: Xe.replBridgeAutoOnByDefault,
       replBridgeExplicit: Xe.replBridgeExplicit,
       replBridgeOutboundOnly: Xe.replBridgeOutboundOnly,
-      replBridgeConnected: !1,
-      replBridgeSessionActive: !1,
-      replBridgeSkipNextArchive: !1,
-      replBridgeReconnecting: !1,
+      replBridgeConnected: false,
+      replBridgeSessionActive: false,
+      replBridgeSkipNextArchive: false,
+      replBridgeReconnecting: false,
       replBridgeConnectUrl: void 0,
       replBridgeSessionUrl: void 0,
       replBridgeEnvironmentId: void 0,
@@ -5982,8 +5982,8 @@ async function xs(t, o, d, u) {
       notifications: { current: null, queue: je, pinned: [] },
       queuedRemoteNotifications: { pending: [], drainedIds: [], nudge: null },
       autoUpdaterResult: null,
-      prResolvedThisSession: !1,
-      ultrareviewOverageConfirmed: !1,
+      prResolvedThisSession: false,
+      ultrareviewOverageConfirmed: false,
       frameUrls: {},
       elicitation: { queue: [] },
       todos: {},
@@ -6001,7 +6001,7 @@ async function xs(t, o, d, u) {
       pendingSandboxRequest: null,
       authVersion: 0,
       policyVersion: 0,
-      initialMessage: ge ? { message: xe({ content: String(ge) }) } : o.replyOnResume ? { replay: !0 } : null,
+      initialMessage: ge ? { message: xe({ content: String(ge) }) } : o.replyOnResume ? { replay: true } : null,
       ...UOe(o.effort, z),
       ultracode: Ajt(o.effort, z),
       cacheMissAckedAtOutputTokens: -1,
@@ -6028,7 +6028,7 @@ async function xs(t, o, d, u) {
       t.credentials,
     );
   let Pt = null,
-    fo = !1,
+    fo = false,
     go = Pt && !fo ? Pt.then((le) => le.createSessionTurnUploader(_e)).catch(() => null) : null,
     sr = Pt && fo ? Pt.then((le) => le.createSessionTurnUploaderV2(_e)).catch(() => null) : null,
     ho = {
@@ -6070,7 +6070,7 @@ async function xs(t, o, d, u) {
       credentials: Ee,
     };
   if (o.continue) {
-    let le = !1;
+    let le = false;
     try {
       let ce = performance.now(),
         { clearSessionCaches: pe } = await import("/$bunfs/root/chunk-ahgv56m5.js");
@@ -6082,15 +6082,15 @@ async function xs(t, o, d, u) {
         credentials: Ee,
         ...O7(_e.precompute, z, { forkSession: !!o.forkSession }),
       });
-      if (!dt) return await Ss("tengu_continue", { success: !1 }), await Pe(Y, "No conversation found to continue");
-      let Le = await Pet(dt, { forkSession: !!o.forkSession, includeAttribution: !0, transcriptPath: dt.fullPath }, Fo);
+      if (!dt) return await Ss("tengu_continue", { success: false }), await Pe(Y, "No conversation found to continue");
+      let Le = await Pet(dt, { forkSession: !!o.forkSession, includeAttribution: true, transcriptPath: dt.fullPath }, Fo);
       if (Le.restoredAgentDef) _ = Le.restoredAgentDef;
       JZe(o),
         await nr(o),
-        s("tengu_continue", { success: !0, resume_duration_ms: Math.round(performance.now() - ce) }),
-        (le = !0);
+        s("tengu_continue", { success: true, resume_duration_ms: Math.round(performance.now() - ce) }),
+        (le = true);
       let St = Eme(B, Le.restoredAgentDef ?? _, { strictMcpConfig: Gt });
-      if (Object.keys(St).length > 0) await oL({ hasDynamicMcpConfig: !0 });
+      if (Object.keys(St).length > 0) await oL({ hasDynamicMcpConfig: true });
       await D$e(
         Y,
         {
@@ -6115,7 +6115,7 @@ async function xs(t, o, d, u) {
         Nt,
       );
     } catch (ce) {
-      if (!le) await Ss("tengu_continue", { success: !1 });
+      if (!le) await Ss("tengu_continue", { success: false });
       h(ft(we(ce), "continue/resume launchRepl failed"));
       let pe = we(ce).message;
       tr(
@@ -6136,13 +6136,13 @@ async function xs(t, o, d, u) {
       St = null,
       Qt = void 0;
     if (o.fromPr) {
-      if (o.fromPr === !0) Qt = !0;
+      if (o.fromPr === true) Qt = true;
       else if (typeof o.fromPr === "string") Qt = o.fromPr;
     }
     if (o.resume && typeof o.resume === "string" && !dt && !KSe(o.resume)) {
       let q = o.resume.trim();
       if (q) {
-        let W = await eM(q, { exact: !0 }, z);
+        let W = await eM(q, { exact: true }, z);
         if (W.length === 1) (St = W[0]), (dt = Jc(St) ?? null);
         else Le = q;
       }
@@ -6169,7 +6169,7 @@ async function xs(t, o, d, u) {
         De = J ? Cs() : void 0,
         X = _t ? Tw(_t) : void 0,
         Oe = X && yN(X) && X !== "bypassPermissions" ? X : void 0,
-        He = I("tengu_remote_backend", !1);
+        He = I("tengu_remote_backend", false);
       if (W && !He)
         return await Pe(Y, "Error: Attaching to an existing cloud session is not enabled for your account.", () =>
           Ln(1),
@@ -6220,7 +6220,7 @@ Usage: claude --cloud "your task description"`,
             import("/$bunfs/root/chunk-rqhz2e1a.js"),
           ]);
         vo(), (process.env.CLAUDE_AGENTS_SELECT = hYe(W));
-        let Ct = await ut(Fw(!1));
+        let Ct = await ut(Fw(false));
         return await Ut(Ct, { entryChannel: "remote_detach", storageV5: z, credentials: Ee, host: oo }), await Ln(0);
       } else {
         s("tengu_remote_create_session", { has_initial_prompt: String(J), branch_mode: mK(he, Ge) });
@@ -6232,7 +6232,7 @@ Usage: claude --cloud "your task description"`,
             await Pe(Y, `Error: ${l(We) || "Failed to authenticate"}`, () => Ln(1))
           );
         }
-        let Ve = await Ec().catch(() => !1),
+        let Ve = await Ec().catch(() => false),
           to = new AbortController(),
           Ft = He && Ve ? ln(Y, { session: _e, onCancel: () => to.abort() }) : null;
         if (Ft === null)
@@ -6264,14 +6264,14 @@ Usage: claude --cloud "your task description"`,
           )
             await nn(Y, { repositoryRoot: oo, storageV5: z });
         }
-        let Ut = Ve && (await eO().catch(() => !1));
+        let Ut = Ve && (await eO().catch(() => false));
         if (Ut && h3n({ staysAttached: He, launchMayForward: K, hostConsent: oe }))
           await an(Y, { configHome: be(), storageV5: z });
         let vo = g3n({ settingsToCloudEnabled: Ut, launchMayForward: K, hostConsent: oe }),
           ut = Yht({
             gateOn: vo,
             permissionModeTyped: _t !== void 0,
-            dangerouslySkipPermissions: F === !0,
+            dangerouslySkipPermissions: F === true,
             scrubbed: wu(),
             settings: Je(),
             effort: sl(re),
@@ -6434,7 +6434,7 @@ Usage: claude --cloud "your task description"`,
         }
         (yt = mt.id), (Ht = mt.homeSeed), (Uo = mt.withheldInitialMessage);
       }
-      U4(!0), Gp(Gu(yt), "remote_attach");
+      U4(true), Gp(Gu(yt), "remote_attach");
       let { getClaudeAIOAuthTokens: Wn, handleOAuth401Error: Gn } = await import("/$bunfs/root/chunk-r7k9wyxs.js"),
         ar = () => Wn()?.accessToken ?? ct.accessToken,
         lr = Gs()
@@ -6500,10 +6500,10 @@ Usage: claude --cloud "your task description"`,
           remoteSessionUrl: pr,
           ...(So !== void 0 && { toolPermissionContext: { ...re.toolPermissionContext, mode: So } }),
           replTab: "convo",
-          diffPanelVisible: !1,
-          replBridgeEnabled: !1,
-          replBridgeOutboundOnly: !1,
-          replBridgeExplicit: !1,
+          diffPanelVisible: false,
+          replBridgeEnabled: false,
+          replBridgeOutboundOnly: false,
+          replBridgeExplicit: false,
           ...((Bo || jo || eo) && {
             notifications: {
               ...re.notifications,
@@ -6572,7 +6572,7 @@ Usage: claude --cloud "your task description"`,
         );
       return;
     } else if (Be) {
-      if (Be === !0 || Be === "") {
+      if (Be === true || Be === "") {
         s("tengu_teleport_interactive_mode", {}), n("selectAndResumeTeleportTask: Starting teleport flow...");
         let q = await en(Y);
         if (!q) await Ln(0), process.exit(0);
@@ -6650,7 +6650,7 @@ Couldn't parse your git remote: ${W.rawRemoteUrl}`;
           let J = Kr(vs(o.resume, ".jsonl"));
           if (J && !o.forkSession) {
             let X = await uq(J);
-            if (X) return await Pe(Y, Xie({ sessionId: J, holder: X, canFork: !0 }));
+            if (X) return await Pe(Y, Xie({ sessionId: J, holder: X, canFork: true }));
           }
           let De = "load_error";
           try {
@@ -6676,20 +6676,20 @@ Couldn't parse your git remote: ${W.rawRemoteUrl}`;
                 _ = pe.restoredAgentDef;
               s("tengu_session_resumed", {
                 entrypoint: w("file"),
-                success: !0,
+                success: true,
                 resume_duration_ms: Math.round(performance.now() - X),
               });
             } else
               s("tengu_session_resumed", {
                 entrypoint: w("file"),
-                success: !1,
+                success: false,
                 failure_reason: w("not_found_explicit_id"),
               });
           } catch (X) {
             if (
               (s("tengu_session_resumed", {
                 entrypoint: w("file"),
-                success: !1,
+                success: false,
                 failure_reason: De === "processing_error" ? w("processing_error") : w("load_error"),
                 error_name: we(X).name,
                 error_code: X instanceof B7 ? c(X.code) : VJ(X),
@@ -6707,7 +6707,7 @@ Couldn't parse your git remote: ${W.rawRemoteUrl}`;
       let q = dt;
       if (!o.forkSession) {
         let J = await uq(q);
-        if (J) return await Pe(Y, Xie({ sessionId: q, holder: J, canFork: !0 }));
+        if (J) return await Pe(Y, Xie({ sessionId: q, holder: J, canFork: true }));
       }
       let W = "load_error";
       try {
@@ -6722,7 +6722,7 @@ Couldn't parse your git remote: ${W.rawRemoteUrl}`;
         if (!De) {
           s("tengu_session_resumed", {
             entrypoint: w("cli_flag"),
-            success: !1,
+            success: false,
             failure_reason: w("not_found_explicit_id"),
           });
           let Oe = `No conversation found with session ID: ${q}`;
@@ -6737,14 +6737,14 @@ Couldn't parse your git remote: ${W.rawRemoteUrl}`;
           _ = pe.restoredAgentDef;
         s("tengu_session_resumed", {
           entrypoint: w("cli_flag"),
-          success: !0,
+          success: true,
           resume_duration_ms: Math.round(performance.now() - J),
         });
       } catch (J) {
         if (
           (s("tengu_session_resumed", {
             entrypoint: w("cli_flag"),
-            success: !1,
+            success: false,
             failure_reason: W === "processing_error" ? w("processing_error") : w("load_error"),
             error_name: we(J).name,
             error_code: VJ(J),
@@ -6781,7 +6781,7 @@ Couldn't parse your git remote: ${W.rawRemoteUrl}`;
     if (ot) {
       JZe(o), await nr(o);
       let q = Eme(B, ot.restoredAgentDef ?? _, { strictMcpConfig: Gt });
-      if (Object.keys(q).length > 0) await oL({ hasDynamicMcpConfig: !0 });
+      if (Object.keys(q).length > 0) await oL({ hasDynamicMcpConfig: true });
       await D$e(
         Y,
         {
@@ -6806,7 +6806,7 @@ Couldn't parse your git remote: ${W.rawRemoteUrl}`;
         Nt,
       );
     } else if (
-      o.resume === !0 &&
+      o.resume === true &&
       !o.forkSession &&
       Qt === void 0 &&
       !ge &&
@@ -6819,7 +6819,7 @@ Couldn't parse your git remote: ${W.rawRemoteUrl}`;
       l8e()
     ) {
       if (
-        (s("tengu_fleetview", { viaResume: !0 }),
+        (s("tengu_fleetview", { viaResume: true }),
         bxe(),
         import("/$bunfs/root/chunk-yz1cf4yc.js").then((X) => X.startBackgroundHousekeeping(G().host, z)),
         D() === "windows")
@@ -6832,10 +6832,10 @@ Couldn't parse your git remote: ${W.rawRemoteUrl}`;
         import("/$bunfs/root/chunk-rqhz2e1a.js"),
       ]);
       W();
-      let De = await J(Fw(!1));
+      let De = await J(Fw(false));
       return (
         await q(De, { entryChannel: "cli_resume", storageV5: z, credentials: Ee }),
-        await Ln(0, "other", { suppressResumeHint: !0 })
+        await Ln(0, "other", { suppressResumeHint: true })
       );
     } else
       await dn(

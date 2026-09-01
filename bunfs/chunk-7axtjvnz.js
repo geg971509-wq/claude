@@ -156,13 +156,13 @@ var L = 1e4,
 class P {
   voiceModule = null;
   recentEarlyFailures = [];
-  breakerTrippedLogged = !1;
+  breakerTrippedLogged = false;
   lastExpectedHint = null;
   recordEarlyFailure(e = null) {
     this.recentEarlyFailures.push(Date.now()), (this.lastExpectedHint = e);
   }
   clearEarlyFailures() {
-    (this.recentEarlyFailures.length = 0), (this.breakerTrippedLogged = !1), (this.lastExpectedHint = null);
+    (this.recentEarlyFailures.length = 0), (this.breakerTrippedLogged = false), (this.lastExpectedHint = null);
   }
 }
 var z = new J(() => new P());
@@ -214,31 +214,31 @@ class D {
   #h;
   #j = Ue();
   #t;
-  #N = !1;
-  #E = !1;
+  #N = false;
+  #E = false;
   #P = { state: "idle" };
   #e = "idle";
   #s = null;
   #o = "";
   #d = null;
-  #b = !1;
+  #b = false;
   #c = null;
-  #i = !1;
-  #p = !1;
+  #i = false;
+  #p = false;
   #v = null;
   #a = null;
   #l = null;
-  #_ = !1;
+  #_ = false;
   #C = 0;
   #G = 0;
   #u = 0;
-  #F = !1;
+  #F = false;
   #f = [];
-  #R = !1;
+  #R = false;
   #T = 0;
   #$ = 0;
-  #k = !1;
-  #B = !1;
+  #k = false;
+  #B = false;
   #x = null;
   #M = [];
   constructor(e) {
@@ -260,7 +260,7 @@ class D {
     if (this.#E) return;
     let i = this.#t,
       r = !this.#N;
-    (this.#N = !0), (this.#t = e);
+    (this.#N = true), (this.#t = e);
     let c = r || i.enabled !== e.enabled,
       a = c || i.focusMode !== e.focusMode || i.isFocused !== e.isFocused;
     if (!r) {
@@ -272,7 +272,7 @@ class D {
   };
   dispose = () => {
     if (this.#E) return;
-    this.#C++, this.#U(), (this.#E = !0);
+    this.#C++, this.#U(), (this.#E = true);
   };
   handleKeyEvent = (e = N) => {
     let { enabled: i, focusMode: r, mode: c } = this.#t;
@@ -280,8 +280,8 @@ class D {
     if (this.#i) return;
     if (r && this.#_) {
       n("[voice] Re-arming focus recording after silence timeout"),
-        (this.#_ = !1),
-        (this.#i = !0),
+        (this.#_ = false),
+        (this.#i = true),
         this.#D(),
         this.#A();
       return;
@@ -289,7 +289,7 @@ class D {
     let a = this.#e;
     if (a === "processing") return;
     if (c === "tap") {
-      if (a === "idle") n("[voice] toggle: starting recording"), (this.#p = !0), this.#D(), this.#K(), this.#q();
+      if (a === "idle") n("[voice] toggle: starting recording"), (this.#p = true), this.#D(), this.#K(), this.#q();
       else if (a === "recording") n("[voice] toggle: finishing recording"), this.#g();
       return;
     }
@@ -297,10 +297,10 @@ class D {
       if ((n("[voice] handleKeyEvent: idle, starting recording session immediately"), this.#D(), this.#c)) this.#c();
       this.#c = this.#m.setTimeout(() => {
         if (((this.#c = null), this.#e === "recording" && !this.#b))
-          n("[voice] No auto-repeat seen, arming release timer via fallback"), (this.#b = !0), this.#H();
+          n("[voice] No auto-repeat seen, arming release timer via fallback"), (this.#b = true), this.#H();
       }, e);
     } else if (a === "recording") {
-      if (((this.#b = !0), this.#c)) this.#c(), (this.#c = null);
+      if (((this.#b = true), this.#c)) this.#c(), (this.#c = null);
     }
     if (this.#d) this.#d();
     if (this.#e === "recording" && this.#b) this.#H();
@@ -330,7 +330,7 @@ class D {
     if (this.#v) this.#v(), (this.#v = null);
     if (this.#a) this.#a(), (this.#a = null);
     if (this.#l) this.#l(), (this.#l = null);
-    if (((this.#_ = !1), (this.#p = !1), this.#h.voiceModule?.stopRecording(this.#y), this.#s))
+    if (((this.#_ = false), (this.#p = false), this.#h.voiceModule?.stopRecording(this.#y), this.#s))
       this.#s.close(), (this.#s = null);
     (this.#o = ""),
       (this.#M = []),
@@ -350,7 +350,7 @@ class D {
     if (this.#v) this.#v();
     this.#v = this.#m.setTimeout(() => {
       if (((this.#v = null), this.#e === "recording" && this.#i))
-        n("[voice] Focus silence timeout \u2014 tearing down session"), (this.#_ = !0), this.#g();
+        n("[voice] Focus silence timeout \u2014 tearing down session"), (this.#_ = true), this.#g();
     }, G);
   }
   #K() {
@@ -377,7 +377,7 @@ class D {
       let c = this.#C,
         a = () => {
           if (c !== this.#C || this.#e !== "idle" || this.#_) return;
-          n("[voice] Focus gained, starting recording session"), (this.#i = !0), this.#D(), this.#A();
+          n("[voice] Focus gained, starting recording session"), (this.#i = true), this.#D(), this.#A();
         };
       if (this.#h.voiceModule) a();
       else
@@ -385,13 +385,13 @@ class D {
           (this.#h.voiceModule = l), a();
         });
     } else if (!r) {
-      if (((this.#_ = !1), this.#e === "recording")) n("[voice] Focus lost, finishing recording"), this.#g();
+      if (((this.#_ = false), this.#e === "recording")) n("[voice] Focus lost, finishing recording"), this.#g();
     }
   }
   #g() {
     n("[voice] finishRecording: stopping recording, transitioning to processing"), this.#T++;
     let e = this.#i;
-    if (((this.#i = !1), (this.#p = !1), this.#a)) this.#a(), (this.#a = null);
+    if (((this.#i = false), (this.#p = false), this.#a)) this.#a(), (this.#a = null);
     if (this.#l) this.#l(), (this.#l = null);
     this.#r("processing"), this.#h.voiceModule?.stopRecording(this.#y);
     let i = Date.now() - this.#G,
@@ -417,7 +417,7 @@ class D {
             this.#f.length > 0
           ) {
             if (
-              ((this.#R = !0),
+              ((this.#R = true),
               n(
                 `[voice] Silent-drop detected (no_data_timeout, ${String(this.#f.length)} chunks); replaying on fresh connection`,
               ),
@@ -521,16 +521,16 @@ class D {
     if (!e) {
       p("voice_start", "voice_start_module_not_loaded"),
         this.#t.onError("Voice module not loaded yet. Try again in a moment."),
-        (this.#i = !1);
+        (this.#i = false);
       return;
     }
     let i = this.#h,
       r = Date.now();
     while (i.recentEarlyFailures.length > 0 && r - i.recentEarlyFailures[0] > L) i.recentEarlyFailures.shift();
-    if (i.recentEarlyFailures.length < w) i.breakerTrippedLogged = !1;
+    if (i.recentEarlyFailures.length < w) i.breakerTrippedLogged = false;
     if (i.recentEarlyFailures.length >= w) {
       if (!i.breakerTrippedLogged)
-        (i.breakerTrippedLogged = !0),
+        (i.breakerTrippedLogged = true),
           n(
             `[voice] circuit breaker: ${String(i.recentEarlyFailures.length)} early failures in ${String(L)}ms \u2014 suppressing new sessions until one succeeds`,
             { level: "error" },
@@ -542,19 +542,19 @@ class D {
               ? `${i.lastExpectedHint} Voice input is paused for a moment.`
               : "Voice input is failing repeatedly and has been paused. Check your microphone and try again in a moment.",
           );
-      this.#i = !1;
+      this.#i = false;
       return;
     }
     this.#r("recording"),
       (this.#G = Date.now()),
       (this.#o = ""),
-      (this.#b = !1),
-      (this.#k = !1),
-      (this.#F = !1),
-      (this.#R = !1),
+      (this.#b = false),
+      (this.#k = false),
+      (this.#F = false),
+      (this.#R = false),
       (this.#f = []),
       (this.#$ = 0),
-      (this.#B = !1),
+      (this.#B = false),
       (this.#x = null);
     let c = ++this.#u,
       a = await e.checkRecordingAvailability(this.#y);
@@ -564,7 +564,7 @@ class D {
         p("voice_start", "voice_start_recording_unavailable"),
         this.#t.onError(a.reason ?? "Audio recording is not available."),
         i.recordEarlyFailure(),
-        (this.#i = !1),
+        (this.#i = false),
         this.#S(),
         this.#r("idle");
       return;
@@ -576,17 +576,17 @@ class D {
       });
     let l = [];
     n("[voice] startRecording: buffering audio while WebSocket connects"), (this.#M = []);
-    let T = !1,
+    let T = false,
       V = await e.startRecording(
         this.#y,
         (d) => {
-          T = !0;
+          T = true;
           let S = Buffer.from(d);
           if (!this.#i) this.#f.push(S);
           if (this.#s) this.#s.send(S);
           else l.push(S);
           let t = W(d);
-          if (!this.#k && t > 0.01) this.#k = !0;
+          if (!this.#k && t > 0.01) this.#k = true;
           let f = this.#M;
           if (f.length >= q) f.shift();
           f.push(t);
@@ -599,7 +599,7 @@ class D {
             this.#g();
           }
         },
-        { silenceDetection: !1 },
+        { silenceDetection: false },
       );
     if (this.#u !== c) {
       if (V.started && this.#e !== "recording") e.stopRecording(this.#y);
@@ -615,7 +615,7 @@ class D {
         n(`[voice] Recording failed \u2014 ${d ?? "no audio tool found"}`, { level: "error" }),
         this.#t.onError(d ?? "Failed to start audio capture. Check that your microphone is accessible."),
         i.recordEarlyFailure(V.expected ? d : null),
-        (this.#i = !1),
+        (this.#i = false),
         this.#S(),
         this.#r("idle"),
         this.#n.setState((S) => ({ ...S, voiceError: d ?? "Recording failed \u2014 no audio tool found" }));
@@ -632,7 +632,7 @@ class D {
         sttLanguageFellBack: M.fellBackFrom !== void 0,
         systemLocaleLanguage: C == null ? void 0 : oAe(C),
       });
-    let v = !1,
+    let v = false,
       _ = () => this.#u !== c,
       R = (d) => {
         let S = this.#T;
@@ -641,7 +641,7 @@ class D {
             onTranscript: (t, f) => {
               if (_()) return;
               if (
-                ((v = !0),
+                ((v = true),
                 i.clearEarlyFailures(),
                 n(`[voice] onTranscript: isFinal=${String(f)} (${String(t.length)} chars)`),
                 f && t.trim())
@@ -691,7 +691,7 @@ class D {
               if (f?.connectFailureCode) this.#x = f.connectFailureCode;
               if (!f?.fatal && !v && this.#e === "recording") {
                 if (!this.#F) {
-                  (this.#F = !0),
+                  (this.#F = true),
                     n(`[voice] early voice_stream error (pre-transcript), retrying once: ${t}`),
                     s("tengu_voice_stream_early_retry", {}),
                     (this.#s = null),
@@ -710,7 +710,7 @@ class D {
                 n(`[voice] mid-stream error: salvaging ${String(o.length)} chars before cleanup`),
                   g("voice_transcription", "voice_transcription_partial_salvaged"),
                   this.#t.onTranscript(o);
-              this.#t.onError(`Voice stream error: ${t}`), (l.length = 0), (this.#i = !1), this.#S(), this.#r("idle");
+              this.#t.onError(`Voice stream error: ${t}`), (l.length = 0), (this.#i = false), this.#S(), this.#r("idle");
             },
             onClose: () => {},
             onReady: (t) => {
@@ -718,7 +718,7 @@ class D {
                 t.close();
                 return;
               }
-              (this.#s = t), (this.#B = !0), y("voice_stream_connect");
+              (this.#s = t), (this.#B = true), y("voice_stream_connect");
               let f = 32000;
               if (l.length > 0) {
                 let o = 0;
@@ -753,7 +753,7 @@ class D {
                 this.#t.onError("Voice mode requires a Claude.ai account. Please run /login to sign in."),
                 O() && this.#V !== void 0)
               )
-                i.recordEarlyFailure("Voice mode could not read your Claude.ai login."), (this.#i = !1);
+                i.recordEarlyFailure("Voice mode could not read your Claude.ai login."), (this.#i = false);
               (l.length = 0), this.#S(), this.#r("idle");
               return;
             }
@@ -768,7 +768,7 @@ class D {
             i.recordEarlyFailure(),
               this.#t.onError("Voice connection failed. Check your network and try again."),
               (l.length = 0),
-              (this.#i = !1),
+              (this.#i = false),
               this.#S(),
               this.#r("idle");
           },

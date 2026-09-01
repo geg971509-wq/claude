@@ -383,7 +383,7 @@ var ms =
   };
 function us(n, a, i) {
   let g = ftt({ standing: n, lapsesUnusedAt: a }, i);
-  if (g !== null) return { standing: g === "dormant" ? Do.dormant : ms, standingIsIdle: !0 };
+  if (g !== null) return { standing: g === "dormant" ? Do.dormant : ms, standingIsIdle: true };
   switch (n.kind) {
     case "paused":
     case "kept_none":
@@ -429,7 +429,7 @@ function dn(n, a) {
   return yo(i, { maxCodeUnits: 120 }) || "hook";
 }
 function ps(n, a = new Set()) {
-  let i = (l) => (a.has(l) ? { fromWritableFile: !0 } : {}),
+  let i = (l) => (a.has(l) ? { fromWritableFile: true } : {}),
     g = n.forwarded.map((l) => ({
       where: "here",
       label:
@@ -498,7 +498,7 @@ async function Ao({ launchDir: n, storageV5: a, forwarding: i, consentPin: g, se
         commonRoots: () => y.commonRoots ?? wOe(n),
         scopeRoots: (S, le) => TOe(n, S, le),
       });
-    if (ve === "read" && Ie !== "unset" && (await mtt(l, re, xe)) !== !1) Ie = "unset";
+    if (ve === "read" && Ie !== "unset" && (await mtt(l, re, xe)) !== false) Ie = "unset";
     let { captured: V, kept: Qe } = gs(
       Pe,
       y.baseline,
@@ -508,7 +508,7 @@ async function Ao({ launchDir: n, storageV5: a, forwarding: i, consentPin: g, se
             scopeSettingsFile: (S) => Mo(S) ?? null,
             everInReach: y.everInReach,
           })
-        : !1,
+        : false,
     );
     if (V.kind === "none")
       return {
@@ -528,7 +528,7 @@ async function Ao({ launchDir: n, storageV5: a, forwarding: i, consentPin: g, se
           extraReachRoots: re,
           ...(_e !== n && { repoRoot: _e }),
           ...(y.lastSyncRoot !== null && { sync: { rootReal: y.lastSyncRoot.real, root: y.lastSyncRoot.root } }),
-          allowLegacyTemplateDigests: !0,
+          allowLegacyTemplateDigests: true,
           refusedTemplateIds: [...y.refusedTemplates],
           optInPins: new Map(y.optInPins),
         },
@@ -606,7 +606,7 @@ var kn = 250;
 function wo(Er) {
   let J = _(37),
     { forwarded: go, templateNames: ko, consentLocation: mn, current: un, onDone: hn } = Er,
-    vs = C(!1),
+    vs = C(false),
     Fo = Yn(kn),
     _s;
   if (J[0] !== Fo || J[1] !== hn)
@@ -614,7 +614,7 @@ function wo(Er) {
       if (vs.current || !Fo) {
         return;
       }
-      (vs.current = !0), hn(Rr);
+      (vs.current = true), hn(Rr);
     }),
       (J[0] = Fo),
       (J[1] = hn),
@@ -663,7 +663,7 @@ function wo(Er) {
   else bs = J[13];
   let Lo;
   if (J[14] !== Bo)
-    (Lo = Bo !== "" && r(t, { dimColor: !0, children: ["Right now: ", Bo, "."] })), (J[14] = Bo), (J[15] = Lo);
+    (Lo = Bo !== "" && r(t, { dimColor: true, children: ["Right now: ", Bo, "."] })), (J[14] = Bo), (J[15] = Lo);
   else Lo = J[15];
   const pn =
     un === "accepted"
@@ -674,7 +674,7 @@ function wo(Er) {
   let $o;
   if (J[16] !== mn || J[17] !== pn)
     ($o = r(t, {
-      dimColor: !0,
+      dimColor: true,
       children: [
         "Yes and No are saved for this machine in ",
         mn,
@@ -712,7 +712,7 @@ function wo(Er) {
       selectedValue: Ti,
       options: qo,
       defaultFocusValue: "not_now",
-      hideIndexes: !0,
+      hideIndexes: true,
       isDisabled: gn,
       onChange: se,
       onCancel: Go,
@@ -1089,10 +1089,10 @@ function Ko(n, a, i) {
 }
 F();
 function As(Qr, Zr) {
-  return e(t, { dimColor: !0, children: Qr }, Zr);
+  return e(t, { dimColor: true, children: Qr }, Zr);
 }
 function Fs(ea, oa) {
-  return e(t, { dimColor: !0, children: ea }, `w${oa}`);
+  return e(t, { dimColor: true, children: ea }, `w${oa}`);
 }
 var Sn = 40,
   Cn = 3,
@@ -1107,7 +1107,7 @@ function Ae(Yr) {
   if (_o[1] !== Xo) (Qo = Xo !== void 0 && e(t, { color: "success", children: Xo })), (_o[1] = Xo), (_o[2] = Qo);
   else Qo = _o[2];
   let Ms;
-  if (_o[3] === d) (Ms = e(t, { dimColor: !0, children: "Checking this machine's hooks\u2026" })), (_o[3] = Ms);
+  if (_o[3] === d) (Ms = e(t, { dimColor: true, children: "Checking this machine's hooks\u2026" })), (_o[3] = Ms);
   else Ms = _o[3];
   let Zo;
   if (_o[4] !== yn) (Zo = e(Jn, { fallback: Ms, children: e(yt, { summaryPromise: yn }) })), (_o[4] = yn), (_o[5] = Zo);
@@ -1128,7 +1128,7 @@ function yt(Vr) {
     let He;
     if (ie[0] === d)
       (He = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children:
           "Hooks from this machine's settings are not forwarded to this cloud session (hooks committed to the repository still run from the cloud's own copy).",
       })),
@@ -1140,7 +1140,7 @@ function yt(Vr) {
     let He;
     if (ie[1] === d)
       (He = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: "The hooks below are this machine's; this remote session runs the hooks configured on its own host.",
       })),
         (ie[1] = He);
@@ -1150,7 +1150,7 @@ function yt(Vr) {
   let He;
   if (ie[2] === d)
     (He = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children:
         "The hooks below are configured on this machine, in your user settings, this checkout's settings.local.json or a --settings file. Each row says where that hook runs for this cloud session \u2014 on this machine when the session asks, as a vetted copy inside the cloud, or not at all; hooks committed to the repository run from the cloud's own copy of it.",
     })),
@@ -1160,13 +1160,13 @@ function yt(Vr) {
   if (ie[3] !== Co || ie[4] !== So || ie[5] !== E.rows || ie[6] !== E.unavailableReason)
     (et =
       E.unavailableReason !== void 0
-        ? r(t, { dimColor: !0, children: ["None of this machine's hooks are offered (", E.unavailableReason, ")."] })
+        ? r(t, { dimColor: true, children: ["None of this machine's hooks are offered (", E.unavailableReason, ")."] })
         : E.rows.length === 0
-          ? e(t, { dimColor: !0, children: "This machine has no hooks a cloud session could use." })
+          ? e(t, { dimColor: true, children: "This machine has no hooks a cloud session could use." })
           : r(U, {
               children: [
                 E.rows.slice(0, So).map((Kr, Xr) => e(vt, { row: Kr, consent: Co }, Xr)),
-                E.rows.length > So && r(t, { dimColor: !0, children: ["\u2026and ", E.rows.length - So, " more."] }),
+                E.rows.length > So && r(t, { dimColor: true, children: ["\u2026and ", E.rows.length - So, " more."] }),
               ],
             })),
       (ie[3] = Co),
@@ -1221,18 +1221,18 @@ function wt(ta) {
   switch (X.consent) {
     case "accepted": {
       let Re;
-      if (ue[2] === d) (Re = e(t, { bold: !0, children: "on" })), (ue[2] = Re);
+      if (ue[2] === d) (Re = e(t, { bold: true, children: "on" })), (ue[2] = Re);
       else Re = ue[2];
       let ae;
       if (ue[3] !== Ze)
-        (ae = r(t, { dimColor: !0, children: ["(saved in ", Ze, "; change it below)"] })), (ue[3] = Ze), (ue[4] = ae);
+        (ae = r(t, { dimColor: true, children: ["(saved in ", Ze, "; change it below)"] })), (ue[3] = Ze), (ue[4] = ae);
       else ae = ue[4];
       let dt;
       if (ue[5] !== X.standing || ue[6] !== X.standingIsIdle)
         (dt =
           X.standing !== void 0 &&
           (X.standingIsIdle
-            ? r(t, { dimColor: !0, children: [" \u2014 for this session: ", X.standing] })
+            ? r(t, { dimColor: true, children: [" \u2014 for this session: ", X.standing] })
             : r(t, { color: "warning", children: [" ", "\u2014 for this session: ", X.standing] }))),
           (ue[5] = X.standing),
           (ue[6] = X.standingIsIdle),
@@ -1249,7 +1249,7 @@ function wt(ta) {
     }
     case "declined": {
       let Re;
-      if (ue[11] === d) (Re = e(t, { bold: !0, children: "off" })), (ue[11] = Re);
+      if (ue[11] === d) (Re = e(t, { bold: true, children: "off" })), (ue[11] = Re);
       else Re = ue[11];
       let ae;
       if (ue[12] !== Ze)
@@ -1258,7 +1258,7 @@ function wt(ta) {
             "Hooks from this machine: ",
             Re,
             " ",
-            r(t, { dimColor: !0, children: ["(saved in ", Ze, "; change it below)"] }),
+            r(t, { dimColor: true, children: ["(saved in ", Ze, "; change it below)"] }),
           ],
         })),
           (ue[12] = Ze),
@@ -1268,7 +1268,7 @@ function wt(ta) {
     }
     case "unset": {
       let Re;
-      if (ue[14] === d) (Re = e(t, { bold: !0, children: "not decided" })), (ue[14] = Re);
+      if (ue[14] === d) (Re = e(t, { bold: true, children: "not decided" })), (ue[14] = Re);
       else Re = ue[14];
       let ae;
       if (ue[15] === d)
@@ -1278,7 +1278,7 @@ function wt(ta) {
             Re,
             " ",
             e(t, {
-              dimColor: !0,
+              dimColor: true,
               children:
                 "(choose \u201CDecide whether cloud sessions run this machine's hooks\u201D below; nothing from this machine runs for them until you do)",
             }),
@@ -1318,15 +1318,15 @@ function vt(na) {
     wn = T.matcher !== void 0 && T.matcher !== "" ? `${T.event}:${T.matcher}` : T.event;
   const vn = T.where === "local" || lt !== "accepted" ? "pending" : "success";
   let mt;
-  if (De[0] !== vn) (mt = e(tt, { status: vn, withSpace: !0 })), (De[0] = vn), (De[1] = mt);
+  if (De[0] !== vn) (mt = e(tt, { status: vn, withSpace: true })), (De[0] = vn), (De[1] = mt);
   else mt = De[1];
   let ht;
-  if (De[2] !== T.label) (ht = e(t, { bold: !0, children: T.label })), (De[2] = T.label), (De[3] = ht);
+  if (De[2] !== T.label) (ht = e(t, { bold: true, children: T.label })), (De[2] = T.label), (De[3] = ht);
   else ht = De[3];
   const _n = Ne[T.source];
   let pt;
   if (De[4] !== wn || De[5] !== _n.tag)
-    (pt = r(t, { dimColor: !0, children: ["\xB7 ", wn, " \xB7 ", _n.tag, " \xB7"] })),
+    (pt = r(t, { dimColor: true, children: ["\xB7 ", wn, " \xB7 ", _n.tag, " \xB7"] })),
       (De[4] = wn),
       (De[5] = _n.tag),
       (De[6] = pt);
@@ -1336,14 +1336,14 @@ function vt(na) {
   else ft = De[9];
   let gt;
   if (De[10] !== T.why)
-    (gt = T.why !== void 0 && r(t, { dimColor: !0, children: [" \u2014 ", T.why] })), (De[10] = T.why), (De[11] = gt);
+    (gt = T.why !== void 0 && r(t, { dimColor: true, children: [" \u2014 ", T.why] })), (De[10] = T.why), (De[11] = gt);
   else gt = De[11];
   let kt;
   if (De[12] !== T.fromWritableFile)
     (kt =
       T.fromWritableFile &&
       r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [
           " ",
           "(its settings file can be written by the cloud session; what was registered when you attached is what runs)",
@@ -1392,7 +1392,7 @@ function Ho(ha) {
         children: [
           r(t, { color: "warning", children: [L.info, " Safe mode"] }),
           r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
               "Hooks from settings files are suspended and will not run this session",
               bo.managedHooksStillApply ? " (managed policy hooks still apply)" : "",
@@ -1416,7 +1416,7 @@ function Ho(ha) {
         children: [
           r(t, { color: "suggestion", children: [L.info, " Hooks Restricted by Policy"] }),
           e(t, {
-            dimColor: !0,
+            dimColor: true,
             children:
               "Only hooks from managed settings can run. User-defined hooks from ~/.claude/settings.json, .claude/settings.json, and .claude/settings.local.json are blocked.",
           }),
@@ -1430,7 +1430,7 @@ function Ho(ha) {
     (Js = e(o, {
       flexDirection: "column",
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [
           L.info,
           " This menu is read-only. To add or modify hooks, edit settings.json directly or ask Claude.",
@@ -1688,7 +1688,7 @@ function Po(ic) {
   if (I[0] === d) (ei = e(M, { chord: "escape", action: "go back" })), (I[0] = ei);
   else ei = I[0];
   let oi;
-  if (I[1] === d) (oi = [{ bold: !0 }, {}]), (I[1] = oi);
+  if (I[1] === d) (oi = [{ bold: true }, {}]), (I[1] = oi);
   else oi = I[1];
   let ti;
   if (I[2] === d) (ti = e(U, { children: "Event:" })), (I[2] = ti);
@@ -1719,13 +1719,13 @@ function Po(ic) {
   else Ft = I[13];
   let Wt;
   if (I[14] !== Ft)
-    (Wt = r(zs.Row, { children: [si, e(t, { dimColor: !0, children: Ft })] })), (I[14] = Ft), (I[15] = Wt);
+    (Wt = r(zs.Row, { children: [si, e(t, { dimColor: true, children: Ft })] })), (I[14] = Ft), (I[15] = Wt);
   else Wt = I[15];
   let Jt;
   if (I[16] !== x.pluginName)
     (Jt =
       x.pluginName &&
-      r(zs.Row, { children: [e(U, { children: "Plugin:" }), e(t, { dimColor: !0, children: x.pluginName })] })),
+      r(zs.Row, { children: [e(U, { children: "Plugin:" }), e(t, { dimColor: true, children: x.pluginName })] })),
       (I[16] = x.pluginName),
       (I[17] = Jt);
   else Jt = I[17];
@@ -1735,7 +1735,7 @@ function Po(ic) {
       "statusMessage" in x.config &&
       x.config.statusMessage &&
       r(zs.Row, {
-        children: [e(U, { children: "Status message:" }), e(t, { dimColor: !0, children: x.config.statusMessage })],
+        children: [e(U, { children: "Status message:" }), e(t, { dimColor: true, children: x.config.statusMessage })],
       })),
       (I[18] = x.config),
       (I[19] = Bt);
@@ -1755,7 +1755,7 @@ function Po(ic) {
   if (I[27] !== x.config) (Lt = Bn(x.config)), (I[27] = x.config), (I[28] = Lt);
   else Lt = I[28];
   let $t;
-  if (I[29] !== Lt) ($t = r(t, { dimColor: !0, children: [Lt, ":"] })), (I[29] = Lt), (I[30] = $t);
+  if (I[29] !== Lt) ($t = r(t, { dimColor: true, children: [Lt, ":"] })), (I[29] = Lt), (I[30] = $t);
   else $t = I[30];
   let Ut;
   if (I[31] !== x.config) (Ut = _9(x.config)), (I[31] = x.config), (I[32] = Ut);
@@ -1764,7 +1764,7 @@ function Po(ic) {
   if (I[33] !== Ut)
     (qt = e(o, {
       borderStyle: "round",
-      borderDimColor: !0,
+      borderDimColor: true,
       paddingLeft: 1,
       paddingRight: 1,
       children: e(t, { children: Ut }),
@@ -1779,7 +1779,7 @@ function Po(ic) {
   let ii;
   if (I[38] === d)
     (ii = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: "To modify or remove this hook, edit settings.json directly or ask Claude to help.",
     })),
       (I[38] = ii);
@@ -1815,10 +1815,10 @@ function Wi(td) {
   return td.host;
 }
 function Ji() {
-  return En()?.disableAllHooks === !0 && ye("policySettings")?.disableAllHooks === !0;
+  return En()?.disableAllHooks === true && ye("policySettings")?.disableAllHooks === true;
 }
 function Bi() {
-  return ye("policySettings")?.allowManagedHooksOnly === !0;
+  return ye("policySettings")?.allowManagedHooksOnly === true;
 }
 function ji(nd) {
   return nd.mcp;
@@ -1890,8 +1890,8 @@ function sn(Bc) {
   if (p[7] === d)
     (mi = (qc) => {
       if (qc === "policySettings") {
-        let Gc = En()?.disableAllHooks === !0;
-        $c(Gc && ye("policySettings")?.disableAllHooks === !0), Uc(ye("policySettings")?.allowManagedHooksOnly === !0);
+        let Gc = En()?.disableAllHooks === true;
+        $c(Gc && ye("policySettings")?.disableAllHooks === true), Uc(ye("policySettings")?.allowManagedHooksOnly === true);
       }
     }),
       (p[7] = mi);
@@ -1986,7 +1986,7 @@ function sn(Bc) {
   let xi;
   if (p[39] === d) (xi = En()), (p[39] = xi);
   else xi = p[39];
-  let Hi = xi?.disableAllHooks === !0,
+  let Hi = xi?.disableAllHooks === true,
     Ei;
   if (p[40] !== oe) {
     let Ri = {};
@@ -2051,7 +2051,7 @@ function sn(Bc) {
               description: "Saved for this machine; you can change it here any time",
             },
           ],
-          hideIndexes: !0,
+          hideIndexes: true,
           onChange: () => Ke(),
           onCancel: de,
         })),
@@ -2060,11 +2060,11 @@ function sn(Bc) {
         (p[51] = O);
     else O = p[51];
     let A;
-    if (p[52] === d) (A = e(t, { bold: !0, children: "disabled" })), (p[52] = A);
+    if (p[52] === d) (A = e(t, { bold: true, children: "disabled" })), (p[52] = A);
     else A = p[52];
     const Oe = zt && " by a managed settings file";
     let Xe;
-    if (p[53] !== ne) (Xe = e(t, { bold: !0, children: ne })), (p[53] = ne), (p[54] = Xe);
+    if (p[53] !== ne) (Xe = e(t, { bold: true, children: ne })), (p[53] = ne), (p[54] = Xe);
     else Xe = p[54];
     let Qt;
     if (p[55] !== ne) (Qt = k(ne, "hook")), (p[55] = ne), (p[56] = Qt);
@@ -2099,10 +2099,10 @@ function sn(Bc) {
     else en = p[63];
     let Ii, Pi, Ni, Di;
     if (p[64] === d)
-      (Ii = e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: "When hooks are disabled:" }) })),
-        (Pi = e(t, { dimColor: !0, children: "\xB7 No hook commands will execute" })),
-        (Ni = e(t, { dimColor: !0, children: "\xB7 StatusLine will not be displayed" })),
-        (Di = e(t, { dimColor: !0, children: "\xB7 Tool operations will proceed without hook validation" })),
+      (Ii = e(o, { marginTop: 1, children: e(t, { dimColor: true, children: "When hooks are disabled:" }) })),
+        (Pi = e(t, { dimColor: true, children: "\xB7 No hook commands will execute" })),
+        (Ni = e(t, { dimColor: true, children: "\xB7 StatusLine will not be displayed" })),
+        (Di = e(t, { dimColor: true, children: "\xB7 Tool operations will proceed without hook validation" })),
         (p[64] = Ii),
         (p[65] = Pi),
         (p[66] = Ni),
@@ -2117,7 +2117,7 @@ function sn(Bc) {
       (tn =
         !zt &&
         e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: 'To re-enable hooks, remove "disableAllHooks" from settings.json or ask Claude.',
         })),
         (p[70] = zt),

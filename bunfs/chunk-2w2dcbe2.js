@@ -207,7 +207,7 @@ function od(i) {
   };
 }
 function qOn() {
-  let i = Ma({ raw: null, transformed: null, salvage: null, exact: !1 }),
+  let i = Ma({ raw: null, transformed: null, salvage: null, exact: false }),
     l = null,
     m = null;
   function p() {
@@ -239,7 +239,7 @@ function qOn() {
 }
 var nd = () => 0;
 function ckt(i, l) {
-  return !(i ?? !1) && !l;
+  return !(i ?? false) && !l;
 }
 function LUe({ turn: i, messages: l, screen: m }) {
   let p = ckt(
@@ -247,7 +247,7 @@ function LUe({ turn: i, messages: l, screen: m }) {
       T9e(),
     ),
     f = W((v) => v.briefTranscript),
-    g = Xe(i, (v) => v.isLoading) ?? !1,
+    g = Xe(i, (v) => v.isLoading) ?? false,
     S = Xe(i?.stream, (v) => v.streamingToolUses.length) ?? 0,
     b = i?.stream.previewStore,
     x = Lt(b ? b.subscribe : EYt, b ? b.getFlags : nd),
@@ -371,18 +371,18 @@ class ys {
   onWrite;
   buf = "";
   lastFrame = "";
-  syncOpen = !1;
-  suspended = !1;
-  restored = !1;
+  syncOpen = false;
+  suspended = false;
+  restored = false;
   tailSlack = 0;
   contentOverlayRows = 0;
   overlayRatchet = 0;
   onScreen = [];
-  replayPending = !1;
+  replayPending = false;
   committedTop = 0;
   nativeHistory = [];
   pumpCursor = -1;
-  _backfillNeeded = !1;
+  _backfillNeeded = false;
   _gapRange = null;
   _suspendedCols = 0;
   _suspendedRows = 0;
@@ -407,14 +407,14 @@ class ys {
     this.commitImmediate();
   }
   suspend() {
-    (this.suspended = !0),
+    (this.suspended = true),
       (this._suspendedCols = this.cols),
       (this._suspendedRows = this.rows),
       (this.buf += r$),
       this.commitImmediate();
   }
   resume(i, l) {
-    this.suspended = !1;
+    this.suspended = false;
     let m = i !== this._suspendedCols || l !== this._suspendedRows;
     if (
       ((this.cols = i),
@@ -427,23 +427,23 @@ class ys {
     )
       (this.buf += sy + VLe + dg),
         this.resetTransientState(),
-        (this.replayPending = !0),
+        (this.replayPending = true),
         (this.pumpCursor = this.nativeHistory.length > 0 ? 0 : -1),
         (this.lastFrame = "");
     this.commitImmediate();
   }
   restore() {
     if (this.restored) return;
-    (this.restored = !0), (this.buf += En);
+    (this.restored = true), (this.buf += En);
     for (let i = this.contentHeight; i < this.rows; i++) this.clearLine(i);
     (this.buf += r$), (this.buf += BI(this.contentHeight + 1, 1)), (this.buf += pv), this.commitImmediate();
   }
   syncViewport(i, l) {
     if (this.suspended) return;
     if (this.pumpCursor >= 0) return;
-    if (!this.syncOpen && Mx()) (this.buf += A9e), (this.syncOpen = !0);
+    if (!this.syncOpen && Mx()) (this.buf += A9e), (this.syncOpen = true);
     if ((this.restoreUnderContentOverlay(), this.replayPending))
-      (this.replayPending = !1), (this.committedTop = Math.min(i.scrollTop, i.transcriptEnd));
+      (this.replayPending = false), (this.committedTop = Math.min(i.scrollTop, i.transcriptEnd));
     let m = Math.min(i.scrollTop, i.transcriptEnd),
       p = Math.max(0, m - this.committedTop);
     if (p > 0) {
@@ -457,7 +457,7 @@ class ys {
       }
       let M = this.committedTop + T;
       if (((this.committedTop = m), M < m)) this._gapRange = { from: M, to: m };
-      if (this.nativeHistory.length === 0 && m > 0) this._backfillNeeded = !0;
+      if (this.nativeHistory.length === 0 && m > 0) this._backfillNeeded = true;
     }
     if (l !== this.contentHeight) (this.contentHeight = l), (this.buf += y3(1, Math.max(2, l)));
     let f = Math.max(0, this.committedTop - i.scrollTop),
@@ -497,11 +497,11 @@ class ys {
     } else (this.overlayRatchet = 0), (this.contentOverlayRows = 0);
     let f = this.buf.slice(m);
     if (!l && f === this.lastFrame) {
-      (this.buf = ""), (this.syncOpen = !1);
+      (this.buf = ""), (this.syncOpen = false);
       return;
     }
     if (((this.lastFrame = f), Mx())) this.buf += G_e;
-    (this.syncOpen = !1), this.commitImmediate();
+    (this.syncOpen = false), this.commitImmediate();
   }
   computeLayout(i, l) {
     let m = Math.max(Zo, i.length);
@@ -519,7 +519,7 @@ class ys {
         (this.buf += r$ + sy + VLe + dg),
         (this.buf += y3(1, Math.max(2, f))),
         this.resetTransientState(),
-        (this.replayPending = !0),
+        (this.replayPending = true),
         (this.pumpCursor = this.nativeHistory.length > 0 ? 0 : -1),
         (this.lastFrame = ""),
         this.commitImmediate(),
@@ -528,7 +528,7 @@ class ys {
     return (this.buf += y3(1, Math.max(2, f))), (this.lastFrame = ""), this.commitImmediate(), "adjust";
   }
   tickPump() {
-    if (this.pumpCursor < 0) return !1;
+    if (this.pumpCursor < 0) return false;
     let i = this.nativeHistory;
     this.buf += y3(1, 2);
     let l = Math.min(this.pumpCursor + ud, i.length);
@@ -548,8 +548,8 @@ class ys {
     return this.pumpCursor >= 0;
   }
   consumeBackfillNeeded() {
-    if (!this._backfillNeeded) return !1;
-    return (this._backfillNeeded = !1), !0;
+    if (!this._backfillNeeded) return false;
+    return (this._backfillNeeded = false), true;
   }
   consumeGapRange() {
     let i = this._gapRange;
@@ -563,7 +563,7 @@ class ys {
       let m = this.nativeHistory.length - Qo;
       this.nativeHistory.splice(0, m), (this.pumpCursor = Math.max(0, l - m));
     } else this.pumpCursor = l;
-    if (((this.replayPending = !0), l > 0)) this.onScreen.length = 0;
+    if (((this.replayPending = true), l > 0)) this.onScreen.length = 0;
   }
   switchTranscript() {
     (this.buf += r$ + sy + VLe),
@@ -572,7 +572,7 @@ class ys {
       this.resetTransientState(),
       (this.nativeHistory.length = 0),
       (this.pumpCursor = -1),
-      (this.replayPending = !0),
+      (this.replayPending = true),
       (this.lastFrame = ""),
       this.commitImmediate();
   }
@@ -684,16 +684,16 @@ function Ss({ scrollable: i, bottom: l, pushUp: m, overlay: p, scrollViewport: f
     if (!K) return;
     let oe = new ys(process.stdout, S, b, K.recordContentWrite);
     oe.setup(), (x.current = oe);
-    let X = !1;
+    let X = false;
     return (
       (K.frameSink = (q, E) => {
         let J = x.current;
-        if (!J) return !1;
+        if (!J) return false;
         if (K.isAltScreenActive) {
-          if (!X) J.suspend(), (X = !0);
-          return !1;
+          if (!X) J.suspend(), (X = true);
+          return false;
         }
-        if (X) (X = !1), J.resume(J.cols, J.rows);
+        if (X) (X = false), J.resume(J.cols, J.rows);
         let O = J.tickPump(),
           ce = rl(q, E, T.current),
           he = rl(q, E, M.current),
@@ -713,7 +713,7 @@ function Ss({ scrollable: i, bottom: l, pushUp: m, overlay: p, scrollViewport: f
             xe.contentHeight,
           );
         }
-        let ve = !1;
+        let ve = false;
         if (pe) {
           let te = J.consumeGapRange(),
             re = J.consumeBackfillNeeded();
@@ -721,10 +721,10 @@ function Ss({ scrollable: i, bottom: l, pushUp: m, overlay: p, scrollViewport: f
             let Te = te ? te.from : 0,
               le = te ? te.to : (pe.scrollTop ?? 0),
               me = fd(pe, Te, le, J.cols, K.getStylePool());
-            if (me.length > 0) J.primeBackfill(me), (ve = !0);
+            if (me.length > 0) J.primeBackfill(me), (ve = true);
           }
         }
-        return J.draw(xe), O || ve ? "tick" : !0;
+        return J.draw(xe), O || ve ? "tick" : true;
       }),
       () => {
         (K.frameSink = null), oe.restore(), (x.current = null);
@@ -747,7 +747,7 @@ function Ss({ scrollable: i, bottom: l, pushUp: m, overlay: p, scrollViewport: f
           ref: H.attach,
           flexGrow: 1,
           flexDirection: "column",
-          stickyScroll: !0,
+          stickyScroll: true,
           children: e(_r.Provider, { value: v, children: i }),
         }),
         r(Xa, { ref: T, flexDirection: "column", flexShrink: 0, minHeight: Zo, maxHeight: b - 2, children: [m, l] }),
@@ -760,7 +760,7 @@ function Ss({ scrollable: i, bottom: l, pushUp: m, overlay: p, scrollViewport: f
               bottom: 0,
               left: 0,
               right: 0,
-              opaque: !0,
+              opaque: true,
               children: p,
             })
           : null,
@@ -791,7 +791,7 @@ function fd(i, l, m, p, f) {
   let H = g.cachedLayout;
   if ((S9e(g, N, y9e(), { offsetX: 0, offsetY: -T, prevScreen: void 0 }), N.unclip(), sMt(g), H)) g.cachedLayout = H;
   let D = N.get();
-  g.dirty = !0;
+  g.dirty = true;
   let K = [];
   for (let oe = 0; oe < M; oe++) K.push(Cr(D, f, oe));
   return K;
@@ -888,12 +888,12 @@ var Sd = [
   ],
   bd = new Set(Sd);
 function kr(i) {
-  if (i.type !== "attachment") return !1;
+  if (i.type !== "attachment") return false;
   if (i.attachment.type === "hook_cancelled")
     return !(i.attachment.hookEvent === "UserPromptSubmit" && i.attachment.timedOut);
   if (i.attachment.type === "tool_host_result_lines")
     return (
-      !(i.attachment.unverified === !0 && typeof i.attachment.label === "string" && i.attachment.label.trim() !== "") &&
+      !(i.attachment.unverified === true && typeof i.attachment.label === "string" && i.attachment.label.trim() !== "") &&
       !(Array.isArray(i.attachment.lines) ? i.attachment.lines : []).some(
         (m) => typeof m === "string" && m.trim() !== "",
       )
@@ -908,10 +908,10 @@ function Cx(e_0) {
   return e_0.kind === "in";
 }
 function _x(e_1, i) {
-  return e(t, { dimColor: !0, wrap: "truncate-end", children: fmt(e_1) }, `${e_1.ts}-${i}`);
+  return e(t, { dimColor: true, wrap: "truncate-end", children: fmt(e_1) }, `${e_1.ts}-${i}`);
 }
 function kx(r, i_0) {
-  return e(t, { dimColor: !0, children: r }, i_0);
+  return e(t, { dimColor: true, children: r }, i_0);
 }
 var xd = 25,
   Td = 80,
@@ -920,7 +920,7 @@ F();
 function kd(bs, Hx) {
   return r(
     t,
-    { dimColor: !0, children: ["  ", bs.num, bs.text && r(U, { children: ["  ", bs.indent, bs.text] })] },
+    { dimColor: true, children: ["  ", bs.num, bs.text && r(U, { children: ["  ", bs.indent, bs.text] })] },
     Hx,
   );
 }
@@ -946,7 +946,7 @@ function xs() {
       marginTop: 1,
       children: [
         e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: "\u2500\u2500 scroll test \u2014 disappears when you close the dialog \u2500\u2500",
         }),
         Bx.map(kd),
@@ -1030,7 +1030,7 @@ function Or() {
 }
 function Bp(i, l) {
   let m = 0,
-    p = !1;
+    p = false;
   for (let f = l; f < i.length; f++) {
     let g = i[f];
     if (g.type === "progress") continue;
@@ -1042,9 +1042,9 @@ function Bp(i, l) {
   return m;
 }
 function Hp(i) {
-  if (i.type !== "assistant") return !1;
-  for (let l of i.message.content) if (l.type === "text" && l.text?.trim()) return !0;
-  return !1;
+  if (i.type !== "assistant") return false;
+  for (let l of i.message.content) if (l.type === "text" && l.text?.trim()) return true;
+  return false;
 }
 function KOn(i, l) {
   if (l === null) return;
@@ -1071,8 +1071,8 @@ function TRe(NT) {
       hideSticky: Ad,
     } = NT,
     Nr = Nd === void 0 ? 0 : Nd,
-    fl = Id === void 0 ? !1 : Id,
-    IT = Ad === void 0 ? !1 : Ad,
+    fl = Id === void 0 ? false : Id,
+    IT = Ad === void 0 ? false : Ad,
     { rows: yo, columns: on } = Ee(),
     nn = yo - kQ - 1;
   const gl = Math.max(1, on - Nr);
@@ -1083,7 +1083,7 @@ function TRe(NT) {
     AT = _ke(),
     DT = J0t(),
     yl = AT || DT ? yo - kQ : Math.floor(yo / 2),
-    Po = io?.visible ?? !1,
+    Po = io?.visible ?? false,
     [PT, OT] = u(null),
     Pd;
   if (ke[3] === d) (Pd = { setStickyPrompt: OT }), (ke[3] = Pd);
@@ -1104,7 +1104,7 @@ function TRe(NT) {
   else Od = ke[6];
   let BT = Od,
     Ud;
-  if (ke[7] === d) (Ud = Lo("autoScrollEnabled", !0)), (ke[7] = Ud);
+  if (ke[7] === d) (Ud = Lo("autoScrollEnabled", true)), (ke[7] = Ud);
   else Ud = ke[7];
   let Bd = Ud.value,
     Hd;
@@ -1112,10 +1112,10 @@ function TRe(NT) {
     (Hd = () => {
       let sn = ao?.handle;
       if (!sn) {
-        return !1;
+        return false;
       }
       if (sn.isSticky()) {
-        return !1;
+        return false;
       }
       let bl = sn.getScrollTop() + sn.getPendingDelta() + sn.getViewportHeight();
       let Fd = lo?.getSnapshot().dividerY;
@@ -1173,7 +1173,7 @@ function TRe(NT) {
         flexGrow: 1,
         flexDirection: "column",
         paddingTop: So,
-        stickyScroll: !0,
+        stickyScroll: true,
         followGrowth: Bd,
         children: bo,
       })),
@@ -1193,7 +1193,7 @@ function TRe(NT) {
     else an = ke[30];
     let ws;
     if (ke[31] !== $t || ke[32] !== xo || ke[33] !== an || ke[34] !== pl)
-      (ws = r(o, { flexGrow: 1, flexDirection: "column", overflow: "hidden", children: [pl, $t, xo, an, !1, !1] })),
+      (ws = r(o, { flexGrow: 1, flexDirection: "column", overflow: "hidden", children: [pl, $t, xo, an, false, false] })),
         (ke[31] = $t),
         (ke[32] = xo),
         (ke[33] = an),
@@ -1372,7 +1372,7 @@ function Ys($T) {
   else Jd = bt[2];
   qn(Jd);
   let Qd;
-  if (bt[3] === d) (Qd = { overflows: !1, above: !1, below: !1, hintTop: 0, hintBottom: 0 }), (bt[3] = Qd);
+  if (bt[3] === d) (Qd = { overflows: false, above: false, below: false, hintTop: 0, hintBottom: 0 }), (bt[3] = Qd);
   else Qd = bt[3];
   let [Dt, VT] = u(Qd),
     Zd;
@@ -1499,7 +1499,7 @@ function Ys($T) {
   else Bs = bt[26];
   let Hs;
   if (bt[27] !== Dl || bt[28] !== Bs)
-    (Hs = e(Ab, { ref: Ds, flexDirection: "column", flexShrink: 0, height: Dl, stickyScroll: !1, children: Bs })),
+    (Hs = e(Ab, { ref: Ds, flexDirection: "column", flexShrink: 0, height: Dl, stickyScroll: false, children: Bs })),
       (bt[27] = Dl),
       (bt[28] = Bs),
       (bt[29] = Hs);
@@ -1508,7 +1508,7 @@ function Ys($T) {
   if (bt[30] !== Dt.above || bt[31] !== Dt.hintTop)
     (Fs =
       Dt.above &&
-      e(o, { position: "absolute", top: Dt.hintTop, right: 1, children: e(t, { dimColor: !0, children: L.arrowUp }) })),
+      e(o, { position: "absolute", top: Dt.hintTop, right: 1, children: e(t, { dimColor: true, children: L.arrowUp }) })),
       (bt[30] = Dt.above),
       (bt[31] = Dt.hintTop),
       (bt[32] = Fs);
@@ -1521,7 +1521,7 @@ function Ys($T) {
         position: "absolute",
         bottom: Dt.hintBottom,
         right: 1,
-        children: e(t, { dimColor: !0, children: L.arrowDown }),
+        children: e(t, { dimColor: true, children: L.arrowDown }),
       })),
       (bt[33] = Dt.below),
       (bt[34] = Dt.hintBottom),
@@ -1547,7 +1547,7 @@ var zl = qE("ctrl+end"),
 function Xs(XT) {
   let mn = _(20),
     { count: Pr, onClick: Pl } = XT,
-    [JT, xp] = u(!1),
+    [JT, xp] = u(false),
     { columns: QT } = Ee(),
     Ol,
     js,
@@ -1588,12 +1588,12 @@ function Xs(XT) {
       (mn[11] = Vs);
   else Vs = mn[11];
   let Ep, Np;
-  if (mn[12] === d) (Ep = () => xp(!0)), (Np = () => xp(!1)), (mn[12] = Ep), (mn[13] = Np);
+  if (mn[12] === d) (Ep = () => xp(true)), (Np = () => xp(false)), (mn[12] = Ep), (mn[13] = Np);
   else (Ep = mn[12]), (Np = mn[13]);
   const Hl = JT ? "userMessageBackgroundHover" : "userMessageBackground";
   let zs;
   if (mn[14] !== Hl || mn[15] !== Bl)
-    (zs = e(Dc, { color: Hl, textColor: "text", padded: !0, wrap: "truncate-end", children: Bl })),
+    (zs = e(Dc, { color: Hl, textColor: "text", padded: true, wrap: "truncate-end", children: Bl })),
       (mn[14] = Hl),
       (mn[15] = Bl),
       (mn[16] = zs);
@@ -1606,7 +1606,7 @@ function Xs(XT) {
       left: 0,
       right: 0,
       justifyContent: "center",
-      children: e(o, { noSelect: !0, onClick: Vs, onMouseEnter: Ep, onMouseLeave: Np, children: zs }),
+      children: e(o, { noSelect: true, onClick: Vs, onMouseEnter: Ep, onMouseLeave: Np, children: zs }),
     })),
       (mn[17] = Vs),
       (mn[18] = zs),
@@ -1617,10 +1617,10 @@ function Xs(XT) {
 function Js(rR) {
   let Wl = _(8),
     { text: $l, onClick: Gl } = rR,
-    [sR, Ap] = u(!1);
+    [sR, Ap] = u(false);
   const jl = sR ? "userMessageBackgroundHover" : "userMessageBackground";
   let Dp, Pp;
-  if (Wl[0] === d) (Dp = () => Ap(!0)), (Pp = () => Ap(!1)), (Wl[0] = Dp), (Wl[1] = Pp);
+  if (Wl[0] === d) (Dp = () => Ap(true)), (Pp = () => Ap(false)), (Wl[0] = Dp), (Wl[1] = Pp);
   else (Dp = Wl[0]), (Pp = Wl[1]);
   let qs;
   if (Wl[2] !== $l)
@@ -1670,7 +1670,7 @@ function An() {
       paddingX: 2,
       paddingTop: 1,
       flexDirection: "column",
-      opaque: !0,
+      opaque: true,
       children: e(mXt, {
         suggestions: Fe.suggestions,
         selectedSuggestion: Fe.selectedSuggestion,
@@ -1679,8 +1679,8 @@ function An() {
         hoveredId: Fe.hoveredId,
         onSelect: Fe.onSelect,
         onHoverChange: Fe.onHoverChange,
-        overlay: !0,
-        noPad: !0,
+        overlay: true,
+        noPad: true,
       }),
     })),
       (iR[0] = Fe.emptyMessage),
@@ -1702,7 +1702,7 @@ function Dn() {
   }
   let Up;
   if (aR[0] !== Ks)
-    (Up = e(o, { position: "absolute", bottom: "100%", left: 0, right: 0, opaque: !0, children: Ks })),
+    (Up = e(o, { position: "absolute", bottom: "100%", left: 0, right: 0, opaque: true, children: Ks })),
       (aR[0] = Ks),
       (aR[1] = Up);
   else Up = aR[1];
@@ -1728,15 +1728,15 @@ function Ur() {
       if (Yl[0] === d)
         (Lr = r(t, {
           children: [
-            e(tt, { status: "success", withSpace: !0 }),
+            e(tt, { status: "success", withSpace: true }),
             e(t, { color: "success", children: "Using flicker-free rendering" }),
-            e(t, { dimColor: !0, children: " \xB7 if you want to go back, use /tui default" }),
+            e(t, { dimColor: true, children: " \xB7 if you want to go back, use /tui default" }),
           ],
         })),
-          (Wp = r(t, { dimColor: !0, children: ["  ", "\xB7 Click to move your cursor in the text input"] })),
-          (Vp = r(t, { dimColor: !0, children: ["  ", "\xB7 Click to expand collapsed tool results"] })),
+          (Wp = r(t, { dimColor: true, children: ["  ", "\xB7 Click to move your cursor in the text input"] })),
+          (Vp = r(t, { dimColor: true, children: ["  ", "\xB7 Click to expand collapsed tool results"] })),
           (zp = r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: ["  ", "\xB7 By default, text auto-copies when you select it (/config to change)"],
           })),
           (Yl[0] = Lr),
@@ -1754,7 +1754,7 @@ function Ur() {
             Vp,
             zp,
             r(t, {
-              dimColor: !0,
+              dimColor: true,
               children: ["  ", "\xB7 Hold ", Gue(), " while selecting to use your terminal's native copy instead"],
             }),
           ],
@@ -1765,7 +1765,7 @@ function Ur() {
     }
     case "default": {
       let Lr;
-      if (Yl[5] === d) (Lr = e(t, { dimColor: !0, children: "Switched back to the classic renderer" })), (Yl[5] = Lr);
+      if (Yl[5] === d) (Lr = e(t, { dimColor: true, children: "Switched back to the classic renderer" })), (Yl[5] = Lr);
       else Lr = Yl[5];
       return Lr;
     }
@@ -1783,7 +1783,7 @@ function Br(Qs) {
   if (vt[0] !== Qs) (Kp = Qs === void 0 ? {} : Qs), (vt[0] = Qs), (vt[1] = Kp);
   else Kp = vt[1];
   let { oneShotsAllowed: Yp } = Kp,
-    BR = Yp === void 0 ? !0 : Yp,
+    BR = Yp === void 0 ? true : Yp,
     { columns: HR } = Ee(),
     Xl = hn(),
     FR = W(df),
@@ -1821,7 +1821,7 @@ function Br(Qs) {
       (ec = se(` \xB7 ${oc}`)),
         (Ln = r(t, {
           children: [
-            e(t, { dimColor: !0, children: " \xB7 " }),
+            e(t, { dimColor: true, children: " \xB7 " }),
             e(t, { color: tc.status === "expired" ? "suggestion" : "warning", children: oc }),
           ],
         })),
@@ -1833,7 +1833,7 @@ function Br(Qs) {
       shouldSplit: rc,
       truncatedModel: ti,
       truncatedBilling: oi,
-    } = Xl ? { shouldSplit: !1, truncatedModel: Jp + sf, truncatedBilling: ef } : s7t(Jp + sf, ef, ei - ec),
+    } = Xl ? { shouldSplit: false, truncatedModel: Jp + sf, truncatedBilling: ef } : s7t(Jp + sf, ef, ei - ec),
     VR = Zs ? ei - 1 - se(Zs) - 3 : ei,
     sc = Xl ? Zp : fQ(Zp, Math.max(VR, 10));
   const ic = Zs && `@${Zs}`;
@@ -1842,22 +1842,22 @@ function Br(Qs) {
   else lf = vt[12];
   let ni = lf.join(" \xB7 "),
     cf;
-  if (vt[13] === d) (cf = e(t, { bold: !0, children: "Claude Code" })), (vt[13] = cf);
+  if (vt[13] === d) (cf = e(t, { bold: true, children: "Claude Code" })), (vt[13] = cf);
   else cf = vt[13];
   let ri;
   if (vt[14] !== Zl)
-    (ri = r(t, { children: [cf, " ", r(t, { dimColor: !0, children: ["v", Zl] })] })), (vt[14] = Zl), (vt[15] = ri);
+    (ri = r(t, { children: [cf, " ", r(t, { dimColor: true, children: ["v", Zl] })] })), (vt[14] = Zl), (vt[15] = ri);
   else ri = vt[15];
   let si;
   if (vt[16] !== rc || vt[17] !== Ln || vt[18] !== oi || vt[19] !== ti)
     (si = rc
       ? r(U, {
           children: [
-            e(t, { dimColor: !0, children: ti }),
-            r(t, { children: [e(t, { dimColor: !0, children: oi }), Ln] }),
+            e(t, { dimColor: true, children: ti }),
+            r(t, { children: [e(t, { dimColor: true, children: oi }), Ln] }),
           ],
         })
-      : r(t, { children: [r(t, { dimColor: !0, children: [ti, " \xB7 ", oi] }), Ln] })),
+      : r(t, { children: [r(t, { dimColor: true, children: [ti, " \xB7 ", oi] }), Ln] })),
       (vt[16] = rc),
       (vt[17] = Ln),
       (vt[18] = oi),
@@ -1865,7 +1865,7 @@ function Br(Qs) {
       (vt[20] = si);
   else si = vt[20];
   let ii;
-  if (vt[21] !== ni) (ii = ni && e(t, { dimColor: !0, children: ni })), (vt[21] = ni), (vt[22] = ii);
+  if (vt[21] !== ni) (ii = ni && e(t, { dimColor: true, children: ni })), (vt[21] = ni), (vt[22] = ii);
   else ii = vt[22];
   let ai;
   if (vt[23] !== ri || vt[24] !== si || vt[25] !== ii)
@@ -1988,17 +1988,17 @@ function ci() {
 F();
 function cc(i) {
   let l = gL().countedNoticeImpressions;
-  if (l.has(i)) return !1;
-  return l.add(i), !0;
+  if (l.has(i)) return false;
+  return l.add(i), true;
 }
 function GOn(i) {
   return gL().countedNoticeImpressions.has(i);
 }
-var Uo = yn(!0);
+var Uo = yn(true);
 function gt() {
   return We(Uo);
 }
-function Ie(i, l, { enabled: m = !0 } = {}) {
+function Ie(i, l, { enabled: m = true } = {}) {
   let p = gt();
   A(() => {
     if (!m || !p) return;
@@ -2066,8 +2066,8 @@ function Hr() {
         paddingLeft: 2,
         flexDirection: "column",
         children: [
-          e(t, { bold: !0, children: mi }),
-          r(t, { dimColor: !0, children: [e(ut, { url: FRt, children: E8t }), " for details"] }),
+          e(t, { bold: true, children: mi }),
+          r(t, { dimColor: true, children: [e(ut, { url: FRt, children: E8t }), " for details"] }),
         ],
       })),
       (Un[11] = mi),
@@ -2075,7 +2075,7 @@ function Hr() {
   else pi = Un[12];
   let Af;
   if (Un[13] !== di || Un[14] !== pi)
-    (Af = r(U, { children: [di, pi, !1] })), (Un[13] = di), (Un[14] = pi), (Un[15] = Af);
+    (Af = r(U, { children: [di, pi, false] })), (Un[13] = di), (Un[14] = pi), (Un[15] = Af);
   else Af = Un[15];
   return Af;
 }
@@ -2096,7 +2096,7 @@ F();
 import { relative as ah } from "path";
 var Si = 15000;
 function Fr() {
-  if (nc() !== void 0) return !1;
+  if (nc() !== void 0) return false;
   let i = ie(),
     l = [i.sonnet45To46MigrationTimestamp, i.legacyOpusMigrationTimestamp, i.opusProMigrationTimestamp],
     m = Date.now() - process.uptime() * 1000;
@@ -2115,7 +2115,7 @@ F();
 function Uf() {
   let $r = hf();
   if ($r.length === 0) {
-    return { channels: $r, disabled: !1, is3P: !1, policyBlocked: !1, list: "", unmatched: [] };
+    return { channels: $r, disabled: false, is3P: false, policyBlocked: false, list: "", unmatched: [] };
   }
   let oM = $r.map(Qt).join(", ");
   let Lf = ye("policySettings");
@@ -2157,7 +2157,7 @@ function wi() {
     else it = Pt[2];
     let Ut;
     if (Pt[3] === d)
-      (Ut = e(t, { dimColor: !0, children: "Channels are not available on third-party providers" })), (Pt[3] = Ut);
+      (Ut = e(t, { dimColor: true, children: "Channels are not available on third-party providers" })), (Pt[3] = Ut);
     else Ut = Pt[3];
     let Jt;
     if (Pt[4] !== it) (Jt = r(o, { flexDirection: "column", children: [it, Ut] })), (Pt[4] = it), (Pt[5] = Jt);
@@ -2173,7 +2173,7 @@ function wi() {
         (Pt[8] = it);
     else it = Pt[8];
     let Ut;
-    if (Pt[9] === d) (Ut = e(t, { dimColor: !0, children: "Channels are not currently available" })), (Pt[9] = Ut);
+    if (Pt[9] === d) (Ut = e(t, { dimColor: true, children: "Channels are not currently available" })), (Pt[9] = Ut);
     else Ut = Pt[9];
     let Jt;
     if (Pt[10] !== it) (Jt = r(o, { flexDirection: "column", children: [it, Ut] })), (Pt[10] = it), (Pt[11] = Jt);
@@ -2190,9 +2190,9 @@ function wi() {
     else it = Pt[14];
     let Ut, Jt;
     if (Pt[15] === d)
-      (Ut = e(t, { dimColor: !0, children: "Inbound messages will be silently dropped" })),
+      (Ut = e(t, { dimColor: true, children: "Inbound messages will be silently dropped" })),
         (Jt = e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: "Have an administrator set channelsEnabled: true in managed settings to enable",
         })),
         (Pt[15] = Ut),
@@ -2210,7 +2210,7 @@ function wi() {
   let it;
   if (Pt[22] !== Wt || Pt[23] !== jt)
     (it = r(t, {
-      dimColor: !0,
+      dimColor: true,
       children: [
         "Channels (experimental) messages from ",
         jt,
@@ -2291,7 +2291,7 @@ function vi(fM) {
   const Sc = zf ? ` \xB7 ${zf}` : "";
   let qf;
   if (gM[0] !== yc || gM[1] !== Sc)
-    (qf = e(o, { children: r(t, { dimColor: !0, children: [yc, Sc] }) })), (gM[0] = yc), (gM[1] = Sc), (gM[2] = qf);
+    (qf = e(o, { children: r(t, { dimColor: true, children: [yc, Sc] }) })), (gM[0] = yc), (gM[1] = Sc), (gM[2] = qf);
   else qf = gM[2];
   return qf;
 }
@@ -2348,7 +2348,7 @@ function Rc() {
     paddingLeft: 2,
     flexDirection: "column",
     children: e(t, {
-      ...(l.color === "warning" ? { color: "warning" } : l.color === "error" ? { color: "error" } : { dimColor: !0 }),
+      ...(l.color === "warning" ? { color: "warning" } : l.color === "error" ? { color: "error" } : { dimColor: true }),
       children: l.tip,
     }),
   });
@@ -2358,13 +2358,13 @@ function _i() {
   return gh(Yf, Xf);
 }
 function Ei(i) {
-  if (!i.tip) return !1;
-  if (!Array.isArray(i.taints) || i.taints.length === 0) return !0;
+  if (!i.tip) return false;
+  if (!Array.isArray(i.taints) || i.taints.length === 0) return true;
   return i.taints.some(_h);
 }
 F();
 function og() {
-  return Gr(!1);
+  return Gr(false);
 }
 function vc() {
   let i = Je().companyAnnouncements;
@@ -2389,7 +2389,7 @@ function Di() {
     wc = gt(),
     [Mc] = u(og),
     Zf;
-  if (Ii[1] !== wc || Ii[2] !== Mc) (Zf = wc ? Gr(!0) : Mc), (Ii[1] = wc), (Ii[2] = Mc), (Ii[3] = Zf);
+  if (Ii[1] !== wc || Ii[2] !== Mc) (Zf = wc ? Gr(true) : Mc), (Ii[1] = wc), (Ii[2] = Mc), (Ii[3] = Zf);
   else Zf = Ii[3];
   let Ai = Zf;
   if (!Ai) {
@@ -2400,7 +2400,7 @@ function Di() {
     (eg =
       !a.IS_DEMO &&
       Qf?.organizationName &&
-      r(t, { dimColor: !0, children: ["Message from ", Qf.organizationName, ":"] })),
+      r(t, { dimColor: true, children: ["Message from ", Qf.organizationName, ":"] })),
       (Ii[4] = eg);
   else eg = Ii[4];
   let tg;
@@ -2414,16 +2414,16 @@ function lg(i) {
   let l = Sft();
   if (l == null || l <= 0) return;
   let p = ie().passesLastSeenRemaining ?? 0;
-  if (l > p) Ae((f) => ({ ...f, passesUpsellSeenCount: 0, hasVisitedPasses: !1, passesLastSeenRemaining: l }), i);
+  if (l > p) Ae((f) => ({ ...f, passesUpsellSeenCount: 0, hasVisitedPasses: false, passesLastSeenRemaining: l }), i);
 }
 function kc(i) {
   let { eligible: l, hasCache: m } = tDe();
-  if (!l || !m) return !1;
+  if (!l || !m) return false;
   lg(i);
   let p = ie();
-  if ((p.passesUpsellSeenCount ?? 0) >= 3) return !1;
-  if (p.hasVisitedPasses) return !1;
-  return !0;
+  if ((p.passesUpsellSeenCount ?? 0) >= 3) return false;
+  if (p.hasVisitedPasses) return false;
+  return true;
 }
 function _c(i) {
   let l = 0;
@@ -2436,7 +2436,7 @@ function Pi() {
   if (ov[0] === d) {
     let rg = Abe();
     ng = r(t, {
-      dimColor: !0,
+      dimColor: true,
       children: [
         e(t, { color: "claude", children: "[\u273B]" }),
         " ",
@@ -2494,7 +2494,7 @@ function $i(bv) {
     for (const { start: jr, end: xv } of wtt(vo)) {
       if (jr > Sn) gn.push(vo.slice(Sn, jr));
       let ug = vo.slice(jr, xv).replace(/[:\-_]+$/, "");
-      gn.push(e(t, { bold: !0, color: "permission", children: ug }, jr)), (Sn = jr + ug.length);
+      gn.push(e(t, { bold: true, color: "permission", children: ug }, jr)), (Sn = jr + ug.length);
     }
     if (Sn < vo.length) {
       let Fn;
@@ -2513,7 +2513,7 @@ function $i(bv) {
   return mg;
 }
 function zr() {
-  if (!pB()?.command) return !1;
+  if (!pB()?.command) return false;
   if (iae()) return Bq() !== null;
   return rHe();
 }
@@ -2575,7 +2575,7 @@ function Gi(Tv) {
   if ((Ie("fotw-nudge", Sg, bg), !je?.command)) {
     return null;
   }
-  let Hi = je.hideCommandChip !== !0,
+  let Hi = je.hideCommandChip !== true,
     xg;
   if (
     Co[6] !== je.announcementLines ||
@@ -2588,8 +2588,8 @@ function Gi(Tv) {
       ? e(o, { flexDirection: "column", children: je.announcementLines.map(vg) })
       : r(t, {
           children: [
-            e(t, { bold: !0, children: je.titleLabel ?? "Feature of the week:" }),
-            Hi ? r(U, { children: [" ", r(t, { bold: !0, color: "permission", children: ["/", je.command] })] }) : null,
+            e(t, { bold: true, children: je.titleLabel ?? "Feature of the week:" }),
+            Hi ? r(U, { children: [" ", r(t, { bold: true, color: "permission", children: ["/", je.command] })] }) : null,
             je.commandBlurb ? `${Hi ? " \u2014 " : " "}${je.commandBlurb}` : "",
           ],
         })),
@@ -2627,7 +2627,7 @@ function Gi(Tv) {
       (Co[19] = Fi);
   else Fi = Co[19];
   let Tg;
-  if (Co[20] === d) (Tg = r(t, { dimColor: !0, children: ["Terms apply: ", Lc] })), (Co[20] = Tg);
+  if (Co[20] === d) (Tg = r(t, { dimColor: true, children: ["Terms apply: ", Lc] })), (Co[20] = Tg);
   else Tg = Co[20];
   let Rg;
   if (Co[21] !== $n || Co[22] !== Fi)
@@ -2647,7 +2647,7 @@ function Vi({ char: i = ww }) {
     [p, f] = u(m || l),
     g = C(null),
     [S, b] = Bi(p ? null : 50);
-  if ((Yn(() => f(!0), p ? null : _g, [p]), p)) return e(o, { ref: S, children: e(t, { color: kg, children: i }) });
+  if ((Yn(() => f(true), p ? null : _g, [p]), p)) return e(o, { ref: S, children: e(t, { color: kg, children: i }) });
   if (g.current === null) g.current = b;
   let T = (((b - g.current) / Bc) * 360) % 360,
     M = ip() ? rHt(T) : T;
@@ -2655,7 +2655,7 @@ function Vi({ char: i = ww }) {
 }
 var Gc = 5;
 function jc() {
-  if (qv() !== "downsell_on") return !1;
+  if (qv() !== "downsell_on") return false;
   return (ie().fullscreenDownsellSeenCount ?? 0) < Gc;
 }
 function qi() {
@@ -2696,13 +2696,13 @@ function zi() {
           flexDirection: "row",
           children: [e(Vi, {}), e(t, { color: "autoAccept", children: " Using flicker-free rendering" })],
         }),
-        r(t, { dimColor: !0, children: ["  ", "\xB7 Scroll with your trackpad, scroll wheel, or PageUp/PageDown"] }),
+        r(t, { dimColor: true, children: ["  ", "\xB7 Scroll with your trackpad, scroll wheel, or PageUp/PageDown"] }),
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: ["  ", "\xB7 Select text to copy \u2014 copying is automatic (/config to disable)"],
         }),
-        r(t, { dimColor: !0, children: ["  ", "\xB7 Click to move your cursor or expand collapsed results"] }),
-        r(t, { dimColor: !0, children: ["  ", "\xB7 /tui default to go back (saved to your preferences)"] }),
+        r(t, { dimColor: true, children: ["  ", "\xB7 Click to move your cursor or expand collapsed results"] }),
+        r(t, { dimColor: true, children: ["  ", "\xB7 /tui default to go back (saved to your preferences)"] }),
       ],
     })),
       (zv[0] = Ag);
@@ -2712,7 +2712,7 @@ function zi() {
 F();
 var NUe = "auto-mode-default";
 function qc(i) {
-  Ae((l) => (l.hasSeenAutoDefaultNotice ? l : { ...l, hasSeenAutoDefaultNotice: !0 }), i),
+  Ae((l) => (l.hasSeenAutoDefaultNotice ? l : { ...l, hasSeenAutoDefaultNotice: true }), i),
     s("tengu_auto_default_notice_shown", {});
 }
 function Ki() {
@@ -2724,13 +2724,13 @@ function Ki() {
   Ie(NUe, Dg);
   let Pg, Og;
   if (zc[2] === d)
-    (Pg = e(t, { bold: !0, children: gkt })), (Og = e(t, { dimColor: !0, children: hkt })), (zc[2] = Pg), (zc[3] = Og);
+    (Pg = e(t, { bold: true, children: gkt })), (Og = e(t, { dimColor: true, children: hkt })), (zc[2] = Pg), (zc[3] = Og);
   else (Pg = zc[2]), (Og = zc[3]);
   let Lg;
   if (zc[4] === d)
     (Lg = r(o, {
       flexDirection: "column",
-      children: [Pg, Og, e(t, { dimColor: !0, children: e(ut, { url: Kme, fallback: Kme, children: Kme }) })],
+      children: [Pg, Og, e(t, { dimColor: true, children: e(ut, { url: Kme, fallback: Kme, children: Kme }) })],
     })),
       (zc[4] = Lg);
   else Lg = zc[4];
@@ -2765,7 +2765,7 @@ function Yi(bC) {
   Ie("subscription-switch", Ug);
   let Bg;
   if (Xc[2] === d)
-    (Bg = r(t, { color: "text", dimColor: !0, children: [" ", "\xB7 /login to activate"] })), (Xc[2] = Bg);
+    (Bg = r(t, { color: "text", dimColor: true, children: [" ", "\xB7 /login to activate"] })), (Xc[2] = Bg);
   else Bg = Xc[2];
   let Hg;
   if (Xc[3] !== Kc)
@@ -2782,7 +2782,7 @@ function Yi(bC) {
 }
 F();
 function Kg() {
-  return qr(!1);
+  return qr(false);
 }
 var Wg = "tengu_velvet_harbor_owl",
   ru = "https://claude.com/enterprise",
@@ -2805,10 +2805,10 @@ function qg() {
 }
 function iu() {
   let i = su();
-  if (i === null || Kr[i] === void 0) return !1;
+  if (i === null || Kr[i] === void 0) return false;
   let l = On()?.organizationRole;
-  if (!l || !zg.has(l)) return !1;
-  if (!qg()) return !1;
+  if (!l || !zg.has(l)) return false;
+  if (!qg()) return false;
   return !_K(G().host) && !nl() && !a.CLAUDE_BRIDGE_REATTACH_SESSION;
 }
 function nu(i, l) {
@@ -2831,7 +2831,7 @@ function Qi() {
     eu = gt(),
     [tu] = u(Kg),
     Fg;
-  if (Gn[0] !== eu || Gn[1] !== tu) (Fg = eu ? qr(!0) : tu), (Gn[0] = eu), (Gn[1] = tu), (Gn[2] = Fg);
+  if (Gn[0] !== eu || Gn[1] !== tu) (Fg = eu ? qr(true) : tu), (Gn[0] = eu), (Gn[1] = tu), (Gn[2] = Fg);
   else Fg = Gn[2];
   let jn = Fg,
     At = jn !== null ? Kr[jn] : void 0,
@@ -2861,7 +2861,7 @@ function Qi() {
   else Xi = Gn[10];
   let Ji;
   if (Gn[11] !== At.ctaLabel || Gn[12] !== Xi)
-    (Ji = r(t, { color: "text", dimColor: !0, children: [" \xB7 ", At.ctaLabel, Xi] })),
+    (Ji = r(t, { color: "text", dimColor: true, children: [" \xB7 ", At.ctaLabel, Xi] })),
       (Gn[11] = At.ctaLabel),
       (Gn[12] = Xi),
       (Gn[13] = Ji);
@@ -2877,7 +2877,7 @@ function Qi() {
 }
 F();
 function Zg() {
-  return Vme(!1);
+  return Vme(false);
 }
 function oa() {
   let bn = _(18),
@@ -2885,7 +2885,7 @@ function oa() {
     cu = gt(),
     [uu] = u(Zg),
     Yg;
-  if (bn[0] !== cu || bn[1] !== uu) (Yg = cu ? Vme(!0) : uu), (bn[0] = cu), (bn[1] = uu), (bn[2] = Yg);
+  if (bn[0] !== cu || bn[1] !== uu) (Yg = cu ? Vme(true) : uu), (bn[0] = cu), (bn[1] = uu), (bn[2] = Yg);
   else Yg = bn[2];
   let dt = Yg,
     Xg;
@@ -2925,7 +2925,7 @@ function oa() {
   else ea = bn[11];
   let ta;
   if (bn[12] !== dt.footer)
-    (ta = dt.footer ? e(ca, { dim: !0, children: dt.footer }) : null), (bn[12] = dt.footer), (bn[13] = ta);
+    (ta = dt.footer ? e(ca, { dim: true, children: dt.footer }) : null), (bn[12] = dt.footer), (bn[13] = ta);
   else ta = bn[13];
   let Qg;
   if (bn[14] !== Zi || bn[15] !== ea || bn[16] !== ta)
@@ -2965,7 +2965,7 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
                 }),
             ],
           }),
-          e(o, { paddingLeft: 2, children: e(t, { dimColor: !0, children: `${Wf(_f())} to re-enable` }) }),
+          e(o, { paddingLeft: 2, children: e(t, { dimColor: true, children: `${Wf(_f())} to re-enable` }) }),
         ],
       }),
   },
@@ -2985,14 +2985,14 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
             {
               status: "warning",
               children: [
-                e(t, { bold: !0, children: f }),
+                e(t, { bold: true, children: f }),
                 " is over the",
                 " ",
                 Wo(m),
                 "-char limit (",
                 Wo(p.content.length),
                 " chars)",
-                e(t, { dimColor: !0, children: " \xB7 /memory to free up context" }),
+                e(t, { dimColor: true, children: " \xB7 /memory to free up context" }),
               ],
             },
             p.path,
@@ -3018,7 +3018,7 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
           children: [
             i.source,
             " overriding Claude subscription login",
-            e(t, { dimColor: !0, children: " \xB7 unset it or /logout to sign it out" }),
+            e(t, { dimColor: true, children: " \xB7 unset it or /logout to sign it out" }),
           ],
         }),
       });
@@ -3029,11 +3029,11 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
     tier: "warning",
     type: "warning",
     isActive: () => {
-      let { source: i } = py({ skipRetrievingKeyFromApiKeyHelper: !0 });
+      let { source: i } = py({ skipRetrievingKeyFromApiKeyHelper: true });
       return !!p4t() && (i === "ANTHROPIC_API_KEY" || i === "apiKeyHelper");
     },
     render: () => {
-      let { source: i } = py({ skipRetrievingKeyFromApiKeyHelper: !0 });
+      let { source: i } = py({ skipRetrievingKeyFromApiKeyHelper: true });
       return e(o, {
         marginTop: 1,
         children: r(yf, {
@@ -3041,7 +3041,7 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
           children: [
             i,
             " overriding saved Console key",
-            e(t, { dimColor: !0, children: " \xB7 unset it or /logout to clear the saved key" }),
+            e(t, { dimColor: true, children: " \xB7 unset it or /logout to clear the saved key" }),
           ],
         }),
       });
@@ -3052,12 +3052,12 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
     tier: "warning",
     type: "warning",
     isActive: () => {
-      let { source: i } = py({ skipRetrievingKeyFromApiKeyHelper: !0 }),
+      let { source: i } = py({ skipRetrievingKeyFromApiKeyHelper: true }),
         l = Fl();
       return i !== "none" && l.source !== "none" && !(i === "apiKeyHelper" && l.source === "apiKeyHelper");
     },
     render: () => {
-      let { source: i } = py({ skipRetrievingKeyFromApiKeyHelper: !0 }),
+      let { source: i } = py({ skipRetrievingKeyFromApiKeyHelper: true }),
         l = Fl();
       return r(o, {
         flexDirection: "column",
@@ -3072,7 +3072,7 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
             paddingLeft: 2,
             children: [
               r(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: [
                   "\xB7 to use",
                   " ",
@@ -3086,7 +3086,7 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
                       : "claude /logout",
                 ],
               }),
-              r(t, { dimColor: !0, children: ["\xB7 to use ", i, ":", " ", VV(l.source)] }),
+              r(t, { dimColor: true, children: ["\xB7 to use ", i, ":", " ", VV(l.source)] }),
             ],
           }),
         ],
@@ -3109,7 +3109,7 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
           "-token limit (~",
           Wo(l),
           " tokens)",
-          r(t, { dimColor: !0, children: [" ", "\xB7 ask Claude to trim agent descriptions in .claude/agents/"] }),
+          r(t, { dimColor: true, children: [" ", "\xB7 ask Claude to trim agent descriptions in .claude/agents/"] }),
         ],
       });
     },
@@ -3136,7 +3136,7 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
           k(i.mcpNeedsAuthCount, "server needs", "servers need"),
           " ",
           "authentication",
-          e(t, { dimColor: !0, children: " \xB7 run /mcp" }),
+          e(t, { dimColor: true, children: " \xB7 run /mcp" }),
         ],
       }),
   },
@@ -3152,7 +3152,7 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
           "Cross-session messaging is off:",
           " ",
           Bnt(d2e.of(i.session.host)) ?? "its socket directory could not be set up",
-          r(t, { dimColor: !0, children: [" \xB7 ", "run with --debug-file <path> for the full log"] }),
+          r(t, { dimColor: true, children: [" \xB7 ", "run with --debug-file <path> for the full log"] }),
         ],
       }),
   },
@@ -3168,7 +3168,7 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
             status: "warning",
             children: [
               i.modelDeprecationWarning.message,
-              r(t, { dimColor: !0, children: [" \xB7 ", i.modelDeprecationWarning.action] }),
+              r(t, { dimColor: true, children: [" \xB7 ", i.modelDeprecationWarning.action] }),
             ],
           }),
   },
@@ -3195,7 +3195,7 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
         status: "info",
         children: [
           "HIPAA \xB7 some features are restricted",
-          e(t, { dimColor: !0, children: " \xB7 /status for details" }),
+          e(t, { dimColor: true, children: " \xB7 /status for details" }),
         ],
       }),
   },
@@ -3222,7 +3222,7 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
               ? " \xB7 using cached policy (proxy/CA/provider env withheld)"
               : " \xB7 using cached policy"
             : " \xB7 no remote policy applied",
-          e(t, { dimColor: !0, children: " \xB7 /status for details" }),
+          e(t, { dimColor: true, children: " \xB7 /status for details" }),
         ],
       });
     },
@@ -3241,7 +3241,7 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
           i.text,
           i.url
             ? r(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: [" \xB7 ", e(ut, { url: i.url, fallback: i.url, children: "learn more" })],
               })
             : null,
@@ -3277,11 +3277,11 @@ var zt = { org: 30, launch: 20, campaign: 15, promo: 10, hint: 5 },
   $o = "remote-control-auto-on",
   Tu = 3;
 function Ch(i) {
-  if (!I("tengu_cobalt_harbor_notice", !0)) return !1;
-  if (!i.replBridgeAutoOnByDefault) return !1;
-  if (!ch()) return !1;
-  if (!y9t()) return !1;
-  if (aSt() !== "allowed") return !1;
+  if (!I("tengu_cobalt_harbor_notice", true)) return false;
+  if (!i.replBridgeAutoOnByDefault) return false;
+  if (!ch()) return false;
+  if (!y9t()) return false;
+  if (aSt() !== "allowed") return false;
   return (ie().seenNotifications?.[$o] ?? 0) < Tu;
 }
 function yu(i) {
@@ -3318,7 +3318,7 @@ function Ru() {
           gu.daysLeft,
           " ",
           k(gu.daysLeft, "day"),
-          e(t, { dimColor: !0, children: " \xB7 run /login to renew" }),
+          e(t, { dimColor: true, children: " \xB7 run /login to renew" }),
         ],
       });
     }
@@ -3349,7 +3349,7 @@ function wu(t0) {
   else oh = Wn[3];
   let ra = oh,
     nh;
-  if (Wn[4] === d) (nh = e(t, { bold: !0, children: "Keep working from anywhere" })), (Wn[4] = nh);
+  if (Wn[4] === d) (nh = e(t, { bold: true, children: "Keep working from anywhere" })), (Wn[4] = nh);
   else nh = Wn[4];
   let sa;
   if (Wn[5] !== ra)
@@ -3367,7 +3367,7 @@ function wu(t0) {
       children: [
         nh,
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             "Check progress or reply to any session from the mobile app, desktop app, or",
             " ",
@@ -3414,7 +3414,7 @@ var Ih = { id: "emergency-tip", tier: "warning", type: "warning", isActive: () =
           "Prompt caching off (",
           i.join(", "),
           "), requests will be slower and cost more",
-          e(t, { dimColor: !0, children: " \xB7 unset it to re-enable" }),
+          e(t, { dimColor: true, children: " \xB7 unset it to re-enable" }),
         ],
       });
     },
@@ -3423,7 +3423,7 @@ var Ih = { id: "emergency-tip", tier: "warning", type: "warning", isActive: () =
     id: NUe,
     tier: "announcement",
     type: "info",
-    promo: !1,
+    promo: false,
     priority: zt.org,
     claimsFirstShow: () => ERe("auto"),
     isActive: () => ERe("auto"),
@@ -3433,7 +3433,7 @@ var Ih = { id: "emergency-tip", tier: "warning", type: "warning", isActive: () =
     id: "company-announcement",
     tier: "announcement",
     type: "info",
-    promo: !1,
+    promo: false,
     priority: zt.org,
     isActive: () => vc(),
     render: () => e(Di, {}),
@@ -3442,17 +3442,17 @@ var Ih = { id: "emergency-tip", tier: "warning", type: "warning", isActive: () =
     id: "startup-announcement",
     tier: "announcement",
     type: "info",
-    promo: !1,
+    promo: false,
     priority: zt.launch,
-    isActive: () => Vme(!1) !== void 0 && !(pB()?.isTopPriorityAnnouncement === !0 && zr()),
-    showAccentBar: () => Vme(!1)?.accentBar !== !1,
+    isActive: () => Vme(false) !== void 0 && !(pB()?.isTopPriorityAnnouncement === true && zr()),
+    showAccentBar: () => Vme(false)?.accentBar !== false,
     render: () => e(oa, {}),
   },
   Bh = {
     id: "fotw-nudge",
     tier: "announcement",
     type: "info",
-    promo: !1,
+    promo: false,
     priority: zt.campaign,
     isActive: () => zr(),
     render: () => e(Wi, {}),
@@ -3461,7 +3461,7 @@ var Ih = { id: "emergency-tip", tier: "warning", type: "warning", isActive: () =
     id: "cc-ce-migrate",
     tier: "announcement",
     type: "info",
-    promo: !0,
+    promo: true,
     maxImpressions: GHt,
     priority: zt.campaign,
     isActive: () => iu(),
@@ -3471,7 +3471,7 @@ var Ih = { id: "emergency-tip", tier: "warning", type: "warning", isActive: () =
     id: "guest-passes",
     tier: "announcement",
     type: "info",
-    promo: !0,
+    promo: true,
     maxImpressions: 3,
     priority: zt.promo,
     isActive: (i) => kc(i.storageV5) && !iae() && !rHe(),
@@ -3481,7 +3481,7 @@ var Ih = { id: "emergency-tip", tier: "warning", type: "warning", isActive: () =
     id: "fullscreen-downsell",
     tier: "announcement",
     type: "info",
-    promo: !1,
+    promo: false,
     priority: zt.hint,
     claimsFirstShow: () => (ie().fullscreenDownsellSeenCount ?? 0) === 0,
     isActive: () => a.CLAUDE_CODE_TUI_JUST_SWITCHED === void 0 && jc(),
@@ -3491,7 +3491,7 @@ var Ih = { id: "emergency-tip", tier: "warning", type: "warning", isActive: () =
     id: "subscription-switch",
     tier: "announcement",
     type: "info",
-    promo: !0,
+    promo: true,
     maxImpressions: WHt,
     priority: zt.promo,
     isActive: (i) => i.existingClaudeSubscription !== null,
@@ -3548,7 +3548,7 @@ function Vh(i, l) {
     case "warning":
     case "info":
     case "announcement":
-      return !0;
+      return true;
   }
 }
 var bu = ["debug-mode", "model-source", "channels", "tmux-session"];
@@ -3582,11 +3582,11 @@ function aa(i, l, m) {
   return { ...g, slot: S, slotOverflowCount: Math.max(0, b - (x ? 1 : 0)) };
 }
 function Yr(i, l, { suppressPromos: m }) {
-  let p = i.filter((x) => Vh(x.tier, l) && !(x.promo === !0 && m)),
-    f = p.filter((x) => x.antOnly !== !0 && x.tier !== "info" && x.tier !== "announcement"),
-    g = p.filter((x) => x.antOnly === !0),
-    S = p.filter((x) => x.antOnly !== !0 && (x.tier === "info" || x.tier === "announcement")),
-    b = S.find((x) => x.claimsFirstShow?.() === !0) ?? null;
+  let p = i.filter((x) => Vh(x.tier, l) && !(x.promo === true && m)),
+    f = p.filter((x) => x.antOnly !== true && x.tier !== "info" && x.tier !== "announcement"),
+    g = p.filter((x) => x.antOnly === true),
+    S = p.filter((x) => x.antOnly !== true && (x.tier === "info" || x.tier === "announcement")),
+    b = S.find((x) => x.claimsFirstShow?.() === true) ?? null;
   if (b === null)
     for (let x of S) {
       if (b === null) {
@@ -3617,7 +3617,7 @@ function ga(vu, Cu, _u) {
   let Kh = _(7),
     Yh;
   if (Kh[0] !== _u || Kh[1] !== vu || Kh[2] !== Cu)
-    (Yh = gH() ? null : J_(vu, !1, Cu, _u)), (Kh[0] = _u), (Kh[1] = vu), (Kh[2] = Cu), (Kh[3] = Yh);
+    (Yh = gH() ? null : J_(vu, false, Cu, _u)), (Kh[0] = _u), (Kh[1] = vu), (Kh[2] = Cu), (Kh[3] = Yh);
   else Yh = Kh[3];
   let Xr = Yh,
     [E0, Xh] = u(Jr),
@@ -3629,13 +3629,13 @@ function ga(vu, Cu, _u) {
         Xh(Jr);
         return;
       }
-      let Zh = !0;
+      let Zh = true;
       return (
         Xr.then((N0) => {
           if (Zh) Xh(N0);
         }, dy),
         () => {
-          Zh = !1;
+          Zh = false;
         }
       );
     }),
@@ -3652,7 +3652,7 @@ function Qr(la) {
   if (ua[0] !== la) (ey = la === void 0 ? {} : la), (ua[0] = la), (ua[1] = ey);
   else ey = ua[1];
   let { latchAnnouncementSlot: ty } = ey,
-    xn = ty === void 0 ? !0 : ty,
+    xn = ty === void 0 ? true : ty,
     { storageV5: oy, credentials: I0 } = ge(),
     { columns: A0 } = Ee(),
     D0 = i7t(A0),
@@ -3691,7 +3691,7 @@ function Qr(la) {
       modelDeprecationWarning: ku?.modelDeprecationWarning ?? null,
       modelRestrictedWarning: ma,
       existingClaudeSubscription: ku?.existingClaudeSubscription ?? null,
-      replBridgeAutoOnByDefault: P0 ?? !1,
+      replBridgeAutoOnByDefault: P0 ?? false,
       replBridgeSessionUrl: O0,
       mcpNeedsAuthCount: B0,
       storageV5: oy,
@@ -3700,7 +3700,7 @@ function Qr(la) {
     Eu = qt.warnings.length > 0,
     ly = qt.slot !== null,
     cy = qt.ant.length > 0,
-    uy = qt.slot?.showAccentBar?.() ?? !0;
+    uy = qt.slot?.showAccentBar?.() ?? true;
   const Nu = Uo,
     Iu = $_,
     Au =
@@ -3720,9 +3720,9 @@ function Qr(la) {
                         flexDirection: "column",
                         paddingLeft: uy ? 1 : 2,
                         borderStyle: uy ? "quote" : void 0,
-                        borderTop: !1,
-                        borderBottom: !1,
-                        borderRight: !1,
+                        borderTop: false,
+                        borderBottom: false,
+                        borderRight: false,
                         borderColor: qt.slot.tier === "announcement" ? "claude" : void 0,
                         borderDimColor: qt.slot.tier !== "announcement",
                         children: qt.slot.render(pa),
@@ -3759,8 +3759,8 @@ function Qr(la) {
 var qU = du(function (nk) {
   let ya = _(10),
     { latchAnnouncementSlot: Sy, hideWelcomeChrome: by } = nk,
-    Vn = Sy === void 0 ? !0 : Sy,
-    Du = by === void 0 ? !1 : by,
+    Vn = Sy === void 0 ? true : Sy,
+    Du = by === void 0 ? false : by,
     Sa;
   if (ya[0] !== Du) (Sa = !Du && e(Hr, {})), (ya[0] = Du), (ya[1] = Sa);
   else Sa = ya[1];
@@ -3881,7 +3881,7 @@ function $u(i) {
   }
   return null;
 }
-function Gu(i, l, m = !1, p) {
+function Gu(i, l, m = false, p) {
   if (m) return { messages: i };
   let f = Ty(l),
     g = new Map();
@@ -3959,7 +3959,7 @@ class zn {
   input = [];
   output = [];
   starts = [0];
-  chainAt = [!1];
+  chainAt = [false];
   pending = new Map();
   lastWalked = 0;
   constructor(i) {
@@ -3986,7 +3986,7 @@ class zn {
         for (let oe = D; oe < K; oe++) {
           let X = i[oe];
           for (let q of Cf([X], T, this.cache)) if (eX(q)) S.push(q);
-          if ((this.notePending(X, T), WPe(X))) T = !0;
+          if ((this.notePending(X, T), WPe(X))) T = true;
           b.push(S.length), x.push(T), M++;
         }
       },
@@ -4088,7 +4088,7 @@ function wy(i) {
   }
 }
 function Cy(i, l, m, p) {
-  for (let f of p) if (i.resolvedToolUseIDs.has(f) !== l.resolvedToolUseIDs.has(f)) return !1;
+  for (let f of p) if (i.resolvedToolUseIDs.has(f) !== l.resolvedToolUseIDs.has(f)) return false;
   for (let f of m) {
     let g = i.siblingToolUseIDs.get(f),
       S = l.siblingToolUseIDs.get(f);
@@ -4101,21 +4101,21 @@ function Cy(i, l, m, p) {
       !ju(i.inProgressHookCounts.get(f), l.inProgressHookCounts.get(f)) ||
       !ju(i.resolvedHookCounts.get(f), l.resolvedHookCounts.get(f))
     )
-      return !1;
+      return false;
   }
-  return !0;
+  return true;
 }
 function _y(i, l) {
   if (i === void 0 || l === void 0) return i === l;
-  if (i.length !== l.length) return !1;
-  for (let m = 0; m < i.length; m++) if (i[m] !== l[m]) return !1;
-  return !0;
+  if (i.length !== l.length) return false;
+  for (let m = 0; m < i.length; m++) if (i[m] !== l[m]) return false;
+  return true;
 }
 function ju(i, l) {
   if (i === void 0 || l === void 0) return i === l;
-  if (i.size !== l.size) return !1;
-  for (let [m, p] of i) if (l.get(m) !== p) return !1;
-  return !0;
+  if (i.size !== l.size) return false;
+  for (let [m, p] of i) if (l.get(m) !== p) return false;
+  return true;
 }
 function Tn(i, l, m) {
   let p;
@@ -4183,7 +4183,7 @@ function ky(i) {
         l = dq(i.attachment.prompt);
       else if (i.attachment.type === "tool_host_result_lines")
         l = [
-          ...(i.attachment.unverified === !0 && typeof i.attachment.label === "string" ? [i.attachment.label] : []),
+          ...(i.attachment.unverified === true && typeof i.attachment.label === "string" ? [i.attachment.label] : []),
           ...lu(i.attachment.lines),
         ].join(`
 `);
@@ -4220,11 +4220,11 @@ function Ey(i) {
     let S = g.length;
     if (!Number.isSafeInteger(S) || S > vy) continue;
     let b = [],
-      x = !0;
+      x = true;
     for (let T = 0; T < S; T++) {
       let M = Object.getOwnPropertyDescriptor(g, T);
       if (!M || !("value" in M) || typeof M.value !== "string") {
-        x = !1;
+        x = false;
         break;
       }
       b.push(M.value);
@@ -4277,7 +4277,7 @@ function es(Ak) {
   const Ku = se(Kn.message.model) + 8;
   let Ra;
   if (Iy[0] !== Kn.message.model)
-    (Ra = e(t, { dimColor: !0, children: Kn.message.model })), (Iy[0] = Kn.message.model), (Iy[1] = Ra);
+    (Ra = e(t, { dimColor: true, children: Kn.message.model })), (Iy[0] = Kn.message.model), (Iy[1] = Ra);
   else Ra = Iy[1];
   let Ay;
   if (Iy[2] !== Ku || Iy[3] !== Ra)
@@ -4309,35 +4309,35 @@ function Na(i) {
   if (i.type === "attachment" && i.attachment.type === "queued_command") return i.attachment.timestamp ?? i.timestamp;
   return i.timestamp;
 }
-function er(i, l, m, p = !1) {
-  if (!Na(i)) return !1;
+function er(i, l, m, p = false) {
+  if (!Na(i)) return false;
   if (i.type === "attachment") {
-    if (!m || i.attachment.type !== "queued_command") return !1;
-    if (sre(i.attachment.origin)) return !0;
-    if (i.attachment.commandMode === void 0 && i.attachment.isMeta) return !1;
+    if (!m || i.attachment.type !== "queued_command") return false;
+    if (sre(i.attachment.origin)) return true;
+    if (i.attachment.commandMode === void 0 && i.attachment.isMeta) return false;
     if (
       i.attachment.commandMode === "prompt" &&
       !(hk(i.attachment.origin) || (!i.attachment.isMeta && Gh(i.attachment.origin)))
     )
-      return !1;
+      return false;
     let f = dq(i.attachment.prompt).trim();
     return (i.attachment.imagePasteIds?.length ?? 0) > 0 || !uBe(f);
   }
   if (i.type === "assistant") return m || (l && i.message.content.some((f) => f.type === "text"));
   if (i.type === "user") {
-    if (!m || i.isCompactSummary || p) return !1;
+    if (!m || i.isCompactSummary || p) return false;
     let f = i.message.content[0];
-    if (f?.type === "image") return !0;
-    if (f?.type !== "text" || typeof f.text !== "string") return !1;
+    if (f?.type === "image") return true;
+    if (f?.type !== "text" || typeof f.text !== "string") return false;
     return !wLn(i, f.text);
   }
-  return !1;
+  return false;
 }
 function ts(qk) {
   let Ju = _(12),
     { message: va, isTranscriptMode: Kk, showMessageTimestamps: Dy, isSplitUserContinuation: Py } = qk,
-    Ca = Dy === void 0 ? !1 : Dy;
-  if (!er(va, Kk, Ca, Py === void 0 ? !1 : Py)) {
+    Ca = Dy === void 0 ? false : Dy;
+  if (!er(va, Kk, Ca, Py === void 0 ? false : Py)) {
     return null;
   }
   let _a, Zn, ka, Qu;
@@ -4345,7 +4345,7 @@ function ts(qk) {
     Qu = fn;
     bb0: {
       let Oy = Na(va) ?? "";
-      Zn = Ca ? wa(Oy) : new Date(Oy).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: !0 });
+      Zn = Ca ? wa(Oy) : new Date(Oy).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
       if (!Zn) {
         Qu = null;
         break bb0;
@@ -4357,7 +4357,7 @@ function ts(qk) {
   } else (_a = Ju[2]), (Zn = Ju[3]), (ka = Ju[4]), (Qu = Ju[5]);
   if (Qu !== fn) return Qu;
   let Ea;
-  if (Ju[6] !== Zn) (Ea = e(t, { dimColor: !0, children: Zn })), (Ju[6] = Zn), (Ju[7] = Ea);
+  if (Ju[6] !== Zn) (Ea = e(t, { dimColor: true, children: Zn })), (Ju[6] = Zn), (Ju[7] = Ea);
   else Ea = Ju[7];
   let Ly;
   if (Ju[8] !== _a || Ju[9] !== ka || Ju[10] !== Ea)
@@ -4371,14 +4371,14 @@ function fm(i, l, m, p) {
     if (g?.type === "assistant") {
       let S = g.message.content[0];
       if (S?.type === "thinking" || S?.type === "redacted_thinking") {
-        if (eqe(g)) return !0;
+        if (eqe(g)) return true;
         continue;
       }
       if (S?.type === "tool_use") {
         if (sPe(S.name, S.input, m).isCollapsible) continue;
         if (p.has(S.id)) continue;
       }
-      return !0;
+      return true;
     }
     if (g?.type === "system" || g?.type === "attachment") continue;
     if (g?.type === "user") {
@@ -4388,9 +4388,9 @@ function fm(i, l, m, p) {
       let S = g.messages[0]?.message.content[0]?.input;
       if (sPe(g.toolName, S, m).isCollapsible) continue;
     }
-    return !0;
+    return true;
   }
-  return !1;
+  return false;
 }
 function gm(lE) {
   let _t = _(76),
@@ -4460,7 +4460,7 @@ function gm(lE) {
       (_t[22] = Fy);
   } else Fy = _t[22];
   let dm = Fy,
-    or = !1;
+    or = false;
   if (cE) {
     if (uo) {
       let Zt;
@@ -4533,7 +4533,7 @@ function gm(lE) {
       inProgressToolUseIDs: et,
       progressMessagesForMessage: mm,
       shouldAnimate: or,
-      shouldShowDot: !0,
+      shouldShowDot: true,
       isTranscriptMode: Bt,
       isStatic: dm,
       onOpenRateLimitOptions: im,
@@ -4627,27 +4627,27 @@ function zy(i, l) {
   return !m || l.has(m);
 }
 function qy(i, l) {
-  if (i.message !== l.message) return !1;
-  if (i.screen !== l.screen) return !1;
-  if (i.verbose !== l.verbose) return !1;
-  if (i.showMessageTimestamps !== l.showMessageTimestamps) return !1;
+  if (i.message !== l.message) return false;
+  if (i.screen !== l.screen) return false;
+  if (i.verbose !== l.verbose) return false;
+  if (i.showMessageTimestamps !== l.showMessageTimestamps) return false;
   if (i.isUserContinuation !== l.isUserContinuation || i.isSplitUserContinuation !== l.isSplitUserContinuation)
-    return !1;
-  if (i.message.type === "collapsed_read_search" && l.screen !== "transcript") return !1;
-  if (i.columns !== l.columns) return !1;
+    return false;
+  if (i.message.type === "collapsed_read_search" && l.screen !== "transcript") return false;
+  if (i.columns !== l.columns) return false;
   let m = i.latestBashOutputUUID === i.message.uuid,
     p = l.latestBashOutputUUID === l.message.uuid;
-  if (m !== p) return !1;
+  if (m !== p) return false;
   let f = Vy(i.message, i.streamingToolUseIDs),
     g = zy(i.message, i.lookups.resolvedToolUseIDs);
-  if (f || !g) return !1;
-  return !0;
+  if (f || !g) return false;
+  return true;
 }
 var hm = du(gm, qy);
 var La = "placeholder";
 class Z8t {
   #e = 0;
-  #t = !1;
+  #t = false;
   get baseline() {
     return this.#e;
   }
@@ -4655,19 +4655,19 @@ class Z8t {
     return this.#t;
   }
   start(i) {
-    (this.#e = i), (this.#t = !0);
+    (this.#e = i), (this.#t = true);
   }
   stop() {
-    this.#t = !1;
+    this.#t = false;
   }
   track(i, l) {
-    if (l.length < this.#e) return (this.#e = 0), (this.#t = !1), !0;
+    if (l.length < this.#e) return (this.#e = 0), (this.#t = false), true;
     if (l.length > i.length && this.#t) {
       let m = l.length - i.length;
-      if ((i.length === 0 || l[0] === i[0] ? l.slice(-m) : l.slice(0, m)).some(ner)) this.#t = !1;
+      if ((i.length === 0 || l[0] === i[0] ? l.slice(-m) : l.slice(0, m)).some(ner)) this.#t = false;
       else this.#e = l.length;
     }
-    return !1;
+    return false;
   }
 }
 F();
@@ -4723,7 +4723,7 @@ function bm(i, l, m) {
     x = C(new Map()),
     T = C({ len: 0, first: void 0, last: void 0 }),
     M = C(m),
-    v = C(!1),
+    v = C(false),
     N = C(null),
     H = C({ count: 0, lastKey: void 0 }),
     D = C(0),
@@ -4733,7 +4733,7 @@ function bm(i, l, m) {
     let Q = M.current / m;
     M.current = m;
     for (let [fe, Le] of p.current) p.current.set(fe, Math.max(1, Math.round(Le * Q)));
-    f.current++, (v.current = !0), (D.current = 2), (oe.current = K.current);
+    f.current++, (v.current = true), (D.current = 2), (oe.current = K.current);
   }
   let X = H.current.count !== l.length || H.current.lastKey !== l.at(-1);
   if (D.current > 0 && X) D.current = 0;
@@ -4752,22 +4752,22 @@ function bm(i, l, m) {
     ce = i.handle?.getPendingDelta() ?? 0,
     he = i.handle?.getViewportHeight() ?? 0,
     xe = tS(he),
-    pe = i.handle?.isSticky() ?? !0;
+    pe = i.handle?.isSticky() ?? true;
   if (D.current > 0) {
     let Q = oe.current;
     if (Q === null) oe.current = { sticky: pe, scrollTop: O };
     else if (Q.sticky !== pe || (!pe && Math.abs(O - Q.scrollTop) >= Math.max(1, he))) D.current = 0;
   }
   let ve = D.current > 0 ? N.current : null;
-  A(() => (Pin(pe), () => Pin(!0)), [pe]),
+  A(() => (Pin(pe), () => Pin(true)), [pe]),
     z(() => {
       let Q = T.current,
         fe = l[0],
         Le = l.length >= Q.len && fe === Q.first && l[Q.len - 1] === Q.last;
       if (((Q.len = l.length), (Q.first = fe), (Q.last = l.at(-1)), Le)) return;
       let Pe = new Set(l),
-        Ge = !1;
-      for (let Se of p.current.keys()) if (!Pe.has(Se)) p.current.delete(Se), (Ge = !0);
+        Ge = false;
+      for (let Se of p.current.keys()) if (!Pe.has(Se)) p.current.delete(Se), (Ge = true);
       for (let Se of x.current.keys()) if (!Pe.has(Se)) x.current.delete(Se);
       if (Ge) f.current++;
     }, [l]);
@@ -4876,7 +4876,7 @@ function bm(i, l, m) {
       if (Ye && Ye.getComputedWidth() > 0) {
         let nt = Ye.getComputedTop() - Ge.yogaTop;
         if (nt !== 0) {
-          (Pe = Q + nt), (Kt.current = nt), i.handle?.scrollTo(Pe, { preserveHwm: !0 });
+          (Pe = Q + nt), (Kt.current = nt), i.handle?.scrollTo(Pe, { preserveHwm: true });
           let rt = oe.current;
           if (D.current > 0 && rt) rt.scrollTop += nt;
           let lt = i.handle?.getDomElement();
@@ -4912,18 +4912,18 @@ function bm(i, l, m) {
         i.handle?.setClampBounds($e === 0 ? 0 : ht + fe, Et === 1 / 0 ? 1 / 0 : Et + fe + Math.max(0, Pe));
       }
       if (v.current) {
-        v.current = !1;
+        v.current = false;
         return;
       }
-      let Le = !1;
+      let Le = false;
       for (let [Pe, Ge] of b.current) {
         let Se = Ge.yogaNode;
         if (!Se) continue;
         let Ve = Se.getComputedHeight(),
           Ye = p.current.get(Pe);
         if (Ve > 0) {
-          if (Ye !== Ve) p.current.set(Pe, Ve), (Le = !0);
-        } else if (Se.getComputedWidth() > 0 && Ye !== 0) p.current.set(Pe, 0), (Le = !0);
+          if (Ye !== Ve) p.current.set(Pe, Ve), (Le = true);
+        } else if (Se.getComputedWidth() > 0 && Ye !== 0) p.current.set(Pe, 0), (Le = true);
       }
       if (Le) f.current++;
     });
@@ -5098,7 +5098,7 @@ function _m({
     Vo = br(fe),
     to = C({ matches: [], ptr: 0, screenOrd: 0, prefixSum: [] }),
     oo = C(-1),
-    Rt = C(!1);
+    Rt = C(false);
   function Q(V) {
     let j = qe.current.getItemTop(V);
     return Math.max(0, j - ns);
@@ -5297,7 +5297,7 @@ function _m({
           }
           n(`setSearchQuery('${V}'): ${Y.length} msgs \xB7 ptr=${de} msgIdx=${Y[de]} curTop=${Be} origin=${Qe}`);
         }
-        if (((to.current = { matches: Y, ptr: de, screenOrd: 0, prefixSum: Z }), Y.length > 0)) Se(Y[de], !0);
+        if (((to.current = { matches: Y, ptr: de, screenOrd: 0, prefixSum: Z }), Y.length > 0)) Se(Y[de], true);
         else if (oo.current >= 0 && Re) Re.scrollTo(oo.current);
         v?.(be, Y.length > 0 ? (Z[de + 1] ?? be) : 0);
       },
@@ -5335,7 +5335,7 @@ function _m({
           n(
             `warmSearchIndex: ${V.length} msgs \xB7 work=${Math.round(Y)}ms wall=${be}ms chunks=${Math.ceil(V.length / j)}`,
           ),
-          (Rt.current = !0),
+          (Rt.current = true),
           Math.round(Y)
         );
       },
@@ -5362,7 +5362,7 @@ function _m({
         let Y = Oe + j;
         if (V === void 0) return Wa(D, Y, i, `mounted=[${Oe},${me})`), null;
         let Z = E[Y],
-          be = !!g && (S?.(V) ?? !0),
+          be = !!g && (S?.(V) ?? true),
           de = be && rt === Z,
           Re = b?.(V);
         return e(
@@ -5439,7 +5439,7 @@ function km(XE) {
   else rS = Eo[1];
   Lt(ot.subscribe, rS);
   let iS;
-  if (Eo[2] !== ot.handle) (iS = ot.handle?.isSticky() ?? !0), (Eo[2] = ot.handle), (Eo[3] = iS);
+  if (Eo[2] !== ot.handle) (iS = ot.handle?.isSticky() ?? true), (Eo[2] = ot.handle), (Eo[3] = iS);
   else iS = Eo[3];
   let Rm = iS,
     aS;
@@ -5677,16 +5677,16 @@ function OS(i, l, m) {
   }
   let x = new Set();
   return i.filter((T, M) => {
-    if (T.type === "system") return !0;
+    if (T.type === "system") return true;
     let v = T.message?.content[0];
     if (T.type === "assistant") {
-      if (T.isApiErrorMessage) return !0;
+      if (T.isApiErrorMessage) return true;
       if (v?.type === "tool_use" && v.name && p.has(v.name)) {
         if ("id" in v) x.add(v.id);
-        return !0;
+        return true;
       }
-      if ((v?.type === "text" || p$t(v)) && !g.has(S[M])) return !0;
-      return !1;
+      if ((v?.type === "text" || p$t(v)) && !g.has(S[M])) return true;
+      return false;
     }
     if (T.type === "user") {
       if (v?.type === "tool_result") return v.tool_use_id !== void 0 && x.has(v.tool_use_id);
@@ -5698,7 +5698,7 @@ function OS(i, l, m) {
         N?.type === "queued_command" && N.commandMode === "prompt" && (hk(N.origin) || (!N.isMeta && Gh(N.origin)))
       );
     }
-    return !1;
+    return false;
   });
 }
 function LS(i, l) {
@@ -5755,7 +5755,7 @@ var FS = ({
   tools: l,
   commands: m,
   inProgressToolUseIDs: p,
-  pauseAnimation: f = !1,
+  pauseAnimation: f = false,
   conversationId: g,
   screen: S,
   history: b,
@@ -5780,10 +5780,10 @@ var FS = ({
     ve = W((P) => P.briefTranscript),
     te = W((P) => P.hasRemoteReplyChannel),
     re = W((P) => P.agentDefinitions.activeAgents),
-    le = W((P) => P.showMessageTimestamps) && I("tengu_silk_hinge", !1),
+    le = W((P) => P.showMessageTimestamps) && I("tengu_silk_hinge", false),
     me = Xn(),
-    Oe = !1,
-    qe = z(() => null, [i, !1]),
+    Oe = false,
+    qe = z(() => null, [i, false]),
     $e = D != null && !pe,
     Ke = HS(he),
     ht = C(null),
@@ -5828,12 +5828,12 @@ var FS = ({
     Ge = C(null),
     Se = B((P) => {
       let ue = P.contentBlock.id;
-      if (GS(ue)) return { id: ue, minted: !1 };
+      if (GS(ue)) return { id: ue, minted: false };
       let _e = (Ge.current ??= new WeakMap()),
         He = _e.get(P);
-      if (He) return { id: He, minted: !0 };
+      if (He) return { id: He, minted: true };
       let Ze = AS();
-      return _e.set(P, Ze), { id: Ze, minted: !0 };
+      return _e.set(P, Ze), { id: Ze, minted: true };
     }, []),
     Ve = z(
       () =>
@@ -5912,13 +5912,13 @@ var FS = ({
     Re = ct().host,
     Ce = B(
       (P) => {
-        if (P.type === "collapsed_read_search") return !0;
+        if (P.type === "collapsed_read_search") return true;
         if (P.type === "attachment") {
-          if (q || X) return !1;
+          if (q || X) return false;
           return P.attachment?.type === "goal_status" && !!P.attachment.reason;
         }
         if (P.type === "assistant") {
-          if (q || X) return !1;
+          if (q || X) return false;
           let Ze = P.message.content[0];
           return (
             Ze != null &&
@@ -5927,14 +5927,14 @@ var FS = ({
             (!vle(Ze) || N3e(Ze) !== void 0)
           );
         }
-        if (P.type !== "user") return !1;
+        if (P.type !== "user") return false;
         let ue = P.message.content[0];
-        if (ue?.type !== "tool_result") return !1;
+        if (ue?.type !== "tool_result") return false;
         if (ue.is_error) return BLn(ue.content);
-        if (!P.toolUseResult) return !1;
+        if (!P.toolUseResult) return false;
         let _e = rt.toolUseByToolUseID.get(ue.tool_use_id)?.name,
           He = _e ? (no(l, _e) ?? ige(_e, Re)) : void 0;
-        return (He ? Sf(He, "isResultTruncated")?.(P.toolUseResult, { columns: ce }) : void 0) ?? !1;
+        return (He ? Sf(He, "isResultTruncated")?.(P.toolUseResult, { columns: ce }) : void 0) ?? false;
       },
       [l, q, X, Re, rt, ce],
     ),
@@ -5948,7 +5948,7 @@ var FS = ({
   }, [Qe]);
   let { progress: Be } = dE(),
     st = C(null),
-    ft = Lo("terminalProgressBarEnabled", !0).value;
+    ft = Lo("terminalProgressBarEnabled", true).value;
   A(() => {
     let P = Pu({ enabled: ft, isLoading: M, hasToolsInProgress: mt });
     if (st.current === P) return;
@@ -6008,7 +6008,7 @@ var FS = ({
         let ue = cs.get(P);
         if (ue !== void 0) return ue;
         let _e = Zr(P),
-          He = !0;
+          He = true;
         if (P.type === "user" && P.toolUseResult && Array.isArray(P.message.content)) {
           let so = P.message.content.find((Xt) => Xt.type === "tool_result");
           if (so && "tool_use_id" in so) {
@@ -6030,7 +6030,7 @@ var FS = ({
       X && E && It > 0 && !J && e(ql, { title: `${xe} to hide ${ae.bold(It)} previous messages`, width: ce }),
       $e
         ? e(zj.Provider, {
-            value: !0,
+            value: true,
             children: e(_m, {
               messages: Ft,
               scrollViewport: D,
@@ -6057,9 +6057,9 @@ function qm(i) {
   return (i.type === "assistant" || i.type === "user" ? iz(i) : null) ?? i.uuid;
 }
 function $S(i, l) {
-  if (i.size !== l.size) return !1;
-  for (let m of i) if (!l.has(m)) return !1;
-  return !0;
+  if (i.size !== l.size) return false;
+  for (let m of i) if (!l.has(m)) return false;
+  return true;
 }
 var ls = [];
 function GS(i) {
@@ -6107,10 +6107,10 @@ var Ym = du(FS, (i, l) => {
             g = l.tools;
           if (f.length === g.length && f.every((S, b) => S.name === g[b]?.name)) continue;
         }
-        return !1;
+        return false;
       }
     }
-    return !0;
+    return true;
   }),
   Xm = new Set();
 function GU(Nm) {
@@ -6121,12 +6121,12 @@ function GU(Nm) {
   if (hr[0] !== Nm)
     ({ source: kt, hidePlaceholder: Im, ...jo } = Nm), (hr[0] = Nm), (hr[1] = kt), (hr[2] = Im), (hr[3] = jo);
   else (kt = hr[1]), (Im = hr[2]), (jo = hr[3]);
-  let YN = Im === void 0 ? !1 : Im,
+  let YN = Im === void 0 ? false : Im,
     yr = kt.kind === "live" ? kt.turn : null,
     kS = kt.kind === "live" && kt.focused.isMain,
     Va = kS && jo.screen === "prompt",
     vn = kt.kind === "live" ? kt.focused.messages : kt.messages,
-    is = Xe(yr, WS) ?? !1,
+    is = Xe(yr, WS) ?? false,
     Am = Xe((kS ? yr : null)?.stream, VS) ?? ls,
     Ao = Va ? yr : null,
     XN = Xe(Ao?.stream, zS),
@@ -6193,7 +6193,7 @@ function GU(Nm) {
       za &&
       Ao &&
       Sr.length <= Ao.stream.placeholderTracker.baseline &&
-      e(fq, { param: { text: za, type: "text" }, addMargin: !0, verbose: Lm, messageId: La, origin: Dm })),
+      e(fq, { param: { text: za, type: "text" }, addMargin: true, verbose: Lm, messageId: La, origin: Dm })),
       (hr[23] = Sr),
       (hr[24] = Ao),
       (hr[25] = Dm),
@@ -6207,7 +6207,7 @@ function GU(Nm) {
   return IS;
 }
 function Oa(i, l, m, p, f, g) {
-  if (f === "transcript") return !0;
+  if (f === "transcript") return true;
   switch (i.type) {
     case "attachment":
     case "user":
@@ -6217,21 +6217,21 @@ function Oa(i, l, m, p, f, g) {
         if (b?.type === "server_tool_use") return g.resolvedToolUseIDs.has(b.id);
       }
       let S = iz(i);
-      if (!S) return !0;
-      if (l.has(S)) return !1;
-      if (m.has(S)) return !1;
-      if ($zn(S, "PostToolUse", g)) return !1;
+      if (!S) return true;
+      if (l.has(S)) return false;
+      if (m.has(S)) return false;
+      if ($zn(S, "PostToolUse", g)) return false;
       return d3e(p, g.resolvedToolUseIDs);
     }
     case "system":
-      return !0;
+      return true;
     case "grouped_tool_use":
       return i.messages.every((b) => {
         let x = b.message.content[0];
         return x?.type === "tool_use" && g.resolvedToolUseIDs.has(x.id);
       });
     case "collapsed_read_search":
-      return !1;
+      return false;
   }
 }
 export { J8t, qOn, ckt, LUe, GOn, Q8t, MUe, wtt, NUe, zOn, VOn, Ttt, qU, Z8t, e7t, ukt, t7t, zme, dkt, KOn, TRe, GU };

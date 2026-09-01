@@ -121,13 +121,13 @@ import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 var v = 2000;
 function w(e, d, p) {
-  let o = !1,
-    i = !1,
+  let o = false,
+    i = false,
     y = p?.muxTimeoutMs ?? v,
     m = Boolean(a.TMUX || a.STY) && !o3();
   async function u() {
     if (i) return;
-    i = !0;
+    i = true;
     try {
       let s = hjn(Sd.SET_BG_COLOR),
         l = m ? { ...s, request: tw(s.request) } : s,
@@ -137,7 +137,7 @@ function w(e, d, p) {
         if (
           ((t = await Promise.race([
             e.send(l),
-            ne(y, void 0, { unref: !0 }).then(() => {
+            ne(y, void 0, { unref: true }).then(() => {
               return;
             }),
           ])),
@@ -148,20 +148,20 @@ function w(e, d, p) {
       } else [t] = await Promise.all([e.send(l), e.flush()]);
       if (o) return;
       if (!t) {
-        n(`systemTheme: OSC 11 query (via=${f}) got no response`, { level: "debug" }), (mv().osc11Responsive = !1);
+        n(`systemTheme: OSC 11 query (via=${f}) got no response`, { level: "debug" }), (mv().osc11Responsive = false);
         return;
       }
-      mv().osc11Responsive = !0;
+      mv().osc11Responsive = true;
       let r = Sjn(t.data);
       if ((n(`systemTheme: OSC 11 response=${t.data} detected=${r} via=${f}`, { level: "debug" }), r === void 0))
         return;
       xlt(r), d(r);
     } finally {
-      i = !1;
+      i = false;
     }
   }
   let c = a.CLAUDE_BG_BACKEND === "daemon";
-  if (mv().osc11Responsive !== !1 && !c) u();
+  if (mv().osc11Responsive !== false && !c) u();
   let T = e.subscribeThemeChange(() => void u()),
     h = c
       ? GX(() => {
@@ -172,7 +172,7 @@ function w(e, d, p) {
         })
       : void 0;
   return () => {
-    (o = !0), T(), h?.();
+    (o = true), T(), h?.();
   };
 }
 export { w as watchSystemTheme };

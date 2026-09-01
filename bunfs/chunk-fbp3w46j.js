@@ -23,8 +23,8 @@ class m {
   childProcesses = new Map();
   childRegisteredCount = 0;
   pageSizeBytes = void 0;
-  installed = !1;
-  emitted = !1;
+  installed = false;
+  emitted = false;
   unregisterCleanup = void 0;
   registerAttributor(t, e) {
     this.attributors.set(t, e);
@@ -33,14 +33,14 @@ class m {
     let r = this.childProcesses.get(e);
     if (r && !r.dead) return;
     this.childRegisteredCount++,
-      this.childProcesses.set(e, { kind: t, peakRssBytes: this.readChildRssBytes(e) ?? 0, dead: !1 });
+      this.childProcesses.set(e, { kind: t, peakRssBytes: this.readChildRssBytes(e) ?? 0, dead: false });
   }
   sampleChildPeaks() {
     if (this.childProcesses.size === 0) return;
     for (let [t, e] of this.childProcesses) {
       if (e.dead) continue;
       let r = this.readChildRssBytes(t);
-      if (r === void 0) e.dead = !0;
+      if (r === void 0) e.dead = true;
       else if (r > e.peakRssBytes) e.peakRssBytes = r;
     }
   }
@@ -86,18 +86,18 @@ class m {
   }
   emitSummaryOnce(t) {
     if (this.emitted) return;
-    this.emitted = !0;
+    this.emitted = true;
     try {
       s("tengu_sdk_memory_summary", this.buildSummary(t()));
     } catch {}
   }
   installExitSummary(t) {
     if (this.installed) return;
-    (this.installed = !0), (this.unregisterCleanup = vt(() => this.emitSummaryOnce(t)));
+    (this.installed = true), (this.unregisterCleanup = vt(() => this.emitSummaryOnce(t)));
   }
   reset() {
-    (this.installed = !1),
-      (this.emitted = !1),
+    (this.installed = false),
+      (this.emitted = false),
       this.unregisterCleanup?.(),
       (this.unregisterCleanup = void 0),
       this.attributors.clear(),
@@ -116,7 +116,7 @@ function HAe(t, e) {
 }
 function yrr(t) {
   let e = n().childProcesses.get(t);
-  if (e) e.dead = !0;
+  if (e) e.dead = true;
 }
 function Srr() {
   n().sampleChildPeaks();

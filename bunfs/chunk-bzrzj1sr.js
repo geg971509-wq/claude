@@ -31,7 +31,7 @@ function mQ(i) {
   M(i, 1);
 }
 function M(i, l) {
-  if (i() !== !1) return;
+  if (i() !== false) return;
   if (l >= ee) {
     n("resolveWhenTaken: gave up retrying a refused resolution", { level: "warn" });
     return;
@@ -56,17 +56,17 @@ function BUe(ke) {
   let a = _(36),
     { extraUsage: q, onDone: v, onOutcome: y, accepts: P } = ke,
     { credentials: X } = ge(),
-    [De, Oe] = u(!1),
-    O = C(!1),
+    [De, Oe] = u(false),
+    O = C(false),
     c = hs(),
     { refusedWithin: m, noteRefused: f, epoch: We } = pi(),
     re;
   if (a[0] !== c || a[1] !== f || a[2] !== m)
     (re = function x() {
       if (c() || m()) {
-        return f(), !0;
+        return f(), true;
       }
-      return !1;
+      return false;
     }),
       (a[0] = c),
       (a[1] = f),
@@ -93,9 +93,9 @@ function BUe(ke) {
       if (!P()) {
         return;
       }
-      (O.current = !0),
+      (O.current = true),
         s("tengu_usage_credits_admin_request_confirm_result", { action: w("confirmed") }),
-        Oe(!0),
+        Oe(true),
         BYt(q, X).then((ie) => {
           y?.(ie.filed ? "filed" : "failed"), mQ(() => v(ie.value));
         });
@@ -121,11 +121,11 @@ function BUe(ke) {
         f();
         return;
       }
-      if (v("No request sent to your admin.") === !1) {
+      if (v("No request sent to your admin.") === false) {
         return;
       }
       y?.("cancelled"),
-        (O.current = !0),
+        (O.current = true),
         s("tengu_usage_credits_admin_request_confirm_result", { action: w("cancelled") });
     }),
       (a[14] = c),
@@ -158,7 +158,7 @@ function BUe(ke) {
   let ae;
   if (a[23] === d)
     (ae = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children:
         "Only send this if you're running into usage limits \u2014 your admins are notified and review each request.",
     })),
@@ -171,7 +171,7 @@ function BUe(ke) {
       {
         refuseInput: x,
         windowAnchorMs: j,
-        hideIndexes: !0,
+        hideIndexes: true,
         confirmLabel: "Send request",
         cancelLabel: "Cancel",
         focus: "cancel",

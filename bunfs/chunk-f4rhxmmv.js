@@ -96,7 +96,7 @@ async function ee(o, t) {
 async function u2e(o, t, e) {
   let r = t ?? Rb(),
     a = await F(r, e);
-  if ((await o(a)) === !1) return;
+  if ((await o(a)) === false) return;
   if (O() && e !== void 0 && r === Rb()) {
     let c = await e.write(
       Te.state("daemon-config"),
@@ -133,7 +133,7 @@ var ne = 1000,
       cron: i().refine((o) => HI(o) !== null, { message: "invalid 5-field cron expression" }),
       prompt: i().min(1),
       directory: i().min(1),
-      enabled: q().default(!0),
+      enabled: q().default(true),
       permissionMode: oe([...Ige, V$])
         .transform((o) => (o === V$ ? "default" : o))
         .default("dontAsk"),
@@ -190,7 +190,7 @@ async function eNn(o) {
     } catch {
       return null;
     }
-  let e = Ut(t, !1);
+  let e = Ut(t, false);
   if (!e || typeof e !== "object") return null;
   let r = e;
   if (typeof r.workerPid !== "number" || typeof r.tasks !== "object" || r.tasks === null) return null;
@@ -216,7 +216,7 @@ var tNn = async (o, t, e, r, a) => {
         s();
         return;
       }
-      t.addEventListener("abort", () => s(), { once: !0 });
+      t.addEventListener("abort", () => s(), { once: true });
     }),
       clearInterval(d);
     return;
@@ -281,14 +281,14 @@ var tNn = async (o, t, e, r, a) => {
     A.add(k), C.add(s.id), _();
     let x = setTimeout((w) => w.abort(), Math.min(s.runTimeoutMinutes, I) * 60000, k);
     e(`task=${s.id} start cron='${s.cron}' dir='${s.directory}'`);
-    let S = rp({ pinToCurrentBinary: !0 });
+    let S = rp({ pinToCurrentBinary: true });
     try {
       let w = L({
         prompt: s.prompt,
         options: {
           cwd: s.directory,
           permissionMode: s.permissionMode,
-          ...(s.permissionMode === "bypassPermissions" && { allowDangerouslySkipPermissions: !0 }),
+          ...(s.permissionMode === "bypassPermissions" && { allowDangerouslySkipPermissions: true }),
           ...(s.model && { model: s.model }),
           systemPrompt: { type: "preset", preset: "claude_code" },
           settingSources: ["user", "project", "local"],
@@ -357,20 +357,20 @@ async function Pge(o, t, e) {
 }
 async function Dge(o, t, e) {
   return Hr("daemon_scheduled_remove", async () => {
-    let r = !1;
+    let r = false;
     return (
       await u2e(
         (a) => {
-          if (!("scheduled" in a)) return !1;
+          if (!("scheduled" in a)) return false;
           let u = j(a),
             c = u.tasks.filter((y) => !(y && typeof y === "object" && y.id === o));
-          if (c.length === u.tasks.length) return !1;
+          if (c.length === u.tasks.length) return false;
           if (c.length === 0) {
             let y = a.scheduled;
             if (Array.isArray(y) && y.length > 1) a.scheduled = y.slice(1);
             else delete a.scheduled;
           } else z(a, { ...u, tasks: c });
-          r = !0;
+          r = true;
         },
         t,
         e,

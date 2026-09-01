@@ -28,10 +28,10 @@ function c() {
 function iG(e) {
   if (!e || typeof e === "string" || !Array.isArray(e)) return e;
   let n = e,
-    r = !1;
+    r = false;
   for (let t of n)
     if (t.type === "text" && "_meta" in t && t._meta) {
-      r = !0;
+      r = true;
       break;
     }
   if (!r) return e;
@@ -104,8 +104,8 @@ async function M(e, n) {
   return r;
 }
 async function kWe(e, n) {
-  if (!e) return !1;
-  if (Iae(e) <= c() * C) return !1;
+  if (!e) return false;
+  if (Iae(e) <= c() * C) return false;
   try {
     let o = await ISe(
       typeof e === "string" ? [{ role: "user", content: e }] : [{ role: "user", content: e }],
@@ -115,7 +115,7 @@ async function kWe(e, n) {
     );
     return !!(o && o > c());
   } catch (t) {
-    return h(t), !1;
+    return h(t), false;
   }
 }
 async function T(e) {

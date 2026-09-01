@@ -49,25 +49,25 @@ F();
 var De = 400,
   Ve = 150,
   _e = { hunks: new Map(), skippedLarge: new Set() };
-function f7t(i = 0, c = !0, a = "auto") {
+function f7t(i = 0, c = true, a = "auto") {
   let m = We(KR)?.setTimeout ?? N1,
     { host: x } = ct(),
     [B, M] = u(null),
-    [P, N] = u(!0),
-    H = C(!1),
+    [P, N] = u(true),
+    H = C(false),
     [W, O] = u(0);
   return (
     A(() => mvn(() => O((L) => L + 1)), []),
     A(() => {
       if (!c) return;
-      let L = !1,
+      let L = false,
         V = new AbortController();
       async function Y() {
         try {
           let E = await ydt(x, V.signal, a);
           if (L) return;
           if (E === null) {
-            g("repl_diff_read", "git_diff_failed"), (H.current = !0), N(!1);
+            g("repl_diff_read", "git_diff_failed"), (H.current = true), N(false);
             return;
           }
           let S = R4e(E),
@@ -79,15 +79,15 @@ function f7t(i = 0, c = !0, a = "auto") {
           )
             g("repl_diff_read", "git_hunks_failed");
           else y("repl_diff_read");
-          (H.current = !0), N(!1);
+          (H.current = true), N(false);
         } catch (E) {
           if (L) return;
-          h(E), g("repl_diff_read", "git_diff_threw"), (H.current = !0), N(!1);
+          h(E), g("repl_diff_read", "git_diff_threw"), (H.current = true), N(false);
         }
       }
       let K = m(Y, H.current ? Ve : 0);
       return () => {
-        (L = !0), K(), V.abort();
+        (L = true), K(), V.abort();
       };
     }, [i, c, W, a, x]),
     z(() => {
@@ -124,7 +124,7 @@ function f7t(i = 0, c = !0, a = "auto") {
           stats: L,
           files: K,
           hunks: B.hunks.hunks,
-          loading: !1,
+          loading: false,
           source: Y,
           baseMode: B.baseMode,
           noCommits: B.result.noCommits,
@@ -158,7 +158,7 @@ function Je(i) {
     stats: i.stats,
     files: w,
     hunks: new Map(i.hunks.map((m) => [m.path, m.hunks])),
-    loading: !1,
+    loading: false,
     source: i.source,
     baseMode: "auto",
   };
@@ -172,18 +172,18 @@ function Ke(i) {
       if (!w || !zT("controlChannel")) {
         g("remote_workspace_diff_fetch", "no_channel"),
           a({
-            data: re(!1),
+            data: re(false),
             notice: "Workspace changes aren't available over this connection \u2014 showing per-turn changes only",
           });
         return;
       }
-      let m = !1;
+      let m = false;
       return (
         w
           .sendControlRequest({ subtype: "get_workspace_diff" })
           .then((x) => {
             if (m) return;
-            y("remote_workspace_diff_fetch"), a({ data: x.diff ? Je(x.diff) : re(!1), notice: null });
+            y("remote_workspace_diff_fetch"), a({ data: x.diff ? Je(x.diff) : re(false), notice: null });
           })
           .catch((x) => {
             if (m) return;
@@ -192,7 +192,7 @@ function Ke(i) {
             if (M === "unsupported_subtype") g("remote_workspace_diff_fetch", M);
             else p("remote_workspace_diff_fetch", M);
             a({
-              data: re(!1),
+              data: re(false),
               notice:
                 M === "unsupported_subtype"
                   ? "The remote workspace is running an older Claude Code version that cannot report workspace changes \u2014 showing per-turn changes only"
@@ -206,7 +206,7 @@ function Ke(i) {
             });
           }),
         () => {
-          m = !0;
+          m = true;
         }
       );
     }, [i]),
@@ -230,7 +230,7 @@ function Ckt(i, c, a, w, m) {
     P = C(0),
     N = C(0),
     H = br((O, L) => w?.(O, L)),
-    W = m?.requireScope ?? !1;
+    W = m?.requireScope ?? false;
   A(() => {
     if (!a) return;
     function O() {
@@ -259,7 +259,7 @@ function Ckt(i, c, a, w, m) {
         }
         S.scrollBy(ye);
       }
-      H(!1, S);
+      H(false, S);
     }
     function V(E) {
       if (((P.current = E), M.current === E)) return;
@@ -333,8 +333,8 @@ var Me = 40,
   ao = 36,
   fo = 500;
 function po(i, c) {
-  if (c.upArrow || c.downArrow || c.home || c.end) return !0;
-  if (i.length !== 1) return !1;
+  if (c.upArrow || c.downArrow || c.home || c.end) return true;
+  if (i.length !== 1) return false;
   if (c.ctrl) return "udbfnp".includes(i);
   return "jkgGb {}".includes(i);
 }
@@ -345,7 +345,7 @@ var mo = 0.35,
 function ke(i, c, a) {
   if (i.jediTerm.trackpadGesture) {
     let M = a - i.time;
-    if (!i.jbBypass || M > Won) (i.jbBypass = !0), (i.frac = 0), (i.mult = 1);
+    if (!i.jbBypass || M > Won) (i.jbBypass = true), (i.frac = 0), (i.mult = 1);
     else if (c !== i.dir) i.frac = 0;
     (i.dir = c), (i.time = a);
     let P = ljn(i.jediTerm);
@@ -355,23 +355,23 @@ function ke(i, c, a) {
     return (i.frac -= N), N;
   }
   if (i.jbBypass)
-    (i.jbBypass = !1), (i.pendingFlip = !1), (i.wheelMode = !1), (i.burstCount = 0), (i.frac = 0), (i.dir = 0);
+    (i.jbBypass = false), (i.pendingFlip = false), (i.wheelMode = false), (i.burstCount = 0), (i.frac = 0), (i.dir = 0);
   if (!i.useDecayCurve) {
     if (i.wheelFlood) {
       let P = a - i.time;
       return (i.time = a), (i.dir = c), (i.mult = P > Me ? i.base * oo : i.base), Math.max(1, Math.floor(i.mult));
     }
-    if (i.wheelMode && a - i.time > io) (i.wheelMode = !1), (i.burstCount = 0), (i.mult = i.base);
+    if (i.wheelMode && a - i.time > io) (i.wheelMode = false), (i.burstCount = 0), (i.mult = i.base);
     if (i.pendingFlip) {
-      if (((i.pendingFlip = !1), c !== i.dir || a - i.time > to))
+      if (((i.pendingFlip = false), c !== i.dir || a - i.time > to))
         return (i.dir = c), (i.time = a), (i.mult = i.base), Math.max(1, Math.floor(i.mult));
-      i.wheelMode = !0;
+      i.wheelMode = true;
     }
     let M = a - i.time;
-    if (c !== i.dir && i.dir !== 0) return (i.pendingFlip = !0), (i.time = a), 0;
+    if (c !== i.dir && i.dir !== 0) return (i.pendingFlip = true), (i.time = a), 0;
     if (((i.dir = c), (i.time = a), i.wheelMode))
       if (M < Te)
-        if (++i.burstCount >= 5) (i.wheelMode = !1), (i.burstCount = 0), (i.mult = i.base);
+        if (++i.burstCount >= 5) (i.wheelMode = false), (i.burstCount = 0), (i.mult = i.base);
         else return 1;
       else i.burstCount = 0;
     if (i.wheelMode && i.accelEnabled) {
@@ -401,7 +401,7 @@ function ke(i, c, a) {
     B = Math.floor(x);
   return (i.frac = x - B), B;
 }
-function bo(i = !1, c = 1, a = !1, w = !0, m = hxe()) {
+function bo(i = false, c = 1, a = false, w = true, m = hxe()) {
   return {
     time: 0,
     mult: c,
@@ -409,10 +409,10 @@ function bo(i = !1, c = 1, a = !1, w = !0, m = hxe()) {
     useDecayCurve: i,
     frac: 0,
     base: c,
-    pendingFlip: !1,
-    wheelMode: !1,
+    pendingFlip: false,
+    wheelMode: false,
     burstCount: 0,
-    jbBypass: !1,
+    jbBypass: false,
     jediTerm: m,
     wheelFlood: a,
     accelEnabled: w,
@@ -420,7 +420,7 @@ function bo(i = !1, c = 1, a = !1, w = !0, m = hxe()) {
 }
 function Be(i) {
   let c = YR(),
-    a = Lo("wheelScrollAccelerationEnabled", !0).value;
+    a = Lo("wheelScrollAccelerationEnabled", true).value;
   return (
     n(
       `wheel accel: ${c.useDecayCurve ? "decay" : "window (native)"} \xB7 base=${c.base} \xB7 platform=${c.platform} \xB7 TERM_PROGRAM=${c.termProgram}${c.wheelFlood ? " \xB7 wheelFlood" : ""}${c.jediTerm ? " \xB7 jediTerm" : ""}${jon(i) ? " \xB7 jbBugConfirmed" : ""}${a ? "" : " \xB7 accelDisabled"}`,
@@ -431,7 +431,7 @@ function Be(i) {
 var Ae = "auto-copy-config-hint",
   wo = 10,
   Pe = 5;
-function zUe({ scrollViewport: i, isActive: c, onScroll: a, isModal: w = !1 }) {
+function zUe({ scrollViewport: i, isActive: c, onScroll: a, isModal: w = false }) {
   let m = Ox(),
     x = wc(),
     B = e2e(),
@@ -444,7 +444,7 @@ function zUe({ scrollViewport: i, isActive: c, onScroll: a, isModal: w = !1 }) {
     { internal_jediTermInput: L } = XR(),
     V = C(-1);
   Re(M);
-  function Y(f, b = !1) {
+  function Y(f, b = false) {
     let D = Ptt(f);
     if (b && zue() === "native" && ie().copyOnSelect === void 0) {
       if (V.current === -1)
@@ -483,17 +483,17 @@ function zUe({ scrollViewport: i, isActive: c, onScroll: a, isModal: w = !1 }) {
       },
       "scroll:lineUp": () => {
         let f = i.handle;
-        if (!f || f.getScrollHeight() <= f.getViewportHeight()) return !1;
+        if (!f || f.getScrollHeight() <= f.getViewportHeight()) return false;
         if (YR() !== O.current) (O.current = YR()), (W.current = null);
         if (E) XMt();
         (W.current ??= Be(L)), (W.current.base = YR().base);
         let b = performance.now(),
           D = ke(W.current, -1, b);
-        Lon(f), Oon(-1, D, W.current, b), Do(f, D, E), a?.(!1, f);
+        Lon(f), Oon(-1, D, W.current, b), Do(f, D, E), a?.(false, f);
       },
       "scroll:lineDown": () => {
         let f = i.handle;
-        if (!f || f.getScrollHeight() <= f.getViewportHeight()) return !1;
+        if (!f || f.getScrollHeight() <= f.getViewportHeight()) return false;
         if (YR() !== O.current) (O.current = YR()), (W.current = null);
         if (E) XMt();
         (W.current ??= Be(L)), (W.current.base = YR().base);
@@ -507,12 +507,12 @@ function zUe({ scrollViewport: i, isActive: c, onScroll: a, isModal: w = !1 }) {
         let f = i.handle;
         if (!f) return;
         if (E) uct();
-        f.scrollTo(0), a?.(!1, f);
+        f.scrollTo(0), a?.(false, f);
       },
       "scroll:bottom": () => {
         let f = i.handle;
         if (!f) return;
-        f.scrollToBottom(), a?.(!0, f);
+        f.scrollToBottom(), a?.(true, f);
       },
       "selection:copy": K,
     },
@@ -554,7 +554,7 @@ function zUe({ scrollViewport: i, isActive: c, onScroll: a, isModal: w = !1 }) {
       { context: "Transcript", isActive: H && w },
     );
   function U(f) {
-    if (!m.hasSelection()) return !1;
+    if (!m.hasSelection()) return false;
     let b = m.getState();
     if (b && $_e(b)) return;
     if (f === "up" || f === "down") {
@@ -574,7 +574,7 @@ function zUe({ scrollViewport: i, isActive: c, onScroll: a, isModal: w = !1 }) {
               (b.virtualFocusRow = te ? Q - 1 : ne + 1),
               (b.virtualFocusCol = void 0),
               D.scrollBy(te ? -1 : 1),
-              a?.(!1, D);
+              a?.(false, D);
           return;
         }
       }
@@ -599,12 +599,12 @@ function zUe({ scrollViewport: i, isActive: c, onScroll: a, isModal: w = !1 }) {
           let D = J.peek();
           if (D !== null) m.clearSelection(), Y(D);
           else K();
-          return !0;
+          return true;
         }
         if (w && po(f, b)) return;
         if (!w && (b.backspace || b.delete) && !b.ctrl && !b.meta && !b.shift && !b.super) {
           let D = m.getState();
-          if (D && B.tryDelete(D)) return m.clearSelection(), !0;
+          if (D && B.tryDelete(D)) return m.clearSelection(), true;
         }
         if (QOn(b)) {
           if (x) {
@@ -617,27 +617,27 @@ function zUe({ scrollViewport: i, isActive: c, onScroll: a, isModal: w = !1 }) {
       { isActive: H },
     ),
     Ckt(i, m, H, a);
-  let J = Dtt(m, H, (f) => Y(f, !0));
+  let J = Dtt(m, H, (f) => Y(f, true));
   return Ott(m), null;
 }
 function He(i) {
-  if (Lo("autoScrollEnabled", !0).value) i.scrollToBottom();
+  if (Lo("autoScrollEnabled", true).value) i.scrollToBottom();
   else i.scrollTo(Math.max(0, i.getScrollHeight() - i.getViewportHeight()));
-  return !0;
+  return true;
 }
-function KU(i, c, a = !0) {
+function KU(i, c, a = true) {
   let w = Math.max(0, i.getScrollHeight() - i.getViewportHeight()),
     m = Math.min(i.getScrollTop(), w) + i.getPendingDelta() + c;
   if (m >= w) return He(i);
   if (m <= 0 && a) uct();
-  return i.scrollTo(Math.max(0, m)), !1;
+  return i.scrollTo(Math.max(0, m)), false;
 }
 function _o(i, c) {
   let a = Math.max(0, i.getScrollHeight() - i.getViewportHeight());
   if (i.getScrollTop() + i.getPendingDelta() + c >= a) return He(i);
-  return i.scrollBy(c), !1;
+  return i.scrollBy(c), false;
 }
-function Do(i, c, a = !0) {
+function Do(i, c, a = true) {
   if (i.getScrollTop() + i.getPendingDelta() - c <= 0) {
     if (a) uct();
     i.scrollTo(0);
@@ -645,7 +645,7 @@ function Do(i, c, a = !0) {
   }
   i.scrollBy(-c);
 }
-function yo(i, c, a = !0) {
+function yo(i, c, a = true) {
   switch (c) {
     case null:
       return null;
@@ -663,23 +663,23 @@ function yo(i, c, a = !0) {
       return KU(i, c === "fullPageDown" ? w : -w, a);
     }
     case "top":
-      return i.scrollTo(0), !1;
+      return i.scrollTo(0), false;
     case "bottom":
-      return i.scrollToBottom(), !0;
+      return i.scrollToBottom(), true;
   }
 }
 function Re(le) {
   let at = _(5),
     { internal_eventEmitter: Z } = XR(),
     ue = xt(),
-    qe = C(!1),
+    qe = C(false),
     Xe,
     ze;
   if (at[0] !== le || at[1] !== ue || at[2] !== Z)
     (Xe = () => {
       let ae = function ae(Qe) {
         if (!qe.current)
-          (qe.current = !0), s("tengu_scroll_arrows_detected", { count: Qe.count, up: Qe.direction === "up" });
+          (qe.current = true), s("tengu_scroll_arrows_detected", { count: Qe.count, up: Qe.direction === "up" });
         ue.setTimeout(
           () =>
             le({
@@ -766,7 +766,7 @@ function Gie(Tt) {
   let { firstLine: Oe, fileContent: Fe } = ce;
   if (be) {
     let k;
-    if (T[9] !== R) (k = e(o, { children: e(t, { bold: !0, children: R }) })), (T[9] = R), (T[10] = k);
+    if (T[9] !== R) (k = e(o, { children: e(t, { bold: true, children: R }) })), (T[9] = R), (T[10] = k);
     else k = T[10];
     let v;
     if (T[11] !== I) (v = e(ql, { width: I })), (T[11] = I), (T[12] = v);
@@ -775,7 +775,7 @@ function Gie(Tt) {
     if (T[13] === d)
       (G = e(o, {
         flexDirection: "column",
-        children: e(t, { dimColor: !0, italic: !0, children: "Content restricted by read-permission rules" }),
+        children: e(t, { dimColor: true, italic: true, children: "Content restricted by read-permission rules" }),
       })),
         (T[13] = G);
     else G = T[13];
@@ -790,7 +790,7 @@ function Gie(Tt) {
   }
   if (Se) {
     let k;
-    if (T[17] !== R) (k = e(t, { bold: !0, children: R })), (T[17] = R), (T[18] = k);
+    if (T[17] !== R) (k = e(t, { bold: true, children: R })), (T[17] = R), (T[18] = k);
     else k = T[18];
     let v;
     if (T[19] === d) (v = e(DR, { children: "untracked" })), (T[19] = v);
@@ -802,11 +802,11 @@ function Gie(Tt) {
     if (T[22] !== I) (j = e(ql, { width: I })), (T[22] = I), (T[23] = j);
     else j = T[23];
     let ee;
-    if (T[24] === d) (ee = e(t, { dimColor: !0, italic: !0, children: "New file not yet staged." })), (T[24] = ee);
+    if (T[24] === d) (ee = e(t, { dimColor: true, italic: true, children: "New file not yet staged." })), (T[24] = ee);
     else ee = T[24];
     let q;
     if (T[25] !== R)
-      (q = !sn() && r(t, { dimColor: !0, italic: !0, children: ["Run `git add :/", R, "` to see line counts."] })),
+      (q = !sn() && r(t, { dimColor: true, italic: true, children: ["Run `git add :/", R, "` to see line counts."] })),
         (T[25] = R),
         (T[26] = q);
     else q = T[26];
@@ -825,7 +825,7 @@ function Gie(Tt) {
   }
   if (me) {
     let k;
-    if (T[33] !== R) (k = e(o, { children: e(t, { bold: !0, children: R }) })), (T[33] = R), (T[34] = k);
+    if (T[33] !== R) (k = e(o, { children: e(t, { bold: true, children: R }) })), (T[33] = R), (T[34] = k);
     else k = T[34];
     let v;
     if (T[35] !== I) (v = e(ql, { width: I })), (T[35] = I), (T[36] = v);
@@ -834,7 +834,7 @@ function Gie(Tt) {
     if (T[37] === d)
       (G = e(o, {
         flexDirection: "column",
-        children: e(t, { dimColor: !0, italic: !0, children: "Binary file - cannot display diff" }),
+        children: e(t, { dimColor: true, italic: true, children: "Binary file - cannot display diff" }),
       })),
         (T[37] = G);
     else G = T[37];
@@ -849,7 +849,7 @@ function Gie(Tt) {
   }
   if (de) {
     let k;
-    if (T[41] !== R) (k = e(o, { children: e(t, { bold: !0, children: R }) })), (T[41] = R), (T[42] = k);
+    if (T[41] !== R) (k = e(o, { children: e(t, { bold: true, children: R }) })), (T[41] = R), (T[42] = k);
     else k = T[42];
     let v;
     if (T[43] !== I) (v = e(ql, { width: I })), (T[43] = I), (T[44] = v);
@@ -859,8 +859,8 @@ function Gie(Tt) {
       (G = e(o, {
         flexDirection: "column",
         children: e(t, {
-          dimColor: !0,
-          italic: !0,
+          dimColor: true,
+          italic: true,
           children: sn() ? "Diff too large to display." : "Large file - diff exceeds 1 MB limit",
         }),
       })),
@@ -876,9 +876,9 @@ function Gie(Tt) {
     return j;
   }
   let k;
-  if (T[49] !== R) (k = e(t, { bold: !0, children: R })), (T[49] = R), (T[50] = k);
+  if (T[49] !== R) (k = e(t, { bold: true, children: R })), (T[49] = R), (T[50] = k);
   else k = T[50];
-  const v = he ?? !1;
+  const v = he ?? false;
   let G;
   if (T[51] !== v) (G = e(DR, { when: v, children: "truncated" })), (T[51] = v), (T[52] = G);
   else G = T[52];
@@ -893,7 +893,7 @@ function Gie(Tt) {
     (q =
       pe.length === 0
         ? e(sr, { children: "No diff content" })
-        : pe.map((At, Pt) => e(gx, { patch: At, filePath: R, firstLine: Oe, fileContent: Fe, dim: !1, width: I }, Pt))),
+        : pe.map((At, Pt) => e(gx, { patch: At, filePath: R, firstLine: Oe, fileContent: Fe, dim: false, width: I }, Pt))),
       (T[58] = I),
       (T[59] = Fe),
       (T[60] = R),
@@ -906,7 +906,7 @@ function Gie(Tt) {
   else X = T[65];
   let oe;
   if (T[66] !== he)
-    (oe = he && e(t, { dimColor: !0, italic: !0, children: "\u2026 diff truncated (exceeded 400 line limit)" })),
+    (oe = he && e(t, { dimColor: true, italic: true, children: "\u2026 diff truncated (exceeded 400 line limit)" })),
       (T[66] = he),
       (T[67] = oe);
   else oe = T[67];

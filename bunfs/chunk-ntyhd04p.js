@@ -15,7 +15,7 @@ import { b0 } from "/$bunfs/root/chunk-werv747a.js";
 function ui(e) {
   return e.startsWith("\uFEFF") ? e.slice(1) : e;
 }
-function j(e, i = !1) {
+function j(e, i = false) {
   let r = e.length,
     t = 0,
     l = "",
@@ -69,7 +69,7 @@ function j(e, i = !1) {
   function v() {
     let p = "",
       y = t;
-    while (!0) {
+    while (true) {
       if (t >= r) {
         (p += e.substring(y, t)), (k = 2);
         break;
@@ -111,7 +111,7 @@ function j(e, i = !1) {
             p += "\t";
             break;
           case 117:
-            let m = T(4, !0);
+            let m = T(4, true);
             if (m >= 0) p += String.fromCharCode(m);
             else k = 4;
             break;
@@ -173,11 +173,11 @@ function j(e, i = !1) {
         if (e.charCodeAt(t + 1) === 42) {
           t += 2;
           let c = r - 1,
-            d = !1;
+            d = false;
           while (t < c) {
             let m = e.charCodeAt(t);
             if (m === 42 && e.charCodeAt(t + 1) === 47) {
-              (t += 2), (d = !0);
+              (t += 2), (d = true);
               break;
             }
             if ((t++, J(m))) {
@@ -219,7 +219,7 @@ function j(e, i = !1) {
     }
   }
   function B(p) {
-    if (H(p) || J(p)) return !1;
+    if (H(p) || J(p)) return false;
     switch (p) {
       case 125:
       case 93:
@@ -229,9 +229,9 @@ function j(e, i = !1) {
       case 58:
       case 44:
       case 47:
-        return !1;
+        return false;
     }
-    return !0;
+    return true;
   }
   function I() {
     let p;
@@ -411,8 +411,8 @@ function X(e, i, r) {
   if (r.insertSpaces) T = E[r.tabSize || 4] ?? U(E[1], r.tabSize || 4);
   else T = "\t";
   let w = T === "\t" ? "\t" : " ",
-    A = j(l, !1),
-    v = !1;
+    A = j(l, false),
+    v = false;
   function N() {
     if (a > 1) return U(o, a) + U(T, t + k);
     let c = T.length * (t + k);
@@ -445,7 +445,7 @@ function X(e, i, r) {
     let c = A.getTokenOffset() + A.getTokenLength() + s,
       d = B(),
       m = "",
-      S = !1;
+      S = false;
     while (a === 0 && (d === 12 || d === 13)) {
       let W = A.getTokenOffset() + s;
       p(E[1], c, W), (c = A.getTokenOffset() + A.getTokenLength() + s), (S = d === 12), (m = S ? N() : ""), (d = B());
@@ -492,10 +492,10 @@ function X(e, i, r) {
         case 4:
           if (r.keepLines && a > 0) m = N();
           else if ((d === 12 || d === 13) && !S) m = E[1];
-          else if (d !== 5 && d !== 17) v = !0;
+          else if (d !== 5 && d !== 17) v = true;
           break;
         case 16:
-          v = !0;
+          v = true;
           break;
       }
       if (a > 0 && (d === 12 || d === 13)) m = N();
@@ -561,7 +561,7 @@ function V(e, i) {
 }
 var F;
 (function (e) {
-  e.DEFAULT = { allowTrailingComma: !1 };
+  e.DEFAULT = { allowTrailingComma: false };
 })(F || (F = {}));
 function ee(e, i = [], r = F.DEFAULT) {
   let t = null,
@@ -654,10 +654,10 @@ function R(e, i) {
   for (let t of i)
     if (typeof t === "string") {
       if (r.type !== "object" || !Array.isArray(r.children)) return;
-      let l = !1;
+      let l = false;
       for (let s of r.children)
         if (Array.isArray(s.children) && s.children[0].value === t && s.children.length === 2) {
-          (r = s.children[1]), (l = !0);
+          (r = s.children[1]), (l = true);
           break;
         }
       if (!l) return;
@@ -669,23 +669,23 @@ function R(e, i) {
   return r;
 }
 function q(e, i, r = F.DEFAULT) {
-  let t = j(e, !1),
+  let t = j(e, false),
     l = [];
   function s(O) {
     return O
       ? () => O(t.getTokenOffset(), t.getTokenLength(), t.getTokenStartLine(), t.getTokenStartCharacter())
-      : () => !0;
+      : () => true;
   }
   function u(O) {
     return O
       ? () =>
           O(t.getTokenOffset(), t.getTokenLength(), t.getTokenStartLine(), t.getTokenStartCharacter(), () => l.slice())
-      : () => !0;
+      : () => true;
   }
   function f(O) {
     return O
       ? (L) => O(L, t.getTokenOffset(), t.getTokenLength(), t.getTokenStartLine(), t.getTokenStartCharacter())
-      : () => !0;
+      : () => true;
   }
   function o(O) {
     return O
@@ -693,7 +693,7 @@ function q(e, i, r = F.DEFAULT) {
           O(L, t.getTokenOffset(), t.getTokenLength(), t.getTokenStartLine(), t.getTokenStartCharacter(), () =>
             l.slice(),
           )
-      : () => !0;
+      : () => true;
   }
   let g = u(i.onObjectBegin),
     a = o(i.onObjectProperty),
@@ -707,7 +707,7 @@ function q(e, i, r = F.DEFAULT) {
     I = r && r.disallowComments,
     p = r && r.allowTrailingComma;
   function y() {
-    while (!0) {
+    while (true) {
       let O = t.scan();
       switch (t.getTokenError()) {
         case 4:
@@ -762,7 +762,7 @@ function q(e, i, r = F.DEFAULT) {
     let L = t.getTokenValue();
     if (O) A(L);
     else a(L), l.push(L);
-    return y(), !0;
+    return y(), true;
   }
   function m() {
     switch (t.getToken()) {
@@ -776,56 +776,56 @@ function q(e, i, r = F.DEFAULT) {
         A(null);
         break;
       case 8:
-        A(!0);
+        A(true);
         break;
       case 9:
-        A(!1);
+        A(false);
         break;
       default:
-        return !1;
+        return false;
     }
-    return y(), !0;
+    return y(), true;
   }
   function S() {
-    if (t.getToken() !== 10) return c(3, [], [2, 5]), !1;
-    if ((d(!1), t.getToken() === 6)) {
+    if (t.getToken() !== 10) return c(3, [], [2, 5]), false;
+    if ((d(false), t.getToken() === 6)) {
       if ((v(":"), y(), !Y())) c(4, [], [2, 5]);
     } else c(5, [], [2, 5]);
-    return l.pop(), !0;
+    return l.pop(), true;
   }
   function z() {
     g(), y();
-    let O = !1;
+    let O = false;
     while (t.getToken() !== 2 && t.getToken() !== 17) {
       if (t.getToken() === 5) {
         if (!O) c(4, [], []);
         if ((v(","), y(), t.getToken() === 2 && p)) break;
       } else if (O) c(6, [], []);
       if (!S()) c(4, [], [2, 5]);
-      O = !0;
+      O = true;
     }
     if ((k(), t.getToken() !== 2)) c(7, [2], []);
     else y();
-    return !0;
+    return true;
   }
   function W() {
     T(), y();
-    let O = !0,
-      L = !1;
+    let O = true,
+      L = false;
     while (t.getToken() !== 4 && t.getToken() !== 17) {
       if (t.getToken() === 5) {
         if (!L) c(4, [], []);
         if ((v(","), y(), t.getToken() === 4 && p)) break;
       } else if (L) c(6, [], []);
-      if (O) l.push(0), (O = !1);
+      if (O) l.push(0), (O = false);
       else l[l.length - 1]++;
       if (!Y()) c(4, [], [4, 5]);
-      L = !0;
+      L = true;
     }
     if ((w(), !O)) l.pop();
     if (t.getToken() !== 4) c(8, [4], []);
     else y();
-    return !0;
+    return true;
   }
   function Y() {
     switch (t.getToken()) {
@@ -834,18 +834,18 @@ function q(e, i, r = F.DEFAULT) {
       case 1:
         return z();
       case 10:
-        return d(!0);
+        return d(true);
       default:
         return m();
     }
   }
   if ((y(), t.getToken() === 17)) {
-    if (r.allowEmptyContent) return !0;
-    return c(4, [], []), !1;
+    if (r.allowEmptyContent) return true;
+    return c(4, [], []), false;
   }
-  if (!Y()) return c(4, [], []), !1;
+  if (!Y()) return c(4, [], []), false;
   if (t.getToken() !== 17) c(9, [], []);
-  return !0;
+  return true;
 }
 function pe(e) {
   switch (typeof e) {
@@ -955,7 +955,7 @@ function _(e, i, r) {
     while (l > 0 && !V(t, l - 1)) l--;
     while (s < t.length && !V(t, s)) s++;
   }
-  let u = X(t, { offset: l, length: s - l }, { ...r.formattingOptions, keepLines: !1 });
+  let u = X(t, { offset: l, length: s - l }, { ...r.formattingOptions, keepLines: false });
   for (let o = u.length - 1; o >= 0; o--) {
     let g = u[o];
     (t = D(t, g)),
@@ -1040,9 +1040,9 @@ function CAt(e, i) {
 import { open as me, readFile as ke, stat as de } from "fs/promises";
 var CJe = "__unparsedToolInput";
 function rFe(e) {
-  if (typeof e !== "object" || e === null || Array.isArray(e)) return !1;
+  if (typeof e !== "object" || e === null || Array.isArray(e)) return false;
   let i = Object.entries(e);
-  if (i.length !== 1) return !1;
+  if (i.length !== 1) return false;
   let [r, t] = i[0];
   return r === CJe && typeof t === "object" && t !== null && typeof t.raw === "string" && typeof t.len === "number";
 }
@@ -1059,13 +1059,13 @@ function NO(e) {
 var be = 8192;
 function se(e, i) {
   try {
-    return { ok: !0, value: JSON.parse(ui(e)) };
+    return { ok: true, value: JSON.parse(ui(e)) };
   } catch (r) {
     if (i)
       h(
         ft(r, `safeParseJSON: invalid JSON (${r instanceof Error ? r.constructor.name : typeof r}, ${e.length} bytes)`),
       );
-    return { ok: !1 };
+    return { ok: false };
   }
 }
 class fe {
@@ -1084,7 +1084,7 @@ function h0(e) {
     .trim();
 }
 var Ut = Object.assign(
-  function (i, r = !0) {
+  function (i, r = true) {
     if (!i) return null;
     let t = i.length > be ? se(i, r) : le.parse(i, r);
     return t.ok ? t.value : null;
@@ -1191,7 +1191,7 @@ function ARn(e, i, r) {
     let l = [],
       s = nFe(t, l);
     if (l.length > 0 || s === null || typeof s !== "object" || Array.isArray(s)) return e;
-    let u = AJe(t, [i], r, { formattingOptions: { insertSpaces: !0, tabSize: 4 } });
+    let u = AJe(t, [i], r, { formattingOptions: { insertSpaces: true, tabSize: 4 } });
     if (!u || u.length === 0) return t;
     return CAt(t, u);
   } catch (l) {
@@ -1208,8 +1208,8 @@ function Tar(e, i) {
     if (Array.isArray(t)) {
       let l = t.length,
         f = AJe(r, l === 0 ? [0] : [l], i, {
-          formattingOptions: { insertSpaces: !0, tabSize: 4 },
-          isArrayInsertion: !0,
+          formattingOptions: { insertSpaces: true, tabSize: 4 },
+          isArrayInsertion: true,
         });
       if (!f || f.length === 0) {
         let o = [...t, i];

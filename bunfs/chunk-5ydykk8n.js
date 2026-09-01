@@ -74,7 +74,7 @@ function Knn(e) {
       if (o === void 0) {
         let s = p(e, r);
         (o = F(p(s, M)).then(
-          () => !0,
+          () => true,
           () => R6t(s),
         )),
           t.set(r, o);
@@ -83,15 +83,15 @@ function Knn(e) {
     };
   return async (r) => {
     let o = r.split("/");
-    for (let s = 1; s < o.length; s++) if (await n(o.slice(0, s).join("/"))) return !0;
-    return !1;
+    for (let s = 1; s < o.length; s++) if (await n(o.slice(0, s).join("/"))) return true;
+    return false;
   };
 }
 var V = ".gitignore",
   _Dt = 1048576,
   $pr = 4 * gWe,
   DEr = () => null,
-  Upr = { ignoresFile: () => !1, ignoresDirectory: () => !1 };
+  Upr = { ignoresFile: () => false, ignoresDirectory: () => false };
 function Zhe(e) {
   return iht(e);
 }
@@ -132,7 +132,7 @@ async function CHe(e) {
   let t = p(e, V),
     n;
   try {
-    n = await F(t, { bigint: !0 });
+    n = await F(t, { bigint: true });
   } catch (r) {
     return w2n(E(r)) ? C() : m("unreadable");
   }
@@ -143,7 +143,7 @@ async function CHe(e) {
   try {
     let r = await H(t, ea());
     try {
-      let o = await r.stat({ bigint: !0 });
+      let o = await r.stat({ bigint: true });
       if (!o.isFile() || o.dev !== n.dev || o.ino !== n.ino || o.nlink !== 1n) return m("linked");
       let s = await hne(r, _Dt + 1);
       if (s.length > _Dt) return m("too_large");
@@ -188,17 +188,17 @@ function J(e) {
   return e.slice(0, e.findLastIndex((t) => !O.test(t)) + 1);
 }
 var ee = "*[]\\ #!";
-function Wpr(e, { foldsCase: t = !0 } = {}) {
+function Wpr(e, { foldsCase: t = true } = {}) {
   let n = e.startsWith("!"),
     r = n ? e.slice(1) : e,
     o = ne(r),
     s = o.replace(oe, (u) => "?".repeat(u.length)),
     i = [],
     l = s !== o,
-    d = !1,
-    g = !1,
-    h = !1,
-    k = !1,
+    d = false,
+    g = false,
+    h = false,
+    k = false,
     c = 0;
   while (c < s.length) {
     let u = s[c] ?? "";
@@ -213,13 +213,13 @@ function Wpr(e, { foldsCase: t = !0 } = {}) {
       continue;
     }
     if (u === G) {
-      (l = !0), i.push("?"), (c += 1);
+      (l = true), i.push("?"), (c += 1);
       continue;
     }
     if (u === "[") {
       let a = ue(s, c);
       if (a === null) {
-        (d = !0), i.push(s.slice(c));
+        (d = true), i.push(s.slice(c));
         break;
       }
       (l ||= !a.plain || a.nonAscii),
@@ -294,23 +294,23 @@ function fe(e) {
     if (((n += r ? 1 : 0), o === "-" && !r && t !== null && n + 1 < e.length)) {
       let s = e[n + 1] === "\\" && n + 2 < e.length,
         i = s ? (e[n + 2] ?? "") : (e[n + 1] ?? "");
-      if ((t <= "/" && "/" <= i) || t > i) return !0;
+      if ((t <= "/" && "/" <= i) || t > i) return true;
       (n += s ? 2 : 1), (t = null);
     } else t = o;
   }
-  return !1;
+  return false;
 }
 function me(e, t, n) {
   let r = n;
   for (let o = t; o < e.length; o += 1)
-    if (e[o] === "\\") (o += 1), (r = !0);
-    else if (e[o] === "-" && r && o + 1 < e.length && e[o + 1] !== "]") (o += e[o + 1] === "\\" ? 2 : 1), (r = !1);
+    if (e[o] === "\\") (o += 1), (r = true);
+    else if (e[o] === "-" && r && o + 1 < e.length && e[o + 1] !== "]") (o += e[o + 1] === "\\" ? 2 : 1), (r = false);
     else if (e[o] === "[" && e[o + 1] === ":") {
       let s = e.indexOf("]", o + 2),
         i = s > o + 2 && e[s - 1] === ":";
       (o = i ? s : o), (r = !i);
     } else if (e[o] === "]") return o;
-    else r = !0;
+    else r = true;
   return null;
 }
 var he = /^!\s*$/;
@@ -320,7 +320,7 @@ function qpr(e, t = {}) {
     .filter(({ rule: i }) => !se.test(i) && !i.startsWith("#") && !he.test(i))
     .map((i) => {
       let l = Vnn(i.rule);
-      if (l === "too_long" || l === "control_character") return { ...i, line: i.rule, widened: !1, fault: l };
+      if (l === "too_long" || l === "control_character") return { ...i, line: i.rule, widened: false, fault: l };
       let { line: d, widened: g, readWider: h } = Wpr(i.rule, t),
         k = i.rule.startsWith("!") ? h : g;
       return { ...i, line: d, widened: k, fault: Vnn(d) };
@@ -374,7 +374,7 @@ async function ke(e, t, n, r, o) {
 }
 async function ye(e, t, n) {
   let r = n.filter(({ dirent: s }) => s.name === dne.head || s.name === dne.objects || s.name === dne.refs);
-  if (r.length < 3) return !1;
+  if (r.length < 3) return false;
   let o = r.map(({ dirent: s }) => ({
     name: s.name,
     isDirectory: s.isDirectory(),
@@ -413,7 +413,7 @@ function Ie({ path: e, dirent: t }, n, r, o) {
   let s = Qhe(t.name, n === "directory");
   if (s !== null) return { kind: "skip", reason: s };
   if (Se(e, n, r)) return { kind: "ignored" };
-  let i = o(e, !1);
+  let i = o(e, false);
   if (i !== null) return { kind: "skip", reason: i };
   if (!_e(t.name, e, n === "directory")) return { kind: "skip", reason: "unsafe_name" };
   switch (n) {
@@ -431,7 +431,7 @@ async function Gpr(e, t) {
   try {
     let n = Date.now(),
       r = await F(p(e, t));
-    if (r.isDirectory()) return { kind: "skip", skipped: { path: t, reason: "changed" }, mayHoldFiles: !0 };
+    if (r.isDirectory()) return { kind: "skip", skipped: { path: t, reason: "changed" }, mayHoldFiles: true };
     let o = Qwe(r);
     if (o !== null) return { kind: "skip", skipped: { path: t, reason: o }, mayHoldFiles: r.isSymbolicLink() };
     return {
@@ -449,7 +449,7 @@ async function Gpr(e, t) {
   } catch (n) {
     return w2n(E(n))
       ? { kind: "gone" }
-      : { kind: "skip", skipped: { path: t, reason: "unreadable" }, mayHoldFiles: !0 };
+      : { kind: "skip", skipped: { path: t, reason: "unreadable" }, mayHoldFiles: true };
   }
 }
 async function Ynn({ root: e, ignores: t, withheldOf: n, signal: r, maxFiles: o = gWe, maxVisited: s = $pr }) {
@@ -461,23 +461,23 @@ async function Ynn({ root: e, ignores: t, withheldOf: n, signal: r, maxFiles: o 
     k = 0,
     c = { remaining: s },
     S = await D(e).catch(() => null);
-  if (S === null) return { ok: !1, reason: "root_unreadable" };
+  if (S === null) return { ok: false, reason: "root_unreadable" };
   let y = [""],
     _ = No(w, (a) => ke(e, S, a, c, r));
   while (y.length > 0) {
-    if (Rt(r)) return { ok: !1, reason: "aborted" };
+    if (Rt(r)) return { ok: false, reason: "aborted" };
     let a = y,
       N = await kk(a.map(_), r);
-    if (N === null) return { ok: !1, reason: "aborted" };
+    if (N === null) return { ok: false, reason: "aborted" };
     y = [];
     for (let [B, R] of N.entries()) {
       let b = a[B];
       if (R.kind === "unreadable" || R.kind === "nested_repository") {
-        if (R.kind === "unreadable" && b === "") return { ok: !1, reason: "root_unreadable" };
-        i.push({ path: b, reason: n(b, !1) ?? R.kind }), d.push(b);
+        if (R.kind === "unreadable" && b === "") return { ok: false, reason: "root_unreadable" };
+        i.push({ path: b, reason: n(b, false) ?? R.kind }), d.push(b);
         continue;
       }
-      if (R.kind === "too_many") return { ok: !1, reason: Rt(r) ? "aborted" : "too_many_files" };
+      if (R.kind === "too_many") return { ok: false, reason: Rt(r) ? "aborted" : "too_many_files" };
       for (let f of R.entries) {
         let L = await Re(e, f),
           A = Ie(f, L, t, n);
@@ -498,14 +498,14 @@ async function Ynn({ root: e, ignores: t, withheldOf: n, signal: r, maxFiles: o 
         }
         if (L !== "other" && (A.kind === "skip" || A.kind === "ignored")) d.push(f.path);
       }
-      if (l.length > o) return { ok: !1, reason: "too_many_files" };
+      if (l.length > o) return { ok: false, reason: "too_many_files" };
     }
   }
   let I = No(w, (a) => (Rt(r) ? Promise.resolve({ kind: "gone" }) : Gpr(e, a))),
     u = await kk(l.map(I), r);
-  if (u === null || Rt(r)) return { ok: !1, reason: "aborted" };
+  if (u === null || Rt(r)) return { ok: false, reason: "aborted" };
   return {
-    ok: !0,
+    ok: true,
     listing: {
       files: u.flatMap((a) => (a.kind === "file" ? [a.file] : [])).toSorted(EW),
       skipped: [...i, ...u.flatMap((a) => (a.kind === "skip" ? [a.skipped] : []))].toSorted(EW),

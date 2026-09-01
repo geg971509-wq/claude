@@ -54,7 +54,7 @@ function v(o) {
   let n = o.message.content;
   return Array.isArray(n) ? n.length : 1;
 }
-async function h(o, n, s, d, { columns: m, verbose: a = !1, chunkSize: i = 40, onProgress: l, storageV5: c } = {}) {
+async function h(o, n, s, d, { columns: m, verbose: a = false, chunkSize: i = 40, onProgress: l, storageV5: c } = {}) {
   let p = S(n),
     y = { ...i2e(), verbose: a, ...(p && { mainLoopModel: p }) },
     u = Att(s),
@@ -64,10 +64,10 @@ async function h(o, n, s, d, { columns: m, verbose: a = !1, chunkSize: i = 40, o
           session: o,
           storageV5: c,
           initialState: y,
-          keybindings: !1,
+          keybindings: false,
           children: r(R, {
             children: [
-              t[0] === 0 && e(qU, { latchAnnouncementSlot: !1 }),
+              t[0] === 0 && e(qU, { latchAnnouncementSlot: false }),
               e(gBe, {
                 children: e(GU, {
                   source: { kind: "static", messages: n, conversationId: "export", renderRange: t },

@@ -116,12 +116,12 @@ var n = m(() =>
         .describe("Keyword phrases describing the user's intent or a named product."),
     }),
   ),
-  a = m(() => f({ results: H(tae()), opt_in_required: N(!0).optional(), message: i().optional() })),
+  a = m(() => f({ results: H(tae()), opt_in_required: N(true).optional(), message: i().optional() })),
   S = kt({
     name: qen,
     searchHint: "discover MCP connectors by keyword",
     maxResultSizeChars: 50000,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return n();
     },
@@ -130,10 +130,10 @@ var n = m(() =>
     },
     isEnabled: I8,
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     async description() {
       return Gen;

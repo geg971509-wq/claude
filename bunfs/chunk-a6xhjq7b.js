@@ -21,7 +21,7 @@ class e {
   publishAvailability = null;
   unsubscribeAvailabilityRefresh = null;
   shutdownSettleHandle = null;
-  shuttingDown = !1;
+  shuttingDown = false;
   held = [];
   announced = new WeakMap();
   reset() {
@@ -33,7 +33,7 @@ class e {
       (this.onPeerHoldDropped = null),
       this.shutdownSettleHandle?.(),
       (this.shutdownSettleHandle = null),
-      (this.shuttingDown = !1),
+      (this.shuttingDown = false),
       (this.sendPeerReceipt = null),
       (this.recordCorrespondent = null),
       (this.publishAvailability = null),

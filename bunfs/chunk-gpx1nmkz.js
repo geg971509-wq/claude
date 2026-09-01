@@ -404,7 +404,7 @@ function te(e) {
 `,
       s,
     );
-    if ((t === -1 ? e.length : t) - s > H) return !1;
+    if ((t === -1 ? e.length : t) - s > H) return false;
     if (t === -1) return i > 0;
     i++, (s = t + 1);
   }
@@ -581,7 +581,7 @@ async function oe({ client: e, taskRegistry: s, taskState: i, pollIntervalMs: t,
       mcpStatus: c,
       statusMessage: d,
       endTime: Date.now(),
-      notified: !0,
+      notified: true,
       terminal: { summary: d ?? `${ZZ(g, l)} ${c}` },
     })),
       x(a, r, I, k, b),
@@ -597,7 +597,7 @@ async function oe({ client: e, taskRegistry: s, taskState: i, pollIntervalMs: t,
           statusMessage: d,
         }),
         mode: "task-notification",
-        skipAttachments: !0,
+        skipAttachments: true,
         agentId: et(),
         priority: "next",
         taskId: a,
@@ -694,19 +694,19 @@ async function de(e, { taskRegistry: s, getMcpClients: i, storageV5: t, credenti
   if (!g) {
     l ??= `server '${e.serverName}' did not connect within ${R / 1000}s`;
     let d = v(l) ?? "no detail",
-      S = !1;
+      S = false;
     if (
       (s.update(e.taskId, (k) => {
         if (k.notified || k.status !== "running") return k;
         return (
-          (S = !0),
+          (S = true),
           {
             ...k,
             status: "failed",
             mcpStatus: "failed",
             statusMessage: d,
             endTime: Date.now(),
-            notified: !0,
+            notified: true,
             terminal: { summary: d },
           }
         );
@@ -727,7 +727,7 @@ async function de(e, { taskRegistry: s, getMcpClients: i, storageV5: t, credenti
       mode: "task-notification",
       agentId: et(),
       priority: "next",
-      skipAttachments: !0,
+      skipAttachments: true,
       taskId: e.taskId,
     });
     return;

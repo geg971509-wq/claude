@@ -33,28 +33,28 @@ function Wme(D) {
     _ = () => D.variant !== "mid-session" || D.accepts(),
     { storageV5: l, credentials: m } = ge(),
     i = z(() => Iq(P), [P]),
-    [s, f] = u(I ? { s: "choose", blocked: !1, liveDefinite: !0, ...I } : { s: "loading" }),
+    [s, f] = u(I ? { s: "choose", blocked: false, liveDefinite: true, ...I } : { s: "loading" }),
     [Z, ee] = u(s.s),
     [E, ne] = u(0),
     [oe, L] = u(0);
   if (Z !== s.s) ee(s.s), ne(Date.now());
   let N = hs(),
     { refusedWithin: te, noteRefused: x, epoch: se } = pi(),
-    M = C(!1),
+    M = C(false),
     ae = Vs(`${E}:${se}`);
   function O() {
     return (E !== 0 && bc(E)) || te();
   }
   function re() {
-    if (N() || O()) return x(), !0;
-    return !1;
+    if (N() || O()) return x(), true;
+    return false;
   }
   let R = C(null),
     q = C(null),
-    V = C(!1);
+    V = C(false);
   A(() => {
     if (s.s === "loading") {
-      let n = !1;
+      let n = false;
       return (
         (R.current ??= Promise.all([gle(m).catch(() => null), $Nt(m, l).catch(() => "unknown")]).then(([a, c]) => ({
           balance: a,
@@ -67,17 +67,17 @@ function Wme(D) {
           f({ s: "choose", ...a });
         }),
         () => {
-          n = !0;
+          n = true;
         }
       );
     }
     if (s.s === "buy-external") {
-      let n = !1;
+      let n = false;
       return (
-        (q.current ??= jge({ openInBrowser: !0 }, m)),
+        (q.current ??= jge({ openInBrowser: true }, m)),
         q.current.then((a) => {
           if (n || V.current) return;
-          if (((V.current = !0), a.type === "confirm-admin-request")) {
+          if (((V.current = true), a.type === "confirm-admin-request")) {
             if (wt()) {
               g("model_fable_consent", "overage_enable_deferred"),
                 mQ(() => i("dismiss", eb() ? Bge : "Contact your admin to manage usage credit settings."));
@@ -99,13 +99,13 @@ function Wme(D) {
             );
         }),
         () => {
-          n = !0;
+          n = true;
         }
       );
     }
   }, [s.s, i, m, l]);
   function ie() {
-    if (i("consent") === !1) return;
+    if (i("consent") === false) return;
     Mte(l), y("model_fable_consent");
   }
   function le(n, a) {
@@ -116,14 +116,14 @@ function Wme(D) {
   function ce() {
     if (!_()) return;
     if (M.current) return;
-    (M.current = !0), f({ s: "reenabling", work: csn({ credentials: m, storageV5: l }) });
+    (M.current = true), f({ s: "reenabling", work: csn({ credentials: m, storageV5: l }) });
   }
   function ue() {
-    if (i("switch") === !1) return;
+    if (i("switch") === false) return;
     p("model_fable_consent", "declined");
   }
   function de(n) {
-    if (i("dismiss", n) === !1) return;
+    if (i("dismiss", n) === false) return;
     g("model_fable_consent", "upsell_selected");
   }
   function w() {
@@ -131,7 +131,7 @@ function Wme(D) {
       x();
       return;
     }
-    if (i("dismiss") === !1) return;
+    if (i("dismiss") === false) return;
     g("model_fable_consent", "dismissed");
   }
   let W = FV(),
@@ -202,18 +202,18 @@ function Wme(D) {
           marginBottom: 1,
           children: [
             e(t, { children: we }),
-            h?.dialogNote && e(t, { dimColor: !0, children: h.dialogNote }),
+            h?.dialogNote && e(t, { dimColor: true, children: h.dialogNote }),
             b
-              ? e(t, { dimColor: !0, children: "Usage credits are turned off. Re-enable to use Fable 5." })
+              ? e(t, { dimColor: true, children: "Usage credits are turned off. Re-enable to use Fable 5." })
               : d
                 ? r(U, {
                     children: [
-                      e(t, { dimColor: !0, children: "You don't have usage credits yet." }),
+                      e(t, { dimColor: true, children: "You don't have usage credits yet." }),
                       S &&
                         r(U, {
                           children: [
                             r(t, {
-                              dimColor: !0,
+                              dimColor: true,
                               children: [
                                 "Starts with a",
                                 " ",
@@ -223,7 +223,7 @@ function Wme(D) {
                               ],
                             }),
                             r(t, {
-                              dimColor: !0,
+                              dimColor: true,
                               children: [
                                 "By continuing, you agree to turn on usage credits per our Help Center: ",
                                 TDe,
@@ -240,7 +240,7 @@ function Wme(D) {
                 options: [{ label: fe, value: "switch" }, { label: ye, value: "confirm" }, ...(X ? [X] : [])],
                 selectedValue: Ti,
                 refuseInput: re,
-                hideIndexes: !0,
+                hideIndexes: true,
                 defaultFocusValue: "switch",
                 onChange: (K) => {
                   if (O()) {
@@ -291,7 +291,7 @@ function Wme(D) {
         children: e(Ctt, {
           message: "Turning on usage credits\u2026",
           work: s.work,
-          failure: !1,
+          failure: false,
           onDone: (n) => {
             if (n) Mte(l), y("model_fable_consent"), mQ(() => i("consent"));
             else

@@ -56,7 +56,7 @@ function aur() {
 }
 async function vK(o, s, i) {
   if ((o.onChangeAPIKey(), o.applyMessageOp({ type: "update", updater: Hun }), !s))
-    return { bridgeDisconnected: !1, accountSwitched: !1, relaunching: !1 };
+    return { bridgeDisconnected: false, accountSwitched: false, relaunching: false };
   let g = mi(),
     c = g !== null && g !== i.previousGatewayAuth;
   if (Ne() === "gateway") {
@@ -102,9 +102,9 @@ async function vK(o, s, i) {
         n("[bridge:repl] Account changed via /login \u2014 disconnecting Remote Control session"),
         {
           ...f,
-          replBridgeEnabled: !1,
-          replBridgeExplicit: !1,
-          replBridgeOutboundOnly: !1,
+          replBridgeEnabled: false,
+          replBridgeExplicit: false,
+          replBridgeOutboundOnly: false,
           replBridgeError: void 0,
           replBridgeErrorKind: void 0,
           notifications: Rke(f.notifications, FR),
@@ -118,7 +118,7 @@ async function vK(o, s, i) {
         ...f,
         replBridgeSessionGroupingId: void 0,
         replBridgeInitialName: void 0,
-        ultrareviewOverageConfirmed: !1,
+        ultrareviewOverageConfirmed: false,
       })),
       o.dialogStore)
     )
@@ -138,7 +138,7 @@ async function vK(o, s, i) {
     RRe(R, he(o), m, Y.fastMode),
     aur(),
     m((f) => ({ ...f, authVersion: f.authVersion + 1 })),
-    { bridgeDisconnected: D, accountSwitched: T, relaunching: !1 }
+    { bridgeDisconnected: D, accountSwitched: T, relaunching: false }
   );
 }
 var se = 16;
@@ -152,7 +152,7 @@ function de(o) {
     return o?.url ?? "gateway";
   }
 }
-var N = { bridgeDisconnected: !1, accountSwitched: !1, relaunching: !0 };
+var N = { bridgeDisconnected: false, accountSwitched: false, relaunching: true };
 async function ce(o, s, i) {
   for (let m = ZFe(); m; m = ZFe()) await m.catch(() => {});
   let g = mi();
@@ -238,7 +238,7 @@ async function le(o, s, i) {
   try {
     await Aq(
       {
-        freshIfNoTranscript: !0,
+        freshIfNoTranscript: true,
         extraArgs: [...lX(c, Mue(o)), ...cX(c, TU())],
         proactivity: p,
         env: O6(),
@@ -253,18 +253,18 @@ ${s}
     return h(we(y)), g(`it could not restart itself (${l(y)})`);
   }
 }
-function CRe(o, s, i, { envTokenWasSet: g = !1, envWarningOnce: c } = {}) {
+function CRe(o, s, i, { envTokenWasSet: g = false, envWarningOnce: c } = {}) {
   if (i.gatewayLoginError !== void 0 || i.relaunching) return [i.gatewayLoginError];
   let m = s ? dur(o, i) : void 0,
-    p = mur({ envTokenWasSet: g, gatewayActive: Ne() === "gateway", willAutoQuery: m?.shouldQuery === !0 });
+    p = mur({ envTokenWasSet: g, gatewayActive: Ne() === "gateway", willAutoQuery: m?.shouldQuery === true });
   if (p === "out-of-band" && c && !c.delivered)
-    (c.delivered = !0), o.applyMessageOp({ type: "append", messages: [Dt(JOn, "notice")] });
+    (c.delivered = true), o.applyMessageOp({ type: "append", messages: [Dt(JOn, "notice")] });
   return [gur(s, { bridgeDisconnected: i.bridgeDisconnected, includeEnvTokenWarning: p === "inline" }), m];
 }
 function dur(o, s) {
   if (s.accountSwitched || s.relaunching) return;
   let i = Wy(o.messages);
-  if (i?.isApiErrorMessage && i.error === "authentication_failed") return { display: "system", shouldQuery: !0 };
+  if (i?.isApiErrorMessage && i.error === "authentication_failed") return { display: "system", shouldQuery: true };
   return;
 }
 var q =
@@ -297,16 +297,16 @@ async function cTr(o, s) {
     c = On(),
     m = c && { accountUuid: c.accountUuid, organizationUuid: c.organizationUuid },
     p = mi(),
-    y = { delivered: !1 };
+    y = { delivered: false };
   return e(aq, {
     startingMessage: i,
     onDone: async (w, b, S) => {
-      let E = !1,
+      let E = false,
         T = await vK(s, w, {
           setAppState: S,
           previousAccount: m,
           previousGatewayAuth: p,
-          onConsentNeeded: () => ((E = !0), o(pur(), { display: "system" }), gP()),
+          onConsentNeeded: () => ((E = true), o(pur(), { display: "system" }), gP()),
         }),
         D = CRe(s, w, T, { envTokenWasSet: g, envWarningOnce: y });
       if (E) {
@@ -323,19 +323,19 @@ function aq(M) {
     X = Oc(),
     J = At(),
     ht = Ua(),
-    [k, yt] = u(!1),
+    [k, yt] = u(false),
     te;
-  if (A[0] === d) (te = () => yt(!0)), (A[0] = te);
+  if (A[0] === d) (te = () => yt(true)), (A[0] = te);
   else te = A[0];
   let St = te,
-    ne = C(!1),
+    ne = C(false),
     oe;
   if (A[1] !== X || A[2] !== M || A[3] !== J)
     (oe = (Ct) => {
       if (ne.current) {
         return;
       }
-      (ne.current = !0), M.onDone(Ct, X, J);
+      (ne.current = true), M.onDone(Ct, X, J);
     }),
       (A[1] = X),
       (A[2] = M),
@@ -363,7 +363,7 @@ function aq(M) {
       (A[11] = I);
   else I = A[11];
   let x;
-  if (A[12] !== O) (x = () => O(!0)), (A[12] = O), (A[13] = x);
+  if (A[12] !== O) (x = () => O(true)), (A[12] = O), (A[13] = x);
   else x = A[13];
   const K = ht ? Px : lv;
   let U;
@@ -380,7 +380,7 @@ function aq(M) {
       title: "Login",
       onCancel: P,
       color: "permission",
-      isCancelActive: !1,
+      isCancelActive: false,
       hideInputGuide: z,
       inputGuide: I,
       children: U,

@@ -14,7 +14,7 @@ import { dm } from "/$bunfs/root/chunk-2n1hsggr.js";
 var b = new Set(["__proto__", "constructor", "prototype"]),
   S =
     /^(?:\s|\/\/[^\n\r\u2028\u2029]*[\n\r\u2028\u2029]|\/\*[^*]*\*+(?:[^/*][^*]*\*+)*\/)*export\s+const\s+meta\s*=\s*(?=\{)/;
-function Tf(e, { validateBody: t = !0 } = {}) {
+function Tf(e, { validateBody: t = true } = {}) {
   if (e.length > dm) return { error: `Script exceeds ${dm} bytes` };
   let { parse: n, parseExpressionAt: r } = Hbe(),
     o = t ? null : S.exec(e);
@@ -46,8 +46,8 @@ function Tf(e, { validateBody: t = !0 } = {}) {
     i = n(e, {
       ecmaVersion: "latest",
       sourceType: "module",
-      allowAwaitOutsideFunction: !0,
-      allowReturnOutsideFunction: !0,
+      allowAwaitOutsideFunction: true,
+      allowReturnOutsideFunction: true,
     });
   } catch (s) {
     return { error: P(s, e) };
@@ -97,7 +97,7 @@ ${c}
 ${"Workflow scripts must be plain JavaScript \u2014 common causes are TypeScript syntax (type annotations, interfaces, generics) and broken string quoting or escaping."}`;
 }
 function R(e) {
-  if (typeof e !== "object" || e === null || !("loc" in e)) return !1;
+  if (typeof e !== "object" || e === null || !("loc" in e)) return false;
   let t = e.loc;
   return (
     typeof t === "object" &&
@@ -110,8 +110,8 @@ function R(e) {
 }
 function T(e) {
   let t = e.declaration;
-  if (!t || t.type !== "VariableDeclaration") return !1;
-  if (t.kind !== "const" || t.declarations.length !== 1) return !1;
+  if (!t || t.type !== "VariableDeclaration") return false;
+  if (t.kind !== "const" || t.declarations.length !== 1) return false;
   let n = t.declarations[0];
   return n.id.type === "Identifier" && n.id.name === "meta" && n.init?.type === "ObjectExpression";
 }

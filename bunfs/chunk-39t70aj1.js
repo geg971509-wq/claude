@@ -49,15 +49,15 @@ async function eOn(s) {
 function k8t(st) {
   let m = _(76),
     { task: i, onBack: k, onEdit: Qe, onDone: B, refresh: q, storageV5: J } = st,
-    [P, po] = u(!1),
-    [at, Ne] = u(!1),
+    [P, po] = u(false),
+    [at, Ne] = u(false),
     fo;
   if (m[0] !== P || m[1] !== B || m[2] !== q || m[3] !== J || m[4] !== i)
     (fo = async function Y() {
       if (P) {
         return;
       }
-      po(!0);
+      po(true);
       try {
         await Pge(so({ ...i, enabled: !i.enabled }), void 0, J),
           await q(),
@@ -81,7 +81,7 @@ function k8t(st) {
       if (P) {
         return;
       }
-      po(!0);
+      po(true);
       try {
         await Dge(i.id, void 0, J), await q(), B(`Removed scheduled task '${i.id}'.`, { display: "system" });
       } catch (R) {
@@ -101,18 +101,18 @@ function k8t(st) {
   if (at) {
     const R = `Delete '${i.id}' from daemon.json. The daemon will stop firing it on its next reconcile.`;
     let V;
-    if (m[12] === d) (V = () => Ne(!1)), (m[12] = V);
+    if (m[12] === d) (V = () => Ne(false)), (m[12] = V);
     else V = m[12];
     let A;
     if (m[13] !== G) (A = () => void G()), (m[13] = G), (m[14] = A);
     else A = m[14];
     let H;
-    if (m[15] === d) (H = () => Ne(!1)), (m[15] = H);
+    if (m[15] === d) (H = () => Ne(false)), (m[15] = H);
     else H = m[15];
     let j;
     if (m[16] !== A)
       (j = e(wn, {
-        cancelFirst: !0,
+        cancelFirst: true,
         focus: "cancel",
         confirmLabel: "Yes, remove",
         cancelLabel: "No, cancel",
@@ -154,44 +154,44 @@ function k8t(st) {
   else de = m[29];
   let se;
   if (m[30] !== de || m[31] !== i.cron)
-    (se = r(t, { dimColor: !0, children: ["Cron ", lt, " (", de, ")"] })), (m[30] = de), (m[31] = i.cron), (m[32] = se);
+    (se = r(t, { dimColor: true, children: ["Cron ", lt, " (", de, ")"] })), (m[30] = de), (m[31] = i.cron), (m[32] = se);
   else se = m[32];
   let ae;
   if (m[33] !== i.directory)
-    (ae = r(t, { dimColor: !0, children: ["Directory ", i.directory] })), (m[33] = i.directory), (m[34] = ae);
+    (ae = r(t, { dimColor: true, children: ["Directory ", i.directory] })), (m[33] = i.directory), (m[34] = ae);
   else ae = m[34];
   let le;
   if (m[35] !== i.prompt)
-    (le = r(t, { dimColor: !0, children: ["Prompt ", i.prompt] })), (m[35] = i.prompt), (m[36] = le);
+    (le = r(t, { dimColor: true, children: ["Prompt ", i.prompt] })), (m[35] = i.prompt), (m[36] = le);
   else le = m[36];
   const Je = i.enabled ? "success" : "pending";
   let ce;
-  if (m[37] !== Je) (ce = e(tt, { status: Je, withSpace: !0 })), (m[37] = Je), (m[38] = ce);
+  if (m[37] !== Je) (ce = e(tt, { status: Je, withSpace: true })), (m[37] = Je), (m[38] = ce);
   else ce = m[38];
   const Oe = i.enabled ? "enabled" : "disabled";
   let ue;
   if (m[39] !== ce || m[40] !== Oe)
-    (ue = r(t, { dimColor: !0, children: ["Status", " ", ce, Oe] })), (m[39] = ce), (m[40] = Oe), (m[41] = ue);
+    (ue = r(t, { dimColor: true, children: ["Status", " ", ce, Oe] })), (m[39] = ce), (m[40] = Oe), (m[41] = ue);
   else ue = m[41];
   let pe;
   if (m[42] !== i.permissionMode) (pe = K$(i.permissionMode)), (m[42] = i.permissionMode), (m[43] = pe);
   else pe = m[43];
   let fe;
-  if (m[44] !== pe) (fe = r(t, { dimColor: !0, children: ["Mode ", pe] })), (m[44] = pe), (m[45] = fe);
+  if (m[44] !== pe) (fe = r(t, { dimColor: true, children: ["Mode ", pe] })), (m[44] = pe), (m[45] = fe);
   else fe = m[45];
   let be;
   if (m[46] !== i.model)
-    (be = i.model && r(t, { dimColor: !0, children: ["Model ", i.model] })), (m[46] = i.model), (m[47] = be);
+    (be = i.model && r(t, { dimColor: true, children: ["Model ", i.model] })), (m[46] = i.model), (m[47] = be);
   else be = m[47];
   let ye;
   if (m[48] !== i.runTimeoutMinutes)
-    (ye = r(t, { dimColor: !0, children: ["Timeout ", i.runTimeoutMinutes, "m"] })),
+    (ye = r(t, { dimColor: true, children: ["Timeout ", i.runTimeoutMinutes, "m"] })),
       (m[48] = i.runTimeoutMinutes),
       (m[49] = ye);
   else ye = m[49];
   let ge;
   if (m[50] !== i.maxQueued)
-    (ge = r(t, { dimColor: !0, children: ["Max queue ", i.maxQueued] })), (m[50] = i.maxQueued), (m[51] = ge);
+    (ge = r(t, { dimColor: true, children: ["Max queue ", i.maxQueued] })), (m[50] = i.maxQueued), (m[51] = ge);
   else ge = m[51];
   let he;
   if (
@@ -225,7 +225,7 @@ function k8t(st) {
         return Qe(i);
       }
       if (Se === "remove") {
-        return Ne(!0);
+        return Ne(true);
       }
       if (Se === "toggle") {
         return void Y();
@@ -298,11 +298,11 @@ function H8t(ct) {
   else Co = f[12];
   let [g, pt] = u(Co),
     [O, ft] = u(T),
-    [_e, So] = u(!1),
+    [_e, So] = u(false),
     xo;
   if (f[13] !== x || f[14] !== O)
     (xo = function Z(X, To) {
-      if (X === "id") ft(!0);
+      if (X === "id") ft(true);
       pt((eo) => {
         if (eo[X] === To) {
           return eo;
@@ -329,13 +329,13 @@ function H8t(ct) {
     $o,
     ko;
   if (f[19] === d)
-    ($o = { type: "text", key: "prompt", label: "Prompt", placeholder: "/babysit-prs", required: !0, hint: qo }),
+    ($o = { type: "text", key: "prompt", label: "Prompt", placeholder: "/babysit-prs", required: true, hint: qo }),
       (ko = {
         type: "text",
         key: "schedule",
         label: "Schedule",
         placeholder: "5m, 2h, 1d  or  */15 * * * *",
-        required: !0,
+        required: true,
         validate: Jo,
         hint: Oo,
       }),
@@ -402,11 +402,11 @@ function H8t(ct) {
       if (_e) {
         return;
       }
-      So(!0);
+      So(true);
       let Do = te(km(g.dir?.trim() || x));
       let Vo = Ane(g.schedule ?? "");
       if (Vo.cron === void 0) {
-        So(!1);
+        So(false);
         return;
       }
       let io = g.id?.trim() || ie(Do, g.prompt?.trim() ?? "");
@@ -417,7 +417,7 @@ function H8t(ct) {
         cron: Vo.cron,
         prompt: g.prompt.trim(),
         directory: Do,
-        enabled: c?.enabled ?? !0,
+        enabled: c?.enabled ?? true,
         permissionMode: ht,
         runTimeoutMinutes: c?.runTimeoutMinutes ?? 30,
         maxQueued: c?.maxQueued ?? 1,

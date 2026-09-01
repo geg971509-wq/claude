@@ -63,7 +63,7 @@ function p() {
   ];
 }
 var P = new Set(["core.hooksPath", "core.askPass", "submodule.recurse"]);
-function Asr(e, n, t, o = t.GIT_CONFIG_COUNT, { allowRepoGitHooks: r = !1 } = {}) {
+function Asr(e, n, t, o = t.GIT_CONFIG_COUNT, { allowRepoGitHooks: r = false } = {}) {
   let s = E(e).toLowerCase();
   if (!/^git(\.exe|\.cmd|\.bat|\.com)?$/.test(s)) return null;
   let d = r ? p().filter(([i]) => !P.has(i)) : p(),
@@ -213,6 +213,6 @@ function S(e) {
 }
 async function eAt(e, n) {
   let t = I(e);
-  return await N(t, { recursive: !0 }), { cwd: t, env: { ...n, GIT_CEILING_DIRECTORIES: S(I(t)) } };
+  return await N(t, { recursive: true }), { cwd: t, env: { ...n, GIT_CEILING_DIRECTORIES: S(I(t)) } };
 }
 export { cn, dJe, xvn, ii, CCe, OO, Asr, sU, Csr, vCe, $1e, xoe, Ioe, eAt };

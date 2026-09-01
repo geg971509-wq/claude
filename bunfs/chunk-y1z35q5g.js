@@ -393,7 +393,7 @@ function k(j) {
     (c = r(o, {
       flexDirection: "column",
       gap: 1,
-      children: [x, y, r(t, { dimColor: !0, children: ["Channels:", " ", i] })],
+      children: [x, y, r(t, { dimColor: true, children: ["Channels:", " ", i] })],
     })),
       (a[6] = i),
       (a[7] = c);

@@ -50,7 +50,7 @@ function xg(At) {
     s = Ft ?? f;
   if (c(f) || (typeof s === "string" && c(s))) {
     let u;
-    if (h[0] === d) (u = e(t, { dimColor: !0, children: "Path hidden (unsupported characters)" })), (h[0] = u);
+    if (h[0] === d) (u = e(t, { dimColor: true, children: "Path hidden (unsupported characters)" })), (h[0] = u);
     else u = h[0];
     return u;
   }

@@ -46,7 +46,7 @@ async function g() {
   }
   try {
     try {
-      let e = await u("/mnt/c/Users", { withFileTypes: !0 });
+      let e = await u("/mnt/c/Users", { withFileTypes: true });
       for (let r of e) {
         if (r.name === "Public" || r.name === "Default" || r.name === "Default User" || r.name === "All Users")
           continue;

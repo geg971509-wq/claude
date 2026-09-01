@@ -27,8 +27,8 @@ class u {
 function I() {
   return {
     cachedDetectionResult: null,
-    backendsRegistered: !1,
-    inProcessFallbackActive: !1,
+    backendsRegistered: false,
+    inProcessFallbackActive: false,
     TmuxBackendClass: null,
     ITermBackendClass: null,
     tmuxBackend: null,
@@ -69,7 +69,7 @@ function Ffn(e = Cz) {
 }
 async function iOe(e = Cz) {
   let o = a.SHELL || "/bin/zsh",
-    s = await $e(o, ["-lc", `command -v ${c}`], { useCwd: !1, timeout: 2000 }),
+    s = await $e(o, ["-lc", `command -v ${c}`], { useCwd: false, timeout: 2000 }),
     i =
       s.code === 0
         ? (s.stdout
@@ -92,8 +92,8 @@ async function iOe(e = Cz) {
               "(Preferences > General > Magic > Enable Python API)."
             : "it2 was not found on PATH (including login-shell PATH)."),
       ),
-      !1
+      false
     );
-  return e.terminalProbes.recordIt2Command(t), !0;
+  return e.terminalProbes.recordIt2Command(t), true;
 }
 export { Cz, Dgt, I2, p6t, f6t, one, _M, Ffn, iOe };

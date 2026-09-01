@@ -81,29 +81,29 @@ function I(e, n, o) {
   switch (e) {
     case 401:
       throw Object.assign(Error(`${o}: Authentication failed (401)${u ? `: ${u}` : ""}. Check your credentials.`), {
-        isAuthFailure: !0,
+        isAuthFailure: true,
         httpStatus: e,
       });
     case 403:
       throw Object.assign(Error(`${o}: Access denied (403)${u ? `: ${u}` : ""}. Token may be revoked.`), {
-        isAuthFailure: !0,
+        isAuthFailure: true,
         httpStatus: e,
       });
     case 404:
       throw Object.assign(Error(u ?? `${o}: Not found (404). The resource may not exist.`), {
-        isNotFound: !0,
+        isNotFound: true,
         httpStatus: e,
       });
     case 409:
       if (De(n) === "session_not_active")
         throw Object.assign(Error("Session not active (409): the session was archived or deleted."), {
-          isEpochMismatch: !0,
-          isSessionNotActive: !0,
+          isEpochMismatch: true,
+          isSessionNotActive: true,
           httpStatus: e,
         });
       throw Object.assign(
         Error(`${o}: Epoch conflict (409)${u ? `: ${u}` : ""}. Another runner has taken over this session.`),
-        { isEpochMismatch: !0, httpStatus: e },
+        { isEpochMismatch: true, httpStatus: e },
       );
     case 429:
       throw Object.assign(Error(`${o}: Rate limited (429). Polling too frequently.`), { httpStatus: e });
@@ -122,7 +122,7 @@ function yme(e) {
 function $ve(e) {
   if (e !== null && typeof e === "object") {
     let o = e;
-    if (o.name === "AbortError" || o.code === "ERR_CANCELED") return !1;
+    if (o.name === "AbortError" || o.code === "ERR_CANCELED") return false;
   }
   let n = yme(e);
   return n === void 0 || n === 429 || n >= 500;
@@ -284,7 +284,7 @@ function CZe(e) {
         { headers: Q(r), timeout: 15000, validateStatus: (i) => i < 500 },
       );
       I(s.status, s.data, "ReleaseSession");
-      let a = s.data.released ?? !0;
+      let a = s.data.released ?? true;
       return n(`[runner:api] ReleaseSession -> ${s.status} released=${a}`), { released: a };
     },
     async deregisterRunner(r) {
@@ -590,10 +590,10 @@ function fIn(e, n, o) {
       }
       let m = [],
         v = 0,
-        h = !1;
+        h = false;
       t.on("data", (_) => {
         if (((v += _.length), v > 1048576)) {
-          (h = !0), s.writeHead(413).end(), t.destroy();
+          (h = true), s.writeHead(413).end(), t.destroy();
           return;
         }
         m.push(_);
@@ -641,15 +641,15 @@ function fIn(e, n, o) {
     }
   });
   u.unref();
-  let r = !1;
+  let r = false;
   return (
     u.on("error", (t) => {
       if (!u.listening) n.listeningOn = void 0;
-      if (!r) (r = !0), g("self_hosted_healthz_listen", "listen_failed");
+      if (!r) (r = true), g("self_hosted_healthz_listen", "listen_failed");
       o(`[runner:warn] /healthz listener failed on port ${e}: ${t.message} \u2014 continuing without health endpoint`);
     }),
     u.listen(e, () => {
-      if (((n.listeningOn = u.address()?.port ?? e), !r)) (r = !0), y("self_hosted_healthz_listen");
+      if (((n.listeningOn = u.address()?.port ?? e), !r)) (r = true), y("self_hosted_healthz_listen");
       o(`[runner:health] /healthz and /metrics listening on :${e}`);
     }),
     u
@@ -719,7 +719,7 @@ function at(e) {
             "proxy authorization file could not be read: an earlier read has not returned yet (stalled mount?); not issuing another",
           );
         let p,
-          m = !1,
+          m = false,
           v = (async () => {
             let _ = await Ve(n.path, "r");
             try {
@@ -731,7 +731,7 @@ function at(e) {
             }
           })(),
           h = () => {
-            if (((m = !0), r === v)) r = void 0;
+            if (((m = true), r === v)) r = void 0;
           };
         v.then(h, h);
         try {
@@ -750,10 +750,10 @@ function at(e) {
         },
         d = await Qh(n.command, {
           timeout: o,
-          reject: !1,
+          reject: false,
           stdin: "ignore",
-          useToolMemoryCgroup: !1,
-          extendEnv: !1,
+          useToolMemoryCgroup: false,
+          extendEnv: false,
           env: i,
         });
       if (d.failed) {
@@ -814,10 +814,10 @@ function he(e, n) {
 var se = ["proxy-authenticate", "proxy-authentication-info"];
 function ct(e, n, o, u, r) {
   let t = o,
-    s = !1,
+    s = false,
     a = (i) => {
       if (n.destroyed || !n.writable) return;
-      if (i.length > t && !s) (s = !0), r();
+      if (i.length > t && !s) (s = true), r();
       if (t === 0 || i.length === 0) return;
       let d = i.length <= t ? i : i.subarray(0, t);
       if (((t -= d.length), !n.write(d) && t > 0)) e.pause(), n.once("drain", () => e.resume());
@@ -834,7 +834,7 @@ function ct(e, n, o, u, r) {
 function ie(e, n, o, u = Buffer.alloc(0)) {
   return new Promise((r, t) => {
     let s = u,
-      a = !1,
+      a = false,
       i = (h, _) => {},
       d = setTimeout(
         (h) => h(Error("timed out waiting for the request/response head")),
@@ -864,7 +864,7 @@ function ie(e, n, o, u = Buffer.alloc(0)) {
     if (
       ((i = (h, _) => {
         if (
-          ((a = !0),
+          ((a = true),
           clearTimeout(d),
           e.removeListener("data", p),
           e.removeListener("close", m),
@@ -917,14 +917,14 @@ class re extends Error {
   }
 }
 function lt(e, n) {
-  let o = !1,
+  let o = false,
     u = n.length > 0 ? [n] : [],
     r = n.length,
     t = (a) => {
       if ((u.push(a), (r += a.length), r > nt)) e.pause();
     },
     s = () => {
-      o = !0;
+      o = true;
     };
   return (
     e.on("data", t),
@@ -955,7 +955,7 @@ async function pt(e) {
     s = Buffer.from("Basic " + Buffer.from(`runner:${t}`).toString("base64")),
     a = (c) => {
       let f = oe(c, "proxy-authorization");
-      if (f === void 0) return !1;
+      if (f === void 0) return false;
       let S = Buffer.from(f);
       return S.length === s.length && Ye(S, s);
     },
@@ -1382,7 +1382,7 @@ Connection: close\r
     },
     j = 0,
     Ue = e.maxPendingClients ?? tt,
-    Z = We({ pauseOnConnect: !0 }, (c) => {
+    Z = We({ pauseOnConnect: true }, (c) => {
       if ((m(c), c.on("error", () => c.destroy()), j >= Ue)) {
         i("too many connections still sending a request head; refusing one"), c.destroy();
         return;
@@ -1689,18 +1689,18 @@ async function yIn(e) {
   };
   e.onStatus(`[runner:hook] checkout ${Rl(e.repoUrl)} -> ${e.checkoutPath} (via ${e.hookPath})`);
   let o = [],
-    u = !1;
+    u = false;
   await new Promise((t, s) => {
     let a = Le(e.hookPath, [], {
         cwd: e.cwd,
         env: n,
         stdio: ["ignore", "pipe", "pipe"],
-        windowsHide: !0,
+        windowsHide: true,
         ...qi("hooks"),
       }),
       i,
       d = () => {
-        (u = !0),
+        (u = true),
           e.onDebug(`[runner:hook:checkout] abort received, sending SIGTERM to pid=${a.pid}`),
           a.kill("SIGTERM"),
           (i = setTimeout(
@@ -1714,7 +1714,7 @@ async function yIn(e) {
           ));
       };
     if (e.signal?.aborted) d();
-    else e.signal?.addEventListener("abort", d, { once: !0 });
+    else e.signal?.addEventListener("abort", d, { once: true });
     let p = "",
       m = "",
       v = (h, _) => {
@@ -1737,10 +1737,10 @@ async function yIn(e) {
         return E;
       };
     a.stdout.on("data", (h) => {
-      (p += h.toString()), (p = v(p, !1));
+      (p += h.toString()), (p = v(p, false));
     }),
       a.stderr.on("data", (h) => {
-        (m += h.toString()), (m = v(m, !0));
+        (m += h.toString()), (m = v(m, true));
       }),
       a.on("error", (h) => {
         if (i) clearTimeout(i);
@@ -1833,18 +1833,18 @@ async function SIn(e) {
       cwd: e.cwd,
       env: n,
       stdio: ["ignore", "pipe", "pipe"],
-      windowsHide: !0,
+      windowsHide: true,
       ...qi("hooks"),
-      detached: !0,
+      detached: true,
     }),
     s = He();
   s.increment();
-  let a = !1,
-    i = !1,
+  let a = false,
+    i = false,
     d = [],
     p = () => {
       if (a) return;
-      (a = !0), s.decrement();
+      (a = true), s.decrement();
       for (let E of d) clearTimeout(E);
       u();
     },
@@ -1866,7 +1866,7 @@ async function SIn(e) {
     setTimeout(
       (E, T, O, D) => {
         if (T.exitCode !== null || T.signalCode !== null) return;
-        (i = !0),
+        (i = true),
           E(
             `[runner:hook:post-session] timed out after ${O}ms, sending SIGTERM to the hook's process group (pgid=${T.pid})`,
           ),

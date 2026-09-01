@@ -355,7 +355,7 @@ function z(te) {
     let v = a.lastIndexOf(m) + m.length;
     if (v > m.length - 1) {
       let V = a.slice(v);
-      if (Cwe.includes(V) || (R === !0 && J2t.includes(V))) a = a.slice(0, v);
+      if (Cwe.includes(V) || (R === true && J2t.includes(V))) a = a.slice(0, v);
     }
     let n;
     if (c[4] === d) (n = /\n<\/cross-session-message>$/), (c[4] = n);
@@ -380,14 +380,14 @@ function z(te) {
   if (c[9] === d) (X = ES(void 0)), (c[9] = X);
   else X = c[9];
   let Y;
-  if (c[10] === d) (Y = e(t, { "aria-hidden": !0, children: L.pointer })), (c[10] = Y);
+  if (c[10] === d) (Y = e(t, { "aria-hidden": true, children: L.pointer })), (c[10] = Y);
   else Y = c[10];
   let k;
   if (c[11] !== i) (k = r(t, { color: X, children: ["@ ", i, Y] })), (c[11] = i), (c[12] = k);
   else k = c[12];
   let y;
   if (c[13] !== f)
-    (y = e(o, { paddingLeft: 2, children: e(Ni, { stripPromptTags: !1, children: f }) })), (c[13] = f), (c[14] = y);
+    (y = e(o, { paddingLeft: 2, children: e(Ni, { stripPromptTags: false, children: f }) })), (c[13] = f), (c[14] = y);
   else y = c[14];
   let Z;
   if (c[15] !== n || c[16] !== k || c[17] !== y)

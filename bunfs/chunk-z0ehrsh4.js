@@ -201,13 +201,13 @@ function S(zt) {
   else Bo = J[2];
   let { before: He, shimmer: Se, after: eo } = Bo,
     he;
-  if (J[3] !== He) (he = e(t, { bold: !0, color: "claude", children: He })), (J[3] = He), (J[4] = he);
+  if (J[3] !== He) (he = e(t, { bold: true, color: "claude", children: He })), (J[3] = He), (J[4] = he);
   else he = J[4];
   let ye;
-  if (J[5] !== Se) (ye = e(t, { bold: !0, color: "claudeShimmer", children: Se })), (J[5] = Se), (J[6] = ye);
+  if (J[5] !== Se) (ye = e(t, { bold: true, color: "claudeShimmer", children: Se })), (J[5] = Se), (J[6] = ye);
   else ye = J[6];
   let xe;
-  if (J[7] !== eo) (xe = e(t, { bold: !0, color: "claude", children: eo })), (J[7] = eo), (J[8] = xe);
+  if (J[7] !== eo) (xe = e(t, { bold: true, color: "claude", children: eo })), (J[7] = eo), (J[8] = xe);
   else xe = J[8];
   let Io;
   if (J[9] !== Qe || J[10] !== he || J[11] !== ye || J[12] !== xe)
@@ -234,7 +234,7 @@ function ee() {
   let we;
   if (be[2] !== oo)
     (we = r(t, {
-      dimColor: !0,
+      dimColor: true,
       children: [
         "Press ",
         oo,
@@ -258,7 +258,7 @@ function ee() {
   else ke = be[7];
   let Mo;
   if (be[8] !== we || be[9] !== ke)
-    (Mo = e(Y, { live: !0, children: r(t, { children: [we, ke] }) })), (be[8] = we), (be[9] = ke), (be[10] = Mo);
+    (Mo = e(Y, { live: true, children: r(t, { children: [we, ke] }) })), (be[8] = we), (be[9] = ke), (be[10] = Mo);
   else Mo = be[10];
   return Mo;
 }
@@ -266,7 +266,7 @@ function D(pn) {
   let fn = _(2),
     { children: ro } = pn,
     jo;
-  if (fn[0] !== ro) (jo = e(t, { bold: !0, color: "claude", children: ro })), (fn[0] = ro), (fn[1] = jo);
+  if (fn[0] !== ro) (jo = e(t, { bold: true, color: "claude", children: ro })), (fn[0] = ro), (fn[1] = jo);
   else jo = fn[1];
   return jo;
 }
@@ -316,7 +316,7 @@ checks JWT expiry and signature.`,
           ],
         }),
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: ["Also try: ", e(a, { children: "@folder/" }), " to attach a whole directory tree."],
         }),
       ],
@@ -358,7 +358,7 @@ Rewind to:
             "Went down the wrong path? Rewind to before the detour and try a different prompt. Your git history stays clean.",
         }),
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             "Also: ",
             e(a, { children: "/clear" }),
@@ -409,7 +409,7 @@ Rewind to:
             " to see everything in flight. Claude can read task output mid-run and react to failures automatically.",
           ],
         }),
-        e(t, { dimColor: !0, children: "Subagents also run as tasks \u2014 it is all one queue." }),
+        e(t, { dimColor: true, children: "Subagents also run as tasks \u2014 it is all one queue." }),
       ],
     }),
   },
@@ -450,7 +450,7 @@ running [suggestion:bun test] to verify.`,
           ],
         }),
         e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: "Works at three levels: repo, your home directory (all projects), and per-directory overrides.",
         }),
       ],
@@ -488,7 +488,7 @@ your review on github.`,
             'Once connected, tools appear automatically \u2014 ask Claude to "check my calendar" or "search our Notion" and it just works.',
         }),
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             "From your shell:",
             " ",
@@ -539,7 +539,7 @@ your review on github.`,
           ],
         }),
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: ["Run ", e(a, { children: "/install-github-app" }), " to let Claude review PRs when tagged."],
         }),
       ],
@@ -573,7 +573,7 @@ your review on github.`,
           ],
         }),
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             "Subagents run in isolated context. For true parallel sessions on separate branches, launch with ",
             e(a, { children: "claude --worktree" }),
@@ -620,7 +620,7 @@ see this session at
             " to move a session between here and the cloud \u2014 send this one up to keep it going after you close the lid, or pull a web session into this terminal with full history.",
           ],
         }),
-        e(t, { dimColor: !0, children: "Kick off a long task, close your laptop, check progress from your phone." }),
+        e(t, { dimColor: true, children: "Kick off a long task, close your laptop, check progress from your phone." }),
       ],
     }),
   },
@@ -662,7 +662,7 @@ see this session at
           ],
         }),
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: ["Also: ", e(a, { children: "/fast" }), " toggles fast mode \u2014 same model, faster output."],
         }),
       ],
@@ -674,8 +674,8 @@ function oe() {
     $o;
   if (yn[0] === d)
     ($o = e(t, {
-      dimColor: !0,
-      italic: !0,
+      dimColor: true,
+      italic: true,
       children: r(fe, {
         children: [
           e(M, { chord: ["up", "down"], action: "select" }),
@@ -693,8 +693,8 @@ function te() {
     Jo;
   if (xn[0] === d)
     (Jo = e(t, {
-      dimColor: !0,
-      italic: !0,
+      dimColor: true,
+      italic: true,
       children: r(fe, {
         children: [e(M, { chord: "enter", action: "mark done" }), e(M, { chord: "escape", action: "back" })],
       }),
@@ -768,7 +768,7 @@ function co() {
         Go,
         So,
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             "Use ",
             et,
@@ -800,9 +800,9 @@ function yRe(On) {
     [f, Fn] = u(bt),
     [R, mo] = u(null),
     [po, qn] = u(Mw[0].id),
-    [ho, st] = u(!1),
+    [ho, st] = u(false),
     it;
-  if (h[0] === d) (it = () => st(!1)), (h[0] = it);
+  if (h[0] === d) (it = () => st(false)), (h[0] = it);
   else it = h[0];
   let zn = it,
     rt;
@@ -837,7 +837,7 @@ function yRe(On) {
         }),
         re.size === Mw.length)
       )
-        st(!0);
+        st(true);
     }),
       (h[3] = uo),
       (h[4] = f),
@@ -884,13 +884,13 @@ function yRe(On) {
   let Pe = f.size === Mw.length,
     I;
   if (h[19] !== Pe)
-    (I = Pe ? e(S, { text: "All powered up" }) : e(t, { bold: !0, color: "claude", children: "Power-ups" })),
+    (I = Pe ? e(S, { text: "All powered up" }) : e(t, { bold: true, color: "claude", children: "Power-ups" })),
       (h[19] = Pe),
       (h[20] = I);
   else I = h[20];
   let A;
   if (h[21] !== f.size)
-    (A = r(t, { dimColor: !0, children: [" ", f.size, "/", Mw.length, " unlocked", " "] })),
+    (A = r(t, { dimColor: true, children: [" ", f.size, "/", Mw.length, " unlocked", " "] })),
       (h[21] = f.size),
       (h[22] = A);
   else A = h[22];
@@ -908,7 +908,7 @@ function yRe(On) {
     : "Each power-up teaches one thing Claude Code can do that most people miss. Open one, read it, try it, mark it done.";
   let Le;
   if (h[29] !== xo)
-    (Le = e(o, { marginBottom: 1, children: e(t, { dimColor: !0, wrap: "wrap", children: xo }) })),
+    (Le = e(o, { marginBottom: 1, children: e(t, { dimColor: true, wrap: "wrap", children: xo }) })),
       (h[29] = xo),
       (h[30] = Le);
   else Le = h[30];
@@ -928,7 +928,7 @@ function yRe(On) {
   if (h[35] !== yo || h[36] !== po || h[37] !== Be || h[38] !== Ie)
     (Ne = e(Ce, {
       options: yo,
-      hideIndexes: !0,
+      hideIndexes: true,
       visibleOptionCount: Mw.length,
       defaultFocusValue: po,
       onChange: Be,
@@ -969,10 +969,10 @@ function Oe(Xn) {
   ht(ft, gt);
   const Co = Gn ? "success" : "pending";
   let _e;
-  if (K[4] !== Co) (_e = e(tt, { status: Co, withSpace: !0 })), (K[4] = Co), (K[5] = _e);
+  if (K[4] !== Co) (_e = e(tt, { status: Co, withSpace: true })), (K[4] = Co), (K[5] = _e);
   else _e = K[5];
   let Ee;
-  if (K[6] !== W.title) (Ee = e(t, { bold: !0, color: "claude", children: W.title })), (K[6] = W.title), (K[7] = Ee);
+  if (K[6] !== W.title) (Ee = e(t, { bold: true, color: "claude", children: W.title })), (K[6] = W.title), (K[7] = Ee);
   else Ee = K[7];
   let Ue;
   if (K[8] !== _e || K[9] !== Ee) (Ue = r(o, { children: [_e, Ee] })), (K[8] = _e), (K[9] = Ee), (K[10] = Ue);

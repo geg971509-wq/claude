@@ -154,8 +154,8 @@ function I6t(e, n, t, i = process.env) {
 }
 function ln(e) {
   let n = e?.trim().toLowerCase();
-  if (n === void 0 || ["", "false", "no", "off"].includes(n)) return !1;
-  if (["true", "yes", "on"].includes(n)) return !0;
+  if (n === void 0 || ["", "false", "no", "off"].includes(n)) return false;
+  if (["true", "yes", "on"].includes(n)) return true;
   return /^[-+]?\d+$/.test(n) && Number(n) !== 0;
 }
 function Pe() {
@@ -206,7 +206,7 @@ async function pht(e, n) {
   let t = await Promise.all(
       te(n.filter((r) => r !== null)).map(async (r) => ({ path: r, reachable: await EOe(r, e) })),
     ),
-    i = t.find(({ reachable: r }) => r === !0);
+    i = t.find(({ reachable: r }) => r === true);
   if (i !== void 0) return i.path;
   return t.some(({ reachable: r }) => r === null) ? null : void 0;
 }
@@ -221,7 +221,7 @@ function un(e) {
 }
 async function fn(e) {
   return Qe(e, W.W_OK).then(
-    () => !0,
+    () => true,
     (n) => !["EACCES", "EROFS", "EPERM"].includes(E(n) ?? ""),
   );
 }
@@ -229,13 +229,13 @@ function Re(e) {
   return e.isDirectory() && e.ino !== 0 ? `${e.dev}:${e.ino}` : void 0;
 }
 var mn = 40;
-async function EOe(e, n, t = mn, i = { secondNames: !0 }) {
+async function EOe(e, n, t = mn, i = { secondNames: true }) {
   let r = (g) => n.roots.some((k) => gT(k, g)),
     o = (g) => n.roots.some((k) => gT(k, g) && gT(g, k)),
     s = (g) => n.fixed.includes(g),
     a = (g) => r(g) && !o(g) && !s(g),
     u = (g) => g === "ENOENT" || g === "ENOTDIR";
-  if (!X(e) || V(e) || e.includes("\uFFFD")) return !0;
+  if (!X(e) || V(e) || e.includes("\uFFFD")) return true;
   let w = D() === "windows";
   if (w && e !== z(e)) return EOe(z(e), n, t, i);
   let { root: d } = sn(e),
@@ -244,15 +244,15 @@ async function EOe(e, n, t = mn, i = { secondNames: !0 }) {
       .split(C === "/" ? /\/+/ : /[\\/]+/)
       .filter((g) => g !== "" && g !== "."),
     f = d,
-    c = !1;
+    c = false;
   for (let [g, k] of p.entries()) {
     if (k === "..") {
-      if (c) return !0;
+      if (c) return true;
       f = on(f);
       continue;
     }
     let y = F(f, k);
-    if (a(y)) return !0;
+    if (a(y)) return true;
     let R;
     switch (
       await ce(y).then(
@@ -275,11 +275,11 @@ async function EOe(e, n, t = mn, i = { secondNames: !0 }) {
       case null:
         return null;
       case "sealed":
-        return !1;
+        return false;
       case "shared":
-        return !0;
+        return true;
       case "shared_if_writable":
-        if (await fn(y)) return !0;
+        if (await fn(y)) return true;
         (c = R !== void 0 && R !== y), (f = R ?? y);
         break;
       case "absent":
@@ -288,9 +288,9 @@ async function EOe(e, n, t = mn, i = { secondNames: !0 }) {
         let T = await nn(y).catch(() => null);
         if (T === null || t === 0) return null;
         let h = w ? /^[A-Za-z]:/.exec(y)?.[0] : void 0;
-        if (w && /^[A-Za-z]:(?![\\/])/.test(T)) return !0;
+        if (w && /^[A-Za-z]:(?![\\/])/.test(T)) return true;
         let S = h !== void 0 && /^[\\/](?![\\/])/.test(T) ? `${h}${T}` : T;
-        if (S.includes("\uFFFD")) return !0;
+        if (S.includes("\uFFFD")) return true;
         let N = [wM(f, S), ...p.slice(g + 1)];
         return EOe(N.join(C), n, t - 1, i);
       }
@@ -335,7 +335,7 @@ async function G7n(e, n) {
     i = async (d) => {
       if (V(d) || gT(e, d)) return "refuse";
       let p = await EOe(d, n);
-      return p === null ? "unread" : p ? "refuse" : !0;
+      return p === null ? "unread" : p ? "refuse" : true;
     },
     r = F(e, ".git"),
     o = await ce(r).then(
@@ -354,7 +354,7 @@ async function G7n(e, n) {
     if (p === void 0 || p === "" || !d.text.startsWith("gitdir:")) return "refuse";
     s = wM(e, p);
     let f = await i(s);
-    if (f !== !0) return f;
+    if (f !== true) return f;
   }
   let a = await t(F(s, "commondir"));
   if (a === "refuse" || a === "unread") return a;
@@ -362,13 +362,13 @@ async function G7n(e, n) {
   if (o.isDirectory()) return "refuse_common";
   let u = wM(s, a.text.replace(/\r?\n$/, "")),
     w = await i(u);
-  return w === !0 ? { GIT_DIR: s, GIT_COMMON_DIR: u } : w;
+  return w === true ? { GIT_DIR: s, GIT_COMMON_DIR: u } : w;
 }
 function wM(e, n) {
   return X(n) ? n : `${e}${C}${n}`;
 }
 function gT(e, n) {
-  if (!X(n)) return !1;
+  if (!X(n)) return false;
   let t = D(),
     i = t === "macos" || t === "windows",
     r = (a) => (i ? a.normalize("NFC").toLowerCase() : a),
@@ -404,7 +404,7 @@ function hn() {
 function z7n(e) {
   let n = tme(),
     t = P6t().includes("flagSettings") ? QN() : void 0;
-  if (t !== void 0 && n !== void 0 && Ie(t, n)) return !0;
+  if (t !== void 0 && n !== void 0 && Ie(t, n)) return true;
   return te(
     [
       ...le.map((r) => Mo(r)),
@@ -415,7 +415,7 @@ function z7n(e) {
     ].filter((r) => r !== void 0),
   ).some((r) => {
     try {
-      if (!gn(r).isFile()) return !0;
+      if (!gn(r).isFile()) return true;
     } catch (o) {
       return E(o) !== "ENOENT";
     }
@@ -479,7 +479,7 @@ function Zp(e, n, t) {
   if (!t.hardened)
     return qe(it(), [...cn, ...n], { cwd: e, abortSignal: t.signal, ...i, ...(t.env && { env: t.env }) });
   let r = t.probes ?? Oz(),
-    o = t.reach ?? (t.layout?.bound === !0 ? V7n(e, t.layout) : void 0),
+    o = t.reach ?? (t.layout?.bound === true ? V7n(e, t.layout) : void 0),
     s = TM(o, r),
     a = o === void 0 && vT() === void 0 ? it() : mht(s, r);
   if (a === null)
@@ -489,9 +489,9 @@ function Zp(e, n, t) {
     abortSignal: t.signal,
     maxBuffer: st,
     ...i,
-    ...(t.stripFinalNewline === !1 && { stripFinalNewline: !1 }),
+    ...(t.stripFinalNewline === false && { stripFinalNewline: false }),
     env: Rn(ii({ ...rt, ...(t.layout && nt(t.layout)), ...t.layout?.configPins, ...t.env }, s)),
-    extendEnv: !1,
+    extendEnv: false,
   });
 }
 function Rn(e) {
@@ -499,7 +499,7 @@ function Rn(e) {
     t = Object.keys(e).filter((i) => n.has(i.toUpperCase()));
   return { ...e, ...Object.fromEntries(t.map((i) => [i, void 0])), GIT_CONFIG: void 0, GIT_ATTR_SOURCE: void 0 };
 }
-async function K9(e, n, { linkedTrees: t = !1, bound: i = t, probes: r = Oz() } = {}) {
+async function K9(e, n, { linkedTrees: t = false, bound: i = t, probes: r = Oz() } = {}) {
   let o = await H(e).catch(() => e);
   if (i) {
     if ((await K7n()).some((R) => gT(R, o) || gT(R, e)))
@@ -519,10 +519,10 @@ async function K9(e, n, { linkedTrees: t = !1, bound: i = t, probes: r = Oz() } 
   let a = i ? je(o, [...Ue(o), ...(s.kind === "chain" ? [We(s.commonDir)] : [])]) : void 0,
     u = (y) =>
       Zp(e, ["rev-parse", ...y], {
-        hardened: !0,
+        hardened: true,
         signal: n,
         probes: r,
-        stripFinalNewline: !1,
+        stripFinalNewline: false,
         env: { GIT_CEILING_DIRECTORIES: Qn(o, e) },
         ...(a !== void 0 && { reach: a }),
       }),
@@ -539,7 +539,7 @@ async function K9(e, n, { linkedTrees: t = !1, bound: i = t, probes: r = Oz() } 
       kind: "failed",
       detail: wr((w.stderr || d.stderr || p.stderr || w.stdout).trim()),
       ...(w.code === 127 &&
-        w.stderr.startsWith(re) && { why: "git_not_found", ...(w.stderr !== re && { withinReach: !0 }) }),
+        w.stderr.startsWith(re) && { why: "git_not_found", ...(w.stderr !== re && { withinReach: true }) }),
     };
   if (wr(c) === "--path-format=absolute") return { kind: "tampered", misplaced: "old_git", gitDir: f, commonDir: c };
   if (!v(c)) return { kind: "tampered", misplaced: "common_dir", gitDir: f, commonDir: c };
@@ -605,7 +605,7 @@ async function Le(e, n, t, i, r) {
 }
 async function In(e, n, t, i) {
   let r = { kind: "unlistable", detail: "could not list the configuration in force" },
-    o = (h) => Zp(e, h, { hardened: !0, layout: n, signal: t, probes: i }),
+    o = (h) => Zp(e, h, { hardened: true, layout: n, signal: t, probes: i }),
     s = async (h) => {
       let [S, N] = await Promise.all([
           o(["config", "-z", "--show-origin", ...h, "--list"]),
@@ -699,13 +699,13 @@ async function w_r(e, n, t) {
     s = [...r],
     a = 0;
   for (let u = 0; s.length > 0; u += 1) {
-    if (u === On || r.size > Nn) return { tooMany: !0 };
+    if (u === On || r.size > Nn) return { tooMany: true };
     let w = s.find((c) => c.includes("\uFFFD"));
     if (w !== void 0) return { contributes: w };
     let d = await t(s);
     if (d !== void 0) return d === null ? null : { contributes: d };
     let p = await Promise.all(s.map(async (c) => (!V(c) && (await kn(c).catch(() => null))?.isFile() ? c : null)));
-    if (((a += Q(p, i)), a > fht)) return { tooMany: !0 };
+    if (((a += Q(p, i)), a > fht)) return { tooMany: true };
     let f = await Promise.all(p.filter(i).map(n));
     if (f.some((c) => c === null)) return null;
     o.push(...f.flatMap((c) => c?.keys ?? [])),
@@ -786,7 +786,7 @@ function qVe(e) {
 async function Gn(e) {
   let n = async (t) => {
     let i = await Y(t).catch((o) => (E(o) === "ENOENT" ? [] : null));
-    if (i === null) return !1;
+    if (i === null) return false;
     return (
       await Promise.all(
         i.map((o) =>
@@ -801,17 +801,17 @@ async function Gn(e) {
   try {
     let t = await Y(m(e, "objects")),
       i = await Promise.all(t.map((s) => A(m(e, "objects", s))));
-    if (!i.every((s) => s === "directory" || s === "file" || s === "absent")) return !1;
+    if (!i.every((s) => s === "directory" || s === "file" || s === "absent")) return false;
     let r = t.filter((s, a) => i[a] === "directory" && /^(?:pack|[0-9a-f]{2})$/i.test(s));
     return (await Promise.all(r.map((s) => n(m(e, "objects", s))))).every(Boolean);
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Me(e) {
   let n = async (...s) => {
       try {
-        let a = await L(m(e, "objects", ...s), { bigint: !0 });
+        let a = await L(m(e, "objects", ...s), { bigint: true });
         return `${a.dev}:${a.ino}:${a.ctimeNs}:${a.mtimeNs}:${a.size}`;
       } catch {
         return "absent";
@@ -835,12 +835,12 @@ async function ve(e) {
 async function Cn(e) {
   let n = async (i) => {
     let r = await Y(i).catch((s) => (E(s) === "ENOENT" ? [] : null));
-    if (r === null) return !1;
+    if (r === null) return false;
     return (
       await Promise.all(
         r.map(async (s) => {
           let a = await A(m(i, s));
-          return a === "file" || a === "absent" ? !0 : a === "directory" ? n(m(i, s)) : !1;
+          return a === "file" || a === "absent" ? true : a === "directory" ? n(m(i, s)) : false;
         }),
       )
     ).every(Boolean);
@@ -865,7 +865,7 @@ async function A(e) {
 }
 async function Fn(e) {
   try {
-    let n = await L(m(e, ".git"), { bigint: !0 });
+    let n = await L(m(e, ".git"), { bigint: true });
     return n.isDirectory() ? `${n.dev}:${n.ino}` : "not_a_directory";
   } catch (n) {
     let t = E(n);
@@ -889,7 +889,7 @@ var xn = new Set([
   vn = 64,
   Ce = 1073741824;
 async function Cmn(e, n, t, i = Oz()) {
-  let r = (_) => Zp(e, _, { hardened: !0, layout: n, signal: t, probes: i }),
+  let r = (_) => Zp(e, _, { hardened: true, layout: n, signal: t, probes: i }),
     [o, s, a] = await Promise.all([
       r(["rev-parse", "--show-object-format"]),
       r(["config", "-z", "--show-origin", "--no-includes", "--file", m(n.commonDir, "config"), "--list"]),
@@ -910,7 +910,7 @@ async function Cmn(e, n, t, i = Oz()) {
       .join(""),
     d = (await A(m(n.commonDir, "config"))) !== "absent";
   if (s.code !== 0 && d) return O("could not read the repository configuration");
-  let p = n.checkout === "linked" ? !1 : await Vn(e, n, t, i);
+  let p = n.checkout === "linked" ? false : await Vn(e, n, t, i);
   if (p === null) return O("could not read extensions.worktreeConfig");
   let f = p
     ? await r(["config", "-z", "--show-origin", "--no-includes", "--file", m(n.gitDir, "config.worktree"), "--list"])
@@ -960,7 +960,7 @@ async function Cmn(e, n, t, i = Oz()) {
     return O("~/.claude/seed-admin lies inside this working tree or its repository", "placement");
   let I;
   try {
-    await Ae(S, { recursive: !0, mode: 448 });
+    await Ae(S, { recursive: true, mode: 448 });
     let _ = await L(S);
     if (!_.isDirectory() || (_.uid !== process.getuid?.() && _.uid !== 0) || (_.mode & 18) !== 0)
       return O("~/.claude/seed-admin is not a plain directory of this user");
@@ -1012,10 +1012,10 @@ async function Cmn(e, n, t, i = Oz()) {
     )
       throw Error("aborted");
     let b = I,
-      x = () => we(b, { recursive: !0, force: !0 }).catch(() => {});
+      x = () => we(b, { recursive: true, force: true }).catch(() => {});
     return { kind: "made", path: b, dispose: x, [Symbol.asyncDispose]: x };
   } catch (_) {
-    if (I !== null) await we(I, { recursive: !0, force: !0 }).catch(() => {});
+    if (I !== null) await we(I, { recursive: true, force: true }).catch(() => {});
     return O(l(_));
   }
 }
@@ -1068,14 +1068,14 @@ async function Bn(e, n) {
           let s = await Be(Number(r[1]), n);
           if (s === "" || s === r[2]) return;
         }
-        await we(o, { recursive: !0, force: !0 });
+        await we(o, { recursive: true, force: true });
       }),
     );
   } catch {}
 }
 function Hn(e) {
   try {
-    return process.kill(e, 0), !0;
+    return process.kill(e, 0), true;
   } catch (n) {
     return E(n) === "EPERM";
   }
@@ -1130,7 +1130,7 @@ function He() {
   return { ...Qs(e, (i, r) => !t.has(r.toUpperCase())), ...n };
 }
 function MX(e) {
-  return e.bound === !0 ? V7n(e.workTree, e) : void 0;
+  return e.bound === true ? V7n(e.workTree, e) : void 0;
 }
 function V7n(e, n) {
   let t = n?.workTree ?? e;
@@ -1153,9 +1153,9 @@ function Ue(e) {
 }
 function Wn(e) {
   try {
-    return Dn(e), !0;
+    return Dn(e), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function K(e, n = [], t = 0) {
@@ -1270,22 +1270,22 @@ async function Ye(e, n) {
   let t = e.split(ee).filter((s) => s !== ""),
     i = t.at(-1) ?? "",
     r = (s) => s.toLowerCase() === ".git" || s.toLowerCase().endsWith(".git");
-  if (!r(i) || t.slice(0, -1).some(r)) return !1;
-  if (gT(n, e) || gT(e, n)) return !1;
+  if (!r(i) || t.slice(0, -1).some(r)) return false;
+  if (gT(n, e) || gT(e, n)) return false;
   return !(await K7n()).some((s) => gT(s, e));
 }
 async function Vn(e, n, t, i) {
   let r = await Zp(
     e,
     ["config", "--file", m(n.commonDir, "config"), "--bool", "--default=false", "extensions.worktreeConfig"],
-    { hardened: !0, layout: n, signal: t, probes: i },
+    { hardened: true, layout: n, signal: t, probes: i },
   );
   return r.code !== 0 ? null : r.stdout.trim() === "true";
 }
 async function qn(e, n, t, i) {
   let [r, o] = await Promise.all([
     Zp(e, ["config", "--file", m(n.commonDir, "config"), "--bool", "--default=false", "extensions.worktreeConfig"], {
-      hardened: !0,
+      hardened: true,
       layout: n,
       signal: t,
       probes: i,
@@ -1303,7 +1303,7 @@ async function qn(e, n, t, i) {
 }
 async function M(e) {
   try {
-    let n = await L(e, { bigint: !0 });
+    let n = await L(e, { bigint: true });
     return `${n.dev}:${n.ino}`;
   } catch {
     return null;

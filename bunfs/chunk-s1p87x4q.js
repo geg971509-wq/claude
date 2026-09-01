@@ -54,8 +54,8 @@ async function D(t) {
   return r;
 }
 async function R(t, o, d, r, p) {
-  let u = !1,
-    g = !1,
+  let u = false,
+    g = false,
     b = null,
     k = null;
   for (let { scope: m } of o)
@@ -63,7 +63,7 @@ async function R(t, o, d, r, p) {
       let a = await hge(t, m, r ?? {}, p);
       switch (a.outcome) {
         case "updated":
-          (u = !0), n(`Plugin autoupdate: updated ${t} from ${a.oldVersion} to ${a.newVersion}`);
+          (u = true), n(`Plugin autoupdate: updated ${t} from ${a.oldVersion} to ${a.newVersion}`);
           break;
         case "skipped": {
           if ((n(`Plugin autoupdate: ${t} ${a.message}`), a.skipReason === "entry_helper_deferred"))
@@ -92,19 +92,19 @@ async function R(t, o, d, r, p) {
           )
             k = { type: "autoupdate-disabled-by-policy", source: t, plugin: Vt(t).name, message: a.message };
           else if (a.failureCode === "entry_helper_not_inlined")
-            (k = { type: "generic-error", source: t, plugin: Vt(t).name, error: a.message }), (g = !0);
-          else if (a.failureCode !== "command_source_inactive") g = !0;
+            (k = { type: "generic-error", source: t, plugin: Vt(t).name, error: a.message }), (g = true);
+          else if (a.failureCode !== "command_source_inactive") g = true;
           n(`Plugin autoupdate: failed to update ${t}: ${a.message}`, { level: "warn" });
           break;
         case "up_to_date":
           break;
       }
     } catch (a) {
-      (g = !0), n(`Plugin autoupdate: error updating ${t}: ${l(a)}`, { level: "warn" });
+      (g = true), n(`Plugin autoupdate: error updating ${t}: ${l(a)}`, { level: "warn" });
     }
   return { updated: u ? t : null, blocked: k, failed: g, commandSourceSkipped: b };
 }
-async function L8t(t, o = new Set(), { skipCommandSources: d = !1 } = {}, r) {
+async function L8t(t, o = new Set(), { skipCommandSources: d = false } = {}, r) {
   let p = O() && r !== void 0 ? await Iv(r) : oT(),
     u = Object.keys(p.plugins);
   if (u.length === 0) return { updated: [], blocked: [], updateFailedCount: 0, commandSourceSkipped: [] };
@@ -119,7 +119,7 @@ async function L8t(t, o = new Set(), { skipCommandSources: d = !1 } = {}, r) {
         if (!f || f.length === 0) return null;
         let S = f.filter(AD);
         if (S.length === 0) return null;
-        return R(e, S, b, d ? { skipCommandSources: !0 } : void 0, r);
+        return R(e, S, b, d ? { skipCommandSources: true } : void 0, r);
       }),
     ),
     m = [],
@@ -201,7 +201,7 @@ async function F(t) {
         let A = f.filter((P) => P.sourceCommand === E);
         if (A.length === 0) continue;
         o.attemptedCount++, n(`Plugin autoupdate: re-resolving command-sourced plugin ${e}`);
-        let v = await R(e, A, b, { skipMarketplaceRefresh: !0 }, t);
+        let v = await R(e, A, b, { skipMarketplaceRefresh: true }, t);
         if (v.updated !== null) o.updated.push(v.updated);
         if (v.blocked !== null) o.blocked.push(v.blocked);
         if (v.failed) o.failedCount++;
@@ -212,7 +212,7 @@ async function F(t) {
   }
   return o;
 }
-function ZRt(t, o, d = [], { announce: r = !0 } = {}) {
+function ZRt(t, o, d = [], { announce: r = true } = {}) {
   if (t.length === 0 && o.length === 0) return;
   let p = Jt();
   if (p.autoUpdateListener) p.autoUpdateListener(t, o, d, r);
@@ -222,7 +222,7 @@ function ZRt(t, o, d = [], { announce: r = !0 } = {}) {
       updated: te([...(u?.updated ?? []), ...t]),
       blocked: [...(u?.blocked ?? []), ...o],
       reresolved: te([...(u?.reresolved ?? []), ...d]),
-      announce: (u?.announce ?? !1) || r,
+      announce: (u?.announce ?? false) || r,
     };
   }
 }
@@ -277,8 +277,8 @@ function gOn(t) {
         return;
       }
       let g = Math.floor(Math.random() * B);
-      await ne(g, void 0, { unref: !0 }), (d = Date.now());
-      let b = I("tengu_plugin_autoupdate_allow_credential_helper", !1),
+      await ne(g, void 0, { unref: true }), (d = Date.now());
+      let b = I("tengu_plugin_autoupdate_allow_credential_helper", false),
         k = await Promise.allSettled(
           Array.from(u).map(async (i) => {
             try {
@@ -298,7 +298,7 @@ function gOn(t) {
         updated: m,
         blocked: a,
         updateFailedCount: y,
-      } = await L8t(u, o.commandSourced, { skipCommandSources: !0 }, t);
+      } = await L8t(u, o.commandSourced, { skipCommandSources: true }, t);
       if (
         ((r.plugins_updated = m.length),
         (r.plugin_update_failed = y),
@@ -311,7 +311,7 @@ function gOn(t) {
       let { errors: _ } = await is(t),
         e = await sB(
           _.filter((i) => {
-            if (i.type !== "dependency-unsatisfied") return !1;
+            if (i.type !== "dependency-unsatisfied") return false;
             let f = Vt(i.source).marketplace;
             return f !== void 0 && u.has(f.toLowerCase());
           }),

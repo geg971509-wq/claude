@@ -49,7 +49,7 @@ function h(e) {
     let t = x(e);
     if (!t.isFile() || t.size > 65536) {
       try {
-        C(e, { recursive: !0, force: !0 });
+        C(e, { recursive: true, force: true });
       } catch {}
       return;
     }
@@ -84,23 +84,23 @@ function kkn(e) {
     sQe(process.stderr);
 }
 function m(e, t, n) {
-  if (e.destroyed || e.writableEnded) return !1;
-  return e.write(t, n), !0;
+  if (e.destroyed || e.writableEnded) return false;
+  return e.write(t, n), true;
 }
 class c {
-  everWritten = !1;
+  everWritten = false;
   drainPromise = void 0;
   bytesQueued = 0;
   bytesFlushed = 0;
   notifyFlushProgress = void 0;
   notifyExternallyClocked = void 0;
   externallyClockedPromise = void 0;
-  externallyClocked = !1;
-  errored = !1;
+  externallyClocked = false;
+  errored = false;
   flushConfirmedPromise = void 0;
   flushCloseListener = void 0;
   markEverWritten() {
-    this.everWritten = !0;
+    this.everWritten = true;
   }
   recordQueued(e) {
     this.bytesQueued += e;
@@ -109,7 +109,7 @@ class c {
     (this.bytesFlushed += e), this.notifyFlushProgress?.();
   }
   markErrored() {
-    (this.errored = !0), this.notifyFlushProgress?.();
+    (this.errored = true), this.notifyFlushProgress?.();
   }
   outstandingBytes() {
     return process.stdout.destroyed || this.errored ? 0 : this.bytesQueued - this.bytesFlushed;
@@ -141,7 +141,7 @@ class c {
     }));
   }
   markExternallyClocked() {
-    (this.externallyClocked = !0),
+    (this.externallyClocked = true),
       this.ensureExternallyClockedPromise(),
       this.notifyExternallyClocked?.(),
       (this.notifyExternallyClocked = void 0);
@@ -162,7 +162,7 @@ function er(e) {
   )
     Joe.recordQueued(t);
 }
-async function MFe(e = 2000, { scaleBudgetToQueue: t = !0 } = {}) {
+async function MFe(e = 2000, { scaleBudgetToQueue: t = true } = {}) {
   let n = Joe.endStdoutOnce();
   if (n === void 0) return;
   let r = Promise.all([n, Joe.fullyFlushed()]);
@@ -193,26 +193,26 @@ function $Hr(e) {
 }
 function aQe(e, t) {
   let n = e;
-  if (n.readableEnded || n.destroyed) return Promise.resolve(!1);
+  if (n.readableEnded || n.destroyed) return Promise.resolve(false);
   return new Promise((r) => {
     let o = (d) => {
         clearTimeout(u), e.off("end", i), e.off("close", i), e.off("data", s), r(d);
       },
-      i = () => o(!1),
+      i = () => o(false),
       s = () => {
-        if ((clearTimeout(u), n.readableEnded || n.destroyed)) o(!1);
+        if ((clearTimeout(u), n.readableEnded || n.destroyed)) o(false);
       },
-      u = setTimeout(o, t, !0);
+      u = setTimeout(o, t, true);
     e.once("end", i), e.once("close", i), e.once("data", s);
   });
 }
 async function* xkn(e) {
   if (e.readableEnded || e.destroyed) return;
   let t = Symbol("stream-closed"),
-    n = !1,
+    n = false,
     r = null,
     o = () => {
-      (n = !0), r?.();
+      (n = true), r?.();
     };
   e.once("close", o);
   let i = e[Symbol.asyncIterator]();

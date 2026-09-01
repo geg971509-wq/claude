@@ -47,7 +47,7 @@ async function R_t(e, o, t) {
   }
   await Promise.all(
     [...r].map(async ([l, m]) => {
-      await S(l, { recursive: !0, mode: 448 }),
+      await S(l, { recursive: true, mode: 448 }),
         await Promise.all(
           m.map(([a, d, u]) =>
             O(a, d, u).catch((i) => {
@@ -79,11 +79,11 @@ async function R_t(e, o, t) {
 }
 function LTe(e, o, t) {
   if (typeof t !== "function") return;
-  Object.defineProperty(e, o, { get: t, enumerable: !0, configurable: !0 });
+  Object.defineProperty(e, o, { get: t, enumerable: true, configurable: true });
 }
 function Bjt(e, o, t) {
   if (typeof t !== "function") return;
-  Object.defineProperty(e, o, { get: t, enumerable: !0, configurable: !0 });
+  Object.defineProperty(e, o, { get: t, enumerable: true, configurable: true });
 }
 function ehn(e) {
   To().bundledSkillSessionResetHooks.push(e);
@@ -135,16 +135,16 @@ function Zr(e) {
       aliases: e.aliases,
       subcommands: e.subcommands,
       subcommandsBareOnly: e.subcommandsBareOnly,
-      hasUserSpecifiedDescription: !0,
+      hasUserSpecifiedDescription: true,
       allowedTools: e.allowedTools ?? [],
       getAllowedTools: e.getAllowedTools,
       disallowedTools: e.disallowedTools ?? [],
       argumentHint: typeof e.argumentHint === "function" ? void 0 : e.argumentHint,
       whenToUse: typeof e.whenToUse === "function" ? void 0 : e.whenToUse,
       model: e.model,
-      disableModelInvocation: typeof e.disableModelInvocation === "function" ? !0 : (e.disableModelInvocation ?? !1),
+      disableModelInvocation: typeof e.disableModelInvocation === "function" ? true : (e.disableModelInvocation ?? false),
       disableBridgeInvocation: e.disableBridgeInvocation,
-      userInvocable: e.userInvocable ?? !0,
+      userInvocable: e.userInvocable ?? true,
       terminalOriented: e.terminalOriented,
       argsMayContainSlashCommands: e.argsMayContainSlashCommands,
       contentLength: 0,
@@ -159,7 +159,7 @@ function Zr(e) {
       isEnabled: e.isEnabled,
       policyGate: e.policyGate,
       requires: e.requires,
-      isHidden: !(e.userInvocable ?? !0),
+      isHidden: !(e.userInvocable ?? true),
       progressMessage: e.progressMessage ?? "running",
       getPromptForCommand: t,
       getEffort: e.getEffort,
@@ -207,7 +207,7 @@ async function jjt(e, o) {
   if (Object.keys(o).length === 0) return null;
   let t = Xue(e);
   try {
-    return await R_t(t, o, { tolerateExisting: !0 }), t;
+    return await R_t(t, o, { tolerateExisting: true }), t;
   } catch (r) {
     return (
       n(`Failed to extract additional skill files for '${e}' to ${t}: ${r instanceof Error ? r.message : String(r)}`),

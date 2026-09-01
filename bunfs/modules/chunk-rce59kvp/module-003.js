@@ -54,13 +54,13 @@ function Rse({
     [so, jt] = u(void 0);
   A(() => {
     if (!re || !Pe) return;
-    let Uo = !1;
+    let Uo = false;
     return (
       SIe(pe, re.uuid).then((Rn) => {
         if (!Uo) jt(Rn);
       }),
       () => {
-        Uo = !0;
+        Uo = true;
       }
     );
   }, [re, Pe, pe]);
@@ -81,8 +81,8 @@ function Rse({
         type: "input",
         placeholder: "add context (optional)",
         initialValue: "",
-        allowEmptySubmitToCancel: !0,
-        showLabelWithValue: !0,
+        allowEmptySubmitToCancel: true,
+        showLabelWithValue: true,
         labelValueSeparator: ": ",
       };
     return (
@@ -114,7 +114,7 @@ ${Rn}`);
     let Rn = S.indexOf(Uo),
       mr = S.length - 1 - Rn;
     if (
-      (s("tengu_message_selector_selected", { index_from_end: mr, message_type: c(Uo.type), is_current_prompt: !1 }),
+      (s("tengu_message_selector_selected", { index_from_end: mr, message_type: c(Uo.type), is_current_prompt: false }),
       !S.includes(Uo))
     ) {
       Z();
@@ -276,14 +276,14 @@ ${mr}`
               flexDirection: "column",
               paddingLeft: 1,
               borderStyle: "single",
-              borderRight: !1,
-              borderTop: !1,
-              borderBottom: !1,
-              borderLeft: !0,
-              borderLeftDimColor: !0,
+              borderRight: false,
+              borderTop: false,
+              borderBottom: false,
+              borderLeft: true,
+              borderLeftDimColor: true,
               children: [
-                e(X$, { userMessage: Rt, color: "text", isCurrent: !1 }),
-                r(t, { dimColor: !0, children: ["(", Sy(new Date(Rt.timestamp)), ")"] }),
+                e(X$, { userMessage: Rt, color: "text", isCurrent: false }),
+                r(t, { dimColor: true, children: ["(", Sy(new Date(Rt.timestamp)), ")"] }),
               ],
             }),
             e(Ase, { selectedRestoreOption: lo, canRestoreCode: !!en, diffStatsForRestore: so }),
@@ -301,7 +301,7 @@ ${mr}`
               e(o, {
                 marginBottom: 1,
                 children: r(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: [L.warning, " Rewinding does not affect files edited manually or via bash."],
                 }),
               }),
@@ -314,7 +314,7 @@ ${mr}`
               ? e(t, { children: "Restore the code and/or conversation to the point before\u2026" })
               : e(t, { children: "Restore and fork the conversation to the point before\u2026" }),
             Ht > 0 &&
-              e(o, { paddingLeft: 1, children: r(t, { dimColor: !0, children: [L.arrowUp, " ", Ht, " more above"] }) }),
+              e(o, { paddingLeft: 1, children: r(t, { dimColor: true, children: [L.arrowUp, " ", Ht, " more above"] }) }),
             e(o, {
               width: "100%",
               flexDirection: "column",
@@ -338,7 +338,7 @@ ${mr}`
                         width: 2,
                         minWidth: 2,
                         children: Pr
-                          ? r(t, { color: "permission", bold: !0, children: [L.pointer, " "] })
+                          ? r(t, { color: "permission", bold: true, children: [L.pointer, " "] })
                           : e(t, { children: "  " }),
                       }),
                       r(o, {
@@ -385,7 +385,7 @@ ${mr}`
                                         : e(U, { children: "No code changes" }),
                                     }),
                                   })
-                                : r(t, { dimColor: !0, color: "warning", children: [L.warning, " No code restore"] }),
+                                : r(t, { dimColor: true, color: "warning", children: [L.warning, " No code restore"] }),
                             }),
                         ],
                       }),
@@ -398,7 +398,7 @@ ${mr}`
             yt < nt.length &&
               e(o, {
                 paddingLeft: 1,
-                children: r(t, { dimColor: !0, children: [L.arrowDown, " ", nt.length - yt, " ", "more below"] }),
+                children: r(t, { dimColor: true, children: [L.arrowDown, " ", nt.length - yt, " ", "more below"] }),
               }),
           ],
         }),
@@ -429,13 +429,13 @@ function Ase(mLt) {
   if (F$[0] !== Hb) (B$ = Cse(Hb)), (F$[0] = Hb), (F$[1] = B$);
   else B$ = F$[1];
   let j$;
-  if (F$[2] !== B$) (j$ = e(t, { dimColor: !0, children: B$ })), (F$[2] = B$), (F$[3] = j$);
+  if (F$[2] !== B$) (j$ = e(t, { dimColor: true, children: B$ })), (F$[2] = B$), (F$[3] = j$);
   else j$ = F$[3];
   let H$;
   if (F$[4] !== pse || F$[5] !== Hb || F$[6] !== fse)
     (H$ =
       !VD(Hb) &&
-      (fse ? e(J$, { diffStatsForRestore: pse }) : e(t, { dimColor: !0, children: "The code will be unchanged." }))),
+      (fse ? e(J$, { diffStatsForRestore: pse }) : e(t, { dimColor: true, children: "The code will be unchanged." }))),
       (F$[4] = pse),
       (F$[5] = Hb),
       (F$[6] = fse),
@@ -457,7 +457,7 @@ function J$(fLt) {
   if (!Xu.filesChanged || !Xu.filesChanged[0]) {
     let Cc;
     if (Ev[0] === d)
-      (Cc = e(t, { dimColor: !0, children: "The code has not changed (nothing will be restored)." })), (Ev[0] = Cc);
+      (Cc = e(t, { dimColor: true, children: "The code has not changed (nothing will be restored)." })), (Ev[0] = Cc);
     else Cc = Ev[0];
     return Cc;
   }
@@ -498,7 +498,7 @@ function J$(fLt) {
   let bf;
   if (Ev[12] !== qx || Ev[13] !== Cc)
     (bf = e(U, {
-      children: r(t, { dimColor: !0, children: ["The code will be restored", " ", Cc, " ", "in ", qx, "."] }),
+      children: r(t, { dimColor: true, children: ["The code will be restored", " ", Cc, " ", "in ", qx, "."] }),
     })),
       (Ev[12] = qx),
       (Ev[13] = Cc),
@@ -514,7 +514,7 @@ function X$(yLt) {
   if (SLt) {
     let Nv;
     if (Dv[0] !== Kd || Dv[1] !== Qd)
-      (Nv = e(o, { width: "100%", children: e(t, { italic: !0, color: Kd, dimColor: Qd, children: "(current)" }) })),
+      (Nv = e(o, { width: "100%", children: e(t, { italic: true, color: Kd, dimColor: Qd, children: "(current)" }) })),
         (Dv[0] = Kd),
         (Dv[1] = Qd),
         (Dv[2] = Nv);
@@ -533,7 +533,7 @@ function X$(yLt) {
           (zd = e(o, {
             flexDirection: "row",
             width: "100%",
-            children: e(t, { italic: !0, color: Kd, dimColor: Qd, children: "((empty message))" }),
+            children: e(t, { italic: true, color: Kd, dimColor: Qd, children: "((empty message))" }),
           })),
             (Dv[16] = Kd),
             (Dv[17] = Qd),
@@ -594,7 +594,7 @@ function X$(yLt) {
       Nv = Kd;
       G$ = Qd;
       Q$ = W$
-        ? ir(yy, hse - W$, !0)
+        ? ir(yy, hse - W$, true)
         : yy
             .slice(0, 500)
             .split(`
@@ -690,13 +690,13 @@ function Mse(S, x) {
     if (j.type === "assistant") {
       let H = j.message.content;
       if (Array.isArray(H)) {
-        if (H.some((re) => (re.type === "text" && re.text?.trim()) || re.type === "tool_use")) return !1;
+        if (H.some((re) => (re.type === "text" && re.text?.trim()) || re.type === "tool_use")) return false;
       }
       continue;
     }
-    if (j.type === "user") return !1;
+    if (j.type === "user") return false;
   }
-  return !0;
+  return true;
 }
 
 function Z$(S, x, P, j) {
@@ -720,10 +720,10 @@ function eW({ localJsx: S, turn: x, sessionController: P }) {
   if (S.size > 0) return null;
   let j = S.show(e(UOe, { turn: x, sessionController: P, onClose: () => j.close() }), {
     commandName: "rewind",
-    immediate: !1,
-    hidesPrompt: !0,
-    retireAtTurnBoundary: !1,
-    parksBlockingDialogs: !0,
+    immediate: false,
+    hidesPrompt: true,
+    retireAtTurnBoundary: false,
+    parksBlockingDialogs: true,
   });
   return j;
 }
@@ -793,9 +793,9 @@ function $b(S) {
     let Oe = dQ(ue),
       Ie = GD(Oe?.identity.color),
       He = Mje(),
-      Fe = Rtn()?.isNative ?? !1;
-    if (Z === !1 && !He && !Fe) return { text: `View teammates: \`tmux -L ${X7e()} a\``, bgColor: Ie };
-    if ((Z === !0 || He || Fe) && Oe) return { text: `@${Oe.identity.agentName}`, bgColor: Ie };
+      Fe = Rtn()?.isNative ?? false;
+    if (Z === false && !He && !Fe) return { text: `View teammates: \`tmux -L ${X7e()} a\``, bgColor: Ie };
+    if ((Z === true || He || Fe) && Oe) return { text: `@${Oe.identity.agentName}`, bgColor: Ie };
   }
   let pe = SRe(ue);
   if (pe.type === "named_agent") {
@@ -833,16 +833,16 @@ function jOe(S) {
 function qb(S, x) {
   let P = dE(),
     { storageV5: j, credentials: H } = ge(),
-    [Z, re] = u(!1);
+    [Z, re] = u(false);
   A(() => {
     _Qe();
   }, []),
     A(() => {
-      re(!1);
+      re(false);
     }, [S, x, P]),
     ko(
       () => {
-        if (jOe(D3e)) re(!0), ev({ message: S, notificationType: x }, P, { storageV5: j, credentials: H });
+        if (jOe(D3e)) re(true), ev({ message: S, notificationType: x }, P, { storageV5: j, credentials: H });
       },
       Z ? null : D3e,
     );
@@ -885,10 +885,10 @@ Parse the user's input into ISO 8601 format. Return ONLY the formatted string, o
         options: {
           querySource: "mcp_datetime_parse",
           agents: [],
-          isNonInteractiveSession: !1,
-          hasAppendSystemPrompt: !1,
+          isNonInteractiveSession: false,
+          hasAppendSystemPrompt: false,
           mcpTools: [],
-          enablePromptCaching: !1,
+          enablePromptCaching: false,
           agentContext: _a(),
           credentials: j,
         },
@@ -897,17 +897,17 @@ Parse the user's input into ISO 8601 format. Return ONLY the formatted string, o
     if (!Fe || Fe === "INVALID")
       return (
         p("mcp_elicitation_nl_datetime_parse", "parse_failed"),
-        { success: !1, error: "Unable to parse date/time from input" }
+        { success: false, error: "Unable to parse date/time from input" }
       );
     if (!/^\d{4}/.test(Fe))
       return (
         p("mcp_elicitation_nl_datetime_parse", "parse_failed"),
-        { success: !1, error: "Unable to parse date/time from input" }
+        { success: false, error: "Unable to parse date/time from input" }
       );
-    return y("mcp_elicitation_nl_datetime_parse"), { success: !0, value: Fe };
+    return y("mcp_elicitation_nl_datetime_parse"), { success: true, value: Fe };
   } catch (He) {
     if (!P.aborted) p("mcp_elicitation_nl_datetime_parse", "haiku_error"), h(He);
-    return { success: !1, error: "Unable to parse date/time. Please enter in ISO 8601 format manually." };
+    return { success: false, error: "Unable to parse date/time. Please enter in ISO 8601 format manually." };
   }
 }
 
@@ -1010,7 +1010,7 @@ function WOe(S) {
         break;
       case "date-time":
         x = x.datetime({
-          offset: !0,
+          offset: true,
           message: "Must be a valid date-time, e.g. 2024-03-15T14:30:00Z, tomorrow at 3pm",
         });
         break;
@@ -1043,8 +1043,8 @@ function WOe(S) {
 
 function KD(S, x) {
   let j = WOe(x).safeParse(S);
-  if (j.success) return { value: j.data, isValid: !0 };
-  return { isValid: !1, error: j.error.issues.map((H) => H.message).join("; ") };
+  if (j.success) return { value: j.data, isValid: true };
+  return { isValid: false, error: j.error.issues.map((H) => H.message).join("; ") };
 }
 
 function Ov(S) {
@@ -1257,7 +1257,7 @@ function lae({ event: S, onResponse: x, accepts: P }) {
     );
   }, [H, x]);
   let { setRawMode: st } = XR();
-  qn(() => (st(!0), () => st(!1)), [st]);
+  qn(() => (st(true), () => st(false)), [st]);
   let nt = z(() => {
       let So = PW(ue);
       return wN(ue?.properties).map(([Mo, Qt]) => ({ name: Mo, schema: Qt, isRequired: So.includes(Mo) }));
@@ -1565,7 +1565,7 @@ function lae({ event: S, onResponse: x, accepts: P }) {
       lr = Fe[Jo];
     if (Qt.type === "boolean") {
       if (So.key === " ") {
-        So.preventDefault(), Go(Jo, lr === void 0 ? !0 : !lr);
+        So.preventDefault(), Go(Jo, lr === void 0 ? true : !lr);
         return;
       }
       if (So.key === "return") {
@@ -1619,8 +1619,8 @@ function lae({ event: S, onResponse: x, accepts: P }) {
   }
   function Rn() {
     let So = PW(ue);
-    for (let Mo of So) if (AW(Fe[Mo])) return !1;
-    return !0;
+    for (let Mo of So) if (AW(Fe[Mo])) return false;
+    return true;
   }
   let mr = Ua(),
     Pr = $b() ? 1 : 0,
@@ -1664,8 +1664,8 @@ ${yi}`
       let lr = Qt > 0,
         Nn = Jo < Xr,
         bn = Jo - Qt + (lr ? 1 : 0) + (Nn ? 1 : 0) - So;
-      if (bn > 0 && lr) (lr = !1), bn--;
-      if (bn > 0) Nn = !1;
+      if (bn > 0 && lr) (lr = false), bn--;
+      if (bn > 0) Nn = false;
       return { start: Qt, end: Jo, showAbove: lr, showBelow: Nn };
     }, [Ir, Xr, as, vo]),
     Bs = !Ir || Xr === 0 ? 0 : Li === null ? Xr : Li.end - Li.start + (Li.showAbove ? 1 : 0) + (Li.showBelow ? 1 : 0),
@@ -1756,7 +1756,7 @@ function EW(QOt) {
     YOt = Zx.params,
     { message: Hse, url: _f } = YOt,
     zOe;
-  if (ps[0] !== _f) (zOe = Om(_f, { maxUnits: Dm, softWrap: !0 })), (ps[0] = _f), (ps[1] = zOe);
+  if (ps[0] !== _f) (zOe = Om(_f, { maxUnits: Dm, softWrap: true })), (ps[0] = _f), (ps[1] = zOe);
   else zOe = ps[1];
   let ea = zOe,
     JOe;
@@ -1764,7 +1764,7 @@ function EW(QOt) {
   else JOe = ps[3];
   let ol = JOe,
     ZOe;
-  if (ps[4] !== ol) (ZOe = Om(ol, { maxUnits: Dm, softWrap: !0 })), (ps[4] = ol), (ps[5] = ZOe);
+  if (ps[4] !== ol) (ZOe = Om(ol, { maxUnits: Dm, softWrap: true })), (ps[4] = ol), (ps[5] = ZOe);
   else ZOe = ps[5];
   let Fc = ZOe,
     eFe;
@@ -1804,11 +1804,11 @@ ${eFe}`,
     Kb = "",
     Dg;
   if (ps[15] !== ol) {
-    Dg = !1;
+    Dg = false;
     try {
       fp = new URL(ol).hostname;
       let $se = ol.indexOf(fp);
-      if (fp !== "" && $se !== -1) (Dg = !0), (Gb = ol.slice(0, $se)), (Kb = ol.slice($se + fp.length));
+      if (fp !== "" && $se !== -1) (Dg = true), (Gb = ol.slice(0, $se)), (Kb = ol.slice($se + fp.length));
     } catch {
       fp = ol;
     }
@@ -1819,12 +1819,12 @@ ${eFe}`,
   let cW;
   bb0: {
     if (oFe < 1) {
-      cW = !0;
+      cW = true;
       break bb0;
     }
     let uW = iW - 6;
     if (uW < 20) {
-      cW = !0;
+      cW = true;
       break bb0;
     }
     let Wse = Dg ? ol : Fc.kind === "full" ? Fc.text : ol;
@@ -1859,11 +1859,11 @@ ${eFe}`,
       (ps[26] = nFe);
   else (JD = ps[25]), (nFe = ps[26]);
   A(JD, nFe);
-  let xf = QOe?.showCancel ?? !1,
+  let xf = QOe?.showCancel ?? false,
     { setRawMode: XD } = XR(),
     rFe,
     iFe;
-  if (ps[27] !== XD) (iFe = () => (XD(!0), () => XD(!1))), (rFe = [XD]), (ps[27] = XD), (ps[28] = rFe), (ps[29] = iFe);
+  if (ps[27] !== XD) (iFe = () => (XD(true), () => XD(false))), (rFe = [XD]), (ps[27] = XD), (ps[28] = rFe), (ps[29] = iFe);
   else (rFe = ps[28]), (iFe = ps[29]);
   qn(iFe, rFe), fs("elicitation-url");
   let sFe;
@@ -2018,7 +2018,7 @@ ${eFe}`,
             ? e(zi, {
                 multiline: Fc.kind === "full" && Fc.needsGutter,
                 children: Dg
-                  ? r(t, { children: [Gb, e(t, { bold: !0, children: fp }), Kb] })
+                  ? r(t, { children: [Gb, e(t, { bold: true, children: fp }), Kb] })
                   : e(t, { children: Fc.kind === "full" ? Fc.text : null }),
               })
             : e(zi, {
@@ -2043,7 +2043,7 @@ ${eFe}`,
     if (ps[77] === d)
       (Vv = e(o, {
         marginBottom: 1,
-        children: e(t, { dimColor: !0, italic: !0, children: "Waiting for the server to confirm completion\u2026" }),
+        children: e(t, { dimColor: true, italic: true, children: "Waiting for the server to confirm completion\u2026" }),
       })),
         (ps[77] = Vv);
     else Vv = ps[77];
@@ -2124,7 +2124,7 @@ ${eFe}`,
         subtitle: tP,
         color: "permission",
         onCancel: vy,
-        isCancelActive: !0,
+        isCancelActive: true,
         inputGuide: tN,
         children: bW,
       })),
@@ -2174,7 +2174,7 @@ ${eFe}`,
           ? e(zi, {
               multiline: Fc.kind === "full" && Fc.needsGutter,
               children: Dg
-                ? r(t, { children: [Gb, e(t, { bold: !0, children: fp }), Kb] })
+                ? r(t, { children: [Gb, e(t, { bold: true, children: fp }), Kb] })
                 : e(t, { children: Fc.kind === "full" ? Fc.text : null }),
             })
           : e(zi, {
@@ -2202,7 +2202,7 @@ ${eFe}`,
       e(o, {
         marginBottom: 1,
         children: e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: Mg
             ? "This URL\u2019s browser-ready form is too long to hand to a browser safely, so one-click opening is disabled. The URL above is shown in full. Decline to continue."
             : "This URL cannot be shown exactly as it would open, so opening it is disabled. Decline to continue.",
@@ -2220,7 +2220,7 @@ ${eFe}`,
       e(o, {
         marginBottom: 1,
         children: e(t, {
-          dimColor: !0,
+          dimColor: true,
           children:
             "This URL extends past this screen \u2014 its beginning is not visible here. Review it in full before accepting.",
         }),
@@ -2284,7 +2284,7 @@ ${eFe}`,
       subtitle: tP,
       color: "permission",
       onCancel: vy,
-      isCancelActive: !0,
+      isCancelActive: true,
       inputGuide: tN,
       children: tk,
     })),
@@ -2327,7 +2327,7 @@ function dae(iFt) {
   if (hN[0] !== zse || hN[1] !== lu.start)
     (CW =
       zse &&
-      e(o, { marginLeft: 2, children: r(t, { dimColor: !0, children: [L.arrowUp, " ", lu.start, " more above"] }) })),
+      e(o, { marginLeft: 2, children: r(t, { dimColor: true, children: [L.arrowUp, " ", lu.start, " more above"] }) })),
       (hN[0] = zse),
       (hN[1] = lu.start),
       (hN[2] = CW);
@@ -2401,13 +2401,13 @@ function dae(iFt) {
           let Zse = by(Bc);
           let eae = Array.isArray(km) ? km : [];
           if (nP === Xv && gp) {
-            hp = e(t, { dimColor: !0, children: L.triangleDownSmall });
-            let Zv = iP ?? { start: 0, end: Zse.length, showAbove: !1, showBelow: !1 };
+            hp = e(t, { dimColor: true, children: L.triangleDownSmall });
+            let Zv = iP ?? { start: 0, end: Zse.length, showAbove: false, showBelow: false };
             Xse = r(o, {
               flexDirection: "column",
               marginLeft: 6,
               children: [
-                Zv.showAbove && r(t, { dimColor: !0, children: [L.arrowUp, " ", Zv.start, " more above"] }),
+                Zv.showAbove && r(t, { dimColor: true, children: [L.arrowUp, " ", Zv.start, " more above"] }),
                 Zse.slice(Zv.start, Zv.end).map((wW, dFt) => {
                   let mFt = Zv.start + dFt;
                   let pFt = td ? rt(Lg(Pg(Bc, wW)), bFe) : Lg(Pg(Bc, wW));
@@ -2427,26 +2427,26 @@ function dae(iFt) {
                   );
                 }),
                 Zv.showBelow &&
-                  r(t, { dimColor: !0, children: [L.arrowDown, " ", Zse.length - Zv.end, " ", "more below"] }),
+                  r(t, { dimColor: true, children: [L.arrowDown, " ", Zse.length - Zv.end, " ", "more below"] }),
               ],
             });
           } else {
-            let CFe = gp ? r(t, { dimColor: !0, children: [L.triangleRightSmall, " "] }) : null;
+            let CFe = gp ? r(t, { dimColor: true, children: [L.triangleRightSmall, " "] }) : null;
             if (eae.length > 0) {
               let vFe = eae.map((fFt) => Lg(Pg(Bc, fFt))).join(", ");
               hp = r(t, { children: [CFe, e(t, { color: kN, bold: gp, children: td ? rt(vFe, CN) : vFe })] });
-            } else hp = r(t, { children: [CFe, e(t, { dimColor: !0, italic: !0, children: "not set" })] });
+            } else hp = r(t, { children: [CFe, e(t, { dimColor: true, italic: true, children: "not set" })] });
           }
         } else if (bm(Bc)) {
           let nae = Cy(Bc);
           if (nP === Xv && gp) {
-            hp = e(t, { dimColor: !0, children: L.triangleDownSmall });
-            let tw = iP ?? { start: 0, end: nae.length, showAbove: !1, showBelow: !1 };
+            hp = e(t, { dimColor: true, children: L.triangleDownSmall });
+            let tw = iP ?? { start: 0, end: nae.length, showAbove: false, showBelow: false };
             Xse = r(o, {
               flexDirection: "column",
               marginLeft: 6,
               children: [
-                tw.showAbove && r(t, { dimColor: !0, children: [L.arrowUp, " ", tw.start, " more above"] }),
+                tw.showAbove && r(t, { dimColor: true, children: [L.arrowUp, " ", tw.start, " more above"] }),
                 nae.slice(tw.start, tw.end).map((TW, gFt) => {
                   let hFt = tw.start + gFt;
                   let yFt = td ? rt(Lg(pp(Bc, TW)), bFe) : Lg(pp(Bc, TW));
@@ -2466,26 +2466,26 @@ function dae(iFt) {
                   );
                 }),
                 tw.showBelow &&
-                  r(t, { dimColor: !0, children: [L.arrowDown, " ", nae.length - tw.end, " ", "more below"] }),
+                  r(t, { dimColor: true, children: [L.arrowDown, " ", nae.length - tw.end, " ", "more below"] }),
               ],
             });
           } else {
-            let TFe = gp ? r(t, { dimColor: !0, children: [L.triangleRightSmall, " "] }) : null;
+            let TFe = gp ? r(t, { dimColor: true, children: [L.triangleRightSmall, " "] }) : null;
             if (ik)
               hp = r(t, {
                 children: [TFe, e(t, { color: kN, bold: gp, children: td ? rt(Lg(pp(Bc, km)), CN) : Lg(pp(Bc, km)) })],
               });
-            else hp = r(t, { children: [TFe, e(t, { dimColor: !0, italic: !0, children: "not set" })] });
+            else hp = r(t, { children: [TFe, e(t, { dimColor: true, italic: true, children: "not set" })] });
           }
         } else if (Bc.type === "boolean") {
           if (gp)
             hp = ik
-              ? e(t, { color: kN, bold: !0, children: km ? L.checkboxOn : L.checkboxOff })
-              : e(t, { dimColor: !0, children: L.checkboxOff });
+              ? e(t, { color: kN, bold: true, children: km ? L.checkboxOn : L.checkboxOff })
+              : e(t, { dimColor: true, children: L.checkboxOff });
           else
             hp = ik
               ? e(t, { children: km ? L.checkboxOn : L.checkboxOff })
-              : e(t, { dimColor: !0, italic: !0, children: "not set" });
+              : e(t, { dimColor: true, italic: true, children: "not set" });
         } else if (rw(Bc)) {
           if (gp)
             hp = e(xn, {
@@ -2497,21 +2497,21 @@ function dae(iFt) {
               maxVisibleLines: td ? 1 : void 0,
               cursorOffset: mN,
               onChangeCursorOffset: pN,
-              focus: !0,
-              showCursor: !0,
+              focus: true,
+              showCursor: true,
             });
           else {
             let SFt = ik && Ov(Bc) ? aae(String(km), Bc) : String(km);
             let _Fe = Od(Bo(Hs(SFt)));
             hp = ik
               ? e(t, { children: td ? rt(_Fe, CN) : _Fe })
-              : e(t, { dimColor: !0, italic: !0, children: "not set" });
+              : e(t, { dimColor: true, italic: true, children: "not set" });
           }
         } else {
           let RFe = Od(Bo(Hs(String(km))));
           hp = ik
             ? e(t, { children: td ? rt(RFe, CN) : RFe })
-            : e(t, { dimColor: !0, italic: !0, children: "not set" });
+            : e(t, { dimColor: true, italic: true, children: "not set" });
         }
         let _W = Bc.description ? es(Bc.description) : null;
         return r(
@@ -2532,8 +2532,8 @@ function dae(iFt) {
                 e(o, {
                   marginLeft: 6,
                   children: td
-                    ? e(t, { dimColor: !0, children: rt(Bo(_W.text), Math.max(jj, Ng - 6 - Bj)) })
-                    : e(zi, { multiline: _W.needsGutter, children: e(t, { dimColor: !0, children: _W.text }) }),
+                    ? e(t, { dimColor: true, children: rt(Bo(_W.text), Math.max(jj, Ng - 6 - Bj)) })
+                    : e(zi, { multiline: _W.needsGutter, children: e(t, { dimColor: true, children: _W.text }) }),
                 }),
               e(o, {
                 marginLeft: 6,
@@ -2541,7 +2541,7 @@ function dae(iFt) {
                 children: bN
                   ? e(t, {
                       color: "error",
-                      italic: !0,
+                      italic: true,
                       children: td ? rt(Bo(es(bN).text), Math.max(jj, Ng - 6 - Bj)) : Bo(es(bN).text),
                     })
                   : e(t, { children: " " }),
@@ -2596,7 +2596,7 @@ function dae(iFt) {
       Jse &&
       e(o, {
         marginLeft: 2,
-        children: r(t, { dimColor: !0, children: [L.arrowDown, " ", ok.length - lu.end, " more below"] }),
+        children: r(t, { dimColor: true, children: [L.arrowDown, " ", ok.length - lu.end, " more below"] }),
       })),
       (hN[39] = Jse),
       (hN[40] = ok.length),
@@ -2627,7 +2627,7 @@ function TN(PFt) {
   let yae = DFe;
   const Sae = `@${NW}`;
   let LW;
-  if (hae[2] !== NW) (LW = r(t, { bold: !0, children: ["@", NW] })), (hae[2] = NW), (hae[3] = LW);
+  if (hae[2] !== NW) (LW = r(t, { bold: true, children: ["@", NW] })), (hae[2] = NW), (hae[3] = LW);
   else LW = hae[3];
   let NFe;
   if (hae[4] !== yae || hae[5] !== Sae || hae[6] !== LW)
@@ -2662,7 +2662,7 @@ function lw(FFt) {
     WFe;
   if (Af[3] === d)
     (WFe = r(o, {
-      children: [e(wo, {}), r(t, { bold: !0, color: "warning", children: [" ", "Waiting for team lead approval"] })],
+      children: [e(wo, {}), r(t, { bold: true, color: "warning", children: [" ", "Waiting for team lead approval"] })],
     })),
       (Af[3] = WFe);
   else WFe = Af[3];
@@ -2671,13 +2671,13 @@ function lw(FFt) {
     (qFe = UFe && $Fe && e(o, { marginBottom: 1, children: e(TN, { name: UFe, color: $Fe }) })), (Af[4] = qFe);
   else qFe = Af[4];
   let VFe;
-  if (Af[5] === d) (VFe = e(t, { dimColor: !0, children: "Tool: " })), (Af[5] = VFe);
+  if (Af[5] === d) (VFe = e(t, { dimColor: true, children: "Tool: " })), (Af[5] = VFe);
   else VFe = Af[5];
   let OW;
   if (Af[6] !== bae) (OW = r(o, { children: [VFe, e(t, { children: bae })] })), (Af[6] = bae), (Af[7] = OW);
   else OW = Af[7];
   let GFe;
-  if (Af[8] === d) (GFe = e(t, { dimColor: !0, children: "Action: " })), (Af[8] = GFe);
+  if (Af[8] === d) (GFe = e(t, { dimColor: true, children: "Action: " })), (Af[8] = GFe);
   else GFe = Af[8];
   let FW;
   if (Af[9] !== kae) (FW = r(o, { children: [GFe, e(t, { children: kae })] })), (Af[9] = kae), (Af[10] = FW);
@@ -2688,7 +2688,7 @@ function lw(FFt) {
       OFe &&
       e(o, {
         marginTop: 1,
-        children: r(t, { dimColor: !0, children: ["Permission request sent to team ", '"', OFe, '"', " leader"] }),
+        children: r(t, { dimColor: true, children: ["Permission request sent to team ", '"', OFe, '"', " leader"] }),
       })),
       (Af[11] = KFe);
   else KFe = Af[11];
@@ -2821,7 +2821,7 @@ function PN(S) {
 function Tae({ scheduledAgents: S, startedAgents: x, totalTokens: P, ultracodeActive: j }) {
   if (j) return;
   let H = I("tengu_ochre_gantry", {});
-  if (H?.enabled === !1) return;
+  if (H?.enabled === false) return;
   let Z = Ete(ie().workflowSizeGuideline),
     re = Z.isDefault ? void 0 : DVn(Z.size),
     ue = PN(a.CLAUDE_CODE_WORKFLOW_SIZE_WARNING_AGENTS),
@@ -2868,7 +2868,7 @@ function cUe(hUt) {
 }
 
 function uUe(yUt) {
-  return yUt.idleTeammatesExpanded ?? !1;
+  return yUt.idleTeammatesExpanded ?? false;
 }
 
 function dUe(Iae) {
@@ -2888,7 +2888,7 @@ function gUe(_Ut) {
 }
 
 function yUe(RUt) {
-  return RUt.idleTeammatesExpanded ?? !1;
+  return RUt.idleTeammatesExpanded ?? false;
 }
 
 var ole = 5,
@@ -2910,7 +2910,7 @@ function BN(S) {
     nT(S) &&
     S.isBackgrounded &&
     !gd(S) &&
-    S.quietlyParked !== !0 &&
+    S.quietlyParked !== true &&
     [...(S.keepaliveReasons ?? [])].every((x) => x === sF)
   );
 }
@@ -3036,7 +3036,7 @@ function tUe(S, x) {
   return P;
 }
 
-function od(S, x, P, j = !1) {
+function od(S, x, P, j = false) {
   let H = XBe(S, P).filter((Re) => x[Re.id]?.content !== "");
   if (j) return H;
   let Z = H.filter((Re) => ale(Re, P)).map((Re) => Re.id);
@@ -3044,10 +3044,10 @@ function od(S, x, P, j = !1) {
   let re = Z.slice(aq),
     ue = new Set(re),
     de = [],
-    pe = !1;
+    pe = false;
   for (let Re of H)
     if (!ue.has(Re.id)) de.push(Re);
-    else if (!pe) (pe = !0), de.push({ type: "idle_summary", id: QBe, taskIds: re });
+    else if (!pe) (pe = true), de.push({ type: "idle_summary", id: QBe, taskIds: re });
   return de;
 }
 
@@ -3139,7 +3139,7 @@ function nUe(S, x, P, j) {
   };
 }
 
-function dq({ showWorkflows: S = !1 } = {}) {
+function dq({ showWorkflows: S = false } = {}) {
   let x = W((xo) => xo.tasks),
     P = Oc(),
     j = Kf(),
@@ -3155,7 +3155,7 @@ function dq({ showWorkflows: S = !1 } = {}) {
     Oe = W((xo) => xo.footerSelection === "tasks"),
     Ie = W((xo) => xo.footerSelection === "workflows"),
     He = W((xo) => xo.workflowFooterIndex),
-    Fe = W((xo) => xo.idleTeammatesExpanded ?? !1),
+    Fe = W((xo) => xo.idleTeammatesExpanded ?? false),
     Ve = Oe ? Pe : void 0,
     Ke = At(),
     ot = Vf(),
@@ -3204,14 +3204,14 @@ function dq({ showWorkflows: S = !1 } = {}) {
   ko(
     () => {
       let xo = Date.now(),
-        dn = !1,
+        dn = false,
         Xo = [],
         zo = rdt(x),
         en = [];
       for (let un of Object.values(x)) {
         if (un.type === "local_workflow") {
           if (un.status === "running") {
-            if (S) dn = !0;
+            if (S) dn = true;
           } else if ((un.evictAfter ?? 1 / 0) <= xo) ot.evictTerminal(un.id);
           continue;
         }
@@ -3220,7 +3220,7 @@ function dq({ showWorkflows: S = !1 } = {}) {
           if (un.evictAfter !== void 0 && un.evictAfter <= xo) ot.evictTerminal(un.id);
         } else if (zo && un.isIdle && un.evictAfter !== void 0 && un.evictAfter > 0) en.push(un.id);
         else if (un.evictAfter !== void 0 && un.evictAfter > 0 && un.evictAfter <= xo) Xo.push(un.id);
-        else if (!Wj(un.status) && !un.isIdle) dn = !0;
+        else if (!Wj(un.status) && !un.isIdle) dn = true;
       }
       if (Xo.length > 0 || en.length > 0)
         Ke((un) => {
@@ -3275,7 +3275,7 @@ function dq({ showWorkflows: S = !1 } = {}) {
         un = re - mP - en,
         Uo = un >= se(ZW) ? ZW : un >= se(t1) ? t1 : un >= se(o1) ? o1 : void 0;
       if (Uo === void 0) return xo;
-      let Rn = [...xo.statusSegments, { text: Uo, warn: !0 }];
+      let Rn = [...xo.statusSegments, { text: Uo, warn: true }];
       return { ...xo, statusSegments: Rn, statusText: Rn.map((mr) => mr.text).join(" \xB7 ") };
     }),
     tn = ue.getState().transcripts,
@@ -3312,7 +3312,7 @@ function dq({ showWorkflows: S = !1 } = {}) {
             {
               count: xo.taskIds.length,
               isSelected: Ve === Xo + 1,
-              onClick: () => Ke((Pr) => (Pr.idleTeammatesExpanded ? Pr : { ...Pr, idleTeammatesExpanded: !0 })),
+              onClick: () => Ke((Pr) => (Pr.idleTeammatesExpanded ? Pr : { ...Pr, idleTeammatesExpanded: true })),
             },
             xo.id,
           );
@@ -3351,7 +3351,7 @@ function dq({ showWorkflows: S = !1 } = {}) {
       nt.length > ole &&
         e(o, {
           justifyContent: "flex-start",
-          children: e(t, { dimColor: !0, children: jo > 0 ? `  ${mR} ${jo} more` : " " }),
+          children: e(t, { dimColor: true, children: jo > 0 ? `  ${mR} ${jo} more` : " " }),
         }),
       kt.map((xo, dn) =>
         e(
@@ -3443,7 +3443,7 @@ function fq() {
   }
   let sk;
   if (Aae[11] !== aP)
-    (sk = aP !== void 0 ? e(t, { dimColor: !0, wrap: "truncate", children: aP }) : null),
+    (sk = aP !== void 0 ? e(t, { dimColor: true, wrap: "truncate", children: aP }) : null),
       (Aae[11] = aP),
       (Aae[12] = sk);
   else sk = Aae[12];
@@ -3468,13 +3468,13 @@ function yw() {
 function cle(PUt) {
   let EN = _(16),
     { isSelected: lBe, isViewed: IN, labelWidth: AUt, moreAbove: uBe, onClick: Nae } = PUt,
-    [mBe, pBe] = u(!1),
+    [mBe, pBe] = u(false),
     Lae = lBe || mBe ? L.pointer + " " : "  ",
     Oae = IN ? vr : L.circle,
     l1 = uBe > 0 ? `${qH} ${uBe} more` : "",
     fBe,
     gBe;
-  if (EN[0] === d) (fBe = () => pBe(!0)), (gBe = () => pBe(!1)), (EN[0] = fBe), (EN[1] = gBe);
+  if (EN[0] === d) (fBe = () => pBe(true)), (gBe = () => pBe(false)), (EN[0] = fBe), (EN[1] = gBe);
   else (fBe = EN[0]), (gBe = EN[1]);
   const Fae = AUt + vm(),
     Bae = !lBe && !IN && !mBe;
@@ -3492,7 +3492,7 @@ function cle(PUt) {
     (m1 = e(o, { width: Fae, flexShrink: 0, children: d1 })), (EN[7] = Fae), (EN[8] = d1), (EN[9] = m1);
   else m1 = EN[9];
   let g1;
-  if (EN[10] !== l1) (g1 = l1 && e(t, { dimColor: !0, children: l1 })), (EN[10] = l1), (EN[11] = g1);
+  if (EN[10] !== l1) (g1 = l1 && e(t, { dimColor: true, children: l1 })), (EN[10] = l1), (EN[11] = g1);
   else g1 = EN[11];
   let yBe;
   if (EN[12] !== Nae || EN[13] !== m1 || EN[14] !== g1)
@@ -3527,7 +3527,7 @@ function ule(MUt) {
       descendantSuffix: S1,
       onClick: lP,
     } = MUt,
-    [LUt, b1] = u(!1),
+    [LUt, b1] = u(false),
     { elapsed: Ay, tokenText: My, queuedText: jae, queuedCount: cP } = DUt,
     Hae = xy.progress?.summary || xy.description,
     SBe = NUt || LUt,
@@ -3569,7 +3569,7 @@ function ule(MUt) {
     Vae = Math.max(0, EUt - vBe);
   if (y1?.content !== void 0) {
     let NN, ON;
-    if (rl[20] === d) (NN = () => b1(!0)), (ON = () => b1(!1)), (rl[20] = NN), (rl[21] = ON);
+    if (rl[20] === d) (NN = () => b1(true)), (ON = () => b1(false)), (rl[20] = NN), (rl[21] = ON);
     else (NN = rl[20]), (ON = rl[21]);
     let Dy;
     if (rl[22] !== uP || rl[23] !== dP)
@@ -3601,7 +3601,7 @@ function ule(MUt) {
     return mw;
   }
   let NN, ON;
-  if (rl[35] === d) (NN = () => b1(!0)), (ON = () => b1(!1)), (rl[35] = NN), (rl[36] = ON);
+  if (rl[35] === d) (NN = () => b1(true)), (ON = () => b1(false)), (rl[35] = NN), (rl[36] = ON);
   else (NN = rl[35]), (ON = rl[36]);
   let Dy;
   if (rl[37] !== uP || rl[38] !== dP)
@@ -3612,7 +3612,7 @@ function ule(MUt) {
   if (rl[40] !== h1 || rl[41] !== xy) (Ny = h1 ?? lq(xy)), (rl[40] = h1), (rl[41] = xy), (rl[42] = Ny);
   else Ny = rl[42];
   let mw;
-  if (rl[43] !== S1) (mw = S1 && e(t, { dimColor: !0, children: S1 })), (rl[43] = S1), (rl[44] = mw);
+  if (rl[43] !== S1) (mw = S1 && e(t, { dimColor: true, children: S1 })), (rl[43] = S1), (rl[44] = mw);
   else mw = rl[44];
   let R1;
   if (rl[45] !== ec || rl[46] !== mk || rl[47] !== Ny || rl[48] !== mw)
@@ -3695,13 +3695,13 @@ function ule(MUt) {
 function mle(OUt) {
   let fw = _(18),
     { count: xBe, isSelected: FUt, onClick: Qae } = OUt,
-    [BUt, ABe] = u(!1),
+    [BUt, ABe] = u(false),
     EBe = FUt || BUt,
     zae = EBe ? L.pointer + " " : "  ",
     Ly = !EBe,
     LBe,
     BBe;
-  if (fw[0] === d) (LBe = () => ABe(!0)), (BBe = () => ABe(!1)), (fw[0] = LBe), (fw[1] = BBe);
+  if (fw[0] === d) (LBe = () => ABe(true)), (BBe = () => ABe(false)), (fw[0] = LBe), (fw[1] = BBe);
   else (LBe = fw[0]), (BBe = fw[1]);
   let UBe;
   if (fw[2] === d) (UBe = vm()), (fw[2] = UBe);
@@ -3736,14 +3736,14 @@ function mle(OUt) {
 function ple(UUt) {
   let Cm = _(38),
     { parts: Og, labelWidth: Jae, statusWidth: Xae, isSelected: jUt, onClick: Zae } = UUt,
-    [HUt, HBe] = u(!1),
+    [HUt, HBe] = u(false),
     $Be = jUt || HUt,
     ele = $Be ? L.pointer + " " : "  ",
     j1 = Og.bulletColor,
     Hc = !$Be,
     WBe,
     qBe;
-  if (Cm[0] === d) (WBe = () => HBe(!0)), (qBe = () => HBe(!1)), (Cm[0] = WBe), (Cm[1] = qBe);
+  if (Cm[0] === d) (WBe = () => HBe(true)), (qBe = () => HBe(false)), (Cm[0] = WBe), (Cm[1] = qBe);
   else (WBe = Cm[0]), (qBe = Cm[1]);
   let VBe;
   if (Cm[2] === d) (VBe = vm()), (Cm[2] = VBe);
@@ -3793,7 +3793,7 @@ function ple(UUt) {
           t,
           {
             color: iq.warn ? "warning" : void 0,
-            dimColor: iq.warn ? !1 : Hc,
+            dimColor: iq.warn ? false : Hc,
             children: [GBe > 0 ? " \xB7 " : "", iq.text],
           },
           `${GBe}-${iq.text}`,
@@ -3898,7 +3898,7 @@ function bq(S) {
       isBackgroundTasksDialogVisible: j,
       screen: H,
       abortSignal: Z,
-      isExternalLoading: re = !1,
+      isExternalLoading: re = false,
       popCommandFromQueue: ue,
       isInputOverlayActive: de,
       isVimEditing: pe,
@@ -3923,7 +3923,7 @@ function bq(S) {
     to = aX(),
     so = c1().phase,
     jt = zQ(so),
-    Gt = jt && be === !0,
+    Gt = jt && be === true,
     vo = so === "armed" || so === "stale",
     qt = W((dn) => Object.values(dn.tasks).some(Sle)),
     lo = W((dn) => Object.values(dn.tasks).some(R6e)),
@@ -3931,7 +3931,7 @@ function bq(S) {
     ao = B(() => {
       let dn = Oe.getState().tasks,
         Xo = Object.entries(dn).filter(([, un]) => hq(un));
-      if (Xo.length === 0) return !1;
+      if (Xo.length === 0) return false;
       for (let [un, Uo] of Xo) if ((XL(un, Fe), Cr(Uo) && !gd(Uo))) WG(un, Fe, Ke);
       Wqn(dn, Fe, "user");
       for (let [un, Uo] of Xo) if (Uo.type === "in_process_teammate") Odt(un, Fe, Ie, Ke);
@@ -3941,19 +3941,19 @@ function bq(S) {
         if ((zo.push(Uo.description), Uo.type === "in_process_teammate")) continue;
         ys(un, "stopped", { toolUseId: Uo.toolUseId, summary: Uo.description });
       }
-      if (zo.length === 0) return P(), !0;
+      if (zo.length === 0) return P(), true;
       let en =
         zo.length === 1
           ? `Background agent "${zo[0]}" was stopped by the user.`
           : `${zo.length} background agents were stopped by the user: ${zo.map((un) => `"${un}"`).join(", ")}.`;
       return (
-        ot.enqueuePendingNotification({ agentId: et(), value: en, mode: "task-notification", skipAttachments: !0 }),
+        ot.enqueuePendingNotification({ agentId: et(), value: en, mode: "task-notification", skipAttachments: true }),
         P(),
-        !0
+        true
       );
     }, [Oe, P, Fe, Ie, ot, Ke]),
     jo = B(
-      ({ gesture: dn, suppressBackgroundAgentKill: Xo = !1, pressLandedOnWork: zo = !1 }) => {
+      ({ gesture: dn, suppressBackgroundAgentKill: Xo = false, pressLandedOnWork: zo = false }) => {
         let en = Gy(at(), lt),
           un = Pe?.(),
           Uo = {
@@ -3967,34 +3967,34 @@ function bq(S) {
         let mr = XQ() === "",
           Pr = !Xo || mr,
           Ir = Qke() && Pr,
-          An = !1;
-        if (Ir) UN(nt, dn), (An = !0);
-        if (n1n() && Pr) UN(nt, dn), (An = !0);
-        if ((Z !== void 0 && !Z.aborted) || re) return (Ht.current = Date.now()), s("tengu_cancel", Uo), x(), !0;
+          An = false;
+        if (Ir) UN(nt, dn), (An = true);
+        if (n1n() && Pr) UN(nt, dn), (An = true);
+        if ((Z !== void 0 && !Z.aborted) || re) return (Ht.current = Date.now()), s("tengu_cancel", Uo), x(), true;
         let Kn = Object.values(Oe.getState().tasks).some(R6e),
           Tn = ot.getCommandQueueSnapshot().some(idt),
           tr = !Xo && (qt || Kn || Tn || k6e()),
           hi = u9n(ot, mr) && ue !== void 0,
           ti = Rn > 0,
           pr = tr || hi || ti || zo || Z !== void 0 || Date.now() - Ht.current < SUe;
-        if (vo && !An && !pr && Pr) UN(nt, dn), (An = !0);
-        if (hi && ue) return ue(), !0;
+        if (vo && !An && !pr && Pr) UN(nt, dn), (An = true);
+        if (hi && ue) return ue(), true;
         if (!Xo && Tn && !qt && !Kn && !k6e())
           return (
-            JW(), PIe(), pD(0, FG(ot), { passive: !0 }), (Ht.current = Date.now()), s("tengu_cancel", Uo), An || ti
+            JW(), PIe(), pD(0, FG(ot), { passive: true }), (Ht.current = Date.now()), s("tengu_cancel", Uo), An || ti
           );
         let yi = Object.values(Oe.getState().tasks).some(Sle);
         if (!Xo && (qt || Kn || k6e())) {
-          let Ki = Mq(Fe, { durable: !1 }),
+          let Ki = Mq(Fe, { durable: false }),
             Wi = FG(ot);
-          pD(Ki, Wi, { nameChordGesture: !0, passive: !0 });
+          pD(Ki, Wi, { nameChordGesture: true, passive: true });
           let Rs = ao();
           if (Rs || yi || Ki > 0 || Wi.length > 0)
             return (Ht.current = Date.now()), s("tengu_cancel", Uo), Rs || yi || An || ti;
         }
-        if (An) return !0;
-        if (x() === !1 && !ti) return !1;
-        return s("tengu_cancel", Uo), !0;
+        if (An) return true;
+        if (x() === false && !ti) return false;
+        return s("tengu_cancel", Uo), true;
       },
       [Z, re, ue, x, Pe, lt, qt, ao, Oe, He, Fe, nt, ot, Ke, vo],
     ),
@@ -4011,8 +4011,8 @@ function bq(S) {
   Be(
     "chat:cancel",
     () => {
-      if (Oe.getState().queueEditIndex !== null) return !1;
-      jo({ gesture: "escape", suppressBackgroundAgentKill: !0 });
+      if (Oe.getState().queueEditIndex !== null) return false;
+      jo({ gesture: "escape", suppressBackgroundAgentKill: true });
     },
     { context: "Chat", isActive: pn },
   );
@@ -4023,10 +4023,10 @@ function bq(S) {
         en = gu(zo);
       if (en) (Ht.current = Date.now()), Sw(zo, Fe, Ie, { session: Ve, storageV5: Ke });
       if ((jU(Ie), Yt || No || to || Gt))
-        jo({ gesture: "ctrl_c", suppressBackgroundAgentKill: !0, pressLandedOnWork: en });
+        jo({ gesture: "ctrl_c", suppressBackgroundAgentKill: true, pressLandedOnWork: en });
       return;
     }
-    if (!jo({ gesture: "ctrl_c" })) return !1;
+    if (!jo({ gesture: "ctrl_c" })) return false;
   }, [tn, Oe, Fe, Ve, Ie, Ke, Yt, No, to, Gt, jo]);
   Be("app:interrupt", Oo, { context: "Global", isActive: Go });
   let xo = B(() => {
@@ -4059,7 +4059,7 @@ function bq(S) {
       if (Tn) {
         if (Qke()) UN(nt, "kill_agents_chord");
         let pr = ot.clearCommandQueue({ reason: "cleared_on_cancel" });
-        (Kn = sdt(pr)), CDe(pr, Ke, { armUndo: !1 });
+        (Kn = sdt(pr)), CDe(pr, Ke, { armUndo: false });
       }
       let tr = $9n(Ve, Ke);
       gq?.stopAllLiveDocWatches(), van();
@@ -4089,11 +4089,11 @@ ${Wt(
 )}`,
           }),
           mode: "task-notification",
-          skipAttachments: !0,
+          skipAttachments: true,
           origin: {
             kind: "task-notification",
             source: "artifact-auto-react-stop-disclosure",
-            ...(Wr.length > 0 && { carriesDiscardRecord: !0 }),
+            ...(Wr.length > 0 && { carriesDiscardRecord: true }),
           },
         });
       if ((adt(ot, Kn, ti), !ao() && tr)) P();
@@ -4148,7 +4148,7 @@ function jN(dHt) {
     for (const TUe of Tle) {
       let fHt = TUe.slice(8);
       _le[TUe] = () => {
-        Cle(`/${fHt}`, jy, { fromKeybinding: !0 });
+        Cle(`/${fHt}`, jy, { fromKeybinding: true });
       };
     }
     (vq[3] = Tle), (vq[4] = Cle), (vq[5] = _le);
@@ -4366,7 +4366,7 @@ function VN(v$t) {
   let Fq = YUe,
     Hle = Oq,
     JUe = Sp ? !Sp.enforced : !CG(Cw, vw);
-  if (JUe || !1) {
+  if (JUe || false) {
     let Ug;
     if (SP[6] !== vw || SP[7] !== Cw || SP[8] !== Sp)
       (Ug = Sp ? Sp.effectiveWindow : K1(Cw, vw)), (SP[6] = vw), (SP[7] = Cw), (SP[8] = Sp), (SP[9] = Ug);
@@ -4382,7 +4382,7 @@ function VN(v$t) {
   if (T$t) {
     const Ug = Fq ? `${XUe} \xB7 ${Fq}` : XUe;
     let pk;
-    if (SP[13] !== Ug) (pk = e(t, { dimColor: !0, wrap: "truncate", children: Ug })), (SP[13] = Ug), (SP[14] = pk);
+    if (SP[13] !== Ug) (pk = e(t, { dimColor: true, wrap: "truncate", children: Ug })), (SP[13] = Ug), (SP[14] = pk);
     else pk = SP[14];
     return pk;
   }
@@ -4431,14 +4431,14 @@ function jq({ withSeparator: S }) {
     be = Math.floor(Re / $le) % GN;
   if (!P || ue === null) return null;
   let Pe = Z.now() - ue.clockStart,
-    Oe = Pe < 1000 ? "" : ` (${$t(Pe, { mostSignificantOnly: !0 })})`;
+    Oe = Pe < 1000 ? "" : ` (${$t(Pe, { mostSignificantOnly: true })})`;
   return r(o, {
     flexShrink: 0,
     children: [
-      S ? e(t, { dimColor: !0, children: " \xB7 " }) : null,
+      S ? e(t, { dimColor: true, children: " \xB7 " }) : null,
       r(t, {
         color: pe?.[be] ?? "permission",
-        children: [r(t, { "aria-hidden": !0, children: [nYe, " "] }), "/goal active", Oe],
+        children: [r(t, { "aria-hidden": true, children: [nYe, " "] }), "/goal active", Oe],
       }),
     ],
   });
@@ -4559,8 +4559,8 @@ function Pw(FWt) {
       isInputWrapped: wje,
       hasStash: Tje,
     } = FWt,
-    jWt = wje === void 0 ? !1 : wje,
-    qq = Tje === void 0 ? !1 : Tje,
+    jWt = wje === void 0 ? false : wje,
+    qq = Tje === void 0 ? false : Tje,
     _w = Xe(BWt),
     jg = Xe(UWt, m3e),
     Rw = Oc(),
@@ -4619,7 +4619,7 @@ function Pw(FWt) {
             key: "external-editor-hint",
             kind: "hint",
             jsx: e(t, {
-              dimColor: !0,
+              dimColor: true,
               children: e(ze, {
                 action: "chat:externalEditor",
                 context: "Chat",
@@ -4658,7 +4658,7 @@ function Pw(FWt) {
           priority: "medium",
           timeoutMs: 18000000,
           fold: THe,
-          exemptFromDiffPanelHold: !0,
+          exemptFromDiffPanelHold: true,
         });
       else Sk("token-warning");
     }),
@@ -4675,7 +4675,7 @@ function Pw(FWt) {
   else (Vje = Wg[22]), (Gje = Wg[23]);
   A(Vje, Gje);
   let zq = Boolean(HWt || (Fje && !jje) || _w === "invalid" || _w === "missing" || Wq || $q);
-  const nce = Fje ?? !1;
+  const nce = Fje ?? false;
   let Xq;
   if (
     Wg[24] !== _w ||
@@ -4718,8 +4718,8 @@ function Pw(FWt) {
       r(o, {
         flexShrink: 0,
         children: [
-          e(t, { dimColor: !0, children: zq ? " \xB7 " : " " }),
-          r(t, { dimColor: !0, children: [L.pointerSmall, " stashed"] }),
+          e(t, { dimColor: true, children: zq ? " \xB7 " : " " }),
+          r(t, { dimColor: true, children: [L.pointerSmall, " stashed"] }),
         ],
       })),
       (Wg[32] = zq),
@@ -4818,7 +4818,7 @@ function pV(QWt) {
   let xw;
   if (nd[9] !== sce || nd[10] !== ace)
     (xw =
-      sce && !ace && e(o, { children: e(t, { dimColor: !0, wrap: "truncate", children: "Now using usage credits" }) })),
+      sce && !ace && e(o, { children: e(t, { dimColor: true, wrap: "truncate", children: "Now using usage credits" }) })),
       (nd[9] = sce),
       (nd[10] = ace),
       (nd[11] = xw);
@@ -4830,7 +4830,7 @@ function pV(QWt) {
       r(o, {
         children: [
           r(t, { color: "warning", wrap: "truncate", children: ["apiKeyHelper is taking a while", " "] }),
-          r(t, { dimColor: !0, wrap: "truncate", children: ["(", nV, ")"] }),
+          r(t, { dimColor: true, wrap: "truncate", children: ["(", nV, ")"] }),
         ],
       })),
       (nd[12] = nV),
@@ -4856,7 +4856,7 @@ function pV(QWt) {
       bk !== "invalid" &&
       bk !== "missing" &&
       bP &&
-      e(o, { children: r(t, { dimColor: !0, wrap: "truncate", children: [Vg, " tokens"] }) })),
+      e(o, { children: r(t, { dimColor: true, wrap: "truncate", children: [Vg, " tokens"] }) })),
       (nd[16] = bk),
       (nd[17] = Vg),
       (nd[18] = bP),
@@ -4864,7 +4864,7 @@ function pV(QWt) {
   else lV = nd[19];
   let cV;
   if (nd[20] !== oV)
-    (cV = oV && e(o, { children: e(t, { dimColor: !0, wrap: "truncate", children: oV }) })),
+    (cV = oV && e(o, { children: e(t, { dimColor: true, wrap: "truncate", children: oV }) })),
       (nd[20] = oV),
       (nd[21] = cV);
   else cV = nd[21];
@@ -4961,10 +4961,10 @@ function MHe(S, x) {
   if (x.length === 0) return 0;
   for (let P = 0; P < S.length; P++) {
     let j = Math.min(x.length, S.length - P),
-      H = !0;
+      H = true;
     for (let Z = 0; Z < j; Z++)
       if (S[P + Z]?.display !== x[Z]?.display) {
-        H = !1;
+        H = false;
         break;
       }
     if (H) return P;
@@ -4978,9 +4978,9 @@ function hce(S, x, P) {
     [Z, re] = u(0),
     [ue, de] = u(null),
     pe = C(0),
-    Re = C(!1),
+    Re = C(false),
     be = C(null),
-    Pe = C(!1),
+    Pe = C(false),
     { addNotification: Oe, removeNotification: Ie } = Or(),
     He = C([]),
     Fe = C(void 0),
@@ -4990,7 +4990,7 @@ function hce(S, x, P) {
     st = C(void 0),
     nt = C(new Map()),
     Pt = C(0),
-    kt = C(!1),
+    kt = C(false),
     Ht = C(0),
     yt = B(
       (ao, jo, Qo, uo) => {
@@ -5000,18 +5000,18 @@ function hce(S, x, P) {
     ),
     lt = B(
       (ao, jo) => {
-        if (!ao || !ao.display) return !1;
+        if (!ao || !ao.display) return false;
         let Qo = yee({ display: ao.display, pastedContents: ao.pastedContents ?? {} }),
           uo = W_(Qo.display),
           Pn = uo === "bash" ? Qo.display.slice(1) : Qo.display;
-        return yt(Pn, uo, Qo.pastedContents, jo), !0;
+        return yt(Pn, uo, Qo.pastedContents, jo), true;
       },
       [yt],
     ),
     Rt = B(
       (ao, jo) => {
         let Qo = nt.current.get(ao);
-        if (Qo) return yt(Qo.display, Qo.mode, Qo.pastedContents, jo), !0;
+        if (Qo) return yt(Qo.display, Qo.mode, Qo.pastedContents, jo), true;
         return lt(He.current[ao], jo);
       },
       [yt, lt],
@@ -5021,7 +5021,7 @@ function hce(S, x, P) {
         key: "search-history-hint",
         kind: "contextual",
         jsx: e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: e(ze, {
             action: "history:search",
             context: "Global",
@@ -5042,7 +5042,7 @@ function hce(S, x, P) {
       (ao) => {
         let jo = MHe(ao, He.current);
         if (((He.current = ao), jo === 0)) return jo;
-        if ((pe.current++, (Re.current = !1), jo < 0)) {
+        if ((pe.current++, (Re.current = false), jo < 0)) {
           if (Pt.current > 0 && S.value === ot.current) so();
           return (Ke.current = 0), re(0), (Pt.current = 0), nt.current.clear(), de(null), jo;
         }
@@ -5082,21 +5082,21 @@ function hce(S, x, P) {
           (Ve.current = No),
           nt.current.clear(),
           pe.current++,
-          (Re.current = !1),
+          (Re.current = false),
           de(null);
       let cn = P;
       if (cn) {
         let pn = Yt ? cn.filter((Oo) => W_(Oo.display) === Yt) : cn,
-          Go = !1;
+          Go = false;
         if (pn.length > He.current.length) (Go = jt(pn) < 0), (ao = Ke.current);
         if ((de(He.current.length), Go)) return;
       }
       if (ao === 0 && !cn && !Re.current) {
-        Re.current = !0;
+        Re.current = true;
         let pn = pe.current;
         gKn(Yt ? (Go) => W_(Go) === Yt : void 0, j).then((Go) => {
           if (pe.current !== pn) return;
-          (Re.current = !1), de(Go);
+          (Re.current = false), de(Go);
         });
       }
       let tn = () => {
@@ -5107,13 +5107,13 @@ function hce(S, x, P) {
         } else if (ao === Pt.current) nt.current.set(ao - 1, { display: jo, pastedContents: Qo, mode: uo });
         let pn = ao + 1;
         if (((Ke.current = pn), re(pn), Rt(ao, "end"))) Pt.current = pn;
-        if (pn >= 2 && !cn && !Pe.current) (Pe.current = !0), to();
+        if (pn >= 2 && !cn && !Pe.current) (Pe.current = true), to();
       };
       if (cn || (ao < He.current.length && Ve.current === No)) {
         tn();
         return;
       }
-      kt.current = !0;
+      kt.current = true;
       let nn = ++Ht.current;
       (async () => {
         try {
@@ -5124,13 +5124,13 @@ function hce(S, x, P) {
           tn();
         } catch {
         } finally {
-          if (Ht.current === nn) kt.current = !1;
+          if (Ht.current === nn) kt.current = false;
         }
       })();
     }, [S, P, jt, Gt, Rt, to, j]),
     qt = B(() => {
       let ao = kt.current;
-      if (ao) Ht.current++, (kt.current = !1);
+      if (ao) Ht.current++, (kt.current = false);
       let jo = Ke.current;
       if (jo > 0 && jo === Pt.current) {
         let { value: uo, pastedContents: Pn, mode: Yt } = S.getSnapshot();
@@ -5152,7 +5152,7 @@ function hce(S, x, P) {
             },
             () => {},
           ),
-          !1
+          false
         );
       }
       return Qo(), jo <= 0 && !ao;
@@ -5162,11 +5162,11 @@ function hce(S, x, P) {
         re(0),
         de(null),
         pe.current++,
-        (Re.current = !1),
+        (Re.current = false),
         (Ke.current = 0),
         (Pt.current = 0),
         Ht.current++,
-        (kt.current = !1),
+        (kt.current = false),
         (ot.current = null),
         (st.current = void 0),
         Ie("search-history-hint"),
@@ -5204,12 +5204,12 @@ function yce(S, x) {
     H = S.setCursorOffset,
     Z = S.setMode,
     re = S.setPastedContents,
-    [ue, de] = u(!1),
+    [ue, de] = u(false),
     [pe, Re] = u(""),
-    [be, Pe] = u(!1),
+    [be, Pe] = u(false),
     [Oe, Ie] = u(void 0),
     He = C(null),
-    Fe = C(!1),
+    Fe = C(false),
     Ve = C(void 0),
     Ke = C(new Set()),
     ot = B(() => {
@@ -5222,34 +5222,34 @@ function yce(S, x) {
       [j, H, Z, re],
     ),
     nt = B(() => {
-      (He.current = null), de(!1), Re(""), Pe(!1), Ie(void 0), ot(), Ke.current.clear();
+      (He.current = null), de(false), Re(""), Pe(false), Ie(void 0), ot(), Ke.current.clear();
     }, [ot]),
     Pt = B(
       async (jt, Gt) => {
         let vo = He.current;
         if (vo === null) return;
         if (pe.length === 0) {
-          ot(), Ke.current.clear(), Ie(void 0), Pe(!1), st(vo);
+          ot(), Ke.current.clear(), Ie(void 0), Pe(false), st(vo);
           return;
         }
         if (!jt) ot(), (Ve.current = _pn(P)), Ke.current.clear();
         if (!Ve.current) return;
         let qt = Ve.current,
           lo = pe.toLowerCase();
-        while (!0) {
+        while (true) {
           if (Gt?.aborted) return;
           let To = await qt.next();
           if (pc().claim("history_search_scan_ok")) y("history_search_scan");
           if (Ve.current !== qt) return;
           if (To.done) {
-            Pe(!0);
+            Pe(true);
             return;
           }
           let ao = To.value.display,
             jo = ao.toLowerCase().lastIndexOf(lo),
             Qo = hpn(ao, To.value.pastedContents);
           if (jo !== -1 && !Ke.current.has(Qo)) {
-            Ke.current.add(Qo), Ie(To.value), Pe(!1);
+            Ke.current.add(Qo), Ie(To.value), Pe(false);
             let uo = W_(ao);
             Z(uo), j(ao);
             let Yt = M0(ao).toLowerCase().lastIndexOf(lo);
@@ -5263,13 +5263,13 @@ function yce(S, x) {
     kt = B(() => {
       y("history_search_open"),
         (He.current = S.getSnapshot()),
-        (Fe.current = !1),
-        de(!0),
+        (Fe.current = false),
+        de(true),
         (Ve.current = _pn(P)),
         Ke.current.clear();
     }, [S, P]),
     Ht = B(() => {
-      Pt(!0).catch(SV);
+      Pt(true).catch(SV);
     }, [Pt]),
     yt = B(() => {
       let jt = He.current;
@@ -5304,17 +5304,17 @@ function yce(S, x) {
     if (Fe.current) return;
     let jt = He.current;
     if (pe.length === 0) {
-      if (jt) (Fe.current = !0), x({ display: jt.value, pastedContents: jt.pastedContents });
+      if (jt) (Fe.current = true), x({ display: jt.value, pastedContents: jt.pastedContents });
     } else if (Oe) {
       y("history_search_execute");
       let Gt = yee({ display: Oe.display, pastedContents: Oe.pastedContents }),
         vo = W_(Gt.display),
         qt = M0(Gt.display);
-      j(qt), Z(vo), (Fe.current = !0), x({ display: qt, pastedContents: Gt.pastedContents });
+      j(qt), Z(vo), (Fe.current = true), x({ display: qt, pastedContents: Gt.pastedContents });
     } else g("history_search_execute", "execute_no_match");
     nt();
   }, [pe, Oe, x, j, Z, nt]);
-  Be("history:search", kt, { context: "Global", isActive: zy() ? !1 : !ue });
+  Be("history:search", kt, { context: "Global", isActive: zy() ? false : !ue });
   let to = z(
     () => ({
       "historySearch:next": Ht,
@@ -5333,7 +5333,7 @@ function yce(S, x) {
     A(() => {
       let jt = new AbortController();
       return (
-        Pt(!1, jt.signal).catch(SV),
+        Pt(false, jt.signal).catch(SV),
         () => {
           jt.abort();
         }
@@ -5407,7 +5407,7 @@ function bce({ inputValue: S, isAssistantResponding: x }) {
     pe = P.status === "accepted" ? P.acceptedAt : 0,
     Re = x || S.length > 0 ? null : re,
     be = C(0),
-    Pe = C(!0),
+    Pe = C(true),
     Oe = C(0);
   if (de > 0 && de !== Oe.current) (Oe.current = de), (Pe.current = H), (be.current = 0);
   else if (de === 0) Oe.current = 0;
@@ -5471,7 +5471,7 @@ function bce({ inputValue: S, isAssistantResponding: x }) {
             ...(be.current > 0 && { timeToFirstKeystrokeMs: be.current - de }),
             wasFocusedWhenShown: Pe.current,
             similarity: Math.round((Ke.length / (re?.length || 1)) * 100) / 100,
-            ...!1,
+            ...false,
           }),
           !ot?.skipReset)
         )
@@ -5533,7 +5533,7 @@ async function OHe(S, x, P, j, H, Z) {
   else return [];
   return (
     await (
-      await jG(re, H, "bash", { host: S, timeout: IHe, sessionEnvVars: Z, useToolMemoryCgroup: !1 })
+      await jG(re, H, "bash", { host: S, timeout: IHe, sessionEnvVars: Z, useToolMemoryCgroup: false })
     ).result
   ).stdout
     .split(`
@@ -5569,8 +5569,8 @@ async function wce(S, x, P) {
     Re = await x(pe, de, P),
     be = [`/${H}`, ...pe].join(" ");
   return Re.slice(0, 12).map((Pe) => {
-    let Oe = Pe.isFinal === !0 || Pe.value.toLowerCase() === de.toLowerCase(),
-      Ie = !Oe && (Pe.appendSpace ?? !0);
+    let Oe = Pe.isFinal === true || Pe.value.toLowerCase() === de.toLowerCase(),
+      Ie = !Oe && (Pe.appendSpace ?? true);
     return {
       id: `command-arg-${Pe.value}`,
       displayText: Pe.value,
@@ -5633,10 +5633,10 @@ function wV(S) {
 }
 
 function kk(S) {
-  if (!S.startsWith("/")) return !1;
+  if (!S.startsWith("/")) return false;
   let x = S.indexOf(" "),
     P = x === -1 ? S.slice(1) : S.slice(1, x);
-  if (wV(P)) return !0;
+  if (wV(P)) return true;
   let j = P.indexOf(":");
   return j > 0 && Dje(P.slice(0, j)) && P.slice(j + 1).includes("://");
 }
@@ -5696,7 +5696,7 @@ function t0(S, x, P) {
   let j = Xx.of(S);
   P = rDe(P);
   let H = x.slice(1).toLowerCase().trim(),
-    Z = a.CLAUDE_CODE_ENABLE_MENU_KIND_LANES || I("tengu_mint_lanes", !1);
+    Z = a.CLAUDE_CODE_ENABLE_MENU_KIND_LANES || I("tengu_mint_lanes", false);
   if (H === "") {
     let be = P.filter((nt) => !nt.isHidden && !rk(nt)),
       Pe = [],
@@ -5752,12 +5752,12 @@ function t0(S, x, P) {
 
 function TV(S, x) {
   let P = x[0];
-  if (!P) return !1;
-  if (!CV(P.metadata)) return !0;
+  if (!P) return false;
+  if (!CV(P.metadata)) return true;
   let j = S.slice(1).toLowerCase().trim();
-  if (j === "") return !0;
+  if (j === "") return true;
   let H = j.split(vTt).join("");
-  if (H === "") return !1;
+  if (H === "") return false;
   let Z = P.metadata;
   return [Z.name, ei(Z), ...(Z.aliases ?? [])].some((re) => {
     let ue = re.toLowerCase().split(vTt).filter(Boolean);
@@ -5772,7 +5772,7 @@ function o0({ suggestion: S, shouldExecute: x, commands: P, onInputChange: j, se
       let be = Re.replacement;
       j(be), H(be.length);
       let Pe = x && !Re.partial;
-      if (Pe) Z(be.trim(), !0);
+      if (Pe) Z(be.trim(), true);
       return { newInput: be, reSuggest: Re.partial, submitted: Pe };
     }
   }
@@ -5786,16 +5786,16 @@ function o0({ suggestion: S, shouldExecute: x, commands: P, onInputChange: j, se
   if (yu()) {
     if (ue?.type === "prompt" && ue.urlTemplate) {
       let Re = `/${ei(ue)}`;
-      return j(Re), H(Re.length), { newInput: Re, reSuggest: !0, submitted: !1 };
+      return j(Re), H(Re.length), { newInput: Re, reSuggest: true, submitted: false };
     }
   }
   let de = `/${re} `;
   j(de), H(de.length);
-  let pe = !1;
+  let pe = false;
   if (x && ue) {
-    if (ue.type !== "prompt" || (ue.argNames ?? []).length === 0) Z(de, !0), (pe = !0);
+    if (ue.type !== "prompt" || (ue.argNames ?? []).length === 0) Z(de, true), (pe = true);
   }
-  return { newInput: de, reSuggest: !1, submitted: pe };
+  return { newInput: de, reSuggest: false, submitted: pe };
 }
 
 var HHe = 60000;
@@ -5963,7 +5963,7 @@ function Dce(S) {
         id: `mcp-template::${S.server}__${S.uriTemplate}`,
         displayText: S.displayText,
         description: S.description,
-        metadata: { replacement: _V("@", S.displayText, !0), partial: !0 },
+        metadata: { replacement: _V("@", S.displayText, true), partial: true },
       };
     case "agent":
       return { id: `agent-${S.agentType}`, displayText: S.displayText, description: S.description, color: S.color };
@@ -5977,7 +5977,7 @@ function CP(S) {
   return rt(S, JHe);
 }
 
-function XHe(S, x, P = !1) {
+function XHe(S, x, P = false) {
   if (!x && !P) return [];
   try {
     let j = S.map((Z) => ({
@@ -5995,7 +5995,7 @@ function XHe(S, x, P = !1) {
   }
 }
 
-async function xV(S, x, { mcpResources: P, agents: j, showOnEmpty: H = !1, mcpResourceTemplates: Z = {} }, re) {
+async function xV(S, x, { mcpResources: P, agents: j, showOnEmpty: H = false, mcpResourceTemplates: Z = {} }, re) {
   if (!x && !H) return [];
   let [ue, de] = await Promise.all([i6e(S, x, H, re), Promise.resolve(XHe(j, x, H))]),
     pe = ue.map((Ie) => ({
@@ -6032,7 +6032,7 @@ async function xV(S, x, { mcpResources: P, agents: j, showOnEmpty: H = !1, mcpRe
   for (let Ie of pe) Oe.push({ source: Ie, score: Ie.score ?? 0.5 });
   if (Pe.length > 0) {
     let He = new Z3(Pe, {
-      includeScore: !0,
+      includeScore: true,
       threshold: 0.6,
       keys: [
         { name: "displayText", weight: 2 },
@@ -6074,7 +6074,7 @@ async function i0(S, x, P, j, H) {
         id: `mcp-template::${re}__${Pt.uriTemplate}`,
         displayText: `${re}:${kt}`,
         description: CP(Pt.description || Pt.name || Pt.uriTemplate),
-        metadata: { replacement: _V(j, `${re}:${kt}`, !0), partial: !0 },
+        metadata: { replacement: _V(j, `${re}:${kt}`, true), partial: true },
       };
     });
   }
@@ -6138,7 +6138,7 @@ var ZHe = /^@[\p{L}\p{N}\p{M}_\-./\\()[\]~:]*/u,
   r$e = /(^|\s):([a-z0-9_+-]+):$/;
 
 function i$e(S, x, P) {
-  if (x === void 0) return !1;
+  if (x === void 0) return false;
   let j = S.length - x.length,
     H = P - j;
   return j > 0 && H >= 0 && S.slice(0, H) + S.slice(P) === x && /^[a-z0-9_+-]*:$/.test(S.slice(H, P));
@@ -6213,11 +6213,11 @@ var wP = /(^|[\s\u3002\u3001\uFF1F\uFF01])@([\p{L}\p{N}\p{M}\u200C\u200D_-]*)$/u
 
 function Iw(S, x, P, j, H, Z) {
   let re = x.slice(0, P).match(j);
-  if (!re || re.index === void 0) return !1;
+  if (!re || re.index === void 0) return false;
   let ue = re.index + (re[1]?.length ?? 0),
     de = x.slice(0, ue),
     pe = de + S.displayText + " " + x.slice(P);
-  return H(pe), Z(de.length + S.displayText.length + 1), !0;
+  return H(pe), Z(de.length + S.displayText.length + 1), true;
 }
 
 async function u$e(S, x, P, j, H) {
@@ -6239,7 +6239,7 @@ function Fce(S, x, P, j, H) {
   return { newInput: re + de + ue, cursorPos: re.length + de.length };
 }
 
-function Kg(S, x, P = !1) {
+function Kg(S, x, P = false) {
   if (!S) return null;
   let j = S.substring(0, x);
   if (P) {
@@ -6248,7 +6248,7 @@ function Kg(S, x, P = !1) {
     if (Re && Re.index !== void 0) {
       let Pe = S.substring(x).match(/^[^"]*"?/),
         Oe = Pe ? Pe[0] : "";
-      return { token: Re[0] + Oe, startPos: Re.index, isQuoted: !0 };
+      return { token: Re[0] + Oe, startPos: Re.index, isQuoted: true };
     }
   }
   if (P) {
@@ -6259,7 +6259,7 @@ function Kg(S, x, P = !1) {
       if (be && be[0].length === Re.length) {
         let Oe = S.substring(x).match(Lce),
           Ie = Oe ? Oe[0] : "";
-        return { token: be[0] + Ie, startPos: pe, isQuoted: !1 };
+        return { token: be[0] + Ie, startPos: pe, isQuoted: false };
       }
     }
   }
@@ -6268,7 +6268,7 @@ function Kg(S, x, P = !1) {
   if (!Z || Z.index === void 0) return null;
   let ue = S.substring(x).match(Lce),
     de = ue ? ue[0] : "";
-  return { token: Z[0] + de, startPos: Z.index, isQuoted: !1 };
+  return { token: Z[0] + de, startPos: Z.index, isQuoted: false };
 }
 
 function Bce(S) {
@@ -6323,7 +6323,7 @@ function Hce({
     to = W((qo) => qo.mcp.resourceTemplates),
     so = Xn(),
     jt = At(),
-    vo = Ts().emojiCompletionEnabled !== !1,
+    vo = Ts().emojiCompletionEnabled !== false,
     qt = ct(),
     { storageV5: lo } = ge(),
     To = B(() => {
@@ -6332,7 +6332,7 @@ function Hce({
       let { refreshResourceTemplates: jn } = import.meta.require("/$bunfs/root/chunk-qadpp1g1.js").mcpClientModule();
       jn(qo.mcp.clients, qo.mcp.resourceTemplates).then((So) => {
         if (So.length === 0) return;
-        let Mo = !1;
+        let Mo = false;
         if (
           (jt((Qt) => {
             let Jo = Qt.mcp.resourceTemplates;
@@ -6342,7 +6342,7 @@ function Hce({
               Jo = { ...Jo, [lr.name]: Nn };
             }
             if (Jo === Qt.mcp.resourceTemplates) return Qt;
-            return (Mo = !0), { ...Qt, mcp: { ...Qt.mcp, resourceTemplates: Jo } };
+            return (Mo = true), { ...Qt, mcp: { ...Qt.mcp, resourceTemplates: Jo } };
           }),
           Mo && pn.current === "at")
         )
@@ -6388,20 +6388,20 @@ function Hce({
     en = C(""),
     un = C(null),
     Uo = C(null),
-    Rn = C({ roster: { candidates: [], inProcess: new Set(), defaultNamed: new Set() }, at: 0, loading: !1 }),
+    Rn = C({ roster: { candidates: [], inProcess: new Set(), defaultNamed: new Set() }, at: 0, loading: false }),
     mr = C(null),
     Pr = C(null),
     [Ir, An] = u(0),
     Wr = B(() => {
       let qo = Rn.current;
       if (qo.loading || Date.now() - qo.at < c$e) return;
-      (qo.loading = !0),
+      (qo.loading = true),
         W$t(qt, so.getState(), { storageV5: lo }).then(
           (jn) => {
-            (Rn.current = { roster: jn, at: Date.now(), loading: !1 }), An((So) => So + 1);
+            (Rn.current = { roster: jn, at: Date.now(), loading: false }), An((So) => So + 1);
           },
           () => {
-            Rn.current = { ...Rn.current, at: Date.now(), loading: !1 };
+            Rn.current = { ...Rn.current, at: Date.now(), loading: false };
           },
         );
     }, [qt, so, lo]),
@@ -6411,7 +6411,7 @@ function Hce({
         Pn(void 0);
     }, [st]),
     Tn = B(
-      async (qo, jn = !1) => {
+      async (qo, jn = false) => {
         (nn.current = qo), (pn.current = jn ? "at" : "file");
         let So = sn(),
           Mo = null,
@@ -6521,7 +6521,7 @@ function Hce({
             Sn = qo.slice(bn, Qt);
           if (Sn && (pXt(Sn) || Sn.includes("/"))) {
             Oo.current = Sn;
-            let Ho = await fXt(qt, Sn, { maxResults: 10, keepDotPrefix: !0 });
+            let Ho = await fXt(qt, Sn, { maxResults: 10, keepDotPrefix: true });
             if (Oo.current !== Sn) return;
             if (Ho.length > 0) {
               Pn(void 0),
@@ -6599,7 +6599,7 @@ function Hce({
         if (Re === "prompt") {
           let bn = qo.substring(0, Qt).match(PV),
             Sn = bn ? Bce(qo) : null,
-            Eo = Sn !== null && ua(Sn.commandName, x)?.completesHashChannels === !0;
+            Eo = Sn !== null && ua(Sn.commandName, x)?.completesHashChannels === true;
           if (bn && !Eo && n0(so.getState().mcp.clients)) {
             ti(bn[2]);
             return;
@@ -6614,7 +6614,7 @@ function Hce({
               if (Ho) {
                 let Cn = (Sn.index ?? 0) + (Sn[1]?.length ?? 0),
                   Zn = qo.slice(0, Cn) + Ho + qo.slice(Qt);
-                be(Zn), Pe(Cn + Ho.length), Kn(), y("input_emoji_completion", { inline: !0 });
+                be(Zn), Pe(Cn + Ho.length), Kn(), y("input_emoji_completion", { inline: true });
                 return;
               }
             }
@@ -6784,7 +6784,7 @@ function Hce({
           if (!qo.substring(0, Qt).match(wP)) Kn();
         }
         if (lr && Re !== "bash") {
-          let bn = Kg(qo, Qt, !0);
+          let bn = Kg(qo, Qt, true);
           if (bn && bn.token.startsWith("@")) {
             let Sn = MV(bn);
             if (pXt(Sn)) {
@@ -6804,16 +6804,16 @@ function Hce({
               }
             }
             if (nn.current === Sn) return;
-            tr(Sn, !0);
+            tr(Sn, true);
             return;
           }
         }
         if (Fe === "file") {
-          let bn = Kg(qo, Qt, !0);
+          let bn = Kg(qo, Qt, true);
           if (bn) {
             let Sn = MV(bn);
             if (nn.current === Sn) return;
-            tr(Sn, !1);
+            tr(Sn, false);
           } else tr.cancel(), Wn.cancel(), Kn();
         }
         if (Fe === "shell") {
@@ -6866,7 +6866,7 @@ function Hce({
           if (Mo) {
             let Qt = o0({
               suggestion: Mo,
-              shouldExecute: !1,
+              shouldExecute: false,
               commands: x,
               onInputChange: be,
               setCursorOffset: Pe,
@@ -6900,7 +6900,7 @@ function Hce({
                 st((Sn) => ({ ...Sn, commandArgumentHint: void 0 })), yi(Jo, Jo.length);
               else Kn();
             } else {
-              let Nn = Kg(de, pe, !0) ?? Kg(de, pe, !1);
+              let Nn = Kg(de, pe, true) ?? Kg(de, pe, false);
               if (Nn) {
                 let bn = Ck(Qt.metadata) && Qt.metadata.type === "directory",
                   Sn = Fce(de, Qt.id, Nn.startPos, Nn.token.length, bn);
@@ -6926,10 +6926,10 @@ function Hce({
           let Qt = Ie[So];
           if (Qt) {
             let Jo = Iw(Qt, de, pe, AV, be, Pe);
-            if ((Kn(), Jo)) y("input_emoji_completion", { inline: !1 });
+            if ((Kn(), Jo)) y("input_emoji_completion", { inline: false });
           }
         } else if (Fe === "file" && Ie.length > 0) {
-          let Qt = Kg(de, pe, !0);
+          let Qt = Kg(de, pe, true);
           if (!Qt) {
             Kn();
             return;
@@ -6945,9 +6945,9 @@ function Hce({
               displayText: lr,
               mode: Re,
               hasAtPrefix: Nn,
-              needsQuotes: !1,
+              needsQuotes: false,
               isQuoted: Qt.isQuoted,
-              isComplete: !1,
+              isComplete: false,
             });
             Rrt({
               suggestion: Sn,
@@ -6970,7 +6970,7 @@ function Hce({
                       hasAtPrefix: Nn,
                       needsQuotes: Sn.displayText.includes(" "),
                       isQuoted: Qt.isQuoted,
-                      isComplete: !0,
+                      isComplete: true,
                     }),
                 Cn = Rrt({
                   suggestion: Ho,
@@ -7000,7 +7000,7 @@ function Hce({
           } else jn = So;
         } else {
           qo = "file";
-          let So = Kg(de, pe, !0);
+          let So = Kg(de, pe, true);
           if (So) {
             let Mo = So.token.startsWith("@"),
               Qt = MV(So),
@@ -7052,7 +7052,7 @@ function Hce({
             if (Ho && TV(lr, Eo)) {
               let Cn = o0({
                 suggestion: Ho,
-                shouldExecute: !0,
+                shouldExecute: true,
                 commands: x,
                 onInputChange: be,
                 setCursorOffset: Pe,
@@ -7063,7 +7063,7 @@ function Hce({
               return;
             }
           }
-          P(lr, !0), (Xo.current = S.value);
+          P(lr, true), (Xo.current = S.value);
           return;
         }
         let Nn = kt.current ? Mo.findIndex((Eo) => Eo.id === kt.current) : -1,
@@ -7075,14 +7075,14 @@ function Hce({
             Mo.length > 0 &&
             (Jo === "command" || Jo === "custom-title" || Jo === "file" || Jo === "slack-channel")
           )
-            tr.cancel(), ti.cancel(), Wn.cancel(), Kn(), P(lr, !0), (Xo.current = S.value);
+            tr.cancel(), ti.cancel(), Wn.cancel(), Kn(), P(lr, true), (Xo.current = S.value);
           return;
         }
         let Sn = Mo[bn];
         if (Jo === "command" && bn < Mo.length) {
           if (Sn) {
             if (qo === void 0 && Sn.id.startsWith(Cce) && /^\/\S+\s+$/.test(jn)) {
-              tr.cancel(), Wn.cancel(), Kn(), P(jn, !0), (Xo.current = S.value);
+              tr.cancel(), Wn.cancel(), Kn(), P(jn, true), (Xo.current = S.value);
               return;
             }
             let Eo = o0({
@@ -7100,7 +7100,7 @@ function Hce({
         } else if (Jo === "custom-title" && bn < Mo.length) {
           if (Sn) {
             let Eo = Oce(Sn);
-            be(Eo), Pe(Eo.length), P(Eo, !0), (Xo.current = S.value), tr.cancel(), Wn.cancel(), Kn();
+            be(Eo), Pe(Eo.length), P(Eo, true), (Xo.current = S.value), tr.cancel(), Wn.cancel(), Kn();
           }
         } else if (Jo === "shell" && bn < Mo.length) {
           if (Sn) {
@@ -7114,10 +7114,10 @@ function Hce({
         } else if (vP && vo && Jo === "emoji" && bn < Mo.length) {
           if (Sn) {
             let Eo = Iw(Sn, jn, So, AV, be, Pe);
-            if ((Kn(), Eo)) y("input_emoji_completion", { inline: !1 });
+            if ((Kn(), Eo)) y("input_emoji_completion", { inline: false });
           }
         } else if (Jo === "file" && bn < Mo.length) {
-          let Eo = Kg(jn, So, !0);
+          let Eo = Kg(jn, So, true);
           if (Eo) {
             if (Sn) {
               let Ho = Oje(Sn.metadata),
@@ -7130,7 +7130,7 @@ function Hce({
                       hasAtPrefix: Cn,
                       needsQuotes: Sn.displayText.includes(" "),
                       isQuoted: Eo.isQuoted,
-                      isComplete: !0,
+                      isComplete: true,
                     }),
                 Er = Rrt({
                   suggestion: Zn,
@@ -7148,7 +7148,7 @@ function Hce({
           if (Sn) {
             if (dn.current === "bash-path") {
               if ((tr.cancel(), Wn.cancel(), qo === void 0)) {
-                if ((Kn(), Xo.current === null)) P(S.value, !0), (Xo.current = S.value);
+                if ((Kn(), Xo.current === null)) P(S.value, true), (Xo.current = S.value);
                 return;
               }
               let Cn = jn.slice(0, So).lastIndexOf(" ") + 1,
@@ -7168,10 +7168,10 @@ function Hce({
                 else Kn();
                 return;
               }
-              Kn(), P(jn, !0), (Xo.current = S.value);
+              Kn(), P(jn, true), (Xo.current = S.value);
               return;
             }
-            let Ho = Kg(jn, So, !0) ?? Kg(jn, So, !1);
+            let Ho = Kg(jn, So, true) ?? Kg(jn, So, false);
             if (Ho) {
               let Cn = Ck(Sn.metadata) && Sn.metadata.type === "directory",
                 Zn = Fce(jn, Sn.id, Ho.startPos, Ho.token.length, Cn);
@@ -7309,12 +7309,12 @@ function qce(S) {
 }
 
 async function d$e(S, x, P, j, H) {
-  if (!P || !j) return { success: !1, error: "no_team_context" };
+  if (!P || !j) return { success: false, error: "no_team_context" };
   if (!Object.values(P.teammates ?? {}).find((ue) => ue.name === S))
-    return { success: !1, error: "unknown_recipient", recipientName: S };
+    return { success: false, error: "unknown_recipient", recipientName: S };
   if ((await j(S, { from: "user", text: x, timestamp: new Date().toISOString() }, P.teamName, H)) === void 0)
-    return { success: !1, error: "write_failed", recipientName: S };
-  return { success: !0, recipientName: S };
+    return { success: false, error: "write_failed", recipientName: S };
+  return { success: true, recipientName: S };
 }
 
 async function Vce(S) {
@@ -7410,12 +7410,12 @@ class Yce {
   changed = Ue();
   #e = this.#C();
   #t = { status: "idle" };
-  #o = !1;
+  #o = false;
   #r = 0;
   #i = 0;
   #n = 0;
-  #c = !1;
-  #a = !1;
+  #c = false;
+  #a = false;
   #s = "";
   #d = new Map();
   #l = new Set();
@@ -7446,7 +7446,7 @@ class Yce {
   }
   dispose() {
     if (this.#o) return;
-    (this.#o = !0), this.#P(), this.#l.clear(), this.changed.clear();
+    (this.#o = true), this.#P(), this.#l.clear(), this.changed.clear();
   }
   #h() {
     this.#y().catch((S) => {
@@ -7480,13 +7480,13 @@ class Yce {
   async #v() {
     this.#t = { status: "resolving" };
     let S,
-      x = !1;
+      x = false;
     try {
       S = await this.#b();
     } catch (j) {
       n(`[spellcheck] could not look for a checker: ${l(j)}; spell checking stays off`, { level: "warn" }),
         (S = null),
-        (x = !0);
+        (x = true);
     }
     if (this.#o || this.#t.status !== "resolving") return;
     if (!S) {
@@ -7501,9 +7501,9 @@ class Yce {
         (P = oJ(S.command, S.args, {
           stdio: ["pipe", "pipe", "pipe"],
           env: Na(),
-          extendEnv: !1,
+          extendEnv: false,
           cwd: p$e(),
-          windowsHide: !0,
+          windowsHide: true,
           toolCgroupClass: "plugin",
         }));
     } catch (j) {
@@ -7577,7 +7577,7 @@ class Yce {
         this.#t.process.stdin?.write(Jor),
         !this.#a)
       )
-        (this.#a = !0), y("input_spellcheck", { backend: c(P) });
+        (this.#a = true), y("input_spellcheck", { backend: c(P) });
       n(`[spellcheck] ${P} ready`);
       return;
     }
@@ -7647,7 +7647,7 @@ class Yce {
     this.#P(), this.#h();
   }
   #P() {
-    clearTimeout(this.#f), (this.#c = !1), this.#g?.(), (this.#g = void 0);
+    clearTimeout(this.#f), (this.#c = false), this.#g?.(), (this.#g = void 0);
     let S = this.#t;
     if (((this.#t = { status: "idle" }), (this.#m = ""), this.#u)) {
       for (let x of this.#u) this.#l.add(x);
@@ -7660,9 +7660,9 @@ class Yce {
     if ((this.#P(), (this.#n = 0), this.#r < S$e)) {
       this.#r++,
         n(`[spellcheck] ${S}; restarting once`, { level: "warn" }),
-        (this.#c = !0),
+        (this.#c = true),
         (this.#f = setTimeout(() => {
-          (this.#c = !1), this.#h();
+          (this.#c = false), this.#h();
         }, y$e)),
         this.#f.unref?.();
       return;
@@ -7703,7 +7703,7 @@ function eue(S) {
   let P = [],
     j = -1,
     H = -1,
-    Z = !1,
+    Z = false,
     re = 0;
   for (let ue of S.matchAll(M$e)) {
     let de = ue[0],
@@ -7796,7 +7796,7 @@ function sue({ host: S, text: x, cursorOffset: P, active: j, placeholders: H }) 
         `the spellcheck block in ${SXe(de)} applies (as a whole, over any lower tier) and has no usable "enabled": true, so spell checking is off`,
       );
   }, [S, Z, ue, de]);
-  let pe = ue?.enabled === !0,
+  let pe = ue?.enabled === true,
     Re = (pe && ue.checker?.trim()) || void 0,
     be = (pe && ue.language?.trim()) || void 0,
     Pe = pe ? ue.color : void 0,
@@ -7848,7 +7848,7 @@ function sue({ host: S, text: x, cursorOffset: P, active: j, placeholders: H }) 
       for (let lt of nt) {
         let { word: Rt, start: to, end: so } = lt;
         if (Pt(lt)) continue;
-        if (ot.isMisspelled(Rt) === !0) yt.push({ start: to, end: so, color: He, underline: !0, priority: H$e });
+        if (ot.isMisspelled(Rt) === true) yt.push({ start: to, end: so, color: He, underline: true, priority: H$e });
       }
       return yt.length > 0 ? yt : Y$e;
     }, [nt, ot, Pt, He])
@@ -7884,23 +7884,23 @@ var BV = 1e4,
 
 function jV(S, x) {
   let P = due(S, x);
-  if (P === "" || P.startsWith("..")) return !0;
+  if (P === "" || P.startsWith("..")) return true;
   return tD(P.split(Dw).join("/"));
 }
 
 async function yWe(S) {
   let x = [],
     P = 0,
-    j = !1,
-    H = !1,
+    j = false,
+    H = false,
     Z = await Ao(
       async (ue) => {
         let de = await S.storageV5.listRecursive(
             { namespace: "memory", projectKey: S.projectKey },
-            { cursor: ue, skipKeyStats: !0, links: "skip", maxLeaves: hWe },
+            { cursor: ue, skipKeyStats: true, links: "skip", maxLeaves: hWe },
           ),
           pe = de.ok ? de.value.skipped : void 0;
-        if (pe !== void 0 && (pe.unrepresentable > 0 || pe.reserved > 0)) H = !0;
+        if (pe !== void 0 && (pe.unrepresentable > 0 || pe.reserved > 0)) H = true;
         return de;
       },
       (ue) => {
@@ -7908,7 +7908,7 @@ async function yWe(S) {
           let pe = de.kind === "key" && de.key.namespace === "memory" ? de.key.relPath.join("/") : void 0;
           if (pe !== void 0 && tD(pe)) continue;
           if (P >= BV) {
-            j = !0;
+            j = true;
             return;
           }
           if (((P += 1), pe === void 0 || de.viaSymlink || !pe.endsWith(".md"))) continue;
@@ -7932,7 +7932,7 @@ async function SWe(S) {
     let j = P.pop(),
       H;
     try {
-      H = await aWe(FV(S, j), { withFileTypes: !0 });
+      H = await aWe(FV(S, j), { withFileTypes: true });
     } catch {
       continue;
     }
@@ -7942,12 +7942,12 @@ async function SWe(S) {
       if (Z.isDirectory()) {
         if (!tD(re)) P.push(re);
       } else if (Z.isFile() && Z.name.endsWith(".md") && !tD(re)) {
-        if (x.length >= BV) return { files: x, truncated: !0 };
+        if (x.length >= BV) return { files: x, truncated: true };
         x.push(re);
       }
     }
   }
-  return { files: x, truncated: !1 };
+  return { files: x, truncated: false };
 }
 
 async function bWe(S, x, P) {
@@ -8052,43 +8052,43 @@ async function vWe(S, x, P, j) {
     let H;
     try {
       let [ue, de, pe] = await Promise.all([uue(x), ede(), ede("team")]);
-      if (ue !== x || !CWe(x, de, pe)) return !1;
+      if (ue !== x || !CWe(x, de, pe)) return false;
       H = due(de, x).split(Dw);
     } catch {
-      return !1;
+      return false;
     }
     let Z, re;
     try {
       let ue = await cWe(x);
-      if (ue.size > lue) return !1;
+      if (ue.size > lue) return false;
       (Z = ue.mtime), (re = ue.atime);
     } catch {
-      return !1;
+      return false;
     }
     if (j !== void 0 && Xd(H)) {
       let ue = await j.storageV5.updateText(Te.memory(j.projectKey, H), (de) => {
-        if (de === void 0 || Buffer.byteLength(de.value, "utf8") > lue) return { skip: !0 };
+        if (de === void 0 || Buffer.byteLength(de.value, "utf8") > lue) return { skip: true };
         let pe = cue(de.value, x, P);
-        return pe === null ? { skip: !0 } : { write: UJe(pe, BJe(de.value)), result: de.mtimeMs };
+        return pe === null ? { skip: true } : { write: UJe(pe, BJe(de.value)), result: de.mtimeMs };
       });
-      if (!ue.ok) return n(`memorySurveyRating: backend update failed: ${ue.error.code}`), !1;
-      if (!ue.value.written) return !1;
+      if (!ue.ok) return n(`memorySurveyRating: backend update failed: ${ue.error.code}`), false;
+      if (!ue.value.written) return false;
       if (ue.value.result !== void 0) Z = new Date(ue.value.result);
     } else {
       let ue;
       try {
         ue = await lWe(x, "utf8");
       } catch {
-        return !1;
+        return false;
       }
       let de = cue(ue, x, P);
-      if (de === null) return !1;
+      if (de === null) return false;
       await gJ(x, de, "utf8", BJe(ue));
     }
     try {
       await uWe(x, re, Z);
     } catch {}
-    return !0;
+    return true;
   });
 }
 
@@ -8137,11 +8137,11 @@ async function pue(S, x, P, j) {
     }
     let Re = await Promise.allSettled(
         [...pe].map(async ([Pe, Oe]) => {
-          if (await vWe(Oe, Pe, P, re)) return S.notifyWrite(Oe), !0;
-          return !1;
+          if (await vWe(Oe, Pe, P, re)) return S.notifyWrite(Oe), true;
+          return false;
         }),
       ),
-      be = Q(Re, (Pe) => Pe.status === "fulfilled" && Pe.value === !0);
+      be = Q(Re, (Pe) => Pe.status === "fulfilled" && Pe.value === true);
     return (
       s("tengu_memory_rating_writeback", {
         cited_count: bi(x.length),
@@ -8220,8 +8220,8 @@ function Sue(S, x) {
       : S,
     H = new Set(S.map((re) => re.path)),
     Z = x.filter((re) => {
-      if (H.has(re.path)) return !1;
-      return H.add(re.path), !0;
+      if (H.has(re.path)) return false;
+      return H.add(re.path), true;
     });
   return Z.length === 0 ? j : [...j, ...Z];
 }
@@ -8266,7 +8266,7 @@ function VV(S) {
   let x = oi();
   if (x.rcActiveImpressionRecorded) return;
   if (!bue()) return;
-  (x.rcActiveImpressionRecorded = !0),
+  (x.rcActiveImpressionRecorded = true),
     Ae((P) => {
       let j = P.seenNotifications ?? {};
       return { ...P, seenNotifications: { ...j, [WV]: (j[WV] ?? 0) + 1 } };
@@ -8339,7 +8339,7 @@ function ZWe(cG) {
   }
   return {
     ...cG,
-    replBridgeEnabled: !1,
+    replBridgeEnabled: false,
     replBridgeError: void 0,
     replBridgeErrorKind: void 0,
     replBridgeSessionGroupingId: void 0,
@@ -8350,7 +8350,7 @@ function t1e(uG) {
   if (uG.replBridgeEnabled || uG.replBridgeError === void 0) {
     return uG;
   }
-  return { ...uG, replBridgeEnabled: !0, replBridgeError: void 0, replBridgeErrorKind: void 0, replBridgeExplicit: !0 };
+  return { ...uG, replBridgeEnabled: true, replBridgeError: void 0, replBridgeErrorKind: void 0, replBridgeExplicit: true };
 }
 
 function o1e(EKt) {
@@ -8380,7 +8380,7 @@ function dG(tKt) {
     Tk = W(zWe),
     KV = At(),
     { removeNotification: zV } = Or(),
-    [Lw, rKt] = u(!1),
+    [Lw, rKt] = u(false),
     [YV, _ue] = u(""),
     [xP, aKt] = u(""),
     Rue = ct(YWe),
@@ -8411,7 +8411,7 @@ function dG(tKt) {
       import("/$bunfs/root/chunk-4fgfbqhh.js")
         .then((JV) => {
           let { toString: cKt } = JV;
-          return cKt(rd, { type: "utf8", errorCorrectionLevel: "L", small: !0 });
+          return cKt(rd, { type: "utf8", errorCorrectionLevel: "L", small: true });
         })
         .then(_ue)
         .catch(() => _ue(""));
@@ -8450,7 +8450,7 @@ function dG(tKt) {
   )
     (NWe = function p0(_k) {
       if (_k.key === "d" && !_k.ctrl && !_k.meta) {
-        if ((_k.preventDefault(), Tue && Nw && vl === void 0)) TH("remoteControlAtStartup", !1, Cue);
+        if ((_k.preventDefault(), Tue && Nw && vl === void 0)) TH("remoteControlAtStartup", false, Cue);
         zV(FR), KV(ZWe), zg();
       }
       if (_k.key === "r" && !_k.ctrl && !_k.meta && !Nw && vl !== void 0 && Ef === "auth")
@@ -8540,7 +8540,7 @@ function dG(tKt) {
     tG = me;
     iG = "Remote Control";
     sG = zg;
-    aG = !0;
+    aG = true;
     ZV = xr;
     oG = 1;
     nG = p0;
@@ -8549,7 +8549,7 @@ function dG(tKt) {
       (Rk = r(t, { color: g0, children: [h0, " ", f0] })), (ja[60] = h0), (ja[61] = g0), (ja[62] = f0), (ja[63] = Rk);
     else Rk = ja[63];
     let Vy;
-    if (ja[64] !== xue) (Vy = e(t, { dimColor: !0, children: xue })), (ja[64] = xue), (ja[65] = Vy);
+    if (ja[64] !== xue) (Vy = e(t, { dimColor: true, children: xue })), (ja[64] = xue), (ja[65] = Vy);
     else Vy = ja[65];
     let Ky;
     if (ja[66] !== Rk || ja[67] !== Vy)
@@ -8560,14 +8560,14 @@ function dG(tKt) {
     else Qy = ja[70];
     let Uw;
     if (ja[71] !== _P || ja[72] !== Tk)
-      (Uw = Tk && _P && r(t, { dimColor: !0, children: ["Environment: ", _P] })),
+      (Uw = Tk && _P && r(t, { dimColor: true, children: ["Environment: ", _P] })),
         (ja[71] = _P),
         (ja[72] = Tk),
         (ja[73] = Uw);
     else Uw = ja[73];
     let Yy;
     if (ja[74] !== RP || ja[75] !== Tk)
-      (Yy = Tk && RP && r(t, { dimColor: !0, children: ["Session: ", RP] })),
+      (Yy = Tk && RP && r(t, { dimColor: true, children: ["Session: ", RP] })),
         (ja[74] = RP),
         (ja[75] = Tk),
         (ja[76] = Yy);
@@ -8619,7 +8619,7 @@ function dG(tKt) {
       (sG = ja[50]),
       (aG = ja[51]);
   let Bw;
-  if (ja[82] !== y0) (Bw = y0 && e(t, { dimColor: !0, children: y0 })), (ja[82] = y0), (ja[83] = Bw);
+  if (ja[82] !== y0) (Bw = y0 && e(t, { dimColor: true, children: y0 })), (ja[82] = y0), (ja[83] = Bw);
   else Bw = ja[83];
   const Rk = vl !== void 0 ? "dismiss" : "disconnect";
   let Vy;
@@ -8641,7 +8641,7 @@ function dG(tKt) {
   else Uw = ja[92];
   let Yy;
   if (ja[93] !== Vy || ja[94] !== Ky || ja[95] !== Qy)
-    (Yy = e(t, { dimColor: !0, children: r(fe, { children: [Vy, Ky, Qy, Uw] }) })),
+    (Yy = e(t, { dimColor: true, children: r(fe, { children: [Vy, Ky, Qy, Uw] }) })),
       (ja[93] = Vy),
       (ja[94] = Ky),
       (ja[95] = Qy),
@@ -8721,7 +8721,7 @@ function Mue({ initialQuery: S, onSelect: x, onCancel: P }) {
         return;
       }
       de(null);
-      let ot = !1,
+      let ot = false,
         st = [];
       return (
         (async () => {
@@ -8729,7 +8729,7 @@ function Mue({ initialQuery: S, onSelect: x, onCancel: P }) {
             let nt = mKn(Z, H),
               Pt = 0,
               kt = s1e,
-              Ht = !1;
+              Ht = false;
             for await (let yt of nt) {
               if (ot) return;
               let lt = yt.display,
@@ -8745,7 +8745,7 @@ function Mue({ initialQuery: S, onSelect: x, onCancel: P }) {
                 (Pt += yt.textLength + i1e),
                 Pt >= r1e)
               ) {
-                Ht = !0;
+                Ht = true;
                 break;
               }
               if (st.length >= kt) de({ items: st.slice(), status: "scanning" }), (kt *= a1e);
@@ -8765,7 +8765,7 @@ function Mue({ initialQuery: S, onSelect: x, onCancel: P }) {
           }
         })(),
         () => {
-          ot = !0;
+          ot = true;
         }
       );
     }, [Z, H]);
@@ -8802,7 +8802,7 @@ function Mue({ initialQuery: S, onSelect: x, onCancel: P }) {
         "Search prompts ",
         r(t, { color: "suggestion", children: ["\xB7 ", Z] }),
         ue?.status === "truncated" &&
-          r(t, { dimColor: !0, children: [" ", "\xB7 newest ", ue.items.length.toLocaleString(), " only"] }),
+          r(t, { dimColor: true, children: [" ", "\xB7 newest ", ue.items.length.toLocaleString(), " only"] }),
       ],
     }),
     placeholder: "Filter history\u2026",
@@ -8835,13 +8835,13 @@ function Mue({ initialQuery: S, onSelect: x, onCancel: P }) {
       let st = Sy(new Date(Ke.entry.timestamp));
       return r(t, {
         children: [
-          r(t, { dimColor: !0, children: [st, " ".repeat(Math.max(0, Aue - se(st)))] }),
+          r(t, { dimColor: true, children: [st, " ".repeat(Math.max(0, Aue - se(st)))] }),
           r(t, { color: ot ? "suggestion" : void 0, children: [" ", rt(Ke.firstLine, Fe)] }),
         ],
       });
     },
     renderPreview: (Ke) => {
-      let ot = Nf(Ke.display, Ve, { hard: !0 })
+      let ot = Nf(Ke.display, Ve, { hard: true })
           .split(`
 `)
           .filter((kt) => kt.trim() !== ""),
@@ -8851,10 +8851,10 @@ function Mue({ initialQuery: S, onSelect: x, onCancel: P }) {
       return r(o, {
         flexDirection: "column",
         borderStyle: "round",
-        borderDimColor: !0,
+        borderDimColor: true,
         paddingX: 1,
         height: k0 + 2,
-        children: [nt.map((kt, Ht) => e(t, { dimColor: !0, children: kt }, Ht)), e(Jm, { count: Pt })],
+        children: [nt.map((kt, Ht) => e(t, { dimColor: true, children: kt }, Ht)), e(Jm, { count: Pt })],
       });
     },
   });
@@ -8864,10 +8864,10 @@ function c1e(S, x) {
   let P = 0;
   for (let j = 0; j < x.length; j++) {
     let H = S.indexOf(x.charAt(j), P);
-    if (H === -1) return !1;
+    if (H === -1) return false;
     P = H + 1;
   }
-  return !0;
+  return true;
 }
 
 F();
@@ -8932,8 +8932,8 @@ function hG(DQt) {
       marginBottom: 1,
       flexDirection: "column",
       children: [
-        e(t, { color: "remember", bold: !0, children: "Toggle thinking mode" }),
-        e(t, { dimColor: !0, children: "Enable or disable thinking for this session." }),
+        e(t, { color: "remember", bold: true, children: "Toggle thinking mode" }),
+        e(t, { dimColor: true, children: "Enable or disable thinking for this session." }),
       ],
     })),
       (Yg[14] = y1e);
@@ -9052,11 +9052,11 @@ function yG(S) {
       onToggleHelp: S.onToggleHelp,
     }),
     { mode: re, setMode: ue, cancelPendingRemap: de } = Z,
-    pe = C(!1),
+    pe = C(false),
     Re = br(ue);
   A(() => {
     let Pe = !pe.current;
-    pe.current = !0;
+    pe.current = true;
     let Oe = Pe && (S.initialMode === "VISUAL" || S.initialMode === "VISUAL LINE") ? "NORMAL" : S.initialMode;
     if (Oe && Oe !== re) Re(Oe);
   }, [S.initialMode, re]);
@@ -9112,7 +9112,7 @@ function _0() {
         kG(T0);
         return;
       }
-      SG({ key: T0, kind: "warning", priority: "immediate", pinned: !0, segments: Lue(w0) });
+      SG({ key: T0, kind: "warning", priority: "immediate", pinned: true, segments: Lue(w0) });
     }),
       (k1e = [w0, SG, kG]),
       (tzt[0] = SG),
@@ -9129,17 +9129,17 @@ function Lue(S) {
     P = S.prefillLength > hKt;
   return [
     { text: `${x}${P ? ` (${S.prefillLength.toLocaleString("en-US")} chars)` : ""}` },
-    { text: P ? " \xB7 scroll to review it all before pressing Enter" : " \xB7 review before pressing Enter", dim: !0 },
+    { text: P ? " \xB7 scroll to review it all before pressing Enter" : " \xB7 review before pressing Enter", dim: true },
   ];
 }
 
 F();
 
 class Oue {
-  emitted = !1;
+  emitted = false;
   claim() {
-    if (this.emitted) return !1;
-    return (this.emitted = !0), !0;
+    if (this.emitted) return false;
+    return (this.emitted = true), true;
   }
 }
 
@@ -9176,7 +9176,7 @@ function Bue(S) {
       children: [
         e(t, { children: "Transcript saving is off \u2014 CLAUDE_CODE_SKIP_PROMPT_HISTORY is set" }),
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [" ", "\xB7 --resume will not find this session; if unintended, unset it and restart"],
         }),
       ],
@@ -9185,7 +9185,7 @@ function Bue(S) {
     children: [
       e(t, { children: "Transcript saving is off \u2014 inherited CLAUDE_CODE_CHILD_SESSION marker" }),
       r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [" ", "\xB7 restart with CLAUDE_CODE_FORCE_SESSION_PERSISTENCE=1 to keep future transcripts"],
       }),
     ],
@@ -9220,7 +9220,7 @@ function jue(S) {
   return r(U, {
     children: [
       r(t, { children: ["Transcript writes are failing (", x ? `${x} \u2014 ${S.code}` : S.code, ")"] }),
-      e(t, { dimColor: !0, children: " \xB7 recent messages may not be saved for resume" }),
+      e(t, { dimColor: true, children: " \xB7 recent messages may not be saved for resume" }),
     ],
   });
 }
@@ -9308,7 +9308,7 @@ var N1e = 300,
 
 function $ue(S, x, P, j) {
   if (!S.current) return;
-  (S.current = !1), j(x, P());
+  (S.current = false), j(x, P());
 }
 
 async function O1e(S) {
@@ -9420,7 +9420,7 @@ function B1e({
     output_style: { name: ot },
     cost: {
       total_cost_usd: dl(),
-      ...!1,
+      ...false,
       total_duration_ms: Ej(),
       total_api_duration_ms: Xg(),
       total_lines_added: U5(),
@@ -9431,7 +9431,7 @@ function B1e({
     ...$1e(),
     fast_mode: j,
     ...(lg(Ke) && { effort: { level: ew(Ke, Ie) } }),
-    thinking: { enabled: He !== !1 },
+    thinking: { enabled: He !== false },
     ...((Ht.five_hour || Ht.seven_day || Ht.spend_limit) && { rate_limits: Ht }),
     ...(be && { vim: { mode: Pe ?? "INSERT" } }),
     ...(Fe && { agent: { name: Fe } }),
@@ -9495,18 +9495,18 @@ class E0 {
   #o;
   #r = Ue();
   #i = 0;
-  #n = !1;
+  #n = false;
   #c = void 0;
   #a = null;
   #s = null;
   #d = null;
   #l = null;
   #u = null;
-  #p = !1;
-  #m = !0;
-  #f = { current: !0 };
-  #g = { current: !0 };
-  #b = !1;
+  #p = false;
+  #m = true;
+  #f = { current: true };
+  #g = { current: true };
+  #b = false;
   constructor(S, x) {
     (this.#e = S), (this.#t = x), (this.#o = { text: S.initialText });
   }
@@ -9514,10 +9514,10 @@ class E0 {
   subscribe = (S) => {
     let x = this.#r.subscribe(S);
     if ((this.#i++, !this.#n)) this.#k();
-    let P = !1;
+    let P = false;
     return () => {
       if (P) return;
-      if (((P = !0), x(), this.#i--, this.#i === 0)) this.#C();
+      if (((P = true), x(), this.#i--, this.#i === 0)) this.#C();
     };
   };
   setInputs(S) {
@@ -9528,14 +9528,14 @@ class E0 {
     if (P || j) this.#y();
     if (HG(x.statusLine) !== HG(S.statusLine)) this.#v();
     if (x.statusLine?.command !== S.statusLine?.command)
-      (this.#m = !0), (this.#f.current = !0), (this.#g.current = !0), this.#T();
+      (this.#m = true), (this.#f.current = true), (this.#g.current = true), this.#T();
     this.#h();
   }
   #k() {
-    (this.#n = !0), this.#v(), this.#h(), this.#T();
+    (this.#n = true), this.#v(), this.#h(), this.#T();
   }
   #C() {
-    (this.#n = !1),
+    (this.#n = false),
       this.#a?.(),
       (this.#a = null),
       this.#s?.(),
@@ -9557,7 +9557,7 @@ class E0 {
       this.#b)
     )
       return;
-    if (((this.#b = !0), x?.disableAllHooks === !0))
+    if (((this.#b = true), x?.disableAllHooks === true))
       n("Status line is configured but disableAllHooks is true", { level: "warn" });
     if (!this.#e.isTrustAccepted())
       YC("statusline", 1),
@@ -9594,7 +9594,7 @@ class E0 {
     this.#c = S;
     let x = il(this.#e.getMessages()),
       P = this.#m;
-    this.#m = !1;
+    this.#m = false;
     let j = I0(x);
     if (j !== this.#u) (this.#u = j), (this.#p = q8(x));
     this.#_(S.signal, x, P, this.#p).catch(h);
@@ -9670,7 +9670,7 @@ function eqe(Y2t) {
 }
 
 function rqe(J2t) {
-  return J2t.fastMode ?? !1;
+  return J2t.fastMode ?? false;
 }
 
 function iqe(X2t) {
@@ -9696,7 +9696,7 @@ function cqe(KG) {
 }
 
 function uqe(aYt, lYt) {
-  return e(t, { dimColor: !0, wrap: "truncate", children: e(oo, { children: aYt }) }, lYt);
+  return e(t, { dimColor: true, wrap: "truncate", children: e(oo, { children: aYt }) }, lYt);
 }
 
 function Jue(W2t) {
@@ -9879,7 +9879,7 @@ function ZG(tYt) {
         const NP = e(oo, { children: QG });
         let J1e;
         if (Que[5] !== NP)
-          (J1e = e(t, { dimColor: !0, wrap: "truncate", children: NP })), (Que[5] = NP), (Que[6] = J1e);
+          (J1e = e(t, { dimColor: true, wrap: "truncate", children: NP })), (Que[5] = NP), (Que[6] = J1e);
         else J1e = Que[6];
         zue = J1e;
         break bb0;
@@ -9936,7 +9936,7 @@ function Nk(CYt) {
   if (B0[2] !== Xy) (oK = Bpe(Xy)), (B0[2] = Xy), (B0[3] = oK);
   else oK = B0[3];
   let nK;
-  if (B0[4] !== oK) (nK = r(t, { "aria-hidden": !0, children: [oK, " "] })), (B0[4] = oK), (B0[5] = nK);
+  if (B0[4] !== oK) (nK = r(t, { "aria-hidden": true, children: [oK, " "] })), (B0[4] = oK), (B0[5] = nK);
   else nK = B0[5];
   let iK;
   if (B0[6] !== Xy) (iK = SN(Xy)), (B0[6] = Xy), (B0[7] = iK);
@@ -9984,7 +9984,7 @@ function U0(DYt) {
   else dK = LP[9];
   let mK;
   if (LP[10] !== iT)
-    (mK = KYt(iT) && r(t, { dimColor: !0, children: [" \xB7 ", L.arrowDown, " to view"] })),
+    (mK = KYt(iT) && r(t, { dimColor: true, children: [" \xB7 ", L.arrowDown, " to view"] })),
       (LP[10] = iT),
       (LP[11] = mK);
   else mK = LP[11];
@@ -9998,7 +9998,7 @@ function U0(DYt) {
 function bK(LYt) {
   let sde = _(8),
     { selected: FYt, onClick: fK, children: rde } = LYt,
-    [BYt, gqe] = u(!1);
+    [BYt, gqe] = u(false);
   const ide = FYt || BYt;
   let hqe;
   if (sde[0] !== rde || sde[1] !== ide)
@@ -10009,7 +10009,7 @@ function bK(LYt) {
     return gK;
   }
   let yqe, Sqe;
-  if (sde[3] === d) (yqe = () => gqe(!0)), (Sqe = () => gqe(!1)), (sde[3] = yqe), (sde[4] = Sqe);
+  if (sde[3] === d) (yqe = () => gqe(true)), (Sqe = () => gqe(false)), (sde[3] = yqe), (sde[4] = Sqe);
   else (yqe = sde[3]), (Sqe = sde[4]);
   let bqe;
   if (sde[5] !== gK || sde[6] !== fK)
@@ -10036,7 +10036,7 @@ function j0(XYt) {
     { onOpen: kK } = XYt,
     sT = W(Rqe),
     ZYt = W(xqe),
-    [e5t, Cqe] = u(!1);
+    [e5t, Cqe] = u(false);
   if (!tde() || sT === 0) {
     return null;
   }
@@ -10059,7 +10059,7 @@ function j0(XYt) {
     return RK;
   }
   let wqe, Tqe;
-  if (vK[7] === d) (wqe = () => Cqe(!0)), (Tqe = () => Cqe(!1)), (vK[7] = wqe), (vK[8] = Tqe);
+  if (vK[7] === d) (wqe = () => Cqe(true)), (Tqe = () => Cqe(false)), (vK[7] = wqe), (vK[8] = Tqe);
   else (wqe = vK[7]), (Tqe = vK[8]);
   let _qe;
   if (vK[9] !== RK || vK[10] !== kK)
@@ -10162,14 +10162,14 @@ function gT() {
   else (Lqe = Tm[11]), (Oqe = Tm[12]);
   if ((A(Lqe, Oqe), cT && (hu === 0 || hu === void 0) && ude > 0)) {
     let Lk;
-    if (Tm[13] === d) (Lk = r(t, { dimColor: !0, children: [fP, " "] })), (Tm[13] = Lk);
+    if (Tm[13] === d) (Lk = r(t, { dimColor: true, children: [fP, " "] })), (Tm[13] = Lk);
     else Lk = Tm[13];
     const mT = ude > 99 ? "99+" : ude;
     let Fk;
     if (Tm[14] !== mT) (Fk = e(t, { color: "success", children: mT })), (Tm[14] = mT), (Tm[15] = Fk);
     else Fk = Tm[15];
     let OP;
-    if (Tm[16] === d) (OP = e(t, { dimColor: !0, children: " done" })), (Tm[16] = OP);
+    if (Tm[16] === d) (OP = e(t, { dimColor: true, children: " done" })), (Tm[16] = OP);
     else OP = Tm[16];
     let pT;
     if (Tm[17] !== Fk) (pT = r(U, { children: [Lk, Fk, OP] })), (Tm[17] = Fk), (Tm[18] = pT);
@@ -10178,12 +10178,12 @@ function gT() {
   }
   if (!cT || hu === void 0 || hu === 0) {
     let Lk;
-    if (Tm[19] === d) (Lk = r(t, { dimColor: !0, children: [fP, " for agents"] })), (Tm[19] = Lk);
+    if (Tm[19] === d) (Lk = r(t, { dimColor: true, children: [fP, " for agents"] })), (Tm[19] = Lk);
     else Lk = Tm[19];
     return Lk;
   }
   let Lk;
-  if (Tm[20] === d) (Lk = r(t, { dimColor: !0, children: [fP, " "] })), (Tm[20] = Lk);
+  if (Tm[20] === d) (Lk = r(t, { dimColor: true, children: [fP, " "] })), (Tm[20] = Lk);
   else Lk = Tm[20];
   const mT = lde === "awaiting" ? "warning" : lde === "done" ? "success" : void 0,
     Fk = lde === "none",
@@ -10196,7 +10196,7 @@ function gT() {
   if (Tm[25] !== hu) (AK = k(hu, "agent")), (Tm[25] = hu), (Tm[26] = AK);
   else AK = Tm[26];
   let MK;
-  if (Tm[27] !== AK) (MK = r(t, { dimColor: !0, children: [" ", AK] })), (Tm[27] = AK), (Tm[28] = MK);
+  if (Tm[27] !== AK) (MK = r(t, { dimColor: true, children: [" ", AK] })), (Tm[27] = AK), (Tm[28] = MK);
   else MK = Tm[28];
   let qqe;
   if (Tm[29] !== pT || Tm[30] !== MK)
@@ -10269,8 +10269,8 @@ async function yde(S, x, P, j) {
     be = de && pe ? (Fe) => Fe.replaceAll("\\", "/") : (Fe) => Fe,
     Pe = { ...Na(), ...Oxe(lee(ue)), CLAUDE_PROJECT_DIR: be(re.project.projectRoot) };
   if (pe) $At(Pe, pe);
-  let Oe = { cwd: Z, env: Pe, timeout: Vqe, input: b(ue), preserveOutputOnError: !0, toolCgroupClass: "plugin" },
-    Ie = Re ? await qe(Re, ict(H), { ...Oe }) : await qe(pe ? UAt(H) : H, [], { shell: de ? (pe ?? !0) : !0, ...Oe });
+  let Oe = { cwd: Z, env: Pe, timeout: Vqe, input: b(ue), preserveOutputOnError: true, toolCgroupClass: "plugin" },
+    Ie = Re ? await qe(Re, ict(H), { ...Oe }) : await qe(pe ? UAt(H) : H, [], { shell: de ? (pe ?? true) : true, ...Oe });
   if (Ie.code !== 0) return n(`subagentStatusLine exited ${Ie.code}: ${Ie.error ?? Ie.stderr}`, { level: "error" }), {};
   let He = {};
   for (let Fe of Ie.stdout.split(`
@@ -10299,9 +10299,9 @@ var zqe = 300,
 function Jqe(S, x) {
   let P = Object.keys(S),
     j = Object.keys(x);
-  if (P.length !== j.length) return !1;
-  for (let H of P) if (S[H]?.content !== x[H]?.content) return !1;
-  return !0;
+  if (P.length !== j.length) return false;
+  for (let H of P) if (S[H]?.content !== x[H]?.content) return false;
+  return true;
 }
 
 function EK(S) {
@@ -10315,14 +10315,14 @@ function kde() {
     H = W((pe) => (j ? EK(pe.tasks).length : 0)),
     { columns: Z } = Ee(),
     re = xt(),
-    ue = C(!1),
+    ue = C(false),
     de = C(new Map());
   A(() => {
     if (!j) {
       x((Oe) => (Object.keys(Oe.taskDecorations).length === 0 ? Oe : { ...Oe, taskDecorations: {} }));
       return;
     }
-    let pe = !1,
+    let pe = false,
       Re = () => {
         if (ue.current) return;
         let Oe = S.getState(),
@@ -10337,7 +10337,7 @@ function kde() {
           x((Fe) => (Object.keys(Fe.taskDecorations).length === 0 ? Fe : { ...Fe, taskDecorations: {} }));
           return;
         }
-        ue.current = !0;
+        ue.current = true;
         let He = new Map();
         for (let [Fe, Ve] of Oe.agentNameRegistry) He.set(Ve, Fe);
         yde(Ie, Math.max(0, Z - vm() - mP), He, de.current)
@@ -10354,7 +10354,7 @@ function kde() {
             n(`subagentStatusLine tick failed: ${Fe}`, { level: "error" });
           })
           .finally(() => {
-            if (((ue.current = !1), EK(S.getState().tasks).length === 0)) Re();
+            if (((ue.current = false), EK(S.getState().tasks).length === 0)) Re();
           });
       };
     if (H === 0) {
@@ -10370,7 +10370,7 @@ function kde() {
         }
       }, bde);
     return () => {
-      (pe = !0), be(), Pe();
+      (pe = true), be(), Pe();
     };
   }, [j, H, Z, S, x, re]);
 }
@@ -10382,7 +10382,7 @@ function Tde(nJt) {
     { value: Bk, onChange: Cde, historyFailedMatch: rJt } = nJt;
   const vde = rJt ? "no matching prompt:" : "search prompts:";
   let LK;
-  if (DK[0] !== vde) (LK = e(t, { dimColor: !0, children: vde })), (DK[0] = vde), (DK[1] = LK);
+  if (DK[0] !== vde) (LK = e(t, { dimColor: true, children: vde })), (DK[0] = vde), (DK[1] = LK);
   else LK = DK[1];
   const wde = se(Bk) + 1;
   let BK;
@@ -10393,10 +10393,10 @@ function Tde(nJt) {
       cursorOffset: Bk.length,
       onChangeCursorOffset: eVe,
       columns: wde,
-      focus: !0,
-      showCursor: !0,
-      multiline: !1,
-      dimColor: !0,
+      focus: true,
+      showCursor: true,
+      multiline: false,
+      dimColor: true,
     })),
       (DK[2] = Cde),
       (DK[3] = wde),
@@ -10405,7 +10405,7 @@ function Tde(nJt) {
   else BK = DK[5];
   let UK;
   if (DK[6] !== Bk)
-    (UK = DP() && Bk === "" && e(t, { dimColor: !0, children: "esc i / for slash commands" })),
+    (UK = DP() && Bk === "" && e(t, { dimColor: true, children: "esc i / for slash commands" })),
       (DK[6] = Bk),
       (DK[7] = UK);
   else UK = DK[7];
@@ -10456,7 +10456,7 @@ F();
 
 function xde(S) {
   let x = W((j) => j.footerLinks),
-    P = S?.excludeKeyed === !0;
+    P = S?.excludeKeyed === true;
   return z(() => {
     let j = P ? x.filter((H) => H.key === void 0) : x;
     return j.length <= Wx ? j : j.slice(0, Wx);
@@ -10470,7 +10470,7 @@ var oVe = 4000,
   rVe = 60000,
   iVe = 3,
   dVe = 300000,
-  mVe = { pr: null, needsAuth: !1, lastUpdated: 0 };
+  mVe = { pr: null, needsAuth: false, lastUpdated: 0 };
 
 class jK {
   #e;
@@ -10478,10 +10478,10 @@ class jK {
   #o = mVe;
   #r = Ue();
   #i = 0;
-  #n = !1;
+  #n = false;
   #c = null;
   #a = 0;
-  #s = !1;
+  #s = false;
   #d = null;
   #l = 0;
   #u = 0;
@@ -10494,10 +10494,10 @@ class jK {
   subscribe = (S) => {
     let x = this.#r.subscribe(S);
     if ((this.#i++, !this.#n)) this.#f();
-    let P = !1;
+    let P = false;
     return () => {
       if (P) return;
-      if (((P = !0), x(), this.#i--, this.#i === 0)) this.#g();
+      if (((P = true), x(), this.#i--, this.#i === 0)) this.#g();
     };
   };
   setInputs(S) {
@@ -10507,8 +10507,8 @@ class jK {
     if ((S.focused !== x.focused && this.#k()) || S.isLoading !== x.isLoading || S.enabled !== x.enabled) this.#b();
   }
   #f() {
-    (this.#n = !0),
-      (this.#s = !1),
+    (this.#n = true),
+      (this.#s = false),
       (this.#c = this.#e.shared.bump.subscribe(() => {
         if (this.#e.shared.pollerDisabled) return;
         (this.#u = 0), (this.#l = 0), this.#b();
@@ -10516,21 +10516,21 @@ class jK {
       this.#h();
   }
   #g() {
-    (this.#n = !1), (this.#s = !1), this.#c?.(), (this.#c = null), this.#C();
+    (this.#n = false), (this.#s = false), this.#c?.(), (this.#c = null), this.#C();
   }
   #b() {
     if (this.#s) return;
-    (this.#s = !0),
+    (this.#s = true),
       queueMicrotask(() => {
         if (!this.#s) return;
-        (this.#s = !1), this.#h();
+        (this.#s = false), this.#h();
       });
   }
   #k() {
-    if (!this.#t.focused || this.#e.shared.pollerDisabled) return !1;
-    if (this.#l === 0) return !1;
+    if (!this.#t.focused || this.#e.shared.pollerDisabled) return false;
+    if (this.#l === 0) return false;
     if (((this.#e.shared.pollerNotModifiedStreak = 0), this.#e.now() - this.#l >= rVe)) (this.#u = 0), (this.#l = 0);
-    return !0;
+    return true;
   }
   #C() {
     if ((this.#a++, this.#d)) this.#d(), (this.#d = null);
@@ -10540,7 +10540,7 @@ class jK {
     if (this.#e.shared.pollerDisabled) return;
     let S = this.#a;
     (this.#p = -1), (this.#m = this.#e.now());
-    let x = this.#S(!0),
+    let x = this.#S(true),
       P = this.#e.now() - this.#l;
     if (P >= x) this.#v(S);
     else this.#y(S, x - P);
@@ -10578,12 +10578,12 @@ class jK {
     if (S !== this.#a) return;
     this.#l = H;
     let ue = re === "needs-auth" || re === "gh-missing",
-      de = ue ? re : !1,
+      de = ue ? re : false,
       pe = re === "fetch-failed",
       Re = null,
-      be = !1;
+      be = false;
     if (!ue && !pe && re !== null) {
-      let { notModified: Oe = !1, ...Ie } = re;
+      let { notModified: Oe = false, ...Ie } = re;
       (be = Oe), (Re = Ie);
     }
     if (
@@ -10593,15 +10593,15 @@ class jK {
       this.#_(Re, de),
       P.pollerBadStreak >= iVe)
     ) {
-      (P.pollerDisabled = !0), g("github_pr_status_direct", "bad_streak_disabled");
+      (P.pollerDisabled = true), g("github_pr_status_direct", "bad_streak_disabled");
       return;
     }
     let Pe = x() - H;
     if (Pe > oVe) {
-      (P.pollerDisabled = !0), g("github_pr_status_direct", "slow_disabled", { elapsed_ms: Pe });
+      (P.pollerDisabled = true), g("github_pr_status_direct", "slow_disabled", { elapsed_ms: Pe });
       return;
     }
-    this.#y(S, this.#S(!1));
+    this.#y(S, this.#S(false));
   }
   #_(S, x) {
     let P = this.#o;
@@ -10630,7 +10630,7 @@ function pVe(S, x, P, j) {
   return Math.max(H, Z, re, S ? 0 : dVe);
 }
 
-function Pde(S, x = !0) {
+function Pde(S, x = true) {
   let P = xt(),
     { host: j } = ct(),
     H = Ba(),
@@ -10662,14 +10662,14 @@ function z0(VJt) {
     return null;
   }
   let WK;
-  if (Ade[0] !== hT) (WK = e(t, { dimColor: !1, children: hT })), (Ade[0] = hT), (Ade[1] = WK);
+  if (Ade[0] !== hT) (WK = e(t, { dimColor: false, children: hT })), (Ade[0] = hT), (Ade[1] = WK);
   else WK = Ade[1];
   let qK;
   if (Ade[2] !== hT) (qK = k(hT, "feedback draft")), (Ade[2] = hT), (Ade[3] = qK);
   else qK = Ade[3];
   let hVe;
   if (Ade[4] !== WK || Ade[5] !== qK)
-    (hVe = r(t, { dimColor: !0, children: [WK, " ", qK] })), (Ade[4] = WK), (Ade[5] = qK), (Ade[6] = hVe);
+    (hVe = r(t, { dimColor: true, children: [WK, " ", qK] })), (Ade[4] = WK), (Ade[5] = qK), (Ade[6] = hVe);
   else hVe = Ade[6];
   return hVe;
 }
@@ -10708,8 +10708,8 @@ function aQ({
   suppressHintExceptStatusline: ue = re,
   isInputEmpty: de,
   isLoading: pe,
-  isExternalLoading: Re = !1,
-  betweenCalls: be = !0,
+  isExternalLoading: Re = false,
+  betweenCalls: be = true,
   tasksSelected: Pe,
   isPasting: Oe,
   showExpandPasteHint: Ie,
@@ -10772,13 +10772,13 @@ function aQ({
   let lo = W((uo) => uo.proactivityLevel),
     To = Yn(null, lo),
     ao = C(lo),
-    jo = C(!1);
-  if (lo !== ao.current) jo.current = !0;
+    jo = C(false);
+  if (lo !== ao.current) jo.current = true;
   if (S.show)
     return r(
       t,
       {
-        dimColor: !0,
+        dimColor: true,
         children: [
           "Press ",
           S.key,
@@ -10789,8 +10789,8 @@ function aQ({
       },
       "exit-message",
     );
-  if (Oe) return e(t, { dimColor: !0, children: "Pasting\u2026" }, "pasting-message");
-  if (Ie && !He) return e(t, { dimColor: !0, children: "paste again to expand" }, "expand-paste-hint");
+  if (Oe) return e(t, { dimColor: true, children: "Pasting\u2026" }, "pasting-message");
+  if (Ie && !He) return e(t, { dimColor: true, children: "paste again to expand" }, "expand-paste-hint");
   let Qo = DP() && !j && P !== "NORMAL" && !He;
   return r(o, {
     justifyContent: "flex-start",
@@ -10798,7 +10798,7 @@ function aQ({
     children: [
       He && e(_de, { value: Fe, onChange: Ve, historyFailedMatch: Ke }),
       Qo
-        ? e(o, { flexShrink: 0, children: r(t, { dimColor: !0, children: ["-- ", P, " --"] }) }, "vim-indicator")
+        ? e(o, { flexShrink: 0, children: r(t, { dimColor: true, children: ["-- ", P, " --"] }) }, "vim-indicator")
         : null,
       e(IVe, {
         mode: H,
@@ -10858,7 +10858,7 @@ function IVe({
     nt = tde() && st > 0,
     Pt = W((Ho) => Ho.footerSelection === "memories"),
     kt = ZC(),
-    Ht = I("tengu_copper_thistle", !1),
+    Ht = I("tengu_copper_thistle", false),
     yt = Ro(att(), "Chat", "shift+tab"),
     lt = W((Ho) => Ho.tasks),
     Rt = W((Ho) => Ho.taskDecorations),
@@ -10878,18 +10878,18 @@ function IVe({
     uo = Rp((Ho) => Ho.voiceWarmingUp),
     Pn = rjn(),
     Yt = Ox().getState,
-    No = xVe?.isCoordinatorMode() === !0,
+    No = xVe?.isCoordinatorMode() === true,
     cn = z(() => Q(Object.values(lt), yQ), [lt]),
     tn = YMn(),
     nn = Ro("chat:cancel", "Chat", "esc").toLowerCase(),
     pn = Ro("app:toggleTodos", "Global", "ctrl+t"),
     Go = Ro("voice:pushToTalk", "Chat", "space"),
     [Oo] = u(() => (ie().voiceFooterHintSeenCount ?? 0) < PVe),
-    xo = C(!1);
+    xo = C(false);
   A(() => {
     if (!jo || !Oo) return;
     if (xo.current) return;
-    xo.current = !0;
+    xo.current = true;
     let Ho = (ie().voiceFooterHintSeenCount ?? 0) + 1;
     Ae((Cn) => {
       if ((Cn.voiceFooterHintSeenCount ?? 0) >= Ho) return Cn;
@@ -10916,18 +10916,18 @@ function IVe({
     ti = !wir(Wr),
     pr = Gt ? lt[Gt] : void 0,
     Wn = jt === "viewing-agent" && pr?.type === "in_process_teammate",
-    yi = !1,
+    yi = false,
     Ki = 0,
     Wi = yi && Ve && !Fe && !so && !de && !uo,
     Rs = Wn && pr != null && pr.status !== "running",
     us = cn > 0,
     Xr = (No || ti ? 1 : 0) + (us ? 1 : 0),
-    as = !Ht && He && !lo.some((Ho) => Ho.key === F7t) ? e(t, { dimColor: !0, children: Zct(He) }, "pr-status") : null,
+    as = !Ht && He && !lo.some((Ho) => Ho.key === F7t) ? e(t, { dimColor: true, children: Zct(He) }, "pr-status") : null,
     Li = null,
     Bs = An
       ? r(
           t,
-          { color: "ide", children: [r(t, { "aria-hidden": !0, children: [L.lozenge, " "] }), An] },
+          { color: "ide", children: [r(t, { "aria-hidden": true, children: [L.lozenge, " "] }), An] },
           "footer-indicator",
         )
       : null,
@@ -10947,7 +10947,7 @@ function IVe({
       Cn = Ho >= 2,
       Zn = cn >= 1,
       Er = !!Wr && Zi,
-      Ai = !1,
+      Ai = false,
       ii = od(lt, Rt, Gt).length > 0 || (Gt !== void 0 && gu(lt[Gt])),
       As = be && !Wn && ue && !so && !Z,
       Ss = jo && Qo === "idle" && Oo && P,
@@ -10968,19 +10968,19 @@ function IVe({
       Ac =
         Ii === "cycle"
           ? r(t, {
-              dimColor: !0,
-              children: [" ", e(M, { chord: yt, action: "cycle", parens: !0, format: { keyCase: "lower" } })],
+              dimColor: true,
+              children: [" ", e(M, { chord: yt, action: "cycle", parens: true, format: { keyCase: "lower" } })],
             })
           : null,
       Ja =
         Ii === "manage" && Zn
           ? r(t, {
-              dimColor: !0,
+              dimColor: true,
               children: [
                 " ",
                 Pe
-                  ? e(M, { chord: "enter", action: "view tasks", parens: !0 })
-                  : e(M, { chord: "down", action: "manage", parens: !0 }),
+                  ? e(M, { chord: "enter", action: "view tasks", parens: true })
+                  : e(M, { chord: "down", action: "manage", parens: true }),
               ],
             })
           : null,
@@ -10988,16 +10988,16 @@ function IVe({
     if (Ii === "warmup") ns = e(cQ, {}, "voice-warmup");
     else if (Ii === "manage" && !Zn)
       ns = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: Pe ? e(M, { chord: "enter", action: "view tasks" }) : e(M, { chord: "down", action: "manage" }),
       });
     else if (Ii === "memories")
-      ns = e(t, { dimColor: !0, children: e(M, { chord: "enter", action: "view memories" }) });
+      ns = e(t, { dimColor: true, children: e(M, { chord: "enter", action: "view memories" }) });
     else if (Ii === "interrupt" || Ii === "interrupt_agents")
       ns = r(U, {
         children: [
           r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
               e(M, { chord: nn, action: Rs ? "return to team lead" : "interrupt", format: { keyCase: "lower" } }),
               Ii === "interrupt_agents" && " \xB7 ",
@@ -11007,10 +11007,10 @@ function IVe({
         ],
       });
     else if (Ii === "ctrl_t")
-      ns = e(t, { dimColor: !0, children: e(M, { chord: pn, action: Ha, format: { keyCase: "lower" } }) });
+      ns = e(t, { dimColor: true, children: e(M, { chord: pn, action: Ha, format: { keyCase: "lower" } }) });
     else if (Ii === "agents") ns = e(gT, {});
-    else if (Ii === "voice") ns = r(t, { dimColor: !0, children: ["hold ", Go, " to speak"] });
-    else if (Ii === "shortcuts") ns = e(t, { dimColor: !0, children: "? for shortcuts" });
+    else if (Ii === "voice") ns = r(t, { dimColor: true, children: ["hold ", Go, " to speak"] });
+    else if (Ii === "shortcuts") ns = e(t, { dimColor: true, children: "? for shortcuts" });
     let la = Er && Wr ? e(Nk, { mode: Wr, children: Ac }, "mode") : null;
     if (Wi && la) return e(o, { height: 1, overflow: "hidden", children: e(o, { flexShrink: 0, children: la }) });
     let Ic = null,
@@ -11025,33 +11025,33 @@ function IVe({
       Jl = !!(wa || la || tr || Ic || Bs),
       Au = () => {
         let ca = Jl;
-        return (Jl = !0), ca ? e(t, { dimColor: !0, children: " \xB7 " }) : null;
+        return (Jl = true), ca ? e(t, { dimColor: true, children: " \xB7 " }) : null;
       };
     return r(o, {
       height: 1,
       overflow: "hidden",
       children: [
         la &&
-          r(o, { flexShrink: 0, children: [la, (tr || Ic || Bs || wa) && e(t, { dimColor: !0, children: " \xB7 " })] }),
-        tr && r(o, { flexShrink: 0, children: [tr, (Ic || Bs || wa) && e(t, { dimColor: !0, children: " \xB7 " })] }),
-        Ic && r(o, { flexShrink: 0, children: [Ic, (Bs || wa) && e(t, { dimColor: !0, children: " \xB7 " })] }),
-        Bs && r(o, { flexShrink: 0, children: [Bs, wa && e(t, { dimColor: !0, children: " \xB7 " })] }),
+          r(o, { flexShrink: 0, children: [la, (tr || Ic || Bs || wa) && e(t, { dimColor: true, children: " \xB7 " })] }),
+        tr && r(o, { flexShrink: 0, children: [tr, (Ic || Bs || wa) && e(t, { dimColor: true, children: " \xB7 " })] }),
+        Ic && r(o, { flexShrink: 0, children: [Ic, (Bs || wa) && e(t, { dimColor: true, children: " \xB7 " })] }),
+        Bs && r(o, { flexShrink: 0, children: [Bs, wa && e(t, { dimColor: true, children: " \xB7 " })] }),
         bs &&
           r(o, {
             flexShrink: 0,
-            children: [bs, Ja, (nt || lo.length > 0) && e(t, { dimColor: !0, children: " \xB7 " })],
+            children: [bs, Ja, (nt || lo.length > 0) && e(t, { dimColor: true, children: " \xB7 " })],
           }),
         nt &&
           r(o, {
             flexShrink: 0,
-            children: [e(j0, { onOpen: Ie }), lo.length > 0 && e(t, { dimColor: !0, children: " \xB7 " })],
+            children: [e(j0, { onOpen: Ie }), lo.length > 0 && e(t, { dimColor: true, children: " \xB7 " })],
           }),
         lo.map((ca, Al) =>
           r(
             o,
             {
               flexShrink: 0,
-              children: [e(oQ, { link: ca }), Al < lo.length - 1 && e(t, { dimColor: !0, children: " \xB7 " })],
+              children: [e(oQ, { link: ca }), Al < lo.length - 1 && e(t, { dimColor: true, children: " \xB7 " })],
             },
             ca.url,
           ),
@@ -11071,7 +11071,7 @@ function IVe({
     jn.push(
       e(
         t,
-        { dimColor: !0, children: e(M, { chord: nn, action: "return to team lead", format: { keyCase: "lower" } }) },
+        { dimColor: true, children: e(M, { chord: nn, action: "return to team lead", format: { keyCase: "lower" } }) },
         "esc-return",
       ),
     );
@@ -11085,29 +11085,29 @@ function IVe({
       vIt(
         q6e({ isBg: wt(), isLoading: de, isExternalLoading: pe, betweenCalls: Re, inFlight: { count: 0, kinds: [] } }),
       ) &&
-      ie().leftArrowOpensAgents !== !1 &&
+      ie().leftArrowOpensAgents !== false &&
       !dn
         ? e(gT, {}, "fg-agents")
         : null,
     lr = od(lt, Rt, Gt).length > 0 || (Gt !== void 0 && gu(lt[Gt])),
     Nn = us ? e(U0, { tasksSelected: Pe, onOpenDialog: Oe }) : null;
   if (jn.length === 0 && !Nn && !(Wr && Zi && ti) && !as && qo.length === 0 && !Mo && P) {
-    if (!dn) jn.push(e(t, { dimColor: !0, children: "? for shortcuts" }, "shortcuts-hint"));
+    if (!dn) jn.push(e(t, { dimColor: true, children: "? for shortcuts" }, "shortcuts-hint"));
   }
   if (Jo) jn.push(Jo);
   if (va) jn.push(e(sQ, {}, "diff-panel"));
   if (Xo > 0) jn.push(e(z0, { count: Xo }, "feedback-drafts"));
-  let bn = ie().copyOnSelect ?? !0,
+  let bn = ie().copyOnSelect ?? true,
     Sn = Pn && (!bn || ip());
   if (jo && uo) jn.push(e(cQ, {}, "voice-warmup"));
   else if (Nt() && Sn) {
     let Ho = D() === "macos",
-      Cn = Ho && (Yt()?.lastPressHadAlt ?? !1);
+      Cn = Ho && (Yt()?.lastPressHadAlt ?? false);
     jn.push(
       e(
         t,
         {
-          dimColor: !0,
+          dimColor: true,
           children: r(fe, {
             children: [
               !bn && e(M, { chord: "ctrl+c", action: "copy" }),
@@ -11122,20 +11122,20 @@ function IVe({
       ),
     );
   } else if (jn.length > 0 && P && jo && Qo === "idle" && So.length === 0 && Oo)
-    jn.push(r(t, { dimColor: !0, children: ["hold ", Go, " to speak"] }, "voice-hint"));
+    jn.push(r(t, { dimColor: true, children: ["hold ", Go, " to speak"] }, "voice-hint"));
   if ((Nn || lr) && P && !to && !Pt)
     jn.push(
       e(
         t,
         {
-          dimColor: !0,
+          dimColor: true,
           children: Pe ? e(M, { chord: "enter", action: "view tasks" }) : e(M, { chord: "down", action: "manage" }),
         },
         "manage-tasks",
       ),
     );
   if (Pt && P)
-    jn.push(e(t, { dimColor: !0, children: e(M, { chord: "enter", action: "view memories" }) }, "view-memories"));
+    jn.push(e(t, { dimColor: true, children: e(M, { chord: "enter", action: "view memories" }) }, "view-memories"));
   let Eo =
     Wr && Zi
       ? e(
@@ -11146,8 +11146,8 @@ function IVe({
               ti &&
               $i &&
               r(t, {
-                dimColor: !0,
-                children: [" ", e(M, { chord: yt, action: "cycle", parens: !0, format: { keyCase: "lower" } })],
+                dimColor: true,
+                children: [" ", e(M, { chord: yt, action: "cycle", parens: true, format: { keyCase: "lower" } })],
               }),
           },
           "mode",
@@ -11166,7 +11166,7 @@ function IVe({
           children: [
             Eo,
             (tr || Li || Bs || Mo || as || qo.length > 0 || Nn || nt || jn.length > 0) &&
-              e(t, { dimColor: !0, children: " \xB7 " }),
+              e(t, { dimColor: true, children: " \xB7 " }),
           ],
         }),
       tr &&
@@ -11175,7 +11175,7 @@ function IVe({
           children: [
             tr,
             (Li || Bs || Mo || as || qo.length > 0 || Nn || nt || jn.length > 0) &&
-              e(t, { dimColor: !0, children: " \xB7 " }),
+              e(t, { dimColor: true, children: " \xB7 " }),
           ],
         }),
       Li &&
@@ -11184,7 +11184,7 @@ function IVe({
           children: [
             Li,
             (Bs || Mo || as || qo.length > 0 || Nn || nt || jn.length > 0) &&
-              e(t, { dimColor: !0, children: " \xB7 " }),
+              e(t, { dimColor: true, children: " \xB7 " }),
           ],
         }),
       Bs &&
@@ -11192,7 +11192,7 @@ function IVe({
           flexShrink: 0,
           children: [
             Bs,
-            (Mo || as || qo.length > 0 || Nn || nt || jn.length > 0) && e(t, { dimColor: !0, children: " \xB7 " }),
+            (Mo || as || qo.length > 0 || Nn || nt || jn.length > 0) && e(t, { dimColor: true, children: " \xB7 " }),
           ],
         }),
       Mo &&
@@ -11200,28 +11200,28 @@ function IVe({
           flexShrink: 0,
           children: [
             Mo,
-            (as || qo.length > 0 || Nn || nt || jn.length > 0) && e(t, { dimColor: !0, children: " \xB7 " }),
+            (as || qo.length > 0 || Nn || nt || jn.length > 0) && e(t, { dimColor: true, children: " \xB7 " }),
           ],
         }),
       as &&
         r(o, {
           flexShrink: 0,
-          children: [as, (qo.length > 0 || Nn || nt || jn.length > 0) && e(t, { dimColor: !0, children: " \xB7 " })],
+          children: [as, (qo.length > 0 || Nn || nt || jn.length > 0) && e(t, { dimColor: true, children: " \xB7 " })],
         }),
       qo.length > 0 &&
         r(o, {
           flexShrink: 0,
           children: [
             e(fe, { children: qo }),
-            (Nn || nt || jn.length > 0) && e(t, { dimColor: !0, children: " \xB7 " }),
+            (Nn || nt || jn.length > 0) && e(t, { dimColor: true, children: " \xB7 " }),
           ],
         }),
       Nn &&
-        r(o, { flexShrink: 0, children: [Nn, (nt || jn.length > 0) && e(t, { dimColor: !0, children: " \xB7 " })] }),
+        r(o, { flexShrink: 0, children: [Nn, (nt || jn.length > 0) && e(t, { dimColor: true, children: " \xB7 " })] }),
       nt &&
         r(o, {
           flexShrink: 0,
-          children: [e(j0, { onOpen: Ie }), jn.length > 0 && e(t, { dimColor: !0, children: " \xB7 " })],
+          children: [e(j0, { onOpen: Ie }), jn.length > 0 && e(t, { dimColor: true, children: " \xB7 " })],
         }),
       jn.length > 0 && e(t, { wrap: "truncate", children: e(fe, { children: jn }) }),
     ],
@@ -11231,10 +11231,10 @@ function IVe({
 var Lde = du(function (d6t) {
   let J0 = _(11),
     { count: Ide, selected: m6t, onClick: KK } = d6t,
-    [p6t, yVe] = u(!1);
+    [p6t, yVe] = u(false);
   const Ede = m6t || p6t;
   let SVe;
-  if (J0[0] === d) (SVe = r(t, { "aria-hidden": !0, children: [eYe, " "] })), (J0[0] = SVe);
+  if (J0[0] === d) (SVe = r(t, { "aria-hidden": true, children: [eYe, " "] })), (J0[0] = SVe);
   else SVe = J0[0];
   let bVe;
   if (J0[1] !== Ide || J0[2] !== Ede)
@@ -11251,7 +11251,7 @@ var Lde = du(function (d6t) {
   if (J0[4] !== KK) (zK = () => KK()), (J0[4] = KK), (J0[5] = zK);
   else zK = J0[5];
   let CVe, vVe;
-  if (J0[6] === d) (CVe = () => yVe(!0)), (vVe = () => yVe(!1)), (J0[6] = CVe), (J0[7] = vVe);
+  if (J0[6] === d) (CVe = () => yVe(true)), (vVe = () => yVe(false)), (J0[6] = CVe), (J0[7] = vVe);
   else (CVe = J0[6]), (vVe = J0[7]);
   let wVe;
   if (J0[8] !== QK || J0[9] !== zK)
@@ -11268,17 +11268,17 @@ function EVe(S, x, P, j, H) {
     re = j;
   return [
     ...(S
-      ? [e(t, { dimColor: !0, children: e(M, { chord: x, action: "interrupt", format: { keyCase: "lower" } }) }, "esc")]
+      ? [e(t, { dimColor: true, children: e(M, { chord: x, action: "interrupt", format: { keyCase: "lower" } }) }, "esc")]
       : []),
     ...(re
-      ? [e(t, { dimColor: !0, children: e(M, { chord: P, action: Z, format: { keyCase: "lower" } }) }, "toggle-tasks")]
+      ? [e(t, { dimColor: true, children: e(M, { chord: P, action: Z, format: { keyCase: "lower" } }) }, "toggle-tasks")]
       : []),
   ];
 }
 
 function DVe(S) {
-  if (wt() && S === "unknown") return !1;
-  return ie().prStatusFooterEnabled ?? !0;
+  if (wt() && S === "unknown") return false;
+  return ie().prStatusFooterEnabled ?? true;
 }
 
 function oQ(f6t) {
@@ -11286,7 +11286,7 @@ function oQ(f6t) {
     { link: Fl } = f6t,
     YK;
   if (eL[0] !== Fl.prefix)
-    (YK = Fl.prefix !== void 0 && r(U, { children: [e(t, { dimColor: !0, children: Fl.prefix }), " "] })),
+    (YK = Fl.prefix !== void 0 && r(U, { children: [e(t, { dimColor: true, children: Fl.prefix }), " "] })),
       (eL[0] = Fl.prefix),
       (eL[1] = YK);
   else YK = eL[1];
@@ -11302,7 +11302,7 @@ function oQ(f6t) {
   const Nde = !Fl.color;
   let XK;
   if (eL[6] !== Fl.color || eL[7] !== Fl.label || eL[8] !== Nde)
-    (XK = e(t, { color: Fl.color, dimColor: Nde, underline: !0, children: Fl.label })),
+    (XK = e(t, { color: Fl.color, dimColor: Nde, underline: true, children: Fl.label })),
       (eL[6] = Fl.color),
       (eL[7] = Fl.label),
       (eL[8] = Nde),
@@ -11310,7 +11310,7 @@ function oQ(f6t) {
   else XK = eL[9];
   let ZK;
   if (eL[10] !== Fl.url || eL[11] !== JK || eL[12] !== XK)
-    (ZK = e(ut, { url: Fl.url, fallback: JK, assumeSupport: !0, children: XK })),
+    (ZK = e(ut, { url: Fl.url, fallback: JK, assumeSupport: true, children: XK })),
       (eL[10] = Fl.url),
       (eL[11] = JK),
       (eL[12] = XK),
@@ -11326,7 +11326,7 @@ function oQ(f6t) {
 function iQ() {
   let g6t = _(1),
     _Ve;
-  if (g6t[0] === d) (_Ve = e(t, { dimColor: !0, children: "/tasks to see subagents" })), (g6t[0] = _Ve);
+  if (g6t[0] === d) (_Ve = e(t, { dimColor: true, children: "/tasks to see subagents" })), (g6t[0] = _Ve);
   else _Ve = g6t[0];
   return _Ve;
 }
@@ -11334,7 +11334,7 @@ function iQ() {
 function sQ() {
   let h6t = _(1),
     RVe;
-  if (h6t[0] === d) (RVe = e(t, { dimColor: !0, children: "/diff to hide diff" })), (h6t[0] = RVe);
+  if (h6t[0] === d) (RVe = e(t, { dimColor: true, children: "/diff to hide diff" })), (h6t[0] = RVe);
   else RVe = h6t[0];
   return RVe;
 }
@@ -11381,14 +11381,14 @@ function jP(F6t) {
     UVe,
     jVe;
   if (uQ[6] !== yT || uQ[7] !== oL)
-    (UVe = () => (oL(yT), () => oL(!1))), (jVe = [yT, oL]), (uQ[6] = yT), (uQ[7] = oL), (uQ[8] = UVe), (uQ[9] = jVe);
+    (UVe = () => (oL(yT), () => oL(false))), (jVe = [yT, oL]), (uQ[6] = yT), (uQ[7] = oL), (uQ[8] = UVe), (uQ[9] = jVe);
   else (UVe = uQ[8]), (jVe = uQ[9]);
   qn(UVe, jVe);
   let HVe;
   if (uQ[10] !== yT || uQ[11] !== Uk)
     (HVe = ($Ve) =>
       yT && $Ve.props.hint !== Uk.hint
-        ? e(t, { dimColor: !0, wrap: "truncate", children: oh.clean($Ve.props.hint) })
+        ? e(t, { dimColor: true, wrap: "truncate", children: oh.clean($Ve.props.hint) })
         : null),
       (uQ[10] = yT),
       (uQ[11] = Uk),
@@ -11402,7 +11402,7 @@ function VP(Y6t) {
     { draft: pQ, working: fQ, interactive: Fde, mode: HP, children: Bde } = Y6t,
     Ude = C(null),
     [hQ, WVe] = u(),
-    [CQ, J6t] = u(!1);
+    [CQ, J6t] = u(false);
   ss.useRenderVersion();
   let qVe;
   if (qP[0] !== Fde) (qVe = Qg.hasRenderHooks("PromptHint") && !Fde), (qP[0] = Fde), (qP[1] = qVe);
@@ -11440,7 +11440,7 @@ function VP(Y6t) {
       hQ !== void 0 &&
       r(o, {
         children: [
-          CQ && r(t, { children: [e(Nk, { mode: HP }), e(t, { dimColor: !0, children: " \xB7 " })] }),
+          CQ && r(t, { children: [e(Nk, { mode: HP }), e(t, { dimColor: true, children: " \xB7 " })] }),
           e(jP, { reading: hQ, onHidden: J6t }),
         ],
       })),
@@ -11464,7 +11464,7 @@ function VP(Y6t) {
 var Vde = (rm) => {
   let zVe = _(8);
   const $de = !rm.isInputEmpty,
-    qde = rm.isSearching || rm.exitMessage.show || rm.isPasting === !0 || rm.showExpandPasteHint === !0;
+    qde = rm.isSearching || rm.exitMessage.show || rm.isPasting === true || rm.showExpandPasteHint === true;
   let xQ;
   if (zVe[0] !== rm) (xQ = e(aQ, { ...rm })), (zVe[0] = rm), (zVe[1] = xQ);
   else xQ = zVe[1];
@@ -11577,7 +11577,7 @@ function lL(i8t) {
     eme = Q8t("hipaa");
   ZC();
   let tGe;
-  if ($c[8] === d) (tGe = I("tengu_copper_thistle", !1)), ($c[8] = tGe);
+  if ($c[8] === d) (tGe = I("tengu_copper_thistle", false)), ($c[8] = tGe);
   else tGe = $c[8];
   let s8t = tGe,
     Lu = W(SGe),
@@ -11662,7 +11662,7 @@ function lL(i8t) {
         if ($c[39] !== kT) (qa = Zct(kT)), ($c[39] = kT), ($c[40] = qa);
         else qa = $c[40];
         let kp;
-        if ($c[41] !== qa) (kp = e(t, { dimColor: !0, children: qa }, "pr")), ($c[41] = qa), ($c[42] = kp);
+        if ($c[41] !== qa) (kp = e(t, { dimColor: true, children: qa }, "pr")), ($c[41] = qa), ($c[42] = kp);
         else kp = $c[42];
         ld.push(kp);
       }
@@ -11718,7 +11718,7 @@ function YQ(m8t) {
     (iGe = (aGe) =>
       aGe.props.modes.length === 0
         ? null
-        : r(t, { dimColor: !0, children: [ime ? " \xB7 " : "", aGe.props.modes.join(" & ")] })),
+        : r(t, { dimColor: true, children: [ime ? " \xB7 " : "", aGe.props.modes.join(" & ")] })),
       (oGe[3] = ime),
       (oGe[4] = iGe);
   else iGe = oGe[4];
@@ -11734,7 +11734,7 @@ var JQ = du(function (p8t) {
     y8t = W(TGe),
     { storageV5: lGe } = ge(),
     jQ = W(_Ge),
-    [S8t, cGe] = u(!1),
+    [S8t, cGe] = u(false),
     HQ = Nge({ error: y8t, connected: f8t, sessionActive: g8t, reconnecting: h8t });
   A(() => {
     if (HQ.label === "/rc active") VV(lGe);
@@ -11755,12 +11755,12 @@ var JQ = du(function (p8t) {
       (zP[4] = WQ);
   else WQ = zP[4];
   let mGe, pGe;
-  if (zP[5] === d) (mGe = () => cGe(!0)), (pGe = () => cGe(!1)), (zP[5] = mGe), (zP[6] = pGe);
+  if (zP[5] === d) (mGe = () => cGe(true)), (pGe = () => cGe(false)), (zP[5] = mGe), (zP[6] = pGe);
   else (mGe = zP[5]), (pGe = zP[6]);
   const cme = $Q ? "background" : HQ.color;
   let VQ;
   if (zP[7] !== UQ)
-    (VQ = UQ && r(t, { dimColor: !0, children: [" \xB7 ", e(M, { chord: "enter", action: "view" })] })),
+    (VQ = UQ && r(t, { dimColor: true, children: [" \xB7 ", e(M, { chord: "enter", action: "view" })] })),
       (zP[7] = UQ),
       (zP[8] = VQ);
   else VQ = zP[8];
@@ -11876,9 +11876,9 @@ function mpe(f9t) {
       setHistoryQuery: Pme,
       historyFailedMatch: Ame,
     } = f9t,
-    xT = PGe === void 0 ? !1 : PGe,
-    Mme = AGe === void 0 ? !1 : AGe,
-    Ime = MGe === void 0 ? !1 : MGe,
+    xT = PGe === void 0 ? false : PGe,
+    Mme = AGe === void 0 ? false : AGe,
+    Ime = MGe === void 0 ? false : MGe,
     Eme = Xe(XP, WGe),
     Nme = Xe(XP, qGe),
     EGe;
@@ -11972,7 +11972,7 @@ function mpe(f9t) {
   }
   if (g9t) {
     let tS;
-    if (Su[25] === d) (tS = e(qme, { dimColor: !0, fixedWidth: !0, paddingX: 2 })), (Su[25] = tS);
+    if (Su[25] === d) (tS = e(qme, { dimColor: true, fixedWidth: true, paddingX: 2 })), (Su[25] = tS);
     else tS = Su[25];
     return tS;
   }
@@ -11988,7 +11988,7 @@ function mpe(f9t) {
       (Su[31] = ZP),
       (Su[32] = cz);
   else cz = Su[32];
-  const epe = BGe?.hideVimModeIndicator ?? !1,
+  const epe = BGe?.hideVimModeIndicator ?? false,
     tpe = !RGe,
     ope = oA ? XP.openBashesDialog : void 0,
     npe = oA ? y9t : void 0;
@@ -12064,7 +12064,7 @@ function mpe(f9t) {
   else dz = Su[54];
   let mz;
   if (Su[55] !== cz || Su[56] !== dz)
-    (mz = r(o, { flexDirection: "column", flexShrink: 1, children: [cz, dz, !1] })),
+    (mz = r(o, { flexDirection: "column", flexShrink: 1, children: [cz, dz, false] })),
       (Su[55] = cz),
       (Su[56] = dz),
       (Su[57] = mz);
@@ -12295,13 +12295,13 @@ ${mue}`
           let cKe = x2(typeof ET.type === "string" ? ET.type : "unknown", _L);
           let xz;
           try {
-            xz = Mz(ET, _m, !0);
+            xz = Mz(ET, _m, true);
           } catch {
             xz = null;
           }
           let uKe =
             xz !== null
-              ? NT(`[${cKe}] ${xz}`, Tpe, _m, !0)
+              ? NT(`[${cKe}] ${xz}`, Tpe, _m, true)
               : `[${cKe} block not shown in preview]
 ${mue}`;
           MT.push({ type: "text", text: uKe }), (_m = _m - Math.max(uKe.length, DT)), _m;
@@ -12351,7 +12351,7 @@ function mKe(S) {
 
 function Ape(S) {
   let x = S.filter((ue) => {
-      if (typeof ue.value !== "string") return !0;
+      if (typeof ue.value !== "string") return true;
       return !(RL(ue.origin) !== void 0 && qy(F9(), ue.value) !== null && kX(ue.value, RL(ue.origin)) === ue.value);
     }),
     P = x.filter((ue) => ue.mode === "task-notification"),
@@ -12427,16 +12427,16 @@ function Dpe() {
             children: e(mx, {
               message: S7t,
               lookups: vE,
-              addMargin: !1,
+              addMargin: false,
               tools: [],
               commands: [],
-              verbose: !1,
+              verbose: false,
               inProgressToolUseIDs: xpe,
               progressMessagesForMessage: [],
-              shouldAnimate: !1,
-              shouldShowDot: !1,
-              isTranscriptMode: !1,
-              isStatic: !0,
+              shouldAnimate: false,
+              shouldShowDot: false,
+              isTranscriptMode: false,
+              isStatic: true,
             }),
           },
           wpe,
@@ -12462,18 +12462,18 @@ function RL(S) {
 }
 
 function Mpe(S) {
-  if (S.verifiedSlackHumanTurn === !0) return !0;
+  if (S.verifiedSlackHumanTurn === true) return true;
   switch (S.origin?.kind) {
     case void 0:
     case "human":
     case "slack-ping":
-      return !1;
+      return false;
     default:
-      return !0;
+      return true;
   }
 }
 
-function NT(S, x, P = Rwe, j = !1) {
+function NT(S, x, P = Rwe, j = false) {
   let H = kX(S, x),
     Z = j || H !== S || SI(H) !== H,
     re = aH(H, P);
@@ -12500,7 +12500,7 @@ function Az(S, x, P) {
       let de = ce(ue.text, H);
       j.push(de), (H -= [...de].length);
     } else if (P) {
-      let de = Mz(ue, H, !1);
+      let de = Mz(ue, H, false);
       if (de) j.push(de), (H -= [...de].length);
     }
   }
@@ -12604,7 +12604,7 @@ function Hk(M7t) {
     }
     let dA;
     if (cA[0] !== vc.text || cA[1] !== lA)
-      (dA = vc.text && e(Dc, { color: lA, padded: !0, children: vc.text })),
+      (dA = vc.text && e(Dc, { color: lA, padded: true, children: vc.text })),
         (cA[0] = vc.text),
         (cA[1] = lA),
         (cA[2] = dA);
@@ -12643,7 +12643,7 @@ function Hk(M7t) {
     (LT = Iz
       ? "\u2500".repeat(xL + PL + AL.length)
       : r(U, {
-          children: [Of ? ` ${Of} ` : null, vc.text ? e(Dc, { color: lA, padded: !0, children: vc.text }) : null, AL],
+          children: [Of ? ` ${Of} ` : null, vc.text ? e(Dc, { color: lA, padded: true, children: vc.text }) : null, AL],
         })),
       (cA[11] = vc.text),
       (cA[12] = Iz),
@@ -12678,7 +12678,7 @@ function Fpe() {
     let j = new AbortController();
     return (
       (async () => {
-        while (!j.signal.aborted) await P.probeExternalClear(S), await ne(200, j.signal, { unref: !0 });
+        while (!j.signal.aborted) await P.probeExternalClear(S), await ne(200, j.signal, { unref: true });
       })(),
       () => j.abort()
     );
@@ -12713,9 +12713,9 @@ class IL {
   #a = 0;
   #s;
   #d = null;
-  #l = !1;
+  #l = false;
   #u = null;
-  #p = !1;
+  #p = false;
   constructor({ valueStore: S, scheduleTimeout: x, rewriteEdit: P, onEdit: j }) {
     (this.#e = S), (this.#t = x), (this.#o = P ?? ((Z) => Z)), (this.#r = j ?? (() => {}));
     let H = S.getState().value;
@@ -12725,9 +12725,9 @@ class IL {
       mode: "prompt",
       pastedContents: {},
       stashedPrompt: void 0,
-      isInputOverlayActive: !1,
-      isVimEditing: !1,
-      inputOwnsEscape: !1,
+      isInputOverlayActive: false,
+      isVimEditing: false,
+      inputOwnsEscape: false,
       interimRange: null,
     }),
       (this.#c = S.subscribe(this.#f));
@@ -12767,7 +12767,7 @@ class IL {
     if (S === this.#s.value) return;
     let x = this.#d,
       P = x !== null && x.value === S;
-    if (!P) this.#l = !0;
+    if (!P) this.#l = true;
     this.#m({ value: S, cursorOffset: P ? x.cursorOffset : S.length });
   };
   setValue = (S) => {
@@ -12796,8 +12796,8 @@ class IL {
     let j = this.#s.value,
       H = this.#o(S, j),
       Z = x ?? this.#s.cursorOffset;
-    if (P === "input") this.#l = !1;
-    else if (H !== j) this.#l = !0;
+    if (P === "input") this.#l = false;
+    else if (H !== j) this.#l = true;
     if (
       ((this.#d = { value: H, cursorOffset: Z }),
       pxt(this.#e, H),
@@ -12811,7 +12811,7 @@ class IL {
       this.#u?.(),
       (this.#u = re
         ? this.#t(() => {
-            (this.#u = null), $rt(this.#e, !1);
+            (this.#u = null), $rt(this.#e, false);
           }, TKe)
         : null);
   }
@@ -12830,14 +12830,14 @@ class IL {
   };
   popStash = (S) => {
     let x = this.#s.stashedPrompt;
-    if (x === void 0) return !1;
+    if (x === void 0) return false;
     if (
       (this.#g(x.text, x.cursorOffset, S),
       this.#m({ pastedContents: x.pastedContents, stashedPrompt: void 0 }),
       x.launchWarning)
     )
       cQt(this.#e, x.launchWarning);
-    return !0;
+    return true;
   };
   setInputOverlayActive = (S) => {
     this.#m({ isInputOverlayActive: S });
@@ -12853,22 +12853,22 @@ class IL {
     if (S !== null && x !== null && S.start === x.start && S.end === x.end) return;
     this.#m({ interimRange: S });
   };
-  submit = (S, x = !1) => {
-    if (this.#a === 0) return !1;
-    return this.#n.emit(S, x), !0;
+  submit = (S, x = false) => {
+    if (this.#a === 0) return false;
+    return this.#n.emit(S, x), true;
   };
   onSubmitRequest = (S) => {
     let x = this.#n.subscribe(S);
     this.#a++;
-    let P = !0;
+    let P = true;
     return () => {
       if (!P) return;
-      (P = !1), this.#a--, x();
+      (P = false), this.#a--, x();
     };
   };
   dispose() {
     if (this.#p) return;
-    if (((this.#p = !0), this.#c(), this.#u)) this.#u(), (this.#u = null), $rt(this.#e, !1);
+    if (((this.#p = true), this.#c(), this.#u)) this.#u(), (this.#u = null), $rt(this.#e, false);
     this.#n.clear(), (this.#a = 0);
   }
 }
@@ -12876,7 +12876,7 @@ class IL {
 var jpe = 1e4,
   OT = 1000;
 
-function RKe(S, x, P = !1) {
+function RKe(S, x, P = false) {
   if ((!P && S.length <= jpe) || S.length <= OT) return { truncatedText: S, placeholderContent: "" };
   let j = Math.floor(OT / 2),
     H = Math.floor(OT / 2),
@@ -12914,7 +12914,7 @@ function Hpe(S, x) {
     }
     (de = de.slice(0, He.index) + Fe.content + de.slice(Ve)), Z.add(He.id);
   }
-  let { truncatedText: Re, placeholderContent: be } = RKe(de, P, !0);
+  let { truncatedText: Re, placeholderContent: be } = RKe(de, P, true);
   if (!be) return { newInput: S, newPastedContents: x };
   let Pe = Re;
   if (ue.length > 0) {
@@ -12935,22 +12935,22 @@ var xKe = (S) => S.pastedContents;
 function $pe(S) {
   let x = Xe(S, Upe),
     P = Xe(S, xKe),
-    [j, H] = u(!1);
+    [j, H] = u(false);
   A(() => {
     if (j) return;
     if (x.length <= 1e4) return;
     let { newInput: Z, newPastedContents: re } = Hpe(x, P);
-    S.setValue(Z), S.setCursorOffset(Z.length), S.setPastedContents(re), H(!0);
+    S.setValue(Z), S.setCursorOffset(Z.length), S.setPastedContents(re), H(true);
   }, [x, j, P, S]),
     A(() => {
-      if (x === "") H(!1);
+      if (x === "") H(false);
     }, [x]);
 }
 
 F();
 
 function EL() {
-  return I("tengu_jiggly_mochi", !1);
+  return I("tengu_jiggly_mochi", false);
 }
 
 var PKe = 3,
@@ -12975,16 +12975,16 @@ F();
 var MKe = 5000;
 
 function qpe(S) {
-  let [x, P] = u(!1),
+  let [x, P] = u(false),
     j = xt(),
     H = Bie.of(ct().host);
   return (
     A(() => {
       if (H.fastIconHintShown || !S) return;
-      H.markFastIconHintShown(), P(!0);
-      let Z = j.setTimeout(() => P(!1), MKe);
+      H.markFastIconHintShown(), P(true);
+      let Z = j.setTimeout(() => P(false), MKe);
       return () => {
-        Z(), P(!1);
+        Z(), P(false);
       };
     }, [S, j, H]),
     x
@@ -12999,17 +12999,17 @@ var IKe = 2500,
 
 function Kpe(S, x) {
   let P = NR(),
-    [j, H] = u(!1),
+    [j, H] = u(false),
     Z = xt(),
     [, re] = Bi(j && !P ? Vpe : null);
   if (
     (A(() => {
-      let Re = Gpe === !1 && S;
+      let Re = Gpe === false && S;
       if (((Gpe = S), !Re || P)) return;
-      H(!0);
-      let be = Z.setTimeout(() => H(!1), IKe);
+      H(true);
+      let be = Z.setTimeout(() => H(false), IKe);
       return () => {
-        be(), H(!1);
+        be(), H(false);
       };
     }, [S, Z, P]),
     !j || P || x <= 0)
@@ -13030,7 +13030,7 @@ function mA({ gesture: S, turn: x, transcript: P, onDetachToCaller: j }) {
   let H = Xe(x, (de) => de.isLoading),
     Z = Xe(x, (de) => de.isExternalLoading),
     re = YP({ turn: x, transcript: P }),
-    ue = ie().leftArrowOpensAgents !== !1;
+    ue = ie().leftArrowOpensAgents !== false;
   return z(
     () =>
       ine(S, { onDetachToCaller: j, isLoading: H, isExternalLoading: Z, betweenCalls: re, leftArrowOpensAgents: ue }),
@@ -13047,7 +13047,7 @@ var EKe = 5,
   DKe = 3,
   NKe = [],
   OKe = 3,
-  FKe = { tasks: !1, memories: !0, bagel: !0, bridge: !0, workflows: !1, frame: !1 };
+  FKe = { tasks: false, memories: true, bagel: true, bridge: true, workflows: false, frame: false };
 
 function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z, submit: re }) {
   let { submit: ue, submitEmpty: de, submitToAgent: pe } = re,
@@ -13087,9 +13087,9 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     Pn = oE(Qm.kind),
     Yt = rB() || Pn,
     No = cie(),
-    cn = C(!1),
+    cn = C(false),
     tn = B((it) => {
-      (cn.current = !1), lQt(it);
+      (cn.current = false), lQt(it);
     }, []),
     nn = DP(),
     {
@@ -13101,7 +13101,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       handleKeyDown: Xo,
       openSearch: zo,
     } = yce(j, (it) => {
-      to(it.pastedContents), cp(it.display, !1, it.pastedContents);
+      to(it.pastedContents), cp(it.display, false, it.pastedContents);
     }),
     [en, un] = u(null),
     Uo = en === "help",
@@ -13112,9 +13112,9 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       (mr.current = bo), un(bo);
     }, []),
     Ir = pn || Uo;
-  A(() => (j.setInputOverlayActive(Ir), () => j.setInputOverlayActive(!1)), [Ir, j]);
+  A(() => (j.setInputOverlayActive(Ir), () => j.setInputOverlayActive(false)), [Ir, j]);
   let An = nn && No !== "NORMAL";
-  A(() => (j.setVimEditing(An), () => j.setVimEditing(!1)), [An, j]),
+  A(() => (j.setVimEditing(An), () => j.setVimEditing(false)), [An, j]),
     A(() => {
       if (!nn) lQt("INSERT");
     }, [nn]),
@@ -13122,8 +13122,8 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       if (!nn || qKe(j_.getState().vimMode) !== "NORMAL") return;
       j.setCursorOffset(eke(j.value.normalize("NFC"), j.cursorOffset));
     }, [j, nn]);
-  let [Wr, Kn] = u(!1),
-    [Tn, tr] = u({ show: !1 }),
+  let [Wr, Kn] = u(false),
+    [Tn, tr] = u({ show: false }),
     hi = C(Promise.resolve());
   qn(() => {
     if (!nn || !j.changedFromOutside || j_.getState().vimMode !== "NORMAL") return;
@@ -13168,7 +13168,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       ) &&
       Hr >= aL &&
       ch(),
-    va = W((it) => !1),
+    va = W((it) => false),
     qo = W((it) => Object.keys(it.frameUrls).length > 0),
     jn = qo && tMe(),
     So = W((it) => it.teamContext),
@@ -13184,12 +13184,12 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     Jo = W((it) => it.viewingAgentTaskId),
     lr = W((it) => it.viewSelectionMode),
     Nn = An || Ir || Rn || Fe !== "prompt" || yi !== null || (!uv() && Mo.some((it) => yye(it, Ie === "")));
-  A(() => (j.setInputOwnsEscape(Nn), () => j.setInputOwnsEscape(!1)), [Nn, j]);
+  A(() => (j.setInputOwnsEscape(Nn), () => j.setInputOwnsEscape(false)), [Nn, j]);
   let bn = W((it) => it.isBriefOnly) && !Jo,
     Sn = W((it) => it.mainLoopModel),
     Eo = W((it) => it.mainLoopModelForSession),
     Ho = W((it) => it.thinkingEnabled),
-    Cn = W((it) => (Yr() ? it.fastMode : !1)),
+    Cn = W((it) => (Yr() ? it.fastMode : false)),
     Zn = Kf(),
     Er = W((it) => it.ultracode),
     Ai = dQ(pr.getState()),
@@ -13202,15 +13202,15 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       if (Ai) return { ...qt, mode: Ai.permissionMode };
       return qt;
     }, [Ai, qt]),
-    Ja = C(!1);
-  if (!Ja.current) (Ja.current = !0), qNt(x.getSnapshot());
+    Ja = C(false);
+  if (!Ja.current) (Ja.current = true), qNt(x.getSnapshot());
   let ns = C(null);
   A(() => Y1(() => [j.value]), [j]);
-  let la = C(!1),
-    [Ic, bs] = u(!1),
+  let la = C(false),
+    [Ic, bs] = u(false),
     wa = W((it) => it.coordinatorTaskIndex),
     Jl = W((it) => it.taskDecorations),
-    Au = W((it) => it.idleTeammatesExpanded ?? !1),
+    Au = W((it) => it.idleTeammatesExpanded ?? false),
     ca = B(
       (it) =>
         Wn((bo) => {
@@ -13234,8 +13234,8 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     else if (wa >= Al) ca(Math.max(nu, Al - 1));
     else if (wa < nu) ca(nu);
   }, [Qu, yc, Al, wa, nu, ca]);
-  let [Mu, ru] = u(!1),
-    [Xl, Fr] = u(!1),
+  let [Mu, ru] = u(false),
+    [Xl, Fr] = u(false),
     ai = xt(),
     Dr = C(null);
   A(
@@ -13244,13 +13244,13 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     },
     [],
   );
-  let [ki, Zr] = u(!1),
-    [Ms, Is] = u(!1),
-    Ra = C(!1),
-    [Xa, $a] = u(!1),
-    [vs, er] = u(!1),
-    [Nr, ui] = u(!1),
-    Ps = W((it) => it.showAutoModeEnvOnboarding ?? !1),
+  let [ki, Zr] = u(false),
+    [Ms, Is] = u(false),
+    Ra = C(false),
+    [Xa, $a] = u(false),
+    [vs, er] = u(false),
+    [Nr, ui] = u(false),
+    Ps = W((it) => it.showAutoModeEnvOnboarding ?? false),
     Wa = Ps && !so,
     Zs = z(() => cw(Li), [Li]),
     Cs = Al > 0 || ap,
@@ -13307,9 +13307,9 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       (Wn((bo) => {
         if (bo.footerSelection === it) return bo;
         let vn = { ...bo, footerSelection: it };
-        if (it === "frame") (vn.frameNavPath = Object.keys(bo.frameUrls).at(-1) ?? null), (vn.frameExpanded = !1);
-        else if (bo.footerSelection === "frame") vn.frameExpanded = !1;
-        if (bo.footerSelection === "tasks") vn.idleTeammatesExpanded = !1;
+        if (it === "frame") (vn.frameNavPath = Object.keys(bo.frameUrls).at(-1) ?? null), (vn.frameExpanded = false);
+        else if (bo.footerSelection === "frame") vn.frameExpanded = false;
+        if (bo.footerSelection === "tasks") vn.idleTeammatesExpanded = false;
         return vn;
       }),
       it === "tasks")
@@ -13317,7 +13317,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       ca(nu);
     if (it === "workflows") Kr(0);
   }
-  function Sg(it, bo, vn = !1) {
+  function Sg(it, bo, vn = false) {
     let Tr = ia ? it.indexOf(ia) : -1,
       mi = it[Tr + bo];
     if (mi) {
@@ -13325,10 +13325,10 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       let Pi = bo < 0 && !bb;
       if (Pi && mi === "tasks" && Al > 0) ca(Al - 1);
       if (Pi && mi === "workflows") Kr(Math.max(0, Zs.length - 1));
-      return !0;
+      return true;
     }
-    if (bo < 0 && vn) return iu(null), !0;
-    return !1;
+    if (bo < 0 && vn) return iu(null), true;
+    return false;
   }
   let {
       suggestion: zC,
@@ -13343,8 +13343,8 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     Cb = z(() => (y2() && !tv && !ME ? G$t(tl) : []), [tl, tv, ME]),
     IE = z(() => (ZR() ? bGn(tl) : []), [tl]),
     Ur = z(() => (Zu() && e_t() ? jln(tl) : []), [tl]),
-    [Ws, of] = u(!1),
-    bl = C(!1),
+    [Ws, of] = u(false),
+    bl = C(false),
     bg = Ro("chat:workflowKeywordToggle", "Chat", "alt+w"),
     tx = z(() => SXt(tl), [tl]),
     wb = z(
@@ -13403,14 +13403,14 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
   let kIe = z(() => {
       let it = [];
       for (let bo of ox)
-        if (He === bo.start) it.push({ start: bo.start, end: bo.end, color: void 0, inverse: !0, priority: 8 });
+        if (He === bo.start) it.push({ start: bo.start, end: bo.end, color: void 0, inverse: true, priority: 8 });
       if (pn && xo && !dn) it.push({ start: He, end: He + Go.length, color: "warning", priority: 20 });
       for (let bo of tx) it.push({ start: bo.start, end: bo.end, color: "warning", priority: 15 });
       for (let bo of wb) it.push({ start: bo.start, end: bo.end, color: "suggestion", priority: 5 });
       for (let bo of EE) it.push({ start: bo.start, end: bo.end, color: "suggestion", priority: 5 });
       for (let bo of Fte) it.push({ start: bo.start, end: bo.end, color: "suggestion", priority: 5 });
       for (let bo of Bte) it.push({ start: bo.start, end: bo.end, color: bo.themeColor, priority: 5 });
-      if (ot) it.push({ start: ot.start, end: ot.end, color: void 0, dimColor: !0, priority: 1 });
+      if (ot) it.push({ start: ot.start, end: ot.end, color: void 0, dimColor: true, priority: 1 });
       if (UV())
         for (let bo of kb)
           for (let vn = bo.start; vn < bo.end; vn++)
@@ -13418,7 +13418,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
               start: vn,
               end: vn + 1,
               color: RH(vn - bo.start),
-              shimmerColor: RH(vn - bo.start, !0),
+              shimmerColor: RH(vn - bo.start, true),
               priority: 10,
             });
       if (y2())
@@ -13428,7 +13428,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
               start: vn,
               end: vn + 1,
               color: RH(vn - bo.start),
-              shimmerColor: RH(vn - bo.start, !0),
+              shimmerColor: RH(vn - bo.start, true),
               priority: 10,
             });
       if (Zu() && !Ws)
@@ -13481,7 +13481,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       else Ec("workflow-keyword-active");
     }, [Xi, Ec, Ur.length, Ws, bg]),
     A(() => {
-      if (Ur.length === 0 && Ws) of(!1), (bl.current = !1), Ec("workflow-keyword-ignored");
+      if (Ur.length === 0 && Ws) of(false), (bl.current = false), Ec("workflow-keyword-ignored");
     }, [Ur.length, Ws, Ec]);
   let $te = B(() => {
       if (Ur.length === 0) return;
@@ -13521,7 +13521,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
           key: "stash-hint",
           kind: "hint",
           jsx: r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
               "Tip:",
               " ",
@@ -13548,7 +13548,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       s("tengu_help_toggled", {}), Pr((it) => (it === "help" ? null : "help"));
     }, [Pr]),
     FE = B(
-      (it, { interpretLeadingModeCharacter: bo = !0 } = {}) => {
+      (it, { interpretLeadingModeCharacter: bo = true } = {}) => {
         Pr(null), Vte(), us.promptSuggestion.reset();
         let vn = it.length === Ie.length + 1,
           Tr = He === 0,
@@ -13582,7 +13582,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     } = hce(
       j,
       (it, bo, vn, Tr) => {
-        FE(it, { interpretLeadingModeCharacter: !1 }), Rt(bo), to(vn), lt(Tr);
+        FE(it, { interpretLeadingModeCharacter: false }), Rt(bo), to(vn), lt(Tr);
       },
       Ha,
     );
@@ -13634,13 +13634,13 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     if (vIe() && rs.length > 0) {
       let vn = rs[0];
       if ((iu(vn), vn === "tasks" && !ie().hasSeenTasksHint))
-        Ae((Tr) => (Tr.hasSeenTasksHint ? Tr : { ...Tr, hasSeenTasksHint: !0 }), Xr);
+        Ae((Tr) => (Tr.hasSeenTasksHint ? Tr : { ...Tr, hasSeenTasksHint: true }), Xr);
     }
   }
   let [BE] = u(jce),
     eoe = B(() => {
       let it = pr.getState().queueEditIndex;
-      if (it === null) return !1;
+      if (it === null) return false;
       let bo = j.value,
         vn = as.getCommandQueue().filter(yv)[it];
       if (vn && !yye(vn, bo === ""))
@@ -13654,43 +13654,43 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
           }),
           Wi(null),
           g("input_queue_pop_to_edit", "bash_needs_empty_draft"),
-          !0
+          true
         );
       let Tr = as.popEditableAt(it, bo, j.cursorOffset, j.pastedContents);
-      if ((Wi(null), !Tr)) return g("input_queue_pop_to_edit", "stale_index"), !0;
+      if ((Wi(null), !Tr)) return g("input_queue_pop_to_edit", "stale_index"), true;
       if ((yt(Tr.text), Rt(Tr.mode), lt(Tr.cursorOffset), Tr.images.length > 0))
         to((mi) => {
           let Pi = { ...mi };
           for (let Js of Tr.images) Pi[Js.id] = Js;
           return Pi;
         });
-      return y("input_queue_pop_to_edit"), !0;
+      return y("input_queue_pop_to_edit"), true;
     }, [Xi, j, yt, Rt, lt, to, Wi, pr, as]),
     HU = C(null),
-    UE = C(!1),
+    UE = C(false),
     jE = B(() => {
-      (HU.current = null), (UE.current = !1);
+      (HU.current = null), (UE.current = false);
     }, []),
     nv = B(
       (it) => {
-        if (it === void 0 && UE.current && j.changedFromOutside) return !0;
+        if (it === void 0 && UE.current && j.changedFromOutside) return true;
         let bo = HU.current;
-        if (bo === null) return !1;
+        if (bo === null) return false;
         return it === "" || it === bo || j.value === "" || j.value === bo;
       },
       [j],
     ),
     HE = B(
       (it) => {
-        (HU.current = it), (UE.current = !0), ai.setTimeout(jE, 0);
+        (HU.current = it), (UE.current = true), ai.setTimeout(jE, 0);
       },
       [ai, jE],
     ),
     $E = B(() => {
-      (UE.current = !0), ai.setTimeout(jE, 0);
+      (UE.current = true), ai.setTimeout(jE, 0);
     }, [ai, jE]),
     cp = B(
-      async (it, bo = !1, vn, Tr = !1) => {
+      async (it, bo = false, vn, Tr = false) => {
         let mi = it === "";
         it = it.trimEnd();
         let Pi = vn ?? j.pastedContents,
@@ -13730,10 +13730,10 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
         }
         let rf = j.mode === "prompt" && SRe(pr.getState()).type === "leader",
           Eu = it,
-          vg = !1;
+          vg = false;
         if (Eu.trim() === "" && !pa && rf) {
           let Yu = o1n();
-          if (Yu !== null) (Eu = Yu), (vg = !0);
+          if (Yu !== null) (Eu = Yu), (vg = true);
         }
         if (Eu.trim() === "" && !pa) {
           if (!(rf && mi && !Tr && de())) y("prompt_submit_empty");
@@ -13850,11 +13850,11 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
         vn = LXt(),
         Tr = vn
           ? [
-              { text: `To enable ${bo}, set `, dim: !0 },
-              { text: "Option as Meta", dim: !0, bold: !0 },
-              { text: ` in ${vn} preferences (\u2318,)`, dim: !0 },
+              { text: `To enable ${bo}, set `, dim: true },
+              { text: "Option as Meta", dim: true, bold: true },
+              { text: ` in ${vn} preferences (\u2318,)`, dim: true },
             ]
-          : [{ text: `To enable ${bo}, run /terminal-setup`, dim: !0 }];
+          : [{ text: `To enable ${bo}, run /terminal-setup`, dim: true }];
       Xi({ key: "option-meta-hint", kind: "contextual", segments: Tr, priority: "immediate", timeoutMs: 5000 });
     }
     if ((noe(it), it.name === "escape")) {
@@ -13874,9 +13874,9 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     if (Uo && Ie === "" && Dz(it)) Pr(null);
   }
   function roe() {
-    if (pr.getState().queueEditIndex !== null) return Wi(null), !0;
-    if (Uo) return Pr(null), !0;
-    return !1;
+    if (pr.getState().queueEditIndex !== null) return Wi(null), true;
+    if (Uo) return Pr(null), true;
+    return false;
   }
   function zIe(it) {
     if ((noe(it), it.ctrl || it.meta)) return;
@@ -13915,13 +13915,13 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       Ks = p6(Wn, "storedImagePaths");
     xZ(zu, Ks), IZ(zu, Ks), to((rf) => ({ ...rf, [pa]: zu }));
     let Ll = la.current ? " " : "";
-    nx(Ll + xmt(pa), { continuesGesture: Js }), (la.current = !0);
+    nx(Ll + xmt(pa), { continuesGesture: Js }), (la.current = true);
   }
   function Amt(it, bo) {}
   let soe = z(
     () =>
       Object.values(Ve).some(
-        (it) => it.type === "image" || it.type === "audio" || (it.type === "text" && it.unavailable === !0),
+        (it) => it.type === "image" || it.type === "audio" || (it.type === "text" && it.unavailable === true),
       ),
     [Ve],
   );
@@ -13931,7 +13931,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     to((bo) => {
       let vn = Object.values(bo).filter(
         (mi) =>
-          (mi.type === "image" || mi.type === "audio" || (mi.type === "text" && mi.unavailable === !0)) &&
+          (mi.type === "image" || mi.type === "audio" || (mi.type === "text" && mi.unavailable === true)) &&
           !it.has(mi.id),
       );
       if (vn.length === 0) return bo;
@@ -13942,7 +13942,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
   }, [Ie, soe, to]);
   function JIe(it) {
     let bo = Imt(Ie, Ve);
-    if (bo?.id !== it) return !1;
+    if (bo?.id !== it) return false;
     if (
       (lp(Ie, He, Ve),
       yt(bo.expanded),
@@ -13954,10 +13954,10 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       Dr.current)
     )
       Dr.current(), (Dr.current = null);
-    return Fr(!1), !0;
+    return Fr(false), true;
   }
   function XIe(it) {
-    la.current = !1;
+    la.current = false;
     let bo = Et(it)
       .replace(
         /\r\n|\r/g,
@@ -13979,23 +13979,23 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       ns.current = Pi;
       let Js = { id: Pi, type: "text", content: bo };
       if ((to((pa) => ({ ...pa, [Pi]: Js })), nx(lwe(Pi, Tr)), bo.length <= ADe)) {
-        if ((Fr(!0), Dr.current)) Dr.current();
+        if ((Fr(true), Dr.current)) Dr.current();
         Dr.current = ai.setTimeout(() => {
-          Fr(!1), (Dr.current = null);
+          Fr(false), (Dr.current = null);
         }, 8000);
       }
     } else nx(bo);
   }
   let aoe = B((it, bo) => {
       if (!la.current) return it;
-      if (((la.current = !1), bMn(it, bo) && !wMn(it))) return " " + it;
+      if (((la.current = false), bMn(it, bo) && !wMn(it))) return " " + it;
       return it;
     }, []),
     coe = C(null),
     eEe = B(
       (it, bo) => {
         if (it === "?" && !bo.ctrl && !bo.meta && j.value === "" && (!nn || No === "INSERT"))
-          return LE(), (la.current = !1), "";
+          return LE(), (la.current = false), "";
         return aoe(it, bo);
       },
       [nn, No, aoe, LE, j],
@@ -14009,14 +14009,14 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     tEe = JP(() => {}, H.openMessageSelector),
     uoe = B(() => {
       let it = as.popAllEditable(j.value, j.cursorOffset, j.pastedContents);
-      if (!it) return !1;
+      if (!it) return false;
       if ((yt(it.text), Rt(it.mode), lt(it.cursorOffset), it.images.length > 0))
         to((bo) => {
           let vn = { ...bo };
           for (let Tr of it.images) vn[Tr.id] = Tr;
           return vn;
         });
-      return y("input_queue_pop_to_edit"), !0;
+      return y("input_queue_pop_to_edit"), true;
     }, [j, yt, Rt, lt, to, as]),
     oEe = B(
       (it) => {
@@ -14041,7 +14041,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       yt(it), lt(He + 1);
     }, [Ie, He, yt, lt, lp, Ve]),
     poe = B(async () => {
-      s("tengu_external_editor_used", {}), Zr(!0);
+      s("tengu_external_editor_used", {}), Zr(true);
       try {
         let it = ie().externalEditorContext
             ? aft(x.getSnapshot()).messages.join(`
@@ -14072,7 +14072,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
         }),
           p("input_external_editor", "spawn_failed");
       } finally {
-        Zr(!1);
+        Zr(false);
       }
     }, [Ie, He, Ve, x, lp, yt, lt, Xi]),
     foe = B(() => {
@@ -14081,7 +14081,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
         j.stash(),
           Ae((it) => {
             if (it.hasUsedStash) return it;
-            return { ...it, hasUsedStash: !0 };
+            return { ...it, hasUsedStash: true };
           }, Xr),
           y("input_stash");
     }, [j, Xr]),
@@ -14095,7 +14095,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       nEe((it) => it + 1);
     }, []),
     WE = B(() => {
-      if (!sn()) return !1;
+      if (!sn()) return false;
       return (
         Xi({
           key: "remote-inference-config-unavailable",
@@ -14103,7 +14103,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
           text: "Fast mode switching in cloud sessions is coming soon \u2014 set at session creation for now",
           priority: "medium",
         }),
-        !0
+        true
       );
     }, [Xi]),
     hoe = B(() => {
@@ -14117,9 +14117,9 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
           });
           return;
         }
-        (Ra.current = !0),
-          ue("/model", jy, { fromKeybinding: !0 }).finally(() => {
-            Ra.current = !1;
+        (Ra.current = true),
+          ue("/model", jy, { fromKeybinding: true }).finally(() => {
+            Ra.current = false;
           });
         return;
       }
@@ -14150,7 +14150,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
         let bo = it.kind === "level" ? it.trigger : "shift_tab",
           vn = it.kind === "mode" ? pr.getState().toolPermissionContext : qt;
         if (Dr.current) Dr.current(), (Dr.current = null);
-        Fr(!1), tr((Ks) => (Ks.show ? { show: !1 } : Ks));
+        Fr(false), tr((Ks) => (Ks.show ? { show: false } : Ks));
         let Tr = ltt(pr.getState()) ? dQ(pr.getState()) : void 0;
         if (Tr) {
           let Ks = { ...vn, mode: Tr.permissionMode },
@@ -14186,7 +14186,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
           Pr((Ks) => (Ks === "help" ? null : Ks));
           return;
         }
-        if (Ps) Wn((Ks) => ({ ...Ks, showAutoModeEnvOnboarding: !1 }));
+        if (Ps) Wn((Ks) => ({ ...Ks, showAutoModeEnvOnboarding: false }));
         let { context: zu } = mi ?? (Pi !== null ? { context: K0(Js, Pi, vn, bo) } : _On(qt, So, bo));
         if (!mi) L6(`[${SN(pa)} on]`);
         if ((s("tengu_mode_cycle", { to: c(pa), trigger: c(bo) }), !ba())) y("mode_switch");
@@ -14204,25 +14204,25 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       [qt, So, Wn, Ps, Xi, Xr, pr, BE, Pr],
     );
   A(() => {
-    if (qt.mode !== "auto" && Ps) Wn((it) => ({ ...it, showAutoModeEnvOnboarding: !1 }));
+    if (qt.mode !== "auto" && Ps) Wn((it) => ({ ...it, showAutoModeEnvOnboarding: false }));
   }, [qt.mode, Ps, Wn]);
   let Soe = B(() => {
-      if ((LKe(!1), !_te())) {
-        Wn((it) => ({ ...it, showAutoModeEnvOnboarding: !1 }));
+      if ((LKe(false), !_te())) {
+        Wn((it) => ({ ...it, showAutoModeEnvOnboarding: false }));
         return;
       }
       Wn((it) => ({
         ...it,
-        showAutoModeEnvOnboarding: !1,
+        showAutoModeEnvOnboarding: false,
         initialMessage: { message: xe({ content: "/auto-mode-setup" }) },
       }));
     }, [Wn]),
     KU = B(() => {
-      LKe(!1), Wn((it) => ({ ...it, showAutoModeEnvOnboarding: !1 }));
+      LKe(false), Wn((it) => ({ ...it, showAutoModeEnvOnboarding: false }));
     }, [Wn]),
     { dispatchPasteEvent: boe } = Dx(),
     koe = B(() => {
-      ru(!0),
+      ru(true),
         _z(Ya(uo))
           .then(async (it) => {
             if (it) {
@@ -14244,7 +14244,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
           .catch((it) => {
             p("input_image_paste", "clipboard_read_failed"), h(it);
           })
-          .finally(() => ru(!1));
+          .finally(() => ru(false));
     }, [Xi, $U, boe, uo]),
     qE = wc();
   A(() => {
@@ -14264,7 +14264,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
   let Coe = B(() => {
       if (nv(void 0)) return;
       let it = j.value;
-      HE(it), cp(it, !0, void 0, !0);
+      HE(it), cp(it, true, void 0, true);
     }, [j, nv, HE, cp]),
     sEe = z(
       () => ({
@@ -14296,7 +14296,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     );
   let aEe = z(() => {
       function it(bo) {
-        return !1;
+        return false;
       }
       return {
         "proactivityMenu:previousLevel": () => it({ kind: "level", direction: "previous" }),
@@ -14304,7 +14304,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
         "proactivityMenu:previousMode": () => it({ kind: "mode", direction: "previous" }),
         "proactivityMenu:nextMode": () => it({ kind: "mode", direction: "next" }),
         "proactivityMenu:dismiss": () => {
-          if (mr.current !== "proactivity") return !1;
+          if (mr.current !== "proactivity") return false;
           Pr(null);
         },
       };
@@ -14321,7 +14321,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       });
       return;
     }
-    $a(!0), Pr(null);
+    $a(true), Pr(null);
   }
   Be("history:search", woe, { context: "Global", isActive: zy() && !Yt });
   function Toe() {
@@ -14337,7 +14337,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       Kr((it) => it - 1);
       return;
     }
-    Sg(rs, -1, !0);
+    Sg(rs, -1, true);
   }
   function _oe() {
     if (bb) {
@@ -14375,14 +14375,14 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       let mi = PBe(Object.entries(bo.frameUrls), bo.frameNavPath),
         Pi = vn[(mi + it + Tr) % Tr] ?? null;
       if (Pi === bo.frameNavPath && !bo.frameExpanded) return bo;
-      return { ...bo, frameNavPath: Pi, frameExpanded: !1 };
+      return { ...bo, frameNavPath: Pi, frameExpanded: false };
     });
   }
   function xoe() {
     let it = pr.getState(),
       bo = Object.entries(it.frameUrls),
       vn = bo[PBe(bo, it.frameNavPath)];
-    if (!vn) return !1;
+    if (!vn) return false;
     let [Tr, mi] = vn;
     return (
       Wn((Pi) => DBe(Pi, Tr)),
@@ -14394,7 +14394,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
         timeoutMs: 3000,
       }),
       y("frame_link_dismiss"),
-      !0
+      true
     );
   }
   function Poe() {
@@ -14422,12 +14422,12 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
           case "tasks": {
             let it = wa >= 1 ? od(Li, Jl, Jo, Au)[wa - 1] : void 0;
             if (it && Jd(it)) {
-              let bo = od(Li, Jl, Jo, !0),
+              let bo = od(Li, Jl, Jo, true),
                 vn = bo.findIndex((Tr) => Tr.id === it.taskIds[0]);
               (Fa.current = bo.map((Tr) => Tr.id)),
                 Wn((Tr) => ({
                   ...Tr,
-                  idleTeammatesExpanded: !0,
+                  idleTeammatesExpanded: true,
                   coordinatorTaskIndex: vn >= 0 ? vn + 1 : Tr.coordinatorTaskIndex,
                 }));
             } else if (it) rq(it.id, Wn);
@@ -14449,33 +14449,33 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
           case "bagel":
             break;
           case "bridge":
-            kue(pr.getState()), bs(!0), iu(null);
+            kue(pr.getState()), bs(true), iu(null);
             break;
           case "frame": {
             let it = pr.getState(),
               bo = Object.entries(it.frameUrls),
               vn = bo[PBe(bo, it.frameNavPath)]?.[1]?.url;
             if (vn) Lr(OBe(vn)), y("frame_link_open");
-            Wn((Tr) => (Tr.frameExpanded ? Tr : { ...Tr, frameExpanded: !0 }));
+            Wn((Tr) => (Tr.frameExpanded ? Tr : { ...Tr, frameExpanded: true }));
             break;
           }
         }
       },
       "footer:clearSelection": () => {
         if (ay && pr.getState().frameExpanded) {
-          Wn((it) => (!it.frameExpanded ? it : { ...it, frameExpanded: !1 }));
+          Wn((it) => (!it.frameExpanded ? it : { ...it, frameExpanded: false }));
           return;
         }
         if (sy && Au) {
-          let it = od(Li, Jl, Jo, !0);
-          if ((Wn((bo) => (!bo.idleTeammatesExpanded ? bo : { ...bo, idleTeammatesExpanded: !1 })), FN(it, Jo))) return;
+          let it = od(Li, Jl, Jo, true);
+          if ((Wn((bo) => (!bo.idleTeammatesExpanded ? bo : { ...bo, idleTeammatesExpanded: false })), FN(it, Jo))) return;
         }
         roe(), iu(null);
       },
       "footer:close": () => {
         if (sy && wa >= 1) {
           let it = od(Li, Jl, Jo, Au)[wa - 1];
-          if (!it) return !1;
+          if (!it) return false;
           if (Jd(it)) return;
           if (lr === "viewing-agent" && it.id === Jo) {
             FE(Ie.slice(0, He) + "x" + Ie.slice(He)), lt(He + 1);
@@ -14487,33 +14487,33 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
         }
         if (ex) {
           let it = Zs[Mr];
-          if (!it) return !1;
+          if (!it) return false;
           gle({ taskId: it.id, taskStatus: it.status, taskRegistry: Rs, setAppState: Wn });
           return;
         }
         if (ay && xoe()) return;
-        return !1;
+        return false;
       },
       "footer:dismiss": () => {
         if (ay && xoe()) return;
-        return !1;
+        return false;
       },
     },
     { context: "Footer", isActive: !!ia && !Yt },
   );
   let QU = $b({ hideSessionTitle: Re }),
     ly = hn(),
-    rx = Yr() ? R3() : !1,
+    rx = Yr() ? R3() : false,
     Moe = Her(Cn, rx),
-    cEe = qpe(Moe ?? !1),
+    cEe = qpe(Moe ?? false),
     sx = Moe
       ? ly
         ? rx
           ? "fast mode (cooling down)"
           : "fast mode"
         : cEe
-          ? `${GK(!0, rx)} ${ae.reset.dim("/fast")}`
-          : GK(!0, rx)
+          ? `${GK(true, rx)} ${ae.reset.dim("/fast")}`
+          : GK(true, rx)
       : void 0,
     Ioe = QLn(Zn, uo, bn),
     Eoe = Ioe !== void 0 && jv(uo, Zn, Er),
@@ -14530,7 +14530,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     Ec("effort-level"), Xi({ key: "effort-level", kind: "feedback", text: JU, priority: "high", timeoutMs: 1e4 });
   }, [JU, Xi, Ec]);
   let VE = Hr - OKe,
-    mEe = Kpe(Er === !0, Hr),
+    mEe = Kpe(Er === true, Hr),
     GE = Nt() ? Math.max(DKe, Math.floor($i / 2) - EKe) : void 0,
     Noe = B(
       (it) => {
@@ -14546,22 +14546,22 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     XU = C(null),
     Loe = C(null);
   Loe.current = (it) => {
-    if (!Ie || pn || Yt) return !1;
+    if (!Ie || pn || Yt) return false;
     let vn = XU.current?.cachedLayout,
       Tr = dlt(it);
-    if (!vn || !Tr) return !1;
+    if (!vn || !Tr) return false;
     let { start: mi, end: Pi } = Tr;
-    if (mi.row < vn.y || Pi.row < vn.y || mi.row >= vn.y + vn.height || Pi.row >= vn.y + vn.height) return !1;
+    if (mi.row < vn.y || Pi.row < vn.y || mi.row >= vn.y + vn.height || Pi.row >= vn.y + vn.height) return false;
     let Js = Ei.fromText(Ie, VE, He),
       pa = Js.getViewportStartLine(GE),
       zu = (rf, Eu) => Js.measuredText.getOffsetFromPosition({ line: rf - vn.y + pa, column: Math.max(0, Eu - vn.x) }),
       Ks = Math.max(0, zu(mi.row, mi.col)),
       Ll = Math.min(Ie.length, zu(Pi.row, Pi.col + 1));
-    if (Ll <= Ks) return !1;
-    return lp(Ie, He, Ve), yt(Ie.slice(0, Ks) + Ie.slice(Ll)), lt(Ks), !0;
+    if (Ll <= Ks) return false;
+    return lp(Ie, He, Ve), yt(Ie.slice(0, Ks) + Ie.slice(Ll)), lt(Ks), true;
   };
   let ZU = e2e();
-  A(() => (ZU.setHandler((it) => Loe.current?.(it) ?? !1), () => ZU.setHandler(null)), [ZU]);
+  A(() => (ZU.setHandler((it) => Loe.current?.(it) ?? false), () => ZU.setHandler(null)), [ZU]);
   let pEe =
       be?.source === "diff" && be.text && !Jo
         ? `Comment on ${be.lineCount} selected ${be.lineCount === 1 ? "line" : "lines"}\u2026`
@@ -14575,8 +14575,8 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     ),
     Foe = B(
       (it, bo, vn, Tr) => {
-        let mi = !1,
-          Pi = !1;
+        let mi = false,
+          Pi = false;
         if (Tr?.fromUltracode) Mm(Xr);
         else if (Tr !== void 0) Gz(Tr.level, sW(it), void 0, Xr);
         if ((j5(), Yr())) VI();
@@ -14612,15 +14612,15 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       },
       [Wn, Xi, pr, us, Xr],
     ),
-    KE = C(!1),
+    KE = C(false),
     Boe = C(0),
     Uoe = B(
       (it, bo) => {
         let vn = KE.current;
-        KE.current = !1;
+        KE.current = false;
         let Tr = Jge(it, bo),
           mi = ++Boe.current;
-        Is(!1),
+        Is(false),
           rg(us, () => CS(us, pr.getState, it, "picker"))
             .then((Pi) => {
               if (mi !== Boe.current) return;
@@ -14657,7 +14657,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       [us, pr, Xi, Foe],
     ),
     joe = B(() => {
-      (KE.current = !1), Is(!1);
+      (KE.current = false), Is(false);
     }, []),
     Hoe = z(() => {
       if (!Ms) return null;
@@ -14668,20 +14668,20 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
           initial: Sn,
           sessionModel: Eo,
           onSelect: Uoe,
-          skipSettingsWrite: !0,
+          skipSettingsWrite: true,
           onSetDefault: (it) => {
             if (aW(it)) return;
-            KE.current = !0;
+            KE.current = true;
           },
           onCancel: joe,
-          isStandaloneCommand: !0,
+          isStandaloneCommand: true,
           showFastModeNotice: Yr() && Cn && lf(i2({ mainLoopModel: Sn, mainLoopModelForSession: Eo })) && Zy(),
         }),
       });
     }, [Ms, Sn, Eo, Uoe, joe, Cn, Xr]),
     $oe = B(
       (it) => {
-        if ((er(!1), it))
+        if ((er(false), it))
           Xi({
             key: "fast-mode-toggled",
             kind: "feedback",
@@ -14703,7 +14703,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     qoe = B(
       (it) => {
         Wn((bo) => ({ ...bo, thinkingEnabled: it })),
-          ui(!1),
+          ui(false),
           Gr()
             ?.sendControlRequest({ subtype: "set_max_thinking_tokens", max_thinking_tokens: it ? null : 0 })
             .catch((bo) => {
@@ -14723,14 +14723,14 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       [Wn, Xi],
     ),
     Voe = B(() => {
-      ui(!1);
+      ui(false);
     }, []),
     Goe = z(() => {
       if (!Nr) return null;
       return e(o, {
         flexDirection: "column",
         marginTop: 1,
-        children: e(hG, { currentValue: Ho ?? !0, onSelect: qoe, onCancel: Voe, isMidConversation: nt }),
+        children: e(hG, { currentValue: Ho ?? true, onSelect: qoe, onCancel: Voe, isMidConversation: nt }),
       });
     }, [Nr, Ho, qoe, Voe, nt]),
     Koe = z(() => (Wa ? e(EH, { onAccept: Soe, onLater: KU, onDismiss: KU }) : null), [Wa, Soe, KU]);
@@ -14753,7 +14753,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       onKill: it ? () => x1(cy.id, Rs) : void 0,
       onPause: it ? () => _Z(cy.id, Rs) : void 0,
       onResume: (vn) => {
-        bo(), cp(vn, !0);
+        bo(), cp(vn, true);
       },
       onSkipAgent: it ? (vn) => tHe(cy.id, vn, Rs) : void 0,
       onRetryAgent: it ? (vn) => nHe(cy.id, vn, Rs) : void 0,
@@ -14772,9 +14772,9 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
         let bo = yee({ display: it.display, pastedContents: it.pastedContents }),
           vn = W_(bo.display),
           Tr = M0(bo.display);
-        Rt(vn), yt(Tr), to(bo.pastedContents), lt(Tr.length), $a(!1);
+        Rt(vn), yt(Tr), to(bo.pastedContents), lt(Tr.length), $a(false);
       },
-      onCancel: () => $a(!1),
+      onCancel: () => $a(false),
     });
   if (Hoe) return Hoe;
   if (Woe) return Woe;
@@ -14782,11 +14782,11 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
   if (Ic)
     return e(dG, {
       onDone: () => {
-        bs(!1), iu(null);
+        bs(false), iu(null);
       },
     });
   let Qoe = {
-      multiline: !0,
+      multiline: true,
       onKeyDownBefore: KIe,
       onSubmit: AIe,
       onChange: FE,
@@ -14798,7 +14798,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       getInputMode: () => Fe,
       placeholder: fEe,
       onExit: H.requestExit,
-      onExitMessage: (it, bo) => tr(it ? { show: it, key: bo } : { show: !1 }),
+      onExitMessage: (it, bo) => tr(it ? { show: it, key: bo } : { show: false }),
       onLeftArrowOnEmpty: jo,
       leftArrowConfirmHint: Qo,
       onImagePaste: $U,
@@ -14836,9 +14836,9 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
             return "promptBorder";
           })(),
           borderStyle: "round",
-          borderLeft: !1,
-          borderRight: !1,
-          borderBottom: !0,
+          borderLeft: false,
+          borderRight: false,
+          borderBottom: true,
         };
   if (ki)
     return e(o, {
@@ -14847,7 +14847,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
       justifyContent: "center",
       ...zoe,
       width: "100%",
-      children: e(t, { dimColor: !0, italic: !0, children: "Save and close editor to continue..." }),
+      children: e(t, { dimColor: true, italic: true, children: "Save and close editor to continue..." }),
     });
   let Yoe = nn
       ? e(yG, {
@@ -14872,7 +14872,7 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
                 e(o, { ref: XU, flexGrow: 1, flexShrink: 1, tabIndex: -1, onClick: Noe, children: Yoe }),
               ],
             }),
-            e(Hk, { banner: QU, columns: Hr, fastModeTag: sx, borderOnly: !0 }),
+            e(Hk, { banner: QU, columns: Hr, fastModeTag: sx, borderOnly: true }),
           ],
         })
       : r(U, {
@@ -14897,13 +14897,13 @@ function BKe({ turn: S, transcript: x, scope: P, draft: j, chrome: H, gesture: Z
     flexDirection: "column",
     marginTop: bn || gEe ? 0 : 1,
     children: [
-      ia && !Yt && e(o, { tabIndex: 0, autoFocus: !0, onKeyDown: zIe }),
+      ia && !Yt && e(o, { tabIndex: 0, autoFocus: true, onKeyDown: zIe }),
       !Nt() && e(aA, {}),
       Oe &&
         e(o, {
           marginTop: 1,
           marginLeft: 2,
-          children: e(t, { dimColor: !0, children: "Waiting for permission\u2026" }),
+          children: e(t, { dimColor: true, children: "Waiting for permission\u2026" }),
         }),
       !ly && Joe,
       e(NG, {}),
@@ -14990,7 +14990,7 @@ function HKe(S) {
 }
 
 function Ez(S) {
-  return S.footerSelection === null ? S : { ...S, footerSelection: null, frameExpanded: !1, idleTeammatesExpanded: !1 };
+  return S.footerSelection === null ? S : { ...S, footerSelection: null, frameExpanded: false, idleTeammatesExpanded: false };
 }
 
 function Dz(S) {
@@ -15012,7 +15012,7 @@ F();
 function ZKe() {}
 
 function eQe(ofe) {
-  return ofe.hasUsedBackgroundTask ? ofe : { ...ofe, hasUsedBackgroundTask: !0 };
+  return ofe.hasUsedBackgroundTask ? ofe : { ...ofe, hasUsedBackgroundTask: true };
 }
 
 function LL(rno) {
@@ -15021,7 +15021,7 @@ function LL(rno) {
     zpe = Xn(),
     Ype = Vf(),
     { storageV5: Jpe } = ge(),
-    [sno, ano] = u(!1),
+    [sno, ano] = u(false),
     Xpe = JP(ano, ino, ZKe),
     VKe;
   if (pA[0] !== zpe || pA[1] !== Xpe || pA[2] !== FT || pA[3] !== Jpe || pA[4] !== Ype)
@@ -15069,7 +15069,7 @@ function LL(rno) {
   if (pA[14] !== Lz)
     (XKe = e(o, {
       paddingLeft: 2,
-      children: e(t, { dimColor: !0, children: e(M, { chord: Lz, action: "background", format: JKe }) }),
+      children: e(t, { dimColor: true, children: e(M, { chord: Lz, action: "background", format: JKe }) }),
     })),
       (pA[14] = Lz),
       (pA[15] = XKe);
@@ -15117,15 +15117,15 @@ function vp({
   inputValue: S,
   isValidDigit: x,
   onDigit: P,
-  enabled: j = !0,
-  once: H = !1,
-  enterConfirms: Z = !0,
+  enabled: j = true,
+  once: H = false,
+  enterConfirms: Z = true,
   debounceMs: re = Fz,
   mountDelayMs: ue = Rm,
 }) {
   let de = xt(),
     pe = C(S),
-    Re = C(!1),
+    Re = C(false),
     be = C(null),
     Pe = C(j ? de.now() : null);
   A(() => {
@@ -15147,7 +15147,7 @@ function vp({
         Ke = Oe.current.isValidDigit(Ve) ? Ve : (rfe.get(S) ?? Ve);
       if (!Oe.current.isValidDigit(Ke)) return;
       if (be.current !== null) be.current(), (be.current = null);
-      return (Re.current = !0), Oe.current.onDigit(Ke), !0;
+      return (Re.current = true), Oe.current.onDigit(Ke), true;
     },
     { isActive: j },
   ),
@@ -15159,7 +15159,7 @@ function vp({
         let He = S.normalize("NFKC");
         if (Oe.current.isValidDigit(He))
           be.current = de.setTimeout(() => {
-            (be.current = null), (Re.current = !0), Oe.current.onDigit(He);
+            (be.current = null), (Re.current = true), Oe.current.onDigit(He);
           }, re);
       }
       return () => {
@@ -15182,11 +15182,11 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
     be = xt(),
     [Pe, Oe] = u("idle"),
     [Ie, He] = u(null),
-    Fe = C(!1),
+    Fe = C(false),
     Ve = C(H?.draftId ?? null),
     Ke = C(null),
     ot = C(null),
-    st = C(!1),
+    st = C(false),
     nt = C(null),
     Pt = gD(),
     kt = q4e() === "quiet" || pe < bqn,
@@ -15196,11 +15196,11 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
     [Rt, to] = u(!yt && !kt);
   A(() => {
     if (yt || kt || lt) {
-      to(!1);
+      to(false);
       return;
     }
     if (Rt) return;
-    return be.setTimeout(() => to(!0), rQe);
+    return be.setTimeout(() => to(true), rQe);
   }, [yt, kt, lt, Rt, be]);
   function so() {
     if (Ke.current !== null) Ke.current(), (Ke.current = null);
@@ -15210,7 +15210,7 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
   }
   if (H !== null && H.draftId !== Ve.current) {
     if (((Ve.current = H.draftId), so(), Pe !== "idle" && Pe !== "dismissPrompt" && Pe !== "offConfirm"))
-      Oe("idle"), He(null), (Fe.current = !1);
+      Oe("idle"), He(null), (Fe.current = false);
   }
   A(() => {
     if ((S || x || kt) && (Pe === "confirmSend" || Pe === "dismissPrompt" || Pe === "offConfirm")) jt(), Oe("idle");
@@ -15218,7 +15218,7 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
     A(() => {
       if (Pe === "dismissPrompt" && de !== "" && de.normalize("NFKC") !== "0") {
         if (!(nt.current !== null && be.now() - nt.current < Rm) && !st.current)
-          (st.current = !0), Oz(re), s("tengu_feedback_turnoff_prompt_declined", {});
+          (st.current = true), Oz(re), s("tengu_feedback_turnoff_prompt_declined", {});
         Oe("idle");
       }
     }, [Pe, de, re, be]),
@@ -15249,11 +15249,11 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
         type: c(H?.type ?? "bug"),
         via: c(Oo),
       });
-    (Fe.current = !1), Oe("idle"), He(null), nln();
+    (Fe.current = false), Oe("idle"), He(null), nln();
   }
   function lo() {
     if ((qt("dismiss"), nfe()))
-      (nt.current = be.now()), (st.current = !1), s("tengu_feedback_turnoff_prompt_shown", {}), Oe("dismissPrompt");
+      (nt.current = be.now()), (st.current = false), s("tengu_feedback_turnoff_prompt_shown", {}), Oe("dismissPrompt");
   }
   function To() {
     return nt.current !== null && be.now() - nt.current < Rm;
@@ -15262,7 +15262,7 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
     return nt.current !== null && be.now() - nt.current < Rm + Fz;
   }
   function jo() {
-    if (!To() && !st.current) (st.current = !0), Oz(re), s("tengu_feedback_turnoff_prompt_declined", {});
+    if (!To() && !st.current) (st.current = true), Oz(re), s("tengu_feedback_turnoff_prompt_declined", {});
     Oe("idle");
   }
   function Qo() {
@@ -15276,39 +15276,39 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
   }
   async function uo(Oo) {
     if (Fe.current) return;
-    (Fe.current = !0), Oe("sending"), He(null);
+    (Fe.current = true), Oe("sending"), He(null);
     let xo;
     try {
       let { queued: dn } = await r9(void 0, re),
         Xo = dn.find((zo) => zo.draft_id === Oo);
       if (!Xo) {
-        if (((Fe.current = !1), ePe(Oo), Ve.current === Oo)) Oe("idle");
+        if (((Fe.current = false), ePe(Oo), Ve.current === Oo)) Oe("idle");
         return;
       }
       xo = await fge({
         draft: Xo,
-        includeTranscript: !1,
+        includeTranscript: false,
         currentSessionMessages: [],
         via: "card_send_as_is",
         storageV5: re,
         credentials: ue,
       });
     } catch {
-      xo = { success: !1, error: "Couldn't send feedback." };
+      xo = { success: false, error: "Couldn't send feedback." };
     }
     if (
       (s("tengu_feedback_card_send", { type: c(H?.type ?? "bug"), success: bi(xo.success ? 1 : 0) }), Ve.current !== Oo)
     )
       return;
     if (!xo.success) {
-      (Fe.current = !1), He(xo.error), Oe("error");
+      (Fe.current = false), He(xo.error), Oe("error");
       return;
     }
     Oe("sent"), (Ke.current = be.setTimeout(() => qt("sent"), nQe));
   }
   vp({
     inputValue: de,
-    enterConfirms: !1,
+    enterConfirms: false,
     isValidDigit: (Oo) =>
       Pe === "dismissPrompt" ? Oo === "0" : Oo === "0" || Oo === "1" || (Oo === "2" && Pe !== "error"),
     enabled:
@@ -15370,7 +15370,7 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
           "Turn off Claude-drafted feedback?",
           " ",
           e(t, {
-            dimColor: !0,
+            dimColor: true,
             children: r(fe, {
               children: [e(M, { chord: "0", action: "turn off" }), e(M, { chord: "escape", action: "keep" })],
             }),
@@ -15384,7 +15384,7 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
       marginBottom: 1,
       children: r(t, {
         children: [
-          e(tt, { status: "success", withSpace: !0 }),
+          e(tt, { status: "success", withSpace: true }),
           "Claude-drafted feedback is off. Turn back on in /config",
         ],
       }),
@@ -15399,11 +15399,11 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
             children: [
               "Send without reviewing",
               " ",
-              e(t, { dimColor: !0, children: "(full draft + env, no transcript)" }),
+              e(t, { dimColor: true, children: "(full draft + env, no transcript)" }),
               "?",
               " ",
               e(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: r(fe, {
                   children: [e(M, { chord: "2", action: "send" }), e(M, { chord: "escape", action: "back" })],
                 }),
@@ -15411,17 +15411,17 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
             ],
           })
         : Pe === "sending"
-          ? e(t, { dimColor: !0, children: "Sending\u2026" })
+          ? e(t, { dimColor: true, children: "Sending\u2026" })
           : Pe === "sent"
-            ? r(t, { children: [e(tt, { status: "success", withSpace: !0 }), "Sent"] })
+            ? r(t, { children: [e(tt, { status: "success", withSpace: true }), "Sent"] })
             : Pe === "error"
               ? r(t, {
                   children: [
-                    e(tt, { status: "error", withSpace: !0 }),
+                    e(tt, { status: "error", withSpace: true }),
                     e(t, { color: "error", children: Ie }),
                     " ",
                     e(t, {
-                      dimColor: !0,
+                      dimColor: true,
                       children: r(fe, {
                         children: [
                           e(M, { chord: "1", action: "review & retry" }),
@@ -15432,7 +15432,7 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
                   ],
                 })
               : e(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: r(fe, {
                     children: [
                       e(M, { chord: "1", action: "review" }),
@@ -15447,10 +15447,10 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
       children: r(t, {
         wrap: "truncate-end",
         children: [
-          r(t, { color: "claude", "aria-hidden": !0, children: [ww, " "] }),
+          r(t, { color: "claude", "aria-hidden": true, children: [ww, " "] }),
           tn,
           " drafted: ",
-          e(t, { bold: !0, children: nn }),
+          e(t, { bold: true, children: nn }),
         ],
       }),
     });
@@ -15461,7 +15461,7 @@ function Bz({ isLoading: S, surveyActive: x, setInputValue: P, onOpenFeedback: j
     children: r(wi, {
       children: [
         Go,
-        e(XRe, { value: H.detailsPreview, dim: !0, columns: Math.max(1, Re - 4), maxRows: wqn, preview: !0 }),
+        e(XRe, { value: H.detailsPreview, dim: true, columns: Math.max(1, Re - 4), maxRows: wqn, preview: true }),
         pn,
       ],
     }),
@@ -15489,7 +15489,7 @@ var pfe = { 0: "dismissed", 1: "bad", 2: "fine", 3: "good", 4: "not_sure" },
   FL = { key: "0", label: "Dismiss" },
   gfe = 10;
 
-function BL(S, x = !1) {
+function BL(S, x = false) {
   if (S === "4") return x;
   return S === "0" || S === "1" || S === "2" || S === "3";
 }
@@ -15508,9 +15508,9 @@ function BT(Zno) {
       showNotSure: cQe,
     } = Zno,
     cfe = sQe === void 0 ? hfe : sQe,
-    ufe = aQe === void 0 ? !0 : aQe,
+    ufe = aQe === void 0 ? true : aQe,
     fA = lQe === void 0 ? Rm : lQe,
-    gA = cQe === void 0 ? !1 : cQe,
+    gA = cQe === void 0 ? false : cQe,
     uQe;
   if ($k[0] !== gA) (uQe = gA ? [...OL, ffe, FL] : [...OL, FL]), ($k[0] = gA), ($k[1] = uQe);
   else uQe = $k[1];
@@ -15618,7 +15618,7 @@ ${gQe}
 ${UL}`
       : UL,
     hQe;
-  if (Vz[3] === d) (hQe = e(t, { dimColor: !0, children: "(optional)" })), (Vz[3] = hQe);
+  if (Vz[3] === d) (hQe = e(t, { dimColor: true, children: "(optional)" })), (Vz[3] = hQe);
   else hQe = Vz[3];
   let Kz;
   if (Vz[4] !== Tfe) (Kz = r(U, { children: [Tfe, " ", hQe] })), (Vz[4] = Tfe), (Vz[5] = Kz);
@@ -15630,9 +15630,9 @@ ${UL}`
       inputValue: bfe,
       setInputValue: kfe,
       message: Kz,
-      messageBold: !1,
+      messageBold: false,
       mountDelayMs: Cfe,
-      showNotSure: !0,
+      showNotSure: true,
     })),
       (Vz[6] = bfe),
       (Vz[7] = Cfe),
@@ -15697,7 +15697,7 @@ function e2(xro) {
     { onSelect: Afe } = xro,
     wQe;
   if (Jz[0] === d)
-    (wQe = r(o, { children: [r(t, { color: "ansi:cyan", children: [vr, " "] }), e(t, { bold: !0, children: hA })] })),
+    (wQe = r(o, { children: [r(t, { color: "ansi:cyan", children: [vr, " "] }), e(t, { bold: true, children: hA })] })),
       (Jz[0] = wQe);
   else wQe = Jz[0];
   let TQe;
@@ -15753,7 +15753,7 @@ function cd($L) {
   switch ($L.state) {
     case "submitting": {
       let Ff;
-      if (SA[0] === d) (Ff = r(t, { dimColor: !0, children: ["Sharing transcript", "\u2026"] })), (SA[0] = Ff);
+      if (SA[0] === d) (Ff = r(t, { dimColor: true, children: ["Sharing transcript", "\u2026"] })), (SA[0] = Ff);
       else Ff = SA[0];
       return Ff;
     }
@@ -15766,9 +15766,9 @@ function cd($L) {
               children: [
                 r(t, {
                   color: "success",
-                  children: [e(tt, { status: "success", withSpace: !0 }), "Transcript bundle saved"],
+                  children: [e(tt, { status: "success", withSpace: true }), "Transcript bundle saved"],
                 }),
-                e(t, { dimColor: !0, wrap: "wrap", children: $L.transcriptBundlePath }),
+                e(t, { dimColor: true, wrap: "wrap", children: $L.transcriptBundlePath }),
                 e(t, {
                   wrap: "wrap",
                   children:
@@ -15778,7 +15778,7 @@ function cd($L) {
             })
           : r(t, {
               color: "success",
-              children: [e(tt, { status: "success", withSpace: !0 }), "Thanks for sharing your transcript!"],
+              children: [e(tt, { status: "success", withSpace: true }), "Thanks for sharing your transcript!"],
             })),
           (SA[1] = $L.transcriptBundlePath),
           (SA[2] = Ff);
@@ -15790,13 +15790,13 @@ function cd($L) {
       if (SA[3] === d)
         (Ff = r(t, {
           color: "error",
-          children: [e(tt, { status: "error", withSpace: !0 }), "Couldn't share the transcript."],
+          children: [e(tt, { status: "error", withSpace: true }), "Couldn't share the transcript."],
         })),
           (SA[3] = Ff);
       else Ff = SA[3];
       let r2;
       if (SA[4] !== Efe)
-        (r2 = Efe ? e(t, { dimColor: !0, children: "You can share details with /feedback instead." }) : null),
+        (r2 = Efe ? e(t, { dimColor: true, children: "You can share details with /feedback instead." }) : null),
           (SA[4] = Efe),
           (SA[5] = r2);
       else r2 = SA[5];
@@ -15826,9 +15826,9 @@ function im({
   handleTranscriptSelect: H,
   handleFollowupResolve: Z,
   followupAskConfig: re = Hie,
-  followupArmActive: ue = !1,
-  turnInProgress: de = !1,
-  submittingShare: pe = !0,
+  followupArmActive: ue = false,
+  turnInProgress: de = false,
+  submittingShare: pe = true,
   thanksFromFollowup: Re,
   inputValue: be,
   setInputValue: Pe,
@@ -15838,23 +15838,23 @@ function im({
   message: Fe,
   messageBold: Ve,
   memoryCitation: Ke,
-  showNotSure: ot = !1,
+  showNotSure: ot = false,
   transcriptBundlePath: st,
   onAbandon: nt,
 }) {
-  let Pt = C(!1),
-    kt = C(!1),
-    Ht = C(!1),
+  let Pt = C(false),
+    kt = C(false),
+    Ht = C(false),
     yt = C(Ie);
-  if (yt.current !== Ie) (yt.current = Ie), (Pt.current = !1), (kt.current = !1), (Ht.current = !1);
+  if (yt.current !== Ie) (yt.current = Ie), (Pt.current = false), (kt.current = false), (Ht.current = false);
   let lt = C(S);
   if (lt.current !== S) {
-    if (S === "open") (Pt.current = !1), (kt.current = !1), (Ht.current = !1);
+    if (S === "open") (Pt.current = false), (kt.current = false), (Ht.current = false);
     lt.current = S;
   }
   if (
     (A(() => {
-      if (kt.current && !Ht.current && S === "open") (Ht.current = !0), nt?.();
+      if (kt.current && !Ht.current && S === "open") (Ht.current = true), nt?.();
     }),
     S === "closed")
   )
@@ -15877,7 +15877,7 @@ function im({
   if (S === "submitting")
     return e(o, {
       marginTop: 1,
-      children: pe ? e(cd, { state: "submitting" }) : r(t, { dimColor: !0, children: ["Sending feedback", "\u2026"] }),
+      children: pe ? e(cd, { state: "submitting" }) : r(t, { dimColor: true, children: ["Sending feedback", "\u2026"] }),
     });
   if (S === "followup_prompt") {
     if (!Z) return null;
@@ -15896,11 +15896,11 @@ function im({
   }
   let Rt = be.length === 1 ? ife(be) : be;
   if (Rt && !BL(Rt, ot)) {
-    if (Pt.current) kt.current = !0;
+    if (Pt.current) kt.current = true;
     return null;
   }
   if (kt.current) return null;
-  if (((Pt.current = !0), Ke)) return e(Qz, { citation: Ke, onSelect: P, inputValue: be, setInputValue: Pe });
+  if (((Pt.current = true), Ke)) return e(Qz, { citation: Ke, onSelect: P, inputValue: be, setInputValue: Pe });
   return e(BT, { onSelect: P, inputValue: be, setInputValue: Pe, message: Fe, messageBold: Ve, showNotSure: ot });
 }
 
@@ -15913,7 +15913,7 @@ function Wfe(aio) {
   if (s2[0] !== Nfe)
     (IQe = (_input, lio) => {
       if (lio.escape) {
-        return Nfe(), !0;
+        return Nfe(), true;
       }
     }),
       (s2[0] = Nfe),
@@ -15929,7 +15929,7 @@ function Wfe(aio) {
   else EQe = s2[4];
   let DQe;
   if (s2[5] !== a2)
-    (DQe = e(o, { marginTop: 1, children: r(t, { dimColor: !0, children: ["Feedback: ", a2, " \xB7", " ", EQe] }) })),
+    (DQe = e(o, { marginTop: 1, children: r(t, { dimColor: true, children: ["Feedback: ", a2, " \xB7", " ", EQe] }) })),
       (s2[5] = a2),
       (s2[6] = DQe);
   else DQe = s2[6];
@@ -15957,8 +15957,8 @@ function qfe(cio) {
       followupArmActive: NQe,
       thanksFromFollowup: LQe,
     } = cio,
-    uio = NQe === void 0 ? !1 : NQe,
-    Bfe = LQe === void 0 ? !1 : LQe,
+    uio = NQe === void 0 ? false : NQe,
+    Bfe = LQe === void 0 ? false : LQe,
     Bf = kA && kA !== "dismissed" ? kA : null,
     nh = Bf ? "/feedback" : null,
     [p2] = u(jQe),
@@ -16005,7 +16005,7 @@ function qfe(cio) {
   else g2 = _A[10];
   let OQe;
   if (_A[11] !== Ofe || _A[12] !== TA || _A[13] !== f2 || _A[14] !== g2)
-    (OQe = { inputValue: Ofe, isValidDigit: Hfe, enabled: TA, once: !0, ...f2, onDigit: g2 }),
+    (OQe = { inputValue: Ofe, isValidDigit: Hfe, enabled: TA, once: true, ...f2, onDigit: g2 }),
       (_A[11] = Ofe),
       (_A[12] = TA),
       (_A[13] = f2),
@@ -16021,7 +16021,7 @@ function qfe(cio) {
     (h2 =
       TA && Bf && nh
         ? r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
               "(Optional) Press [",
               e(t, { color: "ansi:cyan", children: "1" }),
@@ -16034,7 +16034,7 @@ function qfe(cio) {
           })
         : p2
           ? null
-          : e(t, { dimColor: !0, children: "Use /feedback to share detailed feedback anytime." })),
+          : e(t, { dimColor: true, children: "Use /feedback to share detailed feedback anytime." })),
       (_A[17] = p2),
       (_A[18] = nh),
       (_A[19] = Bf),
@@ -16062,7 +16062,7 @@ function QL(yio) {
     { subject: jT } = yio;
   if (!jT) {
     let qL;
-    if (RA[0] === d) (qL = e(t, { bold: !0, children: "How helpful has this plugin been? (optional)" })), (RA[0] = qL);
+    if (RA[0] === d) (qL = e(t, { bold: true, children: "How helpful has this plugin been? (optional)" })), (RA[0] = qL);
     else qL = RA[0];
     return qL;
   }
@@ -16071,13 +16071,13 @@ function QL(yio) {
   else qL = RA[2];
   const Vfe = `How helpful has the ${qL} plugin been? (optional)`;
   let S2;
-  if (RA[3] !== Vfe) (S2 = e(t, { bold: !0, children: Vfe })), (RA[3] = Vfe), (RA[4] = S2);
+  if (RA[3] !== Vfe) (S2 = e(t, { bold: true, children: Vfe })), (RA[3] = Vfe), (RA[4] = S2);
   else S2 = RA[4];
   let b2;
   if (RA[5] !== jT) (b2 = Qfe(jT)), (RA[5] = jT), (RA[6] = b2);
   else b2 = RA[6];
   let k2;
-  if (RA[7] !== b2) (k2 = e(t, { dimColor: !0, children: b2 })), (RA[7] = b2), (RA[8] = k2);
+  if (RA[7] !== b2) (k2 = e(t, { dimColor: true, children: b2 })), (RA[7] = b2), (RA[8] = k2);
   else k2 = RA[8];
   let HQe;
   if (RA[9] !== S2 || RA[10] !== k2)
@@ -16168,7 +16168,7 @@ function eO(xio) {
       )
         (oc = e(im, {
           state: Tc.state,
-          thanksFromFollowup: !1,
+          thanksFromFollowup: false,
           lastResponse: Tc.lastResponse,
           handleSelect: Tc.handleSelect,
           handleUndo: Tc.handleUndo,
@@ -16208,7 +16208,7 @@ function eO(xio) {
       )
         (oc = e(im, {
           state: Ml.state,
-          thanksFromFollowup: !1,
+          thanksFromFollowup: false,
           lastResponse: Ml.lastResponse,
           handleSelect: Ml.handleSelect,
           handleUndo: Ml.handleUndo,
@@ -16252,7 +16252,7 @@ function eO(xio) {
       )
         (YL = e(im, {
           state: _c.state,
-          thanksFromFollowup: !1,
+          thanksFromFollowup: false,
           lastResponse: _c.lastResponse,
           handleSelect: _c.handleSelect,
           handleUndo: _c.handleUndo,
@@ -16261,8 +16261,8 @@ function eO(xio) {
           setInputValue: Wc,
           onRequestFeedback: ud,
           message: oc,
-          messageBold: !1,
-          showNotSure: !0,
+          messageBold: false,
+          showNotSure: true,
         })),
           (WT[23] = ud),
           (WT[24] = qc),
@@ -16295,7 +16295,7 @@ function eO(xio) {
       )
         (YL = e(im, {
           state: wl.state,
-          thanksFromFollowup: !1,
+          thanksFromFollowup: false,
           lastResponse: wl.lastResponse,
           handleSelect: wl.handleSelect,
           handleUndo: wl.handleUndo,
@@ -16308,7 +16308,7 @@ function eO(xio) {
           surveyType: "memory",
           message: "How well did Claude use its memory? (optional)",
           memoryCitation: oc,
-          showNotSure: !0,
+          showNotSure: true,
         })),
           (WT[33] = ud),
           (WT[34] = qc),
@@ -16398,7 +16398,7 @@ function eO(xio) {
       )
         (oc = e(im, {
           state: rh.state,
-          thanksFromFollowup: !1,
+          thanksFromFollowup: false,
           lastResponse: null,
           handleSelect: qQe,
           handleUndo: VQe,
@@ -16431,8 +16431,8 @@ class tO {
   #o = Ue();
   #r;
   #i = 0;
-  #n = !1;
-  #c = !1;
+  #n = false;
+  #c = false;
   constructor(S) {
     (this.#e = S), this.#s(), (this.#r = S.subscribe(this.#a));
   }
@@ -16440,13 +16440,13 @@ class tO {
   subscribe = (S) => this.#o.subscribe(S);
   dispose() {
     if (this.#c) return;
-    (this.#c = !0), this.#r();
+    (this.#c = true), this.#r();
   }
   #a = () => {
     if (this.#n || this.#c) return;
-    (this.#n = !0),
+    (this.#n = true),
       queueMicrotask(() => {
-        if (((this.#n = !1), this.#c)) return;
+        if (((this.#n = false), this.#c)) return;
         this.#s();
       });
   };
@@ -16480,10 +16480,10 @@ function zfe(S, x = GQe) {
   return (
     A(() => {
       if (S) {
-        H(!1);
+        H(false);
         return;
       }
-      let Z = P.setTimeout(() => H(!0), x);
+      let Z = P.setTimeout(() => H(true), x);
       return () => Z();
     }, [S, P, x]),
     j
@@ -16542,15 +16542,15 @@ async function nO(S, x, P, j, H) {
 async function C2(S, x, P, j) {
   if (Ct())
     return (
-      p("feedback_transcript_share", "essential_traffic_only"), { success: !1, errorCode: "essential_traffic_only" }
+      p("feedback_transcript_share", "essential_traffic_only"), { success: false, errorCode: "essential_traffic_only" }
     );
   if (!Mt("allow_product_feedback"))
-    return p("feedback_transcript_share", "policy_blocked"), { success: !1, errorCode: "policy_blocked" };
+    return p("feedback_transcript_share", "policy_blocked"), { success: false, errorCode: "policy_blocked" };
   let H = Cie().kind === "bundle" ? "bundle" : "post";
   try {
     let Z = await S;
     if (Z.kind === "blocked")
-      return p("feedback_transcript_share", Z.errorCode), { success: !1, errorCode: Z.errorCode };
+      return p("feedback_transcript_share", Z.errorCode), { success: false, errorCode: Z.errorCode };
     if (Z.kind === "capture_failed") throw Z.error;
     let re = RE(Z.messages),
       { subagentTranscripts: ue, headSha: de, lastApiRequest: pe } = Z,
@@ -16598,8 +16598,8 @@ async function C2(S, x, P, j) {
     if (H === "bundle") {
       let st = jve(Pe, Yfe, Xfe, { extraOuterFields: { appearance_id: P } }),
         nt = await sKt(st, "transcript.json");
-      if (nt.success) return y("feedback_transcript_share"), { success: !0, bundlePath: nt.zipPath };
-      return p("feedback_transcript_share", "bundle_write_failed"), { success: !1, errorCode: "bundle_write_failed" };
+      if (nt.success) return y("feedback_transcript_share"), { success: true, bundlePath: nt.zipPath };
+      return p("feedback_transcript_share", "bundle_write_failed"), { success: false, errorCode: "bundle_write_failed" };
     }
     let { transcript: Oe, subagentTranscripts: Ie, lastApiRequest: He, rawTranscriptJsonl: Fe, ...Ve } = Pe,
       Ke = [
@@ -16630,19 +16630,19 @@ async function C2(S, x, P, j) {
           if ((n("Transcript shared successfully", { level: "info" }), st > 0))
             g("feedback_transcript_share", "payload_stripped");
           else y("feedback_transcript_share");
-          return { success: !0, transcriptId: kt.transcriptId };
+          return { success: true, transcriptId: kt.transcriptId };
         case "blocked":
-          return p("feedback_transcript_share", kt.errorCode), { success: !1, errorCode: kt.errorCode };
+          return p("feedback_transcript_share", kt.errorCode), { success: false, errorCode: kt.errorCode };
         case "failed":
           if (((ot = kt.errorCode), !kt.payloadTooLarge))
-            return p("feedback_transcript_share", kt.errorCode), { success: !1, errorCode: kt.errorCode };
+            return p("feedback_transcript_share", kt.errorCode), { success: false, errorCode: kt.errorCode };
       }
     }
-    return p("feedback_transcript_share", ot), { success: !1, errorCode: ot };
+    return p("feedback_transcript_share", ot), { success: false, errorCode: ot };
   } catch (Z) {
     n(l(Z), { level: "error" });
     let re = Zfe(Z);
-    return p("feedback_transcript_share", re), { success: !1, errorCode: re };
+    return p("feedback_transcript_share", re), { success: false, errorCode: re };
   }
 }
 

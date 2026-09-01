@@ -20,7 +20,7 @@ F();
 F();
 import { isDeepStrictEqual as Pe } from "util";
 function re({
-  isDisabled: d = !1,
+  isDisabled: d = false,
   visibleOptionCount: W = 5,
   options: f,
   defaultValue: U = [],
@@ -30,11 +30,11 @@ function re({
   submitButtonText: T,
   onSubmit: m,
   onDownFromLastItem: E,
-  hideIndexes: ee = !1,
+  hideIndexes: ee = false,
   refuseSubmitFocus: A,
 }) {
   let [te, N, O] = Dy(U),
-    [ne, V, oe] = Dy(!1),
+    [ne, V, oe] = Dy(false),
     [c, G] = u(f);
   if (f !== c && !Pe(f, c)) N(U), G(f);
   let [ie, X] = u(() => {
@@ -49,14 +49,14 @@ function re({
     x = B(
       (n) => {
         let l = typeof n === "function" ? n(O()) : n;
-        if (K?.(l) === !1) return;
+        if (K?.(l) === false) return;
         N(l);
       },
       [O, N, K],
     ),
     M = B(
       (n) => {
-        if (f.find((l) => l.value === n)?.disabled === !0) return;
+        if (f.find((l) => l.value === n)?.disabled === true) return;
         x((l) => (l.includes(n) ? l.filter((v) => v !== n) : [...l, n]));
       },
       [f, x],
@@ -66,7 +66,7 @@ function re({
   let s = B(
     (n, l) => {
       let v = f.find((h) => h.value === n);
-      if (v?.type === "input" && v.onChange(l) === !1) return;
+      if (v?.type === "input" && v.onChange(l) === false) return;
       X((h) => {
         let k = new Map(h);
         return k.set(n, l), k;
@@ -83,7 +83,7 @@ function re({
   return {
     ...y,
     focusOption: (n) => {
-      V(!1), y.focusOption(n);
+      V(false), y.focusOption(n);
     },
     selectedValues: te,
     getSelectedValues: O,
@@ -115,12 +115,12 @@ function re({
       if (n.key === "tab" && !n.shift) {
         if ((n.preventDefault(), T && m && v === S && !b)) {
           if (A?.()) return;
-          V(!0);
+          V(true);
         } else if (!b) y.focusNextOption();
         return;
       }
       if (n.key === "tab" && n.shift) {
-        if ((n.preventDefault(), T && m && b)) V(!1), y.focusOption(S);
+        if ((n.preventDefault(), T && m && b)) V(false), y.focusOption(S);
         else y.focusPreviousOption();
         return;
       }
@@ -128,13 +128,13 @@ function re({
         if ((n.preventDefault(), b && E)) E();
         else if (T && m && v === S && !b) {
           if (A?.()) return;
-          V(!0);
+          V(true);
         } else if (!T && E && v === S) E();
         else if (!b) y.focusNextOption();
         return;
       }
       if (n.key === "up" || (n.ctrl && n.key === "p") || (!n.ctrl && !n.shift && n.key === "k")) {
-        if ((n.preventDefault(), T && m && b)) V(!1), y.focusOption(S);
+        if ((n.preventDefault(), T && m && b)) V(false), y.focusOption(S);
         else y.focusPreviousOption();
         return;
       }
@@ -241,13 +241,13 @@ function he(gt) {
       onRemoveImage: xe,
       refuseSubmitFocus: De,
     } = gt,
-    p = We === void 0 ? !1 : We,
+    p = We === void 0 ? false : We,
     ht = Ke === void 0 ? 5 : Ke,
     Ne;
   if (w[0] !== se) (Ne = se === void 0 ? [] : se), (w[0] = se), (w[1] = Ne);
   else Ne = w[1];
   let we = Ne,
-    H = Ae === void 0 ? !1 : Ae,
+    H = Ae === void 0 ? false : Ae,
     bt = D.some(Je);
   const Ce = JBe(ht, bt ? "compact-vertical" : "compact");
   let je;
@@ -296,12 +296,12 @@ function he(gt) {
   let a = re(je),
     He = C(null);
   Cp(He, !p);
-  let [Fe, ze] = u(!1),
+  let [Fe, ze] = u(false),
     z = YBe(),
     Le;
   if (w[15] !== p || w[16] !== z || w[17] !== a)
     (Le = (le) =>
-      p || le.disabled === !0
+      p || le.disabled === true
         ? void 0
         : (Tt) => {
             if (z(Tt)) {
@@ -363,7 +363,7 @@ function he(gt) {
               option: g,
               onClick: ae(g),
               isFocused: Ee,
-              isSelected: !1,
+              isSelected: false,
               shouldShowDownArrow: qe && $e,
               shouldShowUpArrow: Ge && _e,
               maxIndexWidth: Ue,
@@ -395,13 +395,13 @@ function he(gt) {
           gap: 1,
           children: r(nB, {
             isFocused: Ee,
-            isSelected: !1,
+            isSelected: false,
             shouldShowDownArrow: qe && $e,
             shouldShowUpArrow: Ge && _e,
             description: g.description,
             onClick: ae(g),
             children: [
-              !H && e(t, { dimColor: !0, children: `${Xe}.`.padEnd(Ue) }),
+              !H && e(t, { dimColor: true, children: `${Xe}.`.padEnd(Ue) }),
               r(t, { color: ye ? "success" : void 0, children: ["[", ye ? L.tick : " ", "]"] }),
               e(t, { color: Ee ? "suggestion" : void 0, children: g.label }),
             ],
@@ -449,17 +449,17 @@ function he(gt) {
               }
               R(a.getSelectedValues());
             },
-        onMouseEnter: () => ze(!0),
-        onMouseLeave: () => ze(!1),
+        onMouseEnter: () => ze(true),
+        onMouseLeave: () => ze(false),
         children: [
           !p && a.isSubmitFocused
             ? e(t, { color: "suggestion", children: L.pointer })
             : !p && Fe
-              ? e(t, { dimColor: !0, children: L.pointer })
+              ? e(t, { dimColor: true, children: L.pointer })
               : e(t, { children: " " }),
           e(o, {
             marginLeft: 3,
-            children: e(t, { color: !p && a.isSubmitFocused ? "suggestion" : void 0, bold: !0, children: P }),
+            children: e(t, { color: !p && a.isSubmitFocused ? "suggestion" : void 0, bold: true, children: P }),
           }),
         ],
       })),

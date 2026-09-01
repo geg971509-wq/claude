@@ -24,7 +24,7 @@ When an event lands that the user would want to act on now \u2014 an error appea
     : "";
 }
 function xI() {
-  return I("tengu_amber_sentinel", !1);
+  return I("tengu_amber_sentinel", false);
 }
 function Ymn() {
   let e = $d();

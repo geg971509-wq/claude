@@ -160,6 +160,6 @@ ${a}`
       m,
     );
   if (n == null) return n;
-  return r(o, { flexDirection: "column", children: [e(t, { dimColor: !0, children: Knt }), n] });
+  return r(o, { flexDirection: "column", children: [e(t, { dimColor: true, children: Knt }), n] });
 };
 export { s as call };

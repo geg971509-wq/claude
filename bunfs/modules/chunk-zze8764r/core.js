@@ -143,7 +143,7 @@ je(FA, { backgroundsTheShell: () => Eqt, default: () => FA, listenForAbort: () =
 
 var Eqt = (e, t) => t === "turn" && Za(e) === "turn-abort";
 
-var Aqt = (e) => (e.innerCall === !0 ? "inner" : e.agentId === void 0 ? "turn" : "agent");
+var Aqt = (e) => (e.innerCall === true ? "inner" : e.agentId === void 0 ? "turn" : "agent");
 
 class Rue {
   capacity;
@@ -239,9 +239,9 @@ class Bx {
   #a = 0;
   #c;
   #i;
-  #u = !1;
+  #u = false;
   #l = 0;
-  constructor(e, t, r = !1, o = Rqt) {
+  constructor(e, t, r = false, o = Rqt) {
     if (
       ((this.taskId = e),
       (this.path = r ? G5e(e) : Sl(e)),
@@ -267,7 +267,7 @@ class Bx {
       ({ content: e, bytesRead: t, bytesTotal: r }) => {
         if (!this.#i) return;
         if (!e) {
-          this.#i("", "", this.#o, r, !1);
+          this.#i("", "", this.#o, r, false);
           return;
         }
         let o = e.length,
@@ -294,10 +294,10 @@ class Bx {
     );
   }
   writeStdout(e) {
-    this.#f(e, !1);
+    this.#f(e, false);
   }
   writeStderr(e) {
-    this.#f(e, !0);
+    this.#f(e, true);
   }
   #f(e, t) {
     if (((this.#s += e.length), !t)) this.#a += e.length;
@@ -386,7 +386,7 @@ Output truncated (${r}KB total). Full output saved to: ${this.path}`;
       let t = await XX(this.path);
       if (t === null) return n(`TaskOutput.#readStdoutFromFile: ${this.path} is gone (ENOENT)`), this.#m("ENOENT");
       let r = await Ffe(t, 0, e).finally(() => t.close());
-      if (!r) return (this.#u = !0), "";
+      if (!r) return (this.#u = true), "";
       let { content: o, bytesRead: u, bytesTotal: d } = r;
       return (this.#l = d), (this.#u = d <= u), o;
     } catch (t) {
@@ -455,7 +455,7 @@ var Uqt = 5000;
 
 class Pue {
   #e;
-  #t = !1;
+  #t = false;
   #n;
   #r;
   #o = this.#s.bind(this);
@@ -469,7 +469,7 @@ class Pue {
   }
   cleanup() {
     if (this.#t) return;
-    (this.#t = !0), this.#e.removeListener("data", this.#o), (this.#e = null), (this.#n = null), (this.#o = () => {});
+    (this.#t = true), this.#e.removeListener("data", this.#o), (this.#e = null), (this.#n = null), (this.#o = () => {});
   }
 }
 
@@ -481,8 +481,8 @@ class Due {
   #o;
   #s = null;
   #a = null;
-  #c = !1;
-  #i = !1;
+  #c = false;
+  #i = false;
   #u;
   #l;
   #f;
@@ -500,7 +500,7 @@ class Due {
   }
   result;
   onTimeout;
-  constructor(e, t, r, o, u = !1, d = nLe, _ = "inner") {
+  constructor(e, t, r, o, u = false, d = nLe, _ = "inner") {
     if (
       ((this.#o = e),
       (this.#l = t),
@@ -509,8 +509,8 @@ class Due {
       (this.#y = u),
       (this.#u = d),
       (this.taskOutput = o),
-      (this.#r = e.stderr ? new Pue(e.stderr, o, !0) : null),
-      (this.#n = e.stdout ? new Pue(e.stdout, o, !1) : null),
+      (this.#r = e.stderr ? new Pue(e.stderr, o, true) : null),
+      (this.#n = e.stdout ? new Pue(e.stdout, o, false) : null),
       u)
     )
       this.onTimeout = (C) => {
@@ -552,11 +552,11 @@ class Due {
       P_t(this.taskOutput.taskId).then(
         (e) => {
           if (e > this.#u && (this.#e === "running" || this.#e === "backgrounded") && this.#a !== null)
-            (this.#c = !0), this.#w(), this.#h($U);
+            (this.#c = true), this.#w(), this.#h($U);
         },
         (e) => {
           if (O_t(e) && (this.#e === "running" || this.#e === "backgrounded") && this.#a !== null) {
-            (this.#i = !0), this.#w(), this.#h($U);
+            (this.#i = true), this.#w(), this.#h($U);
             return;
           }
         },
@@ -567,7 +567,7 @@ class Due {
   #R() {
     if (
       ((this.#S = this.#E.bind(this)),
-      this.#l.addEventListener("abort", this.#S, { once: !0 }),
+      this.#l.addEventListener("abort", this.#S, { once: true }),
       this.#o.once("exit", this.#C.bind(this)),
       this.#o.once("error", this.#A.bind(this)),
       (this.#s = setTimeout(Due.#v, this.#p, this)),
@@ -628,9 +628,9 @@ ${r}`
     let r = WE(t, "SIGTERM"),
       o = new Promise((d) => {
         let _,
-          C = !1,
+          C = false,
           A = setTimeout(() => {
-            (C = !0), clearInterval(_);
+            (C = true), clearInterval(_);
             try {
               process.kill(-t, "SIGKILL");
             } catch {}
@@ -661,9 +661,9 @@ ${r}`
       if (((this.#t = e), (this.#e = "backgrounded"), this.#k(), this.taskOutput.stdoutToFile)) this.#T();
       else if (!t?.skipSpill) this.taskOutput.spillToDisk();
       if (t?.capMs) (this.#s = setTimeout((r) => void r.#h(), t.capMs, this)), this.#s.unref?.();
-      return !0;
+      return true;
     }
-    return !1;
+    return false;
   }
   detach() {
     this.#g.liveShellCommands.delete(this);
@@ -693,11 +693,11 @@ class b0e {
         code: 145,
         stdout: "",
         stderr: "Command aborted before execution",
-        interrupted: !0,
+        interrupted: true,
       }));
   }
   background() {
-    return !1;
+    return false;
   }
   kill() {
     return Promise.resolve();
@@ -884,7 +884,7 @@ var FKt = (e) => TKt(e).replace(/\.md$/i, ""),
   },
   $Kt = async (e, t, r) => {
     let o = hde(e, t),
-      { content: u } = await HB(o, 0, vKt, EKt, void 0, { truncateOnByteLimit: !0 }),
+      { content: u } = await HB(o, 0, vKt, EKt, void 0, { truncateOnByteLimit: true }),
       { frontmatter: d, body: _ } = zv(u, o),
       C = d.description ?? NKt(_);
     return {
@@ -901,7 +901,7 @@ var FKt = (e) => TKt(e).replace(/\.md$/i, ""),
 
 var QK = 2000,
   jKt = /\]\(([^()\n]+?\.md)\)/gi,
-  hUe = { resolved: !1, read: !1, written: !1, injection: "none" };
+  hUe = { resolved: false, read: false, written: false, injection: "none" };
 
 class SUe {
   memoryContext = null;
@@ -1032,7 +1032,7 @@ var CUe = { setup: 0, sessionstart: 1, cwdchanged: 2, filechanged: 3 },
   OI = /^(setup|sessionstart|cwdchanged|filechanged)-hook-(\d+)\.sh$/;
 
 var ZKt = new JKt(),
-  r2t = !1;
+  r2t = false;
 
 var a2t = new J(() => new Set());
 
@@ -1433,7 +1433,7 @@ $output | ConvertTo-Json -Depth 10 -Compress
   aSr = Math.max(0, Math.floor((oVt * 3) / 4) - Z2t),
   sVt = 4500,
   Rde = sVt,
-  iVt = { valid: !1, statements: [], variables: [], hasStopParsing: !1 };
+  iVt = { valid: false, statements: [], variables: [], hasStopParsing: false };
 
 var gVt = new Set(["PwshSpawnError", "PwshError", "PwshTimeout", "EmptyOutput", "InvalidJson"]);
 
@@ -1581,7 +1581,7 @@ var rBe = new J(() => new nBe());
 
 class oBe {
   flushers = null;
-  exitFlushRegistered = !1;
+  exitFlushRegistered = false;
 }
 
 var jI = new oBe();
@@ -1790,7 +1790,7 @@ var hYt = m(() => oe(["allow", "deny", "ask", "defer"])),
     }),
   ),
   l9 = m(() => {
-    let e = f({ async: N(!0), asyncTimeout: v().optional() });
+    let e = f({ async: N(true), asyncTimeout: v().optional() });
     return dt([e, yYt()]);
   });
 
@@ -2144,7 +2144,7 @@ var NYt = new J(() => new ZBe());
 var $Yt = ["SessionStart", "Setup"];
 
 class eHe {
-  allHookEventsEnabled = !1;
+  allHookEventsEnabled = false;
   setAllHookEventsEnabled(e) {
     this.allHookEventsEnabled = e;
   }
@@ -2250,16 +2250,16 @@ var YYt = new Set(["task-notification", "poll-event"]);
 
 var tO = Ue(),
   mpe = Ue(),
-  lpe = { admitted: !0 };
+  lpe = { admitted: true };
 
 var WV = hsn(),
-  yHe = !1;
+  yHe = false;
 
 function c9n(e) {
   if (yHe) return WV;
   let t = WV,
     r = e(t.getCommandQueue());
-  return t.resetCommandQueue(), (WV = r), (yHe = !0), r;
+  return t.resetCommandQueue(), (WV = r), (yHe = true), r;
 }
 
 var Uct = (...e) => Zm().getCommandQueueSnapshot(...e),
@@ -2358,13 +2358,13 @@ class Jpe {
   pending = new Map();
   oversizeNoticed = new Map();
   roUnsavedNoticed = new Map();
-  mirrorAllUncoveredEmitted = !1;
+  mirrorAllUncoveredEmitted = false;
   rearmMirrorAllUncovered() {
-    this.mirrorAllUncoveredEmitted = !1;
+    this.mirrorAllUncoveredEmitted = false;
   }
   emitMirrorAllUncoveredOnce() {
     if (!this.mirrorAllUncoveredEmitted)
-      (this.mirrorAllUncoveredEmitted = !0), s("tengu_org_memory_mirror_all_uncovered", {});
+      (this.mirrorAllUncoveredEmitted = true), s("tengu_org_memory_mirror_all_uncovered", {});
   }
   queue(e, t) {
     this.pending.set(e, t);
@@ -2414,12 +2414,12 @@ var Zpe = {
     "A directory inside this memory store's local folder is unreadable (permission denied), so sync cannot verify or persist local files. Fix its permissions; sync then resumes automatically.",
 };
 
-var eE = { success: !0, filesWritten: 0, filesDeleted: 0, conflicts: 0, secretsSkipped: 0, oversizedSkipped: 0 };
+var eE = { success: true, filesWritten: 0, filesDeleted: 0, conflicts: 0, secretsSkipped: 0, oversizedSkipped: 0 };
 
 var Q4t = 60,
   Z4t = 1;
 
-var iB = { success: !0, skipped: !0, entriesListed: 0, filesWritten: 0, filesDeleted: 0 },
+var iB = { success: true, skipped: true, entriesListed: 0, filesWritten: 0, filesDeleted: 0 },
   Dpe = iB,
   e5t = 3,
   xHe = 300000;
@@ -2455,7 +2455,7 @@ je(_w, {
   hooksModulesRolloutSource: () => p5t,
 });
 
-var pB = () => !1;
+var pB = () => false;
 
 var ume = {
   override: "from a local override",
@@ -2484,19 +2484,19 @@ var dme = {
   type: "local-jsx",
   name: "cloud-plugins",
   description: "Choose whether cloud sessions use the plugins enabled on this machine",
-  requires: { workspace: !1, ink: !0 },
+  requires: { workspace: false, ink: true },
   isEnabled: () => b8e() && !a.CLAUDE_CODE_DISABLE_PLUGIN_FORWARDING,
 };
 
 var mme = Object.freeze({
-    twoStageClassifier: !0,
-    sameTurnSiblingContext: !0,
-    editRemovalVisibility: !0,
+    twoStageClassifier: true,
+    sameTurnSiblingContext: true,
+    editRemovalVisibility: true,
     editRemovalCap: 3000,
-    outcomeVisibility: !1,
-    repoVisibility: !0,
-    gitStatusType: !0,
-    gitStatusUploads: !1,
+    outcomeVisibility: false,
+    repoVisibility: true,
+    gitStatusType: true,
+    gitStatusUploads: false,
     severityByModel: Object.freeze({
       "claude-sonnet-5[1m]": Object.freeze({ t1: 25, t2: 35 }),
       "claude-opus-4-8[1m]": Object.freeze({ t1: 45, t2: 35 }),
@@ -2911,7 +2911,7 @@ var N6t = {
             cwd: dp.repoRoot(),
             stdout: "pipe",
             stderr: "pipe",
-            windowsHide: !0,
+            windowsHide: true,
           }),
           [o, u, d] = await Promise.all([new Response(r.stdout).text(), new Response(r.stderr).text(), r.exited]);
         if (d !== 0) throw dp.cannotShip(t.path, u);
@@ -3126,7 +3126,7 @@ var qje = (e, t) =>
 
 var f4 = (e) => typeof e === "object" && e !== null && typeof e.type === "string";
 
-var hb = (e, t, r) => (t === void 0 ? !1 : (ld.declarerFor(t)?.(t, e, r) ?? !1));
+var hb = (e, t, r) => (t === void 0 ? false : (ld.declarerFor(t)?.(t, e, r) ?? false));
 
 var mO = (e, t, r) =>
   !hb(e, t, r) &&
@@ -3327,7 +3327,7 @@ class e1e {
       (r.cleanupHandle = vt(async () => {
         if (r.path)
           try {
-            await LXt(r.path, { recursive: !0, force: !0 }), n(`Cleaned up session plugin cache at ${r.path}`);
+            await LXt(r.path, { recursive: true, force: true }), n(`Cleaned up session plugin cache at ${r.path}`);
           } catch (o) {
             n(`Failed to clean up session plugin cache: ${o}`);
           }
@@ -3388,10 +3388,10 @@ class l1e {
         r)
       )
         p(t, o.reason);
-      return { success: !1, error: `manifest ${o.reason}` };
+      return { success: false, error: `manifest ${o.reason}` };
     }
     if (r) y(t);
-    return { success: !0, entries: o[e] };
+    return { success: true, entries: o[e] };
   }
 }
 
@@ -3436,12 +3436,12 @@ class IB extends Error {
 
 var u9t = new Map([["skills", "skills"]]);
 
-var tWn = { ok: !0 },
-  Nxe = { ok: !1, cause: "root_refused", reason: "sync root no longer verifies (changed mid-round)" };
+var tWn = { ok: true },
+  Nxe = { ok: false, cause: "root_refused", reason: "sync root no longer verifies (changed mid-round)" };
 
-var nWn = { ok: !1, cause: "deferred", reason: "another process is landing this item" };
+var nWn = { ok: false, cause: "deferred", reason: "another process is landing this item" };
 
-var Q9e = { ok: !1, cause: "local", reason: "an existing directory at the target could not be displaced" };
+var Q9e = { ok: false, cause: "local", reason: "an existing directory at the target could not be displaced" };
 
 var y9t = 0xffffffffffffffffn;
 
@@ -3601,7 +3601,7 @@ var Aze = 3,
     source: "built-in",
     baseDir: "built-in",
     model: "inherit",
-    omitClaudeMd: !0,
+    omitClaudeMd: true,
     getSystemPrompt: () => i8t(),
   };
 
@@ -3627,7 +3627,7 @@ var p6 = {
   tools: Eb.tools,
   baseDir: "built-in",
   model: "inherit",
-  omitClaudeMd: !0,
+  omitClaudeMd: true,
   getSystemPrompt: () => d8t(),
 };
 
@@ -3821,7 +3821,7 @@ var Kxe = {
   model: "inherit",
   color: "blue",
   maxTurns: 15,
-  omitClaudeMd: !0,
+  omitClaudeMd: true,
   getSystemPrompt: y8t,
 };
 
@@ -4040,7 +4040,7 @@ var iQt = 500,
 
 class cKe {
   baseline = new Map();
-  initialized = !1;
+  initialized = false;
   mcpClient;
   lastProcessedTimestamps = new Map();
   rightFileDiagnosticsState = new Map();
@@ -4048,10 +4048,10 @@ class cKe {
   workspaceFetchInFlight;
   initialize(e) {
     if (this.initialized) return;
-    (this.mcpClient = e), (this.initialized = !0);
+    (this.mcpClient = e), (this.initialized = true);
   }
   async shutdown() {
-    (this.initialized = !1),
+    (this.initialized = false),
       this.baseline.clear(),
       this.rightFileDiagnosticsState.clear(),
       this.lastProcessedTimestamps.clear(),
@@ -4161,7 +4161,7 @@ class cKe {
     return u;
   }
   areDiagnosticArraysEqual(e, t) {
-    if (e.length !== t.length) return !1;
+    if (e.length !== t.length) return false;
     let r = new Set(e.map(B6)),
       o = new Set(t.map(B6));
     return r.size === o.size && d3e(r, o);
@@ -4193,7 +4193,7 @@ class _Ke {
   register({ serverName: e, files: t }) {
     let r = pQt();
     n(`LSP Diagnostics: Registering ${t.length} diagnostic file(s) from ${e} (ID: ${r})`),
-      this.pending.set(r, { serverName: e, files: t, timestamp: Date.now(), attachmentSent: !1 });
+      this.pending.set(r, { serverName: e, files: t, timestamp: Date.now(), attachmentSent: false });
   }
   deduplicateDiagnosticFiles(e) {
     let t = new Map(),
@@ -4228,16 +4228,16 @@ class _Ke {
     for (let M of this.pending.values()) if (!M.attachmentSent) e.push(...M.files), t.add(M.serverName), r.push(M);
     if (e.length === 0) return [];
     let o,
-      u = !1;
+      u = false;
     try {
       o = this.deduplicateDiagnosticFiles(e);
     } catch (M) {
       let F = we(M);
       xM(Error(`Failed to deduplicate LSP diagnostics: ${F.message}`), "Failed to deduplicate LSP diagnostics"),
-        (u = !0),
+        (u = true),
         (o = e);
     }
-    for (let M of r) M.attachmentSent = !0;
+    for (let M of r) M.attachmentSent = true;
     for (let [M, F] of this.pending) if (F.attachmentSent) this.pending.delete(M);
     let d = e.reduce((M, F) => M + F.diagnostics.length, 0),
       _ = o.reduce((M, F) => M + F.diagnostics.length, 0);
@@ -4384,7 +4384,7 @@ class Fw {
             ge = U[fe - 1],
             Ce = U[fe + 1];
           if (ge) U[fe - 1] = void 0;
-          let Ie = !1;
+          let Ie = false;
           if (Ce) {
             let Pe = Ce.oldPos - fe;
             Ie = Ce && 0 <= Pe && Pe < _;
@@ -4394,10 +4394,10 @@ class Fw {
             U[fe] = void 0;
             continue;
           }
-          if (!Ee || (Ie && ge.oldPos < Ce.oldPos)) me = this.addToPath(Ce, !0, !1, 0, r);
-          else me = this.addToPath(ge, !1, !0, 1, r);
+          if (!Ee || (Ie && ge.oldPos < Ce.oldPos)) me = this.addToPath(Ce, true, false, 0, r);
+          else me = this.addToPath(ge, false, true, 1, r);
           if (((B = this.extractCommon(me, t, e, fe, r)), me.oldPos + 1 >= C && B + 1 >= _))
-            return d(this.buildValues(me.lastComponent, t, e)) || !0;
+            return d(this.buildValues(me.lastComponent, t, e)) || true;
           else {
             if (((U[fe] = me), me.oldPos + 1 >= C)) z = Math.min(z, fe - 1);
             if (B + 1 >= _) W = Math.max(W, fe + 1);
@@ -4435,9 +4435,9 @@ class Fw {
       x = 0;
     while (A + 1 < d && C + 1 < _ && this.equals(r[C + 1], t[A + 1], u))
       if ((A++, C++, x++, u.oneChangePerToken))
-        e.lastComponent = { count: 1, previousComponent: e.lastComponent, added: !1, removed: !1 };
+        e.lastComponent = { count: 1, previousComponent: e.lastComponent, added: false, removed: false };
     if (x && !u.oneChangePerToken)
-      e.lastComponent = { count: x, previousComponent: e.lastComponent, added: !1, removed: !1 };
+      e.lastComponent = { count: x, previousComponent: e.lastComponent, added: false, removed: false };
     return (e.oldPos = C), A;
   }
   equals(e, t, r) {
@@ -4462,7 +4462,7 @@ class Fw {
     return e;
   }
   get useLongestToken() {
-    return !1;
+    return false;
   }
   buildValues(e, t, r) {
     let o = [],
@@ -4625,14 +4625,14 @@ var JQt = [
 ];
 
 var ZQt = {
-    end_turn: !0,
-    max_tokens: !0,
-    stop_sequence: !0,
-    tool_use: !0,
-    pause_turn: !0,
-    compaction: !0,
-    refusal: !0,
-    model_context_window_exceeded: !0,
+    end_turn: true,
+    max_tokens: true,
+    stop_sequence: true,
+    tool_use: true,
+    pause_turn: true,
+    compaction: true,
+    refusal: true,
+    model_context_window_exceeded: true,
   },
   e7t = Object.keys(ZQt);
 
@@ -4800,7 +4800,7 @@ var E2e = "<<:AMPERSAND_TOKEN:>>",
 
 var k7t = /^[0-9a-f]{16}@v\d+$/;
 
-var A7t = !1;
+var A7t = false;
 
 var M7t = 102400,
   I7t = new Set(["verify", "pr", "commit", "code-review", "simplify", "go"]),
@@ -4814,8 +4814,8 @@ var S7 = 5000,
   bj = 500;
 
 class H2e {
-  #e = !1;
-  #t = !1;
+  #e = false;
+  #t = false;
   get baseResolveOkLogged() {
     return this.#e;
   }
@@ -4823,10 +4823,10 @@ class H2e {
     return this.#t;
   }
   markBaseResolveOkLogged() {
-    this.#e = !0;
+    this.#e = true;
   }
   markBaseResolveSadLogged() {
-    this.#t = !0;
+    this.#t = true;
   }
 }
 
@@ -4841,7 +4841,7 @@ var T3 = m(() =>
       file_path: i().describe("The absolute path to the file to modify"),
       old_string: i().describe("The text to replace"),
       new_string: i().describe("The text to replace it with (must be different from old_string)"),
-      replace_all: Yb(q().default(!1).optional()).describe("Replace all occurrences of old_string (default false)"),
+      replace_all: Yb(q().default(false).optional()).describe("Replace all occurrences of old_string (default false)"),
       ...tEe(),
     }),
   ),
@@ -4948,9 +4948,9 @@ var Uy = kt({
   name: Kt,
   ruleContentField: "file_path",
   searchHint: "modify file contents in place",
-  remoteExecution: { supported: !0 },
+  remoteExecution: { supported: true },
   maxResultSizeChars: 1e5,
-  strict: !0,
+  strict: true,
   async description() {
     return "A tool for editing files";
   },
@@ -4989,7 +4989,7 @@ var Uy = kt({
       adds: e.new_string,
       removes: u ? o.slice(0, r) : o,
       ...(r > 0 && { removesTruncated: u }),
-      ...(e.replace_all === !0 && { replaceAll: !0 }),
+      ...(e.replace_all === true && { replaceAll: true }),
       ...(t !== void 0 && { [Pi]: t, ...MLe(e) }),
     };
   },
@@ -5011,34 +5011,34 @@ var Uy = kt({
     return t.session.writePermissionStash.stash(t.toolUseId, r, o), Xv(Uy, e, he(t), o);
   },
   async validateInput(e, t) {
-    let { file_path: r, replace_all: o = !1 } = e,
+    let { file_path: r, replace_all: o = false } = e,
       { old_string: u, new_string: d } = e,
       _ = gt(r),
       C = iF(_, t);
-    if (C) return { result: !1, message: C, errorCode: 12 };
+    if (C) return { result: false, message: C, errorCode: 12 };
     let A = z6(_, d);
-    if (A) return { result: !1, message: A, errorCode: 0 };
+    if (A) return { result: false, message: A, errorCode: 0 };
     if (u === d)
       return {
-        result: !1,
+        result: false,
         behavior: "ask",
         message: "No changes to make: old_string and new_string are exactly the same.",
         errorCode: 1,
       };
-    if (fa(_, he(t), "edit", "deny") !== null) return { result: !1, behavior: "ask", message: Z8e, errorCode: 2 };
-    if (PLe(_, he(t))) return { result: !1, behavior: "ask", message: gbn, errorCode: 13 };
-    if (Ru(_)) return { result: !0 };
+    if (fa(_, he(t), "edit", "deny") !== null) return { result: false, behavior: "ask", message: Z8e, errorCode: 2 };
+    if (PLe(_, he(t))) return { result: false, behavior: "ask", message: gbn, errorCode: 13 };
+    if (Ru(_)) return { result: true };
     let M = le();
     try {
       let { size: fe, mode: me } = await M.stat(_);
       if (fe > iVe)
         return {
-          result: !1,
+          result: false,
           behavior: "ask",
           message: `File is too large to edit (${Ft(fe)}). Maximum editable file size is ${Ft(iVe)}.`,
           errorCode: 10,
         };
-      if ($Je(me)) return { result: !1, behavior: "ask", message: FJe, errorCode: 11 };
+      if ($Je(me)) return { result: false, behavior: "ask", message: FJe, errorCode: 11 };
     } catch (fe) {
       if (!X(fe)) throw fe;
     }
@@ -5053,22 +5053,22 @@ var Uy = kt({
       else throw fe;
     }
     if (F === null) {
-      if (u === "") return { result: !0 };
+      if (u === "") return { result: true };
       let fe = await Uoe(_),
         me = await fj(_),
         ge = `File does not exist. ${S0} ${ee()}.`;
       if (me) ge += ` Did you mean ${me}?`;
       else if (fe) ge += ` Did you mean ${fe}?`;
-      return { result: !1, behavior: "ask", message: ge, errorCode: 4 };
+      return { result: false, behavior: "ask", message: ge, errorCode: 4 };
     }
     if (u === "") {
       if (F.trim() !== "")
-        return { result: !1, behavior: "ask", message: "Cannot create new file - file already exists.", errorCode: 3 };
-      return { result: !0 };
+        return { result: false, behavior: "ask", message: "Cannot create new file - file already exists.", errorCode: 3 };
+      return { result: true };
     }
     if (_.endsWith(".ipynb"))
       return {
-        result: !1,
+        result: false,
         behavior: "ask",
         message: `File is a Jupyter Notebook. Use the ${mc} to edit this file.`,
         errorCode: 5,
@@ -5082,7 +5082,7 @@ var Uy = kt({
       if (
         (s("tengu_edit_tool_not_read_hypothetical", {
           wouldHaveResult: lVe(jge(F, u, o)),
-          isPartialView: U?.isPartialView === !0,
+          isPartialView: U?.isPartialView === true,
           isFilePathAbsolute: A3(r),
           guardSkipped: Ce,
           modelBucket: me,
@@ -5091,7 +5091,7 @@ var Uy = kt({
         !Ce)
       )
         return {
-          result: !1,
+          result: false,
           behavior: "ask",
           message: "File has not been read yet. Read it first before writing to it.",
           meta: { isFilePathAbsolute: String(A3(r)) },
@@ -5106,7 +5106,7 @@ var Uy = kt({
             Ce = ge === "applies" && nY(Kt, _, t, he(t));
           if ((s("tengu_edit_tool_stale_read", { wouldHaveResult: lVe(ge), recovered: Ce }), !Ce))
             return {
-              result: !1,
+              result: false,
               behavior: "ask",
               message:
                 "File has been modified since read, either by the user or by a linter. Read it again before attempting to write it.",
@@ -5122,7 +5122,7 @@ var Uy = kt({
 (note: Edit also tried swapping \\uXXXX escapes and their characters; neither form matched, so the mismatch is likely elsewhere in old_string. Re-read the file and copy the exact surrounding text.)`
         : "";
       return {
-        result: !1,
+        result: false,
         behavior: "ask",
         message: `String to replace not found in file.
 String: ${u}${fe}`,
@@ -5133,7 +5133,7 @@ String: ${u}${fe}`,
     let z = B.split(W).length - 1;
     if (z > 1 && !o)
       return {
-        result: !1,
+        result: false,
         behavior: "ask",
         message: `Found ${z} matches of the string to replace, but replace_all is false. To replace all occurrences, set replace_all to true. To replace only one occurrence, please provide more context to uniquely identify the instance.
 String: ${u}`,
@@ -5142,17 +5142,17 @@ String: ${u}`,
       };
     let pe = z2e(_, B, () => (o ? B.replaceAll(W, d) : B.replace(W, d)));
     if (pe !== null) return pe;
-    return { result: !0, meta: { actualOldString: W } };
+    return { result: true, meta: { actualOldString: W } };
   },
   inputsEquivalent(e, t) {
     return oVe(
       {
         file_path: e.file_path,
-        edits: [{ old_string: e.old_string, new_string: e.new_string, replace_all: e.replace_all ?? !1 }],
+        edits: [{ old_string: e.old_string, new_string: e.new_string, replace_all: e.replace_all ?? false }],
       },
       {
         file_path: t.file_path,
-        edits: [{ old_string: t.old_string, new_string: t.new_string, replace_all: t.replace_all ?? !1 }],
+        edits: [{ old_string: t.old_string, new_string: t.new_string, replace_all: t.replace_all ?? false }],
       },
     );
   },
@@ -5192,7 +5192,7 @@ var SVe = "claude-opus-4-8";
 class wVe {
   latched = void 0;
   isOpen() {
-    return (this.latched ??= I("tengu_reactive_compact_remote", !1)), this.latched;
+    return (this.latched ??= I("tengu_reactive_compact_remote", false)), this.latched;
   }
   reset() {
     this.latched = void 0;
@@ -5252,28 +5252,28 @@ var LJt = [
 var WVe = /system messages?\b|role .{0,2}system/i;
 
 var UJt = {
-    advisor_tool_result: !0,
-    bash_code_execution_tool_result: !0,
-    code_execution_tool_result: !0,
-    compaction: !0,
-    container_upload: !0,
-    document: !0,
-    fallback: !0,
-    image: !0,
-    mcp_tool_result: !0,
-    mcp_tool_use: !0,
-    mid_conv_system: !0,
-    redacted_thinking: !0,
-    search_result: !0,
-    server_tool_use: !0,
-    text: !0,
-    text_editor_code_execution_tool_result: !0,
-    thinking: !0,
-    tool_result: !0,
-    tool_search_tool_result: !0,
-    tool_use: !0,
-    web_fetch_tool_result: !0,
-    web_search_tool_result: !0,
+    advisor_tool_result: true,
+    bash_code_execution_tool_result: true,
+    code_execution_tool_result: true,
+    compaction: true,
+    container_upload: true,
+    document: true,
+    fallback: true,
+    image: true,
+    mcp_tool_result: true,
+    mcp_tool_use: true,
+    mid_conv_system: true,
+    redacted_thinking: true,
+    search_result: true,
+    server_tool_use: true,
+    text: true,
+    text_editor_code_execution_tool_result: true,
+    thinking: true,
+    tool_result: true,
+    tool_search_tool_result: true,
+    tool_use: true,
+    web_fetch_tool_result: true,
+    web_search_tool_result: true,
   },
   BJt = ["connector_text"],
   HJt = new Set([...Object.keys(UJt), ...BJt]);
@@ -5594,46 +5594,46 @@ var PYe =
   IYe = "notice";
 
 class OYe {
-  currentLimits = { status: "allowed", unifiedRateLimitFallbackAvailable: !1, isUsingOverage: !1 };
+  currentLimits = { status: "allowed", unifiedRateLimitFallbackAvailable: false, isUsingOverage: false };
   rawUtilization = {};
   lastEmittedWindowParts = {};
   lastEmittedGraceExtraUsageStatus = void 0;
   lastAppliedObservationAtMs = 0;
   accountEpoch = 0;
-  limitsObserved = !1;
-  longContext1mOkLogged = !1;
+  limitsObserved = false;
+  longContext1mOkLogged = false;
   statusChanged = Ue();
   overageInUse = Ue();
   quotaRejected = Ue();
-  graceWrapUpInZone = !1;
-  pendingGraceWrapUpHint = !1;
-  pendingNearLimitWrapUpHint = !1;
+  graceWrapUpInZone = false;
+  pendingGraceWrapUpHint = false;
+  pendingNearLimitWrapUpHint = false;
   nearLimitWrapUpWindowKey = null;
-  rateLimitGraceActive = !1;
+  rateLimitGraceActive = false;
   rateLimitGraceZone = "five_hour";
   rateLimitGraceResetsAt = void 0;
   rateLimitGraceExtraUsageStatus = void 0;
   lastAppliedGraceObservationAtMs = 0;
-  rateLimitGraceActiveDirty = !1;
+  rateLimitGraceActiveDirty = false;
   isFromPreviousAccount(e) {
     return e !== void 0 && e !== this.accountEpoch;
   }
   isStaleObservation(e) {
-    if (e < this.lastAppliedObservationAtMs) return !0;
-    return (this.lastAppliedObservationAtMs = e), (this.limitsObserved = !0), !1;
+    if (e < this.lastAppliedObservationAtMs) return true;
+    return (this.lastAppliedObservationAtMs = e), (this.limitsObserved = true), false;
   }
   resetCurrentLimits() {
-    (this.currentLimits = { status: "allowed", unifiedRateLimitFallbackAvailable: !1, isUsingOverage: !1 }),
+    (this.currentLimits = { status: "allowed", unifiedRateLimitFallbackAvailable: false, isUsingOverage: false }),
       (this.rawUtilization = {}),
       (this.lastEmittedWindowParts = {}),
       (this.lastEmittedGraceExtraUsageStatus = void 0),
       this.accountEpoch++,
       (this.lastAppliedObservationAtMs = Date.now()),
-      (this.limitsObserved = !1);
+      (this.limitsObserved = false);
   }
   emitStatusChange(e) {
     let t = this.currentLimits;
-    if (((this.currentLimits = e), (this.limitsObserved = !0), G8(this.rawUtilization.five_hour)))
+    if (((this.currentLimits = e), (this.limitsObserved = true), G8(this.rawUtilization.five_hour)))
       this.lastEmittedWindowParts.five_hour = cL(this.rawUtilization.five_hour);
     if (G8(this.rawUtilization.seven_day)) this.lastEmittedWindowParts.seven_day = cL(this.rawUtilization.seven_day);
     if (G8(this.rawUtilization.seven_day_overage_included))
@@ -5661,7 +5661,7 @@ class OYe {
     let o = this.accountEpoch;
     try {
       let u = await EZt(e, t),
-        d = this.extractQuotaStatusFromHeaders(u.headers, e, !1, Date.now(), o, r);
+        d = this.extractQuotaStatusFromHeaders(u.headers, e, false, Date.now(), o, r);
       if (this.isFromPreviousAccount(o)) return null;
       return d ?? Y3(Nj(u.headers), this.rateLimitGraceActive);
     } catch (u) {
@@ -5669,18 +5669,18 @@ class OYe {
       return null;
     }
   }
-  extractQuotaStatusFromHeaders(e, t, r = !1, o = Date.now(), u, d) {
+  extractQuotaStatusFromHeaders(e, t, r = false, o = Date.now(), u, d) {
     if (this.isFromPreviousAccount(u)) return null;
     let _ = Tt();
     if (!lL(_)) {
       if (
         ((this.rawUtilization = {}),
-        (this.rateLimitGraceActiveDirty = !1),
+        (this.rateLimitGraceActiveDirty = false),
         this.currentLimits.status !== "allowed" ||
           this.currentLimits.resetsAt ||
           this.currentLimits.rateLimitGraceActive)
       ) {
-        let x = { status: "allowed", unifiedRateLimitFallbackAvailable: !1, isUsingOverage: !1 };
+        let x = { status: "allowed", unifiedRateLimitFallbackAvailable: false, isUsingOverage: false };
         this.emitStatusChange(x);
       }
       return null;
@@ -5689,13 +5689,13 @@ class OYe {
     this.expireGraceLatchIfWindowReset();
     let A = Y3(C, this.rateLimitGraceActive);
     if ((yYe(C, d), w5n(C, o), r && !this.longContext1mOkLogged))
-      (this.longContext1mOkLogged = !0), y("context_1m_entitlement");
+      (this.longContext1mOkLogged = true), y("context_1m_entitlement");
     if (!this.isStaleObservation(o)) {
       if (
         ((this.rawUtilization = hYe(C)),
         this.nearLimitWrapUpWindowKey !== null && Date.now() / 1000 > this.nearLimitWrapUpWindowKey)
       )
-        (this.pendingNearLimitWrapUpHint = !1), (this.nearLimitWrapUpWindowKey = null);
+        (this.pendingNearLimitWrapUpHint = false), (this.nearLimitWrapUpWindowKey = null);
       let x = this.rawUtilization.five_hour;
       if (
         x !== void 0 &&
@@ -5706,9 +5706,9 @@ class OYe {
         let M = OZt(mw());
         if (x.utilization >= M && !aM()) {
           let F = C.get(zBt);
-          if (F === "allowed" || F === "allowed_warning") this.pendingNearLimitWrapUpHint = !1;
+          if (F === "allowed" || F === "allowed_warning") this.pendingNearLimitWrapUpHint = false;
           else if (this.nearLimitWrapUpWindowKey !== x.resets_at)
-            (this.pendingNearLimitWrapUpHint = !0), (this.nearLimitWrapUpWindowKey = x.resets_at);
+            (this.pendingNearLimitWrapUpHint = true), (this.nearLimitWrapUpWindowKey = x.resets_at);
         }
       }
       if (!bs(this.currentLimits, A)) this.emitStatusChange(A);
@@ -5726,17 +5726,17 @@ class OYe {
         )
           this.emitStatusChange(A);
       }
-      this.rateLimitGraceActiveDirty = !1;
+      this.rateLimitGraceActiveDirty = false;
     } else if (this.rateLimitGraceActiveDirty) {
-      this.rateLimitGraceActiveDirty = !1;
+      this.rateLimitGraceActiveDirty = false;
       let { rateLimitGraceActive: x, ...M } = this.currentLimits,
-        F = { ...M, ...(this.rateLimitGraceActive && { rateLimitGraceActive: !0 }) };
+        F = { ...M, ...(this.rateLimitGraceActive && { rateLimitGraceActive: true }) };
       if (!bs(this.currentLimits, F) || this.rateLimitGraceExtraUsageStatus !== this.lastEmittedGraceExtraUsageStatus)
         this.emitStatusChange(F);
     }
-    if (A.overageInUse === !0) {
+    if (A.overageInUse === true) {
       if (
-        !(A.isUsingOverage === !0 && A.rateLimitType !== "seven_day_overage_included") &&
+        !(A.isUsingOverage === true && A.rateLimitType !== "seven_day_overage_included") &&
         !r &&
         !iH() &&
         uf(t) &&
@@ -5744,22 +5744,22 @@ class OYe {
         !dz() &&
         !mze()
       )
-        ECt(!0);
-      this.overageInUse.emit(t, A.isUsingOverage === !0, r);
+        ECt(true);
+      this.overageInUse.emit(t, A.isUsingOverage === true, r);
     }
     return A;
   }
   resetGraceState() {
-    (this.graceWrapUpInZone = !1),
-      (this.pendingGraceWrapUpHint = !1),
-      (this.rateLimitGraceActive = !1),
+    (this.graceWrapUpInZone = false),
+      (this.pendingGraceWrapUpHint = false),
+      (this.rateLimitGraceActive = false),
       (this.rateLimitGraceResetsAt = void 0),
       (this.rateLimitGraceExtraUsageStatus = void 0),
       (this.lastAppliedGraceObservationAtMs = Date.now()),
-      (this.rateLimitGraceActiveDirty = !1);
+      (this.rateLimitGraceActiveDirty = false);
   }
   resetNearLimitWrapUpState() {
-    (this.pendingNearLimitWrapUpHint = !1), (this.nearLimitWrapUpWindowKey = null);
+    (this.pendingNearLimitWrapUpHint = false), (this.nearLimitWrapUpWindowKey = null);
   }
   extractGraceStatusFromHeaders(e, t, r = Date.now(), o) {
     if (!t || this.isFromPreviousAccount(o)) return;
@@ -5769,7 +5769,7 @@ class OYe {
     let u = _Ye(e, "anthropic-ratelimit-unified-grace-5h-utilization"),
       d = _Ye(e, "anthropic-ratelimit-unified-grace-7d-utilization");
     if (Math.max(u, d) > 0) {
-      if (!this.rateLimitGraceActive) (this.rateLimitGraceActive = !0), (this.rateLimitGraceActiveDirty = !0);
+      if (!this.rateLimitGraceActive) (this.rateLimitGraceActive = true), (this.rateLimitGraceActiveDirty = true);
       let C = SYe(e, "anthropic-ratelimit-unified-5h-reset", r),
         A = SYe(e, "anthropic-ratelimit-unified-7d-reset", r);
       (this.rateLimitGraceZone =
@@ -5778,18 +5778,18 @@ class OYe {
       let x = e.get(zBt),
         M = x === "allowed" || x === "allowed_warning" ? x : void 0;
       if (M !== this.rateLimitGraceExtraUsageStatus)
-        (this.rateLimitGraceExtraUsageStatus = M), (this.rateLimitGraceActiveDirty = !0);
+        (this.rateLimitGraceExtraUsageStatus = M), (this.rateLimitGraceActiveDirty = true);
       let F = M !== void 0;
-      if (e.get(smt) === "true" || F) (this.graceWrapUpInZone = !1), (this.pendingGraceWrapUpHint = !1);
-      else if (!this.graceWrapUpInZone) (this.graceWrapUpInZone = !0), (this.pendingGraceWrapUpHint = !0);
+      if (e.get(smt) === "true" || F) (this.graceWrapUpInZone = false), (this.pendingGraceWrapUpHint = false);
+      else if (!this.graceWrapUpInZone) (this.graceWrapUpInZone = true), (this.pendingGraceWrapUpHint = true);
     } else if (
-      ((this.graceWrapUpInZone = !1),
-      (this.pendingGraceWrapUpHint = !1),
+      ((this.graceWrapUpInZone = false),
+      (this.pendingGraceWrapUpHint = false),
       (this.rateLimitGraceResetsAt = void 0),
       (this.rateLimitGraceExtraUsageStatus = void 0),
       this.rateLimitGraceActive)
     )
-      (this.rateLimitGraceActive = !1), (this.rateLimitGraceActiveDirty = !0);
+      (this.rateLimitGraceActive = false), (this.rateLimitGraceActiveDirty = true);
   }
   getUsageLimitGrace() {
     if (
@@ -5809,21 +5809,21 @@ class OYe {
       this.rateLimitGraceResetsAt !== void 0 &&
       Date.now() / 1000 >= this.rateLimitGraceResetsAt
     )
-      (this.graceWrapUpInZone = !1),
-        (this.pendingGraceWrapUpHint = !1),
-        (this.rateLimitGraceActive = !1),
+      (this.graceWrapUpInZone = false),
+        (this.pendingGraceWrapUpHint = false),
+        (this.rateLimitGraceActive = false),
         (this.rateLimitGraceResetsAt = void 0),
         (this.rateLimitGraceExtraUsageStatus = void 0),
-        (this.rateLimitGraceActiveDirty = !0);
+        (this.rateLimitGraceActiveDirty = true);
   }
   consumePendingGraceWrapUpHint(e) {
-    if (e) return (this.graceWrapUpInZone = !1), (this.pendingGraceWrapUpHint = !1), !1;
-    if (!this.pendingGraceWrapUpHint) return !1;
-    return (this.pendingGraceWrapUpHint = !1), !0;
+    if (e) return (this.graceWrapUpInZone = false), (this.pendingGraceWrapUpHint = false), false;
+    if (!this.pendingGraceWrapUpHint) return false;
+    return (this.pendingGraceWrapUpHint = false), true;
   }
   consumePendingNearLimitWrapUpHint() {
-    if (!this.pendingNearLimitWrapUpHint) return !1;
-    return (this.pendingNearLimitWrapUpHint = !1), !aM();
+    if (!this.pendingNearLimitWrapUpHint) return false;
+    return (this.pendingNearLimitWrapUpHint = false), !aM();
   }
   extractQuotaStatusFromError(e, t, r = Date.now(), o, u) {
     if (this.isFromPreviousAccount(o) || !lL(Tt()) || e.status !== 429) return;
@@ -5968,7 +5968,7 @@ var _ee = go({
   ),
   result: m(() => oe(["consent", "switch_default", "cancelled"])),
   default: "cancelled",
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 
 var wX = "memdir_relevance";
@@ -6213,12 +6213,12 @@ var zX = WX();
 
 var u6e = (e) => WUt(e) !== "" || gL() !== "";
 
-var hL = !0;
+var hL = true;
 
-var yL = (e) => ({ messages: [Dt(e, "warning", void 0, hL)], shouldQuery: !1, resultText: e });
+var yL = (e) => ({ messages: [Dt(e, "warning", void 0, hL)], shouldQuery: false, resultText: e });
 
 var GX = (e, t, r) =>
-  r === !0
+  r === true
     ? e
     : `${e}
 
@@ -6228,7 +6228,7 @@ var qX = (e, t, r) => ({ ended: t, stopped: e.stopped, text: r, wasCancelled: e.
 
 var KX = () => yL("Prompt blocked: the UserPromptSubmit hooks did not run over the submitted text.");
 
-var E9 = (e) => (e.origin?.kind === "plugin" ? xhe(e.text, e.origin.name, { midTurn: !1 }) : e.text);
+var E9 = (e) => (e.origin?.kind === "plugin" ? xhe(e.text, e.origin.name, { midTurn: false }) : e.text);
 
 var C9 = (e, t, r) => ({ proceeds: { text: e, sessionTitle: t, ...(r !== void 0 && r.length > 0 && { context: r }) } });
 
@@ -6253,7 +6253,7 @@ var m6e =
 var $9 = (e, t) =>
   e.message?.type === "attachment" &&
   e.message.attachment.type === "hook_cancelled" &&
-  e.message.attachment.timedOut !== !0 &&
+  e.message.attachment.timedOut !== true &&
   t.aborted;
 
 var f6e = (e, t) => e.plugins !== t.plugins;
@@ -6262,7 +6262,7 @@ var U9 = (e) => Dt(e, "warning", void 0, hL);
 
 var B9 = (e) => (e === void 0 ? see : `${see}: ${e}`);
 
-var H9 = (e) => xe({ content: e, isMeta: !0 });
+var H9 = (e) => xe({ content: e, isMeta: true });
 
 var j9 = (e, t) => WNt({ promptSource: e ?? "sdk", wakeupSource: t });
 
@@ -6272,7 +6272,7 @@ var G9 = (e) => ({ permissionMode: he(e).mode, hooks: WUt(e), plugins: gL(), hoo
 
 var g6e = (e, { latch: t }) => {
   let r,
-    o = !1;
+    o = false;
   return () => {
     if (o || (t && r !== void 0)) return r;
     try {
@@ -6392,7 +6392,7 @@ je(Y8, {
 
 var V9 = (e) => ({
   name: "core",
-  core: !0,
+  core: true,
   budgetMs: 0,
   run: (t) => Promise.resolve({ type: "engine", ref: e.keep(t, void 0) }),
 });
@@ -6862,9 +6862,9 @@ var sXe = (e) => ({ installed: dg.platformSlot(), asked: e, pending: new Set(), 
 var aXe = (e) => ({
   run: (t) => (
     e.asked.set(t.surface),
-    e.installed.get()?.run(t) ?? Promise.resolve({ props: t.props, rewritten: !1, tree: { type: "engine", ref: 0 } })
+    e.installed.get()?.run(t) ?? Promise.resolve({ props: t.props, rewritten: false, tree: { type: "engine", ref: 0 } })
   ),
-  hooked: () => e.installed.get()?.hooked() ?? !1,
+  hooked: () => e.installed.get()?.hooked() ?? false,
   press: (t) => e.installed.get()?.press(t) ?? Promise.resolve(void 0),
   onInvalidate: (t) => {
     let r = e.installed.get();
@@ -6907,7 +6907,7 @@ Hd.publishRenderSites(Object.keys(T8).map((e) => ({ event: Uw, component: e, dra
 J8.installDesktopRenderer({
   async run(e) {
     let t = e.props;
-    if (!w8(e.component)) return { props: t, rewritten: !1, tree: Ns.RENDER_ENGINE_FALLBACK };
+    if (!w8(e.component)) return { props: t, rewritten: false, tree: Ns.RENDER_ENGINE_FALLBACK };
     let r = await dXe.uiRender(e, { signal: new AbortController().signal }),
       o = J8.firstEngineRef(r),
       u = o === void 0 ? void 0 : NL.heldRenderInput(r, o),
@@ -6925,7 +6925,7 @@ je(X1, { AGENT_OFFER: () => Ten, default: () => X1, offeredAgents: () => ven });
 
 var Ten = {
   site: Ns.SITE_RULES["agent.offer"],
-  core: { name: "core", core: !0, budgetMs: 0, run: async () => ({ offered: !0 }) },
+  core: { name: "core", core: true, budgetMs: 0, run: async () => ({ offered: true }) },
 };
 
 var yy = {};
@@ -6934,7 +6934,7 @@ je(yy, { ATTRIBUTION_TEXT: () => Een, attributionTextOf: () => Cen, default: () 
 
 var Een = {
   site: Ns.SITE_RULES["attribution.text"],
-  core: { name: "core", core: !0, budgetMs: 0, run: async (e) => ({ text: e.text }) },
+  core: { name: "core", core: true, budgetMs: 0, run: async (e) => ({ text: e.text }) },
 };
 
 var Cen = async (e, t) =>
@@ -6948,7 +6948,7 @@ je(IP, { PROMPT_SECTION: () => Aen, default: () => IP });
 
 var Aen = {
   site: Ns.SITE_RULES["prompt.section"],
-  core: { name: "core", core: !0, budgetMs: 0, run: async (e) => ({ text: e.text }) },
+  core: { name: "core", core: true, budgetMs: 0, run: async (e) => ({ text: e.text }) },
 };
 
 var $W = {};
@@ -6957,7 +6957,7 @@ je($W, { SKILL_PROMPT: () => Ren, default: () => $W, skillPromptOf: () => Pen })
 
 var Ren = {
   site: Ns.SITE_RULES["skill.prompt"],
-  core: { name: "core", core: !0, budgetMs: 0, run: async (e) => ({ text: e.text }) },
+  core: { name: "core", core: true, budgetMs: 0, run: async (e) => ({ text: e.text }) },
 };
 
 var OP = {};
@@ -6966,7 +6966,7 @@ je(OP, { TOOL_DESCRIBE: () => xen, default: () => OP });
 
 var xen = {
   site: Ns.SITE_RULES["tool.describe"],
-  core: { name: "core", core: !0, budgetMs: 0, run: async (e) => ({ description: e.description }) },
+  core: { name: "core", core: true, budgetMs: 0, run: async (e) => ({ description: e.description }) },
 };
 
 var mS = {};
@@ -6985,7 +6985,7 @@ je(Bw, { default: () => Bw, turnSite: () => pXe });
 
 var pXe = (e) => ({
   site: Ns.SITE_RULES[e],
-  core: { name: "core", core: !0, budgetMs: 0, run: async (t) => Ns.TURN_ECHO[e](t) },
+  core: { name: "core", core: true, budgetMs: 0, run: async (t) => Ns.TURN_ECHO[e](t) },
 });
 
 var Men = Bw.turnSite("turn.complete");
@@ -7094,7 +7094,7 @@ je(J1, {
 
 var v8 = "an earlier prompt in the batch failed";
 
-var hXe = (e) => ({ name: "core", core: !0, budgetMs: 0, run: (t) => e(t.text, t.origin) });
+var hXe = (e) => ({ name: "core", core: true, budgetMs: 0, run: (t) => e(t.text, t.origin) });
 
 var Sy = {};
 
@@ -7120,10 +7120,10 @@ var _Xe = { deny: 3, ask: 2, allow: 1, none: 0 };
 
 var kXe = (e, t) => ({
   name: Sy.MANAGED_MEMBER,
-  managed: !0,
+  managed: true,
   budgetMs: 0,
   async run(r, o) {
-    let u = await e(r.text, { managedHooksOnly: !0 });
+    let u = await e(r.text, { managedHooksOnly: true });
     return t(r.text), u.drop === void 0 ? o(r) : u;
   },
 });
@@ -7173,7 +7173,7 @@ je(Gb, {
   yieldedMessages: () => kQe,
 });
 
-var A8 = (e, t) => !e.agentId || e.preserveToolUseResults === !0 || t.preserveToolUseResultInSubagents === !0;
+var A8 = (e, t) => !e.agentId || e.preserveToolUseResults === true || t.preserveToolUseResultInSubagents === true;
 
 var mg = {};
 
@@ -7202,7 +7202,7 @@ var vXe = (e, t) => ({
 var EXe = (e, t) => ({
   type: "tool_result",
   content: `<tool_use_error>${t}</tool_use_error>`,
-  is_error: !0,
+  is_error: true,
   tool_use_id: e,
 });
 
@@ -7338,7 +7338,7 @@ var itn = [
 ];
 
 class WXe {
-  #e = !1;
+  #e = false;
   #t = new Set();
   #n = null;
   get snapshotAvailable() {
@@ -7368,7 +7368,7 @@ class WXe {
     this.#n = e === null ? null : new Set(e);
   }
   reset() {
-    (this.#e = !1), (this.#t = new Set()), (this.#n = null);
+    (this.#e = false), (this.#t = new Set()), (this.#n = null);
   }
 }
 
@@ -7468,8 +7468,8 @@ var TL = {
           "-iwholename",
         ]),
         o = /^-newer[acmBt][acmtB]$/,
-        u = !1,
-        d = !1;
+        u = false,
+        d = false;
       for (let _ = 0; _ < e.length; _++) {
         let C = e[_];
         if (!C) continue;
@@ -7478,12 +7478,12 @@ var TL = {
           continue;
         }
         if (C === "--") {
-          d = !0;
+          d = true;
           continue;
         }
         if (C.startsWith("-")) {
           if (["-H", "-L", "-P"].includes(C)) continue;
-          if (((u = !0), r.has(C) || o.test(C))) {
+          if (((u = true), r.has(C) || o.test(C))) {
             let A = e[_ + 1];
             if (A) t.push(A), _++;
           }
@@ -7517,26 +7517,26 @@ var TL = {
       let t = new Set(["-F", "--field-separator", "-v", "--assign", "-e", "--source"]),
         r = new Set(["-f", "--file", "-E", "--exec"]),
         o = [],
-        u = !1,
-        d = !1,
-        _ = !1;
+        u = false,
+        d = false,
+        _ = false;
       for (let C = 0; C < e.length; C++) {
         let A = e[C];
         if (A === void 0 || A === null) continue;
         if (!u && !_ && A === "--") {
-          u = !0;
+          u = true;
           continue;
         }
         if (!u && !_ && A !== "-" && A.startsWith("-")) {
           let x = A.indexOf("="),
             M = x >= 0 ? A.slice(0, x) : A;
           if (t.has(M)) {
-            if (M === "-e" || M === "--source") d = !0;
+            if (M === "-e" || M === "--source") d = true;
             if (x < 0) C++;
             continue;
           }
           if (r.has(M)) {
-            if (((d = !0), x >= 0)) o.push(A.slice(x + 1));
+            if (((d = true), x >= 0)) o.push(A.slice(x + 1));
             else {
               let F = e[C + 1];
               if (F !== void 0) o.push(F), C++;
@@ -7549,8 +7549,8 @@ var TL = {
           let x = c9e(A, ["-f", "--file", "-E", "--exec"]);
           if (x !== void 0) o.push(x);
         }
-        if (((_ = !0), !d)) {
-          d = !0;
+        if (((_ = true), !d)) {
+          d = true;
           continue;
         }
         o.push(A);
@@ -7624,32 +7624,32 @@ var TL = {
       ),
     sed: (e) => {
       let t = [],
-        r = !1,
-        o = !1,
-        u = !1,
-        d = !1;
+        r = false,
+        o = false,
+        u = false,
+        d = false;
       for (let _ = 0; _ < e.length; _++) {
         if (r) {
-          r = !1;
+          r = false;
           continue;
         }
         let C = e[_];
         if (!C) continue;
         if (!u && !d && C === "--") {
-          u = !0;
+          u = true;
           continue;
         }
         if (!u && !d && C !== "-" && C.startsWith("-")) {
           if (["-f", "--file"].includes(C)) {
             let A = e[_ + 1];
-            if (A) t.push(A), (r = !0);
-            o = !0;
-          } else if (["-e", "--expression"].includes(C)) (r = !0), (o = !0);
-          else if (C.includes("e") || C.includes("f")) o = !0;
+            if (A) t.push(A), (r = true);
+            o = true;
+          } else if (["-e", "--expression"].includes(C)) (r = true), (o = true);
+          else if (C.includes("e") || C.includes("f")) o = true;
           continue;
         }
-        if (((d = !0), !o)) {
-          o = !0;
+        if (((d = true), !o)) {
+          o = true;
           continue;
         }
         t.push(C);
@@ -7670,21 +7670,21 @@ var TL = {
           "--indent",
           "--tab",
         ]),
-        o = !1,
-        u = !1;
+        o = false,
+        u = false;
       for (let d = 0; d < e.length; d++) {
         let _ = e[d];
         if (_ === void 0 || _ === null) continue;
         if (!u && _ === "--") {
-          u = !0;
+          u = true;
           continue;
         }
         if (!u && _.startsWith("-")) {
           let C = _.indexOf("="),
             A = C >= 0 ? _.slice(0, C) : _;
-          if (["-e", "--expression"].includes(A)) o = !0;
+          if (["-e", "--expression"].includes(A)) o = true;
           if (["-f", "--from-file"].includes(A)) {
-            if (((o = !0), C >= 0)) t.push(_.slice(C + 1));
+            if (((o = true), C >= 0)) t.push(_.slice(C + 1));
             else {
               let x = e[d + 1];
               if (x !== void 0) t.push(x), d++;
@@ -7701,7 +7701,7 @@ var TL = {
           continue;
         }
         if (!o) {
-          o = !0;
+          o = true;
           continue;
         }
         t.push(_);
@@ -7796,16 +7796,16 @@ var TL = {
     mv: (e) => !e.some((t) => t?.startsWith("-")),
     cp: (e) => !e.some((t) => t?.startsWith("-")),
     cd: (e) => {
-      let t = !1,
+      let t = false,
         r = 0;
       for (let o of e) {
         if (!t) {
           if (o === "--") {
-            t = !0;
+            t = true;
             continue;
           }
           if (o.startsWith("-") && o !== "-") continue;
-          t = !0;
+          t = true;
         }
         r++;
       }
@@ -8100,32 +8100,32 @@ var f9e = {
       additionalCommandIsDangerousCallback: (e, t) => {
         let r = new Set(["-k", "-f", "--apropos", "--whatis"]),
           o = new Set(["-S", "-s"]),
-          u = !1;
+          u = false;
         for (let C of t) {
           if (C === "--") break;
           if (!C.startsWith("-") || C === "-") continue;
           if (C.startsWith("--")) {
-            if (r.has(C)) u = !0;
-          } else if (/[kf]/.test(C.slice(1))) u = !0;
+            if (r.has(C)) u = true;
+          } else if (/[kf]/.test(C.slice(1))) u = true;
         }
-        let d = !1,
-          _ = !1;
+        let d = false,
+          _ = false;
         for (let C = 0; C < t.length; C++) {
           let A = t[C];
           if (!_ && A === "--") {
-            _ = !0;
+            _ = true;
             continue;
           }
           if (!(_ || !A.startsWith("-") || A === "-")) {
-            if (r.has(A)) d = !0;
+            if (r.has(A)) d = true;
             else if (o.has(A)) C++;
             continue;
           }
-          if (((_ = !0), Qa(A))) return !0;
-          if (u && A.startsWith("-")) return !0;
-          if (!d && (A.includes("/") || A.includes("\\") || A.includes("~"))) return !0;
+          if (((_ = true), Qa(A))) return true;
+          if (u && A.startsWith("-")) return true;
+          if (!d && (A.includes("/") || A.includes("\\") || A.includes("~"))) return true;
         }
-        return !1;
+        return false;
       },
       safeFlags: {
         "-a": "none",
@@ -8211,7 +8211,7 @@ var f9e = {
         t.some((r) => !r.startsWith("-") && /^[a-zA-Z]*e[a-zA-Z]*$/.test(r)),
     },
     base64: {
-      respectsDoubleDash: !1,
+      respectsDoubleDash: false,
       safeFlags: {
         "-d": "none",
         "-D": "none",
@@ -8389,11 +8389,11 @@ var f9e = {
             if (r.has(u)) o += 2;
             else o++;
           else {
-            if (!u.startsWith("+")) return !0;
+            if (!u.startsWith("+")) return true;
             o++;
           }
         }
-        return !1;
+        return false;
       },
     },
     hostname: {
@@ -8465,20 +8465,20 @@ var f9e = {
       additionalCommandIsDangerousCallback: (e, t) => {
         for (let r = 0; r < t.length; r++) {
           let o = t[r];
-          if (o === "+m" || o.startsWith("+m")) return !0;
+          if (o === "+m" || o.startsWith("+m")) return true;
           if (/^-[a-zA-Z]*i\S*@/.test(o)) {
             let u = St(o.slice(o.indexOf("@") + 1), ":");
-            if (/[a-zA-Z]/.test(u)) return !0;
+            if (/[a-zA-Z]/.test(u)) return true;
           }
           if (/^-[a-zA-Z]*i$/.test(o)) {
             let u = t[r + 1] ?? "";
             if (u.includes("@")) {
               let d = St(u.slice(u.indexOf("@") + 1), ":");
-              if (/[a-zA-Z]/.test(d)) return !0;
+              if (/[a-zA-Z]/.test(d)) return true;
             }
           }
         }
-        return !1;
+        return false;
       },
     },
     pgrep: {
@@ -8565,21 +8565,21 @@ var f9e = {
           ]),
           o = new Set(["-T"]),
           u = 0,
-          d = !1;
+          d = false;
         while (u < t.length) {
           let _ = t[u];
-          if (_ === "--") (d = !0), u++;
+          if (_ === "--") (d = true), u++;
           else if (!d && _.startsWith("-")) {
-            if (_ === "-S") return !0;
-            if (!_.startsWith("--") && _.length > 2 && _.includes("S")) return !0;
+            if (_ === "-S") return true;
+            if (!_.startsWith("--") && _.length > 2 && _.includes("S")) return true;
             if (o.has(_)) u += 2;
             else u++;
           } else {
-            if (r.has(_)) return !0;
+            if (r.has(_)) return true;
             u++;
           }
         }
-        return !1;
+        return false;
       },
     },
     ss: {
@@ -8655,11 +8655,11 @@ var f9e = {
           o = /^(state|exclude|dport|sport|dev|fwmark|cgroup)$/,
           u = /^(-f|--family|-A|--query|--socket)$/,
           d = [],
-          _ = !1;
+          _ = false;
         for (let x = 0; x < t.length; x++) {
           let M = t[x];
           if (!_ && M === "--") {
-            _ = !0;
+            _ = true;
             continue;
           }
           if (!_ && M.startsWith("-")) {
@@ -8672,19 +8672,19 @@ var f9e = {
             .join(" ")
             .split(/[\s()=!<>&|,]+/)
             .filter(Boolean),
-          A = !1;
+          A = false;
         for (let x of C) {
           if (A) {
-            A = !1;
+            A = false;
             continue;
           }
           if (r.test(x)) {
             A = o.test(x);
             continue;
           }
-          if (/[g-zG-Z]/.test(x) || (/[a-fA-F]/.test(x) && (x.includes(".") || !x.includes(":")))) return !0;
+          if (/[g-zG-Z]/.test(x) || (/[a-fA-F]/.test(x) && (x.includes(".") || !x.includes(":")))) return true;
         }
-        return !1;
+        return false;
       },
     },
     fd: { safeFlags: { ...f9e } },
@@ -8692,7 +8692,7 @@ var f9e = {
     ...eQn,
     ...eyt,
     test: {
-      respectsDoubleDash: !1,
+      respectsDoubleDash: false,
       safeFlags: {
         "-b": "string",
         "-c": "string",
@@ -8727,17 +8727,17 @@ var f9e = {
         "-ef": "string",
       },
       additionalCommandIsDangerousCallback: (e, t) => {
-        if (t.some((r) => r === "-v" || r === "-R" || r === "-a" || r === "-o" || /\[/.test(r))) return !0;
+        if (t.some((r) => r === "-v" || r === "-R" || r === "-a" || r === "-o" || /\[/.test(r))) return true;
         for (let r = 0; r < t.length; r++) {
           if (sKe.has(t[r])) {
-            for (let o of [t[r - 1], t[r + 1]]) if (o !== void 0 && !wLe.test(o)) return !0;
+            for (let o of [t[r - 1], t[r + 1]]) if (o !== void 0 && !wLe.test(o)) return true;
           }
           if (t[r] === "-t") {
             let o = t[r + 1];
-            if (o !== void 0 && !wLe.test(o)) return !0;
+            if (o !== void 0 && !wLe.test(o)) return true;
           }
         }
-        return !1;
+        return false;
       },
     },
   },
@@ -9174,8 +9174,8 @@ var Enn = {
   Ann = {
     chrt: (e) => /^\d+$/.test(e),
     taskset: (e) => /^(0x[\da-f]+|\d+)$/i.test(e),
-    flock: () => !0,
-    script: () => !0,
+    flock: () => true,
+    script: () => true,
   },
   C9e = /^[A-Za-z_][A-Za-z0-9_]*\+?=/;
 
@@ -9298,12 +9298,12 @@ var e8e = new Map([[Su, new Set(["plan", "planFilePath"])]]);
 
 class n8e {
   deps;
-  loggedDowngrade = !1;
+  loggedDowngrade = false;
   constructor(e) {
     this.deps = e;
   }
   resolve() {
-    return { member: !1 };
+    return { member: false };
   }
 }
 
@@ -9330,7 +9330,7 @@ var Xnn = 1e5,
 
 var Qnn = "A-Za-z0-9.-";
 
-var Jnn = { regex: null, hashes: null, beneath: !0, tools: null, models: null };
+var Jnn = { regex: null, hashes: null, beneath: true, tools: null, models: null };
 
 class r8e {
   cachedKey = void 0;
@@ -9599,7 +9599,7 @@ var Ld = async (e, t, r, o, u, d) => {
   },
   CSe = async (e, t, r, o, u, d, _) => {
     let C = await vrn(e, t, r, o, u, d, _);
-    return C.behavior === "deny" ? { ...C, decideLocation: "pre-ask", ...!1 } : C;
+    return C.behavior === "deny" ? { ...C, decideLocation: "pre-ask", ...false } : C;
   },
   vrn = async (e, t, r, o, u, d, _) => {
     let C = { ...r, toolUseId: u },
@@ -9620,7 +9620,7 @@ var Ld = async (e, t, r, o, u, d) => {
         U = my(e),
         B = AL(U),
         W = A.metadata?.command?.chrome,
-        z = krn(e, M) && (W?.domainAllowed === !0 || W?.hostHandlesOriginConsent === !0 || NLe(M, e) !== null);
+        z = krn(e, M) && (W?.domainAllowed === true || W?.hostHandlesOriginConsent === true || NLe(M, e) !== null);
       if (F === "dontAsk" && !z)
         return { behavior: "deny", decisionReason: { type: "mode", mode: "dontAsk" }, message: sbe(e.name) };
       if (Qy(F) || z) {
@@ -9630,7 +9630,7 @@ var Ld = async (e, t, r, o, u, d) => {
         }
         let fe = { mode: F, autoActive: iw() },
           me = Kee(),
-          ge = C.hookAskFloor === !0;
+          ge = C.hookAskFloor === true;
         if (ge && !me && M.shouldAvoidPermissionPrompts) return dW(A.message);
         let Ce = (Lt) => {
             if (me) return { ...A, ...Lt, decisionReason: _ln(A, Lt.decisionReason) };
@@ -9644,7 +9644,7 @@ var Ld = async (e, t, r, o, u, d) => {
           Ie = (Lt) => {
             if (!rSe(e.name, C.getAppState().proactivityLevel)) return;
             if (
-              (s("tengu_auto_mode_fallback_to_ask", { reason: c(Lt), toolName: Un(e.name), isMcp: e.isMcp ?? !1 }),
+              (s("tengu_auto_mode_fallback_to_ask", { reason: c(Lt), toolName: Un(e.name), isMcp: e.isMcp ?? false }),
               he(C).shouldAvoidPermissionPrompts)
             )
               return dW(A.message);
@@ -9655,7 +9655,7 @@ var Ld = async (e, t, r, o, u, d) => {
           Oe = Xee(A.decisionReason) || A.matchedAskRule?.ruleBehavior === "ask",
           Fe = ugr(A.decisionReason) || A.matchedAskRule?.source === "mcpServerPolicy",
           Be = brn(Fe, e, t, F),
-          ze = Oe && !me && !(Fe && (!(e.isDestructive?.(t) ?? !1) || Be)),
+          ze = Oe && !me && !(Fe && (!(e.isDestructive?.(t) ?? false) || Be)),
           We = e.mcpInfo?.effectiveMaxPermission === "ask",
           Ve = aQe(A.decisionReason) && !pQ(my(e), t);
         if (Ee || Pe || ze || We || Ve) {
@@ -9665,7 +9665,7 @@ var Ld = async (e, t, r, o, u, d) => {
               s("tengu_auto_mode_fallback_to_ask", {
                 reason: w(Ee ? "safety_check" : ze ? "ask_rule" : Ve ? "plan_mode_floor" : "org_ask_ceiling"),
                 toolName: Un(e.name),
-                isMcp: e.isMcp ?? !1,
+                isMcp: e.isMcp ?? false,
               }),
               A
             );
@@ -9676,7 +9676,7 @@ var Ld = async (e, t, r, o, u, d) => {
             s("tengu_auto_mode_fallback_to_ask", {
               reason: w("requires_user_interaction"),
               toolName: Un(e.name),
-              isMcp: e.isMcp ?? !1,
+              isMcp: e.isMcp ?? false,
             }),
             A
           );
@@ -9685,7 +9685,7 @@ var Ld = async (e, t, r, o, u, d) => {
             s("tengu_auto_mode_fallback_to_ask", {
               reason: w("workflow_usage_consent"),
               toolName: Un(e.name),
-              isMcp: e.isMcp ?? !1,
+              isMcp: e.isMcp ?? false,
             }),
             A
           );
@@ -9731,7 +9731,7 @@ var Ld = async (e, t, r, o, u, d) => {
                 s("tengu_auto_mode_decision", {
                   decision: w("allowed"),
                   toolName: Un(e.name),
-                  isMcp: e.isMcp ?? !1,
+                  isMcp: e.isMcp ?? false,
                   inProtectedNamespace: YO(),
                   chromeAutomode: B,
                   mcpAlwaysAllowOverride: en,
@@ -9739,7 +9739,7 @@ var Ld = async (e, t, r, o, u, d) => {
                   agentMsgId: o.message.id,
                   confidence: w("high"),
                   fastPath: xt.length > 0 ? w("acceptEditsLinkedWorktree") : w("acceptEdits"),
-                  hookAllowVouch: C.hookAllowVouched === !0,
+                  hookAllowVouch: C.hookAllowVouched === true,
                   ...mQ(e.name, t),
                 }),
                 Ce({ updatedInput: Ke.updatedInput ?? t, decisionReason: { type: "mode", mode: "auto" } })
@@ -9751,14 +9751,14 @@ var Ld = async (e, t, r, o, u, d) => {
             s("tengu_auto_mode_decision", {
               decision: w("fastpath_error"),
               toolName: Un(e.name),
-              isMcp: e.isMcp ?? !1,
+              isMcp: e.isMcp ?? false,
               inProtectedNamespace: YO(),
               chromeAutomode: B,
               mcpAlwaysAllowOverride: en,
               mcpServerAskOverride: Be,
               agentMsgId: o.message.id,
               fastPath: xt.length > 0 ? w("acceptEditsLinkedWorktree") : w("acceptEdits"),
-              hookAllowVouch: C.hookAllowVouched === !0,
+              hookAllowVouch: C.hookAllowVouched === true,
               error: Lt instanceof Error ? Lt.name : "unknown",
               ...mQ(e.name, t),
             });
@@ -9767,11 +9767,11 @@ var Ld = async (e, t, r, o, u, d) => {
           if (!npt(C)) xL(C, BP);
           return (
             n(`Skipping auto mode classifier for ${e.name}: tool is on the safe allowlist`),
-            u_e(C.session, { tool: e.name, allowlisted: !0, decision: "allowed", durationMs: 0 }),
+            u_e(C.session, { tool: e.name, allowlisted: true, decision: "allowed", durationMs: 0 }),
             s("tengu_auto_mode_decision", {
               decision: w("allowed"),
               toolName: Un(e.name),
-              isMcp: e.isMcp ?? !1,
+              isMcp: e.isMcp ?? false,
               inProtectedNamespace: YO(),
               chromeAutomode: B,
               mcpAlwaysAllowOverride: en,
@@ -9779,7 +9779,7 @@ var Ld = async (e, t, r, o, u, d) => {
               agentMsgId: o.message.id,
               confidence: w("high"),
               fastPath: w("allowlist"),
-              hookAllowVouch: C.hookAllowVouched === !0,
+              hookAllowVouch: C.hookAllowVouched === true,
               ...mQ(e.name, t),
             }),
             Ce({ updatedInput: A.updatedInput ?? t, decisionReason: { type: "mode", mode: "auto" } })
@@ -9796,7 +9796,7 @@ var Ld = async (e, t, r, o, u, d) => {
               Tbe(Lt, mt, C.options.tools, he(C), C.abortController.signal, {
                 isSubagentLoop: sP(C.agentId),
                 recordPresumed: C.agentId === void 0,
-                severityEligible: !0,
+                severityEligible: true,
                 artifactConsentArm: "enroll",
                 storageV5: C.storageV5,
                 credentials: C.credentials,
@@ -9815,7 +9815,7 @@ var Ld = async (e, t, r, o, u, d) => {
               (s("tengu_auto_mode_fallback_to_ask", {
                 reason: w("mode_changed_while_queued"),
                 toolName: Un(e.name),
-                isMcp: e.isMcp ?? !1,
+                isMcp: e.isMcp ?? false,
               }),
               F === "dontAsk")
             )
@@ -9836,7 +9836,7 @@ var Ld = async (e, t, r, o, u, d) => {
           At = Uer(Xe);
         u_e(C.session, {
           tool: e.name,
-          allowlisted: !1,
+          allowlisted: false,
           decision: ht,
           classifierModel: Xe.model,
           inputTokens: Xe.usage?.inputTokens,
@@ -9855,11 +9855,11 @@ var Ld = async (e, t, r, o, u, d) => {
           (s("tengu_auto_mode_decision", {
             decision: c(ht),
             toolName: Un(e.name),
-            isMcp: e.isMcp ?? !1,
+            isMcp: e.isMcp ?? false,
             inProtectedNamespace: YO(),
             chromeAutomode: B,
             chromeNavigationForced: tt !== void 0,
-            hookAllowVouch: C.hookAllowVouched === !0,
+            hookAllowVouch: C.hookAllowVouched === true,
             mcpAlwaysAllowOverride: en,
             mcpServerAskOverride: Be,
             ...mQ(e.name, t),
@@ -9921,7 +9921,7 @@ var Ld = async (e, t, r, o, u, d) => {
                 s("tengu_auto_mode_fallback_to_ask", {
                   reason: w("requires_user_interaction"),
                   toolName: Un(e.name),
-                  isMcp: e.isMcp ?? !1,
+                  isMcp: e.isMcp ?? false,
                 }),
                 A
               );
@@ -9934,7 +9934,7 @@ var Ld = async (e, t, r, o, u, d) => {
               s("tengu_auto_mode_fallback_to_ask", {
                 reason: w("transcript_too_long"),
                 toolName: Un(e.name),
-                isMcp: e.isMcp ?? !1,
+                isMcp: e.isMcp ?? false,
               }),
               F === "dontAsk")
             )
@@ -9950,7 +9950,7 @@ var Ld = async (e, t, r, o, u, d) => {
                 s("tengu_auto_mode_fallback_to_ask", {
                   reason: w("requires_user_interaction"),
                   toolName: Un(e.name),
-                  isMcp: e.isMcp ?? !1,
+                  isMcp: e.isMcp ?? false,
                 }),
                 A
               );
@@ -9975,8 +9975,8 @@ var Ld = async (e, t, r, o, u, d) => {
               ),
               {
                 behavior: "deny",
-                decisionReason: { type: "classifier", classifier: "auto-mode", reason: Xe.reason, noVerdict: !0 },
-                message: fGe(Xe.reason, { refused: !0 }),
+                decisionReason: { type: "classifier", classifier: "auto-mode", reason: Xe.reason, noVerdict: true },
+                message: fGe(Xe.reason, { refused: true }),
               }
             );
           }
@@ -9996,7 +9996,7 @@ var Ld = async (e, t, r, o, u, d) => {
             s("tengu_auto_mode_fallback_to_ask", {
               reason: w("requires_user_interaction"),
               toolName: Un(e.name),
-              isMcp: e.isMcp ?? !1,
+              isMcp: e.isMcp ?? false,
             }),
             A
           );
@@ -10007,7 +10007,7 @@ var Ld = async (e, t, r, o, u, d) => {
       }
       let pe = he(C);
       if (pe.shouldAvoidPermissionPrompts) {
-        let fe = C.forRemoteExecution === !0 ? null : await Trn(e, A.updatedInput ?? t, u, C, HH(e, pe), A.suggestions);
+        let fe = C.forRemoteExecution === true ? null : await Trn(e, A.updatedInput ?? t, u, C, HH(e, pe), A.suggestions);
         if (fe) return fe;
         return {
           behavior: "deny",
@@ -10486,7 +10486,7 @@ je(WP, {
   isEnabledFromTrustedSettingsOnly: () => IS,
 });
 
-var Non = (e) => IS(e) || OW()?.has(e) === !0;
+var Non = (e) => IS(e) || OW()?.has(e) === true;
 
 var wW = Tf.processTable();
 
@@ -11377,11 +11377,11 @@ var AZe = 4;
 
 var RZe = ({ command: e, args: t, label: r, what: o, signal: u }) =>
   new Promise((d, _) => {
-    let C = tpn(e, t, { stdio: "ignore", windowsHide: !0, cwd: void 0, ...qi("plugin") });
+    let C = tpn(e, t, { stdio: "ignore", windowsHide: true, cwd: void 0, ...qi("plugin") });
     n(`${r}: ${e} ${o} (pid ${C.pid ?? "?"})`);
-    let A = !1;
+    let A = false;
     function x() {
-      (A = !0), C.kill("SIGTERM");
+      (A = true), C.kill("SIGTERM");
     }
     let M = Ap.relayAbort(u, { abort: x });
     C.once("error", (F) => {
@@ -11643,7 +11643,7 @@ var pZ = wR(async (e, t) => {
     u = o.get(r);
   if (u !== void 0) return u === "internal";
   let d = await TCe(e);
-  if (!d) return o.set(r, "none"), !1;
+  if (!d) return o.set(r, "none"), false;
   let _ = FF(d);
   return o.set(r, _ ? "internal" : "external"), _;
 });
@@ -11816,7 +11816,7 @@ class yet {
     let t = e.loadCore();
     for (let [r, o] of Object.entries(Ybe)) if (!t.getLanguage(r)) t.registerLanguage(r, o);
     for (let [r, o] of this.pluginLanguages)
-      if (!t.getLanguage(r)) this.registerResolvedPluginLanguage(t, r, o, { emitSadTelemetry: !0 });
+      if (!t.getLanguage(r)) this.registerResolvedPluginLanguage(t, r, o, { emitSadTelemetry: true });
     return (this.hljs = t), t;
   }
   ensureLanguage(e, t) {
@@ -11867,25 +11867,25 @@ class yet {
     return this.pluginLanguages.has(e) || this.pluginAliases.has(e);
   }
   addPluginLanguage(e, t, r) {
-    if (this.isReservedLanguageId(e)) return !1;
+    if (this.isReservedLanguageId(e)) return false;
     let o = r
         .map((d) => d.toLowerCase())
         .filter((d) => Hpn.test(d) && d !== e && !this.isReservedLanguageId(d))
         .slice(0, Wpn),
       u = (d) => {
         let _ = t(d);
-        return (_.name = e), (_.aliases = o), (_.disableAutodetect = !0), _;
+        return (_.name = e), (_.aliases = o), (_.disableAutodetect = true), _;
       };
     this.pluginLanguages.set(e, u);
     for (let d of o) this.pluginAliases.add(d);
     if (this.hljs && !this.hljs.getLanguage(e))
-      return this.registerResolvedPluginLanguage(this.hljs, e, u, { emitSadTelemetry: !1 });
-    return !0;
+      return this.registerResolvedPluginLanguage(this.hljs, e, u, { emitSadTelemetry: false });
+    return true;
   }
   registerResolvedPluginLanguage(e, t, r, { emitSadTelemetry: o }) {
     try {
       let u = r(e);
-      return e.registerLanguage(t, () => u), e.highlight("", { language: t, ignoreIllegals: !0 }), !0;
+      return e.registerLanguage(t, () => u), e.highlight("", { language: t, ignoreIllegals: true }), true;
     } catch (u) {
       if ((this.pluginLanguages.delete(t), e.getLanguage(t))) e.unregisterLanguage(t);
       if (o) g("plugin_hljs_languages", "resolve_failed");
@@ -11894,7 +11894,7 @@ class yet {
           `plugin hljs grammar '${t}' failed to resolve at registration: ${u instanceof Error ? u.message : String(u)}`,
           { level: "error" },
         ),
-        !1
+        false
       );
     }
   }
@@ -11923,14 +11923,14 @@ var amn = 2500,
 class Oet {
   glabOnPath;
   unauthenticatedHosts = new Set();
-  okEmitted = !1;
+  okEmitted = false;
   isGlabOnPath() {
     if (this.glabOnPath === void 0) this.glabOnPath = $C("glab") !== null;
     return this.glabOnPath;
   }
   emitOkOnce() {
     if (this.okEmitted) return;
-    y("gitlab_mr_badge"), (this.okEmitted = !0);
+    y("gitlab_mr_badge"), (this.okEmitted = true);
   }
 }
 
@@ -11964,7 +11964,7 @@ class jet {
       (this.pollerNotModifiedStreak = 0), this.#e.emit();
     },
   };
-  pollerDisabled = !1;
+  pollerDisabled = false;
   pollerBadStreak = 0;
   pollerNotModifiedStreak = 0;
   directState = null;
@@ -12002,11 +12002,11 @@ class jet {
       Number.isFinite(t) && t > 0 ? Date.now() + t * 1000 : Number.isFinite(r) && r > 0 ? r * 1000 : Date.now() + lke;
   }
   notePersistedCacheBody(e) {
-    if (e === this.lastPersistedCacheBody) return !1;
-    return (this.lastPersistedCacheBody = e), !0;
+    if (e === this.lastPersistedCacheBody) return false;
+    return (this.lastPersistedCacheBody = e), true;
   }
   reset() {
-    (this.pollerDisabled = !1),
+    (this.pollerDisabled = false),
       (this.pollerBadStreak = 0),
       (this.pollerNotModifiedStreak = 0),
       (this.directState = null),
@@ -12484,8 +12484,8 @@ var Ahn = new J(() => new Att());
 class Itt {
   counts = void 0;
   sender = void 0;
-  contentPaintSent = !1;
-  promptIdleSent = !1;
+  contentPaintSent = false;
+  promptIdleSent = false;
 }
 
 var tyn = new J(() => new Itt());
@@ -12517,14 +12517,14 @@ class Dtt {
 var w1 = new Dtt();
 
 var nyn = {
-    advisor: !0,
-    bash_code_execution: !0,
-    code_execution: !0,
-    text_editor_code_execution: !0,
-    tool_search_tool_bm25: !0,
-    tool_search_tool_regex: !0,
-    web_fetch: !0,
-    web_search: !0,
+    advisor: true,
+    bash_code_execution: true,
+    code_execution: true,
+    text_editor_code_execution: true,
+    tool_search_tool_bm25: true,
+    tool_search_tool_regex: true,
+    web_fetch: true,
+    web_search: true,
   },
   ryn = new Set(Object.keys(nyn));
 
@@ -12799,7 +12799,7 @@ class Xnt extends lbn {
   outputBytes = 0;
   state = "signature";
   version = 2;
-  sawRef = !1;
+  sawRef = false;
   pending = Buffer.alloc(0);
   applied = new Set();
   constructor(e) {
@@ -12857,7 +12857,7 @@ class Xnt extends lbn {
       if (this.version !== 3 || this.sawRef) throw Error("bundle capability line out of place");
       return e;
     }
-    this.sawRef = !0;
+    this.sawRef = true;
     let t = e.indexOf(" "),
       r = t < 0 ? e : e.slice(0, t);
     if (e.startsWith("-")) {
@@ -13144,7 +13144,7 @@ var aTn = m(() =>
   }),
 );
 
-var lTn = { low: !0, medium: !0, high: !0, immediate: !0 },
+var lTn = { low: true, medium: true, high: true, immediate: true },
   cTn = new Set(Object.keys(lTn)),
   dTn = 60000,
   mTn = 1000,
@@ -13161,12 +13161,12 @@ var ATn = ["model", "system", "tools", "max_tokens", "thinking", "output_config"
   PTn = 5;
 
 class Hot {
-  recording = !0;
+  recording = true;
 }
 
 var xTn = new J(() => new Hot());
 
-var BTn = { "": !0, none: !0, tool_based: !0, system_prompt: !0 },
+var BTn = { "": true, none: true, tool_based: true, system_prompt: true },
   HTn = 4000000;
 
 var jTn = m(() =>
@@ -13187,10 +13187,10 @@ var jTn = m(() =>
       betas: T.array(T.string().max(200)).max(100),
       autoModeActive: T.boolean(),
       isUsingOverage: T.boolean(),
-      anyDeferLoading: T.boolean().default(!1),
-      is1hCacheTTL: T.boolean().default(!1),
+      anyDeferLoading: T.boolean().default(false),
+      is1hCacheTTL: T.boolean().default(false),
       queryDepth: T.number().optional(),
-      cacheDiagnosis: T.boolean().default(!1),
+      cacheDiagnosis: T.boolean().default(false),
       effortValue: T.string().max(200),
       extraBodyHash: T.number(),
       callCount: T.number(),
@@ -13235,7 +13235,7 @@ class ost {
 
 var evn = new J(() => new ost());
 
-var nvn = new J(() => Ma(!1));
+var nvn = new J(() => Ma(false));
 
 var rvn = 300;
 
@@ -13389,7 +13389,7 @@ var ycn = 2097152;
 class vst {
   exists = void 0;
   check() {
-    return (this.exists ??= Lqe({ filePath: aUt(), expandVars: !0, scope: "enterprise" }).config !== null), this.exists;
+    return (this.exists ??= Lqe({ filePath: aUt(), expandVars: true, scope: "enterprise" }).config !== null), this.exists;
   }
   reset() {
     this.exists = void 0;
@@ -13470,7 +13470,7 @@ var qst = {
   name: "MonitorWsTask",
   type: "monitor_ws",
   async kill(e, t, r, o) {
-    em(e, t, (o ?? "user") === "system" ? {} : { userStop: !0, taskStop: !0, modelOrigin: o === "parent" });
+    em(e, t, (o ?? "user") === "system" ? {} : { userStop: true, taskStop: true, modelOrigin: o === "parent" });
   },
 };
 
@@ -13710,7 +13710,7 @@ var TCn = m(() =>
       result: i().describe("Processed result from applying the prompt to the content"),
       durationMs: v().describe("Time taken to fetch and process the content"),
       url: i().describe("The URL that was fetched"),
-      artifactRead: f({ slug: i(), ver: i().optional(), seeded: N(!1).optional() }).optional(),
+      artifactRead: f({ slug: i(), ver: i().optional(), seeded: N(false).optional() }).optional(),
     }),
   );
 
@@ -13719,8 +13719,8 @@ var tg = kt({
   ruleContentField: "url",
   searchHint: "fetch and extract content from a URL",
   maxResultSizeChars: xz,
-  skipAggregateToolResultBudget: !0,
-  shouldDefer: !0,
+  skipAggregateToolResultBudget: true,
+  shouldDefer: true,
   async description(e) {
     let { url: t } = e;
     try {
@@ -13747,10 +13747,10 @@ var tg = kt({
     return Mt(TTe);
   },
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   toAutoClassifierInput(e) {
     return e.prompt ? `${e.url}: ${e.prompt}` : e.url;
@@ -13785,7 +13785,7 @@ var tg = kt({
               behavior: "ask",
               message: `Claude wants to fetch the artifact at ${o} \u2014 your ${U} ask rule covers this url`,
               decisionReason: { type: "rule", rule: Ee },
-              suppressAlwaysAllowRule: !0,
+              suppressAlwaysAllowRule: true,
             };
         }
       }
@@ -13801,7 +13801,7 @@ var tg = kt({
         decisionReason: { type: "rule", rule: A },
       };
     if (r !== null) return r;
-    let x = o !== null ? { suppressAlwaysAllowRule: !0 } : { suggestions: pit(_) },
+    let x = o !== null ? { suppressAlwaysAllowRule: true } : { suggestions: pit(_) },
       M = Rve(d, "ask", C);
     if (M)
       return {
@@ -13831,13 +13831,13 @@ var tg = kt({
       new URL(t);
     } catch {
       return {
-        result: !1,
+        result: false,
         message: `Error: Invalid URL "${t}". The URL provided could not be parsed.`,
         meta: { reason: "invalid_url" },
         errorCode: 1,
       };
     }
-    return { result: !0 };
+    return { result: true };
   },
   async prompt({ model: e, tools: t }) {
     return lYn(e, await m4e(t, null));
@@ -14082,25 +14082,25 @@ var oAn = m(() =>
     userFacingName() {
       return "";
     },
-    shouldDefer: !0,
+    shouldDefer: true,
     isEnabled() {
-      if (hf().length > 0 && Le()) return !1;
-      if (Le() && !CU()) return !1;
-      return !0;
+      if (hf().length > 0 && Le()) return false;
+      if (Le() && !CU()) return false;
+      return true;
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !1;
+      return false;
     },
     requiresUserInteraction() {
-      if (na()) return !1;
-      return !0;
+      if (na()) return false;
+      return true;
     },
     async validateInput(e, t) {
       let { options: r } = t;
-      if (na()) return { result: !0 };
+      if (na()) return { result: true };
       let o = he(t).mode;
       if (o !== "plan")
         return (
@@ -14110,12 +14110,12 @@ var oAn = m(() =>
             hasExitedPlanModeInSession: MCt(),
           }),
           {
-            result: !1,
+            result: false,
             message: `You are not in plan mode. To enter plan mode, call the ${BE} tool first. If your plan was already approved, continue with implementation.`,
             errorCode: 1,
           }
         );
-      return { result: !0 };
+      return { result: true };
     },
     async checkPermissions(e, t) {
       if (na()) return { behavior: "allow", updatedInput: _7(Su, e) };
@@ -14158,13 +14158,13 @@ var oAn = m(() =>
         let ge = t.getAppState(),
           Ce = Mit(W, ge);
         if (Ce) Jte(Ce, t.taskRegistry, { requestId: pe });
-        else li().swarmPermissions.pendingPlanApproval = { requestId: pe, answered: !1 };
-        return { data: { plan: M, isAgent: !0, filePath: A, awaitingLeaderApproval: !0, requestId: pe } };
+        else li().swarmPermissions.pendingPlanApproval = { requestId: pe, answered: false };
+        return { data: { plan: M, isAgent: true, filePath: A, awaitingLeaderApproval: true, requestId: pe } };
       }
       let F = null;
       {
         let W = he(t).prePlanMode ?? "default";
-        if (W === "auto" && !(_?.isAutoModeGateEnabled() ?? !1)) {
+        if (W === "auto" && !(_?.isAutoModeGateEnabled() ?? false)) {
           let z = _?.getAutoModeUnavailableReason() ?? "circuit-breaker";
           (F = _?.getAutoModeUnavailableNotification(z) ?? "auto mode unavailable"),
             n(
@@ -14186,13 +14186,13 @@ var oAn = m(() =>
         });
       let U = he(t);
       if (U.mode === "plan") {
-        qO(!0), kj(!0);
+        qO(true), kj(true);
         let W = U.prePlanMode ?? "default";
         {
-          if (W === "auto" && !(_?.isAutoModeGateEnabled() ?? !1)) W = "default";
+          if (W === "auto" && !(_?.isAutoModeGateEnabled() ?? false)) W = "default";
           let fe = W === "auto",
-            me = d?.isAutoModeActive() ?? !1;
-          if ((d?.setAutoModeActive(fe), me && !fe)) GO(!0);
+            me = d?.isAutoModeActive() ?? false;
+          if ((d?.setAutoModeActive(fe), me && !fe)) GO(true);
         }
         I9({ from: "plan", to: W, trigger: "exit_plan_mode" });
         let z = W === "auto",
@@ -14309,16 +14309,16 @@ var Y0 = kt({
     return bAn();
   },
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   toAutoClassifierInput(e) {
     return e.pattern;
   },
   isSearchOrReadCommand() {
-    return { isSearch: !0, isRead: !1 };
+    return { isSearch: true, isRead: false };
   },
   ruleContentField: "path",
   getPath({ path: e, pattern: t }) {
@@ -14341,7 +14341,7 @@ var Y0 = kt({
     if (t) {
       let o = le(),
         u = gt(t);
-      if (Ru(u)) return { result: !0 };
+      if (Ru(u)) return { result: true };
       let d;
       try {
         d = await o.stat(u);
@@ -14350,13 +14350,13 @@ var Y0 = kt({
           let C = await fj(u),
             A = `Directory does not exist: ${t}. ${S0} ${ee()}.`;
           if (C) A += ` Did you mean ${C}?`;
-          return { result: !1, message: A, errorCode: 1 };
+          return { result: false, message: A, errorCode: 1 };
         }
         throw _;
       }
-      if (!d.isDirectory()) return { result: !1, message: `Path is not a directory: ${t}`, errorCode: 2 };
+      if (!d.isDirectory()) return { result: false, message: `Path is not a directory: ${t}`, errorCode: 2 };
     }
-    return { result: !0 };
+    return { result: true };
   },
   async checkPermissions(e, t) {
     let r = Y0.getPath(e),
@@ -14472,7 +14472,7 @@ var IAn = m(() =>
     name: Xo,
     searchHint: "search file contents with regex (ripgrep)",
     maxResultSizeChars: 20000,
-    strict: !0,
+    strict: true,
     async description() {
       return Pmn(void 0);
     },
@@ -14491,16 +14491,16 @@ var IAn = m(() =>
       return IAn();
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(e) {
       return e.path ? `${e.pattern} in ${e.path}` : e.pattern;
     },
     isSearchOrReadCommand() {
-      return { isSearch: !0, isRead: !1 };
+      return { isSearch: true, isRead: false };
     },
     ruleContentField: "path",
     getPath({ path: e }) {
@@ -14523,14 +14523,14 @@ var IAn = m(() =>
       ])
         if (A !== void 0 && (!Number.isInteger(A) || A < 0))
           return {
-            result: !1,
+            result: false,
             message: `${C} must be a whole number of 0 or more, got ${A}.${C === "head_limit" ? " Pass 0 for unlimited." : ""}`,
             errorCode: 2,
           };
       if (t) {
         let C = le(),
           A = gt(t);
-        if (Ru(A)) return { result: !0 };
+        if (Ru(A)) return { result: true };
         try {
           await C.stat(A);
         } catch (x) {
@@ -14538,12 +14538,12 @@ var IAn = m(() =>
             let M = await fj(A),
               F = `Path does not exist: ${t}. ${S0} ${ee()}.`;
             if (M) F += ` Did you mean ${M}?`;
-            return { result: !1, message: F, errorCode: 1 };
+            return { result: false, message: F, errorCode: 1 };
           }
           throw x;
         }
       }
-      return { result: !0 };
+      return { result: true };
     },
     async checkPermissions(e, t) {
       let r = J0.getPath(e),
@@ -14768,9 +14768,9 @@ var Ban = 2 * JI + 60000,
       return e.subagent_type ? `(${e.subagent_type}): ${e.prompt}` : `: ${e.prompt}`;
     },
   },
-  iRn = { "claude-sonnet-5": { t1: 25, t2: 35 }, "claude-opus-4-8": { t1: 45, t2: 35 }, ...!1 };
+  iRn = { "claude-sonnet-5": { t1: 25, t2: 35 }, "claude-opus-4-8": { t1: 45, t2: 35 }, ...false };
 
-var aRn = { "claude-sonnet-5": { t1: 25, t2: 35 }, "claude-opus-4-8": { t1: 10, t2: 15 }, ...!1 },
+var aRn = { "claude-sonnet-5": { t1: 25, t2: 35 }, "claude-opus-4-8": { t1: 10, t2: 15 }, ...false },
   Xit = { key: "handoff", defaults: aRn };
 
 class mne extends R {
@@ -14870,8 +14870,8 @@ class fat {
     this.killed("user");
   }
   #n(e) {
-    if (this.#t !== void 0) return !1;
-    return (this.#t = e), !0;
+    if (this.#t !== void 0) return false;
+    return (this.#t = e), true;
   }
 }
 
@@ -14998,8 +14998,8 @@ var TRn = m(() =>
       });
   }),
   Yan = m(() => {
-    let e = vRn().omit({ cwd: !0 });
-    return $d() || AG() ? e.omit({ run_in_background: !0 }) : e;
+    let e = vRn().omit({ cwd: true });
+    return $d() || AG() ? e.omit({ run_in_background: true }) : e;
   }),
   ERn = m(() =>
     Qit().extend({ status: N("completed"), prompt: i(), worktreePath: i().optional(), worktreeBranch: i().optional() }),
@@ -15008,7 +15008,7 @@ var TRn = m(() =>
     let e = ERn(),
       t = f({
         status: N("async_launched"),
-        isAsync: N(!0).optional(),
+        isAsync: N(true).optional(),
         agentId: i().describe("The ID of the async agent"),
         description: i().describe("The description of the task"),
         resolvedModel: i()
@@ -15086,7 +15086,7 @@ var TRn = m(() =>
             "Teammates cannot spawn other teammates \u2014 the team roster is flat. To spawn a subagent instead, omit the `name` parameter.",
           ))
         );
-      if (Ie && u === !0)
+      if (Ie && u === true)
         throw (
           (p("subagent_launch", "subagent_teammate_background_denied"),
           new Ck(
@@ -15115,7 +15115,7 @@ var TRn = m(() =>
           throw new kS(`Agent type '${t}' not found. Available agents: ${gne(vo)}`);
         }
       }
-      let Ve = (xr = !1) => {
+      let Ve = (xr = false) => {
           if (A.abortController.signal.aborted) {
             let Jo = Za(A.abortController.signal.reason);
             if (!(xr && Jo === "interrupt")) throw new Ze();
@@ -15133,7 +15133,7 @@ var TRn = m(() =>
         Pt = () => {
           let xr = dXn();
           if (A.taskRegistry.getConcurrentSubagents() < xr) return;
-          if (I("tengu_amber_kestrel", !1)) return;
+          if (I("tengu_amber_kestrel", false)) return;
           let Jo = A.getAppState();
           if (jv(A.rootToolSurface.mainLoopModel, sl(Jo), Jo.ultracode)) return;
           return (
@@ -15173,7 +15173,7 @@ var TRn = m(() =>
               name: d,
               prompt: e,
               description: r,
-              use_splitpane: !0,
+              use_splitpane: true,
               plan_mode_required: me === "plan",
               model: o ?? ARn(xr, cm(A)),
               modelSource: o ? "tool" : "frontmatter",
@@ -15245,7 +15245,7 @@ var TRn = m(() =>
         }
         en = zn;
       }
-      if (Ie && en.background === !0)
+      if (Ie && en.background === true)
         throw (
           (p("subagent_launch", "subagent_teammate_background_denied"),
           new Ck(
@@ -15275,8 +15275,8 @@ var TRn = m(() =>
         );
       }
       let mt = lt === "remote",
-        Xe = (nn && !Ie) || xt || (!Ie && u !== !1),
-        nt = mt || ((u === !0 || en.background === !0 || (!fE(en) && Xe)) && !tt);
+        Xe = (nn && !Ie) || xt || (!Ie && u !== false),
+        nt = mt || ((u === true || en.background === true || (!fE(en) && Xe)) && !tt);
       if (!mt) {
         if (A.abortController.signal.aborted) {
           let vo = Za(A.abortController.signal.reason);
@@ -15363,7 +15363,7 @@ var TRn = m(() =>
           source: c(en.source),
           color: ke(en.color),
           is_built_in_agent: ja(en),
-          is_resume: !1,
+          is_resume: false,
           is_async: nt,
           is_fork: We,
           agent_depth: Pn,
@@ -15454,7 +15454,7 @@ ${qn}`))
       } else {
         try {
           let xr = Array.from(fe.additionalWorkingDirectories.keys());
-          if (en.memory) s("tengu_agent_memory_loaded", { ...!1, scope: c(en.memory), source: w("subagent") });
+          if (en.memory) s("tengu_agent_memory_loaded", { ...false, scope: c(en.memory), source: w("subagent") });
           Rr = await lz([er], mn, xr);
         } catch (xr) {
           n(`Failed to get system prompt for agent ${en.agentType}: ${l(xr)}`);
@@ -15475,15 +15475,15 @@ ${qn}`))
         },
         sr = { ...fe, mode: en.permissionMode ?? me },
         Jn = A.getAppState(),
-        jn = hD(sr, B2(Jn.mcp.tools.concat(At)), { skipReplFilter: !0, skillTools: Jn.skillTools }),
+        jn = hD(sr, B2(Jn.mcp.tools.concat(At)), { skipReplFilter: true, skillTools: Jn.skillTools }),
         Ar = A.agentId ?? WB,
         Tn = en.observer
           ? yW({
               observedDefinition: en,
               activeAgents: A.options.agentDefinitions.activeAgents,
-              observedIsObserver: !1,
+              observedIsObserver: false,
             })
-          : TQe({ parentPairing: M3e(A.session, Ar), spawnedDefinition: en, spawnedIsObserver: !1 }),
+          : TQe({ parentPairing: M3e(A.session, Ar), spawnedDefinition: en, spawnedIsObserver: false }),
         Zr = Tn?.inheritedArming
           ? {
               toolUseContext: Tn.inheritedArming.toolUseContext,
@@ -15496,7 +15496,7 @@ ${qn}`))
         br = Th(),
         So = A.agentId,
         Ui =
-          A.agentContext !== void 0 && A.agentContext.agentType !== "main" && (A.agentContext.isBackgroundAgent ?? !1),
+          A.agentContext !== void 0 && A.agentContext.agentType !== "main" && (A.agentContext.isBackgroundAgent ?? false),
         ki = ka(A.agentContext),
         Xn = Hce(A.messages, A.agentContext),
         Rn = aPe(So, ge) ?? et(),
@@ -15526,7 +15526,7 @@ ${qn}`))
               : void 0,
           availableTools: We ? A.options.tools : jn,
           forkContextMessages: We ? A.messages : void 0,
-          ...(We && { useExactTools: !0 }),
+          ...(We && { useExactTools: true }),
           worktreePath: lr?.worktreePath,
           worktreeBranch: lr?.worktreeBranch,
           cwd: C,
@@ -15568,7 +15568,7 @@ ${qn}`))
               { worktreePath: xr, worktreeBranch: vo }
             );
           if (Jo) {
-            if (!(await Lut(xr, Jo)) && (await XW(xr, vo, zn, !1, "agent_tool")).outcome === "removed")
+            if (!(await Lut(xr, Jo)) && (await XW(xr, vo, zn, false, "agent_tool")).outcome === "removed")
               return (
                 O4n({
                   agentId: po(br),
@@ -15645,13 +15645,13 @@ ${qn}`))
           agentType: "subagent",
           subagentName: en.agentType,
           displayName: ss,
-          isAsync: !0,
-          isBackgroundAgent: !0,
-          ...(ki && { delegatedObservation: !0 }),
+          isAsync: true,
+          isBackgroundAgent: true,
+          ...(ki && { delegatedObservation: true }),
           isBuiltIn: ja(en),
           invokingRequestId: M?.requestId,
           invocationKind: "spawn",
-          invocationEmitted: !1,
+          invocationEmitted: false,
           parentPromptId: Xn,
           ...PH(A.agentContext),
         };
@@ -15689,7 +15689,7 @@ ${qn}`))
           y("subagent_launch"),
           {
             data: {
-              isAsync: !0,
+              isAsync: true,
               status: "async_launched",
               agentId: vo.agentId,
               description: r,
@@ -15710,13 +15710,13 @@ ${qn}`))
             agentType: "subagent",
             subagentName: en.agentType,
             displayName: ss,
-            isAsync: !1,
+            isAsync: false,
             isBackgroundAgent: Ui,
-            ...(ki && { delegatedObservation: !0 }),
+            ...(ki && { delegatedObservation: true }),
             isBuiltIn: ja(en),
             invokingRequestId: M?.requestId,
             invocationKind: "spawn",
-            invocationEmitted: !1,
+            invocationEmitted: false,
             parentPromptId: Xn,
             ...PH(A.agentContext),
           },
@@ -15774,7 +15774,7 @@ ${qn}`))
                     ...Zr,
                   }),
                 );
-              let yc = !1;
+              let yc = false;
               y("subagent_launch");
               let Ba = [],
                 hm = A.options.forwardSubagentText,
@@ -15793,7 +15793,7 @@ ${qn}`))
                       F({
                         type: "progress",
                         toolUseID: `agent_${M.message.id}`,
-                        data: { type: "agent_api_retry", resolved: !0, agentId: xr, agentType: en.agentType },
+                        data: { type: "agent_api_retry", resolved: true, agentId: xr, agentType: en.agentType },
                       });
                   if (Ss.type === "api_metrics") {
                     F(Ss);
@@ -15910,7 +15910,7 @@ ${qn}`))
                         final_model: _n(Br.at(-1) ?? wn.resolvedAgentModel),
                         model_swapped: Br.length > 1,
                         duration_ms: Date.now() - wn.startTime,
-                        is_async: !1,
+                        is_async: false,
                         is_built_in_agent: wn.isBuiltInAgent,
                         agent_depth: wn.agentDepth,
                         reason: w("user_cancel_sync"),
@@ -15927,12 +15927,12 @@ ${qn}`))
                 let Gc = ge.get(Wr)?.status,
                   rr = Ss === "backgrounded" && !al && Gc !== void 0 && Gc !== "running" && !cA(Wr, ge);
                 if ((Ss === "backgrounded" && !rr) || al) {
-                  if (((yc = !0), Ss === "backgrounded" && !rr)) wat(Wr, ge, A.session.sessionScratch);
+                  if (((yc = true), Ss === "backgrounded" && !rr)) wat(Wr, ge, A.session.sessionScratch);
                   if ((zi(), Mtt(xr), !Le())) qL(Rn, `agent:${Wr}`, ge);
                   let ql = !fE(en) && A.options.tools.some((Em) => on(Em, _t) || on(Em, Qe));
                   return {
                     data: {
-                      isAsync: !0,
+                      isAsync: true,
                       status: "async_launched",
                       agentId: Wr,
                       description: r,
@@ -15953,7 +15953,7 @@ ${qn}`))
                       final_model: _n(Br.at(-1) ?? wn.resolvedAgentModel),
                       model_swapped: Br.length > 1,
                       duration_ms: Date.now() - wn.startTime,
-                      is_async: !1,
+                      is_async: false,
                       is_built_in_agent: wn.isBuiltInAgent,
                       agent_depth: wn.agentDepth,
                       reason: w("user_cancel_sync"),
@@ -15977,11 +15977,11 @@ ${qn}`))
                 let Xi = Yve(Pl, xr, { ...wn, modelsUsed: Br }, { suppressTelemetry: !Cp }),
                   Tm = N6(he(A).mode);
                 if (Tm)
-                  (Xi.handoffReviewSkipped = !0),
+                  (Xi.handoffReviewSkipped = true),
                     s("tengu_auto_mode_decision", {
                       decision: c("skipped_framed_handback"),
                       toolName: c(xf),
-                      isHandoff: !0,
+                      isHandoff: true,
                       toolUseCount: Xi.totalToolUseCount,
                     });
                 let tp = Tm
@@ -16038,7 +16038,7 @@ ${qn}`))
       }
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(e) {
       let t = e,
@@ -16046,7 +16046,7 @@ ${qn}`))
       return `${r.length > 0 ? `(${r.join(", ")}): ` : ": "}${t.prompt}`;
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     userFacingName: yFt,
     userFacingNameBackgroundColor: v4e,
@@ -16207,7 +16207,7 @@ var $Rn = m(() => ot({})),
     searchHint: "read queued external notifications (webhooks, triggers)",
     maxResultSizeChars: kne,
     persistenceThresholdCeiling: kne,
-    skipAggregateToolResultBudget: !0,
+    skipAggregateToolResultBudget: true,
     get inputSchema() {
       return $Rn();
     },
@@ -16216,10 +16216,10 @@ var $Rn = m(() => ot({})),
     },
     isEnabled: vne,
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     async description() {
       return sXn;
@@ -16271,13 +16271,13 @@ var Dat = kt({
   },
   isEnabled: WRn,
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   requiresUserInteraction() {
-    return !0;
+    return true;
   },
   async description() {
     return u8e;
@@ -16406,8 +16406,8 @@ class Bat {
   syncPromise = null;
   firstSyncPromise = null;
   firstListDeferred = null;
-  firstRoundSettled = !1;
-  firstRoundEmitted = !1;
+  firstRoundSettled = false;
+  firstRoundEmitted = false;
   resyncInterval = null;
   pendingDownloads = new Map();
   placeholders = new Map();
@@ -16416,10 +16416,10 @@ class Bat {
       ((this.syncPromise = null),
       (this.firstSyncPromise = null),
       (this.firstListDeferred = null),
-      (this.firstRoundEmitted = !1),
-      (this.firstRoundSettled = !1),
-      DCt(!1),
-      PCt(!1),
+      (this.firstRoundEmitted = false),
+      (this.firstRoundSettled = false),
+      DCt(false),
+      PCt(false),
       this.resyncInterval)
     )
       clearInterval(this.resyncInterval), (this.resyncInterval = null);
@@ -16460,7 +16460,7 @@ var tPn = ["low", "medium", "high", "xhigh", "max"],
       .max(256)
       .refine((e) => !/[\r\n]/.test(e), { message: "invalid skill name" }),
   ),
-  Vat = m(() => T.object({ forkedSkill: T.literal(!0), skillName: Ene().optional() })),
+  Vat = m(() => T.object({ forkedSkill: T.literal(true), skillName: Ene().optional() })),
   Ane = m(() => {
     let e = Ene();
     return T.object({
@@ -16546,7 +16546,7 @@ var kPn = m(() =>
       if (!r)
         return (
           p("skill_invoke", "skill_invoke_empty_name"),
-          { result: !1, message: `Invalid skill format: ${e}`, errorCode: 1 }
+          { result: false, message: `Invalid skill format: ${e}`, errorCode: 1 }
         );
       let o = r.startsWith("/");
       if (o) s("tengu_skill_tool_slash_prefix", {});
@@ -16562,11 +16562,11 @@ var kPn = m(() =>
       if (d !== void 0 && (!C || aEe(C)))
         return (
           p("skill_invoke", "skill_invoke_not_materialized"),
-          { result: !1, message: `Skill ${u} could not be downloaded (${d}). Proceed without it.`, errorCode: 10 }
+          { result: false, message: `Skill ${u} could not be downloaded (${d}). Proceed without it.`, errorCode: 10 }
         );
       if (C?.loadedFrom === "syncedSkills" && kG())
         return (
-          p("skill_invoke", "skill_invoke_sync_vetoed"), { result: !1, message: `Unknown skill: ${u}`, errorCode: 13 }
+          p("skill_invoke", "skill_invoke_sync_vetoed"), { result: false, message: `Unknown skill: ${u}`, errorCode: 13 }
         );
       if (!C) {
         let x = uEe(_, u, t.options.spawnedBySkill);
@@ -16574,7 +16574,7 @@ var kPn = m(() =>
           return (
             p("skill_invoke", "skill_invoke_not_found"),
             {
-              result: !1,
+              result: false,
               message: `Unknown skill: ${u}. Directory-scoped variants exist: ${x.map((F) => F.name).join(", ")} \u2014 invoke the variant whose directory contains the files you are working on.`,
               errorCode: 2,
             }
@@ -16586,19 +16586,19 @@ var kPn = m(() =>
         );
         return (
           p("skill_invoke", "skill_invoke_not_found"),
-          { result: !1, message: M ? `Unknown skill: ${u}. Did you mean ${M}?` : `Unknown skill: ${u}`, errorCode: 2 }
+          { result: false, message: M ? `Unknown skill: ${u}. Did you mean ${M}?` : `Unknown skill: ${u}`, errorCode: 2 }
         );
       }
       if (
         C.type === "prompt" &&
-        (C.context === "fork" || (C.getContext !== void 0 && t.options.spawnedByForkedSkill === !0)) &&
+        (C.context === "fork" || (C.getContext !== void 0 && t.options.spawnedByForkedSkill === true)) &&
         t.options.spawnedBySkill === QA(C)
       )
         return (
           p("skill_invoke", "skill_invoke_fork_recursion"),
           s("tengu_skill_tool_fork_recursion_blocked", {}),
           {
-            result: !1,
+            result: false,
             message: `Skill ${u} is already executing in this forked context \u2014 you are the subagent running it. Execute the instructions in the skill body directly instead of re-invoking the ${Do} tool.`,
             errorCode: 9,
           }
@@ -16640,9 +16640,9 @@ var kPn = m(() =>
           case "deny_rule":
             break;
         }
-        return { result: !1, message: A.message, errorCode: A.errorCode };
+        return { result: false, message: A.message, errorCode: A.errorCode };
       }
-      return { result: !0 };
+      return { result: true };
     },
     async checkPermissions({ skill: e, args: t }, r) {
       let o = e.trim(),
@@ -16694,7 +16694,7 @@ var kPn = m(() =>
         x = A ?? r.options.spawnedBySkill;
       r.options.activeSkill = C;
       let M = dTe(r),
-        F = !1;
+        F = false;
       try {
         let U = await Rne(r),
           B = ua(C, U);
@@ -16747,7 +16747,7 @@ var kPn = m(() =>
           ..._4e(Ve, C),
           attribution_shown: h4e(r.session, Ve, C) !== null,
           ...(B?.type === "prompt" && { skill_content_chars: B.contentLength }),
-          ...!1,
+          ...false,
           ...(B?.type === "prompt" &&
             B.pluginInfo && {
               ...U8(B.pluginInfo),
@@ -16758,12 +16758,12 @@ var kPn = m(() =>
           e3e(C, B, ze);
         let Pt = r.toolUseId ?? APn(u, Do),
           ct = fe.messages.filter((xt) => {
-            if (xt.type === "progress") return !1;
+            if (xt.type === "progress") return false;
             if (xt.type === "user" && "message" in xt) {
               let tt = xt.message.content;
-              if (typeof tt === "string" && tt.includes(`<${wp}>`)) return !1;
+              if (typeof tt === "string" && tt.includes(`<${wp}>`)) return false;
             }
-            return !0;
+            return true;
           }),
           ut = M ? (ct.map(EX).find((xt) => xt !== null) ?? void 0) : void 0,
           en = CPn(
@@ -16783,14 +16783,14 @@ var kPn = m(() =>
         if (ge) nn.push({ kind: "model", mainLoopModel: W8e(ge, r.options.mainLoopModel) });
         if (Ce !== void 0) nn.push({ kind: "effort", effort: Ce });
         return (
-          (F = !0),
+          (F = true),
           {
             data: {
-              success: !0,
+              success: true,
               commandName: C,
               allowedTools: me.length > 0 ? me : void 0,
               model: ge,
-              ...(M && { readOnly: !0 }),
+              ...(M && { readOnly: true }),
             },
             newMessages: en,
             ...(nn.length > 0 && { contextLayers: nn }),
@@ -16906,9 +16906,9 @@ var Y_ = kt({
   name: ar,
   ruleContentField: "file_path",
   searchHint: "create or overwrite files",
-  remoteExecution: { supported: !0 },
+  remoteExecution: { supported: true },
   maxResultSizeChars: 1e5,
-  strict: !0,
+  strict: true,
   async description() {
     return "Write a file to the local filesystem.";
   },
@@ -16947,8 +16947,8 @@ var Y_ = kt({
     return e.file_path;
   },
   inputsEquivalent(e, t) {
-    if (e.file_path !== t.file_path) return !1;
-    if (e.content === t.content) return !0;
+    if (e.file_path !== t.file_path) return false;
+    if (e.content === t.content) return true;
     return e.content.replace(/\n+$/, "") === t.content.replace(/\n+$/, "");
   },
   backfillObservableInput(e) {
@@ -16969,29 +16969,29 @@ var Y_ = kt({
     let { file_path: r, content: o } = e,
       u = gt(r),
       d = iF(u, t);
-    if (d) return { result: !1, message: d, errorCode: 7 };
+    if (d) return { result: false, message: d, errorCode: 7 };
     if (t.agentId && /^(REPORT|SUMMARY|FINDINGS|ANALYSIS).*\.md$/i.test(xPn(u)))
       return (
         s("tengu_subagent_md_report_blocked", { contentBytes: Buffer.byteLength(o) }),
         {
-          result: !1,
+          result: false,
           message:
             "Subagents should return findings as text, not write report files. Include this content in your final response instead.",
           errorCode: 5,
         }
       );
     let _ = z6(u, o);
-    if (_) return { result: !1, message: _, errorCode: 0 };
-    if (fa(u, he(t), "edit", "deny") !== null) return { result: !1, message: Z8e, errorCode: 1 };
-    if (PLe(u, he(t))) return { result: !1, message: hbn, errorCode: 13 };
-    if (Ru(u)) return { result: !0 };
+    if (_) return { result: false, message: _, errorCode: 0 };
+    if (fa(u, he(t), "edit", "deny") !== null) return { result: false, message: Z8e, errorCode: 1 };
+    if (PLe(u, he(t))) return { result: false, message: hbn, errorCode: 13 };
+    if (Ru(u)) return { result: true };
     let A = le(),
       x;
     try {
       let U = await A.stat(u);
-      if (((x = U.mtimeMs), $Je(U.mode))) return { result: !1, message: FJe, errorCode: 6 };
+      if (((x = U.mtimeMs), $Je(U.mode))) return { result: false, message: FJe, errorCode: 6 };
     } catch (U) {
-      if (X(U)) return { result: !0 };
+      if (X(U)) return { result: true };
       throw U;
     }
     let M = t.readFileState.get(u);
@@ -17003,7 +17003,7 @@ var Y_ = kt({
       if (
         (s("tengu_write_tool_not_read_hypothetical", {
           wouldHaveResult: M && Math.floor(x) > M.timestamp ? w("errorCode3") : w("success"),
-          isPartialView: M?.isPartialView === !0,
+          isPartialView: M?.isPartialView === true,
           isFilePathAbsolute: MPn(r),
           guardSkipped: z,
           modelBucket: B,
@@ -17011,25 +17011,25 @@ var Y_ = kt({
         }),
         !z)
       )
-        return { result: !1, message: "File has not been read yet. Read it first before writing to it.", errorCode: 2 };
-      return { result: !0 };
+        return { result: false, message: "File has not been read yet. Read it first before writing to it.", errorCode: 2 };
+      return { result: true };
     }
     if (Math.floor(x) > M.timestamp) {
       let U = Qne(M),
-        B = !1;
+        B = false;
       if (U) {
         let W = await A.readFileBytes(u);
         B = rZn(M, W.toString("utf8"));
       }
       if (!B)
         return {
-          result: !1,
+          result: false,
           message:
             "File has been modified since read, either by the user or by a linter. Read it again before attempting to write it.",
           errorCode: 3,
         };
     }
-    return { result: !0 };
+    return { result: true };
   },
   async call(e, t, r, o) {
     return FPn(e, t, o);
@@ -17120,8 +17120,8 @@ var sMn = {
     args: {
       name: "definition",
       description: "Alias definition in the form name=value",
-      isOptional: !0,
-      isVariadic: !0,
+      isOptional: true,
+      isVariadic: true,
     },
   },
   put = sMn;
@@ -17129,7 +17129,7 @@ var sMn = {
 var iMn = {
     name: "nohup",
     description: "Run a command immune to hangups",
-    args: { name: "command", description: "Command to run with nohup", isCommand: !0 },
+    args: { name: "command", description: "Command to run with nohup", isCommand: true },
   },
   emt = iMn;
 
@@ -17176,14 +17176,14 @@ var lmt = {
     {
       name: "--threads",
       description: "Use up to N threads to parallelize type checking",
-      args: { name: "N", isOptional: !0 },
+      args: { name: "N", isOptional: true },
     },
   ],
   args: {
     name: "files",
     description: "Specify files or directories to analyze (overrides config file)",
-    isVariadic: !0,
-    isOptional: !0,
+    isVariadic: true,
+    isOptional: true,
   },
 };
 
@@ -17193,7 +17193,7 @@ var aMn = {
     args: {
       name: "duration",
       description: "Duration to sleep (seconds or with suffix like 5s, 2m, 1h)",
-      isOptional: !1,
+      isOptional: false,
     },
   },
   cmt = aMn;
@@ -17213,14 +17213,14 @@ var lMn = {
         args: { name: "count", description: "Number of nodes to allocate" },
       },
     ],
-    args: { name: "command", description: "Command to run on the cluster", isCommand: !0 },
+    args: { name: "command", description: "Command to run on the cluster", isCommand: true },
   },
   dmt = lMn;
 
 var cMn = {
     name: "time",
     description: "Time a command",
-    args: { name: "command", description: "Command to time", isCommand: !0 },
+    args: { name: "command", description: "Command to time", isCommand: true },
   },
   pmt = cMn;
 
@@ -17228,8 +17228,8 @@ var uMn = {
     name: "timeout",
     description: "Run a command with a time limit",
     args: [
-      { name: "duration", description: "Duration to wait before timing out (e.g., 10, 5s, 2m)", isOptional: !1 },
-      { name: "command", description: "Command to run", isCommand: !0 },
+      { name: "duration", description: "Duration to wait before timing out (e.g., 10, 5s, 2m)", isOptional: false },
+      { name: "command", description: "Command to run", isCommand: true },
     ],
   },
   mmt = uMn;
@@ -17273,7 +17273,7 @@ var wmt = async (e, t) => {
           n(`Snapshots directory: ${A}`);
           let x = Rlt(K()),
             M = Gne(A, `snapshot-${r}-${_}-${C}${x !== void 0 ? `-${x}` : ""}.sh`);
-          await yMn(A, { recursive: !0 });
+          await yMn(A, { recursive: true });
           let F = await RMn(e, M, d, t);
           n(`Creating snapshot at: ${M}`),
             n(`Execution timeout: ${Vne}ms`),
@@ -17290,7 +17290,7 @@ var wmt = async (e, t) => {
                 timeout: Vne,
                 maxBuffer: 1048576,
                 encoding: "utf8",
-                windowsHide: !0,
+                windowsHide: true,
                 ...qi("shell"),
               },
               async (U, B, W) => {
@@ -17368,7 +17368,7 @@ var IMn = /(\d?&?>+[ \t]*)[Nn][Uu][Ll](?=\s|$|[|&;)\n])/g;
 
 var FMn = "tengu_sl_gate_config";
 
-var NMn = { enabled: !1, enforce: !1, everywhere: !1, python_leg: "on" };
+var NMn = { enabled: false, enforce: false, everywhere: false, python_leg: "on" };
 
 var Fz = null,
   Omt;
@@ -17500,7 +17500,7 @@ var b7 = kt({
   ruleContentField: "notebook_path",
   searchHint: "edit Jupyter notebook cells (.ipynb)",
   maxResultSizeChars: 1e5,
-  shouldDefer: !0,
+  shouldDefer: true,
   async description() {
     return Uft;
   },
@@ -17547,7 +17547,7 @@ var b7 = kt({
     return t.session.writePermissionStash.stash(t.toolUseId, r, o), Xv(b7, e, he(t), o);
   },
   mapToolResultToToolResultBlockParam({ cell_id: e, edit_mode: t, new_source: r, error: o }, u) {
-    if (o) return { tool_use_id: u, type: "tool_result", content: o, is_error: !0 };
+    if (o) return { tool_use_id: u, type: "tool_result", content: o, is_error: true };
     switch (t) {
       case "replace":
         return { tool_use_id: u, type: "tool_result", content: `Updated cell ${e} with ${r}` };
@@ -17562,29 +17562,29 @@ var b7 = kt({
   async validateInput({ notebook_path: e, cell_type: t, cell_id: r, edit_mode: o = "replace" }, u) {
     let d = gt(e),
       _ = iF(d, u);
-    if (_) return { result: !1, message: _, errorCode: 12 };
+    if (_) return { result: false, message: _, errorCode: 12 };
     if (vIn(d) !== ".ipynb")
       return {
-        result: !1,
+        result: false,
         message: "File must be a Jupyter notebook (.ipynb file). For editing other file types, use the FileEdit tool.",
         errorCode: 2,
       };
     if (o === "insert" && !t)
-      return { result: !1, message: "Cell type is required when using edit_mode=insert.", errorCode: 5 };
+      return { result: false, message: "Cell type is required when using edit_mode=insert.", errorCode: 5 };
     let C = u.readFileState.get(d);
     if (!C)
-      return { result: !1, message: "File has not been read yet. Read it first before writing to it.", errorCode: 9 };
-    if (Ru(d)) return { result: !0 };
+      return { result: false, message: "File has not been read yet. Read it first before writing to it.", errorCode: 9 };
+    if (Ru(d)) return { result: true };
     if (LRn())
       try {
         let { mode: M } = await le().stat(d);
-        if ($Je(M)) return { result: !1, message: FJe, errorCode: 11 };
+        if ($Je(M)) return { result: false, message: FJe, errorCode: 11 };
       } catch (M) {
         if (!X(M)) throw M;
       }
     if (dU(d) > C.timestamp)
       return {
-        result: !1,
+        result: false,
         message:
           "File has been modified since read, either by the user or by a linter. Read it again before attempting to write it.",
         errorCode: 10,
@@ -17593,22 +17593,22 @@ var b7 = kt({
     try {
       A = (await db(d, Cv)).content;
     } catch (M) {
-      if (X(M)) return { result: !1, message: "Notebook file does not exist.", errorCode: 1 };
-      if (mj(M)) return { result: !1, message: Nz(), errorCode: 13 };
+      if (X(M)) return { result: false, message: "Notebook file does not exist.", errorCode: 1 };
+      if (mj(M)) return { result: false, message: Nz(), errorCode: 13 };
       throw M;
     }
     let x = Ut(A);
-    if (!x) return { result: !1, message: "Notebook is not valid JSON.", errorCode: 6 };
-    if (!uSe(x)) return { result: !1, message: ere, errorCode: 6 };
+    if (!x) return { result: false, message: "Notebook is not valid JSON.", errorCode: 6 };
+    if (!uSe(x)) return { result: false, message: ere, errorCode: 6 };
     if (!r) {
       if (o !== "insert")
-        return { result: !1, message: "Cell ID must be specified when not inserting a new cell.", errorCode: 7 };
+        return { result: false, message: "Cell ID must be specified when not inserting a new cell.", errorCode: 7 };
     } else if (!x.cells.some((M) => M.id === r)) {
       let M = qle(r);
-      if (M === void 0) return { result: !1, message: `Cell with ID "${r}" not found in notebook.`, errorCode: 8 };
-      if (!x.cells[M]) return { result: !1, message: `Cell with index ${M} does not exist in notebook.`, errorCode: 7 };
+      if (M === void 0) return { result: false, message: `Cell with ID "${r}" not found in notebook.`, errorCode: 8 };
+      if (!x.cells[M]) return { result: false, message: `Cell with index ${M} does not exist in notebook.`, errorCode: 7 };
     }
-    return { result: !0 };
+    return { result: true };
   },
   async call({ notebook_path: e, new_source: t, cell_id: r, cell_type: o, edit_mode: u }, d, _, C) {
     let { readFileState: A, getFileHistoryState: x, applyFileHistoryOp: M } = d,
@@ -17703,7 +17703,7 @@ var b7 = kt({
               timestamp: We,
               offset: void 0,
               limit: void 0,
-              ...((!aY(Ve) || !Pt) && { contentNotInModelContext: !0 }),
+              ...((!aY(Ve) || !Pt) && { contentNotInModelContext: true }),
             }),
             {
               data: {
@@ -17739,19 +17739,19 @@ var DFt = {
   name: "AutoModeScanTask",
   type: "auto_mode_scan",
   async kill(e, t) {
-    let r = !1;
+    let r = false;
     if (
       (t.update(e, (o) => {
         if (o.status !== "running") return o;
         return (
           o.abortController?.abort(),
-          (r = !0),
-          { ...o, status: "killed", endTime: Date.now(), notified: !0, abortController: void 0 }
+          (r = true),
+          { ...o, status: "killed", endTime: Date.now(), notified: true, abortController: void 0 }
         );
       }),
       r)
     )
-      ys(e, "stopped", { skipTranscript: !0, ambient: !0 });
+      ys(e, "stopped", { skipTranscript: true, ambient: true });
   },
 };
 
@@ -17770,12 +17770,12 @@ var LFt = {
           u.abortController?.abort(),
           (r = u.priorMtime),
           (o = u.storageV5),
-          { ...u, status: "killed", endTime: Date.now(), notified: !0, abortController: void 0 }
+          { ...u, status: "killed", endTime: Date.now(), notified: true, abortController: void 0 }
         );
       }),
       r !== void 0)
     )
-      ys(e, "stopped", { skipTranscript: !0, ambient: !0 }), await tre(r, o);
+      ys(e, "stopped", { skipTranscript: true, ambient: true }), await tre(r, o);
   },
 };
 
@@ -17812,10 +17812,10 @@ var mSe = {
     let d,
       _,
       C,
-      A = !1,
-      x = !1,
+      A = false,
+      x = false,
       M = 0,
-      F = !1;
+      F = false;
     if (
       (t.update(e, (U) => {
         if (U.status !== "running") return U;
@@ -17823,11 +17823,11 @@ var mSe = {
           (d = U.toolUseId),
           (_ = U.description),
           (C = U.sessionId),
-          (A = U.isUltraplan ?? !1),
-          (x = U.isRemoteReview ?? !1),
+          (A = U.isUltraplan ?? false),
+          (x = U.isRemoteReview ?? false),
           (M = U.pollStartedAt),
-          (F = !0),
-          { ...U, status: "killed", notified: !0, endTime: Date.now() }
+          (F = true),
+          { ...U, status: "killed", notified: true, endTime: Date.now() }
         );
       }),
       F)
@@ -17897,9 +17897,9 @@ var HIn = m(() =>
     get outputSchema() {
       return jIn();
     },
-    shouldDefer: !0,
+    shouldDefer: true,
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(e) {
       return e.task_id ?? e.shell_id ?? "";
@@ -17907,19 +17907,19 @@ var HIn = m(() =>
     async validateInput({ task_id: e, shell_id: t }, r) {
       let { taskRegistry: o, getAppState: u } = r,
         d = e ?? t;
-      if (!d) return { result: !1, message: "Missing required parameter: task_id", errorCode: 1 };
+      if (!d) return { result: false, message: "Missing required parameter: task_id", errorCode: 1 };
       let _ = o.get(d),
         C;
       if (!_) {
         let A = rre(d, o, u);
-        if (A.status === "ambiguous") return { result: !1, message: A.message, errorCode: 1 };
+        if (A.status === "ambiguous") return { result: false, message: A.message, errorCode: 1 };
         if (A.status === "found") _ = A.task;
         else C = A.suggestion;
       }
-      if (!_) return { result: !1, message: XEe(d, o, u, C, Fle(r)), errorCode: 1 };
+      if (!_) return { result: false, message: XEe(d, o, u, C, Fle(r)), errorCode: 1 };
       if (_.status !== "running" && !zA(_) && !gd(_))
-        return { result: !1, message: `Task ${d} is not running (status: ${_.status})`, errorCode: 3 };
-      return { result: !0 };
+        return { result: false, message: `Task ${d} is not running (status: ${_.status})`, errorCode: 3 };
+      return { result: true };
     },
     async description() {
       return "Stop a running background task by ID";
@@ -18006,7 +18006,7 @@ var qIn = m(() =>
     name: lS,
     aliases: [lXe],
     searchHint: "send a message to the user \u2014 your primary visible output channel",
-    briefStandalone: !0,
+    briefStandalone: true,
     maxResultSizeChars: 1e5,
     userFacingName() {
       return "";
@@ -18021,16 +18021,16 @@ var qIn = m(() =>
       return mwe() || nue();
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(e) {
       return e.message;
     },
     async validateInput(e, t) {
-      if (!("attachments" in e) || !e.attachments?.length) return { result: !0 };
+      if (!("attachments" in e) || !e.attachments?.length) return { result: true };
       return Jmt(e.attachments, he(t));
     },
     async description() {
@@ -18064,7 +18064,7 @@ Tell the user the ${k(o.length, "attachment is", "attachments are")} only visibl
       return {
         tool_use_id: t,
         type: "tool_result",
-        is_error: !0,
+        is_error: true,
         content:
           `Message delivered to user.${d}
 ${o.length} ${k(o.length, "attachment")} could NOT be delivered:
@@ -18092,7 +18092,7 @@ Tell the user the ${k(o.length, "attachment was", "attachments were")} not deliv
       )
         return { data: { message: r, sentAt: u } };
       let _ = await Qmt(o, { lane: d, signal: t.abortController.signal, credentials: t.credentials });
-      return { data: { message: r, attachments: _, sentAt: u, ...(Ymt(d) && { rendered_locally: !0 }) } };
+      return { data: { message: r, attachments: _, sentAt: u, ...(Ymt(d) && { rendered_locally: true }) } };
     },
   });
 
@@ -18112,9 +18112,9 @@ class Dgt {
     return (
       this.#o(e, async () => {
         let _,
-          C = !1;
+          C = false;
         if (r.signal.aborted)
-          (C = !0),
+          (C = true),
             (_ =
               "cancelled before start \u2014 the dispatching turn was aborted while this eval was still queued; the script never ran");
         else {
@@ -18122,7 +18122,7 @@ class Dgt {
           try {
             _ = await t();
           } catch (A) {
-            (C = !0),
+            (C = true),
               (_ = uA(A)
                 ? A.message
                 : "host-side failure before settling (non-Error rejection; detail withheld from coercion)");
@@ -18205,7 +18205,7 @@ var mre;
 
 function tOn() {
   if (mre) return mre;
-  return (mre = new Bun.Transpiler({ loader: "js", replMode: !0 })), mre;
+  return (mre = new Bun.Transpiler({ loader: "js", replMode: true })), mre;
 }
 
 var nOn = { "import-statement": "import", "dynamic-import": "import", "require-call": "require" };
@@ -18358,7 +18358,7 @@ var dCe = 4;
 var Gz = kt({
   name: $s,
   searchHint: "execute JavaScript with programmatic tool access",
-  enablesCodeExecution: !0,
+  enablesCodeExecution: true,
   get maxResultSizeChars() {
     return kht();
   },
@@ -18378,10 +18378,10 @@ var Gz = kt({
     return ty();
   },
   isConcurrencySafe() {
-    return !1;
+    return false;
   },
   isReadOnly() {
-    return !1;
+    return false;
   },
   toAutoClassifierInput(e) {
     return e.code;
@@ -18401,7 +18401,7 @@ var Gz = kt({
               stdout: "",
               stderr: "",
               error: `async REPL dispatch rejected: ${U} evals already queued or running \u2014 wait for their settles (Poll) before dispatching more`,
-              asyncDispatched: !0,
+              asyncDispatched: true,
             },
           };
       }
@@ -18438,7 +18438,7 @@ var Gz = kt({
           x > 0
             ? `(dispatched #${A}, queued behind ${x} \u2014 the script is queued, not run; its outcome arrives later as an <event kind="repl-eval"> poll event. Do not re-issue this code.)`
             : `(dispatched #${A} \u2014 the script is queued, not run; its outcome arrives later as an <event kind="repl-eval"> poll event. Do not re-issue this code.)`;
-      return { data: { code: e.code, result: M, stdout: "", stderr: "", asyncDispatched: !0 } };
+      return { data: { code: e.code, result: M, stdout: "", stderr: "", asyncDispatched: true } };
     }
     if (Dmn() && t.agentId === void 0) return lre(t).run(F2, () => iCe(e, t, r, o, u, "withResult"));
     return iCe(e, t, r, o, u, "withResult");
@@ -18447,7 +18447,7 @@ var Gz = kt({
     return "REPL";
   },
   isTransparentWrapper() {
-    return !0;
+    return true;
   },
   stripForCreation: Aht,
   stripForStorage: Aht,
@@ -18590,9 +18590,9 @@ var xht = kt({
   userFacingName() {
     return "";
   },
-  shouldDefer: !0,
+  shouldDefer: true,
   toAutoClassifierInput(e) {
-    if (e.stop === !0) return "stop the /loop \u2014 cancel pending wakeups, schedule nothing";
+    if (e.stop === true) return "stop the /loop \u2014 cancel pending wakeups, schedule nothing";
     if (e.delaySeconds == null || e.prompt == null)
       return `malformed ${pa} call missing delaySeconds/prompt \u2014 the tool will reject it`;
     return `wake in ${e.delaySeconds}s: ${e.prompt}`;
@@ -18607,16 +18607,16 @@ var xht = kt({
   },
   async call(e) {
     let { delaySeconds: t, reason: r, prompt: o, stop: u, noop: d } = e;
-    if (u === !0)
+    if (u === true)
       return {
-        data: { scheduledFor: 0, clampedDelaySeconds: 0, wasClamped: !1, stopped: !0, cancelledWakeups: IVn() },
+        data: { scheduledFor: 0, clampedDelaySeconds: 0, wasClamped: false, stopped: true, cancelledWakeups: IVn() },
       };
     if (t === void 0 || r === void 0)
       throw new Dre("`delaySeconds` and `reason` are required when `stop` is not true.");
     if (o === void 0) throw new Dre("`prompt` is required when `stop` is not true.");
     if (d === void 0) throw new Dre("`noop` is required when `stop` is not true.");
     let _ = HVn(t, o, r);
-    if (_ === null) return { data: { scheduledFor: 0, clampedDelaySeconds: 0, wasClamped: !1 } };
+    if (_ === null) return { data: { scheduledFor: 0, clampedDelaySeconds: 0, wasClamped: false } };
     return {
       data: { scheduledFor: _.scheduledFor, clampedDelaySeconds: _.clampedDelaySeconds, wasClamped: _.wasClamped },
     };
@@ -18625,7 +18625,7 @@ var xht = kt({
     { scheduledFor: e, clampedDelaySeconds: t, wasClamped: r, stopped: o, cancelledWakeups: u },
     d,
   ) {
-    if (o === !0) {
+    if (o === true) {
       let x = `If you armed a ${ma} for this loop, ${ny} it now; otherwise nothing more to do this turn.`;
       if (u === 0)
         return {
@@ -18666,7 +18666,7 @@ var Oht = "[The agent produced no report text.]",
   dDn = m(() =>
     ot({
       task_id: i().describe("The task ID to get output from"),
-      block: Yb(q().default(!0)).describe("Whether to wait for completion"),
+      block: Yb(q().default(true)).describe("Whether to wait for completion"),
       timeout: v().min(0).max(600000).default(30000).describe("Max wait time in ms"),
     }),
   );
@@ -18675,7 +18675,7 @@ var Lht = kt({
   name: AM,
   searchHint: "read output/logs from a background task",
   maxResultSizeChars: 1e5,
-  shouldDefer: !0,
+  shouldDefer: true,
   aliases: ["AgentOutputTool", "BashOutputTool", "AgentOutput", "BashOutput"],
   userFacingName() {
     return "Task Output";
@@ -18687,13 +18687,13 @@ var Lht = kt({
     return "[Deprecated] \u2014 for bash and remote_agent tasks, prefer Read on the output file path; for local_agent tasks, use the Agent tool result directly";
   },
   isConcurrencySafe(e) {
-    return this.isReadOnly?.(e) ?? !1;
+    return this.isReadOnly?.(e) ?? false;
   },
   isEnabled() {
-    return !0;
+    return true;
   },
   isReadOnly(e) {
-    return !0;
+    return true;
   },
   toAutoClassifierInput(e) {
     return e.task_id;
@@ -18713,9 +18713,9 @@ var Lht = kt({
 - Works with all task types: background shells, async agents, and remote sessions`;
   },
   async validateInput({ task_id: e }, t) {
-    if (!e) return { result: !1, message: "Task ID is required", errorCode: 1 };
-    if (!t.getAppState().tasks?.[e]) return { result: !1, message: Dht(e, t), errorCode: 2 };
-    return { result: !0 };
+    if (!e) return { result: false, message: "Task ID is required", errorCode: 1 };
+    if (!t.getAppState().tasks?.[e]) return { result: false, message: Dht(e, t), errorCode: 2 };
+    return { result: true };
   },
   async call(e, t, r, o, u) {
     let { task_id: d, block: _, timeout: C } = e,
@@ -18724,7 +18724,7 @@ var Lht = kt({
     if (!_) {
       if (x.status !== "running" && x.status !== "pending")
         return (
-          t.taskRegistry.update(d, (F) => ({ ...F, notified: !0 })),
+          t.taskRegistry.update(d, (F) => ({ ...F, notified: true })),
           { data: { retrieval_status: "success", task: await Lre(x) } }
         );
       return { data: { retrieval_status: "not_ready", task: await Lre(x) } };
@@ -18740,7 +18740,7 @@ var Lht = kt({
     if (M.status === "running" || M.status === "pending")
       return { data: { retrieval_status: "timeout", task: await Lre(M) } };
     return (
-      t.taskRegistry.update(d, (F) => ({ ...F, notified: !0 })),
+      t.taskRegistry.update(d, (F) => ({ ...F, notified: true })),
       { data: { retrieval_status: "success", task: await Lre(M) } }
     );
   },
@@ -18755,7 +18755,7 @@ var Lht = kt({
       )
         r.push(`<exit_code>${e.task.exitCode}</exit_code>`);
       if (e.task.output?.trim()) {
-        let { content: o } = Iht(e.task.output, e.task.task_id, { omitPath: e.task.omitOutputPath === !0 }),
+        let { content: o } = Iht(e.task.output, e.task.task_id, { omitPath: e.task.omitOutputPath === true }),
           u =
             e.task.task_type === "local_bash"
               ? o.trimEnd()
@@ -18793,7 +18793,7 @@ ${mye(e.task.webFetchSavedFiles)}
     };
   },
   renderToolUseMessage(e) {
-    let { block: t = !0 } = e;
+    let { block: t = true } = e;
     if (!t) return "non-blocking";
     return "";
   },
@@ -18841,7 +18841,7 @@ var Hht = kt({
   name: WD,
   searchHint: "search the web for current information",
   maxResultSizeChars: 1e5,
-  shouldDefer: !0,
+  shouldDefer: true,
   async description(e) {
     return `Claude wants to search the web for: ${e.query}`;
   },
@@ -18855,8 +18855,8 @@ var Hht = kt({
   },
   isEnabled() {
     let e = Ne();
-    if (e === "firstParty" || NH(e)) return !0;
-    if (e === "gateway") return !1;
+    if (e === "firstParty" || NH(e)) return true;
+    if (e === "gateway") return false;
     if (e === "vertex") {
       let t = at();
       return (
@@ -18868,8 +18868,8 @@ var Hht = kt({
         t.includes("claude-haiku-4")
       );
     }
-    if (e === "foundry") return !0;
-    return !1;
+    if (e === "foundry") return true;
+    return false;
   },
   get inputSchema() {
     return fDn();
@@ -18878,10 +18878,10 @@ var Hht = kt({
     return hDn();
   },
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   toAutoClassifierInput(e) {
     return e.query;
@@ -18911,14 +18911,14 @@ var Hht = kt({
   },
   async validateInput(e) {
     let { query: t, allowed_domains: r, blocked_domains: o } = e;
-    if (!t.length) return { result: !1, message: "Error: Missing query", errorCode: 1 };
+    if (!t.length) return { result: false, message: "Error: Missing query", errorCode: 1 };
     if (r?.length && o?.length)
       return {
-        result: !1,
+        result: false,
         message: "Error: Cannot specify both allowed_domains and blocked_domains in the same request",
         errorCode: 2,
       };
-    return { result: !0 };
+    return { result: true };
   },
   async call(e, t, r, o, u) {
     let d = performance.now(),
@@ -18973,13 +18973,13 @@ var Hht = kt({
         blocked_domains: e.blocked_domains,
         max_uses: 8,
       },
-      U = I("tengu_plum_vx3", !1) ? gm() : t.options.mainLoopModel;
+      U = I("tengu_plum_vx3", false) ? gm() : t.options.mainLoopModel;
     if (Ne() === "foundry" && !xte(U, "web_search"))
       throw Error("Web search is not available on this Foundry deployment.");
     let B = e$({
         messages: [x],
         systemPrompt: si(["You are an assistant for performing a web search tool use"]),
-        thinkingConfig: { type: "disabled", mechanical: !0 },
+        thinkingConfig: { type: "disabled", mechanical: true },
         tools: [],
         signal: t.abortController.signal,
         options: {
@@ -18990,7 +18990,7 @@ var Hht = kt({
           hasAppendSystemPrompt: !!t.options.appendSystemPrompt,
           extraToolSchemas: [M],
           querySource: "web_search_tool",
-          enablePromptCaching: !1,
+          enablePromptCaching: false,
           agents: t.options.agentDefinitions.activeAgents,
           mcpTools: [],
           agentId: t.agentId,
@@ -19131,7 +19131,7 @@ var _Dn = m(() =>
     name: uk,
     searchHint: "report code-review findings as a structured list",
     maxResultSizeChars: 256,
-    strict: !0,
+    strict: true,
     async description() {
       return p_e;
     },
@@ -19145,10 +19145,10 @@ var _Dn = m(() =>
       return _Dn();
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(e) {
       return `${e.findings.length} findings`;
@@ -19368,7 +19368,7 @@ var kDn = m(() => ot({ todos: Dye().describe("The updated todo list") })),
     name: NE,
     searchHint: "manage the session task checklist",
     maxResultSizeChars: 1e5,
-    strict: !0,
+    strict: true,
     async description() {
       return Yht;
     },
@@ -19384,7 +19384,7 @@ var kDn = m(() => ot({ todos: Dye().describe("The updated todo list") })),
     userFacingName() {
       return "";
     },
-    shouldDefer: !0,
+    shouldDefer: true,
     isEnabled() {
       return !Jb() && GL();
     },
@@ -19432,13 +19432,13 @@ var Qht = "TestingPermission",
       return "TestingPermission";
     },
     isEnabled() {
-      return !1;
+      return false;
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     async checkPermissions() {
       return { behavior: "ask", message: "Run test?" };
@@ -19490,7 +19490,7 @@ class ECe {
       (this.label = t),
       (this.mode = r),
       (this.partitionId = this.rootDir),
-      (this.excludeKey = o ?? (() => !1));
+      (this.excludeKey = o ?? (() => false));
   }
   async list(e, t) {
     Ax(t?.signal);
@@ -19499,7 +19499,7 @@ class ECe {
         .slice(1),
       o = r === "" ? this.rootDir : hyt(r) ? await this.resolveOrNull(r) : null;
     if (o === null) return [];
-    let u = await this.collectDocuments(o, r, t?.depthOne !== !0, t?.signal);
+    let u = await this.collectDocuments(o, r, t?.depthOne !== true, t?.signal);
     return (
       await Xb(
         u,
@@ -19539,7 +19539,7 @@ class ECe {
       _ = r?.precondition === "not_exists",
       C = _ ? void 0 : await _yt(d, o);
     try {
-      await EDn(bCe(d), { recursive: !0 }), await (_ ? FDn(d, t) : uyt(d, t, C));
+      await EDn(bCe(d), { recursive: true }), await (_ ? FDn(d, t) : uyt(d, t, C));
     } catch (A) {
       let x = E(A);
       throw (
@@ -19616,7 +19616,7 @@ class ECe {
   }
   async collectDocuments(e, t, r, o) {
     Ax(o);
-    let u = await gyt(e, { withFileTypes: !0 }).catch(Nre),
+    let u = await gyt(e, { withFileTypes: true }).catch(Nre),
       d = [];
     for (let _ of u ?? []) {
       let C = t === "" ? _.name : `${t}/${_.name}`;
@@ -19624,7 +19624,7 @@ class ECe {
       let A = $re(e, _.name),
         x = await ODn(_, A);
       if (x === "directory") {
-        if (r) d.push(...(await this.collectDocuments(A, C, !0, o)));
+        if (r) d.push(...(await this.collectDocuments(A, C, true, o)));
       } else if (x === "file" && DDn(C)) d.push({ abs: A, key: C });
     }
     return d;
@@ -19757,7 +19757,7 @@ var eLn = 50,
 var Hyt = kt({
   name: Wg,
   searchHint: "list the memory stores and the documents in them",
-  shouldDefer: !1,
+  shouldDefer: false,
   maxResultSizeChars: 1 / 0,
   async description() {
     return Myt;
@@ -19778,10 +19778,10 @@ var Hyt = kt({
     return Nne();
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   toAutoClassifierInput(e) {
     return `list ${e.store ?? "stores"} ${e.path_prefix ?? ""}`.trim();
@@ -19815,7 +19815,7 @@ var Hyt = kt({
     let { kind: d } = u.served;
     try {
       let _ = t === void 0 ? void 0 : y_(t),
-        C = t === void 0 || _ === void 0 ? null : (s$(t, u.served.promptIndex) ?? mA(_, { trailingSlashAllowed: !0 }));
+        C = t === void 0 || _ === void 0 ? null : (s$(t, u.served.promptIndex) ?? mA(_, { trailingSlashAllowed: true }));
       if (C)
         return (
           yg("list", `refused_${C.reason}`, d), { data: { outcome: "refused", reason: C.reason, message: C.message } }
@@ -19848,7 +19848,7 @@ var Hyt = kt({
   },
   mapToolResultToToolResultBlockParam(e, t) {
     if (e.outcome !== "ok")
-      return { tool_use_id: t, type: "tool_result", is_error: !0, content: e.message ?? `${Wg} failed: ${e.reason}` };
+      return { tool_use_id: t, type: "tool_result", is_error: true, content: e.message ?? `${Wg} failed: ${e.reason}` };
     if (e.stores !== void 0)
       return {
         tool_use_id: t,
@@ -19918,7 +19918,7 @@ var uLn = m(() =>
 var Gre = kt({
   name: ed,
   searchHint: "read a document from a memory store",
-  shouldDefer: !1,
+  shouldDefer: false,
   maxResultSizeChars: 1 / 0,
   async description() {
     return Iyt;
@@ -19939,10 +19939,10 @@ var Gre = kt({
     return Nne();
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   toAutoClassifierInput(e) {
     return `read ${e.store}:${e.path}`;
@@ -20017,10 +20017,10 @@ var Gre = kt({
 ${e.content ?? ""}`,
         };
       case "not_found":
-        return { tool_use_id: t, type: "tool_result", is_error: !0, content: `${ed} failed: not found` };
+        return { tool_use_id: t, type: "tool_result", is_error: true, content: `${ed} failed: not found` };
       case "refused":
       case "failed":
-        return { tool_use_id: t, type: "tool_result", is_error: !0, content: e.message ?? `${ed} failed: ${e.reason}` };
+        return { tool_use_id: t, type: "tool_result", is_error: true, content: e.message ?? `${ed} failed: ${e.reason}` };
     }
   },
 });
@@ -20063,7 +20063,7 @@ var Yyt = 200,
 var qre = kt({
   name: La,
   searchHint: "save a document to a memory store",
-  shouldDefer: !1,
+  shouldDefer: false,
   maxResultSizeChars: 1 / 0,
   async description() {
     return Fyt;
@@ -20121,7 +20121,7 @@ var qre = kt({
       return {
         behavior: "ask",
         message: `Save ${TS(u)} in your personal memory store?${r === "plan" ? " You are in plan mode." : ""}`,
-        decisionReason: { type: "safetyCheck", reason: _, classifierApprovable: !1 },
+        decisionReason: { type: "safetyCheck", reason: _, classifierApprovable: false },
       };
     }
     if (r === "plan")
@@ -20135,7 +20135,7 @@ var qre = kt({
   async call({ store: e, path: t, content: r, if_version: o }, { abortController: { signal: u } }) {
     let d = GF(r),
       _ = y_(t),
-      C = r$({ storeId: e, write: !0 });
+      C = r$({ storeId: e, write: true });
     if (C.outcome === "refused")
       return (
         yg("write", `refused_${C.reason}`),
@@ -20145,7 +20145,7 @@ var qre = kt({
       x = A === "personal" ? GF(ID(jT(_), d)) : d,
       M =
         s$(t, C.served.promptIndex) ??
-        mA(_, { rejectUnsafeSegments: !0 }) ??
+        mA(_, { rejectUnsafeSegments: true }) ??
         ICe(A, _) ??
         Ryt(x) ??
         Eyt(`${_}
@@ -20188,7 +20188,7 @@ ${x}`);
         return {
           tool_use_id: t,
           type: "tool_result",
-          is_error: !0,
+          is_error: true,
           content:
             e.currentContent === void 0
               ? (e.message ?? `${La} conflict`)
@@ -20201,12 +20201,12 @@ ${e.currentContent}`,
         return {
           tool_use_id: t,
           type: "tool_result",
-          is_error: !0,
+          is_error: true,
           content: `${La} failed: "${e.path}" does not exist in the memory store. Pass if_version=new to create it.`,
         };
       case "refused":
       case "failed":
-        return { tool_use_id: t, type: "tool_result", is_error: !0, content: e.message ?? `${La} failed: ${e.reason}` };
+        return { tool_use_id: t, type: "tool_result", is_error: true, content: e.message ?? `${La} failed: ${e.reason}` };
     }
   },
 });
@@ -20245,7 +20245,7 @@ var _Ln = m(() =>
             : "The available choices for this question. Must have 2-4 options. Each option should be a distinct, mutually exclusive choice (unless multiSelect is enabled). There should be no 'Other' option, that will be provided automatically.",
         ),
       multiSelect: q()
-        .default(!1)
+        .default(false)
         .describe(
           "Set to true to allow the user to select multiple options instead of just one. Use when choices are not mutually exclusive.",
         ),
@@ -20265,12 +20265,12 @@ var _Ln = m(() =>
   i_t = {
     check: (e) => {
       let t = e.questions.map((r) => r.question);
-      if (t.length !== new Set(t).size) return !1;
+      if (t.length !== new Set(t).size) return false;
       for (let r of e.questions) {
         let o = r.options.map((u) => u.label);
-        if (o.length !== new Set(o).size) return !1;
+        if (o.length !== new Set(o).size) return false;
       }
-      return !0;
+      return true;
     },
     message: "Question texts must be unique, option labels must be unique within each question",
   },
@@ -20377,7 +20377,7 @@ ${o}
     if (typeof e !== "object" || e === null || Array.isArray(e)) return null;
     let t = e.questions;
     if (!Array.isArray(t)) return null;
-    let r = !1,
+    let r = false,
       o = t.length;
     if (!Number.isInteger(o) || o < 0 || o > UCe) return null;
     for (let u = 0; u < o && u < $Ce; u++) {
@@ -20385,7 +20385,7 @@ ${o}
       if (typeof d !== "object" || d === null || Array.isArray(d)) continue;
       let _ = d.options;
       if (Array.isArray(_) && _.length < 2) {
-        r = !0;
+        r = true;
         break;
       }
     }
@@ -20396,10 +20396,10 @@ ${o}
     return hye();
   },
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   toAutoClassifierInput(e) {
     let t = gXn;
@@ -20444,7 +20444,7 @@ ${o}
           }
         }
         let x = A.join(" "),
-          M = _.multiSelect === !0 ? " [multiSelect]" : "",
+          M = _.multiSelect === true ? " [multiSelect]" : "",
           F = t(_.header),
           U = F ? ` [header: ${F}]` : "";
         o.push(`"${t(_.question)}"${U}${M} options: ${x}`);
@@ -20456,16 +20456,16 @@ ${o}
     }
   },
   requiresUserInteraction() {
-    return !0;
+    return true;
   },
   async validateInput({ questions: e }) {
-    if (t5t() !== "html") return { result: !0 };
+    if (t5t() !== "html") return { result: true };
     for (let t of e)
       for (let r of t.options) {
         let o = TLn(r.preview);
-        if (o) return { result: !1, message: `Option "${r.label}" in question "${t.question}": ${o}`, errorCode: 1 };
+        if (o) return { result: false, message: `Option "${r.label}" in question "${t.question}": ${o}`, errorCode: 1 };
       }
-    return { result: !0 };
+    return { result: true };
   },
   async checkPermissions(e) {
     return {
@@ -20516,13 +20516,13 @@ Before going idle the user had selected: ${_}.`
     else if (r?.trim()) C = `The user responded: ${r}`;
     else if (_)
       C = e.every(({ question: x, options: M, multiSelect: F }) => {
-        if (o?.[x]?.notes) return !1;
+        if (o?.[x]?.notes) return false;
         let B = t[x],
           W = new Set(M.map((pe) => pe.label));
         if (Array.isArray(B)) return F && B.length > 0 && B.every((pe) => W.has(pe));
-        if (!B || B === kFt) return !0;
-        if (W.has(B)) return !0;
-        if (!F) return !1;
+        if (!B || B === kFt) return true;
+        if (W.has(B)) return true;
+        if (!F) return false;
         let z = s_t(B);
         return z !== null && z.length >= 1 && Hdt(z) === B && z.every((pe) => W.has(pe));
       })
@@ -20731,10 +20731,10 @@ var YLn = m(() =>
       return XLn();
     },
     isReadOnly() {
-      return !1;
+      return false;
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isEnabled() {
       return gD();
@@ -20743,14 +20743,14 @@ var YLn = m(() =>
       return { behavior: "allow", updatedInput: e };
     },
     async call(e, t) {
-      if (!gD()) return { data: { success: !1, message: "SendFeedback is not enabled in this session." } };
+      if (!gD()) return { data: { success: false, message: "SendFeedback is not enabled in this session." } };
       if (!$_t()) {
         let Ce = Kre();
         return (
           s("tengu_feedback_draft_call_capped", { cap: bi(Ce) }),
           {
             data: {
-              success: !1,
+              success: false,
               message: `SendFeedback has reached its limit of ${Ce} calls per session. Do not call it again this session; drafts already queued are unaffected and the user can review them with /feedback.`,
             },
           }
@@ -20816,7 +20816,7 @@ var YLn = m(() =>
           p("feedback_drafts", fe.reason),
           {
             data: {
-              success: !1,
+              success: false,
               message:
                 fe.reason === "too_large"
                   ? "Draft too large. Shorten the details and try once more."
@@ -20866,7 +20866,7 @@ var YLn = m(() =>
         }),
         {
           data: {
-            success: !0,
+            success: true,
             message: `Feedback draft queued locally (max ${Yre} kept). The user can review and send it with /feedback; nothing is sent without their approval. Do not announce this or ask the user about it.`,
           },
         }
@@ -21001,14 +21001,14 @@ var tAe = kt({
   name: r2,
   searchHint: "code intelligence (definitions, references, symbols, hover)",
   maxResultSizeChars: 1e5,
-  isLsp: !0,
+  isLsp: true,
   async description() {
     return d_e;
   },
   userFacingName() {
     return "LSP";
   },
-  shouldDefer: !0,
+  shouldDefer: true,
   isEnabled() {
     return Ale();
   },
@@ -21019,10 +21019,10 @@ var tAe = kt({
     return nFn();
   },
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   ruleContentField: "filePath",
   getPath({ filePath: e }) {
@@ -21030,23 +21030,23 @@ var tAe = kt({
   },
   async validateInput(e) {
     let t = dSt().safeParse(e);
-    if (!t.success) return { result: !1, message: `Invalid input: ${t.error.message}`, errorCode: 3 };
+    if (!t.success) return { result: false, message: `Invalid input: ${t.error.message}`, errorCode: 3 };
     let r = le(),
       o = gt(e.filePath);
-    if (Jz(e.filePath, o) || Kg(r, o) !== void 0) return { result: !0 };
+    if (Jz(e.filePath, o) || Kg(r, o) !== void 0) return { result: true };
     let u;
     try {
       u = await r.stat(o);
     } catch (d) {
-      if (X(d)) return { result: !1, message: `File does not exist: ${e.filePath}`, errorCode: 1 };
+      if (X(d)) return { result: false, message: `File does not exist: ${e.filePath}`, errorCode: 1 };
       let _ = we(d);
       return (
         n(`Failed to access file stats for LSP operation on ${e.filePath}: ${_.message}`, { level: "error" }),
-        { result: !1, message: `Cannot access file: ${e.filePath}. ${_.message}`, errorCode: 4 }
+        { result: false, message: `Cannot access file: ${e.filePath}. ${_.message}`, errorCode: 4 }
       );
     }
-    if (!u.isFile()) return { result: !1, message: `Path is not a file: ${e.filePath}`, errorCode: 2 };
-    return { result: !0 };
+    if (!u.isFile()) return { result: false, message: `Path is not a file: ${e.filePath}`, errorCode: 2 };
+    return { result: true };
   },
   async checkPermissions(e, t) {
     let r = gt(e.filePath),
@@ -21195,15 +21195,15 @@ var uFn = m(() => f({ server: i().optional().describe("Optional server name to f
   ),
   UA = kt({
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(e) {
       return e.server ?? "";
     },
-    shouldDefer: !0,
+    shouldDefer: true,
     name: xG,
     aliases: ["ListMcpResources"],
     searchHint: "list resources from connected MCP servers",
@@ -21301,7 +21301,7 @@ class ySt {
   }
   async drain(e) {
     if (this.pathWrites.size === 0) return;
-    await Promise.race([this.pathWrites.settle(), ne(e, void 0, { unref: !0 })]);
+    await Promise.race([this.pathWrites.settle(), ne(e, void 0, { unref: true })]);
   }
   async dispose(e) {
     try {
@@ -21342,10 +21342,10 @@ var gFn = m(() =>
   ),
   oAe = kt({
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(e) {
       return e.server ?? "";
@@ -21400,7 +21400,7 @@ var gFn = m(() =>
                   .map((me) => me.name)
                   .filter((me) => typeof me === "string"),
               ),
-              B = !1,
+              B = false,
               W = await QFt(
                 M,
                 (me, ge) => {
@@ -21463,15 +21463,15 @@ var SFn = m(() =>
   ),
   cD = kt({
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(e) {
       return `${e.server} ${e.uri}`;
     },
-    shouldDefer: !0,
+    shouldDefer: true,
     name: UB,
     aliases: ["ReadMcpResourceDir"],
     searchHint: "list the children of an MCP directory resource",
@@ -21572,15 +21572,15 @@ var TFn = m(() => f({ server: i().describe("The MCP server name"), uri: i().desc
   ),
   BA = kt({
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(e) {
       return `${e.server} ${e.uri}`;
     },
-    shouldDefer: !0,
+    shouldDefer: true,
     name: $B,
     aliases: ["ReadMcpResource"],
     searchHint: "read a specific MCP resource by URI",
@@ -21700,10 +21700,10 @@ var cAe = kt({
     return RFn(at(), zO() ?? []);
   },
   isConcurrencySafe() {
-    return !1;
+    return false;
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   name: Y9,
   maxResultSizeChars: 1e4,
@@ -21795,7 +21795,7 @@ var cAe = kt({
           disabled: z,
           unconfigured: pe,
           unknown: me,
-          ...(kI(t.options.tools) && { replRouted: !0 }),
+          ...(kI(t.options.tools) && { replRouted: true }),
         },
       }
     );
@@ -21860,15 +21860,15 @@ var IFn = m(() => ot({})),
     userFacingName() {
       return "";
     },
-    shouldDefer: !0,
+    shouldDefer: true,
     isEnabled() {
       return e2.isEnabled();
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     renderToolUseMessage() {
       return null;
@@ -21949,17 +21949,17 @@ var FFn = /["\u201C\u201D\u201F\u2033\u2036\uFF02\u301D\u301E\u301F\u02BA\u02EE\
     userFacingName(e) {
       return e?.path ? "Entering worktree" : "Creating worktree";
     },
-    shouldDefer: !0,
+    shouldDefer: true,
     toAutoClassifierInput(e) {
       return e.path ?? e.name ?? "";
     },
     async validateInput(e) {
       if (YCe()) {
-        if (e.path) return { result: !0 };
+        if (e.path) return { result: true };
         let t = ee(),
           r = Vr(t);
         return {
-          result: !1,
+          result: false,
           message:
             `EnterWorktree cannot create a worktree from a subagent with a cwd override (isolation: "worktree" or explicit cwd) \u2014 it would mutate the parent session's process-wide working directory. ` +
             (r != null && t !== r && t.startsWith(r + DFn)
@@ -21970,12 +21970,12 @@ var FFn = /["\u201C\u201D\u201F\u2033\u2036\uFF02\u301D\u301E\u301F\u02BA\u02EE\
       }
       if (ha() && !e.path)
         return {
-          result: !1,
+          result: false,
           message:
             "Already in a worktree session. Pass `path` to switch into another existing worktree, or use ExitWorktree to leave this one before creating a new worktree.",
           errorCode: 2,
         };
-      return { result: !0 };
+      return { result: true };
     },
     async checkPermissions(e) {
       if (!e.path) return { behavior: "allow", updatedInput: e };
@@ -21994,9 +21994,9 @@ var FFn = /["\u201C\u201D\u201F\u2033\u2036\uFF02\u301D\u301E\u301F\u02BA\u02EE\
         decisionReason: {
           type: "safetyCheck",
           reason: `permission-root relocation to "${u}"${C}${_} \u2014 a model-supplied worktree outside .claude/worktrees/`,
-          classifierApprovable: !1,
+          classifierApprovable: false,
         },
-        localDisplayOnly: !0,
+        localDisplayOnly: true,
       };
     },
     renderToolUseMessage({ name: e, path: t }) {
@@ -22005,14 +22005,14 @@ var FFn = /["\u201C\u201D\u201F\u2033\u2036\uFF02\u301D\u301E\u301F\u02BA\u02EE\
     async call(e, t) {
       if (YCe()) {
         if (!e.path) throw new Kc("EnterWorktree from a session with a pinned working directory requires `path`.");
-        let _ = await can(e.path, { requireManagedLocation: !0, requireCwdInsideRepo: !0 });
+        let _ = await can(e.path, { requireManagedLocation: true, requireCwdInsideRepo: true });
         if ((Lc(_.worktreePath, t.session), UEe(_.worktreePath, t.agentId ?? K()), t.agentId))
           try {
             await U7(t.agentId, { cwd: _.worktreePath }, t.storageV5);
           } catch (A) {
             n(`Failed to update agent metadata cwd after worktree switch: ${WW(A)}`);
           }
-        s("tengu_worktree_entered_existing", { mid_session: !0, cwd_override: !0 });
+        s("tengu_worktree_entered_existing", { mid_session: true, cwd_override: true });
         let C = _.worktreeBranch ? ` on branch ${_.worktreeBranch}` : "";
         return {
           data: {
@@ -22030,14 +22030,14 @@ var FFn = /["\u201C\u201D\u201F\u2033\u2036\uFF02\u301D\u301E\u301F\u02BA\u02EE\
           K(),
           e.path,
           (await C3n(TSt(ee(), e.path)))
-            ? { requireManagedLocation: !0, storageV5: t.storageV5 }
+            ? { requireManagedLocation: true, storageV5: t.storageV5 }
             : { storageV5: t.storageV5 },
         );
       else {
         let _ = ee(),
           C = Vr(_),
-          A = !1;
-        if (C && C !== _) qu(C), Lc(C, t.session), (A = !0);
+          A = false;
+        if (C && C !== _) qu(C), Lc(C, t.session), (A = true);
         try {
           r = await Dut(K(), e.name ?? UM(), void 0, {
             fromCwd: _,
@@ -22069,7 +22069,7 @@ var FFn = /["\u201C\u201D\u201F\u2033\u2036\uFF02\u301D\u301E\u301F\u02BA\u02EE\
         ah(t.storageV5),
         iU(),
         Oa()?.refreshGitBranch?.(),
-        s(e.path ? "tengu_worktree_entered_existing" : "tengu_worktree_created", { mid_session: !0 });
+        s(e.path ? "tengu_worktree_entered_existing" : "tengu_worktree_created", { mid_session: true });
       let o = r.worktreeBranch ? ` on branch ${r.worktreeBranch}` : "",
         u = e.path ? "Entered" : r.resetToFreshBase ? "Reused" : r.resumedExisting ? "Resumed" : "Created",
         d = r.resetToFreshBase
@@ -22140,7 +22140,7 @@ var xSt = kt({
   userFacingName(e) {
     return e?.action === "remove" ? "Cleaning up worktree" : "Exiting worktree";
   },
-  shouldDefer: !0,
+  shouldDefer: true,
   isDestructive(e) {
     return e.action === "remove";
   },
@@ -22150,7 +22150,7 @@ var xSt = kt({
   async validateInput(e) {
     if (YCe())
       return {
-        result: !1,
+        result: false,
         message:
           'ExitWorktree cannot be called from a subagent with a cwd override (isolation: "worktree" or explicit cwd) \u2014 it would mutate the parent session\'s process-wide working directory. This agent is already isolated; use Bash with `cd` for directory changes within it.',
         errorCode: 5,
@@ -22158,14 +22158,14 @@ var xSt = kt({
     let t = ha();
     if (!t)
       return {
-        result: !1,
+        result: false,
         message:
           "No-op: there is no active EnterWorktree session to exit. This tool only operates on worktrees created by EnterWorktree in the current session \u2014 it will not touch worktrees created manually or in a previous session. No filesystem changes were made.",
         errorCode: 1,
       };
     if (e.action === "remove" && t.enteredExisting)
       return {
-        result: !1,
+        result: false,
         message: `This session is not the owner of the worktree at ${t.worktreePath} \u2014 it either entered a pre-existing worktree via EnterWorktree({path}) or resumed into a checkout whose liveness lock another running Claude Code session still holds \u2014 so this tool will not remove it. Use action: "keep" to return to ${t.originalCwd}. If no other session is using it, remove it yourself with \`git worktree remove\`; while a live session's lock is present, git will refuse and name the owner.`,
         errorCode: 4,
       };
@@ -22173,7 +22173,7 @@ var xSt = kt({
       let r = await ASt(t.worktreePath, t.originalHeadCommit);
       if (r === null)
         return {
-          result: !1,
+          result: false,
           message: `Could not verify worktree state at ${t.worktreePath}. Refusing to remove without explicit confirmation. Re-invoke with discard_changes: true to proceed \u2014 or use action: "keep" to preserve the worktree.`,
           errorCode: 3,
         };
@@ -22183,13 +22183,13 @@ var xSt = kt({
         if (o > 0) d.push(`${o} uncommitted ${o === 1 ? "file" : "files"}`);
         if (u > 0) d.push(`${u} ${u === 1 ? "commit" : "commits"} on ${t.worktreeBranch ?? "the worktree branch"}`);
         return {
-          result: !1,
+          result: false,
           message: `Worktree has ${d.join(" and ")}. Removing will discard this work permanently. Confirm with the user, then re-invoke with discard_changes: true \u2014 or use action: "keep" to preserve the worktree.`,
           errorCode: 2,
         };
       }
     }
-    return { result: !0 };
+    return { result: true };
   },
   renderToolUseMessage() {
     return "";
@@ -22211,7 +22211,7 @@ var xSt = kt({
     if (e.action === "keep") {
       await Mee(t.storageV5);
       let fe = await PSt(t.session, o, u, M, d, x, t.storageV5);
-      s("tengu_worktree_kept", { mid_session: !0, commits: U, changed_files: F });
+      s("tengu_worktree_kept", { mid_session: true, commits: U, changed_files: F });
       let me = C ? ` Tmux session ${C} is still running; reattach with: tmux attach -t ${C}` : "";
       return {
         data: {
@@ -22239,7 +22239,7 @@ var xSt = kt({
           message: `Exited worktree but could not remove it \u2014 kept at ${d}. ${uAe(o, W)}`,
         },
       };
-    s("tengu_worktree_removed", { source: w("exit_tool"), mid_session: !0, commits: U, changed_files: F });
+    s("tengu_worktree_removed", { source: w("exit_tool"), mid_session: true, commits: U, changed_files: F });
     let z = [];
     if (U > 0) z.push(`${U} ${U === 1 ? "commit" : "commits"}`);
     if (F > 0) z.push(`${F} uncommitted ${F === 1 ? "file" : "files"}`);
@@ -22293,14 +22293,14 @@ var zFn = m(() =>
     userFacingName() {
       return "TaskCreate";
     },
-    shouldDefer: !0,
+    shouldDefer: true,
     coerceInput: TZ,
     validationErrorSteer: htt,
     isEnabled() {
       return QW();
     },
     isConcurrencySafe() {
-      return !1;
+      return false;
     },
     toAutoClassifierInput(e) {
       return e.subject;
@@ -22396,15 +22396,15 @@ var qFn = m(() => ot({ taskId: i().describe("The ID of the task to retrieve") })
     userFacingName() {
       return "TaskGet";
     },
-    shouldDefer: !0,
+    shouldDefer: true,
     isEnabled() {
       return QW();
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(e) {
       return e.taskId;
@@ -22568,12 +22568,12 @@ var VFn = m(() => {
       return "TaskUpdate";
     },
     coerceInput: k1,
-    shouldDefer: !0,
+    shouldDefer: true,
     isEnabled() {
       return QW();
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(e) {
       let t = k1(e)?.input ?? e,
@@ -22606,7 +22606,7 @@ var VFn = m(() => {
       U?.({ type: "set_expanded_view", expandedView: "tasks" });
       let W = x.storageV5,
         z = await Ez(B, e, W);
-      if (!z) return { data: { success: !1, taskId: e, updatedFields: [], error: "Task not found" } };
+      if (!z) return { data: { success: false, taskId: e, updatedFields: [], error: "Task not found" } };
       let pe = [],
         fe = {};
       if (t !== void 0 && t !== z.subject) (fe.subject = t), pe.push("subject");
@@ -22650,7 +22650,7 @@ var VFn = m(() => {
             if (me.length > 0)
               return {
                 data: {
-                  success: !1,
+                  success: false,
                   taskId: e,
                   updatedFields: [],
                   error: me.join(`
@@ -22687,7 +22687,7 @@ var VFn = m(() => {
       }
       return {
         data: {
-          success: !0,
+          success: true,
           taskId: e,
           updatedFields: pe,
           statusChange: fe.status !== void 0 ? { from: z.status, to: fe.status } : void 0,
@@ -22729,15 +22729,15 @@ var XFn = m(() => ot({})),
     userFacingName() {
       return "TaskList";
     },
-    shouldDefer: !0,
+    shouldDefer: true,
     isEnabled() {
       return QW();
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     renderToolUseMessage() {
       return null;
@@ -22832,7 +22832,7 @@ WQn(Z0);
 var wE = (e, t) => {
   if (a.CLAUDE_CODE_SIMPLE && !t?.skipSimpleModeFilter) {
     if (ty() && !t?.skipReplFilter) {
-      let U = e.restricted === !0 && _s(e, Gz) !== null ? [tm, Uy, Y_] : [Gz, Uy, Y_];
+      let U = e.restricted === true && _s(e, Gz) !== null ? [tm, Uy, Y_] : [Gz, Uy, Y_];
       if (Mx !== null && $2()) U.push(Mx);
       if (Ebt?.isCoordinatorMode()) U.push(hne, ire, pAe(), ...(y$ && Zu() ? [y$] : []));
       return _I(U, e);
@@ -22846,9 +22846,9 @@ var wE = (e, t) => {
     o = Z0().filter((x) => !r.has(x.name)),
     u = _I(o, e),
     d = u.some((x) => on(x, Qe)) && _i.isEnabled(),
-    _ = !1;
+    _ = false;
   if (ty() && !t?.skipReplFilter) {
-    if (u.some((M) => on(M, $s))) (u = u.filter((M) => !jk(M, XVe))), (_ = !0);
+    if (u.some((M) => on(M, $s))) (u = u.filter((M) => !jk(M, XVe))), (_ = true);
   }
   if (!t?.skipReplFilter && bx(u, e, { activeAgents: t?.activeAgents })) u = u.filter((x) => !on(x, Qr));
   let C = u.map((x) => x.isEnabled()),
@@ -22872,7 +22872,7 @@ class Lbt {
   #e = new Map();
   #t = new Set();
   #n = new Map();
-  #r = !1;
+  #r = false;
   #o = 0;
   get(e) {
     return this.#e.get(ooe(e));
@@ -22892,20 +22892,20 @@ class Lbt {
     return this.#e.size;
   }
   telemetrySignatureChanged(e, t) {
-    if (t === this.#n.get(e)) return !1;
-    return this.#n.set(e, t), !0;
+    if (t === this.#n.get(e)) return false;
+    return this.#n.set(e, t), true;
   }
   get generation() {
     return this.#o;
   }
   failClosed() {
-    this.#r = !0;
+    this.#r = true;
   }
   get failedClosed() {
     return this.#r;
   }
   clear() {
-    this.#e.clear(), this.#t.clear(), this.#n.clear(), (this.#r = !1), this.#o++;
+    this.#e.clear(), this.#t.clear(), this.#n.clear(), (this.#r = false), this.#o++;
   }
 }
 
@@ -22914,7 +22914,7 @@ var sln = new Mn(() => new Lbt());
 var Wbt = "claude/endTurn";
 
 var fNn = 8192,
-  gNn = Object.freeze({ _meta: Object.freeze({ [Wbt]: !0 }) });
+  gNn = Object.freeze({ _meta: Object.freeze({ [Wbt]: true }) });
 
 var wAe = [
     "<invoke>",
@@ -23205,7 +23205,7 @@ var Pkt = 64;
 var xkt = 12;
 
 var Mkt = {
-  realpath: !1,
+  realpath: false,
   retries: { retries: 10, minTimeout: 5, maxTimeout: 100 },
   onCompromised: (e) => {
     n(`$.store lock compromised: ${l(e)}`, { level: "warn" });
@@ -23427,7 +23427,7 @@ var Fkt = (e) =>
     },
     "fs.exists": {
       check: Wu.pathArg,
-      run: (t, r) => G0.fsOp({ event: "exists", path: t.path }, r.plugin, { cwd: r.cwd }).then((o) => o === !0),
+      run: (t, r) => G0.fsOp({ event: "exists", path: t.path }, r.plugin, { cwd: r.cwd }).then((o) => o === true),
     },
     "fs.stat": { check: Wu.pathArg, run: (t, r) => G0.fsOp({ event: "stat", path: t.path }, r.plugin, { cwd: r.cwd }) },
     "fs.ancestors": pJ,
@@ -23572,7 +23572,7 @@ var Qkt = r$n;
 var Yoe = (e, t) =>
   Qkt([
     ...Object.entries(e.lastTable)
-      .filter(([, { withheldBy: r }]) => r?.includes(t) === !0)
+      .filter(([, { withheldBy: r }]) => r?.includes(t) === true)
       .map(([r]) => r),
     ...(e.withholdings.get(t) ?? []),
   ]);
@@ -23718,7 +23718,7 @@ var lse = (e, t, r) =>
             event: "*",
             reason: l(x),
             effect: Jg.UNLOADED_EFFECT,
-            overran: !1,
+            overran: false,
           });
       }
     let _ = await M_.foldInterfaces(e, d, {
@@ -23891,10 +23891,10 @@ var R$n = 8;
 
 class sTt {
   #e = [];
-  #t = !1;
+  #t = false;
   #n = null;
   openGate() {
-    this.#t = !0;
+    this.#t = true;
   }
   get gateOpen() {
     return this.#t;
@@ -24018,13 +24018,13 @@ class XTt {
 
 var A0n = new J(() => new XTt());
 
-var iRe = { inEpisode: !1, cursor: void 0, pendingNotice: void 0 };
+var iRe = { inEpisode: false, cursor: void 0, pendingNotice: void 0 };
 
 var Cse = (e) => (typeof e === "number" && Number.isFinite(e) && e >= 0 ? e : 0);
 
 var xse = "tengu_dash_flame";
 
-var f3s = Object.freeze({ visibleModel: void 0, serverLane: void 0, shouldLogSuppression: !1 });
+var f3s = Object.freeze({ visibleModel: void 0, serverLane: void 0, shouldLogSuppression: false });
 
 class gvt {
   hooks = [];
@@ -24041,7 +24041,7 @@ class fRe {
   now;
   tools = [];
   toolUseContext;
-  discarded = !1;
+  discarded = false;
   progressAvailableResolve;
   drainableResolve;
   drainGeneration = 0;
@@ -24052,7 +24052,7 @@ class fRe {
     this.toolUseContext = r;
   }
   discard() {
-    (this.discarded = !0), this.wakeWaiters();
+    (this.discarded = true), this.wakeWaiters();
   }
   discardAndAbortInFlight(e) {
     this.discard();
@@ -24091,7 +24091,7 @@ class fRe {
           block: e,
           assistantMessage: t,
           status: "completed",
-          isConcurrencySafe: !0,
+          isConcurrencySafe: true,
           pendingProgress: [],
           pendingBridgeEvents: [],
           results: [
@@ -24100,7 +24100,7 @@ class fRe {
                 {
                   type: "tool_result",
                   content: `<tool_use_error>Error: No such tool available: ${e.name}${d}</tool_use_error>`,
-                  is_error: !0,
+                  is_error: true,
                   tool_use_id: e.id,
                 },
               ],
@@ -24119,10 +24119,10 @@ class fRe {
             try {
               return Boolean(r.isConcurrencySafe(o.data));
             } catch {
-              return !1;
+              return false;
             }
           })()
-        : !1;
+        : false;
     this.tools.push({
       id: e.id,
       block: e,
@@ -24150,14 +24150,14 @@ class fRe {
     if (t === "user_interrupted") {
       if (Za(this.toolUseContext.abortController.signal.reason) === "turn-abort")
         return xe({
-          content: [{ type: "tool_result", content: pE, is_error: !0, tool_use_id: e }],
+          content: [{ type: "tool_result", content: pE, is_error: true, tool_use_id: e }],
           toolUseResult: pE,
           toolDenialKind: "interrupted",
           sourceToolAssistantUUID: r.uuid,
           now: this.now,
         });
       return xe({
-        content: [{ type: "tool_result", content: f2(sT), is_error: !0, tool_use_id: e }],
+        content: [{ type: "tool_result", content: f2(sT), is_error: true, tool_use_id: e }],
         toolUseResult: UU,
         toolDenialKind: "user-rejected",
         interruptedByShutdown: qS(this.toolUseContext.abortController.signal),
@@ -24171,7 +24171,7 @@ class fRe {
           {
             type: "tool_result",
             content: "<tool_use_error>Cancelled: Claude ended the conversation</tool_use_error>",
-            is_error: !0,
+            is_error: true,
             tool_use_id: e,
           },
         ],
@@ -24184,7 +24184,7 @@ class fRe {
         {
           type: "tool_result",
           content: "<tool_use_error>Error: Streaming fallback - tool execution discarded</tool_use_error>",
-          is_error: !0,
+          is_error: true,
           tool_use_id: e,
         },
       ],
@@ -24232,7 +24232,7 @@ class fRe {
     let t = [],
       r = [],
       u = (async () => {
-        let d = this.getAbortReason(e, !1);
+        let d = this.getAbortReason(e, false);
         if (d) {
           t.push(this.createSyntheticErrorMessage(e.id, d, e.assistantMessage)),
             (e.results = t),
@@ -24248,7 +24248,7 @@ class fRe {
             if (!this.toolUseContext.abortController.signal.aborted && !this.discarded)
               this.toolUseContext.abortController.abort(_.signal.reason);
           },
-          { once: !0 },
+          { once: true },
         ),
           (e.abortController = _);
         let C = i9(
@@ -24258,7 +24258,7 @@ class fRe {
             { ...this.toolUseContext, abortController: _, sameTurnToolUses: this.buildSameTurnToolUses(e) },
             this.now,
           ),
-          A = !1;
+          A = false;
         for await (let x of C) {
           if (eH(x)) {
             e.pendingBridgeEvents.push(x), this.wakeWaiters();
@@ -24273,9 +24273,9 @@ class fRe {
           if (
             x.message.type === "user" &&
             Array.isArray(x.message.message.content) &&
-            x.message.message.content.some((U) => U.type === "tool_result" && U.is_error === !0)
+            x.message.message.content.some((U) => U.type === "tool_result" && U.is_error === true)
           )
-            A = !0;
+            A = true;
           if (x.message)
             if (x.message.type === "progress") {
               if ((e.pendingProgress.push(x.message), this.progressAvailableResolve))
@@ -24318,8 +24318,8 @@ class fRe {
     if (this.discarded) return;
     while (this.hasUnfinishedTools()) {
       await this.processQueue();
-      let e = !1;
-      for (let t of this.getCompletedResults()) (e = !0), yield t;
+      let e = false;
+      for (let t of this.getCompletedResults()) (e = true), yield t;
       if (this.hasExecutingTools() && !e && !this.hasPendingProgress()) {
         let t = this.tools.filter((o) => o.status === "executing" && o.promise).map((o) => o.promise),
           r = new Promise((o) => {
@@ -24611,7 +24611,7 @@ class pGn {
   savedAt = null;
   sessionModel = null;
   sessionId = null;
-  promptForSessionModel = !1;
+  promptForSessionModel = false;
 }
 
 var dgr = new Mn(() => new pGn());
@@ -24982,7 +24982,7 @@ var tjn = new Set([
 var exe = 1024,
   AAt = 2048;
 
-var nxe = !1;
+var nxe = false;
 
 var vjn = new Set([
   "/dev/zero",
@@ -25117,9 +25117,9 @@ var tm = kt({
   name: _t,
   ruleContentField: "file_path",
   searchHint: "read files, images, PDFs, notebooks",
-  remoteExecution: { supported: !0 },
+  remoteExecution: { supported: true },
   maxResultSizeChars: 1 / 0,
-  strict: !0,
+  strict: true,
   async description() {
     return fYn;
   },
@@ -25145,10 +25145,10 @@ var tm = kt({
     return t ? `Reading ${t}` : "Reading file";
   },
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   toAutoClassifierInput(e) {
     let t = rL(e);
@@ -25158,7 +25158,7 @@ var tm = kt({
     return ow(e);
   },
   isSearchOrReadCommand() {
-    return { isSearch: !1, isRead: !0 };
+    return { isSearch: false, isRead: true };
   },
   getPath({ file_path: e }) {
     return e || ee();
@@ -25206,21 +25206,21 @@ var tm = kt({
     let { file_path: r, pages: o } = e;
     if (o !== void 0) {
       let A = ixe(o);
-      if (!A.ok) return { result: !1, message: A.message, errorCode: A.errorCode };
+      if (!A.ok) return { result: false, message: A.message, errorCode: A.errorCode };
     }
     let u = gt(r);
-    if (fa(u, he(t), "read", "deny") !== null) return { result: !1, message: Z8e, errorCode: 1 };
-    if (Bn(u)) return { result: !0 };
+    if (fa(u, he(t), "read", "deny") !== null) return { result: false, message: Z8e, errorCode: 1 };
+    if (Bn(u)) return { result: true };
     let C = Xh.extname(u).toLowerCase();
     if (uzt(u) && !MOe(C) && !KAt.has(C.slice(1)))
       return {
-        result: !1,
+        result: false,
         message: `This tool cannot read binary files. The file appears to be a binary ${C} file. Please use appropriate tools for binary file analysis.`,
         errorCode: 4,
       };
     if (Ejn(u))
       return {
-        result: !1,
+        result: false,
         message: `Cannot read '${r}': this device file would block or produce infinite output.`,
         errorCode: 9,
       };
@@ -25231,12 +25231,12 @@ var tm = kt({
         F = o === void 0 && A.wholePdfMaxRawBytes === 0;
       if (F || M > A.pdfMaxPagesPerRead)
         return {
-          result: !1,
+          result: false,
           message: `${F ? "A whole PDF cannot be returned from this machine to the calling session" : `${o} is too many pages to return from this machine in one call`}. Use the pages parameter with at most ${A.pdfMaxPagesPerRead} pages per call (for example pages: 1-3, which come back as images), or read the file where the session runs.`,
           errorCode: 16,
         };
     }
-    return { result: !0 };
+    return { result: true };
   },
   async call(e, t, r, o) {
     return Mjn(e, t, o);
@@ -25668,7 +25668,7 @@ var ePt =
 
 class zqn {
   watcher = null;
-  started = !1;
+  started = false;
   notices = new Jpe();
   resyncTimer = null;
   deleteConfirmTimers = { team: null, user: null };
@@ -25690,7 +25690,7 @@ class zqn {
       clearTimeout(this.resyncTimer), (this.resyncTimer = null);
     this.orgWriteNoticeShown.clear(),
       this.clearDeleteConfirmTimers(),
-      (this.started = e?.skipWatcher ?? !1),
+      (this.started = e?.skipWatcher ?? false),
       (this.multiStoreState = e?.multiStoreState ?? null),
       (this.userMultiStoreState = e?.userMultiStoreState ?? null),
       (this.scopeStates.team = vie()),
@@ -25710,7 +25710,7 @@ class zqn {
     let r = this.scopeStates[e],
       o = e === "team" ? this.multiStoreState : this.userMultiStoreState;
     if (!o) return;
-    r.pushInProgress = !0;
+    r.pushInProgress = true;
     let u = r.changeSeq;
     try {
       let d = o.stores,
@@ -25720,13 +25720,13 @@ class zqn {
       let A = Object.values(C.pushes),
         x = A.some((F) => !F.success),
         M = d.some((F) => F.suppressedReason !== null);
-      if (!x && !M && r.changeSeq === u) r.hasPendingChanges = !1;
+      if (!x && !M && r.changeSeq === u) r.hasPendingChanges = false;
       if (e === "team") {
         for (let F of d)
           if (F.suppressedReason !== null && !_.has(F.mountName))
             s("tengu_team_mem_push_suppressed", {
               reason: F.suppressedReason,
-              multistore: !0,
+              multistore: true,
               mount: F.mountName,
               consecutive_failures: F.consecutivePermanentFailures,
               expiring: (F.suppressedUntilMs ?? null) !== null,
@@ -25737,7 +25737,7 @@ class zqn {
       n(`memory-watcher[${e}]: multi-store sync error: ${l(d)}`, { level: "warn" });
     } finally {
       (r.lastSyncCompletedAt = Date.now()),
-        (r.pushInProgress = !1),
+        (r.pushInProgress = false),
         (r.currentPushPromise = null),
         this.armResyncTimer();
     }
@@ -25773,7 +25773,7 @@ class zqn {
   }
   schedulePush(e) {
     let t = this.scopeStates[e];
-    if (((t.hasPendingChanges = !0), t.changeSeq++, t.debounceTimer)) clearTimeout(t.debounceTimer);
+    if (((t.hasPendingChanges = true), t.changeSeq++, t.debounceTimer)) clearTimeout(t.debounceTimer);
     t.debounceTimer = setTimeout((r) => this.firePush(r), i2n, e);
   }
   armDeleteConfirmTimer(e) {
@@ -25851,8 +25851,8 @@ class zqn {
   }
   async startFileWatcher(e) {
     if (this.started) return;
-    (this.started = !0),
-      await o2n(e, { recursive: !0 }).catch((o) => n(`memory-watcher: mkdir ${e} failed: ${l(o)}`, { level: "warn" }));
+    (this.started = true),
+      await o2n(e, { recursive: true }).catch((o) => n(`memory-watcher: mkdir ${e} failed: ${l(o)}`, { level: "warn" }));
     let t = (o) => {
         let u = Eie(o);
         if (u === null || !this.scopeActive(u)) return;
@@ -25875,11 +25875,11 @@ class zqn {
         this.schedulePush(u);
       };
     (this.watcher = GE.watch(e, {
-      persistent: !0,
-      ignoreInitial: !0,
+      persistent: true,
+      ignoreInitial: true,
       usePolling: c2n,
       interval: u2n,
-      ignorePermissionErrors: !0,
+      ignorePermissionErrors: true,
       ignored: (o) => Zmr(o, { backendStaging: this.storageV5 !== void 0 }),
     })),
       this.watcher.on("add", t),
@@ -25899,7 +25899,7 @@ class zqn {
       let _ = await ghn(this.storageV5, this.credentials).catch(
         (C) => (n(`memory-watcher: org-memory discovery rejected: ${l(C)}`), null),
       );
-      if (_ !== null && Shn(_)) y("org_memory_picker", { mounted: !0 });
+      if (_ !== null && Shn(_)) y("org_memory_picker", { mounted: true });
       return;
     }
     let r = null;
@@ -25929,7 +25929,7 @@ class zqn {
     let d = async (_, C) => {
       if (!C) return;
       let A = this.scopeStates[_];
-      A.pushInProgress = !0;
+      A.pushInProgress = true;
       let x = MY(C, "startup", this.storageV5);
       A.currentPushPromise = x
         .then(() => {
@@ -25944,7 +25944,7 @@ class zqn {
         n(`memory-watcher[${_}]: multi-store initial sync failed: ${l(M)}`, { level: "warn" });
       } finally {
         (A.lastSyncCompletedAt = Date.now()),
-          (A.pushInProgress = !1),
+          (A.pushInProgress = false),
           (A.currentPushPromise = null),
           this.armResyncTimer();
       }
@@ -25958,14 +25958,14 @@ class zqn {
     )
       y("team_memory_sync_watcher_start"),
         s("tengu_team_mem_sync_started", {
-          multistore: !0,
+          multistore: true,
           stores: this.multiStoreState.stores.length,
-          watcher_started: !0,
+          watcher_started: true,
           config_source: c("env"),
         });
     if (this.userMultiStoreState)
       y("personal_memory_sync_watcher_start"),
-        s("tengu_personal_mem_sync_started", { multistore: !0, watcher_started: !0 });
+        s("tengu_personal_mem_sync_started", { multistore: true, watcher_started: true });
     await this.startFileWatcher(this.userMultiStoreState ? Di() : Ky());
   }
   memoryKeyForPath(e) {
@@ -25991,7 +25991,7 @@ class zqn {
       return o.ok || o.error.code !== "NotFound";
     }
     return JRt(e).then(
-      () => !0,
+      () => true,
       (o) => E(o) !== "ENOENT",
     );
   }
@@ -26023,7 +26023,7 @@ class zqn {
           level: "warn",
         });
     }
-    await s2n(e.mountDir, { recursive: !0, force: !0 });
+    await s2n(e.mountDir, { recursive: true, force: true });
   }
   async getPersistenceWarning(e) {
     let t = Eie(e);
@@ -26170,7 +26170,7 @@ class zqn {
           let t = this.scopeStates[e];
           if (!t.hasPendingChanges) return;
           if (!Cie()) {
-            (t.hasPendingChanges = !1),
+            (t.hasPendingChanges = false),
               n(`memory-watcher[${e}]: sync disabled \u2014 skipping shutdown flush`, { level: "info" });
             return;
           }
@@ -26179,10 +26179,10 @@ class zqn {
           try {
             await Promise.all(
               r.stores.map((o) => {
-                if (!bY(o)) return cB(o, { allowDeletes: !1 }, this.storageV5);
+                if (!bY(o)) return cB(o, { allowDeletes: false }, this.storageV5);
                 if ((o.suppressedUntilMs ?? null) === null) return Promise.resolve();
                 return Xt(
-                  cB(o, { allowDeletes: !1 }, this.storageV5),
+                  cB(o, { allowDeletes: false }, this.storageV5),
                   l2n,
                   `suppressed-store shutdown flush for ${o.mountName}`,
                 ).catch(() => {});
@@ -26196,14 +26196,14 @@ class zqn {
     if (!this.started) return;
     if (!QX()) return;
     let t = this.scopeStates.team,
-      r = !1;
+      r = false;
     while (t.currentPushPromise) {
-      r = !0;
+      r = true;
       let C = t.currentPushPromise;
       if ((await C.catch(() => {}), t.currentPushPromise === C)) t.currentPushPromise = null;
     }
     if (t.pushInProgress) return;
-    if (((t.pushInProgress = !0), t.debounceTimer)) clearTimeout(t.debounceTimer), (t.debounceTimer = null);
+    if (((t.pushInProgress = true), t.debounceTimer)) clearTimeout(t.debounceTimer), (t.debounceTimer = null);
     let o = this.multiStoreState,
       u = t.hasPendingChanges,
       d = t.changeSeq,
@@ -26223,7 +26223,7 @@ class zqn {
                   !z.pulled ||
                   pe.secretsSkipped > 0 ||
                   pe.conflicts > 0 ||
-                  pe.diskTrusted === !1
+                  pe.diskTrusted === false
                 )
                   C.add(z.mountName);
               }),
@@ -26274,7 +26274,7 @@ class zqn {
           });
         }
         if (t.changeSeq !== d) for (let z of o?.stores ?? []) C.add(z.mountName);
-        if (((this.multiStoreState = F), t.changeSeq === d && C.size === 0)) t.hasPendingChanges = !1;
+        if (((this.multiStoreState = F), t.changeSeq === d && C.size === 0)) t.hasPendingChanges = false;
         t.lastSyncCompletedAt = null;
         let B = (o?.stores ?? []).filter(
             (z) =>
@@ -26312,7 +26312,7 @@ class zqn {
     try {
       await _;
     } finally {
-      (t.pushInProgress = !1), (t.currentPushPromise = null), this.armResyncTimer();
+      (t.pushInProgress = false), (t.currentPushPromise = null), this.armResyncTimer();
     }
   }
 }
@@ -26431,7 +26431,7 @@ For commands that are harder to parse at a glance (piped commands, obscure flags
       dangerouslyDisableSandbox: Yb(q().optional()).describe(
         "Set this to true to dangerously override sandbox mode and run commands without sandboxing.",
       ),
-      ...!1,
+      ...false,
       _simulatedSedEdit: f({ filePath: i(), newContent: i(), baseHash: i().optional() })
         .optional()
         .describe("Internal: pre-computed sed edit result from preview"),
@@ -26440,8 +26440,8 @@ For commands that are harder to parse at a glance (piped commands, obscure flags
   ),
   xPt = m(() =>
     ($d()
-      ? PPt().omit({ run_in_background: !0, _simulatedSedEdit: !0 })
-      : PPt().omit({ _simulatedSedEdit: !0 })
+      ? PPt().omit({ run_in_background: true, _simulatedSedEdit: true })
+      : PPt().omit({ _simulatedSedEdit: true })
     ).superRefine((e, t) => {}),
   ),
   hVn = [...u$t, "wget"];
@@ -26471,7 +26471,7 @@ var yVn = m(() =>
       .describe(
         "Model-facing note that the session cwd was not changed by a backgrounded command containing a directory-change builtin (cd/pushd/popd/chdir)",
       ),
-    backgroundEndsWithFinalResponse: N(!0)
+    backgroundEndsWithFinalResponse: N(true)
       .optional()
       .describe(
         "True when this backgrounded command is owned by a synchronous subagent and is therefore terminated when that agent gives its final response; absent when the command survives (main loop, async subagents)",
@@ -26534,12 +26534,12 @@ var sqe = ":inner",
   hln = ":preamble-",
   _i = kt({
     name: Qe,
-    enablesCodeExecution: !0,
+    enablesCodeExecution: true,
     ruleContentField: "command",
     searchHint: "execute shell commands",
-    remoteExecution: { supported: !0, refusedInputFields: e1t },
+    remoteExecution: { supported: true, refusedInputFields: e1t },
     maxResultSizeChars: 30000,
-    strict: !0,
+    strict: true,
     async description({ description: e }) {
       return e || "Run shell command";
     },
@@ -26548,7 +26548,7 @@ var sqe = ":inner",
       return kPt(e, u, r, t);
     },
     isConcurrencySafe(e) {
-      return this.isReadOnly?.(e) ?? !1;
+      return this.isReadOnly?.(e) ?? false;
     },
     suppressesAllPermissionUpdates(e) {
       let t = e?.[Pi];
@@ -26560,7 +26560,7 @@ var sqe = ":inner",
     },
     toAutoClassifierInput(e) {
       let t = e.dangerouslyDisableSandbox,
-        r = !1,
+        r = false,
         o = void 0,
         u = void 0;
       return e.command;
@@ -26568,17 +26568,17 @@ var sqe = ":inner",
     async preparePermissionMatcher({ command: e }) {
       let t = await ide(e),
         r,
-        o = !1;
+        o = false;
       if (t.kind === "simple") r = t.commands.map((u) => u.argv.join(" "));
-      else if (t.differential || !K2n.has(t.nodeType ?? "")) return () => !0;
+      else if (t.differential || !K2n.has(t.nodeType ?? "")) return () => true;
       else {
         let u = LRt(e);
-        if (u === null || u.length === 0) return () => !0;
-        (r = u), (o = !0);
+        if (u === null || u.length === 0) return () => true;
+        (r = u), (o = true);
       }
       return (u) => {
         let d = O9e(u);
-        if (o && !(d !== null ? !/\s/.test(d) : /^[^\s*?[]+\s?\*$/.test(u))) return !0;
+        if (o && !(d !== null ? !/\s/.test(d) : /^[^\s*?[]+\s?\*$/.test(u))) return true;
         return r.some((_) => {
           if (d !== null) return _ === d || _.startsWith(`${d} `) || _ === `xargs ${d}` || _.startsWith(`xargs ${d} `);
           return $P(u, _) || $P(`xargs ${u}`, _);
@@ -26587,7 +26587,7 @@ var sqe = ":inner",
     },
     isSearchOrReadCommand(e) {
       let t = xPt().safeParse(e);
-      if (!t.success) return { isSearch: !1, isRead: !1, isList: !1 };
+      if (!t.success) return { isSearch: false, isRead: false, isList: false };
       return tgr(t.data.command);
     },
     get inputSchema() {
@@ -26620,12 +26620,12 @@ var sqe = ":inner",
         let r = ogr(e.command);
         if (r !== null)
           return {
-            result: !1,
+            result: false,
             message: `Blocked: ${r}. To wait for a condition, use Monitor with an until-loop (e.g. \`until <check>; do sleep 2; done\`). To wait for a command you started, use run_in_background: true. Do not chain shorter sleeps to work around this block.`,
             errorCode: 10,
           };
       }
-      return { result: !0 };
+      return { result: true };
     },
     permissionCheckFailureDecision(e, t) {
       return v$t(Qe, t);
@@ -26643,7 +26643,7 @@ var sqe = ":inner",
         o.behavior !== "ask" &&
         !Bct(o.decisionReason) &&
         !vv(e) &&
-        vv({ ...e, dangerouslyDisableSandbox: !1 })
+        vv({ ...e, dangerouslyDisableSandbox: false })
       ) {
         let u = l$t({ toolName: Qe, input: e, context: t });
         if (u) return u;
@@ -26701,7 +26701,7 @@ ${t}`
       if (t) (pe = t.replace(/^(\s*\n)+/, "")), (pe = pe.trimEnd());
       if (F) {
         let ge = Wze(pe, WDe);
-        pe = oue({ filepath: F, originalSize: U ?? 0, isJson: !1, preview: ge.preview, hasMore: ge.hasMore });
+        pe = oue({ filepath: F, originalSize: U ?? 0, isJson: false, preview: ge.preview, hasMore: ge.hasMore });
       }
       let fe = r.trim();
       if (e) {
@@ -26732,7 +26732,7 @@ ${x}`;
               u,
               [fe, me].filter(Boolean).join(`
 `),
-              { backgroundedByUser: d, ending: V1t(A === !0) },
+              { backgroundedByUser: d, ending: V1t(A === true) },
             ),
           };
       }
@@ -26762,19 +26762,19 @@ ${x}`;
         W,
         z,
         pe = 0,
-        fe = !1,
-        me = !1,
+        fe = false,
+        me = false,
         ge,
         Ce,
         Ie = !t.agentId,
         Ee = t.remoteCall?.constraints,
         Pe = Ee?.sandbox === "required",
-        Oe = !Ie || Ee?.pinCwd === !0,
+        Oe = !Ie || Ee?.pinCwd === true,
         Fe = vv(e, { disableUnsandboxedCommands: Pe }),
         Be = pt.isSandboxingEnabled(),
         ze = G2();
       if (Pe) {
-        let hn = !Fe || ze !== "strict" || wu() ? { confined: !1, reason: "sandbox_unconfined" } : await jne();
+        let hn = !Fe || ze !== "strict" || wu() ? { confined: false, reason: "sandbox_unconfined" } : await jne();
         if (!hn.confined)
           throw (
             (g("sandbox_exec", "remote_floor_refusal"),
@@ -26837,7 +26837,7 @@ ${x}`;
             });
           }
         while (!Ke.done);
-        if (((ge = Ke.value), ge.intercepted)) We = !1;
+        if (((ge = Ke.value), ge.intercepted)) We = false;
         if (
           ((Ce = await u1t(ge.stdout, ge.outputFilePath)),
           !ge.backgroundTaskId && d1t(e.command, ge.code, Ce).prResolved)
@@ -26879,7 +26879,7 @@ ${x}`;
             executor_shell_overridden: Boolean(process.env.CLAUDE_CODE_SHELL),
             sandboxed: We,
             sandbox_enabled: Be,
-            dangerously_disable_sandbox: e.dangerouslyDisableSandbox ?? !1,
+            dangerously_disable_sandbox: e.dangerouslyDisableSandbox ?? false,
             filesystem_policy: c(ze),
             call_origin: c(Ee ? "remote" : "local"),
             ...MPt(e),
@@ -26916,9 +26916,9 @@ ${x}`;
         try {
           let hn = pS(t.session);
           await nU(hn, t.storageV5);
-          let Ke = Bze(hn, ge.outputTaskId, !1),
+          let Ke = Bze(hn, ge.outputTaskId, false),
             mn = O() && t.storageV5 !== void 0 ? SP(G2n(Ke), z2n(Ke)) : void 0,
-            yn = !0;
+            yn = true;
           if (O() && t.storageV5 !== void 0 && mn !== void 0) {
             let er = await c$t(t.storageV5, mn, ge.outputFilePath, NTe, q5e());
             if (((yn = er === "today"), typeof er === "number")) (xt = Ke), (tt = er);
@@ -26935,7 +26935,7 @@ ${x}`;
         executor_shell_overridden: Boolean(process.env.CLAUDE_CODE_SHELL),
         sandboxed: We,
         sandbox_enabled: Be,
-        dangerously_disable_sandbox: e.dangerouslyDisableSandbox ?? !1,
+        dangerously_disable_sandbox: e.dangerouslyDisableSandbox ?? false,
         filesystem_policy: c(ze),
         call_origin: c(Ee ? "remote" : "local"),
         ...MPt(e),
@@ -26957,14 +26957,14 @@ ${x}`;
       if (nt) {
         let hn = await AFt(mt, ge.outputFilePath, tt, Ya(t.options.mainLoopModel));
         if (hn) ht = hn;
-        else nt = !1;
+        else nt = false;
       }
       let At = ge.backgroundTaskId ? void 0 : rtt(e.command, Ce, t.toolState.get(_ke)),
         dn =
           ge.backgroundTaskId && EL(e.command)
             ? `Session cwd remains ${ee()}; directory changes made by the backgrounded command do not apply to subsequent commands.`
             : void 0,
-        Lt = ge.backgroundTaskId !== void 0 && Rbt(t.agentContext) ? !0 : void 0,
+        Lt = ge.backgroundTaskId !== void 0 && Rbt(t.agentContext) ? true : void 0,
         fn;
       if (!ge.backgroundTaskId) {
         let hn = I3e(e.command, Ce);
@@ -27020,13 +27020,13 @@ ${x}`;
                 : bn.timedOutAfterMs !== void 0
                   ? w("timeout")
                   : w("explicit"),
-          ends_with_final_response: bn.backgroundEndsWithFinalResponse === !0,
+          ends_with_final_response: bn.backgroundEndsWithFinalResponse === true,
           shell: w("bash"),
         });
       return { data: bn };
     },
     isResultTruncated(e, { columns: t }) {
-      if (e.isImage) return !1;
+      if (e.isImage) return false;
       return ik(e.stdout, t) || ik(typeof e.stderr === "string" ? bSe(e.stderr).trim().replace(kdt, "") : e.stderr, t);
     },
   });
@@ -27174,7 +27174,7 @@ var zgr = [30, 70, 150],
 
 var l8n = m(() =>
   bw()
-    .pick(Object.fromEntries(kMt.map((e) => [e, !0])))
+    .pick(Object.fromEntries(kMt.map((e) => [e, true])))
     .strip(),
 );
 
@@ -27241,7 +27241,7 @@ Where these rules conflict with more general communication or formatting guidanc
       name: "Proactive",
       source: "built-in",
       description: "Claude executes immediately, minimizes interruptions, and prefers action over planning",
-      keepCodingInstructions: !0,
+      keepCodingInstructions: true,
       prompt: `You are an interactive CLI tool that helps users with software engineering tasks. You should work proactively and autonomously, executing immediately and minimizing interruptions.
 
 # Proactive Style Active
@@ -27252,7 +27252,7 @@ ${X8n}`,
       name: "Concise",
       source: "built-in",
       description: "Claude responds tersely, leading with results and skipping preamble and narration",
-      keepCodingInstructions: !0,
+      keepCodingInstructions: true,
       prompt: `You are an interactive CLI tool that helps users with software engineering tasks. Keep your responses short and direct while doing the work just as thoroughly.
 
 # Concise Style Active
@@ -27263,7 +27263,7 @@ ${sQn}`,
       name: "Explanatory",
       source: "built-in",
       description: "Claude explains its implementation choices and codebase patterns",
-      keepCodingInstructions: !0,
+      keepCodingInstructions: true,
       prompt: `You are an interactive CLI tool that helps users with software engineering tasks. In addition to software engineering tasks, you should provide educational insights about the codebase along the way.
 
 You should be clear and educational, providing helpful explanations while remaining focused on the task. Balance educational content with task completion. When providing insights, you may exceed typical length constraints, but remain focused and relevant.
@@ -27275,7 +27275,7 @@ ${_It}`,
       name: "Learning",
       source: "built-in",
       description: "Claude pauses and asks you to write small pieces of code for hands-on practice",
-      keepCodingInstructions: !0,
+      keepCodingInstructions: true,
       prompt: `You are an interactive CLI tool that helps users with software engineering tasks. In addition to software engineering tasks, you should help users learn more about the codebase through hands-on practice and educational insights.
 
 You should be collaborative and encouraging. Balance task completion with learning by requesting user input for meaningful design decisions while handling routine implementation yourself.   
@@ -27397,7 +27397,7 @@ var kce = "output_style";
 
 var wIt = ai(() => {
     let e = a.CLAUDE_CODE_INTRO_FRAME,
-      t = e ?? I("tengu_ochre_wren", !1);
+      t = e ?? I("tengu_ochre_wren", false);
     if (t) n(`intro_frame_arm_active source=${e !== void 0 ? "env" : "growthbook"}`);
     return t;
   }),
@@ -27412,7 +27412,7 @@ var qQn =
 
 var n7n = ai(() => {
     let e = a.CLAUDE_CODE_ACT_DONT_REDERIVE,
-      t = e ?? I("tengu_cedar_lantern", !0);
+      t = e ?? I("tengu_cedar_lantern", true);
     if (t) n(`act_dont_rederive_arm_active source=${e !== void 0 ? "env" : "growthbook"}`);
     return t;
   }),
@@ -27447,13 +27447,13 @@ var PIt = new Mn(() => {
       e = r;
     }),
     resolve: e,
-    committed: !1,
+    committed: false,
   };
 });
 
 class MIt {
   canonicalToConfig = void 0;
-  loggedStrip = !1;
+  loggedStrip = false;
   schemaKeys = new WeakMap();
   modelConfig(e) {
     return (
@@ -27463,7 +27463,7 @@ class MIt {
   }
   logStripOnce(e) {
     if (this.loggedStrip) return;
-    (this.loggedStrip = !0), n(`[betas] Stripped from tool schemas: [${e.join(", ")}] (experimental betas disabled)`);
+    (this.loggedStrip = true), n(`[betas] Stripped from tool schemas: [${e.join(", ")}] (experimental betas disabled)`);
   }
   schemaKey(e) {
     let t = this.schemaKeys.get(e);
@@ -27678,7 +27678,7 @@ var Eae = YZn(import.meta.require("/$bunfs/root/chunk-rwrr7ze8.js")),
 
 class iDt {
   templateLanesLogged = new Set();
-  controlMonitorsBetaRejected = !1;
+  controlMonitorsBetaRejected = false;
   externalSonnet5Probe = "unprobed";
   loggedPolicySkips = new Set();
   projectsOwnerRowsLogged = new Set();
@@ -27734,12 +27734,12 @@ var TDe = 15,
   vDe = 20;
 
 var hte = "SandboxNetworkAccess",
-  Itr = { "claude-sonnet-5": { t1: 25, t2: 10 }, "claude-opus-4-8": { t1: 25, t2: 10 }, ...!1 };
+  Itr = { "claude-sonnet-5": { t1: 25, t2: 10 }, "claude-opus-4-8": { t1: 25, t2: 10 }, ...false };
 
 var ELe = {
     type: "local",
     name: "auto-mode-setup",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     description: "Teach auto mode about your environment, plus optional rule tweaks",
     argumentHint:
       "[--request-id <uuid>] (--wizard posture=\u2026 scope=\u2026 depth=\u2026 --propose | --expect-sha256 <64-hex> --apply-file <path>)",
@@ -27754,7 +27754,7 @@ var ELe = {
     name: "auto-mode-setup",
     description: "Teach auto mode about your environment, plus optional rule tweaks",
     isEnabled: () => vLe() && !Le(),
-    requires: { workspace: !0, ink: !0 },
+    requires: { workspace: true, ink: true },
   },
   yDt = Ftr;
 
@@ -27764,7 +27764,7 @@ var $tr = {
     aliases: [],
     description: "Browse your published and shared artifacts",
     isEnabled: () => Zv() && Df() === null,
-    immediate: !0,
+    immediate: true,
   },
   _Dt = $tr;
 
@@ -27788,21 +27788,21 @@ var Htr = {
     type: "local-jsx",
     name: "btw",
     description: "Ask a quick side question without interrupting the main conversation",
-    immediate: !0,
+    immediate: true,
     argumentHint: "[question]",
     thinClientDispatch: "control-request",
   },
   CLe = Htr;
 
-var RLe = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var RLe = { isEnabled: () => false, isHidden: true, name: "stub" };
 
 var Ytr = {
     type: "local-jsx",
     name: "feedback",
     description: "Send feedback to Anthropic or report a bug",
     argumentHint: "[report]",
-    immediate: !0,
-    requires: { ink: !0 },
+    immediate: true,
+    requires: { ink: true },
   },
   ILe = Ytr;
 
@@ -27812,8 +27812,8 @@ var Xtr = {
     name: "bug",
     description: "Report a bug or share your conversation",
     argumentHint: "[report]",
-    immediate: !0,
-    requires: { ink: !0 },
+    immediate: true,
+    requires: { ink: true },
   },
   $Le = Xtr;
 
@@ -27831,7 +27831,7 @@ var Jtr = {
     description: "Start a new session with empty context; previous session stays on disk (resumable with /resume)",
     argumentHint: "[name]",
     aliases: ["reset", "new"],
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     thinClientDispatch: "post-text",
     load: () => import("/$bunfs/root/chunk-dg1hb5d6.js"),
   },
@@ -27841,17 +27841,17 @@ var Ztr = {
     type: "local-jsx",
     name: "color",
     description: "Set the prompt bar color for this session",
-    immediate: !0,
+    immediate: true,
     argumentHint: `[${[...Qp, "default"].join("|")}]`,
-    requires: { ink: !0 },
-    terminalOriented: !0,
+    requires: { ink: true },
+    terminalOriented: true,
     load: () => import("/$bunfs/root/chunk-jhjzr7c4.js"),
   },
   ULe = {
     type: "local",
     name: "color",
-    terminalOriented: !0,
-    supportsNonInteractive: !0,
+    terminalOriented: true,
+    supportsNonInteractive: true,
     description: "Set the prompt bar color for this session",
     argumentHint: `[${[...Qp, "default"].join("|")}]`,
     isEnabled: () => Le(),
@@ -27866,7 +27866,7 @@ var enr = {
     type: "local-jsx",
     name: "copy",
     description: "Copy Claude's last response to clipboard (or /copy N for the Nth-latest)",
-    requires: { ink: !0 },
+    requires: { ink: true },
   },
   YLe = enr;
 
@@ -27968,7 +27968,7 @@ var anr = {
     getAllowedTools: onr,
     disallowedTools: snr,
     get contentLength() {
-      return EDt("main", !1, { commit: "", pr: "" }).length;
+      return EDt("main", false, { commit: "", pr: "" }).length;
     },
     progressMessage: "creating commit and PR",
     source: "builtin",
@@ -27976,7 +27976,7 @@ var anr = {
       iqe("commit_push_pr");
       let [r, o, u] = await Promise.all([Cw(), cPe(), T$t(t.getAppState, t.storageV5)]),
         d = wS(r) ? r : "main",
-        C = EDt(d, !1, o, u),
+        C = EDt(d, false, o, u),
         A = e?.trim();
       if (A)
         C += `
@@ -27994,7 +27994,7 @@ var lnr = {
     name: "compact",
     description: "Free up context by summarizing the conversation so far",
     isEnabled: () => !Me(process.env.DISABLE_COMPACT),
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     argumentHint: "<optional custom summarization instructions>",
     thinClientDispatch: "post-text",
     load: () => import("/$bunfs/root/chunk-fq1s5s4q.js"),
@@ -28005,9 +28005,9 @@ var xDt = {
     type: "local-jsx",
     name: "autocompact",
     description: "Set how full the context gets before auto-summarizing",
-    immediate: !0,
+    immediate: true,
     isEnabled: () => !Le(),
-    isHidden: !1,
+    isHidden: false,
     argumentHint: "[auto|<tokens>]",
     userFacingName() {
       return "autocompact";
@@ -28016,7 +28016,7 @@ var xDt = {
   Rae = {
     type: "local",
     name: "autocompact",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     thinClientDispatch: "post-text",
     description: "Configure the auto-compact window size",
     get isHidden() {
@@ -28046,7 +28046,7 @@ var cnr = {
     type: "local",
     name: "config",
     aliases: ["settings"],
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     description: "Set a setting by key",
     argumentHint: "key=value",
     isEnabled: () => Le(),
@@ -28071,7 +28071,7 @@ var ZLe = {
   eFe = {
     type: "local",
     name: "context",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     description: "Show current context usage",
     get isHidden() {
       return !Le();
@@ -28089,9 +28089,9 @@ var tFe = {
     return rM() ? "Toggle the diff panel showing uncommitted changes" : "View uncommitted changes and per-turn diffs";
   },
   immediate: () => {
-    if (sn()) return !1;
+    if (sn()) return false;
     if (rM()) return Nt();
-    return !1;
+    return false;
   },
   thinClientDispatch: "control-request",
 };
@@ -28104,9 +28104,9 @@ var pnr = {
     name: "pause-memory",
     aliases: ["memory-pause", "toggle-memory"],
     description: "Pause automemory for this session",
-    isEnabled: () => !1,
-    isHidden: !1,
-    supportsNonInteractive: !0,
+    isEnabled: () => false,
+    isHidden: false,
+    supportsNonInteractive: true,
     thinClientDispatch: "post-text",
     load: () => import("/$bunfs/root/chunk-tejch1w5.js"),
     userFacingName() {
@@ -28122,7 +28122,7 @@ var mnr = {
     get immediate() {
       return Nt();
     },
-    requires: { ink: !0 },
+    requires: { ink: true },
   },
   oFe = mnr;
 
@@ -28142,7 +28142,7 @@ var hnr = {
     type: "local-jsx",
     name: "import",
     description: "Import config from another AI coding agent",
-    immediate: !0,
+    immediate: true,
     argumentHint: "[codex|gemini] [--dry-run]",
     isEnabled: tX,
     get isHidden() {
@@ -28152,7 +28152,7 @@ var hnr = {
   NDt = {
     type: "local",
     name: "import",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     description: "Import config from another AI coding agent",
     get isHidden() {
       return !tX() || !Le();
@@ -28453,7 +28453,7 @@ var wnr = {
     name: "keybindings",
     description: "Open your keyboard shortcuts file",
     isEnabled: () => pM(),
-    supportsNonInteractive: !1,
+    supportsNonInteractive: false,
     type: "local",
     load: () => import("/$bunfs/root/chunk-w2vd8m8t.js"),
   },
@@ -28466,7 +28466,7 @@ var Tnr = {
     argumentHint: "consent | revoke",
     isEnabled: () => Sz(),
     policyGate: yz,
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     load: () => import("/$bunfs/root/chunk-rar8f9yx.js"),
   },
   HDt = {
@@ -28475,8 +28475,8 @@ var Tnr = {
     description: "Grant Claude agent access to your Design projects",
     isEnabled: () => Sz(),
     policyGate: yz,
-    supportsNonInteractive: !0,
-    isHidden: !0,
+    supportsNonInteractive: true,
+    isHidden: true,
     load: () => import("/$bunfs/root/chunk-1zkrekhe.js"),
   },
   jDt = {
@@ -28485,8 +28485,8 @@ var Tnr = {
     description: "Revoke Claude agent access to your Design projects",
     isEnabled: () => Sz(),
     policyGate: yz,
-    supportsNonInteractive: !0,
-    isHidden: !0,
+    supportsNonInteractive: true,
+    isHidden: true,
     load: () => import("/$bunfs/root/chunk-fg944rkm.js"),
   },
   WDt = Tnr;
@@ -28534,17 +28534,17 @@ var Anr = {
     name: "install-slack-app",
     description: "Install the Claude Slack app",
     availability: ["claude-ai"],
-    supportsNonInteractive: !1,
+    supportsNonInteractive: false,
     load: () => import("/$bunfs/root/chunk-ycv8dg8w.js"),
   },
   VDt = Anr;
 
-var YDt = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var YDt = { isEnabled: () => false, isHidden: true, name: "stub" };
 
 var Pae = {
     type: "local",
     name: "mcp",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     description: "Manage MCP servers",
     argumentHint: "[reconnect|enable|disable [<server>|all]]",
     thinClientDispatch: "post-text",
@@ -28558,7 +28558,7 @@ var Pae = {
     type: "local-jsx",
     name: "mcp",
     description: "Manage MCP servers",
-    immediate: !0,
+    immediate: true,
     argumentHint: "[reconnect <server>|enable|disable [<server>|all]]",
     thinClientDispatch: "twin",
   },
@@ -28569,11 +28569,11 @@ var xnr = {
     name: "mobile",
     aliases: ["ios", "android"],
     description: "Show QR code to download the Claude mobile app",
-    requires: { ink: !0 },
+    requires: { ink: true },
   },
   lFe = xnr;
 
-var XDt = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var XDt = { isEnabled: () => false, isHidden: true, name: "stub" };
 
 var Inr = {
     type: "local",
@@ -28584,7 +28584,7 @@ var Inr = {
     get isHidden() {
       return !swe();
     },
-    supportsNonInteractive: !1,
+    supportsNonInteractive: false,
     load: () => import("/$bunfs/root/chunk-kbw9vpc1.js"),
   },
   QDt = Inr;
@@ -28593,10 +28593,10 @@ var cFe = {
   type: "local-jsx",
   name: "powerup",
   description: "Discover Claude Code features through quick interactive lessons",
-  requires: { ink: !0 },
+  requires: { ink: true },
 };
 
-var Onr = { description: "View release notes", name: "release-notes", type: "local-jsx", requires: { ink: !0 } },
+var Onr = { description: "View release notes", name: "release-notes", type: "local-jsx", requires: { ink: true } },
   uFe = Onr;
 
 var Dnr = {
@@ -28604,16 +28604,16 @@ var Dnr = {
     name: "rename",
     aliases: ["name"],
     description: "Rename the current conversation",
-    immediate: !0,
+    immediate: true,
     argumentHint: "[name]",
-    requires: { ink: !0 },
+    requires: { ink: true },
     load: () => import("/$bunfs/root/chunk-pd5d2df3.js"),
   },
   dFe = {
     type: "local",
     name: "rename",
     aliases: ["name"],
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     description: "Rename the current conversation",
     argumentHint: "[name]",
     isEnabled: () => Le(),
@@ -28667,7 +28667,7 @@ var nLt = {
     get description() {
       return tLt();
     },
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     isEnabled: () => Le() && ZR(),
     get isHidden() {
       return !Le();
@@ -28684,34 +28684,34 @@ var Unr = {
     get isHidden() {
       return !zT("fanout");
     },
-    requires: { ink: !0 },
+    requires: { ink: true },
   },
   yFe = Unr;
 
-var oLt = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var oLt = { isEnabled: () => false, isHidden: true, name: "stub" };
 
-var sLt = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var sLt = { isEnabled: () => false, isHidden: true, name: "stub" };
 
 var Bnr = {
     type: "local-jsx",
     name: "scroll-speed",
     description: "Adjust mouse wheel scroll speed",
     isEnabled: () => {
-      if (!Nt()) return !1;
+      if (!Nt()) return false;
       let e = Cl();
       return !(e ? gU.includes(e.terminal ?? "") : nw.isJetBrainsIdeTerminal());
     },
   },
   iLt = Bnr;
 
-var jnr = { type: "local-jsx", name: "skills", description: "List available skills", immediate: !0 },
+var jnr = { type: "local-jsx", name: "skills", description: "List available skills", immediate: true },
   aLt = jnr;
 
 var Wnr = {
     type: "local-jsx",
     name: "status",
     description: "Show Claude Code status including version, model, account, API connectivity, and tool statuses",
-    immediate: !0,
+    immediate: true,
   },
   lLt = Wnr;
 
@@ -28720,7 +28720,7 @@ var znr = {
     name: "tasks",
     aliases: ["bashes"],
     description: "View and manage everything running in the background",
-    immediate: !0,
+    immediate: true,
   },
   cLt = znr;
 
@@ -28954,7 +28954,7 @@ If this is a self-hosted runner session created without a \`git_repository\` sou
     },
   });
 
-var mLt = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var mLt = { isEnabled: () => false, isHidden: true, name: "stub" };
 
 var fLt = {
     ghostty: "Ghostty",
@@ -28978,7 +28978,7 @@ var fLt = {
         return "Enable iTerm2 clipboard access for /copy";
       return "Install Shift+Enter key binding for newlines";
     },
-    requires: { ink: !0 },
+    requires: { ink: true },
   },
   SFe = Ynr;
 
@@ -28988,8 +28988,8 @@ var Qq = "ultraplan",
     payload: m(() => f({ plan: i() })),
     result: m(() => oe(["here", "fresh", "cancel", "cancelled"])),
     default: "cancelled",
-    yieldsToPanels: !0,
-    yieldsToDraft: !0,
+    yieldsToPanels: true,
+    yieldsToDraft: true,
   });
 
 var yLt = ["simple_plan", "visual_plan", "three_subagents_with_critique"];
@@ -28999,7 +28999,7 @@ var _ft = go({
   payload: m(() => f({ promptIdentifier: oe(yLt), showTerms: q(), prompt: i(), deliveredByRelay: q() })),
   result: m(() => oe(["run", "cancel", "cancelled"])),
   default: "cancelled",
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 
 var _Lt = 3000,
@@ -29025,8 +29025,8 @@ class SLt {
   results = new Map();
   rejectedIds = new Set();
   terminated = null;
-  rescanAfterRejection = !1;
-  everSeenPending = !1;
+  rescanAfterRejection = false;
+  everSeenPending = false;
   get rejectCount() {
     return this.rejectedIds.size;
   }
@@ -29050,7 +29050,7 @@ class SLt {
             this.results.set(d.tool_use_id, d);
       } else if (o.type === "result" && o.subtype !== "success") this.terminated = { subtype: o.subtype };
     let t = e.length > 0 || this.rescanAfterRejection;
-    this.rescanAfterRejection = !1;
+    this.rescanAfterRejection = false;
     let r = null;
     if (t) {
       for (let o = this.exitPlanCalls.length - 1; o >= 0; o--) {
@@ -29058,7 +29058,7 @@ class SLt {
         if (this.rejectedIds.has(u)) continue;
         let d = this.results.get(u);
         if (!d) r = { kind: "pending" };
-        else if (d.is_error === !0) {
+        else if (d.is_error === true) {
           let _ = nrr(d.content);
           r = _ !== null ? { kind: "teleport", plan: _ } : { kind: "rejected", id: u };
         } else r = { kind: "approved", plan: rrr(d.content) };
@@ -29066,10 +29066,10 @@ class SLt {
       }
       if (r?.kind === "approved" || r?.kind === "teleport") return r;
     }
-    if (r?.kind === "rejected") this.rejectedIds.add(r.id), (this.rescanAfterRejection = !0);
+    if (r?.kind === "rejected") this.rejectedIds.add(r.id), (this.rescanAfterRejection = true);
     if (this.terminated) return { kind: "terminated", subtype: this.terminated.subtype };
     if (r?.kind === "rejected") return r;
-    if (r?.kind === "pending") return (this.everSeenPending = !0), r;
+    if (r?.kind === "pending") return (this.everSeenPending = true), r;
     return { kind: "unchanged" };
   }
 }
@@ -29121,7 +29121,7 @@ var yrr = async (e, t, r) => {
     if (!o) return e(xLt(), { display: "system" }), null;
     return await wrr({ arg: o, source: t.dispatchedByKeyword ? "keyword" : "slash", context: t, onDone: e }), null;
   },
-  _rr = { subscribe: () => () => {}, getSnapshot: () => !1 },
+  _rr = { subscribe: () => () => {}, getSnapshot: () => false },
   Srr = {},
   brr = { subscribe: () => () => {}, getSnapshot: () => Srr },
   krr =
@@ -29144,14 +29144,14 @@ var TFe = {
     aliases: ["cost", "stats"],
     description: "Show session cost, plan usage, and activity stats",
     thinClientDispatch: "control-request",
-    immediate: !0,
-    requires: { ink: !0 },
+    immediate: true,
+    requires: { ink: true },
   },
   xFe = {
     type: "local",
     name: "usage",
     aliases: ["cost", "stats"],
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     description: "Show session cost, plan usage, and what's contributing to your limits",
     menuDescription: "Show session cost and plan usage",
     isEnabled: () => Le(),
@@ -29165,14 +29165,14 @@ var OFe = {
     type: "local-jsx",
     name: "skill-doctor",
     description: "Show which loaded skills are unused and costing context",
-    immediate: !0,
+    immediate: true,
     thinClientDispatch: "twin",
   },
   xae = {
     type: "local",
     name: "skill-doctor",
     description: "Show which loaded skills are unused and costing context",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     thinClientDispatch: "post-text",
     isEnabled: () => Le(),
     get isHidden() {
@@ -29188,7 +29188,7 @@ var Trr = {
     get immediate() {
       return Nt();
     },
-    requires: { ink: !0 },
+    requires: { ink: true },
   },
   LFe = Trr;
 
@@ -29205,7 +29205,7 @@ var Crr = {
     name: "permissions",
     aliases: ["allowed-tools"],
     description: "Manage allow and deny tool permission rules",
-    immediate: !0,
+    immediate: true,
   },
   DLt = Crr;
 
@@ -29214,7 +29214,7 @@ var Arr = {
     name: "plan",
     description: "Enable plan mode or view the current session plan",
     argumentHint: "[open|share|<description>]",
-    requires: { ink: !0 },
+    requires: { ink: true },
   },
   FFe = Arr;
 
@@ -29228,14 +29228,14 @@ var Rrr = {
       return !Yr();
     },
     argumentHint: "[on|off]",
-    immediate: !0,
-    requires: { ink: !0 },
+    immediate: true,
+    requires: { ink: true },
     thinClientDispatch: "control-request",
   },
   NFe = {
     type: "local",
     name: "fast",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     get description() {
       return `Toggle fast mode (${yC()})`;
     },
@@ -29310,7 +29310,7 @@ var HFe = {
     let { eligible: e, hasCache: t } = tDe();
     return !e || !t;
   },
-  requires: { ink: !0 },
+  requires: { ink: true },
 };
 
 var Hrr = {
@@ -29318,7 +29318,7 @@ var Hrr = {
     name: "privacy-settings",
     description: "View and update your privacy settings",
     isEnabled: () => D6(),
-    requires: { ink: !0 },
+    requires: { ink: true },
   },
   jFe = Hrr;
 
@@ -29326,8 +29326,8 @@ var zrr = {
     type: "local-jsx",
     name: "hooks",
     description: "View hook configurations for tool events",
-    immediate: !0,
-    requires: { workspace: !1, ink: !0 },
+    immediate: true,
+    requires: { workspace: false, ink: true },
   },
   zFe = zrr;
 
@@ -29335,8 +29335,8 @@ var Grr = {
     type: "local-jsx",
     name: "loops",
     description: "List, create, and delete loops",
-    immediate: !0,
-    isEnabled: () => !1,
+    immediate: true,
+    isEnabled: () => false,
   },
   BLt = Grr;
 
@@ -29390,7 +29390,7 @@ Docs: ${"https://code.claude.com/docs/en/sub-agents"}`,
     type: "local",
     name: "agents",
     description: "(removed) Ask Claude to create/manage subagents, or edit .claude/agents/",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     load: () => Promise.resolve({ call: Krr }),
   },
   GLt = Vrr;
@@ -29400,7 +29400,7 @@ var Yrr = {
     name: "plugin",
     aliases: ["plugins", "marketplace"],
     description: "Manage Claude Code plugins",
-    immediate: !0,
+    immediate: true,
     getArgumentCompletions: (e, t, r) =>
       import("/$bunfs/root/chunk-w8x2900s.js").then((o) => o.getPluginArgumentCompletions(e, t, r)),
   },
@@ -29412,7 +29412,7 @@ var Xrr = {
     description:
       "Write claude-code-mcp.d.ts: the inputs of the connected MCP tools, for typing a plugin against this session",
     argumentHint: "[dir]",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     load: () => import("/$bunfs/root/chunk-my6nv053.js"),
   },
   KLt = Xrr;
@@ -29422,8 +29422,8 @@ var Qrr = {
     name: "reload-plugins",
     description: "Activate pending plugin changes in the current session",
     argumentHint: "[--force]",
-    supportsNonInteractive: !1,
-    terminalOriented: !0,
+    supportsNonInteractive: false,
+    terminalOriented: true,
     thinClientDispatch: "control-request",
     load: () => import("/$bunfs/root/chunk-x7w02pcc.js"),
   },
@@ -29433,7 +29433,7 @@ var Jrr = {
     type: "local",
     name: "reload-skills",
     description: "Pick up skills added or changed on disk during this session",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     thinClientDispatch: "post-text",
     load: () => import("/$bunfs/root/chunk-4a1wtdqv.js"),
   },
@@ -29445,7 +29445,7 @@ var Zrr = {
     aliases: ["checkpoint", "undo"],
     argumentHint: "",
     type: "local",
-    supportsNonInteractive: !1,
+    supportsNonInteractive: false,
     load: () => import("/$bunfs/root/chunk-sxc0815j.js"),
   },
   VLt = Zrr;
@@ -29456,8 +29456,8 @@ var nor = {
     description: "Dump the JS heap to ~/Desktop",
     isEnabled: () => Mt("allow_heap_dump"),
     policyGate: { policy: "allow_heap_dump", featureLabel: "Heap dumps", verb: "are" },
-    isHidden: !0,
-    supportsNonInteractive: !0,
+    isHidden: true,
+    supportsNonInteractive: true,
     fleetHostCall: async ({ setInfo: e, setError: t }) => {
       e("Writing heap dump\u2026");
       let { performHeapDump: r } = await import("/$bunfs/root/chunk-3ckx44d0.js"),
@@ -29469,15 +29469,15 @@ var nor = {
   },
   YLt = nor;
 
-var XLt = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var XLt = { isEnabled: () => false, isHidden: true, name: "stub" };
 
 var ror = {
     type: "local-jsx",
     name: "version",
     description: "Show this session's version (autoupdate may have a newer one)",
-    isEnabled: () => !1,
-    immediate: !0,
-    requires: { ink: !0 },
+    isEnabled: () => false,
+    immediate: true,
+    requires: { ink: true },
   },
   sor = async () => {
     let e = `${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION}${k0()}`;
@@ -29502,33 +29502,33 @@ var ror = {
     type: "local",
     name: "version",
     description: "Print the version this session is running (not what autoupdate downloaded)",
-    isEnabled: () => !1,
+    isEnabled: () => false,
     get isHidden() {
       return !Le();
     },
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     load: () => Promise.resolve({ call: sor }),
   },
   YFe = ror;
 
-var QLt = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var QLt = { isEnabled: () => false, isHidden: true, name: "stub" };
 
 var XFe = QLt,
   Oae = QLt;
 
-var ior = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var ior = { isEnabled: () => false, isHidden: true, name: "stub" };
 
 var QFe = ior;
 
-var aor = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var aor = { isEnabled: () => false, isHidden: true, name: "stub" };
 
 var JLt = aor;
 
-var ZLt = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var ZLt = { isEnabled: () => false, isHidden: true, name: "stub" };
 
-var e0t = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var e0t = { isEnabled: () => false, isHidden: true, name: "stub" };
 
-var t0t = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var t0t = { isEnabled: () => false, isHidden: true, name: "stub" };
 
 var lor = {
     name: "sandbox",
@@ -29537,7 +29537,7 @@ var lor = {
         t = pt.isAutoAllowBashIfSandboxedEnabled(),
         r = pt.areUnsandboxedCommandsAllowed(),
         o = pt.areSandboxSettingsLockedByPolicy() || pt.areUnsandboxedCommandsForbiddenByPolicy(),
-        u = pt.passesCheapSandboxGates() ? pt.checkDependencies().errors.length === 0 : !0,
+        u = pt.passesCheapSandboxGates() ? pt.checkDependencies().errors.length === 0 : true,
         d;
       if (!u) d = L.warning;
       else d = e ? L.tick : L.circle;
@@ -29570,7 +29570,7 @@ var uor = {
     type: "local",
     name: "stickers",
     description: "Order Claude Code stickers",
-    supportsNonInteractive: !1,
+    supportsNonInteractive: false,
     load: () => import("/$bunfs/root/chunk-14p18czy.js"),
   },
   o0t = uor;
@@ -29579,7 +29579,7 @@ var dor = {
     type: "local",
     name: "radio",
     description: "Listen to Claude FM lo-fi radio",
-    supportsNonInteractive: !1,
+    supportsNonInteractive: false,
     load: () => import("/$bunfs/root/chunk-51bjrmey.js"),
   },
   s0t = dor;
@@ -29588,7 +29588,7 @@ var JFe = {
   type: "local-jsx",
   name: "advisor",
   description: "Let Claude consult a stronger model at key moments",
-  requires: { ink: !0 },
+  requires: { ink: true },
   thinClientDispatch: "control-request",
   immediate: (e) => e.trim() !== "" || Nt(),
   get argumentHint() {
@@ -29619,7 +29619,7 @@ var a0t = [
   D0({ name: "autofix-pr", description: "Monitor and autofix any issues with the current PR" }),
 ];
 
-var ZFe = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var ZFe = { isEnabled: () => false, isHidden: true, name: "stub" };
 
 var bft = ["exit", "quit", ":q", ":q!", ":wq", ":wq!"];
 
@@ -29630,16 +29630,16 @@ var mor = {
     get description() {
       return l0t();
     },
-    immediate: !0,
-    requires: { ink: !0 },
-    terminalOriented: !0,
+    immediate: true,
+    requires: { ink: true },
+    terminalOriented: true,
     fleetHostCall: async ({ exit: e }) => e(),
   },
   c0t = {
     type: "local",
     name: "exit",
-    terminalOriented: !0,
-    supportsNonInteractive: !0,
+    terminalOriented: true,
+    supportsNonInteractive: true,
     get description() {
       return l0t();
     },
@@ -29652,9 +29652,9 @@ var gor = {
     name: "update",
     aliases: ["restart"],
     description: "Switch to the latest version (conversation continues)",
-    supportsNonInteractive: !1,
-    isEnabled: () => !1,
-    isHidden: !0,
+    supportsNonInteractive: false,
+    isEnabled: () => false,
+    isHidden: true,
     fleetHostCall: async ({ relaunch: e }) => e(),
     load: () => import("/$bunfs/root/chunk-9fr0ysw5.js"),
   },
@@ -29665,14 +29665,14 @@ var hor = {
     name: "export",
     description: "Export the current conversation to a file or clipboard",
     argumentHint: "[filename]",
-    requires: { ink: !0 },
+    requires: { ink: true },
   },
   nNe = hor;
 
 var oNe = {
     type: "local",
     name: "model",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     description: "Set the AI model for Claude Code",
     argumentHint: "<model>",
     isEnabled: () => Le(),
@@ -29688,8 +29688,8 @@ var oNe = {
       return `Set the AI model for Claude Code (currently ${cs(at())})`;
     },
     argumentHint: "[model]",
-    immediate: !0,
-    requires: { ink: !0 },
+    immediate: true,
+    requires: { ink: true },
     thinClientDispatch: "control-request",
   };
 
@@ -29707,9 +29707,9 @@ var yor = {
     type: "local",
     name: "__remote-workflow",
     description: "Run the workflow script delivered in this session environment (server-launched sessions only)",
-    isHidden: !0,
-    disableModelInvocation: !0,
-    supportsNonInteractive: !0,
+    isHidden: true,
+    disableModelInvocation: true,
+    supportsNonInteractive: true,
     load: () => import("/$bunfs/root/chunk-qmcxcs7h.js").then((e) => ({ call: e.call })),
   },
   d0t = yor;
@@ -29718,9 +29718,9 @@ var _or = {
     type: "local",
     name: "workflow-launch-exec",
     description: "Execute a server-launched workflow handoff (workflow_launch event sessions only)",
-    isHidden: !0,
-    disableModelInvocation: !0,
-    supportsNonInteractive: !0,
+    isHidden: true,
+    disableModelInvocation: true,
+    supportsNonInteractive: true,
     load: () => import("/$bunfs/root/chunk-852emwzn.js").then((e) => ({ call: e.call })),
   },
   p0t = _or;
@@ -29731,7 +29731,7 @@ var Sor = {
     description: "Upgrade to Max for higher rate limits and more Opus",
     availability: ["claude-ai"],
     isEnabled: A2,
-    requires: { ink: !0 },
+    requires: { ink: true },
   },
   sz = Sor;
 
@@ -29740,12 +29740,12 @@ var RD = {
     name: "usage-credits",
     description: "Configure usage credits or request them from your admin when you hit a limit",
     isEnabled: () => eb() && !Le(),
-    requires: { ink: !0 },
+    requires: { ink: true },
   },
   iNe = {
     type: "local",
     name: "usage-credits",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     description: "Configure usage credits or request them from your admin when you hit a limit",
     isEnabled: () => eb() && Le(),
     get isHidden() {
@@ -29757,16 +29757,16 @@ var RD = {
     type: "local-jsx",
     name: "extra-usage",
     description: "Renamed to /usage-credits",
-    isHidden: !0,
+    isHidden: true,
     isEnabled: () => eb() && !Le(),
-    requires: { ink: !0 },
+    requires: { ink: true },
   },
   pNe = {
     type: "local",
     name: "extra-usage",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     description: "Renamed to /usage-credits",
-    isHidden: !0,
+    isHidden: true,
     isEnabled: () => eb() && Le(),
     load: () => import("/$bunfs/root/chunk-qrmhh3cs.js"),
   };
@@ -29775,7 +29775,7 @@ var bor = {
     type: "local-jsx",
     name: "pro-trial-expired",
     description: "Options shown when the Pro plan Claude Code trial has ended",
-    isHidden: !0,
+    isHidden: true,
   },
   m0t = bor;
 
@@ -29783,8 +29783,8 @@ var kor = {
     type: "local-jsx",
     name: "rate-limit-options",
     description: "Show options when rate limit is reached",
-    isEnabled: () => Tt() || !1,
-    isHidden: !0,
+    isEnabled: () => Tt() || false,
+    isHidden: true,
   },
   f0t = kor;
 
@@ -29792,9 +29792,9 @@ var wor = {
     type: "local",
     name: uz,
     description: "Continue now at lower priority after reaching your session limit; run again to stop",
-    supportsNonInteractive: !1,
+    supportsNonInteractive: false,
     isEnabled: () => Tt() && (aM() || Xbe()),
-    isHidden: !0,
+    isHidden: true,
     load: () => import("/$bunfs/root/chunk-aakpzcan.js"),
   },
   g0t = wor;
@@ -29813,9 +29813,9 @@ var vor = {
     type: "local",
     name: mNe,
     description: "Reset your session limit now and keep working; once a week, still counts toward your weekly limit",
-    supportsNonInteractive: !1,
+    supportsNonInteractive: false,
     isEnabled: () => Tt() && nDe(),
-    isHidden: !0,
+    isHidden: true,
     load: () => import("/$bunfs/root/chunk-kw5j3q0q.js"),
   },
   h0t = vor;
@@ -29829,10 +29829,10 @@ var Eor = {
     progressMessage: "setting up statusLine",
     allowedTools: [yt, "Read(~/**)", "Edit(~/.claude/settings.json)"],
     source: "builtin",
-    terminalOriented: !0,
-    disableNonInteractive: !0,
-    disableModelInvocation: !0,
-    requires: { workspace: !0 },
+    terminalOriented: true,
+    disableNonInteractive: true,
+    disableModelInvocation: true,
+    requires: { workspace: true },
     async getPromptForCommand(e) {
       if (Dr())
         return [
@@ -29856,14 +29856,14 @@ var Cor = {
     get argumentHint() {
       return _0t("[", "]");
     },
-    immediate: !0,
-    requires: { ink: !0 },
+    immediate: true,
+    requires: { ink: true },
     thinClientDispatch: "control-request",
   },
   fNe = {
     type: "local",
     name: "effort",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     description: "Set effort level for model usage",
     get argumentHint() {
       return _0t("<", ">");
@@ -29881,9 +29881,9 @@ var Aor = {
     name: "wellbeing",
     aliases: ["breaks", "break-reminder", "downtime"],
     description: "Configure optional break reminders and quiet-hours nudges",
-    isEnabled: () => !1,
-    immediate: !0,
-    requires: { ink: !0 },
+    isEnabled: () => false,
+    immediate: true,
+    requires: { ink: true },
   },
   yNe = Aor;
 
@@ -29891,8 +29891,8 @@ var Ror = {
     type: "local-jsx",
     name: "focus",
     description: "Toggle focus view: just your prompt, summary, and response",
-    immediate: !0,
-    requires: { ink: !0 },
+    immediate: true,
+    requires: { ink: true },
     load: () =>
       Promise.resolve({
         async call(e, t) {
@@ -29907,12 +29907,12 @@ var Ror = {
               );
             if (t.getAppState().briefTranscript || ie().briefTranscript) {
               if (
-                (t.onQueryEvent?.({ type: "apply_flag_settings", settings: { briefTranscript: !1 } }),
+                (t.onQueryEvent?.({ type: "apply_flag_settings", settings: { briefTranscript: false } }),
                 ie().briefTranscript)
               )
-                await Ae((C) => ({ ...C, briefTranscript: !1 }), t.storageV5);
+                await Ae((C) => ({ ...C, briefTranscript: false }), t.storageV5);
               X5e();
-              let _ = S0t(!1);
+              let _ = S0t(false);
               return (
                 e(
                   `Focus view disabled.${_ ?? ""} Focus view needs the fullscreen renderer. Run /tui fullscreen to switch (this restarts and resumes your session), or set CLAUDE_CODE_NO_FLICKER=1 and restart.`,
@@ -29944,11 +29944,11 @@ var Ror = {
   },
   _Ne = Ror;
 
-var b0t = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var b0t = { isEnabled: () => false, isHidden: true, name: "stub" };
 
-var k0t = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var k0t = { isEnabled: () => false, isHidden: true, name: "stub" };
 
-var w0t = { isEnabled: () => !1, isHidden: !0, name: "stub" };
+var w0t = { isEnabled: () => false, isHidden: true, name: "stub" };
 
 var wNe = null,
   Mor = import.meta.require("/$bunfs/root/chunk-57856kvh.js").default,
@@ -29982,8 +29982,8 @@ var wNe = null,
     contentLength: 0,
     progressMessage: "analyzing your sessions",
     source: "builtin",
-    disableModelInvocation: !0,
-    requires: { workspace: !0 },
+    disableModelInvocation: true,
+    requires: { workspace: true },
     async getPromptForCommand(e, t) {
       let r = (await import("/$bunfs/root/chunk-jxfe128p.js")).default;
       if (r.type !== "prompt") throw Error("unreachable");
@@ -30276,7 +30276,7 @@ var xgr = 2000;
 
 class eHt {
   sentSkillNames = new Map();
-  suppressNext = !1;
+  suppressNext = false;
   resumeSeedNames = null;
   reportedUncBlockedPaths = new Set();
 }
@@ -30499,7 +30499,7 @@ var dK = {};
 
 var Aar = 20;
 
-var aGe = { managedHooksOnly: !0 };
+var aGe = { managedHooksOnly: true };
 
 var xhr = new J(() => ({ tokens: new WeakMap(), next: 0, host: ov() }));
 
@@ -30515,8 +30515,8 @@ var Par = new Set([
 var Ihr = new J(() => new Set());
 
 class WHt {
-  okLogged = !1;
-  badLogged = !1;
+  okLogged = false;
+  badLogged = false;
 }
 
 var Phr = new J(() => new WHt());
@@ -30527,9 +30527,9 @@ var Har = new Mn(() => ({
   pinnedHeaderScans: new Map(),
   injectedPinnedPaths: new Set(),
   nextEagerLoadReason: "session_start",
-  shouldFireHook: !0,
-  hasLoggedInitialLoad: !1,
-  hasLoggedPinnedInjection: !1,
+  shouldFireHook: true,
+  hasLoggedInitialLoad: false,
+  hasLoggedPinnedInjection: false,
 }));
 
 var YHt = "<managed-settings>",
@@ -30652,13 +30652,13 @@ var qar = new Set([
   ".patch",
 ]);
 
-var Xar = { entries: [], pinnedCount: 0, malformedCount: 0, truncatedPaths: new Set(), readFailed: !1, scanFailed: !1 };
+var Xar = { entries: [], pinnedCount: 0, malformedCount: 0, truncatedPaths: new Set(), readFailed: false, scanFailed: false };
 
 class ZHt {
-  memoryReadEacces = !1;
-  memoryReadFailed = !1;
-  skip = !1;
-  rulesWalk = !1;
+  memoryReadEacces = false;
+  memoryReadFailed = false;
+  skip = false;
+  rulesWalk = false;
 }
 
 var elr = new J(() => new ZHt());
@@ -30921,11 +30921,11 @@ var lWt = 2000;
 var Bcr = `The ${Qe} command sandbox has been disabled. Commands now run without sandbox restrictions; the earlier sandbox instructions no longer apply.`,
   uWt = {
     poll_events: (e) =>
-      e.deliveredVia !== void 0 ? [] : gs([xe({ content: xue(e.envelopes, e.remainingWakeCount), isMeta: !0 })]),
+      e.deliveredVia !== void 0 ? [] : gs([xe({ content: xue(e.envelopes, e.remainingWakeCount), isMeta: true })]),
     directory: (e) =>
       gs([
         hK(Qe, { command: `ls ${Go([e.path])}`, description: `Lists files in ${e.path}` }),
-        gK(_i, { stdout: e.content, stderr: "", interrupted: !1 }),
+        gK(_i, { stdout: e.content, stderr: "", interrupted: false }),
       ]),
     edited_text_file: (e) => {
       let t = `Note: ${_u(e.filename)} changed on disk since you last read it. That's usually deliberate, so take it as the current state rather than reverting it; if the change looks wrong, say so rather than undoing it yourself \u2014 otherwise no need to call it out.`;
@@ -30936,7 +30936,7 @@ var Bcr = `The ${Qe} command sandbox has been disabled. Commands now run without
               ? `${t} The diff is omitted here because other changed files this turn already filled the snippet budget; use ${_t} if you need the current content.`
               : `${t} Here are the relevant changes (shown with line numbers):
 ${e.snippet}`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]);
     },
@@ -30944,7 +30944,7 @@ ${e.snippet}`,
       gs([
         xe({
           content: `Note: ${_u(e.filename)} was read before the last conversation was summarized, but the contents are too large to include. Use ${_t} tool if you need to access it.`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
     audio_transcript: (e) =>
@@ -30956,14 +30956,14 @@ ${e.snippet}`,
 ` + l$e({ filename: e.filename, error: e.error })
               : `The user @-mentioned the audio file ${_u(e.filename)}. Claude Code transcribed it with Anthropic's speech-to-text service before sending this message. The transcript below IS the spoken content of that file \u2014 rely on it as you would on the output of a file-read tool; you do not need a separate tool to hear the audio.
 ` + l$e({ filename: e.filename, durationSec: e.durationSec, transcript: e.transcript }),
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
     pdf_reference: (e) =>
       gs([
         xe({
           content: `PDF file: ${_u(e.filename)} (${e.pageCount} pages, ${Ft(e.fileSize)}). This PDF is too large to read all at once. You MUST use the ${_t} tool with the pages parameter to read specific page ranges (e.g., pages: "1-5"). Do NOT call ${_t} without the pages parameter or it will fail. Start by reading the first few pages to understand the structure, then read more as needed. Maximum 20 pages per request.`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
     selected_lines_in_ide: (e) =>
@@ -30973,7 +30973,7 @@ ${e.snippet}`,
 ${cWt(e.content)}
 
 This may or may not be related to the current task.`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
     selected_lines_in_diff: (e) =>
@@ -30983,14 +30983,14 @@ This may or may not be related to the current task.`,
 ${cWt(e.content)}
 
 This may or may not be related to the current task.`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
     opened_file_in_ide: (e) =>
       gs([
         xe({
           content: `The user opened the file ${_u(e.filename)} in the IDE. This may or may not be related to the current task.`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
     plan_file_reference: (e) =>
@@ -31003,7 +31003,7 @@ Plan contents:
 ${e.planContent}
 
 If this plan is relevant to the current work and not already complete, continue working on it.`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
     nested_memory: (e) =>
@@ -31012,27 +31012,27 @@ If this plan is relevant to the current work and not already complete, continue 
           content: `Contents of ${e.content.path}:
 
 ${e.content.content}`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
-    read_truncation_notice: (e) => gs([xe({ content: zE(e.banner), isMeta: !0 })]),
-    dir_sync_notice: (e) => gs([xe({ content: VX(e.content), isMeta: !0 })]),
+    read_truncation_notice: (e) => gs([xe({ content: zE(e.banner), isMeta: true })]),
+    dir_sync_notice: (e) => gs([xe({ content: VX(e.content), isMeta: true })]),
     bash_output_audience_note: () =>
       gs([
         xe({
           content:
             "Only you see that command's output \u2014 the user's terminal shows at most a few lines of it. If the user needs to read any of it, put it in your reply.",
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
     agent_mention: (e) =>
       gs([
         xe({
           content: `The user has expressed a desire to invoke the agent "${e.agentType}". Please invoke the agent appropriately, passing in the required context to it. `,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
-    peer_mention: (e) => gs([xe({ content: Vcr(e), isMeta: !0 })]),
+    peer_mention: (e) => gs([xe({ content: Vcr(e), isMeta: true })]),
     skill_listing: (e) => {
       if (!e.content) return [];
       return gs([
@@ -31040,7 +31040,7 @@ ${e.content.content}`,
           content: `The following skills are available for use with the Skill tool:
 
 ${e.content}`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]);
     },
@@ -31059,7 +31059,7 @@ ${u
   .map((d) => `- ${d}`)
   .join(`
 `)}`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]);
     },
@@ -31075,11 +31075,11 @@ ${u
       return gs([
         xe({
           content: `${zE(e.style)} output style is active. ${e.turnReminder ?? "Remember to follow the specific guidelines for this style."}`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]);
     },
-    critical_system_reminder: (e) => gs([xe({ content: e.content, isMeta: !0 })]),
+    critical_system_reminder: (e) => gs([xe({ content: e.content, isMeta: true })]),
     plan_mode_exit: (e) => {
       let t = e.planExists ? ` The plan file is located at ${e.planFilePath} if you need to reference it.` : "";
       return gs([
@@ -31087,7 +31087,7 @@ ${u
           content: `## Exited Plan Mode
 
 You have exited plan mode. You can now make edits, run tools, and take actions.${t}`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]);
     },
@@ -31100,28 +31100,28 @@ You have exited auto mode.${t}`
           : `## Exited Auto Mode
 
 You have exited auto mode. The user may now want to interact more directly. You should ask clarifying questions when the approach is ambiguous rather than making assumptions.${t}`;
-      return gs([xe({ content: r, isMeta: !0 })]);
+      return gs([xe({ content: r, isMeta: true })]);
     },
     token_usage: (e) => [
-      xe({ content: _l(`Token usage: ${e.used}/${e.total}; ${e.remaining} remaining`), isMeta: !0 }),
+      xe({ content: _l(`Token usage: ${e.used}/${e.total}; ${e.remaining} remaining`), isMeta: true }),
     ],
-    total_tokens_reminder: (e) => [xe({ content: _l(e.text), isMeta: !0 })],
-    silent_turn_reminder: (e) => [xe({ content: _l(e.text), isMeta: !0 })],
-    batching_reminder: (e) => [xe({ content: _l(e.text), isMeta: !0 })],
-    secondary_reminder: (e) => [xe({ content: _l(e.text), isMeta: !0 })],
+    total_tokens_reminder: (e) => [xe({ content: _l(e.text), isMeta: true })],
+    silent_turn_reminder: (e) => [xe({ content: _l(e.text), isMeta: true })],
+    batching_reminder: (e) => [xe({ content: _l(e.text), isMeta: true })],
+    secondary_reminder: (e) => [xe({ content: _l(e.text), isMeta: true })],
     budget_usd: (e) => [
-      xe({ content: _l(`USD budget: $${e.used}/$${e.total}; $${e.remaining} remaining`), isMeta: !0 }),
+      xe({ content: _l(`USD budget: $${e.used}/$${e.total}; $${e.remaining} remaining`), isMeta: true }),
     ],
     output_token_usage: (e) => {
       let t = e.budget !== null ? `${Wo(e.turn)} / ${Wo(e.budget)}` : Wo(e.turn);
-      return [xe({ content: _l(`Output tokens \u2014 turn: ${t} \xB7 session: ${Wo(e.session)}`), isMeta: !0 })];
+      return [xe({ content: _l(`Output tokens \u2014 turn: ${t} \xB7 session: ${Wo(e.session)}`), isMeta: true })];
     },
     hook_blocking_error: (e) => [
       xe({
         content: _l(
           `${e.hookName} hook blocking error from command: "${e.blockingError.command}": ${e.blockingError.blockingError}`,
         ),
-        isMeta: !0,
+        isMeta: true,
       }),
     ],
     hook_additional_context: (e) => {
@@ -31132,28 +31132,28 @@ You have exited auto mode. The user may now want to interact more directly. You 
             `${e.hookName} hook additional context: ${e.content.join(`
 `)}`,
           ),
-          isMeta: !0,
+          isMeta: true,
         }),
       ];
     },
     inlined_image_paths: (e) => {
       let t = Array.isArray(e.paths) ? e.paths.filter((r) => typeof r === "string") : [];
       if (t.length === 0) return [];
-      return [xe({ content: _l(WWt(t)), isMeta: !0 })];
+      return [xe({ content: _l(WWt(t)), isMeta: true })];
     },
     hook_stopped_continuation: (e) => [
-      xe({ content: _l(`${e.hookName} hook stopped continuation: ${e.message}`), isMeta: !0 }),
+      xe({ content: _l(`${e.hookName} hook stopped continuation: ${e.message}`), isMeta: true }),
     ],
     date_change: (e) =>
       gs([
         xe({
           content: `The date has changed. Today's date is now ${e.newDate}. No need to announce the new date \u2014 the user's own clock shows it.`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
     sandbox_instructions: (e) => {
       if (typeof e.content !== "string") return [];
-      return gs([xe({ content: e.content === "" ? Bcr : e.content, isMeta: !0 })]);
+      return gs([xe({ content: e.content === "" ? Bcr : e.content, isMeta: true })]);
     },
     environment: (e) => {
       if (!Ll()) return [];
@@ -31169,7 +31169,7 @@ You have exited auto mode. The user may now want to interact more directly. You 
           )
         : j0e(t.data);
       if (r === "") return [];
-      return gs([xe({ content: r, isMeta: !0 })]);
+      return gs([xe({ content: r, isMeta: true })]);
     },
     model: (e) => {
       if (!Ll()) return [];
@@ -31177,21 +31177,21 @@ You have exited auto mode. The user may now want to interact more directly. You 
       if (!t.success) return [];
       let r = Q0e({ ...e, identity: t.data });
       if (r === null || r === "") return [];
-      return gs([xe({ content: r, isMeta: !0 })]);
+      return gs([xe({ content: r, isMeta: true })]);
     },
     output_style_instructions: (e) => {
       if (!Ll()) return [];
       let t = GU().safeParse(e.style);
       if (!t.success) return [];
-      return gs([xe({ content: Z0e(t.data), isMeta: !0 })]);
+      return gs([xe({ content: Z0e(t.data), isMeta: true })]);
     },
     session_context: (e) => {
       if (!Ll()) return [];
       let t = cde().safeParse(e.context);
       if (!t.success) return [];
-      let r = oUe(t.data, e.changed === !0, rUe().safeParse(e.reason).data);
+      let r = oUe(t.data, e.changed === true, rUe().safeParse(e.reason).data);
       if (r === "") return [];
-      return gs([xe({ content: r, isMeta: !0 })]);
+      return gs([xe({ content: r, isMeta: true })]);
     },
     prompt_snapshot: () => [],
     instructions: (e) => {
@@ -31200,26 +31200,26 @@ You have exited auto mode. The user may now want to interact more directly. You 
       if (!t.success) return [];
       let r = hjt(t.data);
       if (r === "") return [];
-      return gs([xe({ content: r, isMeta: !0 })]);
+      return gs([xe({ content: r, isMeta: true })]);
     },
     date: (e) => {
       if (!Ll()) return [];
       let t = ude().safeParse(e);
       if (!t.success) return [];
-      return gs([xe({ content: sUe(t.data), isMeta: !0 })]);
+      return gs([xe({ content: sUe(t.data), isMeta: true })]);
     },
     language: (e) => {
       if (!Ll()) return [];
       let t = qU().safeParse(e.language);
       if (!t.success) return [];
-      return gs([xe({ content: eUe(t.data), isMeta: !0 })]);
+      return gs([xe({ content: eUe(t.data), isMeta: true })]);
     },
     ultrathink_effort: () =>
       gs([
         xe({
           content:
             'The user included the keyword "ultrathink", requesting deeper reasoning on this turn. Reason as thoroughly as the task warrants.',
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
     workflow_keyword_request: () =>
@@ -31227,7 +31227,7 @@ You have exited auto mode. The user may now want to interact more directly. You 
         xe({
           content:
             'The user included the keyword "ultracode", opting this turn into multi-agent orchestration \u2014 use the Workflow tool to fulfill the request.',
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
     ultra_effort_enter: ({ reminderType: e }) =>
@@ -31237,12 +31237,12 @@ You have exited auto mode. The user may now want to interact more directly. You 
             e === "full"
               ? "Ultracode is on: optimize for the most exhaustive, correct answer \u2014 not the fastest or cheapest. Use the Workflow tool on every substantive task; token cost is not a constraint. See the **Ultracode** section and quality patterns in the workflow authoring reference. Solo only on conversational/trivial turns."
               : "Ultracode is still on \u2014 use the Workflow tool; see the Ultracode section of the workflow authoring reference.",
-          isMeta: !0,
+          isMeta: true,
         }),
       ]),
     ultra_effort_exit: () =>
       gs([
-        xe({ content: "Ultracode is off \u2014 the Workflow tool's standard opt-in rule applies again.", isMeta: !0 }),
+        xe({ content: "Ultracode is off \u2014 the Workflow tool's standard opt-in rule applies again.", isMeta: true }),
       ]),
     tool_host_result_lines: () => [],
     tool_hosts_notice: (e) => {
@@ -31254,14 +31254,14 @@ You have exited auto mode. The user may now want to interact more directly. You 
 `)}
 
 ${H0}`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]);
     },
-    workflow_size_guideline_change: ({ size: e }) => gs([xe({ content: OVn(e), isMeta: !0 })]),
+    workflow_size_guideline_change: ({ size: e }) => gs([xe({ content: OVn(e), isMeta: true })]),
     cowork_memory_context: ({ content: e }) =>
       gs([
-        xe({ content: e === null ? "The previous memory snapshot was withdrawn; disregard it." : tXn(e), isMeta: !0 }),
+        xe({ content: e === null ? "The previous memory snapshot was withdrawn; disregard it." : tXn(e), isMeta: true }),
       ]),
     already_read_file: () => [],
     batching_reminder_sent: () => [],
@@ -31388,7 +31388,7 @@ class Lce {
         d = new Map();
       for (let [_, { record: C, src: A }] of u) {
         let x = A < Math.max(o.tornBefore, this.unnamedTornBefore);
-        d.set(_, x ? w$e(C, !0) : e ? w$e(C, !1) : C);
+        d.set(_, x ? w$e(C, true) : e ? w$e(C, false) : C);
       }
       t.set(r, {
         ...o.envelope,
@@ -31423,7 +31423,7 @@ class P$e {
   abandonedPaths = new Set();
   abandonedPrefixes = new Set();
   abandonedPendingPaths = new Set();
-  latchingEnabled = !0;
+  latchingEnabled = true;
   liveServing = null;
   degradedStore = Ma(null);
 }
@@ -31545,8 +31545,8 @@ var j$e = ".session-aliases";
 class W$e {
   getSessionId;
   project = null;
-  exitReStampRan = !1;
-  localGcEnabled = !1;
+  exitReStampRan = false;
+  localGcEnabled = false;
   forkContextHydrationCache = new Map();
   forkContextHydrationsInFlight = new Map();
   warnedUnchainedSessions = new Set();
@@ -31588,15 +31588,15 @@ class W$e {
     this.localGcEnabled = e;
   }
   claimExitReStamp() {
-    if (this.exitReStampRan) return !1;
-    return (this.exitReStampRan = !0), !0;
+    if (this.exitReStampRan) return false;
+    return (this.exitReStampRan = true), true;
   }
   exitReStampDone() {
     return this.exitReStampRan;
   }
   claimLegacyProgressProbe(e) {
-    if (this.legacyProgressProbeFired.has(e)) return !1;
-    return this.legacyProgressProbeFired.add(e), !0;
+    if (this.legacyProgressProbeFired.has(e)) return false;
+    return this.legacyProgressProbeFired.add(e), true;
   }
   openAppendRelocationBracket(e) {
     (this.relocationParkedAppends ??= []), (this.relocationParkedPath = e);
@@ -31624,10 +31624,10 @@ class W$e {
 var tzn = new Mn(() => ({ current: new W$e(() => K()) }));
 
 class dGt {
-  installed = !1;
+  installed = false;
   claim() {
-    if (this.installed) return !1;
-    return (this.installed = !0), !0;
+    if (this.installed) return false;
+    return (this.installed = true), true;
   }
 }
 
@@ -31685,7 +31685,7 @@ class pGt {
   internalEventReader = null;
   internalSubagentEventReader = null;
   internalAgentEventReader = null;
-  subagentLazyHydrate = !1;
+  subagentLazyHydrate = false;
   agentIdsNotToFetch = new Set();
   agentTranscriptFetches = new Map();
   mirrors = [];
@@ -31770,7 +31770,7 @@ class pGt {
   }
   enqueueCompact(e, t) {
     return new Promise((r) => {
-      this.pushQueueItem(e, { compact: !0, resolve: r, storageV5: t });
+      this.pushQueueItem(e, { compact: true, resolve: r, storageV5: t });
     });
   }
   requestCompact(e, t) {
@@ -31915,7 +31915,7 @@ class pGt {
         await this.performCompactTranscript(this.sessionFile, void 0, void 0, this.sessionFileAppendSource);
     if (this.bytesSinceMetadataReAppend >= bp / 2)
       try {
-        await this.reAppendSessionMetadataAsync(!1, !0, this.sessionFileAppendSource);
+        await this.reAppendSessionMetadataAsync(false, true, this.sessionFileAppendSource);
       } catch (e) {
         if ($o(e)) n(`Metadata re-append failed (${E(e)}): ${l(e)}`, { level: "error" });
         else h(e);
@@ -31929,7 +31929,7 @@ class pGt {
       (this.bytesSinceCompact = 0),
       (this.backstopThresholdBytes = ZM);
   }
-  reAppendSessionMetadata(e = !1, t = !1) {
+  reAppendSessionMetadata(e = false, t = false) {
     if (!this.sessionFile) return;
     this.bytesSinceMetadataReAppend = 0;
     let r = ldr(this.sessionFile),
@@ -31957,36 +31957,36 @@ class pGt {
       return;
     }
     try {
-      await this.reAppendSessionMetadataAsync(!1, !1, e, !1);
+      await this.reAppendSessionMetadataAsync(false, false, e, false);
     } catch (u) {
       Fce("Exit re-stamp through the storage backend failed", u);
       return;
     }
-    let r = !0,
+    let r = true,
       o = new Set();
     for (let u = 0; ; u++) {
       if (this.store.exitReStampDone()) return;
       let { lines: d, clean: _ } = this.takeForeignExitLines(o);
       if (((r &&= _), u > 0 && d.length === 0)) break;
       if (u === Iur) {
-        r = !1;
+        r = false;
         break;
       }
       for (let C of d) {
         if (this.store.exitReStampDone()) return;
         try {
-          await pk(C.path, C.entry, e, { onlyIfExists: !0, tornTailEntry: C.tornTailEntry }),
+          await pk(C.path, C.entry, e, { onlyIfExists: true, tornTailEntry: C.tornTailEntry }),
             this.store.takenForeignExitLines.delete(C);
         } catch (A) {
           Fce("Exit line owed to another session's transcript was not appended through the storage backend", A),
-            (r = !1);
+            (r = false);
         }
       }
       if (u > 0) continue;
       for (let C of this.store.exitReStampProviders) {
         if (this.store.exitReStampDone()) return;
         if (this.sessionFile !== t) {
-          r = !1;
+          r = false;
           break;
         }
         try {
@@ -32003,7 +32003,7 @@ class pGt {
         } catch (A) {
           if (
             (Fce("Exit line owed to the transcript was not appended through the storage backend", A),
-            (r = !1),
+            (r = false),
             A instanceof Error && I$e(A) !== void 0)
           ) {
             this.storeFence = A;
@@ -32016,7 +32016,7 @@ class pGt {
   }
   takeForeignExitLines(e) {
     let t = [],
-      r = !0;
+      r = true;
     for (let o of this.store.foreignExitReStampProviders)
       try {
         for (let u of o()) {
@@ -32029,11 +32029,11 @@ class pGt {
           e.add(d), this.store.takenForeignExitLines.add(u), t.push(u);
         }
       } catch (u) {
-        Fce("Exit lines owed to other sessions' transcripts could not be listed", u), (r = !1);
+        Fce("Exit lines owed to other sessions' transcripts could not be listed", u), (r = false);
       }
     return { lines: t, clean: r };
   }
-  async reAppendSessionMetadataAsync(e = !1, t = !1, r, o = !1) {
+  async reAppendSessionMetadataAsync(e = false, t = false, r, o = false) {
     let u = this.sessionFile;
     if (!u || this.storeFence !== void 0) return;
     let d = this.store.getSessionId();
@@ -32071,7 +32071,7 @@ class pGt {
       _ = e.split(`
 `);
     if (!t) {
-      let z = !1,
+      let z = false,
         pe = _.findLast((me) => me.includes('"type":"custom-title"') && me.includes('"customTitle":"'));
       if (pe) {
         let me = $f(pe, "customTitle");
@@ -32161,7 +32161,7 @@ ${M}`);
           declaredDialogKinds: this.currentSessionBridgeDialogKinds,
         }),
         ...(this.currentSessionBridgeGroupingId && { sessionGroupingId: this.currentSessionBridgeGroupingId }),
-        ...(this.currentSessionBridgeNoBackfill && { noHistoryBackfill: !0 }),
+        ...(this.currentSessionBridgeNoBackfill && { noHistoryBackfill: true }),
         ...(this.currentSessionBridgeOwnerAccountUuid && {
           ownerAccountUuid: this.currentSessionBridgeOwnerAccountUuid,
         }),
@@ -32257,11 +32257,11 @@ ${M}`);
       let C = (await fR(e, { encoding: "utf-8" })).split(`
 `),
         A = C.filter((x) => {
-          if (!x.trim()) return !0;
+          if (!x.trim()) return true;
           try {
             return V(x).uuid !== t;
           } catch {
-            return !0;
+            return true;
           }
         });
       if (A.length === C.length) return;
@@ -32333,15 +32333,15 @@ ${M}`);
         n(`Tombstone removal abandoned: paging failed (${M.error.code})`, { level: "warn" });
         return;
       }
-      let F = !1;
+      let F = false;
       for (let B of M.value.items) {
         if (B.seq >= o) {
-          F = !0;
+          F = true;
           break;
         }
         let W = Buffer.from(B.data.buffer, B.data.byteOffset, B.data.byteLength).toString("utf8"),
           z = W.slice(0, -1),
-          pe = !1;
+          pe = false;
         if (z.trim())
           try {
             pe = Ps(z).uuid === r;
@@ -32370,8 +32370,8 @@ ${M}`);
     let u = o !== void 0 ? Jh(e) : void 0;
     if (O() && o !== void 0 && u !== void 0) return this.performCompactTranscriptV5(o, u, e);
     let d = `${e}.compact.tmp.${hur(4).toString("hex")}`,
-      _ = !1,
-      C = !1;
+      _ = false,
+      C = false;
     try {
       let A = await Dy(e);
       if (A.size < vzt) return;
@@ -32468,9 +32468,9 @@ ${M}`);
       } finally {
         await fe.close().catch(() => {});
       }
-      if (((C = !0), await Ii(d, e), (_ = !0), (this.bytesSinceCompact = 0), e === this.sessionFile))
+      if (((C = true), await Ii(d, e), (_ = true), (this.bytesSinceCompact = 0), e === this.sessionFile))
         this.backstopThresholdBytes = A.size - ge < A.size * Czt ? Math.min(this.backstopThresholdBytes * 2, Ezt) : ZM;
-      if (e === this.sessionFile) await this.reAppendSessionMetadataAsync(!1, !0).catch(() => {});
+      if (e === this.sessionFile) await this.reAppendSessionMetadataAsync(false, true).catch(() => {});
       s("tengu_transcript_compact", { bytesBefore: A.size, bytesAfter: ge });
     } catch (A) {
       let x = E(A);
@@ -32485,7 +32485,7 @@ ${M}`);
       s("tengu_transcript_compact_failed", { reason: c(u) });
     };
     try {
-      let u = await e.stat(t, { witness: !0 });
+      let u = await e.stat(t, { witness: true });
       if (!u.ok) {
         o("io"), n(`Transcript compact failed (${u.error.code}): ${Ge(u.error)}`, { level: "warn" });
         return;
@@ -32572,7 +32572,7 @@ ${M}`);
       let B = U.value.sizeAfter;
       if (r === this.sessionFile)
         (this.backstopThresholdBytes = d - B < d * Czt ? Math.min(this.backstopThresholdBytes * 2, Ezt) : ZM),
-          await this.reAppendSessionMetadataAsync(!1, !0, e, !0).catch(() => {});
+          await this.reAppendSessionMetadataAsync(false, true, e, true).catch(() => {});
       s("tengu_transcript_compact", { bytesBefore: d, bytesAfter: B });
     } catch (u) {
       o("io"), n(`Transcript compact failed (${E(u)}): ${l(u)}`, { level: "warn" });
@@ -32581,22 +32581,22 @@ ${M}`);
   shouldSkipPersistence() {
     return Xc() || this.appendsSealedForShutdown;
   }
-  appendsSealedForShutdown = !1;
+  appendsSealedForShutdown = false;
   sealAppendsForShutdown() {
-    this.appendsSealedForShutdown = !0;
+    this.appendsSealedForShutdown = true;
   }
   async materializeSessionFile(e) {
     if (this.shouldSkipPersistence()) return;
     try {
       if (
         (this.ensureCurrentSessionFile(),
-        await this.reAppendSessionMetadataAsync(!1, !1, e),
+        await this.reAppendSessionMetadataAsync(false, false, e),
         this.pendingEntries.length > 0)
       ) {
         let t = this.pendingEntries;
         this.pendingEntries = [];
         for (let { entry: r, storageV5: o } of t) await this.appendEntry(r, void 0, void 0, o);
-        if (this.currentSessionRelocatedCwd) await this.reAppendSessionMetadataAsync(!0, !1, e);
+        if (this.currentSessionRelocatedCwd) await this.reAppendSessionMetadataAsync(true, false, e);
       }
     } catch (t) {
       let r = E(t);
@@ -32611,7 +32611,7 @@ ${M}`);
       else h(t);
     }
   }
-  async insertMessageChain(e, t = !1, r, o, u, d, _, C) {
+  async insertMessageChain(e, t = false, r, o, u, d, _, C) {
     let A = d ?? K(),
       x = _ ?? Gpt(Ta(A));
     return this.trackWrite(async () => {
@@ -32714,7 +32714,7 @@ ${pe}`),
   async appendEntry(e, t = this.store.getSessionId(), r, o) {
     if ("agentId" in e && e.agentId) this.noteAgentWrittenLocally(e.agentId);
     if (this.shouldSkipPersistence()) return;
-    if (tI(e) && mbe(e) && (r === !0 || Gpt(Ta(t)))) this.foreignWithheldEntryUuids.add(e.uuid);
+    if (tI(e) && mbe(e) && (r === true || Gpt(Ta(t)))) this.foreignWithheldEntryUuids.add(e.uuid);
     if (this.relocationBuffer) {
       this.relocationBuffer.push({ entry: e, sessionId: t, storageV5: o });
       return;
@@ -32817,7 +32817,7 @@ ${pe}`),
     if (this.internalEventWriter) {
       try {
         await this.internalEventWriter("transcript", t, {
-          ...(Ou(t) && { isCompaction: !0, preservedEventIds: t.compactMetadata.preservedMessages?.uuids }),
+          ...(Ou(t) && { isCompaction: true, preservedEventIds: t.compactMetadata.preservedMessages?.uuids }),
           ...(t.agentId && { agentId: t.agentId }),
         });
       } catch {
@@ -32831,7 +32831,7 @@ ${pe}`),
   async mirrorInternalEntry(e) {
     if (q7(Ta(this.store.getSessionId()))) {
       let t = e;
-      if (t.type !== "last-prompt" || t.explicit !== !0) return;
+      if (t.type !== "last-prompt" || t.explicit !== true) return;
       let { lastPrompt: r, ...o } = e;
       e = o;
     }
@@ -32846,9 +32846,9 @@ ${pe}`),
     return this.internalEventWriter !== null;
   }
   async mirrorWorkerEvent(e, t, { sessionId: r, agentId: o }) {
-    if (this.shouldSkipPersistence() || q7(r)) return !1;
-    if (!this.internalEventWriter || ks()) return !1;
-    return await this.internalEventWriter(e, t, { agentId: o }), !0;
+    if (this.shouldSkipPersistence() || q7(r)) return false;
+    if (!this.internalEventWriter || ks()) return false;
+    return await this.internalEventWriter(e, t, { agentId: o }), true;
   }
   setRemoteIngressUrl(e) {
     if (((this.remoteIngressUrl = e), n(`Remote persistence enabled with URL: ${e}`), e)) this.FLUSH_INTERVAL_MS = xzt;
@@ -33026,21 +33026,21 @@ var Idr = 10,
   Ddr = 1500;
 
 class eWn {
-  installed = !1;
+  installed = false;
   handles = {};
-  resumeHintPrinted = !1;
-  printModeSignalHandlersRegistered = !1;
-  ownsControllingTerminal = !1;
+  resumeHintPrinted = false;
+  printModeSignalHandlersRegistered = false;
+  ownsControllingTerminal = false;
   uncaughtCount = 0;
   uncaughtWindowStart = 0;
-  uncaughtBreakerTripped = !1;
+  uncaughtBreakerTripped = false;
   recentUncaught = [];
   http2RecoveryCount = 0;
   http2RecoveryWindowStart = 0;
   recoveredDdReportCount = 0;
-  startupActionStarted = !1;
-  startupExpectsUiMount = !1;
-  shutdownInProgress = !1;
+  startupActionStarted = false;
+  startupExpectsUiMount = false;
+  shutdownInProgress = false;
   failsafeTimer = void 0;
   orphanCheckInterval = void 0;
   pendingShutdown = void 0;
@@ -33064,7 +33064,7 @@ Resume this session with:
 claude ${u}--resume ${r}
 `),
         ),
-          (this.resumeHintPrinted = !0);
+          (this.resumeHintPrinted = true);
       } catch {}
   }
   forceExit(e) {
@@ -33080,14 +33080,14 @@ claude ${u}--resume ${r}
     throw Error("unreachable");
   }
   markPrintModeSignalHandlersRegistered() {
-    this.printModeSignalHandlersRegistered = !0;
+    this.printModeSignalHandlersRegistered = true;
   }
   markOwnsControllingTerminal() {
-    this.ownsControllingTerminal = !0;
+    this.ownsControllingTerminal = true;
   }
   install(e = {}) {
     if (this.installed) return;
-    (this.installed = !0), (this.handles = e), LO(() => {});
+    (this.installed = true), (this.handles = e), LO(() => {});
     let t = process.ppid;
     if (
       (process.on("SIGINT", () => {
@@ -33100,7 +33100,7 @@ claude ${u}--resume ${r}
           ppid_changed: process.ppid !== t,
           stdin_at_eof: process.stdin.readableEnded,
           stdin_destroyed: process.stdin.destroyed,
-          is_tty: process.stdin.isTTY ?? !1,
+          is_tty: process.stdin.isTTY ?? false,
         };
         if (
           (Y("info", "shutdown_signal", { signal: "SIGTERM", ...r }),
@@ -33115,7 +33115,7 @@ claude ${u}--resume ${r}
     )
       process.on("SIGHUP", () => {
         if (this.ownsControllingTerminal) {
-          Y("info", "shutdown_signal", { signal: "SIGHUP", bg_ctty: !0 }), wU(), this.shutdown(129);
+          Y("info", "shutdown_signal", { signal: "SIGHUP", bg_ctty: true }), wU(), this.shutdown(129);
           return;
         }
         Y("info", "shutdown_signal", { signal: "SIGHUP_ignored_bg" });
@@ -33150,7 +33150,7 @@ claude ${u}--resume ${r}
         }
         if (eZe()) {
           if (
-            ((this.uncaughtBreakerTripped = !0),
+            ((this.uncaughtBreakerTripped = true),
             n(`Uncaught exception under CLAUDE_CODE_SUPERVISED \u2014 exiting ${Yft}: ${o.error_name}`, {
               level: "error",
             }),
@@ -33223,7 +33223,7 @@ claude ${u}--resume ${r}
         }
         if (eZe()) {
           if (
-            ((this.uncaughtBreakerTripped = !0),
+            ((this.uncaughtBreakerTripped = true),
             n(`Unhandled rejection under CLAUDE_CODE_SUPERVISED \u2014 exiting ${Yft}: ${u.error_name}`, {
               level: "error",
             }),
@@ -33253,18 +33253,18 @@ claude ${u}--resume ${r}
       .catch(() => {});
   }
   recordUncaughtAndCheckBreaker(e) {
-    if (this.uncaughtBreakerTripped) return !1;
+    if (this.uncaughtBreakerTripped) return false;
     if (e - this.uncaughtWindowStart > J$e)
       (this.uncaughtCount = 0), (this.uncaughtWindowStart = e), (this.recentUncaught = []);
-    if ((this.uncaughtCount++, this.uncaughtCount >= Idr)) return (this.uncaughtBreakerTripped = !0), !0;
-    return !1;
+    if ((this.uncaughtCount++, this.uncaughtCount >= Idr)) return (this.uncaughtBreakerTripped = true), true;
+    return false;
   }
   recordHttp2RecoveryAndCheckBudget(e) {
     if (e - this.http2RecoveryWindowStart > bmr) (this.http2RecoveryCount = 0), (this.http2RecoveryWindowStart = e);
     return this.http2RecoveryCount++, this.http2RecoveryCount <= Smr;
   }
   markStartupActionStarted(e) {
-    (this.startupActionStarted = !0), (this.startupExpectsUiMount = e);
+    (this.startupActionStarted = true), (this.startupExpectsUiMount = e);
   }
   inNonUiSubcommand() {
     return this.startupActionStarted && !this.startupExpectsUiMount;
@@ -33290,7 +33290,7 @@ claude ${u}--resume ${r}
       (r) => {
         MW(),
           this.printResumeHint(),
-          MFe(500, { scaleBudgetToQueue: !1 })
+          MFe(500, { scaleBudgetToQueue: false })
             .then(() => this.forceExit(r))
             .catch(() => {});
       },
@@ -33319,10 +33319,10 @@ claude ${u}--resume ${r}
       clearInterval(this.orphanCheckInterval), (this.orphanCheckInterval = void 0);
   }
   claimShutdown() {
-    (this.shutdownInProgress = !0), this.disarmOrphanCheck();
+    (this.shutdownInProgress = true), this.disarmOrphanCheck();
   }
   releaseShutdownClaim() {
-    (this.shutdownInProgress = !1), this.armOrphanCheck();
+    (this.shutdownInProgress = false), this.armOrphanCheck();
   }
   registerBeforeInteractiveShutdown(e) {
     this.beforeInteractiveShutdown = e;
@@ -33348,8 +33348,8 @@ claude ${u}--resume ${r}
   }
   async shutdown(e = 0, t = "other", r) {
     if (this.shutdownInProgress) return;
-    if (((this.shutdownInProgress = !0), S8e(), (process.exitCode = e), r?.suppressResumeHint))
-      this.resumeHintPrinted = !0;
+    if (((this.shutdownInProgress = true), S8e(), (process.exitCode = e), r?.suppressResumeHint))
+      this.resumeHintPrinted = true;
     let { executeSessionEndHooks: o, getSessionEndHookTimeoutMs: u } = await import("/$bunfs/root/chunk-0r3amwk9.js"),
       d = u();
     this.armShutdownFailsafe(Math.max(5000, d + 5000), e), MW(), this.printResumeHint();

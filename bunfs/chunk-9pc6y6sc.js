@@ -37,8 +37,8 @@ function m1() {
   for (let [e, o] of Object.entries(i)) {
     if (!e.includes("@")) continue;
     if (IS(e)) continue;
-    if (o === !0) t.set(e, "flag");
-    else if (o === !1) t.delete(e);
+    if (o === true) t.set(e, "flag");
+    else if (o === false) t.delete(e);
   }
   let r = [
     { scope: "managed", source: "policySettings" },
@@ -54,8 +54,8 @@ function m1() {
       if (!s.includes("@")) continue;
       if (s in i && i[s] !== u) n(`Plugin ${s} from --add-dir (${i[s]}) overridden by ${o} (${u})`);
       if (!IL.includes(o) && IS(s)) continue;
-      if (u === !0) t.set(s, e);
-      else if (u === !1) t.delete(s);
+      if (u === true) t.set(s, e);
+      else if (u === false) t.delete(s);
     }
   }
   return (

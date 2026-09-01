@@ -257,7 +257,7 @@ async function R(e) {
         })
       : new o({
           ...m,
-          ...(l && !p && { skipAuth: !0, authToken: null, ..._O }),
+          ...(l && !p && { skipAuth: true, authToken: null, ..._O }),
           ...(l && p && { apiKey: p.match(/^Bearer (.+)$/i)?.[1] ?? p, defaultHeaders: { Authorization: p } }),
           ...(!l && g),
           ...(!l && f && { providerChainResolver: H6("Mantle").providerChainResolver }),

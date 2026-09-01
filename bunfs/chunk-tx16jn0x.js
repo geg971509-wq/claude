@@ -28,7 +28,7 @@ function ne(t, r, e) {
       if ((clearTimeout(n), e?.throwOnAbort || e?.abortError)) i(e.abortError?.() ?? Error("aborted"));
       else o();
     }
-    if ((r?.addEventListener("abort", m, { once: !0 }), e?.unref)) n.unref();
+    if ((r?.addEventListener("abort", m, { once: true }), e?.unref)) n.unref();
   });
 }
 function c(t, r) {
@@ -64,7 +64,7 @@ async function OU(t, r, e) {
     return await Promise.race([
       t,
       new Promise((n, m) => {
-        (i = () => m(e())), r.addEventListener("abort", i, { once: !0 });
+        (i = () => m(e())), r.addEventListener("abort", i, { once: true });
       }),
     ]);
   } catch (n) {

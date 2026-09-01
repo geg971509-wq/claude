@@ -30,10 +30,10 @@ function Rdr(e) {
   return t;
 }
 function mxt() {
-  if (zT("fanout")) return !0;
-  if (a.CLAUDE_CODE_ENVIRONMENT_KIND === "byoc") return !0;
+  if (zT("fanout")) return true;
+  if (a.CLAUDE_CODE_ENVIRONMENT_KIND === "byoc") return true;
   if (a.CLAUDE_CODE_REMOTE) return u.has(a.CLAUDE_CODE_ENTRYPOINT ?? "") && !process.env.BUGHUNTER_FLEET_SIZE;
-  return !1;
+  return false;
 }
 async function dEr(e) {
   return O() && e !== void 0 ? c7e(e) : void 0;
@@ -55,7 +55,7 @@ function kdr(e) {
     for (let o of i[r]) t.add(o);
   }
   if (e.has("bg")) t.delete("summary");
-  if (I("tengu_classifier_summary_kill", !1)) t.delete("summary");
+  if (I("tengu_classifier_summary_kill", false)) t.delete("summary");
   return t;
 }
 function c(e) {
@@ -65,7 +65,7 @@ function c(e) {
     if (!r) continue;
     if (r in i) t.add(r);
     else if (!mI().warnedUnknownDisabledSurface)
-      (mI().warnedUnknownDisabledSurface = !0),
+      (mI().warnedUnknownDisabledSurface = true),
         n(`[classifier] tengu_classifier_disabled_surfaces: unknown surface '${r}' ignored`);
   }
   return t;
@@ -81,14 +81,14 @@ function Hdr(e) {
           ? "llm"
           : "heuristic"
         : f();
-  return t === "llm" && I("tengu_cobalt_wren", !1) ? "heuristic" : t;
+  return t === "llm" && I("tengu_cobalt_wren", false) ? "heuristic" : t;
 }
 function f() {
-  if (I("tengu_classifier_summary_llm_emit", !1)) return "llm";
+  if (I("tengu_classifier_summary_llm_emit", false)) return "llm";
   return "heuristic";
 }
 function xdr() {
-  return !1;
+  return false;
 }
 function pEr(e) {
   return {
@@ -98,7 +98,7 @@ function pEr(e) {
   };
 }
 function fEr(e, t) {
-  let s = kdr(Rdr(!1));
+  let s = kdr(Rdr(false));
   if (!s.has("summary") || Hdr(s) === null) return;
   let r = e.tool_name.startsWith("dialog:")
     ? { status_category: "blocked", status_detail: "Waiting on a user dialog", needs_action: e.action_description }

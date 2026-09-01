@@ -317,14 +317,14 @@ var C = ["user", "project"],
 async function q(e, t) {
   if (e.mode === "usage") {
     if (e.logCode !== void 0) p("auto_mode_setup_write", e.logCode);
-    return { ok: !1, code: "usage", reason: e.message, usage: n };
+    return { ok: false, code: "usage", reason: e.message, usage: n };
   }
   if (e.mode === "apply-file") {
     if (e.expectedSha256 === void 0)
       return (
         p("auto_mode_setup_write", "missing_hash_arg"),
         {
-          ok: !1,
+          ok: false,
           code: "missing_hash_arg",
           reason:
             "--expect-sha256 is required: pass the 64-character hex sha256 of the proposal file\u2019s exact bytes, before --apply-file. Every non-interactive apply is hash-bound.",
@@ -334,7 +334,7 @@ async function q(e, t) {
       return (
         p("auto_mode_setup_write", "bad_hash_arg"),
         {
-          ok: !1,
+          ok: false,
           code: "bad_hash_arg",
           reason: "--expect-sha256 must be the 64-character hex sha256 digest of the proposal file\u2019s exact bytes.",
         }
@@ -343,14 +343,14 @@ async function q(e, t) {
   let s = he(t);
   if (e.mode === "propose") {
     let r = await r0e(e.answers, s, t.abortController.signal, void 0, void 0, t.storageV5, t.credentials);
-    if (!r.ok) return { ok: !1, code: r.code, reason: r.reason };
-    return { ok: !0, proposal: r.proposal };
+    if (!r.ok) return { ok: false, code: r.code, reason: r.reason };
+    return { ok: true, proposal: r.proposal };
   }
   if (!g(e.path) || Dse(e.path) || !(await T(e.path)))
     return (
       p("auto_mode_setup_write", "bad_path"),
       {
-        ok: !1,
+        ok: false,
         code: "bad_path",
         reason:
           "Pass an absolute path under the system temp directory or the Claude config directory \u2014 --apply-file only reads proposal files the reviewing host wrote there.",
@@ -360,18 +360,18 @@ async function q(e, t) {
     return (
       p("auto_mode_setup_write", "read_denied"),
       {
-        ok: !1,
+        ok: false,
         code: "read_denied",
         reason:
           "That path is covered by a permissions.deny read rule. Write the proposal somewhere the session can read.",
       }
     );
-  let o = await bP(e.path, k, { noFollow: !0, requireNlink1: !0, sniffEncoding: !0, withBytes: !0 });
+  let o = await bP(e.path, k, { noFollow: true, requireNlink1: true, sniffEncoding: true, withBytes: true });
   if (o === null)
     return (
       p("auto_mode_setup_write", "read_failed"),
       {
-        ok: !1,
+        ok: false,
         code: "read_failed",
         reason: "Couldn\u2019t read the proposal file. Check the path and that it is a regular file.",
       }
@@ -381,7 +381,7 @@ async function q(e, t) {
     return (
       p("auto_mode_setup_write", "too_large"),
       {
-        ok: !1,
+        ok: false,
         code: "too_large",
         reason:
           "The proposal file is over the 1 MB cap \u2014 a real proposal is a few KB. Regenerate it with --propose.",
@@ -392,7 +392,7 @@ async function q(e, t) {
     return (
       p("auto_mode_setup_write", "hash_mismatch"),
       {
-        ok: !1,
+        ok: false,
         code: "hash_mismatch",
         expectedSha256: d,
         reason:
@@ -404,7 +404,7 @@ async function q(e, t) {
     return (
       p("auto_mode_setup_write", a.code),
       {
-        ok: !1,
+        ok: false,
         code: a.code,
         reason:
           a.code === "parse_failed"
@@ -418,7 +418,7 @@ async function q(e, t) {
       return (
         p("auto_mode_setup_write", "scope_mismatch"),
         {
-          ok: !1,
+          ok: false,
           code: "scope_mismatch",
           reason:
             a.proposal.scope === void 0
@@ -429,7 +429,7 @@ async function q(e, t) {
   }
   try {
     return {
-      ok: !0,
+      ok: true,
       ...(await the(
         {
           mode: a.proposal.mode,
@@ -448,7 +448,7 @@ async function q(e, t) {
     };
   } catch (r) {
     return {
-      ok: !1,
+      ok: false,
       code: r instanceof ehe ? r.code : "write_failed",
       reason: r instanceof Error ? r.message : String(r),
     };
@@ -465,29 +465,29 @@ async function T(e) {
   }
   for (let o of s) {
     let i = x(o, t);
-    if (i !== "" && !i.startsWith("..") && !g(i)) return !0;
+    if (i !== "" && !i.startsWith("..") && !g(i)) return true;
   }
-  return !1;
+  return false;
 }
 function I(e) {
   let t = e.match(/^--request-id(?:=|\s+(?!--))(\S+)\s*/);
   if (!t) {
     if (/^--request-id=?(?=\s|$)/.test(e))
       return {
-        ok: !1,
+        ok: false,
         message: `--request-id needs a value.
 ${n}`,
       };
-    return { ok: !0, rest: e };
+    return { ok: true, rest: e };
   }
   let s = t[1];
   if (!v.test(s))
     return {
-      ok: !1,
+      ok: false,
       message: `--request-id must be a UUID in canonical 8-4-4-4-12 hex-and-dash form (either case) \u2014 the token is refused, not echoed.
 ${n}`,
     };
-  return { ok: !0, rest: e.slice(t[0].length), requestId: s };
+  return { ok: true, rest: e.slice(t[0].length), requestId: s };
 }
 function R(e) {
   let t = I(e.trim());

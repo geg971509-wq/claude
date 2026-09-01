@@ -27,7 +27,7 @@ function w(t, r, a) {
   let i = no(r, t.name);
   if (i === void 0 || !Yv(i)) return null;
   let l = (c) => (
-    g("batch_tools", c, { tool_name: Un(i.name), isMcp: !1 }),
+    g("batch_tools", c, { tool_name: Un(i.name), isMcp: false }),
     [
       {
         type: "tool_use",
@@ -40,11 +40,11 @@ function w(t, r, a) {
   );
   try {
     let c = i.inputSchema.safeParse(t.input);
-    if (!c.success) return { synthetics: l("parse_failed"), decomposed: !1 };
+    if (!c.success) return { synthetics: l("parse_failed"), decomposed: false };
     let { v1Tool: o, entries: e } = i.perEntryHookInputs(c.data);
-    if (e.length === 0) return { synthetics: l("zero_entries"), decomposed: !1 };
+    if (e.length === 0) return { synthetics: l("zero_entries"), decomposed: false };
     return {
-      decomposed: !0,
+      decomposed: true,
       synthetics: e.map((s, u) => {
         let f = s;
         try {
@@ -64,7 +64,7 @@ function w(t, r, a) {
       }),
     };
   } catch {
-    return { synthetics: l("per_entry_threw"), decomposed: !1 };
+    return { synthetics: l("per_entry_threw"), decomposed: false };
   }
 }
 function V2t(t) {
@@ -88,7 +88,7 @@ function K2t(t, r, a) {
       continue;
     }
     if (((i ??= t.slice(0, c)), i.push(...e.synthetics), e.decomposed))
-      l.push({ id: o.id, name: o.name }), y("batch_tools", { tool_name: Un(o.name), isMcp: !1 });
+      l.push({ id: o.id, name: o.name }), y("batch_tools", { tool_name: Un(o.name), isMcp: false });
   }
   return { content: i ?? t, batchToolUses: l };
 }
@@ -113,7 +113,7 @@ function E8n(t, r, a) {
       });
     } catch {
       let d = b.of(G().host);
-      if (!d.has(e.id)) d.add(e.id), g("batch_tools", "reassemble_threw", { tool_name: Un(e.name), isMcp: !1 });
+      if (!d.has(e.id)) d.add(e.id), g("batch_tools", "reassemble_threw", { tool_name: Un(e.name), isMcp: false });
     }
   }
   let c = new Set(),
@@ -131,13 +131,13 @@ function E8n(t, r, a) {
   return o;
 }
 function A8n(t, r) {
-  let a = !1;
+  let a = false;
   for (let o of t) {
     if (o.type === "assistant") {
       for (let e of o.message.content)
         if (e.type === "tool_use") {
           let s = no(r, e.name);
-          if (s !== void 0 && Yv(s)) a = !0;
+          if (s !== void 0 && Yv(s)) a = true;
         }
     }
     if (o.type === "user" && !a) {
@@ -145,7 +145,7 @@ function A8n(t, r) {
         Array.isArray(o.message.content) &&
         o.message.content.some((e) => e.type === "tool_result" && m(e.tool_use_id) !== void 0)
       )
-        a = !0;
+        a = true;
     }
   }
   if (!a) return t;
@@ -170,7 +170,7 @@ function A8n(t, r) {
   let c = new Set();
   return t.flatMap((o) => {
     if (o.type !== "user" || !Array.isArray(o.message.content)) return [o];
-    let e = !1,
+    let e = false,
       s = [];
     for (let u of o.message.content) {
       if (u.type !== "tool_result") {
@@ -183,7 +183,7 @@ function A8n(t, r) {
         s.push(u);
         continue;
       }
-      if (((e = !0), c.has(f))) continue;
+      if (((e = true), c.has(f))) continue;
       c.add(f);
       let p = i.get(f),
         T = no(r, p.name),
@@ -216,7 +216,7 @@ function R(t, r, a, i) {
 function P(t, r, a) {
   let i = [],
     l = "",
-    c = !1,
+    c = false,
     o = (s) => {
       if (s.length > 0)
         l =
@@ -229,8 +229,8 @@ ${s}`;
       if (l !== "") i.push({ type: "text", text: l }), (l = "");
     };
   for (let [s, u] of a.entries()) {
-    let f = u.result === void 0 || u.result.is_error === !0;
-    if (f) c = !0;
+    let f = u.result === void 0 || u.result.is_error === true;
+    if (f) c = true;
     if ((o(`--- entry ${s + 1}${f ? " (error)" : ""} ---`), u.result !== void 0)) {
       let d = u.result.content;
       if (typeof d === "string") o(d);
@@ -250,7 +250,7 @@ ${s}`;
       type: "tool_result",
       tool_use_id: r,
       content: i.length === 1 && i[0]?.type === "text" ? i[0].text : i,
-      ...(c && { is_error: !0 }),
+      ...(c && { is_error: true }),
     }
   );
 }

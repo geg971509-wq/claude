@@ -149,7 +149,7 @@ function gCe(e) {
   return e?.pluginSource !== void 0;
 }
 function NAn(e) {
-  if (e.type !== "claudeai-proxy") return !1;
+  if (e.type !== "claudeai-proxy") return false;
   return e.scope === "claudeai" || (e.scope === "dynamic" && !gCe(e));
 }
 var y = m(() => f({ mcpServers: De(i(), KY()) }));
@@ -157,7 +157,7 @@ function Zo(e) {
   return e.type === "connected" || e.type === "cached";
 }
 function mYe(e, r) {
-  if (r.type !== "cached" || !e) return !0;
+  if (r.type !== "cached" || !e) return true;
   return !(e.type === "connected" || e.type === "disabled" || e.type === "needs-auth");
 }
 export { PAn, oGt, fYe, DAn, iGt, OAn, LAn, LTt, MAn, KY, gCe, NAn, Zo, mYe };

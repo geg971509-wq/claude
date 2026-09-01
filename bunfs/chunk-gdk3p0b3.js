@@ -26,7 +26,7 @@ function Xmt(e) {
   if (a.CLAUDE_CODE_BRIEF_UPLOAD) return "env_brief_upload";
   if (a.CLAUDE_CODE_REMOTE_ENVIRONMENT_TYPE) return "env_ccr";
   if (a.CLAUDE_CODE_REMOTE) return "env_byoc";
-  if (PF() !== null && rc()) return I("tengu_async_goblet", !0) ? "sdk_hosted" : "sdk_hosted_disabled";
+  if (PF() !== null && rc()) return I("tengu_async_goblet", true) ? "sdk_hosted" : "sdk_hosted_disabled";
   return "none";
 }
 function Ymt(e) {
@@ -95,16 +95,16 @@ async function A(e, n, i) {
 function Fpn(e) {
   if (/^[a-z][a-z0-9+.-]+:\/\//i.test(e))
     return {
-      result: !1,
+      result: false,
       message: `Attachment "${e}" looks like a URL, not a local file path. This tool can only send files that exist on the local filesystem \u2014 download or write the content to a local file first, then pass that path.`,
       errorCode: 1,
     };
   let n = gt(e);
   if (Bn(n))
-    return { result: !1, message: `Attachment "${e}" is a UNC network path, which is not supported.`, errorCode: 1 };
+    return { result: false, message: `Attachment "${e}" is a UNC network path, which is not supported.`, errorCode: 1 };
   if (_r(n))
     return {
-      result: !1,
+      result: false,
       message: `Attachment "${e}" is a /net autofs -hosts path, which is not supported.`,
       errorCode: 1,
     };
@@ -119,29 +119,29 @@ async function Jmt(e, n) {
     let s = gt(o);
     if (n.restricted && !Xy(s, n))
       return {
-        result: !1,
+        result: false,
         message: `Attachment "${o}" is outside the working directory; --restricted only sends files from inside it.`,
         errorCode: 1,
       };
     try {
       if (!(await c(s)).isFile())
-        return { result: !1, message: `Attachment "${o}" is not a regular file.`, errorCode: 1 };
+        return { result: false, message: `Attachment "${o}" is not a regular file.`, errorCode: 1 };
     } catch (d) {
       let t = E(d);
       if (t === "ENOENT") {
         let r = await A(o, s, i);
         return {
-          result: !1,
+          result: false,
           message:
             `Attachment "${o}" does not exist. Current working directory: ${i}.` + (r ? ` Did you mean "${r}"?` : ""),
           errorCode: 1,
         };
       }
-      if ($o(d)) return { result: !1, message: `Attachment "${o}" is not accessible (${t}).`, errorCode: 1 };
+      if ($o(d)) return { result: false, message: `Attachment "${o}" is not accessible (${t}).`, errorCode: 1 };
       throw d;
     }
   }
-  return { result: !0 };
+  return { result: true };
 }
 async function Qmt(e, n) {
   let i = [],
@@ -154,14 +154,14 @@ async function Qmt(e, n) {
         isImage: t.is_image,
         file_uuid: t.file_uuid,
         media_type: t.media_type ?? ODe(t.file_name),
-        pathValidated: !1,
+        pathValidated: false,
       });
       continue;
     }
     let r = gt(t);
     if (Ru(r)) throw Error(`Attachment "${t}" is a network path (UNC or /net autofs), which is not supported.`);
     let m = await c(r);
-    o.push(i.length), i.push({ path: r, size: m.size, isImage: $De.test(r), media_type: ODe(r), pathValidated: !0 });
+    o.push(i.length), i.push({ path: r, size: m.size, isImage: $De.test(r), media_type: ODe(r), pathValidated: true });
   }
   let { lane: l } = n;
   if (o.length === 0 || l === "none" || l === "sdk_hosted_disabled") return i;

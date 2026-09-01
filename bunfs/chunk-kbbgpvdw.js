@@ -41,8 +41,8 @@ import { Q } from "/$bunfs/root/chunk-wag5ye9w.js";
 import { j, d } from "/$bunfs/root/chunk-yz031c9r.js";
 F();
 var Hr = [
-  { type: "text", key: "accessKeyId", label: "Access key ID", placeholder: "AKIA\u2026", required: !0 },
-  { type: "text", key: "secretAccessKey", label: "Secret access key", mask: "*", required: !0 },
+  { type: "text", key: "accessKeyId", label: "Access key ID", placeholder: "AKIA\u2026", required: true },
+  { type: "text", key: "secretAccessKey", label: "Secret access key", mask: "*", required: true },
   {
     type: "text",
     key: "sessionToken",
@@ -148,7 +148,7 @@ function Bo() {
     nn;
   if (mo[5] === d)
     (nn = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: "Claude Code uses the standard AWS credential chain. Pick the method you already use with the AWS CLI.",
     })),
       (mo[5] = nn);
@@ -209,7 +209,7 @@ function Io() {
   let un, mn;
   if (Le[6] === d)
     (un = e(t, { children: "Paste your Bedrock API key." })),
-      (mn = e(t, { dimColor: !0, children: "Generate one in the AWS console under Bedrock \u2192 API keys." })),
+      (mn = e(t, { dimColor: true, children: "Generate one in the AWS console under Bedrock \u2192 API keys." })),
       (Le[6] = un),
       (Le[7] = mn);
   else (un = Le[6]), (mn = Le[7]);
@@ -226,8 +226,8 @@ function Io() {
         columns: 60,
         cursorOffset: Xr,
         onChangeCursorOffset: $s,
-        focus: !0,
-        showCursor: !0,
+        focus: true,
+        showCursor: true,
       }),
     })),
       (Le[8] = Xr),
@@ -265,7 +265,7 @@ function Dn(Jr) {
         e(t, { color: "suggestion", children: at }),
         " =",
         " ",
-        dt.has(at) ? e(t, { dimColor: !0, children: "(hidden)" }) : da,
+        dt.has(at) ? e(t, { dimColor: true, children: "(hidden)" }) : da,
       ],
     },
     at,
@@ -330,7 +330,7 @@ function zo(Jr) {
   if (ce[3] !== eo) (Cn = Object.entries(eo).filter(_n)), (ce[3] = eo), (ce[4] = Cn);
   else Cn = ce[4];
   let nt = Cn,
-    it = C(!1),
+    it = C(false),
     Sn;
   if (
     ce[5] !== eo ||
@@ -348,10 +348,10 @@ function zo(Jr) {
       if (it.current) {
         return;
       }
-      it.current = !0;
+      it.current = true;
       let { error: An } = await rn("userSettings", { env: eo }, void 0, et);
       if (An) {
-        (it.current = !1), aa(An.message);
+        (it.current = false), aa(An.message);
         return;
       }
       s("tengu_bedrock_setup_complete", {
@@ -387,8 +387,8 @@ function zo(Jr) {
     (No =
       T.verifiedIdentity &&
       r(t, {
-        dimColor: !0,
-        children: [e(tt, { status: "success", withSpace: !0 }), "Verified as ", T.verifiedIdentity],
+        dimColor: true,
+        children: [e(tt, { status: "success", withSpace: true }), "Verified as ", T.verifiedIdentity],
       })),
       (ce[19] = T.verifiedIdentity),
       (ce[20] = No);
@@ -463,20 +463,20 @@ async function Y(n, i) {
   try {
     f = await Tn(n);
   } catch {
-    return { ok: !1, reason: "auth" };
+    return { ok: false, reason: "auth" };
   }
   try {
     return (
-      await f.messages.create({ model: pn(i), max_tokens: 1, messages: [{ role: "user", content: "." }] }), { ok: !0 }
+      await f.messages.create({ model: pn(i), max_tokens: 1, messages: [{ role: "user", content: "." }] }), { ok: true }
     );
   } catch (c) {
     let p = c?.status;
-    if (p === 401) return { ok: !1, reason: "auth" };
-    if (p === 403) return { ok: !1, reason: "permission" };
-    if (p === 400 || p === 404) return { ok: !1, reason: "model" };
-    if (p === 429) return { ok: !0 };
-    if (p === void 0) return { ok: !1, reason: "network" };
-    return { ok: !1, reason: "other" };
+    if (p === 401) return { ok: false, reason: "auth" };
+    if (p === 403) return { ok: false, reason: "permission" };
+    if (p === 400 || p === 404) return { ok: false, reason: "model" };
+    if (p === 429) return { ok: true };
+    if (p === void 0) return { ok: false, reason: "network" };
+    return { ok: false, reason: "other" };
   }
 }
 async function Tn(n) {
@@ -569,7 +569,7 @@ async function ft(n) {
         c = f ?? new lt.FetchHttpHandler({ requestTimeout: lpe });
       return i({
         profile: n.awsProfile,
-        ignoreCache: !0,
+        ignoreCache: true,
         parentClientConfig: { region: n.region, requestHandler: c },
         clientConfig: { requestHandler: c },
       });
@@ -692,14 +692,14 @@ function gr() {
     Fn;
   if (E[12] !== S.sonnet || E[13] !== O)
     (Fn = () => {
-      let Un = !1;
+      let Un = false;
       return (
         xe(Ci),
         Y(O, S.sonnet).then((Ka) => {
           if (!Un) xe((Ma) => ({ ...Ma, sonnet: Ka }));
         }),
         () => {
-          Un = !0;
+          Un = true;
         }
       );
     }),
@@ -714,14 +714,14 @@ function gr() {
   let $n;
   if (E[17] !== S.opus || E[18] !== O)
     ($n = () => {
-      let Vn = !1;
+      let Vn = false;
       return (
         xe(Si),
         Y(O, S.opus).then((La) => {
           if (!Vn) xe((za) => ({ ...za, opus: La }));
         }),
         () => {
-          Vn = !0;
+          Vn = true;
         }
       );
     }),
@@ -736,14 +736,14 @@ function gr() {
   let Yn;
   if (E[22] !== S.haiku || E[23] !== O)
     (Yn = () => {
-      let Gn = !1;
+      let Gn = false;
       return (
         xe(Ai),
         Y(O, S.haiku).then((Fa) => {
           if (!Gn) xe((Ua) => ({ ...Ua, haiku: Fa }));
         }),
         () => {
-          Gn = !0;
+          Gn = true;
         }
       );
     }),
@@ -758,14 +758,14 @@ function gr() {
   let Xn;
   if (E[27] !== S.fable || E[28] !== O)
     (Xn = () => {
-      let Qn = !1;
+      let Qn = false;
       return (
         xe(Ei),
         Y(O, S.fable).then((Ha) => {
           if (!Qn) xe(($a) => ({ ...$a, fable: Ha }));
         }),
         () => {
-          Qn = !0;
+          Qn = true;
         }
       );
     }),
@@ -890,7 +890,7 @@ function gr() {
   else ko = E[57];
   let yo;
   if (E[58] === d)
-    (yo = e(t, { dimColor: !0, children: "Each candidate is tested with a one-token request:" })), (E[58] = yo);
+    (yo = e(t, { dimColor: true, children: "Each candidate is tested with a one-token request:" })), (E[58] = yo);
   else yo = E[58];
   let qo;
   if (E[59] !== S || E[60] !== H)
@@ -946,13 +946,13 @@ function xt({ tier: n, wizardData: i, profiles: f, fallback: c, current: p, exis
     }, [f, n, c, p, m]),
     [h, N] = u(() => Object.fromEntries(D.map((b) => [b, "pending"])));
   A(() => {
-    let b = !1;
+    let b = false;
     for (let R of D)
       Y(i, R).then((Qe) => {
         if (!b) N((l) => ({ ...l, [R]: Qe }));
       });
     return () => {
-      b = !0;
+      b = true;
     };
   }, []);
   let y = D.every((b) => h[b] !== "pending"),
@@ -980,7 +980,7 @@ function xt({ tier: n, wizardData: i, profiles: f, fallback: c, current: p, exis
       gap: 1,
       children: [
         e(t, {
-          dimColor: !0,
+          dimColor: true,
           children:
             me > 0
               ? `${me} ${De[n]} ${k(me, "profile")} in your account \xB7 each tested with a one-token request.`
@@ -996,10 +996,10 @@ function pr(fc) {
     { id: ye, state: Pt, suffix: le } = fc;
   if (Pt === "pending") {
     let Ne;
-    if (Se[0] === d) (Ne = e(tt, { status: "pending", withSpace: !0 })), (Se[0] = Ne);
+    if (Se[0] === d) (Ne = e(tt, { status: "pending", withSpace: true })), (Se[0] = Ne);
     else Ne = Se[0];
     let Z;
-    if (Se[1] !== le) (Z = le && r(t, { dimColor: !0, children: [" ", le] })), (Se[1] = le), (Se[2] = Z);
+    if (Se[1] !== le) (Z = le && r(t, { dimColor: true, children: [" ", le] })), (Se[1] = le), (Se[2] = Z);
     else Z = Se[2];
     let Ae;
     if (Se[3] !== ye || Se[4] !== Z) (Ae = r(t, { children: [Ne, ye, Z] })), (Se[3] = ye), (Se[4] = Z), (Se[5] = Ae);
@@ -1008,10 +1008,10 @@ function pr(fc) {
   }
   if (Pt.ok) {
     let Ne;
-    if (Se[6] === d) (Ne = e(tt, { status: "success", withSpace: !0 })), (Se[6] = Ne);
+    if (Se[6] === d) (Ne = e(tt, { status: "success", withSpace: true })), (Se[6] = Ne);
     else Ne = Se[6];
     let Z;
-    if (Se[7] !== le) (Z = le && r(t, { dimColor: !0, children: [" ", le] })), (Se[7] = le), (Se[8] = Z);
+    if (Se[7] !== le) (Z = le && r(t, { dimColor: true, children: [" ", le] })), (Se[7] = le), (Se[8] = Z);
     else Z = Se[8];
     let Ae;
     if (Se[9] !== ye || Se[10] !== Z) (Ae = r(t, { children: [Ne, ye, Z] })), (Se[9] = ye), (Se[10] = Z), (Se[11] = Ae);
@@ -1019,7 +1019,7 @@ function pr(fc) {
     return Ae;
   }
   let Ne;
-  if (Se[12] === d) (Ne = e(tt, { status: "error", withSpace: !0 })), (Se[12] = Ne);
+  if (Se[12] === d) (Ne = e(tt, { status: "error", withSpace: true })), (Se[12] = Ne);
   else Ne = Se[12];
   const Z = le && ` ${le}`,
     Ae = bo[Pt.reason];
@@ -1028,7 +1028,7 @@ function pr(fc) {
   else fr = Se[14];
   let hi;
   if (Se[15] !== ye || Se[16] !== Z || Se[17] !== fr)
-    (hi = r(t, { dimColor: !0, children: [Ne, ye, Z, " ", fr] })),
+    (hi = r(t, { dimColor: true, children: [Ne, ye, Z, " ", fr] })),
       (Se[15] = ye),
       (Se[16] = Z),
       (Se[17] = fr),
@@ -1057,7 +1057,7 @@ function mr(uc) {
   }
   if (Bt.ok) {
     let Ke;
-    if (oe[7] === d) (Ke = e(tt, { status: "success", withSpace: !0 })), (oe[7] = Ke);
+    if (oe[7] === d) (Ke = e(tt, { status: "success", withSpace: true })), (oe[7] = Ke);
     else Ke = oe[7];
     let re;
     if (oe[8] !== Ee) (re = Ee.padEnd(7)), (oe[8] = Ee), (oe[9] = re);
@@ -1072,13 +1072,13 @@ function mr(uc) {
     return _e;
   }
   let Ke;
-  if (oe[15] === d) (Ke = e(tt, { status: "error", withSpace: !0 })), (oe[15] = Ke);
+  if (oe[15] === d) (Ke = e(tt, { status: "error", withSpace: true })), (oe[15] = Ke);
   else Ke = oe[15];
   let re;
   if (oe[16] !== Ee) (re = Ee.padEnd(7)), (oe[16] = Ee), (oe[17] = re);
   else re = oe[17];
   let V;
-  if (oe[18] !== be) (V = e(t, { dimColor: !0, children: be })), (oe[18] = be), (oe[19] = V);
+  if (oe[18] !== be) (V = e(t, { dimColor: true, children: be })), (oe[18] = be), (oe[19] = V);
   else V = oe[19];
   const _e = bo[Bt.reason];
   let ur;
@@ -1181,7 +1181,7 @@ function Ar(Nc) {
     else Ve = x[12];
     let qe;
     if (x[13] !== B.length || x[14] !== Ve)
-      (qe = r(t, { dimColor: !0, children: ["Found ", Sr, " ", Ve, " in ~/.aws/config and ~/.aws/credentials."] })),
+      (qe = r(t, { dimColor: true, children: ["Found ", Sr, " ", Ve, " in ~/.aws/config and ~/.aws/credentials."] })),
         (x[13] = B.length),
         (x[14] = Ve),
         (x[15] = qe);
@@ -1204,7 +1204,7 @@ function Ar(Nc) {
     let we;
     if (x[22] !== fo)
       (we = (xi) => {
-        if (xi === To) Lc(!0);
+        if (xi === To) Lc(true);
         else fo(xi);
       }),
         (x[22] = fo),
@@ -1264,7 +1264,7 @@ function Ar(Nc) {
     (Te =
       He &&
       r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: ["Found ", B.length, " profiles \u2014 too many to list.", _o && ` Prepopulated with "${_o}".`],
       })),
       (x[37] = _o),
@@ -1274,7 +1274,7 @@ function Ar(Nc) {
   else Te = x[40];
   let pe;
   if (x[41] === d)
-    (pe = e(t, { dimColor: !0, children: "If this is an SSO profile, run `aws sso login --profile NAME` first." })),
+    (pe = e(t, { dimColor: true, children: "If this is an SSO profile, run `aws sso login --profile NAME` first." })),
       (x[41] = pe);
   else pe = x[41];
   let we;
@@ -1289,8 +1289,8 @@ function Ar(Nc) {
         columns: 60,
         cursorOffset: Mt,
         onChangeCursorOffset: Fc,
-        focus: !0,
-        showCursor: !0,
+        focus: true,
+        showCursor: true,
       }),
     })),
       (x[42] = Mt),
@@ -1356,7 +1356,7 @@ function Tr() {
   if (Ge[6] === d)
     (Vi = e(t, { children: "Where your Bedrock models are enabled." })),
       (qi = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children:
           "Claude Code reads this from AWS_REGION, not ~/.aws/config \u2014 set it explicitly even if your profile has a region.",
       })),
@@ -1375,8 +1375,8 @@ function Tr() {
         columns: 40,
         cursorOffset: Ht,
         onChangeCursorOffset: ad,
-        focus: !0,
-        showCursor: !0,
+        focus: true,
+        showCursor: true,
       }),
     })),
       (Ge[8] = Ht),
@@ -1411,7 +1411,7 @@ function Rr() {
     Xi;
   if (K[1] !== wr || K[2] !== Or)
     (Xi = () => {
-      let Qi = !1;
+      let Qi = false;
       return (
         Fo(Or).then((Pr) => {
           if (Qi) {
@@ -1422,7 +1422,7 @@ function Rr() {
           Ed({ phase: "done", result: Pr });
         }),
         () => {
-          Qi = !0;
+          Qi = true;
         }
       );
     }),
@@ -1451,11 +1451,11 @@ function Rr() {
   switch (W.status) {
     case "ok": {
       let Pe;
-      if (K[7] === d) (Pe = e(tt, { status: "success", withSpace: !0 })), (K[7] = Pe);
+      if (K[7] === d) (Pe = e(tt, { status: "success", withSpace: true })), (K[7] = Pe);
       else Pe = K[7];
       let te;
       if (K[8] !== W.identity)
-        (te = r(t, { children: [Pe, "Authenticated as ", e(t, { bold: !0, children: W.identity })] })),
+        (te = r(t, { children: [Pe, "Authenticated as ", e(t, { bold: true, children: W.identity })] })),
           (K[8] = W.identity),
           (K[9] = te);
       else te = K[9];
@@ -1471,7 +1471,7 @@ function Rr() {
           (K[12] = ve);
       else ve = K[12];
       let Re;
-      if (K[13] !== ve) (Re = e(t, { dimColor: !0, children: ve })), (K[13] = ve), (K[14] = Re);
+      if (K[13] !== ve) (Re = e(t, { dimColor: true, children: ve })), (K[13] = ve), (K[14] = Re);
       else Re = K[14];
       let je;
       if (K[15] === d) (je = [{ label: "Continue", value: "continue" }]), (K[15] = je);
@@ -1498,14 +1498,14 @@ function Rr() {
     }
     case "error": {
       let Pe;
-      if (K[25] === d) (Pe = e(tt, { status: "error", withSpace: !0 })), (K[25] = Pe);
+      if (K[25] === d) (Pe = e(tt, { status: "error", withSpace: true })), (K[25] = Pe);
       else Pe = K[25];
       let te;
       if (K[26] !== W.error) (te = r(t, { children: [Pe, W.error] })), (K[26] = W.error), (K[27] = te);
       else te = K[27];
       let ve;
       if (K[28] !== W.command)
-        (ve = W.command && r(t, { bold: !0, color: "suggestion", children: ["    ", W.command] })),
+        (ve = W.command && r(t, { bold: true, color: "suggestion", children: ["    ", W.command] })),
           (K[28] = W.command),
           (K[29] = ve);
       else ve = K[29];
@@ -1516,8 +1516,8 @@ function Rr() {
       let je;
       if (K[33] !== uo || K[34] !== po)
         (je = e(wn, {
-          hideIndexes: !0,
-          cancelFirst: !0,
+          hideIndexes: true,
+          cancelFirst: true,
           focus: "cancel",
           confirmLabel: "Save anyway (skip verification)",
           cancelLabel: "Go back and fix",
@@ -1563,7 +1563,7 @@ function pke(Nd) {
       onComplete: rs,
       onCancel: qt,
       title: "Set up Amazon Bedrock",
-      showStepCounter: !1,
+      showStepCounter: false,
     })),
       (Yt[3] = qt),
       (Yt[4] = xr),

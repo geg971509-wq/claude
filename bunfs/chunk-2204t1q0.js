@@ -178,10 +178,10 @@ function z() {
   for (let [t, n] of Object.entries(s)) {
     for (let [o, r] of Object.entries(n))
       (s[o] = { open: `\x1B[${r[0]}m`, close: `\x1B[${r[1]}m` }), (n[o] = s[o]), e.set(r[0], r[1]);
-    Object.defineProperty(s, t, { value: n, enumerable: !1 });
+    Object.defineProperty(s, t, { value: n, enumerable: false });
   }
   return (
-    Object.defineProperty(s, "codes", { value: e, enumerable: !1 }),
+    Object.defineProperty(s, "codes", { value: e, enumerable: false }),
     (s.color.close = "\x1B[39m"),
     (s.bgColor.close = "\x1B[49m"),
     (s.color.ansi = k()),
@@ -200,7 +200,7 @@ function z() {
           }
           return 16 + 36 * Math.round((t / 255) * 5) + 6 * Math.round((n / 255) * 5) + Math.round((o / 255) * 5);
         },
-        enumerable: !1,
+        enumerable: false,
       },
       hexToRgb: {
         value: (t) => {
@@ -211,9 +211,9 @@ function z() {
           let r = Number.parseInt(o, 16);
           return [(r >> 16) & 255, (r >> 8) & 255, r & 255];
         },
-        enumerable: !1,
+        enumerable: false,
       },
-      hexToAnsi256: { value: (t) => s.rgbToAnsi256(...s.hexToRgb(t)), enumerable: !1 },
+      hexToAnsi256: { value: (t) => s.rgbToAnsi256(...s.hexToRgb(t)), enumerable: false },
       ansi256ToAnsi: {
         value: (t) => {
           if (t < 8) return 30 + t;
@@ -231,10 +231,10 @@ function z() {
           if (i === 2) F += 60;
           return F;
         },
-        enumerable: !1,
+        enumerable: false,
       },
-      rgbToAnsi: { value: (t, n, o) => s.ansi256ToAnsi(s.rgbToAnsi256(t, n, o)), enumerable: !1 },
-      hexToAnsi: { value: (t) => s.ansi256ToAnsi(s.hexToAnsi256(t)), enumerable: !1 },
+      rgbToAnsi: { value: (t, n, o) => s.ansi256ToAnsi(s.rgbToAnsi256(t, n, o)), enumerable: false },
+      hexToAnsi: { value: (t) => s.ansi256ToAnsi(s.hexToAnsi256(t)), enumerable: false },
     }),
     s
   );
@@ -661,12 +661,12 @@ function p(e) {
 function Y(e) {
   if (!Number.isSafeInteger(e)) throw TypeError(`Expected a code point, got \`${typeof e}\`.`);
 }
-function $Yn(e, { ambiguousAsWide: t = !1 } = {}) {
+function $Yn(e, { ambiguousAsWide: t = false } = {}) {
   if ((Y(e), C(e) || p(e) || (t && N(e)))) return 2;
   return 1;
 }
 function x(e) {
-  if (!Number.isInteger(e)) return !1;
+  if (!Number.isInteger(e)) return false;
   return C(e) || p(e);
 }
 function V(e, t) {
@@ -772,7 +772,7 @@ function wT(e, t, n) {
     r = [],
     i = 0,
     F = "",
-    u = !1;
+    u = false;
   for (let f of o) {
     let d = f.type === "ansi" ? 0 : se(f.value);
     if (n !== void 0 && i >= n) {
@@ -783,7 +783,7 @@ function wT(e, t, n) {
     } else {
       if (!u && i >= t) {
         if (t > 0 && d === 0) continue;
-        (u = !0), (r = c(Xz(r))), (F = OI(r));
+        (u = true), (r = c(Xz(r))), (F = OI(r));
       }
       if (u) F += f.value;
       i += d;
@@ -797,26 +797,26 @@ function UYn(e, t) {
     o = 0,
     r = [],
     i = "",
-    F = !1,
-    u = !1,
+    F = false,
+    u = false,
     l = [],
     f = "",
-    d = !1;
+    d = false;
   for (let a of n) {
     let E = a.type === "ansi" ? 0 : se(a.value);
     if (!u)
-      if (o >= t && (a.type === "ansi" || E > 0 || !F)) u = !0;
+      if (o >= t && (a.type === "ansi" || E > 0 || !F)) u = true;
       else if (a.type === "ansi") {
         if ((r.push(a), F)) i += a.code;
       } else {
-        if (!F) (F = !0), (r = c(Xz(r))), (i = OI(r));
+        if (!F) (F = true), (r = c(Xz(r))), (i = OI(r));
         i += a.value;
       }
     if (a.type === "ansi") {
       if ((l.push(a), d)) f += a.code;
     } else {
       if (!d && o >= t) {
-        if (!(t > 0 && E === 0)) (d = !0), (l = c(Xz(l))), (f = OI(l));
+        if (!(t > 0 && E === 0)) (d = true), (l = c(Xz(l))), (f = OI(l));
       }
       if (d) f += a.value;
     }

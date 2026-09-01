@@ -10,13 +10,13 @@
 // Version: 2.1.252
 import { j, S } from "/$bunfs/root/chunk-yz031c9r.js";
 var oi = S(function (ni) {
-  Object.defineProperty(ni, "__esModule", { value: !0 });
+  Object.defineProperty(ni, "__esModule", { value: true });
   ni.timingSafeEqual = void 0;
   function si(e, t = "") {
     if (!e) throw Error(t);
   }
   function Do(e, t) {
-    if (e.byteLength !== t.byteLength) return !1;
+    if (e.byteLength !== t.byteLength) return false;
     if (!(e instanceof DataView)) e = new DataView(ArrayBuffer.isView(e) ? e.buffer : e);
     if (!(t instanceof DataView)) t = new DataView(ArrayBuffer.isView(t) ? t.buffer : t);
     si(e instanceof DataView), si(t instanceof DataView);
@@ -54,7 +54,7 @@ var li = S(function (z) {
         t.prototype = r === null ? Object.create(r) : ((s.prototype = r.prototype), new s());
       };
     })();
-  Object.defineProperty(z, "__esModule", { value: !0 });
+  Object.defineProperty(z, "__esModule", { value: true });
   var C = 256,
     Os = (function () {
       function e(t) {
@@ -238,7 +238,7 @@ var hi = S(function (ui, Tr) {
       });
     else e.sha256 = s;
   })(ui, function (e) {
-    (e.__esModule = !0), (e.digestLength = 32), (e.blockSize = 64);
+    (e.__esModule = true), (e.digestLength = 32), (e.blockSize = 64);
     var t = new Uint32Array([
       1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993, 2453635748, 2870763221, 3624381080,
       310598401, 607225278, 1426881987, 1925078388, 2162078206, 2614888103, 3248222580, 3835390401, 4022224774,
@@ -301,7 +301,7 @@ var hi = S(function (ui, Tr) {
           (this.buffer = new Uint8Array(128)),
           (this.bufferLength = 0),
           (this.bytesHashed = 0),
-          (this.finished = !1),
+          (this.finished = false),
           this.reset();
       }
       return (
@@ -317,7 +317,7 @@ var hi = S(function (ui, Tr) {
             (this.state[7] = 1541459225),
             (this.bufferLength = 0),
             (this.bytesHashed = 0),
-            (this.finished = !1),
+            (this.finished = false),
             this
           );
         }),
@@ -356,7 +356,7 @@ var hi = S(function (ui, Tr) {
               (this.buffer[w - 2] = (y >>> 8) & 255),
               (this.buffer[w - 1] = (y >>> 0) & 255),
               r(this.temp, this.state, this.buffer, 0, w),
-              (this.finished = !0);
+              (this.finished = true);
           }
           for (var _ = 0; _ < 8; _++)
             (l[_ * 4 + 0] = (this.state[_] >>> 24) & 255),
@@ -374,7 +374,7 @@ var hi = S(function (ui, Tr) {
         }),
         (h.prototype._restoreState = function (l, p) {
           for (var g = 0; g < this.state.length; g++) this.state[g] = l[g];
-          (this.bytesHashed = p), (this.finished = !1), (this.bufferLength = 0);
+          (this.bytesHashed = p), (this.finished = false), (this.bufferLength = 0);
         }),
         h
       );
@@ -495,7 +495,7 @@ var hi = S(function (ui, Tr) {
   });
 });
 var _i = S(function (pi) {
-  Object.defineProperty(pi, "__esModule", { value: !0 });
+  Object.defineProperty(pi, "__esModule", { value: true });
   pi.Webhook = pi.WebhookVerificationError = void 0;
   var Ko = oi(),
     di = li(),
@@ -756,7 +756,7 @@ async function pr(e, t = (r) => console.warn(`anthropic-sdk: ${r}`)) {
 async function wie(e, t) {
   let r = await import("fs"),
     n = (await import("path")).dirname(e);
-  await r.promises.mkdir(n, { recursive: !0, mode: 448 });
+  await r.promises.mkdir(n, { recursive: true, mode: 448 });
   let i = `${e}.${process.pid}.${Math.random().toString(36).slice(2)}.tmp`;
   try {
     let a = await r.promises.open(i, "w", 384);
@@ -816,14 +816,14 @@ class S$e {
   constructor(e, t) {
     (this.cached = null),
       (this.pendingRefresh = null),
-      (this.nextForce = !1),
+      (this.nextForce = false),
       (this.lastAdvisoryError = 0),
       (this.provider = e),
       (this.onAdvisoryRefreshError = t);
   }
   async getToken() {
     let e = this.nextForce;
-    this.nextForce = !1;
+    this.nextForce = false;
     let t = this.cached;
     if (e || t == null) return (await this.refresh(e)).token;
     if (t.expiresAt == null) return t.token;
@@ -833,9 +833,9 @@ class S$e {
     return (await this.refresh()).token;
   }
   invalidate() {
-    (this.cached = null), (this.nextForce = !0);
+    (this.cached = null), (this.nextForce = true);
   }
-  refresh(e = !1) {
+  refresh(e = false) {
     if (this.pendingRefresh && !e) return this.pendingRefresh;
     return this.doRefresh(e);
   }
@@ -846,9 +846,9 @@ class S$e {
       (this.lastAdvisoryError = se()), this.onAdvisoryRefreshError?.(e);
     });
   }
-  doRefresh(e = !1) {
+  doRefresh(e = false) {
     return (
-      (this.pendingRefresh = this.provider(e ? { forceRefresh: !0 } : void 0).then(
+      (this.pendingRefresh = this.provider(e ? { forceRefresh: true } : void 0).then(
         (t) => ((this.cached = t), (this.pendingRefresh = null), t),
         (t) => {
           throw ((this.pendingRefresh = null), t);
@@ -967,9 +967,9 @@ function ut(e) {
   return e ?? {};
 }
 function as(e) {
-  if (!e) return !0;
-  for (let t in e) return !1;
-  return !0;
+  if (!e) return true;
+  for (let t in e) return false;
+  return true;
 }
 function gn(e, t) {
   return Object.prototype.hasOwnProperty.call(e, t);
@@ -1079,7 +1079,7 @@ var ne = (e, t) =>
       n = setTimeout(() => {
         t?.removeEventListener("abort", s), r();
       }, e);
-    t?.addEventListener("abort", s, { once: !0 });
+    t?.addEventListener("abort", s, { once: true });
   });
 var hs = "RFC3986",
   ds = (e) => String(e),
@@ -1142,7 +1142,7 @@ var ps = 1024,
     return a;
   };
 function Pn(e) {
-  if (!e || typeof e !== "object") return !1;
+  if (!e || typeof e !== "object") return false;
   return !!(e.constructor && e.constructor.isBuffer && e.constructor.isBuffer(e));
 }
 function ms(e, t) {
@@ -1170,25 +1170,25 @@ var In = {
   },
   Tn,
   F = {
-    addQueryPrefix: !1,
-    allowDots: !1,
-    allowEmptyArrays: !1,
+    addQueryPrefix: false,
+    allowDots: false,
+    allowEmptyArrays: false,
     arrayFormat: "indices",
     charset: "utf-8",
-    charsetSentinel: !1,
+    charsetSentinel: false,
     delimiter: "&",
-    encode: !0,
-    encodeDotInKeys: !1,
+    encode: true,
+    encodeDotInKeys: false,
     encoder: An,
-    encodeValuesOnly: !1,
+    encodeValuesOnly: false,
     format: hs,
     formatter: ds,
-    indices: !1,
+    indices: false,
     serializeDate(e) {
       return (Tn ?? (Tn = Function.prototype.call.bind(Date.prototype.toISOString)))(e);
     },
-    skipNulls: !1,
-    strictNullHandling: !1,
+    skipNulls: false,
+    strictNullHandling: false,
   };
 function io(e) {
   return (
@@ -1204,12 +1204,12 @@ function Mn(e, t, r, s, n, i, a, o, u, f, m, h, l, p, g, k, y, w) {
   let _ = e,
     v = w,
     R = 0,
-    A = !1;
+    A = false;
   while ((v = v.get(_s)) !== void 0 && !A) {
     let O = v.get(e);
     if (((R += 1), typeof O < "u"))
       if (O === R) throw RangeError("Cyclic object value");
-      else A = !0;
+      else A = true;
     if (typeof v.get(_s) > "u") R = 0;
   }
   if (typeof f === "function") _ = f(t, _);
@@ -1281,7 +1281,7 @@ function oo(e = F) {
   else i = F.arrayFormat;
   if ("commaRoundTrip" in e && typeof e.commaRoundTrip !== "boolean")
     throw TypeError("`commaRoundTrip` must be a boolean, or absent");
-  let a = typeof e.allowDots > "u" ? (!!e.encodeDotInKeys === !0 ? !0 : F.allowDots) : !!e.allowDots;
+  let a = typeof e.allowDots > "u" ? (!!e.encodeDotInKeys === true ? true : F.allowDots) : !!e.allowDots;
   return {
     addQueryPrefix: typeof e.addQueryPrefix === "boolean" ? e.addQueryPrefix : F.addQueryPrefix,
     allowDots: a,
@@ -1346,7 +1346,7 @@ function Cn(e, t = {}) {
     );
   }
   let m = a.join(s.delimiter),
-    h = s.addQueryPrefix === !0 ? "?" : "";
+    h = s.addQueryPrefix === true ? "?" : "";
   if (s.charsetSentinel)
     if (s.charset === "iso-8859-1") h += "utf8=%26%2310003%3B&";
     else h += "utf8=%E2%9C%93&";
@@ -1388,7 +1388,7 @@ var U5t = async (e) => (await gs(e))?.config ?? null,
         p = E("ANTHROPIC_FEDERATION_RULE_ID");
       if (p && h)
         return {
-          fromFile: !1,
+          fromFile: false,
           config: {
             organization_id: h,
             workspace_id: E("ANTHROPIC_WORKSPACE_ID"),
@@ -1429,7 +1429,7 @@ var U5t = async (e) => (await gs(e))?.config ?? null,
         f.authentication.federation_rule_id = E("ANTHROPIC_FEDERATION_RULE_ID") ?? "";
       (r = f.authentication).service_account_id ?? (r.service_account_id = E("ANTHROPIC_SERVICE_ACCOUNT_ID"));
     }
-    return { config: f, fromFile: !0 };
+    return { config: f, fromFile: true };
   };
 var TZe = async (e, t) => {
     if (e?.authentication.credentials_path) return e.authentication.credentials_path;
@@ -1784,7 +1784,7 @@ function ft(e) {
     },
     async return() {
       let r = t.cancel();
-      return t.releaseLock(), await r, { done: !0, value: void 0 };
+      return t.releaseLock(), await r, { done: true, value: void 0 };
     },
     [Symbol.asyncIterator]() {
       return this;
@@ -1848,8 +1848,8 @@ fe.NEWLINE_CHARS = new Set([
 fe.NEWLINE_REGEXP = /\r\n|[\n\r]/g;
 function _o(e, t) {
   for (let n = t ?? 0; n < e.length; n++) {
-    if (e[n] === 10) return { preceding: n, index: n + 1, carriage: !1 };
-    if (e[n] === 13) return { preceding: n, index: n + 1, carriage: !0 };
+    if (e[n] === 10) return { preceding: n, index: n + 1, carriage: false };
+    if (e[n] === 13) return { preceding: n, index: n + 1, carriage: true };
   }
   return null;
 }
@@ -1870,12 +1870,12 @@ class B {
     return Jn(e, t);
   }
   static fromSSEResponse(e, t, r) {
-    let s = !1,
+    let s = false,
       n = r ? Ym(r) : console;
     async function* i() {
       if (s) throw new bn("Cannot iterate over a consumed stream, use `.tee()` to split the stream.");
-      s = !0;
-      let a = !1;
+      s = true;
+      let a = false;
       try {
         for await (let o of Jn(e, t)) {
           if (o.event === "completion")
@@ -1944,7 +1944,7 @@ class B {
             throw new Gt(void 0, u, void 0, e.headers, f);
           }
         }
-        a = !0;
+        a = true;
       } catch (o) {
         if (re(o)) return;
         throw o;
@@ -1955,7 +1955,7 @@ class B {
     return new B(i, t, r);
   }
   static fromReadableStream(e, t, r) {
-    let s = !1;
+    let s = false;
     async function* n() {
       let a = new fe(),
         o = ft(e);
@@ -1964,14 +1964,14 @@ class B {
     }
     async function* i() {
       if (s) throw new bn("Cannot iterate over a consumed stream, use `.tee()` to split the stream.");
-      s = !0;
-      let a = !1;
+      s = true;
+      let a = false;
       try {
         for await (let o of n()) {
           if (a) continue;
           if (o) yield JSON.parse(o);
         }
-        a = !0;
+        a = true;
       } catch (o) {
         if (re(o)) return;
         throw o;
@@ -2116,7 +2116,7 @@ async function Sr(e, t) {
 }
 function mt(e, t) {
   if (!e || typeof e !== "object" || Array.isArray(e)) return e;
-  return Object.defineProperty(e, "_request_id", { value: t.headers.get("request-id"), enumerable: !1 });
+  return Object.defineProperty(e, "_request_id", { value: t.headers.get("request-id"), enumerable: false });
 }
 var Xn = new WeakSet();
 function Ss(e) {
@@ -2125,10 +2125,10 @@ function Ss(e) {
 function Gn(e) {
   let t = new Set();
   while (typeof e === "object" && e !== null && !t.has(e)) {
-    if ((t.add(e), Ss(e) || re(e) || e instanceof kd || e instanceof ovt)) return !0;
+    if ((t.add(e), Ss(e) || re(e) || e instanceof kd || e instanceof ovt)) return true;
     e = e.cause;
   }
-  return !1;
+  return false;
 }
 function xs(e, t, r, s) {
   return async (n, i = {}) => {
@@ -2234,7 +2234,7 @@ class kr {
     xr.set(this, void 0), jn(this, xr, e, "f"), (this.options = s), (this.response = t), (this.body = r);
   }
   hasNextPage() {
-    if (!this.getPaginatedItems().length) return !1;
+    if (!this.getPaginatedItems().length) return false;
     return this.nextPageRequestOptions() != null;
   }
   async getNextPage() {
@@ -2264,7 +2264,7 @@ class ie extends kr {
   constructor(e, t, r, s) {
     super(e, t, r, s);
     (this.data = r.data || []),
-      (this.has_more = r.has_more || !1),
+      (this.has_more = r.has_more || false),
       (this.first_id = r.first_id || null),
       (this.last_id = r.last_id || null);
   }
@@ -2272,7 +2272,7 @@ class ie extends kr {
     return this.data ?? [];
   }
   hasNextPage() {
-    if (this.has_more === !1) return !1;
+    if (this.has_more === false) return false;
     return super.hasNextPage();
   }
   nextPageRequestOptions() {
@@ -2339,7 +2339,7 @@ function gt(e, t) {
   return t ? r.split(/[\\/]/).pop() || void 0 : r;
 }
 var As = (e) => e != null && typeof e === "object" && typeof e[Symbol.asyncIterator] === "function";
-var Be = async (e, t, r = !0) => ({ ...e, body: await ko(e.body, t, r) }),
+var Be = async (e, t, r = true) => ({ ...e, body: await ko(e.body, t, r) }),
   Yn = new WeakMap();
 function xo(e) {
   let t = typeof e === "function" ? e : e.fetch,
@@ -2349,15 +2349,15 @@ function xo(e) {
     try {
       let n = "Response" in t ? t.Response : (await t("data:,")).constructor,
         i = new FormData();
-      if (i.toString() === (await new n(i).text())) return !1;
-      return !0;
+      if (i.toString() === (await new n(i).text())) return false;
+      return true;
     } catch {
-      return !0;
+      return true;
     }
   })();
   return Yn.set(t, s), s;
 }
-var ko = async (e, t, r = !0) => {
+var ko = async (e, t, r = true) => {
     if (!(await xo(t)))
       throw TypeError(
         "The provided fetch function does not support file uploads with the current global FormData class.",
@@ -2396,7 +2396,7 @@ var Qn = (e) =>
     e != null && typeof e === "object" && typeof e.name === "string" && typeof e.lastModified === "number" && Qn(e),
   Ro = (e) => e != null && typeof e === "object" && typeof e.url === "string" && typeof e.blob === "function";
 async function Ts(e, t, r) {
-  if ((Rs(), (e = await e), t || (t = gt(e, !0)), vo(e))) {
+  if ((Rs(), (e = await e), t || (t = gt(e, true)), vo(e))) {
     if (e instanceof File && t == null && r == null) return e;
     return Ae([await e.arrayBuffer()], t ?? e.name, { type: e.type, lastModified: e.lastModified, ...r });
   }
@@ -2442,19 +2442,19 @@ function* To(e) {
     for (let i of n) yield [i, null];
     return;
   }
-  let t = !1,
+  let t = false,
     r;
   if (e instanceof Headers) r = e.entries();
   else if (os(e)) r = e;
-  else (t = !0), (r = Object.entries(e ?? {}));
+  else (t = true), (r = Object.entries(e ?? {}));
   for (let s of r) {
     let n = s[0];
     if (typeof n !== "string") throw TypeError("expected header name to be a string");
     let i = os(s[1]) ? s[1] : [s[1]],
-      a = !1;
+      a = false;
     for (let o of i) {
       if (o === void 0) continue;
-      if (t && !a) (a = !0), yield [n, Er];
+      if (t && !a) (a = true), yield [n, Er];
       yield [n, o];
     }
   }
@@ -2491,7 +2491,7 @@ var Er = Symbol("clear"),
         else t.append(i, a), r.delete(o);
       }
     }
-    return { [Zn]: !0, values: t, nulls: r };
+    return { [Zn]: true, values: t, nulls: r };
   };
 function ti(e) {
   return e.replace(/[^A-Za-z0-9\-._~!$&'()*+,;=:@]+/g, encodeURIComponent);
@@ -2500,10 +2500,10 @@ var ei = Object.freeze(Object.create(null)),
   Mo = (e = ti) =>
     function (r, ...s) {
       if (r.length === 1) return r[0];
-      let n = !1,
+      let n = false,
         i = [],
         a = r.reduce((m, h, l) => {
-          if (/[?#]/.test(h)) n = !0;
+          if (/[?#]/.test(h)) n = true;
           let p = s[l],
             g = (n ? encodeURIComponent : e)("" + p);
           if (
@@ -2721,7 +2721,7 @@ class kt extends b {
         { "anthropic-beta": [...(s ?? []), "files-api-2025-04-14"].toString(), Accept: "application/binary" },
         r?.headers,
       ]),
-      __binaryResponse: !0,
+      __binaryResponse: true,
     });
   }
   retrieveMetadata(e, t = {}, r) {
@@ -2925,7 +2925,7 @@ var je,
 class Te {
   constructor(e) {
     je.set(this, void 0),
-      Or.set(this, !1),
+      Or.set(this, false),
       Z.set(this, void 0),
       Mr.set(this, void 0),
       Cr.set(this, void 0),
@@ -2938,8 +2938,8 @@ class Te {
       (this.environmentKey = e.environmentKey),
       (this.workerId = e.workerId ?? ta()),
       jn(this, je, Ir(e.client, { authToken: e.environmentKey, helper: "environments-work-poller" }), "f"),
-      jn(this, Cr, e.autoStop ?? !0, "f"),
-      jn(this, Nr, e.drain ?? !1, "f"),
+      jn(this, Cr, e.autoStop ?? true, "f"),
+      jn(this, Nr, e.drain ?? false, "f"),
       jn(this, It, e.blockMs === void 0 ? Yo : e.blockMs, "f"),
       jn(this, Ot, e.reclaimOlderThanMs ?? null, "f"),
       jn(this, qe, e.requestOptions, "f"),
@@ -2963,7 +2963,7 @@ class Te {
   (qe = new WeakMap()),
   Symbol.asyncIterator)]() {
     if (Oe(this, Or, "f")) throw new bn("Cannot iterate over a consumed WorkPoller");
-    jn(this, Or, !0, "f");
+    jn(this, Or, true, "f");
     let e = Ym(this.client);
     e.info("poller starting", { component: "work-poller", environment_id: this.environmentId });
     try {
@@ -3040,23 +3040,23 @@ function ta() {
 var Ke, ge, Je;
 class Ns {
   constructor() {
-    Ke.set(this, []), ge.set(this, []), Je.set(this, !1);
+    Ke.set(this, []), ge.set(this, []), Je.set(this, false);
   }
   push(e) {
-    if (Oe(this, Je, "f")) return !1;
+    if (Oe(this, Je, "f")) return false;
     let t = Oe(this, ge, "f").shift();
-    if (t) t({ done: !1, value: e });
+    if (t) t({ done: false, value: e });
     else Oe(this, Ke, "f").push(e);
-    return !0;
+    return true;
   }
   close() {
     if (Oe(this, Je, "f")) return;
-    jn(this, Je, !0, "f");
-    while (Oe(this, ge, "f").length > 0) Oe(this, ge, "f").shift()({ done: !0, value: void 0 });
+    jn(this, Je, true, "f");
+    while (Oe(this, ge, "f").length > 0) Oe(this, ge, "f").shift()({ done: true, value: void 0 });
   }
   next(e) {
-    if (Oe(this, Ke, "f").length > 0) return Promise.resolve({ done: !1, value: Oe(this, Ke, "f").shift() });
-    if (Oe(this, Je, "f") || e?.aborted) return Promise.resolve({ done: !0, value: void 0 });
+    if (Oe(this, Ke, "f").length > 0) return Promise.resolve({ done: false, value: Oe(this, Ke, "f").shift() });
+    if (Oe(this, Je, "f") || e?.aborted) return Promise.resolve({ done: true, value: void 0 });
     return new Promise((t) => {
       let r = (n) => {
           e?.removeEventListener("abort", s), t(n);
@@ -3064,9 +3064,9 @@ class Ns {
         s = () => {
           let n = Oe(this, ge, "f").indexOf(r);
           if (n >= 0) Oe(this, ge, "f").splice(n, 1);
-          t({ done: !0, value: void 0 });
+          t({ done: true, value: void 0 });
         };
-      Oe(this, ge, "f").push(r), e?.addEventListener("abort", s, { once: !0 });
+      Oe(this, ge, "f").push(r), e?.addEventListener("abort", s, { once: true });
     });
   }
   tryShift() {
@@ -3083,9 +3083,9 @@ function ra(e) {
 async function Si(e, t, r) {
   try {
     let s = e.parse ? e.parse(t) : t;
-    return { content: await e.run(s, r), isError: !1 };
+    return { content: await e.run(s, r), isError: false };
   } catch (s) {
-    return { content: ra(s), isError: !0 };
+    return { content: ra(s), isError: true };
   }
 }
 var Mt,
@@ -3134,7 +3134,7 @@ class Mi {
     Mt.set(this, void 0),
       Ur.set(this, void 0),
       Ve.set(this, new Set()),
-      Ie.set(this, !1),
+      Ie.set(this, false),
       oe.set(this, void 0),
       jn(this, Mt, e, "f"),
       jn(this, Ur, t, "f");
@@ -3146,7 +3146,7 @@ class Mi {
   }
   block(e) {
     if ((Oe(this, Ve, "f").add(e), Oe(this, oe, "f") !== void 0))
-      jn(this, Ie, !0, "f"), clearTimeout(Oe(this, oe, "f")), jn(this, oe, void 0, "f");
+      jn(this, Ie, true, "f"), clearTimeout(Oe(this, oe, "f")), jn(this, oe, void 0, "f");
   }
   unblock(e) {
     if ((Oe(this, Ve, "f").delete(e), Oe(this, Ve, "f").size === 0 && Oe(this, Ie, "f"))) this.arm();
@@ -3154,14 +3154,14 @@ class Mi {
   arm() {
     if (Oe(this, Mt, "f") <= 0) return;
     if (Oe(this, Ve, "f").size > 0) {
-      jn(this, Ie, !0, "f");
+      jn(this, Ie, true, "f");
       return;
     }
-    if ((jn(this, Ie, !1, "f"), Oe(this, oe, "f") !== void 0)) clearTimeout(Oe(this, oe, "f"));
+    if ((jn(this, Ie, false, "f"), Oe(this, oe, "f") !== void 0)) clearTimeout(Oe(this, oe, "f"));
     jn(this, oe, setTimeout(Oe(this, Ur, "f"), Oe(this, Mt, "f")), "f");
   }
   disarm() {
-    if ((jn(this, Ie, !1, "f"), Oe(this, oe, "f") !== void 0))
+    if ((jn(this, Ie, false, "f"), Oe(this, oe, "f") !== void 0))
       clearTimeout(Oe(this, oe, "f")), jn(this, oe, void 0, "f");
   }
 }
@@ -3169,7 +3169,7 @@ class Mi {
 class Me {
   constructor(e, t) {
     I.add(this),
-      $r.set(this, !1),
+      $r.set(this, false),
       D.set(this, void 0),
       Fr.set(this, void 0),
       Ct.set(this, void 0),
@@ -3229,7 +3229,7 @@ class Me {
   (I = new WeakSet()),
   Symbol.asyncIterator)]() {
     if (Oe(this, $r, "f")) throw new bn("Cannot iterate over a consumed SessionToolRunner");
-    jn(this, $r, !0, "f"),
+    jn(this, $r, true, "f"),
       Oe(this, L, "f").info("session tool runner starting", {
         component: "session-tool-runner",
         session_id: this.sessionId,
@@ -3241,7 +3241,7 @@ class Me {
         Oe(this, D, "f").abort();
       });
     try {
-      while (!0) {
+      while (true) {
         let r = await Oe(this, ze, "f").next(Oe(this, D, "f").signal);
         if (r.done) break;
         yield r.value;
@@ -3293,7 +3293,7 @@ class Me {
   (xi = async function () {
     let t = Oe(this, D, "f"),
       r = [],
-      s = !1;
+      s = false;
     try {
       for await (let a of this.client.beta.sessions.events.list(
         this.sessionId,
@@ -3331,22 +3331,22 @@ class Me {
       case "agent.tool_use":
       case "agent.custom_tool_use":
         if (!Oe(this, Xe, "f").has(t.id)) Oe(this, Xe, "f").add(t.id), await Oe(this, I, "m", Fs).call(this, t);
-        return !1;
+        return false;
       case "user.tool_confirmation":
-        return await Oe(this, I, "m", vi).call(this, t), !1;
+        return await Oe(this, I, "m", vi).call(this, t), false;
       case "user.tool_result":
-        return Oe(this, X, "f").add(t.tool_use_id), !1;
+        return Oe(this, X, "f").add(t.tool_use_id), false;
       case "user.custom_tool_result":
-        return Oe(this, X, "f").add(t.custom_tool_use_id), !1;
+        return Oe(this, X, "f").add(t.custom_tool_use_id), false;
       case "session.status_terminated":
       case "session.deleted":
         return (
           Oe(this, L, "f").info("session terminated", { component: "session-tool-runner", session_id: this.sessionId }),
           Oe(this, D, "f").abort(),
-          !0
+          true
         );
       default:
-        return !1;
+        return false;
     }
   }),
   (Fs = async function (t) {
@@ -3405,8 +3405,8 @@ class Me {
         event: t,
         toolUseId: t.id,
         name: t.name,
-        isError: !1,
-        posted: !1,
+        isError: false,
+        posted: false,
         confirmation: "deny",
       });
   }),
@@ -3436,8 +3436,8 @@ class Me {
             event: t,
             toolUseId: t.id,
             name: t.name,
-            isError: !1,
-            posted: !1,
+            isError: false,
+            posted: false,
             confirmation: r,
           });
         return;
@@ -3478,14 +3478,14 @@ class Me {
         return (
           await this.client.beta.sessions.events.send(this.sessionId, { events: [t] }, Oe(this, I, "m", Lr).call(this)),
           Oe(this, X, "f").add(r),
-          !0
+          true
         );
       } catch (a) {
         if (((n = a), _e(a))) break;
         if (i < Pi - 1) await ne((i + 1) * 1000, s.signal);
       }
     }
-    return Oe(this, L, "f").error("failed to send tool result", { tool_use_id: r, error: String(n) }), !1;
+    return Oe(this, L, "f").error("failed to send tool result", { tool_use_id: r, error: String(n) }), false;
   }),
   (Ii = async function () {
     if (Oe(this, he, "f") === 0) return;
@@ -3512,7 +3512,7 @@ function ca(e) {
         source: r.source,
         title: r.title,
         content: r.content.map((s) => ({ type: "text", text: s.text })),
-        citations: { enabled: r.citations?.enabled ?? !1 },
+        citations: { enabled: r.citations?.enabled ?? false },
       };
     return { type: "text", text: JSON.stringify(r) };
   });
@@ -3551,7 +3551,7 @@ class Ft {
         ...(this.workerId !== void 0 ? { workerId: this.workerId } : {}),
         ...(s ? { signal: s } : {}),
         ...(this.requestOptions !== void 0 ? { requestOptions: this.requestOptions } : {}),
-        autoStop: !1,
+        autoStop: false,
       });
     for await (let i of n) await Oe(this, Wr, "m", Hs).call(this, i, r, n.signal);
   }
@@ -3621,7 +3621,7 @@ async function ua(e, t, r, s) {
   try {
     await e.beta.environments.work.stop(
       t.id,
-      { environment_id: t.environment_id, force: !0 },
+      { environment_id: t.environment_id, force: true },
       { ...s, headers: c([s?.headers]) },
     );
   } catch (n) {
@@ -3981,8 +3981,8 @@ class Dt extends b {
           { "anthropic-beta": [...(n ?? []), "message-batches-2024-09-24"].toString(), Accept: "application/binary" },
           r?.headers,
         ]),
-        stream: !0,
-        __binaryResponse: !0,
+        stream: true,
+        __binaryResponse: true,
       })
       ._thenUnwrap((i, a) => Qe.fromResponse(a.response, a.controller));
   }
@@ -4007,7 +4007,7 @@ function Ds(e, t, r) {
       ...e,
       content: e.content.map((n) => {
         if (n.type === "text") {
-          let i = Object.defineProperty({ ...n }, "parsed_output", { value: null, enumerable: !1 });
+          let i = Object.defineProperty({ ...n }, "parsed_output", { value: null, enumerable: false });
           return Object.defineProperty(i, "parsed", {
             get() {
               return (
@@ -4017,7 +4017,7 @@ function Ds(e, t, r) {
                 null
               );
             },
-            enumerable: !1,
+            enumerable: false,
           });
         }
         return n;
@@ -4032,7 +4032,7 @@ function Us(e, t, r) {
       if (i.type === "text") {
         let a = ba(t, i.text);
         if (s === null) s = a;
-        let o = Object.defineProperty({ ...i }, "parsed_output", { value: a, enumerable: !1 });
+        let o = Object.defineProperty({ ...i }, "parsed_output", { value: a, enumerable: false });
         return Object.defineProperty(o, "parsed", {
           get() {
             return (
@@ -4042,7 +4042,7 @@ function Us(e, t, r) {
               a
             );
           },
-          enumerable: !1,
+          enumerable: false,
         });
       }
       return i;
@@ -4094,16 +4094,16 @@ var ya = (e) => {
       }
       if (s === '"') {
         let o = "",
-          u = !1;
+          u = false;
         s = e[++t];
         while (s !== '"') {
           if (t === e.length) {
-            u = !0;
+            u = true;
             break;
           }
           if (s === "\\") {
             if ((t++, t === e.length)) {
-              u = !0;
+              u = true;
               break;
             }
             (o += s + e[t]), (s = e[++t]);
@@ -4211,15 +4211,15 @@ var ye = "__json_buf";
 function qr(e, t) {
   let r = {};
   for (let i of Object.keys(e)) if (i !== "input") r[i] = e[i];
-  Object.defineProperty(r, ye, { value: t, enumerable: !1, writable: !0 });
+  Object.defineProperty(r, ye, { value: t, enumerable: false, writable: true });
   let s,
-    n = !1;
+    n = false;
   return (
     Object.defineProperty(r, "input", {
-      enumerable: !0,
-      configurable: !0,
+      enumerable: true,
+      configurable: true,
       get() {
-        if (!n) (s = t ? $i(t) : {}), (n = !0);
+        if (!n) (s = t ? $i(t) : {}), (n = true);
         return s;
       },
     }),
@@ -4245,16 +4245,16 @@ class Vt {
       Jr.set(this, () => {}),
       jt.set(this, () => {}),
       le.set(this, {}),
-      qt.set(this, !1),
-      Vr.set(this, !1),
-      zr.set(this, !1),
-      $e.set(this, !1),
+      qt.set(this, false),
+      Vr.set(this, false),
+      zr.set(this, false),
+      $e.set(this, false),
       Xr.set(this, void 0),
       Gr.set(this, void 0),
       Kt.set(this, void 0),
       Jt.set(this, (r) => {
-        if ((jn(this, Vr, !0, "f"), re(r))) r = new sc();
-        if (r instanceof sc) return jn(this, zr, !0, "f"), this._emit("abort", r);
+        if ((jn(this, Vr, true, "f"), re(r))) r = new sc();
+        if (r instanceof sc) return jn(this, zr, true, "f"), this._emit("abort", r);
         if (r instanceof bn) return this._emit("error", r);
         if (r instanceof Error) {
           let s = new bn(r.message);
@@ -4290,7 +4290,7 @@ class Vt {
     return Oe(this, Gr, "f");
   }
   async withResponse() {
-    jn(this, $e, !0, "f");
+    jn(this, $e, true, "f");
     let e = await Oe(this, Ut, "f");
     if (!e) throw Error("Could not resolve a `Response` object");
     return { data: this, response: e, request_id: e.headers.get("request-id") };
@@ -4303,8 +4303,8 @@ class Vt {
     let n = new Vt(t, { logger: s });
     for (let i of t.messages) n._addMessageParam(i);
     return (
-      jn(n, et, { ...t, stream: !0 }, "f"),
-      n._run(() => n._createMessage(e, { ...t, stream: !0 }, { ...r, headers: { ...r?.headers, [Ar]: "stream" } })),
+      jn(n, et, { ...t, stream: true }, "f"),
+      n._run(() => n._createMessage(e, { ...t, stream: true }, { ...r, headers: { ...r?.headers, [Ar]: "stream" } })),
       n
     );
   }
@@ -4319,7 +4319,7 @@ class Vt {
   _addMessageParam(e) {
     this.messages.push(e);
   }
-  _addMessage(e, t = !0) {
+  _addMessage(e, t = true) {
     if ((this.receivedMessages.push(e), t)) this._emit("message", e);
   }
   async _createMessage(e, t, r) {
@@ -4332,7 +4332,7 @@ class Vt {
     try {
       Oe(this, q, "m", Ws).call(this);
       let { response: i, data: a } = await e
-        .create({ ...t, stream: !0 }, { ...r, signal: this.controller.signal })
+        .create({ ...t, stream: true }, { ...r, signal: this.controller.signal })
         .withResponse();
       this._connected(i);
       for await (let o of a) Oe(this, q, "m", js).call(this, o);
@@ -4372,16 +4372,16 @@ class Vt {
     return this;
   }
   once(e, t) {
-    return (Oe(this, le, "f")[e] || (Oe(this, le, "f")[e] = [])).push({ listener: t, once: !0 }), this;
+    return (Oe(this, le, "f")[e] || (Oe(this, le, "f")[e] = [])).push({ listener: t, once: true }), this;
   }
   emitted(e) {
     return new Promise((t, r) => {
-      if ((jn(this, $e, !0, "f"), e !== "error")) this.once("error", r);
+      if ((jn(this, $e, true, "f"), e !== "error")) this.once("error", r);
       this.once(e, t);
     });
   }
   async done() {
-    jn(this, $e, !0, "f"), await Oe(this, Wt, "f");
+    jn(this, $e, true, "f"), await Oe(this, Wt, "f");
   }
   get currentMessage() {
     return Oe(this, we, "f");
@@ -4394,7 +4394,7 @@ class Vt {
   }
   _emit(e, ...t) {
     if (Oe(this, qt, "f")) return;
-    if (e === "end") jn(this, qt, !0, "f"), Oe(this, Jr, "f").call(this);
+    if (e === "end") jn(this, qt, true, "f"), Oe(this, Jr, "f").call(this);
     let r = Oe(this, le, "f")[e];
     if (r) (Oe(this, le, "f")[e] = r.filter((s) => !s.once)), r.forEach(({ listener: s }) => s(...t));
     if (e === "abort") {
@@ -4512,7 +4512,7 @@ class Vt {
         break;
       }
       case "message_stop": {
-        this._addMessageParam(r), this._addMessage(Ds(r, Oe(this, et, "f"), { logger: Oe(this, Kt, "f") }), !0);
+        this._addMessageParam(r), this._addMessage(Ds(r, Oe(this, et, "f"), { logger: Oe(this, Kt, "f") }), true);
         break;
       }
       case "content_block_stop": {
@@ -4617,7 +4617,7 @@ class Vt {
           } catch (i) {
             (n = {}), Oe(this, Jt, "f").call(this, Oe(this, q, "m", Ks).call(this, s, i));
           }
-          Object.defineProperty(s, "input", { value: n, enumerable: !0, configurable: !0, writable: !0 });
+          Object.defineProperty(s, "input", { value: n, enumerable: true, configurable: true, writable: true });
         }
         return r;
       }
@@ -4632,7 +4632,7 @@ class Vt {
   Symbol.asyncIterator)]() {
     let e = [],
       t = [],
-      r = !1;
+      r = false;
     return (
       this.on("streamEvent", (s) => {
         let n = t.shift();
@@ -4640,31 +4640,31 @@ class Vt {
         else e.push(s);
       }),
       this.on("end", () => {
-        r = !0;
+        r = true;
         for (let s of t) s.resolve(void 0);
         t.length = 0;
       }),
       this.on("abort", (s) => {
-        r = !0;
+        r = true;
         for (let n of t) n.reject(s);
         t.length = 0;
       }),
       this.on("error", (s) => {
-        r = !0;
+        r = true;
         for (let n of t) n.reject(s);
         t.length = 0;
       }),
       {
         next: async () => {
           if (!e.length) {
-            if (r) return { value: void 0, done: !0 };
+            if (r) return { value: void 0, done: true };
             return new Promise((n, i) => t.push({ resolve: n, reject: i })).then((n) =>
-              n ? { value: n, done: !1 } : { value: void 0, done: !0 },
+              n ? { value: n, done: false } : { value: void 0, done: true },
             );
           }
-          return { value: e.shift(), done: !1 };
+          return { value: e.shift(), done: false };
         },
-        return: async () => (this.abort(), { value: void 0, done: !0 }),
+        return: async () => (this.abort(), { value: void 0, done: true }),
       }
     );
   }
@@ -4702,8 +4702,8 @@ class Yt {
   constructor(e, t, r) {
     zt.add(this),
       (this.client = e),
-      tt.set(this, !1),
-      Fe.set(this, !1),
+      tt.set(this, false),
+      Fe.set(this, false),
       H.set(this, void 0),
       K.set(this, void 0),
       G.set(this, void 0),
@@ -4737,7 +4737,7 @@ class Yt {
   (zt = new WeakSet()),
   (Bi = async function () {
     let t = Oe(this, H, "f").params.compactionControl;
-    if (!t || !t.enabled) return !1;
+    if (!t || !t.enabled) return false;
     let r = 0;
     if (Oe(this, G, "f") !== void 0)
       try {
@@ -4748,10 +4748,10 @@ class Yt {
           (u.usage.cache_read_input_tokens ?? 0) +
           u.usage.output_tokens;
       } catch {
-        return !1;
+        return false;
       }
     let s = t.contextTokenThreshold ?? Di;
-    if (r < s) return !1;
+    if (r < s) return false;
     let n = t.model ?? Oe(this, H, "f").params.model,
       i = t.summaryPrompt ?? Ui,
       a = Oe(this, H, "f").params.messages;
@@ -4772,19 +4772,19 @@ class Yt {
       { signal: Oe(this, K, "f").signal, headers: c([Oe(this, K, "f").headers, xt("compaction")]) },
     );
     if (o.content[0]?.type !== "text") throw new bn("Expected text response for compaction");
-    return (Oe(this, H, "f").params.messages = [{ role: "user", content: o.content }]), !0;
+    return (Oe(this, H, "f").params.messages = [{ role: "user", content: o.content }]), true;
   }),
   Symbol.asyncIterator)]() {
     var e;
     if (Oe(this, tt, "f")) throw new bn("Cannot iterate over a consumed stream");
-    jn(this, tt, !0, "f"), jn(this, Fe, !0, "f"), jn(this, de, void 0, "f");
+    jn(this, tt, true, "f"), jn(this, Fe, true, "f"), jn(this, de, void 0, "f");
     try {
-      while (!0) {
+      while (true) {
         let t;
         try {
           if (Oe(this, H, "f").params.max_iterations && Oe(this, Xt, "f") >= Oe(this, H, "f").params.max_iterations)
             break;
-          jn(this, Fe, !1, "f"),
+          jn(this, Fe, false, "f"),
             jn(this, de, void 0, "f"),
             jn(this, Xt, ((e = Oe(this, Xt, "f")), e++, e), "f"),
             jn(this, G, void 0, "f");
@@ -4795,7 +4795,7 @@ class Yt {
               Oe(this, G, "f").catch(() => {}),
               yield t;
           else
-            jn(this, G, this.client.beta.messages.create({ ...n, stream: !1 }, Oe(this, K, "f")), "f"),
+            jn(this, G, this.client.beta.messages.create({ ...n, stream: false }, Oe(this, K, "f")), "f"),
               yield Oe(this, G, "f");
           if (!(await Oe(this, zt, "m", Bi).call(this))) {
             if (!Oe(this, Fe, "f")) {
@@ -4818,7 +4818,7 @@ class Yt {
       Oe(this, Se, "f").resolve(await Oe(this, G, "f"));
     } catch (t) {
       throw (
-        (jn(this, tt, !1, "f"),
+        (jn(this, tt, false, "f"),
         Oe(this, Se, "f").promise.catch(() => {}),
         Oe(this, Se, "f").reject(t),
         jn(this, Se, EZe(), "f"),
@@ -4829,7 +4829,7 @@ class Yt {
   setMessagesParams(e) {
     if (typeof e === "function") Oe(this, H, "f").params = e(Oe(this, H, "f").params);
     else Oe(this, H, "f").params = e;
-    jn(this, Fe, !0, "f"), jn(this, de, void 0, "f");
+    jn(this, Fe, true, "f"), jn(this, de, void 0, "f");
   }
   setRequestOptions(e) {
     if (typeof e === "function") jn(this, K, e(Oe(this, K, "f")), "f");
@@ -4871,7 +4871,7 @@ async function ka(e, t = e.messages.at(-1), r) {
       s.map(async (i) => {
         let a = e.tools.find((o) => ("name" in o ? o.name : o.mcp_server_name) === i.name);
         if (!a || !("run" in a))
-          return { type: "tool_result", tool_use_id: i.id, content: `Error: Tool '${i.name}' not found`, is_error: !0 };
+          return { type: "tool_result", tool_use_id: i.id, content: `Error: Tool '${i.name}' not found`, is_error: true };
         try {
           let o = i.input;
           if ("parse" in a && a.parse) o = a.parse(o);
@@ -4882,7 +4882,7 @@ async function ka(e, t = e.messages.at(-1), r) {
             type: "tool_result",
             tool_use_id: i.id,
             content: o instanceof xu ? o.content : `Error: ${o instanceof Error ? o.message : String(o)}`,
-            is_error: !0,
+            is_error: true,
           };
         }
       }),
@@ -4945,7 +4945,7 @@ Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resour
         o,
         t?.headers,
       ]),
-      stream: r.stream ?? !1,
+      stream: r.stream ?? false,
     });
   }
   parse(e, t) {
@@ -5017,7 +5017,7 @@ class rt extends b {
       query: n,
       ...r,
       headers: c([{ "anthropic-beta": [...(s ?? []), "managed-agents-2026-04-01"].toString() }, r?.headers]),
-      stream: !0,
+      stream: true,
     });
   }
   toolRunner(e, t) {
@@ -5079,7 +5079,7 @@ class Zt extends b {
     return this._client.get(d`/v1/sessions/${s}/threads/${e}/stream?beta=true`, {
       ...r,
       headers: c([{ "anthropic-beta": [...(n ?? []), "managed-agents-2026-04-01"].toString() }, r?.headers]),
-      stream: !0,
+      stream: true,
     });
   }
 }
@@ -5180,7 +5180,7 @@ class er extends b {
           headers: c([{ "anthropic-beta": [...(s ?? []), "skills-2025-10-02"].toString() }, r?.headers]),
         },
         this._client,
-        !1,
+        false,
       ),
     );
   }
@@ -5214,7 +5214,7 @@ class er extends b {
         { "anthropic-beta": [...(n ?? []), "skills-2025-10-02"].toString(), Accept: "application/binary" },
         r?.headers,
       ]),
-      __binaryResponse: !0,
+      __binaryResponse: true,
     });
   }
 }
@@ -5234,7 +5234,7 @@ class nt extends b {
           headers: c([{ "anthropic-beta": [...(r ?? []), "skills-2025-10-02"].toString() }, t?.headers]),
         },
         this._client,
-        !1,
+        false,
       ),
     );
   }
@@ -5495,7 +5495,7 @@ class Fve extends b {
       timeout: this._client._options.timeout ?? 600000,
       ...t,
       headers: c([{ ...(r?.toString() != null ? { "anthropic-beta": r?.toString() } : void 0) }, t?.headers]),
-      stream: e.stream ?? !1,
+      stream: e.stream ?? false,
     });
   }
 }
@@ -5508,7 +5508,7 @@ function zs(e, t, r) {
     return {
       ...e,
       content: e.content.map((n) => {
-        if (n.type === "text") return Object.defineProperty({ ...n }, "parsed_output", { value: null, enumerable: !1 });
+        if (n.type === "text") return Object.defineProperty({ ...n }, "parsed_output", { value: null, enumerable: false });
         return n;
       }),
       parsed_output: null,
@@ -5521,7 +5521,7 @@ function Xs(e, t, r) {
       if (i.type === "text") {
         let a = La(t, i.text);
         if (s === null) s = a;
-        return Object.defineProperty({ ...i }, "parsed_output", { value: a, enumerable: !1 });
+        return Object.defineProperty({ ...i }, "parsed_output", { value: a, enumerable: false });
       }
       return i;
     });
@@ -5556,16 +5556,16 @@ class lr {
       Qr.set(this, () => {}),
       or.set(this, () => {}),
       ue.set(this, {}),
-      ar.set(this, !1),
-      Zr.set(this, !1),
-      es.set(this, !1),
-      Le.set(this, !1),
+      ar.set(this, false),
+      Zr.set(this, false),
+      es.set(this, false),
+      Le.set(this, false),
       ts.set(this, void 0),
       rs.set(this, void 0),
       cr.set(this, void 0),
       Ys.set(this, (r) => {
-        if ((jn(this, Zr, !0, "f"), re(r))) r = new sc();
-        if (r instanceof sc) return jn(this, es, !0, "f"), this._emit("abort", r);
+        if ((jn(this, Zr, true, "f"), re(r))) r = new sc();
+        if (r instanceof sc) return jn(this, es, true, "f"), this._emit("abort", r);
         if (r instanceof bn) return this._emit("error", r);
         if (r instanceof Error) {
           let s = new bn(r.message);
@@ -5601,7 +5601,7 @@ class lr {
     return Oe(this, rs, "f");
   }
   async withResponse() {
-    jn(this, Le, !0, "f");
+    jn(this, Le, true, "f");
     let e = await Oe(this, sr, "f");
     if (!e) throw Error("Could not resolve a `Response` object");
     return { data: this, response: e, request_id: e.headers.get("request-id") };
@@ -5614,8 +5614,8 @@ class lr {
     let n = new lr(t, { logger: s });
     for (let i of t.messages) n._addMessageParam(i);
     return (
-      jn(n, at, { ...t, stream: !0 }, "f"),
-      n._run(() => n._createMessage(e, { ...t, stream: !0 }, { ...r, headers: { ...r?.headers, [Ar]: "stream" } })),
+      jn(n, at, { ...t, stream: true }, "f"),
+      n._run(() => n._createMessage(e, { ...t, stream: true }, { ...r, headers: { ...r?.headers, [Ar]: "stream" } })),
       n
     );
   }
@@ -5630,7 +5630,7 @@ class lr {
   _addMessageParam(e) {
     this.messages.push(e);
   }
-  _addMessage(e, t = !0) {
+  _addMessage(e, t = true) {
     if ((this.receivedMessages.push(e), t)) this._emit("message", e);
   }
   async _createMessage(e, t, r) {
@@ -5643,7 +5643,7 @@ class lr {
     try {
       Oe(this, te, "m", Qs).call(this);
       let { response: i, data: a } = await e
-        .create({ ...t, stream: !0 }, { ...r, signal: this.controller.signal })
+        .create({ ...t, stream: true }, { ...r, signal: this.controller.signal })
         .withResponse();
       this._connected(i);
       for await (let o of a) Oe(this, te, "m", Zs).call(this, o);
@@ -5683,16 +5683,16 @@ class lr {
     return this;
   }
   once(e, t) {
-    return (Oe(this, ue, "f")[e] || (Oe(this, ue, "f")[e] = [])).push({ listener: t, once: !0 }), this;
+    return (Oe(this, ue, "f")[e] || (Oe(this, ue, "f")[e] = [])).push({ listener: t, once: true }), this;
   }
   emitted(e) {
     return new Promise((t, r) => {
-      if ((jn(this, Le, !0, "f"), e !== "error")) this.once("error", r);
+      if ((jn(this, Le, true, "f"), e !== "error")) this.once("error", r);
       this.once(e, t);
     });
   }
   async done() {
-    jn(this, Le, !0, "f"), await Oe(this, ir, "f");
+    jn(this, Le, true, "f"), await Oe(this, ir, "f");
   }
   get currentMessage() {
     return Oe(this, Ee, "f");
@@ -5705,7 +5705,7 @@ class lr {
   }
   _emit(e, ...t) {
     if (Oe(this, ar, "f")) return;
-    if (e === "end") jn(this, ar, !0, "f"), Oe(this, Qr, "f").call(this);
+    if (e === "end") jn(this, ar, true, "f"), Oe(this, Qr, "f").call(this);
     let r = Oe(this, ue, "f")[e];
     if (r) (Oe(this, ue, "f")[e] = r.filter((s) => !s.once)), r.forEach(({ listener: s }) => s(...t));
     if (e === "abort") {
@@ -5810,7 +5810,7 @@ class lr {
         break;
       }
       case "message_stop": {
-        this._addMessageParam(r), this._addMessage(zs(r, Oe(this, at, "f"), { logger: Oe(this, cr, "f") }), !0);
+        this._addMessageParam(r), this._addMessage(zs(r, Oe(this, at, "f"), { logger: Oe(this, cr, "f") }), true);
         break;
       }
       case "content_block_stop": {
@@ -5893,7 +5893,7 @@ class lr {
       case "content_block_stop": {
         let s = r.content.at(t.index);
         if (s && tn(s) && ye in s)
-          Object.defineProperty(s, "input", { value: s.input, enumerable: !0, configurable: !0, writable: !0 });
+          Object.defineProperty(s, "input", { value: s.input, enumerable: true, configurable: true, writable: true });
         return r;
       }
     }
@@ -5901,7 +5901,7 @@ class lr {
   Symbol.asyncIterator)]() {
     let e = [],
       t = [],
-      r = !1;
+      r = false;
     return (
       this.on("streamEvent", (s) => {
         let n = t.shift();
@@ -5909,31 +5909,31 @@ class lr {
         else e.push(s);
       }),
       this.on("end", () => {
-        r = !0;
+        r = true;
         for (let s of t) s.resolve(void 0);
         t.length = 0;
       }),
       this.on("abort", (s) => {
-        r = !0;
+        r = true;
         for (let n of t) n.reject(s);
         t.length = 0;
       }),
       this.on("error", (s) => {
-        r = !0;
+        r = true;
         for (let n of t) n.reject(s);
         t.length = 0;
       }),
       {
         next: async () => {
           if (!e.length) {
-            if (r) return { value: void 0, done: !0 };
+            if (r) return { value: void 0, done: true };
             return new Promise((n, i) => t.push({ resolve: n, reject: i })).then((n) =>
-              n ? { value: n, done: !1 } : { value: void 0, done: !0 },
+              n ? { value: n, done: false } : { value: void 0, done: true },
             );
           }
-          return { value: e.shift(), done: !1 };
+          return { value: e.shift(), done: false };
         },
-        return: async () => (this.abort(), { value: void 0, done: !0 }),
+        return: async () => (this.abort(), { value: void 0, done: true }),
       }
     );
   }
@@ -5971,8 +5971,8 @@ class ur extends b {
       .get(r.results_url, {
         ...t,
         headers: c([{ Accept: "application/binary" }, t?.headers]),
-        stream: !0,
-        __binaryResponse: !0,
+        stream: true,
+        __binaryResponse: true,
       })
       ._thenUnwrap((s, n) => Qe.fromResponse(n.response, n.controller));
   }
@@ -6002,7 +6002,7 @@ Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resour
       timeout: n ?? 600000,
       ...t,
       headers: c([{ ...(r != null ? { "anthropic-user-profile-id": r } : void 0) }, i, t?.headers]),
-      stream: e.stream ?? !1,
+      stream: e.stream ?? false,
     });
   }
   parse(e, t) {
@@ -6190,7 +6190,7 @@ new Anthropic({ apiKey, dangerouslyAllowBrowser: true });
         ...(t ? { credentials: void 0, config: void 0, profile: void 0 } : {}),
         ...e,
         __auth: r ? void 0 : this._authState,
-        __baseURLIsExplicit: "baseURL" in e ? !0 : this._baseURLIsExplicit,
+        __baseURLIsExplicit: "baseURL" in e ? true : this._baseURLIsExplicit,
       };
     return new this.constructor(s);
   }
@@ -6227,7 +6227,7 @@ new Anthropic({ apiKey, dangerouslyAllowBrowser: true });
   }
   _authFlags(e) {
     let t = this._requestAuthFlags.get(e);
-    if (!t) (t = { usedTokenCache: !1, didRefreshFor401: !1 }), this._requestAuthFlags.set(e, t);
+    if (!t) (t = { usedTokenCache: false, didRefreshFor401: false }), this._requestAuthFlags.set(e, t);
     return t;
   }
   async authHeaders(e) {
@@ -6235,7 +6235,7 @@ new Anthropic({ apiKey, dangerouslyAllowBrowser: true });
     if (this._authState.error) return;
     if (this._authState.tokenCache && this.apiKey == null) {
       let t = await this._authState.tokenCache.getToken();
-      return (this._authFlags(e).usedTokenCache = !0), c([{ Authorization: `Bearer ${t}` }]);
+      return (this._authFlags(e).usedTokenCache = true), c([{ Authorization: `Bearer ${t}` }]);
     }
     return c([await this.apiKeyAuth(e), await this.bearerAuth(e)]);
   }
@@ -6424,7 +6424,7 @@ new Anthropic({ apiKey, dangerouslyAllowBrowser: true });
   async fetchWithTimeout(e, t, r, s, n, i) {
     let { signal: a, method: o, ...u } = t || {},
       f = this._makeAbort(s);
-    if (a) a.addEventListener("abort", f, { once: !0 });
+    if (a) a.addEventListener("abort", f, { once: true });
     let m =
         (globalThis.ReadableStream && u.body instanceof globalThis.ReadableStream) ||
         (typeof u.body === "object" && u.body !== null && Symbol.asyncIterator in u.body),
@@ -6469,15 +6469,15 @@ new Anthropic({ apiKey, dangerouslyAllowBrowser: true });
   async shouldRetry(e, t) {
     let r = this._authFlags(t);
     if (e.status === 401 && this._authState.tokenCache && r.usedTokenCache && !r.didRefreshFor401)
-      return (r.didRefreshFor401 = !0), this._authState.tokenCache.invalidate(), !0;
+      return (r.didRefreshFor401 = true), this._authState.tokenCache.invalidate(), true;
     let s = e.headers.get("x-should-retry");
-    if (s === "true") return !0;
-    if (s === "false") return !1;
-    if (e.status === 408) return !0;
-    if (e.status === 409) return !0;
-    if (e.status === 429) return !0;
-    if (e.status >= 500) return !0;
-    return !1;
+    if (s === "true") return true;
+    if (s === "false") return false;
+    if (e.status === 408) return true;
+    if (e.status === 409) return true;
+    if (e.status === 429) return true;
+    if (e.status >= 500) return true;
+    return false;
   }
   async retryRequest(e, t, r, s) {
     let n,

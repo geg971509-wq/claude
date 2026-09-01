@@ -107,7 +107,7 @@ import "/$bunfs/root/chunk-7s7jqj2f.js";
 import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 var a = m(() => f({ enable_slash_command: q() })),
-  n = { enable_slash_command: !1 };
+  n = { enable_slash_command: false };
 function i() {
   let t = I("tengu_kairos_brief_config", n),
     o = a().safeParse(t);
@@ -118,20 +118,20 @@ var l = {
     name: "brief",
     description: "Toggle brief-only mode",
     isEnabled: () => i().enable_slash_command,
-    immediate: !0,
+    immediate: true,
     load: () =>
       Promise.resolve({
         async call(t, o) {
           let e = !o.getAppState().isBriefOnly;
           if (e && !Zmt())
             return (
-              s("tengu_brief_mode_toggled", { enabled: !1, gated: !0, source: w("slash_command") }),
+              s("tengu_brief_mode_toggled", { enabled: false, gated: true, source: w("slash_command") }),
               t("Brief tool is not enabled for your account", { display: "system" }),
               null
             );
           DJ(e),
             o.onQueryEvent?.({ type: "apply_flag_settings", settings: { isBriefOnly: e } }),
-            s("tengu_brief_mode_toggled", { enabled: e, gated: !1, source: w("slash_command") });
+            s("tengu_brief_mode_toggled", { enabled: e, gated: false, source: w("slash_command") });
           let r = [
             `<system-reminder>
 ${e ? `Brief mode is now enabled. Use the ${lS} tool for all user-facing output \u2014 plain text outside it is hidden from the user's view.` : `Brief mode is now disabled. The ${lS} tool is no longer available \u2014 reply with plain text.`}

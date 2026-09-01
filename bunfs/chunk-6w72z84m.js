@@ -53,7 +53,7 @@ async function m(e) {
 }
 class RJn {
   reportsEnqueued = 0;
-  capSentinelSent = !1;
+  capSentinelSent = false;
   cachedUserBucket = void 0;
   sender = D4t({ maxBatchSize: p, getFlushIntervalMs: u, post: m });
 }
@@ -86,7 +86,7 @@ function rhn(e) {
   let r = tLe();
   if (r.reportsEnqueued >= o) return;
   if ((r.reportsEnqueued++, r.reportsEnqueued === o && !r.capSentinelSent))
-    (r.capSentinelSent = !0),
+    (r.capSentinelSent = true),
       n(`dd-error-tracking: per-process report cap reached (${o}); dropping further reports`, { level: "warn" }),
       r.sender.enqueue(E(e));
   else r.sender.enqueue(e);

@@ -25,13 +25,13 @@ var r = (t) =>
   f = globalThis,
   p = Object.defineProperty.bind(Object);
 class u {
-  emitted = { afterExit: !1, exit: !1 };
+  emitted = { afterExit: false, exit: false };
   listeners = { afterExit: [], exit: [] };
   count = 0;
   id = Math.random();
   constructor() {
     if (f[l]) return f[l];
-    p(f, l, { value: this, writable: !1, enumerable: !1, configurable: !1 });
+    p(f, l, { value: this, writable: false, enumerable: false, configurable: false });
   }
   on(t, i) {
     this.listeners[t].push(i);
@@ -44,10 +44,10 @@ class u {
     else e.splice(s, 1);
   }
   emit(t, i, e) {
-    if (this.emitted[t]) return !1;
-    this.emitted[t] = !0;
-    let s = !1;
-    for (let o of this.listeners[t]) s = o(i, e) === !0 || s;
+    if (this.emitted[t]) return false;
+    this.emitted[t] = true;
+    let s = false;
+    for (let o of this.listeners[t]) s = o(i, e) === true || s;
     if (t === "exit") s = this.emit("afterExit", i, e) || s;
     return s;
   }
@@ -78,7 +78,7 @@ class x extends a {
   #n;
   #o;
   #s = {};
-  #e = !1;
+  #e = false;
   constructor(t) {
     super();
     (this.#t = t), (this.#s = {});
@@ -100,7 +100,7 @@ class x extends a {
   }
   onExit(t, i) {
     if (!r(this.#t)) return () => {};
-    if (this.#e === !1) this.load();
+    if (this.#e === false) this.load();
     let e = i?.alwaysLast ? "afterExit" : "exit";
     return (
       this.#i.on(e, t),
@@ -115,7 +115,7 @@ class x extends a {
   }
   load() {
     if (this.#e) return;
-    (this.#e = !0), (this.#i.count += 1);
+    (this.#e = true), (this.#i.count += 1);
     for (let t of n)
       try {
         let i = this.#s[t];
@@ -125,7 +125,7 @@ class x extends a {
   }
   unload() {
     if (!this.#e) return;
-    (this.#e = !1),
+    (this.#e = false),
       n.forEach((t) => {
         let i = this.#s[t];
         if (!i) throw Error("Listener not defined for signal: " + t);

@@ -73,8 +73,8 @@ function x(s, i) {
 function X(It) {
   let W = _(16),
     { code: Q, filePath: V, dim: pt, skipColoring: dt } = It,
-    b = pt === void 0 ? !1 : pt,
-    Y = dt === void 0 ? !1 : dt,
+    b = pt === void 0 ? false : pt,
+    Y = dt === void 0 ? false : dt,
     G,
     Z;
   if (W[0] !== Q || W[1] !== b || W[2] !== Y) {
@@ -147,11 +147,11 @@ function U(zt) {
   return O;
 }
 var Rt = 80,
-  o_ = du(function ({ code: i, filePath: m, width: g, dim: l = !1, startLine: f = 1 }) {
+  o_ = du(function ({ code: i, filePath: m, width: g, dim: l = false, startLine: f = 1 }) {
     let a = C(null),
       [c, H] = u(g || Rt),
       [k] = mn(),
-      I = Ts().syntaxHighlightingDisabled ?? !1,
+      I = Ts().syntaxHighlightingDisabled ?? false,
       v = z(() => {
         if (I) return null;
         let p = lMn();
@@ -201,7 +201,7 @@ var Rt = 80,
         : r(o, {
             flexDirection: "column",
             children: [
-              f !== 1 && r(t, { dimColor: !0, children: ["\u2026 from line ", f] }),
+              f !== 1 && r(t, { dimColor: true, children: ["\u2026 from line ", f] }),
               e(X, { code: i, filePath: m, dim: l, skipColoring: I }),
             ],
           }),
@@ -229,9 +229,9 @@ function gt(rn) {
     J;
   if (q[3] !== j || q[4] !== T || q[5] !== M)
     (J = e(md, {
-      fromLeftEdge: !0,
+      fromLeftEdge: true,
       children:
-        j === void 0 ? e(t, { children: e(oo, { children: wT(M, 0, T) }) }) : e(t, { dimColor: !0, children: j }),
+        j === void 0 ? e(t, { children: e(oo, { children: wT(M, 0, T) }) }) : e(t, { dimColor: true, children: j }),
     })),
       (q[3] = j),
       (q[4] = T),

@@ -404,7 +404,7 @@ function ee(e) {
 `,
       t,
     );
-    if ((s === -1 ? e.length : s) - t > H) return !1;
+    if ((s === -1 ? e.length : s) - t > H) return false;
     if (s === -1) return a > 0;
     a++, (t = s + 1);
   }
@@ -581,7 +581,7 @@ async function ie({ client: e, taskRegistry: t, taskState: a, pollIntervalMs: s,
       mcpStatus: o,
       statusMessage: g,
       endTime: Date.now(),
-      notified: !0,
+      notified: true,
       terminal: { summary: g ?? `${ZZ(f, d)} ${o}` },
     })),
       N(i, r, b, v, I),
@@ -597,7 +597,7 @@ async function ie({ client: e, taskRegistry: t, taskState: a, pollIntervalMs: s,
           statusMessage: g,
         }),
         mode: "task-notification",
-        skipAttachments: !0,
+        skipAttachments: true,
         agentId: et(),
         priority: "next",
         taskId: i,
@@ -680,19 +680,19 @@ async function oe(e, { taskRegistry: t, getMcpClients: a, storageV5: s, credenti
   if (!f) {
     d ??= `server '${e.serverName}' did not connect within ${R / 1000}s`;
     let o = M(d) ?? "no detail",
-      g = !1;
+      g = false;
     if (
       (t.update(e.taskId, (k) => {
         if (k.notified || k.status !== "running") return k;
         return (
-          (g = !0),
+          (g = true),
           {
             ...k,
             status: "failed",
             mcpStatus: "failed",
             statusMessage: o,
             endTime: Date.now(),
-            notified: !0,
+            notified: true,
             terminal: { summary: o },
           }
         );
@@ -713,7 +713,7 @@ async function oe(e, { taskRegistry: t, getMcpClients: a, storageV5: s, credenti
       mode: "task-notification",
       agentId: et(),
       priority: "next",
-      skipAttachments: !0,
+      skipAttachments: true,
       taskId: e.taskId,
     });
     return;

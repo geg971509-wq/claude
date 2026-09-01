@@ -368,7 +368,7 @@ F();
 async function P() {
   let a;
   try {
-    a = await Ff("gh", ["api", "--include", "user"], { stdout: "pipe", stderr: "ignore", timeout: 5000, reject: !1 });
+    a = await Ff("gh", ["api", "--include", "user"], { stdout: "pipe", stderr: "ignore", timeout: 5000, reject: false });
   } catch {
     return g("remote_setup_gh_token_scopes", "spawn_failed"), "unknown";
   }
@@ -390,7 +390,7 @@ function at(a) {
 }
 async function tt(a) {
   if (!(await BNn(a))) return { status: "not_signed_in" };
-  let i = await Vve({ allowNetworkFallbackForOldGh: !0 });
+  let i = await Vve({ allowNetworkFallbackForOldGh: true });
   if (i.status === "not_installed") return { status: "gh_not_installed" };
   if (i.status === "not_authenticated") return { status: "gh_not_authenticated" };
   if (i.status === "unknown") return { status: "gh_check_failed", error: i.error };
@@ -399,7 +399,7 @@ async function tt(a) {
       stdout: "pipe",
       stderr: "ignore",
       timeout: 5000,
-      reject: !1,
+      reject: false,
     }),
     k = L.trim();
   if (!k) return { status: "gh_not_authenticated" };
@@ -443,7 +443,7 @@ function ot(Nt) {
   if (h[0] === d) (ut = { name: "checking" }), (h[0] = ut);
   else ut = h[0];
   let [p, ct] = u(ut),
-    S = C(!1),
+    S = C(false),
     lt;
   if (h[1] !== R || h[2] !== f)
     (lt = () => {
@@ -514,7 +514,7 @@ function ot(Nt) {
   let mt;
   if (h[5] !== f)
     (mt = () => {
-      (S.current = !0), s("tengu_remote_setup_result", { result: w("cancelled") }), f();
+      (S.current = true), s("tengu_remote_setup_result", { result: w("cancelled") }), f();
     }),
       (h[5] = f),
       (h[6] = mt);
@@ -542,7 +542,7 @@ function ot(Nt) {
       try {
         Z = (await DD(void 0, M, R)).length === 0;
       } catch {
-        Z = !0;
+        Z = true;
       }
       if (S.current) {
         return;
@@ -579,7 +579,7 @@ function ot(Nt) {
     else I = h[13];
     let O;
     if (h[14] !== T || h[15] !== I)
-      (O = e(me, { title: "Connect Claude on the web to GitHub?", onCancel: T, hideInputGuide: !0, children: I })),
+      (O = e(me, { title: "Connect Claude on the web to GitHub?", onCancel: T, hideInputGuide: true, children: I })),
         (h[14] = T),
         (h[15] = I),
         (h[16] = O);
@@ -593,7 +593,7 @@ function ot(Nt) {
     (x = e(t, {
       children: "Claude on the web requires connecting to your GitHub account to clone and push code on your behalf.",
     })),
-      (I = e(t, { dimColor: !0, children: "Your local credentials are used to authenticate with GitHub" })),
+      (I = e(t, { dimColor: true, children: "Your local credentials are used to authenticate with GitHub" })),
       (h[17] = x),
       (h[18] = I);
   else (x = h[17]), (I = h[18]);
@@ -643,7 +643,7 @@ function ot(Nt) {
   else N = h[33];
   let kt;
   if (h[34] !== T || h[35] !== X || h[36] !== N)
-    (kt = r(me, { title: "Connect Claude on the web to GitHub?", onCancel: T, hideInputGuide: !0, children: [X, N] })),
+    (kt = r(me, { title: "Connect Claude on the web to GitHub?", onCancel: T, hideInputGuide: true, children: [X, N] })),
       (h[34] = T),
       (h[35] = X),
       (h[36] = N),

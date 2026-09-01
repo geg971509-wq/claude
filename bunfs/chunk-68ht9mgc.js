@@ -141,7 +141,7 @@ function k2e(r) {
   return {
     scopeArgs: o,
     applyFixes: e.has("--fix"),
-    postReview: e.has("--no-post") ? !1 : e.has("--post") ? !0 : void 0,
+    postReview: e.has("--no-post") ? false : e.has("--post") ? true : void 0,
   };
 }
 async function OHt(r, t = "/code-review ultra", d) {
@@ -149,7 +149,7 @@ async function OHt(r, t = "/code-review ultra", d) {
     return (
       s("tengu_review_remote_precondition_failed", { reason: w("not_git_repo"), cwd_is_home: L() }),
       {
-        ok: !1,
+        ok: false,
         reason: "not_git_repo",
         error: `${t} needs a git repository so it can clone your code into a cloud sandbox, but ${ee()} is not inside one. ${me()}`,
       }
@@ -182,7 +182,7 @@ async function OHt(r, t = "/code-review ultra", d) {
       let O = `${o.owner}/${o.repo} on ${o.host}`,
         j = u ? `you're in ${u.owner}/${u.name} on ${u.host}` : "this directory has no GitHub remote";
       return {
-        ok: !1,
+        ok: false,
         reason: "pr_url_wrong_repo",
         error: `That link is for ${O}, but ${j}. cd into a checkout of that repo and run ${t} ${o.num} from there.`,
       };
@@ -192,7 +192,7 @@ async function OHt(r, t = "/code-review ultra", d) {
         s("tengu_review_remote_precondition_failed", { reason: w("no_github_remote"), cwd_is_home: L() }),
         i("failed"),
         {
-          ok: !1,
+          ok: false,
           reason: "no_github_remote",
           error: `${t} <PR#> needs a GitHub remote so it knows which repository the PR is in. If this project is not on GitHub yet, run "gh repo create --source=. --push" to create one; if a GitHub repo already exists, run "git remote add origin REPO_URL". Or run ${t} with no argument to review your current branch instead.`,
         }
@@ -202,7 +202,7 @@ async function OHt(r, t = "/code-review ultra", d) {
         s("tengu_review_remote_precondition_failed", { reason: w("monorepo_blocked"), cwd_is_home: L() }),
         i("failed"),
         {
-          ok: !1,
+          ok: false,
           reason: "monorepo_blocked",
           error: `${t} doesn't support the Anthropic monorepo \u2014 monorepo PRs are reviewed automatically by bughunter. Re-trigger it from the PR checks page, or run /bughunter here for a local hunt.`,
         }
@@ -213,7 +213,7 @@ async function OHt(r, t = "/code-review ultra", d) {
         $e(
           "gh",
           ["pr", "view", f, "--repo", `${u.host}/${u.owner}/${u.name}`, "--json", "additions,deletions,changedFiles"],
-          { timeout: 5000, preserveOutputOnError: !1 },
+          { timeout: 5000, preserveOutputOnError: false },
         ),
         qo(u.host) && qjn() && !Ct() ? be(u.owner, u.name, d?.accessProbeBudgetMs ?? 5000) : null,
       ]);
@@ -241,7 +241,7 @@ async function OHt(r, t = "/code-review ultra", d) {
           I.verdict === "github_not_connected"
             ? `Ultrareview clones ${O} in the cloud with the GitHub account connected to your Claude account, and none is connected (or the connection expired). To fix: ${x ? `${x}, or connect` : "connect"} an account at ${j} \u2014 ${W} (allow a minute after connecting).`
             : `Your connected GitHub account can't see ${O} \u2014 usually the Claude GitHub app isn't installed on ${u.owner} or wasn't granted this repo (web-connected accounts need it for private repos), or a different GitHub account is connected. To fix: ${oe} \u2014 ${W}.`;
-      return { ok: !1, reason: I.verdict, error: se };
+      return { ok: false, reason: I.verdict, error: se };
     }
     if (q === 0 && U.trim())
       try {
@@ -261,7 +261,7 @@ async function OHt(r, t = "/code-review ultra", d) {
             }),
             i("failed"),
             {
-              ok: !1,
+              ok: false,
               reason: "pr_diff_too_large",
               error: `PR #${f} is too large for ultrareview (${O.changedFiles} files, ${W.toLocaleString()} lines). Split it into smaller PRs, or run \`${t}\` on a narrower local diff.`,
             }
@@ -270,13 +270,13 @@ async function OHt(r, t = "/code-review ultra", d) {
     return (
       i("succeeded"),
       {
-        ok: !0,
+        ok: true,
         scope: {
           mode: "pr",
           prNumber: f,
           repo: `${u.owner}/${u.name}`,
           host: u.host,
-          hadArg: !0,
+          hadArg: true,
           diffFiles: G,
           diffLines: M,
         },
@@ -293,7 +293,7 @@ async function OHt(r, t = "/code-review ultra", d) {
         cwd_is_home: L(),
       }),
       {
-        ok: !1,
+        ok: false,
         reason: "repo_too_large_to_bundle",
         error: `Repo is too large to bundle. Push a PR and use \`${t} <PR#>\` instead.`,
       }
@@ -301,7 +301,7 @@ async function OHt(r, t = "/code-review ultra", d) {
   let v = async (i) =>
       (
         await $e(it(), [...cn, "rev-parse", "--verify", "--quiet", "--end-of-options", i], {
-          preserveOutputOnError: !1,
+          preserveOutputOnError: false,
         })
       ).code === 0,
     h = /\s/.test(e),
@@ -326,16 +326,16 @@ async function OHt(r, t = "/code-review ultra", d) {
       s("tengu_review_remote_precondition_failed", {
         reason: w("base_ref_not_found"),
         looks_like_url: /^https?:/i.test(e),
-        looks_like_sha: !1,
+        looks_like_sha: false,
         starts_with_hash: e.startsWith("#"),
         has_slash: e.includes("/"),
-        has_whitespace: !0,
-        has_pr_ref: !0,
+        has_whitespace: true,
+        has_pr_ref: true,
         has_remote: !!(await x_()),
         cwd_is_home: L(),
       }),
       {
-        ok: !1,
+        ok: false,
         reason: "base_ref_not_found",
         error: `Your request mentions what looks like a PR reference (${i}). To review that PR, run \`${t} ${u}\`. To review your current branch instead, rerun without the PR-style reference.`,
       }
@@ -344,11 +344,11 @@ async function OHt(r, t = "/code-review ultra", d) {
   let A = h && !N && !e.startsWith("-"),
     te = A ? e : void 0,
     _ = A ? "" : e,
-    X = !1;
+    X = false;
   if (_) {
     if (!(await v(`origin/${_}`)) && !(await v(_))) {
       let i = await ge(_);
-      if (i === "recovered" && (await v(`origin/${_}`))) X = !0;
+      if (i === "recovered" && (await v(`origin/${_}`))) X = true;
       else {
         if (i !== "not_found")
           s("tengu_review_remote_precondition_recovery", {
@@ -369,7 +369,7 @@ async function OHt(r, t = "/code-review ultra", d) {
               cwd_is_home: L(),
             }),
             {
-              ok: !1,
+              ok: false,
               reason: "base_ref_not_found",
               error: `"${_}" exists on origin but couldn't be fetched. Run \`git fetch origin ${_}\` and try ${t} again.`,
             }
@@ -393,7 +393,7 @@ async function OHt(r, t = "/code-review ultra", d) {
         });
         let P = u ? ` Did you mean \`${u}\`?` : "";
         return {
-          ok: !1,
+          ok: false,
           reason: "base_ref_not_found",
           error: `"${_}" is not a branch in this repo.${P} ${t} takes a PR number, a branch name, or no argument (reviews your current branch). Try ${t} by itself.`,
         };
@@ -418,12 +418,12 @@ async function OHt(r, t = "/code-review ultra", d) {
     },
     R = _ || (await Cw()) || "main",
     Z = (await cl()) || "HEAD",
-    J = async (i) => $e(it(), [...cn, "merge-base", i, "HEAD"], { preserveOutputOnError: !1 }),
+    J = async (i) => $e(it(), [...cn, "merge-base", i, "HEAD"], { preserveOutputOnError: false }),
     D = `origin/${R}`,
     { stdout: Q, code: re } = await J(D);
   if (re !== 0) (D = R), ({ stdout: Q, code: re } = await J(D));
   let Y = Q.trim(),
-    z = (i) => $e(it(), [...cn, ...i], { preserveOutputOnError: !1 }),
+    z = (i) => $e(it(), [...cn, ...i], { preserveOutputOnError: false }),
     ie = `Your checkout has no branches (detached HEAD only), which cloud review can't bundle. Create one first \u2014 \`git checkout -b <name>\` \u2014 then rerun ${t}.`;
   if (re !== 0 || !Y) {
     let i = (await z(["rev-parse", "--verify", "--quiet", "HEAD"])).code === 0,
@@ -440,7 +440,7 @@ async function OHt(r, t = "/code-review ultra", d) {
           (await z(["rev-parse", "--verify", "--quiet", `origin/${R}`])).code === 0 ||
           (await z(["rev-parse", "--verify", "--quiet", R])).code === 0,
         { stdout: x, code: W } = await $e(it(), [...cn, "diff", "--no-ext-diff", "--no-textconv", "--shortstat", CNn], {
-          preserveOutputOnError: !1,
+          preserveOutputOnError: false,
           env: { ...process.env, LC_ALL: "C" },
         });
       if (W === 0) {
@@ -449,7 +449,7 @@ async function OHt(r, t = "/code-review ultra", d) {
             s("tengu_review_remote_precondition_failed", { reason: w("empty_diff"), cwd_is_home: L() }),
             F("failed"),
             {
-              ok: !1,
+              ok: false,
               reason: "empty_diff",
               error: j
                 ? `It doesn't look like you have any new commits or changes to review against your ${R} branch. Stage or commit them first?`
@@ -466,7 +466,7 @@ async function OHt(r, t = "/code-review ultra", d) {
             lines: oe,
             max_files: se,
             max_lines: le,
-            after_fallback: !0,
+            after_fallback: true,
             cwd_is_home: L(),
           }),
             F("failed");
@@ -474,7 +474,7 @@ async function OHt(r, t = "/code-review ultra", d) {
             ? `Review a smaller subset by committing it on a branch off an empty base, or push a PR and use \`${t} <PR#>\`.`
             : `This repo has no ${R} branch \u2014 if another branch is your base, pass it explicitly (\`${t} <branch>\`). Otherwise review a smaller subset by committing it on a branch off an empty base, or push a PR and use \`${t} <PR#>\`.`;
           return {
-            ok: !1,
+            ok: false,
             reason: "local_diff_too_large",
             error: `This looks like a first review of the entire repository (${x.trim()}), which exceeds ultrareview's limit. ${_e}`,
           };
@@ -486,12 +486,12 @@ async function OHt(r, t = "/code-review ultra", d) {
             outcome: w("offered"),
             files: H?.filesCount,
             lines: H ? oe : void 0,
-            is_shallow: !1,
+            is_shallow: false,
           });
         return (
           F("succeeded"),
           {
-            ok: !0,
+            ok: true,
             scope: {
               mode: "branch",
               headBranch: Z,
@@ -515,13 +515,13 @@ async function OHt(r, t = "/code-review ultra", d) {
         is_shallow: P,
         head_resolves: i,
         arg_was_explicit: _.length > 0,
-        has_refs: q ? !0 : I ? !1 : void 0,
+        has_refs: q ? true : I ? false : void 0,
       }),
       F("failed"),
       !i)
     )
       return {
-        ok: !1,
+        ok: false,
         reason: "no_merge_base",
         error: `Your current branch has no commits yet, so there is nothing to review. Commit your changes first, then rerun ${t}.`,
       };
@@ -531,17 +531,17 @@ async function OHt(r, t = "/code-review ultra", d) {
           reason: w("no_merge_base"),
           method: w("deepen_hint"),
           outcome: w("offered"),
-          is_shallow: !0,
+          is_shallow: true,
         }),
         {
-          ok: !1,
+          ok: false,
           reason: "no_merge_base",
           error: _
             ? `Your clone is shallow and doesn't contain the point where your branch forked from ${R}. Run \`git fetch --deepen=100 origin ${R}\` (or \`git fetch --unshallow origin\`) and rerun ${t}.`
             : `Your clone is shallow and doesn't contain the point where your branch forked from ${R}. Run \`git fetch --unshallow origin\` and rerun ${t}. If your base branch isn't ${R}, pass it explicitly (\`${t} <branch>\`).`,
         }
       );
-    if (I) return { ok: !1, reason: "no_refs", error: ie };
+    if (I) return { ok: false, reason: "no_refs", error: ie };
     let O = X
       ? G
         ? `${R} was fetched from origin but shares no history with HEAD. If another branch is your real base, pass it explicitly (\`${t} <branch>\`).`
@@ -549,19 +549,19 @@ async function OHt(r, t = "/code-review ultra", d) {
       : _
         ? `Make sure ${R} exists locally or on origin (try \`git fetch origin ${R}\`).`
         : `Pass the base branch explicitly (e.g. \`${t} develop\`) or make sure you're in a git repo with a ${R} branch.`;
-    return { ok: !1, reason: "no_merge_base", error: `Could not find merge-base with ${R}. ${O}` };
+    return { ok: false, reason: "no_merge_base", error: `Could not find merge-base with ${R}. ${O}` };
   }
   if (_.length > 0) {
     let i = await z(["for-each-ref", "--count=1", "refs/"]);
     if (i.code === 0 && i.stdout.trim() === "")
       return (
-        s("tengu_review_remote_precondition_failed", { reason: w("no_refs"), cwd_is_home: L(), arg_was_explicit: !0 }),
+        s("tengu_review_remote_precondition_failed", { reason: w("no_refs"), cwd_is_home: L(), arg_was_explicit: true }),
         F("failed"),
-        { ok: !1, reason: "no_refs", error: ie }
+        { ok: false, reason: "no_refs", error: ie }
       );
   }
   let { stdout: ne, code: b } = await $e(it(), [...cn, "diff", "--no-ext-diff", "--no-textconv", "--shortstat", Y], {
-    preserveOutputOnError: !1,
+    preserveOutputOnError: false,
     env: { ...process.env, LC_ALL: "C" },
   });
   if (b === 0 && !ne.trim()) {
@@ -574,7 +574,7 @@ async function OHt(r, t = "/code-review ultra", d) {
       F("failed");
     let i = _ ? `try a different base, e.g. \`${t} <branch>\`` : `pass one explicitly, e.g. \`${t} <branch>\``;
     return {
-      ok: !1,
+      ok: false,
       reason: "empty_diff",
       error: `No changes to review: the diff against ${D} (merge-base ${Y.slice(0, 7)}) is empty. If you have local edits, stage or commit them first. If your branch was already merged or you meant a different base, ${i}.`,
     };
@@ -596,11 +596,11 @@ async function OHt(r, t = "/code-review ultra", d) {
       let { stdout: G, code: M } = await $e(
           it(),
           [...cn, "-c", "core.quotepath=false", "diff", "--no-ext-diff", "--no-textconv", "--numstat", Y],
-          { preserveOutputOnError: !1, timeout: 1e4, maxBuffer: 10485760 },
+          { preserveOutputOnError: false, timeout: 1e4, maxBuffer: 10485760 },
         ),
         U = M === 0 ? gdr(G) : "";
       return {
-        ok: !1,
+        ok: false,
         reason: "local_diff_too_large",
         error: `Diff is too large for ultrareview: ${E.filesCount.toLocaleString()} ${k(E.filesCount, "file")}, ${P.toLocaleString()} ${k(P, "line")} changed (limits: ${i.toLocaleString()} ${k(i, "file")}, ${u.toLocaleString()} ${k(u, "line")}).${U} Pass a closer base branch (\`${t} <branch>\`) to narrow the scope, or split the change.`,
       };
@@ -609,7 +609,7 @@ async function OHt(r, t = "/code-review ultra", d) {
   return (
     F("succeeded"),
     {
-      ok: !0,
+      ok: true,
       scope: {
         mode: "branch",
         headBranch: Z,
@@ -660,7 +660,7 @@ async function ge(r) {
         "origin",
         r,
       ],
-      { timeout: 4000, preserveOutputOnError: !1, env: t },
+      { timeout: 4000, preserveOutputOnError: false, env: t },
     );
   if (d.code !== 0) return d.code === 2 ? "not_found" : "probe_failed";
   if (
@@ -686,7 +686,7 @@ async function ge(r) {
         "origin",
         `refs/heads/${r}:refs/remotes/origin/${r}`,
       ],
-      { timeout: 15000, preserveOutputOnError: !1, env: t },
+      { timeout: 15000, preserveOutputOnError: false, env: t },
     )
   ).code === 0
     ? "recovered"
@@ -696,7 +696,7 @@ async function pe(r) {
   let { stdout: t, code: d } = await $e(
     it(),
     [...cn, "for-each-ref", "--format=%(refname:short)", "--count=2000", "refs/heads", "refs/remotes/origin"],
-    { preserveOutputOnError: !1 },
+    { preserveOutputOnError: false },
   );
   if (d !== 0) return null;
   let e = new Map();
@@ -723,7 +723,7 @@ async function pe(r) {
 }
 async function LHt({ overageConfirmed: r, credentials: t }) {
   let d = await de(t);
-  if (!d) return { kind: "proceed", billingNote: "", preflightUnavailable: !0 };
+  if (!d) return { kind: "proceed", billingNote: "", preflightUnavailable: true };
   let e = d.billing_note ?? "",
     o = d.github_login ?? null;
   switch (d.action) {
@@ -749,8 +749,8 @@ async function LHt({ overageConfirmed: r, credentials: t }) {
 }
 async function MHt(r, t, d, e) {
   let o = e?.invocation ?? "/code-review ultra",
-    f = (b) => ({ launched: !1, blocks: [{ type: "text", text: b }] }),
-    S = await Iee({ allowBundle: !0, storageV5: t.storageV5, credentials: t.credentials });
+    f = (b) => ({ launched: false, blocks: [{ type: "text", text: b }] }),
+    S = await Iee({ allowBundle: true, storageV5: t.storageV5, credentials: t.credentials });
   if (!S.eligible) {
     let b = S.errors;
     if (b.length > 0) {
@@ -794,7 +794,7 @@ ${E}`)
     C = {
       BUGHUNTER_DRY_RUN: "1",
       AUTOPATCH_ENABLE_ASIMOV: "1",
-      ...(h?.code_quality !== !1 && { BUGHUNTER_CODE_QUALITY: "1" }),
+      ...(h?.code_quality !== false && { BUGHUNTER_CODE_QUALITY: "1" }),
       BUGHUNTER_FLEET_SIZE: String(N(h?.fleet_size, 5, 20)),
       BUGHUNTER_MAX_DURATION: String(N(h?.max_duration_minutes, 10, 25)),
       BUGHUNTER_AGENT_TIMEOUT: String(N(h?.agent_timeout_seconds, 600, 1800)),
@@ -851,7 +851,7 @@ ${E}`)
         signal: t.abortController.signal,
         storageV5: t.storageV5,
         credentials: t.credentials,
-        useBundle: !0,
+        useBundle: true,
         bundleBaseRef: i,
         bundleForceScope: P ? "squashed" : void 0,
         environmentId: v,
@@ -924,7 +924,7 @@ ${E}`)
       session: A,
       command: te,
       context: t,
-      isRemoteReview: !0,
+      isRemoteReview: true,
       applyFixesOnComplete: e?.applyFixesOnComplete,
       reviewInstructions: r.mode === "branch" ? r.instructions : void 0,
       postReviewTo:
@@ -934,7 +934,7 @@ ${E}`)
     (s("tengu_review_remote_launched", {
       mode: c(r.mode),
       had_arg: r.hadArg,
-      post_armed: e?.postReviewToPR === !0 && r.mode === "pr" && !e?.signal?.aborted,
+      post_armed: e?.postReviewToPR === true && r.mode === "pr" && !e?.signal?.aborted,
       had_instructions: r.mode === "branch" && !!r.instructions,
       diff_files: r.diffFiles,
       diff_lines: r.diffLines,
@@ -967,7 +967,7 @@ Your text was read as a note, not a base branch \u2014 the standard review runs 
 Your text was read as a note, not a base branch \u2014 the standard review runs on the diff above, and the findings will be related to your note when they arrive.`
         : "";
   return {
-    launched: !0,
+    launched: true,
     sessionId: A.id,
     sessionUrl: Y,
     taskId: re,
@@ -1073,8 +1073,8 @@ ${B1()} \xB7 Est. cost ${D8()} USD`,
       billingNote: o.billingNote,
     };
   }
-  let S = t.postReview === !0 && !Dxe(),
-    v = t.postReview === !0 && !S && e.scope.mode === "pr" && qo(e.scope.host),
+  let S = t.postReview === true && !Dxe(),
+    v = t.postReview === true && !S && e.scope.mode === "pr" && qo(e.scope.host),
     h = await MHt(e.scope, t.context, o.billingNote, {
       skipTaskRegistration: t.skipTaskRegistration,
       invocation: t.invocation,
@@ -1090,7 +1090,7 @@ ${B1()} \xB7 Est. cost ${D8()} USD`,
           .join("")
           .trim() || "Failed to launch cloud review session.",
     };
-  let N = t.postReview === !0 && !v,
+  let N = t.postReview === true && !v,
     B = h.blocks
       .map((C) => (C.type === "text" ? C.text : ""))
       .join("")
@@ -1115,17 +1115,17 @@ function me() {
 function L() {
   try {
     let r = he();
-    if (!r) return !1;
+    if (!r) return false;
     return BAt(tr(fe(ee())), tr(fe(r)));
   } catch {
-    return !1;
+    return false;
   }
 }
 async function be(r, t, d) {
   let e = { verdict: "inconclusive", httpStatus: null },
     o = AbortSignal.timeout(Number.isSafeInteger(d) && d > 0 ? d : 0),
     f = new Promise((v) => {
-      o.addEventListener("abort", () => v(e), { once: !0 });
+      o.addEventListener("abort", () => v(e), { once: true });
     }),
     S = (async () => {
       await Cs();

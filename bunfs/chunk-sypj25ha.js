@@ -17,7 +17,7 @@ var o = j(mm(), 1);
 import { readdir as c, stat as p } from "fs/promises";
 import { join as a, sep as f } from "path";
 function G0e() {
-  if (!Wl()) return !1;
+  if (!Wl()) return false;
   let r = i8e() + f;
   return process.execPath.startsWith(r);
 }

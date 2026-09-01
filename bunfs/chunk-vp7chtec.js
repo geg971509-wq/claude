@@ -72,7 +72,7 @@ import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
 function w() {
   let t = Ac().providerCache;
   if (t.preconnectFired) return;
-  if (((t.preconnectFired = !0), Ne() !== "firstParty" || YV() === "gateway" || O7e())) return;
+  if (((t.preconnectFired = true), Ne() !== "firstParty" || YV() === "gateway" || O7e())) return;
   if (
     a.HTTPS_PROXY ||
     a.https_proxy ||
@@ -88,7 +88,7 @@ function w() {
 }
 class C {
   promise = void 0;
-  telemetryInitialized = !1;
+  telemetryInitialized = false;
 }
 var Tcr = new J(() => new C());
 function v() {
@@ -114,7 +114,7 @@ async function b(t = {}) {
       Mr("init_configs_enabled"),
       O() && e?.backend !== void 0)
     )
-      xEn(ie().cachedGrowthBookFeatures?.tengu_windows_credman === !0);
+      xEn(ie().cachedGrowthBookFeatures?.tengu_windows_credman === true);
     if (O() && e?.backend !== void 0) await GXe(e.backend), Mr("init_remote_settings_primed");
     let c = aw(e?.backend);
     if (O() && c !== void 0)
@@ -287,12 +287,12 @@ function Bve(t) {
 }
 async function u(t, r) {
   if (t.telemetryInitialized) return;
-  t.telemetryInitialized = !0;
+  t.telemetryInitialized = true;
   let e = "not_configured";
   try {
     await T(r);
   } catch (s) {
-    if (((t.telemetryInitialized = !1), y())) e = "init_failed";
+    if (((t.telemetryInitialized = false), y())) e = "init_failed";
     throw s;
   } finally {
     QVt(e);
@@ -334,13 +334,13 @@ function y() {
 function A() {
   try {
     let t = ye("policySettings")?.env;
-    if (!t) return !1;
+    if (!t) return false;
     return (
       (Me(process.env.CLAUDE_CODE_ENABLE_TELEMETRY) || Me(t.CLAUDE_CODE_ENABLE_TELEMETRY)) &&
       (_(a.OTEL_LOGS_EXPORTER) || _(t.OTEL_LOGS_EXPORTER))
     );
   } catch {
-    return !1;
+    return false;
   }
 }
 export { Tcr, Y5t, Bve, Ecr };

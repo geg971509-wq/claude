@@ -13,7 +13,7 @@ import { Fde, Bc } from "/$bunfs/root/chunk-8tgj5dp2.js";
 import { Li } from "/$bunfs/root/chunk-z5yhadgs.js";
 import { S, ue } from "/$bunfs/root/chunk-yz031c9r.js";
 var b = S(function (w) {
-  Object.defineProperty(w, "__esModule", { value: !0 });
+  Object.defineProperty(w, "__esModule", { value: true });
   w.PrometheusSerializer = void 0;
   var z = Li(),
     l = WQ(),
@@ -55,16 +55,16 @@ var b = S(function (w) {
     }
   }
   function T(e, t, r, i, s) {
-    let n = !1,
+    let n = false,
       o = "";
     for (let [a, c] of Object.entries(t)) {
       let u = g(a);
-      (n = !0), (o += `${o.length > 0 ? "," : ""}${u}="${I(c)}"`);
+      (n = true), (o += `${o.length > 0 ? "," : ""}${u}="${I(c)}"`);
     }
     if (s)
       for (let [a, c] of Object.entries(s)) {
         let u = g(a);
-        (n = !0), (o += `${o.length > 0 ? "," : ""}${u}="${I(c)}"`);
+        (n = true), (o += `${o.length > 0 ? "," : ""}${u}="${I(c)}"`);
       }
     if (n) e += `{${o}}`;
     return `${e} ${D(r)}${i !== void 0 ? " " + String(i) : ""}
@@ -78,7 +78,7 @@ var b = S(function (w) {
     _withResourceConstantLabels;
     _withoutScopeInfo;
     _withoutTargetInfo;
-    constructor(e, t = !1, r, i, s) {
+    constructor(e, t = false, r, i, s) {
       if (e) this._prefix = e + "_";
       (this._appendTimestamp = t),
         (this._withResourceConstantLabels = r),
@@ -166,12 +166,12 @@ ${c}`.trim();
       }
       let c = 0,
         u = o.buckets.counts.entries(),
-        E = !1;
+        E = false;
       for (let [d, f] of u) {
         c += f;
         let p = o.buckets.boundaries[d];
         if (p === void 0 && E) break;
-        if (p === 1 / 0) E = !0;
+        if (p === 1 / 0) E = true;
         s += T(
           e + "_bucket",
           n,
@@ -183,7 +183,7 @@ ${c}`.trim();
       return s;
     }
     _serializeResource(e) {
-      if (this._withoutTargetInfo === !0) return "";
+      if (this._withoutTargetInfo === true) return "";
       let t = "target_info",
         r = `# HELP ${t} Target metadata`,
         i = `# TYPE ${t} gauge`,
@@ -197,7 +197,7 @@ ${s}
   w.PrometheusSerializer = R;
 });
 var M = S(function (U) {
-  Object.defineProperty(U, "__esModule", { value: !0 });
+  Object.defineProperty(U, "__esModule", { value: true });
   U.PrometheusExporter = void 0;
   var h = Li(),
     j = Bc(),
@@ -211,10 +211,10 @@ var M = S(function (U) {
       port: 9464,
       endpoint: "/metrics",
       prefix: "",
-      appendTimestamp: !1,
+      appendTimestamp: false,
       withResourceConstantLabels: void 0,
-      withoutScopeInfo: !1,
-      withoutTargetInfo: !1,
+      withoutScopeInfo: false,
+      withoutTargetInfo: false,
     };
     _host;
     _port;
@@ -244,7 +244,7 @@ var M = S(function (U) {
         (this._serializer = new G.PrometheusSerializer(this._prefix, this._appendTimestamp, r, s, i)),
         (this._baseUrl = `http://${this._host}:${this._port}/`),
         (this._endpoint = (e.endpoint || _.DEFAULT_OPTIONS.endpoint).replace(/^([^/])/, "/$1")),
-        e.preventServerStart !== !0)
+        e.preventServerStart !== true)
       )
         this.startServer().then(t, (n) => {
           h.diag.error(n), t(n);
@@ -313,18 +313,18 @@ var M = S(function (U) {
   U.PrometheusExporter = _;
 });
 var J = S(function (P) {
-  Object.defineProperty(P, "__esModule", { value: !0 });
+  Object.defineProperty(P, "__esModule", { value: true });
   P.PrometheusSerializer = P.PrometheusExporter = void 0;
   var B = M();
   Object.defineProperty(P, "PrometheusExporter", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return B.PrometheusExporter;
     },
   });
   var X = b();
   Object.defineProperty(P, "PrometheusSerializer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return X.PrometheusSerializer;
     },

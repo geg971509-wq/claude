@@ -24,10 +24,10 @@ var i = Object.freeze({}),
     remoteAutocompactState: void 0,
     queuedGoalOrigin: void 0,
     frameOpenFailedPath: null,
-    frameOpenFailedSeen: !1,
-    artifactWatchApproved: !1,
-    artifactDbWriteApproved: !1,
-    artifactDbWriteHumanApproved: !1,
+    frameOpenFailedSeen: false,
+    artifactWatchApproved: false,
+    artifactDbWriteApproved: false,
+    artifactDbWriteHumanApproved: false,
     artifactDbReadConsentSlugs: rot,
     artifactDbReadHumanConsentSlugs: oot,
     artifactReadConsentSlugs: iot,
@@ -36,11 +36,11 @@ var i = Object.freeze({}),
     artifactAssetReadConsentSlugs: sot,
     artifactAssetReadHumanConsentSlugs: aot,
     artifactRoomJoinConsentSlugs: phe,
-    artifactReadPageDataApproved: !1,
-    artifactReadPageDataHumanApproved: !1,
+    artifactReadPageDataApproved: false,
+    artifactReadPageDataHumanApproved: false,
     artifactPlanPublishConsentPaths: not,
-    prResolvedThisSession: !1,
-    ultrareviewOverageConfirmed: !1,
+    prResolvedThisSession: false,
+    ultrareviewOverageConfirmed: false,
     artifactReadVersions: i,
     artifactReadObservers: S,
   },
@@ -66,7 +66,7 @@ function krt(e) {
   };
 }
 function Hrt(e) {
-  if (e().webBrowser.view && typeof Bun < "u" && "WebView" in Bun) return Bun.WebView.closeAll(), !0;
-  return !1;
+  if (e().webBrowser.view && typeof Bun < "u" && "WebView" in Bun) return Bun.WebView.closeAll(), true;
+  return false;
 }
 export { krt, Hrt };

@@ -150,7 +150,7 @@ function Pwe(e, t) {
     ...(o?.cowritten !== void 0 && { cowritten: o.cowritten }),
     ...(o?.title !== void 0 && { title: o.title }),
     ...(o?.capabilities !== void 0 && { capabilities: o.capabilities }),
-    ...(o?.capabilitiesUnknown && { capabilitiesUnknown: !0 }),
+    ...(o?.capabilitiesUnknown && { capabilitiesUnknown: true }),
     ...(o?.lastCapsReadToolUseId && { lastCapsReadToolUseId: o.lastCapsReadToolUseId }),
     ...(o?.lastProbeToolUseId && { lastProbeToolUseId: o.lastProbeToolUseId }),
     ...(o?.lastProbeAt !== void 0 && { lastProbeAt: o.lastProbeAt }),
@@ -167,7 +167,7 @@ function Pwe(e, t) {
 }
 function bVe(e, t, r) {
   let { bySlug: o } = de().shareStatus,
-    a = o.get(e) ?? { mode: "owner", isSharedLive: !1 },
+    a = o.get(e) ?? { mode: "owner", isSharedLive: false },
     { capabilitiesUnknown: d, lastCapsReadAt: u, lastCapsLandedAt: l, lastCapsIssuedAt: h, ...b } = a,
     x = r?.source,
     w =
@@ -187,7 +187,7 @@ function bVe(e, t, r) {
   o.set(e, {
     ...b,
     capabilities: t,
-    ...(r?.unknown && { capabilitiesUnknown: !0 }),
+    ...(r?.unknown && { capabilitiesUnknown: true }),
     ...(r?.toolUseId && { lastCapsReadToolUseId: r.toolUseId }),
     ...w,
     ...(r?.storedContract !== void 0 && {
@@ -236,8 +236,8 @@ function Ufn(e, t, r) {
     if (r.consumedByCheck) p("artifact_share_status", a.errorCode);
     Pwe(e, {
       mode: d?.mode ?? "owner",
-      isSharedLive: d?.isSharedLive ?? !1,
-      probeFailed: !0,
+      isSharedLive: d?.isSharedLive ?? false,
+      probeFailed: true,
       probeErrorCode: a.errorCode,
       ...o,
       lastProbeAt: b,
@@ -253,7 +253,7 @@ function Ufn(e, t, r) {
         ? {
             ...x,
             role: E(a.role),
-            cowritten: d?.cowritten === !0 || a.cowritten === !0,
+            cowritten: d?.cowritten === true || a.cowritten === true,
             ...w,
             ...o,
             lastProbeAt: b,
@@ -262,8 +262,8 @@ function Ufn(e, t, r) {
           }
         : {
             ...(u ? { ...d, ...P(d, x) } : { ...P(x, d), role: E(a.role), ...w }),
-            cowritten: d.cowritten === !0 || a.cowritten === !0,
-            ...(d.probeFailed && { probeFailed: !0 }),
+            cowritten: d.cowritten === true || a.cowritten === true,
+            ...(d.probeFailed && { probeFailed: true }),
             ...o,
             ...(!u && { lastProbeAt: b }),
             lastProbeLandedAt: b,
@@ -277,20 +277,20 @@ function Mgt(e, t) {
   let r = qr(e);
   Pwe(e, {
     mode: r?.mode ?? "owner",
-    isSharedLive: r?.isSharedLive ?? !1,
-    ...(r?.probeFailed && { probeFailed: !0 }),
+    isSharedLive: r?.isSharedLive ?? false,
+    ...(r?.probeFailed && { probeFailed: true }),
     artifactKind: t,
   });
 }
 function U8n(e, t) {
-  if (t !== !0) return;
+  if (t !== true) return;
   let r = qr(e);
-  if (r?.cowritten === !0) return;
+  if (r?.cowritten === true) return;
   Pwe(e, {
     mode: r?.mode ?? "owner",
-    isSharedLive: r?.isSharedLive ?? !1,
-    ...(r?.probeFailed && { probeFailed: !0 }),
-    cowritten: !0,
+    isSharedLive: r?.isSharedLive ?? false,
+    ...(r?.probeFailed && { probeFailed: true }),
+    cowritten: true,
   });
 }
 function wVe(e, t, r = Date.now()) {
@@ -299,8 +299,8 @@ function wVe(e, t, r = Date.now()) {
   if (o?.livePathsIssuedAt !== void 0 && r < o.livePathsIssuedAt) return;
   Pwe(e, {
     mode: o?.mode ?? "owner",
-    isSharedLive: o?.isSharedLive ?? !1,
-    ...(o?.probeFailed && { probeFailed: !0 }),
+    isSharedLive: o?.isSharedLive ?? false,
+    ...(o?.probeFailed && { probeFailed: true }),
     livePaths: te(t.map((a) => a.path)),
     livePathsIssuedAt: r,
   });
@@ -317,11 +317,11 @@ function C(e) {
   else y("artifact_share_status");
 }
 function TVe(e, t) {
-  if (e === void 0 || e === "" || e === "owner") return { mode: "owner", isSharedLive: !1 };
+  if (e === void 0 || e === "" || e === "owner") return { mode: "owner", isSharedLive: false };
   if (e === "users" || e === "org") return { mode: e, isSharedLive: (t ?? "") === "" };
-  if (e === "public") return { mode: "public", isSharedLive: !0 };
+  if (e === "public") return { mode: "public", isSharedLive: true };
   if (e === "agent_scoped") return { mode: "agent_scoped", isSharedLive: (t ?? "") === "" };
-  return { mode: "unknown", isSharedLive: !0 };
+  return { mode: "unknown", isSharedLive: true };
 }
 function jfn(e) {
   if (e === "live") return "viewers see updates immediately";
@@ -353,7 +353,7 @@ function ine(e) {
   return t !== void 0 && e <= t;
 }
 function B8n(e) {
-  return e?.probeFailed === !0 && e.probeErrorCode === EVe;
+  return e?.probeFailed === true && e.probeErrorCode === EVe;
 }
 function B9(e) {
   let t = Zc(e);
@@ -448,7 +448,7 @@ function K(e, t, r) {
   if (a !== void 0) {
     let { text: d, truncated: u } = a;
     if (d.includes("\uFFFD") || d.includes("\x00")) return S;
-    if (o || (e === "" && d.trimStart().startsWith("{"))) return u ? S : R(Ut(d, !1), r);
+    if (o || (e === "" && d.trimStart().startsWith("{"))) return u ? S : R(Ut(d, false), r);
     return { reason: e === "text/plain" ? v(a, r, I) : void 0, code: void 0 };
   }
   if (t !== null && typeof t === "object") return R(t, r);

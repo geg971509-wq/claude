@@ -83,7 +83,7 @@ async function ICe(e, r, t, o) {
       if (a.value.nlink === 0) return P({ kind: "fs", error: Bs(e, ove) });
       let u = await Var(l, t);
       if (!u.ok) return u;
-      if (u.value !== !0) {
+      if (u.value !== true) {
         let c = u.value === "unavailable" ? ove : u.value === "otherNames" ? vJ : vm;
         return P({ kind: "fs", error: Bs(e, c) });
       }
@@ -120,7 +120,7 @@ async function VT(e, r, t) {
   });
 }
 async function U(e) {
-  let r = await Ie(e.stat({ bigint: !0 }));
+  let r = await Ie(e.stat({ bigint: true }));
   if (!r.ok) return r;
   let t = r.value;
   return re({
@@ -202,13 +202,13 @@ async function M(e, r) {
 async function DCe(e, r, t = wy, o, i) {
   let s = i?.exactMode,
     l = i?.createMode;
-  if (s === void 0 && i?.keepMode === !0) {
+  if (s === void 0 && i?.keepMode === true) {
     let m = await Ie(p(e));
     if (m.ok) {
       if (m.value.isFile()) s = m.value.mode & 511;
     } else if (m.error.kind !== "absent") return P(m.error);
   }
-  let a = i?.flush === !0,
+  let a = i?.flush === true,
     u = () =>
       l !== void 0 && s === void 0
         ? XCe(e, r, { createMode: l, flush: a })
@@ -247,7 +247,7 @@ async function gar(e, r, t, o = qCe, i) {
         let y = await Ie(c.truncate(r.byteLength));
         if (!y.ok) return y;
       }
-      if (i?.flush === !0) {
+      if (i?.flush === true) {
         let y = await Ie(K(c));
         if (!y.ok) return y;
       }
@@ -280,8 +280,8 @@ async function cJ(e, r, t) {
   }
 }
 function ke(e, r) {
-  if ((e.mode & 4095) === r) return !0;
-  if (typeof process.geteuid !== "function") return !0;
+  if ((e.mode & 4095) === r) return true;
+  if (typeof process.geteuid !== "function") return true;
   let t = process.geteuid();
   return t === 0 || e.uid === t;
 }
@@ -303,8 +303,8 @@ async function Ee(e) {
   }
 }
 async function bRn(e, r, t, o, i) {
-  let s = i?.flush ?? !0,
-    l = i?.refuseUnwritable ?? !1,
+  let s = i?.flush ?? true,
+    l = i?.refuseUnwritable ?? false,
     a = () => Se(e, r, t, o, s, i?.exactMode, l),
     u = await a();
   if (u.ok || u.error.kind !== "absent" || !i?.makeParent) return u;
@@ -319,7 +319,7 @@ async function Se(e, r, t, o, i, s, l) {
     if (((u = await Ie(p(e))), u.ok && u.value.isSymbolicLink())) return P({ kind: "fs", error: Bs(e, "ELOOP") });
   } else (a = await Ee(e)), (u = await Ie(R(a)));
   if (!u.ok && u.error.kind !== "absent") return u;
-  let c = !1;
+  let c = false;
   if (l && u.ok && u.value.isFile()) {
     let m = await Ie(oe(a, v.W_OK));
     if (!m.ok && m.error.kind !== "absent") return m;
@@ -332,17 +332,17 @@ async function Se(e, r, t, o, i, s, l) {
         exactMode: f,
         flush: i,
         followSymlinks: t === "follow",
-        inPlaceOnTempCreateRefused: !0,
+        inPlaceOnTempCreateRefused: true,
       }),
     );
   return g.ok ? re({ version: Rw(r) }) : P(await M(a, g.error));
 }
 var Pe = new Set(["EPERM", "ENOTSUP", "EOPNOTSUPP", "ENOSYS"]);
 class H {
-  logged = !1;
+  logged = false;
   claim() {
-    if (this.logged) return !1;
-    return (this.logged = !0), !0;
+    if (this.logged) return false;
+    return (this.logged = true), true;
   }
 }
 var ve = new J(() => new H());
@@ -358,17 +358,17 @@ async function wJe(e, r, t, o = wy, i, s) {
   await using a = await j(e, r, o, i, s);
   if (!a.written.ok) return a.written;
   let u = await Ie(se(a.path, e));
-  if (u.ok) return re({ created: !0, version: Rw(r) });
+  if (u.ok) return re({ created: true, version: Rw(r) });
   if (u.error.kind !== "fs") return u;
   if (Am(u.error.error, "EEXIST")) {
     let c = await Ie(p(e));
-    return c.ok ? O(e, c.value, t, r) : re({ created: !1, version: Rw(r) });
+    return c.ok ? O(e, c.value, t, r) : re({ created: false, version: Rw(r) });
   }
   return OCe(u.error.error) ? P({ kind: "linkRefused", error: u.error.error }) : u;
 }
 function OCe(e) {
   let r = E(e);
-  if (r === void 0) return !1;
+  if (r === void 0) return false;
   return Pe.has(r) || (r === "EISDIR" && D() === "windows");
 }
 async function TJe(e, r, t, o = wy, i, s, l, a) {
@@ -380,7 +380,7 @@ async function TJe(e, r, t, o = wy, i, s, l, a) {
   if (c.error.kind !== "absent") return c;
   if (!i()) return P({ kind: "suspect" });
   let f = await Ie(le(u.path, e));
-  return f.ok ? re({ created: !0, version: Rw(r) }) : f;
+  return f.ok ? re({ created: true, version: Rw(r) }) : f;
 }
 function Ooe(e, r, t) {
   if (t === "follow" || r.isFile()) return { kind: "occupied" };
@@ -388,7 +388,7 @@ function Ooe(e, r, t) {
 }
 function O(e, r, t, o) {
   let i = Ooe(e, r, t);
-  return i.kind === "occupied" ? re({ created: !1, version: Rw(o) }) : P(i);
+  return i.kind === "occupied" ? re({ created: false, version: Rw(o) }) : P(i);
 }
 function Re(e) {
   if (!Le().claim()) return;
@@ -430,7 +430,7 @@ async function EJe(e, r, t, o) {
 }
 async function he(e, r, t, o) {
   let i = o?.exactMode,
-    s = o?.flush === !0;
+    s = o?.flush === true;
   if (i === void 0 && !s) {
     await ce(e, r, { mode: t, flag: "wx" });
     return;
@@ -446,8 +446,8 @@ async function he(e, r, t, o) {
 }
 async function uJ(e) {
   let r = await Ie(C(e));
-  if (r.ok) return re({ existed: !0 });
-  if (r.error.kind === "absent") return re({ existed: !1 });
+  if (r.ok) return re({ existed: true });
+  if (r.error.kind === "absent") return re({ existed: false });
   if (r.error.kind === "fs" && Am(r.error.error, "EPERM")) {
     let t = await Ie(p(e));
     if (t.ok && t.value.isDirectory()) return P({ kind: "fs", error: Bs(e, "EISDIR") });
@@ -458,7 +458,7 @@ function T(e, r) {
   return Ie(r === "refuse" ? p(e) : R(e));
 }
 async function yar(e, r) {
-  let t = await Ie(r === "refuse" ? p(e, { bigint: !0 }) : R(e, { bigint: !0 }));
+  let t = await Ie(r === "refuse" ? p(e, { bigint: true }) : R(e, { bigint: true }));
   if (!t.ok) return t;
   if (!t.value.isFile()) return P(hJ(e, t.value));
   let o = GCe({ device: t.value.dev, inode: t.value.ino }),
@@ -487,7 +487,7 @@ async function bar(e, r) {
   return !t.ok && t.error.kind === "absent";
 }
 async function bh(e, r = h4) {
-  let t = await $O(ae(e, { recursive: !0, mode: r }));
+  let t = await $O(ae(e, { recursive: true, mode: r }));
   if (t.ok) return re(void 0);
   let o = E(t.error.kind === "fs" ? t.error.error : 0);
   if (o !== "EEXIST" && o !== "ENOTDIR") return t;
@@ -518,37 +518,37 @@ async function mS(e, r, t) {
     s = W.getStore() ?? [];
   if (s.some((d) => d.identity === i && !d.released)) return t.ifReentrant();
   await using l = await X(i);
-  let a = () => r({ suspect: () => !1 }),
+  let a = () => r({ suspect: () => false }),
     u = (d) => (t.onForgone?.(d), a());
   if (t.proceedIf !== void 0 && !(await t.proceedIf())) return await a();
   let c = Ae(o);
-  if (t.createParent !== !1) {
+  if (t.createParent !== false) {
     let d = await bh(c, t.parentMode);
     if (!d.ok) {
-      if (t.forgoIf?.(d.error) !== !0) return t.ifContended(d.error);
+      if (t.forgoIf?.(d.error) !== true) return t.ifContended(d.error);
       return await u(d.error);
     }
   } else {
     let d = await Ie(Oe(c));
     if (!d.ok && d.error.kind === "absent") {
-      if (t.forgoIf?.(d.error) !== !0) return t.ifContended(d.error);
+      if (t.forgoIf?.(d.error) !== true) return t.ifContended(d.error);
       return await u(d.error);
     }
   }
-  let f = !1,
+  let f = false,
     g = Date.now(),
     m = performance.now(),
     b = Ce(t.acquireTimeoutMs),
     F = (d) =>
       Ie(
         Gi(t.registryKeyedOnLockfile ? o : e, {
-          realpath: !1,
+          realpath: false,
           stale: t.staleMs ?? Te,
           retries: d,
           ...(t.lockfilePath !== void 0 && { lockfilePath: t.lockfilePath }),
           ...(t.updateMs !== void 0 && { update: t.updateMs }),
           onCompromised: (S) => {
-            (f = !0),
+            (f = true),
               n(`storage lock compromised (likely a process suspend or slow filesystem): ${S}`, { level: "warn" });
           },
         }),
@@ -564,10 +564,10 @@ async function mS(e, r, t) {
   }
   if (!y.ok) {
     let d = Y(y.error);
-    if (t.forgoIf?.(d) !== !0) return t.ifContended(d);
+    if (t.forgoIf?.(d) !== true) return t.ifContended(d);
     return await u(d);
   }
-  let N = { identity: i, released: !1 };
+  let N = { identity: i, released: false };
   try {
     return await W.run([...s, N], () =>
       r({
@@ -579,7 +579,7 @@ async function mS(e, r, t) {
       }),
     );
   } finally {
-    (N.released = !0), await y.value().catch(De);
+    (N.released = true), await y.value().catch(De);
   }
 }
 async function XH(e, r) {
@@ -673,7 +673,7 @@ function kw(e, r, t) {
   );
 }
 async function lj(e, r) {
-  let t = await Ie(q(e, { bigint: !0 }));
+  let t = await Ie(q(e, { bigint: true }));
   return t.ok && TAt(t.value, r);
 }
 function TAt(e, r) {
@@ -697,9 +697,9 @@ function K1e(e) {
     : Fe("opts.precondition", "must be { type: ifMatch, version }, { type: ifAbsent }, or { type: none }");
 }
 function He(e) {
-  if (typeof e !== "object" || e === null || !("type" in e)) return !1;
+  if (typeof e !== "object" || e === null || !("type" in e)) return false;
   if (e.type === "none") return Object.keys(e).length === 1;
-  if (e.type === "ifAbsent") return !0;
+  if (e.type === "ifAbsent") return true;
   return Q(e);
 }
 function X1e(e) {
@@ -730,11 +730,11 @@ function Y1e(e) {
 }
 var je = 4000,
   We = 1e4,
-  $e = { updateMs: je, staleMs: We, createParent: !1 },
+  $e = { updateMs: je, staleMs: We, createParent: false },
   Ye = 2000,
   ze = 5000,
-  Xe = { updateMs: Ye, staleMs: ze, createParent: !1 },
-  qe = { registryKeyedOnLockfile: !0 };
+  Xe = { updateMs: Ye, staleMs: ze, createParent: false },
+  qe = { registryKeyedOnLockfile: true };
 function TRn(e) {
   if (!m4(e)) return qe;
   return e.namespace === "jobsRoot" ? Xe : $e;
@@ -752,10 +752,10 @@ function T5(e, r) {
   };
 }
 class Z {
-  logged = !1;
+  logged = false;
   claim() {
-    if (this.logged) return !1;
-    return (this.logged = !0), !0;
+    if (this.logged) return false;
+    return (this.logged = true), true;
   }
 }
 var Qe = new J(() => new Z());

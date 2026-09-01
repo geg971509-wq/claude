@@ -186,7 +186,7 @@ async function F() {
           fallbackKey: l.key,
           fallbackName: k,
           fallbackBedrockId: l.regionalId,
-          ...(l.crossTier && { crossTier: !0 }),
+          ...(l.crossTier && { crossTier: true }),
         };
       }),
     ),
@@ -212,7 +212,7 @@ async function A(i, o, t, d, p) {
   for (let [r, u] of g.entries()) if (u) return { key: e[r], regionalId: u };
   if (o === "opus") {
     let r = await f(vH, "sonnet");
-    if (r) return { key: vH, regionalId: r, crossTier: !0 };
+    if (r) return { key: vH, regionalId: r, crossTier: true };
   }
   return null;
 }
@@ -253,17 +253,17 @@ async function _(i, o) {
           })
         : new t({
             ...f,
-            ...(r && !m && { skipAuth: !0, authToken: null, ..._O }),
+            ...(r && !m && { skipAuth: true, authToken: null, ..._O }),
             ...(r && m && { apiKey: m.match(/^Bearer (.+)$/i)?.[1] ?? m, defaultHeaders: { Authorization: m } }),
             ...(!r && l),
             ...(!r && u && { providerChainResolver: H6("Bedrock").providerChainResolver }),
             ...(!r && !u && !a.CLAUDE_CODE_SKIP_AWS_CRED_CACHE && { providerChainResolver: () => aR(p) }),
           });
     }
-    return await e.messages.create({ model: i, max_tokens: 1, messages: [{ role: "user", content: "." }] }), !0;
+    return await e.messages.create({ model: i, max_tokens: 1, messages: [{ role: "user", content: "." }] }), true;
   } catch (t) {
-    if (t?.status === 429) return !0;
-    return !1;
+    if (t?.status === 429) return true;
+    return false;
   }
 }
 export {

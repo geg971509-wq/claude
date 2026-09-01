@@ -79,7 +79,7 @@ function QLt(no) {
   else T = n[12];
   let V;
   if (n[13] === d)
-    (V = r(zc, { children: ["Cmd+Esc", e(t, { dimColor: !0, children: " for Quick Launch" })] })), (n[13] = V);
+    (V = r(zc, { children: ["Cmd+Esc", e(t, { dimColor: true, children: " for Quick Launch" })] })), (n[13] = V);
   else V = n[13];
   let K;
   if (n[14] === d)
@@ -90,14 +90,14 @@ function QLt(no) {
         P,
         T,
         V,
-        r(zc, { children: [ro, e(t, { dimColor: !0, children: " to reference files or lines in your input" })] }),
+        r(zc, { children: [ro, e(t, { dimColor: true, children: " to reference files or lines in your input" })] }),
       ],
     })),
       (n[14] = K);
   else K = n[14];
   let p;
   if (n[15] !== l || n[16] !== u || n[17] !== x)
-    (p = e(me, { title: u, subtitle: x, color: "ide", onCancel: l, hideInputGuide: !0, children: K })),
+    (p = e(me, { title: u, subtitle: x, color: "ide", onCancel: l, hideInputGuide: true, children: K })),
       (n[15] = l),
       (n[16] = u),
       (n[17] = x),
@@ -107,7 +107,7 @@ function QLt(no) {
   if (n[19] === d)
     (N = e(o, {
       paddingX: 1,
-      children: r(t, { dimColor: !0, italic: !0, children: ["Press ", e(M, { chord: "enter", action: "continue" })] }),
+      children: r(t, { dimColor: true, italic: true, children: ["Press ", e(M, { chord: "enter", action: "continue" })] }),
     })),
       (n[19] = N);
   else N = n[19];
@@ -119,12 +119,12 @@ function QLt(no) {
 function umr() {
   let i = ie(),
     s = Vh.terminal || "unknown";
-  return i.hasIdeOnboardingBeenShown?.[s] === !0;
+  return i.hasIdeOnboardingBeenShown?.[s] === true;
 }
 function B(i) {
   if (umr()) return;
   let s = Vh.terminal || "unknown";
-  Ae((m) => ({ ...m, hasIdeOnboardingBeenShown: { ...m.hasIdeOnboardingBeenShown, [s]: !0 } }), i),
+  Ae((m) => ({ ...m, hasIdeOnboardingBeenShown: { ...m.hasIdeOnboardingBeenShown, [s]: true } }), i),
     y("onboarding_ide_dialog_shown");
 }
 export { QLt, umr };

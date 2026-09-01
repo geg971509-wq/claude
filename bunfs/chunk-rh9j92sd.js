@@ -175,12 +175,12 @@ var uTr = async (r, o, a) => {
     let m = (a ?? "").trim(),
       f = gQ(o.messages, m);
     if (f === null) return r("Nothing to background yet \u2014 send a message first."), null;
-    return e(Hr, { onDone: r, prompt: m, seed: f, messages: o.messages, isMidTurn: o.isMidTurn ?? !1 });
+    return e(Hr, { onDone: r, prompt: m, seed: f, messages: o.messages, isMidTurn: o.isMidTurn ?? false });
   },
   ko = 3000,
   kkt = "Forking is not available in coordinator sessions. Use /branch instead.";
 async function Zme(r, o, a, m, f, w, S, b, P, i) {
-  if (i?.keepParent && Fs()) return { ok: !1, error: kkt, queued: !1, reason: "coordinator_mode" };
+  if (i?.keepParent && Fs()) return { ok: false, error: kkt, queued: false, reason: "coordinator_mode" };
   let x = AU(),
     T = i?.keepParent ? ce(co(zo(o ?? "")), 60) : "",
     E = r.name ? `${r.name} ${R_}${T ? ` ${T}` : ""}` : T ? `${R_} ${T}` : void 0,
@@ -223,9 +223,9 @@ async function Zme(r, o, a, m, f, w, S, b, P, i) {
       return (
         s("tengu_background_spawn_failed", { via: c(b) }),
         {
-          ok: !1,
+          ok: false,
           error: "Couldn't fork \u2014 this conversation is still being saved. Try again in a moment.",
-          queued: !1,
+          queued: false,
           reason: "flush_incomplete",
         }
       );
@@ -241,7 +241,7 @@ async function Zme(r, o, a, m, f, w, S, b, P, i) {
       return (
         await eLn(we, i.storageV5),
         s("tengu_background_spawn_failed", { via: c(b) }),
-        { ok: !1, error: `Couldn't fork \u2014 ${l(B)}`, queued: !1, reason: "snapshot_copy_failed" }
+        { ok: false, error: `Couldn't fork \u2014 ${l(B)}`, queued: false, reason: "snapshot_copy_failed" }
       );
     }
   }
@@ -290,9 +290,9 @@ async function Zme(r, o, a, m, f, w, S, b, P, i) {
         ...N,
         ...(i?.keepParent && { bgIsolation: "default" }),
         ...(i?.keepParent &&
-          yr !== void 0 && { forkSourceAlive: !0, forkBoundaryAt: yr, forkSessionId: ke, forkParentSessionId: K() }),
+          yr !== void 0 && { forkSourceAlive: true, forkBoundaryAt: yr, forkSessionId: ke, forkParentSessionId: K() }),
         worktree: ne
-          ? { path: M.worktreePath, branch: M.worktreeBranch, hookBased: M.hookBased ?? !1, originCwd: M.originalCwd }
+          ? { path: M.worktreePath, branch: M.worktreeBranch, hookBased: M.hookBased ?? false, originCwd: M.originalCwd }
           : void 0,
         sessionPermissionRules: oe,
         memoryToggledOff: Ey() || void 0,
@@ -302,13 +302,13 @@ async function Zme(r, o, a, m, f, w, S, b, P, i) {
       void 0,
       i?.storageV5,
     ).catch((B) => ({
-      ok: !1,
+      ok: false,
       error: `Couldn't ${i?.keepParent ? "fork" : "background"} \u2014 ${l(B)}`,
       reason: void 0,
     }));
   if (!V.ok) {
     if ((s("tengu_background_spawn_failed", { via: c(b) }), we !== void 0 && !V.alive)) eLn(we, i?.storageV5);
-    let B = !1;
+    let B = false;
     if (b === "left_arrow" && i?.providedSessionId !== void 0 && H !== null && !V.alive) {
       let je = cr(i.providedSessionId.slice(0, 8)),
         he = await fr(je, i.storageV5);
@@ -329,9 +329,9 @@ async function Zme(r, o, a, m, f, w, S, b, P, i) {
     if (b === "left_arrow")
       if (B) g("repl_background_fork", "queued_for_later");
       else p("repl_background_fork", "spawn_failed");
-    return { ok: !1, error: V.error, queued: B, reason: V.reason, alive: V.alive };
+    return { ok: false, error: V.error, queued: B, reason: V.reason, alive: V.alive };
   }
-  if ((s("tengu_background", { via_flag: !1, via: c(b) }), b === "left_arrow")) y("repl_background_fork");
+  if ((s("tengu_background", { via_flag: false, via: c(b) }), b === "left_arrow")) y("repl_background_fork");
   if (M && !i?.keepParent) {
     if (ne && !M.hookBased) await e4e(M.worktreePath, M.originalCwd);
     YMe(null), T$();
@@ -344,7 +344,7 @@ async function Zme(r, o, a, m, f, w, S, b, P, i) {
     if (b === "command") vt(() => je);
   }
   return {
-    ok: !0,
+    ok: true,
     short: V.short,
     sessionId: V.sessionId ?? ke,
     handedOff: ne,
@@ -369,14 +369,14 @@ async function hur(r, o, a) {
     }
     return m;
   }
-  return await Nr(Wr(m), { recursive: !0, mode: 448 }), await Lr(r, m), m;
+  return await Nr(Wr(m), { recursive: true, mode: 448 }), await Lr(r, m), m;
 }
 async function eLn(r, o) {
   if (o !== void 0 && Zt(r)) {
     await o.deleteScope({ namespace: "job", jobId: r }).catch(() => {});
     return;
   }
-  await Dr(cr(r), { recursive: !0, force: !0 }).catch(() => {});
+  await Dr(cr(r), { recursive: true, force: true }).catch(() => {});
 }
 async function _ur(r) {
   let { sessionFile: o, forkSessionId: a, jobDir: m, prev: f, forkArgs: w, storageV5: S } = r,
@@ -403,8 +403,8 @@ async function _ur(r) {
       }),
     )
     .then(
-      () => !0,
-      (P) => (h(P), !1),
+      () => true,
+      (P) => (h(P), false),
     );
 }
 async function wo(r, o, a) {
@@ -428,12 +428,12 @@ async function yo(r, o) {
     await a.backend.delete(a.key).catch(() => {});
     return;
   }
-  await Dr(r, { force: !0 }).catch(() => {});
+  await Dr(r, { force: true }).catch(() => {});
 }
 async function yur(r, o, a) {
   let m = cr(r),
     f = O() && a !== void 0 ? a : void 0;
-  if (f === void 0) await Nr(m, { recursive: !0, mode: 448 });
+  if (f === void 0) await Nr(m, { recursive: true, mode: 448 });
   await vge(m, o, { parent: "create" }, f);
 }
 function fe(r) {
@@ -454,9 +454,9 @@ async function Hkt(r) {
     a;
   if (o) {
     a = Ir();
-    let P = !1;
+    let P = false;
     try {
-      await yur(a.slice(0, 8), o.payload, r.storageV5), (P = !0), await o.checkpointAgents(r.taskRegistry);
+      await yur(a.slice(0, 8), o.payload, r.storageV5), (P = true), await o.checkpointAgents(r.taskRegistry);
     } catch {
       if (((a = void 0), o.payload.frameLive !== void 0))
         g("artifact_live_subscribe", P ? "consent_carry_checkpoint_failed" : "consent_carry_write_failed");
@@ -503,7 +503,7 @@ async function Hkt(r) {
   let b = o?.payload.frameLive?.length ?? 0;
   if (r.exitsAfterward && a && b > 0) g("artifact_live_subscribe", "adopt_spawn_failed");
   return {
-    ok: !1,
+    ok: false,
     error: f1(S.error, m, { exitsAfterward: r.exitsAfterward }),
     frameLiveLost: r.exitsAfterward ? b : 0,
   };
@@ -518,7 +518,7 @@ function Ltt(Yn) {
     er = Vf(),
     { storageV5: rr, credentials: or } = ge(),
     nr = Iu(),
-    zr = C(!1),
+    zr = C(false),
     Qr,
     Yr;
   if (
@@ -535,7 +535,7 @@ function Ltt(Yn) {
       if (zr.current) {
         return;
       }
-      zr.current = !0;
+      zr.current = true;
       let Zr = gQ(Ve, "");
       if (Zr === null) {
         p("bg_exit_dialog_background", "no_seed"),
@@ -554,7 +554,7 @@ function Ltt(Yn) {
           seed: Zr,
           prompt: null,
           messages: Ve,
-          exitsAfterward: !0,
+          exitsAfterward: true,
           isMidTurn: Qe,
           responseStreaming: Ye,
           sessionEffort: Y.sessionEffort,
@@ -577,7 +577,7 @@ ${Mr.summary} couldn't be moved and ${Mr.count === 1 ? "was" : "were"} stopped.`
               : "";
           let ro = te(Zn);
           await Ln(0, "prompt_input_exit", {
-            suppressResumeHint: !0,
+            suppressResumeHint: true,
             finalMessage:
               tge(Re.short, Re.handedOff ? "(worktree handed off)" : void 0) +
               rt +
@@ -606,13 +606,13 @@ ${ro}`
   else (Qr = Kr[8]), (Yr = Kr[9]);
   A(Qr, Yr);
   let oo;
-  if (Kr[10] === d) (oo = e(t, { dimColor: !0, children: "Moving to background\u2026" })), (Kr[10] = oo);
+  if (Kr[10] === d) (oo = e(t, { dimColor: true, children: "Moving to background\u2026" })), (Kr[10] = oo);
   else oo = Kr[10];
   return oo;
 }
 function gQ(r, o, a = "(backgrounded)") {
   let m = o,
-    f = !1,
+    f = false,
     w;
   for (let x = r.length - 1; x >= 0; x--) {
     let T = r[x];
@@ -623,10 +623,10 @@ function gQ(r, o, a = "(backgrounded)") {
     if (T.type === "user" && !T.isMeta && !gk(T)) {
       let E = Yp(T)?.trim();
       if (E && nM(E)) {
-        if (E.startsWith(`<${wp}>`)) f = !0;
+        if (E.startsWith(`<${wp}>`)) f = true;
         continue;
       }
-      if (((f = !0), !m && E)) m = E;
+      if (((f = true), !m && E)) m = E;
     }
     if (f && m && w !== void 0) break;
   }
@@ -687,7 +687,7 @@ function Hr(ot) {
   else io = L[11];
   let { carryOverCount: ae, monitorParkCount: xr, workflowAgents: J, abandonable: q } = io,
     [le, tt] = u(q.count === 0 && J.running === 0),
-    so = C(!1),
+    so = C(false),
     lo;
   if (
     L[12] !== q.count ||
@@ -716,7 +716,7 @@ function Hr(ot) {
       if (!le || so.current) {
         return;
       }
-      (so.current = !0),
+      (so.current = true),
         (async () => {
           let ee = await Hkt({
             seed: Pe,
@@ -748,7 +748,7 @@ function Hr(ot) {
             }),
               G(),
               await Ln(0, "prompt_input_exit", {
-                suppressResumeHint: !0,
+                suppressResumeHint: true,
                 finalMessage: tge(ee.short, ee.handedOff ? "(worktree handed off)" : void 0) + fe(ee),
               });
           else
@@ -824,7 +824,7 @@ function Hr(ot) {
   else fo = L[51];
   if ((A(lo, fo), le)) {
     let He;
-    if (L[52] === d) (He = e(t, { dimColor: !0, children: "Backgrounding\u2026" })), (L[52] = He);
+    if (L[52] === d) (He = e(t, { dimColor: true, children: "Backgrounding\u2026" })), (L[52] = He);
     else He = L[52];
     return He;
   }
@@ -858,13 +858,13 @@ function Hr(ot) {
   const Fr = uo.join(" ");
   let gr;
   if (L[67] !== q.count || L[68] !== J)
-    (gr = q.count > 0 ? `Background anyway (${q.count} ${k(q.count, "task")} will be stopped)` : Ae(!1, J)),
+    (gr = q.count > 0 ? `Background anyway (${q.count} ${k(q.count, "task")} will be stopped)` : Ae(false, J)),
       (L[67] = q.count),
       (L[68] = J),
       (L[69] = gr);
   else gr = L[69];
   let go;
-  if (L[70] === d) (go = () => tt(!0)), (L[70] = go);
+  if (L[70] === d) (go = () => tt(true)), (L[70] = go);
   else go = L[70];
   let pr;
   if (L[71] !== Ne || L[72] !== gr)

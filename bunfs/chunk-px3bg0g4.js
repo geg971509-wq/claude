@@ -45,7 +45,7 @@ async function D(e, s, l, m, u) {
       timeout: j,
       maxContentLength: eD,
       maxBodyLength: eD,
-      validateStatus: () => !0,
+      validateStatus: () => true,
     });
     if (b.status !== 200) return a(`fetch ${e.file_uuid} failed: status=${b.status}`), { failure: "download" };
     if (((r = Buffer.from(b.data)), r.length > eD))
@@ -56,7 +56,7 @@ async function D(e, s, l, m, u) {
   if (typeof e.sha256 === "string" && !FDt(r, { sha256: e.sha256, file_size: e.file_size }))
     return a(`fetch ${e.file_uuid} failed integrity verification`), { failure: "digest_mismatch" };
   let f =
-      l && e.is_image === !0 && e.sha256 === void 0
+      l && e.is_image === true && e.sha256 === void 0
         ? await qKn(r, fA).catch((o) => (a(`inline ${e.file_uuid} threw: ${o}`), null))
         : null,
     d = f ? `image.${z[NDe(r)]}` : EWe(e.file_name),
@@ -70,7 +70,7 @@ async function D(e, s, l, m, u) {
     if (!o.ok) return a(`write ${c} failed: ${Ge(o.error)}`), { failure: "write" };
   } else
     try {
-      await T(k, { recursive: !0, mode: 448 }), await M(c, r, { mode: 384 });
+      await T(k, { recursive: true, mode: 448 }), await M(c, r, { mode: 384 });
     } catch (o) {
       return a(`write ${c} failed: ${o}`), { failure: "write" };
     }
@@ -82,8 +82,8 @@ async function D(e, s, l, m, u) {
     }
   if ((a(`resolved ${e.file_uuid} \u2192 ${c} (${r.length} bytes)`), f))
     return a(`inlined ${e.file_uuid} (${r.length} bytes)`), { imageBlock: f, path: c };
-  if (l && e.is_image === !0 && e.sha256 === void 0)
-    return a(`inline ${e.file_uuid} fell back to @path ref`), { path: c, inlineFellBack: !0 };
+  if (l && e.is_image === true && e.sha256 === void 0)
+    return a(`inline ${e.file_uuid} fell back to @path ref`), { path: c, inlineFellBack: true };
   return { path: c };
 }
 var U = {
@@ -125,7 +125,7 @@ async function $cr(e, s, l, m, u) {
     A = 0,
     v = 0,
     F = 0,
-    x = !1;
+    x = false;
   if (
     (c.forEach((t, I) => {
       let w = d[I],
@@ -136,7 +136,7 @@ async function $cr(e, s, l, m, u) {
         if ((B.push(`@"${t.path}"`), t.inlineFellBack)) A++;
         if (P) F++;
       } else {
-        if (t.failure === "digest_mismatch") x = !0;
+        if (t.failure === "digest_mismatch") x = true;
         if (P) f.push(Hst(w.file_name, U[t.failure]));
       }
     }),

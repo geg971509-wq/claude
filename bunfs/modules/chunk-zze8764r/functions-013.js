@@ -50,7 +50,7 @@ async function LNn(e) {
       description: await zC.described.of(u, async () =>
         ce(await u.prompt({ getToolPermissionContext: async () => o, tools: r, agents: [] }), zC.DESCRIPTION_LIMIT),
       ),
-      mcp: u.isMcp === !0,
+      mcp: u.isMcp === true,
     })),
   );
 }
@@ -118,7 +118,7 @@ async function NNn({ server: e, tool: t, args: r }, o) {
     n(
       `$.mcp.call (${o.plugin}): ${C.name} answered in ${Date.now() - A}ms: ${M.length} block(s)${x.isError ? ", isError" : ""}`,
     ),
-    { content: M, isError: x.isError === !0 }
+    { content: M, isError: x.isError === true }
   );
 }
 
@@ -178,12 +178,12 @@ function kkt(e) {
 function zNn() {
   let e = a.CLAUDE_CODE_DAPPER_LAGOON;
   if (e !== void 0) return e;
-  return I(jNn, !0) && I(WNn, !0);
+  return I(jNn, true) && I(WNn, true);
 }
 
 function GNn(e) {
-  if (!wkt.has(e)) return !1;
-  if (e === "firstParty" && !W3(e)) return !1;
+  if (!wkt.has(e)) return false;
+  if (e === "firstParty" && !W3(e)) return false;
   return zNn();
 }
 
@@ -259,7 +259,7 @@ async function Pv(e) {
         DD_SOURCEMAP_GROUP: "darwin",
       }.VERSION,
     ),
-    Ve = jBt(We, Ce, void 0, void 0, U && !zV() ? { ignoreEnvOptOut: !0 } : void 0);
+    Ve = jBt(We, Ce, void 0, void 0, U && !zV() ? { ignoreEnvOptOut: true } : void 0);
   if (!F) await woe(za(t));
   let Pt = F ? "" : Toe(Ve, za(t)),
     ct = [
@@ -267,13 +267,13 @@ async function Pv(e) {
       ...(F
         ? []
         : [
-            { type: "text", text: WY({ isNonInteractive: !1, hasAppendSystemPrompt: !1 }) },
+            { type: "text", text: WY({ isNonInteractive: false, hasAppendSystemPrompt: false }) },
             ...(Pt ? [{ type: "text", text: Pt }] : []),
           ]),
       ...(Array.isArray(r) ? r : r ? [{ type: "text", text: r }] : []),
     ].filter((fn) => fn !== null),
     ut;
-  if (W === !1) ut = { type: "disabled" };
+  if (W === false) ut = { type: "disabled" };
   else if (W !== void 0) ut = { type: "enabled", budget_tokens: Math.min(W, C - 1) };
   let en = oM(e.querySource) ? "1h" : void 0;
   if (en === "1h" && uw() && !Fe.includes(EMe)) Fe.push(EMe);
@@ -315,7 +315,7 @@ async function Pv(e) {
     nt = await Xe(Pe);
   } catch (fn) {
     if (!(fn instanceof Gt) || !(fn.status === 401 || xX(fn)) || !Oe || M?.aborted) throw fn;
-    let Sn = !1;
+    let Sn = false;
     try {
       Sn = await ym(Oe, ge);
     } catch (bn) {
@@ -403,7 +403,7 @@ async function KNn({ model: e, prompt: t, system: r, maxTokens: o }, { plugin: u
       model: C,
       max_tokens: M,
       thinking: A,
-      skipSystemPromptPrefix: !0,
+      skipSystemPromptPrefix: true,
       ...(typeof r === "string" && r !== "" && { system: r }),
       messages: [{ role: "user", content: t }],
       ...(_ !== void 0 && { signal: _ }),
@@ -445,7 +445,7 @@ function $Ae(e) {
 
 async function BAe(e) {
   let t = sG(e);
-  return await JNn(ZNn(t), { recursive: !0 }), t;
+  return await JNn(ZNn(t), { recursive: true }), t;
 }
 
 async function Dkt(e, t) {
@@ -543,7 +543,7 @@ function Foe(e, { plugin: t, spelling: r, by: o }) {
 
 function Noe(e, t, r) {
   let { staged: o, stagedBefore: u, building: d } = e,
-    _ = t.environmentId !== void 0 && d?.some((C) => C.environmentId === t.environmentId) === !0;
+    _ = t.environmentId !== void 0 && d?.some((C) => C.environmentId === t.environmentId) === true;
   return (
     (_ ? o?.refuser(t.plugin, r) : void 0) ??
     (_ ? u?.refuser(t.plugin, r) : void 0) ??
@@ -594,7 +594,7 @@ function $kt(e, t, r) {
   let { event: o, hookOrigin: u } = e,
     d = P$(o) === void 0 ? void 0 : o;
   if (o === "prompt.submit" || u === void 0 || u.length === 0) return d;
-  let _ = !1;
+  let _ = false;
   for (let C of t) {
     if (
       !C.environments.some((A) => {
@@ -604,7 +604,7 @@ function $kt(e, t, r) {
     )
       continue;
     if (C.turnHeld !== void 0) return C.turnHeld;
-    _ = !0;
+    _ = true;
   }
   return _ ? void 0 : d;
 }
@@ -889,7 +889,7 @@ function nwt(e, t, r) {
   for (let o of r) {
     let u = [...(e.withholdings.get(o) ?? [])].filter((_) => !Object.hasOwn(t, _)),
       d = Object.entries(t)
-        .filter(([, { withheldBy: _ }]) => _?.includes(o) === !0)
+        .filter(([, { withheldBy: _ }]) => _?.includes(o) === true)
         .map(([_]) => _);
     u.length + d.length === 0 ? e.withholdings.delete(o) : e.withholdings.set(o, new Set([...u, ...d]));
   }
@@ -996,10 +996,10 @@ function gwt() {
 
 function Nx(e, t, r) {
   let o = e.state.environmentHost?.died;
-  if (o === void 0) return !1;
+  if (o === void 0) return false;
   n(`${r} abandoned: the hooks worker died during it (${o}); the respawn reloads the declared set`, { level: "error" });
   for (let u of t) u.terminate();
-  return !0;
+  return true;
 }
 
 function ywt(e) {
@@ -1015,7 +1015,7 @@ function ywt(e) {
 function nse(e, t) {
   let r = `${e}: `,
     o = t?.reason,
-    u = o?.startsWith(r) === !0 ? o.slice(r.length) : o;
+    u = o?.startsWith(r) === true ? o.slice(r.length) : o;
   return new Re.HooksError(`${e}: ${t?.stage ?? "engine.create"} failed` + (u === void 0 ? "" : ` (${u})`));
 }
 
@@ -1023,8 +1023,8 @@ function $$(e, t, r) {
   let o = l(r),
     u = `${t}: `,
     d = o.startsWith(u) ? o.slice(u.length) : o,
-    _ = `${e?.isBuiltin === !0 ? "built-in plugin" : "hooks module"} did not load: ${d}`;
-  return o7.appendUiLog(t, _), e?.isBuiltin === !0 ? `${t}: ${_}` : void 0;
+    _ = `${e?.isBuiltin === true ? "built-in plugin" : "hooks module"} did not load: ${d}`;
+  return o7.appendUiLog(t, _), e?.isBuiltin === true ? `${t}: ${_}` : void 0;
 }
 
 function Rwt(e, t, r) {
@@ -1138,7 +1138,7 @@ async function B$(e, t, r = {}) {
             ...W.map((ge, Ce) =>
               $x.foldStep({ loaded: ge, index: Ce, hooking: W, beneath: o, withheld: M, owners: B }),
             ),
-            { name: Dw.CORE, core: !0, budgetMs: 0, run: () => Promise.resolve(Py.asBuilt(o)) },
+            { name: Dw.CORE, core: true, budgetMs: 0, run: () => Promise.resolve(Py.asBuilt(o)) },
           ],
           site: Ns.SITE_RULES["engine.create"],
         });
@@ -1392,7 +1392,7 @@ function vA(e, t, r) {
           `${d} was unloaded: it crashed the hooks worker` +
             (_ === "" ? "" : `; what it withheld (${_}) stays withheld until it reloads or is disabled`),
         ),
-        Hd.publishHookFailure({ plugin: d, event: "*", reason: t, effect: Jg.UNLOADED_EFFECT, overran: !1 });
+        Hd.publishHookFailure({ plugin: d, event: "*", reason: t, effect: Jg.UNLOADED_EFFECT, overran: false });
     }
   Ua.dropCrashed(e.host.state, o), I$(e, t), e.worker.terminate(), e.spawned.release?.(), lse(e.host, t, u);
 }
@@ -1873,13 +1873,13 @@ function qAe() {
   let e;
   return {
     bind: (t) => {
-      let r = !1;
+      let r = false;
       e = {
         turnId: t.turnId,
         cancelled: () => r,
         cancel: () => {
           if (r) return;
-          (r = !0), t.abort();
+          (r = true), t.abort();
         },
       };
     },
@@ -1971,7 +1971,7 @@ async function XAe(e, t) {
       })),
     })),
     d.setRequestHandler(o, (_) => ({
-      isError: !0,
+      isError: true,
       content: [
         {
           type: "text",
@@ -1991,7 +1991,7 @@ async function QAe(e, t, r) {
     return new Response("not found", { status: YAe });
   let C = new (await _G.streamableHttp()).WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: void 0,
-    enableJsonResponse: !0,
+    enableJsonResponse: true,
   });
   return await (await XAe(d, _)).connect(C), C.handleRequest(e);
 }
@@ -2004,7 +2004,7 @@ function JAe() {
       let o = { port: 0, secret: k$n() },
         u = Bun.serve({ hostname: "127.0.0.1", port: 0, fetch: (d) => QAe(d, o, e) });
       u.unref(),
-        vt(() => u.stop(!0)),
+        vt(() => u.stop(true)),
         (o.port = u.port ?? 0),
         (t = o),
         n(`$.tool.register: loopback MCP server listening on 127.0.0.1:${t.port}`);
@@ -2078,14 +2078,14 @@ function T$n(e) {
 }
 
 function Pmr(e, t) {
-  let r = (u) => t?.has(u.source) === !0,
+  let r = (u) => t?.has(u.source) === true,
     o = (u) => IS(u.source);
   return [...e.filter(r), ...e.filter((u) => !r(u) && o(u)), ...e.filter((u) => !r(u) && !o(u))];
 }
 
 function Dmr(e, t) {
   let r = (u) => IS(u.source),
-    o = (u) => !r(u) && t?.has(u.source) === !0;
+    o = (u) => !r(u) && t?.has(u.source) === true;
   return [...e.filter((u) => !r(u) && !o(u)), ...e.filter(o), ...e.filter(r)];
 }
 
@@ -2115,9 +2115,9 @@ function Omr(e, { isManaged: t, hooksDisabled: r, managedOnly: o, guardHeldByAdm
 }
 
 function v$n() {
-  if (_w.hooksModulesRolloutOn()) return !1;
+  if (_w.hooksModulesRolloutOn()) return false;
   return (
-    n(`hooks modules not loaded: rollout flag (${_w.HOOKS_MODULES_FLAG}) is off, ` + _w.hooksModulesRolloutSource()), !0
+    n(`hooks modules not loaded: rollout flag (${_w.HOOKS_MODULES_FLAG}) is off, ` + _w.hooksModulesRolloutSource()), true
   );
 }
 
@@ -2128,9 +2128,9 @@ async function s7(e, t) {
   }
   let r = Jt(),
     o = r.hookRegistration === void 0,
-    u = !1,
-    d = !1,
-    _ = !1,
+    u = false,
+    d = false,
+    _ = false,
     C;
   if (
     ((r.hookRegistration ??= (async () => {
@@ -2178,7 +2178,7 @@ async function s7(e, t) {
           z = v$n()
             ? []
             : Omr(W, {
-                isManaged: (Be) => B?.has(Be.source) === !0,
+                isManaged: (Be) => B?.has(Be.source) === true,
                 hooksDisabled: ho("hooks"),
                 managedOnly: f_(),
                 guardHeldByAdmin: egt(),
@@ -2222,19 +2222,19 @@ async function s7(e, t) {
           Pe = new Set([Nm, um, nu]),
           Oe = (Be) => Ie !== null && Ie.has(fp(Be)),
           Fe = (Be) => {
-            if (B === null || Ee === null) return !1;
-            if ("pluginId" in Be && Be.pluginId && Oe(Be.pluginId)) return !0;
+            if (B === null || Ee === null) return false;
+            if ("pluginId" in Be && Be.pluginId && Oe(Be.pluginId)) return true;
             if ("source" in Be) {
-              if (Oe(Be.source)) return !0;
+              if (Oe(Be.source)) return true;
               let ze = Be.source.slice(Be.source.lastIndexOf("@") + 1),
                 We = "plugin" in Be ? Be.plugin : void 0;
               if (Pe.has(ze)) {
                 if (We !== void 0) {
-                  if (Oe(`${We}@${ze}`)) return !0;
-                } else if (Ee.has(ze)) return !0;
+                  if (Oe(`${We}@${ze}`)) return true;
+                } else if (Ee.has(ze)) return true;
               }
             }
-            if ("marketplace" in Be && Ee.has(fp(Be.marketplace))) return !0;
+            if ("marketplace" in Be && Ee.has(fp(Be.marketplace))) return true;
             return fde(Be) === void 0 && !("marketplace" in Be);
           };
         if (((_ = ge.some(Fe) || Ce.some(Fe) || F.some((Be) => E$n(Be) && Fe(Be))), ge.length > 0))
@@ -2253,9 +2253,9 @@ async function s7(e, t) {
         throw (p("plugin_load_hooks", "plugin_hooks_register_failed"), M);
       }
       if (A !== void 0) {
-        if (C !== void 0 && x === C && r.hookRegistration === x) (r.hookRegistration = void 0), (d = !0);
+        if (C !== void 0 && x === C && r.hookRegistration === x) (r.hookRegistration = void 0), (d = true);
         else if (r.hookRegistration === x) r.hookRegistration = void 0;
-        throw ((u = !0), A.error);
+        throw ((u = true), A.error);
       }
     })()),
     o)
@@ -2264,10 +2264,10 @@ async function s7(e, t) {
     (C = A),
       (r.hookRegistrationInFlight = A),
       (r.hookRegistrationArgs = { storageV5: e, credentials: t }),
-      (r.hookRegistrationRetried = !1);
+      (r.hookRegistrationRetried = false);
     let x = (M) => {
       if (r.hookRegistration === A || (r.hookRegistration === void 0 && d)) r.hookRegistrationFailed = M;
-      else if (r.hookRegistration === void 0 && M) r.hookRegistrationFailed = !0;
+      else if (r.hookRegistration === void 0 && M) r.hookRegistrationFailed = true;
     };
     A.then(
       () => x(_),
@@ -2281,13 +2281,13 @@ async function s7(e, t) {
 
 async function Wsn(e) {
   let t = Jt();
-  if ((await t.hookRegistrationInFlight?.catch(() => {}), !t.hookRegistrationFailed)) return !1;
+  if ((await t.hookRegistrationInFlight?.catch(() => {}), !t.hookRegistrationFailed)) return false;
   if (e && !t.hookRegistrationRetried) {
     (t.hookRegistration = void 0), om("plugin hook registration retry");
     let r = t.hookRegistrationArgs;
     await s7(r?.storageV5, r?.credentials).catch(() => {}),
       await t.hookRegistrationInFlight?.catch(() => {}),
-      (t.hookRegistrationRetried = !0);
+      (t.hookRegistrationRetried = true);
   }
   return t.hookRegistrationFailed;
 }
@@ -2334,7 +2334,7 @@ function r3n() {
     extraKnownMarketplaces: r(e.extraKnownMarketplaces),
     strictKnownMarketplaces: t?.strictKnownMarketplaces ?? [],
     blockedMarketplaces: t?.blockedMarketplaces ?? [],
-    disableSideloadFlags: t?.disableSideloadFlags === !0,
+    disableSideloadFlags: t?.disableSideloadFlags === true,
     hooksDisabled: ho("hooks"),
     managedOnly: f_(),
     guardHeldByAdmin: egt(),
@@ -2410,19 +2410,19 @@ function Qwt(e) {
 }
 
 function yD(e) {
-  if (t3n()) return !0;
+  if (t3n()) return true;
   return iT("PreModelSwitch", ece.of(e).registry, e.id);
 }
 
 async function ipt(e, t, r = {}) {
   let o = [];
-  if ((await qsn(), await Wsn(!0)))
+  if ((await qsn(), await Wsn(true)))
     return {
       decision: "block",
       reason: "plugin hooks could not be loaded, so PreModelSwitch hooks could not be checked; see the debug log",
       messages: o,
     };
-  if (!yD(e)) return { decision: "proceed", skipConfirm: !1, messages: o };
+  if (!yD(e)) return { decision: "proceed", skipConfirm: false, messages: o };
   if (ure(t.toModel)) await gY(t.toModel);
   let u = {
       ...Ea(e, ee()),
@@ -2436,8 +2436,8 @@ async function ipt(e, t, r = {}) {
     d = Gde(t.toModel),
     _,
     C,
-    A = !1,
-    x = !1;
+    A = false,
+    x = false;
   try {
     for await (let M of jy({
       session: e,
@@ -2454,8 +2454,8 @@ async function ipt(e, t, r = {}) {
       )
         _ ??= `PreModelSwitch hook ${M.message.attachment.hookName} did not respond before its timeout`;
       if (M.blockingError) _ ??= M.blockingError.blockingError;
-      else if (M.permissionBehavior === "ask") (A = !0), (C ??= M.hookPermissionDecisionReason);
-      else if (M.permissionBehavior === "allow") x = !0;
+      else if (M.permissionBehavior === "ask") (A = true), (C ??= M.hookPermissionDecisionReason);
+      else if (M.permissionBehavior === "allow") x = true;
     }
   } catch (M) {
     n(`PreModelSwitch hooks did not complete: ${M instanceof la ? "control stream closed" : String(M)}`, {
@@ -2490,7 +2490,7 @@ function spt(e, t, r = {}) {
     u = e.id;
   o.landedOn = { sessionId: u, toModel: t.toModel };
   let _ = (async () => {
-    if ((await qsn(), await Wsn(!1)))
+    if ((await qsn(), await Wsn(false)))
       n("PostModelSwitch: plugin hooks could not be loaded; plugin-delivered hooks are missing from this run", {
         level: "error",
       });
@@ -2551,7 +2551,7 @@ async function rTt(e, t = gQe) {
     d = r.landedOn?.sessionId === e.id ? r.landedOn.toModel : void 0,
     _ = new Set();
   return u.filter((C) => {
-    if (C.toModel !== d) return !1;
+    if (C.toModel !== d) return false;
     let A = b([
       C.contexts,
       C.messages.map((x) =>
@@ -2564,8 +2564,8 @@ async function rTt(e, t = gQe) {
           : x.type,
       ),
     ]);
-    if (_.has(A)) return !1;
-    return _.add(A), !0;
+    if (_.has(A)) return false;
+    return _.add(A), true;
   });
 }
 
@@ -2601,7 +2601,7 @@ function iTt(e) {
 }
 
 function ZAe(e) {
-  return XG.peek(e)?.gateOpen ?? !1;
+  return XG.peek(e)?.gateOpen ?? false;
 }
 
 function rGn(e) {
@@ -2610,9 +2610,9 @@ function rGn(e) {
 
 function lTt(e) {
   try {
-    return e.pending() === !0;
+    return e.pending() === true;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -2638,7 +2638,7 @@ async function uTt(e, t) {
     d = new Promise((_) => {
       u = () => _();
     });
-  t.addEventListener("abort", u, { once: !0 });
+  t.addEventListener("abort", u, { once: true });
   try {
     await Promise.race([o, d]);
   } finally {
@@ -2706,7 +2706,7 @@ function apt(e, t, r) {
   if (t.size === 0) return [...e];
   return e.map((o) => {
     if (o.type !== "user" || !Array.isArray(o.message.content)) return o;
-    let u = !1,
+    let u = false,
       d = o.message.content.map((_) => {
         if (_.type !== "tool_result" || !t.has(_.tool_use_id)) return _;
         let A =
@@ -2714,7 +2714,7 @@ function apt(e, t, r) {
             ? Tse
             : (r?.get(_.tool_use_id) ?? Tse);
         if (_.content === A) return _;
-        return (u = !0), { ..._, content: A };
+        return (u = true), { ..._, content: A };
       });
     return u ? { ...o, message: { ...o.message, content: d } } : o;
   });
@@ -2753,7 +2753,7 @@ function j$(e) {
     r = [],
     o;
   for (let u of e) {
-    if ((u.type === "user" || u.type === "assistant") && u.isVirtual === !0) {
+    if ((u.type === "user" || u.type === "assistant") && u.isVirtual === true) {
       r.push(u);
       continue;
     }
@@ -2776,7 +2776,7 @@ function pTt(e) {
 }
 
 function nRe() {
-  return CNe() && _Te() && I("tengu_misty_anchor", !1);
+  return CNe() && _Te() && I("tengu_misty_anchor", false);
 }
 
 function iGn(e) {
@@ -2811,7 +2811,7 @@ function TTt(e, t, r) {
   o.kicked = void 0;
   let A = performance.now(),
     x = OU(
-      _.then(() => !0),
+      _.then(() => true),
       t.abortController.signal,
       () => new Ze(),
     ),
@@ -2866,7 +2866,7 @@ async function W$n(e) {
       headers: { "anthropic-version": "2023-06-01", ...(t && { "If-None-Match": `"${t}"` }) },
       timeout: $$n,
       maxContentLength: U$n,
-      validateStatus: () => !0,
+      validateStatus: () => true,
     });
     if (!r.ok) {
       Y("warn", "cowork_memory_context_gated", { reason: r.reason }),
@@ -3014,10 +3014,10 @@ Label:`,
         signal: t,
         options: {
           querySource: "tool_use_summary_generation",
-          enablePromptCaching: !1,
+          enablePromptCaching: false,
           agents: [],
           isNonInteractiveSession: r,
-          hasAppendSystemPrompt: !1,
+          hasAppendSystemPrompt: false,
           mcpTools: [],
           agentContext: u,
           credentials: d,
@@ -3061,7 +3061,7 @@ async function PTt(e, t, r) {
       announced: {},
       instructions: void 0,
       refreshReason: "session_start",
-      bare: r.options.bareFork === !0,
+      bare: r.options.bareFork === true,
       carriesContext: Object.keys(e).length > 0 || Object.keys(t).length > 0,
     };
   if (!Ll() || r.options.bareFork) return u;
@@ -3085,7 +3085,7 @@ async function PTt(e, t, r) {
       announced: A,
       instructions: x,
       refreshReason: _Ve(o) ?? "session_start",
-      bare: !1,
+      bare: false,
       carriesContext: u.carriesContext,
     };
   } catch (d) {
@@ -3113,7 +3113,7 @@ function DTt(e, t, { querySource: r, resumeActive: o, stamp: u }) {
       _.push(
         In(
           A
-            ? { type: "session_context", context: t.announced, changed: !0, reason: t.refreshReason }
+            ? { type: "session_context", context: t.announced, changed: true, reason: t.refreshReason }
             : { type: "session_context", context: t.announced },
           u,
         ),
@@ -3121,7 +3121,7 @@ function DTt(e, t, { querySource: r, resumeActive: o, stamp: u }) {
     let M = hht(),
       F = lUe(e);
     if (d ? F === void 0 : F !== M)
-      _.push(In(F === void 0 ? { type: "date", date: M } : { type: "date", date: M, changed: !0 }, u));
+      _.push(In(F === void 0 ? { type: "date", date: M } : { type: "date", date: M, changed: true }, u));
     return _;
   } catch (_) {
     return h(_), [];
@@ -3133,10 +3133,10 @@ function BTt(e, t) {
     o = 0;
   for (let u of r) {
     let d = t.indexOf(u, o);
-    if (d === -1) return !1;
+    if (d === -1) return false;
     o = d + u.length;
   }
-  return !0;
+  return true;
 }
 
 function vse(e, t) {
@@ -3228,7 +3228,7 @@ function T0n() {
 }
 
 function v0n(e) {
-  if (e.type !== "tool_result") return !1;
+  if (e.type !== "tool_result") return false;
   let t =
     typeof e.content === "string"
       ? e.content
@@ -3241,13 +3241,13 @@ function v0n(e) {
 function VTt(e, t, r) {
   let o = { messages: e, text: null, secondaryText: null, afterUuid: null };
   try {
-    let u = !0,
+    let u = true,
       d = e.length - 1;
     for (; d >= 0; d--) {
       let M = e[d];
       if (D_(M)) continue;
       if (M.type !== "attachment") break;
-      if (w0n.has(M.attachment.type)) u = !1;
+      if (w0n.has(M.attachment.type)) u = false;
     }
     let _ = d >= 0 ? e[d] : void 0;
     if (!GTt(_) || YJe(_)) return o;
@@ -3255,7 +3255,7 @@ function VTt(e, t, r) {
       let F = e[M];
       if (D_(F) || F.type === "attachment") continue;
       if (!GTt(F)) break;
-      if (F.message.content.some(v0n)) u = !1;
+      if (F.message.content.some(v0n)) u = false;
     }
     let C = u ? _0n(t, r) : null,
       A = S0n(t, r);
@@ -3284,21 +3284,21 @@ async function* CA(e) {
     o = !!(r && r.size > 0),
     u = n_t();
   if (!o && !u) return;
-  let d = !1;
+  let d = false;
   if (o) {
     let { unhideComputerUseApps: _ } = await import("/$bunfs/root/chunk-8m63zzer.js"),
-      C = !1,
+      C = false,
       A = _([...r]).then(
         () => {
-          C = !0;
+          C = true;
         },
         (F) => {
-          (C = !0), n(`[Computer Use MCP] auto-unhide failed: ${l(F)}`);
+          (C = true), n(`[Computer Use MCP] auto-unhide failed: ${l(F)}`);
         },
       ),
       x = Promise.withResolvers(),
       M = setTimeout(x.resolve, E0n);
-    if ((await Promise.race([A, x.promise]).finally(() => clearTimeout(M)), !C)) d = !0;
+    if ((await Promise.race([A, x.promise]).finally(() => clearTimeout(M)), !C)) d = true;
     xne(e.setAppState, (F) => (F?.hiddenDuringTurn === void 0 ? F : { ...F, hiddenDuringTurn: void 0 }));
   }
   if (u) {
@@ -3425,10 +3425,10 @@ function aRe(e) {
 function evt(e, t, r, o) {
   if (aRe(t))
     return e.cursor === void 0
-      ? { ...e, inEpisode: !0 }
+      ? { ...e, inEpisode: true }
       : {
           ...e,
-          inEpisode: !0,
+          inEpisode: true,
           cursor: {
             ...e.cursor,
             triedModels: [...e.cursor.triedModels, o(t.fallbackModel)],
@@ -3448,7 +3448,7 @@ function evt(e, t, r, o) {
             triggerCategory: t.apiRefusalCategory ?? void 0,
           }
         : void 0;
-  return { ...e, inEpisode: !0, cursor: d };
+  return { ...e, inEpisode: true, cursor: d };
 }
 
 function tvt(e, t) {
@@ -3465,7 +3465,7 @@ function tvt(e, t) {
       ],
       refusedUserMessageUuid: r?.refusedUserMessageUuid ?? t.refusedUserMessageUuid,
       apiRefusalCategory: r ? r.apiRefusalCategory : t.apiRefusalCategory,
-      sawCyberRefusal: r?.sawCyberRefusal === !0 || t.apiRefusalCategory === "cyber",
+      sawCyberRefusal: r?.sawCyberRefusal === true || t.apiRefusalCategory === "cyber",
       requestId: r ? r.requestId : t.requestId,
       provisionalFlushUuid: void 0,
     },
@@ -3506,7 +3506,7 @@ function P0n(e) {
   return e === "refusal" || e === "sticky" ? e : "other";
 }
 
-function svt(e, t, r, o, u = !1, d = !1) {
+function svt(e, t, r, o, u = false, d = false) {
   let _ = e !== void 0 && !d && t === e.forModel && zg() && !yA(o, Xk),
     C = _ && pg !== null && e.mode === "default" && !yA(o, pg);
   if (_) xJ(o, C && pg !== null ? pg : Xk);
@@ -3519,7 +3519,7 @@ function ivt(e) {
   return e.message.content.some((t) => t.type !== "text");
 }
 
-function avt(e, t, r, o = !1, u) {
+function avt(e, t, r, o = false, u) {
   if (e && !yA(r, zI)) xJ(r, zI);
   if (tie(r, zI) && !o && !t.includes(zI)) t.push(zI);
   if (u && t.includes(zI)) {
@@ -3582,11 +3582,11 @@ function Pse(e) {
 }
 
 function uvt(e) {
-  if (typeof e !== "object" || e === null) return !1;
+  if (typeof e !== "object" || e === null) return false;
   let t = e;
-  if (t.type !== "content_block_start" || typeof t.index !== "number") return !1;
+  if (t.type !== "content_block_start" || typeof t.index !== "number") return false;
   let r = t.content_block;
-  if (typeof r !== "object" || r === null) return !1;
+  if (typeof r !== "object" || r === null) return false;
   return r.type === "fallback" && pRe(e) === void 0;
 }
 
@@ -3640,7 +3640,7 @@ function mPe(e) {
 function dvt(e) {
   if (pg !== null)
     return Mdn(e.primaryModel) !== void 0 && !yA(e.sticky, pg) && v5n() && e.serverDefaultFallbacksEnabled();
-  return !1;
+  return false;
 }
 
 function pvt(e) {
@@ -3734,7 +3734,7 @@ function fvt(e, t, r) {
     requestId: e.requestId,
     apiRefusalCategory: e.apiRefusalCategory,
     apiRefusalExplanation: null,
-    isMeta: !1,
+    isMeta: false,
     timestamp: t.timestamp,
     uuid: t.uuid,
   };
@@ -3781,7 +3781,7 @@ async function* yvt(e, t) {
     u = t(),
     d = 0;
   try {
-    while (!0) {
+    while (true) {
       o ??= Promise.resolve(r.next()).then((A) => ({ kind: "stream", r: A }));
       let _ = t();
       if (_ !== u) (u = _), (d = 0);
@@ -3932,11 +3932,11 @@ async function kvt(e) {
 }
 
 function Q0n(e) {
-  return e.mode === "task-notification" && mu(e) && e.passive !== !0;
+  return e.mode === "task-notification" && mu(e) && e.passive !== true;
 }
 
 function _Re() {
-  if (!I("tengu_saffron_wren", !0)) return 0;
+  if (!I("tengu_saffron_wren", true)) return 0;
   return (a.CLAUDE_CODE_GOAL_CHECKIN_MINUTES ?? j0n) * 60000;
 }
 
@@ -3994,7 +3994,7 @@ function Evt(e, t, r, o) {
 }
 
 function Cvt(e, t, r, o) {
-  if (e.deferredSince === void 0) return { deferredSince: r, checkinCount: 0, isNewRun: !0 };
+  if (e.deferredSince === void 0) return { deferredSince: r, checkinCount: 0, isNewRun: true };
   let u = Math.min(...t.map((_) => _.startTime)),
     d =
       e.lastDeferralPassAt !== void 0 && Number.isFinite(u) && u > e.lastDeferralPassAt && r - e.lastDeferralPassAt > o;
@@ -4115,22 +4115,22 @@ function Rvt() {
 
 function Aln() {
   let e = Rvt();
-  return e?.enabled === !0 || e?.available === !0;
+  return e?.enabled === true || e?.available === true;
 }
 
 function O$t() {
-  if (!Aln()) return !1;
+  if (!Aln()) return false;
   let e = Je().autoDreamEnabled;
   if (e !== void 0) return e;
-  return Rvt()?.enabled === !0;
+  return Rvt()?.enabled === true;
 }
 
 function G$() {
-  return uw() && I("tengu_basalt_spur", !1);
+  return uw() && I("tengu_basalt_spur", false);
 }
 
 function Pvt() {
-  return uw() && I("tengu_basalt_scarp", !1);
+  return uw() && I("tengu_basalt_scarp", false);
 }
 
 function Mvt(e, t, r, o) {
@@ -4194,11 +4194,11 @@ function SRe(e) {
 
 function tUn(e, t) {
   if (t === null || t === void 0) return Q(e, SRe);
-  let r = !1,
+  let r = false,
     o = 0;
   for (let u of e) {
     if (!r) {
-      if (u.uuid === t) r = !0;
+      if (u.uuid === t) r = true;
       continue;
     }
     if (SRe(u)) o++;
@@ -4212,13 +4212,13 @@ function nUn(e, t) {
     o = new Set();
   for (let u of e) {
     if (!r) {
-      if (u.uuid === t) r = !0;
+      if (u.uuid === t) r = true;
       continue;
     }
     if (u.type === "user") {
       let _ = u.message.content;
-      if (Array.isArray(_) && _.some((C) => C.type === "tool_result" && C.is_error !== !0 && o.has(C.tool_use_id)))
-        return !0;
+      if (Array.isArray(_) && _.some((C) => C.type === "tool_result" && C.is_error !== true && o.has(C.tool_use_id)))
+        return true;
       continue;
     }
     if (u.type !== "assistant") continue;
@@ -4230,10 +4230,10 @@ function nUn(e, t) {
         continue;
       }
       let C = Lvt(_);
-      if (C !== void 0 && lN(C)) return !0;
+      if (C !== void 0 && lN(C)) return true;
     }
   }
-  return !1;
+  return false;
 }
 
 function Ovt(e) {
@@ -4241,10 +4241,10 @@ function Ovt(e) {
 }
 
 function Dvt(e) {
-  if (e.type !== "user" || e.isMeta) return !1;
+  if (e.type !== "user" || e.isMeta) return false;
   let t = e.message.content;
   if (typeof t === "string") return Ovt(t) >= Ivt;
-  if (!Array.isArray(t)) return !1;
+  if (!Array.isArray(t)) return false;
   return t.some((r) => r.type === "text" && Ovt(r.text) >= Ivt);
 }
 
@@ -4252,13 +4252,13 @@ function rUn(e, t) {
   let r = t === void 0;
   for (let o of e) {
     if (!r) {
-      if (o.uuid === t) r = !0;
+      if (o.uuid === t) r = true;
       continue;
     }
-    if (Dvt(o)) return !0;
+    if (Dvt(o)) return true;
   }
   if (!r) return e.some(Dvt);
-  return !1;
+  return false;
 }
 
 function Dse(e, t) {
@@ -4271,16 +4271,16 @@ function Dse(e, t) {
 
 function sUn(e, t) {
   let r = e.trim().match(/"[^"]*"|'[^']*'|\S+/g) ?? [];
-  if (r.length < 2) return !1;
-  if (!oUn.test(r[0])) return !1;
+  if (r.length < 2) return false;
+  if (!oUn.test(r[0])) return false;
   let o = 0;
   for (let u = 1; u < r.length; u++) {
     let d = r[u];
     if (/^-(?:Literal)?Path$/i.test(d)) continue;
-    if (d.startsWith("-")) return !1;
+    if (d.startsWith("-")) return false;
     let _ = (d.startsWith('"') && d.endsWith('"')) || (d.startsWith("'") && d.endsWith("'")) ? d.slice(1, -1) : d;
-    if (/[*?[\]$`(){}|;&<>"',]/.test(_)) return !1;
-    if (!mqe(_, t)) return !1;
+    if (/[*?[\]$`(){}|;&<>"',]/.test(_)) return false;
+    if (!mqe(_, t)) return false;
     o++;
   }
   return o > 0;
@@ -4288,30 +4288,30 @@ function sUn(e, t) {
 
 async function iUn(e, t) {
   let r = await ide(e);
-  if (r.kind !== "simple") return !1;
-  if (r.commands.length !== 1) return !1;
+  if (r.kind !== "simple") return false;
+  if (r.commands.length !== 1) return false;
   let o = r.commands[0];
-  if (!o) return !1;
-  if (o.argv[0] !== "rm") return !1;
-  if (o.redirects.length > 0) return !1;
-  if (o.envVars.length > 0) return !1;
+  if (!o) return false;
+  if (o.argv[0] !== "rm") return false;
+  if (o.redirects.length > 0) return false;
+  if (o.envVars.length > 0) return false;
   let u = 0,
-    d = !1;
+    d = false;
   for (let _ = 1; _ < o.argv.length; _++) {
     let C = o.argv[_];
     if (C === void 0) continue;
     if (!d) {
       if (C === "--") {
-        d = !0;
+        d = true;
         continue;
       }
       if (C.startsWith("-")) {
         if (C === "-f" || C === "--force") continue;
-        return !1;
+        return false;
       }
     }
-    if (/[*?[]/.test(C)) return !1;
-    if (!C.startsWith("/") || !mqe(C, t)) return !1;
+    if (/[*?[]/.test(C)) return false;
+    if (!C.startsWith("/") || !mqe(C, t)) return false;
     u++;
   }
   return u > 0;
@@ -4381,8 +4381,8 @@ function aUn(e, t) {
 function Rln(e) {
   let t = new Set(),
     r,
-    o = !1,
-    u = !1,
+    o = false,
+    u = false,
     d = 0,
     _;
   async function C({ context: M, appendSystemMessage: F, isTrailingRun: U }) {
@@ -4411,7 +4411,7 @@ function Rln(e) {
     if (!U) {
       if ((d++, d < me)) return;
     }
-    (d = 0), (u = !0);
+    (d = 0), (u = true);
     let Ie = Date.now();
     try {
       n(`[extractMemories] starting \u2014 ${z} new messages, memoryDir=${W}`);
@@ -4423,7 +4423,7 @@ function Rln(e) {
           canUseTool: ge,
           querySource: "extract_memories",
           forkLabel: "extract_memories",
-          skipTranscript: !0,
+          skipTranscript: true,
           maxTurns: 5,
           skipCacheWrite: G$(),
         }),
@@ -4473,16 +4473,16 @@ function Rln(e) {
         s("tengu_extract_memories_error", { duration_ms: Date.now() - Ie }),
         p("memory_extract", "agent_error");
     } finally {
-      u = !1;
+      u = false;
       let Ee = _;
       if (((_ = void 0), Ee && me <= 1))
         n("[extractMemories] running trailing extraction for stashed context"),
-          await C({ context: Ee.context, appendSystemMessage: Ee.appendSystemMessage, isTrailingRun: !0 });
+          await C({ context: Ee.context, appendSystemMessage: Ee.appendSystemMessage, isTrailingRun: true });
     }
   }
   async function A(M, F) {
     if (M.toolUseContext.agentId) return;
-    if (!I("tengu_passport_quail", !1)) return;
+    if (!I("tengu_passport_quail", false)) return;
     if (!ta()) return;
     if (Gr() !== null) return;
     if (u) {
@@ -4517,7 +4517,7 @@ async function qAr(e, t) {
   await Ose.of(e).drainer(t);
 }
 
-function Nvt(e, t, r, o = !1, u = !1, d = !1, _ = !1) {
+function Nvt(e, t, r, o = false, u = false, d = false, _ = false) {
   return `# Dream: Memory Consolidation
 
 You are performing a dream \u2014 a reflective pass over your memory files. Synthesize what you've learned recently into durable, well-organized memories so that future sessions can orient quickly.
@@ -4604,7 +4604,7 @@ function $vt(e, t) {
       ...Md(r, "dream", "dreaming"),
       type: "dream",
       status: "running",
-      skipTranscript: !0,
+      skipTranscript: true,
       phase: "starting",
       sessionsReviewing: t.sessionsReviewing,
       filesTouched: [],
@@ -4631,15 +4631,15 @@ function Uvt(e, t, r, o) {
 }
 
 function Bvt(e, t) {
-  t.update(e, (r) => ({ ...r, status: "completed", endTime: Date.now(), notified: !0, abortController: void 0 })),
+  t.update(e, (r) => ({ ...r, status: "completed", endTime: Date.now(), notified: true, abortController: void 0 })),
     y("task_dream"),
-    ys(e, "completed", { skipTranscript: !0, ambient: !0 });
+    ys(e, "completed", { skipTranscript: true, ambient: true });
 }
 
 function Hvt(e, t) {
-  t.update(e, (r) => ({ ...r, status: "failed", endTime: Date.now(), notified: !0, abortController: void 0 })),
+  t.update(e, (r) => ({ ...r, status: "failed", endTime: Date.now(), notified: true, abortController: void 0 })),
     p("task_dream", "task_dream_failed"),
-    ys(e, "failed", { skipTranscript: !0, ambient: !0 });
+    ys(e, "failed", { skipTranscript: true, ambient: true });
 }
 
 function gUn() {
@@ -4655,14 +4655,14 @@ function gUn() {
 }
 
 function hUn() {
-  if (Gr() !== null) return !1;
-  if (uP()) return !1;
-  if (!ta()) return !1;
+  if (Gr() !== null) return false;
+  if (uP()) return false;
+  if (!ta()) return false;
   return O$t();
 }
 
 function yUn() {
-  return !1;
+  return false;
 }
 
 function sGn(e) {
@@ -4743,7 +4743,7 @@ ${M.map((Be) => `- ${Be}`).join(`
           canUseTool: vln(me),
           querySource: "auto_dream",
           forkLabel: "auto_dream",
-          skipTranscript: !0,
+          skipTranscript: true,
           overrides: { abortController: z },
           onMessage: _Un(pe, W, me),
           skipCacheWrite: G$(),
@@ -4835,7 +4835,7 @@ async function SUn(e, t) {
     }
   }
   try {
-    let r = await dUn(pUn(e, "logs"), { recursive: !0 });
+    let r = await dUn(pUn(e, "logs"), { recursive: true });
     return Q(r, (o) => o.endsWith(".md"));
   } catch (r) {
     if (!Ht(r)) n(`[autoDream] countDailyLogs: ${l(r)}`);
@@ -4863,20 +4863,20 @@ function L$t(e) {
 
 function dpt() {
   let e = a.CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION;
-  if (e === !1) return s("tengu_prompt_suggestion_init", { enabled: !1, source: w("env") }), !1;
-  if (e === !0) return s("tengu_prompt_suggestion_init", { enabled: !0, source: w("env") }), !0;
-  if (!I("tengu_chomp_inflection", !1))
-    return s("tengu_prompt_suggestion_init", { enabled: !1, source: w("growthbook") }), !1;
-  if (Le()) return s("tengu_prompt_suggestion_init", { enabled: !1, source: w("non_interactive") }), !1;
-  if (io() && na()) return s("tengu_prompt_suggestion_init", { enabled: !1, source: w("swarm_teammate") }), !1;
-  let t = Je()?.promptSuggestionEnabled !== !1;
+  if (e === false) return s("tengu_prompt_suggestion_init", { enabled: false, source: w("env") }), false;
+  if (e === true) return s("tengu_prompt_suggestion_init", { enabled: true, source: w("env") }), true;
+  if (!I("tengu_chomp_inflection", false))
+    return s("tengu_prompt_suggestion_init", { enabled: false, source: w("growthbook") }), false;
+  if (Le()) return s("tengu_prompt_suggestion_init", { enabled: false, source: w("non_interactive") }), false;
+  if (io() && na()) return s("tengu_prompt_suggestion_init", { enabled: false, source: w("swarm_teammate") }), false;
+  let t = Je()?.promptSuggestionEnabled !== false;
   return s("tengu_prompt_suggestion_init", { enabled: t, source: w("setting") }), t;
 }
 
 function ppt() {
   let e = a.CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION;
   if (e !== void 0) return e;
-  return Je()?.promptSuggestionEnabled !== !1;
+  return Je()?.promptSuggestionEnabled !== false;
 }
 
 function kUn(e) {
@@ -4886,7 +4886,7 @@ function kUn(e) {
   if (e.toolPermissionContext.mode === "plan") return "plan_mode";
   {
     let { status: t } = Id(),
-      r = t === "allowed_warning" && a.CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION === !0;
+      r = t === "allowed_warning" && a.CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION === true;
     if (t !== "allowed" && !r) return "rate_limit";
   }
   return null;
@@ -4975,8 +4975,8 @@ async function CUn(e, t) {
       querySource: "prompt_suggestion",
       forkLabel: "prompt_suggestion",
       overrides: { abortController: e },
-      skipTranscript: !0,
-      skipCacheWrite: !0,
+      skipTranscript: true,
+      skipCacheWrite: true,
     }),
     u = o.messages.find((_) => _.type === "assistant"),
     d = u?.type === "assistant" ? (u.requestId ?? null) : null;
@@ -5001,7 +5001,7 @@ async function CUn(e, t) {
 }
 
 function AUn(e, t) {
-  if (!e) return SD("empty", void 0, t), !0;
+  if (!e) return SD("empty", void 0, t), true;
   let r = e.toLowerCase(),
     o = e.trim().split(/\s+/).length,
     u = [
@@ -5030,8 +5030,8 @@ function AUn(e, t) {
       [
         "too_few_words",
         () => {
-          if (o >= 2) return !1;
-          if (e.startsWith("/")) return !1;
+          if (o >= 2) return false;
+          if (e.startsWith("/")) return false;
           return !new Set([
             "yes",
             "yeah",
@@ -5072,8 +5072,8 @@ function AUn(e, t) {
           ),
       ],
     ];
-  for (let [d, _] of u) if (_()) return SD(d, e, t), !0;
-  return !1;
+  for (let [d, _] of u) if (_()) return SD(d, e, t), true;
+  return false;
 }
 
 function aGn(e, t, r, o) {
@@ -5088,7 +5088,7 @@ function aGn(e, t, r, o) {
     ...(d && { timeToAcceptMs: _ }),
     ...(!d && { timeToIgnoreMs: _ }),
     similarity: u,
-    ...!1,
+    ...false,
   });
 }
 
@@ -5098,7 +5098,7 @@ function SD(e, t, r) {
     outcome: w("suppressed"),
     reason: c(e),
     prompt_id: w("user_intent"),
-    ...!1,
+    ...false,
   });
 }
 
@@ -5128,7 +5128,7 @@ async function* vRe(e, t, r, o, u, d, _, C, A, x, M, F) {
     } catch {}
   let W = Date.now(),
     z = _.agentId ? void 0 : _.getAppState().activeGoal,
-    pe = !1;
+    pe = false;
   try {
     let fe = y9(he(_).mode, _.abortController.signal, void 0, A, _.agentId, _, B, _.agentType, "loop_tick"),
       me = [];
@@ -5157,7 +5157,7 @@ async function* vRe(e, t, r, o, u, d, _, C, A, x, M, F) {
           priority: "immediate",
         },
       };
-    if (F) (pe = !0), yield* qh(_, B, { stopHookActive: A });
+    if (F) (pe = true), yield* qh(_, B, { stopHookActive: A });
   } catch (fe) {
     if (It(fe) && (_.abortController.signal.aborted || fe instanceof la)) {
       if ((n("Stop hook cancelled (abort or stream teardown)"), F && !pe && !_.abortController.signal.aborted))
@@ -5227,7 +5227,7 @@ async function* Yvt(e, t, r, o, u) {
 }
 
 async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
-  if (xo() && !d.abortController.signal.aborted) return { blockingErrors: [], preventContinuation: !1 };
+  if (xo() && !d.abortController.signal.aborted) return { blockingErrors: [], preventContinuation: false };
   let F = Date.now(),
     U = {
       messages: [...e, ...t],
@@ -5277,7 +5277,7 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
               ct.message.content.includes(iq.BRIEF_ENFORCE_SENTINEL),
           );
       if (!Ve && !Pt)
-        (B = xe({ content: `${iq.BRIEF_ENFORCE_SENTINEL} ${qvt.getBriefEnforceText()}`, isMeta: !0 })), yield B;
+        (B = xe({ content: `${iq.BRIEF_ENFORCE_SENTINEL} ${qvt.getBriefEnforceText()}`, isMeta: true })), yield B;
     } catch (ze) {
       n(`Brief mode enforcement failed: ${l(ze)}`, { level: "error" });
     }
@@ -5300,20 +5300,20 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
       if (!Ve && !Pt)
         (z = xe({
           content: `${G9e} You MUST call the ${qs} tool to complete this request. Call this tool now.`,
-          isMeta: !0,
+          isMeta: true,
         })),
           yield z;
     } catch (ze) {
       n(`StructuredOutput enforcement failed: ${l(ze)}`, { level: "error" });
     }
   let pe = [B, W, z].filter((ze) => ze !== null),
-    fe = !1,
+    fe = false,
     me,
     ge = void 0,
     Ce = [...pe],
-    Ie = !1,
+    Ie = false,
     Ee = [],
-    Pe = !1,
+    Pe = false,
     Oe = d.agentId ? void 0 : d.getAppState().activeGoal,
     Fe,
     Be;
@@ -5340,7 +5340,7 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
           }
           if (ge !== void 0 && ge !== Ve) yield { type: "active_goal", value: ge };
           if (ht !== void 0) {
-            let At = xe({ content: ht, isMeta: !0 });
+            let At = xe({ content: ht, isMeta: true });
             Ce.push(At), pe.push(At), yield At;
           }
         }
@@ -5361,7 +5361,7 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
       en = "",
       nn = 0,
       xt = "",
-      tt = !1,
+      tt = false,
       lt = [],
       mt = [],
       Xe = [];
@@ -5381,10 +5381,10 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
               (ht.type === "hook_non_blocking_error" || ht.type === "hook_error_during_execution")
             )
               (Fe = "error"), g("goal_met", "evaluator_error");
-            if (ht.type === "hook_non_blocking_error") lt.push(ht.stderr || `Exit code ${ht.exitCode}`), (tt = !0);
-            else if (ht.type === "hook_error_during_execution") lt.push(ht.content), (tt = !0);
+            if (ht.type === "hook_non_blocking_error") lt.push(ht.stderr || `Exit code ${ht.exitCode}`), (tt = true);
+            else if (ht.type === "hook_error_during_execution") lt.push(ht.content), (tt = true);
             else if (ht.type === "hook_success") {
-              if ((ht.stdout && ht.stdout.trim()) || (ht.stderr && ht.stderr.trim())) tt = !0;
+              if ((ht.stdout && ht.stdout.trim()) || (ht.stderr && ht.stderr.trim())) tt = true;
               let At = ct(nt.hook);
               if (ht.hookEvent === "Stop" && At) {
                 d.sessionHooksRegistry.remove(K(), "Stop", At);
@@ -5400,8 +5400,8 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
                   )
                     yield In({
                       type: "goal_status",
-                      met: !1,
-                      failed: !0,
+                      met: false,
+                      failed: true,
                       condition: At.prompt,
                       reason: nt.stopReason,
                       iterations: Lt,
@@ -5420,7 +5420,7 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
                   else
                     yield In({
                       type: "goal_status",
-                      met: !0,
+                      met: true,
                       condition: At.prompt,
                       reason: nt.stopReason,
                       iterations: Lt,
@@ -5436,7 +5436,7 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
                       }),
                       y("goal_met"),
                       d.sessionState?.notifyMetadataChanged({
-                        goal: { condition: At.prompt, set_at: dn.setAt, iterations: Lt, last_reason: null, met: !0 },
+                        goal: { condition: At.prompt, set_at: dn.setAt, iterations: Lt, last_reason: null, met: true },
                       });
                 }
               }
@@ -5453,14 +5453,14 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
         continue;
       }
       if (nt.blockingError) {
-        let ht = xe({ content: lGe(nt.blockingError), isMeta: !0 });
-        Ce.push(ht), yield ht, (tt = !0);
+        let ht = xe({ content: lGe(nt.blockingError), isMeta: true });
+        Ce.push(ht), yield ht, (tt = true);
         let At = ct(nt.hook),
           dn = d.getAppState().activeGoal;
         if (At && dn?.condition === At.prompt)
           (Fe = "not_met"),
             yield { type: "active_goal", value: { ...dn, iterations: dn.iterations + 1, lastReason: nt.stopReason } },
-            yield In({ type: "goal_status", met: !1, condition: At.prompt, reason: nt.stopReason });
+            yield In({ type: "goal_status", met: false, condition: At.prompt, reason: nt.stopReason });
         else lt.push(nt.blockingError.blockingError);
       }
       if (nt.additionalContexts && nt.additionalContexts.length > 0) {
@@ -5472,10 +5472,10 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
             toolUseID: en,
             hookEvent: ht,
           });
-        Ce.push(At), yield At, (tt = !0), mt.push(...nt.additionalContexts);
+        Ce.push(At), yield At, (tt = true), mt.push(...nt.additionalContexts);
       }
       if (nt.preventContinuation)
-        (Ie = !0),
+        (Ie = true),
           (xt = nt.stopReason || "Stop hook prevented continuation"),
           yield In({
             type: "hook_stopped_continuation",
@@ -5492,8 +5492,8 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
           }),
           !_V(d.abortController.signal.reason))
         )
-          yield oI({ toolUse: !1, interruptedByShutdown: qS(d.abortController.signal) });
-        return { blockingErrors: [], preventContinuation: !0 };
+          yield oI({ toolUse: false, interruptedByShutdown: qS(d.abortController.signal) });
+        return { blockingErrors: [], preventContinuation: true };
       }
     }
     if (nn > 0) {
@@ -5510,8 +5510,8 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
           };
       }
     }
-    if (Ie) return yield* qh(d, U.messages, { stopHookActive: C }), { blockingErrors: [], preventContinuation: !0 };
-    if (Ce.length > 0) return { blockingErrors: Ce, preventContinuation: !1 };
+    if (Ie) return yield* qh(d, U.messages, { stopHookActive: C }), { blockingErrors: [], preventContinuation: true };
+    if (Ce.length > 0) return { blockingErrors: Ce, preventContinuation: false };
     if (na()) {
       let nt = gf() ?? "",
         ht = ds() ?? "",
@@ -5527,11 +5527,11 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
             yield mn.message;
           }
           if (mn.blockingError) {
-            let yn = xe({ content: GUt(mn.blockingError), isMeta: !0 });
+            let yn = xe({ content: GUt(mn.blockingError), isMeta: true });
             Ee.push(yn), yield yn;
           }
           if (mn.preventContinuation)
-            (Pe = !0),
+            (Pe = true),
               (At = mn.stopReason || "TaskCompleted hook prevented continuation"),
               yield In({
                 type: "hook_stopped_continuation",
@@ -5540,7 +5540,7 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
                 toolUseID: dn,
                 hookEvent: "TaskCompleted",
               });
-          if (d.abortController.signal.aborted) return { blockingErrors: [], preventContinuation: !0 };
+          if (d.abortController.signal.aborted) return { blockingErrors: [], preventContinuation: true };
         }
       }
       let bn = $Ut(nt, ht, We, d.abortController.signal, void 0, d);
@@ -5550,11 +5550,11 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
           yield hn.message;
         }
         if (hn.blockingError) {
-          let Ke = xe({ content: Rzn(hn.blockingError), isMeta: !0 });
+          let Ke = xe({ content: Rzn(hn.blockingError), isMeta: true });
           Ee.push(Ke), yield Ke;
         }
         if (hn.preventContinuation)
-          (Pe = !0),
+          (Pe = true),
             (At = hn.stopReason || "TeammateIdle hook prevented continuation"),
             yield In({
               type: "hook_stopped_continuation",
@@ -5563,13 +5563,13 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
               toolUseID: dn,
               hookEvent: "TeammateIdle",
             });
-        if (d.abortController.signal.aborted) return { blockingErrors: [], preventContinuation: !0 };
+        if (d.abortController.signal.aborted) return { blockingErrors: [], preventContinuation: true };
       }
-      if (Pe) return yield* qh(d, U.messages, { stopHookActive: C }), { blockingErrors: [], preventContinuation: !0 };
-      if (Ee.length > 0) return { blockingErrors: Ee, preventContinuation: !1 };
+      if (Pe) return yield* qh(d, U.messages, { stopHookActive: C }), { blockingErrors: [], preventContinuation: true };
+      if (Ee.length > 0) return { blockingErrors: Ee, preventContinuation: false };
     }
     if (!x()) yield* qh(d, U.messages, { stopHookActive: C });
-    return { blockingErrors: [], preventContinuation: !1 };
+    return { blockingErrors: [], preventContinuation: false };
   } catch (ze) {
     if (It(ze) && (d.abortController.signal.aborted || ze instanceof la)) {
       if ((n("Stop hook cancelled (abort or stream teardown)"), !d.abortController.signal.aborted)) {
@@ -5578,9 +5578,9 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
         if (Pt || (Ve.length === 0 && !x())) yield* qh(d, U.messages, { stopHookActive: C });
         return { blockingErrors: Ve, preventContinuation: Pt };
       }
-      return { blockingErrors: [], preventContinuation: !1 };
+      return { blockingErrors: [], preventContinuation: false };
     }
-    fe = !0;
+    fe = true;
     let We = Date.now() - F;
     if (
       (s("tengu_stop_hook_error", {
@@ -5592,7 +5592,7 @@ async function* Xvt(e, t, r, o, u, d, _, C, A, x, M) {
       pe.length === 0 && !x())
     )
       yield* qh(d, U.messages, { stopHookActive: C });
-    return { blockingErrors: pe, preventContinuation: !1 };
+    return { blockingErrors: pe, preventContinuation: false };
   } finally {
     if (me) d.sessionHooksRegistry.add(K(), "Stop", "", me);
     if (ge !== void 0 && !d.options.isNonInteractiveSession) {
@@ -5663,7 +5663,7 @@ function Vvt(e) {
 
 function* Zvt(e, t, r, o) {
   try {
-    if (!I("tengu_quartz_pipit", !0) || !e || t.agentId || t.abortController.signal.aborted || Il(r) !== "main") return;
+    if (!I("tengu_quartz_pipit", true) || !e || t.agentId || t.abortController.signal.aborted || Il(r) !== "main") return;
     let u = IUn(o);
     if (u === null) return;
     let { label: d, errorCode: _ } = xUn[u];
@@ -5671,9 +5671,9 @@ function* Zvt(e, t, r, o) {
       CF(e, u === "context_limit" ? "context_limit" : "api_error"),
       p("goal_met", _),
       yield { type: "active_goal", value: void 0 },
-      yield O2t(!0, e.condition),
+      yield O2t(true, e.condition),
       yield Uee(
-        `Goal cleared after an unrecoverable error (${d}): "${ir(e.condition, MUn, !0)}". Run /goal again to continue.`,
+        `Goal cleared after an unrecoverable error (${d}): "${ir(e.condition, MUn, true)}". Run /goal again to continue.`,
         "warning",
       );
   } catch (u) {
@@ -5734,14 +5734,14 @@ function LUn(e) {
     if (r?.type !== "user" || r.usageLimitNote === void 0) continue;
     return r.usageLimitNote === "wrap_up";
   }
-  return !1;
+  return false;
 }
 
 function* eEt(e, { resumeActive: t, isMainLoop: r, depth: o, toolUseContext: u, now: d, uuid: _ }) {
   if (t || !r) return e;
   let C = [];
   try {
-    let x = !1;
+    let x = false;
     if (NYe(o === 0)) {
       let M = RYe(I(AYe, "")),
         F = M !== null ? "custom" : CYe(I(EYe, "off"));
@@ -5749,25 +5749,25 @@ function* eEt(e, { resumeActive: t, isMainLoop: r, depth: o, toolUseContext: u, 
         C.push(
           xe({
             content: M ?? (F === "next-steps" ? PYe : vYe),
-            isMeta: !0,
-            turnCompanion: !0,
+            isMeta: true,
+            turnCompanion: true,
             usageLimitNote: "wrap_up",
             now: d,
             uuidFn: _,
           }),
         ),
           y("usage_limit_grace_wrapup", { next_steps: F === "next-steps", custom: F === "custom" }),
-          (x = !0);
+          (x = true);
     }
     if (o === 0 && LUn(e)) {
       let M = DUn(I(OUn, ""));
       if (M)
-        C.push(xe({ content: M, isMeta: !0, turnCompanion: !0, usageLimitNote: "release", now: d, uuidFn: _ })),
+        C.push(xe({ content: M, isMeta: true, turnCompanion: true, usageLimitNote: "release", now: d, uuidFn: _ })),
           y("usage_limit_grace_release");
     }
-    if (o > 0 && $Ye() && I(Lct, !1)) {
+    if (o > 0 && $Ye() && I(Lct, false)) {
       if ((C.push(Dt(MYe, IYe)), !x))
-        C.push(xe({ content: xYe, isMeta: !0, turnCompanion: !0, usageLimitNote: "wrap_up", now: d, uuidFn: _ }));
+        C.push(xe({ content: xYe, isMeta: true, turnCompanion: true, usageLimitNote: "wrap_up", now: d, uuidFn: _ }));
       if ((y("usage_limit_near_wrapup"), !Le()))
         import("/$bunfs/root/chunk-bdjnr093.js")
           .then(({ performRateLimitCheckpoint: M }) =>
@@ -5852,19 +5852,19 @@ function oEt({ createStreamingToolExecutor: e, onReset: t }) {
     assistantMessages: [],
     toolResults: [],
     toolUseBlocks: [],
-    needsFollowUp: !1,
-    toolRequestedEndTurn: !1,
-    shouldPreventContinuation: !1,
-    toolWasDeferred: !1,
+    needsFollowUp: false,
+    toolRequestedEndTurn: false,
+    shouldPreventContinuation: false,
+    toolWasDeferred: false,
     streamingToolExecutor: e(),
     reset({ clearAssistantMessages: o }) {
       if (o) r.assistantMessages.length = 0;
       (r.toolResults.length = 0),
         (r.toolUseBlocks.length = 0),
-        (r.needsFollowUp = !1),
-        (r.toolRequestedEndTurn = !1),
-        (r.shouldPreventContinuation = !1),
-        (r.toolWasDeferred = !1),
+        (r.needsFollowUp = false),
+        (r.toolRequestedEndTurn = false),
+        (r.shouldPreventContinuation = false),
+        (r.toolWasDeferred = false),
         t?.();
     },
     rebuildStreamingToolExecutor() {
@@ -5879,7 +5879,7 @@ function sEt() {
     sessionId: K(),
     gates: {
       emitToolUseSummaries: a.CLAUDE_CODE_EMIT_TOOL_USE_SUMMARIES,
-      isAnt: !1,
+      isAnt: false,
       fastModeEnabled: !a.CLAUDE_CODE_DISABLE_FAST_MODE,
     },
   };
@@ -5918,13 +5918,13 @@ function cEt(e, t) {
 
 function uEt(e, t) {
   if (!e) return;
-  let r = !1,
-    o = !1;
+  let r = false,
+    o = false;
   return (u) => {
     if (r) return;
     let d = t.aborted;
     if (d) {
-      if (((r = !0), !o)) return;
+      if (((r = true), !o)) return;
     } else o = u !== null;
     try {
       e(d ? null : u);
@@ -5944,7 +5944,7 @@ function lGn(e) {
 
 function cGn(e) {
   let t = e.toLowerCase().trim();
-  if (t === "continue") return !0;
+  if (t === "continue") return true;
   return /\b(keep going|go on)\b/.test(t);
 }
 
@@ -5955,13 +5955,13 @@ function dEt(e) {
 
 function uGn(e) {
   let t = e.trim();
-  if (t.length > 40) return !1;
-  if (/^(\?+|\.{2,}|\u2026+)$/u.test(t)) return !0;
+  if (t.length > 40) return false;
+  if (/^(\?+|\.{2,}|\u2026+)$/u.test(t)) return true;
   let r = t
     .toLowerCase()
     .replace(/^[\u00BF\u00A1]+|[?!.\u00BF\u00A1\uFF1F\uFF01\u3002\u2026]+$/gu, "")
     .trim();
-  if (/^(hi+|hello+|he+y+|yo+)$/.test(r)) return !0;
+  if (/^(hi+|hello+|he+y+|yo+)$/.test(r)) return true;
   return BUn.has(r);
 }
 
@@ -5984,8 +5984,8 @@ function WUn(e) {
 }
 
 function pEt(e, t) {
-  if (!e) return !0;
-  return EC(t) && t.isMainSession === !0;
+  if (!e) return true;
+  return EC(t) && t.isMainSession === true;
 }
 
 function mEt(e) {
@@ -6040,7 +6040,7 @@ function YUn(e) {
       shape: "tui_user_turn",
       fragment: "user",
       suffix: _Et(e[t.index + t[0].length]),
-      looksFabricated: !0,
+      looksFabricated: true,
       tailMarker: SEt(_),
       matchIndex: d,
       tail: _,
@@ -6067,7 +6067,7 @@ ${d}`);
       shape: "artifact_free",
       fragment: "",
       suffix: "other",
-      looksFabricated: !0,
+      looksFabricated: true,
       tailMarker: o.marker,
       matchIndex: o.index,
       tail: d,
@@ -6144,7 +6144,7 @@ function* JUn(e, t, r, o) {
     for (let _ of d) {
       if (o?.has(_.id)) continue;
       yield xe({
-        content: [{ type: "tool_result", content: t, is_error: !0, tool_use_id: _.id }],
+        content: [{ type: "tool_result", content: t, is_error: true, tool_use_id: _.id }],
         toolUseResult: t,
         sourceToolAssistantUUID: u.uuid,
         now: r?.now,
@@ -6223,7 +6223,7 @@ async function* eBn({
         } catch {}
       if (!_V(x.abortController.signal.reason))
         yield oI({
-          toolUse: !1,
+          toolUse: false,
           interruptedMessageId: lq(x),
           interruptedByShutdown: qS(x.abortController.signal),
           now: z.now,
@@ -6252,18 +6252,18 @@ function vEt(e) {
 function EEt(e, t, r) {
   return (
     e?.type === "assistant" &&
-    e.isApiErrorMessage === !0 &&
-    e.truncatedAfterOutput === !0 &&
+    e.isApiErrorMessage === true &&
+    e.truncatedAfterOutput === true &&
     t.options.isNonInteractiveSession &&
     Il(r) === "main" &&
-    I("tengu_truncated_response_recovery", !0)
+    I("tengu_truncated_response_recovery", true)
   );
 }
 
 function tBn(e, t) {
   let r = e.filter((d) => !d.isApiErrorMessage && !dq(d)),
     o = r.length === 1 ? r[0] : void 0;
-  if (o === void 0 || o.message.content.length !== 1) return !1;
+  if (o === void 0 || o.message.content.length !== 1) return false;
   let u = o.message.content[0];
   return (
     u !== void 0 &&
@@ -6271,7 +6271,7 @@ function tBn(e, t) {
     uq(u) &&
     o.message.stop_reason === "max_tokens" &&
     !gbe(o, hr(t)) &&
-    I("tengu_thinking_block_resumption", !1)
+    I("tengu_thinking_block_resumption", false)
   );
 }
 
@@ -6349,7 +6349,7 @@ async function* rBn(e, t, r) {
     d;
   try {
     let _;
-    while (!0) {
+    while (true) {
       let C = await u.next(_);
       if (C.done) {
         d = C.value;
@@ -6421,11 +6421,11 @@ async function* MEt(e, t, r) {
       toolUseContext: e.toolUseContext,
       maxOutputTokensOverride: e.maxOutputTokensOverride,
       compactTracking: void 0,
-      stopHookActive: e.stopHookActive ?? !1,
+      stopHookActive: e.stopHookActive ?? false,
       stopHookBlockingCount: 0,
       maxOutputTokensRecoveryCount: 0,
-      hasAttemptedReactiveCompact: !1,
-      thinkingOnlyNudged: !1,
+      hasAttemptedReactiveCompact: false,
+      thinkingOnlyNudged: false,
       turnCount: 1,
       pendingToolUseSummary: void 0,
       transition: void 0,
@@ -6441,7 +6441,7 @@ async function* MEt(e, t, r) {
       let mn = await kGn(Fe, Ie.toolUseContext.abortController.signal);
       if (mn !== void 0) {
         let yn = Xln(mn, Ie.toolUseContext.readFileState, Ie.toolUseContext.session);
-        (Fe.consumedOnIteration = 0), (Fe.consumedBlocking = !0), (Ke = yn.map((er) => In(er, pe)));
+        (Fe.consumedOnIteration = 0), (Fe.consumedBlocking = true), (Ke = yn.map((er) => In(er, pe)));
       }
     } catch (mn) {
       h(mn), (Ke = []);
@@ -6513,12 +6513,12 @@ async function* MEt(e, t, r) {
       if (!It(mn)) h(mn);
     }
   }
-  let ze = !1,
+  let ze = false,
     We = 0,
-    Ve = !1,
-    Pt = !1,
+    Ve = false,
+    Pt = false,
     ct,
-    ut = !1,
+    ut = false,
     en = Array.isArray(C) ? C : C !== void 0 ? [C] : [],
     nn = cm(e.toolUseContext),
     xt = nn,
@@ -6535,13 +6535,13 @@ async function* MEt(e, t, r) {
     Sn = e.stickyBetas ?? (Lt === "main" || Lt === void 0 ? void 0 : Lt === "subagent" ? I4() : Sb(Ep())),
     bn = Lt === "main" || Lt === void 0,
     hn = new Map();
-  while (!0) {
+  while (true) {
     let xr = function (kn) {
         let fo = qbt(kn);
         if (fo) mr.toolRequestedEndTurn = fo;
         if (kn.type !== "attachment") return;
-        if (kn.attachment.type === "hook_stopped_continuation") mr.shouldPreventContinuation = !0;
-        else if (kn.attachment.type === "hook_deferred_tool") mr.toolWasDeferred = !0;
+        if (kn.attachment.type === "hook_stopped_continuation") mr.shouldPreventContinuation = true;
+        else if (kn.attachment.type === "hook_deferred_tool") mr.toolWasDeferred = true;
       },
       vo = function (kn, fo) {
         if (kn.type === "attachment") {
@@ -6568,8 +6568,8 @@ async function* MEt(e, t, r) {
           apiRefusalExplanation: null,
           retractedMessageUuids: [...kn.retractedMessageUuids],
           refusedUserMessageUuid: kn.refusedUserMessageUuid,
-          ...(kn.sawCyberRefusal && { sawCyberRefusal: !0 }),
-          isMeta: !1,
+          ...(kn.sawCyberRefusal && { sawCyberRefusal: true }),
+          isMeta: false,
           timestamp: pe.now(),
           uuid: fo,
           ...(di && { provisional: di }),
@@ -6605,7 +6605,7 @@ async function* MEt(e, t, r) {
         return di?.type === "assistant" && !gbe(di, hr(kn));
       },
       br = yn,
-      So = Ke.precomputeSourceKey !== void 0 && br?.compacted !== !0 && !cq(A),
+      So = Ke.precomputeSourceKey !== void 0 && br?.compacted !== true && !cq(A),
       Ui = A.startsWith("agent:") || A.startsWith("repl_main_thread");
     Tn = await s8n(
       Tn,
@@ -6686,7 +6686,7 @@ async function* MEt(e, t, r) {
       for (let oa of IRe(kn)) yield oa;
       Tn = Jee(kn);
     } else if (Xn.kind === "failed")
-      br = { ...(br ?? { compacted: !1, turnId: "", turnCounter: 0 }), consecutiveFailures: Xn.consecutiveFailures };
+      br = { ...(br ?? { compacted: false, turnId: "", turnCounter: 0 }), consecutiveFailures: Xn.consecutiveFailures };
     let Rn = Xn.kind === "compacted" || Xn.kind === "failed";
     if (
       PRe({
@@ -6759,7 +6759,7 @@ async function* MEt(e, t, r) {
       Io;
     Ke = { ...Ke, messages: Tn, turnStartIndex: IEt(Tn) };
     let Er = (kn) => {
-        if (Jn && AA(kn)) kn.virtualInResumeRun = !0;
+        if (Jn && AA(kn)) kn.virtualInResumeRun = true;
         return kn;
       },
       Qn = null;
@@ -6828,8 +6828,8 @@ async function* MEt(e, t, r) {
       }
     if (PP(Wr, Ke.requestDialog)) {
       let kn = "cancelled",
-        fo = !1,
-        di = !1,
+        fo = false,
+        di = false,
         Fi = M5e({ requestDialog: Ke.requestDialog, isMainThread: At }) && !Ke.abortController.signal.aborted;
       if (Fi && Ke.requestDialog) {
         let wo = Ke.abortController.signal,
@@ -6837,20 +6837,20 @@ async function* MEt(e, t, r) {
           oa = !W5() && dy(),
           Vs = new AbortController(),
           ll = () => Vs.abort();
-        wo.addEventListener("abort", ll, { once: !0 });
-        let yf = !1,
+        wo.addEventListener("abort", ll, { once: true });
+        let yf = false,
           j_ = Date.now(),
           fs =
             oa && !wt()
               ? $5(() => {
-                  if (Date.now() - j_ > 1000) yf = !0;
+                  if (Date.now() - j_ > 1000) yf = true;
                 })
               : () => {},
           wi = (Km) => Km.uuid ?? Km,
           Ti = new Set(Ke.messageQueue.getCommandQueueSnapshot().filter(_le).map(wi)),
           du = () => {
             if ((O4(), !yf && Ke.messageQueue.getCommandQueueSnapshot().some((Km) => _le(Km) && !Ti.has(wi(Km)))))
-              (di = !0), Vs.abort();
+              (di = true), Vs.abort();
           },
           Sf = oa ? Ke.messageQueue.subscribe(du) : () => {},
           Zh =
@@ -6874,7 +6874,7 @@ async function* MEt(e, t, r) {
       if (!Uo && Ke.abortController.signal.aborted) {
         if (!_V(Ke.abortController.signal.reason))
           yield oI({
-            toolUse: !1,
+            toolUse: false,
             interruptedMessageId: lq(Ke),
             interruptedByShutdown: qS(Ke.abortController.signal),
             now: pe.now,
@@ -6925,7 +6925,7 @@ async function* MEt(e, t, r) {
           );
         }
         let ls = Wr,
-          oa = !1;
+          oa = false;
         if (At) {
           if (kn === "switch_default") oa = I5e(wo, Ke.storageV5);
           Ke.setAppState((Vs) => ({ ...Vs, mainLoopModel: wo, mainLoopModelForSession: null })), dd(wo), (ht = at());
@@ -6953,7 +6953,7 @@ async function* MEt(e, t, r) {
             originalModel: ls,
             fallbackModel: wo,
             persistedAsDefault: oa,
-            isMeta: !1,
+            isMeta: false,
             timestamp: pe.now(),
             uuid: pe.uuid(),
           };
@@ -6961,7 +6961,7 @@ async function* MEt(e, t, r) {
     }
     Mc("query_setup_end");
     let Ba = Oe.gates.isAnt && Il(A) !== "auxiliary" ? Wot(Ke.agentId ?? Oe.sessionId, Ke.storageV5) : void 0,
-      hm = !1,
+      hm = false,
       ep = Qf() && LB() && !CG(Ke.options.mainLoopModel, Ke.options.autoCompactWindow);
     if (Xn.kind !== "compacted" && A !== "compact" && !ep && !hm) {
       if (
@@ -6974,7 +6974,7 @@ async function* MEt(e, t, r) {
           s("tengu_ptl_surfaced_to_user", {
             reason: w("blocking_limit"),
             querySource: af(A),
-            wasGatedByPriorAttempt: !1,
+            wasGatedByPriorAttempt: false,
             reactiveUnsupported: !LB(),
             compactFailureReason: ke(di?.reason),
           });
@@ -6992,9 +6992,9 @@ async function* MEt(e, t, r) {
           : void 0,
       );
     }
-    let jl = !0,
+    let jl = true,
       Ki,
-      Vi = !1,
+      Vi = false,
       yd,
       Rl,
       Cp,
@@ -7010,22 +7010,22 @@ async function* MEt(e, t, r) {
     PEt(Ke.options, fn), Mc("query_api_loop_start");
     try {
       while (jl) {
-        if (((jl = !1), Jn && (yd !== void 0 || !Zr(Wr)))) Jn = !1;
+        if (((jl = false), Jn && (yd !== void 0 || !Zr(Wr)))) Jn = false;
         let kn = oBn(Wr, hs) || !zn.advisorModel || h2e(Wr, zn.advisorModel) ? zn.advisorModel : void 0;
         if (zn.advisorModel && kn === void 0)
           n(
             `[AdvisorTool] Skipping advisor - ${zn.advisorModel} cannot advise non-configured attempt model ${Wr} (configured: ${hs})`,
           );
         if (ct !== void 0)
-          if (ut) (ct = void 0), (ut = !1);
-          else ut = !0;
+          if (ut) (ct = void 0), (ut = false);
+          else ut = true;
         let fo = [],
           di = xn.length,
           Fi,
           Uo,
           wo = [],
           ls,
-          oa = !1;
+          oa = false;
         function* Vs() {
           let fs = Fi;
           if (fs === void 0) return 0;
@@ -7039,7 +7039,7 @@ async function* MEt(e, t, r) {
           let fs = pe.uuid(),
             { notice: wi, state: Ti } = nvt(Ro, fs);
           if (((Ro = Ti), wi === void 0)) return;
-          let du = Xi(wi, fs, !0);
+          let du = Xi(wi, fs, true);
           (Pl = du), yield du;
         }
         function* yf() {
@@ -7059,7 +7059,7 @@ async function* MEt(e, t, r) {
           (fs.refusedUserMessageUuid = Ce), yield fs, (Uo = void 0);
         }
         try {
-          let fs = !1,
+          let fs = false,
             wi = [],
             Ti = [],
             du = ZTt(Ro, Wr, QUn);
@@ -7069,7 +7069,7 @@ async function* MEt(e, t, r) {
             Km = !ze && !Ve ? () => (!ze && !Ve ? Wdn(Zh) : void 0) : void 0,
             lh = L5n(),
             xu = c(b0n()),
-            zf = $5n(Ke.permissionRelays?.bridge?.dialog, () => I("tengu_loggia_denkbild", !1)),
+            zf = $5n(Ke.permissionRelays?.bridge?.dialog, () => I("tengu_loggia_denkbild", false)),
             Gf = Ke.getAppState().replBridgeSessionActive && zf === void 0,
             ey = lh || Gf,
             kg = Mse({
@@ -7082,12 +7082,12 @@ async function* MEt(e, t, r) {
               requestDialog: Ke.requestDialog,
               isMainThread: At,
               consumerLacksDialogCapability: ey,
-              serverDefaultFallbacksEnabled: () => I(xse, !1),
+              serverDefaultFallbacksEnabled: () => I(xse, false),
               sticky: Sn ?? Ep(),
-              threadedRequest: !1,
+              threadedRequest: false,
             });
           if (kg.shouldLogSuppression)
-            (Pt = !0),
+            (Pt = true),
               s("tengu_refusal_fallback_suppressed", {
                 reason:
                   Ke.requestDialog === void 0
@@ -7178,7 +7178,7 @@ async function* MEt(e, t, r) {
                 fallbackStampOriginalRequestId: KS !== void 0 ? Bs : void 0,
                 fallbackCreditLaneArmed: kg.visibleModel !== void 0,
                 onStreamingFallback: () => {
-                  fs = !0;
+                  fs = true;
                 },
                 onHintCleared: (Ca, wg) => {
                   fo.push({ type: "hint_clears", ids: [...Ca], contentById: Object.fromEntries(wg) });
@@ -7201,7 +7201,7 @@ async function* MEt(e, t, r) {
                 resumeIncompleteThinking: Jn,
                 fetchOverride: Ba,
                 mcpTools: zn.mcp.tools,
-                promptTooLongIsHandled: !0,
+                promptTooLongIsHandled: true,
                 hasPendingMcpServers: zn.mcp.clients.some((Ca) => Ca.type === "pending"),
                 mcpClients: Ke.options.mcpClients,
                 queryTracking: jn,
@@ -7265,7 +7265,7 @@ async function* MEt(e, t, r) {
                         `Server refusal-fallback target "${vr.toModel}" is not in the availableModels allowlist; declining the swap`,
                         { level: "warn" },
                       ),
-                      (Ve = !0),
+                      (Ve = true),
                       Ly?.mode === "default" && pg !== null)
                     )
                       WC(Sn ?? Ep(), pg);
@@ -7280,7 +7280,7 @@ async function* MEt(e, t, r) {
                       if (ZS.message.model === vr.toModel) xn.splice(Cd, 1), hi.push(ZS);
                     }
                     let rp = Fr.slice();
-                    mr.reset({ clearAssistantMessages: !1 }), (wi.length = 0);
+                    mr.reset({ clearAssistantMessages: false }), (wi.length = 0);
                     let Np = mr.streamingToolExecutor.discardAndAbortInFlight(zKe());
                     s("tengu_rotunda_pennant_tools", {
                       lane: w("decline"),
@@ -7319,7 +7319,7 @@ async function* MEt(e, t, r) {
                     if (QS) xn.push(QS), yield QS;
                     break;
                   }
-                  if (((We += 1), (mt = _c), (Wr = _c), Jn && !Zr(_c))) Jn = !1;
+                  if (((We += 1), (mt = _c), (Wr = _c), Jn && !Zr(_c))) Jn = false;
                   if (Ws.swapSession) {
                     if (vr.reason === "refusal" && vr.apiRefusalCategory === "cyber") WFe(vr.requestId ?? void 0);
                     let hi = Ke.getAppState();
@@ -7352,7 +7352,7 @@ async function* MEt(e, t, r) {
                         compensated_removes: hi.toolUseIds.length,
                       }),
                       (Zc = [...Fr]),
-                      mr.reset({ clearAssistantMessages: !1 }),
+                      mr.reset({ clearAssistantMessages: false }),
                       mr.rebuildStreamingToolExecutor(),
                       hi.toolUseIds.length > 0)
                     )
@@ -7371,10 +7371,10 @@ async function* MEt(e, t, r) {
                       n("server_fallback: silent stitch already pending \u2014 skipping seam merge", { level: "warn" });
                   }
                   wo.push(...vr.discardedMessages, ...Zc), yield { type: "query_model_change", toModel: _c };
-                  for (let hi of vr.discardedMessages) yield { type: "tombstone", message: hi, displayOnly: !0 };
-                  for (let hi of Zc) yield { type: "tombstone", message: hi, displayOnly: !0 };
+                  for (let hi of vr.discardedMessages) yield { type: "tombstone", message: hi, displayOnly: true };
+                  for (let hi of Zc) yield { type: "tombstone", message: hi, displayOnly: true };
                   if (ls !== void 0)
-                    (oa = !0),
+                    (oa = true),
                       yield {
                         type: "refusal_continuation",
                         phase: "begin",
@@ -7395,7 +7395,7 @@ async function* MEt(e, t, r) {
             if (vr.type === "refusal_no_fallback") {
               if (Uo !== void 0) {
                 let Ws = yield* Vs();
-                if (oa) (oa = !1), (ls = void 0), yield { type: "refusal_continuation", phase: "end" };
+                if (oa) (oa = false), (ls = void 0), yield { type: "refusal_continuation", phase: "end" };
                 s("tengu_rotunda_pennant_chain_exhausted", {
                   swept_dangling_count: Ws,
                   queryChainId: Ar,
@@ -7415,14 +7415,14 @@ async function* MEt(e, t, r) {
                   apiRefusalCategory: vr.apiRefusalCategory,
                   apiRefusalExplanation: vr.apiRefusalExplanation,
                   refusedUserMessageUuid: Ce,
-                  isMeta: !1,
+                  isMeta: false,
                   timestamp: pe.now(),
                   uuid: pe.uuid(),
                 };
               continue;
             }
             if (vr.type === "fallback_request") {
-              let Ws = vr.routeMatched == null && (Sf !== void 0 || vr.silentArmAtTrigger === !0),
+              let Ws = vr.routeMatched == null && (Sf !== void 0 || vr.silentArmAtTrigger === true),
                 Ga = Ro.inEpisode && aRe(vr);
               if (!(Ws ? ze : !Ga && lRe(We, Ndn())) && !Ve && (Mv() || Ws)) {
                 let lc = Ga
@@ -7479,7 +7479,7 @@ async function* MEt(e, t, r) {
                     shownExtras: { capability_source: xu, retracted_wire_uuid_count: np.length },
                   });
                 if (Zc !== "retry_fallback") {
-                  if (((Ve = !0), vr.creditCode !== null))
+                  if (((Ve = true), vr.creditCode !== null))
                     s("tengu_fallback_credit_forfeited", {
                       reason: Zc === "cancelled" ? w("cancelled") : w("dialog_declined"),
                       mint_request_id: ve(vr.requestId),
@@ -7487,7 +7487,7 @@ async function* MEt(e, t, r) {
                     });
                   for (let Yn of xn) yield { type: "tombstone", message: Yn };
                   for (let Yn of Fr) yield { type: "tombstone", message: Yn };
-                  mr.reset({ clearAssistantMessages: !0 }), (wi.length = 0);
+                  mr.reset({ clearAssistantMessages: true }), (wi.length = 0);
                   let Vf = oq(mr.streamingToolExecutor, "refusal_decline");
                   if ((mr.rebuildStreamingToolExecutor(), Vf)) yield Vf;
                   if (Zc === "edit_prompt") Ke.abortController.abort(bu("refusal-fallback-edit"));
@@ -7514,7 +7514,7 @@ async function* MEt(e, t, r) {
                   Np = EU(),
                   QS = !rp ? "surface" : Np ? "session_latch" : hi.skipReason,
                   Cd = Ws && QS === void 0 ? hi.salvageText : void 0;
-                if (Ws) ze = !0;
+                if (Ws) ze = true;
                 else {
                   if (!Ga) We += 1;
                   Ro = evt(Ro, vr, M5n(), bDe);
@@ -7534,9 +7534,9 @@ async function* MEt(e, t, r) {
                 else if (At && vr.apiRefusalCategory === "cyber") WFe(vr.requestId ?? void 0);
                 if (
                   ((Wr = vr.fallbackModel),
-                  (jl = !0),
+                  (jl = true),
                   (ct = At && !Ws && np.length > 0 ? np : void 0),
-                  (ut = !1),
+                  (ut = false),
                   At && !Ws)
                 ) {
                   let Vf = Ke.getAppState();
@@ -7571,7 +7571,7 @@ async function* MEt(e, t, r) {
                     salvaged_tool_use_count: hi.toolUseCount,
                     had_empty_input_tool_use: hi.hadEmptyInputToolUse,
                     credit_minted: vr.creditCode !== null,
-                    armed_at_trigger: vr.silentArmAtTrigger === !0,
+                    armed_at_trigger: vr.silentArmAtTrigger === true,
                   });
                 else
                   y("refusal_fallback"),
@@ -7588,14 +7588,14 @@ async function* MEt(e, t, r) {
                 yield { type: "query_model_change", toModel: vr.fallbackModel };
                 for (let Vf of xn) yield { type: "tombstone", message: Vf };
                 for (let Vf of Fr) yield { type: "tombstone", message: Vf };
-                mr.reset({ clearAssistantMessages: !0 }), (wi.length = 0);
+                mr.reset({ clearAssistantMessages: true }), (wi.length = 0);
                 let ZS = oq(mr.streamingToolExecutor, "refusal_retry", { silent: Ws });
                 if ((mr.rebuildStreamingToolExecutor(), ZS)) yield ZS;
                 if (Cd !== void 0)
-                  (yd = xe({ content: O5n(Cd), isMeta: !0, ephemeral: !0, now: pe.now, uuidFn: pe.uuid })),
+                  (yd = xe({ content: O5n(Cd), isMeta: true, ephemeral: true, now: pe.now, uuidFn: pe.uuid })),
                     yield { type: "refusal_continuation", phase: "begin", salvageText: Cd },
                     (Ki = Cd),
-                    (Vi = !0);
+                    (Vi = true);
                 if (Pl !== void 0 && Ro.pendingNotice?.provisionalFlushUuid === Pl.uuid)
                   yield { type: "tombstone", message: Pl }, (Pl = void 0);
                 if (!Ga) (Ro = rvt(Ro)), (Pl = void 0);
@@ -7627,7 +7627,7 @@ async function* MEt(e, t, r) {
                     apiRefusalExplanation: vr.apiRefusalExplanation,
                     retractedMessageUuids: np,
                     refusedUserMessageUuid: Ce,
-                    isMeta: !1,
+                    isMeta: false,
                     timestamp: pe.now(),
                     uuid: pe.uuid(),
                   };
@@ -7649,7 +7649,7 @@ async function* MEt(e, t, r) {
               }
               break;
             }
-            if (vr.type === "streaming_fallback_began") fs = !0;
+            if (vr.type === "streaming_fallback_began") fs = true;
             if (fs) {
               for (let Ga of xn) yield { type: "tombstone", message: Ga };
               for (let Ga of Fr) yield { type: "tombstone", message: Ga };
@@ -7658,11 +7658,11 @@ async function* MEt(e, t, r) {
                 queryChainId: Ar,
                 queryDepth: jn.depth,
               }),
-                mr.reset({ clearAssistantMessages: !0 }),
+                mr.reset({ clearAssistantMessages: true }),
                 (wi.length = 0);
               let Ws = oq(mr.streamingToolExecutor, "streaming_fallback");
               if ((mr.rebuildStreamingToolExecutor(), Ws)) yield Ws;
-              fs = !1;
+              fs = false;
             }
             if (vr.type === "streaming_fallback_began") {
               try {
@@ -7681,10 +7681,10 @@ async function* MEt(e, t, r) {
               }
               continue;
             }
-            if (Jn && vr.type === "assistant" && !vr.isApiErrorMessage) vr.resumedFromIncompleteThinking = !0;
+            if (Jn && vr.type === "assistant" && !vr.isApiErrorMessage) vr.resumedFromIncompleteThinking = true;
             let Ca = vr,
               wg,
-              VS = !1,
+              VS = false,
               bR;
             if (vr.type === "assistant") {
               let Ws;
@@ -7717,7 +7717,7 @@ async function* MEt(e, t, r) {
                   let Zc = ls.originals,
                     hi = new Set(Zc.map((rp) => rp.uuid));
                   for (let rp = xn.length - 1; rp >= 0; rp--) if (hi.has(xn[rp].uuid)) xn.splice(rp, 1);
-                  if ((xn.push(Xu), (VS = !0), (bR = Zc), wo.push(...Zc), At))
+                  if ((xn.push(Xu), (VS = true), (bR = Zc), wo.push(...Zc), At))
                     (Xu.supersedesUuids = Zc.flatMap((rp) =>
                       Cf([rp])
                         .filter(eX)
@@ -7738,10 +7738,10 @@ async function* MEt(e, t, r) {
                 (Ga.usage = Ws.usage), (Ga.stop_reason = Ws.stop_reason), (Ga.stop_details = Ws.stop_details);
               wi.length = 0;
             }
-            let mI = !1;
-            if (ast(vr)) mI = !0;
-            if (XZ(vr)) (mI = !0), Ti.push(vr);
-            if (vEt(vr) || (!mr.needsFollowUp && EEt(vr, Ke, A))) mI = !0;
+            let mI = false;
+            if (ast(vr)) mI = true;
+            if (XZ(vr)) (mI = true), Ti.push(vr);
+            if (vEt(vr) || (!mr.needsFollowUp && EEt(vr, Ke, A))) mI = true;
             if (!mI) {
               if (Ti.length > 0) yield* Ti, (Ti.length = 0);
               if (Ro.pendingNotice !== void 0 && Ca.type === "assistant" && !Ca.isApiErrorMessage && Cf([Ca]).some(eX))
@@ -7749,7 +7749,7 @@ async function* MEt(e, t, r) {
               if (ct !== void 0 && Ca.type === "assistant" && !Ca.isApiErrorMessage && Cf([Ca]).some(eX)) {
                 let Ga = ct;
                 (ct = void 0),
-                  (ut = !1),
+                  (ut = false),
                   (Ca = { ...Ca, supersedesUuids: Ga }),
                   s("tengu_refusal_fallback_supersedes", { lane: w("client_retry"), count: Ga.length });
               }
@@ -7760,18 +7760,18 @@ async function* MEt(e, t, r) {
               let Ws = wg ?? vr;
               if (!VS) xn.push(Ws);
               let Ga = Ws.message.content.filter((lc) => lc.type === "tool_use");
-              if (Ga.length > 0) ss.push(...Ga), (mr.needsFollowUp = !0);
+              if (Ga.length > 0) ss.push(...Ga), (mr.needsFollowUp = true);
               for (let lc of Ga) mr.streamingToolExecutor.addTool(lc, Ws);
             }
             if (bR !== void 0) {
               let Ws = bR;
               bR = void 0;
-              for (let Ga of Ws) yield { type: "tombstone", message: Ga, displayOnly: !0 };
+              for (let Ga of Ws) yield { type: "tombstone", message: Ga, displayOnly: true };
             }
             yield* Jo();
           }
           if ((Mc("query_api_streaming_end"), Vi && !jl)) {
-            Vi = !1;
+            Vi = false;
             let vr = Ki === void 0;
             (Ki = void 0),
               (yd = void 0),
@@ -7785,7 +7785,7 @@ async function* MEt(e, t, r) {
           }
           if (fo.length > 0) yield* fo, (fo.length = 0);
           if (Fi !== void 0 && (xn.at(-1)?.message.stop_reason ?? Qn) === "refusal") yield* Vs();
-          if (oa) (oa = !1), (ls = void 0), yield { type: "refusal_continuation", phase: "end" };
+          if (oa) (oa = false), (ls = void 0), yield { type: "refusal_continuation", phase: "end" };
           yield* j_();
           {
             let vr = xn.at(-1),
@@ -7829,10 +7829,10 @@ async function* MEt(e, t, r) {
             }
           }
         } catch (fs) {
-          if (oa) (oa = !1), (ls = void 0), yield { type: "refusal_continuation", phase: "end" };
+          if (oa) (oa = false), (ls = void 0), yield { type: "refusal_continuation", phase: "end" };
           if ((yield* j_(), yield* yf(), fo.length > 0)) yield* fo, (fo.length = 0);
           if (Vi)
-            (Vi = !1),
+            (Vi = false),
               (Ki = void 0),
               (yd = void 0),
               s("tengu_convolute_arcades_retry_outcome", {
@@ -7847,16 +7847,16 @@ async function* MEt(e, t, r) {
             if (E6()) qSt();
             lt++, (mt = void 0), (Ro = ovt()), (Xe = void 0);
             let Ti = null,
-              du = !1,
-              Sf = !1,
-              Zh = !1;
+              du = false,
+              Sf = false,
+              Zh = false;
             while (lt < tt.length) {
               let xu = tt[lt],
                 zf = PP(xu, Ke.requestDialog);
-              if (zf) Zh = !0;
+              if (zf) Zh = true;
               let Gf = zf ? FV() : xu;
               if (zf && Gf !== null && A === "compact" && IMe(tt[0], Gf)) Gf = null;
-              if (Gf === fs.originalModel) Sf = !0;
+              if (Gf === fs.originalModel) Sf = true;
               else if (Gf !== null) {
                 (Ti = Gf), (du = zf);
                 break;
@@ -7869,10 +7869,10 @@ async function* MEt(e, t, r) {
             if (Ti === null)
               throw (p("model_fallback", "no_usable_fallback", { reason: c(fs.reason) }), fs.originalError ?? fs);
             if (du || Km) Xe = Ti;
-            (Wr = Ti), (jl = !0), (ut = !1);
+            (Wr = Ti), (jl = true), (ut = false);
             for (let xu of xn) yield { type: "tombstone", message: xu };
             for (let xu of Fr) yield { type: "tombstone", message: xu };
-            mr.reset({ clearAssistantMessages: !0 });
+            mr.reset({ clearAssistantMessages: true });
             let lh = oq(mr.streamingToolExecutor, "chain_advance");
             if ((mr.rebuildStreamingToolExecutor(), lh)) yield lh;
             if (((Ke.options.mainLoopModel = Wr), Km)) {
@@ -7901,7 +7901,7 @@ async function* MEt(e, t, r) {
                 trigger: fs.reason,
                 originalModel: fs.originalModel,
                 fallbackModel: Wr,
-                isMeta: !1,
+                isMeta: false,
                 timestamp: pe.now(),
                 uuid: pe.uuid(),
               };
@@ -7957,7 +7957,7 @@ async function* MEt(e, t, r) {
       return yield Fi, AS(Ke, A, Fi), wj("Query error", kn), { reason: "model_error", error: kn };
     }
     if (xn.some((kn) => kn.message.content.some((fo) => fo.type === "text" && dEt(fo.text))))
-      s("tengu_model_response_keyword_detected", { is_suggests_break: !0, queryChainId: Ar, queryDepth: jn.depth });
+      s("tengu_model_response_keyword_detected", { is_suggests_break: true, queryChainId: Ar, queryDepth: jn.depth });
     if (xn.length > 0) hvt([...Tn, ...xn], o, u, d, Ke, A);
     if (Ke.abortController.signal.aborted) {
       for await (let kn of mr.streamingToolExecutor.getRemainingResults()) {
@@ -7977,7 +7977,7 @@ async function* MEt(e, t, r) {
       }
       if (!_V(Ke.abortController.signal.reason))
         yield oI({
-          toolUse: !1,
+          toolUse: false,
           interruptedMessageId: lq(Ke),
           interruptedByShutdown: qS(Ke.abortController.signal),
           now: pe.now,
@@ -8024,12 +8024,12 @@ async function* MEt(e, t, r) {
             let Ti = fs[wi];
             if (Ti.type === "user") {
               if (Ti.isMeta || gk(Ti)) continue;
-              return !1;
+              return false;
             }
             if (Ti.type !== "assistant") continue;
-            if (Ti.message.content.some((du) => du.type === "tool_use" && du.name === qs)) return !0;
+            if (Ti.message.content.some((du) => du.type === "tool_use" && du.name === qs)) return true;
           }
-          return !1;
+          return false;
         },
         kn = xn.at(-1),
         fo = kn?.type === "assistant" && kn.isApiErrorMessage && xb(kn),
@@ -8051,7 +8051,7 @@ async function* MEt(e, t, r) {
             turnsSincePreviousCompact: br?.turnCounter ?? -1,
             queryChainId: Ar,
             queryDepth: jn.depth,
-            reactive: !0,
+            reactive: true,
           });
           let Sd = Ko({ content: ehe, error: "invalid_request", now: pe.now, uuid: pe.uuid });
           return yield Sd, AS(Ke, A, Sd), { reason: "rapid_refill_breaker" };
@@ -8069,7 +8069,7 @@ async function* MEt(e, t, r) {
             wasGatedByPriorAttempt: Cn,
             reactiveUnsupported: !LB(),
             precomputedKind: w("not_consulted"),
-            compactionImpossible: !0,
+            compactionImpossible: true,
             totalGroups: qf,
             overheadTokensEstimate: _R,
           });
@@ -8184,8 +8184,8 @@ async function* MEt(e, t, r) {
                     content:
                       "Output token limit hit. Resume directly \u2014 no apology, no recap of what you were doing. " +
                       "Pick up mid-thought if that is where the cut happened. Break remaining work into smaller pieces.",
-                    isMeta: !0,
-                    turnCompanion: !0,
+                    isMeta: true,
+                    turnCompanion: true,
                     now: pe.now,
                     uuidFn: pe.uuid,
                   }),
@@ -8219,8 +8219,8 @@ async function* MEt(e, t, r) {
                   content:
                     "Your response above was cut off mid-stream. Resume directly from where it stops \u2014 no apology, no recap. " +
                     "If none of it survived, answer the request from the start.",
-                  isMeta: !0,
-                  turnCompanion: !0,
+                  isMeta: true,
+                  turnCompanion: true,
                   now: pe.now,
                   uuidFn: pe.uuid,
                 }),
@@ -8248,14 +8248,14 @@ async function* MEt(e, t, r) {
           fs)
         ) {
           for (let du of xn) yield { type: "tombstone", message: du };
-          let Ti = xe({ content: Glt, isMeta: !0, turnCompanion: !0, now: pe.now, uuidFn: pe.uuid });
+          let Ti = xe({ content: Glt, isMeta: true, turnCompanion: true, now: pe.now, uuidFn: pe.uuid });
           yield Ti,
             (Ie = {
               messages: [...Tn, Ti],
               toolUseContext: Ke,
               compactTracking: br,
               maxOutputTokensRecoveryCount: 0,
-              hasAttemptedReactiveCompact: !1,
+              hasAttemptedReactiveCompact: false,
               maxOutputTokensOverride: void 0,
               pendingToolUseSummary: void 0,
               stopHookActive: Pr,
@@ -8285,7 +8285,7 @@ async function* MEt(e, t, r) {
       ) {
         if (!Pn) {
           g("query_thinking_only_response", "nudged");
-          let fs = xe({ content: zlt, isMeta: !0, turnCompanion: !0, now: pe.now, uuidFn: pe.uuid });
+          let fs = xe({ content: zlt, isMeta: true, turnCompanion: true, now: pe.now, uuidFn: pe.uuid });
           yield fs,
             (Ie = {
               messages: [...Tn, fs],
@@ -8293,7 +8293,7 @@ async function* MEt(e, t, r) {
               compactTracking: br,
               maxOutputTokensRecoveryCount: er,
               hasAttemptedReactiveCompact: Cn,
-              thinkingOnlyNudged: !0,
+              thinkingOnlyNudged: true,
               maxOutputTokensOverride: void 0,
               pendingToolUseSummary: void 0,
               stopHookActive: Pr,
@@ -8315,13 +8315,13 @@ async function* MEt(e, t, r) {
       let oa = !Ke.agentId && Ke.getAppState().activeGoal !== void 0,
         Vs = 0,
         ll = 0,
-        j_ = yield* Xvt(Tn, xn, o, u, d, Ke, A, Pr, Sn, () => !1, YT(Ke));
+        j_ = yield* Xvt(Tn, xn, o, u, d, Ke, A, Pr, Sn, () => false, YT(Ke));
       if (wn > 0 && j_.blockingErrors.length === 0)
         s("tengu_stop_hook_block_count", {
           count: wn,
           is_subagent: A$(Ke.agentContext),
-          hit_max_turns: !1,
-          hit_cap: !1,
+          hit_max_turns: false,
+          hit_cap: false,
           goal_active: oa,
         });
       if (j_.preventContinuation) return { reason: "stop_hook_prevented" };
@@ -8333,8 +8333,8 @@ async function* MEt(e, t, r) {
             s("tengu_stop_hook_block_count", {
               count: wi,
               is_subagent: A$(Ke.agentContext),
-              hit_max_turns: !0,
-              hit_cap: !1,
+              hit_max_turns: true,
+              hit_cap: false,
               goal_active: oa,
             }),
             yield In({ type: "max_turns_reached", maxTurns: M, turnCount: fs }, pe),
@@ -8347,8 +8347,8 @@ async function* MEt(e, t, r) {
             s("tengu_stop_hook_block_count", {
               count: wi,
               is_subagent: A$(Ke.agentContext),
-              hit_max_turns: !1,
-              hit_cap: !0,
+              hit_max_turns: false,
+              hit_cap: true,
               goal_active: oa,
             }),
             yield Dt(
@@ -8367,7 +8367,7 @@ async function* MEt(e, t, r) {
           hasAttemptedReactiveCompact: Cn,
           maxOutputTokensOverride: void 0,
           pendingToolUseSummary: void 0,
-          stopHookActive: !0,
+          stopHookActive: true,
           thinkingOnlyNudged: Pn,
           stopHookBlockingCount: wi,
           turnCount: fs,
@@ -8480,7 +8480,7 @@ async function* MEt(e, t, r) {
         } catch {}
       if (!_V(Ke.abortController.signal.reason))
         yield oI({
-          toolUse: !0,
+          toolUse: true,
           interruptedMessageId: lq(Ke),
           interruptedByShutdown: qS(Ke.abortController.signal),
           now: pe.now,
@@ -8549,7 +8549,7 @@ async function* MEt(e, t, r) {
         if (Uo.type === "user" && Array.isArray(Uo.message.content)) {
           for (let wo of Uo.message.content) if (wo.type === "tool_result") fo.set(wo.tool_use_id, wo.content);
         }
-      let di = !1,
+      let di = false,
         Fi;
       try {
         for await (let Uo of nut(
@@ -8579,8 +8579,8 @@ async function* MEt(e, t, r) {
             );
             yield wo, Fr.push(wo);
           }
-          if (Uo.blockingError) (di = !0), (Fi ??= Uo.blockingError.blockingError);
-          if (Uo.preventContinuation) (di = !0), (Fi ??= Uo.stopReason);
+          if (Uo.blockingError) (di = true), (Fi ??= Uo.blockingError.blockingError);
+          if (Uo.preventContinuation) (di = true), (Fi ??= Uo.stopReason);
         }
       } catch (Uo) {
         if (!(Uo instanceof la)) throw Uo;
@@ -8593,7 +8593,7 @@ async function* MEt(e, t, r) {
           } catch {}
         if (!_V(Li.abortController.signal.reason))
           yield oI({
-            toolUse: !1,
+            toolUse: false,
             interruptedMessageId: lq(Li),
             interruptedByShutdown: qS(Li.abortController.signal),
             now: pe.now,
@@ -8640,13 +8640,13 @@ async function* MEt(e, t, r) {
         Ke.messageQueue.isMidTurnFoldSuspended() || HS !== void 0
           ? []
           : dpe(Ke.messageQueue.getCommandsByMaxPriority("next"), { isMainThread: yR, currentAgentId: pI }).filter(
-              xEt(DS.screeningReader(() => Li, { latch: !0 })),
+              xEt(DS.screeningReader(() => Li, { latch: true })),
             );
     Ke.messageQueue.registerFoldInFlight(Pc);
     try {
       let kn = 0,
         fo = 0,
-        di = xEt(DS.screeningReader(() => Li, { latch: !1 })),
+        di = xEt(DS.screeningReader(() => Li, { latch: false })),
         Fi = new Set(),
         Uo = Pc.filter(Wln),
         wo = 0;
@@ -8683,8 +8683,8 @@ async function* MEt(e, t, r) {
             if (
               (Ke.messageQueue.consume(ls, { reason: "absorbed_mid_turn" }),
               Utr(ls),
-              CDe(ls, Ke.storageV5, { armUndo: !1 }),
-              yR && ls.some((Vs) => Vs.mode === "prompt" && !Vs.isMeta && Vs.shouldQuery !== !1 && nR(Vs.origin)))
+              CDe(ls, Ke.storageV5, { armUndo: false }),
+              yR && ls.some((Vs) => Vs.mode === "prompt" && !Vs.isMeta && Vs.shouldQuery !== false && nR(Vs.origin)))
             )
               fpt(), upt(Ke.setAppState);
             for (let Vs of ls)
@@ -8735,8 +8735,8 @@ async function* MEt(e, t, r) {
         compactTracking: br,
         turnCount: iv,
         maxOutputTokensRecoveryCount: 0,
-        hasAttemptedReactiveCompact: !1,
-        thinkingOnlyNudged: !1,
+        hasAttemptedReactiveCompact: false,
+        thinkingOnlyNudged: false,
         pendingToolUseSummary: qc,
         maxOutputTokensOverride: void 0,
         stopHookActive: Pr,
@@ -8805,17 +8805,17 @@ function PEt(e, t) {
 }
 
 function xEt(e) {
-  let t = !1;
+  let t = false;
   return (r) => {
-    if (t && r.mode === "prompt") return !1;
-    if (!aBn(r, e)) return !0;
-    return (t = !0), !1;
+    if (t && r.mode === "prompt") return false;
+    if (!aBn(r, e)) return true;
+    return (t = true), false;
   };
 }
 
 function aBn(e, t) {
-  if (e.drainOnly === !0 || e.screeningPending === !0) return !0;
-  if (e.promptSubmitted === void 0) return !1;
+  if (e.drainOnly === true || e.screeningPending === true) return true;
+  if (e.promptSubmitted === void 0) return false;
   let r = t();
   return r === void 0 || DS.screeningStale(e.promptSubmitted.under, r);
 }
@@ -8844,7 +8844,7 @@ async function mBn(e, t, r) {
     await NEt(t, r);
   } catch (o) {
     if (!X(o)) throw o;
-    await lBn(e, { recursive: !0 }), await NEt(t, r);
+    await lBn(e, { recursive: true }), await NEt(t, r);
   }
 }
 
@@ -8915,7 +8915,7 @@ function NRe() {
 }
 
 function VEt() {
-  return I("tengu_dapper_dawn", !1);
+  return I("tengu_dapper_dawn", false);
 }
 
 function Hln(e) {
@@ -8957,7 +8957,7 @@ function SBn({ state: e, now: t, lastRequestAt: r }) {
         anyRequestAt: C,
         userInputAt: u.signals?.lastUserInputAt() ?? 0,
         mainLoop: u.signals?.mainLoop() ?? null,
-        delegatedWorkRunning: u.signals?.delegatedWorkRunning() === !0,
+        delegatedWorkRunning: u.signals?.delegatedWorkRunning() === true,
       }),
       M = Math.max(0, _ - A),
       F = M > hBn;
@@ -9133,7 +9133,7 @@ function URe({
         attempt: _,
         duration_ms: u,
         duration_ms_including_retries: d,
-        did_fallback_to_non_streaming: x ?? !1,
+        did_fallback_to_non_streaming: x ?? false,
         client_request_id: ve(Pe) ?? null,
         model: _n(t) ?? null,
         query_source: We ?? null,
@@ -9165,7 +9165,7 @@ function URe({
     }
     s("tengu_api_error", {
       model: t,
-      ...(Ie && { is_low_priority: !0 }),
+      ...(Ie && { is_low_priority: true }),
       error: e instanceof Gt && (ze === lne || V8n(e, x ? void 0 : C)) ? Sue(ze, e.status) : m$(Oe),
       status: Be,
       errorType: ze,
@@ -9227,7 +9227,7 @@ function URe({
       Ce,
     );
   ppn(W, {
-    success: !1,
+    success: false,
     statusCode: Be ? parseInt(Be) : void 0,
     error: Oe,
     attempt: _,
@@ -9397,7 +9397,7 @@ function CBn({
   YEt({ isMainLoop: fh(mt) && (W.startsWith("repl_main_thread") || W === "sdk"), now: dn }),
     s("tengu_api_success", {
       model: e,
-      ...(Xe && { is_low_priority: !0 }),
+      ...(Xe && { is_low_priority: true }),
       ...(t !== e && { preNormalizedModel: t }),
       ...(ct?.length && { betas: ct.join(",") }),
       messageCount: r,
@@ -9425,7 +9425,7 @@ function CBn({
       didFallBackToNonStreaming: B,
       isNonInteractiveSession: nt,
       print: At,
-      isTTY: process.stdout.isTTY ?? !1,
+      isTTY: process.stdout.isTTY ?? false,
       querySource: af(W),
       ...(z && { messageClientPlatform: z }),
       ...(pe && { gateway: c(pe) }),
@@ -9510,20 +9510,20 @@ function iCt({
   if (Ee) {
     let er = 0,
       Cn = 0,
-      Pn = !1,
+      Pn = false,
       nr = 0,
-      Rr = !1,
+      Rr = false,
       Lr = {};
     for (let Pr of Ee)
       for (let wn of Pr.message.content)
         if (wn.type === "text") er += wn.text?.length ?? 0;
         else if (wn.type === "thinking") {
-          if (((Cn += wn.thinking?.length ?? 0), (Pn = !0), JEt?.(wn))) nr++;
-        } else if (wn.type === "redacted_thinking") Pn = !0;
+          if (((Cn += wn.thinking?.length ?? 0), (Pn = true), JEt?.(wn))) nr++;
+        } else if (wn.type === "redacted_thinking") Pn = true;
         else if (wn.type === "tool_use" || wn.type === "server_tool_use" || wn.type === "mcp_tool_use") {
           let sr = b(wn.input).length,
             Jn = Un(wn.name);
-          (Lr[Jn] = (Lr[Jn] ?? 0) + sr), (Rr = !0);
+          (Lr[Jn] = (Lr[Jn] ?? 0) + sr), (Rr = true);
         }
     (ht = er), (At = Pn ? Cn : void 0), (dn = JEt !== null ? nr : void 0), (Lt = Rr ? Lr : void 0);
   }
@@ -9620,7 +9620,7 @@ function iCt({
 `) || void 0),
       (mn = Ee.some((er) => er.message.content.some((Cn) => Cn.type === "tool_use")));
   ppn(Oe, {
-    success: !0,
+    success: true,
     inputTokens: d.input_tokens,
     outputTokens: d.output_tokens,
     cacheReadTokens: d.cache_read_input_tokens,
@@ -9662,7 +9662,7 @@ function xln(e) {
     (t.savedAt = e ? Date.now() : null),
     (t.sessionModel = e ? at() : null),
     (t.sessionId = e ? r : null),
-    (t.promptForSessionModel = e ? e.toolUseContext.options.mainLoopModel === t.sessionModel && !cCt() : !1);
+    (t.promptForSessionModel = e ? e.toolUseContext.options.mainLoopModel === t.sessionModel && !cCt() : false);
 }
 
 function Iln() {
@@ -9685,10 +9685,10 @@ function aF() {
 
 function Pln(e = Date.now()) {
   let { last: t, rootId: r } = Bse();
-  if (t.params === null || t.savedAt === null || t.sessionId !== r) return !1;
-  if (t.sessionModel !== at()) return !1;
+  if (t.params === null || t.savedAt === null || t.sessionId !== r) return false;
+  if (t.sessionModel !== at()) return false;
   let o = oie();
-  if (o === null) return !1;
+  if (o === null) return false;
   return e - t.savedAt < o * 0.9;
 }
 
@@ -9758,12 +9758,12 @@ async function mpt(e, t, r, o, u) {
               { now: () => new Date().toISOString(), uuid: () => lCt() },
               r.messages,
               "repl_main_thread",
-              { planSlugSeed: t, inputMentionsOnly: !0 },
+              { planSlugSeed: t, inputMentionsOnly: true },
             ),
           )
         : [];
   for (let [Ie, Ee] of pe.entries()) if (Ee.isPartialView) pe.delete(Ie);
-  let ge = [xe({ content: _, isMeta: !0 }), ...me],
+  let ge = [xe({ content: _, isMeta: true }), ...me],
     Ce = !RBn(r);
   return {
     skillContent: _,
@@ -9789,10 +9789,10 @@ function RBn(e) {
     r;
   if (t.agentType === "subagent") r = t.subagentName;
   else if (t.agentType === "main") {
-    if (((r = F_()), r === void 0)) return !1;
-  } else return !0;
+    if (((r = F_()), r === void 0)) return false;
+  } else return true;
   let o = e.options.agentDefinitions.activeAgents.find((d) => d.agentType === r);
-  if (o === void 0) return !0;
+  if (o === void 0) return true;
   let u = o.tools;
   return Sx(o.disallowedTools, Qr) || (bee(u) === null && !Sx(u, Qr));
 }
@@ -9818,7 +9818,7 @@ function Dln(e, t) {
         : () => {
             let A = e.getAppState();
             if (A.toolPermissionContext.shouldAvoidPermissionPrompts) return A;
-            return { ...A, toolPermissionContext: { ...A.toolPermissionContext, shouldAvoidPermissionPrompts: !0 } };
+            return { ...A, toolPermissionContext: { ...A.toolPermissionContext, shouldAvoidPermissionPrompts: true } };
           },
     u = t?.shareAbortController || t?.getAppState ? [] : [{ kind: "avoid_prompts" }],
     d = [...(e.permissionLayers ?? []), ...u, ...(t?.permissionLayers ?? [])],
@@ -9840,7 +9840,7 @@ function Dln(e, t) {
     hookOrigin: e.hookOrigin,
     hookCaller: e.hookCaller,
     pluginSteered: e.pluginSteered,
-    readFileState: S3(t?.readFileState ?? e.readFileState, { stripSeededFromContext: !0 }),
+    readFileState: S3(t?.readFileState ?? e.readFileState, { stripSeededFromContext: true }),
     dedupUnchangedReads: e.dedupUnchangedReads,
     nestedMemoryAttachmentTriggers: [],
     loadedNestedMemoryPaths: {},
@@ -9864,9 +9864,9 @@ function Dln(e, t) {
           e.setAppState((x) => {
             let M = A(x);
             if (M === x) return x;
-            let F = !1,
+            let F = false,
               U = { ...x };
-            for (let B of pgr) if (M[B] !== x[B]) Object.assign(U, { [B]: M[B] }), (F = !0);
+            for (let B of pgr) if (M[B] !== x[B]) Object.assign(U, { [B]: M[B] }), (F = true);
             return F ? U : x;
           }),
     setToolPermissionContext: t?.shareSetAppState ? e.setToolPermissionContext : () => {},
@@ -9961,7 +9961,7 @@ async function rT({
     { systemPrompt: fe, userContext: me, systemContext: ge, toolUseContext: Ce, forkContextMessages: Ie } = t,
     Ee = Dln(Ce, {
       ...d,
-      isBackgroundAgent: d?.isBackgroundAgent ?? !0,
+      isBackgroundAgent: d?.isBackgroundAgent ?? true,
       options: F
         ? { ...(d?.options ?? Ce.options), tools: [] }
         : (d?.options ?? (U !== void 0 ? { ...Ce.options } : void 0)),
@@ -9970,7 +9970,7 @@ async function rT({
         exemptServers: Ce.isolationLatch?.exemptServers,
       },
       precomputeSourceKey: d?.precomputeSourceKey ?? Ce.agentId ?? "main",
-      requireCanUseTool: d?.requireCanUseTool ?? !0,
+      requireCanUseTool: d?.requireCanUseTool ?? true,
     });
   Ee.onPermissionDenial = void 0;
   let Pe = [...Ie, ...e],
@@ -10183,17 +10183,17 @@ async function DBn(e, t, r, o) {
       forkLabel: "reactive-compact",
       maxTurns: 1,
       fallbackModel: zse(t.toolUseContext.options.mainLoopModel, t.toolUseContext.options.fallbackModel),
-      skipTranscript: !0,
-      skipCacheWrite: !0,
+      skipTranscript: true,
+      skipCacheWrite: true,
       overrides: { onRetryStatus: t.toolUseContext.onRetryStatus },
     });
   } catch (F) {
     let U = l(F);
     if (vD(U)) n(`Reactive compact API call failed: ${U}`, { level: "error" });
     else h(F);
-    return { ok: !1, reason: "error", detail: U, status: void 0, isTimeout: !1 };
+    return { ok: false, reason: "error", detail: U, status: void 0, isTimeout: false };
   }
-  if (t.toolUseContext.abortController.signal.aborted) return { ok: !1, reason: "aborted" };
+  if (t.toolUseContext.abortController.signal.aborted) return { ok: false, reason: "aborted" };
   let C = Wy(_.messages);
   if (!C)
     return (
@@ -10203,30 +10203,30 @@ async function DBn(e, t, r, o) {
         ),
       ),
       {
-        ok: !1,
+        ok: false,
         reason: "error",
         detail: "no assistant message in summarization response",
         status: void 0,
-        isTimeout: !1,
+        isTimeout: false,
       }
     );
-  if (xb(C)) return { ok: !1, reason: "prompt_too_long", tokenGap: pL(C) };
+  if (xb(C)) return { ok: false, reason: "prompt_too_long", tokenGap: pL(C) };
   if (R5e(C)) {
     let F = th(e) - g$;
-    return { ok: !1, reason: "prompt_too_long", tokenGap: F > 0 ? F : void 0, viaCreditsBoundary: !0 };
+    return { ok: false, reason: "prompt_too_long", tokenGap: F > 0 ? F : void 0, viaCreditsBoundary: true };
   }
-  if (lX(C)) return { ok: !1, reason: "media_too_large" };
+  if (lX(C)) return { ok: false, reason: "media_too_large" };
   if (C.isApiErrorMessage) {
     let F = oH(C) ?? "API error";
     return (
       n(`Reactive compact: summarization returned API error: ${F}`, { level: "error" }),
       {
-        ok: !1,
+        ok: false,
         reason: "error",
         detail: F,
         status: C.apiErrorStatus,
         isTimeout: F === wbe,
-        ...(C.apiError === "dlp_request_denied" && { isDlpDenied: !0 }),
+        ...(C.apiError === "dlp_request_denied" && { isDlpDenied: true }),
       }
     );
   }
@@ -10234,20 +10234,20 @@ async function DBn(e, t, r, o) {
   if (!A)
     return (
       h(Error("Reactive compact: empty summary text in summarization response")),
-      { ok: !1, reason: "error", detail: "summarization produced empty response", status: void 0, isTimeout: !1 }
+      { ok: false, reason: "error", detail: "summarization produced empty response", status: void 0, isTimeout: false }
     );
   let x = Hl(),
     M = ty() && Eht(t.toolUseContext.toolState, t.toolUseContext.agentId);
   return {
-    ok: !0,
+    ok: true,
     summaryText: A,
     forkAssistantMessageCount: Q(_.messages, (F) => F.type === "assistant" && !F.isApiErrorMessage),
     totalUsage: _.totalUsage,
     messages: [
       xe({
-        content: mq(A, { suppressFollowUpQuestions: !0, transcriptPath: x, replStateCleared: M }),
-        isCompactSummary: !0,
-        isVisibleInTranscriptOnly: !0,
+        content: mq(A, { suppressFollowUpQuestions: true, transcriptPath: x, replStateCleared: M }),
+        isCompactSummary: true,
+        isVisibleInTranscriptOnly: true,
       }),
     ],
   };
@@ -10272,15 +10272,15 @@ async function JZ(e, t, r) {
   if (u < 2)
     return (
       n("Reactive compact: fewer than 2 groups, nothing to compact", { level: "info" }),
-      { ok: !1, reason: "too_few_groups", attempts: 0, totalGroups: u }
+      { ok: false, reason: "too_few_groups", attempts: 0, totalGroups: u }
     );
   let d = t.toolUseContext.abortController.signal,
     _ = 1,
     C = 0,
     A = void 0,
     x,
-    M = !1,
-    F = !1;
+    M = false,
+    F = false;
   if (r?.initialTokenGap !== void 0 && u > 3) {
     x = o.map((B) => th(B));
     let U = r.initialTokenGap - (x[u - 1] ?? 0);
@@ -10290,7 +10290,7 @@ async function JZ(e, t, r) {
     }
   }
   while (_ < u) {
-    if (d.aborted) return { ok: !1, reason: "aborted", attempts: C, totalGroups: u };
+    if (d.aborted) return { ok: false, reason: "aborted", attempts: C, totalGroups: u };
     C++;
     let U = u - _,
       B = o.slice(0, U),
@@ -10299,7 +10299,7 @@ async function JZ(e, t, r) {
     if (!z.some((me) => me.type === "assistant")) {
       if ((n("Reactive compact: no assistant messages in summarize set, bailing", { level: "info" }), F))
         s("tengu_compact_credits_clamp_rescue", { outcome: w("failed"), attempts: C - 1 });
-      return { ok: !1, reason: C > 1 ? "exhausted" : "too_few_groups", attempts: C - 1, totalGroups: u };
+      return { ok: false, reason: C > 1 ? "exhausted" : "too_few_groups", attempts: C - 1, totalGroups: u };
     }
     s("tengu_reactive_compact_attempt", {
       attempt: C,
@@ -10315,7 +10315,7 @@ async function JZ(e, t, r) {
     if (pe.ok) {
       if (F) s("tengu_compact_credits_clamp_rescue", { outcome: w("ok"), attempts: C });
       return {
-        ok: !0,
+        ok: true,
         result: {
           summaryMessages: pe.messages,
           summaryText: pe.summaryText,
@@ -10330,29 +10330,29 @@ async function JZ(e, t, r) {
     }
     switch (pe.reason) {
       case "aborted":
-        return { ok: !1, reason: "aborted", attempts: C, totalGroups: u };
+        return { ok: false, reason: "aborted", attempts: C, totalGroups: u };
       case "error":
         if (F) s("tengu_compact_credits_clamp_rescue", { outcome: w("failed"), attempts: C });
         return {
-          ok: !1,
+          ok: false,
           reason: "error",
           attempts: C,
           totalGroups: u,
           detail: pe.detail,
           status: pe.status,
           isTimeout: pe.isTimeout,
-          ...(pe.isDlpDenied && { isDlpDenied: !0 }),
+          ...(pe.isDlpDenied && { isDlpDenied: true }),
         };
       case "media_too_large":
         if (!M) {
-          (M = !0), C--, n("Reactive compact: summarize hit media-size error, retrying stripped", { level: "info" });
+          (M = true), C--, n("Reactive compact: summarize hit media-size error, retrying stripped", { level: "info" });
           continue;
         }
-        return { ok: !1, reason: "media_unstrippable", attempts: C, totalGroups: u };
+        return { ok: false, reason: "media_unstrippable", attempts: C, totalGroups: u };
       case "prompt_too_long":
         break;
     }
-    if (pe.viaCreditsBoundary) F = !0;
+    if (pe.viaCreditsBoundary) F = true;
     x ??= o.map((me) => th(me));
     let fe = LBn(pe.tokenGap, x, U);
     (A = { ...fe, tokenGap: pe.tokenGap }),
@@ -10363,11 +10363,11 @@ async function JZ(e, t, r) {
       );
   }
   if (F) s("tengu_compact_credits_clamp_rescue", { outcome: w("failed"), attempts: C });
-  return { ok: !1, reason: "exhausted", attempts: C, totalGroups: u };
+  return { ok: false, reason: "exhausted", attempts: C, totalGroups: u };
 }
 
 function gPe() {
-  return !1;
+  return false;
 }
 
 function Y$(e) {
@@ -10385,19 +10385,19 @@ function _Ct(e) {
 async function bCt(e, t = Y$(e.sessionId), r) {
   let o = b(e),
     u = Buffer.byteLength(o, "utf8");
-  if (u > V$) return { ok: !1, reason: "too_large", bytes: u };
+  if (u > V$) return { ok: false, reason: "too_large", bytes: u };
   let d = O() && r !== void 0 ? vw(t) : void 0;
   if (r !== void 0 && d)
     try {
       let _ = await r.write(d, o, { mode: 384 });
-      return _.ok ? { ok: !0, bytes: u } : { ok: !1, reason: "write_error", bytes: u, detail: Ge(_.error) };
+      return _.ok ? { ok: true, bytes: u } : { ok: false, reason: "write_error", bytes: u, detail: Ge(_.error) };
     } catch (_) {
-      return { ok: !1, reason: "write_error", bytes: u, detail: l(_) };
+      return { ok: false, reason: "write_error", bytes: u, detail: l(_) };
     }
   try {
-    return await vPe(t), await Wn(t, o, 384), { ok: !0, bytes: u };
+    return await vPe(t), await Wn(t, o, 384), { ok: true, bytes: u };
   } catch (_) {
-    return { ok: !1, reason: "write_error", bytes: u, detail: l(_) };
+    return { ok: false, reason: "write_error", bytes: u, detail: l(_) };
   }
 }
 
@@ -10406,46 +10406,46 @@ function vCt(e) {
     let r = $Bn(t);
     if (r.ok || r.reason !== "absent") return r;
   }
-  return { ok: !1, reason: "absent" };
+  return { ok: false, reason: "absent" };
 }
 
 function $Bn(e) {
   try {
-    if (NBn(e).size > V$) return { ok: !1, reason: "too_large" };
+    if (NBn(e).size > V$) return { ok: false, reason: "too_large" };
   } catch {
-    return { ok: !1, reason: "absent" };
+    return { ok: false, reason: "absent" };
   }
   let t;
   try {
     t = FBn(e, "utf8");
   } catch {
-    return { ok: !1, reason: "absent" };
+    return { ok: false, reason: "absent" };
   }
   return zRe(t);
 }
 
 function zRe(e) {
-  if (Buffer.byteLength(e, "utf8") > V$) return { ok: !1, reason: "too_large" };
+  if (Buffer.byteLength(e, "utf8") > V$) return { ok: false, reason: "too_large" };
   let t;
   try {
     t = V(e);
   } catch {
-    return { ok: !1, reason: "parse_error" };
+    return { ok: false, reason: "parse_error" };
   }
-  if (typeof t !== "object" || t === null) return { ok: !1, reason: "parse_error" };
-  if (t.version !== jRe) return { ok: !1, reason: "version" };
+  if (typeof t !== "object" || t === null) return { ok: false, reason: "parse_error" };
+  if (t.version !== jRe) return { ok: false, reason: "version" };
   let r = HBn(t);
-  return r === null ? { ok: !1, reason: "parse_error" } : { ok: !0, payload: r };
+  return r === null ? { ok: false, reason: "parse_error" } : { ok: true, payload: r };
 }
 
 async function UBn(e) {
   let t = await pb(e);
-  if (!t.ok) return { ok: !1, reason: "absent" };
+  if (!t.ok) return { ok: false, reason: "absent" };
   let r = t.value;
   try {
     let o = await r.stat();
-    if (!o.isFile()) return { ok: !1, reason: "absent" };
-    if (o.size > V$) return { ok: !1, reason: "too_large" };
+    if (!o.isFile()) return { ok: false, reason: "absent" };
+    if (o.size > V$) return { ok: false, reason: "too_large" };
     let u = Buffer.alloc(o.size + 1),
       d = 0;
     while (d < u.length) {
@@ -10453,9 +10453,9 @@ async function UBn(e) {
       if (_ === 0) break;
       d += _;
     }
-    return d > o.size ? { ok: !1, reason: "absent" } : zRe(u.toString("utf8", 0, d));
+    return d > o.size ? { ok: false, reason: "absent" } : zRe(u.toString("utf8", 0, d));
   } catch {
-    return { ok: !1, reason: "absent" };
+    return { ok: false, reason: "absent" };
   } finally {
     await r.close().catch(() => {});
   }
@@ -10474,14 +10474,14 @@ async function ACt(e, t, r) {
         x = A?.ok ? A.value.items[0] : void 0;
       C =
         x === void 0 || !x.found
-          ? { ok: !1, reason: "absent" }
+          ? { ok: false, reason: "absent" }
           : x.totalBytes > V$
-            ? { ok: !1, reason: "too_large" }
+            ? { ok: false, reason: "too_large" }
             : zRe(Buffer.from(x.value).toString("utf8"));
     } else C = await UBn(_);
     if (C.ok || C.reason !== "absent") return C;
   }
-  return { ok: !1, reason: "absent" };
+  return { ok: false, reason: "absent" };
 }
 
 async function Gse(e, t) {
@@ -10553,9 +10553,9 @@ function Q$(e) {
 }
 
 function J$() {
-  if (!Qf()) return !1;
-  if (!LB()) return !1;
-  if (!I("tengu_sepia_moth", !1)) return !1;
+  if (!Qf()) return false;
+  if (!LB()) return false;
+  if (!I("tengu_sepia_moth", false)) return false;
   return Lo("precomputeCompactionEnabled", gPe()).value;
 }
 
@@ -10564,7 +10564,7 @@ function cq(e) {
 }
 
 function Kse() {
-  return I("tengu_amber_packet", !1) && !Xc();
+  return I("tengu_amber_packet", false) && !Xc();
 }
 
 async function XBn(e, t, r, o) {
@@ -10575,7 +10575,7 @@ async function XBn(e, t, r, o) {
     if (!QBn(t.transcriptPath)) return;
     u = zBn(jBn(UCt(t.transcriptPath)), e);
   }
-  let d = await ACt(e, u, o).catch(() => ({ ok: !1, reason: "absent" }));
+  let d = await ACt(e, u, o).catch(() => ({ ok: false, reason: "absent" }));
   if (!d.ok && d.reason === "absent") {
     r.dropSidecarReadAhead(e);
     return;
@@ -10589,7 +10589,7 @@ async function XBn(e, t, r, o) {
 }
 
 function O7(e, t, r) {
-  if (!O() || t === void 0 || r?.forkSession === !0) return {};
+  if (!O() || t === void 0 || r?.forkSession === true) return {};
   let o = r?.expectedSessionId;
   return { onSessionResolved: (u) => XBn(o ?? u.sessionId, u, e, t) };
 }
@@ -10605,7 +10605,7 @@ function jCt(e, t, r, o, u, d) {
   if (e.hasAttemptedRehydrate(_)) return;
   if (e.has(t)) return;
   e.markRehydrateAttempted(_);
-  let C = O() && d !== void 0 ? (e.takeSidecarReadAhead(_) ?? { ok: !1, reason: "absent" }) : vCt(_);
+  let C = O() && d !== void 0 ? (e.takeSidecarReadAhead(_) ?? { ok: false, reason: "absent" }) : vCt(_);
   if (!C.ok) {
     if (C.reason !== "absent") NCt(e, _, C.reason, void 0, d);
     return;
@@ -10637,7 +10637,7 @@ function jCt(e, t, r, o, u, d) {
     abortController: new AbortController(),
     preCompactHookDisplay: A.preCompactHookDisplay,
     settled: Promise.resolve(),
-    rehydrated: !0,
+    rehydrated: true,
     sidecarSessionId: _,
   }),
     s("tengu_precomputed_compact_rehydrated", {
@@ -10687,7 +10687,7 @@ async function JBn(e, t, r, o, u, d) {
   s("tengu_precomputed_compact_persisted", {
     ok: _.ok,
     bytes: _.bytes,
-    ...(_.ok === !1 && { reason: c(_.reason) }),
+    ...(_.ok === false && { reason: c(_.reason) }),
     querySource: u,
   }),
     n(
@@ -10705,11 +10705,11 @@ function ZBn(e, t) {
 }
 
 function PRe(e) {
-  if (e.autocompactRan) return !1;
-  if (e.isPreFirstCompactFork) return !1;
-  if (e.hasAttemptedReactiveCompact) return !1;
-  if (e.lastTransitionReason === "precomputed_compact_swap") return !1;
-  if (!J$()) return !1;
+  if (e.autocompactRan) return false;
+  if (e.isPreFirstCompactFork) return false;
+  if (e.hasAttemptedReactiveCompact) return false;
+  if (e.lastTransitionReason === "precomputed_compact_swap") return false;
+  if (!J$()) return false;
   return NVe(e.contextTokens, e.model, e.autoCompactWindow, e.querySource);
 }
 
@@ -10718,13 +10718,13 @@ function xRe(e) {
     { toolUseContext: _ } = o,
     C = _.session.precompute,
     A = Q$(_.agentId);
-  if (!J$()) return !1;
-  if (cq(t)) return !1;
-  if ((jCt(C, A, t, r, _.options.mainLoopModel, _.storageV5), C.consecutiveCountedFailures(A) >= LCt)) return !1;
+  if (!J$()) return false;
+  if (cq(t)) return false;
+  if ((jCt(C, A, t, r, _.options.mainLoopModel, _.storageV5), C.consecutiveCountedFailures(A) >= LCt)) return false;
   let x = C.get(A);
-  if (x !== void 0 && x.status !== "failed") return !1;
+  if (x !== void 0 && x.status !== "failed") return false;
   let M = r.at(-1)?.uuid;
-  if (M === void 0) return !1;
+  if (M === void 0) return false;
   let F = t === "sdk" ? e.promptScan : void 0;
   if (F !== void 0) {
     let { userPromptCount: Oe, historyRewritten: Fe } = F,
@@ -10739,7 +10739,7 @@ function xRe(e) {
           preCompactTokens: Ih(r),
         }),
           n(`precomputed compact: arm gated (${A}, ${Be}, userPrompts ${Oe})`);
-      return !1;
+      return false;
     }
   }
   let U = new AbortController(),
@@ -10779,13 +10779,13 @@ function xRe(e) {
         return;
       }
       let Fe = await JZ(r, me, { customInstructions: Oe.newCustomInstructions }).catch((Ve) => ({
-          ok: !1,
+          ok: false,
           reason: "error",
           attempts: 0,
           totalGroups: 0,
           detail: l(Ve),
           status: void 0,
-          isTimeout: !1,
+          isTimeout: false,
         })),
         Be = Math.round(performance.now() - B);
       if ((n(`precomputed compact: ${Fe.ok ? "ready" : `failed (${Fe.reason})`} (${A}, ${Be}ms)`), !Fe.ok)) {
@@ -10860,7 +10860,7 @@ function xRe(e) {
       preCompactHookDisplay: void 0,
       settled: Ee,
     };
-  return C.put(A, Pe), !0;
+  return C.put(A, Pe), true;
 }
 
 function qse(e, t, r, o) {
@@ -10885,9 +10885,9 @@ async function eHn(e, t, r) {
     if (
       (n(`precomputed compact: awaiting borrowed in-flight (${t})`),
       await Promise.race([
-        o.settled.then(() => !1),
+        o.settled.then(() => false),
         new Promise((C) => {
-          r.addEventListener("abort", () => C(!0), { once: !0 });
+          r.addEventListener("abort", () => C(true), { once: true });
         }),
       ]))
     )
@@ -10912,9 +10912,9 @@ async function Lln(e, t, r, o) {
     if (
       (n(`precomputed compact: awaiting in-flight (${u})`),
       await Promise.race([
-        d.settled.then(() => !1),
+        d.settled.then(() => false),
         new Promise((x) => {
-          r.addEventListener("abort", () => x(!0), { once: !0 });
+          r.addEventListener("abort", () => x(true), { once: true });
         }),
       ]))
     )
@@ -10946,17 +10946,17 @@ async function MRe(e) {
         { outcome: pe, swap: pe.kind === "applied" ? pe.swap : void 0, emittedEarlyCompactStart: fe }
       );
     },
-    x = !cq(d) && J$() && (e.trigger === "threshold" || (e.isWithheld413 === !0 && !e.hasAttemptedReactiveCompact));
+    x = !cq(d) && J$() && (e.trigger === "threshold" || (e.isWithheld413 === true && !e.hasAttemptedReactiveCompact));
   if (x) jCt(_, Q$(t.agentId), d, r, t.options.mainLoopModel, t.storageV5);
   if (!x || (e.trigger === "threshold" && $Ct(_, t.agentId) === void 0))
-    return { outcome: { kind: "none" }, swap: void 0, emittedEarlyCompactStart: !1 };
+    return { outcome: { kind: "none" }, swap: void 0, emittedEarlyCompactStart: false };
   let M = t.abortController.signal,
     F = (u !== void 0 ? _.get(u) : $Ct(_, t.agentId))?.status === "pending";
   if (F)
     t.onCompactEvent?.({ type: "compact_progress", event: { type: "compact_start" } }),
       t.onCompactEvent?.({ type: "sdk_status", status: "compacting" });
   let U = null,
-    B = !1;
+    B = false;
   if (u !== void 0) (U = await eHn(_, u, M)), (B = U !== null);
   if (((U ??= await Lln(_, t.agentId, M, t.storageV5)), U === null)) return A({ kind: "none" }, F);
   if (U.kind === "turn_aborted") return A({ kind: "aborted" }, F);
@@ -10979,7 +10979,7 @@ async function MRe(e) {
         leadMs: o - U.ready.startedAt,
         totalMs: U.ready.readyDurationMs,
         borrowed: B,
-        rehydrated: U.ready.rehydrated === !0,
+        rehydrated: U.ready.rehydrated === true,
       },
     },
     F,
@@ -11019,8 +11019,8 @@ function gqe(e, t, r) {
     statusAtPTL: ke(e === "applied" || e === "failed" ? t?.statusAtPTL : void 0),
     ...(e === "applied" &&
       t?.kind === "ready" && {
-        borrowed: !1,
-        rehydrated: t.ready.rehydrated === !0,
+        borrowed: false,
+        rehydrated: t.ready.rehydrated === true,
         precomputeTotalMs: t.ready.readyDurationMs,
       }),
     ...(e === "failed" &&
@@ -11045,7 +11045,7 @@ function M$t(e, t, r) {
     reason: c(t),
     ageMs: Math.round(performance.now() - e.startedAt),
     readyDurationMs: e.readyDurationMs,
-    rehydrated: e.rehydrated === !0,
+    rehydrated: e.rehydrated === true,
     preCompactTokens: e.preCompactTokens,
     querySource: af(r),
   }),
@@ -11071,7 +11071,7 @@ function JC(e, t, r) {
 }
 
 function ZC(e, t) {
-  return !1;
+  return false;
 }
 
 function YG(e, t, r, o, u, d, _) {

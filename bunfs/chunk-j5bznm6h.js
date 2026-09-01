@@ -364,7 +364,7 @@ function be(Jt) {
     (de = r(t, { dimColor: Me, children: [Te, " every"] })), (l[43] = Me), (l[44] = Te), (l[45] = de);
   else de = l[45];
   let Ct;
-  if (l[46] === d) (Ct = e(t, { dimColor: !0, children: "  " })), (l[46] = Ct);
+  if (l[46] === d) (Ct = e(t, { dimColor: true, children: "  " })), (l[46] = Ct);
   else Ct = l[46];
   const Ie = a !== "until",
     Oe = a === "until" ? L.radioOn : L.radioOff;
@@ -391,12 +391,12 @@ function be(Jt) {
             onSubmit: () => ne("text"),
             focus: C === "interval",
             showCursor: C === "interval",
-            multiline: !1,
+            multiline: false,
             columns: 12,
             cursorOffset: q,
             onChangeCursorOffset: qt,
             placeholder: "10m",
-            disableEscapeDoublePress: !0,
+            disableEscapeDoublePress: true,
           }),
         ],
       })),
@@ -424,12 +424,12 @@ function be(Jt) {
       onSubmit: W,
       focus: Ge,
       showCursor: Ne,
-      multiline: !1,
+      multiline: false,
       columns: Ae,
       cursorOffset: z,
       onChangeCursorOffset: Kt,
       placeholder: Be,
-      disableEscapeDoublePress: !0,
+      disableEscapeDoublePress: true,
     })),
       (l[61] = W),
       (l[62] = Ge),
@@ -485,7 +485,7 @@ function be(Jt) {
       subtitle: Je,
       color: "permission",
       onCancel: Ce,
-      isCancelActive: !1,
+      isCancelActive: false,
       inputGuide: Xe,
       children: je,
     })),
@@ -498,7 +498,7 @@ function be(Jt) {
   else xe = l[89];
   let Lt;
   if (l[90] !== Ve || l[91] !== xe)
-    (Lt = e(o, { flexDirection: "column", tabIndex: 0, autoFocus: !0, onKeyDown: Ve, children: xe })),
+    (Lt = e(o, { flexDirection: "column", tabIndex: 0, autoFocus: true, onKeyDown: Ve, children: xe })),
       (l[90] = Ve),
       (l[91] = xe),
       (l[92] = Lt);
@@ -510,16 +510,16 @@ function we(so) {
     { loop: g, focused: U } = so;
   if (g.kind === "cron") {
     let E;
-    if (x[0] !== g.human) (E = e(t, { bold: !0, children: g.human })), (x[0] = g.human), (x[1] = E);
+    if (x[0] !== g.human) (E = e(t, { bold: true, children: g.human })), (x[0] = g.human), (x[1] = E);
     else E = x[1];
     let A;
-    if (x[2] === d) (A = e(t, { dimColor: !0, children: " \xB7 " })), (x[2] = A);
+    if (x[2] === d) (A = e(t, { dimColor: true, children: " \xB7 " })), (x[2] = A);
     else A = x[2];
     let V;
     if (x[3] !== g.prompt) (V = H(g.prompt, S)), (x[3] = g.prompt), (x[4] = V);
     else V = x[4];
     let T;
-    if (x[5] !== g.id) (T = r(t, { dimColor: !0, children: [" \xB7 ", g.id] })), (x[5] = g.id), (x[6] = T);
+    if (x[5] !== g.id) (T = r(t, { dimColor: true, children: [" \xB7 ", g.id] })), (x[5] = g.id), (x[6] = T);
     else T = x[6];
     let J;
     if (x[7] !== E || x[8] !== V || x[9] !== T)
@@ -534,10 +534,10 @@ function we(so) {
   if (x[14] !== g.condition) (E = H(g.condition, S)), (x[14] = g.condition), (x[15] = E);
   else E = x[15];
   let A;
-  if (x[16] !== E) (A = e(t, { bold: !0, children: E })), (x[16] = E), (x[17] = A);
+  if (x[16] !== E) (A = e(t, { bold: true, children: E })), (x[16] = E), (x[17] = A);
   else A = x[17];
   let V;
-  if (x[18] === d) (V = e(t, { dimColor: !0, children: " \xB7 stop-hook" })), (x[18] = V);
+  if (x[18] === d) (V = e(t, { dimColor: true, children: " \xB7 stop-hook" })), (x[18] = V);
   else V = x[18];
   let T;
   if (x[19] !== A) (T = r(t, { children: ["goal: ", A, V] })), (x[19] = A), (x[20] = T);
@@ -601,7 +601,7 @@ var ho = async (i, f) => {
         i(`Invalid interval: ${c.interval}`, { display: "system" });
         return;
       }
-      let O = await cTe(I, c.prompt, !0, !1);
+      let O = await cTe(I, c.prompt, true, false);
       i(`Loop ${O} created (${ry(I)})`, { display: "system" });
       return;
     }

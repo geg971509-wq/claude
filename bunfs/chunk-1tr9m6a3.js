@@ -41,7 +41,7 @@ async function Ptn({
   if (U0() && Q7e(W6(p)) !== void 0) {
     let i = `${ro(t)} \u2014 this link names a path inside the artifact, which is one of its published files rather than its page, so nothing was fetched. List the artifact's files with the ${Si} tool (action: "list_files", url) and save one locally with action: "read_file" (url, path); fetch the artifact URL itself for the page.`;
     return {
-      ok: !0,
+      ok: true,
       output: {
         bytes: Buffer.byteLength(i),
         code: 0,
@@ -56,9 +56,9 @@ async function Ptn({
   if (e.err !== null) {
     let i = wZ(e);
     if (i !== e.err) n(`[artifact] read failed: ${e.err}`);
-    if (e.status === void 0) return { ok: !1, transportError: `Artifact ${t.slug}: ${i}` };
+    if (e.status === void 0) return { ok: false, transportError: `Artifact ${t.slug}: ${i}` };
     return {
-      ok: !0,
+      ok: true,
       output: {
         bytes: 0,
         code: e.status,
@@ -73,7 +73,7 @@ async function Ptn({
       e.audience !== void 0 && e.audience !== "owner"
         ? `visible to ${wI(e.audience)}${e.audienceView === void 0 ? "" : ` \u2014 ${jfn(e.audienceView)}`}`
         : void 0,
-    d = e.role === "writer" && e.sameChannel === !0 && !e.publicRead && lnn(),
+    d = e.role === "writer" && e.sameChannel === true && !e.publicRead && lnn(),
     W = e.audience === "agent_scoped",
     U = W && e.role === "writer",
     B = e.publicRead
@@ -103,7 +103,7 @@ ${re}`;
       N = await q(Y, await Z(e.html), {
         signal: y.signal,
         isNonInteractiveSession: J,
-        isPreapprovedDomain: !1,
+        isPreapprovedDomain: false,
         agentContext: o.agentContext,
         credentials: o.credentials,
       }),
@@ -119,9 +119,9 @@ ${re}`;
                 html: e.html,
                 slug: t.slug,
                 ver: e.ver,
-                confirmsResend: !0,
+                confirmsResend: true,
                 batch: w,
-                heldSkipsRead: !0,
+                heldSkipsRead: true,
               },
               o,
             )
@@ -153,11 +153,11 @@ ${re}`;
           let f = l ? void 0 : bW(o.agentId, w);
           I = () => o.setArtifactReadVersion(t.slug, e.ver, f);
         }
-        S = m ? { slug: t.slug, ver: e.ver } : M ? { slug: t.slug } : { slug: t.slug, seeded: !1 };
+        S = m ? { slug: t.slug, ver: e.ver } : M ? { slug: t.slug } : { slug: t.slug, seeded: false };
       }
     }
     return {
-      ok: !0,
+      ok: true,
       output: {
         bytes: e.bytes,
         code: 200,
@@ -229,7 +229,7 @@ ${c}`),
                 html: e.html,
                 slug: t.slug,
                 ver: e.ver,
-                confirmsResend: !0,
+                confirmsResend: true,
                 batch: w,
                 heldSkipsRead: !i,
               },
@@ -270,10 +270,10 @@ ${F}${D}${H}`,
       if (r === "set") L = () => o.setArtifactReadVersion(t.slug, e.ver, i);
       else o.setArtifactReadVersion(t.slug, void 0, void 0), (L = () => o.setArtifactReadVersion(t.slug, void 0, i));
     }
-    V = { slug: t.slug, ...(r === "set" && { ver: e.ver }), ...(r === "skip" && { seeded: !1 }) };
+    V = { slug: t.slug, ...(r === "set" && { ver: e.ver }), ...(r === "skip" && { seeded: false }) };
   }
   return {
-    ok: !0,
+    ok: true,
     output: {
       bytes: e.bytes,
       code: 200,

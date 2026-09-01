@@ -35,7 +35,7 @@ async function Mcr(t) {
     let e = await p(s(be(), ".last-cleanup"));
     return Date.now() - e.mtimeMs < a;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function UKt(t, e) {

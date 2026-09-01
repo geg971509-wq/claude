@@ -24,7 +24,7 @@ F();
 var F7t = "current-pr";
 function NLn(o, i) {
   if (!o || !i) return null;
-  let l = o.kind === "cr" && !1,
+  let l = o.kind === "cr" && false,
     p = o.kind === "mr";
   return {
     prefix: p ? "MR" : "PR",
@@ -74,8 +74,8 @@ function qj(Ee) {
       hidePrefix: I,
       kind: ie,
     } = Ee,
-    he = oe === void 0 ? !0 : oe,
-    f = ie === "cr" && !1,
+    he = oe === void 0 ? true : oe,
+    f = ie === "cr" && false,
     s = ie === "mr",
     C = s ? "!" : "#",
     j = W(de),
@@ -140,7 +140,7 @@ function qj(Ee) {
   else w = m[33];
   let x;
   if (m[34] !== q || m[35] !== w || m[36] !== R)
-    (x = e(ut, { url: R, fallback: q, assumeSupport: !0, children: w })),
+    (x = e(ut, { url: R, fallback: q, assumeSupport: true, children: w })),
       (m[34] = q),
       (m[35] = w),
       (m[36] = R),

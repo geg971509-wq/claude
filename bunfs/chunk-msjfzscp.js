@@ -56,19 +56,19 @@ function* C(e) {
     for (let a of i) yield [a, null];
     return;
   }
-  let t = !1,
+  let t = false,
     o;
   if (e instanceof Headers) o = e.entries();
   else if (f(e)) o = e;
-  else (t = !0), (o = Object.entries(e ?? {}));
+  else (t = true), (o = Object.entries(e ?? {}));
   for (let r of o) {
     let i = r[0];
     if (typeof i !== "string") throw TypeError("expected header name to be a string");
     let a = f(r[1]) ? r[1] : [r[1]],
-      n = !1;
+      n = false;
     for (let s of a) {
       if (s === void 0) continue;
-      if (t && !n) (n = !0), yield [i, u];
+      if (t && !n) (n = true), yield [i, u];
       yield [i, s];
     }
   }
@@ -105,7 +105,7 @@ var u = Symbol("clear"),
         else t.append(a, n), o.delete(s);
       }
     }
-    return { [y]: !0, values: t, nulls: o };
+    return { [y]: true, values: t, nulls: o };
   };
 var T = function (e, t, o, r) {
     if (o === "a" && !r) throw TypeError("Private accessor was defined without a getter");
@@ -190,7 +190,7 @@ class A extends qf {
         if (!s) throw Error("Expected request body to be an object for post /v1/messages");
         let p = s.model;
         delete s.model;
-        let v = (s.stream ?? !1) ? "streamRawPredict" : "rawPredict",
+        let v = (s.stream ?? false) ? "streamRawPredict" : "rawPredict",
           I = n.pathname.slice(0, n.pathname.length - c.length);
         (n.pathname = `${I}/projects/${this.projectId}/locations/${this.region}/publishers/anthropic/models/${p}:${v}`),
           n.searchParams.delete("beta");

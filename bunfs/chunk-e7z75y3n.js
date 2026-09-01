@@ -27,7 +27,7 @@ function l(e) {
   let o = [];
   for (let n of Ag()) {
     if (e && !e(n)) continue;
-    o.push({ label: "scheduled task", detail: `${b(n)} \xB7 ${ir(n.prompt, c, !0)}` });
+    o.push({ label: "scheduled task", detail: `${b(n)} \xB7 ${ir(n.prompt, c, true)}` });
   }
   return o;
 }
@@ -37,16 +37,16 @@ function b(e) {
     n = o && IOe(o, new Date(e.createdAt));
   if (!n) return ry(e.cron);
   let t = Math.max(0, n.getTime() - Date.now());
-  return `Runs once in ${$t(t, { mostSignificantOnly: !0 })}`;
+  return `Runs once in ${$t(t, { mostSignificantOnly: true })}`;
 }
-function SNn(e, { includeDream: o = !1 } = {}) {
+function SNn(e, { includeDream: o = false } = {}) {
   let n = [];
   for (let t of Object.values(e)) {
     if (!Zf(t) || t.type === "remote_agent") continue;
     if (!o && t.type === "dream") continue;
     if (t.type === "monitor_ws" && t.ambient) continue;
     if (ndt(t)) continue;
-    n.push({ label: MIe[t.type], detail: ir(t.description, c, !0) });
+    n.push({ label: MIe[t.type], detail: ir(t.description, c, true) });
   }
   return n.push(...l()), n;
 }
@@ -56,14 +56,14 @@ function bNn() {
     n = [];
   for (let t of e) {
     if (t.kind === "todo" || t.doneAt !== void 0) continue;
-    n.push({ label: S[t.kind], detail: ir(t.label, c, !0) });
+    n.push({ label: S[t.kind], detail: ir(t.label, c, true) });
   }
   if (o.includes("auto_mode_scan"))
     n.push({ label: MIe.auto_mode_scan, detail: "environment scan for /auto-mode-setup" });
   return n.push(...l()), n;
 }
 function T(e) {
-  return e.type === "monitor_ws" && e.ambient === !0 && !nF(e);
+  return e.type === "monitor_ws" && e.ambient === true && !nF(e);
 }
 function d(e) {
   return Object.values(e)
@@ -72,17 +72,17 @@ function d(e) {
     .filter((o) => !T(o));
 }
 function I(e) {
-  if (e.status !== "running" && e.status !== "pending") return !1;
-  if (e.type === "remote_agent" || e.type === "dream") return !1;
+  if (e.status !== "running" && e.status !== "pending") return false;
+  if (e.type === "remote_agent" || e.type === "dream") return false;
   if (e.type === "mcp_task" && e.abortController === void 0) {
     if (e.protocol === "sep2663") {
-      if (e.parked === !0) return !1;
+      if (e.parked === true) return false;
       return e.sidecarSessionId !== K() || e.sidecarProjectDir !== PZ();
     }
-    return !1;
+    return false;
   }
-  if (e.type === "monitor_ws" && e.ambient === !0) return p(e);
-  return !0;
+  if (e.type === "monitor_ws" && e.ambient === true) return p(e);
+  return true;
 }
 function m(e) {
   return nF(e) && e.frameLive !== void 0;
@@ -100,10 +100,10 @@ function f() {
   return j$n() || eZ().size > 0;
 }
 function Wge(e, o) {
-  let n = o?.autoRepliesCarried === !0,
+  let n = o?.autoRepliesCarried === true,
     t = Object.values(e).filter((i) => I(i) && !(n && m(i)));
-  if (t.length === 0) return !n && f() ? { kind: "comment_monitor", activeTasks: !1 } : void 0;
-  return { kind: t.every(nF) ? "comment_monitor" : "tasks", activeTasks: !0 };
+  if (t.length === 0) return !n && f() ? { kind: "comment_monitor", activeTasks: false } : void 0;
+  return { kind: t.every(nF) ? "comment_monitor" : "tasks", activeTasks: true };
 }
 function rv(e) {
   let o = d(e),

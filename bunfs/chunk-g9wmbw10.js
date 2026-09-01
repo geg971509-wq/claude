@@ -45,25 +45,25 @@ function R(t, e, r) {
 }
 function xse(t, e) {
   let r = vS();
-  if (!r) return !1;
+  if (!r) return false;
   let d = r.split(" "),
     c = d[0] ?? r,
     p = d.slice(1),
     g = $Jt(r);
   if (g) {
     let u = R(g, t, e),
-      i = { detached: !0, stdio: "ignore", windowsHide: !0 },
+      i = { detached: true, stdio: "ignore", windowsHide: true },
       o;
     return (
       (o = v(c, [...p, ...u], i)),
       o.on("error", (s) => n(`editor spawn failed: ${s}`, { level: "error" })),
       fS(o.pid),
       o.unref(),
-      !0
+      true
     );
   }
   let f = Io.get(process.stdout);
-  if (!f) return !1;
+  if (!f) return false;
   let S = e && x.test(l(c));
   f.enterAlternateScreen();
   try {
@@ -74,14 +74,14 @@ function xse(t, e) {
         s = sAt();
       if (((i = m(c, o, { ...u, ...s })), i.error && s.cgroup !== void 0)) i = m(c, o, u);
     }
-    if (i.error) return n(`editor spawn failed: ${i.error}`, { level: "error" }), !1;
-    return !0;
+    if (i.error) return n(`editor spawn failed: ${i.error}`, { level: "error" }), false;
+    return true;
   } finally {
     f.exitAlternateScreen();
   }
 }
 class w {
-  isResolved = !1;
+  isResolved = false;
   editor = void 0;
   resolve() {
     if (this.isResolved) return this.editor;
@@ -91,10 +91,10 @@ class w {
       let t = ["code", "vi", "nano"];
       this.editor = t.find((e) => A(e));
     }
-    return (this.isResolved = !0), this.editor;
+    return (this.isResolved = true), this.editor;
   }
   reset() {
-    (this.isResolved = !1), (this.editor = void 0);
+    (this.isResolved = false), (this.editor = void 0);
   }
 }
 var y = new J(() => new w());

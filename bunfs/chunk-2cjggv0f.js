@@ -43,7 +43,7 @@ var Ae = j(Pl(), 1),
     name: "eventStreamHandlingMiddleware",
     relation: "after",
     toMiddleware: "awsAuthMiddleware",
-    override: !0,
+    override: true,
   };
 var Be = j(Pl(), 1),
   Ie = (e) => async (t) => {
@@ -62,7 +62,7 @@ var Be = j(Pl(), 1),
     step: "build",
     tags: ["EVENT_STREAM", "HEADER", "CONTENT_TYPE", "CONTENT_SHA256"],
     name: "eventStreamHeaderMiddleware",
-    override: !0,
+    override: true,
   };
 var Te = (e) => ({
   applyToStack: (t) => {
@@ -208,22 +208,22 @@ class oe {
         return Uint8Array.from([2, e.value]);
       case "short":
         let t = new DataView(new ArrayBuffer(3));
-        return t.setUint8(0, 3), t.setInt16(1, e.value, !1), new Uint8Array(t.buffer);
+        return t.setUint8(0, 3), t.setInt16(1, e.value, false), new Uint8Array(t.buffer);
       case "integer":
         let o = new DataView(new ArrayBuffer(5));
-        return o.setUint8(0, 4), o.setInt32(1, e.value, !1), new Uint8Array(o.buffer);
+        return o.setUint8(0, 4), o.setInt32(1, e.value, false), new Uint8Array(o.buffer);
       case "long":
         let r = new Uint8Array(9);
         return (r[0] = 5), r.set(e.value.bytes, 1), r;
       case "binary":
         let n = new DataView(new ArrayBuffer(3 + e.value.byteLength));
-        n.setUint8(0, 6), n.setUint16(1, e.value.byteLength, !1);
+        n.setUint8(0, 6), n.setUint16(1, e.value.byteLength, false);
         let s = new Uint8Array(n.buffer);
         return s.set(e.value, 3), s;
       case "string":
         let a = this.fromUtf8(e.value),
           i = new DataView(new ArrayBuffer(3 + a.byteLength));
-        i.setUint8(0, 7), i.setUint16(1, a.byteLength, !1);
+        i.setUint8(0, 7), i.setUint16(1, a.byteLength, false);
         let d = new Uint8Array(i.buffer);
         return d.set(a, 3), d;
       case "timestamp":
@@ -243,29 +243,29 @@ class oe {
         n = this.toUtf8(new Uint8Array(e.buffer, e.byteOffset + o, r));
       switch (((o += r), e.getUint8(o++))) {
         case 0:
-          t[n] = { type: Pe, value: !0 };
+          t[n] = { type: Pe, value: true };
           break;
         case 1:
-          t[n] = { type: Pe, value: !1 };
+          t[n] = { type: Pe, value: false };
           break;
         case 2:
           t[n] = { type: Ho, value: e.getInt8(o++) };
           break;
         case 3:
-          (t[n] = { type: Vo, value: e.getInt16(o, !1) }), (o += 2);
+          (t[n] = { type: Vo, value: e.getInt16(o, false) }), (o += 2);
           break;
         case 4:
-          (t[n] = { type: qo, value: e.getInt32(o, !1) }), (o += 4);
+          (t[n] = { type: qo, value: e.getInt32(o, false) }), (o += 4);
           break;
         case 5:
           (t[n] = { type: jo, value: new E(new Uint8Array(e.buffer, e.byteOffset + o, 8)) }), (o += 8);
           break;
         case 6:
-          let s = e.getUint16(o, !1);
+          let s = e.getUint16(o, false);
           (o += 2), (t[n] = { type: $o, value: new Uint8Array(e.buffer, e.byteOffset + o, s) }), (o += s);
           break;
         case 7:
-          let a = e.getUint16(o, !1);
+          let a = e.getUint16(o, false);
           (o += 2), (t[n] = { type: Xo, value: this.toUtf8(new Uint8Array(e.buffer, e.byteOffset + o, a)) }), (o += a);
           break;
         case 8:
@@ -317,11 +317,11 @@ var Me = 4,
 function we({ byteLength: e, byteOffset: t, buffer: o }) {
   if (e < Yo) throw Error("Provided message too short to accommodate event stream message overhead");
   let r = new DataView(o, t, e),
-    n = r.getUint32(0, !1);
+    n = r.getUint32(0, false);
   if (e !== n) throw Error("Reported message length does not match received message length");
-  let s = r.getUint32(Me, !1),
-    a = r.getUint32(x, !1),
-    i = r.getUint32(e - g, !1),
+  let s = r.getUint32(Me, false),
+    a = r.getUint32(x, false),
+    i = r.getUint32(e - g, false),
     d = new f().update(new Uint8Array(o, t, x));
   if (a !== d.digest())
     throw Error(
@@ -336,13 +336,13 @@ class y {
   messageBuffer;
   isEndOfStream;
   constructor(e, t) {
-    (this.headerMarshaller = new oe(e, t)), (this.messageBuffer = []), (this.isEndOfStream = !1);
+    (this.headerMarshaller = new oe(e, t)), (this.messageBuffer = []), (this.isEndOfStream = false);
   }
   feed(e) {
     this.messageBuffer.push(this.decode(e));
   }
   endOfStream() {
-    this.isEndOfStream = !0;
+    this.isEndOfStream = true;
   }
   getMessage() {
     let e = this.messageBuffer.pop(),
@@ -376,12 +376,12 @@ class y {
       s = new DataView(n.buffer, n.byteOffset, n.byteLength),
       a = new f();
     return (
-      s.setUint32(0, r, !1),
-      s.setUint32(4, o.byteLength, !1),
-      s.setUint32(8, a.update(n.subarray(0, 8)).digest(), !1),
+      s.setUint32(0, r, false),
+      s.setUint32(4, o.byteLength, false),
+      s.setUint32(8, a.update(n.subarray(0, 8)).digest(), false),
       n.set(o, 12),
       n.set(t, o.byteLength + 12),
-      s.setUint32(r - 4, a.update(n.subarray(8, r - 4)).digest(), !1),
+      s.setUint32(r - 4, a.update(n.subarray(8, r - 4)).digest(), false),
       n
     );
   }
@@ -453,7 +453,7 @@ var be = () => (e) => async (t) => {
     if (o.SessionId && n.SessionId == null) n.SessionId = o.SessionId;
     return r;
   },
-  Oe = { step: "initialize", name: "injectSessionIdMiddleware", tags: ["WEBSOCKET", "EVENT_STREAM"], override: !0 };
+  Oe = { step: "initialize", name: "injectSessionIdMiddleware", tags: ["WEBSOCKET", "EVENT_STREAM"], override: true };
 var Le = j(Pl(), 1),
   Fe = (e, t) => (o) => (r) => {
     let { request: n } = r;
@@ -479,7 +479,7 @@ var Le = j(Pl(), 1),
     tags: ["WEBSOCKET", "EVENT_STREAM"],
     relation: "after",
     toMiddleware: "eventStreamHeaderMiddleware",
-    override: !0,
+    override: true,
   };
 var Ue = (e, t) => ({
   applyToStack: (o) => {
@@ -527,11 +527,11 @@ function qe(e) {
     s = (i) => {
       if (typeof i !== "number")
         throw Error("Attempted to allocate an event message where size was not a number: " + i);
-      (t = i), (o = 4), (r = new Uint8Array(i)), new DataView(r.buffer).setUint32(0, i, !1);
+      (t = i), (o = 4), (r = new Uint8Array(i)), new DataView(r.buffer).setUint32(0, i, false);
     },
     a = async function* () {
       let i = e[Symbol.asyncIterator]();
-      while (!0) {
+      while (true) {
         let { value: d, done: p } = await i.next();
         if (p) {
           if (!t) return;
@@ -547,7 +547,7 @@ function qe(e) {
             if (!n) n = new Uint8Array(4);
             let te = Math.min(4 - o, k);
             if ((n.set(d.slice(l, l + te), o), (o += te), (l += te), o < 4)) break;
-            s(new DataView(n.buffer).getUint32(0, !1)), (n = null);
+            s(new DataView(n.buffer).getUint32(0, false)), (n = null);
           }
           let I = Math.min(t - o, u - l);
           if ((r.set(d.slice(l, l + I), o), (o += I), (l += I), t && t === o)) yield r, (r = null), (t = 0), (o = 0);
@@ -596,7 +596,7 @@ class ce {
     return new re({
       messageStream: new ae({ inputStream: e, serializer: t }),
       encoder: this.eventStreamCodec,
-      includeEndFrame: !0,
+      includeEndFrame: true,
     });
   }
 }
@@ -649,8 +649,8 @@ var Ke = (e) => {
   };
 var Ye = (e) =>
     Object.assign(e, {
-      useDualstackEndpoint: e.useDualstackEndpoint ?? !1,
-      useFipsEndpoint: e.useFipsEndpoint ?? !1,
+      useDualstackEndpoint: e.useDualstackEndpoint ?? false,
+      useFipsEndpoint: e.useFipsEndpoint ?? false,
       defaultSigningName: "bedrock",
     }),
   c = {
@@ -677,7 +677,7 @@ var Je = {
   main: "./dist-cjs/index.js",
   types: "./dist-types/index.d.ts",
   module: "./dist-es/index.js",
-  sideEffects: !1,
+  sideEffects: false,
   dependencies: {
     "@aws-crypto/sha256-browser": "5.2.0",
     "@aws-crypto/sha256-js": "5.2.0",
@@ -758,7 +758,7 @@ class de extends on {
   eventStreamCodec;
   systemClockOffsetProvider;
   constructor(e) {
-    super({ autoDestroy: !0, readableObjectMode: !0, writableObjectMode: !0, ...e });
+    super({ autoDestroy: true, readableObjectMode: true, writableObjectMode: true, ...e });
     (this.priorSignature = e.priorSignature),
       (this.eventStreamCodec = e.eventStreamCodec),
       (this.messageSigner = e.messageSigner),
@@ -801,7 +801,7 @@ class le {
       { body: n, query: s } = r;
     if (!(n instanceof an)) throw Error("Eventstream payload must be a Readable stream.");
     let a = n;
-    r.body = new rn({ objectMode: !0 });
+    r.body = new rn({ objectMode: true });
     let d = r.headers?.authorization?.match(/Signature=([\w]+)$/)?.[1] ?? s?.["X-Amz-Signature"] ?? "",
       p = new de({
         priorSignature: d,
@@ -827,18 +827,18 @@ var w = j(RN(), 1),
   gt = j(oa(), 1);
 import { Readable as cn } from "stream";
 async function* Ze(e) {
-  let t = !1,
-    o = !1,
+  let t = false,
+    o = false,
     r = [];
   e.on("error", (n) => {
-    if (!t) t = !0;
+    if (!t) t = true;
     if (n) throw n;
   }),
     e.on("data", (n) => {
       r.push(n);
     }),
     e.on("end", () => {
-      t = !0;
+      t = true;
     });
   while (!o) {
     let n = await new Promise((s) => setTimeout(() => s(r.shift()), 0));
@@ -875,16 +875,16 @@ var pt = j(gg(), 1),
   M = j(yg(), 1);
 var ut = j(vO(), 1),
   h = j(VH(), 1);
-var tt = { ["required"]: !1, type: "string" },
-  ot = { ["required"]: !0, default: !1, type: "boolean" },
+var tt = { ["required"]: false, type: "string" },
+  ot = { ["required"]: true, default: false, type: "boolean" },
   nt = { ["ref"]: "Endpoint" },
-  dt = { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseFIPS" }, !0] },
-  lt = { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseDualStack" }, !0] },
+  dt = { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseFIPS" }, true] },
+  lt = { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseDualStack" }, true] },
   m = {},
   rt = { ["fn"]: "getAttr", ["argv"]: [{ ["ref"]: "PartitionResult" }, "supportsFIPS"] },
   st = {
     ["fn"]: "booleanEquals",
-    ["argv"]: [!0, { ["fn"]: "getAttr", ["argv"]: [{ ["ref"]: "PartitionResult" }, "supportsDualStack"] }],
+    ["argv"]: [true, { ["fn"]: "getAttr", ["argv"]: [{ ["ref"]: "PartitionResult" }, "supportsDualStack"] }],
   },
   at = [dt],
   it = [lt],
@@ -923,7 +923,7 @@ var tt = { ["required"]: !1, type: "string" },
                     conditions: [dt, lt],
                     rules: [
                       {
-                        conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [!0, rt] }, st],
+                        conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [true, rt] }, st],
                         rules: [
                           {
                             rules: [
@@ -952,7 +952,7 @@ var tt = { ["required"]: !1, type: "string" },
                     conditions: at,
                     rules: [
                       {
-                        conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [rt, !0] }],
+                        conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [rt, true] }],
                         rules: [
                           {
                             rules: [
@@ -1033,7 +1033,7 @@ var ft = (e) => ({
   apiVersion: "2023-09-30",
   base64Decoder: e?.base64Decoder ?? P.fromBase64,
   base64Encoder: e?.base64Encoder ?? P.toBase64,
-  disableHostPrefix: e?.disableHostPrefix ?? !1,
+  disableHostPrefix: e?.disableHostPrefix ?? false,
   endpointProvider: e?.endpointProvider ?? mt,
   extensions: e?.extensions ?? [],
   httpAuthSchemeProvider: e?.httpAuthSchemeProvider ?? Ke,
@@ -1102,7 +1102,7 @@ var Rt = j(Pt(), 1),
       maxAttempts: e?.maxAttempts ?? S.loadConfig(b.NODE_MAX_ATTEMPT_CONFIG_OPTIONS, e),
       region: e?.region ?? S.loadConfig(v.NODE_REGION_CONFIG_OPTIONS, { ...v.NODE_REGION_CONFIG_FILE_OPTIONS, ...n }),
       requestHandler: O.NodeHttp2Handler.create(
-        e?.requestHandler ?? (async () => ({ ...(await o()), disableConcurrentStreams: !0 })),
+        e?.requestHandler ?? (async () => ({ ...(await o()), disableConcurrentStreams: true })),
       ),
       retryMode:
         e?.retryMode ??
@@ -2484,7 +2484,7 @@ class aCn extends Ao.Command.classBuilder()
   .m(function (e, t, o, r) {
     return [Eo.getEndpointPlugin(o, e.getEndpointParameterInstructions())];
   })
-  .s("AmazonBedrockFrontendService", "ConverseStream", { eventStream: { output: !0 } })
+  .s("AmazonBedrockFrontendService", "ConverseStream", { eventStream: { output: true } })
   .n("BedrockRuntimeClient", "ConverseStreamCommand")
   .sc(co)
   .build() {}
@@ -2532,7 +2532,7 @@ class dCn extends Go.Command.classBuilder()
       Ue(o, { headerPrefix: "x-amz-bedrock-" }),
     ];
   })
-  .s("AmazonBedrockFrontendService", "InvokeModelWithBidirectionalStream", { eventStream: { input: !0, output: !0 } })
+  .s("AmazonBedrockFrontendService", "InvokeModelWithBidirectionalStream", { eventStream: { input: true, output: true } })
   .n("BedrockRuntimeClient", "InvokeModelWithBidirectionalStreamCommand")
   .sc(mo)
   .build() {}
@@ -2543,7 +2543,7 @@ class pCn extends Po.Command.classBuilder()
   .m(function (e, t, o, r) {
     return [ko.getEndpointPlugin(o, e.getEndpointParameterInstructions())];
   })
-  .s("AmazonBedrockFrontendService", "InvokeModelWithResponseStream", { eventStream: { output: !0 } })
+  .s("AmazonBedrockFrontendService", "InvokeModelWithResponseStream", { eventStream: { output: true } })
   .n("BedrockRuntimeClient", "InvokeModelWithResponseStreamCommand")
   .sc(po)
   .build() {}

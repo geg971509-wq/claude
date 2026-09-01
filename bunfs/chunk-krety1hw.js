@@ -254,24 +254,24 @@ function _dn(e, t, o) {
     d = 0,
     c = 0,
     S = -1,
-    j = !1;
+    j = false;
   for (;;) {
     let g = a.indexOf(jft, c);
     if (g < 0) break;
     let y = g + jft.length,
       _ = j ? -1 : S >= y ? S : (S = a.indexOf(O, y));
     if (_ < 0) {
-      j = !0;
+      j = true;
       let u = a.subarray(g);
       if (u.length > jft.length + r) {
         c = y;
         continue;
       }
-      let U = !1;
+      let U = false;
       for (let x = y; x < a.length; x++) {
         let B = a[x];
         if (B === 24 || B === 26 || (B === 27 && x < a.length - 1)) {
-          U = !0;
+          U = true;
           break;
         }
       }
@@ -283,12 +283,12 @@ function _dn(e, t, o) {
         p.push(a.subarray(d, g)), { marks: l, carry: Buffer.from(u), cleaned: p.length === 1 ? p[0] : Buffer.concat(p) }
       );
     }
-    let D = !1;
+    let D = false;
     if (_ - y <= r)
       try {
         let u = V(a.subarray(y, _).toString("utf8"));
         if (u !== null && typeof u === "object" && (u.kind === "content_paint" || u.kind === "prompt_idle")) {
-          if (((D = !0), o?.requireNonce === void 0 || u.nonce === o.requireNonce))
+          if (((D = true), o?.requireNonce === void 0 || u.nonce === o.requireNonce))
             l.push({
               kind: u.kind,
               msgsLoaded: Fbe(u.msgsLoaded),
@@ -607,7 +607,7 @@ function Cte() {
 async function cT(e, t) {
   if (t) {
     let { roster: r, inspectFailed: a } = await Q(t, e);
-    return a ? { ...r, inspectFailed: !0 } : r;
+    return a ? { ...r, inspectFailed: true } : r;
   }
   let o;
   try {
@@ -628,8 +628,8 @@ async function cT(e, t) {
           r.isFile())
         )
           await P(void 0);
-        else await Y(bF(), { recursive: !0, force: !0 }).catch((a) => h(a));
-      return { ...Cte(), parseFailed: !0 };
+        else await Y(bF(), { recursive: true, force: true }).catch((a) => h(a));
+      return { ...Cte(), parseFailed: true };
     }
     o = V(await ue(bF(), "utf8"));
   } catch (r) {
@@ -638,7 +638,7 @@ async function cT(e, t) {
       h(ft(we(r), "bg roster.json read/parse failed")),
         s("tengu_bg_roster_parse_failed", { orphaned: -1, quarantined: 1, errCode: Rg(r) }),
         await P(void 0);
-    return { ...Cte(), parseFailed: !0 };
+    return { ...Cte(), parseFailed: true };
   }
   return Z(o, e, void 0);
 }
@@ -649,7 +649,7 @@ async function Z(e, t, o) {
   } catch (a) {
     if (!t?.silent)
       h(a), s("tengu_bg_roster_parse_failed", { orphaned: K(e), quarantined: 1, errCode: Rg(a) }), await P(o);
-    return { ...Cte(), parseFailed: !0 };
+    return { ...Cte(), parseFailed: true };
   }
   if (r.success) {
     delete r.data.parseFailed, delete r.data.inspectFailed;
@@ -672,7 +672,7 @@ async function Z(e, t, o) {
       s("tengu_bg_roster_parse_failed", { orphaned: a, quarantined: 1, issuePath: J(l?.path), issueCode: ke(l?.code) }),
       await P(o);
   }
-  return { ...Cte(), parseFailed: !0 };
+  return { ...Cte(), parseFailed: true };
 }
 async function P(e) {
   if (!e) {
@@ -691,11 +691,11 @@ async function P(e) {
     );
 }
 async function he(e) {
-  await Y(e, { recursive: !0, force: !0 }).catch((t) => h(t));
+  await Y(e, { recursive: true, force: true }).catch((t) => h(t));
 }
 async function W(e, t, o, r) {
   if (!t?.silent) h(o), s("tengu_bg_roster_parse_failed", { orphaned: -1, quarantined: 1, errCode: w(r) }), await Ee(e);
-  return { ...Cte(), parseFailed: !0 };
+  return { ...Cte(), parseFailed: true };
 }
 async function Q(e, t) {
   let o = await LBt(bF());
@@ -704,14 +704,14 @@ async function Q(e, t) {
       h(Error("roster.json is not a regular file \u2014 removing")),
         s("tengu_bg_roster_parse_failed", { orphaned: -1, quarantined: 1, errCode: w("EFTYPE") }),
         await he(bF());
-    return { roster: { ...Cte(), parseFailed: !0 }, inspectFailed: !1 };
+    return { roster: { ...Cte(), parseFailed: true }, inspectFailed: false };
   }
   if (o.kind === "error") return ee(t, ft(we(o.error), "bg roster.json read/parse failed"), Rg(o.error));
   return be(e, t);
 }
 function ee(e, t, o) {
   if (!e?.silent) h(t), s("tengu_bg_roster_parse_failed", { orphaned: -1, quarantined: 0, errCode: o });
-  return { roster: { ...Cte(), parseFailed: !0 }, inspectFailed: !0 };
+  return { roster: { ...Cte(), parseFailed: true }, inspectFailed: true };
 }
 async function be(e, t) {
   let o = await e.read([{ key: gDe(), offset: 0, length: G + 1 }]).catch(() => {
@@ -729,7 +729,7 @@ async function be(e, t) {
           ),
           "EV5READ",
         ),
-        inspectFailed: !1,
+        inspectFailed: false,
       };
     return ee(
       t,
@@ -738,7 +738,7 @@ async function be(e, t) {
     );
   }
   let r = o.value.items[0];
-  if (!r.found) return { roster: Cte(), inspectFailed: !1 };
+  if (!r.found) return { roster: Cte(), inspectFailed: false };
   if (r.totalBytes > G)
     return {
       roster: await W(
@@ -747,7 +747,7 @@ async function be(e, t) {
         new R(`roster.json too large (${r.totalBytes} bytes) \u2014 removing`, "roster.json too large \u2014 removing"),
         "E2BIG",
       ),
-      inspectFailed: !1,
+      inspectFailed: false,
     };
   let a;
   try {
@@ -757,9 +757,9 @@ async function be(e, t) {
       h(ft(we(l), "bg roster.json read/parse failed")),
         s("tengu_bg_roster_parse_failed", { orphaned: -1, quarantined: 1, errCode: Rg(l) }),
         await P(e);
-    return { roster: { ...Cte(), parseFailed: !0 }, inspectFailed: !1 };
+    return { roster: { ...Cte(), parseFailed: true }, inspectFailed: false };
   }
-  return { roster: await Z(a, t, e), inspectFailed: !1 };
+  return { roster: await Z(a, t, e), inspectFailed: false };
 }
 async function Ee(e) {
   let t = await e.delete(gDe()).catch(() => {
@@ -794,7 +794,7 @@ async function qhr(e, t) {
     return;
   }
   let l = bF();
-  await ce(ge(l), { recursive: !0, mode: 448 }).catch(() => {}),
+  await ce(ge(l), { recursive: true, mode: 448 }).catch(() => {}),
     await Wn(l, b(a, null, 2), 384).catch((p) => {
       let d = E(p);
       if (d && n1.has(d)) {

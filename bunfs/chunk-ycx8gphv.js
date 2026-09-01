@@ -62,9 +62,9 @@ async function M(e) {
 }
 async function P(e) {
   try {
-    return await ie(e), !0;
+    return await ie(e), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function G(e) {
@@ -87,8 +87,8 @@ var ve = /\$ARGUMENTS\[\d+\]|\$ARGUMENTS|\$\d+(?!\w)/g,
   qe = /[a-zA-RT-Z_).,;:'"?!>-]/;
 function Je(e) {
   let t = e.replace(/\$[\p{L}\p{N}_.-]+/gu, (r) => " ".repeat(r.length));
-  for (let r = 0; r < e.length; r++) if (e[r] === "!" && !qe.test(t[r - 1] ?? "")) return !0;
-  return !1;
+  for (let r = 0; r < e.length; r++) if (e[r] === "!" && !qe.test(t[r - 1] ?? "")) return true;
+  return false;
 }
 function ne(e, t) {
   let r = e.replace(/(?<=^|\s)!`[^`]*`/gm, "");
@@ -149,11 +149,11 @@ function $e(e, t = "darwin") {
   return t === "darwin" || t === "win32" ? r.toUpperCase().toLowerCase() : r;
 }
 async function re(e, t) {
-  if (!t) return !1;
+  if (!t) return false;
   let r = await Ie(B(e));
-  if (r === null) return !0;
+  if (r === null) return true;
   let a = await Ie(B(t));
-  if (a === null) return !0;
+  if (a === null) return true;
   let o;
   switch (D()) {
     case "windows":
@@ -167,7 +167,7 @@ async function re(e, t) {
   }
   let d = o(a),
     c = o(r);
-  if (d === null || c === null) return !0;
+  if (d === null || c === null) return true;
   let u = ee($e(d), $e(c));
   return u === "" || !he(u);
 }
@@ -176,9 +176,9 @@ function F() {
   try {
     e = Be().homedir;
   } catch {
-    return !0;
+    return true;
   }
-  if (!e) return !0;
+  if (!e) return true;
   return B(Ke()) !== B(e);
 }
 function J(e) {
@@ -234,7 +234,7 @@ async function me(e, t, r, a, o, d) {
   }
   if (o) return `would append ${oe(t)} \u2192 \`${e}\``;
   let p = r ?? (await M(t));
-  await O(ae(e), { recursive: !0 });
+  await O(ae(e), { recursive: true });
   let b = u
     ? `${u}${
         u.endsWith(`
@@ -250,7 +250,7 @@ async function me(e, t, r, a, o, d) {
     `${b}${c}
 ${p.trimEnd()}
 `,
-    { encoding: "utf8", allowSymlink: !0 },
+    { encoding: "utf8", allowSymlink: true },
   );
   let h =
     ae(t) !== ae(e) && /(?:^|\s)@(?![/~@])(?:[^\s\\]|\\ )+/.test(p)
@@ -259,8 +259,8 @@ ${p.trimEnd()}
   return `appended ${oe(t)} \u2192 \`${e}\`${h}`;
 }
 async function ye(e, t) {
-  await O(t, { recursive: !0 });
-  let r = await W(e, { withFileTypes: !0 });
+  await O(t, { recursive: true });
+  let r = await W(e, { withFileTypes: true });
   for (let a of r) {
     let o = V(e, a.name),
       d = V(t, a.name);
@@ -364,7 +364,7 @@ Relevant Claude Code config locations:
 - Skills: \`~/.claude/skills/<name>/SKILL.md\`
 - Hooks: the \`hooks\` key in settings.json (PreToolUse/PostToolUse/UserPromptSubmit/\u2026)
 `;
-  await O(o, { recursive: !0 }), await U(d, jA(C), "utf8");
+  await O(o, { recursive: true }), await U(d, jA(C), "utf8");
   let A = b.length > 0 ? " (merged with existing sections)" : "";
   return `wrote \`${d}\`${A}`;
 }
@@ -622,7 +622,7 @@ ${w.instructions ?? ""}
         if (Z !== null) return { skipped: `${g}: ${Z}` };
         if (await P(_)) return { skipped: `${g}: \`${_}\` already exists` };
         if (z) return `would write \`${_}\``;
-        return await O(j, { recursive: !0 }), await U(_, L, "utf8"), `wrote \`${_}\``;
+        return await O(j, { recursive: true }), await U(_, L, "utf8"), `wrote \`${_}\``;
       },
     });
   }
@@ -716,9 +716,9 @@ ${w.instructions ?? ""}
         if (await P(j)) return { skipped: `${g}: \`${j}\` already exists` };
         if (T) return `would copy \`${N}\` \u2192 \`${j}\``;
         try {
-          await ye(N, j), await ge(S(j, "SKILL.md"), { force: !0 }), await U(S(j, "SKILL.md"), z, "utf8");
+          await ye(N, j), await ge(S(j, "SKILL.md"), { force: true }), await U(S(j, "SKILL.md"), z, "utf8");
         } catch (K) {
-          throw (await ge(j, { recursive: !0, force: !0 }).catch(() => {}), K);
+          throw (await ge(j, { recursive: true, force: true }).catch(() => {}), K);
         }
         return `copied skill \u2192 \`${j}\``;
       },
@@ -827,7 +827,7 @@ async function dt(e, t, r, a, o) {
 }
 async function ut(e, t, r) {
   let a = S(e, "prompts"),
-    o = await W(a, { withFileTypes: !0 }).catch(() => []),
+    o = await W(a, { withFileTypes: true }).catch(() => []),
     d = be();
   for (let c of o) {
     if (!c.isFile()) continue;
@@ -866,7 +866,7 @@ async function ut(e, t, r) {
       async apply({ dryRun: A }) {
         if (await P(b)) return { skipped: `${Y(u, ".md")}: \`${b}\` already exists` };
         if (A) return `would copy \`${p}\` \u2192 \`${b}\``;
-        await O(tt(b), { recursive: !0 });
+        await O(tt(b), { recursive: true });
         let y = h.trimStart().startsWith("---")
           ? `
 `
@@ -890,7 +890,7 @@ var ze = {
   async detect(e) {
     let t = Ne(e),
       r = e.cwd ?? Se();
-    if (e.homeDir === void 0 && F()) return !0;
+    if (e.homeDir === void 0 && F()) return true;
     return (
       (await P(S(t, "config.toml"))) ||
       (await P(S(t, "AGENTS.md"))) ||
@@ -965,14 +965,14 @@ function wt(e) {
     if (h.includes("{"))
       return {
         body: t,
-        hasShellExec: !0,
+        hasShellExec: true,
         untranslatable:
           "Its `!{\u2026}` shell block contains nested braces, which this importer would truncate. Port it manually.",
       };
     if (h.includes("`"))
       return {
         body: t,
-        hasShellExec: !0,
+        hasShellExec: true,
         untranslatable:
           "Its `!{\u2026}` shell block contains a backtick, which Claude Code's `` !`cmd` `` syntax can't represent. Port it manually.",
       };
@@ -981,7 +981,7 @@ function wt(e) {
     if (h.includes("{"))
       return {
         body: t,
-        hasShellExec: !1,
+        hasShellExec: false,
         untranslatable:
           "Its `@{\u2026}` path contains a nested brace, which this importer would truncate. Port it manually.",
       };
@@ -990,7 +990,7 @@ function wt(e) {
     if (C !== void 0 && !/\s/.test(C))
       return {
         body: t,
-        hasShellExec: !0,
+        hasShellExec: true,
         untranslatable:
           "Its `!{\u2026}` block isn't preceded by whitespace \u2014 Claude Code's `` !`cmd` `` marker requires it, so the shell exec would be silently lost. Port it manually.",
       };
@@ -998,7 +998,7 @@ function wt(e) {
   if (t.replace(/!\{[^}]+\}/g, "").includes("!`"))
     return {
       body: t,
-      hasShellExec: !0,
+      hasShellExec: true,
       untranslatable:
         "It has a literal `` !` `` outside any `!{\u2026}` block (inert in Gemini, live in Claude Code \u2014 and it may pair with a translated block's backtick to run something other than the block). Port it manually.",
     };
@@ -1007,14 +1007,14 @@ function wt(e) {
   if (o.includes("```!"))
     return {
       body: t,
-      hasShellExec: !0,
+      hasShellExec: true,
       untranslatable:
         "Its body contains a ```! fenced shell block (inert in Gemini, live in Claude Code). Port it manually.",
     };
   if ((o.match(/!`[^`]*`/g) ?? []).length > r.length)
     return {
       body: t,
-      hasShellExec: !0,
+      hasShellExec: true,
       untranslatable:
         "Its translated body contains a `` !`cmd` `` shell-exec marker that wasn't a `!{\u2026}` block in the Gemini prompt (inert there, live in Claude Code). Port it manually.",
     };
@@ -1032,19 +1032,19 @@ function wt(e) {
   if (u.length > 0)
     return {
       body: t,
-      hasShellExec: !0,
+      hasShellExec: true,
       untranslatable:
         "Its translated body would execute a shell command that wasn't a `!{\u2026}` block in the Gemini prompt (inert there, live in Claude Code). Port it manually.",
     };
   if (p.length > 0)
     return {
       body: t,
-      hasShellExec: !0,
+      hasShellExec: true,
       untranslatable:
         "A `!{\u2026}` shell block would be silently dropped by Claude Code's `` !`cmd` `` parsing after translation (its marker re-pairs with nearby backticks). Port it manually.",
     };
   let b = ne(o, a);
-  if (b !== null) return { body: t, hasShellExec: !0, untranslatable: b };
+  if (b !== null) return { body: t, hasShellExec: true, untranslatable: b };
   return { body: o, hasShellExec: a.length > 0 };
 }
 async function kt(e, t, r) {
@@ -1123,7 +1123,7 @@ async function kt(e, t, r) {
 }
 async function bt(e, t, r) {
   let a = E(e, "commands"),
-    o = await W(a, { withFileTypes: !0 }).catch(() => []),
+    o = await W(a, { withFileTypes: true }).catch(() => []),
     d = be(),
     c = o.filter((u) => u.isDirectory()).map((u) => u.name);
   if (c.length > 0)
@@ -1176,10 +1176,10 @@ async function bt(e, t, r) {
       async apply({ dryRun: T }) {
         if (await P(A)) return { skipped: `${C}: \`${A}\` already exists` };
         if (T) return `would write \`${A}\``;
-        await O(E(d, "commands"), { recursive: !0 });
+        await O(E(d, "commands"), { recursive: true });
         let N = {
             ...(j && { description: le(j) }),
-            ...(w && { "allowed-tools": [Qe, Bt], "disable-model-invocation": !0 }),
+            ...(w && { "allowed-tools": [Qe, Bt], "disable-model-invocation": true }),
           },
           L =
             Object.keys(N).length > 0
@@ -1259,7 +1259,7 @@ var Re = {
   async detect(e) {
     let t = Me(e),
       r = e.cwd ?? Se();
-    if (e.homeDir === void 0 && F()) return !0;
+    if (e.homeDir === void 0 && F()) return true;
     return (
       (await P(E(t, "settings.json"))) ||
       (await P(E(t, "GEMINI.md"))) ||

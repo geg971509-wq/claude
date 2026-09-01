@@ -293,25 +293,25 @@ import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-7jz6r17g.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 var p = [
-    { value: "--enabled", description: "Only show enabled plugins", isFinal: !0 },
-    { value: "--disabled", description: "Only show disabled plugins", isFinal: !0 },
+    { value: "--enabled", description: "Only show enabled plugins", isFinal: true },
+    { value: "--disabled", description: "Only show disabled plugins", isFinal: true },
   ],
   m = [
     { value: "add", description: "Add a marketplace from a URL or path" },
     { value: "remove", description: "Remove a known marketplace" },
     { value: "update", description: "Refresh a marketplace from its source" },
-    { value: "list", description: "List known marketplaces", isFinal: !0 },
+    { value: "list", description: "List known marketplaces", isFinal: true },
   ];
 async function S(a, n, r) {
   if (a.length === 0) {
     let s = [
-      { value: "list", description: "List installed plugins", isFinal: !0 },
+      { value: "list", description: "List installed plugins", isFinal: true },
       { value: "enable", description: "Enable an installed plugin" },
       { value: "disable", description: "Disable an installed plugin" },
       { value: "install", description: "Install a plugin from a marketplace" },
       { value: "uninstall", description: "Remove an installed plugin" },
       { value: "marketplace", description: "Manage plugin marketplaces" },
-      ...(Sk() ? [{ value: "stats", description: "Show skill usage and context costs", isFinal: !0 }] : []),
+      ...(Sk() ? [{ value: "stats", description: "Show skill usage and context costs", isFinal: true }] : []),
     ];
     return c(s, n);
   }
@@ -331,7 +331,7 @@ async function S(a, n, r) {
         let e = i
           .map(([t, o]) => {
             let u = (o.find(AD) ?? o[0])?.version;
-            return { value: t, description: Cqe(u), isFinal: !0 };
+            return { value: t, description: Cqe(u), isFinal: true };
           })
           .sort((t, o) => t.value.localeCompare(o.value));
         return c(e, n);
@@ -355,7 +355,7 @@ async function S(a, n, r) {
     if (s === "remove" || s === "rm" || s === "update") {
       let i = await cc(r),
         e = Object.entries(i)
-          .map(([t, o]) => ({ value: t, description: OSe(o.source), isFinal: !0 }))
+          .map(([t, o]) => ({ value: t, description: OSe(o.source), isFinal: true }))
           .sort((t, o) => t.value.localeCompare(o.value));
       return c(e, n);
     }
@@ -389,7 +389,7 @@ async function f(a, n) {
   }
   return i
     .filter((e) => !tH(e.pluginId) && !Fd(e.pluginId))
-    .map((e) => ({ value: e.pluginId, description: e.description, isFinal: !0 }));
+    .map((e) => ({ value: e.pluginId, description: e.description, isFinal: true }));
 }
 function c(a, n) {
   if (!n) return a;

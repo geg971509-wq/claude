@@ -40,7 +40,7 @@ function g(t) {
   return e ? { user: e[1], host: e[2], path: e[3] } : null;
 }
 function Fd(t) {
-  return ye("policySettings")?.enabledPlugins?.[t] === !1;
+  return ye("policySettings")?.enabledPlugins?.[t] === false;
 }
 function gM() {
   let t = ye("policySettings");
@@ -48,7 +48,7 @@ function gM() {
   return t.strictKnownMarketplaces;
 }
 function wz() {
-  if (dfn()?.some((e) => e.source === "skills-dir")) return !1;
+  if (dfn()?.some((e) => e.source === "skills-dir")) return false;
   let t = gM();
   return t === null || t.some((e) => e.source === "skills-dir");
 }
@@ -56,12 +56,12 @@ function Zze(t) {
   return `Plugins from ${t}/ are blocked by your organization's managed settings (strictKnownMarketplaces or blockedMarketplaces). Ask your administrator to add {"source":"skills-dir"} to strictKnownMarketplaces, or remove it from blockedMarketplaces.`;
 }
 function Tz() {
-  return ye("policySettings")?.disableSideloadFlags === !0;
+  return ye("policySettings")?.disableSideloadFlags === true;
 }
 function FS() {
   let t = ye("policySettings");
-  if (t?.disableCommandPluginSources !== void 0) return t.disableCommandPluginSources === !0;
-  return t?.allowManagedHooksOnly === !0;
+  if (t?.disableCommandPluginSources !== void 0) return t.disableCommandPluginSources === true;
+  return t?.allowManagedHooksOnly === true;
 }
 function Awe() {
   return cS() !== "remote" || VNe();
@@ -110,11 +110,11 @@ function tVe() {
 function nVe(t, e) {
   let r = ye("policySettings"),
     o = r?.extraKnownMarketplaces?.[t]?.source;
-  if (o && h(e, o)) return !0;
-  return r?.strictKnownMarketplaces?.some((i) => D(e, i)) ?? !1;
+  if (o && h(e, o)) return true;
+  return r?.strictKnownMarketplaces?.some((i) => D(e, i)) ?? false;
 }
 function h(t, e) {
-  if (t.source !== e.source) return !1;
+  if (t.source !== e.source) return false;
   switch (t.source) {
     case "url":
       return M9(t.url) === M9(e.url);
@@ -133,7 +133,7 @@ function h(t, e) {
     case "settings":
       return t.name === e.name && bs(t.plugins, e.plugins);
     default:
-      return !1;
+      return false;
   }
 }
 function pfn(t) {
@@ -177,23 +177,23 @@ function Qhr(t) {
 }
 function w(t, e, r) {
   let o = r?.blocklistDirection ? YDe(t) : Qhr(t);
-  if (!o) return !1;
+  if (!o) return false;
   let i = r?.blocklistDirection && o === m ? [o, vs] : [o];
   try {
     let s = new RegExp(e.hostPattern);
     return i.some((u) => s.test(u));
   } catch {
-    return n(`Invalid hostPattern regex in policy settings: ${e.hostPattern}`, { level: "error" }), !1;
+    return n(`Invalid hostPattern regex in policy settings: ${e.hostPattern}`, { level: "error" }), false;
   }
 }
 function P(t, e) {
-  if (t.source !== "file" && t.source !== "directory") return !1;
+  if (t.source !== "file" && t.source !== "directory") return false;
   try {
     return new RegExp(e.pathPattern).test(t.path);
   } catch {
     return (
       n(`Invalid pathPattern regex in policy settings strictKnownMarketplaces: ${e.pathPattern}`, { level: "error" }),
-      !1
+      false
     );
   }
 }
@@ -298,9 +298,9 @@ function C(t) {
 }
 function O(t, e) {
   let r = t.split("/");
-  if (r.length !== 2) return !1;
+  if (r.length !== 2) return false;
   let [o, i] = r;
-  if (o === void 0 || i === void 0 || !f(o) || !f(i)) return !1;
+  if (o === void 0 || i === void 0 || !f(o) || !f(i)) return false;
   return o === e;
 }
 function R(t) {
@@ -335,17 +335,17 @@ function p(t, e) {
     return r === t || e === t;
   }
   let i = r.split("/");
-  if (i.length !== 2) return !1;
+  if (i.length !== 2) return false;
   let [s, u] = i;
-  if (s === void 0 || u === void 0 || !f(s) || !x.test(u)) return !1;
+  if (s === void 0 || u === void 0 || !f(s) || !x.test(u)) return false;
   return s.toLowerCase() === o.toLowerCase();
 }
 function b(t) {
-  if (t.startsWith("/") || t.startsWith("\\") || /^[A-Za-z]:/.test(t)) return !1;
+  if (t.startsWith("/") || t.startsWith("\\") || /^[A-Za-z]:/.test(t)) return false;
   return !t.split(/[\\/]/).some((e) => e === "..");
 }
 function a(t, e) {
-  if (!t) return !0;
+  if (!t) return true;
   return t === (e || void 0);
 }
 function U(t, e) {
@@ -353,14 +353,14 @@ function U(t, e) {
     switch (t.source) {
       case "github": {
         let r = e;
-        if (!p(r.repo, t.repo)) return !1;
+        if (!p(r.repo, t.repo)) return false;
         return a(r.ref, t.ref) && a(r.path, t.path);
       }
       case "git": {
         let r = e,
           o = y(r.url),
           i = o === null ? null : d(t.url);
-        if (!(o !== null && i !== null ? p(o, i) : c(t.url) === c(r.url))) return !1;
+        if (!(o !== null && i !== null ? p(o, i) : c(t.url) === c(r.url))) return false;
         return a(r.ref, t.ref) && a(r.path, t.path);
       }
       case "url":
@@ -374,7 +374,7 @@ function U(t, e) {
       case "settings":
         return t.name === e.name;
       default:
-        return !1;
+        return false;
     }
   if (t.source === "git" && e.source === "github") {
     let r = d(t.url);
@@ -385,11 +385,11 @@ function U(t, e) {
     if (r !== null && p(r, t.repo)) return a(e.ref, t.ref) && a(e.path, t.path);
   }
   if (t.source === "git" && e.source === "url") {
-    if (!t.url.includes("://")) return !1;
-    let r = { stripDotGit: !0 };
+    if (!t.url.includes("://")) return false;
+    let r = { stripDotGit: true };
     return c(t.url, r) === c(e.url, r);
   }
-  return !1;
+  return false;
 }
 function v(t) {
   let e = t.length;
@@ -403,24 +403,24 @@ function v(t) {
 }
 function rVe(t) {
   let e = dfn();
-  if (e === null) return !1;
+  if (e === null) return false;
   return e.some((r) => {
-    if (r.source === "hostPattern") return w(t, r, { blocklistDirection: !0 });
+    if (r.source === "hostPattern") return w(t, r, { blocklistDirection: true });
     if (r.source === "pathPattern") return P(t, r);
     return U(t, r);
   });
 }
 function Ip(t) {
-  if (t.source === "git" && pfn(t.url)) return !1;
-  if (rVe(t)) return !1;
+  if (t.source === "git" && pfn(t.url)) return false;
+  if (rVe(t)) return false;
   let e = gM();
-  if (e === null) return !0;
+  if (e === null) return true;
   return e.some((r) => D(t, r));
 }
 function D(t, e) {
-  if (t.source === "git" && ffe(t.url)) return !1;
+  if (t.source === "git" && ffe(t.url)) return false;
   if (e.source === "hostPattern") {
-    if ((t.source === "github" || t.source === "git") && t.path && !b(t.path)) return !1;
+    if ((t.source === "github" || t.source === "git") && t.path && !b(t.path)) return false;
     return w(t, e);
   }
   if (e.source === "pathPattern") return P(t, e);
@@ -438,7 +438,7 @@ function D(t, e) {
         (e.path ? e.path === (t.path || void 0) : !t.path || b(t.path))
       );
   }
-  if (e.source === "skills-dir") return !1;
+  if (e.source === "skills-dir") return false;
   return h(t, e);
 }
 export {

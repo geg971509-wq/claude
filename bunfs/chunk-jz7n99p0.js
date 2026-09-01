@@ -129,14 +129,14 @@ function B(t) {
   let n = H(t);
   if (C(n).startsWith(EKe)) throw Error("mount_path names a reserved temporary-file name");
   let e = P(Q, n);
-  if (e !== null) return { dest: F(M, e), root: M, readOnly: !0 };
+  if (e !== null) return { dest: F(M, e), root: M, readOnly: true };
   let r = P(Z, n);
   if (r !== null) {
     if (!XTe(a.CLAUDE_CODE_REMOTE_SESSION_ID, a.CLAUDE_CODE_ENVIRONMENT_KIND)) {
       let d = Error("staging under /outputs/ is only supported on managed remote sessions");
       throw ((d.code = "STAGE_OUTPUTS_UNSUPPORTED_RUNNER"), d);
     }
-    return { dest: F(N, r), root: N, readOnly: !1 };
+    return { dest: F(N, r), root: N, readOnly: false };
   }
   throw Error("mount_path must be under /uploads/ or /outputs/");
 }
@@ -188,13 +188,13 @@ function D(t, n) {
   return { kind: e, status: r, message: `${t} failed: ${e}${r ? ` ${r}` : ""}` };
 }
 async function ke(t) {
-  if (!a.CLAUDE_CODE_REMOTE_SESSION_ID) return { ok: !1, error: "CLAUDE_CODE_REMOTE_SESSION_ID unset" };
+  if (!a.CLAUDE_CODE_REMOTE_SESSION_ID) return { ok: false, error: "CLAUDE_CODE_REMOTE_SESSION_ID unset" };
   if (t.filestore_path) {
     if (a.CLAUDE_CODE_ENVIRONMENT_KIND !== void 0)
       return (
         p("ccr_synced_file_stage", "unsupported_runner_kind"),
-        s("tengu_stage_file_completed", { ok: !1, synced_unsupported_runner_kind: !0, duration_ms: 0 }),
-        { ok: !1, error: "synced-file staging not supported on this runner kind" }
+        s("tengu_stage_file_completed", { ok: false, synced_unsupported_runner_kind: true, duration_ms: 0 }),
+        { ok: false, error: "synced-file staging not supported on this runner kind" }
       );
     let { stageSyncedFile: m, SYNCED_FILE_ROOT: j } = await import("/$bunfs/root/chunk-v2c4dvvd.js");
     return m(
@@ -214,8 +214,8 @@ async function ke(t) {
   } catch (u) {
     if (E(u) === "STAGE_OUTPUTS_UNSUPPORTED_RUNNER")
       p("ccr_stage_file_outputs", "unsupported_runner_kind"),
-        s("tengu_stage_file_completed", { ok: !1, outputs_unsupported_runner_kind: !0, duration_ms: 0 });
-    return { ok: !1, error: u instanceof Error ? u.message : String(u) };
+        s("tengu_stage_file_completed", { ok: false, outputs_unsupported_runner_kind: true, duration_ms: 0 });
+    return { ok: false, error: u instanceof Error ? u.message : String(u) };
   }
   let { dest: r, root: d, readOnly: l } = e;
   if (!t.force)
@@ -223,8 +223,8 @@ async function ke(t) {
       if ((await b(r)).isFile())
         return (
           Y("debug", "stage_file_noop_already_present", {}),
-          s("tengu_stage_file_completed", { ok: !0, noop_already_present: !0, duration_ms: 0 }),
-          { ok: !0, noop: "already_present" }
+          s("tengu_stage_file_completed", { ok: true, noop_already_present: true, duration_ms: 0 }),
+          { ok: true, noop: "already_present" }
         );
     } catch {}
   let g = performance.now(),
@@ -233,7 +233,7 @@ async function ke(t) {
     w = `${EKe}${C(r)}.`,
     o = F(k(r), `${w}${Date.now()}.${Math.random().toString(36).slice(2)}`);
   try {
-    await J(k(r), { recursive: !0 });
+    await J(k(r), { recursive: true });
     let u = await A(d),
       m = await A(k(r));
     ee(u, m), await te(k(r), w);
@@ -241,29 +241,29 @@ async function ke(t) {
     let m = typeof u === "object" && u !== null && "code" in u ? String(u.code) : "unknown";
     if (l && x(u) && !a.CLAUDE_STAGE_FILE_ROOT)
       return (
-        s("tengu_stage_file_completed", { ok: !0, noop: !0, duration_ms: i(), bytes: 0 }),
+        s("tengu_stage_file_completed", { ok: true, noop: true, duration_ms: i(), bytes: 0 }),
         Y("debug", "stage_file_noop_readonly_mount", { duration_ms: i() }),
-        { ok: !0, noop: "readonly_mount" }
+        { ok: true, noop: "readonly_mount" }
       );
     if (
-      (s("tengu_stage_file_completed", { ok: !1, duration_ms: i() }),
+      (s("tengu_stage_file_completed", { ok: false, duration_ms: i() }),
       Y("warn", "stage_file_mkdir_failed", { code: m, duration_ms: i() }),
       !l)
     )
       p("ccr_stage_file_outputs", "mkdir_failed");
-    return { ok: !1, error: `mkdir failed: ${m}` };
+    return { ok: false, error: `mkdir failed: ${m}` };
   }
   let f = await oe(t.mount_path, o);
   if (!f.ok) {
     if ((await S(o).catch(() => {}), l && f.errno === "EROFS" && !a.CLAUDE_STAGE_FILE_ROOT))
       return (
-        s("tengu_stage_file_completed", { ok: !0, noop: !0, duration_ms: i(), bytes: 0 }),
+        s("tengu_stage_file_completed", { ok: true, noop: true, duration_ms: i(), bytes: 0 }),
         Y("debug", "stage_file_noop_readonly_mount", { duration_ms: i() }),
-        { ok: !0, noop: "readonly_mount" }
+        { ok: true, noop: "readonly_mount" }
       );
-    if ((s("tengu_stage_file_completed", { ok: !1, gated: f.gated, duration_ms: i() }), !l))
+    if ((s("tengu_stage_file_completed", { ok: false, gated: f.gated, duration_ms: i() }), !l))
       p("ccr_stage_file_outputs", "fetch_failed");
-    return { ok: !1, error: f.error };
+    return { ok: false, error: f.error };
   }
   let c = f.bytes,
     h = i();
@@ -273,33 +273,33 @@ async function ke(t) {
       if (re(u, _))
         return (
           await S(o).catch(() => {}),
-          s("tengu_stage_file_completed", { ok: !0, noop: !0, duration_ms: i(), bytes: 0, outputs_root: !0 }),
+          s("tengu_stage_file_completed", { ok: true, noop: true, duration_ms: i(), bytes: 0, outputs_root: true }),
           Y("info", "stage_file_noop_newer_local", { duration_ms: i() }),
           y("ccr_stage_file_outputs"),
-          { ok: !0, noop: "newer_local" }
+          { ok: true, noop: "newer_local" }
         );
     }
     await z(o, l ? 292 : 420), await V(o, r);
   } catch (u) {
     if ((await S(o).catch(() => {}), l && x(u) && !a.CLAUDE_STAGE_FILE_ROOT))
       return (
-        s("tengu_stage_file_completed", { ok: !0, noop: !0, fetch_ms: h, duration_ms: i(), bytes: 0 }),
+        s("tengu_stage_file_completed", { ok: true, noop: true, fetch_ms: h, duration_ms: i(), bytes: 0 }),
         Y("debug", "stage_file_noop_readonly_mount", { duration_ms: i() }),
-        { ok: !0, noop: "readonly_mount" }
+        { ok: true, noop: "readonly_mount" }
       );
     let m = typeof u === "object" && u !== null && "code" in u ? String(u.code) : "unknown";
     if (
-      (s("tengu_stage_file_completed", { ok: !1, fetch_ms: h, duration_ms: i(), bytes: c }),
+      (s("tengu_stage_file_completed", { ok: false, fetch_ms: h, duration_ms: i(), bytes: c }),
       Y("warn", "stage_file_write_failed", { code: m, duration_ms: i() }),
       !l)
     )
       p("ccr_stage_file_outputs", "write_failed");
-    return { ok: !1, error: `write failed: ${m}` };
+    return { ok: false, error: `write failed: ${m}` };
   }
-  if ((s("tengu_stage_file_completed", { ok: !0, fetch_ms: h, duration_ms: i(), bytes: c, outputs_root: !l }), !l))
+  if ((s("tengu_stage_file_completed", { ok: true, fetch_ms: h, duration_ms: i(), bytes: c, outputs_root: !l }), !l))
     y("ccr_stage_file_outputs");
   return (
-    Y("info", "stage_file_ok", { bytes: c, fetch_ms: h, duration_ms: i(), root: l ? "uploads" : "outputs" }), { ok: !0 }
+    Y("info", "stage_file_ok", { bytes: c, fetch_ms: h, duration_ms: i(), root: l ? "uploads" : "outputs" }), { ok: true }
   );
 }
 async function R() {
@@ -315,23 +315,23 @@ async function R() {
     if (!e.ok)
       return (
         Y("warn", "stage_file_list_gated", { reason: e.reason, duration_ms: n() }),
-        { ok: !1, error: `list gated: ${e.reason}`, gated: !0 }
+        { ok: false, error: `list gated: ${e.reason}`, gated: true }
       );
     if (e.status < 200 || e.status >= 300)
       return (
         Y("warn", "stage_file_list_failed", { kind: "http", status: e.status, duration_ms: n() }),
-        { ok: !1, error: `list failed: http ${e.status}` }
+        { ok: false, error: `list failed: http ${e.status}` }
       );
     let r = e.data.filestore_jwt,
       d = e.data.filesystem_id;
-    if (!r || !d) return { ok: !1, error: "list returned incomplete credential" };
+    if (!r || !d) return { ok: false, error: "list returned incomplete credential" };
     let l = Y8e(e.data.filestore_url);
     if (e.data.filestore_url && !l)
       Y("warn", "stage_file_filestore_url_rejected", { reason: utr(e.data.filestore_url) });
-    return { ok: !0, cred: { filestoreJwt: r, filesystemId: d, filestoreUrl: l } };
+    return { ok: true, cred: { filestoreJwt: r, filesystemId: d, filestoreUrl: l } };
   } catch (e) {
     let { kind: r, status: d, message: l } = D("list", e);
-    return Y("warn", "stage_file_list_failed", { kind: r, status: d, duration_ms: n() }), { ok: !1, error: l };
+    return Y("warn", "stage_file_list_failed", { kind: r, status: d, duration_ms: n() }), { ok: false, error: l };
   }
 }
 async function oe(t, n) {
@@ -360,14 +360,14 @@ async function oe(t, n) {
           responseType: "stream",
           timeout: 0,
           signal: _.signal,
-          validateStatus: () => !0,
+          validateStatus: () => true,
         },
       );
       if (!o.ok)
         return (
           clearTimeout(i),
           Y("warn", "stage_file_read_gated", { reason: o.reason, duration_ms: r() }),
-          { ok: !1, error: `read gated: ${o.reason}`, gated: !0 }
+          { ok: false, error: `read gated: ${o.reason}`, gated: true }
         );
       if (o.status === 401 && g === 0) {
         if ((clearTimeout(i), o.data instanceof I)) o.data.destroy();
@@ -379,7 +379,7 @@ async function oe(t, n) {
         if ((clearTimeout(i), o.data instanceof I)) o.data.destroy();
         return (
           Y("warn", "stage_file_read_failed", { kind: "http", status: o.status, duration_ms: r() }),
-          { ok: !1, error: `read failed: http ${o.status}` }
+          { ok: false, error: `read failed: http ${o.status}` }
         );
       }
       let f = Number(o.response?.headers["content-length"] ?? -1);
@@ -388,29 +388,29 @@ async function oe(t, n) {
       if (f >= 0 && c.size !== f)
         return (
           Y("warn", "stage_file_read_truncated", { expected: f, got: c.size, duration_ms: r() }),
-          { ok: !1, error: `read truncated: got ${c.size} of ${f} bytes` }
+          { ok: false, error: `read truncated: got ${c.size} of ${f} bytes` }
         );
-      return { ok: !0, bytes: c.size };
+      return { ok: true, bytes: c.size };
     } catch (o) {
       clearTimeout(i);
       let f = typeof o === "object" && o !== null && "code" in o ? String(o.code) : void 0;
       if (f && !("isAxiosError" in o))
         return (
           Y("warn", "stage_file_write_failed", { code: f, duration_ms: r() }),
-          { ok: !1, error: `write failed: ${f}`, errno: f }
+          { ok: false, error: `write failed: ${f}`, errno: f }
         );
       if (_.signal.aborted)
         return (
           Y("warn", "stage_file_read_stalled", { stall_ms: T, duration_ms: r() }),
-          { ok: !1, error: `read stalled: no bytes for ${T}ms` }
+          { ok: false, error: `read stalled: no bytes for ${T}ms` }
         );
       let { kind: c, status: h, message: u } = D("read", o);
-      return Y("warn", "stage_file_read_failed", { kind: c, status: h, duration_ms: r() }), { ok: !1, error: u };
+      return Y("warn", "stage_file_read_failed", { kind: c, status: h, duration_ms: r() }), { ok: false, error: u };
     }
   }
   return (
     Y("warn", "stage_file_read_failed", { kind: "http", status: 401, duration_ms: r() }),
-    { ok: !1, error: "read failed: http 401" }
+    { ok: false, error: "read failed: http 401" }
   );
 }
 async function se(t) {
@@ -436,17 +436,17 @@ async function se(t) {
     if (!_.ok)
       return (
         Y("warn", "stage_file_read_gated", { reason: _.reason, duration_ms: e() }),
-        { ok: !1, error: `read gated: ${_.reason}`, gated: !0 }
+        { ok: false, error: `read gated: ${_.reason}`, gated: true }
       );
     if (_.status < 200 || _.status >= 300)
       return (
         Y("warn", "stage_file_read_failed", { kind: "http", status: _.status, duration_ms: e() }),
-        { ok: !1, error: `read failed: http ${_.status}` }
+        { ok: false, error: `read failed: http ${_.status}` }
       );
-    return { ok: !0, buf: Buffer.from(_.data) };
+    return { ok: true, buf: Buffer.from(_.data) };
   } catch (_) {
     let { kind: i, status: w, message: o } = D("read", _);
-    return Y("warn", "stage_file_read_failed", { kind: i, status: w, duration_ms: e() }), { ok: !1, error: o };
+    return Y("warn", "stage_file_read_failed", { kind: i, status: w, duration_ms: e() }), { ok: false, error: o };
   }
 }
 export {

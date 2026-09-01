@@ -14,7 +14,7 @@ import { k, rs, Ry } from "/$bunfs/root/chunk-4ddxwr9r.js";
 import { pN, MH, OT } from "/$bunfs/root/chunk-4t3vsqt7.js";
 import { I } from "/$bunfs/root/chunk-8tgj5dp2.js";
 function BUn() {
-  return I("tengu_harbor_permissions", !1);
+  return I("tengu_harbor_permissions", false);
 }
 var H = "abcdefghijkmnopqrstuvwxyz",
   J = [
@@ -119,35 +119,35 @@ function C(r) {
 var W = 32000,
   q = 2000000;
 function z(r) {
-  if (r === null || typeof r !== "object") return !1;
+  if (r === null || typeof r !== "object") return false;
   let e = q,
     o = [{ node: r, depth: 1 }];
   while (o.length > 0) {
     let t = o.pop(),
       s = t.depth,
       i = t.node;
-    if (s >= W) return !0;
+    if (s >= W) return true;
     if (typeof i.toJSON === "function") {
-      if (((e -= 1), e < 0)) return !0;
+      if (((e -= 1), e < 0)) return true;
       let l;
       try {
         l = i.toJSON();
       } catch {
-        return !0;
+        return true;
       }
       if (l === null || typeof l !== "object") continue;
       i = l;
     }
     if (Array.isArray(i)) {
-      if (((e -= i.length), e < 0)) return !0;
+      if (((e -= i.length), e < 0)) return true;
     }
     for (let l of Object.keys(i)) {
-      if (((e -= 1), e < 0)) return !0;
+      if (((e -= 1), e < 0)) return true;
       let p = i[l];
       if (p !== null && typeof p === "object") o.push({ node: p, depth: s + 1 });
     }
   }
-  return !1;
+  return false;
 }
 function WUn(r) {
   try {
@@ -160,12 +160,12 @@ function WUn(r) {
       for (let f of Object.keys(r)) {
         let g,
           m,
-          E = !1;
+          E = false;
         try {
-          if (((g = r[f]), z(g))) E = !0;
+          if (((g = r[f]), z(g))) E = true;
           else m = b(g);
         } catch {
-          E = !0;
+          E = true;
         }
         if (m === void 0) {
           if (!E) continue;
@@ -192,11 +192,11 @@ function WUn(r) {
           continue;
         }
         let u,
-          x = !1;
+          x = false;
         try {
           u = b(C(SU({ [f]: V(m) }, $fe)[f]));
         } catch {
-          x = !0;
+          x = true;
         }
         if (u === void 0)
           if (x)
@@ -257,11 +257,11 @@ function WUn(r) {
     }
     if (e === void 0) return "(unserializable)";
     let o,
-      t = !1;
+      t = false;
     try {
       o = b(C(SU(V(e), $fe)));
     } catch {
-      t = !0;
+      t = true;
     }
     if (o === void 0) {
       if (t)
@@ -322,8 +322,8 @@ function GUn(r) {
     resolve(o, t, s) {
       let i = o.toLowerCase(),
         a = e.get(i);
-      if (!a) return !1;
-      return e.delete(i), a({ behavior: t, fromServer: s }), !0;
+      if (!a) return false;
+      return e.delete(i), a({ behavior: t, fromServer: s }), true;
     },
   };
 }

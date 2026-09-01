@@ -27,26 +27,26 @@ function jsn(e) {
   let t = cZ.sep + e.split(jZe).join(cZ.sep).replace(/^\/+/, ""),
     r = HZe(e).toLowerCase(),
     o = cpn(e).toLowerCase();
-  if (upn.has(r)) return !0;
-  if (BZe.has(o)) return !0;
+  if (upn.has(r)) return true;
+  if (BZe.has(o)) return true;
   let u = r.split(".");
   if (u.length > 2) {
     let d = "." + u.slice(-2).join(".");
-    if (BZe.has(d)) return !0;
+    if (BZe.has(d)) return true;
   }
-  for (let d of dpn) if (t.includes(d)) return !0;
-  for (let d of gpn) if (d.test(r)) return !0;
-  return !1;
+  for (let d of dpn) if (t.includes(d)) return true;
+  for (let d of gpn) if (d.test(r)) return true;
+  return false;
 }
 
 async function WZe(e, t) {
-  if (jsn(e)) return !0;
+  if (jsn(e)) return true;
   let r = vd().linguistGeneratedByPath,
     o = `${t}\x00${e}`,
     u = r.get(o);
   if (u !== void 0) return u;
   let d = await qe(it(), ["check-attr", "linguist-generated", "--", e], { cwd: t, timeout: 5000 }),
-    _ = !1;
+    _ = false;
   if (d.code === 0) {
     let C = d.stdout.trim().split(": ").pop()?.toLowerCase();
     _ = C === "set" || C === "true";
@@ -57,14 +57,14 @@ async function WZe(e, t) {
 function e3n(e) {
   let t = cZ.sep + e.split(jZe).join(cZ.sep).replace(/^\/+/, ""),
     r = HZe(e);
-  for (let o of hpn) if (t.includes(o)) return !0;
-  for (let o of ypn) if (o.test(r)) return !0;
-  return !1;
+  for (let o of hpn) if (t.includes(o)) return true;
+  for (let o of ypn) if (o.test(r)) return true;
+  return false;
 }
 
 function FF(e) {
-  if (!/^https?:\/\//.test(e) && !/^ssh:\/\//.test(e) && !/^git@/.test(e)) return !1;
-  if (/[?#\\]/.test(St(e.replace(/^(?:https?|ssh):\/\//, ""), "/"))) return !1;
+  if (!/^https?:\/\//.test(e) && !/^ssh:\/\//.test(e) && !/^git@/.test(e)) return false;
+  if (/[?#\\]/.test(St(e.replace(/^(?:https?|ssh):\/\//, ""), "/"))) return false;
   let t = e
     .replace(/^https?:\/\//, "")
     .replace(/^ssh:\/\//, "")
@@ -74,9 +74,9 @@ function FF(e) {
     let r = u4(e);
     if (r && !t.includes("@") && wpn.test(r)) return qZe.includes(r);
   }
-  if (t.split("/").includes("..")) return !1;
+  if (t.split("/").includes("..")) return false;
   return qZe.some((r) => {
-    if (!t.startsWith(r)) return !1;
+    if (!t.startsWith(r)) return false;
     let o = t.slice(r.length);
     return o === "" || o === ".git" || o.startsWith("/");
   });
@@ -204,7 +204,7 @@ function hut(e, t) {
   }
 }
 
-async function XZe(e, t, r = { staged: !0 }) {
+async function XZe(e, t, r = { staged: true }) {
   let o = HF(),
     u = K(),
     d = {},
@@ -282,7 +282,7 @@ async function XZe(e, t, r = { staged: !0 }) {
   };
 }
 
-async function KZe(e, t = { staged: !0 }) {
+async function KZe(e, t = { staged: true }) {
   let r = HF();
   try {
     let o = ["diff"];
@@ -315,7 +315,7 @@ async function Ppn(e) {
     let r = await qe(it(), ["diff", "--cached", "--name-status", "--", e], { cwd: t, timeout: 5000 });
     if (r.code === 0 && r.stdout) return r.stdout.trim().startsWith("D\t");
   } catch {}
-  return !1;
+  return false;
 }
 
 function g1(e) {
@@ -349,7 +349,7 @@ function eet(e) {
     return { role: "assistant", text: _.join(""), toolUses: d };
   }
   if (e.type !== "user") return;
-  if (e.isMeta === !0 || e.isVirtual === !0) return;
+  if (e.isMeta === true || e.isVirtual === true) return;
   let t = e.message.content;
   if (typeof t === "string") return { role: "user", text: t, toolUses: [] };
   let r = [],
@@ -357,7 +357,7 @@ function eet(e) {
   for (let u of t)
     if (u.type === "text") r.push(u.text);
     else if (u.type === "tool_result")
-      o.push({ id: u.tool_use_id, text: jf.toolResultText(u.content), isError: u.is_error === !0 });
+      o.push({ id: u.tool_use_id, text: jf.toolResultText(u.content), isError: u.is_error === true });
   return { role: "user", text: r.join(""), toolUses: [], ...(o.length > 0 && { toolResults: o }) };
 }
 
@@ -430,7 +430,7 @@ async function Fpn(e) {
   if (t === void 0) return n(`$.session.turnCount (${e}): no interactive session bound; 0`), 0;
   return Q(
     t.messages(),
-    (r) => r.type === "user" && r.isMeta !== !0 && r.isVirtual !== !0 && !Hg.hasToolResult(r.message.content),
+    (r) => r.type === "user" && r.isMeta !== true && r.isVirtual !== true && !Hg.hasToolResult(r.message.content),
   );
 }
 
@@ -532,7 +532,7 @@ function nx(e, t, r) {
   return {
     messageID: ve(t),
     toolName: Un(e.name),
-    isMcp: e.isMcp ?? !1,
+    isMcp: e.isMcp ?? false,
     sandboxEnabled: pt.isSandboxingEnabled(),
     ...(r !== void 0 && { waiting_for_user_permission_ms: r }),
   };
@@ -587,7 +587,7 @@ function wet(e, t, r, o, u, d) {
     ...nx(e, t, o),
     ...u,
     ...d,
-    ...(r.type === "hook" ? { isHook: !0 } : { hasFeedback: r.type === "user_reject" ? r.hasFeedback : !1 }),
+    ...(r.type === "hook" ? { isHook: true } : { hasFeedback: r.type === "user_reject" ? r.hasFeedback : false }),
   }),
     y(r.type === "hook" ? "permission_auto_deny_hook" : "permission_user_deny");
 }
@@ -624,7 +624,7 @@ function Xpn(e, t) {
                 : (t(r.updatedPermissions) ?? []).some((u) => ade(u.destination)),
           },
         };
-      return { decision: "reject", source: { type: "user_reject", hasFeedback: r.interrupt !== !0 } };
+      return { decision: "reject", source: { type: "user_reject", hasFeedback: r.interrupt !== true } };
     }
     case "turn_aborted":
       return { decision: "reject", source: { type: "user_abort" } };
@@ -762,13 +762,13 @@ function Cet(e) {
     let t = new URL(e.url);
     return t.protocol === "https:" && FT(t.href) && t.pathname === Jpn;
   } catch {
-    return !1;
+    return false;
   }
 }
 
 function Aet(e, t) {
   let r = e.mcpInfo;
-  if (r === void 0 || r.scope !== "claudeai" || !tmn.has(r.toolName)) return !1;
+  if (r === void 0 || r.scope !== "claudeai" || !tmn.has(r.toolName)) return false;
   let o = t.find((u) => u.name === r.serverName);
   return o !== void 0 && o.config.scope === "claudeai" && o.config.type === "claudeai-proxy" && Cet(o.config);
 }
@@ -846,7 +846,7 @@ function Iet(e) {
 }
 
 function dmn(e, t) {
-  if (e.length > 2048 || !Pet.test(e)) return !1;
+  if (e.length > 2048 || !Pet.test(e)) return false;
   return Number(e.slice(e.lastIndexOf("/") + 1)) === t;
 }
 
@@ -870,8 +870,8 @@ async function Det(e) {
   if (t.unauthenticatedHosts.has(r)) return null;
   let o = await $e("glab", ["mr", "view", "-F", "json"], {
     timeout: amn,
-    preserveOutputOnError: !0,
-    useCwd: !0,
+    preserveOutputOnError: true,
+    useCwd: true,
     env: { ...process.env, GITLAB_TOKEN: void 0, GITLAB_ACCESS_TOKEN: void 0, OAUTH_TOKEN: void 0 },
   });
   if (o.code !== 0) {
@@ -888,7 +888,7 @@ async function Det(e) {
   if (!d.success) return yZ("parse_failed");
   let _ = d.data;
   if (!dmn(_.web_url, _.iid)) return p("gitlab_mr_badge", "web_url_rejected"), null;
-  let C = pmn(_.state, _.draft === !0, _.detailed_merge_status);
+  let C = pmn(_.state, _.draft === true, _.detailed_merge_status);
   if (C === null) return null;
   return t.emitOkOnce(), { number: _.iid, url: _.web_url, reviewState: C, kind: "mr" };
 }
@@ -924,7 +924,7 @@ async function fmn(e) {
   if (!(await Va("gh"))) return { kind: "gh-missing" };
   let { stdout: o, code: u } = await $e("gh", ["auth", "token", "--hostname", e], {
     timeout: 5000,
-    preserveOutputOnError: !1,
+    preserveOutputOnError: false,
     env: { ...process.env, GH_TOKEN: "", GITHUB_TOKEN: "", GH_ENTERPRISE_TOKEN: "", GITHUB_ENTERPRISE_TOKEN: "" },
   });
   if (u !== 0) return { kind: "no-token" };
@@ -993,7 +993,7 @@ async function Nmn(e) {
     A = tAt(r.host),
     x = new URL(A).origin,
     M = `${A}/repos/${d.owner}/${d.repo}/pulls?head=${encodeURIComponent(r.owner)}:${encodeURIComponent(e)}&state=open&per_page=1`,
-    F = !1,
+    F = false,
     U;
   try {
     let ge = AbortSignal.timeout(SZ),
@@ -1005,14 +1005,14 @@ async function Nmn(e) {
         ...(_.etag && { "If-None-Match": _.etag }),
       },
       Ie = (Fe) =>
-        fetch(Fe, { ...Ri({ url: Fe }), keepalive: !1, method: "GET", headers: Ce, redirect: "manual", signal: ge }),
+        fetch(Fe, { ...Ri({ url: Fe }), keepalive: false, method: "GET", headers: Ce, redirect: "manual", signal: ge }),
       Ee = await Ie(_.redirectedListUrl ?? M),
       Pe = Tmn.has(Ee.status) ? Ee.headers.get("location") : null,
       Oe = Pe ? new URL(Pe, M) : null;
     if (Oe?.origin === x) (_.redirectedListUrl = Oe.href), (Ee = await Ie(Oe.href));
     if (((U = Ee.status), Ee.status === 304));
     else if (Ee.ok) {
-      (_.etag = Ee.headers.get("etag")), (F = !0);
+      (_.etag = Ee.headers.get("etag")), (F = true);
       let Fe = Emn().safeParse(await Ee.json()),
         Be = Fe.success ? Fe.data[0] : void 0;
       if (Be && _.pr?.number !== Be.number) _.reviewDecision = "";
@@ -1040,21 +1040,21 @@ async function Nmn(e) {
     );
   }
   let B = _.pr;
-  if (!B) return y("github_pr_status_direct", { http_status: bi(U), pr_found: !1, review_fetched: !1 }), null;
+  if (!B) return y("github_pr_status_direct", { http_status: bi(U), pr_found: false, review_fetched: false }), null;
   let W = _.reviewDecision,
-    z = !1,
+    z = false,
     pe = F || Date.now() - _.lastReviewFetchAt >= wmn;
   if (pe) {
     let ge = await jmn({ host: r.host, owner: d.owner, repo: d.repo }, u, B.number);
     if (ge !== null) {
       if (((W = ge), _.pr?.number === B.number)) (_.reviewDecision = ge), (_.lastReviewFetchAt = t);
-    } else z = !0;
+    } else z = true;
   }
-  let fe = { http_status: bi(U), pr_found: !0, review_fetched: pe };
+  let fe = { http_status: bi(U), pr_found: true, review_fetched: pe };
   if (z) g("github_pr_status_direct", "review_decision_unavailable", fe);
   else y("github_pr_status_direct", fe);
   let me = !z && C?.number === B.number && C.url === B.url && C.isDraft === B.isDraft && C.reviewDecision === W;
-  return { number: B.number, url: B.url, reviewState: bmn(B.isDraft, W), ...(me && { notModified: !0 }) };
+  return { number: B.number, url: B.url, reviewState: bmn(B.isDraft, W), ...(me && { notModified: true }) };
 }
 
 async function jmn(e, t, r) {
@@ -1067,7 +1067,7 @@ async function jmn(e, t, r) {
   try {
     let d = await fetch(o, {
       ...Ri({ url: o }),
-      keepalive: !1,
+      keepalive: false,
       method: "POST",
       headers: { Authorization: `Bearer ${t}`, "Content-Type": "application/json", "User-Agent": Ka() },
       body: u,
@@ -1111,7 +1111,7 @@ async function Gmn(e, t) {
 async function qmn() {
   let { stdout: e, code: t } = await $e("git", ["config", "--get", "remote.upstream.url"], {
     timeout: 2000,
-    preserveOutputOnError: !1,
+    preserveOutputOnError: false,
   });
   return t === 0 && e.trim() ? e.trim() : null;
 }
@@ -1180,7 +1180,7 @@ async function Ymn(e) {
   let { stdout: t, code: r } = await $e(
     "gh",
     ["pr", "view", e, "--json", "number,title,state,isDraft,statusCheckRollup,reviewDecision,additions,deletions"],
-    { timeout: SZ, preserveOutputOnError: !1 },
+    { timeout: SZ, preserveOutputOnError: false },
   );
   if (r !== 0 || !t.trim()) return null;
   try {
@@ -1364,7 +1364,7 @@ query { rateLimit{cost remaining resetAt} ${F.join(" ")} }`,
       } = await $e("gh", ["api", "graphql", "--hostname", C, "--cache", mfn, "-F", "query=@-"], {
         timeout: pfn,
         input: U,
-        preserveOutputOnError: !0,
+        preserveOutputOnError: true,
       }),
       pe = null;
     if (B.trim())
@@ -1712,7 +1712,7 @@ async function Vet(e, t, r, o) {
   else Nfn(e, t, d);
 }
 
-function cke(e, t = "created", r = !1) {
+function cke(e, t = "created", r = false) {
   let o = e ? fke(e) : null;
   if (!o) return null;
   if (r && e) for (let u of xfn(e).slice(0, -1)) mke({ ...u, identifier: String(u.prNumber), action: "created" });
@@ -1720,7 +1720,7 @@ function cke(e, t = "created", r = !1) {
 }
 
 function Ufn(e) {
-  if (!e || !I("tengu_record_created_pr_to_ccr", !1) || !Xet(e.prUrl)) return;
+  if (!e || !I("tengu_record_created_pr_to_ccr", false) || !Xet(e.prUrl)) return;
   let t = ee();
   uT(import("/$bunfs/root/chunk-btjhgaem.js").then((r) => r.recordCreatedPrToCcr(e, t)));
 }
@@ -1745,8 +1745,8 @@ function Bfn(e) {
 }
 
 function d1t(e, t, r) {
-  if (t !== 0) return { prResolved: !1 };
-  let u = !1;
+  if (t !== 0) return { prResolved: false };
+  let u = false;
   if (Yet.test(e)) {
     if ((s("tengu_git_operation", { operation: w("commit") }), e.match(/--amend\b/)))
       s("tengu_git_operation", { operation: w("commit_amend") });
@@ -1767,7 +1767,7 @@ function d1t(e, t, r) {
       s("tengu_git_operation", { operation: w("pr_review_request_changes") });
     WA().bump.emit();
   }
-  if (_ === "merged" || _ === "closed") u = !0;
+  if (_ === "merged" || _ === "closed") u = true;
   if (d?.action === "created") {
     yve()?.add(1);
     let U = e.replace(bZ, " "),
@@ -1802,7 +1802,7 @@ function d1t(e, t, r) {
       me = uke.test(U),
       ge = me || Ct() ? void 0 : cl(pe);
     if (z && hke(z) && !me) uT(Vet(fe, pe, z, _1("pushed", z)));
-    uT(Vet(fe, pe, ge, me ? Promise.resolve(!1) : _1("pushed")));
+    uT(Vet(fe, pe, ge, me ? Promise.resolve(false) : _1("pushed")));
   }
   if (e.match(/\bglab\s+mr\s+create\b/))
     s("tengu_git_operation", { operation: w("pr_create") }), yve()?.add(1), WA().bump.emit(), cke(r);
@@ -1864,17 +1864,17 @@ function rtt(e, t, r) {
 }
 
 async function _1(e, t, r) {
-  if (Ct()) return !1;
-  if (r !== void 0 && !wfn.test(r)) return !1;
+  if (Ct()) return false;
+  if (r !== void 0 && !wfn.test(r)) return false;
   let o = t && !t.startsWith("-") && !/^[a-z][a-z0-9+.-]*:\/\//i.test(t) ? t : void 0,
     u = ["pr", "view", ...(o ? [o] : []), ...(r ? ["--repo", r] : []), "--json", "url"],
-    { code: d, stdout: _ } = await $e("gh", u, { timeout: 5000, preserveOutputOnError: !1, useCwd: !0 });
-  if (d !== 0) return !1;
+    { code: d, stdout: _ } = await $e("gh", u, { timeout: 5000, preserveOutputOnError: false, useCwd: true });
+  if (d !== 0) return false;
   let C = V(_)?.url;
-  if (!C) return !1;
+  if (!C) return false;
   let A = x3e(C);
-  if (!A) return !1;
-  return await yke(A, e), !0;
+  if (!A) return false;
+  return await yke(A, e), true;
 }
 
 function jW(e, t) {
@@ -1899,7 +1899,7 @@ async function aut(e, t) {
   let { sessionId: r, repo: o, prNumber: u, baseUrl: d, getAccessToken: _, getTrustedDeviceToken: C } = t,
     A = e === "subscribe" ? "bridge_pr_subscribe" : "bridge_pr_unsubscribe",
     x = _();
-  if (!x) return n(`[bridge] No access token for ${e}-pr`), p(A, "no_token"), { ok: !1, reason: "no_token" };
+  if (!x) return n(`[bridge] No access token for ${e}-pr`), p(A, "no_token"), { ok: false, reason: "no_token" };
   let M = `${d}/v1/code/github/${e}-pr`,
     F = { session_id: Ad(r), repo: o, pr_number: u },
     U;
@@ -1910,7 +1910,7 @@ async function aut(e, t) {
       validateStatus: (W) => W < 500,
     });
   } catch (W) {
-    return n(`[bridge] ${e}-pr request failed: ${l(W)}`), p(A, "request_failed"), { ok: !1, reason: "request_failed" };
+    return n(`[bridge] ${e}-pr request failed: ${l(W)}`), p(A, "request_failed"), { ok: false, reason: "request_failed" };
   }
   if (!((U.status >= 200 && U.status < 300) || U.status === 409)) {
     let W = Xfn(U.data),
@@ -1918,10 +1918,10 @@ async function aut(e, t) {
     return (
       n(`[bridge] ${e}-pr failed ${U.status}${W ? ` [${W}]` : ""}${z ? `: ${z}` : ""}`),
       p(A, W === "github_app_not_installed" ? W : "http_error"),
-      { ok: !1, reason: W, detail: z }
+      { ok: false, reason: W, detail: z }
     );
   }
-  return n(`[bridge] ${e}-pr ${o}#${u} ok`), y(A), { ok: !0 };
+  return n(`[bridge] ${e}-pr ${o}#${u} ok`), y(A), { ok: true };
 }
 
 function Jfn(e, { orgUUID: t, trustedDeviceToken: r } = {}) {
@@ -1972,7 +1972,7 @@ function ctt(e) {
 function utt(e, t, r) {
   return {
     name: ctt(e),
-    ...(r === "create" && { enabled: !0 }),
+    ...(r === "create" && { enabled: true }),
     job_config: {
       ccr: {
         environment_id: t,
@@ -1980,7 +1980,7 @@ function utt(e, t, r) {
           sources: [{ git_repository: { url: ign(e) } }],
           allowed_tools: [...sgn],
           disallowed_tools: [...ogn],
-          github_review_comment_only: !0,
+          github_review_comment_only: true,
         },
         events: [
           {
@@ -1995,7 +1995,7 @@ function utt(e, t, r) {
         ],
       },
     },
-    clear_mcp_connections: !0,
+    clear_mcp_connections: true,
   };
 }
 
@@ -2018,7 +2018,7 @@ async function ott(e, t, r, o) {
     return (
       n(`ultrareview post: environment resolution failed: ${l(A)}`),
       {
-        ok: !1,
+        ok: false,
         reason:
           "Couldn't find or create a cloud environment for the posting session. Open https://claude.ai/code once to finish setup, then run the review with --post again.",
       }
@@ -2029,20 +2029,20 @@ async function ott(e, t, r, o) {
     headers: { "anthropic-beta": sue },
     timeout: 20000,
     signal: t,
-    validateStatus: () => !0,
+    validateStatus: () => true,
     credentials: o,
   });
-  if (!d.ok) return { ok: !1, reason: kke(d.reason) };
-  if (d.status < 200 || d.status >= 300) return { ok: !1, reason: wke(d.status, d.data) };
+  if (!d.ok) return { ok: false, reason: kke(d.reason) };
+  if (d.status < 200 || d.status >= 300) return { ok: false, reason: wke(d.status, d.data) };
   let _ = d.data?.trigger?.id,
     C = typeof _ === "string" ? _ : void 0;
   if (!C)
     return {
-      ok: !1,
+      ok: false,
       reason:
         "The posting routine was created but its id didn't come back \u2014 check https://claude.ai/code/routines before trying again.",
     };
-  return { ok: !0, triggerId: C };
+  return { ok: true, triggerId: C };
 }
 
 async function agn(e, t, r, o, u) {
@@ -2059,7 +2059,7 @@ async function agn(e, t, r, o, u) {
       headers: { "anthropic-beta": sue },
       timeout: 20000,
       signal: r,
-      validateStatus: () => !0,
+      validateStatus: () => true,
       credentials: u,
     });
   } catch {
@@ -2078,7 +2078,7 @@ async function cgn(e, t, r, o) {
       headers: { "anthropic-beta": sue },
       timeout: 20000,
       signal: r,
-      validateStatus: () => !0,
+      validateStatus: () => true,
       credentials: o,
     });
   } catch {
@@ -2099,7 +2099,7 @@ async function ugn(e, t, r, o) {
   let u = ie().ultrareviewPostRoutines?.[e];
   if (u && lgn(u.triggerId)) {
     let _ = await cgn(u.triggerId, e, t, o);
-    if (typeof _ === "object") return { ok: !1, reason: _.unavailable };
+    if (typeof _ === "object") return { ok: false, reason: _.unavailable };
     if (_ === "mismatch" || _ === "gone") {
       await ptt(e, r);
       let C = await ott(e, t, r, o);
@@ -2108,17 +2108,17 @@ async function ugn(e, t, r, o) {
     }
     if (_ === "unverifiable")
       return {
-        ok: !1,
+        ok: false,
         reason:
           "The stored posting routine couldn't be verified (the read failed) \u2014 rerun to retry, or post the findings by hand.",
       };
-    if (u.version >= att) return { ok: !0, triggerId: u.triggerId };
+    if (u.version >= att) return { ok: true, triggerId: u.triggerId };
     switch (await agn(u.triggerId, e, t, r, o)) {
       case "updated":
-        return await Ske(e, u.triggerId, r), { ok: !0, triggerId: u.triggerId };
+        return await Ske(e, u.triggerId, r), { ok: true, triggerId: u.triggerId };
       case "not-refreshed":
         return {
-          ok: !1,
+          ok: false,
           reason:
             "The stored posting routine still has the older review-posting shape and could not be refreshed to the comment-posting one \u2014 rerun to retry, or post the findings by hand.",
         };
@@ -2149,7 +2149,7 @@ function pgn(e) {
   return new Promise((t, r) => {
     let o = () => r(e.reason ?? Error("aborted"));
     if (e.aborted) o();
-    else e.addEventListener("abort", o, { once: !0 });
+    else e.addEventListener("abort", o, { once: true });
   });
 }
 
@@ -2229,11 +2229,11 @@ async function fgn(e, t, r, o, u) {
         headers: { "anthropic-beta": sue },
         timeout: 20000,
         signal: r,
-        validateStatus: () => !0,
+        validateStatus: () => true,
         credentials: u,
       },
     );
-    if (!C.ok) return { ok: !1, reason: kke(C.reason) };
+    if (!C.ok) return { ok: false, reason: kke(C.reason) };
     if (Tke(C.status) && d === 0) {
       await ptt(e, o);
       continue;
@@ -2241,7 +2241,7 @@ async function fgn(e, t, r, o, u) {
     if (C.status < 200 || C.status >= 300) {
       let x = mtt(C.data);
       return {
-        ok: !1,
+        ok: false,
         reason:
           C.status === 429
             ? "Too many routine runs right now \u2014 wait a minute and run the review again to post, or post the findings by hand."
@@ -2251,7 +2251,7 @@ async function fgn(e, t, r, o, u) {
       };
     }
     return {
-      ok: !0,
+      ok: true,
       sessionId:
         typeof C.data?.session_id === "string"
           ? C.data.session_id
@@ -2261,7 +2261,7 @@ async function fgn(e, t, r, o, u) {
     };
   }
   return {
-    ok: !1,
+    ok: false,
     reason: "The posting routine couldn't be set up. The findings are above if you want to post them by hand.",
   };
 }
@@ -2330,15 +2330,15 @@ async function h1t(e, t, r, o) {
 
 async function vke(e) {
   if (O() && e !== void 0) {
-    if (!(await Ore(e))) return !1;
+    if (!(await Ore(e))) return false;
     return Cs({ credentials: e });
   }
-  if (!Tt()) return !1;
+  if (!Tt()) return false;
   return Cs();
 }
 
 async function hgn() {
-  return await cfe({ ignoreUntracked: !0 });
+  return await cfe({ ignoreUntracked: true });
 }
 
 async function ftt(e, t) {
@@ -2352,7 +2352,7 @@ async function ftt(e, t) {
 
 async function F3e(e) {
   let t = e ?? ee();
-  if (Hn(t) !== null) return !0;
+  if (Hn(t) !== null) return true;
   let { stdout: r, code: o } = await qe(it(), [...cn, "rev-parse", "--is-inside-work-tree"], { cwd: t });
   return o === 0 && r.trim() === "true";
 }
@@ -2363,7 +2363,7 @@ async function Pye(e, t, r) {
     if (!o)
       return (
         n("checkGithubAppInstalled: No access token found, assuming app not installed"),
-        { appInstalled: !1, defaultBranch: null, transient: !1, linkedAccountAccess: "inconclusive", httpStatus: null }
+        { appInstalled: false, defaultBranch: null, transient: false, linkedAccountAccess: "inconclusive", httpStatus: null }
       );
     let u = await oP();
     if (!u) {
@@ -2374,7 +2374,7 @@ async function Pye(e, t, r) {
             ? "checkGithubAppInstalled: No org UUID found (profile fetch null \u2014 possibly transient), assuming app not installed"
             : "checkGithubAppInstalled: No org UUID found (token lacks user:profile scope \u2014 deterministic), assuming app not installed",
         ),
-        { appInstalled: !1, defaultBranch: null, transient: A, linkedAccountAccess: "inconclusive", httpStatus: null }
+        { appInstalled: false, defaultBranch: null, transient: A, linkedAccountAccess: "inconclusive", httpStatus: null }
       );
     }
     let d = `${zt().BASE_API_URL}/api/oauth/organizations/${u}/code/repos/${e}/${t}`,
@@ -2387,20 +2387,20 @@ async function Pye(e, t, r) {
         let x = C.data.status.app_installed;
         return (
           n(`GitHub app ${x ? "is" : "is not"} installed on ${e}/${t}`),
-          { appInstalled: x, defaultBranch: A, transient: !1, linkedAccountAccess: "ok", httpStatus: C.status }
+          { appInstalled: x, defaultBranch: A, transient: false, linkedAccountAccess: "ok", httpStatus: C.status }
         );
       }
       return (
         n(`GitHub app is not installed on ${e}/${t} (status is null)`),
-        { appInstalled: !1, defaultBranch: A, transient: !1, linkedAccountAccess: "ok", httpStatus: C.status }
+        { appInstalled: false, defaultBranch: A, transient: false, linkedAccountAccess: "ok", httpStatus: C.status }
       );
     }
     return (
       n(`checkGithubAppInstalled: Unexpected response status ${C.status}`),
       {
-        appInstalled: !1,
+        appInstalled: false,
         defaultBranch: null,
-        transient: !0,
+        transient: true,
         linkedAccountAccess: "inconclusive",
         httpStatus: C.status,
       }
@@ -2421,16 +2421,16 @@ async function Pye(e, t, r) {
           n(
             `checkGithubAppInstalled: Got ${u} error, app likely not installed on ${e}/${t} (linked-account access: ${C})`,
           ),
-          { appInstalled: !1, defaultBranch: null, transient: !1, linkedAccountAccess: C, httpStatus: u }
+          { appInstalled: false, defaultBranch: null, transient: false, linkedAccountAccess: C, httpStatus: u }
         );
       return (
         n(`checkGithubAppInstalled error: ${l(o)}`),
-        { appInstalled: !1, defaultBranch: null, transient: !0, linkedAccountAccess: C, httpStatus: u ?? null }
+        { appInstalled: false, defaultBranch: null, transient: true, linkedAccountAccess: C, httpStatus: u ?? null }
       );
     }
     return (
       n(`checkGithubAppInstalled error: ${l(o)}`),
-      { appInstalled: !1, defaultBranch: null, transient: !0, linkedAccountAccess: "inconclusive", httpStatus: null }
+      { appInstalled: false, defaultBranch: null, transient: true, linkedAccountAccess: "inconclusive", httpStatus: null }
     );
   }
 }
@@ -2451,29 +2451,29 @@ async function q9n(e, t, r) {
 async function kgn() {
   try {
     let e = Yt()?.accessToken;
-    if (!e) return n("checkGithubTokenSynced: No access token found"), !1;
+    if (!e) return n("checkGithubTokenSynced: No access token found"), false;
     let t = await oP();
-    if (!t) return n("checkGithubTokenSynced: No org UUID found"), !1;
+    if (!t) return n("checkGithubTokenSynced: No org UUID found"), false;
     let r = `${zt().BASE_API_URL}/api/oauth/organizations/${t}/sync/github/auth`,
       o = { ...JS(e), "x-organization-uuid": t };
     n("Checking if GitHub token is synced via web-setup");
     let u = await st.get(r, { headers: o, timeout: 15000 }),
-      d = u.status === 200 && u.data?.is_authenticated === !0;
+      d = u.status === 200 && u.data?.is_authenticated === true;
     return n(`GitHub token synced: ${d} (status=${u.status}, data=${b(u.data)})`), d;
   } catch (e) {
     if (st.isAxiosError(e)) {
       let t = e.response?.status;
-      if (t && t >= 400 && t < 500) return n(`checkGithubTokenSynced: Got ${t}, token not synced`), !1;
+      if (t && t >= 400 && t < 500) return n(`checkGithubTokenSynced: Got ${t}, token not synced`), false;
     }
-    return n(`checkGithubTokenSynced error: ${l(e)}`), !1;
+    return n(`checkGithubTokenSynced error: ${l(e)}`), false;
   }
 }
 
 async function G9n(e, t) {
   let r = await Pye(e, t);
-  if (r.appInstalled) return { hasAccess: !0, method: "github-app" };
-  if (!Ct() && (await kgn())) return { hasAccess: !0, method: "token-sync" };
-  return { hasAccess: !1, method: "none", transient: r.transient };
+  if (r.appInstalled) return { hasAccess: true, method: "github-app" };
+  if (!Ct() && (await kgn())) return { hasAccess: true, method: "token-sync" };
+  return { hasAccess: false, method: "none", transient: r.transient };
 }
 
 async function lut(e) {
@@ -2484,7 +2484,7 @@ async function lut(e) {
   return t;
 }
 
-async function gtt({ allowBundle: e = !1, cwd: t, storageV5: r, credentials: o } = {}) {
+async function gtt({ allowBundle: e = false, cwd: t, storageV5: r, credentials: o } = {}) {
   let u = [];
   if (a.CLAUDE_CODE_EVAL_CONFINED) return u.push({ type: "eval_confined" }), u;
   if (!Mt("allow_remote_sessions"))
@@ -2614,20 +2614,20 @@ function zgn(e, t) {
   if (t.name === FE) {
     let r = TZ(t.input),
       o = jgn().safeParse(r?.input ?? t.input);
-    if (!o.success) return !1;
+    if (!o.success) return false;
     return (
       e.pendingCreates.set(t.id, {
         content: o.data.subject,
         activeForm: o.data.activeForm ?? o.data.subject,
         status: "pending",
       }),
-      !0
+      true
     );
   }
   if (t.name === $E) {
     let r = k1(t.input),
       o = Wgn().safeParse(r?.input ?? t.input);
-    if (!o.success) return !1;
+    if (!o.success) return false;
     let { taskId: u, status: d, subject: _, activeForm: C } = o.data;
     if (d === "deleted") return e.tasks.delete(u);
     let A = e.tasks.get(u);
@@ -2637,23 +2637,23 @@ function zgn(e, t) {
         activeForm: C ?? A?.activeForm ?? _ ?? u,
         status: d ?? A?.status ?? "pending",
       }),
-      !0
+      true
     );
   }
-  return !1;
+  return false;
 }
 
 function Ggn(e, t) {
   let r = e.pendingCreates.get(t.tool_use_id);
-  if (!r) return !1;
-  if (t.is_error) return e.pendingCreates.delete(t.tool_use_id), !0;
+  if (!r) return false;
+  if (t.is_error) return e.pendingCreates.delete(t.tool_use_id), true;
   let o = "";
   if (typeof t.content === "string") o = t.content;
   else if (Array.isArray(t.content)) o = zr(t.content);
   let u = o.match(Bgn)?.[1];
-  if (!u) return !1;
+  if (!u) return false;
   if ((e.pendingCreates.delete(t.tool_use_id), !e.tasks.has(u))) e.tasks.set(u, r);
-  return !0;
+  return true;
 }
 
 function qgn(e) {
@@ -2761,10 +2761,10 @@ async function Zgn(e, t) {
   }
 }
 
-async function Iee({ allowBundle: e = !1, cwd: t, storageV5: r, credentials: o } = {}) {
+async function Iee({ allowBundle: e = false, cwd: t, storageV5: r, credentials: o } = {}) {
   let u = await gtt({ allowBundle: e, cwd: t, storageV5: r, credentials: o });
-  if (u.length > 0) return { eligible: !1, errors: u };
-  return { eligible: !0 };
+  if (u.length > 0) return { eligible: false, errors: u };
+  return { eligible: true };
 }
 
 function e7(e) {
@@ -2821,7 +2821,7 @@ function vZ(e, t, r, o, u, d) {
       summary: d ?? `${ZAt}${t}" ${_}`,
     }),
     mode: "task-notification",
-    skipAttachments: !0,
+    skipAttachments: true,
     agentId: et(),
     priority: "next",
     taskId: e,
@@ -2876,7 +2876,7 @@ function cut(e) {
 }
 
 function S1t() {
-  return I("tengu_linear_brook", !0);
+  return I("tengu_linear_brook", true);
 }
 
 function nhn(e) {
@@ -2926,7 +2926,7 @@ The cloud review produced the following findings:
 ${t}${x}${M}${F}`,
     }),
     mode: "task-notification",
-    skipAttachments: !0,
+    skipAttachments: true,
     agentId: et(),
     priority: "next",
     taskId: e,
@@ -2968,7 +2968,7 @@ This review was launched with a request to post the findings to the pull request
 Cloud review did not produce output (${C}). Tell the user to retry /code-review ultra, or use plain /code-review for a local review instead.${A}${d}`,
     }),
     mode: "task-notification",
-    skipAttachments: !0,
+    skipAttachments: true,
     agentId: et(),
     priority: "next",
     taskId: e,
@@ -3069,7 +3069,7 @@ async function ihn(e) {
       title: r.title,
       todoList: [],
       isRemoteReview: r.isRemoteReview,
-      applyFixesOnComplete: r.applyFixesOnComplete === !0,
+      applyFixesOnComplete: r.applyFixesOnComplete === true,
       reviewInstructions: typeof r.reviewInstructions === "string" ? r.reviewInstructions : void 0,
       isUltraplan: r.isUltraplan,
       isLongRunning: r.isLongRunning,
@@ -3087,7 +3087,7 @@ async function lhn({ relay: e, request: t, sessionId: r, tool: o, input: u, abor
     A = await e.canUseTool(
       o,
       u,
-      { ...e.toolUseContext, abortController: d, forRemoteExecution: !0, sameTurnToolUses: void 0 },
+      { ...e.toolUseContext, abortController: d, forRemoteExecution: true, sameTurnToolUses: void 0 },
       C,
       _,
     );
@@ -3115,14 +3115,14 @@ function ktt(e) {
 }
 
 function Ake(e, t) {
-  if (Object.is(e, t)) return !0;
+  if (Object.is(e, t)) return true;
   if (Array.isArray(e)) return Array.isArray(t) && e.length === t.length && e.every((r, o) => Ake(r, t[o]));
   if (ktt(e)) return ktt(t) && Object.entries(e).every(([r, o]) => Object.hasOwn(t, r) && Ake(o, t[r]));
-  return !1;
+  return false;
 }
 
 function wtt(e, t, r) {
-  let o = !0,
+  let o = true,
     u = 1000,
     d = 1800000,
     _ = 5,
@@ -3130,9 +3130,9 @@ function wtt(e, t, r) {
     A = 3,
     x = 15,
     M = 0,
-    F = !1,
+    F = false,
     U = new Set(),
-    B = !1,
+    B = false,
     W = new Map(),
     z = 600000,
     pe = 8,
@@ -3141,7 +3141,7 @@ function wtt(e, t, r) {
   function ge(tt) {
     let lt = W.get(tt);
     if (!lt) return;
-    (me = Date.now()), (lt.withdrawn = !0), lt.abortController.abort(), W.delete(tt);
+    (me = Date.now()), (lt.withdrawn = true), lt.abortController.abort(), W.delete(tt);
   }
   let Ce = gr();
   function Ie() {
@@ -3155,7 +3155,7 @@ function wtt(e, t, r) {
           break;
         case "control_response": {
           let Xe = mt.response.request_id;
-          if (U.has(Xe)) F = !0;
+          if (U.has(Xe)) F = true;
           ge(Xe);
           break;
         }
@@ -3166,7 +3166,7 @@ function wtt(e, t, r) {
           }
           let Xe = Pe(tt, mt.request_id, mt.request);
           if (Xe === "no_relay") {
-            if (!B) (B = !0), s("tengu_remote_agent_permission_fallback", { reason: c(Xe) });
+            if (!B) (B = true), s("tengu_remote_agent_permission_fallback", { reason: c(Xe) });
           } else if (Xe) s("tengu_remote_agent_permission_fallback", { reason: c(Xe) });
           break;
         }
@@ -3174,7 +3174,7 @@ function wtt(e, t, r) {
   }
   function Pe(tt, lt, mt) {
     if (!r) return "no_relay";
-    if (r.toolUseContext.options.isNonInteractiveSession === !0) return "non_interactive_session";
+    if (r.toolUseContext.options.isNonInteractiveSession === true) return "non_interactive_session";
     if (lt === "") return "no_request_id";
     if (mt.requires_user_interaction) return "requires_user_interaction";
     if (
@@ -3185,7 +3185,7 @@ function wtt(e, t, r) {
       return "escalated_ask";
     let Xe = no(r.toolUseContext.options.tools, mt.tool_name);
     if (!Xe) return "unknown_tool";
-    if (Xe.isMcp === !0) return "mcp_tool";
+    if (Xe.isMcp === true) return "mcp_tool";
     if (Xe.name === Do || Xe.name.startsWith(Hne)) return "skill_tool";
     if (!r.allowedToolNames.has(Xe.name)) return "tool_not_in_agent_pool";
     if (Xe.name === eu) return "workflow_tool";
@@ -3195,7 +3195,7 @@ function wtt(e, t, r) {
     if (!Ake(mt.input, nt.data)) return "input_mismatch";
     if (W.size >= pe) return "too_many_pending";
     let ht = w_(Ce),
-      At = { abortController: ht, withdrawn: !1, startedAt: Date.now() };
+      At = { abortController: ht, withdrawn: false, startedAt: Date.now() };
     W.set(lt, At),
       Promise.resolve()
         .then(async () => {
@@ -3207,7 +3207,7 @@ function wtt(e, t, r) {
           if (At.withdrawn) return;
           let Lt = await dbn(tt.sessionId, lt, dn);
           if ((s("tengu_remote_agent_permission_forwarded", { behavior: c(dn.behavior), delivered: Lt.ok }), Lt.ok))
-            F = !0;
+            F = true;
           else n(`Remote permission answer for task ${e} not delivered: ${Lt.reason}`, { level: "warn" });
         })
         .catch((dn) => {
@@ -3220,24 +3220,24 @@ function wtt(e, t, r) {
     return;
   }
   let Oe = null,
-    Fe = !1,
+    Fe = false,
     Be,
     ze = 0,
-    We = !1,
-    Ve = !1,
-    Pt = !1,
+    We = false,
+    Ve = false,
+    Pt = false,
     ct,
     ut = ytt(),
     en = null,
     nn = async () => {
-      if (!o) return !1;
+      if (!o) return false;
       try {
         let tt = t.taskRegistry.get(e);
-        if (!tt || tt.status !== "running") return !1;
+        if (!tt || tt.status !== "running") return false;
         let lt = await jV(tt.sessionId, Oe, { skipMetadata: Fe, credentials: t.credentials });
         Oe = lt.lastEventId;
         let mt = t.taskRegistry.get(e);
-        if (!mt || mt.status !== "running") return !1;
+        if (!mt || mt.status !== "running") return false;
         let Xe = lt.newEvents.length > 0;
         if (((Fe = Xe), Xe)) {
           if (((ze += lt.newEvents.length), tt.isRemoteReview || tt.remoteTaskType === "remote-workflow")) {
@@ -3247,18 +3247,18 @@ function wtt(e, t, r) {
           for (let nr of lt.newEvents)
             switch ((ut.observe(nr), nr.type)) {
               case "assistant":
-                We = !0;
+                We = true;
                 break;
               case "result":
                 ct = nr;
                 break;
               case "system":
-                if (nr.subtype === "hook_progress" || nr.subtype === "hook_response") Ve = !0;
+                if (nr.subtype === "hook_progress" || nr.subtype === "hook_response") Ve = true;
                 if (
                   (nr.subtype === "hook_started" || nr.subtype === "hook_progress" || nr.subtype === "hook_response") &&
                   nr.hook_event === "SessionStart"
                 )
-                  Pt = !0;
+                  Pt = true;
                 break;
               default:
                 break;
@@ -3300,7 +3300,7 @@ function wtt(e, t, r) {
             Cke(e, "session_start_failed", t.taskRegistry, lt.startupFailure),
             bd(e),
             f9(e, t.storageV5),
-            !1
+            false
           );
         if (lt.sessionStatus === "archived" && !(tt.isRemoteReview && en !== null))
           return (
@@ -3312,7 +3312,7 @@ function wtt(e, t, r) {
             vZ(e, tt.title, "completed", t.taskRegistry, tt.toolUseId),
             bd(e),
             f9(e, t.storageV5),
-            !1
+            false
           );
         let nt = !tt.isUltraplan && !tt.isLongRunning && !tt.isRemoteReview && tt.remoteTaskType !== "remote-workflow";
         if (nt) Ee(tt, lt.controlFrames);
@@ -3321,8 +3321,8 @@ function wtt(e, t, r) {
           dn = [...W.values()].some((Pn) => At - Pn.startedAt < z);
         if (ht && !dn) M++;
         else M = 0;
-        if (lt.sessionStatus && !ht) F = !1;
-        if (M >= (F ? x : A) && I("tengu_coral_anchor", !0)) {
+        if (lt.sessionStatus && !ht) F = false;
+        if (M >= (F ? x : A) && I("tengu_coral_anchor", true)) {
           let nr = `the cloud session is waiting on input (a question, or a permission prompt this session couldn't answer for it). Answer it at ${GW(tt.sessionId)}, or relaunch with an agent whose permission mode doesn't prompt.`;
           return (
             t.taskRegistry.update(e, (Rr) =>
@@ -3338,7 +3338,7 @@ function wtt(e, t, r) {
             vZ(e, tt.title, "blocked", t.taskRegistry, tt.toolUseId, Wt(`${ZAt}${tt.title}" is blocked: ${nr}`)),
             bd(e),
             f9(e, t.storageV5),
-            !1
+            false
           );
         }
         let Lt = tt.remoteTaskType === "remote-workflow" ? async () => Stt(Be ?? []) : void 0;
@@ -3354,7 +3354,7 @@ function wtt(e, t, r) {
               vZ(e, Pn, "completed", t.taskRegistry, tt.toolUseId, `Remote workflow completed: ${Pn}`),
               bd(e),
               f9(e, t.storageV5),
-              !1
+              false
             );
         }
         let fn = tt.isUltraplan || tt.isLongRunning || Lt ? void 0 : ct,
@@ -3394,11 +3394,11 @@ function wtt(e, t, r) {
               : ze > 0
                 ? "running"
                 : "starting",
-          er = !1,
+          er = false,
           Cn = tt.isRemoteReview && (fn || Ke || mn);
         if (
           (t.taskRegistry.update(e, (Pn) => {
-            if (Pn.status !== "running") return (er = !0), Pn;
+            if (Pn.status !== "running") return (er = true), Pn;
             let nr = yn === "running" || yn === "starting",
               Rr = ut.todos();
             if (nr && Rr === Pn.todoList && Sn === void 0) return Pn;
@@ -3412,7 +3412,7 @@ function wtt(e, t, r) {
           }),
           er)
         )
-          return !1;
+          return false;
         if (fn || Ke || mn) {
           let Pn = fn && fn.subtype !== "success" ? "failed" : "completed";
           if (tt.isRemoteReview) {
@@ -3437,7 +3437,7 @@ function wtt(e, t, r) {
                 ).catch((Pr) => n(`remote review completion notification failed: ${String(Pr)}`)),
                 bd(e),
                 f9(e, t.storageV5),
-                !1
+                false
               );
             let Lr =
               Rr !== null
@@ -3456,10 +3456,10 @@ function wtt(e, t, r) {
               Cke(e, Lr, t.taskRegistry, Rr ?? void 0),
               bd(e),
               f9(e, t.storageV5),
-              !1
+              false
             );
           }
-          return vZ(e, tt.title, Pn, t.taskRegistry, tt.toolUseId), bd(e), f9(e, t.storageV5), !1;
+          return vZ(e, tt.title, Pn, t.taskRegistry, tt.toolUseId), bd(e), f9(e, t.storageV5), false;
         }
       } catch (tt) {
         n(`Remote session poll failed for task ${e}: ${String(tt)}`, { level: "error" }), (C = 0), (M = 0);
@@ -3476,11 +3476,11 @@ function wtt(e, t, r) {
               Cke(e, "poll_timeout_after_api_error", t.taskRegistry),
               bd(e),
               f9(e, t.storageV5),
-              !1
+              false
             );
         } catch {}
       }
-      return !0;
+      return true;
     },
     xt = async () => {
       if ((await nn()) && o) {
@@ -3492,7 +3492,7 @@ function wtt(e, t, r) {
   return (
     xt(),
     () => {
-      (o = !1), Ie();
+      (o = false), Ie();
     }
   );
 }
@@ -3523,7 +3523,7 @@ function t7() {
 }
 
 function q0(e, t, r, o, u) {
-  let d = () => _p({ permissionMode: o ?? "default", mainLoopModel: t, exceeds200kTokens: !1 }),
+  let d = () => _p({ permissionMode: o ?? "default", mainLoopModel: t, exceeds200kTokens: false }),
     _ = X9t(t),
     C = (U, B) => {
       if (_ && za(U) === "bedrock") {
@@ -3551,20 +3551,20 @@ function q0(e, t, r, o, u) {
     if (r === "inherit") return d();
     if (b1t(r, t)) return t;
     let U = C(Rke(Ot(r)), r);
-    if (!kr(U)) return x(r, !0, U);
+    if (!kr(U)) return x(r, true, U);
     return U;
   }
   if (e !== void 0 && e !== "inherit") {
     if (b1t(e, t)) return t;
     let U = C(Rke(Ot(e)), e);
-    if (!kr(U)) return x(e, !0, U);
+    if (!kr(U)) return x(e, true, U);
     return U;
   }
   if (e === "inherit") return d();
   let M = t7();
   if (M === "inherit") return d();
   let F = C(Ot(M), M);
-  if (!kr(F)) return x(M, !1);
+  if (!kr(F)) return x(M, false);
   return F;
 }
 
@@ -3618,7 +3618,7 @@ function Rke(e) {
 
 function b1t(e, t) {
   let r = pn(t);
-  if (jm(r) && !NT(r)) return !1;
+  if (jm(r) && !NT(r)) return false;
   let o = Ye(t);
   switch (e.toLowerCase()) {
     case "fable":
@@ -3630,7 +3630,7 @@ function b1t(e, t) {
     case "haiku":
       return o.includes("haiku");
     default:
-      return !1;
+      return false;
   }
 }
 
@@ -3759,7 +3759,7 @@ function si(e) {
 
 function dD(e) {
   let { prompt: t, servesDefault: r } = Xhn(e);
-  if (!r && !e.analysisOnly) l3(!1);
+  if (!r && !e.analysisOnly) l3(false);
   return t;
 }
 
@@ -3773,18 +3773,18 @@ function Xhn({
   skillsPersistencePrompt: _,
   analysisOnly: C,
 }) {
-  if (d) return { prompt: si([d]), servesDefault: !1 };
+  if (d) return { prompt: si([d]), servesDefault: false };
   if (Fs() && !e) {
     let { getCoordinatorSystemPrompt: F } = import.meta.require("/$bunfs/root/chunk-gpgdwqf2.js"),
       { hasCommsRoledServer: U } = import.meta.require("/$bunfs/root/chunk-jrhndjem.js"),
       B = si([F(U(t.options.mcpClients)), ...(u ? [u] : [])]);
     if (!C) y("coordinator_mode_start");
-    return { prompt: B, servesDefault: !1 };
+    return { prompt: B, servesDefault: false };
   }
   let A = e ? (ja(e) ? e.getSystemPrompt({ toolUseContext: { options: t.options } }) : e.getSystemPrompt()) : void 0,
     x = typeof r === "string" ? [r] : Array.isArray(r) ? r : o,
     M = x === o;
-  if (e?.memory && !C) s("tengu_agent_memory_loaded", { ...!1, scope: c(e.memory), source: w("main-thread") });
+  if (e?.memory && !C) s("tengu_agent_memory_loaded", { ...false, scope: c(e.memory), source: w("main-thread") });
   if (A && e?.appendSystemPrompt)
     return { prompt: si([...x, A, ...(_ ? [_] : []), ...(u ? [u] : [])]), servesDefault: M };
   return { prompt: si([...(A ? [A] : x), ...(_ ? [_] : []), ...(u ? [u] : [])]), servesDefault: !A && M };
@@ -3822,13 +3822,13 @@ function X9n(e) {
       msgsInJsonl: t.counts?.msgsInJsonl,
     })
   )
-    t.contentPaintSent = !0;
+    t.contentPaintSent = true;
 }
 
 function Y9n() {
   let e = CZ();
   if (e.promptIdleSent || !e.contentPaintSent || !e.sender) return;
-  if (e.sender({ kind: "prompt_idle" })) e.promptIdleSent = !0;
+  if (e.sender({ kind: "prompt_idle" })) e.promptIdleSent = true;
 }
 
 function xke(e, t) {
@@ -3872,9 +3872,9 @@ function Dee(e) {
 
 function Ftt(e) {
   let t = e;
-  if (typeof t.hostClassifierContext !== "string" || t.uuid === void 0) return !1;
+  if (typeof t.hostClassifierContext !== "string" || t.uuid === void 0) return false;
   let r = Mke(t);
-  if (r === void 0) return !1;
+  if (r === void 0) return false;
   return w1.get(xke(t.uuid, r)) === t.hostClassifierContext;
 }
 
@@ -3893,7 +3893,7 @@ function dut(e) {
   let t = uut(e);
   if (t?.sessionId === void 0 || !/^\d{4}-\d{2}-\d{2}T/.test(t.boundaryAt)) return null;
   return {
-    forkSourceAlive: !0,
+    forkSourceAlive: true,
     forkBoundaryAt: t.boundaryAt,
     forkSessionId: t.sessionId,
     ...(t.parentSessionId && { forkParentSessionId: t.parentSessionId }),
@@ -3976,16 +3976,16 @@ ${x.tool_use_id}`);
 }
 
 function uyn(e, t, r) {
-  if (rN(e)) return !0;
-  if (!cx(e)) return !1;
+  if (rN(e)) return true;
+  if (!cx(e)) return false;
   if (e.type === "tool_use") return r.byAssistantSideResult.has(e.id) && !r.byUserSideResult.has(e.id);
-  if (e.type !== "server_tool_use" && e.type !== "mcp_tool_use") return !1;
+  if (e.type !== "server_tool_use" && e.type !== "mcp_tool_use") return false;
   let o =
     typeof e.id === "string"
       ? `${t}
 ${e.id}`
       : void 0;
-  if (o !== void 0 && r.byServerResult.has(o)) return !1;
+  if (o !== void 0 && r.byServerResult.has(o)) return false;
   return (o !== void 0 && r.byClientResult.has(o)) || (e.type === "server_tool_use" && !mut(e.name));
 }
 
@@ -4000,15 +4000,15 @@ function dyn(e) {
       let x = t[A];
       if (x === void 0 || C.type !== "assistant" || !Array.isArray(C.message.content)) return [C];
       let M = [],
-        { lastKeptIsThinking: F, removedSince: U } = o.get(x) ?? { lastKeptIsThinking: !1, removedSince: !1 },
-        B = !1;
+        { lastKeptIsThinking: F, removedSince: U } = o.get(x) ?? { lastKeptIsThinking: false, removedSince: false },
+        B = false;
       for (let W of C.message.content) {
         if (uyn(W, x, r)) {
-          (u += 1), (U = !0), (B = !0);
+          (u += 1), (U = true), (B = true);
           continue;
         }
-        if (U && F && Ntt(W)) M.push({ type: "text", text: oyn, citations: [] }), (d += 1), (B = !0);
-        M.push(W), (F = Ntt(W)), (U = !1);
+        if (U && F && Ntt(W)) M.push({ type: "text", text: oyn, citations: [] }), (d += 1), (B = true);
+        M.push(W), (F = Ntt(W)), (U = false);
       }
       if ((o.set(x, { lastKeptIsThinking: F, removedSince: U }), !B)) return [C];
       return M.length === 0 ? [] : [{ ...C, message: { ...C.message, content: M } }];
@@ -4044,10 +4044,10 @@ function hyn() {
     t,
     r = [],
     o = [],
-    u = !1,
+    u = false,
     d,
     _,
-    C = !1,
+    C = false,
     A = null,
     x = null;
   function M(ge) {
@@ -4055,7 +4055,7 @@ function hyn() {
   }
   function F(ge, Ce, Ie) {
     if (u) return;
-    (u = !0), (t = ge), (d = Ce), (_ = Ie);
+    (u = true), (t = ge), (d = Ce), (_ = Ie);
     let Ee = SX();
     if (((C = (Ee?.CwdChanged?.length ?? 0) > 0 || (Ee?.FileChanged?.length ?? 0) > 0), C)) x = vt(me);
     let Pe = U(Ee);
@@ -4082,21 +4082,21 @@ function hyn() {
   function B(ge) {
     n(`FileChanged: watching ${ge.length} paths`),
       (e = GE.watch(ge, {
-        persistent: !0,
-        ignoreInitial: !0,
+        persistent: true,
+        ignoreInitial: true,
         awaitWriteFinish: { stabilityThreshold: 500, pollInterval: 200 },
-        ignorePermissionErrors: !0,
+        ignorePermissionErrors: true,
       })),
       e.on("change", (Ie) => W(Ie, "change")),
       e.on("add", (Ie) => W(Ie, "add")),
       e.on("unlink", (Ie) => W(Ie, "unlink"));
-    let Ce = !1;
+    let Ce = false;
     e.on("error", (Ie) => {
-      if (!Ce) (Ce = !0), p("file_watcher_start", "fs_error");
+      if (!Ce) (Ce = true), p("file_watcher_start", "fs_error");
       n(`FileChanged: watcher error: ${l(Ie)}`, { level: "warn" });
     }),
       e.on("ready", () => {
-        if (!Ce) (Ce = !0), y("file_watcher_start");
+        if (!Ce) (Ce = true), y("file_watcher_start");
       });
   }
   function W(ge, Ce) {
@@ -4104,13 +4104,13 @@ function hyn() {
       LUt({ id: K(), project: { originalCwd: Se(), projectRoot: gn() } }, ge, Ce, { storageV5: d, credentials: _ })
         .then(({ results: Ie, watchPaths: Ee, systemMessages: Pe }) => {
           if ((y("file_watcher_change_detected"), Ee.length > 0)) z(Ee);
-          for (let Oe of Pe) A?.(Oe, !1);
-          for (let Oe of Ie) if (!Oe.succeeded && Oe.output) A?.(Oe.output, !0);
+          for (let Oe of Pe) A?.(Oe, false);
+          for (let Oe of Ie) if (!Oe.succeeded && Oe.output) A?.(Oe.output, true);
         })
         .catch((Ie) => {
           p("file_watcher_change_detected", "hook_exec_failed");
           let Ee = l(Ie);
-          n(`FileChanged hook failed: ${Ee}`, { level: "error" }), A?.(Ee, !0);
+          n(`FileChanged hook failed: ${Ee}`, { level: "error" }), A?.(Ee, true);
         });
   }
   function z(ge) {
@@ -4145,19 +4145,19 @@ function hyn() {
       let Be = l(Fe);
       return (
         n(`CwdChanged hook failed: ${Be}`, { level: "error" }),
-        A?.(Be, !0),
+        A?.(Be, true),
         { results: [], watchPaths: [], systemMessages: [] }
       );
     });
     (r = Oe.watchPaths), (o = Oe.watchPaths.slice().sort());
-    for (let Fe of Oe.systemMessages) A?.(Fe, !1);
-    for (let Fe of Oe.results) if (!Fe.succeeded && Fe.output) A?.(Fe.output, !0);
+    for (let Fe of Oe.systemMessages) A?.(Fe, false);
+    for (let Fe of Oe.results) if (!Fe.succeeded && Fe.output) A?.(Fe.output, true);
     if (u) pe();
   }
   function me() {
     if (x) x(), (x = null);
     if (e) e.close(), (e = null);
-    (r = []), (o = []), (u = !1), (d = void 0), (_ = void 0), (C = !1), (A = null);
+    (r = []), (o = []), (u = false), (d = void 0), (_ = void 0), (C = false), (A = null);
   }
   return {
     initialize: F,
@@ -4174,10 +4174,10 @@ function Fye(e) {
 }
 
 function GB(e, t = Date.now()) {
-  if (!TGe(at())) return !1;
+  if (!TGe(at())) return false;
   let r = Fye(e)?.timestamp,
     o = Math.max(r !== void 0 ? Date.parse(r) : -1 / 0, i0n() ?? -1 / 0);
-  if (o === -1 / 0) return !1;
+  if (o === -1 / 0) return false;
   let u = oie() ?? (oM("repl_main_thread") ? vG : HE);
   return t - o < u;
 }
@@ -4240,7 +4240,7 @@ async function MG(
     B = [],
     W = [],
     z,
-    pe = !1;
+    pe = false;
   if (f_() && (Dr() || OW() === null))
     n(
       Dr()
@@ -4279,7 +4279,7 @@ async function MG(
       if (me.initialUserMessage) F.pendingInitialUserMessage = me.initialUserMessage;
       if (me.sessionTitle) z = me.sessionTitle;
       if (me.watchPaths && me.watchPaths.length > 0) W.push(...me.watchPaths);
-      if (me.reloadSkills) pe = !0;
+      if (me.reloadSkills) pe = true;
     }
   } catch (me) {
     if (!(me instanceof la)) throw me;
@@ -4370,15 +4370,15 @@ function Syn(e, t, r) {
 
 function byn(e) {
   let t = e.findLastIndex(Ou);
-  if (t === -1) return !0;
+  if (t === -1) return true;
   for (let u = e.length - 1; u > t; u--) {
     let d = e[u];
     if (d?.type !== "assistant") continue;
     let _ = kh(d);
-    if (_ && Rj(_) > 0) return !0;
+    if (_ && Rj(_) > 0) return true;
   }
   let r = e[t];
-  if (r === void 0 || !Ou(r)) return !1;
+  if (r === void 0 || !Ou(r)) return false;
   let o = r.compactMetadata.preservedMessages?.anchorUuid ?? r.compactMetadata.preservedSegment?.anchorUuid;
   return o !== void 0 && o === r.uuid;
 }
@@ -4408,25 +4408,25 @@ function Fke() {
 
 function Htt(e) {
   let t = Fke();
-  if (t.size === 0) return !1;
+  if (t.size === 0) return false;
   let r = new Set();
   for (let o = e.length - 1; o >= 0; o--) {
     let u = e[o];
     if (u.type === "user") {
       if (u.isMeta) continue;
       let d = u.message.content;
-      if (!Array.isArray(d)) return !1;
-      let _ = !1;
+      if (!Array.isArray(d)) return false;
+      let _ = false;
       for (let C of d)
         if (C.type === "tool_result") {
-          if (((_ = !0), !C.is_error)) r.add(C.tool_use_id);
+          if (((_ = true), !C.is_error)) r.add(C.tool_use_id);
         }
-      if (!_) return !1;
+      if (!_) return false;
     } else if (u.type === "assistant") {
-      for (let d of u.message.content) if (d.type === "tool_use" && r.has(d.id) && t.has(d.name)) return !0;
+      for (let d of u.message.content) if (d.type === "tool_use" && r.has(d.id) && t.has(d.name)) return true;
     }
   }
-  return !1;
+  return false;
 }
 
 export { $3e, $sn, $ye, Aet, D9n, Dee, Dke, Dpn, Eet, F3e, FF, Fke, Fpn, Fsn, Ftt, Fye, G9n, GB, GW, Gpn, HF, Hle, Htt, I3e, I9n, Iee, Ike, J9n, Jct, K9n, L9n, Lpn, Ltt, M9n, MG, Mpn, Mtt, Net, Npn, Nsn, O9n, Osn, Ott, Oye, P3e, P9n, Pee, Ptt, Pye, Qct, Ret, S1t, TZ, Tpn, V9n, VZe, Vbe, WA, X9n, XZe, Y9n, Ymn, ZF, Zct, Zet, a1t, aet, aut, b1t, c1t, cut, d1t, dD, dut, e3n, e7, eet, eke, eut, fZ, g1, gIe, h1t, hIe, hZ, htt, hut, hyn, i3n, ix, jB, jW, jsn, k1, lut, lx, mZ, mut, n7, nke, o3n, q0, q9n, r7, rke, rtt, s1t, si, t7, tet, tke, u1t, uut, vhn, vtt, wIe, x3e, x9n, xle, xtt, y1t, yIe, z9n, zpn, zsn };

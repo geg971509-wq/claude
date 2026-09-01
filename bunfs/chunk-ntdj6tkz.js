@@ -27,7 +27,7 @@ async function $ie(t, r, l) {
   try {
     if (Tt()) {
       let o = Yt(),
-        n = !1;
+        n = false;
       if (o?.subscriptionType && o?.rateLimitTier)
         n = o.subscriptionType === "max" && o.rateLimitTier === "default_claude_max_20x";
       else if (o?.accessToken) {

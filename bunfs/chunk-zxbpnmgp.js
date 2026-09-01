@@ -166,12 +166,12 @@ var u = ["/Applications/", "/System/Applications/"],
   ]),
   A = /^[\p{L}\p{M}\p{N}_ .&'()+-]+$/u;
 function y(t, e) {
-  if (u.some((o) => t.startsWith(o))) return !0;
+  if (u.some((o) => t.startsWith(o))) return true;
   if (e) {
     let o = e.endsWith("/") ? `${e}Applications/` : `${e}/Applications/`;
-    if (t.startsWith(o)) return !0;
+    if (t.startsWith(o)) return true;
   }
-  return !1;
+  return false;
 }
 function P(t) {
   return f.some((e) => e.test(t));
@@ -181,21 +181,21 @@ function c(t, e) {
   return t
     .map((r) => r.trim())
     .filter((r) => {
-      if (!r) return !1;
-      if (r.length > 40) return !1;
-      if (e && !A.test(r)) return !1;
-      if (o.has(r)) return !1;
-      return o.add(r), !0;
+      if (!r) return false;
+      if (r.length > 40) return false;
+      if (e && !A.test(r)) return false;
+      if (o.has(r)) return false;
+      return o.add(r), true;
     })
     .sort((r, s) => r.localeCompare(s));
 }
 function M(t) {
-  let e = c(t, !0);
+  let e = c(t, true);
   if (e.length <= 50) return e;
   return [...e.slice(0, 50), `\u2026 and ${e.length - 50} more`];
 }
 function S(t) {
-  return c(t, !1);
+  return c(t, false);
 }
 function l(t, e) {
   let { alwaysKept: o, rest: r } = t.reduce(
@@ -248,10 +248,10 @@ async function H(t) {
   }
   let r = await _(),
     s = new Jpe(),
-    p = !1,
+    p = false,
     i = async () => {
       if (p) return;
-      (p = !0), await Promise.all([vY(), OY()]), process.exit(0);
+      (p = true), await Promise.all([vY(), OY()]), process.exit(0);
     };
   process.stdin.on("end", () => void i()),
     process.stdin.on("error", () => void i()),

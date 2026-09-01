@@ -38,13 +38,13 @@ async function kEn(e) {
     let a = UT();
     await le().mkdir(a);
     let o = await Gi(U(a, ".storage-write"), {
-      realpath: !1,
+      realpath: false,
       retries: { retries: 10, minTimeout: 100, maxTimeout: 1000 },
       stale: 15000,
       onCompromised: (s) => n(`[secureStorage] write lock compromised: ${l(s)}`, { level: "warn" }),
     });
     try {
-      return await _.run(!0, e);
+      return await _.run(true, e);
     } finally {
       await o().catch((s) => n(`[secureStorage] write lock release failed: ${l(s)}`, { level: "warn" }));
     }
@@ -53,16 +53,16 @@ async function kEn(e) {
   }
 }
 async function For(e) {
-  return _.run(!0, e);
+  return _.run(true, e);
 }
 function d(e, t, r) {
   return kEn(async () => {
     e.invalidateCache?.();
     let a = await (e.readAsyncStrict?.(r) ?? e.readAsync(r));
-    if (a === Eu) return { success: !1, transient: !0 };
+    if (a === Eu) return { success: false, transient: true };
     let o = a ?? {},
       s = t(o);
-    return s === o ? { success: !0 } : await e.update(s, r);
+    return s === o ? { success: true } : await e.update(s, r);
   });
 }
 function I(e, t) {
@@ -101,9 +101,9 @@ function I(e, t) {
       let u = await t.update(a, o);
       if (u.success) {
         if (s !== null) await e.delete();
-        return g("secure_storage_credentials_write", "plaintext_fallback_used"), { success: !0, warning: u.warning };
+        return g("secure_storage_credentials_write", "plaintext_fallback_used"), { success: true, warning: u.warning };
       }
-      return p("secure_storage_credentials_write", "primary_and_fallback_failed"), { success: !1 };
+      return p("secure_storage_credentials_write", "primary_and_fallback_failed"), { success: false };
     },
     async delete(a) {
       let o = (await t.readAsync(a)) !== null,
@@ -192,18 +192,18 @@ var m = 2000,
 `,
           u;
         if (i.length <= H)
-          u = await Ff("security", ["-i"], { input: i, stdio: ["pipe", "pipe", "pipe"], reject: !1, timeout: m });
+          u = await Ff("security", ["-i"], { input: i, stdio: ["pipe", "pipe", "pipe"], reject: false, timeout: m });
         else
           n(`Keychain payload (${o.length}B JSON) exceeds security -i stdin limit; using argv`, { level: "warn" }),
             (u = await Ff("security", ["add-generic-password", "-U", "-a", a, "-s", r, "-X", s], {
               stdio: ["ignore", "pipe", "pipe"],
-              reject: !1,
+              reject: false,
               timeout: m,
             }));
-        if (u.exitCode !== 0) return { success: !1, transient: u.timedOut };
-        return (t.cache = { data: e, cachedAt: Date.now() }), t.generation++, (t.readInFlight = null), { success: !0 };
+        if (u.exitCode !== 0) return { success: false, transient: u.timedOut };
+        return (t.cache = { data: e, cachedAt: Date.now() }), t.generation++, (t.readInFlight = null), { success: true };
       } catch (r) {
-        return { success: !1 };
+        return { success: false };
       }
     },
     async delete() {
@@ -211,9 +211,9 @@ var m = 2000,
       try {
         let e = u0(s5),
           t = IC();
-        return await $e("security", ["delete-generic-password", "-a", t, "-s", e], { timeout: m, useCwd: !1 }), !0;
+        return await $e("security", ["delete-generic-password", "-a", t, "-s", e], { timeout: m, useCwd: false }), true;
       } catch (e) {
-        return !1;
+        return false;
       }
     },
   };
@@ -222,8 +222,8 @@ async function T() {
     let e = u0(s5),
       t = IC(),
       { stdout: r, code: a } = await $e("security", ["find-generic-password", "-a", t, "-w", "-s", e], {
-        useCwd: !1,
-        preserveOutputOnError: !1,
+        useCwd: false,
+        preserveOutputOnError: false,
         timeout: m,
       });
     if (a === 0 && r) return V(r.trim());
@@ -237,9 +237,9 @@ var h;
 function HEn() {
   if (h !== void 0) return h;
   return (
-    (h = Ff("security", ["show-keychain-info"], { reject: !1, stdio: ["ignore", "pipe", "pipe"], timeout: m })
+    (h = Ff("security", ["show-keychain-info"], { reject: false, stdio: ["ignore", "pipe", "pipe"], timeout: m })
       .then((e) => e.exitCode === 36)
-      .catch(() => !1)),
+      .catch(() => false)),
     h
   );
 }
@@ -283,9 +283,9 @@ var z = {
   async write(e) {
     try {
       let { storageDir: t, storagePath: r } = c();
-      return await le().mkdir(t), await Wn(r, b(e), 384), await W(r, 384), { success: !0, warning: x };
+      return await le().mkdir(t), await Wn(r, b(e), 384), await W(r, 384), { success: true, warning: x };
     } catch {
-      return { success: !1 };
+      return { success: false };
     } finally {
       if (O()) WY();
     }
@@ -293,10 +293,10 @@ var z = {
   async remove() {
     let { storagePath: e } = c();
     try {
-      return await le().unlink(e), !0;
+      return await le().unlink(e), true;
     } catch (t) {
-      if (E(t) === "ENOENT") return !0;
-      return !1;
+      if (E(t) === "ENOENT") return true;
+      return false;
     } finally {
       if (O()) WY();
     }
@@ -341,7 +341,7 @@ function Z(e) {
         s = await w(e.writeCredentials(t), a);
       if (s.state === "written" && o === a.generation) A(a, r, b(t));
       else S(a);
-      return s.state === "written" ? { success: !0, warning: x } : { success: !1 };
+      return s.state === "written" ? { success: true, warning: x } : { success: false };
     },
     async remove() {
       let { storagePath: t } = c(),
@@ -409,7 +409,7 @@ var D = {
   read(e) {
     let { storagePath: t } = c();
     try {
-      let r = O() && e?.fromStoreCopy === !0 ? f().copy : void 0;
+      let r = O() && e?.fromStoreCopy === true ? f().copy : void 0;
       if (r !== void 0 && r.storagePath === t) {
         if (r.text === null) return null;
         return JSON.parse(r.text);
@@ -454,7 +454,7 @@ class $or {
       if (a !== void 0 && a.legacyPath === r.legacyPath && a.configPath === r.configPath) this.memo = a.enabled;
       else this.memo = t(r);
     } catch {
-      this.memo = !1;
+      this.memo = false;
     }
     return this.memo;
   }
@@ -473,12 +473,12 @@ function B() {
   };
 }
 function e0r() {
-  if (process.env.CLAUDE_CODE_FORCE_WINDOWS_CREDMAN === "1") return !0;
+  if (process.env.CLAUDE_CODE_FORCE_WINDOWS_CREDMAN === "1") return true;
   return k().resolve(B, ae);
 }
 function ae({ legacyPath: e, configPath: t }) {
   let r = ee(e) ? e : t;
-  return JSON.parse(te(r, "utf8")).cachedGrowthBookFeatures?.tengu_windows_credman === !0;
+  return JSON.parse(te(r, "utf8")).cachedGrowthBookFeatures?.tengu_windows_credman === true;
 }
 function xEn(e) {
   k().prime(e, B);

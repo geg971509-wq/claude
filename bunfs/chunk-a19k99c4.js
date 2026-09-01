@@ -68,13 +68,13 @@ async function re(e, r, t) {
     a = O() && t !== void 0 ? P(e) : null;
   if (O() && t !== void 0 && a) {
     let l = await t.write(a, b(r), { mode: 438 & ~process.umask() });
-    if (!l.ok) return n(`[bridge:pointer] write failed: ${Ge(l.error)}`, { level: "warn" }), !1;
-    return n(`[bridge:pointer] wrote ${o}`), !0;
+    if (!l.ok) return n(`[bridge:pointer] write failed: ${Ge(l.error)}`, { level: "warn" }), false;
+    return n(`[bridge:pointer] wrote ${o}`), true;
   }
   try {
-    return await k(E(o), { recursive: !0 }), await Wn(o, b(r)), n(`[bridge:pointer] wrote ${o}`), !0;
+    return await k(E(o), { recursive: true }), await Wn(o, b(r)), n(`[bridge:pointer] wrote ${o}`), true;
   } catch (l) {
-    return n(`[bridge:pointer] write failed: ${l}`, { level: "warn" }), !1;
+    return n(`[bridge:pointer] write failed: ${l}`, { level: "warn" }), false;
   }
 }
 function te() {

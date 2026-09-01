@@ -50,7 +50,7 @@ async function et(r) {
     try {
       n = await b.realpath(e);
     } catch {
-      let a = !1;
+      let a = false;
       try {
         a = (await b.lstat(e)).isSymbolicLink();
       } catch {}
@@ -68,7 +68,7 @@ async function et(r) {
   }
 }
 async function B(r, t, e) {
-  let i = e?.allowOutside ?? !1,
+  let i = e?.allowOutside ?? false,
     n = await tt(m.resolve(r)),
     a = m.resolve(n, t);
   if (i) return a;
@@ -143,8 +143,8 @@ async function at(r) {
         continue;
       }
       let M = await t.beta.skills.versions.download(c, { skill_id: o.skill_id });
-      await y.rm(h, { recursive: !0, force: !0 }),
-        await y.mkdir(h, { recursive: !0, mode: E }),
+      await y.rm(h, { recursive: true, force: true }),
+        await y.mkdir(h, { recursive: true, mode: E }),
         s.push(h),
         await C(M, h),
         i.info("downloaded skill", { component: "agent-tool-context", skill_id: o.skill_id, version: c, dest: h });
@@ -153,7 +153,7 @@ async function at(r) {
     }
   return async () => {
     for (let o of s)
-      await y.rm(o, { recursive: !0, force: !0 }).catch((c) => {
+      await y.rm(o, { recursive: true, force: true }).catch((c) => {
         i.warn("failed to clean up skill", { component: "agent-tool-context", dest: o, error: String(c) });
       });
   };
@@ -196,7 +196,7 @@ async function L(r, t) {
 }
 function ft(r) {
   let t,
-    e = !1;
+    e = false;
   for (let i of r.split(`
 `)) {
     let n = i
@@ -207,7 +207,7 @@ function ft(r) {
     let a = n[0];
     if (t === void 0) t = a;
     else if (a !== t) return "";
-    if (n.length > 1) e = !0;
+    if (n.length > 1) e = true;
   }
   return t !== void 0 && e ? t : "";
 }
@@ -223,11 +223,11 @@ async function C(r, t) {
       o = await L(s, a ? ["-Z1", e] : ["-tf", e]);
     ct(o), lt(await L(s, a ? ["-Z", e] : ["-tvf", e]));
     let c = ft(o);
-    await y.mkdir(i, { recursive: !0, mode: E }), await L(s, a ? ["-oq", e, "-d", i] : ["-xf", e, "-C", i]);
+    await y.mkdir(i, { recursive: true, mode: E }), await L(s, a ? ["-oq", e, "-d", i] : ["-xf", e, "-C", i]);
     let l = c ? p.join(i, c) : i;
     for (let f of await y.readdir(l)) await y.rename(p.join(l, f), p.join(t, f));
   } finally {
-    await y.rm(e, { force: !0 }), await y.rm(i, { recursive: !0, force: !0 });
+    await y.rm(e, { force: true }), await y.rm(i, { recursive: true, force: true });
   }
 }
 async function ut(r, t) {
@@ -262,7 +262,7 @@ function ee(r) {
   return [gt(r), bt(r), _t(r), vt(r), $t(r), kt(r)];
 }
 function x(r, t) {
-  return B(r.workdir, t, { allowOutside: r.unrestrictedPaths ?? !1 });
+  return B(r.workdir, t, { allowOutside: r.unrestrictedPaths ?? false });
 }
 function yt() {
   let r = {};
@@ -277,8 +277,8 @@ class X {
     I.add(this),
       w.set(this, void 0),
       g.set(this, ""),
-      S.set(this, !1),
-      k.set(this, !1),
+      S.set(this, false),
+      k.set(this, false),
       _.set(this, null),
       jn(
         this,
@@ -287,7 +287,7 @@ class X {
           cwd: r,
           env: { ...t, PS1: "", PS2: "", TERM: "dumb" },
           stdio: ["pipe", "pipe", "pipe"],
-          detached: !0,
+          detached: true,
         }),
         "f",
       ),
@@ -296,7 +296,7 @@ class X {
       Oe(this, w, "f").stdout.on("data", (e) => Oe(this, I, "m", D).call(this, e)),
       Oe(this, w, "f").stderr.on("data", (e) => Oe(this, I, "m", D).call(this, e)),
       Oe(this, w, "f").once("close", () => {
-        jn(this, k, !0, "f");
+        jn(this, k, true, "f");
         let e = Oe(this, _, "f");
         jn(this, _, null, "f"), e?.resolve();
       });
@@ -309,7 +309,7 @@ class X {
     let e = t.timeoutMs ?? z,
       i = t.signal;
     if (i?.aborted) throw new bn("bash command aborted");
-    jn(this, g, "", "f"), jn(this, S, !1, "f");
+    jn(this, g, "", "f"), jn(this, S, false, "f");
     let n = `__ANT_CMD_${j.randomUUID()}_DONE__`,
       a = `${n.slice(0, 8)}''${n.slice(8)}`,
       s = `{ ${r}
@@ -327,7 +327,7 @@ class X {
           }),
           new Promise((V, P) => {
             if (!i) return;
-            (A = () => P(new bn("bash command aborted"))), i.addEventListener("abort", A, { once: !0 });
+            (A = () => P(new bn("bash command aborted"))), i.addEventListener("abort", A, { once: true });
           }),
         ]);
       } finally {
@@ -350,7 +350,7 @@ ${h}`;
   }
   close() {
     if (Oe(this, k, "f")) return;
-    jn(this, k, !0, "f");
+    jn(this, k, true, "f");
     let r = Oe(this, _, "f");
     jn(this, _, null, "f"),
       r?.resolve(),
@@ -373,7 +373,7 @@ ${h}`;
   (I = new WeakSet()),
   (D = function (t) {
     if ((jn(this, g, Oe(this, g, "f") + t, "f"), Oe(this, g, "f").length > J))
-      jn(this, g, Oe(this, g, "f").slice(Oe(this, g, "f").length - J), "f"), jn(this, S, !0, "f");
+      jn(this, g, Oe(this, g, "f").slice(Oe(this, g, "f").length - J), "f"), jn(this, S, true, "f");
     if (Oe(this, _, "f") && Oe(this, g, "f").indexOf(Oe(this, _, "f").sentinel) >= 0) {
       let e = Oe(this, _, "f");
       jn(this, _, null, "f"), e.resolve();
@@ -482,7 +482,7 @@ function _t(r) {
       if (!t) throw new xu("write: file_path is required");
       let i = await x(r, t);
       try {
-        await d.mkdir(u.dirname(i), { recursive: !0, mode: E }), await F(i, e ?? "");
+        await d.mkdir(u.dirname(i), { recursive: true, mode: E }), await F(i, e ?? "");
       } catch (n) {
         throw new xu(`write: ${O(n, t)}`);
       }
@@ -566,7 +566,7 @@ function $t(r) {
       try {
         for await (let o of wt(n, {
           cwd: i,
-          withFileTypes: !0,
+          withFileTypes: true,
           exclude: (c) => c.name === ".git" || c.name === "node_modules",
         })) {
           if (!o.isFile()) continue;
@@ -624,10 +624,10 @@ function Et(r, t, e, i) {
     let s = W.spawn(r, ["-n", "--no-heading", "-e", t, "--", e], { ...(i ? { signal: i } : {}) }),
       o = "",
       c = "",
-      l = !1;
+      l = false;
     s.stdout.on("data", (f) => {
       if (l) return;
-      if (((o += f), o.length > T)) (l = !0), (o = o.slice(0, T)), s.kill("SIGKILL");
+      if (((o += f), o.length > T)) (l = true), (o = o.slice(0, T)), s.kill("SIGKILL");
     }),
       s.stderr.on("data", (f) => (c += f)),
       s.on("close", (f) => {
@@ -658,8 +658,8 @@ async function Ot(r, t, e) {
   let n = [],
     a = T,
     s = (c) => {
-      if (((a -= c.length + 1), a < 0)) return n.push(`[output truncated at ${T} bytes]`), !1;
-      return n.push(c), !0;
+      if (((a -= c.length + 1), a < 0)) return n.push(`[output truncated at ${T} bytes]`), false;
+      return n.push(c), true;
     };
   if ((await d.stat(t).catch(() => null))?.isFile()) await G(t, i, s);
   else await At(t, "", (c) => G(u.join(t, c), i, s), e);
@@ -675,13 +675,13 @@ async function G(r, t, e) {
   try {
     for await (let s of n) {
       if ((a++, s.length > pt)) continue;
-      if (t.test(s) && !e(`${r}:${a}:${s}`)) return !1;
+      if (t.test(s) && !e(`${r}:${a}:${s}`)) return false;
     }
   } catch {
   } finally {
     i.destroy();
   }
-  return !0;
+  return true;
 }
 function St(r, t) {
   let e = u.relative(r, t);
@@ -692,26 +692,26 @@ var Tt = 40,
 async function At(r, t, e, i) {
   let n = xt;
   async function a(s, o) {
-    if (o > Tt) return !0;
-    if (i?.aborted) return !1;
+    if (o > Tt) return true;
+    if (i?.aborted) return false;
     let c;
     try {
-      c = await d.readdir(u.join(r, s), { withFileTypes: !0 });
+      c = await d.readdir(u.join(r, s), { withFileTypes: true });
     } catch {
-      return !0;
+      return true;
     }
     for (let l of c) {
       if (l.name === ".git" || l.name === "node_modules") continue;
-      if (n-- <= 0) return !1;
-      if (i?.aborted) return !1;
+      if (n-- <= 0) return false;
+      if (i?.aborted) return false;
       let f = s ? u.join(s, l.name) : l.name;
       if (l.isDirectory()) {
-        if (!(await a(f, o + 1))) return !1;
+        if (!(await a(f, o + 1))) return false;
       } else if (l.isFile()) {
-        if ((await e(f)) === !1) return !1;
+        if ((await e(f)) === false) return false;
       }
     }
-    return !0;
+    return true;
   }
   await a(t, 0);
 }

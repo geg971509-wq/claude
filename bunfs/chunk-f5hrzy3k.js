@@ -31,7 +31,7 @@ async function VN(e) {
     let { stdout: t } = await te(
       n,
       ["-c", "core.hooksPath=/dev/null", "-c", "core.fsmonitor=", "worktree", "list", "--porcelain"],
-      { cwd: e, timeout: 5000, windowsHide: !0 },
+      { cwd: e, timeout: 5000, windowsHide: true },
     );
     if (!t) return [];
     return t
@@ -47,7 +47,7 @@ var bp = 65536,
   zAt = new Set(["sdk-cli", "sdk-ts", "sdk-py"]);
 function BRn(e, n) {
   let t = KN(e, "entrypoint") ?? $f(n, "entrypoint");
-  if (t && zAt.has(t)) return !0;
+  if (t && zAt.has(t)) return true;
   let r =
       e
         .split(`
@@ -93,7 +93,7 @@ function $f(e, n) {
     a = -1;
   for (let i of t) {
     let o = 0;
-    while (!0) {
+    while (true) {
       let c = e.indexOf(i, o);
       if (c < 0) break;
       let u = c + i.length,
@@ -341,7 +341,7 @@ function fU(e, n) {
 async function F(e) {
   let { backend: n, key: t } = e,
     r,
-    a = !1,
+    a = false,
     i = 0,
     o = 0;
   try {
@@ -357,7 +357,7 @@ async function F(e) {
       for (let s of c.value.items) {
         let p = Buffer.from(s.data.buffer, s.data.byteOffset, s.data.byteLength);
         if (p.includes(ye) || p.includes(me)) return "has";
-        if (s.truncated === !0) a = !0;
+        if (s.truncated === true) a = true;
       }
       let u = c.value.nextSeq;
       if (u === void 0) {
@@ -380,23 +380,23 @@ async function qoe(e, n) {
     a = r !== void 0 && e.endsWith(".jsonl") ? z(e, E(e, ".jsonl"), r) : void 0;
   if (a !== void 0 && r !== void 0) {
     let { key: o } = a;
-    if (o.namespace !== "transcript") return !1;
+    if (o.namespace !== "transcript") return false;
     try {
       return (await a.backend.move(o, r.transcriptKey(o.projectKey, `${o.sessionId}.${t}`))).ok;
     } catch {
-      return !1;
+      return false;
     }
   }
   let i = `${e.endsWith(".jsonl") ? e.slice(0, -6) : e}.${t}.jsonl`;
   try {
-    return await oe(e, i), !0;
+    return await oe(e, i), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function S4(e, n, t, r, a) {
-  let i = await Al(n, jJe(a?.source, a?.hoverRestOn === !0));
-  if (Km(e) === null) return { path: S(Wu(i), "invalid-resume-id.jsonl"), hasMessages: !1, via: "computed" };
+  let i = await Al(n, jJe(a?.source, a?.hoverRestOn === true));
+  if (Km(e) === null) return { path: S(Wu(i), "invalid-resume-id.jsonl"), hasMessages: false, via: "computed" };
   let o = S(Wu(i), `${e}.jsonl`),
     c = [];
   if (t !== void 0)
@@ -413,10 +413,10 @@ async function S4(e, n, t, r, a) {
     if (s.has(f.path)) continue;
     s.add(f.path);
     let d = await p(f.path);
-    if (d === "has") return { ...f, hasMessages: !0 };
+    if (d === "has") return { ...f, hasMessages: true };
     if (d === "unverifiable" && l === void 0) l = f;
   }
-  if (r?.crossWorktree !== !1)
+  if (r?.crossWorktree !== false)
     for (let { projectDir: f } of await Z(i, u)) {
       let d = S(f, `${e}.jsonl`);
       if (u !== void 0) {
@@ -424,15 +424,15 @@ async function S4(e, n, t, r, a) {
         s.add(d);
       }
       let y = await p(d);
-      if (y === "has") return { path: d, via: "worktreeProjectDir", hasMessages: !0 };
+      if (y === "has") return { path: d, via: "worktreeProjectDir", hasMessages: true };
       if (y === "unverifiable" && l === void 0) l = { path: d, via: "worktreeProjectDir" };
     }
-  if (r?.crossWorktree !== !1) {
+  if (r?.crossWorktree !== false) {
     let f = await lVt(e, s, u);
-    if (f !== null) return { path: f, via: "projectsScan", hasMessages: !0 };
+    if (f !== null) return { path: f, via: "projectsScan", hasMessages: true };
   }
-  if (l !== void 0) return { ...l, hasMessages: !0, unverifiable: !0 };
-  return { ...c[0], hasMessages: !1 };
+  if (l !== void 0) return { ...l, hasMessages: true, unverifiable: true };
+  return { ...c[0], hasMessages: false };
 }
 function z(e, n, t) {
   let r = zoe(R(e), t.isKeySegment);
@@ -456,7 +456,7 @@ function B(e) {
   return e !== null && typeof e === "object" && "code" in e && e.code === "ENOENT";
 }
 function j(e) {
-  return { skipScopeStats: !0, skipKeyStats: !0, ...(e !== void 0 && { cursor: e }) };
+  return { skipScopeStats: true, skipKeyStats: true, ...(e !== void 0 && { cursor: e }) };
 }
 function Y(e) {
   let n = new Map(),
@@ -496,7 +496,7 @@ async function lVt(e, n = new Set(), t) {
   let r = aa(),
     a = null;
   try {
-    for (let i of await b(r, { withFileTypes: !0 })) {
+    for (let i of await b(r, { withFileTypes: true })) {
       if (!i.isDirectory()) continue;
       let o = S(r, i.name, `${e}.jsonl`);
       if (n.has(o)) continue;
@@ -513,7 +513,7 @@ async function Se(e, n, t) {
   let { backend: r, transcriptKey: a, isKeySegment: i } = t,
     o = aa(),
     c = null,
-    u = !1,
+    u = false,
     s = new Set();
   try {
     let p = await Ao(
@@ -532,7 +532,7 @@ async function Se(e, n, t) {
             } catch {}
           if (m !== "has") continue;
           if (c !== null) {
-            u = !0;
+            u = true;
             return;
           }
           c = y;
@@ -595,28 +595,28 @@ function Yar(e, n, t) {
   let r = tr(e),
     a = tr(n),
     i = (o) => (t ? o.toLowerCase() : o);
-  if (i(k(r)) !== i(k(a))) return !1;
+  if (i(k(r)) !== i(k(a))) return false;
   return pFe(r, t) !== pFe(a, t);
 }
 async function fFe(e, n, t, r, a) {
-  if (!Yar(e, n, t)) return !1;
-  if (oZe(e) || oZe(n)) return !1;
-  if ((await r(e)) || (await r(n))) return !1;
+  if (!Yar(e, n, t)) return false;
+  if (oZe(e) || oZe(n)) return false;
+  if ((await r(e)) || (await r(n))) return false;
   let i;
   try {
     if (a !== void 0 && a.hoverRestOn) {
       let c = await a.realPath(e);
-      if (!c.ok || !c.value.found) return !1;
+      if (!c.ok || !c.value.found) return false;
       i = tr(c.value.path);
     } else i = tr(await W(e));
   } catch {
-    return !1;
+    return false;
   }
   let o = await Al(n, a);
   return Yar(i, o, t);
 }
 function mFe(e, n, t) {
-  if (n === void 0) return !1;
+  if (n === void 0) return false;
   let r = pFe(tr(e), t);
   return n.some((a) => {
     let i = pFe(tr(a), t);
@@ -624,7 +624,7 @@ function mFe(e, n, t) {
   });
 }
 function Goe() {
-  return !0;
+  return true;
 }
 function aa() {
   return S(be(), "projects");
@@ -664,28 +664,28 @@ async function SJ(e, n, t, r) {
   let o = k(n),
     c;
   try {
-    c = await b(e, { withFileTypes: !0 });
+    c = await b(e, { withFileTypes: true });
   } catch {
-    return !1;
+    return false;
   }
   for (let u of c) {
     if (!u.isFile() || !u.name.endsWith(".jsonl")) continue;
     let s = await dFe(S(e, u.name));
     if (s === null) continue;
-    if (q(s, o, t)) return !0;
+    if (q(s, o, t)) return true;
   }
-  return !1;
+  return false;
 }
 function q(e, n, t) {
   let r = Woe(e.tail, "relocated", "relocatedCwd") ?? _J(e.head, "cwd");
-  if (r === void 0) return !1;
+  if (r === void 0) return false;
   let a = k(tr(r));
   return t ? a.toLowerCase() === n.toLowerCase() : a === n;
 }
 async function we(e, n, t, r) {
   let { backend: a, transcriptKey: i, isKeySegment: o } = r,
     c = k(n),
-    u = !1,
+    u = false,
     s = new Set();
   try {
     let p = await Ao(
@@ -705,19 +705,19 @@ async function we(e, n, t, r) {
             y = await G({ backend: a, key: i(e, d) });
           if (y === null) continue;
           if ((s.add(d), q(y, c, t))) {
-            u = !0;
+            u = true;
             return;
           }
         }
       },
       { until: () => u },
     );
-    if (u) return !0;
+    if (u) return true;
     if (p.status !== "done") return;
   } catch {
     return;
   }
-  return !1;
+  return false;
 }
 async function fb(e, n) {
   if (n !== void 0 && n.hoverRestOn) return ke(e, n);
@@ -737,12 +737,12 @@ async function fb(e, n) {
   let i = hA(e);
   if (i.length <= UO) return r;
   let o = aa(),
-    c = !1,
+    c = false,
     u = (l) => (c ? l.toLowerCase() : l),
     s = u(i.slice(0, UO) + "-"),
     p = u(t);
   try {
-    for (let l of await b(o, { withFileTypes: !0 })) {
+    for (let l of await b(o, { withFileTypes: true })) {
       if (!l.isDirectory() || !u(l.name).startsWith(s)) continue;
       let f = S(o, l.name);
       if (u(f) !== p && (await SJ(f, e, c))) r.push(f);
@@ -756,7 +756,7 @@ async function ke(e, n) {
     let r = GJe(e);
     return [Wu(e), ...(r !== void 0 ? [S(aa(), r)] : [])];
   }
-  return cVt(e, t, !1, n);
+  return cVt(e, t, false, n);
 }
 async function zCe(e) {
   let { backend: n, isKeySegment: t } = e,
@@ -793,12 +793,12 @@ async function cVt(e, n, t, r) {
     s = (g) => (t ? g.toLowerCase() : g),
     p = c !== void 0 ? s(c) : void 0,
     l = s(a),
-    f = !1,
+    f = false,
     d,
     y = [],
     m = new Set();
   for (let g of n)
-    if (g === a) f = !0;
+    if (g === a) f = true;
     else if (o !== void 0) {
       if (d === void 0 && s(g) === s(o)) d = S(u, g);
     } else if (p !== void 0 && s(g).startsWith(p) && s(g) !== l && !m.has(s(g))) m.add(s(g)), y.push(g);
@@ -958,9 +958,9 @@ function _(e, n, t) {
   else {
     if (T(r, ve, 0, e.carryLen)) {
       let o = Q(r.toString("utf-8", 0, e.carryLen) + n.toString("utf-8", 0, a));
-      if (o?.hasPreservedSegment) e.hasPreservedSegment = !0;
+      if (o?.hasPreservedSegment) e.hasPreservedSegment = true;
       else if (o)
-        (e.out.len = 0), (e.boundaryStartOffset = e.bufFileOff), (e.hasPreservedSegment = !1), (e.lastSnapSrc = null);
+        (e.out.len = 0), (e.boundaryStartOffset = e.bufFileOff), (e.hasPreservedSegment = false), (e.lastSnapSrc = null);
     }
     w(e.out, r, 0, e.carryLen), w(e.out, n, 0, i);
   }
@@ -979,11 +979,11 @@ function H(e, n, t) {
     if (T(n, L, i, s)) w(e.out, n, a, i), (o = i), (c = s), (a = s);
     else if (r >= i && r < Math.min(i + Le, s)) {
       let p = Q(n.toString("utf-8", i, u));
-      if (p?.hasPreservedSegment) e.hasPreservedSegment = !0;
+      if (p?.hasPreservedSegment) e.hasPreservedSegment = true;
       else if (p)
         (e.out.len = 0),
           (e.boundaryStartOffset = e.bufFileOff + i),
-          (e.hasPreservedSegment = !1),
+          (e.hasPreservedSegment = false),
           (e.lastSnapSrc = null),
           (o = -1),
           (e.straddleSnapCarryLen = 0),
@@ -1052,7 +1052,7 @@ async function zJe(e, n, t) {
     i = {
       out: { buf: Buffer.allocUnsafe(Math.min(n, 8388608)), len: 0, cap: n + 1 },
       boundaryStartOffset: 0,
-      hasPreservedSegment: !1,
+      hasPreservedSegment: false,
       lastSnapSrc: null,
       lastSnapLen: 0,
       lastSnapBuf: void 0,

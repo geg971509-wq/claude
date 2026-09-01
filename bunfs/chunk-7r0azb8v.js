@@ -16,10 +16,10 @@ import { Mt } from "/$bunfs/root/chunk-fs02hzwy.js";
 var u = 1e4,
   a = { auth: "teleport-org", timeout: u, headers: { "anthropic-beta": ud } };
 function rhe() {
-  if (Ct()) return !1;
-  if (!Mt("allow_team_onboarding")) return !1;
-  if (!Yl()) return !1;
-  return I("tengu_flint_harbor_share", !1);
+  if (Ct()) return false;
+  if (!Mt("allow_team_onboarding")) return false;
+  if (!Yl()) return false;
+  return I("tengu_flint_harbor_share", false);
 }
 function o(e) {
   if (!e.ok) throw Error(e.reason === "no-auth" ? e.detail : `Onboarding guide unavailable: ${e.reason}`);

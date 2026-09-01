@@ -122,7 +122,7 @@ var X = S(function (we, J) {
           : (function (t) {
               return function (c, i, n, o, h) {
                 var l = 0;
-                while (!0)
+                while (true)
                   try {
                     return t.call(e, c, i, n, o, h);
                   } catch (s) {
@@ -150,10 +150,10 @@ var X = S(function (we, J) {
       }),
         (t.lchmodSync = function (c, i) {
           var n = t.openSync(c, M.O_WRONLY | M.O_SYMLINK, i),
-            o = !0,
+            o = true,
             h;
           try {
-            (h = t.fchmodSync(n, i)), (o = !1);
+            (h = t.fchmodSync(n, i)), (o = false);
           } finally {
             if (o)
               try {
@@ -182,9 +182,9 @@ var X = S(function (we, J) {
           (t.lutimesSync = function (c, i, n) {
             var o = t.openSync(c, M.O_SYMLINK),
               h,
-              l = !0;
+              l = true;
             try {
-              (h = t.futimesSync(o, i, n)), (l = !1);
+              (h = t.futimesSync(o, i, n)), (l = false);
             } finally {
               if (l)
                 try {
@@ -264,13 +264,13 @@ var X = S(function (we, J) {
       };
     }
     function j(t) {
-      if (!t) return !0;
-      if (t.code === "ENOSYS") return !0;
+      if (!t) return true;
+      if (t.code === "ENOSYS") return true;
       var c = !process.getuid || process.getuid() !== 0;
       if (c) {
-        if (t.code === "EINVAL" || t.code === "EPERM") return !0;
+        if (t.code === "EINVAL" || t.code === "EPERM") return true;
       }
-      return !1;
+      return false;
     }
   }
 });
@@ -285,8 +285,8 @@ var te = S(function (ge, ee) {
       var E = this;
       (this.path = N),
         (this.fd = null),
-        (this.readable = !0),
-        (this.paused = !1),
+        (this.readable = true),
+        (this.paused = false),
         (this.flags = "r"),
         (this.mode = 438),
         (this.bufferSize = 65536),
@@ -312,7 +312,7 @@ var te = S(function (ge, ee) {
       }
       e.open(this.path, this.flags, this.mode, function (t, c) {
         if (t) {
-          E.emit("error", t), (E.readable = !1);
+          E.emit("error", t), (E.readable = false);
           return;
         }
         (E.fd = c), E.emit("open", c), E._read();
@@ -323,7 +323,7 @@ var te = S(function (ge, ee) {
       Z.call(this),
         (this.path = N),
         (this.fd = null),
-        (this.writable = !0),
+        (this.writable = true),
         (this.flags = "w"),
         (this.encoding = "binary"),
         (this.mode = 438),
@@ -339,7 +339,7 @@ var te = S(function (ge, ee) {
         if (this.start < 0) throw Error("start must be >= zero");
         this.pos = this.start;
       }
-      if (((this.busy = !1), (this._queue = []), this.fd === null))
+      if (((this.busy = false), (this._queue = []), this.fd === null))
         (this._open = e.open), this._queue.push([this._open, this.path, this.flags, this.mode, void 0]), this.flush();
     }
   }
@@ -421,7 +421,7 @@ GFS4: `)),
   var k;
   if (!global[L]) oe(global, v[L]);
   z.exports = B(me(v));
-  if (process.env.TEST_GRACEFUL_FS_GLOBAL_PATCH && !v.__patched) (z.exports = B(v)), (v.__patched = !0);
+  if (process.env.TEST_GRACEFUL_FS_GLOBAL_PATCH && !v.__patched) (z.exports = B(v)), (v.__patched = true);
   function B(e) {
     ye(e), (e.gracefulify = B), (e.createReadStream = V), (e.createWriteStream = H);
     var u = e.readFile;
@@ -510,8 +510,8 @@ GFS4: `)),
       set: function (r) {
         s = r;
       },
-      enumerable: !0,
-      configurable: !0,
+      enumerable: true,
+      configurable: true,
     }),
       Object.defineProperty(e, "WriteStream", {
         get: function () {
@@ -520,8 +520,8 @@ GFS4: `)),
         set: function (r) {
           P = r;
         },
-        enumerable: !0,
-        configurable: !0,
+        enumerable: true,
+        configurable: true,
       });
     var h = s;
     Object.defineProperty(e, "FileReadStream", {
@@ -531,8 +531,8 @@ GFS4: `)),
       set: function (r) {
         h = r;
       },
-      enumerable: !0,
-      configurable: !0,
+      enumerable: true,
+      configurable: true,
     });
     var l = P;
     Object.defineProperty(e, "FileWriteStream", {
@@ -542,8 +542,8 @@ GFS4: `)),
       set: function (r) {
         l = r;
       },
-      enumerable: !0,
-      configurable: !0,
+      enumerable: true,
+      configurable: true,
     });
     function s(r, f) {
       if (this instanceof s) return n.apply(this, arguments), this;

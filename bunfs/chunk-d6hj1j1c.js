@@ -20,7 +20,7 @@ var l = new J(() => ({
   notedWallResetsAt: null,
   shownWallResetsAt: null,
   withheldWallResetsAt: null,
-  sessionSwitchSubscribed: !1,
+  sessionSwitchSubscribed: false,
 }));
 function i() {
   return l.of(G().host);
@@ -45,11 +45,11 @@ function u(t) {
   let e = Hq();
   switch (e.phase) {
     case "idle":
-      return !1;
+      return false;
     case "armed":
       return e.resetsAtSeconds !== t;
     case "stale":
-      return !0;
+      return true;
   }
 }
 function hNn(t) {
@@ -130,7 +130,7 @@ function _Nn() {
 function n() {
   let t = i();
   if (t.sessionSwitchSubscribed) return;
-  (t.sessionSwitchSubscribed = !0),
+  (t.sessionSwitchSubscribed = true),
     au((e, o) => {
       if (n6e(o)) Tk("conversation_reset");
     });

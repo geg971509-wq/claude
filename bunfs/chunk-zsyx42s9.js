@@ -448,9 +448,9 @@ function jr(re) {
   }
   return {
     ...re,
-    replBridgeEnabled: !1,
-    replBridgeExplicit: !1,
-    replBridgeOutboundOnly: !1,
+    replBridgeEnabled: false,
+    replBridgeExplicit: false,
+    replBridgeOutboundOnly: false,
     replBridgeError: void 0,
     replBridgeErrorKind: void 0,
     replBridgeSessionGroupingId: void 0,
@@ -481,8 +481,8 @@ function Je(co) {
     Ie = W(yr),
     Te = W(_r),
     Oe = W(hr),
-    [uo, mo] = u(!1),
-    [po, fo] = u(!1),
+    [uo, mo] = u(false),
+    [po, fo] = u(false),
     [ve] = u(Cr),
     [Se] = u(Br),
     Me;
@@ -512,7 +512,7 @@ function Je(co) {
         }
         Q((go) => ({ ...go, replBridgeInitialName: te, replBridgeSessionGroupingId: I })), m("", { display: "system" });
         let yo = ne(On());
-        Xe(zU, {}, { queueBehind: !0 })
+        Xe(zU, {}, { queueBehind: true })
           .then((He) => {
             let ze = He === "enable" && ne(On()) === yo;
             if (He === "enable" && !ze)
@@ -521,7 +521,7 @@ function Je(co) {
               );
             Q((Ye) =>
               ze
-                ? { ...Ye, replBridgeEnabled: !0, replBridgeExplicit: !0, replBridgeOutboundOnly: !1 }
+                ? { ...Ye, replBridgeEnabled: true, replBridgeExplicit: true, replBridgeOutboundOnly: false }
                 : { ...Ye, replBridgeInitialName: void 0, replBridgeSessionGroupingId: void 0 },
             );
           })
@@ -529,18 +529,18 @@ function Je(co) {
         return;
       }
       s("tengu_bridge_command", { action: w("connect") });
-      let $e = !1;
+      let $e = false;
       if (
         (Q((ie) => {
           if (ie.replBridgeEnabled && !ie.replBridgeOutboundOnly) {
-            if (I !== void 0) $e = !0;
+            if (I !== void 0) $e = true;
             return ie;
           }
           return {
             ...ie,
-            replBridgeEnabled: !0,
-            replBridgeExplicit: !0,
-            replBridgeOutboundOnly: !1,
+            replBridgeEnabled: true,
+            replBridgeExplicit: true,
+            replBridgeOutboundOnly: false,
             replBridgeInitialName: te,
             replBridgeSessionGroupingId: I,
           };
@@ -566,10 +566,10 @@ function Je(co) {
   if (H[8] !== f?.credentials || H[9] !== T || H[10] !== m || H[11] !== Ie || H[12] !== Te || H[13] !== Oe)
     (We = () => {
       if ((Ie || Te) && !Oe) {
-        mo(!0);
+        mo(true);
         return;
       }
-      let Ke = !1;
+      let Ke = false;
       return (
         (async () => {
           let Fe = await oe(f?.credentials);
@@ -581,13 +581,13 @@ function Je(co) {
             return;
           }
           if (Fe?.kind === "unenrolled-trusted-device") {
-            s("tengu_bridge_command", { action: w("preflight_login_for_enrollment") }), fo(!0);
+            s("tengu_bridge_command", { action: w("preflight_login_for_enrollment") }), fo(true);
             return;
           }
           T();
         })(),
         () => {
-          Ke = !0;
+          Ke = true;
         }
       );
     }),
@@ -626,7 +626,7 @@ function Je(co) {
         onDone: async (er, _mainLoopModel, _o) => {
           let se = await vK(f, er, {
             setAppState: _o,
-            awaitEnrollment: !0,
+            awaitEnrollment: true,
             previousAccount: ve,
             previousGatewayAuth: Se,
           });
@@ -675,7 +675,7 @@ function ke(Ro) {
     Eo = W(br),
     jo = W(Er),
     [L, rr] = u(2),
-    [R, ko] = u(!1),
+    [R, ko] = u(false),
     [le, De] = u(""),
     x = jo ? bo : Eo,
     or,
@@ -686,7 +686,7 @@ function ke(Ro) {
         De("");
         return;
       }
-      _x(x, { type: "utf8", errorCorrectionLevel: "L", small: !0 })
+      _x(x, { type: "utf8", errorCorrectionLevel: "L", small: true })
         .then(De)
         .catch(() => De(""));
     }),
@@ -759,7 +759,7 @@ function ke(Ro) {
     ae = me;
     ge = "Remote Control";
     ye = v;
-    _e = !0;
+    _e = true;
     de = o;
     ce = "column";
     ue = 1;
@@ -817,7 +817,7 @@ function ke(Ro) {
     Ue = R ? "Hide QR code" : "Show QR code";
   let Ce;
   if (c[39] !== R)
-    (Ce = !R && e(t, { dimColor: !0, children: "  Scan with your phone to open this session" })),
+    (Ce = !R && e(t, { dimColor: true, children: "  Scan with your phone to open this session" })),
       (c[39] = R),
       (c[40] = Ce);
   else Ce = c[40];
@@ -846,7 +846,7 @@ function ke(Ro) {
   let fr;
   if (c[54] === d)
     (fr = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: r(fe, {
         children: [e(M, { chord: "enter", action: "select" }), e(M, { chord: "escape", action: "continue" })],
       }),

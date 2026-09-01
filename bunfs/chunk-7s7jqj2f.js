@@ -27,7 +27,7 @@ class c {
   sources;
   primedProcVersion;
   fallbackProcVersion;
-  fallbackProcVersionRead = !1;
+  fallbackProcVersionRead = false;
   platform;
   wslVersion = null;
   macOSMajorVersion = null;
@@ -38,7 +38,7 @@ class c {
   kernelString() {
     if (this.primedProcVersion !== void 0) return this.primedProcVersion;
     if (!this.fallbackProcVersionRead)
-      (this.fallbackProcVersion = this.sources.readProcVersionSync()), (this.fallbackProcVersionRead = !0);
+      (this.fallbackProcVersion = this.sources.readProcVersionSync()), (this.fallbackProcVersionRead = true);
     return this.fallbackProcVersion;
   }
   getPlatform() {

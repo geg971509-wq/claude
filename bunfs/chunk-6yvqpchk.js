@@ -354,7 +354,7 @@ var Y = 72;
 function z(uo) {
   let u = _(34),
     { forwarded: f, stayed: P, consentLocation: E, onDone: T } = uo,
-    G = C(!1),
+    G = C(false),
     I;
   if (u[0] !== E) (I = ul(E.replace(/\s+/g, " "), Y)), (u[0] = E), (u[1] = I);
   else I = u[1];
@@ -365,7 +365,7 @@ function z(uo) {
       if (G.current) {
         return;
       }
-      (G.current = !0), T(co);
+      (G.current = true), T(co);
     }),
       (u[2] = T),
       (u[3] = J);
@@ -413,12 +413,12 @@ function z(uo) {
   else H = u[15];
   let A;
   if (u[16] !== D)
-    (A = D !== "" && r(t, { dimColor: !0, children: ["Right now: ", D, "."] })), (u[16] = D), (u[17] = A);
+    (A = D !== "" && r(t, { dimColor: true, children: ["Right now: ", D, "."] })), (u[16] = D), (u[17] = A);
   else A = u[17];
   let O;
   if (u[18] === d)
     (O = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children:
         "Yes and No are saved for this machine; run /cloud-plugins again to change your answer. Not now decides nothing. The answer is kept in:",
     })),
@@ -426,7 +426,7 @@ function z(uo) {
   else O = u[18];
   let R;
   if (u[19] !== V)
-    (R = r(o, { flexDirection: "column", children: [O, e(t, { dimColor: !0, children: V })] })),
+    (R = r(o, { flexDirection: "column", children: [O, e(t, { dimColor: true, children: V })] })),
       (u[19] = V),
       (u[20] = R);
   else R = u[20];
@@ -458,7 +458,7 @@ function z(uo) {
     (q = r(me, {
       title: "Use your enabled plugins in cloud sessions you run from this machine?",
       onCancel: N,
-      isCancelActive: !1,
+      isCancelActive: false,
       inputGuide: X,
       children: [L, x],
     })),
@@ -513,8 +513,8 @@ async function Q(i, { deps: a, memory: m }) {
     return `Couldn\u2019t save that: ${nr(vQ())} could not be written, so nothing changed \u2014 ${g}. Check that the folder is writable, then run /cloud-plugins again.`;
   return (
     (m.consentPin.value = Promise.resolve(i)),
-    (m.consentPin.given = !0),
-    (m.consentPin.persisted = !0),
+    (m.consentPin.given = true),
+    (m.consentPin.persisted = true),
     m.decided.emit(i),
     `Saved: ${i === "accepted" ? "cloud sessions from this machine use your enabled plugins \u2014 the ones attached from this terminal now, new ones from the start" : h === "accepted" ? "your plugins stay on this machine from now on \u2014 nothing more is sent from this terminal, and a session already using them keeps them only until it restarts" : "your plugins stay on this machine; cloud sessions load only the repository\u2019s and your organization\u2019s plugins"}. Run /cloud-plugins again to change it.`
   );

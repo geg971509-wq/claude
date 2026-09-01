@@ -83,10 +83,10 @@ import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 import { j, S, ue } from "/$bunfs/root/chunk-yz031c9r.js";
 var ge = S(function (Bt) {
-  Object.defineProperty(Bt, "__esModule", { value: !0 });
+  Object.defineProperty(Bt, "__esModule", { value: true });
   Bt.stringArray = Bt.array = Bt.func = Bt.error = Bt.number = Bt.string = Bt.boolean = void 0;
   function Jn(e) {
-    return e === !0 || e === !1;
+    return e === true || e === false;
   }
   Bt.boolean = Jn;
   function It(e) {
@@ -115,7 +115,7 @@ var ge = S(function (Bt) {
   Bt.stringArray = Yn;
 });
 var et = S(function (fr) {
-  Object.defineProperty(fr, "__esModule", { value: !0 });
+  Object.defineProperty(fr, "__esModule", { value: true });
   fr.Message =
     fr.NotificationType9 =
     fr.NotificationType8 =
@@ -368,7 +368,7 @@ var et = S(function (fr) {
 });
 var rt = S(function (gr) {
   var pr;
-  Object.defineProperty(gr, "__esModule", { value: !0 });
+  Object.defineProperty(gr, "__esModule", { value: true });
   gr.LRUCache = gr.LinkedMap = gr.Touch = void 0;
   var H;
   (function (e) {
@@ -462,9 +462,9 @@ var rt = S(function (gr) {
           next: () => {
             if (this._state !== e) throw Error("LinkedMap got modified during iteration.");
             if (t) {
-              let s = { value: t.key, done: !1 };
+              let s = { value: t.key, done: false };
               return (t = t.next), s;
-            } else return { value: void 0, done: !0 };
+            } else return { value: void 0, done: true };
           },
         };
       return r;
@@ -477,9 +477,9 @@ var rt = S(function (gr) {
           next: () => {
             if (this._state !== e) throw Error("LinkedMap got modified during iteration.");
             if (t) {
-              let s = { value: t.value, done: !1 };
+              let s = { value: t.value, done: false };
               return (t = t.next), s;
-            } else return { value: void 0, done: !0 };
+            } else return { value: void 0, done: true };
           },
         };
       return r;
@@ -492,9 +492,9 @@ var rt = S(function (gr) {
           next: () => {
             if (this._state !== e) throw Error("LinkedMap got modified during iteration.");
             if (t) {
-              let s = { value: [t.key, t.value], done: !1 };
+              let s = { value: [t.key, t.value], done: false };
               return (t = t.next), s;
-            } else return { value: void 0, done: !0 };
+            } else return { value: void 0, done: true };
           },
         };
       return r;
@@ -606,7 +606,7 @@ var rt = S(function (gr) {
   gr.LRUCache = mr;
 });
 var wr = S(function (vr) {
-  Object.defineProperty(vr, "__esModule", { value: !0 });
+  Object.defineProperty(vr, "__esModule", { value: true });
   vr.Disposable = void 0;
   var br;
   (function (e) {
@@ -617,7 +617,7 @@ var wr = S(function (vr) {
   })(br || (vr.Disposable = br = {}));
 });
 var se = S(function (Sr) {
-  Object.defineProperty(Sr, "__esModule", { value: !0 });
+  Object.defineProperty(Sr, "__esModule", { value: true });
   var nt;
   function it() {
     if (nt === void 0) throw Error("No runtime abstraction layer installed");
@@ -633,7 +633,7 @@ var se = S(function (Sr) {
   Sr.default = it;
 });
 var ye = S(function (Tr) {
-  Object.defineProperty(Tr, "__esModule", { value: !0 });
+  Object.defineProperty(Tr, "__esModule", { value: true });
   Tr.Emitter = Tr.Event = void 0;
   var Mi = se(),
     Rr;
@@ -651,13 +651,13 @@ var ye = S(function (Tr) {
     }
     remove(e, t = null) {
       if (!this._callbacks) return;
-      let r = !1;
+      let r = false;
       for (let s = 0, a = this._callbacks.length; s < a; s++)
         if (this._callbacks[s] === e)
           if (this._contexts[s] === t) {
             this._callbacks.splice(s, 1), this._contexts.splice(s, 1);
             return;
-          } else r = !0;
+          } else r = true;
       if (r) throw Error("When adding a listener with a context, you should remove it with the same context");
     }
     invoke(...e) {
@@ -718,15 +718,15 @@ var ye = S(function (Tr) {
   Ie._noop = function () {};
 });
 var Be = S(function (xr) {
-  Object.defineProperty(xr, "__esModule", { value: !0 });
+  Object.defineProperty(xr, "__esModule", { value: true });
   xr.CancellationTokenSource = xr.CancellationToken = void 0;
   var $i = se(),
     Ii = ge(),
     st = ye(),
     De;
   (function (e) {
-    (e.None = Object.freeze({ isCancellationRequested: !1, onCancellationRequested: st.Event.None })),
-      (e.Cancelled = Object.freeze({ isCancellationRequested: !0, onCancellationRequested: st.Event.None }));
+    (e.None = Object.freeze({ isCancellationRequested: false, onCancellationRequested: st.Event.None })),
+      (e.Cancelled = Object.freeze({ isCancellationRequested: true, onCancellationRequested: st.Event.None }));
     function t(r) {
       let s = r;
       return (
@@ -746,11 +746,11 @@ var Be = S(function (xr) {
   });
   class ot {
     constructor() {
-      this._isCancelled = !1;
+      this._isCancelled = false;
     }
     cancel() {
       if (!this._isCancelled) {
-        if (((this._isCancelled = !0), this._emitter)) this._emitter.fire(void 0), this.dispose();
+        if (((this._isCancelled = true), this._emitter)) this._emitter.fire(void 0), this.dispose();
       }
     }
     get isCancellationRequested() {
@@ -782,7 +782,7 @@ var Be = S(function (xr) {
   xr.CancellationTokenSource = Cr;
 });
 var qr = S(function (jr) {
-  Object.defineProperty(jr, "__esModule", { value: !0 });
+  Object.defineProperty(jr, "__esModule", { value: true });
   jr.SharedArrayReceiverStrategy = jr.SharedArraySenderStrategy = void 0;
   var Ai = Be(),
     xe;
@@ -844,7 +844,7 @@ var qr = S(function (jr) {
   jr.SharedArrayReceiverStrategy = Mr;
 });
 var at = S(function (Dr) {
-  Object.defineProperty(Dr, "__esModule", { value: !0 });
+  Object.defineProperty(Dr, "__esModule", { value: true });
   Dr.Semaphore = void 0;
   var Wi = se();
   class Ir {
@@ -888,7 +888,7 @@ var at = S(function (Dr) {
   Dr.Semaphore = Ir;
 });
 var Hr = S(function (Wr) {
-  Object.defineProperty(Wr, "__esModule", { value: !0 });
+  Object.defineProperty(Wr, "__esModule", { value: true });
   Wr.ReadableStreamMessageReader = Wr.AbstractMessageReader = Wr.MessageReader = void 0;
   var ut = se(),
     be = ge(),
@@ -990,9 +990,9 @@ var Hr = S(function (Wr) {
     onData(e) {
       try {
         this.buffer.append(e);
-        while (!0) {
+        while (true) {
           if (this.nextMessageLength === -1) {
-            let r = this.buffer.tryReadHeaders(!0);
+            let r = this.buffer.tryReadHeaders(true);
             if (!r) return;
             let s = r.get("content-length");
             if (!s) {
@@ -1049,7 +1049,7 @@ ${JSON.stringify(Object.fromEntries(r))}`),
   Wr.ReadableStreamMessageReader = zr;
 });
 var Xr = S(function (Gr) {
-  Object.defineProperty(Gr, "__esModule", { value: !0 });
+  Object.defineProperty(Gr, "__esModule", { value: true });
   Gr.WriteableStreamMessageWriter = Gr.AbstractMessageWriter = Gr.MessageWriter = void 0;
   var Ur = se(),
     ke = ge(),
@@ -1151,7 +1151,7 @@ var Xr = S(function (Gr) {
   Gr.WriteableStreamMessageWriter = Qr;
 });
 var rn = S(function (en) {
-  Object.defineProperty(en, "__esModule", { value: !0 });
+  Object.defineProperty(en, "__esModule", { value: true });
   en.AbstractMessageBuffer = void 0;
   var Gi = 13,
     Yi = 10,
@@ -1168,7 +1168,7 @@ var rn = S(function (en) {
       let t = typeof e === "string" ? this.fromString(e, this._encoding) : e;
       this._chunks.push(t), (this._totalLength += t.byteLength);
     }
-    tryReadHeaders(e = !1) {
+    tryReadHeaders(e = false) {
       if (this._chunks.length === 0) return;
       let t = 0,
         r = 0,
@@ -1267,7 +1267,7 @@ ${M}`);
   en.AbstractMessageBuffer = Zr;
 });
 var pn = S(function (un) {
-  Object.defineProperty(un, "__esModule", { value: !0 });
+  Object.defineProperty(un, "__esModule", { value: true });
   un.createMessageConnection =
     un.ConnectionOptions =
     un.MessageStrategy =
@@ -1928,7 +1928,7 @@ ${JSON.stringify(i, null, 4)}`);
     }
     function pe(i, o) {
       if (!E || p === P.Off) return;
-      let c = { isLSPMessage: !0, type: i, message: o, timestamp: Date.now() };
+      let c = { isLSPMessage: true, type: i, message: o, timestamp: Date.now() };
       E.log(c);
     }
     function Ee() {
@@ -2133,11 +2133,11 @@ ${JSON.stringify(i, null, 4)}`);
       },
       hasPendingResponse: () => X.size > 0,
       trace: async (i, o, c) => {
-        let d = !1,
+        let d = false,
           L = Q.Text;
         if (c !== void 0)
           if (I.boolean(c)) d = c;
-          else (d = c.sendNotification || !1), (L = c.traceFormat || Q.Text);
+          else (d = c.sendNotification || false), (L = c.traceFormat || Q.Text);
         if (((p = i), (x = L), p === P.Off)) E = void 0;
         else E = o;
         if (d && !Lt() && !he()) await me.sendNotification(yt.type, { value: P.toString(i) });
@@ -2185,7 +2185,7 @@ ${JSON.stringify(i, null, 4)}`);
   un.createMessageConnection = Zi;
 });
 var Ve = S(function (u) {
-  Object.defineProperty(u, "__esModule", { value: !0 });
+  Object.defineProperty(u, "__esModule", { value: true });
   u.ProgressType =
     u.ProgressToken =
     u.createMessageConnection =
@@ -2251,370 +2251,370 @@ var Ve = S(function (u) {
       void 0;
   var k = et();
   Object.defineProperty(u, "Message", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.Message;
     },
   });
   Object.defineProperty(u, "RequestType", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.RequestType;
     },
   });
   Object.defineProperty(u, "RequestType0", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.RequestType0;
     },
   });
   Object.defineProperty(u, "RequestType1", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.RequestType1;
     },
   });
   Object.defineProperty(u, "RequestType2", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.RequestType2;
     },
   });
   Object.defineProperty(u, "RequestType3", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.RequestType3;
     },
   });
   Object.defineProperty(u, "RequestType4", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.RequestType4;
     },
   });
   Object.defineProperty(u, "RequestType5", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.RequestType5;
     },
   });
   Object.defineProperty(u, "RequestType6", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.RequestType6;
     },
   });
   Object.defineProperty(u, "RequestType7", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.RequestType7;
     },
   });
   Object.defineProperty(u, "RequestType8", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.RequestType8;
     },
   });
   Object.defineProperty(u, "RequestType9", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.RequestType9;
     },
   });
   Object.defineProperty(u, "ResponseError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.ResponseError;
     },
   });
   Object.defineProperty(u, "ErrorCodes", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.ErrorCodes;
     },
   });
   Object.defineProperty(u, "NotificationType", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.NotificationType;
     },
   });
   Object.defineProperty(u, "NotificationType0", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.NotificationType0;
     },
   });
   Object.defineProperty(u, "NotificationType1", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.NotificationType1;
     },
   });
   Object.defineProperty(u, "NotificationType2", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.NotificationType2;
     },
   });
   Object.defineProperty(u, "NotificationType3", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.NotificationType3;
     },
   });
   Object.defineProperty(u, "NotificationType4", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.NotificationType4;
     },
   });
   Object.defineProperty(u, "NotificationType5", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.NotificationType5;
     },
   });
   Object.defineProperty(u, "NotificationType6", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.NotificationType6;
     },
   });
   Object.defineProperty(u, "NotificationType7", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.NotificationType7;
     },
   });
   Object.defineProperty(u, "NotificationType8", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.NotificationType8;
     },
   });
   Object.defineProperty(u, "NotificationType9", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.NotificationType9;
     },
   });
   Object.defineProperty(u, "ParameterStructures", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return k.ParameterStructures;
     },
   });
   var _t = rt();
   Object.defineProperty(u, "LinkedMap", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return _t.LinkedMap;
     },
   });
   Object.defineProperty(u, "LRUCache", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return _t.LRUCache;
     },
   });
   Object.defineProperty(u, "Touch", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return _t.Touch;
     },
   });
   var ms = wr();
   Object.defineProperty(u, "Disposable", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ms.Disposable;
     },
   });
   var mn = ye();
   Object.defineProperty(u, "Event", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return mn.Event;
     },
   });
   Object.defineProperty(u, "Emitter", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return mn.Emitter;
     },
   });
   var gn = Be();
   Object.defineProperty(u, "CancellationTokenSource", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gn.CancellationTokenSource;
     },
   });
   Object.defineProperty(u, "CancellationToken", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gn.CancellationToken;
     },
   });
   var yn = qr();
   Object.defineProperty(u, "SharedArraySenderStrategy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return yn.SharedArraySenderStrategy;
     },
   });
   Object.defineProperty(u, "SharedArrayReceiverStrategy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return yn.SharedArrayReceiverStrategy;
     },
   });
   var wt = Hr();
   Object.defineProperty(u, "MessageReader", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return wt.MessageReader;
     },
   });
   Object.defineProperty(u, "AbstractMessageReader", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return wt.AbstractMessageReader;
     },
   });
   Object.defineProperty(u, "ReadableStreamMessageReader", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return wt.ReadableStreamMessageReader;
     },
   });
   var St = Xr();
   Object.defineProperty(u, "MessageWriter", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return St.MessageWriter;
     },
   });
   Object.defineProperty(u, "AbstractMessageWriter", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return St.AbstractMessageWriter;
     },
   });
   Object.defineProperty(u, "WriteableStreamMessageWriter", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return St.WriteableStreamMessageWriter;
     },
   });
   var gs = rn();
   Object.defineProperty(u, "AbstractMessageBuffer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gs.AbstractMessageBuffer;
     },
   });
   var z = pn();
   Object.defineProperty(u, "ConnectionStrategy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.ConnectionStrategy;
     },
   });
   Object.defineProperty(u, "ConnectionOptions", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.ConnectionOptions;
     },
   });
   Object.defineProperty(u, "NullLogger", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.NullLogger;
     },
   });
   Object.defineProperty(u, "createMessageConnection", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.createMessageConnection;
     },
   });
   Object.defineProperty(u, "ProgressToken", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.ProgressToken;
     },
   });
   Object.defineProperty(u, "ProgressType", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.ProgressType;
     },
   });
   Object.defineProperty(u, "Trace", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.Trace;
     },
   });
   Object.defineProperty(u, "TraceValues", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.TraceValues;
     },
   });
   Object.defineProperty(u, "TraceFormat", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.TraceFormat;
     },
   });
   Object.defineProperty(u, "SetTraceNotification", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.SetTraceNotification;
     },
   });
   Object.defineProperty(u, "LogTraceNotification", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.LogTraceNotification;
     },
   });
   Object.defineProperty(u, "ConnectionErrors", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.ConnectionErrors;
     },
   });
   Object.defineProperty(u, "ConnectionError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.ConnectionError;
     },
   });
   Object.defineProperty(u, "CancellationReceiverStrategy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.CancellationReceiverStrategy;
     },
   });
   Object.defineProperty(u, "CancellationSenderStrategy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.CancellationSenderStrategy;
     },
   });
   Object.defineProperty(u, "CancellationStrategy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.CancellationStrategy;
     },
   });
   Object.defineProperty(u, "MessageStrategy", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return z.MessageStrategy;
     },
@@ -2623,7 +2623,7 @@ var Ve = S(function (u) {
   u.RAL = ys.default;
 });
 var Rn = S(function (Sn) {
-  Object.defineProperty(Sn, "__esModule", { value: !0 });
+  Object.defineProperty(Sn, "__esModule", { value: true });
   var bn = ue("util"),
     ne = Ve();
   class Je extends ne.AbstractMessageBuffer {
@@ -2755,7 +2755,7 @@ var Et = S(function (y) {
             var a = Object.getOwnPropertyDescriptor(t, r);
             if (!a || ("get" in a ? !t.__esModule : a.writable || a.configurable))
               a = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -2771,7 +2771,7 @@ var Et = S(function (y) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) Ss(t, e, r);
       };
-  Object.defineProperty(y, "__esModule", { value: !0 });
+  Object.defineProperty(y, "__esModule", { value: true });
   y.createMessageConnection =
     y.createServerSocketTransport =
     y.createClientSocketTransport =
@@ -2983,7 +2983,7 @@ class xt extends Qe.AbstractMessageReader {
   readable;
   onProtocolViolation;
   callback;
-  stopped = !1;
+  stopped = false;
   headerChunks = [];
   headerBytes = 0;
   headerTail = Ln;
@@ -3011,7 +3011,7 @@ class xt extends Qe.AbstractMessageReader {
     this.detach(), super.dispose();
   }
   detach() {
-    (this.stopped = !0),
+    (this.stopped = true),
       this.readable.removeListener("data", this.onData),
       this.readable.removeListener("error", this.onStreamError),
       this.readable.removeListener("close", this.onStreamClose),
@@ -3092,7 +3092,7 @@ class xt extends Qe.AbstractMessageReader {
   }
   protocolViolation(e) {
     if (this.stopped) return;
-    (this.stopped = !0), this.detach(), this.fireError(e);
+    (this.stopped = true), this.detach(), this.fireError(e);
     try {
       this.onProtocolViolation(e);
     } catch (t) {
@@ -3131,7 +3131,7 @@ function zs(e) {
 }
 class Nn extends Error {
   oomKilledInToolCgroup;
-  constructor(e, t = !1) {
+  constructor(e, t = false) {
     super(e);
     this.oomKilledInToolCgroup = t;
     this.name = "LSPServerCrashError";
@@ -3140,10 +3140,10 @@ class Nn extends Error {
 function Sa(e, t) {
   let r,
     s,
-    a = !1,
-    f = !1,
+    a = false,
+    f = false,
     w,
-    b = !1,
+    b = false,
     N,
     M,
     Y,
@@ -3181,7 +3181,7 @@ function Sa(e, t) {
       return a;
     },
     async start(m, g, p) {
-      (f = !1), (w = void 0), (a = !1), (b = !1);
+      (f = false), (w = void 0), (a = false), (b = false);
       try {
         let x = qi("lsp").cgroup !== void 0 ? "capped" : kCe() ? "parked" : "uncapped",
           E = x === "capped" ? Pvn() : void 0;
@@ -3189,9 +3189,9 @@ function Sa(e, t) {
           ((r = oJ(m, g, {
             stdio: ["pipe", "pipe", "pipe"],
             env: { ...Na(), ...p?.env },
-            extendEnv: !1,
+            extendEnv: false,
             cwd: p?.cwd,
-            windowsHide: !0,
+            windowsHide: true,
             toolCgroupClass: "lsp",
           })),
           !r.stdout || !r.stdin)
@@ -3225,16 +3225,16 @@ function Sa(e, t) {
             r.stderr.on("data", V);
         (N = (_) => {
           if (r !== v) return;
-          if (!b) (f = !0), (w = _), n(`LSP server ${e} failed to start: ${_.message}`, { level: "error" });
+          if (!b) (f = true), (w = _), n(`LSP server ${e} failed to start: ${_.message}`, { level: "error" });
         }),
           r.on("error", N),
           (M = (_, W) => {
             if (r !== v) return;
             if ((_ === null ? W !== null : _ !== 0) && !b) {
-              a = !1;
+              a = false;
               let ce = x === "capped" || (x === "parked" && ksr("lsp")),
-                de = (W === "SIGKILL" || _ === 137) && ce ? Hsr(E) : !1,
-                fe = de === !0,
+                de = (W === "SIGKILL" || _ === 137) && ce ? Hsr(E) : false,
+                fe = de === true,
                 $e =
                   (_ === null ? `killed by signal ${W}` : `exit code ${_}`) +
                   (fe
@@ -3244,9 +3244,9 @@ function Sa(e, t) {
                       : ""),
                 Te = new Nn(`LSP server ${e} crashed with ${$e}`, fe);
               n(`LSP server ${e} crashed with ${$e}`, { level: "error" }),
-                (f = !0),
+                (f = true),
                 (w = Te),
-                X(v, s, { force: !1 }),
+                X(v, s, { force: false }),
                 (r = void 0),
                 (s = void 0),
                 t?.(Te);
@@ -3270,11 +3270,11 @@ function Sa(e, t) {
               J(ae);
               return;
             }
-            (f = !0),
+            (f = true),
               (w = _),
-              (a = !1),
+              (a = false),
               n(`LSP server ${e} protocol violation, stopping process: ${_.message}`, { level: "error" }),
-              X(v, s, { force: !0 }),
+              X(v, s, { force: true }),
               (r = void 0),
               (s = void 0),
               t?.(_);
@@ -3284,10 +3284,10 @@ function Sa(e, t) {
         (s = ae),
           s.onError(([_, W, K]) => {
             if (!b && r === v)
-              (f = !0), (w = _), n(`LSP server ${e} connection error: ${_.message}`, { level: "error" });
+              (f = true), (w = _), n(`LSP server ${e} connection error: ${_.message}`, { level: "error" });
           }),
           s.onClose(() => {
-            if (!b && r === v) (a = !1), n(`LSP server ${e} connection closed`);
+            if (!b && r === v) (a = false), n(`LSP server ${e} connection closed`);
           }),
           s.listen(),
           s
@@ -3315,7 +3315,7 @@ function Sa(e, t) {
         let g = await s.sendRequest("initialize", m);
         if ((await s.sendNotification("initialized", {}), ee(), !s))
           throw Error("LSP server stopped during initialize");
-        return (a = !0), n(`LSP server ${e} initialized`), g;
+        return (a = true), n(`LSP server ${e} initialized`), g;
       } catch (g) {
         throw (n(`LSP server ${e} initialize failed: ${g.message}`, { level: "error" }), (f && w) || g);
       }
@@ -3354,7 +3354,7 @@ function Sa(e, t) {
     },
     async stop(m) {
       let g;
-      b = !0;
+      b = true;
       let p = r,
         x = s;
       try {
@@ -3372,12 +3372,12 @@ function Sa(e, t) {
         n(`LSP server ${e} stop failed: ${v.message}`, { level: "error" }), (g = v);
       } finally {
         let E = r === p;
-        if (p) X(p, x, { force: !1 });
+        if (p) X(p, x, { force: false });
         else if (x) J(x);
         if (r === p) r = void 0;
         if (s === x) s = void 0;
         if (E) {
-          if (((a = !1), (b = !1), g)) (f = !0), (w = g);
+          if (((a = false), (b = false), g)) (f = true), (w = g);
         }
         n(`LSP client stopped for ${e}`);
       }

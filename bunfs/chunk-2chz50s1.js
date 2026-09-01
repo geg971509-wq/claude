@@ -119,7 +119,7 @@ function Fe(M, Q, ne) {
     [_e, Qe] = u(0),
     Ke = C(0),
     He = C(void 0),
-    Ie = C(!1),
+    Ie = C(false),
     Be = W((t) => t.policyVersion),
     Ue = W((t) => t.mcp.pluginReconnectKey),
     te = At(),
@@ -154,11 +154,11 @@ function Fe(M, Q, ne) {
         if (a?.type !== "connected") return;
         Me.current.add(t),
           (async () => {
-            let h = !1;
+            let h = false;
             try {
               if (
                 (a.config.type === "sse" || a.config.type === "http") &&
-                (Jde(a.config, !!Yt()?.accessToken || (await L1(L).catch(() => !1))) || (QI() && !!a.config.oauth?.xaa))
+                (Jde(a.config, !!Yt()?.accessToken || (await L1(L).catch(() => false))) || (QI() && !!a.config.oauth?.xaa))
               )
                 return;
               ae({
@@ -169,7 +169,7 @@ function Fe(M, Q, ne) {
                 color: "warning",
                 timeoutMs: 12000,
               }),
-                (h = !0);
+                (h = true);
             } catch (r) {
               Z(t, `Auth-lost notice skipped: ${l(r)}`);
             } finally {
@@ -410,7 +410,7 @@ function Fe(M, Q, ne) {
             let p = Q0e(t.name, t.capabilities, t.config.pluginSource, t.protocolEra),
               R = hZ(t.name, hf()),
               U = R?.kind === "plugin" ? `${R.name}@${R.marketplace}` : void 0,
-              Y = !1,
+              Y = false,
               o = () => {
                 if (
                   (se.current.add(t.name),
@@ -421,7 +421,7 @@ function Fe(M, Q, ne) {
                         content_length: E.length,
                         meta_key_count: Object.keys(V ?? {}).length,
                         entry_kind: ke(R?.kind),
-                        is_dev: R?.dev ?? !1,
+                        is_dev: R?.dev ?? false,
                         plugin: U,
                       }),
                       he.enqueue({
@@ -429,17 +429,17 @@ function Fe(M, Q, ne) {
                         agentId: et(),
                         value: J0e(t.name, E, V),
                         priority: "next",
-                        isMeta: !0,
+                        isMeta: true,
                         origin: { kind: "channel", server: t.name },
-                        skipSlashCommands: !0,
-                        skipAttachments: !0,
+                        skipSlashCommands: true,
+                        skipAttachments: true,
                       });
                   }),
                   X0e(t.capabilities, "claude/channel/permission"))
                 )
                   b().onMcpNotification(t, utn(), async (P) => {
                     let { request_id: E, behavior: V } = P.params,
-                      v = we.current?.resolve(E, V, t.name) ?? !1;
+                      v = we.current?.resolve(E, V, t.name) ?? false;
                     Z(
                       t.name,
                       `notifications/claude/channel/permission: ${E} \u2192 ${V} (${v ? "matched pending" : "no pending entry \u2014 stale or unknown ID"})`,
@@ -448,7 +448,7 @@ function Fe(M, Q, ne) {
               };
             switch (p.action) {
               case "register":
-                Z(t.name, "Channel notifications registered"), o(), (Y = !0);
+                Z(t.name, "Channel notifications registered"), o(), (Y = true);
                 break;
               case "skip": {
                 let P = ptn(p.kind),
@@ -460,7 +460,7 @@ function Fe(M, Q, ne) {
                 } else if (E) {
                   Z(t.name, `Channel gate says skip:${p.kind} but was previously registered \u2014 preserving handler`),
                     o(),
-                    (Y = !0);
+                    (Y = true);
                   break;
                 }
                 Z(t.name, `Channel notifications skipped: ${p.reason}`);
@@ -498,7 +498,7 @@ function Fe(M, Q, ne) {
                 registered: Y,
                 skip_kind: p.action === "skip" ? c(p.kind) : void 0,
                 entry_kind: ke(R?.kind),
-                is_dev: R?.dev ?? !1,
+                is_dev: R?.dev ?? false,
                 plugin: U,
               });
             let I = lr(),
@@ -745,7 +745,7 @@ function Fe(M, Q, ne) {
               h();
               return;
             }
-            N({ client: S, tools: p, commands: [...R, ...U], resources: Y, resourceTemplates: [], replaceOnly: !0 });
+            N({ client: S, tools: p, commands: [...R, ...U], resources: Y, resourceTemplates: [], replaceOnly: true });
           } catch (D) {
             if ((h(), !yi(t) && lr() === r))
               j({
@@ -753,7 +753,7 @@ function Fe(M, Q, ne) {
                 type: "failed",
                 config: a,
                 error: `Re-adopt after re-authentication failed: ${l(D)}`,
-                replaceOnly: !0,
+                replaceOnly: true,
               });
             n(`Failed to re-adopt reauth connection for ${t}: ${l(D)}`, { level: "error" });
           }
@@ -787,7 +787,7 @@ function Fe(M, Q, ne) {
                 aQ(t),
                   r.clearServerCache(t, a).catch(() => {}),
                   r.dropDiscoveryEntry(t, a).catch(() => {}),
-                  j({ name: t, type: "failed", config: a, error: NS, errorCode: "POLICY_BLOCKED", replaceOnly: !0 });
+                  j({ name: t, type: "failed", config: a, error: NS, errorCode: "POLICY_BLOCKED", replaceOnly: true });
                 return;
               }
               if (yi(t)) {
@@ -796,7 +796,7 @@ function Fe(M, Q, ne) {
                     client: { name: t, type: "failed", config: a, error: dwe, errorCode: "DISABLED" },
                     tools: [],
                     commands: [],
-                    replaceOnly: !0,
+                    replaceOnly: true,
                   });
                 return;
               }
@@ -807,7 +807,7 @@ function Fe(M, Q, ne) {
               let m = await r.connectToServer(t, a, void 0, g, L);
               if (lr() !== h) return;
               if (m.type === "connected" && yi(t)) {
-                N({ client: m, tools: [], commands: [], replaceOnly: !0 });
+                N({ client: m, tools: [], commands: [], replaceOnly: true });
                 return;
               }
               if (m.type !== "connected") {
@@ -818,7 +818,7 @@ function Fe(M, Q, ne) {
                     commands: [],
                     resources: [],
                     resourceTemplates: [],
-                    replaceOnly: !0,
+                    replaceOnly: true,
                   });
                 return;
               }
@@ -840,7 +840,7 @@ function Fe(M, Q, ne) {
                   (Ji(m.client).onclose = void 0),
                   r.clearServerCache(t, a).catch(() => {}),
                   r.dropDiscoveryEntry(t, a).catch(() => {}),
-                  j({ name: t, type: "failed", config: a, error: NS, errorCode: "POLICY_BLOCKED", replaceOnly: !0 });
+                  j({ name: t, type: "failed", config: a, error: NS, errorCode: "POLICY_BLOCKED", replaceOnly: true });
                 return;
               }
               let X = r.getToolsListErrorForResult(R),
@@ -866,7 +866,7 @@ function Fe(M, Q, ne) {
                 commands: v,
                 resources: x ? void 0 : o,
                 resourceTemplates: [],
-                replaceOnly: !0,
+                replaceOnly: true,
               }),
                 r.persistLiveListing(m, { tools: R, commands: U, resources: o, identityEpoch: h, grantLeg: S });
             } catch (D) {
@@ -882,7 +882,7 @@ function Fe(M, Q, ne) {
           b().takeSettledCachedDialFailure(t.name, t.config);
           let h = ue(t.name);
           if (h?.type !== "cached" || ur(t.name, h.config) !== ur(t.name, t.config)) return;
-          if ((N({ client: t, tools: [], commands: [], replaceOnly: !0 }), a)) hat(t.name, t.config);
+          if ((N({ client: t, tools: [], commands: [], replaceOnly: true }), a)) hat(t.name, t.config);
         }),
       [N, ue],
     ),
@@ -892,7 +892,7 @@ function Fe(M, Q, ne) {
         if (He.current === lr()) return;
         Qe((a) => a + 1);
       });
-      if (Sat()) Ie.current = !0;
+      if (Sat()) Ie.current = true;
       return t;
     }, [re]);
   let ze = K();
@@ -946,9 +946,9 @@ function Fe(M, Q, ne) {
               .map(([I, X]) => ({ name: I, type: yi(I) ? "disabled" : "pending", config: X }));
           if (o.length === 0 && R.length === 0) {
             if (p.mcp.clientsInitialized) return p;
-            return { ...p, mcp: { ...p.mcp, clientsInitialized: !0 } };
+            return { ...p, mcp: { ...p.mcp, clientsInitialized: true } };
           }
-          return { ...p, mcp: { ...p.mcp, ...U, clientsInitialized: !0, clients: [...U.clients, ...o] } };
+          return { ...p, mcp: { ...p.mcp, ...U, clientsInitialized: true, clients: [...U.clients, ...o] } };
         });
     }
     t().catch((a) => {
@@ -957,13 +957,13 @@ function Fe(M, Q, ne) {
   }, [Q, M, te, ze, Ue, Be, g]),
     A(() => {
       if (re) return;
-      let t = !1;
+      let t = false;
       async function a() {
         let h = Ce.current !== void 0 && Ce.current !== ye,
           r = Ke.current !== _e;
         Ke.current = _e;
         let D = Ie.current;
-        Ie.current = !1;
+        Ie.current = false;
         let m = h || r || D;
         nG();
         let S = Ho(),
@@ -1127,14 +1127,14 @@ function Fe(M, Q, ne) {
           let y = O.scope ? on[O.scope] : void 0;
           if (y) V[y]++;
         }
-        s("tengu_mcp_servers", { ...V, ...!1 });
+        s("tengu_mcp_servers", { ...V, ...false });
       }
       return (
         a().catch((h) => {
           to("useManageMcpConnections", `MCP connect failed on mount: ${l(h)}`);
         }),
         () => {
-          t = !0;
+          t = true;
         }
       );
     }, [Q, M, N, te, ye, _e, ze, Ue, Be, g, L]),
@@ -1146,7 +1146,7 @@ function Fe(M, Q, ne) {
       };
     }, [Pe]);
   let Ze = B(
-      async (t, a = { discardDiscovery: !0 }) => {
+      async (t, a = { discardDiscovery: true }) => {
         let h = be.current.get(t);
         if (h && h.epoch === lr()) {
           if (Ho() && a.discardDiscovery && !h.discardDiscovery && !h.connectNow) {
@@ -1208,7 +1208,7 @@ function Fe(M, Q, ne) {
         if (a.type !== "disabled") {
           let r = q.current.get(t);
           if (r) r(), q.current.delete(t);
-          if ((jSe(t, !1, g), se.current.delete(t), ie.current.delete(t), a.type === "connected"))
+          if ((jSe(t, false, g), se.current.delete(t), ie.current.delete(t), a.type === "connected"))
             await b().clearServerCache(t, a.config);
           else if (a.type === "cached") b().disposeServerConnectionDetached(t, a.config);
           if (Ho())
@@ -1227,7 +1227,7 @@ function Fe(M, Q, ne) {
                 "MCP server blocked by enterprise managed policy",
               ))
             );
-          jSe(t, !0, g), j({ name: t, type: "pending", config: r });
+          jSe(t, true, g), j({ name: t, type: "pending", config: r });
           let D = lr(),
             m = await b().reconnectMcpServerImpl(t, r, g, L);
           if (yi(t)) {

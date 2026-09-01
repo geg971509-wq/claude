@@ -202,7 +202,7 @@ Content-Type: ${s}\r
       },
       timeout: D,
       signal: l,
-      validateStatus: () => !0,
+      validateStatus: () => true,
     });
     if (t.status !== 201)
       return (

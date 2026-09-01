@@ -31,11 +31,11 @@ class nsr {
     this.guards = t;
   }
   blocked() {
-    if (!this.guards) return !0;
+    if (!this.guards) return true;
     try {
       return !this.guards.trustProbe();
     } catch {
-      return !0;
+      return true;
     }
   }
 }
@@ -48,9 +48,9 @@ function JYe(t) {
 }
 async function k1e(t) {
   if (YYe().blocked()) return null;
-  let r = await qe(it(), [...cn, "remote", "get-url", "origin"], { cwd: t, preserveOutputOnError: !1 });
+  let r = await qe(it(), [...cn, "remote", "get-url", "origin"], { cwd: t, preserveOutputOnError: false });
   if (r.code === 0 && r.stdout.trim()) return { name: "origin", url: r.stdout.trim() };
-  let e = await qe(it(), [...cn, "remote"], { cwd: t, preserveOutputOnError: !1 }),
+  let e = await qe(it(), [...cn, "remote"], { cwd: t, preserveOutputOnError: false }),
     o =
       e.code === 0
         ? St(
@@ -60,7 +60,7 @@ async function k1e(t) {
           ).trim()
         : void 0;
   if (!o) return null;
-  let i = await qe(it(), [...cn, "remote", "get-url", o], { cwd: t, preserveOutputOnError: !1 }),
+  let i = await qe(it(), [...cn, "remote", "get-url", o], { cwd: t, preserveOutputOnError: false }),
     s = i.code === 0 ? i.stdout.trim() : "";
   return s ? { name: o, url: s } : null;
 }
@@ -71,7 +71,7 @@ async function szt(t) {
   if (YYe().blocked()) return null;
   let { stdout: r, code: e } = await qe(it(), [...cn, "remote", "get-url", "--push", "origin"], {
     cwd: t,
-    preserveOutputOnError: !1,
+    preserveOutputOnError: false,
   });
   return e === 0 ? r.trim() || null : null;
 }
@@ -86,7 +86,7 @@ async function x_(t, r) {
     if (!s) {
       let { stdout: l, code: p } = await qe(it(), [...cn, "config", "--get", "remote.origin.url"], {
           cwd: e,
-          preserveOutputOnError: !1,
+          preserveOutputOnError: false,
         }),
         a = p === 0 ? l.trim() : null;
       if (a && a !== i) s = yP(a);
@@ -168,9 +168,9 @@ function u(t) {
   return m.test(t) && !t.startsWith("-") && t !== "." && t !== "..";
 }
 function f(t) {
-  if (!/^[A-Za-z0-9.-]+$/.test(t) || t.startsWith("-") || !t.includes(".")) return !1;
+  if (!/^[A-Za-z0-9.-]+$/.test(t) || t.startsWith("-") || !t.includes(".")) return false;
   let r = t.split(".").pop();
-  if (!r) return !1;
+  if (!r) return false;
   return /^[a-zA-Z]+$/.test(r);
 }
 export { rvn, ife, nsr, wwr, YYe, JYe, k1e, QYe, szt, x_, ovn, H1e, ivn, yP, svn, sfe };

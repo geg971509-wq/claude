@@ -11,7 +11,7 @@
 import { S5 } from "/$bunfs/root/chunk-dmc9meqw.js";
 import { S, ue } from "/$bunfs/root/chunk-yz031c9r.js";
 var _ = S(function (b) {
-  Object.defineProperty(b, "__esModule", { value: !0 });
+  Object.defineProperty(b, "__esModule", { value: true });
   b.getHomeDir = void 0;
   var W = ue("os"),
     V = ue("path"),
@@ -32,7 +32,7 @@ var _ = S(function (b) {
   b.getHomeDir = U;
 });
 var x = S(function (D) {
-  Object.defineProperty(D, "__esModule", { value: !0 });
+  Object.defineProperty(D, "__esModule", { value: true });
   D.getSSOTokenFilepath = void 0;
   var X = ue("crypto"),
     B = ue("path"),
@@ -44,7 +44,7 @@ var x = S(function (D) {
   D.getSSOTokenFilepath = z;
 });
 var H = S(function (y) {
-  Object.defineProperty(y, "__esModule", { value: !0 });
+  Object.defineProperty(y, "__esModule", { value: true });
   y.getSSOTokenFromFile = y.tokenIntercept = void 0;
   var Q = ue("fs/promises"),
     Y = x();
@@ -58,7 +58,7 @@ var H = S(function (y) {
   y.getSSOTokenFromFile = Z;
 });
 var L = S(function (R) {
-  Object.defineProperty(R, "__esModule", { value: !0 });
+  Object.defineProperty(R, "__esModule", { value: true });
   R.readFile = R.fileIntercept = R.filePromises = void 0;
   var ee = ue("fs/promises");
   R.filePromises = {};
@@ -85,7 +85,7 @@ var mA = S(function (a) {
       Object.entries(e)
         .filter(([t]) => {
           let r = t.indexOf(c);
-          if (r === -1) return !1;
+          if (r === -1) return false;
           return Object.values(g.IniSectionType).includes(t.substring(0, r));
         })
         .reduce(
@@ -186,13 +186,13 @@ var mA = S(function (a) {
       },
     };
   Object.defineProperty(a, "getSSOTokenFromFile", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return P.getSSOTokenFromFile;
     },
   });
   Object.defineProperty(a, "readFile", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return u.readFile;
     },
@@ -208,7 +208,7 @@ var mA = S(function (a) {
   Object.keys(f).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(a, e))
       Object.defineProperty(a, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return f[e];
         },
@@ -217,7 +217,7 @@ var mA = S(function (a) {
   Object.keys(N).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(a, e))
       Object.defineProperty(a, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return N[e];
         },

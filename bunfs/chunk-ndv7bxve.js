@@ -58,7 +58,7 @@ function vBe(e) {
   let o = "",
     i = 0,
     l = 0,
-    s = !1;
+    s = false;
   for (let a of t) {
     let c = e.lastIndexOf("\x1B]8;", a.openEnd - 1),
       d = P(Et(e.slice(0, c))),
@@ -95,15 +95,15 @@ function vBe(e) {
   return o + e.slice(i);
 }
 class U {
-  #e = !1;
+  #e = false;
   get configured() {
     return this.#e;
   }
   set() {
-    this.#e = !0;
+    this.#e = true;
   }
   reset() {
-    (this.#e = !1), gu.setOptions(gu.getDefaults());
+    (this.#e = false), gu.setOptions(gu.getDefaults());
   }
 }
 var N = new U();
@@ -155,7 +155,7 @@ function YRe() {
 var dMn = new O2(D, {
   tokenizer: {
     emStrong(e) {
-      return e.startsWith("_") ? void 0 : !1;
+      return e.startsWith("_") ? void 0 : false;
     },
     table() {
       return;
@@ -203,7 +203,7 @@ function ant(e) {
     !e.endsWith(`
 `)
   )
-    return !1;
+    return false;
   for (let t = e.length - 2; t >= 0; t--) {
     let n = e[t];
     if (
@@ -211,10 +211,10 @@ function ant(e) {
       `
 `
     )
-      return !0;
-    if (!K.test(n)) return !1;
+      return true;
+    if (!K.test(n)) return false;
   }
-  return !1;
+  return false;
 }
 function nE(e, t, n = {}) {
   let {
@@ -222,10 +222,10 @@ function nE(e, t, n = {}) {
       orderedListNumber: i = null,
       parent: l = null,
       highlight: s = null,
-      glueProse: a = !1,
-      screenReader: c = !1,
+      glueProse: a = false,
+      screenReader: c = false,
       listIndent: d = "",
-      promptMode: b = !1,
+      promptMode: b = false,
     } = n,
     T = n.linkCap ?? Ef();
   switch (e.type) {
@@ -237,7 +237,7 @@ function nE(e, t, n = {}) {
               orderedListNumber: null,
               parent: null,
               highlight: s,
-              glueProse: !1,
+              glueProse: false,
               linkCap: T,
               screenReader: c,
               promptMode: b,
@@ -316,7 +316,7 @@ function nE(e, t, n = {}) {
             orderedListNumber: null,
             parent: null,
             highlight: s,
-            glueProse: !1,
+            glueProse: false,
             linkCap: T,
             promptMode: b,
           }),
@@ -348,7 +348,7 @@ function nE(e, t, n = {}) {
               orderedListNumber: null,
               parent: e,
               highlight: s,
-              glueProse: !1,
+              glueProse: false,
               linkCap: T,
               promptMode: b,
             }),
@@ -364,7 +364,7 @@ function nE(e, t, n = {}) {
         let y = Array.from(p)
             .filter((W) => {
               let w = W.codePointAt(0) ?? 0;
-              if (w === 8205 || (w >= 65024 && w <= 65039)) return !0;
+              if (w === 8205 || (w >= 65024 && w <= 65039)) return true;
               return !OT(w);
             })
             .join(""),
@@ -384,7 +384,7 @@ function nE(e, t, n = {}) {
             orderedListNumber: e.ordered ? e.start + f : null,
             parent: e,
             highlight: s,
-            glueProse: !1,
+            glueProse: false,
             linkCap: T,
             screenReader: c,
             listIndent: d,
@@ -408,7 +408,7 @@ function nE(e, t, n = {}) {
               orderedListNumber: i,
               parent: e,
               highlight: s,
-              glueProse: !1,
+              glueProse: false,
               linkCap: T,
               screenReader: c,
               listIndent: u,
@@ -424,7 +424,7 @@ function nE(e, t, n = {}) {
             )
               return L;
             let k = p ? `${d}${r} ` : f;
-            p = !1;
+            p = false;
             let S = L.split(x)
               .map((A, I) => (I === 0 ? k + A : A === "" ? A : f + A))
               .join(x);
@@ -443,7 +443,7 @@ function nE(e, t, n = {}) {
                 orderedListNumber: null,
                 parent: null,
                 highlight: s,
-                glueProse: !1,
+                glueProse: false,
                 linkCap: T,
                 promptMode: b,
               }),
@@ -467,7 +467,7 @@ function nE(e, t, n = {}) {
                       orderedListNumber: i,
                       parent: e,
                       highlight: s,
-                      glueProse: !0,
+                      glueProse: true,
                       linkCap: T,
                       promptMode: b,
                     }),
@@ -491,7 +491,7 @@ function nE(e, t, n = {}) {
                   orderedListNumber: null,
                   parent: null,
                   highlight: s,
-                  glueProse: !1,
+                  glueProse: false,
                   linkCap: T,
                   promptMode: b,
                 }),
@@ -650,14 +650,14 @@ function te(e) {
 function ne(e, t) {
   for (let n = 2; n < e.length; n++) {
     let o = re(e[n]);
-    for (let i = t; i < o.length; i++) if (o[i].trim()) return !0;
+    for (let i = t; i < o.length; i++) if (o[i].trim()) return true;
   }
-  return !1;
+  return false;
 }
 function re(e) {
   let n = e
     .replace(/\|/g, (o, i, l) => {
-      let s = !1,
+      let s = false,
         a = i;
       while (--a >= 0 && l[a] === "\\") s = !s;
       return s ? "|" : " |";

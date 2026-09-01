@@ -98,7 +98,7 @@ function flt(Pt) {
         return;
       }
       let De;
-      let Fe = !1;
+      let Fe = false;
       return (
         import("/$bunfs/root/chunk-4w2j29h2.js").then((q) => {
           let { watchSystemTheme: Kt } = q;
@@ -108,7 +108,7 @@ function flt(Pt) {
           De = Kt(L, I);
         }),
         () => {
-          (Fe = !0), De?.();
+          (Fe = true), De?.();
         }
       );
     }),

@@ -44,11 +44,11 @@ function C(e) {
 async function _(e) {
   let t = o.join(c, "Contents");
   try {
-    await a.rm(c, { recursive: !0 });
+    await a.rm(c, { recursive: true });
   } catch (s) {
     if (E(s) !== "ENOENT") throw s;
   }
-  await a.mkdir(o.dirname(l), { recursive: !0 });
+  await a.mkdir(o.dirname(l), { recursive: true });
   let r = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -83,12 +83,12 @@ async function _(e) {
     await $e(
       "/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister",
       ["-R", c],
-      { useCwd: !1 },
+      { useCwd: false },
     ),
     n(`Registered ${eB}:// protocol handler at ${c}`);
 }
 async function F(e) {
-  await a.mkdir(o.dirname(d()), { recursive: !0 });
+  await a.mkdir(o.dirname(d()), { recursive: true });
   let t = `[Desktop Entry]
 Name=${m}
 Comment=Handle ${eB}:// deep links for Claude Code
@@ -100,7 +100,7 @@ MimeType=x-scheme-handler/${eB};
   await a.writeFile(d(), t);
   let r = await Va("xdg-mime");
   if (r) {
-    let { code: i } = await $e(r, ["default", w, `x-scheme-handler/${eB}`], { useCwd: !1 });
+    let { code: i } = await $e(r, ["default", w, `x-scheme-handler/${eB}`], { useCwd: false });
     if (i !== 0) throw Object.assign(Error(`xdg-mime exited with code ${i}`), { code: "XDG_MIME_FAILED" });
   }
   n(`Registered ${eB}:// protocol handler at ${d()}`);
@@ -111,7 +111,7 @@ async function L(e) {
     ["add", u, "/v", "URL Protocol", "/d", "", "/f"],
     ["add", h, "/ve", "/d", C(e), "/f"],
   ]) {
-    let { code: r } = await $e("reg", t, { useCwd: !1 });
+    let { code: r } = await $e("reg", t, { useCwd: false });
     if (r !== 0) throw Object.assign(Error(`reg add exited with code ${r}`), { code: "REG_FAILED" });
   }
   n(`Registered ${eB}:// protocol handler in Windows registry`);
@@ -148,14 +148,14 @@ async function x(e) {
       case "linux":
         return (await a.readFile(d(), "utf8")).includes(k(e));
       case "win32": {
-        let { stdout: t, code: r } = await $e("reg", ["query", h, "/ve"], { useCwd: !1 });
+        let { stdout: t, code: r } = await $e("reg", ["query", h, "/ve"], { useCwd: false });
         return r === 0 && t.includes(C(e));
       }
       default:
-        return !1;
+        return false;
     }
   } catch {
-    return !1;
+    return false;
   }
 }
 async function ZPn(e) {
@@ -180,7 +180,7 @@ async function ZPn(e) {
       O() && e !== void 0)
     )
       await e.delete(Te.state("deep-link-register-failed"));
-    else await a.rm(r, { force: !0 }).catch(() => {});
+    else await a.rm(r, { force: true }).catch(() => {});
   } catch (i) {
     let s = uo(i);
     if (

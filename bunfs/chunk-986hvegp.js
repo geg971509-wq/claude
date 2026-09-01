@@ -104,14 +104,14 @@ function M(e, i) {
   return new Promise((t) => {
     let o;
     try {
-      o = k(e, i, { cwd: B(e), detached: !0, stdio: "ignore", windowsHide: !1 });
+      o = k(e, i, { cwd: B(e), detached: true, stdio: "ignore", windowsHide: false });
     } catch (r) {
-      n(`[Claude in Chrome] Detached launch of ${e} failed: ${E(r) ?? String(r)}`, { level: "error" }), t(!1);
+      n(`[Claude in Chrome] Detached launch of ${e} failed: ${E(r) ?? String(r)}`, { level: "error" }), t(false);
       return;
     }
-    o.once("spawn", () => t(!0)),
+    o.once("spawn", () => t(true)),
       o.once("error", (r) => {
-        n(`[Claude in Chrome] Detached launch of ${e} failed: ${E(r) ?? r.message}`, { level: "error" }), t(!1);
+        n(`[Claude in Chrome] Detached launch of ${e} failed: ${E(r) ?? r.message}`, { level: "error" }), t(false);
       }),
       o.unref();
   });
@@ -220,7 +220,7 @@ var uI = `mcp__${Ed}__`,
       windows: {
         dataPath: ["Opera Software", "Opera Stable"],
         registryKey: "HKCU\\Software\\Opera Software\\Opera Stable\\NativeMessagingHosts",
-        useRoaming: !0,
+        useRoaming: true,
         appPathsExe: "opera.exe",
       },
     },
@@ -308,25 +308,25 @@ function C(e) {
   };
 }
 async function Fte(e) {
-  if (!/^https?:\/\//i.test(e)) return p("chrome_open_url", "invalid_url"), !1;
+  if (!/^https?:\/\//i.test(e)) return p("chrome_open_url", "invalid_url"), false;
   let i = D(),
     t = await p2t();
-  if (!t) return n("[Claude in Chrome] No compatible browser found"), p("chrome_open_url", "no_browser"), !1;
+  if (!t) return n("[Claude in Chrome] No compatible browser found"), p("chrome_open_url", "no_browser"), false;
   let o = d2t[t];
   switch (i) {
     case "macos": {
       let r = await $e("open", ["-a", o.macos.appName, e]);
-      if (r.code === 0) return y("chrome_open_url"), !0;
-      return p("chrome_open_url", "exec_failed", C(r)), !1;
+      if (r.code === 0) return y("chrome_open_url"), true;
+      return p("chrome_open_url", "exec_failed", C(r)), false;
     }
     case "windows": {
       let r = o.windows.appPathsExe,
-        u = !1;
+        u = false;
       if (r) {
         let m = await P(r);
         if (m) {
-          if (await M(m, [e])) return y("chrome_open_url", { open_method: w("app_paths"), browser: c(t) }), !0;
-          u = !0;
+          if (await M(m, [e])) return y("chrome_open_url", { open_method: w("app_paths"), browser: c(t) }), true;
+          u = true;
         }
       }
       let s = await qe("rundll32", ["url,OpenURL", e], { cwd: h() });
@@ -336,24 +336,24 @@ async function Fte(e) {
             open_method: u ? w("rundll32_after_spawn_fail") : r ? w("rundll32") : w("rundll32_no_app_paths_support"),
             browser: c(t),
           }),
-          !0
+          true
         );
       return (
-        p("chrome_open_url", "exec_failed", { ...C(s), ...(u && { app_paths_spawn_failed: !0 }), browser: c(t) }), !1
+        p("chrome_open_url", "exec_failed", { ...C(s), ...(u && { app_paths_spawn_failed: true }), browser: c(t) }), false
       );
     }
     case "wsl":
     case "linux": {
       let r;
       for (let u of o.linux.binaries) {
-        let s = await $e(u, [e], { useCwd: !0, useToolMemoryCgroup: !1 });
-        if (s.code === 0) return y("chrome_open_url"), !0;
+        let s = await $e(u, [e], { useCwd: true, useToolMemoryCgroup: false });
+        if (s.code === 0) return y("chrome_open_url"), true;
         if (r?.exitCode === void 0 || s.exitCode !== void 0) r = s;
       }
-      return p("chrome_open_url", "exec_failed", r ? C(r) : void 0), !1;
+      return p("chrome_open_url", "exec_failed", r ? C(r) : void 0), false;
     }
     default:
-      return p("chrome_open_url", "exec_failed"), !1;
+      return p("chrome_open_url", "exec_failed"), false;
   }
 }
 function hze() {

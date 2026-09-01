@@ -48,8 +48,8 @@ var K = "decision",
   J = /[\u200C\u200D\uFE00-\uFE0F\u{E0100}-\u{E01EF}]/gu,
   Z = 8;
 function P(e) {
-  if (e.length === 0 || e !== e.trim() || [...e].length > R) return !1;
-  if (G.test(e)) return !1;
+  if (e.length === 0 || e !== e.trim() || [...e].length > R) return false;
+  if (G.test(e)) return false;
   return (e.match(J) ?? []).length <= Z;
 }
 var ee = /^[A-Za-z0-9+/]*={0,2}$/;
@@ -66,7 +66,7 @@ function lWe(e) {
   if (Buffer.from(n).toString("base64") !== e) return null;
   let t;
   try {
-    t = new TextDecoder("utf-8", { fatal: !0 }).decode(n);
+    t = new TextDecoder("utf-8", { fatal: true }).decode(n);
   } catch {
     return null;
   }
@@ -78,8 +78,8 @@ function _(e) {
 var E = "get-started",
   y = ["get-started", "keep-iterating"];
 function Qit(e) {
-  if (e.id !== E || e.options.length !== 2) return !1;
-  if (e.custom !== void 0) return !1;
+  if (e.id !== E || e.options.length !== 2) return false;
+  if (e.custom !== void 0) return false;
   let n = new Set(e.options.map((t) => t.token));
   return y.every((t) => n.has(t));
 }
@@ -291,7 +291,7 @@ function Zit(e) {
   };
 }
 function r2n(e, n, t = Lnn) {
-  let s = { md: e, substitute: (i) => ({ html: i, complete: !0 }), nonceMarker: "", decisions: [], deliverables: [] };
+  let s = { md: e, substitute: (i) => ({ html: i, complete: true }), nonceMarker: "", decisions: [], deliverables: [] };
   if (!j.test(e)) return s;
   let a;
   try {
@@ -342,13 +342,13 @@ ${h}
     nonceMarker: g,
     substitute: (i) => {
       let u = i,
-        h = !0;
+        h = true;
       for (let { ph: A, html: x } of m) {
         let v = u.split(A);
-        if (v.length === 1) h = !1;
+        if (v.length === 1) h = false;
         u = v.join(x);
       }
-      if (u.includes(g)) h = !1;
+      if (u.includes(g)) h = false;
       return { html: u, complete: h };
     },
     decisions: r.flatMap((i) => ("decision" in i ? [i.decision] : [])),
@@ -380,9 +380,9 @@ async function I(e, n) {
 }
 async function ae(e, n) {
   let { parse: t } = await import("/$bunfs/root/chunk-0hxb8y8g.js"),
-    s = O1(t(e, { sourceCodeLocationInfo: !0 })),
+    s = O1(t(e, { sourceCodeLocationInfo: true })),
     a = [],
-    r = [{ node: s, inTemplate: !1 }];
+    r = [{ node: s, inTemplate: false }];
   for (;;) {
     let o = r.pop();
     if (o === void 0) break;
@@ -391,22 +391,22 @@ async function ae(e, n) {
       if (Jg(c, "id") === n) a.push({ node: c, inTemplate: f });
     }
     for (let l of c.childNodes ?? []) r.push({ node: l, inTemplate: f });
-    for (let l of c.content?.childNodes ?? []) r.push({ node: l, inTemplate: !0 });
+    for (let l of c.content?.childNodes ?? []) r.push({ node: l, inTemplate: true });
   }
   return a;
 }
 async function lDt(e, n) {
-  if (!w.test(n)) return { ambiguous: !0 };
+  if (!w.test(n)) return { ambiguous: true };
   let t = THe(e, n);
   if (t.length === 0) {
     let p = await I(e, n);
-    if (p === null) return { ambiguous: !0 };
-    return p.length === 0 ? null : { ambiguous: !0 };
+    if (p === null) return { ambiguous: true };
+    return p.length === 0 ? null : { ambiguous: true };
   }
-  if (t.length !== 1) return { ambiguous: !0 };
+  if (t.length !== 1) return { ambiguous: true };
   let [s, a] = t[0],
     r = await I(e, n);
-  if (r === null || r.length !== 1 || r[0].inTemplate) return { ambiguous: !0 };
+  if (r === null || r.length !== 1 || r[0].inTemplate) return { ambiguous: true };
   let o = r[0].node,
     c = (Jg(o, "type") ?? "").trim().toLowerCase(),
     f = o.sourceCodeLocation?.startTag,
@@ -419,8 +419,8 @@ async function lDt(e, n) {
     l === void 0 ||
     l === null
   )
-    return { ambiguous: !0 };
-  if (s < f.startOffset || a !== f.endOffset) return { ambiguous: !0 };
+    return { ambiguous: true };
+  if (s < f.startOffset || a !== f.endOffset) return { ambiguous: true };
   return { json: e.slice(f.endOffset, l.startOffset) };
 }
 function Bnn(e) {

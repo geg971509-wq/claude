@@ -25,7 +25,7 @@ function Ut(t) {
     r = t[O];
   try {
     t[O] = void 0;
-    var n = !0;
+    var n = true;
   } catch (i) {}
   var o = Mt.call(t);
   if (n)
@@ -58,7 +58,7 @@ var Yt = "[object AsyncFunction]",
   Qt = "[object GeneratorFunction]",
   te = "[object Proxy]";
 function ee(t) {
-  if (!Rm(t)) return !1;
+  if (!Rm(t)) return false;
   var e = Ij(t);
   return e == qt || e == Qt || e == Yt || e == te;
 }
@@ -102,7 +102,7 @@ var ue = /[\\^$.*+?()[\]{}|]/g,
       "$",
   );
 function me(t) {
-  if (!Rm(t) || rt(t)) return !1;
+  if (!Rm(t) || rt(t)) return false;
   var e = l$e(t) ? ge : le;
   return e.test(dme(t));
 }
@@ -186,11 +186,11 @@ var Re = Array.prototype,
 function Ie(t) {
   var e = this.__data__,
     r = x(e, t);
-  if (r < 0) return !1;
+  if (r < 0) return false;
   var n = e.length - 1;
   if (r == n) e.pop();
   else je.call(e, r, 1);
-  return --this.size, !0;
+  return --this.size, true;
 }
 var ft = Ie;
 function ke(t) {
@@ -350,9 +350,9 @@ function v5t(t) {
   return /^[\\/](GLOBAL\?\?|GLOBALROOT|DosDevices|Device)[\\/]/i.test(t);
 }
 function u$e(t, e) {
-  if (!Bn(t)) return !1;
-  if (JO(t) || Dj(t)) return !0;
-  if (oc(t)) return !0;
+  if (!Bn(t)) return false;
+  if (JO(t) || Dj(t)) return true;
+  if (oc(t)) return true;
   let r = Z5(t);
   return r === null || r !== Z5(e);
 }
@@ -399,29 +399,29 @@ function R5t(t) {
   return e[1][0].repeat(2) + e[2] + t.slice(e[1].length + e[2].length + 1);
 }
 function HR(t, e) {
-  if (!_r(t)) return !1;
+  if (!_r(t)) return false;
   let r = R(t);
   return r === null || r !== R(e);
 }
 function Sc(t, e) {
   let r = f(e, t);
-  if (u$e(t, e) || u$e(r, e)) return !0;
+  if (u$e(t, e) || u$e(r, e)) return true;
   let n = R(e);
   for (let o of [t, r])
     if (_r(o)) {
       let i = R(o);
-      if (i === null || i !== n) return !0;
+      if (i === null || i !== n) return true;
     }
-  return !1;
+  return false;
 }
 function _r(t) {
   return ns(t);
 }
 function nZe(t) {
-  if (!t.startsWith("/")) return !1;
+  if (!t.startsWith("/")) return false;
   let e = t.split("/").filter((n) => n !== "" && n !== ".");
-  if (e.length < 1 || e.length > 3 || e.includes("..")) return !1;
-  if (T(e) && (e.length === 2 || !0)) return !0;
+  if (e.length < 1 || e.length > 3 || e.includes("..")) return false;
+  if (T(e) && (e.length === 2 || true)) return true;
   let r = e[0].toLowerCase();
   return e.length <= 2 && (r === "net" || r === "network" || (r === "home" && e.length === 1));
 }
@@ -537,9 +537,9 @@ function vt(t) {
 }
 function RP(t) {
   if (/^\\\\\?\\volume\{/i.test(t)) return St(t);
-  if (Dj(t)) return !0;
+  if (Dj(t)) return true;
   let e = gie(t);
-  if (e !== t && St(e)) return !0;
+  if (e !== t && St(e)) return true;
   return Bn(e) && !Ms(e);
 }
 function St(t) {
@@ -560,11 +560,11 @@ function UJ(t) {
 function GCt(t, e) {
   let r = f(e).toLowerCase(),
     n = c(f(t)).toLowerCase();
-  if (n === r || Ct(n, r) || Tt(n, r, "lexical")) return !0;
+  if (n === r || Ct(n, r) || Tt(n, r, "lexical")) return true;
   let o = UJ(e)?.toLowerCase();
-  if (o == null) return !1;
+  if (o == null) return false;
   let i = UJ(c(f(t)))?.toLowerCase();
-  if (i == null) return !0;
+  if (i == null) return true;
   return i === o || Ct(i, o) || Tt(i, o, "canonical");
 }
 var Qe = new Set([
@@ -580,7 +580,7 @@ var Qe = new Set([
   "__pypackages__",
 ]);
 function Ct(t, e) {
-  if (!t.startsWith(j(e) + d)) return !1;
+  if (!t.startsWith(j(e) + d)) return false;
   return t.split(d).some((r) => Qe.has(r));
 }
 function j(t) {
@@ -598,11 +598,11 @@ function Tt(t, e, r) {
     );
   let i = n + "\x00" + o;
   if (F?.key === i) return M(F.aliasDirs, t, e);
-  let s = !0,
+  let s = true,
     a = Ot(n, o, (u) => {
       if (!er(u)) return f(u).toLowerCase();
       let l = UJ(u)?.toLowerCase();
-      if (l == null) return (s = !1), f(u).toLowerCase();
+      if (l == null) return (s = false), f(u).toLowerCase();
       return l;
     });
   if (s) F = { key: i, aliasDirs: a };
@@ -624,9 +624,9 @@ function M(t, e, r) {
   let n = j(r);
   for (let o of t) {
     if (!(o === n || o.startsWith(n + d))) continue;
-    if (e === o || e.startsWith(o + d)) return !0;
+    if (e === o || e.startsWith(o + d)) return true;
   }
-  return !1;
+  return false;
 }
 var rr = [
   "usr/local",
@@ -670,25 +670,25 @@ function A(t) {
 function q4(t) {
   return U(c(t)) === "worktrees" && U(c(c(t))) === ".claude" ? c(c(c(t))) : null;
 }
-function kve(t, { allowLocalWsl: e = !1 } = {}) {
+function kve(t, { allowLocalWsl: e = false } = {}) {
   let r = (i) => e && zCt(i);
-  if (r(t)) return !1;
-  if (SA(t)) return !0;
+  if (r(t)) return false;
+  if (SA(t)) return true;
   let n = G4(t);
-  if (!h(n)) return !0;
-  if (Hve(n, { allowLocalWsl: e })) return !0;
+  if (!h(n)) return true;
+  if (Hve(n, { allowLocalWsl: e })) return true;
   let o = f(n);
   for (;;) {
     let i = Rt(o);
     if (i.real !== void 0) return SA(i.real) && !r(i.real);
-    if (i.code !== "ENOENT" && i.code !== "ENOTDIR") return !0;
+    if (i.code !== "ENOENT" && i.code !== "ENOTDIR") return true;
     let s = c(o);
-    if (s === o) return !1;
+    if (s === o) return false;
     o = s;
   }
 }
 function zCt(t) {
-  return !1;
+  return false;
 }
 function d$e(t) {
   return t;
@@ -699,10 +699,10 @@ function k5t(t, e, r = "") {
   let n = r === "" ? t : t.startsWith(r + "/") ? t.slice(r.length) : void 0;
   return n === void 0 ? void 0 : e.replace(/[\\/]+$/, "") + n.replace(/\//g, "\\");
 }
-function H5t(t, { exactDots: e = !1 } = {}) {
+function H5t(t, { exactDots: e = false } = {}) {
   return;
 }
-function x5t(t, { exactDots: e = !1 } = {}) {
+function x5t(t, { exactDots: e = false } = {}) {
   let r = G4(t);
   if (e ? jCt(r, "win32") : oc(r)) return;
   let n = /^([A-Za-z]):[\\/]+(.*)$/.exec(r),
@@ -719,33 +719,33 @@ function SA(t) {
   let e = G4(t);
   return sr(e) || VC(e) || v5t(e);
 }
-function I5t(t, { allowLocalWsl: e = !1 } = {}) {
+function I5t(t, { allowLocalWsl: e = false } = {}) {
   let r = G4(t);
-  if (!h(r)) return !0;
+  if (!h(r)) return true;
   let { root: n } = Z(r);
   return w(n, _(r.slice(n.length)), 0, e);
 }
 function VCt(t, e) {
-  return w(t, _(e), 0, !1, { trustedStart: !0, trustedRoot: t });
+  return w(t, _(e), 0, false, { trustedStart: true, trustedRoot: t });
 }
 function KCt(t, e = c(t)) {
   let r = N(() => K(t));
   if (r.value === void 0) return r.code !== "ENOENT" && r.code !== "EINVAL";
   let n = r.value.replace(/^\/{2,}/, "/");
-  if (Lt(n)) return !0;
-  let o = !1;
-  if (o && oc(n)) return !0;
+  if (Lt(n)) return true;
+  let o = false;
+  if (o && oc(n)) return true;
   let i = o ? G(Z(e).root, n) : n,
-    s = { trustedStart: !0, trustedRoot: e };
+    s = { trustedStart: true, trustedRoot: e };
   if (h(i)) {
     let l = V(e, i);
-    if (!oc(i) && l !== "" && !At(l) && !h(l)) return w(e, _(l), 1, !1, s);
+    if (!oc(i) && l !== "" && !At(l) && !h(l)) return w(e, _(l), 1, false, s);
     return SA(i) || Hve(i);
   }
-  if (SA(i)) return !0;
+  if (SA(i)) return true;
   let a = V(e, c(t)),
     u = !At(a) && !h(a);
-  return w(u ? e : c(t), [...(u ? _(a) : []), ..._(i)], 1, !1, s);
+  return w(u ? e : c(t), [...(u ? _(a) : []), ..._(i)], 1, false, s);
 }
 function Hve(t, e = {}) {
   return I5t(t, e) || (oc(t) && I5t(f(t), e));
@@ -761,13 +761,13 @@ function At(t) {
   return t === ".." || /^\.\.[\\/]/.test(t);
 }
 function Lt(t) {
-  return !1;
+  return false;
 }
-function w(t, e, r, n, { trustedStart: o = !1, trustedRoot: i = t } = {}) {
+function w(t, e, r, n, { trustedStart: o = false, trustedRoot: i = t } = {}) {
   let s = i.endsWith(d) ? i : i + d,
     a = (l) => o && (l === i || l.startsWith(s)),
     u = t;
-  if (!a(u) && L(u, n)) return !0;
+  if (!a(u) && L(u, n)) return true;
   for (let l = 0; l < e.length; l++) {
     let I = e[l];
     if (I === ".") continue;
@@ -776,36 +776,36 @@ function w(t, e, r, n, { trustedStart: o = !1, trustedRoot: i = t } = {}) {
       continue;
     }
     let v = G(u, I);
-    if (!a(v) && L(v, n)) return !0;
+    if (!a(v) && L(v, n)) return true;
     let P = N(() => Ze(v));
     if (P.value === void 0) {
-      if (P.code !== "ENOENT" && P.code !== "ENOTDIR") return !0;
+      if (P.code !== "ENOENT" && P.code !== "ENOTDIR") return true;
       let g = v;
       for (let D of e.slice(l + 1))
-        if (((g = D === ".." ? c(g) : D === "." ? g : G(g, D)), !a(g) && L(g, n))) return !0;
-      return !1;
+        if (((g = D === ".." ? c(g) : D === "." ? g : G(g, D)), !a(g) && L(g, n))) return true;
+      return false;
     }
     let k;
     if (P.value.isSymbolicLink()) {
-      if (r >= or) return !0;
-      if (((k = N(() => K(v)).value), k === void 0)) return !0;
+      if (r >= or) return true;
+      if (((k = N(() => K(v)).value), k === void 0)) return true;
     } else {
       u = v;
       continue;
     }
     let p = k.replace(/^\/{2,}/, "/");
-    if (!(o && h(p) && !oc(p) && a(p)) && L(p, n)) return !0;
+    if (!(o && h(p) && !oc(p) && a(p)) && L(p, n)) return true;
     let H = e.slice(l + 1);
-    if (Lt(p)) return !0;
+    if (Lt(p)) return true;
     if (h(p)) {
       if (o && !oc(p) && a(p))
-        return w(i, [..._(p.slice(s.length)), ...H], r + 1, n, { trustedStart: !0, trustedRoot: i });
+        return w(i, [..._(p.slice(s.length)), ...H], r + 1, n, { trustedStart: true, trustedRoot: i });
       let g = Z(p).root;
       return w(g, [..._(p.slice(g.length)), ...H], r + 1, n);
     }
     return w(u, [..._(p), ...H], r + 1, n, { trustedStart: a(u), trustedRoot: i });
   }
-  return !1;
+  return false;
 }
 function Rt(t) {
   let e = N(() => gie(Pt.native(t)));
@@ -879,8 +879,8 @@ function G4(t) {
     n = r.slice(2);
   return (e[0].includes("\\") && n.includes("/")) || It(n) ? t : r;
 }
-function bb(t, { foldCase: e, knownNotSuspect: r = !1 } = {}) {
-  if (((e ??= !0), (t = G4(t)), bA(t) || ns(t))) {
+function bb(t, { foldCase: e, knownNotSuspect: r = false } = {}) {
+  if (((e ??= true), (t = G4(t)), bA(t) || ns(t))) {
     let a = d$e(f(d$e(t))).normalize("NFC");
     return e ? a.toLowerCase() : a;
   }
@@ -896,7 +896,7 @@ function bb(t, { foldCase: e, knownNotSuspect: r = !1 } = {}) {
   let s = d$e(i).normalize("NFC");
   return e ? s.toLowerCase() : s;
 }
-function n_(t, e, { alreadyComparable: r = !1, foldCase: n } = {}) {
+function n_(t, e, { alreadyComparable: r = false, foldCase: n } = {}) {
   let o = V(r ? t : bb(t, { foldCase: n }), r ? e : bb(e, { foldCase: n }));
   return o === "" || (!h(o) && o !== ".." && !o.startsWith(`..${d}`));
 }

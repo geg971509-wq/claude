@@ -308,12 +308,12 @@ function E(u) {
     c = a ? ua(a.targetName, n.options.commands) : void 0,
     o = a && c && xp(c) ? { command: c, consumedToken: a.consumedToken, args: a.remainingArgs } : void 0,
     i = o ? o.command : e;
-  if (oDe(i)) return { kind: "updated", effectiveSkipSlash: !1, effectiveInput: m, effectiveContext: n };
+  if (oDe(i)) return { kind: "updated", effectiveSkipSlash: false, effectiveInput: m, effectiveContext: n };
   let d = Rbe(i);
   if (d && xp(i))
     return {
       kind: "updated",
-      effectiveSkipSlash: !1,
+      effectiveSkipSlash: false,
       effectiveInput: o ? `/${d.name}${o.args ? ` ${o.args}` : ""}` : m.replace(/^\/\S+/, `/${d.name}`),
       effectiveContext: {
         ...n,
@@ -347,7 +347,7 @@ function E(u) {
     kind: "blocked",
     result: {
       messages: [xe({ content: S, uuid: g, origin: v }), sm(`<local-command-stdout>${l}</local-command-stdout>`)],
-      shouldQuery: !1,
+      shouldQuery: false,
       resultText: l,
     },
   };

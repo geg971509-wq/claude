@@ -34,43 +34,43 @@ async function tje({
   recipientLabel: a,
   parse: l,
 }) {
-  if (!(noe() && !r)) return { proceed: !0, input: s, asked: !1 };
+  if (!(noe() && !r)) return { proceed: true, input: s, asked: false };
   let u = await i(e, s, { ...o, toolUseId: void 0 }, t, "");
   if (u.behavior !== "allow")
     return {
-      proceed: !1,
-      asked: !0,
+      proceed: false,
+      asked: true,
       reason: "denied",
       message:
         u.behavior === "deny" && u.message
           ? u.message
           : `isolatePeerMachines is enabled: sending to ${a} needs your approval \u2014 nothing was sent.`,
     };
-  if (u.updatedInput === void 0) return { proceed: !0, input: s, asked: !0 };
+  if (u.updatedInput === void 0) return { proceed: true, input: s, asked: true };
   let c = l(u.updatedInput);
   if (!c.success)
     return {
-      proceed: !1,
-      asked: !0,
+      proceed: false,
+      asked: true,
       reason: "bad_shape",
       message: `The permission handler narrowed the input to a shape ${e.name} does not accept \u2014 nothing was sent.`,
     };
   if (c.data.to !== s.to)
     return {
-      proceed: !1,
-      asked: !0,
+      proceed: false,
+      asked: true,
       reason: "recipient_changed",
       message: `The permission handler changed the recipient (from ${a}) after this send was resolved \u2014 nothing was sent. Send again to the recipient you intend.`,
     };
   if (c.data.message !== void 0 && typeof c.data.message !== "string")
     return {
-      proceed: !1,
-      asked: !0,
+      proceed: false,
+      asked: true,
       reason: "non_text_message",
       message:
         "The permission handler rewrote the message into a structured (non-text) form, which cannot be sent to another session \u2014 nothing was sent.",
     };
-  return { proceed: !0, input: c.data, asked: !0 };
+  return { proceed: true, input: c.data, asked: true };
 }
 function bhe(e, s, o) {
   let i = Sr(s);
@@ -154,7 +154,7 @@ var re =
 Your session list was too long to check completely, so a session by that name may exist beyond what was searched.`,
   Sen = "your session list was too long to check completely";
 async function rje(e, s, o, i, t, r) {
-  await pwe({ refresh: !0, credentials: r });
+  await pwe({ refresh: true, credentials: r });
   let a = Sr(s),
     l = ds(i.teamContext),
     d = null;
@@ -198,7 +198,7 @@ async function rje(e, s, o, i, t, r) {
           return T.kind === "local-session" || T.kind === "cloud-session"
             ? {
                 ...T,
-                ...X(T, M, H, { socksMirroredRemotely: fe(F, b, Ne), searchTruncated: b.truncated === !0 || xe }),
+                ...X(T, M, H, { socksMirroredRemotely: fe(F, b, Ne), searchTruncated: b.truncated === true || xe }),
               }
             : T;
         },
@@ -267,7 +267,7 @@ async function rje(e, s, o, i, t, r) {
       bridgeSettled: I !== void 0,
       localUnavailable: u.unavailable,
       socksMirroredRemotely: fe(v, c, I),
-      searchTruncated: c.truncated === !0 || O,
+      searchTruncated: c.truncated === true || O,
     }),
     N = ZI(i, { teamFile: d, sessions: v, cloud: c.sessions, bridge: I }),
     U = N.byName.get(a)?.length === 1 ? N.byName.get(a)[0] : void 0,
@@ -337,17 +337,17 @@ async function de(e, s, o, i, t, r, a) {
 }
 function _e(e, s, o, i) {
   let t = P(e, s);
-  if (t !== "remote-control" && t !== "cloud") return !1;
+  if (t !== "remote-control" && t !== "cloud") return false;
   let r = Tr(e[s].id);
-  if (o.some((a) => Tr(a.id) === r)) return !1;
+  if (o.some((a) => Tr(a.id) === r)) return false;
   return i === void 0 || !i.some((a) => Tr(a.id) === r);
 }
 function E(e) {
   return {
     ...(e.cloudUnavailable && { cloudUnavailable: e.cloudUnavailable }),
     ...(e.bridgeUnavailable && { bridgeUnavailable: e.bridgeUnavailable }),
-    ...(e.localUnavailable && { localUnavailable: !0 }),
-    ...(e.searchTruncated && { searchTruncated: !0 }),
+    ...(e.localUnavailable && { localUnavailable: true }),
+    ...(e.searchTruncated && { searchTruncated: true }),
   };
 }
 function le(e, s, o, i, t) {
@@ -373,7 +373,7 @@ function le(e, s, o, i, t) {
       ) {
         let v = B(u, i);
         if (v.kind === "local-session" || v.kind === "cloud-session")
-          return { ...v, exactUnique: !0, ...(c !== void 0 && { previouslyPinned: !0 }), ...X(v, s, e, t) };
+          return { ...v, exactUnique: true, ...(c !== void 0 && { previouslyPinned: true }), ...X(v, s, e, t) };
       }
       return { ...D(a, "exact"), ...E(t), ...d };
     }
@@ -401,7 +401,7 @@ function Se(e, s, o, i) {
       }
       if (r.kind === "ambiguous") {
         let d = e.byName.get(t[0]),
-          u = pe(o.sendMessagePins, t[0], d, void 0, i, !0);
+          u = pe(o.sendMessagePins, t[0], d, void 0, i, true);
         if (u)
           return (
             y("send_message_prefix_match", { input_len: s.length, index_size: e.candidates.length, pinned: 1 }),
@@ -423,7 +423,7 @@ function Se(e, s, o, i) {
         y("send_message_prefix_match", {
           input_len: s.length,
           index_size: e.candidates.length,
-          ...(i.searchTruncated && { search_truncated: !0 }),
+          ...(i.searchTruncated && { search_truncated: true }),
         }),
         B(r.candidate, o)
       );
@@ -466,7 +466,7 @@ async function q(e, s, o, i) {
         t)
       )
         r.then((d) => xze(e, d, Ize(d.rows, s.sessions)));
-      return { rows: [], unavailable: "timeout", truncated: !1 };
+      return { rows: [], unavailable: "timeout", truncated: false };
     }
     if (a.failed || (a.identityKey !== null && !Bmt(a)))
       return (
@@ -474,7 +474,7 @@ async function q(e, s, o, i) {
           `[bridge:resolve] "${o}": Remote Control walk ${a.failed ? "failed" : "ran under a previous handle"} (cold) \u2014 not searched, disclosing a hedge`,
           { level: "warn" },
         ),
-        { rows: [], unavailable: "fetch_failed", truncated: !1 }
+        { rows: [], unavailable: "fetch_failed", truncated: false }
       );
     let l = Ize(a.rows, s.sessions);
     if (t) xze(e, a, l);
@@ -483,10 +483,10 @@ async function q(e, s, o, i) {
       n(
         `[bridge:resolve] "${o}": ${a.rows.length} Remote Control rows, ${l.length} listed (cold${t ? ", recorded" : ", not recorded \u2014 cloud list failed"})`,
       ),
-      { rows: l, unavailable: void 0, truncated: a.truncated === !0 }
+      { rows: l, unavailable: void 0, truncated: a.truncated === true }
     );
   }
-  return { rows: [], unavailable: void 0, truncated: !1 };
+  return { rows: [], unavailable: void 0, truncated: false };
 }
 function ge(e) {
   return HDe(e) ? e : void 0;
@@ -495,8 +495,8 @@ function ue(e, s, o, { remoteTruncated: i }) {
   return {
     cloudUnavailable: ge(e.unavailable),
     ...(s !== void 0 && { bridgeUnavailable: s }),
-    ...(o && { localUnavailable: !0 }),
-    ...((e.truncated === !0 || i) && { searchTruncated: !0 }),
+    ...(o && { localUnavailable: true }),
+    ...((e.truncated === true || i) && { searchTruncated: true }),
   };
 }
 function G(e, s, o) {
@@ -531,8 +531,8 @@ function B(e, s) {
         refKind: e.kind,
         sessionId: e.id,
         displayName: e.name,
-        ...(e.reportsInbound && { reportsInbound: !0 }),
-        ...(e.inboundReportUnavailable && { inboundReportUnavailable: !0 }),
+        ...(e.reportsInbound && { reportsInbound: true }),
+        ...(e.inboundReportUnavailable && { inboundReportUnavailable: true }),
       };
   }
 }
@@ -546,7 +546,7 @@ function L(e, s, o) {
     t = te(i.map((a) => Sr(a.name)));
   return { kind: "not-found", closest: $Ie(e, t, be).map((a) => i.find((l) => Sr(l.name) === a)) };
 }
-function pe(e, s, o, i, t, r = !1) {
+function pe(e, s, o, i, t, r = false) {
   let a = Object.hasOwn(e, s) ? e[s] : void 0;
   if (a === void 0) return;
   let l = P(e, s);
@@ -584,11 +584,11 @@ function fe(e, s, o) {
 }
 function X(e, s, o, i) {
   return {
-    ...(e.kind === "local-session" && i.socksMirroredRemotely.has(e.sock) && { alsoListedRemotely: !0 }),
+    ...(e.kind === "local-session" && i.socksMirroredRemotely.has(e.sock) && { alsoListedRemotely: true }),
     ...([...(o.remoteNamesClaimedLocally.get(s) ?? [])].some((t) => e.kind !== "local-session" || t !== e.sock) && {
-      remoteNamesakeClaimedLocally: !0,
+      remoteNamesakeClaimedLocally: true,
     }),
-    ...(i.searchTruncated && { searchTruncated: !0 }),
+    ...(i.searchTruncated && { searchTruncated: true }),
   };
 }
 export { tje, bhe, RIt, Vse, nje, Not, kIt, hen, x0e, HIt, xIt, Fot, _en, yen, I0e, Sen, rje };

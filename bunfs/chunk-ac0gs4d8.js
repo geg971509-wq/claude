@@ -22,7 +22,7 @@ import { W9e, nle, _sn } from "/$bunfs/root/chunk-zze8764r.js";
 import { li } from "/$bunfs/root/chunk-a6xhjq7b.js";
 import { Fu } from "/$bunfs/root/chunk-qnrh4abv.js";
 function E0e() {
-  return I("tengu_harbor_kite_mode_emit", !0);
+  return I("tengu_harbor_kite_mode_emit", true);
 }
 function O() {
   switch (w().decidedBy) {
@@ -42,7 +42,7 @@ var p = { accept: 0, hold: 1, refuse: 2 },
   Q = 100,
   P = new Set(gy);
 function G6e(e) {
-  if (e !== null) (li().inbound.shuttingDown = !1), x(), (li().inbound.modeAtUnwire = void 0);
+  if (e !== null) (li().inbound.shuttingDown = false), x(), (li().inbound.modeAtUnwire = void 0);
   else {
     let o = li().inbound.getCurrentMode;
     if (o !== null)
@@ -80,12 +80,12 @@ function x() {
 }
 async function K6e() {
   let e = li().inbound;
-  if ((e.shutdownSettleHandle?.(), (e.shutdownSettleHandle = null), (e.shuttingDown = !0), e.held.length === 0)) return;
+  if ((e.shutdownSettleHandle?.(), (e.shutdownSettleHandle = null), (e.shuttingDown = true), e.held.length === 0)) return;
   let o = e.held.splice(0, e.held.length);
   n(`[cross-session-inbound] shutdown: settling ${o.length} still-held peer message(s) as expired`);
   let s = [];
   for (let t of o) s.push(e.sendPeerReceipt?.(t, "expired")), e.onPeerHoldDropped?.(t);
-  await Promise.race([Promise.allSettled(s), ne(F, void 0, { unref: !0 })]);
+  await Promise.race([Promise.allSettled(s), ne(F, void 0, { unref: true })]);
 }
 function nUn(e) {
   let { inbound: o } = li();
@@ -153,10 +153,10 @@ function H() {
 function S(e) {
   let o = _();
   if (o) return o;
-  return k(e, !1);
+  return k(e, false);
 }
 function E(e) {
-  return k(e, !0);
+  return k(e, true);
 }
 function k(e, o) {
   let s = She();
@@ -194,9 +194,9 @@ function v() {
   }
 }
 function men() {
-  if (She() !== void 0) return !1;
+  if (She() !== void 0) return false;
   let e = v();
-  if (e === null || !P.has(e.mode)) return !1;
+  if (e === null || !P.has(e.mode)) return false;
   return C(e);
 }
 function J6e(e) {
@@ -213,8 +213,8 @@ function A(e) {
     let { priority: s, ...t } = e;
     o = _sn(t, { receipt: "caller" });
   } else o = _sn(e, { receipt: "caller" });
-  if (!o.admitted) return li().inbound.sendPeerReceipt?.(e, "dropped", { dropReason: o.reason, droppedMsgIds: [] }), !1;
-  return li().inbound.recordCorrespondent?.(e), !0;
+  if (!o.admitted) return li().inbound.sendPeerReceipt?.(e, "dropped", { dropReason: o.reason, droppedMsgIds: [] }), false;
+  return li().inbound.recordCorrespondent?.(e), true;
 }
 function R(e, o) {
   let s = li().inbound;
@@ -257,18 +257,18 @@ function R(e, o) {
 }
 function Q6e(e) {
   if (!e) return "ungated";
-  if (e.kind === "peer") return "hostInjected" in e && e.hostInjected === !0 ? "host-injected" : "peer";
+  if (e.kind === "peer") return "hostInjected" in e && e.hostInjected === true ? "host-injected" : "peer";
   if (e.kind === "task-notification" && "subkind" in e && e.subkind === "peer-send-message") return "coordinator";
   return "ungated";
 }
-function Z6e({ ingressOrigin: e, inboundOrigin: o, envelopePeer: s = !1 }) {
+function Z6e({ ingressOrigin: e, inboundOrigin: o, envelopePeer: s = false }) {
   return s || (Q6e(e) !== "ungated" && !j(e)) || o === W9e;
 }
 function j(e) {
   return (
     !!e &&
     e.kind === "peer" &&
-    !("hostInjected" in e && e.hostInjected === !0) &&
+    !("hostInjected" in e && e.hostInjected === true) &&
     "inbound_origin" in e &&
     e.inbound_origin === nle
   );

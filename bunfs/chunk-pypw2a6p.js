@@ -355,7 +355,7 @@ F();
 import * as he from "path";
 F();
 function St(Po) {
-  return { ...Po, autoConnectIde: !1 };
+  return { ...Po, autoConnectIde: false };
 }
 function ne(ko) {
   let L = _(20),
@@ -364,14 +364,14 @@ function ne(ko) {
     Me = hs(Fi),
     { refusedWithin: Pe, noteRefused: We, epoch: _o } = pi(),
     Oe = Vs(_o, Fi),
-    Be = C(!1),
+    Be = C(false),
     gt;
   if (L[0] !== Me || L[1] !== We || L[2] !== Pe)
     (gt = () => {
       if (Me() || Pe(Fi)) {
-        return We(), !0;
+        return We(), true;
       }
-      return !1;
+      return false;
     }),
       (L[0] = Me),
       (L[1] = We),
@@ -388,9 +388,9 @@ function ne(ko) {
       if (Be.current) {
         return;
       }
-      Be.current = !0;
+      Be.current = true;
       let $o = Fo === "yes";
-      await Ae((Ao) => ({ ...Ao, autoConnectIde: $o, hasIdeAutoConnectDialogBeenShown: !0 }), je), K();
+      await Ae((Ao) => ({ ...Ao, autoConnectIde: $o, hasIdeAutoConnectDialogBeenShown: true }), je), K();
     }),
       (L[4] = K),
       (L[5] = M),
@@ -427,7 +427,7 @@ function ne(ko) {
   if (L[12] !== Le || L[13] !== Oe.remountKey || L[14] !== M)
     (Ie = e(
       Ce,
-      { hideIndexes: !0, refuseInput: M, options: jo, onChange: Le, defaultFocusValue: "no", selectedValue: Ti },
+      { hideIndexes: true, refuseInput: M, options: jo, onChange: Le, defaultFocusValue: "no", selectedValue: Ti },
       Oe.remountKey,
     )),
       (L[12] = Le),
@@ -437,7 +437,7 @@ function ne(ko) {
   else Ie = L[15];
   let yt;
   if (L[16] === d)
-    (yt = e(t, { dimColor: !0, children: "You can also configure this in /config or with the --ide flag" })),
+    (yt = e(t, { dimColor: true, children: "You can also configure this in /config or with the --ide flag" })),
       (L[16] = yt);
   else yt = L[16];
   let wt;
@@ -456,7 +456,7 @@ function ne(ko) {
 }
 function we() {
   let n = ie();
-  return !mH() && n.autoConnectIde !== !0 && n.hasIdeAutoConnectDialogBeenShown !== !0;
+  return !mH() && n.autoConnectIde !== true && n.hasIdeAutoConnectDialogBeenShown !== true;
 }
 function re(Mo) {
   let De = _(11),
@@ -465,7 +465,7 @@ function re(Mo) {
     Et;
   if (De[0] !== Q || De[1] !== qe)
     (Et = () => {
-      Ae(St, qe), Q(!0);
+      Ae(St, qe), Q(true);
     }),
       (De[0] = Q),
       (De[1] = qe),
@@ -475,7 +475,7 @@ function re(Mo) {
     bt;
   if (De[3] !== Q)
     (bt = () => {
-      Q(!1);
+      Q(false);
     }),
       (De[3] = Q),
       (De[4] = bt);
@@ -483,7 +483,7 @@ function re(Mo) {
   let Z = bt,
     ye;
   if (De[5] !== Z || De[6] !== Je)
-    (ye = e(wn, { hideIndexes: !0, cancelFirst: !0, focus: "cancel", onConfirm: Je, onCancel: Z })),
+    (ye = e(wn, { hideIndexes: true, cancelFirst: true, focus: "cancel", onConfirm: Je, onCancel: Z })),
       (De[5] = Z),
       (De[6] = Je),
       (De[7] = ye);
@@ -505,7 +505,7 @@ function re(Mo) {
 }
 function Ee() {
   let n = ie();
-  return !mH() && n.autoConnectIde === !0;
+  return !mH() && n.autoConnectIde === true;
 }
 function so(Ze, _t) {
   return (Ze[_t.name] = (Ze[_t.name] || 0) + 1), Ze;
@@ -514,7 +514,7 @@ function ao(Ft) {
   return Ft.name === "VS Code" || Ft.name === "Visual Studio Code";
 }
 function co($t, In) {
-  return e(zc, { children: r(t, { dimColor: !0, children: [$t.name, ": ", fe($t.workspaceFolders)] }) }, In);
+  return e(zc, { children: r(t, { dimColor: true, children: [$t.name, ": ", fe($t.workspaceFolders)] }) }, In);
 }
 function lo(Lt) {
   return { label: Lt.name, value: Lt.port.toString() };
@@ -560,13 +560,13 @@ function Fe(ln) {
   if (k[0] !== ze?.port) (Rt = ze?.port?.toString() ?? "None"), (k[0] = ze?.port), (k[1] = Rt);
   else Rt = k[1];
   let [q, dn] = u(Rt),
-    [un, pn] = u(!1),
-    [mn, fn] = u(!1),
+    [un, pn] = u(false),
+    [mn, fn] = u(false),
     xt;
   if (k[2] !== N || k[3] !== H)
     (xt = (Ke) => {
-      if (Ke !== "None" && we()) pn(!0);
-      else if (Ke === "None" && Ee()) fn(!0);
+      if (Ke !== "None" && we()) pn(true);
+      else if (Ke === "None" && Ee()) fn(true);
       else H(N.find((hn) => hn.port === parseInt(Ke)));
     }),
       (k[2] = N),
@@ -644,7 +644,7 @@ https://code.claude.com/docs/en/jetbrains`
                 e(o, {
                   marginTop: 1,
                   children: e(t, {
-                    dimColor: !0,
+                    dimColor: true,
                     children: "Tip: You can enable auto-connect to IDE in /config or with the --ide flag",
                   }),
                 }),
@@ -665,7 +665,7 @@ https://code.claude.com/docs/en/jetbrains`
         flexDirection: "column",
         children: [
           r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
               "Found ",
               Y.length,
@@ -843,7 +843,7 @@ async function ro(n, i, h, a) {
     a(`Please open the ${h ? "worktree" : "project"} manually in ${ae.bold(n.name)}: ${i}`);
     return;
   }
-  let w = { useCwd: !0, useToolMemoryCgroup: !1 },
+  let w = { useCwd: true, useToolMemoryCgroup: false },
     { code: g } = await $e(m, [i], w);
   if (g !== 0 && !he.basename(m).startsWith("code")) ({ code: g } = await $e("code", [i], w));
   if (g === 0) {
@@ -861,7 +861,7 @@ async function an(n, i, h) {
   if (h?.trim() === "open") {
     let I = ha(),
       R = I ? I.worktreePath : ee(),
-      E = (await Ojt(!0)).filter((x) => x.isValid);
+      E = (await Ojt(true)).filter((x) => x.isValid);
     if (E.length === 0) return n("No IDEs with Claude Code extension detected."), null;
     return e(pt, {
       availableIDEs: E,
@@ -871,7 +871,7 @@ async function an(n, i, h) {
       },
     });
   }
-  let m = await Ojt(!0);
+  let m = await Ojt(true);
   if (m.length === 0 && i.onInstallIDEExtension && !mH()) {
     let I = await Mgn(),
       R = (D) => {
@@ -903,7 +903,7 @@ function ht(Tn) {
     [v, Vn] = u(null),
     V = W(po),
     ct = At(),
-    lt = C(!0),
+    lt = C(true),
     Ht,
     Ut;
   if (z[0] !== v || z[1] !== V || z[2] !== b)
@@ -912,7 +912,7 @@ function ht(Tn) {
         return;
       }
       if (lt.current) {
-        lt.current = !1;
+        lt.current = false;
         return;
       }
       if (!V || V.type === "pending") {
@@ -971,7 +971,7 @@ function ht(Tn) {
         ideRunningInWindows: oe.ideRunningInWindows,
         scope: "dynamic",
       };
-      (lt.current = !0), Vn(oe), ue((Fn) => ({ ...Fn, ide: _n }));
+      (lt.current = true), Vn(oe), ue((Fn) => ({ ...Fn, ide: _n }));
     }),
       (z[11] = O),
       (z[12] = V),
@@ -984,7 +984,7 @@ function ht(Tn) {
   if (v) {
     let X;
     if (z[17] !== v.name)
-      (X = r(t, { dimColor: !0, children: ["Connecting to ", v.name, "\u2026"] })), (z[17] = v.name), (z[18] = X);
+      (X = r(t, { dimColor: true, children: ["Connecting to ", v.name, "\u2026"] })), (z[17] = v.name), (z[18] = X);
     else X = z[18];
     return X;
   }

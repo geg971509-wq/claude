@@ -83,10 +83,10 @@ function U() {
   for (let [r, t] of Object.entries(l)) {
     for (let [o, n] of Object.entries(t))
       (l[o] = { open: `\x1B[${n[0]}m`, close: `\x1B[${n[1]}m` }), (t[o] = l[o]), e.set(n[0], n[1]);
-    Object.defineProperty(l, r, { value: t, enumerable: !1 });
+    Object.defineProperty(l, r, { value: t, enumerable: false });
   }
   return (
-    Object.defineProperty(l, "codes", { value: e, enumerable: !1 }),
+    Object.defineProperty(l, "codes", { value: e, enumerable: false }),
     (l.color.close = "\x1B[39m"),
     (l.bgColor.close = "\x1B[49m"),
     (l.color.ansi = x()),
@@ -105,7 +105,7 @@ function U() {
           }
           return 16 + 36 * Math.round((r / 255) * 5) + 6 * Math.round((t / 255) * 5) + Math.round((o / 255) * 5);
         },
-        enumerable: !1,
+        enumerable: false,
       },
       hexToRgb: {
         value(r) {
@@ -116,9 +116,9 @@ function U() {
           let n = Number.parseInt(o, 16);
           return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
         },
-        enumerable: !1,
+        enumerable: false,
       },
-      hexToAnsi256: { value: (r) => l.rgbToAnsi256(...l.hexToRgb(r)), enumerable: !1 },
+      hexToAnsi256: { value: (r) => l.rgbToAnsi256(...l.hexToRgb(r)), enumerable: false },
       ansi256ToAnsi: {
         value(r) {
           if (r < 8) return 30 + r;
@@ -136,10 +136,10 @@ function U() {
           if (i === 2) c += 60;
           return c;
         },
-        enumerable: !1,
+        enumerable: false,
       },
-      rgbToAnsi: { value: (r, t, o) => l.ansi256ToAnsi(l.rgbToAnsi256(r, t, o)), enumerable: !1 },
-      hexToAnsi: { value: (r) => l.ansi256ToAnsi(l.hexToAnsi256(r)), enumerable: !1 },
+      rgbToAnsi: { value: (r, t, o) => l.ansi256ToAnsi(l.rgbToAnsi256(r, t, o)), enumerable: false },
+      hexToAnsi: { value: (r) => l.ansi256ToAnsi(l.hexToAnsi256(r)), enumerable: false },
     }),
     l
   );
@@ -167,10 +167,10 @@ function K() {
   }
 }
 function W(e) {
-  if (e === 0) return !1;
-  return { level: e, hasBasic: !0, has256: e >= 2, has16m: e >= 3 };
+  if (e === 0) return false;
+  return { level: e, hasBasic: true, has256: e >= 2, has16m: e >= 3 };
 }
-function X(e, { streamIsTTY: r, sniffFlags: t = !0 } = {}) {
+function X(e, { streamIsTTY: r, sniffFlags: t = true } = {}) {
   let o = K();
   if (o !== void 0) O = o;
   let n = t ? O : o;
@@ -286,7 +286,7 @@ for (let [e, r] of Object.entries(h))
   };
 b.visible = {
   get() {
-    let e = C(this, this[m], !0);
+    let e = C(this, this[m], true);
     return Object.defineProperty(this, "visible", { value: e }), e;
   },
 };
@@ -324,7 +324,7 @@ for (let e of J) {
 var q = Object.defineProperties(() => {}, {
     ...b,
     level: {
-      enumerable: !0,
+      enumerable: true,
       get() {
         return this[R].level;
       },
@@ -376,28 +376,28 @@ function G(e) {
 var te = () => G(ee),
   oe = () => G(re);
 function ne() {
-  if (a.NO_COLOR && a.FORCE_COLOR === void 0 && !oe() && u.level > 0) return (u.level = 0), !0;
-  return !1;
+  if (a.NO_COLOR && a.FORCE_COLOR === void 0 && !oe() && u.level > 0) return (u.level = 0), true;
+  return false;
 }
 function le() {
-  if (a.TERM_PROGRAM === "vscode" && u.level === 2) return (u.level = 3), !0;
-  return !1;
+  if (a.TERM_PROGRAM === "vscode" && u.level === 2) return (u.level = 3), true;
+  return false;
 }
 var se = new Set(["alacritty", "contour", "foot", "ghostty", "rio", "wezterm", "xterm-ghostty", "xterm-kitty"]);
 function ie() {
-  if (!process.stdout.isTTY || a.NO_COLOR || a.FORCE_COLOR !== void 0 || te()) return !1;
+  if (!process.stdout.isTTY || a.NO_COLOR || a.FORCE_COLOR !== void 0 || te()) return false;
   let e = a.TERM;
-  if (e && se.has(e) && u.level < 3) return (u.level = 3), !0;
-  return !1;
+  if (e && se.has(e) && u.level < 3) return (u.level = 3), true;
+  return false;
 }
 function ce() {
-  if (a.CLAUDE_CODE_TMUX_TRUECOLOR) return !1;
-  if (a.TMUX && u.level > 2) return (u.level = 2), !0;
-  return !1;
+  if (a.CLAUDE_CODE_TMUX_TRUECOLOR) return false;
+  if (a.TMUX && u.level > 2) return (u.level = 2), true;
+  return false;
 }
 function qnr(e) {
-  if ((p.ensureInit(), e && u.level > 2)) return (u.level = 2), !0;
-  return !1;
+  if ((p.ensureInit(), e && u.level > 2)) return (u.level = 2), true;
+  return false;
 }
 function Fre(e) {
   return p.ensureInit(), "\x1B[7m" + e + "\x1B[27m";

@@ -216,7 +216,7 @@ function oFn(e, t) {
 }
 async function kt(e, t, r = St) {
   for (let s of r) {
-    if ((await ne(s, void 0, { unref: !0 }), de().durable.registrySink !== null)) return !0;
+    if ((await ne(s, void 0, { unref: true }), de().durable.registrySink !== null)) return true;
     let o;
     try {
       o = await e();
@@ -228,11 +228,11 @@ async function kt(e, t, r = St) {
     try {
       We(o, t);
     } catch (c) {
-      return h(c), !1;
+      return h(c), false;
     }
-    return y("artifact_durable_subscribe", { registry_reread: !0 }), !0;
+    return y("artifact_durable_subscribe", { registry_reread: true }), true;
   }
-  return g("artifact_durable_subscribe", "registry_reread_failed"), !1;
+  return g("artifact_durable_subscribe", "registry_reread_failed"), false;
 }
 function We(e, t) {
   let r = C$n(e.internal?.artifact_durable_watches),
@@ -290,7 +290,7 @@ function me(e) {
     for (let s of [e.triggerId, ...(e.unreleased ?? [])]) if (s !== r?.triggerId) t.orphanTriggers.add(s);
     return;
   }
-  t.rows.set(e.slug, { ...e, restored: !0 });
+  t.rows.set(e.slug, { ...e, restored: true });
 }
 function $e(e) {
   let t = K(e.getMcp().clients);
@@ -344,13 +344,13 @@ function ge() {
 }
 var Be = "watch_url";
 function Mt(e, t) {
-  let r = !1;
+  let r = false;
   for (let s of e.getMcp().tools) {
     if (s.mcpInfo?.serverName !== t) continue;
-    if (s.mcpInfo.toolName === Be) return !0;
-    r = !0;
+    if (s.mcpInfo.toolName === Be) return true;
+    r = true;
   }
-  return r ? !1 : null;
+  return r ? false : null;
 }
 function GQt(e) {
   if (!a.CLAUDE_CODE_REMOTE) return null;
@@ -358,16 +358,16 @@ function GQt(e) {
   if (t) return t;
   if (r) return null;
   let s = K(e.getMcp().clients);
-  return s?.type === "connected" && Mt(e, s.name) === !1 ? "tool_not_offered" : null;
+  return s?.type === "connected" && Mt(e, s.name) === false ? "tool_not_offered" : null;
 }
 var Nt = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 function Lt(e, t) {
-  if (!Nt.test(t)) return !1;
+  if (!Nt.test(t)) return false;
   let r;
   try {
     r = new URL(e);
   } catch {
-    return !1;
+    return false;
   }
   return (
     r.protocol === "https:" &&
@@ -463,7 +463,7 @@ function Kt(e) {
 async function qe(e, t, r) {
   try {
     let s = await FI(e, { name: t, arguments: r }, { timeout: 15000 });
-    return { isError: "isError" in s && s.isError === !0, text: Kt(s) };
+    return { isError: "isError" in s && s.isError === true, text: Kt(s) };
   } catch {
     return null;
   }
@@ -493,7 +493,7 @@ async function Ke(e, t, r, s) {
     let o = await op.post(e, t, {
       headers: Yu(),
       timeout: 15000,
-      refreshOAuth: !0,
+      refreshOAuth: true,
       credentials: s,
       ...(r && { signal: r }),
     });
@@ -503,10 +503,10 @@ async function Ke(e, t, r, s) {
   }
 }
 function Xe(e) {
-  return e.relayed ? { relayed: !0 } : {};
+  return e.relayed ? { relayed: true } : {};
 }
 function ae(e) {
-  return e.relayed ? [{ relay: !0 }] : [];
+  return e.relayed ? [{ relay: true }] : [];
 }
 async function Hxt(e) {
   let { slug: t, context: r, detachedFromUser: s } = e;
@@ -537,7 +537,7 @@ async function Jt(e, t, r) {
   return se(e, async () => {
     let s = O().get(e);
     if (s?.restored && !r) {
-      let o = await Ue(e, t, !1, s);
+      let o = await Ue(e, t, false, s);
       if (o.outcome === "subscribed") return o;
       let c =
         o.outcome === "already_watching" ? o.outcome : o.outcome === "failed" && o.kept ? "outcome_unknown" : o.reason;
@@ -560,7 +560,7 @@ function Zt(e) {
       y("artifact_durable_subscribe", ...ae(e));
       break;
     case "already_watching":
-      y("artifact_durable_subscribe", { already_watching: !0, ...(e.restored && { restored: !0 }) });
+      y("artifact_durable_subscribe", { already_watching: true, ...(e.restored && { restored: true }) });
       break;
     case "skipped":
       g("artifact_durable_subscribe", e.reason);
@@ -601,7 +601,7 @@ function Je(e) {
     triggerId: e.triggerId,
     since: e.since,
     events: e.events,
-    ...(e.restored && { restored: !0 }),
+    ...(e.restored && { restored: true }),
   };
 }
 async function Ue(e, t, r, s) {
@@ -611,9 +611,9 @@ async function Ue(e, t, r, s) {
   if ((fW({ storageV5: t.storageV5 }), de().durable.stopLatches.isStopped(e)))
     return { outcome: "skipped", reason: "stop_latched" };
   if (Ct() || Ne() !== "firstParty") return { outcome: "failed", reason: "client_policy" };
-  if (r && de().durable.originatorRefused) return { outcome: "failed", reason: "no_originator", latched: !0 };
+  if (r && de().durable.originatorRefused) return { outcome: "failed", reason: "no_originator", latched: true };
   let c = qQt();
-  if (r && c) return { outcome: "failed", reason: "subscribe_forbidden", latched: !0, serverMessage: c.serverMessage };
+  if (r && c) return { outcome: "failed", reason: "subscribe_forbidden", latched: true, serverMessage: c.serverMessage };
   let u = r ? GQt(t) : null;
   if (u) return { outcome: "skipped", reason: u };
   let d = await ze(t, r ? { detachedFromUser: r } : void 0);
@@ -631,9 +631,9 @@ async function Ue(e, t, r, s) {
       let Y = de().durable,
         B = Y.originatorRefused;
       return (
-        (Y.originatorRefused = !0),
+        (Y.originatorRefused = true),
         B
-          ? { outcome: "failed", reason: "no_originator", latched: !0, ...M }
+          ? { outcome: "failed", reason: "no_originator", latched: true, ...M }
           : { outcome: "failed", reason: "no_originator", ...M }
       );
     }
@@ -642,7 +642,7 @@ async function Ue(e, t, r, s) {
     return { outcome: "failed", reason: (b ? zt(b.text) : null) ?? "mint_failed", ...M };
   }
   let f = de().durable;
-  (f.originatorRefused = !1), (f.watchUrlWithheld = null), (f.watchUrlGranted = !0);
+  (f.originatorRefused = false), (f.watchUrlWithheld = null), (f.watchUrlGranted = true);
   let l = Tt(b.text);
   if (!l) {
     let C = Ot(b.text);
@@ -653,14 +653,14 @@ async function Ue(e, t, r, s) {
   if (!r && t.abortController.signal.aborted)
     return { outcome: "failed", reason: (await F(d, l.triggerId)) ? "aborted" : "watch_trigger_release_failed" };
   let E,
-    R = !1,
+    R = false,
     A = {},
-    _ = !1,
-    k = !1,
+    _ = false,
+    k = false,
     T,
-    P = !1,
+    P = false,
     L = vA() ? Pt : Ie,
-    J = !1,
+    J = false,
     U = `/api/frame/subscribe/${e}`,
     he = yB() ? oDt("POST", U) : null,
     _t = VP(he),
@@ -674,7 +674,7 @@ async function Ue(e, t, r, s) {
       ),
     W = await we();
   if (W.res?.ok && W.res.fromFrame && W.res.status === 400 && L.includes("comment"))
-    (L = Ie), (J = !0), (W = await we());
+    (L = Ie), (J = true), (W = await we());
   let Z = Xe(W),
     { res: S } = W;
   if (!S) P = !r && t.abortController.signal.aborted;
@@ -693,13 +693,13 @@ async function Ue(e, t, r, s) {
         Y = S.fromFrame && (fe !== null || z),
         B = Y ? Fe(fe?.error ?? C ?? "") : void 0;
       A = {
-        ...(!S.fromFrame && { fromGateway: !0 }),
+        ...(!S.fromFrame && { fromGateway: true }),
         ...(S.gatewayDeclined !== void 0 && { gatewayDeclined: S.gatewayDeclined }),
         ...(B !== void 0 && { serverMessage: B }),
       };
       let Et = S.route === "relay" || !(wt || S.gatewayDeclined === 0);
       if (S.status === 403 && z && B !== void 0 && Et && s === void 0)
-        (_ = !0), (k = f.subscribeForbidden !== null), (f.subscribeForbidden = { serverMessage: B, relayActive: _t });
+        (_ = true), (k = f.subscribeForbidden !== null), (f.subscribeForbidden = { serverMessage: B, relayActive: _t });
       else if (Y && S.status >= 400 && S.status < 500 && S.status !== 401 && S.status !== 403) ge();
     } else if (S.fromFrame) ge();
   } else T = S.reason === "no-auth" ? "no_auth" : "client_policy";
@@ -710,7 +710,7 @@ async function Ue(e, t, r, s) {
         O().set(e, { ...s, unreleased: [...(s.unreleased ?? []), l.triggerId] }),
         t8(),
         n(`[artifact] refresh subscribe outcome unknown; keeping trigger ${l.triggerId} beside ${s.triggerId}`),
-        { outcome: "failed", reason: P ? "aborted" : "subscribe_failed", status: E, kept: !0, ...Z, ...A }
+        { outcome: "failed", reason: P ? "aborted" : "subscribe_failed", status: E, kept: true, ...Z, ...A }
       );
     let M = await F(d, l.triggerId);
     if (P) return { outcome: "failed", reason: M ? "aborted" : "watch_trigger_release_failed", ...Z };
@@ -720,42 +720,42 @@ async function Ue(e, t, r, s) {
       status: E,
       ...Z,
       ...A,
-      ...(k && { latched: !0 }),
+      ...(k && { latched: true }),
     };
   }
   let ve = new Date().toISOString();
   O().set(e, { slug: e, triggerId: l.triggerId, since: ve, events: L }), t8();
   let vt = s ? [s.triggerId, ...(s.unreleased ?? [])].filter((C) => C !== l.triggerId) : [];
-  if ((await Promise.all(vt.map((C) => F(d, C)))).includes(!1))
+  if ((await Promise.all(vt.map((C) => F(d, C)))).includes(false))
     g("artifact_durable_subscribe", "superseded_trigger_release_failed");
-  return { outcome: "subscribed", triggerId: l.triggerId, since: ve, events: L, ...(J && { downgraded: !0 }), ...Z };
+  return { outcome: "subscribed", triggerId: l.triggerId, since: ve, events: L, ...(J && { downgraded: true }), ...Z };
 }
 async function xxt(e) {
   let { slug: t, context: r } = e;
-  if ((mZt(t), !O().has(t) && !a.CLAUDE_CODE_REMOTE)) return { wasWatching: !1, teardown: "unsent" };
-  if (!jr.test(t)) return { wasWatching: !1, teardown: "unsent" };
+  if ((mZt(t), !O().has(t) && !a.CLAUDE_CODE_REMOTE)) return { wasWatching: false, teardown: "unsent" };
+  if (!jr.test(t)) return { wasWatching: false, teardown: "unsent" };
   let s = se(t, () => er(t, r));
   return ie(s), s;
 }
 async function er(e, t) {
   let r = O().get(e);
   de().durable.unwatchedSlugs.add(e);
-  let s = !1,
+  let s = false,
     o = "dispatched",
-    c = !1,
+    c = false,
     u = await Ke(`/api/frame/unsubscribe/${e}`, {}, t.abortController.signal, t.credentials),
     d = ae(Xe(u)),
     { res: b } = u;
   if (!b) c = t.abortController.signal.aborted;
   else if (b.ok) s = b.status >= 200 && b.status < 300;
   else o = "refused";
-  let f = !0;
+  let f = true;
   if (r || de().durable.orphanTriggers.size > 0) {
-    let l = await ze(t, { detachedFromUser: !0 });
+    let l = await ze(t, { detachedFromUser: true });
     if (r) {
       let E = [r.triggerId, ...(r.unreleased ?? [])],
-        R = l === null ? E.map(() => !1) : await Promise.all(E.map((_) => F(l, _)));
-      f = !R.includes(!1);
+        R = l === null ? E.map(() => false) : await Promise.all(E.map((_) => F(l, _)));
+      f = !R.includes(false);
       let { durable: A } = de();
       E.forEach((_, k) => {
         if (!R[k]) A.orphanTriggers.add(_);
@@ -765,7 +765,7 @@ async function er(e, t) {
     }
     if (l !== null) await Ye(l);
   }
-  if (s && f) y("artifact_durable_subscribe", { unwatch: !0, ...d[0] });
+  if (s && f) y("artifact_durable_subscribe", { unwatch: true, ...d[0] });
   else if (c && f) g("artifact_durable_subscribe", "unwatch_aborted", ...d);
   else {
     let l = b?.ok && !s ? { status: b.status, ...d[0] } : d[0];
@@ -778,18 +778,18 @@ async function er(e, t) {
   return { wasWatching: r !== void 0, teardown: o };
 }
 function tt() {
-  if (a.CLAUDE_CODE_REMOTE && !ef()) return !1;
-  return a.CLAUDE_CODE_ARTIFACT_DELETE ?? I("tengu_cobalt_plinth_alder", !1);
+  if (a.CLAUDE_CODE_REMOTE && !ef()) return false;
+  return a.CLAUDE_CODE_ARTIFACT_DELETE ?? I("tengu_cobalt_plinth_alder", false);
 }
 function Ixt() {
   return lY()
-    ? `Deleting Artifacts isn't available in this cloud session right now, so nothing was deleted; do not retry here. If the Artifact is the user's own, ${h6e(!0)}`
+    ? `Deleting Artifacts isn't available in this cloud session right now, so nothing was deleted; do not retry here. If the Artifact is the user's own, ${h6e(true)}`
     : "Deleting Artifacts isn't available in this cloud session right now, so nothing was deleted; do not retry here. If the Artifact is the user's own, they can delete it themselves on claude.ai from the Artifact's own menu, or with `/artifacts` in Claude Code on their own machine (press d on the selected one).";
 }
 function zQt() {
   return ef() && !VP();
 }
-var tr = { ok: !1, reason: "relay-unavailable", status: 0, route: "relay", fromFrame: !1 };
+var tr = { ok: false, reason: "relay-unavailable", status: 0, route: "relay", fromFrame: false };
 function Qe(e) {
   return `Couldn't confirm the delete (the cloud relay failed: ${e}) \u2014 it may have gone through; check with action "list" before telling the user or trying again.`;
 }
@@ -806,7 +806,7 @@ function et(e, t, r) {
     ...(e.sessionMinted !== void 0 && { session_minted: e.sessionMinted }),
     ...(e.ageSeconds !== void 0 && { age_s: e.ageSeconds }),
     ...(e.sinceUpdateSeconds !== void 0 && { since_update_s: e.sinceUpdateSeconds }),
-    ...(t && { retried: !0 }),
+    ...(t && { retried: true }),
   };
 }
 async function Wrt(e, t, r) {
@@ -814,7 +814,7 @@ async function Wrt(e, t, r) {
       zQt()
         ? Promise.resolve(tr)
         : op.deleteRelayOnly(`/api/frame/${encodeURIComponent(e)}`, {
-            refreshOAuth: !0,
+            refreshOAuth: true,
             headers: Yu(),
             timeout: 15000,
             maxContentLength: rr,
@@ -822,12 +822,12 @@ async function Wrt(e, t, r) {
             credentials: t,
           }),
     o,
-    c = !1;
+    c = false;
   try {
     if (((o = await s()), o.ok && o.fromFrame && (o.status === 409 || o.status === 429 || o.status === 503))) {
       let d = o.response.headers?.["retry-after"],
         b = Math.min(RT(typeof d === "string" ? d : void 0) ?? nr, ar);
-      await ne(b, r.signal, { abortError: () => new Ze() }), (c = !0), (o = await s());
+      await ne(b, r.signal, { abortError: () => new Ze() }), (c = true), (o = await s());
     }
   } catch (d) {
     if (sa(d) || d instanceof Ze || r.signal?.aborted) throw d;
@@ -864,7 +864,7 @@ async function Wrt(e, t, r) {
           status: 404,
         }
       );
-    return g("artifact_delete", "not_found", u), { err: null, alreadyGone: !0 };
+    return g("artifact_delete", "not_found", u), { err: null, alreadyGone: true };
   }
   if (o.status === 403) {
     let d = or(o.data);
@@ -897,7 +897,7 @@ async function Wrt(e, t, r) {
         status: o.status,
       }
     );
-  return y("artifact_delete", u), { err: null, alreadyGone: !1 };
+  return y("artifact_delete", u), { err: null, alreadyGone: false };
 }
 function sr(e, t) {
   let r = Object.keys(e.frameUrls),
@@ -913,7 +913,7 @@ function sr(e, t) {
   return {
     ...e,
     frameUrls: Object.fromEntries(s.map((A) => [A, e.frameUrls[A]])),
-    ...(b && { frameNavPath: s.at(-1) ?? null, frameExpanded: !1 }),
+    ...(b && { frameNavPath: s.at(-1) ?? null, frameExpanded: false }),
     ...(c && { artifactRefs: o }),
     ...(u && { artifactReadVersions: l }),
     ...(d && { artifactReadObservers: R }),
@@ -989,7 +989,7 @@ function cr(e) {
       case "tokenArray": {
         if (A.some((P) => P !== "minItems" && P !== "maxItems" && P !== "unique")) return `field ${l}: unknown keys`;
         let { minItems: _, maxItems: k, unique: T } = E;
-        if (T !== !0) return `field ${l}: tokenArray requires unique: true`;
+        if (T !== true) return `field ${l}: tokenArray requires unique: true`;
         if (
           typeof _ !== "number" ||
           typeof k !== "number" ||
@@ -1020,7 +1020,7 @@ function cr(e) {
   let d = e.key;
   if (typeof d !== "string" || !c.includes(d)) return "key must name a declared field";
   let b = u[d];
-  if (b.kind !== "token" || b.nullable === !0) return "key field must be kind token and non-nullable";
+  if (b.kind !== "token" || b.nullable === true) return "key field must be kind token and non-nullable";
   let f = e.invariants;
   if (f !== void 0) {
     if (!Array.isArray(f) || f.length > nt) return `invariants must be an array of at most ${nt}`;
@@ -1039,7 +1039,7 @@ function dr(e, t, r, s) {
         return `${b} must be 1..${at} unique field names`;
       for (let f of d) {
         if (typeof f !== "string" || !r.includes(f)) return `${b} names undeclared field: ${String(f)}`;
-        if (t[f].nullable !== !0) return `${b} names non-nullable field: ${f}`;
+        if (t[f].nullable !== true) return `${b} names non-nullable field: ${f}`;
       }
       return null;
     },
@@ -1091,7 +1091,7 @@ function aFn(e, t) {
       let A = t.fields[R],
         _ = b[R];
       if (_ === null) {
-        if (A.nullable !== !0) return null;
+        if (A.nullable !== true) return null;
         l[R] = null;
         continue;
       }
@@ -1138,11 +1138,11 @@ function aFn(e, t) {
 }
 function ur(e, t, r) {
   if ("forKey" in e) {
-    if (t[r] !== e.forKey) return !0;
+    if (t[r] !== e.forKey) return true;
     return e.null.every((o) => t[o] === null);
   }
   let s = Object.keys(e.when)[0];
-  if (t[s] !== e.when[s]) return !0;
+  if (t[s] !== e.when[s]) return true;
   if ("null" in e) return e.null.every((o) => t[o] === null);
   return Q(e.exactlyOneOf, (o) => t[o] !== null) === 1;
 }
@@ -1163,11 +1163,11 @@ function hr(e) {
 function qrt(e) {
   let { byName: t, metaVerdicts: r } = le(),
     s = t.get(e);
-  if (s === void 0) return { ok: !1, reason: "unknown" };
+  if (s === void 0) return { ok: false, reason: "unknown" };
   let o = r.get(e);
   if (o === void 0) (o = cr(s.doc)), r.set(e, o);
-  if (o !== null) return { ok: !1, reason: "invalid" };
-  return { ok: !0, reg: s };
+  if (o !== null) return { ok: false, reason: "invalid" };
+  return { ok: true, reg: s };
 }
 function st() {
   return [...le().byName.entries()].filter(([, e]) => e.enabled()).map(([e]) => e);
@@ -1176,23 +1176,23 @@ function lFn() {
   return [...le().byName.keys()];
 }
 function cFn(e, t) {
-  if (e.derive === void 0) return { ok: !0 };
+  if (e.derive === void 0) return { ok: true };
   let r;
   try {
     r = e.derive(t);
   } catch {
-    return { ok: !1 };
+    return { ok: false };
   }
-  if (!He(r)) return { ok: !1 };
+  if (!He(r)) return { ok: false };
   let s = Object.keys(r);
-  if (s.length > XQt) return { ok: !1 };
+  if (s.length > XQt) return { ok: false };
   let o = {};
   for (let c of s) {
     let u = r[c];
-    if (!D(c) || !D(u)) return { ok: !1 };
+    if (!D(c) || !D(u)) return { ok: false };
     o[c] = u;
   }
-  return { ok: !0, derived: o };
+  return { ok: true, derived: o };
 }
 var YQt = {
   format: 1,
@@ -1202,10 +1202,10 @@ var YQt = {
   maxEntries: 20,
   fields: {
     id: { kind: "token" },
-    opts: { kind: "tokenArray", minItems: 2, maxItems: 5, unique: !0 },
+    opts: { kind: "tokenArray", minItems: 2, maxItems: 5, unique: true },
     state: { kind: "enum", values: ["open", "resolved"] },
-    choice: { kind: "ref", into: "opts", nullable: !0 },
-    custom: { kind: "text", nullable: !0 },
+    choice: { kind: "ref", into: "opts", nullable: true },
+    custom: { kind: "text", nullable: true },
   },
   invariants: [
     { when: { state: "open" }, null: ["choice", "custom"] },
@@ -1218,7 +1218,7 @@ function fr(e) {
   return { state: cWe(t) };
 }
 class it {
-  gate = () => !1;
+  gate = () => false;
   register(e) {
     this.gate = e;
   }
@@ -1231,7 +1231,7 @@ function ct(e) {
   lt.register(e);
 }
 function ut() {
-  return Zn.CLAUDE_CODE_ARTIFACT_MCP ?? !0;
+  return Zn.CLAUDE_CODE_ARTIFACT_MCP ?? true;
 }
 function ht() {
   return De(i().min(1).max(64), _e())
@@ -1255,7 +1255,7 @@ function JQt(e) {
       server: c,
       toolPrefix: ya(r.name)?.serverName ?? s,
       toolNames: [r.mcpInfo.toolName],
-      ...(Bit(c) ? {} : { declarable: !1 }),
+      ...(Bit(c) ? {} : { declarable: false }),
     });
   }
   return [...t.values()];
@@ -1284,24 +1284,24 @@ function gr(e) {
       server: d,
       toolPrefix: c.serverName,
       toolNames: [c.toolName],
-      ...(Bit(d) ? {} : { declarable: !1 }),
+      ...(Bit(d) ? {} : { declarable: false }),
     });
   }
   let s = [...t.values()];
   return {
-    named: s.filter((o) => o.declarable !== !1),
+    named: s.filter((o) => o.declarable !== false),
     unnamedIds: [...r],
-    undeclarable: s.filter((o) => o.declarable === !1),
+    undeclarable: s.filter((o) => o.declarable === false),
   };
 }
 function br() {
-  return I("tengu_cobalt_plinth_yew", !1);
+  return I("tengu_cobalt_plinth_yew", false);
 }
 function QQt(e, t) {
   let r = mr() ? gr(e) : null,
     s = K(t ?? []);
-  if (!s) return { ccrHosted: !1, metaConnector: null, hosted: r };
-  let o = a.CLAUDE_CODE_REMOTE === !0,
+  if (!s) return { ccrHosted: false, metaConnector: null, hosted: r };
+  let o = a.CLAUDE_CODE_REMOTE === true,
     c = s.name,
     u = e.find((f) => f.mcpInfo?.serverName === c),
     d = u && ya(u.name)?.serverName,
@@ -1317,8 +1317,8 @@ var yr = 16384;
 var Qn = `
 [prompt truncated: exceeded ${yr / 1024}KB]`;
 function pt() {
-  if (a.CLAUDE_CODE_REMOTE) return !1;
-  return a.CLAUDE_CODE_ARTIFACT_VERIFY ?? I("tengu_osier_pylon_trace", !1);
+  if (a.CLAUDE_CODE_REMOTE) return false;
+  return a.CLAUDE_CODE_ARTIFACT_VERIFY ?? I("tengu_osier_pylon_trace", false);
 }
 var ft = 65536;
 async function KQt(e, t, r) {
@@ -1327,7 +1327,7 @@ async function KQt(e, t, r) {
   let o;
   try {
     o = await op.get(`/api/frame/diag/${e}/${s.ver}`, {
-      refreshOAuth: !0,
+      refreshOAuth: true,
       credentials: r,
       headers: Yu(),
       timeout: 15000,
@@ -1369,7 +1369,7 @@ async function KQt(e, t, r) {
   }
   return (
     y("artifact_verify_read"),
-    { err: null, state: "loaded", ver: s.ver, entries: d, truncated: c.truncated === !0, dropped: u.length - d.length }
+    { err: null, state: "loaded", ver: s.ver, entries: d, truncated: c.truncated === true, dropped: u.length - d.length }
   );
 }
 import { stat as _r } from "fs/promises";
@@ -1406,7 +1406,7 @@ async function vr(e) {
     let t = await _r(e);
     return t.isFile() && (t.mode & 73) !== 0;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function gt() {
@@ -1418,11 +1418,11 @@ async function gt() {
 }
 var X = null;
 function Er() {
-  return X !== null && !0;
+  return X !== null && true;
 }
 function bt() {
-  if (a.CLAUDE_CODE_REMOTE || !Er()) return !1;
-  return a.CLAUDE_CODE_ARTIFACT_PREVIEW ?? I("tengu_cobalt_plinth_aspen", !1);
+  if (a.CLAUDE_CODE_REMOTE || !Er()) return false;
+  return a.CLAUDE_CODE_ARTIFACT_PREVIEW ?? I("tengu_cobalt_plinth_aspen", false);
 }
 function dFn() {
   if (X === null) throw Error("artifact preview is not compiled into this build");
@@ -1457,7 +1457,7 @@ function Krt(e) {
   return r.length > 0 ? r : [...Ar];
 }
 function yL() {
-  return null?.isArtifactRoomEnabled() === !0;
+  return null?.isArtifactRoomEnabled() === true;
 }
 function Lxt(e) {
   return null?.artifactRoomSkipReason(e) === null;
@@ -1466,7 +1466,7 @@ function eZt() {
   throw Error("artifact rooms are not compiled into this build");
 }
 var x = null,
-  Sr = !1;
+  Sr = false;
 ct(q_n);
 function kr(e, t, r, s, o, c, u, d, b, f) {
   let l = ["publish", "list", "read"];
@@ -1485,7 +1485,7 @@ function kr(e, t, r, s, o, c, u, d, b, f) {
   return l;
 }
 function Mxt() {
-  return x?.liveDocStreamGateOpen() === !0 ? x.NO_WATCH_RAIL_COLLAB_NOTE : "";
+  return x?.liveDocStreamGateOpen() === true ? x.NO_WATCH_RAIL_COLLAB_NOTE : "";
 }
 function Ldr(e, t) {
   switch (t) {
@@ -1510,10 +1510,10 @@ function f0e() {
 }
 var yt = Symbol("artifactLivePathsOpen");
 function Cr(e, t) {
-  return Object.defineProperty(e, yt, { value: t, enumerable: !1, writable: !1, configurable: !1 }), e;
+  return Object.defineProperty(e, yt, { value: t, enumerable: false, writable: false, configurable: false }), e;
 }
 function Mdr(e) {
-  return e[yt] === !0;
+  return e[yt] === true;
 }
 var Ndr = () => {
     let e = st(),
@@ -1537,8 +1537,8 @@ var Ndr = () => {
       `Artifact input schema built: capabilities=${l} comments=${r} db=${s} assets=${E} files=${u} types=${d} type_catalog=${f} read_page_data=${t} room=${o} verify=${R} delete=${A} preview=${_} flag_source=${YFn()} gb_fresh=${oA()}`,
     ),
       (de().frozenReadPageDataSchemaNames = t ? new Set(e) : new Set());
-    let k = x?.liveEditGateOpen() === !0,
-      T = k && u && x?.livePathsEnabled() === !0;
+    let k = x?.liveEditGateOpen() === true,
+      T = k && u && x?.livePathsEnabled() === true;
     de().livePathsGateLatch = T;
     let P =
         "Omit (or 'publish') to publish file_path. 'list' enumerates artifacts \u2014 the user's own by default, see `scope`; only `limit` and `scope` may accompany it.",
@@ -1775,7 +1775,7 @@ var Ndr = () => {
           .max(1000)
           .optional()
           .describe("One-sentence subtitle shown on the gallery card. Say what the page is or does."),
-        ...!1,
+        ...false,
         label: i()
           .max(60)
           .optional()
@@ -1920,7 +1920,7 @@ var Ndr = () => {
       });
     return Cr(J, T);
   },
-  N0 = (e) => e.pr_review === !0,
+  N0 = (e) => e.pr_review === true,
   iE = m(Ndr);
 function hEr() {
   return x !== null;
@@ -1946,7 +1946,7 @@ function tZt() {
   return "db_op" in iE().shape;
 }
 function Nxt() {
-  return iE(), de().frozenArtifactTypes?.typeCreateOn === !0;
+  return iE(), de().frozenArtifactTypes?.typeCreateOn === true;
 }
 function Fxt() {
   return "type_query" in iE().shape;
@@ -1968,7 +1968,7 @@ function $se() {
   return y6e() && yL();
 }
 function uhe(e, t) {
-  if (e === null || (typeof e !== "object" && typeof e !== "function")) return !1;
+  if (e === null || (typeof e !== "object" && typeof e !== "function")) return false;
   let r = e,
     o = (typeof r.unwrap === "function" ? r.unwrap() : r)?.options;
   return Array.isArray(o) && o.includes(t);

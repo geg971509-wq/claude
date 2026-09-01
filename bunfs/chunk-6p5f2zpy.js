@@ -50,7 +50,7 @@ async function ie(r) {
       if (((d = await Se(S, "utf-8")), d.includes(se))) return;
     } catch (x) {
       if (E(x) !== "ENOENT") throw x;
-      await ge(oe(a, "info"), { recursive: !0 });
+      await ge(oe(a, "info"), { recursive: true });
     }
     let l =
         d &&
@@ -78,23 +78,23 @@ async function le(r) {
   } catch {
     return;
   }
-  let a = we().safeParse(Ut(t, !1));
+  let a = we().safeParse(Ut(t, false));
   return a.success ? a.data : void 0;
 }
 async function ae(r, t) {
   let a = N(t),
     S = b(r);
   try {
-    return await Q(a, S, { flag: "wx" }), !0;
+    return await Q(a, S, { flag: "wx" }), true;
   } catch (d) {
     let l = E(d);
-    if (l === "EEXIST") return !1;
+    if (l === "EEXIST") return false;
     if (l === "ENOENT") {
-      await _e(Ie(a), { recursive: !0 });
+      await _e(Ie(a), { recursive: true });
       try {
-        return await Q(a, S, { flag: "wx" }), !0;
+        return await Q(a, S, { flag: "wx" }), true;
       } catch (u) {
-        if (E(u) === "EEXIST") return !1;
+        if (E(u) === "EEXIST") return false;
         throw u;
       }
     }
@@ -113,21 +113,21 @@ async function Y(r, t) {
   let S = t?.lockIdentity ?? K(),
     d = { sessionId: S, pid: process.pid, procStart: $6(), acquiredAt: Date.now() };
   if (await ae(d, a))
-    return (r.lastBlockedBy = void 0), X(r, t), n(`[ScheduledTasks] acquired scheduler lock (PID ${process.pid})`), !0;
+    return (r.lastBlockedBy = void 0), X(r, t), n(`[ScheduledTasks] acquired scheduler lock (PID ${process.pid})`), true;
   let l = await le(a);
   if (l?.sessionId === S) {
     if (l.pid !== process.pid) await Q(N(a), b(d)), X(r, t);
-    return !0;
+    return true;
   }
   if (l && ms(l.pid) && (await Bm(l.pid, l.procStart))) {
     if (r.lastBlockedBy !== l.sessionId)
       (r.lastBlockedBy = l.sessionId),
         n(`[ScheduledTasks] scheduler lock held by session ${l.sessionId} (PID ${l.pid})`);
-    return !1;
+    return false;
   }
   if (l) n(`[ScheduledTasks] recovering stale scheduler lock from PID ${l.pid}`);
-  if ((await ce(N(a)).catch(() => {}), await ae(d, a))) return (r.lastBlockedBy = void 0), X(r, t), !0;
-  return !1;
+  if ((await ce(N(a)).catch(() => {}), await ae(d, a))) return (r.lastBlockedBy = void 0), X(r, t), true;
+  return false;
 }
 async function j(r, t) {
   r.reset();
@@ -151,14 +151,14 @@ var Ee = import.meta.require("/$bunfs/root/chunk-jemhm57r.js"),
   Le = 300,
   Oe = 5000;
 function Icr(r, t, a) {
-  if (a === 0) return !1;
+  if (a === 0) return false;
   return Boolean(r.recurring && !r.permanent && t - r.createdAt >= a);
 }
 function IKt(r) {
   let {
       onFire: t,
       isLoading: a,
-      assistantMode: S = !1,
+      assistantMode: S = false,
       onFireTask: d,
       onMissed: l,
       dir: u,
@@ -180,12 +180,12 @@ function IKt(r) {
     B = null,
     L = null,
     F = null,
-    O = !1,
-    C = !1,
+    O = false,
+    C = false,
     q = new Map();
   function me(o, h) {
-    if (!ms(o)) return q.delete(o), !0;
-    if (h === void 0) return !1;
+    if (!ms(o)) return q.delete(o), true;
+    if (h === void 0) return false;
     let k = Date.now(),
       T = q.get(o);
     if (!T || k - T.at >= 60000) (T = { at: k, token: $re(o) }), q.set(o, T);
@@ -193,7 +193,7 @@ function IKt(r) {
   }
   function te(o) {
     if (o.createdBySessionId === void 0) return C;
-    if (o.createdBySessionId === U) return !0;
+    if (o.createdBySessionId === U) return true;
     return C && (o.createdByPid === void 0 || me(o.createdByPid, o.createdByProcStart));
   }
   async function V(o) {
@@ -206,10 +206,10 @@ function IKt(r) {
         : [];
     if (O) return;
     if (((J = h), (ee = k), !o)) return;
-    let T = !1;
+    let T = false;
     for (let c of h)
       if (U !== void 0 && c.createdBySessionId === U && c.createdByPid !== process.pid)
-        (c.createdByPid = process.pid), (c.createdByProcStart = $6()), (T = !0);
+        (c.createdByPid = process.pid), (c.createdByProcStart = $6()), (T = true);
     if (T) await Hht(h, u).catch((c) => n(`[ScheduledTasks] failed to refresh task pids: ${c}`));
     let M = Date.now(),
       e = FXn(h, M).filter((c) => !c.recurring && !re.has(c.id) && (!H || H(c)) && te(c));
@@ -237,7 +237,7 @@ function IKt(r) {
       let P = _.get(e.id);
       if (P === void 0) {
         let I = e.recurring ? t5e(e.cron, e.lastFiredAt ?? e.createdAt, e.id, T) : xht(e.cron, e.createdAt, e.id, T);
-        if (I === null) p("cron_task_fire", "next_fire_unresolvable", { recurring: e.recurring ?? !1 });
+        if (I === null) p("cron_task_fire", "next_fire_unresolvable", { recurring: e.recurring ?? false });
         (P = I ?? 1 / 0),
           _.set(e.id, P),
           n(`[ScheduledTasks] scheduled ${e.id} for ${P === 1 / 0 ? "never" : new Date(P).toISOString()}`);
@@ -246,7 +246,7 @@ function IKt(r) {
       if (
         (n(`[ScheduledTasks] firing ${e.id}${e.recurring ? " (recurring)" : ""}`),
         s("tengu_scheduled_task_fire", {
-          recurring: e.recurring ?? !1,
+          recurring: e.recurring ?? false,
           taskId: e.id,
           autonomousLoopDefault: Ee.isLoopDefaultSentinel(e.prompt),
         }),
@@ -254,7 +254,7 @@ function IKt(r) {
       )
         d(e);
       else t(e.prompt);
-      y("cron_task_fire", { recurring: e.recurring ?? !1, permanent: e.permanent ?? !1 });
+      y("cron_task_fire", { recurring: e.recurring ?? false, permanent: e.permanent ?? false });
       let ne = Icr(e, o, T.recurringMaxAgeMs);
       if (ne) {
         let I = Math.floor((o - e.createdAt) / 1000 / 60 / 60);
@@ -274,7 +274,7 @@ function IKt(r) {
             .catch((I) => n(`[ScheduledTasks] failed to remove task ${e.id}: ${I}`))
             .finally(() => D.delete(e.id));
     }
-    for (let e of J) if (te(e)) M(e, !1);
+    for (let e of J) if (te(e)) M(e, false);
     if (k.length > 0) {
       for (let e of k) D.add(e);
       NXn(k, o, u)
@@ -283,8 +283,8 @@ function IKt(r) {
           for (let e of k) D.delete(e);
         });
     }
-    if (u === void 0) for (let e of Ag().slice()) M(e, !0);
-    for (let e of ee) M(e, !0);
+    if (u === void 0) for (let e of Ag().slice()) M(e, true);
+    for (let e of ee) M(e, true);
     if (h.size === 0) {
       _.clear();
       return;
@@ -296,8 +296,8 @@ function IKt(r) {
     if (w) clearInterval(w), (w = null);
     let { default: o } = await import("/$bunfs/root/chunk-qr8kvksp.js");
     if (O) return;
-    if (((C = await Y(A, R).catch(() => !1)), O)) {
-      if (C) (C = !1), j(A, R);
+    if (((C = await Y(A, R).catch(() => false)), O)) {
+      if (C) (C = false), j(A, R);
       return;
     }
     if (!C)
@@ -309,23 +309,23 @@ function IKt(r) {
               return;
             }
             if (k) {
-              if (((C = !0), L)) clearInterval(L), (L = null);
+              if (((C = true), L)) clearInterval(L), (L = null);
             }
           })
           .catch((k) => n(String(k), { level: "error" }));
       }, Oe)),
         L.unref?.();
-    V(!0).then(G);
+    V(true).then(G);
     let h = BX(u);
     (F = o.watch(h, {
-      persistent: !1,
-      ignoreInitial: !0,
+      persistent: false,
+      ignoreInitial: true,
       awaitWriteFinish: { stabilityThreshold: Le },
-      ignorePermissionErrors: !0,
+      ignorePermissionErrors: true,
     })),
       F.on("error", (k) => n(`[ScheduledTasks] watcher error: ${k}`, { level: "warn" })),
-      F.on("add", () => void V(!1)),
-      F.on("change", () => void V(!1)),
+      F.on("add", () => void V(false)),
+      F.on("change", () => void V(false)),
       F.on("unlink", () => {
         if (!O) (J = []), _.clear();
       }),
@@ -334,7 +334,7 @@ function IKt(r) {
   }
   return {
     start() {
-      if (((O = !1), u !== void 0)) {
+      if (((O = false), u !== void 0)) {
         n(`[ScheduledTasks] scheduler start() \u2014 dir=${u}, hasTasks=${X6t(u)}`), W();
         return;
       }
@@ -342,7 +342,7 @@ function IKt(r) {
         (n(`[ScheduledTasks] scheduler start() \u2014 enabled=${jQe()}, hasTasks=${X6t()}`),
         !jQe() && (S || z !== void 0 || X6t()))
       )
-        RU(!0);
+        RU(true);
       if (jQe()) {
         W();
         return;
@@ -357,10 +357,10 @@ function IKt(r) {
         w.unref?.();
     },
     stop() {
-      if (((O = !0), w)) clearInterval(w), (w = null);
+      if (((O = true), w)) clearInterval(w), (w = null);
       if (B) clearInterval(B), (B = null);
       if (L) clearInterval(L), (L = null);
-      if ((F?.close(), (F = null), C)) (C = !1), j(A, R);
+      if ((F?.close(), (F = null), C)) (C = false), j(A, R);
     },
     getNextFireTime() {
       let o = 1 / 0;

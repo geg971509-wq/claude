@@ -87,7 +87,7 @@ function IOe(o, s) {
     }
     let m = u.getDate(),
       d = u.getDay();
-    if (!(c && f ? !0 : c ? r.has(d) : f ? i.has(m) : i.has(m) || r.has(d))) {
+    if (!(c && f ? true : c ? r.has(d) : f ? i.has(m) : i.has(m) || r.has(d))) {
       u.setDate(u.getDate() + 1), u.setHours(0, 0, 0, 0);
       continue;
     }
@@ -115,7 +115,7 @@ function F(o, s) {
   );
 }
 function ry(o, s) {
-  let e = s?.utc ?? !1,
+  let e = s?.utc ?? false,
     t = o.trim().split(/\s+/);
   if (t.length !== 5) return o;
   let [i, a, r, c, f] = t;
@@ -212,7 +212,7 @@ async function ZVe(o) {
     if (Ht(r)) return [];
     return h(r), [];
   }
-  let t = Ut(e, !1);
+  let t = Ut(e, false);
   if (!t || typeof t !== "object") return [];
   let i = t;
   if (!Array.isArray(i.tasks)) return [];
@@ -238,8 +238,8 @@ async function ZVe(o) {
       prompt: r.prompt,
       createdAt: r.createdAt,
       ...(typeof r.lastFiredAt === "number" && { lastFiredAt: r.lastFiredAt }),
-      ...(r.recurring && { recurring: !0 }),
-      ...(r.permanent && { permanent: !0 }),
+      ...(r.recurring && { recurring: true }),
+      ...(r.permanent && { permanent: true }),
       ...(typeof r.createdBySessionId === "string" && { createdBySessionId: r.createdBySessionId }),
       ...(typeof r.createdByPid === "number" && { createdByPid: r.createdByPid }),
       ...(typeof r.createdByProcStart === "string" && { createdByProcStart: r.createdByProcStart }),
@@ -252,10 +252,10 @@ function X6t(o) {
   try {
     s = A(BX(o), "utf-8");
   } catch {
-    return !1;
+    return false;
   }
-  let e = Ut(s, !1);
-  if (!e || typeof e !== "object") return !1;
+  let e = Ut(s, false);
+  if (!e || typeof e !== "object") return false;
   let t = e.tasks;
   return Array.isArray(t) && t.length > 0;
 }
@@ -263,7 +263,7 @@ async function Hht(o, s) {
   let e = s ?? gn(),
     t = !Y5(S(e, ".claude"));
   if (t) await $Ce(e, S(e, ".claude"));
-  await D(S(e, ".claude"), { recursive: !0 });
+  await D(S(e, ".claude"), { recursive: true });
   let i = { tasks: o.map(({ durable: a, ...r }) => r) };
   await O_(
     BX(e),
@@ -275,7 +275,7 @@ async function Hht(o, s) {
 }
 async function cTe(o, s, e, t, i) {
   let a = I().slice(0, 8),
-    r = { id: a, cron: o, prompt: s, createdAt: Date.now(), ...(e && { recurring: !0 }) };
+    r = { id: a, cron: o, prompt: s, createdAt: Date.now(), ...(e && { recurring: true }) };
   if (!t) return G5({ ...r, ...(i && { agentId: i }) }), a;
   let c = await ZVe();
   return (
@@ -295,15 +295,15 @@ async function NXn(o, s, e) {
   if (o.length === 0) return;
   let t = new Set(o),
     i = await ZVe(e),
-    a = !1;
-  for (let r of i) if (t.has(r.id)) (r.lastFiredAt = s), (a = !0);
+    a = false;
+  for (let r of i) if (t.has(r.id)) (r.lastFiredAt = s), (a = true);
   if (!a) return;
   await Hht(i, e);
 }
 async function U2(o) {
   let s = await ZVe(o);
   if (o !== void 0) return s;
-  let e = Ag().map((t) => ({ ...t, durable: !1 }));
+  let e = Ag().map((t) => ({ ...t, durable: false }));
   return [...s, ...e];
 }
 function e5e(o, s) {

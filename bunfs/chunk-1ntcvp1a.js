@@ -123,12 +123,12 @@ async function C(e, t, i) {
     o = [".ignore", ".rgignore"],
     g = te([t, i]),
     c = w.default(),
-    u = !1,
+    u = false,
     f = g.flatMap((x) => o.map((F) => m.join(x, F))),
     d = await Promise.all(f.map((x) => a.readFile(x, { encoding: "utf8" }).catch(() => null)));
   for (let [x, F] of d.entries()) {
     if (F === null) continue;
-    c.add(L8(GMt(F), "file_suggestions_ignore")), (u = !0), n(`[FileIndex] loaded ignore patterns from ${f[x]}`);
+    c.add(L8(GMt(F), "file_suggestions_ignore")), (u = true), n(`[FileIndex] loaded ignore patterns from ${f[x]}`);
   }
   let p = u ? c : null;
   return (e.ignorePatternsCache = p), (e.ignorePatternsCacheKey = r), p;
@@ -266,7 +266,7 @@ async function Adr(e, t) {
   try {
     let a = Je(),
       o = ie(),
-      g = a.respectGitignore ?? o.respectGitignore ?? !0,
+      g = a.respectGitignore ?? o.respectGitignore ?? true,
       c = ee(),
       [u, f] = await Promise.all([G(e, i, g), M(c, t)]);
     e.cachedConfigFiles = f;
@@ -346,7 +346,7 @@ async function E() {
     return n(`[FileSuggestions] readdir failed for cwd: ${l(i)}`, { level: "error" }), [];
   }
 }
-async function i6e(e, t, i = !1, r) {
+async function i6e(e, t, i = false, r) {
   if (sn()) {
     if (!t && !i) return [];
     return N(t);

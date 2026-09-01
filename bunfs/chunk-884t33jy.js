@@ -12,7 +12,7 @@ import { Nf } from "/$bunfs/root/chunk-2rx5nghb.js";
 import { se } from "/$bunfs/root/chunk-q1fyd2qk.js";
 function LBe(e, n) {
   let t = Math.max(1, Math.floor(n) || 1),
-    r = n > 0 ? Nf(e, t, { hard: !0, trim: !1 }) : e,
+    r = n > 0 ? Nf(e, t, { hard: true, trim: false }) : e,
     l = [],
     i = 0,
     o = -1,
@@ -30,17 +30,17 @@ function LBe(e, n) {
         o !== -1)
       ) {
         let c = o;
-        l.push(a({ text: s, startOffset: c, isPrecededByNewline: h(e, c, f === 0), endsWithNewline: !0 }));
+        l.push(a({ text: s, startOffset: c, isPrecededByNewline: h(e, c, f === 0), endsWithNewline: true }));
       } else {
         let c = e.length;
-        l.push(a({ text: s, startOffset: c, isPrecededByNewline: h(e, c, f === 0), endsWithNewline: !1 }));
+        l.push(a({ text: s, startOffset: c, isPrecededByNewline: h(e, c, f === 0), endsWithNewline: false }));
       }
       continue;
     }
     let u = e.indexOf(s, i);
     if (u === -1) {
       let c = i;
-      l.push(a({ text: s, startOffset: c, isPrecededByNewline: h(e, c, f === 0), endsWithNewline: !1 })),
+      l.push(a({ text: s, startOffset: c, isPrecededByNewline: h(e, c, f === 0), endsWithNewline: false })),
         (i = c + s.length);
       continue;
     }
@@ -58,7 +58,7 @@ function LBe(e, n) {
 }
 function w(e, n) {
   let t = b(n, 0, Math.max(0, e.lines.length - 1));
-  return e.lines[t] ?? { text: "", startOffset: 0, isPrecededByNewline: !0, endsWithNewline: !1 };
+  return e.lines[t] ?? { text: "", startOffset: 0, isPrecededByNewline: true, endsWithNewline: false };
 }
 function TMn(e, n) {
   if (e.lines.length === 0) return { line: 0, column: 0 };
@@ -107,7 +107,7 @@ function O(e, n) {
   return r;
 }
 function h(e, n, t) {
-  if (t) return !0;
+  if (t) return true;
   return (
     n > 0 &&
     e[n - 1] ===

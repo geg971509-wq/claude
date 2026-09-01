@@ -50,7 +50,7 @@ function P(e) {
     c.setRequestHandler(pA, async () => ({ tools: [...e.registry.definitions()] })),
     c.setRequestHandler(qT, async ({ params: { name: i, arguments: l } }, f) => {
       let d = e.registry.get(i);
-      if (!d) return { content: [{ type: "text", text: `Unknown tool: ${i}` }], isError: !0 };
+      if (!d) return { content: [{ type: "text", text: `Unknown tool: ${i}` }], isError: true };
       let { sessionId: a, toolArgs: m } = v(l);
       if (a !== void 0 && Tr(a) !== Tr(e.sessionId)) return h(d, a, e.sessionId);
       t++;
@@ -59,7 +59,7 @@ function P(e) {
       } catch (p) {
         return (
           n(`[deviceBridge] tool ${i} failed: ${we(p).message}`),
-          { content: [{ type: "text", text: `Tool ${i} failed: internal error` }], isError: !0 }
+          { content: [{ type: "text", text: `Tool ${i} failed: internal error` }], isError: true }
         );
       } finally {
         if ((t--, t === 0)) setTimeout(r, 0);
@@ -90,7 +90,7 @@ function h(e, t, o) {
           text: `${r} refused: the user's machine is currently connected on behalf of a different Claude Code cloud session (usually another session started from the same machine), so it cannot run device tools for this session and nothing was run. Tell the user, and continue with the tools in this cloud environment; if this session was also started with Claude Code on that machine, its device tools may work again once the other session ends. Do not retry in a loop.`,
         },
       ],
-      isError: !0,
+      isError: true,
     }
   );
 }

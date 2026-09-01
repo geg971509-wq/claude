@@ -361,7 +361,7 @@ function Ye() {
   return null;
 }
 function je(ke) {
-  return ke.hasSeenUltrareviewTerms ? ke : { ...ke, hasSeenUltrareviewTerms: !0 };
+  return ke.hasSeenUltrareviewTerms ? ke : { ...ke, hasSeenUltrareviewTerms: true };
 }
 function fe(ho) {
   let O = _(27),
@@ -369,7 +369,7 @@ function fe(ho) {
   fs("ultrareview-launch");
   let { storageV5: ye } = ge(),
     [T] = u(Qe),
-    [Re, $e] = u(!1),
+    [Re, $e] = u(false),
     [Se, go] = u(null),
     Fe;
   if (O[0] === d) (Fe = new AbortController()), (O[0] = Fe);
@@ -379,19 +379,19 @@ function fe(ho) {
   if (O[1] !== T) (Ue = () => (T ? yUe().catch(Ye) : null)), (O[1] = T), (O[2] = Ue);
   else Ue = O[2];
   let [Le] = u(Ue),
-    Q = C(!1),
+    Q = C(false),
     Be;
   if (O[3] !== E || O[4] !== we || O[5] !== T || O[6] !== ye)
     (Be = (Y) => {
       if (Q.current) {
         return;
       }
-      if (((Q.current = !0), Y === "proceed" || Y === "proceed-post")) {
+      if (((Q.current = true), Y === "proceed" || Y === "proceed-post")) {
         if (T) Ae(je, ye);
         go(Y),
-          $e(!0),
+          $e(true),
           we(_e.current.signal, { postToPR: Y === "proceed-post" }).catch(() => {
-            (Q.current = !1), $e(!1);
+            (Q.current = false), $e(false);
           });
       } else _e.current.abort(), E();
     }),
@@ -405,7 +405,7 @@ function fe(ho) {
     xe;
   if (O[8] !== E)
     (xe = () => {
-      (Q.current = !0), _e.current.abort(), E();
+      (Q.current = true), _e.current.abort(), E();
     }),
       (O[8] = E),
       (O[9] = xe);
@@ -415,7 +415,7 @@ function fe(ho) {
   if (O[10] !== pe) (j = pe ?? `${B1()} \xB7 Est. cost ${D8()} USD`), (O[10] = pe), (O[11] = j);
   else j = O[11];
   let Me;
-  if (O[12] === d) (Me = e(t, { dimColor: !0, children: "Loading\u2026" })), (O[12] = Me);
+  if (O[12] === d) (Me = e(t, { dimColor: true, children: "Loading\u2026" })), (O[12] = Me);
   else Me = O[12];
   let z;
   if (
@@ -526,15 +526,15 @@ function de(bo) {
             r(o, {
               flexDirection: "column",
               children: [
-                e(t, { dimColor: !0, children: te }),
-                H && r(t, { dimColor: !0, children: ["Scope: ", H] }),
-                G && e(t, { dimColor: !0, children: G }),
-                e(t, { dimColor: !0, children: "Finds and verifies bugs using a multi-agent review fleet." }),
-                e(t, { dimColor: !0, children: ne }),
-                oe && e(t, { dimColor: !0, children: oe }),
-                x && e(t, { dimColor: !0, children: x }),
-                M && e(t, { dimColor: !0, children: M }),
-                r(t, { dimColor: !0, children: ["More information: ", e(ut, { url: w9, children: w9 })] }),
+                e(t, { dimColor: true, children: te }),
+                H && r(t, { dimColor: true, children: ["Scope: ", H] }),
+                G && e(t, { dimColor: true, children: G }),
+                e(t, { dimColor: true, children: "Finds and verifies bugs using a multi-agent review fleet." }),
+                e(t, { dimColor: true, children: ne }),
+                oe && e(t, { dimColor: true, children: oe }),
+                x && e(t, { dimColor: true, children: x }),
+                M && e(t, { dimColor: true, children: M }),
+                r(t, { dimColor: true, children: ["More information: ", e(ut, { url: w9, children: w9 })] }),
               ],
             }),
             e(t, { children: "Proceed?" }),
@@ -543,13 +543,13 @@ function de(bo) {
       : r(o, {
           flexDirection: "column",
           children: [
-            e(t, { dimColor: !0, children: te }),
-            H && r(t, { dimColor: !0, children: ["Scope: ", H] }),
-            G && e(t, { dimColor: !0, children: G }),
-            e(t, { dimColor: !0, children: "Finds and verifies bugs using a multi-agent review fleet." }),
-            e(t, { dimColor: !0, children: ne }),
-            x && e(t, { dimColor: !0, children: x }),
-            M && e(t, { dimColor: !0, children: M }),
+            e(t, { dimColor: true, children: te }),
+            H && r(t, { dimColor: true, children: ["Scope: ", H] }),
+            G && e(t, { dimColor: true, children: G }),
+            e(t, { dimColor: true, children: "Finds and verifies bugs using a multi-agent review fleet." }),
+            e(t, { dimColor: true, children: ne }),
+            x && e(t, { dimColor: true, children: x }),
+            M && e(t, { dimColor: true, children: M }),
           ],
         })),
       (J[5] = x),
@@ -678,7 +678,7 @@ async function ze({
           .join(`
 `) + f;
     b(P, {
-      shouldQuery: !0,
+      shouldQuery: true,
       metaMessages: m.launched ? [x2e(h, l.mode === "branch" ? l.instructions : void 0)] : void 0,
     });
   } else
@@ -693,7 +693,7 @@ var No = async (l, p, b, n) => {
     m = await OHt(R, n ? `/${n}` : "/ultrareview");
   if (!m.ok) return l(m.error, { display: "system" }), null;
   let f = m.scope,
-    P = !1,
+    P = false,
     y = (S) => {
       if (f.mode === "branch" && f.noMergeBase)
         s("tengu_review_remote_precondition_recovery", {
@@ -722,8 +722,8 @@ var No = async (l, p, b, n) => {
       if (a.kind === "needs-confirm") s("tengu_review_overage_dialog_shown", {});
       let S = !Dxe(),
         v =
-          f.mode === "pr" && qo(f.host) && g !== !1 && !S
-            ? { githubLogin: a.githubLogin ?? null, preferPost: g === !0 }
+          f.mode === "pr" && qo(f.host) && g !== false && !S
+            ? { githubLogin: a.githubLogin ?? null, preferPost: g === true }
             : null;
       return e(fe, {
         subtitle: a.kind === "needs-confirm" ? B1() : a.billingNote || null,
@@ -731,7 +731,7 @@ var No = async (l, p, b, n) => {
         scope: f,
         postOption: v,
         onProceed: async (k, N) => {
-          if (!P) (P = !0), y("accepted");
+          if (!P) (P = true), y("accepted");
           if (
             (await ze({
               scope: f,
@@ -740,7 +740,7 @@ var No = async (l, p, b, n) => {
               billingNote: a.billingNote,
               applyFixes: L,
               postToPR: v !== null && N.postToPR,
-              postDropped: g === !0 && v === null ? (S ? "disabled" : "target") : void 0,
+              postDropped: g === true && v === null ? (S ? "disabled" : "target") : void 0,
               signal: k,
             }),
             !k.aborted && a.kind === "needs-confirm")

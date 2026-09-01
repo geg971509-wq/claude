@@ -119,16 +119,16 @@ function p5n(e, t, r) {
     C = l > 0 ? l : _;
   if (u + d + C <= 0) return { kind: "no_usage" };
   if (u < 20000 || C >= 0.1 * u) {
-    let A = o ?? { consecutive: 0, fired: !1, okEmitted: !1 };
+    let A = o ?? { consecutive: 0, fired: false, okEmitted: false };
     if (!o) e.set(t, A);
-    if (((A.consecutive = 0), !A.okEmitted && d + C > 0)) return (A.okEmitted = !0), { kind: "confirm" };
+    if (((A.consecutive = 0), !A.okEmitted && d + C > 0)) return (A.okEmitted = true), { kind: "confirm" };
     return { kind: "healthy" };
   }
-  let E = o ?? { consecutive: 0, fired: !1, okEmitted: !1 };
+  let E = o ?? { consecutive: 0, fired: false, okEmitted: false };
   if (!o) e.set(t, E);
   if ((E.consecutive++, E.consecutive >= 3))
     return (
-      (E.fired = !0),
+      (E.fired = true),
       { kind: "fire", consecutive: E.consecutive, inputTokens: u, cacheReadTokens: d, cacheCreationTokens: C }
     );
   return { kind: "counted", consecutive: E.consecutive };
@@ -137,7 +137,7 @@ var Kt = 256;
 class ze {
   promptCacheBreak = {
     previousStateBySource: new Map(),
-    hydrationAttempted: !1,
+    hydrationAttempted: false,
     pendingPersist: Promise.resolve(),
     latestQueuedPersist: null,
   };
@@ -146,10 +146,10 @@ class ze {
   lastIngressUuidBySession = new Map();
   cacheCoverage = He();
   gzipRequestBody = {
-    latchedOff: !1,
-    rejectedThisProcess: !1,
-    persistedLatchChecked: !1,
-    persistedLatchInEffect: !1,
+    latchedOff: false,
+    rejectedThisProcess: false,
+    persistedLatchChecked: false,
+    persistedLatchInEffect: false,
     telemetryByClientRequestId: new cd({ max: Kt }),
     ccrWorkerSkipReasonsLogged: new Set(),
   };
@@ -175,8 +175,8 @@ class ze {
     this.firedOnceKeys.add(e);
   }
   once(e) {
-    if (this.firedOnceKeys.has(e)) return !1;
-    return this.firedOnceKeys.add(e), !0;
+    if (this.firedOnceKeys.has(e)) return false;
+    return this.firedOnceKeys.add(e), true;
   }
   resetStreamNoEventsWarningLatch() {
     this.firedOnceKeys.delete("stream_no_events_fallback_warning");
@@ -232,7 +232,7 @@ function kdn(e, t) {
 }
 function xte(e, t) {
   let r = RCt();
-  if (r.size === 0) return !0;
+  if (r.size === 0) return true;
   return !r.get(Re(e))?.has(t);
 }
 function Hdn(e) {
@@ -263,12 +263,12 @@ function m5n(e, t) {
   let u = o.has("tool_search_server") || o.has("tool_search"),
     d = o.has("structured_outputs");
   if (!u && !d) return e;
-  let l = !1,
+  let l = false,
     _ = [];
   for (let C of e) {
     let E = u && C.defer_loading;
     if (E && C.name === sEe && C.description === Dyt) {
-      l = !0;
+      l = true;
       continue;
     }
     let A = d && C.strict;
@@ -276,7 +276,7 @@ function m5n(e, t) {
       _.push(C);
       continue;
     }
-    l = !0;
+    l = true;
     let L = { ...C };
     if (E) delete L.defer_loading;
     if (A) delete L.strict;
@@ -301,7 +301,7 @@ function me() {
   return typeof e === "object" && e !== null && !Array.isArray(e) ? e : {};
 }
 function Xbe() {
-  return me().enabled === !0;
+  return me().enabled === true;
 }
 function oze() {
   let e = me().version;
@@ -404,7 +404,7 @@ function cn() {
     budgetSpentUntilSeconds: void 0,
     stoppedWallResetsAtSeconds: void 0,
     coolingOffUntilMs: void 0,
-    resumed: !1,
+    resumed: false,
     changed: Ue(),
     events: Ue(),
   };
@@ -420,7 +420,7 @@ function ize(e = Date.now()) {
   try {
     return XBt(e), ee().state.phase === "active";
   } catch (t) {
-    return h(t), !1;
+    return h(t), false;
   }
 }
 function KBt(e) {
@@ -429,7 +429,7 @@ function KBt(e) {
 function XBt(e = Date.now()) {
   let t = ee(),
     r = KBt(t.state);
-  if (r === null || e < r) return !1;
+  if (r === null || e < r) return false;
   return Tk("reset", e);
 }
 function YBt(e = Date.now()) {
@@ -468,14 +468,14 @@ function ge(e) {
 }
 function y5n({ resetsAtSeconds: e, arm: t, entry: r, retryAfterSeconds: o, maxWaitSeconds: u, now: d = Date.now() }) {
   let l = ee();
-  if (l.state.phase === "active") return !1;
+  if (l.state.phase === "active") return false;
   return (
     (l.arm = t),
     (l.retryAfterMs = Xe),
     (l.maxWaitMs = Qe),
     tt(l, o, u),
-    et(l, { resetsAtSeconds: e, entry: r, resumed: !1, now: d }),
-    !0
+    et(l, { resetsAtSeconds: e, entry: r, resumed: false, now: d }),
+    true
   );
 }
 function S5n(e = Date.now()) {
@@ -485,8 +485,8 @@ function S5n(e = Date.now()) {
 function b5n(e, t = Date.now()) {
   let r = ee(),
     o = Ze(r, t);
-  if (r.state.phase === "active" || o === void 0) return !1;
-  return et(r, { resetsAtSeconds: o, entry: e, resumed: !0, now: t }), !0;
+  if (r.state.phase === "active" || o === void 0) return false;
+  return et(r, { resetsAtSeconds: o, entry: e, resumed: true, now: t }), true;
 }
 function Ze(e, t) {
   let r = e.stoppedWallResetsAtSeconds;
@@ -510,7 +510,7 @@ function Tk(e, t = Date.now()) {
   let r = ee();
   if (r.state.phase !== "active") {
     if (e !== "user") r.stoppedWallResetsAtSeconds = void 0;
-    return !1;
+    return false;
   }
   if (e === "max_wait") {
     let o = Ke();
@@ -535,7 +535,7 @@ function Tk(e, t = Date.now()) {
     (r.stoppedWallResetsAtSeconds = e === "user" ? r.state.resetsAtSeconds : void 0),
     Je(r, { phase: "idle" }),
     r.events.emit({ type: "ended", reason: e }),
-    !0
+    true
   );
 }
 function fn(e) {
@@ -545,14 +545,14 @@ function fn(e) {
     case "conversation_reset":
     case "account_switch":
     case "extra_usage":
-      return !0;
+      return true;
     case "weekly":
     case "budget":
     case "off":
     case "ineligible":
     case "wall":
     case "max_wait":
-      return !1;
+      return false;
   }
 }
 function je(e, t, r) {
@@ -680,11 +680,11 @@ function yn(e, t, r) {
   }
 }
 function xdn(e) {
-  fi.onScreenBlockingDialog.setState((t) => (t.surfaceMounted && t.kind === e ? t : { surfaceMounted: !0, kind: e }));
+  fi.onScreenBlockingDialog.setState((t) => (t.surfaceMounted && t.kind === e ? t : { surfaceMounted: true, kind: e }));
 }
 function Idn() {
   fi.onScreenBlockingDialog.setState((e) =>
-    e.surfaceMounted || e.kind !== null ? { surfaceMounted: !1, kind: null } : e,
+    e.surfaceMounted || e.kind !== null ? { surfaceMounted: false, kind: null } : e,
   );
 }
 function Jbe(e) {
@@ -711,7 +711,7 @@ var cI = go({
   ),
   result: m(() => oe(["retry_fallback", "edit_prompt", "cancelled"])),
   default: "cancelled",
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 var En = 300000,
   Ldn = { "60s": 60000, "5m": 300000, "10m": 600000 };
@@ -745,7 +745,7 @@ function E5n(e) {
   return t;
 }
 function A5n(e) {
-  if (!e || typeof e !== "object") return !1;
+  if (!e || typeof e !== "object") return false;
   return "behavior" in e && (e.behavior === "completed" || e.behavior === "cancelled");
 }
 async function rt(e) {
@@ -754,7 +754,7 @@ async function rt(e) {
   let _ = An(),
     C = new AbortController(),
     E = () => C.abort(u.reason);
-  u.addEventListener("abort", E, { once: !0 });
+  u.addEventListener("abort", E, { once: true });
   let A,
     L,
     P,
@@ -823,8 +823,8 @@ function Lv() {
   return v9() === null;
 }
 function Pte(e) {
-  if (hh(e, "fable_5_mitigations") || e === "claude-mythos-5") return !0;
-  return !1;
+  if (hh(e, "fable_5_mitigations") || e === "claude-mythos-5") return true;
+  return false;
 }
 function aze(e) {
   return e.startsWith("claude-fable-");
@@ -833,10 +833,10 @@ function ot(e) {
   return e.startsWith("claude-mythos-");
 }
 function ZBt(e) {
-  return !1;
+  return false;
 }
 function _e(e) {
-  return !1;
+  return false;
 }
 function mX(e) {
   return e === "cyber" || e === "bio";
@@ -856,10 +856,10 @@ function kn(e) {
   if (e === "claude-opus-5" || e === "claude-opus-5[1m]") return Tn;
   return Cn;
 }
-var vn = !1;
+var vn = false;
 function wn() {
   let e = process.env.CLAUDE_CODE_REFUSAL_FALLBACK_CATCH_ALL;
-  if (bo(e)) return !1;
+  if (bo(e)) return false;
   return Me(e) || vn;
 }
 function Pdn(e, t) {
@@ -918,10 +918,10 @@ function Mv() {
   return !a.CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK && !E6();
 }
 function C5n() {
-  return Mv() && Lo("switchModelsOnFlag", !0).value && zg() && !Pn();
+  return Mv() && Lo("switchModelsOnFlag", true).value && zg() && !Pn();
 }
 function Pn() {
-  return !1;
+  return false;
 }
 function v5n() {
   let e = jSn();
@@ -983,7 +983,7 @@ function ft(e) {
   return JI(r);
 }
 function gt(e) {
-  return nA(e) ?? (kr(e, { skipEntitlementDenyOverlay: !0 }) || pf(e));
+  return nA(e) ?? (kr(e, { skipEntitlementDenyOverlay: true }) || pf(e));
 }
 function mt(e, t) {
   if (e === void 0) return;
@@ -1079,7 +1079,7 @@ var Fdn = "https://support.claude.com/en/articles/16049681",
   r2t = "https://support.claude.com/en/articles/8106465";
 function xn(e) {
   let t = Ye(e);
-  return aze(t) || gze(e) || KI(e) || !1;
+  return aze(t) || gze(e) || KI(e) || false;
 }
 function Fn(e) {
   let t = JI(Ye(e));
@@ -1147,7 +1147,7 @@ function pmt(e) {
 }
 var Bn = "convolute_arcades";
 function twe() {
-  return $l()?.[Bn] === !0;
+  return $l()?.[Bn] === true;
 }
 function Wdn(e) {
   if (Qbe(e)) return;
@@ -1164,7 +1164,7 @@ function fmt(e) {
   return /^[\x21-\x7e][\x20-\x7e]{0,254}$/.test(e) ? e : void 0;
 }
 function Et() {
-  return $l()?.convolute_arcades === !0;
+  return $l()?.convolute_arcades === true;
 }
 var Un = 80,
   st = 1e4;
@@ -1241,13 +1241,13 @@ function L5n() {
   return W5() && !(Xfe() ?? []).includes(cI.kind);
 }
 function M5n() {
-  return Boolean(Lo("switchModelsOnFlag", !0).value);
+  return Boolean(Lo("switchModelsOnFlag", true).value);
 }
 function i2t(e) {
   if (e.silentAttempt) return "silent_ab";
   if (!e.isMainThread) return "subagent";
   if (e.requestDialog === void 0) return "no_dialog_host";
-  if (Lo("switchModelsOnFlag", !0).value) return "setting";
+  if (Lo("switchModelsOnFlag", true).value) return "setting";
   if (e.consumerLacksDialogCapability) return "no_consumer_capability";
   return;
 }
@@ -1255,11 +1255,11 @@ function N5n(e) {
   return (
     e.isMainThread &&
     (e.requestDialog === void 0 || e.consumerLacksDialogCapability) &&
-    Lo("switchModelsOnFlag", !0).value === !1
+    Lo("switchModelsOnFlag", true).value === false
   );
 }
 function s2t() {
-  return Lo("switchModelsOnFlag", !0).value === !1;
+  return Lo("switchModelsOnFlag", true).value === false;
 }
 function F5n() {
   if (ra()) return;
@@ -1307,7 +1307,7 @@ import { randomUUID as ar } from "crypto";
 function jBt(e, t, r, o, u) {
   let d = Ne();
   if (
-    !(u?.ignoreEnvOptOut === !0 && d === "firstParty" && M$() && !a.ANTHROPIC_UNIX_SOCKET) &&
+    !(u?.ignoreEnvOptOut === true && d === "firstParty" && M$() && !a.ANTHROPIC_UNIX_SOCKET) &&
     bo(process.env.CLAUDE_CODE_ATTRIBUTION_HEADER)
   )
     return "";
@@ -1361,8 +1361,8 @@ var zn = "tengu_atomic_ocean",
   $n = 604800000,
   Yn = 8192;
 function jn(e) {
-  if (e === "ccr_worker") return I(Gn, !1);
-  return I(zn, !1) || I(qn, !1);
+  if (e === "ccr_worker") return I(Gn, false);
+  return I(zn, false) || I(qn, false);
 }
 function kt(e) {
   return e === "ccr_worker" ? a.CLAUDE_CODE_GZIP_CCR_REQUEST_BODIES : a.CLAUDE_CODE_GZIP_REQUEST_BODIES;
@@ -1386,25 +1386,25 @@ function he(e, t, r, o = "api") {
   if (!FT(e)) return;
   let u = typeof t === "string" ? t.length : void 0,
     d = kt(o);
-  if (d === !1) return { gzip: !1, reason: "env_off", bodyChars: u };
-  if (!TR()) return { gzip: !1, reason: "not_bun_runtime", bodyChars: u };
-  if (u === void 0) return { gzip: !1, reason: "non_string_body", bodyChars: u };
-  if (u < Xn(o)) return { gzip: !1, reason: "below_min_size", bodyChars: u };
-  if (d === !0)
+  if (d === false) return { gzip: false, reason: "env_off", bodyChars: u };
+  if (!TR()) return { gzip: false, reason: "not_bun_runtime", bodyChars: u };
+  if (u === void 0) return { gzip: false, reason: "non_string_body", bodyChars: u };
+  if (u < Xn(o)) return { gzip: false, reason: "below_min_size", bodyChars: u };
+  if (d === true)
     return Lu().gzipRequestBody.rejectedThisProcess
-      ? { gzip: !1, reason: "latched_off", bodyChars: u }
-      : { gzip: !0, bodyChars: u };
+      ? { gzip: false, reason: "latched_off", bodyChars: u }
+      : { gzip: true, bodyChars: u };
   let l = Qn(e);
-  if (l !== void 0) return { gzip: !1, reason: l, bodyChars: u };
-  if (!jn(o)) return { gzip: !1, reason: "flag_off", bodyChars: u };
-  if (ir(r)) return { gzip: !1, reason: "latched_off", bodyChars: u };
-  return { gzip: !0, bodyChars: u };
+  if (l !== void 0) return { gzip: false, reason: l, bodyChars: u };
+  if (!jn(o)) return { gzip: false, reason: "flag_off", bodyChars: u };
+  if (ir(r)) return { gzip: false, reason: "latched_off", bodyChars: u };
+  return { gzip: true, bodyChars: u };
 }
 var Jn = m(() => f({ type: N("error"), error: f({ type: i(), message: i() }) })),
   vt = m(() => f({ latchedAt: v().finite(), status: v() })),
   Zn = ["The request body is not valid JSON", "Failed to parse request: could not parse request body as JSON"];
 function er(e) {
-  return (e.headers.get("request-id")?.startsWith("req_") ?? !1) || e.headers.has("cf-ray");
+  return (e.headers.get("request-id")?.startsWith("req_") ?? false) || e.headers.has("cf-ray");
 }
 async function tr(e) {
   let t = e.clone().body?.getReader();
@@ -1417,7 +1417,7 @@ async function tr(e) {
       let { done: d, value: l } = await t.read();
       if (d) break;
       let _ = l.subarray(0, u);
-      (u -= _.byteLength), (o += r.decode(_, { stream: !0 }));
+      (u -= _.byteLength), (o += r.decode(_, { stream: true }));
     }
   } catch {
   } finally {
@@ -1430,7 +1430,7 @@ function nr(e) {
     let t = Jn().safeParse(V(e));
     return t.success && Zn.some((r) => t.data.error.message.startsWith(r));
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Lt(e) {
@@ -1465,15 +1465,15 @@ function bt(e, t) {
 }
 function ir(e) {
   let t = Lu().gzipRequestBody;
-  if (t.latchedOff) return !0;
-  if (t.persistedLatchChecked) return !1;
+  if (t.latchedOff) return true;
+  if (t.persistedLatchChecked) return false;
   let r = or();
-  if (r === "unavailable") return !1;
-  if (((t.persistedLatchChecked = !0), r === void 0)) return !1;
+  if (r === "unavailable") return false;
+  if (((t.persistedLatchChecked = true), r === void 0)) return false;
   if (r === "malformed")
-    return bt(void 0, e), s("tengu_gzip_request_body_latch_cleared", { reason: c("malformed") }), !1;
+    return bt(void 0, e), s("tengu_gzip_request_body_latch_cleared", { reason: c("malformed") }), false;
   let o = Date.now() - r.latchedAt;
-  if (o >= 0 && o < $n) return (t.latchedOff = !0), (t.persistedLatchInEffect = !0), !0;
+  if (o >= 0 && o < $n) return (t.latchedOff = true), (t.persistedLatchInEffect = true), true;
   return (
     bt(r.latchedAt, e),
     s("tengu_gzip_request_body_latch_cleared", {
@@ -1481,18 +1481,18 @@ function ir(e) {
       latchedStatus: r.status,
       latchedAgeHours: Math.max(0, Math.round(o / 3600000)),
     }),
-    !1
+    false
   );
 }
 function Pt() {
   let e = Lu().gzipRequestBody;
-  (e.latchedOff = !0), (e.rejectedThisProcess = !0), (e.persistedLatchChecked = !0);
+  (e.latchedOff = true), (e.rejectedThisProcess = true), (e.persistedLatchChecked = true);
 }
 function Tt({ persist: e, status: t, storageV5: r, rollout: o = "api" }) {
   Pt();
   let u = Lu().gzipRequestBody;
-  if (e && !u.persistedLatchInEffect && kt(o) !== !0)
-    (u.persistedLatchInEffect = !0),
+  if (e && !u.persistedLatchInEffect && kt(o) !== true)
+    (u.persistedLatchInEffect = true),
       Ae((d) => ({ ...d, gzipRequestBodiesLatchedOff: { latchedAt: Date.now(), status: t } }), r);
   return u.persistedLatchInEffect ? "persisted" : "process";
 }
@@ -1551,7 +1551,7 @@ async function Pe({
         res: e,
         retryOutcome: r.signal?.aborted ? "aborted" : "network_error",
         retryStatus: void 0,
-        latched: Tt({ persist: !1, status: e.status, storageV5: d, rollout: l }),
+        latched: Tt({ persist: false, status: e.status, storageV5: d, rollout: l }),
         bodyChars: L,
         rollout: l,
       }),
@@ -1603,7 +1603,7 @@ function Ydn(e) {
     requestBodyEncoding: c(e.requestBodyEncoding),
     requestBodyChars: e.requestBodyChars,
     ...("gzipSkipReason" in e && { gzipSkipReason: c(e.gzipSkipReason) }),
-    ...("gzipFallbackStatus" in e && { gzipFallback: !0, gzipFallbackStatus: e.gzipFallbackStatus }),
+    ...("gzipFallbackStatus" in e && { gzipFallback: true, gzipFallbackStatus: e.gzipFallbackStatus }),
   };
 }
 Aer(he);
@@ -1663,8 +1663,8 @@ async function cM({
       defaultHeaders: k,
       maxRetries: t,
       timeout: ume(process.env.API_TIMEOUT_MS, 600000),
-      dangerouslyAllowBrowser: !0,
-      fetchOptions: Ri({ forAnthropicAPI: !0, hasBodyIdleWatchdog: c2t(x), url: dr(x, r, re) }),
+      dangerouslyAllowBrowser: true,
+      fetchOptions: Ri({ forAnthropicAPI: true, hasBodyIdleWatchdog: c2t(x), url: dr(x, r, re) }),
       ...(B && { fetch: B }),
       ..._O,
     };
@@ -1710,7 +1710,7 @@ async function cM({
         defaultHeaders: Q,
         awsRegion: O,
         apiKey: null,
-        ...(M && !ne && { skipAuth: !0 }),
+        ...(M && !ne && { skipAuth: true }),
         ...(ne && { apiKey: ne.match(/^Bearer (.+)$/i)?.[1] ?? ne, defaultHeaders: { ...Q, Authorization: ne } }),
         ...(ue && !ne && !M && { providerChainResolver: H6("Bedrock").providerChainResolver }),
         ...(!ue && !ne && !M && !a.CLAUDE_CODE_SKIP_AWS_CRED_CACHE && { providerChainResolver: () => aR(O) }),
@@ -1728,10 +1728,10 @@ async function cM({
   if (x === "foundry") {
     let { AnthropicFoundry: S } = await import("/$bunfs/root/chunk-hm2xvz6p.js"),
       O,
-      M = !1;
+      M = false;
     if (a.ANTHROPIC_FOUNDRY_AUTH_TOKEN) O = async () => a.ANTHROPIC_FOUNDRY_AUTH_TOKEN ?? "";
     else if (!process.env.ANTHROPIC_FOUNDRY_API_KEY)
-      if (Me(process.env.CLAUDE_CODE_SKIP_FOUNDRY_AUTH)) (M = !0), (O = () => Promise.resolve("skip-foundry-auth"));
+      if (Me(process.env.CLAUDE_CODE_SKIP_FOUNDRY_AUTH)) (M = true), (O = () => Promise.resolve("skip-foundry-auth"));
       else if (Rc()) throw Dbt("Foundry");
       else {
         let { DefaultAzureCredential: Q, getBearerTokenProvider: te } = await import("/$bunfs/root/chunk-3tzgyvp2.js");
@@ -1762,7 +1762,7 @@ async function cM({
         awsRegion: M,
         defaultHeaders: { ...F.rest, Authorization: null },
         ...(!O && { authToken: null }),
-        ...(O && !j && { skipAuth: !0 }),
+        ...(O && !j && { skipAuth: true }),
         ...(j && { apiKey: j.match(/^Bearer (.+)$/i)?.[1] ?? j, defaultHeaders: { ...F.rest, Authorization: j } }),
         ...(jO() && { logger: ae() }),
       };
@@ -1795,7 +1795,7 @@ async function cM({
       Q = {
         ...D,
         defaultHeaders: { ...F.rest, ...It() },
-        ...(S && { skipAuth: !0 }),
+        ...(S && { skipAuth: true }),
         ...(j && { defaultHeaders: { ...F.rest, Authorization: j } }),
         ...(jO() && { logger: ae() }),
       };
@@ -1818,7 +1818,7 @@ async function cM({
         : { ...M.rest, Authorization: null, ...(!O && !ue && { "X-Api-Key": null }) },
       awsRegion: ne,
       ...(!j && !O && { authToken: null }),
-      ...(O && !F && { skipAuth: !0 }),
+      ...(O && !F && { skipAuth: true }),
       ...(F && { apiKey: F.match(/^Bearer (.+)$/i)?.[1] ?? F, defaultHeaders: { ...M.rest, Authorization: F } }),
       ...(te && {
         awsAccessKey: te.accessKeyId,
@@ -1852,7 +1852,7 @@ async function cM({
       ue = S ? ne.value : void 0,
       de = {
         ...D,
-        defaultHeaders: { ...ne.rest, ...Kz(S ? { wireAuthorization: ue } : !1) },
+        defaultHeaders: { ...ne.rest, ...Kz(S ? { wireAuthorization: ue } : false) },
         region: J5(r),
         googleAuth: te,
         ...(jO() && { logger: ae() }),
@@ -1880,13 +1880,13 @@ async function cM({
   if (T) {
     let S = cpe();
     if (S) throw new Eoe(S.url);
-    if (X === "lock_timeout" && q?.expiresAt != null && Date.now() >= q.expiresAt && I("tengu_sharded_beacon", !0))
+    if (X === "lock_timeout" && q?.expiresAt != null && Date.now() >= q.expiresAt && I("tengu_sharded_beacon", true))
       throw new nwe();
   }
   c3t({
     apiKey: T ? null : W,
     getApiKeySource: () => {
-      let { source: S } = py({ skipRetrievingKeyFromApiKeyHelper: !0 });
+      let { source: S } = py({ skipRetrievingKeyFromApiKeyHelper: true });
       return S === "none" ? "unknown" : S;
     },
     authToken: T ? (q?.accessToken ?? null) : null,
@@ -1910,14 +1910,14 @@ async function cM({
   let ce = {
     apiKey: T ? null : W,
     authToken: T ? (q?.accessToken ?? null) : null,
-    ...!1,
+    ...false,
     ...D,
     ...(jO() && { logger: ae() }),
   };
   return new xP(ce);
 }
 async function ur(e, t) {
-  let r = Co() && py({ skipRetrievingKeyFromApiKeyHelper: !0 }).source === "none",
+  let r = Co() && py({ skipRetrievingKeyFromApiKeyHelper: true }).source === "none",
     u = t_() && !r ? void 0 : a.ANTHROPIC_AUTH_TOKEN,
     d = u || (await ape(t));
   if (d) return (e.Authorization = `Bearer ${d}`), u ? "ANTHROPIC_AUTH_TOKEN" : "apiKeyHelper";
@@ -2033,10 +2033,10 @@ class Ft extends Error {
   }
 }
 function j5n(e) {
-  Lu().streamFirstByteArmedRequestIds.set(e, !0);
+  Lu().streamFirstByteArmedRequestIds.set(e, true);
 }
 function _r(e) {
-  if (e === void 0) return !1;
+  if (e === void 0) return false;
   return Lu().streamFirstByteArmedRequestIds.delete(e);
 }
 var Bt = "/invoke-with-response-stream";
@@ -2091,7 +2091,7 @@ class hmt extends Error {
   bodyReadPending;
   cfRay;
   sleptMs;
-  constructor(e, t = 0, r, o = !0, u, d = 0) {
+  constructor(e, t = 0, r, o = true, u, d = 0) {
     super(`stream idle: no bytes for ${e}ms`);
     (this.name = "StreamIdleTimeoutError"),
       (this.idleMs = e),
@@ -2132,7 +2132,7 @@ function Rr(e, t, r, o) {
     _ = 0,
     C = performance.now(),
     E = null,
-    A = !1,
+    A = false,
     L = [15000, 30000, 60000, 120000],
     P = () => {
       if (d !== null) clearTimeout(d), (d = null);
@@ -2222,18 +2222,18 @@ function Rr(e, t, r, o) {
       T(B);
     },
     async pull(B) {
-      A = !0;
+      A = true;
       let x;
       try {
         x = await Z.read();
       } catch (D) {
-        (A = !1), k();
+        (A = false), k();
         try {
           B.error(D);
         } catch {}
         return;
       }
-      if (((A = !1), x.done)) {
+      if (((A = false), x.done)) {
         k();
         try {
           B.close();
@@ -2256,15 +2256,15 @@ function Rr(e, t, r, o) {
   });
 }
 function Nt() {
-  if (bo(process.env.CLAUDE_ENABLE_BYTE_WATCHDOG)) return !1;
-  if (Me(process.env.CLAUDE_ENABLE_BYTE_WATCHDOG)) return !0;
-  return I("tengu_stream_watchdog_default_on", !0);
+  if (bo(process.env.CLAUDE_ENABLE_BYTE_WATCHDOG)) return false;
+  if (Me(process.env.CLAUDE_ENABLE_BYTE_WATCHDOG)) return true;
+  return I("tengu_stream_watchdog_default_on", true);
 }
 function Ar(e) {
   try {
     return new URL(e).pathname.endsWith("/v1/messages");
   } catch {
-    return !1;
+    return false;
   }
 }
 function Fe(e) {
@@ -2277,7 +2277,7 @@ function Dt(e) {
   return Fe(e) || (e === "bedrock" && Ht());
 }
 function c2t(e) {
-  if (!Nt()) return !1;
+  if (!Nt()) return false;
   return Dt(e) && Dt(Ne());
 }
 function xt(e, t) {

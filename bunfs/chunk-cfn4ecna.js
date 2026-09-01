@@ -49,7 +49,7 @@ function jn(qo) {
   return qo.state === "error";
 }
 function zn(Qo, Yo) {
-  return e(t, { dimColor: !0, children: Qo }, Yo);
+  return e(t, { dimColor: true, children: Qo }, Yo);
 }
 function kRe(n) {
   let s = new Map(),
@@ -149,7 +149,7 @@ function nt(Lo) {
   else y = M[19];
   let O;
   if (M[20] !== T)
-    (O = T.length > 0 && r(t, { dimColor: !0, children: ["  ", T.join(" \xB7 ")] })), (M[20] = T), (M[21] = O);
+    (O = T.length > 0 && r(t, { dimColor: true, children: ["  ", T.join(" \xB7 ")] })), (M[20] = T), (M[21] = O);
   else O = M[21];
   let Ct;
   if (M[22] !== p.error || M[23] !== p.state)
@@ -207,7 +207,7 @@ function Ut(No) {
     De = $e ? (v > 0 ? "error" : "success") : void 0;
   const Ie = b.kind === "child" ? "permission" : "subtle";
   let Tt;
-  if (w[13] !== b.title) (Tt = e(t, { bold: !0, children: b.title })), (w[13] = b.title), (w[14] = Tt);
+  if (w[13] !== b.title) (Tt = e(t, { bold: true, children: b.title })), (w[13] = b.title), (w[14] = Tt);
   else Tt = w[14];
   let wt;
   if (w[15] !== De || w[16] !== We) (wt = e(t, { color: De, children: We })), (w[15] = De), (w[16] = We), (w[17] = wt);
@@ -219,7 +219,7 @@ function Ut(No) {
   else At = w[19];
   let Rt;
   if (w[20] !== S || w[21] !== ve || w[22] !== At || w[23] !== B)
-    (Rt = r(t, { dimColor: !0, children: [S, "/", B, ve, At] })),
+    (Rt = r(t, { dimColor: true, children: [S, "/", B, ve, At] })),
       (w[20] = S),
       (w[21] = ve),
       (w[22] = At),
@@ -241,7 +241,7 @@ function Ut(No) {
       S > 0 &&
       e(o, {
         paddingLeft: 1,
-        children: r(t, { dimColor: !0, children: [e(tt, { status: "success" }), " ", S, " done"] }),
+        children: r(t, { dimColor: true, children: [e(tt, { status: "success" }), " ", S, " done"] }),
       })),
       (w[29] = S),
       (w[30] = Y),
@@ -324,7 +324,7 @@ function Xt(Fo) {
       D > 0 &&
       e(o, {
         paddingLeft: 1,
-        children: r(t, { dimColor: !0, children: ["\u2514\u2500 \xB7 \xB7 \xB7 +", D, " more"] }),
+        children: r(t, { dimColor: true, children: ["\u2514\u2500 \xB7 \xB7 \xB7 +", D, " more"] }),
       })),
       (W[20] = D),
       (W[21] = z);
@@ -364,7 +364,7 @@ function l7t(Ko) {
             r(U, {
               children: [
                 e(Ut, { group: Ho, verbose: Nt, width: Ge }),
-                Jo < Ft.length - 1 && e(o, { paddingLeft: 3, children: e(t, { dimColor: !0, children: "\u2193" }) }),
+                Jo < Ft.length - 1 && e(o, { paddingLeft: 3, children: e(t, { dimColor: true, children: "\u2193" }) }),
               ],
             }),
           ),
@@ -436,7 +436,7 @@ function Ce(xr) {
   else Vt = dt[7];
   let Ht;
   if (dt[8] !== qt)
-    (Ht = qt > 0 && e(t, { color: "subtle", dimColor: !0, children: ATt.repeat(qt) })), (dt[8] = qt), (dt[9] = Ht);
+    (Ht = qt > 0 && e(t, { color: "subtle", dimColor: true, children: ATt.repeat(qt) })), (dt[8] = qt), (dt[9] = Ht);
   else Ht = dt[9];
   let Kn;
   if (dt[10] !== Kt || dt[11] !== Vt || dt[12] !== Ht)
@@ -486,7 +486,7 @@ var bt = 17;
 function Ekt(wr) {
   let E = _(28),
     { index: Ar, title: Ve, done: Rr, total: Bn, status: to, selected: eo, trailing: no } = wr,
-    q = eo === void 0 ? !1 : eo,
+    q = eo === void 0 ? false : eo,
     oo = no === void 0 ? "" : no,
     pt = to === "done",
     ft = to === "failed",
@@ -558,7 +558,7 @@ function Akt($r) {
       phaseText: io,
       selected: lo,
     } = $r,
-    N = lo === void 0 ? !1 : lo,
+    N = lo === void 0 ? false : lo,
     co;
   if (st[0] !== ce) (co = ce !== void 0 ? dfe(ce) : void 0), (st[0] = ce), (st[1] = co);
   else co = st[1];
@@ -616,7 +616,7 @@ function Jme(Ir) {
   else he = K[3];
   let be;
   if (K[4] !== pn)
-    (be = r(t, { bold: !0, color: "permission", wrap: "truncate-end", children: [" ", pn] })), (K[4] = pn), (K[5] = be);
+    (be = r(t, { bold: true, color: "permission", wrap: "truncate-end", children: [" ", pn] })), (K[4] = pn), (K[5] = be);
   else be = K[5];
   let xe;
   if (K[6] !== fn)
@@ -624,14 +624,14 @@ function Jme(Ir) {
       flexGrow: 1,
       flexShrink: 1,
       overflow: "hidden",
-      children: r(t, { dimColor: !0, wrap: "truncate-end", children: [" ", fn] }),
+      children: r(t, { dimColor: true, wrap: "truncate-end", children: [" ", fn] }),
     })),
       (K[6] = fn),
       (K[7] = xe);
   else xe = K[7];
   let ye;
   if (K[8] !== fe)
-    (ye = fe ? e(o, { flexShrink: 0, children: r(t, { dimColor: !0, children: [fe, " "] }) }) : null),
+    (ye = fe ? e(o, { flexShrink: 0, children: r(t, { dimColor: true, children: [fe, " "] }) }) : null),
       (K[8] = fe),
       (K[9] = ye);
   else ye = K[9];
@@ -785,13 +785,13 @@ function qUe(n, s = 0) {
     a = 0,
     i = 0,
     m = 0,
-    c = !1;
+    c = false;
   for (let g of n) {
     if (g.type !== "workflow_agent") continue;
     if ((l++, g.state === "done")) a++, m++;
     else if (g.state === "error") i++, m++;
     else if (g.state === "start" || g.state === "progress") {
-      if (((c = !0), g.startedAt !== void 0 || g.queuedAt === void 0)) m++;
+      if (((c = true), g.startedAt !== void 0 || g.queuedAt === void 0)) m++;
     }
   }
   let f = Math.max(s, l),

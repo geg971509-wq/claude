@@ -14,7 +14,7 @@ import { Fn, I } from "/$bunfs/root/chunk-8tgj5dp2.js";
 import { Sw } from "/$bunfs/root/chunk-6k63g5t6.js";
 import { Mt } from "/$bunfs/root/chunk-fs02hzwy.js";
 function vTe() {
-  return a.CLAUDE_CODE_DISABLE_WORKFLOWS || Sw()?.settings.disableWorkflows === !0;
+  return a.CLAUDE_CODE_DISABLE_WORKFLOWS || Sw()?.settings.disableWorkflows === true;
 }
 class t {
   cached = void 0;
@@ -25,10 +25,10 @@ class t {
 }
 var n = new J(() => new t());
 function Zu() {
-  if (vTe()) return !1;
-  if (!t_t()) return !1;
+  if (vTe()) return false;
+  if (!t_t()) return false;
   let { available: r, defaultOn: e } = o();
-  if (!r) return !1;
+  if (!r) return false;
   return Sw()?.settings.enableWorkflows ?? e;
 }
 function Pgn() {
@@ -38,29 +38,29 @@ function Zht() {
   return t_t() && !a.CLAUDE_CODE_DISABLE_WORKFLOWS && o().available;
 }
 function e_t() {
-  return Sw()?.settings.workflowKeywordTriggerEnabled ?? !0;
+  return Sw()?.settings.workflowKeywordTriggerEnabled ?? true;
 }
 function t_t() {
   return Mt("allow_workflows");
 }
 function xYn() {
-  if (vTe() || !t_t()) return !0;
-  if (Sw()?.settings.enableWorkflows === !1) return !0;
-  return a.CLAUDE_CODE_WORKFLOWS === !1 || !I("tengu_workflows_enabled", !0);
+  if (vTe() || !t_t()) return true;
+  if (Sw()?.settings.enableWorkflows === false) return true;
+  return a.CLAUDE_CODE_WORKFLOWS === false || !I("tengu_workflows_enabled", true);
 }
 function o() {
   return n.of(G().host).resolve();
 }
 function i() {
-  if (a.CLAUDE_CODE_WORKFLOWS === !0) {
-    let e = I("tengu_workflows_enabled", !0);
+  if (a.CLAUDE_CODE_WORKFLOWS === true) {
+    let e = I("tengu_workflows_enabled", true);
     return { available: e, defaultOn: e };
   }
-  if (a.CLAUDE_CODE_WORKFLOWS === !1) return { available: !1, defaultOn: !1 };
-  if (!I("tengu_workflows_enabled", !0)) return { available: !1, defaultOn: !1 };
-  return { available: !0, defaultOn: Fn() !== "pro" };
+  if (a.CLAUDE_CODE_WORKFLOWS === false) return { available: false, defaultOn: false };
+  if (!I("tengu_workflows_enabled", true)) return { available: false, defaultOn: false };
+  return { available: true, defaultOn: Fn() !== "pro" };
 }
 function IYn() {
-  return I("tengu_jade_compass", !0);
+  return I("tengu_jade_compass", true);
 }
 export { vTe, Zu, Pgn, Zht, e_t, t_t, xYn, IYn };

@@ -347,8 +347,8 @@ function G() {
     get argumentHint() {
       return "[interval] [prompt]";
     },
-    userInvocable: !0,
-    argsMayContainSlashCommands: !0,
+    userInvocable: true,
+    argsMayContainSlashCommands: true,
     isEnabled: cC,
     async getPromptForCommand(e, o) {
       let t = e.trim();
@@ -363,9 +363,9 @@ function G() {
             u = await r.readLoopFileAsync(o.storageV5);
           if (n) {
             if (!o.options?.isSkillPreload && !o.options?.modelScheduledOrigin) Xun();
-            return [{ type: "text", text: f(u, !0, l) }];
+            return [{ type: "text", text: f(u, true, l) }];
           }
-          return [{ type: "text", text: f(u, !1, l) }];
+          return [{ type: "text", text: f(u, false, l) }];
         }
       }
       if (!t) return [{ type: "text", text: E() }];

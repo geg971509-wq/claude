@@ -25,7 +25,7 @@ class i {
       this.override = void 0;
       return;
     }
-    if (Me(!1)) {
+    if (Me(false)) {
       this.override = void 0;
       return;
     }
@@ -41,7 +41,7 @@ class i {
         e.on("error", (r) => {
           s("tengu_tty_stream_error", _m(r)), n(`/dev/tty stream error: ${r}`, { level: "debug" });
         }),
-        (e.isTTY = !0),
+        (e.isTTY = true),
         (this.override = e),
         this.override
       );
@@ -55,7 +55,7 @@ class i {
   }
 }
 var Fur = new i();
-function Fw(t = !1) {
+function Fw(t = false) {
   TNn();
   let e = Fur.get(),
     r = { exitOnCtrlC: t };

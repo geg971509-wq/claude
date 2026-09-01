@@ -39,7 +39,7 @@ async function _Jt() {
     let e = await st.get(`${zt().BASE_API_URL}/api/hello`, {
         headers: { "User-Agent": WI() },
         timeout: N,
-        validateStatus: () => !0,
+        validateStatus: () => true,
         maxRedirects: 0,
       }),
       s = A(e.status, 100, 599);
@@ -50,11 +50,11 @@ async function _Jt() {
   }
 }
 function hdr() {
-  if (a.CLAUDE_CODE_VOICE_FORWARD_INTERIMS_TYPED) return !0;
-  return I("tengu_brick_follow", !1);
+  if (a.CLAUDE_CODE_VOICE_FORWARD_INTERIMS_TYPED) return true;
+  return I("tengu_brick_follow", false);
 }
 function yJt() {
-  if (!El()) return !1;
+  if (!El()) return false;
   let e = Yt();
   return e !== null && e.accessToken !== null;
 }
@@ -110,11 +110,11 @@ async function SJt(e, s, d) {
   aAt(T, m);
   let i = new m(T, M),
     f = null,
-    y = !1,
-    k = !1,
-    S = !1,
-    g = !1,
-    x = !1,
+    y = false,
+    k = false,
+    S = false,
+    g = false,
+    x = false,
     _ = null,
     v = null,
     R = {
@@ -129,7 +129,7 @@ async function SJt(e, s, d) {
       finalize() {
         if (g || S) return Promise.resolve("ws_already_closed");
         return (
-          (g = !0),
+          (g = true),
           new Promise((t) => {
             let c = setTimeout(() => _?.("safety_timeout"), KNn.safety),
               r = setTimeout(() => _?.("no_data_timeout"), KNn.noData);
@@ -141,7 +141,7 @@ async function SJt(e, s, d) {
                 if ((clearTimeout(c), clearTimeout(r), (_ = null), (v = null), l)) {
                   n(`[voice_stream] Promoting unreported interim before ${o} resolve`);
                   let F = l;
-                  (l = ""), e.onTranscript(F, !0);
+                  (l = ""), e.onTranscript(F, true);
                 }
                 n(`[voice_stream] Finalize resolved via ${o}`), t(o);
               }),
@@ -151,14 +151,14 @@ async function SJt(e, s, d) {
               return;
             }
             setTimeout(() => {
-              if (((S = !0), i.readyState === m.OPEN)) n("[voice_stream] Sending CloseStream (finalize)"), i.send(L);
+              if (((S = true), i.readyState === m.OPEN)) n("[voice_stream] Sending CloseStream (finalize)"), i.send(L);
             }, 0);
           })
         );
       },
       close() {
-        if (((S = !0), f)) clearInterval(f), (f = null);
-        if (((y = !1), i.readyState === m.OPEN)) i.close();
+        if (((S = true), f)) clearInterval(f), (f = null);
+        if (((y = false), i.readyState === m.OPEN)) i.close();
       },
       isConnected() {
         return y && i.readyState === m.OPEN;
@@ -166,8 +166,8 @@ async function SJt(e, s, d) {
     };
   i.on("open", () => {
     n("[voice_stream] WebSocket connected"),
-      (y = !0),
-      (k = !0),
+      (y = true),
+      (k = true),
       n("[voice_stream] Sending initial KeepAlive"),
       i.send(b),
       (f = setInterval(
@@ -184,7 +184,7 @@ async function SJt(e, s, d) {
     if (!l) return;
     n(`[voice_stream] Promoting unreported interim to final (${t})`);
     let c = l;
-    (l = ""), e.onTranscript(c, !0);
+    (l = ""), e.onTranscript(c, true);
   }
   return (
     i.on("message", (t) => {
@@ -201,13 +201,13 @@ async function SJt(e, s, d) {
         case "TranscriptText": {
           let o = r.data;
           if ((n(`[voice_stream] ${r.type} (${String(o?.length ?? 0)} chars)`), S)) v?.();
-          if (o) (l = o), e.onTranscript(o, !1);
+          if (o) (l = o), e.onTranscript(o, false);
           break;
         }
         case "TranscriptEndpoint": {
           n(`[voice_stream] TranscriptEndpoint received (${String(l.length)} chars pending)`);
           let o = l;
-          if (((l = ""), o)) e.onTranscript(o, !0);
+          if (((l = ""), o)) e.onTranscript(o, true);
           if (S) _?.("post_closestream_endpoint");
           break;
         }
@@ -227,7 +227,7 @@ async function SJt(e, s, d) {
     }),
     i.on("close", (t, c) => {
       let r = c?.toString() ?? "";
-      if ((n(`[voice_stream] WebSocket closed: code=${String(t)} reason="${r}"`), (y = !1), f))
+      if ((n(`[voice_stream] WebSocket closed: code=${String(t)} reason="${r}"`), (y = false), f))
         clearInterval(f), (f = null);
       if ((h("ws close"), _?.("ws_close"), !g && !x && t !== 1000 && t !== 1005))
         e.onError(
@@ -246,7 +246,7 @@ async function SJt(e, s, d) {
         (n(
           `[voice_stream] Upgrade rejected: status=${String(r)} cf-mitigated=${String(c.headers["cf-mitigated"])} cf-ray=${String(c.headers["cf-ray"])}`,
         ),
-        (x = !0),
+        (x = true),
         c.resume(),
         t.destroy?.(),
         g)

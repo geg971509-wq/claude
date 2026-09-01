@@ -54,8 +54,8 @@ function MJe(t = {}) {
   let a = new Map(
       mkn.map((i) => {
         let e = t.serve !== void 0 && Object.hasOwn(t.serve, i) ? t.serve[i] : void 0;
-        if (e === void 0 || e === !0) return [i, "host"];
-        if (e === !1) return [i, "refused"];
+        if (e === void 0 || e === true) return [i, "host"];
+        if (e === false) return [i, "refused"];
         if (e === "absent") return [i, "absent"];
         throw TypeError("createLocalHostFiles: each serve[space] must be true, false or 'absent'");
       }),
@@ -66,11 +66,11 @@ function MJe(t = {}) {
       t.store?.resolved?.catch(() => {
         return;
       }) ?? Promise.resolve(void 0),
-    b = t.store === void 0 ? Promise.resolve(!1) : z(t.store, m).catch(() => !0);
+    b = t.store === void 0 ? Promise.resolve(false) : z(t.store, m).catch(() => true);
   async function h(i, e, o) {
-    if (t.store === void 0 || e === "metadata" || o === "userNamed") return !1;
+    if (t.store === void 0 || e === "metadata" || o === "userNamed") return false;
     let r = { admitRoot: e === "folder", admitSanctionedFiles: e === "content", configHomeRuleOff: !(await b) };
-    if (hkn(i, t.store.roots, r)) return !0;
+    if (hkn(i, t.store.roots, r)) return true;
     let s = await m;
     return s !== void 0 && hkn(i, s, r);
   }
@@ -85,7 +85,7 @@ function MJe(t = {}) {
       case "refused":
         return { error: bj() };
       case "absent":
-        return { absent: !0 };
+        return { absent: true };
       case "host":
         return { path: p };
     }
@@ -96,10 +96,10 @@ function MJe(t = {}) {
     async readText(i) {
       let e = await c(i, "content");
       if (e.error !== void 0) return P(e.error);
-      if (e.absent) return re({ found: !1 });
+      if (e.absent) return re({ found: false });
       try {
         let o = await k(e.path, { encoding: "utf8" });
-        return re({ found: !0, value: o, bytes: Buffer.byteLength(o) });
+        return re({ found: true, value: o, bytes: Buffer.byteLength(o) });
       } catch (o) {
         return H(o);
       }
@@ -107,11 +107,11 @@ function MJe(t = {}) {
     async readBytes(i) {
       let e = await c(i, "content");
       if (e.error !== void 0) return P(e.error);
-      if (e.absent) return re({ found: !1 });
+      if (e.absent) return re({ found: false });
       try {
         let o = await k(e.path),
           r = new Uint8Array(o.buffer, o.byteOffset, o.byteLength);
-        return re({ found: !0, value: r, bytes: r.byteLength });
+        return re({ found: true, value: r, bytes: r.byteLength });
       } catch (o) {
         return H(o);
       }
@@ -132,7 +132,7 @@ function MJe(t = {}) {
               encoding: "utf-8",
               ...(r.mode !== void 0 && { mode: r.mode }),
               allowSymlink: r.symlinks === "through",
-              checkParentDir: r.refuseLinkedParent === !0,
+              checkParentDir: r.refuseLinkedParent === true,
               ...(r.stagingFolder !== void 0 && { stagingDir: r.stagingFolder.path }),
             }),
             re({ bytes: p })
@@ -143,7 +143,7 @@ function MJe(t = {}) {
       try {
         return (
           await W(g.path, e, {
-            ...(r?.exclusive === !0 && { flag: "wx" }),
+            ...(r?.exclusive === true && { flag: "wx" }),
             ...(r?.mode !== void 0 && { mode: r.mode }),
           }),
           re({ bytes: p })
@@ -155,10 +155,10 @@ function MJe(t = {}) {
     async listFolder(i) {
       let e = await c(i, "content");
       if (e.error !== void 0) return P(e.error);
-      if (e.absent) return re({ found: !1 });
+      if (e.absent) return re({ found: false });
       try {
-        let o = await C(e.path, { withFileTypes: !0 });
-        return re({ found: !0, entries: o.map(U) });
+        let o = await C(e.path, { withFileTypes: true });
+        return re({ found: true, entries: o.map(U) });
       } catch (o) {
         return H(o);
       }
@@ -170,8 +170,8 @@ function MJe(t = {}) {
       if (r.absent) return P(cCt());
       let s = o?.mode !== void 0 ? { mode: o.mode } : {};
       try {
-        if (o?.recursive === !1) return await v(r.path, s), re({ created: !0 });
-        let f = await v(r.path, { recursive: !0, ...s });
+        if (o?.recursive === false) return await v(r.path, s), re({ created: true });
+        let f = await v(r.path, { recursive: true, ...s });
         return re({ created: f !== void 0 });
       } catch (f) {
         return P(y(f));
@@ -180,9 +180,9 @@ function MJe(t = {}) {
     async readLink(i) {
       let e = await c(i, "metadata");
       if (e.error !== void 0) return P(e.error);
-      if (e.absent) return re({ found: !1 });
+      if (e.absent) return re({ found: false });
       try {
-        return re({ found: !0, target: await M(e.path) });
+        return re({ found: true, target: await M(e.path) });
       } catch (o) {
         return H(o);
       }
@@ -191,11 +191,11 @@ function MJe(t = {}) {
       let o = e === void 0 || e === null || typeof e !== "object" ? e : { mode: e.mode },
         r = await c(i, "metadata", Mlr(o));
       if (r.error !== void 0) return P(r.error);
-      if (r.absent) return re({ accessible: !1, code: "ENOENT" });
+      if (r.absent) return re({ accessible: false, code: "ENOENT" });
       try {
-        return await j(r.path, I[o?.mode ?? "exists"]), re({ accessible: !0 });
+        return await j(r.path, I[o?.mode ?? "exists"]), re({ accessible: true });
       } catch (s) {
-        return re({ accessible: !1, code: E(s) ?? "UNKNOWN" });
+        return re({ accessible: false, code: E(s) ?? "UNKNOWN" });
       }
     },
     async rename(i, e) {
@@ -214,11 +214,11 @@ function MJe(t = {}) {
       let o = e === void 0 || e === null || typeof e !== "object" ? e : { missingOk: e.missingOk },
         r = await c(i, "content", Nlr(o));
       if (r.error !== void 0) return P(r.error);
-      if (r.absent) return o?.missingOk === !0 ? re({ existed: !1 }) : P(cCt());
+      if (r.absent) return o?.missingOk === true ? re({ existed: false }) : P(cCt());
       try {
-        return await V(r.path), re({ existed: !0 });
+        return await V(r.path), re({ existed: true });
       } catch (s) {
-        if (o?.missingOk === !0 && E(s) === "ENOENT") return re({ existed: !1 });
+        if (o?.missingOk === true && E(s) === "ENOENT") return re({ existed: false });
         return P(y(s));
       }
     },
@@ -226,10 +226,10 @@ function MJe(t = {}) {
       let o = e === void 0 || e === null || typeof e !== "object" ? e : { native: e.native },
         r = await c(i, "metadata", Ulr(o));
       if (r.error !== void 0) return P(r.error);
-      if (r.absent) return re({ found: !1 });
+      if (r.absent) return re({ found: false });
       try {
-        let s = o?.native === !0 ? await R(r.path) : A(r.path);
-        return re({ found: !0, path: s });
+        let s = o?.native === true ? await R(r.path) : A(r.path);
+        return re({ found: true, path: s });
       } catch (s) {
         return H(s);
       }
@@ -240,7 +240,7 @@ function MJe(t = {}) {
       if (r.error !== void 0) return P(r.error);
       if (r.absent) return re({ kind: "absent" });
       try {
-        let s = o?.follow === !1 ? await D(r.path, { bigint: !0 }) : await T(r.path, { bigint: !0 });
+        let s = o?.follow === false ? await D(r.path, { bigint: true }) : await T(r.path, { bigint: true });
         return re(kwr(s));
       } catch (s) {
         if (E(s) === "ENOENT") return re({ kind: "absent" });
@@ -275,7 +275,7 @@ async function z(t, a) {
     d = typeof t.home === "function" ? t.home() : (t.home ?? B());
   } catch (h) {
     return (
-      n(`storage: the host-files config-home fence stays on (the home folder could not be determined: ${l(h)})`), !0
+      n(`storage: the host-files config-home fence stays on (the home folder could not be determined: ${l(h)})`), true
     );
   }
   if (typeof d !== "string" || !_(d))
@@ -283,7 +283,7 @@ async function z(t, a) {
       n(
         "storage: the host-files config-home fence stays on (the home folder reported is empty or not an absolute path)",
       ),
-      !0
+      true
     );
   let u = te([S(d), await Zzt(d)]),
     m = (h) => {
@@ -330,11 +330,11 @@ function y(t) {
   return Pr(XT(a), { cause: t, ...(a !== void 0 && { telemetryCode: a }) });
 }
 function H(t) {
-  return E(t) === "ENOENT" ? re({ found: !1 }) : P(y(t));
+  return E(t) === "ENOENT" ? re({ found: false }) : P(y(t));
 }
 function kwr(t) {
   let a = t.isFile() ? "file" : t.isDirectory() ? "directory" : t.isSymbolicLink() ? "link" : "other",
-    d = !0;
+    d = true;
   return {
     kind: a,
     size: Number(t.size),

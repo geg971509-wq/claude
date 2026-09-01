@@ -22,19 +22,19 @@ function* G(e) {
     for (let s of n) yield [s, null];
     return;
   }
-  let o = !1,
+  let o = false,
     t;
   if (e instanceof Headers) t = e.entries();
   else if (O(e)) t = e;
-  else (o = !0), (t = Object.entries(e ?? {}));
+  else (o = true), (t = Object.entries(e ?? {}));
   for (let r of t) {
     let n = r[0];
     if (typeof n !== "string") throw TypeError("expected header name to be a string");
     let s = O(r[1]) ? r[1] : [r[1]],
-      i = !1;
+      i = false;
     for (let f of s) {
       if (f === void 0) continue;
-      if (o && !i) (i = !0), yield [n, m];
+      if (o && !i) (i = true), yield [n, m];
       yield [n, f];
     }
   }
@@ -71,7 +71,7 @@ var m = Symbol("clear"),
         else o.append(s, i), t.delete(f);
       }
     }
-    return { [L]: !0, values: o, nulls: t };
+    return { [L]: true, values: o, nulls: t };
   };
 var l = (e) => {
   if (typeof globalThis.process < "u") return globalThis.process.env?.[e]?.trim() || void 0;
@@ -117,7 +117,7 @@ class v extends xP {
     bearerTokenProvider: n,
     googleAuth: s,
     authClient: i,
-    skipAuth: f = !1,
+    skipAuth: f = false,
     ...T
   } = {}) {
     if (i && s)
@@ -138,11 +138,11 @@ class v extends xP {
         "No workspace ID found. Set `workspaceId` in the constructor or the `ANTHROPIC_GOOGLE_CLOUD_WORKSPACE_ID` environment variable.",
       );
     let x = e,
-      k = !1;
+      k = false;
     if (!x)
       if (o) x = D(o, t, r);
       else if (f) throw new bn(`No project was given. ${P}`);
-      else k = !0;
+      else k = true;
     super({
       baseURL: x ?? null,
       ...T,

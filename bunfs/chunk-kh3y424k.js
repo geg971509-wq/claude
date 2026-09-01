@@ -462,7 +462,7 @@ function de(n) {
     let w = [],
       s = 0,
       i = 0,
-      a = !1,
+      a = false,
       m,
       c = -1,
       k = [],
@@ -470,7 +470,7 @@ function de(n) {
       y = n.length,
       l = 0;
     while (l < y) {
-      if (c >= 0 && l >= c) (a = !1), (m = void 0), (c = -1);
+      if (c >= 0 && l >= c) (a = false), (m = void 0), (c = -1);
       let h = n[l];
       if (h === "/" && n[l + 1] === "/")
         while (
@@ -491,7 +491,7 @@ function de(n) {
           l++;
         }
       } else if (h === "{") {
-        if ((s++, a && i === 0)) k.push({ braceDepth: s, cond: m }), (a = !1), (m = void 0), (c = -1);
+        if ((s++, a && i === 0)) k.push({ braceDepth: s, cond: m }), (a = false), (m = void 0), (c = -1);
       } else if (h === "}") {
         let f = k.at(-1);
         if (f && f.braceDepth === s) k.pop();
@@ -515,14 +515,14 @@ function de(n) {
           l++;
           continue;
         }
-        (a = !0), (c = -1), (m = Ee(n, f, !1));
+        (a = true), (c = -1), (m = Ee(n, f, false));
       } else if (h === "f" && n.startsWith("for", l) && i === 0 && !G(n[l - 1]) && !G(n[l + 3])) {
         let f = n.indexOf("(", l);
         if (f === -1 || f - l > Z) {
           l++;
           continue;
         }
-        (a = !0), (c = -1), (m = Ee(n, f, !0));
+        (a = true), (c = -1), (m = Ee(n, f, true));
       } else if (h === "p" && n.startsWith("parallel(", l) && !G(n[l - 1])) P.push(i + 1), (l += 7);
       else if (h === "a" && n.startsWith("agent", l) && !G(n[l - 1])) {
         let f = l + 5;
@@ -571,12 +571,12 @@ function On(J, ht) {
           ht + 1,
           ". ",
           J.title,
-          J.detail ? r(t, { dimColor: !0, children: [" \u2014 ", J.detail] }) : "",
+          J.detail ? r(t, { dimColor: true, children: [" \u2014 ", J.detail] }) : "",
         ],
       }),
       J.prompts.length > 0 &&
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             "     ",
             J.prompts.slice(0, 2).map(Mn).join("  "),
@@ -627,11 +627,11 @@ function rn(n) {
         return r(t, {
           children: [
             "Yes, and don't ask again for ",
-            e(t, { bold: !0, children: a.display }),
+            e(t, { bold: true, children: a.display }),
             " ",
             "in",
             " ",
-            e(t, { bold: !0, children: nr(Se()) }),
+            e(t, { bold: true, children: nr(Se()) }),
           ],
         });
       },
@@ -715,7 +715,7 @@ function vn(it) {
           return;
         }
         let Ge = WP(x);
-        if (Ge.content !== null && Ge.content !== x) rt(Ge.content), bn(!1);
+        if (Ge.content !== null && Ge.content !== x) rt(Ge.content), bn(false);
       }
     }),
       (g[15] = ee),
@@ -743,13 +743,13 @@ function vn(it) {
     (Rn = (Ue, mt) => {
       if (Ue === "toggle") {
         if (!ee()) {
-          return !1;
+          return false;
         }
         bn(Tn);
         return;
       }
       if (Ue !== "no" && D) {
-        return !1;
+        return false;
       }
       return Q(on(Ue, p, x, O, mt));
     }),
@@ -829,7 +829,7 @@ function vn(it) {
     ve = "column";
     Ae = 1;
     Te = 0;
-    Oe = !0;
+    Oe = true;
     Me = se;
     if (g[74] !== p.permissionResult)
       (ae =
@@ -845,7 +845,7 @@ function vn(it) {
     De = "hidden";
     We =
       Je &&
-      e(o, { marginBottom: 1, children: e(zi, { multiline: bE(Je), children: e(t, { bold: !0, children: Je }) }) });
+      e(o, { marginBottom: 1, children: e(zi, { multiline: bE(Je), children: e(t, { bold: true, children: Je }) }) });
     (g[33] = O),
       (g[34] = N),
       (g[35] = se),
@@ -898,7 +898,7 @@ function vn(it) {
       ? e(o, {
           marginBottom: 1,
           children: e(t, {
-            dimColor: !0,
+            dimColor: true,
             children: p.scriptForged
               ? "(the workflow script could not be read from this request \u2014 approval is unavailable; deny or send feedback)"
               : `(script of ${x.length.toLocaleString()} characters cannot be shown in full \u2014 approval is unavailable; deny or send feedback)`,
@@ -936,8 +936,8 @@ function vn(it) {
           multiline: T?.kind === "full" && T.needsGutter,
           children: r(t, {
             children: [
-              r(t, { bold: !0, dimColor: !0, children: ["args:", " "] }),
-              e(t, { dimColor: !0, children: we }),
+              r(t, { bold: true, dimColor: true, children: ["args:", " "] }),
+              e(t, { dimColor: true, children: we }),
             ],
           }),
         }),
@@ -982,7 +982,7 @@ function vn(it) {
   else Fe = g[100];
   let Dn;
   if (g[101] === d)
-    (Dn = e(t, { dimColor: !0, children: e(M, { chord: "ctrl+g", action: "edit script in $EDITOR" }) })), (g[101] = Dn);
+    (Dn = e(t, { dimColor: true, children: e(M, { chord: "ctrl+g", action: "edit script in $EDITOR" }) })), (g[101] = Dn);
   else Dn = g[101];
   let Ke;
   if (g[102] !== Fe)

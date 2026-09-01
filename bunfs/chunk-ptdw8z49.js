@@ -58,30 +58,30 @@ async function _(e) {
   }
 }
 function _W(e, t, s) {
-  if (t === "agent_design_projects" && s === !1) _6n(e), y6n(e), h6n(e);
+  if (t === "agent_design_projects" && s === false) _6n(e), y6n(e), h6n(e);
   e.consentCache = { ...(e.consentCache ?? {}), [t]: s };
 }
 async function yUn(e) {
   return !!(await Rhe(e))?.accessToken;
 }
 async function h(e) {
-  if (!pr()) return { ok: !1, reason: "wrong_provider" };
-  if (Ct()) return { ok: !1, reason: "essential_traffic_only" };
+  if (!pr()) return { ok: false, reason: "wrong_provider" };
+  if (Ct()) return { ok: false, reason: "essential_traffic_only" };
   await Cs({ credentials: e });
   let t;
   if (O() && e !== void 0) t = await qa(e);
   else t = Yt();
   if (t?.accessToken && t.refreshToken && t.scopes?.includes("user:design:read"))
-    return { ok: !0, accessToken: t.accessToken, bearer: "design_scoped_login" };
+    return { ok: true, accessToken: t.accessToken, bearer: "design_scoped_login" };
   let s = await Den(e);
-  if (s.ok) return { ok: !0, accessToken: s.accessToken, bearer: "design_credential" };
+  if (s.ok) return { ok: true, accessToken: s.accessToken, bearer: "design_credential" };
   if (t?.accessToken)
     return {
-      ok: !0,
+      ok: true,
       accessToken: t.accessToken,
       bearer: t.scopes?.includes("user:design:read") ? "design_scoped_login" : "login",
     };
-  return { ok: !1, reason: s.reason, detail: s.detail };
+  return { ok: false, reason: s.reason, detail: s.detail };
 }
 async function U0e(e) {
   return h(e);
@@ -101,14 +101,14 @@ async function hje(e, t) {
     }
     if (e.consentFetch === s) e.consentFetch = null;
   }
-  return e.consentCache?.agent_design_projects === !1 ? "agent_design_projects" : null;
+  return e.consentCache?.agent_design_projects === false ? "agent_design_projects" : null;
 }
 async function Pen(e) {
-  if (!pr() || Ct()) return !1;
+  if (!pr() || Ct()) return false;
   let t;
   if (O() && e !== void 0) t = (await qa(e))?.accessToken;
   else t = Yt()?.accessToken;
-  if (t) return !1;
+  if (t) return false;
   return !(await Rhe(e))?.accessToken;
 }
 async function lZ(e, t, s) {
@@ -122,7 +122,7 @@ async function lZ(e, t, s) {
   } catch (r) {
     throw (p("design_consent", "post_failed"), r);
   }
-  _W(e, t, !0), y("design_consent");
+  _W(e, t, true), y("design_consent");
 }
 async function SUn(e, t, s) {
   try {
@@ -139,7 +139,7 @@ async function SUn(e, t, s) {
   } catch (r) {
     throw (p("design_consent", "delete_failed"), r);
   }
-  _W(e, t, !1), y("design_consent");
+  _W(e, t, false), y("design_consent");
 }
 async function k(e) {
   try {
@@ -219,19 +219,19 @@ function wUn(e, t, s) {
       if (d?.project_id !== t) continue;
       let f = typeof d.created_at === "string" ? Date.parse(d.created_at) : NaN;
       if (Number.isNaN(f)) return null;
-      return { present: !0, createdAtMs: f };
+      return { present: true, createdAtMs: f };
     }
-    return { present: !1 };
+    return { present: false };
   }
   return {
     async poll() {
       let a = await o();
-      if (a === null) return !1;
-      if (r === null) return (r = { createdAtMs: a.present ? a.createdAtMs : null }), !1;
-      if (!a.present) return !1;
-      if (!(r.createdAtMs === null || a.createdAtMs > r.createdAtMs)) return !1;
-      if (oG(e, t)) return !1;
-      return NZ(e, t), !0;
+      if (a === null) return false;
+      if (r === null) return (r = { createdAtMs: a.present ? a.createdAtMs : null }), false;
+      if (!a.present) return false;
+      if (!(r.createdAtMs === null || a.createdAtMs > r.createdAtMs)) return false;
+      if (oG(e, t)) return false;
+      return NZ(e, t), true;
     },
   };
 }

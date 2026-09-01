@@ -112,7 +112,7 @@ ${E}`),
     if (m === "needs-approval")
       return r(`"${u(e)}" is pending approval. Approve it with \`/mcp\` in the terminal first.`);
     let v = e === "all" ? f.filter((d) => z(d, y)) : f,
-      M = e === "all" ? Vge(f, !0, y) : null;
+      M = e === "all" ? Vge(f, true, y) : null;
     if (v.length === 0) {
       let d = Q(f, (h) => h.type === "disabled"),
         g = Q(f, (h) => Kb(h) && !y(h.name));

@@ -728,14 +728,14 @@ function dK(S, P, T) {
     N = x === P ? [P] : [x, P];
   for (let q of N) {
     let z = Ri(q, T);
-    if (z !== void 0) return { ok: !1, reason: z };
+    if (z !== void 0) return { ok: false, reason: z };
   }
   let W = ao(P);
   for (let q of W) {
     let z = Ri(q, T);
-    if (z !== void 0) return { ok: !1, reason: z };
+    if (z !== void 0) return { ok: false, reason: z };
   }
-  return { ok: !0, pathsToCheck: W };
+  return { ok: true, pathsToCheck: W };
 }
 function K4(S, P) {
   return Ri(S, P);
@@ -772,7 +772,7 @@ function Gwr(S) {
 async function wvt(S, P, T, x = Al) {
   let N;
   try {
-    N = await x.lstat(T, { bigint: !0 });
+    N = await x.lstat(T, { bigint: true });
   } catch {
     return;
   }
@@ -796,10 +796,10 @@ async function WZe(S, P) {
     } catch {
       continue;
     }
-    if (rf(S, N, { caseFold: !1, skipPrivateAlias: !0, uncShapeParity: !0 })) return !0;
+    if (rf(S, N, { caseFold: false, skipPrivateAlias: true, uncShapeParity: true })) return true;
   }
-  for (let x of T) if (rf(S, x, { caseFold: !1, skipPrivateAlias: !0, uncShapeParity: !0 })) return !0;
-  return lV(S, {}, [S], { remoteSurface: !0 }).behavior === "allow";
+  for (let x of T) if (rf(S, x, { caseFold: false, skipPrivateAlias: true, uncShapeParity: true })) return true;
+  return lV(S, {}, [S], { remoteSurface: true }).behavior === "allow";
 }
 var dp = {
   nt_namespace: "read_file: NT-namespace path rejected before filesystem access",
@@ -836,7 +836,7 @@ async function qZe(S, P, T, x = "utf-8", N, W = Al) {
       se,
       pe;
     try {
-      let ue = await oe.stat({ bigint: !0 });
+      let ue = await oe.stat({ bigint: true });
       if (!ue.isFile()) throw Jo(S);
       let de;
       try {
@@ -856,7 +856,7 @@ async function qZe(S, P, T, x = "utf-8", N, W = Al) {
     }
     if (N)
       s("tengu_bridge_read_file_served", {
-        success: !0,
+        success: true,
         source: c(N),
         size_bytes: se.length,
         requested_max_bytes: q,
@@ -876,7 +876,7 @@ async function qZe(S, P, T, x = "utf-8", N, W = Al) {
       n(`readFileForRemote failed pre-deny: ${re}`, { level: "error" });
     } catch {}
     try {
-      if (N) s("tengu_bridge_read_file_served", { success: !1, source: c(N) });
+      if (N) s("tengu_bridge_read_file_served", { success: false, source: c(N) });
     } catch {}
     if (z instanceof R && z.message.startsWith("read denied: ")) throw z;
     throw Jo(S);
@@ -923,10 +923,10 @@ function jve(S, P, T, x) {
       if (oe.length > 0) N.push(b(oe).slice(1, -1));
     };
   N.push('{"content":"'), W("{");
-  let q = !0,
+  let q = true,
     z = (oe) => {
       if (!q) W(",");
-      (q = !1), W(b(oe) + ":");
+      (q = false), W(b(oe) + ":");
     };
   for (let [oe, se] of Object.entries(S)) {
     if (se === void 0) continue;
@@ -979,21 +979,21 @@ function Wve(S) {
     try {
       return cK(b(P));
     } catch {
-      return !0;
+      return true;
     }
   });
 }
 var Il = { day: 86400000, week: 604800000 },
   Rs = 1048576;
 async function _p(
-  { transcriptPath: S, scope: P = "session", maxRawTranscriptBytes: T, excludeThirdPartyTranscripts: x = !1 },
+  { transcriptPath: S, scope: P = "session", maxRawTranscriptBytes: T, excludeThirdPartyTranscripts: x = false },
   N,
 ) {
   let [W, q] = await Promise.all([iKt(S, T, N), Cp(S, P, x, N)]),
     z = W,
-    re = !1;
+    re = false;
   if (x && z !== null && cK(z))
-    (z = null), (re = !0), n("rawTranscriptJsonl withheld from session history: contains_3p_transcript_markers");
+    (z = null), (re = true), n("rawTranscriptJsonl withheld from session history: contains_3p_transcript_markers");
   return {
     rawTranscriptJsonl: z,
     recentSessionTranscripts: q.transcripts,
@@ -1008,7 +1008,7 @@ async function Dl(
     diskSubagentTranscripts: x,
     scope: N = "session",
     maxRawTranscriptBytes: W,
-    excludeThirdPartyTranscripts: q = !1,
+    excludeThirdPartyTranscripts: q = false,
   },
   z,
 ) {
@@ -1020,7 +1020,7 @@ async function Dl(
         { transcriptPath: re, scope: oe ? "session" : N, maxRawTranscriptBytes: W, excludeThirdPartyTranscripts: q },
         z,
       ),
-      oe ? !1 : Vg(),
+      oe ? false : Vg(),
       oe ? "" : D1e(),
     ]),
     Re = TQn(P, T),
@@ -1164,13 +1164,13 @@ async function wp(S, P, T, x) {
       (pe) =>
         S.listEntries(
           { namespace: "transcript", projectKey: P.projectKey },
-          { skipScopeStats: !0, ...(pe !== void 0 && { cursor: pe }) },
+          { skipScopeStats: true, ...(pe !== void 0 && { cursor: pe }) },
         ),
       (pe) => {
         q++;
         for (let ue of pe) {
           if (ue.kind !== "key" || ue.key.namespace !== "transcript") continue;
-          if (ue.key.agentId !== void 0 || ue.key.journal === !0) continue;
+          if (ue.key.agentId !== void 0 || ue.key.journal === true) continue;
           if (ue.key.projectKey !== P.projectKey) continue;
           if (ue.key.sessionId === P.sessionId) continue;
           if (!Zt(ue.key.sessionId) || Kn(ue.key) !== void 0) continue;
@@ -1270,7 +1270,7 @@ function Dp(S, P, T) {
       continue;
     }
     if (ue.type !== "user" && ue.type !== "assistant") continue;
-    if (typeof ue.uuid !== "string" || typeof ue.timestamp !== "string" || ue.isSidechain === !0 || !ue.message)
+    if (typeof ue.uuid !== "string" || typeof ue.timestamp !== "string" || ue.isSidechain === true || !ue.message)
       continue;
     if (T.has(ue.uuid) || q.has(ue.uuid)) continue;
     q.add(ue.uuid),
@@ -1281,9 +1281,9 @@ function Dp(S, P, T) {
               uuid: ue.uuid,
               timestamp: ue.timestamp,
               message: ue.message,
-              ...(ue.isMeta === !0 && { isMeta: !0 }),
+              ...(ue.isMeta === true && { isMeta: true }),
               ...(ue.toolUseResult !== void 0 && { toolUseResult: ue.toolUseResult }),
-              ...(ue.isCompactSummary === !0 && { isCompactSummary: !0 }),
+              ...(ue.isCompactSummary === true && { isCompactSummary: true }),
             }
           : { type: "assistant", uuid: ue.uuid, timestamp: ue.timestamp, message: ue.message, requestId: ue.requestId },
       ),
@@ -1313,7 +1313,7 @@ function mvt(S, P, T = S.length) {
 function Op(S, P) {
   let T;
   for (let z of S) {
-    if (z.type === "user" && z.isCompactSummary === !0) continue;
+    if (z.type === "user" && z.isCompactSummary === true) continue;
     if (T === void 0 || z.timestamp < T) T = z.timestamp;
   }
   let x = [],
@@ -1322,7 +1322,7 @@ function Op(S, P) {
     if (T === void 0 || z.timestamp < T) x.push(z);
     else N.push(z);
   if (N.length === 0) return [...x, ...S];
-  let W = S.findLastIndex((z) => z.type === "user" && z.isCompactSummary === !0),
+  let W = S.findLastIndex((z) => z.type === "user" && z.isCompactSummary === true),
     q = W === -1 ? S.length : W;
   return [...x, ...S.slice(0, q), ...N, ...S.slice(q)];
 }
@@ -1383,7 +1383,7 @@ async function jl({
       platform: oe.platform,
       gitRepo: oe.isGit,
       commitSha: oe.commitSha,
-      ...(oe.remoteWorkspace && { remoteWorkspace: !0 }),
+      ...(oe.remoteWorkspace && { remoteWorkspace: true }),
       ...(oe.remoteSessionId && { remoteSessionId: oe.remoteSessionId }),
       terminal: oe.terminal,
       version: oe.version,
@@ -1420,13 +1420,13 @@ function Ni(S) {
   }
 }
 async function H$e(S, P, T) {
-  if (Ct()) return { success: !1 };
-  if (!Mt("allow_product_feedback")) return { success: !1, failureReason: "policy_blocked" };
+  if (Ct()) return { success: false };
+  if (!Mt("allow_product_feedback")) return { success: false, failureReason: "policy_blocked" };
   let x = 0;
   try {
     let N = jve(S, Ui, Bi);
     if (((x = N.length), x > uK))
-      return { success: !1, payloadTooLarge: !0, failureReason: "payload_too_large_precheck" };
+      return { success: false, payloadTooLarge: true, failureReason: "payload_too_large_precheck" };
     let W = await dh(
       () =>
         bt.post("/api/claude_cli_feedback", N, {
@@ -1440,45 +1440,45 @@ async function H$e(S, P, T) {
     if (!W.ok)
       switch (W.reason) {
         case "essential-traffic-only":
-          return { success: !1 };
+          return { success: false };
         case "data-residency":
-          return { success: !1, failureReason: "data_residency" };
+          return { success: false, failureReason: "data_residency" };
         case "no-auth":
-          return { success: !1, failureReason: "auth_error" };
+          return { success: false, failureReason: "auth_error" };
       }
     if (W.status === 200) {
-      if (W.data?.feedback_id) return { success: !0, feedbackId: W.data.feedback_id };
+      if (W.data?.feedback_id) return { success: true, feedbackId: W.data.feedback_id };
       return (
         Ni(Error("Failed to submit feedback: request did not return feedback_id")),
-        { success: !1, failureReason: "missing_feedback_id" }
+        { success: false, failureReason: "missing_feedback_id" }
       );
     }
     let q = "Failed to submit feedback:" + W.status;
     if (W.status === 401 || W.status === 403 || W.status === 429) n(q);
     else Ni(Error(q));
-    return { success: !1, failureReason: "http_error", statusCode: W.status };
+    return { success: false, failureReason: "http_error", statusCode: W.status };
   } catch (N) {
-    if (sa(N)) return { success: !1 };
+    if (sa(N)) return { success: false };
     if (N instanceof RangeError)
-      return { success: !1, payloadTooLarge: !0, failureReason: "payload_too_large_range_error" };
+      return { success: false, payloadTooLarge: true, failureReason: "payload_too_large_range_error" };
     if (Sp(N)) {
       if (N.response?.status === 413)
-        return { success: !1, payloadTooLarge: !0, failureReason: "payload_too_large_413", statusCode: 413 };
+        return { success: false, payloadTooLarge: true, failureReason: "payload_too_large_413", statusCode: 413 };
       if (N.code === "ECONNABORTED" && x > uK / 8)
-        return { success: !1, payloadTooLarge: !0, failureReason: "payload_too_large_timeout" };
+        return { success: false, payloadTooLarge: true, failureReason: "payload_too_large_timeout" };
       if (N.response?.status === 403) {
         let W = N.response.data;
         if (W?.error?.type === "permission_error" && W?.error?.message?.includes("Custom data retention settings"))
           return (
             n("Cannot submit feedback because custom data retention settings are enabled"),
-            { success: !1, isZdrOrg: !0, failureReason: "zdr_org", statusCode: 403 }
+            { success: false, isZdrOrg: true, failureReason: "zdr_org", statusCode: 403 }
           );
       }
     }
     if (ic(N)) n(co(l(N)));
     else Ni(N);
-    if (Sp(N) && N.response) return { success: !1, failureReason: "http_error", statusCode: N.response.status };
-    return { success: !1, failureReason: Sp(N) && N.code === "ECONNABORTED" ? "timeout" : "network_error" };
+    if (Sp(N) && N.response) return { success: false, failureReason: "http_error", statusCode: N.response.status };
+    return { success: false, failureReason: Sp(N) && N.code === "ECONNABORTED" ? "timeout" : "network_error" };
   }
 }
 async function jIn({
@@ -1491,9 +1491,9 @@ async function jIn({
   credentials: q,
 }) {
   if (Ne() !== "firstParty")
-    return p("feedback_survey_followup", "not_first_party"), { success: !1, failureReason: "not_first_party" };
+    return p("feedback_survey_followup", "not_first_party"), { success: false, failureReason: "not_first_party" };
   if (!Mt("allow_product_feedback"))
-    return p("feedback_survey_followup", "policy_blocked"), { success: !1, failureReason: "policy_blocked" };
+    return p("feedback_survey_followup", "policy_blocked"), { success: false, failureReason: "policy_blocked" };
   let z = Fye(N),
     re = {
       latestAssistantMessageId: z?.requestId ?? null,
@@ -1504,7 +1504,7 @@ async function jIn({
       description: co(S),
       surface: "cli",
       platform: a.platform,
-      gitRepo: !1,
+      gitRepo: false,
       commitSha: null,
       version: {
         ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
@@ -1518,7 +1518,7 @@ async function jIn({
         DD_SOURCEMAP_GROUP: "darwin",
       }.VERSION,
       transcript: [],
-      survey_followup: !0,
+      survey_followup: true,
       survey_appearance_id: P,
       survey_response: T,
       survey_type: x,
@@ -1548,7 +1548,7 @@ async function wme({
       backgroundTasks: N,
       transcripts: W,
       surveyFeedbackSource: z,
-      excludeThirdPartyTranscripts: !0,
+      excludeThirdPartyTranscripts: true,
       storageV5: re,
     }),
     ue = se.latestAssistantMessageId,
@@ -1580,7 +1580,7 @@ async function wme({
     s("tengu_bug_report_submitted", {
       surface: c(T),
       remote_workspace: w(se.remoteWorkspace ? "true" : "false"),
-      retried_after_too_large: !de.success && de.payloadTooLarge === !0,
+      retried_after_too_large: !de.success && de.payloadTooLarge === true,
       strip_level: bi(Oe),
       third_party_transcripts_dropped: bi(pe),
       feedback_id: ve(Re.feedbackId),
@@ -1594,10 +1594,10 @@ async function wme({
       }),
     }),
       tNe("tengu_bug_report_description", { feedback_id: ve(Re.feedbackId), descriptionLength: P.length });
-    let Ge = !de.success && de.payloadTooLarge === !0;
+    let Ge = !de.success && de.payloadTooLarge === true;
     if (Ge) g("feedback_submit", "payload_stripped");
     else y("feedback_submit");
-    return { success: !0, feedbackId: Re.feedbackId, retriedAfterTooLarge: Ge };
+    return { success: true, feedbackId: Re.feedbackId, retriedAfterTooLarge: Ge };
   }
   if (Re.failureReason)
     p("feedback_submit", Re.failureReason),
@@ -1606,16 +1606,16 @@ async function wme({
         remote_workspace: w(se.remoteWorkspace ? "true" : "false"),
         reason: c(Re.failureReason),
         status_code: HP(Re.statusCode) ?? w(""),
-        first_attempt_too_large: !de.success && de.payloadTooLarge === !0,
+        first_attempt_too_large: !de.success && de.payloadTooLarge === true,
       });
-  return { success: !1, isZdrOrg: Re.isZdrOrg, failureReason: Re.failureReason, statusCode: Re.statusCode };
+  return { success: false, isZdrOrg: Re.isZdrOrg, failureReason: Re.failureReason, statusCode: Re.statusCode };
 }
 async function sKt(S, P = "feedback.json") {
   let N = `cc-${new Date().toISOString().replace(/[-:]/g, "").replace("T", "-").slice(0, 15)}-${Pp(3).toString("hex")}`,
     W = Fl(be(), "feedback-bundles"),
     q = Fl(W, `${N}.zip`);
   try {
-    await Mp(W, { recursive: !0, mode: 448 });
+    await Mp(W, { recursive: true, mode: 448 });
     let { Zip: z, ZipDeflate: re } = await import("/$bunfs/root/chunk-y69hp76g.js"),
       oe = Ep(q, { mode: 384 });
     return (
@@ -1626,17 +1626,17 @@ async function sKt(S, P = "feedback.json") {
             if ((oe.write(Oe), Ge)) oe.end(() => se());
           }),
           de = new re(P);
-        ue.add(de), de.push(S, !0), ue.end();
+        ue.add(de), de.push(S, true), ue.end();
       }),
       y("feedback_bundle"),
-      { success: !0, bundleId: N, zipPath: q }
+      { success: true, bundleId: N, zipPath: q }
     );
   } catch (z) {
     return (
-      await Rp(q, { force: !0 }).catch(() => {}),
+      await Rp(q, { force: true }).catch(() => {}),
       h(z),
       p("feedback_bundle", "write_failed"),
-      { success: !1, error: l(z) }
+      { success: false, error: l(z) }
     );
   }
 }
@@ -1660,13 +1660,13 @@ async function aKt({
         backgroundTasks: N,
         transcripts: W,
         surveyFeedbackSource: q,
-        excludeThirdPartyTranscripts: !1,
+        excludeThirdPartyTranscripts: false,
         storageV5: z,
       }),
       se = SU(oe);
     re = jve(se, Ui, Bi);
   } catch (oe) {
-    return h(oe), p("feedback_bundle", "write_failed"), { success: !1, error: l(oe) };
+    return h(oe), p("feedback_bundle", "write_failed"), { success: false, error: l(oe) };
   }
   return sKt(re);
 }
@@ -1795,7 +1795,7 @@ function BZe() {
 function Gve(S) {
   let P = new Set(S.mcpClients.map((W) => W.name)),
     T = S.mcpServerErrors.filter((W) => !P.has(W.name)),
-    x = S.commands.filter((W) => W.userInvocable !== !1 && W.terminalOriented === !0).map((W) => W.name),
+    x = S.commands.filter((W) => W.userInvocable !== false && W.terminalOriented === true).map((W) => W.name),
     N = {
       type: "system",
       subtype: "init",
@@ -1805,7 +1805,7 @@ function Gve(S) {
       mcp_servers: S.mcpClients.map((W) => ({ name: W.name, status: Tme(W.type) })),
       model: S.model,
       permissionMode: sd(S.permissionMode),
-      slash_commands: S.commands.filter((W) => W.userInvocable !== !1).map((W) => W.name),
+      slash_commands: S.commands.filter((W) => W.userInvocable !== false).map((W) => W.name),
       ...(x.length > 0 && { terminal_slash_commands: x }),
       apiKeySource: S.apiKeySource,
       betas: S.betas,
@@ -1823,7 +1823,7 @@ function Gve(S) {
       output_style: S.outputStyle,
       agents: S.agents.map((W) => W.agentType),
       skills: pu(S.skills, "name")
-        .filter((W) => W.userInvocable !== !1)
+        .filter((W) => W.userInvocable !== false)
         .map((W) => W.name),
       plugins: S.plugins.map(cKt),
       ...(S.pluginErrors.length > 0 && { plugin_errors: S.pluginErrors.map((W) => ({ ...W })) }),
@@ -1894,7 +1894,7 @@ function ql(S, P, T, x, N, W, q, z, re, oe, se) {
         origin: se,
       });
     if (se) Dun(Jt, se);
-    return { messages: [Jt, ...x], shouldQuery: !0 };
+    return { messages: [Jt, ...x], shouldQuery: true };
   }
   let kt = xe({
     content: S,
@@ -1906,7 +1906,7 @@ function ql(S, P, T, x, N, W, q, z, re, oe, se) {
     origin: se,
   });
   if (se) Dun(kt, se);
-  return { messages: [kt, ...x], shouldQuery: !0 };
+  return { messages: [kt, ...x], shouldQuery: true };
 }
 var Vl = "Blank prompt \u2014 the message was only whitespace, so nothing was sent to the model.",
   Ds = () => import.meta.require("/$bunfs/root/chunk-90xwcb5a.js"),
@@ -1952,17 +1952,17 @@ async function vie({
   verifiedSlackHumanTurn: Qt,
   inlinedImagePaths: nn,
   promptSubmitted: lt,
-  wait: on = !1,
+  wait: on = false,
 }) {
   using xt = DS.queuedAnswer(HG.takeSubmitted(oe));
   let Ve = typeof S === "string" ? S : null;
   if (x === "prompt" && Ve !== null && !Xe) re?.(Ve, tn);
   Mc("query_process_user_input_base_start");
   let st =
-      _t === !1 && Xe
+      _t === false && Xe
         ? void 0
         : $ct({ isNonInteractive: N.options.isNonInteractiveSession, isMeta: Xe, callerSource: fn }),
-    nt = kt === !0 || tn?.kind === "plugin",
+    nt = kt === true || tn?.kind === "plugin",
     Pt = [...(N.nestedMemoryAttachmentTriggers ?? [])];
   N.consumedNestedMemoryTriggers = [];
   let ot = await ef(
@@ -1998,7 +1998,7 @@ async function vie({
       if (((We.scheduledTaskId = Ze), pt !== void 0)) We.scheduledFireId = pt;
     }
   }
-  if ((Mc("query_process_user_input_base_end"), Jt === !0 && ot.messages.length > 0))
+  if ((Mc("query_process_user_input_base_end"), Jt === true && ot.messages.length > 0))
     ot.messages.push(
       In({
         type: "poll_events",
@@ -2009,9 +2009,9 @@ async function vie({
         ...(wn !== void 0 && { provenance: wn }),
       }),
     );
-  if (!se && mn !== !0) vit(N.setToolPermissionContext, ot.disallowedTools ?? []);
-  if (_t === !1) ot.shouldQuery = !1;
-  if (!ot.shouldQuery || x === "bash" || ot.forkDispatched || At === !0 || st === void 0)
+  if (!se && mn !== true) vit(N.setToolPermissionContext, ot.disallowedTools ?? []);
+  if (_t === false) ot.shouldQuery = false;
+  if (!ot.shouldQuery || x === "bash" || ot.forkDispatched || At === true || st === void 0)
     return await Xl(ot, z, N.options.tools), ot;
   Mc("query_hooks_start");
   let Gt = kE(S) || "",
@@ -2055,7 +2055,7 @@ async function vie({
               result: ot,
               promptSource: st,
               wakeupSource: Ge,
-              tiers: { managedHooksExcluded: !0 },
+              tiers: { managedHooksExcluded: true },
             });
     Kt =
       We.blocked !== void 0
@@ -2063,7 +2063,7 @@ async function vie({
         : { proceeds: { text: lt.text, context: lt.context, sessionTitle: We.sessionTitle ?? an.sessionTitle } };
   } else if (lt.stopped !== void 0)
     ot.messages.push(...lt.messages),
-      (ot.shouldQuery = !1),
+      (ot.shouldQuery = false),
       (ot.resultText = lt.stopped),
       (Kt = { ended: ot, stopped: lt.stopped });
   else
@@ -2156,7 +2156,7 @@ async function Zp({
   querySource: z,
 }) {
   let re = [],
-    oe = !1;
+    oe = false;
   for (let pe of S) {
     if (pe.type !== "attachment" || !Xp.has(pe.attachment.type)) {
       re.push(pe);
@@ -2170,7 +2170,7 @@ async function Zp({
   W.nestedMemoryAttachmentTriggers?.push(...N);
   let se = await qye(
     Qee(T, W, null, [], { now: () => new Date().toISOString(), uuid: Gi }, q, z, {
-      inputMentionsOnly: !0,
+      inputMentionsOnly: true,
       isHumanTypedPrompt: oe,
       preExpansionInput: oe ? x : void 0,
     }),
@@ -2187,9 +2187,9 @@ async function ef(S, P, T, x, N, W, q, z, re, oe, se, pe, ue, de, Re, Oe, Ge, Ze
     S.trim() === "" &&
     T.options.isNonInteractiveSession &&
     !Oe &&
-    kt !== !1
+    kt !== false
   )
-    return y("prompt_submit_empty"), { messages: [Dt(Vl, "warning")], shouldQuery: !1, resultText: Vl };
+    return y("prompt_submit_empty"), { messages: [Dt(Vl, "warning")], shouldQuery: false, resultText: Vl };
   let _t = null,
     fn = [],
     tn = [],
@@ -2251,7 +2251,7 @@ async function ef(S, P, T, x, N, W, q, z, re, oe, se, pe, ue, de, Re, Oe, Ge, Ze
     if (De.kind === "updated")
       (Pt = De.effectiveSkipSlash),
         (Gt = De.effectiveInput),
-        (ot = { ...De.effectiveContext, dispatchedOverBridge: !0 });
+        (ot = { ...De.effectiveContext, dispatchedOverBridge: true });
   }
   if (Re && !de && _t !== null && _t.startsWith("/")) {
     let We = Ex(_t),
@@ -2276,9 +2276,9 @@ async function ef(S, P, T, x, N, W, q, z, re, oe, se, pe, ue, de, Re, Oe, Ge, Ze
         Wt = et ? ua(et.targetName, T.options.commands) : void 0,
         An = et && Wt && xp(Wt) ? Wt : Be;
       if (
-        xdt(An, { commandName: An.name, userTypedThisTurn: !1, isMainSession: !0, permissionContext: he(T) }) === null
+        xdt(An, { commandName: An.name, userTypedThisTurn: false, isMainSession: true, permissionContext: he(T) }) === null
       )
-        Pt = !1;
+        Pt = false;
     }
   }
   let en = tf({ querySource: oe, context: T });
@@ -2291,7 +2291,7 @@ async function ef(S, P, T, x, N, W, q, z, re, oe, se, pe, ue, de, Re, Oe, Ge, Ze
     !_t.startsWith("/") &&
     !T.options.ultraplanSessionUrl &&
     !T.getAppState().ultraplanLaunching &&
-    Jt !== !0 &&
+    Jt !== true &&
     !Oe &&
     nR(Xe) &&
     Spt(Ze ?? _t)
@@ -2304,7 +2304,7 @@ async function ef(S, P, T, x, N, W, q, z, re, oe, se, pe, ue, de, Re, Oe, Ge, Ze
         fn,
         Ve,
         [],
-        { ...T, dispatchedByKeyword: !0, submissionVerifiedSlackHumanTurn: wn },
+        { ...T, dispatchedByKeyword: true, submissionVerifiedSlackHumanTurn: wn },
         z,
         re,
         se,
@@ -2329,7 +2329,7 @@ async function ef(S, P, T, x, N, W, q, z, re, oe, se, pe, ue, de, Re, Oe, Ge, Ze
     return Ts(await We(_t, fn, T), tn);
   }
   let Kt = !Ge && (P !== "prompt" || Pt || !_t?.startsWith("/")),
-    bn = nt && !Oe && kt !== !1,
+    bn = nt && !Oe && kt !== false,
     St = bn && nR(Xe);
   Mc("query_attachment_loading_start");
   let ln = Kt
@@ -2349,7 +2349,7 @@ async function ef(S, P, T, x, N, W, q, z, re, oe, se, pe, ue, de, Re, Oe, Ge, Ze
         ? (Ke) =>
             xdt(Ke, {
               commandName: Ke.name,
-              userTypedThisTurn: !1,
+              userTypedThisTurn: false,
               isMainSession: T.agentId === void 0,
               permissionContext: he(T),
             }) !== null
@@ -2377,7 +2377,7 @@ async function ef(S, P, T, x, N, W, q, z, re, oe, se, pe, ue, de, Re, Oe, Ge, Ze
         Xe,
         At,
       );
-    if (P === "prompt" && !Oe && kt !== !1 && nR(Xe) && !Re && Be.shouldQuery && !T.abortController.signal.aborted)
+    if (P === "prompt" && !Oe && kt !== false && nR(Xe) && !Re && Be.shouldQuery && !T.abortController.signal.aborted)
       fpt(), upt(T.setAppState);
     if (an) Be.messages.push(an);
     return Ts(Be, tn);
@@ -2398,13 +2398,13 @@ async function ef(S, P, T, x, N, W, q, z, re, oe, se, pe, ue, de, Re, Oe, Ge, Ze
 }
 function tf({ querySource: S, context: P }) {
   if (Ds) {
-    let T = () => nl() && S?.startsWith("repl_main_thread") === !0 && !P.agentId;
+    let T = () => nl() && S?.startsWith("repl_main_thread") === true && !P.agentId;
     return {
       markTurnActive: (x) => {
         try {
           if (T()) {
             let N = Jl(P);
-            Ds().markTurnActive(N, fu(), x), (N.kicked = !1);
+            Ds().markTurnActive(N, fu(), x), (N.kicked = false);
           }
         } catch (N) {
           if (It(N)) return;
@@ -2419,7 +2419,7 @@ function tf({ querySource: S, context: P }) {
             q = fu();
           if (x) {
             let z = Vp(),
-              re = z.detectSurfaces(!1),
+              re = z.detectSurfaces(false),
               oe = z.engineFor(z.sinksFor(re));
             if (oe) {
               let se = N.findLatestRealUserAsk([...P.messages, ...x]);
@@ -2454,7 +2454,7 @@ function tf({ querySource: S, context: P }) {
 }
 function Ts(S, P) {
   if (P.length > 0)
-    S.messages.push(xe({ content: P.map((T) => ({ type: "text", text: T })), isMeta: !0, turnCompanion: !0 }));
+    S.messages.push(xe({ content: P.map((T) => ({ type: "text", text: T })), isMeta: true, turnCompanion: true }));
   return S;
 }
 function Evt(S, P) {
@@ -2532,8 +2532,8 @@ function zve({
   initialPermissionMode: wn,
   fastModeState: mn,
   fastModeDisabledReason: _t,
-  hostOwnsPermissionMode: fn = !1,
-  sdkResultVerdict: tn = !1,
+  hostOwnsPermissionMode: fn = false,
+  sdkResultVerdict: tn = false,
   onCommandLifecycle: Qt,
   onTurnThrow: nn,
 }) {
@@ -2587,19 +2587,19 @@ function zve({
         capabilities: uf,
       });
     },
-    We = !1,
+    We = false,
     De = 0,
     Be = null,
-    Ke = !1,
+    Ke = false,
     et = GS(sw),
     Wt = [],
-    An = !1,
+    An = false,
     Nn = [],
-    ro = !1,
+    ro = false,
     kr = (Ie) => {
       if (Wt.length >= lf) {
         if ((Wt.shift(), !An))
-          (An = !0),
+          (An = true),
             h(Error("[engine] pendingDenialFrames buffer is full; dropping oldest permission_denied advisory frames"));
       }
       Wt.push(Ie);
@@ -2649,17 +2649,17 @@ function zve({
       });
   }
   let rr = () => {
-    if (!ro) return !1;
+    if (!ro) return false;
     let Ie = Be?.toolUseContext?.getAppState;
     return Ie !== void 0 && Jye(Ie()).some((Fe) => tF(Fe) && Zf(Fe));
   };
   async function* as() {
-    We = !1;
+    We = false;
     let Ie = an();
     if (Ie) n("[engine] yield system/init (first)"), yield St(Ie);
     for await (let Fe of on) {
       if (We) {
-        We = !1;
+        We = false;
         let Lt = an();
         if (Lt) n("[engine] yield system/init (re-emit)"), yield St(Lt);
       }
@@ -2680,7 +2680,7 @@ function zve({
             ...XC({
               startedAt: ht,
               common: {
-                is_error: !0,
+                is_error: true,
                 duration_api_ms: 0,
                 num_turns: 0,
                 stop_reason: null,
@@ -2715,12 +2715,12 @@ function zve({
       let Cn = Rt.toolUseContext?.abortController?.signal,
         Un = () => yn.abort(Cn?.reason);
       if (Cn?.aborted) yn.abort(Cn.reason);
-      else Cn?.addEventListener("abort", Un, { once: !0 });
+      else Cn?.addEventListener("abort", Un, { once: true });
       let Yt = Rt.toolUseContext?.abortController,
         wr = () => {
           if (Za(yn.signal.reason) === "refusal-fallback-edit" && Yt && !Yt.signal.aborted) Yt.abort(yn.signal.reason);
         };
-      yn.signal.addEventListener("abort", wr, { once: !0 }), n(`[engine] turn ${st} start`);
+      yn.signal.addEventListener("abort", wr, { once: true }), n(`[engine] turn ${st} start`);
       let mr = [],
         Pr = (Lt, Ee, dt) => {
           if (mr.some((Rn) => Rn.tool_use_id === Ee)) return;
@@ -2755,7 +2755,7 @@ function zve({
           : S({
               ...Rt,
               canUseTool: no,
-              keepPartialMessageOnAbort: !0,
+              keepPartialMessageOnAbort: true,
               toolUseContext: {
                 ...Rt.toolUseContext,
                 abortController: yn,
@@ -2773,13 +2773,13 @@ function zve({
               },
             }),
         pr = null,
-        Ar = !1,
+        Ar = false,
         sr = Rt.engineDeferredSlash ? 0 : 1,
         Uo = null,
         Bo = [],
         gr,
         $o = "",
-        Go = !1,
+        Go = false,
         Ir = null,
         xr = "",
         Ko = [],
@@ -2795,7 +2795,7 @@ function zve({
           let Ee = Lt.value;
           if (Ee.type === "user") {
             if (!Rt.engineDeferredSlash) sr++;
-            Bo.push(Ee), ($o = ""), (Go = !1), (Ir = null), (xr = "");
+            Bo.push(Ee), ($o = ""), (Go = false), (Ir = null), (xr = "");
           } else if (Ee.type === "tombstone") {
             {
               let dt = Ee.message?.uuid,
@@ -2816,10 +2816,10 @@ function zve({
                 }
               }
             }
-            ($o = ""), (Go = !1), (Ir = null), (xr = "");
+            ($o = ""), (Go = false), (Ir = null), (xr = "");
           } else if (Ee.type === "assistant") {
             if (((qn ??= performance.now()), Bo.push(Ee), Ee.message.stop_reason != null)) Uo = Ee.message.stop_reason;
-            (Go = Ee.isApiErrorMessage === !0), (Ir = Ee.apiErrorStatus ?? null);
+            (Go = Ee.isApiErrorMessage === true), (Ir = Ee.apiErrorStatus ?? null);
             let dt = bO(Ee.message.content),
               Rn = dt?.type === "text" ? dt.text : "";
             if (Go) (xr = bce.has(Rn) ? "" : Bd(Rn)), ($o = "");
@@ -2899,7 +2899,7 @@ function zve({
               ...(Ee.retractedMessageUuids !== void 0 && { retracted_message_uuids: Ee.retractedMessageUuids }),
               refused_user_message_uuid: Ee.refusedUserMessageUuid ?? null,
               content: Ee.content,
-              ...(Ee.sawCyberRefusal && { saw_cyber_refusal: !0 }),
+              ...(Ee.sawCyberRefusal && { saw_cyber_refusal: true }),
               ...(Ee.provisional && { provisional: Ee.provisional }),
             });
           else if (Ee.type === "system" && Ee.subtype === "model_refusal_no_fallback")
@@ -2987,7 +2987,7 @@ function zve({
               tool_name: Ee.data.toolName,
               parent_tool_use_id: Ee.parentToolUseID || null,
               elapsed_time_seconds: Ee.data.elapsedTimeSeconds,
-              heartbeat: !0,
+              heartbeat: true,
             }),
               n("[engine] yield-twin tool_progress heartbeat", vo);
           if (Ee.type === "progress" && Ee.data.type === "agent_api_retry")
@@ -2998,7 +2998,7 @@ function zve({
               parent_tool_use_id: Ee.parentToolUseID || null,
               elapsed_time_seconds: 0,
               subagent_type: Ee.data.agentType,
-              ...(Ee.data.resolved !== !0 && {
+              ...(Ee.data.resolved !== true && {
                 subagent_retry: {
                   agent_id: Ee.data.agentId,
                   attempt: Ee.data.attempt,
@@ -3064,7 +3064,7 @@ function zve({
             ? {
                 ...XC({
                   startedAt: ht,
-                  common: { ...yr, is_error: !0, num_turns: sr },
+                  common: { ...yr, is_error: true, num_turns: sr },
                   variant: { subtype: "error_max_budget_usd", errors: [sut(kn)], user_message_uuid: void 0 },
                 }),
                 ...ct,
@@ -3073,7 +3073,7 @@ function zve({
               ? {
                   ...XC({
                     startedAt: ht,
-                    common: { ...yr, is_error: !0, num_turns: gr.turnCount },
+                    common: { ...yr, is_error: true, num_turns: gr.turnCount },
                     variant: {
                       subtype: "error_max_turns",
                       errors: [`Reached maximum number of turns (${gr.maxTurns})`],
@@ -3086,7 +3086,7 @@ function zve({
                 ? {
                     ...XC({
                       startedAt: ht,
-                      common: { ...yr, is_error: !0, num_turns: sr },
+                      common: { ...yr, is_error: true, num_turns: sr },
                       variant: { subtype: "error_during_execution", errors: qr, user_message_uuid: void 0 },
                     }),
                     ...ct,
@@ -3151,17 +3151,17 @@ function zve({
           let Fe = Be?.toolUseContext?.taskRegistry,
             ht = 0;
           if (Be?.toolUseContext !== void 0 && Fe !== void 0) {
-            ht = Mq(Fe, { durable: !1 });
+            ht = Mq(Fe, { durable: false });
             let { setAppState: Rt } = Be.toolUseContext;
             M4e({ taskRegistry: Fe, setAppState: Rt });
           }
-          let ct = FG(Zm(), { leaveArtifactRooms: !0 });
+          let ct = FG(Zm(), { leaveArtifactRooms: true });
           pD(ht, ct);
         }
         break;
       }
       case "set_model":
-        (Pt = Ie.model ?? null), (We = !0), n(`[engine] send set_model model=${Ie.model}`);
+        (Pt = Ie.model ?? null), (We = true), n(`[engine] send set_model model=${Ie.model}`);
         break;
       case "set_permission_mode": {
         let Fe = Lf(Ie.mode);
@@ -3177,7 +3177,7 @@ function zve({
           n("[engine] set_permission_mode:auto rejected \u2014 gate not enabled");
           break;
         }
-        (ot = Fe), (We = !0);
+        (ot = Fe), (We = true);
         break;
       }
       case "set_max_thinking_tokens":
@@ -3193,7 +3193,7 @@ function zve({
     }
   }
   function So() {
-    (ro = !0), on.done();
+    (ro = true), on.done();
   }
   let Do = mi(),
     Hr = Do.return.bind(Do),
@@ -3222,7 +3222,7 @@ function zve({
             go({
               type: "seed_read_state",
               path: ht,
-              seed: { content: Cn, timestamp: Rt, offset: void 0, limit: void 0, contentNotInModelContext: !0 },
+              seed: { content: Cn, timestamp: Rt, offset: void 0, limit: void 0, contentNotInModelContext: true },
             });
           }
         } catch {}
@@ -3311,11 +3311,11 @@ function zve({
         if (Be === null) return !Ie;
         let { taskRegistry: Fe } = Be.toolUseContext;
         if (Ie) return Zdt(Ie, Fe);
-        return s9(Fe), !0;
+        return s9(Fe), true;
       },
       getSettings: () => Promise.resolve(ue),
       generateSessionTitle: async (Ie, Fe) => {
-        if (Fe?.persist) Ke = !0;
+        if (Fe?.persist) Ke = true;
         let ht = (nt && !nt.signal.aborted ? nt : new AbortController()).signal,
           ct = await Cq(Ie, ht, Fe?.credentials);
         if (ct && Fe?.persist)
@@ -3327,7 +3327,7 @@ function zve({
           }
         return ct;
       },
-      messageRated: async ({ messageUuid: Ie, sentiment: Fe, surface: ht = "tool_use", cleared: ct = !1 }) => {
+      messageRated: async ({ messageUuid: Ie, sentiment: Fe, surface: ht = "tool_use", cleared: ct = false }) => {
         if (Mt("allow_product_feedback"))
           s("tengu_message_rated", { message_uuid: ve(Ie), sentiment: c(Fe), surface: c(ht), cleared: ct });
       },
@@ -3340,7 +3340,7 @@ function zve({
           Cn = await Rt({
             question: Ie,
             cacheSafeParams: { ...ct, toolUseContext: { ...ct.toolUseContext, abortController: yn() } },
-            threadHistory: !1,
+            threadHistory: false,
             ...(Fe?.history?.length && {
               history: Fe.history.map((Un) => ({
                 question: Un.question,
@@ -3358,7 +3358,7 @@ function zve({
             };
       },
       rewindFiles: async (Ie, Fe) => {
-        if (Be === null) return { canRewind: !1, error: "rewindFiles: no turn received yet" };
+        if (Be === null) return { canRewind: false, error: "rewindFiles: no turn received yet" };
         let {
             fileHistoryEnabled: ht,
             fileHistoryCanRestore: ct,
@@ -3366,12 +3366,12 @@ function zve({
             fileHistoryRewind: yn,
           } = await import("/$bunfs/root/chunk-jy9bctn8.js"),
           Cn = Be.toolUseContext.getAppState();
-        if (!ht()) return { canRewind: !1, error: "File rewinding is not enabled." };
-        if (!ct(Cn.fileHistory, Ie)) return { canRewind: !1, error: "No file checkpoint found for this message." };
-        if (Fe?.dryRun ?? !1) {
+        if (!ht()) return { canRewind: false, error: "File rewinding is not enabled." };
+        if (!ct(Cn.fileHistory, Ie)) return { canRewind: false, error: "No file checkpoint found for this message." };
+        if (Fe?.dryRun ?? false) {
           let Yt = await Rt(Cn.fileHistory, Ie);
           return {
-            canRewind: !0,
+            canRewind: true,
             filesChanged: Yt?.filesChanged,
             insertions: Yt?.insertions,
             deletions: Yt?.deletions,
@@ -3381,9 +3381,9 @@ function zve({
         try {
           Un = await yn(() => Cn.fileHistory, Ie);
         } catch (Yt) {
-          return { canRewind: !1, error: `Failed to rewind: ${l(Yt)}` };
+          return { canRewind: false, error: `Failed to rewind: ${l(Yt)}` };
         }
-        return { canRewind: !0, skippedLinks: Un?.skippedLinks };
+        return { canRewind: true, skippedLinks: Un?.skippedLinks };
       },
       submitFeedback: async (Ie, Fe) => {
         let ht = pvt();
@@ -3450,7 +3450,7 @@ function zve({
             credentials: Yt,
           } = Be.toolUseContext;
         return await ht(Ie, {
-          confirm: Fe?.confirm ?? !1,
+          confirm: Fe?.confirm ?? false,
           overageConfirmed: yn(),
           markOverageConfirmed: Cn,
           context: { abortController: ct(), taskRegistry: Rt, storageV5: Un, credentials: Yt },
@@ -3634,7 +3634,7 @@ function uvt({ newState: S, oldState: P }, T, x, N, W) {
     let se = S.activeGoal;
     if ((x.notifyActiveGoalChanged(se), se)) {
       let { tokens_at_start: pe, ...ue } = oKt(se);
-      x.notifyMetadataChanged({ goal: { ...ue, last_reason: ue.last_reason ?? null, met: !1 } });
+      x.notifyMetadataChanged({ goal: { ...ue, last_reason: ue.last_reason ?? null, met: false } });
     } else x.notifyMetadataChanged({ goal: null });
   }
   if (
@@ -3656,7 +3656,7 @@ function uvt({ newState: S, oldState: P }, T, x, N, W) {
   }
 }
 function gf(S, P) {
-  if (S.type !== "local_bash" && S.type !== "monitor_mcp" && S.type !== "monitor_ws") return !1;
+  if (S.type !== "local_bash" && S.type !== "monitor_mcp" && S.type !== "monitor_ws") return false;
   let T = S.agentId !== void 0 ? P[S.agentId] : void 0;
   return T !== void 0 && gd(T);
 }
@@ -3679,8 +3679,8 @@ function oc(S) {
       ...((P.type === "local_bash" || P.type === "monitor_mcp" || P.type === "monitor_ws") &&
         P.agentId !== void 0 && { owner_agent_id: P.agentId }),
       ...(P.type === "local_bash" && P.kind !== void 0 && { shell_kind: P.kind }),
-      ...(P.type === "monitor_ws" && P.ambient && { ambient: !0 }),
-      ...(gf(P, S.tasks) && { observer_owned: !0 }),
+      ...(P.type === "monitor_ws" && P.ambient && { ambient: true }),
+      ...(gf(P, S.tasks) && { observer_owned: true }),
     }));
 }
 var yf = ["condition", "setAt", "iterations", "tokensAtStart", "lastReason"];
@@ -3694,14 +3694,14 @@ function oKt(S) {
   };
 }
 function hf(S, P) {
-  if (S === P) return !0;
-  if (S === void 0 || P === void 0) return !1;
+  if (S === P) return true;
+  if (S === void 0 || P === void 0) return false;
   return yf.every((T) => S[T] === P[T]);
 }
 function Ki(S) {
   return Object.values(S.tasks)
     .filter((P) => Zf(P) && !gd(P))
-    .map((P) => ({ task_id: P.id, task_type: P.type, description: P.description, ...(f7(P) && { ambient: !0 }) }));
+    .map((P) => ({ task_id: P.id, task_type: P.type, description: P.description, ...(f7(P) && { ambient: true }) }));
 }
 function R$e(S) {
   Tu({ type: "system", subtype: "background_tasks_changed", tasks: Ki(S) });
@@ -3754,7 +3754,7 @@ function rc(S, P) {
     W = S.fullscreenBootStrikes?.version === P.version ? S.fullscreenBootStrikes.count : 0;
   if (N && N.version !== P.version) N = void 0;
   let q = 0,
-    z = !1,
+    z = false,
     re = Number.POSITIVE_INFINITY;
   for (let [se, pe] of Object.entries(x)) {
     let ue = Number(se);
@@ -3770,7 +3770,7 @@ function rc(S, P) {
     if (pe.died !== void 0 || ue === P.ownPid || P.isGone(ue)) {
       if ((delete x[se], pe.version === P.version)) (q += 1), (re = Math.min(re, de));
     } else if (de > Cf) delete x[se];
-    else z = !0;
+    else z = true;
   }
   let oe = { kind: "none" };
   if (N) oe = { kind: "disabled" };
@@ -3852,7 +3852,7 @@ function GIn(S) {
       return sc(z, re) ? { ...z, ...re } : z;
     }, S?.storageV5);
   if (q.kind === "strike" || q.kind === "tripped" || q.kind === "disabled") {
-    P.crashAutoOff = !0;
+    P.crashAutoOff = true;
     let z = m_t(T) === "fullscreen";
     if (q.kind !== "disabled") {
       if (
@@ -3915,7 +3915,7 @@ function Tf(S) {
   (S.exitHook = () => {
     if (S.recordMaybeOnDisk !== void 0 && ks()) {
       let P = S.recordMaybeOnDisk;
-      W7e((T) => uc(T, P, !1));
+      W7e((T) => uc(T, P, false));
     }
   }),
     process.on("exit", S.exitHook);
@@ -3924,14 +3924,14 @@ async function mc(S) {
   let P = S?.state ?? LI,
     T = zi();
   if (T.canary.status !== "idle") return T.canary.status === "armed";
-  if (!zu() || a.CLAUDE_CODE_EXIT_AFTER_FIRST_RENDER) return !1;
+  if (!zu() || a.CLAUDE_CODE_EXIT_AFTER_FIRST_RENDER) return false;
   if (!P.crashAutoOff && O5e() && ac.has(qv(P)))
-    (P.crashAutoOff = !0),
+    (P.crashAutoOff = true),
       n(
         "fullscreen disabled: turned off on this machine after repeated failed starts (recorded sticky auto-disable, honoured at REPL mount) \xB7 /tui fullscreen or CLAUDE_CODE_NO_FLICKER=1 to override",
       );
-  if (!Nt(P)) return !1;
-  if (!ac.has(qv(P))) return !1;
+  if (!Nt(P)) return false;
+  if (!ac.has(qv(P))) return false;
   let x = process.pid,
     N = {
       startedAt: Date.now(),
@@ -4009,17 +4009,17 @@ async function pc(S, P) {
 }
 async function vvt() {
   let S = zi();
-  if (S.canary.status !== "armed") return !1;
+  if (S.canary.status !== "armed") return false;
   let { pid: P, cleanup: T, timer: x, storageV5: N } = S.canary;
   if (((S.canary = { status: "settled" }), T(), x !== void 0)) clearTimeout(x);
   if (S.recordMaybeOnDisk === P) S.recordMaybeOnDisk = void 0;
-  let W = !1;
+  let W = false;
   return (
     await Ae((q) => {
       let z = q.fullscreenBootPending?.[String(P)];
       if (z === void 0 || z.died !== void 0) return q;
       return (
-        (W = !0),
+        (W = true),
         { ...q, fullscreenBootPending: { ...q.fullscreenBootPending, [String(P)]: { ...z, died: "render_error" } } }
       );
     }, N),
@@ -4042,32 +4042,32 @@ function dKt(S) {
 }
 async function gc(S) {
   let P = f_t();
-  if (P.persisted || XOe() !== "fullscreen") return !1;
+  if (P.persisted || XOe() !== "fullscreen") return false;
   if (Je().tui !== void 0)
-    return n("fullscreen trial: settings.tui was set explicitly during the trial \u2014 not persisting"), !1;
-  if (!Nt()) return n("fullscreen trial: renderer is not fullscreen this session (auto-off) \u2014 not persisting"), !1;
-  let T = !1,
+    return n("fullscreen trial: settings.tui was set explicitly during the trial \u2014 not persisting"), false;
+  if (!Nt()) return n("fullscreen trial: renderer is not fullscreen this session (auto-off) \u2014 not persisting"), false;
+  let T = false,
     { error: x } = await Os(
       "userSettings",
       (N) => ((T = N?.tui !== void 0), T ? null : { tui: "fullscreen" }),
       void 0,
       S,
     );
-  if (x) return h(x), g("tui_fullscreen_upsell_trial", "settings_write_failed"), !1;
+  if (x) return h(x), g("tui_fullscreen_upsell_trial", "settings_write_failed"), false;
   if (T)
     return (
       n(
         "fullscreen trial: settings.tui was set explicitly during the trial (seen inside the queued write) \u2014 not persisting",
       ),
-      !1
+      false
     );
   return (
     Rvt(S),
-    (P.persisted = !0),
+    (P.persisted = true),
     y("tui_fullscreen_upsell_trial"),
     s("tengu_fullscreen_upsell_trial_persisted", { session_age_ms: Math.round(process.uptime() * 1000) }),
     n("fullscreen trial: healthy \u2014 persisted settings.tui=fullscreen"),
-    !0
+    true
   );
 }
 function D$e(...S) {
@@ -4111,7 +4111,7 @@ async function Acr(S, P, T, x) {
             return Ot(Xe.mainLoopModelForSession ?? Xe.mainLoopModel ?? eS());
           },
           initialPermissionMode: () => sd(de.getState().toolPermissionContext.mode),
-          hostOwnsPermissionMode: !0,
+          hostOwnsPermissionMode: true,
         }),
       );
     return A(() => () => pt.close(), [pt]), e(W, { ...ue, engine: pt, onCommandsChange: Oe, onQueryParamsChange: Ze });
@@ -4132,10 +4132,10 @@ async function Acr(S, P, T, x) {
           onChangeAppState: (ue) => KJ(ue, z, re, oe),
           fleetNudgeStore: se,
           sessionHooks: P.sessionHooks,
-          writesExitHandoff: !0,
+          writesExitHandoff: true,
           getFpsMetrics: P.getFpsMetrics,
           stats: P.stats,
-          keybindings: !1,
+          keybindings: false,
           children: e(q, { ...T }),
         },
         "repl",
@@ -4145,7 +4145,7 @@ async function Acr(S, P, T, x) {
       oe,
     );
   } catch (ue) {
-    throw (await vvt().catch(() => !1), ue);
+    throw (await vvt().catch(() => false), ue);
   }
 }
 async function oL(S) {
@@ -4155,12 +4155,12 @@ async function oL(S) {
   else n("[mcp-policy-cold-start] skipped \u2014 no MCP server source visible");
 }
 async function If(S) {
-  for (let P of Dqe) if (Object.keys(kp(P, { expandVars: !1 }).servers).length > 0) return !0;
-  if (Wue()) return !0;
+  for (let P of Dqe) if (Object.keys(kp(P, { expandVars: false }).servers).length > 0) return true;
+  if (Wue()) return true;
   try {
-    if ((await is(S)).enabled.length > 0) return !0;
+    if ((await is(S)).enabled.length > 0) return true;
   } catch {
-    return !0;
+    return true;
   }
   return Yl();
 }
@@ -4181,23 +4181,23 @@ function ns() {
   else Nf = kM[0];
   return Nf;
 }
-function MZe({ serverName: S, isPluginServer: P = !1, onDone: T }) {
+function MZe({ serverName: S, isPluginServer: P = false, onDone: T }) {
   let { storageV5: x } = ge(),
-    N = C(!1),
+    N = C(false),
     W = hs(Fi),
     { refusedWithin: q, noteRefused: z, epoch: re } = pi(),
     oe = Vs(re, Fi);
   function se() {
-    if (W() || q(Fi)) return z(), !0;
-    return !1;
+    if (W() || q(Fi)) return z(), true;
+    return false;
   }
   async function pe(ue) {
     if (se()) return;
     if (N.current) return;
-    switch (((N.current = !0), s("tengu_mcp_dialog_choice", { choice: c(ue) }), ue)) {
+    switch (((N.current = true), s("tengu_mcp_dialog_choice", { choice: c(ue) }), ue)) {
       case "yes":
       case "yes_all": {
-        let de = !1;
+        let de = false;
         {
           let { error: Re } = await Os(
             "localSettings",
@@ -4212,7 +4212,7 @@ function MZe({ serverName: S, isPluginServer: P = !1, onDone: T }) {
           de ||= Re != null;
         }
         if (ue === "yes_all") {
-          let { error: Re } = await rn("localSettings", { enableAllProjectMcpServers: !0 }, void 0, x);
+          let { error: Re } = await rn("localSettings", { enableAllProjectMcpServers: true }, void 0, x);
           de ||= Re != null;
         }
         bCt(gw(), [S]), T({ persistFailed: de });
@@ -4250,7 +4250,7 @@ function MZe({ serverName: S, isPluginServer: P = !1, onDone: T }) {
           ],
           onChange: (ue) => void pe(ue),
           onCancel: () => void pe("no"),
-          hideIndexes: !0,
+          hideIndexes: true,
           refuseInput: se,
           defaultFocusValue: "no",
           selectedValue: Ti,
@@ -4263,21 +4263,21 @@ function MZe({ serverName: S, isPluginServer: P = !1, onDone: T }) {
 F();
 function NZe({ serverNames: S, pluginServerNames: P, onDone: T }) {
   let { storageV5: x } = ge(),
-    N = C(!1),
+    N = C(false),
     W = hs(Fi),
     { refusedWithin: q, noteRefused: z } = pi(),
     re = hn(),
     oe = B(() => {
-      if (W() || q(Fi)) return z(), !0;
-      return !1;
+      if (W() || q(Fi)) return z(), true;
+      return false;
     }, [W, q, z]);
   async function se(ue) {
     if (oe()) return;
     if (N.current) return;
-    N.current = !0;
+    N.current = true;
     let [de, Re] = hO(S, (Ge) => ue.includes(Ge));
     s("tengu_mcp_multidialog_choice", { approved: de.length, rejected: Re.length });
-    let Oe = !1;
+    let Oe = false;
     if (de.length > 0) {
       let { error: Ge } = await Os(
         "localSettings",
@@ -4301,7 +4301,7 @@ function NZe({ serverNames: S, pluginServerNames: P, onDone: T }) {
   let pe = B(async () => {
     if (oe()) return;
     if (N.current) return;
-    N.current = !0;
+    N.current = true;
     let { error: ue } = await Os(
       "localSettings",
       (de) => ({ disabledMcpjsonServers: te([...(de?.disabledMcpjsonServers || []), ...S]) }),
@@ -4317,16 +4317,16 @@ function NZe({ serverNames: S, pluginServerNames: P, onDone: T }) {
         subtitle: "Select any you wish to enable.",
         color: "warning",
         onCancel: pe,
-        hideInputGuide: !0,
+        hideInputGuide: true,
         children: [
           e(ns, {}),
           e($w, {
-            options: S.map((ue) => ({ label: Lpe(ue, P?.has(ue) ?? !1), value: ue })),
+            options: S.map((ue) => ({ label: Lpe(ue, P?.has(ue) ?? false), value: ue })),
             defaultValue: re ? [] : S,
             submitButtonText: "Enable selected",
             onSubmit: se,
             onCancel: pe,
-            hideIndexes: !0,
+            hideIndexes: true,
             refuseInput: oe,
             refuseSubmitFocus: oe,
           }),
@@ -4335,8 +4335,8 @@ function NZe({ serverNames: S, pluginServerNames: P, onDone: T }) {
       e(o, {
         paddingX: 1,
         children: e(t, {
-          dimColor: !0,
-          italic: !0,
+          dimColor: true,
+          italic: true,
           children: r(fe, {
             children: [
               e(M, { chord: "space", action: "select" }),
@@ -4372,7 +4372,7 @@ async function rKt(S) {
 }
 async function AIn(S, P, T, x) {
   let { pendingServers: N, pluginServerNames: W } = T ?? (await v$e(x));
-  if (N.length === 0) return { persistFailed: !1 };
+  if (N.length === 0) return { persistFailed: false };
   let q;
   q = await Uf(
     N.map((z) => Lpe(z, W.has(z))),
@@ -4491,11 +4491,11 @@ async function kIn(S, P, T) {
 }
 function Tc(S, P, T) {
   return ea(S, P, T).finally(() => {
-    up.firstRoundSettled = !0;
+    up.firstRoundSettled = true;
   });
 }
 function Xi() {
-  if (!up.firstRoundSettled) up.firstRoundEmitted = !0;
+  if (!up.firstRoundSettled) up.firstRoundEmitted = true;
 }
 function rs() {
   Xi(), I7(), bv.emit();
@@ -4522,7 +4522,7 @@ async function Oc(S) {
     return null;
   let x;
   try {
-    x = await wc(P, { withFileTypes: !0 });
+    x = await wc(P, { withFileTypes: true });
   } catch {
     return null;
   }
@@ -4541,17 +4541,17 @@ async function Fc(S, P) {
 }
 async function zf(S) {
   let P = await Oc(S);
-  if (P === null || P.strays.length === 0) return !1;
+  if (P === null || P.strays.length === 0) return false;
   return (await Fc(P.strays, S)) > 0;
 }
 function Bs(S, P) {
   return NW({ dir: S, trashRoot: Hs(), configHome: be(), failureEvent: "skills_sync_trash_move_failed", storageV5: P });
 }
 async function cvt(S) {
-  if (!a9n()) return !1;
+  if (!a9n()) return false;
   let P = await oD(Xo(), be(), { event: "skills_sync_root_refused", phase: "prune", rootLabel: iV }, { storageV5: S });
-  if (P !== "real" && P !== "absent") return !1;
-  let T = await $c(null, S).catch(() => !1),
+  if (P !== "real" && P !== "absent") return false;
+  let T = await $c(null, S).catch(() => false),
     x = null,
     N = P === "real" ? await Oc(S) : null;
   if (N !== null) {
@@ -4619,7 +4619,7 @@ function Uc(S) {
 }
 async function Zi(S, P) {
   let T = !P.manifestRead;
-  P.manifestRead = !0;
+  P.manifestRead = true;
   let x;
   if (S)
     try {
@@ -4688,7 +4688,7 @@ async function tg(S, P, T) {
     if (T) return (await T.statMeta(Xf(x))).ok;
     return (await Pc(Jn(x, "SKILL.md"))).isFile();
   } catch {
-    return !1;
+    return false;
   }
 }
 function kc(S) {
@@ -4716,7 +4716,7 @@ function og(S, P) {
       skillName: x,
       displayName: void 0,
       description: T_t(P.description),
-      hasUserSpecifiedDescription: !0,
+      hasUserSpecifiedDescription: true,
       markdownContent: "",
       allowedTools: [],
       argumentHint: void 0,
@@ -4724,8 +4724,8 @@ function og(S, P) {
       whenToUse: void 0,
       version: void 0,
       model: void 0,
-      disableModelInvocation: !1,
-      userInvocable: !0,
+      disableModelInvocation: false,
+      userInvocable: true,
       source: "userSettings",
       baseDir: T,
       loadedFrom: "syncedSkills",
@@ -4771,13 +4771,13 @@ async function vc(
     se = Jn(ly(), `claude-skill-${process.pid}-${Math.random().toString(36).slice(2)}.zip`);
   try {
     if (P.guard.refused()) return Nxe;
-    if (!(await HUn(S.skillId, se, S.requestedVersion, { isBackground: !0, credentials: T }))) return Bc;
+    if (!(await HUn(S.skillId, se, S.requestedVersion, { isBackground: true, credentials: T }))) return Bc;
     if (!(await P.guard.verify())) return Nxe;
-    await _r(oe, { recursive: !0, force: !0 }),
-      await $f(Qi(z), { recursive: !0 }),
+    await _r(oe, { recursive: true, force: true }),
+      await $f(Qi(z), { recursive: true }),
       await uye(se, oe, { skipEntry: (Re) => Re.split(/[\\/]/).some((Oe) => VF(Oe)) });
     let ue = oe,
-      de = await wc(oe, { withFileTypes: !0 });
+      de = await wc(oe, { withFileTypes: true });
     if (!de.some((Re) => Re.name === "SKILL.md") && de.length === 1 && de[0].isDirectory()) ue = Jn(oe, de[0].name);
     try {
       if (!(await Pc(Jn(ue, "SKILL.md"))).isFile()) return Y("warn", "skills_sync_extracted_zip_unusable"), Ns;
@@ -4786,7 +4786,7 @@ async function vc(
     }
     if (await ENt(ue)) return Y("warn", "skills_sync_extracted_zip_unusable"), Ns;
     if (!(await P.guard.verify())) return Nxe;
-    if (N) await _r(re, { recursive: !0, force: !0 });
+    if (N) await _r(re, { recursive: true, force: true });
     try {
       await hc(ue, re);
     } catch (Re) {
@@ -4797,7 +4797,7 @@ async function vc(
       }
       let Ge = await W(wo(re));
       if (Ge === "inFlight") return Y("info", "skills_sync_target_in_flight_elsewhere"), nWn;
-      if (Ge === "landed") await _r(re, { recursive: !0, force: !0 });
+      if (Ge === "landed") await _r(re, { recursive: true, force: true });
       else if (!(await Bs(re, x))) return Q9e;
       try {
         await hc(ue, re);
@@ -4810,16 +4810,16 @@ async function vc(
     return tWn;
   } finally {
     if (
-      (await _r(se, { force: !0 }).catch(() => {}),
+      (await _r(se, { force: true }).catch(() => {}),
       !P.guard.refused() &&
         (await oD(
           z,
           be(),
           { event: "skills_sync_root_refused", phase: "sweep", rootLabel: iV },
-          { checkStagingLeaf: !0, storageV5: x },
+          { checkStagingLeaf: true, storageV5: x },
         ).catch(() => null)) === "real")
     )
-      await _r(oe, { recursive: !0, force: !0 }).catch(() => {});
+      await _r(oe, { recursive: true, force: true }).catch(() => {});
   }
 }
 var sg = 500;
@@ -4841,7 +4841,7 @@ async function ea(S, P, T) {
 }
 async function $c(S, P) {
   let T = await Gc(Kf(), S, P);
-  if (T === null) return !1;
+  if (T === null) return false;
   return Y("info", "skills_sync_legacy_layout_migrated", { removed: T }), T > 0;
 }
 async function Gc(S, P, T) {
@@ -4925,19 +4925,19 @@ async function Gc(S, P, T) {
       2,
     );
     if (de !== W) await Wn(x, de).catch(() => {});
-  } else await _r(x, { force: !0 }).catch(() => {});
+  } else await _r(x, { force: true }).catch(() => {});
   return oe;
 }
 async function cg(S, P, T) {
   let x = Date.now(),
-    N = !1,
-    W = !1,
-    q = !1,
+    N = false,
+    W = false,
+    q = false,
     z = new Map(),
-    re = !1,
+    re = false,
     oe = null;
   try {
-    if (((q = UQe()), jNt())) q = !0;
+    if (((q = UQe()), jNt())) q = true;
     if (!zle(S) || !w3e()) {
       if ((Y("info", "skills_sync_gate_closed"), up.placeholders.size > 0)) up.placeholders.clear(), rs();
       g("skills_sync_round", "gate_closed", { account_opt_in: q, duration_ms: Date.now() - x });
@@ -4962,13 +4962,13 @@ async function cg(S, P, T) {
     if (Wxe(S)) {
       let [De, Be] = await Promise.all([
         n3e.of(S).listEntries("skills"),
-        a.CLAUDE_CODE_SYNC_SKILLS ? _je({ isBackground: !0, credentials: T }) : null,
+        a.CLAUDE_CODE_SYNC_SKILLS ? _je({ isBackground: true, credentials: T }) : null,
       ]);
       if (!De.success) de = De;
-      else if (Be === null) de = { success: !0, skills: De.entries.map(kc) };
+      else if (Be === null) de = { success: true, skills: De.entries.map(kc) };
       else if (!Be.success) de = Be;
-      else de = { success: !0, skills: _Nt(De.entries.map(kc), Be.skills, (Ke) => Ke.skillId) };
-    } else de = await _je({ isBackground: !0, credentials: T });
+      else de = { success: true, skills: _Nt(De.entries.map(kc), Be.skills, (Ke) => Ke.skillId) };
+    } else de = await _je({ isBackground: true, credentials: T });
     if (!de.success) {
       Y("warn", "skills_sync_list_failed", { duration_ms: Date.now() - x }),
         s("tengu_skills_sync_list_failed", { duration_ms: Date.now() - x }),
@@ -4979,7 +4979,7 @@ async function cg(S, P, T) {
       !(await wG(Xo(), se)) &&
       (await yc(ue).then(
         (De) => De.isDirectory(),
-        () => !1,
+        () => false,
       )) &&
       (await NW({
         dir: ue,
@@ -4987,12 +4987,12 @@ async function cg(S, P, T) {
         configHome: be(),
         failureEvent: "skills_sync_trash_move_failed",
         storageV5: P,
-      }).catch(() => !1))
+      }).catch(() => false))
     )
       Y("info", "skills_sync_unmarked_bucket_quarantined");
     await Wc(P, ue),
       await sNt(Xo(), se),
-      (re = !0),
+      (re = true),
       (W = await $c(
         de.skills.map((De) => De.name),
         P,
@@ -5012,12 +5012,12 @@ async function cg(S, P, T) {
         try {
           Be = ode(De, ue);
         } catch (et) {
-          if (et instanceof rde) return !1;
-          return !0;
+          if (et instanceof rde) return false;
+          return true;
         }
         let Ke = await kt(Be);
-        if (Ke === "live") return !0;
-        if (Ke === "indeterminate") return !1;
+        if (Ke === "live") return true;
+        if (Ke === "indeterminate") return false;
         return Bs(Be, P);
       },
       Jt = new Set(Array.from(pt, (De) => wo(De))),
@@ -5035,11 +5035,11 @@ async function cg(S, P, T) {
       }
       let et = wo(fo(ue, Be.name));
       if (up.placeholders.delete(et))
-        up.pendingDownloads.get(et)?.resolve({ ok: !0 }),
+        up.pendingDownloads.get(et)?.resolve({ ok: true }),
           up.pendingDownloads.delete(et),
           I7(),
           yk(),
-          (W = !0),
+          (W = true),
           Y("info", "skills_sync_materialized_elsewhere");
     }
     let fn = Ze.filter((De) => !_t.has(De.skillId)),
@@ -5062,7 +5062,7 @@ async function cg(S, P, T) {
       }
     }
     for (let De of Qt) if (await At(De)) Qt.delete(De), nn.add(De);
-    if (nn.size > 0 || lt.size > 0) W = !0;
+    if (nn.size > 0 || lt.size > 0) W = true;
     if (Oe.length === 0 && Ge.length === 0) {
       if (W) rs();
       if ((nn.size > 0 || lt.size > 0) && Re)
@@ -5082,13 +5082,13 @@ async function cg(S, P, T) {
         await jf(Ks(ue), De, De).catch(() => {});
       }
       Y("info", "skills_sync_no_changes", { duration_ms: Date.now() - x }),
-        y("skills_sync_round", { account_opt_in: q, no_changes: !0, duration_ms: Date.now() - x });
+        y("skills_sync_round", { account_opt_in: q, no_changes: true, duration_ms: Date.now() - x });
       return;
     }
     let Ve = 0;
     for (let { item: De, prev: Be } of Oe) if (!Be) rqn(og(ue, De)), Ve++, z.set(De.skillId, nqn(wo(fo(ue, De.name))));
     if (Ve > 0) yk(), Xi(), bv.emit();
-    let st = !0;
+    let st = true;
     try {
       let De = [];
       for (let { item: Be } of Oe)
@@ -5109,7 +5109,7 @@ async function cg(S, P, T) {
         );
     } catch (De) {
       if (De instanceof IB) throw De;
-      (st = !1), Y("warn", "skills_sync_pending_claims_write_failed");
+      (st = false), Y("warn", "skills_sync_pending_claims_write_failed");
     }
     if ((Ji().resolve(), !st)) {
       if (
@@ -5135,7 +5135,7 @@ async function cg(S, P, T) {
               storageV5: P,
               classifyOccupant: (et) => dg(et, P, pe),
               markTargetDestroyed: () => {
-                N = !0;
+                N = true;
               },
               replacesAttributedCopy: (Be !== void 0 && (await Kc(ue, Be.name, De.name))) || tn.has(De.skillId),
             });
@@ -5160,14 +5160,14 @@ async function cg(S, P, T) {
                 let An = fo(ue, De.name);
                 if (
                   await yc(An).then(
-                    () => !1,
+                    () => false,
                     (ro) => X(ro),
                   )
                 )
                   lt.add(Zjt(wo(An), on));
               } catch {}
           }
-          z.get(De.skillId)?.(Ke.ok ? { ok: !0 } : { ok: !1, reason: oWn(Ke.cause) });
+          z.get(De.skillId)?.(Ke.ok ? { ok: true } : { ok: false, reason: oWn(Ke.cause) });
         }),
       ),
     );
@@ -5237,7 +5237,7 @@ async function cg(S, P, T) {
     if (se instanceof IB && re)
       Y("warn", "skills_sync_late_root_refusal", { reason: se.reason, duration_ms: Date.now() - x }),
         g("skills_sync_round", "root_refused", { account_opt_in: q, duration_ms: Date.now() - x }),
-        (re = !1);
+        (re = false);
     else if (se instanceof IB)
       Y("warn", "skills_sync_root_refused_round", { reason: se.reason, duration_ms: Date.now() - x }),
         g("skills_sync_round", "root_refused", { account_opt_in: q, duration_ms: Date.now() - x });
@@ -5246,18 +5246,18 @@ async function cg(S, P, T) {
         s("tengu_skills_sync_error", { duration_ms: Date.now() - x }),
         p("skills_sync_round", "unexpected_error", { account_opt_in: q, duration_ms: Date.now() - x });
   } finally {
-    for (let se of z.values()) se({ ok: !1, reason: "skills sync failed" });
-    if ((Ji().resolve(), oe === null || oe.guard.refused())) re = !1;
+    for (let se of z.values()) se({ ok: false, reason: "skills sync failed" });
+    if ((Ji().resolve(), oe === null || oe.guard.refused())) re = false;
     if (re && oe !== null) {
       if (
         (await oD(
           oe.root,
           be(),
           { event: "skills_sync_root_refused", phase: "sweep", rootLabel: iV },
-          { checkStagingLeaf: !0, storageV5: P },
+          { checkStagingLeaf: true, storageV5: P },
         ).catch(() => null)) === "real"
       )
-        await _r(Qi(oe.root), { recursive: !0, force: !0 }).catch(() => {});
+        await _r(Qi(oe.root), { recursive: true, force: true }).catch(() => {});
     }
   }
 }
@@ -5278,7 +5278,7 @@ async function Kc(S, P, T) {
       N = fo(S, T);
     return wo(x) === wo(N) || (await Gxe(x, N));
   } catch {
-    return !1;
+    return false;
   }
 }
 function Wc(S, P) {
@@ -5411,14 +5411,14 @@ async function gg(S, P, T) {
   }
   let z = Object.keys(await Mxe(W));
   if (z.length === 0) return "";
-  let re = z.filter((oe) => q[oe]?.required === !0);
+  let re = z.filter((oe) => q[oe]?.required === true);
   return (
     `${z.length} userConfig ${k(z.length, "option")} not yet set` +
     (re.length > 0 ? ` (${re.length} required)` : "") +
     ` \u2014 run /plugin configure ${S} in Claude Code, or pass --config KEY=VALUE.`
   );
 }
-async function Yc(S, P, { yes: T = !1, acceptedCommand: x } = {}) {
+async function Yc(S, P, { yes: T = false, acceptedCommand: x } = {}) {
   if (typeof P.source !== "object" || P.source.source !== "command") return;
   if (FS()) {
     er(`${hM}
@@ -5451,7 +5451,7 @@ async function Yc(S, P, { yes: T = !1, acceptedCommand: x } = {}) {
   let se = await ra({ yes: T });
   return se === "accepted" ? { kind: "accepted", grantKey: W } : se === "declined" ? { kind: "declined" } : void 0;
 }
-async function ra({ yes: S = !1 }) {
+async function ra({ yes: S = false }) {
   let P = process.stdout.isTTY && process.stdin.isTTY;
   if (S) {
     if (!a.CLAUDE_CODE_CHILD_SESSION && !a.CLAUDECODE) return "accepted";
@@ -5585,20 +5585,20 @@ async function Jc(S, P) {
     { enabled: x, disabled: N } = await is(O() ? P : void 0);
   return HWn((O() && P !== void 0 ? await Iv(P) : oT()).plugins, [...x, ...N], S, T);
 }
-async function OIn(S, P = "user", T = !1, x = !1, N = !1, W) {
+async function OIn(S, P = "user", T = false, x = false, N = false, W) {
   try {
     let q = await bq(S, P, !T, W);
     if (!q.success) throw new Eie(q.message);
     await Ss("tengu_plugin_uninstalled_cli", { ...Nb(q.pluginId || S, xd()), scope: c(q.scope || P) });
-    let z = !1;
+    let z = false;
     try {
       let re = await Jc(P, W);
       if (x)
         return (
           er(`${L.tick} ${Oo(q.message)}
 `),
-          (z = !0),
-          await Qc(re, P, { dryRun: !1, yes: N, deleteDataDir: !T }, W)
+          (z = true),
+          await Qc(re, P, { dryRun: false, yes: N, deleteDataDir: !T }, W)
         );
       return q.message + xWn(re.orphans, P);
     } catch (re) {
@@ -5612,10 +5612,10 @@ ${se}`;
     return Aie(q, "uninstall", S);
   }
 }
-async function LIn(S = "user", { dryRun: P = !1, yes: T = !1 } = {}, x) {
+async function LIn(S = "user", { dryRun: P = false, yes: T = false } = {}, x) {
   try {
     let N = await Jc(S, x);
-    return await Qc(N, S, { dryRun: P, yes: T, deleteDataDir: !0 }, x);
+    return await Qc(N, S, { dryRun: P, yes: T, deleteDataDir: true }, x);
   } catch (N) {
     return Aie(N, "prune");
   }
@@ -5662,7 +5662,7 @@ async function Zc() {
   let S = ug({ input: process.stdin });
   try {
     for await (let P of S) return /^y(es)?$/i.test(P.trim());
-    return !1;
+    return false;
   } finally {
     S.close();
   }
@@ -5688,7 +5688,7 @@ async function NIn(S) {
     return Aie(P, "disable-all");
   }
 }
-async function FIn(S, P, { yes: T = !1 } = {}, x) {
+async function FIn(S, P, { yes: T = false } = {}, x) {
   try {
     er(`${Oo(`Checking for updates for plugin "${S}" at ${P} scope\u2026`)}
 `);
@@ -5696,7 +5696,7 @@ async function FIn(S, P, { yes: T = !1 } = {}, x) {
         S,
         P,
         {
-          explicit: !0,
+          explicit: true,
           onEntryHelperDisclosure: async (q) => (
             er(`${q}
 `),
@@ -5794,15 +5794,15 @@ async function BIn(S, P, T) {
       await ed(cr(x, ".claude-plugin"));
     } catch (W) {
       if (E(W) === "EEXIST")
-        return { ok: !1, error: `${cr(x, ".claude-plugin")} already exists. Use --force to overwrite.` };
+        return { ok: false, error: `${cr(x, ".claude-plugin")} already exists. Use --force to overwrite.` };
       if (E(W) !== "ENOENT") throw W;
     }
   let N = [];
   for (let W of P) {
     let q = td(x, W.relPath),
       z = Sg(x, q);
-    if (z.startsWith(".." + _g) || z === "..") return { ok: !1, error: `Refusing to write outside ${x}: ${W.relPath}` };
-    if ((await ed(hg(q), { recursive: !0 }), T.force)) await Wn(q, W.contents, W.mode);
+    if (z.startsWith(".." + _g) || z === "..") return { ok: false, error: `Refusing to write outside ${x}: ${W.relPath}` };
+    if ((await ed(hg(q), { recursive: true }), T.force)) await Wn(q, W.contents, W.mode);
     else
       try {
         await yg(q, W.contents, { flag: "wx", mode: W.mode });
@@ -5811,7 +5811,7 @@ async function BIn(S, P, T) {
         N.push(W.relPath);
       }
   }
-  return { ok: !0, skipped: N };
+  return { ok: true, skipped: N };
 }
 function nd(S) {
   return `---
@@ -6035,7 +6035,7 @@ var Lg = 1000,
   ia = "<skill-watcher-idle-wake>",
   id = 1e4,
   $g = 2000,
-  aa = !0;
+  aa = true;
 async function Hg(S) {
   let P = await J4e(gn(), S),
     T = Se(),
@@ -6058,19 +6058,19 @@ function Kg(S) {
     pe = null,
     ue = null,
     de = null,
-    Re = !1,
+    Re = false,
     Oe = [],
     Ge = 0,
     Ze = new Set(),
     pt = null,
-    Xe = !1,
-    kt = !1,
+    Xe = false,
+    kt = false,
     At = null,
     Jt = null,
     wn;
   async function mn(Ve, st) {
     if (Xe || kt) return;
-    if (((Xe = !0), (wn = Ve), (W = st), !At))
+    if (((Xe = true), (wn = Ve), (W = st), !At))
       At = Oqn(() => {
         yk(), oe.emit();
       });
@@ -6086,21 +6086,21 @@ function Kg(S) {
   }
   function _t(Ve) {
     let st = GE.watch(Oe, {
-      persistent: !0,
-      ignoreInitial: !0,
+      persistent: true,
+      ignoreInitial: true,
       depth: 2,
       awaitWriteFinish: { stabilityThreshold: P, pollInterval: T },
       ignored: (nt, Pt) => {
-        if (Pt && !Pt.isFile() && !Pt.isDirectory() && !Pt.isSymbolicLink()) return !0;
-        if (nt.split(/[/\\]/).some((ot) => ot === ".git")) return !0;
+        if (Pt && !Pt.isFile() && !Pt.isDirectory() && !Pt.isSymbolicLink()) return true;
+        if (nt.split(/[/\\]/).some((ot) => ot === ".git")) return true;
         if (Pt?.isFile()) return !nt.endsWith(".md");
-        return !1;
+        return false;
       },
-      ignorePermissionErrors: !0,
+      ignorePermissionErrors: true,
       usePolling: aa,
       interval: Ve,
       binaryInterval: Ve,
-      atomic: !0,
+      atomic: true,
     });
     return (
       st.on("add", nn),
@@ -6136,12 +6136,12 @@ function Kg(S) {
     pe = _t(Re ? rd : N);
     let Pt = pe,
       ot = new Promise((Gt) => Pt.once("ready", () => Gt()));
-    if ((await Promise.race([ot, ne($g, void 0, { unref: !0 })]), kt || nt !== Ge)) return;
+    if ((await Promise.race([ot, ne($g, void 0, { unref: true })]), kt || nt !== Ge)) return;
     if (aa && de === null) (de = setInterval(fn, id)), de.unref?.();
     Jt ??= vt(Qt);
   }
   function Qt() {
-    if (((kt = !0), Jt)) Jt(), (Jt = null);
+    if (((kt = true), Jt)) Jt(), (Jt = null);
     if (At) At(), (At = null);
     if (de) clearInterval(de), (de = null);
     let Ve = Promise.resolve();
@@ -6197,7 +6197,7 @@ function Kg(S) {
     }, x);
   }
   function on(Ve) {
-    if (!wn) return h(Error("skillChangeDetector: ConfigChange hook gate not wired")), Promise.resolve(!0);
+    if (!wn) return h(Error("skillChangeDetector: ConfigChange hook gate not wired")), Promise.resolve(true);
     return wn("skills", Ve);
   }
   function xt() {
@@ -6397,13 +6397,13 @@ async function Pvt(S, P) {
     for (let oe of S.cwd) {
       let se = oe.replace(/\/+$/, "").replace(/\/\*\*$/, "");
       if (!se) continue;
-      if (re.some((pe) => la.default.isMatch(pe, [se, `${se}/**`], { nocase: !0, dot: !0 }))) return { signal: "cwd" };
+      if (re.some((pe) => la.default.isMatch(pe, [se, `${se}/**`], { nocase: true, dot: true }))) return { signal: "cwd" };
     }
   }
   let N = P?.readFileState,
     W = N ? KLe(N) : [];
   if (S.filesRead?.length && W.length) {
-    let q = W.find((z) => la.default.isMatch(z.replaceAll("\\", "/"), S.filesRead, { nocase: !0, dot: !0 }));
+    let q = W.find((z) => la.default.isMatch(z.replaceAll("\\", "/"), S.filesRead, { nocase: true, dot: true }));
     if (q) return { signal: "filesRead", file: q };
   }
   if (S.manifestDep && N && W.length > 0) {
@@ -6444,7 +6444,7 @@ function QIn() {
       dayEndHour: 24,
     };
   let S = I("tengu_rc_long_turn_nudge", null);
-  if (S === !0)
+  if (S === true)
     return { thresholdSec: 90, probability: 1, maxImpressions: 3, impressionKey: "", dayStartHour: 7, dayEndHour: 21 };
   if (S === null || typeof S !== "object") return null;
   let P =
@@ -6461,7 +6461,7 @@ function QIn() {
   return { thresholdSec: P, probability: T, maxImpressions: x, impressionKey: N, dayStartHour: q, dayEndHour: z };
 }
 function ZIn(S, P = new Date()) {
-  if (S.dayStartHour >= S.dayEndHour) return !0;
+  if (S.dayStartHour >= S.dayEndHour) return true;
   let T = P.getHours();
   return T >= S.dayStartHour && T < S.dayEndHour;
 }
@@ -6488,7 +6488,7 @@ function ePn() {
   };
 }
 function fKt() {
-  if (!ch()) return !1;
+  if (!ch()) return false;
   let S = ie();
   return !S.hasUsedRemoteControl && !B3() && (S.remoteControlUpsellSeenCount ?? 0) < ry;
 }
@@ -6496,21 +6496,21 @@ function tPn(S) {
   md("remoteControlUpsellSeenCount", S), y("tips_rc_upsell_show");
 }
 function iy() {
-  return ie().hasUsedRemoteControl === !0 || B3();
+  return ie().hasUsedRemoteControl === true || B3();
 }
 function mKt() {
   return da() && (ie().pushNotifUpsellSeenCount ?? 0) < sy;
 }
 function da() {
-  return ch() && e3() && iy() && Lo("agentPushNotifEnabled", !1).value !== !0;
+  return ch() && e3() && iy() && Lo("agentPushNotifEnabled", false).value !== true;
 }
 function nPn(S) {
   md("pushNotifUpsellSeenCount", S), y("tips_push_upsell_show");
 }
 function rPn(S) {
-  if (!ch()) return !1;
-  if (S.maxImpressions === 0) return !1;
-  if (S.maxImpressions < 0) return !0;
+  if (!ch()) return false;
+  if (S.maxImpressions === 0) return false;
+  if (S.maxImpressions < 0) return true;
   let P = ie();
   return (
     ((P.rcLongTurnNudgeSeenKey ?? "") === S.impressionKey ? (P.rcLongTurnNudgeSeenCount ?? 0) : 0) < S.maxImpressions
@@ -6529,7 +6529,7 @@ function oPn(S, P) {
   y("tips_rc_long_turn_show");
 }
 function iPn(S) {
-  if (!ch()) return !1;
+  if (!ch()) return false;
   return (ie().rcPermissionNudgeSeenCount ?? 0) < S;
 }
 function sPn(S) {
@@ -6539,7 +6539,7 @@ function sPn(S) {
 function aPn() {
   if (!e3()) return null;
   let S = I("tengu_kairos_ready_nudge", null);
-  if (S === !0) return { probability: 1, maxImpressions: 5, impressionKey: "" };
+  if (S === true) return { probability: 1, maxImpressions: 5, impressionKey: "" };
   if (S === null || typeof S !== "object") return null;
   let P =
       typeof S.probability === "number" && Number.isFinite(S.probability) ? Math.min(1, Math.max(0, S.probability)) : 1,
@@ -6548,10 +6548,10 @@ function aPn() {
   return { probability: P, maxImpressions: T, impressionKey: x };
 }
 function lPn(S, P, T) {
-  if (!P || T) return !1;
-  if (wt() || rb() != null) return !1;
-  if (S.maxImpressions === 0) return !1;
-  if (S.maxImpressions < 0) return !0;
+  if (!P || T) return false;
+  if (wt() || rb() != null) return false;
+  if (S.maxImpressions === 0) return false;
+  if (S.maxImpressions < 0) return true;
   let x = ie();
   return (
     ((x.remoteControlReadyPushKey ?? "") === S.impressionKey ? (x.remoteControlReadyPushCount ?? 0) : 0) <
@@ -6572,7 +6572,7 @@ function cPn(S, P) {
 }
 function I$e(S) {
   if (ie().hasUsedRemoteControl) return;
-  Ae((P) => (P.hasUsedRemoteControl ? P : { ...P, hasUsedRemoteControl: !0 }), S);
+  Ae((P) => (P.hasUsedRemoteControl ? P : { ...P, hasUsedRemoteControl: true }), S);
 }
 var cy = ["mobile", "web", "desktop"];
 function dy(S) {
@@ -6612,16 +6612,16 @@ function ca(S) {
 async function Vve({ allowNetworkFallbackForOldGh: S }) {
   if (!(await Va("gh"))) return { status: "not_installed" };
   try {
-    let T = await Ff("gh", ["auth", "token"], { stdout: "ignore", stderr: "pipe", timeout: 5000, reject: !1 });
-    if (T.exitCode === 0) return { status: "authenticated", supportsAuthTokenCommand: !0 };
+    let T = await Ff("gh", ["auth", "token"], { stdout: "ignore", stderr: "pipe", timeout: 5000, reject: false });
+    if (T.exitCode === 0) return { status: "authenticated", supportsAuthTokenCommand: true };
     if (T.timedOut) return { status: "unknown", error: "`gh auth token` timed out" };
     if (/not logged in|no oauth token/i.test(T.stderr)) return { status: "not_authenticated" };
     if (/unknown command/i.test(T.stderr) || (Number.isInteger(T.exitCode) && T.stderr.trim() === "")) {
       if (!S) return { status: "unknown", error: "this GitHub CLI version has no `gh auth token`" };
-      let N = await Ff("gh", ["auth", "status"], { stdout: "ignore", stderr: "pipe", timeout: 5000, reject: !1 });
-      if (N.exitCode === 0) return { status: "authenticated", supportsAuthTokenCommand: !1 };
+      let N = await Ff("gh", ["auth", "status"], { stdout: "ignore", stderr: "pipe", timeout: 5000, reject: false });
+      if (N.exitCode === 0) return { status: "authenticated", supportsAuthTokenCommand: false };
       if (N.timedOut) return { status: "unknown", error: "`gh auth status` timed out" };
-      if (/logged in to/i.test(N.stderr)) return { status: "authenticated", supportsAuthTokenCommand: !1 };
+      if (/logged in to/i.test(N.stderr)) return { status: "authenticated", supportsAuthTokenCommand: false };
       if (/not logged in/i.test(N.stderr)) return { status: "not_authenticated" };
       return { status: "unknown", error: N.stderr.trim() || "`gh auth status` failed to run" };
     }
@@ -6683,7 +6683,7 @@ async function dPn(S, P, T, x) {
       leadAgentId: N.leadAgentId,
       selfAgentId: q,
       selfAgentName: T,
-      isLeader: !1,
+      isLeader: false,
       teammates: {},
     },
   })),
@@ -6699,7 +6699,7 @@ var fd = 32,
   uy = 300000;
 function P$e(S, P) {
   let T = S.data?.timestamp;
-  if (typeof T !== "string") return !1;
+  if (typeof T !== "string") return false;
   let x = Date.parse(T);
   return !Number.isNaN(x) && P - x > uy;
 }
@@ -6711,7 +6711,7 @@ var my = 60000,
   fy = 5000;
 function gy(S, P, T) {
   let x = S.data?.timestamp;
-  if (typeof x !== "string") return !1;
+  if (typeof x !== "string") return false;
   let N = Date.parse(x);
   return Number.isFinite(N) && Math.abs(P - N) <= my && N >= T - fy;
 }
@@ -6720,11 +6720,11 @@ function pK(S) {
     steps: yd.map((P) => ({ id: P, status: "pending" })),
     sessionMode: null,
     startedAt: S,
-    hasStructuredSteps: !1,
-    terminal: !1,
-    dismissed: !1,
-    sawLiveFrame: !1,
-    hadLiveCycle: !1,
+    hasStructuredSteps: false,
+    terminal: false,
+    dismissed: false,
+    sawLiveFrame: false,
+    hadLiveCycle: false,
     queuedCount: 0,
   };
 }
@@ -6742,7 +6742,7 @@ function VZe(S, P, T, x, N) {
       S.terminal && q !== null && z !== null
         ? { ...pK(x), dismissed: S.hadLiveCycle, hadLiveCycle: S.hadLiveCycle }
         : S;
-  if (q !== null && z !== null && !re.sawLiveFrame && gy(P, x, N)) re = { ...re, sawLiveFrame: !0 };
+  if (q !== null && z !== null && !re.sawLiveFrame && gy(P, x, N)) re = { ...re, sawLiveFrame: true };
   if (typeof W?.session_mode === "string") {
     let oe = W.session_mode;
     if ((oe === "new" || oe === "resume" || oe === "resume-cached" || oe === "setup-only") && re.sessionMode !== oe)
@@ -6804,7 +6804,7 @@ function yy(S, { stepId: P, stepStatus: T, extra: x, line: N, now: W }) {
   }
   if (pe !== null) (z = z === S.steps ? S.steps.slice() : z), (z[re] = pe);
   if (z === S.steps) return S;
-  let ue = { ...S, steps: z, hasStructuredSteps: !0 };
+  let ue = { ...S, steps: z, hasStructuredSteps: true };
   if (q === "start_cc" && T === "completed") ue = gKt(ue, W);
   return ue;
 }
@@ -6817,7 +6817,7 @@ function gKt(S, P) {
         ? { ...x, status: "completed", completedAt: P }
         : x,
   );
-  return { ...S, steps: T, terminal: !0, completedAt: P, hadLiveCycle: S.hadLiveCycle || S.sawLiveFrame };
+  return { ...S, steps: T, terminal: true, completedAt: P, hadLiveCycle: S.hadLiveCycle || S.sawLiveFrame };
 }
 function XJ(S, P) {
   let T = P === "resume" || P === "resume-cached",
@@ -6972,9 +6972,9 @@ function bd(S, P) {
   return T.sort();
 }
 function Ey(S, P) {
-  if (S === P) return !0;
+  if (S === P) return true;
   if (typeof S === "object" && S !== null) return Object.keys(S).length === 0;
-  return !1;
+  return false;
 }
 async function fK(S, P) {
   switch (P.kind) {
@@ -7009,7 +7009,7 @@ function kd({
   pendingSSHHost: q,
 }) {
   if (P) return T;
-  if (x) return !1;
+  if (x) return false;
   return S !== null || Boolean(N?.sessionId) || Boolean(N?.discover) || Boolean(W) || Boolean(q);
 }
 function SPn(S, P) {
@@ -7047,7 +7047,7 @@ function My() {
   }
 }
 async function Pd(S) {
-  if (a.CLAUDE_BG_MEMORY_TOGGLED_OFF === "1" && a.CLAUDE_CODE_SESSION_KIND === "bg") eme(!0);
+  if (a.CLAUDE_BG_MEMORY_TOGGLED_OFF === "1" && a.CLAUDE_CODE_SESSION_KIND === "bg") eme(true);
   if (S.baseTools && !a.CLAUDE_CODE_REMOTE && a.CLAUDE_CODE_SESSION_KIND !== "bg") {
     let { toolsSpecNamesSelfHostedRunnerTool: q } = import.meta.require("/$bunfs/root/chunk-32ykp4qz.js");
     if (q(S.baseTools)) vqn();
@@ -7085,7 +7085,7 @@ async function Md({
   storageV5: oe,
 }) {
   let se = wE(P);
-  if (T && !0 && Fs()) {
+  if (T && true && Fs()) {
     let { applyCoordinatorToolFilter: Ze } = await import("/$bunfs/root/chunk-sa8dnjp8.js");
     se = Ze(se);
   }
@@ -7094,7 +7094,7 @@ async function Md({
   if (z) pe.catch(() => {});
   let [ue, de] = await Promise.all([z ? Promise.resolve([]) : pe, q ?? mE(S, oe)]),
     Re = [];
-  if (x && !ho("agents", { explicitlyRequested: !0 }))
+  if (x && !ho("agents", { explicitlyRequested: true }))
     try {
       let Ze = Ut(x);
       if (Ze) Re = u3e(Ze, "flagSettings");
@@ -7189,10 +7189,10 @@ function Ty(S) {
       return null;
     case "true":
     case "1":
-      return !0;
+      return true;
     case "false":
     case "0":
-      return !1;
+      return false;
     default:
       return "invalid";
   }
@@ -7200,11 +7200,11 @@ function Ty(S) {
 async function Od(S, P) {
   let T = S.teleport ?? null,
     x = S.cloud ?? S.remote,
-    N = x === !0 ? "" : (x ?? null),
+    N = x === true ? "" : (x ?? null),
     W = typeof x === "string" ? YZe(x) : null,
     q = typeof x === "string" && W === null && !S.initOnly && /^\s*\S+\s*$/.test(x) ? x : void 0,
     z = null,
-    re = !1,
+    re = false,
     oe = null,
     se = null;
   {
@@ -7212,32 +7212,32 @@ async function Od(S, P) {
     if (Xe !== void 0) {
       if (!AF(Xe))
         return {
-          ok: !1,
+          ok: false,
           error: `Error: --environment expects a self-hosted environment id (ccpool_...), got ${Wtt(Xe)}`,
         };
       if (S.resume || S.continue || T)
-        return { ok: !1, error: "Error: --environment cannot be combined with --resume, --continue, or --teleport" };
+        return { ok: false, error: "Error: --environment cannot be combined with --resume, --continue, or --teleport" };
       if (S.initOnly || P.sessionId)
         return {
-          ok: !1,
+          ok: false,
           error: `Error: --environment cannot be combined with ${S.initOnly ? "--init-only" : "--session-id"}`,
         };
       if (W !== null)
         return {
-          ok: !1,
+          ok: false,
           error: "Error: --environment creates a new session; it cannot be combined with --cloud <session_id|url>",
         };
       if ((S.print || P.nonInteractive) && typeof x === "string" && x.length > 0)
         return {
-          ok: !1,
+          ok: false,
           error:
             "Error: non-interactive --environment reads the prompt from the positional or stdin; drop --cloud/--remote <description>.",
         };
       if ((S.print || P.nonInteractive) && P.outputFormat === "stream-json")
-        return { ok: !1, error: "Error: --environment does not support --output-format stream-json" };
+        return { ok: false, error: "Error: --environment does not support --output-format stream-json" };
       if (typeof x === "string" && x.length > 0 && typeof P.prompt === "string" && P.prompt.length > 0)
         return {
-          ok: !1,
+          ok: false,
           error:
             "Error: --environment with --cloud <description> cannot also take a positional prompt. Pass the task as the description, or drop --cloud.",
         };
@@ -7245,61 +7245,61 @@ async function Od(S, P) {
         let Jt = typeof P.prompt === "string" ? P.prompt : "";
         if (!(S.print || P.nonInteractive) && YZe(Jt) !== null)
           return {
-            ok: !1,
+            ok: false,
             error: "Error: --environment creates a new session; it cannot be combined with a session id or url",
           };
-        (N = Jt), (re = !0);
+        (N = Jt), (re = true);
       }
     }
     let kt = S.ref;
     if (kt !== void 0) {
       if (z === null && N === null)
         return {
-          ok: !1,
+          ok: false,
           error: `Error: --ref sets the base branch for a cloud session; pass --cloud or --environment${S.project !== void 0 ? " \u2014 --project no longer starts cloud sessions" : ""}`,
         };
       if (W !== null)
         return {
-          ok: !1,
+          ok: false,
           error:
             "Error: --ref sets the base for a new cloud session; it cannot be combined with --cloud <session_id|url>",
         };
-      if (kt === "") return { ok: !1, error: "Error: --ref requires a non-empty branch, tag, or SHA" };
+      if (kt === "") return { ok: false, error: "Error: --ref requires a non-empty branch, tag, or SHA" };
       oe = kt;
     }
     let At = S.onBranch;
     if (At !== void 0) {
       if (z === null && N === null)
         return {
-          ok: !1,
+          ok: false,
           error: `Error: --on-branch resumes work on a branch in a cloud session; pass --cloud or --environment${S.project !== void 0 ? " \u2014 --project no longer starts cloud sessions" : ""}`,
         };
       if (W !== null)
         return {
-          ok: !1,
+          ok: false,
           error:
             "Error: --on-branch resumes a branch in a new cloud session; it cannot be combined with --cloud <session_id|url>",
         };
       if (oe !== null)
         return {
-          ok: !1,
+          ok: false,
           error: "Error: --on-branch and --ref both set the cloud session's base branch; pass one or the other",
         };
-      if (At === "") return { ok: !1, error: "Error: --on-branch requires a non-empty branch name" };
+      if (At === "") return { ok: false, error: "Error: --on-branch requires a non-empty branch name" };
       se = At;
     }
   }
-  let pe = !1,
+  let pe = false,
     ue = null,
     de = null,
     Re = null;
   {
     let Xe = S.correlationId;
     if (Xe !== void 0) {
-      if (z === null) return { ok: !1, error: "Error: --correlation-id requires --environment" };
+      if (z === null) return { ok: false, error: "Error: --correlation-id requires --environment" };
       if (!/^[\x21-\x2C\x2E-\x7E][\x21-\x7E]{0,511}$/.test(Xe))
         return {
-          ok: !1,
+          ok: false,
           error: 'Error: --correlation-id must be 1-512 printable ASCII characters with no spaces and no leading "-"',
         };
       Re = Xe;
@@ -7317,18 +7317,18 @@ async function Od(S, P) {
         outputFormat: P.outputFormat,
         hasSdkUrl: P.hasSdkUrl,
       }) &&
-      (await P.isViolinWoodEnabled().catch(() => !1)),
+      (await P.isViolinWoodEnabled().catch(() => false)),
     Ge = Ty(S.forwardHomeSettings);
   if (Ge === "invalid")
     return {
-      ok: !1,
+      ok: false,
       error: `Error: --forward-home-settings takes true or false, not ${Wtt(String(S.forwardHomeSettings))}.`,
     };
-  let Ze = Ge !== !1,
-    pt = Ge === !0 ? "forward" : null;
+  let Ze = Ge !== false,
+    pt = Ge === true ? "forward" : null;
   if (Ge !== null && z === null && N === null && W === null)
     return {
-      ok: !1,
+      ok: false,
       error:
         "Error: --forward-home-settings says whether this machine's settings go into a cloud session; pass --cloud (a new session, or one to attach to) or --environment",
     };
@@ -7342,16 +7342,16 @@ async function Od(S, P) {
       hasTeleport: T !== null,
       hasConnect: P.hasConnect,
       hasSSH: P.hasSSH,
-      hasAssistant: !1,
+      hasAssistant: false,
       hasPool: z !== null,
       isCloudAttach: W !== null,
       headlessCloud: Oe,
       loneWordValue: q,
     });
-    if (Xe) return { ok: !1, error: Xe };
+    if (Xe) return { ok: false, error: Xe };
   }
   return {
-    ok: !0,
+    ok: true,
     value: {
       teleport: T,
       remote: N,
@@ -7371,13 +7371,13 @@ async function Od(S, P) {
   };
 }
 function Ld(S) {
-  if (!S.sessionId) return { ok: !0 };
+  if (!S.sessionId) return { ok: true };
   if ((S.continue || S.resume) && !S.forkSession && !S.sdkUrl)
     return {
-      ok: !1,
+      ok: false,
       error: "Error: --session-id can only be used with --continue or --resume if --fork-session is also specified.",
     };
-  return { ok: !0 };
+  return { ok: true };
 }
 function Nd(S) {
   let P = {},
@@ -7421,15 +7421,15 @@ function Ud(S, P, T) {
 function Ay(S, P) {
   if (
     !(
-      P?.includes(Vk.header) === !0 ||
+      P?.includes(Vk.header) === true ||
       (a.ANTHROPIC_BETAS ?? "")
         .split(",")
         .map((x) => x.trim())
         .includes(Vk.header)
     )
   )
-    return !1;
-  return Ql(pn(Ye(S)))?.context?.supports_1m_beta === !0;
+    return false;
+  return Ql(pn(Ye(S)))?.context?.supports_1m_beta === true;
 }
 function Iy(S) {
   let P = BSn(S);
@@ -7521,7 +7521,7 @@ function Uy(S) {
   return null;
 }
 function By(S) {
-  if (!S.includes(".") && !S.includes(":")) return !0;
+  if (!S.includes(".") && !S.includes(":")) return true;
   if (
     /^10\.\d+\.\d+\.\d+$/.test(S) ||
     /^192\.168\.\d+\.\d+$/.test(S) ||
@@ -7531,7 +7531,7 @@ function By(S) {
     /^f[cd][0-9a-f]{2}:/.test(S) ||
     /^fe[89ab][0-9a-f]:/.test(S)
   )
-    return !0;
+    return true;
   return Oy.some((P) => S.endsWith(P));
 }
 function $d(S) {
@@ -7546,7 +7546,7 @@ function $d(S) {
     has_mcp_other: P.has("other"),
   };
 }
-function Hd(S, { dropForEnterpriseMcpConfig: P, dropForSideloadPolicy: T = !1 }) {
+function Hd(S, { dropForEnterpriseMcpConfig: P, dropForSideloadPolicy: T = false }) {
   let x = Dr()
     ? "safe mode"
     : Y4()
@@ -7857,7 +7857,7 @@ function kh(S) {
     let P = new URL(S);
     return qo(P.hostname) && /^\/rust-lang\/crates\.io-index(?:\.git)?\/?$/.test(P.pathname);
   } catch {
-    return !1;
+    return false;
   }
 }
 function vh(S, P) {
@@ -7877,7 +7877,7 @@ function vh(S, P) {
 }
 async function Fr(S, P) {
   try {
-    let T = await bP(Xs(S, P), th, { noFollow: !0 });
+    let T = await bP(Xs(S, P), th, { noFollow: true });
     return typeof T === "string" ? T : null;
   } catch {
     return null;
@@ -7887,7 +7887,7 @@ async function iu(S) {
   try {
     return (await ou(S)).isFile();
   } catch {
-    return !1;
+    return false;
   }
 }
 async function wh(S, P, T) {
@@ -7906,9 +7906,9 @@ async function wh(S, P, T) {
     if (N.startsWith(".cargo/") && !(await iu(Xs(S, N)))) continue;
     let q = await Fr(S, N);
     if (q === null) continue;
-    for (let z of vh(q, W)) if (!_h.has(z)) return { has_private_registry: !0, private_registry_host_class: bh(z) };
+    for (let z of vh(q, W)) if (!_h.has(z)) return { has_private_registry: true, private_registry_host_class: bh(z) };
   }
-  return { has_private_registry: !1, private_registry_host_class: "none" };
+  return { has_private_registry: false, private_registry_host_class: "none" };
 }
 async function Ph(S, P) {
   if (
@@ -7917,7 +7917,7 @@ async function Ph(S, P) {
       return N === ".sops.yaml" || N === ".sops.yml";
     })
   )
-    return !0;
+    return true;
   let T = P.filter((x) => {
     let N = x.toLowerCase();
     return N === ".envrc" || N.endsWith(".yml") || N.endsWith(".yaml") || N.endsWith(".toml") || N.endsWith(".sh");
@@ -7926,24 +7926,24 @@ async function Ph(S, P) {
     .slice(0, oh);
   for (let x of T) {
     let N = await Fr(S, x);
-    if (N !== null && uh.test(N)) return !0;
+    if (N !== null && uh.test(N)) return true;
   }
-  return !1;
+  return false;
 }
 async function Mh(S) {
   try {
     return (await ou(S)).isDirectory();
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Rh(S) {
   try {
     let P = Xs(S, ".github", "workflows");
-    if (!(await Mh(P))) return !1;
+    if (!(await Mh(P))) return false;
     return (await ru(P)).some((x) => x.endsWith(".yml") || x.endsWith(".yaml"));
   } catch {
-    return !1;
+    return false;
   }
 }
 function Th(S) {
@@ -7954,16 +7954,16 @@ async function Ah(S, P, T) {
   for (let x of hh) {
     if (!P.has(x)) continue;
     let N = await Fr(S, x);
-    if (N !== null && nu.test(Js(N))) return !0;
+    if (N !== null && nu.test(Js(N))) return true;
   }
   if (T) {
     let x = Xs(S, "gradle", "libs.versions.toml");
     if (await iu(x)) {
       let N = await Fr(S, "gradle/libs.versions.toml");
-      if (N !== null && nu.test(Js(N))) return !0;
+      if (N !== null && nu.test(Js(N))) return true;
     }
   }
-  return !1;
+  return false;
 }
 function Js(S) {
   return S.replace(/^[^\S\n]*(?:#|\/\/).*$/gm, "");
@@ -7971,14 +7971,14 @@ function Js(S) {
 async function Ih(S, P) {
   if (P.has("CMakeLists.txt")) {
     let T = await Fr(S, "CMakeLists.txt");
-    if (T !== null && fh.test(Js(T))) return !0;
+    if (T !== null && fh.test(Js(T))) return true;
   }
   for (let T of Sh) {
     if (!P.has(T)) continue;
     let x = await Fr(S, T);
-    if (x !== null && yh.test(Js(x))) return !0;
+    if (x !== null && yh.test(Js(x))) return true;
   }
-  return !1;
+  return false;
 }
 async function Oh(S, P, T, x, N) {
   let W = P.map((q) => q.toLowerCase());
@@ -8000,7 +8000,7 @@ async function Oh(S, P, T, x, N) {
   return "none";
 }
 async function Fh(S) {
-  let P = await ru(S, { withFileTypes: !0 }),
+  let P = await ru(S, { withFileTypes: true }),
     T = P.filter((de) => de.isFile()).map((de) => de.name),
     x = P.filter((de) => de.isDirectory()).map((de) => de.name),
     N = new Set(T),
@@ -8010,8 +8010,8 @@ async function Fh(S) {
     [re, oe, se, pe] = await Promise.all([
       wh(S, N, x.includes(".cargo")),
       Ph(S, T),
-      x.includes(".github") ? Rh(S) : Promise.resolve(!1),
-      T.includes("AndroidManifest.xml") ? Promise.resolve(!0) : Ah(S, N, x.includes("gradle")),
+      x.includes(".github") ? Rh(S) : Promise.resolve(false),
+      T.includes("AndroidManifest.xml") ? Promise.resolve(true) : Ah(S, N, x.includes("gradle")),
     ]),
     ue = await Oh(S, T, N, z, pe);
   return {
@@ -8084,21 +8084,21 @@ class du {
     this.runs++;
   }
   firstPolicySkipFor(S) {
-    if (this.loggedPolicySkips.has(S)) return !1;
-    return this.loggedPolicySkips.add(S), !0;
+    if (this.loggedPolicySkips.has(S)) return false;
+    return this.loggedPolicySkips.add(S), true;
   }
 }
 var lN = new Mn(() => new du());
 class uu {
   lastEmittedPayload = void 0;
   markIfChanged(S) {
-    if (S === this.lastEmittedPayload) return !1;
-    return (this.lastEmittedPayload = S), !0;
+    if (S === this.lastEmittedPayload) return false;
+    return (this.lastEmittedPayload = S), true;
   }
 }
 var HN = new J(() => new uu());
 function mu({ replayUserMessagesFlag: S, outputFormat: P, explicitSocketPath: T, socketBound: x }) {
-  if (S) return !0;
+  if (S) return true;
   return P === "stream-json" && T !== void 0 && x;
 }
 var gu = j(mm(), 1);
@@ -8114,7 +8114,7 @@ function Uh(S) {
   return T.searchParams.set("session", S), T.toString();
 }
 async function ha() {
-  if (ya()) return !0;
+  if (ya()) return true;
   let S = "darwin";
   if (S === "darwin") return $a("/Applications/Claude.app");
   else if (S === "linux") {
@@ -8124,7 +8124,7 @@ async function ha() {
     let { code: P } = await $e("reg", ["query", "HKEY_CLASSES_ROOT\\claude", "/ve"]);
     return P === 0;
   }
-  return !1;
+  return false;
 }
 async function Bh() {
   {
@@ -8162,24 +8162,24 @@ async function jh(S) {
     let { code: T } = await $e("open", [S]);
     return T === 0;
   }
-  return !1;
+  return false;
 }
 async function KIn() {
   let S = K(),
     P = await pKt();
   if (P.status === "not-installed")
-    return { success: !1, error: "Claude Desktop is not installed. Install it from https://claude.ai/download" };
+    return { success: false, error: "Claude Desktop is not installed. Install it from https://claude.ai/download" };
   if (P.status === "version-too-old")
     return {
-      success: !1,
+      success: false,
       error: `Claude Desktop ${P.version} is too old to resume this session. Please update to ${kvt} or later.`,
     };
   let T = Uh(S);
   if (!(await jh(T)))
-    return { success: !1, error: "Failed to open Claude Desktop. Please try opening it manually.", deepLinkUrl: T };
-  return { success: !0, deepLinkUrl: T };
+    return { success: false, error: "Failed to open Claude Desktop. Please try opening it manually.", deepLinkUrl: T };
+  return { success: true, deepLinkUrl: T };
 }
-var $h = { enable_shortcut_tip: !1, enable_contextual_tip: !1 };
+var $h = { enable_shortcut_tip: false, enable_contextual_tip: false };
 function Sa() {
   return gh("tengu_desktop_upsell", $h);
 }
@@ -8231,7 +8231,7 @@ class Eu {
           pluginId: `${z.name}@${N}`,
           advertisedCommand: "plugin",
           priority: 1,
-          providerAgnostic: !0,
+          providerAgnostic: true,
           cooldownSessions: 3,
           content: async (ue) => {
             let de = mt("suggestion", ue.theme);
@@ -8248,7 +8248,7 @@ ${de(`/plugin install ${z.name}@${N}`)}`;
     return (this.desktopInstalled ??= ha()), this.desktopInstalled;
   }
   getGhAuthStatus() {
-    return (this.ghAuthStatus ??= Vve({ allowNetworkFallbackForOldGh: !1 })), this.ghAuthStatus;
+    return (this.ghAuthStatus ??= Vve({ allowNetworkFallbackForOldGh: false })), this.ghAuthStatus;
   }
   countSessionsOnce(S) {
     if (this.sessionCountInFlight !== void 0) return this.sessionCountInFlight;
@@ -8264,16 +8264,16 @@ function hu(S) {
   return u7e(S?.storageV5);
 }
 async function Mu(S, P, T, x, N = ag) {
-  if (!(await S.getKnownMarketplaces(T.storageV5))[N]) return !1;
-  if (tH(`${P}@${N}`)) return !1;
-  if (Fd(`${P}@${N}`)) return !1;
+  if (!(await S.getKnownMarketplaces(T.storageV5))[N]) return false;
+  if (tH(`${P}@${N}`)) return false;
+  if (Fd(`${P}@${N}`)) return false;
   return (await Pvt(x, T)) !== null;
 }
 async function Su(S, P) {
   try {
     return (await B8(S, ee(), P)).length > 0;
   } catch (T) {
-    return n(`hasUserDefined(${S}) failed: ${T}`), !1;
+    return n(`hasUserDefined(${S}) failed: ${T}`), false;
   }
 }
 var Hh = /\.(html?|css|s[ac]ss|less|[jt]sx|vue|svelte|astro|png|jpe?g|gif|svg|webp|avif|ico)$/i,
@@ -8294,12 +8294,12 @@ var Hh = /\.(html?|css|s[ac]ss|less|[jt]sx|vue|svelte|astro|png|jpe?g|gif|svg|we
 function ba(S) {
   let { bashTools: P, readFileState: T } = S ?? {};
   if (P) {
-    for (let x of P) if (Gh.has(x)) return !0;
+    for (let x of P) if (Gh.has(x)) return true;
   }
   if (T) {
-    for (let x of KLe(T)) if (Hh.test(x)) return !0;
+    for (let x of KLe(T)) if (Hh.test(x)) return true;
   }
-  return !1;
+  return false;
 }
 function Ca(S) {
   return `available in Claude for Enterprise \xB7 ${Yg("https://clau.de/enterprise", "Learn more", { themeName: S.theme })}`;
@@ -8332,7 +8332,7 @@ function Pu() {
   return Bue(Jd(S), "Chat", S);
 }
 async function _Kt(S) {
-  if (!sn()) return !0;
+  if (!sn()) return true;
   let { filterCommandsForRemoteMode: P, getBuiltinCommands: T } = await import("/$bunfs/root/chunk-59z9est3.js");
   return P(T()).some((x) => x.name === S || x.aliases?.includes(S));
 }
@@ -8386,21 +8386,21 @@ var Ru = [
     {
       id: "powerup-onboarding",
       priority: 3,
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async (S) =>
         `New to Claude Code? Run ${mt("suggestion", S.theme)("/powerup")} for a quick interactive tutorial`,
       cooldownSessions: 1,
       async isRelevant() {
         let S = ie();
-        if (S.numStartups >= 10) return !1;
-        if (S.powerupsUnlocked?.length) return !1;
-        return I("tengu_alder_compass", !1);
+        if (S.numStartups >= 10) return false;
+        if (S.powerupsUnlocked?.length) return false;
+        return I("tengu_alder_compass", false);
       },
     },
     {
       id: "new-user-warmup",
       priority: 2,
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () =>
         "Start with small features or bug fixes, tell Claude to propose a plan, and verify its suggested edits",
       cooldownSessions: 3,
@@ -8411,7 +8411,7 @@ var Ru = [
     {
       id: "plan-mode-for-complex-tasks",
       priority: 2,
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () =>
         `Use Plan Mode to prepare for a complex request before making changes. Press ${Nh("chat:cycleMode", "Chat", "shift+tab")} twice to enable.`,
       cooldownSessions: 5,
@@ -8422,7 +8422,7 @@ var Ru = [
     },
     {
       id: "default-permission-mode-config",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       advertisedCommand: "config",
       content: async () => "Use /config to change your default permission mode (including Plan Mode)",
       cooldownSessions: 10,
@@ -8434,13 +8434,13 @@ var Ru = [
             x = Boolean(P?.permissions?.defaultMode);
           return T && !x;
         } catch (S) {
-          return n(`Failed to check default-permission-mode-config tip relevance: ${S}`, { level: "warn" }), !1;
+          return n(`Failed to check default-permission-mode-config tip relevance: ${S}`, { level: "warn" }), false;
         }
       },
     },
     {
       id: "git-worktrees",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Use git worktrees to run multiple Claude sessions in parallel.",
       cooldownSessions: 10,
       isRelevant: async () => {
@@ -8448,48 +8448,48 @@ var Ru = [
           let S = ie();
           return (await O1e()) <= 1 && S.numStartups > 50;
         } catch (S) {
-          return !1;
+          return false;
         }
       },
     },
     {
       id: "color-when-multi-clauding",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Running multiple Claude sessions? Use /color and /rename to tell them apart at a glance.",
       cooldownSessions: 10,
       isRelevant: async (S) => {
-        if (hce()) return !1;
+        if (hce()) return false;
         return (await hu(S)) >= 2;
       },
     },
     {
       id: "agents-view-multiclauding",
       priority: 3,
-      providerAgnostic: !0,
+      providerAgnostic: true,
       maxLifetimeShows: 5,
       cooldownSessions: 1,
       content: async (S) =>
         `Running multiple Claude sessions? Press ${mt("suggestion", S.theme)(fP)} on an empty prompt to see them all in one place`,
       isRelevant: async (S) => {
-        if (!tZ()) return !1;
-        if (Xc()) return !1;
+        if (!tZ()) return false;
+        if (Xc()) return false;
         let P = ie();
-        if (P.leftArrowOpensAgents === !1) return !1;
-        if (wt()) return !1;
-        if (P.hasOpenedAgentsView || P.hasUsedAgentsFleet) return !1;
+        if (P.leftArrowOpensAgents === false) return false;
+        if (wt()) return false;
+        if (P.hasOpenedAgentsView || P.hasUsedAgentsFleet) return false;
         return (await hu(S)) >= 2;
       },
     },
     {
       id: "terminal-setup",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () =>
         a.terminal === "Apple_Terminal"
           ? "Run /terminal-setup to enable convenient terminal integration like Option + Enter for new line and more"
           : "Run /terminal-setup to enable convenient terminal integration like Shift + Enter for new line and more",
       cooldownSessions: 10,
       async isRelevant() {
-        if (!ase()) return !1;
+        if (!ase()) return false;
         let S = ie();
         if (a.terminal === "Apple_Terminal") return !S.optionAsMetaKeyInstalled;
         return !S.shiftEnterKeyBindingInstalled;
@@ -8497,7 +8497,7 @@ var Ru = [
     },
     {
       id: "vscode-gpu-accel-garbled-glyphs",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       maxLifetimeShows: 5,
       content: async () =>
         "Corrupted terminal glyphs? Disable terminal GPU acceleration in settings or run /terminal-setup",
@@ -8508,7 +8508,7 @@ var Ru = [
     },
     {
       id: "shift-enter",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () =>
         a.terminal === "Apple_Terminal"
           ? "Press Option+Enter to send a multi-line message"
@@ -8524,21 +8524,21 @@ var Ru = [
     },
     {
       id: "shift-enter-setup",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () =>
         a.terminal === "Apple_Terminal"
           ? "Run /terminal-setup to enable Option+Enter for new lines"
           : "Run /terminal-setup to enable Shift+Enter for new lines",
       cooldownSessions: 10,
       async isRelevant() {
-        if (!ase()) return !1;
+        if (!ase()) return false;
         let S = ie();
         return !(a.terminal === "Apple_Terminal" ? S.optionAsMetaKeyInstalled : S.shiftEnterKeyBindingInstalled);
       },
     },
     {
       id: "memory-command",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Use /memory to view and manage Claude memory",
       cooldownSessions: 15,
       advertisedCommand: "memory",
@@ -8548,28 +8548,28 @@ var Ru = [
     },
     {
       id: "theme-command",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Use /theme to change the color theme",
       cooldownSessions: 20,
-      isRelevant: async () => !0,
+      isRelevant: async () => true,
     },
     {
       id: "colorterm-truecolor",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Try setting environment variable COLORTERM=truecolor for richer colors",
       cooldownSessions: 30,
       isRelevant: async () => !a.COLORTERM && ae.level < 3,
     },
     {
       id: "powershell-tool-env",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Set CLAUDE_CODE_USE_POWERSHELL_TOOL=1 to enable the PowerShell tool (preview)",
       cooldownSessions: 10,
       isRelevant: async () => D() === "windows" && process.env.CLAUDE_CODE_USE_POWERSHELL_TOOL === void 0,
     },
     {
       id: "status-line",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Use /statusline to set up a custom status line that will display beneath the input box",
       cooldownSessions: 25,
       advertisedCommand: "statusline",
@@ -8577,7 +8577,7 @@ var Ru = [
     },
     {
       id: "prompt-queue",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Hit Enter to queue up additional messages while Claude is working.",
       cooldownSessions: 5,
       async isRelevant() {
@@ -8586,28 +8586,28 @@ var Ru = [
     },
     {
       id: "enter-to-steer-in-relatime",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Send messages to Claude while it works to steer Claude in real-time",
       cooldownSessions: 20,
-      isRelevant: async () => !0,
+      isRelevant: async () => true,
     },
     {
       id: "todo-list",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () =>
         "Ask Claude to create a todo list when working on complex tasks to track progress and remain on track",
       cooldownSessions: 20,
-      isRelevant: async () => !0,
+      isRelevant: async () => true,
     },
     {
       id: "vscode-command-install",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () =>
         `Open the Command Palette (Cmd+Shift+P) and run "Shell Command: Install '${a.terminal === "vscode" ? "code" : a.terminal}' command in PATH" to enable IDE integration`,
       cooldownSessions: 0,
       async isRelevant() {
-        if (!v5e()) return !1;
-        if (D() !== "macos") return !1;
+        if (!v5e()) return false;
+        if (D() !== "macos") return false;
         switch (a.terminal) {
           case "vscode":
             return !(await VYn());
@@ -8616,19 +8616,19 @@ var Ru = [
           case "windsurf":
             return !(await zYn());
           default:
-            return !1;
+            return false;
         }
       },
     },
     {
       id: "ide-upsell-external-terminal",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       advertisedCommand: "ide",
       content: async () => "Connect Claude to your IDE \xB7 /ide",
       cooldownSessions: 4,
       async isRelevant() {
-        if (mH()) return !1;
-        if ((await Pjt()).length !== 0) return !1;
+        if (mH()) return false;
+        if ((await Pjt()).length !== 0) return false;
         return (await KYn()).length > 0;
       },
     },
@@ -8638,7 +8638,7 @@ var Ru = [
       cooldownSessions: 10,
       advertisedCommand: "install-github-app",
       async isRelevant() {
-        if (ie().githubActionSetupCount) return !1;
+        if (ie().githubActionSetupCount) return false;
         let S = H1e(),
           P = S ? bz(S) : null;
         return P !== "gitlab" && P !== "bitbucket";
@@ -8658,18 +8658,18 @@ var Ru = [
       cooldownSessions: 10,
       isRelevant: async (S) => {
         try {
-          if (!Tt()) return !1;
-          if (ie().slackAppInstallCount) return !1;
+          if (!Tt()) return false;
+          if (ie().slackAppInstallCount) return false;
           let { servers: P } = await nH({}, { storageV5: S?.storageV5 });
           return Object.keys(P).some((T) => T.toLowerCase().includes("slack"));
         } catch (P) {
-          return !1;
+          return false;
         }
       },
     },
     {
       id: "permissions",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Use /permissions to pre-approve and pre-deny bash, edit, and MCP tools",
       cooldownSessions: 10,
       advertisedCommand: "permissions",
@@ -8679,49 +8679,49 @@ var Ru = [
     },
     {
       id: "drag-and-drop-images",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Did you know you can drag and drop image files into your terminal?",
       cooldownSessions: 10,
       isRelevant: async () => !a.isSSH(),
     },
     {
       id: "paste-images-mac",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Paste images into Claude Code using control+v (not cmd+v!)",
       cooldownSessions: 10,
       isRelevant: async () => D() === "macos",
     },
     {
       id: "double-esc",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Double-tap esc to rewind the conversation to a previous point in time",
       cooldownSessions: 10,
       isRelevant: async () => !Fy(),
     },
     {
       id: "double-esc-code-restore",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Double-tap esc to rewind the code and/or conversation to a previous point in time",
       cooldownSessions: 10,
       isRelevant: async () => Fy(),
     },
     {
       id: "continue",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Run claude --continue or claude --resume to resume a conversation",
       cooldownSessions: 10,
-      isRelevant: async () => !0,
+      isRelevant: async () => true,
     },
     {
       id: "rename-conversation",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Name your conversations with /rename to find them easily in /resume later",
       cooldownSessions: 15,
       isRelevant: async () => pce() && ie().numStartups > 10,
     },
     {
       id: "custom-commands",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () =>
         "Create skills by adding .md files to .claude/skills/ in your project or ~/.claude/skills/ for skills that work in any project",
       cooldownSessions: 15,
@@ -8732,26 +8732,26 @@ var Ru = [
     },
     {
       id: "shift-tab",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       async content() {
         return `Hit ${Pu() ?? "shift+tab"} to cycle between manual mode, auto-accept edit mode, and plan mode`;
       },
       cooldownSessions: 10,
       async isRelevant() {
-        if (Le()) return !1;
+        if (Le()) return false;
         return Pu() !== null;
       },
     },
     {
       id: "image-paste",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => `Use ${Nh("chat:imagePaste", "Chat", "ctrl+v")} to paste images from your clipboard`,
       cooldownSessions: 20,
-      isRelevant: async () => !0,
+      isRelevant: async () => true,
     },
     {
       id: "agent-flag",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () => "Use --agent <agent_name> to directly start a conversation with a subagent",
       cooldownSessions: 15,
       async isRelevant(S) {
@@ -8785,8 +8785,8 @@ var Ru = [
       },
       cooldownSessions: 15,
       isRelevant: async (S) => {
-        if (!SGe()) return !1;
-        if (!Sa().enable_contextual_tip) return !1;
+        if (!SGe()) return false;
+        if (!Sa().enable_contextual_tip) return false;
         return ba(S);
       },
     },
@@ -8797,9 +8797,9 @@ var Ru = [
         `Use Claude Design to mock up screens before you build \xB7 ${Yg("https://claude.ai/design?utm_source=claude_code&utm_medium=tip&utm_campaign=tengu_cedar_plume", "claude.ai/design", { themeName: S.theme })}`,
       cooldownSessions: 15,
       isRelevant: async (S) => {
-        if (!Tt()) return !1;
-        if (!ba(S)) return !1;
-        return I("tengu_cedar_plume", !1);
+        if (!Tt()) return false;
+        if (!ba(S)) return false;
+        return I("tengu_cedar_plume", false);
       },
     },
     {
@@ -8810,8 +8810,8 @@ var Ru = [
         `Working on UI? Run ${mt("suggestion", S.theme)("/design")} to mock up a few directions before you build`,
       cooldownSessions: 15,
       isRelevant: async (S) => {
-        if (!ba(S)) return !1;
-        if (ay()) return !1;
+        if (!ba(S)) return false;
+        if (ay()) return false;
         return vhe();
       },
     },
@@ -8848,12 +8848,12 @@ var Ru = [
       content: async (S) =>
         `Run ${mt("suggestion", S.theme)("/web-setup")} to use Claude Code on the web with the GitHub account gh is signed in to`,
       isRelevant: async (S) => {
-        if (Le() || !Tt() || !Lke()) return !1;
+        if (Le() || !Tt() || !Lke()) return false;
         let P = H1e(),
           T = P ? bz(P) : null;
-        if (T === "gitlab" || T === "bitbucket") return !1;
-        if (FQ("web-setup-github") >= ku || aB("web-setup-github") < Cu) return !1;
-        if ((await YJ.of(S.session.host).getGhAuthStatus()).status !== "authenticated") return !1;
+        if (T === "gitlab" || T === "bitbucket") return false;
+        if (FQ("web-setup-github") >= ku || aB("web-setup-github") < Cu) return false;
+        if ((await YJ.of(S.session.host).getGhAuthStatus()).status !== "authenticated") return false;
         return vq.of(S.session.host).peek(S.credentials) === "not_connected";
       },
     },
@@ -8878,9 +8878,9 @@ var Ru = [
       cooldownSessions: 15,
       maxLifetimeShows: 3,
       isRelevant: async () => {
-        if (!ch() || !B3() || !Mt("allow_remote_control")) return !1;
-        if (ma() === void 0) return !1;
-        return I("tengu_maple_rung", !1);
+        if (!ch() || !B3() || !Mt("allow_remote_control")) return false;
+        if (ma() === void 0) return false;
+        return I("tengu_maple_rung", false);
       },
     },
     {
@@ -8899,7 +8899,7 @@ var Ru = [
     },
     {
       id: "no-flicker",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () =>
         "Try the new fullscreen renderer \u2014 flicker-free output, mouse support, auto-copy on select \xB7 /tui fullscreen",
       cooldownSessions: 10,
@@ -8912,12 +8912,12 @@ var Ru = [
         `Build your AI product with Claude API. Run ${mt("suggestion", S.theme)("/claude-api")} to get started`,
       cooldownSessions: 15,
       isRelevant: async () => {
-        if (!Tt() || !uAe()) return !1;
+        if (!Tt() || !uAe()) return false;
         let S = ie();
-        if (S.primaryApiKey) return !1;
-        if (S.customApiKeyResponses?.approved?.length) return !1;
-        if (a.ANTHROPIC_API_KEY) return !1;
-        if (S.numStartups <= 10) return !1;
+        if (S.primaryApiKey) return false;
+        if (S.customApiKeyResponses?.approved?.length) return false;
+        if (a.ANTHROPIC_API_KEY) return false;
+        if (S.numStartups <= 10) return false;
         return I("tengu_kestrel_arch", "off") === "on";
       },
     },
@@ -8926,9 +8926,9 @@ var Ru = [
       content: async (S) => `Run Claude Code locally or remotely using the Claude desktop app \u2014 ${Ca(S)}`,
       cooldownSessions: 15,
       isRelevant: async () => {
-        if (!Cbe() || ka("c4e-desktop")) return !1;
-        if (sn()) return !1;
-        return !0;
+        if (!Cbe() || ka("c4e-desktop")) return false;
+        if (sn()) return false;
+        return true;
       },
     },
     {
@@ -8955,14 +8955,14 @@ var Ru = [
         return `Run ${P("/ultrareview")} for a cloud-based multi-agent review that finds and verifies bugs in your branch${x}`;
       },
       isRelevant: async (S) => {
-        if (!NHt("startup_tip")) return !1;
-        if (tJt()) return !1;
-        return eJt(S.credentials), !0;
+        if (!NHt("startup_tip")) return false;
+        if (tJt()) return false;
+        return eJt(S.credentials), true;
       },
     },
     {
       id: "opusplan-mode-reminder",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async () =>
         `Your default model setting is Opus Plan Mode. Press ${Nh("chat:cycleMode", "Chat", "shift+tab")} twice to activate Plan Mode and plan with Claude Opus.`,
       cooldownSessions: 2,
@@ -8976,7 +8976,7 @@ var Ru = [
     {
       id: "frontend-design-plugin",
       priority: 1,
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async (S) => `Working with HTML/CSS? Install the frontend-design plugin:
 ${mt("suggestion", S.theme)(`/plugin install frontend-design@${ag}`)}`,
       cooldownSessions: 3,
@@ -8987,7 +8987,7 @@ ${mt("suggestion", S.theme)(`/plugin install frontend-design@${ag}`)}`,
     },
     {
       id: "subagent-fanout-nudge",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async (S) =>
         `Say ${mt("suggestion", S.theme)('"fan out subagents"')} and Claude sends a team. Each one digs deep so nothing gets missed.`,
       cooldownSessions: 3,
@@ -8995,7 +8995,7 @@ ${mt("suggestion", S.theme)(`/plugin install frontend-design@${ag}`)}`,
     },
     {
       id: "dynamic-workflows",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async (S) =>
         `Dynamic workflows let Claude write a script that orchestrates many agents for you. Mention the keyword ${mt("suggestion", S.theme)("ultracode")} or ask Claude to use a workflow directly.`,
       cooldownSessions: 3,
@@ -9003,7 +9003,7 @@ ${mt("suggestion", S.theme)(`/plugin install frontend-design@${ag}`)}`,
     },
     {
       id: "workflow-size-prompting",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       advertisedCommand: "config",
       priority: 1,
       content: async (S) => {
@@ -9011,11 +9011,11 @@ ${mt("suggestion", S.theme)(`/plugin install frontend-design@${ag}`)}`,
         return `You can control how big a workflow is just by prompting. Try ${P('"use a small workflow, 5 agents max"')}, or set a default with ${P("Dynamic workflow size")} in ${P("/config")}.`;
       },
       cooldownSessions: 5,
-      isRelevant: async (S) => Zu() && !wu() && (S?.toolsUsed?.has(eu) ?? !1) && !_u("workflow-size-prompting"),
+      isRelevant: async (S) => Zu() && !wu() && (S?.toolsUsed?.has(eu) ?? false) && !_u("workflow-size-prompting"),
     },
     {
       id: "workflow-size-prompting-ambient",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       advertisedCommand: "config",
       content: async (S) => {
         let P = mt("suggestion", S.theme);
@@ -9023,30 +9023,30 @@ ${mt("suggestion", S.theme)(`/plugin install frontend-design@${ag}`)}`,
       },
       cooldownSessions: 12,
       isRelevant: async (S) =>
-        Zu() && !wu() && !(S?.toolsUsed?.has(eu) ?? !1) && !_u("workflow-size-prompting-ambient"),
+        Zu() && !wu() && !(S?.toolsUsed?.has(eu) ?? false) && !_u("workflow-size-prompting-ambient"),
     },
     {
       id: "loop-command-nudge",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async (S) =>
         `${mt("suggestion", S.theme)(`/${Kft}`)} runs any prompt on a recurring schedule. Great for monitoring deploys, babysitting PRs, or polling status.`,
       cooldownSessions: 3,
       isRelevant: async () => {
-        if (eA()) return !1;
-        if (!cC()) return !1;
+        if (eA()) return false;
+        if (!cC()) return false;
         return !Tt();
       },
     },
     {
       id: "code-review-low-fast",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       content: async (S) =>
         `For a fast, cheap code review, try ${mt("suggestion", S.theme)("/code-review low")}. It runs the built-in skill at its lightest effort level.`,
       cooldownSessions: 8,
       isRelevant: async () => {
         let S = ie().skillUsage ?? {};
         return Object.keys(S).some((P) => {
-          if (P === xD) return !1;
+          if (P === xD) return false;
           return P.toLowerCase()
             .replace(/[^a-z0-9]/g, "")
             .includes("codereview");
@@ -9055,7 +9055,7 @@ ${mt("suggestion", S.theme)(`/plugin install frontend-design@${ag}`)}`,
     },
     {
       id: "plugin-disuse-review",
-      providerAgnostic: !0,
+      providerAgnostic: true,
       advertisedCommand: "plugin",
       content: async (S) => {
         let P = mt("suggestion", S.theme),
@@ -9087,7 +9087,7 @@ ${mt("suggestion", S.theme)(`/plugin install frontend-design@${ag}`)}`,
       },
       cooldownSessions: 3,
       isRelevant: async () => {
-        if (ie().hasVisitedPasses) return !1;
+        if (ie().hasVisitedPasses) return false;
         let { eligible: P } = tDe();
         return P;
       },
@@ -9097,7 +9097,7 @@ ${mt("suggestion", S.theme)(`/plugin install frontend-design@${ag}`)}`,
       content: async () => "Use /feedback to help us improve!",
       cooldownSessions: 15,
       async isRelevant() {
-        if (!Lv()) return !1;
+        if (!Lv()) return false;
         return ie().numStartups > 5;
       },
     },
@@ -9109,8 +9109,8 @@ ${mt("suggestion", S.theme)(`/plugin install frontend-design@${ag}`)}`,
       cooldownSessions: 5,
       async isRelevant() {
         let S = ie();
-        if (S.numStartups < 15) return !1;
-        if (S.teamOnboardingLastUsedAt !== void 0 && Date.now() - S.teamOnboardingLastUsedAt < 2592000000) return !1;
+        if (S.numStartups < 15) return false;
+        if (S.teamOnboardingLastUsedAt !== void 0 && Date.now() - S.teamOnboardingLastUsedAt < 2592000000) return false;
         return rhe();
       },
     },
@@ -9120,7 +9120,7 @@ async function yKt(S, P) {
   try {
     return await S.isRelevant(P);
   } catch (T) {
-    return YJ.of(P.session.host).failedTipIds.add(S.id), h(ft(we(T), "tip isRelevant threw")), !1;
+    return YJ.of(P.session.host).failedTipIds.add(S.id), h(ft(we(T), "tip isRelevant threw")), false;
   }
 }
 async function Ovt(S) {
@@ -9132,7 +9132,7 @@ async function Ovt(S) {
     q = Ne() !== "firstParty" || !jo(),
     z = W.filter((de) => !P.failedTipIds.has(de.id)),
     re = q ? z.filter((de) => de.providerAgnostic) : z,
-    oe = await Promise.all(re.map((de) => (de.advertisedCommand === void 0 ? !0 : _Kt(de.advertisedCommand)))),
+    oe = await Promise.all(re.map((de) => (de.advertisedCommand === void 0 ? true : _Kt(de.advertisedCommand)))),
     se = re.filter((de, Re) => oe[Re]),
     pe = await Promise.all(se.map((de) => yKt(de, S)));
   return [
@@ -9164,7 +9164,7 @@ function br(S) {
   return S.config.models ?? [];
 }
 function ei(S) {
-  return br(S).filter((P) => P.disabled !== !0 && P.section !== "deprecated");
+  return br(S).filter((P) => P.disabled !== true && P.section !== "deprecated");
 }
 function Iu(S) {
   return ei(S).map((P) => P.id);
@@ -9203,7 +9203,7 @@ function Lu(S) {
 function Ma(S) {
   return new Set(
     br(S)
-      .filter((P) => P.confidential === !0)
+      .filter((P) => P.confidential === true)
       .map((P) => Eo(P.id)),
   );
 }
@@ -9308,10 +9308,10 @@ async function Wu(S, { etag: P } = {}) {
   try {
     let T = await bt.get(`/api/organizations/:orgUUID/model_selector/${S}`, {
       auth: "teleport-org",
-      isBackground: !0,
+      isBackground: true,
       timeout: oS,
       maxContentLength: DDt,
-      validateStatus: () => !0,
+      validateStatus: () => true,
       ...(P !== void 0 && { headers: { "If-None-Match": P } }),
     });
     if (!T.ok)
@@ -9412,7 +9412,7 @@ function Xu({ allowNetwork: S }) {
   }
   let P = Ac();
   if (P.servedCatalogShadowStarted) return;
-  (P.servedCatalogShadowStarted = !0), iS(S).catch((T) => h(T));
+  (P.servedCatalogShadowStarted = true), iS(S).catch((T) => h(T));
 }
 async function iS(S) {
   let P = await Vu({ allowNetwork: S });
@@ -9420,12 +9420,12 @@ async function iS(S) {
   let T = P.entry?.catalog ?? null;
   if (!S && T === null) return;
   let x = null,
-    N = !1;
+    N = false;
   if (T !== null)
     try {
       x = Hu(T, $u());
     } catch (W) {
-      (N = !0), h(W);
+      (N = true), h(W);
     }
   s("tengu_model_catalog_compare", lS({ outcome: P, catalog: T, comparison: x, compareFailed: N })),
     n(`[servedCatalog] shadow compare logged (fetch=${P.fetchStatus}, rows=${T === null ? 0 : br(T).length})`);
@@ -9486,11 +9486,11 @@ function Yu(S, P) {
   );
 }
 function si(S, P, T) {
-  if (P.match !== !1) return {};
+  if (P.match !== false) return {};
   return { [`${S}_old`]: Ta(P.old, T), [`${S}_new`]: P.new === void 0 ? void 0 : Ta(P.new, T) };
 }
 function Ju(S, P) {
-  if (P.match !== !1) return {};
+  if (P.match !== false) return {};
   return { [`${S}_old`]: P.old, [`${S}_new`]: P.new };
 }
 var dS = [
@@ -9546,7 +9546,7 @@ function mS(S) {
   return Object.fromEntries(
     dS.map((T) => {
       let x = tm(T);
-      return [`has_${x}`, P?.has(x) ?? !1];
+      return [`has_${x}`, P?.has(x) ?? false];
     }),
   );
 }
@@ -9563,7 +9563,7 @@ async function nm(S, P, T, x) {
       if (se.source === "builtin") continue;
       s("tengu_skill_loaded", {
         _PROTO_skill_name: se.name,
-        ...!1,
+        ...false,
         ...(Win(se) && Bin(se.name)),
         ...$8(se.source, se.loadedFrom, se.kind, se.createdBy),
         skill_budget: re,
@@ -9729,7 +9729,7 @@ async function bS({
         inProtectedNamespace: YO(),
         ...Che(),
         ...lt,
-        apiKeySource: c(py({ skipRetrievingKeyFromApiKeyHelper: !0 }).source),
+        apiKeySource: c(py({ skipRetrievingKeyFromApiKeyHelper: true }).source),
         allowDangerouslySkipPermissionsPassed: wn,
         thinkingType: c(tn.type),
         ...(_t && { systemPromptFlag: c(_t) }),
@@ -9740,7 +9740,7 @@ async function bS({
         ...xt,
         is_simple: Co() || void 0,
         is_safe_mode: Dr() || void 0,
-        is_coordinator: Mvt?.isCoordinatorMode() ? !0 : void 0,
+        is_coordinator: Mvt?.isCoordinatorMode() ? true : void 0,
         autoUpdatesChannel: c(Je().autoUpdatesChannel ?? "latest"),
         ...Qt,
         ...(st && { is_git: st.is_git, has_remote: st.has_remote, remote_host_class: c(st.remote_host_class) }),
@@ -9773,7 +9773,7 @@ function JZe(S) {
   if (!P && !T) return;
   let { isBriefEntitled: x } = import.meta.require("/$bunfs/root/chunk-dbahgvc8.js"),
     N = x();
-  if (N) DJ(!0);
+  if (N) DJ(true);
   s("tengu_brief_mode_enabled", { enabled: N, gated: !N, source: c(T ? "env" : "flag") });
 }
 function CS(S) {
@@ -9846,7 +9846,7 @@ function Nvt(S, P, T) {
   jht(ee(), AbortSignal.timeout(3000), []), ptr(), Xer(P), jer(P), Au(P, T), Wer(P), Xu({ allowNetwork: !Le() });
   let x = Kve(S, P, T);
   if ((kl.initialize(x, P), !Co() && !$n() && !Eg())) X4.initialize(x, P);
-  if (I("tengu_drift_lantern", !1))
+  if (I("tengu_drift_lantern", false))
     import("/$bunfs/root/chunk-y47vah7y.js").then((N) => N.startEventLoopStallDetector(S.host));
   if (uP()) brr(Xtr);
 }
@@ -9869,7 +9869,7 @@ function Fvt(S, P) {
             }
           }),
         ),
-        pWn(W, q, { cacheOnly: !0 }),
+        pWn(W, q, { cacheOnly: true }),
         rm(N, q);
       let z = await x;
       dWn(N, q, XE(), z, S);
@@ -9941,11 +9941,11 @@ async function wPn(S, P, T, x, N, W, q, z, re) {
     s("tengu_cli_flags", { flag_count: Pe.length, flags: Pe.join(",") });
   }
   let {
-    debug: pe = !1,
+    debug: pe = false,
     dangerouslySkipPermissions: ue,
-    allowDangerouslySkipPermissions: de = !1,
+    allowDangerouslySkipPermissions: de = false,
     tools: Re = [],
-    restricted: Oe = !1,
+    restricted: Oe = false,
     allowedTools: Ge = [],
     disallowedTools: Ze = [],
     mcpConfig: pt = [],
@@ -9953,7 +9953,7 @@ async function wPn(S, P, T, x, N, W, q, z, re) {
     addDir: kt = [],
     fallbackModel: At,
     betas: Jt = [],
-    ide: wn = !1,
+    ide: wn = false,
     sessionId: mn,
     includeHookEvents: _t,
     includePartialMessages: fn,
@@ -9966,7 +9966,7 @@ async function wPn(S, P, T, x, N, W, q, z, re) {
   if (
     typeof lt === "string" &&
     lt !== "" &&
-    !ho("agents", { explicitlyRequested: !0 }) &&
+    !ho("agents", { explicitlyRequested: true }) &&
     !P.resume &&
     !P.continue &&
     !a.CLAUDE_BG_POST_CLEAR_RESPAWN
@@ -9981,16 +9981,16 @@ ${Pe}`);
   let { outputFormat: xt, inputFormat: Ve } = P,
     st = Je().viewMode,
     nt = Jue(),
-    Pt = P.verbose ?? (st ? st === "verbose" : nt ? !1 : Lo("verbose", !1).value),
+    Pt = P.verbose ?? (st ? st === "verbose" : nt ? false : Lo("verbose", false).value),
     ot = P.print,
-    Gt = P.init ?? !1,
-    en = P.initOnly ?? !1,
-    Kt = P.maintenance ?? !1;
+    Gt = P.init ?? false,
+    en = P.initOnly ?? false,
+    Kt = P.maintenance ?? false;
   if (!ot && process.stdout.isTTY && fg()) {
     let Pe = Snr();
     if (Pe !== null) console.log(Pe), bnr();
   }
-  let bn = P.disableSlashCommands || !1;
+  let bn = P.disableSlashCommands || false;
   QHn(bn);
   let St = N3n(P.autocompact, Je().autoCompactWindow),
     ln = aDe() ? P.worktree : void 0,
@@ -10001,7 +10001,7 @@ ${Pe}`);
     let Pe = M1t(an);
     if (Pe !== null) (De = Pe), (an = void 0);
   }
-  let Be = aDe() && P.tmux === !0;
+  let Be = aDe() && P.tmux === true;
   if (Be) {
     if (!We) return Tn("Error: --tmux requires --worktree");
     if (D() === "windows") return Tn("Error: --tmux is not supported on Windows");
@@ -10024,7 +10024,7 @@ ${san()}`);
         agentName: Ke.agentName,
         teamName: Ke.teamName,
         color: Ke.agentColor,
-        planModeRequired: Ke.planModeRequired ?? !1,
+        planModeRequired: Ke.planModeRequired ?? false,
         parentSessionId: Ke.parentSessionId,
       });
     if (Ke.teammateMode) hS().setCliTeammateModeOverride?.(Ke.teammateMode);
@@ -10032,12 +10032,12 @@ ${san()}`);
   let Wt = P.sdkUrl ?? void 0,
     An = fn || a.CLAUDE_CODE_INCLUDE_PARTIAL_MESSAGES,
     Nn = tn || a.CLAUDE_CODE_FORWARD_SUBAGENT_TEXT;
-  if (_t || a.CLAUDE_CODE_REMOTE) SGn(!0);
+  if (_t || a.CLAUDE_CODE_REMOTE) SGn(true);
   if (Wt) {
     if (!Ve) Ve = "stream-json";
     if (!xt) xt = "stream-json";
-    if (P.verbose === void 0) Pt = !0;
-    if (!P.print) ot = !0;
+    if (P.verbose === void 0) Pt = true;
+    if (!P.print) ot = true;
   }
   let ro = await Od(P, {
     prompt: typeof S === "string" ? S : void 0,
@@ -10049,7 +10049,7 @@ ${san()}`);
     isViolinWoodEnabled: Ec,
     hasConnect: Boolean(N?.url),
     hasSSH: Boolean(W?.host),
-    rcProjectGateEnabled: !1,
+    rcProjectGateEnabled: false,
   });
   if (!ro.ok) return ro.flushAnalytics ? Es(ro.error) : Tn(ro.error);
   let {
@@ -10075,7 +10075,7 @@ ${san()}`);
   G().host.launchOptions.replaceMayForwardHomeSettings(vr), G().host.launchOptions.replaceHomeSettingsHostConsent(Io);
   let Do = Le() && (go || To !== null || uo !== null),
     Hr,
-    ls = !1,
+    ls = false,
     Ie = P.watchArtifact ?? P.watchArtifactNoAutoreact;
   if (Ie !== void 0) {
     if (a.CLAUDE_CODE_REMOTE)
@@ -10093,11 +10093,11 @@ ${san()}`);
     let Pe = t$n(Ie);
     if ("error" in Pe) return Tn(Pe.error);
     let He = typeof P.watchArtifactNoAutoreact === "string";
-    n$n(He ? { ...Pe, autoReactDisarmed: !0 } : Pe), (Hr = Pe.slug), (ls = He);
+    n$n(He ? { ...Pe, autoReactDisarmed: true } : Pe), (Hr = Pe.slug), (ls = He);
   }
   let Fe = null,
     ht = P.remoteControl ?? P.rc,
-    ct = !1,
+    ct = false,
     Rt = typeof ht === "string" && ht.length > 0 ? ht : void 0,
     yn = P.remoteControlSessionNamePrefix;
   if (yn) process.env.CLAUDE_REMOTE_CONTROL_SESSION_NAME_PREFIX = yn;
@@ -10178,17 +10178,17 @@ ${Pe}`
       await Xt(mh(), 1500, Pe).catch(() => {}), Wi(He, performance.now() - $t, $t), Mr(tt.after);
     },
     sr = () => {
-      if (QD() && !_N()) return !0;
-      if (We) return !0;
+      if (QD() && !_N()) return true;
+      if (We) return true;
       for (let Pe of BH) {
         let He = bV(ye(Pe)?.env, Pe);
-        if (Object.keys(He).length > 0) return !0;
+        if (Object.keys(He).length > 0) return true;
       }
-      return !1;
+      return false;
     },
-    Uo = !1;
+    Uo = false;
   if (Le() && rP() && dAe() && !sr())
-    (Uo = !0),
+    (Uo = true),
       await Ar("gb-before-mode", "growthbook_init_ms", {
         before: "before_growthbook_init",
         after: "after_growthbook_init",
@@ -10201,7 +10201,7 @@ ${Pe}`
     });
   let gr = RGe,
     $o,
-    Go = !1,
+    Go = false,
     {
       mode: Ir,
       notification: xr,
@@ -10222,7 +10222,7 @@ ${Pe}`
     (ZHn(qn === "bypassPermissions"),
     P.enableAutoMode || Xe === "auto" || Rr === "auto" || (qn === "auto" && !a6()) || (!Xe && Nan()))
   )
-    a_n(!0);
+    a_n(true);
   await oL({ hasDynamicMcpConfig: Boolean(pt && pt.length > 0) || wn, pluginStateReliable: x(), storageV5: z });
   let kn = {},
     cs = {};
@@ -10236,12 +10236,12 @@ ${Pe}`
     for (let dn of Pe) {
       let Vn = null,
         Yn = [],
-        es = Ut(dn, !1);
+        es = Ut(dn, false);
       if (es) {
         let zn = Oqe({
           configObject: es,
           filePath: "command line",
-          expandVars: !0,
+          expandVars: true,
           scope: "dynamic",
           bridgeSessionId: vn,
         });
@@ -10249,7 +10249,7 @@ ${Pe}`
         Yn = zn.errors;
       } else {
         let zn = Lr(dn),
-          Fo = Lqe({ filePath: zn, expandVars: !0, scope: "dynamic", bridgeSessionId: vn });
+          Fo = Lqe({ filePath: zn, expandVars: true, scope: "dynamic", bridgeSessionId: vn });
         if (Fo.config) Vn = Fo.config.mcpServers;
         Yn = Fo.errors;
       }
@@ -10333,8 +10333,8 @@ ${dn
     zr = cce(Ed, mUe()),
     qr = nh() || zr,
     Vr = !zo && !qr && b8t(z),
-    yr = zo && _o.chrome !== !0 && a.CLAUDE_CODE_ENABLE_CFC !== !0 && qr,
-    ds = zo && _o.chrome !== !0 && ((a.CLAUDE_CODE_ENABLE_CFC !== !0 && Dr()) || Oe);
+    yr = zo && _o.chrome !== true && a.CLAUDE_CODE_ENABLE_CFC !== true && qr,
+    ds = zo && _o.chrome !== true && ((a.CLAUDE_CODE_ENABLE_CFC !== true && Dr()) || Oe);
   if (yr)
     n("[Claude in Chrome] Skipping chrome wiring: blocked by enterprise MCP config or managed deniedMcpServers policy");
   else if (ds) n("[Claude in Chrome] Skipping chrome wiring: --safe-mode or --restricted");
@@ -10362,7 +10362,7 @@ ${no}`
     }
   }
   let Sr = P,
-    Lt = P.strictMcpConfig || !1;
+    Lt = P.strictMcpConfig || false;
   if (
     (Xkn(Lt),
     gQe(Lce(P)),
@@ -10453,11 +10453,11 @@ ${no}`
   }
   if (Re.length > 0) {
     let { shouldToolsListOptInToBrief: Pe } = import.meta.require("/$bunfs/root/chunk-dbahgvc8.js");
-    if (Pe(Bu(Re))) DJ(!0);
+    if (Pe(Bu(Re))) DJ(true);
   }
   if (Le()) {
     let Pe = ri();
-    if ((v0(!0), !Pe))
+    if ((v0(true), !Pe))
       import("/$bunfs/root/chunk-q9mtfzh4.js").then((He) => {
         He.detectCurrentRepositoryWithHost();
       });
@@ -10494,7 +10494,7 @@ ${no}`
         })
       : Promise.resolve({});
   if (pr) {
-    if ((U4(!0), cie())) om("remote thin client: synced plugin lane closes"), GHn();
+    if ((U4(true), cie())) om("remote thin client: synced plugin lane closes"), GHn();
   }
   n("[STARTUP] Loading MCP configs...");
   let Xa = Date.now(),
@@ -10525,7 +10525,7 @@ ${no}`
       await T_();
       let Pe = od("allow_remote_control", "Remote Control", "is");
       if (Pe) return Tn(Pe);
-      if (ob().settings.disableRemoteControl === !0)
+      if (ob().settings.disableRemoteControl === true)
         return Tn(
           "Error: Remote Control is disabled by your organization's policy (managed setting `disableRemoteControl`).",
         );
@@ -10544,16 +10544,16 @@ ${no}`
   if (An) {
     if (!Yt || xt !== "stream-json") {
       if (fn) return Tn("Error: --include-partial-messages requires --print and --output-format=stream-json.");
-      An = !1;
+      An = false;
     }
   }
   if (Nn) {
     if (!Yt || xt !== "stream-json") {
       if (tn) return Tn("Error: --forward-subagent-text requires --print and --output-format=stream-json.");
-      Nn = !1;
+      Nn = false;
     }
   }
-  if (P.sessionPersistence === !1 && !Yt)
+  if (P.sessionPersistence === false && !Yt)
     return Tn("Error: --no-session-persistence can only be used with --print mode.");
   if (P.planModeInstructions && !Yt) return Tn("Error: --plan-mode-instructions can only be used with --print mode.");
   let jn = await Id(S || "", Ve ?? "text"),
@@ -10592,7 +10592,7 @@ ${no}`
       Wi("policy_limits_await_ms", performance.now() - Pe, Pe),
       Mr("action_after_policy_limits_cold_await");
   }
-  let Rm = Mm(ps, hi ? "default" : qn, hi ? !1 : de, We, an, Be, mn ? Kr(mn) : void 0, De, al, z, re);
+  let Rm = Mm(ps, hi ? "default" : qn, hi ? false : de, We, an, Be, mn ? Kr(mn) : void 0, De, al, z, re);
   if (d9(re) && !We && !Co() && !Dr()) is(z, re).catch(() => {});
   if (!We) wGe(ps, z);
   let ll = We ? null : mE(ps, z);
@@ -10636,7 +10636,7 @@ ${no}`
   else if (hWn()) vWn().catch(h);
   iGn(so);
   let ul = We ? null : ig(fs, z);
-  if ((ul?.catch(() => {}), ip() && I("tengu_cobalt_thicket", !0))) qnr(!0);
+  if ((ul?.catch(() => {}), ip() && I("tengu_cobalt_thicket", true))) qnr(true);
   n("[STARTUP] Loading commands and agents...");
   let Tm = Date.now();
   if (d9(re) && We && !Co() && !Dr()) is(z, re).catch(() => {});
@@ -10644,7 +10644,7 @@ ${no}`
     gs = await Md({
       cwd: fs,
       toolPermissionContext: mo,
-      applyCoordinatorFilter: !0,
+      applyCoordinatorFilter: true,
       agentsJson: lt,
       agentSetting: on,
       commandsPromise: ul,
@@ -10744,7 +10744,7 @@ ${jn}`
   let Im,
     gl = Boolean(P.continue || P.resume || (!Yt && P.fromPr) || kr),
     Ci,
-    yl = !1;
+    yl = false;
   if (im)
     try {
       let Pe = await im.getRoutineStartupModel({
@@ -10756,7 +10756,7 @@ ${jn}`
         storageV5: z,
       });
       if (Pe.status === "model") Ci = Pe.model;
-      else if (Pe.status === "transient_skip") yl = !0;
+      else if (Pe.status === "transient_skip") yl = true;
     } catch (Pe) {
       h(Pe);
     }
@@ -10843,7 +10843,7 @@ ${jn}`
   }
   if ((JZe(P), !Le() && !C0() && Je().defaultView === "chat")) {
     let { isBriefEntitled: Pe } = import.meta.require("/$bunfs/root/chunk-dbahgvc8.js");
-    if (Pe()) DJ(!0);
+    if (Pe()) DJ(true);
   }
   let Qr,
     _l = null,
@@ -10946,7 +10946,7 @@ ${jn}`
     })),
     Object.keys(kn).length > 0)
   )
-    await oL({ hasDynamicMcpConfig: !0 });
+    await oL({ hasDynamicMcpConfig: true });
   let { configs: bl, blocked: jm } = USe(kn),
     { allowed: $m, blocked: Hm } = Zx(Nm),
     vs = [...jm, ...Hm];
@@ -10967,13 +10967,13 @@ ${jn}`
     if (tt.type === "sdk") Cl[Pe] = tt;
     else Ei[Pe] = tt;
   }
-  if (a.CLAUDE_CODE_REMOTE && I("tengu_mcp_startup_policy_seed", !0)) mo = nir(mo, bl);
+  if (a.CLAUDE_CODE_REMOTE && I("tengu_mcp_startup_policy_seed", true)) mo = nir(mo, bl);
   sj({ mcp_server_count: Object.keys(ws).length }), Mr("action_mcp_configs_loaded");
   let Gm = Nd({
     permissionMode: qn,
-    dangerouslySkipPermissionsPassed: ue ?? !1,
+    dangerouslySkipPermissionsPassed: ue ?? false,
     modeIsBypass: qn === "bypassPermissions",
-    print: ot ?? !1,
+    print: ot ?? false,
   });
   YKt({ resume: P.resume, forkSession: P.forkSession, hasSessionIdFlag: !!mn });
   let Km =
@@ -11012,26 +11012,26 @@ ${jn}`
     Qm = [],
     ep = [],
     ko,
-    Zr = !1;
-  if (P.thinking === "adaptive" || P.thinking === "enabled") (ko = { type: "adaptive" }), (Zr = !0);
-  else if (P.thinking === "disabled") (ko = { type: "disabled" }), (Zr = !0);
+    Zr = false;
+  if (P.thinking === "adaptive" || P.thinking === "enabled") (ko = { type: "adaptive" }), (Zr = true);
+  else if (P.thinking === "disabled") (ko = { type: "disabled" }), (Zr = true);
   else {
     let Pe = process.env.MAX_THINKING_TOKENS ? ol(process.env.MAX_THINKING_TOKENS) : P.maxThinkingTokens;
     if (Pe !== void 0) {
-      if (Pe > 0) (ko = { type: "enabled", budgetTokens: Pe }), (Zr = !0);
-      else if (Pe === 0) (ko = { type: "disabled" }), (Zr = !0);
+      if (Pe > 0) (ko = { type: "enabled", budgetTokens: Pe }), (Zr = true);
+      else if (Pe === 0) (ko = { type: "disabled" }), (Zr = true);
     }
   }
   ko ??= rN() ? { type: "adaptive" } : { type: "disabled" };
   let tp = ko.type !== "disabled";
   if (ko.type !== "disabled") {
     let Pe = P.thinkingDisplay === "summarized" || P.thinkingDisplay === "omitted" ? P.thinkingDisplay : void 0;
-    if (Pe) XFe(!0);
+    if (Pe) XFe(true);
     let He = Le(),
       tt = xt ?? "text",
       $t = XSn({ explicitDisplay: Pe, isNonInteractive: He, outputFormat: tt, verbose: Pt });
     if ($t) ko.display = $t;
-    if ($t === "omitted" && YSn({ isNonInteractive: He, outputFormat: tt, verbose: Pt })) ko.displayExplicit = !1;
+    if ($t === "omitted" && YSn({ isNonInteractive: He, outputFormat: tt, verbose: Pt })) ko.displayExplicit = false;
   }
   Y("info", "started", {
     version: {
@@ -11061,7 +11061,7 @@ ${jn}`
       hasStdin: Boolean(jn),
       verbose: Pt,
       debug: pe,
-      print: ot ?? !1,
+      print: ot ?? false,
       outputFormat: xt ?? "text",
       inputFormat: Ve ?? "text",
       numAllowedTools: Ge.length,
@@ -11072,7 +11072,7 @@ ${jn}`
       worktreeEnabled: We,
       skipWebFetchPreflight: Je().skipWebFetchPreflight,
       githubActionInputs: a.GITHUB_ACTION_INPUTS,
-      dangerouslySkipPermissionsPassed: ue ?? !1,
+      dangerouslySkipPermissionsPassed: ue ?? false,
       permissionMode: qn,
       proactivityLevel: $o?.level,
       modeIsBypass: qn === "bypassPermissions",
@@ -11117,8 +11117,8 @@ ${jn}`
   if (en)
     return (
       eR(),
-      await fK(so, { kind: "setup", trigger: "init", forceSyncExecution: !0, storageV5: z, credentials: re }),
-      await fK(so, { kind: "session-start", source: "startup", forceSyncExecution: !0, storageV5: z, credentials: re }),
+      await fK(so, { kind: "setup", trigger: "init", forceSyncExecution: true, storageV5: z, credentials: re }),
+      await fK(so, { kind: "session-start", source: "startup", forceSyncExecution: true, storageV5: z, credentials: re }),
       Jr(0),
       { kind: "exited" }
     );
@@ -11258,12 +11258,12 @@ async function ZZe(S) {
 async function SKt(S, P) {
   try {
     let T = await TCe(S);
-    if (!T) return !1;
+    if (!T) return false;
     let x = sfe(T);
-    if (!x) return !1;
+    if (!x) return false;
     return x.toLowerCase() === P.toLowerCase();
   } catch {
-    return !1;
+    return false;
   }
 }
 function bKt(S, P, T) {
@@ -11283,17 +11283,17 @@ function EPn(S) {
       { id: "check", status: "running", startedAt: S },
       { id: "create", status: "pending" },
     ],
-    rerouted: !1,
-    folder: !1,
+    rerouted: false,
+    folder: false,
     bundle: null,
     fallback: null,
-    requestSent: !1,
+    requestSent: false,
   };
 }
 function APn(S, P, T) {
   switch (P.kind) {
     case "checking":
-      return P.folder === !0 && !S.folder ? { ...S, folder: !0 } : S;
+      return P.folder === true && !S.folder ? { ...S, folder: true } : S;
     case "bundling": {
       if (
         S.fallback !== null ||
@@ -11310,7 +11310,7 @@ function APn(S, P, T) {
             : [N],
         ),
         rerouted: P.rerouted,
-        folder: P.folder === !0,
+        folder: P.folder === true,
       };
     }
     case "bundled": {
@@ -11330,7 +11330,7 @@ function APn(S, P, T) {
     case "creating":
       return am(Nr(Nr(S, "check", "completed", T), "upload", "completed", T), "create", T);
     case "request_sent":
-      return S.requestSent ? S : { ...S, requestSent: !0 };
+      return S.requestSent ? S : { ...S, requestSent: true };
     case "created":
       return Nr(S, "create", "completed", T);
   }
@@ -11439,16 +11439,16 @@ var $vt = 1000,
 function vPn(S) {
   let { regularMcpConfigs: P, claudeaiConfigPromise: T, state: x, storageV5: N, credentials: W } = S,
     q = lr(),
-    z = a.MCP_CONNECTION_NONBLOCKING !== !1;
+    z = a.MCP_CONNECTION_NONBLOCKING !== false;
   Nkn(z);
   let re = z,
-    oe = Qs(P, (de) => de.alwaysLoad === !0),
-    se = Qs(P, (de) => de.alwaysLoad !== !0),
+    oe = Qs(P, (de) => de.alwaysLoad === true),
+    se = Qs(P, (de) => de.alwaysLoad !== true),
     pe = Object.keys(oe).length > 0;
   async function ue() {
     Mr("before_mcp_connect_user"), Mr("before_mcp_connect_connector");
     let de = Promise.all([
-        ...(pe ? [Ia(!1, () => ii(oe, "regular-required", x, !1, N, W), "--mcp-config alwaysLoad servers")] : []),
+        ...(pe ? [Ia(false, () => ii(oe, "regular-required", x, false, N, W), "--mcp-config alwaysLoad servers")] : []),
         Ia(z, () => ii(se, "regular", x, re, N, W), "--mcp-config servers"),
       ]).then(() => Mr("after_mcp_connect_user")),
       Re = Ia(
@@ -11463,7 +11463,7 @@ function vPn(S) {
   }
   return { connect: ue };
 }
-function ii(S, P, T, x = !1, N, W) {
+function ii(S, P, T, x = false, N, W) {
   let q = Object.keys(S);
   if (q.length === 0) return [];
   T.applyMcpUpdate((se) => ({
@@ -11624,7 +11624,7 @@ function RPn(S, P, T) {
         claudeaiConfigs: q,
         regularMcpConfigs: oe,
         state: S,
-        deferConnect: !1,
+        deferConnect: false,
         storageV5: P,
         epoch: x,
         restorablePlugins: re,
@@ -11686,7 +11686,7 @@ function TS(S, P, T, x) {
     n(
       `[MCP] Restoring ${z.length} plugin server(s) no longer duplicated by claude.ai connectors after account switch: ${z.join(", ")}`,
     );
-  return ii(q, "plugin-restore", T, !1, x);
+  return ii(q, "plugin-restore", T, false, x);
 }
 async function IS(S) {
   let { claudeaiConfigs: P, regularMcpConfigs: T, state: x } = S,
@@ -11784,8 +11784,8 @@ function qS(S) {
   return typeof S === "string" ? ce(xy(S), 64) : "a request without a string subtype";
 }
 function VS(S, P) {
-  let T = { kind: "forward", holdsLaterSends: !1 },
-    x = { kind: "forward", holdsLaterSends: !0 };
+  let T = { kind: "forward", holdsLaterSends: false },
+    x = { kind: "forward", holdsLaterSends: true };
   switch (S.subtype) {
     case "initialize":
     case "interrupt":
@@ -11914,7 +11914,7 @@ function li(S) {
   return typeof S === "object" && S !== null && Object.values(S).some((P) => Array.isArray(P) && P.length > 0);
 }
 function Ur(S) {
-  if (typeof S !== "object" || S === null) return !1;
+  if (typeof S !== "object" || S === null) return false;
   let P = "tools" in S ? S.tools : void 0,
     T = "disallowedTools" in S ? S.disallowedTools : void 0,
     x = "hooks" in S ? S.hooks : void 0,
@@ -11976,7 +11976,7 @@ function Yve(S, P, T) {
     type: "user",
     uuid: P,
     session_id: S,
-    isReplay: !0,
+    isReplay: true,
     parent_tool_use_id: null,
     message: { role: "user", content: T },
   };
@@ -12180,8 +12180,8 @@ var __ = new Set(["allowedMcpServers", "allowedHttpHookUrls", "httpHookAllowedEn
 function k_(S, P) {
   if (__.has(S)) return Array.isArray(P);
   if (b_.has(S)) return di(P);
-  if (C_.has(S) || /^allowManaged\w*Only$/.test(S)) return P === !0 || (Array.isArray(P) && P.length > 0);
-  if (S === "syncClaudeAiSkills" || S === "syncClaudeAiPlugins") return P === !1;
+  if (C_.has(S) || /^allowManaged\w*Only$/.test(S)) return P === true || (Array.isArray(P) && P.length > 0);
+  if (S === "syncClaudeAiSkills" || S === "syncClaudeAiPlugins") return P === false;
   return S === "disableAutoMode" && P === "disable";
 }
 function v_(S) {
@@ -12219,13 +12219,13 @@ function w_(S, P, T) {
   if (!x) return;
   if (P) return Ua(P, T);
   if (!(x.startsWith("{") && x.endsWith("}"))) return { kind: "unloadable" };
-  let N = Ut(x, !1);
+  let N = Ut(x, false);
   return typeof N === "object" && N !== null ? Ua(N, T) : { kind: "unreadable" };
 }
 function P_(S, P) {
   let T = S?.trim();
   if (!T) return;
-  let x = Ut(T, !1);
+  let x = Ut(T, false);
   return typeof x === "object" && x !== null && !Array.isArray(x) ? Ua(x, P) : { kind: "unreadable" };
 }
 function ym(S, P) {
@@ -12271,7 +12271,7 @@ function E_(S, P, T) {
 function M_(S) {
   let P = S?.trim();
   if (!P) return Sn;
-  let T = Ut(P, !1);
+  let T = Ut(P, false);
   if (typeof T !== "object" || T === null || Array.isArray(T))
     return Fn("tool_restriction", "--agents (its value could not be read to check it for tool restrictions)");
   let x = Object.entries(T)
@@ -12282,7 +12282,7 @@ function M_(S) {
 function R_(S, P) {
   if (!P) return;
   if (!S) return "invisible";
-  let T = Ut(S, !1);
+  let T = Ut(S, false);
   if (typeof T !== "object" || T === null) return "unreadable";
   let x = T,
     N = Object.hasOwn(x, P) ? [P] : Object.keys(x).filter((W) => W.endsWith(`:${P}`));
@@ -12461,7 +12461,7 @@ function L_(S) {
   return P === "" ? void 0 : P;
 }
 function N$e(S) {
-  return !1;
+  return false;
 }
 function eet({
   model: S,
@@ -12497,8 +12497,8 @@ function tet({
   model: S,
   internal: P,
   explicitMode: T,
-  droppedMode: x = !1,
-  pinnedDefault: N = !1,
+  droppedMode: x = false,
+  pinnedDefault: N = false,
   settingsMode: W,
   settingsModeForwardable: q,
   autoSeedable: z,
@@ -12525,15 +12525,15 @@ function U_(S) {
   });
 }
 function B_(S, P) {
-  if (ui(S) === ui(P)) return !0;
-  let T = Hft(ui(P), { ignore1mTag: !0 })?.model;
-  return T !== void 0 && T === Hft(ui(S), { ignore1mTag: !0 })?.model;
+  if (ui(S) === ui(P)) return true;
+  let T = Hft(ui(P), { ignore1mTag: true })?.model;
+  return T !== void 0 && T === Hft(ui(S), { ignore1mTag: true })?.model;
 }
 function ui(S) {
   return pn(S.trim().toLowerCase()).trim();
 }
 function j_() {
-  return xi().some((S) => S !== "policySettings" && ye(S)?.enforceAvailableModels === !0);
+  return xi().some((S) => S !== "policySettings" && ye(S)?.enforceAvailableModels === true);
 }
 function $_() {
   return (
@@ -12559,7 +12559,7 @@ function wm(S, P) {
     .map(([, T]) => T);
 }
 function Ka(S) {
-  return Br(S.source) || S.source === "plugin" || S.fromAdditionalDirectory === !0;
+  return Br(S.source) || S.source === "plugin" || S.fromAdditionalDirectory === true;
 }
 function Wa() {
   return xi().filter(Br);

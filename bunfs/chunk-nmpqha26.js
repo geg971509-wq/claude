@@ -39,7 +39,7 @@ async function IUn(t, a, s) {
       l = P(t),
       e = O() && s ? YIt() : void 0,
       r = K();
-    if ((await g(u(l), { recursive: !0, mode: 448 }), O() && s && e !== void 0 && Zt(`${t}.json`))) {
+    if ((await g(u(l), { recursive: true, mode: 448 }), O() && s && e !== void 0 && Zt(`${t}.json`))) {
       let o = await s.write(W(e, r, t), b(i), { publishDiscipline: "inPlace", mode: 384 });
       if (!o.ok) n(`Failed to write workflow snapshot ${t}: ${o.error.code}`);
       return;

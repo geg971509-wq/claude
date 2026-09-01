@@ -78,8 +78,8 @@ var St = (o) => {
   };
 var yt = (o) =>
     Object.assign(o, {
-      useDualstackEndpoint: o.useDualstackEndpoint ?? !1,
-      useFipsEndpoint: o.useFipsEndpoint ?? !1,
+      useDualstackEndpoint: o.useDualstackEndpoint ?? false,
+      useFipsEndpoint: o.useFipsEndpoint ?? false,
       defaultSigningName: "bedrock",
     }),
   t = {
@@ -106,7 +106,7 @@ var Gt = {
   main: "./dist-cjs/index.js",
   types: "./dist-types/index.d.ts",
   module: "./dist-es/index.js",
-  sideEffects: !1,
+  sideEffects: false,
   dependencies: {
     "@aws-crypto/sha256-browser": "5.2.0",
     "@aws-crypto/sha256-js": "5.2.0",
@@ -186,16 +186,16 @@ var qt = j(gg(), 1),
   oo = j(yg(), 1);
 var Wt = j(vO(), 1),
   E = j(VH(), 1);
-var Lt = { ["required"]: !1, type: "string" },
-  Bt = { ["required"]: !0, default: !1, type: "boolean" },
+var Lt = { ["required"]: false, type: "string" },
+  Bt = { ["required"]: true, default: false, type: "boolean" },
   ht = { ["ref"]: "Endpoint" },
-  Ot = { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseFIPS" }, !0] },
-  Ut = { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseDualStack" }, !0] },
+  Ot = { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseFIPS" }, true] },
+  Ut = { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseDualStack" }, true] },
   _ = {},
   bt = { ["fn"]: "getAttr", ["argv"]: [{ ["ref"]: "PartitionResult" }, "supportsFIPS"] },
   kt = {
     ["fn"]: "booleanEquals",
-    ["argv"]: [!0, { ["fn"]: "getAttr", ["argv"]: [{ ["ref"]: "PartitionResult" }, "supportsDualStack"] }],
+    ["argv"]: [true, { ["fn"]: "getAttr", ["argv"]: [{ ["ref"]: "PartitionResult" }, "supportsDualStack"] }],
   },
   Nt = [Ot],
   Ft = [Ut],
@@ -234,7 +234,7 @@ var Lt = { ["required"]: !1, type: "string" },
                     conditions: [Ot, Ut],
                     rules: [
                       {
-                        conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [!0, bt] }, kt],
+                        conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [true, bt] }, kt],
                         rules: [
                           {
                             rules: [
@@ -263,7 +263,7 @@ var Lt = { ["required"]: !1, type: "string" },
                     conditions: Nt,
                     rules: [
                       {
-                        conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [bt, !0] }],
+                        conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [bt, true] }],
                         rules: [
                           {
                             rules: [
@@ -344,7 +344,7 @@ var Ht = (o) => ({
   apiVersion: "2023-04-20",
   base64Decoder: o?.base64Decoder ?? Z.fromBase64,
   base64Encoder: o?.base64Encoder ?? Z.toBase64,
-  disableHostPrefix: o?.disableHostPrefix ?? !1,
+  disableHostPrefix: o?.disableHostPrefix ?? false,
   endpointProvider: o?.endpointProvider ?? wt,
   extensions: o?.extensions ?? [],
   httpAuthSchemeProvider: o?.httpAuthSchemeProvider ?? St,

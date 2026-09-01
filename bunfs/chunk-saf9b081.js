@@ -386,23 +386,23 @@ async function F(i, s, a) {
     if (c !== void 0) return c;
   }
   try {
-    return await L(i), !0;
+    return await L(i), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function q(i, s) {
   try {
-    let a = await i.scopeKind(s, { resolveLink: !0 });
+    let a = await i.scopeKind(s, { resolveLink: true });
     if (!a.ok) return;
     switch (a.value.kind) {
       case "absent":
-        return !1;
+        return false;
       case "link":
-        return a.value.linkResolves === !0;
+        return a.value.linkResolves === true;
       case "directory":
       case "other":
-        return !0;
+        return true;
     }
   } catch {
     return;
@@ -411,17 +411,17 @@ async function q(i, s) {
 async function te(i, s) {
   try {
     let a = await i.statMeta(s);
-    if (a.ok) return !0;
-    return a.error.code === "NotFound" ? !1 : void 0;
+    if (a.ok) return true;
+    return a.error.code === "NotFound" ? false : void 0;
   } catch {
     return;
   }
 }
 async function C(i) {
   try {
-    return await L(i), !0;
+    return await L(i), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function ne(i, s, a) {
@@ -437,7 +437,7 @@ async function ne(i, s, a) {
           gap: 1,
           paddingY: 1,
           children: [
-            e(t, { bold: !0, children: i }),
+            e(t, { bold: true, children: i }),
             e(Ce, {
               options: s,
               defaultValue: a,
@@ -452,7 +452,7 @@ async function ne(i, s, a) {
           ],
         }),
       }),
-      { exitOnCtrlC: !1 },
+      { exitOnCtrlC: false },
     );
   return await g(), d;
 }
@@ -471,16 +471,16 @@ async function ve() {
   return ne("Select a project to purge:", c, i);
 }
 function se(i, s) {
-  for (let a of s) if (i === a || i.startsWith(a + je)) return !0;
-  return !1;
+  for (let a of s) if (i === a || i.startsWith(a + je)) return true;
+  return false;
 }
 function oe(i, s) {
-  if (!i) return !1;
+  if (!i) return false;
   try {
     let a = V(i);
     return typeof a.project === "string" && se(a.project, s);
   } catch {
-    return !1;
+    return false;
   }
 }
 async function $e(i, s, a) {
@@ -491,13 +491,13 @@ async function $e(i, s, a) {
     try {
       d = (await N(i)).filter((f) => f.endsWith(".jsonl")).sort();
     } catch {
-      return !1;
+      return false;
     }
   for (let f of d) {
     let g = await _e(b(i, f), a);
     if (g !== null) return se(g, s);
   }
-  return !1;
+  return false;
 }
 function ae(i) {
   try {
@@ -607,7 +607,7 @@ async function le(i, s, a) {
   switch (d.kind) {
     case "found":
     case "end":
-      return (await De(i)) === !1 ? { kind: "scanned", matched: c } : { kind: "defer" };
+      return (await De(i)) === false ? { kind: "scanned", matched: c } : { kind: "defer" };
     case "refused":
       if (d.code === "NotFound") return { kind: "absent" };
       return d.code === "Unavailable" ? { kind: "defer" } : d;
@@ -680,7 +680,7 @@ async function xe(i, s) {
 async function De(i) {
   try {
     let s = await i.stat(Te.history());
-    if (!s.ok) return s.error.code === "NotFound" ? !1 : void 0;
+    if (!s.ok) return s.error.code === "NotFound" ? false : void 0;
     return (s.value.tornTailBytes ?? 0) > 0;
   } catch (s) {
     n(`purge history: the storage interface threw on stat; the readline arm serves (${l(s)})`);
@@ -725,18 +725,18 @@ async function ue(i, s, a, c) {
 }
 var fe = 1e4;
 async function pe(i, s, a, c = {}) {
-  let d = { skipScopeStats: !0, skipKeyStats: !0, ...c },
+  let d = { skipScopeStats: true, skipKeyStats: true, ...c },
     f,
     g = 0;
   try {
     do {
       let u = await i.listEntries(s, { ...d, ...(f !== void 0 && { cursor: f }) });
-      if (!u.ok) return !1;
+      if (!u.ok) return false;
       for (let h of u.value.items) a(h);
       f = u.value.cursor;
     } while (f && ++g < fe);
   } catch {
-    return !1;
+    return false;
   }
   return !f;
 }
@@ -821,7 +821,7 @@ async function We(i, s) {
     P = [...f].map((m) => hA(m) + "-"),
     j = await Ne(s);
   try {
-    for (let m of j !== null ? j.map((w) => ({ name: w, isDirectory: () => !0 })) : await N(S, { withFileTypes: !0 })) {
+    for (let m of j !== null ? j.map((w) => ({ name: w, isDirectory: () => true })) : await N(S, { withFileTypes: true })) {
       let w = b(S, m.name);
       if (m.isDirectory() && !k.has(w) && P.some((I) => m.name.startsWith(I)) && (await $e(w, f, s))) k.add(w);
     }
@@ -904,7 +904,7 @@ async function x(i, s) {
       return null;
     case "file":
     case "dir":
-      return await ke(i.path, { recursive: i.kind === "dir", force: !0 }), null;
+      return await ke(i.path, { recursive: i.kind === "dir", force: true }), null;
   }
 }
 function D(i, s) {
@@ -979,7 +979,7 @@ async function ht(i, s, a) {
   if ((J(c, d, f), s.dryRun)) Uw(`Dry run: ${d.length} item(s) would be deleted.`);
   if (s.interactive) {
     let u = 0,
-      h = !1,
+      h = false,
       k = [];
     for (let [S, P] of d.entries()) {
       let j = "delete";
@@ -993,7 +993,7 @@ async function ht(i, s, a) {
           ])) ?? "abort";
       if (j === "abort") Tn(`Aborted. ${u} item(s) deleted.`);
       if (j === "skip") continue;
-      if (j === "all") h = !0;
+      if (j === "all") h = true;
       let v = await x(P, a);
       if (v) {
         k.push(v);

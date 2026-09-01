@@ -201,10 +201,10 @@ var C = "\x00unwritten",
         v: N(1),
         sessionId: i(),
         artifacts: De(i(), _e()),
-        crossLineMerged: N(!0)
+        crossLineMerged: N(true)
           .optional()
           .catch(void 0),
-        tailTorn: N(!0)
+        tailTorn: N(true)
           .optional()
           .catch(void 0),
       });
@@ -248,8 +248,8 @@ function Eot(e, t) {
     o = n.envelope.safeParse(e);
   if (!o.success) return g("artifact_live_subscribe", "comment_monitor_intent_invalid"), null;
   if (o.data.sessionId !== K()) return g("artifact_live_subscribe", "comment_monitor_intent_foreign"), null;
-  if (o.data.crossLineMerged === !0) t?.onLossy?.();
-  let r = o.data.tailTorn === !0;
+  if (o.data.crossLineMerged === true) t?.onLossy?.();
+  let r = o.data.tailTorn === true;
   if (r) t?.onLossy?.();
   let d = new Map(),
     s = 0,
@@ -332,12 +332,12 @@ function hhe(e, t) {
   let n = k(t?.storageV5),
     o = n.bySlug.get(e);
   n.bySlug.set(e, { state: "stopped", writtenAtMs: Date.now(), ...(o?.title !== void 0 && { title: o.title }) }),
-    A({ durableNow: !0 });
+    A({ durableNow: true });
   for (let [r, d] of n.parked) {
     let s = d.line[e];
     if (s?.state === "armed")
       (d.line[e] = { state: "stopped", writtenAtMs: Date.now(), ...(s.title !== void 0 && { title: s.title }) }),
-        R(r, d.path, d.line, { durableNow: !0 });
+        R(r, d.path, d.line, { durableNow: true });
   }
 }
 function k$n(e, t) {
@@ -345,7 +345,7 @@ function k$n(e, t) {
 }
 function U6e(e, t) {
   let n = k(t?.storageV5),
-    o = !1,
+    o = false,
     r = new Set(typeof e === "string" ? [e] : e),
     d = Date.now();
   for (let s of r) {
@@ -355,13 +355,13 @@ function U6e(e, t) {
     }
     n.forgottenAt.set(s, d);
   }
-  if (o) A({ durableNow: !0 });
+  if (o) A({ durableNow: true });
   for (let [s, u] of n.parked) {
-    let p = !1;
+    let p = false;
     for (let l of r)
-      if (u.traveling?.has(l) && u.line[l]?.state === "armed") delete u.line[l], u.traveling.delete(l), (p = !0);
+      if (u.traveling?.has(l) && u.line[l]?.state === "armed") delete u.line[l], u.traveling.delete(l), (p = true);
     if (p) {
-      if ((R(s, u.path, u.line, { durableNow: !0 }), !Object.values(u.line).some((l) => l.state === "armed")))
+      if ((R(s, u.path, u.line, { durableNow: true }), !Object.values(u.line).some((l) => l.state === "armed")))
         n.parked.delete(s);
     }
   }
@@ -382,17 +382,17 @@ function H$n(e) {
   let t = k(e?.storageV5),
     { yieldedSlugs: n } = de().wakes,
     o = Date.now(),
-    r = !1;
+    r = false;
   for (let [d, s] of t.bySlug)
     if (s.state === "armed" && !n.has(d))
-      t.bySlug.set(d, { state: "stopped", writtenAtMs: o, ...(s.title !== void 0 && { title: s.title }) }), (r = !0);
-  if (r) A({ durableNow: !0 });
+      t.bySlug.set(d, { state: "stopped", writtenAtMs: o, ...(s.title !== void 0 && { title: s.title }) }), (r = true);
+  if (r) A({ durableNow: true });
   for (let [d, s] of t.parked) {
-    let u = !1;
+    let u = false;
     for (let [p, l] of Object.entries(s.line))
       if (l.state === "armed")
-        (s.line[p] = { state: "stopped", writtenAtMs: o, ...(l.title !== void 0 && { title: l.title }) }), (u = !0);
-    if (u) R(d, s.path, s.line, { durableNow: !0 });
+        (s.line[p] = { state: "stopped", writtenAtMs: o, ...(l.title !== void 0 && { title: l.title }) }), (u = true);
+    if (u) R(d, s.path, s.line, { durableNow: true });
   }
 }
 function at(e) {
@@ -401,12 +401,12 @@ function at(e) {
     case "resume":
     case "fork":
     case "remote_attach":
-      return !0;
+      return true;
     case "cd":
     case "spare_claim":
     case "hydrate":
     case "startup_custom_id":
-      return !1;
+      return false;
   }
 }
 function ZQ(e) {
@@ -435,8 +435,8 @@ function E() {
   if (!qSe(K())) return;
   for (let [t, n] of e.parked) {
     if (n.traveling === void 0 || t === K()) continue;
-    let o = !1;
-    for (let r of n.traveling) if (n.line[r]?.state === "armed") delete n.line[r], (o = !0);
+    let o = false;
+    for (let r of n.traveling) if (n.line[r]?.state === "armed") delete n.line[r], (o = true);
     if (((n.traveling = void 0), o)) R(t, n.path, n.line);
     if (!Object.values(n.line).some((r) => r.state === "armed")) e.parked.delete(t);
   }
@@ -444,7 +444,7 @@ function E() {
 function x(e, t) {
   if (qSe(t)) {
     if (e.adoptPendingFor === t) e.adoptPendingFor = null;
-    return !1;
+    return false;
   }
   return e.adoptPendingFor === t || gl() !== null;
 }
@@ -470,11 +470,11 @@ var ct = 1024;
 function G(e, t) {
   let n = de().commentMonitorIntent,
     o = n.parked.get(e);
-  if (o?.unwritten === !0) {
+  if (o?.unwritten === true) {
     let { traveling: r } = o;
     return r === void 0 ? t : gc(t, (d, s) => d.state === "armed" && r.has(s));
   }
-  if (o?.leftInWindow === !0)
+  if (o?.leftInWindow === true)
     return D(n, { type: "artifact-comment-monitor", v: 1, sessionId: e, artifacts: t }).artifacts;
   return t;
 }
@@ -486,7 +486,7 @@ function R(e, t, n, o) {
     u = { type: "artifact-comment-monitor", v: 1, sessionId: e, artifacts: s };
   r.owedLines.delete(e);
   let p = { path: t, line: s };
-  if ((r.pendingLines.set(e, p), Mpt(F), o?.durableNow === !0)) $pt(u, t, P(u));
+  if ((r.pendingLines.set(e, p), Mpt(F), o?.durableNow === true)) $pt(u, t, P(u));
   r.writeChain = r.writeChain
     .then(async () => {
       if ((await hl().catch(() => {}), r.exitStamped)) return;
@@ -495,7 +495,7 @@ function R(e, t, n, o) {
         (r.lastWritten = C), A();
         return;
       }
-      if ((await pk(t, u, d, { onlyIfExists: !0, tornTailEntry: P(u) }), r.pendingLines.get(e) === p))
+      if ((await pk(t, u, d, { onlyIfExists: true, tornTailEntry: P(u) }), r.pendingLines.get(e) === p))
         r.pendingLines.delete(e);
     })
     .catch(() => {
@@ -514,10 +514,10 @@ function x$n(e, t) {
   Y(k(t?.storageV5), e);
 }
 function Y(e, t) {
-  let n = !1;
+  let n = false;
   for (let [o, r] of e.parked) {
     if (o === K() || r.line[t]?.state !== "armed") continue;
-    (r.traveling ??= new Set()).add(t), (n = !0);
+    (r.traveling ??= new Set()).add(t), (n = true);
   }
   if (n) E();
 }
@@ -525,10 +525,10 @@ function B(e) {
   if (e.owedLines.size === 0) return;
   let t = [...e.owedLines.entries()];
   e.owedLines.clear();
-  let n = !1;
+  let n = false;
   for (let [o, { path: r, line: d }] of t) {
     if (o === e.sid) {
-      (e.lastWritten = C), (n = !0);
+      (e.lastWritten = C), (n = true);
       continue;
     }
     if (e.pendingLines.has(o)) continue;
@@ -541,8 +541,8 @@ function k(e) {
   let t = de().commentMonitorIntent;
   if (e !== void 0) t.storageV5 = e;
   let n = K(),
-    o = !1,
-    r = !1;
+    o = false,
+    r = false;
   if (t.sid !== n) {
     let s = t.leftWith !== null && t.leftWith.sid === t.sid ? t.leftWith : null,
       u = (w) => (s !== null ? s.traveling.has(w) : ZQ(w));
@@ -559,7 +559,7 @@ function k(e) {
     for (let [w, S] of Object.entries(t.parked.get(n)?.line ?? {})) {
       let M = t.forgottenAt.get(w);
       if (S.state === "armed" && M !== void 0 && S.writtenAtMs <= M && !ZQ(w)) {
-        r = !0;
+        r = true;
         continue;
       }
       let y = T(t.bySlug.get(w), S);
@@ -579,8 +579,8 @@ function k(e) {
         path: t.transcriptPath,
         line: p,
         ...(l.size > 0 && { traveling: l }),
-        ...(s?.unwritten === !0 && { unwritten: !0 }),
-        ...(s?.inWindow === !0 && { leftInWindow: !0 }),
+        ...(s?.unwritten === true && { unwritten: true }),
+        ...(s?.inWindow === true && { leftInWindow: true }),
       });
       while (t.parked.size > q) {
         let [w, S] = t.parked.entries().next().value;
@@ -602,20 +602,20 @@ function k(e) {
       }
     }
     if (t.sid !== null && t.wroteCurrentLine) U(t.sid, t.transcriptPath, p, t.lastWritten === C, t.failureSeqAtWrite);
-    else if (t.sid !== null && s?.inWindow === !0 && Q(t, p)) U(t.sid, t.transcriptPath, p, !0, t.failureSeqAtWrite);
+    else if (t.sid !== null && s?.inWindow === true && Q(t, p)) U(t.sid, t.transcriptPath, p, true, t.failureSeqAtWrite);
     if ((E(), (o = [...t.bySlug.values()].some((w) => w.state === "armed")), (t.sid = n), t.adoptPendingFor !== n))
       t.adoptPendingFor = null;
     (t.lastWritten = r ? C : null),
-      (t.wroteCurrentLine = !1),
+      (t.wroteCurrentLine = false),
       (t.pendingRestore = null),
       (t.transcriptPath = null),
       t.tornStops.clear(),
-      (t.onFile = !1);
+      (t.onFile = false);
   }
-  if (!t.onFile && qSe(n)) t.onFile = !0;
+  if (!t.onFile && qSe(n)) t.onFile = true;
   if (((t.transcriptPath = x(t, n) ? Hl() : im(n)), t.unsubscribeMaterialized === void 0))
     t.unsubscribeMaterialized = Rcn(() => {
-      if (t.sid !== null && qSe(t.sid)) t.onFile = !0;
+      if (t.sid !== null && qSe(t.sid)) t.onFile = true;
       E();
     });
   if (t.unsubscribeSwitch === void 0)
@@ -628,28 +628,28 @@ function k(e) {
       }));
   let d = t.earlySeed ?? Zcn();
   if (((t.earlySeed = void 0), d !== void 0)) {
-    let s = !1,
+    let s = false,
       u = Eot(d, {
         onLossy: () => {
-          s = !0;
+          s = true;
         },
         onTornStop: (p) => {
           t.tornStops.add(p);
         },
       });
     if (u !== null) {
-      if (d.tailTorn === !0) Lcn(t.transcriptPath ?? void 0);
+      if (d.tailTorn === true) Lcn(t.transcriptPath ?? void 0);
       let { stopLatches: p } = de().durable,
         l = new Map();
       for (let [c, h] of u) {
         let w = t.forgottenAt.get(c);
         if (h.state === "armed" && w !== void 0 && h.writtenAtMs <= w && !ZQ(c)) {
-          s = !0;
+          s = true;
           continue;
         }
         let S = t.bySlug.get(c);
         if (t.tornStops.has(c) && S?.state === "armed" && ZQ(c)) {
-          t.tornStops.delete(c), l.set(c, S), (s = !0);
+          t.tornStops.delete(c), l.set(c, S), (s = true);
           continue;
         }
         let M = T(S, h);
@@ -693,13 +693,13 @@ function F() {
     r = !e.exitStamped && e.sid === t;
   if (r && qSe(t)) {
     if (e.wroteCurrentLine || o() || e.owedLines.has(t) || e.pendingLines.has(t))
-      E(), (e.wroteCurrentLine = !0), rte(Z);
+      E(), (e.wroteCurrentLine = true), rte(Z);
   } else if (r && x(e, t) && e.transcriptPath !== null && o()) {
     let s = D(e, { type: "artifact-comment-monitor", v: 1, sessionId: t, artifacts: _(e) });
     n = { path: e.transcriptPath, entry: s, tornTailEntry: P(s) };
     for (let u of [e.owedLines, e.pendingLines]) if (u.get(t)?.path === n.path) u.delete(t);
   }
-  e.exitStamped = !0;
+  e.exitStamped = true;
   let d = [...e.owedLines, ...e.pendingLines].map(([s, { path: u, line: p }]) => {
     let l = { type: "artifact-comment-monitor", v: 1, sessionId: s, artifacts: p };
     return { path: u, entry: l, tornTailEntry: P(l) };
@@ -759,13 +759,13 @@ function A(e) {
   }
   let r = { type: "artifact-comment-monitor", v: 1, sessionId: K(), artifacts: n };
   if (x(t, K())) {
-    if (((t.lastWritten = C), e?.durableNow === !0 && t.transcriptPath !== null)) {
+    if (((t.lastWritten = C), e?.durableNow === true && t.transcriptPath !== null)) {
       let d = D(t, r);
       $pt(d, t.transcriptPath, P(d));
     }
     return;
   }
-  if (((t.lastWritten = o), (t.wroteCurrentLine = !0), rte(Z), e?.durableNow === !0)) $pt(r);
+  if (((t.lastWritten = o), (t.wroteCurrentLine = true), rte(Z), e?.durableNow === true)) $pt(r);
   Qcn(r, t.storageV5).catch(() => {
     if (t.lastWritten === o) t.lastWritten = C;
     g("artifact_live_subscribe", "comment_monitor_intent_write_failed");

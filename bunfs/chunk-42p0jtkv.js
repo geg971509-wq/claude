@@ -67,11 +67,11 @@ function Kpr(r, t) {
 var u = Buffer.from([0]);
 function X2n(r, t) {
   let i = IDt + r,
-    s = !1;
+    s = false;
   return {
     noteSignFailure: () => {
-      if (s) return !1;
-      return (s = !0), !0;
+      if (s) return false;
+      return (s = true), true;
     },
     sign: (e, o) => ({
       kid: i,
@@ -98,7 +98,7 @@ async function NEr(r, t) {
       () => {},
     ),
     s.status === "loaded"
-      ? { sign: (o, a) => e?.sign(o, a), noteSignFailure: () => e?.noteSignFailure() ?? !1 }
+      ? { sign: (o, a) => e?.sign(o, a), noteSignFailure: () => e?.noteSignFailure() ?? false }
       : void 0
   );
 }

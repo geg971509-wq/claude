@@ -58,14 +58,14 @@ class re {
   random;
   onEvent;
   onTransportEvent;
-  started = !1;
-  stopping = !1;
+  started = false;
+  stopping = false;
   timers = X8t(K8t);
   lastAckAt = 0;
   reconnectAttempts = 0;
   consecutiveSlotContention = 0;
-  lastFailureWasContention = !1;
-  contentionBackoffNotified = !1;
+  lastFailureWasContention = false;
+  contentionBackoffNotified = false;
   consecutivePongTimeouts = 0;
   keepaliveTimer;
   reconnectTimer;
@@ -82,10 +82,10 @@ class re {
   }
   start() {
     if (this.started) return;
-    (this.started = !0), this.openConnection();
+    (this.started = true), this.openConnection();
   }
   async stop() {
-    (this.stopping = !0),
+    (this.stopping = true),
       this.clearReconnectTimer(),
       this.clearConnectionTimers(),
       this.cancelReannounce(),
@@ -133,12 +133,12 @@ class re {
         let t = this.endRotation(),
           r = t !== void 0 && e.reason === "duplicate_device_id";
         if (r) this.emit({ kind: "reannounce_contended", reason: t });
-        else if (e.slotContention) this.lastFailureWasContention = !0;
+        else if (e.slotContention) this.lastFailureWasContention = true;
         this.cancelDrain(), this.clearConnectionTimers(), this.scheduleReconnect(r);
         return;
       }
       case "closed":
-        if (e.superseded) this.lastFailureWasContention = !0;
+        if (e.superseded) this.lastFailureWasContention = true;
         this.endRotation(), this.cancelDrain(), this.clearConnectionTimers(), this.scheduleReconnect();
         return;
       case "handshake_timeout":
@@ -147,7 +147,7 @@ class re {
         this.endRotation(), this.cancelDrain(), this.clearConnectionTimers(), this.scheduleReconnect();
         return;
       case "transport_closed":
-        (this.stopping = !0), this.clearReconnectTimer(), this.clearConnectionTimers(), this.cancelReannounce();
+        (this.stopping = true), this.clearReconnectTimer(), this.clearConnectionTimers(), this.cancelReannounce();
         return;
       case "connecting":
       case "socket_error":
@@ -205,13 +205,13 @@ class re {
     if (
       ((this.stableTimer = void 0),
       (this.consecutiveSlotContention = 0),
-      (this.contentionBackoffNotified = !1),
+      (this.contentionBackoffNotified = false),
       this.consecutivePongTimeouts === 0)
     )
       this.reconnectAttempts = 0;
     this.emit({ kind: "stabilized" });
   };
-  scheduleReconnect(e = !1) {
+  scheduleReconnect(e = false) {
     if (this.stopping || !this.started || this.reconnectTimer !== void 0) return;
     let t = this.nextDelayMs(e);
     if (this.stopping) return;
@@ -225,18 +225,18 @@ class re {
   }
   nextDelayMs(e) {
     let t = this.lastFailureWasContention;
-    if (((this.lastFailureWasContention = !1), e))
+    if (((this.lastFailureWasContention = false), e))
       return lkt(0, 1, this.timers.slotContentionFastAttempts, this.random);
     if (t) {
       if (
         (this.consecutiveSlotContention++,
         this.consecutiveSlotContention > this.timers.slotContentionFastAttempts && !this.contentionBackoffNotified)
       )
-        (this.contentionBackoffNotified = !0),
+        (this.contentionBackoffNotified = true),
           this.emit({ kind: "slot_contention_backoff", consecutive: this.consecutiveSlotContention });
       return lkt(0, this.consecutiveSlotContention, this.timers.slotContentionFastAttempts, this.random);
     }
-    if (((this.consecutiveSlotContention = 0), (this.contentionBackoffNotified = !1), this.reconnectAttempts >= NOn)) {
+    if (((this.consecutiveSlotContention = 0), (this.contentionBackoffNotified = false), this.reconnectAttempts >= NOn)) {
       (this.reconnectAttempts = 0), this.emit({ kind: "reconnect_exhausted" });
       try {
         this.transport.onerror?.(Error("Bridge unreachable"));
@@ -257,7 +257,7 @@ class re {
     let t = this.announced.inFlightCalls(),
       r = this.reannounceSkipOutcome();
     if (r !== void 0) {
-      this.emit({ kind: "reannounce", reason: e, outcome: r, inFlightAtStart: t, drainedMs: 0, drainTimedOut: !1 });
+      this.emit({ kind: "reannounce", reason: e, outcome: r, inFlightAtStart: t, drainedMs: 0, drainTimedOut: false });
       return;
     }
     let o = {
@@ -269,12 +269,12 @@ class re {
     };
     (this.reannounce = o),
       this.announced.whenIdle().then(
-        () => this.rotate(o, !1),
-        () => this.rotate(o, !1),
+        () => this.rotate(o, false),
+        () => this.rotate(o, false),
       );
   };
   handleDrainTimeout = () => {
-    if (this.reannounce.phase === "draining") this.rotate(this.reannounce, !0);
+    if (this.reannounce.phase === "draining") this.rotate(this.reannounce, true);
   };
   rotate(e, t) {
     if (this.reannounce !== e) return;
@@ -316,7 +316,7 @@ class re {
         outcome: "not_connected",
         inFlightAtStart: e.inFlightAtStart,
         drainedMs: this.now() - e.startedAt,
-        drainTimedOut: !1,
+        drainTimedOut: false,
       });
   }
   cancelReannounce() {
@@ -367,9 +367,9 @@ function ve(e) {
     tryAcquire() {
       if (t >= e) return;
       t++;
-      let r = !1;
+      let r = false;
       return () => {
-        if (!r) (r = !0), t--;
+        if (!r) (r = true), t--;
       };
     },
   };
@@ -433,11 +433,11 @@ class se {
   onerror;
   onmessage;
   onevent;
-  started = !1;
-  closing = !1;
+  started = false;
+  closing = false;
   ws;
   pendingToken;
-  authenticated = !1;
+  authenticated = false;
   connectGeneration = 0;
   handshakeTimer;
   negotiated;
@@ -446,11 +446,11 @@ class se {
   }
   async start() {
     if (this.started) throw Error("DeviceBridgeTransport start can only be called once.");
-    this.started = !0;
+    this.started = true;
   }
   async close() {
     if (this.closing) return;
-    (this.closing = !0), this.disconnect(), this.emit({ kind: "transport_closed" }), this.onclose?.();
+    (this.closing = true), this.disconnect(), this.emit({ kind: "transport_closed" }), this.onclose?.();
   }
   async send(e) {
     if (He(e)) return;
@@ -468,13 +468,13 @@ class se {
   }
   sendRaw(e) {
     let t = this.ws;
-    if (!t || t.readyState !== Z) return !1;
+    if (!t || t.readyState !== Z) return false;
     try {
       t.send(e);
     } catch (r) {
-      return n(`[deviceBridge] raw send failed: ${we(r).message}`), !1;
+      return n(`[deviceBridge] raw send failed: ${we(r).message}`), false;
     }
-    return !0;
+    return true;
   }
   isAuthenticated() {
     return this.authenticated;
@@ -552,7 +552,7 @@ class se {
     this.connectGeneration++,
       this.clearHandshakeTimer(),
       (this.pendingToken = void 0),
-      (this.authenticated = !1),
+      (this.authenticated = false),
       (this.negotiated = void 0);
     let e = this.ws;
     if (!e) return;
@@ -645,7 +645,7 @@ class se {
     if (this.authenticated) return;
     if (
       (this.clearHandshakeTimer(),
-      (this.authenticated = !0),
+      (this.authenticated = true),
       (this.negotiated = { protocolVersion: e, timings: t }),
       this.emit({ kind: "authenticated", protocolVersion: e, timings: t }),
       this.closing || this.ws === void 0)
@@ -820,9 +820,9 @@ function Je(e) {
     a = e[ytt.requiresUserInteraction],
     u = {
       ...(typeof t === "string" && { search_hint: t }),
-      ...(r === !0 && { always_load: !0 }),
+      ...(r === true && { always_load: true }),
       ...(typeof o === "number" && { max_result_size_chars: o }),
-      ...(a === !0 && { requires_user_interaction: !0 }),
+      ...(a === true && { requires_user_interaction: true }),
     };
   return Object.keys(u).length > 0 ? u : void 0;
 }
@@ -866,7 +866,7 @@ function Rcr(e, t) {
   try {
     (r = new URL(e)), (o = new URL(t));
   } catch {
-    return !1;
+    return false;
   }
   let a = r.hostname === "localhost" || r.hostname === "127.0.0.1" || r.hostname === "[::1]";
   return (
@@ -889,40 +889,40 @@ function kcr() {
 }
 function F$e(e) {
   let t = e.transport ?? (FX() ? "bridge" : "auto"),
-    r = !1,
+    r = false,
     o,
     a,
     u,
     T,
     D,
-    w = !1,
-    C = !1,
-    k = !1,
+    w = false,
+    C = false,
+    k = false,
     W = new Set(),
-    H = !1,
+    H = false,
     S,
     I,
     P,
     A,
     z,
     l,
-    K = !1,
-    O = !1,
-    x = !1,
-    M = !1,
+    K = false,
+    O = false,
+    x = false,
+    M = false,
     G,
     V = c("stored"),
     E = { current: void 0 },
     U = (d) => (D ??= ie(d)),
     ie = async (d) => {
-      if (((r = !0), a?.(), (a = void 0), w)) await Y.catch(() => !1);
+      if (((r = true), a?.(), (a = void 0), w)) await Y.catch(() => false);
       o?.(),
         (o = void 0),
         T?.(),
         (T = void 0),
         u?.(),
         (u = void 0),
-        z?.stop({ drain: !1 }),
+        z?.stop({ drain: false }),
         await P,
         await A,
         await q(d);
@@ -938,16 +938,16 @@ function F$e(e) {
     L = () => {
       if (r || S !== void 0 || P !== void 0 || I === void 0) return;
       let d = I,
-        R = !1;
+        R = false;
       P = (A ?? Promise.resolve())
         .then(() => (r ? void 0 : d()))
         .then(async (g) => {
           if (g === void 0) return;
           if (r || !F()) {
-            (R = !r), await g.stop({ drain: !1 });
+            (R = !r), await g.stop({ drain: false });
             return;
           }
-          (S = g), s("tengu_device_bridge_started", { account_source: V, transport: c(t), redial: !0 }), g.start();
+          (S = g), s("tengu_device_bridge_started", { account_source: V, transport: c(t), redial: true }), g.start();
         })
         .catch((g) => {
           n(`[deviceBridge] re-dial failed: ${we(g).message}`);
@@ -958,16 +958,16 @@ function F$e(e) {
     },
     _ = async () => {
       let R = await (e.isEnabled ?? Ec)();
-      if (((w = !0), !R)) return !1;
+      if (((w = true), !R)) return false;
       let g = e.isEgressAllowed ?? h8;
       if (!g())
         return (
           n(
             "[deviceBridge] skipped: non-essential egress disabled, non-first-party provider, or remote sessions policy-denied",
           ),
-          !1
+          false
         );
-      if (r) return !1;
+      if (r) return false;
       let B = await (e.getAccount ?? HZ)(),
         X = e.orgUuid;
       if (!X || B.status !== "resolved")
@@ -978,7 +978,7 @@ function F$e(e) {
             account_mismatch: B.status === "mismatch",
           }),
           n(`[deviceBridge] skipped: ${X ? `account ${B.status}` : "no org"}`),
-          !1
+          false
         );
       let { accountUuid: Pe } = B;
       V = c(B.source);
@@ -986,7 +986,7 @@ function F$e(e) {
       (l = me()), l.setGroup(ne, []);
       let ue = M6t(),
         Le = e.toolGroupProviders ?? (await sn(ue));
-      if (r) return !1;
+      if (r) return false;
       u = an(Le, {
         registry: l,
         sessionId: e.sessionId,
@@ -1023,7 +1023,7 @@ function F$e(e) {
         (S = await I()),
         S === void 0 || r)
       )
-        return await S?.stop({ drain: !1 }), (S = void 0), !1;
+        return await S?.stop({ drain: false }), (S = void 0), false;
       let he = () => {
           if (!g()) U("egress_denied");
         },
@@ -1041,11 +1041,11 @@ function F$e(e) {
         pe(),
         r)
       )
-        return !1;
+        return false;
       if (
-        ((C = !0),
-        s("tengu_device_bridge_started", { account_source: c(B.source), transport: c(t), redial: !1 }),
-        (M = !0),
+        ((C = true),
+        s("tengu_device_bridge_started", { account_source: c(B.source), transport: c(t), redial: false }),
+        (M = true),
         t === "auto")
       ) {
         if (
@@ -1057,7 +1057,7 @@ function F$e(e) {
         )
           ce(G);
       }
-      return S?.start(), !0;
+      return S?.start(), true;
     },
     F = () => !K || (!O && l !== void 0 && te(l)),
     J = () => F() || (!x && l !== void 0 && te(l)),
@@ -1071,12 +1071,12 @@ function F$e(e) {
       switch (d.kind) {
         case "announced":
           if (d.status === "withdrawn") return;
-          if (((K = !0), (O = d.passthroughAdopted !== void 0), (x = (d.passthroughAdopted ?? 0) > 0), F())) L();
+          if (((K = true), (O = d.passthroughAdopted !== void 0), (x = (d.passthroughAdopted ?? 0) > 0), F())) L();
           else if (!J()) q(de());
           return;
         case "refused":
         case "unsupported":
-          (K = !1), (O = !1), (x = !1), L();
+          (K = false), (O = false), (x = false), L();
           return;
         case "failed":
         case "retry":
@@ -1085,7 +1085,7 @@ function F$e(e) {
     },
     Ce = (d) => {
       if (d.kind === "authenticated") {
-        if ((W.clear(), (H = !1), !k)) (k = !0), y("device_bridge_register");
+        if ((W.clear(), (H = false), !k)) (k = true), y("device_bridge_register");
         Ee(d);
         return;
       }
@@ -1096,17 +1096,17 @@ function F$e(e) {
     },
     Ae = (d) => {
       if (d.kind === "reconnect_exhausted") {
-        if (!k) (k = !0), p("device_bridge_register", "reconnect_exhausted");
+        if (!k) (k = true), p("device_bridge_register", "reconnect_exhausted");
         if (H) return;
-        H = !0;
+        H = true;
       }
       on(d);
     };
   o = (e.registerExitCleanup ?? vt)(() => U("exit"));
   let Y = _().catch((d) => {
       if ((n(`[deviceBridge] registration failed: ${we(d).message}`), s("tengu_device_bridge_start_failed", {}), !k))
-        (k = !0), p("device_bridge_register", "start_failed");
-      return !1;
+        (k = true), p("device_bridge_register", "start_failed");
+      return false;
     }),
     Oe = Y.then((d) =>
       d && l !== void 0 && E.current !== void 0 ? { kit: ye(E.current.kit), source: Se(l) } : void 0,
@@ -1157,7 +1157,7 @@ async function tn({
   if (u()) return;
   let P = { getDeviceName: () => w, version: De },
     A = S(P),
-    z = S({ ...P, idle: !0 }),
+    z = S({ ...P, idle: true }),
     l = (_) => {
       let F = o.definitions().every((J) => J.name === A.definition.name);
       o.setGroup(ne, [F ? z : A], _);

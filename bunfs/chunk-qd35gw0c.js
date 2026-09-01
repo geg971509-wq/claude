@@ -27,22 +27,22 @@ class u {
     return this.proc.env.TERM === "xterm-ghostty" || this.proc.env.TERM_PROGRAM === "ghostty";
   }
   isMintty() {
-    if (this.proc.env.TERM_PROGRAM === "mintty") return !0;
-    if (this.proc.platform === "win32" && this.proc.env.MSYSTEM) return !0;
-    return !1;
+    if (this.proc.env.TERM_PROGRAM === "mintty") return true;
+    if (this.proc.platform === "win32" && this.proc.env.MSYSTEM) return true;
+    return false;
   }
   windowsConsoleSupportsVirtualTerminalSequences() {
-    if (this.isMicrosoftWindowsTerminal()) return !0;
+    if (this.isMicrosoftWindowsTerminal()) return true;
     if (this.proc.platform === "win32" && this.proc.env.TERM_PROGRAM === "vscode" && this.proc.env.TERM_PROGRAM_VERSION)
-      return !0;
-    if (this.isMintty()) return !0;
-    return !1;
+      return true;
+    if (this.isMintty()) return true;
+    return false;
   }
   hasGeometricShapesInkBleedBug() {
     return this.isGhostty();
   }
   hasOsc52ClipboardUtf8Bug() {
-    if (this.proc.env.TERM_PROGRAM !== "vscode") return !1;
+    if (this.proc.env.TERM_PROGRAM !== "vscode") return false;
     let r = R(this.proc.env.TERM_PROGRAM_VERSION);
     return r !== null && r >= 1123000 && r < 1125000;
   }
@@ -64,22 +64,22 @@ function R(r) {
 }
 var nw = new u();
 var T = {
-    black: !0,
-    red: !0,
-    green: !0,
-    yellow: !0,
-    blue: !0,
-    magenta: !0,
-    cyan: !0,
-    white: !0,
-    blackBright: !0,
-    redBright: !0,
-    greenBright: !0,
-    yellowBright: !0,
-    blueBright: !0,
-    magentaBright: !0,
-    cyanBright: !0,
-    whiteBright: !0,
+    black: true,
+    red: true,
+    green: true,
+    yellow: true,
+    blue: true,
+    magenta: true,
+    cyan: true,
+    white: true,
+    blackBright: true,
+    redBright: true,
+    greenBright: true,
+    yellowBright: true,
+    blueBright: true,
+    magentaBright: true,
+    cyanBright: true,
+    whiteBright: true,
   },
   c = new Set(Object.keys(T));
 var A = /^\x1b\[([34]8);2;(\d+);(\d+);(\d+)m$/;
@@ -688,12 +688,12 @@ function Lk(r) {
   }
 }
 function X2(r) {
-  if (typeof r !== "string") return !1;
-  if (/^rgb\(\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}\s?\)$/.test(r)) return !0;
-  if (/^#[0-9a-fA-F]{6}$/.test(r) || /^#[0-9a-fA-F]{3}$/.test(r)) return !0;
-  if (/^ansi256\(\d{1,3}\)$/.test(r)) return !0;
+  if (typeof r !== "string") return false;
+  if (/^rgb\(\s?\d{1,3},\s?\d{1,3},\s?\d{1,3}\s?\)$/.test(r)) return true;
+  if (/^#[0-9a-fA-F]{6}$/.test(r) || /^#[0-9a-fA-F]{3}$/.test(r)) return true;
+  if (/^ansi256\(\d{1,3}\)$/.test(r)) return true;
   if (r.startsWith("ansi:")) return c.has(r.slice(5));
-  return !1;
+  return false;
 }
 function D5e(r, i) {
   if (!i) return r;

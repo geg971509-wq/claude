@@ -39,9 +39,9 @@ async function T(e, t, o, s, a) {
   }
   if (!d.sent)
     return d.reply.catch(() => {}), { kind: "unreachable", detail: "the session stream is closed; nothing was sent" };
-  let u = !1,
+  let u = false,
     k = setTimeout(() => {
-      (u = !0), d.cancel();
+      (u = true), d.cancel();
     }, i);
   try {
     let w = await d.reply;
@@ -64,7 +64,7 @@ function D(e) {
   try {
     return C(e) !== void 0;
   } catch {
-    return !1;
+    return false;
   }
 }
 function I(e) {
@@ -80,14 +80,14 @@ function I(e) {
       )
       .join(`
 `),
-    isError: a === !0,
+    isError: a === true,
   };
 }
 var ERt = { maxRequestBytes: 4128768, defaultDeadlineMs: 58000 },
   Ycr = 300000,
   E = 1e4;
 function Qwr(e) {
-  let t = { stale: !1 },
+  let t = { stale: false },
     o = e.limits ?? ERt;
   return {
     kind: "session",
@@ -137,7 +137,7 @@ async function q(e, t, o, s, a, i, r) {
         };
       u = y;
     }
-    t.stale = !1;
+    t.stale = false;
   }
   let p = bK(r.deadlineMs),
     S = d(),
@@ -170,7 +170,7 @@ async function q(e, t, o, s, a, i, r) {
   switch (m.kind) {
     case "answered": {
       let c = N(m.payload, d() - S);
-      if (M(c)) (t.stale = !1), u.heard(d());
+      if (M(c)) (t.stale = false), u.heard(d());
       return c.kind === "dropped" ? { ...c, ...g } : c;
     }
     case "deadline":
@@ -180,7 +180,7 @@ async function q(e, t, o, s, a, i, r) {
         ),
         p >= o.defaultDeadlineMs)
       )
-        t.stale = !0;
+        t.stale = true;
       return { kind: "timed_out", capMs: p, ...g };
     case "stalled":
       return (
@@ -212,9 +212,9 @@ async function q(e, t, o, s, a, i, r) {
 }
 function O(e, t, o) {
   return new Promise((s) => {
-    let a = !1,
+    let a = false,
       i = setTimeout(() => {
-        (a = !0), s(e.delivered() === !1 ? { kind: "stalled" } : { kind: "deadline" }), e.cancel();
+        (a = true), s(e.delivered() === false ? { kind: "stalled" } : { kind: "deadline" }), e.cancel();
       }, t);
     e.reply.then(
       (r) => {
@@ -226,7 +226,7 @@ function O(e, t, o) {
         else if (r instanceof uUe) s({ kind: "undelivered", status: r.status });
         else if (r instanceof cUe) s({ kind: "delivery_unknown", status: r.status });
         else if (r instanceof la) s({ kind: "dropped" });
-        else if (r instanceof lUe) s({ kind: "gone", why: r.why, unsent: e.delivered() === !1 });
+        else if (r instanceof lUe) s({ kind: "gone", why: r.why, unsent: e.delivered() === false });
         else s({ kind: "failed", detail: l(r) });
       },
     );
@@ -242,7 +242,7 @@ function x(e, t) {
   try {
     return H(e, t);
   } catch (o) {
-    return n(`[remote-tools] an unreadable reply was not taken as an answer: ${l(o)}`), !1;
+    return n(`[remote-tools] an unreadable reply was not taken as an answer: ${l(o)}`), false;
   }
 }
 function H(e, t) {
@@ -254,7 +254,7 @@ function H(e, t) {
     case "malformed":
       return L(o) === t;
     case "absent":
-      return !1;
+      return false;
   }
 }
 function L(e) {
@@ -265,7 +265,7 @@ function L(e) {
     .find(f)?.call_id;
 }
 function N(e, t) {
-  if (f(e) && e[fRe] === !0)
+  if (f(e) && e[fRe] === true)
     return {
       kind: "dropped",
       why: "unverified_refusal",
@@ -275,7 +275,7 @@ function N(e, t) {
   let o = f(e) ? e.result : void 0,
     s = sQ(o);
   if (s.envelope.status === "malformed")
-    return { kind: "transport_error", detail: "malformed result envelope", unreadableResult: !0 };
+    return { kind: "transport_error", detail: "malformed result envelope", unreadableResult: true };
   if (s.envelope.status === "absent") return { kind: "transport_error", detail: "answer without an envelope" };
   let a = s.envelope.envelope;
   if (a.outcome === "refused" && a.code === "no_approval") return { kind: "approval_unverified" };

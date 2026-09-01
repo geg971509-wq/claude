@@ -112,7 +112,7 @@ import "/$bunfs/root/chunk-a4q326ap.js";
 var a = 20;
 function c(r) {
   let e = r?.extensions?.[U5e];
-  return e != null && typeof e === "object" && "directoryRead" in e && e.directoryRead === !0;
+  return e != null && typeof e === "object" && "directoryRead" in e && e.directoryRead === true;
 }
 async function R(r, e) {
   if (!c(r.capabilities)) throw Error("readMcpDirectory called on a server without directoryRead capability");

@@ -314,7 +314,7 @@ function z(s) {
   return `${c.slice(0, 8)}-${c.slice(8, 12)}-${c.slice(12, 16)}-${c.slice(16, 20)}-${c.slice(20, 32)}`;
 }
 function _(s) {
-  if (s.type !== "claudeai-proxy") return !1;
+  if (s.type !== "claudeai-proxy") return false;
   return s.scope === "claudeai" || (s.scope === "dynamic" && !gCe(s));
 }
 function H(s) {
@@ -655,7 +655,7 @@ function we() {
     description: "Create, update, list, or run scheduled cloud agents (routines) that execute on a cron schedule.",
     whenToUse:
       'When the user wants to schedule a recurring cloud agent, set up automated tasks, create a cron job for Claude Code, or manage their scheduled agents/routines. Also use when the user wants a one-time scheduled run ("run this once at 3pm", "remind me to check X tomorrow").',
-    userInvocable: !0,
+    userInvocable: true,
     isEnabled: () => pr() && Tt() && !a.CLAUDE_CODE_REMOTE && Mt("allow_remote_sessions") && Mt(wL),
     allowedTools: [vF, Yi, "Bash(date *)"],
     async getPromptForCommand(s, t) {
@@ -669,7 +669,7 @@ function we() {
       let i = [],
         p = null,
         r = [],
-        h = !1,
+        h = false,
         c = null;
       if (t.options?.isSkillPreload)
         r.push("Environment and repository details are resolved when the skill is actually run.");
@@ -707,7 +707,7 @@ function we() {
         else if (qo(e.host)) {
           let { hasAccess: l, transient: w } = await G9n(e.owner, e.name);
           if (!l) {
-            h = !0;
+            h = true;
             let D = M(),
               L = w
                 ? `Couldn't verify GitHub access for ${e.owner}/${e.name} (the check failed in a way that may be temporary) \u2014 if your routine needs this repo and this persists, install the Claude GitHub App at https://claude.ai/code/onboarding?magic=github-app-setup.`
@@ -739,7 +739,7 @@ function we() {
           t.options.mcpClients
             .filter((e) => {
               if (!j.has(e.config.scope) || e.config.type === "sdk" || e.type === "disabled" || C.has(e.name))
-                return !1;
+                return false;
               let l = a2(e.config);
               return l === null || !m.has(l);
             })
@@ -751,7 +751,7 @@ function we() {
           ? "lockdown"
           : ox() || Co()
             ? "restricted"
-            : a.ENABLE_CLAUDEAI_MCP_SERVERS === !1 || UY()
+            : a.ENABLE_CLAUDEAI_MCP_SERVERS === false || UY()
               ? "optout"
               : ho("mcpClaudeAi")
                 ? "safe-mode"

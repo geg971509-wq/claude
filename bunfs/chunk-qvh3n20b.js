@@ -100,9 +100,9 @@ async function Ne(e, t, r, o, d) {
 function B(e) {
   for (let t = 0; t < e.length; t++) {
     let r = e.charCodeAt(t);
-    if (r < 32 || (r >= 127 && r <= 159) || r === 8232 || r === 8233) return !0;
+    if (r < 32 || (r >= 127 && r <= 159) || r === 8232 || r === 8233) return true;
   }
-  return !1;
+  return false;
 }
 async function te(e) {
   if ((rL(e.claims.jti, "spawn-hint jti"), e.claims.session_id)) rL(e.claims.session_id, "spawn-hint session_id");
@@ -151,9 +151,9 @@ async function te(e) {
       CLAUDE_RUNNER_CLIENT_PLATFORM: t,
     },
     n = "",
-    s = !1,
+    s = false,
     w = null,
-    c = !1;
+    c = false;
   try {
     await new Promise((p) => {
       let a;
@@ -162,12 +162,12 @@ async function te(e) {
           cwd: void 0,
           env: d,
           stdio: ["ignore", "pipe", "pipe"],
-          detached: !0,
-          windowsHide: !0,
+          detached: true,
+          windowsHide: true,
         })),
           fS(a.pid);
       } catch (f) {
-        (c = !0), (n = `spawn-runner hook exec failed: ${l(f)}`), p();
+        (c = true), (n = `spawn-runner hook exec failed: ${l(f)}`), p();
         return;
       }
       let u = () => {},
@@ -177,7 +177,7 @@ async function te(e) {
         k = setTimeout(
           (f, S, O, x, A, L) => {
             if (
-              ((s = !0),
+              ((s = true),
               x(`[runner:orchestrator] spawn-runner jti=${S} timed out after ${O}ms, sending SIGTERM to process tree`),
               f !== void 0)
             )
@@ -238,10 +238,10 @@ async function te(e) {
         };
       if (
         (a.stdout?.on("data", (f) => {
-          if (((g = h(g + f, !1)), g.length > R)) g = g.slice(-R);
+          if (((g = h(g + f, false)), g.length > R)) g = g.slice(-R);
         }),
         a.stderr?.on("data", (f) => {
-          if (((E = h(E + f, !0)), E.length > R)) E = E.slice(-R);
+          if (((E = h(E + f, true)), E.length > R)) E = E.slice(-R);
         }),
         a.once("close", () => {
           if (g)
@@ -249,14 +249,14 @@ async function te(e) {
               g +
                 `
 `,
-              !1,
+              false,
             );
           if (E)
             h(
               E +
                 `
 `,
-              !0,
+              true,
             );
         }),
         (u = () => {
@@ -268,7 +268,7 @@ async function te(e) {
           )
             WE(a.pid, "SIGTERM"), (y = setTimeout((f) => void WE(f, "SIGKILL"), P, a.pid)), y.unref();
         }),
-        e.signal?.addEventListener("abort", u, { once: !0 }),
+        e.signal?.addEventListener("abort", u, { once: true }),
         e.signal?.aborted)
       )
         u();
@@ -277,7 +277,7 @@ async function te(e) {
         if (y) clearTimeout(y);
         if (_) clearTimeout(_);
         e.signal?.removeEventListener("abort", u),
-          (c = !0),
+          (c = true),
           (n = X(f) ? "spawn-runner hook missing (ENOENT)" : `spawn-runner hook exec failed: ${l(f)}`),
           p();
       }),
@@ -369,13 +369,13 @@ function je(e, t) {
   return e.replace(/^http/, "ws").replace(/\/+$/, "") + r;
 }
 function ce() {
-  return { connected: !1, last_connected_at: 0, last_error: null, reconnects: 0, requests_forwarded: 0 };
+  return { connected: false, last_connected_at: 0, last_error: null, reconnects: 0, requests_forwarded: 0 };
 }
 function le(e, t, r, o) {
   let d = je(r.apiUrl, e),
     n = e.hostRewrite && e.hostRewrite.from === e.host.toLowerCase() ? e.hostRewrite.toHost : e.host,
     s = e.hostRewrite && e.hostRewrite.from === e.host.toLowerCase() ? e.hostRewrite.toPort : e.port,
-    w = !1,
+    w = false,
     c = null,
     p = null,
     a = null,
@@ -490,7 +490,7 @@ function le(e, t, r, o) {
             for (let C = 0; C < H.value.length; C += ie) {
               let we = H.value.subarray(C, C + ie);
               f({
-                httpChunk: { requestId: i, data: Buffer.from(we).toString("base64"), isFinal: !1, sequenceNumber: q },
+                httpChunk: { requestId: i, data: Buffer.from(we).toString("base64"), isFinal: false, sequenceNumber: q },
               }),
                 q++;
             }
@@ -501,7 +501,7 @@ function le(e, t, r, o) {
           }
         }
       }
-      f({ httpChunk: { requestId: i, data: "", isFinal: !0, sequenceNumber: q } }), t.requests_forwarded++;
+      f({ httpChunk: { requestId: i, data: "", isFinal: true, sequenceNumber: q } }), t.requests_forwarded++;
     } catch (v) {
       S(i, `error reading GHES response body: ${l(v)}`);
     } finally {
@@ -556,7 +556,7 @@ function le(e, t, r, o) {
     if (((a = null), !k))
       cu(Oe(e.caFile, "utf8"), Ue, `--scm-connector-ca-file read from ${e.caFile}`)
         .then((i) => {
-          (_ = i), (k = !0);
+          (_ = i), (k = true);
         })
         .catch((i) => {
           g(`reading --scm-connector-ca-file: ${l(i)}`), E(`reading --scm-connector-ca-file: ${l(i)}`);
@@ -587,7 +587,7 @@ function le(e, t, r, o) {
       )),
       (m.onopen = () => {
         if (u) clearTimeout(u), (u = null);
-        (t.connected = !0),
+        (t.connected = true),
           (t.last_connected_at = Date.now()),
           (t.last_error = null),
           (y = Date.now()),
@@ -606,7 +606,7 @@ function le(e, t, r, o) {
         g("message" in i && typeof i.message === "string" ? i.message : "WebSocket error");
       }),
       (m.onclose = (i) => {
-        if (((t.connected = !1), u)) clearTimeout(u), (u = null);
+        if (((t.connected = false), u)) clearTimeout(u), (u = null);
         if (p) clearInterval(p), (p = null);
         for (let T of R.values()) T.abort();
         if ((R.clear(), c === m)) c = null;
@@ -616,18 +616,18 @@ function le(e, t, r, o) {
   }
   function j() {
     if (w) return;
-    if (((w = !0), a)) clearTimeout(a), (a = null);
+    if (((w = true), a)) clearTimeout(a), (a = null);
     if (u) clearTimeout(u), (u = null);
     if (p) clearInterval(p), (p = null);
     for (let m of R.values()) m.abort();
-    R.clear(), (t.connected = !1);
+    R.clear(), (t.connected = false);
     try {
       c?.close();
     } catch {}
     (c = null), E("stopped");
   }
   return (
-    o?.addEventListener("abort", j, { once: !0 }),
+    o?.addEventListener("abort", j, { once: true }),
     E(`starting provider=${e.provider} connector_id=${e.connectorId} url=${d}`),
     U(),
     { stop: j }
@@ -677,7 +677,7 @@ function ct(e) {
     r,
     o,
     d = "ghe",
-    n = !1,
+    n = false,
     s,
     w;
   for (let c = 0; c < e.length; c++) {
@@ -751,7 +751,7 @@ function ct(e) {
       case "--scm-connector-provider":
         if (!a) throw Error("--scm-connector-provider requires a value");
         if (!/^[a-z0-9-]{1,32}$/.test(a)) throw Error("--scm-connector-provider must match ^[a-z0-9-]{1,32}$");
-        (d = a), (n = !0), c++;
+        (d = a), (n = true), c++;
         break;
       case "--scm-connector-ca-file":
         if (!a) throw Error("--scm-connector-ca-file requires a path");
@@ -1108,14 +1108,14 @@ async function gt(e, t) {
       let f = yme(h),
         S = Rl(l(h));
       if (f !== void 0 && ot.has(f))
-        (o.connected = !1),
+        (o.connected = false),
           (o.last_error = S),
           p(
             f === 426
               ? `orchestrator version too old (HTTP 426): ${S} \u2014 upgrade and restart`
               : `PollSpawnHints rejected (HTTP ${f}): ${S}`,
           );
-      (o.connected = !1),
+      (o.connected = false),
         (o.last_error = S),
         d(
           `[runner:orchestrator] poll failed${f ? ` (HTTP ${f})` : ""}: ${S} \u2014 retrying in ${Math.round(u / 1000)}s`,
@@ -1124,7 +1124,7 @@ async function gt(e, t) {
         (u = Math.min(u * 2, nt));
       continue;
     }
-    (o.connected = !0),
+    (o.connected = true),
       (o.last_error = null),
       (u = _e),
       N(_.server_date),
@@ -1157,7 +1157,7 @@ async function gt(e, t) {
               session_uuid: h.session_uuid,
               attempt: h.attempt,
               error: "orchestrator: server over-returned hints (>max)",
-              retryable: !0,
+              retryable: true,
             },
             t,
           )
@@ -1173,7 +1173,7 @@ async function gt(e, t) {
     if (k.length > 0) d(`[runner:orchestrator] dispatching ${k.length} hint(s) (concurrency=${s.hookConcurrency})`);
     if (E.length > 0) d(`[runner:orchestrator] dispatching ${E.length} warm hint(s) (min_idle=${s.minIdle})`);
     if (k.length + E.length > 0)
-      await Promise.all([...k.map((h) => y(h, _.server_date, !1)), ...E.map((h) => y(h, _.server_date, !0))]);
+      await Promise.all([...k.map((h) => y(h, _.server_date, false)), ...E.map((h) => y(h, _.server_date, true))]);
     await ne(a, t);
   }
   function N(_) {
@@ -1187,7 +1187,7 @@ async function gt(e, t) {
   async function y(_, k, R) {
     if (((o.last_hint_at = Date.now()), R)) o.warm_hints_dispatched++;
     let g,
-      E = !1;
+      E = false;
     try {
       let O = pt(_, k);
       (g = await c({
@@ -1200,13 +1200,13 @@ async function gt(e, t) {
         onStatus: d,
         onDebug: n,
       })),
-        (E = !0);
+        (E = true);
     } catch (O) {
       g = {
-        ok: !1,
+        ok: false,
         exitCode: 1,
-        timedOut: !1,
-        execError: !1,
+        timedOut: false,
+        execError: false,
         stderrTail: `spawn-runner hook setup failed: ${l(O)}`,
         durationMs: 0,
       };
@@ -1333,7 +1333,7 @@ Run 'claude self-hosted-runner orchestrator --help' for usage.`),
     s(`[runner:fatal] ${l(h)}`), process.exit(1);
   }
   if (t.debugDir)
-    await Ye(t.debugDir, { recursive: !0, mode: 448 }).catch((h) =>
+    await Ye(t.debugDir, { recursive: true, mode: 448 }).catch((h) =>
       s(`[runner:warn] failed to create --debug-dir ${t.debugDir}: ${l(h)} \u2014 continuing without debug artifacts`),
     );
   let p = Ge(),
@@ -1354,7 +1354,7 @@ Run 'claude self-hosted-runner orchestrator --help' for usage.`),
       hostname: a,
       version: Tie,
       pool_id: u,
-      connected: !1,
+      connected: false,
       last_poll_at: 0,
       last_hint_at: 0,
       last_hook_ok_at: 0,
@@ -1377,10 +1377,10 @@ Run 'claude self-hosted-runner orchestrator --help' for usage.`),
       t.scmConnector && y.scm_connector
         ? le(t.scmConnector, y.scm_connector, { apiUrl: t.apiUrl, poolSecret: c, onStatus: s, onDebug: n }, k.signal)
         : void 0,
-    g = !1,
+    g = false,
     E = () => {
       if (g) s("Forced shutdown"), process.exit(1);
-      (g = !0), s("Received shutdown signal, stopping poll loop..."), k.abort();
+      (g = true), s("Received shutdown signal, stopping poll loop..."), k.abort();
     };
   process.on("SIGTERM", E), process.on("SIGINT", E);
   try {

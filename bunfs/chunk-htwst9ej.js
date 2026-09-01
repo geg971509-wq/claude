@@ -170,13 +170,13 @@ import "/$bunfs/root/chunk-a4q326ap.js";
 import { d } from "/$bunfs/root/chunk-yz031c9r.js";
 F();
 function G(Q) {
-  return { ...Q, hasCompletedClaudeInChromeOnboarding: !0 };
+  return { ...Q, hasCompletedClaudeInChromeOnboarding: true };
 }
 var I = "https://clau.de/chrome/permissions";
 function q(J) {
   let n = _(22),
     { onDone: m } = J,
-    [l, N] = u(!1),
+    [l, N] = u(false),
     { storageV5: a } = ge(),
     D,
     E;
@@ -225,7 +225,7 @@ function q(J) {
   let g;
   if (n[11] !== y)
     (g = r(t, {
-      dimColor: !0,
+      dimColor: true,
       children: [
         "Site-level permissions are inherited from the Chrome extension. Manage permissions in the Chrome extension settings to control which sites Claude can browse, click, and type on",
         y,
@@ -236,12 +236,12 @@ function q(J) {
       (n[12] = g);
   else g = n[12];
   let R;
-  if (n[13] === d) (R = e(t, { bold: !0, color: "chromeYellow", children: "/chrome" })), (n[13] = R);
+  if (n[13] === d) (R = e(t, { bold: true, color: "chromeYellow", children: "/chrome" })), (n[13] = R);
   else R = n[13];
   let K;
   if (n[14] === d)
     (K = r(t, {
-      dimColor: !0,
+      dimColor: true,
       children: [
         "For more info, use",
         " ",
@@ -255,7 +255,7 @@ function q(J) {
   else K = n[14];
   let v;
   if (n[15] !== c || n[16] !== C || n[17] !== g)
-    (v = r(o, { flexDirection: "column", gap: 1, tabIndex: 0, autoFocus: !0, onKeyDown: c, children: [C, g, K] })),
+    (v = r(o, { flexDirection: "column", gap: 1, tabIndex: 0, autoFocus: true, onKeyDown: c, children: [C, g, K] })),
       (n[15] = c),
       (n[16] = C),
       (n[17] = g),

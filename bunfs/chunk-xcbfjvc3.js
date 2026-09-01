@@ -193,9 +193,9 @@ function Y(ie) {
   if (i[0] !== a || i[1] !== d || i[2] !== c)
     (Q = function l() {
       if (a() || c()) {
-        return d(), !0;
+        return d(), true;
       }
-      return !1;
+      return false;
     }),
       (i[0] = a),
       (i[1] = d),
@@ -205,7 +205,7 @@ function Y(ie) {
   let l = Q,
     K = Hm(),
     L = Vs(se),
-    X = C(!1),
+    X = C(false),
     w,
     v,
     y,
@@ -241,7 +241,7 @@ function Y(ie) {
         if (X.current) {
           return;
         }
-        (X.current = !0), ae();
+        (X.current = true), ae();
       };
     };
     v = me;
@@ -251,14 +251,14 @@ function Y(ie) {
     let n;
     if (i[28] !== u)
       (n = r(t, {
-        children: ["Couldn't verify your git remote host (remote is", " ", e(t, { bold: !0, children: u }), ")."],
+        children: ["Couldn't verify your git remote host (remote is", " ", e(t, { bold: true, children: u }), ")."],
       })),
         (i[28] = u),
         (i[29] = n);
     else n = i[29];
     let s;
     if (i[30] !== f)
-      (s = r(t, { children: ["Proceed against ", e(t, { bold: !0, children: f }), "?"] })), (i[30] = f), (i[31] = s);
+      (s = r(t, { children: ["Proceed against ", e(t, { bold: true, children: f }), "?"] })), (i[30] = f), (i[31] = s);
     else s = i[31];
     if (i[32] !== n || i[33] !== s)
       (h = r(o, { flexDirection: "column", gap: 1, children: [n, s] })), (i[32] = n), (i[33] = s), (i[34] = h);
@@ -267,8 +267,8 @@ function Y(ie) {
     k = L.remountKey;
     x = l;
     S = K;
-    A = !0;
-    D = !0;
+    A = true;
+    D = true;
     E = "cancel";
     I = p(B);
     P = p(g);

@@ -128,11 +128,11 @@ class Uae extends EventTarget {
         }
         let K = new TextDecoder(),
           Q = N.getReader(),
-          G = !0;
+          G = true;
         do {
           let { done: P, value: F } = await Q.read();
           F && s(this, f).feed(K.decode(F, { stream: !P })),
-            P && ((G = !1), s(this, f).reset(), c(this, l, I).call(this));
+            P && ((G = false), s(this, f).reset(), c(this, l, I).call(this));
         } while (G);
       }),
       a(this, R, (o) => {
@@ -164,7 +164,7 @@ class Uae extends EventTarget {
       n(this, r, this.CONNECTING),
       n(this, y, 3000),
       n(this, W, (i = e == null ? void 0 : e.fetch) != null ? i : globalThis.fetch),
-      n(this, k, (h = e == null ? void 0 : e.withCredentials) != null ? h : !1),
+      n(this, k, (h = e == null ? void 0 : e.withCredentials) != null ? h : false),
       c(this, l, L).call(this);
   }
   get readyState() {

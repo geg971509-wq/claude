@@ -139,11 +139,11 @@ class oe {
       (this.pos = -1),
       (this.lastGapPos = -2),
       (this.gapStack = []),
-      (this.skipNextNewLine = !1),
-      (this.lastChunkWritten = !1),
-      (this.endOfChunkHit = !1),
+      (this.skipNextNewLine = false),
+      (this.lastChunkWritten = false),
+      (this.endOfChunkHit = false),
       (this.bufferWaterline = Ct),
-      (this.isEol = !1),
+      (this.isEol = false),
       (this.lineStartPos = 0),
       (this.droppedBufferSize = 0),
       (this.line = 1),
@@ -172,7 +172,7 @@ class oe {
     if (this.pos !== this.html.length - 1) {
       let t = this.html.charCodeAt(this.pos + 1);
       if (Le(t)) return this.pos++, this._addGap(), Re(e, t);
-    } else if (!this.lastChunkWritten) return (this.endOfChunkHit = !0), s.EOF;
+    } else if (!this.lastChunkWritten) return (this.endOfChunkHit = true), s.EOF;
     return this._err(Cn.surrogateInInputStream), e;
   }
   willDropParsedChunk() {
@@ -190,17 +190,17 @@ class oe {
   write(e, t) {
     if (this.html.length > 0) this.html += e;
     else this.html = e;
-    (this.endOfChunkHit = !1), (this.lastChunkWritten = t);
+    (this.endOfChunkHit = false), (this.lastChunkWritten = t);
   }
   insertHtmlAtCurrentPos(e) {
     (this.html = this.html.substring(0, this.pos + 1) + e + this.html.substring(this.pos + 1)),
-      (this.endOfChunkHit = !1);
+      (this.endOfChunkHit = false);
   }
   startsWith(e, t) {
-    if (this.pos + e.length > this.html.length) return (this.endOfChunkHit = !this.lastChunkWritten), !1;
+    if (this.pos + e.length > this.html.length) return (this.endOfChunkHit = !this.lastChunkWritten), false;
     if (t) return this.html.startsWith(e, this.pos);
-    for (let a = 0; a < e.length; a++) if ((this.html.charCodeAt(this.pos + a) | 32) !== e.charCodeAt(a)) return !1;
-    return !0;
+    for (let a = 0; a < e.length; a++) if ((this.html.charCodeAt(this.pos + a) | 32) !== e.charCodeAt(a)) return false;
+    return true;
   }
   peek(e) {
     let t = this.pos + e;
@@ -209,15 +209,15 @@ class oe {
     return a === s.CARRIAGE_RETURN ? s.LINE_FEED : a;
   }
   advance() {
-    if ((this.pos++, this.isEol)) (this.isEol = !1), this.line++, (this.lineStartPos = this.pos);
+    if ((this.pos++, this.isEol)) (this.isEol = false), this.line++, (this.lineStartPos = this.pos);
     if (this.pos >= this.html.length) return (this.endOfChunkHit = !this.lastChunkWritten), s.EOF;
     let e = this.html.charCodeAt(this.pos);
-    if (e === s.CARRIAGE_RETURN) return (this.isEol = !0), (this.skipNextNewLine = !0), s.LINE_FEED;
+    if (e === s.CARRIAGE_RETURN) return (this.isEol = true), (this.skipNextNewLine = true), s.LINE_FEED;
     if (e === s.LINE_FEED) {
-      if (((this.isEol = !0), this.skipNextNewLine))
-        return this.line--, (this.skipNextNewLine = !1), this._addGap(), this.advance();
+      if (((this.isEol = true), this.skipNextNewLine))
+        return this.line--, (this.skipNextNewLine = false), this._addGap(), this.advance();
     }
-    if (((this.skipNextNewLine = !1), X(e))) e = this._processSurrogate(e);
+    if (((this.skipNextNewLine = false), X(e))) e = this._processSurrogate(e);
     if (
       !(
         this.handler.onParseError === null ||
@@ -237,7 +237,7 @@ class oe {
   retreat(e) {
     this.pos -= e;
     while (this.pos < this.lastGapPos) (this.lastGapPos = this.gapStack.pop()), this.pos--;
-    this.isEol = !1;
+    this.isEol = false;
   }
 }
 var dBn = {};
@@ -1167,11 +1167,11 @@ class yZ {
   constructor(e, t) {
     (this.options = e),
       (this.handler = t),
-      (this.paused = !1),
-      (this.inLoop = !1),
-      (this.inForeignNode = !1),
+      (this.paused = false),
+      (this.inLoop = false),
+      (this.inForeignNode = false),
       (this.lastStartTagName = ""),
-      (this.active = !1),
+      (this.active = false),
       (this.state = r.DATA),
       (this.returnState = r.DATA),
       (this.entityStartPos = 0),
@@ -1222,35 +1222,35 @@ class yZ {
   }
   _runParsingLoop() {
     if (this.inLoop) return;
-    this.inLoop = !0;
+    this.inLoop = true;
     while (this.active && !this.paused) {
       this.consumedAfterSnapshot = 0;
       let e = this._consume();
       if (!this._ensureHibernation()) this._callState(e);
     }
-    this.inLoop = !1;
+    this.inLoop = false;
   }
   pause() {
-    this.paused = !0;
+    this.paused = true;
   }
   resume(e) {
     if (!this.paused) throw Error("Parser was already resumed");
-    if (((this.paused = !1), this.inLoop)) return;
+    if (((this.paused = false), this.inLoop)) return;
     if ((this._runParsingLoop(), !this.paused)) e === null || e === void 0 || e();
   }
   write(e, t, a) {
-    if (((this.active = !0), this.preprocessor.write(e, t), this._runParsingLoop(), !this.paused))
+    if (((this.active = true), this.preprocessor.write(e, t), this._runParsingLoop(), !this.paused))
       a === null || a === void 0 || a();
   }
   insertHtmlAtCurrentPos(e) {
-    (this.active = !0), this.preprocessor.insertHtmlAtCurrentPos(e), this._runParsingLoop();
+    (this.active = true), this.preprocessor.insertHtmlAtCurrentPos(e), this._runParsingLoop();
   }
   _ensureHibernation() {
     if (this.preprocessor.endOfChunkHit)
       return (
-        this.preprocessor.retreat(this.consumedAfterSnapshot), (this.consumedAfterSnapshot = 0), (this.active = !1), !0
+        this.preprocessor.retreat(this.consumedAfterSnapshot), (this.consumedAfterSnapshot = 0), (this.active = false), true
       );
-    return !1;
+    return false;
   }
   _consume() {
     return this.consumedAfterSnapshot++, this.preprocessor.advance();
@@ -1260,16 +1260,16 @@ class yZ {
     for (let t = 0; t < e; t++) this.preprocessor.advance();
   }
   _consumeSequenceIfMatch(e, t) {
-    if (this.preprocessor.startsWith(e, t)) return this._advanceBy(e.length - 1), !0;
-    return !1;
+    if (this.preprocessor.startsWith(e, t)) return this._advanceBy(e.length - 1), true;
+    return false;
   }
   _createStartTagToken() {
     this.currentToken = {
       type: l.START_TAG,
       tagName: "",
       tagID: u.UNKNOWN,
-      selfClosing: !1,
-      ackSelfClosing: !1,
+      selfClosing: false,
+      ackSelfClosing: false,
       attrs: [],
       location: this.getCurrentLocation(1),
     };
@@ -1279,8 +1279,8 @@ class yZ {
       type: l.END_TAG,
       tagName: "",
       tagID: u.UNKNOWN,
-      selfClosing: !1,
-      ackSelfClosing: !1,
+      selfClosing: false,
+      ackSelfClosing: false,
       attrs: [],
       location: this.getCurrentLocation(2),
     };
@@ -1292,7 +1292,7 @@ class yZ {
     this.currentToken = {
       type: l.DOCTYPE,
       name: e,
-      forceQuirks: !1,
+      forceQuirks: false,
       publicId: null,
       systemId: null,
       location: this.currentLocation,
@@ -1370,7 +1370,7 @@ class yZ {
   _emitEOFToken() {
     let e = this.getCurrentLocation(0);
     if (e) (e.endLine = e.startLine), (e.endCol = e.startCol), (e.endOffset = e.startOffset);
-    this._emitCurrentCharacterToken(e), this.handler.onEof({ type: l.EOF, location: e }), (this.active = !1);
+    this._emitCurrentCharacterToken(e), this.handler.onEof({ type: l.EOF, location: e }), (this.active = false);
   }
   _appendCharToCurrentCharacterToken(e, t) {
     if (this.currentCharacterToken)
@@ -1884,7 +1884,7 @@ class yZ {
     else this._emitChars("</"), (this.state = r.RCDATA), this._stateRcdata(e);
   }
   handleSpecialEndTag(e) {
-    if (!this.preprocessor.startsWith(this.lastStartTagName, !1)) return !this._ensureHibernation();
+    if (!this.preprocessor.startsWith(this.lastStartTagName, false)) return !this._ensureHibernation();
     this._createEndTagToken();
     let t = this.currentToken;
     switch (((t.tagName = this.lastStartTagName), this.preprocessor.peek(this.lastStartTagName.length))) {
@@ -1892,11 +1892,11 @@ class yZ {
       case s.LINE_FEED:
       case s.TABULATION:
       case s.FORM_FEED:
-        return this._advanceBy(this.lastStartTagName.length), (this.state = r.BEFORE_ATTRIBUTE_NAME), !1;
+        return this._advanceBy(this.lastStartTagName.length), (this.state = r.BEFORE_ATTRIBUTE_NAME), false;
       case s.SOLIDUS:
-        return this._advanceBy(this.lastStartTagName.length), (this.state = r.SELF_CLOSING_START_TAG), !1;
+        return this._advanceBy(this.lastStartTagName.length), (this.state = r.SELF_CLOSING_START_TAG), false;
       case s.GREATER_THAN_SIGN:
-        return this._advanceBy(this.lastStartTagName.length), this.emitCurrentTagToken(), (this.state = r.DATA), !1;
+        return this._advanceBy(this.lastStartTagName.length), this.emitCurrentTagToken(), (this.state = r.DATA), false;
       default:
         return !this._ensureHibernation();
     }
@@ -2029,7 +2029,7 @@ class yZ {
       this._emitChars("</"), (this.state = r.SCRIPT_DATA_ESCAPED), this._stateScriptDataEscaped(e);
   }
   _stateScriptDataDoubleEscapeStart(e) {
-    if (this.preprocessor.startsWith(C.SCRIPT, !1) && Be(this.preprocessor.peek(C.SCRIPT.length))) {
+    if (this.preprocessor.startsWith(C.SCRIPT, false) && Be(this.preprocessor.peek(C.SCRIPT.length))) {
       this._emitCodePoint(e);
       for (let t = 0; t < C.SCRIPT.length; t++) this._emitCodePoint(this._consume());
       this.state = r.SCRIPT_DATA_DOUBLE_ESCAPED;
@@ -2110,7 +2110,7 @@ class yZ {
     else (this.state = r.SCRIPT_DATA_DOUBLE_ESCAPED), this._stateScriptDataDoubleEscaped(e);
   }
   _stateScriptDataDoubleEscapeEnd(e) {
-    if (this.preprocessor.startsWith(C.SCRIPT, !1) && Be(this.preprocessor.peek(C.SCRIPT.length))) {
+    if (this.preprocessor.startsWith(C.SCRIPT, false) && Be(this.preprocessor.peek(C.SCRIPT.length))) {
       this._emitCodePoint(e);
       for (let t = 0; t < C.SCRIPT.length; t++) this._emitCodePoint(this._consume());
       this.state = r.SCRIPT_DATA_ESCAPED;
@@ -2330,7 +2330,7 @@ class yZ {
     switch (e) {
       case s.GREATER_THAN_SIGN: {
         let t = this.currentToken;
-        (t.selfClosing = !0), (this.state = r.DATA), this.emitCurrentTagToken();
+        (t.selfClosing = true), (this.state = r.DATA), this.emitCurrentTagToken();
         break;
       }
       case s.EOF: {
@@ -2361,11 +2361,11 @@ class yZ {
     }
   }
   _stateMarkupDeclarationOpen(e) {
-    if (this._consumeSequenceIfMatch(C.DASH_DASH, !0))
+    if (this._consumeSequenceIfMatch(C.DASH_DASH, true))
       this._createCommentToken(C.DASH_DASH.length + 1), (this.state = r.COMMENT_START);
-    else if (this._consumeSequenceIfMatch(C.DOCTYPE, !1))
+    else if (this._consumeSequenceIfMatch(C.DOCTYPE, false))
       (this.currentLocation = this.getCurrentLocation(C.DOCTYPE.length + 1)), (this.state = r.DOCTYPE);
-    else if (this._consumeSequenceIfMatch(C.CDATA_START, !0))
+    else if (this._consumeSequenceIfMatch(C.CDATA_START, true))
       if (this.inForeignNode) this.state = r.CDATA_SECTION;
       else
         this._err(Cn.cdataInHtmlContent),
@@ -2536,7 +2536,7 @@ class yZ {
       case s.EOF: {
         this._err(Cn.eofInDoctype), this._createDoctypeToken(null);
         let t = this.currentToken;
-        (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
@@ -2561,13 +2561,13 @@ class yZ {
         case s.GREATER_THAN_SIGN: {
           this._err(Cn.missingDoctypeName), this._createDoctypeToken(null);
           let t = this.currentToken;
-          (t.forceQuirks = !0), this.emitCurrentDoctype(t), (this.state = r.DATA);
+          (t.forceQuirks = true), this.emitCurrentDoctype(t), (this.state = r.DATA);
           break;
         }
         case s.EOF: {
           this._err(Cn.eofInDoctype), this._createDoctypeToken(null);
           let t = this.currentToken;
-          (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+          (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
           break;
         }
         default:
@@ -2593,7 +2593,7 @@ class yZ {
         break;
       }
       case s.EOF: {
-        this._err(Cn.eofInDoctype), (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        this._err(Cn.eofInDoctype), (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
@@ -2613,15 +2613,15 @@ class yZ {
         break;
       }
       case s.EOF: {
-        this._err(Cn.eofInDoctype), (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        this._err(Cn.eofInDoctype), (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
-        if (this._consumeSequenceIfMatch(C.PUBLIC, !1)) this.state = r.AFTER_DOCTYPE_PUBLIC_KEYWORD;
-        else if (this._consumeSequenceIfMatch(C.SYSTEM, !1)) this.state = r.AFTER_DOCTYPE_SYSTEM_KEYWORD;
+        if (this._consumeSequenceIfMatch(C.PUBLIC, false)) this.state = r.AFTER_DOCTYPE_PUBLIC_KEYWORD;
+        else if (this._consumeSequenceIfMatch(C.SYSTEM, false)) this.state = r.AFTER_DOCTYPE_SYSTEM_KEYWORD;
         else if (!this._ensureHibernation())
           this._err(Cn.invalidCharacterSequenceAfterDoctypeName),
-            (t.forceQuirks = !0),
+            (t.forceQuirks = true),
             (this.state = r.BOGUS_DOCTYPE),
             this._stateBogusDoctype(e);
     }
@@ -2650,18 +2650,18 @@ class yZ {
       }
       case s.GREATER_THAN_SIGN: {
         this._err(Cn.missingDoctypePublicIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           (this.state = r.DATA),
           this.emitCurrentDoctype(t);
         break;
       }
       case s.EOF: {
-        this._err(Cn.eofInDoctype), (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        this._err(Cn.eofInDoctype), (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
         this._err(Cn.missingQuoteBeforeDoctypePublicIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           (this.state = r.BOGUS_DOCTYPE),
           this._stateBogusDoctype(e);
     }
@@ -2684,18 +2684,18 @@ class yZ {
       }
       case s.GREATER_THAN_SIGN: {
         this._err(Cn.missingDoctypePublicIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           (this.state = r.DATA),
           this.emitCurrentDoctype(t);
         break;
       }
       case s.EOF: {
-        this._err(Cn.eofInDoctype), (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        this._err(Cn.eofInDoctype), (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
         this._err(Cn.missingQuoteBeforeDoctypePublicIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           (this.state = r.BOGUS_DOCTYPE),
           this._stateBogusDoctype(e);
     }
@@ -2713,13 +2713,13 @@ class yZ {
       }
       case s.GREATER_THAN_SIGN: {
         this._err(Cn.abruptDoctypePublicIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           this.emitCurrentDoctype(t),
           (this.state = r.DATA);
         break;
       }
       case s.EOF: {
-        this._err(Cn.eofInDoctype), (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        this._err(Cn.eofInDoctype), (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
@@ -2739,13 +2739,13 @@ class yZ {
       }
       case s.GREATER_THAN_SIGN: {
         this._err(Cn.abruptDoctypePublicIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           this.emitCurrentDoctype(t),
           (this.state = r.DATA);
         break;
       }
       case s.EOF: {
-        this._err(Cn.eofInDoctype), (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        this._err(Cn.eofInDoctype), (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
@@ -2779,12 +2779,12 @@ class yZ {
         break;
       }
       case s.EOF: {
-        this._err(Cn.eofInDoctype), (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        this._err(Cn.eofInDoctype), (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
         this._err(Cn.missingQuoteBeforeDoctypeSystemIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           (this.state = r.BOGUS_DOCTYPE),
           this._stateBogusDoctype(e);
     }
@@ -2810,12 +2810,12 @@ class yZ {
         break;
       }
       case s.EOF: {
-        this._err(Cn.eofInDoctype), (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        this._err(Cn.eofInDoctype), (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
         this._err(Cn.missingQuoteBeforeDoctypeSystemIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           (this.state = r.BOGUS_DOCTYPE),
           this._stateBogusDoctype(e);
     }
@@ -2844,18 +2844,18 @@ class yZ {
       }
       case s.GREATER_THAN_SIGN: {
         this._err(Cn.missingDoctypeSystemIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           (this.state = r.DATA),
           this.emitCurrentDoctype(t);
         break;
       }
       case s.EOF: {
-        this._err(Cn.eofInDoctype), (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        this._err(Cn.eofInDoctype), (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
         this._err(Cn.missingQuoteBeforeDoctypeSystemIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           (this.state = r.BOGUS_DOCTYPE),
           this._stateBogusDoctype(e);
     }
@@ -2878,18 +2878,18 @@ class yZ {
       }
       case s.GREATER_THAN_SIGN: {
         this._err(Cn.missingDoctypeSystemIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           (this.state = r.DATA),
           this.emitCurrentDoctype(t);
         break;
       }
       case s.EOF: {
-        this._err(Cn.eofInDoctype), (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        this._err(Cn.eofInDoctype), (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
         this._err(Cn.missingQuoteBeforeDoctypeSystemIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           (this.state = r.BOGUS_DOCTYPE),
           this._stateBogusDoctype(e);
     }
@@ -2907,13 +2907,13 @@ class yZ {
       }
       case s.GREATER_THAN_SIGN: {
         this._err(Cn.abruptDoctypeSystemIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           this.emitCurrentDoctype(t),
           (this.state = r.DATA);
         break;
       }
       case s.EOF: {
-        this._err(Cn.eofInDoctype), (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        this._err(Cn.eofInDoctype), (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
@@ -2933,13 +2933,13 @@ class yZ {
       }
       case s.GREATER_THAN_SIGN: {
         this._err(Cn.abruptDoctypeSystemIdentifier),
-          (t.forceQuirks = !0),
+          (t.forceQuirks = true),
           this.emitCurrentDoctype(t),
           (this.state = r.DATA);
         break;
       }
       case s.EOF: {
-        this._err(Cn.eofInDoctype), (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        this._err(Cn.eofInDoctype), (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
@@ -2959,7 +2959,7 @@ class yZ {
         break;
       }
       case s.EOF: {
-        this._err(Cn.eofInDoctype), (t.forceQuirks = !0), this.emitCurrentDoctype(t), this._emitEOFToken();
+        this._err(Cn.eofInDoctype), (t.forceQuirks = true), this.emitCurrentDoctype(t), this._emitEOFToken();
         break;
       }
       default:
@@ -3023,10 +3023,10 @@ class yZ {
     if (e < 0)
       if (this.preprocessor.lastChunkWritten) e = this.entityDecoder.end();
       else {
-        (this.active = !1),
+        (this.active = false),
           (this.preprocessor.pos = this.preprocessor.html.length - 1),
           (this.consumedAfterSnapshot = 0),
-          (this.preprocessor.endOfChunkHit = !0);
+          (this.preprocessor.endOfChunkHit = true);
         return;
       }
     if (e === 0)
@@ -3090,12 +3090,12 @@ class le {
       this._isInTemplate())
     )
       this.tmplCount++;
-    this.handler.onItemPush(e, t, !0);
+    this.handler.onItemPush(e, t, true);
   }
   pop() {
     let e = this.current;
     if (this.tmplCount > 0 && this._isInTemplate()) this.tmplCount--;
-    this.stackTop--, this._updateCurrentElement(), this.handler.onItemPop(e, !0);
+    this.stackTop--, this._updateCurrentElement(), this.handler.onItemPop(e, true);
   }
   replace(e, t) {
     let a = this._indexOf(e);
@@ -3164,7 +3164,7 @@ class le {
           this.tagIDs.splice(t, 1),
           this.stackTop--,
           this._updateCurrentElement(),
-          this.handler.onItemPop(e, !1);
+          this.handler.onItemPop(e, false);
   }
   tryPeekProperlyNestedBodyElement() {
     return this.stackTop >= 1 && this.tagIDs[1] === u.BODY ? this.items[1] : null;
@@ -3184,21 +3184,21 @@ class le {
       let n = this.tagIDs[a];
       switch (this.treeAdapter.getNamespaceURI(this.items[a])) {
         case d.HTML: {
-          if (n === e) return !0;
-          if (t.has(n)) return !1;
+          if (n === e) return true;
+          if (t.has(n)) return false;
           break;
         }
         case d.SVG: {
-          if (Fe.has(n)) return !1;
+          if (Fe.has(n)) return false;
           break;
         }
         case d.MATHML: {
-          if (Ue.has(n)) return !1;
+          if (Ue.has(n)) return false;
           break;
         }
       }
     }
-    return !0;
+    return true;
   }
   hasInScope(e) {
     return this.hasInDynamicScope(e, Z);
@@ -3214,34 +3214,34 @@ class le {
       let t = this.tagIDs[e];
       switch (this.treeAdapter.getNamespaceURI(this.items[e])) {
         case d.HTML: {
-          if (x.has(t)) return !0;
-          if (Z.has(t)) return !1;
+          if (x.has(t)) return true;
+          if (Z.has(t)) return false;
           break;
         }
         case d.SVG: {
-          if (Fe.has(t)) return !1;
+          if (Fe.has(t)) return false;
           break;
         }
         case d.MATHML: {
-          if (Ue.has(t)) return !1;
+          if (Ue.has(t)) return false;
           break;
         }
       }
     }
-    return !0;
+    return true;
   }
   hasInTableScope(e) {
     for (let t = this.stackTop; t >= 0; t--) {
       if (this.treeAdapter.getNamespaceURI(this.items[t]) !== d.HTML) continue;
       switch (this.tagIDs[t]) {
         case e:
-          return !0;
+          return true;
         case u.TABLE:
         case u.HTML:
-          return !1;
+          return false;
       }
     }
-    return !0;
+    return true;
   }
   hasTableBodyContextInTableScope() {
     for (let e = this.stackTop; e >= 0; e--) {
@@ -3250,28 +3250,28 @@ class le {
         case u.TBODY:
         case u.THEAD:
         case u.TFOOT:
-          return !0;
+          return true;
         case u.TABLE:
         case u.HTML:
-          return !1;
+          return false;
       }
     }
-    return !0;
+    return true;
   }
   hasInSelectScope(e) {
     for (let t = this.stackTop; t >= 0; t--) {
       if (this.treeAdapter.getNamespaceURI(this.items[t]) !== d.HTML) continue;
       switch (this.tagIDs[t]) {
         case e:
-          return !0;
+          return true;
         case u.OPTION:
         case u.OPTGROUP:
           break;
         default:
-          return !1;
+          return false;
       }
     }
-    return !0;
+    return true;
   }
   generateImpliedEndTags() {
     while (ye.has(this.currentTagId)) this.pop();
@@ -3803,31 +3803,31 @@ var Zt = "hidden",
 })(i || (i = {}));
 var uu = { startLine: -1, startCol: -1, startOffset: -1, endLine: -1, endCol: -1, endOffset: -1 },
   $e = new Set([u.TABLE, u.TBODY, u.TFOOT, u.THEAD, u.TR]),
-  Ve = { scriptingEnabled: !0, sourceCodeLocationInfo: !1, treeAdapter: jq, onParseError: null };
+  Ve = { scriptingEnabled: true, sourceCodeLocationInfo: false, treeAdapter: jq, onParseError: null };
 class xit {
   constructor(e, t, a = null, n = null) {
     if (
       ((this.fragmentContext = a),
       (this.scriptHandler = n),
       (this.currentToken = null),
-      (this.stopped = !1),
+      (this.stopped = false),
       (this.insertionMode = i.INITIAL),
       (this.originalInsertionMode = i.INITIAL),
       (this.headElement = null),
       (this.formElement = null),
-      (this.currentNotInHTML = !1),
+      (this.currentNotInHTML = false),
       (this.tmplInsertionModeStack = []),
       (this.pendingCharacterTokens = []),
-      (this.hasNonWhitespacePendingCharacterToken = !1),
-      (this.framesetOk = !0),
-      (this.skipNextNewLine = !1),
-      (this.fosterParentingEnabled = !1),
+      (this.hasNonWhitespacePendingCharacterToken = false),
+      (this.framesetOk = true),
+      (this.skipNextNewLine = false),
+      (this.fosterParentingEnabled = false),
       (this.options = { ...Ve, ...e }),
       (this.treeAdapter = this.options.treeAdapter),
       (this.onParseError = this.options.onParseError),
       this.onParseError)
     )
-      this.options.sourceCodeLocationInfo = !0;
+      this.options.sourceCodeLocationInfo = true;
     (this.document = t !== null && t !== void 0 ? t : this.treeAdapter.createDocument()),
       (this.tokenizer = new yZ(this.options, this)),
       (this.activeFormattingElements = new fe(this.treeAdapter)),
@@ -3837,7 +3837,7 @@ class xit {
   }
   static parse(e, t) {
     let a = new this(t);
-    return a.tokenizer.write(e, !0), a.document;
+    return a.tokenizer.write(e, true), a.document;
   }
   static getFragmentParser(e, t) {
     let a = { ...Ve, ...t };
@@ -4033,7 +4033,7 @@ class xit {
     }
   }
   shouldProcessStartTagTokenInForeignContent(e) {
-    if (!this.currentNotInHTML) return !1;
+    if (!this.currentNotInHTML) return false;
     let t, a;
     if (this.openElements.stackTop === 0 && this.fragmentContext)
       (t = this.fragmentContext), (a = this.fragmentContextID);
@@ -4043,7 +4043,7 @@ class xit {
       this.treeAdapter.getTagName(t) === c.ANNOTATION_XML &&
       this.treeAdapter.getNamespaceURI(t) === d.MATHML
     )
-      return !1;
+      return false;
     return (
       this.tokenizer.inForeignNode ||
       ((e.tagID === u.MGLYPH || e.tagID === u.MALIGNMARK) && !this._isIntegrationPoint(a, t, d.HTML))
@@ -4223,7 +4223,7 @@ class xit {
     return Te[a].has(t);
   }
   onCharacter(e) {
-    if (((this.skipNextNewLine = !1), this.tokenizer.inForeignNode)) {
+    if (((this.skipNextNewLine = false), this.tokenizer.inForeignNode)) {
       xa(this, e);
       return;
     }
@@ -4291,7 +4291,7 @@ class xit {
     }
   }
   onNullCharacter(e) {
-    if (((this.skipNextNewLine = !1), this.tokenizer.inForeignNode)) {
+    if (((this.skipNextNewLine = false), this.tokenizer.inForeignNode)) {
       Ma(this, e);
       return;
     }
@@ -4346,7 +4346,7 @@ class xit {
     }
   }
   onComment(e) {
-    if (((this.skipNextNewLine = !1), this.currentNotInHTML)) {
+    if (((this.skipNextNewLine = false), this.currentNotInHTML)) {
       Ne(this, e);
       return;
     }
@@ -4389,7 +4389,7 @@ class xit {
     }
   }
   onDoctype(e) {
-    switch (((this.skipNextNewLine = !1), this.insertionMode)) {
+    switch (((this.skipNextNewLine = false), this.insertionMode)) {
       case i.INITIAL: {
         Eu(this, e);
         break;
@@ -4410,7 +4410,7 @@ class xit {
   }
   onStartTag(e) {
     if (
-      ((this.skipNextNewLine = !1),
+      ((this.skipNextNewLine = false),
       (this.currentToken = e),
       this._processStartTag(e),
       e.selfClosing && !e.ackSelfClosing)
@@ -4515,7 +4515,7 @@ class xit {
     }
   }
   onEndTag(e) {
-    if (((this.skipNextNewLine = !1), (this.currentToken = e), this.currentNotInHTML)) ka(this, e);
+    if (((this.skipNextNewLine = false), (this.currentToken = e), this.currentNotInHTML)) ka(this, e);
     else this._endTagOutsideForeignContent(e);
   }
   _endTagOutsideForeignContent(e) {
@@ -4674,7 +4674,7 @@ class xit {
   }
   onWhitespaceCharacter(e) {
     if (this.skipNextNewLine) {
-      if (((this.skipNextNewLine = !1), e.chars.charCodeAt(0) === s.LINE_FEED)) {
+      if (((this.skipNextNewLine = false), e.chars.charCodeAt(0) === s.LINE_FEED)) {
         if (e.chars.length === 1) return;
         e.chars = e.chars.substr(1);
       }
@@ -4805,7 +4805,7 @@ function du(e, t) {
   e._appendCommentNode(t, e.document);
 }
 function Oe(e, t) {
-  if (((e.stopped = !0), t.location)) {
+  if (((e.stopped = true), t.location)) {
     let a = e.fragmentContext ? 0 : 2;
     for (let n = e.openElements.stackTop; n >= a; n--) e._setEndLocation(e.openElements.items[n], t);
     if (!e.fragmentContext && e.openElements.stackTop >= 0) {
@@ -4828,7 +4828,7 @@ function Eu(e, t) {
   e.treeAdapter.setDocumentMode(e.document, a), (e.insertionMode = i.BEFORE_HTML);
 }
 function F(e, t) {
-  e._err(t, Cn.missingDoctype, !0),
+  e._err(t, Cn.missingDoctype, true),
     e.treeAdapter.setDocumentMode(e.document, N.QUIRKS),
     (e.insertionMode = i.BEFORE_HTML),
     e._processToken(t);
@@ -4880,7 +4880,7 @@ function S(e, t) {
     case u.BGSOUND:
     case u.LINK:
     case u.META: {
-      e._appendElement(t, d.HTML), (t.ackSelfClosing = !0);
+      e._appendElement(t, d.HTML), (t.ackSelfClosing = true);
       break;
     }
     case u.TITLE: {
@@ -4904,7 +4904,7 @@ function S(e, t) {
     case u.TEMPLATE: {
       e._insertTemplate(t),
         e.activeFormattingElements.insertMarker(),
-        (e.framesetOk = !1),
+        (e.framesetOk = false),
         (e.insertionMode = i.IN_TEMPLATE),
         e.tmplInsertionModeStack.unshift(i.IN_TEMPLATE);
       break;
@@ -4999,7 +4999,7 @@ function Au(e, t) {
       break;
     }
     case u.BODY: {
-      e._insertElement(t, d.HTML), (e.framesetOk = !1), (e.insertionMode = i.IN_BODY);
+      e._insertElement(t, d.HTML), (e.framesetOk = false), (e.insertionMode = i.IN_BODY);
       break;
     }
     case u.FRAMESET: {
@@ -5082,14 +5082,14 @@ function Ze(e, t) {
   e._reconstructActiveFormattingElements(), e._insertCharacters(t);
 }
 function et(e, t) {
-  e._reconstructActiveFormattingElements(), e._insertCharacters(t), (e.framesetOk = !1);
+  e._reconstructActiveFormattingElements(), e._insertCharacters(t), (e.framesetOk = false);
 }
 function Iu(e, t) {
   if (e.openElements.tmplCount === 0) e.treeAdapter.adoptAttributes(e.openElements.items[0], t.attrs);
 }
 function Cu(e, t) {
   let a = e.openElements.tryPeekProperlyNestedBodyElement();
-  if (a && e.openElements.tmplCount === 0) (e.framesetOk = !1), e.treeAdapter.adoptAttributes(a, t.attrs);
+  if (a && e.openElements.tmplCount === 0) (e.framesetOk = false), e.treeAdapter.adoptAttributes(a, t.attrs);
 }
 function Ou(e, t) {
   let a = e.openElements.tryPeekProperlyNestedBodyElement();
@@ -5110,7 +5110,7 @@ function Su(e, t) {
 }
 function Lu(e, t) {
   if (e.openElements.hasInButtonScope(u.P)) e._closePElement();
-  e._insertElement(t, d.HTML), (e.skipNextNewLine = !0), (e.framesetOk = !1);
+  e._insertElement(t, d.HTML), (e.skipNextNewLine = true), (e.framesetOk = false);
 }
 function Ru(e, t) {
   let a = e.openElements.tmplCount > 0;
@@ -5120,7 +5120,7 @@ function Ru(e, t) {
   }
 }
 function Du(e, t) {
-  e.framesetOk = !1;
+  e.framesetOk = false;
   let a = t.tagID;
   for (let n = e.openElements.stackTop; n >= 0; n--) {
     let o = e.openElements.tagIDs[n];
@@ -5140,7 +5140,7 @@ function gu(e, t) {
 function Pu(e, t) {
   if (e.openElements.hasInScope(u.BUTTON))
     e.openElements.generateImpliedEndTags(), e.openElements.popUntilTagNamePopped(u.BUTTON);
-  e._reconstructActiveFormattingElements(), e._insertElement(t, d.HTML), (e.framesetOk = !1);
+  e._reconstructActiveFormattingElements(), e._insertElement(t, d.HTML), (e.framesetOk = false);
 }
 function Mu(e, t) {
   let a = e.activeFormattingElements.getElementEntryInScopeWithTagName(c.A);
@@ -5163,48 +5163,48 @@ function ku(e, t) {
   e._reconstructActiveFormattingElements(),
     e._insertElement(t, d.HTML),
     e.activeFormattingElements.insertMarker(),
-    (e.framesetOk = !1);
+    (e.framesetOk = false);
 }
 function Hu(e, t) {
   if (e.treeAdapter.getDocumentMode(e.document) !== N.QUIRKS && e.openElements.hasInButtonScope(u.P))
     e._closePElement();
-  e._insertElement(t, d.HTML), (e.framesetOk = !1), (e.insertionMode = i.IN_TABLE);
+  e._insertElement(t, d.HTML), (e.framesetOk = false), (e.insertionMode = i.IN_TABLE);
 }
 function tt(e, t) {
-  e._reconstructActiveFormattingElements(), e._appendElement(t, d.HTML), (e.framesetOk = !1), (t.ackSelfClosing = !0);
+  e._reconstructActiveFormattingElements(), e._appendElement(t, d.HTML), (e.framesetOk = false), (t.ackSelfClosing = true);
 }
 function ut(e) {
   let t = k(e, R.TYPE);
   return t != null && t.toLowerCase() === Zt;
 }
 function Uu(e, t) {
-  if ((e._reconstructActiveFormattingElements(), e._appendElement(t, d.HTML), !ut(t))) e.framesetOk = !1;
-  t.ackSelfClosing = !0;
+  if ((e._reconstructActiveFormattingElements(), e._appendElement(t, d.HTML), !ut(t))) e.framesetOk = false;
+  t.ackSelfClosing = true;
 }
 function Fu(e, t) {
-  e._appendElement(t, d.HTML), (t.ackSelfClosing = !0);
+  e._appendElement(t, d.HTML), (t.ackSelfClosing = true);
 }
 function yu(e, t) {
   if (e.openElements.hasInButtonScope(u.P)) e._closePElement();
-  e._appendElement(t, d.HTML), (e.framesetOk = !1), (t.ackSelfClosing = !0);
+  e._appendElement(t, d.HTML), (e.framesetOk = false), (t.ackSelfClosing = true);
 }
 function wu(e, t) {
   (t.tagName = c.IMG), (t.tagID = u.IMG), tt(e, t);
 }
 function Yu(e, t) {
   e._insertElement(t, d.HTML),
-    (e.skipNextNewLine = !0),
+    (e.skipNextNewLine = true),
     (e.tokenizer.state = q_.RCDATA),
     (e.originalInsertionMode = e.insertionMode),
-    (e.framesetOk = !1),
+    (e.framesetOk = false),
     (e.insertionMode = i.TEXT);
 }
 function vu(e, t) {
   if (e.openElements.hasInButtonScope(u.P)) e._closePElement();
-  e._reconstructActiveFormattingElements(), (e.framesetOk = !1), e._switchToTextParsing(t, q_.RAWTEXT);
+  e._reconstructActiveFormattingElements(), (e.framesetOk = false), e._switchToTextParsing(t, q_.RAWTEXT);
 }
 function Qu(e, t) {
-  (e.framesetOk = !1), e._switchToTextParsing(t, q_.RAWTEXT);
+  (e.framesetOk = false), e._switchToTextParsing(t, q_.RAWTEXT);
 }
 function ze(e, t) {
   e._switchToTextParsing(t, q_.RAWTEXT);
@@ -5212,7 +5212,7 @@ function ze(e, t) {
 function Gu(e, t) {
   e._reconstructActiveFormattingElements(),
     e._insertElement(t, d.HTML),
-    (e.framesetOk = !1),
+    (e.framesetOk = false),
     (e.insertionMode =
       e.insertionMode === i.IN_TABLE ||
       e.insertionMode === i.IN_CAPTION ||
@@ -5237,12 +5237,12 @@ function Xu(e, t) {
 function Ku(e, t) {
   if ((e._reconstructActiveFormattingElements(), ee(t), U(t), t.selfClosing)) e._appendElement(t, d.MATHML);
   else e._insertElement(t, d.MATHML);
-  t.ackSelfClosing = !0;
+  t.ackSelfClosing = true;
 }
 function Vu(e, t) {
   if ((e._reconstructActiveFormattingElements(), te(t), U(t), t.selfClosing)) e._appendElement(t, d.SVG);
   else e._insertElement(t, d.SVG);
-  t.ackSelfClosing = !0;
+  t.ackSelfClosing = true;
 }
 function Je(e, t) {
   e._reconstructActiveFormattingElements(), e._insertElement(t, d.HTML);
@@ -5507,7 +5507,7 @@ function aa(e, t) {
       e.activeFormattingElements.clearToLastMarker();
 }
 function sa(e) {
-  e._reconstructActiveFormattingElements(), e._insertFakeElement(c.BR, u.BR), e.openElements.pop(), (e.framesetOk = !1);
+  e._reconstructActiveFormattingElements(), e._insertFakeElement(c.BR, u.BR), e.openElements.pop(), (e.framesetOk = false);
 }
 function at(e, t) {
   let { tagName: a, tagID: n } = t;
@@ -5642,7 +5642,7 @@ function Ae(e, t) {
   if ($e.has(e.openElements.currentTagId))
     switch (
       ((e.pendingCharacterTokens.length = 0),
-      (e.hasNonWhitespacePendingCharacterToken = !1),
+      (e.hasNonWhitespacePendingCharacterToken = false),
       (e.originalInsertionMode = e.insertionMode),
       (e.insertionMode = i.IN_TABLE_TEXT),
       t.type)
@@ -5689,7 +5689,7 @@ function Ta(e, t) {
 function ha(e, t) {
   if (ut(t)) e._appendElement(t, d.HTML);
   else q(e, t);
-  t.ackSelfClosing = !0;
+  t.ackSelfClosing = true;
 }
 function la(e, t) {
   if (!e.formElement && e.openElements.tmplCount === 0)
@@ -5772,13 +5772,13 @@ function W(e, t) {
 }
 function q(e, t) {
   let a = e.fosterParentingEnabled;
-  (e.fosterParentingEnabled = !0), re(e, t), (e.fosterParentingEnabled = a);
+  (e.fosterParentingEnabled = true), re(e, t), (e.fosterParentingEnabled = a);
 }
 function rt(e, t) {
   e.pendingCharacterTokens.push(t);
 }
 function it(e, t) {
-  e.pendingCharacterTokens.push(t), (e.hasNonWhitespacePendingCharacterToken = !0);
+  e.pendingCharacterTokens.push(t), (e.hasNonWhitespacePendingCharacterToken = true);
 }
 function y(e, t) {
   let a = 0;
@@ -5838,7 +5838,7 @@ function pe(e, t) {
       break;
     }
     case u.COL: {
-      e._appendElement(t, d.HTML), (t.ackSelfClosing = !0);
+      e._appendElement(t, d.HTML), (t.ackSelfClosing = true);
       break;
     }
     case u.TEMPLATE: {
@@ -6046,7 +6046,7 @@ function ot(e, t) {
     case u.HR: {
       if (e.openElements.currentTagId === u.OPTION) e.openElements.pop();
       if (e.openElements.currentTagId === u.OPTGROUP) e.openElements.pop();
-      e._appendElement(t, d.HTML), (t.ackSelfClosing = !0);
+      e._appendElement(t, d.HTML), (t.ackSelfClosing = true);
       break;
     }
     case u.INPUT:
@@ -6208,7 +6208,7 @@ function Sa(e, t) {
       break;
     }
     case u.FRAME: {
-      e._appendElement(t, d.HTML), (t.ackSelfClosing = !0);
+      e._appendElement(t, d.HTML), (t.ackSelfClosing = true);
       break;
     }
     case u.NOFRAMES: {
@@ -6264,7 +6264,7 @@ function Ma(e, t) {
   (t.chars = f), e._insertCharacters(t);
 }
 function xa(e, t) {
-  e._insertCharacters(t), (e.framesetOk = !1);
+  e._insertCharacters(t), (e.framesetOk = false);
 }
 function ht(e) {
   while (
@@ -6282,7 +6282,7 @@ function Ba(e, t) {
     else if (n === d.SVG) _e(t), te(t);
     if ((U(t), t.selfClosing)) e._appendElement(t, n);
     else e._insertElement(t, n);
-    t.ackSelfClosing = !0;
+    t.ackSelfClosing = true;
   }
 }
 function ka(e, t) {
@@ -6372,7 +6372,7 @@ function mt(e, t) {
     t.treeAdapter.isElementNode(e) && t.treeAdapter.getNamespaceURI(e) === d.HTML && Ua.has(t.treeAdapter.getTagName(e))
   );
 }
-var _t = { treeAdapter: jq, scriptingEnabled: !0 };
+var _t = { treeAdapter: jq, scriptingEnabled: true };
 function _Pt(e, t) {
   let a = { ..._t, ...t };
   if (mt(e, a)) return "";
@@ -6450,6 +6450,6 @@ function Iit(e, t) {
 function REr(e, t, a) {
   if (typeof e === "string") (a = t), (t = e), (e = null);
   let n = xit.getFragmentParser(e, a);
-  return n.tokenizer.write(t, !0), n.getFragment();
+  return n.tokenizer.write(t, true), n.getFragment();
 }
 export { Cn, dBn, pBn, q_, yZ, jq, xtn, xit, _Pt, fpr, Iit, REr };

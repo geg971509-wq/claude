@@ -319,7 +319,7 @@ var i = async (n, t) => {
     script: e.script,
     args: e.args,
     telemetrySource: "remote_event",
-    serverAuthoredCarrier: !0,
+    serverAuthoredCarrier: true,
     context: t,
   });
   try {

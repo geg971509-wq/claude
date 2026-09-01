@@ -43,7 +43,7 @@ import {
 import { extname as le } from "path";
 import { promisify as ue } from "util";
 function hFn() {
-  return a.CLAUDE_CODE_ARTIFACT_ASSETS ?? !0;
+  return a.CLAUDE_CODE_ARTIFACT_ASSETS ?? true;
 }
 var D = "image/svg+xml",
   fe = 2097152;
@@ -93,7 +93,7 @@ var sZt =
   "file_path is on a volume that reports no usable file identity (some network, FUSE, and virtual-disk mounts), so the approved file cannot be told apart from a replacement \u2014 copy it to an ordinary local directory and upload the copy";
 function aZt(e) {
   let t = BigInt(e);
-  return t === 0n || t === 0xffffffffffffffffn || t === 1n << 64n;
+  return t === 0n || t === 0xffffffffffffffffn || t === 18446744073709551616n;
 }
 function M(e) {
   if (X(e)) return { kind: "missing" };
@@ -122,8 +122,8 @@ function Lq(e) {
 }
 function yFn(e) {
   try {
-    let t = B(e, { bigint: !0 });
-    return { real: e, identity: N(t), ...(t.isFile() && t.nlink > 1n && { linked: !0 }) };
+    let t = B(e, { bigint: true });
+    return { real: e, identity: N(t), ...(t.isFile() && t.nlink > 1n && { linked: true }) };
   } catch {
     return { real: e, identity: null };
   }
@@ -135,7 +135,7 @@ function Qrt(e) {
   try {
     return B(e).isSymbolicLink();
   } catch {
-    return !0;
+    return true;
   }
 }
 var K = ue(oe);
@@ -164,7 +164,7 @@ async function E6e(e, t, o, r) {
   } else if (u !== void 0 && u !== "allow") return { kind: "error", reason: "via_link", message: V };
   let f;
   try {
-    f = B(l, { bigint: !0 });
+    f = B(l, { bigint: true });
   } catch (g) {
     return i !== void 0 && X(g) ? { kind: "error", reason: "changed", message: R } : M(g);
   }
@@ -186,14 +186,14 @@ async function E6e(e, t, o, r) {
     return M(g);
   }
   try {
-    let g = se(x, { bigint: !0 });
+    let g = se(x, { bigint: true });
     if (!g.isFile()) return { kind: "error", reason: "not_a_file", message: qxt };
     if (aZt(g.ino)) return { kind: "error", reason: "no_identity", message: sZt };
     if (N(g) !== (i !== void 0 ? i.identity : N(f))) return { kind: "error", reason: "changed", message: R };
     try {
       let h = Lq(e);
       if (h.kind !== "resolved" || h.real !== l) return { kind: "error", reason: "changed", message: R };
-      let w = B(l, { bigint: !0 });
+      let w = B(l, { bigint: true });
       if (w.dev !== g.dev || w.ino !== g.ino) return { kind: "error", reason: "changed", message: R };
     } catch {
       return { kind: "error", reason: "changed", message: R };
@@ -368,7 +368,7 @@ function q(e, t) {
 }
 async function z(e, t) {
   let { verb: o, route: r, body: s, contentType: i, marks: c, fail: l } = e,
-    u = (S) => ({ replied: !1, failure: S }),
+    u = (S) => ({ replied: false, failure: S }),
     f = aWe() && !Ax(CL),
     v = d8() || f,
     x = () =>
@@ -391,9 +391,9 @@ async function z(e, t) {
   let g = de();
   if (!v && !g.assetsOnRoster) {
     let S = await CZ({ timeoutMs: 5000, signal: t, credentials: e.credentials });
-    if ("err" in S) c[`roster_${S.cause}`] = !0;
+    if ("err" in S) c[`roster_${S.cause}`] = true;
     else if (!S.capabilities.includes("assets")) return u(l("unavailable_to_account", "roster_no_assets"));
-    else g.assetsOnRoster = !0;
+    else g.assetsOnRoster = true;
   }
   let k = {
       maxRedirects: 0,
@@ -403,20 +403,20 @@ async function z(e, t) {
             streamUpload: {
               tailFloorMs: () => ke,
               onSettled: (S) => {
-                if (S.stalled) c.stalled = !0;
+                if (S.stalled) c.stalled = true;
               },
             },
           }
         : { timeout: e.timeoutMs }),
       ...(e.maxBodyLength !== void 0 && { maxBodyLength: e.maxBodyLength }),
       maxContentLength: 262144,
-      validateStatus: () => !0,
+      validateStatus: () => true,
       signal: t,
     },
     F = async () =>
       v
         ? (await sDt("POST", r, s, k, CL)).res
-        : bt.post(r, s, { ...k, host: "frame", auth: "claude-ai-oauth", refreshOAuth: !0, credentials: e.credentials }),
+        : bt.post(r, s, { ...k, host: "frame", auth: "claude-ai-oauth", refreshOAuth: true, credentials: e.credentials }),
     d;
   try {
     if (f && e.verb === "upload" && !hae(CL)) {
@@ -432,7 +432,7 @@ async function z(e, t) {
               headers: { ...Yu(), "Content-Type": "application/json", Accept: "application/json" },
               timeout: U,
               maxContentLength: 262144,
-              validateStatus: () => !0,
+              validateStatus: () => true,
               signal: t,
             },
             CL,
@@ -441,7 +441,7 @@ async function z(e, t) {
       } catch (C) {
         if (sa(C) || C instanceof Ze) throw C;
         return (
-          D1(CL, !0),
+          D1(CL, true),
           u(
             l(
               "store_unavailable",
@@ -454,7 +454,7 @@ async function z(e, t) {
       let w = Inn(h);
       if (w.refused) return D1(CL), x();
       if (!w.vouched) {
-        if (!h.ok || h.status >= 500 || h.status === 499) D1(CL, !0);
+        if (!h.ok || h.status >= 500 || h.status === 499) D1(CL, true);
         return u(
           l(
             "store_unavailable",
@@ -466,12 +466,12 @@ async function z(e, t) {
       Kq(CL);
     }
     let S = (h) => {
-      if (!f) return !1;
+      if (!f) return false;
       let w = Inn(h);
-      if (w.refused && !(h.ok && h.status === 413)) return D1(CL), xnn(CL), !0;
+      if (w.refused && !(h.ok && h.status === 413)) return D1(CL), xnn(CL), true;
       if (w.vouched) Kq(CL);
-      else if (!hae(CL) && (!h.ok || h.status >= 500 || h.status === 499)) D1(CL, !0);
-      return !1;
+      else if (!hae(CL) && (!h.ok || h.status >= 500 || h.status === 499)) D1(CL, true);
+      return false;
     };
     if (((d = await F()), S(d))) return x();
     if (d.ok && (d.status === 429 || d.status === 503) && ee(d.status, d.data).code !== "policy_denied") {
@@ -479,12 +479,12 @@ async function z(e, t) {
         w = RT(typeof h === "string" ? h : void 0);
       if (w !== void 0 && w <= Se) {
         if ((await ne(w, t), t.aborted)) throw new Ze();
-        if (((c.retried = !0), (d = await F()), S(d))) return x();
+        if (((c.retried = true), (d = await F()), S(d))) return x();
       }
     }
   } catch (S) {
     if (sa(S) || S instanceof Ze) throw S;
-    if (f && !hae(CL)) D1(CL, !0);
+    if (f && !hae(CL)) D1(CL, true);
     if (CO(S) !== void 0)
       return u(
         l(
@@ -508,7 +508,7 @@ async function z(e, t) {
       ...l("store_unavailable", d.reason.replace(/-/g, "_")),
       message: d.reason === "no-auth" ? gp(d.detail) : `asset ${o} unavailable: ${d.reason}`,
     });
-  return { replied: !0, status: d.status, data: d.data, retryAfter: d.response.headers?.["retry-after"] };
+  return { replied: true, status: d.status, data: d.data, retryAfter: d.response.headers?.["retry-after"] };
 }
 function H(e, t) {
   let { code: o, reason: r, detail: s } = ee(e.status, e.data),
@@ -569,7 +569,7 @@ async function SFn(e, t) {
       "the upload probably succeeded but the reply was unreadable \u2014 retry at most once; if it repeats, stop and report it",
     );
   return (
-    (de().assetsOnRoster = !0),
+    (de().assetsOnRoster = true),
     y("artifact_asset_upload", { ...i, size_bytes: f.data.size_bytes }),
     {
       kind: "ok",
@@ -606,7 +606,7 @@ async function bFn(e, t) {
   let l = ge().safeParse(c.data);
   if (!l.success) return i("upstream_error", "malformed_reply", "the listing was unreadable");
   return (
-    (de().assetsOnRoster = !0),
+    (de().assetsOnRoster = true),
     y("artifact_asset_list", { ...s, count: l.data.assets.length }),
     {
       kind: "ok",
@@ -657,7 +657,7 @@ async function wFn(e, t) {
       "the delete may have succeeded but the reply was unreadable \u2014 list the assets to check",
     );
   return (
-    (de().assetsOnRoster = !0),
+    (de().assetsOnRoster = true),
     y("artifact_asset_delete", { ...s, deleted: l.data.deleted }),
     { kind: "ok", deleted: l.data.deleted }
   );
@@ -675,7 +675,7 @@ async function TFn(e, t, o, r) {
   if (!qw.test(t)) return s("invalid_id", "not a valid asset id");
   let i = d8() || (aWe() && !Ax(US));
   if (!i && a.CLAUDE_CODE_REMOTE) return s("relay_unavailable", Z);
-  let c = await qR(e, "artifact_asset_read", o, { gatePublicRead: !1, credentials: r });
+  let c = await qR(e, "artifact_asset_read", o, { gatePublicRead: false, credentials: r });
   if (c.err !== null)
     return {
       kind: "error",
@@ -715,7 +715,7 @@ async function TFn(e, t, o, r) {
         timeout: W,
         maxRedirects: 0,
         maxContentLength: GR + 1,
-        validateStatus: () => !0,
+        validateStatus: () => true,
         signal: o,
       });
       if (!A.ok)
@@ -731,7 +731,7 @@ async function TFn(e, t, o, r) {
         responseType: "arraybuffer",
         maxRedirects: 0,
         maxContentLength: GR + 1,
-        validateStatus: () => !0,
+        validateStatus: () => true,
         ...void 0,
       });
       if (D2(_.status, _.headers)) return g();
@@ -786,7 +786,7 @@ async function TFn(e, t, o, r) {
   let O = Buffer.from(d.data ?? new ArrayBuffer(0));
   if (O.length === 0 || O.length > GR)
     return s("size", O.length === 0 ? "the asset is empty" : `the asset exceeds the ${GR >> 20} MiB limit`);
-  return { kind: "ok", bytes: O, contentType: C, relay: i === !0 };
+  return { kind: "ok", bytes: O, contentType: C, relay: i === true };
 }
 export {
   hFn,

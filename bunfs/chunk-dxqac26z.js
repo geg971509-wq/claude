@@ -808,30 +808,30 @@ function T(e, r) {
   let a = new Set();
   return t.filter((c) => {
     let o = `${c.type}:${c.key}:${c.context}`;
-    if (a.has(o)) return !1;
-    return a.add(o), !0;
+    if (a.has(o)) return false;
+    return a.add(o), true;
   });
 }
 function pM() {
-  return I("tengu_keybinding_customization_release", !0);
+  return I("tengu_keybinding_customization_release", true);
 }
 var xe = 500,
   _e = 200;
 function Se() {
   let e = {
     bindings: null,
-    warmedFromBackend: !1,
-    warmAttempted: !1,
+    warmedFromBackend: false,
+    warmAttempted: false,
     warnings: [],
     watcher: null,
-    initialized: !1,
-    disposed: !1,
+    initialized: false,
+    disposed: false,
     lastCustomBindingsLogDate: null,
     loggedShortcutFallbacks: new Set(),
     actionFiredLoggedAt: new Map(),
     changed: Ue(),
     [Symbol.dispose]() {
-      if (((e.disposed = !0), e.watcher)) e.watcher.close(), (e.watcher = null);
+      if (((e.disposed = true), e.watcher)) e.watcher.close(), (e.watcher = null);
       e.changed.clear();
     },
   };
@@ -1007,16 +1007,16 @@ async function TKn(e, r) {
   if (e.warmAttempted) return;
   if (Le()) return;
   if (F()) return;
-  let t = await z(e, r, { suppressFeatureEvents: !0 });
-  if (((e.warmAttempted = !0), t.warnings.length > 0)) return t.bindings;
+  let t = await z(e, r, { suppressFeatureEvents: true });
+  if (((e.warmAttempted = true), t.warnings.length > 0)) return t.bindings;
   if (!e.bindings)
-    (e.bindings = t.bindings), (e.warnings = []), (e.warmedFromBackend = !0), y("keybinding_load_user_config");
+    (e.bindings = t.bindings), (e.warnings = []), (e.warmedFromBackend = true), y("keybinding_load_user_config");
   return e.bindings;
 }
 function Y(e) {
-  if (!e.warmedFromBackend) return !1;
-  if (F()) return (e.bindings = null), (e.warnings = []), (e.warmedFromBackend = !1), !0;
-  return (e.warmedFromBackend = !1), !1;
+  if (!e.warmedFromBackend) return false;
+  if (F()) return (e.bindings = null), (e.warnings = []), (e.warmedFromBackend = false), true;
+  return (e.warmedFromBackend = false), false;
 }
 function Dmt(e) {
   if (e.bindings && !Y(e)) return e.bindings;
@@ -1024,7 +1024,7 @@ function Dmt(e) {
 }
 function vze(e) {
   if (e.bindings && !Y(e)) return { bindings: e.bindings, warnings: e.warnings };
-  e.warmedFromBackend = !1;
+  e.warmedFromBackend = false;
   let r = P();
   if (!pM() || ho("keybindings"))
     return (e.bindings = r), (e.warnings = []), { bindings: e.bindings, warnings: e.warnings };
@@ -1100,16 +1100,16 @@ async function EKn(e) {
     n(`[keybindings] Not watching: ${t} does not exist`), g("keybinding_watcher_init", "watch_dir_inaccessible");
     return;
   }
-  (e.initialized = !0),
+  (e.initialized = true),
     n(`[keybindings] Watching for changes to ${r}`),
     (e.watcher = GE.watch(r, {
-      persistent: !0,
-      ignoreInitial: !0,
+      persistent: true,
+      ignoreInitial: true,
       awaitWriteFinish: { stabilityThreshold: xe, pollInterval: _e },
-      ignorePermissionErrors: !0,
-      usePolling: !0,
+      ignorePermissionErrors: true,
+      usePolling: true,
       interval: 2000,
-      atomic: !0,
+      atomic: true,
     })),
     e.watcher.on("add", (a) => R(e, a)),
     e.watcher.on("change", (a) => R(e, a)),
@@ -1124,7 +1124,7 @@ async function R(e, r) {
     let t = await z(e);
     (e.bindings = t.bindings),
       (e.warnings = t.warnings),
-      (e.warmedFromBackend = !1),
+      (e.warmedFromBackend = false),
       e.changed.emit(t),
       y("keybinding_hot_reload");
   } catch (t) {
@@ -1134,6 +1134,6 @@ async function R(e, r) {
 function Be(e, r) {
   n(`[keybindings] Detected deletion of ${r}`);
   let t = P();
-  (e.bindings = t), (e.warnings = []), (e.warmedFromBackend = !1), e.changed.emit({ bindings: t, warnings: [] });
+  (e.bindings = t), (e.warnings = []), (e.warmedFromBackend = false), e.changed.emit({ bindings: t, warnings: [] });
 }
 export { vDe, Eze, SKn, bKn, cwe, Aze, ypn, Spn, RDe, pM, pT, Cze, bpn, wKn, TKn, Dmt, vze, EKn };

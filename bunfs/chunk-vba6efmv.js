@@ -93,7 +93,7 @@ function S(e, r, p) {
 }
 function T(e, r) {
   let p = {};
-  if (r) p.bold = !0;
+  if (r) p.bold = true;
   if (typeof e !== "string") return p;
   for (let s of e.split(";")) {
     let i = s.indexOf(":");
@@ -104,9 +104,9 @@ function T(e, r) {
         .trim()
         .toLowerCase();
     if (m === "color" && f !== "") p.color = c.hexOfNamed(f) ?? f;
-    else if (m === "font-weight" && (f === "bold" || Number(f) >= b)) p.bold = !0;
-    else if (m === "font-style" && f === "italic") p.italic = !0;
-    else if (m === "text-decoration" && f.includes("underline")) p.underline = !0;
+    else if (m === "font-weight" && (f === "bold" || Number(f) >= b)) p.bold = true;
+    else if (m === "font-style" && f === "italic") p.italic = true;
+    else if (m === "text-decoration" && f.includes("underline")) p.underline = true;
   }
   return p;
 }
@@ -121,7 +121,7 @@ var E = ({ plugin: e, handle: r, label: p }) =>
         n(`ui.press ${e}: ${l(s)}`, { level: "error" }),
       );
     },
-    children: ({ focused: s, hovered: i }) => Fx(t, { inverse: s || i, bold: !0 }, `[ ${p} ]`),
+    children: ({ focused: s, hovered: i }) => Fx(t, { inverse: s || i, bold: true }, `[ ${p} ]`),
   });
 F();
 function k(e, r) {
@@ -141,8 +141,8 @@ var I = (e, r) => (e ? `${r.component}\x00${r.requestId}\x00` + Y8.propsKeyOf(r)
 var D = (e, r) => n(`ui.render (${e.component} ${e.requestId}): site failed: ${l(r)}`, { level: "error" });
 F();
 function O(e) {
-  let r = C(!1);
-  if (!e) r.current = !0;
+  let r = C(false);
+  if (!e) r.current = true;
   return r.current;
 }
 F();

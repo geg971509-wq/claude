@@ -59,7 +59,7 @@ function XTe(t, e) {
 async function cQn(t, e) {
   let i;
   try {
-    i = await b.readdir(e, { withFileTypes: !0, recursive: !0 });
+    i = await b.readdir(e, { withFileTypes: true, recursive: true });
   } catch {
     return [];
   }
@@ -153,7 +153,7 @@ class uQn {
   activatePlanFileCache(t) {
     if (((this.planFileCache ??= new Map()), O() && t !== void 0 && this.planFileBackend === null)) {
       (this.planFileBackend = t), (this.stopReleasingOnSwitch = au(() => this.releaseStaleWatches()));
-      for (let e of new Set(K5().values())) this.watchSlug(e, !1);
+      for (let e of new Set(K5().values())) this.watchSlug(e, false);
       this.earlyObserved.clear();
     }
   }
@@ -181,17 +181,17 @@ class uQn {
     let s = {
       slug: t,
       generation: 0,
-      seededAbsent: !1,
+      seededAbsent: false,
       subscription: void 0,
       refreshing: void 0,
-      refreshAgain: !1,
-      resubscribed: !1,
-      stopped: !1,
+      refreshAgain: false,
+      resubscribed: false,
+      stopped: false,
     };
     this.planFileWatches.set(e, s);
     let o = this.earlyObserved.has(e) ? this.earlyObserved.get(e) : this.lastUnwatched.get(e);
     if ((this.earlyObserved.delete(e), this.lastUnwatched.delete(e), o !== void 0)) this.planFileCache.set(e, o);
-    else if (i && !this.planFileCache.has(e)) this.planFileCache.set(e, null), (s.seededAbsent = !0);
+    else if (i && !this.planFileCache.has(e)) this.planFileCache.set(e, null), (s.seededAbsent = true);
     this.subscribePlanFile(r, e, s);
   }
   observePlanFile(t) {
@@ -219,7 +219,7 @@ class uQn {
       let u = this.planFileCache?.get(o);
       if ((this.stopWatch(o, l), typeof u === "string")) this.planFileCache?.set(o, u);
     }
-    this.watchPlanFile(t, e, !1);
+    this.watchPlanFile(t, e, false);
   }
   async subscribePlanFile(t, e, i) {
     let r = i.generation,
@@ -246,7 +246,7 @@ class uQn {
       (n(
         `plans: watching ${e} through the storage interface failed (${s}); serving its last read and in-process writes`,
       ),
-      this.planFileCache?.has(e) !== !0)
+      this.planFileCache?.has(e) !== true)
     )
       this.refreshPlanFile(e, i);
   }
@@ -260,7 +260,7 @@ class uQn {
       if (((e.subscription = void 0), tQe())) return;
       n(`plans: the watch on ${t} ended: ${Ge(r.error)}`);
       let o = this.planFileBackend;
-      if (o !== null && !e.resubscribed) (e.resubscribed = !0), this.subscribePlanFile(o, t, e);
+      if (o !== null && !e.resubscribed) (e.resubscribed = true), this.subscribePlanFile(o, t, e);
       else this.stopWatch(t, e);
       return;
     }
@@ -281,14 +281,14 @@ class uQn {
     e.generation++, this.planFileCache?.set(t, i);
   }
   refreshPlanFile(t, e) {
-    if (e.refreshing !== void 0) return (e.refreshAgain = !0), e.refreshing;
+    if (e.refreshing !== void 0) return (e.refreshAgain = true), e.refreshing;
     let i = this.planFileBackend;
     if (i === null) return Promise.resolve();
     let r = async () => {
       await Promise.resolve();
       try {
         do {
-          e.refreshAgain = !1;
+          e.refreshAgain = false;
           let s = e.generation,
             o = await this.readPlanFileForWatch(i, t);
           if (e.stopped) return;
@@ -297,7 +297,7 @@ class uQn {
             continue;
           }
           if (e.generation === s) this.installPlanFile(t, e, o);
-          else e.refreshAgain = !0;
+          else e.refreshAgain = true;
         } while (e.refreshAgain && !e.stopped);
       } finally {
         e.refreshing = void 0;
@@ -321,7 +321,7 @@ class uQn {
   async settlePlanFile(t) {
     let e = this.planFileWatches.get(t);
     if (e === void 0) return;
-    let i = e.refreshing ?? (this.planFileCache?.has(t) !== !0 ? this.refreshPlanFile(t, e) : void 0);
+    let i = e.refreshing ?? (this.planFileCache?.has(t) !== true ? this.refreshPlanFile(t, e) : void 0);
     if (i !== void 0 && !(await x(i, this.waitCapMs))) this.giveUpWaiting(t, e);
   }
   dropToUnknown(t, e) {
@@ -343,7 +343,7 @@ class uQn {
     }
   }
   stopWatch(t, e) {
-    (e.stopped = !0),
+    (e.stopped = true),
       e.subscription?.unsubscribe(),
       (e.subscription = void 0),
       this.planFileWatches.delete(t),
@@ -384,14 +384,14 @@ class uQn {
       r = i.get(t);
     if (!r) {
       let s = e ? yNe(e) : "",
-        o = !0;
+        o = true;
       for (let c = 0; c < re; c++)
-        if (((r = s ? `${s}-${P$()}` : F4t()), (o = m(r).some((f) => this.primedListing?.listing.has(f) === !0)), !o))
+        if (((r = s ? `${s}-${P$()}` : F4t()), (o = m(r).some((f) => this.primedListing?.listing.has(f) === true)), !o))
           break;
       let l = !Le() && !z5();
       this.slugMeta.set(t, {
         validatedDir: l || this.primedListing === null ? null : this.primedListing.dir,
-        consumed: !1,
+        consumed: false,
         seed: e,
       });
       let u = !o && this.primedListing !== null && this.primedListing.dir === F();
@@ -402,11 +402,11 @@ class uQn {
   }
   markPlanPathServed(t) {
     let e = this.slugMeta.get(t);
-    if (e) e.consumed = !0;
+    if (e) e.consumed = true;
   }
   exemptSlugFromRevalidation(t, e) {
     if ((this.slugMeta.delete(t), this.primedListing !== null)) for (let i of m(e)) this.primedListing.listing.add(i);
-    this.watchSlug(e, !1);
+    this.watchSlug(e, false);
   }
   clearAllPlanSlugs() {
     K5().clear(), this.slugMeta.clear(), this.unwatchAllPlanFiles();
@@ -450,7 +450,7 @@ async function oe(t) {
   let e = [];
   try {
     let i = await Ao(
-      (r) => t.listEntries({ namespace: "plan" }, { cursor: r, skipKeyStats: !0 }),
+      (r) => t.listEntries({ namespace: "plan" }, { cursor: r, skipKeyStats: true }),
       (r) => {
         for (let s of r) if (s.kind === "key" && s.key.namespace === "plan") e.push(`${s.key.name}.md`);
       },
@@ -474,13 +474,13 @@ async function ae(t, e) {
 }
 async function x(t, e) {
   let i = gr(),
-    r = !1;
+    r = false;
   return (
     await Promise.race([
       t
         .catch(() => {})
         .finally(() => {
-          (r = !0), i.abort();
+          (r = true), i.abort();
         }),
       ne(e, i.signal),
     ]),
@@ -587,16 +587,16 @@ var pQn = new J(() => new dQn()),
     },
   );
 function ce(t, e) {
-  if (t !== e && !t.startsWith(e + B)) return !1;
-  if (Kg(le(), t) !== void 0) return !1;
+  if (t !== e && !t.startsWith(e + B)) return false;
+  if (Kg(le(), t) !== void 0) return false;
   let i = bS(e);
-  if (i === null) return !1;
+  if (i === null) return false;
   let r = t;
   for (;;) {
     let s = bS(r);
     if (s !== null) return s === i || s.startsWith(i + B);
     let o = W(r);
-    if (o === r) return !1;
+    if (o === r) return false;
     r = o;
   }
 }
@@ -677,7 +677,7 @@ function myt() {
   try {
     return le().existsSync(Bne());
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Qhn(t) {
@@ -798,7 +798,7 @@ async function fe(t, e, i) {
   let c = A(e.messages, "workshop");
   if (!c || c.content.length === 0 || c.content.length > vKe) return;
   let f = d(va(), r),
-    w = !1;
+    w = false;
   try {
     await ude(t);
     let k = await t.write(s, c.content, y);
@@ -806,7 +806,7 @@ async function fe(t, e, i) {
       n(`Workshop doc recovery write failed for ${i}: ${k.error.code}`);
       return;
     }
-    (w = !0), n(`Workshop doc recovered from file snapshot, ${c.content.length} chars`, { level: "info" });
+    (w = true), n(`Workshop doc recovered from file snapshot, ${c.content.length} chars`, { level: "info" });
   } finally {
     if (w) cV(f, c.content);
     else Dp(f);
@@ -814,19 +814,19 @@ async function fe(t, e, i) {
 }
 async function OLe(t, e, i) {
   let r = j(t);
-  if (!r) return !1;
+  if (!r) return false;
   let s = e ?? K();
-  if ((_Wt(s, r), i && g())) return pe(i, t, r).catch((l) => (h(l), !1));
+  if ((_Wt(s, r), i && g())) return pe(i, t, r).catch((l) => (h(l), false));
   let o = d(va(), `${r}.md`);
   await H(t, r).catch(h);
   try {
-    return await an().read(o), !0;
+    return await an().read(o), true;
   } catch (l) {
     if (!X(l)) {
-      if (Ht(l)) return n(`copyPlanForResume: read failed for ${o}: ${l}`), !1;
-      return h(l), !1;
+      if (Ht(l)) return n(`copyPlanForResume: read failed for ${o}: ${l}`), false;
+      return h(l), false;
     }
-    if (AKe() === null) return !1;
+    if (AKe() === null) return false;
     n(`Plan file missing during resume: ${o}. Attempting recovery.`);
     let u = A(t.messages, "plan"),
       c = null;
@@ -835,14 +835,14 @@ async function OLe(t, e, i) {
     else if (((c = z(t)), c)) n(`Plan recovered from message history, ${c.length} chars`, { level: "info" });
     if (c)
       try {
-        return await ude(), await an().write(o, c), !0;
+        return await ude(), await an().write(o, c), true;
       } catch (f) {
-        if (Ht(f)) return n(`Plan recovery write failed for ${o}: ${f}`), !1;
-        return h(f), !1;
+        if (Ht(f)) return n(`Plan recovery write failed for ${o}: ${f}`), false;
+        return h(f), false;
       } finally {
         Dp(o);
       }
-    return n("Plan file recovery failed: no file snapshot or plan content found in message history"), !1;
+    return n("Plan file recovery failed: no file snapshot or plan content found in message history"), false;
   }
 }
 async function de(t, e) {
@@ -867,15 +867,15 @@ async function pe(t, e, i) {
   let r = `${i}.md`,
     s = Hf().observePlanFile(r),
     o = await t.read([p(i)]);
-  if (!o.ok) return n(`copyPlanForResume: v5 read failed for ${i}: ${o.error.code}`), !1;
+  if (!o.ok) return n(`copyPlanForResume: v5 read failed for ${i}: ${o.error.code}`), false;
   let l = o.value.items[0];
   if (
     (Hf().notePlanFileObserved(r, l?.found ? Buffer.from(l.value).toString("utf-8") : null, s),
     await de(t, i),
     l?.found)
   )
-    return !0;
-  if (AKe() === null) return !1;
+    return true;
+  if (AKe() === null) return false;
   n(`Plan file missing during resume: ${i}. Attempting recovery.`);
   let u = A(e.messages, "plan"),
     c = null;
@@ -883,27 +883,27 @@ async function pe(t, e, i) {
   else if (((c = z(e)), c)) n(`Plan recovered from message history, ${c.length} chars`, { level: "info" });
   if (c) {
     let f = d(va(), r),
-      w = !1;
+      w = false;
     try {
       await ude(t);
       let k = await t.write(p(i), c, y);
-      if (!k.ok) return n(`Plan recovery write failed for ${i}: ${k.error.code}`), !1;
-      return (w = !0), !0;
+      if (!k.ok) return n(`Plan recovery write failed for ${i}: ${k.error.code}`), false;
+      return (w = true), true;
     } finally {
       if (w) cV(f, c);
       else Dp(f);
     }
   }
-  return n("Plan file recovery failed: no file snapshot or plan content found in message history"), !1;
+  return n("Plan file recovery failed: no file snapshot or plan content found in message history"), false;
 }
 async function t_n(t, e, i) {
   let r = j(t);
-  if (!r) return !1;
+  if (!r) return false;
   let s = va(),
     o = d(s, `${r}.md`),
     l = UM(e),
     u = d(s, `${l}.md`);
-  if ((Hf().exemptSlugFromRevalidation(e, l), i && g())) return he(i, r, l).catch((c) => (h(c), !1));
+  if ((Hf().exemptSlugFromRevalidation(e, l), i && g())) return he(i, r, l).catch((c) => (h(c), false));
   await ude();
   try {
     await an().copy(d(s, `${r}.workshop.md`), d(s, `${l}.workshop.md`));
@@ -915,11 +915,11 @@ async function t_n(t, e, i) {
     Dp(d(s, `${l}.workshop.md`));
   }
   try {
-    return await an().copy(o, u), !0;
+    return await an().copy(o, u), true;
   } catch (c) {
-    if (X(c)) return !1;
-    if (Ht(c)) return n(`copyPlanForFork: copy failed for ${o}: ${c}`), !1;
-    return h(c), !1;
+    if (X(c)) return false;
+    if (Ht(c)) return n(`copyPlanForFork: copy failed for ${o}: ${c}`), false;
+    return h(c), false;
   } finally {
     Dp(u);
   }
@@ -945,12 +945,12 @@ async function he(t, e, i) {
     l;
   try {
     let u = await t.read([p(e)]);
-    if (!u.ok) return n(`copyPlanForFork: v5 read failed for ${e}: ${u.error.code}`), !1;
-    if (!u.value.items[0].found) return !1;
+    if (!u.ok) return n(`copyPlanForFork: v5 read failed for ${e}: ${u.error.code}`), false;
+    if (!u.value.items[0].found) return false;
     let c = u.value.items[0].value,
       f = await t.write(p(i), c, await T(e));
-    if (!f.ok) return n(`copyPlanForFork: v5 write failed for ${i}: ${f.error.code}`), !1;
-    return (l = Buffer.from(c).toString("utf-8")), !0;
+    if (!f.ok) return n(`copyPlanForFork: v5 write failed for ${i}: ${f.error.code}`), false;
+    return (l = Buffer.from(c).toString("utf-8")), true;
   } finally {
     if (l !== void 0) cV(o, l);
     else Dp(o);

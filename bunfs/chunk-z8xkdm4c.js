@@ -151,8 +151,8 @@ var _ = S(function (Pe, j) {
         (l.extend = s),
         (l.destroy = r.destroy),
         Object.defineProperty(l, "enabled", {
-          enumerable: !0,
-          configurable: !1,
+          enumerable: true,
+          configurable: false,
           get: () => {
             if (i !== null) return i;
             if (a !== r.namespaces) (a = r.namespaces), (g = r.enabled(n));
@@ -188,7 +188,7 @@ var _ = S(function (Pe, j) {
           if (o[a] === "*") (g = a), (l = i), a++;
           else i++, a++;
         else if (g !== -1) (a = g + 1), l++, (i = l);
-        else return !1;
+        else return false;
       while (a < o.length && o[a] === "*") a++;
       return a === o.length;
     }
@@ -197,9 +197,9 @@ var _ = S(function (Pe, j) {
       return r.enable(""), n;
     }
     function Z(n) {
-      for (let o of r.skips) if (C(n, o)) return !1;
-      for (let o of r.names) if (C(n, o)) return !0;
-      return !1;
+      for (let o of r.skips) if (C(n, o)) return false;
+      for (let o of r.names) if (C(n, o)) return true;
+      return false;
     }
     function H(n) {
       if (n instanceof Error) return n.stack || n.message;
@@ -221,10 +221,10 @@ var q = S(function (D, E) {
   D.useColors = ce;
   D.storage = pe();
   D.destroy = (() => {
-    let e = !1;
+    let e = false;
     return () => {
       if (!e)
-        (e = !0),
+        (e = true),
           console.warn(
             "Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.",
           );
@@ -310,13 +310,13 @@ var q = S(function (D, E) {
   ];
   function ce() {
     if (typeof window < "u" && window.process && (window.process.type === "renderer" || window.process.__nwjs))
-      return !0;
+      return true;
     if (
       typeof navigator < "u" &&
       navigator.userAgent &&
       navigator.userAgent.toLowerCase().match(/(edge|trident)\/(\d+)/)
     )
-      return !1;
+      return false;
     let e;
     return (
       (typeof document < "u" &&
@@ -410,10 +410,10 @@ var Y = S(function ($e, U) {
     }
   }
   function Oe(e) {
-    if (e === 0) return !1;
-    return { level: e, hasBasic: !0, has256: e >= 2, has16m: e >= 3 };
+    if (e === 0) return false;
+    return { level: e, hasBasic: true, has256: e >= 2, has16m: e >= 3 };
   }
-  function we(e, { streamIsTTY: t, sniffFlags: r = !0 } = {}) {
+  function we(e, { streamIsTTY: t, sniffFlags: r = true } = {}) {
     let s = be();
     if (s !== void 0) I = s;
     let u = r ? I : s;
@@ -487,8 +487,8 @@ var W = S(function (V, A) {
           .toLowerCase()
           .replace(/_([a-z])/g, (u, C) => C.toUpperCase()),
         s = process.env[t];
-      if (/^(yes|on|true|enabled)$/i.test(s)) s = !0;
-      else if (/^(no|off|false|disabled)$/i.test(s)) s = !1;
+      if (/^(yes|on|true|enabled)$/i.test(s)) s = true;
+      else if (/^(no|off|false|disabled)$/i.test(s)) s = false;
       else if (s === "null") s = null;
       else s = Number(s);
       return (e[r] = s), e;
@@ -554,7 +554,7 @@ var W = S(function (V, A) {
   };
 });
 var hfe = S(function (Je, N) {
-  if (typeof process > "u" || process.type === "renderer" || !1 || process.__nwjs) N.exports = q();
+  if (typeof process > "u" || process.type === "renderer" || false || process.__nwjs) N.exports = q();
   else N.exports = W();
 });
 export { Wvn, Hzt, hfe };

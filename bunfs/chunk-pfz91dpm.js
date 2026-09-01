@@ -109,7 +109,7 @@ function Be(r, e, t, P) {
     if (T.requestDialog !== void 0) {
       let _ = Sit.of(T.session).permissionContextSetter,
         J = vje(l, m, T, d, R, P, (N) => {
-          _?.(N, { preserveMode: !0 });
+          _?.(N, { preserveMode: true });
         }),
         L = await Aje({ ctx: J, updatedInput: i.updatedInput, suggestions: i.suggestions, permissionMode: E.mode });
       if (L) return L;
@@ -119,13 +119,13 @@ function Be(r, e, t, P) {
       let a = Date.now();
       try {
         return await new Promise((N, W) => {
-          Rje({ ctx: J, description: A, result: i, awaitAutomatedChecksBeforeDialog: !0 }, N).catch(W);
+          Rje({ ctx: J, description: A, result: i, awaitAutomatedChecksBeforeDialog: true }, N).catch(W);
         });
       } finally {
         t(Date.now() - a);
       }
     }
-    if (i.localDisplayOnly || i.forcedByCaller === !0)
+    if (i.localDisplayOnly || i.forcedByCaller === true)
       return bit(l.name, "the teammate mailbox (a static-description wire)");
     let Y = await U();
     if (e.signal.aborted) return { behavior: "ask", message: rI };
@@ -149,14 +149,14 @@ function Be(r, e, t, P) {
         onAllow(a, N, W, D) {
           A();
           let z =
-            l.suppressesAllPermissionUpdates?.(k) === !0
+            l.suppressesAllPermissionUpdates?.(k) === true
               ? _D(N)
-              : l.suppressesAlwaysAllowRule?.(k) === !0 || i.suppressAlwaysAllowRule === !0
+              : l.suppressesAlwaysAllowRule?.(k) === true || i.suppressAlwaysAllowRule === true
                 ? a9(N, l, he(T))
                 : N;
           FM(z, T.storageV5).catch(h);
           let V = a && Object.keys(a).length > 0 ? a : k;
-          _({ behavior: "allow", updatedInput: V, userModified: !1, ...(D && D.length > 0 && { contentBlocks: D }) });
+          _({ behavior: "allow", updatedInput: V, userModified: false, ...(D && D.length > 0 && { contentBlocks: D }) });
         },
         onReject(a, N) {
           A();
@@ -226,7 +226,7 @@ function Be(r, e, t, P) {
         L = () => {
           A(), _({ behavior: "ask", message: rI });
         };
-      e.signal.addEventListener("abort", L, { once: !0 });
+      e.signal.addEventListener("abort", L, { once: true });
       function A() {
         clearInterval(J), kje(M.id), e.signal.removeEventListener("abort", L);
       }
@@ -252,8 +252,8 @@ async function _e(r, e, t, P, l) {
 function je(r) {
   let e = new Set(r.filter((t) => t.status !== "completed").map((t) => t.id));
   return r.find((t) => {
-    if (t.status !== "pending") return !1;
-    if (t.owner) return !1;
+    if (t.status !== "pending") return false;
+    if (t.owner) return false;
     return t.blockedBy.every((P) => !e.has(P));
   });
 }
@@ -354,10 +354,10 @@ async function Ee(r, e, t, P) {
     );
   return null;
 }
-async function Ve(r, e, t, P, l, m, T, d, R = !1, x) {
+async function Ve(r, e, t, P, l, m, T, d, R = false, x) {
   n(`[inProcessRunner] ${r.agentName} starting poll loop (abort=${e.signal.aborted})`);
   let k = Date.now(),
-    E = !1,
+    E = false,
     U = 0;
   while (!e.signal.aborted) {
     if (U > 0) await ne(500);
@@ -422,7 +422,7 @@ async function spr(r) {
       allowedTools: E,
       allowPermissionPrompts: U,
       invokingRequestId: Y,
-      standalone: _ = !1,
+      standalone: _ = false,
       resumeMessages: M,
       resumeReplacementState: J,
       initialFrom: L,
@@ -439,25 +439,25 @@ async function spr(r) {
       teamName: e.teamName,
       agentColor: e.color,
       planModeRequired: e.planModeRequired,
-      isTeamLead: !1,
+      isTeamLead: false,
       agentType: "teammate",
       invokingRequestId: Y,
       invocationKind: "spawn",
-      invocationEmitted: !1,
-      isBackgroundAgent: !0,
+      invocationEmitted: false,
+      isBackgroundAgent: true,
     },
     { tools: D, mainLoopModel: z } = d.rootToolSurface,
     V;
   if (k === "replace" && i) V = i;
   else {
-    let q = [...(await OS(D, z, void 0, { teammate: !0 })).filter((O) => O !== TO), atn];
+    let q = [...(await OS(D, z, void 0, { teammate: true })).filter((O) => O !== TO), atn];
     if (m) {
       let O = m.getSystemPrompt({ toolUseContext: d, primedAgentMemory: await hLe(m, d.storageV5) });
       if (O)
         q.push(`
 # Custom Agent Instructions
 ${O}`);
-      if (m.memory) s("tengu_agent_memory_loaded", { ...!1, scope: c(m.memory), source: w("in-process-teammate") });
+      if (m.memory) s("tengu_agent_memory_loaded", { ...false, scope: c(m.memory), source: w("in-process-teammate") });
     }
     if (k === "append" && i) q.push(i);
     V = q.join(`
@@ -486,14 +486,14 @@ ${O}`);
     Pe = oVe({ from: L ?? vi, text: P, summary: l }),
     j = Pe,
     ie = void 0,
-    le = !1,
-    se = !1,
+    le = false,
+    se = false,
     Se = (M?.length ?? 0) > 0,
-    Ie = !1,
+    Ie = false,
     ue = M ? Mhe(M).result : void 0,
-    pe = !1,
+    pe = false,
     Ae = async (S) => {
-      switch (((se = !1), S.type)) {
+      switch (((se = false), S.type)) {
         case "shutdown_request":
           n(`[inProcessRunner] ${e.agentId} received shutdown request - passing to model`),
             (j = oVe({
@@ -513,18 +513,18 @@ ${O}`);
           break;
         case "new_messages":
           n(`[inProcessRunner] ${e.agentId} received ${S.messages.length} drained message(s)`),
-            (j = Zte(S.messages, { recipientIsLead: !1 })),
+            (j = Zte(S.messages, { recipientIsLead: false })),
             (ie = void 0),
             iPt(t, xe({ content: j }), a);
           break;
         case "aborted":
-          n(`[inProcessRunner] ${e.agentId} aborted while waiting`), (le = !0);
+          n(`[inProcessRunner] ${e.agentId} aborted while waiting`), (le = true);
           break;
         case "idle_timeout":
           if ((n(`[inProcessRunner] ${e.agentId} idle timeout \u2014 exiting loop`), !_))
             d.agentLifecycle.setTeammate(e.agentId, void 0),
               await mVe(e.teamName, e.agentId, { onlyIfJoinedBefore: Date.now() }, d.storageV5);
-          le = !0;
+          le = true;
           break;
       }
     };
@@ -542,7 +542,7 @@ ${O}`);
       n(`[inProcessRunner] ${e.agentId} processing prompt: ${j.substring(0, 50)}...`);
       let I = gr();
       I.signal.addEventListener("abort", () => {
-        pe = !0;
+        pe = true;
       }),
         F(t, (o) => ({ ...o, currentWorkAbortController: I, retryWake: O }), a);
       let G = xe({ content: j, origin: ie }),
@@ -555,7 +555,7 @@ ${O}`);
           ...d,
           abortController: R,
           agentId: po(e.agentId),
-          readFileState: S3(d.readFileState, { stripSeededFromContext: !0 }),
+          readFileState: S3(d.readFileState, { stripSeededFromContext: true }),
           memorySelector: lD(),
           loadedNestedMemoryPaths: {},
           onCompactEvent: void 0,
@@ -566,17 +566,17 @@ ${O}`);
             u,
             o,
             { systemPrompt: si([]), userContext: {}, systemContext: {}, toolUseContext: o, forkContextMessages: u },
-            !0,
-            { isAutoCompact: !0 },
+            true,
+            { isAutoCompact: true },
           );
           if (((me = Jee(f)), S)) S = rgt();
           (u.length = 0), u.push(...me), ye.clear(), a.updateTranscript(t, (C) => ({ ...C, messages: [...me, G] }));
         } catch (f) {
           if (f instanceof Error && f.message.startsWith(_qe))
             n(`[inProcessRunner] ${e.agentId} compaction blocked by PreCompact hook; continuing uncompacted`),
-              (Ie = !0);
+              (Ie = true);
           else if (R.signal.aborted || (f instanceof Error && f.message === ek)) {
-            n(`[inProcessRunner] ${e.agentId} aborted during compaction`), (le = !0);
+            n(`[inProcessRunner] ${e.agentId} aborted during compaction`), (le = true);
             break;
           } else throw f;
         }
@@ -589,12 +589,12 @@ ${O}`);
         fe = d.getAppState().tasks[t],
         Me = fe && fe.type === "in_process_teammate" ? fe.permissionMode : "default",
         De = { ...K, permissionMode: Me },
-        ke = !1,
+        ke = false,
         X = null;
       if (
         (await Qnr(T, async () =>
           fw(W, async () => {
-            F(t, (o) => ({ ...o, status: "running", isIdle: !1, evictAfter: void 0 }), a),
+            F(t, (o) => ({ ...o, status: "running", isIdle: false, evictAfter: void 0 }), a),
               a.updateTranscript(t, (o) => ({ ...o, turnStartTime: Date.now() })),
               N.setMode("responding");
             for await (let o of $b({
@@ -609,8 +609,8 @@ ${O}`);
                 },
                 RG(A),
               ),
-              isAsync: !0,
-              canShowPermissionPrompts: U ?? !0,
+              isAsync: true,
+              canShowPermissionPrompts: U ?? true,
               forkContextMessages: Ce,
               querySource: "agent:custom",
               override: {
@@ -627,12 +627,12 @@ ${O}`);
                 extraMetadata: { ...Ne, permissionMode: Me },
               }),
               model: x,
-              preserveToolUseResults: !0,
+              preserveToolUseResults: true,
               availableTools: D,
               allowedTools: E,
               contentReplacementState: S,
               stickyBetas: q,
-              isTeammate: !0,
+              isTeammate: true,
               teammateContext: T,
             })) {
               if (R.signal.aborted) {
@@ -645,7 +645,7 @@ ${O}`);
                   o.type === "assistant" || o.type === "user")
                 )
                   de.push(o), u.push(o), (X = Nee(u, o, X));
-                ke = !0;
+                ke = true;
                 break;
               }
               if (o.type === "spinner_mode") {
@@ -659,8 +659,8 @@ ${O}`);
                 let C = o.op.ids;
                 a.updateTranscript(t, (B) => {
                   let H = new Set(B.inProgressToolUseIDs),
-                    ee = !1;
-                  for (let ce of C) if (H.delete(ce)) ee = !0;
+                    ee = false;
+                  for (let ce of C) if (H.delete(ce)) ee = true;
                   return ee ? { ...B, inProgressToolUseIDs: H } : B;
                 });
                 continue;
@@ -685,7 +685,7 @@ ${O}`);
                   return { ...C, messages: c4n(C.messages, o), inProgressToolUseIDs: B };
                 });
             }
-            return { success: !0, messages: de };
+            return { success: true, messages: de };
           }),
         ).finally(() => {
           if (X) u.push(...X.preserved), (X = null);
@@ -696,13 +696,13 @@ ${O}`);
         break;
       let oe = ke || I.signal.aborted;
       if (oe) {
-        (pe = !0), n(`[inProcessRunner] ${e.agentId} work interrupted, returning to idle`);
+        (pe = true), n(`[inProcessRunner] ${e.agentId} work interrupted, returning to idle`);
         let o = Ko({ content: ek });
         a.updateTranscript(t, (f) => ({ ...f, messages: $le(f.messages, o) }));
       }
       Se ||= de.some((o) => (o.type === "assistant" && !o.isApiErrorMessage) || o.type === "user");
       let Z = !oe ? Tun(de) : void 0;
-      if (((se = Z?.isTransient === !0 && !_ && Se), !_ && !oe)) {
+      if (((se = Z?.isTransient === true && !_ && Se), !_ && !oe)) {
         let o = null;
         try {
           o = await Ee(e, t, a, d.storageV5);
@@ -711,7 +711,7 @@ ${O}`);
         }
         if (o) {
           try {
-            let { result: f, summary: C } = Mhe(u, { emitTelemetry: !0 });
+            let { result: f, summary: C } = Mhe(u, { emitTelemetry: true });
             if (f !== void 0 || Z !== void 0) {
               if (
                 (await _e(
@@ -723,7 +723,7 @@ ${O}`);
                     summary: C,
                     failureReason: Z?.reason,
                     result: f,
-                    senderReachable: !0,
+                    senderReachable: true,
                   },
                   d.storageV5,
                 )) &&
@@ -746,7 +746,7 @@ ${O}`);
         t,
         (o) => (
           o.onIdleCallbacks?.forEach((f) => f()),
-          { ...o, isIdle: !0, evictAfter: se ? void 0 : Date.now() + V0, onIdleCallbacks: [] }
+          { ...o, isIdle: true, evictAfter: se ? void 0 : Date.now() + V0, onIdleCallbacks: [] }
         ),
         a,
       );
@@ -773,20 +773,20 @@ ${O}`);
       let Fe = await Ve(e, R, t, d.getAppState, a, e.parentSessionId, _, ae, se, d.storageV5);
       await Ae(Fe);
     }
-    let re = !1,
+    let re = false,
       v;
     if (
       (F(
         t,
         (I) => {
-          if (I.status !== "running") return (re = !0), I;
+          if (I.status !== "running") return (re = true), I;
           return (
             (v = I.toolUseId),
             I.onIdleCallbacks?.forEach((G) => G()),
             {
               ...I,
               status: "completed",
-              notified: !0,
+              notified: true,
               endTime: Date.now(),
               pendingUserMessages: [],
               abortController: void 0,
@@ -808,26 +808,26 @@ ${O}`);
     if ((bd(t), a.evictTerminal(t), !re)) ys(t, "completed", { toolUseId: v, summary: e.agentId });
     if ((zce(e.agentId), Ie)) g("swarm_in_process_run", "compact_blocked_by_hook");
     else y("swarm_in_process_run");
-    return { success: !0, messages: u };
+    return { success: true, messages: u };
   } catch (S) {
     let q = S instanceof Error ? S.message : "Unknown error";
     n(`[inProcessRunner] Agent ${e.agentId} failed: ${q}`);
-    let O = !1,
+    let O = false,
       re;
     if (
       (F(
         t,
         (v) => {
-          if (v.status !== "running") return (O = !0), v;
+          if (v.status !== "running") return (O = true), v;
           return (
             (re = v.toolUseId),
             v.onIdleCallbacks?.forEach((I) => I()),
             {
               ...v,
               status: "failed",
-              notified: !0,
+              notified: true,
               error: q,
-              isIdle: !0,
+              isIdle: true,
               endTime: Date.now(),
               onIdleCallbacks: [],
               pendingUserMessages: [],
@@ -863,7 +863,7 @@ ${O}`);
         d.storageV5,
       );
     }
-    return zce(e.agentId), p("swarm_in_process_run", "agent_loop_failed"), { success: !1, error: q, messages: u };
+    return zce(e.agentId), p("swarm_in_process_run", "agent_loop_failed"), { success: false, error: q, messages: u };
   }
 }
 function stn(r) {

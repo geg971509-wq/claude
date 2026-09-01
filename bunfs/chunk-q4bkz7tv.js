@@ -329,7 +329,7 @@ F();
 import { homedir as E } from "os";
 import { join as O } from "path";
 function U(le, re) {
-  return e(zc, { children: e(t, { dimColor: !0, children: le }) }, re);
+  return e(zc, { children: e(t, { dimColor: true, children: le }) }, re);
 }
 function L() {
   let m = a.platform === "win32",
@@ -346,7 +346,7 @@ function k(oe) {
   let M;
   if (D[0] === d)
     (M = e(o, {
-      children: r(t, { color: "warning", children: [e(tt, { status: "warning", withSpace: !0 }), "Setup notes:"] }),
+      children: r(t, { color: "warning", children: [e(tt, { status: "warning", withSpace: true }), "Setup notes:"] }),
     })),
       (D[0] = M);
   else M = D[0];
@@ -395,7 +395,7 @@ function N({ onDone: m, force: g, target: c, storageV5: C }) {
           }
           if (!f.wasUpdated) n("Install: Already up to date");
           y({ type: "setting-up" });
-          let x = await Kae(!0);
+          let x = await Kae(true);
           if ((n(`Install: Setup launcher completed with ${x.length} messages`), x.length > 0))
             x.forEach((p) => n(`Install: Setup message: ${p.message}`));
           n("Install: Cleaning up npm installations after successful install");
@@ -450,8 +450,8 @@ function N({ onDone: m, force: g, target: c, storageV5: C }) {
             children: [
               r(o, {
                 children: [
-                  e(tt, { status: "success", withSpace: !0 }),
-                  e(t, { color: "success", bold: !0, children: "Claude Code successfully installed!" }),
+                  e(tt, { status: "success", withSpace: true }),
+                  e(t, { color: "success", bold: true, children: "Claude Code successfully installed!" }),
                 ],
               }),
               r(o, {
@@ -462,12 +462,12 @@ function N({ onDone: m, force: g, target: c, storageV5: C }) {
                   i.version !== "current" &&
                     r(o, {
                       children: [
-                        e(t, { dimColor: !0, children: "Version: " }),
+                        e(t, { dimColor: true, children: "Version: " }),
                         e(t, { color: "claude", children: i.version }),
                       ],
                     }),
                   r(o, {
-                    children: [e(t, { dimColor: !0, children: "Location: " }), e(t, { color: "text", children: L() })],
+                    children: [e(t, { dimColor: true, children: "Location: " }), e(t, { color: "text", children: L() })],
                   }),
                 ],
               }),
@@ -478,9 +478,9 @@ function N({ onDone: m, force: g, target: c, storageV5: C }) {
                 children: r(o, {
                   marginTop: 1,
                   children: [
-                    e(t, { dimColor: !0, children: "Next: Run " }),
-                    e(t, { color: "claude", bold: !0, children: "claude --help" }),
-                    e(t, { dimColor: !0, children: " to get started" }),
+                    e(t, { dimColor: true, children: "Next: Run " }),
+                    e(t, { color: "claude", bold: true, children: "claude --help" }),
+                    e(t, { dimColor: true, children: " to get started" }),
                   ],
                 }),
               }),
@@ -494,14 +494,14 @@ function N({ onDone: m, force: g, target: c, storageV5: C }) {
             children: [
               r(o, {
                 children: [
-                  e(tt, { status: "error", withSpace: !0 }),
+                  e(tt, { status: "error", withSpace: true }),
                   e(t, { color: "error", children: "Installation failed" }),
                 ],
               }),
               e(t, { color: "error", children: i.message }),
               e(o, {
                 marginTop: 1,
-                children: e(t, { dimColor: !0, children: "Try running with --force to override checks" }),
+                children: e(t, { dimColor: true, children: "Try running with --force to override checks" }),
               }),
             ],
           }),

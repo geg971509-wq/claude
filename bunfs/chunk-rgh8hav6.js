@@ -25,7 +25,7 @@ function r() {
   let e = Math.max(1, Math.round(Tgn() / 60000));
   return `${e} ${k(e, "minute")}`;
 }
-function lYn(e, t = !1) {
+function lYn(e, t = false) {
   if (td(e))
     return `Fetches a URL, converts the page to markdown, and answers \`prompt\` against it using a small fast model.
 

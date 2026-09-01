@@ -71,7 +71,7 @@ async function Ayt(t) {
   if (O() && t !== void 0 && n !== void 0) return m(t, n, K());
   let r;
   try {
-    r = await d(Eyt(), { withFileTypes: !0 });
+    r = await d(Eyt(), { withFileTypes: true });
   } catch {
     return [];
   }
@@ -87,7 +87,7 @@ async function m(t, e, n) {
         (a) =>
           t.listEntries(
             { namespace: "transcript", projectKey: e, sessionId: n },
-            { skipKeyStats: !0, skipScopeStats: !0, ...(a !== void 0 && { cursor: a }) },
+            { skipKeyStats: true, skipScopeStats: true, ...(a !== void 0 && { cursor: a }) },
           ),
         (a) => {
           for (let i of a)

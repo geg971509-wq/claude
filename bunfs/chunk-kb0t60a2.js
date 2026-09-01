@@ -112,11 +112,11 @@ async function Vt(a, c, { loginHint: G, loginMethod: H, orgUUID: D }) {
     let ce = NNn(I);
     throw new ke(
       l(I),
-      J && ce !== null ? { fallbackCures: !0, causeSummary: ce, cause: I } : { fallbackCures: !1, cause: I },
+      J && ce !== null ? { fallbackCures: true, causeSummary: ce, cause: I } : { fallbackCures: false, cause: I },
     );
   }
   let O = await a.startOAuthFlow(c, {
-      loginWithClaudeAi: !1,
+      loginWithClaudeAi: false,
       oauthClient: { clientId: Wke, scopes: LNn },
       loginHint: G,
       loginMethod: H,
@@ -383,7 +383,7 @@ function Ke({ onDone: a, onCancel: c, initialUrl: G, screenLocked: H }) {
           flexDirection: "column",
           gap: 1,
           children: [
-            e(t, { bold: !0, children: "Cloud gateway" }),
+            e(t, { bold: true, children: "Cloud gateway" }),
             e(t, {
               color: "warning",
               children:
@@ -395,10 +395,10 @@ function Ke({ onDone: a, onCancel: c, initialUrl: G, screenLocked: H }) {
         flexDirection: "column",
         gap: 1,
         children: [
-          e(t, { bold: !0, children: "Cloud gateway" }),
+          e(t, { bold: true, children: "Cloud gateway" }),
           e(t, { children: "Your organization's gateway URL (set by managed settings):" }),
-          e(o, { borderDimColor: !0, borderStyle: "round", paddingLeft: 1, children: e(t, { children: ee }) }),
-          r(t, { dimColor: !0, children: ["Press Enter to connect", H ? "" : " \xB7 Esc to cancel"] }),
+          e(o, { borderDimColor: true, borderStyle: "round", paddingLeft: 1, children: e(t, { children: ee }) }),
+          r(t, { dimColor: true, children: ["Press Enter to connect", H ? "" : " \xB7 Esc to cancel"] }),
         ],
       });
     case "polling":
@@ -410,7 +410,7 @@ function Ke({ onDone: a, onCancel: c, initialUrl: G, screenLocked: H }) {
         flexDirection: "column",
         gap: 1,
         children: [
-          r(t, { bold: !0, children: ["Trust gateway ", e(t, { color: "suggestion", children: O.hostname }), "?"] }),
+          r(t, { bold: true, children: ["Trust gateway ", e(t, { color: "suggestion", children: O.hostname }), "?"] }),
           O.previouslyPinned
             ? e(t, {
                 color: "warning",
@@ -422,11 +422,11 @@ function Ke({ onDone: a, onCancel: c, initialUrl: G, screenLocked: H }) {
                   "You haven't connected to this gateway before. Once trusted, it can push settings to this machine that execute commands and change your environment. Only continue if this is your organization's gateway.",
               }),
           r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: ["Certificate fingerprint (SHA-256): ", O.fingerprint.slice(0, 16), "\u2026"],
           }),
           e(wn, {
-            hideIndexes: !0,
+            hideIndexes: true,
             confirmLabel: "Yes, trust this gateway",
             cancelLabel: H ? "No, go back" : "No, cancel login",
             focus: "cancel",
@@ -459,7 +459,7 @@ function wt(Qo) {
   Be("confirm:no", er, Zt);
   let qt, Jt;
   if (ve[1] === d)
-    (qt = e(t, { bold: !0, children: "Cloud gateway \xB7 sign in" })),
+    (qt = e(t, { bold: true, children: "Cloud gateway \xB7 sign in" })),
       (Jt = e(t, {
         children:
           "A browser window should have opened. After signing in with your identity provider, confirm this code on the verification page:",
@@ -470,20 +470,20 @@ function wt(Qo) {
   let Ye;
   if (ve[3] !== gt)
     (Ye = e(o, {
-      borderDimColor: !0,
+      borderDimColor: true,
       borderStyle: "round",
       paddingX: 2,
-      children: e(t, { bold: !0, color: "suggestion", children: gt }),
+      children: e(t, { bold: true, color: "suggestion", children: gt }),
     })),
       (ve[3] = gt),
       (ve[4] = Ye);
   else Ye = ve[4];
   let Qt;
-  if (ve[5] === d) (Qt = e(t, { dimColor: !0, children: "Browser didn't open? Visit:" })), (ve[5] = Qt);
+  if (ve[5] === d) (Qt = e(t, { dimColor: true, children: "Browser didn't open? Visit:" })), (ve[5] = Qt);
   else Qt = ve[5];
   let $e;
   if (ve[6] !== mt)
-    ($e = r(o, { flexDirection: "column", children: [Qt, e(t, { dimColor: !0, wrap: "wrap", children: mt })] })),
+    ($e = r(o, { flexDirection: "column", children: [Qt, e(t, { dimColor: true, wrap: "wrap", children: mt })] })),
       (ve[6] = mt),
       (ve[7] = $e);
   else $e = ve[7];
@@ -491,9 +491,9 @@ function wt(Qo) {
   if (ve[8] === d)
     (eo = r(o, {
       gap: 1,
-      children: [e(wo, {}), e(t, { dimColor: !0, children: "Waiting for sign-in to complete in your browser\u2026" })],
+      children: [e(wo, {}), e(t, { dimColor: true, children: "Waiting for sign-in to complete in your browser\u2026" })],
     })),
-      (to = e(t, { dimColor: !0, children: "Press Esc to cancel" })),
+      (to = e(t, { dimColor: true, children: "Press Esc to cancel" })),
       (ve[8] = eo),
       (ve[9] = to);
   else (eo = ve[8]), (to = ve[9]);
@@ -520,7 +520,7 @@ function Ct(tr) {
   if (Re[2] !== pt) (We = r(o, { gap: 1, children: [no, e(t, { children: pt })] })), (Re[2] = pt), (Re[3] = We);
   else We = Re[3];
   let io;
-  if (Re[4] === d) (io = e(t, { dimColor: !0, children: "Press Esc to cancel" })), (Re[4] = io);
+  if (Re[4] === d) (io = e(t, { dimColor: true, children: "Press Esc to cancel" })), (Re[4] = io);
   else io = Re[4];
   let ao;
   if (Re[5] !== We) (ao = r(o, { flexDirection: "column", gap: 1, children: [We, io] })), (Re[5] = We), (Re[6] = ao);
@@ -538,10 +538,10 @@ function bt(rr) {
   if (De[1] !== ht) (Xe = r(t, { color: "error", children: ["Error: ", ht] })), (De[1] = ht), (De[2] = Xe);
   else Xe = De[2];
   let je;
-  if (De[3] !== Ve) (je = Ve && e(t, { dimColor: !0, children: Ve })), (De[3] = Ve), (De[4] = je);
+  if (De[3] !== Ve) (je = Ve && e(t, { dimColor: true, children: Ve })), (De[3] = Ve), (De[4] = je);
   else je = De[4];
   let co;
-  if (De[5] === d) (co = e(t, { dimColor: !0, children: "Press Esc to go back" })), (De[5] = co);
+  if (De[5] === d) (co = e(t, { dimColor: true, children: "Press Esc to go back" })), (De[5] = co);
   else co = De[5];
   let lo;
   if (De[6] !== Xe || De[7] !== je)
@@ -599,20 +599,20 @@ function DK({
     [Mt, tt] = u(0),
     [be] = u(() => new jR()),
     [he, Ft] = u(() => D === "setup-token" || v === "claudeai"),
-    [ot, Nt] = u(!1),
+    [ot, Nt] = u(false),
     [Gt, rt] = u(null),
     zt = Gbt(),
     Fe = Ne() === "firstParty" && !zt && re.forceLoginOrgUUID === void 0 && v !== "claudeai",
     Bt = re.forceLoginMethod !== void 0 && he !== (re.forceLoginMethod === "claudeai"),
     Ge = typeof re.forceLoginOrgUUID === "string" && !Bt ? re.forceLoginOrgUUID : void 0,
-    [Pe, ze] = u(!1),
+    [Pe, ze] = u(false),
     { copiedVia: nt, copy: it, reset: at } = Yj(x.state === "waiting_for_login" ? x.url : null),
     Ht = Ee().columns - Qe.length - 1,
     [Yt] = u(() => zy() && Mk() !== "off");
   A(() => {
     if (v === "claudeai") s("tengu_oauth_claudeai_forced", {});
     else if (v === "console") s("tengu_oauth_console_forced", {});
-    else if (W && !0 && D !== "setup-token") s("tengu_oauth_gateway_forced", {});
+    else if (W && true && D !== "setup-token") s("tengu_oauth_gateway_forced", {});
   }, [v, W, D]),
     Yn(
       () => {
@@ -633,16 +633,16 @@ function DK({
       },
     );
   let $t = Dx(),
-    st = C(!1);
+    st = C(false);
   Be(
     "confirm:yes",
     () => {
       if (st.current) return;
-      (st.current = !0),
+      (st.current = true),
         Ae(
           (Z) => ({
             ...Z,
-            hasCompletedOnboarding: !0,
+            hasCompletedOnboarding: true,
             lastOnboardingVersion: {
               ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
               PACKAGE_URL: "@anthropic-ai/claude-code",
@@ -704,8 +704,8 @@ function DK({
   }
   let ct = B(async () => {
       let Z = (X) => {
-        if ((at(), ze(!1), Q({ state: "waiting_for_login", url: X }), xL())) ze(!0);
-        else me.setTimeout(() => ze(!0), 3000);
+        if ((at(), ze(false), Q({ state: "waiting_for_login", url: X }), xL())) ze(true);
+        else me.setTimeout(() => ze(true), 3000);
       };
       rt(null);
       try {
@@ -769,7 +769,7 @@ function DK({
       } catch (X) {
         if (jTt(X)) {
           Q({ state: "account_on_hold", message: BTt(Toe(X.errorUri)) }),
-            s("tengu_oauth_error", { account_on_hold: !0 });
+            s("tengu_oauth_error", { account_on_hold: true });
           return;
         }
         let L = X instanceof wN ? X.displayMessage : l(X),
@@ -778,15 +778,15 @@ function DK({
           s("tengu_oauth_error", { ..._m(X), ssl_error: ie !== null });
       }
     }, [be, he, ot, Fe, D, O, Ge, fe, me, c, I, J, at]),
-    He = C(!1);
+    He = C(false);
   return (
     A(() => {
       if (x.state === "ready_to_start" && !He.current)
-        (He.current = !0),
+        (He.current = true),
           process.nextTick(
             (Z, X) => {
               Z().finally(() => {
-                X.current = !1;
+                X.current = false;
               });
             },
             ct,
@@ -827,7 +827,7 @@ function DK({
                   children: [
                     r(o, {
                       children: [
-                        r(t, { dimColor: !0, children: ["Browser didn't open? Use the url below to sign in", " "] }),
+                        r(t, { dimColor: true, children: ["Browser didn't open? Use the url below to sign in", " "] }),
                         e(cL, { via: nt }),
                       ],
                     }),
@@ -835,13 +835,13 @@ function DK({
                   ],
                 }),
                 e(o, {
-                  children: e(ut, { url: x.url, assumeSupport: !0, children: e(t, { dimColor: !0, children: x.url }) }),
+                  children: e(ut, { url: x.url, assumeSupport: true, children: e(t, { dimColor: true, children: x.url }) }),
                 }),
                 Yt &&
                   e(o, {
                     paddingX: de,
                     children: r(t, {
-                      dimColor: !0,
+                      dimColor: true,
                       children: ["Hold ", Gue(), " while selecting to use your terminal's native copy"],
                     }),
                   }),
@@ -877,9 +877,9 @@ function DK({
                       ],
                     }),
                     e(t, { color: "warning", children: x.token }),
-                    e(t, { dimColor: !0, children: "Store this token securely. You won't be able to see it again." }),
+                    e(t, { dimColor: true, children: "Store this token securely. You won't be able to see it again." }),
                     e(t, {
-                      dimColor: !0,
+                      dimColor: true,
                       children: "Use this token by setting: export CLAUDE_CODE_OAUTH_TOKEN=<token>",
                     }),
                   ],
@@ -926,11 +926,11 @@ function et(qr) {
     (_o = () => {
       let yo = KV();
       if (!yo) {
-        Le(!1);
+        Le(false);
         return;
       }
       if (spe() && !ri()) {
-        Le(!1);
+        Le(false);
         return;
       }
       let vt = new AbortController();
@@ -993,7 +993,7 @@ function It(Jr) {
         ? vo
         : "Claude Code can be used with your Claude subscription or billed based on API usage through your Console account.";
       let b;
-      if (f[0] !== i) (b = e(t, { bold: !0, children: i })), (f[0] = i), (f[1] = b);
+      if (f[0] !== i) (b = e(t, { bold: true, children: i })), (f[0] = i), (f[1] = b);
       else b = f[1];
       let P;
       if (f[2] !== qe) (P = qe && e(t, { color: "warning", children: qe })), (f[2] = qe), (f[3] = P);
@@ -1008,8 +1008,8 @@ function It(Jr) {
             children: [
               "Claude account with subscription \xB7",
               " ",
-              e(t, { dimColor: !0, children: "Pro, Max, Team, or Enterprise" }),
-              !1,
+              e(t, { dimColor: true, children: "Pro, Max, Team, or Enterprise" }),
+              false,
             ],
           }),
           value: "claudeai",
@@ -1020,7 +1020,7 @@ function It(Jr) {
       if (f[6] === d)
         (le = {
           label: r(t, {
-            children: ["Anthropic Console account \xB7", " ", e(t, { dimColor: !0, children: "API usage billing" })],
+            children: ["Anthropic Console account \xB7", " ", e(t, { dimColor: true, children: "API usage billing" })],
           }),
           value: "console",
         }),
@@ -1036,7 +1036,7 @@ function It(Jr) {
               children: [
                 "3rd-party platform \xB7",
                 " ",
-                e(t, { dimColor: !0, children: "Amazon Bedrock, Microsoft Foundry, or Vertex AI" }),
+                e(t, { dimColor: true, children: "Amazon Bedrock, Microsoft Foundry, or Vertex AI" }),
               ],
             }),
             value: "platform",
@@ -1052,9 +1052,9 @@ function It(Jr) {
             onChange: (xo) => {
               if (xo === "platform") s("tengu_oauth_platform_selected", {}), S({ state: "platform_setup" });
               else if (xo === "claudeai")
-                s("tengu_oauth_claudeai_selected", {}), xe(!0), we(!1), S({ state: "ready_to_start" });
+                s("tengu_oauth_claudeai_selected", {}), xe(true), we(false), S({ state: "ready_to_start" });
               else if (Lt) s("tengu_oauth_console_selected", {}), S({ state: "console_method" });
-              else s("tengu_oauth_console_selected", {}), xe(!1), we(!1), S({ state: "ready_to_start" });
+              else s("tengu_oauth_console_selected", {}), xe(false), we(false), S({ state: "ready_to_start" });
             },
           }),
         })),
@@ -1110,7 +1110,7 @@ function It(Jr) {
           marginTop: 1,
           children: [
             i,
-            r(t, { dimColor: !0, children: ["Press ", e(t, { bold: !0, children: "Enter" }), " to continue."] }),
+            r(t, { dimColor: true, children: ["Press ", e(t, { bold: true, children: "Enter" }), " to continue."] }),
           ],
         })),
           (f[28] = b);
@@ -1120,7 +1120,7 @@ function It(Jr) {
     case "console_method": {
       let i, b;
       if (f[29] === d)
-        (i = e(t, { bold: !0, children: "Anthropic Console account" })),
+        (i = e(t, { bold: true, children: "Anthropic Console account" })),
           (b = e(t, { children: "How do you want to sign in?" })),
           (f[29] = i),
           (f[30] = b);
@@ -1129,14 +1129,14 @@ function It(Jr) {
       if (f[31] === d)
         (P = {
           label: r(t, {
-            children: ["Sign in with your Console account", " ", e(t, { dimColor: !0, children: "(recommended)" })],
+            children: ["Sign in with your Console account", " ", e(t, { dimColor: true, children: "(recommended)" })],
           }),
           value: "wif",
         }),
           (f[31] = P);
       else P = f[31];
       let q;
-      if (f[32] === d) (q = e(t, { dimColor: !0, children: "(legacy)" })), (f[32] = q);
+      if (f[32] === d) (q = e(t, { dimColor: true, children: "(legacy)" })), (f[32] = q);
       else q = f[32];
       let se;
       if (f[33] === d)
@@ -1149,7 +1149,7 @@ function It(Jr) {
                 q,
                 " \xB7",
                 " ",
-                e(t, { dimColor: !0, children: "adds a key to your Console workspace" }),
+                e(t, { dimColor: true, children: "adds a key to your Console workspace" }),
               ],
             }),
             value: "api-key",
@@ -1168,8 +1168,8 @@ function It(Jr) {
             S({ state: "idle" });
             return;
           }
-          if ((xe(!1), Ao === "wif")) s("tengu_oauth_console_token_selected", {}), we(!0);
-          else s("tengu_oauth_console_api_key_selected", {}), we(!1);
+          if ((xe(false), Ao === "wif")) s("tengu_oauth_console_token_selected", {}), we(true);
+          else s("tengu_oauth_console_api_key_selected", {}), we(false);
           S({ state: "ready_to_start" });
         }),
           (f[36] = we),
@@ -1196,12 +1196,12 @@ function It(Jr) {
       else i = f[43];
       let Qr = i;
       let b;
-      if (f[44] === d) (b = e(t, { bold: !0, children: "Using 3rd-party platforms" })), (f[44] = b);
+      if (f[44] === d) (b = e(t, { bold: true, children: "Using 3rd-party platforms" })), (f[44] = b);
       else b = f[44];
       let P, q;
       if (f[45] === d)
         (P = {
-          label: r(t, { children: ["Amazon Bedrock \xB7 ", e(t, { dimColor: !0, children: "interactive setup" })] }),
+          label: r(t, { children: ["Amazon Bedrock \xB7 ", e(t, { dimColor: true, children: "interactive setup" })] }),
           value: "bedrock",
         }),
           (q = Qr
@@ -1211,7 +1211,7 @@ function It(Jr) {
                     children: [
                       "Claude Platform on AWS \xB7",
                       " ",
-                      e(t, { dimColor: !0, children: "refresh credentials" }),
+                      e(t, { dimColor: true, children: "refresh credentials" }),
                     ],
                   }),
                   value: "aws_refresh",
@@ -1224,7 +1224,7 @@ function It(Jr) {
       let se;
       if (f[47] === d)
         (se = {
-          label: r(t, { children: ["Microsoft Foundry \xB7 ", e(t, { dimColor: !0, children: "opens docs" })] }),
+          label: r(t, { children: ["Microsoft Foundry \xB7 ", e(t, { dimColor: true, children: "opens docs" })] }),
           value: "foundry",
         }),
           (f[47] = se);
@@ -1237,7 +1237,7 @@ function It(Jr) {
           se,
           {
             label: r(t, {
-              children: ["Google Vertex AI \xB7 ", e(t, { dimColor: !0, children: "interactive setup" })],
+              children: ["Google Vertex AI \xB7 ", e(t, { dimColor: true, children: "interactive setup" })],
             }),
             value: "vertex",
           },
@@ -1282,7 +1282,7 @@ function It(Jr) {
       let ue;
       if (f[51] === d)
         (ue = r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             "Foundry: ",
             e(ut, {
@@ -1321,7 +1321,7 @@ function It(Jr) {
       else i = f[57];
       let b;
       if (f[58] === d)
-        (b = r(t, { dimColor: !0, children: ["Press ", e(t, { bold: !0, children: "Enter" }), " to continue."] })),
+        (b = r(t, { dimColor: true, children: ["Press ", e(t, { bold: true, children: "Enter" }), " to continue."] })),
           (f[58] = b);
       else b = f[58];
       let P;
@@ -1349,8 +1349,8 @@ function It(Jr) {
       let b;
       if (f[65] === d)
         (b = r(t, {
-          dimColor: !0,
-          children: ["Press ", e(t, { bold: !0, children: "Enter" }), " to restart Claude Code."],
+          dimColor: true,
+          children: ["Press ", e(t, { bold: true, children: "Enter" }), " to restart Claude Code."],
         })),
           (f[65] = b);
       else b = f[65];
@@ -1373,14 +1373,14 @@ function It(Jr) {
     }
     case "waiting_for_login": {
       let i;
-      if (f[70] !== Ze) (i = Ze && e(o, { children: e(t, { dimColor: !0, children: Ze }) })), (f[70] = Ze), (f[71] = i);
+      if (f[70] !== Ze) (i = Ze && e(o, { children: e(t, { dimColor: true, children: Ze }) })), (f[70] = Ze), (f[71] = i);
       else i = f[71];
       let b;
       if (f[72] !== _e)
         (b =
           _e &&
           e(o, {
-            children: e(t, { dimColor: !0, children: `${Ie} (${_e.cause}), so this sign-in will create an API key.` }),
+            children: e(t, { dimColor: true, children: `${Ie} (${_e.cause}), so this sign-in will create an API key.` }),
           })),
           (f[72] = _e),
           (f[73] = b);
@@ -1472,11 +1472,11 @@ function It(Jr) {
             : r(U, {
                 children: [
                   On()?.emailAddress
-                    ? r(t, { dimColor: !0, children: ["Logged in as", " ", e(t, { children: On()?.emailAddress })] })
+                    ? r(t, { dimColor: true, children: ["Logged in as", " ", e(t, { children: On()?.emailAddress })] })
                     : null,
                   r(t, {
                     color: "success",
-                    children: ["Login successful. Press ", e(t, { bold: !0, children: "Enter" }), " to continue\u2026"],
+                    children: ["Login successful. Press ", e(t, { bold: true, children: "Enter" }), " to continue\u2026"],
                   }),
                 ],
               })),
@@ -1498,8 +1498,8 @@ function It(Jr) {
         (b =
           Te !== "setup-token" &&
           r(t, {
-            dimColor: !0,
-            children: ["Press ", e(t, { bold: !0, children: "Enter" }), " to go back to login options."],
+            dimColor: true,
+            children: ["Press ", e(t, { bold: true, children: "Enter" }), " to go back to login options."],
           })),
           (f[99] = Te),
           (f[100] = b);
@@ -1517,7 +1517,7 @@ function It(Jr) {
       else i = f[105];
       let b;
       if (f[106] !== _e)
-        (b = _e && e(t, { dimColor: !0, children: `${Ie}: ${_e.message}` })), (f[106] = _e), (f[107] = b);
+        (b = _e && e(t, { dimColor: true, children: `${Ie}: ${_e.message}` })), (f[106] = _e), (f[107] = b);
       else b = f[107];
       let P;
       if (f[108] !== V.toRetry)
@@ -1527,7 +1527,7 @@ function It(Jr) {
             marginTop: 1,
             children: r(t, {
               color: "permission",
-              children: ["Press ", e(t, { bold: !0, children: "Enter" }), " to retry."],
+              children: ["Press ", e(t, { bold: true, children: "Enter" }), " to retry."],
             }),
           })),
           (f[108] = V.toRetry),

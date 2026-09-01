@@ -25,7 +25,7 @@ var l = 86400000,
     async (t) => {
       try {
         return {
-          success: !0,
+          success: true,
           data: (
             await dh(
               async () => {
@@ -40,7 +40,7 @@ var l = 86400000,
       } catch (e) {
         if (!(e instanceof Error) || !/data-residency|essential-traffic-only|no-auth/.test(e.message))
           n(`Failed to fetch Grove settings: ${e}`, { level: "error" });
-        return lB.cache.clear?.(), { success: !1 };
+        return lB.cache.clear?.(), { success: false };
       }
     },
     () => "account",
@@ -79,12 +79,12 @@ async function qke(t, e) {
   }
 }
 async function zge(t, e) {
-  if (!D6()) return !1;
+  if (!D6()) return false;
   let r = On()?.accountUuid;
-  if (!r) return !1;
+  if (!r) return false;
   let i = ie().groveConfigCache?.[r],
     u = Date.now();
-  if (!i) return n("Grove: No cache, fetching config in background (dialog skipped this session)"), d(r, t, e), !1;
+  if (!i) return n("Grove: No cache, fetching config in background (dialog skipped this session)"), d(r, t, e), false;
   if (u - i.timestamp > l)
     return n("Grove: Cache stale, returning cached data and refreshing in background"), d(r, t, e), i.grove_enabled;
   return n("Grove: Using fresh cached config"), i.grove_enabled;
@@ -117,31 +117,31 @@ var jK = ai(
         ),
         { grove_enabled: r, domain_excluded: o, notice_is_grace_period: i, notice_reminder_frequency: u } = e.data;
       return {
-        success: !0,
+        success: true,
         data: {
           grove_enabled: r,
-          domain_excluded: o ?? !1,
-          notice_is_grace_period: i ?? !0,
+          domain_excluded: o ?? false,
+          notice_is_grace_period: i ?? true,
           notice_reminder_frequency: u,
         },
       };
     } catch (e) {
-      return n(`Failed to fetch Grove notice config: ${e}`), { success: !1 };
+      return n(`Failed to fetch Grove notice config: ${e}`), { success: false };
     }
   },
   () => "config",
 );
 function jHt(t, e, r) {
-  if (!t.success || !e.success) return !1;
+  if (!t.success || !e.success) return false;
   let o = t.data,
     i = e.data;
-  if (o.grove_enabled !== null) return !1;
-  if (r) return !0;
-  if (!i.notice_is_grace_period) return !0;
+  if (o.grove_enabled !== null) return false;
+  if (r) return true;
+  if (!i.notice_is_grace_period) return true;
   let a = i.notice_reminder_frequency;
   if (a !== null && o.grove_notice_viewed_at) {
     let c = new Date(o.grove_notice_viewed_at).getTime();
-    if (isNaN(c)) return h(Error(`Invalid grove_notice_viewed_at from API: ${o.grove_notice_viewed_at}`)), !0;
+    if (isNaN(c)) return h(Error(`Invalid grove_notice_viewed_at from API: ${o.grove_notice_viewed_at}`)), true;
     return Math.floor((Date.now() - c) / 86400000) >= a;
   } else {
     let c = o.grove_notice_viewed_at;
@@ -150,7 +150,7 @@ function jHt(t, e, r) {
 }
 async function UNn(t) {
   let [e, r] = await Promise.all([lB(t), jK(t)]);
-  if (jHt(e, r, !1)) {
+  if (jHt(e, r, false)) {
     let i = r.success ? r.data : null;
     if (
       (s("tengu_grove_print_viewed", { dismissable: i?.notice_is_grace_period }),
@@ -197,7 +197,7 @@ async function sJt(t, e) {
         headers: { "anthropic-beta": ESn.header },
         auth: "teleport-org",
         timeout: 15000,
-        validateStatus: () => !0,
+        validateStatus: () => true,
         credentials: e,
       },
     );
@@ -205,23 +205,23 @@ async function sJt(t, e) {
     if (Sp(o))
       return (
         n(`import-token network error: ${o.code ?? "unknown"}`, { level: "error" }),
-        { ok: !1, error: { kind: "network" } }
+        { ok: false, error: { kind: "network" } }
       );
-    return { ok: !1, error: { kind: "not_signed_in" } };
+    return { ok: false, error: { kind: "not_signed_in" } };
   }
-  if (!r.ok) return { ok: !1, error: { kind: "not_signed_in" } };
-  if (r.status === 200) return { ok: !0, result: r.data };
-  if (r.status === 400) return { ok: !1, error: { kind: "invalid_token" } };
-  if (r.status === 401) return { ok: !1, error: { kind: "not_signed_in" } };
+  if (!r.ok) return { ok: false, error: { kind: "not_signed_in" } };
+  if (r.status === 200) return { ok: true, result: r.data };
+  if (r.status === 400) return { ok: false, error: { kind: "invalid_token" } };
+  if (r.status === 401) return { ok: false, error: { kind: "not_signed_in" } };
   return (
-    n(`import-token returned ${r.status}`, { level: "error" }), { ok: !1, error: { kind: "server", status: r.status } }
+    n(`import-token returned ${r.status}`, { level: "error" }), { ok: false, error: { kind: "server", status: r.status } }
   );
 }
 async function BNn(t) {
   try {
-    return await iR(t), !0;
+    return await iR(t), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function m(t, { timeout: e, isBackground: r }) {
@@ -230,13 +230,13 @@ async function m(t, { timeout: e, isBackground: r }) {
       auth: "teleport-org",
       timeout: e,
       isBackground: r,
-      validateStatus: () => !0,
+      validateStatus: () => true,
       credentials: t,
     });
     if (!o.ok || o.status !== 200) return null;
     let i = o.data?.auth_source;
     return {
-      isAuthenticated: o.data?.is_authenticated === !0,
+      isAuthenticated: o.data?.is_authenticated === true,
       authSource: i === "oauth" || i === "cli_import" ? i : null,
     };
   } catch {
@@ -244,11 +244,11 @@ async function m(t, { timeout: e, isBackground: r }) {
   }
 }
 async function aJt(t) {
-  let e = await m(t, { timeout: 1e4, isBackground: !1 });
+  let e = await m(t, { timeout: 1e4, isBackground: false });
   return e?.isAuthenticated ? e.authSource : null;
 }
 async function _(t) {
-  let e = await m(t, { timeout: 3000, isBackground: !0 });
+  let e = await m(t, { timeout: 3000, isBackground: true });
   if (e === null) return g("api_github_connection_status", "request_failed"), "unknown";
   return y("api_github_connection_status"), e.isAuthenticated ? "connected" : "not_connected";
 }

@@ -16,7 +16,7 @@ var pt = S(function (W) {
     function (t) {
       return t && t.__esModule ? t : { default: t };
     };
-  Object.defineProperty(W, "__esModule", { value: !0 });
+  Object.defineProperty(W, "__esModule", { value: true });
   W.Minipass = W.isWritable = W.isReadable = W.isStream = void 0;
   var qr = typeof process === "object" && process ? process : { stdout: null, stderr: null },
     os = ue("events"),
@@ -111,42 +111,42 @@ var pt = S(function (W) {
   var gl = (t) => !!t.objectMode,
     wl = (t) => !t.objectMode && !!t.encoding && t.encoding !== "buffer";
   class as extends os.EventEmitter {
-    [R] = !1;
-    [Ee] = !1;
+    [R] = false;
+    [Ee] = false;
     [q] = [];
     [A] = [];
     [P];
     [st];
     [ot];
     [Xt];
-    [ut] = !1;
-    [At] = !1;
-    [ri] = !1;
-    [ni] = !1;
+    [ut] = false;
+    [At] = false;
+    [ri] = false;
+    [ni] = false;
     [Se] = null;
     [C] = 0;
-    [O] = !1;
+    [O] = false;
     [_e];
-    [ai] = !1;
+    [ai] = false;
     [Wt] = 0;
-    [Y] = !1;
-    writable = !0;
-    readable = !0;
+    [Y] = false;
+    writable = true;
+    readable = true;
     constructor(...t) {
       let e = t[0] || {};
       super();
       if (e.objectMode && typeof e.encoding === "string")
         throw TypeError("Encoding and objectMode may not be used together");
-      if (gl(e)) (this[P] = !0), (this[st] = null);
-      else if (wl(e)) (this[st] = e.encoding), (this[P] = !1);
-      else (this[P] = !1), (this[st] = null);
+      if (gl(e)) (this[P] = true), (this[st] = null);
+      else if (wl(e)) (this[st] = e.encoding), (this[P] = false);
+      else (this[P] = false), (this[st] = null);
       if (
         ((this[ot] = !!e.async),
         (this[Xt] = this[st] ? new al.StringDecoder(this[st]) : null),
-        e && e.debugExposeBuffer === !0)
+        e && e.debugExposeBuffer === true)
       )
         Object.defineProperty(this, "buffer", { get: () => this[A] });
-      if (e && e.debugExposePipes === !0) Object.defineProperty(this, "pipes", { get: () => this[q] });
+      if (e && e.debugExposePipes === true) Object.defineProperty(this, "pipes", { get: () => this[q] });
       let { signal: i } = e;
       if (i)
         if (((this[_e] = i), i.aborted)) this[ns]();
@@ -177,14 +177,14 @@ var pt = S(function (W) {
       this[ot] = this[ot] || !!t;
     }
     [ns]() {
-      (this[ai] = !0), this.emit("abort", this[_e]?.reason), this.destroy(this[_e]?.reason);
+      (this[ai] = true), this.emit("abort", this[_e]?.reason), this.destroy(this[_e]?.reason);
     }
     get aborted() {
       return this[ai];
     }
     set aborted(t) {}
     write(t, e, i) {
-      if (this[ai]) return !1;
+      if (this[ai]) return false;
       if (this[ut]) throw Error("write after end");
       if (this[O])
         return (
@@ -192,7 +192,7 @@ var pt = S(function (W) {
             "error",
             Object.assign(Error("Cannot call write after a stream was destroyed"), { code: "ERR_STREAM_DESTROYED" }),
           ),
-          !0
+          true
         );
       if (typeof e === "function") (i = e), (e = "utf8");
       if (!e) e = "utf8";
@@ -203,7 +203,7 @@ var pt = S(function (W) {
         else if (typeof t !== "string") throw Error("Non-contiguous data written to non-objectMode stream");
       }
       if (this[P]) {
-        if (this[R] && this[C] !== 0) this[oi](!0);
+        if (this[R] && this[C] !== 0) this[oi](true);
         if (this[R]) this.emit("data", t);
         else this[es](t);
         if (this[C] !== 0) this.emit("readable");
@@ -217,7 +217,7 @@ var pt = S(function (W) {
       }
       if (typeof t === "string" && !(e === this[st] && !this[Xt]?.lastNeed)) t = Buffer.from(t, e);
       if (Buffer.isBuffer(t) && this[st]) t = this[Xt].write(t);
-      if (this[R] && this[C] !== 0) this[oi](!0);
+      if (this[R] && this[C] !== 0) this[oi](true);
       if (this[R]) this.emit("data", t);
       else this[es](t);
       if (this[C] !== 0) this.emit("readable");
@@ -226,7 +226,7 @@ var pt = S(function (W) {
     }
     read(t) {
       if (this[O]) return null;
-      if (((this[Y] = !1), this[C] === 0 || t === 0 || (t && t > this[C]))) return this[dt](), null;
+      if (((this[Y] = false), this[C] === 0 || t === 0 || (t && t > this[C]))) return this[dt](), null;
       if (this[P]) t = null;
       if (this[A].length > 1 && !this[P]) this[A] = [this[st] ? this[A].join("") : Buffer.concat(this[A], this[C])];
       let e = this[Wr](t || null, this[A][0]);
@@ -248,13 +248,13 @@ var pt = S(function (W) {
       if (typeof e === "function") (i = e), (e = "utf8");
       if (t !== void 0) this.write(t, e);
       if (i) this.once("end", i);
-      if (((this[ut] = !0), (this.writable = !1), this[R] || !this[Ee])) this[dt]();
+      if (((this[ut] = true), (this.writable = false), this[R] || !this[Ee])) this[dt]();
       return this;
     }
     [Jt]() {
       if (this[O]) return;
-      if (!this[Wt] && !this[q].length) this[Y] = !0;
-      if (((this[Ee] = !1), (this[R] = !0), this.emit("resume"), this[A].length)) this[oi]();
+      if (!this[Wt] && !this[q].length) this[Y] = true;
+      if (((this[Ee] = false), (this[R] = true), this.emit("resume"), this[A].length)) this[oi]();
       else if (this[ut]) this[dt]();
       else this.emit("drain");
     }
@@ -262,7 +262,7 @@ var pt = S(function (W) {
       return this[Jt]();
     }
     pause() {
-      (this[R] = !1), (this[Ee] = !0), (this[Y] = !1);
+      (this[R] = false), (this[Ee] = true), (this[Y] = false);
     }
     get destroyed() {
       return this[O];
@@ -283,7 +283,7 @@ var pt = S(function (W) {
       else this[C] -= this[A][0].length;
       return this[A].shift();
     }
-    [oi](t = !1) {
+    [oi](t = false) {
       do;
       while (this[$r](this[hi]()) && this[A].length);
       if (!t && !this[A].length && !this[ut]) this.emit("drain");
@@ -293,10 +293,10 @@ var pt = S(function (W) {
     }
     pipe(t, e) {
       if (this[O]) return t;
-      this[Y] = !1;
+      this[Y] = false;
       let i = this[At];
-      if (((e = e || {}), t === qr.stdout || t === qr.stderr)) e.end = !1;
-      else e.end = e.end !== !1;
+      if (((e = e || {}), t === qr.stdout || t === qr.stderr)) e.end = false;
+      else e.end = e.end !== false;
       if (((e.proxyErrors = !!e.proxyErrors), i)) {
         if (e.end) t.end();
       } else if ((this[q].push(!e.proxyErrors ? new hs(this, t, e) : new Ur(this, t, e)), this[ot]))
@@ -308,7 +308,7 @@ var pt = S(function (W) {
       let e = this[q].find((i) => i.dest === t);
       if (e) {
         if (this[q].length === 1) {
-          if (this[R] && this[Wt] === 0) this[R] = !1;
+          if (this[R] && this[Wt] === 0) this[R] = false;
           this[q] = [];
         } else this[q].splice(this[q].indexOf(e), 1);
         e.unpipe();
@@ -320,7 +320,7 @@ var pt = S(function (W) {
     on(t, e) {
       let i = super.on(t, e);
       if (t === "data") {
-        if (((this[Y] = !1), this[Wt]++, !this[q].length && !this[R])) this[Jt]();
+        if (((this[Y] = false), this[Wt]++, !this[q].length && !this[R])) this[Jt]();
       } else if (t === "readable" && this[C] !== 0) super.emit("readable");
       else if (dl(t) && this[At]) super.emit(t), this.removeAllListeners(t);
       else if (t === "error" && this[Se]) {
@@ -336,14 +336,14 @@ var pt = S(function (W) {
     off(t, e) {
       let i = super.off(t, e);
       if (t === "data") {
-        if (((this[Wt] = this.listeners("data").length), this[Wt] === 0 && !this[Y] && !this[q].length)) this[R] = !1;
+        if (((this[Wt] = this.listeners("data").length), this[Wt] === 0 && !this[Y] && !this[q].length)) this[R] = false;
       }
       return i;
     }
     removeAllListeners(t) {
       let e = super.removeAllListeners(t);
       if (t === "data" || t === void 0) {
-        if (((this[Wt] = 0), !this[Y] && !this[q].length)) this[R] = !1;
+        if (((this[Wt] = 0), !this[Y] && !this[q].length)) this[R] = false;
       }
       return e;
     }
@@ -352,23 +352,23 @@ var pt = S(function (W) {
     }
     [dt]() {
       if (!this[ri] && !this[At] && !this[O] && this[A].length === 0 && this[ut]) {
-        if (((this[ri] = !0), this.emit("end"), this.emit("prefinish"), this.emit("finish"), this[ni]))
+        if (((this[ri] = true), this.emit("end"), this.emit("prefinish"), this.emit("finish"), this[ni]))
           this.emit("close");
-        this[ri] = !1;
+        this[ri] = false;
       }
     }
     emit(t, ...e) {
       let i = e[0];
-      if (t !== "error" && t !== "close" && t !== O && this[O]) return !1;
-      else if (t === "data") return !this[P] && !i ? !1 : this[ot] ? (xe(() => this[ss](i)), !0) : this[ss](i);
+      if (t !== "error" && t !== "close" && t !== O && this[O]) return false;
+      else if (t === "data") return !this[P] && !i ? false : this[ot] ? (xe(() => this[ss](i)), true) : this[ss](i);
       else if (t === "end") return this[Br]();
       else if (t === "close") {
-        if (((this[ni] = !0), !this[At] && !this[O])) return !1;
+        if (((this[ni] = true), !this[At] && !this[O])) return false;
         let r = super.emit("close");
         return this.removeAllListeners("close"), r;
       } else if (t === "error") {
         (this[Se] = i), super.emit(is, i);
-        let r = !this[_e] || this.listeners("error").length ? super.emit("error", i) : !1;
+        let r = !this[_e] || this.listeners("error").length ? super.emit("error", i) : false;
         return this[dt](), r;
       } else if (t === "resume") {
         let r = super.emit("resume");
@@ -381,13 +381,13 @@ var pt = S(function (W) {
       return this[dt](), s;
     }
     [ss](t) {
-      for (let i of this[q]) if (i.dest.write(t) === !1) this.pause();
-      let e = this[Y] ? !1 : super.emit("data", t);
+      for (let i of this[q]) if (i.dest.write(t) === false) this.pause();
+      let e = this[Y] ? false : super.emit("data", t);
       return this[dt](), e;
     }
     [Br]() {
-      if (this[At]) return !1;
-      return (this[At] = !0), (this.readable = !1), this[ot] ? (xe(() => this[rs]()), !0) : this[rs]();
+      if (this[At]) return false;
+      return (this[At] = true), (this.readable = false), this[ot] ? (xe(() => this[rs]()), true) : this[rs]();
     }
     [rs]() {
       if (this[Xt]) {
@@ -424,14 +424,14 @@ var pt = S(function (W) {
       });
     }
     [Symbol.asyncIterator]() {
-      this[Y] = !1;
-      let t = !1,
-        e = async () => (this.pause(), (t = !0), { value: void 0, done: !0 });
+      this[Y] = false;
+      let t = false,
+        e = async () => (this.pause(), (t = true), { value: void 0, done: true });
       return {
         next: () => {
           if (t) return e();
           let s = this.read();
-          if (s !== null) return Promise.resolve({ done: !1, value: s });
+          if (s !== null) return Promise.resolve({ done: false, value: s });
           if (this[ut]) return e();
           let r,
             n,
@@ -442,7 +442,7 @@ var pt = S(function (W) {
               this.off("error", o), this.off("end", a), this.off(O, l), this.pause(), r({ value: c, done: !!this[ut] });
             },
             a = () => {
-              this.off("error", o), this.off("data", h), this.off(O, l), e(), r({ done: !0, value: void 0 });
+              this.off("error", o), this.off("data", h), this.off(O, l), e(), r({ done: true, value: void 0 });
             },
             l = () => o(Error("stream destroyed"));
           return new Promise((c, f) => {
@@ -457,15 +457,15 @@ var pt = S(function (W) {
       };
     }
     [Symbol.iterator]() {
-      this[Y] = !1;
-      let t = !1,
+      this[Y] = false;
+      let t = false,
         e = () => (
-          this.pause(), this.off(is, e), this.off(O, e), this.off("end", e), (t = !0), { done: !0, value: void 0 }
+          this.pause(), this.off(is, e), this.off(O, e), this.off("end", e), (t = true), { done: true, value: void 0 }
         ),
         i = () => {
           if (t) return e();
           let s = this.read();
-          return s === null ? e() : { done: !1, value: s };
+          return s === null ? e() : { done: false, value: s };
         };
       return (
         this.once("end", e),
@@ -487,7 +487,7 @@ var pt = S(function (W) {
         else this.emit(O);
         return this;
       }
-      (this[O] = !0), (this[Y] = !0), (this[A].length = 0), (this[C] = 0);
+      (this[O] = true), (this[Y] = true), (this[A].length = 0), (this[C] = 0);
       let e = this;
       if (typeof e.close === "function" && !this[ni]) e.close();
       if (t) this.emit("error", t);
@@ -514,7 +514,7 @@ var cs = S(function (Im, ls) {
       if (!e) e = "utf8";
       let s = Buffer.isBuffer(t) ? t : Buffer.from(t, e);
       if ((this[Zt].push(s), (this[Qt] += s.length), i)) i();
-      return !0;
+      return true;
     }
     end(t, e, i) {
       if (typeof t === "function") (i = t), (t = null);
@@ -608,27 +608,27 @@ var nn = S(function (jm, rn) {
     constructor(e) {
       super();
       if (
-        ((this[ui] = !1),
-        (this[Te] = !1),
+        ((this[ui] = false),
+        (this[Te] = false),
         (this.pipes = []),
         (this.buffer = []),
-        (this[N] = (e && e.objectMode) || !1),
+        (this[N] = (e && e.objectMode) || false),
         this[N])
       )
         this[B] = null;
       else this[B] = (e && e.encoding) || null;
       if (this[B] === "buffer") this[B] = null;
-      (this[yt] = (e && !!e.async) || !1),
+      (this[yt] = (e && !!e.async) || false),
         (this[wt] = this[B] ? new Jr(this[B]) : null),
-        (this[mt] = !1),
-        (this[Ct] = !1),
-        (this[li] = !1),
-        (this[ci] = !1),
+        (this[mt] = false),
+        (this[Ct] = false),
+        (this[li] = false),
+        (this[ci] = false),
         (this[ve] = null),
-        (this.writable = !0),
-        (this.readable = !0),
+        (this.writable = true),
+        (this.readable = true),
         (this[D] = 0),
-        (this[z] = !1);
+        (this[z] = false);
     }
     get bufferLength() {
       return this[D];
@@ -669,7 +669,7 @@ var nn = S(function (jm, rn) {
             "error",
             Object.assign(Error("Cannot call write after a stream was destroyed"), { code: "ERR_STREAM_DESTROYED" }),
           ),
-          !0
+          true
         );
       if (typeof i === "function") (s = i), (i = "utf8");
       if (!i) i = "utf8";
@@ -677,10 +677,10 @@ var nn = S(function (jm, rn) {
       if (!this[N] && !Buffer.isBuffer(e)) {
         if (xl(e)) e = Buffer.from(e.buffer, e.byteOffset, e.byteLength);
         else if (_l(e)) e = Buffer.from(e);
-        else if (typeof e !== "string") this.objectMode = !0;
+        else if (typeof e !== "string") this.objectMode = true;
       }
       if (this[N]) {
-        if (this.flowing && this[D] !== 0) this[fi](!0);
+        if (this.flowing && this[D] !== 0) this[fi](true);
         if (this.flowing) this.emit("data", e);
         else this[fs](e);
         if (this[D] !== 0) this.emit("readable");
@@ -694,7 +694,7 @@ var nn = S(function (jm, rn) {
       }
       if (typeof e === "string" && !(i === this[B] && !this[wt].lastNeed)) e = Buffer.from(e, i);
       if (Buffer.isBuffer(e) && this[B]) e = this[wt].write(e);
-      if (this.flowing && this[D] !== 0) this[fi](!0);
+      if (this.flowing && this[D] !== 0) this[fi](true);
       if (this.flowing) this.emit("data", e);
       else this[fs](e);
       if (this[D] !== 0) this.emit("readable");
@@ -722,12 +722,12 @@ var nn = S(function (jm, rn) {
       if (typeof i === "function") (s = i), (i = "utf8");
       if (e) this.write(e, i);
       if (s) this.once("end", s);
-      if (((this[mt] = !0), (this.writable = !1), this.flowing || !this[Te])) this[gt]();
+      if (((this[mt] = true), (this.writable = false), this.flowing || !this[Te])) this[gt]();
       return this;
     }
     [te]() {
       if (this[z]) return;
-      if (((this[Te] = !1), (this[ui] = !0), this.emit("resume"), this.buffer.length)) this[fi]();
+      if (((this[Te] = false), (this[ui] = true), this.emit("resume"), this.buffer.length)) this[fi]();
       else if (this[mt]) this[gt]();
       else this.emit("drain");
     }
@@ -735,7 +735,7 @@ var nn = S(function (jm, rn) {
       return this[te]();
     }
     pause() {
-      (this[ui] = !1), (this[Te] = !0);
+      (this[ui] = false), (this[Te] = true);
     }
     get destroyed() {
       return this[z];
@@ -763,13 +763,13 @@ var nn = S(function (jm, rn) {
       if (!e && !this.buffer.length && !this[mt]) this.emit("drain");
     }
     [Qr](e) {
-      return e ? (this.emit("data", e), this.flowing) : !1;
+      return e ? (this.emit("data", e), this.flowing) : false;
     }
     pipe(e, i) {
       if (this[z]) return;
       let s = this[Ct];
-      if (((i = i || {}), e === Kr.stdout || e === Kr.stderr)) i.end = !1;
-      else i.end = i.end !== !1;
+      if (((i = i || {}), e === Kr.stdout || e === Kr.stderr)) i.end = false;
+      else i.end = i.end !== false;
       if (((i.proxyErrors = !!i.proxyErrors), s)) {
         if (i.end) e.end();
       } else if ((this.pipes.push(!i.proxyErrors ? new ms(this, e, i) : new sn(this, e, i)), this[yt]))
@@ -799,17 +799,17 @@ var nn = S(function (jm, rn) {
     }
     [gt]() {
       if (!this[li] && !this[Ct] && !this[z] && this.buffer.length === 0 && this[mt]) {
-        if (((this[li] = !0), this.emit("end"), this.emit("prefinish"), this.emit("finish"), this[ci]))
+        if (((this[li] = true), this.emit("end"), this.emit("prefinish"), this.emit("finish"), this[ci]))
           this.emit("close");
-        this[li] = !1;
+        this[li] = false;
       }
     }
     emit(e, i, ...s) {
       if (e !== "error" && e !== "close" && e !== z && this[z]) return;
-      else if (e === "data") return !i ? !1 : this[yt] ? Oe(() => this[ds](i)) : this[ds](i);
+      else if (e === "data") return !i ? false : this[yt] ? Oe(() => this[ds](i)) : this[ds](i);
       else if (e === "end") return this[tn]();
       else if (e === "close") {
-        if (((this[ci] = !0), !this[Ct] && !this[z])) return;
+        if (((this[ci] = true), !this[Ct] && !this[z])) return;
         let n = super.emit("close");
         return this.removeAllListeners("close"), n;
       } else if (e === "error") {
@@ -827,13 +827,13 @@ var nn = S(function (jm, rn) {
       return this[gt](), r;
     }
     [ds](e) {
-      for (let s of this.pipes) if (s.dest.write(e) === !1) this.pause();
+      for (let s of this.pipes) if (s.dest.write(e) === false) this.pause();
       let i = super.emit("data", e);
       return this[gt](), i;
     }
     [tn]() {
       if (this[Ct]) return;
-      if (((this[Ct] = !0), (this.readable = !1), this[yt])) Oe(() => this[ps]());
+      if (((this[Ct] = true), (this.readable = false), this[yt])) Oe(() => this[ps]());
       else this[ps]();
     }
     [ps]() {
@@ -879,8 +879,8 @@ var nn = S(function (jm, rn) {
       return {
         next: () => {
           let i = this.read();
-          if (i !== null) return Promise.resolve({ done: !1, value: i });
-          if (this[mt]) return Promise.resolve({ done: !0 });
+          if (i !== null) return Promise.resolve({ done: false, value: i });
+          if (this[mt]) return Promise.resolve({ done: true });
           let s = null,
             r = null,
             n = (l) => {
@@ -893,7 +893,7 @@ var nn = S(function (jm, rn) {
                 s({ value: l, done: !!this[mt] });
             },
             h = () => {
-              this.removeListener("error", n), this.removeListener("data", o), s({ done: !0 });
+              this.removeListener("error", n), this.removeListener("data", o), s({ done: true });
             },
             a = () => n(Error("stream destroyed"));
           return new Promise((l, c) => {
@@ -916,7 +916,7 @@ var nn = S(function (jm, rn) {
         else this.emit(z);
         return this;
       }
-      if (((this[z] = !0), (this.buffer.length = 0), (this[D] = 0), typeof this.close === "function" && !this[ci]))
+      if (((this[z] = true), (this.buffer.length = 0), (this[D] = 0), typeof this.close === "function" && !this[ci]))
         this.close();
       if (e) this.emit("error", e);
       else this.emit(z);
@@ -1038,7 +1038,7 @@ var ie = S(function (ql, ht) {
         !this.sri)
       )
         this.algorithm = null;
-      else if (this.sri.isHash) (this.goodSri = !0), (this.algorithm = this.sri.algorithm);
+      else if (this.sri.isHash) (this.goodSri = true), (this.algorithm = this.sri.algorithm);
       else (this.goodSri = !this.sri.isEmpty()), (this.algorithm = this.sri.pickAlgorithm(this.opts));
       (this.digests = this.goodSri ? this.sri[this.algorithm] : null), (this.optString = De(this.opts?.options));
     }
@@ -1087,7 +1087,7 @@ var ie = S(function (ql, ht) {
   }
   class Dt {
     get isHash() {
-      return !0;
+      return true;
     }
     constructor(t, e) {
       let i = e?.strict;
@@ -1107,15 +1107,15 @@ var ie = S(function (ql, ht) {
     }
     match(t, e) {
       let i = X(t, e);
-      if (!i) return !1;
+      if (!i) return false;
       if (i.isIntegrity) {
         let s = i.pickAlgorithm(e, [this.algorithm]);
-        if (!s) return !1;
+        if (!s) return false;
         let r = i[s].find((n) => n.digest === this.digest);
         if (r) return r;
-        return !1;
+        return false;
       }
-      return i.digest === this.digest ? i : !1;
+      return i.digest === this.digest ? i : false;
     }
     toString(t) {
       if (t?.strict) {
@@ -1127,21 +1127,21 @@ var ie = S(function (ql, ht) {
   }
   function fn(t, e, i, s) {
     let r = t !== "",
-      n = !1,
+      n = false,
       o = "",
       h = s.length - 1;
     for (let l = 0; l < h; l++) {
       let c = Dt.prototype.toString.call(s[l], i);
-      if (c) (n = !0), (o += c), (o += e);
+      if (c) (n = true), (o += c), (o += e);
     }
     let a = Dt.prototype.toString.call(s[h], i);
-    if (a) (n = !0), (o += a);
+    if (a) (n = true), (o += a);
     if (r && n) return t + e + o;
     return t + o;
   }
   class ee {
     get isIntegrity() {
-      return !0;
+      return true;
     }
     toJSON() {
       return this.toString();
@@ -1163,7 +1163,7 @@ var ie = S(function (ql, ht) {
       return X(`${this.toString(e)} ${i}`, e);
     }
     hexDigest() {
-      return X(this, { single: !0 }).hexDigest();
+      return X(this, { single: true }).hexDigest();
     }
     merge(t, e) {
       let i = X(t, e);
@@ -1175,15 +1175,15 @@ var ie = S(function (ql, ht) {
     }
     match(t, e) {
       let i = X(t, e);
-      if (!i) return !1;
+      if (!i) return false;
       let s = i.pickAlgorithm(e, Object.keys(this));
-      return (!!s && this[s] && i[s] && this[s].find((r) => i[s].find((n) => r.digest === n.digest))) || !1;
+      return (!!s && this[s] && i[s] && this[s].find((r) => i[s].find((n) => r.digest === n.digest))) || false;
     }
     pickAlgorithm(t, e) {
       let i = t?.pickAlgorithm || kl,
         s = Object.keys(this).filter((r) => {
           if (e?.length) return e.includes(r);
-          return !0;
+          return true;
         });
       if (s.length) return s.reduce((r, n) => i(r, n) || r);
       return null;
@@ -1257,7 +1257,7 @@ var ie = S(function (ql, ht) {
   function zl(t, e, i) {
     if (((e = X(e, i)), !e || !Object.keys(e).length))
       if (i?.error) throw Object.assign(Error("No valid integrity hashes to check against"), { code: "EINTEGRITY" });
-      else return !1;
+      else return false;
     let s = e.pickAlgorithm(i),
       r = Ce.createHash(s).update(t).digest("base64"),
       n = X({ algorithm: s, digest: r }),
@@ -1359,7 +1359,7 @@ var pn = S(function (km, vs) {
         }
         if (((this.rem = (h + this.rem) & 3), (h -= this.rem), h > 0)) {
           s = this.h1;
-          while (!0) {
+          while (true) {
             if (
               ((r = (r * 11601 + (r & 65535) * 3432906752) & 4294967295),
               (r = (r << 15) | (r >>> 17)),
@@ -1486,7 +1486,7 @@ var Os = S(function ($m, Ql) {
     engines: { node: "^20.17.0 || >=22.9.0" },
     templateOSS: {
       "//@npmcli/template-oss": "This file is partially managed by @npmcli/template-oss. Edits may be overwritten.",
-      windowsCI: !1,
+      windowsCI: false,
       version: "4.28.0",
       publish: "true",
     },
@@ -1507,7 +1507,7 @@ var se = S(function (Gm, As) {
     sc = ie();
   As.exports = rc;
   function rc(t, e) {
-    let i = sc.parse(e, { single: !0 });
+    let i = sc.parse(e, { single: true });
     return bn.join(Sn(t), i.algorithm, ...ic(i.hexDigest()));
   }
   As.exports.contentDir = Sn;
@@ -1527,7 +1527,7 @@ var Cs = S(function (Um, En) {
 });
 var xn = S(function (Hm, _n) {
   var oc = mm(),
-    hc = (t) => oc.satisfies(process.version, t, { includePrerelease: !0 });
+    hc = (t) => oc.satisfies(process.version, t, { includePrerelease: true });
   _n.exports = { satisfies: hc };
 });
 var Tn = S(function (lc, Ds) {
@@ -1540,9 +1540,9 @@ var Tn = S(function (lc, Ds) {
       if (
         ((this.code = t),
         Object.defineProperties(this, {
-          name: { value: "SystemError", enumerable: !1, writable: !0, configurable: !0 },
-          message: { value: s, enumerable: !1, writable: !0, configurable: !0 },
-          info: { value: i, enumerable: !0, configurable: !0, writable: !1 },
+          name: { value: "SystemError", enumerable: false, writable: true, configurable: true },
+          message: { value: s, enumerable: false, writable: true, configurable: true },
+          info: { value: i, enumerable: true, configurable: true, writable: false },
           errno: {
             get() {
               return i.errno;
@@ -1550,8 +1550,8 @@ var Tn = S(function (lc, Ds) {
             set(r) {
               i.errno = r;
             },
-            enumerable: !0,
-            configurable: !0,
+            enumerable: true,
+            configurable: true,
           },
           syscall: {
             get() {
@@ -1560,8 +1560,8 @@ var Tn = S(function (lc, Ds) {
             set(r) {
               i.syscall = r;
             },
-            enumerable: !0,
-            configurable: !0,
+            enumerable: true,
+            configurable: true,
           },
         }),
         i.path !== void 0)
@@ -1573,8 +1573,8 @@ var Tn = S(function (lc, Ds) {
           set(r) {
             i.path = r;
           },
-          enumerable: !0,
-          configurable: !0,
+          enumerable: true,
+          configurable: true,
         });
       if (i.dest !== void 0)
         Object.defineProperty(this, "dest", {
@@ -1584,15 +1584,15 @@ var Tn = S(function (lc, Ds) {
           set(r) {
             i.dest = r;
           },
-          enumerable: !0,
-          configurable: !0,
+          enumerable: true,
+          configurable: true,
         });
     }
     toString() {
       return `${this.name} [${this.code}]: ${this.message}`;
     }
     [Symbol.for("nodejs.util.inspect.custom")](t, e) {
-      return ac(this, { ...e, getters: !0, customInspect: !1 });
+      return ac(this, { ...e, getters: true, customInspect: false });
     }
   }
   function bt(t, e) {
@@ -1650,7 +1650,7 @@ var Gn = S(function (Vm, Bn) {
     } = ue("fs/promises"),
     { dirname: Fe, isAbsolute: Rn, join: An, parse: Rc, resolve: Me, sep: Ac, toNamespacedPath: Cn } = ue("path"),
     { fileURLToPath: Cc } = ue("url"),
-    Dc = { dereference: !1, errorOnExist: !1, filter: void 0, force: !0, preserveTimestamps: !1, recursive: !1 };
+    Dc = { dereference: false, errorOnExist: false, filter: void 0, force: true, preserveTimestamps: false, recursive: false };
   async function Fc(t, e, i) {
     if (i != null && typeof i !== "object") throw new bc("options", ["Object"], i);
     return Mc(Cn(Dn(t)), Cn(Dn(e)), { ...Dc, ...i });
@@ -1692,7 +1692,7 @@ var Gn = S(function (Vm, Bn) {
     return e.ino && e.dev && e.ino === t.ino && e.dev === t.dev;
   }
   function Pc(t, e, i) {
-    let s = i.dereference ? (r) => re(r, { bigint: !0 }) : (r) => Nn(r, { bigint: !0 });
+    let s = i.dereference ? (r) => re(r, { bigint: true }) : (r) => Nn(r, { bigint: true });
     return Promise.all([
       s(t),
       s(e).catch((r) => {
@@ -1704,12 +1704,12 @@ var Gn = S(function (Vm, Bn) {
   async function Fn(t, e, i, s) {
     let r = Fe(i);
     if (await Nc(r)) return mi(t, e, i, s);
-    return await zn(r, { recursive: !0 }), mi(t, e, i, s);
+    return await zn(r, { recursive: true }), mi(t, e, i, s);
   }
   function Nc(t) {
     return re(t).then(
-      () => !0,
-      (e) => (e.code === "ENOENT" ? !1 : Promise.reject(e)),
+      () => true,
+      (e) => (e.code === "ENOENT" ? false : Promise.reject(e)),
     );
   }
   async function kn(t, e, i) {
@@ -1718,7 +1718,7 @@ var Gn = S(function (Vm, Bn) {
     if (r === s || r === Rc(r).root) return;
     let n;
     try {
-      n = await re(r, { bigint: !0 });
+      n = await re(r, { bigint: true });
     } catch (o) {
       if (o.code === "ENOENT") return;
       throw o;
@@ -1842,7 +1842,7 @@ var Yn = S(function (Km, Vn) {
     { mkdir: ef, mkdtemp: sf, rm: rf } = ue("fs/promises"),
     nf = async (t, e, i) => {
       let s = tf(i, { copy: ["tmpPrefix"] });
-      await ef(t, { recursive: !0 });
+      await ef(t, { recursive: true });
       let r = await sf(Zc(`${t}${Qc}`, s.tmpPrefix || "")),
         n,
         o;
@@ -1852,7 +1852,7 @@ var Yn = S(function (Km, Vn) {
         n = h;
       }
       try {
-        await rf(r, { force: !0, recursive: !0 });
+        await rf(r, { force: true, recursive: true });
       } catch {}
       if (n) throw n;
       return o;
@@ -1876,16 +1876,16 @@ var ro = S(function (Jm, so) {
     at = ue("fs/promises"),
     lf = async (t) => {
       try {
-        return await at.access(t), !0;
+        return await at.access(t), true;
       } catch (e) {
         return e.code !== "ENOENT";
       }
     },
-    io = async (t, e, i = {}, s = !0, r = []) => {
+    io = async (t, e, i = {}, s = true, r = []) => {
       if (!t || !e) throw TypeError("`source` and `destination` file required");
-      if (((i = { overwrite: !0, ...i }), !i.overwrite && (await lf(e))))
+      if (((i = { overwrite: true, ...i }), !i.overwrite && (await lf(e))))
         throw Error(`The destination file exists: ${e}`);
-      await at.mkdir(Qn(e), { recursive: !0 });
+      await at.mkdir(Qn(e), { recursive: true });
       try {
         await at.rename(t, e);
       } catch (n) {
@@ -1893,7 +1893,7 @@ var ro = S(function (Jm, so) {
           let o = await at.lstat(t);
           if (o.isDirectory()) {
             let h = await at.readdir(t);
-            await Promise.all(h.map((a) => io(to(t, a), to(e, a), i, !1, r)));
+            await Promise.all(h.map((a) => io(to(t, a), to(e, a), i, false, r)));
           } else if (o.isSymbolicLink()) r.push({ source: t, destination: e });
           else await at.copyFile(t, e);
         } else throw n;
@@ -1910,7 +1910,7 @@ var ro = S(function (Jm, so) {
             await at.symlink(h, o, a);
           }),
         ),
-          await at.rm(t, { recursive: !0, force: !0 });
+          await at.rm(t, { recursive: true, force: true });
     };
   so.exports = io;
 });
@@ -1946,7 +1946,7 @@ var ne = S(function (Ff, J) {
     for (let u = n.length - 1; u >= 0; --u) {
       let d = n[u];
       if (d.integrity === null && !s.validateEntry) break;
-      if ((!s.validateEntry || s.validateEntry(d) === !0) && (o.length === 0 || !o.find((p) => i(p, d)))) o.unshift(d);
+      if ((!s.validateEntry || s.validateEntry(d) === true) && (o.length === 0 || !o.find((p) => i(p, d)))) o.unshift(d);
     }
     let h =
         `
@@ -1960,16 +1960,16 @@ var ne = S(function (Ff, J) {
 `),
       a = async () => {
         let u = Ef(lt.join(t, "tmp"), s.tmpPrefix);
-        return await Ns(lt.dirname(u), { recursive: !0 }), { target: u, moved: !1 };
+        return await Ns(lt.dirname(u), { recursive: true }), { target: u, moved: false };
       },
       l = async (u) => {
-        if (!u.moved) return oo(u.target, { recursive: !0, force: !0 });
+        if (!u.moved) return oo(u.target, { recursive: true, force: true });
       },
       c = async (u) => {
         await yf(u.target, h, { flag: "wx" }),
-          await Ns(lt.dirname(r), { recursive: !0 }),
+          await Ns(lt.dirname(r), { recursive: true }),
           await Tf(u.target, r),
-          (u.moved = !0);
+          (u.moved = true);
       },
       f = await a();
     try {
@@ -1977,7 +1977,7 @@ var ne = S(function (Ff, J) {
     } finally {
       await l(f);
     }
-    return o.reverse().map((u) => Si(t, u, !0));
+    return o.reverse().map((u) => Si(t, u, true));
   }
   Ff.insert = ho;
   async function ho(t, e, i, s = {}) {
@@ -1985,7 +1985,7 @@ var ne = S(function (Ff, J) {
       h = Pe(t, e),
       a = { key: e, integrity: i && Sf.stringify(i), time: o || Date.now(), size: n, metadata: r };
     try {
-      await Ns(lt.dirname(h), { recursive: !0 });
+      await Ns(lt.dirname(h), { recursive: true });
       let l = JSON.stringify(a);
       await mf(
         h,
@@ -2015,12 +2015,12 @@ ${bi(l)}	${l}`,
   function Af(t, e, i = {}) {
     if (!i.removeFully) return ho(t, e, null, i);
     let s = Pe(t, e);
-    return oo(s, { recursive: !0, force: !0 });
+    return oo(s, { recursive: true, force: true });
   }
   Ff.lsStream = ao;
   function ao(t) {
     let e = zs(t),
-      i = new bf({ objectMode: !0 });
+      i = new bf({ objectMode: true });
     return (
       Promise.resolve()
         .then(async () => {
@@ -2135,7 +2135,7 @@ ${bi(l)}	${l}`,
   }
 });
 var yo = S(function (go) {
-  Object.defineProperty(go, "__esModule", { value: !0 });
+  Object.defineProperty(go, "__esModule", { value: true });
   go.LRUCache = void 0;
   var Gf = typeof performance === "object" && performance && typeof performance.now === "function" ? performance : Date,
     uo = new Set(),
@@ -2150,7 +2150,7 @@ var yo = S(function (go) {
       onabort;
       _onabort = [];
       reason;
-      aborted = !1;
+      aborted = false;
       addEventListener(s, r) {
         this._onabort.push(r);
       }
@@ -2162,7 +2162,7 @@ var yo = S(function (go) {
         signal = new fo();
         abort(s) {
           if (this.signal.aborted) return;
-          (this.signal.reason = s), (this.signal.aborted = !0);
+          (this.signal.reason = s), (this.signal.aborted = true);
           for (let r of this.signal._onabort) r(s);
           this.signal.onabort?.(s);
         }
@@ -2170,7 +2170,7 @@ var yo = S(function (go) {
     let t = Is.env?.LRU_CACHE_IGNORE_AC_WARNING !== "1",
       e = () => {
         if (!t) return;
-        (t = !1),
+        (t = false),
           po(
             "AbortController is not defined. If using lru-cache in node 14, load an AbortController polyfill from the `node-abort-controller` package. A minimal polyfill is provided for use by LRUCache.fetch(), but it should not be relied upon in other contexts (eg, passing it to other APIs that use AbortController/AbortSignal might have undesirable effects). You may disable this with LRU_CACHE_IGNORE_AC_WARNING=1 in the env.",
             "NO_ABORT_CONTROLLER",
@@ -2203,13 +2203,13 @@ var yo = S(function (go) {
   class oe {
     heap;
     length;
-    static #e = !1;
+    static #e = false;
     static create(t) {
       let e = mo(t);
       if (!e) return [];
-      oe.#e = !0;
+      oe.#e = true;
       let i = new oe(t, e);
-      return (oe.#e = !1), i;
+      return (oe.#e = false), i;
     }
     constructor(t, e) {
       if (!oe.#e) throw TypeError("instantiate Stack using Stack.create(n)");
@@ -2490,7 +2490,7 @@ var yo = S(function (go) {
     #F = () => {};
     #M = () => {};
     #L = () => {};
-    #S = () => !1;
+    #S = () => false;
     #U() {
       let t = new Ne(this.#e);
       (this.#g = 0),
@@ -2513,7 +2513,7 @@ var yo = S(function (go) {
         (this.#j = (e, i, s) => {
           if (((t[e] = i), this.#s)) {
             let r = this.#s - t[e];
-            while (this.#g > r) this.#W(!0);
+            while (this.#g > r) this.#W(true);
           }
           if (((this.#g += t[e]), s)) (s.entrySize = i), (s.totalCalculatedSize = this.#g);
         });
@@ -2600,8 +2600,8 @@ var yo = S(function (go) {
       }
     }
     purgeStale() {
-      let t = !1;
-      for (let e of this.#D({ allowStale: !0 })) if (this.#S(e)) this.#R(this.#l[e], "expire"), (t = !0);
+      let t = false;
+      for (let e of this.#D({ allowStale: true })) if (this.#S(e)) this.#R(this.#l[e], "expire"), (t = true);
       return t;
     }
     info(t) {
@@ -2624,7 +2624,7 @@ var yo = S(function (go) {
     }
     dump() {
       let t = [];
-      for (let e of this.#C({ allowStale: !0 })) {
+      for (let e of this.#C({ allowStale: true })) {
         let i = this.#l[e],
           s = this.#t[e],
           r = this.#h(s) ? s.__staleWhileFetching : s;
@@ -2662,7 +2662,7 @@ var yo = S(function (go) {
         { noUpdateTTL: a = this.noUpdateTTL } = i,
         l = this.#k(t, e, i.size || 0, o);
       if (this.maxEntrySize && l > this.maxEntrySize) {
-        if (h) (h.set = "miss"), (h.maxEntrySizeExceeded = !0);
+        if (h) (h.set = "miss"), (h.maxEntrySizeExceeded = true);
         return this.#R(t, "set"), this;
       }
       let c = this.#a === 0 ? void 0 : this.#c.get(t);
@@ -2674,7 +2674,7 @@ var yo = S(function (go) {
               : this.#T.length !== 0
                 ? this.#T.pop()
                 : this.#a === this.#e
-                  ? this.#W(!1)
+                  ? this.#W(false)
                   : this.#a),
           (this.#l[c] = t),
           (this.#t[c] = e),
@@ -2687,7 +2687,7 @@ var yo = S(function (go) {
           h)
         )
           h.set = "add";
-        if (((a = !1), this.#N)) this.#n?.(e, t, "add");
+        if (((a = false), this.#N)) this.#n?.(e, t, "add");
       } else {
         this.#P(c);
         let f = this.#t[c];
@@ -2727,7 +2727,7 @@ var yo = S(function (go) {
       try {
         while (this.#a) {
           let t = this.#t[this.#m];
-          if ((this.#W(!0), this.#h(t))) {
+          if ((this.#W(true), this.#h(t))) {
             if (t.__staleWhileFetching) return t.__staleWhileFetching;
           } else if (t !== void 0) return t;
         }
@@ -2759,14 +2759,14 @@ var yo = S(function (go) {
         r = this.#c.get(t);
       if (r !== void 0) {
         let n = this.#t[r];
-        if (this.#h(n) && n.__staleWhileFetching === void 0) return !1;
+        if (this.#h(n) && n.__staleWhileFetching === void 0) return false;
         if (!this.#S(r)) {
           if (i) this.#F(r);
           if (s) (s.has = "hit"), this.#M(s, r);
-          return !0;
+          return true;
         } else if (s) (s.has = "stale"), this.#M(s, r);
       } else if (s) s.has = "miss";
-      return !1;
+      return false;
     }
     peek(t, e = {}) {
       let { allowStale: i = this.allowStale } = e,
@@ -2782,14 +2782,14 @@ var yo = S(function (go) {
         { signal: o } = i;
       o?.addEventListener("abort", () => n.abort(o.reason), { signal: n.signal });
       let h = { signal: n.signal, options: i, context: s },
-        a = (p, g = !1) => {
+        a = (p, g = false) => {
           let { aborted: m } = n.signal,
             y = i.ignoreFetchAbort && p !== void 0;
           if (i.status)
             if (m && !g) {
-              if (((i.status.fetchAborted = !0), (i.status.fetchError = n.signal.reason), y))
-                i.status.fetchAbortIgnored = !0;
-            } else i.status.fetchResolved = !0;
+              if (((i.status.fetchAborted = true), (i.status.fetchError = n.signal.reason), y))
+                i.status.fetchAbortIgnored = true;
+            } else i.status.fetchResolved = true;
           if (m && !y && !g) return c(n.signal.reason);
           let b = u,
             w = this.#t[e];
@@ -2798,13 +2798,13 @@ var yo = S(function (go) {
               if (b.__staleWhileFetching !== void 0) this.#t[e] = b.__staleWhileFetching;
               else this.#R(t, "fetch");
             else {
-              if (i.status) i.status.fetchUpdated = !0;
+              if (i.status) i.status.fetchUpdated = true;
               this.set(t, p, h.options);
             }
           return p;
         },
         l = (p) => {
-          if (i.status) (i.status.fetchRejected = !0), (i.status.fetchError = p);
+          if (i.status) (i.status.fetchRejected = true), (i.status.fetchError = p);
           return c(p);
         },
         c = (p) => {
@@ -2818,7 +2818,7 @@ var yo = S(function (go) {
             else if (!m) this.#t[e] = w.__staleWhileFetching;
           }
           if (y) {
-            if (i.status && w.__staleWhileFetching !== void 0) i.status.returnedStale = !0;
+            if (i.status && w.__staleWhileFetching !== void 0) i.status.returnedStale = true;
             return w.__staleWhileFetching;
           } else if (w.__returned === w) throw p;
         },
@@ -2827,11 +2827,11 @@ var yo = S(function (go) {
           if (m && m instanceof Promise) m.then((y) => p(y === void 0 ? void 0 : y), g);
           n.signal.addEventListener("abort", () => {
             if (!i.ignoreFetchAbort || i.allowStaleOnFetchAbort) {
-              if ((p(void 0), i.allowStaleOnFetchAbort)) p = (y) => a(y, !0);
+              if ((p(void 0), i.allowStaleOnFetchAbort)) p = (y) => a(y, true);
             }
           });
         };
-      if (i.status) i.status.fetchDispatched = !0;
+      if (i.status) i.status.fetchDispatched = true;
       let u = new Promise(f).then(a, l),
         d = Object.assign(u, { __abortController: n, __staleWhileFetching: r, __returned: void 0 });
       if (e === void 0) this.set(t, d, { ...h.options, status: void 0 }), (e = this.#c.get(t));
@@ -2839,7 +2839,7 @@ var yo = S(function (go) {
       return d;
     }
     #h(t) {
-      if (!this.#A) return !1;
+      if (!this.#A) return false;
       let e = t;
       return (
         !!e && e instanceof Promise && e.hasOwnProperty("__staleWhileFetching") && e.__abortController instanceof Ei
@@ -2860,7 +2860,7 @@ var yo = S(function (go) {
         ignoreFetchAbort: u = this.ignoreFetchAbort,
         allowStaleOnFetchAbort: d = this.allowStaleOnFetchAbort,
         context: p,
-        forceRefresh: g = !1,
+        forceRefresh: g = false,
         status: m,
         signal: y,
       } = e;
@@ -2894,7 +2894,7 @@ var yo = S(function (go) {
         if (this.#h(E)) {
           let qt = i && E.__staleWhileFetching !== void 0;
           if (m) {
-            if (((m.fetch = "inflight"), qt)) m.returnedStale = !0;
+            if (((m.fetch = "inflight"), qt)) m.returnedStale = true;
           }
           return qt ? E.__staleWhileFetching : (E.__returned = E);
         }
@@ -2908,7 +2908,7 @@ var yo = S(function (go) {
         let M = this.#$(t, w, b, p),
           V = M.__staleWhileFetching !== void 0 && i;
         if (m) {
-          if (((m.fetch = T ? "stale" : "refresh"), V && T)) m.returnedStale = !0;
+          if (((m.fetch = T ? "stale" : "refresh"), V && T)) m.returnedStale = true;
         }
         return V ? M.__staleWhileFetching : (M.__returned = M);
       }
@@ -2943,10 +2943,10 @@ var yo = S(function (go) {
           if (n) n.get = "stale";
           if (!a) {
             if (!r) this.#R(t, "expire");
-            if (n && i) n.returnedStale = !0;
+            if (n && i) n.returnedStale = true;
             return i ? h : void 0;
           } else {
-            if (n && i && h.__staleWhileFetching !== void 0) n.returnedStale = !0;
+            if (n && i && h.__staleWhileFetching !== void 0) n.returnedStale = true;
             return i ? h.__staleWhileFetching : void 0;
           }
         } else {
@@ -2971,12 +2971,12 @@ var yo = S(function (go) {
       return this.#R(t, "delete");
     }
     #R(t, e) {
-      let i = !1;
+      let i = false;
       if (this.#a !== 0) {
         let s = this.#c.get(t);
         if (s !== void 0) {
           if (this.#y?.[s]) clearTimeout(this.#y?.[s]), (this.#y[s] = void 0);
-          if (((i = !0), this.#a === 1)) this.#G(e);
+          if (((i = true), this.#a === 1)) this.#G(e);
           else {
             this.#I(s);
             let r = this.#t[s];
@@ -3008,7 +3008,7 @@ var yo = S(function (go) {
       return this.#G("delete");
     }
     #G(t) {
-      for (let e of this.#D({ allowStale: !0 })) {
+      for (let e of this.#D({ allowStale: true })) {
         let i = this.#t[e];
         if (this.#h(i)) i.__abortController.abort(Error("deleted"));
         else {
@@ -3122,16 +3122,16 @@ var Ci = S(function (iu) {
     constructor(t, e) {
       e = e || {};
       super(e);
-      if (((this.readable = !0), (this.writable = !1), typeof t !== "string")) throw TypeError("path must be a string");
+      if (((this.readable = true), (this.writable = false), typeof t !== "string")) throw TypeError("path must be a string");
       if (
-        ((this[fe] = !1),
+        ((this[fe] = false),
         (this[x] = typeof e.fd === "number" ? e.fd : null),
         (this[Et] = t),
         (this[vo] = e.readSize || 16777216),
-        (this[Mt] = !1),
+        (this[Mt] = false),
         (this[To] = typeof e.size === "number" ? e.size : 1 / 0),
         (this[Ti] = this[To]),
-        (this[de] = typeof e.autoClose === "boolean" ? e.autoClose : !0),
+        (this[de] = typeof e.autoClose === "boolean" ? e.autoClose : true),
         typeof this[x] === "number")
       )
         this[le]();
@@ -3161,14 +3161,14 @@ var Ci = S(function (iu) {
     }
     [le]() {
       if (!this[Mt]) {
-        this[Mt] = !0;
+        this[Mt] = true;
         let t = this[Ws]();
         if (t.length === 0) return process.nextTick(() => this[ks](null, 0, t));
         G.read(this[x], t, 0, t.length, null, (e, i, s) => this[ks](e, i, s));
       }
     }
     [ks](t, e, i) {
-      if (((this[Mt] = !1), t)) this[ce](t);
+      if (((this[Mt] = false), t)) this[ce](t);
       else if (this[qs](e, i)) this[le]();
     }
     [rt]() {
@@ -3178,12 +3178,12 @@ var Ci = S(function (iu) {
       }
     }
     [ce](t) {
-      (this[Mt] = !0), this[rt](), this.emit("error", t);
+      (this[Mt] = true), this[rt](), this.emit("error", t);
     }
     [qs](t, e) {
-      let i = !1;
+      let i = false;
       if (((this[Ti] -= t), t > 0)) i = super.write(t < e.length ? e.slice(0, t) : e);
-      if (t === 0 || this[Ti] <= 0) (i = !1), this[rt](), super.end();
+      if (t === 0 || this[Ti] <= 0) (i = false), this[rt](), super.end();
       return i;
     }
     emit(t, e) {
@@ -3196,7 +3196,7 @@ var Ci = S(function (iu) {
           break;
         case "error":
           if (this[fe]) return;
-          return (this[fe] = !0), super.emit(t, e);
+          return (this[fe] = true), super.emit(t, e);
         default:
           return super.emit(t, e);
       }
@@ -3204,26 +3204,26 @@ var Ci = S(function (iu) {
   }
   class Oo extends $s {
     [Nt]() {
-      let t = !0;
+      let t = true;
       try {
-        this[pe](null, G.openSync(this[Et], "r")), (t = !1);
+        this[pe](null, G.openSync(this[Et], "r")), (t = false);
       } finally {
         if (t) this[rt]();
       }
     }
     [le]() {
-      let t = !0;
+      let t = true;
       try {
         if (!this[Mt]) {
-          this[Mt] = !0;
+          this[Mt] = true;
           do {
             let e = this[Ws](),
               i = e.length === 0 ? 0 : G.readSync(this[x], e, 0, e.length, null);
             if (!this[qs](i, e)) break;
-          } while (!0);
-          this[Mt] = !1;
+          } while (true);
+          this[Mt] = false;
         }
-        t = !1;
+        t = false;
       } finally {
         if (t) this[rt]();
       }
@@ -3239,25 +3239,25 @@ var Ci = S(function (iu) {
     constructor(t, e) {
       e = e || {};
       super(e);
-      (this.readable = !1),
-        (this.writable = !0),
-        (this[fe] = !1),
-        (this[Bt] = !1),
-        (this[Ie] = !1),
-        (this[vi] = !1),
+      (this.readable = false),
+        (this.writable = true),
+        (this[fe] = false),
+        (this[Bt] = false),
+        (this[Ie] = false),
+        (this[vi] = false),
         (this[ct] = []),
         (this[Et] = t),
         (this[x] = typeof e.fd === "number" ? e.fd : null),
         (this[Ai] = e.mode === void 0 ? 438 : e.mode),
         (this[Gt] = typeof e.start === "number" ? e.start : null),
-        (this[de] = typeof e.autoClose === "boolean" ? e.autoClose : !0);
+        (this[de] = typeof e.autoClose === "boolean" ? e.autoClose : true);
       let i = this[Gt] !== null ? "r+" : "w";
       if (((this[Ri] = e.flags === void 0), (this[Pt] = this[Ri] ? i : e.flags), this[x] === null)) this[Nt]();
     }
     emit(t, e) {
       if (t === "error") {
         if (this[fe]) return;
-        this[fe] = !0;
+        this[fe] = true;
       }
       return super.emit(t, e);
     }
@@ -3268,7 +3268,7 @@ var Ci = S(function (iu) {
       return this[Et];
     }
     [ce](t) {
-      this[rt](), (this[Bt] = !0), this.emit("error", t);
+      this[rt](), (this[Bt] = true), this.emit("error", t);
     }
     [Nt]() {
       G.open(this[Et], this[Pt], this[Ai], (t, e) => this[pe](t, e));
@@ -3280,14 +3280,14 @@ var Ci = S(function (iu) {
     }
     end(t, e) {
       if (t) this.write(t, e);
-      if (((this[Ie] = !0), !this[Bt] && !this[ct].length && typeof this[x] === "number")) this[ae](null, 0);
+      if (((this[Ie] = true), !this[Bt] && !this[ct].length && typeof this[x] === "number")) this[ae](null, 0);
       return this;
     }
     write(t, e) {
       if (typeof t === "string") t = Buffer.from(t, e);
-      if (this[Ie]) return this.emit("error", Error("write() after end()")), !1;
-      if (this[x] === null || this[Bt] || this[ct].length) return this[ct].push(t), (this[vi] = !0), !1;
-      return (this[Bt] = !0), this[Oi](t), !0;
+      if (this[Ie]) return this.emit("error", Error("write() after end()")), false;
+      if (this[x] === null || this[Bt] || this[ct].length) return this[ct].push(t), (this[vi] = true), false;
+      return (this[Bt] = true), this[Oi](t), true;
     }
     [Oi](t) {
       G.write(this[x], t, 0, t.length, this[Gt], (e, i) => this[ae](e, i));
@@ -3297,8 +3297,8 @@ var Ci = S(function (iu) {
       else {
         if (this[Gt] !== null) this[Gt] += e;
         if (this[ct].length) this[Ls]();
-        else if (((this[Bt] = !1), this[Ie] && !this[xo])) (this[xo] = !0), this[rt](), this.emit("finish");
-        else if (this[vi]) (this[vi] = !1), this.emit("drain");
+        else if (((this[Bt] = false), this[Ie] && !this[xo])) (this[xo] = true), this[rt](), this.emit("finish");
+        else if (this[vi]) (this[vi] = false), this.emit("drain");
       }
     }
     [Ls]() {
@@ -3337,9 +3337,9 @@ var Ci = S(function (iu) {
       }
     }
     [Oi](t) {
-      let e = !0;
+      let e = true;
       try {
-        this[ae](null, G.writeSync(this[x], t, 0, t.length, this[Gt])), (e = !1);
+        this[ae](null, G.writeSync(this[x], t, 0, t.length, this[Gt])), (e = false);
       } finally {
         if (e)
           try {
@@ -3402,14 +3402,14 @@ var Us = S(function (ig, me) {
   }
   me.exports.hasContent = fu;
   async function fu(t, e) {
-    if (!e) return !1;
+    if (!e) return false;
     try {
       return await Le(t, e, async (i, s) => {
         let r = await je.stat(i);
         return { size: r.size, sri: s, stat: r };
       });
     } catch (i) {
-      if (i.code === "ENOENT") return !1;
+      if (i.code === "ENOENT") return false;
       if (i.code === "EPERM") throw i;
     }
   }
@@ -3458,7 +3458,7 @@ var zo = S(function (sg, xt) {
   async function pu(t, e, i = {}) {
     let { integrity: s, memoize: r, size: n } = i,
       o = _t.get(t, e, i);
-    if (o && r !== !1)
+    if (o && r !== false)
       return { metadata: o.entry.metadata, data: o.data, integrity: o.entry.integrity, size: o.entry.size };
     let h = await Ut.find(t, e, i);
     if (!h) throw new Ut.NotFoundError(t, e);
@@ -3470,7 +3470,7 @@ var zo = S(function (sg, xt) {
   async function mu(t, e, i = {}) {
     let { integrity: s, memoize: r, size: n } = i,
       o = _t.get.byDigest(t, e, i);
-    if (o && r !== !1) return o;
+    if (o && r !== false) return o;
     let h = await Ht(t, e, { integrity: s, size: n });
     if (r) _t.put.byDigest(t, e, h, i);
     return h;
@@ -3491,7 +3491,7 @@ var zo = S(function (sg, xt) {
   function wu(t, e, i = {}) {
     let { memoize: s, size: r } = i,
       n = _t.get(t, e, i);
-    if (n && s !== !1) return gu(n);
+    if (n && s !== false) return gu(n);
     let o = new No();
     return (
       Promise.resolve()
@@ -3519,7 +3519,7 @@ var zo = S(function (sg, xt) {
   function yu(t, e, i = {}) {
     let { memoize: s } = i,
       r = _t.get.byDigest(t, e, i);
-    if (r && s !== !1) {
+    if (r && s !== false) {
       let n = new Po();
       return n.end(r), n;
     } else {
@@ -3533,7 +3533,7 @@ var zo = S(function (sg, xt) {
   function bu(t, e, i = {}) {
     let { memoize: s } = i,
       r = _t.get(t, e, i);
-    if (r && s !== !1) return Promise.resolve(r.entry);
+    if (r && s !== false) return Promise.resolve(r.entry);
     else return Ut.find(t, e);
   }
   xt.exports.info = bu;
@@ -3611,27 +3611,27 @@ var Uo = S(function (rg, Go) {
     constructor(e) {
       super();
       if (
-        ((this[Pi] = !1),
-        (this[qe] = !1),
+        ((this[Pi] = false),
+        (this[qe] = false),
         (this.pipes = []),
         (this.buffer = []),
-        (this[I] = (e && e.objectMode) || !1),
+        (this[I] = (e && e.objectMode) || false),
         this[I])
       )
         this[U] = null;
       else this[U] = (e && e.encoding) || null;
       if (this[U] === "buffer") this[U] = null;
-      (this[Rt] = (e && !!e.async) || !1),
+      (this[Rt] = (e && !!e.async) || false),
         (this[Ot] = this[U] ? new Lo(this[U]) : null),
-        (this[vt] = !1),
-        (this[zt] = !1),
-        (this[Di] = !1),
-        (this[Fi] = !1),
+        (this[vt] = false),
+        (this[zt] = false),
+        (this[Di] = false),
+        (this[Fi] = false),
         (this[ke] = null),
-        (this.writable = !0),
-        (this.readable = !0),
+        (this.writable = true),
+        (this.readable = true),
         (this[F] = 0),
-        (this[j] = !1);
+        (this[j] = false);
     }
     get bufferLength() {
       return this[F];
@@ -3672,7 +3672,7 @@ var Uo = S(function (rg, Go) {
             "error",
             Object.assign(Error("Cannot call write after a stream was destroyed"), { code: "ERR_STREAM_DESTROYED" }),
           ),
-          !0
+          true
         );
       if (typeof i === "function") (s = i), (i = "utf8");
       if (!i) i = "utf8";
@@ -3680,10 +3680,10 @@ var Uo = S(function (rg, Go) {
       if (!this[I] && !Buffer.isBuffer(e)) {
         if (Ru(e)) e = Buffer.from(e.buffer, e.byteOffset, e.byteLength);
         else if (Ou(e)) e = Buffer.from(e);
-        else if (typeof e !== "string") this.objectMode = !0;
+        else if (typeof e !== "string") this.objectMode = true;
       }
       if (this[I]) {
-        if (this.flowing && this[F] !== 0) this[Mi](!0);
+        if (this.flowing && this[F] !== 0) this[Mi](true);
         if (this.flowing) this.emit("data", e);
         else this[Hs](e);
         if (this[F] !== 0) this.emit("readable");
@@ -3697,7 +3697,7 @@ var Uo = S(function (rg, Go) {
       }
       if (typeof e === "string" && !(i === this[U] && !this[Ot].lastNeed)) e = Buffer.from(e, i);
       if (Buffer.isBuffer(e) && this[U]) e = this[Ot].write(e);
-      if (this.flowing && this[F] !== 0) this[Mi](!0);
+      if (this.flowing && this[F] !== 0) this[Mi](true);
       if (this.flowing) this.emit("data", e);
       else this[Hs](e);
       if (this[F] !== 0) this.emit("readable");
@@ -3725,12 +3725,12 @@ var Uo = S(function (rg, Go) {
       if (typeof i === "function") (s = i), (i = "utf8");
       if (e) this.write(e, i);
       if (s) this.once("end", s);
-      if (((this[vt] = !0), (this.writable = !1), this.flowing || !this[qe])) this[Tt]();
+      if (((this[vt] = true), (this.writable = false), this.flowing || !this[qe])) this[Tt]();
       return this;
     }
     [ge]() {
       if (this[j]) return;
-      if (((this[qe] = !1), (this[Pi] = !0), this.emit("resume"), this.buffer.length)) this[Mi]();
+      if (((this[qe] = false), (this[Pi] = true), this.emit("resume"), this.buffer.length)) this[Mi]();
       else if (this[vt]) this[Tt]();
       else this.emit("drain");
     }
@@ -3738,7 +3738,7 @@ var Uo = S(function (rg, Go) {
       return this[ge]();
     }
     pause() {
-      (this[Pi] = !1), (this[qe] = !0);
+      (this[Pi] = false), (this[qe] = true);
     }
     get destroyed() {
       return this[j];
@@ -3766,13 +3766,13 @@ var Uo = S(function (rg, Go) {
       if (!e && !this.buffer.length && !this[vt]) this.emit("drain");
     }
     [qo](e) {
-      return e ? (this.emit("data", e), this.flowing) : !1;
+      return e ? (this.emit("data", e), this.flowing) : false;
     }
     pipe(e, i) {
       if (this[j]) return;
       let s = this[zt];
-      if (((i = i || {}), e === Io.stdout || e === Io.stderr)) i.end = !1;
-      else i.end = i.end !== !1;
+      if (((i = i || {}), e === Io.stdout || e === Io.stderr)) i.end = false;
+      else i.end = i.end !== false;
       if (((i.proxyErrors = !!i.proxyErrors), s)) {
         if (i.end) e.end();
       } else if ((this.pipes.push(!i.proxyErrors ? new Xs(this, e, i) : new Bo(this, e, i)), this[Rt]))
@@ -3802,17 +3802,17 @@ var Uo = S(function (rg, Go) {
     }
     [Tt]() {
       if (!this[Di] && !this[zt] && !this[j] && this.buffer.length === 0 && this[vt]) {
-        if (((this[Di] = !0), this.emit("end"), this.emit("prefinish"), this.emit("finish"), this[Fi]))
+        if (((this[Di] = true), this.emit("end"), this.emit("prefinish"), this.emit("finish"), this[Fi]))
           this.emit("close");
-        this[Di] = !1;
+        this[Di] = false;
       }
     }
     emit(e, i, ...s) {
       if (e !== "error" && e !== "close" && e !== j && this[j]) return;
-      else if (e === "data") return !i ? !1 : this[Rt] ? We(() => this[Ys](i)) : this[Ys](i);
+      else if (e === "data") return !i ? false : this[Rt] ? We(() => this[Ys](i)) : this[Ys](i);
       else if (e === "end") return this[Wo]();
       else if (e === "close") {
-        if (((this[Fi] = !0), !this[zt] && !this[j])) return;
+        if (((this[Fi] = true), !this[zt] && !this[j])) return;
         let n = super.emit("close");
         return this.removeAllListeners("close"), n;
       } else if (e === "error") {
@@ -3830,13 +3830,13 @@ var Uo = S(function (rg, Go) {
       return this[Tt](), r;
     }
     [Ys](e) {
-      for (let s of this.pipes) if (s.dest.write(e) === !1) this.pause();
+      for (let s of this.pipes) if (s.dest.write(e) === false) this.pause();
       let i = super.emit("data", e);
       return this[Tt](), i;
     }
     [Wo]() {
       if (this[zt]) return;
-      if (((this[zt] = !0), (this.readable = !1), this[Rt])) We(() => this[Ks]());
+      if (((this[zt] = true), (this.readable = false), this[Rt])) We(() => this[Ks]());
       else this[Ks]();
     }
     [Ks]() {
@@ -3882,8 +3882,8 @@ var Uo = S(function (rg, Go) {
       return {
         next: () => {
           let i = this.read();
-          if (i !== null) return Promise.resolve({ done: !1, value: i });
-          if (this[vt]) return Promise.resolve({ done: !0 });
+          if (i !== null) return Promise.resolve({ done: false, value: i });
+          if (this[vt]) return Promise.resolve({ done: true });
           let s = null,
             r = null,
             n = (l) => {
@@ -3896,7 +3896,7 @@ var Uo = S(function (rg, Go) {
                 s({ value: l, done: !!this[vt] });
             },
             h = () => {
-              this.removeListener("error", n), this.removeListener("data", o), s({ done: !0 });
+              this.removeListener("error", n), this.removeListener("data", o), s({ done: true });
             },
             a = () => n(Error("stream destroyed"));
           return new Promise((l, c) => {
@@ -3919,7 +3919,7 @@ var Uo = S(function (rg, Go) {
         else this.emit(j);
         return this;
       }
-      if (((this[j] = !0), (this.buffer.length = 0), (this[F] = 0), typeof this.close === "function" && !this[Fi]))
+      if (((this[j] = true), (this.buffer.length = 0), (this[F] = 0), typeof this.close === "function" && !this[Fi]))
         this.close();
       if (e) this.emit("error", e);
       else this.emit(j);
@@ -3952,9 +3952,9 @@ var Js = S(function (ng, Xo) {
     emit(t, ...e) {
       if ((t !== "end" && t !== "finish") || this[Vo]) return super.emit(t, ...e);
       if (this[Yo]) return;
-      this[Yo] = !0;
+      this[Yo] = true;
       let i = (r) => {
-          (this[Vo] = !0), r ? super.emit("error", r) : super.emit("end");
+          (this[Vo] = true), r ? super.emit("error", r) : super.emit("end");
         },
         s = this[Ho](i);
       if (s && s.then)
@@ -3991,7 +3991,7 @@ var ih = S(function (og, tr) {
       try {
         await Be.writeFile(a.target, e, { flag: "wx" }), await eh(a, t, l, i);
       } finally {
-        if (!a.moved) await Be.rm(a.target, { recursive: !0, force: !0 });
+        if (!a.moved) await Be.rm(a.target, { recursive: true, force: true });
       }
     }
     return { integrity: o, size: e.length };
@@ -4037,7 +4037,7 @@ var ih = S(function (og, tr) {
       let r = await Lu(t, e, s.target, i);
       return await eh(s, e, r.integrity, i), r;
     } finally {
-      if (!s.moved) await Be.rm(s.target, { recursive: !0, force: !0 });
+      if (!s.moved) await Be.rm(s.target, { recursive: true, force: true });
     }
   }
   async function Lu(t, e, i, s) {
@@ -4066,7 +4066,7 @@ var ih = S(function (og, tr) {
   }
   async function th(t, e) {
     let i = Pu(Zs.join(t, "tmp"), e.tmpPrefix);
-    return await Be.mkdir(Zs.dirname(i), { recursive: !0 }), { target: i, moved: !1 };
+    return await Be.mkdir(Zs.dirname(i), { recursive: true }), { target: i, moved: false };
   }
   async function eh(t, e, i) {
     let s = Cu(e, i),
@@ -4075,8 +4075,8 @@ var ih = S(function (og, tr) {
     return (
       $e.set(
         s,
-        Be.mkdir(r, { recursive: !0 })
-          .then(async () => (await Du(t.target, s, { overwrite: !1 }), (t.moved = !0), t.moved))
+        Be.mkdir(r, { recursive: true })
+          .then(async () => (await Du(t.target, s, { overwrite: false }), (t.moved = true), t.moved))
           .catch((n) => {
             if (!n.message.startsWith("The destination file exists")) throw Object.assign(n, { code: "EEXIST" });
           })
@@ -4159,7 +4159,7 @@ var hh = S(function (hg, er) {
   }
 });
 var ch = S(function (lh) {
-  Object.defineProperty(lh, "__esModule", { value: !0 });
+  Object.defineProperty(lh, "__esModule", { value: true });
   lh.range = lh.balanced = void 0;
   var Hu = (t, e, i) => {
     let s = t instanceof RegExp ? ah(t, i) : t,
@@ -4210,7 +4210,7 @@ var ch = S(function (lh) {
   lh.range = Vu;
 });
 var yh = S(function (wh) {
-  Object.defineProperty(wh, "__esModule", { value: !0 });
+  Object.defineProperty(wh, "__esModule", { value: true });
   wh.EXPANSION_MAX = void 0;
   wh.expand = hd;
   var fh = ch(),
@@ -4255,7 +4255,7 @@ var yh = S(function (wh) {
     if (!t) return [];
     let { max: i = wh.EXPANSION_MAX } = e;
     if (t.slice(0, 2) === "{}") t = "\\{\\}" + t.slice(2);
-    return Ge(nd(t), i, !0).map(od);
+    return Ge(nd(t), i, true).map(od);
   }
   function ad(t) {
     return "{" + t + "}";
@@ -4274,7 +4274,7 @@ var yh = S(function (wh) {
       r = (0, fh.balanced)("{", "}", t);
     if (!r) return [t];
     let n = r.pre,
-      o = r.post.length ? Ge(r.post, e, !1) : [""];
+      o = r.post.length ? Ge(r.post, e, false) : [""];
     if (/\$$/.test(r.pre))
       for (let h = 0; h < o.length && h < e; h++) {
         let a = n + "{" + r.body + "}" + o[h];
@@ -4286,13 +4286,13 @@ var yh = S(function (wh) {
         l = h || a,
         c = r.body.indexOf(",") >= 0;
       if (!l && !c) {
-        if (r.post.match(/,(?!,).*\}/)) return (t = r.pre + "{" + r.body + rr + r.post), Ge(t, e, !0);
+        if (r.post.match(/,(?!,).*\}/)) return (t = r.pre + "{" + r.body + rr + r.post), Ge(t, e, true);
         return [t];
       }
       let f;
       if (l) f = r.body.split(/\.\./);
       else if (((f = gh(r.body)), f.length === 1 && f[0] !== void 0)) {
-        if (((f = Ge(f[0], e, !1).map(ad)), f.length === 1)) return o.map((d) => r.pre + f[0] + d);
+        if (((f = Ge(f[0], e, false).map(ad)), f.length === 1)) return o.map((d) => r.pre + f[0] + d);
       }
       let u;
       if (l && f[0] !== void 0 && f[1] !== void 0) {
@@ -4320,7 +4320,7 @@ var yh = S(function (wh) {
         }
       } else {
         u = [];
-        for (let d = 0; d < f.length; d++) u.push.apply(u, Ge(f[d], e, !1));
+        for (let d = 0; d < f.length; d++) u.push.apply(u, Ge(f[d], e, false));
       }
       for (let d = 0; d < u.length; d++)
         for (let p = 0; p < o.length && s.length < e; p++) {
@@ -4332,7 +4332,7 @@ var yh = S(function (wh) {
   }
 });
 var Eh = S(function (bh) {
-  Object.defineProperty(bh, "__esModule", { value: !0 });
+  Object.defineProperty(bh, "__esModule", { value: true });
   bh.assertValidPattern = void 0;
   var dd = 65536,
     pd = (t) => {
@@ -4342,23 +4342,23 @@ var Eh = S(function (bh) {
   bh.assertValidPattern = pd;
 });
 var Th = S(function (xh) {
-  Object.defineProperty(xh, "__esModule", { value: !0 });
+  Object.defineProperty(xh, "__esModule", { value: true });
   xh.parseClass = void 0;
   var md = {
-      "[:alnum:]": ["\\p{L}\\p{Nl}\\p{Nd}", !0],
-      "[:alpha:]": ["\\p{L}\\p{Nl}", !0],
-      "[:ascii:]": ["\\x00-\\x7f", !1],
-      "[:blank:]": ["\\p{Zs}\\t", !0],
-      "[:cntrl:]": ["\\p{Cc}", !0],
-      "[:digit:]": ["\\p{Nd}", !0],
-      "[:graph:]": ["\\p{Z}\\p{C}", !0, !0],
-      "[:lower:]": ["\\p{Ll}", !0],
-      "[:print:]": ["\\p{C}", !0],
-      "[:punct:]": ["\\p{P}", !0],
-      "[:space:]": ["\\p{Z}\\t\\r\\n\\v\\f", !0],
-      "[:upper:]": ["\\p{Lu}", !0],
-      "[:word:]": ["\\p{L}\\p{Nl}\\p{Nd}\\p{Pc}", !0],
-      "[:xdigit:]": ["A-Fa-f0-9", !1],
+      "[:alnum:]": ["\\p{L}\\p{Nl}\\p{Nd}", true],
+      "[:alpha:]": ["\\p{L}\\p{Nl}", true],
+      "[:ascii:]": ["\\x00-\\x7f", false],
+      "[:blank:]": ["\\p{Zs}\\t", true],
+      "[:cntrl:]": ["\\p{Cc}", true],
+      "[:digit:]": ["\\p{Nd}", true],
+      "[:graph:]": ["\\p{Z}\\p{C}", true, true],
+      "[:lower:]": ["\\p{Ll}", true],
+      "[:print:]": ["\\p{C}", true],
+      "[:punct:]": ["\\p{P}", true],
+      "[:space:]": ["\\p{Z}\\t\\r\\n\\v\\f", true],
+      "[:upper:]": ["\\p{Lu}", true],
+      "[:word:]": ["\\p{L}\\p{Nl}\\p{Nd}\\p{Pc}", true],
+      "[:xdigit:]": ["A-Fa-f0-9", false],
     },
     Ue = (t) => t.replace(/[[\]\\-]/g, "\\$&"),
     gd = (t) => t.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"),
@@ -4369,39 +4369,39 @@ var Th = S(function (xh) {
       let s = [],
         r = [],
         n = i + 1,
-        o = !1,
-        h = !1,
-        a = !1,
-        l = !1,
+        o = false,
+        h = false,
+        a = false,
+        l = false,
         c = i,
         f = "";
       t: while (n < t.length) {
         let g = t.charAt(n);
         if ((g === "!" || g === "^") && n === i + 1) {
-          (l = !0), n++;
+          (l = true), n++;
           continue;
         }
         if (g === "]" && o && !a) {
           c = n + 1;
           break;
         }
-        if (((o = !0), g === "\\")) {
+        if (((o = true), g === "\\")) {
           if (!a) {
-            (a = !0), n++;
+            (a = true), n++;
             continue;
           }
         }
         if (g === "[" && !a) {
           for (let [m, [y, b, w]] of Object.entries(md))
             if (t.startsWith(m, n)) {
-              if (f) return ["$.", !1, t.length - i, !0];
+              if (f) return ["$.", false, t.length - i, true];
               if (((n += m.length), w)) r.push(y);
               else s.push(y);
               h = h || b;
               continue t;
             }
         }
-        if (((a = !1), f)) {
+        if (((a = false), f)) {
           if (g > f) s.push(Ue(f) + "-" + Ue(g));
           else if (g === f) s.push(Ue(g));
           (f = ""), n++;
@@ -4417,22 +4417,22 @@ var Th = S(function (xh) {
         }
         s.push(Ue(g)), n++;
       }
-      if (c < n) return ["", !1, 0, !1];
-      if (!s.length && !r.length) return ["$.", !1, t.length - i, !0];
+      if (c < n) return ["", false, 0, false];
+      if (!s.length && !r.length) return ["$.", false, t.length - i, true];
       if (r.length === 0 && s.length === 1 && /^\\?.$/.test(s[0]) && !l) {
         let g = s[0].length === 2 ? s[0].slice(-1) : s[0];
-        return [gd(g), !1, c - i, !1];
+        return [gd(g), false, c - i, false];
       }
       let u = "[" + (l ? "^" : "") + _h(s) + "]",
         d = "[" + (l ? "" : "^") + _h(r) + "]";
-      return [s.length && r.length ? "(" + u + "|" + d + ")" : s.length ? u : d, h, c - i, !0];
+      return [s.length && r.length ? "(" + u + "|" + d + ")" : s.length ? u : d, h, c - i, true];
     };
   xh.parseClass = wd;
 });
 var Ni = S(function (Oh) {
-  Object.defineProperty(Oh, "__esModule", { value: !0 });
+  Object.defineProperty(Oh, "__esModule", { value: true });
   Oh.unescape = void 0;
-  var yd = (t, { windowsPathsNoEscape: e = !1, magicalBraces: i = !0 } = {}) => {
+  var yd = (t, { windowsPathsNoEscape: e = false, magicalBraces: i = true } = {}) => {
     if (i)
       return e
         ? t.replace(/\[([^\/\\])\]/g, "$1")
@@ -4444,7 +4444,7 @@ var Ni = S(function (Oh) {
   Oh.unescape = yd;
 });
 var hr = S(function (Fh) {
-  Object.defineProperty(Fh, "__esModule", { value: !0 });
+  Object.defineProperty(Fh, "__esModule", { value: true });
   Fh.AST = void 0;
   var bd = Th(),
     zi = Ni(),
@@ -4463,17 +4463,17 @@ var hr = S(function (Fh) {
     type;
     #e;
     #s;
-    #r = !1;
+    #r = false;
     #n = [];
     #o;
     #O;
     #v;
-    #d = !1;
+    #d = false;
     #a;
     #g;
-    #c = !1;
+    #c = false;
     constructor(t, e, i = {}) {
-      if (((this.type = t), t)) this.#s = !0;
+      if (((this.type = t), t)) this.#s = true;
       if (
         ((this.#o = e),
         (this.#e = this.#o ? this.#o.#e : this),
@@ -4488,7 +4488,7 @@ var hr = S(function (Fh) {
       if (this.#s !== void 0) return this.#s;
       for (let t of this.#n) {
         if (typeof t === "string") continue;
-        if (t.type || t.hasMagic) return (this.#s = !0);
+        if (t.type || t.hasMagic) return (this.#s = true);
       }
       return this.#s;
     }
@@ -4500,7 +4500,7 @@ var hr = S(function (Fh) {
     #l() {
       if (this !== this.#e) throw Error("should only call on root");
       if (this.#d) return this;
-      this.toString(), (this.#d = !0);
+      this.toString(), (this.#d = true);
       let t;
       while ((t = this.#v.pop())) {
         if (t.type !== "!") continue;
@@ -4534,20 +4534,20 @@ var hr = S(function (Fh) {
       return t;
     }
     isStart() {
-      if (this.#e === this) return !0;
-      if (!this.#o?.isStart()) return !1;
-      if (this.#O === 0) return !0;
+      if (this.#e === this) return true;
+      if (!this.#o?.isStart()) return false;
+      if (this.#O === 0) return true;
       let t = this.#o;
       for (let e = 0; e < this.#O; e++) {
         let i = t.#n[e];
-        if (!(i instanceof H && i.type === "!")) return !1;
+        if (!(i instanceof H && i.type === "!")) return false;
       }
-      return !0;
+      return true;
     }
     isEnd() {
-      if (this.#e === this) return !0;
-      if (this.#o?.type === "!") return !0;
-      if (!this.#o?.isEnd()) return !1;
+      if (this.#e === this) return true;
+      if (this.#o?.type === "!") return true;
+      if (!this.#o?.isEnd()) return false;
       if (!this.type) return this.#o?.isEnd();
       let t = this.#o ? this.#o.#n.length : 0;
       return this.#O === t - 1;
@@ -4562,10 +4562,10 @@ var hr = S(function (Fh) {
       return e;
     }
     static #t(t, e, i, s) {
-      let r = !1,
-        n = !1,
+      let r = false,
+        n = false,
         o = -1,
-        h = !1;
+        h = false;
       if (e.type === null) {
         let u = i,
           d = "";
@@ -4577,12 +4577,12 @@ var hr = S(function (Fh) {
           }
           if (n) {
             if (u === o + 1) {
-              if (p === "^" || p === "!") h = !0;
-            } else if (p === "]" && !(u === o + 2 && h)) n = !1;
+              if (p === "^" || p === "!") h = true;
+            } else if (p === "]" && !(u === o + 2 && h)) n = false;
             d += p;
             continue;
           } else if (p === "[") {
-            (n = !0), (o = u), (h = !1), (d += p);
+            (n = true), (o = u), (h = false), (d += p);
             continue;
           }
           if (!s.noext && Ah(p) && t.charAt(u) === "(") {
@@ -4607,12 +4607,12 @@ var hr = S(function (Fh) {
         }
         if (n) {
           if (a === o + 1) {
-            if (u === "^" || u === "!") h = !0;
-          } else if (u === "]" && !(a === o + 2 && h)) n = !1;
+            if (u === "^" || u === "!") h = true;
+          } else if (u === "]" && !(a === o + 2 && h)) n = false;
           f += u;
           continue;
         } else if (u === "[") {
-          (n = !0), (o = a), (h = !1), (f += u);
+          (n = true), (o = a), (h = false), (f += u);
           continue;
         }
         if (Ah(u) && t.charAt(a) === "(") {
@@ -4626,7 +4626,7 @@ var hr = S(function (Fh) {
           continue;
         }
         if (u === ")") {
-          if (f === "" && e.#n.length === 0) e.#c = !0;
+          if (f === "" && e.#n.length === 0) e.#c = true;
           return l.push(f), (f = ""), e.push(...c, l), a;
         }
         f += u;
@@ -4683,9 +4683,9 @@ var hr = S(function (Fh) {
         r = this.#p(e);
       if (this.isStart() && this.isEnd() && !r && this.type !== "!") {
         let h = this.toString();
-        return (this.#n = [h]), (this.type = null), (this.#s = void 0), [h, (0, zi.unescape)(this.toString()), !1, !1];
+        return (this.#n = [h]), (this.type = null), (this.#s = void 0), [h, (0, zi.unescape)(this.toString()), false, false];
       }
-      let n = !i || t || e || !Ii ? "" : this.#p(!0);
+      let n = !i || t || e || !Ii ? "" : this.#p(true);
       if (n === r) n = "";
       if (n) r = `(?:${r})(?:${n})*?`;
       let o = "";
@@ -4717,19 +4717,19 @@ var hr = S(function (Fh) {
         .filter((e) => !(this.isStart() && this.isEnd()) || !!e)
         .join("|");
     }
-    static #b(t, e, i = !1) {
-      let s = !1,
+    static #b(t, e, i = false) {
+      let s = false,
         r = "",
-        n = !1;
+        n = false;
       for (let o = 0; o < t.length; o++) {
         let h = t.charAt(o);
         if (s) {
-          (s = !1), (r += (vd.has(h) ? "\\" : "") + h);
+          (s = false), (r += (vd.has(h) ? "\\" : "") + h);
           continue;
         }
         if (h === "\\") {
           if (o === t.length - 1) r += "\\\\";
-          else s = !0;
+          else s = true;
           continue;
         }
         if (h === "[") {
@@ -4740,11 +4740,11 @@ var hr = S(function (Fh) {
           }
         }
         if (h === "*") {
-          (r += i && t === "*" ? Dh : Ch), (e = !0);
+          (r += i && t === "*" ? Dh : Ch), (e = true);
           continue;
         }
         if (h === "?") {
-          (r += or), (e = !0);
+          (r += or), (e = true);
           continue;
         }
         r += Td(h);
@@ -4755,16 +4755,16 @@ var hr = S(function (Fh) {
   Fh.AST = H;
 });
 var ar = S(function (Ph) {
-  Object.defineProperty(Ph, "__esModule", { value: !0 });
+  Object.defineProperty(Ph, "__esModule", { value: true });
   Ph.escape = void 0;
-  var Od = (t, { windowsPathsNoEscape: e = !1, magicalBraces: i = !1 } = {}) => {
+  var Od = (t, { windowsPathsNoEscape: e = false, magicalBraces: i = false } = {}) => {
     if (i) return e ? t.replace(/[?*()[\]{}]/g, "[$&]") : t.replace(/[?*()[\]\\{}]/g, "\\$&");
     return e ? t.replace(/[?*()[\]]/g, "[$&]") : t.replace(/[?*()[\]\\]/g, "\\$&");
   };
   Ph.escape = Od;
 });
 var It = S(function (He) {
-  Object.defineProperty(He, "__esModule", { value: !0 });
+  Object.defineProperty(He, "__esModule", { value: true });
   He.unescape =
     He.escape =
     He.AST =
@@ -4784,7 +4784,7 @@ var It = S(function (He) {
     Ad = ar(),
     Cd = Ni(),
     Dd = (t, e, i = {}) => {
-      if (((0, ji.assertValidPattern)(e), !i.nocomment && e.charAt(0) === "#")) return !1;
+      if (((0, ji.assertValidPattern)(e), !i.nocomment && e.charAt(0) === "#")) return false;
       return new we(e, i).match(t);
     };
   He.minimatch = Dd;
@@ -4925,16 +4925,16 @@ var It = S(function (He) {
         (this.pattern = t),
         (this.platform = e.platform || qh),
         (this.isWindows = this.platform === "win32"),
-        (this.windowsPathsNoEscape = !!e.windowsPathsNoEscape || e.allowWindowsEscape === !1),
+        (this.windowsPathsNoEscape = !!e.windowsPathsNoEscape || e.allowWindowsEscape === false),
         this.windowsPathsNoEscape)
       )
         this.pattern = this.pattern.replace(/\\/g, "/");
       (this.preserveMultipleSlashes = !!e.preserveMultipleSlashes),
         (this.regexp = null),
-        (this.negate = !1),
+        (this.negate = false),
         (this.nonegate = !!e.nonegate),
-        (this.comment = !1),
-        (this.empty = !1),
+        (this.comment = false),
+        (this.empty = false),
         (this.partial = !!e.partial),
         (this.nocase = !!this.options.nocase),
         (this.windowsNoMagicRoot =
@@ -4945,20 +4945,20 @@ var It = S(function (He) {
         this.make();
     }
     hasMagic() {
-      if (this.options.magicalBraces && this.set.length > 1) return !0;
-      for (let t of this.set) for (let e of t) if (typeof e !== "string") return !0;
-      return !1;
+      if (this.options.magicalBraces && this.set.length > 1) return true;
+      for (let t of this.set) for (let e of t) if (typeof e !== "string") return true;
+      return false;
     }
     debug(...t) {}
     make() {
       let t = this.pattern,
         e = this.options;
       if (!e.nocomment && t.charAt(0) === "#") {
-        this.comment = !0;
+        this.comment = true;
         return;
       }
       if (!t) {
-        this.empty = !0;
+        this.empty = true;
         return;
       }
       if ((this.parseNegate(), (this.globSet = [...new Set(this.braceExpand())]), e.debug))
@@ -4975,7 +4975,7 @@ var It = S(function (He) {
         }
         return r.map((h) => this.parse(h));
       });
-      if ((this.debug(this.pattern, s), (this.set = s.filter((r) => r.indexOf(!1) === -1)), this.isWindows))
+      if ((this.debug(this.pattern, s), (this.set = s.filter((r) => r.indexOf(false) === -1)), this.isWindows))
         for (let r = 0; r < this.set.length; r++) {
           let n = this.set[r];
           if (
@@ -5027,28 +5027,28 @@ var It = S(function (He) {
     }
     levelTwoFileOptimize(t) {
       if (!Array.isArray(t)) t = this.slashSplit(t);
-      let e = !1;
+      let e = false;
       do {
-        if (((e = !1), !this.preserveMultipleSlashes)) {
+        if (((e = false), !this.preserveMultipleSlashes)) {
           for (let s = 1; s < t.length - 1; s++) {
             let r = t[s];
             if (s === 1 && r === "" && t[0] === "") continue;
-            if (r === "." || r === "") (e = !0), t.splice(s, 1), s--;
+            if (r === "." || r === "") (e = true), t.splice(s, 1), s--;
           }
-          if (t[0] === "." && t.length === 2 && (t[1] === "." || t[1] === "")) (e = !0), t.pop();
+          if (t[0] === "." && t.length === 2 && (t[1] === "." || t[1] === "")) (e = true), t.pop();
         }
         let i = 0;
         while ((i = t.indexOf("..", i + 1)) !== -1) {
           let s = t[i - 1];
-          if (s && s !== "." && s !== ".." && s !== "**") (e = !0), t.splice(i - 1, 2), (i -= 2);
+          if (s && s !== "." && s !== ".." && s !== "**") (e = true), t.splice(i - 1, 2), (i -= 2);
         }
       } while (e);
       return t.length === 0 ? [""] : t;
     }
     firstPhasePreProcess(t) {
-      let e = !1;
+      let e = false;
       do {
-        e = !1;
+        e = false;
         for (let i of t) {
           let s = -1;
           while ((s = i.indexOf("**", s + 1)) !== -1) {
@@ -5060,7 +5060,7 @@ var It = S(function (He) {
               a = i[s + 3];
             if (o !== "..") continue;
             if (!h || h === "." || h === ".." || !a || a === "." || a === "..") continue;
-            (e = !0), i.splice(s, 1);
+            (e = true), i.splice(s, 1);
             let l = i.slice(0);
             (l[s] = "**"), t.push(l), s--;
           }
@@ -5068,15 +5068,15 @@ var It = S(function (He) {
             for (let n = 1; n < i.length - 1; n++) {
               let o = i[n];
               if (n === 1 && o === "" && i[0] === "") continue;
-              if (o === "." || o === "") (e = !0), i.splice(n, 1), n--;
+              if (o === "." || o === "") (e = true), i.splice(n, 1), n--;
             }
-            if (i[0] === "." && i.length === 2 && (i[1] === "." || i[1] === "")) (e = !0), i.pop();
+            if (i[0] === "." && i.length === 2 && (i[1] === "." || i[1] === "")) (e = true), i.pop();
           }
           let r = 0;
           while ((r = i.indexOf("..", r + 1)) !== -1) {
             let n = i[r - 1];
             if (n && n !== "." && n !== ".." && n !== "**") {
-              e = !0;
+              e = true;
               let h = r === 1 && i[r + 1] === "**" ? ["."] : [];
               if ((i.splice(r - 1, 2, ...h), i.length === 0)) i.push("");
               r -= 2;
@@ -5097,7 +5097,7 @@ var It = S(function (He) {
         }
       return t.filter((e) => e.length);
     }
-    partsMatch(t, e, i = !1) {
+    partsMatch(t, e, i = false) {
       let s = 0,
         r = 0,
         n = [],
@@ -5107,24 +5107,24 @@ var It = S(function (He) {
         else if (i && t[s] === "**" && e[r] === t[s + 1]) n.push(t[s]), s++;
         else if (i && e[r] === "**" && t[s] === e[r + 1]) n.push(e[r]), r++;
         else if (t[s] === "*" && e[r] && (this.options.dot || !e[r].startsWith(".")) && e[r] !== "**") {
-          if (o === "b") return !1;
+          if (o === "b") return false;
           (o = "a"), n.push(t[s]), s++, r++;
         } else if (e[r] === "*" && t[s] && (this.options.dot || !t[s].startsWith(".")) && t[s] !== "**") {
-          if (o === "a") return !1;
+          if (o === "a") return false;
           (o = "b"), n.push(e[r]), s++, r++;
-        } else return !1;
+        } else return false;
       return t.length === e.length && n;
     }
     parseNegate() {
       if (this.nonegate) return;
       let t = this.pattern,
-        e = !1,
+        e = false,
         i = 0;
       for (let s = 0; s < t.length && t.charAt(s) === "!"; s++) (e = !e), i++;
       if (i) this.pattern = t.slice(i);
       this.negate = e;
     }
-    matchOne(t, e, i = !1) {
+    matchOne(t, e, i = false) {
       let s = this.options;
       if (this.isWindows) {
         let p = typeof t[0] === "string" && /^[a-z]:$/i.test(t[0]),
@@ -5148,15 +5148,15 @@ var It = S(function (He) {
         this.debug("matchOne loop");
         var l = e[o],
           c = t[n];
-        if ((this.debug(e, l, c), l === !1)) return !1;
+        if ((this.debug(e, l, c), l === false)) return false;
         if (l === He.GLOBSTAR) {
           this.debug("GLOBSTAR", [e, l, c]);
           var f = n,
             u = o + 1;
           if (u === a) {
             this.debug("** at the end");
-            for (; n < h; n++) if (t[n] === "." || t[n] === ".." || (!s.dot && t[n].charAt(0) === ".")) return !1;
-            return !0;
+            for (; n < h; n++) if (t[n] === "." || t[n] === ".." || (!s.dot && t[n].charAt(0) === ".")) return false;
+            return true;
           }
           while (f < h) {
             var d = t[f];
@@ -5172,7 +5172,7 @@ globstar while`,
               ),
               this.matchOne(t.slice(f), e.slice(u), i))
             )
-              return this.debug("globstar found match!", f, h, d), !0;
+              return this.debug("globstar found match!", f, h, d), true;
             else {
               if (d === "." || d === ".." || (!s.dot && d.charAt(0) === ".")) {
                 this.debug("dot detected!", t, f, e, u);
@@ -5193,16 +5193,16 @@ globstar while`,
               ),
               f === h)
             )
-              return !0;
+              return true;
           }
-          return !1;
+          return false;
         }
         let p;
         if (typeof l === "string") (p = c === l), this.debug("string match", l, c, p);
         else (p = l.test(c)), this.debug("pattern match", l, c, p);
-        if (!p) return !1;
+        if (!p) return false;
       }
-      if (n === h && o === a) return !0;
+      if (n === h && o === a) return true;
       else if (n === h) return i;
       else if (o === a) return n === h - 1 && t[n] === "";
       else throw Error("wtf?");
@@ -5227,9 +5227,9 @@ globstar while`,
       return r;
     }
     makeRe() {
-      if (this.regexp || this.regexp === !1) return this.regexp;
+      if (this.regexp || this.regexp === false) return this.regexp;
       let t = this.set;
-      if (!t.length) return (this.regexp = !1), this.regexp;
+      if (!t.length) return (this.regexp = false), this.regexp;
       let e = this.options,
         i = e.noglobstar ? Xd : e.dot ? Jd : Zd,
         s = new Set(e.nocase ? ["i"] : []),
@@ -5264,7 +5264,7 @@ globstar while`,
       try {
         this.regexp = new RegExp(r, [...s].join(""));
       } catch (h) {
-        this.regexp = !1;
+        this.regexp = false;
       }
       return this.regexp;
     }
@@ -5274,9 +5274,9 @@ globstar while`,
       else return t.split(/\/+/);
     }
     match(t, e = this.partial) {
-      if ((this.debug("match", t, this.pattern), this.comment)) return !1;
+      if ((this.debug("match", t, this.pattern), this.comment)) return false;
       if (this.empty) return t === "";
-      if (t === "/" && e) return !0;
+      if (t === "/" && e) return true;
       let i = this.options;
       if (this.isWindows) t = t.split("\\").join("/");
       let s = this.slashSplit(t);
@@ -5290,11 +5290,11 @@ globstar while`,
           a = s;
         if (i.matchBase && h.length === 1) a = [n];
         if (this.matchOne(a, h, e)) {
-          if (i.flipNegate) return !0;
+          if (i.flipNegate) return true;
           return !this.negate;
         }
       }
-      if (i.flipNegate) return !1;
+      if (i.flipNegate) return false;
       return this.negate;
     }
     static defaults(t) {
@@ -5304,21 +5304,21 @@ globstar while`,
   He.Minimatch = we;
   var np = hr();
   Object.defineProperty(He, "AST", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return np.AST;
     },
   });
   var op = ar();
   Object.defineProperty(He, "escape", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return op.escape;
     },
   });
   var hp = Ni();
   Object.defineProperty(He, "unescape", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return hp.unescape;
     },
@@ -5329,7 +5329,7 @@ globstar while`,
   He.minimatch.unescape = Cd.unescape;
 });
 var Zh = S(function (Xh) {
-  Object.defineProperty(Xh, "__esModule", { value: !0 });
+  Object.defineProperty(Xh, "__esModule", { value: true });
   Xh.LRUCache = void 0;
   var cp = typeof performance === "object" && performance && typeof performance.now === "function" ? performance : Date,
     Vh = new Set(),
@@ -5344,7 +5344,7 @@ var Zh = S(function (Xh) {
       onabort;
       _onabort = [];
       reason;
-      aborted = !1;
+      aborted = false;
       addEventListener(s, r) {
         this._onabort.push(r);
       }
@@ -5356,7 +5356,7 @@ var Zh = S(function (Xh) {
         signal = new Hh();
         abort(s) {
           if (this.signal.aborted) return;
-          (this.signal.reason = s), (this.signal.aborted = !0);
+          (this.signal.reason = s), (this.signal.aborted = true);
           for (let r of this.signal._onabort) r(s);
           this.signal.onabort?.(s);
         }
@@ -5364,7 +5364,7 @@ var Zh = S(function (Xh) {
     let t = cr.env?.LRU_CACHE_IGNORE_AC_WARNING !== "1",
       e = () => {
         if (!t) return;
-        (t = !1),
+        (t = false),
           Yh(
             "AbortController is not defined. If using lru-cache in node 14, load an AbortController polyfill from the `node-abort-controller` package. A minimal polyfill is provided for use by LRUCache.fetch(), but it should not be relied upon in other contexts (eg, passing it to other APIs that use AbortController/AbortSignal might have undesirable effects). You may disable this with LRU_CACHE_IGNORE_AC_WARNING=1 in the env.",
             "NO_ABORT_CONTROLLER",
@@ -5397,13 +5397,13 @@ var Zh = S(function (Xh) {
   class ye {
     heap;
     length;
-    static #e = !1;
+    static #e = false;
     static create(t) {
       let e = Kh(t);
       if (!e) return [];
-      ye.#e = !0;
+      ye.#e = true;
       let i = new ye(t, e);
-      return (ye.#e = !1), i;
+      return (ye.#e = false), i;
     }
     constructor(t, e) {
       if (!ye.#e) throw TypeError("instantiate Stack using Stack.create(n)");
@@ -5684,7 +5684,7 @@ var Zh = S(function (Xh) {
     #F = () => {};
     #M = () => {};
     #L = () => {};
-    #S = () => !1;
+    #S = () => false;
     #U() {
       let t = new Ve(this.#e);
       (this.#g = 0),
@@ -5707,7 +5707,7 @@ var Zh = S(function (Xh) {
         (this.#j = (e, i, s) => {
           if (((t[e] = i), this.#s)) {
             let r = this.#s - t[e];
-            while (this.#g > r) this.#W(!0);
+            while (this.#g > r) this.#W(true);
           }
           if (((this.#g += t[e]), s)) (s.entrySize = i), (s.totalCalculatedSize = this.#g);
         });
@@ -5794,8 +5794,8 @@ var Zh = S(function (Xh) {
       }
     }
     purgeStale() {
-      let t = !1;
-      for (let e of this.#D({ allowStale: !0 })) if (this.#S(e)) this.#R(this.#l[e], "expire"), (t = !0);
+      let t = false;
+      for (let e of this.#D({ allowStale: true })) if (this.#S(e)) this.#R(this.#l[e], "expire"), (t = true);
       return t;
     }
     info(t) {
@@ -5818,7 +5818,7 @@ var Zh = S(function (Xh) {
     }
     dump() {
       let t = [];
-      for (let e of this.#C({ allowStale: !0 })) {
+      for (let e of this.#C({ allowStale: true })) {
         let i = this.#l[e],
           s = this.#t[e],
           r = this.#h(s) ? s.__staleWhileFetching : s;
@@ -5856,7 +5856,7 @@ var Zh = S(function (Xh) {
         { noUpdateTTL: a = this.noUpdateTTL } = i,
         l = this.#k(t, e, i.size || 0, o);
       if (this.maxEntrySize && l > this.maxEntrySize) {
-        if (h) (h.set = "miss"), (h.maxEntrySizeExceeded = !0);
+        if (h) (h.set = "miss"), (h.maxEntrySizeExceeded = true);
         return this.#R(t, "set"), this;
       }
       let c = this.#a === 0 ? void 0 : this.#c.get(t);
@@ -5868,7 +5868,7 @@ var Zh = S(function (Xh) {
               : this.#T.length !== 0
                 ? this.#T.pop()
                 : this.#a === this.#e
-                  ? this.#W(!1)
+                  ? this.#W(false)
                   : this.#a),
           (this.#l[c] = t),
           (this.#t[c] = e),
@@ -5881,7 +5881,7 @@ var Zh = S(function (Xh) {
           h)
         )
           h.set = "add";
-        if (((a = !1), this.#N)) this.#n?.(e, t, "add");
+        if (((a = false), this.#N)) this.#n?.(e, t, "add");
       } else {
         this.#P(c);
         let f = this.#t[c];
@@ -5921,7 +5921,7 @@ var Zh = S(function (Xh) {
       try {
         while (this.#a) {
           let t = this.#t[this.#m];
-          if ((this.#W(!0), this.#h(t))) {
+          if ((this.#W(true), this.#h(t))) {
             if (t.__staleWhileFetching) return t.__staleWhileFetching;
           } else if (t !== void 0) return t;
         }
@@ -5953,14 +5953,14 @@ var Zh = S(function (Xh) {
         r = this.#c.get(t);
       if (r !== void 0) {
         let n = this.#t[r];
-        if (this.#h(n) && n.__staleWhileFetching === void 0) return !1;
+        if (this.#h(n) && n.__staleWhileFetching === void 0) return false;
         if (!this.#S(r)) {
           if (i) this.#F(r);
           if (s) (s.has = "hit"), this.#M(s, r);
-          return !0;
+          return true;
         } else if (s) (s.has = "stale"), this.#M(s, r);
       } else if (s) s.has = "miss";
-      return !1;
+      return false;
     }
     peek(t, e = {}) {
       let { allowStale: i = this.allowStale } = e,
@@ -5976,14 +5976,14 @@ var Zh = S(function (Xh) {
         { signal: o } = i;
       o?.addEventListener("abort", () => n.abort(o.reason), { signal: n.signal });
       let h = { signal: n.signal, options: i, context: s },
-        a = (p, g = !1) => {
+        a = (p, g = false) => {
           let { aborted: m } = n.signal,
             y = i.ignoreFetchAbort && p !== void 0;
           if (i.status)
             if (m && !g) {
-              if (((i.status.fetchAborted = !0), (i.status.fetchError = n.signal.reason), y))
-                i.status.fetchAbortIgnored = !0;
-            } else i.status.fetchResolved = !0;
+              if (((i.status.fetchAborted = true), (i.status.fetchError = n.signal.reason), y))
+                i.status.fetchAbortIgnored = true;
+            } else i.status.fetchResolved = true;
           if (m && !y && !g) return c(n.signal.reason);
           let b = u,
             w = this.#t[e];
@@ -5992,13 +5992,13 @@ var Zh = S(function (Xh) {
               if (b.__staleWhileFetching !== void 0) this.#t[e] = b.__staleWhileFetching;
               else this.#R(t, "fetch");
             else {
-              if (i.status) i.status.fetchUpdated = !0;
+              if (i.status) i.status.fetchUpdated = true;
               this.set(t, p, h.options);
             }
           return p;
         },
         l = (p) => {
-          if (i.status) (i.status.fetchRejected = !0), (i.status.fetchError = p);
+          if (i.status) (i.status.fetchRejected = true), (i.status.fetchError = p);
           return c(p);
         },
         c = (p) => {
@@ -6012,7 +6012,7 @@ var Zh = S(function (Xh) {
             else if (!m) this.#t[e] = w.__staleWhileFetching;
           }
           if (y) {
-            if (i.status && w.__staleWhileFetching !== void 0) i.status.returnedStale = !0;
+            if (i.status && w.__staleWhileFetching !== void 0) i.status.returnedStale = true;
             return w.__staleWhileFetching;
           } else if (w.__returned === w) throw p;
         },
@@ -6021,11 +6021,11 @@ var Zh = S(function (Xh) {
           if (m && m instanceof Promise) m.then((y) => p(y === void 0 ? void 0 : y), g);
           n.signal.addEventListener("abort", () => {
             if (!i.ignoreFetchAbort || i.allowStaleOnFetchAbort) {
-              if ((p(void 0), i.allowStaleOnFetchAbort)) p = (y) => a(y, !0);
+              if ((p(void 0), i.allowStaleOnFetchAbort)) p = (y) => a(y, true);
             }
           });
         };
-      if (i.status) i.status.fetchDispatched = !0;
+      if (i.status) i.status.fetchDispatched = true;
       let u = new Promise(f).then(a, l),
         d = Object.assign(u, { __abortController: n, __staleWhileFetching: r, __returned: void 0 });
       if (e === void 0) this.set(t, d, { ...h.options, status: void 0 }), (e = this.#c.get(t));
@@ -6033,7 +6033,7 @@ var Zh = S(function (Xh) {
       return d;
     }
     #h(t) {
-      if (!this.#A) return !1;
+      if (!this.#A) return false;
       let e = t;
       return (
         !!e && e instanceof Promise && e.hasOwnProperty("__staleWhileFetching") && e.__abortController instanceof Li
@@ -6054,7 +6054,7 @@ var Zh = S(function (Xh) {
         ignoreFetchAbort: u = this.ignoreFetchAbort,
         allowStaleOnFetchAbort: d = this.allowStaleOnFetchAbort,
         context: p,
-        forceRefresh: g = !1,
+        forceRefresh: g = false,
         status: m,
         signal: y,
       } = e;
@@ -6088,7 +6088,7 @@ var Zh = S(function (Xh) {
         if (this.#h(E)) {
           let qt = i && E.__staleWhileFetching !== void 0;
           if (m) {
-            if (((m.fetch = "inflight"), qt)) m.returnedStale = !0;
+            if (((m.fetch = "inflight"), qt)) m.returnedStale = true;
           }
           return qt ? E.__staleWhileFetching : (E.__returned = E);
         }
@@ -6102,7 +6102,7 @@ var Zh = S(function (Xh) {
         let M = this.#$(t, w, b, p),
           V = M.__staleWhileFetching !== void 0 && i;
         if (m) {
-          if (((m.fetch = T ? "stale" : "refresh"), V && T)) m.returnedStale = !0;
+          if (((m.fetch = T ? "stale" : "refresh"), V && T)) m.returnedStale = true;
         }
         return V ? M.__staleWhileFetching : (M.__returned = M);
       }
@@ -6137,10 +6137,10 @@ var Zh = S(function (Xh) {
           if (n) n.get = "stale";
           if (!a) {
             if (!r) this.#R(t, "expire");
-            if (n && i) n.returnedStale = !0;
+            if (n && i) n.returnedStale = true;
             return i ? h : void 0;
           } else {
-            if (n && i && h.__staleWhileFetching !== void 0) n.returnedStale = !0;
+            if (n && i && h.__staleWhileFetching !== void 0) n.returnedStale = true;
             return i ? h.__staleWhileFetching : void 0;
           }
         } else {
@@ -6165,12 +6165,12 @@ var Zh = S(function (Xh) {
       return this.#R(t, "delete");
     }
     #R(t, e) {
-      let i = !1;
+      let i = false;
       if (this.#a !== 0) {
         let s = this.#c.get(t);
         if (s !== void 0) {
           if (this.#y?.[s]) clearTimeout(this.#y?.[s]), (this.#y[s] = void 0);
-          if (((i = !0), this.#a === 1)) this.#G(e);
+          if (((i = true), this.#a === 1)) this.#G(e);
           else {
             this.#I(s);
             let r = this.#t[s];
@@ -6202,7 +6202,7 @@ var Zh = S(function (Xh) {
       return this.#G("delete");
     }
     #G(t) {
-      for (let e of this.#D({ allowStale: !0 })) {
+      for (let e of this.#D({ allowStale: true })) {
         let i = this.#t[e];
         if (this.#h(i)) i.__abortController.abort(Error("deleted"));
         else {
@@ -6235,7 +6235,7 @@ var ua = S(function (_) {
             var r = Object.getOwnPropertyDescriptor(e, i);
             if (!r || ("get" in r ? !e.__esModule : r.writable || r.configurable))
               r = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return e[i];
                 },
@@ -6250,7 +6250,7 @@ var ua = S(function (_) {
       (_ && _.__setModuleDefault) ||
       (Object.create
         ? function (t, e) {
-            Object.defineProperty(t, "default", { enumerable: !0, value: e });
+            Object.defineProperty(t, "default", { enumerable: true, value: e });
           }
         : function (t, e) {
             t.default = e;
@@ -6265,7 +6265,7 @@ var ua = S(function (_) {
         }
         return dp(e, t), e;
       };
-  Object.defineProperty(_, "__esModule", { value: !0 });
+  Object.defineProperty(_, "__esModule", { value: true });
   _.PathScurry =
     _.Path =
     _.PathScurryDarwin =
@@ -6366,7 +6366,7 @@ var ua = S(function (_) {
     roots;
     parent;
     nocase;
-    isCWD = !1;
+    isCWD = false;
     #e;
     #s;
     get dev() {
@@ -6611,8 +6611,8 @@ var ua = S(function (_) {
       return t.slice(0, t.provisional);
     }
     canReadlink() {
-      if (this.#z) return !0;
-      if (!this.parent) return !1;
+      if (this.#z) return true;
+      if (!this.parent) return false;
       let t = this.#i & et;
       return !((t !== it && t !== Vt) || this.#i & qi || this.#i & nt);
     }
@@ -6779,13 +6779,13 @@ var ua = S(function (_) {
       if (((this.#i = (this.#i & Ye) | w | ta), w !== it && w !== ft && w !== Vt)) this.#i |= Je;
     }
     #P = [];
-    #R = !1;
+    #R = false;
     #G(t) {
-      this.#R = !1;
+      this.#R = false;
       let e = this.#P.slice();
       (this.#P.length = 0), e.forEach((i) => i(null, t));
     }
-    readdirCB(t, e = !1) {
+    readdirCB(t, e = false) {
       if (!this.canReaddir()) {
         if (e) t(null, []);
         else queueMicrotask(() => t(null, []));
@@ -6799,9 +6799,9 @@ var ua = S(function (_) {
         return;
       }
       if ((this.#P.push(t), this.#R)) return;
-      this.#R = !0;
+      this.#R = true;
       let s = this.fullpath();
-      this.#e.readdir(s, { withFileTypes: !0 }, (r, n) => {
+      this.#e.readdir(s, { withFileTypes: true }, (r, n) => {
         if (r) this.#k(r.code), (i.provisional = 0);
         else {
           for (let o of n) this.#q(o, i);
@@ -6822,7 +6822,7 @@ var ua = S(function (_) {
         let i = () => {};
         this.#H = new Promise((s) => (i = s));
         try {
-          for (let s of await this.#e.promises.readdir(e, { withFileTypes: !0 })) this.#q(s, t);
+          for (let s of await this.#e.promises.readdir(e, { withFileTypes: true })) this.#q(s, t);
           this.#L(t);
         } catch (s) {
           this.#k(s.code), (t.provisional = 0);
@@ -6837,7 +6837,7 @@ var ua = S(function (_) {
       if (this.calledReaddir()) return t.slice(0, t.provisional);
       let e = this.fullpath();
       try {
-        for (let i of this.#e.readdirSync(e, { withFileTypes: !0 })) this.#q(i, t);
+        for (let i of this.#e.readdirSync(e, { withFileTypes: true })) this.#q(i, t);
         this.#L(t);
       } catch (i) {
         this.#k(i.code), (t.provisional = 0);
@@ -6845,10 +6845,10 @@ var ua = S(function (_) {
       return t.slice(0, t.provisional);
     }
     canReaddir() {
-      if (this.#i & ea) return !1;
+      if (this.#i & ea) return false;
       let t = et & this.#i;
-      if (!(t === it || t === ft || t === Vt)) return !1;
-      return !0;
+      if (!(t === it || t === ft || t === Vt)) return false;
+      return true;
     }
     shouldWalk(t, e) {
       return (this.#i & ft) === ft && !(this.#i & ea) && !t.has(this) && (!e || e(this));
@@ -6875,7 +6875,7 @@ var ua = S(function (_) {
     }
     [fa](t) {
       if (t === this) return;
-      (t.isCWD = !1), (this.isCWD = !0);
+      (t.isCWD = false), (this.isCWD = true);
       let e = new Set([]),
         i = [],
         s = this;
@@ -6950,7 +6950,7 @@ var ua = S(function (_) {
         l = h.length - 1,
         c = e.sep,
         f = this.rootPath,
-        u = !1;
+        u = false;
       for (let d of h) {
         let p = l--;
         (a = a.child(d, {
@@ -6958,7 +6958,7 @@ var ua = S(function (_) {
           relativePosix: Array(p).fill("..").join("/"),
           fullpath: (f += (u ? "" : c) + d),
         })),
-          (u = !0);
+          (u = true);
       }
       this.cwd = a;
     }
@@ -7009,7 +7009,7 @@ var ua = S(function (_) {
       if (typeof t === "string") t = this.cwd.resolve(t);
       return (t.parent || t).fullpath();
     }
-    async readdir(t = this.cwd, e = { withFileTypes: !0 }) {
+    async readdir(t = this.cwd, e = { withFileTypes: true }) {
       if (typeof t === "string") t = this.cwd.resolve(t);
       else if (!(t instanceof k)) (e = t), (t = this.cwd);
       let { withFileTypes: i } = e;
@@ -7019,10 +7019,10 @@ var ua = S(function (_) {
         return i ? s : s.map((r) => r.name);
       }
     }
-    readdirSync(t = this.cwd, e = { withFileTypes: !0 }) {
+    readdirSync(t = this.cwd, e = { withFileTypes: true }) {
       if (typeof t === "string") t = this.cwd.resolve(t);
       else if (!(t instanceof k)) (e = t), (t = this.cwd);
-      let { withFileTypes: i = !0 } = e;
+      let { withFileTypes: i = true } = e;
       if (!t.canReaddir()) return [];
       else if (i) return t.readdirSync();
       else return t.readdirSync().map((s) => s.name);
@@ -7035,25 +7035,25 @@ var ua = S(function (_) {
       if (typeof t === "string") t = this.cwd.resolve(t);
       return t.lstatSync();
     }
-    async readlink(t = this.cwd, { withFileTypes: e } = { withFileTypes: !1 }) {
+    async readlink(t = this.cwd, { withFileTypes: e } = { withFileTypes: false }) {
       if (typeof t === "string") t = this.cwd.resolve(t);
       else if (!(t instanceof k)) (e = t.withFileTypes), (t = this.cwd);
       let i = await t.readlink();
       return e ? i : i?.fullpath();
     }
-    readlinkSync(t = this.cwd, { withFileTypes: e } = { withFileTypes: !1 }) {
+    readlinkSync(t = this.cwd, { withFileTypes: e } = { withFileTypes: false }) {
       if (typeof t === "string") t = this.cwd.resolve(t);
       else if (!(t instanceof k)) (e = t.withFileTypes), (t = this.cwd);
       let i = t.readlinkSync();
       return e ? i : i?.fullpath();
     }
-    async realpath(t = this.cwd, { withFileTypes: e } = { withFileTypes: !1 }) {
+    async realpath(t = this.cwd, { withFileTypes: e } = { withFileTypes: false }) {
       if (typeof t === "string") t = this.cwd.resolve(t);
       else if (!(t instanceof k)) (e = t.withFileTypes), (t = this.cwd);
       let i = await t.realpath();
       return e ? i : i?.fullpath();
     }
-    realpathSync(t = this.cwd, { withFileTypes: e } = { withFileTypes: !1 }) {
+    realpathSync(t = this.cwd, { withFileTypes: e } = { withFileTypes: false }) {
       if (typeof t === "string") t = this.cwd.resolve(t);
       else if (!(t instanceof k)) (e = t.withFileTypes), (t = this.cwd);
       let i = t.realpathSync();
@@ -7062,7 +7062,7 @@ var ua = S(function (_) {
     async walk(t = this.cwd, e = {}) {
       if (typeof t === "string") t = this.cwd.resolve(t);
       else if (!(t instanceof k)) (e = t), (t = this.cwd);
-      let { withFileTypes: i = !0, follow: s = !1, filter: r, walkFilter: n } = e,
+      let { withFileTypes: i = true, follow: s = false, filter: r, walkFilter: n } = e,
         o = [];
       if (!r || r(t)) o.push(i ? t : t.fullpath());
       let h = new Set(),
@@ -7084,7 +7084,7 @@ var ua = S(function (_) {
                 else if (m.shouldWalk(h, n)) a(m, g);
                 else g();
               }
-            }, !0);
+            }, true);
         },
         l = t;
       return new Promise((c, f) => {
@@ -7097,7 +7097,7 @@ var ua = S(function (_) {
     walkSync(t = this.cwd, e = {}) {
       if (typeof t === "string") t = this.cwd.resolve(t);
       else if (!(t instanceof k)) (e = t), (t = this.cwd);
-      let { withFileTypes: i = !0, follow: s = !1, filter: r, walkFilter: n } = e,
+      let { withFileTypes: i = true, follow: s = false, filter: r, walkFilter: n } = e,
         o = [];
       if (!r || r(t)) o.push(i ? t : t.fullpath());
       let h = new Set([t]);
@@ -7129,7 +7129,7 @@ var ua = S(function (_) {
     *iterateSync(t = this.cwd, e = {}) {
       if (typeof t === "string") t = this.cwd.resolve(t);
       else if (!(t instanceof k)) (e = t), (t = this.cwd);
-      let { withFileTypes: i = !0, follow: s = !1, filter: r, walkFilter: n } = e;
+      let { withFileTypes: i = true, follow: s = false, filter: r, walkFilter: n } = e;
       if (!r || r(t)) yield i ? t : t.fullpath();
       let o = new Set([t]);
       for (let h of o) {
@@ -7148,14 +7148,14 @@ var ua = S(function (_) {
     stream(t = this.cwd, e = {}) {
       if (typeof t === "string") t = this.cwd.resolve(t);
       else if (!(t instanceof k)) (e = t), (t = this.cwd);
-      let { withFileTypes: i = !0, follow: s = !1, filter: r, walkFilter: n } = e,
-        o = new Qh.Minipass({ objectMode: !0 });
+      let { withFileTypes: i = true, follow: s = false, filter: r, walkFilter: n } = e,
+        o = new Qh.Minipass({ objectMode: true });
       if (!r || r(t)) o.write(i ? t : t.fullpath());
       let h = new Set(),
         a = [t],
         l = 0,
         c = () => {
-          let f = !1;
+          let f = false;
           while (!f) {
             let u = a.shift();
             if (!u) {
@@ -7163,20 +7163,20 @@ var ua = S(function (_) {
               return;
             }
             l++, h.add(u);
-            let d = (g, m, y = !1) => {
+            let d = (g, m, y = false) => {
                 if (g) return o.emit("error", g);
                 if (s && !y) {
                   let b = [];
                   for (let w of m)
                     if (w.isSymbolicLink()) b.push(w.realpath().then((E) => (E?.isUnknown() ? E.lstat() : E)));
                   if (b.length) {
-                    Promise.all(b).then(() => d(null, m, !0));
+                    Promise.all(b).then(() => d(null, m, true));
                     return;
                   }
                 }
                 for (let b of m)
                   if (b && (!r || r(b))) {
-                    if (!o.write(i ? b : b.fullpath())) f = !0;
+                    if (!o.write(i ? b : b.fullpath())) f = true;
                   }
                 l--;
                 for (let b of m) {
@@ -7186,8 +7186,8 @@ var ua = S(function (_) {
                 if (f && !o.flowing) o.once("drain", c);
                 else if (!p) c();
               },
-              p = !0;
-            u.readdirCB(d, !0), (p = !1);
+              p = true;
+            u.readdirCB(d, true), (p = false);
           }
         };
       return c(), o;
@@ -7195,14 +7195,14 @@ var ua = S(function (_) {
     streamSync(t = this.cwd, e = {}) {
       if (typeof t === "string") t = this.cwd.resolve(t);
       else if (!(t instanceof k)) (e = t), (t = this.cwd);
-      let { withFileTypes: i = !0, follow: s = !1, filter: r, walkFilter: n } = e,
-        o = new Qh.Minipass({ objectMode: !0 }),
+      let { withFileTypes: i = true, follow: s = false, filter: r, walkFilter: n } = e,
+        o = new Qh.Minipass({ objectMode: true }),
         h = new Set();
       if (!r || r(t)) o.write(i ? t : t.fullpath());
       let a = [t],
         l = 0,
         c = () => {
-          let f = !1;
+          let f = false;
           while (!f) {
             let u = a.shift();
             if (!u) {
@@ -7213,7 +7213,7 @@ var ua = S(function (_) {
             let d = u.readdirSync();
             for (let p of d)
               if (!r || r(p)) {
-                if (!o.write(i ? p : p.fullpath())) f = !0;
+                if (!o.write(i ? p : p.fullpath())) f = true;
               }
             l--;
             for (let p of d) {
@@ -7238,7 +7238,7 @@ var ua = S(function (_) {
   class mr extends Vi {
     sep = "\\";
     constructor(t = process.cwd(), e = {}) {
-      let { nocase: i = !0 } = e;
+      let { nocase: i = true } = e;
       super(t, Bi.win32, "\\", { ...e, nocase: i });
       this.nocase = i;
       for (let s = this.cwd; s; s = s.parent) s.nocase = this.nocase;
@@ -7257,7 +7257,7 @@ var ua = S(function (_) {
   class gr extends Vi {
     sep = "/";
     constructor(t = process.cwd(), e = {}) {
-      let { nocase: i = !1 } = e;
+      let { nocase: i = false } = e;
       super(t, Bi.posix, "/", { ...e, nocase: i });
       this.nocase = i;
     }
@@ -7274,7 +7274,7 @@ var ua = S(function (_) {
   _.PathScurryPosix = gr;
   class wr extends gr {
     constructor(t = process.cwd(), e = {}) {
-      let { nocase: i = !0 } = e;
+      let { nocase: i = true } = e;
       super(t, { ...e, nocase: i });
     }
   }
@@ -7283,7 +7283,7 @@ var ua = S(function (_) {
   _.PathScurry = wr;
 });
 var br = S(function (da) {
-  Object.defineProperty(da, "__esModule", { value: !0 });
+  Object.defineProperty(da, "__esModule", { value: true });
   da.Pattern = void 0;
   var Ep = It(),
     _p = (t) => t.length >= 1,
@@ -7299,7 +7299,7 @@ var br = S(function (da) {
     #v;
     #d;
     #a;
-    #g = !0;
+    #g = true;
     constructor(t, e, i, s) {
       if (!_p(t)) throw TypeError("empty pattern list");
       if (!xp(e)) throw TypeError("empty glob list");
@@ -7395,14 +7395,14 @@ var br = S(function (da) {
       return !(this.#r === 0 || !this.isGlobstar() || !this.#g);
     }
     markFollowGlobstar() {
-      if (this.#r === 0 || !this.isGlobstar() || !this.#g) return !1;
-      return (this.#g = !1), !0;
+      if (this.#r === 0 || !this.isGlobstar() || !this.#g) return false;
+      return (this.#g = false), true;
     }
   }
   da.Pattern = yr;
 });
 var Sr = S(function (wa) {
-  Object.defineProperty(wa, "__esModule", { value: !0 });
+  Object.defineProperty(wa, "__esModule", { value: true });
   wa.Ignore = void 0;
   var ma = It(),
     vp = br(),
@@ -7421,15 +7421,15 @@ var Sr = S(function (wa) {
         (this.absoluteChildren = []),
         (this.platform = n),
         (this.mmopts = {
-          dot: !0,
+          dot: true,
           nobrace: e,
           nocase: i,
           noext: s,
           noglobstar: r,
           optimizationLevel: 2,
           platform: n,
-          nocomment: !0,
-          nonegate: !0,
+          nocomment: true,
+          nonegate: true,
         });
       for (let o of t) this.add(o);
     }
@@ -7456,22 +7456,22 @@ var Sr = S(function (wa) {
         i = `${e}/`,
         s = t.relative() || ".",
         r = `${s}/`;
-      for (let n of this.relative) if (n.match(s) || n.match(r)) return !0;
-      for (let n of this.absolute) if (n.match(e) || n.match(i)) return !0;
-      return !1;
+      for (let n of this.relative) if (n.match(s) || n.match(r)) return true;
+      for (let n of this.absolute) if (n.match(e) || n.match(i)) return true;
+      return false;
     }
     childrenIgnored(t) {
       let e = t.fullpath() + "/",
         i = (t.relative() || ".") + "/";
-      for (let s of this.relativeChildren) if (s.match(i)) return !0;
-      for (let s of this.absoluteChildren) if (s.match(e)) return !0;
-      return !1;
+      for (let s of this.relativeChildren) if (s.match(i)) return true;
+      for (let s of this.absoluteChildren) if (s.match(e)) return true;
+      return false;
     }
   }
   wa.Ignore = ga;
 });
 var _a = S(function (Sa) {
-  Object.defineProperty(Sa, "__esModule", { value: !0 });
+  Object.defineProperty(Sa, "__esModule", { value: true });
   Sa.Processor = Sa.SubWalks = Sa.MatchRecord = Sa.HasWalkedCache = void 0;
   var ba = It();
   class Yi {
@@ -7547,20 +7547,20 @@ var _a = S(function (Sa) {
       for (let [s, r] of i) {
         this.hasWalkedCache.storeWalked(s, r);
         let n = r.root(),
-          o = r.isAbsolute() && this.opts.absolute !== !1;
+          o = r.isAbsolute() && this.opts.absolute !== false;
         if (n) {
           s = s.resolve(n === "/" && this.opts.root !== void 0 ? this.opts.root : n);
           let c = r.rest();
           if (!c) {
-            this.matches.add(s, !0, !1);
+            this.matches.add(s, true, false);
             continue;
           } else r = c;
         }
         if (s.isENOENT()) continue;
         let h,
           a,
-          l = !1;
-        while (typeof (h = r.pattern()) === "string" && (a = r.rest())) (s = s.resolve(h)), (r = a), (l = !0);
+          l = false;
+        while (typeof (h = r.pattern()) === "string" && (a = r.rest())) (s = s.resolve(h)), (r = a), (l = true);
         if (((h = r.pattern()), (a = r.rest()), l)) {
           if (this.hasWalkedCache.hasWalked(s, r)) continue;
           this.hasWalkedCache.storeWalked(s, r);
@@ -7576,7 +7576,7 @@ var _a = S(function (Sa) {
           if (!a || ((c === "" || c === ".") && !f)) this.matches.add(s, o, c === "" || c === ".");
           else if (c === "..") {
             let u = s.parent || s;
-            if (!f) this.matches.add(u, o, !0);
+            if (!f) this.matches.add(u, o, true);
             else if (!this.hasWalkedCache.hasWalked(u, f)) this.subwalks.add(u, f);
           }
         } else if (h instanceof RegExp) this.subwalks.add(s, r);
@@ -7605,7 +7605,7 @@ var _a = S(function (Sa) {
     }
     testGlobstar(t, e, i, s) {
       if (this.dot || !t.name.startsWith(".")) {
-        if (!e.hasMore()) this.matches.add(t, s, !1);
+        if (!e.hasMore()) this.matches.add(t, s, false);
         if (t.canReaddir()) {
           if (this.follow || !t.isSymbolicLink()) this.subwalks.add(t, e);
           else if (t.isSymbolicLink()) {
@@ -7625,19 +7625,19 @@ var _a = S(function (Sa) {
     }
     testRegExp(t, e, i, s) {
       if (!e.test(t.name)) return;
-      if (!i) this.matches.add(t, s, !1);
+      if (!i) this.matches.add(t, s, false);
       else this.subwalks.add(t, i);
     }
     testString(t, e, i, s) {
       if (!t.isNamed(e)) return;
-      if (!i) this.matches.add(t, s, !1);
+      if (!i) this.matches.add(t, s, false);
       else this.subwalks.add(t, i);
     }
   }
   Sa.Processor = xr;
 });
 var Ca = S(function (Ra) {
-  Object.defineProperty(Ra, "__esModule", { value: !0 });
+  Object.defineProperty(Ra, "__esModule", { value: true });
   Ra.GlobStream = Ra.GlobWalker = Ra.GlobUtil = void 0;
   var Cp = pt(),
     xa = Sr(),
@@ -7648,8 +7648,8 @@ var Ca = S(function (Ra) {
     patterns;
     opts;
     seen = new Set();
-    paused = !1;
-    aborted = !1;
+    paused = false;
+    aborted = false;
     #e = [];
     #s;
     #r;
@@ -7662,7 +7662,7 @@ var Ca = S(function (Ra) {
         (this.path = e),
         (this.opts = i),
         (this.#r = !i.posix && i.platform === "win32" ? "\\" : "/"),
-        (this.includeChildMatches = i.includeChildMatches !== !1),
+        (this.includeChildMatches = i.includeChildMatches !== false),
         i.ignore || !this.includeChildMatches)
       ) {
         if (((this.#s = Dp(i.ignore ?? [], i)), !this.includeChildMatches && typeof this.#s.add !== "function"))
@@ -7681,11 +7681,11 @@ var Ca = S(function (Ra) {
       return !!this.#s?.childrenIgnored?.(t);
     }
     pause() {
-      this.paused = !0;
+      this.paused = true;
     }
     resume() {
       if (this.signal?.aborted) return;
-      this.paused = !1;
+      this.paused = false;
       let t = void 0;
       while (!this.paused && (t = this.#e.shift())) t();
     }
@@ -7784,7 +7784,7 @@ var Ca = S(function (Ra) {
         r++;
         let h = o.readdirCached();
         if (o.calledReaddir()) this.walkCB3(o, h, i, n);
-        else o.readdirCB((a, l) => this.walkCB3(o, l, i, n), !0);
+        else o.readdirCB((a, l) => this.walkCB3(o, l, i, n), true);
       }
       n();
     }
@@ -7881,7 +7881,7 @@ var Ca = S(function (Ra) {
     results;
     constructor(t, e, i) {
       super(t, e, i);
-      (this.results = new Cp.Minipass({ signal: this.signal, objectMode: !0 })),
+      (this.results = new Cp.Minipass({ signal: this.signal, objectMode: true })),
         this.results.on("drain", () => this.resume()),
         this.results.on("resume", () => this.resume());
     }
@@ -7905,7 +7905,7 @@ var Ca = S(function (Ra) {
   Ra.GlobStream = Oa;
 });
 var vr = S(function (Fa) {
-  Object.defineProperty(Fa, "__esModule", { value: !0 });
+  Object.defineProperty(Fa, "__esModule", { value: true });
   Fa.Glob = void 0;
   var Pp = It(),
     Np = ue("url"),
@@ -7963,7 +7963,7 @@ var vr = S(function (Fa) {
         (this.noext = !!e.noext),
         (this.realpath = !!e.realpath),
         (this.absolute = e.absolute),
-        (this.includeChildMatches = e.includeChildMatches !== !1),
+        (this.includeChildMatches = e.includeChildMatches !== false),
         (this.noglobstar = !!e.noglobstar),
         (this.matchBase = !!e.matchBase),
         (this.maxDepth = typeof e.maxDepth === "number" ? e.maxDepth : 1 / 0),
@@ -7974,7 +7974,7 @@ var vr = S(function (Fa) {
         throw Error("cannot set absolute and withFileTypes:true");
       if (typeof t === "string") t = [t];
       if (
-        ((this.windowsPathsNoEscape = !!e.windowsPathsNoEscape || e.allowWindowsEscape === !1),
+        ((this.windowsPathsNoEscape = !!e.windowsPathsNoEscape || e.allowWindowsEscape === false),
         this.windowsPathsNoEscape)
       )
         t = t.map((h) => h.replace(/\\/g, "/"));
@@ -8010,9 +8010,9 @@ var vr = S(function (Fa) {
           nobrace: this.nobrace,
           nocase: this.nocase,
           nocaseMagicOnly: i,
-          nocomment: !0,
+          nocomment: true,
           noext: this.noext,
-          nonegate: !0,
+          nonegate: true,
           optimizationLevel: 2,
           platform: this.platform,
           windowsPathsNoEscape: this.windowsPathsNoEscape,
@@ -8082,18 +8082,18 @@ var vr = S(function (Fa) {
   Fa.Glob = Da;
 });
 var Tr = S(function (Pa) {
-  Object.defineProperty(Pa, "__esModule", { value: !0 });
+  Object.defineProperty(Pa, "__esModule", { value: true });
   Pa.hasMagic = void 0;
   var jp = It(),
     Lp = (t, e = {}) => {
       if (!Array.isArray(t)) t = [t];
-      for (let i of t) if (new jp.Minimatch(i, e).hasMagic()) return !0;
-      return !1;
+      for (let i of t) if (new jp.Minimatch(i, e).hasMagic()) return true;
+      return false;
     };
   Pa.hasMagic = Lp;
 });
 var Ba = S(function (Kt) {
-  Object.defineProperty(Kt, "__esModule", { value: !0 });
+  Object.defineProperty(Kt, "__esModule", { value: true });
   Kt.glob =
     Kt.sync =
     Kt.iterate =
@@ -8116,34 +8116,34 @@ var Ba = S(function (Kt) {
     kp = Tr(),
     ja = It();
   Object.defineProperty(Kt, "escape", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ja.escape;
     },
   });
   Object.defineProperty(Kt, "unescape", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ja.unescape;
     },
   });
   var qp = vr();
   Object.defineProperty(Kt, "Glob", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return qp.Glob;
     },
   });
   var Wp = Tr();
   Object.defineProperty(Kt, "hasMagic", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Wp.hasMagic;
     },
   });
   var $p = Sr();
   Object.defineProperty(Kt, "Ignore", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return $p.Ignore;
     },
@@ -8203,8 +8203,8 @@ var Va = S(function (Ng, Ha) {
   Ha.exports = Qp;
   async function Qp(t, e) {
     let i = await Zp(t, e);
-    if (i && i.sri) return await Xp.rm(Jp(t, i.sri), { recursive: !0, force: !0 }), !0;
-    else return !1;
+    if (i && i.sri) return await Xp.rm(Jp(t, i.sri), { recursive: true, force: true }), true;
+    else return false;
   }
 });
 var Ka = S(function (zg, ii) {
@@ -8226,8 +8226,8 @@ var Ka = S(function (zg, ii) {
   ii.exports.all = om;
   async function om(t) {
     Dr.clearMemoized();
-    let e = await em(sm.join(t, "*(content-*|index-*)"), { silent: !0, nosort: !0 });
-    return Promise.all(e.map((i) => tm(i, { recursive: !0, force: !0 })));
+    let e = await em(sm.join(t, "*(content-*|index-*)"), { silent: true, nosort: true });
+    return Promise.all(e.map((i) => tm(i, { recursive: true, force: true })));
   }
 });
 var Ja = S(function (Ig, Nr) {
@@ -8270,7 +8270,7 @@ var Ja = S(function (Ig, Nr) {
     return { endTime: new Date() };
   }
   async function bm(t, e) {
-    return e.log.silly("verify", "fixing cache permissions"), await hm(t, { recursive: !0 }), null;
+    return e.log.silly("verify", "fixing cache permissions"), await hm(t, { recursive: true }), null;
   }
   async function Sm(t, e) {
     e.log.silly("verify", "garbage collecting content");
@@ -8286,7 +8286,7 @@ var Ja = S(function (Ig, Nr) {
         s.on("end", a).on("error", l);
       });
     let n = Xa.contentDir(t),
-      o = await um(Qi.join(n, "**"), { follow: !1, nodir: !0, nosort: !0 }),
+      o = await um(Qi.join(n, "**"), { follow: false, nodir: true, nosort: true }),
       h = { verifiedContent: 0, reclaimedCount: 0, reclaimedSize: 0, badContentCount: 0, keptSize: 0 };
     return (
       await i(
@@ -8303,7 +8303,7 @@ var Ja = S(function (Ig, Nr) {
           } else {
             h.reclaimedCount++;
             let d = await Pr(a);
-            await Mr(a, { recursive: !0, force: !0 }), (h.reclaimedSize += d.size);
+            await Mr(a, { recursive: true, force: true }), (h.reclaimedSize += d.size);
           }
           return h;
         },
@@ -8316,11 +8316,11 @@ var Ja = S(function (Ig, Nr) {
     let i = {};
     try {
       let { size: s } = await Pr(t);
-      (i.size = s), (i.valid = !0), await Fr.checkStream(new fm.ReadStream(t), e);
+      (i.size = s), (i.valid = true), await Fr.checkStream(new fm.ReadStream(t), e);
     } catch (s) {
-      if (s.code === "ENOENT") return { size: 0, valid: !1 };
+      if (s.code === "ENOENT") return { size: 0, valid: false };
       if (s.code !== "EINTEGRITY") throw s;
-      await Mr(t, { recursive: !0, force: !0 }), (i.valid = !1);
+      await Mr(t, { recursive: true, force: true }), (i.valid = false);
     }
     return i;
   }
@@ -8357,7 +8357,7 @@ var Ja = S(function (Ig, Nr) {
     }
   }
   function vm(t, e) {
-    return e.log.silly("verify", "cleaning tmp directory"), Mr(Qi.join(t, "tmp"), { recursive: !0, force: !0 });
+    return e.log.silly("verify", "cleaning tmp directory"), Mr(Qi.join(t, "tmp"), { recursive: true, force: true });
   }
   async function Tm(t, e) {
     let i = Qi.join(t, "_lastverified");
@@ -8377,7 +8377,7 @@ var Qa = S(function (Dm, Ir) {
   async function Am(t, e = {}) {
     let { tmpPrefix: i } = e,
       s = zr.join(t, "tmp");
-    await Za.mkdir(s, { recursive: !0, owner: "inherit" });
+    await Za.mkdir(s, { recursive: true, owner: "inherit" });
     let r = `${s}${zr.sep}${i || ""}`;
     return Za.mkdtemp(r, { owner: "inherit" });
   }

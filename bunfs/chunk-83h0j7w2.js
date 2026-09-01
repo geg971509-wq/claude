@@ -50,7 +50,7 @@ var $h = ["low", "medium", "high", "xhigh", "max"],
   kne =
     "May use excessive tokens resulting in long response times or overthinking. Use sparingly for the hardest tasks.";
 function lg(e) {
-  if (UCt(e)) return !1;
+  if (UCt(e)) return false;
   let o = bY(e, "effort");
   if (o !== void 0) return o;
   let t = Ye(e);
@@ -62,13 +62,13 @@ function lg(e) {
     t === "claude-sonnet-4-5" ||
     t === "claude-haiku-4-5"
   )
-    return !1;
-  if (a.CLAUDE_CODE_ALWAYS_ENABLE_EFFORT) return !0;
-  if (hh(t, "effort") || t === "claude-mythos-5") return !0;
+    return false;
+  if (a.CLAUDE_CODE_ALWAYS_ENABLE_EFFORT) return true;
+  if (hh(t, "effort") || t === "claude-mythos-5") return true;
   return s0(za(e));
 }
 function V2(e) {
-  if (UCt(e)) return !1;
+  if (UCt(e)) return false;
   let o = bY(e, "max_effort");
   if (o !== void 0) return o;
   let t = Ye(e);
@@ -81,12 +81,12 @@ function V2(e) {
     t === "claude-sonnet-4-5" ||
     t === "claude-haiku-4-5"
   )
-    return !1;
-  if (hh(t, "max_effort") || t === "claude-mythos-5") return !0;
+    return false;
+  if (hh(t, "max_effort") || t === "claude-mythos-5") return true;
   return s0(za(e));
 }
 function K2(e) {
-  if (UCt(e)) return !1;
+  if (UCt(e)) return false;
   let o = bY(e, "xhigh_effort");
   if (o !== void 0) return o;
   let t = Ye(e);
@@ -101,8 +101,8 @@ function K2(e) {
     t === "claude-sonnet-4-6" ||
     t === "claude-haiku-4-5"
   )
-    return !1;
-  if (hh(t, "xhigh_effort") || t === "claude-mythos-5") return !0;
+    return false;
+  if (hh(t, "xhigh_effort") || t === "claude-mythos-5") return true;
   return s0(za(e));
 }
 function BS(e) {
@@ -112,7 +112,7 @@ function ETe(e) {
   return FF(V2(e) && Fue("max", e) ? "max" : "high", e);
 }
 function jv(e, o, t) {
-  return t === !0 && Zu() && ST(e, o) === "xhigh";
+  return t === true && Zu() && ST(e, o) === "xhigh";
 }
 function Wv(e) {
   return $h.includes(e);
@@ -126,7 +126,7 @@ function AYn(e) {
 }
 function CYn(e) {
   let o = Ye(e);
-  return o === "claude-opus-5" || hh(o, "thinking_disabled_effort_cap") === !0;
+  return o === "claude-opus-5" || hh(o, "thinking_disabled_effort_cap") === true;
 }
 function w5e(e) {
   let o = Ne();
@@ -158,7 +158,7 @@ function FF(e, o) {
 function j(e, o) {
   if (o === "xhigh") return K2(e);
   if (o === "max") return V2(e);
-  return !0;
+  return true;
 }
 function vYn(e) {
   let o = w5e(e);
@@ -215,7 +215,7 @@ function Wz(e) {
   return;
 }
 function Ajt(e, o) {
-  let t = Je().ultracode === !0 || CTe(e) === "ultracode";
+  let t = Je().ultracode === true || CTe(e) === "ultracode";
   if (t) Mm(o);
   return t;
 }
@@ -228,7 +228,7 @@ function DM(e) {
   if (o.includes("opus-4-7")) return !ie().unpinOpus47LaunchEffort;
   if (o.includes("opus-4-8")) return !ie().unpinOpus48LaunchEffort;
   if (o.includes("fable-5") || KI(e)) return !ie().unpinFable5LaunchEffort;
-  return !1;
+  return false;
 }
 function xgn() {
   let e = ie();
@@ -251,7 +251,7 @@ function n3(e, o) {
 function J() {
   let e = Je(),
     o = D({ cli: { effort: void 0 }, env: process.env, settings: e });
-  if (e.ultracode === !0) return { default: o, byModel: {} };
+  if (e.ultracode === true) return { default: o, byModel: {} };
   let t = xi()
       .map((i) => ye(i))
       .filter((i) => i !== void 0 && i !== null)
@@ -289,11 +289,11 @@ function G(e, o) {
   return Object.hasOwn(e.byModel, t) ? e.byModel[t] : e.default;
 }
 function W(e) {
-  for (let o in e.byModel) return !0;
-  return !1;
+  for (let o in e.byModel) return true;
+  return false;
 }
 function T5e(e) {
-  return pn(Ye(Ot(e), { deterministic: !0 }));
+  return pn(Ye(Ot(e), { deterministic: true }));
 }
 function K(e, o) {
   let t = T5e(e);
@@ -320,11 +320,11 @@ function Mm(e) {
     (o) =>
       o.unpinOpus47LaunchEffort && o.unpinOpus48LaunchEffort && o.unpinFable5LaunchEffort
         ? o
-        : { ...o, unpinOpus47LaunchEffort: !0, unpinOpus48LaunchEffort: !0, unpinFable5LaunchEffort: !0 },
+        : { ...o, unpinOpus47LaunchEffort: true, unpinOpus48LaunchEffort: true, unpinFable5LaunchEffort: true },
     e,
   );
 }
-function ST(e, o, { honorLaunchPin: t = !0 } = {}) {
+function ST(e, o, { honorLaunchPin: t = true } = {}) {
   if (!lg(e)) return;
   let r = t && DM(e),
     u = C(e),
@@ -350,21 +350,21 @@ function VD(e) {
   return $F(_(C(e), e));
 }
 function $ue(e, o, t, r, u) {
-  if (!u) return !1;
+  if (!u) return false;
   let f = Cu();
-  if (f === 0 || f === r) return !1;
-  if (!lg(t)) return !1;
-  if (typeof ST(t, e) !== "number" && typeof ST(t, o) !== "number" && ver(t, Ye(t))) return !1;
+  if (f === 0 || f === r) return false;
+  if (!lg(t)) return false;
+  if (typeof ST(t, e) !== "number" && typeof ST(t, o) !== "number" && ver(t, Ye(t))) return false;
   if (DM(t)) {
-    if (e === void 0 || _(e, t) === _(C(t), t)) return !1;
-  } else if (ST(t, e) === ST(t, o)) return !1;
-  if (ba() && e !== void 0 && Wz(typeof e === "string" ? FF(e, t) : e) === void 0) return !1;
-  return !0;
+    if (e === void 0 || _(e, t) === _(C(t), t)) return false;
+  } else if (ST(t, e) === ST(t, o)) return false;
+  if (ba() && e !== void 0 && Wz(typeof e === "string" ? FF(e, t) : e) === void 0) return false;
+  return true;
 }
 async function Cjt(e, o, t) {
   return rn("userSettings", K(o, e), void 0, t);
 }
-async function Gz(e, o, t = !0, r) {
+async function Gz(e, o, t = true, r) {
   let u = e !== void 0 ? Wz(e) : void 0;
   if (t && (e === void 0 || u !== void 0) && !Gr()) {
     let f = await Cjt(u, o, r);
@@ -416,7 +416,7 @@ function z(e) {
 function Ign(e) {
   if (typeof e === "string") {
     let o = z(e);
-    if (e === "high" && Dre() && I("tengu_slate_finch", !1))
+    if (e === "high" && Dre() && I("tengu_slate_finch", false))
       return `${o} \xB7 burns fastest \u2014 medium handles most tasks`;
     return o;
   }
@@ -434,12 +434,12 @@ function P(e) {
 function D(e) {
   let o = P(e.cli.effort);
   if (o !== void 0) return o;
-  if (e.settings.ultracode === !0) return "xhigh";
+  if (e.settings.ultracode === true) return "xhigh";
   return Wz(e.settings.effortLevel);
 }
 function B() {
   let { value: e, source: o } = Um("tengu_auto_mode_config", {});
-  if (e?.enabled !== "disabled") return !1;
+  if (e?.enabled !== "disabled") return false;
   return o === "override" || o === "payload";
 }
 function Hgn(e) {
@@ -456,10 +456,10 @@ function Hgn(e) {
     return {
       mode: "default",
       notification: l ? b : void 0,
-      fromAutoFallback: !1,
+      fromAutoFallback: false,
       baselineMode: "default",
-      decidedByProactivityLevel: !1,
-      modeSuppliedOnInvocation: !0,
+      decidedByProactivityLevel: false,
+      modeSuppliedOnInvocation: true,
     };
   }
   let E = r.permissions?.disableBypassPermissionsMode === "disable",
@@ -545,14 +545,14 @@ function Hgn(e) {
     v = { mode: l, notification: S };
     break;
   }
-  let L = !1;
+  let L = false;
   if (!v) {
     let l = "default";
-    if (g && Kht() && (!o.isNonInteractiveSession || gN() || I("tengu_moss_anchor", !1))) (l = "auto"), (L = !0);
+    if (g && Kht() && (!o.isNonInteractiveSession || gN() || I("tengu_moss_anchor", false))) (l = "auto"), (L = true);
     v = { mode: l, notification: S };
   }
   let M = v.mode,
-    h = !1;
+    h = false;
   return {
     mode: v.mode,
     notification: v.notification,
@@ -637,11 +637,11 @@ function SYn(e, o) {
     m;
   if (!i && E && E !== "inherit")
     (m = E), (i = Ot(E)), (d = E), (p = f?.modelSource === "routine" ? "routine_frontmatter" : "agent_frontmatter");
-  let g = !1,
+  let g = false,
     c = i;
   if (c === void 0) {
     if (r.ANTHROPIC_MODEL) (c = r.ANTHROPIC_MODEL), (p = "env");
-    else if (((c = ee(u.model || void 0, t.isNonInteractiveSession === !0, o) || void 0), c !== void 0))
+    else if (((c = ee(u.model || void 0, t.isNonInteractiveSession === true, o) || void 0), c !== void 0))
       p = Z(aA("model"));
     d = c;
   }
@@ -680,7 +680,7 @@ ${r}`
   return { systemPrompt: o, appendSystemPrompt: t };
 }
 function Kht() {
-  return I("tengu_harbor_willow", !1) || kwn()?.meadow_lantern === !0;
+  return I("tengu_harbor_willow", false) || kwn()?.meadow_lantern === true;
 }
 var te = ["policySettings", "flagSettings", "userSettings"],
   ne = ["acceptEdits", "plan", "default", "auto"];
@@ -759,9 +759,9 @@ function A(e) {
 }
 var R = "Permission mode downgraded to default \u2014 bypass requires accepting the disclaimer interactively first";
 function V(e) {
-  if (!wt()) return !1;
+  if (!wt()) return false;
   if (e === "bypassPermissions") return !lA() && !ie().bypassPermissionsModeAccepted;
-  return !1;
+  return false;
 }
 export {
   Hgn,

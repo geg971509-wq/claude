@@ -19,7 +19,7 @@ var D = S(function (i) {
             var o = Object.getOwnPropertyDescriptor(t, r);
             if (!o || ("get" in o ? !t.__esModule : o.writable || o.configurable))
               o = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -34,7 +34,7 @@ var D = S(function (i) {
       (i && i.__setModuleDefault) ||
       (Object.create
         ? function (e, t) {
-            Object.defineProperty(e, "default", { enumerable: !0, value: t });
+            Object.defineProperty(e, "default", { enumerable: true, value: t });
           }
         : function (e, t) {
             e.default = t;
@@ -49,7 +49,7 @@ var D = S(function (i) {
         }
         return Q(t, e), t;
       };
-  Object.defineProperty(i, "__esModule", { value: !0 });
+  Object.defineProperty(i, "__esModule", { value: true });
   i.req = i.json = i.toBuffer = void 0;
   var V = A(ue("http")),
     X = A(ue("https"));
@@ -88,7 +88,7 @@ var YAn = S(function (c) {
             var o = Object.getOwnPropertyDescriptor(t, r);
             if (!o || ("get" in o ? !t.__esModule : o.writable || o.configurable))
               o = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -103,7 +103,7 @@ var YAn = S(function (c) {
       (c && c.__setModuleDefault) ||
       (Object.create
         ? function (e, t) {
-            Object.defineProperty(e, "default", { enumerable: !0, value: t });
+            Object.defineProperty(e, "default", { enumerable: true, value: t });
           }
         : function (e, t) {
             e.default = t;
@@ -123,7 +123,7 @@ var YAn = S(function (c) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) H(t, e, r);
       };
-  Object.defineProperty(c, "__esModule", { value: !0 });
+  Object.defineProperty(c, "__esModule", { value: true });
   c.Agent = void 0;
   var re = I(ue("net")),
     T = I(ue("http")),
@@ -141,7 +141,7 @@ var YAn = S(function (c) {
         if (typeof e.protocol === "string") return e.protocol === "https:";
       }
       let { stack: t } = Error();
-      if (typeof t !== "string") return !1;
+      if (typeof t !== "string") return false;
       return t
         .split(`
 `)
@@ -150,7 +150,7 @@ var YAn = S(function (c) {
     incrementSockets(e) {
       if (this.maxSockets === 1 / 0 && this.maxTotalSockets === 1 / 0) return null;
       if (!this.sockets[e]) this.sockets[e] = [];
-      let t = new re.Socket({ writable: !1 });
+      let t = new re.Socket({ writable: false });
       return this.sockets[e].push(t), this.totalSocketCount++, t;
     }
     decrementSockets(e, t) {
@@ -213,7 +213,7 @@ var R = S(function (_) {
     function (e) {
       return e && e.__esModule ? e : { default: e };
     };
-  Object.defineProperty(_, "__esModule", { value: !0 });
+  Object.defineProperty(_, "__esModule", { value: true });
   _.parseProxyResponse = void 0;
   var se = oe(hfe()),
     O = (0, se.default)("https-proxy-agent:parse-proxy-response");
@@ -285,7 +285,7 @@ var qpe = S(function (f) {
             var o = Object.getOwnPropertyDescriptor(t, r);
             if (!o || ("get" in o ? !t.__esModule : o.writable || o.configurable))
               o = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -300,7 +300,7 @@ var qpe = S(function (f) {
       (f && f.__setModuleDefault) ||
       (Object.create
         ? function (e, t) {
-            Object.defineProperty(e, "default", { enumerable: !0, value: t });
+            Object.defineProperty(e, "default", { enumerable: true, value: t });
           }
         : function (e, t) {
             e.default = t;
@@ -320,7 +320,7 @@ var qpe = S(function (f) {
       function (e) {
         return e && e.__esModule ? e : { default: e };
       };
-  Object.defineProperty(f, "__esModule", { value: !0 });
+  Object.defineProperty(f, "__esModule", { value: true });
   f.HttpsProxyAgent = void 0;
   var P = F(ue("net")),
     k = F(ue("tls")),
@@ -375,9 +375,9 @@ var qpe = S(function (f) {
         return n;
       }
       n.destroy();
-      let l = new P.Socket({ writable: !1 });
+      let l = new P.Socket({ writable: false });
       return (
-        (l.readable = !0),
+        (l.readable = true),
         e.once("socket", (a) => {
           b("Replaying proxy buffer for failed request"),
             (0, fe.default)(a.listenerCount("data") > 0),

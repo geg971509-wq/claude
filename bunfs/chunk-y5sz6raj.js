@@ -23,13 +23,13 @@ function A(Te) {
   let j = _(10),
     { title: O, status: Q, detail: W } = Te,
     L;
-  if (j[0] !== O) (L = e(t, { bold: !0, children: O })), (j[0] = O), (j[1] = L);
+  if (j[0] !== O) (L = e(t, { bold: true, children: O })), (j[0] = O), (j[1] = L);
   else L = j[1];
   let b;
   if (j[2] !== Q) (b = e(tt, { status: Q })), (j[2] = Q), (j[3] = b);
   else b = j[3];
   let M;
-  if (j[4] !== W) (M = W ? r(t, { dimColor: !0, children: [" \xB7 ", W] }) : null), (j[4] = W), (j[5] = M);
+  if (j[4] !== W) (M = W ? r(t, { dimColor: true, children: [" \xB7 ", W] }) : null), (j[4] = W), (j[5] = M);
   else M = j[5];
   let te;
   if (j[6] !== L || j[7] !== b || j[8] !== M)
@@ -44,7 +44,7 @@ function Ne(Qe) {
   return Qe.scope !== "enterprise";
 }
 function Se(ee) {
-  return { scope: ee.scope, servers: ee.config.servers, displayServers: kp(ee.scope, { expandVars: !1 }).servers };
+  return { scope: ee.scope, servers: ee.config.servers, displayServers: kp(ee.scope, { expandVars: false }).servers };
 }
 function ye(Ue) {
   return Sle(Ue) === "approved";
@@ -67,7 +67,7 @@ function xe(oe, Ze) {
     {
       children: [
         e(vl.Node, { color: "warning", children: An(oe.message) }),
-        oe.suggestion && e(vl.Node, { dimColor: !0, children: An(oe.suggestion) }),
+        oe.suggestion && e(vl.Node, { dimColor: true, children: An(oe.suggestion) }),
       ],
     },
     `conflict-${Ze}`,
@@ -113,10 +113,10 @@ function K(ze) {
   if (c[15] !== I || c[16] !== q) (B = r(o, { children: [I, q] })), (c[15] = I), (c[16] = q), (c[17] = B);
   else B = c[17];
   let ae;
-  if (c[18] === d) (ae = e(t, { dimColor: !0, children: "Location: " })), (c[18] = ae);
+  if (c[18] === d) (ae = e(t, { dimColor: true, children: "Location: " })), (c[18] = ae);
   else ae = c[18];
   let H;
-  if (c[19] !== l) (H = r(o, { children: [ae, e(t, { dimColor: !0, children: l })] })), (c[19] = l), (c[20] = H);
+  if (c[19] !== l) (H = r(o, { children: [ae, e(t, { dimColor: true, children: l })] })), (c[19] = l), (c[20] = H);
   else H = c[20];
   let J;
   if (c[21] !== l || c[22] !== y) {
@@ -132,7 +132,7 @@ function K(ze) {
               children: [
                 e(t, { color: "error", children: "[Error]" }),
                 r(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: [
                     " ",
                     qe && `(${h.file}) `,
@@ -167,7 +167,7 @@ function K(ze) {
               children: [
                 e(t, { color: "warning", children: "[Warning]" }),
                 r(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: [
                     " ",
                     He && `(${N.file}) `,
@@ -242,7 +242,7 @@ function KBe() {
         e(o, {
           marginTop: 1,
           children: r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
               "For help configuring MCP servers, see:",
               " ",
@@ -271,9 +271,9 @@ function v(p, s) {
 }
 function re(p, s) {
   let m = (a, n) => {
-    if (!(n in a.config.servers)) return !1;
+    if (!(n in a.config.servers)) return false;
     if (a.scope === "project") return s.isProjectServerApproved(n);
-    return !0;
+    return true;
   };
   return p.map((a, n) => {
     let g = a.scope !== "enterprise" && (s.enterpriseActive || s.mcpLocked),
@@ -284,8 +284,8 @@ function re(p, s) {
       config: {
         ...a.config,
         errors: a.config.errors.filter((i) => {
-          if (i.mcpErrorMetadata?.severity !== "warning") return !0;
-          if (g) return !1;
+          if (i.mcpErrorMetadata?.severity !== "warning") return true;
+          if (g) return false;
           let u = i.mcpErrorMetadata.serverName;
           return !u || !x(u);
         }),

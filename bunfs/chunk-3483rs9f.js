@@ -36,7 +36,7 @@ function w(e) {
   return Te.userConfigDir(Exe, [e, p]);
 }
 function C(e) {
-  return jF(u(e, p), () => k().nullable(), { defaultValue: null, ensureDir: !0 });
+  return jF(u(e, p), () => k().nullable(), { defaultValue: null, ensureDir: true });
 }
 function y(e, t, o) {
   let r = Nn(`${e}\x00${o}`).slice(0, 8),
@@ -81,7 +81,7 @@ async function L(e, t, o) {
 async function bjn(e, t, o) {
   let r = y(e, t.name, t.uri),
     a = u(S(), r),
-    c = { hit: !1, slugDir: a },
+    c = { hit: false, slugDir: a },
     s,
     d = Plt(t.digest ?? void 0);
   if (d) s = d;
@@ -94,12 +94,12 @@ async function bjn(e, t, o) {
     let l = await o.read([g(r, s)]);
     if (!l.ok) return c;
     let h = l.value.items[0];
-    return h.found ? { hit: !0, cacheKey: s, skillMd: Buffer.from(h.value).toString("utf8") } : c;
+    return h.found ? { hit: true, cacheKey: s, skillMd: Buffer.from(h.value).toString("utf8") } : c;
   }
   let M = u(a, s);
   try {
     let l = await D(u(M, Ilt), "utf8");
-    return { hit: !0, cacheKey: s, skillMd: l };
+    return { hit: true, cacheKey: s, skillMd: l };
   } catch {
     return c;
   }
@@ -109,7 +109,7 @@ async function iin(e, t, o, r) {
     ? (await r.statMeta(g(e, t))).ok
     : P(u(o, Ilt))
         .then((a) => a.isFile())
-        .catch(() => !1);
+        .catch(() => false);
 }
 async function wjn(e, t, o, r) {
   let a = y(e, t.name, t.uri),
@@ -129,7 +129,7 @@ async function x(e, t, o) {
       return c.ok;
     }
   }
-  return !1;
+  return false;
 }
 async function Tjn(e, t, o, r) {
   let a = g(t, o),

@@ -22,7 +22,7 @@ function cN() {
   return u.getStore() !== void 0;
 }
 function Znr(e) {
-  return { ...e, isInProcess: !0 };
+  return { ...e, isInProcess: true };
 }
 import { spawnSync as p } from "child_process";
 function nb() {
@@ -79,7 +79,7 @@ function ds(e) {
   return e?.teamName;
 }
 function na() {
-  if (iS()) return !0;
+  if (iS()) return true;
   return qSr();
 }
 function qSr() {
@@ -90,8 +90,8 @@ function sP(e) {
   return e !== void 0 || na() || a.CLAUDE_CODE_CHILD_SESSION;
 }
 function bpe() {
-  if (a.CLAUDE_CODE_FORCE_SESSION_PERSISTENCE) return !1;
-  if (!(a.CLAUDE_CODE_CHILD_SESSION && zu() && !na())) return !1;
+  if (a.CLAUDE_CODE_FORCE_SESSION_PERSISTENCE) return false;
+  if (!(a.CLAUDE_CODE_CHILD_SESSION && zu() && !na())) return false;
   return !n().isChildSessionMarkerAmbientInTmux();
 }
 function qkr(e) {
@@ -104,25 +104,25 @@ function f(e) {
       try {
         t = e();
       } catch {
-        t = !1;
+        t = false;
       }
     return t;
   };
 }
 function x() {
-  if (!a.TMUX) return !1;
+  if (!a.TMUX) return false;
   let e;
   try {
     e = p("tmux", ["show-environment", "-g", "CLAUDE_CODE_CHILD_SESSION"], {
       encoding: "utf8",
       timeout: 250,
       stdio: ["ignore", "pipe", "ignore"],
-      windowsHide: !0,
+      windowsHide: true,
     });
   } catch {
-    return !1;
+    return false;
   }
-  if (e.status !== 0) return !1;
+  if (e.status !== 0) return false;
   return GSr(e.stdout);
 }
 function GSr(e) {
@@ -144,26 +144,26 @@ function z7e() {
   return a.CLAUDE_CODE_PLAN_MODE_REQUIRED;
 }
 function SAe(e) {
-  if (!e) return !1;
+  if (!e) return false;
   let { leadAgentId: t, teammates: o } = e;
   return Object.keys(o).some((s) => s !== t);
 }
 function vC(e) {
-  if (!e?.leadAgentId) return !1;
+  if (!e?.leadAgentId) return false;
   let t = rb(),
     o = e.leadAgentId;
-  if (t === o) return !0;
-  if (!t) return !0;
-  return !1;
+  if (t === o) return true;
+  if (!t) return true;
+  return false;
 }
 function bAe(e) {
-  for (let t of Object.values(e.tasks)) if (t.type === "in_process_teammate" && t.status === "running") return !0;
-  return !1;
+  for (let t of Object.values(e.tasks)) if (t.type === "in_process_teammate" && t.status === "running") return true;
+  return false;
 }
 function N4t(e) {
   for (let t of Object.values(e.tasks))
-    if (t.type === "in_process_teammate" && t.status === "running" && !t.isIdle) return !0;
-  return !1;
+    if (t.type === "in_process_teammate" && t.status === "running" && !t.isIdle) return true;
+  return false;
 }
 function $wn(e, t) {
   let o = [];

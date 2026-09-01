@@ -57,7 +57,7 @@ async function ose(e, { storageV5: o, credentials: t } = {}) {
   if ((AC(), process.env.CLAUDE_CODE_OAUTH_TOKEN))
     if (r.success) delete process.env.CLAUDE_CODE_OAUTH_TOKEN;
     else process.env.CLAUDE_CODE_OAUTH_TOKEN = e.accessToken;
-  if (OJ()) sx(r.success ? null : e.accessToken), JFe(!1);
+  if (OJ()) sx(r.success ? null : e.accessToken), JFe(false);
   if (O() && t !== void 0) await m(t);
   if (r.warning) s("tengu_oauth_storage_warning", { warning: r.warning });
   if ((await g7e(e.accessToken, o).catch((i) => n(String(i), { level: "error" })), Jk(e.scopes)))
@@ -77,9 +77,9 @@ async function kXt(e, { storageV5: o, credentials: t }) {
     u = await IT(t),
     d = _ && (u === "env" || u === "fd" || (u === "store" && i)) ? "same_account" : "account_switch";
   await oW({
-    clearOnboarding: !1,
-    preserveInProcessTokens: !0,
-    preserveNonAnthropicAuth: !0,
+    clearOnboarding: false,
+    preserveInProcessTokens: true,
+    preserveNonAnthropicAuth: true,
     storageV5: o,
     preserveQuotaAutoResume: i,
     artifactAccount: d,
@@ -118,11 +118,11 @@ async function kXt(e, { storageV5: o, credentials: t }) {
       o,
     );
   return (
-    wX({ action: "login", success: !0, authMethod: "oauth" }),
+    wX({ action: "login", success: true, authMethod: "oauth" }),
     { preserveQuotaAutoResume: i, artifactAccount: d, incomingIdentity: r }
   );
 }
-async function HXt({ storageV5: e, credentials: o, preserveQuotaAutoResume: t = !1, incomingIdentity: c }) {
+async function HXt({ storageV5: e, credentials: o, preserveQuotaAutoResume: t = false, incomingIdentity: c }) {
   if (
     (await srt(e, { preserveQuotaAutoResume: t, artifactAccount: "same_account", incomingIdentity: c }),
     O() && o !== void 0)

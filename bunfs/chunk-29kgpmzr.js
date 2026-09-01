@@ -124,7 +124,7 @@ async function d(i, t) {
   import("/$bunfs/root/chunk-r08e3kb6.js");
   for (let o of gse) delete process.env[o];
   try {
-    u(S(r), { recursive: !0, mode: 448 }), p(r);
+    u(S(r), { recursive: true, mode: 448 }), p(r);
   } catch {}
   let e = () => {
       for (let o of [r, n])

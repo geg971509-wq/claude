@@ -16,7 +16,7 @@ import { Lb, yn, z_, We, F } from "/$bunfs/root/chunk-twm95mhz.js";
 import { d } from "/$bunfs/root/chunk-yz031c9r.js";
 F();
 function ie(ue, fe) {
-  return e(o, { width: 2, children: e(t, { dimColor: !0, children: U[ue] }) }, fe);
+  return e(o, { width: 2, children: e(t, { dimColor: true, children: U[ue] }) }, fe);
 }
 var U = { branch: uS.branch, last: uS.last, pipe: uS.pipe, space: "" };
 function bge(Re) {
@@ -26,7 +26,7 @@ function bge(Re) {
   if (L[0] !== h)
     (m =
       h.length > 0 &&
-      e(md, { "aria-hidden": !0, fromLeftEdge: !0, flexShrink: 0, flexDirection: "row", children: h.map(ie) })),
+      e(md, { "aria-hidden": true, fromLeftEdge: true, flexShrink: 0, flexDirection: "row", children: h.map(ie) })),
       (L[0] = h),
       (L[1] = m);
   else m = L[1];
@@ -40,8 +40,8 @@ function bge(Re) {
   return ee;
 }
 var s = yn({ variant: "outline", ancestors: [] }),
-  u = yn(!0);
-function l(n, c = !0) {
+  u = yn(true);
+function l(n, c = true) {
   let a = Lb.toArray(n);
   return a.map((p, i) => e(u.Provider, { value: c && i === a.length - 1, children: p }, i));
 }
@@ -73,7 +73,7 @@ function X(Ne) {
     ne = We(u),
     J = x === "outline" ? "last" : ne ? "last" : "branch",
     K = x === "outline" ? "space" : ne ? "space" : "pipe",
-    V = q != null && q !== !1,
+    V = q != null && q !== false,
     N = V ? q : g,
     k;
   if (P[0] !== R || P[1] !== J) (k = [...R, J]), (P[0] = R), (P[1] = J), (P[2] = k);

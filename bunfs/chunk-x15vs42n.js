@@ -76,10 +76,10 @@ function Dlt(e, r) {
 function Olt(e, r) {
   if (!r || !e.properties) return e;
   let t = { ...e.properties },
-    u = !1;
+    u = false;
   for (let [o, d] of Object.entries(r)) {
     let p = t[o];
-    if (p !== null && typeof p === "object") (t[o] = { ...p, description: d }), (u = !0);
+    if (p !== null && typeof p === "object") (t[o] = { ...p, description: d }), (u = true);
   }
   if (!u) return e;
   return { ...e, properties: t };

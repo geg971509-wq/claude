@@ -16,8 +16,8 @@ F();
 var n = [];
 class i {
   #n = Ue();
-  #o = { entries: n, loading: !1 };
-  #t = !1;
+  #o = { entries: n, loading: false };
+  #t = false;
   #i = 0;
   #e = 0;
   getSnapshot = () => this.#o;
@@ -32,18 +32,18 @@ class i {
     return this.#e !== 0;
   }
   clear() {
-    (this.#t = !1), this.#r({ entries: n });
+    (this.#t = false), this.#r({ entries: n });
   }
   beginLoad() {
-    if (((this.#e = ++this.#i), !this.#t)) this.#r({ loading: !0 });
+    if (((this.#e = ++this.#i), !this.#t)) this.#r({ loading: true });
     return this.#e;
   }
   endLoad(e) {
     if (e !== this.#e) return;
-    (this.#e = 0), this.#r({ loading: !1 });
+    (this.#e = 0), this.#r({ loading: false });
   }
   setEntries(e) {
-    (this.#t = !0), this.#r({ entries: e.length === 0 ? n : e });
+    (this.#t = true), this.#r({ entries: e.length === 0 ? n : e });
   }
   get known() {
     return this.#t;
@@ -58,7 +58,7 @@ function Mme() {
     editor: null,
     deleteConfirm: null,
     earlier: new i(),
-    agentLastUsedMigrationDone: !1,
+    agentLastUsedMigrationDone: false,
     scope: null,
     resultSeen: { entryChannel: w("unknown"), openFinished: null, emitted: new Set() },
     fleetNudgeStore: null,

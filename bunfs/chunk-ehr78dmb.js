@@ -16,7 +16,7 @@ import { Ni } from "/$bunfs/root/chunk-1gr803v5.js";
 import { LBe } from "/$bunfs/root/chunk-884t33jy.js";
 import { o_e } from "/$bunfs/root/chunk-8asdkt5r.js";
 import { e } from "/$bunfs/root/chunk-8s7kcbyw.js";
-function M(s, m, i = !1) {
+function M(s, m, i = false) {
   if (s.trim() === "") return "Details empty.";
   let r = s.split(`
 `),
@@ -62,18 +62,18 @@ function XRe(z) {
     let x = h === void 0 ? y : v(y, Math.max(1, b - 2), h);
     R = e(o, {
       borderStyle: d ? void 0 : "single",
-      borderLeft: !0,
-      borderTop: !1,
-      borderBottom: !1,
-      borderRight: !1,
-      borderDimColor: !0,
+      borderLeft: true,
+      borderTop: false,
+      borderBottom: false,
+      borderRight: false,
+      borderDimColor: true,
       paddingLeft: d ? 0 : 1,
       flexDirection: "column",
       children: d
         ? e(t, { bold: u, dimColor: c, wrap: "wrap", children: M(x, b, w) })
         : ae.level === 0
           ? e(t, { bold: u, dimColor: c, wrap: "wrap", children: x })
-          : e(Ni, { promptMode: !0, skipTokenCache: !0, children: x }),
+          : e(Ni, { promptMode: true, skipTokenCache: true, children: x }),
     });
     (A[0] = u), (A[1] = b), (A[2] = c), (A[3] = d), (A[4] = h), (A[5] = w), (A[6] = g), (A[7] = R);
   } else R = A[7];

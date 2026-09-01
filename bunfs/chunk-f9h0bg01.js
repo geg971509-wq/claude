@@ -69,11 +69,11 @@ function hCt() {
 }
 function Ikn(e) {
   if (e.toLowerCase().endsWith(".jsonl"))
-    return { sessionId: Cn(), ingressUrl: null, isUrl: !1, jsonlFile: e, isJsonlFile: !0 };
-  if (Kr(e)) return { sessionId: e, ingressUrl: null, isUrl: !1, jsonlFile: null, isJsonlFile: !1 };
+    return { sessionId: Cn(), ingressUrl: null, isUrl: false, jsonlFile: e, isJsonlFile: true };
+  if (Kr(e)) return { sessionId: e, ingressUrl: null, isUrl: false, jsonlFile: null, isJsonlFile: false };
   try {
     let t = new URL(e);
-    return { sessionId: hCt() ?? HJ(t.href, Z), ingressUrl: t.href, isUrl: !0, jsonlFile: null, isJsonlFile: !1 };
+    return { sessionId: hCt() ?? HJ(t.href, Z), ingressUrl: t.href, isUrl: true, jsonlFile: null, isJsonlFile: false };
   } catch {}
   return null;
 }
@@ -137,8 +137,8 @@ var AVt = E;
 function On(e, t) {
   var o = -1,
     r = e == null ? 0 : e.length;
-  while (++o < r) if (t(e[o], o, e)) return !0;
-  return !1;
+  while (++o < r) if (t(e[o], o, e)) return true;
+  return false;
 }
 var rt = On;
 function Fn(e, t) {
@@ -151,12 +151,12 @@ function Hn(e, t, o, r, i, s) {
   var a = o & En,
     l = e.length,
     d = t.length;
-  if (l != d && !(a && d > l)) return !1;
+  if (l != d && !(a && d > l)) return false;
   var u = s.get(e),
     S = s.get(t);
   if (u && S) return u == t && S == e;
   var c = -1,
-    p = !0,
+    p = true,
     f = o & Dn ? new AVt() : void 0;
   s.set(e, t), s.set(t, e);
   while (++c < l) {
@@ -165,7 +165,7 @@ function Hn(e, t, o, r, i, s) {
     if (r) var y = a ? r(b, m, c, t, e, s) : r(m, b, c, e, t, s);
     if (y !== void 0) {
       if (y) continue;
-      p = !1;
+      p = false;
       break;
     }
     if (f) {
@@ -174,11 +174,11 @@ function Hn(e, t, o, r, i, s) {
           if (!CVt(f, k) && (m === x || i(m, x, o, r, s))) return f.push(k);
         })
       ) {
-        p = !1;
+        p = false;
         break;
       }
     } else if (!(m === b || i(m, b, o, r, s))) {
-      p = !1;
+      p = false;
       break;
     }
   }
@@ -227,11 +227,11 @@ var jn = 1,
 function eo(e, t, o, r, i, s, a) {
   switch (o) {
     case Qn:
-      if (e.byteLength != t.byteLength || e.byteOffset != t.byteOffset) return !1;
+      if (e.byteLength != t.byteLength || e.byteOffset != t.byteOffset) return false;
       (e = e.buffer), (t = t.buffer);
     case Zn:
-      if (e.byteLength != t.byteLength || !s(new lQe(e), new lQe(t))) return !1;
-      return !0;
+      if (e.byteLength != t.byteLength || !s(new lQe(e), new lQe(t))) return false;
+      return true;
     case Wn:
     case Gn:
     case Jn:
@@ -245,7 +245,7 @@ function eo(e, t, o, r, i, s, a) {
       var l = it;
     case zn:
       var d = r & jn;
-      if ((l || (l = cQe), e.size != t.size && !d)) return !1;
+      if ((l || (l = cQe), e.size != t.size && !d)) return false;
       var u = a.get(e);
       if (u) return u == t;
       (r |= qn), a.set(e, t);
@@ -254,7 +254,7 @@ function eo(e, t, o, r, i, s, a) {
     case Yn:
       if (Q) return Q.call(e) == Q.call(t);
   }
-  return !1;
+  return false;
 }
 var at = eo;
 function to(e, t) {
@@ -335,7 +335,7 @@ var ut = Object.prototype,
 var B = {};
 je(B, { default: () => Zoe });
 function vo() {
-  return !1;
+  return false;
 }
 var ct = vo;
 var ft = typeof B == "object" && B && !B.nodeType && B,
@@ -384,7 +384,7 @@ var Mo = "[object Arguments]",
   $o = "[object Uint16Array]",
   Xo = "[object Uint32Array]",
   h = {};
-h[Wo] = h[Go] = h[No] = h[Ko] = h[Jo] = h[Vo] = h[zo] = h[$o] = h[Xo] = !0;
+h[Wo] = h[Go] = h[No] = h[Ko] = h[Jo] = h[Vo] = h[zo] = h[$o] = h[Xo] = true;
 h[Mo] =
   h[Lo] =
   h[jo] =
@@ -400,7 +400,7 @@ h[Mo] =
   h[Bo] =
   h[_o] =
   h[Uo] =
-    !1;
+    false;
 function Yo(e) {
   return nx(e) && P(e.length) && !!h[Ij(e)];
 }
@@ -498,16 +498,16 @@ function br(e, t, o, r, i, s) {
     d = l.length,
     u = _Ct(t),
     S = u.length;
-  if (d != S && !a) return !1;
+  if (d != S && !a) return false;
   var c = d;
   while (c--) {
     var p = l[c];
-    if (!(a ? p in t : vr.call(t, p))) return !1;
+    if (!(a ? p in t : vr.call(t, p))) return false;
   }
   var f = s.get(e),
     m = s.get(t);
   if (f && m) return f == t && m == e;
-  var b = !0;
+  var b = true;
   s.set(e, t), s.set(t, e);
   var y = a;
   while (++c < d) {
@@ -516,7 +516,7 @@ function br(e, t, o, r, i, s) {
       k = t[p];
     if (r) var Ve = a ? r(k, x, p, t, e, s) : r(x, k, p, e, t, s);
     if (!(Ve === void 0 ? x === k || i(x, k, o, r, s) : Ve)) {
-      b = !1;
+      b = false;
       break;
     }
     y || (y = p == "constructor");
@@ -530,7 +530,7 @@ function br(e, t, o, r, i, s) {
       "constructor" in t &&
       !(typeof I == "function" && I instanceof I && typeof F == "function" && F instanceof F)
     )
-      b = !1;
+      b = false;
   }
   return s.delete(e), s.delete(t), b;
 }
@@ -598,8 +598,8 @@ function Or(e, t, o, r, i, s) {
     c = u == N,
     p = d == u;
   if (p && Zoe(e)) {
-    if (!Zoe(t)) return !1;
-    (a = !0), (S = !1);
+    if (!Zoe(t)) return false;
+    (a = true), (S = false);
   }
   if (p && !S) return s || (s = new Qoe()), a || dQe(e) ? D(e, t, o, r, i, s) : at(e, t, d, o, r, i, s);
   if (!(o & Rr)) {
@@ -611,12 +611,12 @@ function Or(e, t, o, r, i, s) {
       return s || (s = new Qoe()), i(b, y, o, r, s);
     }
   }
-  if (!p) return !1;
+  if (!p) return false;
   return s || (s = new Qoe()), yt(e, t, o, r, i, s);
 }
 var wt = Or;
 function Rt(e, t, o, r, i) {
-  if (e === t) return !0;
+  if (e === t) return true;
   if (e == null || t == null || (!nx(e) && !nx(t))) return e !== e && t !== t;
   return wt(e, t, o, r, Rt, i);
 }
@@ -663,24 +663,24 @@ class IVt {
   walkedFolders = new Map();
   policy = {};
   lastPolicyEnvComposition = null;
-  isLoadingFromDisk = !1;
-  autoModeUntrustedSourceWarned = !1;
+  isLoadingFromDisk = false;
+  autoModeUntrustedSourceWarned = false;
   changed = Ue();
   internalWrites = new Map();
   enabledSources;
   pluginBase;
   epoch = 0;
-  systemSpaceServingLogged = !1;
-  systemAttestationContradicted = !1;
+  systemSpaceServingLogged = false;
+  systemAttestationContradicted = false;
   backendReadResetTail = Promise.resolve();
   invalidated = Ue();
-  pluginBaseLoaded = !1;
+  pluginBaseLoaded = false;
   primer;
   localStoreProbes = new Ot();
   retained = new Map();
   retainedListings = new Map();
   setPluginBase(e) {
-    (this.pluginBase = e), (this.pluginBaseLoaded = !0);
+    (this.pluginBase = e), (this.pluginBaseLoaded = true);
   }
   clearPluginBase() {
     this.pluginBase = void 0;
@@ -710,14 +710,14 @@ class IVt {
     return this.invalidated.subscribe(e);
   }
   seedParsedFile(e, t, o, r) {
-    if (r !== this.epoch) return !1;
+    if (r !== this.epoch) return false;
     let i = this.parsedFiles.get(e),
       s = i === void 0 || !bs(i, o);
     if ((this.parsedFiles.set(e, o), s || this.primedFiles.has(e))) this.primedFiles.add(e);
     let a = this.retained.get(e);
     if (a !== void 0) a.parsed = o;
     if (s) this.dropDerivedCaches(t);
-    return !0;
+    return true;
   }
   walkReadDiffers(e, t) {
     let o = this.parsedFiles.get(e);
@@ -762,13 +762,13 @@ class IVt {
     return this.policyWalks > o ? "raced" : "deferred";
   }
   seedFolderListing(e, t, o) {
-    if (o !== this.epoch) return !1;
+    if (o !== this.epoch) return false;
     let r = this.folderListings.get(e);
     this.folderListings.set(e, t);
     let i = this.retainedListings.get(e);
     if (i !== void 0) i.names = t;
     if (r !== void 0 && !bs(r, t)) this.dropDerivedCaches("policySettings");
-    return !0;
+    return true;
   }
   walkReadManagedFileIn(e, t) {
     for (let [o, r] of this.parsedFiles)
@@ -778,16 +778,16 @@ class IVt {
         (r.settings !== null || r.errors.length > 0) &&
         (o === e || It(o) === t)
       )
-        return !0;
-    return !1;
+        return true;
+    return false;
   }
   walkRead(e) {
     return this.parsedFiles.has(e) && !this.primedFiles.has(e);
   }
   hasParsedDropInOutside(e, t) {
     for (let o of this.parsedFiles.keys())
-      if (!o.includes("\x00") && !this.primedFiles.has(o) && It(o) === e && !t.includes(Er(o))) return !0;
-    return !1;
+      if (!o.includes("\x00") && !this.primedFiles.has(o) && It(o) === e && !t.includes(Er(o))) return true;
+    return false;
   }
   clearFolderListing(e, t) {
     if (t !== this.epoch) return;
@@ -829,8 +829,8 @@ class Ot {
     return this.ownerUidsByRoot.has(e);
   }
   primeCanonicalRootOwnerUids(e, t) {
-    if (this.ownerUidsByRoot.has(e)) return !1;
-    return this.ownerUidsByRoot.set(e, t), !0;
+    if (this.ownerUidsByRoot.has(e)) return false;
+    return this.ownerUidsByRoot.set(e, t), true;
   }
   clearCanonicalRootOwnerUids() {
     this.ownerUidsByRoot.clear();
@@ -864,8 +864,8 @@ function yA(e, t) {
 class ne {
   spawner = void 0;
   pairings = new Map();
-  mainEnsureInFlight = !1;
-  mainSlotBlocked = !1;
+  mainEnsureInFlight = false;
+  mainSlotBlocked = false;
 }
 class oe {
   #e = I4();
@@ -898,7 +898,7 @@ var Dr = (function () {
   })(),
   pQe = Dr;
 function Hr(e, t, o) {
-  if (t == "__proto__" && pQe) pQe(e, t, { configurable: !0, enumerable: !0, value: o, writable: !0 });
+  if (t == "__proto__" && pQe) pQe(e, t, { configurable: true, enumerable: true, value: o, writable: true });
   else e[t] = o;
 }
 var F5 = Hr;
@@ -910,7 +910,7 @@ function Br(e) {
       l = a.length;
     while (l--) {
       var d = a[e ? l : ++i];
-      if (o(s[d], d, s) === !1) break;
+      if (o(s[d], d, s) === false) break;
     }
     return t;
   };
@@ -932,7 +932,7 @@ function Wr(e, t, o, r) {
   e = Object(e);
   while (i--) {
     var l = o[i];
-    if (a && l[2] ? l[1] !== e[l[0]] : !(l[0] in e)) return !1;
+    if (a && l[2] ? l[1] !== e[l[0]] : !(l[0] in e)) return false;
   }
   while (++i < s) {
     l = o[i];
@@ -940,14 +940,14 @@ function Wr(e, t, o, r) {
       u = e[d],
       S = l[1];
     if (a && l[2]) {
-      if (u === void 0 && !(d in e)) return !1;
+      if (u === void 0 && !(d in e)) return false;
     } else {
       var c = new Qoe();
       if (r) var p = r(u, S, d, e, t, c);
-      if (!(p === void 0 ? M(S, u, jr | qr, r, c) : p)) return !1;
+      if (!(p === void 0 ? M(S, u, jr | qr, r, c) : p)) return false;
     }
   }
-  return !0;
+  return true;
 }
 var Et = Wr;
 function Gr(e) {
@@ -967,7 +967,7 @@ function Nr(e) {
 var Dt = Nr;
 function Jr(e, t) {
   return function (o) {
-    if (o == null) return !1;
+    if (o == null) return false;
     return o[e] === t && (t !== void 0 || e in Object(o));
   };
 }
@@ -988,9 +988,9 @@ var dve = $r;
 var Xr = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
   Yr = /^\w*$/;
 function Zr(e, t) {
-  if (wg(e)) return !1;
+  if (wg(e)) return false;
   var o = typeof e;
-  if (o == "number" || o == "symbol" || o == "boolean" || e == null || dve(e)) return !0;
+  if (o == "number" || o == "symbol" || o == "boolean" || e == null || dve(e)) return true;
   return Yr.test(e) || !Xr.test(e) || (t != null && e in Object(t));
 }
 var L = Zr;
@@ -1073,7 +1073,7 @@ function fi(e, t, o) {
   t = P4(t, e);
   var r = -1,
     i = t.length,
-    s = !1;
+    s = false;
   while (++r < i) {
     var a = Tj(t[r]);
     if (!(s = e != null && o(e, a))) break;
@@ -1163,7 +1163,7 @@ class re {
   #i = void 0;
   #a = 0;
   #s = 0;
-  #l = !1;
+  #l = false;
   #d = X();
   #c = null;
   #g = null;
@@ -1229,7 +1229,7 @@ class re {
     (this.#a += e), (this.#s += t);
   }
   markUnknownModelCost() {
-    this.#l = !0;
+    this.#l = true;
   }
   zeroDurationsAndCostForTests() {
     (this.#t = 0), (this.#n = 0), (this.#e = 0);
@@ -1263,7 +1263,7 @@ class re {
       (this.#o = r),
       (this.#a = i),
       (this.#s = s),
-      (this.#l = u ?? !1),
+      (this.#l = u ?? false),
       d)
     )
       this.#d = X(d);
@@ -1332,12 +1332,12 @@ class re {
       this.anchorLogicalStart(void 0),
       (this.#a = 0),
       (this.#s = 0),
-      (this.#l = !1),
+      (this.#l = false),
       (this.#d = X());
   }
 }
 class ie {
-  #e = !1;
+  #e = false;
   fableConsentSessionFallback() {
     return this.#e;
   }
@@ -1345,7 +1345,7 @@ class ie {
     this.#e = e;
   }
   reset() {
-    this.#e = !1;
+    this.#e = false;
   }
 }
 class se {
@@ -1438,7 +1438,7 @@ class le {
     );
   }
   swapServerTools(e, t) {
-    if (!this.#o) return !1;
+    if (!this.#o) return false;
     return this.#o(e, t);
   }
   reset() {
@@ -1452,8 +1452,8 @@ class de {
   #o = void 0;
   #r = void 0;
   #i = void 0;
-  #a = !1;
-  #s = !1;
+  #a = false;
+  #s = false;
   #l = void 0;
   #d = void 0;
   mainLoopModelOverride() {
@@ -1496,19 +1496,19 @@ class de {
     return this.#a;
   }
   markRefusalFallbackOccurred(e) {
-    (this.#a = !0), (this.#l ??= e);
+    (this.#a = true), (this.#l ??= e);
   }
   refusalFallbackHeaderArmed() {
     return this.#s;
   }
   armRefusalFallbackHeader(e) {
-    (this.#s = !0), (this.#l ??= e);
+    (this.#s = true), (this.#l ??= e);
   }
   refusalFallbackLatchOriginRequestId() {
     return this.#l;
   }
   forgetRefusalFallbackOccurred() {
-    (this.#a = !1), (this.#s = !1), (this.#l = void 0);
+    (this.#a = false), (this.#s = false), (this.#l = void 0);
   }
   refusalFallbackModelLatch() {
     return this.#d;
@@ -1526,8 +1526,8 @@ class de {
       (this.#o = void 0),
       (this.#r = void 0),
       (this.#i = void 0),
-      (this.#a = !1),
-      (this.#s = !1),
+      (this.#a = false),
+      (this.#s = false),
       (this.#l = void 0),
       (this.#d = void 0);
   }
@@ -1582,10 +1582,10 @@ class ce {
   #a = void 0;
   #s = null;
   #l = null;
-  #d = !1;
+  #d = false;
   #c = null;
   #g = null;
-  #u = !1;
+  #u = false;
   lastAPIRequest() {
     return this.#e;
   }
@@ -1635,7 +1635,7 @@ class ce {
     return this.#s;
   }
   replaceLastMainThreadCacheTtlMs(e) {
-    (this.#s = e), (this.#l = Date.now()), (this.#d = !0);
+    (this.#s = e), (this.#l = Date.now()), (this.#d = true);
   }
   lastMainThreadRequestAt() {
     return this.#l;
@@ -1644,7 +1644,7 @@ class ce {
     return this.#d;
   }
   recordMainThreadTurnStart() {
-    this.#d = !0;
+    this.#d = true;
   }
   replaceLastMainThreadRequest(e, t) {
     (this.#l = e), (this.#s = t);
@@ -1668,7 +1668,7 @@ class ce {
       (this.#s = t?.ttlMs ?? null),
       (this.#l = t?.requestAt ?? null),
       (this.#c = t?.contextTokens ?? null),
-      (this.#d = !1);
+      (this.#d = false);
   }
   lastApiCompletionTimestamp() {
     return this.#g;
@@ -1692,11 +1692,11 @@ class ce {
       (this.#a = void 0),
       (this.#s = null),
       (this.#l = null),
-      (this.#d = !1),
+      (this.#d = false),
       (this.#c = null),
       (this.#p = null),
       (this.#g = null),
-      (this.#u = !1);
+      (this.#u = false);
   }
 }
 class pe {
@@ -1704,7 +1704,7 @@ class pe {
   #t = Object.create(null);
   #n = null;
   #o = 0;
-  #r = !1;
+  #r = false;
   #i = 0;
   tasks() {
     return this.#e;
@@ -1752,29 +1752,29 @@ class pe {
     this.#i = 0;
   }
   reset() {
-    (this.#e = []), (this.#t = Object.create(null)), (this.#n = null), (this.#o = 0), (this.#r = !1), (this.#i = 0);
+    (this.#e = []), (this.#t = Object.create(null)), (this.#n = null), (this.#o = 0), (this.#r = false), (this.#i = 0);
   }
 }
 class ge {
-  #e = !1;
-  #t = !1;
-  #n = !1;
-  #o = !1;
-  #r = !1;
-  #i = !1;
-  #a = !1;
-  #s = !1;
-  #l = !1;
+  #e = false;
+  #t = false;
+  #n = false;
+  #o = false;
+  #r = false;
+  #i = false;
+  #a = false;
+  #s = false;
+  #l = false;
   #d = null;
   #c = null;
   #g = null;
-  #u = !1;
+  #u = false;
   #p = null;
-  #h = !1;
-  #m = !1;
-  #f = !1;
-  #v = !1;
-  #b = !1;
+  #h = false;
+  #m = false;
+  #f = false;
+  #v = false;
+  #b = false;
   #S = void 0;
   #C = void 0;
   #x = void 0;
@@ -1868,7 +1868,7 @@ class ge {
     return this.#h;
   }
   markProposeGoalAvailabilityLogged() {
-    this.#h = !0;
+    this.#h = true;
   }
   activeRoutine() {
     return this.#C;
@@ -1889,7 +1889,7 @@ class ge {
     this.#y = e;
   }
   markFirstTeleportMessageLogged() {
-    if (this.#y) this.#y.hasLoggedFirstMessage = !0;
+    if (this.#y) this.#y.hasLoggedFirstMessage = true;
   }
   cachedClaudeMdContent() {
     return this.#k;
@@ -1932,25 +1932,25 @@ class ge {
     this.#S = void 0;
   }
   reset() {
-    (this.#m = !1),
-      (this.#f = !1),
-      (this.#v = !1),
-      (this.#b = !1),
-      (this.#e = !1),
-      (this.#t = !1),
-      (this.#n = !1),
-      (this.#o = !1),
-      (this.#r = !1),
-      (this.#i = !1),
-      (this.#a = !1),
-      (this.#s = !1),
-      (this.#u = !1),
-      (this.#l = !1),
+    (this.#m = false),
+      (this.#f = false),
+      (this.#v = false),
+      (this.#b = false),
+      (this.#e = false),
+      (this.#t = false),
+      (this.#n = false),
+      (this.#o = false),
+      (this.#r = false),
+      (this.#i = false),
+      (this.#a = false),
+      (this.#s = false),
+      (this.#u = false),
+      (this.#l = false),
       (this.#d = null),
       (this.#c = null),
       (this.#g = null),
       (this.#p = null),
-      (this.#h = !1),
+      (this.#h = false),
       (this.#C = void 0),
       (this.#x = void 0),
       (this.#y = null),
@@ -2067,18 +2067,18 @@ class fe {
       (this.#f = void 0);
   }
 }
-var Yt = { renderTarget: "ink", workspace: "local", canDrive: !0, transcriptSource: "local-jsonl", remote: null };
+var Yt = { renderTarget: "ink", workspace: "local", canDrive: true, transcriptSource: "local-jsonl", remote: null };
 class he {
-  #e = !1;
+  #e = false;
   #t = void 0;
   #n = void 0;
   #o = void 0;
   #r = null;
-  #i = !1;
+  #i = false;
   #a = void 0;
   #s = Yt;
-  #l = !1;
-  #d = !1;
+  #l = false;
+  #d = false;
   attacherCapsChanged = Ue();
   rvSupervisorLinkChanged = Ue();
   sdkDialogHostActive() {
@@ -2144,16 +2144,16 @@ class he {
     this.#d = e;
   }
   reset() {
-    (this.#e = !1),
+    (this.#e = false),
       (this.#t = void 0),
       (this.#n = void 0),
       (this.#o = void 0),
       (this.#r = null),
       (this.#a = void 0),
       (this.#s = Yt),
-      (this.#l = !1),
-      (this.#d = !1),
-      (this.#i = !1),
+      (this.#l = false),
+      (this.#d = false),
+      (this.#i = false),
       this.attacherCapsChanged.clear(),
       this.rvSupervisorLinkChanged.clear();
   }
@@ -2184,27 +2184,27 @@ class me {
 var Zt = 150;
 class ve {
   #e = Date.now();
-  #t = !1;
+  #t = false;
   interactionFired = Ue();
   #n = void 0;
   terminalFocusFired = Ue();
-  #o = !1;
+  #o = false;
   #r;
   lastInteractionTime() {
     return this.#e;
   }
   recordInteraction(e) {
     if (e) this.#i();
-    else this.#t = !0;
+    else this.#t = true;
   }
   flushIfDirty() {
     if (this.#t) this.#i();
   }
   #i() {
-    (this.#e = Date.now()), (this.#t = !1), this.interactionFired.emit();
+    (this.#e = Date.now()), (this.#t = false), this.interactionFired.emit();
   }
   resetBaseline() {
-    (this.#e = Date.now()), (this.#t = !1);
+    (this.#e = Date.now()), (this.#t = false);
   }
   terminalFocus() {
     return this.#n;
@@ -2216,9 +2216,9 @@ class ve {
     return this.#o;
   }
   markScrollActivity() {
-    if (((this.#o = !0), this.#r)) clearTimeout(this.#r);
+    if (((this.#o = true), this.#r)) clearTimeout(this.#r);
     (this.#r = setTimeout(() => {
-      (this.#o = !1), (this.#r = void 0);
+      (this.#o = false), (this.#r = void 0);
     }, Zt)),
       this.#r.unref?.();
   }
@@ -2265,8 +2265,8 @@ class be {
     this.cappedFailuresByAgent.delete(e);
   }
   latchArmGateEvent(e) {
-    if (this.armGateEventEmitted.has(e)) return !1;
-    return this.armGateEventEmitted.add(e), !0;
+    if (this.armGateEventEmitted.has(e)) return false;
+    return this.armGateEventEmitted.add(e), true;
   }
   enqueueSidecarIo(e, t) {
     return (this.sidecarIo = this.sidecarIo.then(e, e).catch(t)), this.sidecarIo;
@@ -2315,25 +2315,25 @@ class ye {
   }
 }
 class Ce {
-  granted = !1;
+  granted = false;
   isGranted() {
     return this.granted;
   }
   grant() {
-    this.granted = !0;
+    this.granted = true;
   }
 }
 class xe {
   inFlight = null;
-  startedForTurnEnd = !1;
+  startedForTurnEnd = false;
   reset() {
-    this.inFlight?.abort(), (this.inFlight = null), (this.startedForTurnEnd = !1);
+    this.inFlight?.abort(), (this.inFlight = null), (this.startedForTurnEnd = false);
   }
 }
 class ke {
   firstSyncPromise = null;
   syncErrors = [];
-  syncedLaneOpened = !1;
+  syncedLaneOpened = false;
   removalsDeferredHere = new Set();
   pendingTrashRemovals = [];
 }
@@ -2360,10 +2360,10 @@ class Te {
   }
 }
 class Pe {
-  autonomousPreambleDelivered = !1;
+  autonomousPreambleDelivered = false;
   lastLoopFileDelivered = null;
   reset() {
-    (this.autonomousPreambleDelivered = !1), (this.lastLoopFileDelivered = null);
+    (this.autonomousPreambleDelivered = false), (this.lastLoopFileDelivered = null);
   }
 }
 class Me {
@@ -2377,7 +2377,7 @@ class Me {
 }
 class we {
   pending = null;
-  shownThisSession = !1;
+  shownThisSession = false;
   changed = Ue();
   subscribe = this.changed.subscribe;
   getSnapshot = () => this.pending;
@@ -2389,19 +2389,19 @@ class we {
     if (this.pending !== null) (this.pending = null), this.changed.emit();
   }
   markShown() {
-    this.shownThisSession = !0;
+    this.shownThisSession = true;
   }
 }
 class Re {
   lastEmittedAt = new Map();
   shouldEmit(e, t, o) {
     let r = this.lastEmittedAt.get(e) || 0;
-    if (t - r < o) return !1;
+    if (t - r < o) return false;
     if (this.lastEmittedAt.size >= 100) {
       let i = this.lastEmittedAt.keys().next().value;
       if (i !== void 0) this.lastEmittedAt.delete(i);
     }
-    return this.lastEmittedAt.set(e, t), !0;
+    return this.lastEmittedAt.set(e, t), true;
   }
 }
 var Pkn = Symbol("permission-stash-evicted");
@@ -2410,7 +2410,7 @@ class Ie {
   evictedKeysCap;
   lanes = { write: new Map(), read: new Map() };
   evicted = { write: new Set(), read: new Set() };
-  poisoned = { write: !1, read: !1 };
+  poisoned = { write: false, read: false };
   constructor(e = 256, t = 1048576) {
     this.entriesCap = e;
     this.evictedKeysCap = t;
@@ -2434,7 +2434,7 @@ class Ie {
       let d = i.keys().next().value;
       if (d !== void 0) {
         if ((i.delete(d), s.add(d), s.size > this.evictedKeysCap)) {
-          this.poisoned[r] = !0;
+          this.poisoned[r] = true;
           let u = s.values().next().value;
           if (u !== void 0) s.delete(u);
         }
@@ -2543,26 +2543,26 @@ function en(e, t) {
         );
       },
       update(c) {
-        let p = !1;
+        let p = false;
         if (c.id !== void 0 || "parentId" in c) {
           if (e.kind === "fork")
             throw Error("A withProject fork cannot re-identify the session \u2014 update the root session instead");
-          if (c.id !== void 0 && c.id !== e.id) (e.id = c.id), (p = !0);
-          if ("parentId" in c && c.parentId !== e.parentId) (e.parentId = c.parentId), (p = !0);
+          if (c.id !== void 0 && c.id !== e.id) (e.id = c.id), (p = true);
+          if ("parentId" in c && c.parentId !== e.parentId) (e.parentId = c.parentId), (p = true);
         }
         let f = c.project;
         if (f) {
           if (f.originalCwd !== void 0) {
             let m = tr(f.originalCwd);
-            if (m !== o) (o = m), (p = !0);
+            if (m !== o) (o = m), (p = true);
           }
           if (f.projectRoot !== void 0) {
             let m = tr(f.projectRoot);
-            if (m !== r) (r = m), (p = !0);
+            if (m !== r) (r = m), (p = true);
           }
           if (f.cwd !== void 0) {
             let m = tr(f.cwd);
-            if (m !== i) (i = m), (p = !0);
+            if (m !== i) (i = m), (p = true);
           }
         }
         if (p) s.emit();
@@ -2591,36 +2591,36 @@ class Mn {
   }
 }
 class Oe {
-  #e = !1;
+  #e = false;
   #t = null;
-  #n = !1;
+  #n = false;
   #o = void 0;
-  #r = !1;
-  #i = !1;
-  #a = !1;
-  #s = !1;
+  #r = false;
+  #i = false;
+  #a = false;
+  #s = false;
   #l = void 0;
-  #d = !1;
-  #c = !1;
+  #d = false;
+  #c = false;
   #g = "cli";
   #u = "fresh";
   #p = void 0;
   #h = [];
-  #m = !1;
-  #f = !1;
-  #v = !1;
-  #b = !1;
-  #S = !1;
-  #C = !1;
-  #x = !1;
-  #y = !1;
-  #k = !1;
-  #A = !0;
+  #m = false;
+  #f = false;
+  #v = false;
+  #b = false;
+  #S = false;
+  #C = false;
+  #x = false;
+  #y = false;
+  #k = false;
+  #A = true;
   #T = null;
-  #P = !1;
+  #P = false;
   #M = null;
-  #L = !1;
-  #w = !1;
+  #L = false;
+  #w = false;
   #R = {};
   isInteractive() {
     return this.#e;
@@ -2662,7 +2662,7 @@ class Oe {
     return this.#a;
   }
   markPrintInputClosed() {
-    this.#a = !0;
+    this.#a = true;
   }
   modelOverrideOptOutForSession() {
     return this.#s;
@@ -2740,7 +2740,7 @@ class Oe {
     return this.#S;
   }
   markPollEventIngressWired() {
-    this.#S = !0;
+    this.#S = true;
   }
   sdkAgentProgressSummariesEnabled() {
     return this.#C;
@@ -2809,36 +2809,36 @@ class Oe {
     this.#R = e;
   }
   reset() {
-    (this.#e = !1),
+    (this.#e = false),
       (this.#t = null),
-      (this.#n = !1),
+      (this.#n = false),
       (this.#o = void 0),
-      (this.#r = !1),
-      (this.#i = !1),
-      (this.#a = !1),
-      (this.#s = !1),
+      (this.#r = false),
+      (this.#i = false),
+      (this.#a = false),
+      (this.#s = false),
       (this.#l = void 0),
-      (this.#d = !1),
-      (this.#c = !1),
+      (this.#d = false),
+      (this.#c = false),
       (this.#g = "cli"),
       (this.#u = "fresh"),
       (this.#p = void 0),
       (this.#h = []),
-      (this.#m = !1),
-      (this.#f = !1),
-      (this.#v = !1),
-      (this.#b = !1),
-      (this.#S = !1),
-      (this.#C = !1),
-      (this.#x = !1),
-      (this.#y = !1),
-      (this.#k = !1),
-      (this.#A = !0),
+      (this.#m = false),
+      (this.#f = false),
+      (this.#v = false),
+      (this.#b = false),
+      (this.#S = false),
+      (this.#C = false),
+      (this.#x = false),
+      (this.#y = false),
+      (this.#k = false),
+      (this.#A = true),
       (this.#T = null),
-      (this.#P = !1),
+      (this.#P = false),
       (this.#M = null),
-      (this.#L = !1),
-      (this.#w = !1),
+      (this.#L = false),
+      (this.#w = false),
       (this.#R = {});
   }
 }
@@ -2848,9 +2848,9 @@ class Fe {
   #n = void 0;
   #o = null;
   #r = null;
-  #i = !1;
+  #i = false;
   #a = tn();
-  #s = !1;
+  #s = false;
   flagSettingsPath() {
     return this.#e;
   }
@@ -2905,9 +2905,9 @@ class Fe {
       (this.#n = void 0),
       (this.#o = null),
       (this.#r = null),
-      (this.#i = !1),
+      (this.#i = false),
       (this.#a = tn()),
-      (this.#s = !1);
+      (this.#s = false);
   }
 }
 function tn() {
@@ -2920,7 +2920,7 @@ class Ee {
   #o = void 0;
   #r = [];
   #i = [];
-  #a = !1;
+  #a = false;
   #s = void 0;
   #l = void 0;
   #d = void 0;
@@ -2997,7 +2997,7 @@ class Ee {
       this.clearSyncedPluginDirs(),
       (this.#r = []),
       (this.#i = []),
-      (this.#a = !1),
+      (this.#a = false),
       (this.#s = void 0),
       (this.#l = void 0),
       (this.#d = void 0);
@@ -3064,7 +3064,7 @@ class He {
   }
 }
 function on() {
-  return { rateTokens: null, rateLastRefillMs: null, featureOkLogged: !1, reportedDropReasons: new Set() };
+  return { rateTokens: null, rateLastRefillMs: null, featureOkLogged: false, reportedDropReasons: new Set() };
 }
 class Be {
   #e = null;
@@ -3087,7 +3087,7 @@ class Be {
   #v = null;
   #b = null;
   #S = { direct: null, proxied: null };
-  installMeter(e, t, { omitUnits: o = !1 } = {}) {
+  installMeter(e, t, { omitUnits: o = false } = {}) {
     this.#e = e;
     let r = (i) => (o ? void 0 : i);
     (this.#t = t("claude_code.session.count", { description: "Count of CLI sessions started" })),
@@ -3156,8 +3156,8 @@ class Be {
     if (((this.#p = null), o)) for (let r of o) e.emit(r);
   }
   bufferPendingEvent(e) {
-    if (this.#p === null || this.#p.length >= 100) return !1;
-    return this.#p.push(e), !0;
+    if (this.#p === null || this.#p.length >= 100) return false;
+    return this.#p.push(e), true;
   }
   closeWindow(e) {
     (this.#p = null), (this.#h = e);
@@ -3221,13 +3221,13 @@ class Be {
 class _e {
   #e = void 0;
   #t = void 0;
-  #n = !1;
+  #n = false;
   #o = void 0;
   #r = void 0;
   #i = null;
   #a = null;
   #s = 0;
-  #l = !1;
+  #l = false;
   #d = null;
   #c = void 0;
   #g = null;
@@ -3263,7 +3263,7 @@ class _e {
     this.#r = e;
   }
   resetFdCredentialState() {
-    (this.#e = void 0), (this.#t = void 0), (this.#n = !1), (this.#o = void 0), (this.#r = void 0);
+    (this.#e = void 0), (this.#t = void 0), (this.#n = false), (this.#o = void 0), (this.#r = void 0);
   }
   gatewayAuth() {
     return this.#i;
@@ -3322,13 +3322,13 @@ class _e {
   resetForTests() {
     (this.#e = null),
       (this.#t = null),
-      (this.#n = !1),
+      (this.#n = false),
       (this.#o = void 0),
       (this.#r = null),
       (this.#i = null),
       (this.#a = null),
       (this.#s = 0),
-      (this.#l = !1),
+      (this.#l = false),
       (this.#d = null),
       (this.#c = void 0),
       (this.#g = null),
@@ -3337,8 +3337,8 @@ class _e {
 }
 class qe {
   #e = void 0;
-  #t = !1;
-  #n = !1;
+  #t = false;
+  #n = false;
   #o;
   directConnectServerUrl() {
     return this.#e;
@@ -3365,7 +3365,7 @@ class qe {
     return this.#o;
   }
   reset() {
-    (this.#e = void 0), (this.#t = !1), (this.#n = !1);
+    (this.#e = void 0), (this.#t = false), (this.#n = false);
   }
 }
 class We {
@@ -3373,9 +3373,9 @@ class We {
   #t = new Map();
   #n = new Map();
   #o = new Set();
-  #r = !1;
-  #i = !1;
-  #a = !1;
+  #r = false;
+  #i = false;
+  #a = false;
   #s = new Map();
   #l = new Map();
   promptCache1hAllowlist() {
@@ -3406,19 +3406,19 @@ class We {
     return this.#r;
   }
   markMidConvCachePromotionRejected() {
-    this.#r = !0;
+    this.#r = true;
   }
   strictPrefixLockStoodDown() {
     return this.#i;
   }
   markStrictPrefixLockStoodDown() {
-    this.#i = !0;
+    this.#i = true;
   }
   perTurnEffortOkEmitted() {
     return this.#a;
   }
   markPerTurnEffortOkEmitted() {
-    this.#a = !0;
+    this.#a = true;
   }
   inferenceProfileBackingModels() {
     return this.#s;
@@ -3434,16 +3434,16 @@ class We {
       (this.#t = new Map()),
       (this.#n = new Map()),
       (this.#o = new Set()),
-      (this.#r = !1),
-      (this.#i = !1),
-      (this.#a = !1),
+      (this.#r = false),
+      (this.#i = false),
+      (this.#a = false),
       (this.#s = new Map()),
       (this.#l = new Map());
   }
 }
 class Ge {
-  #e = !1;
-  #t = !1;
+  #e = false;
+  #t = false;
   longContext1mCreditsBlocked() {
     return this.#e;
   }
@@ -3457,12 +3457,12 @@ class Ge {
     this.#t = e;
   }
   reset() {
-    (this.#e = !1), (this.#t = !1);
+    (this.#e = false), (this.#t = false);
   }
 }
 class Ne {
-  #e = !1;
-  #t = !1;
+  #e = false;
+  #t = false;
   #n = rn;
   #o = Ue();
   selectorGate() {
@@ -3475,7 +3475,7 @@ class Ne {
     (this.#e = e), (this.#t ||= e);
   }
   inheritSelectorGateEverOn() {
-    this.#t = !0;
+    this.#t = true;
   }
   resampleSelectorGate(e) {
     let t = this.#e;
@@ -3494,15 +3494,15 @@ class Ne {
 }
 function rn() {}
 class Ke {
-  started = !1;
-  stagingReaped = !1;
+  started = false;
+  stagingReaped = false;
   claim() {
-    if (this.started) return !1;
-    return (this.started = !0), !0;
+    if (this.started) return false;
+    return (this.started = true), true;
   }
   claimStagingReap() {
-    if (this.stagingReaped) return !1;
-    return (this.stagingReaped = !0), !0;
+    if (this.stagingReaped) return false;
+    return (this.stagingReaped = true), true;
   }
 }
 class Je {
@@ -3948,15 +3948,15 @@ function L4() {
 function TCt(e) {
   n().requestJournal.replaceLastApiCompletionTimestamp(e);
 }
-function yQe(e, { keepsCachedPrefix: t = !1 } = {}) {
+function yQe(e, { keepsCachedPrefix: t = false } = {}) {
   let o = n().requestJournal;
-  if ((o.replacePendingPostCompaction(!0), o.replaceLastMainThreadContextTokens(e), !t))
+  if ((o.replacePendingPostCompaction(true), o.replaceLastMainThreadContextTokens(e), !t))
     o.replaceLastMainThreadRequest(null, null);
 }
 function c0n() {
   let e = n(),
     t = e.requestJournal.pendingPostCompaction();
-  return e.requestJournal.replacePendingPostCompaction(!1), t;
+  return e.requestJournal.replacePendingPostCompaction(false), t;
 }
 function Eh() {
   return n().userPresence.lastInteractionTime();
@@ -4065,7 +4065,7 @@ function w0n(e) {
   n().surfaceCapabilities.declarePerTaskStopAffordance(e);
 }
 function wQe() {
-  return n().surfaceCapabilities.sdkPerTaskStopAffordance() === !0;
+  return n().surfaceCapabilities.sdkPerTaskStopAffordance() === true;
 }
 function AU() {
   return n().host.launchOptions.replConfigArgv();
@@ -4328,7 +4328,7 @@ function txr() {
   return n().host.launchOptions.modelOverrideOptOutForSession();
 }
 function nxr() {
-  n().host.launchOptions.replaceModelOverrideOptOutForSession(!0);
+  n().host.launchOptions.replaceModelOverrideOptOutForSession(true);
 }
 function HQe() {
   return n().host.launchOptions.hasStreamingInput();
@@ -4391,7 +4391,7 @@ function eme(e) {
   n().sessionFlags.replaceMemoryToggledOff(e);
 }
 function hHn(e) {
-  if (e === !1)
+  if (e === false)
     throw Error("setWizardOperatorToolsEnabled(false) is test-only: the wizard latch is one-way in production");
   n().host.launchOptions.replaceWizardOperatorToolsEnabled(e);
 }
@@ -4622,11 +4622,11 @@ function cie() {
   return n().pluginsSync.syncedLaneOpened;
 }
 function qHn() {
-  n().pluginsSync.syncedLaneOpened = !0;
+  n().pluginsSync.syncedLaneOpened = true;
 }
 function GHn() {
   n().host.extensionsConfig.clearSyncedPluginDirs(),
-    (n().pluginsSync.syncedLaneOpened = !1),
+    (n().pluginsSync.syncedLaneOpened = false),
     n().pluginsSync.removalsDeferredHere.clear();
 }
 function bve() {
@@ -4807,8 +4807,8 @@ function kj(e) {
   n().sessionFlags.replaceNeedsPlanModeExitAttachment(e);
 }
 function V5(e, t) {
-  if (t === "plan" && e !== "plan") n().sessionFlags.replaceNeedsPlanModeExitAttachment(!1);
-  if (e === "plan" && t !== "plan") n().sessionFlags.replaceNeedsPlanModeExitAttachment(!0);
+  if (t === "plan" && e !== "plan") n().sessionFlags.replaceNeedsPlanModeExitAttachment(false);
+  if (e === "plan" && t !== "plan") n().sessionFlags.replaceNeedsPlanModeExitAttachment(true);
 }
 function sxn() {
   return n().sessionFlags.needsAutoModeExitAttachment();
@@ -4820,8 +4820,8 @@ function axn(e, t) {
   if ((e === "auto" && t === "plan") || (e === "plan" && t === "auto")) return;
   let o = e === "auto",
     r = t === "auto";
-  if (r && !o) n().sessionFlags.replaceNeedsAutoModeExitAttachment(!1);
-  if (o && !r) n().sessionFlags.replaceNeedsAutoModeExitAttachment(!0);
+  if (r && !o) n().sessionFlags.replaceNeedsAutoModeExitAttachment(false);
+  if (o && !r) n().sessionFlags.replaceNeedsAutoModeExitAttachment(true);
 }
 function u5t() {
   return n().sessionFlags.lspRecommendationShownThisSession();
@@ -4954,8 +4954,8 @@ function y5t(e) {
 }
 function o$e(e) {
   n().sessionFlags.replaceTeleportedSessionInfo({
-    isTeleported: !0,
-    hasLoggedFirstMessage: !1,
+    isTeleported: true,
+    hasLoggedFirstMessage: false,
     sessionId: e.sessionId,
   });
 }

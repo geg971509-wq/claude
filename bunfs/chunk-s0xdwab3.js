@@ -76,7 +76,7 @@ class nd extends Error {
 function Byt(e, { maxLines: t = 2000 } = {}) {
   let r = [],
     u = (e.codePointAt(0) === 65279 ? e.slice(1) : e).split(/\r\n|\n/).slice(0, t),
-    h = !1,
+    h = false,
     _ = 0;
   while (_ < u.length) {
     let S = u[_] ?? "";
@@ -85,7 +85,7 @@ function Byt(e, { maxLines: t = 2000 } = {}) {
     while (S[d] === "[") {
       let z = ie(S, d);
       if (z === null) {
-        (h = !1), (d = S.length);
+        (h = false), (d = S.length);
         break;
       }
       (h = z.isNamedRemote), (d = B(S, z.end));
@@ -93,7 +93,7 @@ function Byt(e, { maxLines: t = 2000 } = {}) {
     let b = S[d];
     if (b === void 0 || b === "#" || b === ";") continue;
     if (!j(b)) {
-      h = !1;
+      h = false;
       continue;
     }
     let R = d;
@@ -102,12 +102,12 @@ function Byt(e, { maxLines: t = 2000 } = {}) {
     while (d < S.length && (S[d] === " " || S[d] === "\t")) d++;
     if (d >= S.length) continue;
     if (S[d] !== "=") {
-      h = !1;
+      h = false;
       continue;
     }
     let O = se(S, d + 1, u, _);
     if (((_ = O.nextLineIndex), O.value === null)) {
-      h = !1;
+      h = false;
       continue;
     }
     if (O.value !== "" && h && (M === "url" || M === "pushurl")) r.push(O.value);
@@ -131,7 +131,7 @@ function ie(e, t) {
   if (e[r] !== " " && e[r] !== "\t" && e[r] !== "\r") return null;
   if (((r = B(e, r)), e[r] !== '"')) return null;
   r++;
-  while (!0) {
+  while (true) {
     if (r >= e.length) return null;
     let _ = e[r];
     if (_ === "\\") {
@@ -149,9 +149,9 @@ function se(e, t, r, o) {
     h = o,
     _ = "",
     S = "",
-    d = !1,
+    d = false,
     b = t;
-  while (!0) {
+  while (true) {
     if (b >= u.length) {
       if (d) return { value: null, nextLineIndex: h };
       break;
@@ -241,18 +241,18 @@ function jyt(e) {
   return qo(e.host) && e.owner.toLowerCase() === P && e.name.toLowerCase() === E;
 }
 function q() {
-  if (WV()) return !0;
-  if (!jo()) return !1;
-  if (!Tt()) return !1;
+  if (WV()) return true;
+  if (!jo()) return false;
+  if (!Tt()) return false;
   return Yl() && I6(M_) && I6(XN);
 }
 function Tde() {
-  if (a.CLAUDE_CODE_DISABLE_ORG_MEMORY) return !1;
-  if (Dr()) return !1;
-  if (!I("tengu_haze_glass", !1)) return !1;
-  if (process.env.CLAUDE_MEMORY_STORES?.trim()) return !1;
-  if (rl() !== null) return !1;
-  if (!Mt("allow_memory_sync")) return !1;
+  if (a.CLAUDE_CODE_DISABLE_ORG_MEMORY) return false;
+  if (Dr()) return false;
+  if (!I("tengu_haze_glass", false)) return false;
+  if (process.env.CLAUDE_MEMORY_STORES?.trim()) return false;
+  if (rl() !== null) return false;
+  if (!Mt("allow_memory_sync")) return false;
   return q() && (Tt() || WV());
 }
 var ce = m(() =>
@@ -274,30 +274,30 @@ var ce = m(() =>
 class Y {
   grantedStores = null;
   grantedModes = null;
-  mirrorPresent = !1;
-  lastAskDowngraded = !1;
-  rootLiftable = !1;
+  mirrorPresent = false;
+  lastAskDowngraded = false;
+  rootLiftable = false;
   rootLiftReason = "no_root";
-  monorepoBlockLogged = !1;
+  monorepoBlockLogged = false;
   pickedSelectionPrivateProbe = null;
   clearGrant() {
     (this.grantedStores = null),
       (this.grantedModes = null),
-      (this.mirrorPresent = !1),
-      (this.lastAskDowngraded = !1),
-      (this.rootLiftable = !1),
+      (this.mirrorPresent = false),
+      (this.lastAskDowngraded = false),
+      (this.rootLiftable = false),
       (this.rootLiftReason = "no_root");
   }
   reset() {
-    this.clearGrant(), (this.monorepoBlockLogged = !1);
+    this.clearGrant(), (this.monorepoBlockLogged = false);
   }
   installPickedSelectionPrivateProbe(e) {
     this.pickedSelectionPrivateProbe = e;
   }
   logMonorepoWriteBlockOnce() {
     if (this.monorepoBlockLogged) return;
-    (this.monorepoBlockLogged = !0),
-      s("tengu_org_memory_writes_monorepo_blocked", { stored_opt_in: ci().orgMemoryWrites === !0 });
+    (this.monorepoBlockLogged = true),
+      s("tengu_org_memory_writes_monorepo_blocked", { stored_opt_in: ci().orgMemoryWrites === true });
   }
   record(e, t, r) {
     this.mirrorPresent = Array.isArray(e);
@@ -309,7 +309,7 @@ class Y {
         return [O.data];
       }),
       _ = JKe(h),
-      S = r?.privateCandidate === !0;
+      S = r?.privateCandidate === true;
     (this.rootLiftable = !r?.clampRo && !S && X(o.length, h, u)), (this.rootLiftReason = fe(h, u, o.length, _, S));
     let d = N(h),
       b = h.map((M) => (r?.clampRo || _ || d || (!this.rootLiftable && me(M)) ? { ...M, mode: "ro" } : M));
@@ -341,16 +341,16 @@ function If(e) {
   return e.replace(/\/+$/, "");
 }
 function YKe() {
-  return !1;
+  return false;
 }
 function pEe() {
-  if (YKe()) return k().logMonorepoWriteBlockOnce(), !1;
-  if (A() === null) return !1;
+  if (YKe()) return k().logMonorepoWriteBlockOnce(), false;
+  if (A() === null) return false;
   return Tde();
 }
 function XM() {
   let e = ci();
-  if (!pEe() || e.orgMemoryWrites !== !0) return !1;
+  if (!pEe() || e.orgMemoryWrites !== true) return false;
   let t = e.orgMemoryWritesAccount;
   return t !== void 0 && t === A();
 }
@@ -358,7 +358,7 @@ function cZn(e) {
   k().installPickedSelectionPrivateProbe(e);
 }
 function F(e) {
-  return e !== null && k().pickedSelectionPrivateProbe?.(e) === !0;
+  return e !== null && k().pickedSelectionPrivateProbe?.(e) === true;
 }
 function qyt() {
   if (WV()) return "memory-dev/memory-dev";
@@ -380,9 +380,9 @@ function Ede() {
 }
 function V() {
   let e = k().grantedModes;
-  if (e === null) return !1;
-  for (let t of e.values()) if (t === "rw") return !0;
-  return !1;
+  if (e === null) return false;
+  for (let t of e.values()) if (t === "rw") return true;
+  return false;
 }
 function t9t(e) {
   return k().grantedStores?.find((t) => JD(t.path) === "grouping" && Vyt(t.path, e));
@@ -409,17 +409,17 @@ function zyt(e) {
   return JD(e.path) === "silo" && e.kind !== "grouping" && e.kind !== "grouping_root";
 }
 function uZn(e) {
-  return JD(e) === "silo" && k().grantedStores?.some((t) => If(t.path) === If(e) && zyt(t)) === !0;
+  return JD(e) === "silo" && k().grantedStores?.some((t) => If(t.path) === If(e) && zyt(t)) === true;
 }
 function X(e, t, r) {
-  if (r > 0 || t.length !== e) return !1;
-  if (N(t)) return !1;
+  if (r > 0 || t.length !== e) return false;
+  if (N(t)) return false;
   let o;
   for (let u of t) {
     let h = JD(u.path);
-    if (h === "unknown" || h === "grouping" || u.kind === "grouping") return !1;
+    if (h === "unknown" || h === "grouping" || u.kind === "grouping") return false;
     if (h === "grouping_root") {
-      if (o !== void 0 || (u.kind !== void 0 && u.kind !== "grouping_root")) return !1;
+      if (o !== void 0 || (u.kind !== void 0 && u.kind !== "grouping_root")) return false;
       o = u;
     }
   }
@@ -429,10 +429,10 @@ function N(e) {
   let t = new Set();
   for (let r of e) {
     let o = If(r.path);
-    if (t.has(o)) return !0;
+    if (t.has(o)) return true;
     t.add(o);
   }
-  return !1;
+  return false;
 }
 function D_n() {
   return k().rootLiftable;
@@ -483,18 +483,18 @@ function mZn() {
 }
 function Ade() {
   let e = ci();
-  return e.orgMemoryWrites === !0 && e.orgMemoryWritesAccount !== void 0 && e.orgMemoryWritesAccount === A();
+  return e.orgMemoryWrites === true && e.orgMemoryWritesAccount !== void 0 && e.orgMemoryWritesAccount === A();
 }
 function Kyt(e, t) {
-  if (e ? Ade() : (ci().orgMemoryWrites ?? !1) === !1) return "noop";
+  if (e ? Ade() : (ci().orgMemoryWrites ?? false) === false) return "noop";
   if (e && A() === null) return "refused_identity";
   if (e && !pEe()) return "refused_gates";
-  if (e && ci().orgMemoryRead === !1) return "refused_read_off";
+  if (e && ci().orgMemoryRead === false) return "refused_read_off";
   let r = A();
   if (
     (jc(
       (o) =>
-        (o.orgMemoryWrites ?? !1) === e && (o.orgMemoryWritesAccount ?? void 0) === (e ? (r ?? void 0) : void 0)
+        (o.orgMemoryWrites ?? false) === e && (o.orgMemoryWritesAccount ?? void 0) === (e ? (r ?? void 0) : void 0)
           ? o
           : { ...o, orgMemoryWrites: e, orgMemoryWritesAccount: e ? (r ?? void 0) : void 0 },
       t,
@@ -505,27 +505,27 @@ function Kyt(e, t) {
   return s("tengu_org_memory_writes_setting_changed", { enabled: e }), e ? "granted" : "withdrawn";
 }
 function gZn() {
-  return ci().orgMemoryRead === !1 || Tde();
+  return ci().orgMemoryRead === false || Tde();
 }
 function hZn(e, t) {
-  if ((ci().orgMemoryRead ?? !0) === e) return !1;
-  let r = ci().orgMemoryWrites === !0;
+  if ((ci().orgMemoryRead ?? true) === e) return false;
+  let r = ci().orgMemoryWrites === true;
   if (
     (jc(
       (o) =>
-        (o.orgMemoryRead ?? !0) === e && (e || o.orgMemoryWrites === void 0)
+        (o.orgMemoryRead ?? true) === e && (e || o.orgMemoryWrites === void 0)
           ? o
           : e
             ? { ...o, orgMemoryRead: void 0 }
-            : { ...o, orgMemoryRead: !1, orgMemoryWrites: void 0, orgMemoryWritesAccount: void 0 },
+            : { ...o, orgMemoryRead: false, orgMemoryWrites: void 0, orgMemoryWritesAccount: void 0 },
       t,
     ),
     !e)
   ) {
     if ((import("/$bunfs/root/chunk-nevqh764.js").then((o) => o.clearOrgMemoryCredential()), r))
-      s("tengu_org_memory_writes_setting_changed", { enabled: !1 });
+      s("tengu_org_memory_writes_setting_changed", { enabled: false });
   }
-  return s("tengu_org_memory_read_setting_changed", { enabled: e }), !0;
+  return s("tengu_org_memory_read_setting_changed", { enabled: e }), true;
 }
 function Z() {
   k().clearGrant();
@@ -540,11 +540,11 @@ function C(e, t) {
 class _Zn {
   decision = { state: "undecided" };
   servedIdentity = null;
-  settleDeadlineConsumed = !1;
+  settleDeadlineConsumed = false;
   settled = Ue();
   shrunk = Ue();
   reset() {
-    (this.decision = { state: "undecided" }), (this.servedIdentity = null), (this.settleDeadlineConsumed = !1);
+    (this.decision = { state: "undecided" }), (this.servedIdentity = null), (this.settleDeadlineConsumed = false);
   }
   async waitForSettled(e, t, r) {
     if (this.decision.state !== "undecided") return;
@@ -561,15 +561,15 @@ class _Zn {
   }
   async waitForSettledOnce(e, t) {
     if (this.settleDeadlineConsumed) return;
-    if ((await this.waitForSettled(e, t), this.decision.state === "undecided" && t?.aborted !== !0))
-      this.settleDeadlineConsumed = !0;
+    if ((await this.waitForSettled(e, t), this.decision.state === "undecided" && t?.aborted !== true))
+      this.settleDeadlineConsumed = true;
   }
   getStores() {
     return this.decision.state === "on" ? this.decision.stores : [];
   }
   settleOn(e) {
-    if (this.decision.state !== "undecided") return !1;
-    if (this.servedIdentity !== null && this.servedIdentity !== e.identity) return this.settleOff("superseded"), !1;
+    if (this.decision.state !== "undecided") return false;
+    if (this.servedIdentity !== null && this.servedIdentity !== e.identity) return this.settleOff("superseded"), false;
     return (
       (this.servedIdentity ??= e.identity),
       (this.decision = {
@@ -591,16 +591,16 @@ class _Zn {
         private_selection: JKe(e.initialGrant),
         degraded: e.degraded,
       }),
-      !0
+      true
     );
   }
   settleOff(e) {
-    if (this.decision.state !== "undecided") return !1;
+    if (this.decision.state !== "undecided") return false;
     return (
       (this.decision = { state: "off", cause: e }),
       C(this.settled, "settle"),
       s("tengu_org_memory_decision", { outcome: w("off"), cause: c(e) }),
-      !0
+      true
     );
   }
   park(e) {
@@ -610,18 +610,18 @@ class _Zn {
       s("tengu_org_memory_decision_parked", { cause: c(e) });
   }
   shrinkWriteAsk() {
-    if (this.decision.state !== "on" || !this.decision.request.writeAccess) return !1;
+    if (this.decision.state !== "on" || !this.decision.request.writeAccess) return false;
     return (
       (this.decision = {
         ...this.decision,
-        request: { ...this.decision.request, writeAccess: !1 },
+        request: { ...this.decision.request, writeAccess: false },
         stores: Object.freeze(
           this.decision.stores.map((e) => (e.scope === "team" && e.mode === "rw" ? { ...e, mode: "ro" } : e)),
         ),
       }),
       C(this.shrunk, "shrink"),
       s("tengu_org_memory_decision_write_shrunk", {}),
-      !0
+      true
     );
   }
   onAuthCompletion(e) {
@@ -637,7 +637,7 @@ class _Zn {
     if (e.state === "undecided" || e.state === "ended" || (e.state === "off" && e.cause === "superseded")) return null;
     return (
       (this.decision = { state: "undecided" }),
-      (this.settleDeadlineConsumed = !1),
+      (this.settleDeadlineConsumed = false),
       s("tengu_org_memory_decision_reopened", {
         from_state: c(e.state),
         ...(e.state !== "on" && { from_cause: c(e.cause) }),
@@ -690,7 +690,7 @@ function n9t() {
   return x().reopen();
 }
 function x_n() {
-  if (!I("tengu_haze_glass", !1)) return !1;
+  if (!I("tengu_haze_glass", false)) return false;
   return !process.env.CLAUDE_MEMORY_STORES?.trim();
 }
 function s$() {
@@ -780,7 +780,7 @@ function re(e, t) {
     Se,
     e.ask || e.selection !== null
       ? {
-          ...(e.ask && { write_access: !0 }),
+          ...(e.ask && { write_access: true }),
           ...(e.selection !== null && {
             selection: T3(e.selection)
               ? { store: e.selection }
@@ -790,13 +790,13 @@ function re(e, t) {
           }),
         }
       : void 0,
-    { ...Yde(), credentials: t, timeout: Me, validateStatus: () => !0 },
+    { ...Yde(), credentials: t, timeout: Me, validateStatus: () => true },
   );
 }
 class lZn {
   cached = null;
   inflightMint = null;
-  lastMintSelectionDegraded = !1;
+  lastMintSelectionDegraded = false;
   generation = 0;
   lastMintResult = null;
   mintEndpoint = void 0;
@@ -850,17 +850,17 @@ class lZn {
       o = e?.skipSelection ? null : dEe(),
       u = !e?.skipAsk && o !== null && XM();
     if (u) s("tengu_org_memory_write_opt_in_requested", {});
-    let h = !1,
+    let h = false,
       _ = o,
-      S = !1,
+      S = false,
       d = await D({ ask: u, selection: o }, this.credentials);
     if (u && d.ok && d.status >= 400 && d.status < 500 && d.status !== 429 && d.status !== 401)
-      g("org_memory_writes", "ask_rejected"), (S = !0), (d = await D({ ask: !1, selection: o }, this.credentials));
+      g("org_memory_writes", "ask_rejected"), (S = true), (d = await D({ ask: false, selection: o }, this.credentials));
     if (d.ok && d.status === 400 && o !== null && t === this.generation)
       g("org_memory_picker", ZLe(o) ? "silo_selection_degraded" : "selection_degraded"),
         (_ = null),
-        (h = !0),
-        (d = await D({ ask: !1, selection: null }, this.credentials)),
+        (h = true),
+        (d = await D({ ask: false, selection: null }, this.credentials)),
         (S = S || u);
     if (!d.ok) {
       if (d.reason === "no-auth") {
@@ -872,10 +872,10 @@ class lZn {
     if (d.status === 429 || d.status >= 500)
       throw (g("org_memory_credential", `http_${d.status}`), new Jv(`org memory credential: HTTP ${d.status}`));
     if (d.status === 404 && _ !== null && t === this.generation) {
-      let M = await this.negotiate({ skipAsk: (e?.skipAsk ?? !1) || S || u, skipSelection: !0 });
+      let M = await this.negotiate({ skipAsk: (e?.skipAsk ?? false) || S || u, skipSelection: true });
       if (t !== this.generation) return this.renegotiate(e);
       ee(_, this.storageV5);
-      let O = { ...M, degraded: !0 };
+      let O = { ...M, degraded: true };
       return (this.lastMintResult = O), O;
     }
     if (d.status >= 400) {
@@ -931,7 +931,7 @@ class lZn {
       );
     }
     let h = this.parseAndCache(u.data, t, { malformed: "renewal_malformed_response" }),
-      _ = { authorization: h.authorization, request: e, degraded: !1 };
+      _ = { authorization: h.authorization, request: e, degraded: false };
     if (t === this.generation)
       (this.lastMintResult = _), W(h.stores, o, { clampRo: !o, privateCandidate: F(e.selection) });
     return y("org_memory_credential"), _;
@@ -990,7 +990,7 @@ class lZn {
     this.generation++,
       (this.cached = null),
       (this.inflightMint = null),
-      (this.lastMintSelectionDegraded = !1),
+      (this.lastMintSelectionDegraded = false),
       (this.lastMintResult = null),
       Z();
   }

@@ -352,7 +352,7 @@ function N(l, { verbose: a, theme: u }) {
 }
 function k(l, { verbose: a, tools: u, terminalSize: g, inProgressToolCallCount: m }) {
   let i = l.at(-1);
-  if (!i || !i.data) return e(Pe, { height: 1, children: e(t, { dimColor: !0, children: "Running\u2026" }) });
+  if (!i || !i.data) return e(Pe, { height: 1, children: e(t, { dimColor: true, children: "Running\u2026" }) });
   let s = i.data;
   return e(TQ, {
     fullOutput: s.fullOutput,
@@ -366,26 +366,26 @@ function k(l, { verbose: a, tools: u, terminalSize: g, inProgressToolCallCount: 
   });
 }
 function w() {
-  return e(Pe, { height: 1, children: e(t, { dimColor: !0, children: "Waiting\u2026" }) });
+  return e(Pe, { height: 1, children: e(t, { dimColor: true, children: "Waiting\u2026" }) });
 }
 function v(l, a, { verbose: u, theme: g, tools: m, style: i }) {
   let p = a.at(-1)?.data?.timeoutMs,
     { stdout: n, stderr: c, interrupted: T, returnCodeInterpretation: f, isImage: P, backgroundTaskId: R } = l;
   if (P)
-    return e(Pe, { height: 1, children: e(t, { dimColor: !0, children: "[Image data detected and sent to Claude]" }) });
+    return e(Pe, { height: 1, children: e(t, { dimColor: true, children: "[Image data detected and sent to Claude]" }) });
   return r(o, {
     flexDirection: "column",
     children: [
       n !== "" ? e(i_, { content: n, verbose: u }) : null,
-      c.trim() !== "" ? e(i_, { content: c, verbose: u, isError: !0 }) : null,
+      c.trim() !== "" ? e(i_, { content: c, verbose: u, isError: true }) : null,
       n === "" && c.trim() === ""
         ? e(Pe, {
             height: 1,
             children: e(t, {
-              dimColor: !0,
+              dimColor: true,
               children: R
                 ? r(U, {
-                    children: ["Running in the background", " ", e(M, { chord: "down", action: "manage", parens: !0 })],
+                    children: ["Running in the background", " ", e(M, { chord: "down", action: "manage", parens: true })],
                   })
                 : T
                   ? "Interrupted"

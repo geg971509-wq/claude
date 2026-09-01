@@ -14,7 +14,7 @@ class s {
   bundledSkills = [];
   bundledSkillKillSwitchSurvivors = new Set();
   bundledSkillSessionResetHooks = [];
-  bundledSkillsInitialized = !1;
+  bundledSkillsInitialized = false;
   builtinCommandTable = void 0;
   builtinCommandNames = void 0;
   shippedCommandNames = void 0;
@@ -34,7 +34,7 @@ class s {
   fallbackShadowTelemetryLogged = new Set();
   skillContentIntern = new Map();
   builtinPlugins = new Map();
-  builtinPluginsInitialized = !1;
+  builtinPluginsInitialized = false;
   builtinPluginWiredSkills = new WeakMap();
   bundledWorkflows = [];
   bundledWorkflowsV2 = [];

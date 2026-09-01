@@ -126,10 +126,10 @@ var ut = m(() =>
       return ut();
     },
     isReadOnly() {
-      return !1;
+      return false;
     },
     isEnabled() {
-      return !0;
+      return true;
     },
     async checkPermissions(e, u) {
       return { behavior: "allow", updatedInput: e };
@@ -139,7 +139,7 @@ var ut = m(() =>
       if (d === void 0)
         return {
           data: {
-            success: !1,
+            success: false,
             message:
               "ObserverReport is only available to an observer agent; the main session does not have an observed pairing.",
           },
@@ -148,7 +148,7 @@ var ut = m(() =>
       if (!k)
         return {
           data: {
-            success: !1,
+            success: false,
             message:
               "Your observer pairing is not armed (stopped, retired, or never installed). The report was not delivered.",
           },
@@ -158,7 +158,7 @@ var ut = m(() =>
         let O = u.taskRegistry.get(f);
         if (!(Cr(O) && (O.status === "running" || (O.status === "completed" && [...Kx(O)].some((re) => re !== sF)))))
           return {
-            data: { success: !1, message: `The report target (${s}) is not running. The report was not delivered.` },
+            data: { success: false, message: `The report target (${s}) is not running. The report was not delivered.` },
           };
       }
       let B = `observer:${k.observerAgentType}`,
@@ -178,12 +178,12 @@ ${e.report}`,
           value: D,
           priority: "next",
           origin: V,
-          skipSlashCommands: !0,
-          isMeta: !0,
-          skipAttachments: !0,
+          skipSlashCommands: true,
+          isMeta: true,
+          skipAttachments: true,
         });
-      else nqe(f, D, u.taskRegistry, { origin: V, isMeta: !0 });
-      return { data: { success: !0, message: `Report queued for ${f === void 0 ? "the main conversation" : s}.` } };
+      else nqe(f, D, u.taskRegistry, { origin: V, isMeta: true });
+      return { data: { success: true, message: `Report queued for ${f === void 0 ? "the main conversation" : s}.` } };
     },
     mapToolResultToToolResultBlockParam(e, u) {
       return { type: "tool_result", tool_use_id: u, content: e.message, is_error: !e.success };
@@ -217,19 +217,19 @@ function Ve(e, u) {
       let f = k.toolUseResult,
         s = k.message.content;
       if (typeof f !== "object" || f === null || !("agentId" in f) || f.agentId !== u || !Array.isArray(s)) continue;
-      if (s.some((S) => S.type === "tool_result" && d.has(S.tool_use_id))) return !0;
+      if (s.some((S) => S.type === "tool_result" && d.has(S.tool_use_id))) return true;
     }
-  return !1;
+  return false;
 }
 var pe = "resumedInline";
 function cen(e) {
-  return e instanceof Error && pe in e && e[pe] === !0;
+  return e instanceof Error && pe in e && e[pe] === true;
 }
 class fd extends Error {
   transcriptMissing;
   constructor(e, u) {
     super(e);
-    (this.name = "ResumeAgentStateError"), (this.transcriptMissing = u?.transcriptMissing === !0);
+    (this.name = "ResumeAgentStateError"), (this.transcriptMissing = u?.transcriptMissing === true);
   }
 }
 var ue = "git_worktree_create";
@@ -271,9 +271,9 @@ async function fe(e, u) {
     { resumesInFlight: k } = dr();
   if (k.has(d)) throw new mW(`Agent ${d} is already running or being resumed`);
   k.add(d);
-  let f = !0,
+  let f = true,
     s = () => {
-      if (f) (f = !1), k.delete(d);
+      if (f) (f = false), k.delete(d);
     };
   try {
     return await ft(e, u, s);
@@ -309,18 +309,18 @@ async function ft(
     C = w.get(e),
     H = 0;
   if (Cr(C)) {
-    let t = !1;
+    let t = false;
     if (
       (w.update(e, (a) => {
         if (a.status === "running" || a.resuming) return a;
-        return (t = !0), (H = a.userStopCount ?? 0), { ...a, resuming: !0 };
+        return (t = true), (H = a.userStopCount ?? 0), { ...a, resuming: true };
       }),
       !t)
     )
       throw new mW(`Agent ${e} is already running or being resumed`);
   }
   let c = () => {
-      w.update(e, (t) => (t.resuming ? { ...t, resuming: !1 } : t)), D7(e, w);
+      w.update(e, (t) => (t.resuming ? { ...t, resuming: false } : t)), D7(e, w);
     },
     [He, r] = await Promise.all([
       lte(po(e), s.storageV5, { signal: s.abortController.signal }),
@@ -429,11 +429,11 @@ async function ft(
         ]
       : [],
     ye = bIe.restoredProvenance(e),
-    we = ye !== void 0 ? { ...s, ...ye } : r?.pluginSteered === !0 ? { ...s, pluginSteered: !0 } : s,
+    we = ye !== void 0 ? { ...s, ...ye } : r?.pluginSteered === true ? { ...s, pluginSteered: true } : s,
     qe = T
       ? {
           ...we,
-          getAppState: Vht(s.getAppState, z, q, { replaceCommandRules: !0, frozenCommandDenies: ze }),
+          getAppState: Vht(s.getAppState, z, q, { replaceCommandRules: true, frozenCommandDenies: ze }),
           permissionLayers: ke.length > 0 ? [...(s.permissionLayers ?? []), ...ke] : s.permissionLayers,
         }
       : we,
@@ -455,31 +455,31 @@ async function ft(
     throw (
       (p("subagent_launch", "subagent_resume_transcript_missing"),
       c(),
-      new fd(`No transcript found for agent ID: ${e}`, { transcriptMissing: !0 }))
+      new fd(`No transcript found for agent ID: ${e}`, { transcriptMissing: true }))
     );
   Dee(R.messages), Aht(R.messages);
   let Je = f ? [...T0e(R.messages)] : R.messages,
     L = wce(Tce(pbe(r7(Je, { site: "agent_resume" }))));
   if (f && L.length > 0 && !Mot(L))
     return (
-      w.update(e, (t) => ({ ...t, resuming: !1, notified: !0, evictAfter: Date.now() + V0 })),
+      w.update(e, (t) => ({ ...t, resuming: false, notified: true, evictAfter: Date.now() + V0 })),
       y("subagent_launch"),
-      { agentId: e, description: r?.description ?? "(resumed)", outputFile: Sl(e), alreadyCompleted: !0 }
+      { agentId: e, description: r?.description ?? "(resumed)", outputFile: Sl(e), alreadyCompleted: true }
     );
   let Qe = ogt(s.contentReplacementState, L, R.contentReplacements),
     Xe =
       !r &&
-      ((Cr(v) && (v.agentType === Kxe.agentType || v.webFetchSavedFiles !== void 0)) || re === !0 || Ve(s.messages, e)),
+      ((Cr(v) && (v.agentType === Kxe.agentType || v.webFetchSavedFiles !== void 0)) || re === true || Ve(s.messages, e)),
     le = r?.agentType ?? (Xe ? Kxe.agentType : void 0),
     P =
-      r?.isFork === !0 ? void 0 : le ? s.options.agentDefinitions.activeAgents.find((t) => t.agentType === le) : void 0,
-    M = r?.isFork === !0 || (!P && r?.isFork === void 0 && r?.agentType === Wx.agentType),
+      r?.isFork === true ? void 0 : le ? s.options.agentDefinitions.activeAgents.find((t) => t.agentType === le) : void 0,
+    M = r?.isFork === true || (!P && r?.isFork === void 0 && r?.agentType === Wx.agentType),
     N =
-      le === Kxe.agentType && r?.isBuiltIn !== !1
+      le === Kxe.agentType && r?.isBuiltIn !== false
         ? P && ja(P)
           ? P
           : Kxe
-        : r?.isBuiltIn === !1
+        : r?.isBuiltIn === false
           ? P && !ja(P)
             ? P
             : OB
@@ -518,7 +518,7 @@ async function ft(
           });
         return;
       }
-      if (a?.terminalOnUncovered === !1)
+      if (a?.terminalOnUncovered === false)
         throw (
           (c(),
           new uB(
@@ -569,13 +569,13 @@ async function ft(
     J === void 0 &&
     !Ltr(e) &&
     ((r !== null &&
-      r.spawnedWithWorktree === !0 &&
-      r.worktreeCleanlyRemoved !== !0 &&
+      r.spawnedWithWorktree === true &&
+      r.worktreeCleanlyRemoved !== true &&
       !(
         r.inheritedWorktreePath !== void 0 &&
         r.parentAgentId !== void 0 &&
         (await KA(po(r.parentAgentId), s.storageV5).catch(Rye("resumeAgentBackground (parent)")))
-          ?.worktreeCleanlyRemoved === !0
+          ?.worktreeCleanlyRemoved === true
       )) ||
       Rbn(e))
   )
@@ -588,8 +588,8 @@ async function ft(
     let t = Se(),
       a = await me.realpath(t).catch(() => t),
       o = await l7(W, Fb(t), te([a, R7, ...Fb(R7)]), {
-        requireWitnessForSelfOwningPins: !0,
-        declineSelfOwningPinUnderLiveRoot: !0,
+        requireWitnessForSelfOwningPins: true,
+        declineSelfOwningPinUnderLiveRoot: true,
       });
     if (!o.ok) {
       if ((c(), o.reason !== "unverifiable" && o.reason !== "pin-is-own-launch-tree"))
@@ -658,7 +658,7 @@ async function ft(
   }
   let _e = cm(s),
     ve = q0(j8(b, _e), _e, r?.isObserver ? void 0 : M ? "inherit" : r?.model, G);
-  if (d?.kind === "observer-activity" && r?.isObserver !== !0)
+  if (d?.kind === "observer-activity" && r?.isObserver !== true)
     throw (
       (p("subagent_launch", "observer_resume_sidecar_unconfirmed"),
       c(),
@@ -670,11 +670,11 @@ async function ft(
     Me = s.getAppState(),
     rt = M
       ? B2(s.options.tools)
-      : hD(Re, B2(Me.mcp.tools.concat(Pe)), { skipReplFilter: !0, skillTools: Me.skillTools }),
-    st = r?.isObserver ? wIt(yE(b, hD(Re, B2(Pe), { skipReplFilter: !0 }), !0, !1, !1, x).resolvedTools) : rt,
+      : hD(Re, B2(Me.mcp.tools.concat(Pe)), { skipReplFilter: true, skillTools: Me.skillTools }),
+    st = r?.isObserver ? wIt(yE(b, hD(Re, B2(Pe), { skipReplFilter: true }), true, false, false, x).resolvedTools) : rt,
     Oe = d
-      ? xe({ content: Ece(u, d), origin: d, isMeta: !0 })
-      : xe({ content: k ? Ece(u, void 0, { isMeta: !0 }) : u, ...(k && { isMeta: !0 }) }),
+      ? xe({ content: Ece(u, d), origin: d, isMeta: true })
+      : xe({ content: k ? Ece(u, void 0, { isMeta: true }) : u, ...(k && { isMeta: true }) }),
     de = Cr(v) ? v.webFetchSavedFiles : void 0,
     Ne = fE(b) ? (de ? { dirs: [...de.dirs], paths: [...de.paths] } : kz()) : void 0,
     Ee = {
@@ -682,19 +682,19 @@ async function ft(
       promptMessages: f ? L : [...L, Oe],
       toolUseContext: qe,
       canUseTool: S,
-      isAsync: !0,
+      isAsync: true,
       preserveToolUseResults: !Le(),
       persistedToolResultFiles: Ne,
       querySource: jW(b.agentType, ja(b)),
       spawnedBySkill: ie,
-      ...(T !== void 0 && { spawnedByForkedSkill: !0 }),
+      ...(T !== void 0 && { spawnedByForkedSkill: true }),
       model: r?.isObserver ? void 0 : M ? "inherit" : r?.model,
       onModelRestricted: r?.isObserver ? void 0 : Bee(ie ?? b.agentType, s.appendSystemMessage),
       override: M ? { systemPrompt: X } : void 0,
       availableTools: st,
       forkContextMessages: void 0,
       recordedUuids: new Set(L.map((t) => t.uuid)),
-      ...((M || r?.isObserver) && { useExactTools: !0 }),
+      ...((M || r?.isObserver) && { useExactTools: true }),
       worktreePath: F,
       worktreeBranch: r?.worktreeBranch,
       cwd: r?.cwd,
@@ -728,14 +728,14 @@ async function ft(
     toolUseId: s.toolUseId,
     cwd: be,
     forkedSkillName: T?.skillName,
-    ...(d?.kind === "observer-activity" && { isObserver: !0 }),
+    ...(d?.kind === "observer-activity" && { isObserver: true }),
     sessionScratch: s.session.sessionScratch,
   });
   if ((je(), D && r?.stoppedByUser))
     try {
       if (rFt(w.get(e)) === H) {
-        if ((await U7(po(e), { stoppedByUser: !1 }, s.storageV5), rFt(w.get(e)) !== H))
-          await U7(po(e), { stoppedByUser: !0 }, s.storageV5);
+        if ((await U7(po(e), { stoppedByUser: false }, s.storageV5), rFt(w.get(e)) !== H))
+          await U7(po(e), { stoppedByUser: true }, s.storageV5);
       }
     } catch (t) {
       if (Ht(t) || TA(r1(t))) n(`failed to clear stop marker for ${e}: ${WW(t)}`, { level: "warn" });
@@ -762,7 +762,7 @@ async function ft(
       isBuiltInAgent: ja(b),
       startTime: Ye,
       agentType: b.agentType,
-      isAsync: !0,
+      isAsync: true,
       agentDepth: x,
       source: b.source,
       pluginId: W8(b) ? Vt(b.plugin) : void 0,
@@ -777,13 +777,13 @@ async function ft(
       agentType: "subagent",
       subagentName: b.agentType,
       displayName: r?.name,
-      isAsync: !0,
+      isAsync: true,
       isBuiltIn: ja(b),
       invokingRequestId: B,
       invocationKind: "resume",
-      invocationEmitted: !1,
+      invocationEmitted: false,
       parentPromptId: U,
-      isBackgroundAgent: !0,
+      isBackgroundAgent: true,
       ...PH(s.agentContext),
     },
     it = d?.kind === "observer-activity" ? () => {} : w.takeConcurrencySlot(),
@@ -814,7 +814,7 @@ async function ft(
           enableSummarization: Zfe() || ((Q9() || M || AG()) && !Le()),
           getWorktreeResult: async () =>
             F ? { worktreePath: F, ...(r?.worktreeBranch && { worktreeBranch: r.worktreeBranch }) } : {},
-          shouldNotifyOwner: K ? () => !1 : void 0,
+          shouldNotifyOwner: K ? () => false : void 0,
           reviewInlineHandoff: se === "reply" && K,
           onTerminalSuccess: T
             ? () => {
@@ -848,10 +848,10 @@ async function ft(
         },
       };
     } catch (t) {
-      if (t instanceof Error) Object.defineProperty(t, pe, { value: !0 });
+      if (t instanceof Error) Object.defineProperty(t, pe, { value: true });
       throw t;
     } finally {
-      w.update(e, (t) => ({ ...t, notified: !0, evictAfter: Date.now() + V0 }));
+      w.update(e, (t) => ({ ...t, notified: true, evictAfter: Date.now() + V0 }));
     }
   return { agentId: e, description: Q, outputFile: Sl(e) };
 }

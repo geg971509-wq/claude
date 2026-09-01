@@ -328,7 +328,7 @@ async function Y(t, u, d, n) {
       extraMessages: d,
       forkSessionPath: l,
     });
-  await x(E, { recursive: !0, mode: 448 });
+  await x(E, { recursive: true, mode: 448 });
   let F;
   try {
     (F = D(C, { encoding: "utf8" })), await N(F, "open");
@@ -381,7 +381,7 @@ async function Y(t, u, d, n) {
         continue;
       }
       if (c.type === "history-suppression") {
-        if (!o) (o = !0), await i();
+        if (!o) (o = true), await i();
         continue;
       }
       if (!tI(c) || c.isSidechain || !U.has(c.uuid)) continue;
@@ -399,13 +399,13 @@ async function Y(t, u, d, n) {
     for (let e of t) {
       let f = v.get(e.uuid);
       if (!f) continue;
-      let c = f.type === "system" && f.subtype === "model_refusal_fallback" ? { neutralizedByFork: !0 } : void 0,
+      let c = f.type === "system" && f.subtype === "model_refusal_fallback" ? { neutralizedByFork: true } : void 0,
         L = {
           ...f,
           ...c,
           sessionId: a,
           parentUuid: y,
-          isSidechain: !1,
+          isSidechain: false,
           sessionKind: void 0,
           forkedFrom: { sessionId: p, messageUuid: f.uuid },
         },
@@ -438,7 +438,7 @@ async function Y(t, u, d, n) {
           sessionId: a,
           timestamp: new Date().toISOString(),
         },
-        c = { ...f, parentUuid: y, isSidechain: !1 };
+        c = { ...f, parentUuid: y, isSidechain: false };
       if (
         (P.push(f),
         await M(
@@ -534,7 +534,7 @@ async function Q(t) {
         continue;
       }
       if (e.type === "history-suppression") {
-        if (!U) (U = !0), g.push(B(R5(n, "fork_inherit")));
+        if (!U) (U = true), g.push(B(R5(n, "fork_inherit")));
         continue;
       }
       if (!tI(e) || e.isSidechain || !F.has(e.uuid)) continue;
@@ -548,13 +548,13 @@ async function Q(t) {
   for (let o of p) {
     let i = m.get(o.uuid);
     if (!i) continue;
-    let y = i.type === "system" && i.subtype === "model_refusal_fallback" ? { neutralizedByFork: !0 } : void 0,
+    let y = i.type === "system" && i.subtype === "model_refusal_fallback" ? { neutralizedByFork: true } : void 0,
       T = {
         ...i,
         ...y,
         sessionId: n,
         parentUuid: I,
-        isSidechain: !1,
+        isSidechain: false,
         sessionKind: void 0,
         forkedFrom: { sessionId: a, messageUuid: i.uuid },
       };
@@ -573,7 +573,7 @@ async function Q(t) {
         sessionId: n,
         timestamp: new Date().toISOString(),
       };
-      if ((R.push(i), g.push(B({ ...i, parentUuid: I, isSidechain: !1 })), o.type !== "progress")) I = o.uuid;
+      if ((R.push(i), g.push(B({ ...i, parentUuid: I, isSidechain: false })), o.type !== "progress")) I = o.uuid;
     }
   if (w.length > 0) {
     let o = { type: "content-replacement", sessionId: n, replacements: w };
@@ -606,7 +606,7 @@ async function Q(t) {
 }
 async function Z(t, u) {
   let d = `${t} (Branch)`;
-  if ((await eM(d, { exact: !0 }, u)).length === 0) return d;
+  if ((await eM(d, { exact: true }, u)).length === 0) return d;
   let a = await eM(`${t} (Branch`, void 0, u),
     p = new Set([1]),
     A = new RegExp(`^${Vu(t)} \\(Branch(?: (\\d+))?\\)$`);
@@ -654,14 +654,14 @@ async function ee(t, u, d = {}) {
         modified: m,
         firstPrompt: w,
         messageCount: C.length,
-        isSidechain: !1,
+        isSidechain: false,
         sessionId: r,
         customTitle: S,
         agentName: S,
         contentReplacements: g,
-        sessionHistorySuppressed: F || p ? !0 : void 0,
+        sessionHistorySuppressed: F || p ? true : void 0,
         atisLatch: A,
-        precautionarySuppressionHeld: c2(Ta(n)) ? !0 : void 0,
+        precautionarySuppressionHeld: c2(Ta(n)) ? true : void 0,
         forkedFromSessionId: n,
       },
       I = E ? ` "${S}"` : "",
@@ -669,10 +669,10 @@ async function ee(t, u, d = {}) {
       R = `Branched conversation${I}. You are now in the new branch (session ${r}). Use /resume ${n}${k} to return to the original, or run \`claude -r ${n}\` in a new terminal.`;
     if (t.resume) await t.resume(r, v, "fork"), iM(fu(), S, "user", t.storageV5), u(R, { display: "system" });
     else u(`Branched conversation${I}. Resume with: /resume ${r}`);
-    return !0;
+    return true;
   } catch (r) {
     let E = r instanceof Error ? r.message : "Unknown error occurred";
-    return u(`Failed to branch conversation: ${E}`), !1;
+    return u(`Failed to branch conversation: ${E}`), false;
   }
 }
 async function Ue(t, u, d) {

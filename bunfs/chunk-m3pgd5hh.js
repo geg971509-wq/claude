@@ -292,7 +292,7 @@ import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-7jz6r17g.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 function c() {
-  return I("tengu_hazel_osprey", !1);
+  return I("tengu_hazel_osprey", false);
 }
 var b = 75000;
 function m() {
@@ -302,16 +302,16 @@ function p(e) {
   return e instanceof Gt && (e.status === 422 || e.status === 424);
 }
 function g(e) {
-  if (!(e instanceof Gt)) return !1;
-  if (e.status !== void 0) return !1;
+  if (!(e instanceof Gt)) return false;
+  if (e.status !== void 0) return false;
   return e.error?.error?.type === "invalid_request_error";
 }
 function f(e) {
   return e instanceof Gt && e.status === 409;
 }
 function E(e) {
-  if (!(e instanceof Gt)) return !1;
-  if (e.status !== 400) return !1;
+  if (!(e instanceof Gt)) return false;
+  if (e.status !== 400) return false;
   let t = e.message ?? "";
   return (t.includes("Unexpected value") && t.includes("anthropic-beta")) || zjn(t);
 }
@@ -378,19 +378,19 @@ function G(e) {
   if (!e.includeFirstPartyBetas) return null;
   if (!e.querySource.startsWith("repl_main_thread")) return null;
   let t = c(),
-    o = !1,
-    i = !1,
-    l = !1;
+    o = false,
+    i = false,
+    l = false;
   return {
     active: t,
     buildRequestParams(r) {
-      if (((i = !1), !t || o)) return null;
-      i = !0;
+      if (((i = false), !t || o)) return null;
+      i = true;
       let u = wln(r, S).tokensSaved >= bln,
         a = m();
       return {
         beta: bSn,
-        body: u ? { context_hint: { enabled: !0, ...(a > 0 && { target_tokens_saved: a }) } } : null,
+        body: u ? { context_hint: { enabled: true, ...(a > 0 && { target_tokens_saved: a }) } } : null,
       };
     },
     async onRequestError(r, u) {
@@ -398,26 +398,26 @@ function G(e) {
       let a = T(r);
       if (p(r))
         return (
-          (o = !0),
+          (o = true),
           k({ messages: u, querySource: e.querySource, agentId: e.agentId, requestId: a, storageV5: e.storageV5 })
         );
-      if (E(r)) return (o = !0), d(a, 400), { messages: u, clearedIds: _, clearedContent: x };
-      if (f(r)) return (o = !0), d(a, 409), null;
-      if (e.is529Error(r)) return (o = !0), d(a, 529), null;
+      if (E(r)) return (o = true), d(a, 400), { messages: u, clearedIds: _, clearedContent: x };
+      if (f(r)) return (o = true), d(a, 409), null;
+      if (e.is529Error(r)) return (o = true), d(a, 529), null;
       return null;
     },
     classifyStreamError(r) {
-      if (((l = !1), !i || o)) return !1;
-      if (!g(r)) return !1;
-      return (l = !0), !0;
+      if (((l = false), !i || o)) return false;
+      if (!g(r)) return false;
+      return (l = true), true;
     },
     async onStreamFallback(r, u) {
       let a = l;
-      if (((o = !0), !a)) return null;
+      if (((o = true), !a)) return null;
       return k({ messages: r, querySource: e.querySource, agentId: e.agentId, requestId: u, storageV5: e.storageV5 });
     },
     strip() {
-      o = !0;
+      o = true;
     },
   };
 }

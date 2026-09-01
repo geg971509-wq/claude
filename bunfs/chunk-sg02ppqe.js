@@ -46,10 +46,10 @@ function ise(Ht) {
   if (s[0] !== S) (vt = S === void 0 ? {} : S), (s[0] = S), (s[1] = vt);
   else vt = s[1];
   let Lt = vt,
-    it = Wt === void 0 ? !0 : Wt,
+    it = Wt === void 0 ? true : Wt,
     [i, j] = u(0),
     [g, Tt] = u(Lt),
-    [k, Ot] = u(!1),
+    [k, Ot] = u(false),
     Ct;
   if (s[2] === d) (Ct = []), (s[2] = Ct);
   else Ct = s[2];
@@ -74,7 +74,7 @@ function ise(Ht) {
       if (i < c.length - 1) {
         if (h.length > 0) R((qt) => [...qt, i]);
         j(St);
-      } else Ot(!0);
+      } else Ot(true);
     }),
       (s[8] = i),
       (s[9] = h),
@@ -187,7 +187,7 @@ function Rs(xe) {
     mt = jt === void 0 ? "suggestion" : jt,
     { currentStepIndex: H, totalSteps: Te, title: Ce, showStepCounter: Pe, goBack: gt } = Ll(),
     ye = ve || Ce || "Wizard",
-    be = Pe !== !1 ? ` (${H + 1}/${Te})` : "";
+    be = Pe !== false ? ` (${H + 1}/${Te})` : "";
   const ht = `${ye}${be}`;
   let O;
   if (L[0] !== pt || L[1] !== mt || L[2] !== gt || L[3] !== ft || L[4] !== ht)
@@ -196,8 +196,8 @@ function Rs(xe) {
       subtitle: ft,
       onCancel: gt,
       color: mt,
-      hideInputGuide: !0,
-      isCancelActive: !1,
+      hideInputGuide: true,
+      isCancelActive: false,
       children: pt,
     })),
       (L[0] = pt),

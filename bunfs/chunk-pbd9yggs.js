@@ -19,10 +19,10 @@ var lm = "CronCreate",
 var t = 300000,
   UX = kM.recurringMaxAgeMs / 86400000;
 function cC() {
-  return !a.CLAUDE_CODE_DISABLE_CRON && OH("tengu_kairos_cron", !0, t);
+  return !a.CLAUDE_CODE_DISABLE_CRON && OH("tengu_kairos_cron", true, t);
 }
 function Nz() {
-  return OH("tengu_kairos_cron_durable", !0, t);
+  return OH("tengu_kairos_cron_durable", true, t);
 }
 function jmn(e) {
   return e

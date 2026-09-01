@@ -324,26 +324,26 @@ function F(e) {
   return Buffer.byteLength(e, "utf8");
 }
 var M = {
-    list_design_systems: { readOnly: !0, destructive: !1 },
-    get_claude_design_prompt: { readOnly: !0, destructive: !1 },
-    list_projects: { readOnly: !0, destructive: !1 },
-    get_project: { readOnly: !0, destructive: !1 },
-    list_files: { readOnly: !0, destructive: !1 },
-    read_file: { readOnly: !0, destructive: !1 },
-    get_conversation: { readOnly: !0, destructive: !1 },
-    list_members: { readOnly: !0, destructive: !1 },
-    render_preview: { readOnly: !1, destructive: !1 },
-    create_project: { readOnly: !1, destructive: !1 },
-    put_conversation: { readOnly: !1, destructive: !1 },
-    finalize_plan: { readOnly: !1, destructive: !1 },
-    write_files: { readOnly: !1, destructive: !1 },
-    copy_files: { readOnly: !1, destructive: !1 },
-    create_support_js: { readOnly: !1, destructive: !1 },
-    add_member: { readOnly: !1, destructive: !1 },
-    delete_files: { readOnly: !1, destructive: !0 },
-    remove_member: { readOnly: !1, destructive: !0 },
-    update_member_role: { readOnly: !1, destructive: !0 },
-    update_sharing: { readOnly: !1, destructive: !0 },
+    list_design_systems: { readOnly: true, destructive: false },
+    get_claude_design_prompt: { readOnly: true, destructive: false },
+    list_projects: { readOnly: true, destructive: false },
+    get_project: { readOnly: true, destructive: false },
+    list_files: { readOnly: true, destructive: false },
+    read_file: { readOnly: true, destructive: false },
+    get_conversation: { readOnly: true, destructive: false },
+    list_members: { readOnly: true, destructive: false },
+    render_preview: { readOnly: false, destructive: false },
+    create_project: { readOnly: false, destructive: false },
+    put_conversation: { readOnly: false, destructive: false },
+    finalize_plan: { readOnly: false, destructive: false },
+    write_files: { readOnly: false, destructive: false },
+    copy_files: { readOnly: false, destructive: false },
+    create_support_js: { readOnly: false, destructive: false },
+    add_member: { readOnly: false, destructive: false },
+    delete_files: { readOnly: false, destructive: true },
+    remove_member: { readOnly: false, destructive: true },
+    update_member_role: { readOnly: false, destructive: true },
+    update_sharing: { readOnly: false, destructive: true },
   },
   U = {
     create_project: { top: new Set(["name", "design_system_id"]) },
@@ -376,18 +376,18 @@ var M = {
     create_support_js: { top: new Set(["project_id", "plan_token", "path", "if_match"]) },
     add_member: {
       top: new Set(["project_id", "account_uuid", "email", "role"]),
-      scalarEnums: { role: { accepts: new Set(["viewer", "commenter", "editor"]), serverNormalizes: !0 } },
+      scalarEnums: { role: { accepts: new Set(["viewer", "commenter", "editor"]), serverNormalizes: true } },
     },
     update_member_role: {
       top: new Set(["project_id", "account_uuid", "role"]),
-      scalarEnums: { role: { accepts: new Set(["viewer", "commenter", "editor"]), serverNormalizes: !0 } },
+      scalarEnums: { role: { accepts: new Set(["viewer", "commenter", "editor"]), serverNormalizes: true } },
     },
     remove_member: { top: new Set(["project_id", "account_uuid"]) },
     update_sharing: {
       top: new Set(["project_id", "scope", "link_permission"]),
       scalarEnums: {
-        scope: { accepts: new Set(["invited", "org"]), serverNormalizes: !0 },
-        link_permission: { accepts: new Set(["view", "comment", "edit"]), serverNormalizes: !0 },
+        scope: { accepts: new Set(["invited", "org"]), serverNormalizes: true },
+        link_permission: { accepts: new Set(["view", "comment", "edit"]), serverNormalizes: true },
       },
     },
   },
@@ -406,7 +406,7 @@ function ie(e, t) {
   let n = Object.hasOwn(U, e) ? U[e] : Object.hasOwn(W, e) ? W[e] : void 0;
   if (!n) {
     let o = x(e);
-    if (o?.readOnly === !0) return null;
+    if (o?.readOnly === true) return null;
     if (o !== void 0)
       return `ClaudeDesign ${e}: the server reports this operation as write-capable, and this client version can't validate its arguments (it needs a WRITE_OP_SCHEMAS entry). Update Claude Code to use it.`;
     return `ClaudeDesign ${e}: unrecognized operation. If the server added it recently, call {operation: "list"} first \u2014 a read-only operation becomes callable after discovery; a write-tier operation needs a WRITE_OP_SCHEMAS entry in this client.`;
@@ -507,8 +507,8 @@ function le(e) {
     if (!c.success) continue;
     let o = c.data,
       u = Object.hasOwn(M, o.name) ? M[o.name] : void 0,
-      _ = o.annotations?.readOnlyHint ?? u?.readOnly ?? !1,
-      y = o.annotations?.destructiveHint ?? u?.destructive ?? !0;
+      _ = o.annotations?.readOnlyHint ?? u?.readOnly ?? false,
+      y = o.annotations?.destructiveHint ?? u?.destructive ?? true;
     if (u) (_ &&= u.readOnly), (y ||= u.destructive);
     t.record(o.name, { readOnly: _, destructive: y }),
       n.push({
@@ -629,19 +629,19 @@ var ge = /\uDB40[\uDC20-\uDC7F\uDD00-\uDDEF]|\uD834[\uDD73-\uDD7A]/,
   me =
     /["\u201C\u201D\u201E\u201F\uFF02\u2033\u2036\u02BA\u02DD\u02EE\u05F4\u3003\u301D-\u301F\u275D\u275E\u2014\u2015]/;
 function B(e) {
-  if (e.agentContext?.agentType !== "main") return !1;
+  if (e.agentContext?.agentType !== "main") return false;
   try {
     return !iT("PermissionRequest", e.sessionHooksRegistry, e.agentContext?.agentId ?? "");
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Te(e, t, n, r) {
   try {
     let c = await U0e(r);
-    if (c.ok !== !0) return null;
+    if (c.ok !== true) return null;
     let o = await be(e, "get_project", { project_id: t }, c.accessToken, n, null, r);
-    if (o.isError === !0) return null;
+    if (o.isError === true) return null;
     for (let u of o.content)
       if (u?.type === "text" && typeof u.text === "string") {
         let _ = V(u.text),
@@ -696,12 +696,12 @@ var $t = kt({
     },
     isEnabled: vhe,
     isConcurrencySafe(e) {
-      if (e.operation === o2) return !0;
-      return (x(e.operation) ?? K(e.operation))?.readOnly === !0;
+      if (e.operation === o2) return true;
+      return (x(e.operation) ?? K(e.operation))?.readOnly === true;
     },
     isReadOnly(e) {
-      if (e.operation === o2) return !0;
-      return (x(e.operation) ?? K(e.operation))?.readOnly === !0;
+      if (e.operation === o2) return true;
+      return (x(e.operation) ?? K(e.operation))?.readOnly === true;
     },
     async description() {
       return rln;
@@ -718,30 +718,30 @@ var $t = kt({
     },
     async validateInput(e) {
       let t = ie(e.operation, e.arguments);
-      if (t) return { result: !1, message: t, errorCode: 1 };
+      if (t) return { result: false, message: t, errorCode: 1 };
       if (e.operation === "finalize_plan") {
         let n = e.arguments?.project_id;
         if (typeof n !== "string" || n.length === 0)
           return {
-            result: !1,
+            result: false,
             message: "ClaudeDesign finalize_plan: project_id is required (a plan is always scoped to one project).",
             errorCode: 1,
           };
         if (!/^[A-Za-z0-9._-]+$/.test(n))
           return {
-            result: !1,
+            result: false,
             message:
               "ClaudeDesign finalize_plan: project_id contains characters outside the server id charset (letters, digits, dot, underscore, dash).",
             errorCode: 1,
           };
         if (n.length > vWe - 2)
           return {
-            result: !1,
+            result: false,
             message: "ClaudeDesign finalize_plan: project_id is longer than any server-issued project id.",
             errorCode: 1,
           };
       }
-      return { result: !0 };
+      return { result: true };
     },
     async checkPermissions(e, t) {
       let n = t.toolState.get(HA),
@@ -764,12 +764,12 @@ var $t = kt({
           decisionReason: {
             type: "safetyCheck",
             reason: 'finalize_plan scope:"project" is superseded by the durable per-project write grant',
-            classifierApprovable: !1,
+            classifierApprovable: false,
           },
         };
-      let u = e.operation === o2 ? { readOnly: !0, destructive: !1 } : (x(e.operation) ?? K(e.operation)),
-        _ = u?.readOnly !== !0,
-        y = _ && u?.destructive !== !1;
+      let u = e.operation === o2 ? { readOnly: true, destructive: false } : (x(e.operation) ?? K(e.operation)),
+        _ = u?.readOnly !== true,
+        y = _ && u?.destructive !== false;
       if (
         e.operation === "copy_files" &&
         !(typeof e.arguments?.plan_token === "string" && e.arguments.plan_token.length > 0)
@@ -782,7 +782,7 @@ var $t = kt({
             type: "safetyCheck",
             reason:
               "tokenless copy_files is per-batch-only \u2014 its destinations have no reserved-path or render-integrity gate",
-            classifierApprovable: !1,
+            classifierApprovable: false,
           },
         };
       if (o) {
@@ -808,7 +808,7 @@ var $t = kt({
                   : k
                     ? "the batch cannot be rendered fully in the approval dialog \u2014 split it or use per-batch plans"
                     : "reserved or unenumerable target paths always require per-batch approval",
-                classifierApprovable: !1,
+                classifierApprovable: false,
               },
             };
           }
@@ -818,13 +818,13 @@ var $t = kt({
         return {
           behavior: "ask",
           message: [o, s, d].filter(Boolean).join(" "),
-          updatedInput: e.operation === "finalize_plan" ? { ...c, __finalizePlanAskShown: !0 } : c,
-          localDisplayOnly: !0,
+          updatedInput: e.operation === "finalize_plan" ? { ...c, __finalizePlanAskShown: true } : c,
+          localDisplayOnly: true,
           decisionReason: {
             type: "safetyCheck",
             reason:
               "design agent consent \u2014 approving records a server-side grant for Claude agents to read and write your design projects",
-            classifierApprovable: !1,
+            classifierApprovable: false,
           },
         };
       }
@@ -835,7 +835,7 @@ var $t = kt({
         (e.operation === "write_files" || e.operation === "create_support_js") &&
         !(typeof e.arguments?.plan_token === "string" && e.arguments.plan_token.length > 0)
       ) {
-        if (t.options?.isNonInteractiveSession === !0) {
+        if (t.options?.isNonInteractiveSession === true) {
           let d = {
               behavior: "deny",
               message: `ClaudeDesign ${e.operation}: writing without a plan_token requires a one-time interactive project approval, which is not available in non-interactive sessions \u2014 use finalize_plan with writes (and deletes if needed), then pass the returned plan_token.`,
@@ -843,7 +843,7 @@ var $t = kt({
                 type: "safetyCheck",
                 reason:
                   "a durable project write grant requires an interactive approval with a server-verified project identity",
-                classifierApprovable: !1,
+                classifierApprovable: false,
               },
             },
             g = e.arguments?.project_id;
@@ -864,7 +864,7 @@ var $t = kt({
               type: "safetyCheck",
               reason:
                 "a durable project write grant requires a context where the approval card reaches the user directly",
-              classifierApprovable: !1,
+              classifierApprovable: false,
             },
           };
         let s = e.arguments?.project_id;
@@ -876,7 +876,7 @@ var $t = kt({
               decisionReason: {
                 type: "safetyCheck",
                 reason: "the server refused to mint a durable grant for this project \u2014 per-batch plans only",
-                classifierApprovable: !1,
+                classifierApprovable: false,
               },
             };
           let d = RWe(e.operation, e.arguments),
@@ -889,7 +889,7 @@ var $t = kt({
                 decisionReason: {
                   type: "safetyCheck",
                   reason: "a durable project write grant cannot be minted from plan mode \u2014 per-batch plans only",
-                  classifierApprovable: !1,
+                  classifierApprovable: false,
                 },
               };
             NZ(n, s);
@@ -905,7 +905,7 @@ var $t = kt({
                 decisionReason: {
                   type: "safetyCheck",
                   reason: "the grant state could not be verified \u2014 fail toward the per-batch plan flow",
-                  classifierApprovable: !1,
+                  classifierApprovable: false,
                 },
               };
             else {
@@ -919,7 +919,7 @@ var $t = kt({
                           type: "safetyCheck",
                           reason:
                             "a durable project write grant cannot be minted from plan mode \u2014 per-batch plans only",
-                          classifierApprovable: !1,
+                          classifierApprovable: false,
                         },
                       },
                 A = k();
@@ -932,7 +932,7 @@ var $t = kt({
                     type: "safetyCheck",
                     reason:
                       "a durable project write grant requires an interactive approval with a server-verified project identity",
-                    classifierApprovable: !1,
+                    classifierApprovable: false,
                   },
                 };
               let h = await Te(n, s, t.abortController.signal, t.credentials);
@@ -944,7 +944,7 @@ var $t = kt({
                     type: "safetyCheck",
                     reason:
                       "a durable project write grant requires a server-verified project identity in the approval card",
-                    classifierApprovable: !1,
+                    classifierApprovable: false,
                   },
                 };
               let S = k();
@@ -953,13 +953,13 @@ var $t = kt({
                 behavior: "ask",
                 message: `Approving writes the listed files now, and lets Claude write to ANY file in the project "${h.name}" (${h.sharingLabel}) \u2014 ${h.url} \u2014 without asking again. This approval is remembered for this project until you revoke it in settings at claude.ai/design (future writes and file contents are not shown for approval). Deletes and CLAUDE.md/.claude paths still ask every time.`,
                 updatedInput: { ...c, __projectGrantAskShown: s },
-                localDisplayOnly: !0,
+                localDisplayOnly: true,
                 serverApprovalWatch: { kind: "design_project_grant", projectId: s },
                 decisionReason: {
                   type: "safetyCheck",
                   reason:
                     "first write under a project grant \u2014 approval mints a durable write grant for this project, revocable at claude.ai/design settings",
-                  classifierApprovable: !1,
+                  classifierApprovable: false,
                 },
               };
             }
@@ -981,7 +981,7 @@ var $t = kt({
                   reason: A
                     ? "a write batch naming no target paths \u2014 malformed call"
                     : "reserved or unenumerable target paths always require per-batch approval",
-                  classifierApprovable: !1,
+                  classifierApprovable: false,
                 },
               };
             }
@@ -990,14 +990,14 @@ var $t = kt({
               {
                 behavior: "ask",
                 message: `Design ${e.operation} writes to claude.ai/design.`,
-                updatedInput: { ...c, __reservedTargetsAskShown: !0 },
-                localDisplayOnly: !0,
+                updatedInput: { ...c, __reservedTargetsAskShown: true },
+                localDisplayOnly: true,
                 decisionReason: {
                   type: "safetyCheck",
                   reason: y
                     ? "destructive \u2014 model-generated arguments"
                     : "remote write \u2014 model-generated arguments",
-                  classifierApprovable: !1,
+                  classifierApprovable: false,
                 },
               }
             );
@@ -1008,13 +1008,13 @@ var $t = kt({
         return {
           behavior: "ask",
           message: `Design finalize_plan writes to claude.ai/design. ${ue}`,
-          updatedInput: { ...c, __finalizePlanAskShown: !0 },
-          localDisplayOnly: !0,
+          updatedInput: { ...c, __finalizePlanAskShown: true },
+          localDisplayOnly: true,
           decisionReason: {
             type: "safetyCheck",
             reason:
               "finalize_plan \u2014 the human is the path-review boundary; approval also grants prompt-free writes to these paths for 15 min",
-            classifierApprovable: !1,
+            classifierApprovable: false,
           },
         };
       if (y)
@@ -1027,7 +1027,7 @@ var $t = kt({
             reason: u
               ? "destructive \u2014 model-generated arguments"
               : "unknown operation \u2014 fail-closed to destructive write",
-            classifierApprovable: !1,
+            classifierApprovable: false,
           },
         };
       return {
@@ -1037,13 +1037,13 @@ var $t = kt({
         decisionReason: {
           type: "safetyCheck",
           reason: "remote write \u2014 model-generated arguments",
-          classifierApprovable: !1,
+          classifierApprovable: false,
         },
       };
     },
     async call(e, t) {
       let n = t.toolState.get(HA),
-        r = e.__consentAskCanReachUser ?? !1,
+        r = e.__consentAskCanReachUser ?? false,
         c = r && re(t);
       if (e.operation === "finalize_plan" && r) {
         let h = (e.arguments ?? {}).project_id;
@@ -1059,7 +1059,7 @@ var $t = kt({
       let u = o.accessToken,
         _ = e.__consentBitShown ?? null,
         y = e.__projectGrantAskShown ?? null,
-        s = e.__projectGrantServerObserved === !0,
+        s = e.__projectGrantServerObserved === true,
         d = (() => {
           if (e.operation !== "write_files" && e.operation !== "create_support_js") return null;
           let h = e.arguments ?? {};
@@ -1077,7 +1077,7 @@ var $t = kt({
         );
       if (d !== null) {
         let h = RWe(e.operation, e.arguments),
-          S = e.__reservedTargetsAskShown === !0;
+          S = e.__reservedTargetsAskShown === true;
         if (h.outcome !== "pass" && !S)
           throw new R(
             `${e.operation} without a plan_token: this batch includes paths that always require per-batch approval \u2014 use finalize_plan with writes (and deletes if needed), then pass the returned plan_token.`,
@@ -1088,9 +1088,9 @@ var $t = kt({
         w = t.agentContext?.agentId ?? null,
         k;
       try {
-        if (((k = await A({})), e.operation === "finalize_plan" && e.__finalizePlanAskShown === !0 && c && B(t))) {
+        if (((k = await A({})), e.operation === "finalize_plan" && e.__finalizePlanAskShown === true && c && B(t))) {
           let h = e.arguments ?? {},
-            S = k.isError !== !0 ? E6n(k.content) : null,
+            S = k.isError !== true ? E6n(k.content) : null,
             p = (v) => (Array.isArray(v) ? v.filter((C) => typeof C === "string") : []);
           if (S !== null && typeof h.project_id === "string" && h.scope !== "project")
             w6n(n, S.token, {
@@ -1110,22 +1110,22 @@ var $t = kt({
           if (g.aborted) throw new Ze();
           throw new R(S, "design_tool_auth_401");
         }
-        if (h instanceof Z && t.options?.isNonInteractiveSession) throw new Z({ isNonInteractiveSession: !0 });
+        if (h instanceof Z && t.options?.isNonInteractiveSession) throw new Z({ isNonInteractiveSession: true });
         throw h;
       }
       return { data: k };
       async function A(h) {
         try {
           let S = await be(n, e.operation, e.arguments, u, g, w, t.credentials);
-          if (_ !== null && !g.aborted && S.isError !== !0) _W(n, _, !0);
-          if (d !== null && !g.aborted && S.isError !== !0 && ((y === d && !s) || !oG(n, d))) NZ(n, d);
+          if (_ !== null && !g.aborted && S.isError !== true) _W(n, _, true);
+          if (d !== null && !g.aborted && S.isError !== true && ((y === d && !s) || !oG(n, d))) NZ(n, d);
           return S;
         } catch (S) {
           if (S instanceof Y) {
-            if ((Hae(n, S.projectId), _Un(n), h.grant === !0)) throw S;
+            if ((Hae(n, S.projectId), _Un(n), h.grant === true)) throw S;
             if (S.projectId !== y || s) {
               if (e.operation === "write_files" || e.operation === "create_support_js") {
-                if (t.options?.isNonInteractiveSession === !0)
+                if (t.options?.isNonInteractiveSession === true)
                   throw new R(
                     "Writing to this project needs a project write grant that is not currently active (it may have been revoked) \u2014 use finalize_plan with writes (and deletes if needed), then pass the returned plan_token. A durable project write grant can be approved from an interactive Claude Code session.",
                     "design_tool_needs_project_grant_non_interactive",
@@ -1155,14 +1155,14 @@ var $t = kt({
                 );
               throw v;
             }
-            return A({ ...h, grant: !0 });
+            return A({ ...h, grant: true });
           }
           if (!(S instanceof X)) throw S;
-          if (h.consent === !0) throw S;
+          if (h.consent === true) throw S;
           let p = S.consent;
           if (p !== _)
             throw (
-              (_W(n, p, !1),
+              (_W(n, p, false),
               new R(
                 `${aZ(p)} The user hasn't granted this yet \u2014 ask them to retry (the prompt will show on the next call) or run /design consent.`,
                 "design_tool_needs_consent_not_shown",
@@ -1170,13 +1170,13 @@ var $t = kt({
             );
           if (!c)
             throw (
-              (_W(n, p, !1),
+              (_W(n, p, false),
               new R(
                 `${aZ(p)} The user hasn't granted this \u2014 run /design consent to grant it (it can't be approved automatically in this permission mode).`,
                 "design_tool_needs_consent_no_prompt",
               ))
             );
-          return await lZ(n, p, t.credentials), A({ ...h, consent: !0 });
+          return await lZ(n, p, t.credentials), A({ ...h, consent: true });
         }
       }
     },
@@ -1254,7 +1254,7 @@ var $t = kt({
                 t &&
                 j === 0 &&
                 C.some((I) => {
-                  if (typeof I !== "object" || I === null) return !1;
+                  if (typeof I !== "object" || I === null) return false;
                   let z = I;
                   return (typeof z.data === "string" && z.data) || (typeof z.content === "string" && z.content);
                 }),
@@ -1356,7 +1356,7 @@ function Ne(e) {
 class Z extends R {
   constructor(e) {
     super(
-      e?.isNonInteractiveSession === !0
+      e?.isNonInteractiveSession === true
         ? "Claude Design rejected this session's claude.ai credential (HTTP 403): it does not carry Claude Design access, and /design login cannot run in this non-interactive session. Ask the user to run /design login once from an interactive Claude Code session on this machine \u2014 non-interactive runs here then reuse that authorization. (CI runners and hosted sessions have no interactive session; Claude Design is not reachable from those without a stored /design login credential.)"
         : "Claude Design rejected this session's claude.ai credential (HTTP 403): it does not carry Claude Design access. Run /design login to authorize Claude Design, then retry.",
       "design_tool_needs_design_scopes",
@@ -1387,13 +1387,13 @@ async function be(e, t, n, r, c, o, u) {
         A = Vn(k),
         h = n?.full;
       if (
-        !(h !== void 0 && h !== !1 && h !== "false" && h !== 0 && h !== "") &&
+        !(h !== void 0 && h !== false && h !== "false" && h !== 0 && h !== "") &&
         o !== null &&
         e.servedCatalogHashes.get(o) === A
       ) {
         we(e, o, A);
         let p = {
-          catalog_unchanged: !0,
+          catalog_unchanged: true,
           catalog_hash: A,
           note:
             `The operation catalog is unchanged since the earlier "${o2}" result in this conversation (hash ${A}) \u2014 full descriptions and argument schemas are in that result. ` +
@@ -1414,7 +1414,7 @@ async function be(e, t, n, r, c, o, u) {
             text: `Unknown Claude Design operation "${t}". Call ${zG}({operation: "${o2}"}) to see the available operations.`,
           },
         ],
-        isError: !0,
+        isError: true,
       };
     let y = (w) => ee({ jsonrpc: "2.0", id: 1, method: "tools/call", params: { name: t, arguments: n } }, r, w, c, u),
       s = await Q(e, r, c, u),
@@ -1435,7 +1435,7 @@ async function be(e, t, n, r, c, o, u) {
         content: [
           { type: "text", text: L(`${g.error.message}${g.error.data ? ` \u2014 ${b(g.error.data)}` : ""}`, r) },
         ],
-        isError: !0,
+        isError: true,
       };
     return { operation: t, content: g.result?.content ?? [], isError: g.result?.isError };
   } catch (_) {
@@ -1450,7 +1450,7 @@ async function be(e, t, n, r, c, o, u) {
   }
 }
 function Me(e) {
-  if (typeof e !== "object" || e === null) return !1;
+  if (typeof e !== "object" || e === null) return false;
   let t = e;
   return t.name === "CanceledError" || t.name === "AbortError" || t.code === "ERR_CANCELED";
 }
@@ -1474,7 +1474,7 @@ async function qe(e, t, n, r) {
   return le(u.data.result.tools);
 }
 function Se(e) {
-  (e.cachedSessionId = null), (e.initialized = !1), (e.initializeInFlight = null), (e.discoverInFlight = null);
+  (e.cachedSessionId = null), (e.initialized = false), (e.initializeInFlight = null), (e.discoverInFlight = null);
 }
 async function Q(e, t, n, r) {
   if (e.initialized) return e.cachedSessionId;
@@ -1500,7 +1500,7 @@ async function Q(e, t, n, r) {
     if (o.status < 200 || o.status >= 300)
       throw new R(`Claude Design initialize failed: HTTP ${o.status}`, "design_tool_initialize_failed");
     let u = o.response.headers["mcp-session-id"];
-    return (e.cachedSessionId = typeof u === "string" && u ? u : null), (e.initialized = !0), e.cachedSessionId;
+    return (e.cachedSessionId = typeof u === "string" && u ? u : null), (e.initialized = true), e.cachedSessionId;
   })();
   e.initializeInFlight = c;
   try {
@@ -1511,7 +1511,7 @@ async function Q(e, t, n, r) {
 }
 class ae extends R {
   wasRetried;
-  constructor(e = !1) {
+  constructor(e = false) {
     super(
       "Claude Design authentication failed (HTTP 401). The claude.ai credential is missing or expired \u2014 run /login, or /design login for a separate design credential.",
       "design_tool_auth_401",
@@ -1525,21 +1525,21 @@ async function Ge(e, t, n) {
   if (O() && n !== void 0) r = await qa(n);
   else r = Yt();
   if (e === r?.accessToken && Boolean(r?.refreshToken)) {
-    if ((await Promise.race([ym(e, n).catch(() => !1), ne(ve, t)]), t.aborted)) return null;
+    if ((await Promise.race([ym(e, n).catch(() => false), ne(ve, t)]), t.aborted)) return null;
   }
   let c = await Promise.race([U0e(n).catch(() => null), ne(ve, t).then(() => null)]);
-  return c?.ok === !0 && c.accessToken !== e ? c.accessToken : null;
+  return c?.ok === true && c.accessToken !== e ? c.accessToken : null;
 }
 async function We(e, t) {
-  let n = t?.isNonInteractiveSession === !0,
+  let n = t?.isNonInteractiveSession === true,
     r =
-      t?.wasRetried === !0
+      t?.wasRetried === true
         ? "Claude Design authentication failed (HTTP 401): a freshly refreshed credential was also rejected \u2014 likely a server-side access problem with this account or credential rather than simple expiry."
         : "Claude Design authentication failed (HTTP 401): the credential was rejected and an automatic refresh did not produce a new one.",
     c;
   if (O() && e !== void 0) c = await qa(e);
   else c = Yt();
-  let o = !!c?.accessToken && !!c.refreshToken && c.scopes?.includes("user:design:read") === !0;
+  let o = !!c?.accessToken && !!c.refreshToken && c.scopes?.includes("user:design:read") === true;
   if (!o && (await yUn(e)))
     return `${r} The design credential (from /design login) is expired or revoked${n ? ", and /design login requires an interactive terminal \u2014 re-authenticate outside this session" : " \u2014 run /design login to re-authenticate"}.`;
   if (!o && c?.accessToken && !c.refreshToken) {
@@ -1555,7 +1555,7 @@ async function We(e, t) {
     return `${r} The claude.ai credential is expired or revoked, and /login requires an interactive terminal \u2014 re-authenticate outside this session.`;
   return `${r} Run /login, or /design login for a separate design credential.`;
 }
-async function ee(e, t, n, r, c, o, u = !1) {
+async function ee(e, t, n, r, c, o, u = false) {
   if (!FT(zt().BASE_API_URL))
     throw Error(
       "Claude Design is only reachable from api.anthropic.com; the current OAuth base URL is not on the first-party allowlist.",
@@ -1570,7 +1570,7 @@ async function ee(e, t, n, r, c, o, u = !1) {
     },
     timeout: 60000,
     maxContentLength: 16 * se,
-    validateStatus: () => !0,
+    validateStatus: () => true,
     signal: r,
     ...(o && { responseType: o }),
   });
@@ -1580,7 +1580,7 @@ async function ee(e, t, n, r, c, o, u = !1) {
       let s = await Ge(t, r, c);
       if (s !== null && !r.aborted)
         try {
-          let d = await ee(e, s, n, r, c, o, !0);
+          let d = await ee(e, s, n, r, c, o, true);
           if (typeof d.data === "string") {
             if (d.data.includes(s)) d.data = L(d.data, s);
           } else if (d.data !== null && d.data !== void 0) {

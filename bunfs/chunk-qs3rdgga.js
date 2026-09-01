@@ -10,7 +10,7 @@
 // Version: 2.1.252
 import { S } from "/$bunfs/root/chunk-yz031c9r.js";
 var Ne = S(function (Pr) {
-  Object.defineProperty(Pr, "__esModule", { value: !0 });
+  Object.defineProperty(Pr, "__esModule", { value: true });
   Pr.regexpCode =
     Pr.getEsmExportName =
     Pr.getProperty =
@@ -39,7 +39,7 @@ var Ne = S(function (Pr) {
       return this.str;
     }
     emptyStr() {
-      return !1;
+      return false;
     }
     get names() {
       return { [this.str]: 1 };
@@ -55,7 +55,7 @@ var Ne = S(function (Pr) {
       return this.str;
     }
     emptyStr() {
-      if (this._items.length > 1) return !1;
+      if (this._items.length > 1) return false;
       let e = this._items[0];
       return e === "" || e === '""';
     }
@@ -154,7 +154,7 @@ var Ne = S(function (Pr) {
   Pr.regexpCode = Fi;
 });
 var Rt = S(function (kr) {
-  Object.defineProperty(kr, "__esModule", { value: !0 });
+  Object.defineProperty(kr, "__esModule", { value: true });
   kr.ValueScope = kr.ValueScopeName = kr.Scope = kr.varKinds = kr.UsedValueState = void 0;
   var M = Ne();
   class Or extends Error {
@@ -279,7 +279,7 @@ var Rt = S(function (kr) {
   kr.ValueScope = qr;
 });
 var Wc = S(function (A) {
-  Object.defineProperty(A, "__esModule", { value: !0 });
+  Object.defineProperty(A, "__esModule", { value: true });
   A.or =
     A.and =
     A.not =
@@ -302,74 +302,74 @@ var Wc = S(function (A) {
     F = Rt(),
     Z = Ne();
   Object.defineProperty(A, "_", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Z._;
     },
   });
   Object.defineProperty(A, "str", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Z.str;
     },
   });
   Object.defineProperty(A, "strConcat", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Z.strConcat;
     },
   });
   Object.defineProperty(A, "nil", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Z.nil;
     },
   });
   Object.defineProperty(A, "getProperty", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Z.getProperty;
     },
   });
   Object.defineProperty(A, "stringify", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Z.stringify;
     },
   });
   Object.defineProperty(A, "regexpCode", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Z.regexpCode;
     },
   });
   Object.defineProperty(A, "Name", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Z.Name;
     },
   });
   var Ze = Rt();
   Object.defineProperty(A, "Scope", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ze.Scope;
     },
   });
   Object.defineProperty(A, "ValueScope", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ze.ValueScope;
     },
   });
   Object.defineProperty(A, "ValueScopeName", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ze.ValueScopeName;
     },
   });
   Object.defineProperty(A, "varKinds", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ze.varKinds;
     },
@@ -541,18 +541,18 @@ var Wc = S(function (A) {
     optimizeNodes() {
       super.optimizeNodes();
       let e = this.condition;
-      if (e === !0) return this.nodes;
+      if (e === true) return this.nodes;
       let t = this.else;
       if (t) {
         let r = t.optimizeNodes();
         t = this.else = Array.isArray(r) ? new Oe(r) : r;
       }
       if (t) {
-        if (e === !1) return t instanceof Q ? t : t.nodes;
+        if (e === false) return t instanceof Q ? t : t.nodes;
         if (this.nodes.length) return this;
         return new Q(Kr(e), t instanceof Q ? [t] : t.nodes);
       }
-      if (e === !1 || !this.nodes.length) return;
+      if (e === false || !this.nodes.length) return;
       return this;
     }
     optimizeNames(e, t) {
@@ -926,7 +926,7 @@ var Wc = S(function (A) {
   }
 });
 var $p = S(function (Yr) {
-  Object.defineProperty(Yr, "__esModule", { value: !0 });
+  Object.defineProperty(Yr, "__esModule", { value: true });
   Yr.checkStrictMode =
     Yr.getErrorPath =
     Yr.Type =
@@ -950,13 +950,13 @@ var $p = S(function (Yr) {
     ha = Ne();
   function ma(e) {
     let t = {};
-    for (let r of e) t[r] = !0;
+    for (let r of e) t[r] = true;
     return t;
   }
   Yr.toHash = ma;
   function ya(e, t) {
     if (typeof t == "boolean") return t;
-    if (Object.keys(t).length === 0) return !0;
+    if (Object.keys(t).length === 0) return true;
     return Jr(e, t), !Wr(t, e.self.RULES.all);
   }
   Yr.alwaysValidSchema = ya;
@@ -970,14 +970,14 @@ var $p = S(function (Yr) {
   Yr.checkUnknownRules = Jr;
   function Wr(e, t) {
     if (typeof e == "boolean") return !e;
-    for (let r in e) if (t[r]) return !0;
-    return !1;
+    for (let r in e) if (t[r]) return true;
+    return false;
   }
   Yr.schemaHasRules = Wr;
   function _a(e, t) {
     if (typeof e == "boolean") return !e;
-    for (let r in e) if (r !== "$ref" && t.all[r]) return !0;
-    return !1;
+    for (let r in e) if (r !== "$ref" && t.all[r]) return true;
+    return false;
   }
   Yr.schemaHasRulesButRef = _a;
   function ga({ topSchemaRef: e, schemaPath: t }, r, s, n) {
@@ -1029,16 +1029,16 @@ var $p = S(function (Yr) {
         e.if(q._`${r} !== true && ${t} !== undefined`, () => {
           e.if(
             q._`${t} === true`,
-            () => e.assign(r, !0),
+            () => e.assign(r, true),
             () => e.assign(r, q._`${r} || {}`).code(q._`Object.assign(${r}, ${t})`),
           );
         }),
       mergeToName: (e, t, r) =>
         e.if(q._`${r} !== true`, () => {
-          if (t === !0) e.assign(r, !0);
+          if (t === true) e.assign(r, true);
           else e.assign(r, q._`${r} || {}`), Dt(e, r, t);
         }),
-      mergeValues: (e, t) => (e === !0 ? !0 : { ...e, ...t }),
+      mergeValues: (e, t) => (e === true ? true : { ...e, ...t }),
       resultToName: Qr,
     }),
     items: Hr({
@@ -1047,20 +1047,20 @@ var $p = S(function (Yr) {
           e.assign(r, q._`${t} === true ? true : ${r} > ${t} ? ${r} : ${t}`),
         ),
       mergeToName: (e, t, r) =>
-        e.if(q._`${r} !== true`, () => e.assign(r, t === !0 ? !0 : q._`${r} > ${t} ? ${r} : ${t}`)),
-      mergeValues: (e, t) => (e === !0 ? !0 : Math.max(e, t)),
+        e.if(q._`${r} !== true`, () => e.assign(r, t === true ? true : q._`${r} > ${t} ? ${r} : ${t}`)),
+      mergeValues: (e, t) => (e === true ? true : Math.max(e, t)),
       resultToName: (e, t) => e.var("items", t),
     }),
   };
   function Qr(e, t) {
-    if (t === !0) return e.var("props", !0);
+    if (t === true) return e.var("props", true);
     let r = e.var("props", q._`{}`);
     if (t !== void 0) Dt(e, r, t);
     return r;
   }
   Yr.evaluatedPropsToName = Qr;
   function Dt(e, t, r) {
-    Object.keys(r).forEach((s) => e.assign(q._`${t}${(0, q.getProperty)(s)}`, !0));
+    Object.keys(r).forEach((s) => e.assign(q._`${t}${(0, q.getProperty)(s)}`, true));
   }
   Yr.setEvaluated = Dt;
   var Gr = {};
@@ -1088,13 +1088,13 @@ var $p = S(function (Yr) {
   Yr.getErrorPath = Ea;
   function Xr(e, t, r = e.opts.strictSchema) {
     if (!r) return;
-    if (((t = `strict mode: ${t}`), r === !0)) throw Error(t);
+    if (((t = `strict mode: ${t}`), r === true)) throw Error(t);
     e.self.logger.warn(t);
   }
   Yr.checkStrictMode = Xr;
 });
 var _5 = S(function (es) {
-  Object.defineProperty(es, "__esModule", { value: !0 });
+  Object.defineProperty(es, "__esModule", { value: true });
   var I = Wc(),
     Ua = {
       data: new I.Name("data"),
@@ -1117,7 +1117,7 @@ var _5 = S(function (es) {
   es.default = Ua;
 });
 var qe = S(function (ns) {
-  Object.defineProperty(ns, "__esModule", { value: !0 });
+  Object.defineProperty(ns, "__esModule", { value: true });
   ns.extendErrors =
     ns.resetErrorsCount =
     ns.reportExtraError =
@@ -1187,7 +1187,7 @@ var qe = S(function (ns) {
   function rs(e, t) {
     let { gen: r, validateName: s, schemaEnv: n } = e;
     if (n.$async) r.throw(O._`new ${e.ValidationError}(${t})`);
-    else r.assign(O._`${s}.errors`, t), r.return(!1);
+    else r.assign(O._`${s}.errors`, t), r.return(false);
   }
   var ie = {
     keyword: new O.Name("keyword"),
@@ -1200,7 +1200,7 @@ var qe = S(function (ns) {
   };
   function ss(e, t, r) {
     let { createErrors: s } = e.it;
-    if (s === !1) return O._`{}`;
+    if (s === false) return O._`{}`;
     return Ja(e, t, r);
   }
   function Ja(e, t, r = {}) {
@@ -1227,7 +1227,7 @@ var qe = S(function (ns) {
   }
 });
 var us = S(function (as) {
-  Object.defineProperty(as, "__esModule", { value: !0 });
+  Object.defineProperty(as, "__esModule", { value: true });
   as.boolOrEmptySchema = as.topBoolOrEmptySchema = void 0;
   var tc = qe(),
     rc = Wc(),
@@ -1235,25 +1235,25 @@ var us = S(function (as) {
     nc = { message: "boolean schema is false" };
   function oc(e) {
     let { gen: t, schema: r, validateName: s } = e;
-    if (r === !1) is(e, !1);
-    else if (typeof r == "object" && r.$async === !0) t.return(sc.default.data);
-    else t.assign(rc._`${s}.errors`, null), t.return(!0);
+    if (r === false) is(e, false);
+    else if (typeof r == "object" && r.$async === true) t.return(sc.default.data);
+    else t.assign(rc._`${s}.errors`, null), t.return(true);
   }
   as.topBoolOrEmptySchema = oc;
   function ic(e, t) {
     let { gen: r, schema: s } = e;
-    if (s === !1) r.var(t, !1), is(e);
-    else r.var(t, !0);
+    if (s === false) r.var(t, false), is(e);
+    else r.var(t, true);
   }
   as.boolOrEmptySchema = ic;
   function is(e, t) {
     let { gen: r, data: s } = e,
-      n = { gen: r, keyword: "false schema", data: s, schema: !1, schemaCode: !1, schemaValue: !1, params: {}, it: e };
+      n = { gen: r, keyword: "false schema", data: s, schema: false, schemaCode: false, schemaValue: false, params: {}, it: e };
     (0, tc.reportError)(n, nc, void 0, t);
   }
 });
 var zt = S(function (ls) {
-  Object.defineProperty(ls, "__esModule", { value: !0 });
+  Object.defineProperty(ls, "__esModule", { value: true });
   ls.getRules = ls.isJSONType = void 0;
   var cc = ["string", "number", "integer", "boolean", "null", "object", "array"],
     uc = new Set(cc);
@@ -1269,7 +1269,7 @@ var zt = S(function (ls) {
       object: { type: "object", rules: [] },
     };
     return {
-      types: { ...e, integer: !0, boolean: !0, null: !0 },
+      types: { ...e, integer: true, boolean: true, null: true },
       rules: [{ rules: [] }, e.number, e.string, e.array, e.object],
       post: { rules: [] },
       all: {},
@@ -1279,11 +1279,11 @@ var zt = S(function (ls) {
   ls.getRules = dc;
 });
 var Ut = S(function (hs) {
-  Object.defineProperty(hs, "__esModule", { value: !0 });
+  Object.defineProperty(hs, "__esModule", { value: true });
   hs.shouldUseRule = hs.shouldUseGroup = hs.schemaHasRulesForType = void 0;
   function pc({ schema: e, self: t }, r) {
     let s = t.RULES.types[r];
-    return s && s !== !0 && fs(e, s);
+    return s && s !== true && fs(e, s);
   }
   hs.schemaHasRulesForType = pc;
   function fs(e, t) {
@@ -1300,7 +1300,7 @@ var Ut = S(function (hs) {
   hs.shouldUseRule = ps;
 });
 var ke = S(function ($s) {
-  Object.defineProperty($s, "__esModule", { value: !0 });
+  Object.defineProperty($s, "__esModule", { value: true });
   $s.reportTypeError =
     $s.checkDataTypes =
     $s.checkDataType =
@@ -1321,10 +1321,10 @@ var ke = S(function ($s) {
   function $c(e) {
     let t = _s(e.type);
     if (t.includes("null")) {
-      if (e.nullable === !1) throw Error("type: null contradicts nullable: false");
+      if (e.nullable === false) throw Error("type: null contradicts nullable: false");
     } else {
       if (!t.length && e.nullable !== void 0) throw Error('"nullable" cannot be used without "type"');
-      if (e.nullable === !0) t.push("null");
+      if (e.nullable === true) t.push("null");
     }
     return t;
   }
@@ -1390,9 +1390,9 @@ var ke = S(function ($s) {
           return;
         case "boolean":
           s.elseIf(b._`${n} === "false" || ${n} === 0 || ${n} === null`)
-            .assign(a, !1)
+            .assign(a, false)
             .elseIf(b._`${n} === "true" || ${n} === 1`)
-            .assign(a, !0);
+            .assign(a, true);
           return;
         case "null":
           s.elseIf(b._`${n} === "" || ${n} === 0 || ${n} === false`), s.assign(a, null);
@@ -1472,7 +1472,7 @@ var ke = S(function ($s) {
   }
 });
 var Ss = S(function (bs) {
-  Object.defineProperty(bs, "__esModule", { value: !0 });
+  Object.defineProperty(bs, "__esModule", { value: true });
   bs.assignDefaults = void 0;
   var ye = Wc(),
     Rc = $p();
@@ -1496,7 +1496,7 @@ var Ss = S(function (bs) {
   }
 });
 var z = S(function (Os) {
-  Object.defineProperty(Os, "__esModule", { value: !0 });
+  Object.defineProperty(Os, "__esModule", { value: true });
   Os.validateUnion =
     Os.validateArray =
     Os.usePattern =
@@ -1518,7 +1518,7 @@ var z = S(function (Os) {
   function Cc(e, t) {
     let { gen: r, data: s, it: n } = e;
     r.if(Jt(r, s, t, n.opts.ownProperties), () => {
-      e.setParams({ missingProperty: j._`${t}` }, !0), e.error();
+      e.setParams({ missingProperty: j._`${t}` }, true), e.error();
     });
   }
   Os.checkReportMissingProp = Cc;
@@ -1527,7 +1527,7 @@ var z = S(function (Os) {
   }
   Os.checkMissingProp = Mc;
   function Ac(e, t) {
-    e.setParams({ missingProperty: t }, !0), e.error();
+    e.setParams({ missingProperty: t }, true), e.error();
   }
   Os.reportMissingProp = Ac;
   function Ps(e) {
@@ -1590,10 +1590,10 @@ var z = S(function (Os) {
     let { gen: t, data: r, keyword: s, it: n } = e,
       o = t.name("valid");
     if (n.allErrors) {
-      let a = t.let("valid", !0);
-      return i(() => t.assign(a, !1)), a;
+      let a = t.let("valid", true);
+      return i(() => t.assign(a, false)), a;
     }
-    return t.var(o, !0), i(() => t.break()), o;
+    return t.var(o, true), i(() => t.break()), o;
     function i(a) {
       let c = t.const("len", j._`${r}.length`);
       t.forRange("i", 0, c, (u) => {
@@ -1606,24 +1606,24 @@ var z = S(function (Os) {
     let { gen: t, schema: r, keyword: s, it: n } = e;
     if (!Array.isArray(r)) throw Error("ajv implementation error");
     if (r.some((c) => (0, Ht.alwaysValidSchema)(n, c)) && !n.opts.unevaluated) return;
-    let i = t.let("valid", !1),
+    let i = t.let("valid", false),
       a = t.name("_valid");
     t.block(() =>
       r.forEach((c, u) => {
-        let l = e.subschema({ keyword: s, schemaProp: u, compositeRule: !0 }, a);
+        let l = e.subschema({ keyword: s, schemaProp: u, compositeRule: true }, a);
         if ((t.assign(i, j._`${i} || ${a}`), !e.mergeValidEvaluated(l, a))) t.if((0, j.not)(i));
       }),
     ),
       e.result(
         i,
         () => e.reset(),
-        () => e.error(!0),
+        () => e.error(true),
       );
   }
   Os.validateUnion = Lc;
 });
 var Is = S(function (xs) {
-  Object.defineProperty(xs, "__esModule", { value: !0 });
+  Object.defineProperty(xs, "__esModule", { value: true });
   xs.validateKeywordUsage = xs.validSchemaType = xs.funcKeywordCode = xs.macroKeywordCode = void 0;
   var C = Wc(),
     ae = _5(),
@@ -1633,13 +1633,13 @@ var Is = S(function (xs) {
     let { gen: r, keyword: s, schema: n, parentSchema: o, it: i } = e,
       a = t.macro.call(i.self, n, o, i),
       c = js(r, s, a);
-    if (i.opts.validateSchema !== !1) i.self.validateSchema(a, !0);
+    if (i.opts.validateSchema !== false) i.self.validateSchema(a, true);
     let u = r.name("valid");
     e.subschema(
-      { schema: a, schemaPath: C.nil, errSchemaPath: `${i.errSchemaPath}/${s}`, topSchemaRef: c, compositeRule: !0 },
+      { schema: a, schemaPath: C.nil, errSchemaPath: `${i.errSchemaPath}/${s}`, topSchemaRef: c, compositeRule: true },
       u,
     ),
-      e.pass(u, () => e.error(!0));
+      e.pass(u, () => e.error(true));
   }
   xs.macroKeywordCode = iu;
   function au(e, t) {
@@ -1651,7 +1651,7 @@ var Is = S(function (xs) {
       d = s.let("valid");
     e.block$data(d, _), e.ok((r = t.valid) !== null && r !== void 0 ? r : d);
     function _() {
-      if (t.errors === !1) {
+      if (t.errors === false) {
         if ((f(), t.modifying)) ks(e);
         h(() => e.error());
       } else {
@@ -1666,7 +1666,7 @@ var Is = S(function (xs) {
         s.try(
           () => f(C._`await `),
           (N) =>
-            s.assign(d, !1).if(
+            s.assign(d, false).if(
               C._`${N} instanceof ${c.ValidationError}`,
               () => s.assign(y, C._`${N}.errors`),
               () => s.throw(N),
@@ -1681,7 +1681,7 @@ var Is = S(function (xs) {
     }
     function f(y = t.async ? C._`await ` : C.nil) {
       let N = c.opts.passContext ? ae.default.this : ae.default.self,
-        E = !(("compile" in t && !a) || t.schema === !1);
+        E = !(("compile" in t && !a) || t.schema === false);
       s.assign(d, C._`${y}${(0, nu.callValidateCode)(e, l, N, E)}`, t.modifying);
     }
     function h(y) {
@@ -1714,7 +1714,7 @@ var Is = S(function (xs) {
     if (r === void 0) throw Error(`keyword "${t}" failed to compile`);
     return e.scopeValue("keyword", typeof r == "function" ? { ref: r } : { ref: r, code: (0, C.stringify)(r) });
   }
-  function lu(e, t, r = !1) {
+  function lu(e, t, r = false) {
     return (
       !t.length ||
       t.some((s) =>
@@ -1743,7 +1743,7 @@ var Is = S(function (xs) {
   xs.validateKeywordUsage = du;
 });
 var As = S(function (Cs) {
-  Object.defineProperty(Cs, "__esModule", { value: !0 });
+  Object.defineProperty(Cs, "__esModule", { value: true });
   Cs.extendSubschemaMode = Cs.extendSubschemaData = Cs.getSubschema = void 0;
   var W = Wc(),
     Ts = $p();
@@ -1776,14 +1776,14 @@ var As = S(function (Cs) {
     let { gen: a } = t;
     if (r !== void 0) {
       let { errorPath: u, dataPathArr: l, opts: d } = t,
-        _ = a.let("data", W._`${t.data}${(0, W.getProperty)(r)}`, !0);
+        _ = a.let("data", W._`${t.data}${(0, W.getProperty)(r)}`, true);
       c(_),
         (e.errorPath = W.str`${u}${(0, Ts.getErrorPath)(r, s, d.jsPropertySyntax)}`),
         (e.parentDataProperty = W._`${r}`),
         (e.dataPathArr = [...l, e.parentDataProperty]);
     }
     if (n !== void 0) {
-      let u = n instanceof W.Name ? n : a.let("data", n, !0);
+      let u = n instanceof W.Name ? n : a.let("data", n, true);
       if ((c(u), i !== void 0)) e.propertyName = i;
     }
     if (o) e.dataTypes = o;
@@ -1807,25 +1807,25 @@ var As = S(function (Cs) {
 });
 var Wt = S(function (fm, Ds) {
   Ds.exports = function e(t, r) {
-    if (t === r) return !0;
+    if (t === r) return true;
     if (t && r && typeof t == "object" && typeof r == "object") {
-      if (t.constructor !== r.constructor) return !1;
+      if (t.constructor !== r.constructor) return false;
       var s, n, o;
       if (Array.isArray(t)) {
-        if (((s = t.length), s != r.length)) return !1;
-        for (n = s; n-- !== 0; ) if (!e(t[n], r[n])) return !1;
-        return !0;
+        if (((s = t.length), s != r.length)) return false;
+        for (n = s; n-- !== 0; ) if (!e(t[n], r[n])) return false;
+        return true;
       }
       if (t.constructor === RegExp) return t.source === r.source && t.flags === r.flags;
       if (t.valueOf !== Object.prototype.valueOf) return t.valueOf() === r.valueOf();
       if (t.toString !== Object.prototype.toString) return t.toString() === r.toString();
-      if (((o = Object.keys(t)), (s = o.length), s !== Object.keys(r).length)) return !1;
-      for (n = s; n-- !== 0; ) if (!Object.prototype.hasOwnProperty.call(r, o[n])) return !1;
+      if (((o = Object.keys(t)), (s = o.length), s !== Object.keys(r).length)) return false;
+      for (n = s; n-- !== 0; ) if (!Object.prototype.hasOwnProperty.call(r, o[n])) return false;
       for (n = s; n-- !== 0; ) {
         var i = o[n];
-        if (!e(t[i], r[i])) return !1;
+        if (!e(t[i], r[i])) return false;
       }
-      return !0;
+      return true;
     }
     return t !== t && r !== r;
   };
@@ -1839,37 +1839,37 @@ var zs = S(function (pm, Vs) {
     st(t, s, n, e, "", e);
   });
   se.keywords = {
-    additionalItems: !0,
-    items: !0,
-    contains: !0,
-    additionalProperties: !0,
-    propertyNames: !0,
-    not: !0,
-    if: !0,
-    then: !0,
-    else: !0,
+    additionalItems: true,
+    items: true,
+    contains: true,
+    additionalProperties: true,
+    propertyNames: true,
+    not: true,
+    if: true,
+    then: true,
+    else: true,
   };
-  se.arrayKeywords = { items: !0, allOf: !0, anyOf: !0, oneOf: !0 };
-  se.propsKeywords = { $defs: !0, definitions: !0, properties: !0, patternProperties: !0, dependencies: !0 };
+  se.arrayKeywords = { items: true, allOf: true, anyOf: true, oneOf: true };
+  se.propsKeywords = { $defs: true, definitions: true, properties: true, patternProperties: true, dependencies: true };
   se.skipKeywords = {
-    default: !0,
-    enum: !0,
-    const: !0,
-    required: !0,
-    maximum: !0,
-    minimum: !0,
-    exclusiveMaximum: !0,
-    exclusiveMinimum: !0,
-    multipleOf: !0,
-    maxLength: !0,
-    minLength: !0,
-    pattern: !0,
-    format: !0,
-    maxItems: !0,
-    minItems: !0,
-    uniqueItems: !0,
-    maxProperties: !0,
-    minProperties: !0,
+    default: true,
+    enum: true,
+    const: true,
+    required: true,
+    maximum: true,
+    minimum: true,
+    exclusiveMaximum: true,
+    exclusiveMinimum: true,
+    multipleOf: true,
+    maxLength: true,
+    minLength: true,
+    pattern: true,
+    format: true,
+    maxItems: true,
+    minItems: true,
+    uniqueItems: true,
+    maxProperties: true,
+    minProperties: true,
   };
   function st(e, t, r, s, n, o, i, a, c, u) {
     if (s && typeof s == "object" && !Array.isArray(s)) {
@@ -1891,7 +1891,7 @@ var zs = S(function (pm, Vs) {
   }
 });
 var je = S(function (Ls) {
-  Object.defineProperty(Ls, "__esModule", { value: !0 });
+  Object.defineProperty(Ls, "__esModule", { value: true });
   Ls.getSchemaRefs = Ls.resolveUrl = Ls.normalizeId = Ls._getFullPath = Ls.getFullPath = Ls.inlineRef = void 0;
   var wu = $p(),
     bu = Wt(),
@@ -1914,22 +1914,22 @@ var je = S(function (Ls) {
       "enum",
       "const",
     ]);
-  function Pu(e, t = !0) {
-    if (typeof e == "boolean") return !0;
-    if (t === !0) return !Bt(e);
-    if (!t) return !1;
+  function Pu(e, t = true) {
+    if (typeof e == "boolean") return true;
+    if (t === true) return !Bt(e);
+    if (!t) return false;
     return Us(e) <= t;
   }
   Ls.inlineRef = Pu;
   var Nu = new Set(["$ref", "$recursiveRef", "$recursiveAnchor", "$dynamicRef", "$dynamicAnchor"]);
   function Bt(e) {
     for (let t in e) {
-      if (Nu.has(t)) return !0;
+      if (Nu.has(t)) return true;
       let r = e[t];
-      if (Array.isArray(r) && r.some(Bt)) return !0;
-      if (typeof r == "object" && Bt(r)) return !0;
+      if (Array.isArray(r) && r.some(Bt)) return true;
+      if (typeof r == "object" && Bt(r)) return true;
     }
-    return !1;
+    return false;
   }
   function Us(e) {
     let t = 0;
@@ -1942,7 +1942,7 @@ var je = S(function (Ls) {
     return t;
   }
   function Ks(e, t = "", r) {
-    if (r !== !1) t = _e(t);
+    if (r !== false) t = _e(t);
     let s = e.parse(t);
     return Fs(e, s);
   }
@@ -1966,11 +1966,11 @@ var je = S(function (Ls) {
     let { schemaId: r, uriResolver: s } = this.opts,
       n = _e(e[r] || t),
       o = { "": n },
-      i = Ks(s, n, !1),
+      i = Ks(s, n, false),
       a = {},
       c = new Set();
     return (
-      Eu(e, { allKeys: !0 }, (d, _, m, p) => {
+      Eu(e, { allKeys: true }, (d, _, m, p) => {
         if (p === void 0) return;
         let f = i + _,
           h = o[p];
@@ -2007,7 +2007,7 @@ var je = S(function (Ls) {
   Ls.getSchemaRefs = ju;
 });
 var WYe = S(function (an) {
-  Object.defineProperty(an, "__esModule", { value: !0 });
+  Object.defineProperty(an, "__esModule", { value: true });
   an.getData = an.KeywordCxt = an.validateFunctionCode = void 0;
   var Qs = us(),
     Gs = ke(),
@@ -2096,8 +2096,8 @@ var WYe = S(function (an) {
   }
   function Ys({ schema: e, self: t }) {
     if (typeof e == "boolean") return !e;
-    for (let r in e) if (t.RULES.all[r]) return !0;
-    return !1;
+    for (let r in e) if (t.RULES.all[r]) return true;
+    return false;
   }
   function Zs(e) {
     return typeof e.schema != "boolean";
@@ -2113,7 +2113,7 @@ var WYe = S(function (an) {
     (0, X.checkUnknownRules)(e), Hu(e);
   }
   function tn(e, t) {
-    if (e.opts.jtd) return Ws(e, [], !1, t);
+    if (e.opts.jtd) return Ws(e, [], false, t);
     let r = (0, Gs.getSchemaTypes)(e.schema),
       s = (0, Gs.coerceAndCheckDataType)(e, r);
     Ws(e, r, !s, t);
@@ -2137,7 +2137,7 @@ var WYe = S(function (an) {
   }
   function rn({ gen: e, schemaEnv: t, schema: r, errSchemaPath: s, opts: n }) {
     let o = r.$comment;
-    if (n.$comment === !0) e.code(g._`${v.default.self}.logger.log(${o})`);
+    if (n.$comment === true) e.code(g._`${v.default.self}.logger.log(${o})`);
     else if (typeof n.$comment == "function") {
       let i = g.str`${s}/$comment`,
         a = e.scopeValue("root", { ref: t.root });
@@ -2264,7 +2264,7 @@ var WYe = S(function (an) {
         ((this.schemaCode = this.schemaValue), !(0, Re.validSchemaType)(this.schema, t.schemaType, t.allowUndefined))
       )
         throw Error(`${r} value must be ${JSON.stringify(t.schemaType)}`);
-      if ("code" in t ? t.trackErrors : t.errors !== !1) this.errsCount = e.gen.const("_errs", v.default.errors);
+      if ("code" in t ? t.trackErrors : t.errors !== false) this.errsCount = e.gen.const("_errs", v.default.errors);
     }
     result(e, t, r) {
       this.failResult((0, g.not)(e), t, r);
@@ -2282,7 +2282,7 @@ var WYe = S(function (an) {
     }
     fail(e) {
       if (e === void 0) {
-        if ((this.error(), !this.allErrors)) this.gen.if(!1);
+        if ((this.error(), !this.allErrors)) this.gen.if(false);
         return;
       }
       if ((this.gen.if(e), this.error(), this.allErrors)) this.gen.endIf();
@@ -2325,9 +2325,9 @@ var WYe = S(function (an) {
     check$data(e = g.nil, t = g.nil) {
       if (!this.$data) return;
       let { gen: r, schemaCode: s, schemaType: n, def: o } = this;
-      if ((r.if((0, g.or)(g._`${s} === undefined`, t)), e !== g.nil)) r.assign(e, !0);
+      if ((r.if((0, g.or)(g._`${s} === undefined`, t)), e !== g.nil)) r.assign(e, true);
       if (n.length || o.validateSchema) {
-        if ((r.elseIf(this.invalid$data()), this.$dataError(), e !== g.nil)) r.assign(e, !1);
+        if ((r.elseIf(this.invalid$data()), this.$dataError(), e !== g.nil)) r.assign(e, false);
       }
       r.else();
     }
@@ -2359,13 +2359,13 @@ var WYe = S(function (an) {
     mergeEvaluated(e, t) {
       let { it: r, gen: s } = this;
       if (!r.opts.unevaluated) return;
-      if (r.props !== !0 && e.props !== void 0) r.props = X.mergeEvaluated.props(s, e.props, r.props, t);
-      if (r.items !== !0 && e.items !== void 0) r.items = X.mergeEvaluated.items(s, e.items, r.items, t);
+      if (r.props !== true && e.props !== void 0) r.props = X.mergeEvaluated.props(s, e.props, r.props, t);
+      if (r.items !== true && e.items !== void 0) r.items = X.mergeEvaluated.items(s, e.items, r.items, t);
     }
     mergeValidEvaluated(e, t) {
       let { it: r, gen: s } = this;
-      if (r.opts.unevaluated && (r.props !== !0 || r.items !== !0))
-        return s.if(t, () => this.mergeEvaluated(e, g.Name)), !0;
+      if (r.opts.unevaluated && (r.props !== true || r.items !== true))
+        return s.if(t, () => this.mergeEvaluated(e, g.Name)), true;
     }
   }
   an.KeywordCxt = Zt;
@@ -2407,17 +2407,17 @@ var WYe = S(function (an) {
   an.getData = on;
 });
 var LEt = S(function (ln) {
-  Object.defineProperty(ln, "__esModule", { value: !0 });
+  Object.defineProperty(ln, "__esModule", { value: true });
   class un extends Error {
     constructor(e) {
       super("validation failed");
-      (this.errors = e), (this.ajv = this.validation = !0);
+      (this.errors = e), (this.ajv = this.validation = true);
     }
   }
   ln.default = un;
 });
 var qYe = S(function (fn) {
-  Object.defineProperty(fn, "__esModule", { value: !0 });
+  Object.defineProperty(fn, "__esModule", { value: true });
   var er = je();
   class dn extends Error {
     constructor(e, t, r, s) {
@@ -2429,7 +2429,7 @@ var qYe = S(function (fn) {
   fn.default = dn;
 });
 var MEt = S(function (mn) {
-  Object.defineProperty(mn, "__esModule", { value: !0 });
+  Object.defineProperty(mn, "__esModule", { value: true });
   mn.resolveSchema = mn.getCompilingSchema = mn.resolveRef = mn.compileSchema = mn.SchemaEnv = void 0;
   var L = Wc(),
     ul = LEt(),
@@ -2483,7 +2483,7 @@ var MEt = S(function (mn) {
         definedProperties: new Set(),
         topSchemaRef: i.scopeValue(
           "schema",
-          this.opts.code.source === !0 ? { ref: e.schema, code: (0, L.stringify)(e.schema) } : { ref: e.schema },
+          this.opts.code.source === true ? { ref: e.schema, code: (0, L.stringify)(e.schema) } : { ref: e.schema },
         ),
         validateName: c,
         ValidationError: a,
@@ -2505,8 +2505,8 @@ var MEt = S(function (mn) {
         l = this.opts.code.process(l, e);
       let m = Function(`${ce.default.self}`, `${ce.default.scope}`, l)(this, this.scope.get());
       if ((this.scope.value(c, { ref: m }), (m.errors = null), (m.schema = e.schema), (m.schemaEnv = e), e.$async))
-        m.$async = !0;
-      if (this.opts.code.source === !0) m.source = { validateName: c, validateCode: d, scopeValues: i._values };
+        m.$async = true;
+      if (this.opts.code.source === true) m.source = { validateName: c, validateCode: d, scopeValues: i._values };
       if (this.opts.unevaluated) {
         let { props: p, items: f } = u;
         if (
@@ -2613,7 +2613,7 @@ var _n = S(function ($m, vl) {
     type: "object",
     required: ["$data"],
     properties: { $data: { type: "string", anyOf: [{ format: "relative-json-pointer" }, { format: "json-pointer" }] } },
-    additionalProperties: !1,
+    additionalProperties: false,
   };
 });
 var or = S(function (vm, En) {
@@ -2643,36 +2643,36 @@ var or = S(function (vm, En) {
   }
   var El = RegExp.prototype.test.bind(/[^!"$&'()*+,\-.;=_`a-z{}~]/u);
   function gn(e) {
-    return (e.length = 0), !0;
+    return (e.length = 0), true;
   }
   function Sl(e, t, r) {
     if (e.length) {
       let s = nr(e);
       if (s !== "") t.push(s);
-      else return (r.error = !0), !1;
+      else return (r.error = true), false;
       e.length = 0;
     }
-    return !0;
+    return true;
   }
   function Pl(e) {
     let t = 0,
-      r = { error: !1, address: "", zone: "" },
+      r = { error: false, address: "", zone: "" },
       s = [],
       n = [],
-      o = !1,
-      i = !1,
+      o = false,
+      i = false,
       a = Sl;
     for (let c = 0; c < e.length; c++) {
       let u = e[c];
       if (u === "[" || u === "]") continue;
       if (u === ":") {
-        if (o === !0) i = !0;
+        if (o === true) i = true;
         if (!a(n, s, r)) break;
         if (++t > 7) {
-          r.error = !0;
+          r.error = true;
           break;
         }
-        if (c > 0 && e[c - 1] === ":") o = !0;
+        if (c > 0 && e[c - 1] === ":") o = true;
         s.push(":");
         continue;
       } else if (u === "%") {
@@ -2690,13 +2690,13 @@ var or = S(function (vm, En) {
     return (r.address = s.join("")), r;
   }
   function wn(e) {
-    if (Nl(e, ":") < 2) return { host: e, isIPV6: !1 };
+    if (Nl(e, ":") < 2) return { host: e, isIPV6: false };
     let t = Pl(e);
     if (!t.error) {
       let { address: r, address: s } = t;
       if (t.zone) (r += "%" + t.zone), (s += "%25" + t.zone);
-      return { host: r, isIPV6: !0, escapedHost: s };
-    } else return { host: e, isIPV6: !1 };
+      return { host: r, isIPV6: true, escapedHost: s };
+    } else return { host: e, isIPV6: false };
   }
   function Nl(e, t) {
     let r = 0;
@@ -2775,7 +2775,7 @@ var or = S(function (vm, En) {
     let r = t ? jl : kl;
     return (r.lastIndex = 0), e.replace(r, (s) => ql[s]);
   }
-  function xl(e, t = !1) {
+  function xl(e, t = false) {
     if (e.indexOf("%") === -1) return e;
     let r = "";
     for (let s = 0; s < e.length; s++) {
@@ -2834,8 +2834,8 @@ var or = S(function (vm, En) {
       let r = unescape(e.host);
       if (!$n(r)) {
         let s = wn(r);
-        if (s.isIPV6 === !0) r = `[${s.escapedHost}]`;
-        else r = bn(r, !1);
+        if (s.isIPV6 === true) r = `[${s.escapedHost}]`;
+        else r = bn(r, false);
       }
       t.push(r);
     }
@@ -2864,8 +2864,8 @@ var qn = S(function (wm, On) {
     return Al.indexOf(e) !== -1;
   }
   function ir(e) {
-    if (e.secure === !0) return !0;
-    else if (e.secure === !1) return !1;
+    if (e.secure === true) return true;
+    else if (e.secure === false) return false;
     else if (e.scheme)
       return (
         e.scheme.length === 3 &&
@@ -2873,7 +2873,7 @@ var qn = S(function (wm, On) {
         (e.scheme[1] === "s" || e.scheme[1] === "S") &&
         (e.scheme[2] === "s" || e.scheme[2] === "S")
       );
-    else return !1;
+    else return false;
   }
   function Sn(e) {
     if (!e.host) e.error = e.error || "HTTP URIs must have a host.";
@@ -2924,7 +2924,7 @@ var qn = S(function (wm, On) {
     if (o) e = o.serialize(e, t);
     let i = e,
       a = e.nss;
-    return (i.path = `${s || t.nid}:${a}`), (t.skipEscape = !0), i;
+    return (i.path = `${s || t.nid}:${a}`), (t.skipEscape = true), i;
   }
   function Fl(e, t) {
     let r = e;
@@ -2936,12 +2936,12 @@ var qn = S(function (wm, On) {
     let t = e;
     return (t.nss = (e.uuid || "").toLowerCase()), t;
   }
-  var Nn = { scheme: "http", domainHost: !0, parse: Sn, serialize: Pn },
+  var Nn = { scheme: "http", domainHost: true, parse: Sn, serialize: Pn },
     Hl = { scheme: "https", domainHost: Nn.domainHost, parse: Sn, serialize: Pn },
-    it = { scheme: "ws", domainHost: !0, parse: Vl, serialize: zl },
+    it = { scheme: "ws", domainHost: true, parse: Vl, serialize: zl },
     Gl = { scheme: "wss", domainHost: it.domainHost, parse: it.parse, serialize: it.serialize },
-    Jl = { scheme: "urn", parse: Ul, serialize: Kl, skipNormalize: !0 },
-    Wl = { scheme: "urn:uuid", parse: Fl, serialize: Ll, skipNormalize: !0 },
+    Jl = { scheme: "urn", parse: Ul, serialize: Kl, skipNormalize: true },
+    Wl = { scheme: "urn:uuid", parse: Fl, serialize: Ll, skipNormalize: true },
     at = { http: Nn, https: Hl, ws: it, wss: Gl, urn: Jl, "urn:uuid": Wl };
   Object.setPrototypeOf(at, null);
   function ar(e) {
@@ -2969,8 +2969,8 @@ var Tn = S(function (bm, ct) {
   }
   function od(e, t, r) {
     let s = r ? Object.assign({ scheme: "null" }, r) : { scheme: "null" },
-      n = xn(ge(e, s), ge(t, s), s, !0);
-    return (s.skipEscape = !0), ue(n, s);
+      n = xn(ge(e, s), ge(t, s), s, true);
+    return (s.skipEscape = true), ue(n, s);
   }
   function xn(e, t, r, s) {
     let n = {};
@@ -3066,8 +3066,8 @@ var Tn = S(function (bm, ct) {
   function Rn(e, t) {
     let r = Object.assign({}, t),
       s = { scheme: void 0, userinfo: void 0, host: "", port: void 0, path: "", query: void 0, fragment: void 0 },
-      n = !1,
-      o = !1;
+      n = false,
+      o = false;
     if (r.reference === "suffix")
       if (r.scheme) e = r.scheme + ":" + e;
       else e = "//" + e;
@@ -3085,12 +3085,12 @@ var Tn = S(function (bm, ct) {
       )
         s.port = i[5];
       let a = cd(s, i);
-      if (a !== void 0) (s.error = s.error || a), (n = !0);
+      if (a !== void 0) (s.error = s.error || a), (n = true);
       if (s.host)
-        if (td(s.host) === !1) {
+        if (td(s.host) === false) {
           let l = Bl(s.host);
           (s.host = l.host.toLowerCase()), (o = l.isIPV6);
-        } else o = !0;
+        } else o = true;
       if (
         s.scheme === void 0 &&
         s.userinfo === void 0 &&
@@ -3107,7 +3107,7 @@ var Tn = S(function (bm, ct) {
         s.error = s.error || "URI is not a " + r.reference + " reference.";
       let c = jn(r.scheme || s.scheme);
       if (!r.unicodeSupport && (!c || !c.unicodeSupport)) {
-        if (s.host && (r.domainHost || (c && c.domainHost)) && o === !1 && rd(s.host))
+        if (s.host && (r.domainHost || (c && c.domainHost)) && o === false && rd(s.host))
           try {
             s.host = URL.domainToASCII(s.host.toLowerCase());
           } catch (u) {
@@ -3154,54 +3154,54 @@ var Tn = S(function (bm, ct) {
   ct.exports.fastUri = cr;
 });
 var An = S(function (Mn) {
-  Object.defineProperty(Mn, "__esModule", { value: !0 });
+  Object.defineProperty(Mn, "__esModule", { value: true });
   var Cn = Tn();
   Cn.code = 'require("ajv/dist/runtime/uri").default';
   Mn.default = Cn;
 });
 var GCn = S(function (Y) {
-  Object.defineProperty(Y, "__esModule", { value: !0 });
+  Object.defineProperty(Y, "__esModule", { value: true });
   Y.CodeGen = Y.Name = Y.nil = Y.stringify = Y.str = Y._ = Y.KeywordCxt = void 0;
   var dd = WYe();
   Object.defineProperty(Y, "KeywordCxt", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return dd.KeywordCxt;
     },
   });
   var $e = Wc();
   Object.defineProperty(Y, "_", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return $e._;
     },
   });
   Object.defineProperty(Y, "str", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return $e.str;
     },
   });
   Object.defineProperty(Y, "stringify", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return $e.stringify;
     },
   });
   Object.defineProperty(Y, "nil", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return $e.nil;
     },
   });
   Object.defineProperty(Y, "Name", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return $e.Name;
     },
   });
   Object.defineProperty(Y, "CodeGen", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return $e.CodeGen;
     },
@@ -3261,27 +3261,27 @@ var GCn = S(function (Y) {
     var t, r, s, n, o, i, a, c, u, l, d, _, m, p, f, h, y, N, E, k, w, J, B, St, Pt;
     let Se = e.strict,
       Nt = (t = e.code) === null || t === void 0 ? void 0 : t.optimize,
-      wr = Nt === !0 || Nt === void 0 ? 1 : Nt || 0,
+      wr = Nt === true || Nt === void 0 ? 1 : Nt || 0,
       br = (s = (r = e.code) === null || r === void 0 ? void 0 : r.regExp) !== null && s !== void 0 ? s : Fn,
       Ci = (n = e.uriResolver) !== null && n !== void 0 ? n : md.default;
     return {
-      strictSchema: (i = (o = e.strictSchema) !== null && o !== void 0 ? o : Se) !== null && i !== void 0 ? i : !0,
-      strictNumbers: (c = (a = e.strictNumbers) !== null && a !== void 0 ? a : Se) !== null && c !== void 0 ? c : !0,
+      strictSchema: (i = (o = e.strictSchema) !== null && o !== void 0 ? o : Se) !== null && i !== void 0 ? i : true,
+      strictNumbers: (c = (a = e.strictNumbers) !== null && a !== void 0 ? a : Se) !== null && c !== void 0 ? c : true,
       strictTypes: (l = (u = e.strictTypes) !== null && u !== void 0 ? u : Se) !== null && l !== void 0 ? l : "log",
       strictTuples: (_ = (d = e.strictTuples) !== null && d !== void 0 ? d : Se) !== null && _ !== void 0 ? _ : "log",
-      strictRequired: (p = (m = e.strictRequired) !== null && m !== void 0 ? m : Se) !== null && p !== void 0 ? p : !1,
+      strictRequired: (p = (m = e.strictRequired) !== null && m !== void 0 ? m : Se) !== null && p !== void 0 ? p : false,
       code: e.code ? { ...e.code, optimize: wr, regExp: br } : { optimize: wr, regExp: br },
       loopRequired: (f = e.loopRequired) !== null && f !== void 0 ? f : Vn,
       loopEnum: (h = e.loopEnum) !== null && h !== void 0 ? h : Vn,
-      meta: (y = e.meta) !== null && y !== void 0 ? y : !0,
-      messages: (N = e.messages) !== null && N !== void 0 ? N : !0,
-      inlineRefs: (E = e.inlineRefs) !== null && E !== void 0 ? E : !0,
+      meta: (y = e.meta) !== null && y !== void 0 ? y : true,
+      messages: (N = e.messages) !== null && N !== void 0 ? N : true,
+      inlineRefs: (E = e.inlineRefs) !== null && E !== void 0 ? E : true,
       schemaId: (k = e.schemaId) !== null && k !== void 0 ? k : "$id",
-      addUsedSchema: (w = e.addUsedSchema) !== null && w !== void 0 ? w : !0,
-      validateSchema: (J = e.validateSchema) !== null && J !== void 0 ? J : !0,
-      validateFormats: (B = e.validateFormats) !== null && B !== void 0 ? B : !0,
-      unicodeRegExp: (St = e.unicodeRegExp) !== null && St !== void 0 ? St : !0,
-      int32range: (Pt = e.int32range) !== null && Pt !== void 0 ? Pt : !0,
+      addUsedSchema: (w = e.addUsedSchema) !== null && w !== void 0 ? w : true,
+      validateSchema: (J = e.validateSchema) !== null && J !== void 0 ? J : true,
+      validateFormats: (B = e.validateFormats) !== null && B !== void 0 ? B : true,
+      unicodeRegExp: (St = e.unicodeRegExp) !== null && St !== void 0 ? St : true,
+      int32range: (Pt = e.int32range) !== null && Pt !== void 0 ? Pt : true,
       uriResolver: Ci,
     };
   }
@@ -3298,7 +3298,7 @@ var GCn = S(function (Y) {
       (this.scope = new hd.ValueScope({ scope: {}, prefixes: _d, es5: t, lines: r })), (this.logger = Nd(e.logger));
       let s = e.validateFormats;
       if (
-        ((e.validateFormats = !1),
+        ((e.validateFormats = false),
         (this.RULES = (0, pd.getRules)()),
         zn.call(this, gd, e, "NOT SUPPORTED"),
         zn.call(this, $d, e, "DEPRECATED", "warn"),
@@ -3317,7 +3317,7 @@ var GCn = S(function (Y) {
       let { $data: e, meta: t, schemaId: r } = this.opts,
         s = Dn;
       if (r === "id") (s = { ...Dn }), (s.id = s.$id), delete s.$id;
-      if (t && e) this.addMetaSchema(s, s[r], !1);
+      if (t && e) this.addMetaSchema(s, s[r], false);
     }
     defaultMeta() {
       let { meta: e, schemaId: t } = this.opts;
@@ -3346,7 +3346,7 @@ var GCn = S(function (Y) {
         return d.validate || o.call(this, d);
       }
       async function n(u) {
-        if (u && !this.getSchema(u)) await s.call(this, { $ref: u }, !0);
+        if (u && !this.getSchema(u)) await s.call(this, { $ref: u }, true);
       }
       async function o(u) {
         try {
@@ -3387,19 +3387,19 @@ var GCn = S(function (Y) {
       return (
         (t = (0, Me.normalizeId)(t || n)),
         this._checkUnique(t),
-        (this.schemas[t] = this._addSchema(e, r, t, s, !0)),
+        (this.schemas[t] = this._addSchema(e, r, t, s, true)),
         this
       );
     }
     addMetaSchema(e, t, r = this.opts.validateSchema) {
-      return this.addSchema(e, t, !0, r), this;
+      return this.addSchema(e, t, true, r), this;
     }
     validateSchema(e, t) {
-      if (typeof e == "boolean") return !0;
+      if (typeof e == "boolean") return true;
       let r;
       if (((r = e.$schema), r !== void 0 && typeof r != "string")) throw Error("$schema must be a string");
       if (((r = r || this.opts.defaultMeta || this.defaultMeta()), !r))
-        return this.logger.warn("meta-schema not available"), (this.errors = null), !0;
+        return this.logger.warn("meta-schema not available"), (this.errors = null), true;
       let s = this.validate(r, e);
       if (!s && t) {
         let n = "schema is invalid: " + this.errorsText();
@@ -3530,7 +3530,7 @@ var GCn = S(function (Y) {
         if (r) this._checkUnique(r);
         this.refs[r] = a;
       }
-      if (s) this.validateSchema(e, !0);
+      if (s) this.validateSchema(e, true);
       return a;
     }
     _checkUnique(e) {
@@ -3595,7 +3595,7 @@ var GCn = S(function (Y) {
   }
   var Pd = { log() {}, warn() {}, error() {} };
   function Nd(e) {
-    if (e === !1) return Pd;
+    if (e === false) return Pd;
     if (e === void 0) return console;
     if (e.log && e.warn && e.error) return e;
     throw Error("logger must implement log, warn and error methods");
@@ -3621,7 +3621,7 @@ var GCn = S(function (Y) {
     let { RULES: o } = this,
       i = n ? o.post : o.rules.find(({ type: c }) => c === r);
     if (!i) (i = { type: r, rules: [] }), o.rules.push(i);
-    if (((o.keywords[e] = !0), !t)) return;
+    if (((o.keywords[e] = true), !t)) return;
     let a = {
       keyword: e,
       definition: { ...t, type: (0, ut.getJSONTypes)(t.type), schemaType: (0, ut.getJSONTypes)(t.schemaType) },
@@ -3639,7 +3639,7 @@ var GCn = S(function (Y) {
     let { metaSchema: t } = e;
     if (t === void 0) return;
     if (e.$data && this.opts.$data) t = Ln(t);
-    e.validateSchema = this.compile(t, !0);
+    e.validateSchema = this.compile(t, true);
   }
   var xd = { $ref: "https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#" };
   function Ln(e) {
@@ -3647,7 +3647,7 @@ var GCn = S(function (Y) {
   }
 });
 var Gn = S(function (Hn) {
-  Object.defineProperty(Hn, "__esModule", { value: !0 });
+  Object.defineProperty(Hn, "__esModule", { value: true });
   var Td = {
     keyword: "id",
     code() {
@@ -3657,7 +3657,7 @@ var Gn = S(function (Hn) {
   Hn.default = Td;
 });
 var tzt = S(function (Qn) {
-  Object.defineProperty(Qn, "__esModule", { value: !0 });
+  Object.defineProperty(Qn, "__esModule", { value: true });
   Qn.callRef = Qn.getValidate = void 0;
   var Md = qYe(),
     Jn = z(),
@@ -3687,7 +3687,7 @@ var tzt = S(function (Qn) {
           ft(e, f, p, p.$async);
         }
         function m(p) {
-          let f = t.scopeValue("schema", a.code.source === !0 ? { ref: p, code: (0, D.stringify)(p) } : { ref: p }),
+          let f = t.scopeValue("schema", a.code.source === true ? { ref: p, code: (0, D.stringify)(p) } : { ref: p }),
             h = t.name("valid"),
             y = e.subschema({ schema: p, dataTypes: [], schemaPath: D.nil, topSchemaRef: f, errSchemaPath: r }, h);
           e.mergeEvaluated(y), e.ok(h);
@@ -3712,10 +3712,10 @@ var tzt = S(function (Qn) {
       let p = n.let("valid");
       n.try(
         () => {
-          if ((n.code(D._`await ${(0, Jn.callValidateCode)(e, t, u)}`), m(t), !i)) n.assign(p, !0);
+          if ((n.code(D._`await ${(0, Jn.callValidateCode)(e, t, u)}`), m(t), !i)) n.assign(p, true);
         },
         (f) => {
-          if ((n.if(D._`!(${f} instanceof ${o.ValidationError})`, () => n.throw(f)), _(f), !i)) n.assign(p, !1);
+          if ((n.if(D._`!(${f} instanceof ${o.ValidationError})`, () => n.throw(f)), _(f), !i)) n.assign(p, false);
         },
       ),
         e.ok(p);
@@ -3736,14 +3736,14 @@ var tzt = S(function (Qn) {
       var f;
       if (!o.opts.unevaluated) return;
       let h = (f = r === null || r === void 0 ? void 0 : r.validate) === null || f === void 0 ? void 0 : f.evaluated;
-      if (o.props !== !0)
+      if (o.props !== true)
         if (h && !h.dynamicProps) {
           if (h.props !== void 0) o.props = dt.mergeEvaluated.props(n, h.props, o.props);
         } else {
           let y = n.var("props", D._`${p}.evaluated.props`);
           o.props = dt.mergeEvaluated.props(n, y, o.props, D.Name);
         }
-      if (o.items !== !0)
+      if (o.items !== true)
         if (h && !h.dynamicItems) {
           if (h.items !== void 0) o.items = dt.mergeEvaluated.items(n, h.items, o.items);
         } else {
@@ -3756,14 +3756,14 @@ var tzt = S(function (Qn) {
   Qn.default = Ad;
 });
 var zCn = S(function (Yn) {
-  Object.defineProperty(Yn, "__esModule", { value: !0 });
+  Object.defineProperty(Yn, "__esModule", { value: true });
   var zd = Gn(),
     Ud = tzt(),
     Kd = ["$schema", "$id", "$defs", "$vocabulary", { keyword: "$comment" }, "definitions", zd.default, Ud.default];
   Yn.default = Kd;
 });
 var eo = S(function (Zn) {
-  Object.defineProperty(Zn, "__esModule", { value: !0 });
+  Object.defineProperty(Zn, "__esModule", { value: true });
   var pt = Wc(),
     ne = pt.operators,
     ht = {
@@ -3780,7 +3780,7 @@ var eo = S(function (Zn) {
       keyword: Object.keys(ht),
       type: "number",
       schemaType: "number",
-      $data: !0,
+      $data: true,
       error: Ld,
       code(e) {
         let { keyword: t, data: r, schemaCode: s } = e;
@@ -3790,7 +3790,7 @@ var eo = S(function (Zn) {
   Zn.default = Hd;
 });
 var ro = S(function (to) {
-  Object.defineProperty(to, "__esModule", { value: !0 });
+  Object.defineProperty(to, "__esModule", { value: true });
   var Ae = Wc(),
     Jd = {
       message: ({ schemaCode: e }) => Ae.str`must be multiple of ${e}`,
@@ -3800,7 +3800,7 @@ var ro = S(function (to) {
       keyword: "multipleOf",
       type: "number",
       schemaType: "number",
-      $data: !0,
+      $data: true,
       error: Jd,
       code(e) {
         let { gen: t, data: r, schemaCode: s, it: n } = e,
@@ -3813,7 +3813,7 @@ var ro = S(function (to) {
   to.default = Wd;
 });
 var oo = S(function (no) {
-  Object.defineProperty(no, "__esModule", { value: !0 });
+  Object.defineProperty(no, "__esModule", { value: true });
   function so(e) {
     let t = e.length,
       r = 0,
@@ -3829,7 +3829,7 @@ var oo = S(function (no) {
   so.code = 'require("ajv/dist/runtime/ucs2length").default';
 });
 var ao = S(function (io) {
-  Object.defineProperty(io, "__esModule", { value: !0 });
+  Object.defineProperty(io, "__esModule", { value: true });
   var le = Wc(),
     Xd = $p(),
     Yd = oo(),
@@ -3844,19 +3844,19 @@ var ao = S(function (io) {
       keyword: ["maxLength", "minLength"],
       type: "string",
       schemaType: "number",
-      $data: !0,
+      $data: true,
       error: Zd,
       code(e) {
         let { keyword: t, data: r, schemaCode: s, it: n } = e,
           o = t === "maxLength" ? le.operators.GT : le.operators.LT,
-          i = n.opts.unicode === !1 ? le._`${r}.length` : le._`${(0, Xd.useFunc)(e.gen, Yd.default)}(${r})`;
+          i = n.opts.unicode === false ? le._`${r}.length` : le._`${(0, Xd.useFunc)(e.gen, Yd.default)}(${r})`;
         e.fail$data(le._`${i} ${o} ${s}`);
       },
     };
   io.default = ef;
 });
 var uo = S(function (co) {
-  Object.defineProperty(co, "__esModule", { value: !0 });
+  Object.defineProperty(co, "__esModule", { value: true });
   var rf = z(),
     sf = $p(),
     we = Wc(),
@@ -3868,7 +3868,7 @@ var uo = S(function (co) {
       keyword: "pattern",
       type: "string",
       schemaType: "string",
-      $data: !0,
+      $data: true,
       error: nf,
       code(e) {
         let { gen: t, data: r, $data: s, schema: n, schemaCode: o, it: i } = e,
@@ -3879,7 +3879,7 @@ var uo = S(function (co) {
             l = t.let("valid");
           t.try(
             () => t.assign(l, we._`${u}(${o}, ${a}).test(${r})`),
-            () => t.assign(l, !1),
+            () => t.assign(l, false),
           ),
             e.fail$data(we._`!${l}`);
         } else {
@@ -3891,7 +3891,7 @@ var uo = S(function (co) {
   co.default = of;
 });
 var fo = S(function (lo) {
-  Object.defineProperty(lo, "__esModule", { value: !0 });
+  Object.defineProperty(lo, "__esModule", { value: true });
   var De = Wc(),
     cf = {
       message({ keyword: e, schemaCode: t }) {
@@ -3904,7 +3904,7 @@ var fo = S(function (lo) {
       keyword: ["maxProperties", "minProperties"],
       type: "object",
       schemaType: "number",
-      $data: !0,
+      $data: true,
       error: cf,
       code(e) {
         let { keyword: t, data: r, schemaCode: s } = e,
@@ -3915,7 +3915,7 @@ var fo = S(function (lo) {
   lo.default = uf;
 });
 var ho = S(function (po) {
-  Object.defineProperty(po, "__esModule", { value: !0 });
+  Object.defineProperty(po, "__esModule", { value: true });
   var Ve = z(),
     ze = Wc(),
     df = $p(),
@@ -3927,7 +3927,7 @@ var ho = S(function (po) {
       keyword: "required",
       type: "object",
       schemaType: "array",
-      $data: !0,
+      $data: true,
       error: ff,
       code(e) {
         let { gen: t, schema: r, schemaCode: s, data: n, $data: o, it: i } = e,
@@ -3953,7 +3953,7 @@ var ho = S(function (po) {
         function l() {
           let m = t.let("missing");
           if (c || o) {
-            let p = t.let("valid", !0);
+            let p = t.let("valid", true);
             e.block$data(p, () => _(m, p)), e.ok(p);
           } else t.if((0, Ve.checkMissingProp)(e, r, m)), (0, Ve.reportMissingProp)(e, m), t.else();
         }
@@ -3982,7 +3982,7 @@ var ho = S(function (po) {
   po.default = pf;
 });
 var yo = S(function (mo) {
-  Object.defineProperty(mo, "__esModule", { value: !0 });
+  Object.defineProperty(mo, "__esModule", { value: true });
   var Ue = Wc(),
     mf = {
       message({ keyword: e, schemaCode: t }) {
@@ -3995,7 +3995,7 @@ var yo = S(function (mo) {
       keyword: ["maxItems", "minItems"],
       type: "array",
       schemaType: "number",
-      $data: !0,
+      $data: true,
       error: mf,
       code(e) {
         let { keyword: t, data: r, schemaCode: s } = e,
@@ -4006,13 +4006,13 @@ var yo = S(function (mo) {
   mo.default = yf;
 });
 var mt = S(function (go) {
-  Object.defineProperty(go, "__esModule", { value: !0 });
+  Object.defineProperty(go, "__esModule", { value: true });
   var _o = Wt();
   _o.code = 'require("ajv/dist/runtime/equal").default';
   go.default = _o;
 });
 var vo = S(function ($o) {
-  Object.defineProperty($o, "__esModule", { value: !0 });
+  Object.defineProperty($o, "__esModule", { value: true });
   var dr = ke(),
     R = Wc(),
     $f = $p(),
@@ -4026,7 +4026,7 @@ var vo = S(function ($o) {
       keyword: "uniqueItems",
       type: "array",
       schemaType: "boolean",
-      $data: !0,
+      $data: true,
       error: wf,
       code(e) {
         let { gen: t, data: r, $data: s, schema: n, parentSchema: o, schemaCode: i, it: a } = e;
@@ -4037,7 +4037,7 @@ var vo = S(function ($o) {
         function l() {
           let p = t.let("i", R._`${r}.length`),
             f = t.let("j");
-          e.setParams({ i: p, j: f }), t.assign(c, !0), t.if(R._`${p} > 1`, () => (d() ? _ : m)(p, f));
+          e.setParams({ i: p, j: f }), t.assign(c, true), t.if(R._`${p} > 1`, () => (d() ? _ : m)(p, f));
         }
         function d() {
           return u.length > 0 && !u.some((p) => p === "object" || p === "array");
@@ -4050,7 +4050,7 @@ var vo = S(function ($o) {
             if ((t.let(h, R._`${r}[${p}]`), t.if(y, R._`continue`), u.length > 1))
               t.if(R._`typeof ${h} == "string"`, R._`${h} += "_"`);
             t.if(R._`typeof ${N}[${h}] == "number"`, () => {
-              t.assign(f, R._`${N}[${h}]`), e.error(), t.assign(c, !1).break();
+              t.assign(f, R._`${N}[${h}]`), e.error(), t.assign(c, false).break();
             }).code(R._`${N}[${h}] = ${p}`);
           });
         }
@@ -4060,7 +4060,7 @@ var vo = S(function ($o) {
           t.label(y).for(R._`;${p}--;`, () =>
             t.for(R._`${f} = ${p}; ${f}--;`, () =>
               t.if(R._`${h}(${r}[${p}], ${r}[${f}])`, () => {
-                e.error(), t.assign(c, !1).break(y);
+                e.error(), t.assign(c, false).break(y);
               }),
             ),
           );
@@ -4070,14 +4070,14 @@ var vo = S(function ($o) {
   $o.default = bf;
 });
 var bo = S(function (wo) {
-  Object.defineProperty(wo, "__esModule", { value: !0 });
+  Object.defineProperty(wo, "__esModule", { value: true });
   var fr = Wc(),
     Sf = $p(),
     Pf = mt(),
     Nf = { message: "must be equal to constant", params: ({ schemaCode: e }) => fr._`{allowedValue: ${e}}` },
     Of = {
       keyword: "const",
-      $data: !0,
+      $data: true,
       error: Nf,
       code(e) {
         let { gen: t, data: r, $data: s, schemaCode: n, schema: o } = e;
@@ -4088,7 +4088,7 @@ var bo = S(function (wo) {
   wo.default = Of;
 });
 var So = S(function (Eo) {
-  Object.defineProperty(Eo, "__esModule", { value: !0 });
+  Object.defineProperty(Eo, "__esModule", { value: true });
   var Ke = Wc(),
     kf = $p(),
     jf = mt(),
@@ -4099,7 +4099,7 @@ var So = S(function (Eo) {
     Rf = {
       keyword: "enum",
       schemaType: "array",
-      $data: !0,
+      $data: true,
       error: xf,
       code(e) {
         let { gen: t, data: r, $data: s, schema: n, schemaCode: o, it: i } = e;
@@ -4116,7 +4116,7 @@ var So = S(function (Eo) {
         }
         e.pass(l);
         function d() {
-          t.assign(l, !1), t.forOf("v", o, (m) => t.if(Ke._`${u()}(${r}, ${m})`, () => t.assign(l, !0).break()));
+          t.assign(l, false), t.forOf("v", o, (m) => t.if(Ke._`${u()}(${r}, ${m})`, () => t.assign(l, true).break()));
         }
         function _(m, p) {
           let f = n[p];
@@ -4127,7 +4127,7 @@ var So = S(function (Eo) {
   Eo.default = Rf;
 });
 var VCn = S(function (Po) {
-  Object.defineProperty(Po, "__esModule", { value: !0 });
+  Object.defineProperty(Po, "__esModule", { value: true });
   var Tf = eo(),
     Cf = ro(),
     Mf = ao(),
@@ -4155,7 +4155,7 @@ var VCn = S(function (Po) {
   Po.default = Lf;
 });
 var hr = S(function (Oo) {
-  Object.defineProperty(Oo, "__esModule", { value: !0 });
+  Object.defineProperty(Oo, "__esModule", { value: true });
   Oo.validateAdditionalItems = void 0;
   var de = Wc(),
     pr = $p(),
@@ -4181,9 +4181,9 @@ var hr = S(function (Oo) {
     };
   function No(e, t) {
     let { gen: r, schema: s, data: n, keyword: o, it: i } = e;
-    i.items = !0;
+    i.items = true;
     let a = r.const("len", de._`${n}.length`);
-    if (s === !1) e.setParams({ len: t.length }), e.pass(de._`${a} <= ${t.length}`);
+    if (s === false) e.setParams({ len: t.length }), e.pass(de._`${a} <= ${t.length}`);
     else if (typeof s == "object" && !(0, pr.alwaysValidSchema)(i, s)) {
       let u = r.var("valid", de._`${a} <= ${t.length}`);
       r.if((0, de.not)(u), () => c(u)), e.ok(u);
@@ -4199,7 +4199,7 @@ var hr = S(function (Oo) {
   Oo.default = Jf;
 });
 var mr = S(function (xo) {
-  Object.defineProperty(xo, "__esModule", { value: !0 });
+  Object.defineProperty(xo, "__esModule", { value: true });
   xo.validateTuple = void 0;
   var ko = Wc(),
     yt = $p(),
@@ -4212,13 +4212,13 @@ var mr = S(function (xo) {
       code(e) {
         let { schema: t, it: r } = e;
         if (Array.isArray(t)) return jo(e, "additionalItems", t);
-        if (((r.items = !0), (0, yt.alwaysValidSchema)(r, t))) return;
+        if (((r.items = true), (0, yt.alwaysValidSchema)(r, t))) return;
         e.ok((0, Bf.validateArray)(e));
       },
     };
   function jo(e, t, r = e.schema) {
     let { gen: s, parentSchema: n, data: o, keyword: i, it: a } = e;
-    if ((l(n), a.opts.unevaluated && r.length && a.items !== !0))
+    if ((l(n), a.opts.unevaluated && r.length && a.items !== true))
       a.items = yt.mergeEvaluated.items(s, r.length, a.items);
     let c = s.name("valid"),
       u = s.const("len", ko._`${o}.length`);
@@ -4229,7 +4229,7 @@ var mr = S(function (xo) {
     function l(d) {
       let { opts: _, errSchemaPath: m } = a,
         p = r.length,
-        f = p === d.minItems && (p === d.maxItems || d[t] === !1);
+        f = p === d.minItems && (p === d.maxItems || d[t] === false);
       if (_.strictTuples && !f) {
         let h = `"${i}" is ${p}-tuple, but minItems or maxItems/${t} are not specified or different at path "${m}"`;
         (0, yt.checkStrictMode)(a, h, _.strictTuples);
@@ -4240,7 +4240,7 @@ var mr = S(function (xo) {
   xo.default = Qf;
 });
 var To = S(function (Io) {
-  Object.defineProperty(Io, "__esModule", { value: !0 });
+  Object.defineProperty(Io, "__esModule", { value: true });
   var Yf = mr(),
     Zf = {
       keyword: "prefixItems",
@@ -4252,7 +4252,7 @@ var To = S(function (Io) {
   Io.default = Zf;
 });
 var Ao = S(function (Mo) {
-  Object.defineProperty(Mo, "__esModule", { value: !0 });
+  Object.defineProperty(Mo, "__esModule", { value: true });
   var Co = Wc(),
     tp = $p(),
     rp = z(),
@@ -4270,7 +4270,7 @@ var Ao = S(function (Mo) {
       code(e) {
         let { schema: t, parentSchema: r, it: s } = e,
           { prefixItems: n } = r;
-        if (((s.items = !0), (0, tp.alwaysValidSchema)(s, t))) return;
+        if (((s.items = true), (0, tp.alwaysValidSchema)(s, t))) return;
         if (n) (0, sp.validateAdditionalItems)(e, n);
         else e.ok((0, rp.validateArray)(e));
       },
@@ -4278,7 +4278,7 @@ var Ao = S(function (Mo) {
   Mo.default = op;
 });
 var Vo = S(function (Do) {
-  Object.defineProperty(Do, "__esModule", { value: !0 });
+  Object.defineProperty(Do, "__esModule", { value: true });
   var U = Wc(),
     _t = $p(),
     ap = {
@@ -4294,7 +4294,7 @@ var Vo = S(function (Do) {
       type: "array",
       schemaType: ["object", "boolean"],
       before: "uniqueItems",
-      trackErrors: !0,
+      trackErrors: true,
       error: ap,
       code(e) {
         let { gen: t, schema: r, parentSchema: s, data: n, it: o } = e,
@@ -4318,12 +4318,12 @@ var Vo = S(function (Do) {
           e.pass(f);
           return;
         }
-        o.items = !0;
+        o.items = true;
         let d = t.name("valid");
         if (a === void 0 && i === 1) m(d, () => t.if(d, () => t.break()));
         else if (i === 0) {
-          if ((t.let(d, !0), a !== void 0)) t.if(U._`${n}.length > 0`, _);
-        } else t.let(d, !1), _();
+          if ((t.let(d, true), a !== void 0)) t.if(U._`${n}.length > 0`, _);
+        } else t.let(d, false), _();
         e.result(d, () => e.reset());
         function _() {
           let f = t.name("_valid"),
@@ -4332,20 +4332,20 @@ var Vo = S(function (Do) {
         }
         function m(f, h) {
           t.forRange("i", 0, l, (y) => {
-            e.subschema({ keyword: "contains", dataProp: y, dataPropType: _t.Type.Num, compositeRule: !0 }, f), h();
+            e.subschema({ keyword: "contains", dataProp: y, dataPropType: _t.Type.Num, compositeRule: true }, f), h();
           });
         }
         function p(f) {
-          if ((t.code(U._`${f}++`), a === void 0)) t.if(U._`${f} >= ${i}`, () => t.assign(d, !0).break());
-          else if ((t.if(U._`${f} > ${a}`, () => t.assign(d, !1).break()), i === 1)) t.assign(d, !0);
-          else t.if(U._`${f} >= ${i}`, () => t.assign(d, !0));
+          if ((t.code(U._`${f}++`), a === void 0)) t.if(U._`${f} >= ${i}`, () => t.assign(d, true).break());
+          else if ((t.if(U._`${f} > ${a}`, () => t.assign(d, false).break()), i === 1)) t.assign(d, true);
+          else t.if(U._`${f} >= ${i}`, () => t.assign(d, true));
         }
       },
     };
   Do.default = cp;
 });
 var nzt = S(function (Ko) {
-  Object.defineProperty(Ko, "__esModule", { value: !0 });
+  Object.defineProperty(Ko, "__esModule", { value: true });
   Ko.validateSchemaDeps = Ko.validatePropertyDeps = Ko.error = void 0;
   var yr = Wc(),
     lp = $p(),
@@ -4407,7 +4407,7 @@ var nzt = S(function (Ko) {
           let c = e.subschema({ keyword: n, schemaProp: a }, i);
           e.mergeValidEvaluated(c, i);
         },
-        () => r.var(i, !0),
+        () => r.var(i, true),
       ),
         e.ok(i);
     }
@@ -4416,7 +4416,7 @@ var nzt = S(function (Ko) {
   Ko.default = dp;
 });
 var Jo = S(function (Go) {
-  Object.defineProperty(Go, "__esModule", { value: !0 });
+  Object.defineProperty(Go, "__esModule", { value: true });
   var Ho = Wc(),
     mp = $p(),
     yp = { message: "property name must be valid", params: ({ params: e }) => Ho._`{propertyName: ${e.propertyName}}` },
@@ -4432,11 +4432,11 @@ var Jo = S(function (Go) {
         t.forIn("key", s, (i) => {
           e.setParams({ propertyName: i }),
             e.subschema(
-              { keyword: "propertyNames", data: i, dataTypes: ["string"], propertyName: i, compositeRule: !0 },
+              { keyword: "propertyNames", data: i, dataTypes: ["string"], propertyName: i, compositeRule: true },
               o,
             ),
             t.if((0, Ho.not)(o), () => {
-              if ((e.error(!0), !n.allErrors)) t.break();
+              if ((e.error(true), !n.allErrors)) t.break();
             });
         }),
           e.ok(o);
@@ -4445,7 +4445,7 @@ var Jo = S(function (Go) {
   Go.default = _p;
 });
 var _r = S(function (Wo) {
-  Object.defineProperty(Wo, "__esModule", { value: !0 });
+  Object.defineProperty(Wo, "__esModule", { value: true });
   var gt = z(),
     G = Wc(),
     vp = _5(),
@@ -4458,14 +4458,14 @@ var _r = S(function (Wo) {
       keyword: "additionalProperties",
       type: ["object"],
       schemaType: ["boolean", "object"],
-      allowUndefined: !0,
-      trackErrors: !0,
+      allowUndefined: true,
+      trackErrors: true,
       error: wp,
       code(e) {
         let { gen: t, schema: r, parentSchema: s, data: n, errsCount: o, it: i } = e;
         if (!o) throw Error("ajv implementation error");
         let { allErrors: a, opts: c } = i;
-        if (((i.props = !0), c.removeAdditional !== "all" && (0, $t.alwaysValidSchema)(i, r))) return;
+        if (((i.props = true), c.removeAdditional !== "all" && (0, $t.alwaysValidSchema)(i, r))) return;
         let u = (0, gt.allSchemaProperties)(s.properties),
           l = (0, gt.allSchemaProperties)(s.patternProperties);
         d(), e.ok(G._`${o} === ${vp.default.errors}`);
@@ -4489,18 +4489,18 @@ var _r = S(function (Wo) {
           t.code(G._`delete ${n}[${h}]`);
         }
         function p(h) {
-          if (c.removeAdditional === "all" || (c.removeAdditional && r === !1)) {
+          if (c.removeAdditional === "all" || (c.removeAdditional && r === false)) {
             m(h);
             return;
           }
-          if (r === !1) {
+          if (r === false) {
             if ((e.setParams({ additionalProperty: h }), e.error(), !a)) t.break();
             return;
           }
           if (typeof r == "object" && !(0, $t.alwaysValidSchema)(i, r)) {
             let y = t.name("valid");
             if (c.removeAdditional === "failing")
-              f(h, y, !1),
+              f(h, y, false),
                 t.if((0, G.not)(y), () => {
                   e.reset(), m(h);
                 });
@@ -4509,7 +4509,7 @@ var _r = S(function (Wo) {
         }
         function f(h, y, N) {
           let E = { keyword: "additionalProperties", dataProp: h, dataPropType: $t.Type.Str };
-          if (N === !1) Object.assign(E, { compositeRule: !0, createErrors: !1, allErrors: !1 });
+          if (N === false) Object.assign(E, { compositeRule: true, createErrors: false, allErrors: false });
           e.subschema(E, y);
         }
       },
@@ -4517,7 +4517,7 @@ var _r = S(function (Wo) {
   Wo.default = bp;
 });
 var Yo = S(function (Xo) {
-  Object.defineProperty(Xo, "__esModule", { value: !0 });
+  Object.defineProperty(Xo, "__esModule", { value: true });
   var Sp = WYe(),
     Bo = z(),
     gr = $p(),
@@ -4532,7 +4532,7 @@ var Yo = S(function (Xo) {
           Qo.default.code(new Sp.KeywordCxt(o, Qo.default, "additionalProperties"));
         let i = (0, Bo.allSchemaProperties)(r);
         for (let d of i) o.definedProperties.add(d);
-        if (o.opts.unevaluated && i.length && o.props !== !0)
+        if (o.opts.unevaluated && i.length && o.props !== true)
           o.props = gr.mergeEvaluated.props(t, (0, gr.toHash)(i), o.props);
         let a = i.filter((d) => !(0, gr.alwaysValidSchema)(o, r[d]));
         if (a.length === 0) return;
@@ -4540,7 +4540,7 @@ var Yo = S(function (Xo) {
         for (let d of a) {
           if (u(d)) l(d);
           else {
-            if ((t.if((0, Bo.propertyInData)(t, n, d, o.opts.ownProperties)), l(d), !o.allErrors)) t.else().var(c, !0);
+            if ((t.if((0, Bo.propertyInData)(t, n, d, o.opts.ownProperties)), l(d), !o.allErrors)) t.else().var(c, true);
             t.endIf();
           }
           e.it.definedProperties.add(d), e.ok(c);
@@ -4556,7 +4556,7 @@ var Yo = S(function (Xo) {
   Xo.default = Pp;
 });
 var si = S(function (ri) {
-  Object.defineProperty(ri, "__esModule", { value: !0 });
+  Object.defineProperty(ri, "__esModule", { value: true });
   var Zo = z(),
     vt = Wc(),
     ei = $p(),
@@ -4570,17 +4570,17 @@ var si = S(function (ri) {
           { opts: i } = o,
           a = (0, Zo.allSchemaProperties)(r),
           c = a.filter((f) => (0, ei.alwaysValidSchema)(o, r[f]));
-        if (a.length === 0 || (c.length === a.length && (!o.opts.unevaluated || o.props === !0))) return;
+        if (a.length === 0 || (c.length === a.length && (!o.opts.unevaluated || o.props === true))) return;
         let u = i.strictSchema && !i.allowMatchingProperties && n.properties,
           l = t.name("valid");
-        if (o.props !== !0 && !(o.props instanceof vt.Name)) o.props = (0, ti.evaluatedPropsToName)(t, o.props);
+        if (o.props !== true && !(o.props instanceof vt.Name)) o.props = (0, ti.evaluatedPropsToName)(t, o.props);
         let { props: d } = o;
         _();
         function _() {
           for (let f of a) {
             if (u) m(f);
             if (o.allErrors) p(f);
-            else t.var(l, !0), p(f), t.if(l);
+            else t.var(l, true), p(f), t.if(l);
           }
         }
         function m(f) {
@@ -4594,7 +4594,7 @@ var si = S(function (ri) {
               let y = c.includes(f);
               if (!y)
                 e.subschema({ keyword: "patternProperties", schemaProp: f, dataProp: h, dataPropType: ti.Type.Str }, l);
-              if (o.opts.unevaluated && d !== !0) t.assign(vt._`${d}[${h}]`, !0);
+              if (o.opts.unevaluated && d !== true) t.assign(vt._`${d}[${h}]`, true);
               else if (!y && !o.allErrors) t.if((0, vt.not)(l), () => t.break());
             });
           });
@@ -4604,12 +4604,12 @@ var si = S(function (ri) {
   ri.default = Op;
 });
 var oi = S(function (ni) {
-  Object.defineProperty(ni, "__esModule", { value: !0 });
+  Object.defineProperty(ni, "__esModule", { value: true });
   var kp = $p(),
     jp = {
       keyword: "not",
       schemaType: ["object", "boolean"],
-      trackErrors: !0,
+      trackErrors: true,
       code(e) {
         let { gen: t, schema: r, it: s } = e;
         if ((0, kp.alwaysValidSchema)(s, r)) {
@@ -4617,7 +4617,7 @@ var oi = S(function (ni) {
           return;
         }
         let n = t.name("valid");
-        e.subschema({ keyword: "not", compositeRule: !0, createErrors: !1, allErrors: !1 }, n),
+        e.subschema({ keyword: "not", compositeRule: true, createErrors: false, allErrors: false }, n),
           e.failResult(
             n,
             () => e.reset(),
@@ -4629,19 +4629,19 @@ var oi = S(function (ni) {
   ni.default = jp;
 });
 var ai = S(function (ii) {
-  Object.defineProperty(ii, "__esModule", { value: !0 });
+  Object.defineProperty(ii, "__esModule", { value: true });
   var Rp = z(),
     Ip = {
       keyword: "anyOf",
       schemaType: "array",
-      trackErrors: !0,
+      trackErrors: true,
       code: Rp.validateUnion,
       error: { message: "must match a schema in anyOf" },
     };
   ii.default = Ip;
 });
 var ui = S(function (ci) {
-  Object.defineProperty(ci, "__esModule", { value: !0 });
+  Object.defineProperty(ci, "__esModule", { value: true });
   var wt = Wc(),
     Cp = $p(),
     Mp = {
@@ -4651,14 +4651,14 @@ var ui = S(function (ci) {
     Ap = {
       keyword: "oneOf",
       schemaType: "array",
-      trackErrors: !0,
+      trackErrors: true,
       error: Mp,
       code(e) {
         let { gen: t, schema: r, parentSchema: s, it: n } = e;
         if (!Array.isArray(r)) throw Error("ajv implementation error");
         if (n.opts.discriminator && s.discriminator) return;
         let o = r,
-          i = t.let("valid", !1),
+          i = t.let("valid", false),
           a = t.let("passing", null),
           c = t.name("_valid");
         e.setParams({ passing: a }),
@@ -4666,16 +4666,16 @@ var ui = S(function (ci) {
           e.result(
             i,
             () => e.reset(),
-            () => e.error(!0),
+            () => e.error(true),
           );
         function u() {
           o.forEach((l, d) => {
             let _;
-            if ((0, Cp.alwaysValidSchema)(n, l)) t.var(c, !0);
-            else _ = e.subschema({ keyword: "oneOf", schemaProp: d, compositeRule: !0 }, c);
-            if (d > 0) t.if(wt._`${c} && ${i}`).assign(i, !1).assign(a, wt._`[${a}, ${d}]`).else();
+            if ((0, Cp.alwaysValidSchema)(n, l)) t.var(c, true);
+            else _ = e.subschema({ keyword: "oneOf", schemaProp: d, compositeRule: true }, c);
+            if (d > 0) t.if(wt._`${c} && ${i}`).assign(i, false).assign(a, wt._`[${a}, ${d}]`).else();
             t.if(c, () => {
-              if ((t.assign(i, !0), t.assign(a, d), _)) e.mergeEvaluated(_, wt.Name);
+              if ((t.assign(i, true), t.assign(a, d), _)) e.mergeEvaluated(_, wt.Name);
             });
           });
         }
@@ -4684,7 +4684,7 @@ var ui = S(function (ci) {
   ci.default = Ap;
 });
 var di = S(function (li) {
-  Object.defineProperty(li, "__esModule", { value: !0 });
+  Object.defineProperty(li, "__esModule", { value: true });
   var Vp = $p(),
     zp = {
       keyword: "allOf",
@@ -4703,7 +4703,7 @@ var di = S(function (li) {
   li.default = zp;
 });
 var mi = S(function (hi) {
-  Object.defineProperty(hi, "__esModule", { value: !0 });
+  Object.defineProperty(hi, "__esModule", { value: true });
   var bt = Wc(),
     pi = $p(),
     Kp = {
@@ -4713,7 +4713,7 @@ var mi = S(function (hi) {
     Fp = {
       keyword: "if",
       schemaType: ["object", "boolean"],
-      trackErrors: !0,
+      trackErrors: true,
       error: Kp,
       code(e) {
         let { gen: t, parentSchema: r, it: s } = e;
@@ -4722,16 +4722,16 @@ var mi = S(function (hi) {
         let n = fi(s, "then"),
           o = fi(s, "else");
         if (!n && !o) return;
-        let i = t.let("valid", !0),
+        let i = t.let("valid", true),
           a = t.name("_valid");
         if ((c(), e.reset(), n && o)) {
           let l = t.let("ifClause");
           e.setParams({ ifClause: l }), t.if(a, u("then", l), u("else", l));
         } else if (n) t.if(a, u("then"));
         else t.if((0, bt.not)(a), u("else"));
-        e.pass(i, () => e.error(!0));
+        e.pass(i, () => e.error(true));
         function c() {
-          let l = e.subschema({ keyword: "if", compositeRule: !0, createErrors: !1, allErrors: !1 }, a);
+          let l = e.subschema({ keyword: "if", compositeRule: true, createErrors: false, allErrors: false }, a);
           e.mergeEvaluated(l);
         }
         function u(l, d) {
@@ -4750,7 +4750,7 @@ var mi = S(function (hi) {
   hi.default = Fp;
 });
 var _i = S(function (yi) {
-  Object.defineProperty(yi, "__esModule", { value: !0 });
+  Object.defineProperty(yi, "__esModule", { value: true });
   var Hp = $p(),
     Gp = {
       keyword: ["then", "else"],
@@ -4762,7 +4762,7 @@ var _i = S(function (yi) {
   yi.default = Gp;
 });
 var KCn = S(function (gi) {
-  Object.defineProperty(gi, "__esModule", { value: !0 });
+  Object.defineProperty(gi, "__esModule", { value: true });
   var Wp = hr(),
     Bp = To(),
     Qp = mr(),
@@ -4779,7 +4779,7 @@ var KCn = S(function (gi) {
     ah = di(),
     ch = mi(),
     uh = _i();
-  function lh(e = !1) {
+  function lh(e = false) {
     let t = [
       nh.default,
       oh.default,
@@ -4800,7 +4800,7 @@ var KCn = S(function (gi) {
   gi.default = lh;
 });
 var vi = S(function ($i) {
-  Object.defineProperty($i, "__esModule", { value: !0 });
+  Object.defineProperty($i, "__esModule", { value: true });
   var x = Wc(),
     fh = {
       message: ({ schemaCode: e }) => x.str`must match format "${e}"`,
@@ -4810,7 +4810,7 @@ var vi = S(function ($i) {
       keyword: "format",
       type: ["number", "string"],
       schemaType: "string",
-      $data: !0,
+      $data: true,
       error: fh,
       code(e, t) {
         let { gen: r, data: s, $data: n, schema: o, schemaCode: i, it: a } = e,
@@ -4830,7 +4830,7 @@ var vi = S(function ($i) {
           ),
             e.fail$data((0, x.or)(N(), E()));
           function N() {
-            if (c.strictSchema === !1) return x.nil;
+            if (c.strictSchema === false) return x.nil;
             return x._`${i} && !${y}`;
           }
           function E() {
@@ -4845,11 +4845,11 @@ var vi = S(function ($i) {
             N();
             return;
           }
-          if (p === !0) return;
+          if (p === true) return;
           let [f, h, y] = E(p);
           if (f === t) e.pass(k());
           function N() {
-            if (c.strictSchema === !1) {
+            if (c.strictSchema === false) {
               d.logger.warn(w());
               return;
             }
@@ -4883,19 +4883,19 @@ var vi = S(function ($i) {
   $i.default = ph;
 });
 var XCn = S(function (wi) {
-  Object.defineProperty(wi, "__esModule", { value: !0 });
+  Object.defineProperty(wi, "__esModule", { value: true });
   var mh = vi(),
     yh = [mh.default];
   wi.default = yh;
 });
 var YCn = S(function (bi) {
-  Object.defineProperty(bi, "__esModule", { value: !0 });
+  Object.defineProperty(bi, "__esModule", { value: true });
   bi.contentVocabulary = bi.metadataVocabulary = void 0;
   bi.metadataVocabulary = ["title", "description", "default", "deprecated", "readOnly", "writeOnly", "examples"];
   bi.contentVocabulary = ["contentMediaType", "contentEncoding", "contentSchema"];
 });
 var Ni = S(function (Pi) {
-  Object.defineProperty(Pi, "__esModule", { value: !0 });
+  Object.defineProperty(Pi, "__esModule", { value: true });
   var $h = zCn(),
     vh = VCn(),
     wh = KCn(),
@@ -4905,7 +4905,7 @@ var Ni = S(function (Pi) {
   Pi.default = Eh;
 });
 var ji = S(function (qi) {
-  Object.defineProperty(qi, "__esModule", { value: !0 });
+  Object.defineProperty(qi, "__esModule", { value: true });
   qi.DiscrError = void 0;
   var Oi;
   (function (e) {
@@ -4913,7 +4913,7 @@ var ji = S(function (qi) {
   })(Oi || (qi.DiscrError = Oi = {}));
 });
 var JCn = S(function (Ri) {
-  Object.defineProperty(Ri, "__esModule", { value: !0 });
+  Object.defineProperty(Ri, "__esModule", { value: true });
   var be = Wc(),
     $r = ji(),
     xi = MEt(),
@@ -4937,19 +4937,19 @@ var JCn = S(function (Ri) {
         if (typeof a != "string") throw Error("discriminator: requires propertyName");
         if (s.mapping) throw Error("discriminator: mapping is not supported");
         if (!i) throw Error("discriminator: requires oneOf keyword");
-        let c = t.let("valid", !1),
+        let c = t.let("valid", false),
           u = t.const("tag", be._`${r}${(0, be.getProperty)(a)}`);
         t.if(
           be._`typeof ${u} == "string"`,
           () => l(),
-          () => e.error(!1, { discrError: $r.DiscrError.Tag, tag: u, tagName: a }),
+          () => e.error(false, { discrError: $r.DiscrError.Tag, tag: u, tagName: a }),
         ),
           e.ok(c);
         function l() {
           let m = _();
-          t.if(!1);
+          t.if(false);
           for (let p in m) t.elseIf(be._`${u} === ${p}`), t.assign(c, d(m[p]));
-          t.else(), e.error(!1, { discrError: $r.DiscrError.Mapping, tag: u, tagName: a }), t.endIf();
+          t.else(), e.error(false, { discrError: $r.DiscrError.Mapping, tag: u, tagName: a }), t.endIf();
         }
         function d(m) {
           let p = t.name("valid"),
@@ -4960,7 +4960,7 @@ var JCn = S(function (Ri) {
           var m;
           let p = {},
             f = y(n),
-            h = !0;
+            h = true;
           for (let k = 0; k < i.length; k++) {
             let w = i[k];
             if ((w === null || w === void 0 ? void 0 : w.$ref) && !(0, Nh.schemaHasRulesButRef)(w, o.self.RULES)) {
@@ -5003,7 +5003,7 @@ var Ii = S(function (yy, jh) {
       nonNegativeInteger: { type: "integer", minimum: 0 },
       nonNegativeIntegerDefault0: { allOf: [{ $ref: "#/definitions/nonNegativeInteger" }, { default: 0 }] },
       simpleTypes: { enum: ["array", "boolean", "integer", "null", "number", "object", "string"] },
-      stringArray: { type: "array", items: { type: "string" }, uniqueItems: !0, default: [] },
+      stringArray: { type: "array", items: { type: "string" }, uniqueItems: true, default: [] },
     },
     type: ["object", "boolean"],
     properties: {
@@ -5013,9 +5013,9 @@ var Ii = S(function (yy, jh) {
       $comment: { type: "string" },
       title: { type: "string" },
       description: { type: "string" },
-      default: !0,
-      readOnly: { type: "boolean", default: !1 },
-      examples: { type: "array", items: !0 },
+      default: true,
+      readOnly: { type: "boolean", default: false },
+      examples: { type: "array", items: true },
       multipleOf: { type: "number", exclusiveMinimum: 0 },
       maximum: { type: "number" },
       exclusiveMaximum: { type: "number" },
@@ -5025,10 +5025,10 @@ var Ii = S(function (yy, jh) {
       minLength: { $ref: "#/definitions/nonNegativeIntegerDefault0" },
       pattern: { type: "string", format: "regex" },
       additionalItems: { $ref: "#" },
-      items: { anyOf: [{ $ref: "#" }, { $ref: "#/definitions/schemaArray" }], default: !0 },
+      items: { anyOf: [{ $ref: "#" }, { $ref: "#/definitions/schemaArray" }], default: true },
       maxItems: { $ref: "#/definitions/nonNegativeInteger" },
       minItems: { $ref: "#/definitions/nonNegativeIntegerDefault0" },
-      uniqueItems: { type: "boolean", default: !1 },
+      uniqueItems: { type: "boolean", default: false },
       contains: { $ref: "#" },
       maxProperties: { $ref: "#/definitions/nonNegativeInteger" },
       minProperties: { $ref: "#/definitions/nonNegativeIntegerDefault0" },
@@ -5047,12 +5047,12 @@ var Ii = S(function (yy, jh) {
         additionalProperties: { anyOf: [{ $ref: "#" }, { $ref: "#/definitions/stringArray" }] },
       },
       propertyNames: { $ref: "#" },
-      const: !0,
-      enum: { type: "array", items: !0, minItems: 1, uniqueItems: !0 },
+      const: true,
+      enum: { type: "array", items: true, minItems: 1, uniqueItems: true },
       type: {
         anyOf: [
           { $ref: "#/definitions/simpleTypes" },
-          { type: "array", items: { $ref: "#/definitions/simpleTypes" }, minItems: 1, uniqueItems: !0 },
+          { type: "array", items: { $ref: "#/definitions/simpleTypes" }, minItems: 1, uniqueItems: true },
         ],
       },
       format: { type: "string" },
@@ -5066,11 +5066,11 @@ var Ii = S(function (yy, jh) {
       oneOf: { $ref: "#/definitions/schemaArray" },
       not: { $ref: "#" },
     },
-    default: !0,
+    default: true,
   };
 });
 var NEt = S(function (V, vr) {
-  Object.defineProperty(V, "__esModule", { value: !0 });
+  Object.defineProperty(V, "__esModule", { value: true });
   V.MissingRefError =
     V.ValidationError =
     V.CodeGen =
@@ -5096,7 +5096,7 @@ var NEt = S(function (V, vr) {
     _addDefaultMetaSchema() {
       if ((super._addDefaultMetaSchema(), !this.opts.meta)) return;
       let e = this.opts.$data ? this.$dataMetaSchema(Ti, Th) : Ti;
-      this.addMetaSchema(e, Et, !1), (this.refs["http://json-schema.org/schema"] = Et);
+      this.addMetaSchema(e, Et, false), (this.refs["http://json-schema.org/schema"] = Et);
     }
     defaultMeta() {
       return (this.opts.defaultMeta = super.defaultMeta() || (this.getSchema(Et) ? Et : void 0));
@@ -5105,62 +5105,62 @@ var NEt = S(function (V, vr) {
   V.Ajv = Le;
   vr.exports = V = Le;
   vr.exports.Ajv = Le;
-  Object.defineProperty(V, "__esModule", { value: !0 });
+  Object.defineProperty(V, "__esModule", { value: true });
   V.default = Le;
   var Ch = WYe();
   Object.defineProperty(V, "KeywordCxt", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ch.KeywordCxt;
     },
   });
   var Ee = Wc();
   Object.defineProperty(V, "_", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ee._;
     },
   });
   Object.defineProperty(V, "str", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ee.str;
     },
   });
   Object.defineProperty(V, "stringify", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ee.stringify;
     },
   });
   Object.defineProperty(V, "nil", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ee.nil;
     },
   });
   Object.defineProperty(V, "Name", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ee.Name;
     },
   });
   Object.defineProperty(V, "CodeGen", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ee.CodeGen;
     },
   });
   var Mh = LEt();
   Object.defineProperty(V, "ValidationError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Mh.default;
     },
   });
   var Ah = qYe();
   Object.defineProperty(V, "MissingRefError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ah.default;
     },

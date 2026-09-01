@@ -11,10 +11,10 @@
 import { Yxn } from "/$bunfs/root/chunk-zfv3p7fr.js";
 import { ue } from "/$bunfs/root/chunk-yz031c9r.js";
 var a = null,
-  i = !1;
+  i = false;
 function r() {
   if (i) return a;
-  i = !0;
+  i = true;
   let t = "darwin";
   if (t !== "darwin" && t !== "linux" && t !== "win32") return null;
   try {
@@ -36,7 +36,7 @@ function c() {
 }
 function l(t, o) {
   let e = r();
-  if (!e) return !1;
+  if (!e) return false;
   return e.startRecording(t, o);
 }
 function s() {
@@ -46,12 +46,12 @@ function s() {
 }
 function d() {
   let t = r();
-  if (!t) return !1;
+  if (!t) return false;
   return t.isRecording();
 }
 function p(t, o) {
   let e = r();
-  if (!e) return !1;
+  if (!e) return false;
   return e.startPlayback(t, o);
 }
 function f(t) {
@@ -66,7 +66,7 @@ function m() {
 }
 function b() {
   let t = r();
-  if (!t) return !1;
+  if (!t) return false;
   return t.isPlaying();
 }
 function v() {

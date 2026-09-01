@@ -129,13 +129,13 @@ var I = async (a, e) => {
     o = L(a);
   if (o === "invalid") return { type: "text", value: `Unknown mode: "${a.trim()}". Use hold, tap, or off.` };
   if (o === "off" || (o === void 0 && v)) {
-    if ((await rn("userSettings", { voiceEnabled: !1, voice: { ...i.voice, enabled: !1 } }, void 0, e.storageV5)).error)
+    if ((await rn("userSettings", { voiceEnabled: false, voice: { ...i.voice, enabled: false } }, void 0, e.storageV5)).error)
       return { type: "text", value: "Failed to update settings. Check your settings file for syntax errors." };
-    return s("tengu_voice_toggled", { enabled: !1 }), { type: "text", value: "Voice mode disabled." };
+    return s("tengu_voice_toggled", { enabled: false }), { type: "text", value: "Voice mode disabled." };
   }
   let { isVoiceStreamAvailable: y } = await import("/$bunfs/root/chunk-a57zgxmn.js"),
     { checkRecordingAvailability: h } = await import("/$bunfs/root/chunk-t27x4kqa.js"),
-    r = await h(e.session.host, { probeForwarded: !0 });
+    r = await h(e.session.host, { probeForwarded: true });
   if (!r.available) return { type: "text", value: r.reason ?? "Voice mode is not available in this environment." };
   if (!y()) return { type: "text", value: "Voice mode requires a Claude.ai account. Please run /login to sign in." };
   let { checkVoiceDependencies: b, requestMicrophonePermission: C } = await import("/$bunfs/root/chunk-t27x4kqa.js"),
@@ -160,11 +160,11 @@ Install SoX manually for audio recording.`
   }
   let l = o === "hold" || o === "tap" ? o : (i.voice?.mode ?? "hold");
   if (
-    (await rn("userSettings", { voiceEnabled: !0, voice: { ...i.voice, enabled: !0, mode: l } }, void 0, e.storageV5))
+    (await rn("userSettings", { voiceEnabled: true, voice: { ...i.voice, enabled: true, mode: l } }, void 0, e.storageV5))
       .error
   )
     return { type: "text", value: "Failed to update settings. Check your settings file for syntax errors." };
-  s("tengu_voice_toggled", { enabled: !0, tap_mode: l === "tap" });
+  s("tengu_voice_toggled", { enabled: true, tap_mode: l === "tap" });
   let g = Nh("voice:pushToTalk", "Chat", "space"),
     w = l === "tap" ? `Tap ${g} (with input empty) to start, tap again to send.` : `Hold ${g} to record.`,
     n = p$e(i.language),

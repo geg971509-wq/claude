@@ -147,13 +147,13 @@ async function aHe(e) {
     try {
       r = await he(t);
     } catch {
-      return !1;
+      return false;
     }
-    if (Sc(r, re(t))) return !0;
-    if (r.split(/\/+/).includes("..")) return !0;
-    if (((t = K(D(r) ? N(r) : V(re(t), r))), H(t))) return !0;
+    if (Sc(r, re(t))) return true;
+    if (r.split(/\/+/).includes("..")) return true;
+    if (((t = K(D(r) ? N(r) : V(re(t), r))), H(t))) return true;
   }
-  return !0;
+  return true;
 }
 async function be(e, t, s) {
   let r = await G(e);
@@ -173,7 +173,7 @@ async function be(e, t, s) {
       errMsg: `root: ${JSON.stringify(t)} is outside the working directory \u2014 pass a working-directory-relative path`,
     };
   let d = D(i) ? i : V(r, i),
-    o = s?.denyPath?.(d, !1, t);
+    o = s?.denyPath?.(d, false, t);
   if (o !== void 0) return { errMsg: o };
   if (await aHe(d))
     return {
@@ -248,12 +248,12 @@ async function Xtn(e, t, s, r) {
     if (E === null) return { errMsg: `files: ${JSON.stringify(u)} cannot be resolved` };
     if (D(u) && !Bje(E, d, N(t)))
       return { errMsg: `files: ${JSON.stringify(u)} is outside the working directory \u2014 pass a path under it` };
-    let I = r?.denyPath?.(E, !1, u);
+    let I = r?.denyPath?.(E, false, u);
     if (I !== void 0) return { errMsg: I };
     if (m !== o) {
       let b = T ?? (E.startsWith(o + C) ? me(o, E) : void 0);
       if (b !== void 0) {
-        let k = r?.denyPath?.(V(m, b), !0, u);
+        let k = r?.denyPath?.(V(m, b), true, u);
         if (k !== void 0) return { errMsg: k };
       }
     }
@@ -265,7 +265,7 @@ async function Xtn(e, t, s, r) {
     try {
       v = await G(E);
     } catch (b) {
-      return { errMsg: `files: ${JSON.stringify(u)} not found`, ...(X(b) && { missing: !0 }) };
+      return { errMsg: `files: ${JSON.stringify(u)} not found`, ...(X(b) && { missing: true }) };
     }
     if (H(v))
       return {
@@ -278,7 +278,7 @@ async function Xtn(e, t, s, r) {
           "directory (symlink?) \u2014 only files under it can be published",
       };
     if (v !== E) {
-      let b = r?.denyPath?.(v, !0, u);
+      let b = r?.denyPath?.(v, true, u);
       if (b !== void 0) return { errMsg: b };
     }
     try {
@@ -289,7 +289,7 @@ async function Xtn(e, t, s, r) {
         };
       if (!b.isFile()) return { errMsg: `files: ${JSON.stringify(u)} is not a regular file` };
     } catch (b) {
-      return { errMsg: `files: ${JSON.stringify(u)} not found`, ...(X(b) && { missing: !0 }) };
+      return { errMsg: `files: ${JSON.stringify(u)} not found`, ...(X(b) && { missing: true }) };
     }
     let P;
     try {
@@ -299,7 +299,7 @@ async function Xtn(e, t, s, r) {
         return {
           errMsg: `files: ${JSON.stringify(u)} changed to a symlink after it was checked \u2014 retry the publish`,
         };
-      return { errMsg: `files: ${JSON.stringify(u)} not found`, ...(X(b) && { missing: !0 }) };
+      return { errMsg: `files: ${JSON.stringify(u)} not found`, ...(X(b) && { missing: true }) };
     }
     let U, L;
     try {
@@ -309,7 +309,7 @@ async function Xtn(e, t, s, r) {
             errMsg: `files: ${JSON.stringify(u)} changed to a symlink after it was checked \u2014 retry the publish`,
           };
       } catch (k) {
-        return { errMsg: `files: ${JSON.stringify(u)} not found`, ...(X(k) && { missing: !0 }) };
+        return { errMsg: `files: ${JSON.stringify(u)} not found`, ...(X(k) && { missing: true }) };
       }
       let b = await P.stat();
       if (!b.isFile()) return { errMsg: `files: ${JSON.stringify(u)} is not a regular file` };
@@ -318,7 +318,7 @@ async function Xtn(e, t, s, r) {
       if (b.size > Im)
         return {
           errMsg: `files: ${JSON.stringify(u)} is ${Math.ceil(b.size / 1024 / 1024)}MB (per-file max ${Im / 1024 / 1024}MB)`,
-          tooLarge: !0,
+          tooLarge: true,
         };
       if (((_ += b.size), _ > gae))
         return {
@@ -344,7 +344,7 @@ async function Xtn(e, t, s, r) {
         content: U,
         contentType: L,
         ...(O.live !== void 0 && { live: O.live }),
-        ...(O.reseed === !0 && { reseed: !0 }),
+        ...(O.reseed === true && { reseed: true }),
       });
     } finally {
       await P.close();
@@ -358,8 +358,8 @@ async function SBn(e, t, s, r) {
   if ("errMsg" in d)
     return {
       errMsg: `thumbnail ${JSON.stringify(e)}: ${d.errMsg.replace(/^files: /, "")}`,
-      missing: d.missing === !0,
-      tooLarge: d.tooLarge === !0,
+      missing: d.missing === true,
+      tooLarge: d.tooLarge === true,
     };
   let o = d.files[0].content;
   return { content: typeof o === "string" ? Buffer.from(o) : o };
@@ -405,23 +405,23 @@ function CPt(e) {
 }
 function TL(e, t = {}) {
   let s = kn(e);
-  if (s === null) return { ok: !1, message: t.notUrlMessage ?? Qwn(e), errorCode: 4 };
+  if (s === null) return { ok: false, message: t.notUrlMessage ?? Qwn(e), errorCode: 4 };
   let r = Oi();
   if (s.env !== r) {
     let i = t.envHint ? ` \u2014 ${t.envHint(r)}` : "";
     return {
-      ok: !1,
+      ok: false,
       message: `that artifact URL is for ${s.env}, but this session targets ${r} claude.ai${i}`,
       errorCode: 5,
     };
   }
-  return { ok: !0, parsed: s };
+  return { ok: true, parsed: s };
 }
 function l8(e) {
-  return e.gone === !0;
+  return e.gone === true;
 }
 function mB(e) {
-  return e.otherOrg === !0;
+  return e.otherOrg === true;
 }
 var we = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 function Se(e) {
@@ -438,12 +438,12 @@ var aae = "this Artifact is in another of the user's organizations, not the one 
   lae = "the user runs /login and signs in to that organization",
   Re = `${aae} \u2014 it opens here only after ${lae}`,
   vPt = 15000;
-async function RPt({ slug: e, env: t }, s, { relayOnly: r = !1, agentPeer: i = !1, credentials: d }) {
+async function RPt({ slug: e, env: t }, s, { relayOnly: r = false, agentPeer: i = false, credentials: d }) {
   let o = Oi();
   if (t !== o)
     return { err: `that artifact URL is for ${t} claude.ai, but this session targets ${o}`, errorCode: "env_mismatch" };
   let f = `/api/frame/${e}?${i ? "via=model_read&peer=agent" : "via=model_read"}`,
-    w = { refreshOAuth: !0, credentials: d, headers: Yu(), timeout: vPt, signal: s },
+    w = { refreshOAuth: true, credentials: d, headers: Yu(), timeout: vPt, signal: s },
     _,
     O = Date.now();
   try {
@@ -475,10 +475,10 @@ async function RPt({ slug: e, env: t }, s, { relayOnly: r = !1, agentPeer: i = !
     return {
       err: "artifact not found \u2014 it may have been deleted, or it has not been shared with you",
       status: 404,
-      ...(Vq(_.data) && { gone: !0 }),
+      ...(Vq(_.data) && { gone: true }),
       errorCode: "boot_404",
     };
-  if (_.status === 403 && Se(_.data)) return { err: Re, status: 403, otherOrg: !0, errorCode: EVe };
+  if (_.status === 403 && Se(_.data)) return { err: Re, status: 403, otherOrg: true, errorCode: EVe };
   if (_.status < 200 || _.status >= 300)
     return { err: `artifact read failed (HTTP ${_.status})`, status: _.status, errorCode: "boot_failed" };
   let S = _.data ?? {},
@@ -497,7 +497,7 @@ async function qR(
   e,
   t,
   s,
-  { gatePublicRead: r = !0, relayOnly: i = !1, agentPeer: d = !1, speculative: o = !1, credentials: m },
+  { gatePublicRead: r = true, relayOnly: i = false, agentPeer: d = false, speculative: o = false, credentials: m },
 ) {
   let f = o ? g : p,
     w = await RPt(e, s, { relayOnly: i, agentPeer: d, credentials: m });
@@ -507,8 +507,8 @@ async function qR(
       {
         err: w.err,
         ...(w.status !== void 0 && { status: w.status }),
-        ...(w.gone && { gone: !0 }),
-        ...(w.otherOrg && { otherOrg: !0 }),
+        ...(w.gone && { gone: true }),
+        ...(w.otherOrg && { otherOrg: true }),
         errorCode: w.errorCode,
       }
     );
@@ -530,9 +530,9 @@ async function wBn(e, t, s) {
     return {
       err: i.err,
       ...(i.status && { status: i.status }),
-      ...(i.otherOrg && { otherOrg: !0 }),
-      ...(Wje(i.status) && { unavailable: !0 }),
-      ...(i.errorCode === "boot_request_error" && { noAnswer: !0 }),
+      ...(i.otherOrg && { otherOrg: true }),
+      ...(Wje(i.status) && { unavailable: true }),
+      ...(i.errorCode === "boot_request_error" && { noAnswer: true }),
     };
   let d = CPt(i.data);
   return {
@@ -541,7 +541,7 @@ async function wBn(e, t, s) {
     ver: i.ver,
     editor: ke(i),
     tokenExp: ue(i.data.subscriptionTokenExp),
-    renewable: d !== void 0 && i.data.watchTokenRenewEnabled === !0,
+    renewable: d !== void 0 && i.data.watchTokenRenewEnabled === true,
   };
 }
 function ue(e) {
@@ -556,7 +556,7 @@ async function TBn(e, t, s) {
     r = await op.post(
       `/api/frame/watch-token/${e}`,
       {},
-      { refreshOAuth: !0, credentials: s, headers: Yu(), timeout: vPt, signal: t },
+      { refreshOAuth: true, credentials: s, headers: Yu(), timeout: vPt, signal: t },
     );
   } catch (o) {
     if (sa(o)) throw o;
@@ -567,7 +567,7 @@ async function TBn(e, t, s) {
   let i = r.data ?? {},
     d = CPt(i);
   if (!i.ver || !wHe.test(i.ver) || d === void 0) return { err: "renew_miss", status: r.status };
-  return { err: null, token: d, ver: i.ver, editor: void 0, tokenExp: ue(i.subscriptionTokenExp), renewable: !0 };
+  return { err: null, token: d, ver: i.ver, editor: void 0, tokenExp: ue(i.subscriptionTokenExp), renewable: true };
 }
 function ke(e) {
   return e.assetToken !== void 0 && le(e.data.perm?.role);
@@ -585,21 +585,21 @@ async function Oit(e, t, s) {
     mode: i ? "public" : (r.data.perm?.mode ?? r.data.mode),
     shared: r.data.shared,
     role: i && d === "owner" ? void 0 : d,
-    cowritten: r.data.cowritten === !0,
+    cowritten: r.data.cowritten === true,
     ...(typeof r.data.title === "string" && { title: r.data.title }),
   };
 }
 var fe = Im + _He + ne + 65536,
   Bhe = GR + _He + 1,
   ie = {
-    relayed: !1,
+    relayed: false,
     why: "the session gateway declined an artifact read a few minutes ago, so this read did not retry it",
     code: "declined",
   };
 async function Ee(e, t) {
   let s = (d, o, m) => {
       if (m === 404 && !e.fileRead && !Hnn(US) && (d8() || !hae(US))) D1(US);
-      return { relayed: !1, why: d, code: o, ...(m !== void 0 && { status: m }) };
+      return { relayed: false, why: d, code: o, ...(m !== void 0 && { status: m }) };
     },
     r;
   try {
@@ -611,7 +611,7 @@ async function Ee(e, t) {
       responseType: "arraybuffer",
       maxRedirects: 0,
       maxContentLength: e.fileRead ? Bhe : fe,
-      validateStatus: () => !0,
+      validateStatus: () => true,
       signal: e.signal,
     });
   } catch (d) {
@@ -626,9 +626,9 @@ async function Ee(e, t) {
     return s("artifact reads through the session gateway are not enabled for this session", "not_served", r.status);
   if (r.status === 404 && e.fileRead)
     return (
-      p(e.feature, "asset_file_not_found", { relay: !0 }),
+      p(e.feature, "asset_file_not_found", { relay: true }),
       {
-        relayed: !0,
+        relayed: true,
         result: {
           err: "no file is published at that path in the served version \u2014 or artifact reads through the session gateway are not enabled for this session",
           status: 404,
@@ -646,7 +646,7 @@ async function Ee(e, t) {
   Kq(US);
   let i = r.response.headers;
   return {
-    relayed: !0,
+    relayed: true,
     result: t(Buffer.from(r.data ?? new ArrayBuffer(0)), i?.["x-frame-asset-content-type"] ?? i?.["content-type"]),
   };
 }
@@ -682,9 +682,9 @@ async function Me(e, t, s, r, i) {
         contentType: F,
         raw: h,
         role: E,
-        cowritten: A === !0 || u || qr(e.slug)?.cowritten === !0,
+        cowritten: A === true || u || qr(e.slug)?.cowritten === true,
         publicRead: f === void 0,
-        sameChannel: S?.sameChannel === !0 && E === "writer",
+        sameChannel: S?.sameChannel === true && E === "writer",
         typeLocked: o.data.type != null && typeof o.data.type === "object",
         ...(T !== void 0 &&
           (() => {
@@ -724,7 +724,7 @@ async function Me(e, t, s, r, i) {
       p(s, "asset_egress_blocked", {
         relay: c(h.code),
         ...(h.status !== void 0 && { relay_status: h.status }),
-        ...(!l && { connect: !0 }),
+        ...(!l && { connect: true }),
       }),
       {
         err: `this environment's network allowlist blocks ${v}, and the session gateway could not serve the read either (${h.why}); your access to the artifact itself is fine (the permission check passed). ${U}`,
@@ -755,7 +755,7 @@ async function Me(e, t, s, r, i) {
         return M.relayed ? M.result : L(M, h);
       }
       return (
-        p(s, "asset_egress_blocked", { ...(!h && { connect: !0 }) }),
+        p(s, "asset_egress_blocked", { ...(!h && { connect: true }) }),
         {
           err:
             f === void 0 && l
@@ -774,12 +774,12 @@ async function Me(e, t, s, r, i) {
       responseType: "arraybuffer",
       maxRedirects: 0,
       maxContentLength: r === void 0 ? fe : Bhe,
-      validateStatus: () => !0,
+      validateStatus: () => true,
       ...(Q && { headers: { Host: `${e.slug}.frame.localhost` } }),
     });
   } catch (h) {
     if (sa(h)) throw h;
-    if ($gt(h)) return ee(!1);
+    if ($gt(h)) return ee(false);
     let l = CO(h),
       M = l === void 0 ? void 0 : (Mwe(l.headers) ?? j9(l.headers)),
       F = mJe(h),
@@ -798,7 +798,7 @@ async function Me(e, t, s, r, i) {
           err: `artifact content fetch failed (${W})${J(k)}`,
           status: l.connectStatus,
           ...(M !== void 0 && {
-            respondent: !0,
+            respondent: true,
             safeErr: `artifact content fetch failed (proxy refused the connection: ${u5(l.connectStatus)})${J(k)}`,
           }),
         }
@@ -818,13 +818,13 @@ async function Me(e, t, s, r, i) {
         ...(l !== void 0 && l.connectStatus !== 0 && { status: l.connectStatus }),
         ...(l !== void 0 &&
           M !== void 0 && {
-            respondent: !0,
+            respondent: true,
             safeErr: `artifact content fetch failed (proxy refused the connection: ${u5(l.connectStatus)})${J(B)}`,
           }),
       }
     );
   }
-  if (D2(R.status, R.headers)) return ee(!0);
+  if (D2(R.status, R.headers)) return ee(true);
   if ((de().contentHostEgressDenied.delete(e.env), R.status < 200 || R.status >= 300)) {
     let h = g6t(R.headers, R.data, (M) => qje(M, f));
     if (R.status === 403 && f === void 0 && Oe(R.headers, h))
@@ -832,7 +832,7 @@ async function Me(e, t, s, r, i) {
     if (R.status === 404 && d !== "" && f !== void 0 && Ae(R.headers, h))
       return (
         g(s, "file_not_in_manifest"),
-        { err: "this version of the artifact has no file at that path", status: 404, missingFile: !0 }
+        { err: "this version of the artifact has no file at that path", status: 404, missingFile: true }
       );
     let l = Wfn(R.status, h);
     return (
@@ -840,7 +840,7 @@ async function Me(e, t, s, r, i) {
       {
         err: `artifact content fetch failed (${$e(R.status, R.headers, h)})`,
         status: R.status,
-        respondent: !0,
+        respondent: true,
         ...(l !== void 0 && { safeErr: Lwe[l], proxyDeny: l }),
       }
     );

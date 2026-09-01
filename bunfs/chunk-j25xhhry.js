@@ -186,7 +186,7 @@ class ue {
   name;
   status = { code: S.SpanStatusCode.UNSET };
   endTime = [0, 0];
-  _ended = !1;
+  _ended = false;
   _duration = [-1, -1];
   _spanProcessor;
   _spanLimits;
@@ -276,7 +276,7 @@ class ue {
       return;
     }
     if (
-      ((this._ended = !0),
+      ((this._ended = true),
       (this.endTime = this._getTime(e)),
       (this._duration = _.hrTimeDuration(this.startTime, this.endTime)),
       this._duration[0] < 0)
@@ -302,7 +302,7 @@ class ue {
     return _.addHrTimes(this.startTime, _.millisToHrTime(t));
   }
   isRecording() {
-    return this._ended === !1;
+    return this._ended === false;
   }
   recordException(e, t) {
     let r = {};
@@ -536,7 +536,7 @@ class le {
   _maxQueueSize;
   _scheduledDelayMillis;
   _exportTimeoutMillis;
-  _isExporting = !1;
+  _isExporting = false;
   _finishedSpans = [];
   _timer;
   _shutdownOnce;
@@ -641,13 +641,13 @@ class le {
   _maybeStartTimer() {
     if (this._isExporting) return;
     let e = () => {
-      (this._isExporting = !0),
+      (this._isExporting = true),
         this._flushOneBatch()
           .finally(() => {
-            if (((this._isExporting = !1), this._finishedSpans.length > 0)) this._clearTimer(), this._maybeStartTimer();
+            if (((this._isExporting = false), this._finishedSpans.length > 0)) this._clearTimer(), this._maybeStartTimer();
           })
           .catch((t) => {
-            (this._isExporting = !1), P.globalErrorHandler(t);
+            (this._isExporting = false), P.globalErrorHandler(t);
           });
     };
     if (this._finishedSpans.length >= this._maxExportBatchSize) return e();
@@ -903,7 +903,7 @@ async function at() {
     auth: "none",
     headers: e.headers,
     timeout: 5000,
-    bypassEssentialTrafficOnly: !0,
+    bypassEssentialTrafficOnly: true,
     maxRedirects: 0,
   });
   if (!t.ok) throw new ce(`metrics_enabled unavailable: ${t.reason}`);
@@ -913,22 +913,22 @@ async function at() {
 }
 async function ct(e) {
   try {
-    let t = await dh(at, { also403Revoked: !0, gateToSessionOAuthCredential: !0, oauthRefreshLatch: e });
+    let t = await dh(at, { also403Revoked: true, gateToSessionOAuthCredential: true, oauthRefreshLatch: e });
     return (
       n(`${rO} Metrics opt-out API response: enabled=${t.metrics_logging_enabled}`),
       y("api_metrics_opt_out_check"),
-      { enabled: t.metrics_logging_enabled, hasError: !1 }
+      { enabled: t.metrics_logging_enabled, hasError: false }
     );
   } catch (t) {
     return (
       n(`${rO} Failed to check metrics opt-out status: ${l(t)}`, t instanceof ce ? { level: "error" } : void 0),
       p("api_metrics_opt_out_check", "request_failed"),
-      { enabled: !1, hasError: !0 }
+      { enabled: false, hasError: true }
     );
   }
 }
 var pt = new J(() => {
-  let e = { attempted: !1 };
+  let e = { attempted: false };
   return pU(() => ct(e), it);
 });
 function ut() {
@@ -942,11 +942,11 @@ async function He(e) {
   return await Ae((o) => ({ ...o, metricsStatusCache: { enabled: t.enabled, timestamp: Date.now() } }), e), t;
 }
 async function Ge(e) {
-  if (Tt() && !Wd()) return { enabled: !1, hasError: !1 };
+  if (Tt() && !Wd()) return { enabled: false, hasError: false };
   let t = ie().metricsStatusCache;
   if (t) {
     if (Date.now() - t.timestamp > ze) He(e).catch(h);
-    return { enabled: t.enabled, hasError: !1 };
+    return { enabled: t.enabled, hasError: false };
   }
   return He(e);
 }
@@ -974,9 +974,9 @@ function mt() {
   return Math.max(0, Math.min(a.CLAUDE_CODE_OTEL_SHUTDOWN_TIMEOUT_MS ?? Mfe, Mfe) - lt);
 }
 function ht(e) {
-  if (!st.isAxiosError(e)) return !1;
+  if (!st.isAxiosError(e)) return false;
   let t = e.response?.status;
-  if (t === 401) return !0;
+  if (t === 401) return true;
   return t === 403 && typeof e.response?.data === "string" && e.response.data.includes("OAuth token has been revoked");
 }
 function ft(e) {
@@ -988,16 +988,16 @@ class Ee {
   timeout;
   storageV5;
   pendingExports = [];
-  isShutdown = !1;
+  isShutdown = false;
   reportedFailures = new Set();
   failures = new xSt("BigQuery metrics");
-  successReported = !1;
+  successReported = false;
   inFlight = 0;
-  oauthRefreshAttempted = !1;
+  oauthRefreshAttempted = false;
   constructor(e) {
     let t = `${zt().BASE_API_URL}/api/claude_code/metrics`,
       r = void 0;
-    (this.isAntEndpointOverride = !1),
+    (this.isAntEndpointOverride = false),
       (this.endpoint = t),
       (this.timeout = e.timeout || 5000),
       (this.storageV5 = e.storageV5);
@@ -1066,7 +1066,7 @@ class Ee {
         throw (this.reportFailure(...dt(f)), f);
       }
       if ((n(`${rO} BigQuery metrics exported successfully`), !this.successReported))
-        (this.successReported = !0), y("internal_metrics_export");
+        (this.successReported = true), y("internal_metrics_export");
       n(`${rO} BigQuery API Response: ${b(m.data, null, 2)}`), t({ code: C.ExportResultCode.SUCCESS });
     } catch (r) {
       let { kind: s, status: o } = os(r);
@@ -1081,9 +1081,9 @@ class Ee {
     this.reportedFailures.add(r), p("internal_metrics_export", e, t === void 0 ? {} : { http_status: t });
   }
   dispatchHostMatchesEndpoint() {
-    if (!(ZS() === null && jd())) return !0;
+    if (!(ZS() === null && jd())) return true;
     let e = Gpe();
-    if (e === void 0) return !1;
+    if (e === void 0) return false;
     return (e === null ? "api.anthropic.com" : new URL(e).host) === new URL(this.endpoint).host;
   }
   async postWithOAuth401Recovery(e, t) {
@@ -1097,7 +1097,7 @@ class Ee {
       let i = Yt()?.accessToken;
       if (i && i !== s) return await this.postOnce(e, { ...t, Authorization: `Bearer ${i}` });
       if (this.oauthRefreshAttempted) throw o;
-      this.oauthRefreshAttempted = !0;
+      this.oauthRefreshAttempted = true;
       try {
         await ym(s, void 0, this.storageV5);
       } catch {
@@ -1106,7 +1106,7 @@ class Ee {
       let c = Yt()?.accessToken;
       if (!c || c === s) throw o;
       let u = await this.postOnce(e, { ...t, Authorization: `Bearer ${c}` });
-      return (this.oauthRefreshAttempted = !1), u;
+      return (this.oauthRefreshAttempted = false), u;
     } finally {
       this.inFlight--;
     }
@@ -1159,7 +1159,7 @@ class Ee {
       }));
   }
   async shutdown() {
-    (this.isShutdown = !0), await this.forceFlush(), n(`${rO} BigQuery metrics exporter shutdown complete`);
+    (this.isShutdown = true), await this.forceFlush(), n(`${rO} BigQuery metrics exporter shutdown complete`);
   }
   armShutdownReport() {
     let e = mt();
@@ -1201,7 +1201,7 @@ function Ye() {}
 class Te {
   delegate;
   buffer = [];
-  shutDown = !1;
+  shutDown = false;
   setDelegate(e) {
     if (this.shutDown) {
       e.shutdown().catch(() => {});
@@ -1228,13 +1228,13 @@ class Te {
     if (this.delegate?.forceFlush) await this.delegate.forceFlush();
   }
   async shutdown() {
-    if (((this.shutDown = !0), (this.buffer = []), this.delegate)) await this.delegate.shutdown();
+    if (((this.shutDown = true), (this.buffer = []), this.delegate)) await this.delegate.shutdown();
   }
 }
 class ge {
   delegate;
   buffer = [];
-  shutDown = !1;
+  shutDown = false;
   setDelegate(e) {
     if (this.shutDown) {
       e.shutdown().catch(() => {});
@@ -1258,7 +1258,7 @@ class ge {
     this.buffer.push(e), t(Qe);
   }
   async shutdown() {
-    if (((this.shutDown = !0), (this.buffer = []), this.delegate)) await this.delegate.shutdown();
+    if (((this.shutDown = true), (this.buffer = []), this.delegate)) await this.delegate.shutdown();
   }
 }
 var gt = 60000,
@@ -1361,14 +1361,14 @@ function we(e) {
     .filter((t) => t !== "none");
 }
 function ye(e) {
-  let t = !1;
+  let t = false;
   return (r) => {
     let s = r.export.bind(r);
     return (
       (r.export = (o, i) =>
         s(o, (c) => {
           if (!t)
-            (t = !0),
+            (t = true),
               n(
                 `[3P telemetry] First ${e} export: ${c.code === pe.ExportResultCode.SUCCESS ? "SUCCESS" : `FAILED (${c.error?.message ?? "unknown"})`}`,
               );
@@ -1508,7 +1508,7 @@ function wt(e) {
   );
 }
 function yt() {
-  if (yj()) return !1;
+  if (yj()) return false;
   let e = Fn(),
     t = Tt() && (e === "enterprise" || e === "team");
   return ppe() || t;
@@ -1728,7 +1728,7 @@ function xe(e) {
   );
 }
 function Ct(e, t) {
-  let r = { send: !1 },
+  let r = { send: false },
     s = (E) => {
       let T = E ? I$(E) : null,
         R = T !== null && typeof T === "object" && "aud" in T ? T.aud : void 0;
@@ -1762,7 +1762,7 @@ function Ct(e, t) {
   } catch {}
   if (O !== d) return r;
   return {
-    send: !0,
+    send: true,
     url: d,
     headers: async () => {
       let E = a.ANTHROPIC_AUTH_TOKEN;
@@ -1771,12 +1771,12 @@ function Ct(e, t) {
   };
 }
 function rt(e) {
-  if (!e) return !1;
+  if (!e) return false;
   try {
     let t = new URL(e).hostname.toLowerCase();
     return t === "localhost" || t === "::1" || t === "[::1]" || /^127(\.\d{1,3}){3}$/.test(t);
   } catch {
-    return !1;
+    return false;
   }
 }
 function Ke(e, t) {
@@ -1804,11 +1804,11 @@ function Oe(e) {
           try {
             c.push(Ke(E, T));
           } catch (K) {
-            return f(K), !1;
+            return f(K), false;
           }
           let z = typeof T === "function" ? T : R;
           if (z) process.nextTick(z, null);
-          return !0;
+          return true;
         }),
           (o.end = function (E, T, R) {
             if (E != null && typeof E !== "function")
@@ -1842,15 +1842,15 @@ function Re(e) {
     f = (O) => {
       if (r) {
         if (!m)
-          (m = Oe(new qe.HttpsProxyAgent(t, { ...c, keepAlive: !0, maxSockets: 1 }))),
+          (m = Oe(new qe.HttpsProxyAgent(t, { ...c, keepAlive: true, maxSockets: 1 }))),
             (m.options = { ...m.options, ...c });
         return m;
       }
       if (O === "http:") {
-        if (!u) u = Oe(new Et.Agent({ keepAlive: !0, maxSockets: 1 }));
+        if (!u) u = Oe(new Et.Agent({ keepAlive: true, maxSockets: 1 }));
         return u;
       }
-      if (!d) d = Oe(new _t.Agent({ ...c, keepAlive: !0, maxSockets: 1 }));
+      if (!d) d = Oe(new _t.Agent({ ...c, keepAlive: true, maxSockets: 1 }));
       return d;
     };
   return Z0n(r, f), f;

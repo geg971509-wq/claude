@@ -241,7 +241,7 @@ var m = Object.freeze({
   overrideMessage: null,
   overrideColor: null,
   overrideShimmerColor: null,
-  isCompacting: !1,
+  isCompacting: false,
   compactingHintText: null,
   compactingStartTime: null,
   turnEffort: null,
@@ -252,7 +252,7 @@ var m = Object.freeze({
 });
 function _Yt() {
   let e = Ma({});
-  function i(n, g, { materialize: s = !0 } = {}) {
+  function i(n, g, { materialize: s = true } = {}) {
     e.setState((l) => {
       let c = n in l;
       if (!c && !s) return l;
@@ -305,7 +305,7 @@ function _Yt() {
               overrideMessage: null,
               overrideColor: null,
               overrideShimmerColor: null,
-              isCompacting: !1,
+              isCompacting: false,
               compactingHintText: null,
               compactingStartTime: null,
             },
@@ -318,7 +318,7 @@ function _Yt() {
         overrideMessage: null,
         overrideColor: null,
         overrideShimmerColor: null,
-        isCompacting: !1,
+        isCompacting: false,
         compactingHintText: null,
         compactingStartTime: null,
         turnEffort: null,
@@ -340,7 +340,7 @@ function _Yt() {
             );
           return;
         case "compact_start":
-          s("Compacting conversation"), u(!0, t.hintText ?? null);
+          s("Compacting conversation"), u(true, t.hintText ?? null);
           return;
         case "compact_end":
           T();

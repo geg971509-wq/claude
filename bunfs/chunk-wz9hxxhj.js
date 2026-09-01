@@ -13,7 +13,7 @@ import { QY } from "/$bunfs/root/chunk-d7nfr7mk.js";
 import { KYe, i, esr, v, q, y5, H, f, un, N, tU, LC } from "/$bunfs/root/chunk-saay52v7.js";
 var p = esr()
     .superRefine((e, t) => {
-      if (!URL.canParse(e)) return t.addIssue({ code: tU.custom, message: "URL must be parseable", fatal: !0 }), KYe;
+      if (!URL.canParse(e)) return t.addIssue({ code: tU.custom, message: "URL must be parseable", fatal: true }), KYe;
     })
     .refine(
       (e) => {
@@ -97,7 +97,7 @@ var p = esr()
     op_tos_uri: p.optional(),
     client_id_metadata_document_supported: q().optional(),
   }),
-  CMt = f({ ...ne.shape, ...Llt.pick({ code_challenge_methods_supported: !0 }).shape }),
+  CMt = f({ ...ne.shape, ...Llt.pick({ code_challenge_methods_supported: true }).shape }),
   vMt = f({
     access_token: i(),
     id_token: i().optional(),
@@ -213,8 +213,8 @@ function Y(e) {
 function K({ requestedResource: e, configuredResource: t }) {
   let r = typeof e === "string" ? new URL(e) : new URL(e.href),
     o = typeof t === "string" ? new URL(t) : new URL(t.href);
-  if (r.origin !== o.origin) return !1;
-  if (r.pathname.length < o.pathname.length) return !1;
+  if (r.origin !== o.origin) return false;
+  if (r.pathname.length < o.pathname.length) return false;
   let n = r.pathname.endsWith("/") ? r.pathname : r.pathname + "/",
     s = o.pathname.endsWith("/") ? o.pathname : o.pathname + "/";
   return n.startsWith(s);
@@ -334,7 +334,7 @@ async function j(e, { serverUrl: t, authorizationCode: r, scope: o, resourceMeta
   if (!h) {
     if (r !== void 0)
       throw Error("Existing OAuth client information is required when exchanging an authorization code");
-    let d = l?.client_id_metadata_document_supported === !0,
+    let d = l?.client_id_metadata_document_supported === true,
       y = e.clientMetadataUrl;
     if (y && !_e(y)) throw new z(`clientMetadataUrl must be a valid HTTPS URL with a non-root pathname, got: ${y}`);
     if (d && y) (h = { client_id: y }), await e.saveClientInformation?.(h);
@@ -377,12 +377,12 @@ async function j(e, { serverUrl: t, authorizationCode: r, scope: o, resourceMeta
   return await e.saveCodeVerifier(oe), await e.redirectToAuthorization(re), "REDIRECT";
 }
 function _e(e) {
-  if (!e) return !1;
+  if (!e) return false;
   try {
     let t = new URL(e);
     return t.protocol === "https:" && t.pathname !== "/";
   } catch {
-    return !1;
+    return false;
   }
 }
 async function he(e, t, r) {

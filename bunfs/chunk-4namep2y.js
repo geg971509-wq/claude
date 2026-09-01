@@ -360,7 +360,7 @@ var ve = 5,
   Re = m(() =>
     f({
       response: i().nullable(),
-      synthetic: _e().transform((n) => n === !0),
+      synthetic: _e().transform((n) => n === true),
       refusal_fallback: f({ original_model: i(), fallback_model: i(), content: i() })
         .optional()
         .catch(void 0),
@@ -370,7 +370,7 @@ function Zt(eo) {
   let h = _(89),
     { question: x, initialResponse: J, initialFallbackNotice: ro, context: I, onDone: Q } = eo,
     [w, oo] = u(J ?? null),
-    [ot, no] = u(!1),
+    [ot, no] = u(false),
     [E, so] = u(ro ?? null),
     [G, Ut] = u(null),
     [se, Qe] = u(null),
@@ -385,8 +385,8 @@ function Zt(eo) {
   else Ge = h[2];
   let [L, lo] = u(Ge),
     At = C(L),
-    le = C(!1),
-    [ae, Ke] = u(!1),
+    le = C(false),
+    [ae, Ke] = u(false),
     z = C(null),
     [j, ft] = u(null),
     H = C(null),
@@ -455,7 +455,7 @@ function Zt(eo) {
         return;
       }
       if (a.key === "f" && w && !ot && !Ze && z.current === null) {
-        a.preventDefault(), (le.current = !0), Ke(!0);
+        a.preventDefault(), (le.current = true), Ke(true);
         let sr = [
           xe({ content: x }),
           Qc({
@@ -467,7 +467,7 @@ ${w}`
           }),
         ];
         let Ft = () => {
-          (le.current = !1), Ke(!1);
+          (le.current = false), Ke(false);
         };
         if (!Fs())
           Promise.all([import("/$bunfs/root/chunk-p6pxf4pg.js"), import("/$bunfs/root/chunk-nhpjzbya.js")])
@@ -565,7 +565,7 @@ ${w}`
                 H.current?.scrollTo(0),
                 Ut("The remote session sent a reply this version can't display");
             else if (v.response) {
-              (z.current = null), ft(null), H.current?.scrollTo(0), oo(v.response), no(v.synthetic ?? !1);
+              (z.current = null), ft(null), H.current?.scrollTo(0), oo(v.response), no(v.synthetic ?? false);
               let de =
                 !dt && "refusalFallback" in v
                   ? v.refusalFallback
@@ -614,10 +614,10 @@ ${w}`
     pt = 2;
     qt = 1;
     St = 0;
-    Et = !0;
+    Et = true;
     Lt = vt;
     if (h[39] !== W)
-      (Pt = W > 0 && r(t, { dimColor: !0, children: ["(+", W, " earlier /btw)"] })), (h[39] = W), (h[40] = Pt);
+      (Pt = W > 0 && r(t, { dimColor: true, children: ["(+", W, " earlier /btw)"] })), (h[39] = W), (h[40] = Pt);
     else Pt = h[40];
     let yt;
     if (h[41] !== W || h[42] !== lt || h[43] !== j)
@@ -676,7 +676,7 @@ ${w}`
   if (h[49] !== lt || h[50] !== x) (Jt = mt(x, lt)), (h[49] = lt), (h[50] = x), (h[51] = Jt);
   else Jt = h[51];
   let Qt;
-  if (h[52] !== Jt) (Qt = e(t, { dimColor: !0, children: Jt })), (h[52] = Jt), (h[53] = Qt);
+  if (h[52] !== Jt) (Qt = e(t, { dimColor: true, children: Jt })), (h[52] = Jt), (h[53] = Qt);
   else Qt = h[53];
   let Gt;
   if (h[54] !== Vt || h[55] !== Qt) (Gt = r(t, { children: [Vt, Qt] })), (h[54] = Vt), (h[55] = Qt), (h[56] = Gt);
@@ -687,7 +687,7 @@ ${w}`
       ref: H,
       flexDirection: "column",
       flexGrow: 1,
-      stickyScroll: !1,
+      stickyScroll: false,
       children: P
         ? r(U, { children: [P.fallbackNotice && e(ht, { notice: P.fallbackNotice }), e(Ni, { children: P.response })] })
         : G
@@ -722,9 +722,9 @@ ${w}`
     (Xt = e(o, {
       marginTop: 1,
       children: ae
-        ? e(t, { dimColor: !0, children: "Forking\u2026" })
+        ? e(t, { dimColor: true, children: "Forking\u2026" })
         : e(t, {
-            dimColor: !0,
+            dimColor: true,
             children: r(fe, {
               children: [
                 L.length > 0
@@ -796,11 +796,11 @@ function ht(Do) {
     { notice: ke } = Do,
     ur;
   if (mr[0] === d)
-    (ur = e(t, { color: "warning", bold: !0, children: e(tt, { status: "warning", withSpace: !0 }) })), (mr[0] = ur);
+    (ur = e(t, { color: "warning", bold: true, children: e(tt, { status: "warning", withSpace: true }) })), (mr[0] = ur);
   else ur = mr[0];
   let fr;
   if (mr[1] !== ke)
-    (fr = r(o, { marginBottom: 1, children: [ur, e(_q, { color: "warning", bold: !0, children: ke })] })),
+    (fr = r(o, { marginBottom: 1, children: [ur, e(_q, { color: "warning", bold: true, children: ke })] })),
       (mr[1] = ke),
       (mr[2] = fr);
   else fr = mr[2];
@@ -853,7 +853,7 @@ function Yt(_o) {
   let Ot;
   if (X[11] !== Ce || X[12] !== N.maxRetries || X[13] !== N.retryAttempt)
     (Ot = r(t, {
-      dimColor: !0,
+      dimColor: true,
       children: [" \xB7 retrying in ", Ce, "s \xB7 attempt ", N.retryAttempt, "/", N.maxRetries],
     })),
       (X[11] = Ce),

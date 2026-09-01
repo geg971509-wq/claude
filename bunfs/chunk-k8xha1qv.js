@@ -74,8 +74,8 @@ class JZn {
   storageV5;
   store;
   inFlight = null;
-  followUpQueued = !1;
-  disposed = !1;
+  followUpQueued = false;
+  disposed = false;
   state = { kind: "unprimed" };
   consecutiveThrows = 0;
   runsInState = 0;
@@ -101,12 +101,12 @@ class JZn {
   }
   schedule() {
     if (this.inFlight !== null) {
-      this.followUpQueued = !0;
+      this.followUpQueued = true;
       return;
     }
     this.inFlight = this.run().finally(() => {
       if (this.disposed) return;
-      if (((this.inFlight = null), this.followUpQueued)) (this.followUpQueued = !1), this.schedule();
+      if (((this.inFlight = null), this.followUpQueued)) (this.followUpQueued = false), this.schedule();
     });
   }
   async run() {
@@ -130,7 +130,7 @@ class JZn {
       }
       let s = await t;
       if (this.disposed) return;
-      if ((H(this.store, s), (await Promise.all([this.seedLogged(e, B), this.seedLogged(e, M)])).includes(!1))) return;
+      if ((H(this.store, s), (await Promise.all([this.seedLogged(e, B), this.seedLogged(e, M)])).includes(false))) return;
       this.consecutiveThrows = 0;
       try {
         ob(), this.loggedThrowMessages.clear();
@@ -152,15 +152,15 @@ class JZn {
   async seedFromBackend(t, e) {
     let s = this.state,
       i = await uqt(this.storageV5, t, s.kind === "seeded" ? s : void 0);
-    if (this.store.epoch !== e || this.disposed) return !1;
+    if (this.store.epoch !== e || this.disposed) return false;
     if (i.kind === "seeded") {
       if (
         (this.store.seedParsedFile(t, "userSettings", i.parsed, e),
         s.kind === "seeded" && s.contentHash === i.contentHash)
       )
-        return !0;
+        return true;
     } else if (i.kind === "absent") KAe(t), this.store.seedParsedFile(t, "userSettings", soe(), e);
-    return this.transition(i), !0;
+    return this.transition(i), true;
   }
   transition(t) {
     let e = this.state;
@@ -212,10 +212,10 @@ class JZn {
   }
   dispose() {
     if (
-      ((this.disposed = !0),
+      ((this.disposed = true),
       this.unsubscribe(),
       (this.inFlight = null),
-      (this.followUpQueued = !1),
+      (this.followUpQueued = false),
       this.store.primer === this)
     )
       (this.store.primer = void 0), this.store.managedFileReads.clear();
@@ -272,7 +272,7 @@ async function QZn(t, e) {
   let s = t.hostFiles;
   if (!s.serves("system")) {
     if (!e.systemSpaceServingLogged)
-      (e.systemSpaceServingLogged = !0),
+      (e.systemSpaceServingLogged = true),
         n(
           "settingsPrime: the managed-settings file tier is not read ahead (the backend does not serve 'system'); the policy walk reads the host's files itself",
         );
@@ -308,17 +308,17 @@ async function QZn(t, e) {
 }
 async function B(t, e, s) {
   let i = T(t);
-  if (i.length === 0) return !0;
+  if (i.length === 0) return true;
   let r = await Promise.all(i.map((a) => a.read()));
-  if (e.epoch !== s) return !1;
-  return x(e, i, r, s), !0;
+  if (e.epoch !== s) return false;
+  return x(e, i, r, s), true;
 }
 var L = Object.freeze([]);
 function P(t, e, s) {
   if (t.hostFiles.serving("system") !== "absent" || e.systemAttestationContradicted) return;
   if (_En() !== void 0) {
     if (!e.systemSpaceServingLogged)
-      (e.systemSpaceServingLogged = !0),
+      (e.systemSpaceServingLogged = true),
         n(
           "settingsPrime: the host attests no OS policy folder ('system' absent) but this process was handed a managed-settings directory explicitly (CLAUDE_CODE_MANAGED_SETTINGS_PATH); its files are read by the policy walk itself",
         );
@@ -326,7 +326,7 @@ function P(t, e, s) {
   }
   let i = LNe(l0()).map((r) => ({ dropInDir: f(r, "managed-settings.d"), basePath: f(r, "managed-settings.json") }));
   if (i.some(({ basePath: r, dropInDir: a }) => e.walkReadManagedFileIn(r, a))) {
-    e.systemAttestationContradicted = !0;
+    e.systemAttestationContradicted = true;
     for (let { basePath: r, dropInDir: a } of i) e.clearFolderListing(a, s), e.unseedParsedFile(r, "policySettings", s);
     h(
       Error(
@@ -336,7 +336,7 @@ function P(t, e, s) {
     return;
   }
   if (!e.systemSpaceServingLogged)
-    (e.systemSpaceServingLogged = !0),
+    (e.systemSpaceServingLogged = true),
       n(
         "settingsPrime: the host attests this machine has no OS policy folder ('system' absent); the policy walk is served an empty managed-settings file tier without reading the host",
       );
@@ -350,11 +350,11 @@ function P(t, e, s) {
 async function M(t, e, s) {
   if (P(t, e, s) !== void 0) return e.epoch === s;
   let i = await QZn(t, e);
-  if (i === void 0) return U(e, s), !0;
+  if (i === void 0) return U(e, s), true;
   let r = await i.reads;
-  if (e.epoch !== s) return !1;
+  if (e.epoch !== s) return false;
   let { verdicts: a } = C(e, i, s);
-  return A(e, i, r, a, s), !0;
+  return A(e, i, r, a, s), true;
 }
 function A(t, e, s, i, r) {
   let a = [],
@@ -466,8 +466,8 @@ async function ZZn(t, e) {
   }
   let [r, a, o] = await Promise.allSettled([
       i.stat(su.workspace(s)),
-      i.stat(su.workspace(f(s, ".git")), { follow: !1 }),
-      i.stat(su.workspace(f(s, ".claude")), { follow: !1 }),
+      i.stat(su.workspace(f(s, ".git")), { follow: false }),
+      i.stat(su.workspace(f(s, ".claude")), { follow: false }),
     ]),
     g = y(r),
     d = y(a),

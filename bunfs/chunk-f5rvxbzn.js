@@ -103,19 +103,19 @@ var _,
       let t = te(process.env[Ovn]);
       if (!t.hostname || !(t.hostname in ne))
         throw new _.CredentialsProviderError(`${t.hostname} is not a valid container metadata service hostname`, {
-          tryNextLink: !1,
+          tryNextLink: false,
           logger: e,
         });
       if (!t.protocol || !(t.protocol in ae))
         throw new _.CredentialsProviderError(`${t.protocol} is not a valid container metadata service protocol`, {
-          tryNextLink: !1,
+          tryNextLink: false,
           logger: e,
         });
       return { ...t, port: t.port ? parseInt(t.port, 10) : void 0 };
     }
     throw new _.CredentialsProviderError(
       `The container metadata credential provider cannot be used unless the ${Lvn} or ${Ovn} environment variable is set`,
-      { tryNextLink: !1, logger: e },
+      { tryNextLink: false, logger: e },
     );
   };
 var y = Nr(() => {
@@ -123,7 +123,7 @@ var y = Nr(() => {
   C();
   N();
   h();
-  (_ = j(qc(), 1)), (ne = { localhost: !0, "127.0.0.1": !0 }), (ae = { "http:": !0, "https:": !0 });
+  (_ = j(qc(), 1)), (ne = { localhost: true, "127.0.0.1": true }), (ae = { "http:": true, "https:": true });
 });
 var R, g;
 var b = Nr(() => {
@@ -131,7 +131,7 @@ var b = Nr(() => {
   g = class g extends R.CredentialsProviderError {
     tryNextLink;
     name = "InstanceMetadataV1FallbackError";
-    constructor(e, t = !0) {
+    constructor(e, t = true) {
       super(e, t);
       (this.tryNextLink = t), Object.setPrototypeOf(this, g.prototype);
     }
@@ -221,13 +221,13 @@ var H,
   q = "x-aws-ec2-metadata-token",
   Fvn = (e = {}) => B(me(e), { logger: e.logger }),
   me = (e = {}) => {
-    let t = !1,
+    let t = false,
       { logger: n, profile: o } = e,
       { timeout: r, maxRetries: a } = Rzt(e),
       p = async (s, m) => {
         if (t || m.headers?.[q] == null) {
-          let i = !1,
-            c = !1,
+          let i = false,
+            c = false,
             Z = await H.loadConfig(
               {
                 environmentVariableSelector: (d) => {
@@ -242,7 +242,7 @@ var H,
                   let f = d[G];
                   return (i = !!f && f !== "false"), i;
                 },
-                default: !1,
+                default: false,
               },
               { profile: o },
             )();
@@ -263,7 +263,7 @@ var H,
             try {
               i = await Ee(m);
             } catch (c) {
-              if (c.statusCode === 401) t = !1;
+              if (c.statusCode === 401) t = false;
               throw c;
             }
             return i;
@@ -274,7 +274,7 @@ var H,
           try {
             i = await Ie(X, m, e);
           } catch (c) {
-            if (c.statusCode === 401) t = !1;
+            if (c.statusCode === 401) t = false;
             throw c;
           }
           return i;
@@ -290,7 +290,7 @@ var H,
           m = (await fe({ ...s, timeout: r })).toString();
         } catch (E) {
           if (E?.statusCode === 400) throw Object.assign(E, { message: "EC2 Metadata token request returned error" });
-          else if (E.message === "TimeoutError" || [403, 404, 405].includes(E.statusCode)) t = !0;
+          else if (E.message === "TimeoutError" || [403, 404, 405].includes(E.statusCode)) t = true;
           return n?.debug("AWS SDK Instance Metadata", "using v1 fallback (initial)"), p(a, { ...s, timeout: r });
         }
         return p(a, { ...s, headers: { [q]: m }, timeout: r });

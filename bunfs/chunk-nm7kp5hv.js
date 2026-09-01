@@ -174,7 +174,7 @@ var ntn = S(function (Jt, Io) {
         };
       else if (!e)
         return function () {
-          return !0;
+          return true;
         };
       else return e;
     }
@@ -545,7 +545,7 @@ function ttn(t, i) {
 }
 function Oo(t, i) {
   let d = i.options.tools ?? [];
-  if (d.length > 0 && !d.some((f) => on(f, _t)) && !d.some((f) => on(f, $s))) return !1;
+  if (d.length > 0 && !d.some((f) => on(f, _t)) && !d.some((f) => on(f, $s))) return false;
   return nY(eu, t, i, he(i));
 }
 async function nit(t, i) {
@@ -560,20 +560,20 @@ async function nit(t, i) {
     return { error: X(P) ? `Workflow script file not found: ${t}` : `Failed to read workflow script file ${t}` };
   }
   try {
-    let P = await g.stat({ bigint: !0 });
+    let P = await g.stat({ bigint: true });
     if (P.ino === 0n || P.nlink > 1n) return { error: It(t) };
     let W = await sit(g.fd),
       C = W ?? (await Ro(f));
     if (W === null) {
       let ie = await Po(C, m | kn);
       try {
-        let U = await ie.stat({ bigint: !0 });
+        let U = await ie.stat({ bigint: true });
         if (U.ino !== P.ino || U.dev !== P.dev || U.nlink !== 1n) return { error: It(t) };
       } finally {
         await ie.close();
       }
       if ((await Ro(C).catch(() => null)) !== C) return { error: It(t) };
-      if ((await g.stat({ bigint: !0 })).nlink !== 1n) return { error: It(t) };
+      if ((await g.stat({ bigint: true })).nlink !== 1n) return { error: It(t) };
     }
     if (!Oo(C, i)) return { error: It(t) };
     if (!P.isFile()) return { error: `Workflow script file ${t} is not a regular file` };
@@ -637,7 +637,7 @@ function Wo(t) {
         for (let f of i) clearTimeout(f);
         i.clear();
       },
-      { once: !0 },
+      { once: true },
     ),
     {
       setTimeout: QT((f, m) => {
@@ -673,7 +673,7 @@ function vn(t) {
     m = `(async () => {'use strict';
 ${t}
 })()`,
-    g = i(m, { ecmaVersion: "latest", sourceType: "script", allowHashBang: !0 });
+    g = i(m, { ecmaVersion: "latest", sourceType: "script", allowHashBang: true });
   d.full(g, (M) => {
     if (M.name?.startsWith(z)) throw SyntaxError(`Identifier '${M.name}' is reserved.`);
     if (M.type === "WithStatement") throw SyntaxError("'with' statements are not supported in workflow scripts.");
@@ -748,11 +748,11 @@ ${i}
           throw WJ("import() is not available in workflow scripts.");
         },
       });
-    return y("workflow_compile"), { ok: !0, vmScript: f };
+    return y("workflow_compile"), { ok: true, vmScript: f };
   } catch (i) {
     return (
       p("workflow_compile", "syntax_error"),
-      { ok: !1, error: `SyntaxError: ${i instanceof Error ? i.message : String(i)}` }
+      { ok: false, error: `SyntaxError: ${i instanceof Error ? i.message : String(i)}` }
     );
   }
 }
@@ -782,7 +782,7 @@ function io(
           if (C !== void 0 && C !== "{}") return C;
           P = C ?? `[${typeof g}]`;
         } catch (C) {
-          let ue = !1;
+          let ue = false;
           try {
             let M = C?.message;
             ue = typeof M === "string" && M.includes("exceeds the maximum");
@@ -848,7 +848,7 @@ function $o(t) {
         console: io((x) => t.hooks.log(ie + x), fe),
       };
     try {
-      let x = Gt.createContext(ge, { codeGeneration: { strings: !1, wasm: !1 } });
+      let x = Gt.createContext(ge, { codeGeneration: { strings: false, wasm: false } });
       zt(x), yie(x), (U = jJ(x));
       let l = Dve(x),
         e = sZe(x),
@@ -882,12 +882,12 @@ function $o(t) {
         },
         L = aZe(x);
       for (let [Y, re] of Object.entries(v))
-        Object.defineProperty(x, Y, { value: L(D5t(re)), writable: !0, enumerable: !0, configurable: !0 });
+        Object.defineProperty(x, Y, { value: L(D5t(re)), writable: true, enumerable: true, configurable: true });
       Object.defineProperty(x, "args", {
         value: m === void 0 ? void 0 : e(m),
-        writable: !0,
-        enumerable: !0,
-        configurable: !0,
+        writable: true,
+        enumerable: true,
+        configurable: true,
       });
       let A = await l(C.vmScript.runInContext(x, nK(yje))),
         B = e(A.v);
@@ -925,7 +925,7 @@ async function uo() {
   try {
     return await Mp("tengu_bubbly_harbor");
   } catch {
-    return !1;
+    return false;
   }
 }
 function Yt(t) {
@@ -1047,7 +1047,7 @@ function $n(t) {
 class go {
   path;
   storageV5;
-  dirReady = !1;
+  dirReady = false;
   constructor(t, i) {
     this.path = On(F0(t), "journal.jsonl");
     let d = i === void 0 ? void 0 : $n(t);
@@ -1076,7 +1076,7 @@ class go {
     return Lo(i);
   }
   async loadV5({ backend: t, key: i }) {
-    let d = new TextDecoder("utf-8", { ignoreBOM: !0 }),
+    let d = new TextDecoder("utf-8", { ignoreBOM: true }),
       f = [],
       m;
     for (;;) {
@@ -1114,7 +1114,7 @@ class go {
         );
       return;
     }
-    if (!this.dirReady) await Pn(Mn(this.path), { recursive: !0 }), (this.dirReady = !0);
+    if (!this.dirReady) await Pn(Mn(this.path), { recursive: true }), (this.dirReady = true);
     await An(this.path, P5(t), "utf8");
   }
 }
@@ -1137,12 +1137,12 @@ class Uo {
       let W = this.now();
       await Ln(f.ready, i.capMs, i.signal), (g = Math.max(0, this.now() - W));
     }
-    let P = !1;
+    let P = false;
     return {
       leader: m !== void 0,
       waitedMs: g,
       responded: () => {
-        (P = !0), this.markWarm(t);
+        (P = true), this.markWarm(t);
       },
       done: () => {
         if (P || m === void 0) return;
@@ -1180,7 +1180,7 @@ function Ln(t, i, d) {
   let f = new AbortController(),
     m = () => f.abort();
   return (
-    d?.addEventListener("abort", m, { once: !0 }),
+    d?.addEventListener("abort", m, { once: true }),
     Promise.race([t, ne(i, f.signal)]).finally(() => {
       f.abort(), d?.removeEventListener("abort", m);
     })
@@ -1275,9 +1275,9 @@ function Xo(t, i, d, f, m, g, P, W, C, ue, M, ie) {
       }
     },
     o = "",
-    u = !1,
-    T = !1,
-    v = !1,
+    u = false,
+    T = false,
+    v = false,
     L = [];
   function A(E, { log: N }) {
     let Z = ap(E);
@@ -1320,14 +1320,14 @@ function Xo(t, i, d, f, m, g, P, W, C, ue, M, ie) {
   }
   function Ue() {
     if (U < Go) return;
-    if (!T) (T = !0), s("tengu_workflow_agent_cap_exceeded", { agentCount: U });
+    if (!T) (T = true), s("tengu_workflow_agent_cap_exceeded", { agentCount: U });
     throw new Yo();
   }
   function de() {
     if (P?.total == null || P.total <= 0) return;
     let E = P.getTurnSpent();
     if (E < P.total) return;
-    if (!v) (v = !0), s("tengu_workflow_budget_cap_exceeded", { spent: E, budget: P.total, agentCount: U });
+    if (!v) (v = true), s("tengu_workflow_budget_cap_exceeded", { spent: E, budget: P.total, agentCount: U });
     throw new qo(E, P.total);
   }
   let nt = 0,
@@ -1335,7 +1335,7 @@ function Xo(t, i, d, f, m, g, P, W, C, ue, M, ie) {
     At = new Map(),
     F = {
       ...t,
-      isBackgroundAgent: !0,
+      isBackgroundAgent: true,
       setAppState: () => {},
       setToolPermissionContext: () => {},
       setSessionToolPermissionContext: t.setSessionToolPermissionContext,
@@ -1348,7 +1348,7 @@ function Xo(t, i, d, f, m, g, P, W, C, ue, M, ie) {
   function Re(E, N) {
     let Z = ap(E),
       Ae = At.get(Z);
-    if (Ae == null) (Ae = { index: ++nt, kind: N, announced: !1, title: Z }), At.set(Z, Ae);
+    if (Ae == null) (Ae = { index: ++nt, kind: N, announced: false, title: Z }), At.set(Z, Ae);
     return Ae;
   }
   function Ce(E, N) {
@@ -1357,7 +1357,7 @@ function Xo(t, i, d, f, m, g, P, W, C, ue, M, ie) {
   function at(E) {
     let N = Re(E);
     if (!N.announced)
-      (N.announced = !0),
+      (N.announced = true),
         d({
           type: "progress",
           toolUseID: `workflow_phase_${N.index}`,
@@ -1382,7 +1382,7 @@ function Xo(t, i, d, f, m, g, P, W, C, ue, M, ie) {
     provenanceOn: we,
   }) {
     let Ie = he(F);
-    if (Ie.mode !== "auto") return !1;
+    if (Ie.mode !== "auto") return false;
     let ke, ye;
     if (Q?.schema != null) {
       let pe = new WeakSet();
@@ -1401,7 +1401,7 @@ function Xo(t, i, d, f, m, g, P, W, C, ue, M, ie) {
         ye = "output schema could not be serialized for classification";
       }
     }
-    if (we && ye === void 0) return !1;
+    if (we && ye === void 0) return false;
     let Je = ye
       ? { reason: ye }
       : await q4n({
@@ -1420,10 +1420,10 @@ function Xo(t, i, d, f, m, g, P, W, C, ue, M, ie) {
           return null;
         });
     if (F.abortController?.signal.aborted) throw Error("Workflow aborted");
-    if (!Je) return !1;
+    if (!Je) return false;
     let Ye = `[${Z}] blocked by safety classifier: ${Je.reason}`;
     return (
-      A(Ye, { log: !1 }),
+      A(Ye, { log: false }),
       d({
         type: "progress",
         toolUseID: `workflow_agent_${E}_blocked`,
@@ -1437,14 +1437,14 @@ function Xo(t, i, d, f, m, g, P, W, C, ue, M, ie) {
           isolation: Q?.isolation === "worktree" || Q?.isolation === "remote" ? Q.isolation : void 0,
           model: ve(Q?.model),
           state: "error",
-          blocked: !0,
+          blocked: true,
           error: Ye,
           queuedAt: O,
           promptPreview: bt(N),
           lastProgressAt: Date.now(),
         },
       }),
-      !0
+      true
     );
   }
   let wo = new WeakMap(),
@@ -1534,7 +1534,7 @@ function Xo(t, i, d, f, m, g, P, W, C, ue, M, ie) {
                 state: "done",
                 startedAt: Date.now(),
                 lastProgressAt: Date.now(),
-                cached: !0,
+                cached: true,
                 resultPreview: bt(H.result),
                 promptPreview: pe,
               },
@@ -1542,12 +1542,12 @@ function Xo(t, i, d, f, m, g, P, W, C, ue, M, ie) {
             x(H.result)
           );
         let Pe = C?.started.get(_e);
-        if (!(!u && Pe !== void 0 && Pe.length > 0 && !C?.failed.has(_e))) u = !0;
+        if (!(!u && Pe !== void 0 && Pe.length > 0 && !C?.failed.has(_e))) u = true;
         if (Pe && Pe.length > 0) s("tengu_workflow_journal_started_hit_respawn", { attempts: Pe.length });
       }
-      let De = !1,
+      let De = false,
         Fe = (H) => {
-          if (((De = !0), (it = H), !W)) return;
+          if (((De = true), (it = H), !W)) return;
           W.append({ type: "started", key: _e, agentId: H }).catch((Pe) =>
             n(`workflow journal started-append failed: ${Pe}`, { level: "warn" }),
           );
@@ -1682,8 +1682,8 @@ function Xo(t, i, d, f, m, g, P, W, C, ue, M, ie) {
       H = he(F),
       Pe = F.options.tools.filter(K_),
       Ke = { ...H, mode: Se.permissionMode ?? "acceptEdits" },
-      qe = hD(Ke, B2(vt.mcp.tools.concat(Pe)), { skipReplFilter: !0, skillTools: vt.skillTools }),
-      pt = (_) => yE(Se, _, !1, !1, !1, vc(ke) + 1),
+      qe = hD(Ke, B2(vt.mcp.tools.concat(Pe)), { skipReplFilter: true, skillTools: vt.skillTools }),
+      pt = (_) => yE(Se, _, false, false, false, vc(ke) + 1),
       et = (_) => {
         let We = _I([Y0, J0, ...Tgt([J0.name, Y0.name])], Ke).filter((ae) => !_.some((be) => on(be, ae.name)));
         return We.length > 0 ? [..._, ...We] : _;
@@ -1915,12 +1915,12 @@ You are running in an isolated git worktree at \`${fo(St.worktreePath)}\` (a sep
           subagentName: Se.agentType,
           workflowRunId: f,
           workflowName: ue,
-          isAsync: !1,
+          isAsync: false,
           isBuiltIn: ja(Se),
-          isBackgroundAgent: !0,
+          isBackgroundAgent: true,
           invokingRequestId: M,
           invocationKind: "spawn",
-          invocationEmitted: !1,
+          invocationEmitted: false,
           parentPromptId: ie,
         },
         me = `workflow_agent_${E}_${Ne}`,
@@ -2008,7 +2008,7 @@ You are running in an isolated git worktree at \`${fo(St.worktreePath)}\` (a sep
             toolUseContext: wn,
             session: _,
             canUseTool: i,
-            isAsync: !1,
+            isAsync: false,
             querySource: jW(Se.agentType, ja(Se)),
             spawnedBySkill: F.options.spawnedBySkill ?? F.options.activeSkill,
             spawnedByForkedSkill: F.options.spawnedByForkedSkill,
@@ -2090,8 +2090,8 @@ You are running in an isolated git worktree at \`${fo(St.worktreePath)}\` (a sep
                 agentMessages: Et,
                 tokens: st,
                 toolCalls: ot,
-                stalled: !1,
-                skipped: !1,
+                stalled: false,
+                skipped: false,
                 durationMs: $e,
                 stopReason: void 0,
                 outputTokens: void 0,
@@ -2113,9 +2113,9 @@ You are running in an isolated git worktree at \`${fo(St.worktreePath)}\` (a sep
               agentMessages: Et,
               tokens: st,
               toolCalls: ot,
-              stalled: !0,
+              stalled: true,
               stalledReason: Ve,
-              skipped: !1,
+              skipped: false,
               durationMs: Date.now() - xt,
               stopReason: void 0,
               outputTokens: void 0,
@@ -2128,7 +2128,7 @@ You are running in an isolated git worktree at \`${fo(St.worktreePath)}\` (a sep
           return (
             wt("error", {
               error: "skipped by user",
-              skipped: !0,
+              skipped: true,
               tokens: lt + st,
               toolCalls: tt + ot,
               durationMs: gt + (Date.now() - xt),
@@ -2139,8 +2139,8 @@ You are running in an isolated git worktree at \`${fo(St.worktreePath)}\` (a sep
               agentMessages: Et,
               tokens: st,
               toolCalls: ot,
-              stalled: !1,
-              skipped: !0,
+              stalled: false,
+              skipped: true,
               durationMs: Date.now() - xt,
               stopReason: void 0,
               outputTokens: void 0,
@@ -2169,7 +2169,7 @@ You are running in an isolated git worktree at \`${fo(St.worktreePath)}\` (a sep
             )
           : "",
         ht;
-      if (ct?.isApiErrorMessage) ht = _Ft(oF(Co, { prependMarker: !1 }).sanitized);
+      if (ct?.isApiErrorMessage) ht = _Ft(oF(Co, { prependMarker: false }).sanitized);
       else if (((ht = oF(Co).sanitized), Vt))
         ht = `${ht}
 
@@ -2189,8 +2189,8 @@ ${mye(Vt)}`;
             apiError: le,
             tokens: st,
             toolCalls: ot,
-            stalled: !1,
-            skipped: !1,
+            stalled: false,
+            skipped: false,
             durationMs: Ht,
             stopReason: ct.message.stop_reason,
             outputTokens: xo,
@@ -2207,8 +2207,8 @@ ${mye(Vt)}`;
           agentMessages: Et,
           tokens: st,
           toolCalls: ot,
-          stalled: !1,
-          skipped: !1,
+          stalled: false,
+          skipped: false,
           durationMs: Ht,
           stopReason: ct?.message.stop_reason,
           outputTokens: xo,
@@ -2259,7 +2259,7 @@ ${mye(Vt)}`;
                 "sleeping 45s before retry",
             },
           }),
-          await ne(45000, F.abortController?.signal, { throwOnAbort: !0 }),
+          await ne(45000, F.abortController?.signal, { throwOnAbort: true }),
           (lt += _.tokens),
           (tt += _.toolCalls),
           (gt += _.durationMs),
@@ -2320,7 +2320,7 @@ ${mye(Vt)}`;
       }
       if (_.apiError) {
         let oe = `[${Z}] failed: ${_.apiError}`;
-        return A(oe, { log: !0 }), null;
+        return A(oe, { log: true }), null;
       }
       let j = pe && _.structured !== void 0 ? W4n(_.structured, { reservedKeys: ["webFetchSavedFiles"] }) : void 0,
         Ne = he(F);
@@ -2343,7 +2343,7 @@ ${mye(Vt)}`;
         if (oe) {
           if (pe) {
             let me = `[${Z}] ${oe.warning}`;
-            A(me, { log: !0 });
+            A(me, { log: true });
           } else if (
             ((_.text = `${oe.warning}
 
@@ -2351,7 +2351,7 @@ ${_.text}`),
             oe.kind !== "unavailable")
           ) {
             let me = `[${Z}] ${oe.warning}`;
-            A(me, { log: !0 });
+            A(me, { log: true });
           }
         }
       }
@@ -2404,7 +2404,7 @@ ${_.text}`),
       if (St) {
         let { worktreePath: _, worktreeBranch: We, headCommit: ae, gitRoot: be, hookBased: j } = St;
         try {
-          if (!j && ae && !(await Lut(_, ae))) await XW(_, We, be, !1, "workflow_tool");
+          if (!j && ae && !(await Lut(_, ae))) await XW(_, We, be, false, "workflow_tool");
           else if (be) await XB(_, be);
         } catch {}
       }
@@ -2559,7 +2559,7 @@ ${_.text}`),
         if (Be) {
           if (Be.kind !== "unavailable") {
             let rt = `[${Z}] ${Be.warning}`;
-            A(rt, { log: !0 });
+            A(rt, { log: true });
           }
           return `${Be.warning}
 
@@ -2570,7 +2570,7 @@ ${mt}`;
     } catch (Fe) {
       if (Ye) sR(Ye).catch(() => {});
       if (Za(_e.signal.reason) === "user-skip")
-        return pe("error", { error: "skipped by user", skipped: !0, durationMs: Date.now() - ye }), null;
+        return pe("error", { error: "skipped by user", skipped: true, durationMs: Date.now() - ye }), null;
       throw (pe("error", { error: Fe instanceof Error ? Fe.message : String(Fe), durationMs: Date.now() - ye }), Fe);
     } finally {
       we?.removeEventListener("abort", it), m?.(ke, null);
@@ -2600,7 +2600,7 @@ ${mt}`;
           let { name: we, msg: Ie } = QCt(Q.reason);
           if (we === "WorkflowBudgetExceededError") return Ae++, null;
           let ke = `parallel[${O}] failed: ${Ie}`;
-          return A(ke, { log: !0 }), null;
+          return A(ke, { log: true }), null;
         });
       if (Ae > 0) L.push(`parallel: ${Ae} ${k(Ae, "slot")} dropped \u2014 token budget exceeded`);
       return x(Ze);
@@ -2631,7 +2631,7 @@ ${mt}`;
           let { name: ke, msg: ye } = QCt(we.reason);
           if (ke === "WorkflowBudgetExceededError") return Q++, null;
           let Je = `pipeline[${Ie}] failed: ${ye}`;
-          return A(Je, { log: !0 }), null;
+          return A(Je, { log: true }), null;
         });
       if (Q > 0) L.push(`pipeline: ${Q} ${k(Q, "slot")} dropped \u2014 token budget exceeded`);
       return x(O);
@@ -2647,7 +2647,7 @@ ${mt}`;
     phase: Xt,
     resolvePhase: at,
     reservePhase: Ce,
-    recordFailure: (E) => A(E, { log: !1 }),
+    recordFailure: (E) => A(E, { log: false }),
     getAgentCount: () => U,
     getFailures: () => L,
     bindVMAwait: (E) => {
@@ -2658,16 +2658,16 @@ ${mt}`;
   };
 }
 function zo(t, i, d) {
-  if (!t1t(t)) return !1;
+  if (!t1t(t)) return false;
   return (
     s("tengu_auto_mode_decision", {
       decision: c("skipped_enveloped_handback"),
       toolName: c(xf),
       agentType: i === Ft.agentType ? c("workflow-subagent") : void 0,
-      isHandoff: !0,
+      isHandoff: true,
       toolUseCount: d,
     }),
-    !0
+    true
   );
 }
 function Qo(t) {
@@ -2711,7 +2711,7 @@ function VIt(t, i, d, f, m, g, P, W, C, ue, M, ie, U) {
         setTimeout: o.setTimeout,
         clearTimeout: o.clearTimeout,
       },
-      { codeGeneration: { strings: !1, wasm: !1 } },
+      { codeGeneration: { strings: false, wasm: false } },
     );
   zt(u), yie(u);
   let { vmToStr: T, vmStringify: v, vmOwnString: L } = L5t(u);
@@ -2737,14 +2737,14 @@ function VIt(t, i, d, f, m, g, P, W, C, ue, M, ie, U) {
     ["pipeline", ge.pipeline],
     ["workflow", re],
   ])
-    Object.defineProperty(u, de, { value: Ee(D5t(nt)), writable: !0, enumerable: !0, configurable: !0 });
+    Object.defineProperty(u, de, { value: Ee(D5t(nt)), writable: true, enumerable: true, configurable: true });
   {
     let de = g === void 0 ? void 0 : JSON.stringify(g);
     Object.defineProperty(u, "args", {
       value: de === void 0 ? void 0 : Nt.runInContext(`JSON.parse(${JSON.stringify(de)})`, u),
-      writable: !0,
-      enumerable: !0,
-      configurable: !0,
+      writable: true,
+      enumerable: true,
+      configurable: true,
     });
   }
   let Ue = m$e(u);
@@ -2871,7 +2871,7 @@ function ir(t) {
     },
     flushNow: () => {
       if (d) clearTimeout(d);
-      m(!0);
+      m(true);
     },
     cancel: () => {
       if (d) clearTimeout(d), (d = void 0);
@@ -3132,7 +3132,7 @@ function Sje(t) {
         });
       if (T && !T.isKilled && T.isActive) T.reopen?.();
       if (t.suppressCompletionNotification)
-        C.taskRegistry.update(i, (ve) => ({ ...ve, notified: !0 })), qA(r, `workflow:${i}`, C.taskRegistry);
+        C.taskRegistry.update(i, (ve) => ({ ...ve, notified: true })), qA(r, `workflow:${i}`, C.taskRegistry);
       else
         uPt({
           taskId: i,
@@ -3179,7 +3179,7 @@ function Sje(t) {
           }),
           t.suppressCompletionNotification)
         )
-          C.taskRegistry.update(i, (q) => ({ ...q, notified: !0 })), qA(r, `workflow:${i}`, C.taskRegistry);
+          C.taskRegistry.update(i, (q) => ({ ...q, notified: true })), qA(r, `workflow:${i}`, C.taskRegistry);
         else
           uPt({
             taskId: i,
@@ -3247,8 +3247,8 @@ async function xUn(t) {
     canUseTool: t.canUseTool,
     toolUseId: void 0,
     transcriptDir: F0(d),
-    telemetry: { source: "adopt", name: w("custom"), description: w(""), scriptIsVerbatimBuiltIn: !1 },
-    isResume: !0,
+    telemetry: { source: "adopt", name: w("custom"), description: w(""), scriptIsVerbatimBuiltIn: false },
+    isResume: true,
     startTime: g,
   });
 }

@@ -69,7 +69,7 @@ function ht() {
     Or;
   if (rt[5] === d)
     (Or = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children:
         "Claude Code uses the standard GCP credential chain. Pick the method you already use with gcloud or in your deployment.",
     })),
@@ -142,7 +142,7 @@ function Dt(Co) {
   if (ne[3] !== $e) (Ir = Object.entries($e).filter(Lr)), (ne[3] = $e), (ne[4] = Ir);
   else Ir = ne[4];
   let vo = Ir,
-    Ao = C(!1),
+    Ao = C(false),
     Rr;
   if (
     ne[5] !== $e ||
@@ -159,10 +159,10 @@ function Dt(Co) {
       if (Ao.current) {
         return;
       }
-      Ao.current = !0;
+      Ao.current = true;
       let { error: Sr } = await rn("userSettings", { env: $e }, void 0, xo);
       if (Sr) {
-        (Ao.current = !1), Ji(Sr.message);
+        (Ao.current = false), Ji(Sr.message);
         return;
       }
       s("tengu_vertex_setup_complete", {
@@ -197,8 +197,8 @@ function Dt(Co) {
     (yt =
       P.verifiedIdentity &&
       r(t, {
-        dimColor: !0,
-        children: [e(tt, { status: "success", withSpace: !0 }), "Verified as ", P.verifiedIdentity],
+        dimColor: true,
+        children: [e(tt, { status: "success", withSpace: true }), "Verified as ", P.verifiedIdentity],
       })),
       (ne[18] = P.verifiedIdentity),
       (ne[19] = yt);
@@ -298,20 +298,20 @@ async function K(n, i) {
   try {
     c = await zr(n);
   } catch {
-    return { ok: !1, reason: "auth" };
+    return { ok: false, reason: "auth" };
   }
   try {
     return (
-      await c.messages.create({ model: pn(i), max_tokens: 1, messages: [{ role: "user", content: "." }] }), { ok: !0 }
+      await c.messages.create({ model: pn(i), max_tokens: 1, messages: [{ role: "user", content: "." }] }), { ok: true }
     );
   } catch (p) {
     let f = p?.status;
-    if (f === 401) return { ok: !1, reason: "auth" };
-    if (f === 403) return { ok: !1, reason: "permission" };
-    if (f === 400 || f === 404) return { ok: !1, reason: "model" };
-    if (f === 429) return { ok: !0 };
-    if (f === void 0) return { ok: !1, reason: "network" };
-    return { ok: !1, reason: "other" };
+    if (f === 401) return { ok: false, reason: "auth" };
+    if (f === 403) return { ok: false, reason: "permission" };
+    if (f === 400 || f === 404) return { ok: false, reason: "model" };
+    if (f === 429) return { ok: true };
+    if (f === void 0) return { ok: false, reason: "network" };
+    return { ok: false, reason: "other" };
   }
 }
 async function zr(n) {
@@ -423,14 +423,14 @@ function Ht() {
     Yr;
   if (D[4] !== g.sonnet || D[5] !== W)
     (Yr = () => {
-      let Jr = !1;
+      let Jr = false;
       return (
         Oe(Rn),
         K(W, g.sonnet).then((ka) => {
           if (!Jr) Oe((Da) => ({ ...Da, sonnet: ka }));
         }),
         () => {
-          Jr = !0;
+          Jr = true;
         }
       );
     }),
@@ -445,14 +445,14 @@ function Ht() {
   let Qr;
   if (D[9] !== g.opus || D[10] !== W)
     (Qr = () => {
-      let Zr = !1;
+      let Zr = false;
       return (
         Oe(Sn),
         K(W, g.opus).then((va) => {
           if (!Zr) Oe((Aa) => ({ ...Aa, opus: va }));
         }),
         () => {
-          Zr = !0;
+          Zr = true;
         }
       );
     }),
@@ -467,14 +467,14 @@ function Ht() {
   let tn;
   if (D[14] !== g.haiku || D[15] !== W)
     (tn = () => {
-      let on = !1;
+      let on = false;
       return (
         Oe(Vn),
         K(W, g.haiku).then((_a) => {
           if (!on) Oe((Oa) => ({ ...Oa, haiku: _a }));
         }),
         () => {
-          on = !0;
+          on = true;
         }
       );
     }),
@@ -489,14 +489,14 @@ function Ht() {
   let an;
   if (D[19] !== g.fable || D[20] !== W)
     (an = () => {
-      let sn = !1;
+      let sn = false;
       return (
         Oe(Nn),
         K(W, g.fable).then((Ea) => {
           if (!sn) Oe((Pa) => ({ ...Pa, fable: Ea }));
         }),
         () => {
-          sn = !0;
+          sn = true;
         }
       );
     }),
@@ -603,7 +603,7 @@ function Ht() {
   else it = D[48];
   let at;
   if (D[49] === d)
-    (at = e(t, { dimColor: !0, children: "Each candidate is tested with a one-token request:" })), (D[49] = at);
+    (at = e(t, { dimColor: true, children: "Each candidate is tested with a one-token request:" })), (D[49] = at);
   else at = D[49];
   let bt;
   if (D[50] !== g || D[51] !== j)
@@ -656,13 +656,13 @@ function Jo({ tier: n, wizardData: i, fallback: c, current: p, existingPin: f, o
     }, [n, c, p, f]),
     [h, b] = u(() => Object.fromEntries(v.map((O) => [O, "pending"])));
   A(() => {
-    let O = !1;
+    let O = false;
     for (let w of v)
       K(i, w).then((l) => {
         if (!O) b((y) => ({ ...y, [w]: l }));
       });
     return () => {
-      O = !0;
+      O = true;
     };
   }, []);
   let I = v.every((O) => h[O] !== "pending"),
@@ -689,7 +689,7 @@ function Jo({ tier: n, wizardData: i, fallback: c, current: p, existingPin: f, o
       gap: 1,
       children: [
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: ["Available ", Se[n], " versions on Vertex AI \xB7 each tested with a one-token request."],
         }),
         e(
@@ -706,10 +706,10 @@ function Wt($a) {
     { id: de, state: $o, suffix: ie } = $a;
   if ($o === "pending") {
     let Pe;
-    if (le[0] === d) (Pe = e(tt, { status: "pending", withSpace: !0 })), (le[0] = Pe);
+    if (le[0] === d) (Pe = e(tt, { status: "pending", withSpace: true })), (le[0] = Pe);
     else Pe = le[0];
     let X;
-    if (le[1] !== ie) (X = ie && r(t, { dimColor: !0, children: [" ", ie] })), (le[1] = ie), (le[2] = X);
+    if (le[1] !== ie) (X = ie && r(t, { dimColor: true, children: [" ", ie] })), (le[1] = ie), (le[2] = X);
     else X = le[2];
     let ue;
     if (le[3] !== de || le[4] !== X) (ue = r(t, { children: [Pe, de, X] })), (le[3] = de), (le[4] = X), (le[5] = ue);
@@ -718,10 +718,10 @@ function Wt($a) {
   }
   if ($o.ok) {
     let Pe;
-    if (le[6] === d) (Pe = e(tt, { status: "success", withSpace: !0 })), (le[6] = Pe);
+    if (le[6] === d) (Pe = e(tt, { status: "success", withSpace: true })), (le[6] = Pe);
     else Pe = le[6];
     let X;
-    if (le[7] !== ie) (X = ie && r(t, { dimColor: !0, children: [" ", ie] })), (le[7] = ie), (le[8] = X);
+    if (le[7] !== ie) (X = ie && r(t, { dimColor: true, children: [" ", ie] })), (le[7] = ie), (le[8] = X);
     else X = le[8];
     let ue;
     if (le[9] !== de || le[10] !== X) (ue = r(t, { children: [Pe, de, X] })), (le[9] = de), (le[10] = X), (le[11] = ue);
@@ -729,7 +729,7 @@ function Wt($a) {
     return ue;
   }
   let Pe;
-  if (le[12] === d) (Pe = e(tt, { status: "error", withSpace: !0 })), (le[12] = Pe);
+  if (le[12] === d) (Pe = e(tt, { status: "error", withSpace: true })), (le[12] = Pe);
   else Pe = le[12];
   const X = ie && ` ${ie}`,
     ue = ut[$o.reason];
@@ -738,7 +738,7 @@ function Wt($a) {
   else Ft = le[14];
   let bn;
   if (le[15] !== de || le[16] !== X || le[17] !== Ft)
-    (bn = r(t, { dimColor: !0, children: [Pe, de, X, " ", Ft] })),
+    (bn = r(t, { dimColor: true, children: [Pe, de, X, " ", Ft] })),
       (le[15] = de),
       (le[16] = X),
       (le[17] = Ft),
@@ -767,7 +767,7 @@ function Gt(Ka) {
   }
   if (Ko.ok) {
     let be;
-    if (Z[7] === d) (be = e(tt, { status: "success", withSpace: !0 })), (Z[7] = be);
+    if (Z[7] === d) (be = e(tt, { status: "success", withSpace: true })), (Z[7] = be);
     else be = Z[7];
     let ee;
     if (Z[8] !== pe) (ee = pe.padEnd(7)), (Z[8] = pe), (Z[9] = ee);
@@ -782,13 +782,13 @@ function Gt(Ka) {
     return he;
   }
   let be;
-  if (Z[15] === d) (be = e(tt, { status: "error", withSpace: !0 })), (Z[15] = be);
+  if (Z[15] === d) (be = e(tt, { status: "error", withSpace: true })), (Z[15] = be);
   else be = Z[15];
   let ee;
   if (Z[16] !== pe) (ee = pe.padEnd(7)), (Z[16] = pe), (Z[17] = ee);
   else ee = Z[17];
   let B;
-  if (Z[18] !== me) (B = e(t, { dimColor: !0, children: me })), (Z[18] = me), (Z[19] = B);
+  if (Z[18] !== me) (B = e(t, { dimColor: true, children: me })), (Z[18] = me), (Z[19] = B);
   else B = Z[19];
   const he = ut[Ko.reason];
   let Ut;
@@ -894,7 +894,7 @@ function Xt(xs) {
     else we = S[9];
     let Ne;
     if (S[10] !== R.length || S[11] !== we)
-      (Ne = r(t, { dimColor: !0, children: ["Found ", Jt, " ", we, " in your gcloud configurations."] })),
+      (Ne = r(t, { dimColor: true, children: ["Found ", Jt, " ", we, " in your gcloud configurations."] })),
         (S[10] = R.length),
         (S[11] = we),
         (S[12] = Ne);
@@ -917,7 +917,7 @@ function Xt(xs) {
     let xe;
     if (S[19] !== Ze)
       (xe = (Kn) => {
-        if (Kn === ft) vs(!0);
+        if (Kn === ft) vs(true);
         else Ze(Kn);
       }),
         (S[19] = Ze),
@@ -974,7 +974,7 @@ function Xt(xs) {
   else Ne = S[33];
   let ye;
   if (S[34] !== R.length || S[35] !== Kt)
-    (ye = Kt && r(t, { dimColor: !0, children: ["Found ", R.length, " projects \u2014 too many to list."] })),
+    (ye = Kt && r(t, { dimColor: true, children: ["Found ", R.length, " projects \u2014 too many to list."] })),
       (S[34] = R.length),
       (S[35] = Kt),
       (S[36] = ye);
@@ -982,7 +982,7 @@ function Xt(xs) {
   let se;
   if (S[37] === d)
     (se = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: "Find it with `gcloud config get-value project` or in the GCP console header.",
     })),
       (S[37] = se);
@@ -999,8 +999,8 @@ function Xt(xs) {
         columns: 60,
         cursorOffset: tr,
         onChangeCursorOffset: _s,
-        focus: !0,
-        showCursor: !0,
+        focus: true,
+        showCursor: true,
       }),
     })),
       (S[38] = tr),
@@ -1066,7 +1066,7 @@ function oo() {
   if (Me[6] === d)
     (ii = e(t, { children: "Where Claude models are served from." })),
       (ai = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children:
           "Use 'global', 'us', or 'eu' for a multi-region endpoint (recommended), or a specific location like us-east5 if you have regional quota.",
       })),
@@ -1085,8 +1085,8 @@ function oo() {
         columns: 40,
         cursorOffset: sr,
         onChangeCursorOffset: Hs,
-        focus: !0,
-        showCursor: !0,
+        focus: true,
+        showCursor: true,
       }),
     })),
       (Me[8] = sr),
@@ -1155,7 +1155,7 @@ function ao() {
   if (Fe[6] === d)
     (pi = e(t, { children: "Path to the service account JSON key file." })),
       (mi = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: "Download one from the GCP console under IAM \u2192 Service Accounts \u2192 Keys \u2192 Add key.",
       })),
       (Fe[6] = pi),
@@ -1173,8 +1173,8 @@ function ao() {
         columns: 60,
         cursorOffset: ur,
         onChangeCursorOffset: uc,
-        focus: !0,
-        showCursor: !0,
+        focus: true,
+        showCursor: true,
       }),
     })),
       (Fe[8] = ur),
@@ -1209,7 +1209,7 @@ function lo() {
     Ci;
   if (L[1] !== co || L[2] !== gr)
     (Ci = () => {
-      let yi = !1;
+      let yi = false;
       return (
         _t(gr).then((hr) => {
           if (yi) {
@@ -1220,7 +1220,7 @@ function lo() {
           Ec({ phase: "done", result: hr });
         }),
         () => {
-          yi = !0;
+          yi = true;
         }
       );
     }),
@@ -1246,16 +1246,16 @@ function lo() {
   switch (G.status) {
     case "ok": {
       let Te;
-      if (L[6] === d) (Te = e(tt, { status: "success", withSpace: !0 })), (L[6] = Te);
+      if (L[6] === d) (Te = e(tt, { status: "success", withSpace: true })), (L[6] = Te);
       else Te = L[6];
       let ve;
       if (L[7] !== G.identity)
-        (ve = r(t, { children: [Te, "Authenticated as ", e(t, { bold: !0, children: G.identity })] })),
+        (ve = r(t, { children: [Te, "Authenticated as ", e(t, { bold: true, children: G.identity })] })),
           (L[7] = G.identity),
           (L[8] = ve);
       else ve = L[8];
       let Ae;
-      if (L[9] !== G.note) (Ae = G.note && e(t, { dimColor: !0, children: G.note })), (L[9] = G.note), (L[10] = Ae);
+      if (L[9] !== G.note) (Ae = G.note && e(t, { dimColor: true, children: G.note })), (L[9] = G.note), (L[10] = Ae);
       else Ae = L[10];
       let Ue;
       if (L[11] === d) (Ue = [{ label: "Continue", value: "continue" }]), (L[11] = Ue);
@@ -1282,14 +1282,14 @@ function lo() {
     }
     case "error": {
       let Te;
-      if (L[21] === d) (Te = e(tt, { status: "error", withSpace: !0 })), (L[21] = Te);
+      if (L[21] === d) (Te = e(tt, { status: "error", withSpace: true })), (L[21] = Te);
       else Te = L[21];
       let ve;
       if (L[22] !== G.error) (ve = r(t, { children: [Te, G.error] })), (L[22] = G.error), (L[23] = ve);
       else ve = L[23];
       let Ae;
       if (L[24] !== G.command)
-        (Ae = G.command && r(t, { bold: !0, color: "suggestion", children: ["    ", G.command] })),
+        (Ae = G.command && r(t, { bold: true, color: "suggestion", children: ["    ", G.command] })),
           (L[24] = G.command),
           (L[25] = Ae);
       else Ae = L[25];
@@ -1300,8 +1300,8 @@ function lo() {
       let _e;
       if (L[29] !== et || L[30] !== ot)
         (_e = e(wn, {
-          hideIndexes: !0,
-          cancelFirst: !0,
+          hideIndexes: true,
+          cancelFirst: true,
           focus: "cancel",
           confirmLabel: "Save anyway (skip verification)",
           cancelLabel: "Go back and fix",
@@ -1347,7 +1347,7 @@ function fke(zc) {
       onComplete: Ai,
       onCancel: yr,
       title: "Set up Google Vertex AI",
-      showStepCounter: !1,
+      showStepCounter: false,
     })),
       (xr[3] = yr),
       (xr[4] = uo),

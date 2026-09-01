@@ -105,7 +105,7 @@ function FBt() {
   return (ype.uidsCollapse ??= j(le())), ype.uidsCollapse;
 }
 function j(e) {
-  return !1;
+  return false;
 }
 import { createHash as K, randomBytes as x } from "crypto";
 import { lstatSync as z, mkdirSync as W, readFileSync as H, rmSync as G, writeFileSync as Y } from "fs";
@@ -133,7 +133,7 @@ var te = /^[a-f0-9]{16}$/,
           let o = z(e);
           if (!o.isFile() || o.size > 4096) {
             try {
-              G(e, { recursive: !0, force: !0 });
+              G(e, { recursive: true, force: true });
             } catch {}
             n = "invalid";
           } else n = H(e, "utf8").trim();
@@ -147,7 +147,7 @@ var te = /^[a-f0-9]{16}$/,
           return QH(e, o, 384), o;
         }
         let r = x(8).toString("hex");
-        W(c(), { recursive: !0, mode: 448 });
+        W(c(), { recursive: true, mode: 448 });
         try {
           return Y(e, r, { flag: "wx", mode: 384 }), r;
         } catch (o) {
@@ -180,12 +180,12 @@ async function t5n() {
     if (n.isFile() && n.size <= 4096) {
       let r = (await O(e, "utf8")).trim();
       if (r) return r;
-    } else await _(e, { recursive: !0, force: !0 }).catch(() => {});
+    } else await _(e, { recursive: true, force: true }).catch(() => {});
   } catch (n) {
     if (!X(n)) throw n;
   }
   let t = x(16).toString("hex");
-  return await d(c(), { recursive: !0, mode: 448 }), await Wn(e, t, 384), t;
+  return await d(c(), { recursive: true, mode: 448 }), await Wn(e, t, 384), t;
 }
 async function Rte() {
   try {
@@ -199,10 +199,10 @@ async function Rte() {
 async function n5n() {
   let e = c();
   if (D() === "windows") {
-    await d(e, { recursive: !0 }), await U(e, 448).catch(() => {});
+    await d(e, { recursive: true }), await U(e, 448).catch(() => {});
     return;
   }
-  await d(e, { recursive: !0, mode: 448 }), N();
+  await d(e, { recursive: true, mode: 448 }), N();
   let t = process.getuid?.(),
     n = await l(e);
   if (t !== void 0 && n.uid !== t) throw Error(`refusing to use daemon dir: ${e} is owned by uid ${n.uid}`);
@@ -211,7 +211,7 @@ async function n5n() {
 async function YGe() {
   if (D() === "windows") return;
   let e = dX();
-  await d(e, { recursive: !0, mode: 448 });
+  await d(e, { recursive: true, mode: 448 });
   let t = new Date();
   await J(e, t, t).catch(() => {}), await C([T(e), e]);
 }
@@ -233,17 +233,17 @@ function N() {
 }
 async function r5n(e) {
   if (D() === "windows") {
-    await d(e, { recursive: !0 }).catch(() => {});
+    await d(e, { recursive: true }).catch(() => {});
     return;
   }
   await YGe();
   let t = [Vbe(), UBt()];
-  for (let n of t) await d(n, { recursive: !0, mode: 448 });
+  for (let n of t) await d(n, { recursive: true, mode: 448 });
   if (!t.includes(e)) {
     if (
-      await d(e, { recursive: !0, mode: 448 }).then(
-        () => !0,
-        () => !1,
+      await d(e, { recursive: true, mode: 448 }).then(
+        () => true,
+        () => false,
       )
     )
       t.push(e);
@@ -255,7 +255,7 @@ function o5n() {
   let e = dX(),
     t = T(e),
     n = Q(e);
-  y(t, { withFileTypes: !0 })
+  y(t, { withFileTypes: true })
     .then(async (r) => {
       for (let o of r) {
         if (!o.isDirectory() || o.name === n) continue;
@@ -267,7 +267,7 @@ function o5n() {
           g = await y(i(s, "pty")).catch(() => []),
           w = await y(i(s, "spare")).catch(() => []);
         if (p.length || g.length || w.length) continue;
-        await _(s, { recursive: !0, force: !0 }).catch(() => {});
+        await _(s, { recursive: true, force: true }).catch(() => {});
       }
     })
     .catch(() => {});
@@ -280,7 +280,7 @@ function re(e) {
     r = q(e);
   return (
     r.setTimeout(1000, () => {
-      r.destroy(), t(!1);
+      r.destroy(), t(false);
     }),
     r.on("error", (o) => {
       let s = E(o);
@@ -289,7 +289,7 @@ function re(e) {
     r.once("connect", () => {
       r.end(`{"op":"ping"}
 `),
-        t(!1);
+        t(false);
     }),
     n
   );
@@ -387,14 +387,14 @@ function tC(e) {
 }
 function emt(e, t) {
   let n = Buffer.alloc(0),
-    r = !1;
+    r = false;
   return (o) => {
     if (r) return;
     n = n.length === 0 ? o : Buffer.concat([n, o]);
     while (n.length >= f) {
       let s = n.readUInt32BE(0);
       if (s > eze) {
-        (r = !0), t(`frame too large (${s} > ${eze})`);
+        (r = true), t(`frame too large (${s} > ${eze})`);
         return;
       }
       let u = f + s;
@@ -407,12 +407,12 @@ function emt(e, t) {
         try {
           w = V(g.toString("utf8"));
         } catch {
-          (r = !0), t("bad ctrl json");
+          (r = true), t("bad ctrl json");
           return;
         }
         e({ kind: Zft, ctrl: w });
       } else {
-        (r = !0), t(`unknown frame kind ${p}`);
+        (r = true), t(`unknown frame kind ${p}`);
         return;
       }
     }

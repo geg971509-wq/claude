@@ -468,14 +468,14 @@ function Yo(fe, Io) {
       children: [
         r(o, {
           children: [
-            e(tt, { status: fe.severity, withSpace: !0 }),
-            e(t, { bold: !0, children: fe.title }),
+            e(tt, { status: fe.severity, withSpace: true }),
+            e(t, { bold: true, children: fe.title }),
             fe.savingsTokens
-              ? r(t, { dimColor: !0, children: [" ", L.arrowRight, " save ~", Gn(fe.savingsTokens)] })
+              ? r(t, { dimColor: true, children: [" ", L.arrowRight, " save ~", Gn(fe.savingsTokens)] })
               : null,
           ],
         }),
-        e(o, { marginLeft: 2, children: e(t, { dimColor: !0, children: fe.detail }) }),
+        e(o, { marginLeft: 2, children: e(t, { dimColor: true, children: fe.detail }) }),
       ],
     },
     Io,
@@ -488,7 +488,7 @@ function Te(Qt) {
     return null;
   }
   let Uo;
-  if (xo[0] === d) (Uo = e(t, { bold: !0, children: "Suggestions" })), (xo[0] = Uo);
+  if (xo[0] === d) (Uo = e(t, { bold: true, children: "Suggestions" })), (xo[0] = Uo);
   else Uo = xo[0];
   let $e;
   if (xo[1] !== Fe) ($e = Fe.map(Yo)), (xo[1] = Fe), (xo[2] = $e);
@@ -510,7 +510,7 @@ function pt(vn) {
 }
 function Mt(_e, So) {
   if (_e.categoryName === "Free space") {
-    return e(t, { dimColor: !0, children: "\u26F6 " }, So);
+    return e(t, { dimColor: true, children: "\u26F6 " }, So);
   }
   if (_e.categoryName === G) {
     return e(t, { color: _e.color, children: "\u26DD " }, So);
@@ -541,7 +541,7 @@ function Ct(Pn) {
 function ht(nt, On) {
   return e(
     vl.Node,
-    { children: r(t, { children: [nt.name, ":", " ", r(t, { dimColor: !0, children: [Gn(nt.tokens), " tokens"] })] }) },
+    { children: r(t, { children: [nt.name, ":", " ", r(t, { dimColor: true, children: [Gn(nt.tokens), " tokens"] })] }) },
     On,
   );
 }
@@ -552,12 +552,12 @@ function St($n) {
   return !$n.isLoaded;
 }
 function zt(jn, Un) {
-  return e(vl.Node, { dimColor: !0, children: jn.name }, Un);
+  return e(vl.Node, { dimColor: true, children: jn.name }, Un);
 }
 function wt(st, Wn) {
   return e(
     vl.Node,
-    { children: r(t, { children: [st.name, ":", " ", r(t, { dimColor: !0, children: [Gn(st.tokens), " tokens"] })] }) },
+    { children: r(t, { children: [st.name, ":", " ", r(t, { dimColor: true, children: [Gn(st.tokens), " tokens"] })] }) },
     Wn,
   );
 }
@@ -569,7 +569,7 @@ function At(rt, Vn) {
     vl.Node,
     {
       children: r(t, {
-        children: [rt.agentType, ":", " ", r(t, { dimColor: !0, children: [Gn(rt.tokens), " tokens"] })],
+        children: [rt.agentType, ":", " ", r(t, { dimColor: true, children: [Gn(rt.tokens), " tokens"] })],
       }),
     },
     Vn,
@@ -582,7 +582,7 @@ function Dt(xe) {
     {
       flexDirection: "column",
       marginTop: 1,
-      children: [e(t, { dimColor: !0, children: at }), e(vl, { variant: "tree", children: Hn.map(At) })],
+      children: [e(t, { dimColor: true, children: at }), e(vl, { variant: "tree", children: Hn.map(At) })],
     },
     at,
   );
@@ -595,7 +595,7 @@ function Rt(it, Kn) {
     vl.Node,
     {
       children: r(t, {
-        children: [Fo(it.path), ":", " ", r(t, { dimColor: !0, children: [Gn(it.tokens), " tokens"] })],
+        children: [Fo(it.path), ":", " ", r(t, { dimColor: true, children: [Gn(it.tokens), " tokens"] })],
       }),
     },
     Kn,
@@ -604,7 +604,7 @@ function Rt(it, Kn) {
 function Pt(lt, qn) {
   return e(
     vl.Node,
-    { children: r(t, { children: [lt.name, ":", " ", r(t, { dimColor: !0, children: [g0(lt.tokens), " tokens"] })] }) },
+    { children: r(t, { children: [lt.name, ":", " ", r(t, { dimColor: true, children: [g0(lt.tokens), " tokens"] })] }) },
     qn,
   );
 }
@@ -615,7 +615,7 @@ function Et(xe) {
     {
       flexDirection: "column",
       marginTop: 1,
-      children: [e(t, { dimColor: !0, children: mt }), e(vl, { variant: "tree", children: Zn.map(Pt) })],
+      children: [e(t, { dimColor: true, children: mt }), e(vl, { variant: "tree", children: Zn.map(Pt) })],
     },
     mt,
   );
@@ -660,7 +660,7 @@ function A(xn) {
   if (Co[5] !== ae || Co[6] !== je || Co[7] !== Ue)
     (Vo = e(vl, {
       variant: "tree",
-      children: r(vl.Node, { dimColor: !0, children: [ae, " ", je, " \xB7 ", Ue, " tokens"] }),
+      children: r(vl.Node, { dimColor: true, children: [ae, " ", je, " \xB7 ", Ue, " tokens"] }),
     })),
       (Co[5] = ae),
       (Co[6] = je),
@@ -672,9 +672,9 @@ function A(xn) {
 function ne(xe) {
   let x = _(136),
     { data: F, isRemote: Go, skipCollapseStatus: Ho, collapseDetailSections: Jo } = xe,
-    ke = Go === void 0 ? !1 : Go,
-    ye = Ho === void 0 ? !1 : Ho,
-    S = Jo === void 0 ? !1 : Jo,
+    ke = Go === void 0 ? false : Go,
+    ye = Ho === void 0 ? false : Ho,
+    S = Jo === void 0 ? false : Jo,
     {
       categories: D,
       totalTokens: Ce,
@@ -748,11 +748,11 @@ function ne(xe) {
     if (x[43] !== F) (oe = Ert(F)), (x[43] = F), (x[44] = oe);
     else oe = x[44];
     let no = oe;
-    Ge = N.length > 0 || I.length > 0 || W.length > 0 || (M?.tokens ?? 0) > 0 || !1;
+    Ge = N.length > 0 || I.length > 0 || W.length > 0 || (M?.tokens ?? 0) > 0 || false;
     Ve = o;
     qe = "column";
     Ze = 1;
-    if (x[45] === d) (Le = e(t, { bold: !0, children: "Context Usage" })), (x[45] = Le);
+    if (x[45] === d) (Le = e(t, { bold: true, children: "Context Usage" })), (x[45] = Le);
     else Le = x[45];
     if (x[46] !== no) (Re = no && e(t, { color: "error", wrap: "wrap", children: no })), (x[46] = no), (x[47] = Re);
     else Re = x[47];
@@ -770,7 +770,7 @@ function ne(xe) {
     to = 0;
     if (x[52] !== j) (Ee = XI(j) && e(t, { children: XI(j) })), (x[52] = j), (x[53] = Ee);
     else Ee = x[53];
-    if (x[54] !== j) (Se = e(t, { dimColor: !0, children: j })), (x[54] = j), (x[55] = Se);
+    if (x[54] !== j) (Se = e(t, { dimColor: true, children: j })), (x[54] = j), (x[55] = Se);
     else Se = x[55];
     let V;
     if (x[56] !== Ce) (V = Gn(Ce)), (x[56] = Ce), (x[57] = V);
@@ -779,7 +779,7 @@ function ne(xe) {
     if (x[58] !== h) (J = Gn(h)), (x[58] = h), (x[59] = J);
     else J = x[59];
     if (x[60] !== he || x[61] !== V || x[62] !== J)
-      (ze = r(t, { dimColor: !0, children: [V, "/", J, " tokens (", he, "%)"] })),
+      (ze = r(t, { dimColor: true, children: [V, "/", J, " tokens (", he, "%)"] })),
         (x[60] = he),
         (x[61] = V),
         (x[62] = J),
@@ -789,7 +789,7 @@ function ne(xe) {
     else Be = x[66];
     if (x[67] === d)
       (we = e(t, { children: " " })),
-        (ve = e(t, { dimColor: !0, italic: !0, children: "Estimated usage by category" })),
+        (ve = e(t, { dimColor: true, italic: true, children: "Estimated usage by category" })),
         (x[67] = we),
         (x[68] = ve);
     else (we = x[67]), (ve = x[68]);
@@ -807,7 +807,7 @@ function ne(xe) {
             children: [
               e(t, { color: te.color, children: Bn }),
               r(t, { children: [" ", zn, ": "] }),
-              r(t, { dimColor: !0, children: [hn, " tokens (", bn, ")"] }),
+              r(t, { dimColor: true, children: [hn, " tokens (", bn, ")"] }),
             ],
           },
           Cn,
@@ -822,10 +822,10 @@ function ne(xe) {
         (D.find(ft)?.tokens ?? 0) > 0 &&
         r(o, {
           children: [
-            e(t, { dimColor: !0, children: "\u26F6" }),
+            e(t, { dimColor: true, children: "\u26F6" }),
             e(t, { children: " Free space: " }),
             r(t, {
-              dimColor: !0,
+              dimColor: true,
               children: [
                 Gn(D.find(Tt)?.tokens || 0),
                 " ",
@@ -846,8 +846,8 @@ function ne(xe) {
       r(o, {
         children: [
           e(t, { color: le.color, children: "\u26DD" }),
-          r(t, { dimColor: !0, children: [" ", le.name, ": "] }),
-          r(t, { dimColor: !0, children: [Gn(le.tokens), " tokens (", ((le.tokens / h) * 100).toFixed(1), "%)"] }),
+          r(t, { dimColor: true, children: [" ", le.name, ": "] }),
+          r(t, { dimColor: true, children: [Gn(le.tokens), " tokens (", ((le.tokens / h) * 100).toFixed(1), "%)"] }),
         ],
       });
     (x[2] = I.length),
@@ -964,9 +964,9 @@ function ne(xe) {
       r(o, {
         marginTop: 1,
         children: [
-          e(t, { bold: !0, children: "Auto-compact window: " }),
+          e(t, { bold: true, children: "Auto-compact window: " }),
           e(t, {
-            dimColor: !0,
+            dimColor: true,
             children:
               ie === "experiment" || ie === "clientdata"
                 ? `auto (${Gn(h)} tokens)`
@@ -990,8 +990,8 @@ function ne(xe) {
         children: [
           r(o, {
             children: [
-              e(t, { bold: !0, children: "MCP tools" }),
-              r(t, { dimColor: !0, children: [" ", "\xB7 /mcp", Q ? " (loaded on-demand)" : ""] }),
+              e(t, { bold: true, children: "MCP tools" }),
+              r(t, { dimColor: true, children: [" ", "\xB7 /mcp", Q ? " (loaded on-demand)" : ""] }),
             ],
           }),
           S
@@ -1003,7 +1003,7 @@ function ne(xe) {
                       flexDirection: "column",
                       marginTop: 1,
                       children: [
-                        e(t, { dimColor: !0, children: "Loaded" }),
+                        e(t, { dimColor: true, children: "Loaded" }),
                         e(vl, { variant: "tree", children: N.filter(Ct).map(ht) }),
                       ],
                     }),
@@ -1013,7 +1013,7 @@ function ne(xe) {
                       flexDirection: "column",
                       marginTop: 1,
                       children: [
-                        e(t, { dimColor: !0, children: "Available" }),
+                        e(t, { dimColor: true, children: "Available" }),
                         e(vl, { variant: "tree", children: N.filter(St).map(zt) }),
                       ],
                     }),
@@ -1027,8 +1027,8 @@ function ne(xe) {
       (x[99] = N),
       (x[100] = V);
   else V = x[100];
-  const J = ((Ko && Ko.length > 0) || Qo) && !1,
-    me = qo && qo.length > 0 && !1;
+  const J = ((Ko && Ko.length > 0) || Qo) && false,
+    me = qo && qo.length > 0 && false;
   let so;
   if (x[101] !== I || x[102] !== S)
     (so =
@@ -1039,8 +1039,8 @@ function ne(xe) {
         children: [
           r(o, {
             children: [
-              e(t, { bold: !0, children: "Custom agents" }),
-              e(t, { dimColor: !0, children: " \xB7 .claude/agents/" }),
+              e(t, { bold: true, children: "Custom agents" }),
+              e(t, { dimColor: true, children: " \xB7 .claude/agents/" }),
             ],
           }),
           S ? e(A, { count: I.length, noun: "agent", tokens: I.reduce(vt, 0) }) : Array.from(Ae(I).entries()).map(Dt),
@@ -1059,7 +1059,7 @@ function ne(xe) {
         marginTop: 1,
         children: [
           r(o, {
-            children: [e(t, { bold: !0, children: "Memory files" }), e(t, { dimColor: !0, children: " \xB7 /memory" })],
+            children: [e(t, { bold: true, children: "Memory files" }), e(t, { dimColor: true, children: " \xB7 /memory" })],
           }),
           S
             ? e(A, { count: W.length, noun: "file", tokens: W.reduce(Lt, 0) })
@@ -1080,7 +1080,7 @@ function ne(xe) {
         marginTop: 1,
         children: [
           r(o, {
-            children: [e(t, { bold: !0, children: "Skills" }), e(t, { dimColor: !0, children: " \xB7 /skills" })],
+            children: [e(t, { bold: true, children: "Skills" }), e(t, { dimColor: true, children: " \xB7 /skills" })],
           }),
           S
             ? e(A, { count: M.skillFrontmatter.length, noun: "skill", tokens: M.tokens })
@@ -1091,10 +1091,10 @@ function ne(xe) {
       (x[108] = M),
       (x[109] = ao);
   else ao = x[109];
-  const bo = kn && !1;
+  const bo = kn && false;
   let io;
   if (x[110] !== S || x[111] !== Ge)
-    (io = S && Ge && e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: "/context all to expand" }) })),
+    (io = S && Ge && e(o, { marginTop: 1, children: e(t, { dimColor: true, children: "/context all to expand" }) })),
       (x[110] = S),
       (x[111] = Ge),
       (x[112] = io);
@@ -1221,7 +1221,7 @@ var Bo = m(() => {
     autoCompactThreshold: v()
       .optional()
       .catch(void 0),
-    isAutoCompactEnabled: q().catch(!1),
+    isAutoCompactEnabled: q().catch(false),
     messageBreakdown: f({
       toolCallTokens: v(),
       toolResultTokens: v(),
@@ -1265,12 +1265,12 @@ async function ks(c, a, p) {
       if (!b) return c("Couldn't show context usage: the remote sent a reply this version can't display"), null;
       let B = mo(a.session),
         K = B ? { ...b, memoryFiles: [] } : b,
-        pe = await cse(e(ne, { data: K, isRemote: !0, collapseDetailSections: u }), { storageV5: a.storageV5 });
+        pe = await cse(e(ne, { data: K, isRemote: true, collapseDetailSections: u }), { storageV5: a.storageV5 });
       if (!B && mo(a.session))
-        (B = !0),
+        (B = true),
           (K = { ...b, memoryFiles: [] }),
-          (pe = await cse(e(ne, { data: K, isRemote: !0, collapseDetailSections: u }), { storageV5: a.storageV5 }));
-      c(pe, { display: "system", metaMessages: [Art(K, { skipCollapseStatus: !0 })] });
+          (pe = await cse(e(ne, { data: K, isRemote: true, collapseDetailSections: u }), { storageV5: a.storageV5 }));
+      c(pe, { display: "system", metaMessages: [Art(K, { skipCollapseStatus: true })] });
     } catch (b) {
       if (It(b)) return c(qEt), null;
       let B = mo(a.session);
@@ -1298,7 +1298,7 @@ async function ks(c, a, p) {
     X = O ? { ...z, memoryFiles: [] } : z,
     re = await cse(e(ne, { data: X, collapseDetailSections: u, skipCollapseStatus: O }), { storageV5: a.storageV5 });
   if (!O && mo(a.session))
-    (O = !0),
+    (O = true),
       (X = { ...z, memoryFiles: [] }),
       (re = await cse(e(ne, { data: X, collapseDetailSections: u, skipCollapseStatus: O }), {
         storageV5: a.storageV5,

@@ -130,7 +130,7 @@ async function I(e, t, r, s) {
     headers: { ...JS(t), "X-Anthropic-Client": "claude-cli-design-sync" },
     timeout: 60000,
     maxBodyLength: 33554432,
-    validateStatus: () => !0,
+    validateStatus: () => true,
     signal: s,
   });
   if (!o.ok) throw new C(e, 0, { error: o.reason });
@@ -152,7 +152,7 @@ async function F(e, t, r, s = {}, o) {
         {
           projectId: t,
           files: r,
-          deduplicate: s.deduplicate ?? !1,
+          deduplicate: s.deduplicate ?? false,
           ...(s.deletePaths?.length && { deletePaths: s.deletePaths }),
         },
         o,
@@ -176,16 +176,16 @@ async function L(e, t, r) {
   throw new C("ListFiles", 0, { error: `pagination exceeded 50 pages (${s.length} paths)` });
 }
 async function B(e, t, r, s = 262144, o) {
-  let c = await I("GetFile", e, { projectId: t, path: r, raw: !0 }, o),
+  let c = await I("GetFile", e, { projectId: t, path: r, raw: true }, o),
     a = c.content ?? "",
-    p = c.isBase64 ?? !1,
+    p = c.isBase64 ?? false,
     g,
-    h = !1;
+    h = false;
   if (p) {
-    if (((g = a), g.length > s)) (g = g.slice(0, s)), (h = !0);
+    if (((g = a), g.length > s)) (g = g.slice(0, s)), (h = true);
   } else {
     let d = Buffer.from(a, "base64");
-    if (d.byteLength > s) (d = d.subarray(0, s)), (h = !0);
+    if (d.byteLength > s) (d = d.subarray(0, s)), (h = true);
     g = d.toString("utf8");
   }
   return { content: g, contentType: c.contentType ?? "", isBase64: p, truncated: h };
@@ -497,7 +497,7 @@ async function ze(e, t) {
     !s.ok &&
     s.reason === "needs_design_login" &&
     r &&
-    (t?.askReachesUserAtDecision ?? !1) &&
+    (t?.askReachesUserAtDecision ?? false) &&
     !t?.isNonInteractiveSession &&
     t?.permissionMode !== void 0 &&
     je.has(t.permissionMode)
@@ -529,7 +529,7 @@ function Z(e) {
 var Qe = kt({
   name: Fze,
   searchHint: "sync local design system components to a claude.ai/design project",
-  shouldDefer: !0,
+  shouldDefer: true,
   maxResultSizeChars: 300000,
   isEnabled() {
     return Sz();
@@ -547,7 +547,7 @@ var Qe = kt({
     return _e();
   },
   isConcurrencySafe() {
-    return !1;
+    return false;
   },
   isReadOnly(e) {
     return be(e.method);
@@ -580,27 +580,27 @@ var Qe = kt({
   },
   async validateInput(e) {
     let t = ye(e);
-    if (t.length > 0) return { result: !1, message: `${e.method} requires: ${t.join(", ")}.`, errorCode: 1 };
+    if (t.length > 0) return { result: false, message: `${e.method} requires: ${t.join(", ")}.`, errorCode: 1 };
     if (e.method === "finalize_plan" && (e.writes?.length ?? 0) === 0 && (e.deletes?.length ?? 0) === 0)
-      return { result: !1, message: "finalize_plan needs at least one write or delete path.", errorCode: 1 };
+      return { result: false, message: "finalize_plan needs at least one write or delete path.", errorCode: 1 };
     if (e.method === "write_files")
       for (let r of e.files ?? []) {
         let s = r.data !== void 0,
           o = r.localPath !== void 0;
         if (s === o)
           return {
-            result: !1,
+            result: false,
             message: `Each file needs exactly one of "data" or "localPath" (offending path: ${r.path}).`,
             errorCode: 1,
           };
         if (o && r.encoding !== void 0)
           return {
-            result: !1,
+            result: false,
             message: `"encoding" only applies to inline "data"; localPath files are encoded automatically (offending path: ${r.path}).`,
             errorCode: 1,
           };
       }
-    return { result: !0 };
+    return { result: true };
   },
   async checkPermissions(e, t) {
     let r = await hje(t.toolState.get(HA), t.credentials),
@@ -621,7 +621,7 @@ var Qe = kt({
         behavior: "ask",
         message: a,
         updatedInput: s,
-        localDisplayOnly: !0,
+        localDisplayOnly: true,
         decisionReason: {
           type: "safetyCheck",
           reason:
@@ -633,7 +633,7 @@ var Qe = kt({
             ]
               .filter(Boolean)
               .join("; ") || "design credential prompt",
-          classifierApprovable: !1,
+          classifierApprovable: false,
         },
       };
     if (e.method === "finalize_plan") {
@@ -646,7 +646,7 @@ var Qe = kt({
         return {
           behavior: "deny",
           message: `localDir does not exist or is not accessible: ${e.localDir ?? ee()} (${l(z)})`,
-          decisionReason: { type: "safetyCheck", reason: "localDir not found", classifierApprovable: !1 },
+          decisionReason: { type: "safetyCheck", reason: "localDir not found", classifierApprovable: false },
         };
       }
       let d = p.filter(NHe),
@@ -656,9 +656,9 @@ var Qe = kt({
         D = await Promise.all(
           u.map(async (z) => {
             try {
-              return await pe(E(h, z)), !0;
+              return await pe(E(h, z)), true;
             } catch {
-              return !1;
+              return false;
             }
           }),
         ),
@@ -685,13 +685,13 @@ var Qe = kt({
           .join(`
 `),
         updatedInput: { ...s, localDir: h },
-        localDisplayOnly: !0,
+        localDisplayOnly: true,
         decisionReason: {
           type: "safetyCheck",
           reason: a
             ? "Approving also grants Claude ongoing write access to your design projects."
             : "Review what will be uploaded before continuing.",
-          classifierApprovable: !1,
+          classifierApprovable: false,
         },
       };
     }
@@ -706,13 +706,13 @@ var Qe = kt({
           .join(`
 `),
         updatedInput: s,
-        localDisplayOnly: !0,
+        localDisplayOnly: true,
         decisionReason: {
           type: "safetyCheck",
           reason: a
             ? "Approving also grants Claude ongoing write access to your design projects."
             : "This creates a new project on your claude.ai account.",
-          classifierApprovable: !1,
+          classifierApprovable: false,
         },
       };
     return { behavior: "allow", updatedInput: s };
@@ -723,7 +723,7 @@ var Qe = kt({
     let s = t.toolState.get(HA),
       o = e.__consentBitShown ?? null,
       c = he(t),
-      a = e.__consentAskCanReachUser ?? !1,
+      a = e.__consentAskCanReachUser ?? false,
       p = a && Z(t),
       g = "";
     try {
@@ -743,7 +743,7 @@ var Qe = kt({
         });
       let h;
       try {
-        if (((h = await ne(s, e, g, r)), o !== null && e.method !== "finalize_plan")) _W(s, o, !0);
+        if (((h = await ne(s, e, g, r)), o !== null && e.method !== "finalize_plan")) _W(s, o, true);
       } catch (d) {
         let u = Ie(d);
         if (u === null) {
@@ -752,14 +752,14 @@ var Qe = kt({
           throw d;
         } else if (u !== o)
           throw (
-            (_W(s, u, !1),
+            (_W(s, u, false),
             new S(
               `${aZ(u)} The user hasn't granted this yet \u2014 ask them to retry (the prompt will show on the next call) or run /design consent.`,
             ))
           );
         else if (!p)
           throw (
-            (_W(s, u, !1),
+            (_W(s, u, false),
             new S(
               `${aZ(u)} The user hasn't granted this \u2014 run /design consent to grant it (it can't be approved automatically in this permission mode).`,
             ))
@@ -851,7 +851,7 @@ async function ne(e, t, r, s) {
       return {
         method: "list_projects",
         projects: o
-          .filter((a) => a.callerCanEdit ?? a.canEdit ?? (a.isOwned || a.sharing?.teamCanEdit) ?? !1)
+          .filter((a) => a.callerCanEdit ?? a.canEdit ?? (a.isOwned || a.sharing?.teamCanEdit) ?? false)
           .map((a) => ({
             projectId: a.projectId,
             name: a.name,

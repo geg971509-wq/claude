@@ -247,7 +247,7 @@ async function yn(e, t = {}) {
     o = await qe(cH(), [...mne, "rev-parse", "--absolute-git-dir", "--show-toplevel"], {
       cwd: e,
       env: gne(),
-      extendEnv: !1,
+      extendEnv: false,
       abortSignal: t.signal,
       timeout: r,
       stdin: "ignore",
@@ -326,26 +326,26 @@ async function Ii(e, { branch: t, to: r, from: o, branchWas: l = null, reason: d
     (l !== null && !u(l)) ||
     (t !== null && (!t.startsWith("refs/heads/") || !BD(t.slice(11))))
   )
-    return !1;
+    return false;
   let _ = { ...e, signal: void 0 },
     k = async (O, G) => (O.exitCode !== void 0 ? O.exitCode === 0 : G());
   if (t !== null && t === o.branch) {
     let O = await dn(e, ["update-ref", "--no-deref", "-m", d, t, r, o.head]);
-    return (await k(O, () => kr(_, t, r))) === !0;
+    return (await k(O, () => kr(_, t, r))) === true;
   }
   let C = await dn(e, ["rev-parse", "-q", "--verify", "HEAD^{commit}"]);
-  if (C.exitCode !== 0 || C.stdout.trim() !== o.head) return !1;
+  if (C.exitCode !== 0 || C.stdout.trim() !== o.head) return false;
   if (t === null) {
     let O = await dn(e, ["update-ref", "--no-deref", "-m", d, "HEAD", r, o.head]);
-    return (await k(O, () => na(_, r))) === !0;
+    return (await k(O, () => na(_, r))) === true;
   }
   let x = await dn(e, ["update-ref", "--no-deref", "-m", d, t, r, l ?? "0".repeat(r.length)]);
-  if ((await k(x, () => kr(_, t, r))) !== !0) return !1;
+  if ((await k(x, () => kr(_, t, r))) !== true) return false;
   let P = await dn(e, ["symbolic-ref", "-m", d, "HEAD", t]),
     S = await k(P, () => ra(_, t));
-  if (S === !0) return !0;
-  if (S === !1) await dn(_, ["update-ref", "--no-deref", "-m", d, ...(l === null ? ["-d", t, r] : [t, l, r])]);
-  return !1;
+  if (S === true) return true;
+  if (S === false) await dn(_, ["update-ref", "--no-deref", "-m", d, ...(l === null ? ["-d", t, r] : [t, l, r])]);
+  return false;
 }
 async function kr(e, t, r) {
   let o = await dn(e, ["rev-parse", "-q", "--verify", `${t}^{commit}`]);
@@ -357,7 +357,7 @@ async function Mi(e) {
 }
 async function na(e, t) {
   let r = await Mi(e);
-  return r === void 0 ? null : r === null ? kr(e, "HEAD", t) : !1;
+  return r === void 0 ? null : r === null ? kr(e, "HEAD", t) : false;
 }
 async function ra(e, t) {
   let r = await Mi(e);
@@ -406,7 +406,7 @@ var Sr = 26214400,
   Li = 8;
 async function sn(e, t, r) {
   let o = aa(t);
-  if (o === "." || o === "") return !1;
+  if (o === "." || o === "") return false;
   let l = r.get(o);
   if (l !== void 0) return l;
   let d;
@@ -496,7 +496,7 @@ async function ca(e) {
       await t.close();
     }
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Fi(e, t, r, o, l) {
@@ -536,7 +536,7 @@ async function Hi(e, t, r, o, l) {
       try {
         return !(await Cr(Buffer.concat([C, O.pathBytes]))).isDirectory();
       } catch {
-        return !1;
+        return false;
       }
     }),
     P = await Promise.all(k.map((O) => x(O))),
@@ -701,8 +701,8 @@ async function Ta({
   let [we, ve, Re, xe, pe] = await Promise.all([
     t_e(e, [...C, "diff-files", "-z", "--ignore-submodules=dirty"], { env: x }),
     t_e(e, [...C, "ls-files", "-z", "--others", "--exclude-standard"], { env: x }),
-    vr(e, "core.filemode", !0),
-    vr(e, "core.symlinks", !0),
+    vr(e, "core.filemode", true),
+    vr(e, "core.symlinks", true),
     Qi(e),
   ]);
   if (we.fields === null || ve.fields === null)
@@ -853,11 +853,11 @@ async function Ta({
 }
 async function Vi({ checkout: e, kept: t, head: r, basis: o = null, maxFileBytes: l = Sr }) {
   let d = t.asRead;
-  if (!d.complete || d.scratchIndex === null || t.head !== r || d.basis !== o || d.maxFileBytes !== l) return !1;
+  if (!d.complete || d.scratchIndex === null || t.head !== r || d.basis !== o || d.maxFileBytes !== l) return false;
   try {
     let [u, _] = await Promise.all([$n(Mt(e.gitDir, "index")), $n(t.scratchIndexPath)]);
-    if (!Qn(d.scratchIndex, _)) return !1;
-    if (!Qn(d.index, u)) return !1;
+    if (!Qn(d.scratchIndex, _)) return false;
+    if (!Qn(d.index, u)) return false;
     if (
       (
         await Promise.all(
@@ -868,11 +868,11 @@ async function Vi({ checkout: e, kept: t, head: r, basis: o = null, maxFileBytes
             ),
           ),
         )
-      ).includes(!0)
+      ).includes(true)
     )
-      return !1;
+      return false;
     let C = await Mn(e);
-    if (C === null) return !1;
+    if (C === null) return false;
     let x = (W, ae = {}) => dn(e, [...C, ...W], ae),
       P = (W, ae, ie) => SDt(e, [...C, ...W], ae, ie),
       [S, O, G, I] = await Promise.all([
@@ -890,7 +890,7 @@ async function Vi({ checkout: e, kept: t, head: r, basis: o = null, maxFileBytes
       Sa(te(O.fields.filter((W) => W !== "")), d.untracked)
     );
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Ji(e, t = null) {
@@ -1010,17 +1010,17 @@ async function io(e) {
   try {
     return (await ro(e)).kind === "pinned";
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Zn(e) {
   let t = Mt(e.gitDir, "info", "attributes");
   try {
     let r = await ro(e);
-    if (r.kind === "pinned") return !0;
+    if (r.kind === "pinned") return true;
     if (r.kind === "unusable")
-      return n("dir-sync: info/attributes is not a plain file of modest size; line endings not pinned"), !1;
-    await ya(Mt(e.gitDir, "info"), { recursive: !0 });
+      return n("dir-sync: info/attributes is not a plain file of modest size; line endings not pinned"), false;
+    await ya(Mt(e.gitDir, "info"), { recursive: true });
     let o =
         r.existing === "" ||
         r.existing.endsWith(`
@@ -1039,9 +1039,9 @@ async function Zn(e) {
     } finally {
       await l.close();
     }
-    return !0;
+    return true;
   } catch (r) {
-    return n("dir-sync: cannot pin the checkout to unconverted line endings: " + String(r)), !1;
+    return n("dir-sync: cannot pin the checkout to unconverted line endings: " + String(r)), false;
   }
 }
 var Aa = 64,
@@ -1055,7 +1055,7 @@ async function ao(e, t, r = {}) {
   let l = await oo(e, t);
   if (l === null) return "unavailable";
   if (l.length === 0) return "fetched";
-  let d = await Ia(e, r.allowFileTransport === !0);
+  let d = await Ia(e, r.allowFileTransport === true);
   if (d === "none") return "no_remote";
   if (d === "refused" || d === "failed") return "unavailable";
   let u = Date.now();
@@ -1086,7 +1086,7 @@ async function ao(e, t, r = {}) {
       Ma(e, d),
       dn(e, [..._, "ls-remote", "--get-url", "--end-of-options", d]),
     ]);
-  if (k.exitCode !== 0 || C !== !1 || x.stdout.trim() !== d) return "unavailable";
+  if (k.exitCode !== 0 || C !== false || x.stdout.trim() !== d) return "unavailable";
   let P = await dn(
       e,
       [
@@ -1106,7 +1106,7 @@ async function ao(e, t, r = {}) {
         d,
         ...l,
       ],
-      { env: Da(r.allowFileTransport === !0) },
+      { env: Da(r.allowFileTransport === true) },
     ),
     S = P.exitCode === 0 ? await oo(e, l) : l;
   if (S !== null && S.length === 0) return "fetched";
@@ -1192,13 +1192,13 @@ async function er(e, t, r, o) {
     ["-c", "merge.directoryRenames=false", "merge-tree", "--write-tree", "-z", `--merge-base=${t}`, r, o],
     { answerExitCodes: [1] },
   );
-  if (Rt(e.signal)) return { ok: !1, reason: "aborted" };
-  if (l.exitCode === 129) return { ok: !1, reason: "unsupported_git", detail: zR("merge-tree", l) };
-  if (l.exitCode !== 0 && l.exitCode !== 1) return { ok: !1, reason: "git_error", detail: zR("merge-tree", l) };
+  if (Rt(e.signal)) return { ok: false, reason: "aborted" };
+  if (l.exitCode === 129) return { ok: false, reason: "unsupported_git", detail: zR("merge-tree", l) };
+  if (l.exitCode !== 0 && l.exitCode !== 1) return { ok: false, reason: "git_error", detail: zR("merge-tree", l) };
   let d = Ba(l.stdout, { base: t, ours: r, theirs: o, conflicted: l.exitCode === 1 });
   if (d === null || (d.conflicted && Ln(d).length === 0))
-    return { ok: !1, reason: "git_error", detail: "merge-tree output not understood" };
-  return { ok: !0, parsed: d };
+    return { ok: false, reason: "git_error", detail: "merge-tree output not understood" };
+  return { ok: true, parsed: d };
 }
 function Ba(e, { base: t = "", ours: r = "", theirs: o = "", conflicted: l } = {}) {
   let d = e.split("\x00");
@@ -1361,16 +1361,16 @@ async function ho({ repository: e, parsed: t, favor: r }) {
   let d = new Map();
   for (let _ of t.messages) for (let k of _.paths.map(o)) d.set(k, [...(d.get(k) ?? []), _.type]);
   let u = Ar(e.gitDir, Ua + mo());
-  await ja(u, { recursive: !0 });
+  await ja(u, { recursive: true });
   try {
     let _ = No(Wa, (I, W) => {
         if (Rt(e.signal)) return Promise.resolve(null);
         return Ya({ repository: e, scratchDir: u, parsed: t, path: I, stages: W, types: d.get(I) ?? [], favor: r });
       }),
       k = await Promise.all([...l].map(([I, W]) => _(I, W)));
-    if (Rt(e.signal)) return { ok: !1, reason: "aborted" };
+    if (Rt(e.signal)) return { ok: false, reason: "aborted" };
     let C = k.filter((I) => I !== null);
-    if (C.length !== k.length) return { ok: !1, reason: "git_error", detail: "a conflicted path could not be settled" };
+    if (C.length !== k.length) return { ok: false, reason: "git_error", detail: "a conflicted path could not be settled" };
     let x = [];
     for (let I of C) {
       if (I.result === null || I.evicted.length > 0) {
@@ -1378,7 +1378,7 @@ async function ho({ repository: e, parsed: t, favor: r }) {
         continue;
       }
       let W = await Tr(e, t.tree, I.path);
-      if (W === null) return { ok: !1, reason: "git_error", detail: "could not list what a settled file displaces" };
+      if (W === null) return { ok: false, reason: "git_error", detail: "could not list what a settled file displaces" };
       x.push({ ...I, evicted: W });
     }
     let P = x.filter((I) => I.evicted.length > 0).map((I) => `${I.path}/`),
@@ -1392,11 +1392,11 @@ async function ho({ repository: e, parsed: t, favor: r }) {
       G = await Ka(e, u, t.tree, S, O);
     if (G === null)
       return Rt(e.signal)
-        ? { ok: !1, reason: "aborted" }
-        : { ok: !1, reason: "git_error", detail: "could not write the settled tree" };
-    return { ok: !0, tree: G, clean: !1, settlements: S.map(({ mode: I, ...W }) => W) };
+        ? { ok: false, reason: "aborted" }
+        : { ok: false, reason: "git_error", detail: "could not write the settled tree" };
+    return { ok: true, tree: G, clean: false, settlements: S.map(({ mode: I, ...W }) => W) };
   } finally {
-    await Fa(u, { recursive: !0, force: !0 });
+    await Fa(u, { recursive: true, force: true });
   }
 }
 async function Ya({ repository: e, scratchDir: t, parsed: r, path: o, stages: l, types: d, favor: u }) {
@@ -1540,8 +1540,8 @@ async function Xa({ repository: e, scratchDir: t, base: r, ours: o, theirs: l, f
         bDt(e, o.id, k.current),
         r === null
           ? Ha(k.base, "").then(
-              () => !0,
-              () => !1,
+              () => true,
+              () => false,
             )
           : bDt(e, r.id, k.base),
         bDt(e, l.id, k.other),
@@ -1580,18 +1580,18 @@ async function Ka(e, t, r, o, l) {
 }
 async function Or(e) {
   return Va(e).catch((t) => ({
-    ok: !1,
+    ok: false,
     reason: "git_error",
     detail: `threw: ${t instanceof Error ? t.name : "unknown"}`,
   }));
 }
 async function Va({ repository: e, base: t, ours: r, theirs: o, favor: l }) {
   if (![t, r, o].every((_) => tn.test(_)))
-    return { ok: !1, reason: "git_error", detail: "arguments are not object ids" };
+    return { ok: false, reason: "git_error", detail: "arguments are not object ids" };
   let d = await er(e, t, r, o);
   if (!d.ok) return d;
   let { parsed: u } = d;
-  if (!u.conflicted) return { ok: !0, tree: u.tree, clean: !0, settlements: [] };
+  if (!u.conflicted) return { ok: true, tree: u.tree, clean: true, settlements: [] };
   return ho({ repository: e, parsed: u, favor: l });
 }
 import { randomUUID as Ja } from "crypto";
@@ -1710,7 +1710,7 @@ async function wn(e, t, r) {
       k = _.stdout.trim();
     return _.exitCode === 0 && tn.test(k) ? k : null;
   } finally {
-    await Promise.all([po(o, { force: !0 }), po(`${o}.lock`, { force: !0 })]);
+    await Promise.all([po(o, { force: true }), po(`${o}.lock`, { force: true })]);
   }
 }
 var _n = 64;
@@ -1805,7 +1805,7 @@ function rl({ sessionId: e, laptop: t, head: r, tip: o, count: l }) {
     restored: rr,
   };
 }
-var rr = { commits: [], truncated: !1 };
+var rr = { commits: [], truncated: false };
 function Dr(e) {
   return { commits: e.slice(0, Ir), truncated: e.length > Ir };
 }
@@ -1881,7 +1881,7 @@ async function Gn(e, t) {
 }
 async function $t(e, t, r) {
   let o = await dn(e, ["merge-base", "--is-ancestor", "--end-of-options", t, r], { answerExitCodes: [1] });
-  return o.exitCode === 0 ? !0 : o.exitCode === 1 ? !1 : null;
+  return o.exitCode === 0 ? true : o.exitCode === 1 ? false : null;
 }
 async function vt(e, t) {
   let r = await dn(e, ["rev-parse", "-q", "--verify", "--end-of-options", `${t}^{tree}`]),
@@ -1932,7 +1932,7 @@ async function To(e, t, r, o) {
     _ = o.filter((x) => u.has(x) && !r.laptopHeads.includes(x)).reverse(),
     k = _[0];
   if (k === void 0) return r;
-  let C = r.integrated === null ? !1 : await $t(e, r.integrated.head, k);
+  let C = r.integrated === null ? false : await $t(e, r.integrated.head, k);
   if (C === null) return null;
   return {
     ...r,
@@ -2162,7 +2162,7 @@ async function dl({
     pe = xe === x || xe === ae ? ae : ae === x ? xe : null,
     ee =
       pe !== null
-        ? { ok: !0, tree: pe, clean: !0, settlements: [] }
+        ? { ok: true, tree: pe, clean: true, settlements: [] }
         : await cl({ checkout: e, mergeBase: x, ours: u.worktreeCommit, theirs: G.worktreeCommit });
   if (!ee.ok)
     return ee.reason === "unsupported_git"
@@ -2176,11 +2176,11 @@ async function dl({
   let Fe = Ke.filter((j) => j.id !== null && me.has(j.path)).map((j) => j.path),
     be = new Set([...u.leftOut.oversize, ...u.leftOut.unreadable, ...u.leftOut.filterAttributed, ...Fe]),
     _t = G.setAside ?? [],
-    Ie = _t.length === 0 && G.setAsideTruncated !== !0 ? [] : await De(e, u.worktreeTree, ee.tree);
+    Ie = _t.length === 0 && G.setAsideTruncated !== true ? [] : await De(e, u.worktreeTree, ee.tree);
   if (Ie === null) return C("could not diff the merge against the checkout");
   let He = new Set(
     Ie.filter(
-      (j) => j.id === null && (_t.some((Bt) => Bt.equals(j.pathBytes)) || (G.setAsideTruncated === !0 && !vo(j))),
+      (j) => j.id === null && (_t.some((Bt) => Bt.equals(j.pathBytes)) || (G.setAsideTruncated === true && !vo(j))),
     ).map((j) => j.path),
   );
   He.forEach((j) => be.add(j));
@@ -2318,7 +2318,7 @@ async function ul(e, t, r, o, l) {
 }
 async function cl({ checkout: e, mergeBase: t, ours: r, theirs: o }) {
   let l = await Nt(e, t, [], "claude --cloud directory sync: merge base");
-  if (l === null) return { ok: !1, reason: "git_error", detail: "could not wrap the merge base" };
+  if (l === null) return { ok: false, reason: "git_error", detail: "could not wrap the merge base" };
   return Or({ repository: e, base: l, ours: r, theirs: o, favor: "theirs" });
 }
 async function Eo(e, t, r, o) {
@@ -2331,11 +2331,11 @@ function fl(e) {
   return [...new Map(e.map((t) => [t.path, t])).values()];
 }
 async function ml(e, t, r, o) {
-  if (o === t.head) return { ok: !0, tree: r };
+  if (o === t.head) return { ok: true, tree: r };
   let l = await Or({ repository: e, base: t.head, ours: o, theirs: t.indexCommit, favor: "theirs" });
   return l.ok
-    ? { ok: !0, tree: l.tree }
-    : { ok: !1, reason: l.reason, detail: l.reason === "aborted" ? "aborted" : l.detail };
+    ? { ok: true, tree: l.tree }
+    : { ok: false, reason: l.reason, detail: l.reason === "aborted" ? "aborted" : l.detail };
 }
 function vo(e) {
   return Buffer.from(e.path, "utf8").equals(e.pathBytes);
@@ -2709,7 +2709,7 @@ function El(e, t) {
   if (t.aborted) return Promise.resolve({ kind: "aborted" });
   return new Promise((r) => {
     let o = () => r({ kind: "aborted" });
-    t.addEventListener("abort", o, { once: !0 }),
+    t.addEventListener("abort", o, { once: true }),
       e.then((l) => {
         t.removeEventListener("abort", o), r(l);
       });
@@ -2786,7 +2786,7 @@ async function Lr(e) {
   if (e === null) return null;
   try {
     if ((await Bo(e)).size > jo) return Y("warn", "dir_sync_git_store_oversize", {}), null;
-    let r = Ut(await Lo(e, "utf8"), !1),
+    let r = Ut(await Lo(e, "utf8"), false),
       o = Al().safeParse(r);
     if (!o.success) return Y("warn", "dir_sync_git_store_unreadable", {}), null;
     let { version: l, ...d } = o.data;
@@ -2798,7 +2798,7 @@ async function Lr(e) {
 }
 async function Fo(e, t) {
   try {
-    await $o(Go(e), { recursive: !0 }), await Wn(e, b({ version: ir, ...t }), 384);
+    await $o(Go(e), { recursive: true }), await Wn(e, b({ version: ir, ...t }), 384);
   } catch (r) {
     Y("warn", "dir_sync_git_store_write_failed", { code: E(r) ?? "unknown" });
   }
@@ -2817,7 +2817,7 @@ async function Ho(e, t) {
   if (e === null) return null;
   try {
     if ((await Bo(e)).size > jo) return null;
-    let o = Ol().safeParse(Ut(await Lo(e, "utf8"), !1));
+    let o = Ol().safeParse(Ut(await Lo(e, "utf8"), false));
     if (!o.success) return Y("warn", "dir_sync_git_ended_unreadable", {}), null;
     let { version: l, ...d } = o.data,
       u = $r(t),
@@ -2829,11 +2829,11 @@ async function Ho(e, t) {
   }
 }
 async function Br(e, t) {
-  if (e === null) return !1;
+  if (e === null) return false;
   try {
-    return await $o(Go(e), { recursive: !0 }), await Wn(e, b({ version: ir, ...t }), 384), !0;
+    return await $o(Go(e), { recursive: true }), await Wn(e, b({ version: ir, ...t }), 384), true;
   } catch (r) {
-    return Y("warn", "dir_sync_git_ended_write_failed", { code: E(r) ?? "unknown" }), !1;
+    return Y("warn", "dir_sync_git_ended_write_failed", { code: E(r) ?? "unknown" }), false;
   }
 }
 import { mkdir as Dl, readdir as Il, rename as Ml, writeFile as Nl } from "fs/promises";
@@ -2849,7 +2849,7 @@ async function Uo({ repoRoot: e, setAsideRoot: t, attempt: r, markerText: o }) {
   let l = or(t, r),
     d;
   try {
-    await Dl(l, { recursive: !0, mode: 448 });
+    await Dl(l, { recursive: true, mode: 448 });
     let k = await Il(e);
     d = [...k.filter((C) => C === ".git"), ...k.filter((C) => C !== ".git")];
   } catch (k) {
@@ -2891,9 +2891,9 @@ function Yo(e) {
   try {
     t = V(e);
   } catch {
-    return !1;
+    return false;
   }
-  if (typeof t !== "object" || t === null) return !1;
+  if (typeof t !== "object" || t === null) return false;
   let r = "engine" in t ? t.engine : void 0,
     o = "note" in t ? t.note : void 0,
     l = typeof o === "object" && o !== null && "engine" in o ? o.engine : void 0,
@@ -2942,11 +2942,11 @@ async function Ko(e, t, r) {
 }
 async function un(e, t) {
   let r = await dn(e, ["rev-parse", "-q", "--verify", `${t}^{commit}`], { answerExitCodes: [1] });
-  return r.exitCode === 0 ? !0 : r.exitCode === 1 ? !1 : null;
+  return r.exitCode === 0 ? true : r.exitCode === 1 ? false : null;
 }
 async function Vo(e, t, r) {
   let o = await ar(e, t, r);
-  if (o !== !1) return o === null ? "unknown" : "own_turn";
+  if (o !== false) return o === null ? "unknown" : "own_turn";
   let l = await un(e, r);
   return l === null ? "unknown" : l ? "held" : "absent";
 }
@@ -2957,11 +2957,11 @@ function Jo(e) {
 async function Qo(e, t) {
   let r = te(t),
     o = await Promise.all(r.map((l) => un(e, l)));
-  return r.filter((l, d) => o[d] !== !1).slice(0, ey);
+  return r.filter((l, d) => o[d] !== false).slice(0, ey);
 }
 async function Zo(e, t) {
   let r = await Promise.all(t.prerequisites.map((o) => un(e, o)));
-  return t.prerequisites.filter((o, l) => r[l] !== !0);
+  return t.prerequisites.filter((o, l) => r[l] !== true);
 }
 async function jn(e, t) {
   let r = await dn(e, ["rev-parse", `${t}^@`]);
@@ -2985,7 +2985,7 @@ async function sr(e, t, r) {
 async function ar(e, t, r) {
   let o = Ju(t, "turns/0")?.slice(0, -1),
     l = Ju(t, "seed");
-  if (o === void 0 || l === null) return !1;
+  if (o === void 0 || l === null) return false;
   let d = await dn(e, ["for-each-ref", "--format=%(objectname)", `--points-at=${r}`, o, l]);
   return d.exitCode === 0 ? d.stdout.trim() !== "" : null;
 }
@@ -3008,7 +3008,7 @@ async function es(e, t) {
 }
 async function ts(e, t, r) {
   let o = Ju(t, "in/0")?.slice(0, -1);
-  if (o === void 0) return !1;
+  if (o === void 0) return false;
   let l = await dn(e, ["for-each-ref", "--format=%(objectname)", `--points-at=${r}`, o]);
   return l.exitCode === 0 ? l.stdout.trim() !== "" : null;
 }
@@ -3122,11 +3122,11 @@ class Ur {
   #n = "";
   #c = 0;
   #f = "";
-  #s = !1;
+  #s = false;
   #a = "";
   #l = "";
-  #m = !1;
-  #h = !1;
+  #m = false;
+  #h = false;
   #d = "";
   #e;
   #t;
@@ -3135,7 +3135,7 @@ class Ur {
   }
   shipped() {
     if (!this.#s) return;
-    (this.#s = !1),
+    (this.#s = false),
       this.#e(
         "Directory sync: this turn's result fit and was sent \u2014 your earlier turns' work that was held back by the size cap has now reached the user's machine too.",
       );
@@ -3306,7 +3306,7 @@ class Ur {
           ? `This turn's changes are too large to sync back in one go (${r(e)} MiB); they stay in the cloud session until a later turn's changes fit.`
           : `This turn's changes are too large to sync back (${r(e)} MiB) because of ${o}; they stay in the cloud session until Claude removes the large file(s) ${t.every((d) => d.commit === null) ? "from the working tree" : "from its commits"}.`,
       ].slice(-ME);
-    (this.#s = !0),
+    (this.#s = true),
       this.#e(
         t.length === 0
           ? Gl
@@ -3408,12 +3408,12 @@ class Ur {
   }
   mirrorsUserWork(e) {
     if (this.#t() === null || this.#h) return;
-    (this.#h = !0), this.#e(`${jl} ${e === "folder" ? Hl : Fl}`);
+    (this.#h = true), this.#e(`${jl} ${e === "folder" ? Hl : Fl}`);
   }
   recreated() {
     let e = this.#t();
     if (e === null || this.#m) return;
-    (this.#m = !0),
+    (this.#m = true),
       (e.report = [
         ...e.report,
         "The cloud session was recreated from its starting state; your machine will resend your files at its next sync, and Claude was told that earlier work is not there yet.",
@@ -3856,8 +3856,8 @@ async function Kl(e, t) {
     let u = o.get(d.name) ?? null,
       _ =
         u === null || u === d.id
-          ? !1
-          : d.tipIsFirstParent === !0
+          ? false
+          : d.tipIsFirstParent === true
             ? await $t(e, `${u}^1`, `${d.id}^1`)
             : await $t(e, u, d.id);
     if (_ === null) return null;
@@ -3903,7 +3903,7 @@ async function cn(e, t) {
         continue;
       }
       let d = Pt(e.workTree, l.path);
-      if ((await ds(ur(d), { recursive: !0 }), await ms(d))) {
+      if ((await ds(ur(d), { recursive: true }), await ms(d))) {
         r.push(l.path);
         continue;
       }
@@ -3924,7 +3924,7 @@ function as(e) {
   return e !== null && e.startsWith("refs/heads/") ? e.slice(11) : e;
 }
 async function Yr(e, t) {
-  await ds(ur(t), { recursive: !0 });
+  await ds(ur(t), { recursive: true });
   for (let r = 0; r <= Yl; r++) {
     let o = r === 0 ? t : `${t} (in the way${r === 1 ? "" : ` ${r}`})`;
     if (await ms(o)) continue;
@@ -3939,9 +3939,9 @@ async function Yr(e, t) {
 }
 async function ms(e) {
   try {
-    return await ls(e), !0;
+    return await ls(e), true;
   } catch (t) {
-    if (E(t) === "ENOENT") return !1;
+    if (E(t) === "ENOENT") return false;
     throw t;
   }
 }
@@ -4055,11 +4055,11 @@ async function Dd(e, t, r) {
   return (await XP(e, [t]))?.get(t) === r;
 }
 async function Id(e) {
-  if (e === null) return !1;
+  if (e === null) return false;
   try {
     return (await id(e, "utf-8")).length > 0;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function ys(e) {
@@ -4068,7 +4068,7 @@ async function ys(e) {
 async function Md(e, t) {
   if (e === null) return;
   try {
-    await Cs(ad(e), { recursive: !0 }), await sd(e, b({ emptyAtMs: t }), "utf-8");
+    await Cs(ad(e), { recursive: true }), await sd(e, b({ emptyAtMs: t }), "utf-8");
   } catch (r) {
     Y("info", "dir_sync_git_empty_start_record_unwritten", { code: E(r) ?? "none" });
   }
@@ -4076,7 +4076,7 @@ async function Md(e, t) {
 async function zn(e) {
   let t;
   try {
-    t = await rd(e, { withFileTypes: !0 });
+    t = await rd(e, { withFileTypes: true });
   } catch (l) {
     return E(l) === "ENOENT" ? { gitEntry: "none", others: [], count: 0 } : null;
   }
@@ -4151,7 +4151,7 @@ function vs({
     W = Ho(r.endedPath, r.trashDir),
     ae = Lr(r.storePath).then(
       (h) => h !== null,
-      () => !1,
+      () => false,
     ),
     ie = null,
     Z = r.enabled().then(
@@ -4163,20 +4163,20 @@ function vs({
       },
     ),
     le = 0,
-    we = !1,
-    ve = !1;
+    we = false,
+    ve = false;
   async function Re(h, T) {
     if (we) h.remembered.report = _s(h.remembered.report, ws);
     let A = await Wr(h, r, T);
     if (((Gt = A), A === "not_published")) yr("journal");
     else if (A === "published") {
       if (Ue === null) en("journal");
-    } else if (A === "refused") en("journal", !1);
+    } else if (A === "refused") en("journal", false);
     if (A === "not_published" && Tt === "sync_point");
     else if (A === "not_published") {
       if (((le += 1), le >= Bd && !we)) {
-        if (((we = !0), Y("warn", "dir_sync_git_lane_down", { boundaries: le }), Ue === null))
-          (ve = !0),
+        if (((we = true), Y("warn", "dir_sync_git_lane_down", { boundaries: le }), Ue === null))
+          (ve = true),
             r.notify(
               "Directory sync: the sync service has not taken this session's updates for several turns now, so the user's machine is NOT receiving your changes (and theirs are not arriving here) while that lasts; sync retries at every turn and nothing is lost. If the user expects to see your edits on their machine, say that they are delayed.",
             );
@@ -4191,14 +4191,14 @@ function vs({
             "Directory sync: the sync service is taking this session's updates again; the user's machine receives your changes as before.",
           );
       }
-      (le = 0), (we = !1), (ve = !1);
+      (le = 0), (we = false), (ve = false);
     }
   }
   let xe = 0,
     pe = null,
     ee = null,
     me = null,
-    Ke = !1,
+    Ke = false,
     Fe = [];
   function be(h, T) {
     return new Promise((A) => {
@@ -4210,37 +4210,37 @@ function vs({
           clearTimeout(B), T.removeEventListener("abort", R), (Fe = Fe.filter((z) => z !== R)), A();
         },
         B = setTimeout(R, h);
-      T.addEventListener("abort", R, { once: !0 }), (Fe = [...Fe, R]);
+      T.addEventListener("abort", R, { once: true }), (Fe = [...Fe, R]);
     });
   }
   let _t = (h) => (h ? u : _),
     Ie = () => me !== null && me.lastSeenAtMs - me.firstSeenAtMs >= _t(me.beats),
-    He = !1,
+    He = false,
     tt = () =>
       ((pe === "live" || (ee !== null && !ee.abandoned)) && !Ie()) ||
       (S.kind === "armed" && S.armed.remembered.pending !== null),
     ze = 0,
-    Be = !1,
+    Be = false,
     Ve = { journal: null, object: null },
     Ge = { journal: 0, object: 0 },
     ct = { journal: null, object: null },
     at = Math.max(x, 2 * Jt),
     Ue = null,
-    ft = !1,
+    ft = false,
     lt = (h) => {
       let T = Ve[h];
       return T !== null && (Ue === h ? Ge[h] >= 1 : r.now() - T >= x && Ge[h] >= 2);
     },
     Ne = () => lt("journal") || lt("object"),
     K = (h) => (h === "journal" ? "object" : "journal"),
-    ue = !1,
-    Le = !1,
-    Ee = !1,
-    nt = !1,
-    Ye = !1,
-    kt = !1,
+    ue = false,
+    Le = false,
+    Ee = false,
+    nt = false,
+    Ye = false,
+    kt = false,
     ge = new Ur(r.notify, () => (S.kind === "armed" ? S.armed.remembered : null)),
-    Je = !1,
+    Je = false,
     Qt = so(),
     ut = { noCheckout: 0, noHeadTree: 0, laneUnread: 0 },
     xt = null;
@@ -4248,20 +4248,20 @@ function vs({
     let h = xt;
     return (xt = null), h;
   }
-  let Xe = !1,
-    M = !1,
-    Pe = !1,
-    j = !1;
+  let Xe = false,
+    M = false,
+    Pe = false,
+    j = false;
   function Bt() {
     return j || (Pe && !mn);
   }
   let bn = Id(r.emptyAtStartPath ?? null),
     Qe = null,
     Tn = null,
-    At = !1;
+    At = false;
   function Ns(h) {
     if (((S = { kind: "disarmed", reason: "empty_start_failed" }), qn("untouched"), h.reason === "directory_not_empty"))
-      (j = !1), ys(r.emptyAtStartPath ?? null);
+      (j = false), ys(r.emptyAtStartPath ?? null);
     let T =
       h.reason === "directory_not_empty"
         ? `the working directory was not empty (found: ${h.found.map(ei).join(", ")})`
@@ -4293,29 +4293,29 @@ function vs({
     let T = await gr().catch(() => null);
     if (T === null)
       return nd(kn(e, ".git")).then(
-        () => !0,
+        () => true,
         (R) => {
           let B = E(R);
           return B !== "ENOENT" && B !== "ENOTDIR";
         },
       );
     if (T.kind !== "committed") return T.kind === "own" || T.kind === "gitfile";
-    if (h.note?.seedless !== !0) return !0;
+    if (h.note?.seedless !== true) return true;
     let A = await EHe(T.checkout, t);
     return A === null || A.length > 0;
   }
   async function Ls() {
     let h = await yn(e).catch(() => null),
       T = cr(t);
-    if (h === null || T === null) return !1;
+    if (h === null || T === null) return false;
     let A = await dn(h, ["symbolic-ref", "-q", "HEAD"], { answerExitCodes: [1] });
-    if (A.exitCode === 0 && A.stdout.trim() === `refs/heads/${T}`) return !0;
+    if (A.exitCode === 0 && A.stdout.trim() === `refs/heads/${T}`) return true;
     let R = await EHe(h, t);
     return R !== null && R.length > 0;
   }
   async function Bs() {
     try {
-      await Cs(r.trashDir, { recursive: !0 }), await od(kn(e, ".git"), kn(r.trashDir, `agent-git-${r.now()}`));
+      await Cs(r.trashDir, { recursive: true }), await od(kn(e, ".git"), kn(r.trashDir, `agent-git-${r.now()}`));
     } catch (T) {
       return Y("warn", "dir_sync_git_empty_start_aside_failed", { code: E(T) ?? "none" }), null;
     }
@@ -4341,11 +4341,11 @@ function vs({
       Tn = null;
     else Vt(h);
   }
-  let Ze = !1,
+  let Ze = false,
     mr = void 0,
-    Cn = !1,
+    Cn = false,
     fn = 0,
-    mn = !0,
+    mn = true,
     si = new Set(),
     Sn = null,
     En = null,
@@ -4353,7 +4353,7 @@ function vs({
     Pn = new Map(),
     Un = 0,
     Tt = "turn",
-    xn = !1,
+    xn = false,
     Rn = null,
     Zt = null,
     hn = null,
@@ -4364,8 +4364,8 @@ function vs({
     An = null,
     js = td(),
     li = 0,
-    Ht = !1,
-    di = !1;
+    Ht = false,
+    di = false;
   async function ui(h, T, A) {
     if (!di || A === null) return [];
     let R = new Set(Pn.values()),
@@ -4373,7 +4373,7 @@ function vs({
         .filter((F) => F !== A && R.has(F))
         .slice(0, uht),
       z = await Promise.all(B.map((F) => un(h, F)));
-    return B.filter((F, D) => z[D] === !0);
+    return B.filter((F, D) => z[D] === true);
   }
   function Ot(h, T, A = {}) {
     (Rn = { outcome: h, generation: T, fields: A }), ns(h, T, { ...A, trigger: ci() });
@@ -4404,30 +4404,30 @@ function vs({
     if (h !== null) await ot(h.scratchIndexPath);
   }
   async function Fs(h) {
-    if (r.firstWorkerProcess !== !0) return null;
+    if (r.firstWorkerProcess !== true) return null;
     let T = await yn(e),
       A = T === null ? null : await e_e(T),
       R = A === null ? null : await yt(A);
     if (A === null || R === null || R.head === null) return null;
     if ((await jr(A, t)) != null || h.aborted) return null;
-    Ze = !0;
+    Ze = true;
     try {
       let B = await Wo(A, R.head);
       if (B === null) return null;
       if (h.aborted) return await ot(B.scratchIndexPath), null;
       return await hr(), (Sn = B), (En = B), B.worktreeTree;
     } finally {
-      Ze = !1;
+      Ze = false;
     }
   }
-  async function pn(h, T = !1) {
-    xn = !1;
+  async function pn(h, T = false) {
+    xn = false;
     let A = fn,
       R = await r.transport.readPeerJournal(h).finally(() => {
-        if (A === fn) Le = !0;
+        if (A === fn) Le = true;
       });
-    if (((Be = R.kind === "failed"), R.kind === "failed")) Ke = !0;
-    if (((ue = R.kind === "unauthorized" || R.kind === "lane_unavailable"), R.kind === "ok")) Ee = !0;
+    if (((Be = R.kind === "failed"), R.kind === "failed")) Ke = true;
+    if (((ue = R.kind === "unauthorized" || R.kind === "lane_unavailable"), R.kind === "ok")) Ee = true;
     if (R.kind === "failed") yr("journal");
     else if (R.kind !== "ok" && R.kind !== "aborted") en("journal", R.kind === "not_found");
     if (R.kind === "ok" || R.kind === "not_found") pe = null;
@@ -4442,7 +4442,7 @@ function vs({
       let ye = B.reason !== "wrong_note" && Yo(R.content.toString("utf-8")) ? "wrong_note" : B.reason;
       if (ye !== "wrong_note") Y("warn", "dir_sync_git_laptop_journal_unreadable", { reason: ye });
       if (!T) pr(ye);
-      return (ee = null), (me = null), en("journal", !1), null;
+      return (ee = null), (me = null), en("journal", false), null;
     }
     let z = B.journal.note;
     if (B.journal.halted === "ended")
@@ -4459,7 +4459,7 @@ function vs({
       );
     en("journal");
     let { uploading: F } = B.journal;
-    ee = F === void 0 ? null : { generation: F.generation, abandoned: F.abandoned === !0, reason: F.reason ?? null };
+    ee = F === void 0 ? null : { generation: F.generation, abandoned: F.abandoned === true, reason: F.reason ?? null };
     let D = F?.heartbeatAtMs !== void 0,
       U = F?.heartbeatAtMs ?? F?.startedAtMs ?? null,
       L = r.now(),
@@ -4470,7 +4470,7 @@ function vs({
         me.sign === U &&
         (!Ke || L - me.lastSeenAtMs <= C || me.lastSeenAtMs - me.firstSeenAtMs >= _t(me.beats));
     if (
-      ((Ke = !1),
+      ((Ke = false),
       (me =
         F === void 0 || U === null
           ? null
@@ -4479,12 +4479,12 @@ function vs({
             : { generation: F.generation, sign: U, beats: D, firstSeenAtMs: L, lastSeenAtMs: L }),
       z === void 0 && F !== void 0)
     )
-      return (xe = 0), (pe = F.abandoned === !0 ? "abandoned" : "live"), null;
+      return (xe = 0), (pe = F.abandoned === true ? "abandoned" : "live"), null;
     if (z === void 0 || !("downApplied" in z)) {
       if (!T) pr("no_note");
       return null;
     }
-    if (((xe = 0), A === fn)) He = !0;
+    if (((xe = 0), A === fn)) He = true;
     let se = S.kind === "armed" ? S.armed : await hi(z);
     return se === null ? null : { note: z, armed: se };
   }
@@ -4537,10 +4537,10 @@ function vs({
       ),
       F = mi(T);
     if (F !== null) return z(F);
-    Xe = !0;
+    Xe = true;
     let D = h.bundle;
     if (D === null) {
-      if (h.seedless === !0) return Y("warn", "dir_sync_git_empty_start_no_bundle", {}), { kind: "waiting" };
+      if (h.seedless === true) return Y("warn", "dir_sync_git_empty_start_no_bundle", {}), { kind: "waiting" };
       return z({ reason: "container_recreated" });
     }
     if (D.prerequisites.length > 0) return z({ reason: "container_recreated" });
@@ -4551,21 +4551,21 @@ function vs({
       se = AbortSignal.any([A, R]),
       ye = (Se) => on(Se, void 0, Xr),
       _e = async (Se, rt) => {
-        for (let Dt = 0; Dt < Vr; Dt += 1) if ((await dn(ye(Se), rt)).exitCode === 0) return !0;
-        return !1;
+        for (let Dt = 0; Dt < Vr; Dt += 1) if ((await dn(ye(Se), rt)).exitCode === 0) return true;
+        return false;
       },
-      Ce = !1,
+      Ce = false,
       $e = null,
       Ae = T.kind === "own" || T.kind === "unborn" ? T.checkout : null;
     if (Ae !== null && (await Dd(Ae, U, h.worktreeCommit))) {
-      if (((Ce = !0), ($e = await e_e(Ae)), Rt(R))) return { kind: "waiting" };
+      if (((Ce = true), ($e = await e_e(Ae)), Rt(R))) return { kind: "waiting" };
       B();
     } else {
       let Se;
       if (Qe !== null && Qe.sha256 === D.sha256) Se = Qe.content;
       else {
         Qe = null;
-        let We = await _i(D, se, "held", !0);
+        let We = await _i(D, se, "held", true);
         if (We.kind !== "ok") {
           if (
             (s("tengu_dir_sync_git_empty_start", { outcome: w("waiting"), fetch: c(We.kind) }),
@@ -4640,10 +4640,10 @@ function vs({
     );
   }
   async function hi(h) {
-    if (h.seedless === !0 || h.origin === "folder") {
+    if (h.seedless === true || h.origin === "folder") {
       let Ae = await gr();
       if (Ae !== null && Ae.kind !== "committed") return (xt = { note: h, footing: Ae }), null;
-      if (Ae !== null && h.seedless === !0) {
+      if (Ae !== null && h.seedless === true) {
         let he = await EHe(Ae.checkout, t);
         if (he === null) return null;
         if (he.length === 0) {
@@ -4669,7 +4669,7 @@ function vs({
     let R = await yt(A);
     if (R === null || R.head === null) return Y("warn", "dir_sync_git_worker_head_unread", {}), null;
     let B = await Lr(r.storePath);
-    if (B !== null) Ee = !0;
+    if (B !== null) Ee = true;
     let z = await qo(A);
     if (z === null) return Y("warn", "dir_sync_git_worker_reflog_unread", {}), null;
     ut.noCheckout = 0;
@@ -4691,7 +4691,7 @@ function vs({
     let U = B === null ? await jr(A, t) : null,
       L = U == null ? null : await Fn(A, U.worktreeCommit);
     if (U === void 0 || (U !== null && L === null)) return Y("warn", "dir_sync_git_worker_seed_unread", {}), null;
-    let re = r.firstWorkerProcess === !0 && B === null && L === null && D === 0 ? (mr ?? null) : null,
+    let re = r.firstWorkerProcess === true && B === null && L === null && D === 0 ? (mr ?? null) : null,
       se = B ?? {
         memory: {
           agreedTree: L ?? re ?? F,
@@ -4711,12 +4711,12 @@ function vs({
         need: null,
         refusedBundle: null,
         shipped: null,
-        lastBasis: { turn: 0, basedOn: null, appliedGeneration: 0, branch: null, notTaken: [], notTakenTruncated: !1 },
+        lastBasis: { turn: 0, basedOn: null, appliedGeneration: 0, branch: null, notTaken: [], notTakenTruncated: false },
         installs: [],
         lastNotedGeneration: 0,
         installsBankedThrough: 0,
         notTaken: [],
-        notTakenTruncated: !1,
+        notTakenTruncated: false,
         report: [],
       };
     se.turn = Math.max(se.turn, D);
@@ -4730,7 +4730,7 @@ function vs({
     }
     let _e = ye == null ? null : await ar(A, t, ye.worktreeCommit);
     if (ye != null && _e === null) return Y("warn", "dir_sync_git_worker_refs_unread", {}), null;
-    let Ce = _e === !1 ? ye : null;
+    let Ce = _e === false ? ye : null;
     if (ye != null)
       (se.turn = Math.max(se.turn, ye.turn)),
         (se.journalGeneration = ye.journalGeneration),
@@ -4747,7 +4747,7 @@ function vs({
         started_from_files: re !== null,
         prior_turn: D,
         recreated_after_turn: se.recreatedAfterTurn,
-        restored_from_journal: ye != null && _e === !0,
+        restored_from_journal: ye != null && _e === true,
       }),
       $e
     );
@@ -4775,7 +4775,7 @@ function vs({
       : null;
   }
   async function gn(h, T) {
-    T(), (He = !0);
+    T(), (He = true);
     let A = S.kind === "armed" ? S.armed : null;
     S = { kind: "disarmed", reason: "ended" };
     let R = h.line ?? "the user's machine ended file sync for this session",
@@ -4820,7 +4820,7 @@ function vs({
           armed: A !== null,
           outcome: c(L.kind),
           recorded: F,
-          resumed: !1,
+          resumed: false,
           reason: ke(h.reason ?? void 0),
           moved: re,
           left: se,
@@ -4840,8 +4840,8 @@ function vs({
     if (((ct[h] = T), Ve[h] === null || (A !== null && T - A > at && Ue !== h))) Ve[h] = T;
     Ge[h] += 1;
   }
-  function en(h, T = !0) {
-    if (((Ve[h] = null), (ct[h] = null), (Ge[h] = 0), h === "journal")) ft = !1;
+  function en(h, T = true) {
+    if (((Ve[h] = null), (ct[h] = null), (Ge[h] = 0), h === "journal")) ft = false;
     if (T && Ue === h && ie === null)
       (Ue = null), r.notify(Ee ? bd : Td), s("tengu_dir_sync_git_worker_back_online", {});
   }
@@ -4885,7 +4885,7 @@ function vs({
     ]);
     return { names: F.slice(0, Cd), count: F.length };
   }
-  async function Xn(h, T, A, R = !1) {
+  async function Xn(h, T, A, R = false) {
     if (mn && mr === void 0) mr = await Fs(T);
     try {
       await yi(h, T, A, R);
@@ -4904,30 +4904,30 @@ function vs({
       J = Math.min(J * 2, Jt)
     ) {
       if (((He = Ee), await be(J, T), Rt(T))) break;
-      if (((B = await pn(h, !0)), B === null)) Te = zt(fe, Te, "lane");
+      if (((B = await pn(h, true)), B === null)) Te = zt(fe, Te, "lane");
     }
     if (B === null && Be) {
       if (Ee) {
         if (Ne()) Wt("journal");
       } else if (R);
       else if (ft) Wt("journal");
-      else if (Rt(T) && !Rt(h)) ft = !0;
+      else if (Rt(T) && !Rt(h)) ft = true;
     }
     if (ie !== null && !Rt(T)) return R ? void 0 : gn(ie, A);
     if (B === null && (Be || ue) && Xe && S.kind === "listening" && !At && !Rt(h))
-      (At = !0), r.notify(gs), Y("info", "dir_sync_git_empty_start_row_unread", {});
+      (At = true), r.notify(gs), Y("info", "dir_sync_git_empty_start_row_unread", {});
     if (B === null && pe === "live") {
-      He = !0;
+      He = true;
       for (
         let J = l, fe = Date.now(), Te = 0;
         B === null && pe === "live" && !Ie() && !Ne() && !R && !Rt(h) && !Rt(T);
         J = Math.min(J * 2, Jt)
       )
-        await be(J, T), (B = Rt(T) ? null : await pn(h, !0)), (Te = zt(fe, Te, "upload"));
+        await be(J, T), (B = Rt(T) ? null : await pn(h, true)), (Te = zt(fe, Te, "upload"));
       if (B === null && Be && Ne()) Wt("journal");
     }
     if (B === null && (pe === "abandoned" || (pe === "live" && Ie())) && mn && !nt && !Rt(h)) {
-      nt = !0;
+      nt = true;
       let J = Xe || (await bn),
         fe = J ? null : await zn(e),
         Te = J || (fe !== null && fe.gitEntry === "none" && fe.count === 0);
@@ -4937,7 +4937,7 @@ function vs({
         Y("info", "dir_sync_git_first_upload_pending", { quiet: pe === "live", createdEmpty: Te }),
         pe === "live")
       )
-        s("tengu_dir_sync_git_announced_upload_quiet", { first: !0 });
+        s("tengu_dir_sync_git_announced_upload_quiet", { first: true });
     }
     if (ie !== null && !Rt(T)) return R ? void 0 : gn(ie, A);
     let z = B === null && !R && !Rt(h) ? Lt() : null;
@@ -4945,9 +4945,9 @@ function vs({
       let J = z.note,
         fe = (gt) =>
           Hs(J, gt, h, T, () => {
-            A(), (Cn = !0);
+            A(), (Cn = true);
           }).finally(() => {
-            Cn = !1;
+            Cn = false;
           }),
         Te = await fe(z.footing),
         On = 0;
@@ -4958,7 +4958,7 @@ function vs({
       ) {
         if ((await ne(gt, T), Rt(T))) break;
         Ai = zt(Xs, Ai, "upload");
-        let Ks = await pn(h, !0),
+        let Ks = await pn(h, true),
           Dn = Lt();
         if (ie !== null && !Rt(T)) return R ? void 0 : gn(ie, A);
         if (
@@ -4984,12 +4984,12 @@ function vs({
       }
       if (Te.kind === "waiting" || Te.kind === "superseded") {
         if (!Rt(h)) {
-          if ((await Gs(), !At)) (At = !0), r.notify(vd), Y("info", "dir_sync_git_empty_start_deferred", {});
+          if ((await Gs(), !At)) (At = true), r.notify(vd), Y("info", "dir_sync_git_empty_start_deferred", {});
         }
         return;
       }
-      if (At || j) (At = !1), r.notify(Pd);
-      if (((Xe = !1), (Pe = !1), j)) (j = !1), ys(r.emptyAtStartPath ?? null);
+      if (At || j) (At = false), r.notify(Pd);
+      if (((Xe = false), (Pe = false), j)) (j = false), ys(r.emptyAtStartPath ?? null);
       let rn = await hi(J);
       B = rn === null ? null : { note: J, armed: rn };
     }
@@ -4999,8 +4999,8 @@ function vs({
       let J = Date.now(), fe = 0;
       ee !== null && !ee.abandoned && ee.generation > B.note.generation && !Ie() && !Ne() && !R && !Rt(h) && !Rt(T);
     ) {
-      if (((He = !0), await be(F, T), (F = Math.min(F * 2, Jt)), Rt(T))) break;
-      (B = (await pn(h, !0)) ?? B), (fe = zt(J, fe, "upload"));
+      if (((He = true), await be(F, T), (F = Math.min(F * 2, Jt)), Rt(T))) break;
+      (B = (await pn(h, true)) ?? B), (fe = zt(J, fe, "upload"));
     }
     if (Be && Ne() && !Rt(T)) Wt("journal");
     if (
@@ -5021,23 +5021,23 @@ function vs({
         Y("info", "dir_sync_git_announced_upload_missed", { quiet: !ee.abandoned }),
         !ee.abandoned)
       )
-        s("tengu_dir_sync_git_announced_upload_quiet", { first: !1 });
+        s("tengu_dir_sync_git_announced_upload_quiet", { first: false });
     }
     if (ie !== null && !Rt(T)) return R ? void 0 : gn(ie, A);
     let { note: D, armed: U } = B,
       { remembered: L } = U;
-    (hn = D.generation), (Ht = !0);
+    (hn = D.generation), (Ht = true);
     let re = await e_e(U.checkout),
-      se = !1;
+      se = false;
     if (
       ((L.laptopHolds = D.holds.slice(0, ey)),
-      (di = D.acceptsHeldParents === !0),
+      (di = D.acceptsHeldParents === true),
       ge.mirrorsUserWork(D.origin === "folder" ? "folder" : "checkout"),
       (U.conversion = D.origin === "folder" ? "none" : "as_git_stages"),
       U.conversion === "none")
     )
       await Zn(re);
-    if ((ge.tooLargeOnLaptop(D.withheldCounts?.tooLarge ?? 0), kt)) ge.recreated(), (kt = !1);
+    if ((ge.tooLargeOnLaptop(D.withheldCounts?.tooLarge ?? 0), kt)) ge.recreated(), (kt = false);
     let ye = Ye ? Jo(await Promise.all(D.holds.map((J) => Vo(re, U.sessionId, J)))) : "none";
     if (ye === "recreated") {
       ge.recreated();
@@ -5072,7 +5072,7 @@ function vs({
       let J = await yt(re),
         fe = D.branch === null ? null : `refs/heads/${D.branch}`;
       if (J === null || J.branch === fe) return;
-      se = !0;
+      se = true;
     }
     let Ae = Ju(U.sessionId, `in/${D.generation}`);
     if (Ae === null) return;
@@ -5121,13 +5121,13 @@ function vs({
       return;
     }
     if (!nn) {
-      He = !0;
+      He = true;
       let J = await Kn(re, D, Ae, h, T, R ? "once" : "held");
       if (J === "superseded" && !R) {
         let fe = 0;
         for (let Te = l, On = Date.now(), rn = 0; J === "superseded" && !Rt(h) && !Rt(T); Te = Math.min(Te * 2, Jt)) {
           if ((await be(Te, T), Rt(T))) break;
-          let gt = await pn(h, !0);
+          let gt = await pn(h, true);
           if (ie !== null && !Rt(T)) return R ? void 0 : gn(ie, A);
           if (gt === null && Be) {
             if (Ne()) {
@@ -5152,18 +5152,18 @@ function vs({
             if (ze !== ee.generation)
               (ze = ee.generation),
                 r.notify(Kr),
-                Y("info", "dir_sync_git_announced_upload_missed", { quiet: !0, superseded: !0 }),
-                s("tengu_dir_sync_git_announced_upload_quiet", { first: !1 });
+                Y("info", "dir_sync_git_announced_upload_missed", { quiet: true, superseded: true }),
+                s("tengu_dir_sync_git_announced_upload_quiet", { first: false });
             return;
           }
           if (((J = await Kn(re, D, Ae, h, T, "held")), J === "superseded")) {
-            if (((fe += 1), fe >= 2)) ge.gaveUpWaiting(D), (J = { need: D.head, final: !0 });
+            if (((fe += 1), fe >= 2)) ge.gaveUpWaiting(D), (J = { need: D.head, final: true });
           }
         }
         if (J === "superseded") return;
       }
       if (J === "superseded") {
-        Ot("not_received", D.generation, { final: !1 });
+        Ot("not_received", D.generation, { final: false });
         return;
       }
       if (J !== "landed") {
@@ -5193,7 +5193,7 @@ function vs({
     let We = await Promise.all(
       je.slice(2).map(async (J) => {
         let fe = await ar(re, U.sessionId, J);
-        if (fe !== !1) return fe;
+        if (fe !== false) return fe;
         return ts(re, U.sessionId, J);
       }),
     );
@@ -5201,7 +5201,7 @@ function vs({
       Y("warn", "dir_sync_git_bundle_unverified", {});
       return;
     }
-    if (je.length < 2 || je.length > 4 || je[0] !== D.head || je[1] !== D.indexCommit || We.some((J) => J !== !0)) {
+    if (je.length < 2 || je.length > 4 || je[0] !== D.head || je[1] !== D.indexCommit || We.some((J) => J !== true)) {
       Y("warn", "dir_sync_git_bundle_mismatch", { parents: je.length }),
         (L.refusedBundle = D.bundle?.sha256 ?? null),
         ge.refused(D, "it does not match what your machine described"),
@@ -5260,7 +5260,7 @@ function vs({
         r.notify(
           "Directory sync: this container's git cannot merge the user's changes in (it lacks `git merge-tree --write-tree`); the user's edits are not arriving here, yours still go up.",
         ),
-          (Je = !0);
+          (Je = true);
       else if (!se || Oe.reason === "branch_name_collides") ge.notTaken(D.generation, Oe.reason, Oe.detail);
       await ht(U, r.storePath);
       return;
@@ -5271,10 +5271,10 @@ function vs({
       trashDir: r.trashDir,
       released: T,
       onWriting: () => {
-        (Cn = !0), A();
+        (Cn = true), A();
       },
     }).finally(() => {
-      Cn = !1;
+      Cn = false;
     });
     if (de.kind === "not_applied") {
       if (
@@ -5349,7 +5349,7 @@ function vs({
     if (h.kind === "failed" && h.status !== Cx) yr("object");
     else if (h.kind === "ok" || h.kind === "not_found") en("object");
   }
-  async function _i(h, T, A, R = !1) {
+  async function _i(h, T, A, R = false) {
     let B = await r.transport.getInbound(h, T);
     wi(B);
     let z = Date.now(),
@@ -5367,19 +5367,19 @@ function vs({
         (L += 1), Y("warn", "dir_sync_git_object_wait_held", { minutes: L, kind: B.kind });
     }
     if (B.kind !== "ok") Vt(B);
-    return A === "held" && F() ? { ...B, legacyGivenUp: !0 } : B;
+    return A === "held" && F() ? { ...B, legacyGivenUp: true } : B;
   }
   async function Kn(h, T, A, R, B, z, F = null) {
-    if (T.bundle === null) return { need: T.head, final: !1 };
+    if (T.bundle === null) return { need: T.head, final: false };
     let D = AbortSignal.any([R, B]),
       U = F !== null ? { kind: "ok", content: F.content, etag: "" } : await _i(T.bundle, D, z);
     if (U.kind !== "ok") {
-      if (U.kind === "aborted" || Rt(D)) return { need: null, final: !1 };
+      if (U.kind === "aborted" || Rt(D)) return { need: null, final: false };
       if (z === "held" && U.kind === "failed" && U.status !== Cx && Ne()) Wt("object");
-      if (U.kind === "failed" && U.status === Cx) return ge.gaveUpWaiting(T), { need: T.head, final: !0 };
+      if (U.kind === "failed" && U.status === Cx) return ge.gaveUpWaiting(T), { need: T.head, final: true };
       if (U.kind === "not_found" && T.bundle.via !== "file") return "superseded";
-      if ("legacyGivenUp" in U) return ge.gaveUpWaiting(T), { need: T.head, final: !0 };
-      return { need: null, final: !1 };
+      if ("legacyGivenUp" in U) return ge.gaveUpWaiting(T), { need: T.head, final: true };
+      return { need: null, final: false };
     }
     let L = await wae({
       repository: h,
@@ -5395,7 +5395,7 @@ function vs({
       return (
         Y("warn", "dir_sync_git_bundle_tip_mismatch", {}),
         ge.refused(T, "it does not match what your machine described"),
-        { need: null, final: !0 }
+        { need: null, final: true }
       );
     }
     if ((Y("warn", "dir_sync_git_receive_refused", { reason: L.reason }), L.reason === "prerequisites_missing")) {
@@ -5406,18 +5406,18 @@ function vs({
           return Kn(h, T, A, R, B, z, { fetchedBases: se, content: U.content });
       }
       let _e = (await Zo(h, T.bundle))[0] ?? se[0] ?? null;
-      return ge.missingHistory(T, _e), { need: _e, final: !0 };
+      return ge.missingHistory(T, _e), { need: _e, final: true };
     }
     let re = L.reason !== "aborted" && L.reason !== "git_error";
     if (re) ge.refused(T, "what arrived did not verify");
     return { need: null, final: re };
   }
   async function ki(h, T) {
-    Ze = !0;
+    Ze = true;
     try {
       await Ws(h, T);
     } finally {
-      Ze = !1;
+      Ze = false;
     }
   }
   async function Ws(h, T) {
@@ -5447,14 +5447,14 @@ function vs({
           `Claude's changes from this turn were not sent: the cloud checkout is ${he === "unreadable" ? "not readable just now" : he === "mid_operation" ? "in the middle of a merge, rebase or cherry-pick" : he === "unborn" ? "without a commit" : "holding unresolved merge conflicts"}; they go out with the first turn after that is resolved.`,
         ].slice(-ME)),
         (R.userEventUuids = z),
-        (Ze = !1),
+        (Ze = false),
         await Re(A, null);
       return;
     }
     let D = R.memory.integrated?.worktreeCommit ?? null;
     if (A.conversion === "none") await Zn(B);
     let U = await ui(B, R, D);
-    if (((Ze = !0), T !== void 0 && T.head !== F.head)) await ot(T.scratchIndexPath);
+    if (((Ze = true), T !== void 0 && T.head !== F.head)) await ot(T.scratchIndexPath);
     let L =
       T !== void 0 && T.head === F.head
         ? { kind: "snapshot", snapshot: T }
@@ -5466,9 +5466,9 @@ function vs({
             conversion: A.conversion,
             message: `claude --cloud directory sync: turn ${R.turn + 1}`,
           }).finally(() => {
-            Ze = !1;
+            Ze = false;
           });
-    if (((Ze = !1), L.kind === "refused")) {
+    if (((Ze = false), L.kind === "refused")) {
       let he = L.reason === "aborted" ? void 0 : L.step;
       if (
         (Y("warn", "dir_sync_git_turn_end_snapshot_refused", { reason: L.reason, ...(he !== void 0 && { step: he }) }),
@@ -5477,7 +5477,7 @@ function vs({
         L.reason !== "aborted")
       )
         ge.notSent(L.detail);
-      (R.userEventUuids = z), (Ze = !1), await Re(A, null);
+      (R.userEventUuids = z), (Ze = false), await Re(A, null);
       return;
     }
     ge.checkoutUnready(null),
@@ -5496,7 +5496,7 @@ function vs({
         Yn("no_ref"),
         await ot(L.snapshot.scratchIndexPath),
         (R.userEventUuids = z),
-        (Ze = !1),
+        (Ze = false),
         await Re(A, null);
       return;
     }
@@ -5516,7 +5516,7 @@ function vs({
       ...(R.memory.integrated === null ? R.memory.laptopHeads.slice(0, 1) : [R.memory.integrated.head]),
       ...R.laptopHolds,
     ]);
-    Ze = !1;
+    Ze = false;
     let _e = await HHe({ repository: B, tips: [se], prerequisites: ye }),
       Ce = null,
       $e = "nothing_to_send",
@@ -5556,7 +5556,7 @@ function vs({
         commits: _e.ok ? _e.commitCount : 0,
         ...(Ae !== void 0 && { reason: Ae }),
       }),
-      (Ze = !1),
+      (Ze = false),
       $e === "shipped" || $e === "nothing_to_send")
     )
       (pt = re), (ai = L.snapshot.worktreeCommit);
@@ -5571,7 +5571,7 @@ function vs({
       }),
       pt === re && Gt === "published")
     )
-      (Ft = re), (Ht = !1);
+      (Ft = re), (Ht = false);
   }
   async function bi() {
     if (S.kind !== "armed" || !Ht) return;
@@ -5579,7 +5579,7 @@ function vs({
     Tt = "sync_point";
     try {
       if ((await Re(h, null), Gt === "published")) {
-        if (((Ht = !1), h.remembered.turn === pt)) Ft = pt;
+        if (((Ht = false), h.remembered.turn === pt)) Ft = pt;
       }
     } finally {
       Tt = "turn";
@@ -5598,7 +5598,7 @@ function vs({
       if (F) {
         Zt = null;
         let D = Ft === pt;
-        if ((await Re(h, null), Gt === "published")) (Ft = pt), (Ht = !1);
+        if ((await Re(h, null), Gt === "published")) (Ft = pt), (Ht = false);
         else if (D && Gt !== "refused")
           return (
             wr("nothing_to_send", h.remembered.turn, void 0, T),
@@ -5633,7 +5633,7 @@ function vs({
     if (h.conversion === "none") await Zn(A);
     let B = T.memory.integrated?.worktreeCommit ?? null,
       z = await ui(A, T, B);
-    Ze = !0;
+    Ze = true;
     let F = await ln({
       checkout: A,
       head: R.head,
@@ -5642,7 +5642,7 @@ function vs({
       conversion: h.conversion,
       message: `claude --cloud directory sync: turn ${T.turn + 1}`,
     }).finally(() => {
-      Ze = !1;
+      Ze = false;
     });
     if (F.kind !== "snapshot") return null;
     let { snapshot: D } = F;
@@ -5657,14 +5657,14 @@ function vs({
       ...(R !== void 0 && { hinted_writes: R }),
     });
   }
-  async function Ti(h, T, A = !1, R = !1) {
+  async function Ti(h, T, A = false, R = false) {
     if (S.kind !== "armed" && !(h === "latest" && S.kind === "listening")) return null;
     let B = () => (S.kind === "armed" ? (S.armed.remembered.memory.integrated?.generation ?? 0) : 0);
     if (ie !== null || I != null)
       return (
         s("tengu_dir_sync_git_worker_pull_point", {
           outcome: c("skipped"),
-          ...(h === "latest" ? { latest: !0 } : { expected: h }),
+          ...(h === "latest" ? { latest: true } : { expected: h }),
         }),
         { kind: "skipped", reason: "sync_ended" }
       );
@@ -5683,7 +5683,7 @@ function vs({
         }
         (Rn = null), (hn = null);
         let D = h === "latest" ? AbortSignal.any([T, AbortSignal.timeout(o)]) : T;
-        if ((await Xn(T, D, () => {}, !0), (Ht = !0), ie !== null || I != null)) {
+        if ((await Xn(T, D, () => {}, true), (Ht = true), ie !== null || I != null)) {
           z = { kind: "skipped", reason: "sync_ended" };
           break;
         }
@@ -5704,14 +5704,14 @@ function vs({
             if (ze !== ee.generation)
               (ze = ee.generation),
                 r.notify(Kr),
-                Y("info", "dir_sync_git_announced_upload_missed", { quiet: !0, mid_turn: !0 });
+                Y("info", "dir_sync_git_announced_upload_missed", { quiet: true, mid_turn: true });
             break;
           }
           if ((await be(F, T), Rt(T))) {
             z = { kind: "failed", reason: "aborted" };
             break;
           }
-          if (((Rn = null), (hn = null), await Xn(T, T, () => {}, !0), (Ht = !0), ie !== null || I != null)) {
+          if (((Rn = null), (hn = null), await Xn(T, T, () => {}, true), (Ht = true), ie !== null || I != null)) {
             z = { kind: "skipped", reason: "sync_ended" };
             break;
           }
@@ -5723,7 +5723,7 @@ function vs({
     return (
       s("tengu_dir_sync_git_worker_pull_point", {
         outcome: c(z.kind),
-        ...(h === "latest" ? { latest: !0 } : { expected: h }),
+        ...(h === "latest" ? { latest: true } : { expected: h }),
       }),
       z
     );
@@ -5732,12 +5732,12 @@ function vs({
     beforeTurn: async (h) => {
       let T = o,
         A = Date.now();
-      if (((He = !1), (Le = !1), (fn += 1), (Ge.journal = 0), (Ge.object = 0), !Ee && (await ae))) Ee = !0;
+      if (((He = false), (Le = false), (fn += 1), (Ge.journal = 0), (Ge.object = 0), !Ee && (await ae))) Ee = true;
       if (!M) {
-        if (((M = !0), await bn)) (Xe = !0), (j = !0);
+        if (((M = true), await bn)) (Xe = true), (j = true);
         else if (mn) {
           let se = await zn(e);
-          if (se !== null && se.gitEntry === "none" && se.count === 0) (Xe = !0), (Pe = !0);
+          if (se !== null && se.gitEntry === "none" && se.count === 0) (Xe = true), (Pe = true);
         }
       }
       if (I === void 0) {
@@ -5754,18 +5754,18 @@ function vs({
                 qn(Ce.kind),
                   r.notify(ps(e, se.line, Ce, null)),
                   s("tengu_dir_sync_git_worker_cleared", {
-                    armed: !1,
+                    armed: false,
                     outcome: c(Ce.kind),
-                    recorded: !0,
-                    resumed: !0,
+                    recorded: true,
+                    resumed: true,
                     reason: ke(se.reason ?? void 0),
                     moved: Ce.kind === "cleared" ? Ce.moved : 0,
                     left: Ce.kind === "cleared" ? Ce.left.length : -1,
                     unsynced_paths: -1,
                   });
               }).then(
-                () => !0,
-                () => !1,
+                () => true,
+                () => false,
               ),
               _e = await Promise.race([ye, sht(h).then(() => "interrupted")]);
             Y("warn", "dir_sync_git_worker_clear_resumed", { cleared: _e });
@@ -5775,8 +5775,8 @@ function vs({
       if (S.kind === "pending") await jt(Z, T);
       let R = () => {
         if (!Rt(h)) {
-          if (((mn = !1), Xe && !j && (S.kind === "listening" || S.kind === "pending")))
-            (j = !0), Ct(() => Md(r.emptyAtStartPath ?? null, r.now()));
+          if (((mn = false), Xe && !j && (S.kind === "listening" || S.kind === "pending")))
+            (j = true), Ct(() => Md(r.emptyAtStartPath ?? null, r.now()));
         }
       };
       if (S.kind === "disarmed" && S.reason === "ended" && I?.phase !== "cleared" && I?.phase !== "untouched")
@@ -5784,21 +5784,21 @@ function vs({
       if (Tn !== null) Ct(oi);
       if (S.kind !== "listening" && S.kind !== "armed") {
         if (S.kind === "pending" && Xe && !At && !Rt(h))
-          (At = !0), r.notify(gs), Y("info", "dir_sync_git_empty_start_flag_unread", {});
+          (At = true), r.notify(gs), Y("info", "dir_sync_git_empty_start_flag_unread", {});
         R();
         return;
       }
       let B = Math.max(0, T - (Date.now() - A)),
         z = new AbortController(),
-        F = !1,
+        F = false,
         D = Ct(() =>
           Xn(h ?? new AbortController().signal, z.signal, () => {
-            F = !0;
+            F = true;
           }),
         ),
-        U = !1;
+        U = false;
       D.finally(() => {
-        U = !0;
+        U = true;
       }),
         await Promise.race([jt(D, B), sht(h)]);
       let L = sht(h);
@@ -5837,7 +5837,7 @@ function vs({
     pullPoint: (h, T, A) => {
       let R;
       return Ct(async () => {
-        R = await Ti(h, T, A?.awaitAnnounced === !0, A?.betweenToolCalls === !0);
+        R = await Ti(h, T, A?.awaitAnnounced === true, A?.betweenToolCalls === true);
       }).then(() => {
         if (R !== void 0) {
           if (R?.kind === "applied") Ct(bi);
@@ -5850,7 +5850,7 @@ function vs({
       });
     },
     laptopJournalStaged: () => {
-      xn = !0;
+      xn = true;
       let h = Fe;
       (Fe = []), h.forEach((T) => T());
     },
@@ -5883,10 +5883,10 @@ function vs({
 var zd = [250, 500, 1000, 2000, 4000];
 function Ts(e, t, r, o) {
   if (e === null || e.generation < r) {
-    if (o >= r) return { outcome: { kind: "nothing_new", generation: o }, final: !0 };
+    if (o >= r) return { outcome: { kind: "nothing_new", generation: o }, final: true };
     return t !== null && t >= r
-      ? { outcome: { kind: "failed", reason: "not_taken" }, final: !1 }
-      : { outcome: { kind: "not_seen" }, final: !1 };
+      ? { outcome: { kind: "failed", reason: "not_taken" }, final: false }
+      : { outcome: { kind: "not_seen" }, final: false };
   }
   let l = (u) => {
       let _ = e.fields[u];
@@ -5905,19 +5905,19 @@ function Ts(e, t, r, o) {
           filesTrashed: l("files_trashed"),
           notTaken: l("not_taken"),
         },
-        final: !0,
+        final: true,
       };
     case "already_integrated":
-      return { outcome: { kind: "nothing_new", generation: e.generation }, final: !0 };
+      return { outcome: { kind: "nothing_new", generation: e.generation }, final: true };
     case "skipped":
-      return { outcome: { kind: "skipped", reason: d }, final: !0 };
+      return { outcome: { kind: "skipped", reason: d }, final: true };
     case "not_received":
-      return { outcome: { kind: "failed", reason: "not_received" }, final: e.fields.final === !0 };
+      return { outcome: { kind: "failed", reason: "not_received" }, final: e.fields.final === true };
     case "not_applied":
     case "mismatch":
-      return { outcome: { kind: "failed", reason: d }, final: !0 };
+      return { outcome: { kind: "failed", reason: d }, final: true };
     case "cleared":
-      return { outcome: { kind: "skipped", reason: "sync_ended" }, final: !0 };
+      return { outcome: { kind: "skipped", reason: "sync_ended" }, final: true };
   }
 }
 function Ud(e) {
@@ -5925,7 +5925,7 @@ function Ud(e) {
   if (t === null) return {};
   return {
     setAside: t.flatMap((r) => (typeof r === "string" && Wd.test(r) ? [Buffer.from(r, "hex")] : [])),
-    setAsideTruncated: "setAsideTruncated" in e && e.setAsideTruncated === !0,
+    setAsideTruncated: "setAsideTruncated" in e && e.setAsideTruncated === true,
   };
 }
 var Wd = /^(?:[0-9a-f]{2}){1,1024}$/;
@@ -5948,7 +5948,7 @@ async function Jd(e, t) {
             Y("warn", "dir_sync_manifest_unreachable", { kind: o.errorKind, status: o.status ?? 0 }),
             { kind: "unreachable" }
           );
-        await ne(t.pullRetryDelayMs * 2 ** (r - 1), void 0, { unref: !0 });
+        await ne(t.pullRetryDelayMs * 2 ** (r - 1), void 0, { unref: true });
     }
   }
 }
@@ -5965,33 +5965,33 @@ async function xs(e, t = Vd) {
   try {
     o = await e.enabled();
   } catch {
-    o = !1;
+    o = false;
   }
   if (!o) return r("off");
   let l = Qd(e.onRowStaged ?? gOe.subscribe),
-    d = await Ps(e, t, r, !1);
+    d = await Ps(e, t, r, false);
   return (
     (async () => {
       let u = d;
-      while (u === null) await l.next(), (u = await Ps(e, t, r, !0));
+      while (u === null) await l.next(), (u = await Ps(e, t, r, true));
       l.close();
     })(),
     d
   );
 }
 function Qd(e) {
-  let t = !1,
+  let t = false,
     r = null,
     o = e(() => {
       if (r !== null) {
         let l = r;
         (r = null), l();
-      } else t = !0;
+      } else t = true;
     });
   return {
     next: () =>
       new Promise((l) => {
-        if (t) (t = !1), l();
+        if (t) (t = false), l();
         else r = l;
       }),
     close: o,
@@ -6014,7 +6014,7 @@ async function Ps(e, t, r, o) {
         if (o && d.errorKind === "auth")
           return Y("warn", "dir_sync_manifest_refused_after_stage", { status: d.status }), null;
         if (e.priorWorkerProcess && l < t.maxRefusedAsks) {
-          await ne(t.refusedAskDelayMs, void 0, { unref: !0 });
+          await ne(t.refusedAskDelayMs, void 0, { unref: true });
           continue;
         }
         return (
@@ -6033,7 +6033,7 @@ var Rs = 30000,
     auth: "session-jwt",
     host: "ccr-session",
     headers: { "anthropic-version": "2023-06-01" },
-    validateStatus: () => !0,
+    validateStatus: () => true,
   };
 function As() {
   return a.CLAUDE_CODE_WORKER_EPOCH ?? 0;
@@ -6129,7 +6129,7 @@ async function Os(e, t, r) {
       Y("warn", "dir_sync_direct_request_failed", { call: e, kind: x, status: P }),
       x === "auth"
         ? { kind: "unauthorized" }
-        : { kind: "failed", ...(P !== void 0 && { status: P }), ...(x === "timeout" && { timedOut: !0 }) }
+        : { kind: "failed", ...(P !== void 0 && { status: P }), ...(x === "timeout" && { timedOut: true }) }
     );
   }
   if (!o.ok) return o.reason === "no-auth" ? { kind: "unauthorized" } : { kind: "lane_unavailable" };

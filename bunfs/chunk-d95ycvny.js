@@ -38,7 +38,7 @@ class PW extends Error {
 }
 class AMt {
   constructor(e, t) {
-    (this._hasCompletedAuthFlow = !1),
+    (this._hasCompletedAuthFlow = false),
       (this._url = e),
       (this._resourceMetadataUrl = void 0),
       (this._scope = void 0),
@@ -91,7 +91,7 @@ class AMt {
         if (s.status === 405) return;
         throw new PW(s.status, `Failed to open SSE stream: ${s.statusText}`);
       }
-      this._handleSseStream(s.body, e, !0);
+      this._handleSseStream(s.body, e, true);
     } catch (r) {
       throw (this.onerror?.(r), r);
     }
@@ -121,8 +121,8 @@ class AMt {
     if (!e) return;
     let { onresumptiontoken: s, replayMessageId: a } = t,
       d,
-      n = !1,
-      u = !1;
+      n = false,
+      u = false;
     (async () => {
       try {
         let l = e
@@ -135,16 +135,16 @@ class AMt {
             }),
           )
           .getReader();
-        while (!0) {
+        while (true) {
           let { value: o, done: c } = await l.read();
           if (c) break;
-          if (o.id) (d = o.id), (n = !0), s?.(o.id);
+          if (o.id) (d = o.id), (n = true), s?.(o.id);
           if (!o.data) continue;
           if (!o.event || o.event === "message")
             try {
               let h = hR.parse(JSON.parse(o.data));
               if (Q$(h)) {
-                if (((u = !0), a !== void 0)) h.id = a;
+                if (((u = true), a !== void 0)) h.id = a;
               }
               this.onmessage?.(h);
             } catch (h) {
@@ -227,7 +227,7 @@ class AMt {
             })) !== "AUTHORIZED")
           )
             throw new MA();
-          return (this._hasCompletedAuthFlow = !0), this.send(e);
+          return (this._hasCompletedAuthFlow = true), this.send(e);
         }
         if (n.status === 403 && this._authProvider) {
           let { resourceMetadataUrl: o, scope: c, error: h } = Cxe(n);
@@ -251,7 +251,7 @@ class AMt {
         }
         throw new PW(n.status, `Error POSTing to endpoint: ${i}`);
       }
-      if (((this._hasCompletedAuthFlow = !1), (this._lastUpscopingHeader = void 0), n.status === 202)) {
+      if (((this._hasCompletedAuthFlow = false), (this._lastUpscopingHeader = void 0), n.status === 202)) {
         if ((await n.body?.cancel(), LCn(e)))
           this._startOrAuthSse({ resumptionToken: void 0 }).catch((i) => this.onerror?.(i));
         return;
@@ -259,7 +259,7 @@ class AMt {
       let l = (Array.isArray(e) ? e : [e]).filter((i) => "method" in i && "id" in i && i.id !== void 0).length > 0,
         _ = n.headers.get("content-type");
       if (l)
-        if (_?.includes("text/event-stream")) this._handleSseStream(n.body, { onresumptiontoken: s }, !1);
+        if (_?.includes("text/event-stream")) this._handleSseStream(n.body, { onresumptiontoken: s }, false);
         else if (_?.includes("application/json")) {
           let i = await n.json(),
             o = Array.isArray(i) ? i.map((c) => hR.parse(c)) : [hR.parse(i)];

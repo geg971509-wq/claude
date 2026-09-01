@@ -8,7 +8,7 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var kL = { clipboardRead: !1, clipboardWrite: !1, systemKeyCombos: !1 };
+var kL = { clipboardRead: false, clipboardWrite: false, systemKeyCombos: false };
 function i(e) {
   return e.toLowerCase().split(/[\\/]/).pop() ?? "";
 }

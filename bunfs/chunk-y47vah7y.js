@@ -75,7 +75,7 @@ function b({ prevWallMs: t, prevMonotonicMs: o, nowWallMs: e, nowMonotonicMs: l 
   };
 }
 function T({ write: t, isMonotonicStall: o, prevMonotonicMs: e, nowMonotonicMs: l }) {
-  if (!o || t === void 0 || t.endedMs < e) return { blocked_write: !1 };
+  if (!o || t === void 0 || t.endedMs < e) return { blocked_write: false };
   let a = e + r;
   return {
     blocked_write: t.startedMs <= a + M && t.endedMs >= l - M,
@@ -95,13 +95,13 @@ class S {
   totalMonotonicStallMs = 0;
   tickCount = 0;
   lastResourceSample = null;
-  sigcontSeen = !1;
+  sigcontSeen = false;
   onSigcont = () => {
-    this.sigcontSeen = !0;
+    this.sigcontSeen = true;
   };
   afterTick = (t, o, e, l) => {
     let a = this.sigcontSeen;
-    if (((this.sigcontSeen = !1), !t.isStall || o === null)) return;
+    if (((this.sigcontSeen = false), !t.isStall || o === null)) return;
     n(
       `[event-loop-stall] blocked for ${t.monotonicStallMs}ms monotonic (wall drift ${t.wallDriftMs}ms, clock jump ${t.clockJumpMs}ms, expected ${r}ms). Total stalls: ${this.totalStalls}, cumulative: ${this.totalMonotonicStallMs}ms monotonic / ${this.totalStallDurationMs}ms wall${t.likelySleep ? " [likely sleep/wake]" : ""} blocked_write=${o.blocked_write}` +
         (o.last_write_ms !== void 0 ? ` last_write=${o.last_write_ms}ms/${o.last_write_bytes}B` : "") +

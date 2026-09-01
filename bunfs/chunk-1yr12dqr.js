@@ -24,18 +24,18 @@ function Lf(e) {
 }
 var uoe = `Cannot set permission mode: must be one of ${wO.join(", ")}`,
   uir = {
-    dangerousRemoval: { bypassImmune: !0, classifierRouted: !0 },
-    backgroundOperator: { bypassImmune: !1, classifierRouted: !0 },
-    suspiciousWindowsPath: { bypassImmune: !1, classifierRouted: !0 },
-    isolatePeerMachines: { bypassImmune: !0, classifierRouted: !1 },
-    restrictedMode: { bypassImmune: !0, classifierRouted: !1 },
+    dangerousRemoval: { bypassImmune: true, classifierRouted: true },
+    backgroundOperator: { bypassImmune: false, classifierRouted: true },
+    suspiciousWindowsPath: { bypassImmune: false, classifierRouted: true },
+    isolatePeerMachines: { bypassImmune: true, classifierRouted: false },
+    restrictedMode: { bypassImmune: true, classifierRouted: false },
     ...{},
   };
 function hTt(e) {
-  return e.circuitBreaker !== void 0 && uir[e.circuitBreaker]?.bypassImmune === !0;
+  return e.circuitBreaker !== void 0 && uir[e.circuitBreaker]?.bypassImmune === true;
 }
 function _Tt(e) {
-  return e.circuitBreaker !== void 0 && uir[e.circuitBreaker]?.classifierRouted === !0;
+  return e.circuitBreaker !== void 0 && uir[e.circuitBreaker]?.classifierRouted === true;
 }
 function lAn(e) {
   return e.decideLocation === "pre-ask";
@@ -185,7 +185,7 @@ function bir(e) {
   let o = sd(e.newMode),
     n = o === "plan" && Boolean(e.newUltraplan),
     i = e.rule === "while-latched" ? n : n && sd(e.prevMode) !== "plan" && !e.prevUltraplan;
-  return { permission_mode: o, is_ultraplan_mode: i ? !0 : null };
+  return { permission_mode: o, is_ultraplan_mode: i ? true : null };
 }
 function Tw(e) {
   return Lf(e) ?? "default";

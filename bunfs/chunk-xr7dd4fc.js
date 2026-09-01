@@ -20,9 +20,9 @@ var s = "",
 var u = m(() => f({}).passthrough()),
   Drn = m(() => dt([i(), H(f({ type: i() }).passthrough()), s4()]).describe("MCP tool execution result")),
   rG = kt({
-    isMcp: !0,
+    isMcp: true,
     isOpenWorld() {
-      return !1;
+      return false;
     },
     name: "mcp",
     uiTableKey: qDt,
@@ -53,7 +53,7 @@ var u = m(() => f({}).passthrough()),
       let o = t?.columns;
       if (typeof e === "string") return ik(e, o);
       if (Array.isArray(e)) return e.some((r) => r.type === "text" && ik(r.text, o));
-      return !1;
+      return false;
     },
     mapToolResultToToolResultBlockParam(e, t) {
       return { tool_use_id: t, type: "tool_result", content: iG(e) };

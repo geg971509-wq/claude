@@ -36,7 +36,7 @@ function et(Dt, Nt) {
     {
       paddingLeft: 2,
       flexDirection: "row",
-      children: [e(t, { dimColor: !0, children: "\xB7 " }), e(t, { children: Dt })],
+      children: [e(t, { dimColor: true, children: "\xB7 " }), e(t, { children: Dt })],
     },
     Nt,
   );
@@ -47,7 +47,7 @@ function nt(Pt, _t) {
     {
       paddingLeft: 2,
       flexDirection: "row",
-      children: [e(t, { dimColor: !0, children: "\xB7 " }), e(t, { children: Pt })],
+      children: [e(t, { dimColor: true, children: "\xB7 " }), e(t, { children: Pt })],
     },
     `tail-${_t}`,
   );
@@ -84,7 +84,7 @@ function hn(n, a, l) {
   if (n.length === 0) return { head: [], tail: [], elided: 0 };
   let s = n.map((v) => H(v, a)),
     h = s.reduce((v, G) => v + G, 0),
-    p = Math.max(H(ee(n.length, !0, !1, n.length, n.length), a), H(ee(n.length, !0, !0, n.length, n.length), a));
+    p = Math.max(H(ee(n.length, true, false, n.length, n.length), a), H(ee(n.length, true, true, n.length, n.length), a));
   if (n.length <= q && h <= Math.max(l, p)) return { head: n, tail: [], elided: 0 };
   let c = p,
     m = 0,
@@ -231,12 +231,12 @@ function Oe(bt) {
   if (i[25] !== y || i[26] !== tn || i[27] !== rn || i[28] !== on)
     (Gn = function I() {
       if (!y) {
-        return !1;
+        return false;
       }
       if (tn() || on(C)) {
-        return rn(), !0;
+        return rn(), true;
       }
-      return !1;
+      return false;
     }),
       (i[25] = y),
       (i[26] = tn),
@@ -249,9 +249,9 @@ function Oe(bt) {
   if (i[30] !== We || i[31] !== I)
     (Jn = function Z() {
       if (I()) {
-        return !0;
+        return true;
       }
-      return We?.() === !1;
+      return We?.() === false;
     }),
       (i[30] = We),
       (i[31] = I),
@@ -264,7 +264,7 @@ function Oe(bt) {
       if (I()) {
         return;
       }
-      if (Mt() === !1) kt((At) => ({ epoch: (At?.epoch ?? 0) + 1, focus: Tt }));
+      if (Mt() === false) kt((At) => ({ epoch: (At?.epoch ?? 0) + 1, focus: Tt }));
     }),
       (i[33] = I),
       (i[34] = Wn);
@@ -281,7 +281,7 @@ function Oe(bt) {
   if (i[39] !== x.intro) (we = e(t, { children: x.intro })), (i[39] = x.intro), (i[40] = we);
   else we = i[40];
   let ye;
-  if (i[41] !== x.listLabel) (ye = e(t, { dimColor: !0, children: x.listLabel })), (i[41] = x.listLabel), (i[42] = ye);
+  if (i[41] !== x.listLabel) (ye = e(t, { dimColor: true, children: x.listLabel })), (i[41] = x.listLabel), (i[42] = ye);
   else ye = i[42];
   let be;
   if (i[43] !== T) (be = T.map(et)), (i[43] = T), (i[44] = be);
@@ -309,11 +309,11 @@ function Oe(bt) {
   else xe = i[52];
   let $e;
   if (i[53] !== pe)
-    ($e = pe && e(o, { paddingLeft: 2, children: e(t, { dimColor: !0, children: pe }) })), (i[53] = pe), (i[54] = $e);
+    ($e = pe && e(o, { paddingLeft: 2, children: e(t, { dimColor: true, children: pe }) })), (i[53] = pe), (i[54] = $e);
   else $e = i[54];
   let Ce;
   if (i[55] !== ge)
-    (Ce = ge && e(o, { paddingLeft: 2, children: e(t, { dimColor: !0, children: ge }) })), (i[55] = ge), (i[56] = Ce);
+    (Ce = ge && e(o, { paddingLeft: 2, children: e(t, { dimColor: true, children: ge }) })), (i[55] = ge), (i[56] = Ce);
   else Ce = i[56];
   let Le;
   if (i[57] !== ye || i[58] !== be || i[59] !== ve || i[60] !== xe || i[61] !== $e || i[62] !== Ce)

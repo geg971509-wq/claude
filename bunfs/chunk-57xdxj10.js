@@ -23,12 +23,12 @@ import { ysn } from "/$bunfs/root/chunk-zze8764r.js";
 F();
 F();
 F();
-var c = yn(!1);
+var c = yn(false);
 function a0t(U) {
   let K = _(2),
     { children: h } = U,
     E;
-  if (K[0] !== h) (E = e(c.Provider, { value: !0, children: h })), (K[0] = h), (K[1] = E);
+  if (K[0] !== h) (E = e(c.Provider, { value: true, children: h })), (K[0] = h), (K[1] = E);
   else E = K[1];
   return E;
 }

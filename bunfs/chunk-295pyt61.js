@@ -132,7 +132,7 @@ function GLn(i = [], e) {
 }
 async function zLn(i, e, s) {
   if (gH()) return [];
-  let n = await J_(i, !1, e, s),
+  let n = await J_(i, false, e, s),
     o = uGe(n),
     l = [],
     u = cGe();
@@ -157,7 +157,7 @@ function VLn() {
         label: "Setting sources",
         value: i
           .filter((c) => {
-            if (c === "policySettings" && e.composes !== "none") return !0;
+            if (c === "policySettings" && e.composes !== "none") return true;
             let p = ye(c);
             return p !== null && Object.keys(p).length > 0;
           })
@@ -263,14 +263,14 @@ async function YLn(i) {
     (e.warnings.forEach((l) => {
       s.push(l.issue);
     }),
-    e.hasUpdatePermissions === !1)
+    e.hasUpdatePermissions === false)
   )
     s.push("No write permissions for auto-updates");
   return s;
 }
 function wBe(i) {
   if (!(O() && i !== void 0)) return;
-  return (async () => ({ refreshKnownDead: El() && (await Qk(i)) }))().catch(() => ({ refreshKnownDead: !1 }));
+  return (async () => ({ refreshKnownDead: El() && (await Qk(i)) }))().catch(() => ({ refreshKnownDead: false }));
 }
 function tnt(i) {
   let e = xY();

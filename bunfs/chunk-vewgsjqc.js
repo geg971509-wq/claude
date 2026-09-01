@@ -171,12 +171,12 @@ function H(o, r, e, t) {
   return new Promise((i) => {
     let [l, ...a] = r;
     if (l === void 0) {
-      i({ stdout: "", stderr: "no command", status: null, timedOut: !1 });
+      i({ stdout: "", stderr: "no command", status: null, timedOut: false });
       return;
     }
-    let p = !1,
+    let p = false,
       k = (d) => {
-        if (!p) (p = !0), i(d);
+        if (!p) (p = true), i(d);
       },
       u;
     try {
@@ -184,12 +184,12 @@ function H(o, r, e, t) {
         cwd: o,
         env: { ...q(t.env ?? Na()), CLAUDE_PROJECT_DIR: t.projectDir },
         stdio: ["pipe", "pipe", "pipe"],
-        detached: !0,
-        windowsHide: !0,
+        detached: true,
+        windowsHide: true,
         ...V9e(e.hook_event_name),
       });
     } catch (d) {
-      k({ stdout: "", stderr: d instanceof Error ? d.message : "spawn failed", status: null, timedOut: !1 });
+      k({ stdout: "", stderr: d instanceof Error ? d.message : "spawn failed", status: null, timedOut: false });
       return;
     }
     let f = () => {
@@ -201,12 +201,12 @@ function H(o, r, e, t) {
       },
       m = "",
       y = "",
-      w = !1,
-      g = !1,
-      h = !1,
+      w = false,
+      g = false,
+      h = false,
       D = setTimeout(
         (d) => {
-          (w = !0), d();
+          (w = true), d();
         },
         t.timeoutMs,
         f,
@@ -214,15 +214,15 @@ function H(o, r, e, t) {
       T = () => f();
     if (t.signal !== void 0)
       if (t.signal.aborted) T();
-      else t.signal.addEventListener("abort", T, { once: !0 });
+      else t.signal.addEventListener("abort", T, { once: true });
     let _ = (d, v, M) => {
       if (d.length + v.length > x) M();
       return d.length >= x ? d : (d + v).slice(0, x);
     };
     u.stdout?.setEncoding("utf8"),
       u.stderr?.setEncoding("utf8"),
-      u.stdout?.on("data", (d) => (m = _(m, d, () => (g = !0)))),
-      u.stderr?.on("data", (d) => (y = _(y, d, () => (h = !0)))),
+      u.stdout?.on("data", (d) => (m = _(m, d, () => (g = true)))),
+      u.stderr?.on("data", (d) => (y = _(y, d, () => (h = true)))),
       u.stdin?.on("error", () => {});
     let C = (d, v) => {
       clearTimeout(D),
@@ -252,7 +252,7 @@ function H(o, r, e, t) {
 }
 function A(o) {
   let r = o.stdout.trim();
-  if (o.stdoutTruncated === !0) return { kind: "unreadable" };
+  if (o.stdoutTruncated === true) return { kind: "unreadable" };
   if (!r.startsWith("{")) return r === "" ? { kind: "silent" } : { kind: "unreadable" };
   try {
     let e = l9().safeParse(V(r));
@@ -270,7 +270,7 @@ function Z(o) {
   if (r.kind !== "answer") return {};
   let e = r.answer,
     t = {
-      ...(e.continue === !1 && { continue: !1, ...(e.stopReason !== void 0 && { stopReason: e.stopReason }) }),
+      ...(e.continue === false && { continue: false, ...(e.stopReason !== void 0 && { stopReason: e.stopReason }) }),
       ...(e.decision === "block" && { decision: "block", ...(e.reason !== void 0 && { reason: e.reason }) }),
       ...(e.systemMessage !== void 0 && { systemMessage: e.systemMessage }),
     },
@@ -319,10 +319,10 @@ function ne(o, r, e, t, i, l) {
             projectDir: l(),
             ...(k !== void 0 && { signal: k }),
           })
-        : { stdout: "", stderr: "interpreter no longer trusted", status: null, timedOut: !1 },
+        : { stdout: "", stderr: "interpreter no longer trusted", status: null, timedOut: false },
       y = Z({ ...m, stderr: G8t(m.stderr, 2000).text }),
       { answer: w, report: g } = Wie(y, e.event),
-      h = f ? ee(m, k?.aborted === !0) : "interpreter_untrusted",
+      h = f ? ee(m, k?.aborted === true) : "interpreter_untrusted",
       D = h === "ok" && Gf(w) ? "blocked" : h;
     if (
       (t({ outcome: D, durationMs: Date.now() - u, fieldsDropped: g.dropped.length > 0 || g.truncated.length > 0 }),
@@ -349,9 +349,9 @@ function re(o) {
             let k = p.split("/").filter(Boolean);
             for (let u = 0; u < k.length; u += 1) {
               let f = await S("/" + k.slice(0, u).join("/"));
-              if (!f.isDirectory() || (f.mode & 18) !== 0 || t(f.uid)) return !1;
+              if (!f.isDirectory() || (f.mode & 18) !== 0 || t(f.uid)) return false;
             }
-            return !0;
+            return true;
           };
         if (!(await i(r))) return null;
         let l = await j(r);
@@ -394,7 +394,7 @@ function Re(o) {
     async prepare(a, p, k, u) {
       let f = await i();
       if (f === null) throw Error("no absolute python3 for a device hook template");
-      await I(r, { recursive: !0, mode: 448 }), uY(r);
+      await I(r, { recursive: true, mode: 448 }), uY(r);
       let m = l.get(p);
       if (m !== void 0 && !(await oe(await m.catch(() => null), p, a.maxBytes))) l.delete(p), (m = void 0);
       if (m === void 0)
@@ -436,17 +436,17 @@ function Re(o) {
   };
 }
 async function oe(o, r, e) {
-  if (o === null) return !1;
+  if (o === null) return false;
   let t;
   try {
     t = await J(o, R.O_RDONLY | R.O_NONBLOCK | R.O_NOFOLLOW);
     let i = await t.stat();
-    if (!i.isFile() || i.size > e) return !1;
+    if (!i.isFile() || i.size > e) return false;
     let l = Buffer.alloc(i.size),
       { bytesRead: a } = await t.read(l, 0, i.size, 0);
     return a === i.size && F("sha256").update(l).digest("hex") === r;
   } catch {
-    return !1;
+    return false;
   } finally {
     await t?.close().catch(() => {});
   }

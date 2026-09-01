@@ -336,7 +336,7 @@ function c(e, o, s) {
       break;
     case "read_console_messages":
       if (typeof e.pattern === "string") r.push(`pattern: ${rt(e.pattern, 20)}`);
-      if (e.onlyErrors === !0) r.push("errors only");
+      if (e.onlyErrors === true) r.push("errors only");
       break;
     case "read_network_requests":
       if (typeof e.urlPattern === "string") r.push(`pattern: ${rt(e.urlPattern, 20)}`);

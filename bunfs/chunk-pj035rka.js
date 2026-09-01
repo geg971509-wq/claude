@@ -40,7 +40,7 @@ function le(e) {
   return t;
 }
 function N(e) {
-  if (CO(e) !== void 0) return !0;
+  if (CO(e) !== void 0) return true;
   return (
     iK(e, (t) => {
       let r = E(t);
@@ -158,37 +158,37 @@ function oDt(e, t) {
   );
 }
 function yB() {
-  if (!ef() && !Fht()) return !1;
-  if (x3t() !== void 0) return !1;
-  if (!I("tengu_cobalt_plinth_sorrel", !0)) return !1;
-  if (!ef() && !I("tengu_cobalt_plinth_madder", !0)) return !1;
+  if (!ef() && !Fht()) return false;
+  if (x3t() !== void 0) return false;
+  if (!I("tengu_cobalt_plinth_sorrel", true)) return false;
+  if (!ef() && !I("tengu_cobalt_plinth_madder", true)) return false;
   return _Te();
 }
 function VP(e = null) {
   return yB() && !Z(e);
 }
 function Z(e) {
-  if (!l5e()) return !1;
-  if (e !== null && iDt(e)) return !1;
+  if (!l5e()) return false;
+  if (e !== null && iDt(e)) return false;
   let t = de().frameRelay;
   if (!t.botContextNoted)
-    (t.botContextNoted = !0), g("artifact_frame_relay", "bot_context_not_served", { hosted: ef() });
-  return !0;
+    (t.botContextNoted = true), g("artifact_frame_relay", "bot_context_not_served", { hosted: ef() });
+  return true;
 }
 function d8() {
   return ef() && yB();
 }
 function XBn() {
-  return ef() && I("tengu_cobalt_plinth_fennel", !1) && l5e() && Nht();
+  return ef() && I("tengu_cobalt_plinth_fennel", false) && l5e() && Nht();
 }
 function iDt(e) {
   let t = pe.get(e);
-  return t !== void 0 && ef() && I(t, !1) && qXn();
+  return t !== void 0 && ef() && I(t, false) && qXn();
 }
 function Ax(e) {
   return (de().frameRelay.declinedUntil.get(e) ?? 0) > Date.now();
 }
-function D1(e, t = !1) {
+function D1(e, t = false) {
   let r = de().frameRelay,
     l = Date.now() + C;
   if ((r.declinedUntil.set(e, l), t)) r.hopFailedUntil.set(e, l);
@@ -211,18 +211,18 @@ function xnn(e) {
   de().frameRelay.vouched.delete(e);
 }
 function zhe(e) {
-  if (d8() || !(e === 401 || e === 403 || e === 404)) return !1;
+  if (d8() || !(e === 401 || e === 403 || e === 404)) return false;
   if (hae(US)) {
     if (e !== 404) xnn(US);
-    return !1;
+    return false;
   }
-  return D1(US), !0;
+  return D1(US), true;
 }
 function p8(e) {
   if (d8() || hae(US)) return;
-  if (e === void 0 || e >= 500 || e === 499) D1(US, !0);
+  if (e === void 0 || e >= 500 || e === 499) D1(US, true);
 }
-var K = () => !0;
+var K = () => true;
 function k(e, t, r) {
   de().frameRelay.tunnelDeclinedUntil.set(e, Date.now() + C),
     g("artifact_frame_relay", "tunnel_declined", { family: e, cause: c(t), status: r });
@@ -237,8 +237,8 @@ async function sDt(e, t, r, l, s) {
     let R = 0;
     try {
       let i = await v(e, t, r, { ...l, host: "frame", auth: "none", frameTunnel: f, maxRedirects: 0 });
-      if (!i.ok || Vhe(i)) return { res: i, tunnelled: !0 };
-      if (((R = i.status), R >= 500 || R === 499)) return k(s, "hop_failed", R), { res: i, tunnelled: !0 };
+      if (!i.ok || Vhe(i)) return { res: i, tunnelled: true };
+      if (((R = i.status), R >= 500 || R === 499)) return k(s, "hop_failed", R), { res: i, tunnelled: true };
     } catch (i) {
       if (sa(i)) throw i;
       if (!N(i)) {
@@ -250,7 +250,7 @@ async function sDt(e, t, r, l, s) {
   }
   return {
     res: await v(e, GXn(t), r, { ...l, host: "ccr-gateway", auth: "session-jwt", maxRedirects: 0 }),
-    tunnelled: !1,
+    tunnelled: false,
   };
 }
 function v(e, t, r, l) {
@@ -284,13 +284,13 @@ function te(e, t, r) {
     u = s ? oDt(e, t) : null;
   if (s && Z(u))
     return r === "only" && ef()
-      ? { leg: "not-served", relaying: !1, family: null }
-      : { leg: "direct", relaying: !1, family: null };
+      ? { leg: "not-served", relaying: false, family: null }
+      : { leg: "direct", relaying: false, family: null };
   let f = s;
   if (u === null) return { leg: l && ef() && f ? "unsent" : "direct", relaying: f, family: u };
   if (Ax(u) && (r === "fallback" || (r === "bound" && !ne(u)) || (!ef() && knn(u))))
     return { leg: "direct", relaying: f, family: u };
-  return { leg: "relay", relaying: !0, family: u };
+  return { leg: "relay", relaying: true, family: u };
 }
 function ne(e) {
   return ef() && (e === null || !iDt(e));
@@ -301,7 +301,7 @@ function YBn(e, t) {
 async function _(e, t, r, l, s = "fallback") {
   let u = s === "only" ? ef() : s === "bound" && ne(oDt(e, t)),
     { relayProbe: f, ...F } = l,
-    R = async () => ({ ...(await W(e, t, r, F)), route: "direct", fromFrame: !0 }),
+    R = async () => ({ ...(await W(e, t, r, F)), route: "direct", fromFrame: true }),
     i = te(e, t, s),
     re = i.relaying && !ef(),
     S = (o, T) => (
@@ -310,13 +310,13 @@ async function _(e, t, r, l, s = "fallback") {
         status: o,
         probed: T,
       }),
-      { ok: !1, reason: "relay-unavailable", status: o, route: "relay", fromFrame: !1 }
+      { ok: false, reason: "relay-unavailable", status: o, route: "relay", fromFrame: false }
     );
-  if (i.leg === "not-served") return { ok: !1, reason: "relay-not-served", status: 0, route: "relay", fromFrame: !1 };
-  if (i.leg !== "relay") return i.leg === "unsent" ? S(0, !1) : R();
+  if (i.leg === "not-served") return { ok: false, reason: "relay-not-served", status: 0, route: "relay", fromFrame: false };
+  if (i.leg !== "relay") return i.leg === "unsent" ? S(0, false) : R();
   let { family: d } = i,
-    x = !1,
-    O = () => ({ ...(re && { runner: !0 }), ...(x && { tunnel: !0 }) }),
+    x = false,
+    O = () => ({ ...(re && { runner: true }), ...(x && { tunnel: true }) }),
     { refreshOAuth: Re, isBackground: Te, credentials: he, ...L } = F,
     D = async (o, T, P, b) => {
       let B = await sDt(o, T, P, { ...b, headers: ye(b.headers), validateStatus: K }, d);
@@ -327,7 +327,7 @@ async function _(e, t, r, l, s = "fallback") {
       let P;
       try {
         let b = await W(e, t, r, F);
-        return (P = b.ok ? b.status : void 0), { ...b, route: "direct", fromFrame: !0, gatewayDeclined: o };
+        return (P = b.ok ? b.status : void 0), { ...b, route: "direct", fromFrame: true, gatewayDeclined: o };
       } finally {
         g("artifact_frame_relay", "relay_unavailable", {
           family: d,
@@ -344,11 +344,11 @@ async function _(e, t, r, l, s = "fallback") {
       o = await D("GET", f, void 0, { signal: L.signal, timeout: fe, maxContentLength: ce });
     } catch (T) {
       if (sa(T)) throw T;
-      return (x = j(T)), A(0, !0);
+      return (x = j(T)), A(0, true);
     }
-    if (!o.ok) return u ? S(0, !0) : R();
-    if (M(o) || (!Vhe(o) && (o.status >= 500 || o.status === 499))) return A(o.status, !0);
-    if (!Vhe(o) && o.status >= 300) return u ? S(o.status, !0) : R();
+    if (!o.ok) return u ? S(0, true) : R();
+    if (M(o) || (!Vhe(o) && (o.status >= 500 || o.status === 499))) return A(o.status, true);
+    if (!Vhe(o) && o.status >= 300) return u ? S(o.status, true) : R();
     Kq(d);
   }
   let m;
@@ -356,9 +356,9 @@ async function _(e, t, r, l, s = "fallback") {
     m = await D(e, t, r, L);
   } catch (o) {
     if (!sa(o)) {
-      if (((x = j(o)), CO(o) !== void 0)) return A(0, !1);
+      if (((x = j(o)), CO(o) !== void 0)) return A(0, false);
       if (
-        (D1(d, !0),
+        (D1(d, true),
         p("artifact_frame_relay", "request_error", { family: d, ...O() }),
         typeof o === "object" && o !== null)
       )
@@ -366,13 +366,13 @@ async function _(e, t, r, l, s = "fallback") {
     }
     throw o;
   }
-  if (!m.ok) return u ? S(0, !1) : R();
-  if (M(m)) return A(m.status, !1);
+  if (!m.ok) return u ? S(0, false) : R();
+  if (M(m)) return A(m.status, false);
   let U = Vhe(m),
     Y = U || m.status < 300;
   if (Y) Kq(d), y("artifact_frame_relay", { family: d, status: m.status, upstream: U, ...O() });
   else if (m.status >= 500 || m.status === 499)
-    D1(d, !0), p("artifact_frame_relay", "relay_error", { family: d, status: m.status, ...O() });
+    D1(d, true), p("artifact_frame_relay", "relay_error", { family: d, status: m.status, ...O() });
   else g("artifact_frame_relay", "relay_refused", { family: d, status: m.status, ...O() });
   return { ...m, route: "relay", fromFrame: Y };
 }

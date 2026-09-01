@@ -47,11 +47,11 @@ function gMe(e) {
   };
 }
 function M9t(e) {
-  return e !== null && typeof e === "object" && "terminal" in e && e.terminal === !0;
+  return e !== null && typeof e === "object" && "terminal" in e && e.terminal === true;
 }
 function Kyr(e) {
   if (e === null || typeof e !== "object" || !("error" in e) || e.error === null || typeof e.error !== "object")
-    return !1;
+    return false;
   let r = e.error,
     i = "type" in r ? r.type : void 0,
     c = "resource_type" in r ? r.resource_type : void 0,
@@ -80,7 +80,7 @@ async function N9t(e, r, i, c, u, f, m, p, o, t, g) {
         n(`[code-session] ${y.warnMessage}`);
       }
     } else if (t) t.lastKey = null;
-    if (C.length > 0 || R.length > 0) (s.sources = C), (s.outcomes = R), (s.reuse_outcome_branches = !0);
+    if (C.length > 0 || R.length > 0) (s.sources = C), (s.outcomes = R), (s.reuse_outcome_branches = true);
   }
   let a;
   try {
@@ -96,14 +96,14 @@ async function N9t(e, r, i, c, u, f, m, p, o, t, g) {
     let h = $m(a.data);
     if ((n(`[code-session] Session create failed ${a.status}${h ? `: ${h}` : ""}`), a.status === 401)) g?.();
     if (a.status >= 400 && a.status < 500 && Kyr(a.data))
-      return { terminal: !0, reason: "grouping_rejected", status: a.status, detail: h };
+      return { terminal: true, reason: "grouping_rejected", status: a.status, detail: h };
     switch (w(a.status)) {
       case "oauth_rejected":
-        return { terminal: !1, reason: "oauth_rejected" };
+        return { terminal: false, reason: "oauth_rejected" };
       case "transient":
         return null;
       case "rejected":
-        return { terminal: !0, reason: "request_rejected", status: a.status, detail: h };
+        return { terminal: true, reason: "request_rejected", status: a.status, detail: h };
     }
   }
   let _ = a.data;
@@ -119,15 +119,15 @@ async function N9t(e, r, i, c, u, f, m, p, o, t, g) {
   )
     return (
       n(`[code-session] No session.id (cse_*) in response: ${b(_).slice(0, 200)}`),
-      { terminal: !0, reason: "malformed_response", status: a.status, detail: void 0 }
+      { terminal: true, reason: "malformed_response", status: a.status, detail: void 0 }
     );
   return _.session.id;
 }
 function v3(e) {
-  return e !== null && "terminal" in e && e.terminal === !0;
+  return e !== null && "terminal" in e && e.terminal === true;
 }
 function tO(e) {
-  return typeof e === "object" && e !== null && "terminal" in e && e.terminal === !1;
+  return typeof e === "object" && e !== null && "terminal" in e && e.terminal === false;
 }
 function S6(e, r) {
   if (
@@ -146,7 +146,7 @@ function S6(e, r) {
   return;
 }
 async function F9t(e, r, i, c, u, f) {
-  if (!v(e, "/bridge")) return { terminal: !0, reason: "invalid_session_id" };
+  if (!v(e, "/bridge")) return { terminal: true, reason: "invalid_session_id" };
   let m = `${r}/v1/code/sessions/${e}/bridge`,
     p = gMe(i);
   if (u) p["X-Trusted-Device-Token"] = u;
@@ -162,16 +162,16 @@ async function F9t(e, r, i, c, u, f) {
     let a;
     if (o.status === 403) {
       let _ = S6(o.data, s);
-      if (_) return { terminal: !0, reason: _ };
+      if (_) return { terminal: true, reason: _ };
       (a = w8e((h) => o.headers?.[h])), n(`[code-session] /bridge 403 source=${a}`);
     }
     switch (w(o.status)) {
       case "oauth_rejected":
-        return { terminal: !1, reason: "oauth_rejected" };
+        return { terminal: false, reason: "oauth_rejected" };
       case "transient":
         return null;
       case "rejected":
-        return { terminal: !0, reason: "request_rejected", status: o.status, ...(a && { source: a }) };
+        return { terminal: true, reason: "request_rejected", status: o.status, ...(a && { source: a }) };
     }
   }
   let t = o.data;
@@ -190,14 +190,14 @@ async function F9t(e, r, i, c, u, f) {
       n(
         `[code-session] /bridge response malformed (need worker_jwt, expires_in, api_base_url, worker_epoch): ${b(t).slice(0, 200)}`,
       ),
-      { terminal: !0, reason: "malformed_response", status: 200 }
+      { terminal: true, reason: "malformed_response", status: 200 }
     );
   let g = t.worker_epoch,
     d = typeof g === "string" ? Number(g) : g;
   if (typeof d !== "number" || !Number.isFinite(d) || !Number.isSafeInteger(d))
     return (
       n(`[code-session] /bridge worker_epoch invalid: ${b(g)}`),
-      { terminal: !0, reason: "malformed_response", status: 200 }
+      { terminal: true, reason: "malformed_response", status: 200 }
     );
   return {
     worker_jwt: t.worker_jwt,
@@ -209,9 +209,9 @@ async function F9t(e, r, i, c, u, f) {
 }
 function v(e, r) {
   try {
-    return wm(e, "sessionId"), !0;
+    return wm(e, "sessionId"), true;
   } catch (i) {
-    return n(`[code-session] ${r}: ${l(i)}`), !1;
+    return n(`[code-session] ${r}: ${l(i)}`), false;
   }
 }
 function S(e, r, i, c, u, f = "") {
@@ -259,7 +259,7 @@ async function lRr(e, r, i, c, u, f) {
   let m = S("Update", e, r, i, f);
   if (!m) return "invalid";
   let { url: p, headers: o, id: t } = m,
-    g = { headers: o, timeout: u, validateStatus: () => !0 };
+    g = { headers: o, timeout: u, validateStatus: () => true };
   try {
     let d = f.useV2 ? await st.put(p, c, g) : await st.patch(p, c, g);
     if (d.status !== 200) {
@@ -286,7 +286,7 @@ async function x(e, r, i, c, u, f, m, p) {
   if (!o) return "invalid";
   let { url: t, headers: g, id: d } = o;
   try {
-    let s = await st.post(t, {}, { headers: g, timeout: f, validateStatus: () => !0 });
+    let s = await st.post(t, {}, { headers: g, timeout: f, validateStatus: () => true });
     if ((n(`[code-session] ${e} ${d} status=${s.status}`), s.status === 403)) {
       let a = S6(s.data, $m(s.data));
       if (a === "untrusted_device") return a;

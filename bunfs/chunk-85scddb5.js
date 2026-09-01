@@ -244,7 +244,7 @@ function E(xe) {
 function ke(a) {
   if (a.error)
     return e(Pe, {
-      children: r(t, { color: "error", children: [e(tt, { status: "error", withSpace: !0 }), wr(a.error)] }),
+      children: r(t, { color: "error", children: [e(tt, { status: "error", withSpace: true }), wr(a.error)] }),
     });
   if (a.status === "remote_launched")
     return e(Pe, {
@@ -253,12 +253,12 @@ function ke(a) {
         children: [
           r(t, {
             children: [
-              e(t, { dimColor: !0, children: "Running in cloud session \xB7 " }),
+              e(t, { dimColor: true, children: "Running in cloud session \xB7 " }),
               e(t, { color: "suggestion", children: a.sessionUrl }),
             ],
           }),
           a.warning
-            ? r(t, { color: "warning", children: [e(tt, { status: "warning", withSpace: !0 }), a.warning] })
+            ? r(t, { color: "warning", children: [e(tt, { status: "warning", withSpace: true }), a.warning] })
             : null,
         ],
       }),
@@ -285,7 +285,7 @@ function K(Ce) {
     let Y = n.status === "killed";
     const I = X || Y ? "error" : "success";
     let y;
-    if (c[5] !== I) (y = e(tt, { status: I, withSpace: !0 })), (c[5] = I), (c[6] = y);
+    if (c[5] !== I) (y = e(tt, { status: I, withSpace: true })), (c[5] = I), (c[6] = y);
     else y = c[6];
     const B = X ? "Failed" : Y ? "Stopped" : "Completed";
     const D = Q && ` in ${Q}`;
@@ -299,7 +299,7 @@ function K(Ce) {
     else b = c[10];
     let O;
     if (c[11] !== B || c[12] !== D || c[13] !== S || c[14] !== b)
-      (O = r(t, { dimColor: !0, children: [B, D, S, b] })),
+      (O = r(t, { dimColor: true, children: [B, D, S, b] })),
         (c[11] = B),
         (c[12] = D),
         (c[13] = S),
@@ -318,9 +318,9 @@ function K(Ce) {
       (m = e(Pe, {
         children: r(t, {
           children: [
-            e(t, { dimColor: !0, children: "Running in background \xB7 " }),
+            e(t, { dimColor: true, children: "Running in background \xB7 " }),
             e(t, { color: "suggestion", children: "/workflows" }),
-            e(t, { dimColor: !0, children: " to monitor and save" }),
+            e(t, { dimColor: true, children: " to monitor and save" }),
             e(W, {}),
           ],
         }),
@@ -335,7 +335,7 @@ function K(Ce) {
       children: r(t, {
         children: [
           e(t, { color: "suggestion", children: "/workflows" }),
-          e(t, { dimColor: !0, children: " to view dynamic workflow runs" }),
+          e(t, { dimColor: true, children: " to view dynamic workflow runs" }),
         ],
       }),
     })),
@@ -356,9 +356,9 @@ function W() {
   if (H[1] === d)
     (te = r(U, {
       children: [
-        r(t, { dimColor: !0, children: [" \xB7 ", oe, " size ("] }),
+        r(t, { dimColor: true, children: [" \xB7 ", oe, " size ("] }),
         e(t, { color: "suggestion", children: "/config" }),
-        e(t, { dimColor: !0, children: ")" }),
+        e(t, { dimColor: true, children: ")" }),
       ],
     })),
       (H[1] = te);
@@ -366,6 +366,6 @@ function W() {
   return te;
 }
 function Te() {
-  return e(Pe, { children: e(t, { dimColor: !0, children: "Dynamic workflow cancelled" }) });
+  return e(Pe, { children: e(t, { dimColor: true, children: "Dynamic workflow cancelled" }) });
 }
 export { ke as renderToolResultMessage, we as renderToolUseProgressMessage, Te as renderToolUseRejectedMessage };

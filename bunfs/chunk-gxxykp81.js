@@ -68,8 +68,8 @@ function BOn(e) {
     oauth_token: e.oauthToken,
     tools: e.tools,
     rtb_protocol_version: d,
-    hb_capable: !0,
-    cancel_capable: !0,
+    hb_capable: true,
+    cancel_capable: true,
     ...(n && { device_id: e.deviceId }),
     ...(n && e.sessionId !== void 0 && e.sessionId !== "" && { session_id: e.sessionId }),
   };
@@ -131,7 +131,7 @@ function jOn(e) {
 }
 function k(e, n) {
   let o = typeof e === "number" && Number.isInteger(e) && e >= 0 ? e : 0;
-  return Math.max(o, n === !0 ? 1 : 0);
+  return Math.max(o, n === true ? 1 : 0);
 }
 function y(e) {
   let n = typeof e === "object" && e !== null && !Array.isArray(e) ? e : {};

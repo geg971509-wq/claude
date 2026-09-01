@@ -29,9 +29,9 @@ function c() {
 var u = "-----BEGIN ";
 function T(e) {
   let t = e.lastIndexOf(u);
-  if (t === -1) return !1;
+  if (t === -1) return false;
   let r = e.indexOf("-----", t + u.length);
-  if (r === -1) return !1;
+  if (r === -1) return false;
   let o = e.slice(t + u.length, r);
   return e.includes(`-----END ${o}-----`, r);
 }
@@ -41,24 +41,24 @@ function P(e, t) {
   try {
     r = _({ key: t, ...(a.CLAUDE_CODE_CLIENT_KEY_PASSPHRASE && { passphrase: a.CLAUDE_CODE_CLIENT_KEY_PASSPHRASE }) });
   } catch {
-    return !1;
+    return false;
   }
-  let o = !1,
-    i = !1;
+  let o = false,
+    i = false;
   for (let l of e.match(uGt) ?? [])
     try {
-      if (new y(l).checkPrivateKey(r)) return !1;
-      o = !0;
+      if (new y(l).checkPrivateKey(r)) return false;
+      o = true;
     } catch {
-      i = !0;
+      i = true;
     }
   return o && !i;
 }
 var m = 1048576;
 function S(e, t) {
   if (!e.isFile() || e.size > m)
-    return n(`mTLS: Ignoring ${t} \u2014 not a regular file or over ${m} bytes`, { level: "error" }), !1;
-  return !0;
+    return n(`mTLS: Ignoring ${t} \u2014 not a regular file or over ${m} bytes`, { level: "error" }), false;
+  return true;
 }
 function E(e, t) {
   try {
@@ -134,7 +134,7 @@ function VAn() {
   if (e.agentCache && e.agentCache.config === t && e.agentCache.ca === r) return e.agentCache.agent;
   let o;
   if (t || r) {
-    let i = { ...t, ...(r && { ca: r }), keepAlive: !0 };
+    let i = { ...t, ...(r && { ca: r }), keepAlive: true };
     n("mTLS: Creating HTTPS agent with custom certificates"), (o = new A(i));
   }
   return (e.agentCache = { config: t, ca: r, agent: o }), o;

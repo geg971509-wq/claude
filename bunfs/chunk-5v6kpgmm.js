@@ -61,7 +61,7 @@ var ze = 120000,
   Je = 500,
   axt = 600000,
   Qe = new Set(["worktree"]);
-function xe(e, t = !1) {
+function xe(e, t = false) {
   let n,
     r,
     i = 0,
@@ -92,16 +92,16 @@ var et = 1000;
 function tt(e, t, n) {
   if (e.active) return;
   if (t.display?.sideband) {
-    e.active = !0;
+    e.active = true;
     return;
   }
   if (t.remoteLines === 0) return;
   if (e.firstRemoteLineAt === void 0) e.firstRemoteLineAt = n;
-  else if (n - e.firstRemoteLineAt >= et) e.active = !0;
+  else if (n - e.firstRemoteLineAt >= et) e.active = true;
 }
 function nt(e, t) {
-  if (e === void 0) return !0;
-  if (t.label !== e.label) return !0;
+  if (e === void 0) return true;
+  if (t.label !== e.label) return true;
   if (t.done !== void 0 && e.done !== void 0) return t.done > e.done || (t.bytes ?? 0) > (e.bytes ?? 0);
   return t.pct > e.pct;
 }
@@ -143,7 +143,7 @@ function dt(e) {
 `)
     .some((t) => {
       let n = t.indexOf("Operation too slow");
-      if (n === -1) return !1;
+      if (n === -1) return false;
       let r = t.slice(0, n);
       return !/\bremote(?: error)?: /.test(r) && /curl 28\b|unable to access '[^']*': $/.test(r);
     });
@@ -185,9 +185,9 @@ async function g1n(e) {
       baseDir: t,
       source: m,
       targetBranch: T.get(m.repo),
-      skipValidation: i ?? !1,
-      alwaysFetch: s ?? !1,
-      skipReset: u ?? !0,
+      skipValidation: i ?? false,
+      alwaysFetch: s ?? false,
+      skipReset: u ?? true,
       onDebug: c,
       onPhase: w,
       onProgress: P,
@@ -260,8 +260,8 @@ async function pt(e) {
     if (await $t(o, n.ref))
       c(`[byoc:git] Ref ${n.ref} resolves locally, skipping fetch`),
         await g(o, o.repoPath, ["checkout", "--progress", "--force", n.ref]);
-    else await de(o, n.ref, !1, f);
-  } else await de(o, n.ref, !1, f);
+    else await de(o, n.ref, false, f);
+  } else await de(o, n.ref, false, f);
   if (r) await Pt(o, r, f);
   return c(`[byoc:git] Ready: ${n.repo} (${Date.now() - d}ms)`), { repoExisted: f };
 }
@@ -284,7 +284,7 @@ async function ht(e) {
     if (r > 0) {
       let i = t * (1 << (r - 1));
       e.onDebug(`[byoc:git] Validation retry ${r + 1}/${ue}, backing off ${Math.round(i)}ms`),
-        await ne(i, e.signal, { throwOnAbort: !0 });
+        await ne(i, e.signal, { throwOnAbort: true });
     }
     try {
       if ((await g(e, "", ["ls-remote", "--heads", e.authURL, "HEAD"]), r > 0))
@@ -309,19 +309,19 @@ async function mt(e, t) {
       ]).catch(() => {}),
       await $e(e),
       e.onDebug(`[byoc:git] Prefetched repo found at ${e.repoPath}`),
-      !0
+      true
     );
   } catch {}
   return (
     e.onDebug(`[byoc:git] No prefetched repo, fresh init at ${e.repoPath}`),
-    await cu(Ue(t, { recursive: !0 }), st, `[runner:stuck] mkdir ${t} (check NFS/CSI mount health)`),
+    await cu(Ue(t, { recursive: true }), st, `[runner:stuck] mkdir ${t} (check NFS/CSI mount health)`),
     await g(e, "", ["init", e.repoPath]),
     await g(e, e.repoPath, ["config", "gc.auto", "0"]).catch(() => {}),
     await g(e, e.repoPath, ["remote", "add", "origin", e.authURL]).catch(() =>
       g(e, e.repoPath, ["remote", "set-url", "origin", e.authURL]),
     ),
     await $e(e),
-    !1
+    false
   );
 }
 async function $e(e) {
@@ -342,12 +342,12 @@ async function de(e, t, n, r, i, s) {
       !n &&
       ft() &&
       (await g(e, e.repoPath, ["rev-parse", "--verify", "--quiet", "HEAD^{commit}"]).then(
-        () => !0,
-        () => !1,
+        () => true,
+        () => false,
       )),
-    P = !1;
+    P = false;
   {
-    let f = !1,
+    let f = false,
       k = await Oe(e, c, async () => ((f = await kt(e)), !f), r && ve());
     if (f) {
       e.onDebug("[byoc:git] Repository is empty, skipping checkout");
@@ -574,9 +574,9 @@ async function _t(e, { base: t, target: n }) {
   }
 }
 function Et(e) {
-  if (e.length === 0 || Ke(e) || e.includes("\\")) return !1;
+  if (e.length === 0 || Ke(e) || e.includes("\\")) return false;
   let t = e.split("/");
-  if (t.some((n) => n === "" || n === "." || n === "..")) return !1;
+  if (t.some((n) => n === "" || n === "." || n === "..")) return false;
   return t[0].toLowerCase() !== ".git";
 }
 function St(e, t) {
@@ -586,7 +586,7 @@ function St(e, t) {
   return n;
 }
 var Tt = (e, t, n, r, i) => g(e, e.repoPath, t, n, r, i);
-async function Oe(e, t, n, r = !1, i = Tt) {
+async function Oe(e, t, n, r = false, i = Tt) {
   let s = Date.now(),
     u = 4000 + Math.random() * 4000,
     c = r && ut(),
@@ -606,7 +606,7 @@ async function Oe(e, t, n, r = !1, i = Tt) {
     if (o > 0) {
       let A = u * (1 << (o - 1));
       e.onDebug(`[byoc:git] Fetch retry ${o + 1}/${V}, backing off ${Math.round(A)}ms`),
-        await ne(A, e.signal, { throwOnAbort: !0 });
+        await ne(A, e.signal, { throwOnAbort: true });
     }
     let f = ["-c", "gc.auto=0", "-c", "maintenance.auto=false", ...St(o, r), ...t],
       Y = o === V - 1 || (c && o === K - 1 && w === K - 1) ? { ...process.env, GIT_TRACE_PACKET: "1" } : void 0,
@@ -614,7 +614,7 @@ async function Oe(e, t, n, r = !1, i = Tt) {
     try {
       let A = le - (Date.now() - s);
       if ((await i(e, f, Y, Math.max(1, A), R), o > 0)) e.onDebug(`[byoc:git] Fetch succeeded on attempt ${o + 1}`);
-      return M(e, "fetch", Date.now() - s, { attempts: String(o + 1), ..._(R), ...m() }), !0;
+      return M(e, "fetch", Date.now() - s, { attempts: String(o + 1), ..._(R), ...m() }), true;
     } catch (A) {
       P = A;
       let D = L(A);
@@ -636,7 +636,7 @@ async function Oe(e, t, n, r = !1, i = Tt) {
           M(e, "fetch", Date.now() - s, { attempts: String(o + 1), hard_cap: "true", ..._(), ...m() }),
           Error(`git fetch failed (cumulative hard cap after ${o + 1} attempts): ${D}`))
         );
-      if (n && Ort(D) && !(await n())) return !1;
+      if (n && Ort(D) && !(await n())) return false;
       if (Ort(D))
         throw (
           (e.onDebug(
@@ -681,21 +681,21 @@ async function Le(e, t) {
   try {
     return (await g(e, e.repoPath, ["ls-remote", "--heads", e.authURL, `refs/heads/${t}`])).trim().length > 0;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function $t(e, t) {
   try {
-    return await g(e, e.repoPath, ["rev-parse", "--verify", "--quiet", t]), !0;
+    return await g(e, e.repoPath, ["rev-parse", "--verify", "--quiet", t]), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function kt(e) {
   try {
     return (await g(e, e.repoPath, ["ls-remote", "--symref", e.authURL, "HEAD"])).trim() === "";
   } catch {
-    return !1;
+    return false;
   }
 }
 var Lrt = "SHR_GIT_PROXY_TOKEN",
@@ -764,14 +764,14 @@ async function g(e, t, n, r, i = le, s) {
     f,
     k,
     Y = Date.now(),
-    R = !1,
-    A = { active: !1 },
+    R = false,
+    A = { active: false },
     D = Date.now();
   try {
     return await new Promise((I, H) => {
       let C = Fe("git", h, {
           cwd: t || void 0,
-          windowsHide: !0,
+          windowsHide: true,
           ...qi("helper"),
           env: l,
           stdio: ["ignore", "pipe", "pipe"],
@@ -781,7 +781,7 @@ async function g(e, t, n, r, i = le, s) {
         X = 0,
         x = [],
         U = "",
-        he = !1,
+        he = false,
         me = 0,
         ee = -1,
         be,
@@ -789,7 +789,7 @@ async function g(e, t, n, r, i = le, s) {
           if (typeof S === "object" && "unref" in S) S.unref();
           return S;
         },
-        W = !1,
+        W = false,
         re,
         ye = (S) => {
           if (f === void 0) f = S;
@@ -799,7 +799,7 @@ async function g(e, t, n, r, i = le, s) {
                 if (W) return;
                 C.kill("SIGKILL"),
                   (f = "escalated"),
-                  (W = !0),
+                  (W = true),
                   H(
                     Object.assign(Error("git did not exit after SIGTERM"), {
                       stdout: Buffer.concat(x).toString("utf8"),
@@ -813,21 +813,21 @@ async function g(e, t, n, r, i = le, s) {
         j = oe();
       C.stdout.on("data", (S) => {
         if (X < 10485760) x.push(S), (X += S.length);
-        else if (s) s.stdoutTruncated = !0;
+        else if (s) s.stdoutTruncated = true;
       }),
         C.stderr.on("data", (S) => {
           let O = S.toString("utf8"),
             B = U + O;
-          if (B.length > 8192) R = !0;
+          if (B.length > 8192) R = true;
           U = B.slice(-8192);
           let Z = xe(O, he),
             { display: v, client: N } = Z;
           if (O.length > 0) he = !/[\r\n]$/.test(O);
           if (s !== void 0) {
-            if ((tt(A, Z, Date.now()), A.active)) s.sawRemoteActivity = !0;
+            if ((tt(A, Z, Date.now()), A.active)) s.sawRemoteActivity = true;
           }
           if (N) {
-            if (s !== void 0) s.sawClientProgress = !0;
+            if (s !== void 0) s.sawClientProgress = true;
             if (o < Se && rt(N)) (o = Se), clearTimeout(j), (j = oe());
             if (nt(k, N)) (Y = Date.now()), clearTimeout(j), (j = oe());
             if (((k = N), s !== void 0 && N.bytes !== void 0 && N.label === Xe && N.bytes > (s.transferBytes ?? -1)))
@@ -851,7 +851,7 @@ async function g(e, t, n, r, i = le, s) {
             (re ??= te(
               setTimeout(() => {
                 if (W) return;
-                C.kill("SIGKILL"), (W = !0);
+                C.kill("SIGKILL"), (W = true);
                 let S = Error("The operation was aborted");
                 (S.name = "AbortError"), H(Object.assign(S, { stderr: U }));
               }, ae),
@@ -859,14 +859,14 @@ async function g(e, t, n, r, i = le, s) {
         else ye("hard-cap");
       };
       if (d.aborted) ie();
-      else d.addEventListener("abort", ie, { once: !0 });
+      else d.addEventListener("abort", ie, { once: true });
       let se;
       C.on("error", (S) => {
         se = S;
       }),
         C.on("close", (S, O) => {
           if (W) return;
-          (W = !0), clearTimeout(j), clearTimeout(re), d.removeEventListener("abort", ie);
+          (W = true), clearTimeout(j), clearTimeout(re), d.removeEventListener("abort", ie);
           let B = Buffer.concat(x).toString("utf8");
           if (e.signal?.aborted && f === void 0) {
             let v = Error("The operation was aborted");
@@ -924,7 +924,7 @@ function Dt(e, t) {
     (i = () => {
       clearTimeout(r), n.abort();
     }),
-      e.addEventListener("abort", i, { once: !0 });
+      e.addEventListener("abort", i, { once: true });
   }
   n.signal.addEventListener("abort", () => clearTimeout(r));
   let s = () => {
@@ -1006,7 +1006,7 @@ async function _1n(e) {
       ? `[byoc:git] Worktree ${n} at wrong commit ${w.slice(0, 12)}, clearing before re-add`
       : `[byoc:git] Clearing ${n} before worktree add`,
   ),
-    await cu(Be(n, { recursive: !0, force: !0 }), axt, `[runner:stuck] rm ${n} (check NFS/CSI mount health)`).catch(
+    await cu(Be(n, { recursive: true, force: true }), axt, `[runner:stuck] rm ${n} (check NFS/CSI mount health)`).catch(
       (h) => {
         i(`[byoc:git] rm ${n} failed (continuing): ${h}`);
       },

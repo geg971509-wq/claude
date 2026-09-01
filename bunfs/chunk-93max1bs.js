@@ -24,8 +24,8 @@ var y = S(function (v, I) {
     else if (t.FORCE_COLOR === "false") i = 0;
     else i = t.FORCE_COLOR.length === 0 ? 1 : Math.min(parseInt(t.FORCE_COLOR, 10), 3);
   function E(r) {
-    if (r === 0) return !1;
-    return { level: r, hasBasic: !0, has256: r >= 2, has16m: r >= 3 };
+    if (r === 0) return false;
+    return { level: r, hasBasic: true, has256: r >= 2, has16m: r >= 3 };
   }
   function T(r, n) {
     if (i === 0) return 0;
@@ -62,7 +62,7 @@ var y = S(function (v, I) {
     let n = T(r, r && r.isTTY);
     return E(n);
   }
-  I.exports = { supportsColor: A, stdout: E(T(!0, d.isatty(1))), stderr: E(T(!0, d.isatty(2))) };
+  I.exports = { supportsColor: A, stdout: E(T(true, d.isatty(1))), stderr: E(T(true, d.isatty(2))) };
 });
 var _ = S(function (H, M) {
   var N = y(),
@@ -87,14 +87,14 @@ var _ = S(function (H, M) {
       TERM: R,
     } = process.env;
     if (e) return !(e.length > 0 && parseInt(e, 10) === 0);
-    if (c("no-hyperlink") || c("no-hyperlinks") || c("hyperlink=false") || c("hyperlink=never")) return !1;
-    if (c("hyperlink=true") || c("hyperlink=always")) return !0;
-    if (u) return !0;
-    if (!N.supportsColor(r)) return !1;
-    if (r && !r.isTTY) return !1;
-    if ("WT_SESSION" in process.env) return !0;
-    if (n) return !1;
-    if (p) return !1;
+    if (c("no-hyperlink") || c("no-hyperlinks") || c("hyperlink=false") || c("hyperlink=never")) return false;
+    if (c("hyperlink=true") || c("hyperlink=always")) return true;
+    if (u) return true;
+    if (!N.supportsColor(r)) return false;
+    if (r && !r.isTTY) return false;
+    if ("WT_SESSION" in process.env) return true;
+    if (n) return false;
+    if (p) return false;
     if (l) {
       let s = C(O || "");
       switch (l) {
@@ -106,19 +106,19 @@ var _ = S(function (H, M) {
         case "vscode":
           return s.major > 1 || (s.major === 1 && s.minor >= 72);
         case "ghostty":
-          return !0;
+          return true;
       }
     }
     if (a) {
-      if (a === "0.50.0") return !1;
+      if (a === "0.50.0") return false;
       let s = C(a);
       return s.major > 0 || s.minor >= 50;
     }
     switch (R) {
       case "alacritty":
-        return !0;
+        return true;
     }
-    return !1;
+    return false;
   }
   M.exports = { supportsHyperlink: m, stdout: m(process.stdout), stderr: m(process.stderr) };
 });
@@ -135,20 +135,20 @@ function Ef(r) {
   let n = QZ(r);
   if (n !== void 0) return n;
   let e = r?.env ?? process.env;
-  if (r?.stdoutSupported ?? f.default.supportsHyperlink(process.stdout)) return !0;
+  if (r?.stdoutSupported ?? f.default.supportsHyperlink(process.stdout)) return true;
   let p = e.TERM_PROGRAM;
-  if (p && h.includes(p)) return !0;
-  if (e.TERMINAL_EMULATOR === "JetBrains-JediTerm") return !0;
-  if (e.WT_SESSION && p !== "tmux" && !e.TMUX) return !0;
+  if (p && h.includes(p)) return true;
+  if (e.TERMINAL_EMULATOR === "JetBrains-JediTerm") return true;
+  if (e.WT_SESSION && p !== "tmux" && !e.TMUX) return true;
   if (p === "tmux") {
     let [a, R] = (e.TERM_PROGRAM_VERSION ?? "").split("."),
       s = parseInt(a ?? "", 10),
       L = parseInt(R ?? "", 10);
-    if (s > 3 || (s === 3 && L >= 4)) return !0;
+    if (s > 3 || (s === 3 && L >= 4)) return true;
   }
   let l = e.LC_TERMINAL;
-  if (l && h.includes(l)) return !0;
-  if (e.TERM?.includes("kitty")) return !0;
-  return !1;
+  if (l && h.includes(l)) return true;
+  if (e.TERM?.includes("kitty")) return true;
+  return false;
 }
 export { QZ, Ef };

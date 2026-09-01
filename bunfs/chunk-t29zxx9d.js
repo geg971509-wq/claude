@@ -22,8 +22,8 @@ var Coe = S(function (ae, D) {
     else s(v(m));
     function v(b, O) {
       if (b !== m)
-        if (typeof Object.create === "function") Object.defineProperty(b, "__esModule", { value: !0 });
-        else b.__esModule = !0;
+        if (typeof Object.create === "function") Object.defineProperty(b, "__esModule", { value: true });
+        else b.__esModule = true;
       return function (e, t) {
         return (b[e] = O ? O(e, t) : t);
       };
@@ -90,7 +90,7 @@ var Coe = S(function (ae, D) {
           c = !t && e ? (n.static ? e : e.prototype) : null,
           _ = t || (c ? Object.getOwnPropertyDescriptor(c, n.name) : {}),
           l,
-          j = !1;
+          j = false;
         for (var f = r.length - 1; f >= 0; f--) {
           var p = {};
           for (var d in n) p[d] = d === "access" ? {} : n[d];
@@ -111,7 +111,7 @@ var Coe = S(function (ae, D) {
             else _[y] = l;
         }
         if (c) Object.defineProperty(c, n.name, _);
-        j = !0;
+        j = true;
       }),
       (M = function (e, t, r) {
         var n = arguments.length > 2;
@@ -123,7 +123,7 @@ var Coe = S(function (ae, D) {
       }),
       (N = function (e, t, r) {
         if (typeof t === "symbol") t = t.description ? "[".concat(t.description, "]") : "";
-        return Object.defineProperty(e, "name", { configurable: !0, value: r ? "".concat(r, " ", t) : t });
+        return Object.defineProperty(e, "name", { configurable: true, value: r ? "".concat(r, " ", t) : t });
       }),
       (V = function (e, t) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(e, t);
@@ -204,7 +204,7 @@ var Coe = S(function (ae, D) {
                   o = c;
                   break;
                 case 4:
-                  return r.label++, { value: c[1], done: !1 };
+                  return r.label++, { value: c[1], done: false };
                 case 5:
                   r.label++, (a = c[1]), (c = [0]);
                   continue;
@@ -239,7 +239,7 @@ var Coe = S(function (ae, D) {
               n = o = 0;
             }
           if (c[0] & 5) throw c[1];
-          return { value: c[0] ? c[1] : void 0, done: !0 };
+          return { value: c[0] ? c[1] : void 0, done: true };
         }
       }),
       (q = function (e, t) {
@@ -251,7 +251,7 @@ var Coe = S(function (ae, D) {
             var a = Object.getOwnPropertyDescriptor(t, r);
             if (!a || ("get" in a ? !t.__esModule : a.writable || a.configurable))
               a = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -389,7 +389,7 @@ var Coe = S(function (ae, D) {
         function n(a, o) {
           t[a] = e[a]
             ? function (i) {
-                return (r = !r) ? { value: g(e[a](i)), done: !1 } : o ? o(i) : i;
+                return (r = !r) ? { value: g(e[a](i)), done: false } : o ? o(i) : i;
               }
             : o;
         }
@@ -431,7 +431,7 @@ var Coe = S(function (ae, D) {
       });
     var v = Object.create
         ? function (e, t) {
-            Object.defineProperty(e, "default", { enumerable: !0, value: t });
+            Object.defineProperty(e, "default", { enumerable: true, value: t });
           }
         : function (e, t) {
             e.default = t;
@@ -499,7 +499,7 @@ var Coe = S(function (ae, D) {
               }
             };
           e.stack.push({ value: t, dispose: n, async: r });
-        } else if (r) e.stack.push({ async: !0 });
+        } else if (r) e.stack.push({ async: true });
         return t;
       });
     var O =
@@ -511,7 +511,7 @@ var Coe = S(function (ae, D) {
           };
     (re = function (e) {
       function t(o) {
-        (e.error = e.hasError ? new O(o, e.error, "An error was suppressed during disposal.") : o), (e.hasError = !0);
+        (e.error = e.hasError ? new O(o, e.error, "An error was suppressed during disposal.") : o), (e.hasError = true);
       }
       var r,
         n = 0;

@@ -40,7 +40,7 @@ function z(de) {
     { cooldown: ce } = de;
   if (ce) {
     let Q;
-    if (No[0] === d) (Q = e(t, { color: "promptBorder", dimColor: !0, children: Q3 })), (No[0] = Q);
+    if (No[0] === d) (Q = e(t, { color: "promptBorder", dimColor: true, children: Q3 })), (No[0] = Q);
     else Q = No[0];
     return Q;
   }
@@ -53,7 +53,7 @@ function ee(nt) {
   return nt.fastMode;
 }
 function te(rt) {
-  return { ...rt, fastMode: !1 };
+  return { ...rt, fastMode: false };
 }
 function ne(it) {
   return h(we(it));
@@ -71,8 +71,8 @@ function stt(We) {
     J = At(),
     S = ct(),
     ro = Xn(),
-    [c, Ze] = u(K ?? !1),
-    [io, T] = u(!1),
+    [c, Ze] = u(K ?? false),
+    [io, T] = u(false),
     [so, Ao] = u(null),
     Do;
   if (p[0] === d) (Do = s3t()), (p[0] = Do);
@@ -96,8 +96,8 @@ function stt(We) {
       }
       if (c) {
         let q = new AbortController();
-        Ao(q), T(!0);
-        let Xo = !1;
+        Ao(q), T(true);
+        let Xo = false;
         rg(S, () =>
           QHt(S, ro.getState, q.signal).then(async (mo) => {
             if (q.signal.aborted) {
@@ -106,17 +106,17 @@ function stt(We) {
             if (mo.refusal !== void 0) {
               return mo.refusal;
             }
-            Ao(null), (Xo = !0), await fo(mo.vetted, mo.messages);
+            Ao(null), (Xo = true), await fo(mo.vetted, mo.messages);
           }),
         )
           .then((Eo) => {
             if (q.signal.aborted) {
               return;
             }
-            if (Eo !== void 0) T(!1), g(Eo, { display: "system" });
+            if (Eo !== void 0) T(false), g(Eo, { display: "system" });
           })
           .catch((ze) => {
-            if ((T(!1), q.signal.aborted)) {
+            if ((T(false), q.signal.aborted)) {
               return;
             }
             h(we(ze)),
@@ -129,9 +129,9 @@ function stt(We) {
           });
         return;
       }
-      T(!0),
+      T(true),
         rg(S, () => fo()).catch((He) => {
-          T(!1), h(we(He)), g("Fast mode was not changed: applying it failed", { display: "system" });
+          T(false), h(we(He)), g("Fast mode was not changed: applying it failed", { display: "system" });
         });
     };
     function fo(oo, eo) {
@@ -149,9 +149,9 @@ ${Yo.map(ac).join(`
       let xo = c ? `${GK(c)} ${BPe}${qe ? `${jPe}${og(yC())}` : ""} \xB7 ${Jo}${ot}` : "Fast mode OFF";
       if (!ba()) {
         if (!c) J(te);
-        return jo.then((Ro) => (T(!1), g(Ro === void 0 ? xo : K2e(Ro, c)), Ro));
+        return jo.then((Ro) => (T(false), g(Ro === void 0 ? xo : K2e(Ro, c)), Ro));
       }
-      return T(!0), jo.then((Oo) => (T(!1), g(Oo === void 0 ? xo : K2e(Oo, c)), Oo));
+      return T(true), jo.then((Oo) => (T(false), g(Oo === void 0 ? xo : K2e(Oo, c)), Oo));
     }
     (p[2] = c), (p[3] = io), (p[4] = C), (p[5] = g), (p[6] = S), (p[7] = J), (p[8] = Y), (p[9] = ro), (p[10] = j);
   } else j = p[10];
@@ -159,7 +159,7 @@ ${Yo.map(ac).join(`
   if (p[11] !== K || p[12] !== C || p[13] !== g || p[14] !== S || p[15] !== J || p[16] !== Y)
     (oo = function to() {
       if (C) {
-        if (K) rg(S, () => X2e(S, !1, J, void 0, Y)).catch(ne);
+        if (K) rg(S, () => X2e(S, false, J, void 0, Y)).catch(ne);
         g("Fast mode OFF", { display: "system" });
         return;
       }
@@ -216,7 +216,7 @@ ${Yo.map(ac).join(`
         (B = e(s1, {
           message: "Running PreModelSwitch hooks\u2026",
           onCancel: () => {
-            so.abort(), Ao(null), T(!1), g(Rse, { display: "system" });
+            so.abort(), Ao(null), T(false), g(Rse, { display: "system" });
           },
         })),
           (p[25] = so),
@@ -227,7 +227,7 @@ ${Yo.map(ac).join(`
     }
     let B;
     if (p[28] === d)
-      (B = e(t, { dimColor: !0, children: ba() ? "Waiting for the workspace\u2026" : "Applying fast mode\u2026" })),
+      (B = e(t, { dimColor: true, children: ba() ? "Waiting for the workspace\u2026" : "Applying fast mode\u2026" })),
         (p[28] = B);
     else B = p[28];
     return B;
@@ -263,9 +263,9 @@ ${Yo.map(ac).join(`
                 flexDirection: "row",
                 gap: 2,
                 children: [
-                  e(t, { bold: !0, children: "Fast mode" }),
+                  e(t, { bold: true, children: "Fast mode" }),
                   e(t, { color: c ? "fastMode" : void 0, bold: c, children: c ? "ON " : "OFF" }),
-                  e(t, { dimColor: !0, children: Jo }),
+                  e(t, { dimColor: true, children: Jo }),
                 ],
               }),
             }),
@@ -280,7 +280,7 @@ ${Yo.map(ac).join(`
                       ? "Fast mode overloaded and is temporarily unavailable"
                       : "You've hit your fast limit",
                     " \xB7 resets in ",
-                    $t(lo.resetAt - Date.now(), { hideTrailingZeros: !0 }),
+                    $t(lo.resetAt - Date.now(), { hideTrailingZeros: true }),
                   ],
                 }),
               }),
@@ -327,7 +327,7 @@ function Mo(lt) {
     no[7] !== I
   )
     (Ho = () => {
-      let uo = !0;
+      let uo = true;
       return (
         Y2e(
           a.session,
@@ -351,7 +351,7 @@ function Mo(lt) {
           },
         ),
         () => {
-          uo = !1;
+          uo = false;
         }
       );
     }),
@@ -376,7 +376,7 @@ function Mo(lt) {
     case "applying": {
       let x;
       if (no[14] === d)
-        (x = e(t, { dimColor: !0, children: ba() ? "Waiting for the workspace\u2026" : "Applying fast mode\u2026" })),
+        (x = e(t, { dimColor: true, children: ba() ? "Waiting for the workspace\u2026" : "Applying fast mode\u2026" })),
           (no[14] = x);
       else x = no[14];
       return x;

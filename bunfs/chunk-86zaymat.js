@@ -36,7 +36,7 @@ function w(e) {
 function T(e) {
   let s = e.renderImage ?? ((a, n) => w(a || n));
   return new O2({
-    gfm: !0,
+    gfm: true,
     renderer: {
       html(a) {
         return w(a.text);
@@ -77,7 +77,7 @@ function ee() {
     if (a !== void 0) return a;
     let n;
     try {
-      n = Y.parse(F(s), { async: !1 });
+      n = Y.parse(F(s), { async: false });
     } catch {
       n = `<pre>${r(s)}</pre>`;
     }
@@ -120,11 +120,11 @@ var D =
   ne = 20000,
   N = 4000,
   te = {
-    manifest_invalid: !0,
-    disabled_by_default: !0,
-    will_not_load: !0,
-    identity_unverified: !1,
-    archive_not_probed: !1,
+    manifest_invalid: true,
+    disabled_by_default: true,
+    will_not_load: true,
+    identity_unverified: false,
+    archive_not_probed: false,
   },
   re = {
     manifest_invalid: "manifest is invalid \u2014 ran without it",
@@ -498,7 +498,7 @@ ${i.plugins
 `)}
 <span>Claude Code v${r(e.claudeVersion)}</span>
 <span class="num">${r(ae(e.startedAt))}</span>
-<span class="num">${$t(e.durationSeconds * 1000, { hideTrailingZeros: !0 })}</span>
+<span class="num">${$t(e.durationSeconds * 1000, { hideTrailingZeros: true })}</span>
 <span class="num">${O(e.costUsd)}</span>
 <span class="num">${d} runs</span>
 ${i.pluginId ? `<span class="mono">${r(i.pluginId)}</span>` : ""}

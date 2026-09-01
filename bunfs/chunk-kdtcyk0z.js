@@ -23,32 +23,32 @@ var w = import.meta.require("/$bunfs/root/chunk-jemhm57r.js"),
   O = 1200,
   D = 1;
 function L(e, o) {
-  s("tengu_loop_ended", { reason: c(e), ...o }), LCt(!0), n$e();
+  s("tengu_loop_ended", { reason: c(e), ...o }), LCt(true), n$e();
 }
 function Kun() {
   let e = Ag().find((o) => o.kind === "loop");
   if (e === void 0) return;
-  return { at: e.scheduledFor, reason: e.reason, fires: t$e(), ...(e.keepalive && { keepalive: !0 }) };
+  return { at: e.scheduledFor, reason: e.reason, fires: t$e(), ...(e.keepalive && { keepalive: true }) };
 }
 function kVn() {
   let e = a.CLAUDE_CODE_LOOP_KEEPALIVE;
   if (e !== void 0) return e;
-  return I("tengu_kairos_loop_keepalive", !0);
+  return I("tengu_kairos_loop_keepalive", true);
 }
 function HVn(e, o, t) {
-  return E(e, o, { viaKeepalive: !1, reason: t });
+  return E(e, o, { viaKeepalive: false, reason: t });
 }
 function xVn(e) {
   if (c5t() >= D)
     return (
       n("[loop] keepalive budget exhausted (model declined to reschedule twice) \u2014 ending loop"),
-      L("model_stopped", { via_keepalive: !0 }),
+      L("model_stopped", { via_keepalive: true }),
       null
     );
-  return E(O, e, { viaKeepalive: !0 });
+  return E(O, e, { viaKeepalive: true });
 }
 function Xun() {
-  LCt(!1), n$e();
+  LCt(false), n$e();
 }
 function IVn() {
   let e = txn(),
@@ -66,7 +66,7 @@ function IVn() {
     n(
       `[loop] model called ScheduleWakeup({stop:true}) \u2014 ending loop (${o.length} pending wakeup(s) cancelled${t !== null ? ", tick in flight" : ""})`,
     ),
-    L("model_stopped", { via_keepalive: !1 }),
+    L("model_stopped", { via_keepalive: false }),
     y("loop_schedule_wakeup"),
     o.length
   );
@@ -82,7 +82,7 @@ function E(e, o, t) {
     f = Tte().recurringMaxAgeMs;
   if (f > 0 && r - u >= f) {
     if (!d?.agedOut)
-      l5t(o, { startedAt: u, lastScheduledFor: r - (b - _) * 1000, agedOut: !0 }),
+      l5t(o, { startedAt: u, lastScheduledFor: r - (b - _) * 1000, agedOut: true }),
         s("tengu_loop_dynamic_wakeup_aged_out", { loop_age_ms: r - u, max_age_ms: f }),
         L("aged_out", { via_keepalive: l }),
         g("loop_schedule_wakeup", "loop_wakeup_aged_out");
@@ -99,11 +99,11 @@ function E(e, o, t) {
       kind: "loop",
       scheduledFor: k,
       reason: i,
-      ...(l && { keepalive: !0 }),
+      ...(l && { keepalive: true }),
     }),
     l5t(o, { startedAt: u, lastScheduledFor: k }),
-    RU(!0),
-    LCt(!1),
+    RU(true),
+    LCt(false),
     l)
   )
     return (

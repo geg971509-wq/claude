@@ -40,13 +40,13 @@ function hn(vt) {
   if (vt.footerSelection === "frame" || !vt.frameExpanded) {
     return vt;
   }
-  return { ...vt, frameExpanded: !1 };
+  return { ...vt, frameExpanded: false };
 }
 function gn(kt) {
   if (kt.footerSelection === "frame" || !kt.frameExpanded) {
     return kt;
   }
-  return { ...kt, frameExpanded: !1 };
+  return { ...kt, frameExpanded: false };
 }
 function bn(Vn) {
   return Object.keys(Vn.frameUrls).length > 0;
@@ -77,7 +77,7 @@ function Tn(Er) {
   return Er + 1;
 }
 function En(he) {
-  return he.frameOpenFailedSeen ? he : { ...he, frameOpenFailedSeen: !0 };
+  return he.frameOpenFailedSeen ? he : { ...he, frameOpenFailedSeen: true };
 }
 var Re = 15000,
   we = 30000,
@@ -103,12 +103,12 @@ function qt() {
       let He = te.getState().frameUrls;
       let Le = Object.values(He).at(-1)?.url;
       if (!Le) {
-        return !1;
+        return false;
       }
       Lr(OBe(Le)), y("frame_link_open");
       let je = Object.keys(He).at(-1) ?? null;
       if (
-        (X((Ct) => (Ct.frameExpanded && Ct.frameNavPath === je ? Ct : { ...Ct, frameExpanded: !0, frameNavPath: je })),
+        (X((Ct) => (Ct.frameExpanded && Ct.frameNavPath === je ? Ct : { ...Ct, frameExpanded: true, frameNavPath: je })),
         Ft.current)
       )
         Ft.current();
@@ -158,7 +158,7 @@ var Wt = du(function () {
     Tt = At(),
     V = uu("app:openArtifact", "Global", "ctrl+]"),
     { columns: qe } = Ee(),
-    [er, We] = u(!1),
+    [er, We] = u(false),
     re = C(null),
     st = xt(),
     Ut;
@@ -169,7 +169,7 @@ var Wt = du(function () {
     Je;
   if (b[2] !== st)
     (Je = () => {
-      We(!0), re.current?.(), (re.current = st.setTimeout(() => We(!1), we));
+      We(true), re.current?.(), (re.current = st.setTimeout(() => We(false), we));
     }),
       (b[2] = st),
       (b[3] = Je);
@@ -194,7 +194,7 @@ var Wt = du(function () {
   if (b[9] === d) (tn = () => nr(Tn)), (b[9] = tn);
   else tn = b[9];
   ko(tn, rr ? Fe : null);
-  let mt = Ye != null && tr === !1,
+  let mt = Ye != null && tr === false,
     en,
     nn;
   if (b[10] !== mt || b[11] !== it || b[12] !== T || b[13] !== Tt)
@@ -288,7 +288,7 @@ var Wt = du(function () {
   else St = b[34];
   let Nt;
   if (b[35] !== Ot || b[36] !== H)
-    (Nt = Ot > 0 && e(o, { flexShrink: 0, children: r(t, { dimColor: !0, children: [H(Ot), v] }) })),
+    (Nt = Ot > 0 && e(o, { flexShrink: 0, children: r(t, { dimColor: true, children: [H(Ot), v] }) })),
       (b[35] = Ot),
       (b[36] = H),
       (b[37] = Nt);
@@ -297,7 +297,7 @@ var Wt = du(function () {
     let { idx: de, name: gr, url: xr, updatedAt: br } = pr;
     return r(U, {
       children: [
-        hr > 0 && e(t, { dimColor: !0, children: v }),
+        hr > 0 && e(t, { dimColor: true, children: v }),
         e(Jt, {
           name: gr,
           url: xr,
@@ -311,20 +311,20 @@ var Wt = du(function () {
   });
   let Dt;
   if (b[38] !== Pt || b[39] !== H)
-    (Dt = Pt > 0 && e(o, { flexShrink: 0, children: r(t, { dimColor: !0, children: [v, H(Pt)] }) })),
+    (Dt = Pt > 0 && e(o, { flexShrink: 0, children: r(t, { dimColor: true, children: [v, H(Pt)] }) })),
       (b[38] = Pt),
       (b[39] = H),
       (b[40] = Dt);
   else Dt = b[40];
   let $t;
   if (b[41] !== ce)
-    ($t = ce && e(o, { flexShrink: 0, children: r(t, { dimColor: !0, children: [v, Yt] }) })),
+    ($t = ce && e(o, { flexShrink: 0, children: r(t, { dimColor: true, children: [v, Yt] }) })),
       (b[41] = ce),
       (b[42] = $t);
   else $t = b[42];
   let Ht;
   if (b[43] !== It)
-    (Ht = It && e(o, { flexShrink: 0, children: r(t, { dimColor: !0, children: [v, It] }) })),
+    (Ht = It && e(o, { flexShrink: 0, children: r(t, { dimColor: true, children: [v, It] }) })),
       (b[43] = It),
       (b[44] = Ht);
   else Ht = b[44];
@@ -342,7 +342,7 @@ var Wt = du(function () {
   else Lt = b[52];
   let jt;
   if (b[53] !== ft)
-    (jt = ft && e(o, { paddingLeft: Z, children: e(ut, { url: ft, children: e(t, { dimColor: !0, children: ft }) }) })),
+    (jt = ft && e(o, { paddingLeft: Z, children: e(ut, { url: ft, children: e(t, { dimColor: true, children: ft }) }) })),
       (b[53] = ft),
       (b[54] = jt);
   else jt = b[54];
@@ -365,12 +365,12 @@ function Ue(n) {
 function Me(n, s, i, a, l) {
   let c = _e(n, s, i, a),
     f = c.before + c.after > 0;
-  if (l === null || !f) return { ...c, showBrowse: !1 };
+  if (l === null || !f) return { ...c, showBrowse: false };
   let m = B + se(Yt),
     h = _e(n, s - m, i, a),
     x = h.visible.length === 1 ? h.visible[0] : void 0;
-  if (x !== void 0 && se(x.name) < l) return { ...c, showBrowse: !1 };
-  return { ...h, showBrowse: !0 };
+  if (x !== void 0 && se(x.name) < l) return { ...c, showBrowse: false };
+  return { ...h, showBrowse: true };
 }
 function PBe(n, s) {
   if (n.length === 0) return 0;
@@ -387,7 +387,7 @@ function DBe(n, s) {
   let l = i.filter((m) => m !== s),
     c = gc(n.frameUrls, (m, h) => h === s),
     f = l[Math.min(a, l.length - 1)] ?? null;
-  return { ...n, frameUrls: c, frameNavPath: f, frameExpanded: !1 };
+  return { ...n, frameUrls: c, frameNavPath: f, frameExpanded: false };
 }
 function _e(n, s, i, a) {
   let l = n.length;
@@ -437,12 +437,12 @@ function OBe(n) {
 function Jt(Ur) {
   let zt = _(13),
     { name: ge, url: xe, highlighted: ln, navSelected: Gt, stale: Mr, accent: cn } = Ur,
-    [yt, an] = u(!1),
+    [yt, an] = u(false),
     Kt;
   if (zt[0] !== xe) (Kt = () => void Lr(OBe(xe))), (zt[0] = xe), (zt[1] = Kt);
   else Kt = zt[1];
   let mn, un;
-  if (zt[2] === d) (mn = () => an(!0)), (un = () => an(!1)), (zt[2] = mn), (zt[3] = un);
+  if (zt[2] === d) (mn = () => an(true)), (un = () => an(false)), (zt[2] = mn), (zt[3] = un);
   else (mn = zt[2]), (un = zt[3]);
   const be = ln || yt || cn ? "claude" : void 0,
     ye = Mr && !ln && !yt && !Gt && !cn;
@@ -490,20 +490,20 @@ function k0t(n) {
     .replace(/\r\n|\r|\n/g, " ")
     .replaceAll("\t", " ");
 }
-function _Mn({ onResolve: n, question: s, maxChars: i, autoDismissAfterMs: a, turnInProgress: l = !1 }) {
+function _Mn({ onResolve: n, question: s, maxChars: i, autoDismissAfterMs: a, turnInProgress: l = false }) {
   let c = xt(),
     [f, m] = u(""),
     [h, x] = u(0),
     { columns: O } = Ee(),
-    w = C(!1),
+    w = C(false),
     R = C(c.now());
   fs("survey-followup");
   let k = (E) => {
       if (w.current) return;
-      (w.current = !0), n(E);
+      (w.current = true), n(E);
     },
     g = () => c.now() - R.current < gXt,
-    [tt, wt] = u(!1),
+    [tt, wt] = u(false),
     [ct, et] = u(null);
   Yn(() => k({ text: null, method: "timeout" }), tt ? null : a, [a]),
     A(() => {
@@ -512,7 +512,7 @@ function _Mn({ onResolve: n, question: s, maxChars: i, autoDismissAfterMs: a, tu
   let Y = C(null);
   A(
     () => () => {
-      Y.current?.(), fxt(!1);
+      Y.current?.(), fxt(false);
     },
     [],
   );
@@ -529,21 +529,21 @@ function _Mn({ onResolve: n, question: s, maxChars: i, autoDismissAfterMs: a, tu
       )
         J((at) => at + 1);
       let Q = S.text;
-      if (((N.current = Q), m(Q), E.trim().length > 0 && !g())) wt(!0);
-      fxt(!0),
+      if (((N.current = Q), m(Q), E.trim().length > 0 && !g())) wt(true);
+      fxt(true),
         Y.current?.(),
         (Y.current = c.setTimeout(() => {
-          (Y.current = null), fxt(!1);
+          (Y.current = null), fxt(false);
         }, Un));
     };
   w8((E, I) => {
     if (!I.escape) return;
     if (!g()) {
       if (N.current.trim() !== "")
-        return m(""), (N.current = ""), x(0), (j.current = 0), (q.current = null), J((S) => S + 1), !0;
+        return m(""), (N.current = ""), x(0), (j.current = 0), (q.current = null), J((S) => S + 1), true;
       k({ text: null, method: "escape" });
     }
-    return !0;
+    return true;
   });
   let K = (E) => {
       if (g()) {
@@ -563,8 +563,8 @@ function _Mn({ onResolve: n, question: s, maxChars: i, autoDismissAfterMs: a, tu
       r(o, {
         children: [
           r(t, { color: "ansi:cyan", children: [vr, " "] }),
-          r(t, { bold: !0, children: [s, " "] }),
-          e(t, { dimColor: !0, children: "(optional)" }),
+          r(t, { bold: true, children: [s, " "] }),
+          e(t, { dimColor: true, children: "(optional)" }),
         ],
       }),
       e(o, {
@@ -579,9 +579,9 @@ function _Mn({ onResolve: n, question: s, maxChars: i, autoDismissAfterMs: a, tu
             let I = q.current ?? E;
             (q.current = null), (j.current = I), x(I);
           },
-          focus: !0,
-          showCursor: !0,
-          multiline: !1,
+          focus: true,
+          showCursor: true,
+          multiline: false,
           inputFilter: k0t,
           onExit: () => {
             if (!g()) k({ text: null, method: "escape" });
@@ -592,7 +592,7 @@ function _Mn({ onResolve: n, question: s, maxChars: i, autoDismissAfterMs: a, tu
       e(o, {
         marginLeft: 2,
         children: r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             e(M, { chord: "enter", action: f.trim() ? "send" : "skip" }),
             " \xB7 ",

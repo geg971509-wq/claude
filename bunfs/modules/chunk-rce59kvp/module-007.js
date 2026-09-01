@@ -60,12 +60,12 @@ function ist(S) {
 class k7 {
   #e;
   #t;
-  #o = !1;
+  #o = false;
   #r = 0;
   #i = null;
   #n = null;
   #c = 0;
-  #a = !1;
+  #a = false;
   #s;
   #d = new kme();
   #l = new Set();
@@ -76,7 +76,7 @@ class k7 {
   }
   start() {
     if (this.#o) return;
-    (this.#o = !0),
+    (this.#o = true),
       (this.#s = this.#e.store.getState().toolPermissionContext),
       (this.#i = this.#e.store.subscribe(this.#m)),
       this.#S(),
@@ -85,7 +85,7 @@ class k7 {
   }
   stop() {
     if (!this.#o) return;
-    (this.#o = !1), this.#r++, this.#i?.(), (this.#i = null), this.#b(), (this.#a = !1);
+    (this.#o = false), this.#r++, this.#i?.(), (this.#i = null), this.#b(), (this.#a = false);
   }
   setInputs(S) {
     let x = this.#t;
@@ -129,7 +129,7 @@ class k7 {
   #k() {
     if (!this.#t.enabled) return;
     if (this.#a) return;
-    if (JB(this.#e.identity, this.#e.store.getState())) (this.#a = !0), this.#C();
+    if (JB(this.#e.identity, this.#e.store.getState())) (this.#a = true), this.#C();
   }
   #C() {
     this.#v().catch((S) => h(we(S)));
@@ -176,7 +176,7 @@ class k7 {
           );
           continue;
         }
-        if (qt) vo.pendingPlanApproval = { ...qt, answered: !0 };
+        if (qt) vo.pendingPlanApproval = { ...qt, answered: true };
         if (lo === "mismatch") {
           n(
             `[InboxPoller] Plan approval response ${b(Gt.requestId)} does not name the pending plan request ${b(qt?.requestId)}; resolving the wait as a rejection`,
@@ -327,7 +327,7 @@ class k7 {
         let { dialog: Yt, descriptor: No } = Pn,
           cn = { tool_use_id: qt.tool_use_id, tool_name: To, input_digest: uo };
         if (!Gt) Gt = { name: Qo, tool: qt.tool_name };
-        Re(Yt, No, { queueBehind: !0, armInputGrace: !0 }).then((tn) => {
+        Re(Yt, No, { queueBehind: true, armInputGrace: true }).then((tn) => {
           let nn;
           switch (tn.behavior) {
             case "allow":
@@ -409,14 +409,14 @@ class k7 {
           jo = To.mode;
         switch (ao) {
           case "allow":
-            return { resolved: !0, mode: jo };
+            return { resolved: true, mode: jo };
           case "deny":
-            return { resolved: !1, mode: jo };
+            return { resolved: false, mode: jo };
           case "classify":
             return {
               resolved: await Gt.getOrClassify(lo, void 0, rst, () =>
                 eDe(lo, void 0, [], Z0(), To, new AbortController().signal, {
-                  isSubagentLoop: !1,
+                  isSubagentLoop: false,
                   storageV5: P,
                   credentials: j,
                 }),
@@ -427,7 +427,7 @@ class k7 {
             return { resolved: null, mode: jo };
         }
       }
-      let qt = !1;
+      let qt = false;
       for (let lo of Pt) {
         let To = n6t(lo.text);
         if (!To) continue;
@@ -456,7 +456,7 @@ class k7 {
           ),
             this.#l.add(ao);
           let cn = Ke(),
-            tn = () => sPt(lo.from, To.requestId, To.hostPattern.host, !1, jt, P);
+            tn = () => sPt(lo.from, To.requestId, To.hostPattern.host, false, jt, P);
           this.#y(
             tn,
             () =>
@@ -505,7 +505,7 @@ class k7 {
             .catch(h),
           !qt && !ue && !de)
         ) {
-          qt = !0;
+          qt = true;
           let cn = se(Pn) <= Wle ? Q0(Pn, "a host") : "a host";
           ev({ message: `${ORe(No)} needs network access to ${cn}`, notificationType: "worker_permission_prompt" }, H, {
             storageV5: P,
@@ -548,7 +548,7 @@ class k7 {
           To = {
             type: "plan_approval_response",
             requestId: vo.requestId,
-            approved: !0,
+            approved: true,
             timestamp: new Date().toISOString(),
             permissionMode: lo,
           };
@@ -660,7 +660,7 @@ async function sst(S, x, P, j) {
       Re = { ...ue.tasks };
     for (let [be, Pe] of Object.entries(Re))
       if (Dd(Pe) && Pe.identity.agentId === H)
-        Re[be] = { ...Pe, status: "completed", endTime: Date.now(), notified: !0, evictAfter: Date.now() + d4e };
+        Re[be] = { ...Pe, status: "completed", endTime: Date.now(), notified: true, evictAfter: Date.now() + d4e };
     return {
       ...ue,
       tasks: Re,
@@ -686,7 +686,7 @@ function DRe(S, x, P) {
   let j = Tw(S),
     H = yN(j) ? j : Tw(sd(j)),
     Z = H === "bypassPermissions",
-    re = X0(H, Z ? { ...x, isBypassPermissionsModeAvailable: !0 } : x, (ue) =>
+    re = X0(H, Z ? { ...x, isBypassPermissionsModeAvailable: true } : x, (ue) =>
       P((de) => {
         let pe = de.toolPermissionContext,
           Re = pe.isBypassPermissionsModeAvailable === Z ? pe : { ...pe, isBypassPermissionsModeAvailable: Z },
@@ -694,7 +694,7 @@ function DRe(S, x, P) {
         return be === pe ? de : { ...de, toolPermissionContext: be };
       }),
     );
-  return re.ok ? { ok: !0, mode: H } : re;
+  return re.ok ? { ok: true, mode: H } : re;
 }
 
 function LRe(S, x, P) {
@@ -760,7 +760,7 @@ function XB(Kqo) {
     { autoConnectIdeFlag: w7, ideToInstallExtension: II, onAutoConnectIde: T7, requestDialog: _7 } = Kqo,
     { storageV5: R7 } = ge(),
     [Qqo, zqo] = u(null),
-    qRe = C(!1),
+    qRe = C(false),
     lst,
     cst;
   if (Yqo[0] !== w7 || Yqo[1] !== II || Yqo[2] !== T7 || Yqo[3] !== _7 || Yqo[4] !== R7)
@@ -796,11 +796,11 @@ function XB(Kqo) {
             if (wt() || qRe.current) {
               return;
             }
-            qRe.current = !0;
+            qRe.current = true;
             let x7 = function x7() {
-              qRe.current = !1;
+              qRe.current = false;
             };
-            _7(UC, { installationStatus: Jqo }, { queueBehind: !0 }).then(x7, x7);
+            _7(UC, { installationStatus: Jqo }, { queueBehind: true }).then(x7, x7);
           },
           zqo,
           ust.signal,
@@ -886,7 +886,7 @@ function A7({ transcript: S, turn: x, onBackgroundQuery: P }) {
           if (!Re) return pe;
           let be = pe.tasks[Re];
           if (!be) return { ...pe, foregroundedTaskId: void 0 };
-          return { ...pe, foregroundedTaskId: void 0, tasks: { ...pe.tasks, [Re]: { ...be, isBackgrounded: !0 } } };
+          return { ...pe, foregroundedTaskId: void 0, tasks: { ...pe.tasks, [Re]: { ...be, isBackgrounded: true } } };
         }),
           S.replace([]),
           x.resetLoadingState(),
@@ -917,7 +917,7 @@ function A7({ transcript: S, turn: x, onBackgroundQuery: P }) {
             return {
               ...be,
               foregroundedTaskId: void 0,
-              tasks: { ...be.tasks, [be.foregroundedTaskId]: { ...Pe, isBackgrounded: !0 } },
+              tasks: { ...be.tasks, [be.foregroundedTaskId]: { ...Pe, isBackgrounded: true } },
             };
           }),
             x.resetLoadingState(),
@@ -925,14 +925,14 @@ function A7({ transcript: S, turn: x, onBackgroundQuery: P }) {
             (ue.current = 0);
           return;
         }
-        if ((x.setExternalLoading(!0), Re)) x.setAbortController(Re);
+        if ((x.setExternalLoading(true), Re)) x.setAbortController(Re);
       } else
         re((Re) => {
           let be = Re.foregroundedTaskId;
           if (!be) return Re;
           let Pe = Re.tasks[be];
           if (!Pe) return { ...Re, foregroundedTaskId: void 0 };
-          return { ...Re, foregroundedTaskId: void 0, tasks: { ...Re.tasks, [be]: { ...Pe, isBackgrounded: !0 } } };
+          return { ...Re, foregroundedTaskId: void 0, tasks: { ...Re.tasks, [be]: { ...Pe, isBackgrounded: true } } };
         }),
           x.resetLoadingState(),
           x.setAbortController(null),
@@ -965,12 +965,12 @@ function M7(S) {
     [de, pe] = u(null),
     Re = C(""),
     be = C(null),
-    Pe = C(!1),
+    Pe = C(false),
     Oe = C(null),
-    Ie = C(!1);
+    Ie = C(false);
   A(
     () => () => {
-      (Ie.current = !0), Oe.current?.();
+      (Ie.current = true), Oe.current?.();
     },
     [],
   );
@@ -992,7 +992,7 @@ function M7(S) {
     Ve = B(
       (st) => {
         if (Pe.current || re.current !== "closed" || S.getSnapshot().length === 0 || !hst()) return;
-        (Pe.current = !0),
+        (Pe.current = true),
           (Re.current = pst()),
           (be.current = st),
           ue("transcript_prompt"),
@@ -1018,7 +1018,7 @@ function M7(S) {
                   let Pt = await nO(S.getSnapshot(), KRe, Re.current, P, j);
                   Fe(Pt.success ? "transcript_share_submitted" : "transcript_share_failed", Pt.errorCode), (nt = Pt);
                 } catch {
-                  Fe("transcript_share_failed", "exception"), (nt = { success: !1 });
+                  Fe("transcript_share_failed", "exception"), (nt = { success: false });
                 }
                 if (Ie.current) return;
                 pe(nt.bundlePath ?? null), ue(nt.success ? "submitted" : "share_failed"), He();
@@ -1107,29 +1107,29 @@ function K7({ enabled: S, onSelect: x }) {
   return {
     highlighted: j,
     handleKey: (be) => {
-      if (!S || be.ctrl || be.meta) return !1;
-      if (be.name === "left" || be.name === "right") return !0;
+      if (!S || be.ctrl || be.meta) return false;
+      if (be.name === "left" || be.name === "right") return true;
       if (be.name === "up" || be.name === "down") {
         if (de()) {
           let Pe = be.name === "up" ? -1 : 1;
           (Z.current = Math.min(DI.length - 1, Math.max(0, Z.current + Pe))), H(Z.current);
         }
-        return !0;
+        return true;
       }
       if (be.name === "return") {
         if (de()) {
           let Pe = DI[Z.current];
           if (Pe !== void 0) x(Pe.response);
         }
-        return !0;
+        return true;
       }
-      return !1;
+      return false;
     },
     selectByClick: (be) => {
-      if (!de()) return !1;
+      if (!de()) return false;
       let Pe = DI[be];
       if (Pe !== void 0) (Z.current = be), H(be), x(Pe.response);
-      return !0;
+      return true;
     },
   };
 }
@@ -1140,7 +1140,7 @@ function $7(DVo) {
     Sst,
     bst;
   if (ZRe[0] === d)
-    (Sst = e(t, { bold: !0, children: hA })), (bst = e(tp, { url: yA })), (ZRe[0] = Sst), (ZRe[1] = bst);
+    (Sst = e(t, { bold: true, children: hA })), (bst = e(tp, { url: yA })), (ZRe[0] = Sst), (ZRe[1] = bst);
   else (Sst = ZRe[0]), (bst = ZRe[1]);
   let L7;
   if (ZRe[2] !== I7 || ZRe[3] !== JRe)
@@ -1171,7 +1171,7 @@ function $7(DVo) {
 function q7(NVo) {
   let O7 = _(11),
     { label: txe, focused: oxe, onClick: nxe } = NVo,
-    [rxe, vst] = u(!1),
+    [rxe, vst] = u(false),
     B7;
   if (O7[0] !== nxe)
     (B7 = (wst) => {
@@ -1181,7 +1181,7 @@ function q7(NVo) {
       (O7[1] = B7);
   else B7 = O7[1];
   let Tst, _st;
-  if (O7[2] === d) (Tst = () => vst(!0)), (_st = () => vst(!1)), (O7[2] = Tst), (O7[3] = _st);
+  if (O7[2] === d) (Tst = () => vst(true)), (_st = () => vst(false)), (O7[2] = Tst), (O7[3] = _st);
   else (Tst = O7[2]), (_st = O7[3]);
   let U7;
   if (O7[4] !== oxe || O7[5] !== rxe || O7[6] !== txe)
@@ -1204,7 +1204,7 @@ function V7(LVo) {
     axe = OVo ? "userMessageBackgroundHover" : void 0,
     lxe = oU ? L.pointer + " " : "  ";
   let H7;
-  if (xst[0] !== lxe) (H7 = e(t, { "aria-hidden": !0, children: lxe })), (xst[0] = lxe), (xst[1] = H7);
+  if (xst[0] !== lxe) (H7 = e(t, { "aria-hidden": true, children: lxe })), (xst[0] = lxe), (xst[1] = H7);
   else H7 = xst[1];
   let Pst;
   if (xst[2] !== oU || xst[3] !== ixe || xst[4] !== sxe || xst[5] !== axe || xst[6] !== H7)
@@ -1229,7 +1229,7 @@ function Kst(nZ, AGo) {
     t,
     {
       children: [
-        AGo > 0 && e(t, { dimColor: !0, children: " " }),
+        AGo > 0 && e(t, { dimColor: true, children: " " }),
         e(t, { color: Hst, children: jst }),
         ": ",
         e(t, { color: Hst, children: MGo }),
@@ -1404,7 +1404,7 @@ function gZ(fGo) {
         title: cU(TR),
         subtitle: `${Et(Fo(TR.path))} \xB7 ${xxe(TR.source)}`,
         onCancel: HI,
-        isCancelActive: !1,
+        isCancelActive: false,
         color: "remember",
         inputGuide: xR,
         children: Ust,
@@ -1532,7 +1532,7 @@ function Rxe({
       title: "Memories recalled this session",
       titleEnd: `${yt} ${k(yt, "memory", "memories")}`,
       onCancel: Re,
-      isCancelActive: !1,
+      isCancelActive: false,
       color: "remember",
       inputGuide: () =>
         re.pending
@@ -1574,7 +1574,7 @@ function Rxe({
                 flexDirection: "column",
                 children: [
                   Pt > 0 &&
-                    e(o, { paddingLeft: 2, children: r(t, { dimColor: !0, children: [qH, " ", Pt, " more above"] }) }),
+                    e(o, { paddingLeft: 2, children: r(t, { dimColor: true, children: [qH, " ", Pt, " more above"] }) }),
                   Ht.map((lt, Rt) => {
                     let so = st + Rt === ot;
                     return e(
@@ -1582,7 +1582,7 @@ function Rxe({
                       {
                         isFocused: so,
                         declareCursor: !de,
-                        styled: !1,
+                        styled: false,
                         children: e(Axe, {
                           memory: lt,
                           focused: so,
@@ -1593,7 +1593,7 @@ function Rxe({
                     );
                   }),
                   kt > 0 &&
-                    e(o, { paddingLeft: 2, children: r(t, { dimColor: !0, children: [mR, " ", kt, " more below"] }) }),
+                    e(o, { paddingLeft: 2, children: r(t, { dimColor: true, children: [mR, " ", kt, " more below"] }) }),
                 ],
               }),
           ue,
@@ -1607,7 +1607,7 @@ function pZ() {
   let PGo = _(1),
     nZ;
   if (PGo[0] === d)
-    (nZ = r(t, { children: [e(t, { dimColor: !0, children: "Rate this memory: " }), VC.map(Kst)] })), (PGo[0] = nZ);
+    (nZ = r(t, { children: [e(t, { dimColor: true, children: "Rate this memory: " }), VC.map(Kst)] })), (PGo[0] = nZ);
   else nZ = PGo[0];
   return nZ;
 }
@@ -1715,7 +1715,7 @@ function hZ({ localJsx: S, getSessionMemories: x, transcript: P, trigger: j }) {
           Z.close();
       },
     }),
-    { commandName: "memory-viewer", immediate: !1, hidesPrompt: !0, retireAtTurnBoundary: !1 },
+    { commandName: "memory-viewer", immediate: false, hidesPrompt: true, retireAtTurnBoundary: false },
   );
   return Z;
 }
@@ -1780,7 +1780,7 @@ var Mxe = {
       key: "oauth-expiry-warning",
       segments: [
         { text: `Your login expires in ${S.daysLeft} ${k(S.daysLeft, "day")}`, color: "warning" },
-        { text: " \xB7 run /login to renew", dim: !0 },
+        { text: " \xB7 run /login to renew", dim: true },
       ],
       priority: "high",
       timeoutMs: 15000,
@@ -1801,7 +1801,7 @@ var Qst = "no_permissions",
         key: "sudo-npm-install",
         segments: [
           { text: "Claude Code can't auto-update", color: "warning" },
-          { text: " \xB7 run `claude doctor`", dim: !0 },
+          { text: " \xB7 run `claude doctor`", dim: true },
         ],
         priority: "high",
         timeoutMs: 15000,
@@ -1828,7 +1828,7 @@ var Exe = null,
             kind: "upsell",
             segments: [
               { text: `plugin suggestion: ${P}`, color: "suggestion" },
-              { text: " \xB7 /plugin", dim: !0 },
+              { text: " \xB7 /plugin", dim: true },
             ],
             priority: "low",
           }
@@ -1841,10 +1841,10 @@ function bZ(S = Dxe) {
   let { addNotification: x } = Or(),
     P = ct(),
     { storageV5: j, credentials: H } = ge(),
-    Z = C(!1);
+    Z = C(false);
   A(() => {
     if ($n() || Z.current) return;
-    Z.current = !0;
+    Z.current = true;
     let re = ie().seenNotifications ?? {},
       ue = [];
     Promise.allSettled(
@@ -1922,7 +1922,7 @@ var Yst = 800,
     id: "auto-mode-entry-warning",
     deps: (S) => [S.permissionMode, S.transcript, S.clock, S.storageV5, S.store],
     setup() {
-      let S = !1;
+      let S = false;
       return ({ permissionMode: x, transcript: P, clock: j, storageV5: H, store: Z }) => {
         if (x !== "auto") return;
         if (S) return;
@@ -1930,14 +1930,14 @@ var Yst = 800,
           (async () => {
             let { isAutoModeFromFallback: re } = await import("/$bunfs/root/chunk-r7nsdrr4.js");
             if (re()) {
-              S = !0;
+              S = true;
               return;
             }
-            if (((S = !0), wt())) return;
+            if (((S = true), wt())) return;
             let { shouldShowAutoModeEntryWarning: ue } = await import("/$bunfs/root/chunk-26ptb7cd.js");
             if (ue()) {
               let { getAutoModeDescription: de } = await import("/$bunfs/root/chunk-8rwq7r15.js");
-              await Ae((pe) => (pe.hasSeenAutoModeEntryWarning ? pe : { ...pe, hasSeenAutoModeEntryWarning: !0 }), H),
+              await Ae((pe) => (pe.hasSeenAutoModeEntryWarning ? pe : { ...pe, hasSeenAutoModeEntryWarning: true }), H),
                 s("tengu_auto_mode_entry_warning_shown", {}),
                 P.replace((pe) => [...pe, Dt(de(), "notice")]);
             }
@@ -1951,7 +1951,7 @@ var Bxe = {
   id: "auto-mode-unavailable",
   deps: (S) => [S.permissionMode, S.isAutoModeAvailable, S.addNotification, S.store],
   setup() {
-    let S = !1,
+    let S = false,
       x;
     return ({ addNotification: P, store: j, permissionMode: H, isAutoModeAvailable: Z }) => {
       if (x === void 0) x = H;
@@ -1961,7 +1961,7 @@ var Bxe = {
       if (!(H === "default" && re !== "default" && re !== "auto" && !Z)) return;
       let de = h7();
       if (!de) return;
-      (S = !0),
+      (S = true),
         P({ key: "auto-mode-unavailable", kind: "feedback", text: ZB(de), color: "warning", priority: "medium" });
     };
   },
@@ -1971,13 +1971,13 @@ var Uxe = {
   id: "chrome-extension-check",
   deps: (S) => [S.store],
   setup() {
-    let S = !1;
+    let S = false;
     return ({ store: x }) => {
       if ($n() || S) return;
-      S = !0;
+      S = true;
       let P = sme(),
         j = ie();
-      if (!(P === !0 || a.CLAUDE_CODE_ENABLE_CFC || j.claudeInChromeDefaultEnabled === !0) || !pUe(P)) return;
+      if (!(P === true || a.CLAUDE_CODE_ENABLE_CFC || j.claudeInChromeDefaultEnabled === true) || !pUe(P)) return;
       if (j.chromeExtension?.pairedDeviceId) return;
       if (!Tt()) {
         YC("chrome", 1);
@@ -2013,7 +2013,7 @@ var jxe = {
               key: `compliance-taint-${Z}`,
               kind: "event",
               priority: "immediate",
-              requeueOnPreempt: !0,
+              requeueOnPreempt: true,
               text: `${j6(Z)} \xB7 some features are restricted \xB7 /status for details`,
             });
         }
@@ -2035,7 +2035,7 @@ var jxe = {
               key: "monitoring-notice",
               kind: "event",
               priority: "immediate",
-              requeueOnPreempt: !0,
+              requeueOnPreempt: true,
               text: j.url ? `${j.text} \xB7 ${j.url}` : j.text,
             });
         }
@@ -2060,7 +2060,7 @@ var Jst = 5,
       ];
     },
     setup() {
-      let S = ie().hasAcknowledgedCostThreshold ? !1 : null;
+      let S = ie().hasAcknowledgedCostThreshold ? false : null;
       return ({
         turn: x,
         turnAtRender: { isLoading: P, lastQueryCompletionTime: j },
@@ -2070,7 +2070,7 @@ var Jst = 5,
         dialogStore: ue,
         storageV5: de,
       }) => {
-        if (Z || P || S === !1) return;
+        if (Z || P || S === false) return;
         if (H !== null || (x.isInitialMessageInFlight && j === 0)) return;
         if (S === null) {
           if (dl() < Jst) return;
@@ -2128,7 +2128,7 @@ function Zst({ addNotification: S, fastMode: x, store: P }) {
     else if (x && a3t()) {
       let H = f$();
       if (H === null) return;
-      P.setState((Z) => ({ ...Z, fastMode: !1 })),
+      P.setState((Z) => ({ ...Z, fastMode: false })),
         S({ key: Kxe, kind: "event", color: "warning", priority: "immediate", text: H });
     }
   });
@@ -2140,7 +2140,7 @@ function eat({ addNotification: S, store: x }) {
   if ($n()) return;
   if (!Yr()) return;
   return Oer((P) => {
-    x.setState((j) => ({ ...j, fastMode: !1 })),
+    x.setState((j) => ({ ...j, fastMode: false })),
       S({ key: Xst, kind: "feedback", color: "error", priority: "immediate", text: P });
   });
 }
@@ -2151,7 +2151,7 @@ function tat({ addNotification: S, fastMode: x }) {
   if ($n()) return;
   if (!x) return;
   let P = xer((H, Z) => {
-      let re = $t(H - Date.now(), { hideTrailingZeros: !0 }),
+      let re = $t(H - Date.now(), { hideTrailingZeros: true }),
         ue = oat(Z, re);
       S({ key: Vxe, invalidates: [Gxe], text: ue, color: "warning", priority: "immediate" });
     }),
@@ -2284,14 +2284,14 @@ function sat(S) {
     for (let j of P) {
       if (j.type !== "tool_use" || !("name" in j)) continue;
       let H = j.name;
-      if (H.startsWith("mcp__")) return !1;
+      if (H.startsWith("mcp__")) return false;
       if (EM.includes(H)) {
         let re = j.input?.command || "";
-        if (rat.some((ue) => ue.test(re))) return !1;
+        if (rat.some((ue) => ue.test(re))) return false;
       }
     }
   }
-  return !0;
+  return true;
 }
 
 function aat(S) {
@@ -2302,7 +2302,7 @@ function aat(S) {
     if (!j) continue;
     return iat.some((H) => H.test(j));
   }
-  return !1;
+  return false;
 }
 
 var lat = 3,
@@ -2313,13 +2313,13 @@ var lat = 3,
     setup() {
       let S = 0,
         x = -1,
-        P = !1;
+        P = false;
       function j(H, Z) {
-        if (x === Z) return !0;
-        if (Date.now() - S < cat) return !1;
-        if (Z < lat) return !1;
-        if (!sat(H) || !aat(H)) return !1;
-        return (S = Date.now()), (x = Z), !0;
+        if (x === Z) return true;
+        if (Date.now() - S < cat) return false;
+        if (Z < lat) return false;
+        if (!sat(H) || !aat(H)) return false;
+        return (S = Date.now()), (x = Z), true;
       }
       return ({ addNotification: H, transcript: Z, turnAtRender: re }) => {};
     },
@@ -2363,11 +2363,11 @@ var uat = 5000,
           });
         }
         function Z() {
-          if (sn()) return !0;
-          if (Kfe()) return !0;
+          if (sn()) return true;
+          if (Kfe()) return true;
           let ue = mIe();
-          if (ue.status === "failed") return j("lsp-manager", ue.error.message), H(1), !1;
-          if (ue.status === "pending" || ue.status === "not-started") return !0;
+          if (ue.status === "failed") return j("lsp-manager", ue.error.message), H(1), false;
+          if (ue.status === "pending" || ue.status === "not-started") return true;
           let de = Cye();
           if (de) {
             let pe = de.getAllServers(),
@@ -2375,7 +2375,7 @@ var uat = 5000,
             for (let [be, Pe] of pe) if (Pe.state === "error" && Pe.lastError) Re++, j(be, Pe.lastError.message);
             H(Re);
           }
-          return !0;
+          return true;
         }
         if (!sn() && !Z()) return;
         let re = C8(
@@ -2402,15 +2402,15 @@ function kZ(S) {
 }
 
 function pat(S) {
-  if (!S.officialMarketplaceAutoInstallAttempted) return !0;
-  if (S.officialMarketplaceAutoInstalled) return !1;
+  if (!S.officialMarketplaceAutoInstallAttempted) return true;
+  if (S.officialMarketplaceAutoInstalled) return false;
   let x = S.officialMarketplaceAutoInstallFailReason,
     P = S.officialMarketplaceAutoInstallRetryCount || 0,
     j = S.officialMarketplaceAutoInstallNextRetryTime,
     H = Date.now();
-  if (P >= dU.MAX_ATTEMPTS) return !1;
-  if (x === "policy_blocked") return !1;
-  if (j && H < j) return !1;
+  if (P >= dU.MAX_ATTEMPTS) return false;
+  if (x === "policy_blocked") return false;
+  if (j && H < j) return false;
   return x === "unknown" || x === "git_unavailable" || x === "gcs_unavailable" || x === void 0;
 }
 
@@ -2420,9 +2420,9 @@ async function aPe(S) {
     let j = x.officialMarketplaceAutoInstalled
       ? "already_installed"
       : (x.officialMarketplaceAutoInstallFailReason ?? "already_attempted");
-    return n(`Official marketplace auto-install skipped: ${j}`), { installed: !1, skipped: !0, reason: j };
+    return n(`Official marketplace auto-install skipped: ${j}`), { installed: false, skipped: true, reason: j };
   }
-  let P = !1;
+  let P = false;
   try {
     if (mat())
       return (
@@ -2430,14 +2430,14 @@ async function aPe(S) {
         await Ae(
           (pe) => ({
             ...pe,
-            officialMarketplaceAutoInstallAttempted: !0,
-            officialMarketplaceAutoInstalled: !1,
+            officialMarketplaceAutoInstallAttempted: true,
+            officialMarketplaceAutoInstalled: false,
             officialMarketplaceAutoInstallFailReason: "policy_blocked",
           }),
           S,
         ),
-        s("tengu_official_marketplace_auto_install", { installed: !1, skipped: !0, policy_blocked: !0 }),
-        { installed: !1, skipped: !0, reason: "policy_blocked" }
+        s("tengu_official_marketplace_auto_install", { installed: false, skipped: true, policy_blocked: true }),
+        { installed: false, skipped: true, reason: "policy_blocked" }
       );
     if ((await zl(S))[ag])
       return (
@@ -2445,8 +2445,8 @@ async function aPe(S) {
         await Ae(
           (pe) => ({
             ...pe,
-            officialMarketplaceAutoInstallAttempted: !0,
-            officialMarketplaceAutoInstalled: !0,
+            officialMarketplaceAutoInstallAttempted: true,
+            officialMarketplaceAutoInstalled: true,
             officialMarketplaceAutoInstallFailReason: void 0,
             officialMarketplaceAutoInstallRetryCount: void 0,
             officialMarketplaceAutoInstallLastAttemptTime: void 0,
@@ -2454,7 +2454,7 @@ async function aPe(S) {
           }),
           S,
         ),
-        { installed: !1, skipped: !0, reason: "already_installed" }
+        { installed: false, skipped: true, reason: "already_installed" }
       );
     if (!Ip(Xte))
       return (
@@ -2462,14 +2462,14 @@ async function aPe(S) {
         await Ae(
           (pe) => ({
             ...pe,
-            officialMarketplaceAutoInstallAttempted: !0,
-            officialMarketplaceAutoInstalled: !1,
+            officialMarketplaceAutoInstallAttempted: true,
+            officialMarketplaceAutoInstalled: false,
             officialMarketplaceAutoInstallFailReason: "policy_blocked",
           }),
           S,
         ),
-        s("tengu_official_marketplace_auto_install", { installed: !1, skipped: !0, policy_blocked: !0 }),
-        { installed: !1, skipped: !0, reason: "policy_blocked" }
+        s("tengu_official_marketplace_auto_install", { installed: false, skipped: true, policy_blocked: true }),
+        { installed: false, skipped: true, reason: "policy_blocked" }
       );
     let H = N7(),
       Z = dat(H, ag);
@@ -2484,8 +2484,8 @@ async function aPe(S) {
         await Ae(
           (pe) => ({
             ...pe,
-            officialMarketplaceAutoInstallAttempted: !0,
-            officialMarketplaceAutoInstalled: !0,
+            officialMarketplaceAutoInstallAttempted: true,
+            officialMarketplaceAutoInstalled: true,
             officialMarketplaceAutoInstallFailReason: void 0,
             officialMarketplaceAutoInstallRetryCount: void 0,
             officialMarketplaceAutoInstallLastAttemptTime: void 0,
@@ -2493,10 +2493,10 @@ async function aPe(S) {
           }),
           S,
         ),
-        s("tengu_official_marketplace_auto_install", { installed: !0, skipped: !1, via_gcs: !0 }),
-        { installed: !0, skipped: !1 }
+        s("tengu_official_marketplace_auto_install", { installed: true, skipped: false, via_gcs: true }),
+        { installed: true, skipped: false }
       );
-    if (!I("tengu_plugin_official_mkt_git_fallback", !0)) {
+    if (!I("tengu_plugin_official_mkt_git_fallback", true)) {
       p("plugin_official_marketplace_fetch", "gcs_failed_fallback_disabled"),
         n("Official marketplace GCS failed; git fallback disabled by flag \u2014 skipping install");
       let pe = (x.officialMarketplaceAutoInstallRetryCount || 0) + 1,
@@ -2506,8 +2506,8 @@ async function aPe(S) {
         await Ae(
           (Pe) => ({
             ...Pe,
-            officialMarketplaceAutoInstallAttempted: !0,
-            officialMarketplaceAutoInstalled: !1,
+            officialMarketplaceAutoInstallAttempted: true,
+            officialMarketplaceAutoInstalled: false,
             officialMarketplaceAutoInstallFailReason: "gcs_unavailable",
             officialMarketplaceAutoInstallRetryCount: pe,
             officialMarketplaceAutoInstallLastAttemptTime: Re,
@@ -2516,15 +2516,15 @@ async function aPe(S) {
           S,
         ),
         s("tengu_official_marketplace_auto_install", {
-          installed: !1,
-          skipped: !0,
-          gcs_unavailable: !0,
+          installed: false,
+          skipped: true,
+          gcs_unavailable: true,
           retry_count: pe,
         }),
-        { installed: !1, skipped: !0, reason: "gcs_unavailable" }
+        { installed: false, skipped: true, reason: "gcs_unavailable" }
       );
     }
-    if (((P = !0), !(await s3e()))) {
+    if (((P = true), !(await s3e()))) {
       p("plugin_official_marketplace_fetch", "gcs_failed_git_unavailable"),
         n("Git not available, skipping official marketplace auto-install");
       let pe = (x.officialMarketplaceAutoInstallRetryCount || 0) + 1,
@@ -2535,8 +2535,8 @@ async function aPe(S) {
         await Ae(
           (Oe) => ({
             ...Oe,
-            officialMarketplaceAutoInstallAttempted: !0,
-            officialMarketplaceAutoInstalled: !1,
+            officialMarketplaceAutoInstallAttempted: true,
+            officialMarketplaceAutoInstalled: false,
             officialMarketplaceAutoInstallFailReason: "git_unavailable",
             officialMarketplaceAutoInstallRetryCount: pe,
             officialMarketplaceAutoInstallLastAttemptTime: Re,
@@ -2545,12 +2545,12 @@ async function aPe(S) {
           S,
         ),
         s("tengu_official_marketplace_auto_install", {
-          installed: !1,
-          skipped: !0,
-          git_unavailable: !0,
+          installed: false,
+          skipped: true,
+          git_unavailable: true,
           retry_count: pe,
         }),
-        { installed: !1, skipped: !0, reason: "git_unavailable" }
+        { installed: false, skipped: true, reason: "git_unavailable" }
       );
     }
     n("Attempting to auto-install official marketplace"),
@@ -2561,8 +2561,8 @@ async function aPe(S) {
       await Ae(
         (pe) => ({
           ...pe,
-          officialMarketplaceAutoInstallAttempted: !0,
-          officialMarketplaceAutoInstalled: !0,
+          officialMarketplaceAutoInstallAttempted: true,
+          officialMarketplaceAutoInstalled: true,
           officialMarketplaceAutoInstallFailReason: void 0,
           officialMarketplaceAutoInstallRetryCount: void 0,
           officialMarketplaceAutoInstallLastAttemptTime: void 0,
@@ -2571,8 +2571,8 @@ async function aPe(S) {
         S,
       ),
       g("plugin_official_marketplace_fetch", "gcs_failed_git_fallback"),
-      s("tengu_official_marketplace_auto_install", { installed: !0, skipped: !1, retry_count: de }),
-      { installed: !0, skipped: !1 }
+      s("tengu_official_marketplace_auto_install", { installed: true, skipped: false, retry_count: de }),
+      { installed: true, skipped: false }
     );
   } catch (j) {
     let H = j instanceof Error ? j.message : String(j);
@@ -2581,12 +2581,12 @@ async function aPe(S) {
       return (
         n("Official marketplace auto-install: git is a non-functional macOS xcrun shim, treating as git_unavailable"),
         s("tengu_official_marketplace_auto_install", {
-          installed: !1,
-          skipped: !0,
-          git_unavailable: !0,
-          macos_xcrun_shim: !0,
+          installed: false,
+          skipped: true,
+          git_unavailable: true,
+          macos_xcrun_shim: true,
         }),
-        { installed: !1, skipped: !0, reason: "git_unavailable" }
+        { installed: false, skipped: true, reason: "git_unavailable" }
       );
     }
     if (P) p("plugin_official_marketplace_fetch", "gcs_and_git_failed");
@@ -2599,8 +2599,8 @@ async function aPe(S) {
       await Ae(
         (pe) => ({
           ...pe,
-          officialMarketplaceAutoInstallAttempted: !0,
-          officialMarketplaceAutoInstalled: !1,
+          officialMarketplaceAutoInstallAttempted: true,
+          officialMarketplaceAutoInstalled: false,
           officialMarketplaceAutoInstallFailReason: "unknown",
           officialMarketplaceAutoInstallRetryCount: Z,
           officialMarketplaceAutoInstallLastAttemptTime: re,
@@ -2608,8 +2608,8 @@ async function aPe(S) {
         }),
         S,
       ),
-      s("tengu_official_marketplace_auto_install", { installed: !1, skipped: !0, failed: !0, retry_count: Z }),
-      { installed: !1, skipped: !0, reason: "unknown" }
+      s("tengu_official_marketplace_auto_install", { installed: false, skipped: true, failed: true, retry_count: Z }),
+      { installed: false, skipped: true, reason: "unknown" }
     );
   }
 }
@@ -2618,10 +2618,10 @@ var cPe = {
   id: "official-marketplace-check",
   deps: (S) => [S.store, S.storageV5],
   setup() {
-    let S = !1;
+    let S = false;
     return ({ store: x, storageV5: P }) => {
       if ($n() || S) return;
-      (S = !0),
+      (S = true),
         aPe(P)
           .then((j) => {
             let H = !j.installed && j.skipped && j.reason === "unknown" ? 1 : 0;
@@ -2671,7 +2671,7 @@ var uPe = {
         (x = [...x.filter((ot) => !He.has(AR(ot)) && !Fe.has(ot.source)), ...be]), Ie(x, Ve);
         let Ke = ++S;
         if (Pe.length === 0) {
-          if (Oe) pe(Re, !1);
+          if (Oe) pe(Re, false);
           return;
         }
         de().then((ot) => {
@@ -2694,7 +2694,7 @@ var uPe = {
               })
             ).wouldInvalidateCache
           )
-            return g("plugin_command_reresolve_reload", "cache_impact"), !1;
+            return g("plugin_command_reresolve_reload", "cache_impact"), false;
           if ((await D0(j.setState, H, Z)).error_count > 0)
             return g("plugin_command_reresolve_reload", "load_errors"), "with-errors";
           return y("plugin_command_reresolve_reload"), "ok";
@@ -2702,7 +2702,7 @@ var uPe = {
           return (
             n(`Plugin autoupdate: in-session reload failed: ${l(Re)}`, { level: "warn" }),
             p("plugin_command_reresolve_reload", "refresh_failed"),
-            !1
+            false
           );
         }
       }
@@ -2722,10 +2722,10 @@ var uPe = {
               color: be === "with-errors" ? "warning" : "success",
             },
             be === "ok"
-              ? { text: " \xB7 reloaded for this session", dim: !0 }
+              ? { text: " \xB7 reloaded for this session", dim: true }
               : be === "with-errors"
-                ? { text: " \xB7 reloaded with errors \u2014 see /plugin", dim: !0 }
-                : { text: " \xB7 Run /reload-plugins to apply", dim: !0 },
+                ? { text: " \xB7 reloaded with errors \u2014 see /plugin", dim: true }
+                : { text: " \xB7 Run /reload-plugins to apply", dim: true },
           ],
           priority: "low",
           timeoutMs: 1e4,
@@ -2745,14 +2745,14 @@ var dPe = {
   id: "prompt-queue-use-count",
   deps: (S) => [S.queuedCommandCount, S.storageV5],
   setup() {
-    let S = !1;
+    let S = false;
     return ({ queuedCommandCount: x, storageV5: P }) => {
       if (x < 1) {
-        S = !1;
+        S = false;
         return;
       }
       if (S) return;
-      (S = !0), Ae((j) => ({ ...j, promptQueueUseCount: (j.promptQueueUseCount ?? 0) + 1 }), P);
+      (S = true), Ae((j) => ({ ...j, promptQueueUseCount: (j.promptQueueUseCount ?? 0) + 1 }), P);
     };
   },
 };
@@ -2771,7 +2771,7 @@ var fPe = {
   id: "fable-usage-credits",
   deps: (S) => [S.addNotification],
   setup() {
-    let S = !1;
+    let S = false;
     return ({ addNotification: x }) =>
       ZWn((P, j, H) => {
         if (!uf(P)) return;
@@ -2780,7 +2780,7 @@ var fPe = {
         if (uM()) return;
         if (mze()) {
           if (!S)
-            (S = !0),
+            (S = true),
               x({
                 kind: "contextual",
                 key: "fable-credits-info",
@@ -2812,12 +2812,12 @@ var gPe = {
       return [S.claudeAiLimits.isUsingOverage, S.claudeAiLimits, S.mainLoopModel, S.addNotification, x, P];
     },
     setup() {
-      let S = !1;
+      let S = false;
       return ({ addNotification: x, claudeAiLimits: P, mainLoopModel: j }) => {
         let { hasBillingAccess: H, isTeamOrEnterprise: Z } = pPe();
         if (P.isUsingOverage && !S && (!Z || H))
-          x({ key: "limit-reached", text: asn(P, j), priority: "immediate" }), (S = !0);
-        else if (!P.isUsingOverage && S) S = !1;
+          x({ key: "limit-reached", text: asn(P, j), priority: "immediate" }), (S = true);
+        else if (!P.isUsingOverage && S) S = false;
       };
     },
   },
@@ -2837,8 +2837,8 @@ var gPe = {
             key: "rate-limit-warning",
             segments: [
               { text: Z, color: "warning" },
-              ...(re ? [{ text: ` \xB7 ${re.text}`, dim: !0 }] : []),
-              ...(ue ? [{ text: ` \xB7 ${ue}`, dim: !0 }] : []),
+              ...(re ? [{ text: ` \xB7 ${re.text}`, dim: true }] : []),
+              ...(ue ? [{ text: ` \xB7 ${ue}`, dim: true }] : []),
             ],
             priority: "high",
           }),
@@ -2856,7 +2856,7 @@ function CPe(xzo) {
     { url: qI } = xzo,
     SPe = hn(),
     fat;
-  if (CZ[0] === d) (fat = r(t, { dimColor: !0, children: ["Check in from your phone", " \xB7 "] })), (CZ[0] = fat);
+  if (CZ[0] === d) (fat = r(t, { dimColor: true, children: ["Check in from your phone", " \xB7 "] })), (CZ[0] = fat);
   else fat = CZ[0];
   let gat;
   if (CZ[1] !== qI)
@@ -2892,10 +2892,10 @@ var vPe = {
   id: "rc-long-turn-nudge",
   deps: (S) => [S.turnAtRender.isLoading, S.replBridgeActive, S.removeNotification, S.clock],
   setup() {
-    let S = !1;
+    let S = false;
     return ({ turnAtRender: { isLoading: x }, replBridgeActive: P, removeNotification: j, clock: H }, Z) => {
       if (!x) {
-        if (S) (S = !1), j(bPe);
+        if (S) (S = false), j(bPe);
         return;
       }
       if (!P || S || sn()) return;
@@ -2904,14 +2904,14 @@ var vPe = {
       let ue = H.setTimeout(() => {
         let { addNotification: de, replBridgeSessionUrl: pe, store: Re, storageV5: be } = Z();
         if (S || !pe) return;
-        if (((S = !0), re.probability < 1 && Math.random() >= re.probability)) return;
+        if (((S = true), re.probability < 1 && Math.random() >= re.probability)) return;
         oPn(re, be),
           de({
             key: bPe,
             kind: "upsell",
             jsx: e(CPe, { url: pe }),
             priority: "medium",
-            requeueOnPreempt: !0,
+            requeueOnPreempt: true,
             timeoutMs: 2147483647,
           }),
           s("tengu_rc_long_turn_nudge_shown", {
@@ -2939,8 +2939,8 @@ var wZ = "rc-permission-nudge",
       S.storageV5,
     ],
     setup() {
-      let S = !1,
-        x = !1,
+      let S = false,
+        x = false,
         P = 0,
         j = null,
         H = () => {};
@@ -2959,20 +2959,20 @@ var wZ = "rc-permission-nudge",
           let Oe = ePn();
           if (Oe.probability <= 0 || be < Oe.afterPromptCount || be <= P || !iPn(Oe.maxImpressions)) return;
           if (((P = be), Math.random() >= Oe.probability)) return;
-          x = !0;
+          x = true;
         }
         if (ue.isLoading) return;
-        (S = !0),
+        (S = true),
           sPn(Pe),
           re({
             key: wZ,
             kind: "upsell",
             segments: [
-              { text: "Approve tool calls from your phone \xB7 ", dim: !0 },
+              { text: "Approve tool calls from your phone \xB7 ", dim: true },
               { text: pe, color: "suggestion" },
             ],
             priority: "medium",
-            requeueOnPreempt: !0,
+            requeueOnPreempt: true,
             timeoutMs: 2147483647,
           }),
           s("tengu_rc_permission_nudge_shown", { permission_mode: c(Re), prompt_count: be });
@@ -2999,7 +2999,7 @@ var TPe = "rc-idle-upsell",
       return [x.lastQueryCompletionTime, x.isLoading, S.addNotification, S.removeNotification, S.clock, S.storageV5];
     },
     setup() {
-      let S = !1;
+      let S = false;
       return ({
         addNotification: x,
         removeNotification: P,
@@ -3019,13 +3019,13 @@ var TPe = "rc-idle-upsell",
               let Pe = Math.round((Date.now() - re) / 60000);
               if (de === "rc") {
                 if (RPe(H) || !fKt()) return;
-                (S = !0),
+                (S = true),
                   tPn(ue),
                   x({
                     key: TPe,
                     kind: "upsell",
                     segments: [
-                      { text: "control this session from your phone \xB7 ", dim: !0 },
+                      { text: "control this session from your phone \xB7 ", dim: true },
                       { text: "/remote-control", color: "suggestion" },
                     ],
                     priority: "medium",
@@ -3034,13 +3034,13 @@ var TPe = "rc-idle-upsell",
                   s("tengu_rc_upsell_notification_shown", { idleMinutes: Pe });
               } else {
                 if (!mKt()) return;
-                (S = !0),
+                (S = true),
                   nPn(ue),
                   x({
                     key: _Pe,
                     kind: "upsell",
                     segments: [
-                      { text: "get pinged when Claude finishes \xB7 enable push notifications in ", dim: !0 },
+                      { text: "get pinged when Claude finishes \xB7 enable push notifications in ", dim: true },
                       { text: "/config", color: "suggestion" },
                     ],
                     priority: "medium",
@@ -3102,7 +3102,7 @@ var bat = "routine-fired";
 function kat(S) {
   let x = Date.now() - Date.parse(S);
   if (!Number.isFinite(x) || x < 60000) return "just now";
-  return `${$t(x, { mostSignificantOnly: !0 })} ago`;
+  return `${$t(x, { mostSignificantOnly: true })} ago`;
 }
 
 function mU(S, x) {
@@ -3113,10 +3113,10 @@ function Cat(S, x) {
   let P = x;
   return {
     fired: S.filter((H) => {
-      if (!H.run_once_at || !H.last_fired_at) return !1;
-      if (!mU(H.last_fired_at, x)) return !1;
+      if (!H.run_once_at || !H.last_fired_at) return false;
+      if (!mU(H.last_fired_at, x)) return false;
       if (mU(H.last_fired_at, P)) P = H.last_fired_at;
-      return !0;
+      return true;
     }),
     nextWatermark: P,
   };
@@ -3131,10 +3131,10 @@ function vat(S) {
     return {
       jsx: r(U, {
         children: [
-          e(tt, { status: "success", withSpace: !0 }),
-          e(t, { dimColor: !0, children: "routine " }),
+          e(tt, { status: "success", withSpace: true }),
+          e(t, { dimColor: true, children: "routine " }),
           e(t, { color: "suggestion", children: H.name }),
-          r(t, { dimColor: !0, children: [" ", "ran", j ? ` ${j}` : "", " \xB7 ", x, "/"] }),
+          r(t, { dimColor: true, children: [" ", "ran", j ? ` ${j}` : "", " \xB7 ", x, "/"] }),
           e(t, { color: "suggestion", children: H.id }),
         ],
       }),
@@ -3144,8 +3144,8 @@ function vat(S) {
   return {
     jsx: r(U, {
       children: [
-        e(tt, { status: "success", withSpace: !0 }),
-        r(t, { dimColor: !0, children: [S.length, " routines ran", j ? ` (latest ${j})` : "", " \xB7", " "] }),
+        e(tt, { status: "success", withSpace: true }),
+        r(t, { dimColor: true, children: [S.length, " routines ran", j ? ` (latest ${j})` : "", " \xB7", " "] }),
         e(t, { color: "suggestion", children: "/routines" }),
       ],
     }),
@@ -3157,10 +3157,10 @@ var EPe = {
   id: "routine-fired",
   deps: (S) => [S.addNotification, S.storageV5, S.credentials],
   setup() {
-    let S = !1;
+    let S = false;
     return ({ addNotification: x, storageV5: P, credentials: j }) => {
       if (S) return;
-      if (((S = !0), $n() || Ct() || !Tt() || !Mt("allow_remote_sessions") || !Mt(wL))) return;
+      if (((S = true), $n() || Ct() || !Tt() || !Mt("allow_remote_sessions") || !Mt(wL))) return;
       let H = ie().routineFiredWatermark;
       if (H === void 0) {
         let Z = new Date().toISOString();
@@ -3222,10 +3222,10 @@ var OPe = {
   id: "subscription-switch-check",
   deps: (S) => [S.store],
   setup() {
-    let S = !1;
+    let S = false;
     return ({ store: x }) => {
       if ($n() || S) return;
-      if (((S = !0), !VOn() || Ttt())) return;
+      if (((S = true), !VOn() || Ttt())) return;
       zOn()
         .then((P) => {
           if (P === null) return;
@@ -3306,7 +3306,7 @@ function TZ(S) {
       },
     };
   let P = Nct();
-  return { mock: x, graceWindow: P !== null && I("tengu_lantern_sconce", !1) ? P : null };
+  return { mock: x, graceWindow: P !== null && I("tengu_lantern_sconce", false) ? P : null };
 }
 
 var qPe = {
@@ -3354,7 +3354,7 @@ var qPe = {
         key: WPe,
         kind: "warning",
         priority: "immediate",
-        pinned: !0,
+        pinned: true,
         segments: [
           {
             text:
@@ -3364,7 +3364,7 @@ var qPe = {
                   ? "Usage limit reached \xB7 a little extra on us, then your credits"
                   : "Usage limit reached",
           },
-          { text: Pe, dim: !0 },
+          { text: Pe, dim: true },
         ],
       });
     }
@@ -3382,14 +3382,14 @@ var JPe = {
   deps: (S) => [S.settings, S.addNotification, S.clock],
   setup() {
     let S = null,
-      x = !1,
+      x = false,
       P = null,
       j = null,
       H = () => {},
       Z = null,
       re = null;
     function ue(pe, Re) {
-      return !1;
+      return false;
     }
     function de() {}
     return {

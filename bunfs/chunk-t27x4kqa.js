@@ -48,11 +48,11 @@ class g {
   activeRecorder = null;
   activeForwardedSocket = null;
   forwardedStartGeneration = 0;
-  nativeRecordingActive = !1;
+  nativeRecordingActive = false;
 }
 var l = new J(() => new g());
-var w = { started: !0 };
-var h = { started: !1, superseded: !1, hint: null, expected: !1 };
+var w = { started: true };
+var h = { started: false, superseded: false, hint: null, expected: false };
 function f(e) {
   return (
     (e.audioNapiPromise ??= (async () => {
@@ -70,7 +70,7 @@ var k = 16000,
   E = "2.0",
   S = "3%";
 async function u(e) {
-  return (await $e(e, ["--version"], { timeout: 3000, useCwd: !1 })).code === 0;
+  return (await $e(e, ["--version"], { timeout: 3000, useCwd: false })).code === 0;
 }
 async function b() {
   if (await u("brew")) return { cmd: "brew", args: ["install", "sox"], displayCommand: "brew install sox" };
@@ -78,37 +78,37 @@ async function b() {
 }
 async function ce(e) {
   let o = l.of(e);
-  if ((await f(o)).isNativeAudioAvailable()) return { available: !0, missing: [], installCommand: null };
+  if ((await f(o)).isNativeAudioAvailable()) return { available: true, missing: [], installCommand: null };
   let s = [];
   if (!(await u("sox"))) s.push("sox (rec command)");
   let t = s.length > 0 ? await b() : null;
   return { available: s.length === 0, missing: s, installCommand: t?.displayCommand ?? null };
 }
 async function le(e) {
-  if (!(await f(l.of(e))).isNativeAudioAvailable()) return !0;
+  if (!(await f(l.of(e))).isNativeAudioAvailable()) return true;
   if (
     (
       await y(
         e,
         (s) => {},
         () => {},
-        { silenceDetection: !1 },
+        { silenceDetection: false },
       )
     ).started
   )
-    return C(e), !0;
-  return !1;
+    return C(e), true;
+  return false;
 }
 async function ue(e, o = {}) {
   if (t_() || a.CLAUDE_CODE_REMOTE)
     return {
-      available: !1,
+      available: false,
       reason: `Voice mode requires microphone access, but no audio device is available in this environment.
 
 To use voice mode, run Claude Code locally instead.`,
     };
   let r = l.of(e);
-  if ((await f(r)).isNativeAudioAvailable()) return { available: !0, reason: null };
+  if ((await f(r)).isNativeAudioAvailable()) return { available: true, reason: null };
   let t =
       `Voice mode could not find a working audio recorder in WSL.
 
@@ -118,12 +118,12 @@ To use voice mode, run Claude Code locally instead.`,
 ` +
       "If WSLg is not available (for example WSL1), run Claude Code in native Windows instead.",
     d = await u("sox");
-  if (d && (await u("rec"))) return { available: !0, reason: null };
-  if (D() === "wsl") return { available: !1, reason: t };
+  if (d && (await u("rec"))) return { available: true, reason: null };
+  if (D() === "wsl") return { available: false, reason: t };
   if (!d) {
     let i = await b();
     return {
-      available: !1,
+      available: false,
       reason: i
         ? `Voice mode requires SoX for audio recording. Install it with: ${i.displayCommand}`
         : `Voice mode requires SoX for audio recording. Install SoX manually:
@@ -133,7 +133,7 @@ To use voice mode, run Claude Code locally instead.`,
     };
   }
   return {
-    available: !1,
+    available: false,
     reason: `Voice mode requires a microphone, but SoX could not open an audio capture device.
 
 This usually means the host has no microphone (for example, a remote server). Run Claude Code on a machine with a microphone to use voice input.`,
@@ -143,29 +143,29 @@ async function y(e, o, r, s) {
   n("[voice] startRecording called, platform=darwin");
   let t = l.of(e),
     d = await f(t),
-    i = d.isNativeAudioAvailable() && !0,
-    c = s?.silenceDetection !== !1;
+    i = d.isNativeAudioAvailable() && true,
+    c = s?.silenceDetection !== false;
   if (i) {
-    if (t.nativeRecordingActive || d.isNativeRecordingActive()) d.stopNativeRecording(), (t.nativeRecordingActive = !1);
+    if (t.nativeRecordingActive || d.isNativeRecordingActive()) d.stopNativeRecording(), (t.nativeRecordingActive = false);
     if (
       d.startNativeRecording(
         (p) => {
           o(p);
         },
         () => {
-          if (c) (t.nativeRecordingActive = !1), r();
+          if (c) (t.nativeRecordingActive = false), r();
         },
       )
     )
-      return (t.nativeRecordingActive = !0), w;
+      return (t.nativeRecordingActive = true), w;
   }
   return P(t, o, r, s) ? w : h;
 }
 function P(e, o, r, s) {
-  let t = s?.silenceDetection !== !1,
+  let t = s?.silenceDetection !== false,
     d = ["-q", "--buffer", "1024", "-t", "raw", "-r", String(k), "-e", "signed", "-b", "16", "-c", String(x), "-"];
   if (t) d.push("silence", "1", "0.1", S, "1", E, S);
-  let i = R("rec", d, { stdio: ["pipe", "pipe", "pipe"], windowsHide: !0, ...qi("helper") });
+  let i = R("rec", d, { stdio: ["pipe", "pipe", "pipe"], windowsHide: true, ...qi("helper") });
   return (
     (e.activeRecorder = i),
     i.stdout?.on("data", (c) => {
@@ -180,13 +180,13 @@ function P(e, o, r, s) {
         (e.activeRecorder = null),
         r();
     }),
-    !0
+    true
   );
 }
 function C(e) {
   let o = l.of(e);
   if (o.nativeRecordingActive && o.audioNapi) {
-    o.audioNapi.stopNativeRecording(), (o.nativeRecordingActive = !1);
+    o.audioNapi.stopNativeRecording(), (o.nativeRecordingActive = false);
     return;
   }
   if (o.activeRecorder) o.activeRecorder.kill("SIGTERM"), (o.activeRecorder = null);

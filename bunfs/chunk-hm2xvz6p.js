@@ -20,19 +20,19 @@ function* m(e) {
     for (let i of o) yield [i, null];
     return;
   }
-  let t = !1,
+  let t = false,
     n;
   if (e instanceof Headers) n = e.entries();
   else if (a(e)) n = e;
-  else (t = !0), (n = Object.entries(e ?? {}));
+  else (t = true), (n = Object.entries(e ?? {}));
   for (let r of n) {
     let o = r[0];
     if (typeof o !== "string") throw TypeError("expected header name to be a string");
     let i = a(r[1]) ? r[1] : [r[1]],
-      s = !1;
+      s = false;
     for (let f of i) {
       if (f === void 0) continue;
-      if (t && !s) (s = !0), yield [o, null];
+      if (t && !s) (s = true), yield [o, null];
       yield [o, f];
     }
   }
@@ -49,7 +49,7 @@ var l = (e) => {
       else t.append(i, s), n.delete(f);
     }
   }
-  return { [p]: !0, values: t, nulls: n };
+  return { [p]: true, values: t, nulls: n };
 };
 var u = (e) => {
   if (typeof globalThis.process < "u") return globalThis.process.env?.[e]?.trim() || void 0;
@@ -65,7 +65,7 @@ class d extends xP {
     dangerouslyAllowBrowser: o,
     ...i
   } = {}) {
-    if (typeof r === "function") o = !0;
+    if (typeof r === "function") o = true;
     if (!r && !t)
       throw new bn(
         "Missing credentials. Please pass one of `apiKey` and `azureTokenProvider`, or set the `ANTHROPIC_FOUNDRY_API_KEY` environment variable.",

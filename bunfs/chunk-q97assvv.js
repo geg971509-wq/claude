@@ -411,7 +411,7 @@ function I(s) {
   return e(Pe, { height: 1, children: e(t, { children: e(fe, { children: l }) }) });
 }
 function m(s, { tools: l, verbose: n }) {
-  if (!s.length) return e(Pe, { height: 1, children: e(t, { dimColor: !0, children: f }) });
+  if (!s.length) return e(Pe, { height: 1, children: e(t, { dimColor: true, children: f }) });
   let a = n ? s : s.slice(-p),
     g = s.length - a.length,
     { lookups: d, inProgressToolUseIDs: c } = qPe(s.map((i) => i.data));
@@ -429,17 +429,17 @@ function m(s, { tools: l, verbose: n }) {
                 children: e(mx, {
                   message: i.data.message,
                   lookups: d,
-                  addMargin: !1,
+                  addMargin: false,
                   tools: l,
                   commands: [],
                   verbose: n,
                   inProgressToolUseIDs: c,
                   progressMessagesForMessage: [],
-                  shouldAnimate: !1,
-                  shouldShowDot: !1,
+                  shouldAnimate: false,
+                  shouldShowDot: false,
                   style: "condensed",
-                  isTranscriptMode: !1,
-                  isStatic: !0,
+                  isTranscriptMode: false,
+                  isStatic: true,
                 }),
               },
               i.uuid,

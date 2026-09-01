@@ -10,7 +10,7 @@
 // Version: 2.1.252
 import { S, ue } from "/$bunfs/root/chunk-yz031c9r.js";
 var Y = S(function (nf, ii) {
-  ii.exports = { options: { usePureJavaScript: !1 } };
+  ii.exports = { options: { usePureJavaScript: false } };
 });
 var oi = S(function (sf, si) {
   var ta = {};
@@ -118,11 +118,11 @@ var ae = S(function (of, ci) {
       (E.setImmediate = function (f) {
         if ((t.push(f), t.length === 1)) window.postMessage(e, "*");
       }),
-        window.addEventListener("message", o, !0);
+        window.addEventListener("message", o, true);
     }
     if (typeof MutationObserver < "u") {
       var a = Date.now(),
-        r = !0,
+        r = true,
         i = document.createElement("div"),
         t = [];
       new MutationObserver(function () {
@@ -131,7 +131,7 @@ var ae = S(function (of, ci) {
           f.forEach(function (u) {
             u();
           });
-      }).observe(i, { attributes: !0 });
+      }).observe(i, { attributes: true });
       var s = E.setImmediate;
       E.setImmediate = function (f) {
         if (Date.now() - a > 15) (a = Date.now()), s(f);
@@ -475,19 +475,19 @@ var ae = S(function (of, ci) {
     return this.accommodate(4), this.data.setInt32(this.write, e), (this.write += 4), this;
   };
   E.DataBuffer.prototype.putInt16Le = function (e) {
-    return this.accommodate(2), this.data.setInt16(this.write, e, !0), (this.write += 2), this;
+    return this.accommodate(2), this.data.setInt16(this.write, e, true), (this.write += 2), this;
   };
   E.DataBuffer.prototype.putInt24Le = function (e) {
     return (
       this.accommodate(3),
       this.data.setInt8(this.write, (e >> 16) & 255),
-      this.data.setInt16(this.write, (e >> 8) & 65535, !0),
+      this.data.setInt16(this.write, (e >> 8) & 65535, true),
       (this.write += 3),
       this
     );
   };
   E.DataBuffer.prototype.putInt32Le = function (e) {
-    return this.accommodate(4), this.data.setInt32(this.write, e, !0), (this.write += 4), this;
+    return this.accommodate(4), this.data.setInt32(this.write, e, true), (this.write += 4), this;
   };
   E.DataBuffer.prototype.putInt = function (e, t) {
     or(t), this.accommodate(t / 8);
@@ -515,15 +515,15 @@ var ae = S(function (of, ci) {
     return (this.read += 4), e;
   };
   E.DataBuffer.prototype.getInt16Le = function () {
-    var e = this.data.getInt16(this.read, !0);
+    var e = this.data.getInt16(this.read, true);
     return (this.read += 2), e;
   };
   E.DataBuffer.prototype.getInt24Le = function () {
-    var e = this.data.getInt8(this.read) ^ (this.data.getInt16(this.read + 1, !0) << 8);
+    var e = this.data.getInt8(this.read) ^ (this.data.getInt16(this.read + 1, true) << 8);
     return (this.read += 3), e;
   };
   E.DataBuffer.prototype.getInt32Le = function () {
-    var e = this.data.getInt32(this.read, !0);
+    var e = this.data.getInt32(this.read, true);
     return (this.read += 4), e;
   };
   E.DataBuffer.prototype.getInt = function (e) {
@@ -620,7 +620,7 @@ var ae = S(function (of, ci) {
   E.hexToBytes = function (e) {
     var t = "",
       a = 0;
-    if (e.length & !0) (a = 1), (t += String.fromCharCode(parseInt(e[0], 16)));
+    if (e.length & true) (a = 1), (t += String.fromCharCode(parseInt(e[0], 16)));
     for (; a < e.length; a += 2) t += String.fromCharCode(parseInt(e.substr(a, 2), 16));
     return t;
   };
@@ -820,7 +820,7 @@ var ae = S(function (of, ci) {
       var r;
       if (a === null) r = e.removeItem(t);
       else (a = E.encode64(JSON.stringify(a))), (r = e.setItem(t, a));
-      if (typeof r < "u" && r.rval !== !0) {
+      if (typeof r < "u" && r.rval !== true) {
         var i = Error(r.error.message);
         throw ((i.id = r.error.id), (i.name = r.error.name), i);
       }
@@ -853,9 +853,9 @@ var ae = S(function (of, ci) {
       var r = ia(e, t);
       if (r !== null && a in r) {
         delete r[a];
-        var i = !0;
+        var i = true;
         for (var s in r) {
-          i = !1;
+          i = false;
           break;
         }
         if (i) r = null;
@@ -869,7 +869,7 @@ var ae = S(function (of, ci) {
       var r = null;
       if (typeof a > "u") a = ["web", "flash"];
       var i,
-        s = !1,
+        s = false,
         n = null;
       for (var o in a) {
         i = a[o];
@@ -878,7 +878,7 @@ var ae = S(function (of, ci) {
             if (t[0] === null) throw Error("Flash local storage not available.");
             (r = e.apply(this, t)), (s = i === "flash");
           }
-          if (i === "web" || i === "both") (t[0] = localStorage), (r = e.apply(this, t)), (s = !0);
+          if (i === "web" || i === "both") (t[0] = localStorage), (r = e.apply(this, t)), (s = true);
         } catch (f) {
           n = f;
         }
@@ -900,8 +900,8 @@ var ae = S(function (of, ci) {
     Sr(Ss, arguments, a);
   };
   E.isEmpty = function (e) {
-    for (var t in e) if (e.hasOwnProperty(t)) return !1;
-    return !0;
+    for (var t in e) if (e.hasOwnProperty(t)) return false;
+    return true;
   };
   E.format = function (e) {
     var t = /%./g,
@@ -975,7 +975,7 @@ var ae = S(function (of, ci) {
     var t = 0;
     e = e.split(":").filter(function (n) {
       if (n.length === 0) ++t;
-      return !0;
+      return true;
     });
     var a = (8 - e.length + t) * 2,
       r = E.createBuffer();
@@ -1107,7 +1107,7 @@ var Tr = S(function (uf, hi) {
       if (((a = Te.cipher.getAlgorithm(a)), a)) a = a();
     }
     if (!a) throw Error("Unsupported algorithm: " + e);
-    return new Te.cipher.BlockCipher({ algorithm: a, key: t, decrypt: !1 });
+    return new Te.cipher.BlockCipher({ algorithm: a, key: t, decrypt: false });
   };
   Te.cipher.createDecipher = function (e, t) {
     var a = e;
@@ -1115,7 +1115,7 @@ var Tr = S(function (uf, hi) {
       if (((a = Te.cipher.getAlgorithm(a)), a)) a = a();
     }
     if (!a) throw Error("Unsupported algorithm: " + e);
-    return new Te.cipher.BlockCipher({ algorithm: a, key: t, decrypt: !0 });
+    return new Te.cipher.BlockCipher({ algorithm: a, key: t, decrypt: true });
   };
   Te.cipher.registerAlgorithm = function (e, t) {
     (e = e.toUpperCase()), (Te.cipher.algorithms[e] = t);
@@ -1128,7 +1128,7 @@ var Tr = S(function (uf, hi) {
     (this.algorithm = e.algorithm),
       (this.mode = this.algorithm.mode),
       (this.blockSize = this.mode.blockSize),
-      (this._finish = !1),
+      (this._finish = false),
       (this._input = null),
       (this.output = null),
       (this._op = e.decrypt ? this.mode.decrypt : this.mode.encrypt),
@@ -1140,7 +1140,7 @@ var Tr = S(function (uf, hi) {
     var t = {};
     for (var a in e) t[a] = e[a];
     (t.decrypt = this._decrypt),
-      (this._finish = !1),
+      (this._finish = false),
       (this._input = Te.util.createBuffer()),
       (this.output = e.output || Te.util.createBuffer()),
       this.mode.start(t);
@@ -1153,10 +1153,10 @@ var Tr = S(function (uf, hi) {
   na.prototype.finish = function (e) {
     if (e && (this.mode.name === "ECB" || this.mode.name === "CBC"))
       (this.mode.pad = function (a) {
-        return e(this.blockSize, a, !1);
+        return e(this.blockSize, a, false);
       }),
         (this.mode.unpad = function (a) {
-          return e(this.blockSize, a, !0);
+          return e(this.blockSize, a, true);
         });
     var t = {};
     if (
@@ -1164,15 +1164,15 @@ var Tr = S(function (uf, hi) {
       (t.overflow = this._input.length() % this.blockSize),
       !this._decrypt && this.mode.pad)
     ) {
-      if (!this.mode.pad(this._input, t)) return !1;
+      if (!this.mode.pad(this._input, t)) return false;
     }
-    if (((this._finish = !0), this.update(), this._decrypt && this.mode.unpad)) {
-      if (!this.mode.unpad(this.output, t)) return !1;
+    if (((this._finish = true), this.update(), this._decrypt && this.mode.unpad)) {
+      if (!this.mode.unpad(this.output, t)) return false;
     }
     if (this.mode.afterFinish) {
-      if (!this.mode.afterFinish(this.output, t)) return !1;
+      if (!this.mode.afterFinish(this.output, t)) return false;
     }
-    return !0;
+    return true;
   };
 });
 var oa = S(function (ff, di) {
@@ -1191,27 +1191,27 @@ var oa = S(function (ff, di) {
   };
   W.ecb.prototype.start = function (e) {};
   W.ecb.prototype.encrypt = function (e, t, a) {
-    if (e.length() < this.blockSize && !(a && e.length() > 0)) return !0;
+    if (e.length() < this.blockSize && !(a && e.length() > 0)) return true;
     for (var r = 0; r < this._ints; ++r) this._inBlock[r] = e.getInt32();
     this.cipher.encrypt(this._inBlock, this._outBlock);
     for (var r = 0; r < this._ints; ++r) t.putInt32(this._outBlock[r]);
   };
   W.ecb.prototype.decrypt = function (e, t, a) {
-    if (e.length() < this.blockSize && !(a && e.length() > 0)) return !0;
+    if (e.length() < this.blockSize && !(a && e.length() > 0)) return true;
     for (var r = 0; r < this._ints; ++r) this._inBlock[r] = e.getInt32();
     this.cipher.decrypt(this._inBlock, this._outBlock);
     for (var r = 0; r < this._ints; ++r) t.putInt32(this._outBlock[r]);
   };
   W.ecb.prototype.pad = function (e, t) {
     var a = e.length() === this.blockSize ? this.blockSize : this.blockSize - e.length();
-    return e.fillWithByte(a, a), !0;
+    return e.fillWithByte(a, a), true;
   };
   W.ecb.prototype.unpad = function (e, t) {
-    if (t.overflow > 0) return !1;
+    if (t.overflow > 0) return false;
     var a = e.length(),
       r = e.at(a - 1);
-    if (r > this.blockSize << 2) return !1;
-    return e.truncate(r), !0;
+    if (r > this.blockSize << 2) return false;
+    return e.truncate(r), true;
   };
   W.cbc = function (e) {
     (e = e || {}),
@@ -1230,14 +1230,14 @@ var oa = S(function (ff, di) {
     else (this._iv = Ir(e.iv, this.blockSize)), (this._prev = this._iv.slice(0));
   };
   W.cbc.prototype.encrypt = function (e, t, a) {
-    if (e.length() < this.blockSize && !(a && e.length() > 0)) return !0;
+    if (e.length() < this.blockSize && !(a && e.length() > 0)) return true;
     for (var r = 0; r < this._ints; ++r) this._inBlock[r] = this._prev[r] ^ e.getInt32();
     this.cipher.encrypt(this._inBlock, this._outBlock);
     for (var r = 0; r < this._ints; ++r) t.putInt32(this._outBlock[r]);
     this._prev = this._outBlock;
   };
   W.cbc.prototype.decrypt = function (e, t, a) {
-    if (e.length() < this.blockSize && !(a && e.length() > 0)) return !0;
+    if (e.length() < this.blockSize && !(a && e.length() > 0)) return true;
     for (var r = 0; r < this._ints; ++r) this._inBlock[r] = e.getInt32();
     this.cipher.decrypt(this._inBlock, this._outBlock);
     for (var r = 0; r < this._ints; ++r) t.putInt32(this._prev[r] ^ this._outBlock[r]);
@@ -1245,14 +1245,14 @@ var oa = S(function (ff, di) {
   };
   W.cbc.prototype.pad = function (e, t) {
     var a = e.length() === this.blockSize ? this.blockSize : this.blockSize - e.length();
-    return e.fillWithByte(a, a), !0;
+    return e.fillWithByte(a, a), true;
   };
   W.cbc.prototype.unpad = function (e, t) {
-    if (t.overflow > 0) return !1;
+    if (t.overflow > 0) return false;
     var a = e.length(),
       r = e.at(a - 1);
-    if (r > this.blockSize << 2) return !1;
-    return e.truncate(r), !0;
+    if (r > this.blockSize << 2) return false;
+    return e.truncate(r), true;
   };
   W.cfb = function (e) {
     (e = e || {}),
@@ -1272,7 +1272,7 @@ var oa = S(function (ff, di) {
   };
   W.cfb.prototype.encrypt = function (e, t, a) {
     var r = e.length();
-    if (r === 0) return !0;
+    if (r === 0) return true;
     if ((this.cipher.encrypt(this._inBlock, this._outBlock), this._partialBytes === 0 && r >= this.blockSize)) {
       for (var i = 0; i < this._ints; ++i)
         (this._inBlock[i] = e.getInt32() ^ this._outBlock[i]), t.putInt32(this._inBlock[i]);
@@ -1287,12 +1287,12 @@ var oa = S(function (ff, di) {
     else for (var i = 0; i < this._ints; ++i) this._inBlock[i] = this._partialBlock[i];
     if (this._partialBytes > 0) this._partialOutput.getBytes(this._partialBytes);
     if (s > 0 && !a)
-      return t.putBytes(this._partialOutput.getBytes(s - this._partialBytes)), (this._partialBytes = s), !0;
+      return t.putBytes(this._partialOutput.getBytes(s - this._partialBytes)), (this._partialBytes = s), true;
     t.putBytes(this._partialOutput.getBytes(r - this._partialBytes)), (this._partialBytes = 0);
   };
   W.cfb.prototype.decrypt = function (e, t, a) {
     var r = e.length();
-    if (r === 0) return !0;
+    if (r === 0) return true;
     if ((this.cipher.encrypt(this._inBlock, this._outBlock), this._partialBytes === 0 && r >= this.blockSize)) {
       for (var i = 0; i < this._ints; ++i)
         (this._inBlock[i] = e.getInt32()), t.putInt32(this._inBlock[i] ^ this._outBlock[i]);
@@ -1307,7 +1307,7 @@ var oa = S(function (ff, di) {
     else for (var i = 0; i < this._ints; ++i) this._inBlock[i] = this._partialBlock[i];
     if (this._partialBytes > 0) this._partialOutput.getBytes(this._partialBytes);
     if (s > 0 && !a)
-      return t.putBytes(this._partialOutput.getBytes(s - this._partialBytes)), (this._partialBytes = s), !0;
+      return t.putBytes(this._partialOutput.getBytes(s - this._partialBytes)), (this._partialBytes = s), true;
     t.putBytes(this._partialOutput.getBytes(r - this._partialBytes)), (this._partialBytes = 0);
   };
   W.ofb = function (e) {
@@ -1327,7 +1327,7 @@ var oa = S(function (ff, di) {
   };
   W.ofb.prototype.encrypt = function (e, t, a) {
     var r = e.length();
-    if (e.length() === 0) return !0;
+    if (e.length() === 0) return true;
     if ((this.cipher.encrypt(this._inBlock, this._outBlock), this._partialBytes === 0 && r >= this.blockSize)) {
       for (var i = 0; i < this._ints; ++i)
         t.putInt32(e.getInt32() ^ this._outBlock[i]), (this._inBlock[i] = this._outBlock[i]);
@@ -1341,7 +1341,7 @@ var oa = S(function (ff, di) {
     else for (var i = 0; i < this._ints; ++i) this._inBlock[i] = this._outBlock[i];
     if (this._partialBytes > 0) this._partialOutput.getBytes(this._partialBytes);
     if (s > 0 && !a)
-      return t.putBytes(this._partialOutput.getBytes(s - this._partialBytes)), (this._partialBytes = s), !0;
+      return t.putBytes(this._partialOutput.getBytes(s - this._partialBytes)), (this._partialBytes = s), true;
     t.putBytes(this._partialOutput.getBytes(r - this._partialBytes)), (this._partialBytes = 0);
   };
   W.ofb.prototype.decrypt = W.ofb.prototype.encrypt;
@@ -1362,7 +1362,7 @@ var oa = S(function (ff, di) {
   };
   W.ctr.prototype.encrypt = function (e, t, a) {
     var r = e.length();
-    if (r === 0) return !0;
+    if (r === 0) return true;
     if ((this.cipher.encrypt(this._inBlock, this._outBlock), this._partialBytes === 0 && r >= this.blockSize))
       for (var i = 0; i < this._ints; ++i) t.putInt32(e.getInt32() ^ this._outBlock[i]);
     else {
@@ -1373,7 +1373,7 @@ var oa = S(function (ff, di) {
       if (s > 0) e.read -= this.blockSize;
       if (this._partialBytes > 0) this._partialOutput.getBytes(this._partialBytes);
       if (s > 0 && !a)
-        return t.putBytes(this._partialOutput.getBytes(s - this._partialBytes)), (this._partialBytes = s), !0;
+        return t.putBytes(this._partialOutput.getBytes(s - this._partialBytes)), (this._partialBytes = s), true;
       t.putBytes(this._partialOutput.getBytes(r - this._partialBytes)), (this._partialBytes = 0);
     }
     Ar(this._inBlock);
@@ -1431,7 +1431,7 @@ var oa = S(function (ff, di) {
   };
   W.gcm.prototype.encrypt = function (e, t, a) {
     var r = e.length();
-    if (r === 0) return !0;
+    if (r === 0) return true;
     if ((this.cipher.encrypt(this._inBlock, this._outBlock), this._partialBytes === 0 && r >= this.blockSize)) {
       for (var i = 0; i < this._ints; ++i) t.putInt32((this._outBlock[i] ^= e.getInt32()));
       this._cipherLength += this.blockSize;
@@ -1454,7 +1454,7 @@ var oa = S(function (ff, di) {
           (e.read -= this.blockSize),
           t.putBytes(this._partialOutput.getBytes(s - this._partialBytes)),
           (this._partialBytes = s),
-          !0
+          true
         );
       t.putBytes(this._partialOutput.getBytes(r - this._partialBytes)), (this._partialBytes = 0);
     }
@@ -1462,7 +1462,7 @@ var oa = S(function (ff, di) {
   };
   W.gcm.prototype.decrypt = function (e, t, a) {
     var r = e.length();
-    if (r < this.blockSize && !(a && r > 0)) return !0;
+    if (r < this.blockSize && !(a && r > 0)) return true;
     this.cipher.encrypt(this._inBlock, this._outBlock),
       Ar(this._inBlock),
       (this._hashBlock[0] = e.getInt32()),
@@ -1475,7 +1475,7 @@ var oa = S(function (ff, di) {
     else this._cipherLength += this.blockSize;
   };
   W.gcm.prototype.afterFinish = function (e, t) {
-    var a = !0;
+    var a = true;
     if (t.decrypt && t.overflow) e.truncate(this.blockSize - t.overflow);
     this.tag = Ie.util.createBuffer();
     var r = this._aDataLength.concat(sa(this._cipherLength * 8));
@@ -1484,7 +1484,7 @@ var oa = S(function (ff, di) {
     this.cipher.encrypt(this._j0, i);
     for (var s = 0; s < this._ints; ++s) this.tag.putInt32(this._s[s] ^ i[s]);
     if ((this.tag.truncate(this.tag.length() % (this._tagLength / 8)), t.decrypt && this.tag.bytes() !== this._tag))
-      a = !1;
+      a = false;
     return a;
   };
   W.gcm.prototype.multiply = function (e, t) {
@@ -1581,18 +1581,18 @@ var It = S(function (lf, gi) {
   ae();
   gi.exports = ce.aes = ce.aes || {};
   ce.aes.startEncrypting = function (e, t, a, r) {
-    var i = Br({ key: e, output: a, decrypt: !1, mode: r });
+    var i = Br({ key: e, output: a, decrypt: false, mode: r });
     return i.start(t), i;
   };
   ce.aes.createEncryptionCipher = function (e, t) {
-    return Br({ key: e, output: null, decrypt: !1, mode: t });
+    return Br({ key: e, output: null, decrypt: false, mode: t });
   };
   ce.aes.startDecrypting = function (e, t, a, r) {
-    var i = Br({ key: e, output: a, decrypt: !0, mode: r });
+    var i = Br({ key: e, output: a, decrypt: true, mode: r });
     return i.start(t), i;
   };
   ce.aes.createDecryptionCipher = function (e, t) {
-    return Br({ key: e, output: null, decrypt: !0, mode: t });
+    return Br({ key: e, output: null, decrypt: true, mode: t });
   };
   ce.aes.Algorithm = function (e, t) {
     if (!la) vi();
@@ -1602,14 +1602,14 @@ var It = S(function (lf, gi) {
         blockSize: 16,
         cipher: {
           encrypt: function (r, i) {
-            return fa(a._w, r, i, !1);
+            return fa(a._w, r, i, false);
           },
           decrypt: function (r, i) {
-            return fa(a._w, r, i, !0);
+            return fa(a._w, r, i, true);
           },
         },
       })),
-      (a._init = !1);
+      (a._init = false);
   };
   ce.aes.Algorithm.prototype.initialize = function (e) {
     if (this._init) return;
@@ -1632,7 +1632,7 @@ var It = S(function (lf, gi) {
       throw Error("Invalid key parameter.");
     var s = this.mode.name,
       n = ["CFB", "OFB", "CTR", "GCM"].indexOf(s) !== -1;
-    (this._w = yi(t, e.decrypt && !n)), (this._init = !0);
+    (this._w = yi(t, e.decrypt && !n)), (this._init = true);
   };
   ce.aes._expandKey = function (e, t) {
     if (!la) vi();
@@ -1651,7 +1651,7 @@ var It = S(function (lf, gi) {
     };
     ce.cipher.registerAlgorithm(e, a);
   }
-  var la = !1,
+  var la = false,
     Qt = 4,
     Ge,
     ua,
@@ -1659,7 +1659,7 @@ var It = S(function (lf, gi) {
     kt,
     st;
   function vi() {
-    (la = !0), (pi = [0, 1, 2, 4, 8, 16, 32, 64, 128, 27, 54]);
+    (la = true), (pi = [0, 1, 2, 4, 8, 16, 32, 64, 128, 27, 54]);
     var e = Array(256);
     for (var t = 0; t < 128; ++t) (e[t] = t << 1), (e[t + 128] = ((t + 128) << 1) ^ 283);
     (Ge = Array(256)), (ua = Array(256)), (kt = [, , , ,]), (st = [, , , ,]);
@@ -1976,12 +1976,12 @@ var ot = S(function (hf, Ei) {
   };
   P.equals = function (e, t, a) {
     if (pe.util.isArray(e)) {
-      if (!pe.util.isArray(t)) return !1;
-      if (e.length !== t.length) return !1;
-      for (var r = 0; r < e.length; ++r) if (!P.equals(e[r], t[r])) return !1;
-      return !0;
+      if (!pe.util.isArray(t)) return false;
+      if (e.length !== t.length) return false;
+      for (var r = 0; r < e.length; ++r) if (!P.equals(e[r], t[r])) return false;
+      return true;
     }
-    if (typeof e !== typeof t) return !1;
+    if (typeof e !== typeof t) return false;
     if (typeof e === "string") return e === t;
     var i =
       e.tagClass === t.tagClass &&
@@ -2021,11 +2021,11 @@ var ot = S(function (hf, Ei) {
     return r;
   };
   P.fromDer = function (e, t) {
-    if (t === void 0) t = { strict: !0, parseAllBytes: !0, decodeBitStrings: !0 };
-    if (typeof t === "boolean") t = { strict: t, parseAllBytes: !0, decodeBitStrings: !0 };
-    if (!("strict" in t)) t.strict = !0;
-    if (!("parseAllBytes" in t)) t.parseAllBytes = !0;
-    if (!("decodeBitStrings" in t)) t.decodeBitStrings = !0;
+    if (t === void 0) t = { strict: true, parseAllBytes: true, decodeBitStrings: true };
+    if (typeof t === "boolean") t = { strict: t, parseAllBytes: true, decodeBitStrings: true };
+    if (!("strict" in t)) t.strict = true;
+    if (!("parseAllBytes" in t)) t.parseAllBytes = true;
+    if (!("decodeBitStrings" in t)) t.decodeBitStrings = true;
     if (!("maxDepth" in t)) t.maxDepth = P.maxDepth;
     if (typeof e === "string") e = pe.util.createBuffer(e);
     var a = e.length(),
@@ -2075,7 +2075,7 @@ var ot = S(function (hf, Ei) {
       if (x === 0)
         try {
           i = e.length();
-          var T = { strict: !0, decodeBitStrings: !0 },
+          var T = { strict: true, decodeBitStrings: true },
             A = br(e, t, a + 1, T),
             _ = i - e.length();
           if (((t -= _), o == P.Type.BITSTRING)) _++;
@@ -2101,9 +2101,9 @@ var ot = S(function (hf, Ei) {
     var t = pe.util.createBuffer(),
       a = e.tagClass | e.type,
       r = pe.util.createBuffer(),
-      i = !1;
+      i = false;
     if ("bitStringContents" in e) {
-      if (((i = !0), e.original)) i = P.equals(e, e.original);
+      if (((i = true), e.original)) i = P.equals(e, e.original);
     }
     if (i) r.putBytes(e.bitStringContents);
     else if (e.composed) {
@@ -2136,11 +2136,11 @@ var ot = S(function (hf, Ei) {
     a.putByte(40 * parseInt(t[0], 10) + parseInt(t[1], 10));
     var r, i, s, n;
     for (var o = 2; o < t.length; ++o) {
-      if (((r = !0), (i = []), (s = parseInt(t[o], 10)), s > 4294967295))
+      if (((r = true), (i = []), (s = parseInt(t[o], 10)), s > 4294967295))
         throw Error("OID value too large; max is 32-bits.");
       do {
         if (((n = s & 127), (s = s >>> 7), !r)) n |= 128;
-        i.push(n), (r = !1);
+        i.push(n), (r = false);
       } while (s > 0);
       for (var f = i.length - 1; f >= 0; --f) a.putByte(i[f]);
     }
@@ -2194,15 +2194,15 @@ var ot = S(function (hf, Ei) {
       o = parseInt(e.substr(12, 2), 10),
       f = 0,
       u = 0,
-      l = !1;
-    if (e.charAt(e.length - 1) === "Z") l = !0;
+      l = false;
+    if (e.charAt(e.length - 1) === "Z") l = true;
     var c = e.length - 5,
       v = e.charAt(c);
     if (v === "+" || v === "-") {
       var C = parseInt(e.substr(c + 1, 2), 10),
         y = parseInt(e.substr(c + 4, 2), 10);
       if (((u = C * 60 + y), (u *= 60000), v === "+")) u *= -1;
-      l = !0;
+      l = true;
     }
     if (e.charAt(14) === ".") f = parseFloat(e.substr(14), 10) * 1000;
     if (l) t.setUTCFullYear(a, r, i), t.setUTCHours(s, n, o, f), t.setTime(+t + u);
@@ -2257,10 +2257,10 @@ var ot = S(function (hf, Ei) {
     return e.getSignedInt(t);
   };
   P.validate = function (e, t, a, r) {
-    var i = !1;
+    var i = false;
     if ((e.tagClass === t.tagClass || typeof t.tagClass > "u") && (e.type === t.type || typeof t.type > "u")) {
       if (e.constructed === t.constructed || typeof t.constructed > "u") {
-        if (((i = !0), t.value && pe.util.isArray(t.value))) {
+        if (((i = true), t.value && pe.util.isArray(t.value))) {
           var s = 0;
           for (var n = 0; i && n < t.value.length; ++n) {
             var o = t.value[n];
@@ -2268,7 +2268,7 @@ var ot = S(function (hf, Ei) {
             var f = e.value[s];
             if (!f) {
               if (!o.optional) {
-                if (((i = !1), r))
+                if (((i = false), r))
                   r.push(
                     "[" +
                       t.name +
@@ -2284,10 +2284,10 @@ var ot = S(function (hf, Ei) {
             var u = typeof o.tagClass < "u" && typeof o.type < "u";
             if (u && (f.tagClass !== o.tagClass || f.type !== o.type))
               if (o.optional) {
-                i = !0;
+                i = true;
                 continue;
               } else {
-                if (((i = !1), r))
+                if (((i = false), r))
                   r.push(
                     "[" +
                       t.name +
@@ -2304,10 +2304,10 @@ var ot = S(function (hf, Ei) {
                 break;
               }
             var l = P.validate(f, o, a, r);
-            if (l) ++s, (i = !0);
-            else if (o.optional) i = !0;
+            if (l) ++s, (i = true);
+            else if (o.optional) i = true;
             else {
-              i = !1;
+              i = false;
               break;
             }
           }
@@ -2601,7 +2601,7 @@ var Rr = S(function (vf, Bi) {
     Nr = null,
     lr = null,
     Xt = null,
-    Ai = !1;
+    Ai = false;
   function As() {
     (ha = String.fromCharCode(128)),
       (ha += lt.util.fillString(String.fromCharCode(0), 64)),
@@ -2616,7 +2616,7 @@ var Rr = S(function (vf, Bi) {
       ]),
       (Xt = Array(64));
     for (var e = 0; e < 64; ++e) Xt[e] = Math.floor(Math.abs(Math.sin(e + 1)) * 4294967296);
-    Ai = !0;
+    Ai = true;
   }
   function Ti(e, t, a) {
     var r,
@@ -2710,7 +2710,7 @@ var Ut = S(function (yf, _i) {
       r = /([\x21-\x7e]+):\s*([\x21-\x7e\s^:]+)/,
       i = /\r?\n/,
       s;
-    while (!0) {
+    while (true) {
       if (((s = a.exec(e)), !s)) break;
       var n = s[1];
       if (n === "NEW CERTIFICATE REQUEST") n = "CERTIFICATE REQUEST";
@@ -2804,18 +2804,18 @@ var cr = S(function (gf, Ri) {
   ae();
   Ri.exports = ye.des = ye.des || {};
   ye.des.startEncrypting = function (e, t, a, r) {
-    var i = Dr({ key: e, output: a, decrypt: !1, mode: r || (t === null ? "ECB" : "CBC") });
+    var i = Dr({ key: e, output: a, decrypt: false, mode: r || (t === null ? "ECB" : "CBC") });
     return i.start(t), i;
   };
   ye.des.createEncryptionCipher = function (e, t) {
-    return Dr({ key: e, output: null, decrypt: !1, mode: t });
+    return Dr({ key: e, output: null, decrypt: false, mode: t });
   };
   ye.des.startDecrypting = function (e, t, a, r) {
-    var i = Dr({ key: e, output: a, decrypt: !0, mode: r || (t === null ? "ECB" : "CBC") });
+    var i = Dr({ key: e, output: a, decrypt: true, mode: r || (t === null ? "ECB" : "CBC") });
     return i.start(t), i;
   };
   ye.des.createDecryptionCipher = function (e, t) {
-    return Dr({ key: e, output: null, decrypt: !0, mode: t });
+    return Dr({ key: e, output: null, decrypt: true, mode: t });
   };
   ye.des.Algorithm = function (e, t) {
     var a = this;
@@ -2824,14 +2824,14 @@ var cr = S(function (gf, Ri) {
         blockSize: 8,
         cipher: {
           encrypt: function (r, i) {
-            return Ni(a._keys, r, i, !1);
+            return Ni(a._keys, r, i, false);
           },
           decrypt: function (r, i) {
-            return Ni(a._keys, r, i, !0);
+            return Ni(a._keys, r, i, true);
           },
         },
       })),
-      (a._init = !1);
+      (a._init = false);
   };
   ye.des.Algorithm.prototype.initialize = function (e) {
     if (this._init) return;
@@ -2839,7 +2839,7 @@ var cr = S(function (gf, Ri) {
     if (this.name.indexOf("3DES") === 0) {
       if (t.length() !== 24) throw Error("Invalid Triple-DES key size: " + t.length() * 8);
     }
-    (this._keys = Us(t)), (this._init = !0);
+    (this._keys = Us(t)), (this._init = true);
   };
   ct("DES-ECB", ye.cipher.modes.ecb);
   ct("DES-CBC", ye.cipher.modes.cbc);
@@ -3283,7 +3283,7 @@ var pa = S(function (mf, Pi) {
     );
   };
   var da = null,
-    ki = !1,
+    ki = false,
     Ui = null;
   function Vs() {
     (da = String.fromCharCode(128)),
@@ -3298,7 +3298,7 @@ var pa = S(function (mf, Pi) {
         1537002063, 1747873779, 1955562222, 2024104815, 2227730452, 2361852424, 2428436474, 2756734187, 3204031479,
         3329325298,
       ]),
-      (ki = !0);
+      (ki = true);
   }
   function Li(e, t, a) {
     var r,
@@ -3545,7 +3545,7 @@ var $e = S(function (xf, ya) {
           (c[1] = v.getInt32()),
           (c[2] = v.getInt32()),
           (c[3] = v.getInt32()),
-          Ae.aes._expandKey(c, !1)
+          Ae.aes._expandKey(c, false)
         );
       }),
         (t.formatSeed = function (c) {
@@ -3561,7 +3561,7 @@ var $e = S(function (xf, ya) {
         }),
         (t.cipher = function (c, v) {
           return (
-            Ae.aes._updateBlock(c, v, a, !1),
+            Ae.aes._updateBlock(c, v, a, false),
             r.putInt32(a[0]),
             r.putInt32(a[1]),
             r.putInt32(a[2]),
@@ -3656,7 +3656,7 @@ var Ca = S(function (Sf, Ki) {
     return a;
   };
   var Fi = function (e, t, a) {
-    var r = !1,
+    var r = false,
       i = null,
       s = null,
       n = null,
@@ -3712,7 +3712,7 @@ var Ca = S(function (Sf, Ki) {
           if (y) {
             if (typeof y === "string") y = Xe.util.createBuffer(y);
           }
-          (r = !1), (i = Xe.util.createBuffer()), (s = x || new Xe.util.createBuffer()), (n = y), (C.output = s);
+          (r = false), (i = Xe.util.createBuffer()), (s = x || new Xe.util.createBuffer()), (n = y), (C.output = s);
         },
         update: function (y) {
           if (!r) i.putBuffer(y);
@@ -3726,21 +3726,21 @@ var Ca = S(function (Sf, Ki) {
             ]);
         },
         finish: function (y) {
-          var x = !0;
+          var x = true;
           if (a)
             if (y) x = y(8, i, !a);
             else {
               var T = i.length() === 8 ? 8 : 8 - i.length();
               i.fillWithByte(T, T);
             }
-          if (x) (r = !0), C.update();
+          if (x) (r = true), C.update();
           if (!a) {
             if (((x = i.length() === 0), x))
               if (y) x = y(8, s, !a);
               else {
                 var A = s.length(),
                   _ = s.at(A - 1);
-                if (_ > A) x = !1;
+                if (_ > A) x = false;
                 else s.truncate(_);
               }
           }
@@ -3755,14 +3755,14 @@ var Ca = S(function (Sf, Ki) {
     return r.start(t, a), r;
   };
   Xe.rc2.createEncryptionCipher = function (e, t) {
-    return Fi(e, t, !0);
+    return Fi(e, t, true);
   };
   Xe.rc2.startDecrypting = function (e, t, a) {
     var r = Xe.rc2.createDecryptionCipher(e, 128);
     return r.start(t, a), r;
   };
   Xe.rc2.createDecryptionCipher = function (e, t) {
-    return Fi(e, t, !1);
+    return Fi(e, t, false);
   };
 });
 var dr = S(function (Tf, Xi) {
@@ -3869,15 +3869,15 @@ var dr = S(function (Tf, Xi) {
     }
     (this.t = 0), (this.s = 0);
     var r = e.length,
-      i = !1,
+      i = false,
       s = 0;
     while (--r >= 0) {
       var n = a == 8 ? e[r] & 255 : Gi(e, r);
       if (n < 0) {
-        if (e.charAt(r) == "-") i = !0;
+        if (e.charAt(r) == "-") i = true;
         continue;
       }
-      if (((i = !1), s == 0)) this.data[this.t++] = n;
+      if (((i = false), s == 0)) this.data[this.t++] = n;
       else if (s + a > this.DB)
         (this.data[this.t - 1] |= (n & ((1 << (this.DB - s)) - 1)) << s), (this.data[this.t++] = n >> (this.DB - s));
       else this.data[this.t - 1] |= n << s;
@@ -3903,16 +3903,16 @@ var dr = S(function (Tf, Xi) {
     else return this.toRadix(e);
     var a = (1 << t) - 1,
       r,
-      i = !1,
+      i = false,
       s = "",
       n = this.t,
       o = this.DB - ((n * this.DB) % t);
     if (n-- > 0) {
-      if (o < this.DB && (r = this.data[n] >> o) > 0) (i = !0), (s = Hi(r));
+      if (o < this.DB && (r = this.data[n] >> o) > 0) (i = true), (s = Hi(r));
       while (n >= 0) {
         if (o < t) (r = (this.data[n] & ((1 << o) - 1)) << (t - o)), (r |= this.data[--n] >> (o += this.DB - t));
         else if (((r = (this.data[n] >> (o -= t)) & a), o <= 0)) (o += this.DB), --n;
-        if (r > 0) i = !0;
+        if (r > 0) i = true;
         if (i) s += Hi(r);
       }
     }
@@ -4237,13 +4237,13 @@ var dr = S(function (Tf, Xi) {
     if ((this.fromInt(0), t == null)) t = 10;
     var a = this.chunkSize(t),
       r = Math.pow(t, a),
-      i = !1,
+      i = false,
       s = 0,
       n = 0;
     for (var o = 0; o < e.length; ++o) {
       var f = Gi(e, o);
       if (f < 0) {
-        if (e.charAt(o) == "-" && this.signum() == 0) i = !0;
+        if (e.charAt(o) == "-" && this.signum() == 0) i = true;
         continue;
       }
       if (((n = t * n + f), ++s >= a)) this.dMultiply(r), this.dAddOffset(n, 0), (s = 0), (n = 0);
@@ -4552,7 +4552,7 @@ var dr = S(function (Tf, Xi) {
     }
     var c = e.t - 1,
       v,
-      C = !0,
+      C = true,
       y = te(),
       x;
     a = Vr(e.data[c]) - 1;
@@ -4562,7 +4562,7 @@ var dr = S(function (Tf, Xi) {
       o = r;
       while ((v & 1) == 0) (v >>= 1), --o;
       if ((a -= o) < 0) (a += this.DB), --c;
-      if (C) n[v].copyTo(i), (C = !1);
+      if (C) n[v].copyTo(i), (C = false);
       else {
         while (o > 1) s.sqrTo(i, y), s.sqrTo(y, i), (o -= 2);
         if (o > 0) s.sqrTo(i, y);
@@ -4659,24 +4659,24 @@ var dr = S(function (Tf, Xi) {
     var t,
       a = this.abs();
     if (a.t == 1 && a.data[0] <= ut[ut.length - 1]) {
-      for (t = 0; t < ut.length; ++t) if (a.data[0] == ut[t]) return !0;
-      return !1;
+      for (t = 0; t < ut.length; ++t) if (a.data[0] == ut[t]) return true;
+      return false;
     }
-    if (a.isEven()) return !1;
+    if (a.isEven()) return false;
     t = 1;
     while (t < ut.length) {
       var r = ut[t],
         i = t + 1;
       while (i < ut.length && r < A0) r *= ut[i++];
       r = a.modInt(r);
-      while (t < i) if (r % ut[t++] == 0) return !1;
+      while (t < i) if (r % ut[t++] == 0) return false;
     }
     return a.millerRabin(e);
   }
   function b0(e) {
     var t = this.subtract(b.ONE),
       a = t.getLowestSetBit();
-    if (a <= 0) return !1;
+    if (a <= 0) return false;
     var r = t.shiftRight(a),
       i = _0(),
       s;
@@ -4686,11 +4686,11 @@ var dr = S(function (Tf, Xi) {
       var o = s.modPow(r, this);
       if (o.compareTo(b.ONE) != 0 && o.compareTo(t) != 0) {
         var f = 1;
-        while (f++ < a && o.compareTo(t) != 0) if (((o = o.modPowInt(2, this)), o.compareTo(b.ONE) == 0)) return !1;
-        if (o.compareTo(t) != 0) return !1;
+        while (f++ < a && o.compareTo(t) != 0) if (((o = o.modPowInt(2, this)), o.compareTo(b.ONE) == 0)) return false;
+        if (o.compareTo(t) != 0) return false;
       }
     }
-    return !0;
+    return true;
   }
   function _0() {
     return {
@@ -4815,9 +4815,9 @@ var Zt = S(function (If, Ji) {
     );
   };
   var Sa = null,
-    Zi = !1;
+    Zi = false;
   function N0() {
-    (Sa = String.fromCharCode(128)), (Sa += pt.util.fillString(String.fromCharCode(0), 64)), (Zi = !0);
+    (Sa = String.fromCharCode(128)), (Sa += pt.util.fillString(String.fromCharCode(0), 64)), (Zi = true);
   }
   function Wi(e, t, a) {
     var r,
@@ -5071,14 +5071,14 @@ var Aa = S(function (Bf, Ia) {
         for (var L = 0; L < T; ++L) k[L] = new Worker(N);
         var Q = T;
         for (var L = 0; L < T; ++L) k[L].addEventListener("message", ne);
-        var X = !1;
+        var X = false;
         function ne(se) {
           if (X) return;
           --Q;
           var le = se.data;
           if (le.found) {
             for (var de = 0; de < k.length; ++de) k[de].terminate();
-            return (X = !0), y(null, new t(le.prime, 16));
+            return (X = true), y(null, new t(le.prime, 16));
           }
           if (x.bitLength() > c) x = u(c, v);
           var He = x.toString(16);
@@ -5130,26 +5130,26 @@ var pr = S(function (bf, un) {
       name: "PrivateKeyInfo",
       tagClass: I.Class.UNIVERSAL,
       type: I.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
         {
           name: "PrivateKeyInfo.version",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "privateKeyVersion",
         },
         {
           name: "PrivateKeyInfo.privateKeyAlgorithm",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.SEQUENCE,
-          constructed: !0,
+          constructed: true,
           value: [
             {
               name: "AlgorithmIdentifier.algorithm",
               tagClass: I.Class.UNIVERSAL,
               type: I.Type.OID,
-              constructed: !1,
+              constructed: false,
               capture: "privateKeyOid",
             },
           ],
@@ -5158,7 +5158,7 @@ var pr = S(function (bf, un) {
           name: "PrivateKeyInfo",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.OCTETSTRING,
-          constructed: !1,
+          constructed: false,
           capture: "privateKey",
         },
       ],
@@ -5167,69 +5167,69 @@ var pr = S(function (bf, un) {
       name: "RSAPrivateKey",
       tagClass: I.Class.UNIVERSAL,
       type: I.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
         {
           name: "RSAPrivateKey.version",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "privateKeyVersion",
         },
         {
           name: "RSAPrivateKey.modulus",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "privateKeyModulus",
         },
         {
           name: "RSAPrivateKey.publicExponent",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "privateKeyPublicExponent",
         },
         {
           name: "RSAPrivateKey.privateExponent",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "privateKeyPrivateExponent",
         },
         {
           name: "RSAPrivateKey.prime1",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "privateKeyPrime1",
         },
         {
           name: "RSAPrivateKey.prime2",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "privateKeyPrime2",
         },
         {
           name: "RSAPrivateKey.exponent1",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "privateKeyExponent1",
         },
         {
           name: "RSAPrivateKey.exponent2",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "privateKeyExponent2",
         },
         {
           name: "RSAPrivateKey.coefficient",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "privateKeyCoefficient",
         },
       ],
@@ -5238,20 +5238,20 @@ var pr = S(function (bf, un) {
       name: "RSAPublicKey",
       tagClass: I.Class.UNIVERSAL,
       type: I.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
         {
           name: "RSAPublicKey.modulus",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "publicKeyModulus",
         },
         {
           name: "RSAPublicKey.exponent",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "publicKeyExponent",
         },
       ],
@@ -5260,20 +5260,20 @@ var pr = S(function (bf, un) {
       name: "SubjectPublicKeyInfo",
       tagClass: I.Class.UNIVERSAL,
       type: I.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       captureAsn1: "subjectPublicKeyInfo",
       value: [
         {
           name: "SubjectPublicKeyInfo.AlgorithmIdentifier",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.SEQUENCE,
-          constructed: !0,
+          constructed: true,
           value: [
             {
               name: "AlgorithmIdentifier.algorithm",
               tagClass: I.Class.UNIVERSAL,
               type: I.Type.OID,
-              constructed: !1,
+              constructed: false,
               capture: "publicKeyOid",
             },
           ],
@@ -5282,14 +5282,14 @@ var pr = S(function (bf, un) {
           name: "SubjectPublicKeyInfo.subjectPublicKey",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.BITSTRING,
-          constructed: !1,
+          constructed: false,
           value: [
             {
               name: "SubjectPublicKeyInfo.subjectPublicKey.RSAPublicKey",
               tagClass: I.Class.UNIVERSAL,
               type: I.Type.SEQUENCE,
-              constructed: !0,
-              optional: !0,
+              constructed: true,
+              optional: true,
               captureAsn1: "rsaPublicKey",
             },
           ],
@@ -5300,19 +5300,19 @@ var pr = S(function (bf, un) {
       name: "DigestInfo",
       tagClass: I.Class.UNIVERSAL,
       type: I.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
         {
           name: "DigestInfo.DigestAlgorithm",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.SEQUENCE,
-          constructed: !0,
+          constructed: true,
           value: [
             {
               name: "DigestInfo.DigestAlgorithm.algorithmIdentifier",
               tagClass: I.Class.UNIVERSAL,
               type: I.Type.OID,
-              constructed: !1,
+              constructed: false,
               capture: "algorithmIdentifier",
             },
             {
@@ -5320,8 +5320,8 @@ var pr = S(function (bf, un) {
               tagClass: I.Class.UNIVERSAL,
               type: I.Type.NULL,
               capture: "parameters",
-              optional: !0,
-              constructed: !1,
+              optional: true,
+              constructed: false,
             },
           ],
         },
@@ -5329,7 +5329,7 @@ var pr = S(function (bf, un) {
           name: "DigestInfo.digest",
           tagClass: I.Class.UNIVERSAL,
           type: I.Type.OCTETSTRING,
-          constructed: !1,
+          constructed: false,
           capture: "digest",
         },
       ],
@@ -5342,11 +5342,11 @@ var pr = S(function (bf, un) {
         throw ((a.algorithm = e.algorithm), a);
       }
       var r = I.oidToDer(t).getBytes(),
-        i = I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, !0, []),
-        s = I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, !0, []);
-      s.value.push(I.create(I.Class.UNIVERSAL, I.Type.OID, !1, r)),
-        s.value.push(I.create(I.Class.UNIVERSAL, I.Type.NULL, !1, ""));
-      var n = I.create(I.Class.UNIVERSAL, I.Type.OCTETSTRING, !1, e.digest().getBytes());
+        i = I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, true, []),
+        s = I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, true, []);
+      s.value.push(I.create(I.Class.UNIVERSAL, I.Type.OID, false, r)),
+        s.value.push(I.create(I.Class.UNIVERSAL, I.Type.NULL, false, ""));
+      var n = I.create(I.Class.UNIVERSAL, I.Type.OCTETSTRING, false, e.digest().getBytes());
       return i.value.push(s), i.value.push(n), I.toDer(i).getBytes();
     },
     sn = function (e, t, a) {
@@ -5369,7 +5369,7 @@ var pr = S(function (bf, un) {
     var r = a,
       i,
       s = Math.ceil(t.n.bitLength() / 8);
-    if (a !== !1 && a !== !0) (r = a === 2), (i = on(e, t, a));
+    if (a !== false && a !== true) (r = a === 2), (i = on(e, t, a));
     else (i = q.util.createBuffer()), i.putBytes(e);
     var n = new ee(i.toHex(), 16),
       o = sn(n, t, r),
@@ -5392,7 +5392,7 @@ var pr = S(function (bf, un) {
       u = q.util.createBuffer(),
       l = i - Math.ceil(f.length / 2);
     while (l > 0) u.putByte(0), --l;
-    if ((u.putBytes(q.util.hexToBytes(f)), r !== !1)) return Fr(u.getBytes(), t, a);
+    if ((u.putBytes(q.util.hexToBytes(f)), r !== false)) return Fr(u.getBytes(), t, a);
     return u.getBytes();
   };
   G.rsa.createKeyPairGenerationState = function (e, t, a) {
@@ -5513,7 +5513,7 @@ var pr = S(function (bf, un) {
           return tt.globalScope.crypto.subtle
             .generateKey(
               { name: "RSASSA-PKCS1-v1_5", modulusLength: e, publicExponent: nn(t), hash: { name: "SHA-256" } },
-              !0,
+              true,
               ["sign", "verify"],
             )
             .then(function (o) {
@@ -5531,7 +5531,7 @@ var pr = S(function (bf, un) {
         if (an("generateKey") && an("exportKey")) {
           var i = tt.globalScope.msCrypto.subtle.generateKey(
             { name: "RSASSA-PKCS1-v1_5", modulusLength: e, publicExponent: nn(t), hash: { name: "SHA-256" } },
-            !0,
+            true,
             ["sign", "verify"],
           );
           (i.oncomplete = function (o) {
@@ -5590,19 +5590,19 @@ var pr = S(function (bf, un) {
             },
           };
         else if (typeof i === "string") throw Error('Unsupported encryption scheme: "' + i + '".');
-        var n = i.encode(r, a, !0);
-        return G.rsa.encrypt(n, a, !0);
+        var n = i.encode(r, a, true);
+        return G.rsa.encrypt(n, a, true);
       }),
       (a.verify = function (r, i, s, n) {
         if (typeof s === "string") s = s.toUpperCase();
         else if (s === void 0) s = "RSASSA-PKCS1-V1_5";
-        if (n === void 0) n = { _parseAllDigestBytes: !0, _skipPaddingChecks: !1 };
-        if (!("_parseAllDigestBytes" in n)) n._parseAllDigestBytes = !0;
-        if (!("_skipPaddingChecks" in n)) n._skipPaddingChecks = !1;
+        if (n === void 0) n = { _parseAllDigestBytes: true, _skipPaddingChecks: false };
+        if (!("_parseAllDigestBytes" in n)) n._parseAllDigestBytes = true;
+        if (!("_skipPaddingChecks" in n)) n._skipPaddingChecks = false;
         if (s === "RSASSA-PKCS1-V1_5")
           s = {
             verify: function (f, u) {
-              u = Fr(u, a, !0, void 0, n);
+              u = Fr(u, a, true, void 0, n);
               var l = I.fromDer(u, { parseAllBytes: n._parseAllDigestBytes }),
                 c = {},
                 v = [];
@@ -5639,10 +5639,10 @@ var pr = S(function (bf, un) {
         else if (s === "NONE" || s === "NULL" || s === null)
           s = {
             verify: function (f, u) {
-              return (u = Fr(u, a, !0, void 0, n)), f === u;
+              return (u = Fr(u, a, true, void 0, n)), f === u;
             },
           };
-        var o = G.rsa.decrypt(i, a, !0, !1);
+        var o = G.rsa.decrypt(i, a, true, false);
         return s.verify(r, o, a.n.bitLength());
       }),
       a
@@ -5654,7 +5654,7 @@ var pr = S(function (bf, un) {
       (f.decrypt = function (u, l, c) {
         if (typeof l === "string") l = l.toUpperCase();
         else if (l === void 0) l = "RSAES-PKCS1-V1_5";
-        var v = G.rsa.decrypt(u, f, !1, !1);
+        var v = G.rsa.decrypt(u, f, false, false);
         if (l === "RSAES-PKCS1-V1_5") l = { decode: Fr };
         else if (l === "RSA-OAEP" || l === "RSAES-OAEP")
           l = {
@@ -5669,10 +5669,10 @@ var pr = S(function (bf, un) {
             },
           };
         else throw Error('Unsupported encryption scheme: "' + l + '".');
-        return l.decode(v, f, !1);
+        return l.decode(v, f, false);
       }),
       (f.sign = function (u, l) {
-        var c = !1;
+        var c = false;
         if (typeof l === "string") l = l.toUpperCase();
         if (l === void 0 || l === "RSASSA-PKCS1-V1_5") (l = { encode: P0 }), (c = 1);
         else if (l === "NONE" || l === "NULL" || l === null)
@@ -5689,13 +5689,13 @@ var pr = S(function (bf, un) {
     );
   };
   G.wrapRsaPrivateKey = function (e) {
-    return I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, !0, [
-      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, !1, I.integerToDer(0).getBytes()),
-      I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, !0, [
-        I.create(I.Class.UNIVERSAL, I.Type.OID, !1, I.oidToDer(G.oids.rsaEncryption).getBytes()),
-        I.create(I.Class.UNIVERSAL, I.Type.NULL, !1, ""),
+    return I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, true, [
+      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, false, I.integerToDer(0).getBytes()),
+      I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, true, [
+        I.create(I.Class.UNIVERSAL, I.Type.OID, false, I.oidToDer(G.oids.rsaEncryption).getBytes()),
+        I.create(I.Class.UNIVERSAL, I.Type.NULL, false, ""),
       ]),
-      I.create(I.Class.UNIVERSAL, I.Type.OCTETSTRING, !1, I.toDer(e).getBytes()),
+      I.create(I.Class.UNIVERSAL, I.Type.OCTETSTRING, false, I.toDer(e).getBytes()),
     ]);
   };
   G.privateKeyFromAsn1 = function (e) {
@@ -5729,16 +5729,16 @@ var pr = S(function (bf, un) {
     );
   };
   G.privateKeyToAsn1 = G.privateKeyToRSAPrivateKey = function (e) {
-    return I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, !0, [
-      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, !1, I.integerToDer(0).getBytes()),
-      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, !1, yt(e.n)),
-      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, !1, yt(e.e)),
-      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, !1, yt(e.d)),
-      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, !1, yt(e.p)),
-      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, !1, yt(e.q)),
-      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, !1, yt(e.dP)),
-      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, !1, yt(e.dQ)),
-      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, !1, yt(e.qInv)),
+    return I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, true, [
+      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, false, I.integerToDer(0).getBytes()),
+      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, false, yt(e.n)),
+      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, false, yt(e.e)),
+      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, false, yt(e.d)),
+      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, false, yt(e.p)),
+      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, false, yt(e.q)),
+      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, false, yt(e.dP)),
+      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, false, yt(e.dQ)),
+      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, false, yt(e.qInv)),
     ]);
   };
   G.publicKeyFromAsn1 = function (e) {
@@ -5761,18 +5761,18 @@ var pr = S(function (bf, un) {
     return G.setRsaPublicKey(new ee(s, 16), new ee(n, 16));
   };
   G.publicKeyToAsn1 = G.publicKeyToSubjectPublicKeyInfo = function (e) {
-    return I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, !0, [
-      I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, !0, [
-        I.create(I.Class.UNIVERSAL, I.Type.OID, !1, I.oidToDer(G.oids.rsaEncryption).getBytes()),
-        I.create(I.Class.UNIVERSAL, I.Type.NULL, !1, ""),
+    return I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, true, [
+      I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, true, [
+        I.create(I.Class.UNIVERSAL, I.Type.OID, false, I.oidToDer(G.oids.rsaEncryption).getBytes()),
+        I.create(I.Class.UNIVERSAL, I.Type.NULL, false, ""),
       ]),
-      I.create(I.Class.UNIVERSAL, I.Type.BITSTRING, !1, [G.publicKeyToRSAPublicKey(e)]),
+      I.create(I.Class.UNIVERSAL, I.Type.BITSTRING, false, [G.publicKeyToRSAPublicKey(e)]),
     ]);
   };
   G.publicKeyToRSAPublicKey = function (e) {
-    return I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, !0, [
-      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, !1, yt(e.n)),
-      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, !1, yt(e.e)),
+    return I.create(I.Class.UNIVERSAL, I.Type.SEQUENCE, true, [
+      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, false, yt(e.n)),
+      I.create(I.Class.UNIVERSAL, I.Type.INTEGER, false, yt(e.e)),
     ]);
   };
   function on(e, t, a) {
@@ -5819,7 +5819,7 @@ var pr = S(function (bf, un) {
         }
         ++u;
       }
-      if (u < 8 && !(i ? i._skipPaddingChecks : !1)) throw Error("Encryption block is invalid.");
+      if (u < 8 && !(i ? i._skipPaddingChecks : false)) throw Error("Encryption block is invalid.");
     } else if (f === 2) {
       u = 0;
       while (n.length() > 1) {
@@ -5829,7 +5829,7 @@ var pr = S(function (bf, un) {
         }
         ++u;
       }
-      if (u < 8 && !(i ? i._skipPaddingChecks : !1)) throw Error("Encryption block is invalid.");
+      if (u < 8 && !(i ? i._skipPaddingChecks : false)) throw Error("Encryption block is invalid.");
     }
     var c = n.getByte();
     if (c !== 0 || u !== s - 3 - n.length()) throw Error("Encryption block is invalid.");
@@ -5966,26 +5966,26 @@ var _a = S(function (_f, hn) {
       name: "EncryptedPrivateKeyInfo",
       tagClass: B.Class.UNIVERSAL,
       type: B.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
         {
           name: "EncryptedPrivateKeyInfo.encryptionAlgorithm",
           tagClass: B.Class.UNIVERSAL,
           type: B.Type.SEQUENCE,
-          constructed: !0,
+          constructed: true,
           value: [
             {
               name: "AlgorithmIdentifier.algorithm",
               tagClass: B.Class.UNIVERSAL,
               type: B.Type.OID,
-              constructed: !1,
+              constructed: false,
               capture: "encryptionOid",
             },
             {
               name: "AlgorithmIdentifier.parameters",
               tagClass: B.Class.UNIVERSAL,
               type: B.Type.SEQUENCE,
-              constructed: !0,
+              constructed: true,
               captureAsn1: "encryptionParams",
             },
           ],
@@ -5994,7 +5994,7 @@ var _a = S(function (_f, hn) {
           name: "EncryptedPrivateKeyInfo.encryptedData",
           tagClass: B.Class.UNIVERSAL,
           type: B.Type.OCTETSTRING,
-          constructed: !1,
+          constructed: false,
           capture: "encryptedData",
         },
       ],
@@ -6003,61 +6003,61 @@ var _a = S(function (_f, hn) {
       name: "PBES2Algorithms",
       tagClass: B.Class.UNIVERSAL,
       type: B.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
         {
           name: "PBES2Algorithms.keyDerivationFunc",
           tagClass: B.Class.UNIVERSAL,
           type: B.Type.SEQUENCE,
-          constructed: !0,
+          constructed: true,
           value: [
             {
               name: "PBES2Algorithms.keyDerivationFunc.oid",
               tagClass: B.Class.UNIVERSAL,
               type: B.Type.OID,
-              constructed: !1,
+              constructed: false,
               capture: "kdfOid",
             },
             {
               name: "PBES2Algorithms.params",
               tagClass: B.Class.UNIVERSAL,
               type: B.Type.SEQUENCE,
-              constructed: !0,
+              constructed: true,
               value: [
                 {
                   name: "PBES2Algorithms.params.salt",
                   tagClass: B.Class.UNIVERSAL,
                   type: B.Type.OCTETSTRING,
-                  constructed: !1,
+                  constructed: false,
                   capture: "kdfSalt",
                 },
                 {
                   name: "PBES2Algorithms.params.iterationCount",
                   tagClass: B.Class.UNIVERSAL,
                   type: B.Type.INTEGER,
-                  constructed: !1,
+                  constructed: false,
                   capture: "kdfIterationCount",
                 },
                 {
                   name: "PBES2Algorithms.params.keyLength",
                   tagClass: B.Class.UNIVERSAL,
                   type: B.Type.INTEGER,
-                  constructed: !1,
-                  optional: !0,
+                  constructed: false,
+                  optional: true,
                   capture: "keyLength",
                 },
                 {
                   name: "PBES2Algorithms.params.prf",
                   tagClass: B.Class.UNIVERSAL,
                   type: B.Type.SEQUENCE,
-                  constructed: !0,
-                  optional: !0,
+                  constructed: true,
+                  optional: true,
                   value: [
                     {
                       name: "PBES2Algorithms.params.prf.algorithm",
                       tagClass: B.Class.UNIVERSAL,
                       type: B.Type.OID,
-                      constructed: !1,
+                      constructed: false,
                       capture: "prfOid",
                     },
                   ],
@@ -6070,20 +6070,20 @@ var _a = S(function (_f, hn) {
           name: "PBES2Algorithms.encryptionScheme",
           tagClass: B.Class.UNIVERSAL,
           type: B.Type.SEQUENCE,
-          constructed: !0,
+          constructed: true,
           value: [
             {
               name: "PBES2Algorithms.encryptionScheme.oid",
               tagClass: B.Class.UNIVERSAL,
               type: B.Type.OID,
-              constructed: !1,
+              constructed: false,
               capture: "encOid",
             },
             {
               name: "PBES2Algorithms.encryptionScheme.iv",
               tagClass: B.Class.UNIVERSAL,
               type: B.Type.OCTETSTRING,
-              constructed: !1,
+              constructed: false,
               capture: "encIv",
             },
           ],
@@ -6094,20 +6094,20 @@ var _a = S(function (_f, hn) {
       name: "pkcs-12PbeParams",
       tagClass: B.Class.UNIVERSAL,
       type: B.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
         {
           name: "pkcs-12PbeParams.salt",
           tagClass: B.Class.UNIVERSAL,
           type: B.Type.OCTETSTRING,
-          constructed: !1,
+          constructed: false,
           capture: "salt",
         },
         {
           name: "pkcs-12PbeParams.iterations",
           tagClass: B.Class.UNIVERSAL,
           type: B.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "iterations",
         },
       ],
@@ -6150,16 +6150,16 @@ var _a = S(function (_f, hn) {
         A = c(x);
       A.start(T), A.update(B.toDer(e)), A.finish(), (f = A.output.getBytes());
       var _ = M0(r, s, n, C);
-      o = B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, !0, [
-        B.create(B.Class.UNIVERSAL, B.Type.OID, !1, B.oidToDer(Ot.pkcs5PBES2).getBytes()),
-        B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, !0, [
-          B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, !0, [
-            B.create(B.Class.UNIVERSAL, B.Type.OID, !1, B.oidToDer(Ot.pkcs5PBKDF2).getBytes()),
+      o = B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, true, [
+        B.create(B.Class.UNIVERSAL, B.Type.OID, false, B.oidToDer(Ot.pkcs5PBES2).getBytes()),
+        B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, true, [
+          B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, true, [
+            B.create(B.Class.UNIVERSAL, B.Type.OID, false, B.oidToDer(Ot.pkcs5PBKDF2).getBytes()),
             _,
           ]),
-          B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, !0, [
-            B.create(B.Class.UNIVERSAL, B.Type.OID, !1, B.oidToDer(l).getBytes()),
-            B.create(B.Class.UNIVERSAL, B.Type.OCTETSTRING, !1, T),
+          B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, true, [
+            B.create(B.Class.UNIVERSAL, B.Type.OID, false, B.oidToDer(l).getBytes()),
+            B.create(B.Class.UNIVERSAL, B.Type.OCTETSTRING, false, T),
           ]),
         ]),
       ]);
@@ -6173,20 +6173,20 @@ var _a = S(function (_f, hn) {
         A.update(B.toDer(e)),
         A.finish(),
         (f = A.output.getBytes()),
-        (o = B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, !0, [
-          B.create(B.Class.UNIVERSAL, B.Type.OID, !1, B.oidToDer(Ot["pbeWithSHAAnd3-KeyTripleDES-CBC"]).getBytes()),
-          B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, !0, [
-            B.create(B.Class.UNIVERSAL, B.Type.OCTETSTRING, !1, r),
-            B.create(B.Class.UNIVERSAL, B.Type.INTEGER, !1, s.getBytes()),
+        (o = B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, true, [
+          B.create(B.Class.UNIVERSAL, B.Type.OID, false, B.oidToDer(Ot["pbeWithSHAAnd3-KeyTripleDES-CBC"]).getBytes()),
+          B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, true, [
+            B.create(B.Class.UNIVERSAL, B.Type.OCTETSTRING, false, r),
+            B.create(B.Class.UNIVERSAL, B.Type.INTEGER, false, s.getBytes()),
           ]),
         ]));
     } else {
       var v = Error("Cannot encrypt private key. Unknown encryption algorithm.");
       throw ((v.algorithm = a.algorithm), v);
     }
-    var O = B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, !0, [
+    var O = B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, true, [
       o,
-      B.create(B.Class.UNIVERSAL, B.Type.OCTETSTRING, !1, f),
+      B.create(B.Class.UNIVERSAL, B.Type.OCTETSTRING, false, f),
     ]);
     return O;
   };
@@ -6512,16 +6512,16 @@ var _a = S(function (_f, hn) {
     return t[e].create();
   }
   function M0(e, t, a, r) {
-    var i = B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, !0, [
-      B.create(B.Class.UNIVERSAL, B.Type.OCTETSTRING, !1, e),
-      B.create(B.Class.UNIVERSAL, B.Type.INTEGER, !1, t.getBytes()),
+    var i = B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, true, [
+      B.create(B.Class.UNIVERSAL, B.Type.OCTETSTRING, false, e),
+      B.create(B.Class.UNIVERSAL, B.Type.INTEGER, false, t.getBytes()),
     ]);
     if (r !== "hmacWithSHA1")
       i.value.push(
-        B.create(B.Class.UNIVERSAL, B.Type.INTEGER, !1, F.util.hexToBytes(a.toString(16))),
-        B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, !0, [
-          B.create(B.Class.UNIVERSAL, B.Type.OID, !1, B.oidToDer(z.oids[r]).getBytes()),
-          B.create(B.Class.UNIVERSAL, B.Type.NULL, !1, ""),
+        B.create(B.Class.UNIVERSAL, B.Type.INTEGER, false, F.util.hexToBytes(a.toString(16))),
+        B.create(B.Class.UNIVERSAL, B.Type.SEQUENCE, true, [
+          B.create(B.Class.UNIVERSAL, B.Type.OID, false, B.oidToDer(z.oids[r]).getBytes()),
+          B.create(B.Class.UNIVERSAL, B.Type.NULL, false, ""),
         ]),
       );
     return i;
@@ -6539,21 +6539,21 @@ var Na = S(function (Nf, vn) {
     name: "ContentInfo",
     tagClass: V.Class.UNIVERSAL,
     type: V.Type.SEQUENCE,
-    constructed: !0,
+    constructed: true,
     value: [
       {
         name: "ContentInfo.ContentType",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.OID,
-        constructed: !1,
+        constructed: false,
         capture: "contentType",
       },
       {
         name: "ContentInfo.content",
         tagClass: V.Class.CONTEXT_SPECIFIC,
         type: 0,
-        constructed: !0,
-        optional: !0,
+        constructed: true,
+        optional: true,
         captureAsn1: "content",
       },
     ],
@@ -6563,26 +6563,26 @@ var Na = S(function (Nf, vn) {
     name: "EncryptedContentInfo",
     tagClass: V.Class.UNIVERSAL,
     type: V.Type.SEQUENCE,
-    constructed: !0,
+    constructed: true,
     value: [
       {
         name: "EncryptedContentInfo.contentType",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.OID,
-        constructed: !1,
+        constructed: false,
         capture: "contentType",
       },
       {
         name: "EncryptedContentInfo.contentEncryptionAlgorithm",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.SEQUENCE,
-        constructed: !0,
+        constructed: true,
         value: [
           {
             name: "EncryptedContentInfo.contentEncryptionAlgorithm.algorithm",
             tagClass: V.Class.UNIVERSAL,
             type: V.Type.OID,
-            constructed: !1,
+            constructed: false,
             capture: "encAlgorithm",
           },
           {
@@ -6605,20 +6605,20 @@ var Na = S(function (Nf, vn) {
     name: "EnvelopedData",
     tagClass: V.Class.UNIVERSAL,
     type: V.Type.SEQUENCE,
-    constructed: !0,
+    constructed: true,
     value: [
       {
         name: "EnvelopedData.Version",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.INTEGER,
-        constructed: !1,
+        constructed: false,
         capture: "version",
       },
       {
         name: "EnvelopedData.RecipientInfos",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.SET,
-        constructed: !0,
+        constructed: true,
         captureAsn1: "recipientInfos",
       },
     ].concat(pn),
@@ -6627,13 +6627,13 @@ var Na = S(function (Nf, vn) {
     name: "EncryptedData",
     tagClass: V.Class.UNIVERSAL,
     type: V.Type.SEQUENCE,
-    constructed: !0,
+    constructed: true,
     value: [
       {
         name: "EncryptedData.Version",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.INTEGER,
-        constructed: !1,
+        constructed: false,
         capture: "version",
       },
     ].concat(pn),
@@ -6642,27 +6642,27 @@ var Na = S(function (Nf, vn) {
     name: "SignerInfo",
     tagClass: V.Class.UNIVERSAL,
     type: V.Type.SEQUENCE,
-    constructed: !0,
+    constructed: true,
     value: [
-      { name: "SignerInfo.version", tagClass: V.Class.UNIVERSAL, type: V.Type.INTEGER, constructed: !1 },
+      { name: "SignerInfo.version", tagClass: V.Class.UNIVERSAL, type: V.Type.INTEGER, constructed: false },
       {
         name: "SignerInfo.issuerAndSerialNumber",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.SEQUENCE,
-        constructed: !0,
+        constructed: true,
         value: [
           {
             name: "SignerInfo.issuerAndSerialNumber.issuer",
             tagClass: V.Class.UNIVERSAL,
             type: V.Type.SEQUENCE,
-            constructed: !0,
+            constructed: true,
             captureAsn1: "issuer",
           },
           {
             name: "SignerInfo.issuerAndSerialNumber.serialNumber",
             tagClass: V.Class.UNIVERSAL,
             type: V.Type.INTEGER,
-            constructed: !1,
+            constructed: false,
             capture: "serial",
           },
         ],
@@ -6671,21 +6671,21 @@ var Na = S(function (Nf, vn) {
         name: "SignerInfo.digestAlgorithm",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.SEQUENCE,
-        constructed: !0,
+        constructed: true,
         value: [
           {
             name: "SignerInfo.digestAlgorithm.algorithm",
             tagClass: V.Class.UNIVERSAL,
             type: V.Type.OID,
-            constructed: !1,
+            constructed: false,
             capture: "digestAlgorithm",
           },
           {
             name: "SignerInfo.digestAlgorithm.parameter",
             tagClass: V.Class.UNIVERSAL,
-            constructed: !1,
+            constructed: false,
             captureAsn1: "digestParameter",
-            optional: !0,
+            optional: true,
           },
         ],
       },
@@ -6693,30 +6693,30 @@ var Na = S(function (Nf, vn) {
         name: "SignerInfo.authenticatedAttributes",
         tagClass: V.Class.CONTEXT_SPECIFIC,
         type: 0,
-        constructed: !0,
-        optional: !0,
+        constructed: true,
+        optional: true,
         capture: "authenticatedAttributes",
       },
       {
         name: "SignerInfo.digestEncryptionAlgorithm",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.SEQUENCE,
-        constructed: !0,
+        constructed: true,
         capture: "signatureAlgorithm",
       },
       {
         name: "SignerInfo.encryptedDigest",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.OCTETSTRING,
-        constructed: !1,
+        constructed: false,
         capture: "signature",
       },
       {
         name: "SignerInfo.unauthenticatedAttributes",
         tagClass: V.Class.CONTEXT_SPECIFIC,
         type: 1,
-        constructed: !0,
-        optional: !0,
+        constructed: true,
+        optional: true,
         capture: "unauthenticatedAttributes",
       },
     ],
@@ -6725,20 +6725,20 @@ var Na = S(function (Nf, vn) {
     name: "SignedData",
     tagClass: V.Class.UNIVERSAL,
     type: V.Type.SEQUENCE,
-    constructed: !0,
+    constructed: true,
     value: [
       {
         name: "SignedData.Version",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.INTEGER,
-        constructed: !1,
+        constructed: false,
         capture: "version",
       },
       {
         name: "SignedData.DigestAlgorithms",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.SET,
-        constructed: !0,
+        constructed: true,
         captureAsn1: "digestAlgorithms",
       },
       dn,
@@ -6746,14 +6746,14 @@ var Na = S(function (Nf, vn) {
         name: "SignedData.Certificates",
         tagClass: V.Class.CONTEXT_SPECIFIC,
         type: 0,
-        optional: !0,
+        optional: true,
         captureAsn1: "certificates",
       },
       {
         name: "SignedData.CertificateRevocationLists",
         tagClass: V.Class.CONTEXT_SPECIFIC,
         type: 1,
-        optional: !0,
+        optional: true,
         captureAsn1: "crls",
       },
       {
@@ -6761,7 +6761,7 @@ var Na = S(function (Nf, vn) {
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.SET,
         capture: "signerInfos",
-        optional: !0,
+        optional: true,
         value: [H0],
       },
     ],
@@ -6770,33 +6770,33 @@ var Na = S(function (Nf, vn) {
     name: "RecipientInfo",
     tagClass: V.Class.UNIVERSAL,
     type: V.Type.SEQUENCE,
-    constructed: !0,
+    constructed: true,
     value: [
       {
         name: "RecipientInfo.version",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.INTEGER,
-        constructed: !1,
+        constructed: false,
         capture: "version",
       },
       {
         name: "RecipientInfo.issuerAndSerial",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.SEQUENCE,
-        constructed: !0,
+        constructed: true,
         value: [
           {
             name: "RecipientInfo.issuerAndSerial.issuer",
             tagClass: V.Class.UNIVERSAL,
             type: V.Type.SEQUENCE,
-            constructed: !0,
+            constructed: true,
             captureAsn1: "issuer",
           },
           {
             name: "RecipientInfo.issuerAndSerial.serialNumber",
             tagClass: V.Class.UNIVERSAL,
             type: V.Type.INTEGER,
-            constructed: !1,
+            constructed: false,
             capture: "serial",
           },
         ],
@@ -6805,21 +6805,21 @@ var Na = S(function (Nf, vn) {
         name: "RecipientInfo.keyEncryptionAlgorithm",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.SEQUENCE,
-        constructed: !0,
+        constructed: true,
         value: [
           {
             name: "RecipientInfo.keyEncryptionAlgorithm.algorithm",
             tagClass: V.Class.UNIVERSAL,
             type: V.Type.OID,
-            constructed: !1,
+            constructed: false,
             capture: "encAlgorithm",
           },
           {
             name: "RecipientInfo.keyEncryptionAlgorithm.parameter",
             tagClass: V.Class.UNIVERSAL,
-            constructed: !1,
+            constructed: false,
             captureAsn1: "encParameter",
-            optional: !0,
+            optional: true,
           },
         ],
       },
@@ -6827,7 +6827,7 @@ var Na = S(function (Nf, vn) {
         name: "RecipientInfo.encryptedKey",
         tagClass: V.Class.UNIVERSAL,
         type: V.Type.OCTETSTRING,
-        constructed: !1,
+        constructed: false,
         capture: "encKey",
       },
     ],
@@ -6963,27 +6963,27 @@ var Gr = S(function (Df, In) {
       name: "Certificate",
       tagClass: h.Class.UNIVERSAL,
       type: h.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
         {
           name: "Certificate.TBSCertificate",
           tagClass: h.Class.UNIVERSAL,
           type: h.Type.SEQUENCE,
-          constructed: !0,
+          constructed: true,
           captureAsn1: "tbsCertificate",
           value: [
             {
               name: "Certificate.TBSCertificate.version",
               tagClass: h.Class.CONTEXT_SPECIFIC,
               type: 0,
-              constructed: !0,
-              optional: !0,
+              constructed: true,
+              optional: true,
               value: [
                 {
                   name: "Certificate.TBSCertificate.version.integer",
                   tagClass: h.Class.UNIVERSAL,
                   type: h.Type.INTEGER,
-                  constructed: !1,
+                  constructed: false,
                   capture: "certVersion",
                 },
               ],
@@ -6992,26 +6992,26 @@ var Gr = S(function (Df, In) {
               name: "Certificate.TBSCertificate.serialNumber",
               tagClass: h.Class.UNIVERSAL,
               type: h.Type.INTEGER,
-              constructed: !1,
+              constructed: false,
               capture: "certSerialNumber",
             },
             {
               name: "Certificate.TBSCertificate.signature",
               tagClass: h.Class.UNIVERSAL,
               type: h.Type.SEQUENCE,
-              constructed: !0,
+              constructed: true,
               value: [
                 {
                   name: "Certificate.TBSCertificate.signature.algorithm",
                   tagClass: h.Class.UNIVERSAL,
                   type: h.Type.OID,
-                  constructed: !1,
+                  constructed: false,
                   capture: "certinfoSignatureOid",
                 },
                 {
                   name: "Certificate.TBSCertificate.signature.parameters",
                   tagClass: h.Class.UNIVERSAL,
-                  optional: !0,
+                  optional: true,
                   captureAsn1: "certinfoSignatureParams",
                 },
               ],
@@ -7020,45 +7020,45 @@ var Gr = S(function (Df, In) {
               name: "Certificate.TBSCertificate.issuer",
               tagClass: h.Class.UNIVERSAL,
               type: h.Type.SEQUENCE,
-              constructed: !0,
+              constructed: true,
               captureAsn1: "certIssuer",
             },
             {
               name: "Certificate.TBSCertificate.validity",
               tagClass: h.Class.UNIVERSAL,
               type: h.Type.SEQUENCE,
-              constructed: !0,
+              constructed: true,
               value: [
                 {
                   name: "Certificate.TBSCertificate.validity.notBefore (utc)",
                   tagClass: h.Class.UNIVERSAL,
                   type: h.Type.UTCTIME,
-                  constructed: !1,
-                  optional: !0,
+                  constructed: false,
+                  optional: true,
                   capture: "certValidity1UTCTime",
                 },
                 {
                   name: "Certificate.TBSCertificate.validity.notBefore (generalized)",
                   tagClass: h.Class.UNIVERSAL,
                   type: h.Type.GENERALIZEDTIME,
-                  constructed: !1,
-                  optional: !0,
+                  constructed: false,
+                  optional: true,
                   capture: "certValidity2GeneralizedTime",
                 },
                 {
                   name: "Certificate.TBSCertificate.validity.notAfter (utc)",
                   tagClass: h.Class.UNIVERSAL,
                   type: h.Type.UTCTIME,
-                  constructed: !1,
-                  optional: !0,
+                  constructed: false,
+                  optional: true,
                   capture: "certValidity3UTCTime",
                 },
                 {
                   name: "Certificate.TBSCertificate.validity.notAfter (generalized)",
                   tagClass: h.Class.UNIVERSAL,
                   type: h.Type.GENERALIZEDTIME,
-                  constructed: !1,
-                  optional: !0,
+                  constructed: false,
+                  optional: true,
                   capture: "certValidity4GeneralizedTime",
                 },
               ],
@@ -7067,7 +7067,7 @@ var Gr = S(function (Df, In) {
               name: "Certificate.TBSCertificate.subject",
               tagClass: h.Class.UNIVERSAL,
               type: h.Type.SEQUENCE,
-              constructed: !0,
+              constructed: true,
               captureAsn1: "certSubject",
             },
             xn,
@@ -7075,14 +7075,14 @@ var Gr = S(function (Df, In) {
               name: "Certificate.TBSCertificate.issuerUniqueID",
               tagClass: h.Class.CONTEXT_SPECIFIC,
               type: 1,
-              constructed: !0,
-              optional: !0,
+              constructed: true,
+              optional: true,
               value: [
                 {
                   name: "Certificate.TBSCertificate.issuerUniqueID.id",
                   tagClass: h.Class.UNIVERSAL,
                   type: h.Type.BITSTRING,
-                  constructed: !1,
+                  constructed: false,
                   captureBitStringValue: "certIssuerUniqueId",
                 },
               ],
@@ -7091,14 +7091,14 @@ var Gr = S(function (Df, In) {
               name: "Certificate.TBSCertificate.subjectUniqueID",
               tagClass: h.Class.CONTEXT_SPECIFIC,
               type: 2,
-              constructed: !0,
-              optional: !0,
+              constructed: true,
+              optional: true,
               value: [
                 {
                   name: "Certificate.TBSCertificate.subjectUniqueID.id",
                   tagClass: h.Class.UNIVERSAL,
                   type: h.Type.BITSTRING,
-                  constructed: !1,
+                  constructed: false,
                   captureBitStringValue: "certSubjectUniqueId",
                 },
               ],
@@ -7107,9 +7107,9 @@ var Gr = S(function (Df, In) {
               name: "Certificate.TBSCertificate.extensions",
               tagClass: h.Class.CONTEXT_SPECIFIC,
               type: 3,
-              constructed: !0,
+              constructed: true,
               captureAsn1: "certExtensions",
-              optional: !0,
+              optional: true,
             },
           ],
         },
@@ -7117,19 +7117,19 @@ var Gr = S(function (Df, In) {
           name: "Certificate.signatureAlgorithm",
           tagClass: h.Class.UNIVERSAL,
           type: h.Type.SEQUENCE,
-          constructed: !0,
+          constructed: true,
           value: [
             {
               name: "Certificate.signatureAlgorithm.algorithm",
               tagClass: h.Class.UNIVERSAL,
               type: h.Type.OID,
-              constructed: !1,
+              constructed: false,
               capture: "certSignatureOid",
             },
             {
               name: "Certificate.TBSCertificate.signature.parameters",
               tagClass: h.Class.UNIVERSAL,
-              optional: !0,
+              optional: true,
               captureAsn1: "certSignatureParams",
             },
           ],
@@ -7138,7 +7138,7 @@ var Gr = S(function (Df, In) {
           name: "Certificate.signatureValue",
           tagClass: h.Class.UNIVERSAL,
           type: h.Type.BITSTRING,
-          constructed: !1,
+          constructed: false,
           captureBitStringValue: "certSignature",
         },
       ],
@@ -7147,26 +7147,26 @@ var Gr = S(function (Df, In) {
       name: "rsapss",
       tagClass: h.Class.UNIVERSAL,
       type: h.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
         {
           name: "rsapss.hashAlgorithm",
           tagClass: h.Class.CONTEXT_SPECIFIC,
           type: 0,
-          constructed: !0,
+          constructed: true,
           value: [
             {
               name: "rsapss.hashAlgorithm.AlgorithmIdentifier",
               tagClass: h.Class.UNIVERSAL,
               type: h.Class.SEQUENCE,
-              constructed: !0,
-              optional: !0,
+              constructed: true,
+              optional: true,
               value: [
                 {
                   name: "rsapss.hashAlgorithm.AlgorithmIdentifier.algorithm",
                   tagClass: h.Class.UNIVERSAL,
                   type: h.Type.OID,
-                  constructed: !1,
+                  constructed: false,
                   capture: "hashOid",
                 },
               ],
@@ -7177,33 +7177,33 @@ var Gr = S(function (Df, In) {
           name: "rsapss.maskGenAlgorithm",
           tagClass: h.Class.CONTEXT_SPECIFIC,
           type: 1,
-          constructed: !0,
+          constructed: true,
           value: [
             {
               name: "rsapss.maskGenAlgorithm.AlgorithmIdentifier",
               tagClass: h.Class.UNIVERSAL,
               type: h.Class.SEQUENCE,
-              constructed: !0,
-              optional: !0,
+              constructed: true,
+              optional: true,
               value: [
                 {
                   name: "rsapss.maskGenAlgorithm.AlgorithmIdentifier.algorithm",
                   tagClass: h.Class.UNIVERSAL,
                   type: h.Type.OID,
-                  constructed: !1,
+                  constructed: false,
                   capture: "maskGenOid",
                 },
                 {
                   name: "rsapss.maskGenAlgorithm.AlgorithmIdentifier.params",
                   tagClass: h.Class.UNIVERSAL,
                   type: h.Type.SEQUENCE,
-                  constructed: !0,
+                  constructed: true,
                   value: [
                     {
                       name: "rsapss.maskGenAlgorithm.AlgorithmIdentifier.params.algorithm",
                       tagClass: h.Class.UNIVERSAL,
                       type: h.Type.OID,
-                      constructed: !1,
+                      constructed: false,
                       capture: "maskGenHashOid",
                     },
                   ],
@@ -7216,13 +7216,13 @@ var Gr = S(function (Df, In) {
           name: "rsapss.saltLength",
           tagClass: h.Class.CONTEXT_SPECIFIC,
           type: 2,
-          optional: !0,
+          optional: true,
           value: [
             {
               name: "rsapss.saltLength.saltLength",
               tagClass: h.Class.UNIVERSAL,
               type: h.Class.INTEGER,
-              constructed: !1,
+              constructed: false,
               capture: "saltLength",
             },
           ],
@@ -7231,13 +7231,13 @@ var Gr = S(function (Df, In) {
           name: "rsapss.trailerField",
           tagClass: h.Class.CONTEXT_SPECIFIC,
           type: 3,
-          optional: !0,
+          optional: true,
           value: [
             {
               name: "rsapss.trailer.trailer",
               tagClass: h.Class.UNIVERSAL,
               type: h.Class.INTEGER,
-              constructed: !1,
+              constructed: false,
               capture: "trailer",
             },
           ],
@@ -7248,21 +7248,21 @@ var Gr = S(function (Df, In) {
       name: "CertificationRequestInfo",
       tagClass: h.Class.UNIVERSAL,
       type: h.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       captureAsn1: "certificationRequestInfo",
       value: [
         {
           name: "CertificationRequestInfo.integer",
           tagClass: h.Class.UNIVERSAL,
           type: h.Type.INTEGER,
-          constructed: !1,
+          constructed: false,
           capture: "certificationRequestInfoVersion",
         },
         {
           name: "CertificationRequestInfo.subject",
           tagClass: h.Class.UNIVERSAL,
           type: h.Type.SEQUENCE,
-          constructed: !0,
+          constructed: true,
           captureAsn1: "certificationRequestInfoSubject",
         },
         xn,
@@ -7270,27 +7270,27 @@ var Gr = S(function (Df, In) {
           name: "CertificationRequestInfo.attributes",
           tagClass: h.Class.CONTEXT_SPECIFIC,
           type: 0,
-          constructed: !0,
-          optional: !0,
+          constructed: true,
+          optional: true,
           capture: "certificationRequestInfoAttributes",
           value: [
             {
               name: "CertificationRequestInfo.attributes",
               tagClass: h.Class.UNIVERSAL,
               type: h.Type.SEQUENCE,
-              constructed: !0,
+              constructed: true,
               value: [
                 {
                   name: "CertificationRequestInfo.attributes.type",
                   tagClass: h.Class.UNIVERSAL,
                   type: h.Type.OID,
-                  constructed: !1,
+                  constructed: false,
                 },
                 {
                   name: "CertificationRequestInfo.attributes.value",
                   tagClass: h.Class.UNIVERSAL,
                   type: h.Type.SET,
-                  constructed: !0,
+                  constructed: true,
                 },
               ],
             },
@@ -7302,7 +7302,7 @@ var Gr = S(function (Df, In) {
       name: "CertificationRequest",
       tagClass: h.Class.UNIVERSAL,
       type: h.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       captureAsn1: "csr",
       value: [
         X0,
@@ -7310,19 +7310,19 @@ var Gr = S(function (Df, In) {
           name: "CertificationRequest.signatureAlgorithm",
           tagClass: h.Class.UNIVERSAL,
           type: h.Type.SEQUENCE,
-          constructed: !0,
+          constructed: true,
           value: [
             {
               name: "CertificationRequest.signatureAlgorithm.algorithm",
               tagClass: h.Class.UNIVERSAL,
               type: h.Type.OID,
-              constructed: !1,
+              constructed: false,
               capture: "csrSignatureOid",
             },
             {
               name: "CertificationRequest.signatureAlgorithm.parameters",
               tagClass: h.Class.UNIVERSAL,
-              optional: !0,
+              optional: true,
               captureAsn1: "csrSignatureParams",
             },
           ],
@@ -7331,7 +7331,7 @@ var Gr = S(function (Df, In) {
           name: "CertificationRequest.signature",
           tagClass: h.Class.UNIVERSAL,
           type: h.Type.BITSTRING,
-          constructed: !1,
+          constructed: false,
           captureBitStringValue: "csrSignature",
         },
       ],
@@ -7606,7 +7606,7 @@ var Gr = S(function (Df, In) {
         e.md.update(s.getBytes()), (e.signature = t.sign(e.md));
       }),
       (e.verify = function (t) {
-        var a = !1;
+        var a = false;
         if (!e.issued(t)) {
           var r = t.issuer,
             i = e.subject,
@@ -7626,15 +7626,15 @@ var Gr = S(function (Df, In) {
         return a;
       }),
       (e.isIssuer = function (t) {
-        var a = !1,
+        var a = false,
           r = e.issuer,
           i = t.subject;
         if (r.hash && i.hash) a = r.hash === i.hash;
         else if (r.attributes.length === i.attributes.length) {
-          a = !0;
+          a = true;
           var s, n;
           for (var o = 0; a && o < r.attributes.length; ++o)
-            if (((s = r.attributes[o]), (n = i.attributes[o]), s.type !== n.type || s.value !== n.value)) a = !1;
+            if (((s = r.attributes[o]), (n = i.attributes[o]), s.type !== n.type || s.value !== n.value)) a = false;
         }
         return a;
       }),
@@ -7653,7 +7653,7 @@ var Gr = S(function (Df, In) {
             return M.util.hexToBytes(r.subjectKeyIdentifier) === i;
           }
         }
-        return !1;
+        return false;
       }),
       e
     );
@@ -7672,9 +7672,9 @@ var Gr = S(function (Df, In) {
     var o = M.util.createBuffer(a.certSerialNumber);
     (n.serialNumber = o.toHex()),
       (n.signatureOid = M.asn1.derToOid(a.certSignatureOid)),
-      (n.signatureParameters = Mr(n.signatureOid, a.certSignatureParams, !0)),
+      (n.signatureParameters = Mr(n.signatureOid, a.certSignatureParams, true)),
       (n.siginfo.algorithmOid = M.asn1.derToOid(a.certinfoSignatureOid)),
-      (n.siginfo.parameters = Mr(n.siginfo.algorithmOid, a.certinfoSignatureParams, !1)),
+      (n.siginfo.parameters = Mr(n.siginfo.algorithmOid, a.certinfoSignatureParams, false)),
       (n.signature = a.certSignature);
     var f = [];
     if (a.certValidity1UTCTime !== void 0) f.push(h.utcTimeToDate(a.certValidity1UTCTime));
@@ -7738,7 +7738,7 @@ var Gr = S(function (Df, In) {
   };
   D.certificateExtensionFromAsn1 = function (e) {
     var t = {};
-    if (((t.id = h.derToOid(e.value[0].value)), (t.critical = !1), e.value[1].type === h.Type.BOOLEAN))
+    if (((t.id = h.derToOid(e.value[0].value)), (t.critical = false), e.value[1].type === h.Type.BOOLEAN))
       (t.critical = e.value[1].value.charCodeAt(0) !== 0), (t.value = e.value[2].value);
     else t.value = e.value[1].value;
     if (t.id in re) {
@@ -7759,7 +7759,7 @@ var Gr = S(function (Df, In) {
       } else if (t.name === "basicConstraints") {
         var a = h.fromDer(t.value);
         if (a.value.length > 0 && a.value[0].type === h.Type.BOOLEAN) t.cA = a.value[0].value.charCodeAt(0) !== 0;
-        else t.cA = !1;
+        else t.cA = false;
         var s = null;
         if (a.value.length > 0 && a.value[0].type === h.Type.INTEGER) s = a.value[0].value;
         else if (a.value.length > 1) s = a.value[1].value;
@@ -7768,8 +7768,8 @@ var Gr = S(function (Df, In) {
         var a = h.fromDer(t.value);
         for (var n = 0; n < a.value.length; ++n) {
           var o = h.derToOid(a.value[n].value);
-          if (o in re) t[re[o]] = !0;
-          else t[o] = !0;
+          if (o in re) t[re[o]] = true;
+          else t[o] = true;
         }
       } else if (t.name === "nsCertType") {
         var a = h.fromDer(t.value),
@@ -7824,9 +7824,9 @@ var Gr = S(function (Df, In) {
     if (
       ((n.version = a.csrVersion ? a.csrVersion.charCodeAt(0) : 0),
       (n.signatureOid = M.asn1.derToOid(a.csrSignatureOid)),
-      (n.signatureParameters = Mr(n.signatureOid, a.csrSignatureParams, !0)),
+      (n.signatureParameters = Mr(n.signatureOid, a.csrSignatureParams, true)),
       (n.siginfo.algorithmOid = M.asn1.derToOid(a.csrSignatureOid)),
-      (n.siginfo.parameters = Mr(n.siginfo.algorithmOid, a.csrSignatureParams, !1)),
+      (n.siginfo.parameters = Mr(n.siginfo.algorithmOid, a.csrSignatureParams, false)),
       (n.signature = a.csrSignature),
       (n.certificationRequestInfo = a.certificationRequestInfo),
       t)
@@ -7900,7 +7900,7 @@ var Gr = S(function (Df, In) {
         e.md.update(s.getBytes()), (e.signature = t.sign(e.md));
       }),
       (e.verify = function () {
-        var t = !1,
+        var t = false,
           a = e.md;
         if (a === null) {
           a = Hr({ signatureOid: e.signatureOid, type: "certification request" });
@@ -7915,7 +7915,7 @@ var Gr = S(function (Df, In) {
     );
   };
   function er(e) {
-    var t = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, []),
+    var t = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, []),
       a,
       r,
       i = e.attributes;
@@ -7926,10 +7926,10 @@ var Gr = S(function (Df, In) {
       if ("valueTagClass" in a) {
         if (((o = a.valueTagClass), o === h.Type.UTF8)) n = M.util.encodeUtf8(n);
       }
-      (r = h.create(h.Class.UNIVERSAL, h.Type.SET, !0, [
-        h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [
-          h.create(h.Class.UNIVERSAL, h.Type.OID, !1, h.oidToDer(a.type).getBytes()),
-          h.create(h.Class.UNIVERSAL, o, !1, n),
+      (r = h.create(h.Class.UNIVERSAL, h.Type.SET, true, [
+        h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [
+          h.create(h.Class.UNIVERSAL, h.Type.OID, false, h.oidToDer(a.type).getBytes()),
+          h.create(h.Class.UNIVERSAL, o, false, n),
         ]),
       ])),
         t.value.push(r);
@@ -7953,7 +7953,7 @@ var Gr = S(function (Df, In) {
         if (t.name && t.name in ge) t.shortName = ge[t.name];
       }
       if (t.type === re.extensionRequest) {
-        if (((t.valueConstructed = !0), (t.valueTagClass = h.Type.SEQUENCE), !t.value && t.extensions)) {
+        if (((t.valueConstructed = true), (t.valueTagClass = h.Type.SEQUENCE), !t.value && t.extensions)) {
           t.value = [];
           for (var i = 0; i < t.extensions.length; ++i) t.value.push(D.certificateExtensionToAsn1(Tn(t.extensions[i])));
         }
@@ -7991,21 +7991,21 @@ var Gr = S(function (Df, In) {
       var n = String.fromCharCode(r);
       if (s !== 0) n += String.fromCharCode(i) + String.fromCharCode(s);
       else if (i !== 0) n += String.fromCharCode(i);
-      e.value = h.create(h.Class.UNIVERSAL, h.Type.BITSTRING, !1, n);
+      e.value = h.create(h.Class.UNIVERSAL, h.Type.BITSTRING, false, n);
     } else if (e.name === "basicConstraints") {
-      if (((e.value = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [])), e.cA))
-        e.value.value.push(h.create(h.Class.UNIVERSAL, h.Type.BOOLEAN, !1, String.fromCharCode(255)));
+      if (((e.value = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [])), e.cA))
+        e.value.value.push(h.create(h.Class.UNIVERSAL, h.Type.BOOLEAN, false, String.fromCharCode(255)));
       if ("pathLenConstraint" in e)
         e.value.value.push(
-          h.create(h.Class.UNIVERSAL, h.Type.INTEGER, !1, h.integerToDer(e.pathLenConstraint).getBytes()),
+          h.create(h.Class.UNIVERSAL, h.Type.INTEGER, false, h.integerToDer(e.pathLenConstraint).getBytes()),
         );
     } else if (e.name === "extKeyUsage") {
-      e.value = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, []);
+      e.value = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, []);
       var o = e.value.value;
       for (var f in e) {
-        if (e[f] !== !0) continue;
-        if (f in re) o.push(h.create(h.Class.UNIVERSAL, h.Type.OID, !1, h.oidToDer(re[f]).getBytes()));
-        else if (f.indexOf(".") !== -1) o.push(h.create(h.Class.UNIVERSAL, h.Type.OID, !1, h.oidToDer(f).getBytes()));
+        if (e[f] !== true) continue;
+        if (f in re) o.push(h.create(h.Class.UNIVERSAL, h.Type.OID, false, h.oidToDer(re[f]).getBytes()));
+        else if (f.indexOf(".") !== -1) o.push(h.create(h.Class.UNIVERSAL, h.Type.OID, false, h.oidToDer(f).getBytes()));
       }
     } else if (e.name === "nsCertType") {
       var r = 0,
@@ -8020,9 +8020,9 @@ var Gr = S(function (Df, In) {
       if (e.objCA) (i |= 1), (r = 0);
       var n = String.fromCharCode(r);
       if (i !== 0) n += String.fromCharCode(i);
-      e.value = h.create(h.Class.UNIVERSAL, h.Type.BITSTRING, !1, n);
+      e.value = h.create(h.Class.UNIVERSAL, h.Type.BITSTRING, false, n);
     } else if (e.name === "subjectAltName" || e.name === "issuerAltName") {
-      e.value = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, []);
+      e.value = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, []);
       var u;
       for (var l = 0; l < e.altNames.length; ++l) {
         u = e.altNames[l];
@@ -8035,40 +8035,40 @@ var Gr = S(function (Df, In) {
         } else if (u.type === 8)
           if (u.oid) n = h.oidToDer(h.oidToDer(u.oid));
           else n = h.oidToDer(n);
-        e.value.value.push(h.create(h.Class.CONTEXT_SPECIFIC, u.type, !1, n));
+        e.value.value.push(h.create(h.Class.CONTEXT_SPECIFIC, u.type, false, n));
       }
     } else if (e.name === "nsComment" && t.cert) {
       if (!/^[\x00-\x7F]*$/.test(e.comment) || e.comment.length < 1 || e.comment.length > 128)
         throw Error('Invalid "nsComment" content.');
-      e.value = h.create(h.Class.UNIVERSAL, h.Type.IA5STRING, !1, e.comment);
+      e.value = h.create(h.Class.UNIVERSAL, h.Type.IA5STRING, false, e.comment);
     } else if (e.name === "subjectKeyIdentifier" && t.cert) {
       var c = t.cert.generateSubjectKeyIdentifier();
       (e.subjectKeyIdentifier = c.toHex()),
-        (e.value = h.create(h.Class.UNIVERSAL, h.Type.OCTETSTRING, !1, c.getBytes()));
+        (e.value = h.create(h.Class.UNIVERSAL, h.Type.OCTETSTRING, false, c.getBytes()));
     } else if (e.name === "authorityKeyIdentifier" && t.cert) {
-      e.value = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, []);
+      e.value = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, []);
       var o = e.value.value;
       if (e.keyIdentifier) {
-        var v = e.keyIdentifier === !0 ? t.cert.generateSubjectKeyIdentifier().getBytes() : e.keyIdentifier;
-        o.push(h.create(h.Class.CONTEXT_SPECIFIC, 0, !1, v));
+        var v = e.keyIdentifier === true ? t.cert.generateSubjectKeyIdentifier().getBytes() : e.keyIdentifier;
+        o.push(h.create(h.Class.CONTEXT_SPECIFIC, 0, false, v));
       }
       if (e.authorityCertIssuer) {
         var C = [
-          h.create(h.Class.CONTEXT_SPECIFIC, 4, !0, [
-            er(e.authorityCertIssuer === !0 ? t.cert.issuer : e.authorityCertIssuer),
+          h.create(h.Class.CONTEXT_SPECIFIC, 4, true, [
+            er(e.authorityCertIssuer === true ? t.cert.issuer : e.authorityCertIssuer),
           ]),
         ];
-        o.push(h.create(h.Class.CONTEXT_SPECIFIC, 1, !0, C));
+        o.push(h.create(h.Class.CONTEXT_SPECIFIC, 1, true, C));
       }
       if (e.serialNumber) {
-        var y = M.util.hexToBytes(e.serialNumber === !0 ? t.cert.serialNumber : e.serialNumber);
-        o.push(h.create(h.Class.CONTEXT_SPECIFIC, 2, !1, y));
+        var y = M.util.hexToBytes(e.serialNumber === true ? t.cert.serialNumber : e.serialNumber);
+        o.push(h.create(h.Class.CONTEXT_SPECIFIC, 2, false, y));
       }
     } else if (e.name === "cRLDistributionPoints") {
-      e.value = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, []);
+      e.value = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, []);
       var o = e.value.value,
-        x = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, []),
-        T = h.create(h.Class.CONTEXT_SPECIFIC, 0, !0, []),
+        x = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, []),
+        T = h.create(h.Class.CONTEXT_SPECIFIC, 0, true, []),
         u;
       for (var l = 0; l < e.altNames.length; ++l) {
         u = e.altNames[l];
@@ -8081,9 +8081,9 @@ var Gr = S(function (Df, In) {
         } else if (u.type === 8)
           if (u.oid) n = h.oidToDer(h.oidToDer(u.oid));
           else n = h.oidToDer(n);
-        T.value.push(h.create(h.Class.CONTEXT_SPECIFIC, u.type, !1, n));
+        T.value.push(h.create(h.Class.CONTEXT_SPECIFIC, u.type, false, n));
       }
-      x.value.push(h.create(h.Class.CONTEXT_SPECIFIC, 0, !0, [T])), o.push(x);
+      x.value.push(h.create(h.Class.CONTEXT_SPECIFIC, 0, true, [T])), o.push(x);
     }
     if (typeof e.value > "u") {
       var a = Error("Extension value not specified.");
@@ -8097,38 +8097,38 @@ var Gr = S(function (Df, In) {
         var a = [];
         if (t.hash.algorithmOid !== void 0)
           a.push(
-            h.create(h.Class.CONTEXT_SPECIFIC, 0, !0, [
-              h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [
-                h.create(h.Class.UNIVERSAL, h.Type.OID, !1, h.oidToDer(t.hash.algorithmOid).getBytes()),
-                h.create(h.Class.UNIVERSAL, h.Type.NULL, !1, ""),
+            h.create(h.Class.CONTEXT_SPECIFIC, 0, true, [
+              h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [
+                h.create(h.Class.UNIVERSAL, h.Type.OID, false, h.oidToDer(t.hash.algorithmOid).getBytes()),
+                h.create(h.Class.UNIVERSAL, h.Type.NULL, false, ""),
               ]),
             ]),
           );
         if (t.mgf.algorithmOid !== void 0)
           a.push(
-            h.create(h.Class.CONTEXT_SPECIFIC, 1, !0, [
-              h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [
-                h.create(h.Class.UNIVERSAL, h.Type.OID, !1, h.oidToDer(t.mgf.algorithmOid).getBytes()),
-                h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [
-                  h.create(h.Class.UNIVERSAL, h.Type.OID, !1, h.oidToDer(t.mgf.hash.algorithmOid).getBytes()),
-                  h.create(h.Class.UNIVERSAL, h.Type.NULL, !1, ""),
+            h.create(h.Class.CONTEXT_SPECIFIC, 1, true, [
+              h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [
+                h.create(h.Class.UNIVERSAL, h.Type.OID, false, h.oidToDer(t.mgf.algorithmOid).getBytes()),
+                h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [
+                  h.create(h.Class.UNIVERSAL, h.Type.OID, false, h.oidToDer(t.mgf.hash.algorithmOid).getBytes()),
+                  h.create(h.Class.UNIVERSAL, h.Type.NULL, false, ""),
                 ]),
               ]),
             ]),
           );
         if (t.saltLength !== void 0)
           a.push(
-            h.create(h.Class.CONTEXT_SPECIFIC, 2, !0, [
-              h.create(h.Class.UNIVERSAL, h.Type.INTEGER, !1, h.integerToDer(t.saltLength).getBytes()),
+            h.create(h.Class.CONTEXT_SPECIFIC, 2, true, [
+              h.create(h.Class.UNIVERSAL, h.Type.INTEGER, false, h.integerToDer(t.saltLength).getBytes()),
             ]),
           );
-        return h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, a);
+        return h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, a);
       default:
-        return h.create(h.Class.UNIVERSAL, h.Type.NULL, !1, "");
+        return h.create(h.Class.UNIVERSAL, h.Type.NULL, false, "");
     }
   }
   function j0(e) {
-    var t = h.create(h.Class.CONTEXT_SPECIFIC, 0, !0, []);
+    var t = h.create(h.Class.CONTEXT_SPECIFIC, 0, true, []);
     if (e.attributes.length === 0) return t;
     var a = e.attributes;
     for (var r = 0; r < a.length; ++r) {
@@ -8137,11 +8137,11 @@ var Gr = S(function (Df, In) {
         n = h.Type.UTF8;
       if ("valueTagClass" in i) n = i.valueTagClass;
       if (n === h.Type.UTF8) s = M.util.encodeUtf8(s);
-      var o = !1;
+      var o = false;
       if ("valueConstructed" in i) o = i.valueConstructed;
-      var f = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [
-        h.create(h.Class.UNIVERSAL, h.Type.OID, !1, h.oidToDer(i.type).getBytes()),
-        h.create(h.Class.UNIVERSAL, h.Type.SET, !0, [h.create(h.Class.UNIVERSAL, n, o, s)]),
+      var f = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [
+        h.create(h.Class.UNIVERSAL, h.Type.OID, false, h.oidToDer(i.type).getBytes()),
+        h.create(h.Class.UNIVERSAL, h.Type.SET, true, [h.create(h.Class.UNIVERSAL, n, o, s)]),
       ]);
       t.value.push(f);
     }
@@ -8150,44 +8150,44 @@ var Gr = S(function (Df, In) {
   var Z0 = new Date("1950-01-01T00:00:00Z"),
     J0 = new Date("2050-01-01T00:00:00Z");
   function En(e) {
-    if (e >= Z0 && e < J0) return h.create(h.Class.UNIVERSAL, h.Type.UTCTIME, !1, h.dateToUtcTime(e));
-    else return h.create(h.Class.UNIVERSAL, h.Type.GENERALIZEDTIME, !1, h.dateToGeneralizedTime(e));
+    if (e >= Z0 && e < J0) return h.create(h.Class.UNIVERSAL, h.Type.UTCTIME, false, h.dateToUtcTime(e));
+    else return h.create(h.Class.UNIVERSAL, h.Type.GENERALIZEDTIME, false, h.dateToGeneralizedTime(e));
   }
   D.getTBSCertificate = function (e) {
     var t = En(e.validity.notBefore),
       a = En(e.validity.notAfter),
-      r = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [
-        h.create(h.Class.CONTEXT_SPECIFIC, 0, !0, [
-          h.create(h.Class.UNIVERSAL, h.Type.INTEGER, !1, h.integerToDer(e.version).getBytes()),
+      r = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [
+        h.create(h.Class.CONTEXT_SPECIFIC, 0, true, [
+          h.create(h.Class.UNIVERSAL, h.Type.INTEGER, false, h.integerToDer(e.version).getBytes()),
         ]),
-        h.create(h.Class.UNIVERSAL, h.Type.INTEGER, !1, M.util.hexToBytes(e.serialNumber)),
-        h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [
-          h.create(h.Class.UNIVERSAL, h.Type.OID, !1, h.oidToDer(e.siginfo.algorithmOid).getBytes()),
+        h.create(h.Class.UNIVERSAL, h.Type.INTEGER, false, M.util.hexToBytes(e.serialNumber)),
+        h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [
+          h.create(h.Class.UNIVERSAL, h.Type.OID, false, h.oidToDer(e.siginfo.algorithmOid).getBytes()),
           wa(e.siginfo.algorithmOid, e.siginfo.parameters),
         ]),
         er(e.issuer),
-        h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [t, a]),
+        h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [t, a]),
         er(e.subject),
         D.publicKeyToAsn1(e.publicKey),
       ]);
     if (e.issuer.uniqueId)
       r.value.push(
-        h.create(h.Class.CONTEXT_SPECIFIC, 1, !0, [
-          h.create(h.Class.UNIVERSAL, h.Type.BITSTRING, !1, String.fromCharCode(0) + e.issuer.uniqueId),
+        h.create(h.Class.CONTEXT_SPECIFIC, 1, true, [
+          h.create(h.Class.UNIVERSAL, h.Type.BITSTRING, false, String.fromCharCode(0) + e.issuer.uniqueId),
         ]),
       );
     if (e.subject.uniqueId)
       r.value.push(
-        h.create(h.Class.CONTEXT_SPECIFIC, 2, !0, [
-          h.create(h.Class.UNIVERSAL, h.Type.BITSTRING, !1, String.fromCharCode(0) + e.subject.uniqueId),
+        h.create(h.Class.CONTEXT_SPECIFIC, 2, true, [
+          h.create(h.Class.UNIVERSAL, h.Type.BITSTRING, false, String.fromCharCode(0) + e.subject.uniqueId),
         ]),
       );
     if (e.extensions.length > 0) r.value.push(D.certificateExtensionsToAsn1(e.extensions));
     return r;
   };
   D.getCertificationRequestInfo = function (e) {
-    var t = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [
-      h.create(h.Class.UNIVERSAL, h.Type.INTEGER, !1, h.integerToDer(e.version).getBytes()),
+    var t = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [
+      h.create(h.Class.UNIVERSAL, h.Type.INTEGER, false, h.integerToDer(e.version).getBytes()),
       er(e.subject),
       D.publicKeyToAsn1(e.publicKey),
       j0(e),
@@ -8199,39 +8199,39 @@ var Gr = S(function (Df, In) {
   };
   D.certificateToAsn1 = function (e) {
     var t = e.tbsCertificate || D.getTBSCertificate(e);
-    return h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [
+    return h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [
       t,
-      h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [
-        h.create(h.Class.UNIVERSAL, h.Type.OID, !1, h.oidToDer(e.signatureOid).getBytes()),
+      h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [
+        h.create(h.Class.UNIVERSAL, h.Type.OID, false, h.oidToDer(e.signatureOid).getBytes()),
         wa(e.signatureOid, e.signatureParameters),
       ]),
-      h.create(h.Class.UNIVERSAL, h.Type.BITSTRING, !1, String.fromCharCode(0) + e.signature),
+      h.create(h.Class.UNIVERSAL, h.Type.BITSTRING, false, String.fromCharCode(0) + e.signature),
     ]);
   };
   D.certificateExtensionsToAsn1 = function (e) {
-    var t = h.create(h.Class.CONTEXT_SPECIFIC, 3, !0, []),
-      a = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, []);
+    var t = h.create(h.Class.CONTEXT_SPECIFIC, 3, true, []),
+      a = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, []);
     t.value.push(a);
     for (var r = 0; r < e.length; ++r) a.value.push(D.certificateExtensionToAsn1(e[r]));
     return t;
   };
   D.certificateExtensionToAsn1 = function (e) {
-    var t = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, []);
-    if ((t.value.push(h.create(h.Class.UNIVERSAL, h.Type.OID, !1, h.oidToDer(e.id).getBytes())), e.critical))
-      t.value.push(h.create(h.Class.UNIVERSAL, h.Type.BOOLEAN, !1, String.fromCharCode(255)));
+    var t = h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, []);
+    if ((t.value.push(h.create(h.Class.UNIVERSAL, h.Type.OID, false, h.oidToDer(e.id).getBytes())), e.critical))
+      t.value.push(h.create(h.Class.UNIVERSAL, h.Type.BOOLEAN, false, String.fromCharCode(255)));
     var a = e.value;
     if (typeof e.value !== "string") a = h.toDer(a).getBytes();
-    return t.value.push(h.create(h.Class.UNIVERSAL, h.Type.OCTETSTRING, !1, a)), t;
+    return t.value.push(h.create(h.Class.UNIVERSAL, h.Type.OCTETSTRING, false, a)), t;
   };
   D.certificationRequestToAsn1 = function (e) {
     var t = e.certificationRequestInfo || D.getCertificationRequestInfo(e);
-    return h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [
+    return h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [
       t,
-      h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, !0, [
-        h.create(h.Class.UNIVERSAL, h.Type.OID, !1, h.oidToDer(e.signatureOid).getBytes()),
+      h.create(h.Class.UNIVERSAL, h.Type.SEQUENCE, true, [
+        h.create(h.Class.UNIVERSAL, h.Type.OID, false, h.oidToDer(e.signatureOid).getBytes()),
         wa(e.signatureOid, e.signatureParameters),
       ]),
-      h.create(h.Class.UNIVERSAL, h.Type.BITSTRING, !1, String.fromCharCode(0) + e.signature),
+      h.create(h.Class.UNIVERSAL, h.Type.BITSTRING, false, String.fromCharCode(0) + e.signature),
     ]);
   };
   D.createCaStore = function (e) {
@@ -8252,14 +8252,14 @@ var Gr = S(function (Df, In) {
       (t.hasCertificate = function (n) {
         if (typeof n === "string") n = M.pki.certificateFromPem(n);
         var o = a(n.subject);
-        if (!o) return !1;
+        if (!o) return false;
         if (!M.util.isArray(o)) o = [o];
         var f = h.toDer(D.certificateToAsn1(n)).getBytes();
         for (var u = 0; u < o.length; ++u) {
           var l = h.toDer(D.certificateToAsn1(o[u])).getBytes();
-          if (f === l) return !0;
+          if (f === l) return true;
         }
-        return !1;
+        return false;
       }),
       (t.listAllCertificates = function () {
         var n = [];
@@ -8315,13 +8315,13 @@ var Gr = S(function (Df, In) {
     var r = t.slice(0),
       i = a.validityCheckDate;
     if (typeof i > "u") i = new Date();
-    var s = !0,
+    var s = true,
       n = null,
       o = 0;
     do {
       var f = t.shift(),
         u = null,
-        l = !1;
+        l = false;
       if (i) {
         if (i < f.validity.notBefore || i > f.validity.notAfter)
           n = {
@@ -8334,12 +8334,12 @@ var Gr = S(function (Df, In) {
       }
       if (n === null) {
         if (((u = t[0] || e.getIssuer(f)), u === null)) {
-          if (f.isIssuer(f)) (l = !0), (u = f);
+          if (f.isIssuer(f)) (l = true), (u = f);
         }
         if (u) {
           var c = u;
           if (!M.util.isArray(c)) c = [c];
-          var v = !1;
+          var v = false;
           while (!v && c.length > 0) {
             u = c.shift();
             try {
@@ -8354,7 +8354,7 @@ var Gr = S(function (Df, In) {
       if (n === null && u && !f.isIssuer(u))
         n = { message: "Certificate issuer is invalid.", error: D.certificateError.bad_certificate };
       if (n === null) {
-        var C = { keyUsage: !0, basicConstraints: !0 };
+        var C = { keyUsage: true, basicConstraints: true };
         for (var y = 0; n === null && y < f.extensions.length; ++y) {
           var x = f.extensions[y];
           if (x.critical && !(x.name in C))
@@ -8394,11 +8394,11 @@ var Gr = S(function (Df, In) {
             };
         }
       }
-      var N = n === null ? !0 : n.error,
+      var N = n === null ? true : n.error,
         O = a.verify ? a.verify(N, o, r) : N;
-      if (O === !0) n = null;
+      if (O === true) n = null;
       else {
-        if (N === !0)
+        if (N === true)
           n = { message: "The application rejected the certificate.", error: D.certificateError.bad_certificate };
         if (O || O === 0) {
           if (typeof O === "object" && !M.util.isArray(O)) {
@@ -8408,9 +8408,9 @@ var Gr = S(function (Df, In) {
         }
         throw n;
       }
-      (s = !1), ++o;
+      (s = false), ++o;
     } while (t.length > 0);
-    return !0;
+    return true;
   };
 });
 var Da = S(function (kf, Bn) {
@@ -8431,56 +8431,56 @@ var Da = S(function (kf, Bn) {
       name: "ContentInfo",
       tagClass: g.Class.UNIVERSAL,
       type: g.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
         {
           name: "ContentInfo.contentType",
           tagClass: g.Class.UNIVERSAL,
           type: g.Type.OID,
-          constructed: !1,
+          constructed: false,
           capture: "contentType",
         },
-        { name: "ContentInfo.content", tagClass: g.Class.CONTEXT_SPECIFIC, constructed: !0, captureAsn1: "content" },
+        { name: "ContentInfo.content", tagClass: g.Class.CONTEXT_SPECIFIC, constructed: true, captureAsn1: "content" },
       ],
     },
     $0 = {
       name: "PFX",
       tagClass: g.Class.UNIVERSAL,
       type: g.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
-        { name: "PFX.version", tagClass: g.Class.UNIVERSAL, type: g.Type.INTEGER, constructed: !1, capture: "version" },
+        { name: "PFX.version", tagClass: g.Class.UNIVERSAL, type: g.Type.INTEGER, constructed: false, capture: "version" },
         An,
         {
           name: "PFX.macData",
           tagClass: g.Class.UNIVERSAL,
           type: g.Type.SEQUENCE,
-          constructed: !0,
-          optional: !0,
+          constructed: true,
+          optional: true,
           captureAsn1: "mac",
           value: [
             {
               name: "PFX.macData.mac",
               tagClass: g.Class.UNIVERSAL,
               type: g.Type.SEQUENCE,
-              constructed: !0,
+              constructed: true,
               value: [
                 {
                   name: "PFX.macData.mac.digestAlgorithm",
                   tagClass: g.Class.UNIVERSAL,
                   type: g.Type.SEQUENCE,
-                  constructed: !0,
+                  constructed: true,
                   value: [
                     {
                       name: "PFX.macData.mac.digestAlgorithm.algorithm",
                       tagClass: g.Class.UNIVERSAL,
                       type: g.Type.OID,
-                      constructed: !1,
+                      constructed: false,
                       capture: "macAlgorithm",
                     },
                     {
                       name: "PFX.macData.mac.digestAlgorithm.parameters",
-                      optional: !0,
+                      optional: true,
                       tagClass: g.Class.UNIVERSAL,
                       captureAsn1: "macAlgorithmParameters",
                     },
@@ -8490,7 +8490,7 @@ var Da = S(function (kf, Bn) {
                   name: "PFX.macData.mac.digest",
                   tagClass: g.Class.UNIVERSAL,
                   type: g.Type.OCTETSTRING,
-                  constructed: !1,
+                  constructed: false,
                   capture: "macDigest",
                 },
               ],
@@ -8499,15 +8499,15 @@ var Da = S(function (kf, Bn) {
               name: "PFX.macData.macSalt",
               tagClass: g.Class.UNIVERSAL,
               type: g.Type.OCTETSTRING,
-              constructed: !1,
+              constructed: false,
               capture: "macSalt",
             },
             {
               name: "PFX.macData.iterations",
               tagClass: g.Class.UNIVERSAL,
               type: g.Type.INTEGER,
-              constructed: !1,
-              optional: !0,
+              constructed: false,
+              optional: true,
               capture: "macIterations",
             },
           ],
@@ -8518,16 +8518,16 @@ var Da = S(function (kf, Bn) {
       name: "SafeBag",
       tagClass: g.Class.UNIVERSAL,
       type: g.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
-        { name: "SafeBag.bagId", tagClass: g.Class.UNIVERSAL, type: g.Type.OID, constructed: !1, capture: "bagId" },
-        { name: "SafeBag.bagValue", tagClass: g.Class.CONTEXT_SPECIFIC, constructed: !0, captureAsn1: "bagValue" },
+        { name: "SafeBag.bagId", tagClass: g.Class.UNIVERSAL, type: g.Type.OID, constructed: false, capture: "bagId" },
+        { name: "SafeBag.bagValue", tagClass: g.Class.CONTEXT_SPECIFIC, constructed: true, captureAsn1: "bagValue" },
         {
           name: "SafeBag.bagAttributes",
           tagClass: g.Class.UNIVERSAL,
           type: g.Type.SET,
-          constructed: !0,
-          optional: !0,
+          constructed: true,
+          optional: true,
           capture: "bagAttributes",
         },
       ],
@@ -8536,14 +8536,14 @@ var Da = S(function (kf, Bn) {
       name: "Attribute",
       tagClass: g.Class.UNIVERSAL,
       type: g.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
-        { name: "Attribute.attrId", tagClass: g.Class.UNIVERSAL, type: g.Type.OID, constructed: !1, capture: "oid" },
+        { name: "Attribute.attrId", tagClass: g.Class.UNIVERSAL, type: g.Type.OID, constructed: false, capture: "oid" },
         {
           name: "Attribute.attrValues",
           tagClass: g.Class.UNIVERSAL,
           type: g.Type.SET,
-          constructed: !0,
+          constructed: true,
           capture: "values",
         },
       ],
@@ -8552,19 +8552,19 @@ var Da = S(function (kf, Bn) {
       name: "CertBag",
       tagClass: g.Class.UNIVERSAL,
       type: g.Type.SEQUENCE,
-      constructed: !0,
+      constructed: true,
       value: [
-        { name: "CertBag.certId", tagClass: g.Class.UNIVERSAL, type: g.Type.OID, constructed: !1, capture: "certId" },
+        { name: "CertBag.certId", tagClass: g.Class.UNIVERSAL, type: g.Type.OID, constructed: false, capture: "certId" },
         {
           name: "CertBag.certValue",
           tagClass: g.Class.CONTEXT_SPECIFIC,
-          constructed: !0,
+          constructed: true,
           value: [
             {
               name: "CertBag.certValue[0]",
               tagClass: g.Class.UNIVERSAL,
               type: g.Class.OCTETSTRING,
-              constructed: !1,
+              constructed: false,
               capture: "cert",
             },
           ],
@@ -8586,8 +8586,8 @@ var Da = S(function (kf, Bn) {
     return i;
   }
   yr.pkcs12FromAsn1 = function (e, t, a) {
-    if (typeof t === "string") (a = t), (t = !0);
-    else if (t === void 0) t = !0;
+    if (typeof t === "string") (a = t), (t = true);
+    else if (t === void 0) t = true;
     var r = {},
       i = [];
     if (!g.validate(e, $0, r, i)) {
@@ -8663,12 +8663,12 @@ var Da = S(function (kf, Bn) {
     if (e.composed || e.constructed) {
       var t = he.util.createBuffer();
       for (var a = 0; a < e.value.length; ++a) t.putBytes(e.value[a].value);
-      (e.composed = e.constructed = !1), (e.value = t.getBytes());
+      (e.composed = e.constructed = false), (e.value = t.getBytes());
     }
     return e;
   }
   function au(e, t, a, r) {
-    if (((t = g.fromDer(t, a)), t.tagClass !== g.Class.UNIVERSAL || t.type !== g.Type.SEQUENCE || t.constructed !== !0))
+    if (((t = g.fromDer(t, a)), t.tagClass !== g.Class.UNIVERSAL || t.type !== g.Type.SEQUENCE || t.constructed !== true))
       throw Error("PKCS#12 AuthenticatedSafe expected to be a SEQUENCE OF ContentInfo");
     for (var i = 0; i < t.value.length; i++) {
       var s = t.value[i],
@@ -8678,7 +8678,7 @@ var Da = S(function (kf, Bn) {
         var f = Error("Cannot read ContentInfo.");
         throw ((f.errors = o), f);
       }
-      var u = { encrypted: !1 },
+      var u = { encrypted: false },
         l = null,
         c = n.content.value[0];
       switch (g.derToOid(n.contentType)) {
@@ -8688,7 +8688,7 @@ var Da = S(function (kf, Bn) {
           l = La(c).value;
           break;
         case j.oids.encryptedData:
-          (l = iu(c, r)), (u.encrypted = !0);
+          (l = iu(c, r)), (u.encrypted = true);
           break;
         default:
           var f = Error("Unsupported PKCS#12 contentType.");
@@ -8718,7 +8718,7 @@ var Da = S(function (kf, Bn) {
   }
   function nu(e, t, a) {
     if (!t && e.length === 0) return [];
-    if (((e = g.fromDer(e, t)), e.tagClass !== g.Class.UNIVERSAL || e.type !== g.Type.SEQUENCE || e.constructed !== !0))
+    if (((e = g.fromDer(e, t)), e.tagClass !== g.Class.UNIVERSAL || e.type !== g.Type.SEQUENCE || e.constructed !== true))
       throw Error("PKCS#12 SafeContents expected to be a SEQUENCE OF SafeBag.");
     var r = [];
     for (var i = 0; i < e.value.length; i++) {
@@ -8754,7 +8754,7 @@ var Da = S(function (kf, Bn) {
               }
               var x = g.fromDer(n.cert, t);
               try {
-                u.cert = j.certificateFromAsn1(x, !0);
+                u.cert = j.certificateFromAsn1(x, true);
               } catch (T) {
                 (u.cert = null), (u.asn1 = x);
               }
@@ -8797,9 +8797,9 @@ var Da = S(function (kf, Bn) {
       (r.algorithm = r.algorithm || r.encAlgorithm || "aes128"),
       !("useMac" in r))
     )
-      r.useMac = !0;
+      r.useMac = true;
     if (!("localKeyId" in r)) r.localKeyId = null;
-    if (!("generateLocalKeyId" in r)) r.generateLocalKeyId = !0;
+    if (!("generateLocalKeyId" in r)) r.generateLocalKeyId = true;
     var i = r.localKeyId,
       s;
     if (i !== null) i = he.util.hexToBytes(i);
@@ -8813,21 +8813,21 @@ var Da = S(function (kf, Bn) {
     var f = [];
     if (i !== null)
       f.push(
-        g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [
-          g.create(g.Class.UNIVERSAL, g.Type.OID, !1, g.oidToDer(j.oids.localKeyId).getBytes()),
-          g.create(g.Class.UNIVERSAL, g.Type.SET, !0, [g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, !1, i)]),
+        g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [
+          g.create(g.Class.UNIVERSAL, g.Type.OID, false, g.oidToDer(j.oids.localKeyId).getBytes()),
+          g.create(g.Class.UNIVERSAL, g.Type.SET, true, [g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, false, i)]),
         ]),
       );
     if ("friendlyName" in r)
       f.push(
-        g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [
-          g.create(g.Class.UNIVERSAL, g.Type.OID, !1, g.oidToDer(j.oids.friendlyName).getBytes()),
-          g.create(g.Class.UNIVERSAL, g.Type.SET, !0, [
-            g.create(g.Class.UNIVERSAL, g.Type.BMPSTRING, !1, r.friendlyName),
+        g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [
+          g.create(g.Class.UNIVERSAL, g.Type.OID, false, g.oidToDer(j.oids.friendlyName).getBytes()),
+          g.create(g.Class.UNIVERSAL, g.Type.SET, true, [
+            g.create(g.Class.UNIVERSAL, g.Type.BMPSTRING, false, r.friendlyName),
           ]),
         ]),
       );
-    if (f.length > 0) s = g.create(g.Class.UNIVERSAL, g.Type.SET, !0, f);
+    if (f.length > 0) s = g.create(g.Class.UNIVERSAL, g.Type.SET, true, f);
     var u = [],
       l = [];
     if (t !== null)
@@ -8838,13 +8838,13 @@ var Da = S(function (kf, Bn) {
       if (((t = l[v]), typeof t === "string")) t = j.certificateFromPem(t);
       var C = v === 0 ? s : void 0,
         y = j.certificateToAsn1(t),
-        x = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [
-          g.create(g.Class.UNIVERSAL, g.Type.OID, !1, g.oidToDer(j.oids.certBag).getBytes()),
-          g.create(g.Class.CONTEXT_SPECIFIC, 0, !0, [
-            g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [
-              g.create(g.Class.UNIVERSAL, g.Type.OID, !1, g.oidToDer(j.oids.x509Certificate).getBytes()),
-              g.create(g.Class.CONTEXT_SPECIFIC, 0, !0, [
-                g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, !1, g.toDer(y).getBytes()),
+        x = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [
+          g.create(g.Class.UNIVERSAL, g.Type.OID, false, g.oidToDer(j.oids.certBag).getBytes()),
+          g.create(g.Class.CONTEXT_SPECIFIC, 0, true, [
+            g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [
+              g.create(g.Class.UNIVERSAL, g.Type.OID, false, g.oidToDer(j.oids.x509Certificate).getBytes()),
+              g.create(g.Class.CONTEXT_SPECIFIC, 0, true, [
+                g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, false, g.toDer(y).getBytes()),
               ]),
             ]),
           ]),
@@ -8853,11 +8853,11 @@ var Da = S(function (kf, Bn) {
       c.push(x);
     }
     if (c.length > 0) {
-      var T = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, c),
-        A = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [
-          g.create(g.Class.UNIVERSAL, g.Type.OID, !1, g.oidToDer(j.oids.data).getBytes()),
-          g.create(g.Class.CONTEXT_SPECIFIC, 0, !0, [
-            g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, !1, g.toDer(T).getBytes()),
+      var T = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, c),
+        A = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [
+          g.create(g.Class.UNIVERSAL, g.Type.OID, false, g.oidToDer(j.oids.data).getBytes()),
+          g.create(g.Class.CONTEXT_SPECIFIC, 0, true, [
+            g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, false, g.toDer(T).getBytes()),
           ]),
         ]);
       u.push(A);
@@ -8866,27 +8866,27 @@ var Da = S(function (kf, Bn) {
     if (e !== null) {
       var N = j.wrapRsaPrivateKey(j.privateKeyToAsn1(e));
       if (a === null)
-        _ = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [
-          g.create(g.Class.UNIVERSAL, g.Type.OID, !1, g.oidToDer(j.oids.keyBag).getBytes()),
-          g.create(g.Class.CONTEXT_SPECIFIC, 0, !0, [N]),
+        _ = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [
+          g.create(g.Class.UNIVERSAL, g.Type.OID, false, g.oidToDer(j.oids.keyBag).getBytes()),
+          g.create(g.Class.CONTEXT_SPECIFIC, 0, true, [N]),
           s,
         ]);
       else
-        _ = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [
-          g.create(g.Class.UNIVERSAL, g.Type.OID, !1, g.oidToDer(j.oids.pkcs8ShroudedKeyBag).getBytes()),
-          g.create(g.Class.CONTEXT_SPECIFIC, 0, !0, [j.encryptPrivateKeyInfo(N, a, r)]),
+        _ = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [
+          g.create(g.Class.UNIVERSAL, g.Type.OID, false, g.oidToDer(j.oids.pkcs8ShroudedKeyBag).getBytes()),
+          g.create(g.Class.CONTEXT_SPECIFIC, 0, true, [j.encryptPrivateKeyInfo(N, a, r)]),
           s,
         ]);
-      var O = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [_]),
-        k = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [
-          g.create(g.Class.UNIVERSAL, g.Type.OID, !1, g.oidToDer(j.oids.data).getBytes()),
-          g.create(g.Class.CONTEXT_SPECIFIC, 0, !0, [
-            g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, !1, g.toDer(O).getBytes()),
+      var O = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [_]),
+        k = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [
+          g.create(g.Class.UNIVERSAL, g.Type.OID, false, g.oidToDer(j.oids.data).getBytes()),
+          g.create(g.Class.CONTEXT_SPECIFIC, 0, true, [
+            g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, false, g.toDer(O).getBytes()),
           ]),
         ]);
       u.push(k);
     }
-    var L = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, u),
+    var L = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, u),
       Q;
     if (r.useMac) {
       var o = he.md.sha1.create(),
@@ -8896,24 +8896,24 @@ var Da = S(function (kf, Bn) {
         se = he.hmac.create();
       se.start(o, e), se.update(g.toDer(L).getBytes());
       var le = se.getMac();
-      Q = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [
-        g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [
-          g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [
-            g.create(g.Class.UNIVERSAL, g.Type.OID, !1, g.oidToDer(j.oids.sha1).getBytes()),
-            g.create(g.Class.UNIVERSAL, g.Type.NULL, !1, ""),
+      Q = g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [
+        g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [
+          g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [
+            g.create(g.Class.UNIVERSAL, g.Type.OID, false, g.oidToDer(j.oids.sha1).getBytes()),
+            g.create(g.Class.UNIVERSAL, g.Type.NULL, false, ""),
           ]),
-          g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, !1, le.getBytes()),
+          g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, false, le.getBytes()),
         ]),
-        g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, !1, X.getBytes()),
-        g.create(g.Class.UNIVERSAL, g.Type.INTEGER, !1, g.integerToDer(ne).getBytes()),
+        g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, false, X.getBytes()),
+        g.create(g.Class.UNIVERSAL, g.Type.INTEGER, false, g.integerToDer(ne).getBytes()),
       ]);
     }
-    return g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [
-      g.create(g.Class.UNIVERSAL, g.Type.INTEGER, !1, g.integerToDer(3).getBytes()),
-      g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, !0, [
-        g.create(g.Class.UNIVERSAL, g.Type.OID, !1, g.oidToDer(j.oids.data).getBytes()),
-        g.create(g.Class.CONTEXT_SPECIFIC, 0, !0, [
-          g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, !1, g.toDer(L).getBytes()),
+    return g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [
+      g.create(g.Class.UNIVERSAL, g.Type.INTEGER, false, g.integerToDer(3).getBytes()),
+      g.create(g.Class.UNIVERSAL, g.Type.SEQUENCE, true, [
+        g.create(g.Class.UNIVERSAL, g.Type.OID, false, g.oidToDer(j.oids.data).getBytes()),
+        g.create(g.Class.CONTEXT_SPECIFIC, 0, true, [
+          g.create(g.Class.UNIVERSAL, g.Type.OCTETSTRING, false, g.toDer(L).getBytes()),
         ]),
       ]),
       Q,
@@ -9022,18 +9022,18 @@ var qa = S(function (Pf, Un) {
       );
     },
     uu = function (e, t, a) {
-      var r = !1;
+      var r = false;
       try {
         var i = e.deflate(t.fragment.getBytes());
-        (t.fragment = R.util.createBuffer(i)), (t.length = i.length), (r = !0);
+        (t.fragment = R.util.createBuffer(i)), (t.length = i.length), (r = true);
       } catch (s) {}
       return r;
     },
     fu = function (e, t, a) {
-      var r = !1;
+      var r = false;
       try {
         var i = e.inflate(t.fragment.getBytes());
-        (t.fragment = R.util.createBuffer(i)), (t.length = i.length), (r = !0);
+        (t.fragment = R.util.createBuffer(i)), (t.length = i.length), (r = true);
       } catch (s) {}
       return r;
     },
@@ -9127,7 +9127,7 @@ var qa = S(function (Pf, Un) {
     if (!a)
       e.error(e, {
         message: "Unexpected message. Received TLS record out of order.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.unexpected_message },
       });
   };
@@ -9145,7 +9145,7 @@ var qa = S(function (Pf, Un) {
         message: i
           ? "Invalid ServerHello message. Message too short."
           : "Invalid ClientHello message. Message too short.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.illegal_parameter },
       });
     else {
@@ -9182,7 +9182,7 @@ var qa = S(function (Pf, Un) {
         if (r.version.major !== e.session.version.major || r.version.minor !== e.session.version.minor)
           return e.error(e, {
             message: "TLS version change is disallowed during renegotiation.",
-            send: !0,
+            send: true,
             alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.protocol_version },
           });
       }
@@ -9195,7 +9195,7 @@ var qa = S(function (Pf, Un) {
       if (e.session.cipherSuite === null)
         return e.error(e, {
           message: "No cipher suites in common.",
-          send: !0,
+          send: true,
           alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.handshake_failure },
           cipherSuite: R.util.bytesToHex(r.cipher_suite),
         });
@@ -9235,14 +9235,14 @@ var qa = S(function (Pf, Un) {
     else
       return e.error(e, {
         message: "Incompatible TLS version.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.protocol_version },
       });
     e.session.version = e.version;
     var i = r.session_id.bytes();
     if (i.length > 0 && i === e.session.id)
-      (e.expect = Rn), (e.session.resuming = !0), (e.session.sp.server_random = r.random.bytes());
-    else (e.expect = cu), (e.session.resuming = !1), p.createSecurityParameters(e, r);
+      (e.expect = Rn), (e.session.resuming = true), (e.session.sp.server_random = r.random.bytes());
+    else (e.expect = cu), (e.session.resuming = false), p.createSecurityParameters(e, r);
     (e.session.id = i), e.process();
   };
   p.handleClientHello = function (e, t, a) {
@@ -9263,10 +9263,10 @@ var qa = S(function (Pf, Un) {
         if (((n = p.SupportedVersions[o]), n.minor <= r.version.minor)) break;
       (e.version = { major: n.major, minor: n.minor }), (e.session.version = e.version);
     }
-    if (s !== null) (e.expect = Fa), (e.session.resuming = !0), (e.session.sp.client_random = r.random.bytes());
-    else (e.expect = e.verifyClient !== !1 ? Cu : Oa), (e.session.resuming = !1), p.createSecurityParameters(e, r);
+    if (s !== null) (e.expect = Fa), (e.session.resuming = true), (e.session.sp.client_random = r.random.bytes());
+    else (e.expect = e.verifyClient !== false ? Cu : Oa), (e.session.resuming = false), p.createSecurityParameters(e, r);
     if (
-      ((e.open = !0),
+      ((e.open = true),
       p.queue(e, p.createRecord(e, { type: p.ContentType.handshake, data: p.createServerHello(e) })),
       e.session.resuming)
     )
@@ -9279,7 +9279,7 @@ var qa = S(function (Pf, Un) {
     ) {
       if (
         (p.queue(e, p.createRecord(e, { type: p.ContentType.handshake, data: p.createServerKeyExchange(e) })),
-        e.verifyClient !== !1)
+        e.verifyClient !== false)
       )
         p.queue(e, p.createRecord(e, { type: p.ContentType.handshake, data: p.createCertificateRequest(e) }));
       p.queue(e, p.createRecord(e, { type: p.ContentType.handshake, data: p.createServerHelloDone(e) }));
@@ -9290,7 +9290,7 @@ var qa = S(function (Pf, Un) {
     if (a < 3)
       return e.error(e, {
         message: "Invalid Certificate message. Message too short.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.illegal_parameter },
       });
     var r = t.fragment,
@@ -9300,20 +9300,20 @@ var qa = S(function (Pf, Un) {
       o = [];
     try {
       while (i.certificate_list.length() > 0)
-        (s = je(i.certificate_list, 3)), (n = R.asn1.fromDer(s)), (s = R.pki.certificateFromAsn1(n, !0)), o.push(s);
+        (s = je(i.certificate_list, 3)), (n = R.asn1.fromDer(s)), (s = R.pki.certificateFromAsn1(n, true)), o.push(s);
     } catch (u) {
       return e.error(e, {
         message: "Could not parse certificate list.",
         cause: u,
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.bad_certificate },
       });
     }
     var f = e.entity === p.ConnectionEnd.client;
-    if ((f || e.verifyClient === !0) && o.length === 0)
+    if ((f || e.verifyClient === true) && o.length === 0)
       e.error(e, {
         message: f ? "No server certificate provided." : "No client certificate provided.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.illegal_parameter },
       });
     else if (o.length === 0) e.expect = f ? _n : Oa;
@@ -9328,7 +9328,7 @@ var qa = S(function (Pf, Un) {
     if (a > 0)
       return e.error(e, {
         message: "Invalid key parameters. Only RSA is supported.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.unsupported_certificate },
       });
     (e.expect = hu), e.process();
@@ -9337,7 +9337,7 @@ var qa = S(function (Pf, Un) {
     if (a < 48)
       return e.error(e, {
         message: "Invalid key parameters. Only RSA is supported.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.unsupported_certificate },
       });
     var r = t.fragment,
@@ -9350,14 +9350,14 @@ var qa = S(function (Pf, Un) {
         e.error(e, {
           message: "Could not get private key.",
           cause: f,
-          send: !0,
+          send: true,
           alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.internal_error },
         });
       }
     if (s === null)
       return e.error(e, {
         message: "No private key set.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.internal_error },
       });
     try {
@@ -9376,7 +9376,7 @@ var qa = S(function (Pf, Un) {
     if (a < 3)
       return e.error(e, {
         message: "Invalid CertificateRequest. Message too short.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.illegal_parameter },
       });
     var r = t.fragment,
@@ -9387,7 +9387,7 @@ var qa = S(function (Pf, Un) {
     if (a < 2)
       return e.error(e, {
         message: "Invalid CertificateVerify. Message too short.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.illegal_parameter },
       });
     var r = t.fragment;
@@ -9404,7 +9404,7 @@ var qa = S(function (Pf, Un) {
     } catch (f) {
       return e.error(e, {
         message: "Bad signature in CertificateVerify.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.handshake_failure },
       });
     }
@@ -9414,18 +9414,18 @@ var qa = S(function (Pf, Un) {
     if (a > 0)
       return e.error(e, {
         message: "Invalid ServerHelloDone message. Invalid length.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.record_overflow },
       });
     if (e.serverCertificate === null) {
       var r = {
           message: "No server certificate provided. Not enough security.",
-          send: !0,
+          send: true,
           alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.insufficient_security },
         },
         i = 0,
         s = e.verify(e, r.alert.description, i, []);
-      if (s !== !0) {
+      if (s !== true) {
         if (s || s === 0) {
           if (typeof s === "object" && !R.util.isArray(s)) {
             if (s.message) r.message = s.message;
@@ -9458,7 +9458,7 @@ var qa = S(function (Pf, Un) {
     if (t.fragment.getByte() !== 1)
       return e.error(e, {
         message: "Invalid ChangeCipherSpec message received.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.illegal_parameter },
       });
     var a = e.entity === p.ConnectionEnd.client;
@@ -9482,7 +9482,7 @@ var qa = S(function (Pf, Un) {
     if (((r = l(f.master_secret, o, r.getBytes(), u)), r.getBytes() !== s))
       return e.error(e, {
         message: "Invalid verify_data in Finished message.",
-        send: !0,
+        send: true,
         alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.decrypt_error },
       });
     if ((e.session.md5.update(i), e.session.sha1.update(i), (e.session.resuming && n) || (!e.session.resuming && !n)))
@@ -9491,11 +9491,11 @@ var qa = S(function (Pf, Un) {
         (e.state.pending = null),
         p.queue(e, p.createRecord(e, { type: p.ContentType.handshake, data: p.createFinished(e) }));
     (e.expect = n ? vu : xu),
-      (e.handshaking = !1),
+      (e.handshaking = false),
       ++e.handshakes,
       (e.peerCertificate = n ? e.session.serverCertificate : e.session.clientCertificate),
       p.flush(e),
-      (e.isConnected = !0),
+      (e.isConnected = true),
       e.connected(e),
       e.process();
   };
@@ -9578,7 +9578,7 @@ var qa = S(function (Pf, Un) {
         break;
     }
     if (r.description === p.Alert.Description.close_notify) return e.close();
-    e.error(e, { message: i, send: !1, origin: e.entity === p.ConnectionEnd.client ? "server" : "client", alert: r }),
+    e.error(e, { message: i, send: false, origin: e.entity === p.ConnectionEnd.client ? "server" : "client", alert: r }),
       e.process();
   };
   p.handleHandshake = function (e, t) {
@@ -9590,7 +9590,7 @@ var qa = S(function (Pf, Un) {
     var s = a.bytes(i + 4);
     if (((a.read += 4), r in zr[e.entity][e.expect])) {
       if (e.entity === p.ConnectionEnd.server && !e.open && !e.fail)
-        (e.handshaking = !0),
+        (e.handshaking = true),
           (e.session = {
             version: null,
             extensions: { server_name: { serverNameList: [] } },
@@ -9739,11 +9739,11 @@ var qa = S(function (Pf, Un) {
           macFunction: null,
           cipherState: null,
           cipherFunction: function (n) {
-            return !0;
+            return true;
           },
           compressionState: null,
           compressFunction: function (n) {
-            return !0;
+            return true;
           },
           updateSequenceNumber: function () {
             if (s.sequenceNumber[1] === 4294967295) (s.sequenceNumber[1] = 0), ++s.sequenceNumber[0];
@@ -9758,13 +9758,13 @@ var qa = S(function (Pf, Un) {
         if (!r.read.cipherFunction(n, r.read))
           s.error(s, {
             message: "Could not decrypt record or bad MAC.",
-            send: !0,
+            send: true,
             alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.bad_record_mac },
           });
         else if (!r.read.compressFunction(s, n, r.read))
           s.error(s, {
             message: "Could not decompress record.",
-            send: !0,
+            send: true,
             alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.decompression_failure },
           });
         return !s.fail;
@@ -9773,13 +9773,13 @@ var qa = S(function (Pf, Un) {
         if (!r.write.compressFunction(s, n, r.write))
           s.error(s, {
             message: "Could not compress record.",
-            send: !1,
+            send: false,
             alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.internal_error },
           });
         else if (!r.write.cipherFunction(n, r.write))
           s.error(s, {
             message: "Could not encrypt record.",
-            send: !1,
+            send: false,
             alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.internal_error },
           });
         return !s.fail;
@@ -9907,7 +9907,7 @@ var qa = S(function (Pf, Un) {
           if (o.procType && o.procType.type === "ENCRYPTED")
             throw Error("Could not convert certificate from PEM; PEM is encrypted.");
           var u = R.util.createBuffer(o.body);
-          if (s === null) s = R.asn1.fromDer(u.bytes(), !1);
+          if (s === null) s = R.asn1.fromDer(u.bytes(), false);
           var l = R.util.createBuffer();
           at(l, 3, u), i.putBuffer(l);
         }
@@ -9917,7 +9917,7 @@ var qa = S(function (Pf, Un) {
         return e.error(e, {
           message: "Could not send certificate list.",
           cause: C,
-          send: !0,
+          send: true,
           alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.bad_certificate },
         });
       }
@@ -9960,14 +9960,14 @@ var qa = S(function (Pf, Un) {
               r.error(r, {
                 message: "Could not get private key.",
                 cause: o,
-                send: !0,
+                send: true,
                 alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.internal_error },
               });
             }
           if (n === null)
             r.error(r, {
               message: "No private key set.",
-              send: !0,
+              send: true,
               alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.internal_error },
             });
           else i = n.sign(i, null);
@@ -10065,8 +10065,8 @@ var qa = S(function (Pf, Un) {
   };
   var Va = function (e) {
       switch (e) {
-        case !0:
-          return !0;
+        case true:
+          return true;
         case R.pki.certificateError.bad_certificate:
           return p.Alert.Description.bad_certificate;
         case R.pki.certificateError.unsupported_certificate:
@@ -10085,8 +10085,8 @@ var qa = S(function (Pf, Un) {
     },
     Bu = function (e) {
       switch (e) {
-        case !0:
-          return !0;
+        case true:
+          return true;
         case p.Alert.Description.bad_certificate:
           return R.pki.certificateError.bad_certificate;
         case p.Alert.Description.unsupported_certificate:
@@ -10110,11 +10110,11 @@ var qa = S(function (Pf, Un) {
       (a.verify = function (s, n, o) {
         var f = Va(s),
           u = e.verify(e, s, n, o);
-        if (u !== !0) {
+        if (u !== true) {
           if (typeof u === "object" && !R.util.isArray(u)) {
             var l = Error("The application rejected the certificate.");
             if (
-              ((l.send = !0),
+              ((l.send = true),
               (l.alert = { level: p.Alert.Level.fatal, description: p.Alert.Description.bad_certificate }),
               u.message)
             )
@@ -10130,8 +10130,8 @@ var qa = S(function (Pf, Un) {
     } catch (s) {
       var i = s;
       if (typeof i !== "object" || R.util.isArray(i))
-        i = { send: !0, alert: { level: p.Alert.Level.fatal, description: Va(s) } };
-      if (!("send" in i)) i.send = !0;
+        i = { send: true, alert: { level: p.Alert.Level.fatal, description: Va(s) } };
+      if (!("send" in i)) i.send = true;
       if (!("alert" in i)) i.alert = { level: p.Alert.Level.fatal, description: Va(i.error) };
       e.error(e, i);
     }
@@ -10193,7 +10193,7 @@ var qa = S(function (Pf, Un) {
         cipherSuites: a,
         connected: e.connected,
         virtualHost: e.virtualHost || null,
-        verifyClient: e.verifyClient || !1,
+        verifyClient: e.verifyClient || false,
         verify:
           e.verify ||
           function (l, c, v, C) {
@@ -10213,9 +10213,9 @@ var qa = S(function (Pf, Un) {
         error: function (l, c) {
           if (((c.origin = c.origin || (l.entity === p.ConnectionEnd.client ? "client" : "server")), c.send))
             p.queue(l, p.createAlert(l, c.alert)), p.flush(l);
-          var v = c.fatal !== !1;
-          if (v) l.fail = !0;
-          if ((e.error(l, c), v)) l.close(!1);
+          var v = c.fatal !== false;
+          if (v) l.fail = true;
+          if ((e.error(l, c), v)) l.close(false);
         },
         deflate: e.deflate || null,
         inflate: e.inflate || null,
@@ -10229,10 +10229,10 @@ var qa = S(function (Pf, Un) {
         (n.expect = n.entity === p.ConnectionEnd.client ? lu : gu),
         (n.fragmented = null),
         (n.records = []),
-        (n.open = !1),
+        (n.open = false),
         (n.handshakes = 0),
-        (n.handshaking = !1),
-        (n.isConnected = !1),
+        (n.handshaking = false),
+        (n.isConnected = false),
         (n.fail = !(l || typeof l > "u")),
         n.input.clear(),
         n.tlsData.clear(),
@@ -10257,14 +10257,14 @@ var qa = S(function (Pf, Un) {
             version: { major: v.getByte(), minor: v.getByte() },
             length: v.getInt16(),
             fragment: R.util.createBuffer(),
-            ready: !1,
+            ready: false,
           };
           var y = l.record.version.major === l.version.major;
           if (y && l.session && l.session.version) y = l.record.version.minor === l.version.minor;
           if (!y)
             l.error(l, {
               message: "Incompatible TLS version.",
-              send: !0,
+              send: true,
               alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.protocol_version },
             });
         }
@@ -10285,10 +10285,10 @@ var qa = S(function (Pf, Un) {
               else
                 l.error(l, {
                   message: "Invalid fragmented record.",
-                  send: !0,
+                  send: true,
                   alert: { level: p.Alert.Level.fatal, description: p.Alert.Description.unexpected_message },
                 });
-            l.record.ready = !0;
+            l.record.ready = true;
           }
         }
         return c;
@@ -10296,11 +10296,11 @@ var qa = S(function (Pf, Un) {
     return (
       (n.handshake = function (l) {
         if (n.entity !== p.ConnectionEnd.client)
-          n.error(n, { message: "Cannot initiate handshake as a server.", fatal: !1 });
-        else if (n.handshaking) n.error(n, { message: "Handshake already in progress.", fatal: !1 });
+          n.error(n, { message: "Cannot initiate handshake as a server.", fatal: false });
+        else if (n.handshaking) n.error(n, { message: "Handshake already in progress.", fatal: false });
         else {
-          if (n.fail && !n.open && n.handshakes === 0) n.fail = !1;
-          (n.handshaking = !0), (l = l || "");
+          if (n.fail && !n.open && n.handshakes === 0) n.fail = false;
+          (n.handshaking = true), (l = l || "");
           var c = null;
           if (l.length > 0) {
             if (n.sessionCache) c = n.sessionCache.getSession(l);
@@ -10326,7 +10326,7 @@ var qa = S(function (Pf, Un) {
           )
             (n.version = c.version), (n.session.sp = c.sp);
           (n.session.sp.client_random = p.createRandom().getBytes()),
-            (n.open = !0),
+            (n.open = true),
             p.queue(n, p.createRecord(n, { type: p.ContentType.handshake, data: p.createClientHello(n) })),
             p.flush(n);
         }
@@ -10369,8 +10369,8 @@ var qa = S(function (Pf, Un) {
           (c.sp.keys = null), n.sessionCache.setSession(c.id, c);
         }
         if (n.open) {
-          if (((n.open = !1), n.input.clear(), n.isConnected || n.handshaking))
-            (n.isConnected = n.handshaking = !1),
+          if (((n.open = false), n.input.clear(), n.isConnected || n.handshaking))
+            (n.isConnected = n.handshaking = false),
               p.queue(
                 n,
                 p.createAlert(n, { level: p.Alert.Level.warning, description: p.Alert.Description.close_notify }),
@@ -10431,12 +10431,12 @@ var On = S(function (Vf, Vn) {
   function Pn(e, t, a) {
     var r = t.entity === wt.tls.ConnectionEnd.client;
     (e.read.cipherState = {
-      init: !1,
+      init: false,
       cipher: wt.cipher.createDecipher("AES-CBC", r ? a.keys.server_write_key : a.keys.client_write_key),
       iv: r ? a.keys.server_write_IV : a.keys.client_write_IV,
     }),
       (e.write.cipherState = {
-        init: !1,
+        init: false,
         cipher: wt.cipher.createCipher("AES-CBC", r ? a.keys.client_write_key : a.keys.server_write_key),
         iv: r ? a.keys.client_write_IV : a.keys.server_write_IV,
       }),
@@ -10446,16 +10446,16 @@ var On = S(function (Vf, Vn) {
       (e.read.macFunction = e.write.macFunction = it.hmac_sha1);
   }
   function bu(e, t) {
-    var a = !1,
+    var a = false,
       r = t.macFunction(t.macKey, t.sequenceNumber, e);
     e.fragment.putBytes(r), t.updateSequenceNumber();
     var i;
     if (e.version.minor === it.Versions.TLS_1_0.minor) i = t.cipherState.init ? null : t.cipherState.iv;
     else i = wt.random.getBytesSync(16);
-    t.cipherState.init = !0;
+    t.cipherState.init = true;
     var s = t.cipherState.cipher;
     if ((s.start({ iv: i }), e.version.minor >= it.Versions.TLS_1_1.minor)) s.output.putBytes(i);
-    if ((s.update(e.fragment), s.finish(_u))) (e.fragment = s.output), (e.length = e.fragment.length()), (a = !0);
+    if ((s.update(e.fragment), s.finish(_u))) (e.fragment = s.output), (e.length = e.fragment.length()), (a = true);
     return a;
   }
   function _u(e, t, a) {
@@ -10463,10 +10463,10 @@ var On = S(function (Vf, Vn) {
       var r = e - (t.length() % e);
       t.fillWithByte(r - 1, r);
     }
-    return !0;
+    return true;
   }
   function Nu(e, t, a) {
-    var r = !0;
+    var r = true;
     if (a) {
       var i = t.length(),
         s = t.last();
@@ -10476,11 +10476,11 @@ var On = S(function (Vf, Vn) {
     return r;
   }
   function Ru(e, t) {
-    var a = !1,
+    var a = false,
       r;
     if (e.version.minor === it.Versions.TLS_1_0.minor) r = t.cipherState.init ? null : t.cipherState.iv;
     else r = e.fragment.getBytes(16);
-    t.cipherState.init = !0;
+    t.cipherState.init = true;
     var i = t.cipherState.cipher;
     i.start({ iv: r }), i.update(e.fragment), (a = i.finish(Nu));
     var s = t.macLength,
@@ -10610,7 +10610,7 @@ var Ga = S(function (Of, Mn) {
     );
   };
   var Ma = null,
-    qn = !1,
+    qn = false,
     Ha = null,
     qt = null;
   function Lu() {
@@ -10739,7 +10739,7 @@ var Ga = S(function (Of, Mn) {
         [1067287976, 1780299464],
         [286451373, 2446758561],
       ]),
-      (qn = !0);
+      (qn = true);
   }
   function Fn(e, t, a) {
     var r,
@@ -10881,26 +10881,26 @@ var Hn = S(function (ku) {
     name: "PrivateKeyInfo",
     tagClass: Be.Class.UNIVERSAL,
     type: Be.Type.SEQUENCE,
-    constructed: !0,
+    constructed: true,
     value: [
       {
         name: "PrivateKeyInfo.version",
         tagClass: Be.Class.UNIVERSAL,
         type: Be.Type.INTEGER,
-        constructed: !1,
+        constructed: false,
         capture: "privateKeyVersion",
       },
       {
         name: "PrivateKeyInfo.privateKeyAlgorithm",
         tagClass: Be.Class.UNIVERSAL,
         type: Be.Type.SEQUENCE,
-        constructed: !0,
+        constructed: true,
         value: [
           {
             name: "AlgorithmIdentifier.algorithm",
             tagClass: Be.Class.UNIVERSAL,
             type: Be.Type.OID,
-            constructed: !1,
+            constructed: false,
             capture: "privateKeyOid",
           },
         ],
@@ -10909,7 +10909,7 @@ var Hn = S(function (ku) {
         name: "PrivateKeyInfo",
         tagClass: Be.Class.UNIVERSAL,
         type: Be.Type.OCTETSTRING,
-        constructed: !1,
+        constructed: false,
         capture: "privateKey",
       },
     ],
@@ -10918,20 +10918,20 @@ var Hn = S(function (ku) {
     name: "SubjectPublicKeyInfo",
     tagClass: Be.Class.UNIVERSAL,
     type: Be.Type.SEQUENCE,
-    constructed: !0,
+    constructed: true,
     captureAsn1: "subjectPublicKeyInfo",
     value: [
       {
         name: "SubjectPublicKeyInfo.AlgorithmIdentifier",
         tagClass: Be.Class.UNIVERSAL,
         type: Be.Type.SEQUENCE,
-        constructed: !0,
+        constructed: true,
         value: [
           {
             name: "AlgorithmIdentifier.algorithm",
             tagClass: Be.Class.UNIVERSAL,
             type: Be.Type.OID,
-            constructed: !1,
+            constructed: false,
             capture: "publicKeyOid",
           },
         ],
@@ -10939,8 +10939,8 @@ var Hn = S(function (ku) {
       {
         tagClass: Be.Class.UNIVERSAL,
         type: Be.Type.BITSTRING,
-        constructed: !1,
-        composed: !0,
+        constructed: false,
+        composed: true,
         captureBitStringValue: "ed25519PublicKey",
       },
     ],
@@ -11158,10 +11158,10 @@ var ts = S(function (Kf, es) {
   function Qu(e, t) {
     var a;
     for (a = 31; a >= 0; --a) {
-      if (e[t + a] < mr[a]) return !0;
-      if (e[t + a] > mr[a]) return !1;
+      if (e[t + a] < mr[a]) return true;
+      if (e[t + a] > mr[a]) return false;
     }
-    return !1;
+    return false;
   }
   function Wn(e, t) {
     var a, r, i, s;
@@ -11904,12 +11904,12 @@ var os = S(function (Mf, ss) {
     return J.log.setLevel(t, "none"), t;
   };
   J.log.setLevel = function (e, t) {
-    var a = !1;
+    var a = false;
     if (e && !(e.flags & J.log.LEVEL_LOCKED))
       for (var r = 0; r < J.log.levels.length; ++r) {
         var i = J.log.levels[r];
         if (t == i) {
-          (e.level = t), (a = !0);
+          (e.level = t), (a = true);
           break;
         }
       }
@@ -12046,19 +12046,19 @@ var hs = S(function (Gf, cs) {
           var r = [];
           for (var i = 0; i < e.certificates.length; ++i) r.push(U.pki.certificateToAsn1(e.certificates[i]));
           var s = [],
-            n = m.create(m.Class.CONTEXT_SPECIFIC, 0, !0, [
-              m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
-                m.create(m.Class.UNIVERSAL, m.Type.INTEGER, !1, m.integerToDer(e.version).getBytes()),
-                m.create(m.Class.UNIVERSAL, m.Type.SET, !0, e.digestAlgorithmIdentifiers),
+            n = m.create(m.Class.CONTEXT_SPECIFIC, 0, true, [
+              m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
+                m.create(m.Class.UNIVERSAL, m.Type.INTEGER, false, m.integerToDer(e.version).getBytes()),
+                m.create(m.Class.UNIVERSAL, m.Type.SET, true, e.digestAlgorithmIdentifiers),
                 e.contentInfo,
               ]),
             ]);
-          if (r.length > 0) n.value[0].value.push(m.create(m.Class.CONTEXT_SPECIFIC, 0, !0, r));
-          if (s.length > 0) n.value[0].value.push(m.create(m.Class.CONTEXT_SPECIFIC, 1, !0, s));
+          if (r.length > 0) n.value[0].value.push(m.create(m.Class.CONTEXT_SPECIFIC, 0, true, r));
+          if (s.length > 0) n.value[0].value.push(m.create(m.Class.CONTEXT_SPECIFIC, 1, true, s));
           return (
-            n.value[0].value.push(m.create(m.Class.UNIVERSAL, m.Type.SET, !0, e.signerInfos)),
-            m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
-              m.create(m.Class.UNIVERSAL, m.Type.OID, !1, m.oidToDer(e.type).getBytes()),
+            n.value[0].value.push(m.create(m.Class.UNIVERSAL, m.Type.SET, true, e.signerInfos)),
+            m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
+              m.create(m.Class.UNIVERSAL, m.Type.OID, false, m.oidToDer(e.type).getBytes()),
               n,
             ])
           );
@@ -12086,16 +12086,16 @@ var hs = S(function (Gf, cs) {
           }
           var u = r.authenticatedAttributes || [];
           if (u.length > 0) {
-            var l = !1,
-              c = !1;
+            var l = false,
+              c = false;
             for (var v = 0; v < u.length; ++v) {
               var C = u[v];
               if (!l && C.type === U.pki.oids.contentType) {
-                if (((l = !0), c)) break;
+                if (((l = true), c)) break;
                 continue;
               }
               if (!c && C.type === U.pki.oids.messageDigest) {
-                if (((c = !0), l)) break;
+                if (((c = true), l)) break;
                 continue;
               }
             }
@@ -12119,18 +12119,18 @@ var hs = S(function (Gf, cs) {
         sign: function (r) {
           if (((r = r || {}), typeof e.content !== "object" || e.contentInfo === null)) {
             if (
-              ((e.contentInfo = m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
-                m.create(m.Class.UNIVERSAL, m.Type.OID, !1, m.oidToDer(U.pki.oids.data).getBytes()),
+              ((e.contentInfo = m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
+                m.create(m.Class.UNIVERSAL, m.Type.OID, false, m.oidToDer(U.pki.oids.data).getBytes()),
               ])),
               "content" in e)
             ) {
               var i;
               if (e.content instanceof U.util.ByteBuffer) i = e.content.bytes();
               else if (typeof e.content === "string") i = U.util.encodeUtf8(e.content);
-              if (r.detached) e.detachedContent = m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, !1, i);
+              if (r.detached) e.detachedContent = m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, false, i);
               else
                 e.contentInfo.value.push(
-                  m.create(m.Class.CONTEXT_SPECIFIC, 0, !0, [m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, !1, i)]),
+                  m.create(m.Class.CONTEXT_SPECIFIC, 0, true, [m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, false, i)]),
                 );
             }
           }
@@ -12163,9 +12163,9 @@ var hs = S(function (Gf, cs) {
       e.digestAlgorithmIdentifiers = [];
       for (var n in r)
         e.digestAlgorithmIdentifiers.push(
-          m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
-            m.create(m.Class.UNIVERSAL, m.Type.OID, !1, m.oidToDer(n).getBytes()),
-            m.create(m.Class.UNIVERSAL, m.Type.NULL, !1, ""),
+          m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
+            m.create(m.Class.UNIVERSAL, m.Type.OID, false, m.oidToDer(n).getBytes()),
+            m.create(m.Class.UNIVERSAL, m.Type.NULL, false, ""),
           ]),
         );
       return r;
@@ -12188,8 +12188,8 @@ var hs = S(function (Gf, cs) {
               "Invalid signer; authenticatedAttributes must be present when the ContentInfo content type is not PKCS#7 Data.",
             );
         } else {
-          l.authenticatedAttributesAsn1 = m.create(m.Class.CONTEXT_SPECIFIC, 0, !0, []);
-          var c = m.create(m.Class.UNIVERSAL, m.Type.SET, !0, []);
+          l.authenticatedAttributesAsn1 = m.create(m.Class.CONTEXT_SPECIFIC, 0, true, []);
+          var c = m.create(m.Class.UNIVERSAL, m.Type.SET, true, []);
           for (var v = 0; v < l.authenticatedAttributes.length; ++v) {
             var C = l.authenticatedAttributes[v];
             if (C.type === U.pki.oids.messageDigest) C.value = r[l.digestAlgorithm].digest();
@@ -12236,13 +12236,13 @@ var hs = S(function (Gf, cs) {
           e.recipients = $u(a.recipientInfos.value);
         },
         toAsn1: function () {
-          return m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
-            m.create(m.Class.UNIVERSAL, m.Type.OID, !1, m.oidToDer(e.type).getBytes()),
-            m.create(m.Class.CONTEXT_SPECIFIC, 0, !0, [
-              m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
-                m.create(m.Class.UNIVERSAL, m.Type.INTEGER, !1, m.integerToDer(e.version).getBytes()),
-                m.create(m.Class.UNIVERSAL, m.Type.SET, !0, ef(e.recipients)),
-                m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, af(e.encryptedContent)),
+          return m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
+            m.create(m.Class.UNIVERSAL, m.Type.OID, false, m.oidToDer(e.type).getBytes()),
+            m.create(m.Class.CONTEXT_SPECIFIC, 0, true, [
+              m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
+                m.create(m.Class.UNIVERSAL, m.Type.INTEGER, false, m.integerToDer(e.version).getBytes()),
+                m.create(m.Class.UNIVERSAL, m.Type.SET, true, ef(e.recipients)),
+                m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, af(e.encryptedContent)),
               ]),
             ]),
           ]);
@@ -12254,10 +12254,10 @@ var hs = S(function (Gf, cs) {
               s = i.issuer;
             if (i.serialNumber !== t.serialNumber) continue;
             if (s.length !== a.length) continue;
-            var n = !0;
+            var n = true;
             for (var o = 0; o < a.length; ++o)
               if (s[o].type !== a[o].type || s[o].value !== a[o].value) {
-                n = !1;
+                n = false;
                 break;
               }
             if (n) return i;
@@ -12351,17 +12351,17 @@ var hs = S(function (Gf, cs) {
     };
   }
   function Ju(e) {
-    return m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
-      m.create(m.Class.UNIVERSAL, m.Type.INTEGER, !1, m.integerToDer(e.version).getBytes()),
-      m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
+    return m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
+      m.create(m.Class.UNIVERSAL, m.Type.INTEGER, false, m.integerToDer(e.version).getBytes()),
+      m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
         U.pki.distinguishedNameToAsn1({ attributes: e.issuer }),
-        m.create(m.Class.UNIVERSAL, m.Type.INTEGER, !1, U.util.hexToBytes(e.serialNumber)),
+        m.create(m.Class.UNIVERSAL, m.Type.INTEGER, false, U.util.hexToBytes(e.serialNumber)),
       ]),
-      m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
-        m.create(m.Class.UNIVERSAL, m.Type.OID, !1, m.oidToDer(e.encryptedContent.algorithm).getBytes()),
-        m.create(m.Class.UNIVERSAL, m.Type.NULL, !1, ""),
+      m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
+        m.create(m.Class.UNIVERSAL, m.Type.OID, false, m.oidToDer(e.encryptedContent.algorithm).getBytes()),
+        m.create(m.Class.UNIVERSAL, m.Type.NULL, false, ""),
       ]),
-      m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, !1, e.encryptedContent.content),
+      m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, false, e.encryptedContent.content),
     ]);
   }
   function $u(e) {
@@ -12375,29 +12375,29 @@ var hs = S(function (Gf, cs) {
     return t;
   }
   function tf(e) {
-    var t = m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
-      m.create(m.Class.UNIVERSAL, m.Type.INTEGER, !1, m.integerToDer(e.version).getBytes()),
-      m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
+    var t = m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
+      m.create(m.Class.UNIVERSAL, m.Type.INTEGER, false, m.integerToDer(e.version).getBytes()),
+      m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
         U.pki.distinguishedNameToAsn1({ attributes: e.issuer }),
-        m.create(m.Class.UNIVERSAL, m.Type.INTEGER, !1, U.util.hexToBytes(e.serialNumber)),
+        m.create(m.Class.UNIVERSAL, m.Type.INTEGER, false, U.util.hexToBytes(e.serialNumber)),
       ]),
-      m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
-        m.create(m.Class.UNIVERSAL, m.Type.OID, !1, m.oidToDer(e.digestAlgorithm).getBytes()),
-        m.create(m.Class.UNIVERSAL, m.Type.NULL, !1, ""),
+      m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
+        m.create(m.Class.UNIVERSAL, m.Type.OID, false, m.oidToDer(e.digestAlgorithm).getBytes()),
+        m.create(m.Class.UNIVERSAL, m.Type.NULL, false, ""),
       ]),
     ]);
     if (e.authenticatedAttributesAsn1) t.value.push(e.authenticatedAttributesAsn1);
     if (
       (t.value.push(
-        m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
-          m.create(m.Class.UNIVERSAL, m.Type.OID, !1, m.oidToDer(e.signatureAlgorithm).getBytes()),
-          m.create(m.Class.UNIVERSAL, m.Type.NULL, !1, ""),
+        m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
+          m.create(m.Class.UNIVERSAL, m.Type.OID, false, m.oidToDer(e.signatureAlgorithm).getBytes()),
+          m.create(m.Class.UNIVERSAL, m.Type.NULL, false, ""),
         ]),
       ),
-      t.value.push(m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, !1, e.signature)),
+      t.value.push(m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, false, e.signature)),
       e.unauthenticatedAttributes.length > 0)
     ) {
-      var a = m.create(m.Class.CONTEXT_SPECIFIC, 1, !0, []);
+      var a = m.create(m.Class.CONTEXT_SPECIFIC, 1, true, []);
       for (var r = 0; r < e.unauthenticatedAttributes.length; ++r) {
         var i = e.unauthenticatedAttributes[r];
         a.values.push(ri(i));
@@ -12414,9 +12414,9 @@ var hs = S(function (Gf, cs) {
   function ri(e) {
     var t;
     if (e.type === U.pki.oids.contentType)
-      t = m.create(m.Class.UNIVERSAL, m.Type.OID, !1, m.oidToDer(e.value).getBytes());
+      t = m.create(m.Class.UNIVERSAL, m.Type.OID, false, m.oidToDer(e.value).getBytes());
     else if (e.type === U.pki.oids.messageDigest)
-      t = m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, !1, e.value.bytes());
+      t = m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, false, e.value.bytes());
     else if (e.type === U.pki.oids.signingTime) {
       var a = new Date("1950-01-01T00:00:00Z"),
         r = new Date("2050-01-01T00:00:00Z"),
@@ -12427,23 +12427,23 @@ var hs = S(function (Gf, cs) {
         else if (i.length === 13) i = m.utcTimeToDate(i);
         else i = m.generalizedTimeToDate(i);
       }
-      if (i >= a && i < r) t = m.create(m.Class.UNIVERSAL, m.Type.UTCTIME, !1, m.dateToUtcTime(i));
-      else t = m.create(m.Class.UNIVERSAL, m.Type.GENERALIZEDTIME, !1, m.dateToGeneralizedTime(i));
+      if (i >= a && i < r) t = m.create(m.Class.UNIVERSAL, m.Type.UTCTIME, false, m.dateToUtcTime(i));
+      else t = m.create(m.Class.UNIVERSAL, m.Type.GENERALIZEDTIME, false, m.dateToGeneralizedTime(i));
     }
-    return m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
-      m.create(m.Class.UNIVERSAL, m.Type.OID, !1, m.oidToDer(e.type).getBytes()),
-      m.create(m.Class.UNIVERSAL, m.Type.SET, !0, [t]),
+    return m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
+      m.create(m.Class.UNIVERSAL, m.Type.OID, false, m.oidToDer(e.type).getBytes()),
+      m.create(m.Class.UNIVERSAL, m.Type.SET, true, [t]),
     ]);
   }
   function af(e) {
     return [
-      m.create(m.Class.UNIVERSAL, m.Type.OID, !1, m.oidToDer(U.pki.oids.data).getBytes()),
-      m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, !0, [
-        m.create(m.Class.UNIVERSAL, m.Type.OID, !1, m.oidToDer(e.algorithm).getBytes()),
-        !e.parameter ? void 0 : m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, !1, e.parameter.getBytes()),
+      m.create(m.Class.UNIVERSAL, m.Type.OID, false, m.oidToDer(U.pki.oids.data).getBytes()),
+      m.create(m.Class.UNIVERSAL, m.Type.SEQUENCE, true, [
+        m.create(m.Class.UNIVERSAL, m.Type.OID, false, m.oidToDer(e.algorithm).getBytes()),
+        !e.parameter ? void 0 : m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, false, e.parameter.getBytes()),
       ]),
-      m.create(m.Class.CONTEXT_SPECIFIC, 0, !0, [
-        m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, !1, e.content.getBytes()),
+      m.create(m.Class.CONTEXT_SPECIFIC, 0, true, [
+        m.create(m.Class.UNIVERSAL, m.Type.OCTETSTRING, false, e.content.getBytes()),
       ]),
     ];
   }
@@ -12594,7 +12594,7 @@ Private-MAC: ` +
   };
   ea.privateKeyToOpenSSH = function (e, t) {
     if (!t) return xe.pki.privateKeyToPem(e);
-    return xe.pki.encryptRsaPrivateKey(e, t, { legacy: !0, algorithm: "aes128" });
+    return xe.pki.encryptRsaPrivateKey(e, t, { legacy: true, algorithm: "aes128" });
   };
   ea.getPublicKeyFingerprint = function (e, t) {
     t = t || {};

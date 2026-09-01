@@ -17,7 +17,7 @@ var l = 1e4,
   r = null,
   c;
 function r0r() {
-  return c === !0;
+  return c === true;
 }
 function o0r(e) {
   c = e;
@@ -34,7 +34,7 @@ function a(e) {
       s(
         "security",
         ["find-generic-password", "-a", IC(), "-w", "-s", e],
-        { encoding: "utf-8", timeout: l, windowsHide: !0 },
+        { encoding: "utf-8", timeout: l, windowsHide: true },
         (t, i) => {
           let n = Boolean(t && "killed" in t && t.killed);
           o(n ? null : { stdout: t ? null : i?.trim() || null });

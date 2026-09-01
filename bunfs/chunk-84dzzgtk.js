@@ -50,14 +50,14 @@ function XEr(i, t, d, n) {
               notificationType: "elicitation_complete",
             },
           );
-        let r = !1;
+        let r = false;
         if (
           (d((o) => {
             let l = _(o.elicitation.queue, t, e);
             if (l === -1) return o;
-            r = !0;
+            r = true;
             let u = [...o.elicitation.queue];
-            return (u[l] = { ...u[l], completed: !0 }), { ...o, elicitation: { queue: u } };
+            return (u[l] = { ...u[l], completed: true }), { ...o, elicitation: { queue: u } };
           }),
           !r)
         )
@@ -111,7 +111,7 @@ async function Bfr({ serverName: i, params: t, requestId: d, signal: n, setAppSt
             ],
           },
         })),
-          n.addEventListener("abort", f, { once: !0 });
+          n.addEventListener("abort", f, { once: true });
       });
     Z(i, `Elicitation response: ${b(m)}`);
     let S = await WDt(i, m, n, r, l);

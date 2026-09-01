@@ -196,14 +196,14 @@ function G(e, t) {
 }
 function Q(e, t) {
   if (!t?.length) return e;
-  return e.filter((r) => G(r.name, t) || (r.description ? G(r.description, t) : !1));
+  return e.filter((r) => G(r.name, t) || (r.description ? G(r.description, t) : false));
 }
 function M(e) {
   return kt({
     name: e.name,
     searchHint: `list the user's enabled claude.ai ${e.noun}s`,
     maxResultSizeChars: 50000,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return J();
     },
@@ -211,8 +211,8 @@ function M(e) {
       return d();
     },
     isEnabled: Vae,
-    isConcurrencySafe: () => !0,
-    isReadOnly: () => !0,
+    isConcurrencySafe: () => true,
+    isReadOnly: () => true,
     description: async () => `List the user's enabled claude.ai ${e.noun}s, optionally filtered by keyword.`,
     prompt: async () => e.prompt,
     async call(t, r) {
@@ -239,7 +239,7 @@ var R = M({
       }
       return (
         y("plugin_list"),
-        s.plugins.map((o) => ({ id: o.pluginId, name: o.name, description: o.description || null, enabled: !0 }))
+        s.plugins.map((o) => ({ id: o.pluginId, name: o.name, description: o.description || null, enabled: true }))
       );
     },
     prompt:
@@ -261,7 +261,7 @@ var R = M({
       }
       return (
         y("skill_list"),
-        s.skills.map((o) => ({ id: o.skillId, name: o.name, description: o.description || null, enabled: !0 }))
+        s.skills.map((o) => ({ id: o.skillId, name: o.name, description: o.description || null, enabled: true }))
       );
     },
     prompt:
@@ -273,7 +273,7 @@ function F(e) {
     name: e.name,
     searchHint: `discover claude.ai ${e.noun}s by keyword`,
     maxResultSizeChars: 50000,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return X();
     },
@@ -281,8 +281,8 @@ function F(e) {
       return d();
     },
     isEnabled: Vae,
-    isConcurrencySafe: () => !0,
-    isReadOnly: () => !0,
+    isConcurrencySafe: () => true,
+    isReadOnly: () => true,
     description: async () => e.description,
     prompt: async () => e.prompt,
     async call(t, r) {
@@ -348,7 +348,7 @@ var Z = m(() =>
     name: EJn,
     searchHint: "render a plugin install card",
     maxResultSizeChars: 50000,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return B();
     },
@@ -356,8 +356,8 @@ var Z = m(() =>
       return ee();
     },
     isEnabled: Vae,
-    isConcurrencySafe: () => !0,
-    isReadOnly: () => !0,
+    isConcurrencySafe: () => true,
+    isReadOnly: () => true,
     description: async () => "Render an inline plugin install card from SearchPlugins results.",
     prompt:
       async () => `Render an inline plugin install card. Call this after SearchPlugins returns relevant results \u2014 source pluginId, pluginName, description, and skills from those results. The card handles all UI; do not describe the plugins in text.
@@ -373,7 +373,7 @@ Do NOT call this if the suggestion is not relevant, you are unsure it would help
   }),
   re = "tengu_saddle_lantern";
 function V() {
-  return import.meta.require("/$bunfs/root/chunk-2sq45cbb.js").getFeatureValueWithSource_CACHED_MAY_BE_STALE(re, !1);
+  return import.meta.require("/$bunfs/root/chunk-2sq45cbb.js").getFeatureValueWithSource_CACHED_MAY_BE_STALE(re, false);
 }
 function K() {
   let e = Fa();
@@ -413,8 +413,8 @@ var le = m(() =>
       return ne();
     },
     isEnabled: Vae,
-    isConcurrencySafe: () => !0,
-    isReadOnly: () => !0,
+    isConcurrencySafe: () => true,
+    isReadOnly: () => true,
     description: async () => "Render a card of standalone skills the user can add (not yet enabled).",
     prompt: async () =>
       K()
@@ -433,7 +433,7 @@ Always pass keywords from the user's request (you may set trigger: 'user_asked')
         return {
           data: {
             results: (await w(t.session.host, e.keywords, t.abortController.signal, t.credentials)).filter(
-              (o) => o.enabled !== !0,
+              (o) => o.enabled !== true,
             ),
             trigger: e.trigger,
           },

@@ -329,7 +329,7 @@ ${r(o.error_count, "error")} during load. Run /plugin on the remote for details.
       });
     if (l.wouldInvalidateCache && !t)
       return (
-        YYt(l, { warned: !0, forced: !1 }),
+        YYt(l, { warned: true, forced: false }),
         {
           type: "text",
           value: h({ added: l.mcpServersAdded, removed: l.mcpServersRemoved, lspToolChange: l.lspToolChange }),
@@ -355,7 +355,7 @@ ${r(o.error_count, "error")} during load. Run /plugin on the remote for details.
           (d = h({ added: s.mcpServersAdded, removed: s.mcpServersRemoved, lspToolChange: s.lspToolChange })),
             (p = `${DB(a.installed)} installed but not applied`),
             (g = s),
-            e.setAppState((u) => (u.plugins.needsRefresh ? u : { ...u, plugins: { ...u.plugins, needsRefresh: !0 } }));
+            e.setAppState((u) => (u.plugins.needsRefresh ? u : { ...u, plugins: { ...u.plugins, needsRefresh: true } }));
         else (p = `${DB(a.installed)} resolved`), (o = await D0(e.setAppState, e.storageV5, e.credentials));
       }
       let c = `Reloaded: ${[r(o.enabled_count, "plugin"), r(o.command_count + o.skill_count, "skill"), r(o.agent_count, "agent"), r(o.hook_count, "hook"), r(o.mcp_count, "plugin MCP server"), r(o.lsp_count, "plugin LSP server")].join(" \xB7 ")}${p}`;

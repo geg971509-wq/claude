@@ -111,7 +111,7 @@ var Et = S(function (El, wt) {
   }
   j.prototype.set = function (t, e, r, n) {
     let i = t * this.size + e;
-    if (((this.data[i] = r), n)) this.reservedBit[i] = !0;
+    if (((this.data[i] = r), n)) this.reservedBit[i] = true;
   };
   j.prototype.get = function (t, e) {
     return this.data[t * this.size + e];
@@ -937,8 +937,8 @@ var He = S(function (ro) {
             (u >= 0 && u <= 6 && (l === 0 || l === 6)) ||
             (l >= 2 && l <= 4 && u >= 2 && u <= 4)
           )
-            t.set(o + l, s + u, !0, !0);
-          else t.set(o + l, s + u, !1, !0);
+            t.set(o + l, s + u, true, true);
+          else t.set(o + l, s + u, false, true);
         }
       }
     }
@@ -947,7 +947,7 @@ var He = S(function (ro) {
     let e = t.size;
     for (let r = 8; r < e - 8; r++) {
       let n = r % 2 === 0;
-      t.set(r, 6, n, !0), t.set(6, r, n, !0);
+      t.set(r, 6, n, true), t.set(6, r, n, true);
     }
   }
   function Qi(t, e) {
@@ -957,8 +957,8 @@ var He = S(function (ro) {
         o = r[n][1];
       for (let s = -2; s <= 2; s++)
         for (let l = -2; l <= 2; l++)
-          if (s === -2 || s === 2 || l === -2 || l === 2 || (s === 0 && l === 0)) t.set(i + s, o + l, !0, !0);
-          else t.set(i + s, o + l, !1, !0);
+          if (s === -2 || s === 2 || l === -2 || l === 2 || (s === 0 && l === 0)) t.set(i + s, o + l, true, true);
+          else t.set(i + s, o + l, false, true);
     }
   }
   function Zi(t, e) {
@@ -971,8 +971,8 @@ var He = S(function (ro) {
       (i = Math.floor(l / 3)),
         (o = (l % 3) + r - 8 - 3),
         (s = ((n >> l) & 1) === 1),
-        t.set(i, o, s, !0),
-        t.set(o, i, s, !0);
+        t.set(i, o, s, true),
+        t.set(o, i, s, true);
   }
   function Fe(t, e, r) {
     let n = t.size,
@@ -980,14 +980,14 @@ var He = S(function (ro) {
       o,
       s;
     for (o = 0; o < 15; o++) {
-      if (((s = ((i >> o) & 1) === 1), o < 6)) t.set(o, 8, s, !0);
-      else if (o < 8) t.set(o + 1, 8, s, !0);
-      else t.set(n - 15 + o, 8, s, !0);
-      if (o < 8) t.set(8, n - o - 1, s, !0);
-      else if (o < 9) t.set(8, 15 - o - 1 + 1, s, !0);
-      else t.set(8, 15 - o - 1, s, !0);
+      if (((s = ((i >> o) & 1) === 1), o < 6)) t.set(o, 8, s, true);
+      else if (o < 8) t.set(o + 1, 8, s, true);
+      else t.set(n - 15 + o, 8, s, true);
+      if (o < 8) t.set(8, n - o - 1, s, true);
+      else if (o < 9) t.set(8, 15 - o - 1 + 1, s, true);
+      else t.set(8, 15 - o - 1, s, true);
     }
-    t.set(n - 8, 8, 1, !0);
+    t.set(n - 8, 8, 1, true);
   }
   function $i(t, e) {
     let r = t.size,
@@ -997,10 +997,10 @@ var He = S(function (ro) {
       s = 0;
     for (let l = r - 1; l > 0; l -= 2) {
       if (l === 6) l--;
-      while (!0) {
+      while (true) {
         for (let u = 0; u < 2; u++)
           if (!t.isReserved(i, l - u)) {
-            let f = !1;
+            let f = false;
             if (s < e.length) f = ((e[s] >>> o) & 1) === 1;
             if ((t.set(i, l - u, f), o--, o === -1)) s++, (o = 7);
           }
@@ -1111,9 +1111,9 @@ var ze = S(function (Yl, ur) {
         (this._buffers = []),
         (this._buffered = 0),
         (this._reads = []),
-        (this._paused = !1),
+        (this._paused = false),
         (this._encoding = "utf8"),
-        (this.writable = !0);
+        (this.writable = true);
     });
   io.inherits(I, lr);
   I.prototype.read = function (t, e) {
@@ -1121,22 +1121,22 @@ var ze = S(function (Yl, ur) {
       process.nextTick(
         function () {
           if ((this._process(), this._paused && this._reads && this._reads.length > 0))
-            (this._paused = !1), this.emit("drain");
+            (this._paused = false), this.emit("drain");
         }.bind(this),
       );
   };
   I.prototype.write = function (t, e) {
-    if (!this.writable) return this.emit("error", Error("Stream not writable")), !1;
+    if (!this.writable) return this.emit("error", Error("Stream not writable")), false;
     let r;
     if (Buffer.isBuffer(t)) r = t;
     else r = Buffer.from(t, e || this._encoding);
     if ((this._buffers.push(r), (this._buffered += r.length), this._process(), this._reads && this._reads.length === 0))
-      this._paused = !0;
+      this._paused = true;
     return this.writable && !this._paused;
   };
   I.prototype.end = function (t, e) {
     if (t) this.write(t, e);
-    if (((this.writable = !1), !this._buffers)) return;
+    if (((this.writable = false), !this._buffers)) return;
     if (this._buffers.length === 0) this._end();
     else this._buffers.push(null), this._process();
   };
@@ -1147,7 +1147,7 @@ var ze = S(function (Yl, ur) {
   };
   I.prototype.destroy = function () {
     if (!this._buffers) return;
-    (this.writable = !1), (this._reads = null), (this._buffers = null), this.emit("close");
+    (this.writable = false), (this._reads = null), (this._buffers = null), this.emit("close");
   };
   I.prototype._processReadAllowingLess = function (t) {
     this._reads.shift();
@@ -1391,7 +1391,7 @@ var je = S(function (Kl, _r) {
   });
   We.prototype.write = function (t) {
     for (let e = 0; e < t.length; e++) this._crc = Ke[(this._crc ^ t[e]) & 255] ^ (this._crc >>> 8);
-    return !0;
+    return true;
   };
   We.prototype.crc32 = function () {
     return this._crc ^ -1;
@@ -1407,10 +1407,10 @@ var Je = S(function (Wl, mr) {
     po = je(),
     E = (mr.exports = function (t, e) {
       (this._options = t),
-        (t.checkCRC = t.checkCRC !== !1),
-        (this._hasIHDR = !1),
-        (this._hasIEND = !1),
-        (this._emittedHeadersFinished = !1),
+        (t.checkCRC = t.checkCRC !== false),
+        (this._hasIHDR = false),
+        (this._hasIEND = false),
+        (this._emittedHeadersFinished = false),
         (this._palette = []),
         (this._colorType = 0),
         (this._chunks = {}),
@@ -1510,7 +1510,7 @@ var Je = S(function (Wl, mr) {
     }
     this._colorType = i;
     let u = w.COLORTYPE_TO_BPP_MAP[this._colorType];
-    (this._hasIHDR = !0),
+    (this._hasIHDR = true),
       this.metadata({
         width: e,
         height: r,
@@ -1561,7 +1561,7 @@ var Je = S(function (Wl, mr) {
     this._crc.write(t), this.gamma(t.readUInt32BE(0) / w.GAMMA_DIVISION), this._handleChunkEnd();
   };
   E.prototype._handleIDAT = function (t) {
-    if (!this._emittedHeadersFinished) (this._emittedHeadersFinished = !0), this.headersFinished();
+    if (!this._emittedHeadersFinished) (this._emittedHeadersFinished = true), this.headersFinished();
     this.read(-t, this._parseIDAT.bind(this, t));
   };
   E.prototype._parseIDAT = function (t, e) {
@@ -1576,7 +1576,7 @@ var Je = S(function (Wl, mr) {
     this.read(t, this._parseIEND.bind(this));
   };
   E.prototype._parseIEND = function (t) {
-    if ((this._crc.write(t), (this._hasIEND = !0), this._handleChunkEnd(), this.finished)) this.finished();
+    if ((this._crc.write(t), (this._hasIEND = true), this._handleChunkEnd(), this.finished)) this.finished();
   };
 });
 var Qe = S(function (Eo) {
@@ -1730,10 +1730,10 @@ var Ze = S(function (Jl, wr) {
     let o = 0;
     for (let s = 0; s < n; s++)
       for (let l = 0; l < r; l++) {
-        let u = !1;
+        let u = false;
         if (i.length === 1) {
-          if (i[0] === t[o]) u = !0;
-        } else if (i[0] === t[o] && i[1] === t[o + 1] && i[2] === t[o + 2]) u = !0;
+          if (i[0] === t[o]) u = true;
+        } else if (i[0] === t[o] && i[1] === t[o + 1] && i[2] === t[o + 2]) u = true;
         if (u) for (let f = 0; f < 4; f++) e[o + f] = 0;
         o += 4;
       }
@@ -1785,15 +1785,15 @@ var Cr = S(function (Ql, Tr) {
           headersFinished: this._headersFinished.bind(this),
         })),
         (this._options = t),
-        (this.writable = !0),
+        (this.writable = true),
         this._parser.start();
     });
   Bo.inherits(L, Er);
   L.prototype._handleError = function (t) {
-    if ((this.emit("error", t), (this.writable = !1), this.destroy(), this._inflate && this._inflate.destroy))
+    if ((this.emit("error", t), (this.writable = false), this.destroy(), this._inflate && this._inflate.destroy))
       this._inflate.destroy();
     if (this._filter) this._filter.destroy(), this._filter.on("error", function () {});
-    this.errord = !0;
+    this.errord = true;
   };
   L.prototype._inflateData = function (t) {
     if (!this._inflate)
@@ -1835,7 +1835,7 @@ var Cr = S(function (Ql, Tr) {
     this._bitmapInfo.palette = t;
   };
   L.prototype._simpleTransparency = function () {
-    this._metaData.alpha = !0;
+    this._metaData.alpha = true;
   };
   L.prototype._headersFinished = function () {
     this.emit("metadata", this._metaData);
@@ -1865,7 +1865,7 @@ var xr = S(function (Zl, br) {
     if (n.colorType === n.inputColorType) {
       let p = (function () {
         let _ = new ArrayBuffer(2);
-        return new DataView(_).setInt16(0, 256, !0), new Int16Array(_)[0] !== 256;
+        return new DataView(_).setInt16(0, 256, true), new Int16Array(_)[0] !== 256;
       })();
       if (n.bitDepth === 8 || (n.bitDepth === 16 && p)) return t;
     }
@@ -2059,7 +2059,7 @@ var Xe = S(function (Xl, Lr) {
         (t.deflateChunkSize = t.deflateChunkSize || 32768),
         (t.deflateLevel = t.deflateLevel != null ? t.deflateLevel : 9),
         (t.deflateStrategy = t.deflateStrategy != null ? t.deflateStrategy : 3),
-        (t.inputHasAlpha = t.inputHasAlpha != null ? t.inputHasAlpha : !0),
+        (t.inputHasAlpha = t.inputHasAlpha != null ? t.inputHasAlpha : true),
         (t.deflateFactory = t.deflateFactory || Vo.createDeflate),
         (t.bitDepth = t.bitDepth || 8),
         (t.colorType = typeof t.colorType === "number" ? t.colorType : T.COLORTYPE_COLOR_ALPHA),
@@ -2130,7 +2130,7 @@ var kr = S(function (eu, Pr) {
     Sr = (Pr.exports = function (t) {
       Rr.call(this);
       let e = t || {};
-      (this._packer = new jo(e)), (this._deflate = this._packer.createDeflate()), (this.readable = !0);
+      (this._packer = new jo(e)), (this._deflate = this._packer.createDeflate()), (this.readable = true);
     });
   Ko.inherits(Sr, Rr);
   Sr.prototype.pack = function (t, e, r, n) {
@@ -2196,12 +2196,12 @@ var Fr = S(function (te, Ur) {
       if ((Mr(g >= 0, "have should not go down"), g > 0)) {
         let y = n._buffer.slice(n._offset, n._offset + g);
         if (((n._offset += g), y.length > s)) y = y.slice(0, s);
-        if ((u.push(y), (f += y.length), (s -= y.length), s === 0)) return !1;
+        if ((u.push(y), (f += y.length), (s -= y.length), s === 0)) return false;
       }
       if (_ === 0 || n._offset >= n._chunkSize)
         (o = n._chunkSize), (n._offset = 0), (n._buffer = Buffer.allocUnsafe(n._chunkSize));
-      if (_ === 0) return (l += i - p), (i = p), !0;
-      return !1;
+      if (_ === 0) return (l += i - p), (i = p), true;
+      return false;
     }
     Mr(this._handle, "zlib binding closed");
     let c;
@@ -2271,10 +2271,10 @@ var Hr = S(function (es) {
   };
 });
 var Vr = S(function (nu, vr) {
-  var zr = !0,
+  var zr = true,
     Gr = ue("zlib"),
     rs = Fr();
-  if (!Gr.deflateSync) zr = !1;
+  if (!Gr.deflateSync) zr = false;
   var ns = et(),
     is = Hr(),
     os = Je(),
@@ -2297,7 +2297,7 @@ var Vr = S(function (nu, vr) {
       i.palette = C;
     }
     function u() {
-      i.alpha = !0;
+      i.alpha = true;
     }
     let f;
     function a(C) {
@@ -2341,9 +2341,9 @@ var Vr = S(function (nu, vr) {
   };
 });
 var Jr = S(function (iu, jr) {
-  var Kr = !0,
+  var Kr = true,
     Wr = ue("zlib");
-  if (!Wr.deflateSync) Kr = !1;
+  if (!Wr.deflateSync) Kr = false;
   var us = V(),
     fs = Xe();
   jr.exports = function (t, e) {
@@ -2385,7 +2385,7 @@ var $r = S(function (ws) {
       )
         this.data.fill(0);
       (this.gamma = 0),
-        (this.readable = this.writable = !0),
+        (this.readable = this.writable = true),
         (this._parser = new _s(t)),
         this._parser.on("error", this.emit.bind(this, "error")),
         this._parser.on("close", this._handleClose.bind(this)),
@@ -2431,7 +2431,7 @@ var $r = S(function (ws) {
     return this.end(t), this;
   };
   b.prototype.write = function (t) {
-    return this._parser.write(t), !0;
+    return this._parser.write(t), true;
   };
   b.prototype.end = function (t) {
     this._parser.end(t);
@@ -2574,10 +2574,10 @@ var en = S(function (Is) {
   };
   Is.renderToFile = function (e, r, n, i) {
     if (typeof i > "u") (i = n), (n = void 0);
-    let o = !1,
+    let o = false,
       s = (...u) => {
         if (o) return;
-        (o = !0), i.apply(null, u);
+        (o = true), i.apply(null, u);
       },
       l = xs.createWriteStream(e);
     l.on("error", s), l.on("close", s), Is.renderToFileStream(l, r, n);
@@ -2732,15 +2732,15 @@ var ot = S(function (Qs) {
   function Js(t, e, r) {
     let n = "",
       i = 0,
-      o = !1,
+      o = false,
       s = 0;
     for (let l = 0; l < t.length; l++) {
       let u = Math.floor(l % e),
         f = Math.floor(l / e);
-      if (!u && !o) o = !0;
+      if (!u && !o) o = true;
       if (t[l]) {
         if ((s++, !(l > 0 && u > 0 && t[l - 1])))
-          (n += o ? it("M", u + r, 0.5 + f + r) : it("m", i, 0)), (i = 0), (o = !1);
+          (n += o ? it("M", u + r, 0.5 + f + r) : it("m", i, 0)), (i = 0), (o = false);
         if (!(u + 1 < e && t[l + 1])) (n += it("h", s)), (s = 0);
       } else i++;
     }

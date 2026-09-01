@@ -83,7 +83,7 @@ var h =
   /ExpiredToken|InvalidSignature|SignatureDoesNotMatch|UnrecognizedClient|InvalidClientTokenId|security token.*(invalid|expired)|signature we calculated does not match|Bearer Token has expired|Authentication failed.*API Key|Missing required parameters in the API Key/i;
 function lP() {
   let r = a.ANTHROPIC_CUSTOM_HEADERS;
-  if (!r) return !1;
+  if (!r) return false;
   return r.split(/\n|\r\n/).some((e) => {
     let t = e.indexOf(":");
     return t !== -1 && e.slice(0, t).trim().toLowerCase() === "x-api-key";
@@ -108,7 +108,7 @@ function DAe() {
   return;
 }
 function f(r) {
-  if (!r || typeof r !== "object") return !1;
+  if (!r || typeof r !== "object") return false;
   let e = r;
   return (
     typeof e.AccessKeyId === "string" &&
@@ -144,7 +144,7 @@ async function Irr() {
     let [{ fromIni: r }, e] = await Promise.all([import("/$bunfs/root/chunk-dbfgsxg1.js"), MT()]),
       t = await XY({ url: Soe(e), requestTimeoutMs: g }),
       o = r({
-        ignoreCache: !0,
+        ignoreCache: true,
         ...(t && { clientConfig: { requestHandler: t }, parentClientConfig: { requestHandler: t, region: e } }),
       });
     await Xt(o(), S(), "AWS ini cache refresh"), n("AWS credential provider cache refreshed");

@@ -46,14 +46,14 @@ function N(t) {
   return i.substring(0, s) || "/";
 }
 function pgn(t, e) {
-  if (!pt.isSandboxingEnabled()) return !1;
+  if (!pt.isSandboxingEnabled()) return false;
   let { allowOnly: i, denyWithinAllow: s } = pt.getFsWriteConfig(),
     o = e ?? ao(t),
     l = i.flatMap(_),
     c = s.flatMap(_);
   return o.every((d) => {
-    for (let r of c) if (rf(d, r)) return !1;
-    return l.some((r) => rf(d, r, { caseFold: !0, uncShapeParity: !0 }));
+    for (let r of c) if (rf(d, r)) return false;
+    return l.some((r) => rf(d, r, { caseFold: true, uncShapeParity: true }));
   });
 }
 function _(t) {
@@ -68,41 +68,41 @@ function _T(t, e, i, s) {
     l = s ?? ao(t);
   for (let r of l) {
     let u = fa(r, e, o, "deny");
-    if (u !== null) return { allowed: !1, decisionReason: { type: "rule", rule: u } };
+    if (u !== null) return { allowed: false, decisionReason: { type: "rule", rule: u } };
   }
   if (i !== "read") {
     let r = TKe(t, {}, l, { permissionMode: e.mode, restricted: e.restricted });
-    if (r.behavior === "deny") return { allowed: !1, decisionReason: gWt(r.decisionReason) };
-    if (r.behavior === "allow" && wKe(r, e)) return { allowed: !0, decisionReason: r.decisionReason };
+    if (r.behavior === "deny") return { allowed: false, decisionReason: gWt(r.decisionReason) };
+    if (r.behavior === "allow" && wKe(r, e)) return { allowed: true, decisionReason: r.decisionReason };
   }
   if (i !== "read") {
     let r = tY(t, l, void 0, e.isRemoteMode && !e.restricted, e.trustedNetworkDirectories);
     if (!r.safe)
       return {
-        allowed: !1,
+        allowed: false,
         decisionReason: {
           type: "safetyCheck",
           reason: r.message,
           ...(e.restricted
-            ? { classifierApprovable: !1, circuitBreaker: "restrictedMode" }
+            ? { classifierApprovable: false, circuitBreaker: "restrictedMode" }
             : { classifierApprovable: r.classifierApprovable, circuitBreaker: r.circuitBreaker }),
         },
       };
   }
   let c = Xy(t, e, l);
   if (c) {
-    if (i === "read" || e.mode === "acceptEdits") return { allowed: !0 };
+    if (i === "read" || e.mode === "acceptEdits") return { allowed: true };
   }
   if (i === "read") {
     let r = lV(t, {}, l, { restricted: e.restricted });
-    if (r.behavior === "deny") return { allowed: !1, decisionReason: gWt(r.decisionReason) };
-    if (r.behavior === "allow" && wKe(r, e)) return { allowed: !0, decisionReason: r.decisionReason };
+    if (r.behavior === "deny") return { allowed: false, decisionReason: gWt(r.decisionReason) };
+    if (r.behavior === "allow" && wKe(r, e)) return { allowed: true, decisionReason: r.decisionReason };
   }
   if (i !== "read" && !c && pgn(t, l))
-    return { allowed: !0, decisionReason: { type: "other", reason: "Path is in sandbox write allowlist" } };
+    return { allowed: true, decisionReason: { type: "other", reason: "Path is in sandbox write allowlist" } };
   let d = SKe(l, e, o);
-  if (d !== null) return { allowed: !0, decisionReason: { type: "rule", rule: d } };
-  return { allowed: !1, isInWorkingDir: c };
+  if (d !== null) return { allowed: true, decisionReason: { type: "rule", rule: d } };
+  return { allowed: false, isInWorkingDir: c };
 }
 function L(t, e, i, s) {
   let o = le(),
@@ -120,20 +120,20 @@ var B = /^[A-Za-z]:\/?$/,
   W = /^[A-Za-z]:\/[^/]+$/;
 function bTe(t) {
   let e = t.replace(/[\\/]+/g, "/");
-  if (e === "*" || e.endsWith("/*")) return !0;
+  if (e === "*" || e.endsWith("/*")) return true;
   let i = D() === "macos",
     s = (u) => (i ? u.replace(/^\/private\/(etc|var|tmp|home)(\/|$)/i, "/$1$2") : u),
     o = s(e),
     l = o === "/" ? o : o.replace(/\/$/, "");
-  if (l === "/") return !0;
-  if (B.test(l)) return !0;
+  if (l === "/") return true;
+  if (B.test(l)) return true;
   let c = s(P().replace(/[\\/]+/g, "/")).replace(/\/$/, "");
-  if (yr(l) === yr(c)) return !0;
+  if (yr(l) === yr(c)) return true;
   let d = j(P());
-  if (d !== c && yr(l) === yr(d)) return !0;
-  if (I(l) === "/") return !0;
-  if (W.test(l)) return !0;
-  return !1;
+  if (d !== c && yr(l) === yr(d)) return true;
+  if (I(l) === "/") return true;
+  if (W.test(l)) return true;
+  return false;
 }
 function j(t) {
   let { canonicalHomedirByHome: e } = r6(),
@@ -146,26 +146,26 @@ function j(t) {
 }
 function c5e(t) {
   let e = t.split(D() === "windows" ? /[\\/]/ : "/"),
-    i = !1;
+    i = false;
   for (let s of e) {
     if (s === "" || s === ".") continue;
     if (s === "..") {
-      if (i) return !0;
-    } else i = !0;
+      if (i) return true;
+    } else i = true;
   }
-  return !1;
+  return false;
 }
 function $ht(t, e, i, s) {
   let o = km(t);
-  if (S_(o, !0))
+  if (S_(o, true))
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: o,
       decisionReason: { type: "other", reason: "UNC network paths require manual approval" },
     };
   if (o.startsWith("~"))
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: o,
       decisionReason: {
         type: "other",
@@ -174,13 +174,13 @@ function $ht(t, e, i, s) {
     };
   if (o.includes("$") || (D() === "windows" && o.includes("%")) || o.includes("`") || o.startsWith("="))
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: o,
       decisionReason: { type: "other", reason: "Shell expansion syntax in paths requires manual approval" },
     };
   if (c5e(o))
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: o,
       decisionReason: {
         type: "other",
@@ -190,7 +190,7 @@ function $ht(t, e, i, s) {
     };
   if ((s === "write" || s === "create") && U.test(o))
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: o,
       decisionReason: {
         type: "other",
@@ -201,7 +201,7 @@ function $ht(t, e, i, s) {
   if (DU(o) !== -1) {
     if (s === "write" || s === "create")
       return {
-        allowed: !1,
+        allowed: false,
         resolvedPath: o,
         decisionReason: {
           type: "other",
@@ -239,7 +239,7 @@ async function ovr(t, e, i) {
   if (t === "browser_batch") {
     if (!Array.isArray(e.actions)) return { error: "browser_batch requires an `actions` array." };
     let o = [...e.actions],
-      l = !1;
+      l = false;
     for (let c = 0; c < o.length; c++) {
       let d = o[c];
       if (typeof d !== "object" || d === null || typeof d.name !== "string")
@@ -260,7 +260,7 @@ async function ovr(t, e, i) {
         f = typeof p.input === "object" && p.input !== null ? p.input : {},
         h = await E(f, i, s);
       if (h.error) return { error: h.error };
-      (o[c] = { ...p, input: h.input }), (l = !0);
+      (o[c] = { ...p, input: h.input }), (l = true);
     }
     return l ? { input: { ...e, actions: o } } : { input: e };
   }

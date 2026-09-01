@@ -353,7 +353,7 @@ F();
 function b(H) {
   let n = _(9),
     { onDone: i } = H,
-    [J, K] = u(!1);
+    [J, K] = u(false);
   if (J) {
     let p;
     if (n[0] !== i) (p = e(yRe, { onExit: i })), (n[0] = i), (n[1] = p);
@@ -363,7 +363,7 @@ function b(H) {
   let p;
   if (n[2] !== i)
     (p = function m(x) {
-      if ((s("tengu_powerup_discovery_shown", { arm: c("step"), action: c(x) }), x === "launch")) K(!0);
+      if ((s("tengu_powerup_discovery_shown", { arm: c("step"), action: c(x) }), x === "launch")) K(true);
       else i();
     }),
       (n[2] = i),
@@ -377,8 +377,8 @@ function b(H) {
   if (n[5] === d)
     (k = r(o, {
       children: [
-        e(t, { bold: !0, children: pQ.heading }),
-        r(t, { dimColor: !0, children: [" 0/", Mw.length, " "] }),
+        e(t, { bold: true, children: pQ.heading }),
+        r(t, { dimColor: true, children: [" 0/", Mw.length, " "] }),
         e(Py, { ratio: 0, width: 16, fillColor: "claude", emptyColor: "inactive" }),
       ],
     })),

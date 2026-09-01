@@ -30,7 +30,7 @@ var c$ = S(function (Z, a) {
   var P = I,
     _ = (t, e, s) => (Object.defineProperty(t, e, { value: s }), s),
     F = /([0-z])-([0-z])/g,
-    N = () => !1,
+    N = () => false,
     H = (t) => t.replace(F, (e, s, r) => (s.charCodeAt(0) <= r.charCodeAt(0) ? e : g)),
     B = (t) => {
       let { length: e } = t;
@@ -116,9 +116,9 @@ var c$ = S(function (Z, a) {
     }
   }
   var Y = ({ pattern: t, mark: e }, s) => {
-    let r = !1,
+    let r = false,
       n = t;
-    if (n.indexOf("!") === 0) (r = !0), (n = n.substr(1));
+    if (n.indexOf("!") === 0) (r = true), (n = n.substr(1));
     n = n.replace(m, "!").replace(X, "#");
     let o = z(n);
     return new G(t, e, n, s, r, o);
@@ -129,21 +129,21 @@ var c$ = S(function (Z, a) {
     }
     _add(t) {
       if (t && t[P]) {
-        (this._rules = this._rules.concat(t._rules._rules)), (this._added = !0);
+        (this._rules = this._rules.concat(t._rules._rules)), (this._added = true);
         return;
       }
       if (l(t)) t = { pattern: t };
       if (V(t.pattern)) {
         let e = Y(t, this._ignoreCase);
-        (this._added = !0), this._rules.push(e);
+        (this._added = true), this._rules.push(e);
       }
     }
     add(t) {
-      return (this._added = !1), x(l(t) ? j(t) : t).forEach(this._add, this), this._added;
+      return (this._added = false), x(l(t) ? j(t) : t).forEach(this._add, this), this._added;
     }
     test(t, e, s) {
-      let r = !1,
-        n = !1,
+      let r = false,
+        n = false,
         o;
       this._rules.forEach((f) => {
         let { negative: u } = f;
@@ -163,14 +163,14 @@ var c$ = S(function (Z, a) {
       if (!l(t)) return s(`path must be a string, but got \`${e}\``, TypeError);
       if (!t) return s("path must not be empty", TypeError);
       if (i.isNotRelative(t)) return s(`path should be a \`path.relative()\`d string, but got "${e}"`, RangeError);
-      return !0;
+      return true;
     },
     y = (t) => v.test(t);
   i.isNotRelative = y;
   i.convert = (t) => t;
   class p {
-    constructor({ ignorecase: t = !0, ignoreCase: e = t, allowRelativePaths: s = !1 } = {}) {
-      _(this, P, !0), (this._rules = new T(e)), (this._strictPathCheck = !s), this._initCache();
+    constructor({ ignorecase: t = true, ignoreCase: e = t, allowRelativePaths: s = false } = {}) {
+      _(this, P, true), (this._rules = new T(e)), (this._strictPathCheck = !s), this._initCache();
     }
     _initCache() {
       (this._ignoreCache = Object.create(null)), (this._testCache = Object.create(null));
@@ -190,10 +190,10 @@ var c$ = S(function (Z, a) {
       if (!w.test(t)) return this.test(t);
       let e = t.split(c).filter(Boolean);
       if ((e.pop(), e.length)) {
-        let s = this._t(e.join(c) + c, this._testCache, !0, e);
+        let s = this._t(e.join(c) + c, this._testCache, true, e);
         if (s.ignored) return s;
       }
-      return this._rules.test(t, !1, h);
+      return this._rules.test(t, false, h);
     }
     _t(t, e, s, r) {
       if (t in e) return e[t];
@@ -203,7 +203,7 @@ var c$ = S(function (Z, a) {
       return (e[t] = n.ignored ? n : this._rules.test(t, s, E));
     }
     ignores(t) {
-      return this._test(t, this._ignoreCache, !1).ignored;
+      return this._test(t, this._ignoreCache, false).ignored;
     }
     createFilter() {
       return (t) => !this.ignores(t);
@@ -212,7 +212,7 @@ var c$ = S(function (Z, a) {
       return x(t).filter(this.createFilter());
     }
     test(t) {
-      return this._test(t, this._testCache, !0);
+      return this._test(t, this._testCache, true);
     }
   }
   var R = (t) => new p(t),

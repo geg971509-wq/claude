@@ -57,7 +57,7 @@ async function TEr(e) {
             (e?.includeBridgeKind || t.environment_kind !== "bridge") &&
             MIt.test(t.id) &&
             (e?.includeBridgeKind && t.environment_kind === "bridge" ? !S((t.title ?? "").trim()) : opr(t)) &&
-            (e?.accept?.(t) ?? !0))
+            (e?.accept?.(t) ?? true))
         )
           n.push(t);
       }

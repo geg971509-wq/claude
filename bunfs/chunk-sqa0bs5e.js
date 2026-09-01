@@ -21,10 +21,10 @@ import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
 import { lstat as S, readFile as _, unlink as a, writeFile as C } from "fs/promises";
 import { join as I } from "path";
 var L = "computer-use.lock",
-  l = { kind: "acquired", fresh: !0 },
-  f = { kind: "acquired", fresh: !1 };
+  l = { kind: "acquired", fresh: true },
+  f = { kind: "acquired", fresh: false };
 function w(e) {
-  if (typeof e !== "object" || e === null) return !1;
+  if (typeof e !== "object" || e === null) return false;
   return "sessionId" in e && typeof e.sessionId === "string" && "pid" in e && typeof e.pid === "number";
 }
 function i() {
@@ -56,9 +56,9 @@ async function u(e) {
 }
 function h(e) {
   try {
-    return process.kill(e, 0), !0;
+    return process.kill(e, 0), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function T() {
@@ -71,18 +71,18 @@ async function T() {
 async function m(e, t) {
   if (O() && t !== void 0) {
     let r = await t.write(s(), b(e), { precondition: { type: "ifAbsent" }, mode: 438 & ~process.umask() });
-    if (r.ok) return !0;
+    if (r.ok) return true;
     if (
       r.error.code === "AlreadyExists" ||
       (r.error.code === "Failed" && Dk("telemetryCode" in r.error ? r.error.telemetryCode : void 0) && (await T()))
     )
-      return !1;
+      return false;
     throw new R(`failed to create computer-use lock: ${r.error.code}`, "computer-use lock v5 create failed");
   }
   try {
-    return await C(i(), b(e), { flag: "wx" }), !0;
+    return await C(i(), b(e), { flag: "wx" }), true;
   } catch (r) {
-    if (E(r) === "EEXIST") return !1;
+    if (E(r) === "EEXIST") return false;
     throw r;
   }
 }
@@ -134,27 +134,27 @@ async function U(e) {
     r = tf();
   r.unregisterLockCleanup?.(), (r.unregisterLockCleanup = void 0);
   let o = await u(e);
-  if (!o || (!t && o.sessionId !== K())) return !1;
+  if (!o || (!t && o.sessionId !== K())) return false;
   if (e) {
     let d = await e.delete(s());
-    if (d.ok && d.value.existed) return n("Released computer-use lock"), !0;
-    return !1;
+    if (d.ok && d.value.existed) return n("Released computer-use lock"), true;
+    return false;
   }
   try {
-    return await a(i()), n("Released computer-use lock"), !0;
+    return await a(i()), n("Released computer-use lock"), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function n_t() {
   return tf().activeThisTurn;
 }
 function OYn() {
-  if (tf().activeThisTurn) return !1;
-  return (tf().activeThisTurn = !0), !0;
+  if (tf().activeThisTurn) return false;
+  return (tf().activeThisTurn = true), true;
 }
 function LYn() {
-  tf().activeThisTurn = !1;
+  tf().activeThisTurn = false;
 }
 function xne(e, t) {
   e((r) => {

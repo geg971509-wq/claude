@@ -75,20 +75,20 @@ function K(t) {
 function c(t, e, n, r, o) {
   var i = typeof t;
   if (i === "undefined" || i === "boolean") t = null;
-  var s = !1;
-  if (t === null) s = !0;
+  var s = false;
+  if (t === null) s = true;
   else
     switch (i) {
       case "bigint":
       case "string":
       case "number":
-        s = !0;
+        s = true;
         break;
       case "object":
         switch (t.$$typeof) {
           case v:
           case j:
-            s = !0;
+            s = true;
             break;
           case k:
             return (s = t._init), c(s(t._payload), e, n, r, o);
@@ -263,7 +263,7 @@ var F = Nr(() => {
     (m = Symbol.iterator);
   (d = {
     isMounted: function () {
-      return !1;
+      return false;
     },
     enqueueForceUpdate: function () {},
     enqueueReplaceState: function () {},
@@ -286,7 +286,7 @@ var F = Nr(() => {
   x = T.prototype = new H();
   x.constructor = T;
   b(x, _.prototype);
-  x.isPureReactComponent = !0;
+  x.isPureReactComponent = true;
   S = Array.isArray;
   (f = { H: null, A: null, T: null, S: null }), (D = Object.prototype.hasOwnProperty);
   w = /\/+/g;
@@ -296,8 +296,8 @@ var F = Nr(() => {
       : function (t) {
           if (typeof window === "object" && typeof window.ErrorEvent === "function") {
             var e = new window.ErrorEvent("error", {
-              bubbles: !0,
-              cancelable: !0,
+              bubbles: true,
+              cancelable: true,
               message:
                 typeof t === "object" && t !== null && typeof t.message === "string" ? String(t.message) : String(t),
               error: t,

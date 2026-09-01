@@ -55,11 +55,11 @@ function EQ(Bt) {
       onCancel: pe,
       onCustomTheme: l,
     } = Bt,
-    P = Ye === void 0 ? !1 : Ye,
+    P = Ye === void 0 ? false : Ye,
     m = je === void 0 ? "" : je,
-    p = qe === void 0 ? !1 : qe,
-    be = Je === void 0 ? !1 : Je,
-    H = Me === void 0 ? !1 : Me,
+    p = qe === void 0 ? false : qe,
+    be = Je === void 0 ? false : Je,
+    H = Me === void 0 ? false : Me,
     { storageV5: xe } = ge(),
     [ve] = mn(),
     C = uG(),
@@ -73,7 +73,7 @@ function EQ(Bt) {
   else Qe = i[2];
   let A = Qe,
     { setPreviewTheme: ye, savePreview: b, cancelPreview: s } = mlt(),
-    R = W(xt) ?? !1,
+    R = W(xt) ?? false,
     ke = At();
   E8("ThemePicker");
   let Te = Ro("theme:toggleSyntaxHighlighting", "ThemePicker", "ctrl+t"),
@@ -150,17 +150,17 @@ function EQ(Bt) {
   let V = ht,
     h;
   if (i[30] !== P)
-    (h = P ? e(t, { children: "Let's get started." }) : e(t, { bold: !0, color: "permission", children: "Theme" })),
+    (h = P ? e(t, { children: "Let's get started." }) : e(t, { bold: true, color: "permission", children: "Theme" })),
       (i[30] = P),
       (i[31] = h);
   else h = i[31];
   let gt;
   if (i[32] === d)
-    (gt = e(t, { bold: !0, children: "Choose the text style that looks best with your terminal" })), (i[32] = gt);
+    (gt = e(t, { bold: true, children: "Choose the text style that looks best with your terminal" })), (i[32] = gt);
   else gt = i[32];
   let N;
   if (i[33] !== m || i[34] !== p)
-    (N = m && !p && e(t, { dimColor: !0, children: m })), (i[33] = m), (i[34] = p), (i[35] = N);
+    (N = m && !p && e(t, { dimColor: true, children: m })), (i[33] = m), (i[34] = p), (i[35] = N);
   else N = i[35];
   let X;
   if (i[36] !== N) (X = r(o, { flexDirection: "column", children: [gt, N] })), (i[36] = N), (i[37] = X);
@@ -248,7 +248,7 @@ function EQ(Bt) {
   if (i[62] !== He)
     (E = e(Iy, {
       paddingX: 0,
-      children: e(gx, { patch: ut, dim: !1, filePath: "demo.js", firstLine: null, width: He }),
+      children: e(gx, { patch: ut, dim: false, filePath: "demo.js", firstLine: null, width: He }),
     })),
       (i[62] = He),
       (i[63] = E);
@@ -262,7 +262,7 @@ function EQ(Bt) {
           ? `Syntax theme: ${A.theme}${A.source ? ` (from ${A.source})` : ""} (${Te} to disable)`
           : `Syntax highlighting enabled (${Te} to disable)`;
   let J;
-  if (i[64] !== $e) (J = r(t, { dimColor: !0, children: [" ", $e] })), (i[64] = $e), (i[65] = J);
+  if (i[64] !== $e) (J = r(t, { dimColor: true, children: [" ", $e] })), (i[64] = $e), (i[65] = J);
   else J = i[65];
   let O;
   if (i[66] !== E || i[67] !== J)
@@ -279,7 +279,7 @@ function EQ(Bt) {
     else Z = i[73];
     let K;
     if (i[74] !== m || i[75] !== p)
-      (K = p && m && e(o, { marginLeft: 3, children: e(t, { dimColor: !0, children: m }) })),
+      (K = p && m && e(o, { marginLeft: 3, children: e(t, { dimColor: true, children: m }) })),
         (i[74] = m),
         (i[75] = p),
         (i[76] = K);
@@ -290,8 +290,8 @@ function EQ(Bt) {
         !be &&
         e(o, {
           children: e(t, {
-            dimColor: !0,
-            italic: !0,
+            dimColor: true,
+            italic: true,
             children: G.pending
               ? r(U, { children: ["Press ", G.keyName, " again to exit"] })
               : r(fe, {

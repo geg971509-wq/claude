@@ -34,7 +34,7 @@ function Tun(e) {
 }
 
 function LRe(e) {
-  return e.apiErrorIsTransient === !0 || e.error === "overloaded" || e.error === "server_error";
+  return e.apiErrorIsTransient === true || e.error === "overloaded" || e.error === "server_error";
 }
 
 function nM(e) {
@@ -64,24 +64,24 @@ function Eun(e) {
 }
 
 function fte(e) {
-  if (!m2(e)) return !1;
-  if (e.origin && e.origin.kind !== "human") return !1;
-  if (e.stackedExpansion) return !1;
-  return !0;
+  if (!m2(e)) return false;
+  if (e.origin && e.origin.kind !== "human") return false;
+  if (e.stackedExpansion) return false;
+  return true;
 }
 
 function Ozn(e) {
-  if (e.type !== "attachment" || e.attachment.type !== "queued_command") return !1;
+  if (e.type !== "attachment" || e.attachment.type !== "queued_command") return false;
   let { commandMode: t, isMeta: r, origin: o } = e.attachment;
-  return t !== "task-notification" && r !== !0 && gC(o);
+  return t !== "task-notification" && r !== true && gC(o);
 }
 
 function m2(e) {
-  if (e.type !== "user") return !1;
-  if (Array.isArray(e.message.content) && e.message.content[0]?.type === "tool_result") return !1;
-  if (fF(e)) return !1;
-  if (e.isMeta) return !1;
-  if (e.isCompactSummary || e.isVisibleInTranscriptOnly) return !1;
+  if (e.type !== "user") return false;
+  if (Array.isArray(e.message.content) && e.message.content[0]?.type === "tool_result") return false;
+  if (fF(e)) return false;
+  if (e.isMeta) return false;
+  if (e.isCompactSummary || e.isVisibleInTranscriptOnly) return false;
   let t = Yp(e)?.trim() ?? "";
   if (
     t.indexOf(`<${jp}>`) !== -1 ||
@@ -98,32 +98,32 @@ function m2(e) {
 `) + 1,
       ))
   )
-    return !1;
-  return !0;
+    return false;
+  return true;
 }
 
 function ORe(e) {
   let t = 0,
-    r = !1,
-    o = !0;
+    r = false,
+    o = true;
   for (let u of e) {
     if (u.type === "assistant") {
-      o = !0;
+      o = true;
       continue;
     }
-    if (u.type === "system" && (u.subtype === "compact_boundary" || !1)) {
-      r = !0;
+    if (u.type === "system" && (u.subtype === "compact_boundary" || false)) {
+      r = true;
       continue;
     }
     if (u.type !== "user") continue;
     if (u.isCompactSummary) {
-      r = !0;
+      r = true;
       continue;
     }
     if (u.isMeta) continue;
     if (u.toolUseResult || !fte(u)) continue;
     if (u.origin !== void 0 && u.origin.kind !== "human") continue;
-    if (o) t++, (o = !1);
+    if (o) t++, (o = false);
   }
   return { userPromptCount: t, historyRewritten: r };
 }
@@ -139,11 +139,11 @@ function Lzn(e) {
 }
 
 function AA(e) {
-  return (e.type === "user" || e.type === "assistant") && e.isVirtual === !0;
+  return (e.type === "user" || e.type === "assistant") && e.isVirtual === true;
 }
 
 function lbe(e) {
-  return e.type === "assistant" && e.isApiErrorMessage === !0 && e.message?.model === rd;
+  return e.type === "assistant" && e.isApiErrorMessage === true && e.message?.model === rd;
 }
 
 function Wy(e) {
@@ -151,18 +151,18 @@ function Wy(e) {
 }
 
 function sft(e) {
-  return aft(e, 1, void 0, { noStatusAfterApiError: !0 }).messages.at(-1) ?? "";
+  return aft(e, 1, void 0, { noStatusAfterApiError: true }).messages.at(-1) ?? "";
 }
 
-function aft(e, t = 8, r = 65536, { noStatusAfterApiError: o = !1 } = {}) {
+function aft(e, t = 8, r = 65536, { noStatusAfterApiError: o = false } = {}) {
   let u = [],
     d = 0,
-    _ = !1;
+    _ = false;
   for (let C = e.length - 1; C >= 0; C--) {
     let A = e[C];
     if (A.type === "assistant") {
       if (o && lbe(A)) {
-        if (u.length === 0) return { messages: [], capped: !1 };
+        if (u.length === 0) return { messages: [], capped: false };
         break;
       }
       let x = zr(
@@ -173,7 +173,7 @@ function aft(e, t = 8, r = 65536, { noStatusAfterApiError: o = !1 } = {}) {
       if (!x) continue;
       let M = Buffer.byteLength(x, "utf8");
       if (u.length >= t || (u.length > 0 && d + M > r)) {
-        _ = !0;
+        _ = true;
         break;
       }
       u.push(x), (d += M);
@@ -189,7 +189,7 @@ function aft(e, t = 8, r = 65536, { noStatusAfterApiError: o = !1 } = {}) {
 
 function kWt({
   content: e,
-  isApiErrorMessage: t = !1,
+  isApiErrorMessage: t = false,
   apiError: r,
   apiErrorIsTransient: o,
   quotaLimits: u,
@@ -266,7 +266,7 @@ function Ko({
 }) {
   let x = kWt({
     content: [{ type: "text", text: e === "" ? sf : e }],
-    isApiErrorMessage: !0,
+    isApiErrorMessage: true,
     apiError: t,
     apiErrorIsTransient: r,
     quotaLimits: o,
@@ -276,7 +276,7 @@ function Ko({
     now: C,
     uuid: A,
   });
-  if (OWt(x)) x.healsDistinctCarrier = !0;
+  if (OWt(x)) x.healsDistinctCarrier = true;
   return x;
 }
 
@@ -390,7 +390,7 @@ function mF({ inputString: e, precedingInputBlocks: t }) {
   return [...t, { text: e, type: "text" }];
 }
 
-function oI({ toolUse: e = !1, interruptedMessageId: t, interruptedByShutdown: r, now: o, uuidFn: u }) {
+function oI({ toolUse: e = false, interruptedMessageId: t, interruptedByShutdown: r, now: o, uuidFn: u }) {
   return xe({
     content: [{ type: "text", text: e ? Vc : V_ }],
     interruptedMessageId: t,
@@ -403,7 +403,7 @@ function oI({ toolUse: e = !1, interruptedMessageId: t, interruptedByShutdown: r
 function rz() {
   return xe({
     content: `<${_U}>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</${_U}>`,
-    isMeta: !0,
+    isMeta: true,
   });
 }
 
@@ -424,7 +424,7 @@ function gGe({ toolUseID: e, parentToolUseID: t, data: r, now: o = () => new Dat
 }
 
 function ube(e) {
-  return { type: "tool_result", content: Jf, is_error: !0, tool_use_id: e };
+  return { type: "tool_result", content: Jf, is_error: true, tool_use_id: e };
 }
 
 function $r(e, t) {
@@ -450,13 +450,13 @@ function $r(e, t) {
 }
 
 function eX(e) {
-  if (e.type === "progress" || e.type === "attachment" || e.type === "system") return !0;
+  if (e.type === "progress" || e.type === "attachment" || e.type === "system") return true;
   if (typeof e.message.content === "string") return e.message.content.trim().length > 0;
-  if (e.message.content.length === 0) return !1;
-  if (e.message.content.length > 1) return !0;
-  if (e.message.content[0].type !== "text") return !0;
+  if (e.message.content.length === 0) return false;
+  if (e.message.content.length > 1) return true;
+  if (e.message.content[0].type !== "text") return true;
   let t = e.message.content[0].text;
-  if (typeof t !== "string") return !1;
+  if (typeof t !== "string") return false;
   return t.trim().length > 0 && t !== sf && t !== Vc;
 }
 
@@ -468,19 +468,19 @@ function lft(e, t) {
 function WPe(e) {
   if (e.type === "assistant") return e.message.content.length > 1;
   if (e.type === "user" && typeof e.message.content !== "string") return e.message.content.length > 1;
-  return !1;
+  return false;
 }
 
 function Klr(e) {
   return (e.type === "assistant" || e.type === "user") && !WPe(e);
 }
 
-function Cf(e, t = !1, r) {
+function Cf(e, t = false, r) {
   let o = t,
     u = [];
   for (let d of e) {
     let _ = o,
-      C = Klr(d) ? _ : !1;
+      C = Klr(d) ? _ : false;
     if (r) {
       let x = r.get(d);
       if (!x) {
@@ -503,12 +503,12 @@ function Cf(e, t = !1, r) {
                 (M.message.stop_details = d.message.stop_details),
                 (M.message.usage = d.message.usage);
         }
-        if ((u.push(...x.normalized), WPe(d))) o = !0;
+        if ((u.push(...x.normalized), WPe(d))) o = true;
         continue;
       }
     }
     let A = Vlr(d, _);
-    if ((r?.set(d, { isNewChain: C, normalized: A }), u.push(...A), WPe(d))) o = !0;
+    if ((r?.set(d, { isNewChain: C, normalized: A }), u.push(...A), WPe(d))) o = true;
   }
   return u;
 }
@@ -820,12 +820,12 @@ function Uzn(e) {
   );
 }
 
-function Xlr(e, t = !1) {
-  let r = !1;
+function Xlr(e, t = false) {
+  let r = false;
   for (let d = 0; d < e.length; d++) {
     let _ = e[d];
     if (_.type === "attachment" || (t && AA(_))) {
-      r = !0;
+      r = true;
       break;
     }
   }
@@ -865,7 +865,7 @@ function Qlr(e, t, r) {
         _.type === "tool_result" &&
         Array.isArray(_.content) &&
         _.content.some((C) => {
-          if (!H7(C)) return !1;
+          if (!H7(C)) return false;
           let A = C.tool_name;
           return A && !u(_.tool_use_id, A);
         }),
@@ -879,9 +879,9 @@ function Qlr(e, t, r) {
       content: o.map((_) => {
         if (_.type !== "tool_result" || !Array.isArray(_.content)) return _;
         let C = _.content.filter((A) => {
-          if (!H7(A)) return !0;
+          if (!H7(A)) return true;
           let x = A.tool_name;
-          if (!x) return !0;
+          if (!x) return true;
           let M = u(_.tool_use_id, x);
           if (!M) n(`Filtering out tool_reference for unavailable tool: ${Vd(x)}`, { level: "warn" });
           return M;
@@ -937,9 +937,9 @@ function Zlr(e) {
     if (t.startsWith("<system-reminder>")) return e;
     return { ...e, message: { ...e.message, content: _l(t) } };
   }
-  let r = !1,
+  let r = false,
     o = t.map((u) => {
-      if (u.type === "text" && !u.text.startsWith("<system-reminder>")) return (r = !0), { ...u, text: _l(u.text) };
+      if (u.type === "text" && !u.text.startsWith("<system-reminder>")) return (r = true), { ...u, text: _l(u.text) };
       return u;
     });
   return r ? { ...e, message: { ...e.message, content: o } } : e;
@@ -953,9 +953,9 @@ function b$e(e) {
 }
 
 function dbe(e) {
-  if (!a.CLAUDE_CODE_RESUME_TOLERATES_CONTEXT_APPENDS || e.type !== "user") return !1;
-  if (e.origin !== void 0 && e.origin.kind !== "human") return !1;
-  if (e.promptSource !== void 0 && e.promptSource !== "sdk") return !1;
+  if (!a.CLAUDE_CODE_RESUME_TOLERATES_CONTEXT_APPENDS || e.type !== "user") return false;
+  if (e.origin !== void 0 && e.origin.kind !== "human") return false;
+  if (e.promptSource !== void 0 && e.promptSource !== "sdk") return false;
   let t = e.message.content,
     r = typeof t === "string" ? [t] : Array.isArray(t) ? t.map((o) => (o?.type === "text" ? o.text : void 0)) : [];
   return r.length > 0 && r.every((o) => o !== void 0 && tcr(o) && !b$e(o));
@@ -963,14 +963,14 @@ function dbe(e) {
 
 function tcr(e) {
   let o = e.trimEnd();
-  if (o.length === 0) return !1;
+  if (o.length === 0) return false;
   while (o.length > 0) {
-    if (!o.startsWith("<system-reminder>")) return !1;
+    if (!o.startsWith("<system-reminder>")) return false;
     let u = o.indexOf("</system-reminder>", 17);
-    if (u === -1 || o.slice(17, u).includes("<system-reminder>")) return !1;
+    if (u === -1 || o.slice(17, u).includes("<system-reminder>")) return false;
     o = o.slice(u + 18).trimStart();
   }
-  return !0;
+  return true;
 }
 
 function xWt(e) {
@@ -978,8 +978,8 @@ function xWt(e) {
 }
 
 function MWt(e) {
-  if (e.type !== "tool_result") return !1;
-  if (typeof e.tool_use_id === "string" && e.tool_use_id.startsWith("poll_")) return !0;
+  if (e.type !== "tool_result") return false;
+  if (typeof e.tool_use_id === "string" && e.tool_use_id.startsWith("poll_")) return true;
   return $2() && typeof e.content === "string" && Bmn(e.content);
 }
 
@@ -1071,9 +1071,9 @@ function OWt(e) {
 }
 
 function c$e(e, t) {
-  if (e.type !== "user") return !1;
+  if (e.type !== "user") return false;
   let r = e.message.content;
-  if (!Array.isArray(r)) return !1;
+  if (!Array.isArray(r)) return false;
   return r.some(
     (o) =>
       t.has(o.type) || (o.type === "tool_result" && Array.isArray(o.content) && o.content.some((u) => t.has(u.type))),
@@ -1081,9 +1081,9 @@ function c$e(e, t) {
 }
 
 function icr(e) {
-  if (e.type !== "user") return !1;
+  if (e.type !== "user") return false;
   let t = e.message.content;
-  if (!Array.isArray(t)) return !1;
+  if (!Array.isArray(t)) return false;
   return t.some((r) => r.type === "tool_result" && r.content === DWt);
 }
 
@@ -1116,13 +1116,13 @@ function mcr(e, t) {
 function Fjt(e, t) {
   let r = e.message.content;
   if (!Array.isArray(r)) return e;
-  let o = !1,
+  let o = false,
     u = r.flatMap((d) => {
-      if (t.has(d.type)) return (o = !0), [];
+      if (t.has(d.type)) return (o = true), [];
       if (d.type === "tool_result" && Array.isArray(d.content)) {
         let _ = d.content.filter((C) => !t.has(C.type));
         if (_.length < d.content.length) {
-          o = !0;
+          o = true;
           let C = _.length > 0 ? _ : [{ type: "text", text: "(media removed \u2014 rejected by API)" }];
           return [{ ...d, content: C }];
         }
@@ -1135,7 +1135,7 @@ function Fjt(e, t) {
 }
 
 function D_(e) {
-  if (e.type === "api_system") return !1;
+  if (e.type === "api_system") return false;
   return e.type === "progress" || (e.type === "system" && !nBt(e)) || AA(e) || lbe(e);
 }
 
@@ -1149,9 +1149,9 @@ function fcr(e, t) {
     }
     if (M.type !== "user" && M.type !== "api_system") break;
   }
-  if (r === -1) return !1;
+  if (r === -1) return false;
   let o = e[r];
-  if (o.type !== "assistant") return !1;
+  if (o.type !== "assistant") return false;
   let u = `poll_${o.uuid}`,
     d = xue(t.envelopes, t.remainingWakeCount);
   if (o.message.content.some((x) => x.type === "tool_use" && x.id === u)) {
@@ -1160,8 +1160,8 @@ function fcr(e, t) {
       let M = x.message.content,
         F = typeof M === "string" ? [{ type: "text", text: M }] : M.slice();
       F.push({ type: "text", text: _l(d) }), (e[e.length - 1] = { ...x, message: { ...x.message, content: F } });
-    } else e.push(xe({ content: _l(d), isMeta: !0 }));
-    return !0;
+    } else e.push(xe({ content: _l(d), isMeta: true }));
+    return true;
   }
   e[r] = {
     ...o,
@@ -1175,8 +1175,8 @@ function fcr(e, t) {
       F = 0;
     for (let U = 0; U < M.length; U++) if (M[U].type === "tool_result") F = U + 1;
     M.splice(F, 0, C), (e[r + 1] = { ...A, message: { ...A.message, content: M } });
-  } else e.splice(r + 1, 0, xe({ content: [C], isMeta: !0 }));
-  return !0;
+  } else e.splice(r + 1, 0, xe({ content: [C], isMeta: true }));
+  return true;
 }
 
 function Njt(e, t, r, o, u) {
@@ -1189,7 +1189,7 @@ function Njt(e, t, r, o, u) {
           s("tengu_bash_task_delivered", { outcome: w("unparseable") }),
           p("task_local_shell_delivery", "unparseable_snapshot");
     }
-    return !1;
+    return false;
   }
   let C = -1;
   for (let W = e.length - 1; W >= 0; W--) {
@@ -1215,9 +1215,9 @@ function Njt(e, t, r, o, u) {
     )
       y("task_local_shell_delivery", { status: c(_.status) });
     else g("task_local_shell_delivery", "no_host");
-  if (!x || A?.type !== "assistant") return !1;
+  if (!x || A?.type !== "assistant") return false;
   let M = Mst(r);
-  if (A.message.content.some((W) => W.type === "tool_use" && W.id === M)) return !0;
+  if (A.message.content.some((W) => W.type === "tool_use" && W.id === M)) return true;
   e[C] = {
     ...A,
     message: {
@@ -1243,8 +1243,8 @@ function Njt(e, t, r, o, u) {
       ...B,
       message: { ...B.message, content: [U, ...(typeof W === "string" ? [{ type: "text", text: W }] : W)] },
     };
-  } else e.splice(C + 1, 0, xe({ content: [U], isMeta: !0, uuid: r }));
-  return !0;
+  } else e.splice(C + 1, 0, xe({ content: [U], isMeta: true, uuid: r }));
+  return true;
 }
 
 function RE(e, t = [], r, o) {
@@ -1255,14 +1255,14 @@ function RE(e, t = [], r, o) {
     A = new Set(t.map((tt) => tt.name)),
     x = o?.keptToolNames;
   if (x) for (let tt of x) A.add(tt);
-  let M = Xlr(e, !0),
+  let M = Xlr(e, true),
     F = LY(e),
     U,
-    B = !1;
+    B = false;
   for (let tt of M)
     if (tt.type === "attachment" && tt.attachment.type === "read_truncation_notice")
       (U ??= new Set()).add(tt.attachment.toolUseID);
-    else if (!B && tt.type === "user" && tt.toolUseResult?.file?.truncatedByTokenCap === !0) B = !0;
+    else if (!B && tt.type === "user" && tt.toolUseResult?.file?.truncatedByTokenCap === true) B = true;
   let W;
   if (B) {
     W = new Set();
@@ -1276,16 +1276,16 @@ function RE(e, t = [], r, o) {
     fe = new Map(),
     me = 0,
     ge = me,
-    Ce = !1,
+    Ce = false,
     Ie,
     Ee;
   for (let tt = 0; tt < M.length; tt++) {
     let lt = M[tt];
     if (!lbe(lt)) {
-      Ce = !1;
+      Ce = false;
       continue;
     }
-    if (!Ce) (Ce = !0), ge++;
+    if (!Ce) (Ce = true), ge++;
     let mt =
       OWt(lt) ??
       (Array.isArray(lt.message.content) && lt.message.content[0]?.type === "text"
@@ -1344,8 +1344,8 @@ function RE(e, t = [], r, o) {
   }
   let Pe = [],
     Oe = [],
-    Fe = !1,
-    Be = !1,
+    Fe = false,
+    Be = false,
     ze = new Map(),
     We = 0;
   function Ve() {
@@ -1354,7 +1354,7 @@ function RE(e, t = [], r, o) {
 
 `),
       lt = Fe;
-    (Oe.length = 0), (Fe = !1);
+    (Oe.length = 0), (Fe = false);
     let mt = bO(Pe);
     if (mt?.type === "api_system") {
       if (
@@ -1363,13 +1363,13 @@ function RE(e, t = [], r, o) {
 ${tt}`),
         lt)
       )
-        mt.ephemeral = !0;
+        mt.ephemeral = true;
     } else if (mt?.type === "user") {
-      Be = !0;
+      Be = true;
       let Xe = BK(tt);
-      if (lt) Xe.ephemeral = !0;
+      if (lt) Xe.ephemeral = true;
       Pe.push(Xe);
-    } else Pe.push(xe({ content: _ ? tt : _l(tt), isMeta: !0 }));
+    } else Pe.push(xe({ content: _ ? tt : _l(tt), isMeta: true }));
   }
   for (let tt of M) {
     if (D_(tt)) continue;
@@ -1389,7 +1389,7 @@ ${tt}`),
       }
       case "user": {
         let lt = tt;
-        if (tt.taskDelivery && UE() && Njt(Pe, tt.taskDelivery, tt.uuid, !0, r !== void 0)) continue;
+        if (tt.taskDelivery && UE() && Njt(Pe, tt.taskDelivery, tt.uuid, true, r !== void 0)) continue;
         if (tt.taskDelivery) lt = { ...lt, taskDelivery: void 0 };
         if (tt.origin?.kind === "task-notification") {
           let At = lt.message.content,
@@ -1398,7 +1398,7 @@ ${tt}`),
               tt.origin.subkind === "scheduled-trigger"
                 ? kmn
                 : tt.origin.subkind === "projects-relay" && tt.hearthRelayMessageIds !== void 0
-                  ? (fn, Sn = !1) => a$e(fn, { serverEnvelope: !Sn })
+                  ? (fn, Sn = false) => a$e(fn, { serverEnvelope: !Sn })
                   : void 0;
           if (Lt)
             dn =
@@ -1452,7 +1452,7 @@ ${tt}`),
           if (u) Oe.push(At);
           else {
             let dn = bO(Pe),
-              Lt = xe({ content: _l(At), isMeta: !0 });
+              Lt = xe({ content: _l(At), isMeta: true });
             if (dn?.type === "user") Pe[Pe.length - 1] = $jt(dn, Lt);
             else Pe.push(Lt);
           }
@@ -1469,7 +1469,7 @@ ${tt}`),
           C?.set(fn.id, fn.name);
           let Sn = no(t, fn.name),
             bn = Sn?.name ?? fn.name,
-            hn = LIt(bn, fn.input, Sn !== void 0 || x?.has(Vd(fn.name)) === !0);
+            hn = LIt(bn, fn.input, Sn !== void 0 || x?.has(Vd(fn.name)) === true);
           if (lt && hn === fn.input && bn === fn.name) continue;
           (Xe ??= mt.slice()),
             (Xe[Lt] = lt ? { ...fn, name: bn, input: hn } : { type: "tool_use", id: fn.id, name: bn, input: hn });
@@ -1504,7 +1504,7 @@ ${tt}`),
           tt.attachment.type === "queued_command" &&
           tt.attachment.taskDelivery &&
           UE() &&
-          Njt(Pe, tt.attachment.taskDelivery, tt.uuid, !1, r !== void 0)
+          Njt(Pe, tt.attachment.taskDelivery, tt.uuid, false, r !== void 0)
         )
           continue;
         let lt = tt.attachment.type === "batching_reminder" || tt.attachment.type === "secondary_reminder";
@@ -1528,11 +1528,11 @@ ${tt}`),
         ) {
           let At = Icr(mt);
           if (At !== null) {
-            if ((Oe.push(_ ? _l(At) : At), lt)) Fe = !0;
+            if ((Oe.push(_ ? _l(At) : At), lt)) Fe = true;
             continue;
           }
         }
-        let nt = I("tengu_chair_sermon", !1) ? mt.map(Zlr) : mt,
+        let nt = I("tengu_chair_sermon", false) ? mt.map(Zlr) : mt,
           ht = bO(Pe);
         if (ht?.type === "user") {
           Pe[Pe.length - 1] = nt.reduce((At, dn) => $jt(At, dn), ht);
@@ -1550,7 +1550,7 @@ ${tt}`),
     en = zcr(ut),
     nn;
   if (u) nn = Be ? ycr(en, _) : en;
-  else if (I("tengu_chair_sermon", !1)) nn = IWt(NWt(en));
+  else if (I("tengu_chair_sermon", false)) nn = IWt(NWt(en));
   else nn = en;
   let xt = ncr(nn);
   return A8n(xt, t);
@@ -1566,10 +1566,10 @@ function mOt(e) {
 }
 
 function fOt(e) {
-  let t = !1;
+  let t = false;
   for (let r of e)
     if (r.collapseSources !== void 0) {
-      t = !0;
+      t = true;
       break;
     }
   if (!t) return e;
@@ -1583,7 +1583,7 @@ function $jt(e, t) {
   return {
     ...e,
     ...(u !== void 0 && { collapseSources: u }),
-    ...((e.ephemeral || t.ephemeral) && { ephemeral: !0 }),
+    ...((e.ephemeral || t.ephemeral) && { ephemeral: true }),
     message: { ...e.message, content: BWt(Scr(r, o)) },
   };
 }
@@ -1599,7 +1599,7 @@ function hcr(e, t) {
       );
     }),
     o = r.filter((C, A) => {
-      if (C.type !== "text" || C.text.length === 0 || C.text.trim() !== "") return !0;
+      if (C.type !== "text" || C.text.length === 0 || C.text.trim() !== "") return true;
       let x = r[A - 1]?.type,
         M = r[A + 1]?.type;
       return (x === "thinking" || x === "redacted_thinking") && (M === "thinking" || M === "redacted_thinking");
@@ -1613,20 +1613,20 @@ function hcr(e, t) {
 function LWt(e) {
   let t = (C) => e[C].type === "tool_use",
     r = -1,
-    o = !1,
-    u = !1,
-    d = !1,
-    _ = !1;
+    o = false,
+    u = false,
+    d = false,
+    _ = false;
   for (let C = 0; C < e.length; C++) {
     let A = e[C].type;
     if (A === "tool_use") {
       if (r === -1) r = C;
-      _ = !0;
+      _ = true;
     } else {
-      if (r !== -1) o = !0;
+      if (r !== -1) o = true;
       let x = A === "thinking" || A === "redacted_thinking";
-      if (x && d && _) u = !0;
-      (d = x), (_ = !1);
+      if (x && d && _) u = true;
+      (d = x), (_ = false);
     }
   }
   if (!o) return e;
@@ -1635,9 +1635,9 @@ function LWt(e) {
 }
 
 function gk(e) {
-  if (e.type !== "user") return !1;
+  if (e.type !== "user") return false;
   let t = e.message.content;
-  if (typeof t === "string") return !1;
+  if (typeof t === "string") return false;
   return t.some((r) => r.type === "tool_result");
 }
 
@@ -1648,17 +1648,17 @@ function Mce(e, t) {
   return {
     ...e,
     ...(u !== void 0 && { collapseSources: u }),
-    ...((e.ephemeral || t.ephemeral) && { ephemeral: !0 }),
+    ...((e.ephemeral || t.ephemeral) && { ephemeral: true }),
     uuid: e.isMeta ? t.uuid : e.uuid,
     message: { ...e.message, content: BWt(_cr(r, o)) },
   };
 }
 
 function NWt(e) {
-  let t = !1;
+  let t = false;
   for (let o = 1; o < e.length; o++)
     if (e[o].type === "user" && e[o - 1].type === "user") {
-      t = !0;
+      t = true;
       break;
     }
   if (!t) return e;
@@ -1689,7 +1689,7 @@ function ycr(e, t) {
 ${u.message.content}`),
         u.ephemeral)
       )
-        d.ephemeral = !0;
+        d.ephemeral = true;
       continue;
     }
     let C = d?.type === "user",
@@ -1699,7 +1699,7 @@ ${u.message.content}`),
       continue;
     }
     (r ??= e.slice(0, o)),
-      r.push(xe({ content: t ? u.message.content : _l(u.message.content), isMeta: !0, ephemeral: u.ephemeral }));
+      r.push(xe({ content: t ? u.message.content : _l(u.message.content), isMeta: true, ephemeral: u.ephemeral }));
   }
   return r ? NWt(r) : e;
 }
@@ -1773,7 +1773,7 @@ function Scr(e, t) {
   if (r?.type !== "tool_result") return [...e, ...t];
   if (MWt(r) || xWt(r)) return [...e, ...t];
   if (t.some((_) => _.type === "text" && b$e(_.text))) return [...e, ...t];
-  if (!I("tengu_chair_sermon", !1)) {
+  if (!I("tengu_chair_sermon", false)) {
     if (typeof r.content === "string" && t.every((_) => _.type === "text")) {
       let _ = e.slice();
       return (_[_.length - 1] = p$e(r, t)), _;
@@ -1796,7 +1796,7 @@ function Wq(e, t, r, o, u) {
         if (typeof d.input !== "string" && !Rm(d.input)) throw Error("Tool use input must be a string or object");
         let _;
         if (typeof d.input === "string") {
-          let C = Ut(d.input, !1);
+          let C = Ut(d.input, false);
           if (C === null && d.input.trim() !== "null" && d.input.length > 0)
             s("tengu_tool_input_json_parse_fail", {
               toolName: Un(d.name),
@@ -1829,7 +1829,7 @@ function Wq(e, t, r, o, u) {
             s("tengu_content_block_healed", {
               blockType: w("text"),
               action: w("dropped"),
-              missingText: !0,
+              missingText: true,
               request_id: ve(o?.requestId) ?? w("unknown"),
               messageID: ve(o?.messageId) ?? w("unknown"),
             }),
@@ -1864,7 +1864,7 @@ function Wq(e, t, r, o, u) {
       case "container_upload":
         return d;
       case "server_tool_use":
-        if (typeof d.input === "string") return { ...d, input: Ut(d.input, !1) ?? {} };
+        if (typeof d.input === "string") return { ...d, input: Ut(d.input, false) ?? {} };
         return d;
       default:
         return d;
@@ -1881,7 +1881,7 @@ function bcr(e, t, r) {
     u = (_, C) => {
       let A = o[_];
       if (typeof A !== "string") return;
-      let x = Ut(A, !1),
+      let x = Ut(A, false),
         M;
       switch (C) {
         case "array":
@@ -1928,7 +1928,7 @@ function bcr(e, t, r) {
 }
 
 function wcr(e) {
-  if (e === null || typeof e !== "object" || Array.isArray(e)) return !1;
+  if (e === null || typeof e !== "object" || Array.isArray(e)) return false;
   return Object.keys(e).every((t) => kcr.has(t));
 }
 
@@ -1940,10 +1940,10 @@ function g$e(e, t, r = new Set()) {
   let u = (d) => {
     let _,
       C,
-      A = !1;
+      A = false;
     for (let x of d)
       if (x === "array" || x === "object") _ ??= x;
-      else if (x === "string") A = !0;
+      else if (x === "string") A = true;
       else if (x !== void 0 && x !== "null") C ??= x;
     return _ ?? (A ? "string" : C);
   };
@@ -2013,7 +2013,7 @@ function iz(e) {
 function pbe(e, t, r) {
   let o = new Set(),
     u = new Set(),
-    d = r?.shutdownUnwindResultsDoNotResolve === !0;
+    d = r?.shutdownUnwindResultsDoNotResolve === true;
   for (let M of e) {
     if (M.type !== "user" && M.type !== "assistant") continue;
     let F = M.message.content;
@@ -2031,17 +2031,17 @@ function pbe(e, t, r) {
     return M.length === e.length ? e : M;
   }
   if (r?.outSupersededToolUseIds) {
-    let M = !1;
+    let M = false;
     for (let F = e.length - 1; F >= 0; F--) {
       let U = e[F];
       if (U.type === "system" || U.type === "progress" || U.type === "attachment") continue;
       if (U.type === "user") {
         let B = U.message.content;
         if (Array.isArray(B) && B.some((z) => z.type === "tool_result")) continue;
-        if (U.interruptedByShutdown === !0 || (!M && dbe(U))) continue;
+        if (U.interruptedByShutdown === true || (!M && dbe(U))) continue;
         break;
       }
-      if (U.type === "assistant") M = !0;
+      if (U.type === "assistant") M = true;
       if (U.type === "assistant" && Array.isArray(U.message.content)) {
         for (let B of U.message.content)
           if (B.type === "tool_use" && _.has(B.id)) {
@@ -2055,30 +2055,30 @@ function pbe(e, t, r) {
     A = new Set(),
     x = e.filter((M) => {
       if (M.type !== "assistant") {
-        if (d && M.type === "user" && MI(M)) return !1;
-        return !0;
+        if (d && M.type === "user" && MI(M)) return false;
+        return true;
       }
       let F = M.message.content;
-      if (!Array.isArray(F)) return !0;
+      if (!Array.isArray(F)) return true;
       let U = [];
       for (let B of F) if (B.type === "tool_use") U.push(B.id);
-      if (U.length === 0) return !0;
+      if (U.length === 0) return true;
       if (U.every((B) => _.has(B))) {
         if (r?.dropSiblingBlocks && M.message.id) C.add(M.message.id);
-        return !1;
+        return false;
       }
       if (r?.dropSiblingBlocks && M.message.id) A.add(M.message.id);
-      return !0;
+      return true;
     });
   for (let M of A) C.delete(M);
   if (!r?.dropSiblingBlocks || C.size === 0) return x;
   return x.filter((M) => {
-    if (M.type !== "assistant" || !M.message.id) return !0;
-    if (!C.has(M.message.id)) return !0;
+    if (M.type !== "assistant" || !M.message.id) return true;
+    if (!C.has(M.message.id)) return true;
     let F = M.message.content;
-    if (!Array.isArray(F)) return !0;
-    for (let U of F) if (U.type === "tool_use") return !0;
-    return !1;
+    if (!Array.isArray(F)) return true;
+    for (let U of F) if (U.type === "tool_use") return true;
+    return false;
   });
 }
 
@@ -2229,7 +2229,7 @@ function fbe(e, t) {
       let C = e.message.content.find((A) => A.type === "thinking");
       if (C && C.type === "thinking")
         if (Djt !== null && Djt(C)) u?.(() => null);
-        else u?.(() => ({ thinking: C.thinking, isStreaming: !1, streamingEndedAt: Date.now() }));
+        else u?.(() => ({ thinking: C.thinking, isStreaming: false, streamingEndedAt: Date.now() }));
     }
     if (e.type === "assistant") t.displayTransform?.entryLanded(e);
     _?.(() => null), r(e);
@@ -2253,7 +2253,7 @@ function Dve(e, t, r) {
       onResponseLength: x,
       displayTransform: M,
     } = t,
-    F = t.authoringProgressSurface === !0;
+    F = t.authoringProgressSurface === true;
   if (Xst(e)) {
     A?.(e);
     return;
@@ -2370,7 +2370,7 @@ function Dve(e, t, r) {
       o?.("responding");
       let U = Ecr(e.event);
       if (U != null) u?.({ type: "end", outputTokens: U });
-      else s("tengu_message_delta_usage_missing", { is_subagent: r?.isSubagent === !0 });
+      else s("tengu_message_delta_usage_missing", { is_subagent: r?.isSubagent === true });
       return;
     }
     default:
@@ -2421,7 +2421,7 @@ function xcr(e, t) {
 
 function Mcr(e, t, r) {
   let u = e.toolUseResult?.file;
-  if (u?.truncatedByTokenCap !== !0 || typeof u.filePath !== "string") return;
+  if (u?.truncatedByTokenCap !== true || typeof u.filePath !== "string") return;
   let d = e.message.content;
   if (!Array.isArray(d)) return;
   let _ = d.find((A) => A.type === "tool_result");
@@ -2581,7 +2581,7 @@ ${e.customInstructions}
 
 ### Call ${Su}
 ${Zjt(e.workshopActiveDocPath)}`;
-    return gs([xe({ content: A, isMeta: !0 })]);
+    return gs([xe({ content: A, isMeta: true })]);
   }
   let { phase1: o, phase2: u } = Lcr(),
     d = e.workshopOfferDocPath
@@ -2628,14 +2628,14 @@ ${Dcr(e.workshopOfferDocPath !== void 0 || e.workshopActiveDocPath !== void 0)}
 ${Zjt(e.workshopActiveDocPath)}
 
 NOTE: At any point in time through this workflow you should feel free to ask the user questions or clarifications using the ${Yi} tool. Don't make large assumptions about user intent. The goal is to present a well researched plan to the user, and tie any loose ends before implementation begins.`;
-  return gs([xe({ content: C, isMeta: !0 })]);
+  return gs([xe({ content: C, isMeta: true })]);
 }
 
 function $cr(e) {
   let t = e.customInstructions ? "Follow the plan workflow described earlier." : "Follow 5-phase workflow.",
     r = e.workshopActiveDocPath ? y$e(e.workshopActiveDocPath, { form: "sparse" }) : "",
     o = `Plan mode still active (see full instructions earlier in conversation). Read-only except plan file (${e.planFilePath})${r}. ${t} ${jWt({ workshopActive: e.workshopActiveDocPath !== void 0, form: "sparse" })}`;
-  return gs([xe({ content: o, isMeta: !0 })]);
+  return gs([xe({ content: o, isMeta: true })]);
 }
 
 function Ucr(e) {
@@ -2645,7 +2645,7 @@ function Ucr(e) {
 ${e.planExists ? `A plan file already exists at ${e.planFilePath}. You can read it and make incremental edits using the ${Kt} tool if you need to.` : `No plan file exists yet. You should create your plan at ${e.planFilePath} using the ${ar} tool if you need to.`}
 You should build your plan incrementally by writing to or editing this file. NOTE that this is the only file you are allowed to edit - other than this you are only allowed to take READ-ONLY actions.
 Answer the user's query comprehensively, using the ${Yi} tool if you need to ask the user clarifying questions. If you do use the ${Yi}, make sure to ask all clarifying questions you need to fully understand the user's intent before proceeding.`;
-  return gs([xe({ content: r, isMeta: !0 })]);
+  return gs([xe({ content: r, isMeta: true })]);
 }
 
 function cWt(e) {
@@ -2668,8 +2668,8 @@ function aie(e, t) {
     if (e.type === "teammate_mailbox")
       return [
         xe({
-          content: Ulr().formatTeammateMessages(e.messages, { recipientIsLead: e.recipientIsLead ?? !1 }),
-          isMeta: !0,
+          content: Ulr().formatTeammateMessages(e.messages, { recipientIsLead: e.recipientIsLead ?? false }),
+          isMeta: true,
         }),
       ];
     if (e.type === "team_context") {
@@ -2708,7 +2708,7 @@ Read the team config to discover your teammates' names.${d}
 }
 \`\`\`
 </system-reminder>`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ];
     }
@@ -2728,7 +2728,7 @@ Read the team config to discover your teammates' names.${d}
               ? [
                   xe({
                     content: `Note: The file ${_u(e.filename)} was too large and has been truncated to the first ${y5e} lines. No need to mention the truncation. Use ${_t} to read more of the file if you need.`,
-                    isMeta: !0,
+                    isMeta: true,
                   }),
                 ]
               : []),
@@ -2761,7 +2761,7 @@ ${u.content}`,
 IMPORTANT: Do NOT re-execute these skills or perform their one-time setup actions (e.g., scheduling, creating files) again. Any request or argument text embedded in the skill bodies below \u2014 for example under a "## User Request" or "## Input" heading \u2014 was captured when that skill was first invoked. It is NOT the user's current message and NOT a new request: do not act on it as if it were live. Only continue to apply ongoing behavioral guidelines from these skills where still relevant.
 
 ${o}`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]);
     }
@@ -2779,7 +2779,7 @@ ${o}`,
 Here are the existing contents of your todo list:
 
 [${o}]`;
-      return gs([xe({ content: u, isMeta: !0 })]);
+      return gs([xe({ content: u, isMeta: true })]);
     }
     case "task_reminder": {
       if (!QW()) return [];
@@ -2795,7 +2795,7 @@ Here are the existing contents of your todo list:
 Here are the existing tasks:
 
 ${o}`;
-      return gs([xe({ content: u, isMeta: !0 })]);
+      return gs([xe({ content: u, isMeta: true })]);
     }
     case "tool_search_usage_reminder": {
       let o = e.undiscoveredToolNames;
@@ -2805,14 +2805,14 @@ ${o}`;
       return gs([
         xe({
           content: `Some available tools' schemas are not loaded in this conversation yet: ${d}. Before concluding a capability is missing or building a workaround, use ${Kl} to find and load relevant tools \u2014 keywords to search, or query "select:<name>[,<name>...]" for specific tools. Calling a tool before its schema is loaded will fail. This is just a gentle reminder - ignore if not applicable to the current work.`,
-          isMeta: !0,
+          isMeta: true,
         }),
       ]);
     }
     case "relevant_memories": {
       let o =
         "Retrieved for possible relevance \u2014 use only if it actually applies to what the user asked." +
-        (I(fyt, !1)
+        (I(fyt, false)
           ? ' When you use or cite content from one of these memories in your reply, wrap the entire sentence in <cc-memory filenames="{comma separated memory file names}">{sentence}</cc-memory> tags (never inside tool inputs).'
           : "") +
         `
@@ -2825,7 +2825,7 @@ ${o}`;
             content: `${d === 0 ? o : ""}${_}
 
 ${u.content}`,
-            isMeta: !0,
+            isMeta: true,
           });
         }),
       );
@@ -2833,13 +2833,13 @@ ${u.content}`,
     case "queued_command": {
       if (e.renderedByBatchHead) return [];
       let o = Array.isArray(e.inlinedImagePaths) ? e.inlinedImagePaths.filter((A) => typeof A === "string") : [],
-        u = o.length === 0 ? [] : [xe({ content: _l(WWt(o)), isMeta: !0 })],
+        u = o.length === 0 ? [] : [xe({ content: _l(WWt(o)), isMeta: true })],
         d = R2(e.origin) ?? (e.commandMode === "task-notification" ? { kind: "task-notification" } : void 0),
-        _ = (d !== void 0 && !gC(d)) || e.isMeta ? { isMeta: !0 } : {},
-        C = (A) => (gC(d) && e.isMeta !== !0 && e.verifiedSlackHumanTurn !== !0 ? A : $6t(A));
+        _ = (d !== void 0 && !gC(d)) || e.isMeta ? { isMeta: true } : {},
+        C = (A) => (gC(d) && e.isMeta !== true && e.verifiedSlackHumanTurn !== true ? A : $6t(A));
       if (e.batchedRelayPrompts) {
         let x =
-          e.verifiedSlackHumanTurn === !0 && e.isMeta !== !0 && gC(d)
+          e.verifiedSlackHumanTurn === true && e.isMeta !== true && gC(d)
             ? `${Pun}${C(
                 e.batchedRelayPrompts.join(`
 
@@ -2898,7 +2898,7 @@ ${u.content}`,
     case "diagnostics": {
       let o = ypt(e.files);
       if (o.length === 0) return [];
-      return gs([xe({ content: Bae(o), isMeta: !0 })]);
+      return gs([xe({ content: Bae(o), isMeta: true })]);
     }
     case "plan_mode":
       return Ocr(e);
@@ -2916,7 +2916,7 @@ You are returning to plan mode after having previously exited it. A plan file ex
 4. Continue on with the plan process and most importantly you should always edit the plan file one way or the other before calling ${Su}
 
 Treat this as a fresh planning session. Do not assume the existing plan is relevant without evaluating it first.`;
-      return gs([xe({ content: o, isMeta: !0 })]);
+      return gs([xe({ content: o, isMeta: true })]);
     }
     case "attention_budget":
       return [];
@@ -2955,7 +2955,7 @@ ${d}`
 
 ${d}`
                 : "");
-      return gs([xe({ content: _, isMeta: !0 })]);
+      return gs([xe({ content: _, isMeta: true })]);
     }
     case "mcp_resource": {
       let o = e.content,
@@ -2963,7 +2963,7 @@ ${d}`
           gs([
             xe({
               content: `<mcp-resource server="${PTe(e.server)}" uri="${PTe(e.uri)}">(${_})</mcp-resource>`,
-              isMeta: !0,
+              isMeta: true,
             }),
           ]);
       if (!o || !o.contents || o.contents.length === 0) return u("No content");
@@ -2984,13 +2984,13 @@ ${d}`
             d.push({ type: "text", text: `[Binary content: ${C}]` });
           }
         }
-      if (d.length > 0) return gs([xe({ content: d, isMeta: !0 })]);
+      if (d.length > 0) return gs([xe({ content: d, isMeta: true })]);
       else return Z(e.server, `No displayable content found in MCP resource ${e.uri}.`), u("No displayable content");
     }
     case "task_status": {
       let o = e.status === "killed" ? "stopped" : e.status;
       if (e.status === "killed")
-        return [xe({ content: _l(`Task "${e.description}" (${e.taskId}) was stopped by the user.`), isMeta: !0 })];
+        return [xe({ content: _l(`Task "${e.description}" (${e.taskId}) was stopped by the user.`), isMeta: true })];
       if (e.status === "running") {
         let d = [`Background agent "${e.description}" (${e.taskId}) is still running.`];
         if (e.deltaSummary) d.push(`Progress: ${e.deltaSummary}`);
@@ -3002,20 +3002,20 @@ ${d}`
           d.push(
             `Do NOT spawn a duplicate. You will be notified when it completes. You can check its progress with the ${AM} tool or send it a message with ${Xr}.`,
           );
-        return [xe({ content: _l(d.join(" ")), isMeta: !0 })];
+        return [xe({ content: _l(d.join(" ")), isMeta: true })];
       }
       let u = [`Task ${e.taskId}`, `(type: ${e.taskType})`, `(status: ${o})`, `(description: ${e.description})`];
       if (e.deltaSummary) u.push(`Delta: ${e.deltaSummary}`);
       if (e.outputFilePath) u.push(`Read the output file to retrieve the result: ${e.outputFilePath}`);
       else u.push(`You can check its output using the ${AM} tool.`);
-      return [xe({ content: _l(u.join(" ")), isMeta: !0 })];
+      return [xe({ content: _l(u.join(" ")), isMeta: true })];
     }
     case "async_hook_response": {
       let o = e.response,
         u = [],
         d = o,
         _ = typeof d === "object" && d !== null && "systemMessage" in d ? d.systemMessage : void 0;
-      if (typeof _ === "string" && _) u.push(xe({ content: _, isMeta: !0 }));
+      if (typeof _ === "string" && _) u.push(xe({ content: _, isMeta: true }));
       let C = typeof d === "object" && d !== null && "hookSpecificOutput" in d ? d.hookSpecificOutput : void 0;
       if (
         typeof C === "object" &&
@@ -3024,14 +3024,14 @@ ${d}`
         typeof C.additionalContext === "string" &&
         C.additionalContext
       )
-        u.push(xe({ content: C.additionalContext, isMeta: !0 }));
+        u.push(xe({ content: C.additionalContext, isMeta: true }));
       return gs(u);
     }
     case "hook_success":
       if (e.hookEvent !== "SessionStart" && e.hookEvent !== "UserPromptSubmit" && e.hookEvent !== "UserPromptExpansion")
         return [];
       if (e.content === "") return [];
-      return [xe({ content: _l(`${e.hookName} hook success: ${e.content}`), isMeta: !0 })];
+      return [xe({ content: _l(`${e.hookName} hook success: ${e.content}`), isMeta: true })];
     case "context_efficiency":
       return [];
     case "deferred_tools_delta": {
@@ -3149,7 +3149,7 @@ If the user's request might be served by one of these servers (even if they didn
           content: _.join(`
 
 `),
-          isMeta: !0,
+          isMeta: true,
         }),
       ]);
     }
@@ -3183,7 +3183,7 @@ ${d
           content: _.join(`
 
 `),
-          isMeta: !0,
+          isMeta: true,
         }),
       ]);
     }
@@ -3211,7 +3211,7 @@ ${d.join(`
           content: _.join(`
 
 `),
-          isMeta: !0,
+          isMeta: true,
         }),
       ]);
     }
@@ -3231,12 +3231,12 @@ ${e.addedEntries
           content: o.join(`
 
 `),
-          isMeta: !0,
+          isMeta: true,
         }),
       ]);
     }
     case "memory_update": {
-      if (e.source === "sync_unsaved") return gs([xe({ content: e.summary, isMeta: !0 })]);
+      if (e.source === "sync_unsaved") return gs([xe({ content: e.summary, isMeta: true })]);
       let u = [`${Ajt[e.source]} updated your memory directory: ${e.summary}`],
         d = lu(e.paths),
         _ = lu(e.inContextPaths);
@@ -3251,7 +3251,7 @@ ${e.addedEntries
           xe({
             content: u.join(`
 `),
-            isMeta: !0,
+            isMeta: true,
           }),
         ])
       );
@@ -3288,7 +3288,7 @@ function QWt(e) {
   return e;
 }
 
-function zPe(e, t, r = 200, o = !1) {
+function zPe(e, t, r = 200, o = false) {
   let u = e.length - r;
   if (u <= 0) return e;
   let d = new Map(),
@@ -3347,20 +3347,20 @@ function gK(e, t) {
   try {
     let r = e.mapToolResultToToolResultBlockParam(t, "1");
     if (Array.isArray(r.content) && r.content.some((u) => u.type === "image"))
-      return xe({ content: r.content, isMeta: !0 });
+      return xe({ content: r.content, isMeta: true });
     let o = typeof r.content === "string" ? r.content : b(r.content);
     return xe({
       content: `Result of calling the ${e.name} tool:
 ${o}`,
-      isMeta: !0,
+      isMeta: true,
     });
   } catch {
-    return xe({ content: `Result of calling the ${e.name} tool: Error`, isMeta: !0 });
+    return xe({ content: `Result of calling the ${e.name} tool: Error`, isMeta: true });
   }
 }
 
 function hK(e, t) {
-  return xe({ content: `Called the ${e} tool with the following input: ${b(t)}`, isMeta: !0 });
+  return xe({ content: `Called the ${e} tool with the following input: ${b(t)}`, isMeta: true });
 }
 
 function Dt(e, t, r, o) {
@@ -3374,7 +3374,7 @@ function jzn(e) {
     content: `Allowed ${e.join(", ")}`,
     commands: e,
     level: "info",
-    isMeta: !1,
+    isMeta: false,
     timestamp: new Date().toISOString(),
     uuid: bg(),
   };
@@ -3387,7 +3387,7 @@ function Wzn(e, t) {
     content: `/remote-control is active \xB7 Continue here, on your phone, or at ${e}`,
     url: e,
     upgradeNudge: t,
-    isMeta: !1,
+    isMeta: false,
     timestamp: new Date().toISOString(),
     uuid: bg(),
   };
@@ -3401,7 +3401,7 @@ function qzn(e, t, r) {
     entry: e,
     url: t,
     level: "notice",
-    isMeta: !1,
+    isMeta: false,
     timestamp: new Date().toISOString(),
     uuid: bg(),
   };
@@ -3412,7 +3412,7 @@ function dft(e, t) {
     type: "system",
     subtype: "scheduled_task_fire",
     content: e,
-    isMeta: !1,
+    isMeta: false,
     timestamp: new Date().toISOString(),
     uuid: t.uuid ?? bg(),
     taskId: t.task.id,
@@ -3459,7 +3459,7 @@ function pft(e, t, r, o, u) {
     pendingWorkflowCount: u,
     timestamp: new Date().toISOString(),
     uuid: bg(),
-    isMeta: !1,
+    isMeta: false,
   };
 }
 
@@ -3470,7 +3470,7 @@ function Gzn(e) {
     content: e,
     timestamp: new Date().toISOString(),
     uuid: bg(),
-    isMeta: !1,
+    isMeta: false,
   };
 }
 
@@ -3481,12 +3481,12 @@ function Lse(e) {
     writtenPaths: e,
     timestamp: new Date().toISOString(),
     uuid: bg(),
-    isMeta: !1,
+    isMeta: false,
   };
 }
 
 function kun() {
-  return { type: "system", subtype: "agents_killed", timestamp: new Date().toISOString(), uuid: bg(), isMeta: !1 };
+  return { type: "system", subtype: "agents_killed", timestamp: new Date().toISOString(), uuid: bg(), isMeta: false };
 }
 
 function sm(e, t) {
@@ -3497,7 +3497,7 @@ function sm(e, t) {
     level: "info",
     timestamp: new Date().toISOString(),
     uuid: bg(),
-    isMeta: !1,
+    isMeta: false,
     ...(t?.contextUsage !== void 0 && { contextUsage: t.contextUsage }),
   };
 }
@@ -3507,7 +3507,7 @@ function L1(e, t, r, o, u) {
     type: "system",
     subtype: "compact_boundary",
     content: "Conversation compacted",
-    isMeta: !1,
+    isMeta: false,
     timestamp: new Date().toISOString(),
     uuid: bg(),
     level: "info",
@@ -3536,7 +3536,7 @@ function Ou(e) {
 }
 
 function mbe(e) {
-  return Ou(e) || (e.type === "user" && e.isCompactSummary === !0);
+  return Ou(e) || (e.type === "user" && e.isCompactSummary === true);
 }
 
 function VPe(e) {
@@ -3558,31 +3558,31 @@ function rBt(e, t) {
 }
 
 function hk(e, t) {
-  let r = typeof t === "boolean" ? t : !0;
-  if (e?.kind === "channel") return !0;
-  if (e?.kind === "observer") return !0;
-  if (e?.kind === "observer-activity") return !0;
-  if (e?.kind === "slack-ping") return !0;
+  let r = typeof t === "boolean" ? t : true;
+  if (e?.kind === "channel") return true;
+  if (e?.kind === "observer") return true;
+  if (e?.kind === "observer-activity") return true;
+  if (e?.kind === "slack-ping") return true;
   if (e?.kind === "peer") {
-    if (e.senderTaskId !== void 0) return !0;
-    if (r) return !0;
+    if (e.senderTaskId !== void 0) return true;
+    if (r) return true;
   }
-  return !1;
+  return false;
 }
 
 function zzn(e, t) {
-  if (e.type !== "user") return !0;
+  if (e.type !== "user") return true;
   if (e.isMeta) {
-    if (hk(e.origin)) return !0;
-    return !1;
+    if (hk(e.origin)) return true;
+    return false;
   }
-  if (e.isVisibleInTranscriptOnly && !t) return !1;
-  return !0;
+  if (e.isVisibleInTranscriptOnly && !t) return false;
+  return true;
 }
 
 function jae(e) {
-  if (e.type !== "assistant") return !1;
-  if (!Array.isArray(e.message.content)) return !1;
+  if (e.type !== "assistant") return false;
+  if (!Array.isArray(e.message.content)) return false;
   return e.message.content.every((t) => t.type === "thinking" || t.type === "redacted_thinking");
 }
 
@@ -3612,16 +3612,16 @@ function Jvt(e, t) {
       }
     }
   }
-  if (!r) return !1;
+  if (!r) return false;
   for (let o = e.length - 1; o >= 0; o--) {
     let u = e[o];
     if (!u) continue;
     if (u.type === "user" && Array.isArray(u.message.content)) {
       let d = u.message.content.find((_) => _.type === "tool_result" && _.tool_use_id === r);
-      if (d) return d.is_error !== !0;
+      if (d) return d.is_error !== true;
     }
   }
-  return !1;
+  return false;
 }
 
 function fq(e) {
@@ -3629,12 +3629,12 @@ function fq(e) {
 }
 
 function uq(e) {
-  if (e.type === "redacted_thinking") return !0;
-  if (e.type === "thinking" && "signature" in e && e.signature) return !0;
-  return !1;
+  if (e.type === "redacted_thinking") return true;
+  if (e.type === "thinking" && "signature" in e && e.signature) return true;
+  return false;
 }
 
-function Wcr(e, t = !1) {
+function Wcr(e, t = false) {
   let r = e.at(-1);
   if (!r || r.type !== "assistant") return e;
   let o = r.message.content,
@@ -3658,26 +3658,26 @@ function Wcr(e, t = !1) {
 }
 
 function _$e(e) {
-  let t = !1;
+  let t = false;
   for (let r of e) {
     if (!t && (r.type === "thinking" || r.type === "redacted_thinking")) continue;
-    if (r.type !== "text") return !1;
+    if (r.type !== "text") return false;
     let o = r.text?.trim();
-    if (o !== void 0 && o !== "" && o !== sf) return !1;
-    t = !0;
+    if (o !== void 0 && o !== "" && o !== sf) return false;
+    t = true;
   }
   return t;
 }
 
 function wce(e) {
-  let t = !1;
+  let t = false;
   for (let d = 0; d < e.length; d++) {
     let _ = e[d];
     if (_.type !== "assistant") continue;
     let C = _.message.content;
     if (!Array.isArray(C) || C.length === 0) continue;
     if (_$e(C)) {
-      t = !0;
+      t = true;
       break;
     }
   }
@@ -3689,8 +3689,8 @@ function wce(e) {
     if (!Array.isArray(_)) continue;
     if (
       _.some((C) => {
-        if (C.type === "thinking" || C.type === "redacted_thinking") return !1;
-        if (C.type !== "text") return !0;
+        if (C.type === "thinking" || C.type === "redacted_thinking") return false;
+        if (C.type !== "text") return true;
         let A = (C.text ?? "").trim();
         return A !== "" && A !== sf;
       })
@@ -3698,16 +3698,16 @@ function wce(e) {
       r.add(d.message.id);
   }
   let o = e.filter((d) => {
-      if (d.type !== "assistant") return !0;
-      if (r.has(d.message.id)) return !0;
+      if (d.type !== "assistant") return true;
+      if (r.has(d.message.id)) return true;
       let _ = d.message.content;
-      if (!Array.isArray(_) || _.length === 0) return !0;
+      if (!Array.isArray(_) || _.length === 0) return true;
       if (_$e(_)) {
         if (!dWt.has(d.uuid))
           dWt.add(d.uuid), s("tengu_filtered_whitespace_only_assistant", { messageUUID: ve(d.uuid) });
-        return !1;
+        return false;
       }
-      return !0;
+      return true;
     }),
     u = [];
   for (let d of o) {
@@ -3738,7 +3738,7 @@ function oBt(e) {
     r = 0;
   while (r < e.length) {
     let o = e[r];
-    if (o.type !== "assistant" || o.resumedFromIncompleteThinking !== !0) {
+    if (o.type !== "assistant" || o.resumedFromIncompleteThinking !== true) {
       r++;
       continue;
     }
@@ -3766,7 +3766,7 @@ function oBt(e) {
       }
       u = F;
       let U = e[F];
-      if (U.type !== "assistant" || U.resumedFromIncompleteThinking !== !0) break;
+      if (U.type !== "assistant" || U.resumedFromIncompleteThinking !== true) break;
     }
     let _ = r,
       C = o.message.id,
@@ -3780,7 +3780,7 @@ function oBt(e) {
           (_ = x), (A = x + 1);
           continue;
         }
-        if (M.resumedFromIncompleteThinking === !0) {
+        if (M.resumedFromIncompleteThinking === true) {
           (_ = x), (C = M.message.id), (A = x + 1);
           continue;
         }
@@ -3810,7 +3810,7 @@ function dq(e) {
   );
 }
 
-function Tce(e, t = !1) {
+function Tce(e, t = false) {
   let r = new Set();
   for (let d of e) {
     if (d.type !== "assistant") continue;
@@ -3828,7 +3828,7 @@ function Tce(e, t = !1) {
       C.length === 0 ||
       C.some((M) => M.type !== "thinking" && M.type !== "redacted_thinking")
     ) {
-      o[d] = !0;
+      o[d] = true;
       continue;
     }
     let A = d + 1;
@@ -3838,8 +3838,8 @@ function Tce(e, t = !1) {
       (_.message.id !== void 0 && r.has(_.message.id)) ||
       (t && d === e.length - 1) ||
       (x?.type === "assistant" &&
-        x.resumedFromIncompleteThinking === !0 &&
-        o[A] === !0 &&
+        x.resumedFromIncompleteThinking === true &&
+        o[A] === true &&
         !(Array.isArray(x.message.content) && _$e(x.message.content)) &&
         !dq(_));
   }
@@ -3863,9 +3863,9 @@ function Tce(e, t = !1) {
   return u ?? e;
 }
 
-function Hun(e, t = () => !0) {
+function Hun(e, t = () => true) {
   if (!e.some((u) => u.type === "assistant" && t(u))) return e;
-  let r = !1,
+  let r = false,
     o = e.map((u) => {
       if (u.type !== "assistant") return u;
       if (!t(u)) return u;
@@ -3873,29 +3873,29 @@ function Hun(e, t = () => !0) {
       if (!Array.isArray(d)) return u;
       let _ = d.filter((C) => !uq(C));
       if (_.length === d.length) return u;
-      return (r = !0), { ...u, message: { ...u.message, content: _ } };
+      return (r = true), { ...u, message: { ...u.message, content: _ } };
     });
   return r ? o : e;
 }
 
-function gOt(e, t, r = !1) {
+function gOt(e, t, r = false) {
   return Hun(e, (o) => gbe(o, t) && !(r && eqt(o.message.model, t)));
 }
 
 function gbe(e, t) {
   let r = e.message.model;
-  if (typeof r !== "string") return !0;
-  return r !== rd && r !== t && Ye(r) !== Ye(t) && Lxn(t)?.has(r) !== !0;
+  if (typeof r !== "string") return true;
+  return r !== rd && r !== t && Ye(r) !== Ye(t) && Lxn(t)?.has(r) !== true;
 }
 
 function hOt(e) {
-  let t = !1,
+  let t = false,
     r = e.map((o) => {
       if (o.type !== "assistant" || !Array.isArray(o.message.content)) return o;
       let u = o.message.content,
         d = u.filter((C) => C.type !== "thinking" && C.type !== "redacted_thinking");
       if (d.length === u.length) return o;
-      t = !0;
+      t = true;
       let _ = d.filter((C) => C.type !== "text" || Boolean(C.text?.trim()));
       if (_.length === 0) _.push({ type: "text", text: "[Thinking removed]", citations: [] });
       return { ...o, message: { ...o.message, content: _ } };
@@ -3915,7 +3915,7 @@ function OEt(e, t) {
 
 function yOt(e) {
   let t = [],
-    r = !1,
+    r = false,
     o = new Set();
   for (let u = 0; u < e.length; u++) {
     let d = e[u];
@@ -3925,7 +3925,7 @@ function yOt(e) {
           (Ce) => !(typeof Ce === "object" && "type" in Ce && Ce.type === "tool_result"),
         );
         if (ge.length !== d.message.content.length) {
-          r = !0;
+          r = true;
           let Ce =
             ge.length > 0
               ? ge
@@ -3943,15 +3943,15 @@ function yOt(e) {
     for (let ge of d.message.content)
       if ("tool_use_id" in ge && typeof ge.tool_use_id === "string") _.add(ge.tool_use_id);
     let C = new Set(),
-      A = !1,
+      A = false,
       x = d.message.content.flatMap((ge, Ce, Ie) => {
-        let Ee = !1;
+        let Ee = false;
         if (ge.type === "tool_use")
-          if (o.has(ge.id)) Ee = !0;
+          if (o.has(ge.id)) Ee = true;
           else o.add(ge.id), C.add(ge.id);
-        else if ((ge.type === "server_tool_use" || ge.type === "mcp_tool_use") && !_.has(ge.id)) Ee = !0;
+        else if ((ge.type === "server_tool_use" || ge.type === "mcp_tool_use") && !_.has(ge.id)) Ee = true;
         if (!Ee) return [ge];
-        (r = !0), (A = !0);
+        (r = true), (A = true);
         let Pe = Ie[Ce - 1]?.type,
           Oe = Ie[Ce + 1]?.type;
         return (Pe === "thinking" || Pe === "redacted_thinking") && (Oe === "thinking" || Oe === "redacted_thinking")
@@ -3964,14 +3964,14 @@ function yOt(e) {
     let F = [...C],
       U = e[u + 1],
       B = new Set(),
-      W = !1;
+      W = false;
     if (U?.type === "user") {
       let ge = U.message.content;
       if (Array.isArray(ge)) {
         for (let Ce of ge)
           if (typeof Ce === "object" && "type" in Ce && Ce.type === "tool_result") {
             let Ie = Ce.tool_use_id;
-            if (B.has(Ie)) W = !0;
+            if (B.has(Ie)) W = true;
             B.add(Ie);
           }
       }
@@ -3980,8 +3980,8 @@ function yOt(e) {
       pe = F.filter((ge) => !B.has(ge)),
       fe = [...B].filter((ge) => !z.has(ge));
     if (pe.length === 0 && fe.length === 0 && !W) continue;
-    r = !0;
-    let me = pe.map((ge) => ({ type: "tool_result", tool_use_id: ge, content: Hlr, is_error: !0 }));
+    r = true;
+    let me = pe.map((ge) => ({ type: "tool_result", tool_use_id: ge, content: Hlr, is_error: true }));
     if (U?.type === "user") {
       let ge = Array.isArray(U.message.content) ? U.message.content : [{ type: "text", text: U.message.content }];
       if (fe.length > 0 || W) {
@@ -3990,19 +3990,19 @@ function yOt(e) {
         ge = ge.filter((Pe) => {
           if (typeof Pe === "object" && "type" in Pe && Pe.type === "tool_result") {
             let Oe = Pe.tool_use_id;
-            if (Ie.has(Oe)) return !1;
-            if (Ee.has(Oe)) return !1;
+            if (Ie.has(Oe)) return false;
+            if (Ee.has(Oe)) return false;
             Ee.add(Oe);
           }
-          return !0;
+          return true;
         });
       }
       let Ce = [...me, ...ge];
       if (Ce.length > 0) {
         let Ie = { ...U, message: { ...U.message, content: Ce } };
-        u++, t.push(I("tengu_chair_sermon", !1) ? IWt([Ie])[0] : Ie);
-      } else u++, t.push(xe({ content: sf, isMeta: !0 }));
-    } else if (me.length > 0) t.push(xe({ content: me, isMeta: !0 }));
+        u++, t.push(I("tengu_chair_sermon", false) ? IWt([Ie])[0] : Ie);
+      } else u++, t.push(xe({ content: sf, isMeta: true }));
+    } else if (me.length > 0) t.push(xe({ content: me, isMeta: true }));
   }
   if (r) {
     let u = e.map((d, _) => {
@@ -4053,14 +4053,14 @@ function uDe(e) {
     )
   )
     return e;
-  let t = !1,
+  let t = false,
     r = e.map((o) => {
       if (o.type !== "assistant") return o;
       let u = o.message.content,
         d = u.filter((_) => _.type !== "advisor_tool_result" && (_.type !== "server_tool_use" || _.name !== "advisor"));
       if (d.length === u.length) return o;
       if (
-        ((t = !0),
+        ((t = true),
         d.length === 0 ||
           d.every(
             (_) =>
@@ -4165,38 +4165,38 @@ function eR(e) {
 }
 
 function Ece(e, t, r) {
-  if (r?.verifiedSlackHumanTurn && gC(t) && r?.isMeta !== !0) return `${Iun}${e}`;
-  if (t === void 0 && r?.isMeta === !0) return eR(e);
+  if (r?.verifiedSlackHumanTurn && gC(t) && r?.isMeta !== true) return `${Iun}${e}`;
+  if (t === void 0 && r?.isMeta === true) return eR(e);
   switch (t?.kind) {
     case "task-notification":
       return t.subkind === "scheduled-trigger"
         ? kmn(e)
-        : t.subkind === "projects-relay" && r?.hearthServerEnvelope === !0
-          ? a$e(e, { serverEnvelope: r.hearthJoinedTextBlocks !== !0 })
-          : r?.inHumanTurn === !0
+        : t.subkind === "projects-relay" && r?.hearthServerEnvelope === true
+          ? a$e(e, { serverEnvelope: r.hearthJoinedTextBlocks !== true })
+          : r?.inHumanTurn === true
             ? eXn(e)
             : yht(e);
     case "coordinator":
       return C8n(e);
     case "channel":
-      return Kcr(e, t.server, { midTurn: !0 });
+      return Kcr(e, t.server, { midTurn: true });
     case "peer":
       return JDe(e, {
-        midTurn: !0,
+        midTurn: true,
         activityObservation: t.activityObservation,
-        ...(t.hostInjected && !v_() && { hostInjected: !0 }),
+        ...(t.hostInjected && !v_() && { hostInjected: true }),
         ...(t.senderTaskId !== void 0 && { lineage: "descendant" }),
       });
     case "slack-ping":
       return eR(e);
     case "observer":
-      return gfn(e, t.from, { midTurn: !0 });
+      return gfn(e, t.from, { midTurn: true });
     case "unclassified":
       return eR(e);
     case "observer-activity":
       return e;
     case "plugin":
-      return xhe(e, t.name, { midTurn: !0 });
+      return xhe(e, t.name, { midTurn: true });
     case "auto-continuation":
     case "human":
     case void 0:
@@ -4216,7 +4216,7 @@ function Vzn(e) {
     case "channel":
     case "observer":
     case "slack-ping":
-      return !0;
+      return true;
     case "task-notification":
     case "coordinator":
     case "observer-activity":
@@ -4225,10 +4225,10 @@ function Vzn(e) {
     case "human":
     case "unclassified":
     case void 0:
-      return !1;
+      return false;
     default: {
       let t = e;
-      return !1;
+      return false;
     }
   }
 }
@@ -4239,7 +4239,7 @@ function Kcr(e, t, r) {
   return `${o}
 ${e}
 
-${kbe(!1)}${u}`;
+${kbe(false)}${u}`;
 }
 
 function nDt(e) {
@@ -4250,17 +4250,17 @@ function nDt(e) {
     case "slack-ping":
     case "plugin":
     case "unclassified":
-      return !0;
+      return true;
     case "task-notification":
     case "coordinator":
     case "observer-activity":
     case "auto-continuation":
     case "human":
     case void 0:
-      return !1;
+      return false;
     default: {
       let t = e;
-      return !1;
+      return false;
     }
   }
 }
@@ -4271,13 +4271,13 @@ function Dun(e, t) {
   else if (t.kind === "peer")
     r = (u) =>
       JDe(u, {
-        midTurn: !1,
+        midTurn: false,
         activityObservation: t.activityObservation,
-        ...(t.hostInjected && !v_() && { hostInjected: !0 }),
+        ...(t.hostInjected && !v_() && { hostInjected: true }),
         ...(t.senderTaskId !== void 0 && { lineage: "descendant" }),
       });
   else if (t.kind === "slack-ping") r = (u) => eR(u);
-  else if (t.kind === "observer") r = (u) => gfn(u, t.from, { midTurn: !1 });
+  else if (t.kind === "observer") r = (u) => gfn(u, t.from, { midTurn: false });
   else if (t.kind === "plugin") return;
   else if (t.kind === "unclassified") r = eR;
   if (!r) return;
@@ -4299,7 +4299,7 @@ function KPe(e, t) {
 }
 
 function XPe(e) {
-  for (let t of e) if (t.type === "user") t.queueSkipAttachments = !0;
+  for (let t of e) if (t.type === "user") t.queueSkipAttachments = true;
 }
 
 function YPe(e, t, r) {

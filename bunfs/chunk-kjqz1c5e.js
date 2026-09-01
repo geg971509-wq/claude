@@ -454,7 +454,7 @@ async function nt(d, m) {
       g("org_memory_project_switch", S === "timeout" ? "switch_deadline" : Wt(S.current));
     else y("org_memory_project_switch", { outcome: c(O) });
     if (O === "pending")
-      j.then(() => fEe(Dt, void 0, { unref: !0 }))
+      j.then(() => fEe(Dt, void 0, { unref: true }))
         .then(() => {
           if (w !== f.latest) return;
           let _ = ve();
@@ -478,7 +478,7 @@ function At(d, m, f) {
     case "disconnected":
     case "unavailable":
     case "pending":
-      if (X(m)) l3(!1);
+      if (X(m)) l3(false);
       return;
     case "unchanged":
       if (X(m) || f.stores.length > 0) l3(f.stores.some((w) => w.writable));
@@ -567,7 +567,7 @@ async function Ut(d) {
       : { store: w, state: "loaded", content: b.content };
   });
 }
-function tt(d, m, f, w, M = !1) {
+function tt(d, m, f, w, M = false) {
   s("tengu_org_memory_project_switch", {
     outcome: c(d),
     pick_dropped: M,
@@ -654,7 +654,7 @@ function ce(d) {
         : `project "${zE(d.name).replace(Et, (m) => `&#${m.codePointAt(0)};`)}"`;
   }
 }
-function Ht(d, m, f, w, M, b = !1) {
+function Ht(d, m, f, w, M, b = false) {
   let v = f.stores.length > 0 ? ` \u2014 most recently ${ce(f.project)}` : "",
     I = X(f)
       ? ` Any connected memory store list or shared memory index your system prompt may carry, and any ${ie} results earlier in this conversation, describe an earlier connection${v}, possibly to a different project. Treat them as stale until re-checked with the tools: do not attribute those memories to, or save them into, the project connected now on the strength of the earlier results alone. Your personal memory directory, if your system prompt names one, is unaffected.`
@@ -776,19 +776,19 @@ function at({ session: d, onSelect: m, onCancel: f, onProjectSwitch: w }) {
   let M = d.project.originalCwd,
     b = Bie.of(d.host),
     { storageV5: v, credentials: I } = ge(),
-    j = zn(J_(d, !1, v, I)),
+    j = zn(J_(d, false, v, I)),
     S = ta() || Dr(),
     P = ta() && !Dr(),
     { mounts: J, picker: O } = P ? zn(Xt(v, I)) : { mounts: [], picker: null },
-    [ue, T] = u(!1),
-    [pe, fe] = u(!1),
+    [ue, T] = u(false),
+    [pe, fe] = u(false),
     [_, he] = u(dEe),
     _e = _ !== null && T3(_),
     [lt] = u(nV),
-    [je] = u(() => ci().orgMemoryRead ?? !0),
+    [je] = u(() => ci().orgMemoryRead ?? true),
     [dt, ne] = u(null),
-    [mt, ut] = u(!1),
-    Ne = C(!1),
+    [mt, ut] = u(false),
+    Ne = C(false),
     Pe = w !== void 0 && nV(),
     G = Op(),
     xe = !P
@@ -818,9 +818,9 @@ function at({ session: d, onSelect: m, onCancel: f, onProjectSwitch: w }) {
     gt = [
       ...j
         .filter((i) => i.type !== "AutoMem" && i.type !== "AutoMemPinned" && !FPe(i.path))
-        .map((i) => ({ ...i, exists: !0 })),
-      ...(pt ? [] : [{ path: $e, type: "User", content: "", exists: !1 }]),
-      ...(ft ? [] : [{ path: ye, type: "Project", content: "", exists: !1 }]),
+        .map((i) => ({ ...i, exists: true })),
+      ...(pt ? [] : [{ path: $e, type: "User", content: "", exists: false }]),
+      ...(ft ? [] : [{ path: ye, type: "Project", content: "", exists: false }]),
     ],
     We = new Map(),
     ht = gt.map((i) => {
@@ -847,7 +847,7 @@ function at({ session: d, onSelect: m, onCancel: f, onProjectSwitch: w }) {
     Ue = [],
     re = [],
     yt = W((i) => i.agentDefinitions),
-    [z] = u(() => ({ write: !1, picker: !1, pickerData: null }));
+    [z] = u(() => ({ write: false, picker: false, pickerData: null }));
   if (O !== null) z.pickerData = O;
   let x = O ?? z.pickerData,
     Ge = x !== null && _e;
@@ -962,7 +962,7 @@ function at({ session: d, onSelect: m, onCancel: f, onProjectSwitch: w }) {
       "confirm:no",
       () => {
         if (ue) {
-          T(!1);
+          T(false);
           return;
         }
         f();
@@ -1007,9 +1007,9 @@ function at({ session: d, onSelect: m, onCancel: f, onProjectSwitch: w }) {
                   "Auto-memory:",
                   " ",
                   vt
-                    ? e(t, { dimColor: !0, children: "unavailable for current model" })
+                    ? e(t, { dimColor: true, children: "unavailable for current model" })
                     : Dr()
-                      ? r(t, { dimColor: !0, children: ["off in safe mode \u2014 ", _f(), " to re-enable"] })
+                      ? r(t, { dimColor: true, children: ["off in safe mode \u2014 ", _f(), " to re-enable"] })
                       : Z
                         ? "on"
                         : "off",
@@ -1019,7 +1019,7 @@ function at({ session: d, onSelect: m, onCancel: f, onProjectSwitch: w }) {
             K &&
               e(fl, {
                 isFocused: N === 1,
-                styled: !1,
+                styled: false,
                 children: e(t, {
                   color: N === 1 ? "suggestion" : void 0,
                   children: Z
@@ -1027,23 +1027,23 @@ function at({ session: d, onSelect: m, onCancel: f, onProjectSwitch: w }) {
                         children: [
                           "Auto-dream: ",
                           He ? "on" : "off",
-                          Ye && r(t, { dimColor: !0, children: [" \xB7 ", Ye] }),
+                          Ye && r(t, { dimColor: true, children: [" \xB7 ", Ye] }),
                         ],
                       })
-                    : e(t, { dimColor: !0, children: "Auto-dream: off while auto-memory is off" }),
+                    : e(t, { dimColor: true, children: "Auto-dream: off while auto-memory is off" }),
                 }),
               }),
             Ae &&
               e(fl, {
                 isFocused: N === Me,
-                styled: !1,
+                styled: false,
                 children: r(t, {
                   color: N === Me ? "suggestion" : void 0,
                   children: [
                     "Write to synced project memory: ",
                     se ? "on" : "off",
                     r(t, {
-                      dimColor: !0,
+                      dimColor: true,
                       children: [
                         " ",
                         "\xB7",
@@ -1056,13 +1056,13 @@ function at({ session: d, onSelect: m, onCancel: f, onProjectSwitch: w }) {
               }),
             xe !== null &&
               e(fl, {
-                isFocused: !1,
-                styled: !1,
+                isFocused: false,
+                styled: false,
                 children: r(t, {
                   children: [
                     "Synced project memory: ",
                     xe.label,
-                    r(t, { dimColor: !0, children: [" \xB7 ", xe.note] }),
+                    r(t, { dimColor: true, children: [" \xB7 ", xe.note] }),
                   ],
                 }),
               }),
@@ -1071,8 +1071,8 @@ function at({ session: d, onSelect: m, onCancel: f, onProjectSwitch: w }) {
         ue && x !== null
           ? e(GZ, {
               scope: "Confirmation",
-              claimFocus: !0,
-              bindings: [{ action: "confirm:no", run: () => T(!1) }],
+              claimFocus: true,
+              bindings: [{ action: "confirm:no", run: () => T(false) }],
               children: e(Ce, {
                 defaultFocusValue: St,
                 options: [
@@ -1112,17 +1112,17 @@ function at({ session: d, onSelect: m, onCancel: f, onProjectSwitch: w }) {
                       Ze = (B || $t) && !Qe && Pe && w(() => nt(d, D === null ? "off" : "project"));
                     if (R === "saved" && V !== void 0)
                       s("tengu_org_memory_project_selected", {
-                        is_default: V.isDefault === !0,
+                        is_default: V.isDefault === true,
                         kind: c(V.kind),
                         private: V.visibility === "private",
                         reconnects_now: Ze,
                       });
                     if (Ze)
-                      (Ne.current = !0),
+                      (Ne.current = true),
                         he(D),
                         Y(null),
                         ne(D === null ? "disconnecting\u2026" : "connecting\u2026"),
-                        ut(!0);
+                        ut(true);
                     else if (B) {
                       let te = Op(),
                         Te =
@@ -1151,10 +1151,10 @@ function at({ session: d, onSelect: m, onCancel: f, onProjectSwitch: w }) {
                       de = null;
                     } else if (R === "refused") ne("requires an OAuth login");
                     else ne(null);
-                    T(!1);
+                    T(false);
                   });
                 },
-                onCancel: () => T(!1),
+                onCancel: () => T(false),
               }),
             })
           : e(Ce, {
@@ -1163,12 +1163,12 @@ function at({ session: d, onSelect: m, onCancel: f, onProjectSwitch: w }) {
               isDisabled: Se || mt,
               onChange: (i) => {
                 if (i === Fe) {
-                  T(!0), fe(!0);
+                  T(true), fe(true);
                   return;
                 }
                 if (i.startsWith(oe)) {
                   let k = i.slice(oe.length);
-                  Yt(k, { recursive: !0 })
+                  Yt(k, { recursive: true })
                     .catch(() => {})
                     .then(() => x9e(k))
                     .catch(() => {});
@@ -1250,7 +1250,7 @@ ${j}`,
             children: [
               r(t, { color: "suggestion", children: [L.info, " Safe mode"] }),
               r(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: [
                   "CLAUDE.md files aren't loaded into this session. You can still edit them \u2014 changes take effect after you",
                   " ",
@@ -1261,7 +1261,7 @@ ${j}`,
             ],
           }),
         e(Jn, {
-          fallback: e(rr, { message: "Loading\u2026", dimColor: !0 }),
+          fallback: e(rr, { message: "Loading\u2026", dimColor: true }),
           children: e(at, { session: d, onSelect: f, onCancel: w }),
         }),
         e(tp, { url: "https://code.claude.com/docs/en/memory" }),
@@ -1270,6 +1270,6 @@ ${j}`,
   });
 }
 var Nn = async (d, m) => (
-  YA(m.session), ct(), await J_(m.session, !1, m.storageV5, m.credentials), e(Zt, { session: m.session, onDone: d })
+  YA(m.session), ct(), await J_(m.session, false, m.storageV5, m.credentials), e(Zt, { session: m.session, onDone: d })
 );
 export { Nn as call };

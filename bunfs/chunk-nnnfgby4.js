@@ -111,12 +111,12 @@ import "/$bunfs/root/chunk-a4q326ap.js";
 var o = m(() =>
     ot({ uuids: H(i().min(1).max(64)).min(1).max(32).describe("directoryUuid or server_id values to resolve.") }),
   ),
-  n = m(() => f({ connectors: H(tae()), opt_in_required: N(!0).optional(), message: i().optional() })),
+  n = m(() => f({ connectors: H(tae()), opt_in_required: N(true).optional(), message: i().optional() })),
   g = kt({
     name: Ven,
     searchHint: "resolve MCP connector payloads by directoryUuid",
     maxResultSizeChars: 50000,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return o();
     },
@@ -125,10 +125,10 @@ var o = m(() =>
     },
     isEnabled: I8,
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     async description() {
       return Ken;

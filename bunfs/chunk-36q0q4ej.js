@@ -38,16 +38,16 @@ F();
 F();
 function q(se) {
   let me = _(8),
-    [ie, le] = u(!1),
+    [ie, le] = u(false),
     [ae, ce] = u(null),
     [de, so] = u(null),
     Me;
   if (me[0] !== se)
     (Me = async (U) => {
-      le(!0), ce(null), so(U), s("tengu_teleport_resume_session", { source: c(se), session_id: ve(U.id) });
+      le(true), ce(null), so(U), s("tengu_teleport_resume_session", { source: c(se), session_id: ve(U.id) });
       try {
         let io = await Hr("teleport_resume", () => Lee(U.id));
-        return o$e({ sessionId: U.id }), le(!1), io;
+        return o$e({ sessionId: U.id }), le(false), io;
       } catch (W) {
         let I = W;
         let lo = {
@@ -55,7 +55,7 @@ function q(se) {
           formattedMessage: I instanceof Hu ? I.formattedMessage : void 0,
           isOperationError: I instanceof Hu,
         };
-        return ce(lo), le(!1), null;
+        return ce(lo), le(false), null;
       }
     }),
       (me[0] = se),
@@ -84,26 +84,26 @@ function q(se) {
 F();
 var pe = "Updated",
   Ie = "  ";
-function z({ onSelect: y, onCancel: a, isEmbedded: C = !1 }) {
+function z({ onSelect: y, onCancel: a, isEmbedded: C = false }) {
   let { rows: D } = Ee(),
     [p, L] = u([]),
     [R, T] = u(null),
-    [w, h] = u(!0),
+    [w, h] = u(true),
     [m, v] = u(null),
-    [K, Q] = u(!1),
-    [Re, X] = u(!1),
+    [K, Q] = u(false),
+    [Re, X] = u(false),
     [be, De] = u(1),
     Z = Ro("confirm:no", "Confirmation", "Esc"),
     O = B(async () => {
       try {
-        h(!0), v(null);
+        h(true), v(null);
         let i = await ife();
         T(i), n(`Current repository: ${i || "not detected"}`);
         let f = await cbn(),
           S = f;
         if (i)
           (S = f.filter((P) => {
-            if (!P.repo) return !1;
+            if (!P.repo) return false;
             return `${P.repo.owner.login}/${P.repo.name}` === i;
           })),
             n(`Filtered ${S.length} sessions for repo ${i} from ${f.length} total`);
@@ -116,11 +116,11 @@ function z({ onSelect: y, onCancel: a, isEmbedded: C = !1 }) {
         let f = i instanceof Error ? i.message : String(i);
         n(`Error loading code sessions: ${f}`), v(Ke(f));
       } finally {
-        h(!1), Q(!1);
+        h(false), Q(false);
       }
     }, []),
     we = () => {
-      Q(!0), O();
+      Q(true), O();
     };
   Be("confirm:no", a, { context: "Confirmation" });
   function N(i) {
@@ -138,7 +138,7 @@ function z({ onSelect: y, onCancel: a, isEmbedded: C = !1 }) {
     }
   }
   let _e = B(() => {
-    X(!0), O();
+    X(true), O();
   }, [X, O]);
   if (!Re) return e(ett, { onComplete: _e });
   if (w)
@@ -146,11 +146,11 @@ function z({ onSelect: y, onCancel: a, isEmbedded: C = !1 }) {
       flexDirection: "column",
       padding: 1,
       tabIndex: 0,
-      autoFocus: !0,
+      autoFocus: true,
       onKeyDown: N,
       children: e(rr, {
         message: "Loading Claude Code sessions\u2026",
-        bold: !0,
+        bold: true,
         subtitle: K ? "Retrying\u2026" : "Fetching your Claude Code sessions\u2026",
       }),
     });
@@ -159,19 +159,19 @@ function z({ onSelect: y, onCancel: a, isEmbedded: C = !1 }) {
       flexDirection: "column",
       padding: 1,
       tabIndex: 0,
-      autoFocus: !0,
+      autoFocus: true,
       onKeyDown: N,
       children: [
-        e(t, { bold: !0, color: "error", children: "Error loading Claude Code sessions" }),
+        e(t, { bold: true, color: "error", children: "Error loading Claude Code sessions" }),
         $e(m),
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             "Press ",
-            e(t, { bold: !0, children: "Ctrl+R" }),
+            e(t, { bold: true, children: "Ctrl+R" }),
             " to retry \xB7 Press",
             " ",
-            e(t, { bold: !0, children: Z }),
+            e(t, { bold: true, children: Z }),
             " to cancel",
           ],
         }),
@@ -182,13 +182,13 @@ function z({ onSelect: y, onCancel: a, isEmbedded: C = !1 }) {
       flexDirection: "column",
       padding: 1,
       tabIndex: 0,
-      autoFocus: !0,
+      autoFocus: true,
       onKeyDown: N,
       children: [
-        r(t, { bold: !0, children: ["No Claude Code sessions found", R && r(t, { children: [" for ", R] })] }),
+        r(t, { bold: true, children: ["No Claude Code sessions found", R && r(t, { children: [" for ", R] })] }),
         e(o, {
           marginTop: 1,
-          children: r(t, { dimColor: !0, children: ["Press ", e(t, { bold: !0, children: Z }), " to cancel"] }),
+          children: r(t, { dimColor: true, children: ["Press ", e(t, { bold: true, children: Z }), " to cancel"] }),
         }),
       ],
     });
@@ -204,15 +204,15 @@ function z({ onSelect: y, onCancel: a, isEmbedded: C = !1 }) {
     padding: 1,
     height: ke,
     tabIndex: 0,
-    autoFocus: !0,
+    autoFocus: true,
     onKeyDown: N,
     children: [
       r(t, {
-        bold: !0,
+        bold: true,
         children: [
           "Select a session to resume",
-          Le && r(t, { dimColor: !0, children: [" ", "(", be, " of ", p.length, ")"] }),
-          R && r(t, { dimColor: !0, children: [" (", R, ")"] }),
+          Le && r(t, { dimColor: true, children: [" ", "(", be, " of ", p.length, ")"] }),
+          R && r(t, { dimColor: true, children: [" (", R, ")"] }),
           ":",
         ],
       }),
@@ -221,7 +221,7 @@ function z({ onSelect: y, onCancel: a, isEmbedded: C = !1 }) {
         marginTop: 1,
         flexGrow: 1,
         children: [
-          e(o, { marginLeft: 2, children: r(t, { bold: !0, children: [pe.padEnd(oe, " "), Ie, "Session Title"] }) }),
+          e(o, { marginLeft: 2, children: r(t, { bold: true, children: [pe.padEnd(oe, " "), Ie, "Session Title"] }) }),
           e(Ce, {
             visibleOptionCount: j,
             options: te,
@@ -239,7 +239,7 @@ function z({ onSelect: y, onCancel: a, isEmbedded: C = !1 }) {
       e(o, {
         flexDirection: "row",
         children: e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: r(fe, {
             children: [
               e(M, { chord: ["up", "down"], action: "select" }),
@@ -275,19 +275,19 @@ function $e(y) {
       return e(o, {
         marginY: 1,
         flexDirection: "column",
-        children: e(t, { dimColor: !0, children: "Check your internet connection" }),
+        children: e(t, { dimColor: true, children: "Check your internet connection" }),
       });
     case "auth":
       return r(o, {
         marginY: 1,
         flexDirection: "column",
         children: [
-          e(t, { dimColor: !0, children: "Teleport requires a Claude account" }),
+          e(t, { dimColor: true, children: "Teleport requires a Claude account" }),
           r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
               "Run ",
-              e(t, { bold: !0, children: "/login" }),
+              e(t, { bold: true, children: "/login" }),
               ' and select "Claude account with subscription"',
             ],
           }),
@@ -297,20 +297,20 @@ function $e(y) {
       return e(o, {
         marginY: 1,
         flexDirection: "column",
-        children: e(t, { dimColor: !0, children: "Sorry, Claude encountered an error" }),
+        children: e(t, { dimColor: true, children: "Sorry, Claude encountered an error" }),
       });
     case "other":
       return e(o, {
         marginY: 1,
         flexDirection: "row",
-        children: e(t, { dimColor: !0, children: "Sorry, Claude Code encountered an error" }),
+        children: e(t, { dimColor: true, children: "Sorry, Claude Code encountered an error" }),
       });
   }
 }
 function Nme(Ho) {
   let x = _(30),
     { onComplete: ge, onCancel: xe, onError: b, isEmbedded: Ae, source: G } = Ho,
-    Te = Ae === void 0 ? !1 : Ae,
+    Te = Ae === void 0 ? false : Ae,
     { resumeSession: ye, isResuming: Oo, error: g, selectedSession: V } = q(G),
     Ne,
     qe;
@@ -365,7 +365,7 @@ function Nme(Ho) {
     if (x[17] === d)
       (E = r(o, {
         flexDirection: "row",
-        children: [e(wo, {}), e(t, { bold: !0, children: "Resuming session\u2026" })],
+        children: [e(wo, {}), e(t, { bold: true, children: "Resuming session\u2026" })],
       })),
         (x[17] = E);
     else E = x[17];
@@ -374,7 +374,7 @@ function Nme(Ho) {
       (k = r(o, {
         flexDirection: "column",
         padding: 1,
-        children: [E, r(t, { dimColor: !0, children: ['Loading "', V.title, '"\u2026'] })],
+        children: [E, r(t, { dimColor: true, children: ['Loading "', V.title, '"\u2026'] })],
       })),
         (x[18] = V.title),
         (x[19] = k);
@@ -383,16 +383,16 @@ function Nme(Ho) {
   }
   if (g && !b) {
     let E;
-    if (x[20] === d) (E = e(t, { bold: !0, color: "error", children: "Failed to resume session" })), (x[20] = E);
+    if (x[20] === d) (E = e(t, { bold: true, color: "error", children: "Failed to resume session" })), (x[20] = E);
     else E = x[20];
     let k;
-    if (x[21] !== g.message) (k = e(t, { dimColor: !0, children: g.message })), (x[21] = g.message), (x[22] = k);
+    if (x[21] !== g.message) (k = e(t, { dimColor: true, children: g.message })), (x[21] = g.message), (x[22] = k);
     else k = x[22];
     let Ue;
     if (x[23] === d)
       (Ue = e(o, {
         marginTop: 1,
-        children: e(t, { dimColor: !0, italic: !0, children: e(M, { chord: "escape", action: "cancel" }) }),
+        children: e(t, { dimColor: true, italic: true, children: e(M, { chord: "escape", action: "cancel" }) }),
       })),
         (x[23] = Ue);
     else Ue = x[23];

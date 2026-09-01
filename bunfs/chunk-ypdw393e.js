@@ -35,7 +35,7 @@ function It(n) {
       (n instanceof Error && (n.name === "AbortError" || ("__CANCEL__" in n && Boolean(n.__CANCEL__))))
     );
   } catch {
-    return !1;
+    return false;
   }
 }
 class xR extends Error {
@@ -59,7 +59,7 @@ class dx extends Error {
       (this.stderr = n.stderr),
       (this.code = n.code),
       (this.interrupted = n.interrupted),
-      (this.hadSandboxViolation = n.hadSandboxViolation ?? !1);
+      (this.hadSandboxViolation = n.hadSandboxViolation ?? false);
   }
 }
 class Hu extends Error {
@@ -188,16 +188,16 @@ function rIn(n) {
 }
 function oIn(n) {
   try {
-    if (E(n) !== "ECONNRESET") return !1;
+    if (E(n) !== "ECONNRESET") return false;
     let e = n instanceof Error ? n.stack : void 0;
-    if (typeof e !== "string") return !1;
+    if (typeof e !== "string") return false;
     let r = e
       .split(`
 `)
       .find((t) => t.trim().startsWith("at "));
     return r !== void 0 && r.includes("node:_http_server");
   } catch {
-    return !1;
+    return false;
   }
 }
 function iIn(n) {
@@ -263,8 +263,8 @@ function _$e(n) {
   return n !== void 0 && (i.has(n) || n === "EISDIR" || u.has(n));
 }
 function ic(n, e) {
-  if (e?.(n)) return !0;
-  if (!n || typeof n !== "object" || !("isAxiosError" in n) || !n.isAxiosError) return !1;
+  if (e?.(n)) return true;
+  if (!n || typeof n !== "object" || !("isAxiosError" in n) || !n.isAxiosError) return false;
   let r = n.response?.status;
   return r === void 0 || r === 401 || r === 403 || r === 429;
 }

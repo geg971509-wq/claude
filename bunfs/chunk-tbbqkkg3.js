@@ -13,7 +13,7 @@ import { dR } from "/$bunfs/root/chunk-q3yd61z9.js";
 import { NN } from "/$bunfs/root/chunk-manh1369.js";
 class u {
   buffer = "";
-  capturing = !1;
+  capturing = false;
   readableHandler = null;
 }
 var dmr = new J(() => new u());
@@ -23,10 +23,10 @@ function o() {
 function kAr() {
   let e = o();
   if (!process.stdin.isTTY || e.capturing || dR("-p") || dR("--print")) return;
-  (e.capturing = !0), (e.buffer = "");
+  (e.capturing = true), (e.buffer = "");
   try {
     process.stdin.setEncoding("utf8"),
-      process.stdin.setRawMode(!0),
+      process.stdin.setRawMode(true),
       process.stdin.ref(),
       (e.readableHandler = () => {
         let n = process.stdin.read();
@@ -37,7 +37,7 @@ function kAr() {
       }),
       process.stdin.on("readable", e.readableHandler);
   } catch {
-    e.capturing = !1;
+    e.capturing = false;
   }
 }
 function pmr(e) {
@@ -103,7 +103,7 @@ function pmr(e) {
 function $1() {
   let e = o();
   if (!e.capturing) return;
-  if (((e.capturing = !1), e.readableHandler))
+  if (((e.capturing = false), e.readableHandler))
     process.stdin.removeListener("readable", e.readableHandler), (e.readableHandler = null);
 }
 function bxe() {

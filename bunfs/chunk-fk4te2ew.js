@@ -14,9 +14,9 @@ import { s } from "/$bunfs/root/chunk-r53tkxrh.js";
 import { ye, rn } from "/$bunfs/root/chunk-988p40e0.js";
 import { Lf } from "/$bunfs/root/chunk-1yr12dqr.js";
 import { $j } from "/$bunfs/root/chunk-tcnfn1nd.js";
-function t8t(u, { requireOnboarding: r = !0 } = {}) {
+function t8t(u, { requireOnboarding: r = true } = {}) {
   let o = ie();
-  if ((r && !o.hasCompletedOnboarding) || o.hasSeenAutoDefaultNudge || !I("tengu_maple_pier", !1)) return null;
+  if ((r && !o.hasCompletedOnboarding) || o.hasSeenAutoDefaultNudge || !I("tengu_maple_pier", false)) return null;
   let e = ye("userSettings")?.permissions?.defaultMode,
     t = ["projectSettings", "localSettings", "flagSettings", "policySettings"].some(
       (n) => ye(n)?.permissions?.defaultMode,
@@ -33,7 +33,7 @@ function n8t(u, r, o) {
   }
   let t = r.choice === "accept" ? "accept" : "decline";
   if (t === "accept") rn("userSettings", { permissions: { defaultMode: "auto" } }, void 0, o);
-  Ae((n) => (n.hasSeenAutoDefaultNudge ? n : { ...n, hasSeenAutoDefaultNudge: !0 }), o),
+  Ae((n) => (n.hasSeenAutoDefaultNudge ? n : { ...n, hasSeenAutoDefaultNudge: true }), o),
     s("tengu_auto_default_nudge_resolved", {
       choice: w(t),
       outcome: t === "accept" ? w("switched") : w("declined"),

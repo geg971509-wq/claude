@@ -27,7 +27,7 @@ function ZSr(t) {
   let e = t,
     o = typeof e.signal === "string" && e.signal ? e.signal : null;
   if (typeof e.code === "string") return { status: "spawn_error", exitCode: null, errno: e.code, signal: null };
-  if (e.killed === !0) return { status: "timeout", exitCode: null, errno: null, signal: o };
+  if (e.killed === true) return { status: "timeout", exitCode: null, errno: null, signal: o };
   if (o) return { status: "killed", exitCode: null, errno: null, signal: o };
   return { status: "exited", exitCode: typeof e.code === "number" ? e.code : null, errno: null, signal: null };
 }
@@ -35,7 +35,7 @@ function l(t, e) {
   let o = Date.now();
   return new Promise((s) => {
     try {
-      d(t, e, { encoding: "utf-8", timeout: Mor, windowsHide: !0 }, (n, u) => {
+      d(t, e, { encoding: "utf-8", timeout: Mor, windowsHide: true }, (n, u) => {
         s({ stdout: u ?? "", ...ZSr(n), durationMs: Date.now() - o });
       });
     } catch (n) {
@@ -61,7 +61,7 @@ function qwt() {
         o = (
           await Promise.all(
             t.map(async ({ path: s, label: n }) => {
-              if (!m(s)) return { stdout: "", label: n, ok: !1 };
+              if (!m(s)) return { stdout: "", label: n, ok: false };
               let { stdout: u, status: a } = await l(Oor, [...Lor, s]);
               return { stdout: u, label: n, ok: a === "ok" && !!u };
             }),

@@ -138,7 +138,7 @@ function c() {
     name: "setup-cowork",
     description: n,
     menuDescription: "Guided setup \u2014 pick a role, install a plugin, try a skill, connect tools",
-    userInvocable: !0,
+    userInvocable: true,
     isEnabled: () => a.CLAUDE_CODE_ENTRYPOINT === "remote_cowork",
     async getPromptForCommand(e) {
       let { SETUP_COWORK_PROMPT: r } = await import("/$bunfs/root/chunk-6zhzfn3e.js"),

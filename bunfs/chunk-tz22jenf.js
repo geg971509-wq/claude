@@ -161,7 +161,7 @@ async function Mt(e, t) {
 }
 function Q(e, t, a) {
   return {
-    ok: !1,
+    ok: false,
     error_code: e,
     detail: t.slice(0, ct).replace(/[\uD800-\uDBFF]$/, ""),
     ...(a !== void 0 && { retryable: a }),
@@ -243,10 +243,10 @@ async function ft(e, t) {
   try {
     let n;
     if (t.tempRoot === void 0) n = SEe();
-    else (n = t.tempRoot), await z(n, { recursive: !0, mode: 448 });
+    else (n = t.tempRoot), await z(n, { recursive: true, mode: 448 });
     (w = await rt(x(n, "plugin-tool-"))), await z(x(w, "in"), { mode: 448 }), await z(x(w, "out"), { mode: 448 });
   } catch (n) {
-    if (w !== void 0) await H(w, { recursive: !0, force: !0 }).catch(() => {});
+    if (w !== void 0) await H(w, { recursive: true, force: true }).catch(() => {});
     let s = E(n);
     return (
       Y("warn", "ptc_staging_unavailable", { code: s ?? "temp_dir_refused" }),
@@ -278,14 +278,14 @@ async function ft(e, t) {
       g = W ? ts(i.arguments ?? {}, (o) => U(o, n)) : (i.arguments ?? {}),
       u = Math.min(Math.max(i.timeout_ms ?? st, ut), lt),
       L = gr(),
-      F = !1,
+      F = false,
       tt = setTimeout(() => {
         if (L.signal.aborted) return;
-        (F = !0), L.abort(Error("staged mcp_call timed out"));
+        (F = true), L.abort(Error("staged mcp_call timed out"));
       }, u),
       q = () => L.abort(t.signal?.reason);
     if (t.signal?.aborted) q();
-    else t.signal?.addEventListener("abort", q, { once: !0 });
+    else t.signal?.addEventListener("abort", q, { once: true });
     let R;
     try {
       R = await t.call(g, L.signal);
@@ -352,12 +352,12 @@ async function ft(e, t) {
     return (
       Y("info", "mcp_call_staged_ok", { inputs: s.length, outputs: j.length }),
       {
-        staging: { ok: !0, outputs: j, inputs_used: s },
+        staging: { ok: true, outputs: j, inputs_used: s },
         tool: { content: R.content, structuredContent: R.structuredContent, _meta: R._meta },
       }
     );
   } finally {
-    await H(O, { recursive: !0, force: !0 }).catch(() => {});
+    await H(O, { recursive: true, force: true }).catch(() => {});
   }
 }
 export { Mt as runStagedMcpCall };

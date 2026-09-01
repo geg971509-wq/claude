@@ -450,7 +450,7 @@ function d(N) {
   let X = _(6),
     { pairs: m, context: a, onDone: l } = N,
     [, c] = mn(),
-    f = C(!1),
+    f = C(false),
     u,
     y;
   if (X[0] !== a || X[1] !== l || X[2] !== m || X[3] !== c)
@@ -458,7 +458,7 @@ function d(N) {
       if (f.current) {
         return;
       }
-      (f.current = !0),
+      (f.current = true),
         Xke(m, a, { setTheme: c }).then((w) =>
           l(
             w

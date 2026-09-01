@@ -595,7 +595,7 @@ async function te(o) {
       })
       .catch(() => {});
     try {
-      let e = await Xae(l, !1, o);
+      let e = await Xae(l, false, o);
       if (e.lockFailed) {
         let t = e.lockHolderPid ? ` (PID ${e.lockHolderPid})` : "";
         er(
@@ -737,7 +737,7 @@ async function te(o) {
   }
   let { maxVersion: d, forceDowngradeEnabled: E } = await oee(),
     i = g,
-    h = !1;
+    h = false;
   if (
     E &&
     d &&
@@ -757,7 +757,7 @@ async function te(o) {
       "auto_updater",
     )
   )
-    (i = d), (h = !0);
+    (i = d), (h = true);
   else if (d && g && ff(g, d))
     n(`update: maxVersion ${d} is set, capping update from ${g} to ${d}`),
       (i = ff(
@@ -876,14 +876,14 @@ async function te(o) {
 `);
   er(`Installing update...
 `);
-  let c = !1,
+  let c = false,
     w = "";
   switch (r.installationType) {
     case "npm-local":
-      (c = !0), (w = "local");
+      (c = true), (w = "local");
       break;
     case "npm-global":
-      (c = !1), (w = "global");
+      (c = false), (w = "global");
       break;
     case "unknown": {
       let e = await ree();

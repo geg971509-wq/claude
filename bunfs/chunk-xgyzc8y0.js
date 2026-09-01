@@ -32,7 +32,7 @@ function tB() {
         children: [
           i,
           r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
               "v",
               {
@@ -70,7 +70,7 @@ function tB() {
         children: [
           i,
           r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
               "v",
               {
@@ -119,7 +119,7 @@ function tB() {
     if (c[14] === d)
       (A = r(t, {
         children: [
-          e(t, { dimColor: !0, children: "                           \u2591\u2591\u2591\u2591" }),
+          e(t, { dimColor: true, children: "                           \u2591\u2591\u2591\u2591" }),
           e(t, { children: "                     \u2588\u2588    " }),
         ],
       })),
@@ -130,7 +130,7 @@ function tB() {
       (N = r(t, {
         children: [
           e(t, {
-            dimColor: !0,
+            dimColor: true,
             children: "                         \u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591",
           }),
           e(t, { children: "               \u2588\u2588\u2592\u2592\u2588\u2588  " }),
@@ -222,7 +222,7 @@ function tB() {
       children: [
         i,
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             "v",
             {
@@ -273,7 +273,7 @@ function tB() {
           children:
             "   \u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591    ",
         }),
-        e(t, { bold: !0, children: "*" }),
+        e(t, { bold: true, children: "*" }),
         e(t, { children: "                \u2588\u2588\u2593\u2591\u2591      \u2593   " }),
       ],
     })),
@@ -282,15 +282,15 @@ function tB() {
           "                                             \u2591\u2593\u2593\u2588\u2588\u2588\u2593\u2593\u2591    ",
       })),
       (A = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: " *                                 \u2591\u2591\u2591\u2591                   ",
       })),
       (N = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: "                                 \u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591                 ",
       })),
       (O = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children:
           "                               \u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591           ",
       })),
@@ -312,7 +312,7 @@ function tB() {
         "      ",
         x,
         "                                       ",
-        e(t, { dimColor: !0, children: "*" }),
+        e(t, { dimColor: true, children: "*" }),
         e(t, { children: " " }),
       ],
     })),
@@ -325,7 +325,7 @@ function tB() {
         "      ",
         e(t, { color: "clawd_body", children: "\u2588\u2588\u2584\u2588\u2588\u2588\u2588\u2588\u2584\u2588\u2588" }),
         e(t, { children: "                        " }),
-        e(t, { bold: !0, children: "*" }),
+        e(t, { bold: true, children: "*" }),
         e(t, { children: "                " }),
       ],
     })),
@@ -388,7 +388,7 @@ function H(no) {
     let z;
     if (l[2] === d)
       (z = r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [
           "v",
           {
@@ -441,7 +441,7 @@ function H(no) {
     if (l[13] === d)
       (J = r(t, {
         children: [
-          e(t, { dimColor: !0, children: "                           \u2591\u2591\u2591\u2591" }),
+          e(t, { dimColor: true, children: "                           \u2591\u2591\u2591\u2591" }),
           e(t, { children: "                     \u2588\u2588    " }),
         ],
       })),
@@ -452,7 +452,7 @@ function H(no) {
       (K = r(t, {
         children: [
           e(t, {
-            dimColor: !0,
+            dimColor: true,
             children: "                         \u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591",
           }),
           e(t, { children: "               \u2588\u2588\u2592\u2592\u2588\u2588  " }),
@@ -529,7 +529,7 @@ function H(no) {
   let z;
   if (l[24] === d)
     (z = r(t, {
-      dimColor: !0,
+      dimColor: true,
       children: [
         "v",
         {
@@ -584,7 +584,7 @@ function H(no) {
           children:
             "   \u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591    ",
         }),
-        e(t, { bold: !0, children: "*" }),
+        e(t, { bold: true, children: "*" }),
         e(t, { children: "                \u2588\u2588\u2593\u2591\u2591      \u2593   " }),
       ],
     })),
@@ -593,15 +593,15 @@ function H(no) {
           "                                             \u2591\u2593\u2593\u2588\u2588\u2588\u2593\u2593\u2591    ",
       })),
       (J = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: " *                                 \u2591\u2591\u2591\u2591                   ",
       })),
       (K = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: "                                 \u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591                 ",
       })),
       (Q = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children:
           "                               \u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591           ",
       })),
@@ -616,7 +616,7 @@ function H(no) {
     (U = r(t, {
       children: [
         "                                                      ",
-        e(t, { dimColor: !0, children: "*" }),
+        e(t, { dimColor: true, children: "*" }),
         e(t, { children: "   " }),
       ],
     })),
@@ -635,7 +635,7 @@ function H(no) {
         }),
         e(t, { color: "clawd_body", children: "\u2596" }),
         e(t, { children: "                       " }),
-        e(t, { bold: !0, children: "*" }),
+        e(t, { bold: true, children: "*" }),
         e(t, { children: "                 " }),
       ],
     })),

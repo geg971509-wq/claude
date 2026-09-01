@@ -211,7 +211,7 @@ function Q(t, r) {
   let o = t === "assistant" ? 2000 : 1000;
   if (typeof e === "string") return [`${t}: ${y(e, o)}`];
   let u = [],
-    p = !1;
+    p = false;
   for (let d of e) {
     let g = L().safeParse(d);
     if (!g.success) {
@@ -224,7 +224,7 @@ function Q(t, r) {
         break;
       case "thinking":
       case "redacted_thinking":
-        p = !0;
+        p = true;
         break;
       case "image":
         u.push(`${t}: [image]`);
@@ -234,7 +234,7 @@ function Q(t, r) {
         break;
       case "tool_result": {
         let _ = X(g.data.content);
-        u.push(g.data.is_error === !0 ? `tool_result ERROR: ${y(_, 1500)}` : `tool_result: ${y(_, 400)}`);
+        u.push(g.data.is_error === true ? `tool_result ERROR: ${y(_, 1500)}` : `tool_result: ${y(_, 400)}`);
         break;
       }
       default:
@@ -277,9 +277,9 @@ function W(t, r) {
     case "stop_hook_summary": {
       let e = Array.isArray(n.hook_errors) ? n.hook_errors : [],
         o = l(n, "stop_reason", 300);
-      return n.prevented_continuation === !0 || e.length > 0
+      return n.prevented_continuation === true || e.length > 0
         ? [
-            `stop hooks: prevented_continuation=${n.prevented_continuation === !0}${o ? ` reason=${o}` : ""} errors=${y(b(e), 500)}`,
+            `stop hooks: prevented_continuation=${n.prevented_continuation === true}${o ? ` reason=${o}` : ""} errors=${y(b(e), 500)}`,
           ]
         : [];
     }
@@ -445,7 +445,7 @@ var se = m(() =>
     return f({ id: LC.string(), enabled: q(), next_run_at: i(), cron_expression: t, run_once_at: t }).partial();
   });
 function ue(t, r = new Date()) {
-  let n = t.enabled ?? !0,
+  let n = t.enabled ?? true,
     e = [],
     o = a8n(t.next_run_at);
   if (o) {
@@ -490,10 +490,10 @@ ${y(b(r ?? null), 2000)}`;
 }
 function me(t, r, n) {
   let e = A().safeParse(t);
-  if (!e.success) return { json: b({ trigger_id: r, unreadable_page: !0 }), summary: M("runs", t) };
+  if (!e.success) return { json: b({ trigger_id: r, unreadable_page: true }), summary: M("runs", t) };
   let o = e.data.data.map((d) => {
       let g = pe().safeParse(d);
-      if (!g.success) return { unreadable_row: !0 };
+      if (!g.success) return { unreadable_row: true };
       return { ...g.data, url: da(g.data.id) };
     }),
     u = e.data.next_cursor ?? null,
@@ -526,9 +526,9 @@ function fe(t, r) {
 var Ke = kt({
   name: vF,
   searchHint: "manage scheduled cloud agent routines; inspect their run history and logs",
-  enablesCodeExecution: !0,
+  enablesCodeExecution: true,
   maxResultSizeChars: D,
-  shouldDefer: !0,
+  shouldDefer: true,
   get inputSchema() {
     return se();
   },
@@ -539,7 +539,7 @@ var Ke = kt({
     return pr() && Tt() && !a.CLAUDE_CODE_REMOTE && Mt("allow_remote_sessions") && Mt(wL);
   },
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   isReadOnly(t) {
     return t.action === "list" || t.action === "get" || t.action === "list_runs" || t.action === "get_run_log";
@@ -610,7 +610,7 @@ var Ke = kt({
         timeout: 20000,
         signal: r.abortController.signal,
         credentials: r.credentials,
-        validateStatus: () => !0,
+        validateStatus: () => true,
       },
       h = _ === "get" ? await bt.get(g, R) : await bt.post(g, S, R);
     if (!h.ok)

@@ -27,7 +27,7 @@ async function iHe(
 ) {
   let a = f.agentId ?? "main",
     C = f.fileReadingLimits?.maxTokens ?? Hz().maxTokens,
-    x = !0,
+    x = true,
     c = 0,
     m = 0;
   while (m <= n.length) {
@@ -38,7 +38,7 @@ async function iHe(
       ),
       H = F === -1 ? n.length : F;
     if (Bgt(n.slice(m, H), "html") > C / 4) {
-      x = !1;
+      x = false;
       break;
     }
     c++, (m = H + 1);
@@ -133,14 +133,14 @@ function S(e, i, n) {
 function EPt(e, i, n) {
   return S(e ?? "main", i, n) !== void 0;
 }
-function O(e, i, n, r = !1) {
+function O(e, i, n, r = false) {
   let t = e.agentId ?? "main",
     d = S(t, i, n);
   if (d === void 0) return;
   let o = d[1];
   return N(o, e) || (!r && Uje(e.getArtifactReadObservation(i), o.ver, t) && !Whe(e.agentId, i, o.ver)) ? void 0 : d;
 }
-function mpr(e, i, n, { ignoreHold: r = !1 } = {}) {
+function mpr(e, i, n, { ignoreHold: r = false } = {}) {
   let t = O(e, i, n, r);
   return t === void 0 ? void 0 : E(t[0], t[1], e.agentId);
 }
@@ -255,8 +255,8 @@ function N(e, i) {
   return n !== void 0 && n !== e.ver && (bHe(n, e.ver) ?? 0) > 0;
 }
 function U(e, i, n) {
-  if (N(e, n)) return de().pendingHandoverReads.delete(i), g("artifact_handover_read", "superseded"), !0;
-  return !1;
+  if (N(e, n)) return de().pendingHandoverReads.delete(i), g("artifact_handover_read", "superseded"), true;
+  return false;
 }
 function B(e) {
   let i = e.map((r) => [r[0], r[1]]).sort((r, t) => r[0] - t[0]),
@@ -278,7 +278,7 @@ function j(e, i, n) {
   return t !== void 0 && (r === void 0 || r.batch !== t) ? void 0 : r;
 }
 function z(e, i, n, r, t) {
-  if (U(e, i, n)) return !1;
+  if (U(e, i, n)) return false;
   let d = j(e, n.agentId, t),
     o = d?.observedFrom;
   try {
@@ -288,8 +288,8 @@ function z(e, i, n, r, t) {
       if (o === void 0) delete d.observedFrom;
       else d.observedFrom = o;
   }
-  if (Uje(n.getArtifactReadObservation(e.slug), e.ver, t)) return y("artifact_handover_read"), !0;
-  return e.unrecordableBy.add(t), g("artifact_handover_read", "seed_not_persisted"), !1;
+  if (Uje(n.getArtifactReadObservation(e.slug), e.ver, t)) return y("artifact_handover_read"), true;
+  return e.unrecordableBy.add(t), g("artifact_handover_read", "seed_not_persisted"), false;
 }
 async function G(e, i, n) {
   try {

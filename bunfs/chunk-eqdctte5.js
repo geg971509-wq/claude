@@ -35,8 +35,8 @@ var d = m(() => T.preprocess(r, T.string().optional().transform(o))),
       T.string()
         .optional()
         .transform((n) => {
-          if (Me(n)) return !0;
-          if (bo(n)) return !1;
+          if (Me(n)) return true;
+          if (bo(n)) return false;
           return;
         }),
     ),

@@ -58,10 +58,10 @@ function ge(t) {
     C = async () => {
       let l = m !== null && !m.settled;
       if (m === null || m.settled) {
-        let i = { promise: t.readAccountFlags(), startedAt: t.now(), settled: !1 };
+        let i = { promise: t.readAccountFlags(), startedAt: t.now(), settled: false };
         i.promise.then(
-          () => (i.settled = !0),
-          () => (i.settled = !0),
+          () => (i.settled = true),
+          () => (i.settled = true),
         ),
           (m = i);
       }
@@ -82,38 +82,38 @@ function ge(t) {
       };
     },
     S = async () => {
-      let l = { flagWaitMs: 0, sharedFlagRead: !1 };
-      if (D()) return w(), { ok: !1, error: "hook_forwarding_disabled: policy", outcome: "disabled_policy", ...l };
+      let l = { flagWaitMs: 0, sharedFlagRead: false };
+      if (D()) return w(), { ok: false, error: "hook_forwarding_disabled: policy", outcome: "disabled_policy", ...l };
       let s = await C(),
         r = { flagWaitMs: s.waitMs, sharedFlagRead: s.shared };
       if (s.state === "pending")
         return {
-          ok: !1,
+          ok: false,
           error: "hook_forwarding_not_ready: feature flags not yet available; retry",
           outcome: "not_ready",
           ...r,
         };
       if (s.state === "off")
-        return w(), { ok: !1, error: "hook_forwarding_disabled: flag_off", outcome: "disabled_flag_off", ...r };
-      if (D()) return w(), { ok: !1, error: "hook_forwarding_disabled: policy", outcome: "disabled_policy", ...r };
-      return { ok: !0, ...r };
+        return w(), { ok: false, error: "hook_forwarding_disabled: flag_off", outcome: "disabled_flag_off", ...r };
+      if (D()) return w(), { ok: false, error: "hook_forwarding_disabled: policy", outcome: "disabled_policy", ...r };
+      return { ok: true, ...r };
     },
     A = async (l) => {
-      let s = { flagWaitMs: 0, sharedFlagRead: !1 };
+      let s = { flagWaitMs: 0, sharedFlagRead: false };
       if (Uf(l).length > ee)
-        return { ok: !1, error: "invalid_registration: request larger than 64 KiB", outcome: "invalid", ...s };
+        return { ok: false, error: "invalid_registration: request larger than 64 KiB", outcome: "invalid", ...s };
       let r = sbt().safeParse(l.request);
       if (!r.success)
         return {
-          ok: !1,
+          ok: false,
           error: `invalid_registration: ${yo(r.error.issues[0]?.message ?? "malformed", { maxCodeUnits: Y })}`,
           outcome: "invalid",
           ...s,
         };
       if (r.data.worker_epoch !== void 0 && r.data.worker_epoch !== t.workerEpoch)
-        return { ok: !1, error: `stale_worker_epoch: worker epoch is ${t.workerEpoch}`, outcome: "stale_epoch", ...s };
+        return { ok: false, error: `stale_worker_epoch: worker epoch is ${t.workerEpoch}`, outcome: "stale_epoch", ...s };
       let c = await S();
-      return c.ok ? { ok: !0, parsed: r.data, flagWaitMs: c.flagWaitMs, sharedFlagRead: c.sharedFlagRead } : c;
+      return c.ok ? { ok: true, parsed: r.data, flagWaitMs: c.flagWaitMs, sharedFlagRead: c.sharedFlagRead } : c;
     },
     I = async (l) => {
       let s = await A(l);
@@ -181,8 +181,8 @@ function ge(t) {
           kind: e.kind,
           ...(e.timeout_s !== void 0 && { timeoutS: e.timeout_s }),
           source: e.source,
-          hasCondition: e.has_condition === !0,
-          targetPinned: e.target_pinned === !0,
+          hasCondition: e.has_condition === true,
+          targetPinned: e.target_pinned === true,
         });
       }
       let o = {},
@@ -193,8 +193,8 @@ function ge(t) {
         H = new Map(),
         x = (e) => {
           let a = Z.get(e);
-          if (a === void 0) return !1;
-          return y.set(a.matcher, e), (o[a.event] = [...(o[a.event] ?? []), a.matcher]), H.set(e, a), E.add(e), !0;
+          if (a === void 0) return false;
+          return y.set(a.matcher, e), (o[a.event] = [...(o[a.event] ?? []), a.matcher]), H.set(e, a), E.add(e), true;
         },
         U = (e, a) => {
           if (!btt(e) || !_.get(r.instance_id)?.has(e.id)) return;
@@ -427,10 +427,10 @@ async function fe(t) {
     policy: { pluginOnly: () => m("hooks"), customizationDisabled: () => _("hooks"), managedOnly: h, allDisabled: D },
     readAccountFlags: async () => {
       let [o, y] = await Promise.all([S(), C()]);
-      if (o && y) return !0;
+      if (o && y) return true;
       if (!((!o && w("tengu_violin_wood")) || (!y && w("tengu_violin_amati"))))
         throw (A().catch(() => {}), Error("account flags not served yet"));
-      return !1;
+      return false;
     },
     flagWaitCapMs: 5000,
     now: Date.now,

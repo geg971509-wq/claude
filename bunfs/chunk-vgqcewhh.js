@@ -30,7 +30,7 @@ var c = (function () {
       (this.buffer = new Uint8Array(64)),
       (this.bufferLength = 0),
       (this.bytesHashed = 0),
-      (this.finished = !1);
+      (this.finished = false);
   }
   return (
     (h.prototype.update = function (r) {
@@ -52,10 +52,10 @@ var c = (function () {
           this.hashBuffer(), (this.bufferLength = 0);
         }
         for (var e = this.bufferLength; e < s - 8; e++) a.setUint8(e, 0);
-        a.setUint32(s - 8, Math.floor(r / 4294967296), !0),
+        a.setUint32(s - 8, Math.floor(r / 4294967296), true),
           a.setUint32(s - 4, r),
           this.hashBuffer(),
-          (this.finished = !0);
+          (this.finished = true);
       }
       var i = new Uint8Array(y);
       for (var e = 0; e < 8; e++)

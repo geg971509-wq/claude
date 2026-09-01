@@ -25,7 +25,7 @@ function err() {
   if (e) return e;
   return t[a.terminal ?? ""] ?? null;
 }
-var ewt = { screenshotFiltering: "native", platform: "darwin", adaptiveResolution: !1, saveToDisk: !1 };
+var ewt = { screenshotFiltering: "native", platform: "darwin", adaptiveResolution: false, saveToDisk: false };
 function F6(e) {
   return ln(e) === n0;
 }

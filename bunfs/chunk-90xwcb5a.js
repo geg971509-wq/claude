@@ -367,12 +367,12 @@ function en(e = {}) {
     lastClassifyAt: 0,
     capturedIntent: "",
     inFlight: null,
-    nameInFlight: !1,
-    dispatchEmitted: !1,
+    nameInFlight: false,
+    dispatchEmitted: false,
     latestAsk: "",
-    kicked: !1,
+    kicked: false,
     lastMsgCount: 0,
-    permissionBridgeSubscribed: !1,
+    permissionBridgeSubscribed: false,
     bridgeWriteChain: Promise.resolve(),
     lastEmittedDetail: "",
     lastMidturnLlmAt: 0,
@@ -388,7 +388,7 @@ var be = 15000,
   xe = 240000,
   pe = 2048;
 function oe() {
-  return I("tengu_bg_classifier_config", { useSmallFastModel: !0, disableThinking: !0, midTurnLlmDebounceMs: 60000 });
+  return I("tengu_bg_classifier_config", { useSmallFastModel: true, disableThinking: true, midTurnLlmDebounceMs: 60000 });
 }
 function _e() {
   if (oe()?.useSmallFastModel) return gm();
@@ -398,7 +398,7 @@ function _e() {
 }
 function ye(e) {
   if (MMe(e)) return [void 0, pe];
-  if (oe()?.disableThinking) return [!1, 0];
+  if (oe()?.disableThinking) return [false, 0];
   return [void 0, pe];
 }
 function Ne() {
@@ -414,12 +414,12 @@ function Ne() {
 }
 function se(e) {
   let i = {};
-  for (let t of e) i[`surface_${t}`] = !0;
+  for (let t of e) i[`surface_${t}`] = true;
   return i;
 }
 function Ve(e, i, t) {
   if (!wt() || e.dispatchEmitted) return;
-  if (((e.dispatchEmitted = !0), Ne())) return;
+  if (((e.dispatchEmitted = true), Ne())) return;
   s("tengu_bg_agent_dispatch", {
     agent: i,
     source: process.env.CLAUDE_BG_SOURCE ?? "shell",
@@ -438,7 +438,7 @@ function nn(e) {
       !t.isMeta &&
       typeof t.message.content === "string" &&
       !nM(t.message.content) &&
-      !awe(t.message.content, () => !0),
+      !awe(t.message.content, () => true),
   );
   return i?.type === "user" && typeof i.message.content === "string" ? i.message.content : void 0;
 }
@@ -452,15 +452,15 @@ function ae(e) {
 }
 function on(e, i, t) {
   if ((Je(e), oQt(), e.kicked)) return;
-  (e.kicked = !0), (e.bridgeWriteChain = e.bridgeWriteChain.then(() => we(i, t, e.storageV5)).catch(Aa));
+  (e.kicked = true), (e.bridgeWriteChain = e.bridgeWriteChain.then(() => we(i, t, e.storageV5)).catch(Aa));
 }
 function sn(e, i, t, l, r, o, d) {
-  if (nl() && !e.kicked) (e.kicked = !0), we(i, void 0, e.storageV5).catch(Aa);
+  if (nl() && !e.kicked) (e.kicked = true), we(i, void 0, e.storageV5).catch(Aa);
   let u = Date.now(),
     m = d.has("repl") ? De : be;
   if (u - e.lastClassifyAt < m) return;
   if (e.inFlight) return;
-  (e.lastClassifyAt = u), Ye(e, i, t, e.capturedIntent, l, r, o, d, !0).catch(Aa);
+  (e.lastClassifyAt = u), Ye(e, i, t, e.capturedIntent, l, r, o, d, true).catch(Aa);
 }
 function le(e, i, t) {
   let l =
@@ -558,7 +558,7 @@ async function We(e, i, t) {
 }
 function Je(e) {
   if (e.permissionBridgeSubscribed) return () => {};
-  e.permissionBridgeSubscribed = !0;
+  e.permissionBridgeSubscribed = true;
   let i = ck.subscribe((r) => {
       if (!nl()) return;
       let o = fu();
@@ -596,7 +596,7 @@ function Je(e) {
         );
     });
   return () => {
-    i(), t(), l(), (e.permissionBridgeSubscribed = !1);
+    i(), t(), l(), (e.permissionBridgeSubscribed = false);
   };
 }
 async function He(e, i) {
@@ -627,7 +627,7 @@ function ce(e) {
   e.midturnLlmEpoch++, (e.lastMidturnLlmAt = 0), (e.lastMidturnLlmDetail = ""), (e.midturnLlmIntervalMs = 0);
 }
 function an(e, i) {
-  if (((e.kicked = !1), ce(e), (e.lastEmittedDetail = ""), (e.lastClassifyAt = 0), !nl())) return;
+  if (((e.kicked = false), ce(e), (e.lastEmittedDetail = ""), (e.lastClassifyAt = 0), !nl())) return;
   let t = cr(i);
   e.bridgeWriteChain = e.bridgeWriteChain
     .then(() => e.inFlight ?? void 0)
@@ -707,7 +707,7 @@ async function ln(e, i, t, l, r) {
     .catch(Aa)),
     await e.bridgeWriteChain,
     (e.prevState = o.state),
-    (e.kicked = !1),
+    (e.kicked = false),
     ce(e),
     (e.lastEmittedDetail = ""),
     (e.lastClassifyAt = 0);
@@ -735,7 +735,7 @@ Avoid these (already taken): ${[...o].join(", ")}`
           model: w,
           thinking: k,
           max_tokens: 32 + S,
-          skipSystemPromptPrefix: !0,
+          skipSystemPromptPrefix: true,
           credentials: e.credentials,
           messages: [
             {
@@ -796,17 +796,17 @@ Skip generic verbs like fix/add/update. Respond with ONLY the label.${m}`,
     .catch(Aa)),
     await e.bridgeWriteChain;
 }
-async function Ye(e, i, t, l, r, o, d, u = new Set(), m = !1) {
+async function Ye(e, i, t, l, r, o, d, u = new Set(), m = false) {
   Ve(e, t, u);
   let w = e.inFlight;
-  if (w) await Promise.race([w.catch(Aa), ne(60000, void 0, { unref: !0 })]);
+  if (w) await Promise.race([w.catch(Aa), ne(60000, void 0, { unref: true })]);
   let k = Xe(e, i, t, l, r, o, d, u, m);
   e.inFlight = k;
   try {
     await k;
   } finally {
     if (e.inFlight === k) e.inFlight = null;
-    e.kicked = !1;
+    e.kicked = false;
   }
 }
 function Ke(e, i) {
@@ -1060,11 +1060,11 @@ async function Xe(e, i, t, l, r, o, d, u, m) {
         .find(Boolean),
       D = F ? "" : re(r),
       E = rs(co(F ?? (D ? `[calling ${D}]` : "")), 500);
-    (e.nameInFlight = !0),
+    (e.nameInFlight = true),
       ze(e, k, ue, E)
         .catch(Aa)
         .finally(() => {
-          e.nameInFlight = !1;
+          e.nameInFlight = false;
         });
   }
   let Oe = f.source ? (f.branch && f.branch !== f.source ? `${f.source}/${f.branch}` : f.source) : "?";
@@ -1112,7 +1112,7 @@ async function Se(e, i) {
           model: U,
           thinking: Q,
           max_tokens: 1024 + Z,
-          skipSystemPromptPrefix: !0,
+          skipSystemPromptPrefix: true,
           credentials: u,
           system: [{ type: "text", text: BVn, cache_control: C }],
           messages: [
@@ -1218,7 +1218,7 @@ function Ee(e, i) {
 `)) {
     let o = r.includes('"pr-link"'),
       d = r.includes('"worktree-state"'),
-      u = !1;
+      u = false;
     if (((u = r.includes('"frame-link"')), !o && !d && !u)) continue;
     try {
       let m = V(r);

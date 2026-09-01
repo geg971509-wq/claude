@@ -49,7 +49,7 @@ async function bUe(i, n, y, w, S, { responseStreaming: f, trial: R }) {
   return Qnt(
     T,
     {
-      freshIfNoTranscript: !0,
+      freshIfNoTranscript: true,
       extraArgs: n,
       proactivity: w,
       env: { CLAUDE_CODE_TUI_JUST_SWITCHED: i, ...(R && i === "fullscreen" ? VIn : {}), ...O6() },
@@ -118,7 +118,7 @@ var oTr = async (i, n, y) => {
         to: c(f),
         from_entry_path: c(m),
         session_age_ms: Math.round(process.uptime() * 1000),
-        bounce: !1,
+        bounce: false,
         scroll_decay_curve: p.useDecayCurve,
         scroll_base: p.base,
         scroll_xtermjs: p.xtermJs,
@@ -143,7 +143,7 @@ var oTr = async (i, n, y) => {
     return await Cvt(n.storageV5), i(`Already using the ${f} renderer.`, { display: "system" }), null;
   let Y = (m) => {
       let k = E9(he(n), ix());
-      if (k.length > 0) return s("tengu_tui_refused", { uncarriable: !0 }), eur(f, k);
+      if (k.length > 0) return s("tengu_tui_refused", { uncarriable: true }), eur(f, k);
       let p = E();
       if (p !== void 0)
         return (
@@ -161,7 +161,7 @@ var oTr = async (i, n, y) => {
     U;
   if (!D) {
     let m = Y();
-    if (m === void 0) await $P(n.messages, n.storageV5), (m = Y(!0)), (U = { flags: R(), handoff: T() });
+    if (m === void 0) await $P(n.messages, n.storageV5), (m = Y(true)), (U = { flags: R(), handoff: T() });
     if (m !== void 0) return i(m, { display: "system" }), null;
   }
   let g = qv(),
@@ -179,7 +179,7 @@ var oTr = async (i, n, y) => {
   await Cvt(n.storageV5);
   let N = YR(),
     L =
-      (a.CLAUDE_CODE_TUI_JUST_SWITCHED === "fullscreen" || g === "downsell_on" || LI.downsellGateCached === !0) &&
+      (a.CLAUDE_CODE_TUI_JUST_SWITCHED === "fullscreen" || g === "downsell_on" || LI.downsellGateCached === true) &&
       f === "default";
   if (
     (s("tengu_tui_command", {
@@ -233,7 +233,7 @@ function te(i, n, y) {
     s("tengu_tui_refused", {
       active_tasks: n.activeTasks,
       comment_monitor: n.kind === "comment_monitor",
-      deferred: !0,
+      deferred: true,
     }),
     y(tur(i, n.kind), { display: "system" }),
     null
@@ -260,14 +260,14 @@ function ge(ht) {
     [oe, yt] = u(0),
     [v, _t] = u(null),
     { columns: Ct } = Ee(),
-    pe = C(!1),
+    pe = C(false),
     ye;
   if (b[0] === d)
     (ye = (St) => {
       if (pe.current) {
         return;
       }
-      (pe.current = !0), _t(St.trim());
+      (pe.current = true), _t(St.trim());
     }),
       (b[0] = ye);
   else ye = b[0];
@@ -291,7 +291,7 @@ function ge(ht) {
       if (v === null) {
         return;
       }
-      let we = !1;
+      let we = false;
       return (
         (async () => {
           if (v && v.toLowerCase().replace(/[^a-z]/g, "") !== ce) {
@@ -300,7 +300,7 @@ function ge(ht) {
               reason: vt,
               from_entry_path: c(j),
               bounce: H,
-              downsell_gate: LI.downsellGateCached === !0,
+              downsell_gate: LI.downsellGateCached === true,
               revert_kind: c(J),
               downsell_seen_count: ie().fullscreenDownsellSeenCount ?? 0,
             }).catch(h);
@@ -310,7 +310,7 @@ function ge(ht) {
           }
           let Ce = E9(P().toolPermissionContext, ix());
           if (Ce.length > 0) {
-            s("tengu_tui_refused", { uncarriable: !0 }), I(oOn(Ce), { display: "system" });
+            s("tengu_tui_refused", { uncarriable: true }), I(oOn(Ce), { display: "system" });
             return;
           }
           let Se = K();
@@ -332,7 +332,7 @@ function ge(ht) {
           });
         })(),
         () => {
-          we = !0;
+          we = true;
         }
       );
     }),
@@ -387,7 +387,7 @@ function ge(ht) {
     if (b[28] === d)
       (x = e(o, {
         paddingX: 1,
-        children: e(t, { dimColor: !0, children: "Switching back to the classic renderer\u2026" }),
+        children: e(t, { dimColor: true, children: "Switching back to the classic renderer\u2026" }),
       })),
         (b[28] = x);
     else x = b[28];
@@ -417,7 +417,7 @@ function ge(ht) {
     (Ie = r(me, {
       title: "Fullscreen feedback",
       onCancel: x,
-      isCancelActive: !1,
+      isCancelActive: false,
       inputGuide: be,
       children: [
         Te,
@@ -430,8 +430,8 @@ function ge(ht) {
               value: se,
               onChange: pt,
               onSubmit: ae,
-              focus: !0,
-              showCursor: !0,
+              focus: true,
+              showCursor: true,
               columns: ue,
               cursorOffset: oe,
               onChangeCursorOffset: yt,

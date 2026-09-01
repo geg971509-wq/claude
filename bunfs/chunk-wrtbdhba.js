@@ -339,7 +339,7 @@ import { isAbsolute as k, relative as S, resolve as I } from "path";
 async function _(i, s, n) {
   let d = i ? await Al(I(i), Nu(n)) : void 0;
   function c(t) {
-    if (!d) return !0;
+    if (!d) return true;
     let e = S(d, t);
     return e.split(/[/\\]/, 1)[0] !== ".." && !k(e);
   }

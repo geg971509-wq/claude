@@ -29,7 +29,7 @@ import { d } from "/$bunfs/root/chunk-yz031c9r.js";
 async function yUe() {
   let [n, s] = await Promise.all([x_(), Mp("tengu_ccr_bundle_seed_enabled")]),
     i = Hn(ee()) !== null && (a.CCR_ENABLE_BUNDLE || s);
-  if (!i) return { cloneViable: !1, bundleSeedEnabled: i };
+  if (!i) return { cloneViable: false, bundleSeedEnabled: i };
   return { cloneViable: n !== null && (!qo(n.host) || (await q9n(n.owner, n.name))), bundleSeedEnabled: i };
 }
 F();
@@ -55,7 +55,7 @@ function Jet(n) {
     ? "This will try to clone your git remote and fall back to uploading this repository."
     : "This will upload your repository to Claude Code on the web.";
 }
-var ve = { cloneViable: !1, bundleSeedEnabled: !0 },
+var ve = { cloneViable: false, bundleSeedEnabled: true },
   Ie = "(nothing printable)";
 function x8t(po) {
   let p = _(27),
@@ -85,9 +85,9 @@ function x8t(po) {
   if (p[6] !== ne || p[7] !== ie || p[8] !== se || p[9] !== ae)
     (De = function N() {
       if (ie() || ae()) {
-        return se(), !0;
+        return se(), true;
       }
-      return ne?.() === !1;
+      return ne?.() === false;
     }),
       (p[6] = ne),
       (p[7] = ie),
@@ -100,7 +100,7 @@ function x8t(po) {
   if (p[11] !== m) (x = () => m("cancel")), (p[11] = m), (p[12] = x);
   else x = p[12];
   let Le;
-  if (p[13] === d) (Le = e(t, { dimColor: !0, children: "Loading\u2026" })), (p[13] = Le);
+  if (p[13] === d) (Le = e(t, { dimColor: true, children: "Loading\u2026" })), (p[13] = Le);
   else Le = p[13];
   let A;
   if (
@@ -173,9 +173,9 @@ function z(ho) {
   if (l[4] !== fe || l[5] !== be || l[6] !== he)
     (Oe = function f() {
       if (fe() || he()) {
-        return be(), !0;
+        return be(), true;
       }
-      return !1;
+      return false;
     }),
       (l[4] = fe),
       (l[5] = be),
@@ -185,7 +185,7 @@ function z(ho) {
   let f = Oe;
   const ye = bo ? "Prompt (sent from a connected channel): " : "Prompt: ";
   let V;
-  if (l[8] !== ye) (V = e(t, { dimColor: !0, children: ye })), (l[8] = ye), (l[9] = V);
+  if (l[8] !== ye) (V = e(t, { dimColor: true, children: ye })), (l[8] = ye), (l[9] = V);
   else V = l[9];
   const ge = ke === "" ? Ie : ke;
   let G;
@@ -197,12 +197,12 @@ function z(ho) {
     (H = P
       ? r(U, {
           children: [
-            e(t, { dimColor: !0, children: b.dialogBody }),
+            e(t, { dimColor: true, children: b.dialogBody }),
             r(o, {
               flexDirection: "column",
               children: [
-                O && e(t, { dimColor: !0, children: O }),
-                r(t, { dimColor: !0, children: ["More information: ", e(ut, { url: w9, children: w9 })] }),
+                O && e(t, { dimColor: true, children: O }),
+                r(t, { dimColor: true, children: ["More information: ", e(ut, { url: w9, children: w9 })] }),
               ],
             }),
             e(t, { children: "Proceed?" }),
@@ -213,11 +213,11 @@ function z(ho) {
             r(o, {
               flexDirection: "column",
               children: [
-                e(t, { dimColor: !0, children: b.dialogBody }),
-                T && e(t, { dimColor: !0, children: "This will disable Remote Control for this session." }),
+                e(t, { dimColor: true, children: b.dialogBody }),
+                T && e(t, { dimColor: true, children: "This will disable Remote Control for this session." }),
               ],
             }),
-            !T && e(t, { dimColor: !0, children: b.dialogPipeline }),
+            !T && e(t, { dimColor: true, children: b.dialogPipeline }),
           ],
         })),
       (l[13] = b.dialogBody),

@@ -13,7 +13,7 @@ var c = {},
 async function m() {
   let { exitWithError: t } = await import("/$bunfs/root/chunk-as286awp.js"),
     { getSettingsWithErrors: e } = await import("/$bunfs/root/chunk-vbxndy62.js");
-  if (e().settings.disableRemoteControl === !0)
+  if (e().settings.disableRemoteControl === true)
     t("Error: Remote Control is disabled by your organization's policy (managed setting `disableRemoteControl`).");
   let [{ hasStoredOAuthToken: r }, { BRIDGE_LOGIN_ERROR: n }, { getBridgeAuthDebugInfo: o }] = await Promise.all([
     import("/$bunfs/root/chunk-r7k9wyxs.js"),
@@ -56,7 +56,7 @@ async function y(t, e, r, n) {
       import("/$bunfs/root/chunk-fxfb1x5a.js"),
     ]),
     u = await o(n);
-  if (u) await Promise.race([Promise.all([i(), a()]), l(500, void 0, { unref: !0 })]).catch(() => {}), s(`Error: ${u}`);
+  if (u) await Promise.race([Promise.all([i(), a()]), l(500, void 0, { unref: true })]).catch(() => {}), s(`Error: ${u}`);
   await d(e, r, n);
 }
 async function R(t, e, r) {
@@ -65,34 +65,34 @@ async function R(t, e, r) {
   await y(o, t, e, r);
 }
 var f = new Map([
-  ["verbose", () => !0],
-  ["debug", () => !0],
-  ["debugToStderr", () => !0],
-  ["debugFile", () => !0],
-  ["axScreenReader", () => !0],
-  ["workload", () => !0],
-  ["sessionId", () => !0],
-  ["name", () => !0],
-  ["remoteControlSessionNamePrefix", () => !0],
-  ["pluginDir", () => !0],
-  ["pluginDirNoMcp", () => !0],
-  ["pluginUrl", () => !0],
-  ["addDir", () => !0],
-  ["ide", () => !0],
-  ["chrome", (t) => t === !0],
-  ["model", () => !0],
-  ["effort", () => !0],
-  ["fallbackModel", () => !0],
-  ["betas", () => !0],
-  ["thinking", () => !0],
-  ["thinkingDisplay", () => !0],
-  ["maxThinkingTokens", () => !0],
-  ["autocompact", () => !0],
-  ["allowedTools", () => !0],
-  ["dangerouslySkipPermissions", () => !0],
-  ["allowDangerouslySkipPermissions", () => !0],
-  ["enableAutoMode", () => !0],
-  ["bare", () => !0],
+  ["verbose", () => true],
+  ["debug", () => true],
+  ["debugToStderr", () => true],
+  ["debugFile", () => true],
+  ["axScreenReader", () => true],
+  ["workload", () => true],
+  ["sessionId", () => true],
+  ["name", () => true],
+  ["remoteControlSessionNamePrefix", () => true],
+  ["pluginDir", () => true],
+  ["pluginDirNoMcp", () => true],
+  ["pluginUrl", () => true],
+  ["addDir", () => true],
+  ["ide", () => true],
+  ["chrome", (t) => t === true],
+  ["model", () => true],
+  ["effort", () => true],
+  ["fallbackModel", () => true],
+  ["betas", () => true],
+  ["thinking", () => true],
+  ["thinkingDisplay", () => true],
+  ["maxThinkingTokens", () => true],
+  ["autocompact", () => true],
+  ["allowedTools", () => true],
+  ["dangerouslySkipPermissions", () => true],
+  ["allowDangerouslySkipPermissions", () => true],
+  ["enableAutoMode", () => true],
+  ["bare", () => true],
 ]);
 function b(t) {
   let e = t.parent;
@@ -102,7 +102,7 @@ function b(t) {
     let o = n.attributeName();
     if (r.has(o) || e.getOptionValueSource(o) !== "cli") continue;
     let i = e.getOptionValue(o),
-      a = e.options.find((l) => l.attributeName() === o && l.negate === (i === !1)) ?? n;
+      a = e.options.find((l) => l.attributeName() === o && l.negate === (i === false)) ?? n;
     r.set(o, { flag: a.long ?? a.flags, key: o, value: i });
   }
   return [...r.values()];

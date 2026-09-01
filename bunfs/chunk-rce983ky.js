@@ -31,7 +31,7 @@ function Zn(n) {
   if (n.startsWith("agent-")) return "*";
   return "+";
 }
-function Hn(n, i, l = !1) {
+function Hn(n, i, l = false) {
   let a = n.toLowerCase();
   if (a.length !== n.length) return [];
   let c = a.indexOf(i);
@@ -81,8 +81,8 @@ function q(Vt) {
         ht.push(e(t, { color: en, dimColor: !xt && !Ln, bold: sn || xt, children: O.slice(Fn, gt) }, Fn));
       };
       let Vn = 0;
-      for (const [yt, bt] of pt) Un(Vn, yt, !1), Un(yt, bt, !0), (Vn = bt);
-      Un(Vn, O.length, !1);
+      for (const [yt, bt] of pt) Un(Vn, yt, false), Un(yt, bt, true), (Vn = bt);
+      Un(Vn, O.length, false);
       ft = e(U, { children: ht });
     }
     (ut[0] = sn), (ut[1] = en), (ut[2] = Bn), (ut[3] = Ln), (ut[4] = Wn), (ut[5] = O), (ut[6] = ft), (ut[7] = qn);
@@ -98,7 +98,7 @@ function An(n) {
 var ot = du(function (Gt) {
   let d = _(95),
     { item: s, maxColumnWidth: Xt, isSelected: T, allowWrap: Tt } = Gt,
-    Gn = Tt === void 0 ? !0 : Tt,
+    Gn = Tt === void 0 ? true : Tt,
     v = Ee().columns;
   if (An(s.id)) {
     let mn;
@@ -268,10 +268,10 @@ var ot = du(function (Gt) {
           (d[76] = Cn);
       else Cn = d[76];
       let Rt;
-      if (d[77] !== Y) (Rt = Y ? e(t, { dimColor: !0, children: Y }) : null), (d[77] = Y), (d[78] = Rt);
+      if (d[77] !== Y) (Rt = Y ? e(t, { dimColor: true, children: Y }) : null), (d[77] = Y), (d[78] = Rt);
       else Rt = d[78];
       let Nt;
-      if (d[79] !== B) (Nt = B ? e(t, { dimColor: !0, children: B }) : null), (d[79] = B), (d[80] = Nt);
+      if (d[79] !== B) (Nt = B ? e(t, { dimColor: true, children: B }) : null), (d[79] = B), (d[80] = Nt);
       else Nt = d[80];
       Tn = r(t, {
         wrap: "truncate",
@@ -282,7 +282,7 @@ var ot = du(function (Gt) {
           Cn,
           Rt,
           Nt,
-          e(q, { text: to, query: s.query, color: bn, isSelected: T, bold: C, contiguousOnly: !0 }),
+          e(q, { text: to, query: s.query, color: bn, isSelected: T, bold: C, contiguousOnly: true }),
         ],
       });
       if (!Lt) {
@@ -324,7 +324,7 @@ var ot = du(function (Gt) {
   else J = d[82];
   let Q;
   if (d[83] !== C || d[84] !== bn || d[85] !== Qn || d[86] !== T || d[87] !== s.query)
-    (Q = e(q, { text: Qn, query: s.query, color: bn, isSelected: T, bold: C, contiguousOnly: !0 })),
+    (Q = e(q, { text: Qn, query: s.query, color: bn, isSelected: T, bold: C, contiguousOnly: true })),
       (d[83] = C),
       (d[84] = bn),
       (d[85] = Qn),

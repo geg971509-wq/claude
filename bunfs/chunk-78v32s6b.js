@@ -41,7 +41,7 @@ function X(O) {
   if (c[6] === d) (I = new Set()), (c[6] = I);
   else I = c[6];
   let A = C(I),
-    P = C(!1),
+    P = C(false),
     J;
   if (c[7] === d)
     (J = () => {
@@ -56,9 +56,9 @@ function X(O) {
       if ((GVt(), OA(j), Hon(j), K(), P.current)) {
         return;
       }
-      (P.current = !0),
+      (P.current = true),
         queueMicrotask(() => {
-          (P.current = !1), kon(j);
+          (P.current = false), kon(j);
         });
     }),
       (c[8] = L);
@@ -73,7 +73,7 @@ function X(O) {
         if (!m) {
           return;
         }
-        if (((m.stickyScroll = !1), !me?.preserveHwm)) m.scrollHeightHwm = void 0;
+        if (((m.stickyScroll = false), !me?.preserveHwm)) m.scrollHeightHwm = void 0;
         (m.pendingScrollDelta = void 0), (m.scrollAnchor = void 0), (m.scrollTop = Math.max(0, Math.floor(pe))), h(m);
       },
       scrollToElement(he, g, ge) {
@@ -82,7 +82,7 @@ function X(O) {
         if (!b) {
           return;
         }
-        (b.stickyScroll = !1),
+        (b.stickyScroll = false),
           (b.scrollHeightHwm = void 0),
           (b.pendingScrollDelta = void 0),
           (b.scrollAnchor = { el: he, offset: be, nearest: ge?.block === "nearest" }),
@@ -93,7 +93,7 @@ function X(O) {
         if (!s) {
           return;
         }
-        (s.stickyScroll = !1),
+        (s.stickyScroll = false),
           (s.scrollHeightHwm = void 0),
           (s.scrollTop = RW(s)),
           (s.scrollAnchor = void 0),
@@ -105,13 +105,13 @@ function X(O) {
         if (!a) {
           return;
         }
-        if (((a.pendingScrollDelta = void 0), i === !1)) {
+        if (((a.pendingScrollDelta = void 0), i === false)) {
           (a.scrollAnchor = void 0),
             (a.scrollTop = Math.max(0, (a.scrollHeight ?? 0) - (a.scrollViewportHeight ?? 0))),
             h(a);
           return;
         }
-        (a.stickyScroll = !0), OA(a), K(), ae(le);
+        (a.stickyScroll = true), OA(a), K(), ae(le);
       },
       getScrollTop() {
         return n.current?.scrollTop ?? 0;
@@ -134,7 +134,7 @@ function X(O) {
       isSticky() {
         let W = n.current;
         if (!W) {
-          return !1;
+          return false;
         }
         return W.stickyScroll ?? Boolean(W.attributes.stickyScroll);
       },
@@ -171,7 +171,7 @@ function X(O) {
       flexDirection: g,
       flexGrow: G,
       flexShrink: N,
-      selectionScope: !0,
+      selectionScope: true,
       ...p,
       overflowX: "scroll",
       overflowY: "scroll",

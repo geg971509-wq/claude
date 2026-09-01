@@ -386,7 +386,7 @@ function ue(gn) {
     Ve;
   if (s[1] !== Z || s[2] !== S)
     (Je = () => {
-      let Re = !1;
+      let Re = false;
       let Se = async function Se() {
         try {
           let O = await EUe(S, Z);
@@ -411,7 +411,7 @@ function ue(gn) {
       return (
         Se(),
         () => {
-          Re = !0;
+          Re = true;
         }
       );
     }),
@@ -461,7 +461,7 @@ function ue(gn) {
     if (s[9] === d) (l = e(rr, { message: "Loading environments\u2026" })), (s[9] = l);
     else l = s[9];
     let f;
-    if (s[10] !== i) (f = e(me, { title: v, onCancel: i, hideInputGuide: !0, children: l })), (s[10] = i), (s[11] = f);
+    if (s[10] !== i) (f = e(me, { title: v, onCancel: i, hideInputGuide: true, children: l })), (s[10] = i), (s[11] = f);
     else f = s[11];
     return f;
   }
@@ -481,14 +481,14 @@ function ue(gn) {
     else l = s[17];
     let f;
     if (s[18] !== T)
-      (f = T && r(t, { dimColor: !0, children: ["(couldn't list environments: ", T, ")"] })), (s[18] = T), (s[19] = f);
+      (f = T && r(t, { dimColor: true, children: ["(couldn't list environments: ", T, ")"] })), (s[18] = T), (s[19] = f);
     else f = s[19];
     let te;
     if (s[20] !== C)
       (te =
         C &&
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             "(ignoring self-hosted environment default ",
             C.id,
@@ -547,7 +547,7 @@ function ue(gn) {
 function D(o) {
   let a = ID(o),
     c = H9(o) ? ` \xB7 ${o.alive_runner_count} ${k(o.alive_runner_count, "runner")}` : "";
-  return { label: r(t, { children: [o.name, " ", r(t, { dimColor: !0, children: ["(", a, c, ")"] })] }), value: a };
+  return { label: r(t, { children: [o.name, " ", r(t, { dimColor: true, children: ["(", a, c, ")"] })] }), value: a };
 }
 function de(Pn) {
   let p = _(27),
@@ -567,7 +567,7 @@ function de(Pn) {
   let $e = We,
     je;
   if (p[2] !== L || p[3] !== E || p[4] !== $e)
-    (je = E ? r(t, { children: ["Currently using: ", e(t, { bold: !0, children: L.name }), $e] }) : void 0),
+    (je = E ? r(t, { children: ["Currently using: ", e(t, { bold: true, children: L.name }), $e] }) : void 0),
       (p[2] = L),
       (p[3] = E),
       (p[4] = $e),
@@ -584,9 +584,9 @@ function de(Pn) {
       ...(De.length > 0
         ? [
             {
-              label: e(t, { dimColor: !0, children: "\u2014 Self-hosted environments \u2014" }),
+              label: e(t, { dimColor: true, children: "\u2014 Self-hosted environments \u2014" }),
               value: "",
-              disabled: !0,
+              disabled: true,
             },
           ]
         : []),
@@ -596,11 +596,11 @@ function de(Pn) {
   } else (z = p[7]), (qe = p[8]);
   let Te = qe,
     He;
-  if (p[9] === d) (He = e(t, { dimColor: !0, children: H })), (p[9] = He);
+  if (p[9] === d) (He = e(t, { dimColor: true, children: H })), (p[9] = He);
   else He = p[9];
   let le;
   if (p[10] !== re || p[11] !== z)
-    (le = re && z.length === 0 && r(t, { dimColor: !0, children: ["(couldn't list environments: ", re, ")"] })),
+    (le = re && z.length === 0 && r(t, { dimColor: true, children: ["(couldn't list environments: ", re, ")"] })),
       (p[10] = re),
       (p[11] = z),
       (p[12] = le);
@@ -610,7 +610,7 @@ function de(Pn) {
     (se =
       q &&
       r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [
           "(ignoring self-hosted environment default ",
           q.id,
@@ -644,7 +644,7 @@ function de(Pn) {
   let Ke;
   if (p[20] === d)
     (Ke = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: r(fe, {
         children: [
           e(M, { chord: "enter", action: "select" }),
@@ -656,7 +656,7 @@ function de(Pn) {
   else Ke = p[20];
   let Qe;
   if (p[21] !== be || p[22] !== Ne || p[23] !== le || p[24] !== se || p[25] !== ce)
-    (Qe = r(me, { title: v, subtitle: Ne, onCancel: be, hideInputGuide: !0, children: [He, le, se, ce, Ke] })),
+    (Qe = r(me, { title: v, subtitle: Ne, onCancel: be, hideInputGuide: true, children: [He, le, se, ce, Ke] })),
       (p[21] = be),
       (p[22] = Ne),
       (p[23] = le),

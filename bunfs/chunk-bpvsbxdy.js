@@ -107,9 +107,9 @@ function q(t, e) {
   for (let o of Object.values(t.alwaysAllowRules))
     for (let s of o ?? []) {
       let i = s.replace(/\(\*?\)$/, "");
-      if (i === e || i === n || i === r) return !0;
+      if (i === e || i === n || i === r) return true;
     }
-  return !1;
+  return false;
 }
 function N(t, e) {
   return t.has(e) || t.has(P(e));
@@ -173,10 +173,10 @@ function X(t, e) {
     }
   } else n.push({ name: t, input: e });
   let r = new Set(),
-    o = !1;
+    o = false;
   for (let s of n) {
     if (s.name === "navigate") {
-      o = !0;
+      o = true;
       continue;
     }
     if (Y.has(s.name)) {
@@ -202,7 +202,7 @@ async function B(t) {
         if (!(await e.socketClient.ensureConnected())) return;
         let n = await e.socketClient.callTool(
           "tabs_context_mcp",
-          { createIfEmpty: !1, includePermissionState: !1 },
+          { createIfEmpty: false, includePermissionState: false },
           { permissionMode: "ask", sessionScope: F() },
         );
         if (!n || n.error) return;
@@ -226,7 +226,7 @@ function M(t) {
   return { type: "text", text: `[Image from Claude in Chrome \u2014 ${t}; not inlined]` };
 }
 function ee(t) {
-  if (!t) return !1;
+  if (!t) return false;
   let e = St(t, ";").trim().toLowerCase();
   return Z.has(e === "image/jpg" ? "image/jpeg" : e);
 }
@@ -264,9 +264,9 @@ function ne(t) {
   return;
 }
 function oe(t) {
-  if (!Array.isArray(t.actions)) return !1;
+  if (!Array.isArray(t.actions)) return false;
   return t.actions.some((e) => {
-    if (!He(e) || typeof e.name !== "string") return !0;
+    if (!He(e) || typeof e.name !== "string") return true;
     return e.name === "browser_batch" || (lxe.has(e.name) && !Tye(e.name, He(e.input) ? e.input : {}));
   });
 }
@@ -296,7 +296,7 @@ async function ie(t, e, n, r) {
   if (s.aborted) throw new Ze("Claude in Chrome tool call aborted");
   let i,
     m = new Promise((a, c) => {
-      (i = () => c(new Ze("Claude in Chrome tool call aborted"))), s.addEventListener("abort", i, { once: !0 });
+      (i = () => c(new Ze("Claude in Chrome tool call aborted"))), s.addEventListener("abort", i, { once: true });
     }),
     l;
   try {
@@ -312,9 +312,9 @@ async function ie(t, e, n, r) {
 `) || `${t} failed`,
       c = l._meta,
       h =
-        c?.isBridgeTimeout === !0
+        c?.isBridgeTimeout === true
           ? "bridge_timeout"
-          : c?.isFrontLoadBoundExceeded === !0
+          : c?.isFrontLoadBoundExceeded === true
             ? "front_load_bound_exceeded"
             : void 0;
     throw new R(a, "Claude in Chrome tool returned error", `chrome_${h ?? elt(t, a)}`);
@@ -347,7 +347,7 @@ function bon(t) {
               decisionReason: {
                 type: "safetyCheck",
                 reason: "Claude in Chrome: non-web or unparseable URL",
-                classifierApprovable: !1,
+                classifierApprovable: false,
               },
             }
           );
@@ -362,7 +362,7 @@ function bon(t) {
               decisionReason: {
                 type: "safetyCheck",
                 reason: "Claude in Chrome: tab URL unresolved",
-                classifierApprovable: !1,
+                classifierApprovable: false,
               },
             }
           );
@@ -375,7 +375,7 @@ function bon(t) {
               decisionReason: {
                 type: "safetyCheck",
                 reason: "Claude in Chrome: non-web or unparseable tab URL",
-                classifierApprovable: !1,
+                classifierApprovable: false,
               },
             }
           );
@@ -386,7 +386,7 @@ function bon(t) {
           c,
         ),
         b = h === "bypassPermissions" || (h === "plan" && c.isBypassPermissionsModeAvailable),
-        v = c.chromeNavigationClassifierEnabled === !0 && !b && (c.chromeClassifierFloorEnabled === !0 || Qy(h)),
+        v = c.chromeNavigationClassifierEnabled === true && !b && (c.chromeClassifierFloorEnabled === true || Qy(h)),
         f,
         T,
         I = () => {
@@ -404,7 +404,7 @@ function bon(t) {
             {
               behavior: "deny",
               message: Q[u.code],
-              decisionReason: { type: "safetyCheck", reason: `Claude in Chrome: ${u.code}`, classifierApprovable: !1 },
+              decisionReason: { type: "safetyCheck", reason: `Claude in Chrome: ${u.code}`, classifierApprovable: false },
             }
           );
         if (u.kind === "tab") {
@@ -420,7 +420,7 @@ function bon(t) {
                 decisionReason: {
                   type: "safetyCheck",
                   reason: "Claude in Chrome: tab URL unresolved",
-                  classifierApprovable: !1,
+                  classifierApprovable: false,
                 },
               }
             );
@@ -428,7 +428,7 @@ function bon(t) {
         }
       }
       I();
-      let _ = !1;
+      let _ = false;
       if (a) {
         let u = x(c),
           w = C(a.host),
@@ -445,7 +445,7 @@ function bon(t) {
               },
             }
           );
-        if (((_ = u.allowed.has(w)), _ && f === void 0 && c.chromeClassifierFloorEnabled !== !0 && !l)) {
+        if (((_ = u.allowed.has(w)), _ && f === void 0 && c.chromeClassifierFloorEnabled !== true && !l)) {
           if (i) O(i, a);
           return {
             behavior: "allow",
@@ -456,7 +456,7 @@ function bon(t) {
             },
           };
         }
-        if (i && (_ || c.chromeClassifierFloorEnabled === !0 || !q(c, e))) O(i, a);
+        if (i && (_ || c.chromeClassifierFloorEnabled === true || !q(c, e))) O(i, a);
       }
       if (l && c.mode === "plan") return { behavior: "passthrough", message: "Claude in Chrome requires permission." };
       return {
@@ -482,7 +482,7 @@ function bon(t) {
               },
             ],
         decisionReason: f
-          ? { type: "safetyCheck", reason: "Claude in Chrome: cross-site navigation pending", classifierApprovable: !0 }
+          ? { type: "safetyCheck", reason: "Claude in Chrome: cross-site navigation pending", classifierApprovable: true }
           : { type: "other", reason: a ? `Claude in Chrome action on ${a.host}` : "Claude in Chrome action" },
         metadata: {
           command: {

@@ -150,9 +150,9 @@ var Qt = "[object Object]",
   nn = tn.hasOwnProperty,
   rn = we.call(Object);
 function on(e) {
-  if (!nx(e) || Ij(e) != Qt) return !1;
+  if (!nx(e) || Ij(e) != Qt) return false;
   var t = vXe(e);
-  if (t === null) return !0;
+  if (t === null) return true;
   var r = nn.call(t, "constructor") && t.constructor;
   return typeof r == "function" && r instanceof r && we.call(r) == rn;
 }
@@ -199,13 +199,13 @@ function cn(e, t, r, o, i, s, l) {
     if (((f = d), y || S || p))
       if (wg(c)) f = c;
       else if (ve(c)) f = G(c);
-      else if (S) (g = !1), (f = L(d, !0));
-      else if (p) (g = !1), (f = W(d, !0));
+      else if (S) (g = false), (f = L(d, true));
+      else if (p) (g = false), (f = W(d, true));
       else f = [];
     else if (yXe(d) || Bfe(d)) {
       if (((f = c), Bfe(c))) f = Ee(c);
       else if (!Rm(c) || l$e(c)) f = z(d);
-    } else g = !1;
+    } else g = false;
   }
   if (g) l.set(d, f), i(f, d, o, s, l), l.delete(d);
   N(e, r, f);
@@ -268,7 +268,7 @@ var Me = fn;
 var gn = !pQe
     ? fQe
     : function (e, t) {
-        return pQe(e, "toString", { configurable: !0, enumerable: !1, value: Me(t), writable: !0 });
+        return pQe(e, "toString", { configurable: true, enumerable: false, value: Me(t), writable: true });
       },
   Re = gn;
 var pn = 800,
@@ -294,10 +294,10 @@ function vn(e, t) {
 }
 var Te = vn;
 function bn(e, t, r) {
-  if (!Rm(r)) return !1;
+  if (!Rm(r)) return false;
   var o = typeof t;
   if (o == "number" ? N5(r) && jfe(t, r.length) : o == "string" && t in r) return Q5(r[t], e);
-  return !1;
+  return false;
 }
 var mqt = bn;
 function wn(e) {
@@ -622,7 +622,7 @@ function zwt() {
 function Pn(e, t) {
   var r = -1,
     o = e == null ? 0 : e.length;
-  while (++r < o) if (t(e[r], r, e) === !1) break;
+  while (++r < o) if (t(e[r], r, e) === false) break;
   return e;
 }
 var Le = Pn;
@@ -789,8 +789,8 @@ h[tt] =
   h[jr] =
   h[Nr] =
   h[Lr] =
-    !0;
-h[Sr] = h[nt] = h[Ar] = !1;
+    true;
+h[Sr] = h[nt] = h[Ar] = false;
 function ee(e, t, r, o, i, s) {
   var l,
     c = t & ur,
@@ -861,11 +861,11 @@ function Jr(e, t) {
   t = P4(t, e);
   var r = -1,
     o = t.length;
-  if (!o) return !0;
+  if (!o) return true;
   while (++r < o) {
     var i = Tj(t[r]);
-    if (i === "__proto__" && !$r.call(e, "__proto__")) return !1;
-    if ((i === "constructor" || i === "prototype") && r < o - 1) return !1;
+    if (i === "__proto__" && !$r.call(e, "__proto__")) return false;
+    if ((i === "constructor" || i === "prototype") && r < o - 1) return false;
   }
   var s = it(e, t);
   return s == null || delete s[Tj(bO(t))];
@@ -909,7 +909,7 @@ var Gr = 1,
   Zr = ne(function (e, t) {
     var r = {};
     if (e == null) return r;
-    var o = !1;
+    var o = false;
     if (
       ((t = nie(t, function (s) {
         return (s = P4(s, e)), o || (o = s.length > 1), s;
@@ -986,7 +986,7 @@ function F(e) {
 function ae(e) {
   let t = e ? tCe(e) : bw(),
     r = eU(t, { unrepresentable: "any" });
-  return Vwt(r, !1), b(r, null, 2);
+  return Vwt(r, false), b(r, null, 2);
 }
 var eo = /^@internal(?:\b|$)/;
 function yt(e) {
@@ -1121,7 +1121,7 @@ function ht(e) {
   if (!r.docLink && e.path) r.docLink = no[St(e.path, ".")];
   return r;
 }
-var ro = m(() => tCe(ZAe(), { strictPolicyHelperKeys: !0 }).strict());
+var ro = m(() => tCe(ZAe(), { strictPolicyHelperKeys: true }).strict());
 function vt(e) {
   return e.code === "invalid_type";
 }
@@ -1190,9 +1190,9 @@ function SEn(e) {
       s = wEn(t);
     if (s !== void 0) i.push({ path: _qt, message: `"crossSessionInbound" ${s}.` });
     let l = bEn(t);
-    if (i.length === 0 && r.length === 0 && l.length === 0) return { isValid: !0 };
+    if (i.length === 0 && r.length === 0 && l.length === 0) return { isValid: true };
     return {
-      isValid: !1,
+      isValid: false,
       error:
         `Settings validation failed:
 ` +
@@ -1210,7 +1210,7 @@ function SEn(e) {
     };
   } catch (t) {
     return {
-      isValid: !1,
+      isValid: false,
       error: `Invalid JSON: ${t instanceof Error ? t.message : "Unknown parsing error"}`,
       fullSchema: ae(),
     };
@@ -1227,7 +1227,7 @@ function hqt(e, t) {
         delete l[c];
       }
   }
-  let i = zAe(r, t, { mcpServerEntrySalvageOnly: !0, policySource: !0 }),
+  let i = zAe(r, t, { mcpServerEntrySalvageOnly: true, policySource: true }),
     s = bw().safeParse(r);
   if (!s.success) {
     let l = t.startsWith("policyHelpers.") ? "payload" : "managedSettings",
@@ -1283,15 +1283,15 @@ function io(e, t) {
             severity: "warning",
             invalidValue: c,
           }),
-          !1
+          false
         );
       let d = Npe(c, s);
       if (!d.valid) {
         let u = `Invalid permission rule "${c}" was skipped: ${d.error}`;
         if (d.suggestion) u += `. ${d.suggestion}`;
-        return i.push({ file: t, path: `permissions.${s}`, message: u, severity: "warning", invalidValue: c }), !1;
+        return i.push({ file: t, path: `permissions.${s}`, message: u, severity: "warning", invalidValue: c }), false;
       }
-      return !0;
+      return true;
     });
   }
   return i;
@@ -1397,9 +1397,9 @@ function uo(e) {
   return typeof r === "string" ? r : void 0;
 }
 function fo(e) {
-  if (!e || typeof e !== "object") return !1;
+  if (!e || typeof e !== "object") return false;
   let t = e.source;
-  if (!t || typeof t !== "object") return !1;
+  if (!t || typeof t !== "object") return false;
   let r = t.plugins;
   return Array.isArray(r) && r.some(kAn);
 }
@@ -1566,7 +1566,7 @@ function So(e, t, r) {
   if (i === void 0 || kt(i)) return [];
   if (r?.policySource) o.crossSessionInbound = "refuse";
   else delete o.crossSessionInbound;
-  return [ho(i, t, r?.policySource === !0)];
+  return [ho(i, t, r?.policySource === true)];
 }
 function kt(e) {
   return typeof e === "string" && eCe.includes(e);
@@ -1583,7 +1583,7 @@ function Ot(e) {
     r = typeof e === "string" ? `"${pCe(e).replace(/^<key>$/, "<value>")}"` : P(e);
   return `must be one of ${t}; received ${r}`;
 }
-function ho(e, t, r = !1) {
+function ho(e, t, r = false) {
   let o = eCe.map((s) => `"${s}"`).join(", "),
     i = r
       ? 'In managed settings an unrecognized value is treated as "refuse" (the most restrictive): cross-session messages to this session are turned away until an administrator fixes it.'
@@ -1594,7 +1594,7 @@ function ho(e, t, r = !1) {
     message: `"crossSessionInbound" ${Ot(e)}. ${i}`,
     severity: "warning",
     expected: o,
-    ...(r && { statusOnly: !0 }),
+    ...(r && { statusOnly: true }),
   };
 }
 function zAe(e, t, r) {
@@ -1634,9 +1634,9 @@ function Xwt(e) {
 function ce(e, t) {
   let r = [],
     o = {},
-    i = !1,
-    { settings: s, errors: l } = r5(R(e, "managed-settings.json"), t, void 0, !0);
-  if ((r.push(...l), s && Object.keys(s).length > 0)) (o = dP(o, s, i5)), (i = !0);
+    i = false,
+    { settings: s, errors: l } = r5(R(e, "managed-settings.json"), t, void 0, true);
+  if ((r.push(...l), s && Object.keys(s).length > 0)) (o = dP(o, s, i5)), (i = true);
   let c = R(e, "managed-settings.d");
   try {
     let d = t.folderListingForPolicyWalk(c),
@@ -1650,8 +1650,8 @@ function ce(e, t) {
         .sort()),
         t.noteWalkListing(c, u);
     for (let f of u) {
-      let { settings: g, errors: y } = r5(R(c, f), t, void 0, !0);
-      if ((r.push(...y), g && Object.keys(g).length > 0)) (o = dP(o, g, i5)), (i = !0);
+      let { settings: g, errors: y } = r5(R(c, f), t, void 0, true);
+      if ((r.push(...y), g && Object.keys(g).length > 0)) (o = dP(o, g, i5)), (i = true);
     }
   } catch (d) {
     let u = E(d);
@@ -1694,7 +1694,7 @@ function VAe(e, t) {
 var At = new WeakMap();
 function Eo(e, t) {
   let r = Wp(e),
-    o = zAe(r, t, { skipMcpServerEntryFilter: !0, policySource: !0 }),
+    o = zAe(r, t, { skipMcpServerEntryFilter: true, policySource: true }),
     i = [],
     s = YEn(Mt(t, i), t).safeParse(r);
   if (!s.success) return { settings: null, errors: [...o, ...j(s.error, t)] };
@@ -1754,9 +1754,9 @@ function TXe(e, t, r) {
 }
 function MNe(e, t, r) {
   if (e.trim() === "") return { settings: {}, errors: [] };
-  let o = Wp(Ut(e, !1));
+  let o = Wp(Ut(e, false));
   if (r) {
-    let l = zAe(o, t, { skipMcpServerEntryFilter: !0, policySource: !0 }),
+    let l = zAe(o, t, { skipMcpServerEntryFilter: true, policySource: true }),
       c = [],
       d = YEn(Mt(t, c), t).safeParse(o);
     if (!d.success) return { settings: null, errors: [...l, ...j(d.error, t)] };
@@ -1844,18 +1844,18 @@ function Po(e) {
         `localSettings: not canonicalizing the consent store to ${e} \u2014 this platform has no uid semantics to verify directory ownership with, so the store stays at the session cwd (canonicalization is POSIX-only)`,
         { level: "warn" },
       ),
-      !1
+      false
     );
   let t = typeof process.geteuid === "function" ? process.geteuid() : process.getuid?.();
   try {
     let { rootUid: r, gitEntryUid: o, claudeEntryUid: i } = Oo(e);
-    if (r === t && o === t && (i === null || i === t)) return !0;
+    if (r === t && o === t && (i === null || i === t)) return true;
     return (
       n(
         `localSettings: not canonicalizing the consent store to ${e} \u2014 it (uid ${r}), its .git entry (uid ${o}), or its .claude entry (uid ${i ?? "absent"}) is not owned by the current user (uid ${t}); the store stays at the session cwd (the pre-canonicalization behavior). If you own this repo, chown it (including .git and .claude) or run from a directory you own.`,
         { level: "warn" },
       ),
-      !1
+      false
     );
   } catch (r) {
     return (
@@ -1863,7 +1863,7 @@ function Po(e) {
         `localSettings: not canonicalizing the consent store to ${e} \u2014 its ownership could not be verified (${r instanceof Error ? r.message : String(r)}); the store stays at the session cwd`,
         { level: "warn" },
       ),
-      !1
+      false
     );
   }
 }
@@ -1918,65 +1918,65 @@ function Rt(e) {
   return !e || e.parentSettingsBehavior === "merge";
 }
 var Ct = [
-  { path: ["allowManagedPermissionRulesOnly"], restrictive: !0 },
-  { path: ["allowManagedHooksOnly"], restrictive: !0 },
-  { path: ["allowManagedMcpServersOnly"], restrictive: !0 },
-  { path: ["enforceAvailableModels"], restrictive: !0 },
-  { path: ["disableAllHooks"], restrictive: !0 },
-  { path: ["disableClaudeAiConnectors"], restrictive: !0 },
-  { path: ["disableCommandPluginSources"], restrictive: !0 },
-  { path: ["disableSideloadFlags"], restrictive: !0 },
-  { path: ["disableSkillShellExecution"], restrictive: !0 },
-  { path: ["disableRemoteControl"], restrictive: !0 },
-  { path: ["disableAgentView"], restrictive: !0 },
-  { path: ["disableWorkflows"], restrictive: !0 },
-  { path: ["disableArtifact"], restrictive: !0 },
-  { path: ["disableBundledSkills"], restrictive: !0 },
-  { path: ["fastModePerSessionOptIn"], restrictive: !0 },
-  { path: ["isolatePeerMachines"], restrictive: !0 },
-  { path: ["strictPluginOnlyCustomization"], restrictive: !0 },
+  { path: ["allowManagedPermissionRulesOnly"], restrictive: true },
+  { path: ["allowManagedHooksOnly"], restrictive: true },
+  { path: ["allowManagedMcpServersOnly"], restrictive: true },
+  { path: ["enforceAvailableModels"], restrictive: true },
+  { path: ["disableAllHooks"], restrictive: true },
+  { path: ["disableClaudeAiConnectors"], restrictive: true },
+  { path: ["disableCommandPluginSources"], restrictive: true },
+  { path: ["disableSideloadFlags"], restrictive: true },
+  { path: ["disableSkillShellExecution"], restrictive: true },
+  { path: ["disableRemoteControl"], restrictive: true },
+  { path: ["disableAgentView"], restrictive: true },
+  { path: ["disableWorkflows"], restrictive: true },
+  { path: ["disableArtifact"], restrictive: true },
+  { path: ["disableBundledSkills"], restrictive: true },
+  { path: ["fastModePerSessionOptIn"], restrictive: true },
+  { path: ["isolatePeerMachines"], restrictive: true },
+  { path: ["strictPluginOnlyCustomization"], restrictive: true },
   { path: ["disableAutoMode"], restrictive: "disable" },
   { path: ["disableDeepLinkRegistration"], restrictive: "disable" },
   { path: ["permissions", "disableBypassPermissionsMode"], restrictive: "disable" },
   { path: ["permissions", "disableAutoMode"], restrictive: "disable" },
-  { path: ["autoMode", "classifyAllShell"], restrictive: !0 },
+  { path: ["autoMode", "classifyAllShell"], restrictive: true },
   ...[],
   { path: ["worktree", "bgIsolation"], restrictive: "worktree" },
-  { path: ["enableArtifact"], restrictive: !1 },
-  { path: ["enableWorkflows"], restrictive: !1 },
-  { path: ["syncClaudeAiSkills"], restrictive: !1 },
-  { path: ["syncClaudeAiPlugins"], restrictive: !1 },
-  { path: ["useAutoModeDuringPlan"], restrictive: !1 },
-  { path: ["skipDangerousModePermissionPrompt"], restrictive: !1 },
-  { path: ["skipAutoPermissionPrompt"], restrictive: !1 },
-  { path: ["enableAllProjectMcpServers"], restrictive: !1 },
-  { path: ["channelsEnabled"], restrictive: !1 },
-  { path: ["skipWebFetchPreflight"], restrictive: !1 },
-  { path: ["skipWorkflowUsageWarning"], restrictive: !1 },
-  { path: ["autoUploadSessions"], restrictive: !1 },
-  { path: ["remoteControlAtStartup"], restrictive: !1 },
-  { path: ["autoContinueAtUsageLimit"], restrictive: !1 },
+  { path: ["enableArtifact"], restrictive: false },
+  { path: ["enableWorkflows"], restrictive: false },
+  { path: ["syncClaudeAiSkills"], restrictive: false },
+  { path: ["syncClaudeAiPlugins"], restrictive: false },
+  { path: ["useAutoModeDuringPlan"], restrictive: false },
+  { path: ["skipDangerousModePermissionPrompt"], restrictive: false },
+  { path: ["skipAutoPermissionPrompt"], restrictive: false },
+  { path: ["enableAllProjectMcpServers"], restrictive: false },
+  { path: ["channelsEnabled"], restrictive: false },
+  { path: ["skipWebFetchPreflight"], restrictive: false },
+  { path: ["skipWorkflowUsageWarning"], restrictive: false },
+  { path: ["autoUploadSessions"], restrictive: false },
+  { path: ["remoteControlAtStartup"], restrictive: false },
+  { path: ["autoContinueAtUsageLimit"], restrictive: false },
   ...[],
-  { path: ["attribution", "sessionUrl"], restrictive: !1 },
+  { path: ["attribution", "sessionUrl"], restrictive: false },
   { path: ["crossSessionInbound"], restrictive: ["refuse", "hold"] },
   { path: ["modelProposedGoals"], restrictive: ["disabled", "alwaysAsk"] },
   { path: ["feedbackDrafts"], restrictive: "off" },
   { path: ["askUserQuestionTimeout"], restrictive: "never" },
   { path: ["dialogExpiry"], restrictive: "never" },
-  { path: ["sandbox", "enabled"], restrictive: !0 },
-  { path: ["sandbox", "failIfUnavailable"], restrictive: !0 },
-  { path: ["sandbox", "autoAllowBashIfSandboxed"], restrictive: !1 },
-  { path: ["sandbox", "allowUnsandboxedCommands"], restrictive: !1 },
-  { path: ["sandbox", "enableWeakerNestedSandbox"], restrictive: !1 },
-  { path: ["sandbox", "enableWeakerNetworkIsolation"], restrictive: !1 },
-  { path: ["sandbox", "allowAppleEvents"], restrictive: !1 },
-  { path: ["sandbox", "network", "allowManagedDomainsOnly"], restrictive: !0 },
-  { path: ["sandbox", "network", "strictAllowlist"], restrictive: !0 },
-  { path: ["sandbox", "network", "allowAllUnixSockets"], restrictive: !1 },
-  { path: ["sandbox", "network", "allowLocalBinding"], restrictive: !1 },
-  { path: ["sandbox", "filesystem", "allowManagedReadPathsOnly"], restrictive: !0 },
-  { path: ["sandbox", "filesystem", "disabled"], restrictive: !1 },
-  { path: ["sandbox", "credentials", "allowPlaintextInject"], restrictive: !1 },
+  { path: ["sandbox", "enabled"], restrictive: true },
+  { path: ["sandbox", "failIfUnavailable"], restrictive: true },
+  { path: ["sandbox", "autoAllowBashIfSandboxed"], restrictive: false },
+  { path: ["sandbox", "allowUnsandboxedCommands"], restrictive: false },
+  { path: ["sandbox", "enableWeakerNestedSandbox"], restrictive: false },
+  { path: ["sandbox", "enableWeakerNetworkIsolation"], restrictive: false },
+  { path: ["sandbox", "allowAppleEvents"], restrictive: false },
+  { path: ["sandbox", "network", "allowManagedDomainsOnly"], restrictive: true },
+  { path: ["sandbox", "network", "strictAllowlist"], restrictive: true },
+  { path: ["sandbox", "network", "allowAllUnixSockets"], restrictive: false },
+  { path: ["sandbox", "network", "allowLocalBinding"], restrictive: false },
+  { path: ["sandbox", "filesystem", "allowManagedReadPathsOnly"], restrictive: true },
+  { path: ["sandbox", "filesystem", "disabled"], restrictive: false },
+  { path: ["sandbox", "credentials", "allowPlaintextInject"], restrictive: false },
   { path: ["sandbox", "credentials", "sigv4", "streaming"], restrictive: "deny" },
   { path: ["sandbox", "credentials", "sigv4", "presigned"], restrictive: "deny" },
   { path: ["sandbox", "credentials", "sigv4", "sigv4a"], restrictive: "deny" },
@@ -2027,28 +2027,28 @@ function yqt(e, t) {
 }
 function xo(e, t) {
   let r = {};
-  if (e.allowManagedHooksOnly === !0) r.allowManagedHooksOnly = !0;
-  if (e.disableCommandPluginSources === !0) r.disableCommandPluginSources = !0;
-  if (e.allowManagedMcpServersOnly === !0) r.allowManagedMcpServersOnly = !0;
-  if (e.disableClaudeAiConnectors === !0) r.disableClaudeAiConnectors = !0;
-  if (e.syncClaudeAiSkills === !1) r.syncClaudeAiSkills = !1;
-  if (e.syncClaudeAiPlugins === !1) r.syncClaudeAiPlugins = !1;
-  if (e.allowManagedPermissionRulesOnly === !0) r.allowManagedPermissionRulesOnly = !0;
-  if (pt(e.attribution, e.includeCoAuthoredBy) === "disabled") r.attribution = { ...r.attribution, commitTrailers: !1 };
-  if (e.attribution?.sessionUrl === !1) r.attribution = { ...r.attribution, sessionUrl: !1 };
+  if (e.allowManagedHooksOnly === true) r.allowManagedHooksOnly = true;
+  if (e.disableCommandPluginSources === true) r.disableCommandPluginSources = true;
+  if (e.allowManagedMcpServersOnly === true) r.allowManagedMcpServersOnly = true;
+  if (e.disableClaudeAiConnectors === true) r.disableClaudeAiConnectors = true;
+  if (e.syncClaudeAiSkills === false) r.syncClaudeAiSkills = false;
+  if (e.syncClaudeAiPlugins === false) r.syncClaudeAiPlugins = false;
+  if (e.allowManagedPermissionRulesOnly === true) r.allowManagedPermissionRulesOnly = true;
+  if (pt(e.attribution, e.includeCoAuthoredBy) === "disabled") r.attribution = { ...r.attribution, commitTrailers: false };
+  if (e.attribution?.sessionUrl === false) r.attribution = { ...r.attribution, sessionUrl: false };
   let o = e.strictPluginOnlyCustomization;
-  if (o === !0 || (Array.isArray(o) && o.length > 0)) r.strictPluginOnlyCustomization = o;
+  if (o === true || (Array.isArray(o) && o.length > 0)) r.strictPluginOnlyCustomization = o;
   if (e.deniedMcpServers) r.deniedMcpServers = e.deniedMcpServers;
   if (t.forceLoginOrgUUID === void 0 && e.forceLoginOrgUUID) r.forceLoginOrgUUID = e.forceLoginOrgUUID;
   if (t.allowedMcpServers === void 0 && e.allowedMcpServers) r.allowedMcpServers = e.allowedMcpServers;
   if (t.availableModels === void 0 && e.availableModels) r.availableModels = e.availableModels;
-  if (e.enforceAvailableModels === !0) r.enforceAvailableModels = !0;
+  if (e.enforceAvailableModels === true) r.enforceAvailableModels = true;
   if (e.permissions) {
     let i = bXe(e.permissions, ["deny", "ask"]);
     if (e.permissions.disableBypassPermissionsMode === "disable") i.disableBypassPermissionsMode = "disable";
-    if (t.allowManagedPermissionRulesOnly !== !0) {
+    if (t.allowManagedPermissionRulesOnly !== true) {
       let { allow: s, additionalDirectories: l } = e.permissions;
-      if (s && t.sandbox?.network?.allowManagedDomainsOnly !== !0) i.allow = s;
+      if (s && t.sandbox?.network?.allowManagedDomainsOnly !== true) i.allow = s;
       if (l) i.additionalDirectories = l;
     }
     if (Object.keys(i).length > 0) r.permissions = i;
@@ -2059,11 +2059,11 @@ function xo(e, t) {
       d = i ? bXe(i, ["deniedDomains"]) : {},
       u = s ? bXe(s, ["denyRead", "denyWrite"]) : {};
     if (i) {
-      if (t.sandbox?.network?.allowManagedDomainsOnly !== !0 && i.allowedDomains) d.allowedDomains = i.allowedDomains;
+      if (t.sandbox?.network?.allowManagedDomainsOnly !== true && i.allowedDomains) d.allowedDomains = i.allowedDomains;
     }
     if (Object.keys(d).length > 0) c.network = d;
     if (s) {
-      if (t.sandbox?.filesystem?.allowManagedReadPathsOnly !== !0 && s.allowRead) u.allowRead = s.allowRead;
+      if (t.sandbox?.filesystem?.allowManagedReadPathsOnly !== true && s.allowRead) u.allowRead = s.allowRead;
     }
     if (Object.keys(u).length > 0) c.filesystem = u;
     if (l) {
@@ -2212,16 +2212,16 @@ function T(e) {
     ie = (A) => A !== null && (A === p[0] || Object.keys(Ul(A, Nt)).length > 0),
     Vt = { remote: ie(s), mdm: ie(d), file: ie(g) },
     $t = {
-      allowManagedPermissionRulesOnly: p.some((A) => A.allowManagedPermissionRulesOnly === !0) || void 0,
+      allowManagedPermissionRulesOnly: p.some((A) => A.allowManagedPermissionRulesOnly === true) || void 0,
       forceLoginOrgUUID: w?.forceLoginOrgUUID,
       allowedMcpServers: w?.allowedMcpServers,
       availableModels: w?.availableModels,
       sandbox: {
         network: {
-          allowManagedDomainsOnly: p.some((A) => A.sandbox?.network?.allowManagedDomainsOnly === !0) || void 0,
+          allowManagedDomainsOnly: p.some((A) => A.sandbox?.network?.allowManagedDomainsOnly === true) || void 0,
         },
         filesystem: {
-          allowManagedReadPathsOnly: p.some((A) => A.sandbox?.filesystem?.allowManagedReadPathsOnly === !0) || void 0,
+          allowManagedReadPathsOnly: p.some((A) => A.sandbox?.filesystem?.allowManagedReadPathsOnly === true) || void 0,
         },
       },
     },
@@ -2232,9 +2232,9 @@ function T(e) {
 }
 function Lo(e, t) {
   let r = e[0];
-  if (!r) return { admin: null, merged: !1 };
+  if (!r) return { admin: null, merged: false };
   let { managedSourcesBehavior: o, ...i } = r;
-  if (t !== "merge" || e.length < 2) return { admin: o === void 0 ? r : i, merged: !1 };
+  if (t !== "merge" || e.length < 2) return { admin: o === void 0 ? r : i, merged: false };
   let s = e.slice(1).map((c) => {
       let d = Ul(c, Nt);
       for (let f of To) if (I(d, f) !== void 0) J(d, f, void 0);
@@ -2245,7 +2245,7 @@ function Lo(e, t) {
     }),
     l = {};
   for (let c of [...s].reverse()) dP(l, c, Pt);
-  return dP(l, i, Pt), Fo(l, [r, ...s]), Do(l, [r, ...s]), { admin: l, merged: !0 };
+  return dP(l, i, Pt), Fo(l, [r, ...s]), Do(l, [r, ...s]), { admin: l, merged: true };
 }
 var It = ["managedSourcesBehavior", "wslInheritsWindowsSettings"];
 function pP(e) {
@@ -2278,7 +2278,7 @@ function Fo(e, t) {
     if (Number.isFinite(c)) J(o, i, l[c]);
     else if (I(r, i) === void 0 && I(e, i) !== void 0) J(o, i, void 0);
   }
-  if (e.strictPluginOnlyCustomization !== !0) {
+  if (e.strictPluginOnlyCustomization !== true) {
     let i = te(
       t.flatMap((s) => (Array.isArray(s.strictPluginOnlyCustomization) ? s.strictPluginOnlyCustomization : [])),
     );
@@ -2305,8 +2305,8 @@ function Vo(e) {
 function jY(e) {
   let t = e.helper?.() ?? null;
   if (!t) return { composes: "none" };
-  let r = e.helperArmedFromRemote?.() === !1 ? "tier" : "remoteSlot";
-  if (e.helperMergesOutput?.() !== !0) return { composes: r, helper: t, mergedOver: null };
+  let r = e.helperArmedFromRemote?.() === false ? "tier" : "remoteSlot";
+  if (e.helperMergesOutput?.() !== true) return { composes: r, helper: t, mergedOver: null };
   if (!e.store.policy.mergedHelper) {
     let o, i;
     if (r === "remoteSlot") (o = o5(e).settings), (i = "remote");
@@ -2343,7 +2343,7 @@ function Bo(e) {
   return o ? [...r, o] : r;
 }
 function Hor(e) {
-  if (jY(e).composes === "tier") return !1;
+  if (jY(e).composes === "tier") return false;
   return Rt(T(e).admin);
 }
 function xor(e) {
@@ -2381,16 +2381,16 @@ function Ko(e) {
 function Lt(e, t, r) {
   let o = new Map(),
     i = new Map(),
-    s = !1;
+    s = false;
   for (let [l, c] of e.entries()) {
     let d = new Set(),
-      u = t?.[l] === !0;
+      u = t?.[l] === true;
     for (let [f, g] of Object.entries(c ?? {})) {
       let y = f.toUpperCase(),
         S = Ko(y);
       if (S && g.trim() === "") continue;
       if (S && s) continue;
-      if (S && l > 0 && t?.[l] === !0) continue;
+      if (S && l > 0 && t?.[l] === true) continue;
       let p = o.get(y);
       if (p !== void 0) {
         if (d.has(y)) i.set(f, g);
@@ -2398,9 +2398,9 @@ function Lt(e, t, r) {
         continue;
       }
       if (l > 0 && r?.[l]?.has(y)) continue;
-      if ((i.set(f, g), d.add(y), o.set(y, g), S)) u = !0;
+      if ((i.set(f, g), d.add(y), o.set(y, g), S)) u = true;
     }
-    if (u) s = !0;
+    if (u) s = true;
   }
   return Object.fromEntries(i);
 }
@@ -2409,7 +2409,7 @@ function Ior(e, t) {
   let r = e.store.policy.adminTierEnvView;
   if (r !== void 0) return r[t];
   let o = Sqt(e),
-    i = a.CLAUDE_CODE_DISABLE_ADMIN_ENV_UNION === !0 ? (o[0]?.env ?? {}) : Lt(o.map((l) => l.env)),
+    i = a.CLAUDE_CODE_DISABLE_ADMIN_ENV_UNION === true ? (o[0]?.env ?? {}) : Lt(o.map((l) => l.env)),
     s = {};
   for (let [l, c] of Object.entries(i)) {
     let d = l.toUpperCase();
@@ -2444,7 +2444,7 @@ function Dt(e) {
       value: e.hostManagedProvider && p.availableModels !== void 0 ? p.modelOverrides : void 0,
     };
     let O = (e.store.policy.helperBaseStatusNotices ??= [
-      ...(e.helperMergesOutput?.() === !0 ? zo(e).filter((w) => !w.statusOnly) : []),
+      ...(e.helperMergesOutput?.() === true ? zo(e).filter((w) => !w.statusOnly) : []),
       ...T(e).errors.filter((w) => w.statusOnly),
     ]);
     return { settings: v, errors: [...O, ...r] };
@@ -2464,8 +2464,8 @@ function Dt(e) {
     return { settings: null, errors: [...c, ...(p?.errors ?? [])] };
   }
   let u = dP({}, s ?? {}, i ?? {}, i5);
-  if (o.some((p) => p.forceRemoteSettingsRefresh === !0)) u.forceRemoteSettingsRefresh = !0;
-  let f = a.CLAUDE_CODE_DISABLE_ADMIN_ENV_UNION === !0,
+  if (o.some((p) => p.forceRemoteSettingsRefresh === true)) u.forceRemoteSettingsRefresh = true;
+  let f = a.CLAUDE_CODE_DISABLE_ADMIN_ENV_UNION === true,
     g = u.env;
   if (!f) {
     let p = Lt(
@@ -2516,7 +2516,7 @@ function Dt(e) {
     { settings: u, errors: c }
   );
 }
-function bqt(e, t, { includeLegacyLocalSettings: r = !0 } = {}) {
+function bqt(e, t, { includeLegacyLocalSettings: r = true } = {}) {
   if (e === "policySettings") return Dt(t).settings;
   let o = BY(e, t),
     { settings: i } = o ? r5(o, t.store, e === "flagSettings" ? t.flagExpectedContent : void 0) : { settings: null };
@@ -2553,7 +2553,7 @@ function Ft(e) {
 function vEn(e) {
   if (e.store.isLoadingFromDisk) return { settings: {}, errors: [] };
   let t = Date.now();
-  Y("info", "settings_load_started"), (e.store.isLoadingFromDisk = !0);
+  Y("info", "settings_load_started"), (e.store.isLoadingFromDisk = true);
   try {
     let r = e.store.pluginBase,
       o = {};
@@ -2612,7 +2612,7 @@ function vEn(e) {
       { settings: o, errors: i }
     );
   } finally {
-    e.store.isLoadingFromDisk = !1;
+    e.store.isLoadingFromDisk = false;
   }
 }
 function Yo(e) {

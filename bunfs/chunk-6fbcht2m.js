@@ -24,7 +24,7 @@ function c(t) {
   };
 }
 function d(t) {
-  return t.enabled !== !1;
+  return t.enabled !== false;
 }
 var k = 30000,
   f = 300000,
@@ -42,22 +42,22 @@ async function _je(t = {}) {
       maxContentLength: g,
       credentials: t.credentials,
     });
-    if (!e.ok) return { success: !1, error: e.reason === "no-auth" ? e.detail : e.reason };
+    if (!e.ok) return { success: false, error: e.reason === "no-auth" ? e.detail : e.reason };
     if (!Array.isArray(e.data?.skills)) {
       let r = Ewe().safeParse(e.data);
       if (r.success) {
         let a = r.data.error.type ?? "error_envelope_no_type";
         return (
           Y("warn", "skills_sync_list_error", { serverError: a, status: e.status }),
-          { success: !1, error: a, status: e.status }
+          { success: false, error: a, status: e.status }
         );
       }
-      return Y("warn", "skills_sync_list_malformed"), { success: !1, error: "malformed list-skills response" };
+      return Y("warn", "skills_sync_list_malformed"), { success: false, error: "malformed list-skills response" };
     }
-    return { success: !0, skills: e.data.skills.filter(d).map(c) };
+    return { success: true, skills: e.data.skills.filter(d).map(c) };
   } catch (e) {
     let { message: o } = os(e);
-    return { success: !1, error: o };
+    return { success: false, error: o };
   }
 }
 async function HUn(t, i, l, e = {}) {
@@ -76,14 +76,14 @@ async function HUn(t, i, l, e = {}) {
       credentials: e.credentials,
     });
     if (!n.ok || !n.data)
-      return Y("warn", "skills_sync_download_not_ok", { reason: n.ok ? "empty_body" : n.reason }), !1;
+      return Y("warn", "skills_sync_download_not_ok", { reason: n.ok ? "empty_body" : n.reason }), false;
     let s = Buffer.from(n.data);
     if (s.length < 2 || s[0] !== 80 || s[1] !== 75)
-      return Y("warn", "skills_sync_download_not_zip", { serverError: bgt(s), bodyLen: s.length }), !1;
-    return await p(i, s), !0;
+      return Y("warn", "skills_sync_download_not_zip", { serverError: bgt(s), bodyLen: s.length }), false;
+    return await p(i, s), true;
   } catch (n) {
     let { kind: s } = os(n);
-    return Y("warn", "skills_sync_download_exception", { kind: s }), !1;
+    return Y("warn", "skills_sync_download_exception", { kind: s }), false;
   }
 }
 export { _je, HUn };

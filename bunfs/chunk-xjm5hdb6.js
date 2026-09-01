@@ -11,27 +11,27 @@
 import { PCn, o4, IO, Q$, Qpe, hR, jGt } from "/$bunfs/root/chunk-d7nfr7mk.js";
 class R {
   constructor(e = {}) {
-    (this._started = !1),
-      (this._hasHandledRequest = !1),
+    (this._started = false),
+      (this._hasHandledRequest = false),
       (this._streamMapping = new Map()),
       (this._requestToStreamMapping = new Map()),
       (this._requestResponseMap = new Map()),
-      (this._initialized = !1),
-      (this._enableJsonResponse = !1),
+      (this._initialized = false),
+      (this._enableJsonResponse = false),
       (this._standaloneSseStreamId = "_GET_stream"),
       (this.sessionIdGenerator = e.sessionIdGenerator),
-      (this._enableJsonResponse = e.enableJsonResponse ?? !1),
+      (this._enableJsonResponse = e.enableJsonResponse ?? false),
       (this._eventStore = e.eventStore),
       (this._onsessioninitialized = e.onsessioninitialized),
       (this._onsessionclosed = e.onsessionclosed),
       (this._allowedHosts = e.allowedHosts),
       (this._allowedOrigins = e.allowedOrigins),
-      (this._enableDnsRebindingProtection = e.enableDnsRebindingProtection ?? !1),
+      (this._enableDnsRebindingProtection = e.enableDnsRebindingProtection ?? false),
       (this._retryInterval = e.retryInterval);
   }
   async start() {
     if (this._started) throw Error("Transport already started");
-    this._started = !0;
+    this._started = true;
   }
   createJsonErrorResponse(e, t, s, i) {
     let r = { code: t, message: s };
@@ -62,7 +62,7 @@ class R {
   async handleRequest(e, t) {
     if (!this.sessionIdGenerator && this._hasHandledRequest)
       throw Error("Stateless transport cannot be reused across requests. Create a new transport per request.");
-    this._hasHandledRequest = !0;
+    this._hasHandledRequest = true;
     let s = this.validateRequestHeaders(e);
     if (s) return s;
     switch (e.method) {
@@ -210,10 +210,10 @@ data:
 
 `),
         e.enqueue(t.encode(r)),
-        !0
+        true
       );
     } catch (r) {
-      return this.onerror?.(r), !1;
+      return this.onerror?.(r), false;
     }
   }
   handleUnsupportedRequest() {
@@ -279,7 +279,7 @@ data:
           );
         if (
           ((this.sessionId = this.sessionIdGenerator?.()),
-          (this._initialized = !0),
+          (this._initialized = true),
           this.sessionId && this._onsessioninitialized)
         )
           await Promise.resolve(this._onsessioninitialized(this.sessionId));

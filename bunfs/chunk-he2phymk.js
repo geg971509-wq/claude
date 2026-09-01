@@ -79,8 +79,8 @@ var io = (r, i) => {
         stdout: process.stdout,
         stdin: process.stdin,
         stderr: process.stderr,
-        exitOnCtrlC: !0,
-        patchConsole: !0,
+        exitOnCtrlC: true,
+        patchConsole: true,
         ...l,
       },
       f = uo(p.stdout, () => new B_e(p));
@@ -107,8 +107,8 @@ async function Ke({
   stdout: r = process.stdout,
   stdin: i = process.stdin,
   stderr: l = process.stderr,
-  exitOnCtrlC: p = !0,
-  patchConsole: f = !0,
+  exitOnCtrlC: p = true,
+  patchConsole: f = true,
   onFrame: h,
   nativeCursor: m,
   isScreenReaderEnabled: b,
@@ -147,18 +147,18 @@ function njn() {
   ao(r.getStylePool());
 }
 function ze() {
-  let r = I("tengu_xterm_atlas_reset", !0),
-    i = I("tengu_basalt_meadow", !1);
+  let r = I("tengu_xterm_atlas_reset", true),
+    i = I("tengu_basalt_meadow", false);
   return { autoResetEnabled: r, recording: r || i };
 }
 function ao(r) {
   let i = r.atlasRecorder;
   if (i.debugTainted) return;
-  if (!I("tengu_basalt_meadow", !1)) {
-    if (!i.autoResetEnabled) i.recording = !1;
+  if (!I("tengu_basalt_meadow", false)) {
+    if (!i.autoResetEnabled) i.recording = false;
     return;
   }
-  i.recording = !0;
+  i.recording = true;
   let p = i.proactiveResetStats;
   if (
     (s("tengu_render_glyph_cardinality", {
@@ -174,8 +174,8 @@ function ao(r) {
     }),
     !i.stylePoolHealthyReported)
   )
-    (i.stylePoolHealthyReported = !0), y("render_stylepool");
-  if (r.overflowed && !i.stylePoolCapHitReported) (i.stylePoolCapHitReported = !0), g("render_stylepool", "cap_hit");
+    (i.stylePoolHealthyReported = true), y("render_stylepool");
+  if (r.overflowed && !i.stylePoolCapHitReported) (i.stylePoolCapHitReported = true), g("render_stylepool", "cap_hit");
 }
 function co() {
   if (a.CURSOR_TRACE_ID !== void 0) return "cursor";
@@ -260,7 +260,7 @@ function Ye(k) {
 var o = Ye;
 F();
 F();
-var ZLt = yn(!1);
+var ZLt = yn(false);
 function ue(r, i) {
   if (!r) return;
   if (r.startsWith("rgb(") || r.startsWith("#") || r.startsWith("ansi256(") || r.startsWith("ansi:")) return r;
@@ -317,12 +317,12 @@ function t(Je) {
       (Ze = xe[9]),
       (et = xe[10]),
       (tt = xe[11]);
-  let ot = $e === void 0 ? !1 : $e,
-    rt = qe === void 0 ? !1 : qe,
-    nt = Xe === void 0 ? !1 : Xe,
-    it = Qe === void 0 ? !1 : Qe,
-    st = Ze === void 0 ? !1 : Ze,
-    lt = et === void 0 ? !1 : et,
+  let ot = $e === void 0 ? false : $e,
+    rt = qe === void 0 ? false : qe,
+    nt = Xe === void 0 ? false : Xe,
+    it = Qe === void 0 ? false : Qe,
+    st = Ze === void 0 ? false : Ze,
+    lt = et === void 0 ? false : et,
     at = tt === void 0 ? "wrap" : tt,
     q = c_(),
     ct = We(ZLt),
@@ -379,7 +379,7 @@ function ut(sn) {
   let go = _(5),
     { children: ln, url: Ee, fallback: un, assumeSupport: an } = sn,
     Ae = ln ?? Ee;
-  if (an ? (QZ() ?? !0) : Ef()) {
+  if (an ? (QZ() ?? true) : Ef()) {
     let te;
     if (go[0] !== Ae || go[1] !== Ee)
       (te = e(ca, { children: e("ink-link", { href: Ee, children: Ae }) })), (go[0] = Ae), (go[1] = Ee), (go[2] = te);
@@ -407,15 +407,15 @@ function ft(r) {
 }
 function X() {
   return {
-    bold: !1,
-    dim: !1,
-    italic: !1,
+    bold: false,
+    dim: false,
+    italic: false,
     underline: "none",
-    blink: !1,
-    inverse: !1,
-    hidden: !1,
-    strikethrough: !1,
-    overline: !1,
+    blink: false,
+    inverse: false,
+    hidden: false,
+    strikethrough: false,
+    overline: false,
     fg: { type: "default" },
     bg: { type: "default" },
     underlineColor: { type: "default" },
@@ -441,11 +441,11 @@ var ae = [
   ],
   So = ["none", "single", "double", "curly", "dotted", "dashed"];
 function xo(r) {
-  if (r === "") return [{ value: 0, subparams: [], colon: !1 }];
+  if (r === "") return [{ value: 0, subparams: [], colon: false }];
   let i = [],
-    l = { value: null, subparams: [], colon: !1 },
+    l = { value: null, subparams: [], colon: false },
     p = "",
-    f = !1;
+    f = false;
   for (let h = 0; h <= r.length; h++) {
     let m = r[h];
     if (m === ";" || m === void 0) {
@@ -453,10 +453,10 @@ function xo(r) {
       if (f) {
         if (b !== null) l.subparams.push(b);
       } else l.value = b;
-      i.push(l), (l = { value: null, subparams: [], colon: !1 }), (p = ""), (f = !1);
+      i.push(l), (l = { value: null, subparams: [], colon: false }), (p = ""), (f = false);
     } else if (m === ":") {
       let b = p === "" ? null : parseInt(p, 10);
-      if (!f) (l.value = b), (l.colon = !0), (f = !0);
+      if (!f) (l.value = b), (l.colon = true), (f = true);
       else if (b !== null) l.subparams.push(b);
       p = "";
     } else if (m >= "0" && m <= "9") p += m;
@@ -497,15 +497,15 @@ function mt(r, i) {
       continue;
     }
     if (m === 1) {
-      (p.bold = !0), f++;
+      (p.bold = true), f++;
       continue;
     }
     if (m === 2) {
-      (p.dim = !0), f++;
+      (p.dim = true), f++;
       continue;
     }
     if (m === 3) {
-      (p.italic = !0), f++;
+      (p.italic = true), f++;
       continue;
     }
     if (m === 4) {
@@ -513,19 +513,19 @@ function mt(r, i) {
       continue;
     }
     if (m === 5 || m === 6) {
-      (p.blink = !0), f++;
+      (p.blink = true), f++;
       continue;
     }
     if (m === 7) {
-      (p.inverse = !0), f++;
+      (p.inverse = true), f++;
       continue;
     }
     if (m === 8) {
-      (p.hidden = !0), f++;
+      (p.hidden = true), f++;
       continue;
     }
     if (m === 9) {
-      (p.strikethrough = !0), f++;
+      (p.strikethrough = true), f++;
       continue;
     }
     if (m === 21) {
@@ -533,11 +533,11 @@ function mt(r, i) {
       continue;
     }
     if (m === 22) {
-      (p.bold = !1), (p.dim = !1), f++;
+      (p.bold = false), (p.dim = false), f++;
       continue;
     }
     if (m === 23) {
-      (p.italic = !1), f++;
+      (p.italic = false), f++;
       continue;
     }
     if (m === 24) {
@@ -545,27 +545,27 @@ function mt(r, i) {
       continue;
     }
     if (m === 25) {
-      (p.blink = !1), f++;
+      (p.blink = false), f++;
       continue;
     }
     if (m === 27) {
-      (p.inverse = !1), f++;
+      (p.inverse = false), f++;
       continue;
     }
     if (m === 28) {
-      (p.hidden = !1), f++;
+      (p.hidden = false), f++;
       continue;
     }
     if (m === 29) {
-      (p.strikethrough = !1), f++;
+      (p.strikethrough = false), f++;
       continue;
     }
     if (m === 53) {
-      (p.overline = !0), f++;
+      (p.overline = true), f++;
       continue;
     }
     if (m === 55) {
-      (p.overline = !1), f++;
+      (p.overline = false), f++;
       continue;
     }
     if (m >= 30 && m <= 37) {
@@ -613,10 +613,10 @@ function mt(r, i) {
   return p;
 }
 function* yt(r) {
-  let i = !0;
+  let i = true;
   for (let l = 0; l < r.length; l++)
     if (r.charCodeAt(l) >= 128) {
-      i = !1;
+      i = false;
       break;
     }
   if (i) {
@@ -720,18 +720,18 @@ class ce {
   forOutput;
   tail = "";
   constructor(r) {
-    (this.forOutput = r?.forOutput ?? !1), (this.tokenizer = Xne({ forOutput: this.forOutput }));
+    (this.forOutput = r?.forOutput ?? false), (this.tokenizer = Xne({ forOutput: this.forOutput }));
   }
   style = X();
-  inLink = !1;
+  inLink = false;
   linkUrl;
   flush() {
     if (!this.tail) return [];
-    let r = this.processText(this.tail, !1);
+    let r = this.processText(this.tail, false);
     return (this.tail = ""), r;
   }
   reset() {
-    (this.tail = ""), this.tokenizer.reset(), (this.style = X()), (this.inLink = !1), (this.linkUrl = void 0);
+    (this.tail = ""), this.tokenizer.reset(), (this.style = X()), (this.inLink = false), (this.linkUrl = void 0);
   }
   feed(r) {
     let i = this.tokenizer.feed(r),
@@ -744,7 +744,7 @@ class ce {
         let m = this.forOutput && p === i.length - 1;
         l.push(...this.processText(h, m));
       } else {
-        if (this.tail) l.push(...this.processText(this.tail, !1)), (this.tail = "");
+        if (this.tail) l.push(...this.processText(this.tail, false)), (this.tail = "");
         l.push(...this.processSequence(f.value));
       }
     }
@@ -802,8 +802,8 @@ class ce {
         let p = tJn(l);
         if (p) {
           if (p.type === "link")
-            if (p.action.type === "start") (this.inLink = !0), (this.linkUrl = p.action.url);
-            else (this.inLink = !1), (this.linkUrl = void 0);
+            if (p.action.type === "start") (this.inLink = true), (this.linkUrl = p.action.url);
+            else (this.inLink = false), (this.linkUrl = void 0);
           return [p];
         }
         return [];
@@ -811,7 +811,7 @@ class ce {
       case "esc": {
         let l = r.slice(1),
           p = ft(l);
-        if (p?.type === "reset") (this.style = X()), (this.inLink = !1), (this.linkUrl = void 0);
+        if (p?.type === "reset") (this.style = X()), (this.inLink = false), (this.linkUrl = void 0);
         return p ? [p] : [];
       }
       case "ss3":
@@ -859,8 +859,8 @@ var oo = du(function (Bn) {
       if (we[11] !== V || we[12] !== G)
         (L = (E, Ao) => {
           let wo = E.props.hyperlink;
-          if (V) E.props.dim = !0;
-          if (G) E.props.italic = !0;
+          if (V) E.props.dim = true;
+          if (G) E.props.italic = true;
           let _o = pe(E.props)
             ? e(
                 Pe,
@@ -929,12 +929,12 @@ function Mo(r) {
   return {
     color: Ct(r.fg),
     backgroundColor: Ct(r.bg),
-    dim: r.dim ? !0 : void 0,
-    bold: r.bold ? !0 : void 0,
-    italic: r.italic ? !0 : void 0,
-    underline: r.underline !== "none" ? !0 : void 0,
-    strikethrough: r.strikethrough ? !0 : void 0,
-    inverse: r.inverse ? !0 : void 0,
+    dim: r.dim ? true : void 0,
+    bold: r.bold ? true : void 0,
+    italic: r.italic ? true : void 0,
+    underline: r.underline !== "none" ? true : void 0,
+    strikethrough: r.strikethrough ? true : void 0,
+    inverse: r.inverse ? true : void 0,
     hyperlink: void 0,
   };
 }
@@ -985,12 +985,12 @@ function pe(r) {
   return (
     r.color !== void 0 ||
     r.backgroundColor !== void 0 ||
-    r.dim === !0 ||
-    r.bold === !0 ||
-    r.italic === !0 ||
-    r.underline === !0 ||
-    r.strikethrough === !0 ||
-    r.inverse === !0
+    r.dim === true ||
+    r.bold === true ||
+    r.italic === true ||
+    r.underline === true ||
+    r.strikethrough === true ||
+    r.inverse === true
   );
 }
 function Pe(bt) {
@@ -1004,14 +1004,14 @@ function Pe(bt) {
   else (No = _e[1]), (D = _e[2]), (Oo = _e[3]), (U = _e[4]);
   if (Oo) {
     let Y;
-    if (_e[5] !== D || _e[6] !== U) (Y = e(ca, { ...U, dim: !0, children: D })), (_e[5] = D), (_e[6] = U), (_e[7] = Y);
+    if (_e[5] !== D || _e[6] !== U) (Y = e(ca, { ...U, dim: true, children: D })), (_e[5] = D), (_e[6] = U), (_e[7] = Y);
     else Y = _e[7];
     return Y;
   }
   if (No) {
     let Y;
     if (_e[8] !== D || _e[9] !== U)
-      (Y = e(ca, { ...U, bold: !0, children: D })), (_e[8] = D), (_e[9] = U), (_e[10] = Y);
+      (Y = e(ca, { ...U, bold: true, children: D })), (_e[8] = D), (_e[9] = U), (_e[10] = Y);
     else Y = _e[10];
     return Y;
   }
@@ -1043,9 +1043,9 @@ function Dt(St) {
   else (Ne = M[1]), (le = M[2]), (Q = M[3]), (Oe = M[4]), (Me = M[5]), (vt = M[6]), (Rt = M[7]);
   let kt = vt === void 0 ? 0 : vt,
     Tt = Rt === void 0 ? h9e : Rt,
-    [At, Do] = u(!1),
-    [wt, Fo] = u(!1),
-    [_t, Uo] = u(!1),
+    [At, Do] = u(false),
+    [wt, Fo] = u(false),
+    [_t, Uo] = u(false),
     j = xt(),
     Pt = C(null),
     Wo;
@@ -1067,7 +1067,7 @@ function Dt(St) {
   if (M[12] !== j || M[13] !== Q)
     (Vo = (Ot) => {
       if (Ot.key === "return" || Ot.key === " ")
-        Ot.preventDefault(), Uo(!0), Q(), Pt.current?.(), (Pt.current = j.setTimeout(() => Uo(!1), 100));
+        Ot.preventDefault(), Uo(true), Q(), Pt.current?.(), (Pt.current = j.setTimeout(() => Uo(false), 100));
     }),
       (M[12] = j),
       (M[13] = Q),
@@ -1091,19 +1091,19 @@ function Dt(St) {
   else Go = M[19];
   let It = Go,
     zo;
-  if (M[20] === d) (zo = (_e) => Do(!0)), (M[20] = zo);
+  if (M[20] === d) (zo = (_e) => Do(true)), (M[20] = zo);
   else zo = M[20];
   let Kn = zo,
     Yo;
-  if (M[21] === d) (Yo = (_e_0) => Do(!1)), (M[21] = Yo);
+  if (M[21] === d) (Yo = (_e_0) => Do(false)), (M[21] = Yo);
   else Yo = M[21];
   let zn = Yo,
     Jo;
-  if (M[22] === d) (Jo = () => Fo(!0)), (M[22] = Jo);
+  if (M[22] === d) (Jo = () => Fo(true)), (M[22] = Jo);
   else Jo = M[22];
   let Jn = Jo,
     $o;
-  if (M[23] === d) ($o = () => Fo(!1)), (M[23] = $o);
+  if (M[23] === d) ($o = () => Fo(false)), (M[23] = $o);
   else $o = M[23];
   let $n = $o,
     qo;
@@ -1173,7 +1173,7 @@ function md(Ut) {
     ({ children: Be, fromLeftEdge: Wt, ...Le } = Ut), (tr[0] = Ut), (tr[1] = Le), (tr[2] = Be), (tr[3] = Wt);
   else (Le = tr[1]), (Be = tr[2]), (Wt = tr[3]);
   const Ht = Wt ? "stretch" : void 0,
-    jt = Wt ? "from-left-edge" : !0;
+    jt = Wt ? "from-left-edge" : true;
   let or;
   if (tr[4] !== Le || tr[5] !== Be || tr[6] !== Ht || tr[7] !== jt)
     (or = e(Xa, { alignSelf: Ht, ...Le, noSelect: jt, children: Be })),
@@ -1233,7 +1233,7 @@ function Gt(r, i) {
 function XZ() {
   let r = We(j0),
     i = C(null),
-    l = C({ isVisible: !0 }),
+    l = C({ isVisible: true }),
     p = B((S) => {
       i.current = S;
     }, []);
@@ -1318,7 +1318,7 @@ function pxe() {
       },
       focusDirection: (p) => {
         if (r && i) return r.focusDirection(p, i);
-        return !1;
+        return false;
       },
       focus: (p) => r?.focus(p),
       blur: () => r?.blur(),
@@ -1336,10 +1336,10 @@ function eMt(r) {
     () => {
       let l = r.current,
         p = i?.activeElement;
-      if (!l || !p) return !1;
+      if (!l || !p) return false;
       return EB(p, l);
     },
-    () => !1,
+    () => false,
   );
 }
 F();
@@ -1364,7 +1364,7 @@ function ko(r, i, l) {
   let p = C(r);
   p.current = r;
   let f = We(KR),
-    h = l?.immediate ?? !1,
+    h = l?.immediate ?? false,
     m = C(null),
     b = z(
       () =>
@@ -1379,7 +1379,7 @@ function ko(r, i, l) {
   Lt(b, cMt);
 }
 function C8(r, i, l) {
-  let p = !1,
+  let p = false,
     f,
     h = () => {
       if (p) return;
@@ -1392,7 +1392,7 @@ function C8(r, i, l) {
   return (
     (f = r.setTimeout(h, l)),
     () => {
-      (p = !0), f();
+      (p = true), f();
     }
   );
 }
@@ -1407,7 +1407,7 @@ function Ox() {
         copySelectionNoClear: () => "",
         getSelectedText: () => "",
         clearSelection: () => {},
-        hasSelection: () => !1,
+        hasSelection: () => false,
         getState: () => null,
         subscribe: () => () => {},
         moveFocus: () => {},
@@ -1427,7 +1427,7 @@ function Ox() {
   }, [r]);
 }
 var ur = () => () => {},
-  ar = () => !1;
+  ar = () => false;
 function rjn() {
   We(pG);
   let r = Io.get(process.stdout);
@@ -1465,7 +1465,7 @@ function v8(r) {
   }, [r, i]);
 }
 F();
-var pr = () => !1;
+var pr = () => false;
 function Yn(r, i, l) {
   let p = We(KR),
     f = typeof r === "function",

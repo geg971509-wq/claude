@@ -205,7 +205,7 @@ import { d } from "/$bunfs/root/chunk-yz031c9r.js";
 import { randomUUID as ru } from "crypto";
 import { resolve as Fy } from "path";
 function Mu() {
-  return !1;
+  return false;
 }
 async function Lu() {
   return [];
@@ -261,11 +261,11 @@ function Bu(i, f) {
 }
 function ch(i, f) {
   let m = Object.keys(i);
-  if (m.length !== Object.keys(f).length) return !1;
+  if (m.length !== Object.keys(f).length) return false;
   return m.every((S) => {
     let v = i[S],
       b = f[S];
-    if (v === b) return !0;
+    if (v === b) return true;
     return typeof v === "object" && typeof b === "object" && v !== null && b !== null && Bun.deepEquals(v, b);
   });
 }
@@ -291,12 +291,12 @@ function Hu(i, f, m) {
 }
 function Gu(i, f, m, S) {
   let v = i.notified.get(f);
-  if (v?.kind === m) return !1;
+  if (v?.kind === m) return false;
   if (!v && i.notified.size >= fh) {
     let b = i.notified.keys().next().value;
     if (b !== void 0) i.notified.delete(b);
   }
-  return i.notified.set(f, { kind: m, at: S }), !0;
+  return i.notified.set(f, { kind: m, at: S }), true;
 }
 function Ci(i, f, m) {
   let S = i.notified.get(f);
@@ -309,7 +309,7 @@ function Vu(i) {
   let m = i?.permissionMode ? Tw(i.permissionMode) : void 0,
     S = !oy() && (lA() || Boolean(ie().bypassPermissionsModeAccepted)),
     v = m === "bypassPermissions" && !S ? void 0 : m,
-    b = i?.allowBypass && S ? !0 : void 0,
+    b = i?.allowBypass && S ? true : void 0,
     R = i?.effort ? Qht(i.effort).level : void 0;
   if (!v && !i?.model && !R && !f && !b) return;
   return { permissionMode: v, model: i?.model, effort: R, agent: f, allowBypass: b };
@@ -339,13 +339,13 @@ function Oi(sS) {
       (_r[4] = da);
   else da = _r[4];
   let ca;
-  if (_r[5] !== xi) (ca = xi && r(t, { dimColor: !0, children: ["@", xi] })), (_r[5] = xi), (_r[6] = ca);
+  if (_r[5] !== xi) (ca = xi && r(t, { dimColor: true, children: ["@", xi] })), (_r[5] = xi), (_r[6] = ca);
   else ca = _r[6];
   let pa;
-  if (_r[7] !== Ei) (pa = Ei && e(t, { dimColor: !0, children: Ei })), (_r[7] = Ei), (_r[8] = pa);
+  if (_r[7] !== Ei) (pa = Ei && e(t, { dimColor: true, children: Ei })), (_r[7] = Ei), (_r[8] = pa);
   else pa = _r[8];
   let fa;
-  if (_r[9] !== Ii) (fa = Ii && e(t, { dimColor: !0, children: Ii })), (_r[9] = Ii), (_r[10] = fa);
+  if (_r[9] !== Ii) (fa = Ii && e(t, { dimColor: true, children: Ii })), (_r[9] = Ii), (_r[10] = fa);
   else fa = _r[10];
   let mh;
   if (_r[11] !== la || _r[12] !== da || _r[13] !== ca || _r[14] !== pa || _r[15] !== fa)
@@ -393,12 +393,12 @@ function Jn(i) {
 }
 function gh(i, f, m) {
   let S = Jn(i.state.createdAt);
-  if (S === null) return !1;
+  if (S === null) return false;
   let v = Jn(i.state.firstTerminalAt) ?? m;
   return f.some((b) => {
-    if (b.id === i.id) return !1;
+    if (b.id === i.id) return false;
     let R = Jn(b.state.createdAt);
-    if (R === null) return !1;
+    if (R === null) return false;
     let E = Jn(b.state.firstTerminalAt) ?? m;
     return S < E && R < v;
   });
@@ -654,7 +654,7 @@ function Fi(i, f, m) {
     !HD(i.state) &&
     Vo(i.state.children).some((v) => {
       let b = f?.get(v.href);
-      if (b?.state !== "OPEN") return !1;
+      if (b?.state !== "OPEN") return false;
       let R = eut(b);
       return R === "error" || (R === "warning" && b.review !== "APPROVED");
     })
@@ -727,7 +727,7 @@ function rc(i, f, m) {
       we = f.get(le.id),
       Ce = w2(le.state);
     if (Y === 0 || we !== f.get(i[Y - 1].id)) {
-      if (H && we !== "pinned") x.push({ kind: "header", origin: E, group: R }), (H = !1);
+      if (H && we !== "pinned") x.push({ kind: "header", origin: E, group: R }), (H = false);
       let pe = S || v || we === "pinned" || we === R ? E : Ce;
       x.push({ kind: "header", origin: pe, group: we });
     }
@@ -773,8 +773,8 @@ var wa = 3,
 function Ni(i, f) {
   let m = (v) => i - Ch - v - f,
     S = m(ya);
-  if (S >= wa) return { doneCap: S, compactHeader: !1 };
-  return { doneCap: Math.max(0, m(Ih)), compactHeader: !0 };
+  if (S >= wa) return { doneCap: S, compactHeader: false };
+  return { doneCap: Math.max(0, m(Ih)), compactHeader: true };
 }
 function Hi(i) {
   if (i.backend === "remote") return w2(i);
@@ -856,7 +856,7 @@ function Ah() {
     jobs: null,
     adoptedPeers: [],
     remoteJobs: [],
-    remoteListLoaded: !1,
+    remoteListLoaded: false,
     pendings: [],
     statuses: new Map(),
     terminalHolders: new Map(),
@@ -864,7 +864,7 @@ function Ah() {
     loopKicks: new Map(),
     logTails: {},
     deleteRefusals: new Map(),
-    overlaidLoadLanded: !1,
+    overlaidLoadLanded: false,
   };
 }
 class cc {
@@ -874,7 +874,7 @@ class cc {
   #t = Ah();
   #i = null;
   #r = 0;
-  #d = !1;
+  #d = false;
   #s = [];
   #o = null;
   #f = 0;
@@ -911,10 +911,10 @@ class cc {
   }
   attachView(i) {
     if ((this.#r++, this.#r === 1)) this.#x(i);
-    let f = !1;
+    let f = false;
     return () => {
       if (f) return;
-      if (((f = !0), this.#r--, this.#r === 0)) this.#P();
+      if (((f = true), this.#r--, this.#r === 0)) this.#P();
     };
   }
   setRemoteWanted(i) {
@@ -978,8 +978,8 @@ class cc {
         ...i,
         pendings: i.pendings.length > 0 ? [] : i.pendings,
         remoteJobs: f,
-        remoteListLoaded: !1,
-        overlaidLoadLanded: !1,
+        remoteListLoaded: false,
+        overlaidLoadLanded: false,
       }),
         this.#a.emit();
   }
@@ -1114,14 +1114,14 @@ class cc {
     this.load();
   };
   load = async () => {
-    if (Yo() && I("tengu_fleetview_peers", !1)) this.#e.touchFleetViewHeartbeat(this.#n);
+    if (Yo() && I("tengu_fleetview_peers", false)) this.#e.touchFleetViewHeartbeat(this.#n);
     let i = ++this.#f,
       [f, m] = await Promise.all([this.#e.listJobs(this.#n), this.#e.listAliveDaemonJobs(this.#n)]),
       S = Pbe(await this.#e.adoptRosterOrphans(f, m.records, this.#n), m.shorts)
         .filter((x) => !this.#m.has(x.id))
         .map((x) => ({ ...x, activity: Po(x.state, this.#t.prStatuses) }));
     if (i <= this.#u) return;
-    if (((this.#u = i), this.#r > 0)) this.#p("overlaidLoadLanded", () => !0);
+    if (((this.#u = i), this.#r > 0)) this.#p("overlaidLoadLanded", () => true);
     this.updateJobs((x) => {
       let H = x && this.#c.size > 0 ? new Map(x.filter((K) => this.#c.has(K.id)).map((K) => [K.id, K])) : null,
         j = wn(H ? S.map((K) => H.get(K.id) ?? K) : S);
@@ -1182,9 +1182,9 @@ class cc {
           }),
         );
         this.#p("loopKicks", (K) => {
-          let X = !1,
+          let X = false,
             Z = new Map(K);
-          for (let oe of j) if (oe) Z.set(oe[0], oe[1]), (X = !0);
+          for (let oe of j) if (oe) Z.set(oe[0], oe[1]), (X = true);
           return X ? Z : K;
         });
       }
@@ -1204,7 +1204,7 @@ class cc {
       T = J - this.#y >= qu(Pne(), J - Eh());
     if (P.length > 0 && T) {
       this.#y = J;
-      let x = I("tengu_fleetview_pr_batch", !0);
+      let x = I("tengu_fleetview_pr_batch", true);
       (async () => {
         let H;
         if (x) {
@@ -1213,7 +1213,7 @@ class cc {
             await Promise.all(j.unbatched.map(async (K) => H.set(K, await this.#e.fetchPrStatusByUrl(K))));
         } else H = new Map(await Promise.all(P.map(async (j) => [j, await this.#e.fetchPrStatusByUrl(j)])));
         this.#C((j) => {
-          let K = !1;
+          let K = false;
           for (let [Z, oe] of H) {
             let q = j.get(Z);
             if (
@@ -1226,7 +1226,7 @@ class cc {
               q?.additions !== oe?.additions ||
               q?.deletions !== oe?.deletions
             ) {
-              K = !0;
+              K = true;
               break;
             }
           }
@@ -1261,7 +1261,7 @@ class cc {
         for (let b of f.keys()) this.#h.delete(b);
         let S = Dkt();
         if (S && i.some((b) => b.sessionId === S.sessionId)) lLn(S.sessionId);
-        let v = !1;
+        let v = false;
         for (let [b, R] of this.#b) {
           let E = i.find((P) => P.sessionId === b || P.jobId === R.jobId);
           if (
@@ -1269,12 +1269,12 @@ class cc {
             f.get(Er(R.jobId)) === "busy" ||
             (E !== void 0 && (E.statusUpdatedAt ?? 0) > R.kickedAt && E.startedAt <= R.kickedAt)
           )
-            this.#b.delete(b), (v = !0);
+            this.#b.delete(b), (v = true);
         }
         if (
           (this.#p("statuses", (b) => (!v && b.size === f.size && [...f].every(([R, E]) => b.get(R) === E) ? b : f)),
           this.#p("terminalHolders", (b) => (b.size === m.size && [...m].every(([R, E]) => b.get(R) === E) ? b : m)),
-          Yo() && I("tengu_fleetview_peers", !1))
+          Yo() && I("tengu_fleetview_peers", false))
         ) {
           let b = new Set((this.#t.jobs ?? []).map((P) => P.state.sessionId)),
             R = Date.now(),
@@ -1337,15 +1337,15 @@ class cc {
           })
           .filter((S) => {
             let v = this.#w.get(S.id);
-            if (v === void 0) return !0;
-            if (Date.now() > v) return this.#w.delete(S.id), !0;
-            return !1;
+            if (v === void 0) return true;
+            if (Date.now() > v) return this.#w.delete(S.id), true;
+            return false;
           });
-        if ((this.updateRemoteJobs((S) => Bu(S, m)), this.#r > 0)) this.#p("remoteListLoaded", () => !0);
+        if ((this.updateRemoteJobs((S) => Bu(S, m)), this.#r > 0)) this.#p("remoteListLoaded", () => true);
       })
       .catch((f) => {
         if ((n(`[fleet:remote] poll mapper threw: ${l(f)}`), i === this.#v && this.#r > 0))
-          this.#p("remoteListLoaded", () => !0);
+          this.#p("remoteListLoaded", () => true);
       });
   };
   async stopRemote(i) {
@@ -1426,7 +1426,7 @@ class mc {
   #s = null;
   #o = null;
   #f = [];
-  #u = !1;
+  #u = false;
   #m = new Map();
   #l = new Map();
   #g = null;
@@ -1435,7 +1435,7 @@ class mc {
   #R = null;
   #v = null;
   #w = null;
-  #S = !1;
+  #S = false;
   constructor(i) {
     (this.#n = i.roster),
       (this.#e = i.storageV5),
@@ -1457,10 +1457,10 @@ class mc {
   }
   attachView(i) {
     this.#i++, (this.#r = i.clock), (this.#d = i.onError);
-    let f = !1;
+    let f = false;
     return () => {
       if (f) return;
-      if (((f = !0), this.#i--, this.#i === 0)) this.#b();
+      if (((f = true), this.#i--, this.#i === 0)) this.#b();
     };
   }
   #b() {
@@ -1475,12 +1475,12 @@ class mc {
       (this.#s = null),
       (this.#o = null),
       (this.#f = []),
-      (this.#u = !1),
+      (this.#u = false),
       (this.#y = 0),
       (this.#R = null),
       (this.#v = null),
       (this.#w = null),
-      (this.#S = !1),
+      (this.#S = false),
       (this.#t = pc(this.#t.collapsed));
   }
   focus(i) {
@@ -1516,7 +1516,7 @@ class mc {
     this.#h({ focusedIdx: Pa(this.#t.focusedIdx, 0, Math.max(0, i - 1)) });
   }
   syncRows(i) {
-    (this.#f = i), (this.#u = !1);
+    (this.#f = i), (this.#u = false);
     let { focusedIdx: f } = this.#t;
     if (this.#o) {
       let v = i.findIndex((b) => b.kind === "header" && b.group === this.#o);
@@ -1544,7 +1544,7 @@ class mc {
     return this.#u;
   }
   beginReorder(i, f) {
-    (this.#s = i), (this.#u = !0), this.#k(f);
+    (this.#s = i), (this.#u = true), this.#k(f);
   }
   queueOrderWrites(i, f) {
     let m = f === "state" ? this.#l : this.#m;
@@ -1626,8 +1626,8 @@ class mc {
     this.#w = i;
   }
   isFirstQueryOfLook() {
-    if (this.#S) return !1;
-    return (this.#S = !0), !0;
+    if (this.#S) return false;
+    return (this.#S = true), true;
   }
 }
 function Gi(i, f, m, S) {
@@ -1635,7 +1635,7 @@ function Gi(i, f, m, S) {
 }
 var gc = new Set();
 function hc() {
-  return { attachingJobId: null, newSessionOpening: !1, autoOpened: !1 };
+  return { attachingJobId: null, newSessionOpening: false, autoOpened: false };
 }
 class bc {
   #n = Ue();
@@ -1667,10 +1667,10 @@ class bc {
   }
   attachView() {
     this.#a++;
-    let i = !1;
+    let i = false;
     return () => {
       if (i) return;
-      if (((i = !0), this.#a--, this.#a === 0))
+      if (((i = true), this.#a--, this.#a === 0))
         (this.#i = null),
           this.#r++,
           this.#d++,
@@ -1754,25 +1754,25 @@ class bc {
     for (let f of this.#l) if (i.has(f)) this.#l.delete(f);
   }
   beginNewSession() {
-    return this.#g({ newSessionOpening: !0 }), ++this.#d;
+    return this.#g({ newSessionOpening: true }), ++this.#d;
   }
   isCurrentNewSessionAttempt(i) {
     return this.#d === i;
   }
   endNewSession() {
-    this.#g({ newSessionOpening: !1 });
+    this.#g({ newSessionOpening: false });
   }
   abandonNewSession() {
-    this.#d++, this.#g({ newSessionOpening: !1 });
+    this.#d++, this.#g({ newSessionOpening: false });
   }
   markAutoOpened() {
-    this.#g({ autoOpened: !0 });
+    this.#g({ autoOpened: true });
   }
 }
 function Vi(i) {
   return (i.attach ??= new bc());
 }
-function wc(i, f, { pruneTextPastes: m = !1 } = {}) {
+function wc(i, f, { pruneTextPastes: m = false } = {}) {
   let S = Object.values(i);
   function v(R) {
     return m || R.type === "image" || R.type === "audio";
@@ -1804,7 +1804,7 @@ var Fh = 90000,
 function yc({ drafts: i, observedAbsenceMs: f, isGuarded: m, now: S, lastSweepAt: v }) {
   let b = S - v,
     R = b < 0 || b > Mh ? 0 : b,
-    E = !1;
+    E = false;
   for (let P of i.keys()) {
     if (m(P)) {
       f.delete(P);
@@ -1812,7 +1812,7 @@ function yc({ drafts: i, observedAbsenceMs: f, isGuarded: m, now: S, lastSweepAt
     }
     let J = f.get(P);
     if (J === void 0) f.set(P, 0);
-    else if (J + R >= Fh) i.delete(P), f.delete(P), (E = !0);
+    else if (J + R >= Fh) i.delete(P), f.delete(P), (E = true);
     else f.set(P, J + R);
   }
   for (let P of f.keys()) if (!i.has(P)) f.delete(P);
@@ -1847,7 +1847,7 @@ class kc {
   #e;
   #a = 0;
   #t = null;
-  #i = !1;
+  #i = false;
   #r = {};
   #d = null;
   #s = null;
@@ -1881,16 +1881,16 @@ class kc {
   attachView() {
     if (this.#a++ === 0)
       (this.#t = Y1(() => [this.#e.query, ...this.#o.values()])),
-        (this.#i = !1),
+        (this.#i = false),
         (this.#u = Date.now()),
         this.#f.clear();
-    let i = !1;
+    let i = false;
     return () => {
       if (i) return;
-      if (((i = !0), this.#a--, this.#a === 0))
+      if (((i = true), this.#a--, this.#a === 0))
         this.#t?.(),
           (this.#t = null),
-          (this.#i = !1),
+          (this.#i = false),
           (this.#s = null),
           this.#m.clear(),
           (this.#e = {
@@ -1917,18 +1917,18 @@ class kc {
     this.#l({ mode: i });
   }
   dropDraft() {
-    this.setQuery(""), this.setMode("prompt"), this.pruneOrphanedPastes({ pruneTextPastes: !0 });
+    this.setQuery(""), this.setMode("prompt"), this.pruneOrphanedPastes({ pruneTextPastes: true });
   }
   draftForDisk() {
     let { query: i, mode: f } = this.#e;
     return f === "bash" ? `!${i}` : i;
   }
   beginProgrammaticChange() {
-    this.#i = !0;
+    this.#i = true;
   }
   takeProgrammaticChange() {
     let i = this.#i;
-    return (this.#i = !1), i;
+    return (this.#i = false), i;
   }
   setSessionModel(i) {
     this.#l({ sessionModel: i });
@@ -2078,9 +2078,9 @@ function ji(i, f, m = {}, S = []) {
     x = T.search(/\s/),
     H = (x < 0 ? T : T.slice(0, x)).toLowerCase(),
     j = R ? void 0 : f.find((K) => K.name.toLowerCase() === H);
-  if (j) return { template: j, intent: x < 0 ? "" : T.slice(x + 1).trim(), matched: !0, cwd: E, routine: P };
-  if (R) return { template: R, intent: T, matched: !0, cwd: E, routine: P };
-  return { template: XU, intent: T, matched: !1, cwd: E, routine: P };
+  if (j) return { template: j, intent: x < 0 ? "" : T.slice(x + 1).trim(), matched: true, cwd: E, routine: P };
+  if (R) return { template: R, intent: T, matched: true, cwd: E, routine: P };
+  return { template: XU, intent: T, matched: false, cwd: E, routine: P };
 }
 function Ra(i) {
   let f = i.trim();
@@ -2175,7 +2175,7 @@ function Oc(
     skills: b = [],
     models: R = [],
     dispatch: E,
-    showAllAgents: P = !1,
+    showAllAgents: P = false,
   },
 ) {
   let J = St(i, " ").toLowerCase(),
@@ -2254,11 +2254,11 @@ function Oc(
   };
 }
 function zi(i) {
-  if (i.key !== "v") return !1;
+  if (i.key !== "v") return false;
   let f = D();
   if (i.ctrl && !i.meta) return f !== "windows";
   if (i.meta && !i.ctrl) return f === "windows" || f === "wsl";
-  return !1;
+  return false;
 }
 function Zi(i, f) {
   _z(Ya(at()))
@@ -2272,7 +2272,7 @@ function Zi(i, f) {
 }
 async function Ac(i) {
   let f = await d_(void 0, i).catch(() => []),
-    m = !1;
+    m = false;
   return (
     Ae((S) => {
       let v = S.agentLastUsed ?? {},
@@ -2282,7 +2282,7 @@ async function Ac(i) {
         if (v[R.state.template] !== void 0) continue;
         let E = Date.parse(R.state.createdAt);
         if (Number.isNaN(E)) continue;
-        if (E > (b[R.state.template] ?? 0)) (b[R.state.template] = E), (m = !0);
+        if (E > (b[R.state.template] ?? 0)) (b[R.state.template] = E), (m = true);
       }
       if (!m) return S;
       return { ...S, agentLastUsed: b };
@@ -2294,7 +2294,7 @@ var $h = 4,
   xr = "Still starting \u2014 try again in a moment",
   jh = new Set(["EPIPE", "ECONNRESET", "ECONNREFUSED", "ENOTCONN"]);
 function yn(...i) {
-  return QUe(...i).catch((f) => ({ ok: !1, error: `Couldn't respawn \u2014 ${l(f)}`, alive: !1 }));
+  return QUe(...i).catch((f) => ({ ok: false, error: `Couldn't respawn \u2014 ${l(f)}`, alive: false }));
 }
 function Tc(i, f) {
   let {
@@ -2345,7 +2345,7 @@ function Tc(i, f) {
       f.preventDefault(), f.stopImmediatePropagation();
     },
     _t = ($e) => {
-      m.beginProgrammaticChange(), m.setQuery($e), b.setHelpOpen(!1);
+      m.beginProgrammaticChange(), m.setQuery($e), b.setHelpOpen(false);
     },
     He = f.ctrl;
   if (!He && j(f)) {
@@ -2402,14 +2402,14 @@ function Tc(i, f) {
             if (Ki()) {
               for (let Ot of he) if (Ot.kind === "earlier") mt.add(Ot.entry.sessionId);
             }
-            $i(mt, !0, E).then((Ot) => {
+            $i(mt, true, E).then((Ot) => {
               if (Ct !== b.resumePickerGen) return;
               if (Ot === null) {
-                p("fleet_view_resume_picker", "load_failed"), b.setResumePicker({ entries: [], failed: !0 });
+                p("fleet_view_resume_picker", "load_failed"), b.setResumePicker({ entries: [], failed: true });
                 return;
               }
               let kt = Ot.filter((Mt) => !S.isDeleting(Mt.sessionId.slice(0, 8)) && !S.isDeletingSession(Mt.sessionId));
-              y("fleet_view_resume_picker", { count: kt.length }), b.setResumePicker({ entries: kt, failed: !1 });
+              y("fleet_view_resume_picker", { count: kt.length }), b.setResumePicker({ entries: kt, failed: false });
             });
             return;
           }
@@ -2417,10 +2417,10 @@ function Tc(i, f) {
           let { sanitizedName: Pt, skillNameHash: yt } = G1({
             rawName: ct.name,
             canonicalName: ct.name,
-            isMcp: !1,
+            isMcp: false,
             isBuiltIn: iI().has(ct.name),
-            isBundled: !1,
-            isOfficial: !1,
+            isBundled: false,
+            isOfficial: false,
           });
           s("tengu_slash_command_unavailable", {
             command_name: Pt,
@@ -2510,7 +2510,7 @@ function Tc(i, f) {
       m.setMode("prompt"),
       TWe(K, { q: "", collapsed: [...v.getSnapshot().collapsed] }, E),
       m.replacePastes({ ...m.pastes }),
-      m.pruneOrphanedPastes({ pruneTextPastes: !0 });
+      m.pruneOrphanedPastes({ pruneTextPastes: true });
     let Pe = (ye) => {
       S.updatePendings((Ye) => {
         let pt = Ye.filter((Nt) => Nt.id !== mt);
@@ -2542,7 +2542,7 @@ function Tc(i, f) {
             );
     })().then(
       (ye) => {
-        if (yt) Ftt(oe, !1, Y, Te.get(oe), E);
+        if (yt) Ftt(oe, false, Y, Te.get(oe), E);
         if (!ye.ok) return Pe(ye.error);
         if (yt && ye.jobId !== mt)
           (v.followId = ye.jobId),
@@ -2550,23 +2550,23 @@ function Tc(i, f) {
             S.updatePendings((Ye) => Ye.map((pt) => (pt.id === mt ? Wt : pt)));
         if (yt) S.kick(ye.sessionId, ye.jobId);
         if (Yt) {
-          let Ye = !1;
+          let Ye = false;
           if (
             (Ae((pt) => {
               let Nt = Date.now(),
                 ue = pt.agentLastUsed?.[Yt];
               if (ue !== void 0 && Nt - ue < 60000) return pt;
-              return (Ye = !0), { ...pt, agentLastUsed: { ...(pt.agentLastUsed ?? {}), [Yt]: Nt } };
+              return (Ye = true), { ...pt, agentLastUsed: { ...(pt.agentLastUsed ?? {}), [Yt]: Nt } };
             }, E),
             Ye)
           )
             et();
         }
-        if (He) R.arm(Wt.id, null), J({ type: "open", job: Wt, freshDispatch: !0 });
+        if (He) R.arm(Wt.id, null), J({ type: "open", job: Wt, freshDispatch: true });
         else if ((S.reload(), !yt)) S.watchPendingJobDir(mt);
       },
       (ye) => {
-        if (yt) Ftt(oe, !1, Y, Te.get(oe), E);
+        if (yt) Ftt(oe, false, Y, Te.get(oe), E);
         Pe(l(ye));
       },
     );
@@ -2623,9 +2623,9 @@ async function Ia(i, f, m) {
   });
   let x,
     H,
-    j = !1,
-    K = !1,
-    X = !1;
+    j = false,
+    K = false,
+    X = false;
   try {
     let Z = () => Ci(R, f.state.sessionId, Date.now()),
       oe = await PRe(f.id, m, f.state, void 0, Z, E);
@@ -2644,7 +2644,7 @@ async function Ia(i, f, m) {
         (x = Y?.err ?? null), (H = Y?.code);
       } else
         (j = !q.ok),
-          (K = !q.ok && q.queued === !0),
+          (K = !q.ok && q.queued === true),
           (X = !q.ok && "errorCode" in q && q.errorCode === "dead_epoch_transcript_gone"),
           (x = q.ok ? null : K ? "Reply queued \u2014 will be sent when this session restarts" : q.error);
       if (q.ok) Z();
@@ -2669,11 +2669,11 @@ async function Ia(i, f, m) {
         q = [...oe.matchAll(/\bE[A-Z]{2,14}\b/g)].find((Ce) => !"/\\".includes(oe[Ce.index - 1] ?? "."))?.[0],
         Y = H ?? q ?? "unknown";
       n(`[fleetview] peek-reply send failed: ${oe}`);
-      let le = !1;
+      let le = false;
       if (!H && q !== void 0 && jh.has(q) && W_(m) === "prompt")
         le = await xs(cr(f.id), { ...f.state, queuedPrompt: m, updatedAt: new Date().toISOString() }, E).then(
-          () => !0,
-          (Ce) => (n(`[fleetview] queue-to-disk write failed: ${l(Ce)}`, { level: "error" }), !1),
+          () => true,
+          (Ce) => (n(`[fleetview] queue-to-disk write failed: ${l(Ce)}`, { level: "error" }), false),
         );
       let we = { errno: Y };
       if (le)
@@ -2730,7 +2730,7 @@ F();
 function mb(rs, RR) {
   let ob = rs.match(/^(?:\*\*|\+\+|`)(.+?)(?:\*\*|\+\+|`)$/);
   if (ob) {
-    return e(t, { bold: !0, children: ob[1] }, RR);
+    return e(t, { bold: true, children: ob[1] }, RR);
   }
   if (Kc.test(rs)) {
     let Gc = YY(rs);
@@ -2742,14 +2742,14 @@ var ib = 3;
 function sb(i) {
   let f = i.state,
     m = Xi(f) && !(am(f.state) === "success" && HD(f)) ? Date.parse(f.firstTerminalAt ?? f.updatedAt) : Date.now();
-  return $t(Math.max(0, m - Date.parse(f.createdAt)), { mostSignificantOnly: !0 });
+  return $t(Math.max(0, m - Date.parse(f.createdAt)), { mostSignificantOnly: true });
 }
 function Vn(i, f) {
   let m = Date.now();
-  if (f != null && f > m) return `in ${$t(f - m, { mostSignificantOnly: !0 })}`;
+  if (f != null && f > m) return `in ${$t(f - m, { mostSignificantOnly: true })}`;
   return sb(i);
 }
-function Ro(i, f = !1, m = !1) {
+function Ro(i, f = false, m = false) {
   if (i.name) return co(zo(i.name));
   let S = 25,
     v = co(zo(i.displayIntent ?? i.intent))
@@ -2778,7 +2778,7 @@ function is(vo, Sn) {
     os = xt(),
     qh;
   if (Lc[0] !== vo || Lc[1] !== Sn)
-    (qh = { label: vo, hasName: Sn, fired: !1 }), (Lc[0] = vo), (Lc[1] = Sn), (Lc[2] = qh);
+    (qh = { label: vo, hasName: Sn, fired: false }), (Lc[0] = vo), (Lc[1] = Sn), (Lc[2] = qh);
   else qh = Lc[2];
   let Pr = C(qh),
     [Hn, Aa] = u(null),
@@ -2791,7 +2791,7 @@ function is(vo, Sn) {
         return;
       }
       let Jc = Pr.current.label;
-      Pr.current = { label: vo, hasName: !0, fired: !0 };
+      Pr.current = { label: vo, hasName: true, fired: true };
       let Bc = Math.max(FN(Jc), FN(vo));
       if (Bc === 0) {
         return;
@@ -2872,12 +2872,12 @@ function db() {
   return qc()[1];
 }
 function kn(i, f, m, S) {
-  if (i === "success" && S) return { word: "Done", color: "success", dim: !1 };
-  if (i === "failure" && S) return { word: "Failed", color: "error", dim: !1 };
-  if (i === "stopped" && S) return { word: "Stopped", color: "inactive", dim: !1 };
-  if (m === "busy" || m === "shell") return { word: uo.working, color: void 0, dim: !1 };
-  if (f === "blocked" || m === "waiting") return { word: uo.blocked, color: "warning", dim: !1 };
-  return { word: "Idle", color: void 0, dim: !0 };
+  if (i === "success" && S) return { word: "Done", color: "success", dim: false };
+  if (i === "failure" && S) return { word: "Failed", color: "error", dim: false };
+  if (i === "stopped" && S) return { word: "Stopped", color: "inactive", dim: false };
+  if (m === "busy" || m === "shell") return { word: uo.working, color: void 0, dim: false };
+  if (f === "blocked" || m === "waiting") return { word: uo.blocked, color: "warning", dim: false };
+  return { word: "Idle", color: void 0, dim: true };
 }
 function zc(i, f, m) {
   let { color: S, dim: v } = kn(f, i.tempo, m, am(i.state));
@@ -2948,7 +2948,7 @@ function Wn(i, f) {
           label: zo(m.title ?? "") || zo(m.id),
           status: [],
           diffStat: void 0,
-          isDraft: !1,
+          isDraft: false,
           color: "claude",
           sortRank: 0,
         };
@@ -2980,7 +2980,7 @@ function ss(kR) {
   if (eb[0] !== Hc) {
     let vR = Hc.split(/(\*\*.+?\*\*|\+\+.+?\+\+|`[^`]+`|https?:\/\/[^\s"'<>\\\u2026\x00-\x1f]+)/g);
     Da = t;
-    Fa = !0;
+    Fa = true;
     Ma = vR.map(mb);
     (eb[0] = Hc), (eb[1] = Da), (eb[2] = Fa), (eb[3] = Ma);
   } else (Da = eb[1]), (Fa = eb[2]), (Ma = eb[3]);
@@ -2990,7 +2990,7 @@ function ss(kR) {
   else tb = eb[7];
   return tb;
 }
-function Un(i, f, m, S, v, b = !1) {
+function Un(i, f, m, S, v, b = false) {
   let R = v ? "selected, " : "",
     E = b ? "pinned, " : "",
     { word: P } = kn(i, f, m, S);
@@ -3038,7 +3038,7 @@ function Ja(i) {
   return 0;
 }
 function Fr(i, f) {
-  if (i === void 0) return !1;
+  if (i === void 0) return false;
   return !(Xc(i) === $n.done && Xc(f) === $n.done);
 }
 function Xc(i) {
@@ -3121,9 +3121,9 @@ function Eb(i, f) {
 function Na(i, f) {
   let m = f(i),
     S = kn(i.activity, i.state.tempo, m, am(i.state.state));
-  if (S.word === uo.working) return { ...S, color: void 0, dim: !0 };
+  if (S.word === uo.working) return { ...S, color: void 0, dim: true };
   if (S.word !== uo.blocked) return S;
-  return zn(i.state, m) === "needs" ? { ...S, word: "Needs you" } : { word: "Idle", color: void 0, dim: !0 };
+  return zn(i.state, m) === "needs" ? { ...S, word: "Needs you" } : { word: "Idle", color: void 0, dim: true };
 }
 function Ha(i, f, m) {
   return Vn(i, f.has(i.id) ? m.get(i.state.sessionId)?.nextAt : void 0);
@@ -3209,17 +3209,17 @@ function ep({
     He = Ce ? _t.filter((ce) => DGe(ce.state, Ce)) : _t,
     Dt = de ? (K === "remote" ? m : He) : Te ? [...He, ...m] : He,
     Bt = Dt.filter((ce) => {
-      if (Fe && !ce.state.template.toLowerCase().startsWith(Fe)) return !1;
-      if (ze && !xa(ce.state, ze, Tt)) return !1;
-      if (st && !Oa(ce.state, st)) return !1;
-      if (Ke !== void 0 && !Object.values(ce.state.output ?? {}).some((ft) => ft.toLowerCase().includes(Ke))) return !1;
+      if (Fe && !ce.state.template.toLowerCase().startsWith(Fe)) return false;
+      if (ze && !xa(ce.state, ze, Tt)) return false;
+      if (st && !Oa(ce.state, st)) return false;
+      if (Ke !== void 0 && !Object.values(ce.state.output ?? {}).some((ft) => ft.toLowerCase().includes(Ke))) return false;
       if (
         We &&
         !ce.state.state.toLowerCase().startsWith(We) &&
         !lo(ce.state).startsWith(We) &&
         !uo[Fi(ce, v, b(ce))].toLowerCase().startsWith(We)
       )
-        return !1;
+        return false;
       if (bt) {
         if (
           ![ce.state.name, ce.state.intent, ce.state.detail, ...Object.values(ce.state.output ?? {})]
@@ -3227,9 +3227,9 @@ function ep({
             .toLowerCase()
             .includes(bt)
         )
-          return !1;
+          return false;
       }
-      return !0;
+      return true;
     }),
     Ft = S.filter((ce) => !Bt.some((ft) => ft.id === ce.id)),
     qt = Ft.length > 0 ? wn([...Ft, ...Bt]) : Bt,
@@ -3269,7 +3269,7 @@ function ep({
     }),
     lt = 1 / 0,
     Vt = wa,
-    Pt = !1,
+    Pt = false,
     yt = new Set();
   for (let ce of [...(i ?? []), ...S, ...(me ? f : [])]) {
     if (ce.state.sessionId) yt.add(ce.state.sessionId);
@@ -3550,8 +3550,8 @@ function ds(i, f) {
     P({
       type: "open",
       job: f,
-      ...(op(i) && { keepQuery: !0 }),
-      respawnResult: { ok: !0, short: f.id, state: f.state },
+      ...(op(i) && { keepQuery: true }),
+      respawnResult: { ok: true, short: f.id, state: f.state },
       gestureT0: x,
     });
     return;
@@ -3594,8 +3594,8 @@ function ds(i, f) {
       f.id,
       {
         knownState: f.state,
-        ...(j && { forceRefusalRetry: !0 }),
-        ...(K && { forceUnresponsive: !0, replyOnResume: f.state.tempo === "active" }),
+        ...(j && { forceRefusalRetry: true }),
+        ...(K && { forceUnresponsive: true, replyOnResume: f.state.tempo === "active" }),
       },
       E,
     )),
@@ -3613,7 +3613,7 @@ function ds(i, f) {
       return;
     }
     if (q.ok || q.alive)
-      P({ type: "open", job: f, ...(op(i) && { keepQuery: !0 }), respawnResult: q, gestureT0: x, gestureId: X });
+      P({ type: "open", job: f, ...(op(i) && { keepQuery: true }), respawnResult: q, gestureT0: x, gestureId: X });
     else if (q.errorCode === "fork_transcript_never_materialized")
       I0(X, E).catch(() => {}),
         g("fleet_view_open", "fork_transcript_never_materialized"),
@@ -3675,7 +3675,7 @@ function Jr(i, f, m) {
     jobState: Vie(f.state),
     tempo: c(f.tempo),
     ...m,
-    ...!1,
+    ...false,
   });
 }
 class Lr extends Error {
@@ -3747,13 +3747,13 @@ function lp(i, f, m, S, v) {
       run: async (b) => {
         S(b.id, null);
         let R = m((H) => H.filter((j) => j.id !== b.id), b.id),
-          E = !1,
+          E = false,
           P,
           J,
           T,
           x;
         try {
-          let H = await cq(b.id, { force: !0 }, v);
+          let H = await cq(b.id, { force: true }, v);
           if (
             ((E = H.removed),
             (P = H.keptWorktree),
@@ -3773,7 +3773,7 @@ function lp(i, f, m, S, v) {
         if (E) {
           if (x) g("fleet_view_delete_job", "worktree_left_in_place");
           else y("fleet_view_delete_job");
-          if (b.state.pinned) Mft(b.id, !1, v).catch(() => {});
+          if (b.state.pinned) Mft(b.id, false, v).catch(() => {});
           s("tengu_bg_agent_action", { action: w("delete"), source: w("fleet"), jobSessionId: ve(b.state.sessionId) });
         }
         if (P) {
@@ -3795,7 +3795,7 @@ function dp(i) {
   A(() => {
     if (sn() || wt()) return;
     if (!Wue()) return;
-    let S = !1;
+    let S = false;
     return (
       Djt().then(async (v) => {
         if (S || !v) return;
@@ -3817,7 +3817,7 @@ function dp(i) {
         m([P]);
       }),
       () => {
-        (S = !0), R5e();
+        (S = true), R5e();
       }
     );
   }, []),
@@ -3876,21 +3876,21 @@ function tl(z_) {
             ? r(t, {
                 wrap: "truncate",
                 children: [
-                  e(t, { bold: !0, children: "Claude Code" }),
+                  e(t, { bold: true, children: "Claude Code" }),
                   " ",
-                  r(t, { dimColor: !0, children: ["v", ps] }),
+                  r(t, { dimColor: true, children: ["v", ps] }),
                 ],
               })
             : r(t, {
                 children: [
-                  e(t, { bold: !0, children: "Claude Code" }),
+                  e(t, { bold: true, children: "Claude Code" }),
                   " ",
-                  r(t, { dimColor: !0, children: ["v", ps] }),
+                  r(t, { dimColor: true, children: ["v", ps] }),
                 ],
               }),
           ja
             ? r(t, {
-                dimColor: !0,
+                dimColor: true,
                 wrap: "truncate",
                 children: [
                   _n,
@@ -3898,7 +3898,7 @@ function tl(z_) {
                   Wr && e(t, { color: Hr ? "suggestion" : void 0, dimColor: !Hr, children: Wr }),
                 ],
               })
-            : e(t, { dimColor: !0, children: [_n, Wr].filter(Boolean).join(" \xB7 ") }),
+            : e(t, { dimColor: true, children: [_n, Wr].filter(Boolean).join(" \xB7 ") }),
         ],
       })),
       (Rn[13] = Nr),
@@ -3913,7 +3913,7 @@ function tl(z_) {
   if (Rn[20] !== cs || Rn[21] !== mp || Rn[22] !== _o)
     (Qa = _o
       ? e(t, {
-          dimColor: !0,
+          dimColor: true,
           wrap: "truncate",
           children: r(fe, {
             children: [
@@ -3925,7 +3925,7 @@ function tl(z_) {
           }),
         })
       : e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: r(fe, {
             children: [`${cs.blocked} awaiting input`, `${cs.active} working`, `${cs.completed + mp.length} completed`],
           }),
@@ -3950,7 +3950,7 @@ function tl(z_) {
       e(o, {
         marginBottom: 1,
         children: e(t, {
-          dimColor: !0,
+          dimColor: true,
           children:
             "Your conversation moved to the background \u2014 enter opens it \xB7 esc returns to it \xB7 ctrl+c twice quits",
         }),
@@ -3973,10 +3973,10 @@ function $b(CC) {
   return CC.color !== void 0;
 }
 var bs = se(" (reserved name)");
-function To(i, f, m, S = !1) {
+function To(i, f, m, S = false) {
   if (S && i) {
     let J = ub(i, Math.max(m - 1, 1));
-    return r(U, { children: [e(t, { inverse: !0, children: J }), e(t, { inverse: !0, children: " " })] });
+    return r(U, { children: [e(t, { inverse: true, children: J }), e(t, { inverse: true, children: " " })] });
   }
   let { length: v, length: b } = i;
   for (let { segment: J, index: T } of gs().segment(i))
@@ -3987,7 +3987,7 @@ function To(i, f, m, S = !1) {
   let R = i.slice(v, b) || " ",
     E = i.slice(b),
     P = ub(i.slice(0, v), m - se(R) - (E ? 1 : 0));
-  return r(U, { children: [e(t, { children: P }), e(t, { inverse: !0, children: R }), e(t, { children: E })] });
+  return r(U, { children: [e(t, { children: P }), e(t, { inverse: true, children: R }), e(t, { children: E })] });
 }
 function ws(bC) {
   let to = _(66),
@@ -4106,7 +4106,7 @@ function ws(bC) {
             ? r(U, {
                 children: [
                   e(t, { dimColor: !po && !fo, children: tr.display.slice(0, tr.newLen) }),
-                  e(t, { dimColor: !0, children: tr.display.slice(tr.newLen) }),
+                  e(t, { dimColor: true, children: tr.display.slice(tr.newLen) }),
                 ],
               })
             : Zn
@@ -4156,23 +4156,23 @@ function ws(bC) {
       ? r(t, {
           wrap: "truncate",
           children: [
-            e(t, { dimColor: !0, children: "group: " }),
+            e(t, { dimColor: true, children: "group: " }),
             To(mo.draft, mo.cursor, Math.max(Oo.detail - se("group: ") - (il ? bs : 0), 8), mo.selected),
             mo.reserved
               ? e(t, { color: "error", children: " (reserved name)" })
               : !il
                 ? null
                 : mo.isNew
-                  ? e(t, { dimColor: !0, children: " (new group)" })
+                  ? e(t, { dimColor: true, children: " (new group)" })
                   : mo.ungroup
-                    ? e(t, { dimColor: !0, children: " (ungroup)" })
+                    ? e(t, { dimColor: true, children: " (ungroup)" })
                     : mo.addTo
-                      ? r(t, { dimColor: !0, children: [" (add to ", mo.addTo, ")"] })
+                      ? r(t, { dimColor: true, children: [" (add to ", mo.addTo, ")"] })
                       : null,
           ],
         })
       : Ko === "armed"
-        ? e(t, { dimColor: !0, wrap: "truncate", children: "opening\u2026 \xB7 esc to cancel" })
+        ? e(t, { dimColor: true, wrap: "truncate", children: "opening\u2026 \xB7 esc to cancel" })
         : Ao
           ? e(t, {
               color: Ao.ungroup ? "warning" : "error",
@@ -4188,18 +4188,18 @@ function ws(bC) {
                 wrap: "truncate",
                 children: [
                   e(t, { color: "error", children: "not deleted" }),
-                  r(t, { dimColor: !0, children: [" \xB7 ", Xn] }),
+                  r(t, { dimColor: true, children: [" \xB7 ", Xn] }),
                 ],
               })
             : Ko
-              ? e(t, { dimColor: !0, wrap: "truncate", children: "opening\u2026" })
+              ? e(t, { dimColor: true, wrap: "truncate", children: "opening\u2026" })
               : Kr
                 ? e(t, {
                     wrap: "truncate",
                     children: r(fe, {
                       children: [
                         e(t, { color: "suggestion", children: "Open in a terminal" }),
-                        e(t, { dimColor: !0, children: "continue it there" }),
+                        e(t, { dimColor: true, children: "continue it there" }),
                       ],
                     }),
                   })
@@ -4209,11 +4209,11 @@ function ws(bC) {
                       children: r(fe, {
                         children: [
                           e(t, { color: $r.color, dimColor: $r.dim, children: $r.word }),
-                          ms && e(t, { dimColor: !0, children: ms }),
+                          ms && e(t, { dimColor: true, children: ms }),
                         ],
                       }),
                     })
-                  : e(t, { dimColor: !0, wrap: "truncate", children: ms })),
+                  : e(t, { dimColor: true, wrap: "truncate", children: ms })),
       (to[34] = Ko),
       (to[35] = Oo.detail),
       (to[36] = Ao),
@@ -4230,7 +4230,7 @@ function ws(bC) {
   if (to[45] !== Ko || to[46] !== Ao || to[47] !== Xn || to[48] !== mo || to[49] !== Kr || to[50] !== rl)
     (hl =
       rl && !mo && !Ao && !Xn && !Ko && !Kr
-        ? e(o, { flexShrink: 0, paddingLeft: 1, children: r(t, { dimColor: !0, children: ["\xD7", rl] }) })
+        ? e(o, { flexShrink: 0, paddingLeft: 1, children: r(t, { dimColor: true, children: ["\xD7", rl] }) })
         : null),
       (to[45] = Ko),
       (to[46] = Ao),
@@ -4265,8 +4265,8 @@ function ws(bC) {
                         kind: Ar(tn.row),
                         color: tn.color,
                         dimColor: !po,
-                        underline: !1,
-                        hidePrefix: !0,
+                        underline: false,
+                        hidePrefix: true,
                       })
                     : e(t, { color: ol, dimColor: !po, children: "PR" })
                   : tn
@@ -4279,7 +4279,7 @@ function ws(bC) {
         : null,
     Dp = Oo.age + 2;
   let wl;
-  if (to[55] !== hp) (wl = e(t, { dimColor: !0, children: hp })), (to[55] = hp), (to[56] = wl);
+  if (to[55] !== hp) (wl = e(t, { dimColor: true, children: hp })), (to[55] = hp), (to[56] = wl);
   else wl = to[56];
   let Sl;
   if (to[57] !== Dp || to[58] !== wl)
@@ -4358,7 +4358,7 @@ function Rs(TC) {
       e(o, {
         paddingLeft: $o,
         children: e(t, {
-          dimColor: !0,
+          dimColor: true,
           wrap: "truncate",
           children: r(fe, {
             children: [
@@ -4524,7 +4524,7 @@ function Zl(rE) {
             flexDirection: "column",
             paddingLeft: SE,
             children: [
-              ni > 0 && r(t, { dimColor: !0, children: ["  ", "\u2026 ", ni, " above"] }),
+              ni > 0 && r(t, { dimColor: true, children: ["  ", "\u2026 ", ni, " above"] }),
               iw.map((aw, kE) => {
                 let Sf = ni + kE === go;
                 return r(
@@ -4538,7 +4538,7 @@ function Zl(rE) {
                   aw,
                 );
               }),
-              sw > 0 && r(t, { dimColor: !0, children: ["  ", "\u2026 ", sw, " more"] }),
+              sw > 0 && r(t, { dimColor: true, children: ["  ", "\u2026 ", sw, " more"] }),
             ],
           });
         })()
@@ -4629,8 +4629,8 @@ function Zl(rE) {
         if ((hf(null), dw)) on.hoverTo(On, je);
         else on.navigateTo(On, je);
       };
-      let ii = () => uw(!0);
-      let si = () => uw(!1);
+      let ii = () => uw(true);
+      let si = () => uw(false);
       if (je.kind === "header") {
         let vE = !Zr && lf && je.group === df;
         let RE = uf.get(je.group) ?? 0;
@@ -4661,7 +4661,7 @@ function Zl(rE) {
                           : Nl
                             ? e(t, { color: "error", children: " (name taken)" })
                             : Bl
-                              ? e(t, { dimColor: !0, children: " (rename group)" })
+                              ? e(t, { dimColor: true, children: " (rename group)" })
                               : null,
                     ],
                   })
@@ -4681,19 +4681,19 @@ function Zl(rE) {
                                 ? "Ungrouped"
                                 : ir(je.group, Math.max(En - 10, 10))
                               : fQ(Sa(je.group), Math.max(En - 10, 10)),
-                      _E && r(U, { children: [" ", e(t, { dimColor: !0, children: RE })] }),
+                      _E && r(U, { children: [" ", e(t, { dimColor: true, children: RE })] }),
                       (xn ? je.group === "done" : je.group === Q_) &&
                         Qr &&
                         Yr !== "remote" &&
                         !qr &&
                         r(U, {
-                          children: [" ", e(t, { dimColor: !0, children: "\xB7 looking for past sessions\u2026" })],
+                          children: [" ", e(t, { dimColor: true, children: "\xB7 looking for past sessions\u2026" })],
                         }),
                     ],
                   }),
               Xr &&
                 !(je.group === "done" && cf.length > 0) &&
-                e(o, { paddingLeft: 1, children: e(t, { dimColor: !0, children: ha[je.group] }) }),
+                e(o, { paddingLeft: 1, children: e(t, { dimColor: true, children: ha[je.group] }) }),
             ],
           },
           `h:${je.group}`,
@@ -4714,7 +4714,7 @@ function Zl(rE) {
                 s("tengu_fleetview_fold_expand", {
                   hidden_count: je.hidden,
                   ms_since_mount: Date.now() - zp,
-                  via_click: !0,
+                  via_click: true,
                 });
             },
             children: r(t, {
@@ -4752,7 +4752,7 @@ function Zl(rE) {
                     "aria-label": Qt ? "selected, new session:" : void 0,
                     children: [Qt ? "\u276F" : " ", "+  ", e(t, { underline: Qt, children: "new session" })],
                   }),
-                  tf && r(t, { dimColor: !0, wrap: "truncate", children: ["  ", "opening\u2026 \xB7 esc to cancel"] }),
+                  tf && r(t, { dimColor: true, wrap: "truncate", children: ["  ", "opening\u2026 \xB7 esc to cancel"] }),
                 ],
               }),
               rr !== null &&
@@ -4762,9 +4762,9 @@ function Zl(rE) {
                   marginTop: 1,
                   flexDirection: "column",
                   children: [
-                    e(t, { bold: !0, children: "Nothing running in the background." }),
+                    e(t, { bold: true, children: "Nothing running in the background." }),
                     e(t, {
-                      dimColor: !0,
+                      dimColor: true,
                       children:
                         "Hand off a task and it keeps working while you do something else \u2014 even if you close this terminal.",
                     }),
@@ -4775,10 +4775,10 @@ function Zl(rE) {
                         children: [
                           "You are not logged in. Run",
                           " ",
-                          e(t, { bold: !0, children: "claude /login" }),
+                          e(t, { bold: true, children: "claude /login" }),
                           " first, or press",
                           " ",
-                          e(t, { bold: !0, children: "l" }),
+                          e(t, { bold: true, children: "l" }),
                           " to log in.",
                         ],
                       }),
@@ -4787,7 +4787,7 @@ function Zl(rE) {
                       flexDirection: "column",
                       children: [
                         r(t, {
-                          dimColor: !0,
+                          dimColor: true,
                           children: [
                             "Start one with",
                             " ",
@@ -4796,7 +4796,7 @@ function Zl(rE) {
                           ],
                         }),
                         r(t, {
-                          dimColor: !0,
+                          dimColor: true,
                           children: [
                             "or run",
                             " ",
@@ -4805,7 +4805,7 @@ function Zl(rE) {
                           ],
                         }),
                         r(t, {
-                          dimColor: !0,
+                          dimColor: true,
                           children: [
                             "or ",
                             e(t, { color: "suggestion", children: "/fork" }),
@@ -4845,8 +4845,8 @@ function Zl(rE) {
                 flexShrink: 0,
                 marginLeft: 1,
                 children: e(t, {
-                  dimColor: !0,
-                  children: $t(Math.max(0, Date.now() - Kl.modified.getTime()), { mostSignificantOnly: !0 }),
+                  dimColor: true,
+                  children: $t(Math.max(0, Date.now() - Kl.modified.getTime()), { mostSignificantOnly: true }),
                 }),
               }),
             ],
@@ -4884,7 +4884,7 @@ function Zl(rE) {
               icon: CE ?? e(vn, {}),
               iconColor: Is.color,
               iconDim: Is.dim,
-              label: Ro(it.state, cw, !0),
+              label: Ro(it.state, cw, true),
               renameWidth: Math.max(12, En - Co - $o),
               renaming: Gl === it.id ? { draft: Dl, cursor: Ml } : void 0,
               isOrigin: cw,
@@ -4897,7 +4897,7 @@ function Zl(rE) {
               extra: Va(it, Is, ql, En),
               expanded: Boolean(it.state.pinned) || zn(it.state, ql) === "needs",
               refusal: Ol.get(it.id),
-              srLabel: Un(it.activity, it.state.tempo, ql, $l, Qt, it.state.pinned === !0),
+              srLabel: Un(it.activity, it.state.tempo, ql, $l, Qt, it.state.pinned === true),
             }),
           },
           it.id,
@@ -4956,7 +4956,7 @@ function Zl(rE) {
                   }
                 : void 0,
             deleteRefused: Ol.get(it.id),
-            attaching: Zp === it.id ? "armed" : ef.has(it.id) ? "warming" : !1,
+            attaching: Zp === it.id ? "armed" : ef.has(it.id) ? "warming" : false,
           }),
         },
         it.id,
@@ -5029,7 +5029,7 @@ function Zl(rE) {
       sf.length === 0 &&
       !!Fo &&
       pf &&
-      e(o, { paddingLeft: 2, children: e(t, { dimColor: !0, children: "no sessions match" }) })),
+      e(o, { paddingLeft: 2, children: e(t, { dimColor: true, children: "no sessions match" }) })),
       (ho[89] = sf.length),
       (ho[90] = Fo),
       (ho[91] = pf),
@@ -5043,7 +5043,7 @@ function Zl(rE) {
       Yr !== "remote" &&
       !qr &&
       !Mo.some((pw) => pw.kind === "header" && pw.group === (xn ? "done" : Q_)) &&
-      e(o, { paddingLeft: 2, children: e(t, { dimColor: !0, children: "\xB7 looking for past sessions\u2026" }) })),
+      e(o, { paddingLeft: 2, children: e(t, { dimColor: true, children: "\xB7 looking for past sessions\u2026" }) })),
       (ho[93] = Yr),
       (ho[94] = xn),
       (ho[95] = qr),
@@ -5059,7 +5059,7 @@ function Zl(rE) {
       flexGrow: 1,
       flexDirection: "column",
       paddingTop: 1,
-      stickyScroll: !1,
+      stickyScroll: false,
       children: [jp, Wl, Ql, Xl],
     })),
       (ho[100] = jp),
@@ -5156,7 +5156,7 @@ function dd(zE) {
   )
     (ld = Ef
       ? r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             ai ? "press ctrl+c or q again to exit" : "Press Ctrl-C again to exit",
             Ts > 0 && ` \xB7 ${Ts} ${k(Ts, "agent")} will keep running`,
@@ -5164,7 +5164,7 @@ function dd(zE) {
         })
       : Lf !== null || li !== null
         ? e(t, {
-            dimColor: !0,
+            dimColor: true,
             children: r(fe, {
               children: [
                 e(M, { chord: "enter", action: "save", format: { keyCase: "lower" } }),
@@ -5182,7 +5182,7 @@ function dd(zE) {
           })
         : nd
           ? e(t, {
-              dimColor: !0,
+              dimColor: true,
               children: ai
                 ? e(t, {
                     children: nd.justKilled
@@ -5198,10 +5198,10 @@ function dd(zE) {
               : Os && rd !== "idle"
                 ? e(lQ, { voiceState: rd })
                 : od
-                  ? e(t, { dimColor: !0, wrap: "truncate-end", children: od })
+                  ? e(t, { dimColor: true, wrap: "truncate-end", children: od })
                   : ai && !ed && Jo === ""
                     ? e(t, {
-                        dimColor: !0,
+                        dimColor: true,
                         wrap: "truncate-end",
                         children: r(fe, {
                           children: [
@@ -5219,7 +5219,7 @@ function dd(zE) {
                       })
                     : !Cf && !ed
                       ? e(t, {
-                          dimColor: !0,
+                          dimColor: true,
                           wrap: "truncate-end",
                           children: r(fe, {
                             children: [
@@ -5231,7 +5231,7 @@ function dd(zE) {
                               If !== null &&
                                 Jo !== "" &&
                                 sr >= 90 &&
-                                e(t, { dimColor: !0, children: "paste again to expand" }),
+                                e(t, { dimColor: true, children: "paste again to expand" }),
                               qo?.kind === "header" &&
                                 Jo === "" &&
                                 !Df &&
@@ -5326,7 +5326,7 @@ function dd(zE) {
 F();
 F();
 function Vw(Ew) {
-  return e(t, { dimColor: !0, children: Ew }, Ew);
+  return e(t, { dimColor: true, children: Ew }, Ew);
 }
 function Gw(kI, vI) {
   return e(o, { flexDirection: "column", children: kI.map(Vw) }, vI);
@@ -5410,7 +5410,7 @@ function Ms(RI) {
   if ((ko(Ow, !bo ? null : Pw - xw < 60000 ? 1000 : 30000), !bo)) {
     let pi;
     if (Kt[3] === d)
-      (pi = e(o, { flexShrink: 0, paddingX: 2, children: e(t, { dimColor: !0, children: "no job focused" }) })),
+      (pi = e(o, { flexShrink: 0, paddingX: 2, children: e(t, { dimColor: true, children: "no job focused" }) })),
         (Kt[3] = pi);
     else pi = Kt[3];
     return pi;
@@ -5418,17 +5418,17 @@ function Ms(RI) {
   let Xt = bo.state;
   const pi = Math.max(0, Pw - xw);
   let Aw;
-  if (Kt[4] !== pi) (Aw = $t(pi, { mostSignificantOnly: !0 })), (Kt[4] = pi), (Kt[5] = Aw);
+  if (Kt[4] !== pi) (Aw = $t(pi, { mostSignificantOnly: true })), (Kt[4] = pi), (Kt[5] = Aw);
   else Aw = Kt[5];
   let qf = Aw,
     Dw;
-  if (Kt[6] === d) (Dw = e(t, { dimColor: !0, children: "backend " })), (Kt[6] = Dw);
+  if (Kt[6] === d) (Dw = e(t, { dimColor: true, children: "backend " })), (Kt[6] = Dw);
   else Dw = Kt[6];
   let pd;
   if (Kt[7] !== Xt.backend) (pd = r(t, { children: [Dw, Xt.backend] })), (Kt[7] = Xt.backend), (Kt[8] = pd);
   else pd = Kt[8];
   let Mw;
-  if (Kt[9] === d) (Mw = e(t, { dimColor: !0, children: "dir " })), (Kt[9] = Mw);
+  if (Kt[9] === d) (Mw = e(t, { dimColor: true, children: "dir " })), (Kt[9] = Mw);
   else Mw = Kt[9];
   let fd;
   if (Kt[10] !== bo.id) (fd = cr(bo.id)), (Kt[10] = bo.id), (Kt[11] = fd);
@@ -5437,7 +5437,7 @@ function Ms(RI) {
   if (Kt[12] !== fd) (md = r(t, { children: [Mw, fd] })), (Kt[12] = fd), (Kt[13] = md);
   else md = Kt[13];
   let Lw;
-  if (Kt[14] === d) (Lw = e(t, { dimColor: !0, children: "cwd " })), (Kt[14] = Lw);
+  if (Kt[14] === d) (Lw = e(t, { dimColor: true, children: "cwd " })), (Kt[14] = Lw);
   else Lw = Kt[14];
   const zf = Xt.worktreePath ?? Xt.cwd;
   let gd;
@@ -5455,26 +5455,26 @@ function Ms(RI) {
   if (Kt[21] !== bo.id || Kt[22] !== Xt.backend)
     (bd =
       Xt.backend === "daemon"
-        ? r(t, { children: [e(t, { dimColor: !0, children: "shell " }), "claude attach ", bo.id] })
+        ? r(t, { children: [e(t, { dimColor: true, children: "shell " }), "claude attach ", bo.id] })
         : null),
       (Kt[21] = bo.id),
       (Kt[22] = Xt.backend),
       (Kt[23] = bd);
   else bd = Kt[23];
   let Jw;
-  if (Kt[24] === d) (Jw = e(t, { dimColor: !0, children: "session " })), (Kt[24] = Jw);
+  if (Kt[24] === d) (Jw = e(t, { dimColor: true, children: "session " })), (Kt[24] = Jw);
   else Jw = Kt[24];
   let wd;
   if (Kt[25] !== Xt.sessionId) (wd = r(t, { children: [Jw, Xt.sessionId] })), (Kt[25] = Xt.sessionId), (Kt[26] = wd);
   else wd = Kt[26];
   let Bw;
-  if (Kt[27] === d) (Bw = e(t, { dimColor: !0, children: "version " })), (Kt[27] = Bw);
+  if (Kt[27] === d) (Bw = e(t, { dimColor: true, children: "version " })), (Kt[27] = Bw);
   else Bw = Kt[27];
   let yd;
   if (Kt[28] !== Xt.cliVersion)
     (yd =
       Xt.cliVersion === void 0
-        ? e(t, { dimColor: !0, children: "\u2014" })
+        ? e(t, { dimColor: true, children: "\u2014" })
         : Xt.cliVersion ===
             {
               ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
@@ -5492,7 +5492,7 @@ function Ms(RI) {
               children: [
                 e(t, { color: "warning", children: Xt.cliVersion }),
                 r(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: [
                     " \xB7 current ",
                     {
@@ -5517,7 +5517,7 @@ function Ms(RI) {
   if (Kt[30] !== yd) (kd = r(t, { children: [Bw, yd] })), (Kt[30] = yd), (Kt[31] = kd);
   else kd = Kt[31];
   let Nw;
-  if (Kt[32] === d) (Nw = e(t, { dimColor: !0, children: "updated " })), (Kt[32] = Nw);
+  if (Kt[32] === d) (Nw = e(t, { dimColor: true, children: "updated " })), (Kt[32] = Nw);
   else Nw = Kt[32];
   let vd;
   if (Kt[33] !== qf) (vd = r(t, { children: [Nw, qf, " ago"] })), (Kt[33] = qf), (Kt[34] = vd);
@@ -5548,7 +5548,7 @@ function $w(Pd, TI) {
     {
       paddingLeft: 2,
       children: [
-        e(o, { width: 3, flexShrink: 0, children: r(t, { dimColor: !0, children: [TI + 1, "."] }) }),
+        e(o, { width: 3, flexShrink: 0, children: r(t, { dimColor: true, children: [TI + 1, "."] }) }),
         e(o, {
           flexGrow: 1,
           width: 0,
@@ -5556,7 +5556,7 @@ function $w(Pd, TI) {
             wrap: "truncate",
             children: [
               zo(Pd.label),
-              Pd.description && r(t, { dimColor: !0, children: [" \xB7 ", zo(Pd.description)] }),
+              Pd.description && r(t, { dimColor: true, children: [" \xB7 ", zo(Pd.description)] }),
             ],
           }),
         }),
@@ -5577,7 +5577,7 @@ function Od(AI) {
   else _d = fi[1];
   let Cd;
   if (fi[2] !== _d)
-    (Cd = e(o, { flexGrow: 1, width: 0, children: e(t, { bold: !0, wrap: "truncate", children: _d }) })),
+    (Cd = e(o, { flexGrow: 1, width: 0, children: e(t, { bold: true, wrap: "truncate", children: _d }) })),
       (fi[2] = _d),
       (fi[3] = Cd);
   else Cd = fi[3];
@@ -5588,7 +5588,7 @@ function Od(AI) {
       e(o, {
         flexShrink: 0,
         paddingLeft: 1,
-        children: r(t, { dimColor: !0, children: ["+", Ls.length - 1, " more \xB7 enter to open"] }),
+        children: r(t, { dimColor: true, children: ["+", Ls.length - 1, " more \xB7 enter to open"] }),
       })),
       (fi[4] = Ls.length),
       (fi[5] = Ed);
@@ -5646,10 +5646,10 @@ function Td({
     pe = Y ? "questions" : oe ? "needs" : Ce.length > 0 ? "output" : "detail",
     be = pe === "questions" || pe === "needs";
   ko(() => Z(Date.now()), be ? (X - j < 60000 ? 1000 : 30000) : null);
-  let Te = be ? $t(Math.max(0, X - j), { mostSignificantOnly: !0 }) : "",
-    me = C(!1),
+  let Te = be ? $t(Math.max(0, X - j), { mostSignificantOnly: true }) : "",
+    me = C(false),
     de = C(null);
-  Cp(de, !0);
+  Cp(de, true);
   let re = J.replyDraft(i.id) ?? "",
     [Ge, tt] = u(W_(re) === "bash" ? "bash" : "prompt"),
     Ve = C(Ge),
@@ -5682,22 +5682,22 @@ function Td({
     handleKeyDown: He,
     handlePaste: Dt,
   } = np({
-    isActive: !0,
-    multiline: !0,
-    honorEditorMode: !0,
-    backspaceExitsOnEmpty: !1,
+    isActive: true,
+    multiline: true,
+    honorEditorMode: true,
+    backspaceExitsOnEmpty: false,
     initialQuery: M0(re),
     onExit: () => {
       if (me.current) return;
       let ue = ze.current.trim();
       if (!ue && Ve.current === "prompt") {
-        (me.current = !0), b();
+        (me.current = true), b();
         return;
       }
       if (!ue) return;
       let nt = Lse(ue, Ve.current),
         zt = Ve.current;
-      (me.current = !0), st(""), ht("prompt"), H(null), J.deleteReplyDraft(i.id);
+      (me.current = true), st(""), ht("prompt"), H(null), J.deleteReplyDraft(i.id);
       let so = Jp(nt),
         _e = {};
       for (let Qe of so) {
@@ -5714,7 +5714,7 @@ function Td({
         }
       };
       if (i.state.backend === "remote" && so.some((Qe) => _e[Qe.id]?.type === "image")) {
-        (me.current = !1),
+        (me.current = false),
           Rt(),
           H(
             "Image attachments aren't available when replying to cloud sessions yet \u2014 open the session to send images",
@@ -5727,14 +5727,14 @@ function Td({
         .then(
           (Qe) => {
             if (Qe) Rt(), H(Qe);
-            else J.pruneOrphanedPastes({ pruneTextPastes: !0 });
+            else J.pruneOrphanedPastes({ pruneTextPastes: true });
           },
           (Qe) => {
             Rt(), H(l(Qe));
           },
         )
         .finally(() => {
-          me.current = !1;
+          me.current = false;
         });
     },
     onCancel: v,
@@ -5856,7 +5856,7 @@ function Td({
         minHeight: pt,
         width: "100%",
         tabIndex: 0,
-        autoFocus: !0,
+        autoFocus: true,
         onKeyDownCapture: Pt,
         onKeyDown: (ue) => {
           if (ue.key !== " " && Fe.current) Fe.current(), (Fe.current = null);
@@ -5870,7 +5870,7 @@ function Td({
           if (Ve.current === "prompt") {
             if (ue.key === "right" && !ue.shift && !ze.current) {
               if ((ue.preventDefault(), me.current)) return;
-              (me.current = !0), b();
+              (me.current = true), b();
               return;
             }
             if (i0e(ue.key) && !ze.current) {
@@ -5909,7 +5909,7 @@ function Td({
                         {
                           children: [
                             Ce.length > 1 &&
-                              e(o, { width: Ye + 2, flexShrink: 0, children: e(t, { dimColor: !0, children: ue }) }),
+                              e(o, { width: Ye + 2, flexShrink: 0, children: e(t, { dimColor: true, children: ue }) }),
                             e(o, {
                               flexGrow: 1,
                               width: 0,
@@ -5949,8 +5949,8 @@ function Td({
                                     url: ue.row.href,
                                     kind: Ar(ue.row),
                                     color: ue.color,
-                                    underline: !1,
-                                    hidePrefix: !0,
+                                    underline: false,
+                                    hidePrefix: true,
                                   })
                                 : e(t, { color: ue.color, dimColor: !Wo(ue), children: Wo(ue) ? jl : "PR" }),
                               ue.label
@@ -6002,7 +6002,7 @@ function Td({
                   ),
                 ),
                 ye > 0 &&
-                  e(o, { paddingLeft: 2, children: r(t, { dimColor: !0, children: ["\u2026 ", ye, " more"] }) }),
+                  e(o, { paddingLeft: 2, children: r(t, { dimColor: true, children: ["\u2026 ", ye, " more"] }) }),
               ],
             }),
           mt > 0 &&
@@ -6013,7 +6013,7 @@ function Td({
                 children: r(fe, {
                   children: [
                     be && r(t, { color: Nt, children: ["waiting ", Te] }),
-                    Ct !== "" && e(t, { dimColor: !0, children: Ct }),
+                    Ct !== "" && e(t, { dimColor: true, children: Ct }),
                   ],
                 }),
               }),
@@ -6041,11 +6041,11 @@ function Td({
               isFocused: !x,
               isTerminalFocused: E,
               width: "100%",
-              borderless: !0,
+              borderless: true,
               wrapColumns: Ot - 4,
             }),
           }),
-          T && e(t, { color: "error", dimColor: !0, wrap: "truncate", children: T }),
+          T && e(t, { color: "error", dimColor: true, wrap: "truncate", children: T }),
         ],
       }),
       e(o, {
@@ -6056,7 +6056,7 @@ function Td({
             : et && qe !== "idle" && !x
               ? e(lQ, { voiceState: qe })
               : e(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: x
                     ? r(fe, {
                         children: [
@@ -6125,7 +6125,7 @@ function Vd(Ux) {
     Fd = Xe(Bs, ty),
     pm = Xe(lr, ny),
     { pending: Md } = Xe(qx),
-    [fm, Yx] = u(!1),
+    [fm, Yx] = u(false),
     { rows: Ld, byState: mm, byGroup: Jd, focusedRow: hi, focused: At, focusedIsPending: dn, focusedOrigin: gm } = $x,
     hm = zx?.jobId ?? null,
     jw;
@@ -6144,13 +6144,13 @@ function Vd(Ux) {
       ur !== null
         ? (() => {
             let Ns;
-            if (ur.entries === null) Ns = e(t, { dimColor: !0, children: "Looking for past sessions\u2026" });
+            if (ur.entries === null) Ns = e(t, { dimColor: true, children: "Looking for past sessions\u2026" });
             else if (ur.failed)
               Ns = e(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: "Couldn't load past sessions \u2014 press esc, then try /resume again",
               });
-            else if (ur.entries.length === 0) Ns = e(t, { dimColor: !0, children: "No past sessions to resume" });
+            else if (ur.entries.length === 0) Ns = e(t, { dimColor: true, children: "No past sessions to resume" });
             else {
               let Sm = ur.entries;
               let bi = Math.max(0, Math.min(Dd - 3, Sm.length - 8));
@@ -6158,7 +6158,7 @@ function Vd(Ux) {
               let Qw = Sm.length - bi - Yw.length;
               Ns = r(U, {
                 children: [
-                  bi > 0 && r(t, { dimColor: !0, children: ["  ", "\u2026 ", bi, " above"] }),
+                  bi > 0 && r(t, { dimColor: true, children: ["  ", "\u2026 ", bi, " above"] }),
                   Yw.map((vm, Xx) => {
                     let Rm = bi + Xx === Dd;
                     return r(
@@ -6180,9 +6180,9 @@ function Vd(Ux) {
                             flexShrink: 0,
                             marginLeft: 1,
                             children: e(t, {
-                              dimColor: !0,
+                              dimColor: true,
                               children: $t(Math.max(0, Date.now() - vm.modified.getTime()), {
-                                mostSignificantOnly: !0,
+                                mostSignificantOnly: true,
                               }),
                             }),
                           }),
@@ -6191,7 +6191,7 @@ function Vd(Ux) {
                       vm.sessionId,
                     );
                   }),
-                  Qw > 0 && r(t, { dimColor: !0, children: ["  ", "\u2026 ", Qw, " more"] }),
+                  Qw > 0 && r(t, { dimColor: true, children: ["  ", "\u2026 ", Qw, " more"] }),
                 ],
               });
             }
@@ -6201,16 +6201,16 @@ function Vd(Ux) {
               left: 0,
               right: 0,
               flexDirection: "column",
-              opaque: !0,
+              opaque: true,
               children: r(o, {
                 flexDirection: "column",
                 borderStyle: "round",
                 paddingX: 1,
                 children: [
-                  e(t, { bold: !0, children: "Resume a past session" }),
+                  e(t, { bold: true, children: "Resume a past session" }),
                   Ns,
                   e(t, {
-                    dimColor: !0,
+                    dimColor: true,
                     children:
                       "\u2191/\u2193 to navigate \xB7 enter to resume as a background session \xB7 esc to close",
                   }),
@@ -6246,9 +6246,9 @@ function Vd(Ux) {
     (Bd =
       lm && !dr
         ? e(Fs, {
-            focusedPinned: At?.state.pinned ?? !1,
+            focusedPinned: At?.state.pinned ?? false,
             canReorder:
-              !!At && (mi ? (At.state.pinned ?? !1) && Q(Ld, ry) > 1 : (!mm && !Jd) || (At.state.pinned ?? !1)),
+              !!At && (mi ? (At.state.pinned ?? false) && Q(Ld, ry) > 1 : (!mm && !Jd) || (At.state.pinned ?? false)),
             canRename:
               (Jd && hi?.kind === "header" && hi.group !== "pinned" && hi.group !== HE && hi.group !== Q_) ||
               (!!At && !dn && !(At.state.backend !== "daemon" && !At.state.sock)),
@@ -6263,7 +6263,7 @@ function Vd(Ux) {
               Q(Ld, (Xw) => Xw.kind === "job" && Xw.origin === gm),
             ),
             canDelete: At && !dn ? (Xi(At.state) ? "delete" : "stop") : void 0,
-            canGoBack: !1,
+            canGoBack: false,
           })
         : dm && !dr
           ? e(Ms, { job: At })
@@ -6288,7 +6288,7 @@ function Vd(Ux) {
   else Bd = pr[24];
   let Nd;
   if (pr[25] !== fm)
-    (Nd = e(Ome, { isUpdating: fm, onChangeIsUpdating: Yx, showSuccessMessage: !0, verbose: !1 })),
+    (Nd = e(Ome, { isUpdating: fm, onChangeIsUpdating: Yx, showSuccessMessage: true, verbose: false })),
       (pr[25] = fm),
       (pr[26] = Nd);
   else Nd = pr[26];
@@ -6321,7 +6321,7 @@ function Vd(Ux) {
         left: 0,
         right: 0,
         flexDirection: "column",
-        opaque: !0,
+        opaque: true,
         children: e(
           Td,
           {
@@ -6332,9 +6332,9 @@ function Vd(Ux) {
             status: bm(At),
             isPending: dn,
             deleteArmed: Md?.id === At.id ? { justKilled: Md.justKilled } : void 0,
-            onBack: () => Js.setPreviewOpen(!1),
+            onBack: () => Js.setPreviewOpen(false),
             onAttach: () => {
-              wm(At), Js.setPreviewOpen(!1);
+              wm(At), Js.setPreviewOpen(false);
             },
             childRows: ym,
             onReply: (Zx) => Ia({ editor: Bs, roster: lr, attach: sm, awayLoop: rm, storageV5: im }, At, Zx),
@@ -6405,7 +6405,7 @@ function qd(EP) {
     iy;
   if (gr[0] === d)
     (iy = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children:
         "A different way to work with Claude: hand off a bigger task than you would chat through, and Claude organizes it in the sections above so you know when it needs you.",
     })),
@@ -6416,7 +6416,7 @@ function qd(EP) {
   if (gr[1] !== Dm || gr[2] !== Gm || gr[3] !== Vm || gr[4] !== xm || gr[5] !== cn || gr[6] !== un)
     (sy =
       !un && Gm && Dm !== "remote" && !xm && Vm.length > 0 && !cn
-        ? e(t, { dimColor: !0, children: "No groups yet \u2014 press ctrl+e on a session to tag it." })
+        ? e(t, { dimColor: true, children: "No groups yet \u2014 press ctrl+e on a session to tag it." })
         : null),
       (gr[1] = Dm),
       (gr[2] = Gm),
@@ -6482,8 +6482,8 @@ function qd(EP) {
       : e(o, {
           flexDirection: "column",
           borderStyle: "round",
-          borderLeft: !1,
-          borderRight: !1,
+          borderLeft: false,
+          borderRight: false,
           borderColor: mr ? "bashBorder" : void 0,
           borderDimColor: !mr,
           children: e(Hd, {
@@ -6500,7 +6500,7 @@ function qd(EP) {
             isFocused: !Mm && Km === null && Fm === null && Lm === null,
             isTerminalFocused: Im,
             width: "100%",
-            borderless: !0,
+            borderless: true,
             wrapColumns: Om,
           }),
         })),
@@ -6565,7 +6565,7 @@ function zd(MP) {
     (py = [$m, jm, qm, no, Eo]), (jd[5] = no), (jd[6] = qm), (jd[7] = jm), (jd[8] = $m), (jd[9] = Eo), (jd[10] = py);
   else py = jd[10];
   Yn(dy, 300, py);
-  let fy = C(!1),
+  let fy = C(false),
     my,
     gy;
   if (jd[11] !== no || jd[12] !== Bo || jd[13] !== No || jd[14] !== Eo)
@@ -6574,7 +6574,7 @@ function zd(MP) {
         ? BC(async () => {
             let hy = Bo.draftForDisk();
             let by = [...No.getSnapshot().collapsed];
-            fy.current = hy || by.length ? await NDt(no, { q: hy, collapsed: by }, Eo) : !0;
+            fy.current = hy || by.length ? await NDt(no, { q: hy, collapsed: by }, Eo) : true;
           })
         : void 0),
       (gy = [no, Bo, No, Eo]),
@@ -6621,10 +6621,10 @@ class zm {
   subscribe = (i) => this.#n.subscribe(i);
   attachView() {
     this.#a++;
-    let i = !1;
+    let i = false;
     return () => {
       if (i) return;
-      if (((i = !0), this.#a--, this.#a === 0)) this.#i.clear(), this.#t++, (this.#e = Qd);
+      if (((i = true), this.#a--, this.#a === 0)) this.#i.clear(), this.#t++, (this.#e = Qd);
     };
   }
   get pending() {
@@ -6633,7 +6633,7 @@ class zm {
   get generation() {
     return this.#t;
   }
-  arm(i, f = !1, m, S) {
+  arm(i, f = false, m, S) {
     this.#r(),
       this.#i.delete(i),
       (this.#e = { pending: { id: i, justKilled: f, group: m, sortKey: S } }),
@@ -6673,14 +6673,14 @@ function Qm() {
   return {
     groupEdit: null,
     groupPickIdx: -1,
-    groupPristine: !1,
+    groupPristine: false,
     resumePicker: null,
     resumePickerIdx: 0,
     renaming: null,
-    previewOpen: !1,
-    helpOpen: !1,
-    debugOpen: !1,
-    exitPending: !1,
+    previewOpen: false,
+    helpOpen: false,
+    debugOpen: false,
+    exitPending: false,
   };
 }
 class Xm {
@@ -6705,10 +6705,10 @@ class Xm {
   }
   attachView(i) {
     this.#a++, this.restrictGroupMode(i.groupsEnabled);
-    let f = !1;
+    let f = false;
     return () => {
       if (f) return;
-      if (((f = !0), this.#a--, this.#a === 0))
+      if (((f = true), this.#a--, this.#a === 0))
         this.#t++,
           (this.#i = null),
           (this.#r = 0),
@@ -6730,7 +6730,7 @@ class Xm {
     this.#o({ groupEdit: i, groupPristine: f });
   }
   closeGroupEdit() {
-    this.#o({ groupEdit: null, groupPickIdx: -1, groupPristine: !1 });
+    this.#o({ groupEdit: null, groupPickIdx: -1, groupPristine: false });
   }
   setGroupPickIdx(i) {
     this.#o({ groupPickIdx: i });
@@ -6740,7 +6740,7 @@ class Xm {
   }
   openResumePicker() {
     let i = ++this.#t;
-    return this.#o({ resumePicker: { entries: null, failed: !1 }, resumePickerIdx: 0 }), i;
+    return this.#o({ resumePicker: { entries: null, failed: false }, resumePickerIdx: 0 }), i;
   }
   get resumePickerGen() {
     return this.#t;
@@ -6799,8 +6799,8 @@ class Xm {
     this.#o({ exitPending: i });
   };
   firstImpression(i) {
-    if (this.#s.has(i)) return !1;
-    return this.#s.add(i), !0;
+    if (this.#s.has(i)) return false;
+    return this.#s.add(i), true;
   }
 }
 function Zm(i, f) {
@@ -6907,7 +6907,7 @@ function ng(i) {
       for (let q of oe) q();
     });
 }
-function Xd(i, f, m, S = !1) {
+function Xd(i, f, m, S = false) {
   let { roster: v, editor: b } = i.submit,
     { deleteConfirm: R, actions: E, groupOf: P, simpleView: J } = i,
     T = b.setError;
@@ -6941,7 +6941,7 @@ function Xd(i, f, m, S = !1) {
           (R.pending === null || R.pending.id === m.id) &&
           !R.isDismissed(m.id)
         )
-          R.arm(m.id, !1, Z, oe);
+          R.arm(m.id, false, Z, oe);
         j(X.label, le);
       });
     return;
@@ -7149,7 +7149,7 @@ function rg(i, f) {
         f.name === "delete" ||
         (f.ctrl && (f.key === "u" || f.key === "w" || f.key === "k"))
       ) {
-        De(""), b.setGroupPristine(!1);
+        De(""), b.setGroupPristine(false);
         return;
       }
       switch (f.name) {
@@ -7168,12 +7168,12 @@ function rg(i, f) {
         case "insert":
         case "wheelup":
         case "wheeldown":
-          b.setGroupPristine(!1);
+          b.setGroupPristine(false);
           return;
         default:
           if (f.name.startsWith("f") && /^f\d+$/.test(f.name)) return;
           if (!f.ctrl && !f.meta) {
-            De(""), b.setGroupPristine(!1), Bt(f);
+            De(""), b.setGroupPristine(false), Bt(f);
             return;
           }
           return;
@@ -7289,7 +7289,7 @@ function rg(i, f) {
   }
   if (f.ctrl && f.key === "c") {
     if ((Le(), ht || Me)) {
-      b.setHelpOpen(!1), b.setDebugOpen(!1);
+      b.setHelpOpen(false), b.setDebugOpen(false);
       return;
     }
     if (m.getSnapshot().query) Ft("");
@@ -7298,10 +7298,10 @@ function rg(i, f) {
     return;
   }
   if (f.key === "escape") {
-    if ((Le(), Ve)) b.setPreviewOpen(!1);
-    else if (ht) b.setHelpOpen(!1);
-    else if (Me) b.setDebugOpen(!1);
-    else if (Ie) yt(!1);
+    if ((Le(), Ve)) b.setPreviewOpen(false);
+    else if (ht) b.setHelpOpen(false);
+    else if (Me) b.setDebugOpen(false);
+    else if (Ie) yt(false);
     else if (x !== void 0 && H && (x !== "NORMAL" || m.getSnapshot().query !== "")) {
       if (pe.pending) pe.dismiss();
       T(f);
@@ -7312,7 +7312,7 @@ function rg(i, f) {
       switch (
         eg({
           originJobId: _t,
-          originRowPresent: _t !== void 0 && (Fe?.some((Pe) => Pe.id === _t) ?? !1),
+          originRowPresent: _t !== void 0 && (Fe?.some((Pe) => Pe.id === _t) ?? false),
           originSpawn: He,
         }).kind
       ) {
@@ -7323,7 +7323,7 @@ function rg(i, f) {
           kt(xr);
           break;
         case "exit-with-hint":
-          if (He) He.resumeHintRequested = !0;
+          if (He) He.resumeHintRequested = true;
           J();
           break;
         case "exit":
@@ -7333,14 +7333,14 @@ function rg(i, f) {
     return;
   }
   if (ht && f.key !== "?" && f.key !== "up" && f.key !== "down" && !(f.ctrl && (f.key === "p" || f.key === "n")))
-    b.setHelpOpen(!1);
+    b.setHelpOpen(false);
   if (f.shift && (f.key === "up" || f.key === "down") && K.length === 0 && !Ve) {
     Le(), xy(i, f.key === "up" ? -1 : 1);
     return;
   }
   if (f.ctrl && f.key === "r") {
     if ((Le(), de && q?.kind === "header" && q.group !== HE && q.group !== "pinned" && q.group !== Q_)) {
-      De(q.group), Wt(), b.openGroupEdit({ kind: "rename", from: q.group }, !0);
+      De(q.group), Wt(), b.openGroupEdit({ kind: "rename", from: q.group }, true);
       return;
     }
     if (!Y || We.some((Re) => Re.id === Y.id)) return;
@@ -7526,7 +7526,7 @@ function rg(i, f) {
       pe.disarm();
       for (let ye of Ge) {
         if (We.some((Ye) => Ye.id === ye.id)) continue;
-        Xd(i, "x", ye, !0);
+        Xd(i, "x", ye, true);
       }
       return;
     }
@@ -7619,7 +7619,7 @@ class lg {
         .catch(() => {});
   }
   loadTarget(i, f) {
-    let m = !1;
+    let m = false;
     if (!this.#e.templates.has(i))
       YUe(i, f)
         .catch(() => [])
@@ -7640,7 +7640,7 @@ class lg {
           this.#a({ skills: new Map(this.#e.skills).set(i, v) });
         });
     return () => {
-      m = !0;
+      m = true;
     };
   }
 }
@@ -7711,7 +7711,7 @@ function pg({
   let x = xt(),
     { stdin: H, isRawModeSupported: j } = XR(),
     { credentials: K } = ge(),
-    X = a.CLAUDE_CODE_FLEETVIEW_SIMPLE || I("tengu_fleetview_simple", !1),
+    X = a.CLAUDE_CODE_FLEETVIEW_SIMPLE || I("tengu_fleetview_simple", false),
     Z = !X || !!f?.startsWith("remote-");
   Yn(
     () => {
@@ -7737,7 +7737,7 @@ function pg({
     } = Xe(Y),
     [re] = u(() => Gi(q, Y, T)),
     { focusedIdx: Ge, hoverFocusIdx: tt, collapsed: Ve, capExpanded: ht } = Xe(re),
-    Me = !1,
+    Me = false,
     [he] = u(() => Zm(q, Me)),
     {
       groupMode: et,
@@ -7777,13 +7777,13 @@ function pg({
     Vt = Hi({ cwd: lt }),
     [Pt, yt] = u(lt);
   A(() => {
-    let N = !1;
+    let N = false;
     return (
       Al(lt, Nu(T)).then((xe) => {
         if (!N && xe !== lt) yt(xe);
       }),
       () => {
-        N = !0;
+        N = true;
       }
     );
   }, [lt, T]);
@@ -7828,10 +7828,10 @@ function pg({
       if (!v) q.earlier.clear();
       return;
     }
-    let N = !1,
+    let N = false,
       xe = q.earlier.beginLoad();
     return (
-      $i(new Set(), !1, T)
+      $i(new Set(), false, T)
         .finally(() => {
           q.earlier.endLoad(xe);
         })
@@ -7844,7 +7844,7 @@ function pg({
             s("tengu_fleetview_earlier_loaded", { count: Oe.length });
         }),
       () => {
-        N = !0;
+        N = true;
       }
     );
   }, []);
@@ -7866,7 +7866,7 @@ function pg({
       let N = re.focusedRow(),
         xe = N?.kind === "job" ? N.job : void 0;
       if (!xe) return;
-      Sr(!1);
+      Sr(false);
       let Oe = he.getSnapshot().previewOpen;
       if (!Oe) (re.followId = xe.id), lu();
       he.setPreviewOpen(!Oe);
@@ -7884,8 +7884,8 @@ function pg({
     } = np({
       buffer: He,
       isActive: pn,
-      multiline: !0,
-      honorEditorMode: !0,
+      multiline: true,
+      honorEditorMode: true,
       onExit: () => {},
       onCancel: le === null ? Nt : void 0,
       onSpaceOnEmpty: () => {
@@ -7949,8 +7949,8 @@ function pg({
       handlePaste: vg,
     } = np({
       isActive: ct !== null,
-      honorEditorMode: !0,
-      backspaceExitsOnEmpty: !1,
+      honorEditorMode: true,
+      backspaceExitsOnEmpty: false,
       onExit: () => og(ia()),
       onCancel: ue,
     }),
@@ -7964,7 +7964,7 @@ function pg({
       cursorOffset: _g,
       handleKeyDown: Cg,
       handlePaste: Eg,
-    } = np({ isActive: Ie !== null, backspaceExitsOnEmpty: !1, onExit: () => ng(ia()), onCancel: uu }),
+    } = np({ isActive: Ie !== null, backspaceExitsOnEmpty: false, onExit: () => ng(ia()), onCancel: uu }),
     yi = z(() => {
       let N = new Set();
       for (let xe of le ?? []) if (xe.state.group) N.add(xe.state.group);
@@ -8010,11 +8010,11 @@ function pg({
     },
     Qe && !Rt ? Hs : null,
   );
-  let [Si, Sr] = u(!1),
+  let [Si, Sr] = u(false),
     [mu, gu] = u(0),
     [js, qs] = u(null);
   A(() => {
-    if (Ze) Sr(!1);
+    if (Ze) Sr(false);
   }, [Ze]),
     A(() => {
       gu(0);
@@ -8085,22 +8085,22 @@ function pg({
       if ((he.setActiveTab(N), $e(null), N === "remote")) Y.loadRemote();
     },
     yu = (N) => Y.liveStatus(N),
-    Vg = Yo() && I("tengu_fleetview_peers", !1),
+    Vg = Yo() && I("tengu_fleetview_peers", false),
     [, Wg] = u(0),
     Xs = Date.now(),
     Su = z(() => new Set((le ?? []).filter((N) => Mbe(N.state)).map((N) => N.id)), [le]),
     Ug = (le ?? []).some((N) => {
-      if (!Su.has(N.id)) return !1;
+      if (!Su.has(N.id)) return false;
       let xe = me.get(N.state.sessionId)?.nextAt;
       return xe != null && xe > Xs && xe - Xs < 60000;
     });
   ko(() => Wg((N) => N + 1), Ug ? 1000 : le?.length ? 30000 : null),
     A(() => {
-      Ftt(Ct, !0, b, kt.get(Ct), T);
+      Ftt(Ct, true, b, kt.get(Ct), T);
     }, [Ct, b, kt, T]),
     A(() => {
       if (q.agentLastUsedMigrationDone) return;
-      (q.agentLastUsedMigrationDone = !0),
+      (q.agentLastUsedMigrationDone = true),
         Ac(T).then((N) => {
           if (N) hu();
         });
@@ -8108,8 +8108,8 @@ function pg({
     A(() => Ot.loadTarget(gn, T), [Ot, gn, T]);
   let { addNotification: Kg } = Or(),
     ki = Ox();
-  Dtt(ki, !0, (N) => Kg(Ptt(N))), Ott(ki);
-  let ku = ZOn(ki, ie().copyOnSelect ?? !0);
+  Dtt(ki, true, (N) => Kg(Ptt(N))), Ott(ki);
+  let ku = ZOn(ki, ie().copyOnSelect ?? true);
   Itt(ki),
     qn(() => {
       let N = Io.get(process.stdout);
@@ -8123,7 +8123,7 @@ function pg({
         }
       );
     }, []);
-  let Zs = !1,
+  let Zs = false,
     vu = z(() => Fl().hasToken, []),
     Mn = ep({
       jobs: le,
@@ -8306,7 +8306,7 @@ function pg({
       (vr !== void 0 && vr.kind !== "job") ||
       (vr === void 0 && (re.followId === null || Rr(re.followId) < 0)));
   A(() => {
-    if (xu) he.setPreviewOpen(!1);
+    if (xu) he.setPreviewOpen(false);
   }, [xu]),
     A(() => {
       if (re.restoreAttempts >= 2 || le === null) return;
@@ -8399,7 +8399,7 @@ function pg({
         modelSuggestions: Ws,
         pickSuggestion: Hg,
         applySuggestion: bu,
-        closeAgentBrowse: () => Sr(!1),
+        closeAgentBrowse: () => Sr(false),
         jobSessionIds: _u,
         builtRows: vi.rows,
         bumpSuggGen: hu,
@@ -8472,17 +8472,17 @@ function pg({
         return;
       }
       if (Ie !== null) {
-        if ((he.setGroupPickIdx(-1), xe.groupPristine)) Us(""), he.setGroupPristine(!1);
+        if ((he.setGroupPickIdx(-1), xe.groupPristine)) Us(""), he.setGroupPristine(false);
         Eg(N);
         return;
       }
-      if (ze) he.setHelpOpen(!1);
+      if (ze) he.setHelpOpen(false);
       sh(N);
     };
   if (le === null || Au)
     return e(o, {
       tabIndex: 0,
-      autoFocus: !0,
+      autoFocus: true,
       onKeyDownCapture: ku,
       onKeyDown: (xe) => {
         if (X && (xe.key === "escape" || (xe.ctrl && xe.key === "c"))) {
@@ -8506,12 +8506,12 @@ function pg({
               })),
               selectedSuggestion: Math.min(mu, Ho.length - 1),
               maxColumnWidth: 35,
-              noPad: !0,
+              noPad: true,
               hoveredId: js,
               onHoverChange: qs,
               onSelect: (N) => {
                 let xe = Ho[N];
-                if (xe) bu(xe), Sr(!1);
+                if (xe) bu(xe), Sr(false);
               },
             }),
           })
@@ -8530,7 +8530,7 @@ function pg({
     flexDirection: "column",
     flexGrow: 1,
     tabIndex: 0,
-    autoFocus: !0,
+    autoFocus: true,
     onKeyDownCapture: (N) => {
       ku(N), gg(N);
     },
@@ -8621,9 +8621,9 @@ function GDn(i, f, m) {
   return f && !m ? Slt(S) : "";
 }
 async function _8t(i, f) {
-  let m = !1;
+  let m = false;
   function S() {
-    m = !0;
+    m = true;
   }
   process.stdout.on("resize", S);
   using v = {
@@ -8636,7 +8636,7 @@ async function _8t(i, f) {
     s("tengu_bg_agent_action", { action: w("list_open"), mode: c(ie().fleetViewGroupMode ?? "state") });
   let b = f?.host ?? Mme();
   if ((Ku(b.resultSeen, f?.entryChannel), !ie().hasOpenedAgentsView))
-    await Ae((de) => ({ ...de, hasOpenedAgentsView: !0 }), f?.storageV5);
+    await Ae((de) => ({ ...de, hasOpenedAgentsView: true }), f?.storageV5);
   let R = [];
   function E() {
     let de;
@@ -8736,13 +8736,13 @@ async function _8t(i, f) {
     }
     if (re && de.type === "open") Io.get(process.stdout)?.handoffAltScreen();
     if (D() === "windows" && de.type === "open") Io.get(process.stdout)?.handoffRawMode();
-    let Ge = Io.get(process.stdout)?.lastFrameFillsCurrentViewport ?? !1;
+    let Ge = Io.get(process.stdout)?.lastFrameFillsCurrentViewport ?? false;
     if (!re) x.render(null);
-    if ((x.unmount(), de.type === "open" && de.job.id !== j)) K = !1;
+    if ((x.unmount(), de.type === "open" && de.job.id !== j)) K = false;
     if (((j = void 0), de.type === "done")) break;
     if (de.type === "login") {
       let { getLoginStartingMessage: he, Login: et } = await import("/$bunfs/root/chunk-68h3as1r.js");
-      x = await N_e(Fw(!1));
+      x = await N_e(Fw(false));
       let dt = await Promise.race([
         new Promise((Ie) => {
           x.render(
@@ -8766,13 +8766,13 @@ async function _8t(i, f) {
         if ((Ie(), await Okt(f?.storageV5), Ne() === "gateway")) break;
         pe.setHint("Login successful");
       }
-      x = await N_e(Fw(!1));
+      x = await N_e(Fw(false));
       continue;
     }
-    if (D() === "windows" && process.stdin.isTTY) Kw(process.stdin, !0), process.stdin.ref();
+    if (D() === "windows" && process.stdin.isTTY) Kw(process.stdin, true), process.stdin.ref();
     let tt = re ? LO(() => void process.stdout.write(LA())) : () => {};
     if (((H = de.job.id), !de.keepQuery)) pe.dropDraft();
-    b.agentLastUsedMigrationDone = !0;
+    b.agentLastUsedMigrationDone = true;
     let Ve = Date.now(),
       ht;
     if (de.respawnResult === void 0 && de.gestureId === void 0)
@@ -8784,7 +8784,7 @@ async function _8t(i, f) {
       Me.ok || Me.alive)
     ) {
       Jr("attach", de.job.state, { jobId: ve(de.job.id), attachShort: ve(Me.short ?? de.job.id), ...q(de.job) }),
-        process.stdout.write(nf(Sd.SET_TITLE_AND_ICON, Ro(de.job.state, !0)));
+        process.stdout.write(nf(Sd.SET_TITLE_AND_ICON, Ro(de.job.state, true)));
       let he = Date.now(),
         et = { gestureId: de.gestureId ?? ht ?? ru(), attempt: 0, t0: de.gestureT0, surface: "fleet", interactive: {} };
       if (de.gestureId === void 0 && ht === void 0) ege(et.gestureId, "fleet", f?.storageV5).catch(() => {});
@@ -8793,10 +8793,10 @@ async function _8t(i, f) {
             (ze) => (h(ze), p("job_attach", "threw"), { kind: "error", msg: `Couldn't attach \u2014 ${l(ze)}` }),
           ),
         Ie = await dt(Me.short ?? de.job.id, Me.ok),
-        Fe = !1;
+        Fe = false;
       if (Ie.kind === "error" && Ie.orphaned && !zb(de.job.state)) {
-        let We = await yn(de.job.id, { force: !0, knownState: de.job.state }, f?.storageV5);
-        if (We.ok || We.alive) (Fe = !0), (Ie = await dt(We.short ?? de.job.id, We.ok));
+        let We = await yn(de.job.id, { force: true, knownState: de.job.state }, f?.storageV5);
+        if (We.ok || We.alive) (Fe = true), (Ie = await dt(We.short ?? de.job.id, We.ok));
         else Ie = { kind: "error", msg: We.error };
       }
       if ((I0(et.gestureId, f?.storageV5).catch(() => {}), Ie.kind === "error" && !Ie.ended)) {
@@ -8820,9 +8820,9 @@ async function _8t(i, f) {
         g("fleet_view_open", "fork_transcript_never_materialized");
       else p("fleet_view_open", "respawn_failed");
     }
-    if ((_Qe(), (x = await N_e(Fw(!1))), K)) {
+    if ((_Qe(), (x = await N_e(Fw(false))), K)) {
       if (!re) process.stdout.write(GDn(re, Ge, m));
-      return (K = !1), tt(), { back: !0, root: x };
+      return (K = false), tt(), { back: true, root: x };
     }
     process.stdout.write(GDn(re, Ge, m)), n("[PERF:bg-remount-start]"), tt();
   }

@@ -122,21 +122,21 @@ function pUe(e) {
       n(
         "[Claude in Chrome] Disabled: OAuth token has no scope accepted by /api/oauth/validate (needs user:profile, user:office, or user:ccr_inference; env-var and setup-token sessions default to user:inference only)",
       ),
-      !1
+      false
     );
-  if (e === !0) return !0;
-  if (e === !1) return !1;
-  if (a.CLAUDE_CODE_ENABLE_CFC === !0) return !0;
-  if (a.CLAUDE_CODE_ENABLE_CFC === !1) return !1;
-  if (Le()) return !1;
+  if (e === true) return true;
+  if (e === false) return false;
+  if (a.CLAUDE_CODE_ENABLE_CFC === true) return true;
+  if (a.CLAUDE_CODE_ENABLE_CFC === false) return false;
+  if (Le()) return false;
   let t = ie();
   if (t.claudeInChromeDefaultEnabled !== void 0) return t.claudeInChromeDefaultEnabled;
-  return !1;
+  return false;
 }
 function y8t() {
   return (
-    sme() !== !1 &&
-    a.CLAUDE_CODE_ENABLE_CFC !== !1 &&
+    sme() !== false &&
+    a.CLAUDE_CODE_ENABLE_CFC !== false &&
     ie().claudeInChromeDefaultEnabled === void 0 &&
     zu() &&
     Tt() &&
@@ -145,18 +145,18 @@ function y8t() {
 }
 function S8t() {
   let e = ie();
-  return e.cachedChromeExtensionInstalled === !0 || Boolean(e.chromeExtension?.pairedDeviceId);
+  return e.cachedChromeExtensionInstalled === true || Boolean(e.chromeExtension?.pairedDeviceId);
 }
 function b8t(e) {
   let t = pp();
   if (t.shouldAutoEnable !== void 0) return t.shouldAutoEnable;
-  return (t.shouldAutoEnable = y8t() && (dn(e) || S8t()) && I("tengu_chrome_auto_enable", !1)), t.shouldAutoEnable;
+  return (t.shouldAutoEnable = y8t() && (dn(e) || S8t()) && I("tengu_chrome_auto_enable", false)), t.shouldAutoEnable;
 }
 function jet() {
   return pp().wiredThisSession;
 }
 function fUe() {
-  pp().wiredThisSession = !1;
+  pp().wiredThisSession = false;
 }
 function aQ(e) {
   if (e === Ed) fUe();
@@ -187,7 +187,7 @@ function Pme(e) {
         v = await cn([d, ...u, "--chrome-native-host"]);
       await Zcr(v, e);
     })().catch((r) => n(`[Claude in Chrome] Failed to install native host: ${r}`, { level: "error" })),
-    (pp().wiredThisSession = !0),
+    (pp().wiredThisSession = true),
     { mcpConfig: { [Ed]: { ...mUe(), ...(i && { env: o }) } }, allowedTools: t, systemPrompt: yGn() }
   );
 }
@@ -211,22 +211,22 @@ async function Zcr(e, t) {
         allowed_origins: ["chrome-extension://fcoeoabgfenejglbffodgkkbkcdhcgfn/", ...[]],
       },
       r = b(i, null, 2),
-      d = !1,
-      u = !1;
+      d = false,
+      u = false;
     for (let v of o) {
       let C = J(v, Je),
-        E = !1,
+        E = false,
         _ = await Ze(C, "utf-8").catch((T) => ((E = X(T)), null));
-      if (!E) d = !0;
+      if (!E) d = true;
       if (_ === r) continue;
       try {
         if (
-          (await Qe(v, { recursive: !0 }),
+          (await Qe(v, { recursive: true }),
           await et(C, r),
           n(`[Claude in Chrome] Installed native host manifest at: ${C}`),
           E)
         )
-          u = !0;
+          u = true;
       } catch (T) {
         n(`[Claude in Chrome] Failed to install manifest at ${C}: ${T}`);
       }
@@ -282,7 +282,7 @@ exec ${Go(e)}
       );
     return i;
   }
-  if ((await Qe(o, { recursive: !0 }), await et(i, r), t !== "windows")) await Xe(i, 493);
+  if ((await Qe(o, { recursive: true }), await et(i, r), t !== "windows")) await Xe(i, 493);
   return n(`[Claude in Chrome] Created Chrome native host wrapper script: ${i}`), i;
 }
 function dn(e) {
@@ -295,18 +295,18 @@ function dn(e) {
       .catch((o) =>
         n(`[Claude in Chrome] Failed to check extension installation during cache refresh: ${o}`, { level: "error" }),
       ),
-    ie().cachedChromeExtensionInstalled ?? !1
+    ie().cachedChromeExtensionInstalled ?? false
   );
 }
 async function fx() {
   let e = U6n();
-  if (e.length === 0) return n(`[Claude in Chrome] Unsupported platform for extension detection: ${D()}`), !1;
+  if (e.length === 0) return n(`[Claude in Chrome] Unsupported platform for extension detection: ${D()}`), false;
   return B6n(e, n);
 }
 function Die() {
   let e = To();
   if (e.builtinPluginsInitialized) return;
-  e.builtinPluginsInitialized = !0;
+  e.builtinPluginsInitialized = true;
 }
 import { access as hn } from "fs/promises";
 import { join as mn } from "path";
@@ -354,7 +354,7 @@ async function _e(e) {
   }
 }
 var kn = "host",
-  Cn = { ccrHosted: !1, metaConnector: null, hosted: null },
+  Cn = { ccrHosted: false, metaConnector: null, hosted: null },
   Se = 32;
 function Pe(e, t, o) {
   let i = e - t;
@@ -530,7 +530,7 @@ function Re() {
     if (t.has(d)) return null;
     let C = Ja(void 0, { timeoutMs: wn }),
       E = await AL(d, C.signal, r.credentials)
-        .catch(() => ({ err: "read-back threw", thrown: !0 }))
+        .catch(() => ({ err: "read-back threw", thrown: true }))
         .finally(C.cleanup);
     if (E === null) return t.add(d), null;
     if ("err" in E)
@@ -553,7 +553,7 @@ function Re() {
       "(a poll, a sign-up sheet, a checklist, a document edited in place \u2014 " +
       "it saves new versions of itself), keeping state shared across viewers, knowing who is viewing, asking Claude a question of its own, storing files people add, or handing the viewer a file to save. Serves this user's live capability roster and the typed call definitions. Load it whenever the user asks for an artifact needing any such runtime behavior.",
     isEnabled: Pn,
-    userInvocable: !0,
+    userInvocable: true,
     files: async (r) => {
       try {
         let d = await vn(r.credentials);
@@ -592,7 +592,7 @@ function Re() {
             unn(v.version, { timeoutMs: yn, credentials: d.credentials }),
           ]);
         if (((C.files = O.filter((x) => P.some((Y) => x.endsWith(`/${Y}.d.ts`)))), "err" in N))
-          if (N.cause === "http_404") y("artifact_capability_section", { composed: !1, ...S });
+          if (N.cause === "http_404") y("artifact_capability_section", { composed: false, ...S });
           else g("artifact_capability_section", `prompt_${N.cause}`, S);
         else if (
           ((C.promptBody = N.promptMd),
@@ -600,7 +600,7 @@ function Re() {
           C.missingCaps.length > 0)
         )
           g("artifact_capability_section", "prompt_partial", S);
-        else y("artifact_capability_section", { composed: !0, ...S });
+        else y("artifact_capability_section", { composed: true, ...S });
       }
       return [{ type: "text", text: nt(d.options.tools, C, QQt(d.options.tools, d.options.mcpClients)) }];
     },
@@ -621,7 +621,7 @@ function dt() {
     menuDescription: "Build a design together, one decision at a time",
     description: xn,
     isEnabled: me,
-    userInvocable: !0,
+    userInvocable: true,
     files: () => ct().then((e) => e.SKILL_FILES),
     async getPromptForCommand(e, t) {
       if (!t.options?.isSkillPreload && !t.options?.modelScheduledOrigin && t.agentId === void 0)
@@ -649,7 +649,7 @@ function ht() {
     menuDescription: "Embed reusable components in an Artifact",
     description: In,
     isEnabled: me,
-    userInvocable: !0,
+    userInvocable: true,
     files: () => ut().then((e) => e.SKILL_FILES),
     async getPromptForCommand(e) {
       let { SKILL_MD: t } = await ut(),
@@ -669,7 +669,7 @@ var Rn = "<!-- dataviz-callout -->",
   On =
     "Load before writing any artifact, including a skill-instructed Markdown one - Markdown is never a shortcut past the design pass.";
 function Dn() {
-  if (I("tengu_cobalt_plinth_dataviz", !1) && One().some((e) => e.name === zft))
+  if (I("tengu_cobalt_plinth_dataviz", false) && One().some((e) => e.name === zft))
     return `**When adding charts or diagrams** The craft shifts from identity to honesty \u2014 pick the form the data's shape calls for, keep encodings from exaggerating, title the finding rather than the axes. Load the \`${zft}\` skill for the specifics; this skill continues to govern the page the chart sits in.`;
   return "";
 }
@@ -680,7 +680,7 @@ function Oe() {
     description: Ln,
     whenToUse: On,
     isEnabled: YM,
-    userInvocable: !0,
+    userInvocable: true,
     async getPromptForCommand() {
       let { SKILL_MD: e } = await import("/$bunfs/root/chunk-aykm9v40.js");
       return [{ type: "text", text: ni(e).content.trimStart().replace(Rn, Dn) }];
@@ -695,7 +695,7 @@ function De() {
     menuDescription: "Diagramming guidance for Artifacts",
     description: Nn,
     isEnabled: YM,
-    userInvocable: !0,
+    userInvocable: true,
     async getPromptForCommand() {
       let { SKILL_MD: e } = await import("/$bunfs/root/chunk-yypxjvaz.js");
       return [{ type: "text", text: ni(e).content.trimStart() }];
@@ -743,7 +743,7 @@ function mt() {
       menuDescription: t,
       description: o,
       isEnabled: J_n,
-      userInvocable: !0,
+      userInvocable: true,
       files: () => pt().then((i) => i.SKILL_FILES[e]),
       async getPromptForCommand(i) {
         let { SKILL_MD: r } = await pt(),
@@ -855,8 +855,8 @@ function wt() {
     whenToUse:
       "Use when the user wants to make a sweeping, mechanical change across many files (migrations, refactors, bulk renames) that can be decomposed into independent parallel units.",
     argumentHint: "<instruction>",
-    userInvocable: !0,
-    disableModelInvocation: !0,
+    userInvocable: true,
+    disableModelInvocation: true,
     async getPromptForCommand(e) {
       let t = e.trim();
       if (!t) return [{ type: "text", text: Fn }];
@@ -870,7 +870,7 @@ var Wet = go({
   payload: m(() => f({})),
   result: m(() => oe(["install", "not_now", "dont_ask_again", "cancelled"])),
   default: "cancelled",
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 var qet = go({
   kind: "chrome_install_setup",
@@ -900,20 +900,20 @@ var vt = 2000,
 async function Ct(e, t) {
   let o = e.abortController.signal,
     i = await Fte(Ix).catch(
-      (A) => (n(`[Claude in Chrome] Install setup failed to open install page: ${A}`, { level: "error" }), !1),
+      (A) => (n(`[Claude in Chrome] Install setup failed to open install page: ${A}`, { level: "error" }), false),
     ),
     r = new AbortController(),
     d = () => r.abort();
   if (o.aborted) r.abort();
-  else o.addEventListener("abort", d, { once: !0 });
+  else o.addEventListener("abort", d, { once: true });
   let u = "waiting_install",
     v = Ue();
   function C(A) {
     if (u === A) return;
     (u = A), v.emit();
   }
-  let E = !1,
-    _ = !1,
+  let E = false,
+    _ = false,
     T = "setup_connect_failed",
     S,
     P,
@@ -925,14 +925,14 @@ async function Ct(e, t) {
   async function N() {
     let A = Date.now();
     while (!r.signal.aborted) {
-      if (await fx().catch(() => !1)) break;
+      if (await fx().catch(() => false)) break;
       await ne(Date.now() - A >= Hn ? Gn : vt, r.signal);
     }
     if (r.signal.aborted) return;
     if (
       (C("connecting"),
       Ae(
-        (M) => (M.cachedChromeExtensionInstalled === !0 ? M : { ...M, cachedChromeExtensionInstalled: !0 }),
+        (M) => (M.cachedChromeExtensionInstalled === true ? M : { ...M, cachedChromeExtensionInstalled: true }),
         e.storageV5,
       ),
       Z())
@@ -944,8 +944,8 @@ async function Ct(e, t) {
         C("failed");
       return;
     }
-    E = !0;
-    let { mcpConfig: R } = Pme({ skipReconnectAutoOpen: !0 }),
+    E = true;
+    let { mcpConfig: R } = Pme({ skipReconnectAutoOpen: true }),
       j = R[Ed];
     if (!j) {
       (T = "setup_no_config"), C("failed");
@@ -967,7 +967,7 @@ async function Ct(e, t) {
       return;
     }
     let ue = Date.now(),
-      pe = !1,
+      pe = false,
       ae = 0;
     while (!r.signal.aborted) {
       let M = await Vn(F.client, r.signal);
@@ -983,7 +983,7 @@ async function Ct(e, t) {
       } else ae = 0;
       let ze = Date.now() - ue;
       if (!pe && ze >= Wn)
-        (pe = !0), Fte(mRe).catch((nn) => n(`[Claude in Chrome] Install setup reconnect nudge failed: ${nn}`));
+        (pe = true), Fte(mRe).catch((nn) => n(`[Claude in Chrome] Install setup reconnect nudge failed: ${nn}`));
       if (u === "connecting" && ze >= qn) C("stalled");
       await ne(vt, r.signal);
     }
@@ -1010,11 +1010,11 @@ async function Ct(e, t) {
         j = () => {
           R(), A();
         };
-      r.signal.addEventListener("abort", j, { once: !0 });
+      r.signal.addEventListener("abort", j, { once: true });
     });
   }
   try {
-    while (!0) {
+    while (true) {
       let A = await t(qet, Y(), { signal: o });
       if (A === "keep_waiting") continue;
       let { phase: R } = x();
@@ -1022,7 +1022,7 @@ async function Ct(e, t) {
         if (Z()) return g("chrome_install_upsell", "policy_denied_late", { install_page_opened: i }), kt;
         if (fe(e)) return g("chrome_install_upsell", "bypass_mode_late", { install_page_opened: i }), Zn;
         let j = zn(e, S, i);
-        return (_ = !0), (P = void 0), j;
+        return (_ = true), (P = void 0), j;
       }
       if (R === "failed") {
         if (T === "policy_denied_mid_wait") return g("chrome_install_upsell", T, { install_page_opened: i }), kt;
@@ -1092,15 +1092,15 @@ function zn(e, t, o) {
     bt(e, t),
     Ae(
       (i) =>
-        i.claudeInChromeDefaultEnabled === !0 &&
-        i.hasCompletedClaudeInChromeOnboarding === !0 &&
-        i.cachedChromeExtensionInstalled === !0
+        i.claudeInChromeDefaultEnabled === true &&
+        i.hasCompletedClaudeInChromeOnboarding === true &&
+        i.cachedChromeExtensionInstalled === true
           ? i
           : {
               ...i,
-              claudeInChromeDefaultEnabled: !0,
-              hasCompletedClaudeInChromeOnboarding: !0,
-              cachedChromeExtensionInstalled: !0,
+              claudeInChromeDefaultEnabled: true,
+              hasCompletedClaudeInChromeOnboarding: true,
+              cachedChromeExtensionInstalled: true,
             },
       e.storageV5,
     ),
@@ -1123,8 +1123,8 @@ var Xn =
   Zn =
     "Browser tools were not enabled: the session switched to a mode that auto-allows tool calls without prompts (bypass permissions) while setup was in progress, and Claude in Chrome is not wired into that configuration. Continue the task without browser tools (WebFetch and WebSearch cover read-only web content), or ask the user to perform browser steps manually. Once the session leaves that mode, /chrome completes the connection.";
 function Et() {
-  if (jet()) return !1;
-  if (pp().installUpsellResolution !== void 0) return !1;
+  if (jet()) return false;
+  if (pp().installUpsellResolution !== void 0) return false;
   return (
     y8t() &&
     !Le() &&
@@ -1134,11 +1134,11 @@ function Et() {
     !$4() &&
     D() !== "wsl" &&
     !sn() &&
-    i$e()?.isTeleported !== !0 &&
+    i$e()?.isTeleported !== true &&
     !t_() &&
     !S8t() &&
-    ie().chromeInstallUpsellDismissed !== !0 &&
-    I("tengu_chrome_install_upsell", !1) &&
+    ie().chromeInstallUpsellDismissed !== true &&
+    I("tengu_chrome_install_upsell", false) &&
     !Z()
   );
 }
@@ -1170,10 +1170,10 @@ async function ei(e, t) {
       g("chrome_install_upsell", "policy_denied"),
       ti
     );
-  if (await fx().catch(() => !1))
+  if (await fx().catch(() => false))
     return (
       Ae(
-        (d) => (d.cachedChromeExtensionInstalled === !0 ? d : { ...d, cachedChromeExtensionInstalled: !0 }),
+        (d) => (d.cachedChromeExtensionInstalled === true ? d : { ...d, cachedChromeExtensionInstalled: true }),
         e.storageV5,
       ),
       "The Claude in Chrome extension is installed, but browser tools are not enabled for this session. Tell the user Claude Code can work in their Chrome browser once browser tools are on: they can run /chrome to manage them, or restart Claude Code to get a one-time prompt to enable them. Do not attempt mcp__claude-in-chrome__* tool calls this session."
@@ -1186,7 +1186,7 @@ async function ei(e, t) {
       ),
       !pp().installUpsellBypassSuppressionCounted)
     )
-      (pp().installUpsellBypassSuppressionCounted = !0), g("chrome_install_upsell", "suppressed_bypass_mode");
+      (pp().installUpsellBypassSuppressionCounted = true), g("chrome_install_upsell", "suppressed_bypass_mode");
     return (pp().installUpsellResolution = void 0), z;
   }
   if ((await p2t()) === null)
@@ -1205,7 +1205,7 @@ async function ei(e, t) {
       return (
         g("chrome_install_upsell", "dont_ask_again"),
         Ae(
-          (d) => (d.chromeInstallUpsellDismissed === !0 ? d : { ...d, chromeInstallUpsellDismissed: !0 }),
+          (d) => (d.chromeInstallUpsellDismissed === true ? d : { ...d, chromeInstallUpsellDismissed: true }),
           e.storageV5,
         ),
         Me
@@ -1233,7 +1233,7 @@ function ri(e) {
 }
 async function ai(e) {
   let t = jet(),
-    o = e.options?.tools?.some((i) => i.name?.startsWith(uI)) ?? !1;
+    o = e.options?.tools?.some((i) => i.name?.startsWith(uI)) ?? false;
   if (!t) return je(e);
   if (o) return Sqe;
   if (e.agentId !== void 0 || e.options?.isSkillPreload) return oi;
@@ -1247,7 +1247,7 @@ async function ai(e) {
   if (_t()) return je(e);
   return Sqe;
 }
-function St({ disabled: e = !1 } = {}) {
+function St({ disabled: e = false } = {}) {
   Zr({
     name: "claude-in-chrome",
     menuDescription: "Let Claude browse and interact with pages in your Chrome",
@@ -1256,7 +1256,7 @@ function St({ disabled: e = !1 } = {}) {
     whenToUse:
       "When the user wants to interact with web pages, automate browser tasks, capture screenshots, read console logs, or perform any browser-based actions. Always invoke BEFORE attempting to use any mcp__claude-in-chrome__* tools.",
     allowedTools: [],
-    userInvocable: !0,
+    userInvocable: true,
     isEnabled: () => !e && (jet() || Et()),
     async getPromptForCommand(t, o) {
       let i = await ai(o);
@@ -1282,9 +1282,9 @@ function At(e, t) {
   return { rawFirstToken: i, flags: r, rest: d };
 }
 function ye(e) {
-  if (e.agentContext && vc(e.agentContext) >= jS()) return !1;
+  if (e.agentContext && vc(e.agentContext) >= jS()) return false;
   let t = e.options?.tools;
-  if (!t) return !0;
+  if (!t) return true;
   return t.some((o) => on(o, yt));
 }
 var U =
@@ -1592,7 +1592,7 @@ Re-check each remaining candidate yourself against the diff before keeping it.
 ${v}
 ${d(r)}${bi}`;
 }
-var Ut = (e, t = !0) => {
+var Ut = (e, t = true) => {
     if (!t)
       return Be({
         tag: `medium effort \u2192 ${yt} tool unavailable \u2192 single-pass inline \u2192 \u22648 findings`,
@@ -1624,7 +1624,7 @@ dominant cause of misses.
 ${Rt}
 ${e(8)}`;
   },
-  $t = (e, t = !0) => {
+  $t = (e, t = true) => {
     if (!t)
       return Be({
         tag: `high effort \u2192 ${yt} tool unavailable \u2192 single-pass inline \u2192 \u226410 findings`,
@@ -1666,7 +1666,7 @@ ${G}
 ${ee}`,
   jt =
     (e) =>
-    (t, o = !0) => {
+    (t, o = true) => {
       if (!o)
         return Be({
           tag: `${e} effort \u2192 ${yt} tool unavailable \u2192 single-pass inline \u2192 \u226415 findings`,
@@ -1897,32 +1897,32 @@ function ke(e) {
   let t = e ? Ye(pn(e)) : void 0;
   return t && ki(t) ? t : "default";
 }
-var Zt = { cell: "low", modelEffort: "typed", finderBudgetHint: !1 },
-  L = (e) => ({ cell: e, modelEffort: "typed", finderBudgetHint: !1 }),
+var Zt = { cell: "low", modelEffort: "typed", finderBudgetHint: false },
+  L = (e) => ({ cell: e, modelEffort: "typed", finderBudgetHint: false }),
   Ci = new Set(["claude-opus-4-8", "claude-opus-5"]),
   Ei = { "claude-sonnet-5": "sonnet5", "claude-opus-4-8": "hc10" },
   _i = { low: Zt, medium: L("medium"), high: L("high"), xhigh: L("xhigh"), max: L("max") },
   te = {
     default: _i,
     "claude-sonnet-5": {
-      low: { cell: "low-sonnet5", modelEffort: "medium", finderBudgetHint: !1 },
+      low: { cell: "low-sonnet5", modelEffort: "medium", finderBudgetHint: false },
       medium: L("medium"),
-      high: { ...L("high"), finderBudgetHint: !0 },
-      xhigh: { ...L("xhigh"), finderBudgetHint: !0 },
-      max: { ...L("max"), finderBudgetHint: !0 },
+      high: { ...L("high"), finderBudgetHint: true },
+      xhigh: { ...L("xhigh"), finderBudgetHint: true },
+      max: { ...L("max"), finderBudgetHint: true },
     },
     "claude-opus-4-8": {
-      low: { ...L("o48-low-v1"), measuredExternal: !0 },
-      medium: { ...L("o48-med-v1"), measuredExternal: !0 },
-      high: { ...L("o48-high-v1"), measuredExternal: !0 },
-      xhigh: { ...L("o48-xhigh-v1"), measuredExternal: !0 },
+      low: { ...L("o48-low-v1"), measuredExternal: true },
+      medium: { ...L("o48-med-v1"), measuredExternal: true },
+      high: { ...L("o48-high-v1"), measuredExternal: true },
+      xhigh: { ...L("o48-xhigh-v1"), measuredExternal: true },
       max: L("max"),
     },
     "claude-opus-5": {
       low: Zt,
-      medium: { cell: "o5-bmin", modelEffort: "typed", finderBudgetHint: !1, measuredExternal: !0 },
-      high: { cell: "o5-bmin", modelEffort: "typed", finderBudgetHint: !1, measuredExternal: !0 },
-      xhigh: { ...L("o48-xhigh-v1"), measuredExternal: !0 },
+      medium: { cell: "o5-bmin", modelEffort: "typed", finderBudgetHint: false, measuredExternal: true },
+      high: { cell: "o5-bmin", modelEffort: "typed", finderBudgetHint: false, measuredExternal: true },
+      xhigh: { ...L("o48-xhigh-v1"), measuredExternal: true },
       max: L("max"),
     },
   };
@@ -1935,7 +1935,7 @@ function We(e, t) {
   let o = te[e][t];
   return o.modelEffort === "typed" ? t : o.modelEffort;
 }
-function Si(e, t, o = !0, i = !1) {
+function Si(e, t, o = true, i = false) {
   switch (e) {
     case "low":
       return Nt(i);
@@ -1962,9 +1962,9 @@ function Si(e, t, o = !0, i = !1) {
   }
 }
 function eo(e) {
-  if (e.options?.isSkillPreload) return !1;
+  if (e.options?.isSkillPreload) return false;
   let t = tHn();
-  if (t === "text" || t === "json") return !1;
+  if (t === "text" || t === "json") return false;
   return Boolean(a.CLAUDE_CODE_REPORT_FINDINGS) && Boolean(e.options?.tools?.some((o) => on(o, uk)));
 }
 var Ti = `
@@ -2046,7 +2046,7 @@ function ve(e) {
       fix: d,
       post: u,
       unrecognizedLevel: void 0,
-      ultraFallback: !0,
+      ultraFallback: true,
     };
   let E = C.toLowerCase() === "ultra" ? void 0 : $Oe(C);
   if (E !== void 0)
@@ -2057,7 +2057,7 @@ function ve(e) {
       fix: d,
       post: u,
       unrecognizedLevel: void 0,
-      ultraFallback: !1,
+      ultraFallback: false,
     };
   let _ = Ri.test(C);
   return {
@@ -2067,7 +2067,7 @@ function ve(e) {
     fix: d,
     post: u,
     unrecognizedLevel: _ ? C : void 0,
-    ultraFallback: !1,
+    ultraFallback: false,
   };
 }
 function Li() {
@@ -2126,7 +2126,7 @@ async function Mi(e, t) {
     s("tengu_code_review_routed", {
       effort_level: c(T),
       effort_source: c(i !== void 0 ? "explicit" : _ !== void 0 ? "last_used" : E ? "ultra_fallback" : "session"),
-      routed_to_workflow: !1,
+      routed_to_workflow: false,
       uses_report_findings_tool: x,
       has_fix: u,
       has_comment: d,
@@ -2206,7 +2206,7 @@ async function $i(e) {
       ],
       {
         timeout: 5000,
-        useCwd: !0,
+        useCwd: true,
         env: {
           ...process.env,
           [["SELF_HOSTED", "RUNNER_POOL_SECRET"].join("_")]: void 0,
@@ -2280,7 +2280,7 @@ function ji({
 
 `);
     }
-    let S = C.options?.commands?.some((P) => P.name === "ultrareview" && xp(P)) ?? !1;
+    let S = C.options?.commands?.some((P) => P.name === "ultrareview" && xp(P)) ?? false;
     if (t)
       return E(
         S
@@ -2334,7 +2334,7 @@ function no() {
     subcommands: { ultra: "ultrareview" },
     description: Di,
     argumentHint: Ni,
-    userInvocable: !0,
+    userInvocable: true,
     getEffort(e, t) {
       let { explicit: o } = ve(e);
       if (o === void 0) return;
@@ -2455,7 +2455,7 @@ function so() {
     argumentHint: "[guidance]",
     allowedTools: io,
     disallowedTools: Fi,
-    userInvocable: !0,
+    userInvocable: true,
     isEnabled: () => C4t(),
     progressMessage: "creating commit",
     async getPromptForCommand(e, t) {
@@ -2484,7 +2484,7 @@ function ao() {
   Zr({
     name: Vft,
     description: Hi,
-    userInvocable: !1,
+    userInvocable: false,
     isEnabled: () => a.CLAUDE_CODE_ENTRYPOINT === "remote_cowork",
     files: () => ro().then((e) => e.SKILL_FILES),
     async getPromptForCommand(e) {
@@ -2516,7 +2516,7 @@ function co() {
     name: zft,
     menuDescription: "Chart and dashboard design guidance",
     description: Gi,
-    userInvocable: !0,
+    userInvocable: true,
     files: () => lo().then((t) => t.SKILL_FILES),
     async getPromptForCommand(t) {
       let { SKILL_MD: o } = await lo(),
@@ -2546,8 +2546,8 @@ function fo() {
     description: "Enable debug logging for this session and help diagnose issues",
     allowedTools: ["Read", "Grep", "Glob"],
     argumentHint: "[issue description]",
-    disableModelInvocation: !0,
-    userInvocable: !0,
+    disableModelInvocation: true,
+    userInvocable: true,
     async getPromptForCommand(e, t) {
       let o = Tkn(),
         i = Ufe();
@@ -2696,8 +2696,8 @@ function bo() {
     isEnabled: Sz,
     policyGate: yz,
     argumentHint: '[<project hint, e.g. "Acme DS">]',
-    disableModelInvocation: !0,
-    userInvocable: !0,
+    disableModelInvocation: true,
+    userInvocable: true,
     files: () => wo().then((e) => e.SKILL_FILES),
     async getPromptForCommand(e) {
       let { SKILL_MD: t } = await wo(),
@@ -2882,15 +2882,15 @@ function vo() {
     name: "doctor",
     aliases: ["checkup"],
     isEnabled: () => !a.DISABLE_DOCTOR_COMMAND,
-    survivesBundledKillSwitch: !0,
-    requires: { workspace: !0 },
-    terminalOriented: !0,
+    survivesBundledKillSwitch: true,
+    requires: { workspace: true },
+    terminalOriented: true,
     menuDescription:
       "Health-check your setup and fix issues: installation, unused extensions, duplicated or bloated memory files, slow hooks, updates, permissions",
     description:
       "Health-check the user's Claude Code setup and fix issues: diagnose installation health \u2014 what the `claude doctor` terminal diagnostics cover \u2014 from local data (duplicate or leftover installs, PATH, unparseable settings files, broken or colliding agent definitions, skills whose frontmatter fails to parse); find unused skills, MCP servers, and plugins versus their context cost and disable dead weight; deduplicate local CLAUDE.md files against checked-in ones; trim checked-in CLAUDE.md files by cutting content a session could derive from the codebase (directory layouts, tech-stack lists, architecture overviews) while keeping gotchas, rationale, and non-standard conventions; migrate always-loaded CLAUDE.md guidance into lazy skills and nested CLAUDE.md files; flag slow hooks and context-heavy extensions; check the installed version is current; make auto mode the default permission mode; and pre-approve frequently denied read-only commands. Use when the user asks for a doctor run, checkup, audit, tune-up, or cleanup of their Claude Code setup or configuration.",
-    userInvocable: !0,
-    disableModelInvocation: !0,
+    userInvocable: true,
+    disableModelInvocation: true,
     progressMessage: "running checkup",
     async getPromptForCommand(e) {
       let t = Ki();
@@ -2911,7 +2911,7 @@ function ko() {
     name: "explain-usage",
     description: Vi,
     menuDescription: "See where this session\u2019s tokens went, in plain words",
-    userInvocable: !0,
+    userInvocable: true,
     isEnabled: V6,
     async getPromptForCommand(e) {
       let o = [
@@ -2939,11 +2939,11 @@ function zi() {
 function Co() {
   Zr({
     name: "fewer-permission-prompts",
-    requires: { workspace: !0 },
+    requires: { workspace: true },
     menuDescription: "Pre-approve safe read-only commands based on your usage",
     description:
       "Scan your transcripts for common read-only Bash and MCP tool calls, then add a prioritized allowlist to project .claude/settings.json to reduce permission prompts.",
-    userInvocable: !0,
+    userInvocable: true,
     async getPromptForCommand(e) {
       let t = zi();
       if (e)
@@ -2981,14 +2981,14 @@ function Ji() {
   );
 }
 function Qi(e) {
-  if (e === "chat:cycleProactivity" || e.startsWith("proactivityMenu:")) return !1;
-  if (e === "chat:attentionUp" || e === "chat:attentionDown") return !1;
-  if (e.startsWith("strip:")) return !1;
-  return !0;
+  if (e === "chat:cycleProactivity" || e.startsWith("proactivityMenu:")) return false;
+  if (e === "chat:attentionUp" || e === "chat:attentionDown") return false;
+  if (e.startsWith("strip:")) return false;
+  return true;
 }
 function Zi(e) {
-  if (e === "ProactivityMenu") return !1;
-  return !0;
+  if (e === "ProactivityMenu") return false;
+  return true;
 }
 function es(e) {
   let t = e.split(":")[0];
@@ -3178,7 +3178,7 @@ function Eo() {
     description:
       'Use when the user wants to customize keyboard shortcuts, rebind keys, add chord bindings, or modify ~/.claude/keybindings.json. Examples: "rebind ctrl+s", "add a chord shortcut", "change the submit key", "customize keybindings".',
     allowedTools: ["Read"],
-    userInvocable: !1,
+    userInvocable: false,
     isEnabled: pM,
     async getPromptForCommand(e) {
       let t = Xi(),
@@ -3443,7 +3443,7 @@ function Po() {
     description:
       "Full reference for the memory type taxonomy \u2014 what each type captures, when to save it, how to structure the body, with examples.",
     whenToUse: "Use before writing a memory file to choose the right `type:` frontmatter value and body structure.",
-    userInvocable: !1,
+    userInvocable: false,
     isEnabled: () => ta() && !oV() && Ehn(),
     async getPromptForCommand() {
       return [
@@ -3467,7 +3467,7 @@ function Io() {
     menuDescription: "Publish a plan as a shareable Artifact",
     description: gs,
     isEnabled: Zne,
-    userInvocable: !0,
+    userInvocable: true,
     files: () => xo().then((e) => e.SKILL_FILES),
     async getPromptForCommand(e) {
       let { SKILL_MD: t } = await xo(),
@@ -3498,7 +3498,7 @@ function Lo() {
 var bs = [
   {
     kind: "doc",
-    liveDocBacked: !0,
+    liveDocBacked: true,
     menuDescription: "Publish a working document Artifact",
     description:
       "Create a document artifact - a working document that looks and edits like a word processor page, published for the team to read and edit in place - a memo, proposal, plan, spec, or meeting notes. Use when the user wants a document others will read or weigh in on, rather than a chat reply, a local file, or a finished report meant to be read top-to-bottom. - Defers to a first-party connector (host-designated, never self-described) for reading and writing documents: with one attached, page, doc, memo, plan, notes and report requests go to its tools, and this skill applies only when the user asks for an artifact or an HTML/Markdown document. Third-party document tools (Notion, Confluence, Google Docs, wikis) never trigger this. Only for CREATING a new artifact; edits to an existing artifact modify its HTML directly.",
@@ -3511,7 +3511,7 @@ function Oo() {
       menuDescription: o,
       description: i,
       isEnabled: ws,
-      userInvocable: !0,
+      userInvocable: true,
       files: () => Lo().then((r) => r.SKILL_FILES[e]),
       async getPromptForCommand(r) {
         let { SKILL_MD: d } = await Lo(),
@@ -3551,7 +3551,7 @@ function Uo() {
     description: ks,
     whenToUse: () => (hye() ? Cs : void 0),
     isEnabled: vs,
-    userInvocable: !0,
+    userInvocable: true,
     files: () => No().then((e) => e.SKILL_FILES),
     async getPromptForCommand(e) {
       let { SKILL_MD: t } = await No(),
@@ -3580,7 +3580,7 @@ function jo() {
     menuDescription: "Sketch together on a live whiteboard Artifact that Claude draws on too",
     description: _s,
     isEnabled: Es,
-    userInvocable: !0,
+    userInvocable: true,
     files: () => $o().then((e) => e.SKILL_FILES),
     async getPromptForCommand(e) {
       let { SKILL_MD: t } = await $o(),
@@ -3611,7 +3611,7 @@ function Fo() {
     description: Ss,
     whenToUse: () => (hye() ? Ts : void 0),
     isEnabled: o9t,
-    userInvocable: !0,
+    userInvocable: true,
     async getPromptForCommand(e, t) {
       if (!t.options?.isSkillPreload && !t.options?.modelScheduledOrigin) NBn();
       let { SKILL_MD: o } = await import("/$bunfs/root/chunk-1z7yw2gg.js"),
@@ -3743,7 +3743,7 @@ function Wo() {
     allowedTools: Bo,
     getAllowedTools: Ps,
     disallowedTools: xs,
-    userInvocable: !0,
+    userInvocable: true,
     isEnabled: () => C4t(),
     progressMessage: "creating pull request",
     async getPromptForCommand(e, t) {
@@ -3780,7 +3780,7 @@ function Ko() {
     description: () => (ere() ? Ls : Rs),
     argumentHint: "[pr number or url]",
     isEnabled: i9t,
-    userInvocable: !0,
+    userInvocable: true,
     files: () => qo().then((e) => e.SKILL_FILES),
     async getPromptForCommand(e, t) {
       let o = !t.options?.isSkillPreload,
@@ -3883,7 +3883,7 @@ function Vo() {
     description:
       "Review the changed code for reuse, simplification, efficiency, and altitude cleanups, then apply the fixes. Quality only \u2014 it does not hunt for bugs; use /code-review for that.",
     argumentHint: "[<target>]",
-    userInvocable: !0,
+    userInvocable: true,
     async getPromptForCommand(e, t) {
       let o = e.trim(),
         i = o
@@ -4460,7 +4460,7 @@ function Zo() {
     description:
       'Use this skill to configure the Claude Code harness via settings.json. Automated behaviors ("from now on when X", "each time X", "whenever X", "before/after X") require hooks configured in settings.json - the harness executes these, not Claude, so memory/preferences cannot fulfill them. Also use for: permissions ("allow X", "add permission", "move permission to"), env vars ("set X=Y"), hook troubleshooting, or any changes to settings.json/settings.local.json files. Examples: "allow npm commands", "add bq permission to global settings", "move permission to user settings", "set DEBUG=true", "when claude stops show X". For simple settings like theme/model, suggest the /config command.',
     allowedTools: ["Read"],
-    userInvocable: !0,
+    userInvocable: true,
     async getPromptForCommand(e) {
       if (e.startsWith("[hooks-only]")) {
         let r = e.slice(12).trim(),
@@ -4479,7 +4479,7 @@ ${r}`;
         return [{ type: "text", text: d }];
       }
       let t = eU(bw(), { io: "input" });
-      Vwt(t, !1);
+      Vwt(t, false);
       let o = b(t, null, 2),
         i = $s;
       if (
@@ -4510,7 +4510,7 @@ function tn() {
   Zr({
     name: SF,
     description: js,
-    userInvocable: !0,
+    userInvocable: true,
     disableModelInvocation: () => !aNe(),
     files: () => en().then((e) => e.SKILL_FILES),
     async getPromptForCommand(e) {
@@ -4534,7 +4534,7 @@ ${e}`);
 function Get() {
   let e = To();
   if (e.bundledSkillsInitialized) return;
-  if (((e.bundledSkillsInitialized = !0), a.CLAUDE_CODE_ENTRYPOINT === "local-agent")) {
+  if (((e.bundledSkillsInitialized = true), a.CLAUDE_CODE_ENTRYPOINT === "local-agent")) {
     if (jI()) Oe(), De(), Re();
     return;
   }
@@ -4584,9 +4584,9 @@ function Get() {
   let { registerScheduleRemoteAgentsSkill: o } = import.meta.require("/$bunfs/root/chunk-fsqvh10g.js");
   o();
   let { registerClaudeApiSkill: i } = import.meta.require("/$bunfs/root/chunk-7t41myk1.js");
-  i({ disabled: a.CLAUDE_CODE_DISABLE_CLAUDE_API_SKILL === !0 });
+  i({ disabled: a.CLAUDE_CODE_DISABLE_CLAUDE_API_SKILL === true });
   let { registerClaudeCodeSkill: r } = import.meta.require("/$bunfs/root/chunk-8g6y0f61.js");
-  r({ disabled: a.CLAUDE_CODE_DISABLE_CLAUDE_CODE_SKILL === !0 });
+  r({ disabled: a.CLAUDE_CODE_DISABLE_CLAUDE_CODE_SKILL === true });
   {
     let { registerWorkflowAuthoringSkill: v } = import.meta.require("/$bunfs/root/chunk-bxj9xgjk.js");
     v();

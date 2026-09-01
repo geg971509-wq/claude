@@ -21,28 +21,28 @@ function BLe(e, r) {
   let t = /^claude-([a-z]+)-(\d+(?:-\d+)*)$/.exec(e),
     i = t?.[1],
     l = t?.[2];
-  if (!i || !l) return !1;
+  if (!i || !l) return false;
   let o = r.find(([s]) => s === i)?.[1];
-  if (!o) return !1;
+  if (!o) return false;
   let c = l.split("-").map(Number);
   for (let s = 0; s < Math.max(c.length, o.length); s++) {
     let f = (c[s] ?? 0) - (o[s] ?? 0);
     if (f !== 0) return f > 0;
   }
-  return !0;
+  return true;
 }
 var d = "force";
 function u() {
   try {
-    if (HSn()) return !1;
-    if (Ne() !== "firstParty") return !1;
+    if (HSn()) return false;
+    if (Ne() !== "firstParty") return false;
     let e = xNe("ENABLE_TOOL_SEARCH");
-    if (e === d) return !0;
-    if (eEn() !== d) return !1;
-    if (Me(xNe("CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS"))) return !1;
+    if (e === d) return true;
+    if (eEn() !== d) return false;
+    if (Me(xNe("CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS"))) return false;
     return e === void 0 || !p(e);
   } catch (e) {
-    return n(`isToolSearchForceOverride: settings read failed: ${e}`, { level: "error" }), !1;
+    return n(`isToolSearchForceOverride: settings read failed: ${e}`, { level: "error" }), false;
   }
 }
 function p(e) {
@@ -63,7 +63,7 @@ function __n(e) {
   return Math.max(0, Math.min(100, t));
 }
 function m(e) {
-  if (!e) return !1;
+  if (!e) return false;
   return e === "auto" || e.startsWith("auto:");
 }
 function BKe() {
@@ -85,9 +85,9 @@ var E = ["claude-3-5-haiku", "claude-3-haiku"],
     ["haiku", [4, 5]],
   ];
 function l6(e) {
-  if (Ne() !== "vertex") return !1;
+  if (Ne() !== "vertex") return false;
   let r = hr(e).replace(/[@-]\d{8}$/, "");
-  if (/^claude-3(-|$)/.test(r)) return !0;
+  if (/^claude-3(-|$)/.test(r)) return true;
   return /^claude-(opus|sonnet|haiku)-\d/.test(r) && !BLe(r, _);
 }
 function g() {
@@ -129,28 +129,28 @@ function PQn() {
 function c6(e) {
   let r = e.toLowerCase(),
     t = g();
-  for (let i of t) if (r.includes(i.toLowerCase())) return !1;
-  return !0;
+  for (let i of t) if (r.includes(i.toLowerCase())) return false;
+  return true;
 }
 function b_() {
   let e = BKe();
   if (e === "standard") {
     if (pc().claim("tool_search_optimistic_decision"))
       n(`[ToolSearch:optimistic] mode=${e}, ENABLE_TOOL_SEARCH=${a.ENABLE_TOOL_SEARCH}, result=false`);
-    return !1;
+    return false;
   }
   if (!a.ENABLE_TOOL_SEARCH && !u() && Ne() === "firstParty" && !jo()) {
     if (pc().claim("tool_search_optimistic_decision"))
       n(
         `[ToolSearch:optimistic] disabled: ANTHROPIC_BASE_URL=${a.ANTHROPIC_BASE_URL} is not a first-party Anthropic host. Set ENABLE_TOOL_SEARCH=true (or auto / auto:N) if your proxy forwards tool_reference blocks.`,
       );
-    return !1;
+    return false;
   }
   if (pc().claim("tool_search_optimistic_decision"))
     n(`[ToolSearch:optimistic] mode=${e}, ENABLE_TOOL_SEARCH=${a.ENABLE_TOOL_SEARCH}, result=true`);
-  return !0;
+  return true;
 }
 function jKe() {
-  return I("tengu_surface_failed_mcp_servers", !0);
+  return I("tengu_surface_failed_mcp_servers", true);
 }
 export { UKe, BLe, __n, BKe, l6, PQn, c6, b_, jKe };

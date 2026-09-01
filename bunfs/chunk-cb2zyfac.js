@@ -128,12 +128,12 @@ async function Mkt(t, e) {
       )
         return (
           n(`daemon: ${f} was being reinstalled (exec ${E(q)}); started it after ${W.waitedMs}ms`),
-          { ...C, stderrPath: A, recoveredAfterReinstallWait: !0 }
+          { ...C, stderrPath: A, recoveredAfterReinstallWait: true }
         );
     }
     if (N !== "ENOENT" && N !== "EACCES") return { ...C, stderrPath: A };
     let Q = new Set([f]),
-      K = rp({ pinToCurrentBinary: !0 });
+      K = rp({ pinToCurrentBinary: true });
     if (!Q.has(K.target)) {
       Q.add(K.target),
         s("tengu_bg_daemon_spawn_execpath_fallback", { errno_enoent: N === "ENOENT", errno_eacces: N === "EACCES" });
@@ -161,7 +161,7 @@ async function zt(t, e, o, a) {
       return me(await _e(o, [T.cmd, ...T.prefixArgs, ...t]), e, a?.fd);
     },
     i = gZ();
-  if (await pe(i.cmd, { rejectNpmStub: !0 })) return u(i);
+  if (await pe(i.cmd, { rejectNpmStub: true })) return u(i);
   if (it(i.cmd)) {
     let _ = await at(i.cmd);
     if (
@@ -169,18 +169,18 @@ async function zt(t, e, o, a) {
         waited_ms: _.waitedMs,
         recovered: _.recovered,
         respawn_ok: _.recovered,
-        probe: !0,
+        probe: true,
       }),
       _.recovered)
     )
       return u(i);
   }
-  let f = gZ({ pinToCurrentBinary: !0 });
+  let f = gZ({ pinToCurrentBinary: true });
   if (f.cmd !== i.cmd && (await pe(f.cmd)))
-    return s("tengu_bg_daemon_spawn_execpath_fallback", { errno_enoent: !1, errno_eacces: !1, probe: !0 }), u(f);
+    return s("tengu_bg_daemon_spawn_execpath_fallback", { errno_enoent: false, errno_eacces: false, probe: true }), u(f);
   let m = await z0e();
   if (
-    (s("tengu_bg_daemon_spawn_versions_fallback", { found: m !== null, probe: !0 }),
+    (s("tengu_bg_daemon_spawn_versions_fallback", { found: m !== null, probe: true }),
     m !== null && m !== f.cmd && (await pe(m)))
   )
     return u({ cmd: m, prefixArgs: [], target: m });
@@ -197,11 +197,11 @@ async function zt(t, e, o, a) {
 async function pe(t, e = {}) {
   try {
     let o = await Wt(t);
-    if (!o.isFile()) return !1;
-    if (e.rejectNpmStub && o.size < Gt) return !1;
-    return await Bt(t, Mt.X_OK), !0;
+    if (!o.isFile()) return false;
+    if (e.rejectNpmStub && o.size < Gt) return false;
+    return await Bt(t, Mt.X_OK), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function it(t) {
@@ -211,8 +211,8 @@ async function at(t) {
   let e = Date.now(),
     o = e + Ut;
   while (Date.now() < o)
-    if ((await ne(jt), await pe(t, { rejectNpmStub: !0 }))) return { recovered: !0, waitedMs: Date.now() - e };
-  return { recovered: !1, waitedMs: Date.now() - e };
+    if ((await ne(jt), await pe(t, { rejectNpmStub: true }))) return { recovered: true, waitedMs: Date.now() - e };
+  return { recovered: false, waitedMs: Date.now() - e };
 }
 async function me(t, e, o) {
   let a;
@@ -230,9 +230,9 @@ async function nt(t, e, o, a) {
     i;
   try {
     let f = $e(t[0], t.slice(1), {
-      detached: !0,
+      detached: true,
       stdio: ["ignore", "ignore", o ?? "ignore"],
-      windowsHide: !0,
+      windowsHide: true,
       env: e,
       ...(a !== void 0 && { cwd: a }),
     });
@@ -256,23 +256,23 @@ async function Yt() {
   let t = process.getuid?.();
   if (t === void 0) return [];
   let e = await new Promise((o) => {
-    let a = !1,
+    let a = false,
       u,
       i = (m) => {
         if (a) return;
-        (a = !0), clearTimeout(f), o(m);
+        (a = true), clearTimeout(f), o(m);
       },
       f = setTimeout(() => {
-        u.kill(), i(!1);
+        u.kill(), i(false);
       }, 5000);
     f.unref();
     try {
-      u = $e("/bin/launchctl", ["asuser", String(t), "/usr/bin/true"], { stdio: "ignore", windowsHide: !0 });
+      u = $e("/bin/launchctl", ["asuser", String(t), "/usr/bin/true"], { stdio: "ignore", windowsHide: true });
     } catch {
-      i(!1);
+      i(false);
       return;
     }
-    u.once("error", () => i(!1)), u.once("exit", (m) => i(m === 0));
+    u.once("error", () => i(false)), u.once("exit", (m) => i(m === 0));
   });
   return s("tengu_bg_daemon_macos_aqua_wrap", { has_gui: e }), e ? ["/bin/launchctl", "asuser", String(t)] : [];
 }
@@ -286,33 +286,33 @@ async function ot(t, e) {
   try {
     o = Jt(qt(t));
   } catch (i) {
-    return { ok: !1, reason: l(i) };
+    return { ok: false, reason: l(i) };
   }
   let a = await gv();
-  if (!a) return { ok: !1, reason: "no-powershell" };
+  if (!a) return { ok: false, reason: "no-powershell" };
   let u = Buffer.from(o, "utf16le").toString("base64");
   return new Promise((i) => {
-    let f = !1,
+    let f = false,
       m,
       _ = (A) => {
         if (f) return;
-        (f = !0), clearTimeout(S), i(A);
+        (f = true), clearTimeout(S), i(A);
       },
-      T = (A) => _({ ok: !1, reason: E(A) === "ENOENT" ? "enoent" : l(A) }),
+      T = (A) => _({ ok: false, reason: E(A) === "ENOENT" ? "enoent" : l(A) }),
       S = setTimeout(() => {
-        m.kill(), _({ ok: !1, reason: "timeout" });
+        m.kill(), _({ ok: false, reason: "timeout" });
       }, 5000);
     S.unref();
     try {
-      m = $e(a, ["-NoProfile", "-NonInteractive", "-EncodedCommand", u], { stdio: "ignore", windowsHide: !0, env: e });
+      m = $e(a, ["-NoProfile", "-NonInteractive", "-EncodedCommand", u], { stdio: "ignore", windowsHide: true, env: e });
     } catch (A) {
       T(A);
       return;
     }
     m.once("error", T),
       m.once("exit", (A) => {
-        if (A === 0) _({ ok: !0 });
-        else _({ ok: !1, reason: `Win32_Process.Create rc=${A}`, rc: A ?? void 0 });
+        if (A === 0) _({ ok: true });
+        else _({ ok: false, reason: `Win32_Process.Create rc=${A}`, rc: A ?? void 0 });
       });
   });
 }
@@ -347,7 +347,7 @@ function Zt(t) {
   return `'${t.replaceAll("'", "''")}'`;
 }
 async function Qt(t) {
-  if (D() === "macos" || !process.env.CLAUDE_CODE_OAUTH_TOKEN) return !1;
+  if (D() === "macos" || !process.env.CLAUDE_CODE_OAUTH_TOKEN) return false;
   return !!(await vn().readAsync(t))?.claudeAiOauth?.refreshToken;
 }
 function er(t) {
@@ -375,20 +375,20 @@ import { lstat as jr, readFile as Gr, realpath as Kr, rm as Tt } from "fs/promis
 import { dirname as xt } from "path";
 import { setTimeout as ve } from "timers/promises";
 class st {
-  daemonConfirmedUp = !1;
+  daemonConfirmedUp = false;
   ensureInFlight = null;
   lastTransientSpawnAt = null;
   prefixAxis = "idle";
-  prefixContractViolationLogged = !1;
-  tmuxRgbApplied = !1;
+  prefixContractViolationLogged = false;
+  tmuxRgbApplied = false;
   ownedBeacons = new Map();
   reset() {
-    (this.daemonConfirmedUp = !1),
+    (this.daemonConfirmedUp = false),
       (this.ensureInFlight = null),
       (this.lastTransientSpawnAt = null),
       (this.prefixAxis = "idle"),
-      (this.prefixContractViolationLogged = !1),
-      (this.tmuxRgbApplied = !1),
+      (this.prefixContractViolationLogged = false),
+      (this.tmuxRgbApplied = false),
       this.ownedBeacons.clear();
   }
 }
@@ -405,9 +405,9 @@ function ct(t) {
     ...t,
     childExit: null,
     stderr: null,
-    budgetExtended: !1,
+    budgetExtended: false,
     nextLivenessProbeAt: t.spawnIssuedAt + lt,
-    siblingHolderSeen: !1,
+    siblingHolderSeen: false,
   };
   return (
     t.child?.exited.then((o) => {
@@ -416,32 +416,32 @@ function ct(t) {
     e
   );
 }
-async function Ve(t, e = !1) {
+async function Ve(t, e = false) {
   if (t.stderr === null || e) t.stderr = t.stderrPath ? ((await tl(t.stderrPath, 1048576)) ?? "").slice(0, 2000) : "";
   return t.stderr;
 }
 async function Fe(t) {
   let e = t.childExit;
-  if (!e || t.siblingHolderSeen) return !1;
+  if (!e || t.siblingHolderSeen) return false;
   if (!t.budgetExtended) {
-    if ((await Ve(t)).trim().length === 0) return !1;
-    if (t.wrapperConfigured && e.code === 0 && e.signal === null) return !1;
+    if ((await Ve(t)).trim().length === 0) return false;
+    if (t.wrapperConfigured && e.code === 0 && e.signal === null) return false;
   }
   let o = await ut(t, uge);
-  if (o !== !1) return (t.siblingHolderSeen = o === !0), !1;
-  return !0;
+  if (o !== false) return (t.siblingHolderSeen = o === true), false;
+  return true;
 }
 async function xe(t, e, o) {
   let a = e;
-  while (!0) {
-    if (await Fe(t)) return !1;
-    if (Date.now() >= a) return !1;
-    if ((await Kp({ proto: Ca, op: "ping" })).ok) return !0;
+  while (true) {
+    if (await Fe(t)) return false;
+    if (Date.now() >= a) return false;
+    if ((await Kp({ proto: Ca, op: "ping" })).ok) return true;
     if (o && Date.now() >= t.nextLivenessProbeAt) {
       t.nextLivenessProbeAt = Date.now() + lt;
       let f = await ut(t, 1);
-      if (!t.budgetExtended && f === !0) (t.budgetExtended = !0), (a = Math.max(a, t.spawnIssuedAt + We));
-      else if (t.budgetExtended && f === !1 && Date.now() >= e) return !1;
+      if (!t.budgetExtended && f === true) (t.budgetExtended = true), (a = Math.max(a, t.spawnIssuedAt + We));
+      else if (t.budgetExtended && f === false && Date.now() >= e) return false;
     }
     await rr(100);
   }
@@ -486,7 +486,7 @@ async function ft(t) {
   } catch (i) {
     return { lock_at_deadline: E(i) === "EPERM" ? w("other_eperm") : w("other_dead"), ...o };
   }
-  return { lock_at_deadline: (await EBe(e.pid, iA(e), 1).catch(() => !1)) ? w("other_alive") : w("other_dead"), ...o };
+  return { lock_at_deadline: (await EBe(e.pid, iA(e), 1).catch(() => false)) ? w("other_alive") : w("other_dead"), ...o };
 }
 import { randomBytes as Ir } from "crypto";
 import { unlink as yt } from "fs/promises";
@@ -519,7 +519,7 @@ function tBe(t) {
 var pt =
   /\x1b\[(?:<\d+;\d+;\d+[Mm]|M[\s\S]{3}|I|O|\??\d+;\d+(?:;\d+)*R|[?>]\d+(?:;\d+)*c|\?\d+(?:;\d+)*\$y|\?997;[12]n|\?\d+u)|\x1bP[^\x1b]*\x1b\\|\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)/g;
 function gt(t) {
-  if (!t.includes("\x1B")) return !1;
+  if (!t.includes("\x1B")) return false;
   return t.replace(pt, "").length === 0;
 }
 var ir = 64,
@@ -528,11 +528,11 @@ function mLn() {
   let t = "";
   return (e) => {
     let o = t + e;
-    if (((t = ""), !o.includes("\x1B"))) return !1;
+    if (((t = ""), !o.includes("\x1B"))) return false;
     let a = o.replace(pt, "");
-    if (a.length === 0) return !0;
-    if (a.length <= ir && ar.test(a)) return (t = a), !0;
-    return !1;
+    if (a.length === 0) return true;
+    if (a.length <= ir && ar.test(a)) return (t = a), true;
+    return false;
   };
 }
 import { closeSync as sr, lstatSync as lr, openSync as dr, readSync as ur } from "fs";
@@ -590,7 +590,7 @@ function Cr(t) {
     let u = t[a + 1];
     if (u === "[") {
       let i = a + 2,
-        f = !0;
+        f = true;
       while (i < t.length) {
         let m = t.charCodeAt(i);
         if (m >= 64 && m <= 126) {
@@ -599,7 +599,7 @@ function Cr(t) {
           break;
         }
         if (m < 32 || m > 63) break;
-        if (!((m >= 48 && m <= 57) || m === 59)) f = !1;
+        if (!((m >= 48 && m <= 57) || m === 59)) f = false;
         i++;
       }
       o = i;
@@ -680,7 +680,7 @@ function kr(t, e) {
   return o.push(a), o;
 }
 function je(t, e) {
-  return Nf(t, e, { hard: !1, trim: !1 })
+  return Nf(t, e, { hard: false, trim: false })
     .split(`
 `)
     .flatMap((o) => kr(o, e));
@@ -694,7 +694,7 @@ function Or(t) {
   }
   if (typeof e !== "object" || e === null) return [];
   let o = e;
-  if ((o.type !== "user" && o.type !== "assistant") || o.isSidechain === !0 || o.isMeta === !0) return [];
+  if ((o.type !== "user" && o.type !== "assistant") || o.isSidechain === true || o.isMeta === true) return [];
   let a = o.message?.content;
   if (typeof a === "string") {
     if (o.type === "user") return wt(a);
@@ -755,7 +755,7 @@ function Pr(t, e) {
     Cr(
       gu
         .lexer(t)
-        .map((o) => nE(o, e, { listDepth: 0, orderedListNumber: null, parent: null, highlight: OR(), linkCap: !1 }))
+        .map((o) => nE(o, e, { listDepth: 0, orderedListNumber: null, parent: null, highlight: OR(), linkCap: false }))
         .join(""),
     ).trim()
   );
@@ -803,19 +803,19 @@ function Dr(t, e, o, a) {
   let d = performance.now();
   try {
     for (let M of N) {
-      if (K.length > 0) K.push({ text: "", dim: !1 });
+      if (K.length > 0) K.push({ text: "", dim: false });
       let X = yr(M.text);
       switch (M.role) {
         case "tool": {
           let F = rt(`${vr} ${X.replace(/\n/g, " ")}`, u);
-          K.push({ text: F, dim: !0 });
+          K.push({ text: F, dim: true });
           break;
         }
         case "thinking": {
           let F = X.replace(/\s+/g, " ").trim();
           for (let [B, U] of je(F, O).entries()) {
             let z = Y === 0 || U === "" ? "" : B === 0 ? `${ZXe} ` : "  ";
-            K.push({ text: z + ae.italic(U), dim: !0 });
+            K.push({ text: z + ae.italic(U), dim: true });
           }
           break;
         }
@@ -830,7 +830,7 @@ function Dr(t, e, o, a) {
           let B = mt("text", f)(vr);
           for (let [U, z] of je(F, O).entries()) {
             let te = Y === 0 || z === "" ? "" : U === 0 ? `${B} ` : "  ";
-            K.push({ text: te + z, dim: !1 });
+            K.push({ text: te + z, dim: false });
           }
           break;
         }
@@ -840,7 +840,7 @@ function Dr(t, e, o, a) {
             U = mt("userMessageBackground", f, "background");
           for (let [z, te] of je(X, O).entries()) {
             let Ee = Y === 0 ? "" : z === 0 ? F : "  ";
-            K.push({ text: U(Ee + B(te)), dim: !1 });
+            K.push({ text: U(Ee + B(te)), dim: false });
           }
           break;
         }
@@ -936,7 +936,7 @@ function Wr(t, e, o, a, u, i) {
         reattachEnv: void 0,
         attachStallRespawns: (f.attachStallRespawns ?? 0) + 1,
         launch: q
-          ? { mode: "resume", sessionId: S, transcriptPath: C.path, fork: !1, flagArgs: Q ? LGe(N) : hdn(N) }
+          ? { mode: "resume", sessionId: S, transcriptPath: C.path, fork: false, flagArgs: Q ? LGe(N) : hdn(N) }
           : S !== f.sessionId
             ? { mode: "prompt", args: ["--session-id", S, ...N] }
             : f.launch,
@@ -947,7 +947,7 @@ function Wr(t, e, o, a, u, i) {
 }
 var ze = 1e4,
   Vr = 2500;
-async function gLn(t, e, o, a = () => 0, u = () => !0, i = () => !1, f = new Promise(() => {}), m) {
+async function gLn(t, e, o, a = () => 0, u = () => true, i = () => false, f = new Promise(() => {}), m) {
   let _ = lI();
   await YGe();
   let T = await t5n();
@@ -983,7 +983,7 @@ async function gLn(t, e, o, a = () => 0, u = () => !0, i = () => !1, f = new Pro
       storageV5: m,
       legacyOpProbe: new Rt(),
     },
-    K = !1,
+    K = false,
     Y = Nr((d) => {
       if (K) {
         d.destroy();
@@ -995,7 +995,7 @@ async function gLn(t, e, o, a = () => 0, u = () => !0, i = () => !1, f = new Pro
         d.once("close", () => S.delete(d));
       let r = BXn(d);
       if (r) {
-        s("tengu_daemon_peer_uid_reject", {}), d.once("data", () => v(d, { ok: !1, code: "EPEERUID", error: r }));
+        s("tengu_daemon_peer_uid_reject", {}), d.once("data", () => v(d, { ok: false, code: "EPEERUID", error: r }));
         return;
       }
       let k = Buffer.alloc(0),
@@ -1006,7 +1006,7 @@ async function gLn(t, e, o, a = () => 0, u = () => !0, i = () => !1, f = new Pro
             if (k.length > ye)
               d.off("data", Z),
                 v(d, {
-                  ok: !1,
+                  ok: false,
                   code: "ETOOLARGE",
                   error: `request exceeds ${ye >> 20}MB \u2014 shorten the prompt or send in parts`,
                 });
@@ -1016,12 +1016,12 @@ async function gLn(t, e, o, a = () => 0, u = () => !0, i = () => !1, f = new Pro
           let M = k.subarray(0, re).toString("utf8"),
             X = k.subarray(re + 1);
           Fr(Q, d, M, X).catch((F) => {
-            v(d, { ok: !1, error: l(F), code: "EUNKNOWN" });
+            v(d, { ok: false, error: l(F), code: "EUNKNOWN" });
           });
         };
       d.on("data", Z);
     }),
-    O = !1;
+    O = false;
   Y.on("error", (d) => {
     if (O) {
       n(`bg control server bind: ${p_(l(d))}`, { level: "warn" });
@@ -1034,12 +1034,12 @@ async function gLn(t, e, o, a = () => 0, u = () => !0, i = () => !1, f = new Pro
     try {
       await new Promise((d, r) => {
         let k = (Z) => {
-          (O = !1), r(Z);
+          (O = false), r(Z);
         };
-        (O = !0),
+        (O = true),
           Y.once("error", k),
           Y.listen(_, () => {
-            (O = !1), Y.removeListener("error", k), d();
+            (O = false), Y.removeListener("error", k), d();
           });
       });
       break;
@@ -1051,7 +1051,7 @@ async function gLn(t, e, o, a = () => 0, u = () => !0, i = () => !1, f = new Pro
     close: (d) =>
       new Promise((r) => {
         for (let k of S) k.destroy();
-        if (d?.skipUnlink) return (K = !0), Y.unref(), void r();
+        if (d?.skipUnlink) return (K = true), Y.unref(), void r();
         Y.close(() => {
           if (!d?.skipUnlink) yt(_).catch(() => {});
           r();
@@ -1086,8 +1086,8 @@ function we(t) {
 }
 async function At(t, e, o, a, u, i, f) {
   let m = Date.now() + Math.min(i, 30000),
-    _ = !1,
-    T = !1,
+    _ = false,
+    T = false,
     S,
     A;
   f?.then(
@@ -1104,13 +1104,13 @@ async function At(t, e, o, a, u, i, f) {
       C = t.get(a);
     if (C) {
       if (u && C.record.nonce !== u) {
-        if (((T = !0), (S = we(C) ? C : void 0), P)) break;
-        if (!S && !_) (_ = !0), (m += Math.min(i, 30000));
+        if (((T = true), (S = we(C) ? C : void 0), P)) break;
+        if (!S && !_) (_ = true), (m += Math.min(i, 30000));
         await ne(25);
         continue;
       }
       return v(e, {
-        ok: !0,
+        ok: true,
         op: o,
         short: a,
         pid: C.record.pid,
@@ -1124,7 +1124,7 @@ async function At(t, e, o, a, u, i, f) {
   if (T) {
     if (S && t.get(a) === S && we(S))
       return v(e, {
-        ok: !0,
+        ok: true,
         op: o,
         short: a,
         pid: S.record.pid,
@@ -1132,18 +1132,18 @@ async function At(t, e, o, a, u, i, f) {
         via: S.via,
       });
     return v(e, {
-      ok: !1,
+      ok: false,
       error: "a previous dispatch with this id is still being cleaned up \u2014 retry in a moment",
       code: "ESTALE",
     });
   }
-  return v(e, { ok: !1, error: `${ou()} didn't acknowledge in time \u2014 retry`, code: "ETIMEOUT" });
+  return v(e, { ok: false, error: `${ou()} didn't acknowledge in time \u2014 retry`, code: "ETIMEOUT" });
 }
 class Rt {
   fired = new Set();
   markFired(t) {
-    if (this.fired.has(t)) return !1;
-    return this.fired.add(t), !0;
+    if (this.fired.has(t)) return false;
+    return this.fired.add(t), true;
   }
 }
 function Ct(t, e) {
@@ -1170,13 +1170,13 @@ async function Fr(t, e, o, a) {
   try {
     K = V(o);
   } catch {
-    return v(e, { ok: !1, error: "bad json", code: "EUNKNOWN" });
+    return v(e, { ok: false, error: "bad json", code: "EUNKNOWN" });
   }
-  if (K === null || typeof K !== "object") return v(e, { ok: !1, error: "bad json", code: "EUNKNOWN" });
+  if (K === null || typeof K !== "object") return v(e, { ok: false, error: "bad json", code: "EUNKNOWN" });
   let Y = K.op;
   if (Y === "ping")
     return v(e, {
-      ok: !0,
+      ok: true,
       op: "ping",
       version: {
         ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
@@ -1194,7 +1194,7 @@ async function Fr(t, e, o, a) {
   if (Y === "nudge") {
     let r = await f();
     return v(e, {
-      ok: !0,
+      ok: true,
       op: "nudge",
       restarting: r.restarting,
       upgradePending: r.upgradePending,
@@ -1212,32 +1212,32 @@ async function Fr(t, e, o, a) {
       processWrapper: Gk(),
     });
   }
-  if (Y === "yield") return v(e, { ok: !0, op: "yield", yielding: S() });
+  if (Y === "yield") return v(e, { ok: true, op: "yield", yielding: S() });
   if (Y === "lease") {
     A(e, Ur(K.client)),
       e.write(
-        b({ ok: !0, op: "lease" }) +
+        b({ ok: true, op: "lease" }) +
           `
 `,
       );
     return;
   }
-  if (Y === "leases") return v(e, { ok: !0, op: "leases", clients: P() });
+  if (Y === "leases") return v(e, { ok: true, op: "leases", clients: P() });
   if (Y === "shutdown") {
-    let r = K.reapWorkers !== !1,
+    let r = K.reapWorkers !== false,
       k = m(r);
-    return v(e, { ok: !0, op: "shutdown", reaped: k });
+    return v(e, { ok: true, op: "shutdown", reaped: k });
   }
   if (!_() && Y === "attach") {
-    if ((await Promise.race([T, ne(Vr, void 0, { unref: !0 })]), e.destroyed)) return;
+    if ((await Promise.race([T, ne(Vr, void 0, { unref: true })]), e.destroyed)) return;
   }
-  if (!_()) return v(e, { ok: !1, error: `${ou()} starting (adoption in progress)`, code: "ESTARTING" });
+  if (!_()) return v(e, { ok: false, error: `${ou()} starting (adoption in progress)`, code: "ESTARTING" });
   let O = K.proto;
   if (typeof O !== "number" || !Number.isInteger(O) || O < MGe || O > Ca)
     return (
       s("tengu_bg_proto_mismatch", { client_proto: typeof O === "number" ? O : -1, server_proto: Ca }),
       v(e, {
-        ok: !1,
+        ok: false,
         error: `proto mismatch (server=${Ca}, client=${O}) \u2014 ${ou()} and CLI versions differ; restart claude`,
         code: "EPROTO",
         serverProto: Ca,
@@ -1256,7 +1256,7 @@ async function Fr(t, e, o, a) {
     );
   let W = bdn().safeParse(K);
   if (!W.success)
-    return v(e, { ok: !1, error: `malformed request: ${W.error.issues[0]?.message ?? "invalid"}`, code: "EUNKNOWN" });
+    return v(e, { ok: false, error: `malformed request: ${W.error.issues[0]?.message ?? "invalid"}`, code: "EUNKNOWN" });
   let d = W.data;
   switch (d.op) {
     case "ping":
@@ -1268,15 +1268,15 @@ async function Fr(t, e, o, a) {
       return;
     case "list":
       return v(e, {
-        ok: !0,
+        ok: true,
         op: "list",
-        jobs: Array.from(u.values()).map((r) => (r.isKilling || r.isRetiring ? { ...r.record, dying: !0 } : r.record)),
+        jobs: Array.from(u.values()).map((r) => (r.isKilling || r.isRetiring ? { ...r.record, dying: true } : r.record)),
       });
     case "has": {
       let r = u.get(d.short),
         k = C.has(d.short);
       return v(e, {
-        ok: !0,
+        ok: true,
         op: "has",
         alive: (r !== void 0 && we(r)) || k,
         present: r !== void 0 || k,
@@ -1288,7 +1288,7 @@ async function Fr(t, e, o, a) {
     case "dispatch":
       if (!uR(d.auth, q))
         return v(e, {
-          ok: !1,
+          ok: false,
           error: "dispatch rejected: this client didn't present the daemon control key",
           code: "EAUTH",
         });
@@ -1300,7 +1300,7 @@ async function Fr(t, e, o, a) {
     case "reply": {
       if (!uR(d.auth, q))
         return v(e, {
-          ok: !1,
+          ok: false,
           error:
             d.auth === void 0
               ? "reply rejected: this window didn't present the daemon control key \u2014 it is likely running a Claude Code older than the daemon (left open across an update?); restart this window and retry, or stop driving the control socket directly"
@@ -1309,18 +1309,18 @@ async function Fr(t, e, o, a) {
         });
       let r = u.get(d.short);
       if (C.has(d.short) && (!r || !we(r)))
-        return v(e, { ok: !1, error: `worker ${Nce} \u2014 restarting it; retry reply`, code: "ERESPAWNING" });
+        return v(e, { ok: false, error: `worker ${Nce} \u2014 restarting it; retry reply`, code: "ERESPAWNING" });
       if (!r || r.isRetiring || r.isKilling || r.record.outcome)
-        return v(e, { ok: !1, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
+        return v(e, { ok: false, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
       if (r.isUpgrading)
-        return v(e, { ok: !1, error: `job is restarting on the ${fDe}; retry reply`, code: "ERESPAWNING" });
+        return v(e, { ok: false, error: `job is restarting on the ${fDe}; retry reply`, code: "ERESPAWNING" });
       if (!(await r.reply(d.text)))
         return v(e, {
-          ok: !1,
+          ok: false,
           error: "job isn't accepting replies \u2014 it may be in a non-interactive state",
           code: "ENOREPLY",
         });
-      return v(e, { ok: !0, op: "reply" });
+      return v(e, { ok: true, op: "reply" });
     }
     case "kill": {
       if ((C.delete(d.short), d.evict))
@@ -1328,50 +1328,50 @@ async function Fr(t, e, o, a) {
           delete k.workers[d.short];
         }, N).catch((k) => h(k));
       let r = u.get(d.short);
-      if (!r) return v(e, { ok: !1, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
-      if (r.dispatch.launch.mode === "exec" && r.record.outcome) return u.delete(d.short), v(e, { ok: !0, op: "kill" });
-      return r.kill(d.signal ?? "SIGTERM", d.handoff ? "handoff" : "killed"), v(e, { ok: !0, op: "kill" });
+      if (!r) return v(e, { ok: false, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
+      if (r.dispatch.launch.mode === "exec" && r.record.outcome) return u.delete(d.short), v(e, { ok: true, op: "kill" });
+      return r.kill(d.signal ?? "SIGTERM", d.handoff ? "handoff" : "killed"), v(e, { ok: true, op: "kill" });
     }
     case "respawn-stale": {
       Ct(Q, "respawn_stale");
       let r = u.get(d.short);
-      if (!r) return v(e, { ok: !1, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
+      if (!r) return v(e, { ok: false, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
       let k = await r.respawnIfIdleStale();
-      return v(e, { ok: !0, op: "respawn-stale", ...k });
+      return v(e, { ok: true, op: "respawn-stale", ...k });
     }
     case "resize": {
       let r = u.get(d.short);
-      if (!r) return v(e, { ok: !1, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
+      if (!r) return v(e, { ok: false, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
       if (d.attachId) {
         let k = r.attachers.get(d.attachId);
-        if (!k) return v(e, { ok: !0, op: "resize" });
-        if (((k.cols = d.cols), (k.rows = d.rows), k.repaint)) return k.repaint(), v(e, { ok: !0, op: "resize" });
+        if (!k) return v(e, { ok: true, op: "resize" });
+        if (((k.cols = d.cols), (k.rows = d.rows), k.repaint)) return k.repaint(), v(e, { ok: true, op: "resize" });
       }
-      return r.resize(d.cols, d.rows), v(e, { ok: !0, op: "resize" });
+      return r.resize(d.cols, d.rows), v(e, { ok: true, op: "resize" });
     }
     case "attach": {
       if (d.auth === void 0)
         n("[bg-attach] legacy client (no control key) \u2014 allowed via peerUid", { level: "warn" });
       else if (!uR(d.auth, q))
         return v(e, {
-          ok: !1,
+          ok: false,
           error:
             "attach rejected: the presented daemon control key doesn't match \u2014 retry, and restart the Claude Code daemon if this persists",
           code: "EAUTH",
         });
       let r = u.get(d.short);
       if (C.has(d.short) && (!r || !we(r)))
-        return v(e, { ok: !1, error: `worker ${Nce} \u2014 restarting it; retry attach`, code: "ERESPAWNING" });
+        return v(e, { ok: false, error: `worker ${Nce} \u2014 restarting it; retry attach`, code: "ERESPAWNING" });
       if (!r || r.isKilling || (r.record.outcome && r.dispatch.launch.mode !== "exec"))
-        return v(e, { ok: !1, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
+        return v(e, { ok: false, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
       if (r.isUnverified)
         return v(e, {
-          ok: !1,
+          ok: false,
           error:
             "worker is live but supervisor could not verify its identity \u2014 try restarting the supervisor to re-adopt",
           code: "EUNVERIFIED",
         });
-      if (r.isRetiring) return v(e, { ok: !1, error: "job is retiring; retry attach", code: "ERESPAWNING" });
+      if (r.isRetiring) return v(e, { ok: false, error: "job is retiring; retry attach", code: "ERESPAWNING" });
       if (r.record.legacy) {
         let x = r.dispatch,
           H = await fr(cr(x.short), N).catch(() => null),
@@ -1382,7 +1382,7 @@ async function Fr(t, e, o, a) {
           Se = he.hasMessages;
         if (!Se) await qoe(he.path, fe);
         if (u.get(d.short) !== r || e.destroyed)
-          return v(e, { ok: !1, error: "supervisor restarting", code: "ERESPAWNING" });
+          return v(e, { ok: false, error: "supervisor restarting", code: "ERESPAWNING" });
         if (!r.isKilling)
           s("tengu_bg_attach_legacy_autorespawn", {}),
             r.kill("SIGTERM"),
@@ -1395,7 +1395,7 @@ async function Fr(t, e, o, a) {
                     mode: "resume",
                     sessionId: oe,
                     transcriptPath: he.path,
-                    fork: !1,
+                    fork: false,
                     flagArgs:
                       H?.tempo === "active"
                         ? LGe(H?.respawnFlags ?? x.respawnFlags)
@@ -1406,20 +1406,20 @@ async function Fr(t, e, o, a) {
                   : x.launch,
             }).catch((Re) => h(Re));
         return v(e, {
-          ok: !1,
+          ok: false,
           error: `${$Ge} job respawning with worker-owned PTY; retry attach`,
           code: "ERESPAWNING",
         });
       }
       if (r.isUpgrading)
-        return v(e, { ok: !1, error: `job is restarting on the ${fDe}; retry attach`, code: "ERESPAWNING" });
+        return v(e, { ok: false, error: `job is restarting on the ${fDe}; retry attach`, code: "ERESPAWNING" });
       if (await r.failIfHostExited("attach"))
-        return v(e, { ok: !1, error: r.dispatch.launch.mode === "exec" ? Bbe : Ube, code: "EHOSTDEAD" });
+        return v(e, { ok: false, error: r.dispatch.launch.mode === "exec" ? Bbe : Ube, code: "EHOSTDEAD" });
       if (e.destroyed) return;
       if (C.has(d.short) && (u.get(d.short) !== r || !we(r)))
-        return v(e, { ok: !1, error: `worker ${Nce} \u2014 restarting it; retry attach`, code: "ERESPAWNING" });
+        return v(e, { ok: false, error: `worker ${Nce} \u2014 restarting it; retry attach`, code: "ERESPAWNING" });
       if (u.get(d.short) !== r || r.isKilling || (r.record.outcome && r.dispatch.launch.mode !== "exec"))
-        return v(e, { ok: !1, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
+        return v(e, { ok: false, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
       let k =
           r.liveTranscriptPath !== void 0
             ? r.liveTranscriptPath
@@ -1427,7 +1427,7 @@ async function Fr(t, e, o, a) {
               ? r.dispatch.launch.transcriptPath
               : void 0,
         Z =
-          d.holdingFrame !== !0 && r.isBooting && k != null
+          d.holdingFrame !== true && r.isBooting && k != null
             ? Ge(k, d.cols, d.rows, { colorLevel: d.caps?.colorLevel, theme: d.caps?.systemTheme })
             : null;
       A(e, null);
@@ -1435,7 +1435,7 @@ async function Fr(t, e, o, a) {
       if (
         (e.write(
           b({
-            ok: !0,
+            ok: true,
             op: "attach",
             imarkNonce: re,
             decModes: r.decModeSnapshot(),
@@ -1496,7 +1496,7 @@ async function Fr(t, e, o, a) {
         z = () => {},
         te,
         Ee = 0,
-        Je = !1,
+        Je = false,
         qe = $r(),
         Xe = qe === 0 ? 0 : Math.max(1, Math.ceil((qe - vt) / Ke)),
         Pe = (x) =>
@@ -1508,10 +1508,10 @@ async function Fr(t, e, o, a) {
 `,
           ),
         De,
-        Ie = !1,
+        Ie = false,
         Ne = () => {
           if (!Ie) return;
-          if (((Ie = !1), typeof r.replayInteractiveMarksTo === "function"))
+          if (((Ie = false), typeof r.replayInteractiveMarksTo === "function"))
             r.replayInteractiveMarksTo(d.attachId ?? e);
         },
         ge = (x) => {
@@ -1519,12 +1519,12 @@ async function Fr(t, e, o, a) {
           De?.();
           let H = F;
           if (((F = null), clearTimeout(Le), x && !e.destroyed)) for (let oe of H) e.write(oe);
-          if (((Ie = !0), x && H.length > 0)) Ne();
+          if (((Ie = true), x && H.length > 0)) Ne();
         },
         Le = setTimeout(() => {
           let x = F !== null && B === 0,
-            H = x && (d.holdingFrame === !0 || Z !== null);
-          if (!H) ge(!0);
+            H = x && (d.holdingFrame === true || Z !== null);
+          if (!H) ge(true);
           if (x && !e.destroyed) {
             if (!H) {
               let le = r.record.state,
@@ -1585,16 +1585,16 @@ async function Fr(t, e, o, a) {
         },
         Be = r.onStream.subscribe((x) => {
           if (e.destroyed) return;
-          if (((Je = !0), F !== null)) {
+          if (((Je = true), F !== null)) {
             let H = U + x;
             if (H.includes(sy) || H.includes(M)) {
               Ze();
               let oe = x.includes(sy) || x.includes(M) ? x : H;
-              if ((z(), ge(!1), e.writableLength <= ye)) e.write(r.decModeSnapshot().map(ZP).join("") + oe), Ne();
+              if ((z(), ge(false), e.writableLength <= ye)) e.write(r.decModeSnapshot().map(ZP).join("") + oe), Ne();
               else e.destroy();
               return;
             }
-            if ((F.push(x), (B += x.length), (U = H.slice(-X)), B > 65536)) ge(!0);
+            if ((F.push(x), (B += x.length), (U = H.slice(-X)), B > 65536)) ge(true);
             return;
           }
           if ((Ze(), e.writableLength > ye)) {
@@ -1604,7 +1604,7 @@ async function Fr(t, e, o, a) {
           e.write(x), Ne();
         }),
         He = r.onRepaintDone.subscribe(() => {
-          z(), ge(!0);
+          z(), ge(true);
         });
       if (D() === "windows") for (let x of r.attachers.values()) x.kick();
       let ue = d.attachId ?? e;
@@ -1638,14 +1638,14 @@ async function Fr(t, e, o, a) {
               (x.repaint = void 0), (De = void 0);
             });
       }
-      r.noteActivity(), r.seedFocus(!0), r.sendAttacherCaps(d.caps ?? null);
+      r.noteActivity(), r.seedFocus(true), r.sendAttacherCaps(d.caps ?? null);
       let Ce;
       if (r.dispatch.launch.mode === "exec") {
         let x = Nbe(sy + dg);
         e.write(x);
         for (let H of r.ringSnapshot()) e.write(H);
         if (
-          (ge(!1),
+          (ge(false),
           (Ce = () => {
             let H = r.attachers.get(ue);
             if (e.destroyed || !H) return;
@@ -1685,29 +1685,29 @@ async function Fr(t, e, o, a) {
       e.on("data", et),
         e.once("close", () => {
           if (te) clearInterval(te);
-          if ((z(), ge(!1), Be(), Lt(), He(), !r.attachers.delete(ue))) return;
+          if ((z(), ge(false), Be(), Lt(), He(), !r.attachers.delete(ue))) return;
           let x = Qe.end();
           if (x) r.write(x);
           if (r.attachers.size > 0) {
             let H = [...r.attachers.values()].at(-1);
             r.resizeForRepaint(H.cols, H.rows), r.sendAttacherCaps(H.caps ? { ...H.caps, systemTheme: void 0 } : null);
-          } else r.seedFocus(!1), r.sendAttacherCaps(null);
+          } else r.seedFocus(false), r.sendAttacherCaps(null);
         });
       return;
     }
     case "ensure-spare":
-      return Ct(Q, "ensure_spare"), v(e, { ok: !0, op: "ensure-spare" });
+      return Ct(Q, "ensure_spare"), v(e, { ok: true, op: "ensure-spare" });
     case "permission-response":
       if (!uR(d.auth, q))
         return v(e, {
-          ok: !1,
+          ok: false,
           error: "permission-response rejected: this client didn't present the daemon control key",
           code: "EAUTH",
         });
-      return v(e, { ok: !0, op: "permission-response" });
+      return v(e, { ok: true, op: "permission-response" });
     case "subscribe": {
       let r = u.get(d.short);
-      if (!r) return v(e, { ok: !1, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
+      if (!r) return v(e, { ok: false, error: "job not found \u2014 it may have already exited", code: "ENOJOB" });
       if (
         (A(e, null), be(e, { type: "snapshot", record: r.record, streamTail: r.tail(d.tail ?? 200) }), r.record.outcome)
       ) {
@@ -1727,7 +1727,7 @@ async function Fr(t, e, o, a) {
       return;
     }
     default:
-      return v(e, { ok: !1, error: `unknown op: ${d.op}`, code: "EUNKNOWN" });
+      return v(e, { ok: false, error: `unknown op: ${d.op}`, code: "EUNKNOWN" });
   }
 }
 function Ur(t) {
@@ -1741,15 +1741,15 @@ var IP = 45000;
 async function DRe(t) {
   let e = Date.now() + t;
   while (Date.now() < e) {
-    if ((await Kp({ proto: Ca, op: "ping" })).ok) return !0;
+    if ((await Kp({ proto: Ca, op: "ping" })).ok) return true;
     await ve(100);
   }
-  return !1;
+  return false;
 }
 async function Nkt(t, e) {
   let o = Date.now() + t,
     a = 0;
-  while (!0) {
+  while (true) {
     let u = o - Date.now();
     if (u <= 0) return null;
     if (await DRe(Math.min(u, 1000))) {
@@ -1766,15 +1766,15 @@ async function Nkt(t, e) {
 }
 async function zr(t, e) {
   let o = Date.now(),
-    a = !1,
+    a = false,
     u,
     i = "restarting",
     f;
   while (Date.now() < o + (a ? 30000 : 1e4)) {
     let m = await Kp({ proto: Ca, op: "nudge" });
     if (m.ok && m.op === "nudge") {
-      if (((a = !0), (u = m.version), !m.restarting)) {
-        if (await qr(m.version, t, m.processWrapper, m.upgradePending === !0, e)) return "down";
+      if (((a = true), (u = m.version), !m.restarting)) {
+        if (await qr(m.version, t, m.processWrapper, m.upgradePending === true, e)) return "down";
         let _ = ru();
         if (_ && !m.processWrapper) return { refuse: _ };
         if (!m.processWrapper && Gk() !== "" && !(await ZE())) return { refuse: Ye() };
@@ -1794,7 +1794,7 @@ async function zr(t, e) {
           }.VERSION;
         if (Date.now() - o > 200 || T)
           s("tengu_bg_skew_nudge", {
-            converged: !0,
+            converged: true,
             duration_ms: Date.now() - o,
             daemon_version: us(m.version),
             skewed: T,
@@ -1805,14 +1805,14 @@ async function zr(t, e) {
       continue;
     }
     if (!m.ok && m.code === "ETIMEOUT") {
-      (a = !0), (i = "etimeout"), await ve(100);
+      (a = true), (i = "etimeout"), await ve(100);
       continue;
     }
     if (!m.ok && m.code === "ENOCONN") {
       if (!a) {
         let _ = await Ch(1, e).catch(() => null);
         if (_?.bgDisabled) return "down";
-        if (_) a = !0;
+        if (_) a = true;
       }
       if (((f = nvt(m.errno)), !a)) return "down";
       (i = "enoconn"), await ve(100);
@@ -1827,7 +1827,7 @@ async function zr(t, e) {
   }
   return (
     s("tengu_bg_skew_nudge", {
-      converged: !1,
+      converged: false,
       restarting: i === "restarting",
       etimeout: i === "etimeout",
       enoconn: i === "enoconn",
@@ -1839,26 +1839,26 @@ async function zr(t, e) {
 }
 async function sL(t = {}, e) {
   if (D() !== "windows" && FBt())
-    return p("daemon_ensure_running", "uid_collapse"), { ok: !1, reason: Cdn, causeCode: "uid_collapse" };
-  return Ot(t, e, !1);
+    return p("daemon_ensure_running", "uid_collapse"), { ok: false, reason: Cdn, causeCode: "uid_collapse" };
+  return Ot(t, e, false);
 }
 async function Ot(t, e, o) {
   let a = Date.now(),
-    u = await zr(t.forceTransient ?? !1, e);
-  if (u === "up") return Oe(o), { ok: !0 };
+    u = await zr(t.forceTransient ?? false, e);
+  if (u === "up") return Oe(o), { ok: true };
   if (typeof u === "object") {
     if (t.spawnIntent)
       return (
         p("daemon_ensure_running", "daemon_ensure_client_wrapper_refused"),
         p("agent_launcher", "raw_daemon_client_misconfigured"),
-        { ok: !1, reason: u.refuse, causeCode: "wrapper" }
+        { ok: false, reason: u.refuse, causeCode: "wrapper" }
       );
-    return Oe(o), { ok: !0 };
+    return Oe(o), { ok: true };
   }
   let i = Date.now(),
     f = i - a > 40000,
     m = await Pt(),
-    _ = m ? await Gtt() : { execPathStale: !1, launcherPrefixDead: !1 },
+    _ = m ? await Gtt() : { execPathStale: false, launcherPrefixDead: false },
     T = m && (_.execPathStale || _.launcherPrefixDead);
   if (T)
     s("tengu_bg_daemon_service_stale_exec", { launcher_dead: _.launcherPrefixDead }),
@@ -1868,18 +1868,18 @@ async function Ot(t, e, o) {
           : "daemon service unit starts through a launcher that was deleted or is no longer executable \u2014 falling back to transient spawn. Run 'claude daemon install' to repair.",
         { level: "warn" },
       );
-  let S = !1;
+  let S = false;
   if (m && !T) {
-    (S = !0), t.onStarting?.();
+    (S = true), t.onStarting?.();
     let B = await kt(e);
-    if (B) return p("daemon_ensure_running", B.code), { ok: !1, reason: B.reason, causeCode: B.causeCode };
+    if (B) return p("daemon_ensure_running", B.code), { ok: false, reason: B.reason, causeCode: B.causeCode };
     let U = await qtt(),
       z = await DRe(5000);
     if (
       (s("tengu_bg_daemon_install", {
         outcome_ok: z,
-        via_service: !0,
-        fresh_install: !1,
+        via_service: true,
+        fresh_install: false,
         clock_jump: f,
         duration_ms: Date.now() - a,
         platform_darwin: D() === "macos",
@@ -1888,7 +1888,7 @@ async function Ot(t, e, o) {
       }),
       z)
     )
-      return Oe(o), { ok: !0 };
+      return Oe(o), { ok: true };
     s("tengu_bg_daemon_service_poll_fallthrough", { sr_ok: U.ok }),
       n(
         `daemon service ${mme} 5s${U.ok ? "" : ` (${U.error})`} \u2014 falling back to transient spawn. Run 'claude daemon install' to repair.`,
@@ -1899,8 +1899,8 @@ async function Ot(t, e, o) {
     return (
       s("tengu_bg_daemon_cold_start_ask", {}),
       {
-        ok: !1,
-        askInstall: !0,
+        ok: false,
+        askInstall: true,
         causeCode: "ask",
         reason: "No background daemon is running. Run 'claude daemon install' to set it up as a persistent service.",
       }
@@ -1911,11 +1911,11 @@ async function Ot(t, e, o) {
       return (
         p("daemon_ensure_running", "daemon_ensure_client_wrapper_refused"),
         p("agent_launcher", "zombie_kill_client_misconfigured"),
-        { ok: !1, reason: B ?? Ye(), causeCode: "wrapper" }
+        { ok: false, reason: B ?? Ye(), causeCode: "wrapper" }
       );
     t.onStarting?.();
     let U = await kt(e);
-    if (U) return p("daemon_ensure_running", U.code), { ok: !1, reason: U.reason, causeCode: U.causeCode };
+    if (U) return p("daemon_ensure_running", U.code), { ok: false, reason: U.reason, causeCode: U.causeCode };
   }
   let A = JC(),
     P = A.lastTransientSpawnAt === null ? null : Date.now() - A.lastTransientSpawnAt;
@@ -1929,7 +1929,7 @@ async function Ot(t, e, o) {
       recoveredAfterReinstallWait: Y,
     } = await Mkt(["daemon", "run", "--origin", "transient", "--spawned-by", C]);
   if (N) {
-    if (Q) Tt(xt(Q), { recursive: !0, force: !0 }).catch(() => {});
+    if (Q) Tt(xt(Q), { recursive: true, force: true }).catch(() => {});
     return (
       s("tengu_bg_daemon_spawn_failed", {
         errno_enoent: E(N) === "ENOENT",
@@ -1938,24 +1938,24 @@ async function Ot(t, e, o) {
         launcher_configured: Xl().length > 0 || ru() !== null,
       }),
       p("daemon_ensure_running", "daemon_ensure_spawn_failed"),
-      { ok: !1, reason: `spawn ${ou()}: ${l(N)}`, causeCode: uo(N) ?? "spawn" }
+      { ok: false, reason: `spawn ${ou()}: ${l(N)}`, causeCode: uo(N) ?? "spawn" }
     );
   }
   let O = ct({ spawnIssuedAt: q, child: K, stderrPath: Q, wrapperConfigured: Xl().length > 0, storageV5: e }),
-    W = await xe(O, Date.now() + 30000, !1),
+    W = await xe(O, Date.now() + 30000, false),
     d = Date.now() - i > 60000;
-  if (!W && d) W = await xe(O, Date.now() + 5000, !1);
-  if (!W && !d) W = await xe(O, Math.max(Date.now() + (IP - 30000), q + IP), !0);
+  if (!W && d) W = await xe(O, Date.now() + 5000, false);
+  if (!W && !d) W = await xe(O, Math.max(Date.now() + (IP - 30000), q + IP), true);
   let r = O.budgetExtended ? We : IP,
     k = !W && !d && Date.now() - q > r + 60000,
     Z = !W && (d || k) && !o && !(await Fe(O)),
-    de = !1,
+    de = false,
     re,
     M;
   if (!W) {
-    let B = await Ve(O, !0);
+    let B = await Ve(O, true);
     if (B.length > 0) {
-      (de = !0),
+      (de = true),
         n(
           `daemon: transient spawn stderr:
 ${B}`,
@@ -1968,12 +1968,12 @@ ${B}`,
       M = U && U.length > 200 ? `${ce(U, 200)}\u2026` : U;
     }
   }
-  if (Q) Tt(xt(Q), { recursive: !0, force: !0 }).catch(() => {});
+  if (Q) Tt(xt(Q), { recursive: true, force: true }).catch(() => {});
   if (
     (s("tengu_bg_daemon_install", {
       outcome_ok: W,
-      via_service: !1,
-      fresh_install: !1,
+      via_service: false,
+      fresh_install: false,
       clock_jump: d || f || k,
       duration_ms: Date.now() - a,
       platform_darwin: D() === "macos",
@@ -1998,7 +1998,7 @@ ${B}`,
       let B = await Kp({ proto: Ca, op: "nudge" }).catch(() => null);
       Dt(B?.ok && B.op === "nudge" ? B.processWrapper : void 0);
     }
-    return { ok: !0 };
+    return { ok: true };
   }
   if (Z)
     return (
@@ -2006,16 +2006,16 @@ ${B}`,
         "daemon: the clock jumped during the cold start (machine slept?) and the daemon is still unreachable \u2014 retrying the whole start once",
         { level: "warn" },
       ),
-      Ot({ ...t, onStarting: void 0 }, e, !0)
+      Ot({ ...t, onStarting: void 0 }, e, true)
     );
   p("daemon_ensure_running", "daemon_ensure_transient_unreachable");
   let X = Xl()[0];
   if (X)
     return (
-      s("tengu_bg_daemon_spawn_failed", { launcher_configured: !0, failed_stage: w("unknown") }),
+      s("tengu_bg_daemon_spawn_failed", { launcher_configured: true, failed_stage: w("unknown") }),
       p("agent_launcher", "daemon_never_reachable"),
       {
-        ok: !1,
+        ok: false,
         causeCode: "timeout",
         reason: `launcher \`${X}\` ran but Claude Code never started${M ? ` \u2014 ${M}` : ` (nothing on stderr within ${r / 1000}s)`}`,
       }
@@ -2024,14 +2024,14 @@ ${B}`,
   if (F) {
     let B = F.signal ? `signal ${F.signal}` : `exit code ${F.code ?? "?"}`;
     return {
-      ok: !1,
+      ok: false,
       causeCode: "exited",
       reason: M
         ? `${ou()} ${gme} (${B}): ${M}`
         : `${ou()} ${gme} (${B}, nothing on stderr) and no other ${ou()} answered within ${Math.round(Math.min(Date.now() - q, r) / 1000)}s`,
     };
   }
-  return { ok: !1, causeCode: "timeout", reason: `${ou()} ${mme} ${r / 1000}s` };
+  return { ok: false, causeCode: "timeout", reason: `${ou()} ${mme} ${r / 1000}s` };
 }
 function Oe(t) {
   if (t) {
@@ -2044,23 +2044,23 @@ function Yr() {
   return rp().target;
 }
 function Jr(t) {
-  if (t.daemonOrigin !== "transient") return !1;
-  if (t.daemonVersion === t.clientVersion) return !1;
-  if (t.daemonTarget === t.clientTarget) return !1;
+  if (t.daemonOrigin !== "transient") return false;
+  if (t.daemonVersion === t.clientVersion) return false;
+  if (t.daemonTarget === t.clientTarget) return false;
   let e = LRe(t.daemonVersion),
     o = LRe(t.clientVersion);
   if (e !== null && o !== null) {
-    if (nge(t.daemonVersion) !== nge(t.clientVersion)) return !1;
+    if (nge(t.daemonVersion) !== nge(t.clientVersion)) return false;
     return o > e;
   }
-  if (Btt(t.daemonVersion) || Btt(t.clientVersion)) return !1;
+  if (Btt(t.daemonVersion) || Btt(t.clientVersion)) return false;
   return (
     Ae.valid(t.clientVersion) !== null && Ae.valid(t.daemonVersion) !== null && Ae.gt(t.clientVersion, t.daemonVersion)
   );
 }
 async function qr(t, e, o, a, u) {
-  if (ru() !== null) return !1;
-  if (!I("tengu_bg_binary_takeover", !0)) return !1;
+  if (ru() !== null) return false;
+  if (!I("tengu_bg_binary_takeover", true)) return false;
   let i =
       t !==
       {
@@ -2076,20 +2076,20 @@ async function qr(t, e, o, a, u) {
       }.VERSION,
     f = i && !a,
     m = Xr(o, i);
-  if (!f && !m) return !1;
-  if (!(await ZE())) return !1;
-  if (await Pt()) return !1;
-  if (!e && I4t() === "ask" && (await It()) && !ie().daemonInstallPromptDismissed) return !1;
+  if (!f && !m) return false;
+  if (!(await ZE())) return false;
+  if (await Pt()) return false;
+  if (!e && I4t() === "ask" && (await It()) && !ie().daemonInstallPromptDismissed) return false;
   let _ = await Kr(Yr()).catch(() => null);
-  if (!_) return !1;
+  if (!_) return false;
   let T = gZ().cmd;
   if (!(await pe(T))) {
-    let N = gZ({ pinToCurrentBinary: !0 }).cmd;
-    if (N === T || !(await pe(N))) return !1;
+    let N = gZ({ pinToCurrentBinary: true }).cmd;
+    if (N === T || !(await pe(N))) return false;
   }
   let S = await Ch(1, u).catch(() => null);
-  if (!S) return !1;
-  if (!zRe(S)) return n(`bg: skipping stale-daemon retire \u2014 lock pid ${S.pid} has no procStart identity`), !1;
+  if (!S) return false;
+  if (!zRe(S)) return n(`bg: skipping stale-daemon retire \u2014 lock pid ${S.pid} has no procStart identity`), false;
   let A = Jr({
       daemonVersion: S.version,
       daemonOrigin: S.origin,
@@ -2125,7 +2125,7 @@ async function qr(t, e, o, a, u) {
           DD_SOURCEMAP_GROUP: "darwin",
         }.VERSION ||
         (a && A));
-  if (!P && !C) return !1;
+  if (!P && !C) return false;
   let q = await TBe(S.pid);
   if (q === "timed-out") {
     try {
@@ -2133,7 +2133,7 @@ async function qr(t, e, o, a, u) {
     } catch {}
     q = await TBe(S.pid);
   }
-  if (q !== "exited") return !1;
+  if (q !== "exited") return false;
   if (C) JC().prefixAxis = "took-over";
   return (
     n(
@@ -2148,26 +2148,26 @@ async function qr(t, e, o, a, u) {
       via_version: P,
       daemon_version: us(S.version),
     }),
-    !0
+    true
   );
 }
 function Xr(t, e) {
-  if (Gk() === "" || t) return !1;
+  if (Gk() === "" || t) return false;
   let a = JC();
   if (a.prefixAxis === "took-over") {
-    if (e) return !1;
+    if (e) return false;
     if (!a.prefixContractViolationLogged)
-      (a.prefixContractViolationLogged = !0),
+      (a.prefixContractViolationLogged = true),
         n(
           `bg: a raw ${ou()} is running again after this session's launcher-driven restart. Two causes look identical from here: a claude session started BEFORE CLAUDE_CODE_PROCESS_WRAPPER was deployed cold-started it (restart those sessions), or the launcher does not pass that variable through in the environment it hands to \`exec\` (launcher contract #3). Sessions dispatched to it run unwrapped either way; \`claude daemon status\` shows the launcher it records.`,
           { level: "warn" },
         ),
         s("tengu_bg_launcher_replacement_raw", {});
-    return !1;
+    return false;
   }
-  if (e) return !0;
-  if (a.prefixAxis === "attempted") return !1;
-  return (a.prefixAxis = "attempted"), !0;
+  if (e) return true;
+  if (a.prefixAxis === "attempted") return false;
+  return (a.prefixAxis = "attempted"), true;
 }
 async function kt(t) {
   let e = await Ch(1, t).catch(() => null);
@@ -2216,11 +2216,11 @@ async function kt(t) {
         causeCode: "zombie",
       }
     );
-  let u = !1;
+  let u = false;
   try {
     u = await jr(lI()).then(
-      () => !0,
-      () => !1,
+      () => true,
+      () => false,
     );
   } catch {}
   if (
@@ -2235,8 +2235,8 @@ async function kt(t) {
   return s("tengu_bg_daemon_zombie_restart", { pid: e.pid, ...a, sock_exists: u }), null;
 }
 async function Pt() {
-  if (process.env.CLAUDE_CONFIG_DIR || !(await _Q())) return !1;
-  return aL().catch(() => !1);
+  if (process.env.CLAUDE_CONFIG_DIR || !(await _Q())) return false;
+  return aL().catch(() => false);
 }
 function Zr() {
   let t = process.argv.slice(2);

@@ -438,7 +438,7 @@ async function an(e, o) {
       .catch(() => {});
   return o;
 }
-async function dn(e, { deadlineAt: o, signal: t, idempotent: r = !1 }, i) {
+async function dn(e, { deadlineAt: o, signal: t, idempotent: r = false }, i) {
   let d = ee(),
     u;
   try {
@@ -557,7 +557,7 @@ function Do(e, o, t) {
   let r = sQ(e);
   switch (r.envelope.status) {
     case "malformed":
-      return { kind: "transport_error", detail: "malformed result envelope", unreadableResult: !0 };
+      return { kind: "transport_error", detail: "malformed result envelope", unreadableResult: true };
     case "present":
       return {
         kind: "result",
@@ -588,7 +588,7 @@ function fn(e, o, t) {
   if (r !== void 0 && Mo.has(r)) return { kind: "dropped", detail: `bridge: ${r}` };
   if (r !== void 0 && Co.has(r)) return { kind: "unreachable", detail: `bridge: ${r}` };
   if (r === "malformed_result")
-    return { kind: "transport_error", detail: "bridge: malformed result", unreadableResult: !0 };
+    return { kind: "transport_error", detail: "bridge: malformed result", unreadableResult: true };
   if (o.length > Io) return;
   if (No.test(o)) return { kind: "timed_out", capMs: t };
   if (Lo.test(o)) return { kind: "dropped", detail: "bridge: disconnected" };
@@ -613,7 +613,7 @@ function gn(e, o, t) {
 var Bo = new Set(["ECONNREFUSED", "ConnectionRefused", "ENOTFOUND", "ENETUNREACH", "EAI_AGAIN", "FailedToOpenSocket"]);
 function jo(e, o) {
   let t = e !== null && typeof e === "object" && "data" in e ? e.data : void 0;
-  if (typeof t !== "object" || t === null) return !1;
+  if (typeof t !== "object" || t === null) return false;
   let r = t;
   return (
     typeof r.args_sha256 === "string" &&
@@ -714,10 +714,10 @@ class oe {
   recovery = new Pe();
   connection = void 0;
   listingMemo = void 0;
-  synced = !1;
-  lastListingFailed = !1;
+  synced = false;
+  lastListingFailed = false;
   lastForcedRelistAt = void 0;
-  reportedUnmatched = !1;
+  reportedUnmatched = false;
   provisional = void 0;
   lastListedAt = void 0;
   unconnectedSince = void 0;
@@ -732,11 +732,11 @@ function wn(e) {
     (o.lastForcedRelistAt !== void 0 && t - o.lastForcedRelistAt < r) ||
     (o.lastListedAt !== void 0 && t - o.lastListedAt < pe)
   )
-    return !1;
+    return false;
   o.lastForcedRelistAt = t;
   let i = o.connection;
   if (i !== void 0) ee().fetchToolsForClient.cache.delete(ur(i.name, i.config));
-  return (o.synced = !1), (o.listingMemo = void 0), !0;
+  return (o.synced = false), (o.listingMemo = void 0), true;
 }
 var Jo = 30000;
 async function _e(e, o, t) {
@@ -792,7 +792,7 @@ async function Zo(e, o, t, r) {
     d = dt(i);
   if (d === void 0) {
     if (A$(e.agentContext)) return;
-    if ((it(i, o, r), (o.failedAt = void 0), (o.lastListingFailed = !1), Le(e))) o.unconnectedSince ??= Date.now();
+    if ((it(i, o, r), (o.failedAt = void 0), (o.lastListingFailed = false), Le(e))) o.unconnectedSince ??= Date.now();
     else (o.provisional = void 0), (o.unconnectedSince = void 0);
     if (o.connection !== void 0)
       (o.connection = void 0),
@@ -808,9 +808,9 @@ async function Zo(e, o, t, r) {
   if (o.synced && d === o.connection && u === o.listingMemo && (m || !st(o.provisional))) return;
   if (o.failedAt?.connection === d && Date.now() - o.failedAt.time < Yo) return;
   let f = Date.now(),
-    _ = await de(d, { deadlineAt: f + Wo, recovery: o.recovery, idempotent: !0 }, (T, A) => et(T, Math.min(A, qo)));
+    _ = await de(d, { deadlineAt: f + Wo, recovery: o.recovery, idempotent: true }, (T, A) => et(T, Math.min(A, qo)));
   if (_.kind !== "ok") {
-    (o.lastListingFailed = !0),
+    (o.lastListingFailed = true),
       (o.failedAt = Date.now() - f >= zo ? { connection: d, time: Date.now() } : void 0),
       n(
         `[remote-tools] device-bridge tools/list failed (${_.kind}); keeping last known machines${"error" in _ ? `: ${l(_.error)}` : ""}`,
@@ -852,13 +852,13 @@ async function Zo(e, o, t, r) {
   if (R) ee().fetchToolsForClient.cache.delete(ur(d.name, d.config));
   (o.connection = d),
     (o.listingMemo = R ? void 0 : u),
-    (o.synced = !0),
+    (o.synced = true),
     (o.lastListedAt = Date.now()),
     (o.unconnectedSince = void 0),
     (o.provisional = k ? { at: Date.now(), since: o.provisional?.since ?? Date.now(), stub: _.value.stub } : void 0),
-    (o.reportedUnmatched = !1),
+    (o.reportedUnmatched = false),
     (o.failedAt = void 0),
-    (o.lastListingFailed = !1),
+    (o.lastListingFailed = false),
     n(`[remote-tools] device bridge matched: ${d.name} (${_.value.tools.length} tools over ${_.value.pages} page(s))`);
 }
 async function et(e, o) {
@@ -916,7 +916,7 @@ function tt(e, o, t) {
       d = () => i("aborted"),
       u = e.onNextAnnounce(() => i("announced")),
       m = setTimeout((f) => f("slice"), t, i);
-    if ((o.addEventListener("abort", d, { once: !0 }), o.aborted)) i("aborted");
+    if ((o.addEventListener("abort", d, { once: true }), o.aborted)) i("aborted");
   });
 }
 function rt(e) {
@@ -928,9 +928,9 @@ function rt(e) {
   return o.provisional.stub ? "not_connected" : void 0;
 }
 function st(e) {
-  if (e === void 0) return !1;
+  if (e === void 0) return false;
   let o = Date.now();
-  if (!e.stub && o - e.since >= fe) return !1;
+  if (!e.stub && o - e.since >= fe) return false;
   return o - e.at >= pe;
 }
 function it(e, o, t) {
@@ -938,7 +938,7 @@ function it(e, o, t) {
   if (r.length === 0 || o.reportedUnmatched) return;
   let i = r.map(at);
   if (i.every((d) => d === "connecting")) return;
-  (o.reportedUnmatched = !0),
+  (o.reportedUnmatched = true),
     n(
       `[remote-tools] a '${k7}' MCP entry exists but was not adopted as the device bridge: ${r.map((d, u) => `${i[u]} (type=${d.type}, scope=${d.config.scope})`).join("; ")}`,
       { level: "warn" },
@@ -996,7 +996,7 @@ function Cn(e) {
       (t.length === 0 || (t.length === 1 && (i === k7 || (r !== void 0 && i === ct(r)))))
     );
   } catch {
-    return !1;
+    return false;
   }
 }
 var lt = "00000000-0000-0000-0000-000000000000";
@@ -1334,9 +1334,9 @@ async function Gn({
     _ = LDn(r),
     b = 0,
     k = 0,
-    R = (P, S = !1) => ({ verdict: P, attempts: b, epochChanged: S }),
+    R = (P, S = false) => ({ verdict: P, attempts: b, epochChanged: S }),
     T = { kind: "unknown", why: "budget_exhausted" },
-    A = !1;
+    A = false;
   while (!i.aborted) {
     let P = f - m();
     if (P < d.minAttemptMs) return R(T, A);
@@ -1380,13 +1380,13 @@ function xt(e, o) {
   switch (t.outcome) {
     case "completed":
     case "failed":
-      return t.replayed === !0 ? { kind: "answer", transported: e } : { kind: "unknown", why: "unreadable" };
+      return t.replayed === true ? { kind: "answer", transported: e } : { kind: "unknown", why: "unreadable" };
     case "refused":
       if (t.code === "unknown_call") {
         if (t.host_epoch === void 0 || o === void 0) return { kind: "unknown", why: "no_epoch" };
         return t.host_epoch === o ? { kind: "not_received" } : { kind: "host_restarted" };
       }
-      return t.replayed === !0 ? { kind: "answer", transported: e } : { kind: "unknown", why: "refused" };
+      return t.replayed === true ? { kind: "answer", transported: e } : { kind: "unknown", why: "refused" };
     case "needs_approval":
       return { kind: "answer", transported: e };
     case "in_progress":
@@ -1438,13 +1438,13 @@ async function re({ tool: e, parsedInput: o, requestBytes: t, toolUseContext: r,
         ruleMessage:
           k.ruleValue.ruleContent === void 0
             ? `The rule ${eo(k.ruleValue)} denies this session the bridge that reaches ${i.name}, so its ${e.name} is not forwarded there either.`
-            : e.isMcp === !0
+            : e.isMcp === true
               ? `${rEe(e.name, k)} Rules on this tool apply to a forwarded call field by field; one this session cannot check that way (a field the tool does not declare, or a structured value) refuses every forwarded call, and a plain rule on mcp__${uy} covers every attached machine's tools.`
               : `${rEe(e.name, k)} Rules on the bridge's names apply to a forwarded call field by field, and one this session cannot check that way (a pattern over the command, or the machine field) refuses every forwarded ${e.name}: ${e.name}(\u2026) scopes a rule to commands, ${e.name}(${Pi}:\u2026) to one machine, and a plain rule on mcp__${uy} covers every attached machine whatever it calls itself.`,
       }),
     };
   let R = b ? Wn(d, e, o, "ask") : null,
-    T = await Jx(e, o, Nue(r, [Gt]), { crashIsObjection: !0 }),
+    T = await Jx(e, o, Nue(r, [Gt]), { crashIsObjection: true }),
     A = T?.behavior === "ask" && T.decisionReason?.type === "other" && T.decisionReason.reason === vSe;
   if (T?.behavior === "deny" || A)
     return {
@@ -1497,7 +1497,7 @@ function Vt(e, o) {
   try {
     return e.isReadOnly(o);
   } catch {
-    return !1;
+    return false;
   }
 }
 function ye(e) {
@@ -1508,12 +1508,12 @@ function ye(e) {
 }
 var Gt = { kind: "sandbox_auto_allow_suspended" };
 function Wn(e, o, t, r) {
-  let i = [o.isMcp === !0 ? my(o) : xc(uy, o.name), Bl(uy).replace(/__$/, "")],
+  let i = [o.isMcp === true ? my(o) : xc(uy, o.name), Bl(uy).replace(/__$/, "")],
     d = i.reduce((_, b) => _ ?? (r === "deny" ? _s(e, { name: b }) : jg(e, { name: b })), null);
   if (d) return d;
-  let u = o.isMcp === !0 ? o.inputJSONSchema?.properties : Reflect.get(o.inputSchema, "shape"),
+  let u = o.isMcp === true ? o.inputJSONSchema?.properties : Reflect.get(o.inputSchema, "shape"),
     m = new Set(typeof u === "object" && u !== null ? Object.keys(u) : []),
-    f = (_) => o.isMcp === !0 && typeof t[_] === "object" && t[_] !== null;
+    f = (_) => o.isMcp === true && typeof t[_] === "object" && t[_] !== null;
   return i.reduce((_, b) => {
     if (_) return _;
     let k = QF(e, { name: b, ruleContentField: o.ruleContentField }, t, r);
@@ -1521,7 +1521,7 @@ function Wn(e, o, t, r) {
     return (
       (r === "deny" ? cg(e) : WM(e)).find((T) => {
         let A = T.ruleValue.ruleContent;
-        if (A === void 0 || !Tyt(e, { name: b }, T)) return !1;
+        if (A === void 0 || !Tyt(e, { name: b }, T)) return false;
         let P = A.slice(0, Math.max(0, A.indexOf(":"))).trim();
         return (
           !i.includes(T.ruleValue.toolName) ||
@@ -1561,7 +1561,7 @@ function Yn(e) {
 }
 import { isDeepStrictEqual as Yt } from "util";
 function zn(e, o) {
-  return Xn(e).every(([t, r]) => Yt(r, o[t])) && Xn(o).every(([t, r]) => e[t] !== void 0 || r === !1);
+  return Xn(e).every(([t, r]) => Yt(r, o[t])) && Xn(o).every(([t, r]) => e[t] !== void 0 || r === false);
 }
 function Xn(e) {
   return Object.entries(e).filter(([, o]) => o !== void 0);
@@ -1589,7 +1589,7 @@ class Fe {
           if (f !== -1) r.waiters.splice(f, 1);
           d(void 0), this.#n(r);
         };
-      r.waiters.push(u), t.addEventListener("abort", m, { once: !0 }), this.#n(r);
+      r.waiters.push(u), t.addEventListener("abort", m, { once: true }), this.#n(r);
     });
   }
   #n(e) {
@@ -1629,7 +1629,7 @@ function je(e, o, t, r, i, d) {
             : u.isError
               ? "completed_error"
               : "completed"
-        : u.code === "transport_error" && u.unreadableResult === !0
+        : u.code === "transport_error" && u.unreadableResult === true
           ? "unreadable_result"
           : u.code;
   s("tengu_remote_tool_forward", {
@@ -1643,7 +1643,7 @@ function je(e, o, t, r, i, d) {
     envelope: u.kind === "completed" ? c(u.envelope) : void 0,
     output_parsed: u.kind === "completed" ? u.output !== void 0 : void 0,
     truncated: u.kind === "completed" ? u.truncated : void 0,
-    cut_here: u.kind === "completed" ? u.cutHere === !0 : void 0,
+    cut_here: u.kind === "completed" ? u.cutHere === true : void 0,
     host_kind: ke(o.description?.kind),
     protocol_version: o.protocol.kind === "compatible" ? o.protocol.version : void 0,
     approval: ke(r.approval),
@@ -1702,7 +1702,7 @@ function Ue(e, o, t, r) {
   s("tengu_remote_tool_forward", { tool: Qn(e), entry: c(o), outcome: c(t), tool_use_id: ve(r) }), Jn(t);
 }
 function Qn(e) {
-  return e.isMcp === !0 ? Un("mcp__tool") : Un(e.name);
+  return e.isMcp === true ? Un("mcp__tool") : Un(e.name);
 }
 var Xt = 32,
   zt = 5000,
@@ -1777,7 +1777,7 @@ function rr({ tool: e, input: o }) {
   try {
     return Boolean(e.isConcurrencySafe(o));
   } catch {
-    return !1;
+    return false;
   }
 }
 async function sr({
@@ -1802,7 +1802,7 @@ async function sr({
     return {
       outcome: { kind: "error", code: "not_served", message: vRt({ name: o.name, toolName: e.name }), host: k },
     };
-  let P = (N, M, x = !1) =>
+  let P = (N, M, x = false) =>
       ir({
         transported: N,
         leg: M,
@@ -1876,7 +1876,7 @@ async function sr({
         },
       };
     if (u.aborted) return { outcome: aUe(k), requestBytes: L };
-    let N = !1,
+    let N = false,
       M = await m({
         askId: Qt,
         host: k,
@@ -1885,11 +1885,11 @@ async function sr({
         message: z.message,
         decisionReason: void 0,
         suggestions: [],
-        classifierEligible: !1,
+        classifierEligible: false,
       }).catch((x) => {
         if (x instanceof Ze && !u.aborted) throw x;
         if (!u.aborted)
-          (N = !0), n(`remote tool call: this session's own permission prompt failed: ${l(x)}`, { level: "error" });
+          (N = true), n(`remote tool call: this session's own permission prompt failed: ${l(x)}`, { level: "error" });
         return;
       });
     if (M === void 0)
@@ -1986,7 +1986,7 @@ async function sr({
     return { requestBytes: L, reconcile: X.trace, ...iUe(e, o, ae, { afterReconnect: X.kind === "answered" }) };
   let Ee = await (async () => {
     if (m === void 0) return F(O.ask_id), { requestBytes: L, approval: "no_handler", ...iUe(e, o, ae) };
-    let N = tq(O.input) <= ye(o) ? e.inputSchema.safeParse(O.input) : { success: !1 };
+    let N = tq(O.input) <= ye(o) ? e.inputSchema.safeParse(O.input) : { success: false };
     if (O.tool !== A.ask || !N.success)
       return (
         F(O.ask_id),
@@ -2008,9 +2008,9 @@ async function sr({
       throw (F(O.ask_id), C);
     });
     if (M.kind === "refuse") return F(O.ask_id), { requestBytes: L, approval: "withdrawn", outcome: Ve(M, o.name, k) };
-    let x = !1,
-      J = se !== void 0 && (M.kind !== "ask_first" || M.rule === se) && O.prior_answer_ok === !0 && zn(N.data, S),
-      nn = O.classifier_eligible === !0 && M.kind !== "ask_first" && G === "auto",
+    let x = false,
+      J = se !== void 0 && (M.kind !== "ask_first" || M.rule === se) && O.prior_answer_ok === true && zn(N.data, S),
+      nn = O.classifier_eligible === true && M.kind !== "ask_first" && G === "auto",
       H = J
         ? { decision: "allow" }
         : await m({
@@ -2150,19 +2150,19 @@ async function sr({
         if (U?.outcome === "acknowledged" && U.ask_id === O.ask_id)
           return {
             approval: "withdrawn",
-            outcome: { kind: "error", code: "approval_not_received", message: s8t(o.name, B, !0), host: k },
+            outcome: { kind: "error", code: "approval_not_received", message: s8t(o.name, B, true), host: k },
           };
         if (
           C?.kind === "result" &&
           U !== void 0 &&
           (U.outcome === "in_progress" ||
-            (U.outcome !== "needs_approval" && U.outcome !== "acknowledged" && U.replayed === !0) ||
+            (U.outcome !== "needs_approval" && U.outcome !== "acknowledged" && U.replayed === true) ||
             (U.outcome === "completed" && U.disposition === "duplicate_call"))
         )
-          return { approval: Oe, ...iUe(e, o, C, { afterReconnect: !0 }) };
+          return { approval: Oe, ...iUe(e, o, C, { afterReconnect: true }) };
         return {
           approval: "withdrawn",
-          outcome: { kind: "error", code: "approval_not_received", message: s8t(o.name, B, !1), host: k },
+          outcome: { kind: "error", code: "approval_not_received", message: s8t(o.name, B, false), host: k },
         };
       };
     return (async (C) => {
@@ -2244,7 +2244,7 @@ async function ir({
   signal: u,
   timing: m,
   onStatus: f,
-  approvedByClassifier: _ = !1,
+  approvedByClassifier: _ = false,
 }) {
   if (e.kind !== "dropped" && e.kind !== "timed_out") return { kind: "as_is", transported: e, trace: void 0 };
   let b = o === 1 ? (e.sentUnderEpoch ?? r) : r;
@@ -2331,7 +2331,7 @@ function dr(e, o) {
   return { permissionMode: ODn(r), isBypassAvailable: t.isBypassPermissionsModeAvailable };
 }
 function lr(e, o) {
-  if (e.isMcp !== !0) return { wire: e.name, ask: e.name };
+  if (e.isMcp !== true) return { wire: e.name, ask: e.name };
   let t = e.mcpInfo?.toolName,
     r = t === void 0 ? void 0 : o.passthroughTools?.get(t);
   return t === void 0 || r === void 0 ? void 0 : { wire: t, ask: r.localName };
@@ -2343,8 +2343,8 @@ function oo(e, o, t) {
     u = le(e, o),
     m =
       u === void 0
-        ? { type: "tool_result", tool_use_id: t, content: i ? o.content : _r(o.content), ...(d && { is_error: !0 }) }
-        : { ...e.mapToolResultToToolResultBlockParam(u, t), ...(d && { is_error: !0 }) };
+        ? { type: "tool_result", tool_use_id: t, content: i ? o.content : _r(o.content), ...(d && { is_error: true }) }
+        : { ...e.mapToolResultToToolResultBlockParam(u, t), ...(d && { is_error: true }) };
   return gr(hr(m, Te(o)), Ge(e, o));
 }
 function Ge(e, o) {
@@ -2358,7 +2358,7 @@ function Ge(e, o) {
           `(this session cut ${o.host.name}'s result to its own limits: ${oUe.toLocaleString("en-US")} characters of text, inline images up to ${c8t / 1048576} MiB, ${PRt} blocks)`,
         ]
       : []),
-    ...(r || (o.cutHere === !0 && !t)
+    ...(r || (o.cutHere === true && !t)
       ? [`(this session kept only the first ${be.toLocaleString("en-US")} characters of ${o.host.name}'s answer)`]
       : []),
     ...(eq(o.disposition) ? yr(o, e) : []),
@@ -2406,14 +2406,14 @@ function le(e, o) {
   if (o.output !== void 0) return o.output;
   if (o.isError || e.name !== Qe || !mr(o.content)) return;
   let t = pRe(o.content),
-    r = e.outputSchema?.safeParse({ stdout: o.envelope === "present" ? t : eE(t, be), stderr: "", interrupted: !1 });
+    r = e.outputSchema?.safeParse({ stdout: o.envelope === "present" ? t : eE(t, be), stderr: "", interrupted: false });
   return r?.success ? r.data : void 0;
 }
 function mr(e) {
   return typeof e === "string" || e.every((o) => o.type === "text");
 }
 function We(e, o) {
-  return { type: "tool_result", tool_use_id: o, content: `<tool_use_error>${e}</tool_use_error>`, is_error: !0 };
+  return { type: "tool_result", tool_use_id: o, content: `<tool_use_error>${e}</tool_use_error>`, is_error: true };
 }
 var pr = 2000,
   Ke = 8;
@@ -2512,7 +2512,7 @@ async function kr(e, o, t, r, i) {
     case "unknown":
       return i.listingUnavailable(r, d)
         ? { kind: "error", code: "host_offline", message: i8t() }
-        : (Sr(i.listingProvisional?.(r), d, o, m, i.bridgeReached?.(r) ?? !0) ?? {
+        : (Sr(i.listingProvisional?.(r), d, o, m, i.bridgeReached?.(r) ?? true) ?? {
             kind: "error",
             code: "unknown_host",
             message: ARt({
@@ -2572,7 +2572,7 @@ async function wr(e, o, t, r) {
       kind: "error",
       code: "not_served",
       message:
-        _.rejectedPassthroughTools?.has(b) === !0
+        _.rejectedPassthroughTools?.has(b) === true
           ? dDn({ name: _.name, toolName: e.name })
           : vRt({ name: _.name, toolName: e.name }),
     };
@@ -2715,14 +2715,14 @@ function Mr({ tool: e, toolUseContext: o, canUseTool: t, parentMessage: r, toolU
         insteadOfRejection: { message: m.message, denialKind: m.denialKind },
       };
     let f = `runs on ${u.host.name}`,
-      _ = e.isMcp === !0 ? { ...u.input } : { ...u.input, [Pi]: u.host.name },
+      _ = e.isMcp === true ? { ...u.input } : { ...u.input, [Pi]: u.host.name },
       b = `(${f}) ${Kr(u.message)}`,
       k = {
         behavior: "ask",
         message: b,
         decisionReason: { type: "other", reason: b },
-        suppressAlwaysAllowRule: !0,
-        forcedByCaller: !0,
+        suppressAlwaysAllowRule: true,
+        forcedByCaller: true,
       };
     if (he(o).shouldAvoidPermissionPrompts)
       return {
@@ -2732,7 +2732,7 @@ function Mr({ tool: e, toolUseContext: o, canUseTool: t, parentMessage: r, toolU
           denialKind: "permission-rule",
         },
       };
-    let R = e.isMcp === !0 ? { ...e, suppressesAllPermissionUpdates: () => !0 } : e,
+    let R = e.isMcp === true ? { ...e, suppressesAllPermissionUpdates: () => true } : e,
       T = await t(R, _, o, r, i, k);
     if (T.behavior === "allow") {
       let P = T.updatedInput ?? {};
@@ -2755,7 +2755,7 @@ function Mr({ tool: e, toolUseContext: o, canUseTool: t, parentMessage: r, toolU
     }
     if (T.behavior === "deny" && T.decisionReason?.type === "hook")
       return { decision: "deny", insteadOfRejection: { message: T.message, denialKind: "permission-rule" } };
-    if (T === k || (T.behavior === "ask" && T.forcedByCaller === !0))
+    if (T === k || (T.behavior === "ask" && T.forcedByCaller === true))
       return {
         decision: "deny",
         insteadOfRejection: {
@@ -2826,7 +2826,7 @@ ${_}`,
           Tbe(k, b, R, he(t), t.abortController.signal, {
             isSubagentLoop: sP(t.agentId),
             recordPresumed: t.agentId === void 0,
-            severityEligible: !0,
+            severityEligible: true,
             storageV5: t.storageV5,
             credentials: t.credentials,
             agentId: t.agentId,
@@ -2865,7 +2865,7 @@ ${_}`,
       (s("tengu_remote_tool_classifier", {
         decision: c(G),
         cause: c(W),
-        headless: I.shouldAvoidPermissionPrompts === !0,
+        headless: I.shouldAvoidPermissionPrompts === true,
         duration_ms: Date.now() - T,
         tool_use_id: ve(r),
         ...A,
@@ -2887,7 +2887,7 @@ ${_}`,
     if (S.refusedBySafeguard) {
       if (Z)
         throw new Ze("Agent aborted: auto mode classifier request refused by the safety safeguard in headless mode");
-      return { kind: "block", message: fGe(S.reason, { refused: !0 }), denialKind: "automode-unavailable" };
+      return { kind: "block", message: fGe(S.reason, { refused: true }), denialKind: "automode-unavailable" };
     }
     if (S.unavailable)
       return {
@@ -2897,7 +2897,7 @@ ${_}`,
       };
     if (S.failureMode !== void 0) {
       if (x$t(t, H$t(t), e, i)) return { kind: "no_verdict" };
-      return { kind: "block", message: fGe(S.reason, { refused: !1 }), denialKind: "automode-parsing-error" };
+      return { kind: "block", message: fGe(S.reason, { refused: false }), denialKind: "automode-parsing-error" };
     }
     return { kind: "no_verdict" };
   } catch (S) {
@@ -2907,7 +2907,7 @@ ${_}`,
       s("tengu_remote_tool_classifier", {
         decision: c("no_verdict"),
         cause: c("crashed"),
-        headless: he(t).shouldAvoidPermissionPrompts === !0,
+        headless: he(t).shouldAvoidPermissionPrompts === true,
         duration_ms: Date.now() - T,
         tool_use_id: ve(r),
         ...A,
@@ -3001,7 +3001,7 @@ async function* $r({ tool: e, toolUse: o, route: t, assistantMessage: r, toolUse
         host: ET(b.remoteOrigin.host.name),
         lines: Ge(e, b.remoteOrigin),
         label: Te(b.remoteOrigin),
-        ...(b.remoteOrigin.envelope !== "present" && { unverified: !0 }),
+        ...(b.remoteOrigin.envelope !== "present" && { unverified: true }),
         ...(b.remoteOrigin.host.working_dir && { workingDir: b.remoteOrigin.host.working_dir }),
         ...(k !== void 0 && { disposition: k }),
       }),
@@ -3054,7 +3054,7 @@ function io({ outcome: e, toolUseId: o, assistantMessage: t, signal: r, now: i }
     case "interrupted": {
       let d = po(r);
       return xe({
-        content: [{ type: "tool_result", content: d, is_error: !0, tool_use_id: o }],
+        content: [{ type: "tool_result", content: d, is_error: true, tool_use_id: o }],
         toolUseResult: d,
         toolDenialKind: "interrupted",
         interruptedByShutdown: qS(r),
@@ -3150,11 +3150,11 @@ function jr(e, o) {
     d = o.sessionNotes ?? [],
     u = r === "" ? t : `${t}:${r}`,
     m = {
-      ...(o.envelope === "present" ? { ran_on: u } : { answered_by: t, unverified: !0 }),
-      ...(o.delivery !== "fresh" && { not_rerun: !0 }),
-      ...(o.delivery === "after_reconnect" && { delivered_after_reconnect: !0 }),
-      ...(o.truncated && { truncated: !0 }),
-      ...((o.cutHere === !0 || (!(eq(o.disposition) && o.envelope === "present") && qe(o))) && { cut_here: !0 }),
+      ...(o.envelope === "present" ? { ran_on: u } : { answered_by: t, unverified: true }),
+      ...(o.delivery !== "fresh" && { not_rerun: true }),
+      ...(o.delivery === "after_reconnect" && { delivered_after_reconnect: true }),
+      ...(o.truncated && { truncated: true }),
+      ...((o.cutHere === true || (!(eq(o.disposition) && o.envelope === "present") && qe(o))) && { cut_here: true }),
       ...(i.length > 0 && { host_notes: i }),
       ...(d.length > 0 && { session_notes: d }),
     };

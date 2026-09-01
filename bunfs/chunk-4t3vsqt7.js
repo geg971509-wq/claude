@@ -53,7 +53,7 @@ function h(e) {
   return `${i}//${t.host}`;
 }
 function mrr() {
-  return !1;
+  return false;
 }
 function grr() {
   return O() ?? zt().BASE_API_URL;
@@ -62,7 +62,7 @@ function O() {
   return;
 }
 function hrr() {
-  return !1;
+  return false;
 }
 function owt() {
   return;
@@ -312,7 +312,7 @@ function W(e) {
   let t = [];
   for (let r of e.match(M) ?? []) {
     if (r.length > H) {
-      if (z.test(r)) t.push({ dark: !1, oversize: !0 });
+      if (z.test(r)) t.push({ dark: false, oversize: true });
       continue;
     }
     let i, o, u;
@@ -332,11 +332,11 @@ function W(e) {
   return t;
 }
 function iTn(e) {
-  let t = { pastWindow: !1 },
+  let t = { pastWindow: false },
     r = A(e).replace(R, "");
   for (let { href: o, dark: u, badMedia: c, oversize: d } of W(r))
-    if (d) t.oversizeTag = !0;
-    else if (o === void 0) t.missingHref = !0;
+    if (d) t.oversizeTag = true;
+    else if (o === void 0) t.missingHref = true;
     else if (c !== void 0) t.badMedia ??= c;
     else if (u) t.dark ??= o;
     else t.light ??= o;
@@ -438,16 +438,16 @@ var re = /^[\p{Extended_Pictographic}\p{Emoji_Modifier}]$/u,
   ue =
     /^[\p{Script=Arabic}\p{Script=Syriac}\p{Script=Mongolian}\p{Script=Devanagari}\p{Script=Bengali}\p{Script=Gurmukhi}\p{Script=Gujarati}\p{Script=Oriya}\p{Script=Tamil}\p{Script=Telugu}\p{Script=Kannada}\p{Script=Malayalam}\p{Script=Sinhala}\p{Script=Myanmar}\p{Script=Tibetan}\p{Script=Khmer}]$/u,
   se = /^[\n\r\t\v\f\u0085\u2028\u2029]$/;
-function awt(e, t, { joiners: r } = { joiners: !0 }) {
+function awt(e, t, { joiners: r } = { joiners: true }) {
   let i = Ry(e),
     o = [],
     u = 0,
-    c = !1,
+    c = false,
     d = 0,
     s = "none";
   for (let f of i) {
     if (++u > 16 * t || o.length >= t + 1) {
-      c = !0;
+      c = true;
       break;
     }
     let l = f.codePointAt(0) ?? 0;
@@ -468,7 +468,7 @@ function awt(e, t, { joiners: r } = { joiners: !0 }) {
         (s = re.test(f) ? "pictograph" : ie.test(f) ? "keycap" : oe.test(f) ? "han" : ue.test(f) ? "joining" : "plain");
     else s = "none";
   }
-  if (o.length > t) c = !0;
+  if (o.length > t) c = true;
   return { kept: zd(o.slice(0, c ? t - 1 : t).join("")), cut: c };
 }
 function ANe(e, t) {
@@ -476,7 +476,7 @@ function ANe(e, t) {
   return i ? `${r}\u2026` : r;
 }
 function gO(e, t) {
-  let { kept: r, cut: i } = awt(e, t, { joiners: !1 });
+  let { kept: r, cut: i } = awt(e, t, { joiners: false });
   return i ? `${r}\u2026` : r;
 }
 function Gkr(e) {

@@ -109,7 +109,7 @@ var s = {
     name: "list-agents",
     aliases: ["peers"],
     description: "List subagents, teammates, and other Claude sessions you can message",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     isEnabled: () => Yo(),
     load: () => import("/$bunfs/root/chunk-aay97435.js"),
   },

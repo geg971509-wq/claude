@@ -45,7 +45,7 @@ function hwt(e, r) {
       "X-Session-UUID": r,
       "anthropic-version": "2023-06-01",
     },
-    alwaysLoad: !0,
+    alwaysLoad: true,
   };
 }
 var K4t = ["/v2/session_ingress/shttp/mcp/", "/v2/session_ingress/mcp/ws/", "/v2/ccr-sessions/", "/v1/code/"],
@@ -74,32 +74,32 @@ function _wt() {
 }
 function aP(e) {
   let r = i0.atStartup;
-  if (!r) return !1;
+  if (!r) return false;
   let n, t;
   try {
     (n = new URL(e)), (t = new URL(r));
   } catch {
-    return !1;
+    return false;
   }
   if ((n.protocol === "wss:" ? `https://${n.host}` : n.protocol === "ws:" ? `http://${n.host}` : n.origin) !== t.origin)
-    return !1;
+    return false;
   return K4t.some((i) => n.pathname.includes(i));
 }
 function ywt(e, r) {
-  if (!("url" in r) || typeof r.url !== "string") return !1;
-  if (!aP(r.url)) return !1;
+  if (!("url" in r) || typeof r.url !== "string") return false;
+  if (!aP(r.url)) return false;
   switch (i0.bridgeCarrier) {
     case void 0:
-      return !0;
+      return true;
     case "child":
       return r.scope === "dynamic" && e === G6;
     case "descendant":
-      return !1;
+      return false;
   }
 }
 function f(e, r) {
   let n = u(e, r);
-  if (!n) return !1;
+  if (!n) return false;
   if (n.pathname === a) return n.search === "";
   let t = n.searchParams.getAll("toolbox_mcp_server_id");
   return K4t.some((s) => n.pathname.includes(s)) && t.length === 1 && t[0] === c;
@@ -165,12 +165,12 @@ function bwt(e) {
 var m = "/v1/code/mcp/hearthbot",
   M = /^\/v2\/ccr-sessions\/(?:-|[A-Za-z0-9_-]+)\/hearthbot\/mcp$/;
 function Crr(e) {
-  if (!aP(e)) return !1;
+  if (!aP(e)) return false;
   let r;
   try {
     r = new URL(e);
   } catch {
-    return !1;
+    return false;
   }
   return (
     r.username === "" &&
@@ -186,29 +186,29 @@ function X4t(e) {
   try {
     r = new URL(e);
   } catch {
-    return !1;
+    return false;
   }
   return r.protocol === "wss:" && r.username === "" && r.password === "" && _.has(r.hostname);
 }
 function sXe(e) {
-  if ("url" in e && typeof e.url === "string" && aP(e.url)) return !0;
+  if ("url" in e && typeof e.url === "string" && aP(e.url)) return true;
   return LT(e);
 }
 function aXe(e) {
-  if (!aP(e)) return !1;
+  if (!aP(e)) return false;
   let r;
   try {
     r = new URL(e);
   } catch {
-    return !1;
+    return false;
   }
   let n = r.searchParams.get("mcp_url");
-  if (!n) return !1;
+  if (!n) return false;
   try {
     let t = new URL(n);
     return _.has(t.hostname) && t.pathname === "/devices/mcp";
   } catch {
-    return !1;
+    return false;
   }
 }
 function IAe(e) {

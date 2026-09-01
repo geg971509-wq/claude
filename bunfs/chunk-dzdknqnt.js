@@ -65,10 +65,10 @@ async function U8t(e, t) {
           `
 `,
       ),
-      !0
+      true
     );
   } catch {
-    return !1;
+    return false;
   }
 }
 function AK(e) {
@@ -95,7 +95,7 @@ function AK(e) {
   };
 }
 function Yt() {
-  return { current: null, noticed: !1 };
+  return { current: null, noticed: false };
 }
 function B8t(e, t) {
   e.current = { value: Promise.resolve(t), origin: "given" };
@@ -141,26 +141,26 @@ function wOn(e, t) {
   return e.subscribe(t);
 }
 function TOn({ deps: e, pin: t, onNotAsked: r, isStoreInReach: s, onUntrustedStore: c }) {
-  let y = !1;
+  let y = false;
   return async (p, w, h) => {
     let { stored: l, origin: v } = await j8t(t, e);
     if (l !== "unset" && v === "read") {
       let g = await Promise.resolve()
-        .then(() => s?.(h) ?? !1)
+        .then(() => s?.(h) ?? false)
         .catch(() => "unresolvable");
-      if (g !== !1) {
-        if (!y) (y = !0), c?.(g);
+      if (g !== false) {
+        if (!y) (y = true), c?.(g);
         if (g === "unresolvable") return "distrusted";
       } else return l;
     } else if (l !== "unset") return l;
-    if (!w.aborted && !t.noticed) (t.noticed = !0), r?.(p);
+    if (!w.aborted && !t.noticed) (t.noticed = true), r?.(p);
     return "not_now";
   };
 }
 async function mtt(e, t, r) {
   try {
     let s = await r(e);
-    return rh([e, s], t) ? "writable" : !1;
+    return rh([e, s], t) ? "writable" : false;
   } catch {
     return "unresolvable";
   }
@@ -183,14 +183,14 @@ async function tn(e, t) {
   try {
     r = await t.realpath(e.path);
   } catch {
-    return { ok: !1, reason: "unreadable" };
+    return { ok: false, reason: "unreadable" };
   }
-  if (r !== e.realPath) return { ok: !1, reason: "relocated", realPath: r };
+  if (r !== e.realPath) return { ok: false, reason: "relocated", realPath: r };
   let s = await ght(r, { open: t.openNoFollow });
-  if (!s.ok) return { ok: !1, reason: s.reason, realPath: r };
+  if (!s.ok) return { ok: false, reason: s.reason, realPath: r };
   return s.sha256 === e.sha256
-    ? { ok: !0, bytes: s.bytes, realPath: r }
-    : { ok: !1, reason: "changed", realPath: r, current: { sha256: s.sha256, bytes: s.bytes } };
+    ? { ok: true, bytes: s.bytes, realPath: r }
+    : { ok: false, reason: "changed", realPath: r, current: { sha256: s.sha256, bytes: s.bytes } };
 }
 var zn = "claude-device-hooks-";
 function Qt(e) {
@@ -201,7 +201,7 @@ function EOn(e, t) {
   let r = null,
     s = new Map(),
     c = 0,
-    y = !1,
+    y = false,
     p = (l) => t().some((v) => l.some((g) => nTe(g, v))),
     w = () => {
       if (y) return Promise.reject(Error("device hook staging is disposed"));
@@ -226,12 +226,12 @@ function EOn(e, t) {
       c += 1;
       let U = Ot(W, `${l.slice(0, 16)}-${c}-${Qt(g)}`);
       await e.writeFileExclusive(U, v, 448);
-      let j = !1;
+      let j = false;
       return {
         path: U,
         async release() {
           if (j) return;
-          (j = !0), await e.unlink(U).catch(() => {});
+          (j = true), await e.unlink(U).catch(() => {});
         },
       };
     },
@@ -250,7 +250,7 @@ function EOn(e, t) {
       return await h(), W;
     },
     async dispose() {
-      y = !0;
+      y = true;
       let l = r;
       if (((r = null), s.clear(), l === null)) return;
       let v = await l.catch(() => null);
@@ -276,7 +276,7 @@ function AOn() {
     realpath: en,
     writeFileExclusive: (e, t, r) => Gn(e, t, { mode: r, flag: "wx" }),
     unlink: Bn,
-    rm: (e) => Wn(e, { recursive: !0, force: !0 }),
+    rm: (e) => Wn(e, { recursive: true, force: true }),
   };
 }
 var COn = { execCommand: uun, execHttp: Zpt },
@@ -299,14 +299,14 @@ function Mt(e) {
 async function vOn({ hook: e, event: t, input: r, timeoutMs: s, env: c }, y, p, w) {
   if (w.aborted)
     return e.type === "http"
-      ? { kind: "http", ok: !1, body: "", aborted: !0 }
-      : { kind: "command", stdout: "", stderr: "", status: 1, aborted: !0 };
+      ? { kind: "http", ok: false, body: "", aborted: true }
+      : { kind: "command", stdout: "", stderr: "", status: 1, aborted: true };
   let h = b(r);
   if (e.type === "http")
     try {
       return { kind: "http", ...(await p.execHttp({ ...e, timeout: void 0 }, t, h, w, s)) };
     } catch (g) {
-      return { kind: "http", ok: !1, body: "", error: g instanceof Error ? g.message : String(g) };
+      return { kind: "http", ok: false, body: "", error: g instanceof Error ? g.message : String(g) };
     }
   let { signal: l, cleanup: v } = Ja(w, { timeoutMs: s });
   try {
@@ -332,7 +332,7 @@ async function vOn({ hook: e, event: t, input: r, timeoutMs: s, env: c }, y, p, 
       stdout: "",
       stderr: g instanceof Error ? g.message : String(g),
       status: 1,
-      spawnFailed: !0,
+      spawnFailed: true,
     };
   } finally {
     v();
@@ -362,22 +362,22 @@ function on(e, t) {
   let { answer: s } = Wie(r.answer, t.event);
   if (r.exitClass === "2" && r.blocked && !z8t(s) && e.kind === "command") {
     let c = st(t.event, `[${t.label}]: ${e.stderr || "No stderr output"}`, s);
-    return { ...r, answer: Wie(c, t.event).answer, exitClass: "2", blocked: !0 };
+    return { ...r, answer: Wie(c, t.event).answer, exitClass: "2", blocked: true };
   }
   return { ...r, answer: s, blocked: Gf(s) };
 }
-function Vn(e, { event: t, label: r, timedOut: s, timeoutMs: c, timeoutFailsClosed: y = !1 }) {
-  if (e.aborted && !s) return { answer: null, exitClass: "cancelled", blocked: !1 };
+function Vn(e, { event: t, label: r, timedOut: s, timeoutMs: c, timeoutFailsClosed: y = false }) {
+  if (e.aborted && !s) return { answer: null, exitClass: "cancelled", blocked: false };
   if (e.aborted) {
     let g = Math.round(c / 1000),
       W = `[${r}]: timed out after ${g}s on the attached machine`;
     if (y && (t === "PreToolUse" || t === "UserPromptSubmit" || t === "UserPromptExpansion"))
-      return { answer: st(t, W), exitClass: "timeout", blocked: !0 };
+      return { answer: st(t, W), exitClass: "timeout", blocked: true };
     return {
       answer: {},
       exitClass: "timeout",
       localWarning: `[${r}]: timed out after ${g}s \u2014 output discarded; raise the hook's "timeout" to allow more time`,
-      blocked: !1,
+      blocked: false,
     };
   }
   if (e.kind === "http") {
@@ -396,7 +396,7 @@ function Vn(e, { event: t, label: r, timedOut: s, timeoutMs: c, timeoutFailsClos
         answer: {},
         exitClass: "other",
         localWarning: `[${r}]: ${Je(W ?? "", "no JSON in the response")}`,
-        blocked: !1,
+        blocked: false,
       };
     return { answer: g, exitClass: "0", blocked: Gf(g) };
   }
@@ -413,14 +413,14 @@ function Vn(e, { event: t, label: r, timedOut: s, timeoutMs: c, timeoutFailsClos
     w = t !== "Stop" && t !== "SubagentStop" && t !== "StopFailure";
   if (BUt(e.stdout)) {
     if (e.status === 2 && !p && w)
-      return { answer: st(t, `[${r}]: ${e.stderr || "No stderr output"}`), exitClass: "2", blocked: !0 };
+      return { answer: st(t, `[${r}]: ${e.stderr || "No stderr output"}`), exitClass: "2", blocked: true };
     return e.status === 0
-      ? { answer: {}, exitClass: "0", blocked: !1 }
+      ? { answer: {}, exitClass: "0", blocked: false }
       : {
           answer: {},
           exitClass: e.status === 2 ? "2" : "other",
           localWarning: `[${r}]: announced async, then failed with status code ${e.status}: ${Je(e.stderr, "No stderr output")}`,
-          blocked: !1,
+          blocked: false,
         };
   }
   let { json: h, plainText: l, validationError: v } = MPe(e.stdout);
@@ -429,30 +429,30 @@ function Vn(e, { event: t, label: r, timedOut: s, timeoutMs: c, timeoutFailsClos
       answer: {},
       exitClass: e.status === 0 ? "0" : "other",
       localWarning: `[${r}]: ${Je(nft(v, e.status, e.stderr), "hook JSON output failed validation")}`,
-      blocked: !1,
+      blocked: false,
     };
   if (h !== void 0) {
     if ("async" in h)
       return e.status === 2 && !p && w
-        ? { answer: st(t, `[${r}]: ${e.stderr || "No stderr output"}`), exitClass: "2", blocked: !0 }
+        ? { answer: st(t, `[${r}]: ${e.stderr || "No stderr output"}`), exitClass: "2", blocked: true }
         : e.status === 0
-          ? { answer: {}, exitClass: "0", blocked: !1 }
+          ? { answer: {}, exitClass: "0", blocked: false }
           : {
               answer: {},
               exitClass: e.status === 2 ? "2" : "other",
               localWarning: `[${r}]: announced async, then failed with status code ${e.status}: ${Je(e.stderr, "No stderr output")}`,
-              blocked: !1,
+              blocked: false,
             };
     let g = h;
     if (e.status === 2 && !z8t(g))
-      return { answer: st(t, `[${r}]: ${e.stderr || "No stderr output"}`, g), exitClass: "2", blocked: !0 };
+      return { answer: st(t, `[${r}]: ${e.stderr || "No stderr output"}`, g), exitClass: "2", blocked: true };
     return { answer: g, exitClass: e.status === 0 ? "0" : e.status === 2 ? "2" : "other", blocked: Gf(g) };
   }
   if (e.status === 0) {
     let g = (l ?? "").trim();
     return (t === "UserPromptSubmit" || t === "UserPromptExpansion") && g !== ""
-      ? { answer: { hookSpecificOutput: { hookEventName: t, additionalContext: g } }, exitClass: "0", blocked: !1 }
-      : { answer: {}, exitClass: "0", blocked: !1 };
+      ? { answer: { hookSpecificOutput: { hookEventName: t, additionalContext: g } }, exitClass: "0", blocked: false }
+      : { answer: {}, exitClass: "0", blocked: false };
   }
   if (e.status === 2) {
     if (p)
@@ -460,15 +460,15 @@ function Vn(e, { event: t, label: r, timedOut: s, timeoutMs: c, timeoutFailsClos
         answer: {},
         exitClass: "2",
         localWarning: `[${r}]: the hook script appears to be missing (${Je(e.stderr, "no such file")})`,
-        blocked: !1,
+        blocked: false,
       };
-    return { answer: st(t, `[${r}]: ${e.stderr || "No stderr output"}`), exitClass: "2", blocked: !0 };
+    return { answer: st(t, `[${r}]: ${e.stderr || "No stderr output"}`), exitClass: "2", blocked: true };
   }
   return {
     answer: {},
     exitClass: "other",
     localWarning: `[${r}]: failed with non-blocking status code ${e.status}: ${Je(e.stderr, "No stderr output")}`,
-    blocked: !1,
+    blocked: false,
   };
 }
 function nn(e, t) {
@@ -514,36 +514,36 @@ function cn(e, t, r) {
   return t.rawPath === r ? e : Nt(e, t.site, r);
 }
 function dn(e, t) {
-  if (typeof e !== "string" || t === null || !e.startsWith("/")) return !1;
-  if (e.trim() !== e || /^\/(?:proc|dev|net|network)(?:\/|$)/i.test(e)) return !1;
+  if (typeof e !== "string" || t === null || !e.startsWith("/")) return false;
+  if (e.trim() !== e || /^\/(?:proc|dev|net|network)(?:\/|$)/i.test(e)) return false;
   if (
     e
       .split("/")
       .slice(1)
       .some((s) => s === "" || s === "." || s === "..")
   )
-    return !1;
+    return false;
   return !Zb(e, gtt(t.containerProjectDir));
 }
 var It = HOn;
 function so(e, t) {
-  if (It(e)) return !0;
+  if (It(e)) return true;
   let r = DUe(e),
     s = r[0] === "tool_calls" ? 2 : 0;
-  if (r[s] !== "tool_response") return !1;
+  if (r[s] !== "tool_response") return false;
   let c = r.slice(0, s + 1).reduce((y, p) => (Oe(y) ? y[p] : void 0), t);
   for (let y of r.slice(s + 1)) {
-    if (Array.isArray(c)) return !1;
+    if (Array.isArray(c)) return false;
     c = Oe(c) ? c[y] : void 0;
   }
-  return !0;
+  return true;
 }
 function ao(e, t, r) {
   let s = DUe(e),
     c = s[0] === "tool_calls",
     y = c ? s.slice(2) : s;
-  if (y[0] === "tool_response") return !0;
-  if (y[0] !== "tool_input" || y.length !== 2 || !Oe(t)) return !1;
+  if (y[0] === "tool_response") return true;
+  if (y[0] !== "tool_input" || y.length !== 2 || !Oe(t)) return false;
   let p = t.tool_calls,
     w = c ? (Oe(p) ? p[s[1] ?? ""] : void 0) : t,
     h = Oe(w) ? w.tool_name : void 0,
@@ -657,7 +657,7 @@ async function Dt(e, t) {
       let y = await t
           .lstat(r)
           .then((w) => w.isSymbolicLink())
-          .catch(() => !1),
+          .catch(() => false),
         p = qn(r);
       if (y || p === r) return null;
       s.unshift(Ht(r)), (r = p);
@@ -691,13 +691,13 @@ function mo(e) {
       if (t < Zn) return (t += 1), Promise.resolve(mn(s));
       if (c <= 0) return Promise.resolve(null);
       return new Promise((p) => {
-        let w = !1,
+        let w = false,
           h = (W) => {
             if (w) {
               if (W !== null) W();
               return;
             }
-            (w = !0), g.clear(), y.removeEventListener("abort", v);
+            (w = true), g.clear(), y.removeEventListener("abort", v);
             let U = r.indexOf(l);
             if (U !== -1) r.splice(U, 1);
             p(W);
@@ -705,7 +705,7 @@ function mo(e) {
           l = { grant: () => h(mn(s)), refuse: () => h(null) },
           v = () => h(null),
           g = e.setTimer(() => h(null), c);
-        y.addEventListener("abort", v, { once: !0 }), r.push(l);
+        y.addEventListener("abort", v, { once: true }), r.push(l);
       });
     },
     refuseAll() {
@@ -714,10 +714,10 @@ function mo(e) {
   };
 }
 function mn(e) {
-  let t = !1;
+  let t = false;
   return () => {
     if (t) return;
-    (t = !0), e();
+    (t = true), e();
   };
 }
 function ROn(e) {
@@ -763,10 +763,10 @@ function ROn(e) {
         kind: a.kind ?? null,
         exitClass: a.exitClass ?? null,
         translatedPaths: a.translatedPaths ?? 0,
-        replay: a.replay ?? !1,
-        blocked: a.blocked ?? !1,
-        staged: a.staged ?? !1,
-        repinned: a.repinned ?? !1,
+        replay: a.replay ?? false,
+        blocked: a.blocked ?? false,
+        staged: a.staged ?? false,
+        repinned: a.repinned ?? false,
         waitedMs: a.waitedMs ?? 0,
         durationMs: Math.max(0, e.now() - d),
       }),
@@ -791,7 +791,7 @@ function ROn(e) {
             );
           let ie = h.has(a.wire.id) || rh([D.resolvedPath, H], [...I.cloudWritableRoots, ...e.extraWritableRoots()]);
           if (ie) h.add(a.wire.id);
-          if (ie && a.local.cloudOptIn !== !0)
+          if (ie && a.local.cloudOptIn !== true)
             return (
               P(
                 `reach:${a.wire.id}`,
@@ -826,7 +826,7 @@ function ROn(e) {
           kind: "run",
           hook: D !== null && D.kind === "script" ? cn(d, D, D.resolvedPath) : d,
           staged: null,
-          repinned: !1,
+          repinned: false,
         };
       }
       let re = w.get(a.wire.id) ?? L.sha256,
@@ -838,7 +838,7 @@ function ROn(e) {
             [...I.cloudWritableRoots, ...e.extraWritableRoots()],
           );
       if (K) h.add(a.wire.id);
-      if (K && a.local.cloudOptIn !== !0)
+      if (K && a.local.cloudOptIn !== true)
         return (
           P(
             `reach:${a.wire.id}`,
@@ -859,7 +859,7 @@ function ROn(e) {
       if (q.ok) pe = q.bytes;
       else if (q.reason === "changed" && !K && I.repinChangedScripts)
         w.set(a.wire.id, q.current.sha256),
-          (_e = !0),
+          (_e = true),
           (pe = q.current.bytes),
           (z = q.current.sha256),
           P(
@@ -1064,7 +1064,7 @@ function ROn(e) {
                   Se !== null &&
                   !Ie &&
                   (await e.pin.realpath(He).then(
-                    () => !1,
+                    () => false,
                     (Xe) => E(Xe) === "ENOENT",
                   ));
               return { pointer: se, waived: Ie || Ge };
@@ -1120,7 +1120,7 @@ function ROn(e) {
         }
         if (!_) return { answer: {}, telemetry: { ...C, outcome: "condition_false", translatedPaths: ae } };
       }
-      let we = L.type === "command" ? await Z(D, L, re, K, I, d) : { kind: "run", hook: L, staged: null, repinned: !1 };
+      let we = L.type === "command" ? await Z(D, L, re, K, I, d) : { kind: "run", hook: L, staged: null, repinned: false };
       if (we.kind === "refuse")
         return {
           answer: we.answer,
@@ -1270,7 +1270,7 @@ function ROn(e) {
           }
           let kt = e.now(),
             yt = await e.run({ hook: we.hook, event: I, input: nt, timeoutMs: Ae, env: de }, d.frame, le),
-            vt = yt.aborted === !0 && !le.aborted,
+            vt = yt.aborted === true && !le.aborted,
             fe =
               vt && Ae < _
                 ? {
@@ -1335,14 +1335,14 @@ function ROn(e) {
       if (v.has(a.requestId))
         return (
           e.debug(`[deviceHooks] ${Fe(a.requestId)}: withdrawn earlier \u2014 staying silent`),
-          M({ outcome: "withdrawn_replay", replay: !0 }, D),
+          M({ outcome: "withdrawn_replay", replay: true }, D),
           { kind: "silent", reason: "withdrawn" }
         );
       let L = l.get(a.requestId);
       if (L !== void 0 && L.callbackId === a.callbackId)
         return (
           e.debug(`[deviceHooks] ${Fe(a.requestId)}: replay \u2014 resending the earlier answer`),
-          M({ outcome: "cached", replay: !0 }, D),
+          M({ outcome: "cached", replay: true }, D),
           { kind: "answer", answer: L.answer }
         );
       if (L !== void 0) {
@@ -1385,7 +1385,7 @@ function ROn(e) {
               () => {
                 ee.clear(), ae(null);
               },
-              { once: !0 },
+              { once: true },
             ),
               q.answer.then((Re) => {
                 ee.clear(), ae(Re);
@@ -1396,7 +1396,7 @@ function ROn(e) {
         }
         if (H.signal.aborted) {
           if (H.signal.reason !== _t) j(a.requestId);
-          return M({ outcome: "cancelled", blocked: !1 }, D), { kind: "silent", reason: "cancelled" };
+          return M({ outcome: "cancelled", blocked: false }, D), { kind: "silent", reason: "cancelled" };
         }
         if (ie === "too_late") {
           let ae = ue(
@@ -1430,7 +1430,7 @@ function ROn(e) {
       let pe = null,
         z = new AbortController();
       t.set(a.requestId, z);
-      let _e = !1,
+      let _e = false,
         ge = lt(a, d, C, D, z.signal).catch((H) => {
           e.logError(H);
           let ie = ue(
@@ -1441,7 +1441,7 @@ function ROn(e) {
           return { answer: ie, telemetry: { outcome: "decide_error", blocked: Gf(ie) } };
         });
       ge.finally(() => {
-        _e = !0;
+        _e = true;
       });
       try {
         let { answer: H, telemetry: ie } = await new Promise((Re) => {
@@ -1449,7 +1449,7 @@ function ROn(e) {
             Ne = e.setTimer(
               () => {
                 if (z.signal.aborted) {
-                  Re({ answer: null, telemetry: { outcome: "cancelled", blocked: !1 } });
+                  Re({ answer: null, telemetry: { outcome: "cancelled", blocked: false } });
                   return;
                 }
                 z.abort(un);
@@ -1491,10 +1491,10 @@ function ROn(e) {
     },
     cancel(a, d = "worker") {
       let D = t.get(a);
-      if (D === void 0) return !1;
+      if (D === void 0) return false;
       if (d === "worker") j(a), D.abort();
       else D.abort(_t);
-      return !0;
+      return true;
     },
     cancelAll() {
       let a = t.size;
@@ -1537,7 +1537,7 @@ function pn(e) {
   return "tool_name" in e && typeof e.tool_name === "string" ? `:${yo(e.tool_name, { maxCodeUnits: 48 })}` : "";
 }
 function go(e) {
-  if (Gf(e) || "async" in e) return !1;
+  if (Gf(e) || "async" in e) return false;
   let t = e.hookSpecificOutput;
   return e.systemMessage !== void 0 || (t !== void 0 && "additionalContext" in t && t.additionalContext !== void 0);
 }
@@ -1616,7 +1616,7 @@ var bn = [
   ],
   Sn = bn.map(([, e]) => e);
 function Rt(e) {
-  return _o(e) && ye(e)?.disableAllHooks === !0;
+  return _o(e) && ye(e)?.disableAllHooks === true;
 }
 function jt(e) {
   return Object.values(e).some((t) => Array.isArray(t) && t.length > 0);
@@ -1624,8 +1624,8 @@ function jt(e) {
 function utt(e) {
   if (e.policyUnreadable()) return { kind: "none", reason: "policy_unreadable" };
   let t = e.getSettingsForSource("policySettings");
-  if (t?.disableAllHooks === !0) return { kind: "none", reason: "policy_disable_all" };
-  if (t?.allowManagedHooksOnly === !0 || e.isSafeMode()) return { kind: "none", reason: "managed_only" };
+  if (t?.disableAllHooks === true) return { kind: "none", reason: "policy_disable_all" };
+  if (t?.allowManagedHooksOnly === true || e.isSafeMode()) return { kind: "none", reason: "managed_only" };
   if (e.isRestrictedToPluginOnly()) return { kind: "none", reason: "plugin_only" };
   let r = e.disableAllHooksByUser();
   if (r.length > 0)
@@ -1658,7 +1658,7 @@ function utt(e) {
     }),
     withheld: c,
     capturedAtMs: e.now(),
-    ...(e.disableAllHooksInCheckout() && { checkoutDisablesAllHooks: !0 }),
+    ...(e.disableAllHooksInCheckout() && { checkoutDisablesAllHooks: true }),
   };
 }
 function dtt() {
@@ -1669,7 +1669,7 @@ function dtt() {
     disableAllHooksInCheckout: () =>
       Rt("projectSettings") ||
       Rt("localSettings") ||
-      (_o("localSettings") && V3("localSettings")?.disableAllHooks === !0),
+      (_o("localSettings") && V3("localSettings")?.disableAllHooks === true),
     isWorkspaceTrusted: () => qd(),
     isLocalSettingsGitTracked: () => (hpe(), CC({ onIndeterminate: "untracked" })),
     flagSettingsInline: () => vR() !== void 0,
@@ -1821,7 +1821,7 @@ function ftt(e, t) {
 function Tn() {
   return {
     baseline: null,
-    baselineLocated: !1,
+    baselineLocated: false,
     refusedTemplates: new Set(),
     refusedTemplatesLife: null,
     refusedTemplatesSession: null,
@@ -1845,13 +1845,13 @@ function Pn(e) {
 }
 async function F8t(e, t, r) {
   for (let s of t) {
-    if (s === "local" || r.everInReach?.has(s)) return !0;
+    if (s === "local" || r.everInReach?.has(s)) return true;
     let c = r.scopeSettingsFile(s === "user" ? "userSettings" : "flagSettings");
     if (c === null) continue;
     let y = await r.realpath(c).catch(() => null);
-    if (rh(y === null ? [c] : [c, y], e) || (y === null && s === "user")) return !0;
+    if (rh(y === null ? [c] : [c, y], e) || (y === null && s === "user")) return true;
   }
-  return !1;
+  return false;
 }
 function Bt(e, t) {
   let r = [],
@@ -1889,7 +1889,7 @@ function bOn(e) {
       (e.memory.refusedTemplatesLife = null),
       (e.memory.refusedTemplatesSession = e.cloudSessionId);
   let t = new Set(),
-    r = { number: 0, instanceId: e.mintInstanceId(), captured: null, inventory: null, inventoryDirty: !0 },
+    r = { number: 0, instanceId: e.mintInstanceId(), captured: null, inventory: null, inventoryDirty: true },
     s = e.memory;
   if (s.baseline === null) {
     let o = e.capture();
@@ -1906,22 +1906,22 @@ function bOn(e) {
     v = _n,
     g = {},
     W = new Set(),
-    U = !1,
+    U = false,
     j = null,
     P = "idle",
     Le,
     M = null,
     Z = null,
-    lt = !1,
+    lt = false,
     a = null,
-    d = !1,
-    D = !1,
-    B = !1,
+    d = false,
+    D = false,
+    B = false,
     le = 0,
-    I = !1,
-    L = !1,
+    I = false,
+    L = false,
     C = (o, u) => {
-      (le = e.now() + u.lease_s * 1000), (I = u.templates.length > 0), (L = !0), pe(o);
+      (le = e.now() + u.lease_s * 1000), (I = u.templates.length > 0), (L = true), pe(o);
     },
     re = [],
     q = (o) => re.filter((u) => u.withTemplates || o < u.mayBeHeldUntil),
@@ -1948,13 +1948,13 @@ function bOn(e) {
     H = 0,
     ie = null,
     ae = null,
-    ee = !1,
+    ee = false,
     Re = null,
-    ve = !1,
+    ve = false,
     Ne = s.knownSpellings,
     he = s.everInReach,
     Be = new Map(),
-    De = !1,
+    De = false,
     tt = new AbortController(),
     je = new Set(),
     xe = null,
@@ -1966,7 +1966,7 @@ function bOn(e) {
     _ = 0,
     Y = null,
     se = 0,
-    He = !1,
+    He = false,
     Se = new Set(),
     Ie = e.formatClock ?? ((o) => new Date(o).toLocaleTimeString(void 0, { hour: "numeric", minute: "2-digit" })),
     Ge = "run /hooks to change that",
@@ -2003,7 +2003,7 @@ function bOn(e) {
         _ = 0;
     },
     qe = () => {
-      a?.clear(), (a = null), (d = !1), (s.lapsesUnusedAt = null), (B = !1), z?.clear(), (z = null);
+      a?.clear(), (a = null), (d = false), (s.lapsesUnusedAt = null), (B = false), z?.clear(), (z = null);
     },
     ot = (o, u) =>
       e
@@ -2029,7 +2029,7 @@ function bOn(e) {
         T = u !== null && S(u.instanceId),
         O = u !== null && q(R).some((x) => x.instanceId === u.instanceId),
         A = le !== 0 && R >= le && !I && !T && !O;
-      if (((l = null), (j = null), (d = !1), (s.lapsesUnusedAt = null), P !== "stopped"))
+      if (((l = null), (j = null), (d = false), (s.lapsesUnusedAt = null), P !== "stopped"))
         (P = "idle"), (s.standing = { kind: "idle" });
       let ce = q(R).filter((x) => x.instanceId !== u?.instanceId && !S(x.instanceId));
       (re = re.filter((x) => S(x.instanceId))),
@@ -2047,7 +2047,7 @@ function bOn(e) {
         z?.clear(),
         (z = null),
         (ge = 0),
-        (d = !1),
+        (d = false),
         (s.lapsesUnusedAt = null),
         (xe = null),
         (se = e.now() + Math.max(30000, v * 500)),
@@ -2064,14 +2064,14 @@ function bOn(e) {
               Ee("renewal");
               return;
             }
-            (d = !0), (s.lapsesUnusedAt = l);
+            (d = true), (s.lapsesUnusedAt = l);
           },
           Math.max(30000, v * 500),
         ));
     },
     dt = () => {
-      if ((ze(), (D = !0), d && P === "registered")) (d = !1), (s.lapsesUnusedAt = null), Ee("renewal");
-      else if (s.standing.kind === "dormant" && M === null) Ee("init", !1);
+      if ((ze(), (D = true), d && P === "registered")) (d = false), (s.lapsesUnusedAt = null), Ee("renewal");
+      else if (s.standing.kind === "dormant" && M === null) Ee("init", false);
     },
     ut = () =>
       !D &&
@@ -2081,14 +2081,14 @@ function bOn(e) {
         (P === "registered" && l !== null && e.now() >= l - v * 500)),
     Ye = () => q(e.now()).length === 0 && (j === null || (le !== 0 && e.now() >= le && !I)),
     $t = () => {
-      if (((ee = !0), (s.lapsesUnusedAt = null), s.standing.kind === "dormant")) s.standing = { kind: "idle" };
+      if (((ee = true), (s.lapsesUnusedAt = null), s.standing.kind === "dormant")) s.standing = { kind: "idle" };
       e.arm(null);
     },
     We = (o, u) => {
       ke("dormant", o, void 0, u),
         qe(),
         (ge = 0),
-        (D = !1),
+        (D = false),
         (l = null),
         (h = null),
         (P = "idle"),
@@ -2105,12 +2105,12 @@ function bOn(e) {
         l === null ||
         e.now() < l
       )
-        return !1;
-      return We(o), !0;
+        return false;
+      return We(o), true;
     },
     it = () => {
       let o = Io[ge];
-      if (o === void 0) return (ge = 0), !1;
+      if (o === void 0) return (ge = 0), false;
       (ge += 1), z?.clear();
       let u = e.now() + o;
       return (
@@ -2122,7 +2122,7 @@ function bOn(e) {
           }
           Ee("retry");
         }, o)),
-        !0
+        true
       );
     },
     de = (o) => {
@@ -2219,7 +2219,7 @@ function bOn(e) {
               `A hooks file appeared at ${ht} during this cloud session, where the session itself can write; it is ignored for this session.`,
               "warning",
             ),
-              e.sourcePinnedTelemetry?.({ source: x, changed: !1, appeared: !0, vanished: !1 });
+              e.sourcePinnedTelemetry?.({ source: x, changed: false, appeared: true, vanished: false });
           continue;
         }
         if (Ce === null || b(Ce.hooks) !== b($e.hooks))
@@ -2228,7 +2228,7 @@ function bOn(e) {
             `${ht} changed during this cloud session. Because the cloud session can write that file, this session keeps using the hooks it had when you launched \u2014 restart claude --cloud to use your edit. If neither you nor another session on this machine changed it, the cloud session may have: check that file before relaunching.`,
             "warning",
           ),
-            e.sourcePinnedTelemetry?.({ source: x, changed: !0, appeared: !1, vanished: Ce === null });
+            e.sourcePinnedTelemetry?.({ source: x, changed: true, appeared: false, vanished: Ce === null });
         A.push($e);
       }
       let ce = new Set(A.map((x) => x.source));
@@ -2244,7 +2244,7 @@ function bOn(e) {
         (ae = En(T)), (s.baseline ??= T);
         let O = s.baseline;
         if (!s.baselineLocated && O.kind === "captured") {
-          s.baselineLocated = !0;
+          s.baselineLocated = true;
           for (let A of O.sources)
             if (A.settingsFile !== null) {
               let ce = Ne.get(A.source) ?? new Set();
@@ -2270,7 +2270,7 @@ function bOn(e) {
         reachRoots: R,
         withoutTemplates: w,
       });
-      de(o), (o.inventory = S), (o.inventoryDirty = !1);
+      de(o), (o.inventory = S), (o.inventoryDirty = false);
       for (let T of S.notices) G(`notice:${T}`, T);
       if (o.captured.kind === "captured") {
         for (let { source: T, reason: O } of o.captured.withheld)
@@ -2296,8 +2296,8 @@ function bOn(e) {
       });
     },
     vt = async (o, u) => {
-      if (U) return !1;
-      let R = !1;
+      if (U) return false;
+      let R = false;
       for (let S of u.templates) {
         let T = `${S.wire.template}:${S.wire.digest}`;
         if (W.has(T)) continue;
@@ -2319,7 +2319,7 @@ function bOn(e) {
           de(o);
           let A = Hn(O);
           if (A === "unsupported") {
-            U = !0;
+            U = true;
             for (let ce of u.templates) w.add(ce.local.templateId);
             return (
               G(
@@ -2335,7 +2335,7 @@ function bOn(e) {
               `${S.local.templateId} could not be moved to the cloud (${Tt(In, Wt(O))}); it runs on this machine instead.`,
             ),
               w.add(S.local.templateId),
-              (R = !0);
+              (R = true);
             continue;
           }
           throw O;
@@ -2354,7 +2354,7 @@ function bOn(e) {
         if (($t(), ke("nothing_to_offer", u), S.held.length > 0)) G(`summary:${Bt(S)}`, Bt(S), "debug");
         return;
       }
-      lt = !1;
+      lt = false;
       let T = await e.ensureConsent(
         { forwarded: S.forwarded.length, templateNames: S.templates.map((F) => F.local.templateId) },
         tt.signal,
@@ -2370,7 +2370,7 @@ function bOn(e) {
           ((ee = T === "not_now"),
           a?.clear(),
           (a = null),
-          (d = !1),
+          (d = false),
           (l = null),
           (s.lapsesUnusedAt = null),
           s.standing.kind === "dormant")
@@ -2380,8 +2380,8 @@ function bOn(e) {
         if ((de(o), T === "distrusted")) Ke();
         return;
       }
-      if (((ee = !1), (ct = "accepted"), await vt(o, S))) {
-        if (((o.inventoryDirty = !0), j?.instanceId === o.instanceId))
+      if (((ee = false), (ct = "accepted"), await vt(o, S))) {
+        if (((o.inventoryDirty = true), j?.instanceId === o.instanceId))
           throw (de(o), fe(), (Z = "template_fallback"), new at());
         S = await kt(o);
       }
@@ -2400,7 +2400,7 @@ function bOn(e) {
       let A = await e.launchDirReal();
       de(o);
       let ce = u !== "retry" && (l === null || e.now() >= l) ? Pt : Et;
-      if (M?.instanceId === o.instanceId) (M.sent = !0), (M.listenMs = ce), K(o.instanceId, O.length > 0, ce);
+      if (M?.instanceId === o.instanceId) (M.sent = true), (M.listenMs = ce), K(o.instanceId, O.length > 0, ce);
       let x = await e.sendRequest(
           {
             subtype: "register_device_hooks",
@@ -2452,16 +2452,16 @@ function bOn(e) {
       }
       let ne = $e.data;
       if (((ge = 0), z?.clear(), (z = null), Z === "retry")) Z = null;
-      if (((H = 0), (He = !1), ie !== null && ie !== ne.worker_epoch)) {
-        if ((W.clear(), Be.clear(), (U = !1), u !== "init")) B = !1;
+      if (((H = 0), (He = false), ie !== null && ie !== ne.worker_epoch)) {
+        if ((W.clear(), Be.clear(), (U = false), u !== "init")) B = false;
       }
       let bt = `${e.cloudSessionId}\x00${ne.worker_epoch}`;
       if (s.refusedTemplatesLife !== null && s.refusedTemplatesLife !== bt && w.size > 0)
-        w.clear(), (o.inventoryDirty = !0);
+        w.clear(), (o.inventoryDirty = true);
       (s.refusedTemplatesLife = bt), (ie = ne.worker_epoch), (h = ne.worker_epoch);
       let mt = (F) => {
         let Kt = new Set(O.map((me) => me.template)),
-          et = !1;
+          et = false;
         for (let me of F) {
           if (!Kt.has(me.template)) continue;
           if (me.status === "installed") Be.delete(me.template);
@@ -2473,12 +2473,12 @@ function bOn(e) {
                   `fallback:${me.template}:awaiting_twice`,
                   `${me.template} could not be handed to this cloud session (it kept asking for the copy); it runs on this machine instead.`,
                 ),
-                (o.inventoryDirty = !0),
-                (et = !0);
+                (o.inventoryDirty = true),
+                (et = true);
               continue;
             }
             for (let Jt of [...W]) if (Jt.startsWith(`${me.template}:`)) W.delete(Jt);
-            et = !0;
+            et = true;
           } else if (me.status !== "installed")
             Be.delete(me.template),
               w.add(me.template),
@@ -2486,8 +2486,8 @@ function bOn(e) {
                 `fallback:${me.template}:${me.status}`,
                 `${me.template} cannot run in this cloud session (${Tt(In, me.status)}); it runs on this machine instead.`,
               ),
-              (o.inventoryDirty = !0),
-              (et = !0);
+              (o.inventoryDirty = true),
+              (et = true);
         }
         return et;
       };
@@ -2498,13 +2498,13 @@ function bOn(e) {
           (l = null),
           a?.clear(),
           (a = null),
-          (d = !1),
+          (d = false),
           (s.lapsesUnusedAt = null),
           (P = "idle"),
           (s.standing = { kind: "idle" }),
           (j = null),
           (xe = null),
-          (ee = !0),
+          (ee = true),
           (g = Object.fromEntries((ne.templates ?? []).map((et) => [et.template, et.status]))),
           ke("unregistered", u),
           e.arm(null),
@@ -2525,11 +2525,11 @@ function bOn(e) {
       for (let F of Se) je.delete(F);
       Se.clear(),
         (se = 0),
-        (He = !1),
+        (He = false),
         (l = e.now() + ne.lease_s * 1000),
         C(o.instanceId, ne),
-        (D = !1),
-        (d = !1),
+        (D = false),
+        (d = false),
         (s.lapsesUnusedAt = null),
         (v = ne.lease_s),
         (j = { instanceId: o.instanceId }),
@@ -2581,10 +2581,10 @@ function bOn(e) {
           instanceId: e.mintInstanceId(),
           captured: r.captured,
           inventory: null,
-          inventoryDirty: !0,
+          inventoryDirty: true,
         });
     },
-    Ee = (o, u = !0) => {
+    Ee = (o, u = true) => {
       if (o === "consent" && Ve === "accepted" && P === "stopped" && Le === "declined" && !De && !ve)
         (P = "idle"),
           (s.standing = { kind: "idle" }),
@@ -2597,12 +2597,12 @@ function bOn(e) {
             instanceId: e.mintInstanceId(),
             captured: null,
             inventory: null,
-            inventoryDirty: !0,
+            inventoryDirty: true,
           });
       if (De || ve || P === "stopped") return;
       if (u && (o === "init" || o === "send")) {
-        if ((ze(o), o === "init")) B = !0;
-        (D = !0), (d = !1), (s.lapsesUnusedAt = null);
+        if ((ze(o), o === "init")) B = true;
+        (D = true), (d = false), (s.lapsesUnusedAt = null);
       }
       if (o === "stopped_while_running" && Y === null)
         (Y = e.now()),
@@ -2611,14 +2611,14 @@ function bOn(e) {
             level: "warning",
           }),
           e.lapseTelemetry?.("withdrawn_while_running");
-      if (o === "connected" || o === "consent") ee = !1;
+      if (o === "connected" || o === "consent") ee = false;
       if (o === "worker_up") {
         if (e.now() - Me < Po) return;
-        if (ee && s.standing.kind === "kept_none") ee = !1;
+        if (ee && s.standing.kind === "kept_none") ee = false;
         if (ee) return;
-        (h = null), (He = !1), (se = 0);
+        (h = null), (He = false), (se = 0);
       }
-      if (o === "init" && He) (He = !1), (se = 0);
+      if (o === "init" && He) (He = false), (se = 0);
       else if (
         (o === "init" && (ee || e.now() < se)) ||
         ((o === "init" || ((o === "renewal" || o === "connected") && !u)) && l !== null && e.now() < l - v * 500)
@@ -2633,7 +2633,7 @@ function bOn(e) {
       if (o === "init") se = 0;
       let R = e.now();
       if (M !== null) {
-        if (o === "consent") lt = !0;
+        if (o === "consent") lt = true;
         if (o === "stopped_while_running") return;
         if (o === "send" && Z === null) return;
         if (o === "settings" || o === "consent" || M.trigger !== o || R - M.at >= Ro)
@@ -2671,7 +2671,7 @@ function bOn(e) {
                   rt(
                     "The cloud session is not answering this machine's hook registration yet (it may still be starting); hooks from this machine are paused for it and are offered again as soon as it reports in.",
                   ),
-                    (He = !0),
+                    (He = true),
                     (s.standing = { kind: "paused" });
                 return;
               case "hook_forwarding_disabled": {
@@ -2692,7 +2692,7 @@ function bOn(e) {
                   Pe("unsupported");
                 return;
               case "stale_worker_epoch":
-                if ((ke("stale_epoch", o, void 0, S), (h = null), (B = !1), (H += 1), H === 1)) Z = "retry";
+                if ((ke("stale_epoch", o, void 0, S), (h = null), (B = false), (H += 1), H === 1)) Z = "retry";
                 else if (!it())
                   G(
                     "stale_storm",
@@ -2722,9 +2722,9 @@ function bOn(e) {
           .finally(() => {
             if (((M = null), P === "registering")) P = l === null ? "idle" : "registered";
             let O = Z;
-            if (((Z = null), O !== null && !De && !ve)) Ee(O, !1);
+            if (((Z = null), O !== null && !De && !ve)) Ee(O, false);
           });
-      M = { trigger: o, at: R, done: T, instanceId: S.instanceId, sent: !1, listenMs: Pt };
+      M = { trigger: o, at: R, done: T, instanceId: S.instanceId, sent: false, listenMs: Pt };
     };
   return {
     requestRegistration: Ee,
@@ -2733,10 +2733,10 @@ function bOn(e) {
       Ee("consent");
     },
     turnInFlight() {
-      ze(), (B = !0), dt();
+      ze(), (B = true), dt();
     },
     turnEnded() {
-      B = !1;
+      B = false;
     },
     activity() {
       dt();
@@ -2764,19 +2764,19 @@ function bOn(e) {
       let u = En(o);
       if (ae !== null && u === ae) return;
       (ae = u),
-        (ee = !1),
+        (ee = false),
         t.add(r.instanceId),
         (r = {
           number: r.number + 1,
           instanceId: e.mintInstanceId(),
           captured: null,
           inventory: null,
-          inventoryDirty: !0,
+          inventoryDirty: true,
         }),
         Ee("settings");
     },
     async unregister(o) {
-      if ((qe(), e.arm(null), (ve = !0), (Z = null), M !== null)) {
+      if ((qe(), e.arm(null), (ve = true), (Z = null), M !== null)) {
         Re = { budgetMs: o };
         let u = M;
         await Promise.all([!u.sent || j?.instanceId === u.instanceId ? Promise.resolve() : ot(u.instanceId, o), Ae(o)]);
@@ -2785,7 +2785,7 @@ function bOn(e) {
       await Ae(o);
     },
     dispose() {
-      (De = !0), tt.abort(), qe();
+      (De = true), tt.abort(), qe();
     },
     snapshot: () => ({
       phase: P,
@@ -2811,10 +2811,10 @@ function skt() {
     consentAnnounced: Zt(),
     noteAttached: (s) => {
       r.set(s, (r.get(s) ?? 0) + 1);
-      let c = !1;
+      let c = false;
       return () => {
         if (c) return;
-        c = !0;
+        c = true;
         let y = (r.get(s) ?? 1) - 1;
         if (y > 0) r.set(s, y);
         else r.delete(s);

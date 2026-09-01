@@ -364,14 +364,14 @@ function O(Z) {
   if (c[2] !== G)
     (P = e(o, {
       marginBottom: 1,
-      children: r(t, { bold: !0, color: "claude", children: [G, " Teleporting session\u2026"] }),
+      children: r(t, { bold: true, color: "claude", children: [G, " Teleporting session\u2026"] }),
     })),
       (c[2] = G),
       (c[3] = P);
   else P = c[3];
   let C;
   if (c[4] !== S)
-    (C = S && e(o, { marginBottom: 1, children: e(t, { dimColor: !0, children: S }) })), (c[4] = S), (c[5] = C);
+    (C = S && e(o, { marginBottom: 1, children: e(t, { dimColor: true, children: S }) })), (c[4] = S), (c[5] = C);
   else C = c[5];
   let x;
   if (c[6] !== y || c[7] !== R)
@@ -420,7 +420,7 @@ async function Q(b, a, g) {
     let [T, d] = u("validating");
     return (l = d), e(O, { currentStep: T, sessionId: g });
   }
-  b.render(e(vp, { session: a, keybindings: !1, children: e(m, {}) }, "teleport-progress"));
+  b.render(e(vp, { session: a, keybindings: false, children: e(m, {}) }, "teleport-progress"));
   let s = await Lee(g, l);
   l("checking_out");
   let { branchName: n, branchError: p } = await J3e(s.branch);

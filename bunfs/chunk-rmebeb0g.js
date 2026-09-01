@@ -53,7 +53,7 @@ class upr {
   type = "tmux";
   displayName = "tmux";
   cachedLeaderWindowTarget = null;
-  firstPaneUsedForExternal = !1;
+  firstPaneUsedForExternal = false;
   paneCreationLock = WCe();
   async isAvailable() {
     return one();
@@ -70,7 +70,7 @@ class upr {
       a();
     }
   }
-  async sendCommandToPane(e, t, a = !1) {
+  async sendCommandToPane(e, t, a = false) {
     try {
       Iwe(t);
     } catch (o) {
@@ -80,25 +80,25 @@ class upr {
       s = a ? ["-L", X7e()] : r ? ["-S", r] : [];
     await mPt(s, e, t);
   }
-  async setPaneBorderColor(e, t, a = !1) {
+  async setPaneBorderColor(e, t, a = false) {
     let r = T(t),
       s = a ? l : d;
     await s(["set-option", "-p", "-t", e, "window-style", `bg=default,fg=${r}`]),
       await s(["set-option", "-p", "-t", e, "pane-border-style", `fg=${r}`]),
       await s(["set-option", "-p", "-t", e, "pane-active-border-style", `fg=${r}`]);
   }
-  async setPaneTitle(e, t, a, r = !1) {
+  async setPaneTitle(e, t, a, r = false) {
     let s = T(a),
       o = r ? l : d;
     await o(["select-pane", "-t", e, "-T", t]),
       await o(["set-option", "-p", "-t", e, "pane-border-format", `#[fg=${s},bold] #{pane_title} #[default]`]);
   }
-  async enablePaneBorderStatus(e, t = !1) {
+  async enablePaneBorderStatus(e, t = false) {
     let a = e || (await this.getCurrentWindowTarget());
     if (!a) return;
     await (t ? l : d)(["set-option", "-w", "-t", a, "pane-border-status", "top"]);
   }
-  async killPane(e, t = !1) {
+  async killPane(e, t = false) {
     return (await (t ? l : d)(["kill-pane", "-t", e])).code === 0;
   }
   async getCurrentPaneId() {
@@ -118,7 +118,7 @@ class upr {
     if (a.code !== 0) return n(`[TmuxBackend] Failed to get current window target (exit ${a.code}): ${a.stderr}`), null;
     return (this.cachedLeaderWindowTarget = a.stdout.trim()), this.cachedLeaderWindowTarget;
   }
-  async getCurrentWindowPaneCount(e, t = !1) {
+  async getCurrentWindowPaneCount(e, t = false) {
     let a = e || (await this.getCurrentWindowTarget());
     if (!a) return null;
     let r = ["list-panes", "-t", a, "-F", "#{pane_id}"],
@@ -143,7 +143,7 @@ class upr {
   async createExternalSwarmSession() {
     if (!(await this.hasSessionInSwarm(U6))) {
       let o = await l(["new-session", "-d", "-s", U6, "-n", K7e, "-P", "-F", "#{pane_id}", "--", wpe], {
-        useCwd: !0,
+        useCwd: true,
         toolCgroupClass: "agent",
       });
       if (o.code !== 0) throw new Ak(`Failed to create swarm session: ${o.stderr || "Unknown error"}`);
@@ -151,7 +151,7 @@ class upr {
         u = `${U6}:${K7e}`;
       return (
         n(`[TmuxBackend] Created external swarm session with window ${u}, pane ${i}`),
-        (this.firstPaneUsedForExternal = !1),
+        (this.firstPaneUsedForExternal = false),
         { windowTarget: u, paneId: i }
       );
     }
@@ -171,7 +171,7 @@ class upr {
     }
     let s = await l(["new-window", "-t", U6, "-n", K7e, "-P", "-F", "#{pane_id}", "--", wpe]);
     if (s.code !== 0) throw new Ak(`Failed to create swarm-view window: ${s.stderr || "Unknown error"}`);
-    return (this.firstPaneUsedForExternal = !1), { windowTarget: r, paneId: s.stdout.trim() };
+    return (this.firstPaneUsedForExternal = false), { windowTarget: r, paneId: s.stdout.trim() };
   }
   async createTeammatePaneWithLeader(e, t) {
     let a = await this.getCurrentPaneId(),
@@ -207,15 +207,15 @@ class upr {
   }
   async createTeammatePaneExternal(e, t) {
     let { windowTarget: a, paneId: r } = await this.createExternalSwarmSession(),
-      s = await this.getCurrentWindowPaneCount(a, !0);
+      s = await this.getCurrentWindowPaneCount(a, true);
     if (s === null) throw new Ak("Could not determine pane count for swarm window");
     let o = !this.firstPaneUsedForExternal && s === 1,
       i;
     if (o)
       (i = r),
-        (this.firstPaneUsedForExternal = !0),
+        (this.firstPaneUsedForExternal = true),
         n(`[TmuxBackend] Using initial pane for first teammate ${e}: ${i}`),
-        await this.enablePaneBorderStatus(a, !0);
+        await this.enablePaneBorderStatus(a, true);
     else {
       let w = (await l(["list-panes", "-t", a, "-F", "#{pane_id}"])).stdout
           .trim()
@@ -231,8 +231,8 @@ class upr {
       (i = m.stdout.trim()), n(`[TmuxBackend] Created teammate pane for ${e}: ${i}`);
     }
     return (
-      await this.setPaneBorderColor(i, t, !0),
-      await this.setPaneTitle(i, e, t, !0),
+      await this.setPaneBorderColor(i, t, true),
+      await this.setPaneTitle(i, e, t, true),
       await this.rebalancePanesTiled(a),
       { paneId: i, isFirstTeammate: o }
     );

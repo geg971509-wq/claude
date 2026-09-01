@@ -70,7 +70,7 @@ function E8e() {
 function K() {
   let e = null;
   try {
-    e = qg({ skipRetrievingKeyFromApiKeyHelper: !0 }).key;
+    e = qg({ skipRetrievingKeyFromApiKeyHelper: true }).key;
   } catch {}
   if (!e && jd()) return "wif";
   if (Tt() && Yt()?.accessToken) return "oauth";
@@ -92,21 +92,21 @@ async function j(e, t) {
     let r = await oO();
     if (r.error)
       return {
-        success: !1,
+        success: false,
         error: "Authentication required for policy limits",
         errorCode: "auth_failed",
         authUnavailableReason: r.reasonCode,
         tokenRefreshOutcome: i,
-        skipRetry: !0,
+        skipRetry: true,
       };
     let a = V(),
       d = { ...r.headers, "User-Agent": Ka() };
     if (e) d["If-None-Match"] = `"${e}"`;
     let u = await st.get(a, { headers: d, timeout: M, validateStatus: (o) => o === 200 || o === 304 || o === 404 });
     if (u.status === 304)
-      return n("Policy limits: Using cached restrictions (304)"), { success: !0, response: null, etag: e };
+      return n("Policy limits: Using cached restrictions (304)"), { success: true, response: null, etag: e };
     if (u.status === 404)
-      return n("Policy limits: No restrictions found (404)"), { success: !0, response: cSn, etag: void 0 };
+      return n("Policy limits: No restrictions found (404)"), { success: true, response: cSn, etag: void 0 };
     let m = z9t().safeParse(u.data);
     if (!m.success) {
       let o = z(m.error.issues[0]?.path[0]),
@@ -115,7 +115,7 @@ async function j(e, t) {
       return (
         n(`Policy limits: Invalid response format - field=${o} ct=${h} - ${m.error.message}`),
         {
-          success: !1,
+          success: false,
           error: "Invalid policy limits format",
           errorCode: "parse_failed",
           parseErrorField: o,
@@ -123,27 +123,27 @@ async function j(e, t) {
         }
       );
     }
-    return n("Policy limits: Fetched successfully"), { success: !0, response: m.data };
+    return n("Policy limits: Fetched successfully"), { success: true, response: m.data };
   } catch (r) {
     let { kind: a, status: d, message: u } = os(r),
       m = Jyr(r);
     switch ((n(`Policy limits: fetch failed (${a}${d ? ` ${d}` : ""}) \u2014 ${u}`), a)) {
       case "auth":
         return {
-          success: !1,
+          success: false,
           error: "Not authorized for policy limits",
           errorCode: "auth_failed",
           httpStatus: d,
           tokenRefreshOutcome: i,
-          skipRetry: !0,
+          skipRetry: true,
           ...m,
         };
       case "timeout":
-        return { success: !1, error: "Policy limits request timeout", errorCode: "timeout" };
+        return { success: false, error: "Policy limits request timeout", errorCode: "timeout" };
       case "network":
-        return { success: !1, error: "Cannot connect to server", errorCode: "network_error" };
+        return { success: false, error: "Cannot connect to server", errorCode: "network_error" };
       default:
-        return { success: !1, error: u, errorCode: "request_failed", httpStatus: d, ...m };
+        return { success: false, error: u, errorCode: "request_failed", httpStatus: d, ...m };
     }
   }
 }
@@ -215,7 +215,7 @@ async function Yyn(e) {
 class Jyn {
   storageV5;
   credentials;
-  used = !1;
+  used = false;
   constructor(e = {}) {
     (this.storageV5 = e.storageV5), (this.credentials = e.credentials);
   }
@@ -226,14 +226,14 @@ class Jyn {
     return (this.storageV5 = e.storageV5), (this.credentials = e.credentials), "adopted";
   }
   poller = null;
-  cleanupRegistered = !1;
+  cleanupRegistered = false;
   loadingCompletePromise = null;
   loadingCompleteResolve = null;
   loadingTimeoutId = null;
-  firstPromptStateLogged = !1;
-  cacheWriteFailureLogged = !1;
+  firstPromptStateLogged = false;
+  cacheWriteFailureLogged = false;
   startupLoadState = "not_started";
-  startupLoadClaimed = !1;
+  startupLoadClaimed = false;
   startupLoadErrorCode;
   startupAwaitResult = "not_awaited";
   recordStartupAwaitResult(e) {
@@ -296,12 +296,12 @@ class Jyn {
   }
   recordCacheWriteFailure(e, t) {
     if ((n(`Policy limits: Failed to save - ${e}`), !this.cacheWriteFailureLogged))
-      (this.cacheWriteFailureLogged = !0), s("tengu_policy_limits_cache_write_failed", { errno: c(t) });
+      (this.cacheWriteFailureLogged = true), s("tengu_policy_limits_cache_write_failed", { errno: c(t) });
   }
-  async fetchAndLoad(e, t = !1) {
-    this.used = !0;
+  async fetchAndLoad(e, t = false) {
+    this.used = true;
     let i = e === "policy_limits_load" && !this.startupLoadClaimed;
-    if (i) this.startupLoadClaimed = !0;
+    if (i) this.startupLoadClaimed = true;
     if (!hC()) return null;
     if (i) this.startupLoadState = "in_flight";
     let r = vSt(),
@@ -375,10 +375,10 @@ class Jyn {
   }
   logCacheStateAtFirstPrompt() {
     if (this.firstPromptStateLogged) return;
-    this.firstPromptStateLogged = !0;
+    this.firstPromptStateLogged = true;
     let e = IEe(),
       t = e === void 0,
-      i = e === "custom_base_url" ? IEe({ skipBaseUrlCheck: !0 }) === void 0 : t,
+      i = e === "custom_base_url" ? IEe({ skipBaseUrlCheck: true }) === void 0 : t,
       r = lw() !== null,
       a = t ? R() : void 0,
       d = this.startupLoadState,
@@ -401,8 +401,8 @@ class Jyn {
       error_reporting_gate: o,
     });
   }
-  async load({ startupAwaited: e = !1 } = {}) {
-    if (((this.used = !0), hC() && !this.loadingCompletePromise))
+  async load({ startupAwaited: e = false } = {}) {
+    if (((this.used = true), hC() && !this.loadingCompletePromise))
       this.loadingCompletePromise = new Promise((i) => {
         this.loadingCompleteResolve = i;
       });
@@ -419,11 +419,11 @@ class Jyn {
     }
   }
   async refresh() {
-    if (((this.used = !0), this.stop(), this.initializeLoadingPromise(), !hC())) return;
+    if (((this.used = true), this.stop(), this.initializeLoadingPromise(), !hC())) return;
     await this.deleteCacheFile(), await this.load(), n("Policy limits: Refreshed after auth change");
   }
   async clearCache() {
-    (this.used = !0), this.stop(), await this.deleteCacheFile();
+    (this.used = true), this.stop(), await this.deleteCacheFile();
   }
   async deleteCacheFile() {
     if (O() && this.storageV5 !== void 0)
@@ -445,10 +445,10 @@ class Jyn {
     } catch {}
   }
   startBackgroundPolling() {
-    if (((this.used = !0), this.poller !== null)) return;
+    if (((this.used = true), this.poller !== null)) return;
     if (!hC()) return;
-    if (((this.poller = B9t(() => void this.poll(), U, { unref: !0 })), !this.cleanupRegistered))
-      (this.cleanupRegistered = !0), vt(() => this.stopBackgroundPolling());
+    if (((this.poller = B9t(() => void this.poll(), U, { unref: true })), !this.cleanupRegistered))
+      (this.cleanupRegistered = true), vt(() => this.stopBackgroundPolling());
   }
   stopBackgroundPolling() {
     this.poller?.[Symbol.dispose](), (this.poller = null);

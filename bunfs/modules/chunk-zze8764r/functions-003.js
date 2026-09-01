@@ -26,7 +26,7 @@ async function hB(e, t, r) {
     if (r?.exactMode) {
       let _ = await Ime(t, r.exclusive ? "wx" : "w", d.mode);
       try {
-        await Pje(u.createReadStream(), Rje(t, { fd: _.fd, autoClose: !1 })), await _.chmod(d.mode & 4095);
+        await Pje(u.createReadStream(), Rje(t, { fd: _.fd, autoClose: false })), await _.chmod(d.mode & 4095);
       } finally {
         await _.close();
       }
@@ -78,7 +78,7 @@ async function Dme(e, t, r) {
 async function Q_(e, t) {
   let r = v6t(e, t);
   try {
-    return await T6t(r), !1;
+    return await T6t(r), false;
   } catch (o) {
     if (E(o) === "EINVAL") return !(await Ome(r)).isSymbolicLink();
     throw o;
@@ -379,7 +379,7 @@ function Zje(e, t, r) {
   let { parse: d } = Tf.acorn(),
     _;
   try {
-    _ = d(e, { ecmaVersion: "latest", sourceType: "module", locations: !0 });
+    _ = d(e, { ecmaVersion: "latest", sourceType: "module", locations: true });
   } catch (A) {
     throw cO(r, t, A);
   }
@@ -635,7 +635,7 @@ function P4(e, t, r) {
   if (M === void 0) throw d.refuse(C, "the hook is not a function literal or the name of one");
   o.registered.set(M.fn, {
     linked: M.linked,
-    engineCreate: o.registered.get(M.fn)?.engineCreate === !0 || _ === ww.ENGINE_CREATE,
+    engineCreate: o.registered.get(M.fn)?.engineCreate === true || _ === ww.ENGINE_CREATE,
   });
 }
 
@@ -721,7 +721,7 @@ async function $me(e) {
         entrypoints: [V6t(dp.repoRoot(), e, BR)],
         target: "bun",
         format: "esm",
-        minify: !1,
+        minify: false,
         external: [JT.TYPES_MODULE],
       })
     ).outputs;
@@ -758,7 +758,7 @@ function hct() {
     if (u.isAvailable && !u.isAvailable()) continue;
     let d = `${o}@${Uh}`,
       _ = u.enabledFromTrustedSettingsOnly ? VMt(d) : e?.enabledPlugins?.[d],
-      C = _ !== void 0 ? _ === !0 : (u.defaultEnabled ?? !0),
+      C = _ !== void 0 ? _ === true : (u.defaultEnabled ?? true),
       A = {
         name: o,
         manifest: {
@@ -772,7 +772,7 @@ function hct() {
         source: d,
         repository: d,
         enabled: C,
-        isBuiltin: !0,
+        isBuiltin: true,
         hooksConfig: u.hooks,
         mcpServers: u.mcpServers,
         ...(u.hooksModule === void 0 ? {} : wB.loaderPaths(o, u.hooksModule)),
@@ -815,7 +815,7 @@ function Z6t(e) {
       description: typeof e.description === "function" ? "" : e.description,
       menuDescription: e.menuDescription,
       aliases: e.aliases,
-      hasUserSpecifiedDescription: !0,
+      hasUserSpecifiedDescription: true,
       allowedTools: e.allowedTools ?? [],
       getAllowedTools: e.getAllowedTools,
       disallowedTools: e.disallowedTools ?? [],
@@ -824,9 +824,9 @@ function Z6t(e) {
       subcommands: e.subcommands,
       subcommandsBareOnly: e.subcommandsBareOnly,
       model: e.model,
-      disableModelInvocation: typeof e.disableModelInvocation === "function" ? !0 : (e.disableModelInvocation ?? !1),
+      disableModelInvocation: typeof e.disableModelInvocation === "function" ? true : (e.disableModelInvocation ?? false),
       disableBridgeInvocation: e.disableBridgeInvocation,
-      userInvocable: e.userInvocable ?? !0,
+      userInvocable: e.userInvocable ?? true,
       terminalOriented: e.terminalOriented,
       argsMayContainSlashCommands: e.argsMayContainSlashCommands,
       contentLength: 0,
@@ -838,10 +838,10 @@ function Z6t(e) {
       agent: e.agent,
       background: e.background,
       skillRoot: o,
-      isEnabled: e.isEnabled ?? (() => !0),
+      isEnabled: e.isEnabled ?? (() => true),
       policyGate: e.policyGate,
       requires: e.requires,
-      isHidden: !(e.userInvocable ?? !0),
+      isHidden: !(e.userInvocable ?? true),
       progressMessage: e.progressMessage ?? "running",
       getPromptForCommand: u,
       getEffort: e.getEffort,
@@ -862,7 +862,7 @@ function _ct(e) {
   if (!ale(e)) return;
   let t = e.slice(0, -`@${Uh}`.length);
   for (let [r, o] of To().builtinPlugins)
-    if (Vy(r, t)) return o.enabledFromTrustedSettingsOnly === !0 ? `${r}@${Uh}` : void 0;
+    if (Vy(r, t)) return o.enabledFromTrustedSettingsOnly === true ? `${r}@${Uh}` : void 0;
   return;
 }
 
@@ -874,13 +874,13 @@ function uWe() {
   let r = e.filter((u) => u !== "userSettings"),
     o = [];
   for (let [u, d] of Object.entries(t)) {
-    if (d !== !1) continue;
+    if (d !== false) continue;
     let _ = IS(u) ? r.filter((A) => IL.includes(A)) : r,
       C = null;
     for (let A of _) {
       let x = ye(A)?.enabledPlugins?.[u];
       if (x === void 0) continue;
-      C = x === !1 ? null : A;
+      C = x === false ? null : A;
     }
     if (C === null) continue;
     o.push({ pluginId: u, overriddenBy: C });
@@ -953,9 +953,9 @@ function a3t(e) {
 
 function TB(e) {
   try {
-    return U4(e), !0;
+    return U4(e), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -1055,20 +1055,20 @@ function u3t(e) {
 }
 
 function gWn(e, t) {
-  if (e.length !== t.length) return !1;
+  if (e.length !== t.length) return false;
   return e.every((r, o) => {
     let u = t[o];
     if (r === void 0 || u === void 0) return r === u;
     let d = Object.keys(r.record);
-    if (d.length !== Object.keys(u.record).length) return !1;
+    if (d.length !== Object.keys(u.record).length) return false;
     return d.every((_) => _ in u.record && mWe(u.record[_]) === mWe(r.record[_]));
   });
 }
 
 function mWe(e) {
   if (e === void 0) return "absent";
-  if (e === !1) return "false";
-  return e === !0 ? "true" : "other";
+  if (e === false) return "false";
+  return e === true ? "true" : "other";
 }
 
 async function v3t(e) {
@@ -1084,7 +1084,7 @@ async function v3t(e) {
       try {
         o = await kWe(GR(t));
       } catch {}
-      for (let u of [...AWe(o, t), Wme(t)]) await wWe(Bp(GR(t), u), { force: !0 }).catch(() => {});
+      for (let u of [...AWe(o, t), Wme(t)]) await wWe(Bp(GR(t), u), { force: true }).catch(() => {});
     }),
   );
 }
@@ -1113,7 +1113,7 @@ async function R3t(e) {
   try {
     return (await hO(e)) === "directory";
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -1123,11 +1123,11 @@ function x3t(e) {
       let t = Jy();
       return fWe(e) === Bp(fWe(t), KR(t, e));
     }
-    if (!d3t(e).isDirectory()) return !1;
+    if (!d3t(e).isDirectory()) return false;
     if (D() === "windows") return scr(e).kind === "directory";
-    return !0;
+    return true;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -1185,7 +1185,7 @@ async function Ew(e) {
   try {
     return (await kO(e)).isSymbolicLink();
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -1287,7 +1287,7 @@ async function K4(e, t) {
     o = O() && t !== void 0;
   if (await Ew(e)) {
     let A = PWe(e);
-    if (A === void 0) return !1;
+    if (A === void 0) return false;
     let x = Bp(A, String(process.pid));
     for (let M = 1; ; M++)
       try {
@@ -1302,13 +1302,13 @@ async function K4(e, t) {
                   ? `Not writing an ${kb} marker: ${A} could not be examined`
                   : `Not writing an ${kb} marker: ${A} does not resolve inside the plugins directory`,
             ),
-            !1
+            false
           );
-        return gWe(r, x, void 0), await cue(x), await Wn(x, await Hme()), !0;
+        return gWe(r, x, void 0), await cue(x), await Wn(x, await Hme()), true;
       } catch (F) {
         let U = E(F);
         if ((U === "ENOENT" || U === "ENOTDIR") && M < Bme && (await MWe(Jy(), A)) === "pruned") continue;
-        return n(`Failed to write ${kb} marker: ${e}: ${F}`), !1;
+        return n(`Failed to write ${kb} marker: ${e}: ${F}`), false;
       }
   }
   let u = Bp(e, Mu),
@@ -1319,10 +1319,10 @@ async function K4(e, t) {
     try {
       A = await hO(u);
     } catch (x) {
-      return n(`Not writing an ${Mu} marker: ${u} cannot be examined: ${x}`), !1;
+      return n(`Not writing an ${Mu} marker: ${u} cannot be examined: ${x}`), false;
     }
     if (A === "refused" || A === "junk") {
-      if (!(await _O(u))) return n(`Not writing an ${Mu} marker: ${u} is not a directory of markers`), !1;
+      if (!(await _O(u))) return n(`Not writing an ${Mu} marker: ${u} is not a directory of markers`), false;
     }
   }
   let C = o && _ ? Te.pluginCache(_.marketplace, _.plugin, _.version, [Mu, String(process.pid)]) : void 0;
@@ -1333,49 +1333,49 @@ async function K4(e, t) {
         x = { mode: 438 & ~process.umask() },
         M = await t.write(C, A, x);
       if (!M.ok) await cue(d), (M = await t.write(C, A, x));
-      if (!M.ok) return n(`Failed to write ${Mu} marker: ${e}: ${Ge(M.error)}`), !1;
-      return !0;
+      if (!M.ok) return n(`Failed to write ${Mu} marker: ${e}: ${Ge(M.error)}`), false;
+      return true;
     }
     try {
       await vB(u);
     } catch (A) {
       let x = E(A);
-      if (x === "ENOENT") await vB(u, { recursive: !0 });
+      if (x === "ENOENT") await vB(u, { recursive: true });
       else if (x !== "EEXIST") throw A;
       else {
         let M = await hO(u);
-        if (M === "absent") await vB(u, { recursive: !0 });
+        if (M === "absent") await vB(u, { recursive: true });
         else if (M !== "directory") {
-          if (!(await _O(u))) return n(`Not writing ${Mu} marker through a non-directory: ${e}`), !1;
-          await vB(u, { recursive: !0 });
+          if (!(await _O(u))) return n(`Not writing ${Mu} marker through a non-directory: ${e}`), false;
+          await vB(u, { recursive: true });
         }
       }
     }
-    return await cue(d), await Wn(d, await Hme()), !0;
+    return await cue(d), await Wn(d, await Hme()), true;
   } catch (A) {
-    return n(`Failed to write ${Mu} marker: ${e}: ${A}`), !1;
+    return n(`Failed to write ${Mu} marker: ${e}: ${A}`), false;
   }
 }
 
 async function V4(e, t) {
-  if (await Ew(e)) return !0;
+  if (await Ew(e)) return true;
   let r = Bp(e, Mu),
     o = Bp(r, String(process.pid)),
     u = O() && t !== void 0,
     d = u ? MD(e, XF()) : null;
   try {
     let _ = await hO(r);
-    if (_ === "absent" || (u && _ === "junk")) return hWe(Jt(), o), !0;
-    if (_ === "refused" || _ === "junk") return !1;
+    if (_ === "absent" || (u && _ === "junk")) return hWe(Jt(), o), true;
+    if (_ === "refused" || _ === "junk") return false;
     if (u && d) {
       let C = await t.delete(Te.pluginCache(d.marketplace, d.plugin, d.version, [Mu, String(process.pid)]));
-      if (!C.ok) return n(`Failed to remove ${Mu} marker: ${e}: ${Ge(C.error)}`), !1;
-    } else await wWe(o, { force: !0 });
+      if (!C.ok) return n(`Failed to remove ${Mu} marker: ${e}: ${Ge(C.error)}`), false;
+    } else await wWe(o, { force: true });
     await TWe(r).catch(() => {});
   } catch (_) {
-    return n(`Failed to remove ${Mu} marker: ${e}: ${_}`), !1;
+    return n(`Failed to remove ${Mu} marker: ${e}: ${_}`), false;
   }
-  return hWe(Jt(), o), !0;
+  return hWe(Jt(), o), true;
 }
 
 function yWe(e) {
@@ -1418,7 +1418,7 @@ async function OWe(e, t) {
 async function tS(e, t, r) {
   if (await Ew(e)) {
     let C = PWe(e);
-    if (C === void 0) return !1;
+    if (C === void 0) return false;
     switch (await IWe(C)) {
       case "ours": {
         let x = await SWe(C, t);
@@ -1426,11 +1426,11 @@ async function tS(e, t, r) {
         return x;
       }
       case "absent":
-        return !1;
+        return false;
       case "redirected":
-        return n(`Not scanning ${kb}: ${C} does not resolve inside the plugins directory`), !1;
+        return n(`Not scanning ${kb}: ${C} does not resolve inside the plugins directory`), false;
       case "undeterminable":
-        return t?.refusedCountsAsLive ?? !0;
+        return t?.refusedCountsAsLive ?? true;
     }
   }
   let o = Bp(e, Mu),
@@ -1441,44 +1441,44 @@ async function tS(e, t, r) {
   try {
     _ = await hO(o);
   } catch (C) {
-    if (Ht(C)) return t?.refusedCountsAsLive ?? !0;
+    if (Ht(C)) return t?.refusedCountsAsLive ?? true;
     throw C;
   }
-  if (_ === "junk") return await _O(o), !1;
-  if (_ === "refused") return await _O(o), t?.refusedCountsAsLive ?? !0;
+  if (_ === "junk") return await _O(o), false;
+  if (_ === "refused") return await _O(o), t?.refusedCountsAsLive ?? true;
   return B3t(u, d, t);
 }
 
 async function _O(e) {
   try {
-    if ((await nC(e)) === "directory") return !0;
+    if ((await nC(e)) === "directory") return true;
     return (
       n(`Removed a non-directory ${Mu} at ${e}; the version reads unpinned until a session marks it again`, {
         level: "warn",
       }),
-      !0
+      true
     );
   } catch (t) {
     return (
       n(`Could not remove a non-directory ${Mu} at ${e} (${l(t)}); treating the version as in use`, { level: "warn" }),
-      !1
+      false
     );
   }
 }
 
 function jme(e) {
-  if (typeof e !== "number" || !Number.isFinite(e)) return !1;
+  if (typeof e !== "number" || !Number.isFinite(e)) return false;
   return !JF(e, U3t);
 }
 
 async function _We(e, t) {
   try {
     let r = t ?? (await kO(e)).mtimeMs;
-    if (!jme(r)) return !1;
+    if (!jme(r)) return false;
     if ((await nC(e)) === "directory") await Tc(e);
-    return !0;
+    return true;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -1486,21 +1486,21 @@ async function SWe(e, t) {
   let r;
   try {
     let u = await hO(e);
-    if (u === "refused") return await _O(e), t?.refusedCountsAsLive ?? !0;
-    if (u === "junk") return await _O(e), !1;
-    if (u !== "directory") return !1;
+    if (u === "refused") return await _O(e), t?.refusedCountsAsLive ?? true;
+    if (u === "junk") return await _O(e), false;
+    if (u !== "directory") return false;
     r = await kWe(e);
   } catch (u) {
-    if (X(u)) return !1;
-    if (Ht(u)) return t?.refusedCountsAsLive ?? !0;
+    if (X(u)) return false;
+    if (Ht(u)) return t?.refusedCountsAsLive ?? true;
     throw u;
   }
-  let o = !1;
+  let o = false;
   for (let u of r) {
     let d = Bp(e, u);
     if (qR(u)) {
       if (await _We(d)) continue;
-      o = !0;
+      o = true;
       continue;
     }
     let _, C;
@@ -1509,18 +1509,18 @@ async function SWe(e, t) {
       if (((C = x.mtimeMs), x.isFile() && x.size <= EWe)) _ = await y3t(d, "utf-8");
     } catch (x) {
       if (X(x)) continue;
-      n(`In-use marker ${d} could not be read (${l(x)}); treating it as live`, { level: "warn" }), (o = !0);
+      n(`In-use marker ${d} could not be read (${l(x)}); treating it as live`, { level: "warn" }), (o = true);
       continue;
     }
     if (_ === "") {
       if (await _We(d, C)) continue;
-      o = !0;
+      o = true;
       continue;
     }
-    let A = CWe().safeParse(Ut(_, !1));
+    let A = CWe().safeParse(Ut(_, false));
     if (t?.excludeSelf && A.success && A.data.pid === process.pid) continue;
     if (A.success && (A.data.pid === 1 || ms(A.data.pid)) && (await Bm(A.data.pid, iA(A.data)))) {
-      o = !0;
+      o = true;
       continue;
     }
     await Tc(d);
@@ -1536,13 +1536,13 @@ async function B3t(e, t, r) {
   do {
     let x = await e.listEntries(
       { namespace: "pluginCache", marketplace: t.marketplace, plugin: t.plugin, version: t.version, relPath: [Mu] },
-      { cursor: _, skipKeyStats: !0, skipScopeStats: !0 },
+      { cursor: _, skipKeyStats: true, skipScopeStats: true },
     );
     if (!x.ok) {
       let M = "telemetryCode" in x.error ? x.error.telemetryCode : void 0,
         F = Object.assign(Error("in-use listing failed"), { ...(M !== void 0 && { code: M }) });
-      if (M === "ENOENT" || M === "ENOTDIR") return !1;
-      if (Ht(F)) return r?.refusedCountsAsLive ?? !0;
+      if (M === "ENOENT" || M === "ENOTDIR") return false;
+      if (Ht(F)) return r?.refusedCountsAsLive ?? true;
       throw F;
     }
     for (let M of x.value.items) {
@@ -1560,29 +1560,29 @@ async function B3t(e, t, r) {
     for (let [U, B] of M.entries()) {
       let W = F[U] ?? "unreadable";
       if (W === "unreadable") {
-        C = !0;
+        C = true;
         continue;
       }
       let z = W === "absent" ? void 0 : W,
         pe = z !== void 0 && Buffer.byteLength(z.raw, "utf8") > EWe ? void 0 : z?.raw;
       if (pe === "") {
         if (!jme(z?.mtimeMs)) {
-          C = !0;
+          C = true;
           continue;
         }
         if (
           !(await e.delete(o(B)).then(
             (ge) => ge.ok,
-            () => !1,
+            () => false,
           ))
         )
-          C = !0;
+          C = true;
         continue;
       }
-      let fe = CWe().safeParse(Ut(pe, !1));
+      let fe = CWe().safeParse(Ut(pe, false));
       if (r?.excludeSelf && fe.success && fe.data.pid === process.pid) continue;
       if (fe.success && (fe.data.pid === 1 || ms(fe.data.pid)) && (await Bm(fe.data.pid, iA(fe.data)))) {
-        C = !0;
+        C = true;
         continue;
       }
       await e.delete(o(B)).then(
@@ -1617,7 +1617,7 @@ function CO(e) {
 }
 
 function xg(e, t) {
-  if (e === t) return !0;
+  if (e === t) return true;
   let r = t.endsWith(YR) ? t : t + YR;
   return e.startsWith(r);
 }
@@ -1653,14 +1653,14 @@ function aH(e) {
     o = Z5(e),
     u = (C) => qCt(C).some((A) => A !== r),
     d = (C) => {
-      if (!oZe(C) && !Ms(C)) return !1;
-      if (JO(C) || Dj(C) || v5t(C)) return !0;
+      if (!oZe(C) && !Ms(C)) return false;
+      if (JO(C) || Dj(C) || v5t(C)) return true;
       if (Qi(C) || Ms(C)) {
         let A = Z5(C);
         return A === null || A !== o;
       }
       if (ns(C)) return oc(C) || t(C) !== r;
-      return !0;
+      return true;
     };
   return { spelling: d, target: (C, A) => d(C) || d(UWe(A, C)) || u(A + YR + C) };
 }
@@ -1758,7 +1758,7 @@ async function cH(e, t, r = {}) {
   let o = performance.now(),
     u = r.budget ?? RB(),
     d = r.mode ?? "install",
-    _ = { vouched: !1, materialized: 0, removed: 0, failed: 0, readOnly: !1 };
+    _ = { vouched: false, materialized: 0, removed: 0, failed: 0, readOnly: false };
   if (!(await kc(e)).isDirectory())
     throw new R(`Plugin path is not a directory: ${e}`, "plugin path is not a directory");
   let C = await VR(e),
@@ -1769,12 +1769,12 @@ async function cH(e, t, r = {}) {
   } catch (lt) {
     let mt = E(lt);
     if (mt !== void 0 && cE.has(mt))
-      return n(`materializeLinks: ${e}: cannot write (${mt}), leaving links in place`), { ..._, readOnly: !0 };
+      return n(`materializeLinks: ${e}: cannot write (${mt}), leaving links in place`), { ..._, readOnly: true };
     throw lt;
   }
-  let M = await kc(x, { bigint: !0 }),
+  let M = await kc(x, { bigint: true }),
     F = async () => {
-      let lt = await kc(x, { bigint: !0 }).catch(() => null);
+      let lt = await kc(x, { bigint: true }).catch(() => null);
       return lt !== null && lt.isDirectory() && lt.ino === M.ino && lt.dev === M.dev;
     },
     U = async () => {
@@ -1783,11 +1783,11 @@ async function cH(e, t, r = {}) {
     B = 0,
     W = async () => (await U(), Fu(x, String(B++))),
     z = async (lt) => {
-      if (await F()) await wO(lt, { recursive: !0, force: !0 }).catch(() => {});
+      if (await F()) await wO(lt, { recursive: true, force: true }).catch(() => {});
     },
-    pe = !1,
+    pe = false,
     fe = 0,
-    me = !0,
+    me = true,
     ge = aH(C),
     Ce = (lt, mt) => {
       _.failed++, n(`materializeLinks: failed ${lt}: ${l(mt)}`, { level: "warn" });
@@ -1801,7 +1801,7 @@ async function cH(e, t, r = {}) {
         if (!(await kc(lt)).isSymbolicLink()) return;
         await Ii(lt, await W()), _.removed++, n(`materializeLinks: removed ${mt} -> ${Xe} (${nt})`);
       } catch (ht) {
-        if (E(ht) !== "ENOENT" || (await kc(lt).catch(() => null))?.isSymbolicLink() === !0) Ce(mt, ht);
+        if (E(ht) !== "ENOENT" || (await kc(lt).catch(() => null))?.isSymbolicLink() === true) Ce(mt, ht);
       }
     },
     Pe = async (lt, mt, Xe, nt = "dangling") => {
@@ -1819,7 +1819,7 @@ async function cH(e, t, r = {}) {
           `materializeLinks: left ${mt} -> ${Xe}: does not resolve while another pass may be converting this tree; judged on a later load`,
         ),
           fe++,
-          (me = !1);
+          (me = false);
         return;
       }
       return Ee(lt, mt, Xe, nt);
@@ -1841,7 +1841,7 @@ async function cH(e, t, r = {}) {
       }
       let dn = await W();
       try {
-        await hB(nt, dn, { exclusive: !0, exactMode: !0, nonBlocking: !0 }),
+        await hB(nt, dn, { exclusive: true, exactMode: true, nonBlocking: true }),
           await ze(dn, lt, mt),
           _.materialized++,
           n(`materializeLinks: copied ${mt} (was symlink -> ${Xe})`);
@@ -1869,7 +1869,7 @@ async function cH(e, t, r = {}) {
         } catch (fn) {
           if (!(await Ie(mt)) && (await F()))
             await Ii(dn + EB, mt).catch(() => {
-              pe = !0;
+              pe = true;
             });
           throw fn;
         }
@@ -1879,7 +1879,7 @@ async function cH(e, t, r = {}) {
       let ht = await W(),
         At = { ...u };
       try {
-        XR(u, 1, 0), await t(nt, ht, nt, ht, C, !0, new Set([nt]), u, !0);
+        XR(u, 1, 0), await t(nt, ht, nt, ht, C, true, new Set([nt]), u, true);
       } catch (dn) {
         if ((await z(ht), Fe(At), dn instanceof Z4)) return Oe(lt, mt, Xe, dn);
         return Ce(mt, dn);
@@ -1899,7 +1899,7 @@ async function cH(e, t, r = {}) {
         } catch (fn) {
           if (!(await Ie(lt)) && (await F()))
             await Ii(dn + EB, lt).catch(() => {
-              pe = !0;
+              pe = true;
             });
           throw fn;
         }
@@ -1995,7 +1995,7 @@ async function cH(e, t, r = {}) {
                 `materializeLinks: left ${At.rel} -> ${At.target}: could not be re-checked after the conversion; judged on a later load`,
               ),
                 fe++,
-                (me = !1);
+                (me = false);
           else if (dn === "dangling after conversion") await Pe(At.linkPath, At.rel, At.target, dn);
           else await Ee(At.linkPath, At.rel, At.target, dn);
         }
@@ -2005,7 +2005,7 @@ async function cH(e, t, r = {}) {
     nn = async (lt, mt) => {
       let Xe;
       try {
-        Xe = await vO(lt, { withFileTypes: !0 });
+        Xe = await vO(lt, { withFileTypes: true });
       } catch (nt) {
         Ce(Tb(C, lt) || ".", nt);
         return;
@@ -2031,7 +2031,7 @@ async function cH(e, t, r = {}) {
           else if (At.isDirectory()) {
             let dn =
               D() !== "windows"
-                ? !0
+                ? true
                 : await Q_(lt, nt.name).catch((Lt) => {
                     if (E(Lt) !== "ENOENT") Ce(Tb(C, Fu(lt, nt.name)), Lt);
                     return null;
@@ -2048,12 +2048,12 @@ async function cH(e, t, r = {}) {
     },
     xt = setInterval(iXt, Kme / 4, x);
   xt.unref();
-  let tt = !1;
+  let tt = false;
   try {
     await nn(C, 0), await en();
   } finally {
     clearInterval(xt);
-    let lt = await F().catch(() => !1);
+    let lt = await F().catch(() => false);
     if (!pe && !lt)
       n(`materializeLinks: ${e}: ${x} is no longer the folder this pass made; left in place, tree not vouched for`, {
         level: "warn",
@@ -2061,14 +2061,14 @@ async function cH(e, t, r = {}) {
     tt =
       !pe &&
       lt &&
-      (await wO(x, { recursive: !0, force: !0 }).then(
-        () => !0,
-        (mt) => (n(`materializeLinks: ${e}: cannot remove ${x}: ${l(mt)}`, { level: "warn" }), !1),
+      (await wO(x, { recursive: true, force: true }).then(
+        () => true,
+        (mt) => (n(`materializeLinks: ${e}: cannot remove ${x}: ${l(mt)}`, { level: "warn" }), false),
       ));
   }
   if (_.failed === 0 && A && me && tt && !(d === "migrate" && (await FWe(C, x))))
     if (d === "migrate" && !(await uXt(C))) {
-      if (fe === 0) _.settledUnvouched = !0;
+      if (fe === 0) _.settledUnvouched = true;
     } else _.vouched = await pXt(e, C, _);
   return (
     n(
@@ -2088,16 +2088,16 @@ async function lE(e) {
   }
 }
 
-async function cXt(e, t, r, o = !1) {
-  let u = !0;
+async function cXt(e, t, r, o = false) {
+  let u = true;
   if (r === "install") {
-    if (!(await Xme(t, LD))) u = !1;
+    if (!(await Xme(t, LD))) u = false;
     if (o) {
-      if ((await lE(nC(Fu(t, Mu)))) === Rw) u = !1;
-    } else if (!(await Xme(t, Mu))) u = !1;
+      if ((await lE(nC(Fu(t, Mu)))) === Rw) u = false;
+    } else if (!(await Xme(t, Mu))) u = false;
   }
   let d = await lE(vO(t));
-  if (d === Rw) return n(`materializeLinks: ${e}: cannot list the tree this time; not stamping`), !1;
+  if (d === Rw) return n(`materializeLinks: ${e}: cannot list the tree this time; not stamping`), false;
   for (let _ of d) {
     if (!wP(mM(_), LD)) continue;
     let C = Fu(t, _);
@@ -2110,35 +2110,35 @@ async function cXt(e, t, r, o = !1) {
       );
       if (M === null) continue;
       if (M === Rw) {
-        u = !1;
+        u = false;
         continue;
       }
       if (!M.isDirectory()) {
-        if ((await lE(wO(C, { force: !0 }))) === Rw) u = !1;
+        if ((await lE(wO(C, { force: true }))) === Rw) u = false;
         continue;
       }
       if (n5(M.mtimeMs)) {
-        (u = !1), n(`materializeLinks: ${e}: ${_} may belong to a pass in progress; not stamping this time`);
+        (u = false), n(`materializeLinks: ${e}: ${_} may belong to a pass in progress; not stamping this time`);
         continue;
       }
       let F = await Yme(t, _);
       if (F === null) continue;
       if (F) {
-        if ((await Vme(C)) !== !0) u = !1;
+        if ((await Vme(C)) !== true) u = false;
         continue;
       }
       if (!(await dXt(e, t, C))) {
-        u = !1;
+        u = false;
         continue;
       }
     }
     let A = await Yme(t, _);
     if (A === null) continue;
     if (A) {
-      if ((await Vme(C)) !== !0) u = !1;
+      if ((await Vme(C)) !== true) u = false;
       continue;
     }
-    if ((await lE(wO(C, { recursive: !0, force: !0 }))) === Rw) u = !1;
+    if ((await lE(wO(C, { recursive: true, force: true }))) === Rw) u = false;
   }
   return u;
 }
@@ -2149,11 +2149,11 @@ async function Vme(e) {
 }
 
 async function Yme(e, t) {
-  if (D() !== "windows") return !1;
+  if (D() !== "windows") return false;
   let r = await Q_(e, t).catch((o) => {
     let u = E(o);
     if (u === "ENOENT") return null;
-    if (u !== void 0 && cE.has(u)) return !1;
+    if (u !== void 0 && cE.has(u)) return false;
     throw o;
   });
   return r === null ? null : !r;
@@ -2161,9 +2161,9 @@ async function Yme(e, t) {
 
 async function Xme(e, t) {
   let r = await Yme(e, t);
-  if (r === null) return !0;
+  if (r === null) return true;
   if (r) return Vme(Fu(e, t));
-  return (await lE(wO(Fu(e, t), { recursive: !0, force: !0 }))) !== Rw;
+  return (await lE(wO(Fu(e, t), { recursive: true, force: true }))) !== Rw;
 }
 
 async function uXt(e) {
@@ -2172,12 +2172,12 @@ async function uXt(e) {
 
 async function FWe(e, t) {
   let r = await vO(e).catch((o) => (E(o) === "ENOENT" ? [] : null));
-  if (r === null) return !0;
+  if (r === null) return true;
   return r.some((o) => wP(mM(o), LD) && Fu(e, o) !== t);
 }
 
 async function dXt(e, t, r) {
-  let o = !0,
+  let o = true,
     u = aH(t),
     d = await lE(
       vO(r).catch((_) => {
@@ -2185,13 +2185,13 @@ async function dXt(e, t, r) {
         throw _;
       }),
     );
-  if (d === Rw) return !1;
+  if (d === Rw) return false;
   for (let _ of d) {
     if (!_.endsWith(t5)) continue;
     let C = Fu(r, _.slice(0, -t5.length) + EB);
     try {
       let A = Fu(r, _),
-        x = await Dme(A, rXt, { throwTransient: !0 });
+        x = await Dme(A, rXt, { throwTransient: true });
       if (x === null) continue;
       let M = Fu(t, x),
         F = Tb(t, M).split(YR)[0] ?? "";
@@ -2212,7 +2212,7 @@ async function dXt(e, t, r) {
       );
       if (U === "present") continue;
       if (U === "unknown") {
-        o = !1;
+        o = false;
         continue;
       }
       await Ii(C, M), n(`materializeLinks: ${e}: restored ${x} from an interrupted pass`);
@@ -2223,7 +2223,7 @@ async function dXt(e, t, r) {
         (n(`materializeLinks: ${e}: cannot restore a parked entry from ${r}: ${l(A)}`, { level: "warn" }),
         x !== "ENAMETOOLONG" && x !== "EINVAL" && !(A instanceof TypeError))
       )
-        o = !1;
+        o = false;
     }
   }
   return o;
@@ -2232,16 +2232,16 @@ async function dXt(e, t, r) {
 async function r5(e) {
   let t = Fu(e, LD),
     r = [
-      () => wO(t, { force: !0 }),
+      () => wO(t, { force: true }),
       () => Ii(t, mU(t)),
       async () => {
         let o = zme.O_NOFOLLOW;
         if (D() === "windows" || o === void 0) throw Error("in-place invalidation needs O_NOFOLLOW");
-        let u = await kc(t, { bigint: !0 });
+        let u = await kc(t, { bigint: true });
         if (!u.isFile()) throw Error("marker name is not a regular file");
         let d = await z3t(t, zme.O_WRONLY | o | (zme.O_NONBLOCK ?? 0));
         try {
-          let _ = await d.stat({ bigint: !0 });
+          let _ = await d.stat({ bigint: true });
           if (!_.isFile() || _.nlink !== 1n || _.ino !== u.ino || _.dev !== u.dev)
             throw Error("marker is not the single-named regular file seen");
           await d.truncate(0),
@@ -2257,11 +2257,11 @@ async function r5(e) {
     ];
   for (let o of r)
     try {
-      return await o(), !0;
+      return await o(), true;
     } catch (u) {
       n(`materializeLinks: ${e}: cannot withdraw ${LD}: ${l(u)}`, { level: "warn" });
     }
-  return !1;
+  return false;
 }
 
 async function pXt(e, t, r) {
@@ -2288,15 +2288,15 @@ async function pXt(e, t, r) {
       `
 `;
   try {
-    return await J4(o, d, { flag: "wx" }), !0;
+    return await J4(o, d, { flag: "wx" }), true;
   } catch (_) {
-    if (E(_) !== "EEXIST") return n(`materializeLinks: ${e}: cannot write ${LD}: ${l(_)}`, { level: "warn" }), !1;
+    if (E(_) !== "EEXIST") return n(`materializeLinks: ${e}: cannot write ${LD}: ${l(_)}`, { level: "warn" }), false;
   }
   try {
-    if (await jWe(t)) return !0;
-    return await Xme(t, LD), await J4(o, d, { flag: "wx" }), !0;
+    if (await jWe(t)) return true;
+    return await Xme(t, LD), await J4(o, d, { flag: "wx" }), true;
   } catch (_) {
-    return n(`materializeLinks: ${e}: cannot write ${LD}: ${l(_)}`, { level: "warn" }), !1;
+    return n(`materializeLinks: ${e}: cannot write ${LD}: ${l(_)}`, { level: "warn" }), false;
   }
 }
 
@@ -2320,13 +2320,13 @@ async function jWe(e) {
       if (E(u) === "ENOENT") return null;
       throw u;
     });
-  if (r === null || !r.isFile() || r.size > DWe) return !1;
+  if (r === null || !r.isFile() || r.size > DWe) return false;
   let o = await Dme(t, DWe);
-  if (o === null) return !1;
+  if (o === null) return false;
   try {
     return oXt().safeParse(V(o)).success;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -2371,7 +2371,7 @@ async function fXt(e) {
   let t = Fu(e, Mu),
     r = await SXt(e, t);
   if (r === null) return;
-  let o = await vO(t, { withFileTypes: !0 }).catch((u) => {
+  let o = await vO(t, { withFileTypes: true }).catch((u) => {
     let d = E(u);
     if (d === "ENOENT" || d === "ENOTDIR") return [];
     if (d === void 0 || !cE.has(d)) throw u;
@@ -2468,7 +2468,7 @@ async function hXt(e) {
 
 async function yXt(e, t, r) {
   let o = await kc(e).catch(() => null);
-  if (o === null || _Xt(o, t)) return !1;
+  if (o === null || _Xt(o, t)) return false;
   switch (r) {
     case "nonRegular":
       return !o.isFile() && !o.isDirectory();
@@ -2491,7 +2491,7 @@ function qme(e, t) {
 
 async function SXt(e, t) {
   try {
-    let r = await kc(t, { bigint: !0 });
+    let r = await kc(t, { bigint: true });
     if (!r.isSymbolicLink() && r.isDirectory() && (await Q_(e, Mu))) return r;
     let o = await nC(t);
     return (
@@ -2511,14 +2511,14 @@ async function SXt(e, t) {
 }
 
 async function $We(e, t) {
-  let r = await kc(e, { bigint: !0 }).catch(() => null);
+  let r = await kc(e, { bigint: true }).catch(() => null);
   return r !== null && !r.isSymbolicLink() && r.isDirectory() && r.dev === t.dev && r.ino === t.ino;
 }
 
 async function bXt(e, t, r, o, u) {
   let d = Tb(t, e),
     _ = d.split(YR);
-  if (!d || Qme(d) || _.length !== 3 || _.some((C) => C === "" || C === "." || C === "..")) return !0;
+  if (!d || Qme(d) || _.length !== 3 || _.some((C) => C === "" || C === "." || C === "..")) return true;
   try {
     if (e.endsWith(".zip")) {
       let U = await kc(e).catch((B) => {
@@ -2526,19 +2526,19 @@ async function bXt(e, t, r, o, u) {
         if (W === "ENOENT" || W === "ENOTDIR") return null;
         throw B;
       });
-      if (U === null || !U.isDirectory()) return !0;
+      if (U === null || !U.isDirectory()) return true;
     }
     let C = await kc(e);
     if (C.isSymbolicLink() || (D() === "windows" && !(await Q_(CB(e), V3t(e)))))
-      return n(`materializeLinks: skipping ${e}: version dir is a symlink (or can be read as a link)`), !0;
-    if (!C.isDirectory()) return !0;
+      return n(`materializeLinks: skipping ${e}: version dir is a symlink (or can be read as a link)`), true;
+    if (!C.isDirectory()) return true;
     let [A, x] = await Promise.all([VR(e), VR(t)]);
-    if (A === x || !xg(A, x)) return n(`materializeLinks: skipping ${e}: resolves outside the plugin cache`), !0;
+    if (A === x || !xg(A, x)) return n(`materializeLinks: skipping ${e}: resolves outside the plugin cache`), true;
     let M = await mXt(A);
-    if (M === "unremovable" || M === "directory-unproven" || (await jWe(e))) return !0;
+    if (M === "unremovable" || M === "directory-unproven" || (await jWe(e))) return true;
     if (M === "directory") await fXt(A);
     if (u !== void 0 && (await u())) {
-      let U = await kc(e, { bigint: !0 }),
+      let U = await kc(e, { bigint: true }),
         B = o.get(A);
       if (
         B !== void 0 &&
@@ -2546,28 +2546,28 @@ async function bXt(e, t, r, o, u) {
       )
         B = void 0;
       let W = Date.now();
-      if (B === void 0) o.set(A, { since: W, announced: !1, versionPath: e, ino: U.ino, birthtimeNs: U.birthtimeNs });
+      if (B === void 0) o.set(A, { since: W, announced: false, versionPath: e, ino: U.ino, birthtimeNs: U.birthtimeNs });
       if (B === void 0 || W - B.since < nXt)
         return (
           n(`materializeLinks: deferring ${A}: in use (possibly by this session), or liveness could not be determined`),
-          !1
+          false
         );
       if (!B.announced)
-        (B.announced = !0),
+        (B.announced = true),
           n(
             `materializeLinks: ${A}: deferred since ${new Date(B.since).toISOString()} to in-use markers that still read live, or a liveness probe that kept failing; converting now`,
             { level: "warn" },
           );
     } else o.delete(A);
     if ((await VR(e)) !== A)
-      return n(`materializeLinks: ${e}: moved while its liveness was probed; judged on a later load`), !1;
+      return n(`materializeLinks: ${e}: moved while its liveness was probed; judged on a later load`), false;
     let F = await cH(e, r, { mode: "migrate" });
-    return o.delete(A), F.vouched || F.readOnly || F.settledUnvouched === !0;
+    return o.delete(A), F.vouched || F.readOnly || F.settledUnvouched === true;
   } catch (C) {
     let A = E(C);
     if (A === "ENOENT") {
       for (let [x, M] of o) if (M.versionPath === e) o.delete(x);
-      return !1;
+      return false;
     }
     return n(`materializeLinks: ${e}: ${l(C)}`, { level: "warn" }), A === void 0 || !sXt.has(A);
   }
@@ -2589,11 +2589,11 @@ function vXt(e, t) {
 
 async function pH(e, t) {
   if (
-    (await wXt(RO(e, gI), { force: !0 }),
+    (await wXt(RO(e, gI), { force: true }),
     !(await rS(t).then(
-      () => !1,
+      () => false,
       (o) => {
-        if (Ym(o)) return !0;
+        if (Ym(o)) return true;
         throw o;
       },
     )))
@@ -2626,20 +2626,20 @@ function IO(e) {
   return CO(e) || EAt(mM(e));
 }
 
-async function QR(e, { whenUnreadable: t = !0 } = {}) {
+async function QR(e, { whenUnreadable: t = true } = {}) {
   try {
     return (await xO(e)).some((r) => !IO(r));
   } catch (r) {
-    if (Ym(r)) return !1;
-    if (t) return !0;
-    if (Ht(r)) return !1;
+    if (Ym(r)) return false;
+    if (t) return true;
+    if (Ht(r)) return false;
     throw r;
   }
 }
 
 async function dH(e, t) {
-  if (t.isSymbolicLink()) return !0;
-  if (!t.isDirectory()) return !1;
+  if (t.isSymbolicLink()) return true;
+  if (!t.isDirectory()) return false;
   try {
     return !(await Q_(zWe(e), WWe(e)));
   } catch (r) {
@@ -2766,16 +2766,16 @@ async function DO(e) {
 async function KWe(e) {
   let t = Date.now() - qWe;
   try {
-    if ((await rS(e)).mtimeMs >= t) return !1;
+    if ((await rS(e)).mtimeMs >= t) return false;
     let r = await xO(e);
     if ((await Promise.all(r.map((u) => rS(RO(e, u)).catch(() => null)))).some((u) => u === null || u.mtimeMs >= t))
-      return !1;
+      return false;
   } catch {
-    return !1;
+    return false;
   }
   return DO(e).then(
     (r) => r === "removed",
-    (r) => (n(`Plugin cache: cannot remove leftover ${e}: ${l(r)}`), !1),
+    (r) => (n(`Plugin cache: cannot remove leftover ${e}: ${l(r)}`), false),
   );
 }
 
@@ -2787,8 +2787,8 @@ async function vb(e, t) {
   let r = nfe(t);
   for (let o = nfe(e); ; o = nfe(o)) {
     let u = await Sh(o);
-    if (u === "symlink" || u === "unexaminable") return !0;
-    if (o === r || !o.startsWith(r + RXt)) return !1;
+    if (u === "symlink" || u === "unexaminable") return true;
+    if (o === r || !o.startsWith(r + RXt)) return false;
   }
 }
 
@@ -2799,7 +2799,7 @@ function l5(e) {
     },
     r = ["userSettings", "localSettings", "flagSettings"].some((o) => {
       let u = Mo(o);
-      if (u === void 0) return !1;
+      if (u === void 0) return false;
       switch (o) {
         case "flagSettings":
           return t(u, vR() ?? tme());
@@ -2823,14 +2823,14 @@ function l5(e) {
 }
 
 function c5(e) {
-  if (!Wwt(e.settingKey)) return !1;
-  if (!e.isTierInPlay()) return !1;
-  if (Ne() !== "firstParty") return !1;
-  if (a.ANTHROPIC_UNIX_SOCKET) return !1;
-  if ($n()) return !1;
-  if (Fl().source !== "claude.ai") return !1;
-  if (Ct()) return !1;
-  if (!LAe(e.policyKey)) return !1;
+  if (!Wwt(e.settingKey)) return false;
+  if (!e.isTierInPlay()) return false;
+  if (Ne() !== "firstParty") return false;
+  if (a.ANTHROPIC_UNIX_SOCKET) return false;
+  if ($n()) return false;
+  if (Fl().source !== "claude.ai") return false;
+  if (Ct()) return false;
+  if (!LAe(e.policyKey)) return false;
   return p5(e);
 }
 
@@ -2839,7 +2839,7 @@ function u5() {
 }
 
 function p5(e) {
-  return I(e.flagName, !1) === !0;
+  return I(e.flagName, false) === true;
 }
 
 function m5(e) {
@@ -2847,7 +2847,7 @@ function m5(e) {
 }
 
 function f5(e) {
-  return [...INe(), ye("userSettings")].some((r) => r?.[e.settingKey] === !1) || MAe(e.policyKey) === "org_denied";
+  return [...INe(), ye("userSettings")].some((r) => r?.[e.settingKey] === false) || MAe(e.policyKey) === "org_denied";
 }
 
 function mNt() {
@@ -2993,7 +2993,7 @@ async function i1e(e, t, r, o) {
     return;
   }
   try {
-    let _ = await FXt(u, { bigint: !0 });
+    let _ = await FXt(u, { bigint: true });
     if (_.dev !== 0n || _.ino !== 0n) {
       let C = `${_.dev}:${_.ino}`;
       if (o.has(C)) {
@@ -3100,21 +3100,21 @@ async function a1e() {
       auth: "session-jwt",
       headers: { "anthropic-version": "2023-06-01" },
       timeout: jXt,
-      validateStatus: () => !0,
+      validateStatus: () => true,
     });
     if (!e.ok) {
-      if (e.reason === "no-auth") return Y("warn", "session_refs_manifest_no_auth"), { ok: !1, reason: "no_auth" };
-      return Y("warn", "session_refs_manifest_gated", { reason: e.reason }), { ok: !1, reason: "gated" };
+      if (e.reason === "no-auth") return Y("warn", "session_refs_manifest_no_auth"), { ok: false, reason: "no_auth" };
+      return Y("warn", "session_refs_manifest_gated", { reason: e.reason }), { ok: false, reason: "gated" };
     }
-    if (e.status === 503) return Y("warn", "session_refs_manifest_unavailable"), { ok: !1, reason: "unavailable" };
+    if (e.status === 503) return Y("warn", "session_refs_manifest_unavailable"), { ok: false, reason: "unavailable" };
     if (e.status >= 300)
-      return Y("warn", "session_refs_manifest_http_error", { status: e.status }), { ok: !1, reason: "http_error" };
+      return Y("warn", "session_refs_manifest_http_error", { status: e.status }), { ok: false, reason: "http_error" };
     let t = HXt().safeParse(e.data);
-    if (!t.success) return Y("warn", "session_refs_manifest_malformed"), { ok: !1, reason: "malformed" };
-    return { ok: !0, skills: t.data.skills.filter((r) => r.id), plugins: t.data.plugins.filter((r) => r.id) };
+    if (!t.success) return Y("warn", "session_refs_manifest_malformed"), { ok: false, reason: "malformed" };
+    return { ok: true, skills: t.data.skills.filter((r) => r.id), plugins: t.data.plugins.filter((r) => r.id) };
   } catch (e) {
     let { kind: t } = os(e);
-    return Y("warn", "session_refs_manifest_exception", { kind: t }), { ok: !1, reason: "transport" };
+    return Y("warn", "session_refs_manifest_exception", { kind: t }), { ok: false, reason: "transport" };
   }
 }
 
@@ -3148,22 +3148,22 @@ function YXt(e, t) {
 function XXt(e, t, r) {
   var o = -1,
     u = e == null ? 0 : e.length;
-  while (++o < u) if (r(t, e[o])) return !0;
-  return !1;
+  while (++o < u) if (r(t, e[o])) return true;
+  return false;
 }
 
 function e9t(e, t, r) {
   var o = -1,
     u = g1e,
     d = e.length,
-    _ = !0,
+    _ = true,
     C = [],
     A = C;
-  if (r) (_ = !1), (u = h1e);
+  if (r) (_ = false), (u = h1e);
   else if (d >= ZXt) {
     var x = t ? null : y1e(e);
     if (x) return cQe(x);
-    (_ = !1), (u = CVt), (A = new AVt());
+    (_ = false), (u = CVt), (A = new AVt());
   } else A = t ? [] : C;
   e: while (++o < d) {
     var M = e[o],
@@ -3349,7 +3349,7 @@ async function w5(e, t, r) {
   let u = vH(e, t, r);
   if (u !== void 0) {
     for (let [_, C] of u.chain.entries()) {
-      let A = await u.storageV5.scopeKind(C, _ === 0 ? { resolveLink: !0 } : void 0);
+      let A = await u.storageV5.scopeKind(C, _ === 0 ? { resolveLink: true } : void 0);
       if (!A.ok) {
         if (_ === 0 && iu(A.error) === RJ) {
           let M = await lfe(u.pipelineFolder);
@@ -3367,7 +3367,7 @@ async function w5(e, t, r) {
         case "other":
           return "not_a_directory";
         case "link":
-          if (_ > 0 || x.linkResolves !== !0) return "redirected";
+          if (_ > 0 || x.linkResolves !== true) return "redirected";
           continue;
         default:
           throw w1e(x);
@@ -3443,7 +3443,7 @@ async function b5(e, t, r) {
   return u.isDirectory() ? "directory" : "not_a_directory";
 }
 
-async function oD(e, t, r, { checkStagingLeaf: o = !1, storageV5: u } = {}) {
+async function oD(e, t, r, { checkStagingLeaf: o = false, storageV5: u } = {}) {
   let d;
   try {
     if (((d = await w5(e, t, u)), d === "real" && o))
@@ -3488,7 +3488,7 @@ async function p9t(e) {
   for (let r = e.chain.length - 2; r >= 0; r--) {
     let o = e.chain[r];
     if (o === void 0) break;
-    let u = await e.storageV5.scopeKind(o, r === 0 ? { resolveLink: !0 } : void 0);
+    let u = await e.storageV5.scopeKind(o, r === 0 ? { resolveLink: true } : void 0);
     if (!u.ok) {
       if (r === 0 && iu(u.error) === RJ) return _1e(e.pipelineFolder);
       return `source_unverifiable_${iu(u.error) ?? "unknown"}`;
@@ -3514,24 +3514,24 @@ async function NW({ dir: e, trashRoot: t, configHome: r, failureEvent: o, storag
   let d;
   try {
     let _ = await w5(ife(e), r, u);
-    if (_ === "redirected" || _ === "not_a_directory") return Y("warn", o, { code: `source_root_${_}` }), !1;
+    if (_ === "redirected" || _ === "not_a_directory") return Y("warn", o, { code: `source_root_${_}` }), false;
     let C = await w5(t, r, u);
     switch (C) {
       case "redirected":
       case "not_a_directory":
-        return Y("warn", o, { code: `trash_root_${C}` }), !1;
+        return Y("warn", o, { code: `trash_root_${C}` }), false;
       case "absent": {
         let A = vH(t, r, u);
         if (A !== void 0) {
           let x = await A.storageV5.ensureScope(v5(A.chain));
           if (!x.ok) throw E5(x.error);
-        } else await S1e(t, { recursive: !0 });
+        } else await S1e(t, { recursive: true });
         break;
       }
       case "real":
         break;
     }
-    return (d = await n9t(NO(t, `${Date.now()}-${process.pid}-`))), await r9t(e, NO(d, c9t(e))), !0;
+    return (d = await n9t(NO(t, `${Date.now()}-${process.pid}-`))), await r9t(e, NO(d, c9t(e))), true;
   } catch (_) {
     if (d !== void 0) await s9t(d).catch(() => {});
     if (d !== void 0 && X(_)) {
@@ -3539,18 +3539,18 @@ async function NW({ dir: e, trashRoot: t, configHome: r, failureEvent: o, storag
         A = vH(e, r, u);
       if (A !== void 0) {
         let x = await p9t(A);
-        if (x === "gone") return !0;
+        if (x === "gone") return true;
         C = x;
       } else
         try {
           await T5(e);
         } catch (x) {
-          if (X(x)) return !0;
+          if (X(x)) return true;
           C = `source_unverifiable_${E(x) ?? "unknown"}`;
         }
-      return Y("warn", o, { code: C }), !1;
+      return Y("warn", o, { code: C }), false;
     }
-    return Y("warn", o, { code: E(_) ?? "unknown" }), !1;
+    return Y("warn", o, { code: E(_) ?? "unknown" }), false;
   }
 }
 
@@ -3590,7 +3590,7 @@ async function nNt({ root: e, trashRoot: t, configHome: r, events: o, storageV5:
       if (C !== void 0) {
         let A = await C.storageV5.ensureScope(v5(C.chain));
         if (!A.ok) throw E5(A.error);
-      } else await S1e(e, { recursive: !0 });
+      } else await S1e(e, { recursive: true });
     }
   } catch (d) {
     if (d instanceof IB) throw d;
@@ -3612,12 +3612,12 @@ function m9t({ root: e, rootLabel: t, configHome: r, event: o, storageV5: u }) {
       return d;
     },
     async verify() {
-      if (d !== null) return !1;
-      let _ = await oD(e(), r(), { event: o, phase: "landing", rootLabel: t }, { checkStagingLeaf: !0, storageV5: u });
-      if (_ === "real") return !0;
+      if (d !== null) return false;
+      let _ = await oD(e(), r(), { event: o, phase: "landing", rootLabel: t }, { checkStagingLeaf: true, storageV5: u });
+      if (_ === "real") return true;
       if (_ === "absent") Y("warn", o, { phase: "landing", root: JR(t), reason: "absent" }), (d = "absent");
       else d = _.refused;
-      return !1;
+      return false;
     },
   };
 }
@@ -3627,15 +3627,15 @@ function rNt(e) {
 }
 
 function oNt(e) {
-  return { manifestRead: !1, guard: m9t(e), root: e.root() };
+  return { manifestRead: false, guard: m9t(e), root: e.root() };
 }
 
 function dct(e) {
-  return { ok: !1, cause: "extract", reason: e };
+  return { ok: false, cause: "extract", reason: e };
 }
 
 function iNt(e) {
-  return { ok: !1, cause: "download", reason: e };
+  return { ok: false, cause: "download", reason: e };
 }
 
 function pct(e) {
@@ -3644,7 +3644,7 @@ function pct(e) {
 
 function Fxe(e) {
   return {
-    ok: !1,
+    ok: false,
     cause: "local",
     reason: `the downloaded copy could not be moved into place (${e ?? "unknown error"})`,
   };
@@ -3684,7 +3684,7 @@ async function wG(e, t) {
   try {
     return (await T5(nWt(e, t))).isFile();
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -3697,7 +3697,7 @@ async function sNt(e, t) {
 }
 
 async function $xe(e, t) {
-  await o9t(nWt(e, t), { force: !0 });
+  await o9t(nWt(e, t), { force: true });
 }
 
 function v1e(e) {
@@ -3705,13 +3705,13 @@ function v1e(e) {
 }
 
 async function Gxe(e, t) {
-  if (e === t) return !0;
+  if (e === t) return true;
   try {
-    let [r, o, u] = await Promise.all([C5(e, { bigint: !0 }), C5(t, { bigint: !0 }), C5(g9t(e), { bigint: !0 })]);
+    let [r, o, u] = await Promise.all([C5(e, { bigint: true }), C5(t, { bigint: true }), C5(g9t(e), { bigint: true })]);
     if (v1e(r.ino) || v1e(o.ino) || (r.dev === u.dev && r.ino === u.ino)) return VE(e) === VE(t);
     return r.dev === o.dev && r.ino === o.ino;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -3735,19 +3735,19 @@ async function ENt(e) {
     let r = t.pop(),
       o;
     try {
-      o = await f9t(r, { withFileTypes: !0 });
+      o = await f9t(r, { withFileTypes: true });
     } catch {
       continue;
     }
     let u = new Set(o.map((d) => Jl(d.name)));
-    if (u.has("head") && (u.has("commondir") || u.has("refs"))) return !0;
+    if (u.has("head") && (u.has("commondir") || u.has("refs"))) return true;
     for (let d of o) if (d.isDirectory()) t.push(h9t(r, d.name));
   }
-  return !1;
+  return false;
 }
 
 function Gin(e) {
-  if (F4()) return !1;
+  if (F4()) return false;
   return N1e(e) || OCt();
 }
 
@@ -3778,7 +3778,7 @@ function EWn(e, t) {
 function AWn(e, t) {
   return (
     n3e.of(e).discardInflight(),
-    (e.pluginsSync.firstSyncPromise = (e.pluginsSync.firstSyncPromise ?? Promise.resolve(!1))
+    (e.pluginsSync.firstSyncPromise = (e.pluginsSync.firstSyncPromise ?? Promise.resolve(false))
       .catch(() => {})
       .then(() => bfe(e, t))),
     e.pluginsSync.firstSyncPromise
@@ -3811,7 +3811,7 @@ function $1e(e) {
 
 async function nP(e) {
   let t = !e.manifestRead;
-  e.manifestRead = !0;
+  e.manifestRead = true;
   let r = await wNt(j5(e.root), t ? "plugins_sync_manifest_unreadable" : null);
   if (r === null) return null;
   let o = TNt(r, E9t(), t ? "plugins_sync_manifest_unreadable" : null);
@@ -3871,7 +3871,7 @@ async function C9t(e, t) {
     if (u !== null && !u.isFile())
       if (u.isDirectory())
         await NW({ dir: o, trashRoot: dE(), configHome: be(), failureEvent: "plugins_sync_trash_move_failed" });
-      else await i_(o, { force: !0 });
+      else await i_(o, { force: true });
     if (V_t(r)) {
       let d = t.marketplaceName !== void 0 && Hhn(t.marketplaceName);
       if (t.marketplaceName !== void 0 && !d) Y("warn", "plugins_sync_sidecar_invalid_marketplace_name");
@@ -3882,7 +3882,7 @@ async function C9t(e, t) {
       });
       if ((await tl(o, xhn)) === _) return;
       await Wn(o, _);
-    } else Y("warn", "plugins_sync_sidecar_invalid_id"), await i_(o, { force: !0 });
+    } else Y("warn", "plugins_sync_sidecar_invalid_id"), await i_(o, { force: true });
   } catch {
     Y("warn", "plugins_sync_sidecar_write_failed");
   }
@@ -3914,7 +3914,7 @@ async function C1e(e, t, r) {
     let o = iP(e, t);
     return I5(o) === I5(r) || (await Gxe(o, r));
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -3964,18 +3964,18 @@ async function R1e(e, t, r, o, u, d) {
   try {
     if (t.guard.refused()) return Nxe;
     let M = Date.now(),
-      F = await w8n(r.pluginId, x, r.requestedVersion, { isBackground: !0, credentials: d });
+      F = await w8n(r.pluginId, x, r.requestedVersion, { isBackground: true, credentials: d });
     if ((u.downloadMs.push(Date.now() - M), !F.ok)) return iNt(F.reason);
     let U = await ffe(t);
     if (U !== null) return U;
     let B = Date.now();
     try {
-      await i_(A, { recursive: !0, force: !0 }), await S9t(RH(_), { recursive: !0 });
+      await i_(A, { recursive: true, force: true }), await S9t(RH(_), { recursive: true });
       let W = await $e("unzip", ["-q", "-o", x, "-d", A]),
         z = W.code === 0 ? await I9t(A).catch(() => "walk_failed") : "unzip_failed";
       if (z !== "ok")
         Y("info", "plugins_sync_unzip_fallback", { code: W.code, verdict: z }),
-          await i_(A, { recursive: !0, force: !0 }),
+          await i_(A, { recursive: true, force: true }),
           await uye(x, A, { skipEntry: (Ce) => Ce.split(/[\\/]/).some(Ihn) });
       let pe = await ugt(A);
       if (await ENt(pe)) return dct("extracted tree carries a bare-repo layout");
@@ -3988,27 +3988,27 @@ async function R1e(e, t, r, o, u, d) {
           if (Ee === Ce) continue;
           Ie++;
           try {
-            return await EH(pe, Phn(r.name, Ee, _)), { ok: !0, generation: Ee };
+            return await EH(pe, Phn(r.name, Ee, _)), { ok: true, generation: Ee };
           } catch (Pe) {
             let Oe = E(Pe);
             if (!pct(Oe))
-              return Y("warn", "plugins_sync_promotion_failed", { code: Oe ?? "unknown", restored: !1 }), Fxe(Oe);
+              return Y("warn", "plugins_sync_promotion_failed", { code: Oe ?? "unknown", restored: false }), Fxe(Oe);
           }
         }
         return Y("warn", "plugins_sync_occupant_displace_failed", { code: "generations_occupied" }), Q9e;
       }
       try {
-        return await EH(pe, C), { ok: !0, generation: 1 };
+        return await EH(pe, C), { ok: true, generation: 1 };
       } catch (Ce) {
         let Ie = E(Ce);
         if (!pct(Ie))
-          return Y("warn", "plugins_sync_promotion_failed", { code: Ie ?? "unknown", restored: !1 }), Fxe(Ie);
+          return Y("warn", "plugins_sync_promotion_failed", { code: Ie ?? "unknown", restored: false }), Fxe(Ie);
       }
       let me = o !== void 0 && (await C1e(_, o, C));
       if (!me) {
         for (let Ce of (await nP(t))?.plugins ?? [])
           if (Ce.pluginId === r.pluginId && (await C1e(_, Ce, C))) {
-            me = !0;
+            me = true;
             break;
           }
       }
@@ -4029,30 +4029,30 @@ async function R1e(e, t, r, o, u, d) {
       } catch (Ce) {
         let Ie =
           ge === void 0
-            ? !1
+            ? false
             : await EH(ge, C).then(
-                () => !0,
-                () => !1,
+                () => true,
+                () => false,
               );
         return Y("warn", "plugins_sync_promotion_failed", { code: E(Ce) ?? "unknown", restored: Ie }), Fxe(E(Ce));
       }
-      if (ge !== void 0) e.pendingTrashRemovals.push(i_(ge, { recursive: !0, force: !0 }).catch(() => {}));
-      return { ok: !0, generation: 1 };
+      if (ge !== void 0) e.pendingTrashRemovals.push(i_(ge, { recursive: true, force: true }).catch(() => {}));
+      return { ok: true, generation: 1 };
     } finally {
       u.extractMs.push(Date.now() - B);
     }
   } finally {
     if (
-      (await i_(x, { force: !0 }).catch(() => {}),
+      (await i_(x, { force: true }).catch(() => {}),
       !t.guard.refused() &&
         (await oD(
           _,
           be(),
           { event: "plugins_sync_root_refused", phase: "sweep", rootLabel: sV },
-          { checkStagingLeaf: !0 },
+          { checkStagingLeaf: true },
         ).catch(() => null)) === "real")
     )
-      await i_(A, { recursive: !0, force: !0 }).catch(() => {});
+      await i_(A, { recursive: true, force: true }).catch(() => {});
   }
 }
 
@@ -4084,7 +4084,7 @@ async function I9t(e, t = v9t) {
     if (o) return;
     let A = [],
       x = [];
-    for (let M of await hfe(C, { withFileTypes: !0 })) {
+    for (let M of await hfe(C, { withFileTypes: true })) {
       if (M.isSymbolicLink()) {
         o = "symlink";
         return;
@@ -4127,22 +4127,22 @@ async function bfe(e, t) {
     },
     _,
     C = { downloadMs: [], extractMs: [] },
-    A = !1,
+    A = false,
     x = null,
-    M = !1,
-    F = !1,
-    U = !1,
+    M = false,
+    F = false,
+    U = false,
     B = () => ({ account_opt_in: F, duration_ms: Date.now() - o });
   try {
-    if (((F = OCt()), mNt())) F = !0;
-    if (!Gin(e) || !bH()) return Y("info", "plugins_sync_gate_closed"), g("plugins_sync_round", "gate_closed", B()), !1;
+    if (((F = OCt()), mNt())) F = true;
+    if (!Gin(e) || !bH()) return Y("info", "plugins_sync_gate_closed"), g("plugins_sync_round", "gate_closed", B()), false;
     if (XWe())
       return (
-        Y("info", "plugins_sync_policy_verdict_pending"), g("plugins_sync_round", "policy_verdict_pending", B()), !1
+        Y("info", "plugins_sync_policy_verdict_pending"), g("plugins_sync_round", "policy_verdict_pending", B()), false
       );
     let W = await N8(t);
     if (W === null)
-      return Y("info", "plugins_sync_bucket_unresolved"), g("plugins_sync_round", "bucket_unresolved", B()), !1;
+      return Y("info", "plugins_sync_bucket_unresolved"), g("plugins_sync_round", "bucket_unresolved", B()), false;
     let z = Sfe(N5(W));
     x = z;
     let pe = z.root;
@@ -4151,37 +4151,37 @@ async function bfe(e, t) {
       !(await wG(uE(), W)) &&
         (await M5(z.root).then(
           (At) => At.isDirectory(),
-          () => !1,
+          () => false,
         )) &&
         (await NW({
           dir: z.root,
           trashRoot: dE(),
           configHome: be(),
           failureEvent: "plugins_sync_trash_move_failed",
-        }).catch(() => !1)))
+        }).catch(() => false)))
     )
       Y("info", "plugins_sync_unmarked_bucket_quarantined");
-    await $1e(z.root), await sNt(uE(), W), (A = !0);
+    await $1e(z.root), await sNt(uE(), W), (A = true);
     let fe = Date.now(),
       me;
     if (Wxe(e)) {
       let [At, dn] = await Promise.all([
         n3e.of(e).listEntries("plugins"),
-        a.CLAUDE_CODE_SYNC_PLUGINS || OCt() ? Qze(e.host, { isBackground: !0, credentials: t }) : null,
+        a.CLAUDE_CODE_SYNC_PLUGINS || OCt() ? Qze(e.host, { isBackground: true, credentials: t }) : null,
       ]);
       if (!At.success) me = At;
-      else if (dn === null) me = { success: !0, plugins: At.entries.map(A1e) };
+      else if (dn === null) me = { success: true, plugins: At.entries.map(A1e) };
       else if (!dn.success) me = dn;
-      else me = { success: !0, plugins: _Nt(At.entries.map(A1e), dn.plugins, (Lt) => Lt.pluginId, H1e) };
-    } else me = await Qze(e.host, { isBackground: !0, credentials: t });
+      else me = { success: true, plugins: _Nt(At.entries.map(A1e), dn.plugins, (Lt) => Lt.pluginId, H1e) };
+    } else me = await Qze(e.host, { isBackground: true, credentials: t });
     if (((_ = Date.now() - fe), !me.success)) {
       let At = d();
       return (
         Y("warn", "plugins_sync_list_failed", { duration_ms: Date.now() - o, list_ms: _, ...At }),
         s("tengu_plugins_sync_list_failed", { duration_ms: Date.now() - o, list_ms: _, ...At }),
         p("plugins_sync_round", "list_failed", B()),
-        await D1e(z, { reconcileSidecars: !0 }),
-        !1
+        await D1e(z, { reconcileSidecars: true }),
+        false
       );
     }
     let ge = await nP(z),
@@ -4195,11 +4195,11 @@ async function bfe(e, t) {
       Fe = new Set(),
       Be = await Promise.all(
         Pe.map(async (At) => {
-          if (!Oe.has(At.pluginId)) return !1;
+          if (!Oe.has(At.pluginId)) return false;
           try {
             return !(await M5(iP(pe, At))).isDirectory();
           } catch {
-            return !0;
+            return true;
           }
         }),
       );
@@ -4212,7 +4212,7 @@ async function bfe(e, t) {
       We = ze.filter((At) => Oe.has(At.pluginId)),
       Ve = o3e(new Set(tP(pe, [...We, ...Ie.map(({ item: At, prev: dn }) => dn ?? At)])));
     if ((await Promise.all(r.pendingTrashRemovals.splice(0)), (await ffe(z)) === null))
-      await i_(RH(pe), { recursive: !0, force: !0 }).catch(() => {});
+      await i_(RH(pe), { recursive: true, force: true }).catch(() => {});
     let Pt = new Set(ge?.staleDirs ?? []),
       ct = await vfe(
         pe,
@@ -4221,7 +4221,7 @@ async function bfe(e, t) {
       );
     for (let At of ct) Pt.delete(At);
     if (Ie.length === 0 && Ee.length === 0) {
-      AH(z), await mfe(z, ze), AH(z), ime(tP(pe, We)), (M = !0);
+      AH(z), await mfe(z, ze), AH(z), ime(tP(pe, We)), (M = true);
       let At = new Map(Pe.map((Lt) => [Lt.pluginId, Lt])),
         dn =
           ge !== null &&
@@ -4255,13 +4255,13 @@ async function bfe(e, t) {
           ...d(),
         }),
         y("plugins_sync_round", B()),
-        !1
+        false
       );
     }
     let ut = o3e(new Set(tP(pe, [...We, ...Ie.map(({ item: At }) => At)]))),
       en = 0,
       nn = (At) => {
-        if (cie()) return en++, r.removalsDeferredHere.add(At), Promise.resolve(!1);
+        if (cie()) return en++, r.removalsDeferredHere.add(At), Promise.resolve(false);
         return wfe(pe, At, ut);
       },
       xt = [],
@@ -4322,7 +4322,7 @@ async function bfe(e, t) {
       await mfe(z, nt),
       AH(z),
       ime(tP(pe, nt)),
-      (M = !0),
+      (M = true),
       await xH(
         z,
         { lastUpdated: Date.now(), plugins: nt, staleDirs: Pt.size > 0 ? Array.from(Pt) : void 0 },
@@ -4378,7 +4378,7 @@ async function bfe(e, t) {
           phase: w("post_registration"),
           duration_ms: Date.now() - o,
         }),
-        (A = !1);
+        (A = false);
     else if (W instanceof IB) {
       Y("warn", "plugins_sync_root_refused_fail_closed"),
         s("tengu_plugins_sync_root_refused", { reason: c(W.reason), phase: w("head"), duration_ms: Date.now() - o });
@@ -4394,9 +4394,9 @@ async function bfe(e, t) {
               : `claude.ai plugin sync disabled this session: ${fe} is not a plain directory tree (a symlink or stray file is in the way)`,
       }),
         ime([]);
-    } else if (!M && x !== null) await D1e(x, { reconcileSidecars: !0 });
+    } else if (!M && x !== null) await D1e(x, { reconcileSidecars: true });
   } finally {
-    if ((u?.disable(), x === null || x.guard.refused())) A = !1;
+    if ((u?.disable(), x === null || x.guard.refused())) A = false;
     if (A && x !== null) {
       let W = RH(x.root),
         z = x.root,
@@ -4407,10 +4407,10 @@ async function bfe(e, t) {
               z,
               pe,
               { event: "plugins_sync_root_refused", phase: "sweep", rootLabel: sV },
-              { checkStagingLeaf: !0 },
+              { checkStagingLeaf: true },
             ).catch(() => null)) === "real"
           )
-            await i_(W, { recursive: !0, force: !0 }).catch(() => {});
+            await i_(W, { recursive: true, force: true }).catch(() => {});
         });
       r.pendingTrashRemovals.push(fe);
     }
@@ -4444,7 +4444,7 @@ async function kfe(e) {
   let r = N5(t),
     o = { event: "plugins_sync_root_refused", phase: "read" },
     [u, d] = await Promise.all([
-      oD(r, be(), { ...o, rootLabel: sV }, { checkStagingLeaf: !0 }).catch(() => null),
+      oD(r, be(), { ...o, rootLabel: sV }, { checkStagingLeaf: true }).catch(() => null),
       oD(dE(), be(), { ...o, rootLabel: SLe }).catch(() => null),
     ]);
   if (u !== "real" || (d !== "real" && d !== "absent") || !(await wG(uE(), t))) return [];
@@ -4471,16 +4471,16 @@ async function wfe(e, t, r) {
   try {
     o = ode(t, e);
   } catch (d) {
-    if (d instanceof rde) return !1;
-    return !0;
+    if (d instanceof rde) return false;
+    return true;
   }
   if (r) {
     let d = await r(o);
-    if (d === "live") return !0;
-    if (d === "indeterminate") return !1;
+    if (d === "live") return true;
+    if (d === "indeterminate") return false;
   }
   let u = await NW({ dir: o, trashRoot: dE(), configHome: be(), failureEvent: "plugins_sync_trash_move_failed" });
-  if (u) await i_(o + _Le, { force: !0 }).catch(() => {});
+  if (u) await i_(o + _Le, { force: true }).catch(() => {});
   return u;
 }
 
@@ -4499,7 +4499,7 @@ async function Efe() {
     return null;
   let r;
   try {
-    r = await hfe(e, { withFileTypes: !0 });
+    r = await hfe(e, { withFileTypes: true });
   } catch {
     return null;
   }
@@ -4534,10 +4534,10 @@ async function z1e(e) {
 }
 
 async function Cct() {
-  if (!QWe()) return !1;
-  if (cie()) return Y("info", "plugins_sync_prune_deferred_loaded"), !1;
+  if (!QWe()) return false;
+  if (cie()) return Y("info", "plugins_sync_prune_deferred_loaded"), false;
   let e = await Efe();
-  if (!e) return !1;
+  if (!e) return false;
   ime([]);
   let t = 0,
     r = 0;
@@ -4563,7 +4563,7 @@ async function Cct() {
           { staleDirs: F, removedPluginIds: x },
         ).catch(() => {});
     else
-      await i_(j5(C), { force: !0 }).catch(() => {}),
+      await i_(j5(C), { force: true }).catch(() => {}),
         await E1e(C).then(
           () => $xe(uE(), o),
           () => {},
@@ -4578,9 +4578,9 @@ async function Cct() {
 }
 
 async function vWn() {
-  if (cie() || rfe()) return !1;
+  if (cie() || rfe()) return false;
   let e = await Efe();
-  if (!e) return !1;
+  if (!e) return false;
   let t = 0,
     r = 0;
   for (let o of e.buckets) {
@@ -4603,8 +4603,8 @@ async function vWn() {
         { staleDirs: x, removedPluginIds: new Set() },
       ).catch(() => {});
   }
-  if (t === 0) return !1;
-  return Y("info", "plugins_sync_deferred_removals_completed", { moved: t, retained: r }), !0;
+  if (t === 0) return false;
+  return Y("info", "plugins_sync_deferred_removals_completed", { moved: t, retained: r }), true;
 }
 
 async function gfe(e, t, r) {
@@ -4626,7 +4626,7 @@ async function gfe(e, t, r) {
     ),
     _;
   try {
-    _ = await hfe(o, { withFileTypes: !0 });
+    _ = await hfe(o, { withFileTypes: true });
   } catch {
     return 0;
   }
@@ -4644,7 +4644,7 @@ async function gfe(e, t, r) {
   let A = 0;
   for (let x of C)
     if (await NW({ dir: bh(o, x), trashRoot: dE(), configHome: be(), failureEvent: "plugins_sync_trash_move_failed" }))
-      A++, await i_(bh(o, x) + _Le, { force: !0 }).catch(() => {});
+      A++, await i_(bh(o, x) + _Le, { force: true }).catch(() => {});
   if (A > 0) Y("info", "plugins_sync_orphan_dir_trashed", { count: A });
   return A;
 }
@@ -4668,7 +4668,7 @@ function cle(e, t, r) {
   let o = O9t(t, r);
   if (!He(e))
     return {
-      ok: !1,
+      ok: false,
       error: `${o}
 
 Validation errors: manifest must be an object`,
@@ -4680,7 +4680,7 @@ Validation errors: manifest must be an object`,
   let d = new Set(),
     _ = [],
     C = jpe().safeParse(u);
-  if (C.success && _.length === 0) return { ok: !0, manifest: C.data, rawCandidate: u };
+  if (C.success && _.length === 0) return { ok: true, manifest: C.data, rawCandidate: u };
   let A = C.success
       ? []
       : C.error.issues.map((F) => {
@@ -4691,7 +4691,7 @@ Validation errors: manifest must be an object`,
     x = [..._, ...A],
     M = x.map((F) => (F.path ? `${F.path}: ${F.message}` : F.message)).join(", ");
   return {
-    ok: !1,
+    ok: false,
     error: `${o}
 
 Validation errors: ${M}`,

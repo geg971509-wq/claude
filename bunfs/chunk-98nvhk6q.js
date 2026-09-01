@@ -177,7 +177,7 @@ function w6e(e, t) {
     g = new C();
   for (let f of e) {
     if (f.type !== "user") continue;
-    if (f.isMeta === !0 && typeof f.message.content === "string") {
+    if (f.isMeta === true && typeof f.message.content === "string") {
       let c = rTn.exec(f.message.content)?.[1],
         u = c !== void 0 ? al(c) : null;
       if (u !== null)
@@ -186,7 +186,7 @@ function w6e(e, t) {
           artifactReadVersions: l,
           target: g,
           createdFromType: a,
-          applyLinks: t?.applyLinks !== !1,
+          applyLinks: t?.applyLinks !== false,
         });
       continue;
     }
@@ -195,18 +195,18 @@ function w6e(e, t) {
       if (c.type !== "tool_result" || !c.tool_use_id) continue;
       let u = r.has(c.tool_use_id);
       if (u) {
-        let d = c.is_error === !0 ? H(c.content) : null;
+        let d = c.is_error === true ? H(c.content) : null;
         if (d !== null) {
           E(d, {
             frameUrls: o,
             artifactReadVersions: l,
             target: g,
             createdFromType: a,
-            applyLinks: t?.applyLinks !== !1,
+            applyLinks: t?.applyLinks !== false,
           });
           continue;
         }
-        K(f.toolUseResult, f.timestamp, o, l, g, a, t?.applyLinks !== !1);
+        K(f.toolUseResult, f.timestamp, o, l, g, a, t?.applyLinks !== false);
       }
       if (u || n.has(c.tool_use_id)) Z(f.toolUseResult, l, g);
       else if (i.has(c.tool_use_id)) J(f.toolUseResult, l);
@@ -246,7 +246,7 @@ function mFn(e) {
   for (let n of e) {
     if (n.type !== "user" || !Array.isArray(n.message.content)) continue;
     for (let i of n.message.content) {
-      if (i.type !== "tool_result" || i.is_error === !0 || !i.tool_use_id) continue;
+      if (i.type !== "tool_result" || i.is_error === true || !i.tool_use_id) continue;
       let o = t.get(i.tool_use_id);
       if (o !== void 0) r.add(o);
     }
@@ -270,7 +270,7 @@ function K(e, t, r, n, i, o, l) {
     if (d !== null) E(d, { frameUrls: r, artifactReadVersions: n, target: i, createdFromType: o, applyLinks: l });
     return;
   }
-  if (e?.created_from_type === !0) {
+  if (e?.created_from_type === true) {
     let u = typeof a?.url === "string" ? al(a.url) : null,
       d = e.type?.url,
       m = typeof d === "string" ? al(d) : null;
@@ -308,7 +308,7 @@ function gFn(e, t, r) {
   let n = new Set();
   for (let o of e) if (o.type === "assistant" && o.message.id) n.add(o.message.id);
   if ((wZn(n), tyn(), !r)) return { artifactReadVersions: {}, artifactReadObservers: {} };
-  let i = w6e(e, { applyLinks: !1 }).artifactReadVersions;
+  let i = w6e(e, { applyLinks: false }).artifactReadVersions;
   return { artifactReadVersions: i, artifactReadObservers: x(i, t) };
 }
 function x(e, t) {
@@ -319,7 +319,7 @@ function Y(e, t) {
   return (
     r.length === Object.keys(t).length &&
     r.every((n) => {
-      if (!(n in t)) return !1;
+      if (!(n in t)) return false;
       let [i, o] = [e[n] ?? {}, t[n] ?? {}],
         l = Object.keys(i);
       return l.length === Object.keys(o).length && l.every((a) => i[a] === o[a]);
@@ -332,7 +332,7 @@ function y(e, t, r) {
 function Z(e, t, r) {
   let n = e?.artifactRead;
   if (!n || typeof n.slug !== "string" || al(`https://claude.ai/code/artifact/${n.slug}`) !== n.slug) return;
-  if (n.seeded !== !1)
+  if (n.seeded !== false)
     if (typeof n.ver === "string") y(t, n.slug, n.ver);
     else delete t[n.slug];
   r.touch(n.slug);
@@ -348,7 +348,7 @@ function J(e, t) {
     y(t, r.slug, r.ver);
 }
 function dhe(e, t, r) {
-  let { legacyConflict: n, continuesConversation: i = !1 } = r,
+  let { legacyConflict: n, continuesConversation: i = false } = r,
     { frameUrls: o, artifactReadVersions: l, artifactRefs: a } = t;
   Kue(), _Ee({ continuesConversation: i });
   let g = de().createdFromType;
@@ -381,7 +381,7 @@ function dhe(e, t, r) {
       artifactReadObservers: f,
       artifactRefs: a,
       frameNavPath: null,
-      frameExpanded: !1,
+      frameExpanded: false,
     };
   });
 }

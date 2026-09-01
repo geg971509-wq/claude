@@ -25,12 +25,12 @@ function u() {
   return new Set(t.map(i));
 }
 function c(e) {
-  if (!e) return !1;
+  if (!e) return false;
   try {
     let t = i(new URL(e).hostname);
     return u().has(t);
   } catch {
-    return !1;
+    return false;
   }
 }
 function a(e, t = {}) {

@@ -361,7 +361,7 @@ import { d } from "/$bunfs/root/chunk-yz031c9r.js";
 F();
 F();
 function xt() {
-  return I("tengu_marbled_teal", !1);
+  return I("tengu_marbled_teal", false);
 }
 function Me(n, s) {
   if (!lg(n)) return null;
@@ -444,7 +444,7 @@ function Wt(Nr) {
   else (eo = ne[15]), (to = ne[16]);
   if ((A(eo, to), _e && N !== null)) {
     let oo;
-    if (ne[17] === d) (oo = () => wr(!1)), (ne[17] = oo);
+    if (ne[17] === d) (oo = () => wr(false)), (ne[17] = oo);
     else oo = ne[17];
     let Ge;
     if (ne[18] !== Q || ne[19] !== q)
@@ -556,13 +556,13 @@ function Ut(kr) {
       return y;
     }
     let y;
-    if (le[2] !== R) (y = e(t, { dimColor: !0, children: R })), (le[2] = R), (le[3] = y);
+    if (le[2] !== R) (y = e(t, { dimColor: true, children: R })), (le[2] = R), (le[3] = y);
     else y = le[3];
     return y;
   }
   if (K.color === "violet-ripple") {
     let y;
-    if (le[4] !== R) (y = e(t, { bold: !0, backgroundColor: Ie, color: xe, children: R })), (le[4] = R), (le[5] = y);
+    if (le[4] !== R) (y = e(t, { bold: true, backgroundColor: Ie, color: xe, children: R })), (le[4] = R), (le[5] = y);
     else y = le[5];
     return y;
   }
@@ -580,7 +580,7 @@ function Ut(kr) {
   }
   let y;
   if (le[10] !== K.color || le[11] !== R)
-    (y = e(t, { bold: !0, color: K.color, children: R })), (le[10] = K.color), (le[11] = R), (le[12] = y);
+    (y = e(t, { bold: true, color: K.color, children: R })), (le[10] = K.color), (le[11] = R), (le[12] = y);
   else y = le[12];
   return y;
 }
@@ -595,7 +595,7 @@ function rt(Dr) {
   else Fe = no[1];
   let lo;
   if (no[2] !== Rt || no[3] !== Fe)
-    (lo = e(t, { bold: !0, children: Fe.map((Wr, so) => e(t, { color: RH(so + Rt), children: Wr }, so)) })),
+    (lo = e(t, { bold: true, children: Fe.map((Wr, so) => e(t, { color: RH(so + Rt), children: Wr }, so)) })),
       (no[2] = Rt),
       (no[3] = Fe),
       (no[4] = lo);
@@ -682,7 +682,7 @@ function nt(Hr) {
   let xo;
   if (ho[2] !== Le || ho[3] !== Xe)
     (xo = e(t, {
-      bold: !0,
+      bold: true,
       children: Xe.map((Kr, Ke) => {
         let bo = Ke === Le;
         let zr = Ke === Le - 1 || Ke === Le + 1;
@@ -750,7 +750,7 @@ function Bt({ getMessages: n, onDone: s, storageV5: l }) {
         `${zZ([qE("left"), qE("right")])} to adjust \xB7 ${zZ([qE("enter")])} to confirm \xB7 ${zZ([qE("escape")])} to cancel`,
       [],
     ),
-    j = C(!1);
+    j = C(false);
   function zt(v) {
     if (v.key === "left") v.preventDefault(), S((E) => Math.max(0, E - 1));
     else if (v.key === "right") v.preventDefault(), S((E) => Math.min(a.levels.length - 1, E + 1));
@@ -762,10 +762,10 @@ function Bt({ getMessages: n, onDone: s, storageV5: l }) {
         J(E.value);
         return;
       }
-      (j.current = !0), V(E.value, h, s, l);
+      (j.current = true), V(E.value, h, s, l);
     } else if (v.key === "escape") {
       if ((v.preventDefault(), j.current)) return;
-      (j.current = !0), s("Cancelled");
+      (j.current = true), s("Cancelled");
     }
   }
   if (k !== null)
@@ -775,7 +775,7 @@ function Bt({ getMessages: n, onDone: s, storageV5: l }) {
       effort: k === "ultracode" ? "xhigh" : k,
       onConfirm: () => {
         if (j.current) return;
-        (j.current = !0), V(k, h, s, l);
+        (j.current = true), V(k, h, s, l);
       },
       onCancel: () => J(null),
     });
@@ -805,7 +805,7 @@ function Bt({ getMessages: n, onDone: s, storageV5: l }) {
     children: r(o, {
       flexDirection: "column",
       tabIndex: 0,
-      autoFocus: !0,
+      autoFocus: true,
       onKeyDown: zt,
       marginX: m ? -Se : void 0,
       width: m ? X : void 0,
@@ -832,17 +832,17 @@ function Bt({ getMessages: n, onDone: s, storageV5: l }) {
               children: m
                 ? r(U, {
                     children: [
-                      e(T, { text: `${Pe}${oe}`, col: -D, row: wt, ripple: m, dimColor: !0, coveredColor: Ot }),
-                      e(t, { bold: !0, backgroundColor: Ie, color: xe, children: "\u25B2" }),
-                      e(T, { text: `${Oe}${ye}`, col: te + 1, row: wt, ripple: m, dimColor: !0, coveredColor: Ot }),
+                      e(T, { text: `${Pe}${oe}`, col: -D, row: wt, ripple: m, dimColor: true, coveredColor: Ot }),
+                      e(t, { bold: true, backgroundColor: Ie, color: xe, children: "\u25B2" }),
+                      e(T, { text: `${Oe}${ye}`, col: te + 1, row: wt, ripple: m, dimColor: true, coveredColor: Ot }),
                     ],
                   })
                 : r(U, {
                     children: [
-                      e(t, { dimColor: !0, children: Jt }),
+                      e(t, { dimColor: true, children: Jt }),
                       it ? e(t, { color: he, children: it }) : null,
-                      e(t, { bold: !0, color: jt ? he : void 0, children: "\u25B2" }),
-                      e(t, { dimColor: !0, children: Yt }),
+                      e(t, { bold: true, color: jt ? he : void 0, children: "\u25B2" }),
+                      e(t, { dimColor: true, children: Yt }),
                       ut ? e(t, { color: he, children: ut }) : null,
                     ],
                   }),
@@ -860,7 +860,7 @@ function Bt({ getMessages: n, onDone: s, storageV5: l }) {
                             ? e(T, { text: gt(E - 1), col: a.labelStarts[E] - a.spacers[E - 1], row: ge, ripple: m })
                             : e(t, { children: gt(E - 1) })),
                         m && P !== E
-                          ? e(T, { text: v.label, col: a.labelStarts[E], row: ge, ripple: m, dimColor: !0 })
+                          ? e(T, { text: v.label, col: a.labelStarts[E], row: ge, ripple: m, dimColor: true })
                           : e(Ut, { level: v, selected: P === E }),
                       ],
                     },
@@ -878,22 +878,22 @@ function Bt({ getMessages: n, onDone: s, storageV5: l }) {
                         col: -D,
                         row: $o,
                         ripple: m,
-                        dimColor: !0,
+                        dimColor: true,
                       })
                     : r(U, {
                         children: [
                           e(t, { children: " ".repeat(a.sublabel.start) }),
-                          e(t, { dimColor: !0, children: a.sublabel.text }),
+                          e(t, { dimColor: true, children: a.sublabel.text }),
                         ],
                       }),
                 })
               : null,
             pt !== null
-              ? e(o, { minHeight: 2, children: e(t, { dimColor: !0, children: pt }) })
+              ? e(o, { minHeight: 2, children: e(t, { dimColor: true, children: pt }) })
               : a.levels[P]?.value === "max"
-                ? e(o, { children: e(t, { dimColor: !0, children: kne }) })
+                ? e(o, { children: e(t, { dimColor: true, children: kne }) })
                 : null,
-            a.orgNote && !m ? e(o, { children: e(t, { dimColor: !0, children: a.orgNote }) }) : null,
+            a.orgNote && !m ? e(o, { children: e(t, { dimColor: true, children: a.orgNote }) }) : null,
           ],
         }),
         m ? e(T, { text: " ".repeat(X), col: -D, row: Do, ripple: m }) : e(o, { height: 1 }),
@@ -904,7 +904,7 @@ function Bt({ getMessages: n, onDone: s, storageV5: l }) {
                 col: -D,
                 row: Bo,
                 ripple: m,
-                dimColor: !0,
+                dimColor: true,
               })
             : r(fe, {
                 children: [
@@ -937,7 +937,7 @@ function st(Jr) {
   let L = Eo,
     Yr = lt(w, ze, jr, L),
     [de, Ro] = u(null),
-    me = C(!1);
+    me = C(false);
   if (de !== null) {
     const pe = de === "ultracode" ? "xhigh" : de;
     let B;
@@ -946,7 +946,7 @@ function st(Jr) {
         if (me.current) {
           return;
         }
-        (me.current = !0), V(de, ue, G, ce);
+        (me.current = true), V(de, ue, G, ce);
       }),
         (O[2] = G),
         (O[3] = de),
@@ -999,7 +999,7 @@ function st(Jr) {
         Ro(je);
         return;
       }
-      (me.current = !0), V(je, ue, G, ce);
+      (me.current = true), V(je, ue, G, ce);
     }),
       (O[21] = Tt),
       (O[22] = ze),
@@ -1016,7 +1016,7 @@ function st(Jr) {
       if (me.current) {
         return;
       }
-      (me.current = !0), G("Cancelled");
+      (me.current = true), G("Cancelled");
     }),
       (O[29] = G),
       (O[30] = qe);

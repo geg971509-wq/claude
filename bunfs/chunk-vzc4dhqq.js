@@ -22,7 +22,7 @@ import { i, q, H, f, oe } from "/$bunfs/root/chunk-saay52v7.js";
 var A = ["verifiedSlackHumanTurn", "hearthRelayMessageIds", "hearthRelayRows", "hearthRelayThreadTs"];
 function YVe(e) {
   let t = {};
-  if (e.verifiedSlackHumanTurn === !0) t.verifiedSlackHumanTurn = !0;
+  if (e.verifiedSlackHumanTurn === true) t.verifiedSlackHumanTurn = true;
   if (e.hearthRelayMessageIds !== void 0) t.hearthRelayMessageIds = e.hearthRelayMessageIds;
   if (e.hearthRelayRows !== void 0) t.hearthRelayRows = e.hearthRelayRows;
   if (e.hearthRelayThreadTs !== void 0) t.hearthRelayThreadTs = e.hearthRelayThreadTs;
@@ -123,9 +123,9 @@ function k(e) {
   );
 }
 function D(e, t) {
-  if (e === t) return !0;
+  if (e === t) return true;
   let [n, r] = e.length <= t.length ? [e, t] : [t, e];
-  if (r.length - n.length > 1) return !1;
+  if (r.length - n.length > 1) return false;
   let s = 0,
     o = 0,
     u = 0;
@@ -134,7 +134,7 @@ function D(e, t) {
       s++, o++;
       continue;
     }
-    if (u > 0) return !1;
+    if (u > 0) return false;
     if ((u++, n.length === r.length)) s++;
     o++;
   }
@@ -143,17 +143,17 @@ function D(e, t) {
 function j(e, t) {
   for (let n of [t.length - 1, t.length, t.length + 1]) {
     if (n <= 0 || n > e.length) continue;
-    for (let r = 0; r + n <= e.length; r++) if (D(e.slice(r, r + n), t)) return !0;
+    for (let r = 0; r + n <= e.length; r++) if (D(e.slice(r, r + n), t)) return true;
   }
-  return !1;
+  return false;
 }
 function QVe(e) {
   let t = k(e);
   for (let n of I) {
     let r = k(n);
-    if (t.includes(r) || j(t, r)) return !0;
+    if (t.includes(r) || j(t, r)) return true;
   }
-  return !1;
+  return false;
 }
 var Nmn = ["human-principal", "human-other", "peer-agent", "world-event"];
 function CXn(e) {
@@ -213,7 +213,7 @@ function xOe({ kind: e, at: t, content: n, attributes: r }) {
   if (!P.test(e)) throw new R(`invalid poll event kind: ${JSON.stringify(e)}`, "invalid poll event kind");
   let s = "";
   for (let [o, u] of Object.entries(r ?? {})) {
-    if (o === "kind" || o === "at" || (!E.has(o) && g.get(e)?.has(o) !== !0))
+    if (o === "kind" || o === "at" || (!E.has(o) && g.get(e)?.has(o) !== true))
       throw new R(`invalid poll event attribute: ${o}`, "invalid poll event attribute");
     s += ` ${o}="${T(u)}"`;
   }
@@ -223,30 +223,30 @@ function T(e) {
   return e.replace(/[&<>"'=\r\n\t]/g, " ").replace(v, " ");
 }
 function Cht(e) {
-  if (!e.startsWith("<event")) return { ok: !1, reason: "must be a single <event> element" };
+  if (!e.startsWith("<event")) return { ok: false, reason: "must be a single <event> element" };
   let t = 6,
     n,
     r = new Set();
   for (;;) {
-    if (t >= e.length) return { ok: !1, reason: "unterminated opening tag" };
+    if (t >= e.length) return { ok: false, reason: "unterminated opening tag" };
     if (e[t] === ">" || e.startsWith("/>", t)) break;
-    if (e[t] !== " ") return { ok: !1, reason: `malformed opening tag at offset ${t}` };
+    if (e[t] !== " ") return { ok: false, reason: `malformed opening tag at offset ${t}` };
     t++;
     let s = C.exec(e.slice(t));
-    if (!s || s.index !== 0) return { ok: !1, reason: `invalid attribute name at offset ${t}` };
+    if (!s || s.index !== 0) return { ok: false, reason: `invalid attribute name at offset ${t}` };
     let o = s[0];
-    if (o.startsWith("xml")) return { ok: !1, reason: `reserved attribute name ${o}` };
-    if (r.has(o)) return { ok: !1, reason: `duplicate attribute ${o}` };
-    if (!M.has(o)) return { ok: !1, reason: `unknown attribute ${o}` };
+    if (o.startsWith("xml")) return { ok: false, reason: `reserved attribute name ${o}` };
+    if (r.has(o)) return { ok: false, reason: `duplicate attribute ${o}` };
+    if (!M.has(o)) return { ok: false, reason: `unknown attribute ${o}` };
     if ((r.add(o), (t += o.length), !e.startsWith('="', t)))
-      return { ok: !1, reason: `attribute ${o} must be ="\u2026"-quoted` };
+      return { ok: false, reason: `attribute ${o} must be ="\u2026"-quoted` };
     t += 2;
     let u = t;
     for (;;) {
-      if (t >= e.length) return { ok: !1, reason: `unterminated value for attribute ${o}` };
+      if (t >= e.length) return { ok: false, reason: `unterminated value for attribute ${o}` };
       let l = e[t];
       if (l === '"') break;
-      if (l === "<" || l === ">" || l === "'" || l === "=") return { ok: !1, reason: `raw special in attribute ${o}` };
+      if (l === "<" || l === ">" || l === "'" || l === "=") return { ok: false, reason: `raw special in attribute ${o}` };
       if (
         w(l) ||
         l ===
@@ -254,37 +254,37 @@ function Cht(e) {
 ` ||
         l === "\t"
       )
-        return { ok: !1, reason: `control character in attribute ${o}` };
-      if (l === "&") return { ok: !1, reason: `ampersand in attribute ${o}` };
+        return { ok: false, reason: `control character in attribute ${o}` };
+      if (l === "&") return { ok: false, reason: `ampersand in attribute ${o}` };
       t++;
     }
     let d = e.slice(u, t);
     if ((t++, o === "kind")) {
-      if (!P.test(d)) return { ok: !1, reason: "invalid kind attribute" };
+      if (!P.test(d)) return { ok: false, reason: "invalid kind attribute" };
       n = d;
     }
   }
-  if (n === void 0) return { ok: !1, reason: "missing kind attribute" };
-  if (!r.has("at")) return { ok: !1, reason: "missing at attribute" };
+  if (n === void 0) return { ok: false, reason: "missing kind attribute" };
+  if (!r.has("at")) return { ok: false, reason: "missing at attribute" };
   for (let s of r) {
     if (E.has(s)) continue;
     let o = g.get(n);
-    if (o === void 0 || !o.has(s)) return { ok: !1, reason: `attribute ${s} not allowed on kind ${n}` };
+    if (o === void 0 || !o.has(s)) return { ok: false, reason: `attribute ${s} not allowed on kind ${n}` };
   }
   if (e.startsWith("/>", t)) {
-    if (t + 2 !== e.length) return { ok: !1, reason: "content after the root element" };
-    return { ok: !0, kind: n };
+    if (t + 2 !== e.length) return { ok: false, reason: "content after the root element" };
+    return { ok: true, kind: n };
   }
   t++;
   for (; t < e.length; t++) {
     let s = e[t];
     if (s === "<") {
-      if (!e.startsWith("</event>", t)) return { ok: !1, reason: `markup in body at offset ${t}` };
-      if (t + 8 !== e.length) return { ok: !1, reason: "content after the root element" };
-      return { ok: !0, kind: n };
+      if (!e.startsWith("</event>", t)) return { ok: false, reason: `markup in body at offset ${t}` };
+      if (t + 8 !== e.length) return { ok: false, reason: "content after the root element" };
+      return { ok: true, kind: n };
     }
-    if (s === ">" || s === '"' || s === "'") return { ok: !1, reason: `raw special in body at offset ${t}` };
-    if (w(s)) return { ok: !1, reason: `control character in body at offset ${t}` };
+    if (s === ">" || s === '"' || s === "'") return { ok: false, reason: `raw special in body at offset ${t}` };
+    if (w(s)) return { ok: false, reason: `control character in body at offset ${t}` };
     if (
       s === "&" &&
       !(
@@ -295,22 +295,22 @@ function Cht(e) {
         e.startsWith("#39;", t + 1)
       )
     )
-      return { ok: !1, reason: `unknown entity in body at offset ${t}` };
+      return { ok: false, reason: `unknown entity in body at offset ${t}` };
   }
-  return { ok: !1, reason: "missing closing tag" };
+  return { ok: false, reason: "missing closing tag" };
 }
 function jE(e) {
   return e.mode === "poll-event";
 }
 function $2() {
-  return (a.CLAUDE_CODE_POLL_EVENTS === !0 || !1) && (ef() || !1) && yHn();
+  return (a.CLAUDE_CODE_POLL_EVENTS === true || false) && (ef() || false) && yHn();
 }
 function Fmn(e) {
-  if (e.alwaysAllowRules.command === void 0 && e.pollEventDeliveryGuard === !0) return e;
-  return { ...e, alwaysAllowRules: { ...e.alwaysAllowRules, command: void 0 }, pollEventDeliveryGuard: !0 };
+  if (e.alwaysAllowRules.command === void 0 && e.pollEventDeliveryGuard === true) return e;
+  return { ...e, alwaysAllowRules: { ...e.alwaysAllowRules, command: void 0 }, pollEventDeliveryGuard: true };
 }
 function V6t(e, t, n) {
-  if (n?.skipSkillPermissionReset !== !0)
+  if (n?.skipSkillPermissionReset !== true)
     e((r) => ({
       ...r,
       toolPermissionContext: {
@@ -319,7 +319,7 @@ function V6t(e, t, n) {
         pollEventDeliveryGuard: void 0,
       },
     }));
-  else if (n.pollEventDelivery === !0 || n.pollEmptyDispatch === !0)
+  else if (n.pollEventDelivery === true || n.pollEmptyDispatch === true)
     e((r) => {
       let s = Fmn(r.toolPermissionContext);
       return s === r.toolPermissionContext ? r : { ...r, toolPermissionContext: s };
@@ -328,14 +328,14 @@ function V6t(e, t, n) {
 function K6t(e, t) {
   for (let n = Math.max(0, t); n < e.length; n++) {
     let r = e[n];
-    if (r.type === "attachment" && r.attachment?.type === "poll_events") return !0;
+    if (r.type === "attachment" && r.attachment?.type === "poll_events") return true;
   }
-  return !1;
+  return false;
 }
 function RXn(e, t) {
   let n = e[t],
     r = n?.message?.content;
-  if (n?.type !== "user" || !Array.isArray(r)) return !1;
+  if (n?.type !== "user" || !Array.isArray(r)) return false;
   let s = new Set();
   for (let o = 0; o < t; o++) {
     let u = e[o],
@@ -344,7 +344,7 @@ function RXn(e, t) {
       for (let l of d) if (l?.type === "tool_use" && l.name === Z9) s.add(l.id);
     }
   }
-  if (s.size === 0) return !1;
+  if (s.size === 0) return false;
   return r.some((o) => o?.type === "tool_result" && typeof o.tool_use_id === "string" && s.has(o.tool_use_id));
 }
 function sTe(e) {
@@ -406,10 +406,10 @@ function aTe(e) {
   for (let t of e) t.pollEvent?.settleDelivered?.();
 }
 function Iue(e, t) {
-  let n = !1;
+  let n = false;
   for (let r of e) {
     if (r.pollEvent === void 0) continue;
-    (n = !0),
+    (n = true),
       r.pollEvent.settleDropped?.(new R(`poll event discarded undelivered: ${t}`, "poll event discarded undelivered"));
   }
   if (n) p("poll_event_delivery", "discarded");

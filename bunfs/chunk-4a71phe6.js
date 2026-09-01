@@ -327,7 +327,7 @@ async function T({
       through: f,
       known: new Map(),
       peer: new Map(),
-      peerHasBlob: () => !1,
+      peerHasBlob: () => false,
       budgetBytes: d,
       withheldOf: F ?? z0(t, { realRoot: i }),
       ...(g !== void 0 && { signal: g }),
@@ -388,7 +388,7 @@ async function T({
       },
     };
   } catch (r) {
-    if (It(r) || g?.aborted === !0) return { kind: "refused", reason: "aborted", detail: "the create was cancelled" };
+    if (It(r) || g?.aborted === true) return { kind: "refused", reason: "aborted", detail: "the create was cancelled" };
     return h(r), { kind: "refused", reason: "internal", detail: l(r) };
   }
 }
@@ -417,7 +417,7 @@ async function re({ folder: t, signal: i, onProgress: d, maxBytes: p = dWe, now:
   try {
     let a = await Rk(t);
     if (a === null) return g("it could not be resolved on disk", "folder_seed_failed", { outcome: w("unresolvable") });
-    d?.({ kind: "bundling", rerouted: !1, folder: !0 });
+    d?.({ kind: "bundling", rerouted: false, folder: true });
     let _ = await ist(cst(await lst(t, F))),
       r = p,
       u = await T({ folder: t, realRoot: a, statCache: _, maxBytes: r, signal: i, now: m });

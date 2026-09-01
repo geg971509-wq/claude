@@ -26,21 +26,21 @@ var Ye = S(function (Jo, Xe) {
   var We = ue("fs");
   function _n(e, t) {
     var r = t.pathExt !== void 0 ? t.pathExt : process.env.PATHEXT;
-    if (!r) return !0;
-    if (((r = r.split(";")), r.indexOf("") !== -1)) return !0;
+    if (!r) return true;
+    if (((r = r.split(";")), r.indexOf("") !== -1)) return true;
     for (var o = 0; o < r.length; o++) {
       var i = r[o].toLowerCase();
-      if (i && e.substr(-i.length).toLowerCase() === i) return !0;
+      if (i && e.substr(-i.length).toLowerCase() === i) return true;
     }
-    return !1;
+    return false;
   }
   function He(e, t, r) {
-    if (!e.isSymbolicLink() && !e.isFile()) return !1;
+    if (!e.isSymbolicLink() && !e.isFile()) return false;
     return _n(t, r);
   }
   function Ve(e, t, r) {
     We.stat(e, function (o, i) {
-      r(o, o ? !1 : He(i, e, t));
+      r(o, o ? false : He(i, e, t));
     });
   }
   function jn(e, t) {
@@ -53,7 +53,7 @@ var tt = S(function (ei, et) {
   var Ze = ue("fs");
   function Qe(e, t, r) {
     Ze.stat(e, function (o, i) {
-      r(o, o ? !1 : Je(i, t));
+      r(o, o ? false : Je(i, t));
     });
   }
   function Ln(e, t) {
@@ -94,7 +94,7 @@ var rt = S(function (ni, nt) {
     }
     H(e, t || {}, function (o, i) {
       if (o) {
-        if (o.code === "EACCES" || (t && t.ignoreErrors)) (o = null), (i = !1);
+        if (o.code === "EACCES" || (t && t.ignoreErrors)) (o = null), (i = false);
       }
       r(o, i);
     });
@@ -103,7 +103,7 @@ var rt = S(function (ni, nt) {
     try {
       return H.sync(e, t || {});
     } catch (r) {
-      if ((t && t.ignoreErrors) || r.code === "EACCES") return !1;
+      if ((t && t.ignoreErrors) || r.code === "EACCES") return false;
       else throw r;
     }
   }
@@ -222,7 +222,7 @@ var yt = S(function (ii, gt) {
     return d;
   }
   function zn(e) {
-    return mt(e) || mt(e, !0);
+    return mt(e) || mt(e, true);
   }
   gt.exports = zn;
 });
@@ -342,7 +342,7 @@ var on = S(function (fs, rn) {
   var { PassThrough: io } = ue("stream");
   rn.exports = function () {
     var e = [],
-      t = new io({ objectMode: !0 });
+      t = new io({ objectMode: true });
     return (
       t.setMaxListeners(0),
       (t.add = r),
@@ -357,7 +357,7 @@ var on = S(function (fs, rn) {
         e.push(u),
         u.once("end", i.bind(null, u)),
         u.once("error", t.emit.bind(t, "error")),
-        u.pipe(t, { end: !1 }),
+        u.pipe(t, { end: false }),
         this
       );
     }
@@ -407,9 +407,9 @@ function V(e = {}) {
 var dr = ({
     cwd: e = X.cwd(),
     path: t = X.env[V()],
-    preferLocal: r = !0,
+    preferLocal: r = true,
     execPath: o = X.execPath,
-    addExecPath: i = !0,
+    addExecPath: i = true,
   } = {}) => {
     let u = e instanceof URL ? Ft(e) : e,
       d = N.resolve(u),
@@ -463,7 +463,7 @@ ${t}`,
       i = yr.bind(null, o, t.toString());
     Object.defineProperty(i, "name", Sr), Object.defineProperty(e, "toString", { ...hr, value: i });
   };
-function ye(e, t, { ignoreNonConfigurable: r = !1 } = {}) {
+function ye(e, t, { ignoreNonConfigurable: r = false } = {}) {
   let { name: o } = e;
   for (let i of Reflect.ownKeys(t)) pr(e, t, i, r);
   return gr(e, t), br(e, t, o), e;
@@ -476,7 +476,7 @@ var Y = new WeakMap(),
       i = e.displayName || e.name || "<anonymous>",
       u = function (...d) {
         if ((Y.set(u, ++o), o === 1)) (r = e.apply(this, d)), (e = null);
-        else if (t.throw === !0) throw Error(`Function \`${i}\` can only be called once`);
+        else if (t.throw === true) throw Error(`Function \`${i}\` can only be called once`);
         return r;
       };
     return ye(u, e), Y.set(u, o), u;
@@ -525,7 +525,7 @@ var Dt = [
     standard: "other",
   },
   { name: "SIGFPE", number: 8, action: "core", description: "Floating point arithmetic error", standard: "ansi" },
-  { name: "SIGKILL", number: 9, action: "terminate", description: "Forced termination", standard: "posix", forced: !0 },
+  { name: "SIGKILL", number: 9, action: "terminate", description: "Forced termination", standard: "posix", forced: true },
   { name: "SIGUSR1", number: 10, action: "terminate", description: "Application-specific signal", standard: "posix" },
   { name: "SIGSEGV", number: 11, action: "core", description: "Segmentation fault", standard: "ansi" },
   { name: "SIGUSR2", number: 12, action: "terminate", description: "Application-specific signal", standard: "posix" },
@@ -553,8 +553,8 @@ var Dt = [
     description: "Child process terminated, paused or unpaused",
     standard: "other",
   },
-  { name: "SIGCONT", number: 18, action: "unpause", description: "Unpaused", standard: "posix", forced: !0 },
-  { name: "SIGSTOP", number: 19, action: "pause", description: "Paused", standard: "posix", forced: !0 },
+  { name: "SIGCONT", number: 18, action: "unpause", description: "Unpaused", standard: "posix", forced: true },
+  { name: "SIGSTOP", number: 19, action: "pause", description: "Paused", standard: "posix", forced: true },
   { name: "SIGTSTP", number: 20, action: "pause", description: 'Paused using CTRL-Z or "suspend"', standard: "posix" },
   {
     name: "SIGTTIN",
@@ -594,7 +594,7 @@ var Se = () => {
     let e = Lt();
     return [...Dt, ...e].map(wr);
   },
-  wr = ({ name: e, number: t, description: r, action: o, forced: i = !1, standard: u }) => {
+  wr = ({ name: e, number: t, description: r, action: o, forced: i = false, standard: u }) => {
     let {
         signals: { [e]: d },
       } = Cr,
@@ -679,7 +679,7 @@ ${o.message}`
     )
       o.all = r;
     if ("bufferedData" in o) delete o.bufferedData;
-    return (o.failed = !0), (o.timedOut = Boolean(f)), (o.isCanceled = m), (o.killed = g && !f), o;
+    return (o.failed = true), (o.timedOut = Boolean(f)), (o.isCanceled = m), (o.killed = g && !f), o;
   };
 var Z = ["stdin", "stdout", "stderr"],
   Rr = (e) => Z.some((t) => e[t] !== void 0),
@@ -711,10 +711,10 @@ var Fr = 5000,
       }, i);
     if (u.unref) u.unref();
   },
-  _r = (e, { forceKillAfterTimeout: t }, r) => jr(e) && t !== !1 && r,
+  _r = (e, { forceKillAfterTimeout: t }, r) => jr(e) && t !== false && r,
   jr = (e) => e === kr.constants.signals.SIGTERM || (typeof e === "string" && e.toUpperCase() === "SIGTERM"),
-  Lr = ({ forceKillAfterTimeout: e = !0 }) => {
-    if (e === !0) return Fr;
+  Lr = ({ forceKillAfterTimeout: e = true }) => {
+    if (e === true) return Fr;
     if (!Number.isFinite(e) || e < 0)
       throw TypeError(
         `Expected the \`forceKillAfterTimeout\` option to be a non-negative integer, got \`${e}\` (${typeof e})`,
@@ -722,10 +722,10 @@ var Fr = 5000,
     return e;
   },
   Kt = (e, t) => {
-    if (e.kill()) t.isCanceled = !0;
+    if (e.kill()) t.isCanceled = true;
   },
   Mr = (e, t, r) => {
-    e.kill(t), r(Object.assign(Error("Timed out"), { timedOut: !0, signal: t }));
+    e.kill(t), r(Object.assign(Error("Timed out"), { timedOut: true, signal: t }));
   },
   zt = (e, { timeout: t, killSignal: r = "SIGTERM" }, o) => {
     if (t === 0 || t === void 0) return o;
@@ -759,7 +759,7 @@ function Q(e) {
   return e !== null && typeof e === "object" && typeof e.pipe === "function";
 }
 function be(e) {
-  return Q(e) && e.writable !== !1 && typeof e._write === "function" && typeof e._writableState === "object";
+  return Q(e) && e.writable !== false && typeof e._write === "function" && typeof e._writableState === "object";
 }
 var Br = (e) => e instanceof Gr && typeof e.then === "function",
   xe = (e, t, r) => {
@@ -899,7 +899,7 @@ async function ve(e, t) {
   return L(e, oo, t);
 }
 var eo = () => ({ contents: "", textDecoder: new TextDecoder() }),
-  re = (e, { textDecoder: t }) => t.decode(e, { stream: !0 }),
+  re = (e, { textDecoder: t }) => t.decode(e, { stream: true }),
   to = (e, { contents: t }) => t + e,
   no = (e, t) => e.slice(0, t),
   ro = ({ textDecoder: e }) => {
@@ -1066,17 +1066,17 @@ var Ao = 1e8,
       (r = o.options),
       (r = {
         maxBuffer: Ao,
-        buffer: !0,
-        stripFinalNewline: !0,
-        extendEnv: !0,
-        preferLocal: !1,
+        buffer: true,
+        stripFinalNewline: true,
+        extendEnv: true,
+        preferLocal: false,
         localDir: r.cwd || ie.cwd(),
         execPath: ie.execPath,
         encoding: "utf8",
-        reject: !0,
-        cleanup: !0,
-        all: !1,
-        windowsHide: !0,
+        reject: true,
+        cleanup: true,
+        all: false,
+        windowsHide: true,
         verbose: yn,
         ...r,
       }),
@@ -1111,9 +1111,9 @@ function RCe(e, t, r) {
           command: i,
           escapedCommand: u,
           parsed: o,
-          timedOut: !1,
-          isCanceled: !1,
-          killed: !1,
+          timedOut: false,
+          isCanceled: false,
+          killed: false,
         }),
       );
     return Ie(x, v), x;
@@ -1121,7 +1121,7 @@ function RCe(e, t, r) {
   let l = fn(d),
     f = zt(d, o.options, l),
     m = Wt(d, o.options, f),
-    g = { isCanceled: !1 };
+    g = { isCanceled: false };
   (d.kill = Ut.bind(null, d.kill.bind(d))), (d.cancel = Kt.bind(null, d, g));
   let h = jt(async () => {
     let [{ error: C, exitCode: x, signal: v, timedOut: O }, z, q, W] = await ln(d, o.options, m),
@@ -1140,7 +1140,7 @@ function RCe(e, t, r) {
         escapedCommand: u,
         parsed: o,
         timedOut: O,
-        isCanceled: g.isCanceled || (o.options.signal ? o.options.signal.aborted : !1),
+        isCanceled: g.isCanceled || (o.options.signal ? o.options.signal.aborted : false),
         killed: d.killed,
       });
       if (!o.options.reject) return qe;
@@ -1153,10 +1153,10 @@ function RCe(e, t, r) {
       stdout: Ue,
       stderr: Ke,
       all: ze,
-      failed: !1,
-      timedOut: !1,
-      isCanceled: !1,
-      killed: !1,
+      failed: false,
+      timedOut: false,
+      isCanceled: false,
+      killed: false,
     };
   });
   return cn(d, o.options), (d.all = dn(d, o.options)), Ht(d), Ie(d, h), d;
@@ -1179,9 +1179,9 @@ function G(e, t, r) {
       command: i,
       escapedCommand: u,
       parsed: o,
-      timedOut: !1,
-      isCanceled: !1,
-      killed: !1,
+      timedOut: false,
+      isCanceled: false,
+      killed: false,
     });
   }
   let f = M(o.options, l.stdout, l.error),
@@ -1197,7 +1197,7 @@ function G(e, t, r) {
       escapedCommand: u,
       parsed: o,
       timedOut: l.error && l.error.code === "ETIMEDOUT",
-      isCanceled: !1,
+      isCanceled: false,
       killed: l.signal !== null,
     });
     if (!o.options.reject) return g;
@@ -1209,15 +1209,15 @@ function G(e, t, r) {
     exitCode: 0,
     stdout: f,
     stderr: m,
-    failed: !1,
-    timedOut: !1,
-    isCanceled: !1,
-    killed: !1,
+    failed: false,
+    timedOut: false,
+    isCanceled: false,
+    killed: false,
   };
 }
 var $o = ({ input: e, inputFile: t, stdio: r }) =>
     e === void 0 && t === void 0 && r === void 0 ? { stdin: "inherit" } : {},
-  hn = (e = {}) => ({ preferLocal: !0, ...$o(e), ...e });
+  hn = (e = {}) => ({ preferLocal: true, ...$o(e), ...e });
 function xn(e) {
   function t(r, ...o) {
     if (!Array.isArray(r)) return xn({ ...e, ...r });
@@ -1317,7 +1317,7 @@ function Me() {
     return;
   }
   let o = Qo(r);
-  if (o === void 0 && k.read("tengu_tool_memory_cgroup", !1) !== !0) return;
+  if (o === void 0 && k.read("tengu_tool_memory_cgroup", false) !== true) return;
   try {
     let i = Ho(F("/proc/self/cgroup", "utf8"));
     if (!i) throw Error("no memory cgroup hierarchy");
@@ -1375,7 +1375,7 @@ function _o(e, t = { exists: jo, mkdirSync: Le, writeFileSync: se, rmdirSync: wn
   }
 }
 function jo(e) {
-  return Ro(e, { throwIfNoEntry: !1 }) !== void 0;
+  return Ro(e, { throwIfNoEntry: false }) !== void 0;
 }
 function vn() {
   let e = a.CLAUDE_CODE_TOOL_MEMORY_CGROUP_EXCLUDE?.trim(),
@@ -1391,8 +1391,8 @@ function Lo(e) {
 }
 function Mo(e) {
   let t = a.CLAUDE_CODE_MCP_MEMORY_CGROUP?.trim().toLowerCase();
-  if (t && (bo(t) || t === "none")) return !0;
-  return e && k.read("tengu_mcp_memory_cgroup", null) === !1;
+  if (t && (bo(t) || t === "none")) return true;
+  return e && k.read("tengu_mcp_memory_cgroup", null) === false;
 }
 function Cn(e) {
   let t = new Set();
@@ -1413,11 +1413,11 @@ function qi(e) {
 }
 function rAt(e, t, r) {
   let o = B(e);
-  if (o === void 0) return { command: t, args: [...r], pending: kCe(), capped: !1 };
-  if ($C(t) === null) return { command: t, args: [...r], pending: !0, capped: !1 };
+  if (o === void 0) return { command: t, args: [...r], pending: kCe(), capped: false };
+  if ($C(t) === null) return { command: t, args: [...r], pending: true, capped: false };
   return {
-    pending: !1,
-    capped: !0,
+    pending: false,
+    capped: true,
     command: "/bin/sh",
     args: ["-c", '{ echo 0 > "$0"/cgroup.procs; } 2>/dev/null; exec "$@"', o, t, ...r],
   };
@@ -1565,22 +1565,22 @@ function iAt(e, t, r = oAt) {
   try {
     let o = Hw(P);
     if (o.dir === void 0) {
-      if (o.pendingPids.get(e)?.starttime !== t) return !1;
-      return o.pendingPids.delete(e), n(`tool cgroup: unparked pid ${e}; it stays uncapped`), !0;
+      if (o.pendingPids.get(e)?.starttime !== t) return false;
+      return o.pendingPids.delete(e), n(`tool cgroup: unparked pid ${e}; it stays uncapped`), true;
     }
     let i = o.layout;
-    if (!o.dir || i === void 0 || i.reuse) return !1;
-    if (r.readStarttime(e) !== t) return !1;
+    if (!o.dir || i === void 0 || i.reuse) return false;
+    if (r.readStarttime(e) !== t) return false;
     let u = T.join(i.selfDir, "cgroup.procs");
     r.writeFileSync(u, String(e));
     let d = 1 + $n(e, i.dir, u, r, "released");
     return (
       n(`tool cgroup: released pid ${e} (${d} process${d === 1 ? "" : "es"}) to ${i.selfDir}`),
       s("tengu_tool_cgroup", { status: w("released"), released_count: d }),
-      !0
+      true
     );
   } catch (o) {
-    return n(`tool cgroup: release of pid ${e} failed (${E(o) ?? o})`), !1;
+    return n(`tool cgroup: release of pid ${e} failed (${E(o) ?? o})`), false;
   }
 }
 function $n(e, t, r, o, i) {
@@ -1627,12 +1627,12 @@ function Wo(e, t, r) {
 }
 function Rn(e, t, r = { mkdirSync: Le, writeFileSync: se, rmdirSync: wn }) {
   if (e.reuse) return;
-  let o = !0;
+  let o = true;
   try {
     r.mkdirSync(e.dir);
   } catch (i) {
     if (E(i) !== "EEXIST") throw i;
-    o = !1;
+    o = false;
   }
   try {
     r.writeFileSync(T.join(e.dir, e.v2 ? "memory.max" : "memory.limit_in_bytes"), String(t));
@@ -1655,10 +1655,10 @@ function kn(e) {
 `)) {
     let [o, i, u] = r.split(":");
     if (i === void 0 || u === void 0) continue;
-    if (i.split(",").includes("memory")) return { mountRoot: "/sys/fs/cgroup/memory", path: u, v2: !1 };
+    if (i.split(",").includes("memory")) return { mountRoot: "/sys/fs/cgroup/memory", path: u, v2: false };
     if (o === "0" && i === "") t = u;
   }
-  return t === void 0 ? void 0 : { mountRoot: "/sys/fs/cgroup", path: t, v2: !0 };
+  return t === void 0 ? void 0 : { mountRoot: "/sys/fs/cgroup", path: t, v2: true };
 }
 function Vo(e) {
   let t = kn(e);
@@ -1667,7 +1667,7 @@ function Vo(e) {
     o = r.indexOf(_e);
   if (o < 0) return;
   let i = T.join(t.mountRoot, ...r.slice(0, o));
-  return t.v2 ? { dir: T.join(i, Fo), create: !0 } : { dir: i, create: !1 };
+  return t.v2 ? { dir: T.join(i, Fo), create: true } : { dir: i, create: false };
 }
 var Fn = { readSelfCgroup: () => F("/proc/self/cgroup", "utf8"), mkdirSync: Le, writeFileSync: se };
 function Nn(e) {
@@ -1705,7 +1705,7 @@ function sAt(e = Fn) {
 function Xo(e, t, r, o) {
   let i = t.split("/").includes(_e),
     u = T.join(e, t, ".");
-  return i ? { dir: u, v2: o, reuse: !0, selfDir: u } : { dir: T.join(e, r, _e), v2: o, reuse: !1, selfDir: u };
+  return i ? { dir: u, v2: o, reuse: true, selfDir: u } : { dir: T.join(e, r, _e), v2: o, reuse: false, selfDir: u };
 }
 function Yo(e) {
   return Math.floor(e - Math.max(2 * En, e * 0.15));
@@ -1721,11 +1721,11 @@ function Qo(e) {
   let r = Math.floor(Number(t[1]) * 1024 ** " kmgt".indexOf((t[2] || " ").toLowerCase()));
   return r >= 1 ? r : void 0;
 }
-function K({ useToolMemoryCgroup: e = !0, toolCgroupClass: t = "helper" }) {
+function K({ useToolMemoryCgroup: e = true, toolCgroupClass: t = "helper" }) {
   return e ? qi(t) : {};
 }
 function Be() {
-  return !1;
+  return false;
 }
 async function Ff(e, t = [], r = {}) {
   let { useToolMemoryCgroup: o, toolCgroupClass: i, ...u } = r,
@@ -1753,8 +1753,8 @@ function oJ(e, t = [], r = {}) {
     d = m;
   }
   let l = K({ useToolMemoryCgroup: o, toolCgroupClass: i }),
-    f = RCe(d, t, { ...l, ...u, buffer: !1, reject: !1 });
-  if (o !== !1 && l.cgroup === void 0 && kCe()) Poe(i ?? "helper", f.pid);
+    f = RCe(d, t, { ...l, ...u, buffer: false, reject: false });
+  if (o !== false && l.cgroup === void 0 && kCe()) Poe(i ?? "helper", f.pid);
   return f.catch(() => {}), f;
 }
 function Dvn(e, t = [], r = {}) {
@@ -1769,11 +1769,11 @@ function Dvn(e, t = [], r = {}) {
 }
 async function Qh(e, t = {}) {
   let { useToolMemoryCgroup: r, toolCgroupClass: o, ...i } = t;
-  return RCe(e, { ...K({ useToolMemoryCgroup: r, toolCgroupClass: o }), ...i, shell: !0 });
+  return RCe(e, { ...K({ useToolMemoryCgroup: r, toolCgroupClass: o }), ...i, shell: true });
 }
 function Psr(e, t = {}) {
   let { useToolMemoryCgroup: r, toolCgroupClass: o, ...i } = t;
-  return G(e, { ...K({ useToolMemoryCgroup: r, toolCgroupClass: o }), ...i, shell: !0 });
+  return G(e, { ...K({ useToolMemoryCgroup: r, toolCgroupClass: o }), ...i, shell: true });
 }
 export {
   nAt,

@@ -198,7 +198,7 @@ function P(oo) {
   if ((Be("confirm:no", eo, k), !m)) {
     let f, u;
     if (i[3] === d)
-      (f = e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Cloud session" }) })),
+      (f = e(o, { marginBottom: 1, children: e(t, { bold: true, children: "Cloud session" }) })),
         (u = sn()
           ? e(t, {
               children: zT("fanout")
@@ -226,10 +226,10 @@ function P(oo) {
     return a;
   }
   let f;
-  if (i[6] === d) (f = e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Cloud session" }) })), (i[6] = f);
+  if (i[6] === d) (f = e(o, { marginBottom: 1, children: e(t, { bold: true, children: "Cloud session" }) })), (i[6] = f);
   else f = i[6];
   let u;
-  if (i[7] === d) (u = e(t, { dimColor: !0, children: "Open in browser: " })), (i[7] = u);
+  if (i[7] === d) (u = e(t, { dimColor: true, children: "Open in browser: " })), (i[7] = u);
   else u = i[7];
   let a;
   if (i[8] !== m) (a = r(o, { children: [u, e(t, { color: "ide", children: m })] })), (i[8] = m), (i[9] = a);
@@ -238,7 +238,7 @@ function P(oo) {
   if (i[10] === d)
     (v = e(o, {
       marginBottom: 1,
-      children: e(Ds, { children: e(M, { chord: "escape", action: "cancel", parens: !0 }) }),
+      children: e(Ds, { children: e(M, { chord: "escape", action: "cancel", parens: true }) }),
     })),
       (i[10] = v);
   else v = i[10];
@@ -248,7 +248,7 @@ function P(oo) {
       !w &&
       h &&
       e(Jn, {
-        fallback: e(t, { dimColor: !0, children: "Generating QR code\u2026" }),
+        fallback: e(t, { dimColor: true, children: "Generating QR code\u2026" }),
         children: e(b, { qrLinesPromise: h }),
       })),
       (i[11] = w),

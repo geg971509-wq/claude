@@ -71,7 +71,7 @@ async function rOn(e) {
     } catch {
       return null;
     }
-  let o = Ut(r, !1);
+  let o = Ut(r, false);
   if (!o || typeof o !== "object") return null;
   let t = o;
   if (typeof t.supervisorPid !== "number" || typeof t.workers !== "object" || t.workers === null) return null;

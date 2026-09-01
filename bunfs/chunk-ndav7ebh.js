@@ -56,9 +56,9 @@ function ptn(e) {
 function Nhe(e) {
   if (Tt()) {
     let r = Fn();
-    return (r === "team" || r === "enterprise") && e?.channelsEnabled !== !0;
+    return (r === "team" || r === "enterprise") && e?.channelsEnabled !== true;
   }
-  return e !== null && e.channelsEnabled !== !0;
+  return e !== null && e.channelsEnabled !== true;
 }
 function hZ(e, r) {
   let o = e.split(":");

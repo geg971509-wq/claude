@@ -417,7 +417,7 @@ function lo(i) {
     toolUseId: void 0,
     outputFile: "",
     outputOffset: 0,
-    notified: !0,
+    notified: true,
     script: i.script,
     scriptPath: i.scriptPath,
     prompt: i.script,
@@ -453,7 +453,7 @@ function jt(We) {
   let Co, So;
   if (rt[4] === d)
     (Co = e(fe, { children: e(M, { chord: "escape", action: "close" }) })),
-      (So = e(rr, { message: "Loading dynamic workflow history\u2026", dimColor: !0 })),
+      (So = e(rr, { message: "Loading dynamic workflow history\u2026", dimColor: true })),
       (rt[4] = Co),
       (rt[5] = So);
   else (Co = rt[4]), (So = rt[5]);
@@ -463,7 +463,7 @@ function jt(We) {
       (rt[6] = wt),
       (rt[7] = yt);
   else yt = rt[7];
-  const qt = kt.isMidTurn === !0;
+  const qt = kt.isMidTurn === true;
   let gt;
   if (rt[8] !== nt || rt[9] !== Qt || rt[10] !== qt)
     (gt = e(Wt, { snapshotsPromise: Qt, onDone: nt, promptVisibleBelow: qt })),
@@ -500,12 +500,12 @@ function Wt(Ve) {
   else Do = a[3];
   let [m, H] = u(Do),
     [pt, bo] = u(0),
-    St = C(!1),
+    St = C(false),
     Lo;
   if (a[4] !== s[0] || a[5] !== s.length || a[6] !== m.mode)
     (Lo = () => {
       if (s.length === 1 && m.mode === "list" && !St.current)
-        (St.current = !0), H({ mode: "detail", itemId: s[0].task.id });
+        (St.current = true), H({ mode: "detail", itemId: s[0].task.id });
     }),
       (a[4] = s[0]),
       (a[5] = s.length),
@@ -564,7 +564,7 @@ function Wt(Ve) {
   if (a[26] !== s.length || a[27] !== c)
     (Jo = () => {
       if (St.current && s.length <= 1) et(c);
-      else (St.current = !1), H({ mode: "list" });
+      else (St.current = false), H({ mode: "list" });
     }),
       (a[26] = s.length),
       (a[27] = c),
@@ -598,7 +598,7 @@ function Wt(Ve) {
     else R = a[43];
     let X;
     if (a[44] !== c)
-      (X = (Xo) => c(Xo, { shouldQuery: !0, display: "system", metaMessages: [Xo] })), (a[44] = c), (a[45] = X);
+      (X = (Xo) => c(Xo, { shouldQuery: true, display: "system", metaMessages: [Xo] })), (a[44] = c), (a[45] = X);
     else X = a[45];
     let j;
     if (a[46] !== x || a[47] !== p.task.id || a[48] !== v)
@@ -727,7 +727,7 @@ function Wt(Ve) {
         s.length === 0
           ? void 0
           : e(t, {
-              dimColor: !0,
+              dimColor: true,
               children: r(fe, { children: [tt > 0 && `${tt} running`, it > 0 && `${it} completed`] }),
             })),
         (a[98] = it),
@@ -771,9 +771,9 @@ function Wt(Ve) {
         : r(o, {
             flexDirection: "column",
             children: [
-              jo > 0 && r(t, { dimColor: !0, children: ["  ", L.arrowUp, " ", jo, " more above"] }),
+              jo > 0 && r(t, { dimColor: true, children: ["  ", L.arrowUp, " ", jo, " more above"] }),
               Ze.map((Eo, ts) => e(Vt, { item: Eo, isSelected: Vo + ts === pt }, Eo.task.id)),
-              $o > 0 && r(t, { dimColor: !0, children: ["  ", L.arrowDown, " ", $o, " more below"] }),
+              $o > 0 && r(t, { dimColor: true, children: ["  ", L.arrowDown, " ", $o, " more below"] }),
             ],
           });
     (a[77] = eo),
@@ -876,7 +876,7 @@ function Vt(cs) {
   else Nt = V[16];
   const mo = ps.join(" \xB7 ");
   let Xt;
-  if (V[17] !== mo) (Xt = r(t, { dimColor: !0, children: ["  ", mo] })), (V[17] = mo), (V[18] = Xt);
+  if (V[17] !== mo) (Xt = r(t, { dimColor: true, children: ["  ", mo] })), (V[17] = mo), (V[18] = Xt);
   else Xt = V[18];
   let Ot;
   if (V[19] !== ro || V[20] !== Xt || V[21] !== io || V[22] !== Nt)

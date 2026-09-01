@@ -441,7 +441,7 @@ async function He(e, s, t) {
   let o = G(oe(), `report-${s}.html`);
   if (O() && t) {
     for (let p of [`report-${s}.html`, "report.html"]) {
-      let c = await t.write(Fe(p), e, { mode: 384, keepExistingMode: !0 });
+      let c = await t.write(Fe(p), e, { mode: 384, keepExistingMode: true });
       if (!c.ok)
         throw (
           (n(`insights: report write failed: ${Ge(c.error)}`),
@@ -451,7 +451,7 @@ async function He(e, s, t) {
     return o;
   }
   try {
-    await ye(oe(), { recursive: !0 });
+    await ye(oe(), { recursive: true });
   } catch {}
   return (
     await ce(o, e, { encoding: "utf-8", mode: 384 }),
@@ -460,7 +460,7 @@ async function He(e, s, t) {
   );
 }
 function Le(e) {
-  if (e.code !== "Failed") return !1;
+  if (e.code !== "Failed") return false;
   return (
     e.failureClass === "permission" ||
     e.failureClass === "environment" ||
@@ -475,7 +475,7 @@ function he(e, s) {
   return t;
 }
 function Ce(e) {
-  return jF(G(Ne(), `${e}.json`), () => xe().nullable(), { defaultValue: null, ensureDir: !0, indent: 2, mode: 384 });
+  return jF(G(Ne(), `${e}.json`), () => xe().nullable(), { defaultValue: null, ensureDir: true, indent: 2, mode: 384 });
 }
 var Ue = `Analyze this Claude Code session and extract structured facets.
 
@@ -531,15 +531,15 @@ function Ye(e) {
     l = [],
     a = 0,
     g = {},
-    x = !1,
+    x = false,
     I = 0,
     w = 0,
     z = new Set(),
     E = [],
     F = [],
-    D = !1,
-    U = !1,
-    y = !1,
+    D = false,
+    U = false,
+    y = false,
     j = null;
   for (let L of e.messages) {
     let Y = L.timestamp;
@@ -552,10 +552,10 @@ function Ye(e) {
         for (let u of W)
           if (u.type === "tool_use" && "name" in u) {
             let C = u.name;
-            if (((s[C] = (s[C] || 0) + 1), C === yt || C === xf)) x = !0;
-            if (C.startsWith("mcp__")) D = !0;
-            if (C === "WebSearch") U = !0;
-            if (C === "WebFetch") y = !0;
+            if (((s[C] = (s[C] || 0) + 1), C === yt || C === xf)) x = true;
+            if (C.startsWith("mcp__")) D = true;
+            if (C === "WebSearch") U = true;
+            if (C === "WebFetch") y = true;
             let S = u.input;
             if (S) {
               let Q = se(S.file_path);
@@ -591,12 +591,12 @@ function Ye(e) {
     }
     if (L.type === "user" && L.message) {
       let P = L.message.content,
-        W = !1;
-      if (typeof P === "string" && P.trim()) W = !0;
+        W = false;
+      if (typeof P === "string" && P.trim()) W = true;
       else if (Array.isArray(P)) {
         for (let u of P)
           if (u.type === "text" && "text" in u) {
-            W = !0;
+            W = true;
             break;
           }
       }
@@ -668,12 +668,12 @@ function ue(e) {
     if (r.type === "assistant") d++;
     if (r.type === "user" && r.message) {
       let l = r.message.content,
-        a = !1;
-      if (typeof l === "string" && l.trim()) a = !0;
+        a = false;
+      if (typeof l === "string" && l.trim()) a = true;
       else if (Array.isArray(l)) {
         for (let g of l)
           if (g.type === "text" && "text" in g) {
-            a = !0;
+            a = true;
             break;
           }
       }
@@ -711,7 +711,7 @@ function ue(e) {
   };
 }
 function de(e, s) {
-  if (!s) return !0;
+  if (!s) return true;
   if (e.user_message_count !== s.user_message_count) return e.user_message_count > s.user_message_count;
   return e.duration_minutes > s.duration_minutes;
 }
@@ -769,8 +769,8 @@ async function qe(e, s) {
         model: ve(),
         querySource: "insights",
         agents: [],
-        isNonInteractiveSession: !0,
-        hasAppendSystemPrompt: !1,
+        isNonInteractiveSession: true,
+        hasAppendSystemPrompt: false,
         mcpTools: [],
         maxOutputTokensOverride: 500,
         agentContext: _a(),
@@ -842,7 +842,7 @@ function Se(e, s) {
 }
 async function Qe(e, s) {
   try {
-    await ye(ae(), { recursive: !0 });
+    await ye(ae(), { recursive: true });
   } catch {}
   if (O() && s) {
     let o = await s.write(le(e.session_id), b(e, null, 2), { publishDiscipline: "inPlace", mode: 384 });
@@ -905,10 +905,10 @@ function Ae(e) {
     lines_added: e.lines_added ?? 0,
     lines_removed: e.lines_removed ?? 0,
     files_modified: e.files_modified ?? 0,
-    uses_task_agent: e.uses_task_agent ?? !1,
-    uses_mcp: e.uses_mcp ?? !1,
-    uses_web_search: e.uses_web_search ?? !1,
-    uses_web_fetch: e.uses_web_fetch ?? !1,
+    uses_task_agent: e.uses_task_agent ?? false,
+    uses_mcp: e.uses_mcp ?? false,
+    uses_web_search: e.uses_web_search ?? false,
+    uses_web_fetch: e.uses_web_fetch ?? false,
   };
 }
 async function et(e, s) {
@@ -957,8 +957,8 @@ RESPOND WITH ONLY A VALID JSON OBJECT matching this schema:
           model: ve(),
           querySource: "insights",
           agents: [],
-          isNonInteractiveSession: !0,
-          hasAppendSystemPrompt: !1,
+          isNonInteractiveSession: true,
+          hasAppendSystemPrompt: false,
           mcpTools: [],
           maxOutputTokensOverride: 4096,
           agentContext: _a(),
@@ -1266,8 +1266,8 @@ DATA:
           model: Oe(),
           querySource: "insights",
           agents: [],
-          isNonInteractiveSession: !0,
-          hasAppendSystemPrompt: !1,
+          isNonInteractiveSession: true,
+          hasAppendSystemPrompt: false,
           mcpTools: [],
           maxOutputTokensOverride: e.maxTokens,
           agentContext: _a(),
@@ -2379,7 +2379,7 @@ async function pt(e) {
             (w) => {
               for (let z of w) {
                 if (z.kind !== "key" || z.key.namespace !== "transcript") continue;
-                if (z.key.agentId !== void 0 || z.key.journal === !0 || z.key.projectKey !== x) continue;
+                if (z.key.agentId !== void 0 || z.key.journal === true || z.key.projectKey !== x) continue;
                 let E = Kr(z.key.sessionId);
                 if (!E) continue;
                 r.push({ sessionId: E, key: Te.transcript(x, E), mtime: z.mtimeMs ?? 0, size: z.size ?? 0 });
@@ -2414,7 +2414,7 @@ async function pt(e) {
   let s = Nl(),
     t;
   try {
-    t = await Ee(s, { withFileTypes: !0 });
+    t = await Ee(s, { withFileTypes: true });
   } catch {
     return [];
   }
@@ -2458,10 +2458,10 @@ async function mt(e) {
         if (T.type === "user" && T.message) {
           let M = T.message.content;
           if (typeof M === "string") {
-            if (M.includes("RESPOND WITH ONLY A VALID JSON OBJECT") || M.includes("record_facets")) return !0;
+            if (M.includes("RESPOND WITH ONLY A VALID JSON OBJECT") || M.includes("record_facets")) return true;
           }
         }
-      return !1;
+      return false;
     },
     x = 10;
   for (let _ = 0; _ < d.length; _ += x) {
@@ -2484,11 +2484,11 @@ async function mt(e) {
       ),
       B = new Map();
     for (let { sessionInfo: k, cached: A, logs: ie } of M) {
-      let ge = !1;
+      let ge = false;
       for (let te of ie) {
         if (g(te) || Number.isNaN(te.created.getTime()) || Number.isNaN(te.modified.getTime())) continue;
         let X = ue(te);
-        if (((X.transcript_mtime = k.mtime), c.push(X), (ge = !0), de(X, B.get(X.session_id)))) B.set(X.session_id, X);
+        if (((X.transcript_mtime = k.mtime), c.push(X), (ge = true), de(X, B.get(X.session_id)))) B.set(X.session_id, X);
         a.set(X.session_id, te);
       }
       if (!ge && A) c.push(A);
@@ -2502,9 +2502,9 @@ async function mt(e) {
   for (let _ of a.keys()) if (!w.has(_)) a.delete(_);
   c.sort((_, T) => T.start_time.localeCompare(_.start_time));
   let z = (_) => {
-      if (_.user_message_count < 2) return !1;
-      if (_.duration_minutes < 1) return !1;
-      return !0;
+      if (_.user_message_count < 2) return false;
+      if (_.duration_minutes < 1) return false;
+      return true;
     },
     E = c.filter(z),
     F = new Map(),
@@ -2535,7 +2535,7 @@ async function mt(e) {
   }
   let W = (_) => {
       let T = F.get(_);
-      if (!T) return !1;
+      if (!T) return false;
       let M = T.goal_categories,
         B = gt(M).filter((k) => (M[k] ?? 0) > 0);
       return B.length === 1 && B[0] === "warmup_minimal";
@@ -2569,9 +2569,9 @@ var ht = {
   async getPromptForCommand(e, s) {
     if (s.options?.isSkillPreload)
       return [{ type: "text", text: "The /insights report is generated only when the command is invoked directly." }];
-    let t = !1,
+    let t = false,
       o = [],
-      p = !1,
+      p = false,
       {
         insights: c,
         htmlPath: d,
@@ -2642,7 +2642,7 @@ ${s}
 Want to dig into any section or try one of the suggestions?`;
 }
 function me(e) {
-  if (!e || typeof e !== "object") return !1;
+  if (!e || typeof e !== "object") return false;
   let s = e;
   return (
     typeof s.underlying_goal === "string" &&

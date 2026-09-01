@@ -69,8 +69,8 @@ import { d } from "/$bunfs/root/chunk-yz031c9r.js";
 F();
 F();
 function oo({ canEnter: n, onEnter: l }) {
-  let [m, p] = u(!1),
-    w = C(!1),
+  let [m, p] = u(false),
+    w = C(false),
     {
       query: j,
       cursorOffset: x,
@@ -79,17 +79,17 @@ function oo({ canEnter: n, onEnter: l }) {
     } = np({
       isActive: m,
       onExit: () => {
-        (w.current = !1), p(!1);
+        (w.current = false), p(false);
       },
     }),
     I = B(() => {
-      l?.(), (w.current = !0), p(!0);
+      l?.(), (w.current = true), p(true);
     }, [l]);
   return (
     ht(
       {
         "settings:search": () => {
-          if (w.current) return !1;
+          if (w.current) return false;
           I();
         },
       },
@@ -136,7 +136,7 @@ function QLn(n, l, m) {
   if (m || !lg(l)) return;
   return ew(l, n);
 }
-function ZLn(n, l = !1, m = !1) {
+function ZLn(n, l = false, m = false) {
   if (!n) return;
   if (l) return `${m ? "effort:" : bTt} ultracode \xB7 xhigh effort + dynamic workflows for maximum thoroughness`;
   return `${m ? "effort:" : Ne(n)} ${n} \xB7 /effort`;
@@ -185,8 +185,8 @@ function AQ({
   let { storageV5: X, credentials: K } = ge(),
     Ro = At(),
     { rows: Dt } = Ui(Ee()),
-    Ft = W((i) => (Yr() ? i.fastMode : !1)),
-    [To] = u(Ft ?? !1),
+    Ft = W((i) => (Yr() ? i.fastMode : false)),
+    [To] = u(Ft ?? false),
     q = z(() => te ?? epn(To), [te, To]),
     Rt = ZC(),
     Tt = Ts(),
@@ -198,9 +198,9 @@ function AQ({
     [_o] = mn(),
     Bt = Ba(),
     Vt = hn(),
-    Kr = !1,
-    qr = Vt ? !0 : !1,
-    Gr = !1,
+    Kr = false,
+    qr = Vt ? true : false,
+    Gr = false,
     {
       isSearchMode: de,
       isSearchModeRef: Me,
@@ -208,13 +208,13 @@ function AQ({
       cursorOffset: _t,
       handleKeyDown: Ut,
       handlePaste: $t,
-    } = oo({ canEnter: !1, onEnter: () => y("model_picker_search") }),
+    } = oo({ canEnter: false, onEnter: () => y("model_picker_search") }),
     Ht = de || Q !== "" ? 4 : 0,
     Ao = Yr() && (x || (Zy() && !R3())),
     Nt = Ao ? 3 : 0,
     jt = ye !== null ? 3 : 0,
     It = Math.max(2, Math.min(10, Math.floor((Dt - Ct - Ht - Nt - jt) / 2))),
-    [_e, Uo, Ae] = Dy(!1),
+    [_e, Uo, Ae] = Dy(false),
     Ue = Kf(),
     Xt = W((i) => i.ultracode),
     [J, $o] = u(Xt ? "ultracode" : Ue !== void 0 ? $F(Ue) : void 0),
@@ -227,7 +227,7 @@ function AQ({
         if (a !== null && !q.some((L) => L.value === v) && !i.some((L) => L.value === a) && kr(a))
           i.push({ value: a, label: wC(a), description: R });
       if (i.length === 0) return q;
-      let c = q.findIndex((a) => a.disabled === !0);
+      let c = q.findIndex((a) => a.disabled === true);
       if (c === -1) return [...q, ...i];
       return [...q.slice(0, c), ...i, ...q.slice(c)];
     }, [q, re, n]),
@@ -263,7 +263,7 @@ function AQ({
     ue = D.some((i) => i.value === Bo) ? Bo : void 0,
     Io = $e.find((i) => i.value === ue),
     Xo = Io?.label,
-    eo = Io?.disabled === !0,
+    eo = Io?.disabled === true,
     G = N(ue);
   A(() => {
     import("/$bunfs/root/chunk-skwsm25m.js").then((i) => i.fetchBootstrapData(X, K));
@@ -271,13 +271,13 @@ function AQ({
   let [, qt] = fv((i) => i + 1, 0);
   A(() => {
     if (!G?.includes("application-inference-profile")) return;
-    let i = !1;
+    let i = false;
     return (
       gY(G).then(() => {
         if (!i) qt();
       }),
       () => {
-        i = !0;
+        i = true;
       }
     );
   }, [G]);
@@ -303,7 +303,7 @@ function AQ({
       (i) => {
         let c = Ze(),
           a = D.find((Z) => Z.value === c);
-        if (a === void 0 || a.disabled === !0) return;
+        if (a === void 0 || a.disabled === true) return;
         let v = Je(c);
         if (!v.supportsEffort) return;
         let R = N(c),
@@ -318,27 +318,27 @@ function AQ({
             v.supportsUltra,
           ),
         ),
-          Uo(!0);
+          Uo(true);
       },
       [D, Ze, Ae, Uo],
     );
   ht(
     {
       "modelPicker:decreaseEffort": () => {
-        if (Me.current) return !1;
+        if (Me.current) return false;
         qo("left");
       },
       "modelPicker:increaseEffort": () => {
-        if (Me.current) return !1;
+        if (Me.current) return false;
         qo("right");
       },
       "modelPicker:thisSessionOnly": () => {
-        if (Me.current) return !1;
+        if (Me.current) return false;
         if (!p) return;
         let i = Ze(),
           c = D.find((a) => a.value === i);
         if (c === void 0) return;
-        if (c.disabled === !0) return;
+        if (c.disabled === true) return;
         Go(c.value);
       },
     },
@@ -355,7 +355,7 @@ function AQ({
       let R = a === "ultracode" ? "xhigh" : a,
         L = Wz(R);
       if (L !== void 0) Cjt(L, c ?? el(), X);
-      Mm(X), Ro((Z) => ({ ...Z, sessionEffort: qz(R), ultracode: !1 }));
+      Mm(X), Ro((Z) => ({ ...Z, sessionEffort: qz(R), ultracode: false }));
     }
     let v = _e && c && lg(c) && (a !== "ultracode" || I) ? a : void 0;
     if (i === T) {
@@ -376,16 +376,16 @@ function AQ({
             marginBottom: 1,
             flexDirection: "column",
             children: [
-              e(t, { color: "remember", bold: !0, children: "Select model" }),
+              e(t, { color: "remember", bold: true, children: "Select model" }),
               e(t, {
-                dimColor: !0,
+                dimColor: true,
                 children:
                   V ??
                   "Switch between Claude models. Your pick becomes the default for new sessions. For other/previous model names, specify with --model.",
               }),
               ye !== null &&
                 r(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: [
                     "Currently using ",
                     wC(ye),
@@ -446,7 +446,7 @@ function AQ({
                 ? r(U, {
                     children: [
                       r(t, {
-                        dimColor: !0,
+                        dimColor: true,
                         children: [
                           e(Te, { effort: me }),
                           " ",
@@ -474,10 +474,10 @@ function AQ({
               ? e(o, {
                   marginBottom: 1,
                   children: r(t, {
-                    dimColor: !0,
+                    dimColor: true,
                     children: [
                       "Fast mode is ",
-                      e(t, { bold: !0, children: "ON" }),
+                      e(t, { bold: true, children: "ON" }),
                       " and available with",
                       " ",
                       yC(),
@@ -488,8 +488,8 @@ function AQ({
               : e(o, {
                   marginBottom: 1,
                   children: r(t, {
-                    dimColor: !0,
-                    children: ["Use ", e(t, { bold: !0, children: "/fast" }), " to turn on Fast mode (", yC(), ")."],
+                    dimColor: true,
+                    children: ["Use ", e(t, { bold: true, children: "/fast" }), " to turn on Fast mode (", yC(), ")."],
                   }),
                 })
             : null,
@@ -509,7 +509,7 @@ function AQ({
                 children: [
                   ue !== void 0 && !eo && e(M, { chord: "enter", action: p ? "set as default" : "confirm" }),
                   ue !== void 0 && !eo && p && e(M, { chord: "s", action: "use this session only" }),
-                  !1,
+                  false,
                   e(ze, { action: "select:cancel", context: "Select", fallback: "Esc", description: "cancel" }),
                 ],
               }),
@@ -553,10 +553,10 @@ function Je(n) {
     m = Fo(n);
   if (!l)
     return {
-      supportsEffort: !1,
-      supportsMax: !1,
-      supportsXHigh: !1,
-      supportsUltra: !1,
+      supportsEffort: false,
+      supportsMax: false,
+      supportsXHigh: false,
+      supportsUltra: false,
       capLevels: ["low", "medium", "high"],
       defaultEffort: m,
     };

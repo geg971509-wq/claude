@@ -247,8 +247,8 @@ function Jke(d) {
     if (i?.fromUltracode) Mm(v);
     else if (i !== void 0) Gz(i.level, sW(e), void 0, v);
     if ((j5(), Yr())) VI();
-    let b = !1,
-      C = !1;
+    let b = false,
+      C = false;
     A(
       (k) => (
         (b = !!k.fastMode),
@@ -323,9 +323,9 @@ function Jke(d) {
             {
               id: "autoContinueAtUsageLimit",
               label: "Continue automatically at usage limit",
-              value: f?.autoContinueAtUsageLimit ?? !0,
+              value: f?.autoContinueAtUsageLimit ?? true,
               type: "boolean",
-              consentGated: !0,
+              consentGated: true,
               async onChange(e) {
                 m((t) => ({ ...t, autoContinueAtUsageLimit: e }));
                 let o = await h({ autoContinueAtUsageLimit: e });
@@ -345,7 +345,7 @@ function Jke(d) {
               label: "Use this machine's settings in cloud sessions",
               value: r.remoteHomeSettingsMode === "forward",
               isDefaultValue: !mTt.some((e) => e === r.remoteHomeSettingsMode),
-              consentGated: !0,
+              consentGated: true,
               type: "boolean",
               onChange(e) {
                 if (e) return { error: new js("Turn this on from the /config panel, which shows what will be sent") };
@@ -379,7 +379,7 @@ function Jke(d) {
             {
               id: "switchModelsOnFlag",
               label: H5n,
-              value: f?.switchModelsOnFlag ?? !0,
+              value: f?.switchModelsOnFlag ?? true,
               type: "boolean",
               onChange(e) {
                 h({ switchModelsOnFlag: e }),
@@ -392,7 +392,7 @@ function Jke(d) {
       {
         id: "tips",
         label: "Show tips",
-        value: f?.spinnerTipsEnabled ?? !0,
+        value: f?.spinnerTipsEnabled ?? true,
         type: "boolean",
         onChange(e) {
           U({ spinnerTipsEnabled: e }),
@@ -418,7 +418,7 @@ function Jke(d) {
       {
         id: "reduceMotion",
         label: "Reduce motion",
-        value: f?.prefersReducedMotion ?? !1,
+        value: f?.prefersReducedMotion ?? false,
         type: "boolean",
         onChange(e) {
           U({ prefersReducedMotion: e }),
@@ -430,11 +430,11 @@ function Jke(d) {
       {
         id: "thinking",
         label: "Thinking mode",
-        value: se ?? !0,
+        value: se ?? true,
         type: "boolean",
         onChange(e) {
           A((o) => ({ ...o, thinkingEnabled: e })),
-            h({ alwaysThinkingEnabled: e ? void 0 : !1 }),
+            h({ alwaysThinkingEnabled: e ? void 0 : false }),
             s("tengu_thinking_toggled", { enabled: e }),
             y("thinking_toggle");
         },
@@ -449,7 +449,7 @@ function Jke(d) {
               async onChange(e) {
                 let o = (t, i, l) => {
                   if (i) {
-                    let b = !1;
+                    let b = false;
                     if (
                       (A((C) => {
                         let R = kq(C);
@@ -464,7 +464,7 @@ function Jke(d) {
                         ),
                       };
                   }
-                  VI(), h({ fastMode: !0 });
+                  VI(), h({ fastMode: true });
                   let u;
                   return (
                     A((b) => {
@@ -473,7 +473,7 @@ function Jke(d) {
                       if (R && S) ng(S.session, b, C, "command");
                       return (
                         (u = R ? C : void 0),
-                        { ...b, ...(R && { mainLoopModel: C, mainLoopModelForSession: null }), fastMode: !0 }
+                        { ...b, ...(R && { mainLoopModel: C, mainLoopModelForSession: null }), fastMode: true }
                       );
                     }),
                     E((b) => ({ ...b, ...(u !== void 0 && { model: u ?? CMe() }), "Fast mode": "ON" })),
@@ -487,7 +487,7 @@ function Jke(d) {
                     let u = kq(i());
                     if (u === void 0 || !yD(t)) {
                       if (l !== S.latestFastPick.current) return;
-                      return o(void 0, !1, "");
+                      return o(void 0, false, "");
                     }
                     let b = await CS(t, i, u, "command");
                     if (l !== S.latestFastPick.current) return;
@@ -507,15 +507,15 @@ function Jke(d) {
                           ),
                         }
                       );
-                    return o(u, !0, b.messages.length > 0 ? ` \xB7 ${b.messages.map(ac).join(" \xB7 ")}` : "");
+                    return o(u, true, b.messages.length > 0 ? ` \xB7 ${b.messages.map(ac).join(" \xB7 ")}` : "");
                   });
                 }
-                if (e) return o(void 0, !1, "");
+                if (e) return o(void 0, false, "");
                 else {
                   let t = () => {
                     VI(),
                       h({ fastMode: void 0 }),
-                      A((i) => ({ ...i, fastMode: !1 })),
+                      A((i) => ({ ...i, fastMode: false })),
                       E((i) => ({ ...i, "Fast mode": "OFF" }));
                   };
                   if (S && kv.of(S.session).pending > 0) await rg(S.session, async () => t());
@@ -525,7 +525,7 @@ function Jke(d) {
             },
           ]
         : []),
-      ...(I("tengu_chomp_inflection", !1)
+      ...(I("tengu_chomp_inflection", false)
         ? [
             {
               id: "promptSuggestionEnabled",
@@ -533,7 +533,7 @@ function Jke(d) {
               value: de,
               type: "boolean",
               onChange(e) {
-                A((o) => ({ ...o, promptSuggestionEnabled: e })), h({ promptSuggestionEnabled: e ? void 0 : !1 });
+                A((o) => ({ ...o, promptSuggestionEnabled: e })), h({ promptSuggestionEnabled: e ? void 0 : false });
               },
             },
           ]
@@ -545,8 +545,8 @@ function Jke(d) {
         type: "boolean",
         onChange(e) {
           A((o) => ({ ...o, awaySummaryEnabled: e })),
-            h({ awaySummaryEnabled: e ? void 0 : !1 }),
-            m((o) => ({ ...o, awaySummaryEnabled: e ? void 0 : !1 }));
+            h({ awaySummaryEnabled: e ? void 0 : false }),
+            m((o) => ({ ...o, awaySummaryEnabled: e ? void 0 : false }));
         },
       },
       ...(me
@@ -569,7 +569,7 @@ function Jke(d) {
             {
               id: "orgMemoryRead",
               label: "Synced project memory (this directory; applies next session)",
-              value: ci().orgMemoryRead ?? !0,
+              value: ci().orgMemoryRead ?? true,
               type: "boolean",
               onChange(e) {
                 hZn(e, v), p((o) => ({ ...o }));
@@ -577,21 +577,21 @@ function Jke(d) {
             },
           ]
         : []),
-      ...(Me(!YKe() && (pEe() || ci().orgMemoryWrites === !0))
+      ...(Me(!YKe() && (pEe() || ci().orgMemoryWrites === true))
         ? [
             {
               id: "orgMemoryWrites",
               label:
-                ci().orgMemoryRead === !1
+                ci().orgMemoryRead === false
                   ? "Synced project memory writes (enable reads first)"
                   : "Synced project memory writes (this directory; applies next session)",
               value: Ade(),
-              canWithdraw: () => ci().orgMemoryWrites === !0,
+              canWithdraw: () => ci().orgMemoryWrites === true,
               type: "boolean",
-              consentGated: !0,
+              consentGated: true,
               onChange(e) {
-                let o = e && !Ade() && ci().orgMemoryWrites === !0;
-                Kyt(o ? !1 : e, v), p((t) => ({ ...t }));
+                let o = e && !Ade() && ci().orgMemoryWrites === true;
+                Kyt(o ? false : e, v), p((t) => ({ ...t }));
               },
             },
           ]
@@ -601,7 +601,7 @@ function Jke(d) {
             {
               id: "workflows",
               label: "Dynamic workflows",
-              value: f?.disableWorkflows === !0 ? !1 : (f?.enableWorkflows ?? Pgn()),
+              value: f?.disableWorkflows === true ? false : (f?.enableWorkflows ?? Pgn()),
               type: "boolean",
               onChange(e) {
                 let o = e === Pgn() ? void 0 : e;
@@ -613,10 +613,10 @@ function Jke(d) {
             {
               id: "workflowKeywordTriggerEnabled",
               label: "Ultracode keyword trigger",
-              value: f?.workflowKeywordTriggerEnabled ?? !0,
+              value: f?.workflowKeywordTriggerEnabled ?? true,
               type: "boolean",
               onChange(e) {
-                let o = e ? void 0 : !1;
+                let o = e ? void 0 : false;
                 h({ workflowKeywordTriggerEnabled: o }),
                   m((t) => ({ ...t, workflowKeywordTriggerEnabled: o })),
                   E((t) => ({ ...t, ultracodeKeywordTrigger: e ? "on" : "off" }));
@@ -674,12 +674,12 @@ function Jke(d) {
             s("tengu_terminal_progress_bar_setting_changed", { enabled: e });
         },
       },
-      ...(I("tengu_terminal_sidebar", !1)
+      ...(I("tengu_terminal_sidebar", false)
         ? [
             {
               id: "showStatusInTerminalTab",
               label: "Show status in terminal tab",
-              value: r.showStatusInTerminalTab ?? !1,
+              value: r.showStatusInTerminalTab ?? false,
               type: "boolean",
               onChange(e) {
                 _((o) => ({ ...o, showStatusInTerminalTab: e })),
@@ -700,7 +700,7 @@ function Jke(d) {
             s("tengu_show_turn_duration_setting_changed", { enabled: e });
         },
       },
-      ...(I("tengu_sepia_moth", !1)
+      ...(I("tengu_sepia_moth", false)
         ? [
             {
               id: "precomputeCompactionEnabled",
@@ -715,7 +715,7 @@ function Jke(d) {
             },
           ]
         : []),
-      ...(I("tengu_silk_hinge", !1)
+      ...(I("tengu_silk_hinge", false)
         ? [
             {
               id: "timestamps",
@@ -787,7 +787,7 @@ function Jke(d) {
       {
         id: "useAutoModeDuringPlan",
         label: "Use auto mode during plan",
-        value: f?.useAutoModeDuringPlan ?? !0,
+        value: f?.useAutoModeDuringPlan ?? true,
         type: "boolean",
         onChange(e) {
           h({ useAutoModeDuringPlan: e }),
@@ -825,7 +825,7 @@ function Jke(d) {
             {
               id: "copyOnSelect",
               label: "Copy on select",
-              value: r.copyOnSelect ?? !0,
+              value: r.copyOnSelect ?? true,
               type: "boolean",
               onChange(e) {
                 _((o) => ({ ...o, copyOnSelect: e })), p((o) => ({ ...o, copyOnSelect: e }));
@@ -849,7 +849,7 @@ function Jke(d) {
                 id: "agentsView",
                 label: "Agents view",
                 value:
-                  (tZ() && (r.leftArrowOpensAgents ?? !0)) || (cy() && (r.defaultToAgentsView ?? !1)) ? "on" : "off",
+                  (tZ() && (r.leftArrowOpensAgents ?? true)) || (cy() && (r.defaultToAgentsView ?? false)) ? "on" : "off",
                 type: "managedEnum",
                 onChange() {},
               },
@@ -861,7 +861,7 @@ function Jke(d) {
                   {
                     id: "defaultToAgentsView",
                     label: "Open agents view by default",
-                    value: r.defaultToAgentsView ?? !1,
+                    value: r.defaultToAgentsView ?? false,
                     type: "boolean",
                     onChange(e) {
                       _((o) => ({ ...o, defaultToAgentsView: e })), p((o) => ({ ...o, defaultToAgentsView: e }));
@@ -874,7 +874,7 @@ function Jke(d) {
                   {
                     id: "leftArrowOpensAgents",
                     label: `${fP} opens agents`,
-                    value: r.leftArrowOpensAgents ?? !0,
+                    value: r.leftArrowOpensAgents ?? true,
                     type: "boolean",
                     onChange(e) {
                       _((o) => ({ ...o, leftArrowOpensAgents: e })), p((o) => ({ ...o, leftArrowOpensAgents: e }));
@@ -935,7 +935,7 @@ function Jke(d) {
                         {
                           id: "inputNeededNotifEnabled",
                           label: "Push when actions required",
-                          value: r.inputNeededNotifEnabled ?? !1,
+                          value: r.inputNeededNotifEnabled ?? false,
                           type: "boolean",
                           onChange: z,
                         },
@@ -944,7 +944,7 @@ function Jke(d) {
                   {
                     id: "agentPushNotifEnabled",
                     label: "Push when Claude decides",
-                    value: r.agentPushNotifEnabled ?? !1,
+                    value: r.agentPushNotifEnabled ?? false,
                     type: "boolean",
                     onChange: Q,
                   },
@@ -1020,7 +1020,7 @@ function Jke(d) {
             {
               id: "askUserQuestionTimeout",
               label: "Question auto-continue timeout",
-              consentGated: !0,
+              consentGated: true,
               value: f?.askUserQuestionTimeout ?? jAe() ?? "never",
               options: [...X],
               type: "enum",
@@ -1043,7 +1043,7 @@ function Jke(d) {
               value: f?.modelProposedGoals ?? WAe(),
               options: [...zXe],
               type: "enum",
-              consentGated: !0,
+              consentGated: true,
               async onChange(e) {
                 let o = zXe.find((i) => i === e);
                 if (!o) return;
@@ -1058,7 +1058,7 @@ function Jke(d) {
       {
         id: "externalEditorContext",
         label: x("Show last response in external editor", "Show responses in IDE"),
-        value: r.externalEditorContext ?? !1,
+        value: r.externalEditorContext ?? false,
         type: "boolean",
         onChange(e) {
           _((o) => ({ ...o, externalEditorContext: e })),
@@ -1069,7 +1069,7 @@ function Jke(d) {
       {
         id: "prStatus",
         label: x("Show PR status footer", "Show PR status"),
-        value: r.prStatusFooterEnabled ?? !0,
+        value: r.prStatusFooterEnabled ?? true,
         type: "boolean",
         onChange(e) {
           _((o) => {
@@ -1119,7 +1119,7 @@ function Jke(d) {
             {
               id: "autoConnectIde",
               label: "Auto-connect to IDE (external terminal)",
-              value: r.autoConnectIde ?? !1,
+              value: r.autoConnectIde ?? false,
               type: "boolean",
               onChange(e) {
                 _((o) => ({ ...o, autoConnectIde: e })),
@@ -1134,7 +1134,7 @@ function Jke(d) {
             {
               id: "autoInstallIdeExtension",
               label: "Auto-install IDE extension",
-              value: r.autoInstallIdeExtension ?? !0,
+              value: r.autoInstallIdeExtension ?? true,
               type: "boolean",
               onChange(e) {
                 _((o) => ({ ...o, autoInstallIdeExtension: e })),
@@ -1147,7 +1147,7 @@ function Jke(d) {
       {
         id: "chrome",
         label: x("Claude in Chrome enabled by default", "Claude in Chrome"),
-        value: r.claudeInChromeDefaultEnabled ?? !1,
+        value: r.claudeInChromeDefaultEnabled ?? false,
         type: "boolean",
         onChange(e) {
           _((o) => ({ ...o, claudeInChromeDefaultEnabled: e })),
@@ -1210,7 +1210,7 @@ function Jke(d) {
             {
               id: "dialogExpiry",
               label: "Dialog expiry",
-              consentGated: !0,
+              consentGated: true,
               value: f.dialogExpiry ?? "default",
               options: [...Z],
               type: "enum",
@@ -1231,8 +1231,8 @@ function Jke(d) {
             {
               id: "crossSessionInbound",
               label: "Messages from your other sessions",
-              consentGated: !0,
-              pickToCommit: !0,
+              consentGated: true,
+              pickToCommit: true,
               value: f.crossSessionInbound ?? "default",
               options: [...ee],
               type: "enum",
@@ -1267,7 +1267,7 @@ function Jke(d) {
         ? [
             {
               id: "apiKey",
-              consentGated: !0,
+              consentGated: true,
               label: "Use custom API key: ",
               labelBoldSuffix: L3(a.ANTHROPIC_API_KEY),
               searchText: "Use custom API key",

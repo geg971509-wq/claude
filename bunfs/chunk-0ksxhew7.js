@@ -65,18 +65,18 @@ async function y(i, o, t) {
   let e = C(i, t);
   if ((s("tengu_config_shorthand", { key_hash: Vn(i), matched: e !== void 0 }), !e))
     return {
-      ok: !1,
+      ok: false,
       kind: "refusal",
       message: `${Qn(i)} isn't a /config setting. Run /config to see what's available.`,
     };
   let n = "searchText" in e ? e.searchText : e.label;
   if (e.consentGated) {
     let r = ["false", "0", "off", "no"].includes(o.toLowerCase()),
-      u = e.value === !0 || e.canWithdraw?.() === !0;
-    if (e.type === "boolean" && r && !u) return { ok: !0, kind: "refusal", message: `${i} is already off.` };
+      u = e.value === true || e.canWithdraw?.() === true;
+    if (e.type === "boolean" && r && !u) return { ok: true, kind: "refusal", message: `${i} is already off.` };
     if (!(e.type === "boolean" && r && u))
       return {
-        ok: !1,
+        ok: false,
         kind: "refusal",
         message: `${n} can't be enabled with key=value \u2014 open /config to change it from the panel.`,
       };
@@ -86,25 +86,25 @@ async function y(i, o, t) {
       let r = o.toLowerCase(),
         u = ["true", "1", "on", "yes"].includes(r),
         f = ["false", "0", "off", "no"].includes(r);
-      if (!u && !f) return { ok: !1, kind: "refusal", message: `${n} takes true or false, not "${Qn(o)}".` };
+      if (!u && !f) return { ok: false, kind: "refusal", message: `${n} takes true or false, not "${Qn(o)}".` };
       let l = await e.onChange(u);
       if (l?.error) {
         if (l.error instanceof js)
-          return { ok: !1, kind: "refusal", message: `${n}: ${l.error.message}${l?.messageSuffix ?? ""}` };
+          return { ok: false, kind: "refusal", message: `${n}: ${l.error.message}${l?.messageSuffix ?? ""}` };
         return {
-          ok: !1,
+          ok: false,
           kind: "save-failure",
           message: `Couldn't save ${n}: ${l.error.message}${l?.messageSuffix ?? ""}`,
         };
       }
-      return { ok: !0, kind: "refusal", message: `Set ${n} to ${u ? "true" : "false"}${l?.messageSuffix ?? ""}` };
+      return { ok: true, kind: "refusal", message: `Set ${n} to ${u ? "true" : "false"}${l?.messageSuffix ?? ""}` };
     }
     case "enum":
     case "managedEnum": {
       let r = e.type === "managedEnum" ? e.coerce : void 0;
       if (!e.options && !r)
         return {
-          ok: !1,
+          ok: false,
           kind: "refusal",
           message: `${n} can't be set with key=value \u2014 use ${h.get(e.id) ?? "/config"}.`,
         };
@@ -112,7 +112,7 @@ async function y(i, o, t) {
       if (u === void 0) {
         let l = e.type === "managedEnum" && e.optionsHint ? ` ${e.optionsHint}` : "";
         return {
-          ok: !1,
+          ok: false,
           kind: "refusal",
           message: e.options
             ? `${n} takes one of: ${e.options.join(", ")}.${l}`
@@ -122,14 +122,14 @@ async function y(i, o, t) {
       let f = await e.onChange(u);
       if (f?.error) {
         if (f.error instanceof js)
-          return { ok: !1, kind: "refusal", message: `${n}: ${f.error.message}${f?.messageSuffix ?? ""}` };
+          return { ok: false, kind: "refusal", message: `${n}: ${f.error.message}${f?.messageSuffix ?? ""}` };
         return {
-          ok: !1,
+          ok: false,
           kind: "save-failure",
           message: `Couldn't save ${n}: ${f.error.message}${f?.messageSuffix ?? ""}`,
         };
       }
-      return { ok: !0, kind: "refusal", message: `Set ${n} to ${Qn(u)}${f?.messageSuffix ?? ""}` };
+      return { ok: true, kind: "refusal", message: `Set ${n} to ${Qn(u)}${f?.messageSuffix ?? ""}` };
     }
   }
 }
@@ -163,15 +163,15 @@ function nEr(i, o) {
       .map((l) => ({
         value: `${l.id}=`,
         description: l.options?.slice(0, 4).join(" | ") ?? l.hint,
-        isFinal: !1,
-        appendSpace: !1,
+        isFinal: false,
+        appendSpace: false,
       }));
   }
   let n = o.slice(0, e),
     r = o.slice(e + 1).toLowerCase(),
     u = t.find((f) => f.id.toLowerCase() === n.toLowerCase());
   if (!u?.options) return [];
-  return u.options.filter((f) => f.toLowerCase().startsWith(r)).map((f) => ({ value: `${u.id}=${f}`, isFinal: !0 }));
+  return u.options.filter((f) => f.toLowerCase().startsWith(r)).map((f) => ({ value: `${u.id}=${f}`, isFinal: true }));
 }
 class p {
   keys = void 0;
@@ -183,13 +183,13 @@ var ydr = new J(() => new p());
 function k() {
   let i = {
       getAppState: () => ({
-        thinkingEnabled: !1,
-        verbose: !1,
+        thinkingEnabled: false,
+        verbose: false,
         mainLoopModel: null,
         mainLoopModelForSession: null,
-        fastMode: !1,
-        promptSuggestionEnabled: !1,
-        awaySummaryEnabled: !1,
+        fastMode: false,
+        promptSuggestionEnabled: false,
+        awaySummaryEnabled: false,
         toolPermissionContext: pm(),
       }),
       setAppState: () => {},
@@ -206,13 +206,13 @@ function k() {
 }
 function m(i, o) {
   let t = i.getAppState(),
-    e = { ...Je(), ...mrt(), autoContinueAtUsageLimit: nxt() ?? !0 },
+    e = { ...Je(), ...mrt(), autoContinueAtUsageLimit: nxt() ?? true },
     n = Yke(),
-    r = Lo("disableWorkflows", !1),
-    u = Lo("enableWorkflows", !1),
+    r = Lo("disableWorkflows", false),
+    u = Lo("enableWorkflows", false),
     f =
       Zht() &&
-      (r.value !== !0 || r.source === "userSettings") &&
+      (r.value !== true || r.source === "userSettings") &&
       (u.source === "default" || u.source === "userSettings"),
     l = !xbe(),
     g = Srt(),
@@ -225,24 +225,24 @@ function m(i, o) {
     themeSetting: n.theme,
     currentOutputStyle: e?.outputStyle || Qw,
     currentLanguage: e?.language,
-    externalIncludesApproved: !1,
+    externalIncludesApproved: false,
     thinkingEnabled: t.thinkingEnabled,
     verbose: t.verbose,
     mainLoopModel: t.mainLoopModel,
     currentModel: i2(t),
-    isFastMode: Yr() ? t.fastMode : !1,
+    isFastMode: Yr() ? t.fastMode : false,
     promptSuggestionEnabled: t.promptSuggestionEnabled,
     awaySummaryEnabled: t.awaySummaryEnabled,
     showDefaultViewPicker: S,
     pushTogglesVisible: e3() && !Ct() && Yl(),
-    crossSessionInboxRowVisible: !1,
+    crossSessionInboxRowVisible: false,
     isConnectedToIde: RTe(i.options.mcpClients),
     isFileCheckpointingAvailable: !a.CLAUDE_CODE_DISABLE_FILE_CHECKPOINTING,
     workflowsToggleable: f,
     workflowSizeGuidelineToggleable: l,
     autoContinueAtUsageLimitToggleable: g,
     artifactToggleable: c,
-    shouldShowExternalIncludesToggle: !1,
+    shouldShowExternalIncludesToggle: false,
     autoUpdaterDisabledReason: DY(),
     modelSwitchHooks: i.session
       ? {

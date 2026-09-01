@@ -60,7 +60,7 @@ var g = m(() =>
           path: a(),
           agreed: kDt(),
           generation: v().int().nonnegative(),
-          unheard: N(!0).optional(),
+          unheard: N(true).optional(),
           peerSeen: v().int().nonnegative().optional(),
         }),
       ).max(r),
@@ -79,10 +79,10 @@ var g = m(() =>
       publishedEtag: i().min(1).max(Eae).nullable(),
       peerGenerationSeen: v().int().nonnegative(),
       excludedPaths: H(a()).max(r),
-      uploadOnly: N(!0).optional(),
+      uploadOnly: N(true).optional(),
       withheldPaths: H(a()).max(r).optional(),
       detachedPaths: H(a()).max(r).optional(),
-      tracksDependencyDirs: N(!0)
+      tracksDependencyDirs: N(true)
         .optional()
         .catch(void 0),
       lostWithDisk: H(a()).max(r).optional(),
@@ -115,7 +115,7 @@ function IHe(e, t) {
     case "git_blob":
       return e.blobId === t.gitBlobId;
     case "unknown":
-      return !1;
+      return false;
   }
 }
 function mrn(e) {

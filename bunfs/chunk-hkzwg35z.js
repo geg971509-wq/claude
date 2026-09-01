@@ -18,7 +18,7 @@ function iMe() {
 }
 function r() {
   if (a.CLAUDE_CODE_DISABLE_AGENT_VIEW) return "is disabled by CLAUDE_CODE_DISABLE_AGENT_VIEW";
-  if (Sw()?.settings.disableAgentView === !0) return "is disabled by the 'disableAgentView' setting";
+  if (Sw()?.settings.disableAgentView === true) return "is disabled by the 'disableAgentView' setting";
   return null;
 }
 function cy() {
@@ -29,25 +29,25 @@ async function sMe(e = {}) {
     let { getSettingsWithErrors: t } = await import("/$bunfs/root/chunk-vbxndy62.js");
     t();
   }
-  if (e.kickGrowthBook !== !1) mh().catch(() => {});
+  if (e.kickGrowthBook !== false) mh().catch(() => {});
 }
 function l8e() {
-  return Zn.CLAUDE_CODE_FLEET_PAST_SESSIONS === !0 || I("tengu_fleet_past_sessions", !1);
+  return Zn.CLAUDE_CODE_FLEET_PAST_SESSIONS === true || I("tengu_fleet_past_sessions", false);
 }
 function bEe() {
   return cy();
 }
 function TV() {
-  return !1;
+  return false;
 }
 function Pde() {
-  return I("tengu_amber_anchor", !1);
+  return I("tengu_amber_anchor", false);
 }
 function yyn() {
-  return I("tengu_copper_lantern", !1);
+  return I("tengu_copper_lantern", false);
 }
 function Kvr() {
-  return I("tengu_quiet_harbor", !1) ? "ask" : "transient";
+  return I("tengu_quiet_harbor", false) ? "ask" : "transient";
 }
 function ou() {
   return Pde() ? "daemon" : "background service";
@@ -66,10 +66,10 @@ function Dde(e, t) {
 }
 var sSt = "CLAUDE_CODE_AGENT_VIEW_RELAUNCH";
 function g9t() {
-  return !1;
+  return false;
 }
 function Xvr(e) {
-  return !1;
+  return false;
 }
 function Syn() {
   return !!a.CLAUDE_AGENTS_SELECT;

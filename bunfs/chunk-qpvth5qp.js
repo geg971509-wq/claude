@@ -365,14 +365,14 @@ import "/$bunfs/root/chunk-a4q326ap.js";
 import { d } from "/$bunfs/root/chunk-yz031c9r.js";
 F();
 function J(H) {
-  return { label: r(t, { children: ["Use ", e(t, { bold: !0, children: Fo(H) })] }), value: H };
+  return { label: r(t, { children: ["Use ", e(t, { bold: true, children: Fo(H) })] }), value: H };
 }
 function I(eo) {
   let f = _(19),
     { targetRepo: a, initialPaths: io, onSelectPath: y, onCancel: c, storageV5: V } = eo,
     [n, no] = u(io),
     [h, q] = u(null),
-    [x, w] = u(!1),
+    [x, w] = u(false),
     z;
   if (f[0] !== n || f[1] !== c || f[2] !== y || f[3] !== V || f[4] !== a)
     (z = async (m) => {
@@ -380,13 +380,13 @@ function I(eo) {
         c();
         return;
       }
-      if ((w(!0), q(null), await SKt(m, a))) {
+      if ((w(true), q(null), await SKt(m, a))) {
         y(m);
         return;
       }
       bKt(a, m, V);
       let lo = n.filter((ao) => ao !== m);
-      no(lo), w(!1), q(`${Fo(m)} no longer contains the correct repository. Select another path.`);
+      no(lo), w(false), q(`${Fo(m)} no longer contains the correct repository. Select another path.`);
     }),
       (f[0] = n),
       (f[1] = c),
@@ -416,7 +416,7 @@ function I(eo) {
                 gap: 1,
                 children: [
                   e(Br, { error: h }),
-                  r(t, { children: ["Open Claude Code in ", e(t, { bold: !0, children: a }), ":"] }),
+                  r(t, { children: ["Open Claude Code in ", e(t, { bold: true, children: a }), ":"] }),
                 ],
               }),
               x
@@ -429,7 +429,7 @@ function I(eo) {
             gap: 1,
             children: [
               e(Br, { error: h }),
-              r(t, { dimColor: !0, children: ["Run claude --teleport from a checkout of ", a] }),
+              r(t, { dimColor: true, children: ["Run claude --teleport from a checkout of ", a] }),
             ],
           })),
       (f[9] = n.length),

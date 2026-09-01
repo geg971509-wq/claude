@@ -340,9 +340,9 @@ function A(fe) {
       r(o, {
         marginTop: 1,
         children: [
-          e(t, { dimColor: !0, children: '"/plan open"' }),
-          e(t, { dimColor: !0, children: " to edit this plan in " }),
-          e(t, { bold: !0, dimColor: !0, children: h }),
+          e(t, { dimColor: true, children: '"/plan open"' }),
+          e(t, { dimColor: true, children: " to edit this plan in " }),
+          e(t, { bold: true, dimColor: true, children: h }),
         ],
       })),
       (w[4] = h),
@@ -355,8 +355,8 @@ function A(fe) {
       r(o, {
         marginTop: h ? 0 : 1,
         children: [
-          e(t, { dimColor: !0, children: '"/plan share"' }),
-          e(t, { dimColor: !0, children: " to publish this plan as an artifact" }),
+          e(t, { dimColor: true, children: '"/plan share"' }),
+          e(t, { dimColor: true, children: " to publish this plan as an artifact" }),
         ],
       })),
       (w[6] = U),
@@ -440,10 +440,10 @@ async function me(a, l, c) {
             planContent: Et(m).slice(0, J),
             planPath: d.path !== void 0 && !I ? Et(d.path).replace(/[\r\n]/g, " ") : void 0,
             editorName: void 0,
-            canShare: !1,
+            canShare: false,
           }),
         B = await knt(b(u), { storageV5: l.storageV5 });
-      if (!u && mo(l.session)) B = await knt(b(!0), { storageV5: l.storageV5 });
+      if (!u && mo(l.session)) B = await knt(b(true), { storageV5: l.storageV5 });
       return a(B), null;
     } catch (d) {
       let u = d instanceof Error ? d.message : String(d),
@@ -466,7 +466,7 @@ async function me(a, l, c) {
   }
   if (f) {
     let s = c.trim();
-    if (s && s !== "open" && s !== "share") return a("Enabled plan mode", { shouldQuery: !0 }), null;
+    if (s && s !== "open" && s !== "share") return a("Enabled plan mode", { shouldQuery: true }), null;
     if (!uV()) return a("Enabled plan mode"), null;
   }
   let g = Bh();
@@ -506,7 +506,7 @@ async function me(a, l, c) {
     k = mo(l.session),
     q = (s) => e(A, { planContent: C, planPath: s ? void 0 : g, editorName: H, canShare: RUe.isPlanArtifactEnabled() }),
     v = await knt(q(k), { storageV5: l.storageV5 });
-  if (!k && mo(l.session)) v = await knt(q(!0), { storageV5: l.storageV5 });
+  if (!k && mo(l.session)) v = await knt(q(true), { storageV5: l.storageV5 });
   return a(v), null;
 }
 export { me as call };

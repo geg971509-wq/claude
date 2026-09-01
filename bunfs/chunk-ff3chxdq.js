@@ -25,16 +25,16 @@ import L from "fs";
 var h;
 function G() {
   try {
-    return L.statSync("/.dockerenv"), !0;
+    return L.statSync("/.dockerenv"), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function X() {
   try {
     return L.readFileSync("/proc/self/cgroup", "utf8").includes("docker");
   } catch {
-    return !1;
+    return false;
   }
 }
 function x() {
@@ -44,9 +44,9 @@ function x() {
 var y,
   q = () => {
     try {
-      return K.statSync("/run/.containerenv"), !0;
+      return K.statSync("/run/.containerenv"), true;
     } catch {
-      return !1;
+      return false;
     }
   };
 function p() {
@@ -54,15 +54,15 @@ function p() {
   return y;
 }
 var T = () => {
-    if (I.platform !== "linux") return !1;
+    if (I.platform !== "linux") return false;
     if (Y.release().toLowerCase().includes("microsoft")) {
-      if (p()) return !1;
-      return !0;
+      if (p()) return false;
+      return true;
     }
     try {
-      return j.readFileSync("/proc/version", "utf8").toLowerCase().includes("microsoft") ? !p() : !1;
+      return j.readFileSync("/proc/version", "utf8").toLowerCase().includes("microsoft") ? !p() : false;
     } catch {
-      return !1;
+      return false;
     }
   },
   c = I.env.__IS_WSL_TEST__ ? T : T();
@@ -71,9 +71,9 @@ var Q = (() => {
     return async function () {
       if (r) return r;
       let o = "/etc/wsl.conf",
-        n = !1;
+        n = false;
       try {
-        await W.access(o, J.F_OK), (n = !0);
+        await W.access(o, J.F_OK), (n = true);
       } catch {}
       if (!n) return "/mnt/";
       let t = await W.readFile(o, { encoding: "utf8" }),
@@ -88,11 +88,11 @@ var Q = (() => {
     return `${O.env.SYSTEMROOT || O.env.windir || String.raw`C:\Windows`}\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`;
   };
 function m(e, r, o) {
-  let n = (t) => Object.defineProperty(e, r, { value: t, enumerable: !0, writable: !0 });
+  let n = (t) => Object.defineProperty(e, r, { value: t, enumerable: true, writable: true });
   return (
     Object.defineProperty(e, r, {
-      configurable: !0,
-      enumerable: !0,
+      configurable: true,
+      enumerable: true,
       get() {
         let t = o();
         return n(t), t;
@@ -127,7 +127,7 @@ import te from "process";
 import { promisify as ne } from "util";
 import { execFile as ie, execFileSync as Xe } from "child_process";
 var se = ne(ie);
-async function k(e, { humanReadableOutput: r = !0, signal: o } = {}) {
+async function k(e, { humanReadableOutput: r = true, signal: o } = {}) {
   if (te.platform !== "darwin") throw Error("macOS only");
   let n = r ? [] : ["-ss"],
     t = {};
@@ -214,7 +214,7 @@ var U = async (e, r) => {
     throw o;
   },
   w = async (e) => {
-    if (((e = { wait: !1, background: !1, newInstance: !1, allowNonzeroExitCode: !1, ...e }), Array.isArray(e.app)))
+    if (((e = { wait: false, background: false, newInstance: false, allowNonzeroExitCode: false, ...e }), Array.isArray(e.app)))
       return U(e.app, (i) => w({ ...e, app: i }));
     let { name: r, arguments: o = [] } = e.app ?? {};
     if (((o = [...o]), Array.isArray(r))) return U(r, (i) => w({ ...e, app: { name: i, arguments: o } }));
@@ -251,7 +251,7 @@ var U = async (e, r) => {
       if (
         ((n = await v()), t.push("-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-EncodedCommand"), !c)
       )
-        s.windowsVerbatimArguments = !0;
+        s.windowsVerbatimArguments = true;
       let i = ["Start"];
       if (e.wait) i.push("-Wait");
       if (r) {
@@ -263,14 +263,14 @@ var U = async (e, r) => {
       if (r) n = r;
       else {
         let i = !C || C === "/",
-          a = !1;
+          a = false;
         try {
-          await he.access(H, xe.X_OK), (a = !0);
+          await he.access(H, xe.X_OK), (a = true);
         } catch {}
         n = (F.versions.electron ?? (u === "android" || i || !a)) ? "xdg-open" : H;
       }
       if (o.length > 0) t.push(...o);
-      if (!e.wait) (s.stdio = "ignore"), (s.detached = !0);
+      if (!e.wait) (s.stdio = "ignore"), (s.detached = true);
     }
     if (u === "darwin" && o.length > 0) t.push("--args", ...o);
     if (e.target) t.push(e.target);

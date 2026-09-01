@@ -220,13 +220,13 @@ function u(r) {
   let t = r.trim().toLowerCase().split(/\s+/)[0] ?? "";
   return b.find((e) => e === t) ?? "none";
 }
-function v({ disabled: r = !1 } = {}) {
+function v({ disabled: r = false } = {}) {
   Zr({
     name: "claude-api",
     menuDescription: "Build and debug apps that use the Claude API",
     description: L,
     allowedTools: ["Read", "Grep", "Glob", "WebFetch"],
-    userInvocable: !0,
+    userInvocable: true,
     isEnabled: () => !r,
     files: () => d().then(h),
     async getPromptForCommand(t, e, o) {

@@ -113,7 +113,7 @@ function mHe(e, t, r) {
   });
 }
 function gHe(e, t, r) {
-  return e.get().ownVers[t]?.includes(r) ?? !1;
+  return e.get().ownVers[t]?.includes(r) ?? false;
 }
 function tnn(e, t, r) {
   return gHe(e, t, r) ? "self-session" : "unverified";
@@ -145,7 +145,7 @@ function rnn(e, t) {
 }
 function Gje(e) {
   let t = e.trimEnd();
-  if (!t.startsWith("<!--") || !t.endsWith("-->") || t.length < 7) return !1;
+  if (!t.startsWith("<!--") || !t.endsWith("-->") || t.length < 7) return false;
   let r = t.slice(4, -3);
   return (
     !r.startsWith(">") &&
@@ -157,7 +157,7 @@ function Gje(e) {
   );
 }
 function Fn() {
-  return !I("tengu_pewter_canteen", !1);
+  return !I("tengu_pewter_canteen", false);
 }
 var ji = "data-chart-runtime";
 function Dn(e) {
@@ -358,9 +358,9 @@ function Wn(e) {
   let t = e.toLowerCase(),
     r = 0;
   for (;;) {
-    if (((r = t.indexOf("<code", r)), r < 0)) return !1;
+    if (((r = t.indexOf("<code", r)), r < 0)) return false;
     let s = t[r + 5];
-    if (s === void 0) return !1;
+    if (s === void 0) return false;
     if (!OWt.has(s)) {
       r += 5;
       continue;
@@ -375,7 +375,7 @@ function Wn(e) {
     let d = t.slice(r + 5, u);
     for (let _ of d.matchAll(/language-([\w.+#-]+)/g)) {
       let w = _[1];
-      if (Object.prototype.hasOwnProperty.call(Fwe, w) || Object.prototype.hasOwnProperty.call($we, w)) return !0;
+      if (Object.prototype.hasOwnProperty.call(Fwe, w) || Object.prototype.hasOwnProperty.call($we, w)) return true;
     }
     r = u;
   }
@@ -541,15 +541,15 @@ function Vn(e, t = 0) {
 `) ||
     e.includes(_de)
   )
-    return !1;
+    return false;
   let s = 1 + r,
     o = RQn(e.slice(s));
-  if (o === null || e.indexOf("<", s) !== s + o.data) return !1;
+  if (o === null || e.indexOf("<", s) !== s + o.data) return false;
   let u = r > 7 ? 1 : 0,
     d = GM(e.slice(s + o.after)),
     _ = HQn(d, 0);
   if (_ !== null) {
-    if (!d.startsWith("</script>", _.len)) return !1;
+    if (!d.startsWith("</script>", _.len)) return false;
     (u += _.annotated ? 1 : 0), (d = d.slice(_.len + 9));
   }
   let w = NKe(d);
@@ -562,22 +562,22 @@ function Gn(e) {
   let t = e.toLowerCase(),
     r = 0;
   for (;;) {
-    if (((r = t.indexOf("<pre", r)), r < 0)) return !1;
+    if (((r = t.indexOf("<pre", r)), r < 0)) return false;
     let s = t[r + 4];
-    if (s === void 0) return !1;
+    if (s === void 0) return false;
     if (!OWt.has(s)) {
       r += 4;
       continue;
     }
     let o = Math.min(r + is, t.length),
       u = o,
-      d = !1;
+      d = false;
     for (let _ = r + 4; _ < o; _++)
       if (t[_] === ">") {
-        (u = _), (d = !0);
+        (u = _), (d = true);
         break;
       }
-    if (ss(t.slice(r + 4, u))) return !0;
+    if (ss(t.slice(r + 4, u))) return true;
     r = d ? u + 1 : u;
   }
 }
@@ -586,7 +586,7 @@ function ss(e) {
     r = 0;
   while (r < t) {
     let s = e.indexOf("class", r);
-    if (s < 0) return !1;
+    if (s < 0) return false;
     let o = e[s - 1];
     if (
       !(
@@ -614,17 +614,17 @@ function ss(e) {
       _;
     if (d === '"' || d === "'") {
       let w = e.indexOf(d, u + 1);
-      if (w < 0) return !1;
+      if (w < 0) return false;
       _ = e.slice(u + 1, w);
     } else {
       let w = u;
       while (w < t && !/[\s>]/.test(e[w])) w++;
       _ = e.slice(u, w);
     }
-    for (let w of _.split(/\s+/)) if (w === "mermaid") return !0;
+    for (let w of _.split(/\s+/)) if (w === "mermaid") return true;
     r = s + 5;
   }
-  return !1;
+  return false;
 }
 function Lit() {
   let e = Zi();
@@ -693,7 +693,7 @@ function us(e, t) {
 }
 var Yt = (e) => e.attrs?.find((t) => t.name === "id")?.value,
   ds = new Set(["", "text/javascript", "application/javascript", "module"]),
-  Gt = (e, t) => e.attrs?.some((r) => r.name === t) ?? !1,
+  Gt = (e, t) => e.attrs?.some((r) => r.name === t) ?? false,
   Jn = (e) => GM(e.attrs?.find((t) => t.name === "type")?.value ?? "").toLowerCase(),
   fs = (e) => Jn(e) === "module",
   ps = (e) =>
@@ -705,8 +705,8 @@ var Yt = (e) => e.attrs?.find((t) => t.name === "id")?.value,
     (e.childNodes ?? []).some((t) => t.nodeName === "#text" && (t.value ?? "").includes(bt)),
   hs = (e, t) => (e.attrs?.find((r) => r.name === "class")?.value ?? "").split(/[\t\n\f\r ]+/).includes(t),
   ms = (e, t) => {
-    for (let r = e.parentNode; r; r = r.parentNode) if (r === t) return !0;
-    return !1;
+    for (let r = e.parentNode; r; r = r.parentNode) if (r === t) return true;
+    return false;
   };
 function Xn(e) {
   let t = [],
@@ -722,13 +722,13 @@ function Xn(e) {
 }
 function gs(e) {
   let t = new Map(),
-    r = [{ node: e, exit: !1 }];
+    r = [{ node: e, exit: false }];
   while (r.length > 0) {
     let s = r.pop(),
       o = s.node.childNodes ?? [];
     if (!s.exit) {
-      r.push({ node: s.node, exit: !0 });
-      for (let d = o.length - 1; d >= 0; d--) if (o[d].tagName !== void 0) r.push({ node: o[d], exit: !1 });
+      r.push({ node: s.node, exit: true });
+      for (let d = o.length - 1; d >= 0; d--) if (o[d].tagName !== void 0) r.push({ node: o[d], exit: false });
       continue;
     }
     let u = "";
@@ -746,7 +746,7 @@ function bs(e) {
   for (let _ of r) s = Math.min(s, t(_));
   let o = r.some((_) => t(_) === 1 / 0),
     u = e.filter(ps).sort((_, w) => t(_) - t(w)),
-    d = !1;
+    d = false;
   for (let _ of u) {
     if (!_.sourceCodeLocation?.endTag) continue;
     if (fs(_)) {
@@ -754,7 +754,7 @@ function bs(e) {
         g("artifact_publish", "block_ids_load_point_unsure");
         return;
       }
-      d = !0;
+      d = true;
       continue;
     }
     let w = t(_);
@@ -839,7 +839,7 @@ async function Zn(e) {
     if (t(e)) return g("artifact_publish", "block_ids_nesting_budget"), e;
     let { parse: r } = await import("/$bunfs/root/chunk-0hxb8y8g.js"),
       s = qn + e,
-      o = O1(r(s, { sourceCodeLocationInfo: !0 })),
+      o = O1(r(s, { sourceCodeLocationInfo: true })),
       u = ys(s, o);
     if (u === null)
       return (
@@ -851,7 +851,7 @@ async function Zn(e) {
   }
 }
 class qt {
-  availability = () => !1;
+  availability = () => false;
   register(e) {
     this.availability = e;
   }
@@ -1149,14 +1149,14 @@ function $s(e) {
   for (let s = r.exec(e); s !== null; s = r.exec(e)) {
     if (s[4] !== void 0) {
       if (s[4] === ">") continue;
-      return !0;
+      return true;
     }
     let o = s[1] ?? s[2] ?? s[3] ?? "";
     if (!o.includes("&#")) continue;
     let u = Is(o).toLowerCase();
-    if (TZ.some((d) => u.startsWith(d.id))) return !0;
+    if (TZ.some((d) => u.startsWith(d.id))) return true;
   }
-  return !1;
+  return false;
 }
 function yt(e, t, r, s) {
   let o = new RegExp(
@@ -1264,19 +1264,19 @@ function Ls(e, t, r, s) {
 }
 var ir = 524288,
   _t = 2048;
-function EZ(e, { parsedAsMarkup: t } = { parsedAsMarkup: !0 }) {
-  if (TZ.some((o) => Xt(o.id).test(e)) || (t && $s(e))) return !0;
-  if (e.length > ir) return !1;
+function EZ(e, { parsedAsMarkup: t } = { parsedAsMarkup: true }) {
+  if (TZ.some((o) => Xt(o.id).test(e)) || (t && $s(e))) return true;
+  if (e.length > ir) return false;
   let s = new Set(Qje.map((o) => o.sha256));
   return Vje(e).some((o) => s.has(Nn(HPt(o))));
 }
 function sr(e, t, r = {}) {
   let s = r.crUrlRe ?? null;
-  if (!EZ(e)) return { applies: !1 };
-  if (e.length > ir) return { applies: !0, ok: !1, reason: "the page is too large for a review page" };
+  if (!EZ(e)) return { applies: false };
+  if (e.length > ir) return { applies: true, ok: false, reason: "the page is too large for a review page" };
   let o = Vje(e),
     u = new Map(Qje.map((O) => [O.sha256, O])),
-    d = (O) => ({ applies: !0, ok: !1, reason: O }),
+    d = (O) => ({ applies: true, ok: false, reason: O }),
     _ = !Xt(uHe).test(e),
     w = !o.some((O) => Nn(O) === Uit),
     A = t.pinnedMarkup.find((O) => O.label === "stamp-control"),
@@ -1315,7 +1315,7 @@ function sr(e, t, r = {}) {
     if (O.id === uHe) T = Z.stamp === void 0 ? null : Z.stamp;
     E.add(Y[0][0]);
   }
-  if (T !== null && r.allowStampBinding !== !0)
+  if (T !== null && r.allowStampBinding !== true)
     return d(
       'approve-enabled review pages publish only through the composed lane \u2014 set the prr-stamp island to {"stamp":null}, or publish via /artifact-pr-review with a pr_review payload',
     );
@@ -1346,7 +1346,7 @@ function sr(e, t, r = {}) {
   let C = Ls(j, t.inlineStyleAllowlist, M, x !== null && rr(x) && P === null && T === null ? s : null);
   if (C) return d(C);
   let D = gt(e);
-  if (r.allowMermaidFence === !0) D.mermaid = !1;
+  if (r.allowMermaidFence === true) D.mermaid = false;
   if (Object.values(D).some(Boolean))
     return d(
       "the body would trigger a runtime script injection after validation (mermaid fence, language-tagged code, or chart marker)" +
@@ -1354,7 +1354,7 @@ function sr(e, t, r = {}) {
           ? " \u2014 composed review pages with a diagram must republish through the composed lane, not as raw HTML"
           : ""),
     );
-  return { applies: !0, ok: !0 };
+  return { applies: true, ok: true };
 }
 var Fs = 100;
 function dHe(e) {
@@ -1383,10 +1383,10 @@ function Zje(e, t) {
 var Ds =
   /[\u20DD-\u20E4\u23FA\u25C9\u25CB\u25CE\u25CF\u25EF\u26AA\u26AB\u26AC\u29BE\u29BF\u2B24\u2B55\u2B58\u{1F534}\u{1F535}\u{1F785}-\u{1F78B}\u{1F7E0}-\u{1F7E4}]/gu;
 function IPt(e) {
-  return aS(or(e.normalize("NFC"), !1));
+  return aS(or(e.normalize("NFC"), false));
 }
 function kBn(e) {
-  return or(e, !0);
+  return or(e, true);
 }
 function or(e, t) {
   let r = Array.from(e),
@@ -1498,11 +1498,11 @@ function PPt(e) {
   return zd(Array.from(e).slice(0, dr).join("").replace(Ks, kt));
 }
 function We(e) {
-  return e.declarable !== !1 && Bit(e.server);
+  return e.declarable !== false && Bit(e.server);
 }
 var Xs = ["name", "connector", "id", "display_name"];
 function vt() {
-  return { ok: !1, unresolved: [], internal: [], malformed: [], oversized: [], serverCount: null };
+  return { ok: false, unresolved: [], internal: [], malformed: [], oversized: [], serverCount: null };
 }
 function At(e) {
   return e !== null && typeof e === "object" && !Array.isArray(e);
@@ -1518,9 +1518,9 @@ function xt(e) {
 }
 function pr(e, t) {
   let r = e.mcp;
-  if (r === void 0) return { ok: !0, caps: e, warnings: [], servers: [] };
-  let s = At(r) ? r.servers : !1;
-  if (s === !1 || (s != null && !Array.isArray(s))) return { ...vt(), malformed: [{ kind: "not_object" }] };
+  if (r === void 0) return { ok: true, caps: e, warnings: [], servers: [] };
+  let s = At(r) ? r.servers : false;
+  if (s === false || (s != null && !Array.isArray(s))) return { ...vt(), malformed: [{ kind: "not_object" }] };
   if (s == null || s.length === 0) return { ...vt(), malformed: [{ kind: "no_servers" }] };
   let o = new Map(t.map((j) => [xt(j.toolPrefix), j])),
     u = new Map(t.map((j) => [j.server, j])),
@@ -1608,7 +1608,7 @@ function pr(e, t) {
   }
   let L = E.length > Qt ? E.length : null;
   if (T.length > 0 || L !== null) return { ...vt(), oversized: T, serverCount: L };
-  return { ok: !0, caps: { ...e, mcp: { ...r, servers: E } }, warnings: P, servers: E.map((j) => j.server) };
+  return { ok: true, caps: { ...e, mcp: { ...r, servers: E } }, warnings: P, servers: E.map((j) => j.server) };
 }
 function hr(e, t, r = 8) {
   let s = new Set(t),
@@ -1662,17 +1662,17 @@ function Et(e) {
   return gr(t) ? t : e;
 }
 function Ye(e, t, r) {
-  Object.defineProperty(e, t, { value: r, enumerable: !0, writable: !0, configurable: !0 });
+  Object.defineProperty(e, t, { value: r, enumerable: true, writable: true, configurable: true });
 }
 function Ztn(e, t) {
   let r = Et(e ?? {}),
     s = Et(t ?? {}),
     o = { ...r },
-    u = !1,
-    d = !1;
+    u = false,
+    d = false;
   for (let [_, w] of Object.entries(s))
     if (Object.hasOwn(r, _)) d ||= !Tt(r[_], w);
-    else Ye(o, _, w), (u = !0);
+    else Ye(o, _, w), (u = true);
   return { capabilities: u ? o : e, widened: u, conflict: d };
 }
 var pHe = "0.0.0";
@@ -1814,7 +1814,7 @@ function PBn(e, t) {
 var vr = "invalid-name",
   ta = "mcp (more servers or tools)";
 function ra(e, t) {
-  if (t === void 0) return !1;
+  if (t === void 0) return false;
   if (!at(t)) {
     let s = t !== null && typeof t === "object" && "servers" in t ? t.servers : void 0;
     return !(Array.isArray(s) && s.length === 0);
@@ -1865,7 +1865,7 @@ async function Sr(e, t, r) {
     ["thumbnail_dark.img", r.thumbnailDark],
   ])
     if (D !== void 0) await hHe(be.join(d, C), D);
-    else await sn(be.join(d, C), { recursive: !0, force: !0 });
+    else await sn(be.join(d, C), { recursive: true, force: true });
   let A = be.join(d, "files");
   await rn(A);
   let R = await Pt(A),
@@ -1897,7 +1897,7 @@ async function Sr(e, t, r) {
       let D = await P(C);
       if (D === null) continue;
       let O = await T(D);
-      if (O === !1) continue;
+      if (O === false) continue;
       if (O === "absent") {
         L.push(C);
         continue;
@@ -1914,7 +1914,7 @@ async function Sr(e, t, r) {
     try {
       let D = await P(C.path);
       if (D === null) continue;
-      if ((await xr(be.dirname(D), { recursive: !0 }), (await T(D)) !== !0)) continue;
+      if ((await xr(be.dirname(D), { recursive: true }), (await T(D)) !== true)) continue;
       await hHe(D, C.content);
     } catch (D) {
       n(`artifact stub: skipping supporting file ${C.path}: ${D}`, { level: "warn" });
@@ -1956,14 +1956,14 @@ async function DBn(e, t) {
 }
 async function rn(e) {
   try {
-    if (!(await wr(e)).isDirectory()) await sn(e, { force: !0 });
+    if (!(await wr(e)).isDirectory()) await sn(e, { force: true });
   } catch (t) {
     if (!X(t)) throw t;
   }
-  await xr(e, { recursive: !0 });
+  await xr(e, { recursive: true });
 }
 async function hHe(e, t) {
-  await sn(e, { recursive: !0, force: !0 }), await aa(e, t, { flag: "wx" });
+  await sn(e, { recursive: true, force: true }), await aa(e, t, { flag: "wx" });
 }
 var kr = 256,
   ot = /^[^\p{Cc}\u061C\u200E\u200F\u202A-\u202E\u2066-\u2069\u2028\u2029]{1,1024}$/u,
@@ -2054,14 +2054,14 @@ var Er =
     Rr +
     "}}body{background:var(--md-bg);color:var(--md-text);max-width:720px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:10px;font:14px/1.55 -apple-system,BlinkMacSystemFont,'SF Pro','Segoe UI',sans-serif;overflow-wrap:break-word}body>:first-child{margin-top:0}h1,h2,h3,h4,h5,h6{margin:6px 0 0;line-height:1.25;font-weight:600;text-wrap:balance}h1{font-size:1.35em}h2{font-size:1.15em;color:var(--md-muted)}h3,h4,h5,h6{font-size:1em}p,ul,ol,blockquote,table,pre,hr{margin:0}strong{font-weight:600}a{color:var(--md-link);text-decoration:none}a:hover{text-decoration:underline}ul,ol{display:flex;flex-direction:column;gap:6px;padding-left:22px}ul{list-style:disc}ol{list-style:decimal}:is(li,td,th)>*+:is(p,ul,ol,blockquote){margin-top:6px}blockquote{display:flex;flex-direction:column;gap:10px;border-left:2px solid var(--md-rule);padding-left:10px;color:var(--md-muted)}:not(pre)>code{background:var(--md-fill);padding:1px 3px;border-radius:4px;font:.92em 'SF Mono',ui-monospace,Menlo,Consolas,monospace}a>code{background:none;color:inherit}pre{background:var(--md-fill);padding:10px 12px;border-radius:6px;overflow-x:auto;font:12px/1.5 'SF Mono',ui-monospace,Menlo,Consolas,monospace;margin-block:4px}pre code{background:none;padding:0;font:inherit}table{width:100%;border-collapse:separate;border-spacing:2px;font:inherit}th,td{padding:6px 8px;border-radius:3px;text-align:left;vertical-align:top}th{background:var(--md-fill-strong);font-weight:600}td{background:var(--md-fill)}:is(th,td) :not(pre)>code{background:transparent}hr{border:0;border-top:1px solid var(--md-rule-strong);margin-block:10px}img{max-width:100%;height:auto;border-radius:4px}</style>\n";
 function Tr(e, t) {
-  if (((t ?? "").trim().split(/\s+/)[0]?.toLowerCase() ?? "") !== "mermaid") return !1;
+  if (((t ?? "").trim().split(/\s+/)[0]?.toLowerCase() ?? "") !== "mermaid") return false;
   return `<pre class="mermaid">${Eo(e)}</pre>
 `;
 }
 function Pr() {
   let e = de().marked;
   if (e.plain) return e.plain;
-  let t = new O2({ gfm: !0 });
+  let t = new O2({ gfm: true });
   return (
     t.use({
       renderer: {
@@ -2080,7 +2080,7 @@ async function Wit(e, t) {
 function da() {
   let e = de().marked;
   if (e.inertHtml) return e.inertHtml;
-  let t = new O2({ gfm: !0 });
+  let t = new O2({ gfm: true });
   return (
     t.use({
       renderer: {
@@ -2093,7 +2093,7 @@ function da() {
           return Eo(r);
         },
         link(r) {
-          if (Xhe(r.href)) return !1;
+          if (Xhe(r.href)) return false;
           return `${this.parser.parseInline(r.tokens)} (${Eo(r.href)})`;
         },
         image(r) {
@@ -2107,7 +2107,7 @@ function da() {
   );
 }
 function an(e, t) {
-  return (t?.neutralizeRawHtml ? da() : Pr()).parse(e, { async: !1 });
+  return (t?.neutralizeRawHtml ? da() : Pr()).parse(e, { async: false });
 }
 function Ct(e) {
   return Pr().lexer(e);
@@ -2166,7 +2166,7 @@ function wa(e) {
   let t = e.trim();
   while (t.startsWith("<!--")) {
     let r = t.indexOf("-->", 4);
-    if (r === -1) return !1;
+    if (r === -1) return false;
     t = t.slice(r + 3).trimStart();
   }
   return t === "";
@@ -2238,7 +2238,7 @@ function Ra(e, t) {
   return [...e].slice(0, 120).join("").trim() || t;
 }
 async function Lr(e) {
-  return on(e, { eyebrow: `Plan \xB7 ${fa(ee())}`, fallbackTitle: "Plan", extractLede: !0, feature: "plan" });
+  return on(e, { eyebrow: `Plan \xB7 ${fa(ee())}`, fallbackTitle: "Plan", extractLede: true, feature: "plan" });
 }
 async function LBn(e, t) {
   let r = (t.endsWith(MWt) ? t.slice(0, -MWt.length) : t) || t;
@@ -2246,15 +2246,15 @@ async function LBn(e, t) {
     eyebrow: `Workshop \xB7 ${r}`,
     fallbackTitle: t,
     tabTitle: t,
-    extractLede: !0,
-    extractDecisions: !0,
-    neutralizeRawHtml: !0,
+    extractLede: true,
+    extractDecisions: true,
+    neutralizeRawHtml: true,
     feature: "workshop",
     loadTemplate: () => import("/$bunfs/root/chunk-5thfjhfx.js").then((s) => s.WORKSHOP_TEMPLATE),
   });
 }
 async function MBn(e, t) {
-  return on(e, { eyebrow: `Markdown \xB7 ${t}`, fallbackTitle: t, tabTitle: t, extractLede: !1, feature: "md" });
+  return on(e, { eyebrow: `Markdown \xB7 ${t}`, fallbackTitle: t, tabTitle: t, extractLede: false, feature: "md" });
 }
 async function on(e, t) {
   let r = Nr(e),
@@ -2274,7 +2274,7 @@ async function on(e, t) {
         level: "warn",
       });
   }
-  if (!A) return { html: await Wit(r, { neutralizeRawHtml: t.neutralizeRawHtml }), title: w, templated: !1 };
+  if (!A) return { html: await Wit(r, { neutralizeRawHtml: t.neutralizeRawHtml }), title: w, templated: false };
   let R = d ? r.slice(0, d.offset) + r.slice(d.offset + d.token.raw.length) : r,
     { summary: E, rest: x } = t.extractLede && r.length <= Ot ? Ma(R) : { summary: "", rest: R },
     P = t.extractDecisions && !s ? r2n(x, Ct, (O) => (Qit(O) ? "" : Lnn(O))) : null,
@@ -2282,14 +2282,14 @@ async function on(e, t) {
     L = P !== null && (P.decisions.length > 0 || P.deliverables.length > 0);
   if (P !== null && P.decisions.length > 0) y("workshop_decisions", { count: P.decisions.length });
   let j,
-    M = !1;
+    M = false;
   if (!L) j = T(x);
   else {
     let O = P.substitute(T(P.md));
     if (!O.complete)
       g("workshop_decisions", P.decisions.length > 0 ? "placeholder_leak" : "deliverables_placeholder_leak"),
         (j = T(x));
-    else (j = O.html), (M = !0);
+    else (j = O.html), (M = true);
   }
   let C = Ca(A, { title: _, tabTitle: t.tabTitle ?? _, eyebrow: t.eyebrow, summary: E, body: j });
   if (C !== null && t.extractDecisions) {
@@ -2302,10 +2302,10 @@ async function on(e, t) {
       n(`${t.feature} artifact: bundled template has no placeholder-section run; falling back to markdown stylesheet`, {
         level: "warn",
       }),
-      { html: await Wit(r, { neutralizeRawHtml: t.neutralizeRawHtml }), title: w, templated: !1 }
+      { html: await Wit(r, { neutralizeRawHtml: t.neutralizeRawHtml }), title: w, templated: false }
     );
   let D = M && P !== null && P.deliverables.length > 0 ? Zit(P.deliverables.map((O) => O.kind)) : void 0;
-  return { html: C, title: w, templated: !0, ...(D !== void 0 && { deliverables: D }) };
+  return { html: C, title: w, templated: true, ...(D !== void 0 && { deliverables: D }) };
 }
 function Ta(e, t) {
   let r = e.lastIndexOf(Mnn);
@@ -2355,15 +2355,15 @@ function AZ(e, t) {
 function Fr(e) {
   return {
     arm() {
-      de().templateLanes[e] = !0;
+      de().templateLanes[e] = true;
     },
     take() {
       let t = de().templateLanes,
         r = t[e];
-      return (t[e] = !1), r;
+      return (t[e] = false), r;
     },
     giveBack() {
-      de().templateLanes[e] = !0;
+      de().templateLanes[e] = true;
     },
   };
 }
@@ -2394,43 +2394,43 @@ var Dr = null,
   Im = 16777216,
   Ia = "/api/frame/contract/latest";
 function _B() {
-  return I("tengu_cobalt_plinth_fern", !0);
+  return I("tengu_cobalt_plinth_fern", true);
 }
 function onn() {
-  return I("tengu_cobalt_plinth_moss", !0);
+  return I("tengu_cobalt_plinth_moss", true);
 }
 function inn() {
-  return I("tengu_cobalt_plinth_teasel", !0);
+  return I("tengu_cobalt_plinth_teasel", true);
 }
 function sv() {
-  return I("tengu_slate_quoin", !1);
+  return I("tengu_slate_quoin", false);
 }
 function snn() {
-  return I("tengu_cobalt_plinth_laurel", !1);
+  return I("tengu_cobalt_plinth_laurel", false);
 }
 function _pr() {
-  return I("tengu_cobalt_plinth_osier", !1);
+  return I("tengu_cobalt_plinth_osier", false);
 }
 function U0() {
-  return I("tengu_cobalt_plinth_bracken", !1);
+  return I("tengu_cobalt_plinth_bracken", false);
 }
 function ann() {
-  return I("tengu_cobalt_plinth_sedge", !1);
+  return I("tengu_cobalt_plinth_sedge", false);
 }
 function lnn() {
-  return I("tengu_cobalt_plinth_tansy", !1);
+  return I("tengu_cobalt_plinth_tansy", false);
 }
 function Wq() {
-  return I("tengu_slate_lantern", !1);
+  return I("tengu_slate_lantern", false);
 }
 function qq() {
-  return I("tengu_slate_lantern_ember", !1);
+  return I("tengu_slate_lantern_ember", false);
 }
 function $a() {
-  return I("tengu_amber_quill_moth", !1);
+  return I("tengu_amber_quill_moth", false);
 }
 function Gq() {
-  return I("tengu_cobalt_plinth_campion", !1) === !0;
+  return I("tengu_cobalt_plinth_campion", false) === true;
 }
 var La = m(() =>
     f({
@@ -2443,7 +2443,7 @@ var La = m(() =>
         .max(256)
         .optional()
         .catch(void 0),
-      features: De(i().regex(hB), De(i().regex(hB), dt([De(i(), _e()), N(!0).transform(() => ({}))])))
+      features: De(i().regex(hB), De(i().regex(hB), dt([De(i(), _e()), N(true).transform(() => ({}))])))
         .optional()
         .catch(void 0),
     }),
@@ -2457,7 +2457,7 @@ async function wn(e, t, r) {
   let s;
   try {
     s = await op.get(e, {
-      refreshOAuth: !0,
+      refreshOAuth: true,
       headers: Yu(),
       maxContentLength: Ha,
       ...r,
@@ -2625,7 +2625,7 @@ function pae(e) {
 }
 function UPt(e, t, r, s) {
   let o = e?.[t];
-  if (o === void 0) return { observed: !0, siblingInFlight: !1 };
+  if (o === void 0) return { observed: true, siblingInFlight: false };
   let u = r ?? "main",
     d = Object.hasOwn(o, u) ? o[u] : void 0,
     _ = d !== void 0 && d !== "" && d === s;
@@ -2746,11 +2746,11 @@ function jPt(e) {
 function Hr(e) {
   if (e.status !== void 0) return { readback_status: e.status };
   if (e.relayStatus !== void 0) return { readback_relay_status: e.relayStatus };
-  return e.unsent ? { readback_unsent: !0 } : e.request;
+  return e.unsent ? { readback_unsent: true } : e.request;
 }
 function Ya(e) {
   return (
-    e.request?.transport === !0 ||
+    e.request?.transport === true ||
     (e.status !== void 0 && e.status >= 500) ||
     (e.relayStatus !== void 0 && e.relayStatus >= 500)
   );
@@ -2765,7 +2765,7 @@ function ri(e) {
     ...(e.note && { note: e.note }),
     ...(e.description && { description: e.description }),
     ...(e.publishContext && { publish_context: e.publishContext }),
-    ...!1,
+    ...false,
     ...($a() && e.template && { template: e.template }),
     ...(e.autoEditAttribution && {
       auto_edit_attribution: { thread_id: e.autoEditAttribution.threadId, comment_id: e.autoEditAttribution.commentId },
@@ -2846,27 +2846,27 @@ function jBn(e) {
   let t = GM(e),
     r = t.match(qa);
   if (r) t = GM(t.slice(r[0].length));
-  else if (!t.length) return !1;
+  else if (!t.length) return false;
   let s = r !== null;
   while (t.length) {
-    if (!/^<script(?=[\t\n\f\r />])/.test(t)) return !1;
+    if (!/^<script(?=[\t\n\f\r />])/.test(t)) return false;
     let o = zne(t, 7);
-    if (o < 0) return !1;
+    if (o < 0) return false;
     let u = t.slice(o);
-    if (!s && (Iyt(t, 0) !== o || !WPt(u))) return !1;
-    s = !0;
+    if (!s && (Iyt(t, 0) !== o || !WPt(u))) return false;
+    s = true;
     let d = m_n(u);
-    if (d < 0) return !1;
+    if (d < 0) return false;
     t = GM(u.slice(d));
   }
-  return !0;
+  return true;
 }
 function ii(e) {
   let t = GM(e);
   if (t.startsWith("<head>") && t.endsWith("</head>")) return jBn(t.slice(6, -7));
   return jBn(t);
 }
-function mnn(e, t = () => !0) {
+function mnn(e, t = () => true) {
   let r = 4,
     s = e.indexOf(g3);
   while (s >= 0 && s < fnn && r > 0) {
@@ -3000,15 +3000,15 @@ function qBn(e) {
     s = (_) => oi(_, t, r),
     o = s(e),
     u = zBn(o);
-  if (u === null) return { body: o, unwrapped: !1, passes: r.spent };
+  if (u === null) return { body: o, unwrapped: false, passes: r.spent };
   let d = So(u.body, u.lang, s, r);
   return {
     body: d.body,
     passes: r.spent,
     lang: d.lang,
-    unwrapped: !0,
+    unwrapped: true,
     ...(d.outcome && { repair: d.outcome }),
-    ...(u.hoistedCommentsDropped && { hoistedCommentsDropped: !0 }),
+    ...(u.hoistedCommentsDropped && { hoistedCommentsDropped: true }),
   };
 }
 function hnn(e) {
@@ -3016,7 +3016,7 @@ function hnn(e) {
   try {
     t = qPt(e);
   } catch (s) {
-    if (s instanceof yHe) return !1;
+    if (s instanceof yHe) return false;
     throw s;
   }
   let r = zBn(t);
@@ -3054,21 +3054,21 @@ async function zit(e, t = {}) {
     case void 0:
       break;
   }
-  if (!w.unwrapped && d === !0) g("artifact_publish", "round_trip_unwrap_miss");
+  if (!w.unwrapped && d === true) g("artifact_publish", "round_trip_unwrap_miss");
   if (vQn(A)) g("artifact_publish", "runtime_sentinel_residual");
   let x = 0;
-  if (_ !== !1) {
+  if (_ !== false) {
     let W = await GBn(A);
     if (W !== A) (x = Math.max(0, Buffer.byteLength(W, "utf8") - Buffer.byteLength(A, "utf8"))), (A = W);
   }
   let P = null,
     T = sr(A, await lHe(), {
       crUrlRe: P,
-      allowMermaidFence: o === !0 || u === !0,
-      allowStampBinding: o === !0 || u === !0,
+      allowMermaidFence: o === true || u === true,
+      allowStampBinding: o === true || u === true,
     });
   if (T.applies && !T.ok) {
-    if (u !== !0) p("artifact_publish", "pr_review_template_mismatch");
+    if (u !== true) p("artifact_publish", "pr_review_template_mismatch");
     throw new Ve(
       `This page carries the artifact-pr-review machinery but failed publish-time validation: ${T.reason}. Carry the template blocks byte-for-byte and keep the rest of the page within the skill's contract \u2014 no script fragments or event handlers, no elements or attributes that fetch or navigate, no CSS network functions, and no src/href other than the PR's canonical GitHub URL \u2014 then retry.`,
       "pr_review_template_mismatch",
@@ -3076,22 +3076,22 @@ async function zit(e, t = {}) {
   }
   let L = gt(A),
     j = L.chart && Fn(),
-    M = r === !0 && L.mermaid,
-    C = s === !0 && L.highlight,
+    M = r === true && L.mermaid,
+    C = s === true && L.highlight,
     D = "";
   if (j) {
     let W = await Wt();
     if (W !== null) D += W;
   }
-  let O = !1;
+  let O = false;
   if (M) {
     let W = Lit();
-    if (W !== null) (D += W), (O = !0);
+    if (W !== null) (D += W), (O = true);
   }
-  let Y = !1;
+  let Y = false;
   if (C) {
     let W = await Vt();
-    if (W !== null) (D += W), (Y = !0);
+    if (W !== null) (D += W), (Y = true);
   }
   if (D !== "") {
     let { runtimeBlockInsertionIndex: W } = await import("/$bunfs/root/chunk-wkqfxrpj.js"),
@@ -3105,7 +3105,7 @@ async function zit(e, t = {}) {
     roundTripLang: R,
     unnested: E,
     blockIdBytes: x,
-    ...(w.hoistedCommentsDropped && { hoistedCommentsDropped: !0 }),
+    ...(w.hoistedCommentsDropped && { hoistedCommentsDropped: true }),
   };
 }
 function no(e) {
@@ -3160,14 +3160,14 @@ async function AL(e, t, r) {
   let s = performance.now();
   try {
     let o = await op.get(`/api/frame/read/${encodeURIComponent(e)}`, {
-      refreshOAuth: !0,
+      refreshOAuth: true,
       headers: Yu(),
       timeout: 15000,
       maxContentLength: di,
       ...(t && { signal: t }),
       credentials: r,
     });
-    if (!o.ok) return { err: `read-back unavailable: ${o.reason}`, unsent: !0 };
+    if (!o.ok) return { err: `read-back unavailable: ${o.reason}`, unsent: true };
     if (!o.fromFrame) return { err: `read-back relay HTTP ${o.status}`, relayStatus: o.status };
     if (o.status === 404) return null;
     if (o.status < 200 || o.status >= 300)
@@ -3198,14 +3198,14 @@ async function fi(e, t, r, s) {
   let { typeLock: d, ..._ } = u,
     w = d !== void 0 ? { ...o, typeLock: d } : o;
   if (o.stored?.capabilities !== void 0 || (!u8(_.capabilities ?? void 0) && zP(_.contract) === null)) return w;
-  return { ...w, stored: { ..._, ...(u8(_.capabilities ?? void 0) && { carried: !0 }) } };
+  return { ...w, stored: { ..._, ...(u8(_.capabilities ?? void 0) && { carried: true }) } };
 }
 function bpr(e) {
   let t = /[\t\n\f\r ]/,
     r = hn(e, zr, 0);
   while (r >= 0) {
     let s = zne(e, r + 5);
-    if (s < 0) return !1;
+    if (s < 0) return false;
     let o = r + 5;
     while (o < s - 1) {
       let u = e[o];
@@ -3231,13 +3231,13 @@ function bpr(e) {
         A = e.slice(w, o);
       }
       if (_ === "href") {
-        if (!A.startsWith("/_f/")) return !0;
+        if (!A.startsWith("/_f/")) return true;
         break;
       }
     }
     r = hn(e, zr, s);
   }
-  return !1;
+  return false;
 }
 var wpr =
   "This page contains a <base> element. Published artifacts don't apply an author-written <base href> (the artifact host controls the document base), so relative references must work without it \u2014 remove the tag and adjust any path that relied on it.";
@@ -3354,7 +3354,7 @@ function _nn(e) {
     let u = yo().safeParse(o);
     if (!u.success) continue;
     let { uuid: d, path: _, module: w, files: A } = u.data;
-    r.push({ uuid: d, path: _, module: w === !0, ...(A !== void 0 && { files: A }) });
+    r.push({ uuid: d, path: _, module: w === true, ...(A !== void 0 && { files: A }) });
   }
   let s = [];
   for (let o of t.data.warnings ?? []) {
@@ -3387,10 +3387,10 @@ async function zPt() {
           ]),
           o = r(s.WORKSHOP_PAGE_TEMPLATE);
         for (let d of r(s.WORKSHOP_TEMPLATE)) o.add(d);
-        let u = !0;
+        let u = true;
         for (let d of [await Wt(), Lit(), await Vt()])
           if (d !== null) for (let _ of r(d)) o.add(_);
-          else u = !1;
+          else u = false;
         return { hashes: o, complete: u };
       })();
   e.workshopBlessedHashes = t;
@@ -3477,13 +3477,13 @@ function zBn(e) {
   return {
     body: e.slice(A, E),
     ...(x !== void 0 && nWe(x) && { lang: x }),
-    ...(R.commentsDropped && { hoistedCommentsDropped: !0 }),
+    ...(R.commentsDropped && { hoistedCommentsDropped: true }),
   };
 }
 function xo(e, t) {
-  let r = !1,
+  let r = false,
     s = e.length,
-    o = !1;
+    o = false;
   for (;;) {
     while (
       s > t &&
@@ -3494,8 +3494,8 @@ function xo(e, t) {
     if (e.endsWith("-->", s)) {
       let u = e.lastIndexOf("<!--", s - 7);
       if (u < t || !Gje(e.slice(u, s))) return null;
-      (r = !0), (s = u);
-    } else if (!o && s - t >= 7 && e.endsWith("</html>", s)) (o = !0), (s -= 7);
+      (r = true), (s = u);
+    } else if (!o && s - t >= 7 && e.endsWith("</html>", s)) (o = true), (s -= 7);
     else if (o && s - t >= 7 && e.endsWith("</body>", s)) {
       let u = s - 7;
       if (r) {
@@ -3508,13 +3508,13 @@ function xo(e, t) {
 }
 function So(e, t, r, s) {
   let o = 0,
-    u = !1;
+    u = false;
   for (;;) {
     ai(s);
     let _ = ko(e);
     if (_ !== null) {
       if (o === WBn) throw new yHe("levels", s.spent);
-      (e = _.body), (t = _.lang ?? t), o++, (u = !1);
+      (e = _.body), (t = _.lang ?? t), o++, (u = false);
       continue;
     }
     u ||= vi(e);
@@ -3526,7 +3526,7 @@ function So(e, t, r, s) {
   return { body: e, lang: t, outcome: d };
 }
 function vi(e) {
-  if (!rWe(e)) return !1;
+  if (!rWe(e)) return false;
   let t = e.indexOf(g3);
   return t !== -1 && t < fnn;
 }
@@ -3534,8 +3534,8 @@ function ko(e) {
   if (!rWe(e)) return null;
   let t = $t.length,
     r = (_) => {
-      if (!e.startsWith(_, t)) return !1;
-      return (t += _.length), !0;
+      if (!e.startsWith(_, t)) return false;
+      return (t += _.length), true;
     },
     s;
   if (r(' lang="')) {
@@ -3695,7 +3695,7 @@ async function Ur(e, t) {
   if (
     t.createPath !== void 0 &&
     (s !== void 0 ||
-      t.force === !0 ||
+      t.force === true ||
       t.baseVersion !== void 0 ||
       (t.files !== void 0 && t.files.length > 0) ||
       (t.removeFiles !== void 0 && t.removeFiles.length > 0) ||
@@ -3705,9 +3705,9 @@ async function Ur(e, t) {
   let T = !!s,
     L = A !== void 0,
     j = _B(),
-    M = t.force === !0,
+    M = t.force === true,
     C = (t.files?.length ?? 0) > 0 || (t.removeFiles?.length ?? 0) > 0 || t.liveFiles !== void 0,
-    D = t.composedPrReview === !0 || t.autoEditAttribution !== void 0 || C ? t.baseVersion : j ? t.baseVersion : void 0,
+    D = t.composedPrReview === true || t.autoEditAttribution !== void 0 || C ? t.baseVersion : j ? t.baseVersion : void 0,
     O = {
       slug: s,
       title: o,
@@ -3743,7 +3743,7 @@ async function Ur(e, t) {
     K = Buffer.byteLength(Z, "utf8");
   if (K > Im && W.blockIdBytes > 0 && K - W.blockIdBytes <= Im)
     g("artifact_publish", "block_ids_over_cap"),
-      (W = await zit(e, { ...Y, docBlockIds: !1, expectRoundTrippedPage: !1 })),
+      (W = await zit(e, { ...Y, docBlockIds: false, expectRoundTrippedPage: false })),
       (Z = Vit(W.body, t.lang ?? W.roundTripLang)),
       (K = Buffer.byteLength(Z, "utf8"));
   let { body: we, mermaidInjected: me, hljsInjected: pe, unnested: se, hoistedCommentsDropped: xe } = W,
@@ -3763,7 +3763,7 @@ async function Ur(e, t) {
             : ""),
       )
     );
-  let Ce = !1,
+  let Ce = false,
     Me = 0,
     Ne,
     ye = [];
@@ -4008,7 +4008,7 @@ async function Ur(e, t) {
             ...(Ne && { workshopInfo: Ne }),
             forced: M,
             ...(Oe !== null && { echoedPin: Oe }),
-            ...(t.liveFilesGate === !0 && { liveFilesOn: !0 }),
+            ...(t.liveFilesGate === true && { liveFilesOn: true }),
           },
           onRetry: t.onRetry,
           signal: t.signal,
@@ -4035,7 +4035,7 @@ async function Ur(e, t) {
           ...(Ne && { workshopInfo: Ne }),
           forced: M,
           ...(Oe !== null && { echoedPin: Oe }),
-          ...(t.liveFilesGate === !0 && { liveFilesOn: !0 }),
+          ...(t.liveFilesGate === true && { liveFilesOn: true }),
         },
         t.ownPublishes,
         t.credentials,
@@ -4074,7 +4074,7 @@ async function KPt(e, t) {
     let r = await op.post(
       "/api/frame/track",
       { event_name: e, ...(t.slug && { slug: t.slug }), ...(t.via && { via: t.via }), ...(t.mode && { mode: t.mode }) },
-      { refreshOAuth: !0, headers: Yu(), timeout: 5000, credentials: t.credentials },
+      { refreshOAuth: true, headers: Yu(), timeout: 5000, credentials: t.credentials },
     );
     if (!r.ok) n(`[artifact] /track skipped: ${r.reason}`);
     else if (r.status !== 204) n(`[artifact] /track ${r.status}: ${a_(r.data)}`);
@@ -4130,7 +4130,7 @@ function Ai(e, t) {
 }
 async function gn(e, t, r, s) {
   let o = await op.post(e, t, {
-    refreshOAuth: !0,
+    refreshOAuth: true,
     headers: Yu(),
     streamUpload: { tailFloorMs: Epr, onSettled: s },
     maxBodyLength: 2 * Im,
@@ -4157,7 +4157,7 @@ async function Ei(e, t, r, s) {
     },
     u = await o(),
     d = 1,
-    _ = !1,
+    _ = false,
     w,
     A = (x) => {
       (w ??= x.status === 429 ? 429 : 503),
@@ -4167,8 +4167,8 @@ async function Ei(e, t, r, s) {
         t?.(x);
     },
     R = async (x) => {
-      if ((await ne(x, r), r?.aborted)) return n("[artifact] /deploy/direct retry cancelled by user"), !1;
-      return (d += 1), (_ = !0), (u = await o()), (_ = !1), !0;
+      if ((await ne(x, r), r?.aborted)) return n("[artifact] /deploy/direct retry cancelled by user"), false;
+      return (d += 1), (_ = true), (u = await o()), (_ = false), true;
     },
     E = u.ok && u.fromFrame && u.status === 503 && Dt(u.data) === "render_busy";
   try {
@@ -4195,10 +4195,10 @@ async function Ei(e, t, r, s) {
         ...s,
         deploy_attempts: d,
         deploy_final_status: _ || !u.ok ? 0 : u.status,
-        ...(r?.aborted && { cancelled: !0 }),
-        ...(E && { render_busy: !0 }),
+        ...(r?.aborted && { cancelled: true }),
+        ...(E && { render_busy: true }),
       }),
-        t?.({ settled: !0 });
+        t?.({ settled: true });
   }
 }
 var Lt = /unknown field|not a recognized|not allowlisted/i;
@@ -4224,7 +4224,7 @@ async function Mo(e, t, r, s, o, u, d, _, w, A, R, E) {
                 ...gi(),
                 ...bi(),
                 ...r,
-                ...(A === void 0 && T && { force: !0 }),
+                ...(A === void 0 && T && { force: true }),
                 ...(A === void 0 && L && { baseVersion: L }),
                 content: e,
               },
@@ -4241,7 +4241,7 @@ async function Mo(e, t, r, s, o, u, d, _, w, A, R, E) {
       if (Lt.test(se) && (/\bforce\b/.test(se) || (L !== void 0 && /\bbaseVersion\b/.test(se))))
         g("artifact_publish", "force_field_rejected", x),
           n("[artifact] CP rejected force/baseVersion as unknown \u2014 retrying without them"),
-          (T = !1),
+          (T = false),
           (L = void 0),
           (M = await j());
     }
@@ -4265,7 +4265,7 @@ async function Mo(e, t, r, s, o, u, d, _, w, A, R, E) {
     if (!M.fromFrame) return p("artifact_publish", "relay_error", { ...x, deploy_status: M.status }), z(_n(M.status));
     if ((s || (_B() && !sv())) && M.status === 409) {
       let se = KBn(M.data);
-      if (se) return p("artifact_publish", "conflict", x), { ...z(Mi(se)), conflict: !0, conflictDetail: se };
+      if (se) return p("artifact_publish", "conflict", x), { ...z(Mi(se)), conflict: true, conflictDetail: se };
     }
     if (A !== void 0 && M.status === 404)
       return (
@@ -4278,7 +4278,7 @@ async function Mo(e, t, r, s, o, u, d, _, w, A, R, E) {
         M.data,
         u.isRedeploy,
         u.echoedPin !== void 0 ? { pin: u.echoedPin, declaredCaps: u.hasCaps } : void 0,
-        u.liveFilesOn === !0,
+        u.liveFilesOn === true,
       );
       if (se.code !== "thumbnail_rejected")
         p("artifact_publish", se.code ?? "deploy_failed", { ...x, deploy_status: M.status, ...se.extra });
@@ -4308,7 +4308,7 @@ async function Mo(e, t, r, s, o, u, d, _, w, A, R, E) {
         slug: D,
         version: O,
         err: null,
-        ...(w && { workshopSurface: !0 }),
+        ...(w && { workshopSurface: true }),
         ...(u.workshopInfo && { workshop: u.workshopInfo }),
         ...(Y !== void 0 && { read: Y }),
         ...(W !== void 0 && { shared: W }),
@@ -4544,8 +4544,8 @@ async function Enn(e, t) {
             t0: performance.now(),
             pageBytes: 0,
             lane: "inline",
-            isRedeploy: !0,
-            hasCaps: !1,
+            isRedeploy: true,
+            hasCaps: false,
             template: "plain",
             forced: t.force,
           },
@@ -4583,40 +4583,40 @@ async function Pi(e, t, r, s, o, u) {
         : "A removal applies to the artifact's current version, and this publish didn't name that version (`baseVersion`), so nothing was published. Publish again with the version named, or without the `null` entries.",
     );
   if (x !== void 0 && s.slug !== void 0 && M === "replace") return L("invalid publish options");
-  if (x?.page?.reseed === !0 && x.page.live !== void 0) return L("invalid publish options");
+  if (x?.page?.reseed === true && x.page.live !== void 0) return L("invalid publish options");
   let C =
-    P.length > 0 || x?.page?.reseed === !0 || x?.page?.live === !1 || t.some((S) => S.reseed === !0 || S.live === !1);
+    P.length > 0 || x?.page?.reseed === true || x?.page?.live === false || t.some((S) => S.reseed === true || S.live === false);
   if (C && M === "replace") return L("invalid publish options");
   for (let S of t) {
-    if (S.reseed === !0 && S.live !== void 0) return L("invalid publish options");
-    if ((S.live === !0 || S.reseed === !0) && iEe(S.contentType) !== "text/html") return L("invalid publish options");
+    if (S.reseed === true && S.live !== void 0) return L("invalid publish options");
+    if ((S.live === true || S.reseed === true) && iEe(S.contentType) !== "text/html") return L("invalid publish options");
     let U = x?.base?.get(S.path);
-    if (x?.base !== void 0 && U?.live !== !0 && (S.reseed === !0 || S.live === !1)) return L("invalid publish options");
+    if (x?.base !== void 0 && U?.live !== true && (S.reseed === true || S.live === false)) return L("invalid publish options");
   }
-  for (let S of P) if (x?.base !== void 0 && x.base.get(S)?.live !== !0) return L("invalid publish options");
-  if (x?.base !== void 0 && x.base.get("index.html")?.live !== !0 && (x.page?.reseed === !0 || x.page?.live === !1))
+  for (let S of P) if (x?.base !== void 0 && x.base.get(S)?.live !== true) return L("invalid publish options");
+  if (x?.base !== void 0 && x.base.get("index.html")?.live !== true && (x.page?.reseed === true || x.page?.live === false))
     return L("invalid publish options");
-  for (let S of r) if (x?.base?.get(S)?.live === !0) return L("invalid publish options");
+  for (let S of r) if (x?.base?.get(S)?.live === true) return L("invalid publish options");
   let D = An(e, t, [...r, ...P]);
   if (D !== null) return D.kind === "too_large" ? j(D.msg) : L(D.msg);
-  let O = (S, U) => M === "patch" && x?.base?.get(S)?.live === !0 && U.reseed !== !0 && U.live !== !1,
-    Y = C || x?.page?.live === !0 || t.some((S) => S.live === !0) || [...(x?.base?.values() ?? [])].some((S) => S.live),
+  let O = (S, U) => M === "patch" && x?.base?.get(S)?.live === true && U.reseed !== true && U.live !== false,
+    Y = C || x?.page?.live === true || t.some((S) => S.live === true) || [...(x?.base?.values() ?? [])].some((S) => S.live),
     W = (S, U, F) => {
       let J = M === "patch" && Y ? x?.base?.get(S) : void 0;
       return J !== void 0 && !J.live && J.sha256 !== void 0 && J.contentType === F && J.sha256 === Nn(U);
     },
     Z = [],
     K = x?.page ?? {},
-    we = e !== null && K.live === !1,
+    we = e !== null && K.live === false,
     me = we ? ["index.html", ...P] : P,
     pe;
   if (e !== null && O("index.html", K)) Z.push("index.html");
-  else if (e !== null && !we && !(K.live === void 0 && K.reseed !== !0 && W("index.html", e, "text/html")))
+  else if (e !== null && !we && !(K.live === void 0 && K.reseed !== true && W("index.html", e, "text/html")))
     pe = {
       content: e,
       contentType: "text/html",
       ...(K.live !== void 0 && { live: K.live }),
-      ...(K.reseed === !0 && { reseed: !0 }),
+      ...(K.reseed === true && { reseed: true }),
     };
   let se = Object.create(null);
   if (pe !== void 0) se["index.html"] = pe;
@@ -4624,7 +4624,7 @@ async function Pi(e, t, r, s, o, u) {
     pt = pe?.content !== void 0 ? et(pe.content) : 0,
     Ce = Xr(s.thumbnail) + Xr(s.thumbnailDark),
     Me = Yr - pt - Ce,
-    Ne = (S) => !O(S.path, S) && (S.live === !0 || S.reseed === !0 || S.live === !1),
+    Ne = (S) => !O(S.path, S) && (S.live === true || S.reseed === true || S.live === false),
     ye = Object.create(null);
   for (let S of t.filter(Ne)) {
     let U = It(S),
@@ -4638,7 +4638,7 @@ async function Pi(e, t, r, s, o, u) {
         content: U,
         contentType: S.contentType,
         ...(S.live !== void 0 && { live: S.live }),
-        ...(S.reseed === !0 && { reseed: !0 }),
+        ...(S.reseed === true && { reseed: true }),
       }),
       (se[S.path] = ye[S.path]);
   }
@@ -4662,9 +4662,9 @@ async function Pi(e, t, r, s, o, u) {
     }
   }
   for (let S of r) se[S] = null;
-  for (let S of me) se[S] = { live: !1 };
+  for (let S of me) se[S] = { live: false };
   let Te = {
-      liveKey: me.length > 0 || Object.keys(ye).length > 0 || pe?.live !== void 0 || pe?.reseed === !0,
+      liveKey: me.length > 0 || Object.keys(ye).length > 0 || pe?.live !== void 0 || pe?.reseed === true,
       emptyPatch: Y && Object.keys(se).length === 0,
     },
     Le,
@@ -4685,8 +4685,8 @@ async function Pi(e, t, r, s, o, u) {
   }
   let mt = async (S) => {
       let U = RT(S) ?? 2000;
-      if ((await ne(Math.min(U, 30000), R), R?.aborted)) return n("[artifact] 429 retry cancelled by user"), !1;
-      return !0;
+      if ((await ne(Math.min(U, 30000), R), R?.aborted)) return n("[artifact] 429 retry cancelled by user"), false;
+      return true;
     },
     je = (S) => {
       let U = S.fromFrame && S.status === 429 ? lt(S.data) : void 0;
@@ -4738,8 +4738,8 @@ async function Pi(e, t, r, s, o, u) {
     let S = s.slug,
       U,
       F,
-      J = !1,
-      ue = !1;
+      J = false,
+      ue = false;
     if (Ie.length > 0) {
       let G = Ie.map((ve) => ({ f: ve, sha: Nn(ve.content), wire: It(ve) })),
         re = async (ve, fe) => {
@@ -4747,7 +4747,7 @@ async function Pi(e, t, r, s, o, u) {
               op.post(
                 "/api/frame/deploy/prepare",
                 { ...(ve !== void 0 && { slug: ve }), ...(fe.length > 0 && { shas: fe }) },
-                { refreshOAuth: !0, headers: Yu(), timeout: 30000, credentials: E },
+                { refreshOAuth: true, headers: Yu(), timeout: 30000, credentials: E },
               ),
             Ee = await Mt(Je);
           if (
@@ -4786,7 +4786,7 @@ async function Pi(e, t, r, s, o, u) {
                 ...z(
                   "the server does not recognize this artifact for updating (it may no longer exist or may not be yours to update). The files were NOT published.",
                 ),
-                ...(s.slug !== void 0 && { gone: !0 }),
+                ...(s.slug !== void 0 && { gone: true }),
               }
             );
           ie = { status: 404, why: "the preflight route answered 404" };
@@ -4821,7 +4821,7 @@ async function Pi(e, t, r, s, o, u) {
             p("artifact_publish", "prepare_slug_mismatch", T),
             z("the server answered the upload preflight for a different " + "artifact \u2014 not publishing.")
           );
-        if (((ue = !0), (S = Ee), s.slug === void 0)) le = ze(S);
+        if (((ue = true), (S = Ee), s.slug === void 0)) le = ze(S);
         let Fi = new Set(Ht),
           Di = G.filter((ce) => Fi.has(ce.sha)),
           Ut = [];
@@ -4873,11 +4873,11 @@ async function Pi(e, t, r, s, o, u) {
         for (let [ce, he] of Object.entries(ye)) Ze[ce] = he;
         for (let ce of G) Ze[ce.f.path] = { sha256: ce.sha, contentType: ce.f.contentType };
         for (let ce of r) Ze[ce] = null;
-        for (let ce of me) Ze[ce] = { live: !1 };
+        for (let ce of me) Ze[ce] = { live: false };
         let Re = await Ke({
           ...Fe,
           slug: S,
-          ...(_ && { force: !0 }),
+          ...(_ && { force: true }),
           ...(d && { baseVersion: d }),
           manifest: Ze,
           mode: M,
@@ -4896,7 +4896,7 @@ async function Pi(e, t, r, s, o, u) {
         }
         if (Re.ok && Re.status === 200 && !Re.data?.version)
           return p("artifact_publish", "prepare_no_version", T), z(ct() + le);
-        (F = Re), (J = !0);
+        (F = Re), (J = true);
         break;
       }
       if (ue && !J)
@@ -4915,7 +4915,7 @@ async function Pi(e, t, r, s, o, u) {
       let G = Object.create(null);
       for (let [ie, Se] of Object.entries(se)) if (Se !== null && "content" in Se && Se.content !== void 0) G[ie] = Se;
       if (R?.aborted) return B();
-      let re = await Ke({ ...Fe, ...(_ && { force: !0 }), manifest: G, mode: "replace" });
+      let re = await Ke({ ...Fe, ...(_ && { force: true }), manifest: G, mode: "replace" });
       if (!re.ok) return p("artifact_publish", re.reason, T), z(`publish unavailable: ${re.reason}`);
       if (!re.fromFrame)
         return p("artifact_publish", "relay_error", { ...T, deploy_status: re.status }), z(_n(re.status));
@@ -4932,7 +4932,7 @@ async function Pi(e, t, r, s, o, u) {
           re.data,
           w.isRedeploy,
           w.echoedPin !== void 0 ? { pin: w.echoedPin, declaredCaps: w.hasCaps } : void 0,
-          w.liveFilesOn === !0,
+          w.liveFilesOn === true,
         );
         if (ie.code !== "thumbnail_rejected")
           p("artifact_publish", ie.code ?? "deploy_failed", { ...T, deploy_status: re.status, ...ie.extra });
@@ -5005,7 +5005,7 @@ async function Pi(e, t, r, s, o, u) {
       F = await Ke({
         ...Fe,
         ...(S && { slug: S }),
-        ...(_ && { force: !0 }),
+        ...(_ && { force: true }),
         ...(d && { baseVersion: d }),
         manifest: se,
         mode: M,
@@ -5035,7 +5035,7 @@ async function Pi(e, t, r, s, o, u) {
       if (G)
         return (
           p("artifact_publish", "conflict", T),
-          { url: null, slug: null, version: null, err: Mi(G) + le, conflict: !0, conflictDetail: G }
+          { url: null, slug: null, version: null, err: Mi(G) + le, conflict: true, conflictDetail: G }
         );
     }
     if (F.status !== 200) {
@@ -5044,7 +5044,7 @@ async function Pi(e, t, r, s, o, u) {
         F.data,
         w.isRedeploy,
         w.echoedPin !== void 0 ? { pin: w.echoedPin, declaredCaps: w.hasCaps } : void 0,
-        w.liveFilesOn === !0,
+        w.liveFilesOn === true,
       );
       if (G.code !== "thumbnail_rejected")
         p("artifact_publish", G.code ?? "deploy_failed", { ...T, deploy_status: F.status, ...G.extra });
@@ -5061,8 +5061,8 @@ async function Pi(e, t, r, s, o, u) {
     if (S && ke !== S) return p("artifact_publish", "deploy_slug_mismatch", T), z(Ri() + le);
     let Bt = pi(F.data),
       rt = Bt?.map((G) => G.path),
-      jt = (rt ?? []).filter((G) => (G === "index.html" ? pe : ye[G])?.live === !0),
-      $i = (rt ?? []).filter((G) => (G === "index.html" ? pe : ye[G])?.reseed === !0),
+      jt = (rt ?? []).filter((G) => (G === "index.html" ? pe : ye[G])?.live === true),
+      $i = (rt ?? []).filter((G) => (G === "index.html" ? pe : ye[G])?.reseed === true),
       Cn = te([
         ...Xe,
         ...mn(F.data),
@@ -5072,7 +5072,7 @@ async function Pi(e, t, r, s, o, u) {
         ...(we ? lo() : []),
         ...uo(
           P,
-          Object.keys(ye).filter((G) => ye[G]?.live === !1),
+          Object.keys(ye).filter((G) => ye[G]?.live === false),
         ),
         ...hi(
           rt?.filter((G) => !Z.includes(G)),
@@ -5095,7 +5095,7 @@ async function Pi(e, t, r, s, o, u) {
       slug: ke,
       version: En,
       err: null,
-      ...(u.workshopSurface && { workshopSurface: !0 }),
+      ...(u.workshopSurface && { workshopSurface: true }),
       ...(u.tele.workshopInfo && { workshop: u.tele.workshopInfo }),
       ...(Rn !== void 0 && { read: Rn }),
       ...(Tn !== void 0 && { shared: Tn }),
@@ -5107,7 +5107,7 @@ async function Pi(e, t, r, s, o, u) {
       ...(rt !== void 0 && { livePaths: rt }),
       ...(Bt !== void 0 && { liveDocs: Bt }),
       ...(jt.length > 0 && { bornLive: jt }),
-      ...(Li && { pageCarriedLive: !0 }),
+      ...(Li && { pageCarriedLive: true }),
     };
   } catch (S) {
     return (
@@ -5163,7 +5163,7 @@ function Ci(e, t) {
       e.contract !== void 0 && (u || zP(e.contract) !== null)
         ? {
             contract: e.contract,
-            ...(o !== void 0 && { capabilities: o, ...(!("capabilities" in t) && u && { carried: !0 }) }),
+            ...(o !== void 0 && { capabilities: o, ...(!("capabilities" in t) && u && { carried: true }) }),
           }
         : void 0;
   return {
@@ -5195,7 +5195,7 @@ async function Cnn(e, t) {
   for (let E = 0; ; E++) {
     try {
       u = await op.get(`/api/frame/frames?limit=${Jr}`, {
-        refreshOAuth: !0,
+        refreshOAuth: true,
         headers: Yu(),
         timeout: 15000,
         maxContentLength: zo,
@@ -5250,7 +5250,7 @@ async function Cnn(e, t) {
     }
     let { slug: P, title: T, rel: L, updatedAt: j, softDeleted: M } = x.data,
       C = Epe(x.data.favicon);
-    if (M === !0 || !QPt(L)) continue;
+    if (M === true || !QPt(L)) continue;
     if (r !== "all" && L !== r) continue;
     let D = c8(T ?? "") ?? "Untitled";
     w.push({
@@ -5292,7 +5292,7 @@ function Apr(e, t) {
   return null;
 }
 function Ghe(e, t) {
-  if (t.err !== null || t.workshopSurface !== !0) return null;
+  if (t.err !== null || t.workshopSurface !== true) return null;
   if ((e ?? []).includes(t.slug)) return null;
   return [...(e ?? []), t.slug];
 }
@@ -5303,7 +5303,7 @@ async function Kit(e, t, r, s) {
       title: u,
       favicon: "\uD83D\uDCCB",
       template: "plan",
-      injectDiagramRuntime: !0,
+      injectDiagramRuntime: true,
       injectHighlightRuntime: d,
       ...(t && { verifyWorkshopHtml: "probe" }),
       credentials: s,
@@ -5383,7 +5383,7 @@ function Uo(e) {
 function yn(e, t, r = "") {
   return {
     ...z((e.msg ?? t) + r),
-    ...(e.code === "slug_gone" && { gone: !0 }),
+    ...(e.code === "slug_gone" && { gone: true }),
     ...(e.code === "thumbnail_rejected" && { thumbnailRejected: e.msg ?? t }),
   };
 }
@@ -5397,7 +5397,7 @@ function KBn(e) {
     !e ||
     typeof e !== "object" ||
     !("conflict" in e) ||
-    e.conflict !== !0 ||
+    e.conflict !== true ||
     !("live" in e) ||
     typeof e.live !== "string" ||
     !qre.test(e.live) ||
@@ -5411,7 +5411,7 @@ function KBn(e) {
     ...((t.liveEntry === "editor" || t.liveEntry === "page" || t.liveEntry === "publish") && {
       liveEntry: t.liveEntry,
     }),
-    ...(t.forceRefused === !0 && { forceRefused: !0 }),
+    ...(t.forceRefused === true && { forceRefused: true }),
   };
 }
 function zq(e) {
@@ -5449,7 +5449,7 @@ function Ni(e) {
 }
 var Vo =
   " \u2014 this Artifact was created from an Artifact type: its page (index.html) and the type's other files can't be changed on it. Publish only its own files (`file_path` naming one, more in `files`, with this `url`); to change the page, publish a new Artifact instead.";
-function vn(e, t, r, s, o = !1) {
+function vn(e, t, r, s, o = false) {
   let u = Go(e, t, o);
   if (u !== void 0) return u;
   if (e === 400) {

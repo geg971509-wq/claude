@@ -21,17 +21,17 @@ var qt = S(function (dd, ns) {
       return ss.call(t) === "[object Array]";
     },
     es = function (t) {
-      if (!t || ss.call(t) !== "[object Object]") return !1;
+      if (!t || ss.call(t) !== "[object Object]") return false;
       var r = ut.call(t, "constructor"),
         s = t.constructor && t.constructor.prototype && ut.call(t.constructor.prototype, "isPrototypeOf");
-      if (t.constructor && !r && !s) return !1;
+      if (t.constructor && !r && !s) return false;
       var n;
       for (n in t);
       return typeof n > "u" || ut.call(t, n);
     },
     ts = function (t, r) {
       if (zr && r.name === "__proto__")
-        zr(t, r.name, { enumerable: !0, configurable: !0, value: r.newValue, writable: !0 });
+        zr(t, r.name, { enumerable: true, configurable: true, value: r.newValue, writable: true });
       else t[r.name] = r.newValue;
     },
     rs = function (t, r) {
@@ -51,7 +51,7 @@ var qt = S(function (dd, ns) {
       y = arguments[0],
       E = 1,
       O = arguments.length,
-      T = !1;
+      T = false;
     if (typeof y === "boolean") (T = y), (y = arguments[1] || {}), (E = 2);
     if (y == null || (typeof y !== "object" && typeof y !== "function")) y = {};
     for (; E < O; ++E)
@@ -59,7 +59,7 @@ var qt = S(function (dd, ns) {
         for (r in t)
           if (((s = rs(y, r)), (n = rs(t, r)), y !== n)) {
             if (T && n && (es(n) || (c = Zr(n)))) {
-              if (c) (c = !1), (p = s && Zr(s) ? s : []);
+              if (c) (c = false), (p = s && Zr(s) ? s : []);
               else p = s && es(s) ? s : {};
               ts(y, { name: r, newValue: e(T, p, n) });
             } else if (typeof n < "u") ts(y, { name: r, newValue: n });
@@ -171,7 +171,7 @@ var Lt = S(function (ye) {
     function (e) {
       return e && e.__esModule ? e : { default: e };
     };
-  Object.defineProperty(ye, "__esModule", { value: !0 });
+  Object.defineProperty(ye, "__esModule", { value: true });
   ye.GaxiosError = ye.GAXIOS_ERROR_SYMBOL = void 0;
   ye.defaultErrorRedactor = ls;
   var cs = us(qt()),
@@ -187,7 +187,7 @@ var Lt = S(function (ye) {
     [ye.GAXIOS_ERROR_SYMBOL] = Mt.version;
     static [Symbol.hasInstance](e) {
       if (e && typeof e === "object" && ye.GAXIOS_ERROR_SYMBOL in e && e[ye.GAXIOS_ERROR_SYMBOL] === Mt.version)
-        return !0;
+        return true;
       return Function.prototype[Symbol.hasInstance].call(Ft, e);
     }
     constructor(e, t, r, s) {
@@ -196,10 +196,10 @@ var Lt = S(function (ye) {
         ((this.config = t),
         (this.response = r),
         (this.error = s instanceof Error ? s : void 0),
-        (this.config = (0, cs.default)(!0, {}, t)),
+        (this.config = (0, cs.default)(true, {}, t)),
         this.response)
       )
-        this.response.config = (0, cs.default)(!0, {}, this.response.config);
+        this.response.config = (0, cs.default)(true, {}, this.response.config);
       if (this.response) {
         try {
           this.response.data = Zo(this.config.responseType, this.response?.bodyUsed ? this.response?.data : void 0);
@@ -313,11 +313,11 @@ var Lt = S(function (ye) {
   }
 });
 var fs = S(function (hs) {
-  Object.defineProperty(hs, "__esModule", { value: !0 });
+  Object.defineProperty(hs, "__esModule", { value: true });
   hs.getRetryConfig = ea;
   async function ea(e) {
     let t = ds(e);
-    if (!e || !e.config || (!t && !e.config.retry)) return { shouldRetry: !1 };
+    if (!e || !e.config || (!t && !e.config.retry)) return { shouldRetry: false };
     (t = t || {}),
       (t.currentRetryAttempt = t.currentRetryAttempt || 0),
       (t.retry = t.retry === void 0 || t.retry === null ? 3 : t.retry),
@@ -338,7 +338,7 @@ var fs = S(function (hs) {
       (e.config.retryConfig = t),
       !(await (t.shouldRetry || ta)(e)))
     )
-      return { shouldRetry: !1, config: e.config };
+      return { shouldRetry: false, config: e.config };
     let n = ra(t);
     e.config.retryConfig.currentRetryAttempt += 1;
     let c = t.retryBackoff
@@ -347,27 +347,27 @@ var fs = S(function (hs) {
           setTimeout(p, n);
         });
     if (t.onRetryAttempt) await t.onRetryAttempt(e);
-    return await c, { shouldRetry: !0, config: e.config };
+    return await c, { shouldRetry: true, config: e.config };
   }
   function ta(e) {
     let t = ds(e);
-    if ((e.config.signal?.aborted && e.code !== "TimeoutError") || e.code === "AbortError") return !1;
-    if (!t || t.retry === 0) return !1;
-    if (!e.response && (t.currentRetryAttempt || 0) >= t.noResponseRetries) return !1;
-    if (!t.httpMethodsToRetry || !t.httpMethodsToRetry.includes(e.config.method?.toUpperCase() || "GET")) return !1;
+    if ((e.config.signal?.aborted && e.code !== "TimeoutError") || e.code === "AbortError") return false;
+    if (!t || t.retry === 0) return false;
+    if (!e.response && (t.currentRetryAttempt || 0) >= t.noResponseRetries) return false;
+    if (!t.httpMethodsToRetry || !t.httpMethodsToRetry.includes(e.config.method?.toUpperCase() || "GET")) return false;
     if (e.response && e.response.status) {
-      let r = !1;
+      let r = false;
       for (let [s, n] of t.statusCodesToRetry) {
         let c = e.response.status;
         if (c >= s && c <= n) {
-          r = !0;
+          r = true;
           break;
         }
       }
-      if (!r) return !1;
+      if (!r) return false;
     }
-    if (((t.currentRetryAttempt = t.currentRetryAttempt || 0), t.currentRetryAttempt >= t.retry)) return !1;
-    return !0;
+    if (((t.currentRetryAttempt = t.currentRetryAttempt || 0), t.currentRetryAttempt >= t.retry)) return false;
+    return true;
   }
   function ds(e) {
     if (e && e.config && e.config.retryConfig) return e.config.retryConfig;
@@ -382,7 +382,7 @@ var fs = S(function (hs) {
   }
 });
 var Gt = S(function (gs) {
-  Object.defineProperty(gs, "__esModule", { value: !0 });
+  Object.defineProperty(gs, "__esModule", { value: true });
   gs.GaxiosInterceptorManager = void 0;
   class ps extends Set {}
   gs.GaxiosInterceptorManager = ps;
@@ -394,7 +394,7 @@ var Es = S(function (Le) {
         return e && e.__esModule ? e : { default: e };
       },
     Fe;
-  Object.defineProperty(Le, "__esModule", { value: !0 });
+  Object.defineProperty(Le, "__esModule", { value: true });
   Le.Gaxios = void 0;
   var ia = na(qt()),
     oa = ue("https"),
@@ -439,7 +439,7 @@ var Es = S(function (Le) {
       let s = await t(e.url, r),
         n = await this.getResponseData(e, s);
       if (!Object.getOwnPropertyDescriptor(s, "data")?.configurable)
-        Object.defineProperties(s, { data: { configurable: !0, writable: !0, enumerable: !0, value: n } });
+        Object.defineProperties(s, { data: { configurable: true, writable: true, enumerable: true, value: n } });
       return Object.assign(s, { config: e, data: n });
     }
     async _request(e) {
@@ -510,14 +510,14 @@ var Es = S(function (Le) {
       for (let c of n) s.push(c.trim());
       for (let c of s)
         if (c instanceof RegExp) {
-          if (c.test(r.toString())) return !1;
+          if (c.test(r.toString())) return false;
         } else if (c instanceof URL) {
-          if (c.origin === r.origin) return !1;
+          if (c.origin === r.origin) return false;
         } else if (c.startsWith("*.") || c.startsWith(".")) {
           let p = c.replace(/^\*\./, ".");
-          if (r.hostname.endsWith(p)) return !1;
-        } else if (c === r.origin || c === r.hostname || c === r.href) return !1;
-      return !0;
+          if (r.hostname.endsWith(p)) return false;
+        } else if (c === r.origin || c === r.hostname || c === r.href) return false;
+      return true;
     }
     async #t(e) {
       let t = Promise.resolve(e);
@@ -532,7 +532,7 @@ var Es = S(function (Le) {
     async #s(e) {
       let t = new Headers(this.defaults.headers);
       Fe.mergeHeaders(t, e.headers);
-      let r = (0, ia.default)(!0, {}, this.defaults, e);
+      let r = (0, ia.default)(true, {}, this.defaults, e);
       if (!r.url) throw Error("URL is required.");
       if (r.baseURL) r.url = new URL(r.url, r.baseURL);
       if (((r.url = new URL(r.url)), r.params))
@@ -593,7 +593,7 @@ var Es = S(function (Le) {
       } else if (r.cert && r.key)
         if (this.agentCache.has(r.key)) r.agent = this.agentCache.get(r.key);
         else (r.agent = new oa.Agent({ cert: r.cert, key: r.key })), this.agentCache.set(r.key, r.agent);
-      if (typeof r.errorRedactor !== "function" && r.errorRedactor !== !1) r.errorRedactor = je.defaultErrorRedactor;
+      if (typeof r.errorRedactor !== "function" && r.errorRedactor !== false) r.errorRedactor = je.defaultErrorRedactor;
       if (r.body && !("duplex" in r)) r.duplex = "half";
       return this.#n(r), Object.assign(r, { headers: t, url: r.url instanceof URL ? r.url : new URL(r.url) });
     }
@@ -670,7 +670,7 @@ var re = S(function (ae) {
             var n = Object.getOwnPropertyDescriptor(t, r);
             if (!n || ("get" in n ? !t.__esModule : n.writable || n.configurable))
               n = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -686,19 +686,19 @@ var re = S(function (ae) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) la(t, e, r);
       };
-  Object.defineProperty(ae, "__esModule", { value: !0 });
+  Object.defineProperty(ae, "__esModule", { value: true });
   ae.instance = ae.Gaxios = ae.GaxiosError = void 0;
   ae.request = fa;
   var ws = Es();
   Object.defineProperty(ae, "Gaxios", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ws.Gaxios;
     },
   });
   var ha = Lt();
   Object.defineProperty(ae, "GaxiosError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ha.GaxiosError;
     },
@@ -735,7 +735,7 @@ var Ht = S(function (As, lt) {
         le = 21,
         Pe = -1e7,
         me = 1e7,
-        Ie = !1,
+        Ie = false,
         Ve = 1,
         xe = 0,
         Nt = {
@@ -749,7 +749,7 @@ var Ht = S(function (As, lt) {
           suffix: "",
         },
         Ue = "0123456789abcdefghijklmnopqrstuvwxyz",
-        Pt = !0;
+        Pt = true;
       function A(i, o) {
         var a,
           g,
@@ -762,7 +762,7 @@ var Ht = S(function (As, lt) {
           f = this;
         if (!(f instanceof A)) return new A(i, o);
         if (o == null) {
-          if (i && i._isBigNumber === !0) {
+          if (i && i._isBigNumber === true) {
             if (((f.s = i.s), !i.c || i.e > me)) f.c = f.e = null;
             else if (i.e < Pe) f.c = [(f.e = 0)];
             else (f.e = i.e), (f.c = i.c.slice());
@@ -805,13 +805,13 @@ var Ht = S(function (As, lt) {
                   (_ == _.toUpperCase() && (_ = _.toLowerCase())) ||
                   (_ == _.toLowerCase() && (_ = _.toUpperCase()))
                 ) {
-                  (l = !0), (m = -1), (h = 0);
+                  (l = true), (m = -1), (h = 0);
                   continue;
                 }
               }
               return W(f, String(i), u, o);
             }
-          if (((u = !1), (_ = G(_, o, 10, f.s)), (h = _.indexOf(".")) > -1)) _ = _.replace(".", "");
+          if (((u = false), (_ = G(_, o, 10, f.s)), (h = _.indexOf(".")) > -1)) _ = _.replace(".", "");
           else h = _.length;
         }
         for (m = 0; _.charCodeAt(m) === 48; m++);
@@ -887,8 +887,8 @@ var Ht = S(function (As, lt) {
             };
           }),
         (A.isBigNumber = function (i) {
-          if (!i || i._isBigNumber !== !0) return !1;
-          if (!A.DEBUG) return !0;
+          if (!i || i._isBigNumber !== true) return false;
+          if (!A.DEBUG) return true;
           var o,
             a,
             g = i.c,
@@ -897,16 +897,16 @@ var Ht = S(function (As, lt) {
           e: if ({}.toString.call(g) == "[object Array]") {
             if ((h === 1 || h === -1) && l >= -I && l <= I && l === n(l)) {
               if (g[0] === 0) {
-                if (l === 0 && g.length === 1) return !0;
+                if (l === 0 && g.length === 1) return true;
                 break e;
               }
               if (((o = (l + 1) % E), o < 1)) o += E;
               if (String(g[0]).length == o) {
                 for (o = 0; o < g.length; o++) if (((a = g[o]), a < 0 || a >= y || a !== n(a))) break e;
-                if (a !== 0) return !0;
+                if (a !== 0) return true;
               }
             }
-          } else if (g === null && l === null && (h === null || h === 1 || h === -1)) return !0;
+          } else if (g === null && l === null && (h === null || h === 1 || h === -1)) return true;
           throw Error(c + "Invalid BigNumber: " + i);
         }),
         (A.maximum = A.max =
@@ -963,7 +963,7 @@ var Ht = S(function (As, lt) {
                     crypto.randomBytes(7).copy(g, d);
                   else _.push(u % 100000000000000), (d += 7);
                 d = m / 7;
-              } else throw ((Ie = !1), Error(c + "crypto unavailable"));
+              } else throw ((Ie = false), Error(c + "crypto unavailable"));
             if (!Ie) {
               for (; d < m; ) if (((u = o()), u < 9000000000000000)) _[d++] = u % 100000000000000;
             }
@@ -1118,7 +1118,7 @@ var Ht = S(function (As, lt) {
               (u = y), (_ = K(g.e / E) - K(l.e / E)), (ge = (ge / E) | 0);
             for (f = 0; Q[f] == (oe[f] || 0); f++);
             if (Q[f] > (oe[f] || 0)) _--;
-            if (ge < 0) te.push(1), (w = !0);
+            if (ge < 0) te.push(1), (w = true);
             else {
               if (((jt = oe.length), (Te = Q.length), (f = 0), (ge += 2), (x = n(u / (Q[0] + 1))), x > 1))
                 (Q = i(Q, x, u)), (oe = i(oe, x, u)), (Te = Q.length), (jt = oe.length);
@@ -1733,7 +1733,7 @@ var Ht = S(function (As, lt) {
           else {
             if (i == null) o = l <= ce || l >= le ? Z(R(a.c), l) : ie(R(a.c), l, "0");
             else if (i === 10 && Pt) (a = pe(new A(a), V + l + 1, X)), (o = ie(R(a.c), a.e, "0"));
-            else v(i, 2, Ue.length, "Base"), (o = G(ie(R(a.c), l, "0"), 10, i, g, !0));
+            else v(i, 2, Ue.length, "Base"), (o = G(ie(R(a.c), l, "0"), 10, i, g, true));
             if (g < 0 && a.c[0]) o = "-" + o;
           }
           return o;
@@ -1742,7 +1742,7 @@ var Ht = S(function (As, lt) {
           function () {
             return ke(this);
           }),
-        (C._isBigNumber = !0),
+        (C._isBigNumber = true),
         q != null)
       )
         A.set(q);
@@ -1952,19 +1952,19 @@ var vs = S(function (wd, Os) {
       /(?:c|\\u0063)(?:o|\\u006[Ff])(?:n|\\u006[Ee])(?:s|\\u0073)(?:t|\\u0074)(?:r|\\u0072)(?:u|\\u0075)(?:c|\\u0063)(?:t|\\u0074)(?:o|\\u006[Ff])(?:r|\\u0072)/,
     ya = function (e) {
       var t = {
-        strict: !1,
-        storeAsString: !1,
-        alwaysParseAsBig: !1,
-        useNativeBigInt: !1,
+        strict: false,
+        storeAsString: false,
+        alwaysParseAsBig: false,
+        useNativeBigInt: false,
         protoAction: "error",
         constructorAction: "error",
       };
       if (e !== void 0 && e !== null) {
-        if (e.strict === !0) t.strict = !0;
-        if (e.storeAsString === !0) t.storeAsString = !0;
+        if (e.strict === true) t.strict = true;
+        if (e.storeAsString === true) t.storeAsString = true;
         if (
-          ((t.alwaysParseAsBig = e.alwaysParseAsBig === !0 ? e.alwaysParseAsBig : !1),
-          (t.useNativeBigInt = e.useNativeBigInt === !0 ? e.useNativeBigInt : !1),
+          ((t.alwaysParseAsBig = e.alwaysParseAsBig === true ? e.alwaysParseAsBig : false),
+          (t.useNativeBigInt = e.useNativeBigInt === true ? e.useNativeBigInt : false),
           typeof e.constructorAction < "u")
         )
           if (e.constructorAction === "error" || e.constructorAction === "ignore" || e.constructorAction === "preserve")
@@ -2057,9 +2057,9 @@ var vs = S(function (wd, Os) {
         D = function () {
           switch (s) {
             case "t":
-              return y("t"), y("r"), y("u"), y("e"), !0;
+              return y("t"), y("r"), y("u"), y("e"), true;
             case "f":
-              return y("f"), y("a"), y("l"), y("s"), y("e"), !1;
+              return y("f"), y("a"), y("l"), y("s"), y("e"), false;
             case "n":
               return y("n"), y("u"), y("l"), y("l"), null;
           }
@@ -2083,13 +2083,13 @@ var vs = S(function (wd, Os) {
           if (s === "{") {
             if ((y("{"), T(), s === "}")) return y("}"), P;
             while (s) {
-              if (((R = O()), T(), y(":"), t.strict === !0 && Object.hasOwnProperty.call(P, R)))
+              if (((R = O()), T(), y(":"), t.strict === true && Object.hasOwnProperty.call(P, R)))
                 p('Duplicate key "' + R + '"');
-              if (pa.test(R) === !0)
+              if (pa.test(R) === true)
                 if (t.protoAction === "error") p("Object contains forbidden prototype property");
                 else if (t.protoAction === "ignore") I();
                 else P[R] = I();
-              else if (ga.test(R) === !0)
+              else if (ga.test(R) === true)
                 if (t.constructorAction === "error") p("Object contains forbidden constructor property");
                 else if (t.constructorAction === "ignore") I();
                 else P[R] = I();
@@ -2146,7 +2146,7 @@ var bs = S(function (Ad, ht) {
   ht.exports.stringify = Rs;
 });
 var $t = S(function (qs) {
-  Object.defineProperty(qs, "__esModule", { value: !0 });
+  Object.defineProperty(qs, "__esModule", { value: true });
   qs.GCE_LINUX_BIOS_PATHS = void 0;
   qs.isGoogleCloudServerless = Is;
   qs.isGoogleComputeEngineLinux = Us;
@@ -2161,22 +2161,22 @@ var $t = S(function (qs) {
     return !!(process.env.CLOUD_RUN_JOB || process.env.FUNCTION_NAME || process.env.K_SERVICE);
   }
   function Us() {
-    if ((0, Ps.platform)() !== "linux") return !1;
+    if ((0, Ps.platform)() !== "linux") return false;
     try {
       (0, Ns.statSync)(qs.GCE_LINUX_BIOS_PATHS.BIOS_DATE);
       let e = (0, Ns.readFileSync)(qs.GCE_LINUX_BIOS_PATHS.BIOS_VENDOR, "utf8");
       return /Google/.test(e);
     } catch {
-      return !1;
+      return false;
     }
   }
   function js() {
     let e = (0, Ps.networkInterfaces)();
     for (let t of Object.values(e)) {
       if (!t) continue;
-      for (let { mac: r } of t) if (_a.test(r)) return !0;
+      for (let { mac: r } of t) if (_a.test(r)) return true;
     }
-    return !1;
+    return false;
   }
   function Ds() {
     return Us() || js();
@@ -2186,11 +2186,11 @@ var $t = S(function (qs) {
   }
 });
 var Ls = S(function (Ms) {
-  Object.defineProperty(Ms, "__esModule", { value: !0 });
+  Object.defineProperty(Ms, "__esModule", { value: true });
   Ms.Colours = void 0;
   class M {
     static isEnabled(e) {
-      return e && e.isTTY && (typeof e.getColorDepth === "function" ? e.getColorDepth() > 2 : !0);
+      return e && e.isTTY && (typeof e.getColorDepth === "function" ? e.getColorDepth() > 2 : true);
     }
     static refresh() {
       if (((M.enabled = M.isEnabled(process === null || process === void 0 ? void 0 : process.stderr)), !this.enabled))
@@ -2220,7 +2220,7 @@ var Ls = S(function (Ms) {
     }
   }
   Ms.Colours = M;
-  M.enabled = !1;
+  M.enabled = false;
   M.reset = "";
   M.bright = "";
   M.dim = "";
@@ -2243,7 +2243,7 @@ var Ws = S(function (J) {
             var n = Object.getOwnPropertyDescriptor(t, r);
             if (!n || ("get" in n ? !t.__esModule : n.writable || n.configurable))
               n = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -2258,7 +2258,7 @@ var Ws = S(function (J) {
       (J && J.__setModuleDefault) ||
       (Object.create
         ? function (e, t) {
-            Object.defineProperty(e, "default", { enumerable: !0, value: t });
+            Object.defineProperty(e, "default", { enumerable: true, value: t });
           }
         : function (e, t) {
             e.default = t;
@@ -2287,7 +2287,7 @@ var Ws = S(function (J) {
           return Sa(r, t), r;
         };
       })();
-  Object.defineProperty(J, "__esModule", { value: !0 });
+  Object.defineProperty(J, "__esModule", { value: true });
   J.env = J.DebugLogBackendBase = J.placeholder = J.AdhocDebugLogger = J.LogSeverity = void 0;
   J.getNodeBackend = Jt;
   J.getDebugBackend = va;
@@ -2332,14 +2332,14 @@ var Ws = S(function (J) {
   class ze {
     constructor() {
       var e;
-      (this.cached = new Map()), (this.filters = []), (this.filtersSet = !1);
+      (this.cached = new Map()), (this.filters = []), (this.filtersSet = false);
       let t = (e = Xe.env[J.env.nodeEnables]) !== null && e !== void 0 ? e : "*";
       if (t === "all") t = "*";
       this.filters = t.split(",");
     }
     log(e, t, ...r) {
       try {
-        if (!this.filtersSet) this.setFilters(), (this.filtersSet = !0);
+        if (!this.filtersSet) this.setFilters(), (this.filtersSet = true);
         let s = this.cached.get(e);
         if (!s) (s = this.makeLogger(e)), this.cached.set(e, s);
         s(t, ...r);
@@ -2483,7 +2483,7 @@ var Wt = S(function (De) {
             var n = Object.getOwnPropertyDescriptor(t, r);
             if (!n || ("get" in n ? !t.__esModule : n.writable || n.configurable))
               n = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -2499,7 +2499,7 @@ var Wt = S(function (De) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) ba(t, e, r);
       };
-  Object.defineProperty(De, "__esModule", { value: !0 });
+  Object.defineProperty(De, "__esModule", { value: true });
   Na(Ws(), De);
 });
 var Ze = S(function (N) {
@@ -2511,7 +2511,7 @@ var Ze = S(function (N) {
             var n = Object.getOwnPropertyDescriptor(t, r);
             if (!n || ("get" in n ? !t.__esModule : n.writable || n.configurable))
               n = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -2526,7 +2526,7 @@ var Ze = S(function (N) {
       (N && N.__setModuleDefault) ||
       (Object.create
         ? function (e, t) {
-            Object.defineProperty(e, "default", { enumerable: !0, value: t });
+            Object.defineProperty(e, "default", { enumerable: true, value: t });
           }
         : function (e, t) {
             e.default = t;
@@ -2560,7 +2560,7 @@ var Ze = S(function (N) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) Ys(t, e, r);
       };
-  Object.defineProperty(N, "__esModule", { value: !0 });
+  Object.defineProperty(N, "__esModule", { value: true });
   N.gcpResidencyCache =
     N.METADATA_SERVER_DETECTION =
     N.HEADERS =
@@ -2615,7 +2615,7 @@ var Ze = S(function (N) {
       }
     });
   }
-  async function Qe(e, t = {}, r = 3, s = !1) {
+  async function Qe(e, t = {}, r = 3, s = false) {
     let n = new Headers(N.HEADERS),
       c = "",
       p = {};
@@ -2698,9 +2698,9 @@ var Ze = S(function (N) {
         );
       switch (e) {
         case "assume-present":
-          return !0;
+          return true;
         case "none":
-          return !1;
+          return false;
         case "bios-only":
           return Xt();
         case "ping-only":
@@ -2709,12 +2709,12 @@ var Ze = S(function (N) {
     try {
       if (gt === void 0)
         gt = Qe("instance", void 0, $a(), !(process.env.GCE_METADATA_IP || process.env.GCE_METADATA_HOST));
-      return await gt, !0;
+      return await gt, true;
     } catch (e) {
       let t = e;
       if (process.env.DEBUG_AUTH) console.info(t);
-      if (t.type === "request-timeout") return !1;
-      if (t.response && t.response.status === 404) return !1;
+      if (t.type === "request-timeout") return false;
+      if (t.response && t.response.status === 404) return false;
       else {
         if (
           !(t.response && t.response.status === 404) &&
@@ -2727,7 +2727,7 @@ var Ze = S(function (N) {
           if (t.code) r = t.code.toString();
           process.emitWarning(`received unexpected error = ${t.message} code = ${r}`, "MetadataLookupWarning");
         }
-        return !1;
+        return false;
       }
     }
   }
@@ -2748,7 +2748,7 @@ var Ze = S(function (N) {
   Ua($t(), N);
 });
 var zt = S(function (Qs) {
-  Object.defineProperty(Qs, "__esModule", { value: !0 });
+  Object.defineProperty(Qs, "__esModule", { value: true });
   Qs.fromArrayBufferToHex = Wa;
   function Wa(e) {
     return Array.from(new Uint8Array(e))
@@ -2757,7 +2757,7 @@ var zt = S(function (Qs) {
   }
 });
 var tn = S(function (Zs) {
-  Object.defineProperty(Zs, "__esModule", { value: !0 });
+  Object.defineProperty(Zs, "__esModule", { value: true });
   Zs.BrowserCrypto = void 0;
   var Ge = m9t(),
     Ya = zt();
@@ -2783,13 +2783,13 @@ var tn = S(function (Zs) {
       let s = { name: "RSASSA-PKCS1-v1_5", hash: { name: "SHA-256" } },
         n = new TextEncoder().encode(t),
         c = Ge.toByteArray(yt.padBase64(r)),
-        p = await window.crypto.subtle.importKey("jwk", e, s, !0, ["verify"]);
+        p = await window.crypto.subtle.importKey("jwk", e, s, true, ["verify"]);
       return await window.crypto.subtle.verify(s, p, Buffer.from(c), n);
     }
     async sign(e, t) {
       let r = { name: "RSASSA-PKCS1-v1_5", hash: { name: "SHA-256" } },
         s = new TextEncoder().encode(t),
-        n = await window.crypto.subtle.importKey("jwk", e, r, !0, ["sign"]),
+        n = await window.crypto.subtle.importKey("jwk", e, r, true, ["sign"]),
         c = await window.crypto.subtle.sign(r, n, s);
       return Ge.fromByteArray(new Uint8Array(c));
     }
@@ -2809,7 +2809,7 @@ var tn = S(function (Zs) {
     async signWithHmacSha256(e, t) {
       let r = typeof e === "string" ? e : String.fromCharCode(...new Uint16Array(e)),
         s = new TextEncoder(),
-        n = await window.crypto.subtle.importKey("raw", s.encode(r), { name: "HMAC", hash: { name: "SHA-256" } }, !1, [
+        n = await window.crypto.subtle.importKey("raw", s.encode(r), { name: "HMAC", hash: { name: "SHA-256" } }, false, [
           "sign",
         ]);
       return window.crypto.subtle.sign("HMAC", n, s.encode(t));
@@ -2818,7 +2818,7 @@ var tn = S(function (Zs) {
   Zs.BrowserCrypto = yt;
 });
 var on = S(function (sn) {
-  Object.defineProperty(sn, "__esModule", { value: !0 });
+  Object.defineProperty(sn, "__esModule", { value: true });
   sn.NodeCrypto = void 0;
   var Be = ue("crypto");
   class rn {
@@ -2870,7 +2870,7 @@ var et = S(function (Se) {
             var n = Object.getOwnPropertyDescriptor(t, r);
             if (!n || ("get" in n ? !t.__esModule : n.writable || n.configurable))
               n = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -2886,7 +2886,7 @@ var et = S(function (Se) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) Qa(t, e, r);
       };
-  Object.defineProperty(Se, "__esModule", { value: !0 });
+  Object.defineProperty(Se, "__esModule", { value: true });
   Se.createCrypto = rc;
   Se.hasBrowserCrypto = an;
   var ec = tn(),
@@ -2901,7 +2901,7 @@ var et = S(function (Se) {
   }
 });
 var we = S(function (dn) {
-  Object.defineProperty(dn, "__esModule", { value: !0 });
+  Object.defineProperty(dn, "__esModule", { value: true });
   dn.LRUCache = void 0;
   dn.snakeToCamel = un;
   dn.originalOrCamelOptions = oc;
@@ -2961,7 +2961,7 @@ var we = S(function (dn) {
     try {
       return (await sc.promises.lstat(e)).isFile();
     } catch (t) {
-      return !1;
+      return false;
     }
   }
   function uc() {
@@ -3058,7 +3058,7 @@ var fn = S(function (Pd, yc) {
   };
 });
 var Zt = S(function (yn) {
-  Object.defineProperty(yn, "__esModule", { value: !0 });
+  Object.defineProperty(yn, "__esModule", { value: true });
   yn.USER_AGENT = yn.PRODUCT_NAME = yn.pkg = void 0;
   var pn = fn();
   yn.pkg = pn;
@@ -3068,7 +3068,7 @@ var Zt = S(function (yn) {
   yn.USER_AGENT = _c;
 });
 var fe = S(function (mn) {
-  Object.defineProperty(mn, "__esModule", { value: !0 });
+  Object.defineProperty(mn, "__esModule", { value: true });
   mn.AuthClient = mn.DEFAULT_EAGER_REFRESH_THRESHOLD_MILLIS = mn.DEFAULT_UNIVERSE = void 0;
   var wc = ue("events"),
     er = re(),
@@ -3084,7 +3084,7 @@ var fe = S(function (mn) {
     transporter;
     credentials = {};
     eagerRefreshThresholdMillis = mn.DEFAULT_EAGER_REFRESH_THRESHOLD_MILLIS;
-    forceRefreshOnFailure = !1;
+    forceRefreshOnFailure = false;
     universeDomain = mn.DEFAULT_UNIVERSE;
     static RequestMethodNameSymbol = Symbol("request method name");
     static RequestLogIdSymbol = Symbol("request log id");
@@ -3098,12 +3098,12 @@ var fe = S(function (mn) {
         (this.credentials = t.get("credentials") ?? {}),
         (this.universeDomain = t.get("universe_domain") ?? mn.DEFAULT_UNIVERSE),
         (this.transporter = e.transporter ?? new er.Gaxios(e.transporterOptions)),
-        t.get("useAuthRequestParameters") !== !1)
+        t.get("useAuthRequestParameters") !== false)
       )
         this.transporter.interceptors.request.add(se.DEFAULT_REQUEST_INTERCEPTOR),
           this.transporter.interceptors.response.add(se.DEFAULT_RESPONSE_INTERCEPTOR);
       if (e.eagerRefreshThresholdMillis) this.eagerRefreshThresholdMillis = e.eagerRefreshThresholdMillis;
-      this.forceRefreshOnFailure = e.forceRefreshOnFailure ?? !1;
+      this.forceRefreshOnFailure = e.forceRefreshOnFailure ?? false;
     }
     fetch(...e) {
       let t = e[0],
@@ -3183,13 +3183,13 @@ var fe = S(function (mn) {
       } catch (r) {}
     }
     static get RETRY_CONFIG() {
-      return { retry: !0, retryConfig: { httpMethodsToRetry: ["GET", "PUT", "POST", "HEAD", "OPTIONS", "DELETE"] } };
+      return { retry: true, retryConfig: { httpMethodsToRetry: ["GET", "PUT", "POST", "HEAD", "OPTIONS", "DELETE"] } };
     }
   }
   mn.AuthClient = se;
 });
 var sr = S(function (Tn) {
-  Object.defineProperty(Tn, "__esModule", { value: !0 });
+  Object.defineProperty(Tn, "__esModule", { value: true });
   Tn.LoginTicket = void 0;
   class An {
     envelope;
@@ -3215,7 +3215,7 @@ var sr = S(function (Tn) {
   Tn.LoginTicket = An;
 });
 var qe = S(function (vn) {
-  Object.defineProperty(vn, "__esModule", { value: !0 });
+  Object.defineProperty(vn, "__esModule", { value: true });
   vn.OAuth2Client = vn.ClientAuthentication = vn.CertificateFormat = vn.CodeChallengeMethod = void 0;
   var kn = re(),
     Cc = ue("querystring"),
@@ -3469,7 +3469,7 @@ var qe = S(function (vn) {
         );
       else return this.requestAsync(e);
     }
-    async requestAsync(e, t = !1) {
+    async requestAsync(e, t = false) {
       try {
         let r = await this.getRequestMetadataAsync();
         if (
@@ -3496,11 +3496,11 @@ var qe = S(function (vn) {
               this.refreshHandler,
             y = s.config.data instanceof kc.Readable,
             E = n === 401 || n === 403;
-          if (!t && E && !y && c) return await this.refreshAccessTokenAsync(), this.requestAsync(e, !0);
+          if (!t && E && !y && c) return await this.refreshAccessTokenAsync(), this.requestAsync(e, true);
           else if (!t && E && !y && p) {
             let O = await this.processAndValidateRefreshHandler();
             if (O?.access_token) this.setCredentials(O);
-            return this.requestAsync(e, !0);
+            return this.requestAsync(e, true);
           }
         }
         throw r;
@@ -3643,7 +3643,7 @@ var qe = S(function (vn) {
       if (s && s.indexOf(T.iss) < 0) throw Error("Invalid issuer, expected one of [" + s + "], but got " + T.iss);
       if (typeof r < "u" && r !== null) {
         let B = T.aud,
-          Z = !1;
+          Z = false;
         if (r.constructor === Array) Z = r.indexOf(B) > -1;
         else Z = B === r;
         if (!Z) throw Error("Wrong recipient, payload audience != requiredAudience");
@@ -3660,13 +3660,13 @@ var qe = S(function (vn) {
     }
     isTokenExpiring() {
       let e = this.credentials.expiry_date;
-      return e ? e <= new Date().getTime() + this.eagerRefreshThresholdMillis : !1;
+      return e ? e <= new Date().getTime() + this.eagerRefreshThresholdMillis : false;
     }
   }
   vn.OAuth2Client = _e;
 });
 var ir = S(function (Nn) {
-  Object.defineProperty(Nn, "__esModule", { value: !0 });
+  Object.defineProperty(Nn, "__esModule", { value: true });
   Nn.Compute = void 0;
   var bc = re(),
     xn = Ze(),
@@ -3725,7 +3725,7 @@ var ir = S(function (Nn) {
   Nn.Compute = bn;
 });
 var or = S(function (Un) {
-  Object.defineProperty(Un, "__esModule", { value: !0 });
+  Object.defineProperty(Un, "__esModule", { value: true });
   Un.IdTokenClient = void 0;
   var Pc = qe();
   class In extends Pc.OAuth2Client {
@@ -3750,7 +3750,7 @@ var or = S(function (Un) {
   Un.IdTokenClient = In;
 });
 var ar = S(function (qn) {
-  Object.defineProperty(qn, "__esModule", { value: !0 });
+  Object.defineProperty(qn, "__esModule", { value: true });
   qn.GCPEnv = void 0;
   qn.clear = Ic;
   qn.getEnv = Uc;
@@ -3799,9 +3799,9 @@ var ar = S(function (qn) {
   }
   async function Lc() {
     try {
-      return await Dn.instance("attributes/cluster-name"), !0;
+      return await Dn.instance("attributes/cluster-name"), true;
     } catch (e) {
-      return !1;
+      return false;
     }
   }
   async function Gc() {
@@ -3809,7 +3809,7 @@ var ar = S(function (qn) {
   }
 });
 var Gn = S(function (Ln) {
-  Object.defineProperty(Ln, "__esModule", { value: !0 });
+  Object.defineProperty(Ln, "__esModule", { value: true });
   Ln.buildPayloadForJwsSign = Fn;
   Ln.getJwsSign = Wc;
   var $c = oMe(),
@@ -3825,7 +3825,7 @@ var Gn = S(function (Ln) {
   }
 });
 var Hn = S(function (Bn) {
-  Object.defineProperty(Bn, "__esModule", { value: !0 });
+  Object.defineProperty(Bn, "__esModule", { value: true });
   Bn.getToken = eu;
   var Xc = Gn(),
     zc = "https://oauth2.googleapis.com/token",
@@ -3851,7 +3851,7 @@ var Hn = S(function (Bn) {
   }
 });
 var Wn = S(function (Jn) {
-  Object.defineProperty(Jn, "__esModule", { value: !0 });
+  Object.defineProperty(Jn, "__esModule", { value: true });
   Jn.ErrorWithCode = void 0;
   class $n extends Error {
     code;
@@ -3863,7 +3863,7 @@ var Wn = S(function (Jn) {
   Jn.ErrorWithCode = $n;
 });
 var cr = S(function (ei) {
-  Object.defineProperty(ei, "__esModule", { value: !0 });
+  Object.defineProperty(ei, "__esModule", { value: true });
   ei.getCredentials = nu;
   var ru = ue("path"),
     Vn = ue("fs"),
@@ -3938,7 +3938,7 @@ var cr = S(function (ei) {
   }
 });
 var ni = S(function (ri) {
-  Object.defineProperty(ri, "__esModule", { value: !0 });
+  Object.defineProperty(ri, "__esModule", { value: true });
   ri.TokenHandler = void 0;
   var ou = Hn(),
     au = cr();
@@ -3958,7 +3958,7 @@ var ni = S(function (ri) {
       }
     }
     isTokenExpiring() {
-      if (!this.token || !this.tokenExpiresAt) return !0;
+      if (!this.token || !this.tokenExpiresAt) return true;
       let e = new Date().getTime(),
         t = this.tokenOptions.eagerRefreshThresholdMillis ?? 0;
       return this.tokenExpiresAt <= e + t;
@@ -3966,7 +3966,7 @@ var ni = S(function (ri) {
     hasExpired() {
       let e = new Date().getTime();
       if (this.token && this.tokenExpiresAt) return new Date().getTime() >= this.tokenExpiresAt;
-      return !0;
+      return true;
     }
     async getToken(e) {
       if ((await this.processCredentials(), this.inFlightRequest && !e)) return this.inFlightRequest;
@@ -3983,17 +3983,17 @@ var ni = S(function (ri) {
   ri.TokenHandler = ti;
 });
 var oi = S(function (ii) {
-  Object.defineProperty(ii, "__esModule", { value: !0 });
+  Object.defineProperty(ii, "__esModule", { value: true });
   ii.revokeToken = lu;
   var cu = "https://oauth2.googleapis.com/revoke?token=",
-    uu = !0;
+    uu = true;
   async function lu(e, t) {
     let r = cu + e;
     return await t.request({ url: r, retry: uu });
   }
 });
 var ur = S(function (ui) {
-  Object.defineProperty(ui, "__esModule", { value: !0 });
+  Object.defineProperty(ui, "__esModule", { value: true });
   ui.GoogleToken = void 0;
   var hu = re(),
     ai = ni(),
@@ -4032,11 +4032,11 @@ var ur = S(function (ui) {
     isTokenExpiring() {
       return this.tokenHandler.isTokenExpiring();
     }
-    getToken(e, t = { forceRefresh: !1 }) {
+    getToken(e, t = { forceRefresh: false }) {
       let r;
       if (typeof e === "function") r = e;
       else if (typeof e === "object") t = e;
-      let s = this.tokenHandler.getToken(t.forceRefresh ?? !1);
+      let s = this.tokenHandler.getToken(t.forceRefresh ?? false);
       if (r) s.then((n) => r(null, n), r);
       return s;
     }
@@ -4053,7 +4053,7 @@ var ur = S(function (ui) {
   ui.GoogleToken = ci;
 });
 var dr = S(function (hi) {
-  Object.defineProperty(hi, "__esModule", { value: !0 });
+  Object.defineProperty(hi, "__esModule", { value: true });
   hi.JWTAccess = void 0;
   var pu = oMe(),
     gu = we(),
@@ -4136,7 +4136,7 @@ var dr = S(function (hi) {
   hi.JWTAccess = lr;
 });
 var fr = S(function (gi) {
-  Object.defineProperty(gi, "__esModule", { value: !0 });
+  Object.defineProperty(gi, "__esModule", { value: true });
   gi.JWT = void 0;
   var pi = ur(),
     yu = cr(),
@@ -4209,17 +4209,17 @@ var fr = S(function (gi) {
         additionalClaims: { target_audience: e },
         transporter: this.transporter,
       });
-      if ((await t.getToken({ forceRefresh: !0 }), !t.idToken)) throw Error("Unknown error: Failed to fetch ID token");
+      if ((await t.getToken({ forceRefresh: true }), !t.idToken)) throw Error("Unknown error: Failed to fetch ID token");
       return t.idToken;
     }
     hasUserScopes() {
-      if (!this.scopes) return !1;
+      if (!this.scopes) return false;
       return this.scopes.length > 0;
     }
     hasAnyScopes() {
-      if (this.scopes && this.scopes.length > 0) return !0;
-      if (this.defaultScopes && this.defaultScopes.length > 0) return !0;
-      return !1;
+      if (this.scopes && this.scopes.length > 0) return true;
+      if (this.defaultScopes && this.defaultScopes.length > 0) return true;
+      return false;
     }
     authorize(e) {
       if (e) this.authorizeAsync().then((t) => e(null, t), e);
@@ -4308,7 +4308,7 @@ var fr = S(function (gi) {
   gi.JWT = hr;
 });
 var pr = S(function (_i) {
-  Object.defineProperty(_i, "__esModule", { value: !0 });
+  Object.defineProperty(_i, "__esModule", { value: true });
   _i.UserRefreshClient = _i.USER_REFRESH_ACCOUNT_TYPE = void 0;
   var Eu = qe(),
     wu = fe();
@@ -4385,7 +4385,7 @@ var pr = S(function (_i) {
   _i.UserRefreshClient = Et;
 });
 var gr = S(function (wi) {
-  Object.defineProperty(wi, "__esModule", { value: !0 });
+  Object.defineProperty(wi, "__esModule", { value: true });
   wi.Impersonated = wi.IMPERSONATED_ACCOUNT_TYPE = void 0;
   var Ei = qe(),
     Tu = re(),
@@ -4456,8 +4456,8 @@ var gr = S(function (wi) {
         n = {
           delegates: this.delegates,
           audience: e,
-          includeEmail: t?.includeEmail ?? !0,
-          useEmailAzp: t?.includeEmail ?? !0,
+          includeEmail: t?.includeEmail ?? true,
+          useEmailAzp: t?.includeEmail ?? true,
         };
       return (await this.sourceClient.request({ ...st.RETRY_CONFIG, url: s, data: n, method: "POST" })).data.token;
     }
@@ -4465,7 +4465,7 @@ var gr = S(function (wi) {
   wi.Impersonated = st;
 });
 var yr = S(function (Ci) {
-  Object.defineProperty(Ci, "__esModule", { value: !0 });
+  Object.defineProperty(Ci, "__esModule", { value: true });
   Ci.OAuthClientAuthHandler = void 0;
   Ci.getErrorFromOAuthErrorResponse = vu;
   var $e = re(),
@@ -4512,7 +4512,7 @@ var yr = S(function (Ci) {
       }
     }
     static get RETRY_CONFIG() {
-      return { retry: !0, retryConfig: { httpMethodsToRetry: ["GET", "PUT", "POST", "HEAD", "OPTIONS", "DELETE"] } };
+      return { retry: true, retryConfig: { httpMethodsToRetry: ["GET", "PUT", "POST", "HEAD", "OPTIONS", "DELETE"] } };
     }
   }
   Ci.OAuthClientAuthHandler = Ti;
@@ -4526,14 +4526,14 @@ var yr = S(function (Ci) {
       let y = Object.keys(t);
       if (t.stack) y.push("stack");
       y.forEach((E) => {
-        if (E !== "message") Object.defineProperty(p, E, { value: t[E], writable: !1, enumerable: !0 });
+        if (E !== "message") Object.defineProperty(p, E, { value: t[E], writable: false, enumerable: true });
       });
     }
     return p;
   }
 });
 var wt = S(function (Oi) {
-  Object.defineProperty(Oi, "__esModule", { value: !0 });
+  Object.defineProperty(Oi, "__esModule", { value: true });
   Oi.StsCredentials = void 0;
   var xu = re(),
     bu = fe(),
@@ -4581,7 +4581,7 @@ var wt = S(function (Oi) {
   Oi.StsCredentials = _r;
 });
 var Ne = S(function (xi) {
-  Object.defineProperty(xi, "__esModule", { value: !0 });
+  Object.defineProperty(xi, "__esModule", { value: true });
   xi.BaseExternalAccountClient =
     xi.CLOUD_RESOURCE_MANAGER =
     xi.EXTERNAL_ACCOUNT_TYPE =
@@ -4657,8 +4657,8 @@ var Ne = S(function (xi) {
         (this.serviceAccountImpersonationLifetime = O),
         this.serviceAccountImpersonationLifetime)
       )
-        this.configLifetimeRequested = !0;
-      else (this.configLifetimeRequested = !1), (this.serviceAccountImpersonationLifetime = Mu);
+        this.configLifetimeRequested = true;
+      else (this.configLifetimeRequested = false), (this.serviceAccountImpersonationLifetime = Mu);
       (this.projectNumber = this.getProjectNumber(this.audience)),
         (this.supplierContext = {
           audience: this.audience,
@@ -4714,7 +4714,7 @@ var Ne = S(function (xi) {
       }
       return null;
     }
-    async requestAsync(e, t = !1) {
+    async requestAsync(e, t = false) {
       let r;
       try {
         let s = await this.getRequestHeaders();
@@ -4727,7 +4727,7 @@ var Ne = S(function (xi) {
           let c = n.status,
             p = n.config.data instanceof Iu.Readable;
           if (!t && (c === 401 || c === 403) && !p && this.forceRefreshOnFailure)
-            return await this.refreshAccessTokenAsync(), await this.requestAsync(e, !0);
+            return await this.refreshAccessTokenAsync(), await this.requestAsync(e, true);
         }
         throw s;
       }
@@ -4798,7 +4798,7 @@ var Ne = S(function (xi) {
     }
     isExpired(e) {
       let t = new Date().getTime();
-      return e.expiry_date ? t >= e.expiry_date - this.eagerRefreshThresholdMillis : !1;
+      return e.expiry_date ? t >= e.expiry_date - this.eagerRefreshThresholdMillis : false;
     }
     getScopesArray() {
       if (typeof this.scopes === "string") return [this.scopes];
@@ -4817,7 +4817,7 @@ var Ne = S(function (xi) {
   xi.BaseExternalAccountClient = At;
 });
 var Ui = S(function (Pi) {
-  Object.defineProperty(Pi, "__esModule", { value: !0 });
+  Object.defineProperty(Pi, "__esModule", { value: true });
   Pi.FileSubjectTokenSupplier = void 0;
   var Ar = ue("util"),
     Tr = ue("fs"),
@@ -4852,7 +4852,7 @@ var Ui = S(function (Pi) {
   Pi.FileSubjectTokenSupplier = Ni;
 });
 var Mi = S(function (Di) {
-  Object.defineProperty(Di, "__esModule", { value: !0 });
+  Object.defineProperty(Di, "__esModule", { value: true });
   Di.UrlSubjectTokenSupplier = void 0;
   var Ku = fe();
   class ji {
@@ -4888,7 +4888,7 @@ var Mi = S(function (Di) {
   Di.UrlSubjectTokenSupplier = ji;
 });
 var Bi = S(function (Li) {
-  Object.defineProperty(Li, "__esModule", { value: !0 });
+  Object.defineProperty(Li, "__esModule", { value: true });
   Li.CertificateSubjectTokenSupplier =
     Li.InvalidConfigurationError =
     Li.CertificateSourceUnavailableError =
@@ -5026,7 +5026,7 @@ var Bi = S(function (Li) {
   Li.CertificateSubjectTokenSupplier = Fi;
 });
 var Sr = S(function (Ji) {
-  Object.defineProperty(Ji, "__esModule", { value: !0 });
+  Object.defineProperty(Ji, "__esModule", { value: true });
   Ji.IdentityPoolClient = void 0;
   var Xu = Ne(),
     Cr = we(),
@@ -5103,7 +5103,7 @@ var Sr = S(function (Ji) {
   Ji.IdentityPoolClient = kr;
 });
 var Or = S(function (Xi) {
-  Object.defineProperty(Xi, "__esModule", { value: !0 });
+  Object.defineProperty(Xi, "__esModule", { value: true });
   Xi.AwsRequestSigner = void 0;
   var Ot = re(),
     Vi = et(),
@@ -5202,7 +5202,7 @@ ${Y}
   }
 });
 var to = S(function (Zi) {
-  Object.defineProperty(Zi, "__esModule", { value: !0 });
+  Object.defineProperty(Zi, "__esModule", { value: true });
   Zi.DefaultAwsSecurityCredentialsSupplier = void 0;
   var vt = fe();
   class Qi {
@@ -5282,7 +5282,7 @@ var to = S(function (Zi) {
   Zi.DefaultAwsSecurityCredentialsSupplier = Qi;
 });
 var vr = S(function (so) {
-  Object.defineProperty(so, "__esModule", { value: !0 });
+  Object.defineProperty(so, "__esModule", { value: true });
   so.AwsClient = void 0;
   var sl = Or(),
     nl = Ne(),
@@ -5355,7 +5355,7 @@ var vr = S(function (so) {
   so.AwsClient = Rt;
 });
 var jr = S(function (ao) {
-  Object.defineProperty(ao, "__esModule", { value: !0 });
+  Object.defineProperty(ao, "__esModule", { value: true });
   ao.InvalidSubjectTokenError =
     ao.InvalidMessageFieldError =
     ao.InvalidCodeFieldError =
@@ -5435,7 +5435,7 @@ var jr = S(function (ao) {
   ao.InvalidSubjectTokenError = bt;
 });
 var Fr = S(function (uo) {
-  Object.defineProperty(uo, "__esModule", { value: !0 });
+  Object.defineProperty(uo, "__esModule", { value: true });
   uo.PluggableAuthHandler = uo.ExecutableError = void 0;
   var Me = jr(),
     gl = ue("child_process"),
@@ -5524,14 +5524,14 @@ var Fr = S(function (uo) {
   uo.PluggableAuthHandler = Mr;
 });
 var Gr = S(function (Lr) {
-  Object.defineProperty(Lr, "__esModule", { value: !0 });
+  Object.defineProperty(Lr, "__esModule", { value: true });
   Lr.PluggableAuthClient = Lr.ExecutableError = void 0;
   var _l = Ne(),
     ml = jr(),
     ho = Fr(),
     El = Fr();
   Object.defineProperty(Lr, "ExecutableError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return El.ExecutableError;
     },
@@ -5601,7 +5601,7 @@ var Gr = S(function (Lr) {
   Lr.PluggableAuthClient = yo;
 });
 var Br = S(function (Eo) {
-  Object.defineProperty(Eo, "__esModule", { value: !0 });
+  Object.defineProperty(Eo, "__esModule", { value: true });
   Eo.ExternalAccountClient = void 0;
   var Tl = Ne(),
     Cl = Sr(),
@@ -5624,7 +5624,7 @@ var Br = S(function (Eo) {
   Eo.ExternalAccountClient = mo;
 });
 var $r = S(function (So) {
-  Object.defineProperty(So, "__esModule", { value: !0 });
+  Object.defineProperty(So, "__esModule", { value: true });
   So.ExternalAccountAuthorizedUserClient = So.EXTERNAL_ACCOUNT_AUTHORIZED_USER_TYPE = void 0;
   var To = fe(),
     Ao = yr(),
@@ -5699,7 +5699,7 @@ var $r = S(function (So) {
         );
       else return this.requestAsync(e);
     }
-    async requestAsync(e, t = !1) {
+    async requestAsync(e, t = false) {
       let r;
       try {
         let s = await this.getRequestHeaders();
@@ -5712,7 +5712,7 @@ var $r = S(function (So) {
           let c = n.status,
             p = n.config.data instanceof Ol.Readable;
           if (!t && (c === 401 || c === 403) && !p && this.forceRefreshOnFailure)
-            return await this.refreshAccessTokenAsync(), await this.requestAsync(e, !0);
+            return await this.refreshAccessTokenAsync(), await this.requestAsync(e, true);
         }
         throw s;
       }
@@ -5733,13 +5733,13 @@ var $r = S(function (So) {
     }
     isExpired(e) {
       let t = new Date().getTime();
-      return e.expiry_date ? t >= e.expiry_date - this.eagerRefreshThresholdMillis : !1;
+      return e.expiry_date ? t >= e.expiry_date - this.eagerRefreshThresholdMillis : false;
     }
   }
   So.ExternalAccountAuthorizedUserClient = ko;
 });
 var Io = S(function (No) {
-  Object.defineProperty(No, "__esModule", { value: !0 });
+  Object.defineProperty(No, "__esModule", { value: true });
   No.GoogleAuth = No.GoogleAuthExceptionMessages = void 0;
   var bl = ue("child_process"),
     it = ue("fs"),
@@ -6004,9 +6004,9 @@ https://cloud.google.com/compute/docs/metadata/predefined-metadata-keys`,
     _isWindows() {
       let e = Pl.platform();
       if (e && e.length >= 3) {
-        if (e.substring(0, 3).toLowerCase() === "win") return !0;
+        if (e.substring(0, 3).toLowerCase() === "win") return true;
       }
-      return !1;
+      return false;
     }
     async getDefaultServiceProjectId() {
       return new Promise((e) => {
@@ -6144,7 +6144,7 @@ https://cloud.google.com/compute/docs/metadata/predefined-metadata-keys`,
           method: "POST",
           url: n.href,
           data: { payload: e.encodeBase64StringUtf8(r) },
-          retry: !0,
+          retry: true,
           retryConfig: { httpMethodsToRetry: ["POST"] },
         })
       ).data.signedBlob;
@@ -6153,7 +6153,7 @@ https://cloud.google.com/compute/docs/metadata/predefined-metadata-keys`,
   No.GoogleAuth = bo;
 });
 var qo = S(function (jo) {
-  Object.defineProperty(jo, "__esModule", { value: !0 });
+  Object.defineProperty(jo, "__esModule", { value: true });
   jo.IAMAuth = void 0;
   class Uo {
     selector;
@@ -6168,7 +6168,7 @@ var qo = S(function (jo) {
   jo.IAMAuth = Uo;
 });
 var Go = S(function (Fo) {
-  Object.defineProperty(Fo, "__esModule", { value: !0 });
+  Object.defineProperty(Fo, "__esModule", { value: true });
   Fo.DownscopedClient = Fo.EXPIRATION_TIME_OFFSET = Fo.MAX_ACCESS_BOUNDARY_RULES_COUNT = void 0;
   var Ml = re(),
     Fl = ue("stream"),
@@ -6230,7 +6230,7 @@ var Go = S(function (Fo) {
         );
       else return this.requestAsync(e);
     }
-    async requestAsync(e, t = !1) {
+    async requestAsync(e, t = false) {
       let r;
       try {
         let s = await this.getRequestHeaders();
@@ -6243,7 +6243,7 @@ var Go = S(function (Fo) {
           let c = n.status,
             p = n.config.data instanceof Fl.Readable;
           if (!t && (c === 401 || c === 403) && !p && this.forceRefreshOnFailure)
-            return await this.refreshAccessTokenAsync(), await this.requestAsync(e, !0);
+            return await this.refreshAccessTokenAsync(), await this.requestAsync(e, true);
         }
         throw s;
       }
@@ -6272,13 +6272,13 @@ var Go = S(function (Fo) {
     }
     isExpired(e) {
       let t = new Date().getTime();
-      return e.expiry_date ? t >= e.expiry_date - this.eagerRefreshThresholdMillis : !1;
+      return e.expiry_date ? t >= e.expiry_date - this.eagerRefreshThresholdMillis : false;
     }
   }
   Fo.DownscopedClient = Mo;
 });
 var Jo = S(function (Ho) {
-  Object.defineProperty(Ho, "__esModule", { value: !0 });
+  Object.defineProperty(Ho, "__esModule", { value: true });
   Ho.PassThroughClient = void 0;
   var Jl = fe();
   class Bo extends Jl.AuthClient {
@@ -6303,7 +6303,7 @@ var iSt = S(function (k) {
             var n = Object.getOwnPropertyDescriptor(t, r);
             if (!n || ("get" in n ? !t.__esModule : n.writable || n.configurable))
               n = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -6319,7 +6319,7 @@ var iSt = S(function (k) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) Kl(t, e, r);
       };
-  Object.defineProperty(k, "__esModule", { value: !0 });
+  Object.defineProperty(k, "__esModule", { value: true });
   k.GoogleAuth =
     k.auth =
     k.PassThroughClient =
@@ -6352,7 +6352,7 @@ var iSt = S(function (k) {
       void 0;
   var Ko = Io();
   Object.defineProperty(k, "GoogleAuth", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ko.GoogleAuth;
     },
@@ -6361,170 +6361,170 @@ var iSt = S(function (k) {
   k.gaxios = re();
   var Wo = fe();
   Object.defineProperty(k, "AuthClient", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Wo.AuthClient;
     },
   });
   Object.defineProperty(k, "DEFAULT_UNIVERSE", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Wo.DEFAULT_UNIVERSE;
     },
   });
   var Vl = ir();
   Object.defineProperty(k, "Compute", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Vl.Compute;
     },
   });
   var Yl = ar();
   Object.defineProperty(k, "GCPEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Yl.GCPEnv;
     },
   });
   var Xl = qo();
   Object.defineProperty(k, "IAMAuth", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Xl.IAMAuth;
     },
   });
   var zl = or();
   Object.defineProperty(k, "IdTokenClient", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return zl.IdTokenClient;
     },
   });
   var Ql = dr();
   Object.defineProperty(k, "JWTAccess", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ql.JWTAccess;
     },
   });
   var Zl = fr();
   Object.defineProperty(k, "JWT", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Zl.JWT;
     },
   });
   var ed = gr();
   Object.defineProperty(k, "Impersonated", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ed.Impersonated;
     },
   });
   var Yr = qe();
   Object.defineProperty(k, "CodeChallengeMethod", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Yr.CodeChallengeMethod;
     },
   });
   Object.defineProperty(k, "OAuth2Client", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Yr.OAuth2Client;
     },
   });
   Object.defineProperty(k, "ClientAuthentication", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Yr.ClientAuthentication;
     },
   });
   var td = sr();
   Object.defineProperty(k, "LoginTicket", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return td.LoginTicket;
     },
   });
   var rd = pr();
   Object.defineProperty(k, "UserRefreshClient", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return rd.UserRefreshClient;
     },
   });
   var sd = vr();
   Object.defineProperty(k, "AwsClient", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return sd.AwsClient;
     },
   });
   var nd = Or();
   Object.defineProperty(k, "AwsRequestSigner", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return nd.AwsRequestSigner;
     },
   });
   var id = Sr();
   Object.defineProperty(k, "IdentityPoolClient", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return id.IdentityPoolClient;
     },
   });
   var od = Br();
   Object.defineProperty(k, "ExternalAccountClient", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return od.ExternalAccountClient;
     },
   });
   var ad = Ne();
   Object.defineProperty(k, "BaseExternalAccountClient", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ad.BaseExternalAccountClient;
     },
   });
   var cd = Go();
   Object.defineProperty(k, "DownscopedClient", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return cd.DownscopedClient;
     },
   });
   var Vo = Gr();
   Object.defineProperty(k, "PluggableAuthClient", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Vo.PluggableAuthClient;
     },
   });
   Object.defineProperty(k, "ExecutableError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Vo.ExecutableError;
     },
   });
   var Yo = $r();
   Object.defineProperty(k, "EXTERNAL_ACCOUNT_AUTHORIZED_USER_TYPE", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Yo.EXTERNAL_ACCOUNT_AUTHORIZED_USER_TYPE;
     },
   });
   Object.defineProperty(k, "ExternalAccountAuthorizedUserClient", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Yo.ExternalAccountAuthorizedUserClient;
     },
   });
   var ud = Jo();
   Object.defineProperty(k, "PassThroughClient", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ud.PassThroughClient;
     },

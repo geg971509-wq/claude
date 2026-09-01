@@ -393,15 +393,15 @@ var ms = [
 function Rt(al) {
   let Ne = _(14),
     { onSubmit: ls, defaultSelections: cs } = al,
-    [us, Mt] = u(!1),
+    [us, Mt] = u(false),
     Ir;
   if (Ne[0] !== ls)
     (Ir = (Or) => {
       if (Or.length === 0) {
-        Mt(!0);
+        Mt(true);
         return;
       }
-      Mt(!1), ls(Or);
+      Mt(false), ls(Or);
     }),
       (Ne[0] = ls),
       (Ne[1] = Ir);
@@ -410,7 +410,7 @@ function Rt(al) {
     Tr;
   if (Ne[2] === d)
     (Tr = () => {
-      Mt(!1);
+      Mt(false);
     }),
       (Ne[2] = Tr);
   else Tr = Ne[2];
@@ -418,7 +418,7 @@ function Rt(al) {
     Er;
   if (Ne[3] === d)
     (Er = () => {
-      Mt(!0);
+      Mt(true);
     }),
       (Ne[3] = Er);
   else Er = Ne[3];
@@ -427,7 +427,7 @@ function Rt(al) {
   if (Ne[4] === d)
     (Br = e(o, {
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [
           "More workflow examples (issue triage, CI fixes, etc.) at:",
           " ",
@@ -445,7 +445,7 @@ function Rt(al) {
   else Nr = Ne[5];
   let Jt;
   if (Ne[6] !== cs || Ne[7] !== ps)
-    (Jt = e($w, { options: Nr, defaultValue: cs, onSubmit: ps, onChange: ll, onCancel: Hr, hideIndexes: !0 })),
+    (Jt = e($w, { options: Nr, defaultValue: cs, onSubmit: ps, onChange: ll, onCancel: Hr, hideIndexes: true })),
       (Ne[6] = cs),
       (Ne[7] = ps),
       (Ne[8] = Jt);
@@ -634,7 +634,7 @@ function Pt(Cl) {
   if (oe[0] !== Ue || oe[1] !== ue || oe[2] !== Ge || oe[3] !== Me || oe[4] !== W)
     (Dr = () => {
       if (W === "new" && ue) Ge("oauth");
-      else if (W === "oauth" && Ue) Ge("existing"), Me(!0);
+      else if (W === "oauth" && Ue) Ge("existing"), Me(true);
     }),
       (oe[0] = Ue),
       (oe[1] = ue),
@@ -647,7 +647,7 @@ function Pt(Cl) {
     Ur;
   if (oe[6] !== ue || oe[7] !== Ge || oe[8] !== Me || oe[9] !== W)
     (Ur = () => {
-      if (W === "existing") Ge(ue ? "oauth" : "new"), Me(!1);
+      if (W === "existing") Ge(ue ? "oauth" : "new"), Me(false);
       else if (W === "oauth") Ge("new");
     }),
       (oe[6] = ue),
@@ -748,13 +748,13 @@ function Pt(Cl) {
         onChange: Qt,
         onSubmit: je,
         onPaste: Qt,
-        focus: !0,
+        focus: true,
         placeholder: "sk-ant\u2026 (Create a new key at https://platform.claude.com/settings/keys)",
         mask: "*",
         columns: ys.columns,
         cursorOffset: bs,
         onChangeCursorOffset: xl,
-        showCursor: !0,
+        showCursor: true,
       })),
       (oe[40] = _s),
       (oe[41] = bs),
@@ -778,7 +778,7 @@ function Pt(Cl) {
     (jr = e(o, {
       marginLeft: 3,
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: r(fe, {
           children: [e(M, { chord: ["up", "down"], action: "select" }), e(M, { chord: "enter", action: "continue" })],
         }),
@@ -799,11 +799,11 @@ function St(Gl) {
     Ps = Ee(),
     [ot] = mn(),
     Jr;
-  if (ee[0] !== Qe) (Jr = () => Qe(!0)), (ee[0] = Qe), (ee[1] = Jr);
+  if (ee[0] !== Qe) (Jr = () => Qe(true)), (ee[0] = Qe), (ee[1] = Jr);
   else Jr = ee[1];
   let st = Jr,
     Zr;
-  if (ee[2] !== Qe) (Zr = () => Qe(!1)), (ee[2] = Qe), (ee[3] = Zr);
+  if (ee[2] !== Qe) (Zr = () => Qe(false)), (ee[2] = Qe), (ee[3] = Zr);
   else Zr = ee[3];
   let rt = Zr,
     Qr;
@@ -880,12 +880,12 @@ function St(Gl) {
             value: xs,
             onChange: As,
             onSubmit: et,
-            focus: !0,
+            focus: true,
             placeholder: "e.g., CLAUDE_API_KEY",
             columns: Ps.columns,
             cursorOffset: Rs,
             onChangeCursorOffset: Wl,
-            showCursor: !0,
+            showCursor: true,
           }),
         ],
       })),
@@ -910,7 +910,7 @@ function St(Gl) {
     (ni = e(o, {
       marginLeft: 3,
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: r(fe, {
           children: [e(M, { chord: ["up", "down"], action: "select" }), e(M, { chord: "enter", action: "continue" })],
         }),
@@ -943,13 +943,13 @@ function Ot(rc) {
       onToggleUseCurrentRepo: nt,
     } = rc,
     [Ts, ic] = u(0),
-    [Es, fo] = u(!1),
+    [Es, fo] = u(false),
     Hs = Ee().columns,
     ci;
   if (te[0] !== J || te[1] !== Os || te[2] !== it || te[3] !== ne)
     (ci = () => {
       if (!(ne ? J : it)?.trim()) {
-        fo(!0);
+        fo(true);
         return;
       }
       Os();
@@ -965,7 +965,7 @@ function Ot(rc) {
     ui;
   if (te[5] !== nt)
     (ui = () => {
-      nt(!0), fo(!1);
+      nt(true), fo(false);
     }),
       (te[5] = nt),
       (te[6] = ui);
@@ -974,7 +974,7 @@ function Ot(rc) {
     pi;
   if (te[7] !== nt)
     (pi = () => {
-      nt(!1), fo(!1);
+      nt(false), fo(false);
     }),
       (te[7] = nt),
       (te[8] = pi);
@@ -1056,15 +1056,15 @@ function Ot(rc) {
         children: e(xn, {
           value: it,
           onChange: (nc) => {
-            Is(nc), fo(!1);
+            Is(nc), fo(false);
           },
           onSubmit: at,
-          focus: !0,
+          focus: true,
           placeholder: "Enter a repo as owner/repo or https://github.com/owner/repo\u2026",
           columns: Hs,
           cursorOffset: Ts,
           onChangeCursorOffset: ic,
-          showCursor: !0,
+          showCursor: true,
         }),
       })),
       (te[29] = J),
@@ -1104,7 +1104,7 @@ function Ot(rc) {
   else _i = te[45];
   let Co;
   if (te[46] !== ko)
-    (Co = e(o, { marginLeft: 3, children: e(t, { dimColor: !0, children: r(fe, { children: [ko, _i] }) }) })),
+    (Co = e(o, { marginLeft: 3, children: e(t, { dimColor: true, children: r(fe, { children: [ko, _i] }) }) })),
       (te[46] = ko),
       (te[47] = Co);
   else Co = te[47];
@@ -1124,7 +1124,7 @@ function Tt(fc) {
       skipWorkflow: yi,
       selectedWorkflows: Ks,
     } = fc,
-    Ds = yi === void 0 ? !1 : yi,
+    Ds = yi === void 0 ? false : yi,
     ki;
   if (Ls[0] !== Ao || Ls[1] !== Ro || Ls[2] !== Ks || Ls[3] !== Ds || Ls[4] !== vo)
     (ki = Ds
@@ -1196,7 +1196,7 @@ function Et(vc) {
   else Io = We[2];
   let Oo;
   if (We[3] !== Po)
-    (Oo = Po && e(o, { marginTop: 1, children: r(t, { dimColor: !0, children: ["Reason: ", Po] }) })),
+    (Oo = Po && e(o, { marginTop: 1, children: r(t, { dimColor: true, children: ["Reason: ", Po] }) })),
       (We[3] = Po),
       (We[4] = Oo);
   else Oo = We[4];
@@ -1208,7 +1208,7 @@ function Et(vc) {
         flexDirection: "column",
         marginTop: 1,
         children: [
-          e(t, { dimColor: !0, children: "How to fix:" }),
+          e(t, { dimColor: true, children: "How to fix:" }),
           e(o, { flexDirection: "column", marginLeft: 2, children: So.map(Si) }),
         ],
       })),
@@ -1220,7 +1220,7 @@ function Et(vc) {
     (vi = e(o, {
       marginTop: 1,
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: ["For manual setup instructions, see:", " ", e(t, { color: "claude", children: Q })],
       }),
     })),
@@ -1232,7 +1232,7 @@ function Et(vc) {
   else Eo = We[11];
   let Ri;
   if (We[12] === d)
-    (Ri = e(o, { marginLeft: 3, children: e(t, { dimColor: !0, children: "Press any key to exit" }) })), (We[12] = Ri);
+    (Ri = e(o, { marginLeft: 3, children: e(t, { dimColor: true, children: "Press any key to exit" }) })), (We[12] = Ri);
   else Ri = We[12];
   let Pi;
   if (We[13] !== Eo) (Pi = r(U, { children: [Eo, Ri] })), (We[13] = Eo), (We[14] = Pi);
@@ -1290,7 +1290,7 @@ function Ht($c) {
             e(t, { color: "claude", children: ".github/workflows/claude.yml" }),
           ],
         }),
-        e(t, { dimColor: !0, children: "What would you like to do?" }),
+        e(t, { dimColor: true, children: "What would you like to do?" }),
       ],
     })),
       (Ke[7] = Ei);
@@ -1307,7 +1307,7 @@ function Ht($c) {
     (Bi = e(o, {
       marginTop: 1,
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [
           "View the latest workflow template at:",
           " ",
@@ -1325,7 +1325,7 @@ function Ht($c) {
     (Ni = r(o, {
       flexDirection: "column",
       borderStyle: "round",
-      borderDimColor: !0,
+      borderDimColor: true,
       paddingX: 1,
       children: [Ho, Ei, Bo, Bi],
     })),
@@ -1347,7 +1347,7 @@ function Bt(jc) {
     (Gi = e(o, {
       flexDirection: "column",
       marginBottom: 1,
-      children: e(t, { bold: !0, children: "Install the Claude GitHub App" }),
+      children: e(t, { bold: true, children: "Install the Claude GitHub App" }),
     })),
       (xe[1] = Gi);
   else Gi = xe[1];
@@ -1369,14 +1369,14 @@ function Bt(jc) {
   else Ki = xe[3];
   let Di;
   if (xe[4] === d)
-    (Di = e(o, { marginBottom: 1, children: e(t, { underline: !0, children: "https://github.com/apps/claude" }) })),
+    (Di = e(o, { marginBottom: 1, children: e(t, { underline: true, children: "https://github.com/apps/claude" }) })),
       (xe[4] = Di);
   else Di = xe[4];
   let No;
   if (xe[5] !== Xs)
     (No = e(o, {
       marginBottom: 1,
-      children: r(t, { children: ["Please install the app for repository: ", e(t, { bold: !0, children: Xs })] }),
+      children: r(t, { children: ["Please install the app for repository: ", e(t, { bold: true, children: Xs })] }),
     })),
       (xe[5] = Xs),
       (xe[6] = No);
@@ -1385,7 +1385,7 @@ function Bt(jc) {
   if (xe[7] === d)
     (Li = e(o, {
       marginBottom: 1,
-      children: e(t, { dimColor: !0, children: "Important: Make sure to grant access to this specific repository" }),
+      children: e(t, { dimColor: true, children: "Important: Make sure to grant access to this specific repository" }),
     })),
       (xe[7] = Li);
   else Li = xe[7];
@@ -1393,7 +1393,7 @@ function Bt(jc) {
   if (xe[8] === d)
     (Ui = e(o, {
       children: r(t, {
-        bold: !0,
+        bold: true,
         color: "permission",
         children: ["Press Enter once you've installed the app", L.ellipsis],
       }),
@@ -1405,7 +1405,7 @@ function Bt(jc) {
     (Fi = e(o, {
       marginTop: 1,
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: ["Having trouble? See manual setup instructions at:", " ", e(t, { color: "claude", children: Q })],
       }),
     })),
@@ -1416,7 +1416,7 @@ function Bt(jc) {
     (qi = r(o, {
       flexDirection: "column",
       borderStyle: "round",
-      borderDimColor: !0,
+      borderDimColor: true,
       paddingX: 1,
       children: [Gi, Wi, Ki, Di, No, Li, Ui, Fi],
     })),
@@ -1446,7 +1446,7 @@ function Dt(_u) {
     [ve] = u(hn),
     [Oe, $o] = u(""),
     [Js, Zs] = u(0),
-    [be, Go] = u(!1),
+    [be, Go] = u(false),
     { copiedVia: Wo, copy: ft, reset: Qs } = Yj(x.state === "waiting_for_login" ? x.url : null),
     Nt = xt(),
     Vi;
@@ -1502,7 +1502,7 @@ function Dt(_u) {
   if (ae[8] !== Nt || ae[9] !== ve || ae[10] !== js || ae[11] !== Qs)
     (Ko = async () => {
       gt.current.forEach(gn), gt.current.clear();
-      let tn = Lre(!0);
+      let tn = Lre(true);
       if (!tn.valid) {
         Ie({
           state: "error",
@@ -1513,10 +1513,10 @@ function Dt(_u) {
       try {
         let on = await ve.startOAuthFlow(
           async (yu) => {
-            if ((Qs(), Go(!1), Ie({ state: "waiting_for_login", url: yu }), xL())) Go(!0);
-            else gt.current.add(Nt.setTimeout(() => Go(!0), 3000));
+            if ((Qs(), Go(false), Ie({ state: "waiting_for_login", url: yu }), xL())) Go(true);
+            else gt.current.add(Nt.setTimeout(() => Go(true), 3000));
           },
-          { loginWithClaudeAi: !0, inferenceOnly: !0, expiresIn: hU },
+          { loginWithClaudeAi: true, inferenceOnly: true, expiresIn: hU },
         );
         Ie({ state: "processing" }),
           gt.current.add(
@@ -1603,8 +1603,8 @@ function Dt(_u) {
         gap: 1,
         paddingBottom: 1,
         children: [
-          e(t, { bold: !0, children: "Create Authentication Token" }),
-          e(t, { dimColor: !0, children: "Creating a long-lived token for GitHub Actions" }),
+          e(t, { bold: true, children: "Create Authentication Token" }),
+          e(t, { dimColor: true, children: "Creating a long-lived token for GitHub Actions" }),
         ],
       })),
       (ae[34] = x.state),
@@ -1623,8 +1623,8 @@ function Dt(_u) {
           gap: 1,
           paddingBottom: 1,
           children: [
-            e(t, { bold: !0, children: "Create Authentication Token" }),
-            e(t, { dimColor: !0, children: "Creating a long-lived token for GitHub Actions" }),
+            e(t, { bold: true, children: "Create Authentication Token" }),
+            e(t, { dimColor: true, children: "Creating a long-lived token for GitHub Actions" }),
           ],
         },
         "header",
@@ -1650,14 +1650,14 @@ function Dt(_u) {
               children: [
                 r(o, {
                   children: [
-                    r(t, { dimColor: !0, children: ["Browser didn't open? Use the url below to sign in", " "] }),
+                    r(t, { dimColor: true, children: ["Browser didn't open? Use the url below to sign in", " "] }),
                     e(cL, { via: Wo }),
                   ],
                 }),
                 e(uL, { via: Wo }),
               ],
             }),
-            e(ut, { url: x.url, assumeSupport: !0, children: e(t, { dimColor: !0, children: x.url }) }),
+            e(ut, { url: x.url, assumeSupport: true, children: e(t, { dimColor: true, children: x.url }) }),
           ],
         },
         "urlToCopy",
@@ -1787,7 +1787,7 @@ function zo(xu) {
           gap: 1,
           children: [
             e(t, { color: "success", children: "\u2713 Authentication token created successfully!" }),
-            e(t, { dimColor: !0, children: "Using token for GitHub Actions setup\u2026" }),
+            e(t, { dimColor: true, children: "Using token for GitHub Actions setup\u2026" }),
           ],
         })),
           (Pe[16] = Y);
@@ -1802,8 +1802,8 @@ function zo(xu) {
       let Te;
       if (Pe[19] !== Re.toRetry)
         (Te = Re.toRetry
-          ? e(t, { dimColor: !0, children: "Press Enter to try again, or any other key to cancel" })
-          : e(t, { dimColor: !0, children: "Press any key to return to API key selection" })),
+          ? e(t, { dimColor: true, children: "Press Enter to try again, or any other key to cancel" })
+          : e(t, { dimColor: true, children: "Press any key to return to API key selection" })),
           (Pe[19] = Re.toRetry),
           (Pe[20] = Te);
       else Te = Pe[20];
@@ -1876,7 +1876,7 @@ function Ut(Eu) {
     (Cn = r(o, {
       flexDirection: "column",
       borderStyle: "round",
-      borderDimColor: !0,
+      borderDimColor: true,
       paddingX: 1,
       children: [
         yn,
@@ -1893,8 +1893,8 @@ function Ut(Eu) {
 function qt(Fu) {
   let we = _(25),
     { secretExists: _t, useExistingSecret: bt, secretName: pr, skipWorkflow: An, appOnlyInstall: vn } = Fu,
-    yt = An === void 0 ? !1 : An;
-  if (vn === void 0 ? !1 : vn) {
+    yt = An === void 0 ? false : An;
+  if (vn === void 0 ? false : vn) {
     let Ft;
     if (we[0] === d)
       (Ft = e(o, { marginBottom: 1, children: e(Pc, { subtitle: "Success", children: "Install GitHub App" }) })),
@@ -1904,7 +1904,7 @@ function qt(Fu) {
     if (we[1] === d)
       (Fe = r(t, {
         color: "success",
-        children: [e(tt, { status: "success", withSpace: !0 }), "GitHub App installed"],
+        children: [e(tt, { status: "success", withSpace: true }), "GitHub App installed"],
       })),
         (we[1] = Fe);
     else Fe = we[1];
@@ -1925,7 +1925,7 @@ function qt(Fu) {
     let Ye;
     if (we[3] === d)
       (Ye = r(U, {
-        children: [qe, e(o, { marginLeft: 3, children: e(t, { dimColor: !0, children: "Press any key to exit" }) })],
+        children: [qe, e(o, { marginLeft: 3, children: e(t, { dimColor: true, children: "Press any key to exit" }) })],
       })),
         (we[3] = Ye);
     else Ye = we[3];
@@ -1942,7 +1942,7 @@ function qt(Fu) {
       !yt &&
       r(t, {
         color: "success",
-        children: [e(tt, { status: "success", withSpace: !0 }), "GitHub Actions workflow created!"],
+        children: [e(tt, { status: "success", withSpace: true }), "GitHub Actions workflow created!"],
       })),
       (we[5] = yt),
       (we[6] = Fe);
@@ -1956,7 +1956,7 @@ function qt(Fu) {
         marginTop: 1,
         children: r(t, {
           color: "success",
-          children: [e(tt, { status: "success", withSpace: !0 }), "Using existing ANTHROPIC_API_KEY secret"],
+          children: [e(tt, { status: "success", withSpace: true }), "Using existing ANTHROPIC_API_KEY secret"],
         }),
       })),
       (we[7] = _t),
@@ -1971,7 +1971,7 @@ function qt(Fu) {
         marginTop: 1,
         children: r(t, {
           color: "success",
-          children: [e(tt, { status: "success", withSpace: !0 }), "API key saved as ", pr, " secret"],
+          children: [e(tt, { status: "success", withSpace: true }), "API key saved as ", pr, " secret"],
         }),
       })),
       (we[10] = _t),
@@ -2013,7 +2013,7 @@ function qt(Fu) {
   else jo = we[21];
   let Pn;
   if (we[22] === d)
-    (Pn = e(o, { marginLeft: 3, children: e(t, { dimColor: !0, children: "Press any key to exit" }) })), (we[22] = Pn);
+    (Pn = e(o, { marginLeft: 3, children: e(t, { dimColor: true, children: "Press any key to exit" }) })), (we[22] = Pn);
   else Pn = we[22];
   let Sn;
   if (we[23] !== jo) (Sn = r(U, { children: [jo, Pn] })), (we[23] = jo), (we[24] = Sn);
@@ -2084,7 +2084,7 @@ Need help? Common issues:
     throw Error(`Failed to create workflow file ${p}: ${N.stderr}${re}`);
   }
 }
-async function Mo(g, y, p, a, m = !1, P, O, R, H) {
+async function Mo(g, y, p, a, m = false, P, O, R, H) {
   try {
     s("tengu_setup_github_actions_started", {
       skip_workflow: m,
@@ -2194,7 +2194,7 @@ Need help? Common issues:
   }
 }
 function Gn(mp, dp) {
-  return e(zc, { children: e(t, { dimColor: !0, children: mp }) }, dp);
+  return e(zc, { children: e(t, { dimColor: true, children: mp }) }, dp);
 }
 function $n(Zo, fp) {
   return r(
@@ -2203,7 +2203,7 @@ function $n(Zo, fp) {
       flexDirection: "column",
       marginBottom: 1,
       children: [
-        e(t, { color: "warning", bold: !0, children: Zo.title }),
+        e(t, { color: "warning", bold: true, children: Zo.title }),
         e(t, { children: Zo.message }),
         Zo.instructions.length > 0 &&
           e(o, { flexDirection: "column", marginLeft: 2, marginTop: 1, children: Zo.instructions.map(Gn) }),
@@ -2225,8 +2225,8 @@ function Yt(up) {
       flexDirection: "column",
       marginBottom: 1,
       children: [
-        r(t, { bold: !0, children: [L.warning, " Setup Warnings"] }),
-        e(t, { dimColor: !0, children: "We found some potential issues, but you can continue anyway" }),
+        r(t, { bold: true, children: [L.warning, " Setup Warnings"] }),
+        e(t, { dimColor: true, children: "We found some potential issues, but you can continue anyway" }),
       ],
     })),
       (Ve[1] = Tn);
@@ -2242,7 +2242,7 @@ function Yt(up) {
     (Hn = e(o, {
       marginTop: 1,
       children: r(t, {
-        bold: !0,
+        bold: true,
         color: "permission",
         children: [
           "Press",
@@ -2261,7 +2261,7 @@ function Yt(up) {
     (Bn = e(o, {
       marginTop: 1,
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: ["You can also try the manual setup steps if needed:", " ", e(t, { color: "claude", children: Q })],
       }),
     })),
@@ -2309,7 +2309,7 @@ function $a(Dm) {
   return /^ANTHROPIC_API_KEY\s+/.test(Dm);
 }
 function Ga(Lm) {
-  return { ...Lm, secretExists: !0, step: "check-existing-secret" };
+  return { ...Lm, secretExists: true, step: "check-existing-secret" };
 }
 function Wa(Um) {
   return { ...Um, step: "api-key" };
@@ -2330,7 +2330,7 @@ function Fa(zm) {
   return /^ANTHROPIC_API_KEY\s+/.test(zm);
 }
 function qa(Xm) {
-  return { ...Xm, secretExists: !0, step: "check-existing-secret" };
+  return { ...Xm, secretExists: true, step: "check-existing-secret" };
 }
 function Ya(jm) {
   return { ...jm, ...zt };
@@ -2342,7 +2342,7 @@ function za(Jm) {
   return { ...Jm, step: "api-key" };
 }
 function Xa(Zm) {
-  return { ...Zm, step: "success", appOnlyInstall: !0 };
+  return { ...Zm, step: "success", appOnlyInstall: true };
 }
 function ja(Qm) {
   return { ...Qm, step: "check-existing-workflow" };
@@ -2360,16 +2360,16 @@ var Pr = {
     step: "check-gh",
     selectedRepoName: "",
     currentRepo: "",
-    useCurrentRepo: !1,
+    useCurrentRepo: false,
     apiKeyOrOAuthToken: "",
-    useExistingKey: !0,
+    useExistingKey: true,
     currentWorkflowInstallStep: 0,
     errorInstructions: [],
     warnings: [],
-    secretExists: !1,
+    secretExists: false,
     secretName: "ANTHROPIC_API_KEY",
-    useExistingSecret: !0,
-    workflowExists: !1,
+    useExistingSecret: true,
+    workflowExists: false,
     selectedWorkflows: ["claude", "claude-review"],
     selectedApiKeyOption: "new",
     authType: "api_key",
@@ -2410,7 +2410,7 @@ function Sr(ye) {
   if (S[8] === d)
     (Un = async () => {
       let es = [];
-      if ((await Qh("gh --version", { reject: !1 })).exitCode !== 0)
+      if ((await Qh("gh --version", { reject: false })).exitCode !== 0)
         es.push({
           title: "GitHub CLI not found",
           message: "GitHub CLI (gh) does not appear to be installed or accessible.",
@@ -2421,7 +2421,7 @@ function Sr(ye) {
             "Linux: See installation instructions at https://github.com/cli/cli#installation",
           ],
         });
-      let Fn = await Qh("gh auth status -a", { reject: !1 });
+      let Fn = await Qh("gh auth status -a", { reject: false });
       if (Fn.exitCode !== 0)
         es.push({
           title: "GitHub CLI not authenticated",
@@ -2561,11 +2561,11 @@ function Sr(ye) {
           return { hasAccess: ss.stdout.trim() === "true" };
         }
         if (ss.stderr.includes("404") || ss.stderr.includes("Not Found")) {
-          return { hasAccess: !1, error: "repository_not_found" };
+          return { hasAccess: false, error: "repository_not_found" };
         }
-        return { hasAccess: !1 };
+        return { hasAccess: false };
       } catch {
-        return { hasAccess: !1 };
+        return { hasAccess: false };
       }
     }),
       (S[22] = Qn);
@@ -2591,9 +2591,9 @@ function Sr(ye) {
             .some($a)
         )
           T(Ga);
-        else if (q) T((rm) => ({ ...rm, apiKeyOrOAuthToken: q, useExistingKey: !0 })), await _e(q, i.secretName);
+        else if (q) T((rm) => ({ ...rm, apiKeyOrOAuthToken: q, useExistingKey: true })), await _e(q, i.secretName);
         else T(Wa);
-      } else if (q) T((im) => ({ ...im, apiKeyOrOAuthToken: q, useExistingKey: !0 })), await _e(q, i.secretName);
+      } else if (q) T((im) => ({ ...im, apiKeyOrOAuthToken: q, useExistingKey: true })), await _e(q, i.secretName);
       else T(Ka);
     }),
       (S[24] = q),
@@ -2779,7 +2779,7 @@ function Sr(ye) {
         T((Cm) => ({
           ...Cm,
           apiKeyOrOAuthToken: fa,
-          useExistingKey: !1,
+          useExistingKey: false,
           secretName: "CLAUDE_CODE_OAUTH_TOKEN",
           authType: "oauth_token",
         })),
@@ -3059,7 +3059,7 @@ For manual setup instructions, see: ${Q}`,
       else z = S[107];
       let Pa;
       if (S[108] !== Le || S[109] !== z)
-        (Pa = e(o, { tabIndex: 0, autoFocus: !0, onKeyDown: Le, children: z })),
+        (Pa = e(o, { tabIndex: 0, autoFocus: true, onKeyDown: Le, children: z })),
           (S[108] = Le),
           (S[109] = z),
           (S[110] = Pa);
@@ -3077,7 +3077,7 @@ For manual setup instructions, see: ${Q}`,
       else v = S[114];
       let z;
       if (S[115] !== Le || S[116] !== v)
-        (z = e(o, { tabIndex: 0, autoFocus: !0, onKeyDown: Le, children: v })),
+        (z = e(o, { tabIndex: 0, autoFocus: true, onKeyDown: Le, children: v })),
           (S[115] = Le),
           (S[116] = v),
           (S[117] = z);

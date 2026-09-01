@@ -16,7 +16,7 @@ import { z_e } from "/$bunfs/root/chunk-z45ex17x.js";
 import { D } from "/$bunfs/root/chunk-7s7jqj2f.js";
 import { Ru } from "/$bunfs/root/chunk-56sxk8k2.js";
 import { fileURLToPath as c, pathToFileURL as u } from "url";
-var s = { useCwd: !0, useToolMemoryCgroup: !1 },
+var s = { useCwd: true, useToolMemoryCgroup: false },
   Xon = new Set([
     "https:",
     "http:",
@@ -48,7 +48,7 @@ async function x9e(r) {
       { code: t } = await $e(o, [r], s);
     return t === 0;
   } catch (e) {
-    return !1;
+    return false;
   }
 }
 async function f(r) {
@@ -74,7 +74,7 @@ async function f(r) {
     ]);
     return o === 0;
   } catch (e) {
-    return !1;
+    return false;
   }
 }
 async function I9e(r) {
@@ -82,27 +82,27 @@ async function I9e(r) {
   try {
     e = new URL(r);
   } catch {
-    return !1;
+    return false;
   }
   let o = e.protocol;
   if (o === "file:") {
-    if (e.host !== "") return !1;
+    if (e.host !== "") return false;
     try {
       let t = c(r);
-      if (Ru(t) || z_e(t)) return !1;
+      if (Ru(t) || z_e(t)) return false;
       return await f(t);
     } catch {
-      return !1;
+      return false;
     }
   }
   if (!Xon.has(o))
-    return n(`[hyperlink] refusing to dispatch clicked link with non-allowlisted scheme ${o}`, { level: "warn" }), !1;
+    return n(`[hyperlink] refusing to dispatch clicked link with non-allowlisted scheme ${o}`, { level: "warn" }), false;
   return (await l(r)).ok;
 }
 function xL() {
-  if (!process.stdout.isTTY) return !0;
-  if (a.BROWSER && a.BROWSER !== "true") return !1;
-  if (a.SSH_CONNECTION) return !0;
+  if (!process.stdout.isTTY) return true;
+  if (a.BROWSER && a.BROWSER !== "true") return false;
+  if (a.SSH_CONNECTION) return true;
   return i();
 }
 function i() {
@@ -112,7 +112,7 @@ async function Yon(r) {
   try {
     p(r);
   } catch (e) {
-    return { ok: !1, reason: "invalid_url", detail: e instanceof Error ? e.message : String(e) };
+    return { ok: false, reason: "invalid_url", detail: e instanceof Error ? e.message : String(e) };
   }
   return l(r);
 }
@@ -124,20 +124,20 @@ async function l(r) {
     let e = Cl()?.browser,
       o = e !== void 0 ? (e ?? void 0) : a.BROWSER,
       t = "darwin";
-    if (!o && i()) return { ok: !1, reason: "no_display" };
+    if (!o && i()) return { ok: false, reason: "no_display" };
     return d(await $e(o || "open", [r], s));
   } catch (e) {
-    return { ok: !1, reason: "unknown", detail: e instanceof Error ? e.message : String(e) };
+    return { ok: false, reason: "unknown", detail: e instanceof Error ? e.message : String(e) };
   }
 }
 function d(r) {
-  if (r.code === 0) return { ok: !0 };
+  if (r.code === 0) return { ok: true };
   let e = r.error ?? "",
     o = r.stderr || e || `exit ${r.code}`;
-  if (r.code === 127 || e.includes("ENOENT")) return { ok: !1, reason: "opener_missing", detail: o };
-  if (e.includes("ETIMEDOUT") || e.includes("timed out")) return { ok: !1, reason: "timeout", detail: o };
-  if (e.includes("EACCES") || e.includes("EPERM")) return { ok: !1, reason: "spawn_error", detail: o };
-  if (r.code > 0) return { ok: !1, reason: "nonzero_exit", detail: o };
-  return { ok: !1, reason: "unknown", detail: o };
+  if (r.code === 127 || e.includes("ENOENT")) return { ok: false, reason: "opener_missing", detail: o };
+  if (e.includes("ETIMEDOUT") || e.includes("timed out")) return { ok: false, reason: "timeout", detail: o };
+  if (e.includes("EACCES") || e.includes("EPERM")) return { ok: false, reason: "spawn_error", detail: o };
+  if (r.code > 0) return { ok: false, reason: "nonzero_exit", detail: o };
+  return { ok: false, reason: "unknown", detail: o };
 }
 export { Xon, x9e, I9e, xL, Yon, Lr };

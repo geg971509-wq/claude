@@ -66,7 +66,7 @@ async function aAr(n, t) {
       mcpXaaIdpConfig: { ...e.mcpXaaIdpConfig, [IWe(n)]: { clientSecret: t } },
     }));
   } catch (e) {
-    return { success: !1, warning: l(e) };
+    return { success: false, warning: l(e) };
   }
 }
 async function JDt(n) {
@@ -124,24 +124,24 @@ function T(n, t, e, r) {
       if (e && u) e.removeEventListener("abort", u), (u = null);
     };
   return new Promise((f, g) => {
-    let p = !1,
+    let p = false,
       I = (a, o) => {
         if (p) return;
-        (p = !0), m(), f({ code: a, iss: o });
+        (p = true), m(), f({ code: a, iss: o });
       },
       d = (a) => {
         if (p) return;
-        (p = !0), m(), g(a);
+        (p = true), m(), g(a);
       };
     if (e) {
       if (((u = () => d(Error("XAA IdP: login cancelled"))), e.aborted)) {
         u();
         return;
       }
-      e.addEventListener("abort", u, { once: !0 });
+      e.addEventListener("abort", u, { once: true });
     }
     (i = x((a, o) => {
-      let c = E(a.url || "", !0);
+      let c = E(a.url || "", true);
       if (c.pathname !== "/callback") {
         o.writeHead(404), o.end();
         return;
@@ -155,7 +155,7 @@ function T(n, t, e, r) {
         o.writeHead(400, { "Content-Type": "text/html" }),
           o.end(
             cE({
-              ok: !1,
+              ok: false,
               heading: "Sign-in failed",
               message: "Close this tab and try again from Claude Code.",
               detail: `${w}: ${y ?? ""}`,
@@ -166,7 +166,7 @@ function T(n, t, e, r) {
       }
       if (A !== t) {
         o.writeHead(400, { "Content-Type": "text/html" }),
-          o.end(cE({ ok: !1, heading: "Sign-in failed", message: "State mismatch. Close this tab and try again." })),
+          o.end(cE({ ok: false, heading: "Sign-in failed", message: "State mismatch. Close this tab and try again." })),
           d(Error("XAA IdP: state mismatch (possible CSRF)"));
         return;
       }
@@ -174,7 +174,7 @@ function T(n, t, e, r) {
         o.writeHead(400, { "Content-Type": "text/html" }),
           o.end(
             cE({
-              ok: !1,
+              ok: false,
               heading: "Sign-in failed",
               message: "No authorization code received. Close this tab and try again.",
             }),
@@ -184,7 +184,7 @@ function T(n, t, e, r) {
       }
       o.writeHead(200, { "Content-Type": "text/html" }),
         o.end(
-          cE({ ok: !0, heading: "Sign-in complete", message: "You can close this tab and return to Claude Code." }),
+          cE({ ok: true, heading: "Sign-in complete", message: "You can close this tab and return to Claude Code." }),
         ),
         I(h, P);
     })),

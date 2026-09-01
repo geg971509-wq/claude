@@ -179,7 +179,7 @@ var _ = m(() =>
   y = "tengu_wise_star";
 function E() {
   let e = Fa();
-  return (e.sendUserFileDeferred ??= !h() && I(y, !1)), e.sendUserFileDeferred;
+  return (e.sendUserFileDeferred ??= !h() && I(y, false)), e.sendUserFileDeferred;
 }
 var B = kt({
   name: o0,
@@ -187,7 +187,7 @@ var B = kt({
   get shouldDefer() {
     return E();
   },
-  briefStandalone: !0,
+  briefStandalone: true,
   maxResultSizeChars: 1e5,
   userFacingName() {
     return "";
@@ -199,16 +199,16 @@ var B = kt({
     return g();
   },
   isEnabled() {
-    if (Ne() !== "firstParty" || Ct()) return !1;
-    if (!Mt("allow_send_file")) return !1;
-    if (!I("tengu_send_user_file", !0)) return !1;
+    if (Ne() !== "firstParty" || Ct()) return false;
+    if (!Mt("allow_send_file")) return false;
+    if (!I("tengu_send_user_file", true)) return false;
     return (rc() || h()) && !mwe();
   },
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   toAutoClassifierInput(e) {
     return e.caption ?? `[${e.files?.length ?? 0} file(s)]`;
@@ -279,7 +279,7 @@ Tell the user the ${k(r.length, "file was", "files were")} not delivered and why
       upload_lane: c(o),
     });
     let t = await Qmt(e, { lane: o, signal: l.abortController.signal, credentials: l.credentials });
-    return { data: { caption: p, display: n, attachments: t, ...(Ymt(o) && { rendered_locally: !0 }) } };
+    return { data: { caption: p, display: n, attachments: t, ...(Ymt(o) && { rendered_locally: true }) } };
   },
 });
 function h() {

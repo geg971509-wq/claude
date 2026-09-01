@@ -46,9 +46,9 @@ function vpn(e, t) {
 function k2t(e) {
   switch (e?.cross_session_inbound) {
     case "unavailable":
-      return { acceptsPeerMessages: !1 };
+      return { acceptsPeerMessages: false };
     case "available":
-      return { acceptsPeerMessages: !0 };
+      return { acceptsPeerMessages: true };
     default:
       return;
   }
@@ -67,15 +67,15 @@ class Hze {
   onAutocompactInputsChanged;
   onConversationReset;
   currentState = "idle";
-  hasPendingAction = !1;
-  hasTaskSummary = !1;
-  hasTerminalGoalSnapshot = !1;
+  hasPendingAction = false;
+  hasTaskSummary = false;
+  hasTerminalGoalSnapshot = false;
   mainLoopRefcount = 0;
   nestedBlockedChains = {};
   nestedBlockedChainCount = 0;
   droppedChainAgentIds = {};
-  lastWaitingOnUser = !1;
-  chainExcessLogged = !1;
+  lastWaitingOnUser = false;
+  chainExcessLogged = false;
   getState() {
     return this.currentState;
   }
@@ -93,13 +93,13 @@ class Hze {
   checkChainInvariant() {
     if (this.nestedBlockedChainCount - this.mainLoopRefcount > 0) {
       if (!this.chainExcessLogged)
-        (this.chainExcessLogged = !0),
+        (this.chainExcessLogged = true),
           Y("warn", "nested_chain_count_exceeds_refcount", {
             nested_blocked_chain_count: this.nestedBlockedChainCount,
             main_loop_refcount: this.mainLoopRefcount,
             session_state: this.currentState,
           });
-    } else this.chainExcessLogged = !1;
+    } else this.chainExcessLogged = false;
   }
   reteeWaitingOnUser() {
     this.onWaitingOnUserChanged?.(this.waitingOnUser);
@@ -120,7 +120,7 @@ class Hze {
     this.emitIfWaitingChanged();
   }
   dropNestedBlockedChain(e) {
-    if (((this.droppedChainAgentIds[e] = !0), this.nestedBlockedChains[e] !== void 0)) {
+    if (((this.droppedChainAgentIds[e] = true), this.nestedBlockedChains[e] !== void 0)) {
       if ((delete this.nestedBlockedChains[e], this.nestedBlockedChainCount > 0)) this.nestedBlockedChainCount--;
       this.emitIfWaitingChanged();
     }
@@ -136,41 +136,41 @@ class Hze {
       h(i);
     }
     if (e === "requires_action" && t)
-      (this.hasPendingAction = !0), this.onMetadataChanged?.(this.pendingActionPatch(t));
+      (this.hasPendingAction = true), this.onMetadataChanged?.(this.pendingActionPatch(t));
     else if (this.hasPendingAction)
-      (this.hasPendingAction = !1), this.onMetadataChanged?.({ pending_action: null, pending_actions: null });
+      (this.hasPendingAction = false), this.onMetadataChanged?.({ pending_action: null, pending_actions: null });
     if (e === "running") this.wipeTurnScopedMetadata();
     if (e === "idle" && this.hasTaskSummary)
-      (this.hasTaskSummary = !1), this.notifyMetadataChanged({ task_summary: null });
+      (this.hasTaskSummary = false), this.notifyMetadataChanged({ task_summary: null });
     if (a.CLAUDE_CODE_EMIT_SESSION_STATE_EVENTS) Tu({ type: "system", subtype: "session_state_changed", state: e });
   }
   republishPendingAction(e) {
-    (this.hasPendingAction = !0), this.onMetadataChanged?.(this.pendingActionPatch(e));
+    (this.hasPendingAction = true), this.onMetadataChanged?.(this.pendingActionPatch(e));
   }
   wipeTurnScopedMetadata() {
     if ((this.onMetadataChanged?.({ post_turn_summary: null, recap: null }), this.hasTerminalGoalSnapshot))
-      (this.hasTerminalGoalSnapshot = !1), this.onMetadataChanged?.({ goal: null });
+      (this.hasTerminalGoalSnapshot = false), this.onMetadataChanged?.({ goal: null });
   }
   adoptRestoredPendingAction() {
-    this.hasPendingAction = !0;
+    this.hasPendingAction = true;
   }
   pendingActionPatch(e) {
     let i = (this.getPendingActionDetails?.(e.request_id) ?? []).filter((r) => r !== e).reverse();
     return { pending_action: e, pending_actions: vpn(e, i) };
   }
   notifyMetadataChanged(e) {
-    if ((this.onMetadataChanged?.(e), "goal" in e)) this.hasTerminalGoalSnapshot = e.goal?.met === !0;
+    if ((this.onMetadataChanged?.(e), "goal" in e)) this.hasTerminalGoalSnapshot = e.goal?.met === true;
     if ("task_summary" in e) {
-      if (e.task_summary != null) this.hasTaskSummary = !0;
+      if (e.task_summary != null) this.hasTaskSummary = true;
       Tu({ type: "system", subtype: "task_summary", detail: e.task_summary ?? null });
     }
   }
-  workerPermissionModeRecordEnabled = !1;
+  workerPermissionModeRecordEnabled = false;
   get isWorkerPermissionModeRecordEnabled() {
     return this.workerPermissionModeRecordEnabled;
   }
   enableWorkerPermissionModeRecord() {
-    this.workerPermissionModeRecordEnabled = !0;
+    this.workerPermissionModeRecordEnabled = true;
   }
   notifyPermissionModeChanged(e) {
     this.onPermissionModeChanged?.(e);
@@ -226,7 +226,7 @@ class C {
   }
 }
 var S = new Mn(() => new C());
-async function pwe(e = { refresh: !0 }) {
+async function pwe(e = { refresh: true }) {
   {
     let { primePeerIdentityOwner: t } = import.meta.require("/$bunfs/root/chunk-6tc07sbc.js");
     await t(e);
@@ -240,7 +240,7 @@ function m() {
 async function Umt(e, t) {
   {
     let i = m();
-    if (!i) return { rows: [], failed: !1, identityKey: null };
+    if (!i) return { rows: [], failed: false, identityKey: null };
     let r = S.of(e),
       s = r.inFlight;
     if (s !== void 0 && s.identityKey === i) return s.promise;
@@ -249,21 +249,21 @@ async function Umt(e, t) {
       c = Date.now(),
       g = (async () => {
         try {
-          let f = { failed: !1, truncated: !1 },
+          let f = { failed: false, truncated: false },
             _;
           try {
             _ = await o(f, t);
           } catch (y) {
             return (
               n(`[bridge:population] fetch threw: ${l(y)} \u2014 treated as failed`, { level: "warn" }),
-              { rows: [], failed: !0, identityKey: i }
+              { rows: [], failed: true, identityKey: i }
             );
           }
           return (
             n(
               `[bridge:population] fetched ${_.length} rows in ${Date.now() - c}ms${f.failed ? " (FAILED \u2014 not recordable)" : ""}${f.truncated ? " (truncated at page budget)" : ""}`,
             ),
-            { rows: _, failed: f.failed, ...(f.truncated && { truncated: !0 }), identityKey: i }
+            { rows: _, failed: f.failed, ...(f.truncated && { truncated: true }), identityKey: i }
           );
         } finally {
           r.settle(u.record);
@@ -271,14 +271,14 @@ async function Umt(e, t) {
       })();
     return (u.record = { identityKey: i, promise: g }), r.begin(u.record), g;
   }
-  return { rows: [], failed: !1, identityKey: null };
+  return { rows: [], failed: false, identityKey: null };
 }
 function Bmt(e) {
   {
     let t = m();
     return t !== null && e.identityKey === t;
   }
-  return !1;
+  return false;
 }
 function xze(e, t, i) {
   {
@@ -295,7 +295,7 @@ function xze(e, t, i) {
         s.forget(), n("[bridge:population] failed walk \u2014 cleared the printed set (going cold, never sticky)");
       return;
     }
-    s.record(i, r, t.truncated === !0), n(`[bridge:population] recorded ${i.length} bridge rows (cloud-deduped)`);
+    s.record(i, r, t.truncated === true), n(`[bridge:population] recorded ${i.length} bridge rows (cloud-deduped)`);
   }
 }
 function jmt(e, t) {
@@ -374,7 +374,7 @@ async function Jce(e, t) {
       s = P.of(e),
       o = b(),
       u = s.warm(o);
-    if (u !== void 0) return { sessions: u.sessions, unavailable: void 0, ...(u.truncated && { truncated: !0 }) };
+    if (u !== void 0) return { sessions: u.sessions, unavailable: void 0, ...(u.truncated && { truncated: true }) };
     let c = s.inFlight,
       g = c !== void 0 && c.credential === o ? c.promise : E(s, r, o, t),
       f = await jt(g, w);
@@ -397,7 +397,7 @@ async function Jce(e, t) {
   return { sessions: [], unavailable: void 0 };
 }
 function E(e, t, i, r) {
-  let s = a.CLAUDE_CODE_REMOTE === !0,
+  let s = a.CLAUDE_CODE_REMOTE === true,
     o = s ? Tr(a.CLAUDE_CODE_REMOTE_SESSION_ID ?? "") : "";
   if (o === "") {
     let { getPeerBridgeIdentity: c } = import.meta.require("/$bunfs/root/chunk-6tc07sbc.js"),
@@ -406,9 +406,9 @@ function E(e, t, i, r) {
   }
   let u = (async () => {
     let c,
-      g = { truncated: !1 };
+      g = { truncated: false };
     try {
-      c = await t({ status: g, throwOnError: !0, exhaustive: !0, includeBridgeKind: s, credentials: r });
+      c = await t({ status: g, throwOnError: true, exhaustive: true, includeBridgeKind: s, credentials: r });
     } catch (d) {
       return (
         n(
@@ -418,7 +418,7 @@ function E(e, t, i, r) {
         { sessions: [], unavailable: "fetch_failed" }
       );
     }
-    let f = !1;
+    let f = false;
     if (s) {
       let { isRemoteControlPeerUnreachableFromHere: d } = import.meta.require("/$bunfs/root/chunk-m90nqn8m.js");
       f = d();
@@ -438,7 +438,7 @@ function E(e, t, i, r) {
         ...k2t(d.external_metadata),
       };
     });
-    return e.record(y, g.truncated, i), { sessions: y, unavailable: void 0, ...(g.truncated && { truncated: !0 }) };
+    return e.record(y, g.truncated, i), { sessions: y, unavailable: void 0, ...(g.truncated && { truncated: true }) };
   })();
   return e.begin(u, i), u.finally(() => e.settle(u)), u;
 }
@@ -468,8 +468,8 @@ function qte(e, t, i) {
     let r = Tr(t);
     if (
       !(
-        qmt(e)?.some((o) => Tr(o.id) === r && o.acceptsPeerMessages === !1) === !0 ||
-        Wmt(e)?.some((o) => Tr(o.id) === r && o.acceptsPeerMessages === !1) === !0
+        qmt(e)?.some((o) => Tr(o.id) === r && o.acceptsPeerMessages === false) === true ||
+        Wmt(e)?.some((o) => Tr(o.id) === r && o.acceptsPeerMessages === false) === true
       )
     )
       return;
@@ -484,15 +484,15 @@ function Gmt(e, t) {
     let i = Tr(t),
       r = qmt(e)?.find((o) => Tr(o.id) === i),
       s = Wmt(e)?.find((o) => Tr(o.id) === i);
-    if ((r !== void 0 && !r.remoteControl) || (s !== void 0 && ZEe(s))) return !1;
-    if (s?.inboundReportUnavailable && r?.acceptsPeerMessages === void 0) return !1;
-    return !(r?.acceptsPeerMessages === !0 || s?.acceptsPeerMessages === !0);
+    if ((r !== void 0 && !r.remoteControl) || (s !== void 0 && ZEe(s))) return false;
+    if (s?.inboundReportUnavailable && r?.acceptsPeerMessages === void 0) return false;
+    return !(r?.acceptsPeerMessages === true || s?.acceptsPeerMessages === true);
   } catch (i) {
     return (
       n(`[agents:cloud] warm inbound-report lookup failed (${Y$(l(i))}) \u2014 treating as unreported`, {
         level: "warn",
       }),
-      !0
+      true
     );
   }
 }

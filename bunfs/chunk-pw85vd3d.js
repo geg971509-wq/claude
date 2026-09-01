@@ -378,7 +378,7 @@ function bt(eo) {
   return eo.displayName;
 }
 function $t(to, oo) {
-  return r(t, { dimColor: !0, children: ["\u2022 ", jP(to.label)] }, oo);
+  return r(t, { dimColor: true, children: ["\u2022 ", jP(to.label)] }, oo);
 }
 var H = "import:fallback-skill",
   de = () => {};
@@ -389,7 +389,7 @@ function ve(Jt) {
   if (i[0] !== be) (Qe = be === void 0 ? [] : be), (i[0] = be), (i[1] = Qe);
   else Qe = i[1];
   let De = Qe,
-    X = Ee === void 0 ? !1 : Ee,
+    X = Ee === void 0 ? false : Ee,
     g,
     a,
     Ze;
@@ -408,7 +408,7 @@ function ve(Jt) {
   if (i[6] === d) (_e = []), (i[6] = _e);
   else _e = i[6];
   let [Ve, Ut] = u(_e),
-    Xe = C(!1),
+    Xe = C(false),
     Le;
   if (i[7] !== We)
     (Le = (Bt) => {
@@ -449,7 +449,7 @@ function ve(Jt) {
       if (Xe.current) {
         return;
       }
-      if (((Xe.current = !0), ze.length === 0 && !Je && !X)) {
+      if (((Xe.current = true), ze.length === 0 && !Je && !X)) {
         return T(["No items imported."]);
       }
       let q = [];
@@ -471,11 +471,11 @@ function ve(Jt) {
           q.push(`  \u2717 ${jP(se.item.label)}: ${jw(l(Ft))}`);
         }
       }
-      let et = !1;
+      let et = false;
       if (Je) {
         try {
           let Ge = await r6e(j.map(gt), { dryRun: R });
-          if (typeof Ge === "string") q.push(`  \u2713 ${jw(Ge)}`), (et = !0);
+          if (typeof Ge === "string") q.push(`  \u2713 ${jw(Ge)}`), (et = true);
           else q.push(`  - skipped ${jw(Ge.skipped)}`);
         } catch (Ie) {
           let Mt = Ie;
@@ -536,7 +536,7 @@ function ve(Jt) {
   if (i[26] !== a.length || i[27] !== w)
     (tt = function ae(ot) {
       if (a.length === 0) {
-        w(ot, !1);
+        w(ot, false);
         return;
       }
       Ut(ot), Ye("unmapped");
@@ -568,8 +568,8 @@ function ve(Jt) {
     (st = e(o, {
       paddingX: 1,
       children: e(t, {
-        dimColor: !0,
-        italic: !0,
+        dimColor: true,
+        italic: true,
         children: r(fe, {
           children: [e(M, { chord: "space", action: "select" }), e(M, { chord: "enter", action: "confirm" })],
         }),
@@ -599,7 +599,7 @@ function ve(Jt) {
     else (ce = i[41]), (E = i[42]);
     let Z;
     if (i[43] !== b || i[44] !== pe)
-      (Z = e($w, { options: ce, defaultValue: E, onSubmit: pe, onCancel: b, onDownFromLastItem: de, hideIndexes: !0 })),
+      (Z = e($w, { options: ce, defaultValue: E, onSubmit: pe, onCancel: b, onDownFromLastItem: de, hideIndexes: true })),
         (i[43] = b),
         (i[44] = pe),
         (i[45] = Z);
@@ -613,7 +613,7 @@ function ve(Jt) {
             subtitle: G,
             color: "success",
             onCancel: b,
-            hideInputGuide: !0,
+            hideInputGuide: true,
             children: [O, Z],
           }),
           at,
@@ -666,7 +666,7 @@ function ve(Jt) {
       onSubmit: ae,
       onCancel: b,
       onDownFromLastItem: de,
-      hideIndexes: !0,
+      hideIndexes: true,
     })),
       (i[58] = b),
       (i[59] = K),
@@ -683,7 +683,7 @@ function ve(Jt) {
           subtitle: O,
           color: "success",
           onCancel: b,
-          hideInputGuide: !0,
+          hideInputGuide: true,
           children: [ce, E],
         }),
         at,

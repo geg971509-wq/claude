@@ -313,8 +313,8 @@ function R(r) {
 }
 var C = { normal: "\uD83D\uDD34", nit: "\uD83D\uDFE1", pre_existing: "\uD83D\uDFE3" };
 function x(r, t) {
-  if (t.includes("--no-post")) return !1;
-  return r === !0 && t.includes("--post");
+  if (t.includes("--no-post")) return false;
+  return r === true && t.includes("--post");
 }
 async function le(r, t, s, i) {
   let o = () => process.exit(130);
@@ -331,12 +331,12 @@ async function le(r, t, s, i) {
     u = gr(),
     n = x(t.post, process.argv),
     e = await Ese(r, {
-      confirm: !0,
+      confirm: true,
       postReview: n,
-      overageConfirmed: !1,
+      overageConfirmed: false,
       markOverageConfirmed: () => {},
-      singlePass: !0,
-      skipTaskRegistration: !0,
+      singlePass: true,
+      skipTaskRegistration: true,
       invocation: "claude ultrareview",
       context: { abortController: u, taskRegistry: bB, storageV5: s, credentials: i },
     });

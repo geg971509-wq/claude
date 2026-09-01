@@ -54,9 +54,9 @@ function wcr(e) {
   }
 }
 function c(e) {
-  let t = Ut(e.trim(), !1);
+  let t = Ut(e.trim(), false);
   if (!t || typeof t !== "object" || Array.isArray(t)) {
-    n("--managed-settings ignored: invalid JSON object", { level: "warn" }), HHn(!0);
+    n("--managed-settings ignored: invalid JSON object", { level: "warn" }), HHn(true);
     return;
   }
   kHn(t), Hc();
@@ -79,7 +79,7 @@ function G5t() {
   if (a) c(a);
   let s = Y4t("--setting-sources");
   if (s !== void 0) g(s);
-  if (dR("--restricted") || xj()) g(""), DQe(!0);
+  if (dR("--restricted") || xj()) g(""), DQe(true);
   Mr("eagerLoadSettings_end"), Wi("settings_load_ms", performance.now() - e, e);
 }
 export { wcr, G5t };

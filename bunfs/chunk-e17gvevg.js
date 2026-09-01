@@ -18,42 +18,42 @@ async function r() {
   try {
     return await Mp(o);
   } catch {
-    return !1;
+    return false;
   }
 }
 function i() {
   try {
-    return I(o, !1);
+    return I(o, false);
   } catch {
-    return !1;
+    return false;
   }
 }
 async function l() {
   try {
     return await Mp("tengu_violin_strad");
   } catch {
-    return !1;
+    return false;
   }
 }
 function u() {
   try {
-    return I("tengu_violin_strad", !1);
+    return I("tengu_violin_strad", false);
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Ec() {
   try {
     return (await Mp("tengu_violin_wood")) && (!n() || (await r()));
   } catch {
-    return !1;
+    return false;
   }
 }
 function Gs() {
   try {
-    return I("tengu_violin_wood", !1) && (!n() || i());
+    return I("tengu_violin_wood", false) && (!n() || i());
   } catch {
-    return !1;
+    return false;
   }
 }
 async function eO() {
@@ -64,10 +64,10 @@ function u$() {
 }
 function are() {
   try {
-    let { value: e, source: t } = Um("tengu_violin_wood", !1);
-    return e === !1 && s(t);
+    let { value: e, source: t } = Um("tengu_violin_wood", false);
+    return e === false && s(t);
   } catch {
-    return !1;
+    return false;
   }
 }
 function s(e) {
@@ -75,19 +75,19 @@ function s(e) {
     case "payload":
     case "override":
     case "disabled":
-      return !0;
+      return true;
     case "fallback":
       return oA();
     case "disk":
-      return !1;
+      return false;
   }
 }
 function c(e) {
-  return s(Um(e, !1).source);
+  return s(Um(e, false).source);
 }
 function iRr() {
   try {
-    return n() && I("tengu_violin_wood", !1) ? o : "tengu_violin_wood";
+    return n() && I("tengu_violin_wood", false) ? o : "tengu_violin_wood";
   } catch {
     return "tengu_violin_wood";
   }
@@ -96,21 +96,21 @@ function sRr(e) {
   try {
     return c(e) && (e !== "tengu_violin_wood" || !n() || c(o));
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Vyr() {
   try {
     return await Mp("tengu_violin_amati");
   } catch {
-    return !1;
+    return false;
   }
 }
 function O9t() {
   try {
-    return I("tengu_violin_amati", !1);
+    return I("tengu_violin_amati", false);
   } catch {
-    return !1;
+    return false;
   }
 }
 function b8e() {

@@ -421,7 +421,7 @@ function I(me) {
     { storageV5: L } = ge(),
     [B, de] = u("nudge"),
     [E, q] = u(null),
-    x = C(!1),
+    x = C(false),
     A;
   if (n[0] !== i || n[1] !== L)
     (A = async function R() {
@@ -455,7 +455,7 @@ function I(me) {
       }
       if (p.key === "return") p.preventDefault(), de("panel");
       else if (p.key === "escape") {
-        if ((p.preventDefault(), (x.current = !0), f)) q(f(R));
+        if ((p.preventDefault(), (x.current = true), f)) q(f(R));
         else
           (async () => {
             await R(), S();
@@ -493,7 +493,7 @@ function I(me) {
   let Y;
   if (n[22] === d)
     (Y = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: r(fe, {
         children: [
           e(M, { chord: "enter", action: "review & send" }),
@@ -533,7 +533,7 @@ async function Ne(s, o) {
             })
         : null;
   if (gD()) {
-    let { queued: g } = await r9({ lightweight: !0 }, o.storageV5).catch(() => ({ queued: [], expired: [] })),
+    let { queued: g } = await r9({ lightweight: true }, o.storageV5).catch(() => ({ queued: [], expired: [] })),
       h = g.filter((v) => v.source_session_id === K());
     if (h.length > 0)
       return e(I, {

@@ -49,7 +49,7 @@ function u(i) {
     case "ANTHROPIC_SMALL_FAST_MODEL":
       return a.ANTHROPIC_SMALL_FAST_MODEL !== void 0;
     default:
-      return !1;
+      return false;
   }
 }
 function m(i, l) {
@@ -79,11 +79,11 @@ async function AJt(i) {
     r = t != null && t !== "" ? t : l !== void 0 && t == null ? (o ?? void 0) : (cf() ?? o ?? void 0);
   switch (Ne()) {
     case "bedrock":
-      return { lines: await b(r), hasHardFailure: !1 };
+      return { lines: await b(r), hasHardFailure: false };
     case "vertex":
-      return { lines: await p(r), hasHardFailure: !1 };
+      return { lines: await p(r), hasHardFailure: false };
     case "mantle": {
-      let e = !1;
+      let e = false;
       if (o !== null) {
         let _ = pn(o.trim().toLowerCase());
         e = !(_ === "opus" || _ === "best" || Ye(_) === Ye(so[GEe].firstParty)) && bre();
@@ -92,7 +92,7 @@ async function AJt(i) {
       return T(d);
     }
     default:
-      return { lines: [], hasHardFailure: !1 };
+      return { lines: [], hasHardFailure: false };
   }
 }
 async function b(i) {
@@ -159,7 +159,7 @@ async function T(i) {
   let { checkMantleDefaultAvailability: l } = await import("/$bunfs/root/chunk-jdz55gpm.js"),
     f = await Kke("mantle-fallback", l(void 0, { userPinned: i })),
     t = [],
-    o = !1,
+    o = false,
     r;
   for (let e of f)
     if (e.kind === "adminPin") {
@@ -177,14 +177,14 @@ async function T(i) {
             `${iW[e.tier]}: the admin-configured Opus model is not available on this account \u2014 using ${e.workingName} for this session`,
           );
     } else if (e.kind === "fallback") {
-      let d = !1;
-      if (!u(e.envVar)) (process.env[e.envVar] = e.fallbackMantleId), frt(e.envVar, e.fallbackMantleId), (d = !0);
-      if (!i) dd(e.fallbackMantleId), (r = e.fallbackMantleId), (d = !0);
+      let d = false;
+      if (!u(e.envVar)) (process.env[e.envVar] = e.fallbackMantleId), frt(e.envVar, e.fallbackMantleId), (d = true);
+      if (!i) dd(e.fallbackMantleId), (r = e.fallbackMantleId), (d = true);
       if (d)
         s("tengu_mantle_default_fallback", { default_key: c(e.defaultKey), fallback_key: c(e.fallbackKey) }),
           t.push(`${iW[e.tier]}: ${e.defaultName} not available \u2014 using ${e.fallbackName} for this session`);
     } else
-      (o = !0),
+      (o = true),
         s("tengu_mantle_default_fallback", { default_key: w("exhausted") }),
         t.push(
           `${iW[e.tier]}: no accessible model (tried ${e.triedNames.join(", ")}). Enable ${e.defaultName} in Amazon Bedrock (Mantle).`,

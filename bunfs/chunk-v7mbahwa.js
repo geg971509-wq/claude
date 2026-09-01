@@ -18,7 +18,7 @@ import { UUe } from "/$bunfs/root/chunk-fzw7qj9a.js";
 import { e } from "/$bunfs/root/chunk-8s7kcbyw.js";
 var bkt = (p, r, m) =>
   new Promise((i, s) => {
-    let n = !1,
+    let n = false,
       o = null;
     function a() {
       return o !== null && !bc(o);
@@ -38,20 +38,20 @@ var bkt = (p, r, m) =>
               baseline: m,
               reveal: "default",
               onAccept: () => {
-                if (!a()) return !1;
-                if (((n = !0), i("approved"), r)) t(null);
+                if (!a()) return false;
+                if (((n = true), i("approved"), r)) t(null);
                 else l();
               },
               onReject: () => {
-                if (!a()) return !1;
-                if (((n = !0), i("rejected"), r)) t(null);
+                if (!a()) return false;
+                if (((n = true), i("rejected"), r)) t(null);
                 else l();
               },
             }),
           },
           "managed-settings-security",
         ),
-        Fw(!1),
+        Fw(false),
       );
       if (((o = Date.now()), await g(), !n)) {
         let u = Error("Managed-settings consent dialog exited without an answer");

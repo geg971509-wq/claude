@@ -139,7 +139,7 @@ var B = m(() => ot({ pool_id: i().describe("Tagged environment id (ccpool_\u2026
     name: Len,
     searchHint: "read self-hosted environment aggregates and queue counts",
     maxResultSizeChars: 1e5,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return B();
     },
@@ -147,10 +147,10 @@ var B = m(() => ot({ pool_id: i().describe("Tagged environment id (ccpool_\u2026
       return G();
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     async description() {
       return FIt;
@@ -188,7 +188,7 @@ var F = m(() =>
     name: Nen,
     searchHint: "list queued/assigned sessions in a self-hosted environment",
     maxResultSizeChars: 1e5,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return F();
     },
@@ -196,10 +196,10 @@ var F = m(() =>
       return W();
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     async description() {
       return UIt;
@@ -232,7 +232,7 @@ var Q = m(() => ot({ pool_id: i().describe("Tagged environment id (ccpool_\u2026
     name: Men,
     searchHint: "list registered self-hosted runners for an environment",
     maxResultSizeChars: 1e5,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return Q();
     },
@@ -240,10 +240,10 @@ var Q = m(() => ot({ pool_id: i().describe("Tagged environment id (ccpool_\u2026
       return K();
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     async description() {
       return $It;
@@ -275,7 +275,7 @@ var X = m(() => ot({ pool_id: i().describe("Tagged environment id (ccpool_\u2026
     name: Fen,
     searchHint: "list self-hosted environment secrets (metadata only)",
     maxResultSizeChars: 1e5,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return X();
     },
@@ -283,10 +283,10 @@ var X = m(() => ot({ pool_id: i().describe("Tagged environment id (ccpool_\u2026
       return Y();
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     async description() {
       return BIt;
@@ -325,7 +325,7 @@ var J = m(() => ot({ health_port: v().int().optional().describe(`Default ${Zse}.
     name: Uen,
     searchHint: "probe local self-hosted runner /healthz endpoint",
     maxResultSizeChars: 1e5,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return J();
     },
@@ -333,10 +333,10 @@ var J = m(() => ot({ health_port: v().int().optional().describe(`Default ${Zse}.
       return V();
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     async description() {
       return WIt;
@@ -345,15 +345,15 @@ var J = m(() => ot({ health_port: v().int().optional().describe(`Default ${Zse}.
       return WIt;
     },
     async call({ health_port: e = Zse }) {
-      if (e === 0) return { data: { disabled: !0 } };
+      if (e === 0) return { data: { disabled: true } };
       try {
         return {
           data: {
-            health: (await Dl.get(`http://127.0.0.1:${e}/healthz`, { timeout: 2000, validateStatus: () => !0 })).data,
+            health: (await Dl.get(`http://127.0.0.1:${e}/healthz`, { timeout: 2000, validateStatus: () => true })).data,
           },
         };
       } catch (t) {
-        return { data: { unreachable: !0, error: l(t) } };
+        return { data: { unreachable: true, error: l(t) } };
       }
     },
     mapToolResultToToolResultBlockParam(e, t) {
@@ -400,7 +400,7 @@ var A = kt({
   name: Ben,
   searchHint: "read self-hosted runner Prometheus gauges from /metrics",
   maxResultSizeChars: 1e5,
-  shouldDefer: !0,
+  shouldDefer: true,
   get inputSchema() {
     return Z();
   },
@@ -408,10 +408,10 @@ var A = kt({
     return ee();
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   async description() {
     return qIt;
@@ -420,17 +420,17 @@ var A = kt({
     return qIt;
   },
   async call({ health_port: e = Zse }) {
-    if (e === 0) return { data: { disabled: !0 } };
+    if (e === 0) return { data: { disabled: true } };
     try {
       let t = await Dl.get(`http://127.0.0.1:${e}/metrics`, {
           timeout: 2000,
           responseType: "text",
-          validateStatus: () => !0,
+          validateStatus: () => true,
         }),
         r = Rl(String(t.data));
       return { data: { gauges: te(r), raw: r } };
     } catch (t) {
-      return { data: { unreachable: !0, error: l(t) } };
+      return { data: { unreachable: true, error: l(t) } };
     }
   },
   mapToolResultToToolResultBlockParam(e, t) {
@@ -452,9 +452,9 @@ var re = m(() =>
   C = kt({
     name: Wen,
     searchHint: "requeue a stuck self-hosted runner session onto another runner",
-    enablesCodeExecution: !0,
+    enablesCodeExecution: true,
     maxResultSizeChars: 1e5,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return re();
     },
@@ -462,13 +462,13 @@ var re = m(() =>
       return oe();
     },
     isReadOnly() {
-      return !1;
+      return false;
     },
     ignoresWholeToolAllowRule() {
-      return !0;
+      return true;
     },
     suppressesAlwaysAllowRule() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(e) {
       return `requeue session=${e.session_id} off runner=${e.runner_id}`;
@@ -549,9 +549,9 @@ function p(e) {
 var N = kt({
   name: $en,
   searchHint: "start a local self-hosted runner process for try-it-out",
-  enablesCodeExecution: !0,
+  enablesCodeExecution: true,
   maxResultSizeChars: 1e5,
-  shouldDefer: !0,
+  shouldDefer: true,
   get inputSchema() {
     return ue();
   },
@@ -559,13 +559,13 @@ var N = kt({
     return ie();
   },
   isReadOnly() {
-    return !1;
+    return false;
   },
   ignoresWholeToolAllowRule() {
-    return !0;
+    return true;
   },
   suppressesAlwaysAllowRule() {
-    return !0;
+    return true;
   },
   toAutoClassifierInput(e) {
     return `spawn runner: secret=${e.secret_file_path} base_dir=${e.base_dir ?? S}`;
@@ -588,11 +588,11 @@ var N = kt({
     let a = h(r),
       s = h(n),
       u = h(e);
-    await b(a, { recursive: !0 }), await b(k(s), { recursive: !0 });
+    await b(a, { recursive: true }), await b(k(s), { recursive: true });
     let T = ce({ secret_file_path: u, capacity: t, base_dir: a, health_port: o, log_path: s }),
       g = process.execPath,
       y = Wl() ? [] : [process.argv[1]],
-      d = ne(g, [...y, ...T], { detached: !0, stdio: "ignore", windowsHide: !0 });
+      d = ne(g, [...y, ...T], { detached: true, stdio: "ignore", windowsHide: true });
     fS(d.pid);
     let _ = await new Promise((z) => {
       d.once("spawn", () => z(null)), d.once("error", z);
@@ -604,7 +604,7 @@ var N = kt({
         `Failed to spawn runner${_ ? ` (${_.message})` : " (no pid)"}. Command: ${[p(g), ...y.map(p), ...T.map(p)].join(" ")}`,
       );
     let O = h(ae);
-    await b(k(O), { recursive: !0 }), await se(O, String(R));
+    await b(k(O), { recursive: true }), await se(O, String(R));
     let j = [p(g), ...y.map(p), ...T.map(p)].join(" ");
     return { data: { pid: R, pid_file: O, log_path: s, health_port: o, command: j } };
   },
@@ -628,7 +628,7 @@ var M = 65536,
     name: jen,
     searchHint: "tail self-hosted runner log file with secret redaction",
     maxResultSizeChars: 200000,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return pe();
     },
@@ -636,10 +636,10 @@ var M = 65536,
       return me();
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     async description() {
       return GIt;

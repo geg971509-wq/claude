@@ -54,7 +54,7 @@ var t =
     baseDir: "built-in",
     model: "inherit",
     maxTurns: 6,
-    omitClaudeMd: !0,
+    omitClaudeMd: true,
     getSystemPrompt: () => e(),
   };
 export { r as COMMENT_ANALYST_AGENT };

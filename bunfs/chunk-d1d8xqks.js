@@ -18,12 +18,12 @@ import { resolve as j, relative as _t, join as mt, sep as wt } from "path";
 var p = { FILE_TYPE: "files", DIR_TYPE: "directories", FILE_DIR_TYPE: "files_directories", EVERYTHING_TYPE: "all" },
   N = {
     root: ".",
-    fileFilter: (t) => !0,
-    directoryFilter: (t) => !0,
+    fileFilter: (t) => true,
+    directoryFilter: (t) => true,
     type: p.FILE_TYPE,
-    lstat: !1,
+    lstat: false,
     depth: 2147483648,
-    alwaysStat: !1,
+    alwaysStat: false,
     highWaterMark: 4096,
   };
 Object.freeze(N);
@@ -33,8 +33,8 @@ var K = "READDIRP_RECURSIVE_ERROR",
   yt = new Set([p.DIR_TYPE, p.EVERYTHING_TYPE, p.FILE_DIR_TYPE]),
   Et = new Set([p.EVERYTHING_TYPE, p.FILE_DIR_TYPE, p.FILE_TYPE]),
   Pt = (t) => pt.has(t.code),
-  gt = !1,
-  U = (t) => !0,
+  gt = false,
+  U = (t) => true,
   G = (t) => {
     if (t === void 0) return U;
     if (typeof t === "function") return t;
@@ -50,28 +50,28 @@ var K = "READDIRP_RECURSIVE_ERROR",
   };
 class V extends ut {
   constructor(t = {}) {
-    super({ objectMode: !0, autoDestroy: !0, highWaterMark: t.highWaterMark });
+    super({ objectMode: true, autoDestroy: true, highWaterMark: t.highWaterMark });
     let s = { ...N, ...t },
       { root: e, type: i } = s;
     (this._fileFilter = G(s.fileFilter)), (this._directoryFilter = G(s.directoryFilter));
     let r = s.lstat ? z : lt;
-    if (gt) this._stat = (a) => r(a, { bigint: !0 });
+    if (gt) this._stat = (a) => r(a, { bigint: true });
     else this._stat = r;
     (this._maxDepth = s.depth ?? N.depth),
-      (this._wantsDir = i ? yt.has(i) : !1),
-      (this._wantsFile = i ? Et.has(i) : !1),
+      (this._wantsDir = i ? yt.has(i) : false),
+      (this._wantsFile = i ? Et.has(i) : false),
       (this._wantsEverything = i === p.EVERYTHING_TYPE),
       (this._root = j(e)),
       (this._isDirent = !s.alwaysStat),
       (this._statsProp = this._isDirent ? "dirent" : "stats"),
       (this._rdOptions = { encoding: "utf8", withFileTypes: this._isDirent }),
       (this.parents = [this._exploreDir(e, 1)]),
-      (this.reading = !1),
+      (this.reading = false),
       (this.parent = void 0);
   }
   async _read(t) {
     if (this.reading) return;
-    this.reading = !0;
+    this.reading = true;
     try {
       while (!this.destroyed && t > 0) {
         let s = this.parent,
@@ -103,7 +103,7 @@ class V extends ut {
     } catch (s) {
       this.destroy(s);
     } finally {
-      this.reading = !1;
+      this.reading = false;
     }
   }
   async _exploreDir(t, s) {
@@ -529,7 +529,7 @@ var x = (t, s, e, i, r) => {
       if (((c = Q(t, e, x.bind(null, s, P), a, x.bind(null, s, g))), !c)) return;
       c.on(y.ERROR, async (h) => {
         let d = x.bind(null, s, I);
-        if (o) o.watcherUnusable = !0;
+        if (o) o.watcherUnusable = true;
         if (v && h.code === "EPERM")
           try {
             await (await J(t, "r")).close(), d(h);
@@ -636,16 +636,16 @@ class O {
       try {
         n = await W(e);
       } catch (o) {
-        return this.fsw._emitReady(), !0;
+        return this.fsw._emitReady(), true;
       }
       if (this.fsw.closed) return;
       if (a.has(i)) {
         if (this.fsw._symlinkPaths.get(r) !== n) this.fsw._symlinkPaths.set(r, n), this.fsw._emit(y.CHANGE, e, t.stats);
       } else a.add(i), this.fsw._symlinkPaths.set(r, n), this.fsw._emit(y.ADD, e, t.stats);
-      return this.fsw._emitReady(), !0;
+      return this.fsw._emitReady(), true;
     }
-    if (this.fsw._symlinkPaths.has(r)) return !0;
-    this.fsw._symlinkPaths.set(r, !0);
+    if (this.fsw._symlinkPaths.has(r)) return true;
+    this.fsw._symlinkPaths.set(r, true);
   }
   _handleRead(t, s, e, i, r, a, n) {
     if (((t = _.join(t, "")), (n = this.fsw._throttle("readdir", t, 1000)), !n)) return;
@@ -678,7 +678,7 @@ class O {
             h = void 0;
             return;
           }
-          let m = n ? n.clear() : !1;
+          let m = n ? n.clear() : false;
           if (
             (d(void 0),
             o
@@ -690,7 +690,7 @@ class O {
             (h = void 0),
             m)
           )
-            this._handleRead(t, !1, e, i, r, a, n);
+            this._handleRead(t, false, e, i, r, a, n);
         });
       })
     );
@@ -709,20 +709,20 @@ class O {
       }
       d = this._watchWithNodeFs(t, (m, w) => {
         if (w && w.mtimeMs === 0) return;
-        this._handleRead(m, !1, a, r, t, i, h);
+        this._handleRead(m, false, a, r, t, i, h);
       });
     }
     return d;
   }
   async _addToNodeFs(t, s, e, i, r) {
     let a = this.fsw._emitReady;
-    if (this.fsw._isIgnored(t) || this.fsw.closed) return a(), !1;
+    if (this.fsw._isIgnored(t) || this.fsw.closed) return a(), false;
     let n = this.fsw._getWatchHelpers(t);
     if (e) (n.filterPath = (o) => e.filterPath(o)), (n.filterDir = (o) => e.filterDir(o));
     try {
       let o = await St[n.statMethod](n.watchPath);
       if (this.fsw.closed) return;
-      if (this.fsw._isIgnored(n.watchPath, o)) return a(), !1;
+      if (this.fsw._isIgnored(n.watchPath, o)) return a(), false;
       let c = this.fsw.options.followSymlinks,
         h;
       if (o.isDirectory()) {
@@ -745,7 +745,7 @@ class O {
         if (d !== void 0) this.fsw._symlinkPaths.set(_.resolve(t), d);
       } else h = this._handleFile(n.watchPath, o, s);
       if ((a(), h)) this.fsw._addPathCloser(t, h);
-      return !1;
+      return false;
     } catch (o) {
       if (this.fsw._handleError(o)) return a(), t;
     }
@@ -770,21 +770,21 @@ function $t(t) {
   if (t instanceof RegExp) return (s) => t.test(s);
   if (typeof t === "object" && t !== null)
     return (s) => {
-      if (t.path === s) return !0;
+      if (t.path === s) return true;
       if (t.recursive) {
         let e = f.relative(t.path, s);
-        if (!e) return !1;
+        if (!e) return false;
         return !e.startsWith("..") && !f.isAbsolute(e);
       }
-      return !1;
+      return false;
     };
-  return () => !1;
+  return () => false;
 }
 function qt(t) {
   if (typeof t !== "string") throw Error("string expected");
   (t = f.normalize(t)), (t = t.replace(/\\/g, "/"));
-  let s = !1;
-  if (t.startsWith("//")) s = !0;
+  let s = false;
+  if (t.startsWith("//")) s = true;
   let e = /\/\//;
   while (t.match(e)) t = t.replace(e, "/");
   if (s) t = "/" + t;
@@ -794,9 +794,9 @@ function it(t, s, e) {
   let i = qt(s);
   for (let r = 0; r < t.length; r++) {
     let a = t[r];
-    if (a(i, e)) return !0;
+    if (a(i, e)) return true;
   }
-  return !1;
+  return false;
 }
 function Jt(t, s) {
   if (t == null) throw TypeError("anymatch: specify first argument");
@@ -811,8 +811,8 @@ var rt = (t) => {
   },
   nt = (t) => {
     let s = t.replace(Kt, H),
-      e = !1;
-    if (s.startsWith(Yt)) e = !0;
+      e = false;
+    if (s.startsWith(Yt)) e = true;
     while (s.match(et)) s = s.replace(et, H);
     if (e) s = H + s;
     return s;
@@ -895,7 +895,7 @@ class fJn {
 class qgn extends jt {
   constructor(t = {}) {
     super();
-    (this.closed = !1),
+    (this.closed = false),
       (this._closers = new Map()),
       (this._ignoredPaths = new Set()),
       (this._throttled = new Map()),
@@ -905,29 +905,29 @@ class qgn extends jt {
       (this._pendingWrites = new Map()),
       (this._pendingUnlinks = new Map()),
       (this._readyCount = 0),
-      (this._readyEmitted = !1);
+      (this._readyEmitted = false);
     let s = t.awaitWriteFinish,
       e = { stabilityThreshold: 2000, pollInterval: 100 },
       i = {
-        persistent: !0,
-        ignoreInitial: !1,
-        ignorePermissionErrors: !1,
+        persistent: true,
+        ignoreInitial: false,
+        ignorePermissionErrors: false,
         interval: 100,
         binaryInterval: 300,
-        followSymlinks: !0,
-        usePolling: !1,
-        atomic: !0,
+        followSymlinks: true,
+        usePolling: false,
+        atomic: true,
         ...t,
         ignored: t.ignored ? S(t.ignored) : S([]),
-        awaitWriteFinish: s === !0 ? e : typeof s === "object" ? { ...e, ...s } : !1,
+        awaitWriteFinish: s === true ? e : typeof s === "object" ? { ...e, ...s } : false,
       };
-    if (tt) i.usePolling = !0;
+    if (tt) i.usePolling = true;
     if (i.atomic === void 0) i.atomic = !i.usePolling;
     let r = process.env.CHOKIDAR_USEPOLLING;
     if (r !== void 0) {
       let o = r.toLowerCase();
-      if (o === "false" || o === "0") i.usePolling = !1;
-      else if (o === "true" || o === "1") i.usePolling = !0;
+      if (o === "false" || o === "0") i.usePolling = false;
+      else if (o === "true" || o === "1") i.usePolling = true;
       else i.usePolling = !!o;
     }
     let a = process.env.CHOKIDAR_INTERVAL;
@@ -935,7 +935,7 @@ class qgn extends jt {
     let n = 0;
     (this._emitReady = () => {
       if ((n++, n >= this._readyCount))
-        (this._emitReady = F), (this._readyEmitted = !0), process.nextTick(() => this.emit(u.READY));
+        (this._emitReady = F), (this._readyEmitted = true), process.nextTick(() => this.emit(u.READY));
     }),
       (this._emitRaw = (...o) => this.emit(u.RAW, ...o)),
       (this._boundRemove = this._remove.bind(this)),
@@ -956,7 +956,7 @@ class qgn extends jt {
   }
   add(t, s, e) {
     let { cwd: i } = this.options;
-    (this.closed = !1), (this._closePromise = void 0);
+    (this.closed = false), (this._closePromise = void 0);
     let r = rt(t);
     if (i) r = r.map((a) => Qt(a, i));
     if (
@@ -995,7 +995,7 @@ class qgn extends jt {
           i = f.resolve(i);
         }
         if ((this._closePath(i), this._addIgnoredPath(i), this._watched.has(i)))
-          this._addIgnoredPath({ path: i, recursive: !0 });
+          this._addIgnoredPath({ path: i, recursive: true });
         this._userIgnored = void 0;
       }),
       this
@@ -1003,7 +1003,7 @@ class qgn extends jt {
   }
   close() {
     if (this._closePromise) return this._closePromise;
-    (this.closed = !0), this.removeAllListeners();
+    (this.closed = true), this.removeAllListeners();
     let t = [];
     return (
       this._closers.forEach((s) =>
@@ -1015,7 +1015,7 @@ class qgn extends jt {
       this._streams.forEach((s) => s.destroy()),
       (this._userIgnored = void 0),
       (this._readyCount = 0),
-      (this._readyEmitted = !1),
+      (this._readyEmitted = false),
       this._watched.forEach((s) => s.dispose()),
       this._closers.clear(),
       this._watched.clear(),
@@ -1118,7 +1118,7 @@ class qgn extends jt {
     let i = this._throttled.get(t);
     if (!i) throw Error("invalid throttle");
     let r = i.get(s);
-    if (r) return r.count++, !1;
+    if (r) return r.count++, false;
     let a,
       n = () => {
         let c = i.get(s),
@@ -1159,7 +1159,7 @@ class qgn extends jt {
       h.set(t, { lastChange: c, cancelWait: () => (h.delete(t), clearTimeout(n), e) }), (n = setTimeout(d, a));
   }
   _isIgnored(t, s) {
-    if (this.options.atomic && Vt.test(t)) return !0;
+    if (this.options.atomic && Vt.test(t)) return true;
     if (!this._userIgnored) {
       let { cwd: e } = this.options,
         r = (this.options.ignored || []).map(ot(e)),
@@ -1180,15 +1180,15 @@ class qgn extends jt {
     return this._watched.get(s);
   }
   _hasReadPermissions(t) {
-    if (this.options.ignorePermissionErrors) return !0;
+    if (this.options.ignorePermissionErrors) return true;
     return Boolean(Number(t.mode) & 256);
   }
   _remove(t, s, e) {
-    let i = [{ directory: t, item: s, isDirectory: e, path: "", fullPath: "", expanded: !1 }];
+    let i = [{ directory: t, item: s, isDirectory: e, path: "", fullPath: "", expanded: false }];
     while (i.length > 0) {
       let r = i[i.length - 1];
       if (!r.expanded) {
-        r.expanded = !0;
+        r.expanded = true;
         let l = f.join(r.directory, r.item),
           m = f.resolve(l);
         if (
@@ -1200,10 +1200,10 @@ class qgn extends jt {
           i.pop();
           continue;
         }
-        if (!r.isDirectory && this._watched.size === 1) this.add(r.directory, r.item, !0);
+        if (!r.isDirectory && this._watched.size === 1) this.add(r.directory, r.item, true);
         let E = this._getWatchedDir(l).getChildren();
         for (let R = E.length - 1; R >= 0; R--)
-          i.push({ directory: l, item: E[R], isDirectory: void 0, path: "", fullPath: "", expanded: !1 });
+          i.push({ directory: l, item: E[R], isDirectory: void 0, path: "", fullPath: "", expanded: false });
         continue;
       }
       i.pop();
@@ -1240,7 +1240,7 @@ class qgn extends jt {
   }
   _readdirp(t, s) {
     if (this.closed) return;
-    let e = { type: u.ALL, alwaysStat: !0, lstat: !0, ...s, depth: 0 },
+    let e = { type: u.ALL, alwaysStat: true, lstat: true, ...s, depth: 0 },
       i = B(t, e);
     return (
       this._streams.add(i),

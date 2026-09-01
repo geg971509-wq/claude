@@ -73,14 +73,14 @@ import { stat as Et } from "fs/promises";
 import { homedir as wr } from "os";
 import { join as yr } from "path";
 async function xr(e, t) {
-  await Ae((r) => ({ ...r, appleTerminalSetupInProgress: !0, appleTerminalBackupPath: e }), t);
+  await Ae((r) => ({ ...r, appleTerminalSetupInProgress: true, appleTerminalBackupPath: e }), t);
 }
 async function xe(e) {
-  await Ae((t) => ({ ...t, appleTerminalSetupInProgress: !1 }), e);
+  await Ae((t) => ({ ...t, appleTerminalSetupInProgress: false }), e);
 }
 function Tr() {
   let e = ie();
-  return { inProgress: e.appleTerminalSetupInProgress ?? !1, backupPath: e.appleTerminalBackupPath || null };
+  return { inProgress: e.appleTerminalSetupInProgress ?? false, backupPath: e.appleTerminalBackupPath || null };
 }
 function Te() {
   return yr(wr(), "Library", "Preferences", "com.apple.Terminal.plist");
@@ -111,11 +111,11 @@ async function Q0t(e) {
   } catch {
     return await xe(e), { status: "no_backup" };
   }
-  let i = !1;
+  let i = false;
   try {
     let { code: o } = await $e("defaults", ["import", "com.apple.Terminal", r]);
     if (o !== 0) return { status: "failed", backupPath: r };
-    return (i = !0), await $e("killall", ["cfprefsd"]), await xe(e), { status: "restored" };
+    return (i = true), await $e("killall", ["cfprefsd"]), await xe(e), { status: "restored" };
   } catch (o) {
     if (Ht(o)) n(`checkAndRestoreTerminalBackup: fs inaccessible: ${o}`);
     else h(o);
@@ -205,7 +205,7 @@ function je() {
 }
 async function Z0t(e, t, r) {
   let i = "",
-    o = !0;
+    o = true;
   switch (a.terminal) {
     case "Apple_Terminal":
       i = await vr(t, r);
@@ -235,11 +235,11 @@ async function Z0t(e, t, r) {
   return (
     await Ae((l) => {
       if (o && Lt.includes(a.terminal ?? "")) {
-        if (l.shiftEnterKeyBindingInstalled === !0) return l;
-        return { ...l, shiftEnterKeyBindingInstalled: !0 };
+        if (l.shiftEnterKeyBindingInstalled === true) return l;
+        return { ...l, shiftEnterKeyBindingInstalled: true };
       } else if (a.terminal === "Apple_Terminal") {
-        if (l.optionAsMetaKeyInstalled === !0) return l;
-        return { ...l, optionAsMetaKeyInstalled: !0 };
+        if (l.optionAsMetaKeyInstalled === true) return l;
+        return { ...l, optionAsMetaKeyInstalled: true };
       }
       return l;
     }, r),
@@ -261,19 +261,19 @@ async function $ur(e) {
   }
 }
 function Uur() {
-  return ie().shiftEnterKeyBindingInstalled === !0;
+  return ie().shiftEnterKeyBindingInstalled === true;
 }
 var Lt = ["vscode", "cursor", "windsurf", "alacritty", "zed"];
 function HQ() {
-  if (a.terminal === "Apple_Terminal" && Re() === "darwin") return !0;
-  if (a.terminal && a.terminal in Me) return !0;
+  if (a.terminal === "Apple_Terminal" && Re() === "darwin") return true;
+  if (a.terminal && a.terminal in Me) return true;
   return Lt.includes(a.terminal ?? "") && Uur();
 }
 function MXt() {
-  return ie().hasUsedBackslashReturn === !0;
+  return ie().hasUsedBackslashReturn === true;
 }
 function jMn(e) {
-  if (!ie().hasUsedBackslashReturn) Ae((r) => ({ ...r, hasUsedBackslashReturn: !0 }), e);
+  if (!ie().hasUsedBackslashReturn) Ae((r) => ({ ...r, hasUsedBackslashReturn: true }), e);
 }
 async function OTr(e, t, r) {
   if (
@@ -379,9 +379,9 @@ async function rt(e, t, r) {
   let o = te(await eHt.of(e).pathFor(t), "settings.json");
   try {
     let l = "{}",
-      d = !1;
+      d = false;
     try {
-      (l = await Se(o, { encoding: "utf-8" })), (d = !0);
+      (l = await Se(o, { encoding: "utf-8" })), (d = true);
     } catch (S) {
       if (!Ht(S)) throw S;
     }
@@ -417,9 +417,9 @@ async function FXt(e, t, r) {
   let o = te(await eHt.of(e).pathFor(t), "settings.json");
   try {
     let l = "{}",
-      d = !1;
+      d = false;
     try {
-      (l = await Se(o, { encoding: "utf-8" })), (d = !0);
+      (l = await Se(o, { encoding: "utf-8" })), (d = true);
     } catch (S) {
       if (!Ht(S)) throw S;
     }
@@ -479,12 +479,12 @@ async function nt(e, t = "VSCode", r) {
   let i = await eHt.of(e).pathFor(t),
     o = te(i, "keybindings.json");
   try {
-    await st(i, { recursive: !0 });
+    await st(i, { recursive: true });
     let l = "[]",
       d = [],
-      f = !1;
+      f = false;
     try {
-      (l = await Se(o, { encoding: "utf-8" })), (f = !0), (d = MCe(l) ?? []);
+      (l = await Se(o, { encoding: "utf-8" })), (f = true), (d = MCe(l) ?? []);
     } catch (L) {
       if (!Ht(L)) throw L;
     }
@@ -536,17 +536,17 @@ async function At(e) {
       `Set :'Window Settings':'${e}':useOptionAsMetaKey true`,
       Te(),
     ]);
-    if (r !== 0) return n(`Failed to enable Option as Meta key for Terminal.app profile: ${e}`, { level: "error" }), !1;
+    if (r !== 0) return n(`Failed to enable Option as Meta key for Terminal.app profile: ${e}`, { level: "error" }), false;
   }
-  return !0;
+  return true;
 }
 async function kt(e) {
   let { code: t } = await $e("/usr/libexec/PlistBuddy", ["-c", `Add :'Window Settings':'${e}':Bell bool false`, Te()]);
   if (t !== 0) {
     let { code: r } = await $e("/usr/libexec/PlistBuddy", ["-c", `Set :'Window Settings':'${e}':Bell false`, Te()]);
-    if (r !== 0) return n(`Failed to disable audio bell for Terminal.app profile: ${e}`, { level: "error" }), !1;
+    if (r !== 0) return n(`Failed to disable audio bell for Terminal.app profile: ${e}`, { level: "error" }), false;
   }
-  return !0;
+  return true;
 }
 async function vr(e, t) {
   let r = (llr() ?? 0) >= 27,
@@ -559,16 +559,16 @@ async function vr(e, t) {
     if (d !== 0 || !l.trim()) throw Error("Failed to read default Terminal.app profile");
     let { stdout: f, code: T } = await $e("defaults", ["read", "com.apple.Terminal", "Startup Window Settings"]);
     if (T !== 0 || !f.trim()) throw Error("Failed to read startup Terminal.app profile");
-    let S = !1,
+    let S = false,
       R = l.trim(),
-      L = r ? !1 : await At(R),
-      N = i ? !1 : await kt(R);
-    if (L || N) S = !0;
+      L = r ? false : await At(R),
+      N = i ? false : await kt(R);
+    if (L || N) S = true;
     let K = f.trim();
     if (K !== R) {
-      let q = r ? !1 : await At(K),
-        P = i ? !1 : await kt(K);
-      if (q || P) S = !0;
+      let q = r ? false : await At(K),
+        P = i ? false : await kt(K);
+      if (q || P) S = true;
     }
     if (!S) {
       if (r) throw Error("Failed to disable audio bell for any Terminal.app profile");
@@ -607,10 +607,10 @@ async function Lr(e) {
   }
   let o = null,
     l = "",
-    d = !1;
+    d = false;
   for (let f of r)
     try {
-      (l = await Se(f, { encoding: "utf-8" })), (o = f), (d = !0);
+      (l = await Se(f, { encoding: "utf-8" })), (o = f), (d = true);
       break;
     } catch (T) {
       if (!Ht(T)) throw T;
@@ -628,7 +628,7 @@ async function Lr(e) {
       } catch {
         return `${mt("warning", e)("Error backing up existing Alacritty config. Bailing out.")}${m}${ae.dim(`See ${re(o)}`)}${m}${ae.dim(`Backup path: ${re(S)}`)}${m}`;
       }
-    } else await st(Cr(o), { recursive: !0 });
+    } else await st(Cr(o), { recursive: true });
     let f = l;
     if (
       l &&
@@ -670,13 +670,13 @@ async function Pr(e) {
     f = `${mt("warning", e)("Couldn't read your Zed keymap, so it was left unchanged.")}${m}${l}${m}`,
     T = `${mt("warning", e)("Your Zed keymap isn't a readable list of keybindings, so it was left unchanged.")}${m}${l}${m}`;
   try {
-    await st(r, { recursive: !0 });
+    await st(r, { recursive: true });
     let S = null;
     try {
       S = await Se(i, { encoding: "utf-8" });
     } catch (O) {
       if (!Ht(O)) throw O;
-      if (!X(O)) return { message: f, installed: !1 };
+      if (!X(O)) return { message: f, installed: false };
     }
     if (S === null || ui(S).trim() === "")
       return (
@@ -686,16 +686,16 @@ async function Pr(e) {
             `
 `,
         ),
-        { message: d, installed: !0 }
+        { message: d, installed: true }
       );
     let R = [],
       L = ui(S),
-      N = nFe(L, R, { allowTrailingComma: !0 });
-    if (R.length > 0 || !Array.isArray(N)) return { message: T, installed: !1 };
+      N = nFe(L, R, { allowTrailingComma: true });
+    if (R.length > 0 || !Array.isArray(N)) return { message: T, installed: false };
     if (N.some(Ot))
       return {
         message: `${mt("success", e)("Zed Shift+Enter key binding already configured")}${m}${o}${m}`,
-        installed: !0,
+        installed: true,
       };
     let K = Fe(4).toString("hex"),
       ee = `${i}.${K}.bak`;
@@ -706,12 +706,12 @@ async function Pr(e) {
         n(`Failed to back up Zed keymap: ${O instanceof Error ? O.message : String(O)}`, { level: "error" }),
         {
           message: `${mt("warning", e)("Couldn't back up your Zed keymap; not modifying it.")}${m}${l}${m}`,
-          installed: !1,
+          installed: false,
         }
       );
     }
     let V = N.findIndex((O) => He(O) && O.context === "Terminal" && He(O.bindings)),
-      q = { insertSpaces: !0, tabSize: 2 },
+      q = { insertSpaces: true, tabSize: 2 },
       P = null;
     try {
       let O =
@@ -721,20 +721,20 @@ async function Pr(e) {
               L,
               [N.length],
               { context: "Terminal", bindings: { "shift-enter": it } },
-              { formattingOptions: q, isArrayInsertion: !0 },
+              { formattingOptions: q, isArrayInsertion: true },
             );
       P = O.length > 0 ? CAt(L, O) : null;
     } catch (O) {
       n(`Failed to edit Zed keymap: ${O instanceof Error ? O.message : String(O)}`, { level: "error" });
     }
     let M = [],
-      Z = P === null ? null : nFe(P, M, { allowTrailingComma: !0 });
+      Z = P === null ? null : nFe(P, M, { allowTrailingComma: true });
     if (P === null || M.length > 0 || !Array.isArray(Z) || !Z.some(Ot))
       return {
         message: `${mt("warning", e)("Couldn't update your Zed keymap, so it was left unchanged.")}${m}${l}${m}`,
-        installed: !1,
+        installed: false,
       };
-    return await Wn(i, P), { message: d, installed: !0 };
+    return await Wn(i, P), { message: d, installed: true };
   } catch (S) {
     throw (
       (n(`Failed to install Zed Shift+Enter key binding: ${S instanceof Error ? S.message : String(S)}`, {
@@ -757,18 +757,18 @@ function Kr(Mi) {
 function jr(Fi) {
   for (const Ii of Fi.activeOverlays) {
     if (_t.has(Ii)) {
-      return !0;
+      return true;
     }
   }
-  return !1;
+  return false;
 }
 function Ur(Wi) {
   for (const Ni of Wi.activeOverlays) {
     if (Rt.has(Ni)) {
-      return !0;
+      return true;
     }
   }
-  return !1;
+  return false;
 }
 var Dr = new Set(["autocomplete"]),
   _t = new Set(["history-search"]),
@@ -776,7 +776,7 @@ var Dr = new Set(["autocomplete"]),
   kQ = 2;
 function fs(Ee, _r) {
   let Rr = _(8),
-    we = _r === void 0 ? !0 : _r,
+    we = _r === void 0 ? true : _r,
     Be = We(NP)?.setState,
     Mr,
     Fr;
@@ -831,20 +831,20 @@ function DXt() {
   return W(Hr);
 }
 function Y0t(e) {
-  for (let t of e) if (!Dr.has(t)) return !0;
-  return !1;
+  for (let t of e) if (!Dr.has(t)) return true;
+  return false;
 }
 function rB() {
   return W(Kr);
 }
 function _ke() {
-  return ki(jr) ?? !1;
+  return ki(jr) ?? false;
 }
 function J0t() {
-  return ki(Ur) ?? !1;
+  return ki(Ur) ?? false;
 }
 F();
-function Cp(e, t, r = !1) {
+function Cp(e, t, r = false) {
   A(() => {
     let i = e.current;
     if (!i) return;
@@ -875,7 +875,7 @@ function Cp(e, t, r = !1) {
   }, [t, e, r]);
 }
 F();
-function Xf({ line: e, column: t, active: r, visible: i = !1 }) {
+function Xf({ line: e, column: t, active: r, visible: i = false }) {
   let o = We(rMt),
     l = C(null),
     d = B((f) => {
@@ -960,18 +960,18 @@ class Ei {
         M = d ? this.findLogicalLineEnd(q) : this.measuredText.nextOffset(q);
       return T.slice(S, R)
         .map((Z, O) => {
-          let fe = (f ?? !1) && (Z.endsWithNewline || O + S === T.length - 1),
+          let fe = (f ?? false) && (Z.endsWithNewline || O + S === T.length - 1),
             j = Z.displayText,
             E = Z.displayStartOffset,
             U = E + j.length;
           if (M <= E || P >= U) {
-            if (E === U && P <= E && (d ? M >= U : M > U)) return (f ?? !1) ? "" : r(" ");
+            if (E === U && P <= E && (d ? M >= U : M > U)) return (f ?? false) ? "" : r(" ");
             return fe ? j : j.trimEnd();
           }
-          if (E === U) return (f ?? !1) ? "" : r(" ");
+          if (E === U) return (f ?? false) ? "" : r(" ");
           let ne = Math.max(0, P - E),
             ce = Math.min(j.length, M - E);
-          if (f ?? !1) {
+          if (f ?? false) {
             let v = fe ? j : j.trimEnd(),
               Y = Math.min(ne, v.length),
               oe = Math.min(ce, v.length);
@@ -988,7 +988,7 @@ class Ei {
     return K.slice(S, R)
       .map((V, q) => {
         let P = q + S,
-          M = (f ?? !1) && ((ee[P]?.endsWithNewline ?? !1) || P === K.length - 1),
+          M = (f ?? false) && ((ee[P]?.endsWithNewline ?? false) || P === K.length - 1),
           Z = V;
         if (t) {
           let v = Array.from(gs().segment(V));
@@ -1004,14 +1004,14 @@ class Ei {
           fe = e,
           j = "",
           E = 0,
-          U = !1;
+          U = false;
         for (let { segment: v } of gs().segment(Z)) {
           if (U) {
             j += v;
             continue;
           }
           let Y = E + se(v);
-          if (Y > N) (fe = v), (U = !0);
+          if (Y > N) (fe = v), (U = true);
           else (E = Y), (O += v);
         }
         let ne,
@@ -1527,7 +1527,7 @@ class qe {
   endsWithNewline;
   displayText;
   displayStartOffset;
-  constructor(e, t, r, i = !1) {
+  constructor(e, t, r, i = false) {
     this.text = e;
     this.startOffset = t;
     this.isPrecededByNewline = r;
@@ -1578,7 +1578,7 @@ class Ft {
   getReadlineWordBoundaries() {
     if (!this.readlineWordBoundariesCache) {
       let e = [],
-        t = !1;
+        t = false;
       for (let r of this.getWordBoundaries()) {
         let i = this.text.slice(r.start, r.end);
         for (let o of i.matchAll(Yr)) {
@@ -1646,7 +1646,7 @@ class Ft {
     return this.text.length;
   }
   measureWrappedText() {
-    let e = Nf(this.text, this.columns, { hard: !0, trim: !1 }),
+    let e = Nf(this.text, this.columns, { hard: true, trim: false }),
       t = [],
       r = 0,
       i = -1,
@@ -1670,11 +1670,11 @@ class Ft {
           i !== -1)
         ) {
           let T = i,
-            S = !0;
-          t.push(new qe(d, T, f(T), !0));
+            S = true;
+          t.push(new qe(d, T, f(T), true));
         } else {
           let T = this.text.length;
-          t.push(new qe(d, T, f(T), !1));
+          t.push(new qe(d, T, f(T), false));
         }
       else {
         let T = this.text.indexOf(d, r);
@@ -1756,14 +1756,14 @@ class Ft {
   nextOffset(e) {
     return this.withCache(`next:${e}`, () => {
       let t = this.getGraphemeBoundaries();
-      return this.binarySearchBoundary(t, e, !0);
+      return this.binarySearchBoundary(t, e, true);
     });
   }
   prevOffset(e) {
     if (e <= 0) return 0;
     return this.withCache(`prev:${e}`, () => {
       let t = this.getGraphemeBoundaries();
-      return this.binarySearchBoundary(t, e, !1);
+      return this.binarySearchBoundary(t, e, false);
     });
   }
   snapToGraphemeBoundary(e) {
@@ -1781,13 +1781,13 @@ class Ft {
   }
 }
 class It {
-  prewarmed = !1;
+  prewarmed = false;
   claim() {
-    if (this.prewarmed) return !1;
-    return (this.prewarmed = !0), !0;
+    if (this.prewarmed) return false;
+    return (this.prewarmed = true), true;
   }
   reset() {
-    this.prewarmed = !1;
+    this.prewarmed = false;
   }
 }
 var Zr = new J(() => new It());
@@ -1812,7 +1812,7 @@ function Gt() {
   return { editedEmptyAtMs: 0, armedAtMs: 0, lastLeftPressMs: 0, attachConfirmArmedAtMs: 0 };
 }
 function Kt(e, t, r, i, o = P9e(t), l = xW()) {
-  if (r !== !0) return "reject";
+  if (r !== true) return "reject";
   let d = (T) => T !== 0 && T >= l;
   if (o) {
     if (d(e.lastLeftPressMs) && t - e.lastLeftPressMs < Dt) return "attach-absorb";
@@ -1905,24 +1905,24 @@ function vnt({
   onExit: i,
   onExitMessage: o,
   onEscapeMessage: l,
-  historyOnClear: d = !0,
+  historyOnClear: d = true,
   onLeftArrowOnEmpty: f,
   leftArrowConfirmHint: T,
   onHistoryUp: S,
   onHistoryDown: R,
   onHistoryReset: L,
   mask: N = "",
-  multiline: K = !1,
-  disableBackslashReturn: ee = !1,
-  clearOnSubmit: V = !0,
-  disableCtrlCClear: q = !1,
+  multiline: K = false,
+  disableBackslashReturn: ee = false,
+  clearOnSubmit: V = true,
+  disableCtrlCClear: q = false,
   cursorChar: P,
-  preserveTrailingWhitespace: M = !1,
+  preserveTrailingWhitespace: M = false,
   invert: Z,
   columns: O,
   onImagePaste: fe,
-  disableCursorMovementForUpDownKeys: j = !1,
-  disableEscapeDoublePress: E = !1,
+  disableCursorMovementForUpDownKeys: j = false,
+  disableEscapeDoublePress: E = false,
   maxVisibleLines: U,
   externalOffset: ne,
   onOffsetChange: ce,
@@ -1932,7 +1932,7 @@ function vnt({
   inlineGhostText: Q,
   dim: ke,
   selectionAnchor: de,
-  selectionLinewise: Oe = !1,
+  selectionLinewise: Oe = false,
 }) {
   let le = b9e(),
     ue = tHt() === "readline";
@@ -1940,7 +1940,7 @@ function vnt({
   let ve = ne,
     Ne = ce,
     x = Ei.fromText(e, O, ve),
-    Xe = !1,
+    Xe = false,
     Je;
   function he(c) {
     return v && Je ? v(c, Je) : c;
@@ -1975,9 +1975,9 @@ function vnt({
         });
       },
       () => {
-        if ((l?.(!1), Ze("escape-again-to-clear"), e)) {
+        if ((l?.(false), Ze("escape-again-to-clear"), e)) {
           if (d && N === "" && e.trim() !== "") {
-            let c = Y ? Qs(Y(), (ye) => ye.type === "text" && ye.unavailable === !0) : void 0,
+            let c = Y ? Qs(Y(), (ye) => ye.type === "text" && ye.unavailable === true) : void 0,
               k = oe?.(),
               H = k !== void 0 ? Lse(e, k) : e,
               be = c ? { display: H, pastedContents: c } : H;
@@ -2100,7 +2100,7 @@ function vnt({
         he(`
 `),
       );
-    if (r) r(x.text), (Xe = !0);
+    if (r) r(x.text), (Xe = true);
     return x;
   }
   function Ke() {
@@ -2133,11 +2133,11 @@ function vnt({
     return x;
   }
   function ar(c) {
-    if (c.ctrl && (c.key === "k" || c.key === "u" || c.key === "w")) return !0;
-    if (ue && c.meta && !c.ctrl && c.key === "d") return !0;
-    if (c.key === "backspace" && (c.meta || c.superKey || c.ctrl)) return !0;
-    if (c.key === "delete" && (c.meta || c.superKey)) return !0;
-    return !1;
+    if (c.ctrl && (c.key === "k" || c.key === "u" || c.key === "w")) return true;
+    if (ue && c.meta && !c.ctrl && c.key === "d") return true;
+    if (c.key === "backspace" && (c.meta || c.superKey || c.ctrl)) return true;
+    if (c.key === "delete" && (c.meta || c.superKey)) return true;
+    return false;
   }
   function lr(c) {
     return (c.ctrl || c.meta) && c.key === "y";
@@ -2152,7 +2152,7 @@ function vnt({
         if (c.ctrl || c.meta || c.fn) return bt();
         if (f && !c.shift && x.text === "") {
           let H = Date.now(),
-            be = Kt(pe, H, c.soloKeypress, I("tengu_left_arrow_editing_guard", !0));
+            be = Kt(pe, H, c.soloKeypress, I("tengu_left_arrow_editing_guard", true));
           switch ((jt(pe, be, H), be)) {
             case "fire":
               return Ze(Ge), f(), x;
@@ -2267,7 +2267,7 @@ function vnt({
       Ne(H.offset), (x = H);
     }
     if (Xe) {
-      if (((Xe = !1), V)) x = Ei.fromText("", O, 0);
+      if (((Xe = false), V)) x = Ei.fromText("", O, 0);
     }
   }
   let fr = Q && ke && Q.insertPosition === ve ? { text: Q.text, dim: ke } : void 0,
@@ -2373,16 +2373,16 @@ function qt() {
 }
 function yke({ onPaste: e, handleKeyDown: t, onImagePaste: r, onAudioPaste: i }) {
   let o = xt(),
-    [l, d] = u(!1),
-    f = C(!0),
-    T = C(!1),
-    S = C(!1),
+    [l, d] = u(false),
+    f = C(true),
+    T = C(false),
+    S = C(false),
     [R, L] = u(0),
     N = z(() => D() === "macos", []),
     K = z(() => D() === "wsl", []);
   A(
     () => () => {
-      f.current = !1;
+      f.current = false;
     },
     [],
   );
@@ -2391,15 +2391,15 @@ function yke({ onPaste: e, handleKeyDown: t, onImagePaste: r, onAudioPaste: i })
       new _9e({
         kind: "key",
         name: "return",
-        fn: !1,
-        ctrl: !1,
-        meta: !1,
-        shift: !1,
-        option: !1,
-        super: !1,
+        fn: false,
+        ctrl: false,
+        meta: false,
+        shift: false,
+        option: false,
+        super: false,
         sequence: "\r",
         raw: "\r",
-        isPasted: !1,
+        isPasted: false,
         code: void 0,
         col: void 0,
         row: void 0,
@@ -2409,7 +2409,7 @@ function yke({ onPaste: e, handleKeyDown: t, onImagePaste: r, onAudioPaste: i })
   A(() => {
     if (R === 0) return;
     return o.setTimeout(() => {
-      if (((T.current = !1), S.current)) (S.current = !1), ee();
+      if (((T.current = false), S.current)) (S.current = false), ee();
     }, 0);
   }, [R, o]);
   let V = B(() => {
@@ -2435,15 +2435,15 @@ function yke({ onPaste: e, handleKeyDown: t, onImagePaste: r, onAudioPaste: i })
       new _9e({
         kind: "key",
         name: void 0,
-        fn: !1,
-        ctrl: !1,
-        meta: !1,
-        shift: !1,
-        option: !1,
-        super: !1,
+        fn: false,
+        ctrl: false,
+        meta: false,
+        shift: false,
+        option: false,
+        super: false,
         sequence: E,
         raw: E,
-        isPasted: !0,
+        isPasted: true,
         code: void 0,
         col: void 0,
         row: void 0,
@@ -2452,13 +2452,13 @@ function yke({ onPaste: e, handleKeyDown: t, onImagePaste: r, onAudioPaste: i })
   }
   function M() {
     if (!f.current) return;
-    (T.current = !1), (S.current = !1), d(!1);
+    (T.current = false), (S.current = false), d(false);
   }
   function Z() {
-    d(!1), L((E) => E + 1);
+    d(false), L((E) => E + 1);
   }
   function O(E) {
-    T.current = !0;
+    T.current = true;
     let U = E.replace(/\[I$/, "").replace(/\[O$/, "");
     if (U.length === 0 && (N || K) && r) {
       q();
@@ -2521,15 +2521,15 @@ function yke({ onPaste: e, handleKeyDown: t, onImagePaste: r, onAudioPaste: i })
     P(U), Z();
   }
   function fe(E) {
-    E.preventDefault(), d(!0), O(E.text);
+    E.preventDefault(), d(true), O(E.text);
   }
   function j(E) {
     if (T.current && E.key === "return") {
-      E.preventDefault(), (S.current = !0);
+      E.preventDefault(), (S.current = true);
       return;
     }
     if ((e || r) && !E.ctrl && !E.meta && E.key.length > tue && !E.defaultPrevented) {
-      E.preventDefault(), d(!0), O(E.key);
+      E.preventDefault(), d(true), O(E.key);
       return;
     }
     t(E);

@@ -105,20 +105,20 @@ async function T() {
     let e = (
       await $e("osascript", ["-e", 'tell application "Terminal" to name of current settings of front window'])
     ).stdout.trim();
-    if (!e) return !1;
+    if (!e) return false;
     let i = await $e("defaults", ["export", "com.apple.Terminal", "-"]);
-    if (i.code !== 0) return !1;
+    if (i.code !== 0) return false;
     let d = (await import("/$bunfs/root/chunk-b97kh80q.js").then((m) => j(m.default, 1))).parse(i.stdout)?.[
       "Window Settings"
     ]?.[e];
-    if (!d) return !1;
-    return d.Bell === !1;
+    if (!d) return false;
+    return d.Bell === false;
   } catch (t) {
     return (
       n(`Failed to read Apple Terminal bell setting: ${t instanceof Error ? t.message : String(t)}`, {
         level: "error",
       }),
-      !1
+      false
     );
   }
 }

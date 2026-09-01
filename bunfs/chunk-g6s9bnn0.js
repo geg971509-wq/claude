@@ -50,7 +50,7 @@ import { Wh } from "/$bunfs/root/chunk-h6vcz0m0.js";
 import { _Ae } from "/$bunfs/root/chunk-szz73wxx.js";
 import { Q } from "/$bunfs/root/chunk-wag5ye9w.js";
 class Kr {
-  _active = !1;
+  _active = false;
   _pending = [];
   get active() {
     return this._active;
@@ -59,22 +59,22 @@ class Kr {
     return this._pending.length;
   }
   start() {
-    this._active = !0;
+    this._active = true;
   }
   end() {
-    return (this._active = !1), this._pending.splice(0);
+    return (this._active = false), this._pending.splice(0);
   }
   enqueue(...i) {
-    if (!this._active) return !1;
-    return this._pending.push(...i), !0;
+    if (!this._active) return false;
+    return this._pending.push(...i), true;
   }
   drop() {
-    this._active = !1;
+    this._active = false;
     let i = this._pending.length;
     return (this._pending.length = 0), i;
   }
   deactivate() {
-    this._active = !1;
+    this._active = false;
   }
 }
 var An = 3,
@@ -111,9 +111,9 @@ var lo = 300000,
   fo = 15000,
   _o = /^(session|cse)_[A-Za-z0-9_-]+$/;
 async function Nn() {
-  if (Ct()) return !1;
+  if (Ct()) return false;
   let { getFeatureValue_CACHED_MAY_BE_STALE: i } = await import("/$bunfs/root/chunk-2sq45cbb.js");
-  return i("tengu_bridge_placeholder_sweep", !0);
+  return i("tengu_bridge_placeholder_sweep", true);
 }
 function xn(i) {
   let u = oi();
@@ -163,11 +163,11 @@ function Un(i, u) {
   return Tr(i) === Tr(u);
 }
 async function go(i) {
-  if (Gg(i.pid)) return !0;
+  if (Gg(i.pid)) return true;
   return ms(i.pid) && !(await Bm(i.pid, i.procStart));
 }
 function wt(i) {
-  if (i === "invalid" || i === "skipped_superseded" || i === "skipped_owner_changed") return !0;
+  if (i === "invalid" || i === "skipped_superseded" || i === "skipped_owner_changed") return true;
   return typeof i === "number" && i < 500 && i !== 401 && i !== 408 && i !== 429;
 }
 async function po(i, u, f) {
@@ -177,7 +177,7 @@ async function po(i, u, f) {
   if (!v) return "keep";
   if (!v.created_at || !v.updated_at)
     return n(`[bridge:placeholder] session GET carried no timestamps for ${i}; keeping`), "keep";
-  if (v.updated_at !== v.created_at) return s("tengu_bridge_placeholder_used_session", { v2: !0 }), "remove";
+  if (v.updated_at !== v.created_at) return s("tengu_bridge_placeholder_used_session", { v2: true }), "remove";
   let R = await f.archive(i);
   if (!wt(R)) return p("bridge_placeholder_sweep", typeof R === "number" ? `http_${R}` : R), "keep";
   return (
@@ -188,7 +188,7 @@ function qn(i) {
   let u = oi();
   if (u.placeholderSweepStarted) return Promise.resolve();
   return (
-    (u.placeholderSweepStarted = !0),
+    (u.placeholderSweepStarted = true),
     (async () => {
       if ((await ne(i.startDelayMs ?? fo), !(await Nn()))) return;
       let f = ie().replBridgePlaceholders;
@@ -277,17 +277,17 @@ async function Tt(i) {
   D.pathname = D.pathname.replace(/\/$/, "") + "/worker/events/stream";
   let K = new sje(D, {}, { sessionId: v, initialSequenceNum: T, getAuthHeaders: F }),
     oe = !i.outboundOnly,
-    ve = (i.selfHealHeartbeats ?? !1) && oe,
-    Fe = (i.nonOrigin403Retry ?? !1) && oe,
+    ve = (i.selfHealHeartbeats ?? false) && oe,
+    Fe = (i.nonOrigin403Retry ?? false) && oe,
     se = Fe && ve;
   if (Fe) K.setNonOriginRejectionPolicy({ windowMs: Et, maxGapMs: ho, onRecovered: i.onNonOriginRejectionRecovered });
   let br,
-    Z = !1;
+    Z = false;
   function z(M, ee, Pe) {
     if (Z) return;
-    Z = !0;
+    Z = true;
     try {
-      x.close({ goodbye: !1, retainUndeliveredClientEvents: i.retainUndeliveredOnClose === !0 }), K.close();
+      x.close({ goodbye: false, retainUndeliveredClientEvents: i.retainUndeliveredOnClose === true }), K.close();
     } catch (fe) {
       h(fe);
     }
@@ -301,10 +301,10 @@ async function Tt(i) {
     getAuthHeaders: F,
     heartbeatIntervalMs: i.heartbeatIntervalMs,
     heartbeatJitterFraction: i.heartbeatJitterFraction,
-    advertiseHeartbeatProbeSupport: (i.advertiseHeartbeatProbeSupport ?? !1) && oe,
-    beatOnStaleReconnect: (i.beatOnStaleReconnect ?? !1) && oe,
+    advertiseHeartbeatProbeSupport: (i.advertiseHeartbeatProbeSupport ?? false) && oe,
+    beatOnStaleReconnect: (i.beatOnStaleReconnect ?? false) && oe,
     idleTracker: i.idleTracker,
-    beatOnReactivation: (i.beatOnReactivation ?? !1) && oe,
+    beatOnReactivation: (i.beatOnReactivation ?? false) && oe,
     streamEventFlushIntervalMs: i.streamEventFlushIntervalMs,
     gzipRequestBodyFetch: i.gzipRequestBodyFetch,
     noSubscriberStreamEventFlushIntervalMs: i.noSubscriberStreamEventFlushIntervalMs,
@@ -335,7 +335,7 @@ async function Tt(i) {
   }),
     K.setEventFilter(wSt);
   let Ge,
-    We = !1;
+    We = false;
   return {
     write(M) {
       return x.writeEvent(M);
@@ -345,7 +345,7 @@ async function Tt(i) {
     },
     close(M) {
       if (
-        ((Z = !0),
+        ((Z = true),
         x.close({ goodbye: M?.goodbye, retainUndeliveredClientEvents: M?.retainUndelivered }),
         !M?.retainUndelivered)
       )
@@ -426,7 +426,7 @@ async function Tt(i) {
       x.initialize(A).then(
         () => {
           if (Z) return;
-          (We = !0),
+          (We = true),
             n(
               `[bridge:repl] v2 transport ready for writes (epoch=${A}, sse=${K.isConnectedStatus() ? "open" : "opening"})`,
             ),
@@ -511,11 +511,11 @@ async function sUn(i) {
       workSecretCredentials: be,
       storageV5: he,
     } = i,
-    xe = be !== void 0 ? !0 : A,
+    xe = be !== void 0 ? true : A,
     Ft = v,
     te = !!Ee,
     O = await Ien(),
-    Nt = !1,
+    Nt = false,
     wr = (e) => {
       if (!be) se?.noteAcceptedToken(e);
     },
@@ -530,7 +530,7 @@ async function sUn(i) {
               reuseHeldAboveS: Math.ceil(O.token_refresh_buffer_ms / 1000) + 60,
             })
             .then((r) => {
-              if (r !== null && !v3(r)) Nt = !0;
+              if (r !== null && !v3(r)) Nt = true;
               return r;
             });
         }
@@ -608,14 +608,14 @@ async function sUn(i) {
     return "Session creation failed \u2014 see debug log";
   }
   function Lt(e) {
-    if (e !== null && e.terminal === !1) {
+    if (e !== null && e.terminal === false) {
       de?.("failed", Xr, "auth"),
-        KS("v2_session_create_oauth_rejected", void 0, !0),
+        KS("v2_session_create_oauth_rejected", void 0, true),
         p("bridge_connect", "bridge_connect_create_oauth_rejected");
       return;
     }
     de?.("failed", wi(M9t(e) ? e : null)),
-      KS("v2_session_create_failed", void 0, !0),
+      KS("v2_session_create_failed", void 0, true),
       p("bridge_connect", "bridge_connect_session_create_failed");
   }
   let Ei = "JWT refresh failed: no OAuth token \u2014 run /login",
@@ -623,8 +623,8 @@ async function sUn(i) {
     Si = "Claude.ai login expired \u2014 run /login, then /remote-control",
     Ci = "Claude.ai login expired \u2014 run /login to restore Remote Control",
     Ti = "Signed out of Claude \u2014 run /login, then /remote-control",
-    Qr = !1,
-    Zr = !1;
+    Qr = false,
+    Zr = false;
   if (Ee && $y(Ee)) {
     if (T)
       return (
@@ -632,11 +632,11 @@ async function sUn(i) {
         Y("info", "bridge_repl_v2_revive_reattach_teleported"),
         Fe?.(),
         de?.("failed", $ce, "terminal"),
-        KS("v2_revive_reattach_teleported", void 0, !0),
+        KS("v2_revive_reattach_teleported", void 0, true),
         p("bridge_connect", "bridge_connect_reattach_teleported"),
         null
       );
-    n(`[remote-bridge] Reattach suppressed for teleported session ${Ee} \u2014 minting fresh`), (Qr = !0), (te = !1);
+    n(`[remote-bridge] Reattach suppressed for teleported session ${Ee} \u2014 minting fresh`), (Qr = true), (te = false);
   }
   let _;
   if (be) {
@@ -648,7 +648,7 @@ async function sUn(i) {
           "Remote Control could not attach: the host supplied a session credential but no session to attach to",
           "terminal",
         ),
-        KS("v2_work_secret_no_session", void 0, !0),
+        KS("v2_work_secret_no_session", void 0, true),
         p("bridge_connect", "bridge_connect_work_secret_no_session"),
         null
       );
@@ -669,11 +669,11 @@ async function sUn(i) {
         Y("info", "bridge_repl_v2_reattach_elevated_auth");
       let o =
         e.reason === "untrusted_device" && !C3()
-          ? { terminal: !0, reason: "request_rejected", status: 403 }
-          : { terminal: !0, reason: e.reason };
+          ? { terminal: true, reason: "request_rejected", status: 403 }
+          : { terminal: true, reason: e.reason };
       return (
         de?.("failed", r8(o), $e(o)),
-        KS("v2_reattach_elevated_auth", void 0, !0),
+        KS("v2_reattach_elevated_auth", void 0, true),
         p("bridge_connect", "bridge_connect_reattach_elevated_auth"),
         null
       );
@@ -687,26 +687,26 @@ async function sUn(i) {
         oe(),
         Fe?.(),
         de?.("failed", $ce, "terminal"),
-        KS("v2_revive_reattach_gone", void 0, !0, { reattach_origin: ke(R), revive_initiated: F === !0 }),
+        KS("v2_revive_reattach_gone", void 0, true, { reattach_origin: ke(R), revive_initiated: F === true }),
         p("bridge_connect", "bridge_connect_reattach_gone"),
         null
       );
     if (e?.outcome === "gone") {
       n(`[remote-bridge] Reattach ${_} gone (unarchive ${e.status}); minting fresh session`),
-        (Zr = !0),
+        (Zr = true),
         oe(),
         (Ft = ve ?? `${Lne()}-${P$()}`),
         Y("info", "bridge_repl_v2_reattach_fallback", { via: "unarchive", status: e.status }),
         s("tengu_bridge_repl_env_expired_fresh_session", {
-          v2: !0,
+          v2: true,
           via: c("unarchive"),
           status: typeof e.status === "number" ? e.status : c(e.status),
           reattach_origin: ke(R),
-          revive_initiated: F === !0,
+          revive_initiated: F === true,
         });
       let r = await qt();
       if (typeof r !== "string") return Lt(r), null;
-      (_ = r), (te = !1);
+      (_ = r), (te = false);
     }
   } else {
     if (T)
@@ -717,7 +717,7 @@ async function sUn(i) {
         Y("info", "bridge_repl_v2_revive_fresh_refused"),
         oe(),
         de?.("failed", $ce, "terminal"),
-        KS("v2_revive_fresh_refused", void 0, !0),
+        KS("v2_revive_fresh_refused", void 0, true),
         p("bridge_connect", "bridge_connect_revive_fresh_refused"),
         null
       );
@@ -808,7 +808,7 @@ async function sUn(i) {
     if (
       (n(`[remote-bridge] Creds failed; onStateChange ${de ? "set" : "UNSET"}, msg="${e}"`),
       de?.("failed", e, r),
-      KS(o, void 0, !0),
+      KS(o, void 0, true),
       p("bridge_connect", "bridge_connect_creds_failed"),
       !te)
     )
@@ -819,13 +819,13 @@ async function sUn(i) {
   let Wt = Qse(H.api_base_url, _);
   n(`[remote-bridge] v2 session URL: ${Wt}`);
   function Ai() {
-    return I("tengu_bridge_selfheal_heartbeats", !0);
+    return I("tengu_bridge_selfheal_heartbeats", true);
   }
   function tt() {
-    return I("tengu_bridge_recovery_patience", !0);
+    return I("tengu_bridge_recovery_patience", true);
   }
   function Kt() {
-    return I("tengu_dazzling_garden", !0);
+    return I("tengu_dazzling_garden", true);
   }
   function Mi() {
     return I("tengu_ccr_stream_event_flush_ms", aje);
@@ -834,13 +834,13 @@ async function sUn(i) {
     return I("tengu_ccr_no_subscriber_flush_ms", 0);
   }
   function Pi() {
-    return I("tengu_ccr_idle_heartbeat", !1);
+    return I("tengu_ccr_idle_heartbeat", false);
   }
   function Ii() {
-    return I("tengu_ccr_reconnect_beat", !1);
+    return I("tengu_ccr_reconnect_beat", false);
   }
   function Di() {
-    return I("tengu_ccr_reactivation_beat", !1);
+    return I("tengu_ccr_reactivation_beat", false);
   }
   let fr = Bot(),
     ji = gmt("ccr_worker", he);
@@ -849,7 +849,7 @@ async function sUn(i) {
       heartbeatIntervalMs: O.heartbeat_interval_ms,
       heartbeatJitterFraction: O.heartbeat_jitter_fraction,
       onRequestAuthOk: qi,
-      causeTypedCloseCodes: !0,
+      causeTypedCloseCodes: true,
       selfHealHeartbeats: Ai(),
       advertiseHeartbeatProbeSupport: Pi(),
       beatOnStaleReconnect: Ii(),
@@ -861,7 +861,7 @@ async function sUn(i) {
       outboundOnly: Rr,
       nonOrigin403Retry: b9t(),
       onNonOriginRejectionRecovered: Li,
-      retainUndeliveredOnClose: !0,
+      retainUndeliveredOnClose: true,
     };
   }
   let S;
@@ -879,7 +879,7 @@ async function sUn(i) {
     if (
       (n(`[remote-bridge] v2 transport setup failed: ${l(e)}`, { level: "error" }),
       de?.("failed", `Transport setup failed: ${l(e)}`),
-      KS("v2_transport_setup_failed", void 0, !0),
+      KS("v2_transport_setup_failed", void 0, true),
       p("bridge_connect", "bridge_connect_transport_failed"),
       !te)
     )
@@ -891,7 +891,7 @@ async function sUn(i) {
     So = null,
     Co = new Set();
   function Bi() {
-    return !1;
+    return false;
   }
   function $i(e, r) {
     return { added: [], removed: [] };
@@ -932,25 +932,25 @@ async function sUn(i) {
     _e = new Kr(),
     ce = new Kr(),
     st = 0,
-    Ke = !1,
+    Ke = false,
     at = te,
-    m = !1,
+    m = false,
     Or,
-    le = !1,
+    le = false,
     Jt = 0,
     N = 0;
   function Xt() {
-    return Jt++, (N = Jt), (le = !0), (Ve = Date.now()), (gr = !1), N;
+    return Jt++, (N = Jt), (le = true), (Ve = Date.now()), (gr = false), N;
   }
   function Qt(e) {
-    if (N !== e) return !1;
-    return (N = 0), (le = !1), (Ve = 0), !0;
+    if (N !== e) return false;
+    return (N = 0), (le = false), (Ve = 0), true;
   }
   function Zt() {
-    (N = 0), (le = !1), (Ve = 0);
+    (N = 0), (le = false), (Ve = 0);
   }
   let Ve = 0,
-    gr = !1,
+    gr = false,
     en = O.init_retry_max_attempts * O.http_timeout_ms + (O.init_retry_max_attempts - 1) * O.init_retry_max_delay_ms,
     Ui = O.oauth_retry_base_delay_ms * (2 ** O.oauth_retry_max_attempts - 1) + O.oauth_retry_max_attempts * en,
     rn = 2 * (15000 + en + Ui),
@@ -961,25 +961,25 @@ async function sUn(i) {
   function qi() {
     (Pr = 0), nn.noteHealthyBeat(Date.now()), et(), D?.();
   }
-  let Ir = !1,
+  let Ir = false,
     Ie;
   function Ye() {
     clearTimeout(Ie), (Ie = void 0);
   }
-  let Je = !1;
+  let Je = false;
   function Dr(e) {
-    (Je = !1), de?.("reconnecting", e);
+    (Je = false), de?.("reconnecting", e);
   }
   function jr() {
-    (Je = !1), de?.("connected");
+    (Je = false), de?.("connected");
   }
   function G(e, r = "terminal") {
-    (Je = !0), Ye(), (Re = void 0), Br(), de?.("failed", e, r);
+    (Je = true), Ye(), (Re = void 0), Br(), de?.("failed", e, r);
   }
   function Br() {
     let e = _e.end(),
       r = ce.end().map((o) => o.frame);
-    (Ke = !1), on(e.length + r.length, r, S.discardUndeliveredEvents?.() ?? []);
+    (Ke = false), on(e.length + r.length, r, S.discardUndeliveredEvents?.() ?? []);
   }
   function on(e, r, o) {
     if (e === 0 && o.length === 0) return;
@@ -996,31 +996,31 @@ async function sUn(i) {
   }
   let W,
     re,
-    He = !1,
+    He = false,
     Xe,
     De,
     Re,
-    V = !1,
-    U = !1,
+    V = false,
+    U = false,
     pr;
   function Ze() {
-    return !0;
+    return true;
   }
-  function Ce(e, r, o = !0) {
+  function Ce(e, r, o = true) {
     if (o) (Xe = void 0), (De = void 0);
-    if (!He || !Ze()) return !1;
+    if (!He || !Ze()) return false;
     if (r === void 0) g("bridge_presence", e);
     else g("bridge_presence", e, r);
-    return !0;
+    return true;
   }
   function J(e, r) {
-    if (((Xe = void 0), (De = void 0), (V = !0), !Ze())) return !1;
-    if (!He) return p("bridge_connect", "bridge_connect_died_before_presence"), !1;
+    if (((Xe = void 0), (De = void 0), (V = true), !Ze())) return false;
+    if (!He) return p("bridge_connect", "bridge_connect_died_before_presence"), false;
     if (r === void 0) p("bridge_presence", e);
     else p("bridge_presence", e, r);
-    return !0;
+    return true;
   }
-  let $r = !1;
+  let $r = false;
   function Li(e) {
     if (m || U || V) return;
     if (
@@ -1030,10 +1030,10 @@ async function sUn(i) {
       Ce(
         vo[e.source],
         { attempts: e.attempts, streak_s: Math.round(e.streakMs / 1000), first_in_episode: $r ? 0 : 1 },
-        !1,
+        false,
       ))
     )
-      $r = !0;
+      $r = true;
   }
   function dt(e) {
     if (!lre(e?.rejectSource)) {
@@ -1046,7 +1046,7 @@ async function sUn(i) {
         first_in_episode: $r ? 0 : 1,
       })
     )
-      $r = !0;
+      $r = true;
   }
   function sn(e) {
     if ($y(_)) return;
@@ -1061,7 +1061,7 @@ async function sUn(i) {
     ) {
       if (W.code === 403) dt(W.detail);
       else if (W.code === 404) J("transport_closed_404");
-      else Ce("transport_closed_4090"), (V = !0);
+      else Ce("transport_closed_4090"), (V = true);
       Re = void 0;
     }
   }
@@ -1125,19 +1125,19 @@ async function sUn(i) {
     return (await Gi(e)) === "changed";
   }
   async function hr(e, r) {
-    if (er() && (await rr(e))) return !0;
+    if (er() && (await rr(e))) return true;
     return m || N !== r;
   }
   async function Wi(e) {
     if (m || U || se === void 0) return;
     if (
-      ((U = !0),
+      ((U = true),
       pr?.(),
       (pr = void 0),
       sr.cancelAll(),
       Zt(),
       br?.(),
-      (Ir = !1),
+      (Ir = false),
       sn("owner_changed"),
       (W = void 0),
       clearTimeout(or),
@@ -1164,7 +1164,7 @@ async function sUn(i) {
       !r)
     )
       Ce(e),
-        (V = !0),
+        (V = true),
         G(NBt, "terminal"),
         S.write(Wyn(_, "account_changed")),
         await Promise.race([
@@ -1205,7 +1205,7 @@ async function sUn(i) {
   let ye = (e, r) => {
     if (Ot && !U && (e === "requires_action" || e === "idle")) Ot();
     if ((S.reportState(e, r), e === "requires_action" && r)) {
-      Fr = !0;
+      Fr = true;
       let o = [...ge.values()].flatMap((t) => (t.details ? [t.details] : [])).reverse();
       S.reportMetadata({
         pending_action: r,
@@ -1214,7 +1214,7 @@ async function sUn(i) {
           o.filter((t) => t !== r),
         ),
       });
-    } else if (Fr) (Fr = !1), S.reportMetadata({ pending_action: null, pending_actions: null });
+    } else if (Fr) (Fr = false), S.reportMetadata({ pending_action: null, pending_actions: null });
   };
   function Ki() {
     return tr.clear(), [...ge.values()].map((e) => e.request);
@@ -1244,17 +1244,17 @@ async function sUn(i) {
         L = te,
         ae = te,
         ue = 0,
-        Me = !1,
-        Oe = !1,
+        Me = false,
+        Oe = false,
         je = async () => {
           if (Me) {
-            Oe = !0;
+            Oe = true;
             return;
           }
-          Me = !0;
+          Me = true;
           try {
             do {
-              Oe = !1;
+              Oe = false;
               let qe = ue;
               if (m || U) return;
               let X = Jr();
@@ -1266,24 +1266,24 @@ async function sUn(i) {
               }
               let Be = await a(X);
               if (qe !== ue) {
-                Oe = !0;
+                Oe = true;
                 continue;
               }
               if (m || Te("branch_metadata")) return;
               if (Be === void 0) {
                 if (P !== null)
                   if (((P = null), L))
-                    (L = !1), S.reportMetadata({ current_branches: { [C]: null }, worktree_state: { [C]: null } });
+                    (L = false), S.reportMetadata({ current_branches: { [C]: null }, worktree_state: { [C]: null } });
                   else S.reportMetadata({ current_branches: { [C]: null } });
                 continue;
               }
-              if (b && I("tengu_ccr_handoff_metadata", !1)) {
+              if (b && I("tengu_ccr_handoff_metadata", false)) {
                 let [no, Gr] = await Promise.all([
                   b.collectWorktreeState(X, Be),
                   b.withCollectTimeout(E(X)).catch(() => null),
                 ]);
                 if (qe !== ue) {
-                  Oe = !0;
+                  Oe = true;
                   continue;
                 }
                 if (m || Te("branch_metadata")) return;
@@ -1311,12 +1311,12 @@ async function sUn(i) {
                   (L = me !== null),
                   me !== null)
                 )
-                  ae = !0;
+                  ae = true;
                 S.reportMetadata({ current_branches: { [C]: Rt }, worktree_state: { [C]: me } });
                 continue;
               }
               if (L) {
-                (L = !1), (P = Be), S.reportMetadata({ current_branches: { [C]: Be }, worktree_state: { [C]: null } });
+                (L = false), (P = Be), S.reportMetadata({ current_branches: { [C]: Be }, worktree_state: { [C]: null } });
                 continue;
               }
               if (Be === P) continue;
@@ -1325,11 +1325,11 @@ async function sUn(i) {
           } catch (qe) {
             n(`[remote-bridge] current_branches emit failed: ${l(qe)}`);
           } finally {
-            Me = !1;
+            Me = false;
           }
         };
       (gn = () => {
-        if (((P = void 0), (L = ae), ue++, Me)) Oe = !0;
+        if (((P = void 0), (L = ae), ue++, Me)) Oe = true;
       }),
         (xr = () => void je());
       let we = d(xr);
@@ -1347,7 +1347,7 @@ async function sUn(i) {
   function mn(e) {
     if (m) return;
     if (
-      (s("tengu_bridge_repl_connect_timeout", { v2: !0, elapsed_ms: O.connect_timeout_ms, cause: c(e) }),
+      (s("tengu_bridge_repl_connect_timeout", { v2: true, elapsed_ms: O.connect_timeout_ms, cause: c(e) }),
       p("bridge_connect", "bridge_connect_timeout"),
       V)
     );
@@ -1423,12 +1423,12 @@ async function sUn(i) {
         }
         let o = Xt(),
           t = V,
-          a = !1,
+          a = false,
           d,
           E,
           b,
           w,
-          C = !1;
+          C = false;
         function j(P, L, ae = "refresh_credentials_rejected", ue) {
           if (m) return;
           if (Re !== void 0 && W === void 0) J(Re), (Re = void 0);
@@ -1436,9 +1436,9 @@ async function sUn(i) {
           (d = P), (E = "refresh_credentials_rejected"), (b = L);
         }
         async function q() {
-          if (!(await hr("owner_changed_refresh", o))) return !1;
+          if (!(await hr("owner_changed_refresh", o))) return false;
           if (U) w = { leg: "sad", code: "owner_changed" };
-          return !0;
+          return true;
         }
         try {
           if (await q()) return;
@@ -1446,7 +1446,7 @@ async function sUn(i) {
           if (!P) gt();
           let L = await dr(
             () => {
-              if (P) return Promise.resolve({ terminal: !1, reason: "oauth_rejected" });
+              if (P) return Promise.resolve({ terminal: false, reason: "oauth_rejected" });
               if (m || re !== void 0 || N !== o) return Promise.resolve(null);
               return Er(e, u, r, O.http_timeout_ms, void 0, lr).then((ue) => (m || N !== o ? ue : rt(ue)));
             },
@@ -1479,7 +1479,7 @@ async function sUn(i) {
                 w = { leg: "sad", code: "refresh_deferred_transient" };
               _t = r;
               let X = Ur < zi;
-              if ($y(e)) X = !1;
+              if ($y(e)) X = false;
               if (X) Ur++, sr.scheduleFromExpiresIn(e, 0);
               Y("info", "bridge_repl_v2_proactive_refresh_unreachable", { early_retry: Ur, rearmed: X });
               return;
@@ -1530,9 +1530,9 @@ async function sUn(i) {
             }
             wr(Oe);
             let qe = await pt(we, "proactive_refresh", 0);
-            if (qe === "suppressed_teleported") C = !0;
+            if (qe === "suppressed_teleported") C = true;
             if (qe === "rebuilt")
-              (a = !0),
+              (a = true),
                 (w = { leg: "sad", code: "oauth_rejected_recovered" }),
                 n("[remote-bridge] Transport rebuilt (proactive refresh after forced OAuth refresh)");
             return;
@@ -1552,9 +1552,9 @@ async function sUn(i) {
           }
           wr(r);
           let ae = await pt(L, "proactive_refresh", 0);
-          if (ae === "suppressed_teleported") C = !0;
+          if (ae === "suppressed_teleported") C = true;
           if (ae === "rebuilt")
-            (a = !0), (w = { leg: "ok" }), n("[remote-bridge] Transport rebuilt (proactive refresh)");
+            (a = true), (w = { leg: "ok" }), n("[remote-bridge] Transport rebuilt (proactive refresh)");
         } catch (P) {
           if (
             (n(`[remote-bridge] Proactive refresh rebuild failed: ${l(P)}`, { level: "error" }),
@@ -1571,11 +1571,11 @@ async function sUn(i) {
           let P = W;
           W = void 0;
           let L = C;
-          if ($y(e)) L = !0;
+          if ($y(e)) L = true;
           if (L) {
             if (P !== void 0 && !m) G("Session teleported to cloud");
           } else if (P !== void 0 && !a && !m && !V) {
-            let ae = qr(P.code, P.cause, P.detail, !0);
+            let ae = qr(P.code, P.cause, P.detail, true);
             if (d !== void 0 && !ae && !m && !le) G(d, b);
           } else if (P !== void 0 && a && !m) {
             if (yn(P.code) && !t) Ce(pe[P.code].recoveredCode);
@@ -1603,10 +1603,10 @@ async function sUn(i) {
         (clearTimeout(or),
         (ze = 0),
         (Re = void 0),
-        (V = !1),
+        (V = false),
         (Xe = void 0),
         (De = void 0),
-        (Je = !1),
+        (Je = false),
         et(),
         (re = void 0),
         ge.size > 0)
@@ -1620,12 +1620,12 @@ async function sUn(i) {
         if (o && t) $t(o, t);
       }
       if (
-        (s("tengu_bridge_repl_ws_connected", { v2: !0, cause: c(Hr), ...(ft > 0 && { remint_attempts: ft }) }),
+        (s("tengu_bridge_repl_ws_connected", { v2: true, cause: c(Hr), ...(ft > 0 && { remint_attempts: ft }) }),
         !He && Ze())
       )
-        (He = !0), y("bridge_presence");
+        (He = true), y("bridge_presence");
       if (!at && fe && fe.length > 0 && !Zr) {
-        at = !0;
+        at = true;
         let o = S;
         eo(fe)
           .catch((t) => n(`[remote-bridge] flushHistory failed: ${t}`))
@@ -1726,21 +1726,21 @@ async function sUn(i) {
       );
     }
   }
-  function qr(e, r, o, t = !1) {
-    let a = !1;
-    if ((clearTimeout(or), m || U)) return on(0, [], S.discardUndeliveredEvents?.() ?? []), !1;
+  function qr(e, r, o, t = false) {
+    let a = false;
+    if ((clearTimeout(or), m || U)) return on(0, [], S.discardUndeliveredEvents?.() ?? []), false;
     if (!t)
       n(`[remote-bridge] v2 transport closed (code=${e}${o ? ` source=${o.rejectSource}` : ""})`),
         s("tengu_bridge_repl_ws_closed", {
           code: e,
-          v2: !0,
+          v2: true,
           close_cause: ke(r),
           recovery_in_flight: le,
           ...(o !== void 0 && { reject_source: c(o.rejectSource) }),
         });
     if (le) {
       let C = Ve ? Date.now() - Ve : 0;
-      if (C <= rn) return (W = { code: e ?? 4092, cause: r, detail: o }), !1;
+      if (C <= rn) return (W = { code: e ?? 4092, cause: r, detail: o }), false;
       n(
         `[remote-bridge] authRecoveryInFlight held ${Math.round(C / 1000)}s (> ceiling ${Math.round(rn / 1000)}s) \u2014 treating as leaked, handling close directly`,
         { level: "error" },
@@ -1748,7 +1748,7 @@ async function sUn(i) {
         Y("error", "bridge_repl_v2_recovery_flag_leaked"),
         Zt(),
         (W = void 0),
-        (a = !0);
+        (a = true);
     }
     if (yn(e)) {
       if (ze >= tn) {
@@ -1758,7 +1758,7 @@ async function sUn(i) {
           !V)
         )
           J("recovery_exhausted", { close_code: e });
-        return !1;
+        return false;
       }
       if (e === 4094 && !t) {
         if (Pr >= tn) {
@@ -1771,7 +1771,7 @@ async function sUn(i) {
             !V)
           )
             J("cred_recovery_exhausted");
-          return !1;
+          return false;
         }
         Pr++;
       }
@@ -1787,13 +1787,13 @@ async function sUn(i) {
               !V)
             )
               J("heartbeat_budget_exhausted", { window_h: j });
-            return !1;
+            return false;
           }
           case "charged":
             break;
         }
       }
-      return ze++, Qi(e), !1;
+      return ze++, Qi(e), false;
     }
     let d = (t || a) && gr,
       E = Wn(e, r);
@@ -1803,19 +1803,19 @@ async function sUn(i) {
     if ((G(w ? St(e, b) : `Transport closed: ${St(e, b, o)}`, w ? "ended_elsewhere" : "terminal"), V)) return w;
     if (e === 4090)
       if (t && gr) J("transport_closed_4090");
-      else Ce("transport_closed_4090"), (V = !0);
+      else Ce("transport_closed_4090"), (V = true);
     else if (e === 403) dt(o);
     else J(e === 404 ? "transport_closed_404" : "transport_closed_other");
     return w;
   }
   async function pt(e, r, o) {
     if ($y(_)) return n(`[remote-bridge] Rebuild suppressed for teleported session ${_}`), "suppressed_teleported";
-    (Hr = r), (ft = o), (re = void 0), (gr = !0), (Fr = !1), gn?.(), yr?.(), _e.start(), ce.start();
+    (Hr = r), (ft = o), (re = void 0), (gr = true), (Fr = false), gn?.(), yr?.(), _e.start(), ce.start();
     try {
       let t = S,
         a = t.getLastSequenceNum();
       if (
-        (t.close({ goodbye: !1, retainUndelivered: !0 }),
+        (t.close({ goodbye: false, retainUndelivered: true }),
         (S = await Tt({
           ...Vt(),
           sessionUrl: Qse(e.api_base_url, _),
@@ -1864,17 +1864,17 @@ async function sUn(i) {
         !He)
       )
         g("bridge_connect", "signed_out");
-      (V = !0), G(Ti, "auth");
+      (V = true), G(Ti, "auth");
       return;
     }
     if ((G(Ei, "auth"), !o)) J("recovery_no_oauth_token");
   }
   async function Ji(e, r, o, t) {
     let a = Date.now();
-    Y("info", "bridge_repl_v2_remint_loop_entered"), (Ir = !0);
+    Y("info", "bridge_repl_v2_remint_loop_entered"), (Ir = true);
     let d = 0;
     try {
-      let E = !1,
+      let E = false,
         b = 0;
       for (let w = 1; !m; w++) {
         if (N !== r) return { creds: null, attempts: d };
@@ -1922,8 +1922,8 @@ async function sUn(i) {
         if (tO(P)) {
           if (z && !E) {
             if (await hr("owner_changed_recovery", r)) return { creds: null, attempts: d };
-            E = !0;
-            let L = !1;
+            E = true;
+            let L = false;
             try {
               L = await z(q);
             } catch (ae) {
@@ -1955,7 +1955,7 @@ async function sUn(i) {
       }
       return { creds: null, attempts: d };
     } finally {
-      if (N === r) Ir = !1;
+      if (N === r) Ir = false;
     }
   }
   let pe = {
@@ -1966,7 +1966,7 @@ async function sUn(i) {
       fetchFailure: "terminal",
       remintCap: void 0,
       recoveredCode: "recovered_auth_401",
-      needsOAuthRefresh: !0,
+      needsOAuthRefresh: true,
     },
     4091: {
       reconnectingDetail: "CCR init failed \u2014 retrying",
@@ -1975,7 +1975,7 @@ async function sUn(i) {
       fetchFailure: "terminal",
       remintCap: void 0,
       recoveredCode: "recovered_init_4091",
-      needsOAuthRefresh: !1,
+      needsOAuthRefresh: false,
     },
     4093: {
       reconnectingDetail: "presence heartbeats failing \u2014 reconnecting",
@@ -1984,7 +1984,7 @@ async function sUn(i) {
       fetchFailure: "retry",
       remintCap: Bn,
       recoveredCode: "recovered_heartbeat_4093",
-      needsOAuthRefresh: !1,
+      needsOAuthRefresh: false,
     },
     4094: {
       reconnectingDetail: "worker credential expired \u2014 re-minting",
@@ -1993,7 +1993,7 @@ async function sUn(i) {
       fetchFailure: "terminal",
       remintCap: void 0,
       recoveredCode: "recovered_cred_4094",
-      needsOAuthRefresh: !0,
+      needsOAuthRefresh: true,
     },
   };
   function yn(e) {
@@ -2026,7 +2026,7 @@ async function sUn(i) {
         return;
       }
       if (S !== o) return;
-      qr(e, void 0, void 0, !0);
+      qr(e, void 0, void 0, true);
     }
     Ie = setTimeout(t, wn);
   }
@@ -2045,13 +2045,13 @@ async function sUn(i) {
     try {
       if (await hr("owner_changed_recovery", o)) return;
       let t = Z(),
-        a = !0,
+        a = true,
         d = Zbt();
       if (!be && pe[e].needsOAuthRefresh && z)
         try {
           a = await z(t ?? "");
         } catch (j) {
-          (a = !1), n(`[remote-bridge] ${e} recovery OAuth refresh threw: ${l(j)}`, { level: "error" });
+          (a = false), n(`[remote-bridge] ${e} recovery OAuth refresh threw: ${l(j)}`, { level: "error" });
         }
       else if (!be && M)
         try {
@@ -2072,7 +2072,7 @@ async function sUn(i) {
       let b = await dr(() => Ar(E, o), "fetchRemoteCredentials (recovery)", O);
       if (N !== o) return;
       if ((!b || tO(b)) && !m && pe[e].needsOAuthRefresh && z && !a) {
-        let j = !1;
+        let j = false;
         for (let q = 1; q <= O.oauth_retry_max_attempts && !m; q++) {
           Dr(`OAuth refresh failed \u2014 waiting for a fresh login (${q}/${O.oauth_retry_max_attempts})`);
           let P = O.oauth_retry_base_delay_ms * 2 ** (q - 1),
@@ -2087,7 +2087,7 @@ async function sUn(i) {
           if (m || N !== o) return;
           let ue = ae !== void 0 && ae !== (t ?? "") ? ae : void 0;
           if (!ue) continue;
-          if (((j = !0), $y(_))) {
+          if (((j = true), $y(_))) {
             G("Session teleported to cloud");
             return;
           }
@@ -2100,7 +2100,7 @@ async function sUn(i) {
             let q = an(d);
             if (q !== void 0) {
               if ((Y("info", "bridge_repl_v2_recovery_host_declined"), G(ln(q), un(q)), !r))
-                if (He) Ce(q), (V = !0);
+                if (He) Ce(q), (V = true);
                 else J("recovery_reauth_required");
               return;
             }
@@ -2117,7 +2117,7 @@ async function sUn(i) {
       }
       if (tO(b) && !pe[e].needsOAuthRefresh && z) {
         if (await hr("owner_changed_recovery", o)) return;
-        let j = !1;
+        let j = false;
         try {
           j = await z(t ?? "");
         } catch (q) {
@@ -2171,9 +2171,9 @@ async function sUn(i) {
         if (Ie !== void 0 && W !== void 0) {
           Ye();
           let t = W;
-          (W = void 0), qr(t.code, t.cause, t.detail, !0);
+          (W = void 0), qr(t.code, t.cause, t.detail, true);
         } else W = void 0;
-        if (Ie === void 0 && !le) _e.drop(), ce.drop(), (Ke = !1);
+        if (Ie === void 0 && !le) _e.drop(), ce.drop(), (Ke = false);
       }
     }
   }
@@ -2186,7 +2186,7 @@ async function sUn(i) {
     let e = _e.end(),
       r = ce.end(),
       o = Ke;
-    if (((Ke = !1), e.length === 0 && r.length === 0)) return;
+    if (((Ke = false), e.length === 0 && r.length === 0)) return;
     let t = [],
       a = [],
       d = () => {
@@ -2230,19 +2230,19 @@ async function sUn(i) {
     let r = e.filter(Mde),
       o = yo(r, Pe);
     if (o.length < r.length) n(`[remote-bridge] Capped initial flush: ${r.length} -> ${o.length} (cap=${Pe})`);
-    let t = ht(o).map((d) => ({ ...d, historical: !0 }));
+    let t = ht(o).map((d) => ({ ...d, historical: true }));
     if (t.length === 0) return;
     let a = r.findLast((d) => d.type !== "attachment");
     if (a && H9t(a) && ge.size === 0) ye("running");
     n(`[remote-bridge] Flushing ${t.length} history events`), await S.writeBatch(t);
   }
-  let mt = xe === !0,
+  let mt = xe === true,
     ar;
   function ro(e) {
-    if (e?.skipArchive) mt = !0;
+    if (e?.skipArchive) mt = true;
     if (e?.reason) ar = e.reason;
     if (Or) return Or;
-    return (m = !0), (Or = to()), Or;
+    return (m = true), (Or = to()), Or;
   }
   async function to() {
     sn("teardown");
@@ -2280,7 +2280,7 @@ async function sUn(i) {
         await S.flushGoodbye(),
         n(`[remote-bridge] Teardown complete (skipArchive): session=${_}`),
         Y("info", "bridge_repl_v2_teardown"),
-        s("tengu_bridge_repl_teardown", { v2: !0, archive_status: c(C), archive_ok: !1 }),
+        s("tengu_bridge_repl_teardown", { v2: true, archive_status: c(C), archive_ok: false }),
         Sn();
       return;
     }
@@ -2306,7 +2306,7 @@ async function sUn(i) {
     n(`[remote-bridge] Torn down (archive=${E})`),
       Y("info", "bridge_repl_v2_teardown"),
       s("tengu_bridge_repl_teardown", {
-        v2: !0,
+        v2: true,
         archive_status: c(w),
         archive_credential: ke(a?.source),
         archive_ok: typeof E === "number" && E < 400,
@@ -2318,15 +2318,15 @@ async function sUn(i) {
   }
   s("tengu_bridge_repl_started", {
     has_initial_messages: !!(fe && fe.length > 0),
-    v2: !0,
+    v2: true,
     expires_in_s: H.expires_in,
     inProtectedNamespace: YO(),
     ...Che(),
   }),
     y("bridge_connect");
   function Te(e) {
-    if (!U) return !1;
-    return n(`[remote-bridge] Dropping ${e} after owner change`), !0;
+    if (!U) return false;
+    return n(`[remote-bridge] Dropping ${e} after owner change`), true;
   }
   let bt = {
     bridgeSessionId: _,
@@ -2336,7 +2336,7 @@ async function sUn(i) {
       sr.cancelAll(), Mr();
     },
     sessionGroupingId: kr,
-    outboundOnly: Rr ?? !1,
+    outboundOnly: Rr ?? false,
     environmentId: "",
     sessionIngressUrl: H.api_base_url,
     ...(be && { getWorkerBearerToken: () => (m ? null : nt) }),
@@ -2350,12 +2350,12 @@ async function sUn(i) {
         for (let t of r) {
           let a = ier(t);
           if (a !== void 0 && Mt?.(a, _)) {
-            hn = !0;
+            hn = true;
             break;
           }
         }
       if (_e.enqueue(...r.map((t) => ({ seq: st++, message: t })))) {
-        if (r.some(H9t)) Ke = !0;
+        if (r.some(H9t)) Ke = true;
         n(`[remote-bridge] Queued ${r.length} message(s) during flush`);
         return;
       }
@@ -2399,13 +2399,13 @@ async function sUn(i) {
           n(
             `[remote-bridge] Not forwarding request_user_dialog while writes are gated / transport recovering (local-only): ${e.request_id}`,
           ),
-          !1
+          false
         );
-      if (Te("control_request")) return !1;
+      if (Te("control_request")) return false;
       let o = { ...e, session_id: _ };
       if (r.subtype === "can_use_tool") {
         let t;
-        if (I("tengu_bridge_requires_action_details", !1)) {
+        if (I("tengu_bridge_requires_action_details", false)) {
           let a = r.tool_name === Qe || r.tool_name === Bt,
             d;
           if (r.tool_name === Yi) {
@@ -2432,15 +2432,15 @@ async function sUn(i) {
         ye("requires_action", t);
       } else if (r.subtype === "request_user_dialog") {
         let t;
-        if (I("tengu_bridge_requires_action_details", !1))
+        if (I("tengu_bridge_requires_action_details", false))
           t = jot(r.dialog_kind, r.payload, e.request_id, r.tool_use_id);
         if (t) ge.set(e.request_id, { request: e, details: t });
         ye("requires_action", t);
       }
-      return Lr(o, `control_request request_id=${e.request_id}`), !0;
+      return Lr(o, `control_request request_id=${e.request_id}`), true;
     },
     sendControlResponse(e, r) {
-      if (!r?.skipStateReport) ut(e.response.request_id, !0);
+      if (!r?.skipStateReport) ut(e.response.request_id, true);
       if (Te("control_response")) return;
       let o = { ...e, session_id: _ };
       if (!r?.skipStateReport) ye("running");
@@ -2451,16 +2451,16 @@ async function sUn(i) {
         ge.delete(e), n(`[remote-bridge] Local-only retract of a declined dialog forward request_id=${e}`);
         return;
       }
-      if ((ut(e, !0), Te("control_cancel_request"))) return;
+      if ((ut(e, true), Te("control_cancel_request"))) return;
       let r = { type: "control_cancel_request", request_id: e, session_id: _ };
       ye("running"), Lr(r, `control_cancel_request request_id=${e}`);
     },
     sendResult(e) {
-      if (((Ke = !1), Te("result"))) return;
+      if (((Ke = false), Te("result"))) return;
       ye("idle"), Lr(jyn(_, e), `result${e ? ` user_message_uuid=${e}` : ""}`);
     },
     async subscribePR(e, r, o) {
-      if (U) return { ok: !1, reason: "owner_changed" };
+      if (U) return { ok: false, reason: "owner_changed" };
       let t = `${e}#${r}`,
         a = nr.get(t);
       if (o) nr.set(t, { agentId: o, repo: e, prNumber: r });
@@ -2478,7 +2478,7 @@ async function sUn(i) {
       return d;
     },
     async unsubscribePR(e, r) {
-      if (U) return { ok: !1, reason: "owner_changed" };
+      if (U) return { ok: false, reason: "owner_changed" };
       let o = await aut("unsubscribe", {
         sessionId: _,
         repo: e,
@@ -2491,7 +2491,7 @@ async function sUn(i) {
       return o;
     },
     async fetchInboxMessage(e) {
-      let r = (o) => (p("bridge_inbox_fetch", o), { ok: !1, reason: o });
+      let r = (o) => (p("bridge_inbox_fetch", o), { ok: false, reason: o });
       if (m) return r("no_bridge");
       if (U) return r("owner_changed");
       return r("feature_disabled");
@@ -2529,20 +2529,20 @@ async function dr(i, u, f) {
   return null;
 }
 async function At(i, u, f, v) {
-  let T = !1,
-    R = !1,
+  let T = false,
+    R = false,
     F = await dr(
       async () => {
-        if (T) R = !0;
+        if (T) R = true;
         let A = v.getAccessToken(),
-          D = !1,
+          D = false,
           K = await i(A, () => {
-            D = !0;
+            D = true;
           }),
           oe = tO(K);
         if ((K === null || oe) && D && v.onAuth401 && !T && !v.recoveryAttemptedTokens.has(A)) {
           v.recoveryAttemptedTokens.add(A);
-          let ve = !1;
+          let ve = false;
           try {
             ve = await v.onAuth401(A);
           } catch (Fe) {
@@ -2617,7 +2617,7 @@ async function bo(i, u, f, v, T, R) {
   if (!A) return null;
   if (tO(A)) return A;
   if (v3(A)) {
-    if (A.reason === "untrusted_device" && !C3()) return { terminal: !0, reason: "request_rejected", status: 403 };
+    if (A.reason === "untrusted_device" && !C3()) return { terminal: true, reason: "request_rejected", status: 403 };
     return A;
   }
   return s3() ? { ...A, api_base_url: u } : A;

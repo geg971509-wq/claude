@@ -34,9 +34,9 @@ function s(e, r, t) {
     return;
   }
   let a = t.bind(n, o);
-  e.signal.addEventListener("abort", a, { once: !0 }),
+  e.signal.addEventListener("abort", a, { once: true }),
     b.register(r, { parentSignalRef: new WeakRef(e.signal), handler: a }),
-    r.signal.addEventListener("abort", l.bind(n, new WeakRef(a)), { once: !0 });
+    r.signal.addEventListener("abort", l.bind(n, new WeakRef(a)), { once: true });
 }
 function w_(e, r) {
   let t = gr(r);
@@ -45,7 +45,7 @@ function w_(e, r) {
 function GKe(e, r) {
   if (e.signal.aborted) return r.abort(e.signal.reason), () => {};
   let t = () => r.abort(e.signal.reason);
-  return e.signal.addEventListener("abort", t, { once: !0 }), () => e.signal.removeEventListener("abort", t);
+  return e.signal.addEventListener("abort", t, { once: true }), () => e.signal.removeEventListener("abort", t);
 }
 var d = {
   "user-cancel": new DOMException("user-cancel", "AbortError"),
@@ -72,7 +72,7 @@ function _V(e) {
   return f.has(Za(e));
 }
 function qS(e) {
-  return Za(e.reason) === "shutdown" ? !0 : void 0;
+  return Za(e.reason) === "shutdown" ? true : void 0;
 }
 var S_n = "server-fallback-tombstone";
 function h3(e) {
@@ -122,11 +122,11 @@ function w_n(e) {
     case "interrupt":
     case "background":
     case "subagent_park":
-      return !0;
+      return true;
     case "turn_teardown":
     case "recovery_timeout":
     case "server_fallback_tombstone":
-      return !1;
+      return false;
   }
 }
 function p(e) {
@@ -142,6 +142,6 @@ function T_n(e, r = UWt) {
   let t = gr();
   if ((s(e, t, p), t.signal.aborted)) return t;
   let o = setTimeout(k, r, new WeakRef(t));
-  return o.unref(), t.signal.addEventListener("abort", clearTimeout.bind(void 0, o), { once: !0 }), t;
+  return o.unref(), t.signal.addEventListener("abort", clearTimeout.bind(void 0, o), { once: true }), t;
 }
 export { gr, w_, GKe, bu, Za, GLe, _V, qS, S_n, h3, zKe, b_n, gvr, hvr, zLe, w_n, UWt, T_n };

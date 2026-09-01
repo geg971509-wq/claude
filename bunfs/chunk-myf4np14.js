@@ -375,6 +375,6 @@ async function _(t, i) {
       s("tengu_grove_policy_toggled", { state: n.grove_enabled ?? void 0, location: w("settings") });
   }
   if (a.grove_enabled !== null) return e(YRt, { settings: a, domainExcluded: g?.domain_excluded, onDone: c });
-  return e(XRt, { showIfAlreadyViewed: !0, onDone: u, location: "settings" });
+  return e(XRt, { showIfAlreadyViewed: true, onDone: u, location: "settings" });
 }
 export { _ as call };

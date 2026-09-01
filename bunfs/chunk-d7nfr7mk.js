@@ -150,9 +150,9 @@ var BGt = f({
   c = i().refine(
     (t) => {
       try {
-        return atob(t), !0;
+        return atob(t), true;
       } catch {
-        return !1;
+        return false;
       }
     },
     { message: "Invalid Base64 string" },
@@ -162,7 +162,7 @@ var BGt = f({
   LYe = f({
     audience: H(vEt).optional(),
     priority: v().min(0).max(1).optional(),
-    lastModified: ofe.datetime({ offset: !0 }).optional(),
+    lastModified: ofe.datetime({ offset: true }).optional(),
   }),
   REt = f({
     ...DYe.shape,
@@ -248,7 +248,7 @@ var BGt = f({
   Gbr = cEt.extend({ name: i(), arguments: De(i(), _e()).optional() }),
   qT = HO.extend({ method: N("tools/call"), params: Gbr }),
   BYe = g5.extend({ method: N("notifications/tools/list_changed"), params: n.optional() }),
-  jCn = f({ autoRefresh: q().default(!0), debounceMs: v().int().nonnegative().default(300) }),
+  jCn = f({ autoRefresh: q().default(true), debounceMs: v().int().nonnegative().default(300) }),
   jYe = oe(["debug", "info", "notice", "warning", "error", "critical", "alert", "emergency"]),
   zbr = o.extend({ level: jYe }),
   KGt = HO.extend({ method: N("logging/setLevel"), params: zbr }),

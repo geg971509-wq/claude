@@ -318,7 +318,7 @@ function q() {
   let t = ru();
   if (t) throw new Ak(`${t} \u2014 the teammate is not started unwrapped; fix the launcher setting, then retry`);
   let e = process.env[lrr],
-    { cmd: a, prefixArgs: s } = e ? qP({ cmd: e, prefixArgs: [], target: e }) : rp({ pinToCurrentBinary: !0 });
+    { cmd: a, prefixArgs: s } = e ? qP({ cmd: e, prefixArgs: [], target: e }) : rp({ pinToCurrentBinary: true });
   return [a, ...s];
 }
 function X({ planModeRequired: t, permissionMode: e, proactivityLevel: a }) {
@@ -467,7 +467,7 @@ async function ie(t) {
 }
 async function me(t) {
   if (!(await ie(t))) {
-    let a = await $e(B6, ["new-session", "-d", "-s", t], { useCwd: !0, useToolMemoryCgroup: !1 });
+    let a = await $e(B6, ["new-session", "-d", "-s", t], { useCwd: true, useToolMemoryCgroup: false });
     if (a.code !== 0)
       throw (
         (p("subagent_launch", "subagent_teammate_tmux_session_failed"),
@@ -491,8 +491,8 @@ function Z(t) {
   for (let r of N4()) o.push(`--plugin-dir-no-mcp ${Go([r])}`);
   for (let r of lie()) o.push(`--plugin-url ${Go([r])}`);
   let m = sme();
-  if (m === !0) o.push("--chrome");
-  else if (m === !1) o.push("--no-chrome");
+  if (m === true) o.push("--chrome");
+  else if (m === false) o.push("--no-chrome");
   if (NVn()) o.push("--restricted");
   return o.join(" ");
 }
@@ -537,13 +537,13 @@ async function H(t, e, a, s, u, i) {
       (p("subagent_launch", "subagent_teammate_internal_invariant"),
       Error("reserveTeammateIdentity: updateTeamFile returned undefined"))
     );
-  let T = !1,
+  let T = false,
     _;
   try {
     return await u(
       o,
       () => {
-        T = !0;
+        T = true;
       },
       (d) => {
         _ = d;
@@ -567,7 +567,7 @@ async function W(t, e, a, s) {
     t,
     (u) => {
       let i = u.members.find((o) => o.agentId === e);
-      if (!i) return !1;
+      if (!i) return false;
       (i.tmuxPaneId = a.tmuxPaneId), (i.backendType = a.backendType);
     },
     void 0,
@@ -718,7 +718,7 @@ async function le(t, e) {
             tmux_window_name: ne,
             tmux_pane_id: A,
             team_name: r,
-            is_splitpane: !0,
+            is_splitpane: true,
             plan_mode_required: _,
           },
         }
@@ -837,7 +837,7 @@ async function pe(t, e) {
           prompt: i,
           plan_mode_required: _,
           paneId: A,
-          insideTmux: !1,
+          insideTmux: false,
           backendType: "tmux",
           toolUseId: e.toolUseId,
           cwd: E,
@@ -854,7 +854,7 @@ async function pe(t, e) {
             tmux_window_name: S,
             tmux_pane_id: A,
             team_name: r,
-            is_splitpane: !1,
+            is_splitpane: false,
             plan_mode_required: _,
           },
         }
@@ -889,12 +889,12 @@ function z(
       type: "in_process_teammate",
       status: "running",
       cwd: r,
-      identity: { agentId: e, agentName: a, teamName: s, color: u, planModeRequired: o ?? !1, parentSessionId: K() },
+      identity: { agentId: e, agentName: a, teamName: s, color: u, planModeRequired: o ?? false, parentSessionId: K() },
       prompt: i,
       abortController: C,
-      awaitingPlanApproval: !1,
+      awaitingPlanApproval: false,
       permissionMode: o ? "plan" : "default",
-      isIdle: !1,
+      isIdle: false,
       lastReportedToolCount: 0,
       lastReportedTokenCount: 0,
       pendingUserMessages: [],
@@ -906,7 +906,7 @@ function z(
       () => {
         M();
       },
-      { once: !0 },
+      { once: true },
     );
 }
 async function Q(t, e) {
@@ -939,7 +939,7 @@ async function Q(t, e) {
         if (O && c3e(O)) h = O;
         n(`[handleSpawnInProcess] agent_type=${o}, found=${!!h}`);
       }
-      let M = { name: r, teamName: m, prompt: i, color: f, planModeRequired: T ?? !1, model: _ };
+      let M = { name: r, teamName: m, prompt: i, color: f, planModeRequired: T ?? false, model: _ };
       await Egt(r, m, e.storageV5);
       let b = await itn(M, e);
       if (!b.ok)
@@ -1017,7 +1017,7 @@ async function Q(t, e) {
             tmux_window_name: "in-process",
             tmux_pane_id: "in-process",
             team_name: m,
-            is_splitpane: !1,
+            is_splitpane: false,
             plan_mode_required: T,
           },
         }
@@ -1040,15 +1040,15 @@ async function ue(t, e, a) {
       Q(t, e)
     );
   }
-  if (t.use_splitpane !== !1) return le(t, e);
+  if (t.use_splitpane !== false) return le(t, e);
   return pe(t, e);
 }
 class te {
-  shown = !1;
+  shown = false;
 }
 function ce(t, e) {
   if (t.shown) return;
-  t.shown = !0;
+  t.shown = true;
   let a = _M()
     ? 'To force iTerm2 panes, set teammateMode: "iterm2" in settings and enable the iTerm2 Python API (Preferences > General > Magic).'
     : 'To use terminal panes, set teammateMode: "tmux" in settings.';

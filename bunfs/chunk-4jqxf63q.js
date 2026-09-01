@@ -113,7 +113,7 @@ function pt(mo) {
         children: [
           Qe,
           e(t, {
-            dimColor: !0,
+            dimColor: true,
             children: e(fe, {
               children: e(ze, {
                 action: "confirm:no",
@@ -130,7 +130,7 @@ function pt(mo) {
     return me;
   }
   let Qe;
-  if (R[17] === d) (Qe = e(qU, { latchAnnouncementSlot: !1 })), (R[17] = Qe);
+  if (R[17] === d) (Qe = e(qU, { latchAnnouncementSlot: false })), (R[17] = Qe);
   else Qe = R[17];
   let me;
   if (R[18] !== At || R[19] !== Ut)
@@ -160,7 +160,7 @@ function pt(mo) {
   let Zn;
   if (R[30] === d)
     (Zn = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: r(fe, {
         children: [
           e(M, { chord: "enter", action: "resume" }),
@@ -175,10 +175,10 @@ function pt(mo) {
     (dt = r(o, {
       flexShrink: 0,
       flexDirection: "column",
-      borderTopDimColor: !0,
-      borderBottom: !1,
-      borderLeft: !1,
-      borderRight: !1,
+      borderTopDimColor: true,
+      borderBottom: false,
+      borderLeft: false,
+      borderRight: false,
       borderStyle: "single",
       paddingLeft: 2,
       children: [ut, Zn],
@@ -219,13 +219,13 @@ function St(Eo) {
       onUpFromFirstItem: Vt,
     } = Eo,
     Xt = er === void 0 ? "expanded" : er,
-    Me = tr === void 0 ? !1 : tr,
-    Yt = nr === void 0 ? !1 : nr,
+    Me = tr === void 0 ? false : tr,
+    Yt = nr === void 0 ? false : nr,
     or;
   if (U[0] === d) (or = new Set()), (U[0] = or);
   else or = U[0];
   let [Zt, ir] = u(or),
-    Jt = C(!1),
+    Jt = C(false),
     ar = C(null),
     cr;
   if (U[1] !== Zt || U[2] !== ft)
@@ -276,7 +276,7 @@ function St(Eo) {
     (mr = re.map((bt) => ({
       label: sn(bt),
       description: bt.node.description,
-      dimDescription: bt.node.dimDescription ?? !0,
+      dimDescription: bt.node.dimDescription ?? true,
       value: bt.node.id,
     }))),
       (U[10] = sn),
@@ -328,11 +328,11 @@ function St(Eo) {
       if (!be) {
         return;
       }
-      if (Ve.key === "right" && be.hasChildren) Ve.preventDefault(), qe(ne, !0);
+      if (Ve.key === "right" && be.hasChildren) Ve.preventDefault(), qe(ne, true);
       else if (Ve.key === "left") {
-        if (be.hasChildren && be.isExpanded) Ve.preventDefault(), qe(ne, !1);
+        if (be.hasChildren && be.isExpanded) Ve.preventDefault(), qe(ne, false);
         else if (be.parentId !== void 0) {
-          if ((Ve.preventDefault(), (Jt.current = !0), qe(be.parentId, !1), ce)) {
+          if ((Ve.preventDefault(), (Jt.current = true), qe(be.parentId, false), ce)) {
             let wr = oe.get(be.parentId);
             if (wr) ce(wr);
           }
@@ -366,7 +366,7 @@ function St(Eo) {
   if (U[31] !== oe || U[32] !== ce)
     (Er = (un) => {
       if (Jt.current) {
-        Jt.current = !1;
+        Jt.current = false;
         return;
       }
       if (ar.current === un) {
@@ -421,7 +421,7 @@ function St(Eo) {
   else yt = U[44];
   let Dr;
   if (U[45] !== cn || U[46] !== yt)
-    (Dr = e(o, { tabIndex: 0, autoFocus: !0, onKeyDown: cn, children: yt })), (U[45] = cn), (U[46] = yt), (U[47] = Dr);
+    (Dr = e(o, { tabIndex: 0, autoFocus: true, onKeyDown: cn, children: yt })), (U[45] = cn), (U[46] = yt), (U[47] = Dr);
   else Dr = U[47];
   return Dr;
 }
@@ -463,7 +463,7 @@ function jr(i, f, l) {
   };
 }
 function Tt(i, f, l) {
-  let { isGroupHeader: p = !1, isChild: h = !1, forkCount: S = 0 } = l || {},
+  let { isGroupHeader: p = false, isChild: h = false, forkCount: S = 0 } = l || {},
     T = p && S > 0 ? Ir : h ? Mr : 0,
     x = p && S > 0 ? ` (+${S} other ${S === 1 ? "session" : "sessions"})` : "",
     N = i.isSidechain ? " (sidechain)" : "",
@@ -472,7 +472,7 @@ function Tt(i, f, l) {
   return `${Rr(rve(i), w)}${N}${x}${I}`;
 }
 function Ct(i, f) {
-  let { isChild: l = !1, showProjectPath: p = !1 } = f || {},
+  let { isChild: l = false, showProjectPath: p = false } = f || {},
     h = l ? "    " : "",
     S = uJe(i),
     T = p && i.projectPath ? ` \xB7 ${i.projectPath}` : "";
@@ -487,9 +487,9 @@ function ttt({
   onLogsChanged: S,
   onLoadMore: T,
   initialSearchQuery: x,
-  isLoading: N = !1,
+  isLoading: N = false,
   reloadGeneration: I = 0,
-  showAllProjects: w = !1,
+  showAllProjects: w = false,
   onToggleAllProjects: O,
 }) {
   let { storageV5: Ne } = ge(),
@@ -498,17 +498,17 @@ function ttt({
     ye = Hi(p),
     Fe = Ba(),
     Y = xt(),
-    Ze = !1,
+    Ze = false,
     xe = c_(),
     K = z(() => (n) => zX(n, xe.warning), [xe.warning]),
     [Z, Je] = u(null),
-    [q, $e] = u(!0),
-    [J, et] = u(!1),
-    [Q, Te] = u(!1),
+    [q, $e] = u(true),
+    [J, et] = u(false),
+    [Q, Te] = u(false),
     [we, tt] = u(null),
     [ve, nt] = u(null),
     [c, g] = u([]),
-    [L, V] = u(!1),
+    [L, V] = u(false),
     le = ct(),
     [G] = u(() => le.project.originalCwd),
     ue = ct((n) => n.id),
@@ -528,10 +528,10 @@ function ttt({
     } = np({
       isActive: v === "search",
       onExit: () => {
-        j("list"), s("tengu_session_search_toggled", { enabled: !1 });
+        j("list"), s("tengu_session_search_toggled", { enabled: false });
       },
       onExitUp: () => {
-        j("list"), s("tengu_session_search_toggled", { enabled: !1 });
+        j("list"), s("tengu_session_search_toggled", { enabled: false });
       },
       passthroughCtrlKeys: i.length === 0 ? ["n", "a"] : ["n"],
       initialQuery: x || "",
@@ -547,41 +547,41 @@ function ttt({
     return Y.setTimeout(() => Dt(Pe), 300);
   }, [Pe, Y]);
   let [ke, ot] = u(null),
-    Pt = !1;
+    Pt = false;
   A(() => {
     cl().then((a) => Je(a));
     let n = Date.now();
     VN(G)
       .then((a) => {
-        s("tengu_worktree_detection", { duration_ms: Date.now() - n, worktree_count: a.length, success: !0 }),
+        s("tengu_worktree_detection", { duration_ms: Date.now() - n, worktree_count: a.length, success: true }),
           Te(a.length > 1),
           g(a),
           tt(a[0] ?? null);
         let b = a.filter((m) => G === m || G.startsWith(m + fn));
-        b.sort((m, k) => k.length - m.length), nt(b[0] ?? null), V(!0);
+        b.sort((m, k) => k.length - m.length), nt(b[0] ?? null), V(true);
       })
       .catch(() => {
-        s("tengu_worktree_detection", { duration_ms: Date.now() - n, worktree_count: 0, success: !1 }), V(!0);
+        s("tengu_worktree_detection", { duration_ms: Date.now() - n, worktree_count: 0, success: false }), V(true);
       });
   }, [G]);
   let kt = z(() => new Map(i.map((n) => [n, Ur(n)])), [i]),
-    Rt = z(() => null, [i, kt, !1]),
+    Rt = z(() => null, [i, kt, false]),
     Re = z(() => {
       let n = i.filter((a) => {
         let b = Jc(a);
-        if (ue && b === ue) return !0;
-        if (a.customTitle ?? a.aiTitle) return !0;
-        if (jpt(a.messages)) return !0;
-        if (a.firstPrompt || a.customTitle || a.aiTitle) return !0;
-        return !1;
+        if (ue && b === ue) return true;
+        if (a.customTitle ?? a.aiTitle) return true;
+        if (jpt(a.messages)) return true;
+        if (a.firstPrompt || a.customTitle || a.aiTitle) return true;
+        return false;
       });
       if (!q && Z) n = n.filter((a) => a.gitBranch === Z);
       if (Q && !J && !w) {
         let a = ve ?? G;
         n = n.filter((b) => {
-          if (b.isAlias) return !0;
+          if (b.isAlias) return true;
           let m = b.projectPath;
-          if (m === void 0) return !1;
+          if (m === void 0) return false;
           let k = null;
           for (let y of c)
             if (m === y || m.startsWith(y + fn)) {
@@ -607,7 +607,7 @@ function ttt({
   A(() => {
     ot(null);
     return;
-  }, [ee, Pe, Rt, !1, Y]);
+  }, [ee, Pe, Rt, false, Y]);
   let { filteredLogs: W, snippets: st } = z(() => {
       let n = new Map(),
         a = It;
@@ -643,7 +643,7 @@ function ttt({
               ? `${te}
   ${ie}`
               : te,
-            dimDescription: !0,
+            dimDescription: true,
           };
         }
         let $n = b.length - 1,
@@ -651,28 +651,28 @@ function ttt({
             let Hn = W.indexOf(te),
               $t = st.get(te),
               Wt = $t ? gn($t, K) : null,
-              jt = Ct(te, { isChild: !0, showProjectPath: w });
+              jt = Ct(te, { isChild: true, showProjectPath: w });
             return {
               id: `log:${a}:${jn + 1}`,
               value: { log: te, indexInFiltered: Hn },
-              label: Tt(te, He, { isChild: !0 }),
+              label: Tt(te, He, { isChild: true }),
               description: Wt
                 ? `${jt}
       ${Wt}`
                 : jt,
-              dimDescription: !0,
+              dimDescription: true,
             };
           }),
           Bt = Ct(m, { showProjectPath: w });
         return {
           id: `group:${a}`,
           value: { log: m, indexInFiltered: k },
-          label: Tt(m, He, { isGroupHeader: !0, forkCount: $n }),
+          label: Tt(m, He, { isGroupHeader: true, forkCount: $n }),
           description: ie
             ? `${Bt}
   ${ie}`
             : Bt,
-          dimDescription: !0,
+          dimDescription: true,
           children: Wn,
         };
       });
@@ -700,10 +700,10 @@ function ttt({
       j("list"), _e("");
     }, [P, de, S, Ne]),
     Dn = B(() => {
-      j("list"), We(""), s("tengu_session_search_toggled", { enabled: !1 });
+      j("list"), We(""), s("tengu_session_search_toggled", { enabled: false });
     }, [We]),
     Pn = B(() => {
-      j("search"), s("tengu_session_search_toggled", { enabled: !0 });
+      j("search"), s("tengu_session_search_toggled", { enabled: true });
     }, []);
   A(() => {
     if (I === 0) return;
@@ -748,13 +748,13 @@ function ttt({
         n.preventDefault();
         let m = !J;
         et(m), s("tengu_session_worktree_filter_toggled", { enabled: !m });
-      } else if (b === "/" && a) n.preventDefault(), j("search"), s("tengu_session_search_toggled", { enabled: !0 });
+      } else if (b === "/" && a) n.preventDefault(), j("search"), s("tengu_session_search_toggled", { enabled: true });
       else if (n.ctrl && n.key === "r" && P)
         n.preventDefault(), j("rename"), _e(""), s("tengu_session_rename_started", {});
       else if (((n.key === " " && a) || (n.ctrl && n.key === "v")) && P)
         n.preventDefault(), Lt(P), j("preview"), s("tengu_session_preview_opened", { messageCount: P.messageCount });
       else if (!n.defaultPrevented && a && n.key.length === 1 && n.key !== " ")
-        n.preventDefault(), j("search"), We(n.key), s("tengu_session_search_toggled", { enabled: !0 });
+        n.preventDefault(), j("search"), We(n.key), s("tengu_session_search_toggled", { enabled: true });
     }
   }
   function In(n) {
@@ -764,7 +764,7 @@ function ttt({
     }
     let a = (n.text.split(/\r\n|\r|\n/, 2)[0] ?? "").trim();
     if (v === "preview" || v === "rename" || !P || !a) return;
-    n.preventDefault(), j("search"), We(a), s("tengu_session_search_toggled", { enabled: !0 });
+    n.preventDefault(), j("search"), We(a), s("tengu_session_search_toggled", { enabled: true });
   }
   let pe = [],
     Ot = !!O && !w && L,
@@ -813,12 +813,12 @@ function ttt({
         e(o, {
           flexShrink: 0,
           children: r(t, {
-            bold: !0,
+            bold: true,
             color: "suggestion",
             children: [
               "Resume session",
-              v === "list" && W.length > Ie && r(t, { dimColor: !0, children: [" ", "(", Le, " of ", W.length, ")"] }),
-              N && e(t, { dimColor: !0, children: " \xB7 Refreshing\u2026" }),
+              v === "list" && W.length > Ie && r(t, { dimColor: true, children: [" ", "(", Le, " of ", W.length, ")"] }),
+              N && e(t, { dimColor: true, children: " \xB7 Refreshing\u2026" }),
             ],
           }),
         }),
@@ -828,7 +828,7 @@ function ttt({
             ? e(o, {
                 flexShrink: 0,
                 paddingLeft: 2,
-                children: e(t, { dimColor: !0, children: e(fe, { children: pe }) }),
+                children: e(t, { dimColor: true, children: e(fe, { children: pe }) }),
               })
             : e(o, { flexShrink: 0, height: 1 })),
         e(o, { flexShrink: 0, children: e(t, { children: " " }) }),
@@ -867,7 +867,7 @@ function ttt({
               paddingLeft: 2,
               flexDirection: "column",
               children: [
-                e(t, { bold: !0, children: "Rename session:" }),
+                e(t, { bold: true, children: "Rename session:" }),
                 e(o, {
                   paddingTop: 1,
                   children: e(xn, {
@@ -878,7 +878,7 @@ function ttt({
                     columns: Mt - 2,
                     cursorOffset: bn,
                     onChangeCursorOffset: yn,
-                    showCursor: !0,
+                    showCursor: true,
                   }),
                 }),
               ],
@@ -894,11 +894,11 @@ function ttt({
               visibleOptionCount: Ie,
               layout: "expanded",
               isDisabled: v === "search",
-              hideIndexes: !1,
+              hideIndexes: false,
               isNodeExpanded: (n) => {
-                if (v === "search" || !q) return !0;
+                if (v === "search" || !q) return true;
                 let a = typeof n === "string" && n.startsWith("group:") ? n.substring(6) : null;
-                return a ? wt.has(a) : !1;
+                return a ? wt.has(a) : false;
               },
               onExpand: (n) => {
                 let a = typeof n === "string" && n.startsWith("group:") ? n.substring(6) : null;
@@ -917,10 +917,10 @@ function ttt({
         e(o, {
           paddingLeft: 2,
           children: ye.pending
-            ? r(t, { dimColor: !0, children: ["Press ", ye.keyName, " again to exit"] })
+            ? r(t, { dimColor: true, children: ["Press ", ye.keyName, " again to exit"] })
             : v === "rename"
               ? e(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: r(fe, {
                     children: [
                       e(M, { chord: "enter", action: "save" }),
@@ -930,7 +930,7 @@ function ttt({
                 })
               : v === "search"
                 ? e(t, {
-                    dimColor: !0,
+                    dimColor: true,
                     children: r(fe, {
                       children: [
                         e(t, { children: "Type to Search" }),
@@ -947,7 +947,7 @@ function ttt({
                     }),
                   })
                 : e(t, {
-                    dimColor: !0,
+                    dimColor: true,
                     children: r(fe, {
                       children: [
                         O &&
@@ -1050,12 +1050,12 @@ async function zr(i) {
   for (let x of S) {
     T = T === "" || T.endsWith(p) ? T + x : T + p + x;
     try {
-      if ((await Qr(T)).isSymbolicLink()) return !0;
+      if ((await Qr(T)).isSymbolicLink()) return true;
     } catch (N) {
       let I = E(N);
       return I !== "ENOENT" && I !== "ENOTDIR";
     }
   }
-  return !0;
+  return true;
 }
 export { ttt, qRt, ntt };

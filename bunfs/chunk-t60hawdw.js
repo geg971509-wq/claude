@@ -421,7 +421,7 @@ Learn more at ${D}`,
         if (a.error !== void 0) k?.setError(a.error);
         if (a.downloadMessage !== void 0) k?.setDownloadMessage(a.downloadMessage);
       }
-      let c = !1;
+      let c = false;
       async function R() {
         s({ state: "checking" });
         let a = await pKt();
@@ -444,7 +444,7 @@ Learn more at ${D}`,
         }
         s({ state: "success" }),
           E.setTimeout(async () => {
-            if ((p("Session transferred to Claude Desktop", { display: "system" }), wt())) Vj({ broadcast: !0 });
+            if ((p("Session transferred to Claude Desktop", { display: "system" }), wt())) Vj({ broadcast: true });
             await Ln(0, "other");
           }, 500);
       }
@@ -458,11 +458,11 @@ Learn more at ${D}`,
       flexDirection: "column",
       paddingX: 2,
       tabIndex: 0,
-      autoFocus: !0,
+      autoFocus: true,
       onKeyDown: S,
       children: [
         r(t, { color: "error", children: ["Error: ", w] }),
-        e(t, { dimColor: !0, children: "Press any key to continue\u2026" }),
+        e(t, { dimColor: true, children: "Press any key to continue\u2026" }),
       ],
     });
   if (d === "prompt-download")
@@ -470,7 +470,7 @@ Learn more at ${D}`,
       flexDirection: "column",
       paddingX: 2,
       tabIndex: 0,
-      autoFocus: !0,
+      autoFocus: true,
       onKeyDown: S,
       children: [e(t, { children: M }), e(t, { children: "Download now? (y/n)" })],
     });

@@ -26,7 +26,7 @@ function Yj(r) {
     l = C(null),
     o = C(null),
     p = C(0),
-    f = C(!0),
+    f = C(true),
     m = B(() => {
       (p.current += 1),
         o.current?.(),
@@ -41,9 +41,9 @@ function Yj(r) {
   }, [r, m]),
     A(
       () => (
-        (f.current = !0),
+        (f.current = true),
         () => {
-          (f.current = !1), o.current?.(), (o.current = null), (l.current = null), n.current?.(), (n.current = null);
+          (f.current = false), o.current?.(), (o.current = null), (l.current = null), n.current?.(), (n.current = null);
         }
       ),
       [],
@@ -83,7 +83,7 @@ function cL(W) {
   if (k === null) {
     let c;
     if (L[1] === d)
-      (c = e(t, { dimColor: !0, children: e(M, { chord: "c", action: "copy", parens: !0 }) })), (L[1] = c);
+      (c = e(t, { dimColor: true, children: e(M, { chord: "c", action: "copy", parens: true }) })), (L[1] = c);
     else c = L[1];
     return c;
   }
@@ -95,7 +95,7 @@ function uL(G) {
   if (U === "tmux-buffer") {
     let i;
     if (E[0] === d)
-      (i = e(t, { dimColor: !0, children: "(Copied to tmux buffer \xB7 select the URL manually if paste fails)" })),
+      (i = e(t, { dimColor: true, children: "(Copied to tmux buffer \xB7 select the URL manually if paste fails)" })),
         (E[0] = i);
     else i = E[0];
     return i;
@@ -103,7 +103,7 @@ function uL(G) {
   if (U === "osc52") {
     let i;
     if (E[1] === d)
-      (i = e(t, { dimColor: !0, children: "(Sent via OSC 52 \xB7 select the URL manually if paste fails)" })),
+      (i = e(t, { dimColor: true, children: "(Sent via OSC 52 \xB7 select the URL manually if paste fails)" })),
         (E[1] = i);
     else i = E[1];
     return i;

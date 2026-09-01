@@ -17,7 +17,7 @@ import { access as h, stat as g } from "fs/promises";
 import { isAbsolute as d, join as w } from "path";
 var VS = "CLAUDE_CODE_PROCESS_WRAPPER",
   kde = 12000,
-  c = { argv: [], error: null, platformIgnored: !1, record: "" };
+  c = { argv: [], error: null, platformIgnored: false, record: "" };
 class f {
   memoRaw = void 0;
   memoState = c;
@@ -50,18 +50,18 @@ function ru() {
   return eSt().error;
 }
 async function ZE() {
-  if (ru() !== null) return !1;
+  if (ru() !== null) return false;
   let r = Xl();
-  if (r.length === 0) return !0;
+  if (r.length === 0) return true;
   let e = oyn(r)[0];
-  return e === void 0 ? !0 : ryn(e);
+  return e === void 0 ? true : ryn(e);
 }
 async function ryn(r) {
   try {
-    if (!(await g(r)).isFile()) return !1;
-    return await h(r, p.X_OK), !0;
+    if (!(await g(r)).isFile()) return false;
+    return await h(r, p.X_OK), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function oyn(r) {
@@ -78,7 +78,7 @@ function Gk() {
   return eSt().record;
 }
 function v(r) {
-  if (D() === "windows") return { argv: [], error: null, platformIgnored: !0, record: "" };
+  if (D() === "windows") return { argv: [], error: null, platformIgnored: true, record: "" };
   let e;
   try {
     e = y(r);
@@ -99,10 +99,10 @@ function v(r) {
   } catch {
     return i(`launcher \`${s}\` does not exist or is not readable`);
   }
-  return { argv: e, error: null, platformIgnored: !1, record: e.map((o) => (/[\s"]/.test(o) ? b(o) : o)).join(" ") };
+  return { argv: e, error: null, platformIgnored: false, record: e.map((o) => (/[\s"]/.test(o) ? b(o) : o)).join(" ") };
 }
 function i(r) {
-  return { argv: [], error: `${VS}: ${r}`, platformIgnored: !1, record: "" };
+  return { argv: [], error: `${VS}: ${r}`, platformIgnored: false, record: "" };
 }
 var P = ";|&$()`<>";
 function y(r) {
@@ -127,29 +127,29 @@ function y(r) {
   }
   let s = [],
     o = "",
-    u = !1,
-    l = !1;
+    u = false,
+    l = false;
   for (let t = 0; t < e.length; t++) {
     let a = e[t];
     if (l) {
       if (a === "\\" && (e[t + 1] === '"' || e[t + 1] === "\\")) o += e[++t];
-      else if (a === '"') l = !1;
+      else if (a === '"') l = false;
       else o += a;
       continue;
     }
     if (a === '"') {
-      (l = !0), (u = !0);
+      (l = true), (u = true);
       continue;
     }
     if (/\s/.test(a)) {
-      if (u) s.push(o), (o = ""), (u = !1);
+      if (u) s.push(o), (o = ""), (u = false);
       continue;
     }
     if (P.includes(a))
       throw Error(
         "the value contains an unquoted shell metacharacter (one of ; | & $ ( ) ` < >) \u2014 it is an argv list, not a shell command",
       );
-    (o += a), (u = !0);
+    (o += a), (u = true);
   }
   if (l) throw Error("unterminated double quote");
   if (u) s.push(o);

@@ -28,10 +28,10 @@ function he() {
   s("tengu_claude_md_includes_dialog_shown", {});
 }
 function we(Pe, Fe) {
-  return r(t, { dimColor: !0, wrap: "truncate-middle", children: ["  ", nr(Pe.path)] }, Fe);
+  return r(t, { dimColor: true, wrap: "truncate-middle", children: ["  ", nr(Pe.path)] }, Fe);
 }
 function rnt(i, h, l) {
-  jc((g) => ({ ...g, hasClaudeMdExternalIncludesApproved: i, hasClaudeMdExternalIncludesWarningShown: !0 }), l),
+  jc((g) => ({ ...g, hasClaudeMdExternalIncludesApproved: i, hasClaudeMdExternalIncludesWarningShown: true }), l),
     s(i ? "tengu_claude_md_external_includes_dialog_accepted" : "tengu_claude_md_external_includes_dialog_declined", {
       source: c(h),
     });
@@ -50,9 +50,9 @@ function u0t(Me) {
   if (n[1] !== u || n[2] !== p || n[3] !== m)
     (se = function x() {
       if (u() || m()) {
-        return p(), !0;
+        return p(), true;
       }
-      return !1;
+      return false;
     }),
       (n[1] = u),
       (n[2] = p),
@@ -71,7 +71,7 @@ function u0t(Me) {
   else ie = n[8];
   let le = ie,
     V = f.slice(le.length),
-    de = C(!1),
+    de = C(false),
     ce;
   if (n[9] !== u || n[10] !== p || n[11] !== W || n[12] !== m || n[13] !== K)
     (ce = (je) => {
@@ -82,7 +82,7 @@ function u0t(Me) {
       if (de.current) {
         return;
       }
-      (de.current = !0), rnt(je === "yes", "dialog", K), W();
+      (de.current = true), rnt(je === "yes", "dialog", K), W();
     }),
       (n[9] = u),
       (n[10] = p),
@@ -120,18 +120,18 @@ function u0t(Me) {
     r(o, {
       flexDirection: "column",
       children: [
-        e(t, { dimColor: !0, children: "External imports:" }),
+        e(t, { dimColor: true, children: "External imports:" }),
         le.map(we),
         V.length > 0
           ? r(U, {
               children: [
                 r(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   wrap: "truncate",
                   children: ["  ", "\u2026 +", V.length, " ", k(V.length, "import"), " not shown."],
                 }),
                 r(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   wrap: "truncate",
                   children: ["  ", "Yes covers those too, plus any this project adds later."],
                 }),
@@ -143,7 +143,7 @@ function u0t(Me) {
   let pe;
   if (n[18] === d)
     (pe = r(t, {
-      dimColor: !0,
+      dimColor: true,
       children: [
         "Important: Only use Claude Code with files you trust. Accessing untrusted files may pose security risks",
         " ",
@@ -163,10 +163,10 @@ function u0t(Me) {
       {
         refuseInput: x,
         windowAnchorMs: O,
-        hideIndexes: !0,
+        hideIndexes: true,
         confirmLabel: "Yes, allow external imports",
         cancelLabel: "No, disable external imports",
-        cancelFirst: !0,
+        cancelFirst: true,
         focus: "cancel",
         onConfirm: M,
         onCancel: S,

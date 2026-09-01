@@ -33,7 +33,7 @@ function LQt(e) {
 function BD(e, t, r) {
   let o = r ? e.toLowerCase() : e,
     u = r ? t.toLowerCase() : t;
-  if (o === u) return !0;
+  if (o === u) return true;
   let d = LQt(u),
     _ = u.endsWith(d) ? u : u + d;
   return o.startsWith(_);
@@ -48,8 +48,8 @@ function p_(e, t, r) {
   return (
     n(`bg-containment: refusing ${t} spelling for containment: ${e}`, { level: "warn" }),
     r === void 0
-      ? { lexical: e, canonical: null, skipped: !1 }
-      : { lexical: e, canonical: null, skipped: !1, surfaced: r }
+      ? { lexical: e, canonical: null, skipped: false }
+      : { lexical: e, canonical: null, skipped: false, surfaced: r }
   );
 }
 
@@ -68,14 +68,14 @@ function $Qt(e, t = "darwin") {
   if (t === "win32") {
     if (((r = r.replace(/^([\\/])[\\/]{2,}/, (C, A) => A + A)), JO(r) || Dj(r))) return p_(r, "device-namespace");
     if (((r = R5t(r)), ZKe.test(r))) return p_(r, "trailing-dot-or-space");
-    if (Qi(r)) return { lexical: LE(r), canonical: null, skipped: !0 };
+    if (Qi(r)) return { lexical: LE(r), canonical: null, skipped: true };
     r = LE(r);
   } else {
     if (((r = r.replace(/\/{2,}/g, "/")), t === "darwin")) r = BJ(r);
-    if (ns(r)) return { lexical: WCt(r, t), canonical: null, skipped: !0 };
+    if (ns(r)) return { lexical: WCt(r, t), canonical: null, skipped: true };
   }
-  let o = tx(le(), r, { surfaceDotDotTargets: !0 });
-  if (o === void 0) return { lexical: r, canonical: r, skipped: !1 };
+  let o = tx(le(), r, { surfaceDotDotTargets: true });
+  if (o === void 0) return { lexical: r, canonical: r, skipped: false };
   let u = t === "win32" ? NQt(o) : o;
   if (u === null) return p_(r, "resolves-to-device-namespace");
   let d = t === "win32" ? u : t === "darwin" ? BJ(u.replace(/^\/{2,}/, "/")) : u.replace(/^\/{2,}/, "/");
@@ -83,7 +83,7 @@ function $Qt(e, t = "darwin") {
   if (oc(d)) return p_(r, "resolves-to-dot-segment");
   if (t === "win32" && ZKe.test(d)) return p_(r, "resolves-to-trailing-dot-or-space");
   let _ = t === "win32" ? LE(d) : d.replace(/\/{2,}/g, "/");
-  return { lexical: r, canonical: tr(_), skipped: !1 };
+  return { lexical: r, canonical: tr(_), skipped: false };
 }
 
 function Jm(e, t = "darwin") {
@@ -107,7 +107,7 @@ function Jm(e, t = "darwin") {
               if (!X(A)) return p_(o.lexical, "resolution-not-convergent", u !== e ? u : void 0);
             }
         }
-        return { lexical: o.lexical, canonical: u, skipped: !1 };
+        return { lexical: o.lexical, canonical: u, skipped: false };
       }
       u = _.canonical;
     }
@@ -118,22 +118,22 @@ function Jm(e, t = "darwin") {
 }
 
 function Lw(e, t) {
-  if (Kp(e)) return !0;
+  if (Kp(e)) return true;
   if (Kp(t)) {
-    if (e.skipped) return !0;
-    if (dP(e.lexical, t.lexical) || (e.canonical !== null && dP(e.canonical, t.lexical))) return !0;
+    if (e.skipped) return true;
+    if (dP(e.lexical, t.lexical) || (e.canonical !== null && dP(e.canonical, t.lexical))) return true;
     if (t.surfaced !== void 0 && (dP(e.lexical, t.surfaced) || (e.canonical !== null && dP(e.canonical, t.surfaced))))
-      return !0;
-    return !1;
+      return true;
+    return false;
   }
   if (e.skipped && !t.skipped)
-    return n(`bg-containment: denying network-shaped target against a local root: ${e.lexical}`, { level: "warn" }), !0;
+    return n(`bg-containment: denying network-shaped target against a local root: ${e.lexical}`, { level: "warn" }), true;
   if (e.skipped || t.skipped) return dP(e.lexical, t.lexical);
   return dP(e.lexical, t.lexical) || dP(e.canonical, t.canonical) || jQt(e.canonical, t.canonical);
 }
 
 function dP(e, t) {
-  return BD(e, t, !0);
+  return BD(e, t, true);
 }
 
 function HQt() {
@@ -141,26 +141,26 @@ function HQt() {
 }
 
 function jQt(e, t) {
-  if (D() !== "windows") return !1;
+  if (D() !== "windows") return false;
   let r = Skn(e),
     o = HQt().expand(t);
-  if (r === e && o === t) return !1;
+  if (r === e && o === t) return false;
   return WQt(tr(LE(r)), tr(LE(o)));
 }
 
 function WQt(e, t) {
-  return BD(e, t, !0);
+  return BD(e, t, true);
 }
 
 function HD(e, t) {
-  if (Kp(e) || Kp(t)) return !1;
-  if (e.skipped !== t.skipped) return !1;
+  if (Kp(e) || Kp(t)) return false;
+  if (e.skipped !== t.skipped) return false;
   if (e.skipped) return e2e(e.lexical, t.lexical);
   return e2e(e.canonical, t.canonical);
 }
 
 function e2e(e, t) {
-  return BD(e, t, !1);
+  return BD(e, t, false);
 }
 
 function Kp(e) {
@@ -169,7 +169,7 @@ function Kp(e) {
 
 function q6(e, t, r) {
   if (e === null || t === null) return "";
-  if (BD(e, t, !0))
+  if (BD(e, t, true))
     return ` (this path differs from the registered spelling only by letter case \u2014 respell it to match ${r} exactly)`;
   return "";
 }
@@ -236,9 +236,9 @@ function K6(e, t) {
       M,
     ],
     B = te(U.filter((W) => W !== null)).map((W) => Jm(W));
-  if (!B.some((W) => Lw(r, W))) return { dir: r, worktree: u, roots: B, escaped: !1 };
-  if (((u ??= Jm(t)), HD(r, u))) return { dir: r, worktree: u, roots: B, escaped: !1 };
-  return { dir: r, worktree: u, roots: B, escaped: !0 };
+  if (!B.some((W) => Lw(r, W))) return { dir: r, worktree: u, roots: B, escaped: false };
+  if (((u ??= Jm(t)), HD(r, u))) return { dir: r, worktree: u, roots: B, escaped: false };
+  return { dir: r, worktree: u, roots: B, escaped: true };
 }
 
 function zQt(e) {
@@ -254,7 +254,7 @@ function GQt(e) {
 }
 
 function qQt(e, t, r = "darwin") {
-  if (e === null) return !1;
+  if (e === null) return false;
   let o = r === "darwin" ? BJ(e) : e;
   if (r !== "win32") o = WCt(o, r);
   else o = LE(R5t(o));
@@ -608,10 +608,10 @@ function N3e(e) {
 }
 
 function uD() {
-  if (a.CLAUDE_CODE_DISABLE_ADVISOR_TOOL) return !1;
-  if (Ne() !== "firstParty" || !uw()) return !1;
-  if (a.CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL) return !0;
-  return I("tengu_sage_compass2", {}).enabled ?? !1;
+  if (a.CLAUDE_CODE_DISABLE_ADVISOR_TOOL) return false;
+  if (Ne() !== "firstParty" || !uw()) return false;
+  if (a.CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL) return true;
+  return I("tengu_sage_compass2", {}).enabled ?? false;
 }
 
 function hge() {
@@ -632,7 +632,7 @@ function _ge(e) {
 }
 
 function Z8(e) {
-  if (hge()) return !0;
+  if (hge()) return true;
   return yge(e) !== void 0;
 }
 
@@ -648,38 +648,38 @@ function _Ie() {
 }
 
 function g2e(e) {
-  if (hge()) return !0;
+  if (hge()) return true;
   let t = _ge(e);
   return t !== void 0 && t >= t7t;
 }
 
 function xee(e) {
   let t = Ot(e);
-  if (!kr(e)) return !1;
-  if (uf(t) && qce()) return !1;
+  if (!kr(e)) return false;
+  if (uf(t) && qce()) return false;
   return g2e(e);
 }
 
 function DG(e) {
   let t = Ot(e);
-  if (!uf(t) || !qce()) return !1;
-  if (!kr(e)) return !1;
-  if (u2t(Ye(t))) return !1;
+  if (!uf(t) || !qce()) return false;
+  if (!kr(e)) return false;
+  if (u2t(Ye(t))) return false;
   return g2e(e);
 }
 
 function Rle(e, t) {
-  if (hge()) return !0;
+  if (hge()) return true;
   let r = yge(e),
     o = _ge(t);
-  if (r === void 0 || o === void 0) return !0;
+  if (r === void 0 || o === void 0) return true;
   return r <= o;
 }
 
 function h2e(e, t) {
   let r = yge(e),
     o = _ge(t);
-  if (r === void 0 || o === void 0) return !0;
+  if (r === void 0 || o === void 0) return true;
   return r <= o;
 }
 
@@ -810,7 +810,7 @@ function Msn() {
 
 function xye(e) {
   let t = e.costState;
-  if (!t) return N0n(), !1;
+  if (!t) return N0n(), false;
   return (
     F0n({
       totalCostUSD: t.totalCostUSD,
@@ -824,7 +824,7 @@ function xye(e) {
       modelUsage: ts(t.modelUsage, (r, o) => ({ ...r, contextWindow: Lp(o, zp()), maxOutputTokens: $V(o).default })),
       hasUnknownModelCost: t.hasUnknownModelCost,
     }),
-    !0
+    true
   );
 }
 
@@ -1119,9 +1119,9 @@ function iSe({
   filePath: e,
   oldContent: t,
   newContent: r,
-  ignoreWhitespace: o = !1,
-  singleHunk: u = !1,
-  convertTabs: d = !1,
+  ignoreWhitespace: o = false,
+  singleHunk: u = false,
+  convertTabs: d = false,
 }) {
   let _ = d ? (A) => gj(pj(A)) : gj,
     C = Mye(e, e, _(t), _(r), void 0, void 0, { ignoreWhitespace: o, context: u ? 1e5 : GIe, timeout: n3 });
@@ -1129,7 +1129,7 @@ function iSe({
   return C.hunks.map((A) => ({ ...A, lines: A.lines.map(A2e) }));
 }
 
-function VL({ filePath: e, fileContents: t, edits: r, ignoreWhitespace: o = !1 }) {
+function VL({ filePath: e, fileContents: t, edits: r, ignoreWhitespace: o = false }) {
   let u = gj(pj(t)),
     d = Mye(
       e,
@@ -1137,7 +1137,7 @@ function VL({ filePath: e, fileContents: t, edits: r, ignoreWhitespace: o = !1 }
       u,
       r.reduce((_, C) => {
         let { old_string: A, new_string: x } = C,
-          M = "replace_all" in C ? C.replace_all : !1,
+          M = "replace_all" in C ? C.replace_all : false,
           F = gj(pj(A)),
           U = gj(pj(x));
         if (M) return _.replaceAll(F, () => U);
@@ -1197,7 +1197,7 @@ function LG(e, t, r) {
             messageId: t.messageId,
             trackedFileBackups: o,
             timestamp: d,
-            ...(t.preCheckpoint && { preCheckpoint: !0 }),
+            ...(t.preCheckpoint && { preCheckpoint: true }),
           },
           A = [
             ...(t.preCheckpoint
@@ -1215,7 +1215,7 @@ function LG(e, t, r) {
         return (
           x2e(M),
           C7t(e, M).catch(h),
-          Ocn(t.messageId, _, !1, r).catch((F) => {
+          Ocn(t.messageId, _, false, r).catch((F) => {
             h(Error(`FileHistory: Failed to record snapshot: ${F}`));
           }),
           n(`FileHistory: Added snapshot for ${t.messageId}, tracking ${e.trackedFiles.size} files`),
@@ -1255,9 +1255,9 @@ async function g7t(e, t, r) {
 }
 
 function Fy() {
-  if (sn()) return !1;
+  if (sn()) return false;
   if (Le()) return h7t();
-  return Lo("fileCheckpointingEnabled", !0).value && !a.CLAUDE_CODE_DISABLE_FILE_CHECKPOINTING;
+  return Lo("fileCheckpointingEnabled", true).value && !a.CLAUDE_CODE_DISABLE_FILE_CHECKPOINTING;
 }
 
 function h7t() {
@@ -1364,7 +1364,7 @@ async function zW(e, t, r, o) {
           }
         }),
       );
-  t({ kind: "snapshot", messageId: r, trackedFileBackups: d, ...(o?.preCheckpoint && { preCheckpoint: !0 }) });
+  t({ kind: "snapshot", messageId: r, trackedFileBackups: d, ...(o?.preCheckpoint && { preCheckpoint: true }) });
 }
 
 async function U3e(e, t) {
@@ -1375,7 +1375,7 @@ async function U3e(e, t) {
   if (!o)
     throw (
       (h(Error(`FileHistory: Snapshot for ${t} not found`)),
-      s("tengu_file_history_rewind_failed", { trackedFilesCount: r.trackedFiles.size, snapshotFound: !1 }),
+      s("tengu_file_history_rewind_failed", { trackedFilesCount: r.trackedFiles.size, snapshotFound: false }),
       Error("The selected snapshot was not found"))
     );
   try {
@@ -1392,13 +1392,13 @@ async function U3e(e, t) {
     );
   } catch (u) {
     throw (
-      (h(u), s("tengu_file_history_rewind_failed", { trackedFilesCount: r.trackedFiles.size, snapshotFound: !0 }), u)
+      (h(u), s("tengu_file_history_rewind_failed", { trackedFilesCount: r.trackedFiles.size, snapshotFound: true }), u)
     );
   }
 }
 
 function B3e(e, t) {
-  if (!Fy()) return !1;
+  if (!Fy()) return false;
   return e.snapshots.some((r) => r.messageId === t);
 }
 
@@ -1415,7 +1415,7 @@ async function SIe(e, t) {
           if (M === void 0)
             return (
               n("FileHistory: Error finding the backup file to apply", { level: "error" }),
-              s("tengu_file_history_rewind_restore_file_failed", { dryRun: !0 }),
+              s("tengu_file_history_rewind_restore_file_failed", { dryRun: true }),
               null
             );
           let F = await S7t(A, M === null ? void 0 : M);
@@ -1423,7 +1423,7 @@ async function SIe(e, t) {
           if (M === null && (await $a(A))) return { filePath: A, stats: F };
           return null;
         } catch (A) {
-          return h(A), s("tengu_file_history_rewind_restore_file_failed", { dryRun: !0 }), null;
+          return h(A), s("tengu_file_history_rewind_restore_file_failed", { dryRun: true }), null;
         }
       }),
     ),
@@ -1447,13 +1447,13 @@ async function y7t(e, t) {
         C = _?.backupFileName;
       if (C === void 0) {
         n("FileHistory: Error finding the backup file to apply", { level: "error" }),
-          s("tengu_file_history_rewind_restore_file_failed", { dryRun: !1 });
+          s("tengu_file_history_rewind_restore_file_failed", { dryRun: false });
         continue;
       }
       let A = await T7t(d, _?.realParentDir);
       if (A.verdict === "refused") {
         o++,
-          s("tengu_file_history_rewind_restore_file_failed", { dryRun: !1 }),
+          s("tengu_file_history_rewind_restore_file_failed", { dryRun: false }),
           n(`FileHistory: [Rewind] Refusing to touch ${d}: ${A.detail}`, { level: "error" });
         continue;
       }
@@ -1464,7 +1464,7 @@ async function y7t(e, t) {
           let M = E(x);
           if (M === "ENOTDIR" || M === "ELOOP" || M === "EISDIR") {
             o++,
-              s("tengu_file_history_rewind_restore_file_failed", { dryRun: !1 }),
+              s("tengu_file_history_rewind_restore_file_failed", { dryRun: false }),
               n(
                 `FileHistory: [Rewind] Refusing to delete ${d}: path does not resolve or is not a regular file (${M})`,
                 { level: "error" },
@@ -1477,7 +1477,7 @@ async function y7t(e, t) {
             });
             if (F !== void 0 && !F.isFile()) {
               o++,
-                s("tengu_file_history_rewind_restore_file_failed", { dryRun: !1 }),
+                s("tengu_file_history_rewind_restore_file_failed", { dryRun: false }),
                 n(`FileHistory: [Rewind] Refusing to delete ${d}: destination is not a regular file (EPERM)`, {
                   level: "error",
                 });
@@ -1497,7 +1497,7 @@ async function y7t(e, t) {
       n(`FileHistory: [Rewind] Failed to restore ${u}: ${d instanceof Error ? d.message : String(d)}`, {
         level: "error",
       }),
-        s("tengu_file_history_rewind_restore_file_failed", { dryRun: !1 });
+        s("tengu_file_history_rewind_restore_file_failed", { dryRun: false });
     }
   return CKe(), { filesChanged: r, skippedLinks: o };
 }
@@ -1509,27 +1509,27 @@ async function Q9n(e, t, r) {
     try {
       u = await JD(e);
     } catch (_) {
-      if (!X(_)) return !0;
+      if (!X(_)) return true;
     }
   let d = null;
   try {
     d = await JD(o);
   } catch (_) {
-    if (!X(_)) return !0;
+    if (!X(_)) return true;
   }
   return _7t(u, d, async () => {
-    let [_, C] = await Promise.all([eL(e), eL(o, { noFollow: !0 })]);
-    if (_ === null || C === null) return !0;
+    let [_, C] = await Promise.all([eL(e), eL(o, { noFollow: true })]);
+    if (_ === null || C === null) return true;
     return _ !== C;
   });
 }
 
 function _7t(e, t, r) {
-  if ((e === null) !== (t === null)) return !0;
-  if (e === null || t === null) return !1;
-  if (!e.isFile() || !t.isFile()) return !0;
-  if (e.mode !== t.mode || e.size !== t.size) return !0;
-  if (e.mtimeMs < t.mtimeMs) return !1;
+  if ((e === null) !== (t === null)) return true;
+  if (e === null || t === null) return false;
+  if (!e.isFile() || !t.isFile()) return true;
+  if (e.mode !== t.mode || e.size !== t.size) return true;
+  if (e.mtimeMs < t.mtimeMs) return false;
   return r();
 }
 
@@ -1539,7 +1539,7 @@ async function S7t(e, t) {
     u = 0;
   try {
     let d = t ? qE(t) : void 0,
-      [_, C] = await Promise.all([eL(e), d ? eL(d, { noFollow: !0 }) : null]);
+      [_, C] = await Promise.all([eL(e), d ? eL(d, { noFollow: true }) : null]);
     if (_ === null && C === null) return { filesChanged: r, insertions: o, deletions: u };
     r.push(e),
       Lye(_ ?? "", C ?? "").forEach((x) => {
@@ -1631,7 +1631,7 @@ async function O2e(e, t) {
     await kge(e, o);
   } catch (_) {
     if (!X(_)) throw _;
-    await wge(fP(o), { recursive: !0 }), await kge(e, o);
+    await wge(fP(o), { recursive: true }), await kge(e, o);
   }
   await p7t(o, u.mode);
   let d = await Sj(e);
@@ -1700,7 +1700,7 @@ async function T7t(e, t) {
 async function v7t(e, t, r) {
   let o = qE(t),
     u = (x) => (
-      s("tengu_file_history_rewind_restore_file_failed", { dryRun: !1 }),
+      s("tengu_file_history_rewind_restore_file_failed", { dryRun: false }),
       n(`FileHistory: [Rewind] Refusing to restore ${e}: ${x}`, { level: "error" }),
       "refused"
     ),
@@ -1710,7 +1710,7 @@ async function v7t(e, t, r) {
   } catch (x) {
     if (X(x))
       return (
-        s("tengu_file_history_rewind_restore_file_failed", { dryRun: !1 }),
+        s("tengu_file_history_rewind_restore_file_failed", { dryRun: false }),
         n(`FileHistory: [Rewind] Backup file not found: ${o}`, { level: "error" }),
         "backup-missing"
       );
@@ -1759,7 +1759,7 @@ async function v7t(e, t, r) {
           return u("parent chain changed before directory creation");
       }
       try {
-        await wge(fP(e), { recursive: !0 });
+        await wge(fP(e), { recursive: true });
       } catch (ge) {
         if (z(ge) || E(ge) === "EEXIST") return u(`destination path was changed during restore (${E(ge)})`);
         throw ge;
@@ -1774,7 +1774,7 @@ async function v7t(e, t, r) {
       }
     }
     try {
-      let me = await fe.stat({ bigint: !0 });
+      let me = await fe.stat({ bigint: true });
       if (!me.isFile()) return u("destination is not a regular file");
       if (me.nlink > 1) return u(`destination is hard-linked (nlink=${me.nlink})`);
       if (r !== void 0) {
@@ -1785,7 +1785,7 @@ async function v7t(e, t, r) {
         )
           return u("parent directory changed during restore");
       }
-      let ge = await mP(e, { bigint: !0 }).catch(() => {
+      let ge = await mP(e, { bigint: true }).catch(() => {
         return;
       });
       if (ge === void 0 || !ge.isFile() || ge.dev !== me.dev || (me.ino !== 0n && ge.ino !== me.ino))
@@ -1902,7 +1902,7 @@ async function fut(e, t, r) {
   }
   try {
     let C = nL(be(), "file-history", _);
-    await wge(C, { recursive: !0 });
+    await wge(C, { recursive: true });
     let A = 0;
     if (
       (await Promise.allSettled(
@@ -1913,7 +1913,7 @@ async function fut(e, t, r) {
               (B) => B.status === "rejected",
             )
           )
-            Ocn(x.messageId, x, !1, r).catch((B) => {
+            Ocn(x.messageId, x, false, r).catch((B) => {
               h(Error("FileHistory: Failed to record copy backup snapshot"));
             });
           else A++;
@@ -1944,12 +1944,12 @@ async function C7t(e, t) {
       let A = null;
       if (_?.backupFileName) {
         let M = qE(_.backupFileName);
-        A = await eL(M, { noFollow: !0 });
+        A = await eL(M, { noFollow: true });
       }
       let x = null;
       if (C?.backupFileName) {
         let M = qE(C.backupFileName);
-        x = await eL(M, { noFollow: !0 });
+        x = await eL(M, { noFollow: true });
       }
       if (A !== x) xE(d, A, x);
     } catch (d) {
@@ -1976,7 +1976,7 @@ async function eL(e, t) {
 }
 
 function x2e(e) {
-  if (A7t) console.error(f7t(e, !1, 5));
+  if (A7t) console.error(f7t(e, false, 5));
 }
 
 function P7t(e) {
@@ -2014,18 +2014,18 @@ function aS(e) {
 async function ydt(e, t, r = "auto") {
   if (!(await Vg())) return null;
   if (await B2e()) return null;
-  if (r === "branch") return N2e(e, t, !0);
+  if (r === "branch") return N2e(e, t, true);
   let u = await g3("HEAD", t);
   if (u === null) return Ege(t);
   if (u.stats.filesCount > bj) return { ...u, hunks: new Map(), source: { kind: "working-tree" } };
   if (r === "session")
     return (
-      await Promise.all([H7t(u), p3(u, t, void 0, !0)]), { ...u, hunks: new Map(), source: { kind: "working-tree" } }
+      await Promise.all([H7t(u), p3(u, t, void 0, true)]), { ...u, hunks: new Map(), source: { kind: "working-tree" } }
     );
   let d = await p3(u, t);
   if (r === "uncommitted" || u.stats.filesCount > 0)
     return { ...u, hunks: new Map(), source: { kind: "working-tree" } };
-  let _ = await N2e(e, t, !1, d);
+  let _ = await N2e(e, t, false, d);
   if (_ === null || _.stats.filesCount === 0) return { ...u, hunks: new Map(), source: { kind: "working-tree" } };
   return _;
 }
@@ -2055,13 +2055,13 @@ async function H7t(e) {
     Array.from(e.perFileStats, async ([o, u]) => {
       try {
         let d = await $2e(Age(t, o));
-        if (Math.max(d.mtimeMs, d.ctimeMs) < r) u.preSession = !0;
+        if (Math.max(d.mtimeMs, d.ctimeMs) < r) u.preSession = true;
       } catch {}
     }),
   );
 }
 
-async function p3(e, t, r, o = !1) {
+async function p3(e, t, r, o = false) {
   let u = Rge - e.perFileStats.size;
   if (u <= 0) return null;
   let d = r !== void 0 ? r : await K7t(u, t, o);
@@ -2078,7 +2078,7 @@ async function Ege(e) {
     (
       await $e(it(), ["--no-optional-locks", "rev-parse", "--verify", "--quiet", "HEAD"], {
         timeout: S7,
-        preserveOutputOnError: !1,
+        preserveOutputOnError: false,
         abortSignal: e,
       })
     ).exitCode !== 1
@@ -2089,7 +2089,7 @@ async function Ege(e) {
       perFileStats: new Map(),
       hunks: new Map(),
       source: { kind: "working-tree" },
-      noCommits: !0,
+      noCommits: true,
     },
     o = await g3("--cached", e);
   if (o !== null) {
@@ -2107,14 +2107,14 @@ async function j7t(e, t) {
     if (d === void 0) continue;
     let _ = d.isBinary || u.isBinary,
       C = _ ? 0 : Math.max(0, d.added + u.added - u.removed);
-    (e.stats.linesAdded += C - d.added), e.perFileStats.set(o, { added: C, removed: 0, isBinary: _, isUntracked: !1 });
+    (e.stats.linesAdded += C - d.added), e.perFileStats.set(o, { added: C, removed: 0, isBinary: _, isUntracked: false });
   }
 }
 
 async function U2e(e) {
   let t = await $e(it(), ["--no-optional-locks", "-c", "diff.relative=false", "diff", "--numstat"], {
     timeout: S7,
-    preserveOutputOnError: !1,
+    preserveOutputOnError: false,
     abortSignal: e,
   });
   if (t.code !== 0) return null;
@@ -2125,7 +2125,7 @@ async function g3(e, t) {
   let { stdout: r, code: o } = await $e(
     it(),
     ["--no-optional-locks", "-c", "diff.relative=false", "diff", e, "--shortstat"],
-    { timeout: S7, preserveOutputOnError: !1, abortSignal: t },
+    { timeout: S7, preserveOutputOnError: false, abortSignal: t },
   );
   if (o === 0) {
     let _ = Sdt(r);
@@ -2134,7 +2134,7 @@ async function g3(e, t) {
   let { stdout: u, code: d } = await $e(
     it(),
     ["--no-optional-locks", "-c", "diff.relative=false", "diff", e, "--numstat"],
-    { timeout: S7, preserveOutputOnError: !1, abortSignal: t },
+    { timeout: S7, preserveOutputOnError: false, abortSignal: t },
   );
   if (d !== 0) return null;
   return zIe(u);
@@ -2151,7 +2151,7 @@ async function V4n(e, t = "HEAD") {
   let { stdout: o, code: u } = await $e(
     it(),
     ["--no-optional-locks", "-c", "diff.relative=false", "diff", t, "--shortstat"],
-    { timeout: S7, preserveOutputOnError: !1, abortSignal: e },
+    { timeout: S7, preserveOutputOnError: false, abortSignal: e },
   );
   if (u === 0) {
     let A = Sdt(o);
@@ -2159,7 +2159,7 @@ async function V4n(e, t = "HEAD") {
   }
   let { stdout: d, code: _ } = await $e(it(), ["--no-optional-locks", "-c", "diff.relative=false", "diff", ...oJe, t], {
     timeout: S7,
-    preserveOutputOnError: !1,
+    preserveOutputOnError: false,
     abortSignal: e,
   });
   if (_ !== 0) return null;
@@ -2175,7 +2175,7 @@ async function V4n(e, t = "HEAD") {
 async function Wan(e) {
   let { stdout: t, code: r } = await $e(it(), ["--no-optional-locks", "rev-parse", "--show-toplevel"], {
     timeout: S7,
-    preserveOutputOnError: !1,
+    preserveOutputOnError: false,
     abortSignal: e,
   });
   if (r !== 0 || t.trim() === "") return null;
@@ -2202,7 +2202,7 @@ function zIe(e, t = Rge) {
       U = x === "-" || M === "-",
       B = U ? 0 : parseInt(x ?? "0", 10) || 0,
       W = U ? 0 : parseInt(M ?? "0", 10) || 0;
-    if (((o += B), (u += W), _.size < t)) _.set(F, { added: B, removed: W, isBinary: U, isUntracked: !1 });
+    if (((o += B), (u += W), _.size < t)) _.set(F, { added: B, removed: W, isBinary: U, isUntracked: false });
   }
   return { stats: { filesCount: d, linesAdded: o, linesRemoved: u }, perFileStats: _ };
 }
@@ -2266,13 +2266,13 @@ function W7t(e) {
 
 async function B2e() {
   let e = await l4(ee());
-  if (!e) return !1;
+  if (!e) return false;
   return (
     await Promise.all(
       ["MERGE_HEAD", "REBASE_HEAD", "CHERRY_PICK_HEAD", "REVERT_HEAD"].map((o) =>
         L7t(Age(e, o))
-          .then(() => !0)
-          .catch(() => !1),
+          .then(() => true)
+          .catch(() => false),
       ),
     )
   ).some(Boolean);
@@ -2292,11 +2292,11 @@ async function q7t(e) {
   if (!t || t === "HEAD") return { kind: "none" };
   if (r.startsWith("-")) return { kind: "none" };
   if (t === r) return { kind: "head-is-base", baseBranch: r };
-  let o = { timeout: S7, preserveOutputOnError: !1, abortSignal: e },
-    u = !1,
+  let o = { timeout: S7, preserveOutputOnError: false, abortSignal: e },
+    u = false,
     d = await j2e(r, async (C) => {
       let A = await $e(it(), C, o);
-      if (A.exitCode === 1) u = !0;
+      if (A.exitCode === 1) u = true;
       return A;
     });
   if (!d) {
@@ -2313,11 +2313,11 @@ async function q7t(e) {
   return { kind: "merge-base", mergeBase: d, baseBranch: r };
 }
 
-async function K7t(e, t, r = !1) {
+async function K7t(e, t, r = false) {
   let { stdout: o, code: u } = await $e(
     it(),
     ["--no-optional-locks", "ls-files", "--others", "--exclude-standard", "--full-name"],
-    { timeout: S7, preserveOutputOnError: !1, abortSignal: t },
+    { timeout: S7, preserveOutputOnError: false, abortSignal: t },
   );
   if (u !== 0 || !o.trim()) return null;
   let d = o
@@ -2334,7 +2334,7 @@ async function K7t(e, t, r = !1) {
           let U = await $2e(Age(_, F));
           return { filePath: F, preSession: Math.max(U.mtimeMs, U.ctimeMs) < C };
         } catch {
-          return { filePath: F, preSession: !1 };
+          return { filePath: F, preSession: false };
         }
       }),
     ),
@@ -2343,7 +2343,7 @@ async function K7t(e, t, r = !1) {
   if (x.length === 0) return null;
   let M = new Map();
   for (let { filePath: F, preSession: U } of x.slice(0, e))
-    M.set(F, { added: 0, removed: 0, isBinary: !1, isUntracked: !0, ...(U && { preSession: U }) });
+    M.set(F, { added: 0, removed: 0, isBinary: false, isUntracked: true, ...(U && { preSession: U }) });
   return M;
 }
 
@@ -2385,11 +2385,11 @@ function V7t(e, t, r) {
   let o = t.split(`
 `),
     u = [],
-    d = !1,
+    d = false,
     _ = 0,
     C = 0;
   for (let A of o) {
-    if (A.startsWith("@@")) d = !0;
+    if (A.startsWith("@@")) d = true;
     if (d) {
       if ((u.push(A), A.startsWith("+") && !A.startsWith("+++"))) _++;
       else if (A.startsWith("-") && !A.startsWith("---")) C++;
@@ -2464,7 +2464,7 @@ async function _3(e, t, r) {
 }
 
 function Tj(e) {
-  return !1;
+  return false;
 }
 
 function rL(e) {
@@ -2481,7 +2481,7 @@ function Q7t() {
   let t = Xl();
   return typeof t?.editRemovalVisibility === "boolean"
     ? { value: t.editRemovalVisibility, src: "gb" }
-    : { value: !1, src: "default" };
+    : { value: false, src: "default" };
 }
 
 function W2e() {
@@ -2502,7 +2502,7 @@ function z2e(e, t, r) {
     d = SEn(u);
   if (!d.isValid)
     return {
-      result: !1,
+      result: false,
       message: `Claude Code settings.json validation failed after edit:
 ${d.error}
 
@@ -2520,7 +2520,7 @@ function G2e(e) {
     r = [];
   if ("replace_name" in t) {
     let o = t.replace_name;
-    if (!("replace_all" in t)) t.replace_all = o === !0 || o === "true";
+    if (!("replace_all" in t)) t.replace_all = o === true || o === "true";
     delete t.replace_name, r.push("alias_replace_name");
   }
   if ("path" in t && !("file_path" in t) && typeof t.path === "string")
@@ -2563,7 +2563,7 @@ ${
 - \`replace_all: true\` replaces every occurrence instead.`;
   }
   let o = t ? "line number + a single separator character (a tab or `:`)" : "line number + tab",
-    u = I("tengu_edit_minimalanchor_jrn", !1)
+    u = I("tengu_edit_minimalanchor_jrn", false)
       ? "\n- Keep `old_string` minimal \u2014 usually 1-3 lines, only enough to be unique in the file. Including excess context wastes tokens and is an error.\n- The edit will FAIL if `old_string` is not unique in the file. In that case, add the minimum extra context needed for uniqueness, or use `replace_all` to change every instance."
       : "\n- The edit will FAIL if `old_string` is not unique in the file. Either provide a larger string with more surrounding context to make it unique or use `replace_all` to change every instance of `old_string`.";
   return `Performs exact string replacements in files.
@@ -2688,7 +2688,7 @@ function YIe(e, t, r) {
 }
 
 function Z2e(e, t) {
-  if (t === 0) return !0;
+  if (t === 0) return true;
   let r = e[t - 1];
   return (
     r === " " ||
@@ -2729,7 +2729,7 @@ function lJt(e) {
   return r.join("");
 }
 
-function cJt(e, t, r, o = !1) {
+function cJt(e, t, r, o = false) {
   let u = o ? (_, C, A) => _.replaceAll(C, () => A) : (_, C, A) => _.replace(C, () => A);
   if (r !== "") return u(e, t, r);
   return !t.endsWith(`
@@ -2749,14 +2749,14 @@ function cJt(e, t, r, o = !1) {
     : u(e, t, r);
 }
 
-function Idt({ filePath: e, fileContents: t, oldString: r, newString: o, replaceAll: u = !1 }) {
+function Idt({ filePath: e, fileContents: t, oldString: r, newString: o, replaceAll: u = false }) {
   return Kan({ filePath: e, fileContents: t, edits: [{ old_string: r, new_string: o, replace_all: u }] });
 }
 
 function Kan({ filePath: e, fileContents: t, edits: r }) {
   if (tVe(t, r))
     return {
-      patch: VL({ filePath: e, fileContents: t, edits: [{ old_string: t, new_string: t, replace_all: !1 }] }),
+      patch: VL({ filePath: e, fileContents: t, edits: [{ old_string: t, new_string: t, replace_all: false }] }),
       updatedFile: "",
     };
   let o = Lge(t, r);
@@ -2837,7 +2837,7 @@ function lqn(e) {
 `),
       new_string: o.join(`
 `),
-      replace_all: !1,
+      replace_all: false,
     };
   });
 }
@@ -2895,7 +2895,7 @@ function pJt(e, t, r) {
       );
     })
   )
-    return !0;
+    return true;
   let o = null,
     u = null,
     d = null,
@@ -2911,12 +2911,12 @@ function pJt(e, t, r) {
     _ = l(C);
   }
   if (u !== null && _ !== null) return u === _;
-  if (u !== null || _ !== null) return !1;
+  if (u !== null || _ !== null) return false;
   return o === d;
 }
 
 function oVe(e, t) {
-  if (e.file_path !== t.file_path) return !1;
+  if (e.file_path !== t.file_path) return false;
   if (
     e.edits.length === t.edits.length &&
     e.edits.every((o, u) => {
@@ -2929,7 +2929,7 @@ function oVe(e, t) {
       );
     })
   )
-    return !0;
+    return true;
   let r = "";
   if ((!Bn(e.file_path) || Ms(e.file_path)) && !vu(e.file_path) && !_r(e.file_path) && !_r(iJt(e.file_path)))
     try {
@@ -2944,7 +2944,7 @@ function cVe(e, t) {
   if (t.remoteCall === void 0) return e;
   let { file_path: r, edits: o } = C3({
       file_path: e.file_path,
-      edits: [{ old_string: e.old_string, new_string: e.new_string, replace_all: e.replace_all ?? !1 }],
+      edits: [{ old_string: e.old_string, new_string: e.new_string, replace_all: e.replace_all ?? false }],
     }),
     [u] = o;
   return u === void 0 ? e : { ...e, file_path: r, old_string: u.old_string, new_string: u.new_string };
@@ -2960,7 +2960,7 @@ async function fJt(e, t, r) {
       applyFileHistoryOp: A,
       dynamicSkillDirTriggers: x,
     } = t,
-    { file_path: M, replace_all: F = !1 } = e,
+    { file_path: M, replace_all: F = false } = e,
     { old_string: U, new_string: B } = e,
     W = gt(M),
     z = uU(t, W);
@@ -2998,7 +2998,7 @@ async function fJt(e, t, r) {
           nn = Idt({ filePath: W, fileContents: Be, oldString: ut, newString: en, replaceAll: F }),
           xt = ID(W, nn.updatedFile),
           tt = xt !== nn.updatedFile,
-          lt = !tt ? nn.patch : iSe({ filePath: W, oldContent: Be, newContent: xt, convertTabs: !0 }),
+          lt = !tt ? nn.patch : iSe({ filePath: W, oldContent: Be, newContent: xt, convertTabs: true }),
           mt;
         await Fe.recheckBeforeWrite();
         try {
@@ -3013,7 +3013,7 @@ async function fJt(e, t, r) {
             timestamp: mt,
             offset: void 0,
             limit: void 0,
-            ...(Xe && { contentNotInModelContext: !0 }),
+            ...(Xe && { contentNotInModelContext: true }),
           }),
           We === "utf8" && Ve !== "CRLF")
         )
@@ -3056,7 +3056,7 @@ async function fJt(e, t, r) {
     let Fe = Date.now(),
       Be = await y3(W);
     if (Be) Pe = Be;
-    s("tengu_tool_use_diff_computed", { isEditTool: !0, durationMs: Date.now() - Fe, hasDiff: !!Be });
+    s("tengu_tool_use_diff_computed", { isEditTool: true, durationMs: Date.now() - Fe, hasDiff: !!Be });
   }
   return {
     data: {
@@ -3065,10 +3065,10 @@ async function fJt(e, t, r) {
       newString: B,
       originalFile: pe,
       structuredPatch: ge,
-      userModified: _ ?? !1,
+      userModified: _ ?? false,
       replaceAll: F,
-      ...(Ce && { staleRecovered: !0 }),
-      ...(Ie && { memdirStamped: !0 }),
+      ...(Ce && { staleRecovered: true }),
+      ...(Ie && { memdirStamped: true }),
       ...(Pe && { gitDiff: Pe }),
     },
   };
@@ -3076,8 +3076,8 @@ async function fJt(e, t, r) {
 
 async function gJt(e) {
   let t = await e.readExisting();
-  if (t === null) return { content: "", fileExists: !1, encoding: "utf8", lineEndings: "LF" };
-  return { ...t, fileExists: !0 };
+  if (t === null) return { content: "", fileExists: false, encoding: "utf8", lineEndings: "LF" };
+  return { ...t, fileExists: true };
 }
 
 function jge(e, t, r) {
@@ -3102,12 +3102,12 @@ function hJt({
   readNotAutoAllowed: C,
 }) {
   if (!r) {
-    if ((_ || !jLe(d)) && !C()) return !1;
+    if ((_ || !jLe(d)) && !C()) return false;
     throw new EY(P3t);
   }
-  if (dU(e) <= r.timestamp) return !1;
-  if (Qne(r) && o$(r, JE(t))) return !1;
-  if (jge(t, o, u) === "applies" && !C()) return !0;
+  if (dU(e) <= r.timestamp) return false;
+  if (Qne(r) && o$(r, JE(t))) return false;
+  if (jge(t, o, u) === "applies" && !C()) return true;
   throw new EY(D3t);
 }
 
@@ -3175,13 +3175,13 @@ async function gVe() {
       [u, d, _, C, A] = await Promise.all([
         cl(),
         Cw(),
-        $e(it(), ["--no-optional-locks", "status", "--short"], { preserveOutputOnError: !1 }).then(({ stdout: F }) =>
+        $e(it(), ["--no-optional-locks", "status", "--short"], { preserveOutputOnError: false }).then(({ stdout: F }) =>
           F.trim(),
         ),
-        $e(it(), ["--no-optional-locks", "log", "--oneline", "-n", "5"], { preserveOutputOnError: !1 }).then(
+        $e(it(), ["--no-optional-locks", "log", "--oneline", "-n", "5"], { preserveOutputOnError: false }).then(
           ({ stdout: F }) => F.trim(),
         ),
-        $e(it(), ["config", "user.name"], { preserveOutputOnError: !1 }).then(({ stdout: F }) => F.trim()),
+        $e(it(), ["config", "user.name"], { preserveOutputOnError: false }).then(({ stdout: F }) => F.trim()),
       ]);
     Y("info", "git_commands_completed", { duration_ms: Date.now() - o, status_length: _.length });
     let x = as() ? Qe : Bt,
@@ -3220,7 +3220,7 @@ ${C}`,
 function vj() {
   let e = a.CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS;
   if (e !== void 0) return !e;
-  return Je().includeGitInstructions ?? !0;
+  return Je().includeGitInstructions ?? true;
 }
 
 function M3(e) {
@@ -3324,7 +3324,7 @@ async function wJt(e, t, r) {
     _ = zge,
     C = zge;
   try {
-    if (!u) (_ = I3(await J_(e, !1, t))), (C = qge(_)), (d = Cj(C));
+    if (!u) (_ = I3(await J_(e, false, t))), (C = qge(_)), (d = Cj(C));
   } catch (F) {
     throw (p("context_claude_md_load", "load_threw"), F);
   }
@@ -3407,24 +3407,24 @@ function kVe() {
 }
 
 function Qf() {
-  if (kVe()) return !1;
-  return Lo("autoCompactEnabled", !0).value;
+  if (kVe()) return false;
+  return Lo("autoCompactEnabled", true).value;
 }
 
 function esn() {
-  if (kVe()) return !1;
-  let e = Lo("autoCompactEnabled", !0);
-  if (e.value) return !1;
-  if (e.source === "userSettings") return !0;
+  if (kVe()) return false;
+  let e = Lo("autoCompactEnabled", true);
+  if (e.value) return false;
+  if (e.source === "userSettings") return true;
   if (e.source === "legacyGlobalConfig") return xi().includes("userSettings");
-  return !1;
+  return false;
 }
 
 function LB() {
   if (a.CLAUDE_CODE_REMOTE) {
-    if (!TJt.isOpen()) return !1;
+    if (!TJt.isOpen()) return false;
   }
-  return !0;
+  return true;
 }
 
 function ZE(e) {
@@ -3432,8 +3432,8 @@ function ZE(e) {
 }
 
 function iL(e) {
-  if (e === "compact") return !0;
-  return !1;
+  if (e === "compact") return true;
+  return false;
 }
 
 function TVe(e) {
@@ -3551,16 +3551,16 @@ function RJt(e) {
 }
 
 function PJt(e, t) {
-  return Cc(e) || (t?.includes(Vk.header) === !0 && TC(e));
+  return Cc(e) || (t?.includes(Vk.header) === true && TC(e));
 }
 
 function xJt(e) {
-  if (!Qf()) return { window: null, replacesDefault: !1 };
+  if (!Qf()) return { window: null, replacesDefault: false };
   let t = (d) => (typeof d === "number" && Number.isInteger(d) && d >= rCe && d <= YNe ? d : null),
     r = (d) => {
-      if (typeof d !== "object" || d === null || Array.isArray(d)) return { window: null, present: !1 };
-      if (!Object.hasOwn(d, e)) return { window: null, present: !1 };
-      return { window: t(DVe(d[e])), present: !0 };
+      if (typeof d !== "object" || d === null || Array.isArray(d)) return { window: null, present: false };
+      if (!Object.hasOwn(d, e)) return { window: null, present: false };
+      return { window: t(DVe(d[e])), present: true };
     },
     o = r(Qer()?.rowan_thicket),
     u = r(Zer());
@@ -3676,12 +3676,12 @@ function NVe(e, t, r, o) {
     _ = K1(t, d);
   if (!CG(t, r)) return e >= Kge(_, u);
   let { window: C } = $A(t, d);
-  if (C < g$) return !1;
+  if (C < g$) return false;
   return e >= Kge(_, u);
 }
 
 function DJt(e) {
-  return e?.compacted === !0 && e.turnCounter < 3 ? (e?.consecutiveRapidRefills ?? 0) + 1 : 0;
+  return e?.compacted === true && e.turnCounter < 3 ? (e?.consecutiveRapidRefills ?? 0) + 1 : 0;
 }
 
 function L3(e) {
@@ -3690,7 +3690,7 @@ function L3(e) {
 }
 
 function Zge(e, t) {
-  return { compacted: !0, turnId: e, turnCounter: 0, consecutiveFailures: 0, consecutiveRapidRefills: t };
+  return { compacted: true, turnId: e, turnCounter: 0, consecutiveFailures: 0, consecutiveRapidRefills: t };
 }
 
 function kh(e) {
@@ -3797,9 +3797,9 @@ function Pj(e, t) {
 
 function q8(e) {
   let r = e.findLast((u) => u.type === "assistant");
-  if (!r) return !1;
+  if (!r) return false;
   let o = kh(r);
-  return o ? FW(o) > 200000 : !1;
+  return o ? FW(o) > 200000 : false;
 }
 
 function MNt(e) {
@@ -3857,9 +3857,9 @@ function pd(e, t) {
     o = 0;
   for (;;) {
     let u = e.indexOf(r, o);
-    if (u === -1) return !1;
+    if (u === -1) return false;
     let d = e[u + r.length];
-    if (d === void 0 || !/[A-Za-z0-9_:.-]/.test(d)) return !0;
+    if (d === void 0 || !/[A-Za-z0-9_:.-]/.test(d)) return true;
     o = u + 1;
   }
 }
@@ -3883,8 +3883,8 @@ function rhe(e) {
 
 function ohe(e) {
   let t = e.toLowerCase().replaceAll("`", "");
-  if (t.includes("signature in thinking block")) return !0;
-  if (t.includes("thinking.signature") && t.includes("field required")) return !0;
+  if (t.includes("signature in thinking block")) return true;
+  if (t.includes("thinking.signature") && t.includes("field required")) return true;
   return (
     (t.includes("thinking block") || t.includes("redacted_thinking")) &&
     (t.includes("cannot be modified") || t.includes("invalid signature"))
@@ -3900,7 +3900,7 @@ function she(e) {
 
 function NJt(e) {
   let t = e.toLowerCase();
-  if (t.includes("effort parameter") && t.includes("not support")) return !0;
+  if (t.includes("effort parameter") && t.includes("not support")) return true;
   return (
     t.includes("output_config") &&
     (t.includes("extra inputs are not permitted") || t.includes("requires a model that supports"))
@@ -3933,18 +3933,18 @@ function B3(e, t) {
 }
 
 function ahe(e) {
-  if (B3(e, Kk.header)) return !0;
-  if (e.includes("Unexpected role") && e.includes("input message role")) return !0;
-  if (e.includes("cache_control") && WVe.test(e)) return !0;
+  if (B3(e, Kk.header)) return true;
+  if (e.includes("Unexpected role") && e.includes("input message role")) return true;
+  if (e.includes("cache_control") && WVe.test(e)) return true;
   return e.includes("not supported") && /role .{0,2}system/i.test(e);
 }
 
 function lhe(e) {
-  if (!e.includes("cache_control")) return !1;
-  if (WVe.test(e)) return !1;
-  if (e.includes("empty text block")) return !1;
-  if (/\bsystem\.\d+\./.test(e) || e.includes("tool_result")) return !1;
-  if (/\bttl\b/i.test(e)) return !1;
+  if (!e.includes("cache_control")) return false;
+  if (WVe.test(e)) return false;
+  if (e.includes("empty text block")) return false;
+  if (/\bsystem\.\d+\./.test(e) || e.includes("tool_result")) return false;
+  if (/\bttl\b/i.test(e)) return false;
   let t = e.toLowerCase();
   return (
     t.includes("not permitted") ||
@@ -4073,8 +4073,8 @@ function rYe(e) {
 }
 
 function W3(e = Ne()) {
-  if (e !== "firstParty" || !jo()) return !1;
-  if (a._CLAUDE_CODE_ASSUME_FIRST_PARTY_BASE_URL || a.ANTHROPIC_BASE_URL !== void 0 || !zV()) return !0;
+  if (e !== "firstParty" || !jo()) return false;
+  if (a._CLAUDE_CODE_ASSUME_FIRST_PARTY_BASE_URL || a.ANTHROPIC_BASE_URL !== void 0 || !zV()) return true;
   let t = Gpe();
   return t === null || (t !== void 0 && FT(t));
 }
@@ -4236,7 +4236,7 @@ function tC(e, t, r) {
     cause_name: e instanceof Error ? (px(e.cause) ?? null) : null,
     api_error_type: u?.type ? Lj(u.type) : null,
     connection_code: bie(o?.code) ?? null,
-    ssl_error: o?.isSSLError ?? !1,
+    ssl_error: o?.isSSLError ?? false,
     ...(e instanceof q3
       ? { response: e.response, body_kind: e.bodyKind, body_bytes: e.bodyBytes }
       : { response: d !== void 0 || _ ? Mj(d, _) : null }),
@@ -4308,16 +4308,16 @@ function fZt({ data: e, status: t, headers: r, originating: o }) {
 }
 
 function iYe(e) {
-  if (typeof e !== "object" || e === null) return !1;
-  if (!("type" in e) || e.type !== "image") return !1;
-  if (!("source" in e) || typeof e.source !== "object" || e.source === null) return !1;
+  if (typeof e !== "object" || e === null) return false;
+  if (!("type" in e) || e.type !== "image") return false;
+  if (!("source" in e) || typeof e.source !== "object" || e.source === null) return false;
   let t = e.source;
   return "type" in t && t.type === "base64" && "data" in t && typeof t.data === "string";
 }
 
 function gZt(e) {
-  if (typeof e !== "object" || e === null) return !1;
-  if (!("type" in e) || e.type !== "tool_result") return !1;
+  if (typeof e !== "object" || e === null) return false;
+  if (!("type" in e) || e.type !== "tool_result") return false;
   return "content" in e && Array.isArray(e.content);
 }
 
@@ -4363,7 +4363,7 @@ function cYe(e) {
 }
 
 function $j() {
-  return I("tengu_vellum_anchor", !1);
+  return I("tengu_vellum_anchor", false);
 }
 
 function osn(e) {
@@ -4371,7 +4371,7 @@ function osn(e) {
 }
 
 function FNt(e) {
-  let t = e.resetsAt ? ad(e.resetsAt, !0) : void 0;
+  let t = e.resetsAt ? ad(e.resetsAt, true) : void 0;
   if (!t) return null;
   switch (e.rateLimitType) {
     case "five_hour":
@@ -4400,7 +4400,7 @@ function gYe(e, t) {
     if (e.utilization !== void 0 && e.utilization < dYe) return null;
     let r = Fn(),
       o = r === "team" || r === "enterprise",
-      u = On()?.hasExtraUsageEnabled === !0;
+      u = On()?.hasExtraUsageEnabled === true;
     if (o && u && !vf()) return null;
     let d = bZt(e);
     if (d) return { message: d, severity: "warning" };
@@ -4425,8 +4425,8 @@ function _Zt(e, t) {
     o = vf(),
     u = o ? "" : " \xB7 contact your admin to increase it",
     d = e.resetsAt,
-    _ = d ? ad(d, !0) : void 0,
-    C = e.overageResetsAt ? ad(e.overageResetsAt, !0) : void 0,
+    _ = d ? ad(d, true) : void 0,
+    C = e.overageResetsAt ? ad(e.overageResetsAt, true) : void 0,
     A = _ ? ` \xB7 resets ${_}` : "",
     x,
     M = () => {
@@ -4535,7 +4535,7 @@ function bZt(e) {
   }
   let r = e.utilization ? Math.floor(e.utilization * 100) : void 0,
     o = e.rateLimitType === "overage" && iH(),
-    u = e.resetsAt && !o ? ad(e.resetsAt, !0) : void 0,
+    u = e.resetsAt && !o ? ad(e.resetsAt, true) : void 0,
     d = ssn(e.rateLimitType);
   if (r && u) {
     let C = `You've used ${r}% of your ${t} \xB7 resets ${u}`;
@@ -4556,7 +4556,7 @@ function bZt(e) {
 
 function ssn(e) {
   let t = Fn(),
-    r = On()?.hasExtraUsageEnabled === !0,
+    r = On()?.hasExtraUsageEnabled === true,
     o = vf();
   if (t === "team" || t === "enterprise") {
     if (!r && eb())
@@ -4598,7 +4598,7 @@ function YWn(e, t, r) {
 }
 
 function asn(e, t) {
-  let r = e.resetsAt ? ad(e.resetsAt, !0) : "",
+  let r = e.resetsAt ? ad(e.resetsAt, true) : "",
     o = "";
   switch (e.rateLimitType) {
     case "five_hour":

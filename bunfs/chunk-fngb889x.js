@@ -111,7 +111,7 @@ var _ = 1048576,
   w = 32,
   b = 200;
 function C(e) {
-  let d = { served: 0, ignored: 0, passthrough: 0, plumbing: 0, displaced: !1 },
+  let d = { served: 0, ignored: 0, passthrough: 0, plumbing: 0, displaced: false },
     s = (i, o) => (e.telemetry.announce({ outcome: i, ...d }), { kind: "error", error: o });
   return {
     async handle(i) {
@@ -172,7 +172,7 @@ function C(e) {
             );
           if (t.removed.length > 0) e.abandonCalls?.(o.data.instance_id, "withdrawn");
           return (
-            e.telemetry.announce({ outcome: "withdrawn", served: 0, ...c, displaced: !1 }),
+            e.telemetry.announce({ outcome: "withdrawn", served: 0, ...c, displaced: false }),
             {
               kind: "success",
               response: { status: "withdrawn", worker_epoch: e.workerEpoch, protocol_version: null, ...u },

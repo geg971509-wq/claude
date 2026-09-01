@@ -48,7 +48,7 @@ var m = {
     if (e?.type === "mcp_task") e.abortController?.abort(), e.driveAbortController?.abort(), e.sep2663Cancel?.();
     i.update(a, (t) => {
       if (t.notified || t.status !== "running") return t;
-      return { ...t, status: "killed", endTime: Date.now(), parked: void 0, notified: !0 };
+      return { ...t, status: "killed", endTime: Date.now(), parked: void 0, notified: true };
     }),
       (async () => {
         await c, await tG(a, r, s, o);

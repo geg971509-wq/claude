@@ -35,7 +35,7 @@ var Lyn = new J(() => new eer()),
   AEe =
     "Your organization requires Trusted Devices for Remote Control, but enrollment is temporarily disabled. Please try again later, or contact your administrator.";
 function CV() {
-  return I(E, !1);
+  return I(E, false);
 }
 function S() {
   return import.meta.require("/$bunfs/root/chunk-qvdq8j6c.js");
@@ -44,15 +44,15 @@ function v() {
   return import.meta.require("/$bunfs/root/chunk-4v4vy63d.js");
 }
 function C3() {
-  if (!I(f, !1)) return !1;
+  if (!I(f, false)) return false;
   return v().isPolicyAllowed(u);
 }
 function E9t() {
-  if (!I(f, !1)) return !1;
+  if (!I(f, false)) return false;
   return v().isPolicyEnforced(u);
 }
 function nRr() {
-  return a.CLAUDE_CODE_REMOTE === !0 && !a.CLAUDE_TRUSTED_DEVICE_TOKEN && E9t();
+  return a.CLAUDE_CODE_REMOTE === true && !a.CLAUDE_TRUSTED_DEVICE_TOKEN && E9t();
 }
 var A9t =
   "not reachable from a cloud session \u2014 that session requires a trusted device, which a cloud session never has; message it from one of your own machines instead";
@@ -60,7 +60,7 @@ function rRr(e) {
   return `Nothing was sent: Remote Control session '${e}' is ${A9t}.`;
 }
 function Ode() {
-  if (!I("tengu_bridge_attestation_enforce", !1)) return I9t;
+  if (!I("tengu_bridge_attestation_enforce", false)) return I9t;
   if (!E9t()) return I9t;
   let t = I("tengu_bridge_attestation_enforce_config", {});
   return uer(t);
@@ -81,9 +81,9 @@ async function uh() {
   return g8e();
 }
 async function cSt() {
-  if (!E9t()) return !1;
-  if (await g8e()) return !1;
-  return !0;
+  if (!E9t()) return false;
+  if (await g8e()) return false;
+  return true;
 }
 async function zyr() {
   if (!(await cSt())) return null;
@@ -126,9 +126,9 @@ async function C9t(e) {
   n("[trusted-device] Not enrolled, attempting lazy enrollment with OAuth token"), await h8e({ credentials: e });
 }
 async function oRr(e) {
-  if (!C3()) return !1;
-  if ((CEe(), await g8e())) return !0;
-  if (CV()) return !1;
+  if (!C3()) return false;
+  if ((CEe(), await g8e())) return true;
+  if (CV()) return false;
   return (
     n("[trusted-device] Not enrolled, enrolling for a device-bound session"),
     await h8e({ trigger: "device_bind", credentials: e }),

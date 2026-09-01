@@ -65,9 +65,9 @@ async function itn(t, o) {
         prompt: t.description ?? l,
         model: P,
         abortController: r,
-        awaitingPlanApproval: !1,
+        awaitingPlanApproval: false,
         permissionMode: t.permissionMode ?? ipr(he(o).mode, d),
-        isIdle: !1,
+        isIdle: false,
         lastReportedToolCount: 0,
         lastReportedTokenCount: 0,
         pendingUserMessages: [],
@@ -91,14 +91,14 @@ async function itn(t, o) {
     return (
       n(`[spawnInProcessTeammate] Registered ${s} in AppState`),
       y("swarm_in_process_spawn"),
-      { ok: !0, agentId: s, identity: S, taskId: f, abortController: r, teammateContext: w }
+      { ok: true, agentId: s, identity: S, taskId: f, abortController: r, teammateContext: w }
     );
   } catch (r) {
     let a = r instanceof Error ? r.message : "Unknown error during spawn";
     return (
       n(`[spawnInProcessTeammate] Failed to spawn ${s}: ${a}`),
       p("swarm_in_process_spawn", "spawn_failed"),
-      { ok: !1, agentId: s, error: a }
+      { ok: false, agentId: s, error: a }
     );
   }
 }

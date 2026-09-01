@@ -488,7 +488,7 @@ function Qt(e, t) {
 }
 class Y {
   attached = [];
-  replied = !1;
+  replied = false;
   adopt(e) {
     this.attached = [...this.attached, ...e];
   }
@@ -561,7 +561,7 @@ class Y {
   }
   noteReply(e) {
     if (this.replied) return;
-    (this.replied = !0), this.each((t) => t.afterFirstReply?.(e));
+    (this.replied = true), this.each((t) => t.afterFirstReply?.(e));
   }
   async dispose() {
     let e = this.attached;
@@ -595,7 +595,7 @@ function Ge(e) {
     if (!t.bound) return Ve("not_bound");
     if (t.servedTools === void 0) return Ve("not_served");
     let o = null,
-      r = !1,
+      r = false,
       d = "not_announced",
       u,
       S = f8(),
@@ -627,7 +627,7 @@ function Ge(e) {
       onWorkerLive: () => I.requestAnnounce("attached"),
       onStreamConnected: () => {
         if (r) I.requestAnnounce("reconnected");
-        r = !0;
+        r = true;
       },
       onWorkerInit: (R) => I.requestAnnounce("worker_init", { workerEpoch: R.workerEpoch }),
       report: () => ({
@@ -680,7 +680,7 @@ function Ye(e) {
       I,
       E,
       R = null,
-      A = !1,
+      A = false,
       b = met({
         launchDir: k,
         cloudSessionId: d.sessionId,
@@ -725,7 +725,7 @@ function Ye(e) {
       },
       async dispose() {
         if (A) return;
-        (A = !0), b.dispose();
+        (A = true), b.dispose();
       },
     };
   };
@@ -783,7 +783,7 @@ function es(e, t, o, r) {
       let _ = () => S("unreadable"),
         C = () => S("aborted"),
         k = r(_, Yt);
-      o.addEventListener("abort", C, { once: !0 }),
+      o.addEventListener("abort", C, { once: true }),
         (d = () => {
           k.clear(), o.removeEventListener("abort", C);
         }),
@@ -811,7 +811,7 @@ class _e {
   inFlight = new Map();
   retiredIds = new Set();
   settledTotal = 0;
-  tearingDown = !1;
+  tearingDown = false;
   constructor(e) {
     this.ports = e;
   }
@@ -844,7 +844,7 @@ class _e {
     this.retiredIds.add(e), this.inFlight.get(e)?.abort();
   }
   cancelAll() {
-    this.tearingDown = !0;
+    this.tearingDown = true;
     for (let e of this.inFlight.values()) e.abort();
   }
   pass({ subtype: e, requestId: t, ask: o, answer: r, answerOnError: d }) {
@@ -866,9 +866,9 @@ class _e {
     let u = new AbortController();
     this.inFlight.set(t, u);
     let S = this.ports.clock.now(),
-      _ = !1,
+      _ = false,
       C = (k) => {
-        if (((_ = !0), (this.settledTotal += 1), ss.has(k))) this.retiredIds.add(t);
+        if (((_ = true), (this.settledTotal += 1), ss.has(k))) this.retiredIds.add(t);
         this.log(e, k, S);
       };
     this.ports.track(
@@ -927,8 +927,8 @@ function ns(e, t) {
   );
 }
 function os(e) {
-  if (ow(e)) return !0;
-  if (typeof e !== "object" || e === null) return !1;
+  if (ow(e)) return true;
+  if (typeof e !== "object" || e === null) return false;
   let t = e[gde];
   return typeof t === "string" && hde(t);
 }
@@ -983,7 +983,7 @@ function st({ io: e, declaredKinds: t, clock: o }) {
           latency_ms: o.now() - _,
         });
       },
-      k = { answer: d.default, answered: !1 };
+      k = { answer: d.default, answered: false };
     if (!t.has(d.kind)) return C("undeclared"), k;
     let P = d.payload().safeParse(u);
     if (!P.success) return C("invalid_payload"), k;
@@ -996,7 +996,7 @@ function st({ io: e, declaredKinds: t, clock: o }) {
     if (I.behavior === "cancelled") return C("cancelled"), k;
     let E = d.result().safeParse(I.result);
     if (!E.success) return C("invalid_result"), k;
-    return C("answered"), { answer: E.data, answered: !0 };
+    return C("answered"), { answer: E.data, answered: true };
   };
 }
 var rs = 1000,
@@ -1005,25 +1005,25 @@ var rs = 1000,
   ds = 200000,
   ls = 2048,
   ot = {
-    assistant: !0,
-    user: !0,
-    result: !0,
-    system: !0,
-    stream_event: !0,
-    tool_progress: !0,
-    tool_use_summary: !0,
-    rate_limit_event: !0,
-    prompt_suggestion: !0,
-    conversation_reset: !0,
-    command_lifecycle: !0,
-    transcript_mirror: !1,
-    auth_status: !1,
-    active_goal: !1,
-    autocompact_state: !1,
-    keep_alive: !1,
-    control_request: !1,
-    control_response: !1,
-    control_cancel_request: !1,
+    assistant: true,
+    user: true,
+    result: true,
+    system: true,
+    stream_event: true,
+    tool_progress: true,
+    tool_use_summary: true,
+    rate_limit_event: true,
+    prompt_suggestion: true,
+    conversation_reset: true,
+    command_lifecycle: true,
+    transcript_mirror: false,
+    auth_status: false,
+    active_goal: false,
+    autocompact_state: false,
+    keep_alive: false,
+    control_request: false,
+    control_response: false,
+    control_cancel_request: false,
   };
 function us(e) {
   return Object.hasOwn(ot, e) ? ot[e] : void 0;
@@ -1063,7 +1063,7 @@ class Ee {
   ports;
   workerReady;
   holdingForInit;
-  closed = !1;
+  closed = false;
   heldForInit = [];
   peerHeldForInit = 0;
   peerFramesDroppedBeforeInitCount = 0;
@@ -1075,15 +1075,15 @@ class Ee {
   stamped;
   turnCount = 0;
   initCount = 0;
-  summaryWritten = !1;
+  summaryWritten = false;
   workerUps = 0;
   lastWorkerUpAt = null;
-  initSinceWorkerUp = !0;
+  initSinceWorkerUp = true;
   bootCountedByFrameAt = null;
   entry;
   sessionIdChangeCount = 0;
   peerContentOmittedCount = 0;
-  peerToolUseOmitted = !1;
+  peerToolUseOmitted = false;
   cloudSessionKeysDroppedCount = 0;
   serviceEventsDroppedCount = 0;
   unknownFramesDroppedCount = 0;
@@ -1093,7 +1093,7 @@ class Ee {
     this.ports = e;
     (this.entry = t),
       (this.workerReady = t === "attach"),
-      (this.holdingForInit = !0),
+      (this.holdingForInit = true),
       (this.narrateAfterReady = t === "create"),
       (this.stamped = o),
       (this.connectEpoch = r);
@@ -1126,9 +1126,9 @@ class Ee {
           `[headlessCloudClient] dropped a cloud_session key on a ${xy(ce(o.type, 40))} frame from source=${xy(ce(t.source ?? "unknown", 40))}`,
           { level: "warn" },
         );
-    if (o.type === "env_manager_log") return this.reduceBootstrap(o), !0;
+    if (o.type === "env_manager_log") return this.reduceBootstrap(o), true;
     let r = us(o.type);
-    if (r === void 0) return this.noteUnknownFrame(o.type, t.source), !1;
+    if (r === void 0) return this.noteUnknownFrame(o.type, t.source), false;
     if (o.type !== "user" && !we(o) && t.source === "worker") {
       if (
         (this.adoptWorkerSessionId(o),
@@ -1138,7 +1138,7 @@ class Ee {
       if (this.entry === "create" && this.workerUps === 0) {
         let d = this.ports.clock.now();
         (this.lastWorkerUpAt = d),
-          (this.initSinceWorkerUp = !1),
+          (this.initSinceWorkerUp = false),
           (this.bootCountedByFrameAt = d),
           this.noteWorkerUp(this.bootstrap?.sessionMode ?? void 0);
       }
@@ -1154,7 +1154,7 @@ class Ee {
     switch (o.type) {
       case "system":
         if (o.subtype === "init") {
-          (this.initCount += 1), (this.initSinceWorkerUp = !0);
+          (this.initCount += 1), (this.initSinceWorkerUp = true);
           let d = Eet(o);
           return (
             this.ports.onWorkerInit?.({
@@ -1163,26 +1163,26 @@ class Ee {
               ...(d !== void 0 && { workerEpoch: d }),
             }),
             this.emitInit(o),
-            !0
+            true
           );
         }
         break;
       case "result":
-        if (((this.turnCount += 1), this.ports.onTurnEnded?.(), (this.narrateAfterReady = !1), r))
+        if (((this.turnCount += 1), this.ports.onTurnEnded?.(), (this.narrateAfterReady = false), r))
           this.emitAfterInit(vs(o));
         if (this.entry === "attach" && this.initCount === 0 && t.source === "worker" && !this.closed)
-          this.holdingForInit = !0;
-        return !0;
+          this.holdingForInit = true;
+        return true;
       case "user":
-        return this.handleUserFrame(o, t.source), !0;
+        return this.handleUserFrame(o, t.source), true;
       case "stream_event":
-        if (!this.ports.includePartialMessages) return !0;
+        if (!this.ports.includePartialMessages) return true;
         break;
       default:
         break;
     }
     if (r) this.emitAfterInit(o);
-    return !0;
+    return true;
   }
   noteUnknownFrame(e, t) {
     let o = cs.has(e);
@@ -1199,8 +1199,8 @@ class Ee {
     switch (o.verdict) {
       case "claim":
         this.emitAfterInit(
-          o.sent === void 0 ? { ...e, isReplay: !0, session_id: this.stamped } : Yve(this.stamped, e.uuid, o.sent),
-          { synthesized: !0, ownEcho: !0 },
+          o.sent === void 0 ? { ...e, isReplay: true, session_id: this.stamped } : Yve(this.stamped, e.uuid, o.sent),
+          { synthesized: true, ownEcho: true },
         );
         return;
       case "consume":
@@ -1208,7 +1208,7 @@ class Ee {
           n(`[headlessCloudClient] consumed our own echo of ${String(e.uuid)}`);
         return;
       case "peer":
-        this.emitAfterInit(this.projectPeer(e, { keepUuid: !1 }), { peer: !0, synthesized: !0 });
+        this.emitAfterInit(this.projectPeer(e, { keepUuid: false }), { peer: true, synthesized: true });
         return;
       case "not_own":
         break;
@@ -1221,23 +1221,23 @@ class Ee {
       d = r !== "" && (this.emittedUuids.has(r) || this.emittedPeerUuids.has(r) || this.ports.outbound.wasTaken(r)),
       u = this.projectPeer(e, { keepUuid: !d });
     if ("uuid" in u && typeof u.uuid === "string") this.emittedPeerUuids.add(u.uuid.toLowerCase());
-    this.emitAfterInit(u, { peer: !0, synthesized: !0 });
+    this.emitAfterInit(u, { peer: true, synthesized: true });
   }
   projectPeer(e, { keepUuid: t }) {
     let { prompt: o, omitted: r, omittedToolUse: d } = ps(e, { keepUuid: t, sessionId: this.stamped });
     return (this.peerContentOmittedCount += r), (this.peerToolUseOmitted = this.peerToolUseOmitted || d), o;
   }
-  writeOwnEcho(e, { duplicate: t = !1 } = {}) {
-    this.emitAfterInit(e, { synthesized: !0, ownEcho: !0, sessionPast: t });
+  writeOwnEcho(e, { duplicate: t = false } = {}) {
+    this.emitAfterInit(e, { synthesized: true, ownEcho: true, sessionPast: t });
   }
   rememberEmittedUuid(e) {
     if (!we(e) && "uuid" in e && typeof e.uuid === "string") this.emittedUuids.add(e.uuid.toLowerCase());
   }
   close() {
-    (this.closed = !0), this.releaseHeld();
+    (this.closed = true), this.releaseHeld();
   }
   releaseHeld() {
-    this.holdingForInit = !1;
+    this.holdingForInit = false;
     let e = this.heldForInit;
     (this.heldForInit = []),
       (this.peerHeldForInit = 0),
@@ -1255,9 +1255,9 @@ class Ee {
   }
   signalWorkerReady(e) {
     if (this.workerReady) return;
-    (this.workerReady = !0), this.ports.onWorkerReady(e);
+    (this.workerReady = true), this.ports.onWorkerReady(e);
   }
-  emitAfterInit(e, { peer: t = !1, synthesized: o = !1, ownEcho: r = !1, sessionPast: d = !1 } = {}) {
+  emitAfterInit(e, { peer: t = false, synthesized: o = false, ownEcho: r = false, sessionPast: d = false } = {}) {
     if (!t) this.rememberEmittedUuid(e);
     let u = (e.type === "system" && e.subtype === "informational") || (this.entry === "attach" && (!r || d));
     if (!this.holdingForInit || u) {
@@ -1296,7 +1296,7 @@ class Ee {
   writeSummaryFrom(e) {
     if (this.summaryWritten || e === void 0) return;
     let t = this.ports.summaryLine?.(e);
-    if (t !== void 0 && t !== "") (this.summaryWritten = !0), this.ports.emit(Mj(this.stamped, "notice", t));
+    if (t !== void 0 && t !== "") (this.summaryWritten = true), this.ports.emit(Mj(this.stamped, "notice", t));
   }
   adoptWorkerSessionId(e) {
     if (e.type === "user" || !("session_id" in e)) return;
@@ -1311,7 +1311,7 @@ class Ee {
       let k = this.bootCountedByFrameAt !== null && t - this.bootCountedByFrameAt < nt;
       if (((this.bootCountedByFrameAt = null), !k && this.startCcCountsAsWorkerUp(t)))
         (this.lastWorkerUpAt = t),
-          (this.initSinceWorkerUp = !1),
+          (this.initSinceWorkerUp = false),
           this.noteWorkerUp(this.bootstrap?.sessionMode ?? void 0);
     }
     if (this.entry === "attach" && this.holdingForInit && o.stepId !== null && o.stepStatus === "failed")
@@ -1327,7 +1327,7 @@ class Ee {
       this.ports.onProvisioning?.(S, d ? u : null),
       S.terminal || S.steps.some((k) => k.status === "failed"))
     )
-      this.narrateAfterReady = !1;
+      this.narrateAfterReady = false;
     if (this.workerReady) return;
     let { stepId: _, stepStatus: C } = Dvt(e);
     if (_ !== null && C === "failed") {
@@ -1358,7 +1358,7 @@ function ps(e, { keepUuid: t, sessionId: o }) {
 var be = "[unsupported content from another client omitted]",
   hs = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 function ms(e) {
-  if (typeof e === "string") return { content: e, omitted: 0, omittedToolUse: !1 };
+  if (typeof e === "string") return { content: e, omitted: 0, omittedToolUse: false };
   if (!Array.isArray(e)) return { content: [{ type: "text", text: be }], omitted: 1, omittedToolUse: it(e) };
   let t = e,
     o = t.some(it);
@@ -1486,12 +1486,12 @@ class Ie {
   cancelStall = null;
   unsubscribeStatus = [];
   clientId = ws();
-  compacting = !1;
-  workerReady = !1;
+  compacting = false;
+  workerReady = false;
   title = "none";
   titleSet = Promise.resolve();
   presenceInFlight = new Set();
-  stopped = !1;
+  stopped = false;
   lastLine = null;
   lastProvisioningLine = "";
   watchdogFires = 0;
@@ -1542,7 +1542,7 @@ class Ie {
       }, bs));
   }
   noteWorkerReady() {
-    (this.workerReady = !0), this.cancelStall?.(), (this.cancelStall = null);
+    (this.workerReady = true), this.cancelStall?.(), (this.cancelStall = null);
   }
   attachStatusFeeds(e) {
     let t = ({ line: o, level: r }) => {
@@ -1574,13 +1574,13 @@ class Ie {
       if (u !== this.lastProvisioningLine) (this.lastProvisioningLine = u), this.line("notice", `${u}\u2026`);
     }
     let r = e.steps.some((u) => u.status === "failed"),
-      d = t?.steps.some((u) => u.status === "failed") ?? !1;
+      d = t?.steps.some((u) => u.status === "failed") ?? false;
     if (r && !d) {
       if (!this.workerReady)
         this.cancelStall?.(), (this.cancelStall = null), this.line("warning", "The cloud session failed to start.");
       return;
     }
-    if (e.terminal && !(t?.terminal ?? !1)) (this.lastProvisioningLine = ""), this.line("notice", XZe(e));
+    if (e.terminal && !(t?.terminal ?? false)) (this.lastProvisioningLine = ""), this.line("notice", XZe(e));
   }
   noteDelivered(e) {
     this.maybeTitle(e);
@@ -1592,7 +1592,7 @@ class Ie {
   noteInbound(e) {
     if ((this.clearWatchdog(), e.type === "system" && e.subtype === "status"))
       this.compacting = e.status === "compacting";
-    else if (e.type === "result" || (e.type === "system" && e.subtype === "compact_boundary")) this.compacting = !1;
+    else if (e.type === "result" || (e.type === "system" && e.subtype === "compact_boundary")) this.compacting = false;
   }
   noteInterrupt() {
     this.clearWatchdog();
@@ -1602,7 +1602,7 @@ class Ie {
   }
   async stop() {
     if (this.stopped) return;
-    (this.stopped = !0),
+    (this.stopped = true),
       this.clearWatchdog(),
       this.cancelPresence?.(),
       (this.cancelPresence = null),
@@ -1619,7 +1619,7 @@ class Ie {
               ? []
               : [
                   Promise.allSettled([...this.presenceInFlight]).then(() =>
-                    t.reportClientPresence(e, this.clientId, !0),
+                    t.reportClientPresence(e, this.clientId, true),
                   ),
                 ]),
             t.markSessionRead(e),
@@ -1664,7 +1664,7 @@ class Ie {
     (this.title = "set"),
       (this.titleSet = this.ports.api
         .updateSessionTitle(this.ports.sessionId, o)
-        .catch(() => !1)
+        .catch(() => false)
         .then((r) => {
           if (!r) this.title = "failed";
         }));
@@ -1776,7 +1776,7 @@ class Pe {
     }
     if (
       (this.ports.emit(
-        gK(e, { ...xPn(this.ports.account()), ...(C.ignored.includes("hooks") && { hooks_applied: !1 }) }),
+        gK(e, { ...xPn(this.ports.account()), ...(C.ignored.includes("hooks") && { hooks_applied: false }) }),
       ),
       !_.success)
     )
@@ -1789,7 +1789,7 @@ class Pe {
       });
   }
   handleInterrupt(e, t) {
-    let o = "cancel_queued" in t && t.cancel_queued === !0,
+    let o = "cancel_queued" in t && t.cancel_queued === true,
       r = this.ports.pendingSeededPromptUuid(),
       d = o ? this.ports.outbound.withdrawQueuedSends() : [],
       u = [
@@ -1828,7 +1828,7 @@ class Pe {
   }
   dispatchInterrupt(e, t) {
     let o = this.ports.clock.now(),
-      r = !("cancel_queued" in t && t.cancel_queued === !0);
+      r = !("cancel_queued" in t && t.cancel_queued === true);
     (this.issued = this.ports.track(
       e.releaseHeldSends(void 0, { keepWithheld: r }).then(
         () => {
@@ -1886,14 +1886,14 @@ class Pe {
           : t,
       r = "message_uuid" in o ? o.message_uuid : void 0;
     if (this.ports.outbound.withdrawQueuedSend(r)) {
-      this.ports.emit(gK(e, { cancelled: !0 })), this.log("cancel_async_message", "local");
+      this.ports.emit(gK(e, { cancelled: true })), this.log("cancel_async_message", "local");
       return;
     }
     this.ports.outbound.submit({
       kind: "control",
       request: o,
       hostRequestId: e,
-      holdsLaterSends: !1,
+      holdsLaterSends: false,
       telemetrySubtype: "cancel_async_message",
     });
   }
@@ -1903,8 +1903,8 @@ class Pe {
 }
 function Ms() {}
 function Fs(e, t) {
-  return e !== null && "cancel_queued" in e && e.cancel_queued === !0 && t.subtype === "interrupt"
-    ? { ...t, cancel_queued: !0 }
+  return e !== null && "cancel_queued" in e && e.cancel_queued === true && t.subtype === "interrupt"
+    ? { ...t, cancel_queued: true }
     : t;
 }
 import { isDeepStrictEqual as As } from "util";
@@ -1938,9 +1938,9 @@ class De {
         stored: u ? t : void 0,
         owed: this.replay && !u ? 1 : 0,
         pendingEchoes: u ? 0 : 1,
-        delivered: !0,
-        echoMayBeLost: !1,
-        hadBefore: !1,
+        delivered: true,
+        echoMayBeLost: false,
+        hadBefore: false,
       }),
       ...d,
       ...(u && this.replay ? [{ uuid: e, content: t }] : []),
@@ -1958,9 +1958,9 @@ class De {
         stored: void 0,
         owed: (r?.owed ?? 0) + d,
         pendingEchoes: r?.pendingEchoes ?? 0,
-        delivered: !1,
-        echoMayBeLost: r?.echoMayBeLost ?? !1,
-        hadBefore: !1,
+        delivered: false,
+        echoMayBeLost: r?.echoMayBeLost ?? false,
+        hadBefore: false,
       })
     );
   }
@@ -1977,7 +1977,7 @@ class De {
   }
   giveUp(e) {
     let t = this.entries.get(e);
-    if (t === void 0) return { echo: !1 };
+    if (t === void 0) return { echo: false };
     return (t.phase = "given_up"), { echo: this.takeOwed(t) };
   }
   postStart(e) {
@@ -1986,36 +1986,36 @@ class De {
     if (((t.phase = "posting"), t.kind === "message")) t.pendingEchoes += 1;
   }
   hadBefore(e) {
-    return this.entries.get(e)?.hadBefore ?? !1;
+    return this.entries.get(e)?.hadBefore ?? false;
   }
   postOk(e, t) {
     let o = this.entries.get(e);
-    if (o === void 0) return { echo: !1 };
-    if (((o.phase = "delivered"), (o.delivered = !0), t === "duplicate")) o.hadBefore = !0;
+    if (o === void 0) return { echo: false };
+    if (((o.phase = "delivered"), (o.delivered = true), t === "duplicate")) o.hadBefore = true;
     if (t === "never") o.pendingEchoes = 0;
     if (t !== "streams") o.stored ??= o.content;
-    return t !== "streams" || o.echoMayBeLost ? { echo: this.takeOwed(o) } : { echo: !1 };
+    return t !== "streams" || o.echoMayBeLost ? { echo: this.takeOwed(o) } : { echo: false };
   }
   postFail(e, t) {
     let o = this.entries.get(e);
-    if (o === void 0) return { echo: !1, error: !0 };
-    if (o.delivered) return (o.phase = "delivered"), { echo: !1, error: !1 };
+    if (o === void 0) return { echo: false, error: true };
+    if (o.delivered) return (o.phase = "delivered"), { echo: false, error: false };
     if (((o.phase = "failed"), !t)) o.pendingEchoes = Math.max(0, o.pendingEchoes - 1);
-    return { echo: this.takeOwed(o), error: !0 };
+    return { echo: this.takeOwed(o), error: true };
   }
   streamEcho(e, t) {
     let o = this.entries.get(e);
-    if (o === void 0 || o.kind !== "message") return { verdict: "not_own", dequeue: !1 };
+    if (o === void 0 || o.kind !== "message") return { verdict: "not_own", dequeue: false };
     if (o.pendingEchoes > 0) {
-      (o.pendingEchoes = 0), (o.echoMayBeLost = !1), (o.stored = t);
+      (o.pendingEchoes = 0), (o.echoMayBeLost = false), (o.stored = t);
       let d = o.phase === "queued";
-      if (((o.delivered = !0), o.phase !== "posting" && o.phase !== "seeded")) o.phase = "delivered";
+      if (((o.delivered = true), o.phase !== "posting" && o.phase !== "seeded")) o.phase = "delivered";
       if (o.owed > 0) return (o.owed -= 1), { verdict: "claim", sent: o.content, dequeue: d };
       return { verdict: "consume", dequeue: d };
     }
     return {
       verdict: o.delivered && o.owed === 0 && o.stored !== void 0 && As(t, o.stored) ? "consume" : "peer",
-      dequeue: !1,
+      dequeue: false,
     };
   }
   settleOwed() {
@@ -2027,13 +2027,13 @@ class De {
   truncation() {
     return [...this.entries].flatMap(([e, t]) => {
       if (t.pendingEchoes === 0) return [];
-      if (((t.echoMayBeLost = !0), t.owed === 0 || t.content === void 0)) return [];
+      if (((t.echoMayBeLost = true), t.owed === 0 || t.content === void 0)) return [];
       return (t.owed -= 1), [{ uuid: e, content: t.content }];
     });
   }
   takeOwed(e) {
-    if (e.owed === 0) return !1;
-    return (e.owed -= 1), !0;
+    if (e.owed === 0) return false;
+    return (e.owed -= 1), true;
   }
   set(e, t) {
     let o = !this.entries.has(e) && this.entries.size >= this.cap ? this.evictOne() : [];
@@ -2062,14 +2062,14 @@ class Fe {
   ports;
   queueCap;
   queue = [];
-  flushing = !1;
+  flushing = false;
   closedWhy = null;
   closedCause = null;
   laterSendsHold = Promise.resolve();
   ledger;
   postsInFlight = new Set();
   forwardsInFlight = new Map();
-  sendOutstanding = !1;
+  sendOutstanding = false;
   outstandingSend = Promise.resolve();
   forwardsWaiting = new Map();
   renewalParked = new Set();
@@ -2113,7 +2113,7 @@ class Fe {
     let e = this.ledger.truncation();
     return this.payOwed(e), e.length;
   }
-  writeEcho(e, t = !1) {
+  writeEcho(e, t = false) {
     if (this.ports.emitEcho) {
       this.ports.emitEcho(e, { duplicate: t });
       return;
@@ -2132,7 +2132,7 @@ class Fe {
     return (
       this.postsInFlight.clear(),
       this.renewalParked.clear(),
-      t.forEach((o) => this.failItem(o, e, { posted: !0, unconfirmed: !0 })),
+      t.forEach((o) => this.failItem(o, e, { posted: true, unconfirmed: true })),
       this.settleOwedEchoes(),
       t.length
     );
@@ -2184,7 +2184,7 @@ class Fe {
   }
   async flush() {
     if (this.flushing) return;
-    this.flushing = !0;
+    this.flushing = true;
     try {
       while (this.ports.liveSession() !== null) {
         let e = this.queue[0];
@@ -2196,12 +2196,12 @@ class Fe {
         try {
           if (t.kind === "control") this.forwardOutOfBand(t);
           else {
-            this.sendOutstanding = !0;
+            this.sendOutstanding = true;
             try {
               let o = this.post(t);
               (this.outstandingSend = o.then(J, J)), this.contained(() => this.releaseQueuedForwards()), await o;
             } finally {
-              this.sendOutstanding = !1;
+              this.sendOutstanding = false;
             }
           }
         } catch (o) {
@@ -2209,7 +2209,7 @@ class Fe {
         }
       }
     } finally {
-      this.flushing = !1;
+      this.flushing = false;
     }
   }
   releaseQueuedForwards() {
@@ -2284,21 +2284,21 @@ class Fe {
   withdrawHeld(e) {
     let t = this.ports.liveSession(),
       o = [...this.postsInFlight].find((r) => r.uuid === e && !this.renewalParked.has(r));
-    if (t === null || o === void 0) return !1;
-    if (!t.manager.withdrawHeldSend(e)) return !1;
-    return this.postsInFlight.delete(o), !0;
+    if (t === null || o === void 0) return false;
+    if (!t.manager.withdrawHeldSend(e)) return false;
+    return this.postsInFlight.delete(o), true;
   }
   withdrawQueuedSend(e) {
-    if (typeof e !== "string") return !1;
+    if (typeof e !== "string") return false;
     let t = this.queue.findIndex((r) => r.kind !== "control" && r.uuid === e),
       o = [...this.renewalParked].find((r) => r.uuid === e);
     if (t === -1 && o === void 0) {
-      if (!this.withdrawHeld(e)) return !1;
-      return this.ledger.withdraw(e), !0;
+      if (!this.withdrawHeld(e)) return false;
+      return this.ledger.withdraw(e), true;
     }
     if (t !== -1) this.queue.splice(t, 1);
     if (o !== void 0) this.renewalParked.delete(o), this.postsInFlight.delete(o);
-    return this.ledger.withdraw(e), !0;
+    return this.ledger.withdraw(e), true;
   }
   cancelForward(e) {
     let t = (d) => d.kind === "control" && d.hostRequestId === e,
@@ -2323,7 +2323,7 @@ class Fe {
       return;
     }
     if (this.postsInFlight.delete(e)) {
-      this.failItem(e, r, { posted: !0, unconfirmed: !0 }), this.logSend(e.kind, "error");
+      this.failItem(e, r, { posted: true, unconfirmed: true }), this.logSend(e.kind, "error");
       return;
     }
     switch (this.ledger.phaseOf(e.uuid)) {
@@ -2331,18 +2331,18 @@ class Fe {
         this.failItem(e, r), this.logSend(e.kind, "error");
         return;
       case "posting":
-        this.failItem(e, r, { posted: !0, unconfirmed: !0 });
+        this.failItem(e, r, { posted: true, unconfirmed: true });
         return;
       default:
         return;
     }
   }
-  failItem(e, t, { posted: o = !1, unconfirmed: r = !1, outcome: d = "closed", composedHere: u = !1 } = {}) {
+  failItem(e, t, { posted: o = false, unconfirmed: r = false, outcome: d = "closed", composedHere: u = false } = {}) {
     let S = u ? L$e(t) : xy(t),
       _ = this.ports.stampedSessionId();
     switch (e.kind) {
       case "message": {
-        let { echo: C, error: k } = o ? this.ledger.postFail(e.uuid, r) : { ...this.ledger.giveUp(e.uuid), error: !0 };
+        let { echo: C, error: k } = o ? this.ledger.postFail(e.uuid, r) : { ...this.ledger.giveUp(e.uuid), error: true };
         if (!k) {
           n(`[headlessCloudClient] POST for ${e.uuid} failed after its echo; treating it as delivered`);
           return;
@@ -2376,8 +2376,8 @@ class Fe {
     let o = this.ports.clock.now(),
       r = t.opened.getAccessToken(),
       d = await this.postOnce(t.manager, e),
-      u = !1,
-      S = !1;
+      u = false,
+      S = false;
     if (!d.ok && d.status === 401 && t.opened.onAuth401 && this.postsInFlight.has(e)) {
       this.renewalParked.add(e);
       try {
@@ -2385,9 +2385,9 @@ class Fe {
           ((u =
             (await B(
               this.ports.clock,
-              t.opened.onAuth401(r).catch(() => !1),
+              t.opened.onAuth401(r).catch(() => false),
               Ts,
-            )) ?? !1),
+            )) ?? false),
           u && this.postsInFlight.has(e))
         )
           await this.untilNoHold();
@@ -2400,31 +2400,31 @@ class Fe {
         (S = _ === null),
           (d =
             _ === null
-              ? { ok: !1, reason: this.closedWhy ?? "the cloud session disconnected" }
+              ? { ok: false, reason: this.closedWhy ?? "the cloud session disconnected" }
               : await this.postOnce(_.manager, e));
       }
     }
     if (!this.postsInFlight.delete(e)) {
-      let _ = !d.ok && d.withheld === !0 && d.reason === K$e;
+      let _ = !d.ok && d.withheld === true && d.reason === K$e;
       this.contained(() => this.logSend(e.kind, _ ? "withdrawn_held" : "abandoned", { renewed: u }));
       return;
     }
     if (d.ok) {
-      let { echo: _ } = this.ledger.postOk(e.uuid, d.duplicate === !0 ? "duplicate" : qs(e));
+      let { echo: _ } = this.ledger.postOk(e.uuid, d.duplicate === true ? "duplicate" : qs(e));
       if (_ && e.kind === "message")
-        this.contained(() => this.writeEcho(Yve(this.ports.stampedSessionId(), e.uuid, e.content), d.duplicate === !0));
-      this.ports.onSent?.(e, { duplicate: d.duplicate === !0 });
-    } else if (d.withheld === !0)
+        this.contained(() => this.writeEcho(Yve(this.ports.stampedSessionId(), e.uuid, e.content), d.duplicate === true));
+      this.ports.onSent?.(e, { duplicate: d.duplicate === true });
+    } else if (d.withheld === true)
       this.failItem(
         e,
         d.reason === Aet || d.reason === K$e
           ? "it was still waiting for the cloud session to take your local changes or this machine's settings when it was let go (Stop, or the session ended)"
           : d.reason,
-        { posted: !0, unconfirmed: !1 },
+        { posted: true, unconfirmed: false },
       );
-    else this.failItem(e, d.reason, { posted: !0, unconfirmed: d.status === void 0 && !S });
+    else this.failItem(e, d.reason, { posted: true, unconfirmed: d.status === void 0 && !S });
     (this.sendCount += 1),
-      this.logSend(e.kind, d.ok ? "ok" : d.withheld === !0 ? "withheld" : "failed", {
+      this.logSend(e.kind, d.ok ? "ok" : d.withheld === true ? "withheld" : "failed", {
         status: d.ok ? void 0 : d.status,
         renewed: u,
         latency_ms: this.ports.clock.now() - o,
@@ -2521,10 +2521,10 @@ class ft {
   workerReadyIdleMs;
   session = null;
   opened = null;
-  openRequested = !1;
-  inputClosed = !1;
-  outputOpen = !0;
-  oauthBridgeInstalled = !1;
+  openRequested = false;
+  inputClosed = false;
+  outputOpen = true;
+  oauthBridgeInstalled = false;
   undeliveredKindsTold = new Set();
   frames = null;
   liveness = null;
@@ -2533,20 +2533,20 @@ class ft {
   connectEpoch = 0;
   cancelIdleDeadline = null;
   inputClosedAt = null;
-  containerStartFailed = !1;
+  containerStartFailed = false;
   hostDialogKinds = new Set();
   dialogsNotDeclaredCount = 0;
   dialogsReservedCount = 0;
-  endLogged = !1;
-  requestedModeChecked = !1;
-  hostSentPermissionMode = !1;
+  endLogged = false;
+  requestedModeChecked = false;
+  hostSentPermissionMode = false;
   workerModesSeen = new Set();
   lastWorkerMode = void 0;
-  inputFailed = !1;
-  signalled = !1;
+  inputFailed = false;
+  signalled = false;
   transportClosed = null;
   sinceStop = new WeakSet();
-  stoppedWhileLive = !1;
+  stoppedWhileLive = false;
   endingWith = null;
   preSessionEchoes = [];
   constructor(e) {
@@ -2558,7 +2558,7 @@ class ft {
         this.resolveDone = u;
       }));
     let t = Ks(e.input, () => {
-      this.inputFailed = !0;
+      this.inputFailed = true;
     });
     (this.io = e.createIO ? e.createIO(t, e.replayUserMessages) : new Rme(t, e.replayUserMessages)),
       this.io.setUnexpectedResponseCallback(async (u) => {
@@ -2628,7 +2628,7 @@ class ft {
         stampedSessionId: () => this.stampedSessionId,
         onInterrupt: () => {
           if (this.phase === "live")
-            (this.stoppedWhileLive = !0),
+            (this.stoppedWhileLive = true),
               (this.sinceStop = new WeakSet([...this.outbound.queuedMessages(), ...this.outbound.heldMessages()]));
           this.liveness?.noteInterrupt();
         },
@@ -2639,7 +2639,7 @@ class ft {
       (this.unregisterCleanup = vt(() => this.closeFromSignal()));
   }
   async closeFromSignal() {
-    (this.signalled = !0),
+    (this.signalled = true),
       this.logEnded("signal", this.endingWith?.exitCode ?? 0, this.phase, this.endingWith?.disconnectCode),
       await this.tearDown(ee, "closed"),
       await B(this.clock, this.settleOpener(Bs, "signal"), ht),
@@ -2680,7 +2680,7 @@ class ft {
   }
   installOAuthBridge() {
     if (a.CLAUDE_CODE_SDK_HAS_OAUTH_REFRESH && T7e.has(a.CLAUDE_CODE_ENTRYPOINT ?? ""))
-      zFe(() => this.io.requestOAuthTokenRefresh()), (this.oauthBridgeInstalled = !0);
+      zFe(() => this.io.requestOAuthTokenRefresh()), (this.oauthBridgeInstalled = true);
   }
   async drainOutbound() {
     for await (let e of this.io.outbound)
@@ -2722,11 +2722,11 @@ class ft {
     } catch (e) {
       if (e instanceof Ze) n("[headlessCloudClient] stdin reading aborted");
       else h(e);
-      this.inputFailed = !0;
+      this.inputFailed = true;
     }
     if (this.inputFailed) this.agentRequests.cancelAll();
     if (
-      ((this.inputClosed = !0),
+      ((this.inputClosed = true),
       (this.inputClosedAt = this.clock.now()),
       n("[headlessCloudClient] stdin closed"),
       !this.openRequested && this.phase === "pre_session")
@@ -2753,8 +2753,8 @@ class ft {
         return;
       case "control_request": {
         let t = Qs(e) === "set_permission_mode";
-        if (t) this.requestedModeChecked = !0;
-        if (this.hostRequests.handleControlRequest(e) === "forwarded" && t) this.hostSentPermissionMode = !0;
+        if (t) this.requestedModeChecked = true;
+        if (this.hostRequests.handleControlRequest(e) === "forwarded" && t) this.hostSentPermissionMode = true;
         return;
       }
       case "control_cancel_request":
@@ -2795,7 +2795,7 @@ class ft {
         this.emit(
           UU(this.stampedSessionId, ["Your message was not delivered to the cloud session: its uuid must be a UUID"]),
         ),
-        !1
+        false
       );
     if (typeof r !== "string" && !Array.isArray(r))
       return (
@@ -2806,11 +2806,11 @@ class ft {
             t,
           ),
         ),
-        !1
+        false
       );
     if (Array.isArray(r) && oRe({ message: { content: r } }))
       return (
-        this.emit(UU(this.stampedSessionId, [`Your message was not delivered to the cloud session: ${Oe}`], t)), !1
+        this.emit(UU(this.stampedSessionId, [`Your message was not delivered to the cloud session: ${Oe}`], t)), false
       );
     let d = "priority" in e ? e.priority : void 0,
       u = {
@@ -2820,19 +2820,19 @@ class ft {
         ...((d === "now" || d === "next" || d === "later") && { priority: d }),
       };
     if (this.outbound.submit(u) === "new" && !this.closing) this.sinceStop.add(u);
-    return !0;
+    return true;
   }
   submitBashCommand(e) {
     let t = this.hostFrameUuid(e),
       o = "command" in e ? e.command : void 0,
       r = "cwd" in e ? e.cwd : void 0,
-      d = (u) => (this.emit(UU(this.stampedSessionId, [u])), !1);
+      d = (u) => (this.emit(UU(this.stampedSessionId, [u])), false);
     if (t === "invalid") return d("bash_command was not run: its uuid must be a UUID");
     if (typeof o !== "string") return d("bash_command was not run: it needs a string command");
     if (r !== void 0 && typeof r !== "string") return d("bash_command was not run: its cwd must be a string");
-    return this.outbound.submit({ kind: "bash", command: o, ...(r !== void 0 && { cwd: r }), uuid: t ?? lt() }), !0;
+    return this.outbound.submit({ kind: "bash", command: o, ...(r !== void 0 && { cwd: r }), uuid: t ?? lt() }), true;
   }
-  writeOwnEcho(e, t = !1) {
+  writeOwnEcho(e, t = false) {
     if (this.frames) this.frames.writeOwnEcho(e, { duplicate: t });
     else if (this.phase === "pre_session" && this.preSessionEchoes.length < (this.config.queueCap ?? ut))
       this.preSessionEchoes.push(e);
@@ -2847,7 +2847,7 @@ class ft {
   }
   requestOpen(e) {
     if (this.openRequested || this.phase !== "pre_session" || this.signalled) return;
-    (this.openRequested = !0),
+    (this.openRequested = true),
       (this.hostDialogKinds = new Set(_6(e?.supportedDialogKinds))),
       this.track(this.openSession(e));
   }
@@ -3000,7 +3000,7 @@ class ft {
         onReconnecting: () => this.guarded(() => this.logStream("reconnecting")),
         onCatchUpTruncated: () =>
           this.guarded(() => {
-            t.releaseHeld(), (this.requestedModeChecked = !0);
+            t.releaseHeld(), (this.requestedModeChecked = true);
             let b = this.outbound.synthesizeMissedEchoes();
             this.logStream("catch_up_truncated", { missed_echoes: b }),
               this.emit(
@@ -3032,15 +3032,15 @@ class ft {
         dirSync: e.dirSync,
         ...(e.eventSigner && { eventSigner: e.eventSigner }),
         ...(u && { homeSeed: u, homeSeedHoldsFirstSend: e.entry === "create" }),
-        trackSendsInFlight: !0,
-        keepUndeliveredResponses: !0,
-        nameToolOnPermissionAllow: !0,
-        keepOwnModelSwitchBreadcrumb: !0,
+        trackSendsInFlight: true,
+        keepUndeliveredResponses: true,
+        nameToolOnPermissionAllow: true,
+        keepOwnModelSwitchBreadcrumb: true,
         keepStreamRedialling: e.cloudSession().device.status === "bound",
         ...(e.entry === "create"
           ? { initialPromptUuid: e.initialPrompt?.uuid }
           : {
-              isAttachToExisting: !0,
+              isAttachToExisting: true,
               initialSequenceNum: e.initialSequenceNum ?? void 0,
               preflightCheck: e.preflightCheck,
             }),
@@ -3140,7 +3140,7 @@ class ft {
   }
   checkRequestedPermissionMode(e) {
     if (this.requestedModeChecked) return;
-    this.requestedModeChecked = !0;
+    this.requestedModeChecked = true;
     let t = this.opened?.entry === "create" ? this.opened.requestedPermissionMode : void 0;
     if (t === void 0 || typeof e !== "string") return;
     let o = Lf(e),
@@ -3220,7 +3220,7 @@ class ft {
         await this.hostRequests.issuePendingInterrupt(e.manager).catch(() => {}),
           await this.hostRequests.interruptIssued.catch(() => {});
         let t = B(this.clock, this.liveness?.stop() ?? Promise.resolve(), ct);
-        await e.manager.releaseHeldSends(void 0, { exiting: !0, final: !0 }).catch(() => {}),
+        await e.manager.releaseHeldSends(void 0, { exiting: true, final: true }).catch(() => {}),
           await e.manager.flushSends(Ws).catch(() => {}),
           e.manager.disconnect(),
           await t;
@@ -3249,7 +3249,7 @@ class ft {
   }
   logEnded(e, t, o, r) {
     if (this.endLogged) return;
-    this.endLogged = !0;
+    this.endLogged = true;
     let d = this.outbound.stats,
       u = this.liveness?.stats;
     if (
@@ -3271,7 +3271,7 @@ class ft {
         max_held_for_init: this.frames?.maxHeld ?? 0,
         session_id_changes: this.frames?.counts.sessionIdChanges ?? 0,
         peer_content_omitted: this.frames?.counts.peerContentOmitted ?? 0,
-        peer_tool_use_omitted: this.frames?.counts.peerToolUseOmitted ?? !1,
+        peer_tool_use_omitted: this.frames?.counts.peerToolUseOmitted ?? false,
         cloud_session_keys_dropped: this.frames?.counts.cloudSessionKeysDropped ?? 0,
         service_events_dropped: this.frames?.counts.serviceEventsDropped ?? 0,
         unknown_frames_dropped: this.frames?.counts.unknownFramesDropped ?? 0,
@@ -3312,7 +3312,7 @@ class ft {
       await this.closeTransport().catch(() => {});
     }
     this.logEnded(e, u, S, r),
-      (this.outputOpen = !1),
+      (this.outputOpen = false),
       this.io.outbound.done(),
       await this.drained,
       (this.phase = "ended"),
@@ -3366,7 +3366,7 @@ async function gt(e, { folder: t, attempts: o, lastError: r, signal: d }) {
     else g("remote_sync_offline_dialog", S);
   };
   try {
-    if (e === void 0 || !e.kinds.has(Nj.kind) || !ae(t)) return u("not_shown"), { acknowledged: !1 };
+    if (e === void 0 || !e.kinds.has(Nj.kind) || !ae(t)) return u("not_shown"), { acknowledged: false };
     let { answer: S, answered: _ } = await e.request(
         Nj,
         _et({ folder: t, attempts: o, ...(r !== void 0 && { lastError: Zs(r) }) }),
@@ -3378,7 +3378,7 @@ async function gt(e, { folder: t, attempts: o, lastError: r, signal: d }) {
     return (
       n(`[headlessCloud] could not ask the host about file sync going offline: ${l(S)}`, { level: "warn" }),
       u("failed"),
-      { acknowledged: !1 }
+      { acknowledged: false }
     );
   }
 }
@@ -3410,10 +3410,10 @@ async function tn(e, t, o) {
 async function yt({ dialogs: e, explicitRef: t, storageV5: o, signal: r, seams: d = {} }) {
   let u = w("sdk_host");
   try {
-    if (e === void 0 || !(await (d.flagOn ?? Ec)().catch(() => !1))) return [];
+    if (e === void 0 || !(await (d.flagOn ?? Ec)().catch(() => false))) return [];
     if (!e.kinds.has(Z.kind))
       return s("tengu_dir_sync_mode_prompt_skipped", { reason: w("host_undeclared"), surface: u }), [];
-    let S = (d.promptRoot ?? Qgt)({ staysAttached: !0, surface: "sdk_host" });
+    let S = (d.promptRoot ?? Qgt)({ staysAttached: true, surface: "sdk_host" });
     if (S === null) return [];
     let _ = (d.launchDirectory ?? Se)();
     if (Ce({ folder: S, launchFolder: _, upload: void 0 }) === null)
@@ -3474,14 +3474,14 @@ function _t(e = {}) {
     let I = f8(),
       E = null,
       R = [],
-      A = !1,
+      A = false,
       b = (D) => {
         if (D && !A) R.forEach((U) => U());
         A = D;
       },
-      T = !1,
+      T = false,
       O,
-      q = !1;
+      q = false;
     return {
       feature: "plugins",
       status: I,
@@ -3504,9 +3504,9 @@ function _t(e = {}) {
             say: ({ line: N, level: W }) => {
               if (!q || W === "warning") O = N;
               if (!q)
-                (q = !0),
+                (q = true),
                   queueMicrotask(() => {
-                    q = !1;
+                    q = false;
                   });
               I.publish(N, on(W));
             },
@@ -3531,7 +3531,7 @@ function _t(e = {}) {
       },
       onMessageSent() {
         if (E === null) {
-          T = !0;
+          T = true;
           return;
         }
         E.messageSent();
@@ -3562,7 +3562,7 @@ function _t(e = {}) {
           state: "forwarded",
           source: "stored",
           ...(O !== void 0 && { message: ce(O, 200) }),
-          ...(!(D !== void 0 && St(D)) && { pending: !0 }),
+          ...(!(D !== void 0 && St(D)) && { pending: true }),
         };
       },
       async dispose() {
@@ -3577,7 +3577,7 @@ function nn(e, t, o, r, d) {
     let S = () => u("unreadable"),
       _ = () => u("aborted"),
       C = d.setTimeout(S, L7t);
-    r.addEventListener("abort", _, { once: !0 }),
+    r.addEventListener("abort", _, { once: true }),
       tse(e, t, o)
         .then(u, S)
         .finally(() => {
@@ -3646,7 +3646,7 @@ function wt({ forwardHomeSettings: e, consentMode: t }) {
   return async (o) => {
     if (o.homeSeed !== void 0) return dn(o.homeSeed, t === void 0 ? "stored" : "host");
     if (!e) return V("launch_flag");
-    if (o.settingsToCloud !== !0) return V("flag_off");
+    if (o.settingsToCloud !== true) return V("flag_off");
     let r = t ?? Hut(),
       d = t !== void 0 ? "host" : r === void 0 ? "default" : "stored";
     if (r !== "forward") return V(r === "keep_local" ? "declined" : "no_consent", d);
@@ -3657,7 +3657,7 @@ function wt({ forwardHomeSettings: e, consentMode: t }) {
 }
 function ln(e, t) {
   let o = { state: "forwarded", source: t };
-  if (e === void 0) return { ...o, pending: !0 };
+  if (e === void 0) return { ...o, pending: true };
   if (e.kind === "uploaded")
     return !(e.outcome === "sent" || e.outcome === "unchanged" || e.outcome === "conflict_resolved")
       ? { state: "off", source: t, reason: e.outcome }
@@ -3719,7 +3719,7 @@ async function Dt(e, t, o = {}) {
   let d = r.state();
   if (d !== "started" && d !== "done") e.abort();
   let u = await jt(
-    r.completion.then(() => !0),
+    r.completion.then(() => true),
     t,
   );
   switch (r.state()) {
@@ -3748,7 +3748,7 @@ function Mt({ dirSync: e, fileMode: t }) {
     ...("reason" in o && o.reason !== void 0 && { reason: o.reason }),
     ...("message" in o && o.message !== void 0 && { message: o.message }),
     ...Te(o),
-    ...(Ktt(e?.createFacts?.origin).fromUpload && { started_from_upload: !0 }),
+    ...(Ktt(e?.createFacts?.origin).fromUpload && { started_from_upload: true }),
     file_mode: t,
     file_mode_source: "stored",
   };
@@ -3758,7 +3758,7 @@ function Te(e) {
   return {
     ...(e.firstUpload !== null && { first_upload: e.firstUpload }),
     ...(e.syncedFiles !== null && { synced_files: e.syncedFiles }),
-    ...(e.writerElsewhere && { other_window: !0 }),
+    ...(e.writerElsewhere && { other_window: true }),
   };
 }
 function Ft({ dirSync: e, fileMode: t }) {
@@ -3828,7 +3828,7 @@ async function xt(e, t, { entry: o, opener: r, features: d = [] }) {
     return;
   }
   let { input: S, policy: _ } = u;
-  _.notices.forEach(Be), OFe(!0), U4(!0);
+  _.notices.forEach(Be), OFe(true), U4(true);
   let k = await mt({
     input: S,
     replayUserMessages: e.effectiveReplayUserMessages,
@@ -4015,13 +4015,13 @@ async function Cn(
     }),
     T = A.signal.aborted;
   if ((A.cleanup(), T)) return R(), { kind: "failed", message: "Error: Unable to create cloud session" };
-  let O = await (C.settingsToCloudEnabled ?? eO)().catch(() => !1),
+  let O = await (C.settingsToCloudEnabled ?? eO)().catch(() => false),
     q = Je(),
-    L = O && e.forwardHomeSettings !== !1 && (e.homeSettingsConsent ?? Hut()) === "forward",
+    L = O && e.forwardHomeSettings !== false && (e.homeSettingsConsent ?? Hut()) === "forward",
     D = Yht({
       gateOn: L,
       permissionModeTyped: e.permissionModeCli !== void 0,
-      dangerouslySkipPermissions: !1,
+      dangerouslySkipPermissions: false,
       scrubbed: wu(),
       settings: q,
       effort: void 0,
@@ -4103,10 +4103,10 @@ async function Cn(
       thinking: o.thinking,
       storageV5: u,
       credentials: S,
-      allowBundle: !0,
-      seedDirSync: !0,
+      allowBundle: true,
+      seedDirSync: true,
       seedSignal: E.signal,
-      staysAttached: !0,
+      staysAttached: true,
       forwardHomeSettings: e.forwardHomeSettings,
       ...(e.homeSettingsConsent && { homeSettingsConsent: e.homeSettingsConsent }),
       onBundleFail: (M, me) => {
@@ -4148,7 +4148,7 @@ async function Cn(
     ...(e.homeSettingsConsent && { home_settings_host_consent: c(e.homeSettingsConsent) }),
   });
   let pe = da(x.id, void 0, { from: "cli", m: "0" }),
-    je = () => (C.archiveSession ?? sR)(x.id, cn).catch(() => !1);
+    je = () => (C.archiveSession ?? sR)(x.id, cn).catch(() => false);
   if (j.status === "unbound") {
     let M = await je();
     return (
@@ -4305,12 +4305,12 @@ async function bn(
     I = At(e, k),
     E = (C.fetchSession ?? C6)(k, e),
     R = await E.then(
-      (F) => ({ archived: F.session_status === "archived", unreadable: !1 }),
+      (F) => ({ archived: F.session_status === "archived", unreadable: false }),
       (F) => {
         if (F instanceof Hu) return { refused: F.formattedMessage || l(F) };
         return (
           n(`[headlessCloud] attach preflight failed (continuing via the stream): ${l(F)}`),
-          { archived: !1, unreadable: !0 }
+          { archived: false, unreadable: true }
         );
       },
     );
@@ -4351,12 +4351,12 @@ async function bn(
       storageV5: r,
       dirSync: T.then(
         (F) => F.handle !== void 0,
-        () => !1,
+        () => false,
       ),
       servedSettingsChanged: Nt(u),
     });
   vt(() => O.stop());
-  let [q, L, D] = await Promise.all([b, T, (C.settingsToCloudEnabled ?? eO)().catch(() => !1)]),
+  let [q, L, D] = await Promise.all([b, T, (C.settingsToCloudEnabled ?? eO)().catch(() => false)]),
     U = L.handle;
   Bt(U, t.dialogs);
   let N = await (C.remoteFileMode ?? He)(U?.gitRoot);
@@ -4480,7 +4480,7 @@ async function Fn(e, t) {
   );
 }
 async function An(e) {
-  let t = await vet(e, 1, { reportFeatureHealth: !1 });
+  let t = await vet(e, 1, { reportFeatureHealth: false });
   if (t === null) throw Error("the session history could not be read");
   let o = t.newestSequenceNum ?? t.events.at(-1)?.sequenceNum;
   if (o) return o;

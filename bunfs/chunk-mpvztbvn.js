@@ -310,7 +310,7 @@ function qe(e) {
 var ne = /(?:^|\/)\.\.(?:\/|$)/,
   ze =
     /^\/dev\/(?:null|zero|full|u?random|tty\d*|pts(?:\/.*)?|ptmx|std(?:in|out|err)|fd(?:\/.*)?|dtracehelper|autofs_nowait)$/;
-async function me(e, t, i = !1, o = !1) {
+async function me(e, t, i = false, o = false) {
   if (!CD(e.event))
     return { kind: "held", reason: `event_${(Ve(e.event) ? hzn(e.event) : null) ?? "container_internal"}` };
   let { hook: r } = e;
@@ -332,10 +332,10 @@ async function me(e, t, i = !1, o = !1) {
   let v,
     x,
     S,
-    _ = !1,
-    H = !1,
-    N = !1,
-    u = !1,
+    _ = false,
+    H = false,
+    N = false,
+    u = false,
     I,
     f,
     d =
@@ -349,14 +349,14 @@ async function me(e, t, i = !1, o = !1) {
       (N = m.kind === "opaque" && m.reason === "shell_prefix"),
       m.kind === "unverifiable")
     )
-      (_ = !0),
+      (_ = true),
         (x = {
           kind: "held",
           reason: "unverifiable_target",
           notice: `This entry for ${yo(m.rawPath, { maxCodeUnits: 200 })} in ${L[e.source.source]} could not be read and pinned at start-up (missing, too large, not a regular file, more than one hard link, or it resolves to a file this machine does not read as a hook script), so it is not offered to the cloud session.`,
         });
     else if (m.kind === "script_in_reach" || m.kind === "script_outside_reach") {
-      _ = !0;
+      _ = true;
       let M = m.kind === "script_in_reach";
       if (((v = m.pinnedTarget), M && !l))
         S = {
@@ -394,7 +394,7 @@ async function me(e, t, i = !1, o = !1) {
         }
       }
       if (E !== void 0 && !M)
-        if (l) u = !0;
+        if (l) u = true;
         else
           S = {
             kind: "held",
@@ -423,7 +423,7 @@ async function me(e, t, i = !1, o = !1) {
             reason: "loads_from_reach",
             notice: `This entry for "${O(r)}" in ${L[e.source.source]} is a script outside the checkout, but ${k} \u2014 code or data the cloud session can write \u2014 so it is not offered to the cloud session. Marking it cloud: "device" runs it anyway (you vouch for what it loads); otherwise have it load its helpers by an absolute path outside the checkout.${w}`,
           };
-        else if (k !== void 0 && l) u = !0;
+        else if (k !== void 0 && l) u = true;
       }
       if (l && t.opts.optInPins !== void 0) {
         let k = `${m.pinnedTarget.realPath}\x00${m.pinnedTarget.sha256}`,
@@ -436,7 +436,7 @@ async function me(e, t, i = !1, o = !1) {
             notice: `This entry for "${O(r)}" in ${L[e.source.source]} is marked cloud: "device" and its script, which sits where the cloud session can write, changed since this session pinned it; it is not offered again until you relaunch claude --cloud \u2014 review the file first, since the cloud session may have written it.`,
           }),
             (v = void 0),
-            (u = !1);
+            (u = false);
       }
       let T = o ? void 0 : (t.deps.findTemplateByDigest ?? WOn)(m.pinnedTarget.sha256),
         q = l && !R ? void 0 : T;
@@ -532,15 +532,15 @@ async function me(e, t, i = !1, o = !1) {
             ? `This entry for "${O(r)}" in ${L[e.source.source]} names a script under a dot-directory this feature never reads or pins (of those, only ~/.claude and ~/.config are), so it is not offered to the cloud session. Move the script to one of those, or elsewhere outside the checkout, to have it forwarded; marking it cloud: "device" instead runs the command as written for cloud sessions, unpinned.${w}`
             : `This entry for "${O(r)}" in ${L[e.source.source]} is not a single script this machine can pin, so it is not offered to the cloud session. Point it at one script outside the checkout (under ~/.claude, say) to have it forwarded; marking it cloud: "device" instead runs the command as written for cloud sessions \u2014 nothing is pinned, so whatever it names in the checkout is whatever the session last wrote there, run on this machine outside the sandbox.${w}`,
       };
-    u = !0;
+    u = true;
   }
   return {
     kind: "forward",
     event: e.event,
     hook: r,
     ...(v !== void 0 && { pinnedTarget: v }),
-    ...(u && { authorOptIn: !0 }),
-    ...(l && { cloudDevice: !0 }),
+    ...(u && { authorOptIn: true }),
+    ...(l && { cloudDevice: true }),
     ...(I !== void 0 && { templateTwinId: I }),
     ...(d !== void 0 && { notice: d }),
   };
@@ -663,7 +663,7 @@ async function tkt(e, t, i) {
           _.delete(z);
         }
         if (j !== void 0 && !ie) {
-          if (((E = await me(C, l, !1, !0)), E.kind === "held")) {
+          if (((E = await me(C, l, false, true)), E.kind === "held")) {
             w(C, E.reason), v(E.notice);
             continue;
           }
@@ -713,9 +713,9 @@ async function tkt(e, t, i) {
             kind: T.hook.type,
             ...(q !== void 0 && { timeout_s: q }),
             source: d.source,
-            ...(T.hook.if && { has_condition: !0 }),
-            ...(T.pinnedTarget !== void 0 && { target_pinned: !0 }),
-            ...(T.authorOptIn && { author_opt_in: !0 }),
+            ...(T.hook.if && { has_condition: true }),
+            ...(T.pinnedTarget !== void 0 && { target_pinned: true }),
+            ...(T.authorOptIn && { author_opt_in: true }),
           },
           local: {
             hook: T.hook,
@@ -723,7 +723,7 @@ async function tkt(e, t, i) {
             event: T.event,
             source: d.source,
             ...(T.pinnedTarget !== void 0 && { pinnedTarget: T.pinnedTarget }),
-            ...(T.cloudDevice && { cloudOptIn: !0 }),
+            ...(T.cloudDevice && { cloudOptIn: true }),
             ...(T.templateTwinId !== void 0 && { templateTwinId: T.templateTwinId }),
           },
         },
@@ -770,7 +770,7 @@ async function tkt(e, t, i) {
     (o.forwarded = o.forwarded.filter((d) => {
       let m = d.local.templateTwinId,
         M = m === void 0 ? void 0 : f.get(`${m}\x00${d.wire.event}`);
-      if (m === void 0 || M === void 0 || !PUt(Gme(m)?.matcher ?? "", d.local.matcher ?? "*")) return !0;
+      if (m === void 0 || M === void 0 || !PUt(Gme(m)?.matcher ?? "", d.local.matcher ?? "*")) return true;
       return (
         o.held.push({
           event: d.wire.event,
@@ -783,7 +783,7 @@ async function tkt(e, t, i) {
         v(
           `"${O(d.local.hook)}" is the same script the cloud already runs as ${M}; it is not also run on this machine.`,
         ),
-        !1
+        false
       );
     })),
     o
@@ -850,7 +850,7 @@ function ctt() {
 }
 function Qe(e) {
   let t = null,
-    i = !1,
+    i = false,
     o = new Set();
   return {
     state: () => t,
@@ -889,7 +889,7 @@ function Qe(e) {
       return o.add(r), () => o.delete(r);
     },
     async dispose() {
-      (i = !0), (t = null), o.clear(), e.servicer.cancelAll(), await e.staging.dispose();
+      (i = true), (t = null), o.clear(), e.servicer.cancelAll(), await e.staging.dispose();
     },
   };
 }
@@ -962,11 +962,11 @@ function yOn({ launchDir: e, memory: t, getTools: i, respond: o, release: r, onL
 }
 var Ze = {
   stageVerifiedBytes: "always",
-  repinChangedScripts: !1,
+  repinChangedScripts: false,
   wireLabel: "basename",
-  denyUnjudgeablePaths: !1,
-  runWithUntranslatedPaths: !1,
-  timeoutFailsClosed: !1,
+  denyUnjudgeablePaths: false,
+  runWithUntranslatedPaths: false,
+  timeoutFailsClosed: false,
 };
 function SOn({
   launchDir: e,
@@ -1001,7 +1001,7 @@ function SOn({
           ...(f !== null && { sync: { rootReal: f.real, root: f.root } }),
           ...(S !== e && { repoRoot: S }),
           extraReachRoots: d,
-          allowLegacyTemplateDigests: !0,
+          allowLegacyTemplateDigests: true,
           refusedTemplateIds: [...m],
           optInPins: _.optInPins,
         },
@@ -1024,7 +1024,7 @@ function SOn({
     scopeSettingsFile: (u) => Mo(u) ?? null,
     sendRequest: async (u, { timeoutMs: I }) => {
       try {
-        return await r(u, { timeoutMs: I, background: !0 });
+        return await r(u, { timeoutMs: I, background: true });
       } catch (f) {
         let d = O0(f);
         if (d === "timeout" || d === "aborted") throw Error("timeout: no answer from the cloud worker in time");

@@ -106,13 +106,13 @@ var lh = {
   KQn = ["toEnd", "toStart", "all", "scrollback"],
   XQn = ["toEnd", "toStart", "all"],
   A_n = [
-    { style: "block", blinking: !0 },
-    { style: "block", blinking: !0 },
-    { style: "block", blinking: !1 },
-    { style: "underline", blinking: !0 },
-    { style: "underline", blinking: !1 },
-    { style: "bar", blinking: !0 },
-    { style: "bar", blinking: !1 },
+    { style: "block", blinking: true },
+    { style: "block", blinking: true },
+    { style: "block", blinking: false },
+    { style: "underline", blinking: true },
+    { style: "underline", blinking: false },
+    { style: "bar", blinking: true },
+    { style: "bar", blinking: false },
   ];
 function x(t = 1) {
   return t === 0 ? "" : of(t, "A");

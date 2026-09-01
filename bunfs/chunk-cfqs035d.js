@@ -14,19 +14,19 @@ import { pZe, iK } from "/$bunfs/root/chunk-ypdw393e.js";
 import { cre } from "/$bunfs/root/chunk-0vwrv5z3.js";
 var hu = "API Error";
 function xX(e) {
-  return e instanceof Gt && e.status === 403 && (e.message?.includes("OAuth token has been revoked") ?? !1);
+  return e instanceof Gt && e.status === 403 && (e.message?.includes("OAuth token has been revoked") ?? false);
 }
 function TI(e) {
-  if (!(e instanceof Gt)) return !1;
-  return e.status === 529 || (e.message?.includes('"type":"overloaded_error"') ?? !1);
+  if (!(e instanceof Gt)) return false;
+  return e.status === 529 || (e.message?.includes('"type":"overloaded_error"') ?? false);
 }
 function l(e) {
-  if (!(e instanceof Gt)) return !1;
-  return e.status === 429 || (e.message?.includes('"type":"rate_limit_error"') ?? !1);
+  if (!(e instanceof Gt)) return false;
+  return e.status === 429 || (e.message?.includes('"type":"rate_limit_error"') ?? false);
 }
 var lne = "dlp_request_denied";
 function yue(e) {
-  if (!(e instanceof Gt) || !c(e)) return !1;
+  if (!(e instanceof Gt) || !c(e)) return false;
   return e.error?.error?.details?.error_code === lne;
 }
 function Gfn(e) {
@@ -98,7 +98,7 @@ var f = new Set([
   "Request not allowed",
 ]);
 function V8n(e, t) {
-  if (!zfn(e)) return !1;
+  if (!zfn(e)) return false;
   let r = e.error,
     n = typeof r === "object" && r !== null && "request_id" in r ? r.request_id : void 0,
     o = [t, e.requestID, n].some(cre),
@@ -125,7 +125,7 @@ function Ug(e) {
           s = S.has(o);
         return { code: o, message: t.message, isSSLError: s };
       }
-      if (t.message.startsWith(pZe)) return { code: "ConnectionClosed", message: t.message, isSSLError: !1 };
+      if (t.message.startsWith(pZe)) return { code: "ConnectionClosed", message: t.message, isSSLError: false };
     }
     if (t instanceof Error && "cause" in t && t.cause !== t) (t = t.cause), n++;
     else break;

@@ -19,17 +19,17 @@ function pkt() {
 var s = { status: "ineligible", daysRemaining: null };
 function Ett() {
   let e = hSn();
-  if (e) return o(!0, e.endsAt);
+  if (e) return o(true, e.endsAt);
   let t = On();
   if (!t || Fn() !== "pro") return s;
-  let r = t.ccOnboardingFlags?.e10 === !0;
+  let r = t.ccOnboardingFlags?.e10 === true;
   return o(r, t.claudeCodeTrialEndsAt ?? null);
 }
 async function fkt(e, t) {
   return Hr("api_pro_trial_start", async () => {
     if (hSn()) {
       let i = new Date(Date.now() + sur * 24 * 60 * 60 * 1000).toISOString();
-      return Ter({ endsAt: i }), o(!0, i);
+      return Ter({ endsAt: i }), o(true, i);
     }
     let a = await bt.post(
       "/api/oauth/organizations/:orgUUID/claude_code/pro_trial",
@@ -37,11 +37,11 @@ async function fkt(e, t) {
       { auth: "teleport-org", credentials: t },
     );
     if (!a.ok) throw Error(a.reason === "no-auth" ? a.detail : `Pro trial start unavailable: ${a.reason}`);
-    return n("Pro trial started", { level: "debug" }), l(a.data.ends_at, e), o(!0, a.data.ends_at);
+    return n("Pro trial started", { level: "debug" }), l(a.data.ends_at, e), o(true, a.data.ends_at);
   });
 }
 function n7t() {
-  if (Ett().status !== "expired") return !1;
+  if (Ett().status !== "expired") return false;
   return ie().cachedExtraUsageDisabledReason !== null;
 }
 function mkt(e) {

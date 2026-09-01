@@ -51,7 +51,7 @@ function oHe({
     toolName: C,
     pluginId: A,
     command: d,
-    responseAttachmentSent: !1,
+    responseAttachmentSent: false,
     shellCommand: _,
     stopProgressInterval: F,
   });
@@ -129,7 +129,7 @@ async function sHe() {
             }
           }
         if (
-          ((_.responseAttachmentSent = !0),
+          ((_.responseAttachmentSent = true),
           await ipe(_, F, F === 0 ? "success" : "error"),
           Object.keys(U).length === 0 && F === 0 && !A.trim())
         )
@@ -155,7 +155,7 @@ async function sHe() {
         };
       }),
     ),
-    d = !1;
+    d = false;
   for (let _ of u) {
     if (_.status !== "fulfilled") {
       n(`Hooks: checkForAsyncHookResponses callback rejected: ${_.reason}`, { level: "error" });
@@ -163,9 +163,9 @@ async function sHe() {
     }
     let C = _.value;
     if (C.type === "remove") {
-      if ((t.remove(C.processId), "isSessionStart" in C && C.isSessionStart)) d = !0;
+      if ((t.remove(C.processId), "isSessionStart" in C && C.isSessionStart)) d = true;
     } else if (C.type === "response") {
-      if ((e.push(C.payload), t.remove(C.processId), C.isSessionStart)) d = !0;
+      if ((e.push(C.payload), t.remove(C.processId), C.isSessionStart)) d = true;
     }
   }
   if (d) n("Invalidating session env cache after SessionStart hook completed"), DI();
@@ -202,7 +202,7 @@ function Jxe(e) {
 }
 
 function Qxe(e) {
-  return e.mode === "poll-event" || e.mode === "task-notification" || e.skipAttachments === !0;
+  return e.mode === "poll-event" || e.mode === "task-notification" || e.skipAttachments === true;
 }
 
 function zYt(e) {
@@ -304,7 +304,7 @@ function ape(e, t, r, o) {
   return d;
 }
 
-function yee({ display: e, pastedContents: t, allowCurrentEpochSkip: r = !1 }) {
+function yee({ display: e, pastedContents: t, allowCurrentEpochSkip: r = false }) {
   let o = r && ch.flooredSessionId === K(),
     u = Object.entries(t),
     d = [],
@@ -346,12 +346,12 @@ function fHe(e) {
     let u = Tbn(t);
     return u === t ? e : { ...e, value: u };
   }
-  let r = !1,
+  let r = false,
     o = t.map((u) => {
       if (u.type !== "text") return u;
       let d = Tbn(u.text);
       if (d === u.text) return u;
-      return (r = !0), { ...u, text: d };
+      return (r = true), { ...u, text: d };
     });
   return r ? { ...e, value: o } : e;
 }
@@ -374,16 +374,16 @@ function yye(e, t) {
 
 function gsn(e, t) {
   let r = e.origin?.kind;
-  if (r === "task-notification" || r === "auto-continuation" || r === "plugin") return !0;
+  if (r === "task-notification" || r === "auto-continuation" || r === "plugin") return true;
   return hk(e.origin, t) || yv(e);
 }
 
 function eIe(e) {
-  return mu(e) && !jE(e) && e.passive !== !0;
+  return mu(e) && !jE(e) && e.passive !== true;
 }
 
 function QYt(e) {
-  return eIe(e) && e.mode === "prompt" && e.shouldQuery !== !1 && !e.isMeta && R9t(e.origin);
+  return eIe(e) && e.mode === "prompt" && e.shouldQuery !== false && !e.isMeta && R9t(e.origin);
 }
 
 function l9n(e) {
@@ -391,7 +391,7 @@ function l9n(e) {
 }
 
 function UW(e) {
-  return e.passive === !0 && mu(e);
+  return e.passive === true && mu(e);
 }
 
 function JYt(e) {
@@ -399,9 +399,9 @@ function JYt(e) {
 }
 
 function dpe(e, { isMainThread: t, currentAgentId: r }) {
-  let o = !1,
+  let o = false,
     u = e.filter((d) => {
-      if (JYt(d)) return !1;
+      if (JYt(d)) return false;
       if (t) return mu(d);
       return d.mode === "task-notification" && d.agentId === r;
     });
@@ -477,7 +477,7 @@ function hsn(e) {
   function M(Rn, lr) {
     if (_.delete(Rn)) _.add(Rn);
     else {
-      if (lr?.terminalEmitted !== !0 && _.size >= A) {
+      if (lr?.terminalEmitted !== true && _.size >= A) {
         let Mr;
         for (let Io of _)
           if (!C.has(Io)) {
@@ -488,9 +488,9 @@ function hsn(e) {
       }
       _.add(Rn);
     }
-    if (lr?.terminalEmitted !== !0) return !1;
-    if (C.has(Rn)) return !1;
-    return C.add(Rn), !0;
+    if (lr?.terminalEmitted !== true) return false;
+    if (C.has(Rn)) return false;
+    return C.add(Rn), true;
   }
   function F(Rn) {
     return _.delete(Rn);
@@ -511,16 +511,16 @@ function hsn(e) {
   function fe(Rn) {
     return W.has(Rn);
   }
-  let me = !1;
+  let me = false;
   function ge() {
-    me = !0;
+    me = true;
   }
   function Ce(Rn, lr) {
-    let Mr = o.find((Io) => Io.uuid === Rn && Io.screeningPending === !0);
-    if (Mr === void 0) return !1;
-    if ("dropped" in lr) return Pr([Mr], { reason: "dropped_by_hook" }), !0;
+    let Mr = o.find((Io) => Io.uuid === Rn && Io.screeningPending === true);
+    if (Mr === void 0) return false;
+    if ("dropped" in lr) return Pr([Mr], { reason: "dropped_by_hook" }), true;
     return (
-      delete Mr.screeningPending, (Mr.promptSubmitted = lr.promptSubmitted), (Mr.drainOnly = lr.drainOnly), x(), !0
+      delete Mr.screeningPending, (Mr.promptSubmitted = lr.promptSubmitted), (Mr.drainOnly = lr.drainOnly), x(), true
     );
   }
   function Ie() {
@@ -595,7 +595,7 @@ function hsn(e) {
           lr === "coalesced")
         )
           dn(Rn, Er.reason);
-        return { admitted: !1, reason: Er.reason };
+        return { admitted: false, reason: Er.reason };
       }
     }
     if (!Io && gHe(Mr)) {
@@ -612,7 +612,7 @@ function hsn(e) {
           lr === "coalesced")
         )
           dn(Rn, Qn.reason);
-        return { admitted: !1, reason: Qn.reason };
+        return { admitted: false, reason: Qn.reason };
       }
     }
     if (ht() >= o5e().maxQueuedPeerMessages) {
@@ -621,7 +621,7 @@ function hsn(e) {
         lr === "coalesced")
       )
         dn(Rn, "queue-full");
-      return { admitted: !1, reason: "queue-full" };
+      return { admitted: false, reason: "queue-full" };
     }
     return y("peer_loop_guard"), lpe;
   }
@@ -670,7 +670,7 @@ function hsn(e) {
         (p("poll_event_delivery", "queue_cap"),
         new R(`poll event rejected: ${Hue} events already queued`, "poll event rejected: queue depth cap"))
       );
-    if (QVe(Rn.kind) && Rn.allowReservedKind !== !0)
+    if (QVe(Rn.kind) && Rn.allowReservedKind !== true)
       throw (
         (p("poll_event_delivery", "reserved_kind"),
         new R(
@@ -714,7 +714,7 @@ function hsn(e) {
           "poll event rejected: envelope too large",
         ))
       );
-    let Io = Rn.wake ?? !0,
+    let Io = Rn.wake ?? true,
       Er,
       Qn,
       mr = new Promise((xn, Fr) => {
@@ -727,7 +727,7 @@ function hsn(e) {
         agentId: et(),
         priority: Io ? "next" : "later",
         uuid: KYt(),
-        isMeta: !0,
+        isMeta: true,
         timestamp: new Date().toISOString(),
         pollEvent: {
           kind: Rn.kind,
@@ -753,20 +753,20 @@ function hsn(e) {
     for (let Er of Mr) if (!Er.unlogged) r("dequeue");
     return { commands: lr, remainingWakeCount: Cn() };
   }
-  let Ke = !1;
+  let Ke = false;
   function mn() {
-    if (Ke) return !1;
-    return (Ke = !0), !0;
+    if (Ke) return false;
+    return (Ke = true), true;
   }
   function yn() {
-    Ke = !1;
+    Ke = false;
   }
   function er(Rn) {
-    let lr = Q(Rn, (Mr) => Mr.pollEvent?.wake === !0);
+    let lr = Q(Rn, (Mr) => Mr.pollEvent?.wake === true);
     return Math.max(0, Cn() - lr);
   }
   function Cn() {
-    return Q(o, (Rn) => $mn(Rn) && Rn.pollEvent?.wake === !0);
+    return Q(o, (Rn) => $mn(Rn) && Rn.pollEvent?.wake === true);
   }
   function Pn(Rn) {
     if (o.length === 0) return;
@@ -847,15 +847,15 @@ function hsn(e) {
         { level: "warn" },
       ),
       Iue(o.filter(jE), "queue cleared"),
-      sr(() => !0, Rn)
+      sr(() => true, Rn)
     );
   }
   function Ar() {
-    (o.length = 0), (u = Object.freeze([])), (Ke = !1), _.clear(), C.clear(), W.clear(), (me = !1), Xe(), Oe();
+    (o.length = 0), (u = Object.freeze([])), (Ke = false), _.clear(), C.clear(), W.clear(), (me = false), Xe(), Oe();
   }
   function Tn(Rn) {
     return (
-      Rn.skipSlashCommands === !0 && typeof Rn.preExpansionValue === "string" && Rn.preExpansionValue.trim() !== ""
+      Rn.skipSlashCommands === true && typeof Rn.preExpansionValue === "string" && Rn.preExpansionValue.trim() !== ""
     );
   }
   function Zr(Rn) {
@@ -1012,13 +1012,13 @@ function nB(e, t) {
 }
 
 function Z1(e, t, r) {
-  let o = !1,
+  let o = false,
     u;
   return (
     t.update(e, (d) => {
       if (((u = d), d.notified)) return d;
-      if (((o = !0), r?.skipStampIfRunning && d.status === "running")) return d;
-      return { ...d, notified: !0 };
+      if (((o = true), r?.skipStampIfRunning && d.status === "running")) return d;
+      return { ...d, notified: true };
     }),
     { claimed: o, task: u }
   );
@@ -1054,12 +1054,12 @@ ${_l(t)}`,
     priority: r,
     stopHookActive: o,
     origin: d,
-    skipAttachments: !0,
+    skipAttachments: true,
   });
 }
 
 function YV(e) {
-  if (e.startsWith(".")) return !1;
+  if (e.startsWith(".")) return false;
   return t4t.some((t) => e.endsWith(t));
 }
 
@@ -1113,7 +1113,7 @@ async function* kHe(e, t, r = hpe, o, u = ype) {
     A = Date.now() + u,
     x = e.stream[Symbol.asyncIterator]();
   try {
-    while (!0) {
+    while (true) {
       let M = A - Date.now();
       if (M <= 0) throw Error("export stream exceeded its overall deadline");
       let F = await Xt(
@@ -1168,7 +1168,7 @@ async function wHe({
     await Promise.all(C);
   }
   async function W(z) {
-    return await B(), { ok: !1, reason: z };
+    return await B(), { ok: false, reason: z };
   }
   try {
     for await (let z of kHe(e, o, u, _, d)) {
@@ -1222,48 +1222,48 @@ async function wHe({
       await U.maybeYield();
     }
   } catch (z) {
-    if ((await B(), z instanceof rB)) return { ok: !1, reason: "oversized_line" };
-    if (z instanceof oB) return { ok: !1, reason: "too_many_entries" };
-    return { ok: !1, reason: "stream_error" };
+    if ((await B(), z instanceof rB)) return { ok: false, reason: "oversized_line" };
+    if (z instanceof oB) return { ok: false, reason: "too_many_entries" };
+    return { ok: false, reason: "stream_error" };
   }
-  if ((await B(), A !== void 0)) return { ok: !1, reason: "write_failed" };
-  if (F === null) return { ok: !1, reason: "stream_truncated" };
-  if (F.memoryCount !== x) return { ok: !1, reason: "count_mismatch" };
-  if (F.errorCount > 0 || M > 0) return { ok: !1, reason: "decrypt_errors" };
-  return { ok: !0, memoryLines: x };
+  if ((await B(), A !== void 0)) return { ok: false, reason: "write_failed" };
+  if (F === null) return { ok: false, reason: "stream_truncated" };
+  if (F.memoryCount !== x) return { ok: false, reason: "count_mismatch" };
+  if (F.errorCount > 0 || M > 0) return { ok: false, reason: "decrypt_errors" };
+  return { ok: true, memoryLines: x };
 }
 
 async function THe({ source: e, maxLineLength: t, maxEntries: r, stallTimeoutMs: o = hpe, deadlineMs: u = ype }) {
   let d = [],
-    _ = !1,
+    _ = false,
     C = 0,
     A = null,
     x = oO();
   try {
     for await (let M of kHe(e, t, o, r * 2 + 2, u)) {
-      if (A !== null) return { ok: !1, reason: "parse_failed" };
+      if (A !== null) return { ok: false, reason: "parse_failed" };
       let F;
       try {
         F = Ps(M);
       } catch {
-        return { ok: !1, reason: "parse_failed" };
+        return { ok: false, reason: "parse_failed" };
       }
       let U = SHe().safeParse(F);
-      if (!U.success) return { ok: !1, reason: "parse_failed" };
+      if (!U.success) return { ok: false, reason: "parse_failed" };
       switch (U.data.type) {
         case "store": {
-          if (_) return { ok: !1, reason: "parse_failed" };
+          if (_) return { ok: false, reason: "parse_failed" };
           let B = i4t().safeParse(F);
-          if (!B.success) return { ok: !1, reason: "parse_failed" };
-          if (B.data.view !== "basic") return { ok: !1, reason: "view_not_honored" };
-          _ = !0;
+          if (!B.success) return { ok: false, reason: "parse_failed" };
+          if (B.data.view !== "basic") return { ok: false, reason: "view_not_honored" };
+          _ = true;
           break;
         }
         case "memory": {
-          if (!_) return { ok: !1, reason: "view_not_honored" };
+          if (!_) return { ok: false, reason: "view_not_honored" };
           let B = a4t().safeParse(F);
-          if (!B.success) return { ok: !1, reason: "parse_failed" };
-          if (d.length >= r) return { ok: !1, reason: "too_many_entries" };
+          if (!B.success) return { ok: false, reason: "parse_failed" };
+          if (d.length >= r) return { ok: false, reason: "too_many_entries" };
           d.push({
             id: B.data.id,
             path: B.data.path,
@@ -1273,13 +1273,13 @@ async function THe({ source: e, maxLineLength: t, maxEntries: r, stallTimeoutMs:
           break;
         }
         case "memory_error":
-          if (!_) return { ok: !1, reason: "view_not_honored" };
+          if (!_) return { ok: false, reason: "view_not_honored" };
           C++;
           break;
         case "complete": {
-          if (!_) return { ok: !1, reason: "parse_failed" };
+          if (!_) return { ok: false, reason: "parse_failed" };
           let B = bHe().safeParse(F);
-          if (!B.success) return { ok: !1, reason: "parse_failed" };
+          if (!B.success) return { ok: false, reason: "parse_failed" };
           A = { memoryCount: B.data.memory_count, errorCount: B.data.error_count ?? 0 };
           break;
         }
@@ -1289,14 +1289,14 @@ async function THe({ source: e, maxLineLength: t, maxEntries: r, stallTimeoutMs:
       await x.maybeYield();
     }
   } catch (M) {
-    if (M instanceof rB) return { ok: !1, reason: "oversized_line" };
-    if (M instanceof oB) return { ok: !1, reason: "too_many_entries" };
-    return { ok: !1, reason: "stream_error" };
+    if (M instanceof rB) return { ok: false, reason: "oversized_line" };
+    if (M instanceof oB) return { ok: false, reason: "too_many_entries" };
+    return { ok: false, reason: "stream_error" };
   }
-  if (A === null) return { ok: !1, reason: "stream_truncated" };
-  if (A.memoryCount !== d.length) return { ok: !1, reason: "count_mismatch" };
-  if (A.errorCount > 0 || C > 0) return { ok: !1, reason: "decrypt_errors" };
-  return { ok: !0, entries: d };
+  if (A === null) return { ok: false, reason: "stream_truncated" };
+  if (A.memoryCount !== d.length) return { ok: false, reason: "count_mismatch" };
+  if (A.errorCount > 0 || C > 0) return { ok: false, reason: "decrypt_errors" };
+  return { ok: true, entries: d };
 }
 
 function _Y() {
@@ -1322,7 +1322,7 @@ function DHe(e) {
 }
 
 function bY(e) {
-  if (e.suppressedReason === null) return !1;
+  if (e.suppressedReason === null) return false;
   let t = e.suppressedUntilMs ?? null;
   return t === null || Date.now() < t;
 }
@@ -1341,14 +1341,14 @@ function TY(e, t, r) {
         scope: _.scope,
         source: _.source,
         writeDir: _.writeDir ?? "",
-        firstWriteEmitted: !1,
+        firstWriteEmitted: false,
         mountDir: Qjt(_),
         v5MemoryBase: LJn(_.scope, Qjt(_)),
         excludeKey: C ? tD : null,
         remoteHashes: new Map(),
         createdAtMs: Date.now(),
         pullWritten: new Map(),
-        pulled: !1,
+        pulled: false,
         suppressedReason: null,
         suppressedUntilMs: null,
         consecutivePermanentFailures: 0,
@@ -1364,7 +1364,7 @@ function TY(e, t, r) {
 async function sY(e, t, r) {
   let o = await tE(e.mountDir, r, e.v5MemoryBase);
   if (o.state === "present" && o.manifest.partition === e.backend.partitionId) {
-    e.manifestSeenThisSession = !0;
+    e.manifestSeenThisSession = true;
     return;
   }
   if (t?.expectPresent) {
@@ -1375,18 +1375,18 @@ async function sY(e, t, r) {
   let u = b({ v: LHe, partition: e.backend.partitionId }),
     d = w4t(r, e),
     _ = r !== void 0 && d !== void 0 ? { storageV5: r, manifestKey: d } : void 0;
-  if (_ === void 0) await Lpe(e.mountDir, { recursive: !0 });
+  if (_ === void 0) await Lpe(e.mountDir, { recursive: true });
   if (o.state === "absent" && e.scope !== "user") {
-    await T4t(e, u, _?.manifestKey, _?.storageV5), (e.manifestSeenThisSession = !0);
+    await T4t(e, u, _?.manifestKey, _?.storageV5), (e.manifestSeenThisSession = true);
     return;
   }
   if (_ !== void 0) {
     let C = await _.storageV5.write(_.manifestKey, u, { publishDiscipline: "atomic", mode: 438 & ~process.umask() });
     if (!C.ok) throw new R(`manifest write failed: ${Ge(C.error)}`, "memory-sync manifest write failed");
-    e.manifestSeenThisSession = !0;
+    e.manifestSeenThisSession = true;
     return;
   }
-  await Wn(ph(e.mountDir, mb), u), (e.manifestSeenThisSession = !0);
+  await Wn(ph(e.mountDir, mb), u), (e.manifestSeenThisSession = true);
 }
 
 function Hpe(e, t, r, o) {
@@ -1509,7 +1509,7 @@ async function E4t(e, t) {
   } catch {
     return null;
   }
-  let o = v4t().safeParse(Ut(r, !1));
+  let o = v4t().safeParse(Ut(r, false));
   if (!o.success || o.data.partition !== e.backend.partitionId) return null;
   let u = new Map();
   for (let [C, A, x] of o.data.entries)
@@ -1563,7 +1563,7 @@ async function aB(e, t) {
 
 function $He(e, t) {
   return O() && t !== void 0 && e.v5MemoryBase !== void 0
-    ? { storageV5: t, base: e.v5MemoryBase, manifestSeen: e.manifestSeenThisSession === !0 }
+    ? { storageV5: t, base: e.v5MemoryBase, manifestSeen: e.manifestSeenThisSession === true }
     : void 0;
 }
 
@@ -1571,17 +1571,17 @@ async function C4t(e, t) {
   async function r(o, u) {
     let d;
     try {
-      d = await lY(o, { withFileTypes: !0 });
+      d = await lY(o, { withFileTypes: true });
     } catch (A) {
       return E(A) !== "ENOENT";
     }
-    let _ = d.find((A) => !Zt(A.name) || (A.isDirectory() && MO(A.name, !0)));
+    let _ = d.find((A) => !Zt(A.name) || (A.isDirectory() && MO(A.name, true)));
     if (_)
       return (
         n(
           `[memory-sync] mount walk goes direct this cycle: ${u || "."} holds a name the storage interface cannot list (${!Zt(_.name) ? "outside the key grammar" : "a staging-shaped directory"})`,
         ),
-        !0
+        true
       );
     return (
       await Promise.all(
@@ -1589,7 +1589,7 @@ async function C4t(e, t) {
           .filter((A) => A.isDirectory() && !A.name.startsWith("."))
           .map((A) => {
             let x = u ? `${u}/${A.name}` : A.name;
-            return t && t(x) ? !1 : r(ph(o, A.name), x);
+            return t && t(x) ? false : r(ph(o, A.name), x);
           }),
       )
     ).some(Boolean);
@@ -1603,27 +1603,27 @@ function Spe(e) {
 
 async function AY(e, t, r, o, u, d, _) {
   if (O() && r !== void 0 && o !== void 0 && !(await C4t(e, t)))
-    return I4t(e, t, { storageV5: r, base: o, manifestSeen: u === !0 }, _);
+    return I4t(e, t, { storageV5: r, base: o, manifestSeen: u === true }, _);
   let A = new Map(),
     x = new Set(),
     M = [],
     F = [],
-    U = !0,
-    B = !1,
+    U = true,
+    B = false,
     W = Date.now(),
     z = oO({ maxConcurrent: IHe });
   async function pe(fe) {
     let me;
     try {
-      me = await lY(fe, { withFileTypes: !0 });
+      me = await lY(fe, { withFileTypes: true });
     } catch (ge) {
       let Ce = E(ge);
       if (Ce === "ENOENT") {
-        if (((U = !1), fe === e)) B = !0;
+        if (((U = false), fe === e)) B = true;
         return;
       }
       if (Ce === "EACCES" || Ce === "EPERM") {
-        U = !1;
+        U = false;
         return;
       }
       throw ge;
@@ -1663,7 +1663,7 @@ async function AY(e, t, r, o, u, d, _) {
             let Pe = E(Ee);
             if (Pe === "ENOENT") return;
             if (Pe === "EACCES" || Pe === "EPERM") {
-              U = !1;
+              U = false;
               return;
             }
             throw Ee;
@@ -1706,28 +1706,28 @@ async function I4t(e, t, r, o) {
     d = new Set(),
     _ = [],
     C = [],
-    A = !0,
-    x = !1,
+    A = true,
+    x = false,
     M = MJn(r.base),
     F = r.base.baseRelPath.length,
     U = oO({ maxConcurrent: IHe }),
     B = [],
     W = [],
     z,
-    pe = !1,
+    pe = false,
     fe = async (Pe) => {
       let Oe = [],
-        Fe = !0,
+        Fe = true,
         Be = await Ao(
           (ze) =>
-            r.storageV5.listEntries(Pe, { ...(ze !== void 0 && { cursor: ze }), skipKeyStats: !0, skipScopeStats: !0 }),
+            r.storageV5.listEntries(Pe, { ...(ze !== void 0 && { cursor: ze }), skipKeyStats: true, skipScopeStats: true }),
           (ze) => {
             for (let We of ze) {
-              if (((Fe = !1), We.kind === "key")) {
+              if (((Fe = false), We.kind === "key")) {
                 B.push(We);
                 continue;
               }
-              if (We.scope.namespace !== "memory" || We.viaSymlink === !0) continue;
+              if (We.scope.namespace !== "memory" || We.viaSymlink === true) continue;
               let Ve = (We.scope.relPath ?? []).slice(F),
                 Pt = Ve.at(-1);
               if (Pt === void 0 || Pt.startsWith(".")) continue;
@@ -1738,18 +1738,18 @@ async function I4t(e, t, r, o) {
         );
       if (Be.status === "error") {
         if (Be.error.code !== "InvalidArgument" && Be.error.failureClass === "permission") {
-          A = !1;
+          A = false;
           return;
         }
         z ??= Be.error;
         return;
       }
-      if (Be.status === "capped") pe = !0;
+      if (Be.status === "capped") pe = true;
       if (Fe && Pe !== M) W.push(Pe);
       await Promise.all(Oe.map(fe));
     };
   if ((await fe(M), z !== void 0)) Spe(z);
-  if (pe) A = !1;
+  if (pe) A = false;
   if (A && W.length > 0) {
     let Pe = new Map();
     for (let Fe of W) {
@@ -1765,8 +1765,8 @@ async function I4t(e, t, r, o) {
             (ze) =>
               r.storageV5.listEntries(Fe, {
                 ...(ze !== void 0 && { cursor: ze }),
-                skipKeyStats: !0,
-                skipScopeStats: !0,
+                skipKeyStats: true,
+                skipScopeStats: true,
               }),
             (ze) => {
               for (let We of ze)
@@ -1775,13 +1775,13 @@ async function I4t(e, t, r, o) {
           )
         ).status !== "done"
       )
-        A = !1;
-    if (W.some((Fe) => !Oe.has((Fe.relPath ?? []).join("/")))) A = !1;
+        A = false;
+    if (W.some((Fe) => !Oe.has((Fe.relPath ?? []).join("/")))) A = false;
   }
   if (B.length === 0 && r.manifestSeen) {
     let Pe = Z5e(r.base, e, ph(e, mb)),
       Oe = Pe === void 0 ? void 0 : await r.storageV5.statMeta(Pe);
-    if (Oe === void 0 || !Oe.ok) (A = !1), (x = Oe === void 0 || Oe.error.code === "NotFound");
+    if (Oe === void 0 || !Oe.ok) (A = false), (x = Oe === void 0 || Oe.error.code === "NotFound");
     return {
       entries: u,
       diskPaths: d,
@@ -1803,7 +1803,7 @@ async function I4t(e, t, r, o) {
     let Be = Oe.slice(0, -1);
     if (Be.some((We) => We.startsWith("."))) continue;
     if (t && Be.some((We, Ve) => t(Be.slice(0, Ve + 1).join("/")))) continue;
-    if (Pe.viaSymlink === !0 || !YV(Fe)) continue;
+    if (Pe.viaSymlink === true || !YV(Fe)) continue;
     let ze = "/" + Oe.join("/");
     if ((d.add(ze), Pe.size !== void 0 && Pe.size > o_)) {
       C.push({ path: ze, size: Pe.size }),
@@ -1827,7 +1827,7 @@ async function I4t(e, t, r, o) {
       continue;
     }
     if (Oe.error.code === "InvalidArgument" || Oe.error.failureClass !== "permission") Spe(Oe.error);
-    A = !1;
+    A = false;
     for (let Be of Fe) {
       let ze = await r.storageV5.read([{ key: Be.key, offset: 0, length: o_ + 1 }]);
       if (ze.ok) Ee.push({ batch: [Be], items: ze.value.items });
@@ -1871,7 +1871,7 @@ async function lB(e, t, r) {
         `local entry not statable via storage: ${Ge(u.error)}`,
         "memory-sync: local entry not statable via storage",
       ),
-      { cause: u.error, viaStorage: !0 },
+      { cause: u.error, viaStorage: true },
       u.error.code === "NotFound" ? { code: "ENOENT" } : vjt(u.error) ? { code: u.error.telemetryCode } : {},
     );
   return u.value;
@@ -1934,7 +1934,7 @@ async function Ype(e, t, r, o, u) {
       await x();
       return;
     }
-  } else await Lpe(m4t(d), { recursive: !0 });
+  } else await Lpe(m4t(d), { recursive: true });
   if (_ === void 0)
     try {
       await wpe(d, r, { encoding: "utf8", flag: "wx" });
@@ -1957,16 +1957,16 @@ async function Rpe(e, t, r) {
     let o = await hw(e, t);
     return jHe(await lB(r, e, o));
   } catch {
-    return !1;
+    return false;
   }
 }
 
 async function Ppe(e, t, r) {
-  if (e.pulled) return !1;
+  if (e.pulled) return false;
   try {
     let o = await hw(e, t),
       u = await lB(r, e, o);
-    if (jHe(u)) return !1;
+    if (jHe(u)) return false;
     let d = e.pullWritten.get(t)?.mtimeMs;
     if (d !== void 0) return u.mtimeMs > d;
     return u.mtimeMs >= e.createdAtMs - 1000;
@@ -1982,10 +1982,10 @@ async function WHe(e, t, r, o) {
   try {
     let u = await hw(e, t),
       d = await lB(o, e, u);
-    if (d.size > o_ || d.size !== Buffer.byteLength(r, "utf8")) return !1;
+    if (d.size > o_ || d.size !== Buffer.byteLength(r, "utf8")) return false;
     return (await HHe(o, e, u)) === r;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -2043,11 +2043,11 @@ async function Ipe(e, t, r) {
 async function GHe(e, t) {
   let r = await tE(e.mountDir, t, e.v5MemoryBase),
     o = r.state === "present" && r.manifest.partition === e.backend.partitionId;
-  if (o) e.manifestSeenThisSession = !0;
+  if (o) e.manifestSeenThisSession = true;
   if (!e.pulled) return o;
-  if (o) return !0;
-  if (r.state === "present" && e.scope !== "user") return Xpe(e, "midSession"), !1;
-  if (e.remoteHashes.size === 0) return !1;
+  if (o) return true;
+  if (r.state === "present" && e.scope !== "user") return Xpe(e, "midSession"), false;
+  if (e.remoteHashes.size === 0) return false;
   if (
     (n(
       `multi-store-sync[${e.mountName}]: .memory-sync manifest ${r.state === "present" ? "partition mismatch" : r.state} \u2014 invalidating basis`,
@@ -2057,19 +2057,19 @@ async function GHe(e, t) {
     s("tengu_team_mem_push_manifest_gate", { absent: r.state !== "present", remote_entries: e.remoteHashes.size }),
     (e.invalidatedBasis = e.remoteHashes),
     (e.remoteHashes = new Map()),
-    (e.pulled = !1),
+    (e.pulled = false),
     e.pendingDeletes?.clear(),
     r.state !== "present")
   )
     await aB(e, t);
-  return !1;
+  return false;
 }
 
 function O4t(e) {
   (e.suppressedReason = "mount_dir_unmanifested_nonempty"),
     (e.suppressedUntilMs = null),
     (e.remoteHashes = new Map()),
-    (e.pulled = !1),
+    (e.pulled = false),
     n(
       `multi-store-sync[${e.mountName}]: mount dir exists without a .memory-sync manifest and is not empty \u2014 suppressing sync (remove or rename the dir to mount this store)`,
       { level: "warn" },
@@ -2080,7 +2080,7 @@ function O4t(e) {
 
 async function qHe(e) {
   try {
-    return (await lY(e, { withFileTypes: !0 })).some((r) => r.name !== mb && !(r.name.startsWith(".") && r.isFile()))
+    return (await lY(e, { withFileTypes: true })).some((r) => r.name !== mb && !(r.name.startsWith(".") && r.isFile()))
       ? "occupied"
       : "empty";
   } catch (t) {
@@ -2089,18 +2089,18 @@ async function qHe(e) {
 }
 
 async function KHe(e) {
-  let t = await lY(e, { withFileTypes: !0 });
+  let t = await lY(e, { withFileTypes: true });
   for (let r of t) {
     if (r.name === mb) continue;
     if (r.name.startsWith(".")) {
       if (r.isFile()) continue;
-      return !1;
+      return false;
     }
     if (r.isDirectory()) {
-      if (!(await KHe(ph(e, r.name)))) return !1;
-    } else if (!r.isFile()) return !1;
+      if (!(await KHe(ph(e, r.name)))) return false;
+    } else if (!r.isFile()) return false;
   }
-  return !0;
+  return true;
 }
 
 async function D4t(e, t) {
@@ -2156,7 +2156,7 @@ function Xpe(e, t) {
   (e.suppressedReason = "mount_dir_foreign_partition"),
     (e.suppressedUntilMs = null),
     (e.remoteHashes = new Map()),
-    (e.pulled = !1),
+    (e.pulled = false),
     e.pendingDeletes?.clear(),
     n(
       `multi-store-sync[${e.mountName}]: mount dir holds a different partition's .memory-sync \u2014 suppressing sync (remove the dir to re-mount)`,
@@ -2176,12 +2176,12 @@ function F4t(e) {
 
 async function N4t(e, t, r) {
   let o = e.suppressedReason;
-  if (!VHe(o)) return !1;
+  if (!VHe(o)) return false;
   let u = t.state === "present" && t.manifest.partition === e.backend.partitionId,
     d = t.state !== "present" && (await qHe(e.mountDir)) === "empty";
   if (!u && !d) {
     if (o === "mount_dir_unmanifested_nonempty" && t.state === "present") Xpe(e, "firstPull");
-    return !1;
+    return false;
   }
   return (
     (e.suppressedReason = null),
@@ -2193,7 +2193,7 @@ async function N4t(e, t, r) {
     n(`multi-store-sync[${e.mountName}]: ${o} condition cleared \u2014 re-adopting the mount dir`, { level: "info" }),
     y("team_memory_multistore_conflict"),
     s("tengu_team_mem_foreign_partition_recovered", { reason: c(o) }),
-    !0
+    true
   );
 }
 
@@ -2211,7 +2211,7 @@ async function $4t(e) {
     !e.streamListUnsupported &&
     Date.now() >= (e.streamListRetryAfterMs ?? 0) &&
     !a.CLAUDE_CODE_DISABLE_MEMORY_STREAM_LIST &&
-    I("tengu_memory_stream_list", !0)
+    I("tengu_memory_stream_list", true)
   ) {
     let r = `multi-store-sync[${e.mountName}]`;
     try {
@@ -2226,7 +2226,7 @@ async function $4t(e) {
         return y("team_memory_multistore_stream_list"), u.entries.map((_) => ({ ..._, path: y_(_.path) }));
       }
       if ((g("team_memory_multistore_stream_list", u.reason), CHe(e), u.reason === "view_not_honored"))
-        e.streamListUnsupported = !0;
+        e.streamListUnsupported = true;
       n(`${r}: metadata stream incomplete (${u.reason}) \u2014 using paged list`, { level: "debug" });
     } catch (o) {
       let u = CHe(e);
@@ -2234,7 +2234,7 @@ async function $4t(e) {
         if ((g("team_memory_multistore_stream_list", "unavailable"), u < Epe && e.pulled)) throw o;
       } else {
         let d = o instanceof Fm ? "not_found" : o instanceof nd ? o.reason : "error";
-        if (o instanceof Fm) e.streamListUnsupported = !0;
+        if (o instanceof Fm) e.streamListUnsupported = true;
         g("team_memory_multistore_stream_list", d);
       }
       n(`${r}: metadata stream unavailable (${l(o)}) \u2014 using paged list`, { level: "debug" });
@@ -2244,22 +2244,22 @@ async function $4t(e) {
 }
 
 function Qpe(e) {
-  if ((e.source ?? "env") !== "discovery") return !1;
+  if ((e.source ?? "env") !== "discovery") return false;
   let t = Op();
   return t.state === "parked" || t.state === "ended";
 }
 
 function YHe(e) {
-  if ((e.source ?? "env") !== "discovery" || !Ede()) return !1;
-  if (Qv(e.backend.partitionId) !== void 0) return e.notices.rearmMirrorAllUncovered(), !1;
-  if (!Cde().some((r) => Qv(r.path) !== void 0)) return e.notices.emitMirrorAllUncoveredOnce(), !1;
-  return e.notices.rearmMirrorAllUncovered(), !0;
+  if ((e.source ?? "env") !== "discovery" || !Ede()) return false;
+  if (Qv(e.backend.partitionId) !== void 0) return e.notices.rearmMirrorAllUncovered(), false;
+  if (!Cde().some((r) => Qv(r.path) !== void 0)) return e.notices.emitMirrorAllUncoveredOnce(), false;
+  return e.notices.rearmMirrorAllUncovered(), true;
 }
 
 async function U4t(e, t) {
   if (await eme(e))
     return {
-      success: !1,
+      success: false,
       entriesListed: 0,
       filesWritten: 0,
       filesDeleted: 0,
@@ -2286,7 +2286,7 @@ async function U4t(e, t) {
         });
       if (d) p("team_memory_multistore_bulk_inflate", "fallback_failed");
       return {
-        success: !1,
+        success: false,
         entriesListed: 0,
         filesWritten: 0,
         filesDeleted: 0,
@@ -2312,7 +2312,7 @@ async function U4t(e, t) {
         level: "warn",
       }),
       {
-        success: !1,
+        success: false,
         entriesListed: _.length,
         filesWritten: 0,
         filesDeleted: 0,
@@ -2327,10 +2327,10 @@ async function U4t(e, t) {
       ).map((Oe) => Oe.path),
     ),
     z = _.filter((Oe) => {
-      if (M.entries.get(Oe.path)?.sha256 === Oe.sha256) return !1;
-      if (W.has(Oe.path)) return !0;
-      if ((F !== null || M.rootMissing) && !M.diskPaths.has(Oe.path)) return !0;
-      if (!B && M.diskTrusted && !M.diskPaths.has(Oe.path)) return !0;
+      if (M.entries.get(Oe.path)?.sha256 === Oe.sha256) return false;
+      if (W.has(Oe.path)) return true;
+      if ((F !== null || M.rootMissing) && !M.diskPaths.has(Oe.path)) return true;
+      if (!B && M.diskTrusted && !M.diskPaths.has(Oe.path)) return true;
       return U.get(Oe.path)?.sha256 !== Oe.sha256;
     }),
     pe = M.diskTrusted ? [...M.diskPaths].filter((Oe) => !x.has(Oe) && U.has(Oe)) : [],
@@ -2422,7 +2422,7 @@ async function U4t(e, t) {
       await iY(e, t);
     }
     return {
-      success: !1,
+      success: false,
       entriesListed: _.length,
       shaMismatches: me,
       emptyRestored: ge,
@@ -2434,9 +2434,9 @@ async function U4t(e, t) {
   }
   if (
     ((e.remoteHashes = x),
-    (e.pulled = !0),
+    (e.pulled = true),
     (e.invalidatedBasis = null),
-    (e.basisLoaded = !0),
+    (e.basisLoaded = true),
     o !== null && o.deletes.size > 0)
   ) {
     let Oe = (e.pendingDeletes ??= new Map());
@@ -2452,7 +2452,7 @@ async function U4t(e, t) {
     y("team_memory_multistore_concurrent_write_preserved"),
       n(`multi-store-sync[${e.mountName}]: preserved ${fe} concurrent local write(s)`, { level: "info" });
   return {
-    success: !0,
+    success: true,
     entriesListed: _.length,
     shaMismatches: me,
     emptyRestored: ge,
@@ -2467,14 +2467,14 @@ async function B4t(e, t, r) {
   let o = e.backend;
   if (!o.exportAll) return "not-attempted";
   if (a.CLAUDE_CODE_DISABLE_MEMORY_BULK_INFLATE) return "not-attempted";
-  if (!I("tengu_memory_bulk_inflate", !0)) return "not-attempted";
+  if (!I("tengu_memory_bulk_inflate", true)) return "not-attempted";
   let u = `multi-store-sync[${e.mountName}]`,
     d;
   try {
     d = await o.exportAll();
   } catch (Pe) {
     let Oe = Pe instanceof Fm ? "not_found" : "http_error";
-    if (Pe instanceof Fm) e.streamListUnsupported = !0;
+    if (Pe instanceof Fm) e.streamListUnsupported = true;
     return (
       g("team_memory_multistore_bulk_inflate", Oe),
       n(`${u}: bulk inflate unavailable (${l(Pe)}) \u2014 using per-file pull`, { level: "debug" }),
@@ -2536,7 +2536,7 @@ async function B4t(e, t, r) {
     ge = async (Pe) => {
       try {
         let Oe = await hw(e, Pe);
-        if ((await lB(r, e, Oe)).size > o_) return !0;
+        if ((await lB(r, e, Oe)).size > o_) return true;
         let Be = Nn(await HHe(r, e, Oe)),
           ze = pe.get(Pe);
         if (ze !== void 0) return !ze.has(Be);
@@ -2545,7 +2545,7 @@ async function B4t(e, t, r) {
         return E(Oe) !== "ENOENT";
       }
     },
-    Ce = !1;
+    Ce = false;
   for (let [Pe, Oe] of _)
     if (C.get(Oe.id) !== Pe || x.has(Pe)) {
       if ((M.delete(Pe), await ge(Pe))) {
@@ -2559,7 +2559,7 @@ async function B4t(e, t, r) {
       try {
         await zHe(e, Pe, r);
       } catch (Fe) {
-        n(`${u}: failed to remove superseded ${Pe} (${l(Fe)})`, { level: "warn" }), (Ce = !0);
+        n(`${u}: failed to remove superseded ${Pe} (${l(Fe)})`, { level: "warn" }), (Ce = true);
       }
     }
   let Ie = M.size;
@@ -2575,7 +2575,7 @@ async function B4t(e, t, r) {
   let Ee = Q([...C.values()], (Pe) => Pe !== null);
   if (
     ((e.remoteHashes = _),
-    (e.pulled = !0),
+    (e.pulled = true),
     await sY(e, { expectPresent: t }, r).catch((Pe) => n(`${u}: manifest write failed: ${l(Pe)}`, { level: "warn" })),
     await iY(e, r),
     y("team_memory_multistore_bulk_inflate"),
@@ -2589,7 +2589,7 @@ async function B4t(e, t, r) {
       { level: "info" },
     ),
     {
-      success: !0,
+      success: true,
       entriesListed: Ee,
       shaMismatches: B,
       emptyRestored: W,
@@ -2604,9 +2604,9 @@ function AHe(e, t) {
   let r = Date.now(),
     o = (e.conflictRefetches ??= new Map()),
     u = o.get(t);
-  if (!u || r - u.windowStartMs >= j4t) return o.set(t, { count: 1, windowStartMs: r }), !0;
-  if (u.count >= H4t) return !1;
-  return u.count++, !0;
+  if (!u || r - u.windowStartMs >= j4t) return o.set(t, { count: 1, windowStartMs: r }), true;
+  if (u.count >= H4t) return false;
+  return u.count++, true;
 }
 
 function nE(e) {
@@ -2616,13 +2616,13 @@ function nE(e) {
 }
 
 function W4t(e, t, r) {
-  if (e === r) return !0;
-  if (!e.endsWith(aw) || !r.startsWith(e)) return !1;
+  if (e === r) return true;
+  if (!e.endsWith(aw) || !r.startsWith(e)) return false;
   if (t.excludeKey) {
     let o = Tpe(e, r).split(aw).join("/");
-    if (t.excludeKey(o)) return !1;
+    if (t.excludeKey(o)) return false;
   }
-  return !0;
+  return true;
 }
 
 function z4t(e, t) {
@@ -2691,7 +2691,7 @@ async function Y4t(e, t) {
 async function kpe(e, t) {
   let r = y_(t),
     o = r.slice(0, r.lastIndexOf("/") + 1);
-  return (await e.backend.list(o, { depthOne: !0 })).find((d) => d.path === r) ?? null;
+  return (await e.backend.list(o, { depthOne: true })).find((d) => d.path === r) ?? null;
 }
 
 function QHe(e, t) {
@@ -2724,14 +2724,14 @@ async function PHe(e, t, r, o, u) {
           : QHe(t, o === "unsynced"),
       ),
       s("tengu_team_mem_conflict_recovered", { scope: c(e.scope), op: c(o) }),
-      !0
+      true
     );
   } catch (d) {
     return (
       n(`multi-store-sync[${e.mountName}]: conflict refetch failed (${l(d)}) \u2014 next pull resolves`, {
         level: "warn",
       }),
-      !1
+      false
     );
   }
 }
@@ -2743,16 +2743,16 @@ async function eme(e) {
       n(`multi-store-sync[${e.mountName}]: team memory root escapes its canonical location \u2014 failing closed`, {
         level: "error",
       }),
-      !0
+      true
     );
   if ((await ZX(e.mountDir, ...t)) === "escape")
     return (
       n(`multi-store-sync[${e.mountName}]: mount dir escapes its canonical location \u2014 failing closed`, {
         level: "error",
       }),
-      !0
+      true
     );
-  return !1;
+  return false;
 }
 
 async function X4t(e, t, r) {
@@ -2776,15 +2776,15 @@ async function X4t(e, t, r) {
 
 async function cB(e, t, r) {
   if (e.backend.mode === "ro") {
-    let Fe = await X4t(e, t?.allowDeletes === !0, r);
+    let Fe = await X4t(e, t?.allowDeletes === true, r);
     if (Fe.length === 0) return eE;
     return (
       s("tengu_memory_sync_ro_unsaved", { scope: c(e.scope), count: Fe.length }), { ...eE, unsavedReadOnlyPaths: Fe }
     );
   }
-  if (Qpe(e)) return { ...eE, skipped: !0 };
+  if (Qpe(e)) return { ...eE, skipped: true };
   if ((e.source ?? "env") === "discovery" && (Qv(e.backend.partitionId) !== "rw" || !XM()))
-    return { ...eE, skipped: !0 };
+    return { ...eE, skipped: true };
   if (await eme(e)) return g("team_memory_multistore_conflict", "root_escape"), eE;
   if ((await GHe(e, r), !e.pulled)) return eE;
   let o = O(),
@@ -2845,7 +2845,7 @@ async function cB(e, t, r) {
         V4t(e, Fe),
         (e.invalidatedBasis = e.remoteHashes),
         (e.remoteHashes = new Map()),
-        (e.pulled = !1),
+        (e.pulled = false),
         z.clear(),
         await aB(e, r);
   }
@@ -2874,7 +2874,7 @@ async function cB(e, t, r) {
     (await Ipe(M ? [] : C, ZV, async (Fe) => {
       let Be,
         ze = Fe.known,
-        We = !1;
+        We = false;
       try {
         let Ve;
         if (ze)
@@ -2886,12 +2886,12 @@ async function cB(e, t, r) {
                 Pt instanceof Fm &&
                 (await kpe(e, Fe.path).then(
                   (ut) => ut === null,
-                  () => !1,
+                  () => false,
                 ))
               )
             )
               throw Pt;
-            e.remoteHashes.delete(Fe.path), (ze = void 0), (We = !0);
+            e.remoteHashes.delete(Fe.path), (ze = void 0), (We = true);
           }
         if (Ve === void 0)
           try {
@@ -2903,7 +2903,7 @@ async function cB(e, t, r) {
                 e.writeDir !== "" &&
                 y_(Fe.path).replace(/^\//, "").startsWith(e.writeDir))
             )
-              (e.firstWriteEmitted = !0), s("tengu_org_memory_first_write_into_write_home", {});
+              (e.firstWriteEmitted = true), s("tengu_org_memory_first_write_into_write_home", {});
           } catch (Pt) {
             if (!(Pt instanceof CT) || (Pt.conflictingPath !== void 0 && Pt.conflictingPath !== Pt.path)) throw Pt;
             let ct = await kpe(e, Fe.path);
@@ -2958,7 +2958,7 @@ async function cB(e, t, r) {
         let ze = await hw(e, Fe.path),
           We = u !== void 0 ? Z5e(u.base, e.mountDir, ze) : void 0;
         if (o && u !== void 0 && We !== void 0) {
-          let Ve = !1;
+          let Ve = false;
           try {
             let Pt = await u.storageV5.statMeta(We);
             Ve = !Pt.ok && Pt.error.code === "NotFound";
@@ -2995,7 +2995,7 @@ async function cB(e, t, r) {
           if (
             await kpe(e, Fe.path).then(
               (Ve) => Ve === null,
-              () => !1,
+              () => false,
             )
           )
             Be();
@@ -3087,7 +3087,7 @@ async function n5t(e, t, r) {
       }
       let F = (U, B) => {
         o[x.mountName] = {
-          success: !1,
+          success: false,
           entriesListed: 0,
           filesWritten: 0,
           filesDeleted: 0,
@@ -3100,7 +3100,7 @@ async function n5t(e, t, r) {
         return;
       }
       try {
-        await Lpe(x.mountDir, { recursive: !0 });
+        await Lpe(x.mountDir, { recursive: true });
         let U = x.scope === "user" ? [] : ["team", x.mountName];
         if ((await ZX(x.mountDir, ...U)) === "escape") {
           n(
@@ -3162,7 +3162,7 @@ async function n5t(e, t, r) {
         }
         o[x.mountName] = await U4t(x, r);
       } catch (U) {
-        o[x.mountName] = { success: !1, entriesListed: 0, filesWritten: 0, filesDeleted: 0, error: l(U) };
+        o[x.mountName] = { success: false, entriesListed: 0, filesWritten: 0, filesDeleted: 0, error: l(U) };
       }
     }),
   ),
@@ -3175,26 +3175,26 @@ async function n5t(e, t, r) {
         try {
           u[x.mountName] = await cB(
             x,
-            { allowDeletes: o[x.mountName]?.success === !0 && o[x.mountName]?.skipped !== !0 },
+            { allowDeletes: o[x.mountName]?.success === true && o[x.mountName]?.skipped !== true },
             r,
           );
         } catch (M) {
-          u[x.mountName] = { ...eE, success: !1, failureReason: "exception", error: l(M) };
+          u[x.mountName] = { ...eE, success: false, failureReason: "exception", error: l(M) };
         }
       }),
     );
   for (let x of e.stores) {
     if (x.suppressedReason !== null) continue;
-    if (o[x.mountName]?.skipped === !0) continue;
+    if (o[x.mountName]?.skipped === true) continue;
     let M = o[x.mountName]?.permanent ?? u[x.mountName]?.permanent;
     if (!M) {
       if (
         ((x.consecutivePermanentFailures = 0),
         (x.recoveryUnconfirmedReason ?? null) !== null &&
           o[x.mountName]?.success &&
-          o[x.mountName]?.skipped !== !0 &&
+          o[x.mountName]?.skipped !== true &&
           u[x.mountName]?.success &&
-          u[x.mountName]?.skipped !== !0)
+          u[x.mountName]?.skipped !== true)
       ) {
         let U = u[x.mountName];
         q4t(x, U.filesWritten + U.filesDeleted), (x.recoveryUnconfirmedReason = null);
@@ -3302,10 +3302,10 @@ async function tje(e, t, r) {
     let u = new Map(t.map((F) => [F.mountName, F])),
       d = [],
       _ = new Set(),
-      C = !1,
-      A = !1,
+      C = false,
+      A = false,
       x = (F, U) => {
-        (C = !0), n(`memory-skills: skipping ${F} \u2014 ${U}`, { level: "warn" });
+        (C = true), n(`memory-skills: skipping ${F} \u2014 ${U}`, { level: "warn" });
       };
     for (let F of o) {
       if (F.scope !== "team") {
@@ -3370,15 +3370,15 @@ async function l5t(e, t, r, o, u) {
     C;
   if (o && u) {
     let M = await c5t(o, u);
-    if (!M.ok) return t(r.mount, `listing failed for ${e} (${M.error})`), { commands: [], truncated: !1 };
+    if (!M.ok) return t(r.mount, `listing failed for ${e} (${M.error})`), { commands: [], truncated: false };
     C = M.value;
   } else {
     let M;
     try {
-      M = await o5t(e, { withFileTypes: !0 });
+      M = await o5t(e, { withFileTypes: true });
     } catch (F) {
       if (!X(F)) t(r.mount, `readdir failed for ${e} (${E(F) ?? "unknown"})`);
-      return { commands: [], truncated: !1 };
+      return { commands: [], truncated: false };
     }
     C = M.filter((F) => F.isDirectory() || F.isSymbolicLink()).map((F) => ({
       name: F.name,
@@ -3386,10 +3386,10 @@ async function l5t(e, t, r, o, u) {
     }));
   }
   C.sort((M, F) => (M.name < F.name ? -1 : 1));
-  let A = !1;
+  let A = false;
   if (C.length > sme)
     n(`memory-skills: ${e} has ${C.length} skill folders \u2014 loading only the first ${sme}`, { level: "warn" }),
-      (A = !0),
+      (A = true),
       (C = C.slice(0, sme));
   let x = [];
   for (let M of C) {
@@ -3458,7 +3458,7 @@ async function l5t(e, t, r, o, u) {
       t(r.mount, `${F} failed content sanitization`);
       continue;
     }
-    let { frontmatter: B, content: W } = ni(U, F, { normalizeKeys: !0 }),
+    let { frontmatter: B, content: W } = ni(U, F, { normalizeKeys: true }),
       z = E_t(W),
       pe = `${ZHe}${M.name}`,
       fe = _(B, z, pe);
@@ -3472,7 +3472,7 @@ async function l5t(e, t, r, o, u) {
         loadedFrom: "memoryStore",
         ...w_t(),
         ...QOe(fe),
-        userInvocable: !1,
+        userInvocable: false,
       }),
     );
   }
@@ -3485,14 +3485,14 @@ async function c5t(e, t) {
       (u) =>
         e.listEntries(
           { namespace: "memory", projectKey: t.projectKey, relPath: t.relPath },
-          { skipKeyStats: !0, skipScopeStats: !0, ...(u !== void 0 && { cursor: u }) },
+          { skipKeyStats: true, skipScopeStats: true, ...(u !== void 0 && { cursor: u }) },
         ),
       (u) => {
         for (let d of u) {
           if (d.kind !== "scope" || d.scope.namespace !== "memory") continue;
           let _ = d.scope.relPath?.at(-1);
           if (_ !== void 0 && d.scope.relPath?.length === t.relPath.length + 1)
-            r.push({ name: _, symlink: d.viaSymlink === !0 });
+            r.push({ name: _, symlink: d.viaSymlink === true });
         }
       },
     );
@@ -3507,7 +3507,7 @@ async function c5t(e, t) {
 }
 
 async function u5t(e, t) {
-  let r = await e.readText([{ key: t, offset: 0, length: lme + 1 }], { hardened: !0 });
+  let r = await e.readText([{ key: t, offset: 0, length: lme + 1 }], { hardened: true });
   if (!r.ok) {
     let u = r.error.code === "Failed" ? r.error.telemetryCode : "";
     return u === "ELOOP"
@@ -3549,14 +3549,14 @@ function cme(e, t) {
 
 function dB(e, t) {
   return e.filter((r) => {
-    if (r.loadedFrom !== "syncedSkills") return !0;
-    if (cme(r, t)) return !1;
-    return gb(t, r), !0;
+    if (r.loadedFrom !== "syncedSkills") return true;
+    if (cme(r, t)) return false;
+    return gb(t, r), true;
   });
 }
 
 function UMt(e) {
-  return e.filter((t) => t.type === "prompt" && (t.loadedFrom === "mcp" || t.isMcp === !0));
+  return e.filter((t) => t.type === "prompt" && (t.loadedFrom === "mcp" || t.isMcp === true));
 }
 
 function Xl() {
@@ -3569,17 +3569,17 @@ function g5t(e, t = e.length) {
   for (let r = Math.min(t, e.length) - 1; r >= 0; r--) {
     let o = e[r];
     if (o === void 0) continue;
-    if (o.type === "assistant") return !1;
+    if (o.type === "assistant") return false;
     if (o.type !== "user") continue;
-    if (o.toolUseResult !== void 0 || o.isCompactSummary === !0 || NA(o)) return !1;
-    if (o.isVisibleInTranscriptOnly === !0) continue;
-    if (o.isMeta === !0) {
+    if (o.toolUseResult !== void 0 || o.isCompactSummary === true || NA(o)) return false;
+    if (o.isVisibleInTranscriptOnly === true) continue;
+    if (o.isMeta === true) {
       if (y5t(o)) continue;
-      return !1;
+      return false;
     }
-    return nR(o.origin) && o.verifiedSlackHumanTurn !== !0;
+    return nR(o.origin) && o.verifiedSlackHumanTurn !== true;
   }
-  return !1;
+  return false;
 }
 
 function y5t(e) {
@@ -3621,11 +3621,11 @@ function LY(e) {
 
 function lO(e, t, r) {
   if (!e?.length) return [...t];
-  let o = !1,
+  let o = false,
     u = [];
   for (let d of e) {
     if (d === "$defaults") {
-      if (!o) u.push(...t), (o = !0);
+      if (!o) u.push(...t), (o = true);
       continue;
     }
     u.push(r(d));
@@ -3715,7 +3715,7 @@ function _me(e) {
 }
 
 function Sme(e) {
-  return e.truncated === !0 || e.text.length > N5t;
+  return e.truncated === true || e.text.length > N5t;
 }
 
 function hme(e) {
@@ -3737,7 +3737,7 @@ function $Y(e) {
 }
 
 function B5t(e, t) {
-  return e.version > t.version || (e.version === t.version && t.row.truncated === !0 && e.row.truncated !== !0);
+  return e.version > t.version || (e.version === t.version && t.row.truncated === true && e.row.truncated !== true);
 }
 
 function dje(e) {
@@ -3754,13 +3754,13 @@ function pje(e) {
   if (!BY(t) || !(JVe in t)) return;
   let r = t[JVe],
     o = BY(r) ? r.messages : void 0;
-  return Array.isArray(o) ? dje(o) : { rows: [], malformed: !0 };
+  return Array.isArray(o) ? dje(o) : { rows: [], malformed: true };
 }
 
 function bme(e) {
   let t = BY(e) ? e.hearthRelayRows : void 0;
   if (t === void 0) return;
-  return Array.isArray(t) ? dje(t) : { rows: [], malformed: !0 };
+  return Array.isArray(t) ? dje(t) : { rows: [], malformed: true };
 }
 
 function mje(e) {
@@ -3826,7 +3826,7 @@ function gje(e, t) {
       o.get(_.id) === 1 &&
       _.author_kind === "agent" &&
       _.where === "timeline" &&
-      _.truncated !== !0 &&
+      _.truncated !== true &&
       _.text.length > 0 &&
       _.text.length <= H5t &&
       $Y(_).version < Date.parse(d.written_at) &&
@@ -3838,8 +3838,8 @@ function gje(e, t) {
 }
 
 function W5t(e, t, r) {
-  if (e.id === t.id || e.id === r.id || e.where !== "timeline") return !1;
-  if (!HY(e)) return !0;
+  if (e.id === t.id || e.id === r.id || e.where !== "timeline") return false;
+  if (!HY(e)) return true;
   let o = Date.parse(e.written_at);
   return o >= Date.parse(t.written_at) && o <= Date.parse(r.written_at);
 }
@@ -3904,7 +3904,7 @@ function K5t() {
   let t = Je().totalTokensReminder;
   if (zY(t)) return t;
   let r = $l()?.[Tme],
-    o = zY(r) ? r : r === !1 ? "off" : void 0;
+    o = zY(r) ? r : r === false ? "off" : void 0;
   if (o !== void 0) return s(Ame, { mode: c(o) }), o;
   Rme(Tme, r);
   let u = I(Tme, "padded-countdown");
@@ -3940,7 +3940,7 @@ function Y5t() {
   if (t !== void 0) return t;
   let r = $l()?.[Eme];
   if (typeof r === "boolean") return s(Ame, { userTurn: r }), r;
-  return Rme(Eme, r), I(Eme, !0);
+  return Rme(Eme, r), I(Eme, true);
 }
 
 function qY(e, t) {
@@ -3973,11 +3973,11 @@ function $Mt() {
 }
 
 function Wjn() {
-  return tle()?.empty_tree_fallback_enabled !== !1;
+  return tle()?.empty_tree_fallback_enabled !== false;
 }
 
 function qjn() {
-  return tle()?.github_access_precheck_enabled !== !1;
+  return tle()?.github_access_precheck_enabled !== false;
 }
 
 function ZR() {
@@ -3988,7 +3988,7 @@ function Gjn() {
   if (ZR()) return null;
   let e = Um(Eje, null);
   if (e.source === "fallback" && !oA()) return "config_unavailable";
-  if (e.value?.enabled !== !0) return "kill_switch";
+  if (e.value?.enabled !== true) return "kill_switch";
   if (!pr()) return "third_party_provider";
   if (eA()) return "remote_environment";
   if (!h6()) return "non_first_party_base_url";
@@ -3996,11 +3996,11 @@ function Gjn() {
 }
 
 function Pxe() {
-  return tle()?.enabled === !0 && pr() && !eA();
+  return tle()?.enabled === true && pr() && !eA();
 }
 
 function Dxe() {
-  return I("tengu_ultrareview_post_enabled", !0);
+  return I("tengu_ultrareview_post_enabled", true);
 }
 
 function Wlt() {
@@ -4023,8 +4023,8 @@ function Wlt() {
 
 function Sw(e, t, r) {
   if (t !== void 0) return t;
-  if (hh(r, e)) return !0;
-  if ($l()?.[e] !== !0) return !1;
+  if (hh(r, e)) return true;
+  if ($l()?.[e] !== true) return false;
   let o = (Fa().clientDataCapabilityLogged ??= new Map()),
     u = K(),
     d = o.get(u);
@@ -4035,11 +4035,11 @@ function Sw(e, t, r) {
     }
   }
   if (!d.has(e)) d.add(e), s("tengu_model_capability_from_client_data", { capability: c(e) });
-  return !0;
+  return true;
 }
 
 function Q5t(e) {
-  if (J5t() !== e) return !1;
+  if (J5t() !== e) return false;
   return Sw("per_turn_effort", void 0, e);
 }
 
@@ -4109,7 +4109,7 @@ function s_(e) {
 
 async function m6t(e) {
   try {
-    let t = await s6t(e, { bigint: !0 });
+    let t = await s6t(e, { bigint: true });
     if (t.dev === 0n && t.ino === 0n) return null;
     return `${t.dev}:${t.ino}`;
   } catch {
@@ -4139,7 +4139,7 @@ async function TG(e, t) {
     o = f6t(t),
     u = Mme(t),
     d = [];
-  while (!0) {
+  while (true) {
     if (Up(u) === Up(r)) break;
     let _ = kw(u, ".claude", e);
     try {
@@ -4204,7 +4204,7 @@ async function g6t(e, t, r) {
         ? Promise.all(
             A.map((Oe) =>
               $R(Oe, r).then((Fe) =>
-                Fe.map((Be) => ({ ...Be, baseDir: Oe, source: "projectSettings", fromAdditionalDirectory: !0 })),
+                Fe.map((Be) => ({ ...Be, baseDir: Oe, source: "projectSettings", fromAdditionalDirectory: true })),
               ),
             ),
           )
@@ -4267,7 +4267,7 @@ async function h6t(e, t) {
   async function _(C) {
     if (t.aborted) return;
     try {
-      let A = await VY(C, { bigint: !0 });
+      let A = await VY(C, { bigint: true });
       if (A.isDirectory()) {
         let x = A.dev !== void 0 && A.ino !== void 0 ? `${A.dev}:${A.ino}` : await xme(C);
         if (o.has(x)) {
@@ -4282,7 +4282,7 @@ async function h6t(e, t) {
       return;
     }
     try {
-      let A = await i6t(C, { withFileTypes: !0 });
+      let A = await i6t(C, { withFileTypes: true });
       for (let x of A) {
         if (t.aborted) break;
         let M = kw(C, x.name);
@@ -4322,7 +4322,7 @@ async function $R(e, t) {
           let A = await eP({ stat: VY, readFile: a6t }, C, gB);
           if (A === null)
             return n(`loadMarkdownFilesFromDir: skipping ${C}: not a regular file or exceeds ${gB} byte limit`), null;
-          let { frontmatter: x, content: M, parseError: F } = ni(A, C, { normalizeKeys: !0 });
+          let { frontmatter: x, content: M, parseError: F } = ni(A, C, { normalizeKeys: true });
           if (F) n(`YAML frontmatter in ${C} failed to parse and was ignored: ${F}`, { level: "error" });
           return { filePath: C, frontmatter: x, content: M };
         } catch (A) {
@@ -4341,11 +4341,11 @@ async function k6t(e, t) {
       (_) =>
         t.listRecursive(
           { namespace: "userConfigDir", dir: e },
-          { suffix: ".md", skipKeyStats: !0, ...(_ !== void 0 && { cursor: _ }) },
+          { suffix: ".md", skipKeyStats: true, ...(_ !== void 0 && { cursor: _ }) },
         ),
       (_) => {
         for (let C of _)
-          if (C.key.namespace === "userConfigDir" && C.key.dir === e && C.key.relPath.at(-1)?.endsWith(".md") === !0)
+          if (C.key.namespace === "userConfigDir" && C.key.dir === e && C.key.relPath.at(-1)?.endsWith(".md") === true)
             o.push({ key: C.key, filePath: kw(r, ...C.key.relPath) });
       },
     );
@@ -4372,7 +4372,7 @@ async function k6t(e, t) {
             { frontmatter: F, content: U } = ni(
               Buffer.from(M.buffer, M.byteOffset, M.byteLength).toString("utf-8"),
               C,
-              { normalizeKeys: !0 },
+              { normalizeKeys: true },
             );
           return { filePath: C, frontmatter: F, content: U };
         } catch (A) {

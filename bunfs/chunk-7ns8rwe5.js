@@ -20,7 +20,7 @@ import { join as m } from "path";
 import { setTimeout as b } from "timers/promises";
 var i = "com.anthropic.claude-daemon";
 async function _Q() {
-  return !0;
+  return true;
 }
 function I7t() {
   if (!Wl()) return process.argv[1];
@@ -43,7 +43,7 @@ async function sBe(e) {
     n = await Hde();
   if (n)
     return {
-      ok: !1,
+      ok: false,
       error: `${n} \u2014 refusing to install a service that would run unwrapped`,
       serviceId: i,
       servicePath: "",
@@ -53,7 +53,7 @@ async function sBe(e) {
   {
     let s = h();
     try {
-      await I(m(k(), "Library", "LaunchAgents"), { recursive: !0 }),
+      await I(m(k(), "Library", "LaunchAgents"), { recursive: true }),
         await D(
           s,
           `<?xml version="1.0" encoding="UTF-8"?>
@@ -86,15 +86,15 @@ ${c
           "utf8",
         );
     } catch (d) {
-      return { ok: !1, error: l(d), serviceId: i, servicePath: s };
+      return { ok: false, error: l(d), serviceId: i, servicePath: s };
     }
-    await $e("launchctl", ["bootout", g()], { useCwd: !1 });
-    let { code: f, stderr: p, error: P } = await $e("launchctl", ["bootstrap", y(), s], { useCwd: !1 });
-    if (f !== 0) return { ok: !1, error: p || P || "launchctl bootstrap failed", serviceId: i, servicePath: s };
-    return { ok: !0, serviceId: i, servicePath: s };
+    await $e("launchctl", ["bootout", g()], { useCwd: false });
+    let { code: f, stderr: p, error: P } = await $e("launchctl", ["bootstrap", y(), s], { useCwd: false });
+    if (f !== 0) return { ok: false, error: p || P || "launchctl bootstrap failed", serviceId: i, servicePath: s };
+    return { ok: true, serviceId: i, servicePath: s };
   }
   return {
-    ok: !1,
+    ok: false,
     error: `service install not available on ${"darwin"} \u2014 the daemon runs on demand instead`,
     serviceId: i,
     servicePath: "",
@@ -103,15 +103,15 @@ ${c
 async function MRe() {
   {
     let e = h();
-    await $e("launchctl", ["bootout", g()], { useCwd: !1 });
+    await $e("launchctl", ["bootout", g()], { useCwd: false });
     try {
       await C(e);
     } catch (t) {
-      if (!X(t)) return { ok: !1, error: l(t) };
+      if (!X(t)) return { ok: false, error: l(t) };
     }
-    return { ok: !0 };
+    return { ok: true };
   }
-  return { ok: !1, error: "service uninstall not available on darwin" };
+  return { ok: false, error: "service uninstall not available on darwin" };
 }
 async function qtt() {
   return S("start");
@@ -134,29 +134,29 @@ async function S(e) {
         r = ["kill", "SIGTERM", t];
         break;
       case "restart": {
-        await $e("launchctl", ["kill", "SIGTERM", t], { useCwd: !1 });
-        let s = !1;
+        await $e("launchctl", ["kill", "SIGTERM", t], { useCwd: false });
+        let s = false;
         for (let f = 0; f < 200; f++) {
-          let p = await $e("launchctl", ["print", t], { useCwd: !1 });
+          let p = await $e("launchctl", ["print", t], { useCwd: false });
           if (p.code !== 0 || !/^\s*pid = /m.test(p.stdout)) {
-            s = !0;
+            s = true;
             break;
           }
           await b(50);
         }
-        if (!s) return { ok: !1, error: "daemon did not exit within 10s of SIGTERM; restart aborted before kickstart" };
+        if (!s) return { ok: false, error: "daemon did not exit within 10s of SIGTERM; restart aborted before kickstart" };
         r = ["kickstart", t];
         break;
       }
     }
-    let { code: n, stderr: c, error: u } = await $e("launchctl", r, { useCwd: !1 });
+    let { code: n, stderr: c, error: u } = await $e("launchctl", r, { useCwd: false });
     if (n !== 0) {
-      if (e === "stop") return { ok: !0 };
-      return { ok: !1, error: c || u || `launchctl ${r[0]} failed` };
+      if (e === "stop") return { ok: true };
+      return { ok: false, error: c || u || `launchctl ${r[0]} failed` };
     }
-    return { ok: !0 };
+    return { ok: true };
   }
-  return { ok: !1, error: `service ${e} not available on ${"darwin"} \u2014 the daemon runs on demand instead` };
+  return { ok: false, error: `service ${e} not available on ${"darwin"} \u2014 the daemon runs on demand instead` };
 }
 async function _() {
   let e = h();
@@ -179,7 +179,7 @@ function w(e) {
   return e.replaceAll("&gt;", ">").replaceAll("&lt;", "<").replaceAll("&amp;", "&");
 }
 async function Gtt() {
-  let e = { execPathStale: !1, launcherPrefixDead: !1 },
+  let e = { execPathStale: false, launcherPrefixDead: false },
     t = await _();
   if (!t) return e;
   let r = t.lastIndexOf("daemon"),
@@ -188,21 +188,21 @@ async function Gtt() {
   try {
     await T(w(n));
   } catch {
-    e.execPathStale = !0;
+    e.execPathStale = true;
   }
   let c = t.slice(0, r - 1).map(w);
   for (let u of oyn(c))
     if (!(await ryn(u))) {
-      e.launcherPrefixDead = !0;
+      e.launcherPrefixDead = true;
       break;
     }
   return e;
 }
 async function aL() {
   {
-    let { code: e } = await $e("launchctl", ["print", g()], { useCwd: !1, timeout: 5000 });
+    let { code: e } = await $e("launchctl", ["print", g()], { useCwd: false, timeout: 5000 });
     return e === 0;
   }
-  return !1;
+  return false;
 }
 export { _Q, I7t, sBe, MRe, qtt, aBe, SLn, Gtt, aL };

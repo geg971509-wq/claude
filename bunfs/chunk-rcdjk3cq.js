@@ -41,7 +41,7 @@ async function Z({ getAccessToken: t, storageV5: i, credentials: e, presetOwner:
   let a = await tb(i),
     s,
     f = d,
-    c = !1;
+    c = false;
   if (o !== void 0) {
     s = { accountUuid: o.accountUuid, organizationUuid: o.organizationUuid || void 0 };
     let r = (await x(d)) ? "unknown" : await V(d);
@@ -77,11 +77,11 @@ async function Z({ getAccessToken: t, storageV5: i, credentials: e, presetOwner:
     );
   }
   function E(r) {
-    if (!p(r)) return !1;
+    if (!p(r)) return false;
     return (
       (s = { accountUuid: s.accountUuid, organizationUuid: s.organizationUuid ?? (r.organizationUuid || void 0) }),
-      (c = !0),
-      !0
+      (c = true),
+      true
     );
   }
   async function M() {
@@ -91,8 +91,8 @@ async function Z({ getAccessToken: t, storageV5: i, credentials: e, presetOwner:
       }),
       D,
     );
-    if (!r?.account_uuid) return !1;
-    return (s = { accountUuid: r.account_uuid, organizationUuid: r.organization_uuid || void 0 }), (c = !0), !0;
+    if (!r?.account_uuid) return false;
+    return (s = { accountUuid: r.account_uuid, organizationUuid: r.organization_uuid || void 0 }), (c = true), true;
   }
   async function V(r) {
     let u = await jt(
@@ -107,7 +107,7 @@ async function Z({ getAccessToken: t, storageV5: i, credentials: e, presetOwner:
     return (
       (s = { accountUuid: s.accountUuid, organizationUuid: s.organizationUuid ?? T.organizationUuid }),
       (f = r),
-      (c = !0),
+      (c = true),
       "owner"
     );
   }
@@ -116,10 +116,10 @@ async function Z({ getAccessToken: t, storageV5: i, credentials: e, presetOwner:
     return u?.accessToken === r && u.expiresAt !== null && u.expiresAt <= Date.now();
   }
   function B() {
-    if (!c && o !== void 0) return !0;
+    if (!c && o !== void 0) return true;
     if (!c) {
       let u = dO();
-      if (u !== void 0 && !E(u)) return !0;
+      if (u !== void 0 && !E(u)) return true;
     }
     let r = On();
     return Boolean(r?.accountUuid) && !p(r);
@@ -194,10 +194,10 @@ async function Z({ getAccessToken: t, storageV5: i, credentials: e, presetOwner:
       if (r?.fresh) {
         w = 0;
         let u = m;
-        if (u !== void 0) return u.then(() => N.confirmChanged({ fresh: !0 }));
+        if (u !== void 0) return u.then(() => N.confirmChanged({ fresh: true }));
       } else if (m === void 0 && Date.now() < w) return Promise.resolve(C);
       return (
-        (m ??= J(r?.fresh === !0).finally(() => {
+        (m ??= J(r?.fresh === true).finally(() => {
           m = void 0;
         })),
         m
@@ -248,15 +248,15 @@ function jnt(t) {
     burst: t?.burst ?? 3,
     refillMs: t?.refillMs ?? 1e4,
     retryMs: t?.retryMs ?? 60000,
-    isOwnTitle: t?.isOwnTitle ?? (() => !1),
+    isOwnTitle: t?.isOwnTitle ?? (() => false),
     onRemoteTitleAdopted: t?.onRemoteTitleAdopted ?? (() => {}),
   };
   return {
     update: (e, o, d) => ee(i, e, o, d),
     noteRemoteTitle: (e, o) => X(i, e, o),
     forget: (e) => re(i, e),
-    hasSent: (e, o) => i.entries.get(e)?.sentTitles.has(o) ?? !1,
-    isKnownTitle: (e, o) => i.entries.get(e)?.knownTitles.has(o) ?? !1,
+    hasSent: (e, o) => i.entries.get(e)?.sentTitles.has(o) ?? false,
+    isKnownTitle: (e, o) => i.entries.get(e)?.knownTitles.has(o) ?? false,
   };
 }
 function j(t, i) {
@@ -264,16 +264,16 @@ function j(t, i) {
   if (!e)
     (e = {
       lastSentTitle: void 0,
-      lastSentOk: !1,
+      lastSentOk: false,
       sentTitles: new Set(),
       knownTitles: new Set(),
       tokens: t.burst,
       refilledAt: Date.now(),
       pending: void 0,
-      inFlight: !1,
+      inFlight: false,
       timer: void 0,
       retryTimer: void 0,
-      sendingRetry: !1,
+      sendingRetry: false,
       suppressed: 0,
     }),
       t.entries.set(i, e);
@@ -288,7 +288,7 @@ function ee(t, i, e, o) {
       if (d.suppressed === 0) g("bridge_session_patch", "title_write_coalesced");
       d.suppressed += 1;
     }
-    R(d.pending?.waiters), (d.pending = { title: e, opts: o, waiters: s }), (d.sendingRetry = !1), P(t, i);
+    R(d.pending?.waiters), (d.pending = { title: e, opts: o, waiters: s }), (d.sendingRetry = false), P(t, i);
   });
 }
 function ne(t, i, e) {
@@ -309,24 +309,24 @@ function P(t, i) {
   }
   let { title: d, opts: a, waiters: s } = e.pending;
   if (((e.pending = void 0), Y(e, d, a) || (a?.shouldSend !== void 0 && !a.shouldSend()))) {
-    _(e), (e.sendingRetry = !1), (e.suppressed = 0), R(s);
+    _(e), (e.sendingRetry = false), (e.suppressed = 0), R(s);
     return;
   }
   (e.tokens = Math.max(0, e.tokens - 1)),
-    (e.inFlight = !0),
+    (e.inFlight = true),
     (e.lastSentTitle = d),
-    (e.lastSentOk = !1),
+    (e.lastSentOk = false),
     e.sentTitles.add(d),
     e.knownTitles.add(d),
     _(e);
   let f = e.sendingRetry;
-  if (((e.sendingRetry = !1), e.suppressed > 0))
+  if (((e.sendingRetry = false), e.suppressed > 0))
     n(`[bridge] title write: sending latest after coalescing ${e.suppressed} update(s)`), (e.suppressed = 0);
   wpn(i, d, a)
     .then(
       (c) => {
-        if (c === "landed") (e.lastSentTitle = d), (e.lastSentOk = !0);
-        else if (e.lastSentTitle === d) e.lastSentOk = !1;
+        if (c === "landed") (e.lastSentTitle = d), (e.lastSentOk = true);
+        else if (e.lastSentTitle === d) e.lastSentOk = false;
         if (t.entries.get(i) !== e) return;
         if (c === "failed" && !f && !e.retryTimer && !e.pending)
           (e.retryTimer = setTimeout(ie, t.retryMs, t, i, d, a)), e.retryTimer.unref?.();
@@ -336,7 +336,7 @@ function P(t, i) {
       },
     )
     .finally(() => {
-      (e.inFlight = !1), R(s), P(t, i);
+      (e.inFlight = false), R(s), P(t, i);
     });
 }
 function te(t, i) {
@@ -364,7 +364,7 @@ function ie(t, i, e, o) {
           t.onRemoteTitleAdopted(i, a.title);
         return;
       }
-      (d.pending = { title: e, opts: o, waiters: [] }), (d.sendingRetry = !0), P(t, i);
+      (d.pending = { title: e, opts: o, waiters: [] }), (d.sendingRetry = true), P(t, i);
     },
     (a) => {
       n(`[bridge] title write retry skipped: ${l(a)}`);
@@ -376,7 +376,7 @@ function G(t, i, e, o) {
 }
 function X(t, i, e) {
   let o = j(t, i);
-  (o.lastSentTitle = e), (o.lastSentOk = !0), o.knownTitles.add(e), _(o), F(o);
+  (o.lastSentTitle = e), (o.lastSentOk = true), o.knownTitles.add(e), _(o), F(o);
 }
 function re(t, i) {
   let e = t.entries.get(i);
@@ -385,7 +385,7 @@ function re(t, i) {
   _(e), F(e), t.entries.delete(i);
 }
 function F(t) {
-  R(t.pending?.waiters), (t.pending = void 0), (t.sendingRetry = !1), (t.suppressed = 0);
+  R(t.pending?.waiters), (t.pending = void 0), (t.sendingRetry = false), (t.suppressed = 0);
 }
 function _(t) {
   if (t.retryTimer) clearTimeout(t.retryTimer), (t.retryTimer = void 0);
@@ -394,8 +394,8 @@ function R(t) {
   for (let i of t ?? []) i();
 }
 function Y(t, i, e) {
-  if (t.lastSentTitle !== i) return !1;
-  if (t.inFlight || t.retryTimer !== void 0) return !0;
+  if (t.lastSentTitle !== i) return false;
+  if (t.inFlight || t.retryTimer !== void 0) return true;
   return t.lastSentOk && !e?.userInitiated;
 }
 export { kYt, HYt, iNn, jnt };

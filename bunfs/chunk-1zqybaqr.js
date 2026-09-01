@@ -191,7 +191,7 @@ function Re() {
     leases: new Map(),
     listeners: new Set(),
     pendingChanges: [],
-    delivering: !1,
+    delivering: false,
   };
 }
 function J(e) {
@@ -250,9 +250,9 @@ function K(e, r) {
   o.pop();
   let t = e.root;
   for (let i of o) {
-    if (t.kind !== "directory") return !0;
+    if (t.kind !== "directory") return true;
     let s = t.children.get(i);
-    if (s === void 0) return !1;
+    if (s === void 0) return false;
     t = s;
   }
   return t.kind !== "directory";
@@ -267,17 +267,17 @@ function Me(e, r) {
     r();
     return;
   }
-  e.delivering = !0;
+  e.delivering = true;
   try {
     r();
   } finally {
-    e.delivering = !1;
+    e.delivering = false;
   }
   Oe(e);
 }
 function Oe(e) {
   if (e.delivering) return;
-  e.delivering = !0;
+  e.delivering = true;
   let r = e.pendingChanges,
     o = 0;
   try {
@@ -291,7 +291,7 @@ function Oe(e) {
         }
     }
   } finally {
-    r.splice(0, o), (e.delivering = !1);
+    r.splice(0, o), (e.delivering = false);
   }
 }
 import { randomUUID as ue } from "crypto";
@@ -328,7 +328,7 @@ function U(e, r) {
   if (r.namespace !== "memory") return;
   let o = Jo(e, r),
     [, t, i, s] = DAt(o).hops.map((c) => Ie(c)),
-    d = uj({ namespace: "sessionLog", projectKey: r.projectKey, year: t, month: i, day: s }, Ie(o), !1);
+    d = uj({ namespace: "sessionLog", projectKey: r.projectKey, year: t, month: i, day: s }, Ie(o), false);
   return d?.kind === "key" && Ar(d.key) && Kn(d.key) === void 0 && Jo(e, d.key) === o ? d.key : void 0;
 }
 function le(e, r) {
@@ -374,7 +374,7 @@ function Le(e, r, o, t) {
     return y === void 0 ? P(Pr("invariant", { key: r, telemetryCode: "AckCount" })) : re({ items: y });
   }
   if (t?.precondition?.type === "ifExists") {
-    if (d === void 0 || (t.precondition.nonEmpty === !0 && I(d) === 0)) return P(Mi(r));
+    if (d === void 0 || (t.precondition.nonEmpty === true && I(d) === 0)) return P(Mi(r));
   }
   let c = [],
     a = [],
@@ -382,7 +382,7 @@ function Le(e, r, o, t) {
     l = W1e(r)?.framing === "text",
     f = Z(d),
     p = (y, h) => {
-      let B = { seq: f, recordId: h, offset: 0, length: y.byteLength, digest: Rw(y), tombstoned: !1, data: y };
+      let B = { seq: f, recordId: h, offset: 0, length: y.byteLength, digest: Rw(y), tombstoned: false, data: y };
       return (f += 1), u.add(h), a.push(B), B;
     };
   for (let y of o) {
@@ -454,7 +454,7 @@ function W(e, r) {
 function Ae(e, r) {
   for (;;) {
     let o = ue();
-    if (!r.has(o) && e?.byId.has(o) !== !0) return o;
+    if (!r.has(o) && e?.byId.has(o) !== true) return o;
   }
 }
 function Wr(e) {
@@ -488,7 +488,7 @@ function Ke(e, r, o) {
         endSeq: j(u),
         recordId: u.recordId,
         data: A(l ? u.data.subarray(0, c) : u.data),
-        ...(l && { truncated: !0 }),
+        ...(l && { truncated: true }),
         tombstoned: u.tombstoned,
       };
     });
@@ -512,7 +512,7 @@ function Ne(e, r, o) {
   let s = [],
     d = o.map((a) => {
       let u = i?.byId.get(a);
-      if (u !== void 0 && !u.tombstoned) (u.tombstoned = !0), s.push(a);
+      if (u !== void 0 && !u.tombstoned) (u.tombstoned = true), s.push(a);
       return { matched: u !== void 0 };
     });
   if (i !== void 0 && s.length > 0) {
@@ -560,13 +560,13 @@ function Ue(e, r, o) {
   if (t !== void 0) return P(t);
   let i = o?.precondition,
     s = k(e, r);
-  if (s === void 0) return i === void 0 ? re({ existed: !1 }) : P(Mi(r));
+  if (s === void 0) return i === void 0 ? re({ existed: false }) : P(Mi(r));
   if ("code" in s) return P(s);
   let d = N(s);
   if (i !== void 0 && i.version !== d) return P(hb(r, d));
   let { directory: c, name: a } = v(e.store, Jo(e.store.roots, r));
   if ((c?.children.delete(a), c !== void 0)) c.mtimeMs = e.clock.now();
-  return O(e.store, { kind: "deleted", key: r }, e.instanceId), re({ existed: !0 });
+  return O(e.store, { kind: "deleted", key: r }, e.instanceId), re({ existed: true });
 }
 function me(e, r) {
   let o = I(r);
@@ -666,7 +666,7 @@ function zr(e, r, o, t) {
     y = 0,
     h = Number.POSITIVE_INFINITY;
   if (o.length === 0 && d) {
-    for (let g of m.records) if (C(g) && !g.tombstoned) (g.tombstoned = !0), (h = Math.min(h, g.seq));
+    for (let g of m.records) if (C(g) && !g.tombstoned) (g.tombstoned = true), (h = Math.min(h, g.seq));
   } else {
     let g = m.records.filter((x) => x.seq < u);
     for (let x of m.records) if (x.seq >= u) h = Math.min(h, x.seq);
@@ -679,7 +679,7 @@ function zr(e, r, o, t) {
       let _ = x.data,
         Ee = we(Y);
       Y.add(Ee),
-        L.push({ seq: E, recordId: Ee, offset: 0, length: _.byteLength, digest: Rw(_), tombstoned: !1, data: _ }),
+        L.push({ seq: E, recordId: Ee, offset: 0, length: _.byteLength, digest: Rw(_), tombstoned: false, data: _ }),
         (y += _.byteLength),
         (E += 1);
     }
@@ -713,7 +713,7 @@ function G(e, r) {
     : e;
 }
 function Xr(e, r, o) {
-  if (r === 0 || r === o) return !0;
+  if (r === 0 || r === o) return true;
   return e !== void 0 && e.records.some((t) => t.seq === r || j(t) === r);
 }
 function ye(e, r, o) {
@@ -816,7 +816,7 @@ function ze(e, r, o, t) {
   let d = hAt(r);
   if (d !== void 0) return P(d);
   let c = Jr(r),
-    a = { target: r, onEvent: o, active: !0 };
+    a = { target: r, onEvent: o, active: true };
   if ((e.subscriptions.add(a), e.subscriptions.size === 1)) e.store.listeners.add(e.listener);
   if (c !== void 0) {
     let u = M(e.store, Jo(e.store.roots, c)),
@@ -824,7 +824,7 @@ function ze(e, r, o, t) {
       f =
         u?.kind === "value" && l !== void 0
           ? { kind: "snapshot", key: c, value: l, version: u.version, origin: "other" }
-          : { kind: "snapshot", key: c, absent: !0, origin: "other" };
+          : { kind: "snapshot", key: c, absent: true, origin: "other" };
     Me(e.store, () => Se(a, re(f)));
   }
   if (e.closed) return P(So());
@@ -846,10 +846,10 @@ function Xe(e, r, o) {
 function Ye(e) {
   let r = [...e.subscriptions];
   e.subscriptions.clear(), e.store.listeners.delete(e.listener);
-  for (let o of r) Se(o, P(So())), (o.active = !1);
+  for (let o of r) Se(o, P(So())), (o.active = false);
 }
 function Qr(e, r) {
-  if (((r.active = !1), e.subscriptions.delete(r), e.subscriptions.size === 0)) e.store.listeners.delete(e.listener);
+  if (((r.active = false), e.subscriptions.delete(r), e.subscriptions.size === 0)) e.store.listeners.delete(e.listener);
 }
 function Zr(e, r, o) {
   return r.target === "key" ? ld(r.key) === ld(o.key) : $oe(e.store.roots, r.scope, o.key);
@@ -904,7 +904,7 @@ function Ze(e, r, o, t) {
   if (Ar(o)) return P(w(o));
   let d = nr(e, r);
   if ("code" in d) return P(d);
-  if (t?.requireMode === !0 && (t.mode !== void 0 || t.exactMode !== void 0))
+  if (t?.requireMode === true && (t.mode !== void 0 || t.exactMode !== void 0))
     return P(Pr("environment", { key: o, telemetryCode: Sj }));
   if (t?.share === "require") return P(Pr("environment", { key: o, telemetryCode: uCt }));
   let c = ge(e, o, d, i, t?.parent);
@@ -936,7 +936,7 @@ function er(e, r, o, t) {
   if ((u.directory?.children.delete(u.name), u.directory !== void 0)) u.directory.mtimeMs = e.clock.now();
   return (
     O(e.store, [{ kind: "deleted", key: r }, a.value.change], e.instanceId),
-    re({ bytes: c.bytes.byteLength, version: a.value.version, atomic: !0 })
+    re({ bytes: c.bytes.byteLength, version: a.value.version, atomic: true })
   );
 }
 function ge(e, r, o, t, i) {
@@ -987,7 +987,7 @@ function nr(e, r, o = "ENXIO") {
 function rn(e, r, o, t) {
   let i = k(e, r);
   if (i === void 0 || "code" in i) return P(i ?? Mi(r));
-  if (t?.requireMode === !0 && (t.mode !== void 0 || t.exactMode !== void 0))
+  if (t?.requireMode === true && (t.mode !== void 0 || t.exactMode !== void 0))
     return P(Pr("environment", { key: o, telemetryCode: Sj }));
   let s = t?.precondition;
   if (!Ar(o)) {
@@ -1035,7 +1035,7 @@ function nn(e, r, o) {
   let c = v(e.store, Jo(e.store.roots, r));
   if ((c.directory?.children.delete(c.name), c.directory !== void 0)) c.directory.mtimeMs = e.clock.now();
   d.children.set(Je(i), t), (d.mtimeMs = e.clock.now());
-  let a = { bytes: I(t), atomic: !0 };
+  let a = { bytes: I(t), atomic: true };
   return (
     O(
       e.store,
@@ -1075,7 +1075,7 @@ function sr(e, r, o) {
         if (!OAt(a, l, p, d)) s.unrepresentable += 1;
         continue;
       }
-      if (m.kind === "key" && m.unlisted === !0) continue;
+      if (m.kind === "key" && m.unlisted === true) continue;
       if (!eFe(o?.suffix, sFe(m)) || !cn(m, l)) {
         s.unrepresentable += 1;
         continue;
@@ -1114,7 +1114,7 @@ function dr(e, r, o) {
       s.unrepresentable += 1;
       continue;
     }
-    u.push(cr(S.key, f, o?.includeValue === !0));
+    u.push(cr(S.key, f, o?.includeValue === true));
   }
   return re(Noe(tFe(u), o, s));
 }
@@ -1122,7 +1122,7 @@ function sn(e, r, o, t, i, s) {
   let d = [{ path: r, children: e.children.entries() }];
   for (let c = d.at(-1); c !== void 0; c = d.at(-1)) {
     let a = c.children.next();
-    if (a.done === !0) {
+    if (a.done === true) {
       d.pop();
       continue;
     }
@@ -1133,16 +1133,16 @@ function sn(e, r, o, t, i, s) {
     }
     let f = `${c.path}${q}${u}`;
     if (l.kind === "directory") d.push({ path: f, children: l.children.entries() });
-    else if ((t.push({ path: f, node: l }), t.length > s)) return !1;
+    else if ((t.push({ path: f, node: l }), t.length > s)) return false;
   }
-  return !0;
+  return true;
 }
 function dn(e, r, o) {
   if (e.kind === "scope")
-    return r.kind === "directory" && o?.skipScopeStats !== !0
+    return r.kind === "directory" && o?.skipScopeStats !== true
       ? { kind: "scope", scope: e.scope, entryCount: r.children.size, mtimeMs: r.mtimeMs }
       : { kind: "scope", scope: e.scope };
-  return r.kind === "directory" ? { kind: "key", key: e.key } : cr(e.key, r, o?.includeValue === !0);
+  return r.kind === "directory" ? { kind: "key", key: e.key } : cr(e.key, r, o?.includeValue === true);
 }
 function cr(e, r, o) {
   if (r.kind === "stream") return { kind: "key", key: e, size: I(r), mtimeMs: r.mtimeMs, createdMs: r.createdMs };
@@ -1354,9 +1354,9 @@ function fr(e, r, o, t) {
     f = l.directory?.children.get(l.name);
   if (f === void 0 || l.directory === void 0) return P(HFe(r));
   if (f.kind !== "directory") return u();
-  let p = t?.replace === !0,
+  let p = t?.replace === true,
     m = M(e.store, c);
-  if (m !== void 0 && !p) return m.kind === "directory" ? re({ published: !1, kept: "destination" }) : u();
+  if (m !== void 0 && !p) return m.kind === "directory" ? re({ published: false, kept: "destination" }) : u();
   let S = e.clock.now(),
     R = T(e.store, tn(c), S);
   if (R === void 0) return u();
@@ -1365,7 +1365,7 @@ function fr(e, r, o, t) {
     (l.directory.mtimeMs = S),
     R.children.set(on(c), f),
     (R.mtimeMs = S),
-    re({ published: !0, atomic: !0 })
+    re({ published: true, atomic: true })
   );
 }
 function tr(e, r) {
@@ -1392,13 +1392,13 @@ function mr(e, r, o) {
   )
     return P(Fe("scope", "the scope does not name one directory"));
   let a = M(e.store, d.directory);
-  if (a?.kind === "directory") return re({ created: !1 });
+  if (a?.kind === "directory") return re({ created: false });
   let u = Pr(XT("ENOTDIR"), { telemetryCode: "ENOTDIR" });
   if (a !== void 0) return P(u);
   if (o?.parent === "mustExist" && v(e.store, d.directory).directory === void 0)
     return P(Pr("unknown", { telemetryCode: Yoe }));
   if (K(e.store, d.directory)) return P(u);
-  return T(e.store, d.directory, e.clock.now()), re({ created: !0 });
+  return T(e.store, d.directory, e.clock.now()), re({ created: true });
 }
 import { createHash as fn } from "crypto";
 import { dirname as mn } from "path";
@@ -1415,7 +1415,7 @@ function gr(e, r, o, t) {
   let s = r.map((l, f) => nRn(e.store.roots, l, f)),
     d =
       s.find((l) => "code" in l) ??
-      (o?.hardened === !0 ? Kvn(s) : void 0) ??
+      (o?.hardened === true ? Kvn(s) : void 0) ??
       (o?.symlinks === "follow" ? Vvn(s) : void 0);
   if (d !== void 0) return P(d);
   for (let l of s) if (!("code" in l) && Ar(l.key) && l.kind !== "whole") return P(ukn(l.key));
@@ -1424,7 +1424,7 @@ function gr(e, r, o, t) {
   if (a !== void 0 && "code" in a) return P(a);
   let u = g$e(r, (l, f) => {
     let p = c[f];
-    return p === void 0 || "code" in p ? { found: !1 } : p;
+    return p === void 0 || "code" in p ? { found: false } : p;
   });
   return re({ items: u });
 }
@@ -1432,10 +1432,10 @@ function pn(e, r, o) {
   let { key: t } = r;
   if (Ar(t)) {
     let l = k(e, t);
-    if (l === void 0) return { found: !1 };
+    if (l === void 0) return { found: false };
     let f = "code" in l ? l : me(t, l);
     if ("code" in f) return f;
-    return { found: !0, value: o(f.bytes), version: f.version, totalBytes: f.bytes.byteLength, mtimeMs: f.mtimeMs };
+    return { found: true, value: o(f.bytes), version: f.version, totalBytes: f.bytes.byteLength, mtimeMs: f.mtimeMs };
   }
   if (vJe(t)) return bj(t);
   if (r.kind !== "whole" && M(e.store, Jo(e.store.roots, t))?.kind === "stream") {
@@ -1443,12 +1443,12 @@ function pn(e, r, o) {
     return l === void 0 ? Pr("invariant", { key: t, telemetryCode: "StreamWithoutFace" }) : ukn(l);
   }
   let i = hr(e, t);
-  if (i === void 0) return { found: !1 };
+  if (i === void 0) return { found: false };
   if ("code" in i) return i;
   let { bytes: s, version: d, mtimeMs: c } = i,
     { start: a, end: u } = r.kind === "whole" ? { start: 0, end: s.byteLength } : PCe(r, s.byteLength);
   if (u - a > Sh) return ve(t);
-  return { found: !0, value: o(s.subarray(a, u)), version: d, totalBytes: s.byteLength, mtimeMs: c };
+  return { found: true, value: o(s.subarray(a, u)), version: d, totalBytes: s.byteLength, mtimeMs: c };
 }
 function hr(e, r) {
   let o = ie(e, r);
@@ -1548,7 +1548,7 @@ function Or(e, r, o, t) {
   if (i !== void 0) return P(i);
   let s = Er(e, r);
   if ("code" in s) return P(s);
-  return t.requireMode === !0 ? P(Pr("environment", { key: r, telemetryCode: Sj })) : re({ applied: !1 });
+  return t.requireMode === true ? P(Pr("environment", { key: r, telemetryCode: Sj })) : re({ applied: false });
 }
 function Ir(e, r, o, t) {
   if (e.closed) return P(So());
@@ -1630,7 +1630,7 @@ async function Cr(e, r, o, t) {
   try {
     let a = pr(e, r, s, t.parent);
     if (a !== void 0) return P(a);
-    if (t.requireMode === !0 && t.mode !== void 0) return P(Pr("environment", { key: r, telemetryCode: Sj }));
+    if (t.requireMode === true && t.mode !== void 0) return P(Pr("environment", { key: r, telemetryCode: Sj }));
     let u = await gn(o, t.maxBytes);
     if (!u.ok)
       return P(Pr(ZJe(u.code), { key: r, telemetryCode: u.code, ...(u.cause !== void 0 && { cause: u.cause }) }));
@@ -1657,9 +1657,9 @@ async function Sn(e, r, o) {
     if (
       (a > 0 &&
         (await jt(
-          c.then(() => !0),
+          c.then(() => true),
           a,
-        ))) !== !0
+        ))) !== true
     )
       return tc("unknown", { key: r, telemetryCode: "LockContended" });
     if (e.closed) return So();
@@ -1683,7 +1683,7 @@ async function gn(e, r) {
   try {
     o = e[Symbol.asyncIterator]();
   } catch (d) {
-    return { ok: !1, code: sve, cause: d };
+    return { ok: false, code: sve, cause: d };
   }
   let t = async () => {
       try {
@@ -1695,12 +1695,12 @@ async function gn(e, r) {
   try {
     for (;;) {
       let d = await o.next();
-      if (d.done === !0) break;
+      if (d.done === true) break;
       let c = d.value;
       if (!(c instanceof Uint8Array))
-        return await t(), { ok: !1, code: sve, cause: TypeError("the stream yielded something other than bytes") };
+        return await t(), { ok: false, code: sve, cause: TypeError("the stream yielded something other than bytes") };
       let a = s + c.byteLength;
-      if (a > r) return await t(), { ok: !1, code: Lfe };
+      if (a > r) return await t(), { ok: false, code: Lfe };
       if (a > i.byteLength) {
         let u = new Uint8Array(Math.min(r, Math.max(a, i.byteLength * 2)));
         u.set(i.subarray(0, s)), (i = u);
@@ -1708,9 +1708,9 @@ async function gn(e, r) {
       i.set(c, s), (s = a);
     }
   } catch (d) {
-    return { ok: !1, code: sve, cause: d };
+    return { ok: false, code: sve, cause: d };
   }
-  return { ok: !0, bytes: s === i.byteLength ? i : i.slice(0, s) };
+  return { ok: true, bytes: s === i.byteLength ? i : i.slice(0, s) };
 }
 function Lr(e, r, o, t) {
   return Kr(e, r, o, t, A);
@@ -1743,13 +1743,13 @@ function Kr(e, r, o, t, i) {
     if (!("write" in u))
       return re(
         c === void 0
-          ? { written: !1, found: !1, result: u.result }
-          : { written: !1, found: !0, version: c.version, mtimeMs: c.mtimeMs, result: u.result },
+          ? { written: false, found: false, result: u.result }
+          : { written: false, found: true, version: c.version, mtimeMs: c.mtimeMs, result: u.result },
       );
     let l = te(e, r, t?.parent);
     if ("code" in l) return P(l);
     let f = Br(e, r, F(u.write), l);
-    return f.ok ? re({ written: !0, version: f.value.version, result: u.result }) : P(Fzt(f.error));
+    return f.ok ? re({ written: true, version: f.value.version, result: u.result }) : P(Fzt(f.error));
   }
 }
 function Vr(e, r, o) {
@@ -1761,17 +1761,17 @@ function Vr(e, r, o) {
   let { directory: i, name: s } = v(e.store, Jo(e.store.roots, r)),
     d = i?.children.get(s),
     c = o?.precondition;
-  if (d === void 0 || i === void 0) return c === void 0 ? re({ existed: !1 }) : P(Mi(r));
+  if (d === void 0 || i === void 0) return c === void 0 ? re({ existed: false }) : P(Mi(r));
   if (d.kind !== "value") return P(d.kind === "stream" ? w(r) : D(r, c === void 0 ? "EISDIR" : "ENXIO"));
   if (c !== void 0 && d.version !== c.version) return P(hb(r, d.version));
   return (
     i.children.delete(s),
     (i.mtimeMs = e.clock.now()),
     O(e.store, { kind: "deleted", key: r }, e.instanceId),
-    re({ existed: !0 })
+    re({ existed: true })
   );
 }
-var En = { home: !1, workspace: !1, system: !1, userNamed: !1 },
+var En = { home: false, workspace: false, system: false, userNamed: false },
   bn = 1048576,
   Nr = { debug: xRn, telemetry: bn, apiDump: 0 };
 function kn(e) {
@@ -1796,7 +1796,7 @@ function Nt(e = {}) {
     subscriptions: new Set(),
     listener: (o, t) => Xe(r, o, t),
     logBudgets: Rn(e.logBudgetBytes),
-    closed: !1,
+    closed: false,
   };
   return {
     read: async (o, t) => yr(r, o, t),
@@ -1854,7 +1854,7 @@ function Mn(e, r) {
   );
 }
 function On(e) {
-  if (!e.closed) (e.closed = !0), Ye(e);
+  if (!e.closed) (e.closed = true), Ye(e);
   return re(void 0);
 }
 export { bn as TELEMETRY_LOG_BUDGET_BYTES, Nt as createMemoryBackend };

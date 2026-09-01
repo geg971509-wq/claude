@@ -177,7 +177,7 @@ function R({
   sessionId: m,
   gitRoot: w,
   boundToThisMachine: d,
-  hostConsented: u = !1,
+  hostConsented: u = false,
   createFacts: s,
   credentials: a,
   registry: f,
@@ -235,7 +235,7 @@ function R({
               ? _7n(t.reason, t.line)
               : t.kind === "off"
                 ? S7n(t.withholdFirstSend)
-                : t.silent === !0
+                : t.silent === true
                   ? y7n(t.reason, t.line, t.withholdFirstSend)
                   : tht(r.publish, t.reason, t.line, t.level),
       ...(s !== void 0 && { createFacts: s }),
@@ -269,8 +269,8 @@ var ge = [
 ];
 function C(m, w, d, u) {
   let s = null,
-    a = !1,
-    f = !1,
+    a = false,
+    f = false,
     i = new Set(),
     t = null,
     S = jt(w, L).then(
@@ -285,7 +285,7 @@ function C(m, w, d, u) {
           );
         if (e === void 0)
           return (
-            (a = !0),
+            (a = true),
             p("ccr_dir_sync_pull", `${d}_engine_open_timeout`),
             m("File sync could not start for this session: its engine did not open in time", "warning"),
             w.then(
@@ -297,7 +297,7 @@ function C(m, w, d, u) {
         return (s = e), y("ccr_dir_sync_pull", { engine: c(d) }), e;
       },
       (e) => (
-        (a = !0),
+        (a = true),
         h(e),
         p("ccr_dir_sync_pull", `${d}_engine_open_failed`),
         m("File sync could not start for this session: its engine failed to open", "warning"),
@@ -336,18 +336,18 @@ function C(m, w, d, u) {
       if (await nmn(e.released, e.withdrawn)) return;
       if (o !== null) return o.seedGate?.(e);
       let k = Date.now();
-      if (!f && u !== void 0 && (t === null || k - t < fOe)) return (t ??= k), { go: !1, reason: u.reason };
+      if (!f && u !== void 0 && (t === null || k - t < fOe)) return (t ??= k), { go: false, reason: u.reason };
       return;
     },
     onOffline: (e) => {
       let o = null,
-        k = !1;
+        k = false;
       return (
         r((b) => {
           if (!k) o = b.onOffline?.(e) ?? null;
         }),
         () => {
-          (k = !0), o?.();
+          (k = true), o?.();
         }
       );
     },
@@ -376,13 +376,13 @@ function C(m, w, d, u) {
       s !== null && !f && s.capturePoint !== void 0 ? s.capturePoint(e) : { kind: "not_running" },
     drain: async (e) => {
       let o = Date.now();
-      return (await (await D(e))?.drain(Math.max(0, e - (Date.now() - o)))) ?? !1;
+      return (await (await D(e))?.drain(Math.max(0, e - (Date.now() - o)))) ?? false;
     },
     shutdown: async (e) => {
       let o = e ?? xVe,
         k = Date.now(),
         b = s !== null;
-      f = !0;
+      f = true;
       let F = await D(o);
       if (b) await F?.shutdown(Math.max(0, o - (Date.now() - k)));
     },
@@ -414,7 +414,7 @@ async function we(m, { boundToThisMachine: w, credentials: d, host: u, storageV5
     R({
       sessionId: a,
       gitRoot: _,
-      boundToThisMachine: Promise.resolve(!1),
+      boundToThisMachine: Promise.resolve(false),
       createFacts: void 0,
       credentials: d,
       engine: { kind: "stopped", reason: "engine_declined", line: u7n, level: "info" },
@@ -428,7 +428,7 @@ async function we(m, { boundToThisMachine: w, credentials: d, host: u, storageV5
       ? R({
           sessionId: a,
           gitRoot: _,
-          boundToThisMachine: E.record.uploadOnly === !0 ? Promise.resolve(!1) : w,
+          boundToThisMachine: E.record.uploadOnly === true ? Promise.resolve(false) : w,
           createFacts: void 0,
           credentials: d,
           engine: {
@@ -446,7 +446,7 @@ async function we(m, { boundToThisMachine: w, credentials: d, host: u, storageV5
       R({
         sessionId: a,
         gitRoot: _,
-        boundToThisMachine: Promise.resolve(!1),
+        boundToThisMachine: Promise.resolve(false),
         createFacts: void 0,
         credentials: d,
         engine: { kind: "stopped", reason: "engine_unsupported", line: eht },
@@ -460,7 +460,7 @@ async function we(m, { boundToThisMachine: w, credentials: d, host: u, storageV5
       ? R({
           sessionId: a,
           gitRoot: _,
-          boundToThisMachine: Promise.resolve(!1),
+          boundToThisMachine: Promise.resolve(false),
           createFacts: void 0,
           credentials: d,
           engine: { kind: "stopped", reason: "store_unreadable", line: IVe },
@@ -473,13 +473,13 @@ async function we(m, { boundToThisMachine: w, credentials: d, host: u, storageV5
     return R({
       sessionId: a,
       gitRoot: _,
-      boundToThisMachine: E.record.uploadOnly === !0 ? Promise.resolve(!1) : w,
+      boundToThisMachine: E.record.uploadOnly === true ? Promise.resolve(false) : w,
       createFacts: void 0,
       credentials: d,
       engine: {
         kind: "git",
         start: E.record.start,
-        uploadAtOpen: !1,
+        uploadAtOpen: false,
         ...(E.record.ended !== void 0 && { endedEarlier: E.record.ended }),
       },
       registry: wue.of(u),
@@ -490,7 +490,7 @@ async function we(m, { boundToThisMachine: w, credentials: d, host: u, storageV5
     R({
       sessionId: a,
       gitRoot: _,
-      boundToThisMachine: Promise.resolve(!1),
+      boundToThisMachine: Promise.resolve(false),
       createFacts: void 0,
       credentials: d,
       engine: { kind: "stopped", reason: "store_unreadable", line: IVe },
@@ -517,9 +517,9 @@ async function _e(m, w) {
     t = vDt(d);
   try {
     if (await $a(f)) return;
-    let S = (await N(i, { withFileTypes: !0 })).filter((r) => r.isDirectory()).slice(0, v);
+    let S = (await N(i, { withFileTypes: true })).filter((r) => r.isDirectory()).slice(0, v);
     for (let r = 0; r < S.length; r += P)
-      if ((await Promise.all(S.slice(r, r + P).map((_) => $a(M(i, _.name, t))))).includes(!0)) return a();
+      if ((await Promise.all(S.slice(r, r + P).map((_) => $a(M(i, _.name, t))))).includes(true)) return a();
   } catch (S) {
     if (!X(S)) n(`[dirSync] looking for this session's base elsewhere failed: ${l(S)}`, { level: "warn" });
   }
@@ -529,23 +529,23 @@ async function x(m, w, d) {
   try {
     return await B(m, w, d);
   } catch (u) {
-    return n(`[dirSync] looking for this session's base elsewhere failed: ${l(u)}`, { level: "warn" }), !1;
+    return n(`[dirSync] looking for this session's base elsewhere failed: ${l(u)}`, { level: "warn" }), false;
   }
 }
 async function B(m, w, d) {
   let u = await Tae(w, d, m);
   if (u.v5 === void 0) {
-    if (await $a(u.path)) return !1;
+    if (await $a(u.path)) return false;
   } else {
     let i = await m.statMeta(u.v5.key);
-    if (i.ok || i.error.code !== "NotFound") return !1;
+    if (i.ok || i.error.code !== "NotFound") return false;
   }
   let s = [],
     a;
   do {
-    let i = await m.listEntries({ namespace: "transcript" }, { cursor: a, skipScopeStats: !0, skipKeyStats: !0 });
+    let i = await m.listEntries({ namespace: "transcript" }, { cursor: a, skipScopeStats: true, skipKeyStats: true });
     if (!i.ok)
-      return n(`[dirSync] looking for this session's base elsewhere failed: ${Ge(i.error)}`, { level: "warn" }), !1;
+      return n(`[dirSync] looking for this session's base elsewhere failed: ${Ge(i.error)}`, { level: "warn" }), false;
     for (let t of i.value.items)
       if (t.kind === "scope" && t.scope.namespace === "transcript") {
         let S = t.scope.projectKey;
@@ -563,10 +563,10 @@ async function B(m, w, d) {
             return r !== void 0 && (await m.statMeta(r)).ok;
           }),
         )
-      ).includes(!0)
+      ).includes(true)
     )
-      return !0;
-  return !1;
+      return true;
+  return false;
 }
 export {
   L as ENGINE_OPEN_GIVE_UP_MS,

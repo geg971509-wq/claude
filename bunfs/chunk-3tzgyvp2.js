@@ -23,7 +23,7 @@ var su = S(function (Xe) {
             var o = Object.getOwnPropertyDescriptor(t, r);
             if (!o || ("get" in o ? !t.__esModule : o.writable || o.configurable))
               o = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -38,7 +38,7 @@ var su = S(function (Xe) {
       (Xe && Xe.__setModuleDefault) ||
       (Object.create
         ? function (e, t) {
-            Object.defineProperty(e, "default", { enumerable: !0, value: t });
+            Object.defineProperty(e, "default", { enumerable: true, value: t });
           }
         : function (e, t) {
             e.default = t;
@@ -58,7 +58,7 @@ var su = S(function (Xe) {
       function (e) {
         return e && e.__esModule ? e : { default: e };
       };
-  Object.defineProperty(Xe, "__esModule", { value: !0 });
+  Object.defineProperty(Xe, "__esModule", { value: true });
   Xe.HttpProxyAgent = void 0;
   var bp = iu(ue("net")),
     Op = iu(ue("tls")),
@@ -132,12 +132,12 @@ var su = S(function (Xe) {
   }
 });
 var Hu = S(function (Uu) {
-  Object.defineProperty(Uu, "__esModule", { value: !0 });
+  Object.defineProperty(Uu, "__esModule", { value: true });
   Uu.state = void 0;
   Uu.state = { instrumenterImplementation: void 0 };
 });
 var Wu = S(function (Vu) {
-  Object.defineProperty(Vu, "__esModule", { value: !0 });
+  Object.defineProperty(Vu, "__esModule", { value: true });
   Vu.state = void 0;
   Vu.state = { operationRequestMap: new WeakMap() };
 });
@@ -153,7 +153,7 @@ var Dl = S(function (AH, rf) {
         var o = JSON.parse(n);
         if (o !== null && typeof o === "object") n = o;
       } catch (i) {}
-    if (t.complete === !0) return { header: r.header, payload: n, signature: r.signature };
+    if (t.complete === true) return { header: r.header, payload: n, signature: r.signature };
     return n;
   };
 });
@@ -286,7 +286,7 @@ var Tf = S(function (OH, yf) {
     if (s.length !== 3) return o(new Z("jwt malformed"));
     let a;
     try {
-      a = AT(e, { complete: !0 });
+      a = AT(e, { complete: true });
     } catch (d) {
       return o(d);
     }
@@ -384,7 +384,7 @@ var Tf = S(function (OH, yf) {
           );
         if (i >= T + (r.clockTolerance || 0)) return o(new gf("maxAge exceeded", new Date(T * 1000)));
       }
-      if (r.complete === !0) {
+      if (r.complete === true) {
         let T = a.signature;
         return o(null, { header: c, payload: y, signature: T });
       }
@@ -548,7 +548,7 @@ var wf = S(function (NH, Rf) {
     gC = Object.prototype,
     yC = gC.toString;
   function TC(e) {
-    return e === !0 || e === !1 || (CC(e) && yC.call(e) == pC);
+    return e === true || e === false || (CC(e) && yC.call(e) == pC);
   }
   function CC(e) {
     return !!e && typeof e == "object";
@@ -622,7 +622,7 @@ var xf = S(function (MH, Nf) {
 var Lf = S(function (DH, Uf) {
   var $C = "[object Object]";
   function zC(e) {
-    var t = !1;
+    var t = false;
     if (e != null && typeof e.toString != "function")
       try {
         t = !!(e + "");
@@ -645,9 +645,9 @@ var Lf = S(function (DH, Uf) {
     return !!e && typeof e == "object";
   }
   function WC(e) {
-    if (!YC(e) || KC.call(e) != $C || zC(e)) return !1;
+    if (!YC(e) || KC.call(e) != $C || zC(e)) return false;
     var t = VC(e);
-    if (t === null) return !0;
+    if (t === null) return true;
     var r = qC.call(t, "constructor") && t.constructor;
     return typeof r == "function" && r instanceof r && Df.call(r) == jC;
   }
@@ -794,10 +794,10 @@ var Zf = S(function (HH, Xf) {
     });
   }
   function kE(e) {
-    return Jf(wE, !1, e, "options");
+    return Jf(wE, false, e, "options");
   }
   function bE(e) {
-    return Jf(vE, !0, e, "payload");
+    return Jf(vE, true, e, "payload");
   }
   var Yf = { audience: "aud", issuer: "iss", subject: "sub", jwtid: "jti" },
     OE = ["expiresIn", "notBefore", "noTimestamp", "audience", "issuer", "subject", "jwtid"];
@@ -957,12 +957,12 @@ function Hm(e) {
     cache: {},
     broker: {
       isEnabled:
-        (r = (t = e.brokerOptions) === null || t === void 0 ? void 0 : t.enabled) !== null && r !== void 0 ? r : !1,
+        (r = (t = e.brokerOptions) === null || t === void 0 ? void 0 : t.enabled) !== null && r !== void 0 ? r : false,
       enableMsaPassthrough:
         (o = (n = e.brokerOptions) === null || n === void 0 ? void 0 : n.legacyEnableMsaPassthrough) !== null &&
         o !== void 0
           ? o
-          : !1,
+          : false,
       parentWindowHandle: (i = e.brokerOptions) === null || i === void 0 ? void 0 : i.parentWindowHandle,
     },
   };
@@ -1018,10 +1018,10 @@ function Ta(e) {
   for (let n of xi) n.enabled = Ca(n.namespace);
 }
 function Ca(e) {
-  if (e.endsWith("*")) return !0;
-  for (let t of ya) if (t.test(e)) return !1;
-  for (let t of ga) if (t.test(e)) return !0;
-  return !1;
+  if (e.endsWith("*")) return true;
+  for (let t of ya) if (t.test(e)) return false;
+  for (let t of ga) if (t.test(e)) return true;
+  return false;
 }
 function zm() {
   let e = Rd || "";
@@ -1038,8 +1038,8 @@ function vd(e) {
 }
 function Bm() {
   let e = xi.indexOf(this);
-  if (e >= 0) return xi.splice(e, 1), !0;
-  return !1;
+  if (e >= 0) return xi.splice(e, 1), true;
+  return false;
 }
 function Gm(e) {
   let t = vd(`${this.namespace}:${e}`);
@@ -1291,7 +1291,7 @@ class Ud {
     return t;
   }
   toString() {
-    return JSON.stringify(this.toJSON({ preserveCase: !0 }));
+    return JSON.stringify(this.toJSON({ preserveCase: true }));
   }
   [Symbol.iterator]() {
     return Km(this._headersMap);
@@ -1321,16 +1321,16 @@ class Ld {
       (this.timeout = (n = e.timeout) !== null && n !== void 0 ? n : 0),
       (this.multipartBody = e.multipartBody),
       (this.formData = e.formData),
-      (this.disableKeepAlive = (o = e.disableKeepAlive) !== null && o !== void 0 ? o : !1),
+      (this.disableKeepAlive = (o = e.disableKeepAlive) !== null && o !== void 0 ? o : false),
       (this.proxySettings = e.proxySettings),
       (this.streamResponseStatusCodes = e.streamResponseStatusCodes),
-      (this.withCredentials = (i = e.withCredentials) !== null && i !== void 0 ? i : !1),
+      (this.withCredentials = (i = e.withCredentials) !== null && i !== void 0 ? i : false),
       (this.abortSignal = e.abortSignal),
       (this.onUploadProgress = e.onUploadProgress),
       (this.onDownloadProgress = e.onDownloadProgress),
       (this.requestId = e.requestId || Zn()),
-      (this.allowInsecureConnection = (s = e.allowInsecureConnection) !== null && s !== void 0 ? s : !1),
-      (this.enableBrowserStreams = (a = e.enableBrowserStreams) !== null && a !== void 0 ? a : !1),
+      (this.allowInsecureConnection = (s = e.allowInsecureConnection) !== null && s !== void 0 ? s : false),
+      (this.enableBrowserStreams = (a = e.enableBrowserStreams) !== null && a !== void 0 ? a : false),
       (this.requestOverrides = e.requestOverrides),
       (this.authSchemes = e.authSchemes);
   }
@@ -1357,8 +1357,8 @@ class zi {
     return (
       (this._policies = this._policies.filter((r) => {
         if ((e.name && r.policy.name === e.name) || (e.phase && r.options.phase === e.phase))
-          return t.push(r.policy), !1;
-        else return !0;
+          return t.push(r.policy), false;
+        else return true;
       })),
       (this._orderedPolicies = void 0),
       t
@@ -1384,7 +1384,7 @@ class zi {
     let e = [],
       t = new Map();
     function r(p) {
-      return { name: p, policies: new Set(), hasRun: !1, hasAfterPolicies: !1 };
+      return { name: p, policies: new Set(), hasRun: false, hasAfterPolicies: false };
     }
     let n = r("Serialize"),
       o = r("None"),
@@ -1404,7 +1404,7 @@ class zi {
         R = y.name;
       if (t.has(R)) throw Error("Duplicate policy names not allowed in pipeline");
       let b = { policy: y, dependsOn: new Set(), dependants: new Set() };
-      if (T.afterPhase) (b.afterPhase = l(T.afterPhase)), (b.afterPhase.hasAfterPolicies = !0);
+      if (T.afterPhase) (b.afterPhase = l(T.afterPhase)), (b.afterPhase.hasAfterPolicies = true);
       t.set(R, b), l(T.phase).policies.add(b);
     }
     for (let p of this._policies) {
@@ -1424,7 +1424,7 @@ class zi {
         }
     }
     function d(p) {
-      p.hasRun = !0;
+      p.hasRun = true;
       for (let y of p.policies) {
         if (y.afterPhase && (!y.afterPhase.hasRun || y.afterPhase.policies.size)) continue;
         if (y.dependsOn.size === 0) {
@@ -1464,7 +1464,7 @@ function gr(e) {
       r = typeof e.message === "string";
     return t && r;
   }
-  return !1;
+  return false;
 }
 import { inspect as Wm } from "util";
 var Fd = Wm.custom;
@@ -1569,12 +1569,12 @@ class De extends Error {
     (this.name = "RestError"),
       (this.code = t.code),
       (this.statusCode = t.statusCode),
-      Object.defineProperty(this, "request", { value: t.request, enumerable: !1 }),
-      Object.defineProperty(this, "response", { value: t.response, enumerable: !1 }),
+      Object.defineProperty(this, "request", { value: t.request, enumerable: false }),
+      Object.defineProperty(this, "response", { value: t.response, enumerable: false }),
       Object.defineProperty(this, Fd, {
         value: () => `RestError: ${this.message} 
  ${Xm.sanitize(Object.assign(Object.assign({}, this), { request: this.request, response: this.response }))}`,
-        enumerable: !1,
+        enumerable: false,
       }),
       Object.setPrototypeOf(this, De.prototype);
   }
@@ -1582,7 +1582,7 @@ class De extends Error {
 De.REQUEST_SEND_ERROR = "REQUEST_SEND_ERROR";
 De.PARSE_ERROR = "PARSE_ERROR";
 function wa(e) {
-  if (e instanceof De) return !0;
+  if (e instanceof De) return true;
   return gr(e) && e.name === "RestError";
 }
 import * as In from "http";
@@ -1601,7 +1601,7 @@ function to(e) {
   return e && typeof e.pipe === "function";
 }
 function $d(e) {
-  if (e.readable === !1) return Promise.resolve();
+  if (e.readable === false) return Promise.resolve();
   return new Promise((t) => {
     let r = () => {
       t(), e.removeListener("close", r), e.removeListener("end", r), e.removeListener("error", r);
@@ -1724,7 +1724,7 @@ class Bd {
           path: `${o.pathname}${o.search}`,
           port: o.port,
           method: e.method,
-          headers: e.headers.toJSON({ preserveCase: !0 }),
+          headers: e.headers.toJSON({ preserveCase: true }),
         },
         e.requestOverrides,
       );
@@ -1754,7 +1754,7 @@ class Bd {
     let n = e.disableKeepAlive;
     if (t) {
       if (n) return In.globalAgent;
-      if (!this.cachedHttpAgent) this.cachedHttpAgent = new In.Agent({ keepAlive: !0 });
+      if (!this.cachedHttpAgent) this.cachedHttpAgent = new In.Agent({ keepAlive: true });
       return this.cachedHttpAgent;
     } else {
       if (n && !e.tlsSettings) return _n.globalAgent;
@@ -1918,7 +1918,7 @@ function Yd() {
     name: "throttlingRetryStrategy",
     retry({ response: e }) {
       let t = Kd(e);
-      if (!Number.isFinite(t)) return { skipStrategy: !0 };
+      if (!Number.isFinite(t)) return { skipStrategy: true };
       return { retryAfterInMs: t };
     },
   };
@@ -1936,7 +1936,7 @@ function Wd(e = {}) {
         l = c && e.ignoreSystemErrors,
         d = lp(s),
         u = d && e.ignoreHttpStatusCodes;
-      if ((s && (Vd(s) || !d)) || u || l) return { skipStrategy: !0 };
+      if ((s && (Vd(s) || !d)) || u || l) return { skipStrategy: true };
       if (a && !c && !d) return { errorToThrow: a };
       return no(i, { retryDelayInMs: n, maxRetryDelayInMs: o });
     },
@@ -1948,7 +1948,7 @@ function lp(e) {
   );
 }
 function dp(e) {
-  if (!e) return !1;
+  if (!e) return false;
   return (
     e.code === "ETIMEDOUT" ||
     e.code === "ESOCKETTIMEDOUT" ||
@@ -1970,7 +1970,7 @@ function io(e, t = { maxRetries: oo }) {
       let a,
         c,
         l = -1;
-      e: while (!0) {
+      e: while (true) {
         (l += 1), (a = void 0), (c = void 0);
         try {
           r.info(`Retry ${l}: Attempting to send request`, n.requestId),
@@ -2127,7 +2127,7 @@ function tu() {
   return hCn(this, arguments, function* () {
     let t = this.getReader();
     try {
-      while (!0) {
+      while (true) {
         let { done: r, value: n } = yield y1e(t.read());
         if (r) return yield y1e(void 0);
         yield yield y1e(n);
@@ -2159,8 +2159,8 @@ async function nu(e) {
           var r, n, o, i;
           for (let l of t)
             try {
-              for (var s = !0, a = ((n = void 0), Mir(l)), c; (c = yield y1e(a.next())), (r = c.done), !r; s = !0)
-                (i = c.value), (s = !1), yield yield y1e(i);
+              for (var s = true, a = ((n = void 0), Mir(l)), c; (c = yield y1e(a.next())), (r = c.done), !r; s = true)
+                (i = c.value), (s = false), yield yield y1e(i);
             } catch (d) {
               n = { error: d };
             } finally {
@@ -2272,7 +2272,7 @@ var Dp = "HTTPS_PROXY",
   Hp = "NO_PROXY",
   Ka = "proxyPolicy",
   au = [],
-  hu = !1,
+  hu = false,
   Fp = new Map();
 function ji(e) {
   if (process.env[e]) return process.env[e];
@@ -2287,20 +2287,20 @@ function $p() {
   return e || t || r;
 }
 function zp(e, t, r) {
-  if (t.length === 0) return !1;
+  if (t.length === 0) return false;
   let n = new URL(e).hostname;
   if (r === null || r === void 0 ? void 0 : r.has(n)) return r.get(n);
-  let o = !1;
+  let o = false;
   for (let i of t)
     if (i[0] === ".") {
-      if (n.endsWith(i)) o = !0;
-      else if (n.length === i.length - 1 && n === i.slice(1)) o = !0;
-    } else if (n === i) o = !0;
+      if (n.endsWith(i)) o = true;
+      else if (n.length === i.length - 1 && n === i.slice(1)) o = true;
+    } else if (n === i) o = true;
   return r === null || r === void 0 || r.set(n, o), o;
 }
 function Bp() {
   let e = ji(Hp);
-  if (((hu = !0), e))
+  if (((hu = true), e))
     return e
       .split(",")
       .map((t) => t.trim())
@@ -2594,7 +2594,7 @@ var Fu = j(Hu(), 1),
 function eg() {
   return {
     end: () => {},
-    isRecording: () => !1,
+    isRecording: () => false,
     recordException: () => {},
     setAttribute: () => {},
     setStatus: () => {},
@@ -2744,9 +2744,9 @@ function Xi(e) {
   if (e instanceof AbortSignal) return { abortSignal: e };
   if (e.aborted) return { abortSignal: AbortSignal.abort(e.reason) };
   let t = new AbortController(),
-    r = !0;
+    r = true;
   function n() {
-    if (r) e.removeEventListener("abort", o), (r = !1);
+    if (r) e.removeEventListener("abort", o), (r = false);
   }
   function o() {
     t.abort(e.reason), n();
@@ -2843,9 +2843,9 @@ function Bu(e, t) {
       },
       get shouldRefresh() {
         var c;
-        if (s.isRefreshing) return !1;
+        if (s.isRefreshing) return false;
         if ((n === null || n === void 0 ? void 0 : n.refreshAfterTimestamp) && n.refreshAfterTimestamp < Date.now())
-          return !0;
+          return true;
         return (
           ((c = n === null || n === void 0 ? void 0 : n.expiresOnTimestamp) !== null && c !== void 0 ? c : 0) -
             i.refreshWindowInMs <
@@ -2890,7 +2890,7 @@ async function Zi(e, t) {
 }
 async function ug(e) {
   let { scopes: t, getAccessToken: r, request: n } = e,
-    o = { abortSignal: n.abortSignal, tracingOptions: n.tracingOptions, enableCae: !0 },
+    o = { abortSignal: n.abortSignal, tracingOptions: n.tracingOptions, enableCae: true },
     i = await r(t, o);
   if (i) e.request.headers.set("Authorization", `Bearer ${i.token}`);
 }
@@ -2900,11 +2900,11 @@ function Gu(e) {
 async function qu(e, t) {
   var r;
   let { scopes: n } = e,
-    o = await e.getAccessToken(n, { enableCae: !0, claims: t });
-  if (!o) return !1;
+    o = await e.getAccessToken(n, { enableCae: true, claims: t });
+  if (!o) return false;
   return (
     e.request.headers.set("Authorization", `${(r = o.tokenType) !== null && r !== void 0 ? r : "Bearer"} ${o.token}`),
-    !0
+    true
   );
 }
 function ho(e) {
@@ -3091,7 +3091,7 @@ function Yt(e, t, r) {
       else {
         let s = Ju(e, n);
         if (!s.propertyFound && r) s = Ju(r, n);
-        let a = !1;
+        let a = false;
         if (!s.propertyFound) a = o.required || (n[0] === "options" && n.length === 2);
         i = a ? o.defaultValue : s.propertyValue;
       }
@@ -3110,14 +3110,14 @@ function Yt(e, t, r) {
   return i;
 }
 function Ju(e, t) {
-  let r = { propertyFound: !1 },
+  let r = { propertyFound: false },
     n = 0;
   for (; n < t.length; ++n) {
     let o = t[n];
     if (e && o in e) e = e[o];
     else break;
   }
-  if (n === t.length) (r.propertyValue = e), (r.propertyFound = !0);
+  if (n === t.length) (r.propertyValue = e), (r.propertyFound = true);
   return r;
 }
 var Xu = Symbol.for("@azure/core-client original request");
@@ -3143,7 +3143,7 @@ function Zu(e = {}) {
     m = {
       xml: {
         rootName: (i = u === null || u === void 0 ? void 0 : u.xml.rootName) !== null && i !== void 0 ? i : "",
-        includeRoot: (s = u === null || u === void 0 ? void 0 : u.xml.includeRoot) !== null && s !== void 0 ? s : !1,
+        includeRoot: (s = u === null || u === void 0 ? void 0 : u.xml.includeRoot) !== null && s !== void 0 ? s : false,
         xmlCharKey: (a = u === null || u === void 0 ? void 0 : u.xml.xmlCharKey) !== null && a !== void 0 ? a : es,
       },
     };
@@ -3170,7 +3170,7 @@ function Eg(e) {
     r = vt(t),
     n = r === null || r === void 0 ? void 0 : r.shouldDeserialize,
     o;
-  if (n === void 0) o = !0;
+  if (n === void 0) o = true;
   else if (typeof n === "boolean") o = n;
   else o = n(e);
   return o;
@@ -3203,7 +3203,7 @@ async function Ag(e, t, r, n, o) {
     if (c.headersMapper)
       i.parsedHeaders = a.serializer.deserialize(c.headersMapper, i.headers.toJSON(), "operationRes.parsedHeaders", {
         xml: {},
-        ignoreUnknownProperties: !0,
+        ignoreUnknownProperties: true,
       });
   }
   return i;
@@ -3217,8 +3217,8 @@ function _g(e, t, r, n) {
   let l = 200 <= e.status && e.status < 300;
   if (Ig(t) ? l : !!r)
     if (r) {
-      if (!r.isError) return { error: null, shouldReturnResponse: !1 };
-    } else return { error: null, shouldReturnResponse: !1 };
+      if (!r.isError) return { error: null, shouldReturnResponse: false };
+    } else return { error: null, shouldReturnResponse: false };
   let u = r !== null && r !== void 0 ? r : t.responses.default,
     m = ((o = e.request.streamResponseStatusCodes) === null || o === void 0 ? void 0 : o.has(e.status))
       ? `Unexpected status code: ${e.status}`
@@ -3260,7 +3260,7 @@ function _g(e, t, r, n) {
   } catch (R) {
     p.message = `Error "${R.message}" occurred in deserializing the responseBody - "${e.bodyAsText}" for the default response.`;
   }
-  return { error: p, shouldReturnResponse: !1 };
+  return { error: p, shouldReturnResponse: false };
 }
 async function Sg(e, t, r, n, o) {
   var i;
@@ -3347,7 +3347,7 @@ function vg(
     d = {
       xml: {
         rootName: (i = l === null || l === void 0 ? void 0 : l.xml.rootName) !== null && i !== void 0 ? i : "",
-        includeRoot: (s = l === null || l === void 0 ? void 0 : l.xml.includeRoot) !== null && s !== void 0 ? s : !1,
+        includeRoot: (s = l === null || l === void 0 ? void 0 : l.xml.includeRoot) !== null && s !== void 0 ? s : false,
         xmlCharKey: (a = l === null || l === void 0 ? void 0 : l.xml.xmlCharKey) !== null && a !== void 0 ? a : es,
       },
     },
@@ -3427,12 +3427,12 @@ function nh() {
 var Og = { CSV: ",", SSV: " ", Multi: "Multi", TSV: "\t", Pipes: "|" };
 function ih(e, t, r, n) {
   let o = Pg(t, r, n),
-    i = !1,
+    i = false,
     s = oh(e, o);
   if (t.path) {
     let l = oh(t.path, o);
     if (t.path === "/{nextLink}" && l.startsWith("/")) l = l.substring(1);
-    if (Ng(l)) (s = l), (i = !0);
+    if (Ng(l)) (s = l), (i = true);
     else s = xg(s, l);
   }
   let { queryParams: a, sequenceParams: c } = Mg(t, r, n);
@@ -3514,7 +3514,7 @@ function Dg(e) {
   }
   return t;
 }
-function Ug(e, t, r, n = !1) {
+function Ug(e, t, r, n = false) {
   if (t.size === 0) return e;
   let o = new URL(e),
     i = Dg(o.search);
@@ -3584,12 +3584,12 @@ class ts {
         if (c.onUploadProgress) o.onUploadProgress = c.onUploadProgress;
         if (c.onDownloadProgress) o.onDownloadProgress = c.onDownloadProgress;
         if (c.shouldDeserialize !== void 0) i.shouldDeserialize = c.shouldDeserialize;
-        if (c.allowInsecureConnection) o.allowInsecureConnection = !0;
+        if (c.allowInsecureConnection) o.allowInsecureConnection = true;
       }
       if (a.abortSignal) o.abortSignal = a.abortSignal;
       if (a.tracingOptions) o.tracingOptions = a.tracingOptions;
     }
-    if (this._allowInsecureConnection) o.allowInsecureConnection = !0;
+    if (this._allowInsecureConnection) o.allowInsecureConnection = true;
     if (o.streamResponseStatusCodes === void 0) o.streamResponseStatusCodes = eh(t);
     try {
       let c = await this.sendRequest(o),
@@ -3686,7 +3686,7 @@ class pt extends ts {
       ),
     );
     if (
-      ((this.allowInsecureConnection = !1),
+      ((this.allowInsecureConnection = false),
       (this.authorityHost = i),
       (this.abortControllers = new Map()),
       (this.allowLoggingAccountIdentifiers =
@@ -4508,14 +4508,14 @@ class He {
       },
       o = e || He.createDefaultLoggerOptions();
     (this.localCallback = o.loggerCallback || n),
-      (this.piiLoggingEnabled = o.piiLoggingEnabled || !1),
+      (this.piiLoggingEnabled = o.piiLoggingEnabled || false),
       (this.level = typeof o.logLevel === "number" ? o.logLevel : ae.Info),
       (this.correlationId = o.correlationId || f.EMPTY_STRING),
       (this.packageName = t || f.EMPTY_STRING),
       (this.packageVersion = r || f.EMPTY_STRING);
   }
   static createDefaultLoggerOptions() {
-    return { loggerCallback: () => {}, piiLoggingEnabled: !1, logLevel: ae.Info };
+    return { loggerCallback: () => {}, piiLoggingEnabled: false, logLevel: ae.Info };
   }
   clone(e, t, r) {
     return new He(
@@ -4532,43 +4532,43 @@ class He {
   logMessage(e, t) {
     if (t.logLevel > this.level || (!this.piiLoggingEnabled && t.containsPii)) return;
     let o = `${`[${new Date().toUTCString()}] : [${t.correlationId || this.correlationId || ""}]`} : ${this.packageName}@${this.packageVersion} : ${ae[t.logLevel]} - ${e}`;
-    this.executeCallback(t.logLevel, o, t.containsPii || !1);
+    this.executeCallback(t.logLevel, o, t.containsPii || false);
   }
   executeCallback(e, t, r) {
     if (this.localCallback) this.localCallback(e, t, r);
   }
   error(e, t) {
-    this.logMessage(e, { logLevel: ae.Error, containsPii: !1, correlationId: t || f.EMPTY_STRING });
+    this.logMessage(e, { logLevel: ae.Error, containsPii: false, correlationId: t || f.EMPTY_STRING });
   }
   errorPii(e, t) {
-    this.logMessage(e, { logLevel: ae.Error, containsPii: !0, correlationId: t || f.EMPTY_STRING });
+    this.logMessage(e, { logLevel: ae.Error, containsPii: true, correlationId: t || f.EMPTY_STRING });
   }
   warning(e, t) {
-    this.logMessage(e, { logLevel: ae.Warning, containsPii: !1, correlationId: t || f.EMPTY_STRING });
+    this.logMessage(e, { logLevel: ae.Warning, containsPii: false, correlationId: t || f.EMPTY_STRING });
   }
   warningPii(e, t) {
-    this.logMessage(e, { logLevel: ae.Warning, containsPii: !0, correlationId: t || f.EMPTY_STRING });
+    this.logMessage(e, { logLevel: ae.Warning, containsPii: true, correlationId: t || f.EMPTY_STRING });
   }
   info(e, t) {
-    this.logMessage(e, { logLevel: ae.Info, containsPii: !1, correlationId: t || f.EMPTY_STRING });
+    this.logMessage(e, { logLevel: ae.Info, containsPii: false, correlationId: t || f.EMPTY_STRING });
   }
   infoPii(e, t) {
-    this.logMessage(e, { logLevel: ae.Info, containsPii: !0, correlationId: t || f.EMPTY_STRING });
+    this.logMessage(e, { logLevel: ae.Info, containsPii: true, correlationId: t || f.EMPTY_STRING });
   }
   verbose(e, t) {
-    this.logMessage(e, { logLevel: ae.Verbose, containsPii: !1, correlationId: t || f.EMPTY_STRING });
+    this.logMessage(e, { logLevel: ae.Verbose, containsPii: false, correlationId: t || f.EMPTY_STRING });
   }
   verbosePii(e, t) {
-    this.logMessage(e, { logLevel: ae.Verbose, containsPii: !0, correlationId: t || f.EMPTY_STRING });
+    this.logMessage(e, { logLevel: ae.Verbose, containsPii: true, correlationId: t || f.EMPTY_STRING });
   }
   trace(e, t) {
-    this.logMessage(e, { logLevel: ae.Trace, containsPii: !1, correlationId: t || f.EMPTY_STRING });
+    this.logMessage(e, { logLevel: ae.Trace, containsPii: false, correlationId: t || f.EMPTY_STRING });
   }
   tracePii(e, t) {
-    this.logMessage(e, { logLevel: ae.Trace, containsPii: !0, correlationId: t || f.EMPTY_STRING });
+    this.logMessage(e, { logLevel: ae.Trace, containsPii: true, correlationId: t || f.EMPTY_STRING });
   }
   isPiiLoggingEnabled() {
-    return this.piiLoggingEnabled || !1;
+    return this.piiLoggingEnabled || false;
   }
 } /*! @azure/msal-common v15.13.1 2025-10-29 */
 var is = "@azure/msal-common",
@@ -4696,7 +4696,7 @@ class J {
         let t = JSON.parse(e);
         return Object.keys(t).length === 0;
       } catch (t) {}
-    return !0;
+    return true;
   }
   static startsWith(e, t) {
     return e.indexOf(t) === 0;
@@ -4756,10 +4756,10 @@ class le {
   containsScope(e) {
     let t = this.printScopesLowerCase().split(" "),
       r = new le(t);
-    return e ? r.scopes.has(e.toLowerCase()) : !1;
+    return e ? r.scopes.has(e.toLowerCase()) : false;
   }
   containsScopeSet(e) {
-    if (!e || e.scopes.size <= 0) return !1;
+    if (!e || e.scopes.size <= 0) return false;
     return this.scopes.size >= e.scopes.size && e.asArray().every((t) => this.containsScope(t));
   }
   containsOnlyOIDCScopes() {
@@ -4949,7 +4949,7 @@ class ge {
     return o?.sub || "";
   }
   static isAccountEntity(e) {
-    if (!e) return !1;
+    if (!e) return false;
     return (
       e.hasOwnProperty("homeAccountId") &&
       e.hasOwnProperty("environment") &&
@@ -4960,8 +4960,8 @@ class ge {
     );
   }
   static accountInfoIsEqual(e, t, r) {
-    if (!e || !t) return !1;
-    let n = !0;
+    if (!e || !t) return false;
+    let n = true;
     if (r) {
       let o = e.idTokenClaims || {},
         i = t.idTokenClaims || {};
@@ -4996,7 +4996,7 @@ function Dt(e, t) {
   }
 }
 function hc(e) {
-  if (!e.signin_state) return !1;
+  if (!e.signin_state) return false;
   let t = ["kmsi", "dvc_dmjd"];
   return e.signin_state.some((n) => t.includes(n.trim().toLowerCase()));
 }
@@ -5040,7 +5040,7 @@ function fc(e) {
   }
   return null;
 }
-function Et(e, t = !0, r) {
+function Et(e, t = true, r) {
   let n = [];
   return (
     e.forEach((o, i) => {
@@ -5309,28 +5309,28 @@ class Yr {
     );
   }
   tenantProfileMatchesFilter(e, t) {
-    if (!!t.localAccountId && !this.matchLocalAccountIdFromTenantProfile(e, t.localAccountId)) return !1;
-    if (!!t.name && e.name !== t.name) return !1;
-    if (t.isHomeTenant !== void 0 && e.isHomeTenant !== t.isHomeTenant) return !1;
-    return !0;
+    if (!!t.localAccountId && !this.matchLocalAccountIdFromTenantProfile(e, t.localAccountId)) return false;
+    if (!!t.name && e.name !== t.name) return false;
+    if (t.isHomeTenant !== void 0 && e.isHomeTenant !== t.isHomeTenant) return false;
+    return true;
   }
   idTokenClaimsMatchTenantProfileFilter(e, t) {
     if (t) {
-      if (!!t.localAccountId && !this.matchLocalAccountIdFromTokenClaims(e, t.localAccountId)) return !1;
-      if (!!t.loginHint && !this.matchLoginHintFromTokenClaims(e, t.loginHint)) return !1;
-      if (!!t.username && !this.matchUsername(e.preferred_username, t.username)) return !1;
-      if (!!t.name && !this.matchName(e, t.name)) return !1;
-      if (!!t.sid && !this.matchSid(e, t.sid)) return !1;
+      if (!!t.localAccountId && !this.matchLocalAccountIdFromTokenClaims(e, t.localAccountId)) return false;
+      if (!!t.loginHint && !this.matchLoginHintFromTokenClaims(e, t.loginHint)) return false;
+      if (!!t.username && !this.matchUsername(e.preferred_username, t.username)) return false;
+      if (!!t.name && !this.matchName(e, t.name)) return false;
+      if (!!t.sid && !this.matchSid(e, t.sid)) return false;
     }
-    return !0;
+    return true;
   }
   async saveCacheRecord(e, t, r, n) {
     if (!e) throw g(Mr);
     try {
       if (e.account) await this.setAccount(e.account, t, r);
-      if (!!e.idToken && n?.idToken !== !1) await this.setIdTokenCredential(e.idToken, t, r);
-      if (!!e.accessToken && n?.accessToken !== !1) await this.saveAccessToken(e.accessToken, t, r);
-      if (!!e.refreshToken && n?.refreshToken !== !1) await this.setRefreshTokenCredential(e.refreshToken, t, r);
+      if (!!e.idToken && n?.idToken !== false) await this.setIdTokenCredential(e.idToken, t, r);
+      if (!!e.accessToken && n?.accessToken !== false) await this.saveAccessToken(e.accessToken, t, r);
+      if (!!e.refreshToken && n?.refreshToken !== false) await this.setRefreshTokenCredential(e.refreshToken, t, r);
       if (e.appMetadata) this.setAppMetadata(e.appMetadata, t);
     } catch (o) {
       if ((this.commonLogger?.error("CacheManager.saveCacheRecord: failed"), o instanceof N)) throw o;
@@ -5350,7 +5350,7 @@ class Yr {
       o = this.getTokenKeys(),
       i = le.fromString(e.target);
     o.accessToken.forEach((s) => {
-      if (!this.accessTokenKeyMatchesFilter(s, n, !1)) return;
+      if (!this.accessTokenKeyMatchesFilter(s, n, false)) return;
       let a = this.getAccessTokenCredential(s, t);
       if (a && this.credentialMatchesFilter(a, n)) {
         if (le.fromString(a.target).intersectingScopeSets(i)) this.removeAccessToken(s, t);
@@ -5380,24 +5380,24 @@ class Yr {
     );
   }
   credentialMatchesFilter(e, t) {
-    if (!!t.clientId && !this.matchClientId(e, t.clientId)) return !1;
-    if (!!t.userAssertionHash && !this.matchUserAssertionHash(e, t.userAssertionHash)) return !1;
-    if (typeof t.homeAccountId === "string" && !this.matchHomeAccountId(e, t.homeAccountId)) return !1;
-    if (!!t.environment && !this.matchEnvironment(e, t.environment)) return !1;
-    if (!!t.realm && !this.matchRealm(e, t.realm)) return !1;
-    if (!!t.credentialType && !this.matchCredentialType(e, t.credentialType)) return !1;
-    if (!!t.familyId && !this.matchFamilyId(e, t.familyId)) return !1;
-    if (!!t.target && !this.matchTarget(e, t.target)) return !1;
+    if (!!t.clientId && !this.matchClientId(e, t.clientId)) return false;
+    if (!!t.userAssertionHash && !this.matchUserAssertionHash(e, t.userAssertionHash)) return false;
+    if (typeof t.homeAccountId === "string" && !this.matchHomeAccountId(e, t.homeAccountId)) return false;
+    if (!!t.environment && !this.matchEnvironment(e, t.environment)) return false;
+    if (!!t.realm && !this.matchRealm(e, t.realm)) return false;
+    if (!!t.credentialType && !this.matchCredentialType(e, t.credentialType)) return false;
+    if (!!t.familyId && !this.matchFamilyId(e, t.familyId)) return false;
+    if (!!t.target && !this.matchTarget(e, t.target)) return false;
     if (t.requestedClaimsHash || e.requestedClaimsHash) {
-      if (e.requestedClaimsHash !== t.requestedClaimsHash) return !1;
+      if (e.requestedClaimsHash !== t.requestedClaimsHash) return false;
     }
     if (e.credentialType === V.ACCESS_TOKEN_WITH_AUTH_SCHEME) {
-      if (!!t.tokenType && !this.matchTokenType(e, t.tokenType)) return !1;
+      if (!!t.tokenType && !this.matchTokenType(e, t.tokenType)) return false;
       if (t.tokenType === F.SSH) {
-        if (t.keyId && !this.matchKeyId(e, t.keyId)) return !1;
+        if (t.keyId && !this.matchKeyId(e, t.keyId)) return false;
       }
     }
-    return !0;
+    return true;
   }
   getAppMetadataFilteredBy(e) {
     let t = this.getKeys(),
@@ -5474,7 +5474,7 @@ class Yr {
       this.getKeys().forEach((r) => {
         if (this.isAppMetadata(r)) this.removeItem(r, e);
       }),
-      !0
+      true
     );
   }
   getIdToken(e, t, r, n, o) {
@@ -5539,9 +5539,9 @@ class Yr {
   }
   idTokenKeyMatchesFilter(e, t) {
     let r = e.toLowerCase();
-    if (t.clientId && r.indexOf(t.clientId.toLowerCase()) === -1) return !1;
-    if (t.homeAccountId && r.indexOf(t.homeAccountId.toLowerCase()) === -1) return !1;
-    return !0;
+    if (t.clientId && r.indexOf(t.clientId.toLowerCase()) === -1) return false;
+    if (t.homeAccountId && r.indexOf(t.homeAccountId.toLowerCase()) === -1) return false;
+    return true;
   }
   removeIdToken(e, t) {
     this.removeItem(e, t);
@@ -5569,7 +5569,7 @@ class Yr {
       l = (r && r.accessToken) || this.getTokenKeys().accessToken,
       d = [];
     l.forEach((m) => {
-      if (this.accessTokenKeyMatchesFilter(m, c, !0)) {
+      if (this.accessTokenKeyMatchesFilter(m, c, true)) {
         let p = this.getAccessTokenCredential(m, o);
         if (p && this.credentialMatchesFilter(p, c)) d.push(p);
       }
@@ -5589,24 +5589,24 @@ class Yr {
   }
   accessTokenKeyMatchesFilter(e, t, r) {
     let n = e.toLowerCase();
-    if (t.clientId && n.indexOf(t.clientId.toLowerCase()) === -1) return !1;
-    if (t.homeAccountId && n.indexOf(t.homeAccountId.toLowerCase()) === -1) return !1;
-    if (t.realm && n.indexOf(t.realm.toLowerCase()) === -1) return !1;
-    if (t.requestedClaimsHash && n.indexOf(t.requestedClaimsHash.toLowerCase()) === -1) return !1;
+    if (t.clientId && n.indexOf(t.clientId.toLowerCase()) === -1) return false;
+    if (t.homeAccountId && n.indexOf(t.homeAccountId.toLowerCase()) === -1) return false;
+    if (t.realm && n.indexOf(t.realm.toLowerCase()) === -1) return false;
+    if (t.requestedClaimsHash && n.indexOf(t.requestedClaimsHash.toLowerCase()) === -1) return false;
     if (t.target) {
       let o = t.target.asArray();
       for (let i = 0; i < o.length; i++)
-        if (r && !n.includes(o[i].toLowerCase())) return !1;
-        else if (!r && n.includes(o[i].toLowerCase())) return !0;
+        if (r && !n.includes(o[i].toLowerCase())) return false;
+        else if (!r && n.includes(o[i].toLowerCase())) return true;
     }
-    return !0;
+    return true;
   }
   getAccessTokensByFilter(e, t) {
     let r = this.getTokenKeys(),
       n = [];
     return (
       r.accessToken.forEach((o) => {
-        if (!this.accessTokenKeyMatchesFilter(o, e, !0)) return;
+        if (!this.accessTokenKeyMatchesFilter(o, e, true)) return;
         let i = this.getAccessTokenCredential(o, t);
         if (i && this.credentialMatchesFilter(i, e)) n.push(i);
       }),
@@ -5638,10 +5638,10 @@ class Yr {
   }
   refreshTokenKeyMatchesFilter(e, t) {
     let r = e.toLowerCase();
-    if (t.familyId && r.indexOf(t.familyId.toLowerCase()) === -1) return !1;
-    if (!t.familyId && t.clientId && r.indexOf(t.clientId.toLowerCase()) === -1) return !1;
-    if (t.homeAccountId && r.indexOf(t.homeAccountId.toLowerCase()) === -1) return !1;
-    return !0;
+    if (t.familyId && r.indexOf(t.familyId.toLowerCase()) === -1) return false;
+    if (!t.familyId && t.clientId && r.indexOf(t.clientId.toLowerCase()) === -1) return false;
+    if (t.homeAccountId && r.indexOf(t.homeAccountId.toLowerCase()) === -1) return false;
+    return true;
   }
   readAppMetadataFromCache(e) {
     let t = { environment: e, clientId: this.clientId },
@@ -5678,11 +5678,11 @@ class Yr {
   matchEnvironment(e, t) {
     if (this.staticAuthorityOptions) {
       let n = Ih(this.staticAuthorityOptions, this.commonLogger);
-      if (n.includes(t) && n.includes(e.environment)) return !0;
+      if (n.includes(t) && n.includes(e.environment)) return true;
     }
     let r = this.getAuthorityMetadataByAlias(t);
-    if (r && r.aliases.indexOf(e.environment) > -1) return !0;
-    return !1;
+    if (r && r.aliases.indexOf(e.environment) > -1) return true;
+    return false;
   }
   matchCredentialType(e, t) {
     return e.credentialType && t.toLowerCase() === e.credentialType.toLowerCase();
@@ -5700,10 +5700,10 @@ class Yr {
     return !!(e.nativeAccountId && t === e.nativeAccountId);
   }
   matchLoginHintFromTokenClaims(e, t) {
-    if (e.login_hint === t) return !0;
-    if (e.preferred_username === t) return !0;
-    if (e.upn === t) return !0;
-    return !1;
+    if (e.login_hint === t) return true;
+    if (e.preferred_username === t) return true;
+    if (e.upn === t) return true;
+    return false;
   }
   matchSid(e, t) {
     return e.sid === t;
@@ -5713,7 +5713,7 @@ class Yr {
   }
   matchTarget(e, t) {
     if ((e.credentialType !== V.ACCESS_TOKEN && e.credentialType !== V.ACCESS_TOKEN_WITH_AUTH_SCHEME) || !e.target)
-      return !1;
+      return false;
     return le.fromString(e.target).containsScopeSet(t);
   }
   matchTokenType(e, t) {
@@ -6061,7 +6061,7 @@ class $n {
     return;
   }
   removePerformanceCallback() {
-    return !0;
+    return true;
   }
   addPerformanceCallback() {
     return "";
@@ -6079,9 +6079,9 @@ class $n {
     return;
   }
 } /*! @azure/msal-common v15.13.1 2025-10-29 */
-var Wg = { tokenRenewalOffsetSeconds: xn, preventCorsPreflight: !1 },
-  Qg = { loggerCallback: () => {}, piiLoggingEnabled: !1, logLevel: ae.Info, correlationId: f.EMPTY_STRING },
-  Jg = { claimsBasedCachingEnabled: !1 },
+var Wg = { tokenRenewalOffsetSeconds: xn, preventCorsPreflight: false },
+  Qg = { loggerCallback: () => {}, piiLoggingEnabled: false, logLevel: ae.Info, correlationId: f.EMPTY_STRING },
+  Jg = { claimsBasedCachingEnabled: false },
   Xg = {
     async sendGetRequestAsync() {
       throw g(U);
@@ -6130,9 +6130,9 @@ function ny(e) {
   return {
     clientCapabilities: [],
     azureCloudOptions: ty,
-    skipAuthorityMetadataCache: !1,
-    instanceAware: !1,
-    encodeExtraQueryParams: !1,
+    skipAuthorityMetadataCache: false,
+    instanceAware: false,
+    encodeExtraQueryParams: false,
     ...e,
   };
 }
@@ -6322,7 +6322,7 @@ function ol(e, t) {
 function yy(e) {
   e.set(Jc, "1");
 }
-function Jr(e, t, r = !0, n = Se) {
+function Jr(e, t, r = true, n = Se) {
   if (r && !n.includes("openid") && !t.includes("openid")) n.push("openid");
   let o = r ? [...(t || []), ...n] : t || [],
     i = new le(o);
@@ -6506,7 +6506,7 @@ var Ph =
       }
       try {
         let a = e(...i);
-        return s?.end({ success: !0 }), r.trace(`Returning result from ${t}`), a;
+        return s?.end({ success: true }), r.trace(`Returning result from ${t}`), a;
       } catch (a) {
         r.trace(`Error occurred in ${t}`);
         try {
@@ -6514,7 +6514,7 @@ var Ph =
         } catch (c) {
           r.trace("Unable to print error message.");
         }
-        throw (s?.end({ success: !1 }, a), a);
+        throw (s?.end({ success: false }, a), a);
       }
     },
   G =
@@ -6529,7 +6529,7 @@ var Ph =
       return (
         n?.setPreQueueTime(t, o),
         e(...i)
-          .then((a) => (r.trace(`Returning result from ${t}`), s?.end({ success: !0 }), a))
+          .then((a) => (r.trace(`Returning result from ${t}`), s?.end({ success: true }), a))
           .catch((a) => {
             r.trace(`Error occurred in ${t}`);
             try {
@@ -6537,7 +6537,7 @@ var Ph =
             } catch (c) {
               r.trace("Unable to print error message.");
             }
-            throw (s?.end({ success: !1 }, a), a);
+            throw (s?.end({ success: false }, a), a);
           })
       );
     }; /*! @azure/msal-common v15.13.1 2025-10-29 */
@@ -6721,7 +6721,7 @@ function Ts(e) {
   );
 }
 function by(e) {
-  if (!e) return !1;
+  if (!e) return false;
   return (
     Ts(e) &&
     e.hasOwnProperty("realm") &&
@@ -6730,23 +6730,23 @@ function by(e) {
   );
 }
 function Oy(e) {
-  if (!e) return !1;
+  if (!e) return false;
   return Ts(e) && e.hasOwnProperty("realm") && e.credentialType === V.ID_TOKEN;
 }
 function Py(e) {
-  if (!e) return !1;
+  if (!e) return false;
   return Ts(e) && e.credentialType === V.REFRESH_TOKEN;
 }
 function Ny(e, t) {
   let r = e.indexOf(Ce.CACHE_KEY) === 0,
-    n = !0;
+    n = true;
   if (t) n = t.hasOwnProperty("failedRequests") && t.hasOwnProperty("errors") && t.hasOwnProperty("cacheHits");
   return r && n;
 }
 function xy(e, t) {
-  let r = !1;
+  let r = false;
   if (e) r = e.indexOf(yt.THROTTLING_PREFIX) === 0;
-  let n = !0;
+  let n = true;
   if (t) n = t.hasOwnProperty("throttleTime");
   return r && n;
 }
@@ -6754,11 +6754,11 @@ function My({ environment: e, clientId: t }) {
   return [po, e, t].join(kt.CACHE_KEY_SEPARATOR).toLowerCase();
 }
 function Dy(e, t) {
-  if (!t) return !1;
+  if (!t) return false;
   return e.indexOf(po) === 0 && t.hasOwnProperty("clientId") && t.hasOwnProperty("environment");
 }
 function Uy(e, t) {
-  if (!t) return !1;
+  if (!t) return false;
   return (
     e.indexOf(Nn.CACHE_KEY) === 0 &&
     t.hasOwnProperty("aliases") &&
@@ -6805,7 +6805,7 @@ class Ee {
       (this.logger = o),
       (this.performanceClient = s),
       (this.correlationId = i),
-      (this.managedIdentity = a || !1),
+      (this.managedIdentity = a || false),
       (this.regionDiscovery = new ci(t, this.logger, this.performanceClient, this.correlationId));
   }
   getAuthorityType(e) {
@@ -6948,8 +6948,8 @@ class Ee {
         token_endpoint: "",
         end_session_endpoint: "",
         issuer: "",
-        aliasesFromNetwork: !1,
-        endpointsFromNetwork: !1,
+        aliasesFromNetwork: false,
+        endpointsFromNetwork: false,
         expiresAt: Cs(),
         jwks_uri: "",
       };
@@ -6975,7 +6975,7 @@ class Ee {
               this.performanceClient,
               this.correlationId,
             )(t.metadata);
-            qn(e, n, !1), (e.canonical_authority = this.canonicalAuthority);
+            qn(e, n, false), (e.canonical_authority = this.canonicalAuthority);
           }
         }
       }
@@ -6997,7 +6997,7 @@ class Ee {
           this.performanceClient,
           this.correlationId,
         )(r);
-      return qn(e, r, !0), ke.NETWORK;
+      return qn(e, r, true), ke.NETWORK;
     } else throw g(Rr, this.defaultOpenIdConfigurationEndpoint);
   }
   updateEndpointMetadataFromLocalSources(e) {
@@ -7005,7 +7005,7 @@ class Ee {
     let t = this.getEndpointMetadataFromConfig();
     if (t)
       return (
-        this.logger.verbose("Found endpoint metadata in authority configuration"), qn(e, t, !1), { source: ke.CONFIG }
+        this.logger.verbose("Found endpoint metadata in authority configuration"), qn(e, t, false), { source: ke.CONFIG }
       );
     if (
       (this.logger.verbose(
@@ -7018,7 +7018,7 @@ class Ee {
       );
     else {
       let n = this.getEndpointMetadataFromHardcodedValues();
-      if (n) return qn(e, n, !1), { source: ke.HARDCODED_VALUES, metadata: n };
+      if (n) return qn(e, n, false), { source: ke.HARDCODED_VALUES, metadata: n };
       else
         this.logger.verbose(
           "Did not find endpoint metadata in hardcoded values... Attempting to get endpoint metadata from the network metadata cache.",
@@ -7106,7 +7106,7 @@ class Ee {
       this.performanceClient,
       this.correlationId,
     )();
-    if (r) return di(e, r, !0), ke.NETWORK;
+    if (r) return di(e, r, true), ke.NETWORK;
     throw W(Vr);
   }
   updateCloudDiscoveryMetadataFromLocalSources(e) {
@@ -7116,7 +7116,7 @@ class Ee {
       this.logger.verbosePii(`Canonical Authority: ${e.canonical_authority || f.NOT_APPLICABLE}`);
     let t = this.getCloudDiscoveryMetadataFromConfig();
     if (t)
-      return this.logger.verbose("Found cloud discovery metadata in authority configuration"), di(e, t, !1), ke.CONFIG;
+      return this.logger.verbose("Found cloud discovery metadata in authority configuration"), di(e, t, false), ke.CONFIG;
     if (
       (this.logger.verbose(
         "Did not find cloud discovery metadata in the config... Attempting to get cloud discovery metadata from the hardcoded values.",
@@ -7131,7 +7131,7 @@ class Ee {
       if (n)
         return (
           this.logger.verbose("Found cloud discovery metadata from hardcoded values."),
-          di(e, n, !1),
+          di(e, n, false),
           ke.HARDCODED_VALUES
         );
       this.logger.verbose(
@@ -7396,7 +7396,7 @@ class Ft {
   }
   static checkResponseForRetryAfter(e) {
     if (e.headers) return e.headers.hasOwnProperty(X.RETRY_AFTER) && (e.status < 200 || e.status >= 300);
-    return !1;
+    return false;
   }
   static calculateThrottleTime(e) {
     let t = e <= 0 ? 0 : e,
@@ -7718,7 +7718,7 @@ ${o}`);
     try {
       if (this.persistencePlugin && this.serializableCache)
         this.logger.verbose("Persistence enabled, calling beforeCacheAccess"),
-          (m = new et(this.serializableCache, !0)),
+          (m = new et(this.serializableCache, true)),
           await this.persistencePlugin.beforeCacheAccess(m);
       if (s && !a && u.account) {
         let p = this.cacheStorage.generateAccountKey(ge.getAccountInfo(u.account));
@@ -7727,7 +7727,7 @@ ${o}`);
             this.logger.warning(
               "Account used to refresh tokens not in persistence, refreshed tokens will not be stored in the cache",
             ),
-            await de.generateAuthenticationResult(this.cryptoObj, t, u, !1, n, l, d, void 0, c)
+            await de.generateAuthenticationResult(this.cryptoObj, t, u, false, n, l, d, void 0, c)
           );
       }
       await this.cacheStorage.saveCacheRecord(u, n.correlationId, hc(l || {}), n.storeInCache);
@@ -7736,7 +7736,7 @@ ${o}`);
         this.logger.verbose("Persistence enabled, calling afterCacheAccess"),
           await this.persistencePlugin.afterCacheAccess(m);
     }
-    return de.generateAuthenticationResult(this.cryptoObj, t, u, !1, n, l, d, e, c);
+    return de.generateAuthenticationResult(this.cryptoObj, t, u, false, n, l, d, e, c);
   }
   generateCacheRecord(e, t, r, n, o, i, s) {
     let a = t.getPreferredCache();
@@ -7851,7 +7851,7 @@ ${o}`);
       cloudGraphHostName: r.account?.cloudGraphHostName || f.EMPTY_STRING,
       msGraphHost: r.account?.msGraphHost || f.EMPTY_STRING,
       code: a?.spa_code,
-      fromNativeBroker: !1,
+      fromNativeBroker: false,
     };
   }
 }
@@ -7890,7 +7890,7 @@ async function xe(e, t, r) {
 class Os extends we {
   constructor(e, t) {
     super(e, t);
-    (this.includeRedirectUri = !0),
+    (this.includeRedirectUri = true),
       (this.oidcDefaultScopes = this.config.authOptions.authority.options.OIDCOptions?.defaultScopes);
   }
   async acquireToken(e, t) {
@@ -7968,7 +7968,7 @@ class Os extends we {
       if (!e.redirectUri) throw W(Fr);
     } else Zr(t, e.redirectUri);
     if (
-      (Jr(t, e.scopes, !0, this.oidcDefaultScopes),
+      (Jr(t, e.scopes, true, this.oidcDefaultScopes),
       dl(t, e.code),
       Qo(t, this.config.libraryInfo),
       Jo(t, this.config.telemetry.application),
@@ -8077,7 +8077,7 @@ class Kn extends we {
         this.logger,
         this.performanceClient,
         e.correlationId,
-      )(r.body, this.authority, t, e, void 0, void 0, !0, e.forceCache, n)
+      )(r.body, this.authority, t, e, void 0, void 0, true, e.forceCache, n)
     );
   }
   async acquireTokenByRefreshToken(e) {
@@ -8095,7 +8095,7 @@ class Kn extends we {
           this.logger,
           this.performanceClient,
           e.correlationId,
-        )(e, !0);
+        )(e, true);
       } catch (r) {
         let n = r instanceof Ve && r.errorCode === sr,
           o = r instanceof Ne && r.errorCode === go.INVALID_GRANT_ERROR && r.subError === go.CLIENT_MISMATCH_ERROR;
@@ -8106,7 +8106,7 @@ class Kn extends we {
             this.logger,
             this.performanceClient,
             e.correlationId,
-          )(e, !1);
+          )(e, false);
         else throw r;
       }
     return G(
@@ -8115,7 +8115,7 @@ class Kn extends we {
       this.logger,
       this.performanceClient,
       e.correlationId,
-    )(e, !1);
+    )(e, false);
   }
   async acquireTokenWithCachedRefreshToken(e, t) {
     this.performanceClient?.addQueueMeasurement(
@@ -8187,7 +8187,7 @@ class Kn extends we {
     if ((Xr(t, e.embeddedClientId || e.tokenBodyParameters?.[At] || this.config.authOptions.clientId), e.redirectUri))
       Zr(t, e.redirectUri);
     if (
-      (Jr(t, e.scopes, !0, this.config.authOptions.authority.options.OIDCOptions?.defaultScopes),
+      (Jr(t, e.scopes, true, this.config.authOptions.authority.options.OIDCOptions?.defaultScopes),
       ri(t, Le.REFRESH_TOKEN_GRANT),
       rn(t),
       Qo(t, this.config.libraryInfo),
@@ -8299,7 +8299,7 @@ class Ps extends we {
       if (!n) throw g(bt);
       Ko(n, t.maxAge);
     }
-    return de.generateAuthenticationResult(this.cryptoUtils, this.authority, e, !0, t, r);
+    return de.generateAuthenticationResult(this.cryptoUtils, this.authority, e, true, t, r);
   }
 }
 var fi = {};
@@ -8315,7 +8315,7 @@ function $y(e, t, r, n) {
   Xr(i, t.embeddedClientId || t.extraQueryParameters?.[At] || e.clientId);
   let s = [...(t.scopes || []), ...(t.extraScopesToConsent || [])];
   if (
-    (Jr(i, s, !0, e.authority.options.OIDCOptions?.defaultScopes),
+    (Jr(i, s, true, e.authority.options.OIDCOptions?.defaultScopes),
     Zr(i, t.redirectUri),
     tn(i, o),
     ol(i, t.responseMode),
@@ -8323,12 +8323,12 @@ function $y(e, t, r, n) {
     t.prompt)
   )
     cl(i, t.prompt), n?.addFields({ prompt: t.prompt }, o);
-  if (t.domainHint) al(i, t.domainHint), n?.addFields({ domainHintFromRequest: !0 }, o);
+  if (t.domainHint) al(i, t.domainHint), n?.addFields({ domainHintFromRequest: true }, o);
   if (t.prompt !== Wt.SELECT_ACCOUNT) {
     if (t.sid && t.prompt === Wt.NONE)
       r.verbose("createAuthCodeUrlQueryString: Prompt is none, adding sid from request"),
         ys(i, t.sid),
-        n?.addFields({ sidFromRequest: !0 }, o);
+        n?.addFields({ sidFromRequest: true }, o);
     else if (t.account) {
       let a = qy(t.account),
         c = jy(t.account);
@@ -8340,7 +8340,7 @@ function $y(e, t, r, n) {
       if (c) {
         r.verbose("createAuthCodeUrlQueryString: login_hint claim present on account"),
           Bn(i, c),
-          n?.addFields({ loginHintFromClaim: !0 }, o);
+          n?.addFields({ loginHintFromClaim: true }, o);
         try {
           let l = Ct(t.account.homeAccountId);
           Ut(i, l);
@@ -8350,7 +8350,7 @@ function $y(e, t, r, n) {
       } else if (a && t.prompt === Wt.NONE) {
         r.verbose("createAuthCodeUrlQueryString: Prompt is none, adding sid from account"),
           ys(i, a),
-          n?.addFields({ sidFromClaim: !0 }, o);
+          n?.addFields({ sidFromClaim: true }, o);
         try {
           let l = Ct(t.account.homeAccountId);
           Ut(i, l);
@@ -8361,11 +8361,11 @@ function $y(e, t, r, n) {
         r.verbose("createAuthCodeUrlQueryString: Adding login_hint from request"),
           Bn(i, t.loginHint),
           ir(i, t.loginHint),
-          n?.addFields({ loginHintFromRequest: !0 }, o);
+          n?.addFields({ loginHintFromRequest: true }, o);
       else if (t.account.username) {
         r.verbose("createAuthCodeUrlQueryString: Adding login_hint from account"),
           Bn(i, t.account.username),
-          n?.addFields({ loginHintFromUpn: !0 }, o);
+          n?.addFields({ loginHintFromUpn: true }, o);
         try {
           let l = Ct(t.account.homeAccountId);
           Ut(i, l);
@@ -8377,7 +8377,7 @@ function $y(e, t, r, n) {
       r.verbose("createAuthCodeUrlQueryString: No account, adding login_hint from request"),
         Bn(i, t.loginHint),
         ir(i, t.loginHint),
-        n?.addFields({ loginHintFromRequest: !0 }, o);
+        n?.addFields({ loginHintFromRequest: true }, o);
   } else r.verbose("createAuthCodeUrlQueryString: Prompt is select_account, ignoring account hints");
   if (t.nonce) ll(i, t.nonce);
   if (t.state) Xo(i, t.state);
@@ -9096,17 +9096,17 @@ var rT = {
     clientCapabilities: [],
     protocolMode: Re.AAD,
     azureCloudOptions: { azureCloudInstance: xt.None, tenant: f.EMPTY_STRING },
-    skipAuthorityMetadataCache: !1,
-    encodeExtraQueryParams: !1,
+    skipAuthorityMetadataCache: false,
+    encodeExtraQueryParams: false,
   },
-  nT = { claimsBasedCachingEnabled: !1 },
-  Ol = { loggerCallback: () => {}, piiLoggingEnabled: !1, logLevel: ae.Info },
+  nT = { claimsBasedCachingEnabled: false },
+  Ol = { loggerCallback: () => {}, piiLoggingEnabled: false, logLevel: ae.Info },
   oT = {
     loggerOptions: Ol,
     networkClient: new pi(),
     proxyUrl: f.EMPTY_STRING,
     customAgentOptions: {},
-    disableInternalRetries: !1,
+    disableInternalRetries: false,
   },
   iT = { application: { appName: f.EMPTY_STRING, appVersion: f.EMPTY_STRING } };
 function Jh({ auth: e, broker: t, cache: r, system: n, telemetry: o }) {
@@ -9114,7 +9114,7 @@ function Jh({ auth: e, broker: t, cache: r, system: n, telemetry: o }) {
     ...oT,
     networkClient: new pi(n?.proxyUrl, n?.customAgentOptions),
     loggerOptions: n?.loggerOptions || Ol,
-    disableInternalRetries: n?.disableInternalRetries || !1,
+    disableInternalRetries: n?.disableInternalRetries || false,
   };
   if (!!e.clientCertificate && !e.clientCertificate.thumbprint && !e.clientCertificate.thumbprintSha256)
     throw se.createStateNotFoundError();
@@ -9136,7 +9136,7 @@ function Xh({ clientCapabilities: e, managedIdentityIdParams: t, system: r }) {
     clientCapabilities: e || [],
     managedIdentityId: n,
     system: { loggerOptions: o, networkClient: i },
-    disableInternalRetries: r?.disableInternalRetries || !1,
+    disableInternalRetries: r?.disableInternalRetries || false,
   };
 }
 import { randomUUID as sT } from "crypto";
@@ -9443,9 +9443,9 @@ class an extends Yr {
   }
   removeItem(e) {
     this.logger.tracePii(`Item key: ${e}`);
-    let t = !1,
+    let t = false,
       r = this.getCache();
-    if (r[e]) delete r[e], (t = !0);
+    if (r[e]) delete r[e], (t = true);
     if (t) this.setCache(r), this.emitChange();
     return t;
   }
@@ -9496,7 +9496,7 @@ var Ti = { Account: {}, IdToken: {}, AccessToken: {}, RefreshToken: {}, AppMetad
 class Ci {
   constructor(e, t, r) {
     if (
-      ((this.cacheHasChanged = !1),
+      ((this.cacheHasChanged = false),
       (this.storage = e),
       this.storage.registerChangeEmitter(this.handleChangeEvent.bind(this)),
       r)
@@ -9513,7 +9513,7 @@ class Ci {
     if (this.cacheSnapshot)
       this.logger.trace("Reading cache snapshot from disk"), (e = this.mergeState(JSON.parse(this.cacheSnapshot), e));
     else this.logger.trace("No cache snapshot to merge");
-    return (this.cacheHasChanged = !1), JSON.stringify(e);
+    return (this.cacheHasChanged = false), JSON.stringify(e);
   }
   deserialize(e) {
     if ((this.logger.trace("Deserializing JSON to in-memory cache"), (this.cacheSnapshot = e), this.cacheSnapshot)) {
@@ -9533,7 +9533,7 @@ class Ci {
     this.logger.trace("getAllAccounts called");
     let t;
     try {
-      if (this.persistence) (t = new et(this, !1)), await this.persistence.beforeCacheAccess(t);
+      if (this.persistence) (t = new et(this, false)), await this.persistence.beforeCacheAccess(t);
       return this.storage.getAllAccounts({}, e);
     } finally {
       if (this.persistence && t) await this.persistence.afterCacheAccess(t);
@@ -9553,7 +9553,7 @@ class Ci {
     this.logger.trace("removeAccount called");
     let r;
     try {
-      if (this.persistence) (r = new et(this, !0)), await this.persistence.beforeCacheAccess(r);
+      if (this.persistence) (r = new et(this, true)), await this.persistence.beforeCacheAccess(r);
       this.storage.removeAccount(e, t || new yi().generateGuid());
     } finally {
       if (this.persistence && r) await this.persistence.afterCacheAccess(r);
@@ -9565,13 +9565,13 @@ class Ci {
       return;
     }
     this.logger.info("Overwriting in-memory cache with persistent cache"), this.storage.clear();
-    let e = new et(this, !1);
+    let e = new et(this, false);
     await this.persistence.beforeCacheAccess(e);
     let t = this.getCacheSnapshot();
     this.storage.setCache(t), await this.persistence.afterCacheAccess(e);
   }
   handleChangeEvent() {
-    this.cacheHasChanged = !0;
+    this.cacheHasChanged = true;
   }
   mergeState(e, t) {
     this.logger.trace("Merging in-memory cache with cache snapshot");
@@ -9635,12 +9635,12 @@ class it {
   }
   static fromCertificate(e, t, r) {
     let n = new it();
-    if (((n.privateKey = t), (n.thumbprint = e), (n.useSha256 = !1), r)) n.publicCertificate = this.parseCertificate(r);
+    if (((n.privateKey = t), (n.thumbprint = e), (n.useSha256 = false), r)) n.publicCertificate = this.parseCertificate(r);
     return n;
   }
   static fromCertificateWithSha256Thumbprint(e, t, r) {
     let n = new it();
-    if (((n.privateKey = t), (n.thumbprint = e), (n.useSha256 = !0), r)) n.publicCertificate = this.parseCertificate(r);
+    if (((n.privateKey = t), (n.thumbprint = e), (n.useSha256 = true), r)) n.publicCertificate = this.parseCertificate(r);
     return n;
   }
   getJwt(e, t, r) {
@@ -9817,7 +9817,7 @@ class cn {
     }
   }
   async acquireTokenSilent(e) {
-    let t = { ...e, ...(await this.initializeBaseRequest(e)), forceRefresh: e.forceRefresh || !1 },
+    let t = { ...e, ...(await this.initializeBaseRequest(e)), forceRefresh: e.forceRefresh || false },
       r = this.initializeServerTelemetryManager($t.acquireTokenSilent, t.correlationId, t.forceRefresh);
     try {
       let n = await this.createAuthority(t.authority, t.correlationId, void 0, e.azureCloudOptions),
@@ -9940,7 +9940,7 @@ class cn {
     };
   }
   initializeServerTelemetryManager(e, t, r) {
-    let n = { clientId: this.config.auth.clientId, correlationId: t, apiId: e, forceRefresh: r || !1 };
+    let n = { clientId: this.config.auth.clientId, correlationId: t, apiId: e, forceRefresh: r || false };
     return new cr(n, this.storage);
   }
   async createAuthority(e, t, r, n) {
@@ -10076,7 +10076,7 @@ class Ii extends we {
         );
       throw (this.logger.error(`Device code expired. Expiration time of device code was ${e}`), g(Y.deviceCodeExpired));
     }
-    return !0;
+    return true;
   }
   async acquireTokenWithDeviceCode(e, t) {
     let r = this.createTokenQueryParameters(e),
@@ -10225,7 +10225,7 @@ class _i extends cn {
         correlationId: t,
         extraParameters: { ...e.tokenQueryParameters, [Wr.X_CLIENT_EXTRA_SKU]: this.skus },
         accountId: e.account.nativeAccountId,
-        forceRefresh: e.forceRefresh || !1,
+        forceRefresh: e.forceRefresh || false,
       };
       return this.nativeBrokerPlugin.acquireTokenSilent(r);
     }
@@ -10297,7 +10297,7 @@ class ln extends we {
         this.logger.info(
           "ClientCredentialClient:getCachedAuthenticationResult - Cached access token's refreshOn property has been exceeded'. It's not expired, but must be refreshed.",
         );
-        let n = !0;
+        let n = true;
         await this.executeTokenRequest(e, this.authority, n);
       }
       return t;
@@ -10309,7 +10309,7 @@ class ln extends we {
       c = Q.NOT_APPLICABLE,
       l;
     if (s.serializableCache && s.persistencePlugin)
-      (l = new et(s.serializableCache, !1)), await s.persistencePlugin.beforeCacheAccess(l);
+      (l = new et(s.serializableCache, false)), await s.persistencePlugin.beforeCacheAccess(l);
     let d = this.readAccessTokenFromCache(
       n,
       a.managedIdentityId?.id || s.authOptions.clientId,
@@ -10328,7 +10328,7 @@ class ln extends we {
         r,
         n,
         { account: null, idToken: null, accessToken: d, refreshToken: null, appMetadata: null },
-        !0,
+        true,
         e,
       ),
       c,
@@ -10400,7 +10400,7 @@ class ln extends we {
     let t = new Map();
     if (
       (E.addClientId(t, this.config.authOptions.clientId),
-      E.addScopes(t, e.scopes, !1),
+      E.addScopes(t, e.scopes, false),
       E.addGrantType(t, Le.CLIENT_CREDENTIALS_GRANT),
       E.addLibraryInfo(t, this.config.libraryInfo),
       E.addApplicationTelemetry(t, this.config.telemetry.application),
@@ -10478,7 +10478,7 @@ class Si extends we {
       this.cryptoUtils,
       this.authority,
       { account: o, accessToken: t, idToken: r, refreshToken: null, appMetadata: null },
-      !0,
+      true,
       e,
       n,
     );
@@ -10655,7 +10655,7 @@ class Ri extends cn {
   }
 } /*! @azure/msal-node v3.8.1 2025-10-29 */
 function om(e) {
-  if (typeof e !== "string") return !1;
+  if (typeof e !== "string") return false;
   let t = new Date(e);
   return !isNaN(t.getTime()) && t.toISOString() === e;
 } /*! @azure/msal-node v3.8.1 2025-10-29 */
@@ -10669,7 +10669,7 @@ class Wl {
   }
   async sendNetworkRequestAsync(e, t, r) {
     let n = await this.sendNetworkRequestAsyncHelper(e, t, r);
-    if ("isNewRequest" in this.retryPolicy) this.retryPolicy.isNewRequest = !0;
+    if ("isNewRequest" in this.retryPolicy) this.retryPolicy.isNewRequest = true;
     let o = 0;
     while (await this.retryPolicy.pauseForRetry(n.status, o, this.logger, n.headers[X.RETRY_AFTER]))
       (n = await this.sendNetworkRequestAsyncHelper(e, t, r)), o++;
@@ -10810,10 +10810,10 @@ class Zs {
       return (
         r.verbose(`Retrying request in ${o}ms (retry attempt: ${t + 1})`),
         await new Promise((i) => setTimeout(i, o)),
-        !0
+        true
       );
     }
-    return !1;
+    return false;
   }
 } /*! @azure/msal-node v3.8.1 2025-10-29 */
 class Ye {
@@ -11049,7 +11049,7 @@ class fn {
     this._isNewRequest = e;
   }
   async pauseForRetry(e, t, r) {
-    if (this._isNewRequest) (this._isNewRequest = !1), (this.maxRetries = e === P.GONE ? qE : GE);
+    if (this._isNewRequest) (this._isNewRequest = false), (this.maxRetries = e === P.GONE ? qE : GE);
     if (
       (BE.includes(e) || (e >= P.SERVER_ERROR_RANGE_START && e <= P.SERVER_ERROR_RANGE_END && t < this.maxRetries)) &&
       t < this.maxRetries
@@ -11058,10 +11058,10 @@ class fn {
       return (
         r.verbose(`Retrying request in ${n}ms (retry attempt: ${t + 1})`),
         await new Promise((o) => setTimeout(o, n)),
-        !0
+        true
       );
     }
-    return !1;
+    return false;
   }
 } /*! @azure/msal-node v3.8.1 2025-10-29 */
 var lm = "/metadata/identity/oauth2/token",
@@ -11099,7 +11099,7 @@ class wi extends ze {
       (r.queryParameters[ye.RESOURCE] = e),
       t.idType !== ce.SYSTEM_ASSIGNED)
     )
-      r.queryParameters[this.getManagedIdentityUserAssignedIdQueryParameterKey(t.idType, !0)] = t.id;
+      r.queryParameters[this.getManagedIdentityUserAssignedIdQueryParameterKey(t.idType, true)] = t.id;
     return (r.retryPolicy = new fn()), r;
   }
 } /*! @azure/msal-node v3.8.1 2025-10-29 */
@@ -11188,7 +11188,7 @@ class pn extends ze {
     )
       r.queryParameters[dn.MANAGED_IDENTITY_CLIENT_ID_2017] = process.env[k.DEFAULT_IDENTITY_CLIENT_ID];
     else if (t.idType === ce.USER_ASSIGNED_CLIENT_ID)
-      r.queryParameters[this.getManagedIdentityUserAssignedIdQueryParameterKey(t.idType, !1, !0)] = t.id;
+      r.queryParameters[this.getManagedIdentityUserAssignedIdQueryParameterKey(t.idType, false, true)] = t.id;
     else throw Error(ZE);
     return r;
   }
@@ -11260,7 +11260,7 @@ class It {
       this.logger,
       this.cryptoProvider.createNewGuid(),
       void 0,
-      !0,
+      true,
     )),
       (this.fakeClientCredentialClient = new ln({
         authOptions: { clientId: this.config.managedIdentityId.id, authority: this.fakeAuthority },
@@ -11307,7 +11307,7 @@ class It {
         this.logger.info(
           "ClientCredentialClient:getCachedAuthenticationResult - Cached access token's refreshOn property has been exceeded'. It's not expired, but must be refreshed.",
         );
-        let o = !0;
+        let o = true;
         await this.acquireTokenFromManagedIdentity(t, this.config.managedIdentityId, this.fakeAuthority, o);
       }
       return r;
@@ -11462,7 +11462,7 @@ function pm(e) {
       {
         name: "imdsRetryPolicy",
         retry: ({ retryCount: t, response: r }) => {
-          if ((r === null || r === void 0 ? void 0 : r.status) !== 404) return { skipStrategy: !0 };
+          if ((r === null || r === void 0 ? void 0 : r.status) !== 404) return { skipStrategy: true };
           return Su(t, { retryDelayInMs: e.startDelayInMs, maxRetryDelayInMs: nA });
         },
       },
@@ -11486,8 +11486,8 @@ var td = {
   async isAvailable(e) {
     let { scopes: t, identityClient: r, getTokenOptions: n } = e,
       o = fo(t);
-    if (!o) return yn.info(`${Gt}: Unavailable. Multiple scopes are not supported.`), !1;
-    if (process.env.AZURE_POD_IDENTITY_AUTHORITY_HOST) return !0;
+    if (!o) return yn.info(`${Gt}: Unavailable. Multiple scopes are not supported.`), false;
+    if (process.env.AZURE_POD_IDENTITY_AUTHORITY_HOST) return true;
     if (!r) throw Error("Missing IdentityClient");
     let i = sA(o);
     return K.withSpan("ManagedIdentityCredential-pingImdsEndpoint", n !== null && n !== void 0 ? n : {}, async (s) => {
@@ -11495,19 +11495,19 @@ var td = {
       i.tracingOptions = s.tracingOptions;
       let l = qe(i);
       (l.timeout = ((a = s.requestOptions) === null || a === void 0 ? void 0 : a.timeout) || 1000),
-        (l.allowInsecureConnection = !0);
+        (l.allowInsecureConnection = true);
       let d;
       try {
         yn.info(`${Gt}: Pinging the Azure IMDS endpoint`), (d = await r.sendRequest(l));
       } catch (u) {
         if (Wi(u)) yn.verbose(`${Gt}: Caught error ${u.name}: ${u.message}`);
-        return yn.info(`${Gt}: The Azure IMDS endpoint is unavailable`), !1;
+        return yn.info(`${Gt}: The Azure IMDS endpoint is unavailable`), false;
       }
       if (d.status === 403) {
         if ((c = d.bodyAsText) === null || c === void 0 ? void 0 : c.includes("unreachable"))
-          return yn.info(`${Gt}: The Azure IMDS endpoint is unavailable`), yn.info(`${Gt}: ${d.bodyAsText}`), !1;
+          return yn.info(`${Gt}: The Azure IMDS endpoint is unavailable`), yn.info(`${Gt}: ${d.bodyAsText}`), false;
       }
-      return yn.info(`${Gt}: The Azure IMDS endpoint is available`), !0;
+      return yn.info(`${Gt}: The Azure IMDS endpoint is available`), true;
     });
   },
 };
@@ -11799,7 +11799,7 @@ function ve(e, t, r = {}) {
                 ? void 0
                 : z.aborted) !== null && v !== void 0
               ? v
-              : !1,
+              : false,
           deviceCodeCallback: I,
           authority: d(C),
           claims: C === null || C === void 0 ? void 0 : C.claims,
@@ -11807,7 +11807,7 @@ function ve(e, t, r = {}) {
         he = w.acquireTokenByDeviceCode(L);
       if (C.abortSignal)
         C.abortSignal.addEventListener("abort", () => {
-          L.cancel = !0;
+          L.cancel = true;
         });
       return he;
     });
@@ -11897,7 +11897,7 @@ function ve(e, t, r = {}) {
       try {
         return await C.acquireTokenInteractive(he);
       } catch (Jn) {
-        if ((Be.verbose(`Failed to authenticate through the broker: ${Jn.message}`), v)) return w(!1);
+        if ((Be.verbose(`Failed to authenticate through the broker: ${Jn.message}`), v)) return w(false);
         else throw Jn;
       }
     }
@@ -11905,7 +11905,7 @@ function ve(e, t, r = {}) {
       var v, L;
       return {
         openBrowser: async (he) => {
-          await (await import("/$bunfs/root/chunk-ff3chxdq.js")).default(he, { wait: !0, newInstance: !0 });
+          await (await import("/$bunfs/root/chunk-ff3chxdq.js")).default(he, { wait: true, newInstance: true });
         },
         scopes: _,
         authority: d(I),
@@ -11926,7 +11926,7 @@ function ve(e, t, r = {}) {
       var v;
       let L = z();
       if (o.pluginConfiguration.broker.isEnabled)
-        return w((v = o.pluginConfiguration.broker.useDefaultBrokerAccount) !== null && v !== void 0 ? v : !1);
+        return w((v = o.pluginConfiguration.broker.useDefaultBrokerAccount) !== null && v !== void 0 ? v : false);
       if (I.proofOfPossessionOptions)
         (L.shrNonce = I.proofOfPossessionOptions.nonce),
           (L.authenticationScheme = "pop"),
@@ -12048,7 +12048,7 @@ var ym = "ManagedIdentityCredential - Token Exchange",
             },
             o,
           ),
-          { disableInstanceDiscovery: !0 },
+          { disableInstanceDiscovery: true },
         ),
       ).getToken(r, t);
     },
@@ -12073,7 +12073,7 @@ class Cn {
         `ManagedIdentityCredential: only one of 'clientId', 'resourceId', or 'objectId' can be provided. Received values: ${JSON.stringify({ clientId: this.clientId, resourceId: this.resourceId, objectId: this.objectId })}`,
       );
     if (
-      ((o.allowInsecureConnection = !0),
+      ((o.allowInsecureConnection = true),
       ((r = o.retryOptions) === null || r === void 0 ? void 0 : r.maxRetries) !== void 0)
     )
       this.msiRetryConfig.maxRetries = o.retryOptions.maxRetries;
@@ -12089,7 +12089,7 @@ class Cn {
           userAssignedObjectId: this.objectId,
         },
         system: {
-          disableInternalRetries: !0,
+          disableInternalRetries: true,
           networkClient: this.identityClient,
           loggerOptions: {
             logLevel: ta(Ui()),
@@ -12191,12 +12191,12 @@ class Cn {
   }
 }
 function uA(e) {
-  if (e.errorCode === "network_error") return !0;
-  if (e.code === "ENETUNREACH" || e.code === "EHOSTUNREACH") return !0;
+  if (e.errorCode === "network_error") return true;
+  if (e.code === "ENETUNREACH" || e.code === "EHOSTUNREACH") return true;
   if (e.statusCode === 403 || e.code === 403) {
-    if (e.message.includes("unreachable")) return !0;
+    if (e.message.includes("unreachable")) return true;
   }
-  return !1;
+  return false;
 }
 function Je(e) {
   return Array.isArray(e) ? e : [e];
@@ -12234,7 +12234,7 @@ var at = M("AzureCliCredential"),
           hA.execFile(
             "az",
             ["account", "get-access-token", "--output", "json", "--resource", e, ...o, ...i],
-            { cwd: Tm.getSafeWorkingDir(), shell: !0, timeout: n },
+            { cwd: Tm.getSafeWorkingDir(), shell: true, timeout: n },
             (c, l, d) => {
               s({ stdout: l, stderr: d, error: c });
             },
@@ -12422,7 +12422,7 @@ var Am = {
   },
 };
 var qt = M("AzurePowerShellCredential"),
-  _m = !1;
+  _m = false;
 function Sm(e) {
   if (_m) return `${e}.exe`;
   else return e;
@@ -12621,7 +12621,7 @@ class ca {
   }
   async buildClientCertificate() {
     var e;
-    let t = await CA(this.certificateConfiguration, (e = this.sendCertificateChain) !== null && e !== void 0 ? e : !1),
+    let t = await CA(this.certificateConfiguration, (e = this.sendCertificateChain) !== null && e !== void 0 ? e : false),
       r;
     if (this.certificateConfiguration.certificatePassword !== void 0)
       r = yA({
@@ -12922,7 +12922,7 @@ class Om {
         );
       else
         s.brokerOptions = {
-          enabled: !0,
+          enabled: true,
           parentWindowHandle: a.brokerOptions.parentWindowHandle,
           legacyEnableMsaPassthrough:
             (n = a.brokerOptions) === null || n === void 0 ? void 0 : n.legacyEnableMsaPassthrough,
@@ -12952,7 +12952,7 @@ class Om {
         await this.msalClient.getTokenByInteractiveRequest(
           n,
           Object.assign(Object.assign({}, r), {
-            disableAutomaticAuthentication: !1,
+            disableAutomaticAuthentication: false,
             browserCustomizationOptions: this.browserCustomizationOptions,
             loginHint: this.loginHint,
           }),
@@ -13000,7 +13000,7 @@ class Pm {
         await this.msalClient.getTokenByDeviceCode(
           n,
           this.userPromptCallback,
-          Object.assign(Object.assign({}, r), { disableAutomaticAuthentication: !1 }),
+          Object.assign(Object.assign({}, r), { disableAutomaticAuthentication: false }),
         ),
         this.msalClient.getActiveAccount()
       );

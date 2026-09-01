@@ -21,8 +21,8 @@ function xrt(r, i) {
   return new Map(
     [...r].filter(([, t]) => {
       let e = f(i, t);
-      if (e === void 0) return !1;
-      if (!Xs(e.status)) return !0;
+      if (e === void 0) return false;
+      if (!Xs(e.status)) return true;
       return (
         zA(e) &&
         "keepaliveReasons" in e &&

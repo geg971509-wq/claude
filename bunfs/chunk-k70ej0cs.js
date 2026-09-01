@@ -31,16 +31,16 @@ async function Rhe(r) {
 }
 async function Qot(r, t) {
   try {
-    let o = !1,
+    let o = false,
       s = await vn().mutate((e) => {
-        if (t?.onlyIf && !t.onlyIf(e.designOauth)) return (o = !0), e;
+        if (t?.onlyIf && !t.onlyIf(e.designOauth)) return (o = true), e;
         return { ...e, designOauth: r };
       });
-    return o ? { ...s, raced: !0 } : s;
+    return o ? { ...s, raced: true } : s;
   } catch (o) {
     return (
       n(`Failed to save design OAuth tokens: ${l(o)}`, { level: "error" }),
-      { success: !1, warning: "Failed to save design OAuth tokens" }
+      { success: false, warning: "Failed to save design OAuth tokens" }
     );
   }
 }
@@ -68,7 +68,7 @@ async function y(r) {
   let t = UT();
   await le().mkdir(t);
   let o = O(t, D),
-    s = !1,
+    s = false,
     e,
     c = 0;
   while (!e) {
@@ -76,11 +76,11 @@ async function y(r) {
     try {
       e = await Gi(o, {
         lockfilePath: o,
-        realpath: !1,
+        realpath: false,
         stale: 60000,
         update: 5000,
         onCompromised: (i) => {
-          (s = !0), n(`Design OAuth refresh lock compromised: ${i.message}`, { level: "error" });
+          (s = true), n(`Design OAuth refresh lock compromised: ${i.message}`, { level: "error" });
         },
       });
     } catch (i) {
@@ -111,32 +111,32 @@ async function m() {
 }
 async function Den(r) {
   let t = await Rhe(r);
-  if (!t?.accessToken) return { ok: !1, reason: "needs_design_login" };
-  if (!iN(t.expiresAt)) return { ok: !0, accessToken: t.accessToken };
+  if (!t?.accessToken) return { ok: false, reason: "needs_design_login" };
+  if (!iN(t.expiresAt)) return { ok: true, accessToken: t.accessToken };
   try {
     return await y(async (o) => {
       let s = await m();
-      if (!s?.accessToken) return { ok: !1, reason: "needs_design_login" };
-      if (!iN(s.expiresAt)) return { ok: !0, accessToken: s.accessToken };
+      if (!s?.accessToken) return { ok: false, reason: "needs_design_login" };
+      if (!iN(s.expiresAt)) return { ok: true, accessToken: s.accessToken };
       if (!s.refreshToken) {
         let e = s.refreshToken;
-        return await d((c) => c.refreshToken === e), { ok: !1, reason: "needs_design_login" };
+        return await d((c) => c.refreshToken === e), { ok: false, reason: "needs_design_login" };
       }
       if (!Array.isArray(s.scopes) || s.scopes.length === 0) {
         let e = s.refreshToken;
-        return await d((c) => c.refreshToken === e), { ok: !1, reason: "needs_design_login" };
+        return await d((c) => c.refreshToken === e), { ok: false, reason: "needs_design_login" };
       }
       if (o.isCompromised())
         return (
           g("oauth_token_refresh", "design_oauth_refresh_lock_compromised"),
-          { ok: !1, reason: "design_refresh_failed", detail: "another process is refreshing the design token" }
+          { ok: false, reason: "design_refresh_failed", detail: "another process is refreshing the design token" }
         );
       try {
-        let e = await C$(s.refreshToken, { clientId: s.clientId, scopes: s.scopes, skipProfileFetch: !0 });
+        let e = await C$(s.refreshToken, { clientId: s.clientId, scopes: s.scopes, skipProfileFetch: true });
         if (!e.refreshToken || !e.expiresAt) {
           if (e.refreshToken && e.refreshToken !== s.refreshToken) await rS(e.refreshToken, s.clientId);
           return {
-            ok: !1,
+            ok: false,
             reason: "design_refresh_failed",
             detail: "refresh response missing refresh_token or expiry",
           };
@@ -146,7 +146,7 @@ async function Den(r) {
           let i = s.refreshToken;
           return (
             await d((f) => f.refreshToken === i),
-            { ok: !1, reason: "needs_design_login", detail: "refresh response missing design scopes" }
+            { ok: false, reason: "needs_design_login", detail: "refresh response missing design scopes" }
           );
         }
         let c = s.refreshToken,
@@ -164,33 +164,33 @@ async function Den(r) {
           await rS(e.refreshToken, s.clientId);
           let i = await m();
           return i?.accessToken && !iN(i.expiresAt)
-            ? { ok: !0, accessToken: i.accessToken }
-            : { ok: !1, reason: "needs_design_login" };
+            ? { ok: true, accessToken: i.accessToken }
+            : { ok: false, reason: "needs_design_login" };
         }
         if (!u.success)
           n("Design OAuth refresh succeeded but persist failed; continuing with in-memory token.", { level: "error" });
-        return { ok: !0, accessToken: e.accessToken };
+        return { ok: true, accessToken: e.accessToken };
       } catch (e) {
         if (o.isCompromised()) {
           let c = await m();
-          if (c?.accessToken && !iN(c.expiresAt)) return { ok: !0, accessToken: c.accessToken };
+          if (c?.accessToken && !iN(c.expiresAt)) return { ok: true, accessToken: c.accessToken };
           if (!v$(e)) g("oauth_token_refresh", "design_oauth_refresh_lock_compromised");
-          return { ok: !1, reason: "design_refresh_failed", detail: "another process is refreshing the design token" };
+          return { ok: false, reason: "design_refresh_failed", detail: "another process is refreshing the design token" };
         }
         if (v$(e)) {
           let c = s.refreshToken;
           return (
             await d((u) => u.refreshToken === c),
-            { ok: !1, reason: "needs_design_login", detail: "design authorization expired" }
+            { ok: false, reason: "needs_design_login", detail: "design authorization expired" }
           );
         }
-        return { ok: !1, reason: "design_refresh_failed", detail: l(e) };
+        return { ok: false, reason: "design_refresh_failed", detail: l(e) };
       }
     });
   } catch (o) {
     if (o instanceof T) g("oauth_token_refresh", "design_oauth_refresh_lock_contention");
     else h(o), p("oauth_token_refresh", "design_oauth_refresh_lock_error");
-    return { ok: !1, reason: "design_refresh_failed", detail: l(o) };
+    return { ok: false, reason: "design_refresh_failed", detail: l(o) };
   }
 }
 function Zot() {
@@ -204,20 +204,20 @@ async function NIt(r, t) {
   if (o.length > 0) {
     if (r.refreshToken) await rS(r.refreshToken, t);
     return {
-      ok: !1,
+      ok: false,
       message: `The authorization server did not grant the design scopes (missing: ${o.join(", ")}) \u2014 the Claude Design app registration may be incomplete or out of date.`,
     };
   }
   if (!r.refreshToken || !r.expiresAt) {
     if (r.refreshToken) await rS(r.refreshToken, t);
     return {
-      ok: !1,
+      ok: false,
       message:
         "The token response was missing a refresh token or expiry \u2014 cannot store a usable design credential.",
     };
   }
   return {
-    ok: !0,
+    ok: true,
     slot: {
       accessToken: r.accessToken,
       refreshToken: r.refreshToken,
@@ -228,33 +228,33 @@ async function NIt(r, t) {
   };
 }
 function Oen() {
-  return a.isSSH() || a.CLAUDE_CODE_REMOTE === !0 || $n();
+  return a.isSSH() || a.CLAUDE_CODE_REMOTE === true || $n();
 }
 var A = 300000;
 async function TUn(r) {
-  if (r?.aborted) return { ok: !1, message: "Design login was interrupted." };
+  if (r?.aborted) return { ok: false, message: "Design login was interrupted." };
   if (!B0e())
     return {
-      ok: !1,
+      ok: false,
       message:
         "The Claude Design OAuth client is not configured in this build. Set CLAUDE_CODE_DESIGN_OAUTH_CLIENT_ID to the registered client id, or update to a build with the registered client.",
     };
   if (Oen())
     return {
-      ok: !1,
+      ok: false,
       message:
         "This session is remote, so the browser can't reach the local sign-in listener. Run /design-login instead \u2014 it supports pasting the authorization code manually.",
     };
   let t = Zot(),
     o = new jR(),
-    s = !1,
-    e = !1,
+    s = false,
+    e = false,
     c;
   try {
     let u = o.startOAuthFlow(async () => {}, {
-      loginWithClaudeAi: !0,
+      loginWithClaudeAi: true,
       oauthClient: { clientId: t, scopes: wJ },
-      skipProfileFetch: !0,
+      skipProfileFetch: true,
       successRedirectUrl: zt().CLAUDEAI_SUCCESS_URL,
     });
     u.then((k) => {
@@ -264,35 +264,35 @@ async function TUn(r) {
         u,
         new Promise((k, _) => {
           (c = setTimeout(() => {
-            (s = !0), (e = !0), _(Error("design login timed out"));
+            (s = true), (e = true), _(Error("design login timed out"));
           }, A)),
             r?.addEventListener(
               "abort",
               () => {
-                (e = !0), _(Error("design login interrupted"));
+                (e = true), _(Error("design login interrupted"));
               },
-              { once: !0 },
+              { once: true },
             );
         }),
       ]),
       f = await NIt(i, t);
-    if (!f.ok) return { ok: !1, message: f.message };
+    if (!f.ok) return { ok: false, message: f.message };
     if (!(await Qot(f.slot)).success)
       return (
         await rS(f.slot.refreshToken, f.slot.clientId),
-        { ok: !1, message: "Could not save the design credential to secure storage. Retry, or run /design-login." }
+        { ok: false, message: "Could not save the design credential to secure storage. Retry, or run /design-login." }
       );
-    return { ok: !0, accessToken: f.slot.accessToken };
+    return { ok: true, accessToken: f.slot.accessToken };
   } catch (u) {
-    if (((e = !0), r?.aborted)) return { ok: !1, message: "Design login was interrupted." };
+    if (((e = true), r?.aborted)) return { ok: false, message: "Design login was interrupted." };
     if (s)
       return {
-        ok: !1,
+        ok: false,
         message:
           "The browser authorization timed out after 5 minutes. Retry, or run /design-login for the manual flow.",
       };
     return {
-      ok: !1,
+      ok: false,
       message: `The browser authorization failed (${l(u)}). Run /design-login to retry with the manual flow.`,
     };
   } finally {

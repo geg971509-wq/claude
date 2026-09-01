@@ -30,9 +30,9 @@ function oe(Ce) {
 var k = { start: "flex-start", center: "center", end: "flex-end" },
   H = 2;
 function te(n) {
-  if (typeof n === "string" || typeof n === "number") return !0;
-  if (z_(n) && n.type === ml) return !0;
-  return !1;
+  if (typeof n === "string" || typeof n === "number") return true;
+  if (z_(n) && n.type === ml) return true;
+  return false;
 }
 function W(n, c, u) {
   if (!te(n)) return n;
@@ -135,8 +135,8 @@ function D(xe) {
     let J = O(x, X, Z, G);
     T = o;
     M = "column";
-    j = Z && e(R, { cells: x.map(oe), columns: x, widths: J, isHeader: !0 });
-    E = X.map((Re, Y) => e(R, { cells: Re, columns: x, widths: J, isHeader: !1 }, V[Y].key ?? Y));
+    j = Z && e(R, { cells: x.map(oe), columns: x, widths: J, isHeader: true });
+    E = X.map((Re, Y) => e(R, { cells: Re, columns: x, widths: J, isHeader: false }, V[Y].key ?? Y));
     (Q[0] = B), (Q[1] = x), (Q[2] = G), (Q[3] = T), (Q[4] = M), (Q[5] = j), (Q[6] = E);
   } else (T = Q[3]), (M = Q[4]), (j = Q[5]), (E = Q[6]);
   let ee;

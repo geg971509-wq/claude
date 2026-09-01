@@ -40,7 +40,7 @@ function W(t) {
   for (let e of n) {
     let i = [],
       s = x,
-      l = !1,
+      l = false,
       o = 0;
     while (o < e.length) {
       if (e[o] === "\x1B" && e[o + 1] === "[") {
@@ -54,8 +54,8 @@ function W(t) {
             c = 0;
           while (c < u.length) {
             let d = u[c];
-            if (d === 0) (s = x), (l = !1);
-            else if (d === 1) l = !0;
+            if (d === 0) (s = x), (l = false);
+            else if (d === 1) l = true;
             else if (d >= 30 && d <= 37) s = z[d] || x;
             else if (d >= 90 && d <= 97) s = z[d] || x;
             else if (d === 39) s = x;
@@ -85,7 +85,7 @@ function W(t) {
       let a = e.slice(g, o);
       if (a) i.push({ text: a, color: s, bold: l });
     }
-    if (i.length === 0) i.push({ text: "", color: x, bold: !1 });
+    if (i.length === 0) i.push({ text: "", color: x, bold: false });
     r.push(i);
   }
   return r;
@@ -154,7 +154,7 @@ function fn(t, r = {}) {
   let { scale: n = 1, paddingX: e = 48, paddingY: i = 48, borderRadius: s = 16, background: l = R } = r,
     o = W(t);
   while (o.length > 0 && o.at(-1).every((b) => b.text.trim() === "")) o.pop();
-  if (o.length === 0) o.push([{ text: "", color: l, bold: !1 }]);
+  if (o.length === 0) o.push([{ text: "", color: l, bold: false }]);
   let g = Math.max(1, ...o.map(U)),
     a = o.length,
     f = (g * P + e * 2) * n,

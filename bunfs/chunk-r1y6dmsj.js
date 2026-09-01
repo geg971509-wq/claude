@@ -170,7 +170,7 @@ function Y(e) {
     }
     if (typeof t !== "object" || t === null) continue;
     if (t.type !== "user" && t.type !== "assistant") continue;
-    if (typeof t.uuid !== "string" || typeof t.timestamp !== "string" || t.isSidechain === !0 || !t.message) continue;
+    if (typeof t.uuid !== "string" || typeof t.timestamp !== "string" || t.isSidechain === true || !t.message) continue;
     r.push(
       t.type === "user"
         ? {
@@ -178,9 +178,9 @@ function Y(e) {
             uuid: t.uuid,
             timestamp: t.timestamp,
             message: t.message,
-            ...(t.isMeta === !0 && { isMeta: !0 }),
+            ...(t.isMeta === true && { isMeta: true }),
             ...(t.toolUseResult !== void 0 && { toolUseResult: t.toolUseResult }),
-            ...(t.isCompactSummary === !0 && { isCompactSummary: !0 }),
+            ...(t.isCompactSummary === true && { isCompactSummary: true }),
           }
         : { type: "assistant", uuid: t.uuid, timestamp: t.timestamp, message: t.message, requestId: t.requestId },
     );
@@ -244,7 +244,7 @@ async function fge({
       description: V(e, t),
       surface: u,
       platform: a.platform,
-      gitRepo: !1,
+      gitRepo: false,
       commitSha: null,
       version: e.cli_version,
       transcript: l,
@@ -278,7 +278,7 @@ async function fge({
         last_request_id: ve(g),
       }),
       y("feedback_draft_submit"),
-      { success: !0, feedbackId: i.feedbackId }
+      { success: true, feedbackId: i.feedbackId }
     );
   }
   if (
@@ -286,16 +286,16 @@ async function fge({
     i.isZdrOrg)
   )
     return {
-      success: !1,
+      success: false,
       error: "Feedback collection is not available for organizations with custom data retention policies.",
     };
   if (i.failureReason === "auth_error")
-    return { success: !1, error: "Couldn't send feedback: not signed in. Run /login, then retry." };
-  if (i.payloadTooLarge) return { success: !1, error: N, payloadTooLarge: !0 };
+    return { success: false, error: "Couldn't send feedback: not signed in. Run /login, then retry." };
+  if (i.payloadTooLarge) return { success: false, error: N, payloadTooLarge: true };
   if (i.failureReason === "policy_blocked")
-    return { success: !1, error: v9() ?? "Feedback is disabled by your organization's policy." };
+    return { success: false, error: v9() ?? "Feedback is disabled by your organization's policy." };
   return {
-    success: !1,
+    success: false,
     error: `Couldn't send feedback${i.statusCode ? ` (server returned ${i.statusCode})` : i.failureReason === "timeout" ? " (request timed out)" : " (couldn't reach the service)"}. The draft is still queued. Try again later.`,
   };
 }

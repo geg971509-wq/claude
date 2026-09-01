@@ -71,7 +71,7 @@ var q = m(() =>
           value: t,
           label: u != null ? `${e} (disabled)` : e,
           description: u ? (_ ? `${_} \xB7 ${u}` : u) : _,
-          ...(u != null && { disabled: !0 }),
+          ...(u != null && { disabled: true }),
         };
       }),
     ).nullish(),
@@ -162,14 +162,14 @@ function txt() {
       try {
         return b();
       } catch (t) {
-        return h(t), !0;
+        return h(t), true;
       }
     }),
       Rwn(() => {
         try {
           return b();
         } catch (t) {
-          return h(t), !1;
+          return h(t), false;
         }
       }),
       Hwn(() => {
@@ -215,10 +215,10 @@ async function Y(t, e) {
     if (!a.CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY)
       return (
         n("[Bootstrap] Skipped gateway /v1/models (CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY not set)"),
-        { response: { additional_model_options: [] }, viaScopelessOAuth: !1 }
+        { response: { additional_model_options: [] }, viaScopelessOAuth: false }
       );
     let o = await J(e);
-    return o && { response: o, viaScopelessOAuth: !1 };
+    return o && { response: o, viaScopelessOAuth: false };
   }
   if (Ct()) return n("[Bootstrap] Skipped: Nonessential traffic disabled"), null;
   if (Ne() !== "firstParty") return n("[Bootstrap] Skipped: 3P provider"), null;
@@ -249,7 +249,7 @@ async function Y(t, e) {
           Authorization: `Bearer ${await o.getToken()}`,
           "anthropic-beta": ud,
         });
-        return f && { response: f, viaScopelessOAuth: !1 };
+        return f && { response: f, viaScopelessOAuth: false };
       }
     } catch (o) {
       return (
@@ -263,7 +263,7 @@ async function Y(t, e) {
   if (!Yt()?.accessToken && !c) return n("[Bootstrap] Skipped: no usable OAuth, WIF, or API key"), null;
   if (a.ANTHROPIC_UNIX_SOCKET)
     return n("[Bootstrap] Skipped: unix-socket-proxied session"), g("api_bootstrap_fetch", "unix_socket_skip"), null;
-  let r = !1;
+  let r = false;
   try {
     let o = await dh(
       async () => {
@@ -271,7 +271,7 @@ async function Y(t, e) {
           f = Wd(),
           A;
         if (i && (f || !c)) (r = !f && !c), (A = { Authorization: `Bearer ${i}`, "anthropic-beta": ud });
-        else if (c) (r = !1), (A = { "x-api-key": c });
+        else if (c) (r = false), (A = { "x-api-key": c });
         else return n("[Bootstrap] No auth available on retry, aborting"), null;
         return d(zt().BASE_API_URL, A);
       },
@@ -294,13 +294,13 @@ async function Y(t, e) {
   }
 }
 function IJt() {
-  if (a.ANTHROPIC_UNIX_SOCKET) return !1;
+  if (a.ANTHROPIC_UNIX_SOCKET) return false;
   return Boolean(ZS()) || (Boolean(Yt()?.accessToken) && Wd());
 }
 async function zK(t, e) {
   await wdr(t, e);
 }
-async function wdr(t, e, { keepRenderCaches: l = !1 } = {}) {
+async function wdr(t, e, { keepRenderCaches: l = false } = {}) {
   txt();
   try {
     let u = Ne() === "firstParty";
@@ -308,13 +308,13 @@ async function wdr(t, e, { keepRenderCaches: l = !1 } = {}) {
     let d = xJt(),
       c = rme(),
       _ = await Y(d, e);
-    if (!_) return !1;
+    if (!_) return false;
     let { response: r, viaScopelessOAuth: o } = _;
     if (c !== rme())
       return (
         n("[Bootstrap] Discarding response fetched under a superseded credential"),
         g("api_bootstrap_fetch", "superseded_credential"),
-        !1
+        false
       );
     y("api_bootstrap_fetch");
     let i = ie(),
@@ -360,12 +360,12 @@ async function wdr(t, e, { keepRenderCaches: l = !1 } = {}) {
         (!u || bs(i.autoCompactWindowsCache ?? null, M)) &&
         j)
     )
-      return n("[Bootstrap] Cache unchanged, skipping write"), !0;
+      return n("[Bootstrap] Cache unchanged, skipping write"), true;
     n("[Bootstrap] Cache updated, persisting to disk");
-    let N = !1;
+    let N = false;
     if (
       (await Ae((C) => {
-        if (G !== rme()) return (N = !0), C;
+        if (G !== rme()) return (N = true), C;
         let B = W(C.oauthAccount, r.oauth_account),
           K = R4t({ ...d, organizationUuid: B?.organizationUuid ?? null });
         return {
@@ -389,13 +389,13 @@ async function wdr(t, e, { keepRenderCaches: l = !1 } = {}) {
       }, t),
       N)
     )
-      return !1;
+      return false;
     if (S && !l) h$(), M3();
-    return !0;
+    return true;
   } catch (u) {
     if (ic(u)) n(`[Bootstrap] fetchBootstrapData failed: ${u}`, { level: "error" });
     else h(u);
-    return !1;
+    return false;
   }
 }
 var X = m(() =>

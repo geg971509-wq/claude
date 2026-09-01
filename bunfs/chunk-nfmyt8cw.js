@@ -158,7 +158,7 @@ function jwe() {
   let e = Oa() ?? PF();
   if (e) return { key: u(e), bridgeSessionId: e.bridgeSessionId, selfTitle: e.selfTitle, live: rc() };
   let i = oi().supervisedBridgeSession;
-  return i ? { key: u(i), bridgeSessionId: i.bridgeSessionId, selfTitle: i.selfTitle, live: !0 } : null;
+  return i ? { key: u(i), bridgeSessionId: i.bridgeSessionId, selfTitle: i.selfTitle, live: true } : null;
 }
 function dOe(e) {
   let i = oi(),

@@ -38,21 +38,21 @@ var Ype = S(function (Re) {
     X = x.toLowerCase(),
     Ee = "host",
     F = {
-      authorization: !0,
-      "cache-control": !0,
-      connection: !0,
-      expect: !0,
-      from: !0,
-      "keep-alive": !0,
-      "max-forwards": !0,
-      pragma: !0,
-      referer: !0,
-      te: !0,
-      trailer: !0,
-      "transfer-encoding": !0,
-      upgrade: !0,
-      "user-agent": !0,
-      "x-amzn-trace-id": !0,
+      authorization: true,
+      "cache-control": true,
+      connection: true,
+      expect: true,
+      from: true,
+      "keep-alive": true,
+      "max-forwards": true,
+      pragma: true,
+      referer: true,
+      te: true,
+      trailer: true,
+      "transfer-encoding": true,
+      upgrade: true,
+      "user-agent": true,
+      "x-amzn-trace-id": true,
     },
     W = /^proxy-/,
     Z = /^sec-/,
@@ -128,22 +128,22 @@ var Ype = S(function (Re) {
           return Uint8Array.from([2, e.value]);
         case "short":
           let t = new DataView(new ArrayBuffer(3));
-          return t.setUint8(0, 3), t.setInt16(1, e.value, !1), new Uint8Array(t.buffer);
+          return t.setUint8(0, 3), t.setInt16(1, e.value, false), new Uint8Array(t.buffer);
         case "integer":
           let r = new DataView(new ArrayBuffer(5));
-          return r.setUint8(0, 4), r.setInt32(1, e.value, !1), new Uint8Array(r.buffer);
+          return r.setUint8(0, 4), r.setInt32(1, e.value, false), new Uint8Array(r.buffer);
         case "long":
           let s = new Uint8Array(9);
           return (s[0] = 5), s.set(e.value.bytes, 1), s;
         case "binary":
           let n = new DataView(new ArrayBuffer(3 + e.value.byteLength));
-          n.setUint8(0, 6), n.setUint16(1, e.value.byteLength, !1);
+          n.setUint8(0, 6), n.setUint16(1, e.value.byteLength, false);
           let a = new Uint8Array(n.buffer);
           return a.set(e.value, 3), a;
         case "string":
           let o = d.fromUtf8(e.value),
             i = new DataView(new ArrayBuffer(3 + o.byteLength));
-          i.setUint8(0, 7), i.setUint16(1, o.byteLength, !1);
+          i.setUint8(0, 7), i.setUint16(1, o.byteLength, false);
           let c = new Uint8Array(i.buffer);
           return c.set(o, 3), c;
         case "timestamp":
@@ -186,8 +186,8 @@ var Ype = S(function (Re) {
   }
   var ae = (e, t) => {
       e = e.toLowerCase();
-      for (let r of Object.keys(t)) if (e === r.toLowerCase()) return !0;
-      return !1;
+      for (let r of Object.keys(t)) if (e === r.toLowerCase()) return true;
+      return false;
     },
     oe = (e, t = {}) => {
       let { headers: r, query: s = {} } = Y.HttpRequest.clone(e);
@@ -244,11 +244,11 @@ var Ype = S(function (Re) {
     sha256;
     uriEscapePath;
     applyChecksum;
-    constructor({ applyChecksum: e, credentials: t, region: r, service: s, sha256: n, uriEscapePath: a = !0 }) {
+    constructor({ applyChecksum: e, credentials: t, region: r, service: s, sha256: n, uriEscapePath: a = true }) {
       (this.service = s),
         (this.sha256 = n),
         (this.uriEscapePath = a),
-        (this.applyChecksum = typeof e === "boolean" ? e : !0),
+        (this.applyChecksum = typeof e === "boolean" ? e : true),
         (this.regionProvider = M.normalizeProvider(r)),
         (this.credentialProvider = M.normalizeProvider(t));
     }
@@ -302,7 +302,7 @@ ${f.toHex(a)}`;
   }
   class ce extends L {
     headerFormatter = new ne();
-    constructor({ applyChecksum: e, credentials: t, region: r, service: s, sha256: n, uriEscapePath: a = !0 }) {
+    constructor({ applyChecksum: e, credentials: t, region: r, service: s, sha256: n, uriEscapePath: a = true }) {
       super({ applyChecksum: e, credentials: t, region: r, service: s, sha256: n, uriEscapePath: a });
     }
     async presign(e, t = {}) {

@@ -19,12 +19,12 @@ import { yn, We, F } from "/$bunfs/root/chunk-twm95mhz.js";
 import { d } from "/$bunfs/root/chunk-yz031c9r.js";
 F();
 F();
-var n = yn(!1);
+var n = yn(false);
 function VRe(L) {
   let S = _(2),
     { children: m } = L,
     x;
-  if (S[0] !== m) (x = e(n.Provider, { value: !0, children: m })), (S[0] = m), (S[1] = x);
+  if (S[0] !== m) (x = e(n.Provider, { value: true, children: m })), (S[0] = m), (S[1] = x);
   else x = S[1];
   return x;
 }
@@ -41,7 +41,7 @@ function Gc() {
   else g = b[0];
   let N;
   if (b[1] !== l)
-    (N = e(t, { dimColor: !0, children: e(M, { chord: l, action: "expand", parens: !0, format: g }) })),
+    (N = e(t, { dimColor: true, children: e(M, { chord: l, action: "expand", parens: true, format: g }) })),
       (b[1] = l),
       (b[2] = N);
   else N = b[2];
@@ -51,7 +51,7 @@ function Jm(K) {
   let u = _(8),
     { count: c, unit: P, expandable: h } = K,
     s = P === void 0 ? "line" : P,
-    R = h === void 0 ? !1 : h;
+    R = h === void 0 ? false : h;
   if (c <= 0) {
     return null;
   }
@@ -62,7 +62,7 @@ function Jm(K) {
   if (u[3] !== R) (f = R && r(U, { children: [" ", e(Gc, {})] })), (u[3] = R), (u[4] = f);
   else f = u[4];
   let v;
-  if (u[5] !== p || u[6] !== f) (v = r(t, { dimColor: !0, children: [p, f] })), (u[5] = p), (u[6] = f), (u[7] = v);
+  if (u[5] !== p || u[6] !== f) (v = r(t, { dimColor: true, children: [p, f] })), (u[5] = p), (u[6] = f), (u[7] = v);
   else v = u[7];
   return v;
 }

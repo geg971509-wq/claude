@@ -50,7 +50,7 @@ async function Tm(e, t, r, o = []) {
       `${r}: ${s} is a network-reaching path (UNC / automount) \u2014 refusing it`,
       "plugin eval: a repo-authored path is network-reaching \u2014 refusing it",
     );
-  let u = await ykn(_A, n, { anchors: a, surfaceNetworkRaw: !0, unreadableAncestry: "unverified" });
+  let u = await ykn(_A, n, { anchors: a, surfaceNetworkRaw: true, unreadableAncestry: "unverified" });
   if (u === D5)
     throw new R(
       `${r}: ${s} passes through a component that cannot be examined (unreadable, a link or junction whose target does not exist, or a symlink chain too long to follow) \u2014 refusing it (it could not be vetted)`,
@@ -70,9 +70,9 @@ function F(e) {
   let r = 0,
     o = 1,
     n = 0,
-    s = !1,
-    a = !1,
-    u = !1;
+    s = false,
+    a = false,
+    u = false;
   for (let c = 0; c < e.length; c++) {
     let p = e[c];
     if (p === "(" || p === ")" || p === "|")
@@ -86,7 +86,7 @@ function F(e) {
           problem:
             'expect: /regex/ guards use a small dialect \u2014 literals, ".", escapes, character classes, and quantifiers (* + ? {m,n}) on single atoms, with optional ^ and $; no groups "(\u2026)", alternation "|", backreferences, or lookaround. Use a list of literals, a type name, or several simpler guards instead',
         };
-      (s = !0), (a = !1), (u = !1);
+      (s = true), (a = false), (u = false);
       continue;
     }
     if (p === "$") {
@@ -102,7 +102,7 @@ function F(e) {
     else if (p === "+") h = { lo: 1, hi: 1 / 0 };
     else if (p === "?") {
       if (u) {
-        u = !1;
+        u = false;
         continue;
       }
       h = { lo: 0, hi: 1 };
@@ -119,10 +119,10 @@ function F(e) {
       if (!a) return { problem: "a quantifier must follow a single character, escape, or class" };
       if (((n += (h.hi === 1 / 0 ? h.lo : h.hi) - 1), h.hi === 1 / 0)) r++;
       else o *= h.hi - h.lo + 1;
-      (a = !1), (u = !0);
+      (a = false), (u = true);
       continue;
     }
-    if (((u = !1), p === "\\")) {
+    if (((u = false), p === "\\")) {
       let g = e[c + 1];
       if (g === void 0) return { problem: "pattern ends with a lone backslash" };
       if (/[1-9]/.test(g) || g === "k")
@@ -141,10 +141,10 @@ function F(e) {
         c++;
       }
       if (c >= e.length) return { problem: "unterminated character class" };
-      (a = !0), n++;
+      (a = true), n++;
       continue;
     }
-    (a = !0), n++;
+    (a = true), n++;
   }
   if (o > I) return { problem: "too many optional/bounded repeats for an expect: guard" };
   let d = (c) => {
@@ -210,7 +210,7 @@ function re(e, t, r, o) {
 function M(e, t) {
   if (typeof e === "string") return e === t;
   if (typeof e === "number" || typeof e === "boolean") return String(e) === t;
-  return !1;
+  return false;
 }
 function B(e) {
   let t = /^\/(.+)\/([a-z]*)$/s.exec(e);
@@ -309,8 +309,8 @@ async function DGt(e, t, r, o, n = Number.POSITIVE_INFINITY) {
   }
   a.push(e.slice(u));
   let d = await Promise.all(a);
-  if (s !== null) return { ok: !1, reason: s };
-  return { ok: !0, text: d.join("") };
+  if (s !== null) return { ok: false, reason: s };
+  return { ok: true, text: d.join("") };
 }
 function se(e, t) {
   let r = A.relative(e, t);
@@ -352,14 +352,14 @@ function fe(e, t, r) {
     }
     let s = le({ path: e }),
       a = Buffer.alloc(0),
-      u = !1,
+      u = false,
       d = (w, c) => {
         if (u) return;
-        if (((u = !0), r.removeEventListener("abort", y), s.destroy(), w !== null)) n(w);
+        if (((u = true), r.removeEventListener("abort", y), s.destroy(), w !== null)) n(w);
         else o(c ?? "");
       },
       y = () => d(Error("aborted"));
-    r.addEventListener("abort", y, { once: !0 }),
+    r.addEventListener("abort", y, { once: true }),
       s.once("connect", () => s.write(t)),
       s.on("data", (w) => {
         if (((a = Buffer.concat([a, w])), a.length > pe)) {
@@ -459,11 +459,11 @@ function gbr(e) {
       case "ok":
         return { content: [{ type: "text", text: oEt(p.text) }] };
       case "tool_error":
-        return { content: [{ type: "text", text: oEt(p.text) }], isError: !0 };
+        return { content: [{ type: "text", text: oEt(p.text) }], isError: true };
       case "abort":
         return {
           content: [{ type: "text", text: `${vYe} ${e.nonce}: ${e.server}/${d} \u2014 ${p.text}` }],
-          isError: !0,
+          isError: true,
         };
     }
   }
@@ -517,7 +517,7 @@ async function K(e, t) {
     let r = k.O_WRONLY | k.O_APPEND | k.O_CREAT | (D() === "windows" ? 0 : k.O_NONBLOCK),
       o = await C(e, r, 384);
     try {
-      if (!(await o.stat()).isFile()) return !1;
+      if (!(await o.stat()).isFile()) return false;
       let n = Buffer.from(
           `${t}
 `,
@@ -526,15 +526,15 @@ async function K(e, t) {
         s = 0;
       while (s < n.length) {
         let { bytesWritten: a } = await o.write(n, s);
-        if (a <= 0) return !1;
+        if (a <= 0) return false;
         s += a;
       }
-      return !0;
+      return true;
     } finally {
       await o.close();
     }
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Z(e, t) {

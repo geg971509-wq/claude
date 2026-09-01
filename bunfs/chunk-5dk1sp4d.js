@@ -108,7 +108,7 @@ function Po(n) {
 }
 function Bo(n) {
   if (n.type === "in_process_teammate") return { ...n, evictAfter: n.isIdle ? Date.now() + Gr : void 0 };
-  return { ...n, retain: !1, diskLoaded: !1, evictAfter: Xs(n.status) ? Date.now() + Gr : void 0 };
+  return { ...n, retain: false, diskLoaded: false, evictAfter: Xs(n.status) ? Date.now() + Gr : void 0 };
 }
 function rq(n, m) {
   s("tengu_transcript_view_enter", {}),
@@ -123,7 +123,7 @@ function rq(n, m) {
       let D = f.tasks;
       if (b || S) {
         if (((D = { ...f.tasks }), b)) D[g] = Bo(w);
-        if (S) D[n] = Io(c) ? { ...c, retain: !0, evictAfter: void 0 } : { ...c, evictAfter: void 0 };
+        if (S) D[n] = Io(c) ? { ...c, retain: true, evictAfter: void 0 } : { ...c, evictAfter: void 0 };
       }
       return { ...f, viewingAgentTaskId: n, viewSelectionMode: "viewing-agent", tasks: D };
     });
@@ -186,7 +186,7 @@ Session: ${b}`,
         "The user stopped the ultrareview session above. Do not respond to the stop notification \u2014 wait for their next message.",
       mode: "task-notification",
       agentId: et(),
-      isMeta: !0,
+      isMeta: true,
     });
 }
 F();
@@ -199,7 +199,7 @@ function Ye(n, m, f) {
       b = w.success ? w.data : {},
       S = c.userFacingName(b);
     if (!S) return n.toolName;
-    let T = g ?? lge(c, b, { theme: f, verbose: !1 });
+    let T = g ?? lge(c, b, { theme: f, verbose: false });
     if (T) return r(t, { children: [S, "(", T, ")"] });
     return S;
   } catch {
@@ -229,7 +229,7 @@ function on(zu) {
     { agent: R, onDone: pt, onKillAgent: yl, onForeground: Xe, onBack: Ko, killAllAgentsShortcut: Vo } = zu,
     [Xr] = mn(),
     kl;
-  if (re[0] === d) (kl = wE(pm(), { skipReplFilter: !0 })), (re[0] = kl);
+  if (re[0] === d) (kl = wE(pm(), { skipReplFilter: true })), (re[0] = kl);
   else kl = re[0];
   let Qu = kl,
     Hr = Tb(R.startTime, R.status === "running", 1000, R.totalPausedMs ?? 0, R.endTime),
@@ -307,7 +307,7 @@ function on(zu) {
   else Go = re[25];
   let zo;
   if (re[26] !== Hr || re[27] !== Fo || re[28] !== qo || re[29] !== Go)
-    (zo = r(t, { dimColor: !0, children: [Hr, Fo, qo, Go] })),
+    (zo = r(t, { dimColor: true, children: [Hr, Fo, qo, Go] })),
       (re[26] = Hr),
       (re[27] = Fo),
       (re[28] = qo),
@@ -348,7 +348,7 @@ function on(zu) {
       r(o, {
         flexDirection: "column",
         children: [
-          e(t, { bold: !0, dimColor: !0, children: "Progress" }),
+          e(t, { bold: true, dimColor: true, children: "Progress" }),
           R.progress.recentActivities.map((Yu, li) =>
             r(
               t,
@@ -370,11 +370,11 @@ function on(zu) {
   let Jo;
   if (re[48] !== ti || re[49] !== $o)
     (Jo = $o
-      ? e(o, { marginTop: 1, children: e(FRe, { addMargin: !1, planContent: $o }) })
+      ? e(o, { marginTop: 1, children: e(FRe, { addMargin: false, planContent: $o }) })
       : r(o, {
           flexDirection: "column",
           marginTop: 1,
-          children: [e(t, { bold: !0, dimColor: !0, children: "Prompt" }), e(t, { wrap: "wrap", children: ti })],
+          children: [e(t, { bold: true, dimColor: true, children: "Prompt" }), e(t, { wrap: "wrap", children: ti })],
         })),
       (re[48] = ti),
       (re[49] = $o),
@@ -389,7 +389,7 @@ function on(zu) {
         flexDirection: "column",
         marginTop: 1,
         children: [
-          e(t, { bold: !0, color: "error", children: "Error" }),
+          e(t, { bold: true, color: "error", children: "Error" }),
           e(t, { color: "error", wrap: "wrap", children: R.error }),
         ],
       })),
@@ -498,7 +498,7 @@ function cn(dm) {
         children: [
           Ue,
           zt,
-          r(t, { dimColor: !0, children: [" ready \xB7 ", e(M, { chord: "shift+down", action: "view" })] }),
+          r(t, { dimColor: true, children: [" ready \xB7 ", e(M, { chord: "shift+down", action: "view" })] }),
         ],
       })),
         (xe[5] = gt);
@@ -512,7 +512,7 @@ function cn(dm) {
         children: [
           r(t, { color: "background", children: [hy, " "] }),
           e(Fe, { text: "ultrareview", phase: 0 }),
-          r(t, { color: "error", dimColor: !0, children: [" \xB7 ", "error"] }),
+          r(t, { color: "error", dimColor: true, children: [" \xB7 ", "error"] }),
         ],
       })),
         (xe[6] = Ue);
@@ -537,7 +537,7 @@ function cn(dm) {
   if (xe[13] !== gt) (an = e(Fe, { text: "ultrareview", phase: gt })), (xe[13] = gt), (xe[14] = an);
   else an = xe[14];
   let ln;
-  if (xe[15] !== Ti) (ln = r(t, { dimColor: !0, children: [" \xB7 ", Ti] })), (xe[15] = Ti), (xe[16] = ln);
+  if (xe[15] !== Ti) (ln = r(t, { dimColor: true, children: [" \xB7 ", Ti] })), (xe[15] = Ti), (xe[16] = ln);
   else ln = xe[16];
   let Bl;
   if (xe[17] !== an || xe[18] !== ln)
@@ -556,20 +556,20 @@ function Me(Tm) {
   }
   if (Te.status === "completed") {
     let he;
-    if (yt[2] === d) (he = e(t, { bold: !0, color: "success", dimColor: !0, children: "done" })), (yt[2] = he);
+    if (yt[2] === d) (he = e(t, { bold: true, color: "success", dimColor: true, children: "done" })), (yt[2] = he);
     else he = yt[2];
     return he;
   }
   if (Te.status === "failed") {
     let he;
-    if (yt[3] === d) (he = e(t, { bold: !0, color: "error", dimColor: !0, children: "error" })), (yt[3] = he);
+    if (yt[3] === d) (he = e(t, { bold: true, color: "error", dimColor: true, children: "error" })), (yt[3] = he);
     else he = yt[3];
     return he;
   }
   if (!Te.todoList.length) {
     let he;
     if (yt[4] !== Te.status)
-      (he = r(t, { dimColor: !0, children: [Te.status, "\u2026"] })), (yt[4] = Te.status), (yt[5] = he);
+      (he = r(t, { dimColor: true, children: [Te.status, "\u2026"] })), (yt[4] = Te.status), (yt[5] = he);
     else he = yt[5];
     return he;
   }
@@ -580,7 +580,7 @@ function Me(Tm) {
     bi = Te.todoList.length,
     Ll;
   if (yt[8] !== hi || yt[9] !== bi)
-    (Ll = r(t, { dimColor: !0, children: [hi, "/", bi] })), (yt[8] = hi), (yt[9] = bi), (yt[10] = Ll);
+    (Ll = r(t, { dimColor: true, children: [hi, "/", bi] })), (yt[8] = hi), (yt[9] = bi), (yt[10] = Ll);
   else Ll = yt[10];
   return Ll;
 }
@@ -591,7 +591,7 @@ function ae(Dm) {
     _i = un === "completed" ? "success" : un === "failed" ? "error" : un === "killed" ? "warning" : void 0,
     Nl;
   if (Cm[0] !== _i || Cm[1] !== Si || Cm[2] !== wi)
-    (Nl = r(t, { color: _i, dimColor: !0, children: ["(", Si, wi, ")"] })),
+    (Nl = r(t, { color: _i, dimColor: true, children: ["(", Si, wi, ")"] })),
       (Cm[0] = _i),
       (Cm[1] = Si),
       (Cm[2] = wi),
@@ -640,7 +640,7 @@ function eo(Gm) {
     case "local_bash": {
       const B = p.kind === "monitor" ? p.description : p.command;
       let I;
-      if (x[0] !== ee || x[1] !== B) (I = ir(B, ee, !0)), (x[0] = ee), (x[1] = B), (x[2] = I);
+      if (x[0] !== ee || x[1] !== B) (I = ir(B, ee, true)), (x[0] = ee), (x[1] = B), (x[2] = I);
       else I = x[2];
       let P;
       if (x[3] !== p) (P = e(Xt, { shell: p })), (x[3] = p), (x[4] = P);
@@ -660,13 +660,13 @@ function eo(Gm) {
       let Qm = p.status === "running" || p.status === "pending";
       const B = Qm ? Mf : hy;
       let I;
-      if (x[10] !== B) (I = r(t, { dimColor: !0, children: [B, " "] })), (x[10] = B), (x[11] = I);
+      if (x[10] !== B) (I = r(t, { dimColor: true, children: [B, " "] })), (x[10] = B), (x[11] = I);
       else I = x[11];
       let P;
-      if (x[12] !== ee || x[13] !== p.title) (P = ir(p.title, ee, !0)), (x[12] = ee), (x[13] = p.title), (x[14] = P);
+      if (x[12] !== ee || x[13] !== p.title) (P = ir(p.title, ee, true)), (x[12] = ee), (x[13] = p.title), (x[14] = P);
       else P = x[14];
       let q;
-      if (x[15] === d) (q = e(t, { dimColor: !0, children: " \xB7 " })), (x[15] = q);
+      if (x[15] === d) (q = e(t, { dimColor: true, children: " \xB7 " })), (x[15] = q);
       else q = x[15];
       let j;
       if (x[16] !== p) (j = e(Me, { session: p })), (x[16] = p), (x[17] = j);
@@ -681,7 +681,7 @@ function eo(Gm) {
       let B;
       if (x[22] !== p.effort || x[23] !== p.model) {
         let Ol = Yie(p.model, p.effort);
-        B = Ol ? ` \xB7 ${ir(Ol, 28, !0)}` : "";
+        B = Ol ? ` \xB7 ${ir(Ol, 28, true)}` : "";
         (x[22] = p.effort), (x[23] = p.model), (x[24] = B);
       } else B = x[24];
       let pn = B;
@@ -690,7 +690,7 @@ function eo(Gm) {
       const I = fn ? ee - Di : ee;
       let P;
       if (x[25] !== I || x[26] !== p.description)
-        (P = ir(p.description, I, !0)), (x[25] = I), (x[26] = p.description), (x[27] = P);
+        (P = ir(p.description, I, true)), (x[25] = I), (x[26] = p.description), (x[27] = P);
       else P = x[27];
       const q = p.status === "completed" ? ("quietlyParked" in p && p.quietlyParked ? "parked" : "done") : void 0;
       const j = p.status === "completed" && !p.notified ? ", unread" : void 0;
@@ -704,7 +704,7 @@ function eo(Gm) {
       else te = x[31];
       let Ie;
       if (x[32] !== pn || x[33] !== fn)
-        (Ie = fn && e(t, { dimColor: !0, children: pn })), (x[32] = pn), (x[33] = fn), (x[34] = Ie);
+        (Ie = fn && e(t, { dimColor: true, children: pn })), (x[32] = pn), (x[33] = fn), (x[34] = Ie);
       else Ie = x[34];
       let Ze;
       if (x[35] !== P || x[36] !== te || x[37] !== Ie)
@@ -727,9 +727,9 @@ function eo(Gm) {
             (x[51] = q);
         else q = x[51];
         gn = t;
-        B = !0;
+        B = true;
         I = ": ";
-        P = ir(Ym, ee, !0);
+        P = ir(Ym, ee, true);
         (x[39] = ee), (x[40] = p), (x[41] = gn), (x[42] = yn), (x[43] = B), (x[44] = I), (x[45] = P), (x[46] = q);
       } else (gn = x[41]), (yn = x[42]), (B = x[43]), (I = x[44]), (P = x[45]), (q = x[46]);
       let j;
@@ -750,7 +750,7 @@ function eo(Gm) {
     case "local_workflow": {
       const B = p.workflowName ?? p.summary ?? p.description;
       let I;
-      if (x[61] !== ee || x[62] !== B) (I = ir(B, ee, !0)), (x[61] = ee), (x[62] = B), (x[63] = I);
+      if (x[61] !== ee || x[62] !== B) (I = ir(B, ee, true)), (x[61] = ee), (x[62] = B), (x[63] = I);
       else I = x[63];
       let P;
       if (x[64] !== p.agentCount || x[65] !== p.status)
@@ -784,7 +784,7 @@ function eo(Gm) {
       else B = x[75];
       let Ri = B;
       let I;
-      if (x[76] === d) (I = e(t, { dimColor: !0, children: "\u23F3 " })), (x[76] = I);
+      if (x[76] === d) (I = e(t, { dimColor: true, children: "\u23F3 " })), (x[76] = I);
       else I = x[76];
       let P;
       if (x[77] !== p.serverName) (P = sg(p.serverName) ?? ""), (x[77] = p.serverName), (x[78] = P);
@@ -794,18 +794,18 @@ function eo(Gm) {
       else q = x[80];
       const j = `${P}/${q}`;
       let te;
-      if (x[81] !== ee || x[82] !== j) (te = ir(j, ee, !0)), (x[81] = ee), (x[82] = j), (x[83] = te);
+      if (x[81] !== ee || x[82] !== j) (te = ir(j, ee, true)), (x[81] = ee), (x[82] = j), (x[83] = te);
       else te = x[83];
       let Ie;
       if (x[84] !== Ri || x[85] !== p.mcpStatus)
-        (Ie = r(t, { dimColor: !0, children: [" ", "\xB7 ", Ri, " \xB7 ", p.mcpStatus] })),
+        (Ie = r(t, { dimColor: true, children: [" ", "\xB7 ", Ri, " \xB7 ", p.mcpStatus] })),
           (x[84] = Ri),
           (x[85] = p.mcpStatus),
           (x[86] = Ie);
       else Ie = x[86];
       let Ze;
       if (x[87] !== p.statusMessage)
-        (Ze = p.statusMessage ? r(t, { dimColor: !0, children: [" ", sg(p.statusMessage)] }) : null),
+        (Ze = p.statusMessage ? r(t, { dimColor: true, children: [" ", sg(p.statusMessage)] }) : null),
           (x[87] = p.statusMessage),
           (x[88] = Ze);
       else Ze = x[88];
@@ -821,7 +821,7 @@ function eo(Gm) {
       const B = Ci ? ee - Zt(Ci) : ee;
       let I;
       if (x[93] !== B || x[94] !== p.description)
-        (I = ir(p.description, B, !0)), (x[93] = B), (x[94] = p.description), (x[95] = I);
+        (I = ir(p.description, B, true)), (x[93] = B), (x[94] = p.description), (x[95] = I);
       else I = x[95];
       const P = p.status === "completed" ? "done" : Ci;
       const q = p.status === "completed" && !p.notified ? ", unread" : void 0;
@@ -855,7 +855,7 @@ function eo(Gm) {
       let Ai = B;
       let I;
       if (x[107] !== Ai || x[108] !== p.phase)
-        (I = r(t, { dimColor: !0, children: ["\xB7 ", p.phase, " \xB7 ", Ai] })),
+        (I = r(t, { dimColor: true, children: ["\xB7 ", p.phase, " \xB7 ", Ai] })),
           (x[107] = Ai),
           (x[108] = p.phase),
           (x[109] = I);
@@ -883,7 +883,7 @@ function eo(Gm) {
     case "auto_mode_scan": {
       let B;
       if (x[118] !== ee || x[119] !== p.description)
-        (B = ir(p.description, ee, !0)), (x[118] = ee), (x[119] = p.description), (x[120] = B);
+        (B = ir(p.description, ee, true)), (x[118] = ee), (x[119] = p.description), (x[120] = B);
       else B = x[120];
       let I;
       if (x[121] !== p.status) (I = e(ae, { status: p.status })), (x[121] = p.status), (x[122] = I);
@@ -912,7 +912,7 @@ function Rn(id) {
   else $l = Pe[3];
   let Pi = x0($l),
     Tn;
-  if (Pe[4] !== Mi) (Tn = e(t, { dimColor: !0, children: Mi })), (Pe[4] = Mi), (Pe[5] = Tn);
+  if (Pe[4] !== Mi) (Tn = e(t, { dimColor: true, children: Mi })), (Pe[4] = Mi), (Pe[5] = Tn);
   else Tn = Pe[5];
   const Li = !!kn,
     ji = be.status === "running" && !!Vl;
@@ -921,7 +921,7 @@ function Rn(id) {
     (bn = e(de, { showBack: Li, showStop: ji })), (Pe[6] = Li), (Pe[7] = ji), (Pe[8] = bn);
   else bn = Pe[8];
   let El;
-  if (Pe[9] === d) (El = e(t, { bold: !0, children: "Status:" })), (Pe[9] = El);
+  if (Pe[9] === d) (El = e(t, { bold: true, children: "Status:" })), (Pe[9] = El);
   else El = Pe[9];
   let Sn;
   if (Pe[10] !== be.status)
@@ -948,7 +948,7 @@ function Rn(id) {
         ? "Scan finished \u2014 the proposal review pops up next (or has already been shown)."
         : "The scan ended without producing a proposal.";
   let vn;
-  if (Pe[12] !== Ni) (vn = e(t, { dimColor: !0, children: Ni })), (Pe[12] = Ni), (Pe[13] = vn);
+  if (Pe[12] !== Ni) (vn = e(t, { dimColor: true, children: Ni })), (Pe[12] = Ni), (Pe[13] = vn);
   else vn = Pe[13];
   let _n;
   if (Pe[14] !== vn || Pe[15] !== Sn)
@@ -987,7 +987,7 @@ function zl(Kn, wd) {
       children: [
         e(t, { wrap: "wrap", children: Kn.text }),
         Kn.toolUseCount > 0 &&
-          r(t, { dimColor: !0, children: ["  ", "(", Kn.toolUseCount, " ", k(Kn.toolUseCount, "tool"), ")"] }),
+          r(t, { dimColor: true, children: ["  ", "(", Kn.toolUseCount, " ", k(Kn.toolUseCount, "tool"), ")"] }),
       ],
     },
     wd,
@@ -1049,7 +1049,7 @@ function Vn(hd) {
         (ve[29] = ot);
     else ot = ve[29];
     if (ve[30] !== to || ve[31] !== Be || ve[32] !== ot || ve[33] !== N.sessionsReviewing)
-      (ro = r(t, { dimColor: !0, children: [to, " \xB7 reviewing ", wt, " ", Be, ot] })),
+      (ro = r(t, { dimColor: true, children: [to, " \xB7 reviewing ", wt, " ", Be, ot] })),
         (ve[30] = to),
         (ve[31] = Be),
         (ve[32] = ot),
@@ -1067,7 +1067,7 @@ function Vn(hd) {
     Bn = "column";
     Ln = 1;
     let ql;
-    if (ve[38] === d) (ql = e(t, { bold: !0, children: "Status:" })), (ve[38] = ql);
+    if (ve[38] === d) (ql = e(t, { bold: true, children: "Status:" })), (ve[38] = ql);
     else ql = ve[38];
     if (ve[39] !== N.status)
       (so = r(t, {
@@ -1086,10 +1086,10 @@ function Vn(hd) {
     else so = ve[40];
     jn =
       Vi.length === 0
-        ? e(t, { dimColor: !0, children: N.status === "running" ? "Starting\u2026" : "(no text output)" })
+        ? e(t, { dimColor: true, children: N.status === "running" ? "Starting\u2026" : "(no text output)" })
         : r(U, {
             children: [
-              $i > 0 && r(t, { dimColor: !0, children: ["(", $i, " earlier ", k($i, "turn"), ")"] }),
+              $i > 0 && r(t, { dimColor: true, children: ["(", $i, " earlier ", k($i, "turn"), ")"] }),
               Vi.map(zl),
             ],
           });
@@ -1171,7 +1171,7 @@ function rs($d) {
     { teammate: v, onDone: St, onKill: Ql, onBack: $n, onForeground: nt } = $d,
     [Fi] = mn(),
     Yl;
-  if (oe[0] === d) (Yl = wE(pm(), { skipReplFilter: !0 })), (oe[0] = Yl);
+  if (oe[0] === d) (Yl = wE(pm(), { skipReplFilter: true })), (oe[0] = Yl);
   else Yl = oe[0];
   let Ed = Yl,
     qi = Tb(v.startTime, v.status === "running", 1000, v.totalPausedMs ?? 0, v.endTime);
@@ -1222,7 +1222,7 @@ function rs($d) {
       (oe[20] = Fn);
   else Fn = oe[20];
   let qn;
-  if (oe[21] !== En) (qn = En && r(t, { dimColor: !0, children: [" (", En, ")"] })), (oe[21] = En), (oe[22] = qn);
+  if (oe[21] !== En) (qn = En && r(t, { dimColor: true, children: [" (", En, ")"] })), (oe[21] = En), (oe[22] = qn);
   else qn = oe[22];
   let tc;
   if (oe[23] !== qn || oe[24] !== Fn) (tc = r(t, { children: [Fn, qn] })), (oe[23] = qn), (oe[24] = Fn), (oe[25] = tc);
@@ -1254,7 +1254,7 @@ function rs($d) {
   else Xn = oe[33];
   let Hn;
   if (oe[34] !== qi || oe[35] !== Qn || oe[36] !== Yn || oe[37] !== Xn)
-    (Hn = r(t, { dimColor: !0, children: [qi, Qn, Yn, Xn] })),
+    (Hn = r(t, { dimColor: true, children: [qi, Qn, Yn, Xn] })),
       (oe[34] = qi),
       (oe[35] = Qn),
       (oe[36] = Yn),
@@ -1291,7 +1291,7 @@ function rs($d) {
       r(o, {
         flexDirection: "column",
         children: [
-          e(t, { bold: !0, dimColor: !0, children: "Progress" }),
+          e(t, { bold: true, dimColor: true, children: "Progress" }),
           v.progress.recentActivities.map((Wd, ta) =>
             r(
               t,
@@ -1311,7 +1311,7 @@ function rs($d) {
       (oe[52] = ts);
   else ts = oe[52];
   let nc;
-  if (oe[53] === d) (nc = e(t, { bold: !0, dimColor: !0, children: "Prompt" })), (oe[53] = nc);
+  if (oe[53] === d) (nc = e(t, { bold: true, dimColor: true, children: "Prompt" })), (oe[53] = nc);
   else nc = oe[53];
   let os;
   if (oe[54] !== Xi)
@@ -1328,7 +1328,7 @@ function rs($d) {
         flexDirection: "column",
         marginTop: 1,
         children: [
-          e(t, { bold: !0, color: "error", children: "Error" }),
+          e(t, { bold: true, color: "error", children: "Error" }),
           e(t, { color: "error", wrap: "wrap", children: v.error }),
         ],
       })),
@@ -1421,14 +1421,14 @@ function _a(bp) {
       (G[4] = ic);
   else ic = G[4];
   let je = ic,
-    [wp, Ne] = u(!1);
+    [wp, Ne] = u(false);
   if (wp) {
     let qe;
-    if (G[5] !== Ne) (qe = () => Ne(!1)), (G[5] = Ne), (G[6] = qe);
+    if (G[5] !== Ne) (qe = () => Ne(false)), (G[5] = Ne), (G[6] = qe);
     else qe = G[6];
     let st;
     if (G[7] === d)
-      (st = e(t, { dimColor: !0, children: "This will terminate the Claude Code on the web session." })), (G[7] = st);
+      (st = e(t, { dimColor: true, children: "This will terminate the Claude Code on the web session." })), (G[7] = st);
     else st = G[7];
     const Ct = pe === "plan_ready" ? "Terminate session and discard plan" : "Terminate session";
     let Oe;
@@ -1441,7 +1441,7 @@ function _a(bp) {
         (G[10] = Oe);
     else Oe = G[10];
     let Ke;
-    if (G[11] !== Ne) (Ke = () => Ne(!1)), (G[11] = Ne), (G[12] = Ke);
+    if (G[11] !== Ne) (Ke = () => Ne(false)), (G[11] = Ne), (G[12] = Ke);
     else Ke = G[12];
     let xt;
     if (G[13] !== Ct || G[14] !== Oe || G[15] !== Ke)
@@ -1470,11 +1470,11 @@ function _a(bp) {
   if (G[20] !== qe) (st = r(t, { color: "background", children: [qe, " "] })), (G[20] = qe), (G[21] = st);
   else st = G[21];
   let Ct;
-  if (G[22] === d) (Ct = e(t, { bold: !0, children: "ultraplan" })), (G[22] = Ct);
+  if (G[22] === d) (Ct = e(t, { bold: true, children: "ultraplan" })), (G[22] = Ct);
   else Ct = G[22];
   let Oe;
   if (G[23] !== sa || G[24] !== na)
-    (Oe = r(t, { dimColor: !0, children: [" \xB7 ", sa, " \xB7 ", na] })), (G[23] = sa), (G[24] = na), (G[25] = Oe);
+    (Oe = r(t, { dimColor: true, children: [" \xB7 ", sa, " \xB7 ", na] })), (G[23] = sa), (G[24] = na), (G[25] = Oe);
   else Oe = G[25];
   let Ke;
   if (G[26] !== st || G[27] !== Oe) (Ke = r(t, { children: [st, Ct, Oe] })), (G[26] = st), (G[27] = Oe), (G[28] = Ke);
@@ -1511,10 +1511,10 @@ function _a(bp) {
       (G[40] = ms);
   else ms = G[40];
   let ds;
-  if (G[41] !== as) (ds = as && e(t, { dimColor: !0, children: as })), (G[41] = as), (G[42] = ds);
+  if (G[41] !== as) (ds = as && e(t, { dimColor: true, children: as })), (G[41] = as), (G[42] = ds);
   else ds = G[42];
   let ps;
-  if (G[43] !== Le) (ps = e(t, { dimColor: !0, children: Le })), (G[43] = Le), (G[44] = ps);
+  if (G[43] !== Le) (ps = e(t, { dimColor: true, children: Le })), (G[43] = Le), (G[44] = ps);
   else ps = G[44];
   let gs;
   if (G[45] !== Le || G[46] !== ps) (gs = e(ut, { url: Le, children: ps })), (G[45] = Le), (G[46] = ps), (G[47] = gs);
@@ -1565,7 +1565,7 @@ function _a(bp) {
           return;
         }
         case "stop": {
-          Ne(!0);
+          Ne(true);
           return;
         }
         case "back": {
@@ -1617,12 +1617,12 @@ function Vs(xp) {
     It = !it && !Mp,
     Ds;
   if (Mt[2] !== It)
-    (Ds = It ? e(t, { color: "background", children: "Setup" }) : e(t, { dimColor: !0, children: "Setup" })),
+    (Ds = It ? e(t, { color: "background", children: "Setup" }) : e(t, { dimColor: true, children: "Setup" })),
       (Mt[2] = It),
       (Mt[3] = Ds);
   else Ds = Mt[3];
   let uc;
-  if (Mt[4] === d) (uc = e(t, { dimColor: !0, children: " \u2192 " })), (Mt[4] = uc);
+  if (Mt[4] === d) (uc = e(t, { dimColor: true, children: " \u2192 " })), (Mt[4] = uc);
   else uc = Mt[4];
   let Rs;
   if (Mt[5] !== it || Mt[6] !== ma || Mt[7] !== It)
@@ -1630,8 +1630,8 @@ function Vs(xp) {
       let Ip = !it && !It && dc === ma;
       return r(U, {
         children: [
-          dc > 0 && e(t, { dimColor: !0, children: " \u2192 " }),
-          Ip ? e(t, { color: "background", children: go[mc] }) : e(t, { dimColor: !0, children: go[mc] }),
+          dc > 0 && e(t, { dimColor: true, children: " \u2192 " }),
+          Ip ? e(t, { color: "background", children: go[mc] }) : e(t, { dimColor: true, children: go[mc] }),
         ],
       });
     })),
@@ -1666,7 +1666,7 @@ function Da(Pp) {
     { session: we, onDone: Pt, onBack: Bp, onKill: Bt } = Pp,
     Ge = we.status === "completed",
     uo = we.status === "running" || we.status === "pending",
-    [Lp, pa] = u(!1),
+    [Lp, pa] = u(false),
     fa = Tb(we.startTime, uo, 1000, 0, we.endTime),
     fc;
   if (ie[0] !== Pt)
@@ -1681,12 +1681,12 @@ function Da(Pp) {
     ga = Ge ? "ready" : uo ? "running" : we.status;
   if (Lp) {
     let mo;
-    if (ie[4] === d) (mo = () => pa(!1)), (ie[4] = mo);
+    if (ie[4] === d) (mo = () => pa(false)), (ie[4] = mo);
     else mo = ie[4];
     let po;
     if (ie[5] === d)
       (po = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children:
           "This archives the cloud session and stops local tracking. The review will not complete and any findings so far are discarded.",
       })),
@@ -1715,7 +1715,7 @@ function Da(Pp) {
               options: Lt,
               onChange: (jp) => {
                 if (jp === "stop") Bt?.(), Ve();
-                else pa(!1);
+                else pa(false);
               },
             }),
           ],
@@ -1754,7 +1754,7 @@ function Da(Pp) {
           break bb47;
         }
         case "stop": {
-          pa(!0);
+          pa(true);
           break bb47;
         }
         case "back": {
@@ -1778,11 +1778,11 @@ function Da(Pp) {
   if (ie[19] !== Lt) (at = r(t, { color: "background", children: [Lt, " "] })), (ie[19] = Lt), (ie[20] = at);
   else at = ie[20];
   let yc;
-  if (ie[21] === d) (yc = e(t, { bold: !0, children: "ultrareview" })), (ie[21] = yc);
+  if (ie[21] === d) (yc = e(t, { bold: true, children: "ultrareview" })), (ie[21] = yc);
   else yc = ie[21];
   let xs;
   if (ie[22] !== fa || ie[23] !== ga)
-    (xs = r(t, { dimColor: !0, children: [" \xB7 ", fa, " \xB7 ", ga] })), (ie[22] = fa), (ie[23] = ga), (ie[24] = xs);
+    (xs = r(t, { dimColor: true, children: [" \xB7 ", fa, " \xB7 ", ga] })), (ie[22] = fa), (ie[23] = ga), (ie[24] = xs);
   else xs = ie[24];
   let Ms;
   if (ie[25] !== at || ie[26] !== xs)
@@ -1812,7 +1812,7 @@ function Da(Pp) {
   if (ie[35] !== Ps) (Bs = e(t, { children: Ps })), (ie[35] = Ps), (ie[36] = Bs);
   else Bs = ie[36];
   let Ls;
-  if (ie[37] !== $e) (Ls = e(t, { dimColor: !0, children: $e })), (ie[37] = $e), (ie[38] = Ls);
+  if (ie[37] !== $e) (Ls = e(t, { dimColor: true, children: $e })), (ie[37] = $e), (ie[38] = Ls);
   else Ls = ie[38];
   let js;
   if (ie[39] !== $e || ie[40] !== Ls)
@@ -1845,7 +1845,7 @@ function Da(Pp) {
   return Tc;
 }
 function Ra({ session: n, toolUseContext: m, onDone: f, onBack: c, onKill: g }) {
-  let [w, b] = u(!1),
+  let [w, b] = u(false),
     [S, T] = u(null),
     D = y1t(n.id),
     E = D?.tail,
@@ -1867,13 +1867,13 @@ function Ra({ session: n, toolUseContext: m, onDone: f, onBack: c, onKill: g }) 
       else if (V.key === "return") V.preventDefault(), ce();
     };
   async function ye() {
-    b(!0), T(null);
+    b(true), T(null);
     try {
       await Lee(n.sessionId);
     } catch (V) {
       T(l(V));
     } finally {
-      b(!1);
+      b(false);
     }
   }
   let ge = rt(n.title, 50),
@@ -1897,7 +1897,7 @@ function Ra({ session: n, toolUseContext: m, onDone: f, onBack: c, onKill: g }) 
           children: [
             r(t, {
               children: [
-                e(t, { bold: !0, children: "Status" }),
+                e(t, { bold: true, children: "Status" }),
                 ":",
                 " ",
                 ue === "running" || ue === "starting"
@@ -1907,15 +1907,15 @@ function Ra({ session: n, toolUseContext: m, onDone: f, onBack: c, onKill: g }) 
                     : e(t, { color: "error", children: ue }),
               ],
             }),
-            r(t, { children: [e(t, { bold: !0, children: "Runtime" }), ": ", ne] }),
-            r(t, { wrap: "truncate-end", children: [e(t, { bold: !0, children: "Title" }), ": ", ge] }),
-            r(t, { children: [e(t, { bold: !0, children: "Progress" }), ":", " ", e(Me, { session: n })] }),
+            r(t, { children: [e(t, { bold: true, children: "Runtime" }), ": ", ne] }),
+            r(t, { wrap: "truncate-end", children: [e(t, { bold: true, children: "Title" }), ": ", ge] }),
+            r(t, { children: [e(t, { bold: true, children: "Progress" }), ":", " ", e(Me, { session: n })] }),
             r(t, {
               children: [
-                e(t, { bold: !0, children: "Session URL" }),
+                e(t, { bold: true, children: "Session URL" }),
                 ":",
                 " ",
-                e(ut, { url: GW(n.sessionId), children: e(t, { dimColor: !0, children: GW(n.sessionId) }) }),
+                e(ut, { url: GW(n.sessionId), children: e(t, { dimColor: true, children: GW(n.sessionId) }) }),
               ],
             }),
           ],
@@ -1926,7 +1926,7 @@ function Ra({ session: n, toolUseContext: m, onDone: f, onBack: c, onKill: g }) 
             flexDirection: "column",
             marginTop: 1,
             children: [
-              r(t, { children: [e(t, { bold: !0, children: "Recent messages" }), ":"] }),
+              r(t, { children: [e(t, { bold: true, children: "Recent messages" }), ":"] }),
               e(o, {
                 flexDirection: "column",
                 height: 10,
@@ -1944,11 +1944,11 @@ function Ra({ session: n, toolUseContext: m, onDone: f, onBack: c, onKill: g }) 
                         verbose: m.options.verbose,
                         inProgressToolUseIDs: new Set(),
                         progressMessagesForMessage: [],
-                        shouldAnimate: !1,
-                        shouldShowDot: !1,
+                        shouldAnimate: false,
+                        shouldShowDot: false,
                         style: "condensed",
-                        isTranscriptMode: !1,
-                        isStatic: !0,
+                        isTranscriptMode: false,
+                        isStatic: true,
                       },
                       ke,
                     ),
@@ -1958,8 +1958,8 @@ function Ra({ session: n, toolUseContext: m, onDone: f, onBack: c, onKill: g }) 
               e(o, {
                 marginTop: 1,
                 children: r(t, {
-                  dimColor: !0,
-                  italic: !0,
+                  dimColor: true,
+                  italic: true,
                   children: ["Showing last ", K.length, " of ", D.eventCount, " ", "messages"],
                 }),
               }),
@@ -2021,7 +2021,7 @@ function ar(Jp) {
     (Ws = e(de, { showBack: Ba, showStop: La })), (le[12] = Ba), (le[13] = La), (le[14] = Ws);
   else Ws = le[14];
   let Rc;
-  if (le[15] === d) (Rc = [{ bold: !0 }, { width: { ratio: 1 } }]), (le[15] = Rc);
+  if (le[15] === d) (Rc = [{ bold: true }, { width: { ratio: 1 } }]), (le[15] = Rc);
   else Rc = le[15];
   const ja = Es - 6;
   let Cc;
@@ -2083,10 +2083,10 @@ function ar(Jp) {
       (le[36] = Ys);
   else Ys = le[36];
   let Mc;
-  if (le[37] === d) (Mc = e(t, { bold: !0, children: "Output:" })), (le[37] = Mc);
+  if (le[37] === d) (Mc = e(t, { bold: true, children: "Output:" })), (le[37] = Mc);
   else Mc = le[37];
   let Ic;
-  if (le[38] === d) (Ic = e(t, { dimColor: !0, children: "Loading output\u2026" })), (le[38] = Ic);
+  if (le[38] === d) (Ic = e(t, { dimColor: true, children: "Loading output\u2026" })), (le[38] = Ic);
   else Ic = le[38];
   let Hs;
   if (le[39] !== Es || le[40] !== Aa)
@@ -2164,7 +2164,7 @@ function rr(tf) {
   else or = lt[12];
   let nr;
   if (lt[13] !== Va || lt[14] !== or)
-    (nr = r(t, { dimColor: !0, italic: !0, children: [Va, or] })), (lt[13] = Va), (lt[14] = or), (lt[15] = nr);
+    (nr = r(t, { dimColor: true, italic: true, children: [Va, or] })), (lt[13] = Va), (lt[14] = or), (lt[15] = nr);
   else nr = lt[15];
   let Nc;
   if (lt[16] !== tr || lt[17] !== nr) (Nc = r(U, { children: [tr, nr] })), (lt[16] = tr), (lt[17] = nr), (lt[18] = Nc);
@@ -2203,7 +2203,7 @@ function gr(n) {
     );
   return Zf(n);
 }
-function Qet({ onDone: n, toolUseContext: m, initialDetailTaskId: f, onBack: c, promptVisibleBelow: g = !1 }) {
+function Qet({ onDone: n, toolUseContext: m, initialDetailTaskId: f, onBack: c, promptVisibleBelow: g = false }) {
   let w = W((i) => i.tasks),
     b = W((i) => i.foregroundedTaskId),
     S = At(),
@@ -2211,15 +2211,15 @@ function Qet({ onDone: n, toolUseContext: m, initialDetailTaskId: f, onBack: c, 
     D = m.messageQueue,
     E = Ro("chat:killAgents", "Chat", "ctrl+x ctrl+k"),
     K = w,
-    H = C(!1),
+    H = C(false),
     [ne, ce] = u(() => {
-      if (f) return (H.current = !0), { mode: "detail", itemId: f };
+      if (f) return (H.current = true), { mode: "detail", itemId: f };
       let i = Object.values(K ?? {})
           .filter(gr)
           .filter((Y) => !(Y.type === "local_agent" && Y.id === b)),
         y = i.length === 1 ? i[0] : void 0;
       if (y && fr(y.type) && !(y.type === "local_agent" && nl(y)))
-        return (H.current = !0), { mode: "detail", itemId: y.id };
+        return (H.current = true), { mode: "detail", itemId: y.id };
       return { mode: "list" };
     }),
     [J, ye, ge] = Dy(0);
@@ -2275,7 +2275,7 @@ function Qet({ onDone: n, toolUseContext: m, initialDetailTaskId: f, onBack: c, 
       };
     }, [K, b]),
     wr = C([]),
-    dt = C(!1);
+    dt = C(false);
   A(() => {
     let i = Ae.map((We) => We.id),
       y = wr.current;
@@ -2289,16 +2289,16 @@ function Qet({ onDone: n, toolUseContext: m, initialDetailTaskId: f, onBack: c, 
         return;
       }
     }
-    ye(Math.max(0, Math.min(J, i.length - 1))), (dt.current = !0);
+    ye(Math.max(0, Math.min(J, i.length - 1))), (dt.current = true);
   }, [Ae]);
   let Z = Ae[J] ?? null;
   ht(
     {
       "confirm:previous": () => {
-        (dt.current = !1), ye((i) => Math.max(0, i - 1));
+        (dt.current = false), ye((i) => Math.max(0, i - 1));
       },
       "confirm:next": () => {
-        (dt.current = !1), ye((i) => Math.min(Ae.length - 1, i + 1));
+        (dt.current = false), ye((i) => Math.min(Ae.length - 1, i + 1));
       },
       "confirm:yes": () => {
         let i = Ae[ge()];
@@ -2317,7 +2317,7 @@ function Qet({ onDone: n, toolUseContext: m, initialDetailTaskId: f, onBack: c, 
     if (!y) return;
     if (i.key === "x" && !i.ctrl && !i.meta) {
       if ((i.preventDefault(), dt.current)) {
-        dt.current = !1;
+        dt.current = false;
         return;
       }
       if (y.type === "local_bash" && y.status === "running") Sr(y.id);
@@ -2325,7 +2325,7 @@ function Qet({ onDone: n, toolUseContext: m, initialDetailTaskId: f, onBack: c, 
       else if (y.type === "in_process_teammate" && y.status === "running") _r(y.id);
       else if (y.type === "local_workflow" && y.status === "running" && bo) bo(y.id, T);
       else if (y.type === "monitor_mcp" && y.status === "running" && wo) wo(y.id, T);
-      else if (y.type === "monitor_ws" && y.status === "running") em(y.id, T, { userStop: !0, taskStop: !0 });
+      else if (y.type === "monitor_ws" && y.status === "running") em(y.id, T, { userStop: true, taskStop: true });
       else if (y.type === "mcp_task" && y.status === "running" && So)
         So(y.id, T, S, void 0, m.storageV5).catch((Y) => h(Y));
       else if (y.type === "dream" && y.status === "running") Dr(y.id);
@@ -2388,7 +2388,7 @@ function Qet({ onDone: n, toolUseContext: m, initialDetailTaskId: f, onBack: c, 
   let _e = () => {
       if (c) c();
       else if (H.current && Ae.length <= 1) n("Background dialog dismissed", { display: "skip" });
-      else (H.current = !1), ce({ mode: "list" });
+      else (H.current = false), ce({ mode: "list" });
     },
     Mr = Q(ke, (i) => i.status === "running") > 1;
   if (ne.mode !== "list" && K) {
@@ -2612,7 +2612,7 @@ function Qet({ onDone: n, toolUseContext: m, initialDetailTaskId: f, onBack: c, 
   });
 }
 function nl(n) {
-  return n.type === "local_agent" && n.status === "completed" && n.quietlyParked !== !0;
+  return n.type === "local_agent" && n.status === "completed" && n.quietlyParked !== true;
 }
 function vo(n) {
   return n.type === "local_agent" && nl(n.task);
@@ -2651,11 +2651,11 @@ function Re(ag) {
   let Vc = _(5),
     { label: $a, size: Ea } = ag,
     lr;
-  if (Vc[0] !== $a) (lr = r(t, { bold: !0, children: ["  ", $a] })), (Vc[0] = $a), (Vc[1] = lr);
+  if (Vc[0] !== $a) (lr = r(t, { bold: true, children: ["  ", $a] })), (Vc[0] = $a), (Vc[1] = lr);
   else lr = Vc[1];
   let $c;
   if (Vc[2] !== Ea || Vc[3] !== lr)
-    ($c = r(t, { dimColor: !0, children: [lr, " ", "(", Ea, ")"] })), (Vc[2] = Ea), (Vc[3] = lr), (Vc[4] = $c);
+    ($c = r(t, { dimColor: true, children: [lr, " ", "(", Ea, ")"] })), (Vc[2] = Ea), (Vc[3] = lr), (Vc[4] = $c);
   else $c = Vc[4];
   return $c;
 }
@@ -2716,7 +2716,7 @@ function sl(ug) {
           {
             flexDirection: "column",
             children: [
-              r(t, { dimColor: !0, children: ["  ", "Team: ", Ya, " (", gg, ")"] }),
+              r(t, { dimColor: true, children: ["  ", "Team: ", Ya, " (", gg, ")"] }),
               qc.map((Xa) => e(ct, { item: Xa, isSelected: Xa.id === pr }, `${Xa.id}-${Ya}`)),
               Qc.map((Ha) => e(ct, { item: Ha, isSelected: Ha.id === pr }, Ha.id)),
             ],

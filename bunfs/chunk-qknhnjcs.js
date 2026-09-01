@@ -100,7 +100,7 @@ async function _(e, t) {
 }
 async function fXt(e, t, o = {}) {
   if (sn()) return [];
-  let { basePath: i = ee(), maxResults: r = 10, keepDotPrefix: a = !1 } = o,
+  let { basePath: i = ee(), maxResults: r = 10, keepDotPrefix: a = false } = o,
     c = I(t, i);
   if (!c) return [];
   let { directory: s, prefix: p } = c,

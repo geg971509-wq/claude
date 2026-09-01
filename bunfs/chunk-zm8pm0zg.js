@@ -278,7 +278,7 @@ function lL(Ze) {
     (Ft = e(o, {
       marginTop: 1,
       minHeight: 1,
-      children: B ? e(Br, { error: B }) : yt ? e(t, { dimColor: !0, children: yt }) : e(t, { children: " " }),
+      children: B ? e(Br, { error: B }) : yt ? e(t, { dimColor: true, children: yt }) : e(t, { children: " " }),
     })),
       (n[87] = B),
       (n[88] = yt),
@@ -302,7 +302,7 @@ function lL(Ze) {
   else (Ee = n[93]), (Me = n[94]);
   let Tt;
   if (n[95] !== Rt)
-    (Tt = e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: r(fe, { children: [De, Rt, Ee, Me] }) }) })),
+    (Tt = e(o, { marginTop: 1, children: e(t, { dimColor: true, children: r(fe, { children: [De, Rt, Ee, Me] }) }) })),
       (n[95] = Rt),
       (n[96] = Tt);
   else Tt = n[96];
@@ -317,7 +317,7 @@ function lL(Ze) {
   else wt = n[101];
   let Ae;
   if (n[102] !== C || n[103] !== Bt || n[104] !== wt || n[105] !== Ut)
-    (Ae = e(me, { title: Ut, subtitle: Bt, onCancel: C, hideInputGuide: !0, isCancelActive: !1, children: wt })),
+    (Ae = e(me, { title: Ut, subtitle: Bt, onCancel: C, hideInputGuide: true, isCancelActive: false, children: wt })),
       (n[102] = C),
       (n[103] = Bt),
       (n[104] = wt),
@@ -387,9 +387,9 @@ function Mt(ao) {
       (N = E
         ? r(t, {
             children: [
-              r(t, { dimColor: !0, children: [L.triangleLeft, " "] }),
+              r(t, { dimColor: true, children: [L.triangleLeft, " "] }),
               Et?.label ?? b,
-              r(t, { dimColor: !0, children: [" ", L.triangleRight] }),
+              r(t, { dimColor: true, children: [" ", L.triangleRight] }),
             ],
           })
         : e(t, { children: Et?.label ?? b })),
@@ -431,14 +431,14 @@ function Mt(ao) {
           columns: 60,
           cursorOffset: zt,
           onChangeCursorOffset: Jt,
-          disableCursorMovementForUpDownKeys: !0,
-          disableEscapeDoublePress: !0,
-          focus: !0,
-          showCursor: !0,
+          disableCursorMovementForUpDownKeys: true,
+          disableEscapeDoublePress: true,
+          focus: true,
+          showCursor: true,
         })
       : b
         ? e(t, { children: i.mask ? i.mask.repeat(Math.min(se(b), 60)) : b })
-        : e(t, { dimColor: !0, children: i.placeholder ?? "" })),
+        : e(t, { dimColor: true, children: i.placeholder ?? "" })),
       (w[28] = zt),
       (w[29] = i.mask),
       (w[30] = i.placeholder),

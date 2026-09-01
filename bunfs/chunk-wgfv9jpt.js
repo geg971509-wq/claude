@@ -139,15 +139,15 @@ var _ = m(() =>
     get outputSchema() {
       return b();
     },
-    shouldDefer: !0,
+    shouldDefer: true,
     isEnabled() {
-      return OH("tengu_kairos_push_notifications", !1, R);
+      return OH("tengu_kairos_push_notifications", false, R);
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(e) {
       return e.message;
@@ -188,24 +188,24 @@ var _ = m(() =>
             disabled_reason: ke(S),
           });
         };
-      if (p && !n && !Lo("agentPushNotifEnabled", !1).value)
+      if (p && !n && !Lo("agentPushNotifEnabled", false).value)
         return (
-          r({ pushSent: !1, localSent: !1, disabledReason: "config_off" }),
-          { data: { message: e, pushSent: !1, localSent: !1, disabledReason: "config_off", sentAt: o } }
+          r({ pushSent: false, localSent: false, disabledReason: "config_off" }),
+          { data: { message: e, pushSent: false, localSent: false, disabledReason: "config_off", sentAt: o } }
         );
       if (!n && !a.CLAUDE_CODE_DISABLE_NOTIFICATION_PRESENCE_CHECK && p0n())
         return (
-          r({ pushSent: !1, localSent: !1, disabledReason: "user_present" }),
-          { data: { message: e, pushSent: !1, localSent: !1, disabledReason: "user_present", sentAt: o } }
+          r({ pushSent: false, localSent: false, disabledReason: "user_present" }),
+          { data: { message: e, pushSent: false, localSent: false, disabledReason: "user_present", sentAt: o } }
         );
       c?.({ type: "os_notification", message: e, notificationType: "push_notification" });
       let l = !u.options.isNonInteractiveSession;
       if (!p)
         return (
-          r({ pushSent: !1, localSent: l, disabledReason: "no_transport" }),
-          { data: { message: e, pushSent: !1, localSent: l, disabledReason: "no_transport", sentAt: o } }
+          r({ pushSent: false, localSent: l, disabledReason: "no_transport" }),
+          { data: { message: e, pushSent: false, localSent: l, disabledReason: "no_transport", sentAt: o } }
         );
-      return r({ pushSent: !0, localSent: l }), { data: { message: e, pushSent: !0, localSent: l, sentAt: o } };
+      return r({ pushSent: true, localSent: l }), { data: { message: e, pushSent: true, localSent: l, sentAt: o } };
     },
   });
 export { M as PushNotificationTool };

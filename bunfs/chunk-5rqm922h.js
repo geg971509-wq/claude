@@ -302,8 +302,8 @@ async function l(a, e) {
   if (!Yr()) return { type: "text", value: f$() ?? "Fast mode is not available" };
   let t = a.trim().toLowerCase(),
     o;
-  if (t === "on") o = !0;
-  else if (t === "off") o = !1;
+  if (t === "on") o = true;
+  else if (t === "off") o = false;
   else if (t === "") o = !e.options.fastMode;
   else return { type: "text", value: `Unknown argument "${t}". Use: /fast [on|off]` };
   return {

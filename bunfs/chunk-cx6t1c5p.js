@@ -82,17 +82,17 @@ var D = 8,
 function EIn() {
   let n = [],
     e = 0,
-    t = !1,
-    o = !1,
+    t = false,
+    o = false,
     i = Ue();
   return {
     noteStagedRow(r) {
-      if (r.mount_path !== d) return !1;
+      if (r.mount_path !== d) return false;
       let u = r.content_sha256,
         s = typeof u === "string" && u.length > 0 && u.length <= nKt ? u : null;
       if (s === null) {
-        if (!o) (o = !0), Y("warn", "home_seed_stage_without_usable_etag", {});
-        return !1;
+        if (!o) (o = true), Y("warn", "home_seed_stage_without_usable_etag", {});
+        return false;
       }
       e++;
       let a = { etag: s, beforeFirstCommand: !t, ordinal: e };
@@ -102,10 +102,10 @@ function EIn() {
       } catch {
         Y("error", "home_seed_announcement_listener_threw", {});
       }
-      return !0;
+      return true;
     },
     markFirstCommandDequeued() {
-      t = !0;
+      t = true;
     },
     firstCommandDequeued() {
       return t;

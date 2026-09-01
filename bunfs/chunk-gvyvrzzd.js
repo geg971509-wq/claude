@@ -32,9 +32,9 @@ var k = S(function (ca, Me) {
           case Int32Array:
           case Float32Array:
           case Float64Array:
-            return !0;
+            return true;
         }
-      return !1;
+      return false;
     },
     lt = (e) => e instanceof ArrayBuffer,
     ct = (e) => typeof e === "string" && e.length > 0,
@@ -63,13 +63,13 @@ var k = S(function (ca, Me) {
   };
 });
 var qe = S(function (ha, Re) {
-  var Ie = () => !1,
+  var Ie = () => false,
     ie = null,
     bt = () => {
       if (!ie)
         if (Ie() && process.report) {
           let e = process.report.excludeNetwork;
-          (process.report.excludeNetwork = !0), (ie = process.report.getReport()), (process.report.excludeNetwork = e);
+          (process.report.excludeNetwork = true), (ie = process.report.getReport()), (process.report.excludeNetwork = e);
         } else ie = {};
       return ie;
     };
@@ -524,7 +524,7 @@ var be = S(function (ga, hr) {
       "win32-ia32",
       "win32-x64",
     ],
-    ge = { encoding: "utf8", shell: !0 },
+    ge = { encoding: "utf8", shell: true },
     Nt = (e) => {
       if (e instanceof Error) console.error(`sharp: Installation error: ${e.message}`);
       else console.log(`sharp: ${e}`);
@@ -576,12 +576,12 @@ var be = S(function (ga, hr) {
       let { CC: e } = process.env;
       return Boolean(e?.endsWith("/emcc"));
     },
-    Gt = () => !1,
+    Gt = () => false,
     ir = (e) => Rt("sha512").update(e).digest("hex"),
     Qt = () => {
       try {
         let e = ir(`imgsharp-libvips-${V()}`),
-          r = nr(Ct[`@img/sharp-libvips-${V()}`], { includePrerelease: !0 }).version;
+          r = nr(Ct[`@img/sharp-libvips-${V()}`], { includePrerelease: true }).version;
         return ir(`${e}npm:${r}`).slice(0, 10);
       } catch {}
       return "";
@@ -611,9 +611,9 @@ var be = S(function (ga, hr) {
       return e;
     },
     Jt = (e) => {
-      if (Boolean(process.env.SHARP_IGNORE_GLOBAL_LIBVIPS) === !0) return de(!1, "SHARP_IGNORE_GLOBAL_LIBVIPS", e);
-      if (Boolean(process.env.SHARP_FORCE_GLOBAL_LIBVIPS) === !0) return de(!0, "SHARP_FORCE_GLOBAL_LIBVIPS", e);
-      if (Gt()) return de(!1, "Rosetta", e);
+      if (Boolean(process.env.SHARP_IGNORE_GLOBAL_LIBVIPS) === true) return de(false, "SHARP_IGNORE_GLOBAL_LIBVIPS", e);
+      if (Boolean(process.env.SHARP_FORCE_GLOBAL_LIBVIPS) === true) return de(true, "SHARP_FORCE_GLOBAL_LIBVIPS", e);
+      if (Gt()) return de(false, "Rosetta", e);
       let r = lr();
       return !!r && qt(r, ar);
     };
@@ -752,18 +752,18 @@ var mr = S(function (va, ur) {
           angle: 0,
           rotationAngle: 0,
           rotationBackground: [0, 0, 0, 255],
-          rotateBefore: !1,
-          orientBefore: !1,
-          flip: !1,
-          flop: !1,
+          rotateBefore: false,
+          orientBefore: false,
+          flip: false,
+          flop: false,
           extendTop: 0,
           extendBottom: 0,
           extendLeft: 0,
           extendRight: 0,
           extendBackground: [0, 0, 0, 255],
           extendWith: "background",
-          withoutEnlargement: !1,
-          withoutReduction: !1,
+          withoutEnlargement: false,
+          withoutReduction: false,
           affineMatrix: [],
           affineBackground: [0, 0, 0, 255],
           affineIdx: 0,
@@ -772,13 +772,13 @@ var mr = S(function (va, ur) {
           affineOdy: 0,
           affineInterpolator: this.constructor.interpolators.bilinear,
           kernel: "lanczos3",
-          fastShrinkOnLoad: !0,
+          fastShrinkOnLoad: true,
           tint: [-1, 0, 0, 0],
-          flatten: !1,
+          flatten: false,
           flattenBackground: [0, 0, 0],
-          unflatten: !1,
-          negate: !1,
-          negateAlpha: !0,
+          unflatten: false,
+          negate: false,
+          negateAlpha: true,
           medianSize: 0,
           blurSigma: 0,
           precision: "integer",
@@ -790,16 +790,16 @@ var mr = S(function (va, ur) {
           sharpenY2: 10,
           sharpenY3: 20,
           threshold: 0,
-          thresholdGrayscale: !0,
+          thresholdGrayscale: true,
           trimBackground: [],
           trimThreshold: -1,
-          trimLineArt: !1,
+          trimLineArt: false,
           dilateWidth: 0,
           erodeWidth: 0,
           gamma: 0,
           gammaOut: 0,
-          greyscale: !1,
-          normalise: !1,
+          greyscale: false,
+          normalise: false,
           normaliseLower: 1,
           normaliseUpper: 99,
           claheWidth: 0,
@@ -813,36 +813,36 @@ var mr = S(function (va, ur) {
           booleanFileIn: "",
           joinChannelIn: [],
           extractChannel: -1,
-          removeAlpha: !1,
+          removeAlpha: false,
           ensureAlpha: -1,
           colourspace: "srgb",
           colourspacePipeline: "last",
           composite: [],
           fileOut: "",
           formatOut: "input",
-          streamOut: !1,
+          streamOut: false,
           keepMetadata: 0,
           withMetadataOrientation: -1,
           withMetadataDensity: 0,
           withIccProfile: "",
           withExif: {},
-          withExifMerge: !0,
+          withExifMerge: true,
           withXmp: "",
-          resolveWithObject: !1,
+          resolveWithObject: false,
           loop: -1,
           delay: [],
           jpegQuality: 80,
-          jpegProgressive: !1,
+          jpegProgressive: false,
           jpegChromaSubsampling: "4:2:0",
-          jpegTrellisQuantisation: !1,
-          jpegOvershootDeringing: !1,
-          jpegOptimiseScans: !1,
-          jpegOptimiseCoding: !0,
+          jpegTrellisQuantisation: false,
+          jpegOvershootDeringing: false,
+          jpegOptimiseScans: false,
+          jpegOptimiseCoding: true,
           jpegQuantisationTable: 0,
-          pngProgressive: !1,
+          pngProgressive: false,
           pngCompressionLevel: 6,
-          pngAdaptiveFiltering: !1,
-          pngPalette: !1,
+          pngAdaptiveFiltering: false,
+          pngPalette: false,
           pngQuality: 100,
           pngEffort: 7,
           pngBitdepth: 8,
@@ -850,41 +850,41 @@ var mr = S(function (va, ur) {
           jp2Quality: 80,
           jp2TileHeight: 512,
           jp2TileWidth: 512,
-          jp2Lossless: !1,
+          jp2Lossless: false,
           jp2ChromaSubsampling: "4:4:4",
           webpQuality: 80,
           webpAlphaQuality: 100,
-          webpLossless: !1,
-          webpNearLossless: !1,
-          webpSmartSubsample: !1,
-          webpSmartDeblock: !1,
+          webpLossless: false,
+          webpNearLossless: false,
+          webpSmartSubsample: false,
+          webpSmartDeblock: false,
           webpPreset: "default",
           webpEffort: 4,
-          webpMinSize: !1,
-          webpMixed: !1,
+          webpMinSize: false,
+          webpMixed: false,
           gifBitdepth: 8,
           gifEffort: 7,
           gifDither: 1,
           gifInterFrameMaxError: 0,
           gifInterPaletteMaxError: 3,
-          gifKeepDuplicateFrames: !1,
-          gifReuse: !0,
-          gifProgressive: !1,
+          gifKeepDuplicateFrames: false,
+          gifReuse: true,
+          gifProgressive: false,
           tiffQuality: 80,
           tiffCompression: "jpeg",
-          tiffBigtiff: !1,
+          tiffBigtiff: false,
           tiffPredictor: "horizontal",
-          tiffPyramid: !1,
-          tiffMiniswhite: !1,
+          tiffPyramid: false,
+          tiffMiniswhite: false,
           tiffBitdepth: 8,
-          tiffTile: !1,
+          tiffTile: false,
           tiffTileHeight: 256,
           tiffTileWidth: 256,
           tiffXres: 1,
           tiffYres: 1,
           tiffResolutionUnit: "inch",
           heifQuality: 50,
-          heifLossless: !1,
+          heifLossless: false,
           heifCompression: "av1",
           heifEffort: 4,
           heifChromaSubsampling: "4:4:4",
@@ -892,7 +892,7 @@ var mr = S(function (va, ur) {
           jxlDistance: 1,
           jxlDecodingTier: 0,
           jxlEffort: 7,
-          jxlLossless: !1,
+          jxlLossless: false,
           rawDepth: "uchar",
           tileSize: 256,
           tileOverlap: 0,
@@ -903,7 +903,7 @@ var mr = S(function (va, ur) {
           tileAngle: 0,
           tileSkipBlanks: -1,
           tileBackground: [255, 255, 255, 255],
-          tileCentre: !1,
+          tileCentre: false,
           tileId: "https://example.com/iiif",
           tileBasename: "",
           timeoutSeconds: 0,
@@ -915,7 +915,7 @@ var mr = S(function (va, ur) {
           },
           queueListener: ni,
         }),
-        (this.options.input = this._createInputDescriptor(e, r, { allowStream: !0 })),
+        (this.options.input = this._createInputDescriptor(e, r, { allowStream: true })),
         this
       );
     };
@@ -979,12 +979,12 @@ var pr = S(function (ya, br) {
   }
   function li(e, r, t) {
     let i = {
-      autoOrient: !1,
+      autoOrient: false,
       failOn: "warning",
       limitInputPixels: 268402689,
-      ignoreIcc: !1,
-      unlimited: !1,
-      sequentialRead: !0,
+      ignoreIcc: false,
+      unlimited: false,
+      sequentialRead: true,
     };
     if (o.string(e)) i.file = e;
     else if (o.buffer(e)) {
@@ -1002,7 +1002,7 @@ var pr = S(function (ya, br) {
     else if (Array.isArray(e))
       if (e.length > 1)
         if (!this.options.joining)
-          (this.options.joining = !0), (this.options.join = e.map((a) => this._createInputDescriptor(a)));
+          (this.options.joining = true), (this.options.join = e.map((a) => this._createInputDescriptor(a)));
         else throw Error("Recursive join is unsupported");
       else throw Error("Expected at least two images to join");
     else
@@ -1079,7 +1079,7 @@ var pr = S(function (ya, br) {
               break;
           }
         else throw Error("Expected width, height and channels for raw pixel input");
-        if (((i.rawPremultiplied = !1), o.defined(r.raw.premultiplied)))
+        if (((i.rawPremultiplied = false), o.defined(r.raw.premultiplied)))
           if (o.bool(r.raw.premultiplied)) i.rawPremultiplied = r.raw.premultiplied;
           else throw o.invalidParameterError("raw.premultiplied", "boolean", r.raw.premultiplied);
         if (((i.rawPageHeight = 0), o.defined(r.raw.pageHeight)))
@@ -1236,7 +1236,7 @@ var pr = S(function (ya, br) {
       if (o.buffer(e)) {
         if (this.options.input.buffer.length === 0)
           this.on("finish", () => {
-            this.streamInFinished = !0;
+            this.streamInFinished = true;
           });
         this.options.input.buffer.push(e), t();
       } else t(Error("Non-Buffer data on Writable Stream"));
@@ -1407,7 +1407,7 @@ var Pr = S(function (xa, Er) {
       if (u.defined(t.withoutReduction)) this._setBooleanOption("withoutReduction", t.withoutReduction);
       if (u.defined(t.fastShrinkOnLoad)) this._setBooleanOption("fastShrinkOnLoad", t.fastShrinkOnLoad);
     }
-    if (ye(this.options) && oe(this.options)) this.options.rotateBefore = !0;
+    if (ye(this.options) && oe(this.options)) this.options.rotateBefore = true;
     return this;
   }
   function pi(e) {
@@ -1446,9 +1446,9 @@ var Pr = S(function (xa, Er) {
       }, this),
       ye(this.options) && !oe(this.options))
     ) {
-      if (this.options.widthPre === -1 || this.options.widthPost === -1) this.options.rotateBefore = !0;
+      if (this.options.widthPre === -1 || this.options.widthPost === -1) this.options.rotateBefore = true;
     }
-    if (this.options.input.autoOrient) this.options.orientBefore = !0;
+    if (this.options.input.autoOrient) this.options.orientBefore = true;
     return this;
   }
   function vi(e) {
@@ -1460,7 +1460,7 @@ var Pr = S(function (xa, Er) {
           else throw u.invalidParameterError("threshold", "positive number", e.threshold);
         if (u.defined(e.lineArt)) this._setBooleanOption("trimLineArt", e.lineArt);
       } else throw u.invalidParameterError("trim", "object", e);
-    if (ye(this.options)) this.options.rotateBefore = !0;
+    if (ye(this.options)) this.options.rotateBefore = true;
     return this;
   }
   Er.exports = (e) => {
@@ -1513,14 +1513,14 @@ var kr = S(function (Ea, jr) {
         if (!g.object(r)) throw g.invalidParameterError("image to composite", "object", r);
         let t = this._inputOptionsFromObject(r),
           i = {
-            input: this._createInputDescriptor(r.input, t, { allowStream: !1 }),
+            input: this._createInputDescriptor(r.input, t, { allowStream: false }),
             blend: "over",
-            tile: !1,
+            tile: false,
             left: 0,
             top: 0,
-            hasOffset: !1,
+            hasOffset: false,
             gravity: 0,
-            premultiplied: !1,
+            premultiplied: false,
           };
         if (g.defined(r.blend))
           if (g.string(xe[r.blend])) i.blend = xe[r.blend];
@@ -1573,13 +1573,13 @@ var Mr = S(function (Pa, Br) {
     return this;
   }
   function Ei() {
-    return (this.options.input.autoOrient = !0), this;
+    return (this.options.input.autoOrient = true), this;
   }
   function Pi(e) {
-    return (this.options.flip = l.bool(e) ? e : !0), this;
+    return (this.options.flip = l.bool(e) ? e : true), this;
   }
   function ji(e) {
-    return (this.options.flop = l.bool(e) ? e : !0), this;
+    return (this.options.flop = l.bool(e) ? e : true), this;
   }
   function ki(e, r) {
     let t = [].concat(...e);
@@ -1674,12 +1674,12 @@ var Mr = S(function (Pa, Br) {
     return this;
   }
   function Bi(e) {
-    if (((this.options.flatten = l.bool(e) ? e : !0), l.object(e)))
+    if (((this.options.flatten = l.bool(e) ? e : true), l.object(e)))
       this._setBackgroundColourOption("flattenBackground", e.background);
     return this;
   }
   function Mi() {
-    return (this.options.unflatten = !0), this;
+    return (this.options.unflatten = true), this;
   }
   function Ii(e, r) {
     if (!l.defined(e)) this.options.gamma = 2.2;
@@ -1691,7 +1691,7 @@ var Mr = S(function (Pa, Br) {
     return this;
   }
   function Ri(e) {
-    if (((this.options.negate = l.bool(e) ? e : !0), l.plainObject(e) && "alpha" in e))
+    if (((this.options.negate = l.bool(e) ? e : true), l.plainObject(e) && "alpha" in e))
       if (!l.bool(e.alpha)) throw l.invalidParameterError("alpha", "should be boolean value", e.alpha);
       else this.options.negateAlpha = e.alpha;
     return this;
@@ -1711,7 +1711,7 @@ var Mr = S(function (Pa, Br) {
         "lower to be less than upper",
         `${this.options.normaliseLower} >= ${this.options.normaliseUpper}`,
       );
-    return (this.options.normalise = !0), this;
+    return (this.options.normalise = true), this;
   }
   function Fi(e) {
     return this.normalise(e);
@@ -1749,8 +1749,8 @@ var Mr = S(function (Pa, Br) {
     else if (l.bool(e)) this.options.threshold = e ? 128 : 0;
     else if (l.integer(e) && l.inRange(e, 0, 255)) this.options.threshold = e;
     else throw l.invalidParameterError("threshold", "integer between 0 and 255", e);
-    if (!l.object(r) || r.greyscale === !0 || r.grayscale === !0) this.options.thresholdGrayscale = !0;
-    else this.options.thresholdGrayscale = !1;
+    if (!l.object(r) || r.greyscale === true || r.grayscale === true) this.options.thresholdGrayscale = true;
+    else this.options.thresholdGrayscale = false;
     return this;
   }
   function Di(e, r, t) {
@@ -1830,7 +1830,7 @@ var Cr = S(function (ja, Lr) {
   var { defineProperty: ke, getOwnPropertyDescriptor: $i, getOwnPropertyNames: Wi } = Object,
     Ui = Object.prototype.hasOwnProperty,
     Gi = (e, r) => {
-      for (var t in r) ke(e, t, { get: r[t], enumerable: !0 });
+      for (var t in r) ke(e, t, { get: r[t], enumerable: true });
     },
     Qi = (e, r, t, i) => {
       if ((r && typeof r === "object") || typeof r === "function") {
@@ -1839,7 +1839,7 @@ var Cr = S(function (ja, Lr) {
       }
       return e;
     },
-    Vi = (e) => Qi(ke({}, "__esModule", { value: !0 }), e),
+    Vi = (e) => Qi(ke({}, "__esModule", { value: true }), e),
     Ir = {};
   Gi(Ir, { default: () => ln });
   Lr.exports = Vi(Ir);
@@ -3099,7 +3099,7 @@ var $r = S(function (Aa, Tr) {
     return this._setBackgroundColourOption("tint", e), this;
   }
   function fn(e) {
-    return (this.options.greyscale = F.bool(e) ? e : !0), this;
+    return (this.options.greyscale = F.bool(e) ? e : true), this;
   }
   function dn(e) {
     return this.greyscale(e);
@@ -3150,7 +3150,7 @@ var Ur = S(function (_a, Wr) {
 */ var I = k(),
     wn = { and: "and", or: "or", eor: "eor" };
   function vn() {
-    return (this.options.removeAlpha = !0), this;
+    return (this.options.removeAlpha = true), this;
   }
   function yn(e) {
     if (I.defined(e))
@@ -3233,7 +3233,7 @@ var Kr = S(function (Sa, Jr) {
   }
   function An(e, r) {
     if (n.object(e)) this._setBooleanOption("resolveWithObject", e.resolveWithObject);
-    else if (this.options.resolveWithObject) this.options.resolveWithObject = !1;
+    else if (this.options.resolveWithObject) this.options.resolveWithObject = false;
     this.options.fileOut = "";
     let t = Error();
     return this._pipeline(n.fn(e) ? e : r, t);
@@ -3250,10 +3250,10 @@ var Kr = S(function (Sa, Jr) {
             else throw n.invalidParameterError(`${r}.${i}`, "string", a);
         else throw n.invalidParameterError(r, "object", t);
     else throw n.invalidParameterError("exif", "object", e);
-    return (this.options.withExifMerge = !1), this.keepExif();
+    return (this.options.withExifMerge = false), this.keepExif();
   }
   function Bn(e) {
-    return this.withExif(e), (this.options.withExifMerge = !0), this;
+    return this.withExif(e), (this.options.withExifMerge = true), this;
   }
   function Mn() {
     return (this.options.keepMetadata |= 8), this;
@@ -3314,10 +3314,10 @@ var Kr = S(function (Sa, Jr) {
       if (n.defined(e.mozjpeg))
         if (n.bool(e.mozjpeg)) {
           if (e.mozjpeg)
-            (this.options.jpegTrellisQuantisation = !0),
-              (this.options.jpegOvershootDeringing = !0),
-              (this.options.jpegOptimiseScans = !0),
-              (this.options.jpegProgressive = !0),
+            (this.options.jpegTrellisQuantisation = true),
+              (this.options.jpegOvershootDeringing = true),
+              (this.options.jpegOptimiseScans = true),
+              (this.options.jpegProgressive = true),
               (this.options.jpegQuantisationTable = 3);
         } else throw n.invalidParameterError("mozjpeg", "boolean", e.mozjpeg);
       let t = n.bool(e.trellisQuantization) ? e.trellisQuantization : e.trellisQuantisation;
@@ -3325,7 +3325,7 @@ var Kr = S(function (Sa, Jr) {
       if (n.defined(e.overshootDeringing)) this._setBooleanOption("jpegOvershootDeringing", e.overshootDeringing);
       let i = n.bool(e.optimizeScans) ? e.optimizeScans : e.optimiseScans;
       if (n.defined(i)) {
-        if ((this._setBooleanOption("jpegOptimiseScans", i), i)) this.options.jpegProgressive = !0;
+        if ((this._setBooleanOption("jpegOptimiseScans", i), i)) this.options.jpegProgressive = true;
       }
       let a = n.number(e.quantizationTable) ? e.quantizationTable : e.quantisationTable;
       if (n.defined(a))
@@ -3348,7 +3348,7 @@ var Kr = S(function (Sa, Jr) {
         else throw n.invalidParameterError("colours", "integer between 2 and 256", r);
       if (n.defined(e.palette)) this._setBooleanOption("pngPalette", e.palette);
       else if ([e.quality, e.effort, e.colours, e.colors, e.dither].some(n.defined))
-        this._setBooleanOption("pngPalette", !0);
+        this._setBooleanOption("pngPalette", true);
       if (this.options.pngPalette) {
         if (n.defined(e.quality))
           if (n.integer(e.quality) && n.inRange(e.quality, 0, 100)) this.options.pngQuality = e.quality;
@@ -3627,7 +3627,7 @@ var Kr = S(function (Sa, Jr) {
     return this;
   }
   function Kn(e, r) {
-    if (!(n.object(r) && r.force === !1)) this.options.formatOut = e;
+    if (!(n.object(r) && r.force === false)) this.options.formatOut = e;
     return this;
   }
   function Xn(e, r) {
@@ -3636,7 +3636,7 @@ var Kr = S(function (Sa, Jr) {
   }
   function Yn() {
     if (!this.options.streamOut) {
-      this.options.streamOut = !0;
+      this.options.streamOut = true;
       let e = Error();
       this._pipeline(void 0, e);
     }
@@ -3780,7 +3780,7 @@ var Or = S(function (Ba, Zr) {
     else if (P.object(e)) return v.cache(e.memory, e.files, e.items);
     else return v.cache();
   }
-  Yr(!0);
+  Yr(true);
   function ta(e) {
     return v.concurrency(P.integer(e) ? e : null);
   }
@@ -3795,13 +3795,13 @@ var Or = S(function (Ba, Zr) {
   }
   function oa(e) {
     if (P.object(e))
-      if (Array.isArray(e.operation) && e.operation.every(P.string)) v.block(e.operation, !0);
+      if (Array.isArray(e.operation) && e.operation.every(P.string)) v.block(e.operation, true);
       else throw P.invalidParameterError("operation", "Array<string>", e.operation);
     else throw P.invalidParameterError("options", "object", e);
   }
   function sa(e) {
     if (P.object(e))
-      if (Array.isArray(e.operation) && e.operation.every(P.string)) v.block(e.operation, !1);
+      if (Array.isArray(e.operation) && e.operation.every(P.string)) v.block(e.operation, false);
       else throw P.invalidParameterError("operation", "Array<string>", e.operation);
     else throw P.invalidParameterError("options", "object", e);
   }

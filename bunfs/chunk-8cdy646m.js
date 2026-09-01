@@ -473,7 +473,7 @@ function Fe(Wt) {
   let i = _(89),
     { onExit: O, commands: Be, bytesPerToken: Ae } = Wt,
     { storageV5: Je } = ge(),
-    [J, zt] = u(!1),
+    [J, zt] = u(false),
     ue;
   if (i[0] !== Be || i[1] !== J) {
     bb0: {
@@ -532,13 +532,13 @@ function Fe(Wt) {
   let [Z, Ht] = u(_o),
     [Qe, Zt] = u(l[0]),
     Ue = Ba(),
-    [v, fe] = u(!1),
+    [v, fe] = u(false),
     Y = C(v),
     jo,
     qo;
   if (i[12] === d)
     (jo = () => {
-      (Y.current = !1), fe(!1);
+      (Y.current = false), fe(false);
     }),
       (qo = ["c", "d"]),
       (i[12] = jo),
@@ -597,14 +597,14 @@ function Fe(Wt) {
       (i[25] = Uo);
   else Uo = i[25];
   let oo = Uo,
-    Wo = C(!1),
+    Wo = C(false),
     zo;
   if (i[26] !== Z || i[27] !== S || i[28] !== H || i[29] !== O || i[30] !== l || i[31] !== Je)
     (zo = async () => {
       if (Wo.current) {
         return;
       }
-      Wo.current = !0;
+      Wo.current = true;
       let tn = new Set(Array.from(S.keys(), Ct));
       let Ho = new Set(tn);
       let Zo = {};
@@ -673,14 +673,14 @@ function Fe(Wt) {
         return;
       }
       if (b.name === "backspace") {
-        if (m) b.preventDefault(), (Y.current = !0), fe(!0), N(m.slice(0, -1));
+        if (m) b.preventDefault(), (Y.current = true), fe(true), N(m.slice(0, -1));
         return;
       }
       if (b.name.length > 1 && b.name !== "number") {
         return;
       }
       if (b.key.length >= 1 && b.key !== " ") {
-        b.preventDefault(), (Y.current = !0), fe(!0);
+        b.preventDefault(), (Y.current = true), fe(true);
         let ln = b.key.startsWith("/") ? b.key.slice(1) : b.key;
         N(m + ln);
       }
@@ -702,7 +702,7 @@ function Fe(Wt) {
       if (he.length === 0) {
         return;
       }
-      lo.preventDefault(), (Y.current = !0), fe(!0);
+      lo.preventDefault(), (Y.current = true), fe(true);
       let an = he.startsWith("/") ? he.slice(1) : he;
       N(m + an);
     }),
@@ -789,7 +789,7 @@ function Fe(Wt) {
             {
               visibleCount: eo,
               isDisabled: v,
-              wrap: !0,
+              wrap: true,
               overflowHint: "count",
               onFocus: (dn) => Zt(p[dn]),
               children: p.map((te) =>
@@ -823,7 +823,7 @@ function Fe(Wt) {
   if (i[76] !== l)
     (ve =
       l.some(wt) &&
-      e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: "Plugin skills are managed via /plugin" }) })),
+      e(o, { marginTop: 1, children: e(t, { dimColor: true, children: "Plugin skills are managed via /plugin" }) })),
       (i[76] = l),
       (i[77] = ve);
   else ve = i[77];
@@ -834,7 +834,7 @@ function Fe(Wt) {
       e(o, {
         marginTop: 1,
         children: r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: ["Custom skills are disabled in safe mode \u2014", " ", `${_f()} to load them`],
         }),
       })),
@@ -845,7 +845,7 @@ function Fe(Wt) {
     (Ce = r(o, {
       flexDirection: "column",
       tabIndex: 0,
-      autoFocus: !0,
+      autoFocus: true,
       onKeyDown: io,
       onPaste: ao,
       children: [G, Se, ve, dt],
@@ -859,7 +859,7 @@ function Fe(Wt) {
   else Ce = i[84];
   let ut;
   if (i[85] !== oe || i[86] !== q || i[87] !== Ce)
-    (ut = e(me, { title: "Skills", subtitle: oe, onCancel: q, isCancelActive: !1, hideInputGuide: !0, children: Ce })),
+    (ut = e(me, { title: "Skills", subtitle: oe, onCancel: q, isCancelActive: false, hideInputGuide: true, children: Ce })),
       (i[85] = oe),
       (i[86] = q),
       (i[87] = Ce),
@@ -879,7 +879,7 @@ function Pe(yn) {
     be;
   if (Q[3] !== x.color || Q[4] !== x.glyph || Q[5] !== x.label || Q[6] !== ae)
     (be = ae
-      ? e(t, { dimColor: !0, children: "\uD83D\uDD12 " + x.label.padEnd(9) })
+      ? e(t, { dimColor: true, children: "\uD83D\uDD12 " + x.label.padEnd(9) })
       : r(t, { color: x.color, children: [x.glyph, " ", x.label.padEnd(9)] })),
       (Q[3] = x.color),
       (Q[4] = x.glyph),
@@ -902,7 +902,7 @@ function Pe(yn) {
   const yo = ae ? ` \xB7 locked by ${ae.source}` : "";
   let xe;
   if (Q[15] !== Oe || Q[16] !== yo || Q[17] !== fo)
-    (xe = r(t, { dimColor: !0, children: [" ", "\xB7 ", Oe, " \xB7 ", fo, yo] })),
+    (xe = r(t, { dimColor: true, children: [" ", "\xB7 ", Oe, " \xB7 ", fo, yo] })),
       (Q[15] = Oe),
       (Q[16] = yo),
       (Q[17] = fo),

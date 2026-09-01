@@ -162,15 +162,15 @@ function Z(Bt) {
     return _t;
   }
   let nt;
-  if (ie[16] !== x.text) (nt = e(t, { dimColor: !0, italic: !0, children: x.text })), (ie[16] = x.text), (ie[17] = nt);
+  if (ie[16] !== x.text) (nt = e(t, { dimColor: true, italic: true, children: x.text })), (ie[16] = x.text), (ie[17] = nt);
   else nt = ie[17];
   return nt;
 }
 function Te({ ctx: s, activeElement: R, boundaryNode: k, order: B, omit: S, max: N, maxWidth: a }) {
-  let d = { fellBack: !0, text: "", hadEntryWithoutDescription: !1 };
+  let d = { fellBack: true, text: "", hadEntryWithoutDescription: false };
   if (!s || !R || !k) return d;
   let l = [],
-    E = !1,
+    E = false,
     K = 0,
     p = R;
   while (p) {
@@ -182,7 +182,7 @@ function Te({ ctx: s, activeElement: R, boundaryNode: k, order: B, omit: S, max:
         l.push({ action: m.action, hint: m.hint, scope: i.scope, depth: K, isBoundary: n });
       }
     if (n) {
-      E = !0;
+      E = true;
       break;
     }
     (p = p.parentNode), K++;
@@ -191,13 +191,13 @@ function Te({ ctx: s, activeElement: R, boundaryNode: k, order: B, omit: S, max:
   if (!l.some((n) => !n.isBoundary)) return d;
   let c = new Set(S ?? []),
     w = new Set(),
-    D = !1,
+    D = false,
     b = [];
   for (let n of l) {
     if (c.has(n.action)) continue;
     let i = n.hint ?? ke(n.action)?.description;
     if (!i) {
-      D = !0;
+      D = true;
       continue;
     }
     if (w.has(i)) continue;
@@ -234,7 +234,7 @@ function Te({ ctx: s, activeElement: R, boundaryNode: k, order: B, omit: S, max:
   }
   if (f.length === 0) return d;
   let Q = b.length - f.length;
-  return { fellBack: !1, text: Q > 0 ? `${f.join(O)}${O}+${Q} more` : f.join(O), hadEntryWithoutDescription: D };
+  return { fellBack: false, text: Q > 0 ? `${f.join(O)}${O}+${Q} more` : f.join(O), hadEntryWithoutDescription: D };
 }
 var te = r(fe, {
   children: [
@@ -258,7 +258,7 @@ function me(on) {
       onInterrupt: rn,
     } = on,
     W = it === void 0 ? "permission" : it,
-    X = st === void 0 ? !0 : st,
+    X = st === void 0 ? true : st,
     ct = C(null),
     { entries: Ke, exitState: q } = Con(void 0, rn, X),
     de;
@@ -316,10 +316,10 @@ function me(on) {
         marginTop: 1,
         flexShrink: 0,
         children: $e
-          ? e(t, { dimColor: !0, italic: !0, children: Fe })
+          ? e(t, { dimColor: true, italic: true, children: Fe })
           : !X
-            ? e(t, { dimColor: !0, italic: !0, children: te })
-            : e(Z, { boundary: ct, fallback: e(t, { dimColor: !0, italic: !0, children: te }) }),
+            ? e(t, { dimColor: true, italic: true, children: te })
+            : e(Z, { boundary: ct, fallback: e(t, { dimColor: true, italic: true, children: te }) }),
       })),
       (h[15] = Fe),
       (h[16] = pe),
@@ -336,18 +336,18 @@ function me(on) {
           justifyContent: "space-between",
           gap: 2,
           children: [
-            e(t, { bold: !0, color: W, children: re }),
-            e(t, { dimColor: !0, wrap: "truncate-start", children: ce }),
+            e(t, { bold: true, color: W, children: re }),
+            e(t, { dimColor: true, wrap: "truncate-start", children: ce }),
           ],
         })
-      : e(t, { bold: !0, color: W, children: re })),
+      : e(t, { bold: true, color: W, children: re })),
       (h[20] = W),
       (h[21] = re),
       (h[22] = ce),
       (h[23] = ae);
   else ae = h[23];
   let ue;
-  if (h[24] !== ee) (ue = ee && e(t, { dimColor: !0, children: ee })), (h[24] = ee), (h[25] = ue);
+  if (h[24] !== ee) (ue = ee && e(t, { dimColor: true, children: ee })), (h[24] = ee), (h[25] = ue);
   else ue = h[25];
   let ge;
   if (h[26] !== ae || h[27] !== ue)
@@ -365,7 +365,7 @@ function me(on) {
     (ut = r(GZ, {
       ref: ct,
       scope: "Confirmation",
-      claimFocus: !0,
+      claimFocus: true,
       flexGrow: Le,
       flexDirection: "column",
       bindings: _e,

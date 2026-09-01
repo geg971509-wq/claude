@@ -26,7 +26,7 @@ function D(i) {
   let e = null,
     l = null,
     a = 0,
-    o = !1,
+    o = false,
     s = null,
     d = 0,
     p = [],
@@ -59,8 +59,8 @@ function D(i) {
     current: () => e,
     generation: () => d,
     recordMiss(r, t) {
-      if (e === null || e.instanceId !== r || t !== d) return !1;
-      if (((a += 1), !o && a >= y)) (o = !0), (s = i.now());
+      if (e === null || e.instanceId !== r || t !== d) return false;
+      if (((a += 1), !o && a >= y)) (o = true), (s = i.now());
       return o;
     },
     recordHit(r) {
@@ -72,15 +72,15 @@ function D(i) {
       let t = e !== null && e.instanceId !== r.instanceId ? e.instanceId : void 0,
         u = e !== null && t === void 0,
         c = u && o ? s : null;
-      if (((e = r), !u || c !== null)) (a = 0), (o = !1), (s = null);
+      if (((e = r), !u || c !== null)) (a = 0), (o = false), (s = null);
       return (d += 1), v(), { ...(t !== void 0 && { replaced: t }), ...(c !== null && { awaySince: c }) };
     },
     removeOwner(r) {
-      if (e === null || e.instanceId !== r) return !1;
-      return (e = null), (a = 0), (o = !1), (s = null), m(), !0;
+      if (e === null || e.instanceId !== r) return false;
+      return (e = null), (a = 0), (o = false), (s = null), m(), true;
     },
     clear() {
-      (e = null), (a = 0), (o = !1), (s = null), m();
+      (e = null), (a = 0), (o = false), (s = null), m();
     },
     onLeaseExpired(r) {
       p.push(r);

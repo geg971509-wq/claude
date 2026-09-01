@@ -35,7 +35,7 @@ function TDt(n) {
   })}"`;
 }
 async function w(n, e, t, r) {
-  if (e.length === 0 || r <= 0 || t?.aborted === !0) return { pairs: [], spawns: 0 };
+  if (e.length === 0 || r <= 0 || t?.aborted === true) return { pairs: [], spawns: 0 };
   let s = await Ml(
       n,
       ["hash-object", "--stdin-paths"],
@@ -46,7 +46,7 @@ async function w(n, e, t, r) {
 `) +
         `
 `,
-      { filterDriversOff: !0 },
+      { filterDriversOff: true },
     ),
     a = s.stdout
       .split(`
@@ -91,7 +91,7 @@ function r_e(n, { timeoutMs: e = m } = {}) {
 function lrn(n, e) {
   return async (t, r, s) => {
     if (!(e !== void 0 ? e.has(t) : (await f(n, [t], s)).includes(t))) return null;
-    let d = await Ml(n, ["hash-object", "--stdin", "--path", t], s, p, u, r, { filterDriversOff: !0 }),
+    let d = await Ml(n, ["hash-object", "--stdin", "--path", t], s, p, u, r, { filterDriversOff: true }),
       l = d.stdout.trim();
     return d.code === 0 && /^[0-9a-f]{40}([0-9a-f]{24})?$/.test(l) ? l : null;
   };

@@ -34,9 +34,9 @@ var ge = "allow_usage_transcript_scan",
       "Not shown for HIPAA-regulated organizations: measured by scanning the session transcripts saved on this machine.",
   };
 function W(e) {
-  if (Mt(e.policy)) return { allowed: !0 };
-  if (nO(e.policy) === "org_denied" && _h("hipaa")) return { allowed: !1, reason: e.hipaaReason };
-  return { allowed: !1, reason: od(e.policy, e.label, "are") ?? `${e.label} are unavailable right now.` };
+  if (Mt(e.policy)) return { allowed: true };
+  if (nO(e.policy) === "org_denied" && _h("hipaa")) return { allowed: false, reason: e.hipaaReason };
+  return { allowed: false, reason: od(e.policy, e.label, "are") ?? `${e.label} are unavailable right now.` };
 }
 function Cse() {
   return W(he);
@@ -104,12 +104,12 @@ var D = 4,
   un = [...O(v4), ...O(ZH)],
   L = (e, t, o) => t.some((s) => g(e, s, 0, o) >= 0),
   dn = [u.encode(`"content":${b(see).slice(0, -1)}`), u.encode(`"text":${b(see).slice(0, -1)}`)],
-  re = (e, t = !1) => {
+  re = (e, t = false) => {
     let o = t ? b(e) : b(e).slice(0, -1);
     return [u.encode(`"content":${o}`), u.encode(`"text":${o}`)];
   },
   ln = [...Sin.map((e) => `${e}${BMt}`), G9e, bin, cXe, Klt].filter((e) => e.length > 0).flatMap((e) => re(e)),
-  pn = [Glt, win, zlt, Vlt].flatMap((e) => re(e, !0)),
+  pn = [Glt, win, zlt, Vlt].flatMap((e) => re(e, true)),
   fn = u.encode('"cron":"'),
   mn = u.encode('"prompt":"'),
   _n = u.encode('"taskKind":"loop"'),
@@ -163,7 +163,7 @@ function Mn(e, t, o) {
 }
 function Tn(e, t, o) {
   let s = t;
-  while (!0) {
+  while (true) {
     if (((s = g(e, Y, s, o)), s < 0)) return;
     let r = s + Y.length;
     if (g(e, De, r, r + 4) === r) {
@@ -233,9 +233,9 @@ async function ae(e, t, o, s) {
 function ue(e, t) {
   let o = new Set(),
     s = (r) => {
-      if (!r) return !0;
-      if (o.has(r)) return !1;
-      return o.add(r), !0;
+      if (!r) return true;
+      if (o.has(r)) return false;
+      return o.add(r), true;
     };
   return (r) => {
     for (let i of r.records) if (s(i.uuid)) e(i);
@@ -248,7 +248,7 @@ async function yn(e, t, o, s) {
   let r = [],
     i = VAt(),
     d = await Ao(
-      (_) => e.listEntries({ namespace: "transcript" }, { skipScopeStats: !0, ...(_ !== void 0 && { cursor: _ }) }),
+      (_) => e.listEntries({ namespace: "transcript" }, { skipScopeStats: true, ...(_ !== void 0 && { cursor: _ }) }),
       (_) => {
         for (let h of _) {
           let T = fU(h, Zt);
@@ -275,7 +275,7 @@ async function bn(e, t, o, s) {
       (p) =>
         e.listEntries(
           { namespace: "transcript", projectKey: t },
-          { skipScopeStats: !0, ...(p !== void 0 && { cursor: p }) },
+          { skipScopeStats: true, ...(p !== void 0 && { cursor: p }) },
         ),
       (p) => {
         for (let _ of p)
@@ -288,7 +288,7 @@ async function bn(e, t, o, s) {
   G("session", d, s);
   let c = new Map();
   for (let p of r)
-    if (p.key.namespace === "transcript" && p.key.agentId === void 0 && p.key.journal !== !0)
+    if (p.key.namespace === "transcript" && p.key.agentId === void 0 && p.key.journal !== true)
       c.set(p.key.sessionId, p.mtimeMs);
   let a = i.filter((p) => (c.get(p) ?? 1 / 0) >= o),
     l = await Promise.all(a.map((p) => de(e, t, p, s)));
@@ -301,12 +301,12 @@ async function de(e, t, o, s, r) {
       (l) =>
         e.listEntries(
           { namespace: "transcript", projectKey: t, sessionId: o, ...(r !== void 0 && { agentRelPath: r }) },
-          { skipScopeStats: !0, ...(l !== void 0 && { cursor: l }) },
+          { skipScopeStats: true, ...(l !== void 0 && { cursor: l }) },
         ),
       (l) => {
         for (let p of l)
           if (p.kind === "key") {
-            if (p.key.namespace === "transcript" && (p.key.agentId !== void 0 || p.key.journal === !0)) le(i, p);
+            if (p.key.namespace === "transcript" && (p.key.agentId !== void 0 || p.key.journal === true)) le(i, p);
           } else if (
             p.scope.namespace === "transcript" &&
             p.scope.agentRelPath !== void 0 &&
@@ -339,7 +339,7 @@ async function An(e, t, o) {
     c = 0,
     a = [],
     l = 0;
-  while (!0) {
+  while (true) {
     let p = await e.read([i ? r : { key: r, offset: c, length: Re }]);
     if (!p.ok) return n(`readRecordsFromStream: v5 read failed: ${p.error.code}`), s;
     let _ = p.value.items[0];
@@ -373,7 +373,7 @@ async function ONn(e) {
 async function Ln(e) {
   let t;
   try {
-    t = await x(e, { withFileTypes: !0 });
+    t = await x(e, { withFileTypes: true });
   } catch (i) {
     if (Ht(i)) return [];
     throw i;
@@ -387,7 +387,7 @@ async function Ln(e) {
     s.map(async (i) => {
       let d = N(e, i, "subagents");
       try {
-        return (await x(d, { recursive: !0 })).filter((a) => j(a) === ".jsonl").map((a) => N(d, a));
+        return (await x(d, { recursive: true })).filter((a) => j(a) === ".jsonl").map((a) => N(d, a));
       } catch (c) {
         if (Ht(c)) return [];
         throw c;
@@ -427,13 +427,13 @@ function fe(e, t) {
     s = [],
     r = [],
     i = 0,
-    d = !0,
+    d = true,
     c,
     a = () => {
-      o++, (r = []), (i = 0), (d = !1);
+      o++, (r = []), (i = 0), (d = false);
     },
     l = () => {
-      o++, (r = []), (i = 0), (d = !0), (h = void 0), (c = void 0);
+      o++, (r = []), (i = 0), (d = true), (h = void 0), (c = void 0);
     },
     p = () => {
       if (!c) return;
@@ -470,7 +470,7 @@ function fe(e, t) {
     let m = f.length;
     if (g(f, oe, 0, m) >= 0) {
       let M = Pn(f, 0, m, t);
-      if (((d = !0), (c = void 0), M)) {
+      if (((d = true), (c = void 0), M)) {
         if (i > 1 && r.length > 0) {
           let C = 1 / i;
           M.loopShares = r.map((E) => ({ ...E, share: C }));
@@ -501,7 +501,7 @@ function fe(e, t) {
         S = T(f, m);
       if (S?.openBatch === o && !d && i > 0) l();
       if (d || E) a();
-      if ((i++, (c = { fire: S, run: !1, isCommandRecord: C }), !S)) {
+      if ((i++, (c = { fire: S, run: false, isCommandRecord: C }), !S)) {
         h = void 0;
         return;
       }
@@ -509,7 +509,7 @@ function fe(e, t) {
       if (!A) return;
       if (!A.isDynamic) h = void 0;
       if (S.ts < t) return;
-      e.fires.push({ ts: S.ts, uuid: S.uuid, loop: A }), r.push({ loop: A, fireTs: S.ts }), (c.run = !0);
+      e.fires.push({ ts: S.ts, uuid: S.uuid, loop: A }), r.push({ loop: A, fireTs: S.ts }), (c.run = true);
       return;
     }
     if (g(f, rn, 0, m) >= 0 && g(f, cn, 0, m) >= 0 && L(f, V, m)) {
@@ -540,7 +540,7 @@ function fe(e, t) {
 }
 function wn(e, t) {
   let o = g(e, z, 0, t);
-  if (o < 0) return !1;
+  if (o < 0) return false;
   let s = o + z.length,
     r = s;
   while (s < t && e[s] >= F && e[s] <= ce) s++;
@@ -556,7 +556,7 @@ function Dn(e, t) {
   if (!o) return null;
   let s = o.match(kn)?.[1],
     r = Sie(s ?? o, q);
-  return r ? { prompt: r, cron: void 0, isDynamic: !1 } : null;
+  return r ? { prompt: r, cron: void 0, isDynamic: false } : null;
 }
 function Pn(e, t, o, s) {
   if (g(e, oe, t, o) < 0) return;

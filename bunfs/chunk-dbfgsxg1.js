@@ -48,7 +48,7 @@ var O = j(qc(), 1),
   F =
     (...e) =>
     async (r) => {
-      if (e.length === 0) throw new O.ProviderError("No providers in chain", { tryNextLink: !1 });
+      if (e.length === 0) throw new O.ProviderError("No providers in chain", { tryNextLink: false });
       let o;
       for (let t of e)
         try {
@@ -273,7 +273,7 @@ var M = j(oa(), 1),
         if (!e.mfaCodeProvider)
           throw new b.CredentialsProviderError(
             "Temporary credential requires multi-factor authentication, but no MFA code callback was provided.",
-            { tryNextLink: !1, logger: c },
+            { tryNextLink: false, logger: c },
           );
         d.TokenCode = await e.mfaCodeProvider(d?.SerialNumber);
       }

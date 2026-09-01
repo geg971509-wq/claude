@@ -382,7 +382,7 @@ function C(F) {
     m;
   if (n[3] !== R)
     (m = r(t, {
-      children: ["The configuration file at ", e(t, { bold: !0, children: R }), " contains invalid JSON."],
+      children: ["The configuration file at ", e(t, { bold: true, children: R }), " contains invalid JSON."],
     })),
       (n[3] = R),
       (n[4] = m);
@@ -395,7 +395,7 @@ function C(F) {
     (c = r(o, { flexDirection: "column", gap: 1, children: [m, p] })), (n[7] = m), (n[8] = p), (n[9] = c);
   else c = n[9];
   let x;
-  if (n[10] === d) (x = e(t, { bold: !0, children: "Choose an option:" })), (n[10] = x);
+  if (n[10] === d) (x = e(t, { bold: true, children: "Choose an option:" })), (n[10] = x);
   else x = n[10];
   let y;
   if (n[11] === d)
@@ -424,7 +424,7 @@ function C(F) {
 }
 var D = "dark";
 async function U({ error: a }) {
-  let f = { ...Fw(!1), theme: D };
+  let f = { ...Fw(false), theme: D };
   await new Promise(async (s) => {
     let { unmount: l } = await Lx(
       e(vp, {
@@ -436,7 +436,7 @@ async function U({ error: a }) {
             l(), s(), process.exit(1);
           },
           onReset: () => {
-            Nfe(a.filePath, b(a.defaultConfig, null, 2), { flush: !1, encoding: "utf8" }), l(), s(), process.exit(0);
+            Nfe(a.filePath, b(a.defaultConfig, null, 2), { flush: false, encoding: "utf8" }), l(), s(), process.exit(0);
           },
         }),
       }),

@@ -348,7 +348,7 @@ function M(q) {
   else R = a[4];
   let T;
   if (a[5] !== j || a[6] !== n)
-    (T = e(t, { bold: !0, color: "subtle", children: e(xg, { filePath: n, children: j }) })),
+    (T = e(t, { bold: true, color: "subtle", children: e(xg, { filePath: n, children: j }) })),
       (a[5] = j),
       (a[6] = n),
       (a[7] = T);
@@ -370,7 +370,7 @@ function M(q) {
       e(o, {
         marginTop: 1,
         flexDirection: "column",
-        children: e(o_, { code: Hs(b), filePath: k === "markdown" ? "file.md" : "file.py", dim: !0 }),
+        children: e(o_, { code: Hs(b), filePath: k === "markdown" ? "file.md" : "file.py", dim: true }),
       })),
       (a[16] = k),
       (a[17] = u),
@@ -422,7 +422,7 @@ function se({ cell_id: s, new_source: i, error: l }) {
     children: r(o, {
       flexDirection: "column",
       children: [
-        r(t, { children: ["Updated cell", " ", e(t, { bold: !0, children: s ? Od(Bo(Hs(s))) : "" }), ":"] }),
+        r(t, { children: ["Updated cell", " ", e(t, { bold: true, children: s ? Od(Bo(Hs(s))) : "" }), ":"] }),
         e(o, { marginLeft: 2, children: e(o_, { code: Hs(i), filePath: "notebook.py" }) }),
       ],
     }),

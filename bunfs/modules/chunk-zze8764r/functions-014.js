@@ -63,18 +63,18 @@ function BRe(e) {
     if (t.type !== "user") return t;
     let r = t.message.content;
     if (!Array.isArray(r)) return t;
-    let o = !1,
+    let o = false,
       u = r.flatMap((d) => {
-        if (d.type === "image") return (o = !0), [{ type: "text", text: "[image]" }];
-        if (d.type === "document") return (o = !0), [{ type: "text", text: "[document]" }];
+        if (d.type === "image") return (o = true), [{ type: "text", text: "[image]" }];
+        if (d.type === "document") return (o = true), [{ type: "text", text: "[document]" }];
         if (d.type === "tool_result" && Array.isArray(d.content)) {
-          let _ = !1,
+          let _ = false,
             C = d.content.map((A) => {
-              if (A.type === "image") return (_ = !0), { type: "text", text: "[image]" };
-              if (A.type === "document") return (_ = !0), { type: "text", text: "[document]" };
+              if (A.type === "image") return (_ = true), { type: "text", text: "[image]" };
+              if (A.type === "document") return (_ = true), { type: "text", text: "[document]" };
               return A;
             });
-          if (_) return (o = !0), [{ ...d, content: C }];
+          if (_) return (o = true), [{ ...d, content: C }];
         }
         return [d];
       });
@@ -109,11 +109,11 @@ function qRe(e) {
   }
   if (typeof e === "object" && e !== null) {
     let t = e,
-      r = !1,
+      r = false,
       o = {};
     for (let [u, d] of Object.entries(t)) {
       let _ = qRe(d);
-      if (_ !== d) r = !0;
+      if (_ !== d) r = true;
       o[u] = _;
     }
     return r ? o : e;
@@ -131,7 +131,7 @@ function cHn(e) {
           if (d.type !== "tool_use") return d;
           let _ = qRe(d.input);
           if (_ === d.input) return d;
-          return (o = !0), { ...d, input: _ };
+          return (o = true), { ...d, input: _ };
         });
       if (!o) return t;
       return { ...t, message: { ...t.message, content: u } };
@@ -139,7 +139,7 @@ function cHn(e) {
     if (t.type === "user") {
       let r = t.message.content;
       if (!Array.isArray(r)) return t;
-      let o = !1,
+      let o = false,
         u = r.map((d) => {
           if (d.type !== "tool_result") return d;
           let _ =
@@ -150,7 +150,7 @@ function cHn(e) {
                   : "",
             C = JCt(_);
           if (d.content === C) return d;
-          return (o = !0), { ...d, content: C };
+          return (o = true), { ...d, content: C };
         });
       if (!o) return t;
       return { ...t, message: { ...t.message, content: u } };
@@ -172,7 +172,7 @@ function nAt(e, t) {
   } else d = Math.max(1, Math.floor(o.length * 0.2));
   if (((d = Math.min(d, o.length - 1)), d < 1)) return null;
   let _ = o.slice(d).flat();
-  if (_[0]?.type === "assistant") return [xe({ content: XCt, isMeta: !0 }), ..._];
+  if (_[0]?.type === "assistant") return [xe({ content: XCt, isMeta: true }), ..._];
   return _;
 }
 
@@ -221,9 +221,9 @@ ${t}`;
 async function $$t(e, t, r, o, u) {
   let { customInstructions: d } = u ?? {},
     {
-      isAutoCompact: _ = !1,
+      isAutoCompact: _ = false,
       recompactionInfo: C,
-      stripNonEssential: A = !1,
+      stripNonEssential: A = false,
       spinnerHintText: x,
       onNotification: M,
       onResponseLength: F,
@@ -256,7 +256,7 @@ async function $$t(e, t, r, o, u) {
     t.onCompactEvent?.({ type: "stream_mode", mode: "requesting" }),
       F?.({ type: "response_length", op: "reset" }),
       t.onCompactEvent?.({ type: "compact_progress", event: { type: "compact_start", hintText: x } });
-    let Ee = !A && I("tengu_compact_cache_prefix", !0),
+    let Ee = !A && I("tengu_compact_cache_prefix", true),
       Pe = Wse(d),
       Oe = xe({ content: Pe }),
       Fe = e,
@@ -340,8 +340,8 @@ async function $$t(e, t, r, o, u) {
       mt = [
         xe({
           content: mq(We, { suppressFollowUpQuestions: o, transcriptPath: tt, replStateCleared: lt }),
-          isCompactSummary: !0,
-          isVisibleInTranscriptOnly: !0,
+          isCompactSummary: true,
+          isVisibleInTranscriptOnly: true,
         }),
       ],
       Xe = LL([ze]),
@@ -363,7 +363,7 @@ async function $$t(e, t, r, o, u) {
         querySource: At,
         queryChainId: ve(t.queryTracking?.chainId) ?? w(""),
         queryDepth: t.queryTracking?.depth ?? -1,
-        isRecompactionInChain: C?.isRecompactionInChain ?? !1,
+        isRecompactionInChain: C?.isRecompactionInChain ?? false,
         turnsSincePreviousCompact: C?.turnsSincePreviousCompact ?? -1,
         previousCompactTurnId: ve(C?.previousCompactTurnId || void 0) ?? w(""),
         compactionInputTokens: ht?.input_tokens,
@@ -529,7 +529,7 @@ async function fGn(e, t, r, o, u) {
     if ((r.readFileState.clear(), r.loadedNestedMemoryPaths))
       for (let ht of Object.keys(r.loadedNestedMemoryPaths)) delete r.loadedNestedMemoryPaths[ht];
     MB(r.memorySelector);
-    let { attachments: We, hookResults: Ve } = await ZZ(ze, r, z, "compact_partial", e, !0),
+    let { attachments: We, hookResults: Ve } = await ZZ(ze, r, z, "compact_partial", e, true),
       Pt = LL([Oe]),
       ct = kh(Oe),
       ut = Gy(r.options.mainLoopModel, tu(r));
@@ -556,11 +556,11 @@ async function fGn(e, t, r, o, u) {
       lt = ty() && Eht(r.toolState, r.agentId),
       mt = [
         xe({
-          content: mq(Fe, { suppressFollowUpQuestions: !1, transcriptPath: tt, replStateCleared: lt }),
-          isCompactSummary: !0,
+          content: mq(Fe, { suppressFollowUpQuestions: false, transcriptPath: tt, replStateCleared: lt }),
+          isCompactSummary: true,
           ...(z.length > 0
             ? { summarizeMetadata: { messagesSummarized: W.length, userContext: d, direction: _ } }
-            : { isVisibleInTranscriptOnly: !0 }),
+            : { isVisibleInTranscriptOnly: true }),
         }),
       ];
     D1(r.agentId),
@@ -640,10 +640,10 @@ async function sAt({
   context: o,
   preCompactTokenCount: u,
   cacheSafeParams: d,
-  stripNonEssential: _ = !1,
+  stripNonEssential: _ = false,
   onResponseLength: C,
 }) {
-  let A = !_ && I("tengu_compact_cache_prefix", !0),
+  let A = !_ && I("tengu_compact_cache_prefix", true),
     x = xtt()
       ? setInterval(
           (M) => {
@@ -664,8 +664,8 @@ async function sAt({
             forkLabel: "compact",
             maxTurns: 1,
             fallbackModel: zse(o.options.mainLoopModel, o.options.fallbackModel),
-            skipCacheWrite: !0,
-            skipTranscript: !0,
+            skipCacheWrite: true,
+            skipTranscript: true,
             overrides: { abortController: o.abortController, onRetryStatus: o.onRetryStatus },
           }),
           Oe = Wy(Pe.messages),
@@ -747,9 +747,9 @@ async function sAt({
       Ce,
       Ie,
       Ee;
-    while (!0) {
+    while (true) {
       let Pe = Ce ?? me[ge],
-        Oe = !1,
+        Oe = false,
         Fe,
         Be = Ie;
       Ie = void 0;
@@ -758,16 +758,16 @@ async function sAt({
       let We = Mse({
           currentModel: Pe,
           alreadyUsed: Ce !== void 0,
-          declined: !1,
-          inCascadeEpisode: !1,
+          declined: false,
+          inCascadeEpisode: false,
           cascadeNext: void 0,
-          suppressionAlreadyLogged: !0,
+          suppressionAlreadyLogged: true,
           requestDialog: o.requestDialog,
           isMainThread: pe,
-          consumerLacksDialogCapability: !0,
-          serverDefaultFallbacksEnabled: () => !1,
+          consumerLacksDialogCapability: true,
+          serverDefaultFallbacksEnabled: () => false,
           sticky: Ep(),
-          threadedRequest: !1,
+          threadedRequest: false,
         }).visibleModel,
         Ve = [];
       C?.({ type: "response_length", op: "reset" });
@@ -806,8 +806,8 @@ async function sAt({
               stickyBetas: Sb(Ep()),
               proactivityLevel: mD(o),
               effortValue: tu(o),
-              enablePromptCaching: !1,
-              promptTooLongIsHandled: !0,
+              enablePromptCaching: false,
+              promptTooLongIsHandled: true,
               onRetryStatus: o.onRetryStatus,
             },
           })[Symbol.asyncIterator](),
@@ -820,7 +820,7 @@ async function sAt({
             nn.event.type === "content_block_start" &&
             nn.event.content_block.type === "text"
           )
-            (Oe = !0), o.onCompactEvent?.({ type: "stream_mode", mode: "responding" });
+            (Oe = true), o.onCompactEvent?.({ type: "stream_mode", mode: "responding" });
           if (
             nn.type === "stream_event" &&
             nn.event.type === "content_block_delta" &&
@@ -884,8 +884,8 @@ async function sAt({
                 i2t({
                   requestDialog: o.requestDialog,
                   isMainThread: pe,
-                  silentAttempt: !1,
-                  consumerLacksDialogCapability: !0,
+                  silentAttempt: false,
+                  consumerLacksDialogCapability: true,
                 }) ?? "no_dialog_host",
               ),
               api_refusal_category: Fe.apiRefusalCategory ? c(Dte(Fe.apiRefusalCategory)) : void 0,
@@ -956,7 +956,7 @@ async function sAt({
   }
 }
 
-async function ZZ(e, t, r, o, u, d = !1) {
+async function ZZ(e, t, r, o, u, d = false) {
   let _ = ka(t.agentContext),
     [C, A] = await Promise.all([dHn(e, t, nHn, r, d), _ ? Promise.resolve([]) : fHn(t)]),
     x = t.agentId,
@@ -985,7 +985,7 @@ async function ZZ(e, t, r, o, u, d = !1) {
   return { attachments: [...C, ...A, ...(M ? [M] : []), ...(F ? [F] : []), ...(U ? [U] : []), ...B], hookResults: W };
 }
 
-async function dHn(e, t, r, o = [], u = !1) {
+async function dHn(e, t, r, o = [], u = false) {
   let d = yHn(o),
     _ = u ? new Set((await cAt(t.session)).map((F) => gt(F))) : new Set(),
     C = kHn(),
@@ -1008,10 +1008,10 @@ async function dHn(e, t, r, o = [], u = !1) {
     ),
     M = 0;
   return x.filter((F) => {
-    if (F === null) return !1;
+    if (F === null) return false;
     let U = Fc(b(F));
-    if (M + U <= rHn) return (M += U), !0;
-    return !1;
+    if (M + U <= rHn) return (M += U), true;
+    return false;
   });
 }
 
@@ -1126,7 +1126,7 @@ function vHn(e, t, r, o) {
   let u = gt(e);
   try {
     let d = gt(Bh(o));
-    if (u === d) return !0;
+    if (u === d) return true;
   } catch {}
   return t.has(u) || r.has(u);
 }
@@ -1193,10 +1193,10 @@ function PHn() {
 }
 
 async function xHn(e, t, r, o, u = 0, d) {
-  if (iL(o)) return !1;
-  if (ZE(o)) return !1;
-  if (!Qf()) return !1;
-  if (LB() && !CG(t, r)) return !1;
+  if (iL(o)) return false;
+  if (ZE(o)) return false;
+  if (!Qf()) return false;
+  if (LB() && !CG(t, r)) return false;
   let _ = Ih(e, Pf(t)) - u,
     C = hee(_, t, r);
   return (
@@ -1217,7 +1217,7 @@ async function* ERe(e, t, r, o, u, d, _) {
       level: "warn",
     }),
       g("compact_auto", "compact_auto_prefix_overflow"),
-      s("tengu_auto_compact_prefix_overflow", { ...M, wouldHaveBlocked: !0 });
+      s("tengu_auto_compact_prefix_overflow", { ...M, wouldHaveBlocked: true });
   let F = L3(u),
     { consecutiveRapidRefills: U } = F;
   if (F.action === "trip")
@@ -1259,7 +1259,7 @@ async function* ERe(e, t, r, o, u, d, _) {
           }
         }
         let Be = await QZ({
-          hasAttempted: !1,
+          hasAttempted: false,
           querySource: me,
           aborted: Ee.abortController.signal.aborted,
           messages: e,
@@ -1281,13 +1281,13 @@ async function* ERe(e, t, r, o, u, d, _) {
         result: ge,
         consecutiveRapidRefills: U,
         thresholdSource: B,
-        routedThroughReactive: !0,
+        routedThroughReactive: true,
       };
-    if (Ce) return { kind: "hook_blocked", thresholdSource: B, routedThroughReactive: !0 };
-    return uAt(u, !0, B, Ie);
+    if (Ce) return { kind: "hook_blocked", thresholdSource: B, routedThroughReactive: true };
+    return uAt(u, true, B, Ie);
   }
   let z = {
-      isRecompactionInChain: u?.compacted === !0,
+      isRecompactionInChain: u?.compacted === true,
       turnsSincePreviousCompact: u?.turnCounter ?? -1,
       previousCompactTurnId: u?.turnId,
       autoCompactThreshold: _ye(C, A),
@@ -1297,8 +1297,8 @@ async function* ERe(e, t, r, o, u, d, _) {
   try {
     let fe = yield* sL(
       (me, ge, Ce) =>
-        $$t(e, me, r, !0, {
-          isAutoCompact: !0,
+        $$t(e, me, r, true, {
+          isAutoCompact: true,
           recompactionInfo: z,
           stripNonEssential: pe,
           spinnerHintText: W,
@@ -1309,14 +1309,14 @@ async function* ERe(e, t, r, o, u, d, _) {
     );
     return (
       YG(t.session, o, t.setAppState, t.agentId, r.stickyBetas, t.agentContext, t.storageV5),
-      { kind: "compacted", result: fe, consecutiveRapidRefills: U, thresholdSource: B, routedThroughReactive: !1 }
+      { kind: "compacted", result: fe, consecutiveRapidRefills: U, thresholdSource: B, routedThroughReactive: false }
     );
   } catch (fe) {
-    if (l(fe).startsWith(_qe)) return { kind: "hook_blocked", routedThroughReactive: !1 };
+    if (l(fe).startsWith(_qe)) return { kind: "hook_blocked", routedThroughReactive: false };
     if (!KC(fe, ek))
       if (AHn(fe)) n(`autocompact failed: ${l(fe)}`, { level: "error" });
       else h(ft(we(fe), "autocompact: unexpected compactConversation failure"));
-    return uAt(u, !1, void 0);
+    return uAt(u, false, void 0);
   }
 }
 
@@ -1422,7 +1422,7 @@ async function OHn(e, t, r, o) {
     ],
     C = 0;
   if (r) {
-    let F = await yBt(void 0, void 0, { analysisOnly: !0 }),
+    let F = await yBt(void 0, void 0, { analysisOnly: true }),
       U = [...Object.values(u), ...Object.values(F)]
         .filter((B) => B.length > 0)
         .join(`
@@ -1441,7 +1441,7 @@ async function OHn(e, t, r, o) {
 
 async function DHn(e, t, r) {
   if (gH()) return { memoryFileDetails: [], claudeMdTokens: 0 };
-  let o = I3(await J_(e, !1, t)),
+  let o = I3(await J_(e, false, t)),
     u = [],
     d = 0;
   if (o.length < 1) return { memoryFileDetails: [], claudeMdTokens: 0 };
@@ -1704,7 +1704,7 @@ async function hpt(e, t, r, o, u, d) {
     W = _p({ permissionMode: (await r()).mode, mainLoopModel: t }),
     z = Qf() ? F : void 0,
     { window: pe, source: fe } = $A(W, z),
-    me = await OS(o, W, void 0, { excludeDynamicSections: U, analysisOnly: !0 }),
+    me = await OS(o, W, void 0, { excludeDynamicSections: U, analysisOnly: true }),
     ge = dD({
       mainThreadAgentDefinition: x,
       toolUseContext: {
@@ -1713,7 +1713,7 @@ async function hpt(e, t, r, o, u, d) {
       customSystemPrompt: A?.options.customSystemPrompt,
       defaultSystemPrompt: me,
       appendSystemPrompt: A?.options.appendSystemPrompt,
-      analysisOnly: !0,
+      analysisOnly: true,
     }),
     Ce = A !== void 0 && $se(A.options) ? Nse(il(e)) : void 0,
     Ie = Ce?.systemPrompt ?? ge,
@@ -1749,8 +1749,8 @@ async function hpt(e, t, r, o, u, d) {
   let yn = ut - Sn;
   if (yn > 0) mn.push({ name: "System tools", tokens: yn, color: "inactive" });
   if (tt > 0) mn.push({ name: "MCP tools", tokens: tt, color: "cyan_FOR_SUBAGENTS_ONLY" });
-  if (mt > 0) mn.push({ name: "MCP tools (deferred)", tokens: mt, color: "inactive", isDeferred: !0 });
-  if (nn > 0) mn.push({ name: "System tools (deferred)", tokens: nn, color: "inactive", isDeferred: !0 });
+  if (mt > 0) mn.push({ name: "MCP tools (deferred)", tokens: mt, color: "inactive", isDeferred: true });
+  if (nn > 0) mn.push({ name: "System tools (deferred)", tokens: nn, color: "inactive", isDeferred: true });
   if (Xe > 0) mn.push({ name: "Custom agents", tokens: Xe, color: "permission" });
   if (Pt > 0) mn.push({ name: "Memory files", tokens: Pt, color: "claude" });
   if (Sn > 0) mn.push({ name: "Skills", tokens: Sn, color: "warning" });
@@ -1804,7 +1804,7 @@ async function hpt(e, t, r, o, u, d) {
       if (Jo === xr && vo > 0) zn = vo;
       Fr.push({
         color: xn.color,
-        isFilled: !0,
+        isFilled: true,
         categoryName: xn.name,
         tokens: xn.tokens,
         percentage: xn.percentageOfTotal,
@@ -1826,7 +1826,7 @@ async function hpt(e, t, r, o, u, d) {
   while (So.length < lr)
     So.push({
       color: "promptBorder",
-      isFilled: !0,
+      isFilled: true,
       categoryName: Z$,
       tokens: Rn?.tokens || 0,
       percentage: Rn ? Math.round((Rn.tokens / pe) * 100) : 0,
@@ -1981,48 +1981,48 @@ async function j$t(e, t, r, o, u, d) {
       n(
         `Tool search disabled for model '${e}': model does not support tool_reference blocks. This feature is available on Claude Sonnet 4+, Opus 4+, Haiku 4.5+, and newer models.`,
       ),
-      C(!1, "standard", "model_unsupported"),
-      !1
+      C(false, "standard", "model_unsupported"),
+      false
     );
   if (l6(Ye(e)))
     return (
       n(
         `Tool search disabled for model '${e}' on Vertex: this model's Vertex serving stack rejects the tool-search beta header (pre-4.5 generation).`,
       ),
-      C(!1, "standard", "vertex_model_unsupported"),
-      !1
+      C(false, "standard", "vertex_model_unsupported"),
+      false
     );
   if (!xte(e, "tool_search_server") || !xte(e, "tool_search"))
     return (
       n(`Tool search disabled: Foundry deployment for '${e}' does not support tool search.`),
-      C(!1, "standard", "foundry_deployment_unsupported"),
-      !1
+      C(false, "standard", "foundry_deployment_unsupported"),
+      false
     );
   if (!hPe(t)) {
     let x = BKe();
-    if (t.length === 0) C(!1, x, "no_tools_in_request");
-    else if (!b_()) C(!1, x, "not_registered");
+    if (t.length === 0) C(false, x, "no_tools_in_request");
+    else if (!b_()) C(false, x, "not_registered");
     else
       n("Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools)."),
-        C(!1, x, "mcp_search_unavailable");
-    return !1;
+        C(false, x, "mcp_search_unavailable");
+    return false;
   }
   let A = BKe();
   switch (A) {
     case "tst":
-      return C(!0, A, "tst_enabled"), !0;
+      return C(true, A, "tst_enabled"), true;
     case "tst-auto": {
       let { enabled: x, debugDescription: M, metrics: F } = await ZHn(t, r, o, e, d);
       if (x)
         return (
-          n(`Auto tool search enabled: ${M}` + (u ? ` [source: ${u}]` : "")), C(!0, A, "auto_above_threshold", F), !0
+          n(`Auto tool search enabled: ${M}` + (u ? ` [source: ${u}]` : "")), C(true, A, "auto_above_threshold", F), true
         );
       return (
-        n(`Auto tool search disabled: ${M}` + (u ? ` [source: ${u}]` : "")), C(!1, A, "auto_below_threshold", F), !1
+        n(`Auto tool search disabled: ${M}` + (u ? ` [source: ${u}]` : "")), C(false, A, "auto_below_threshold", F), false
       );
     }
     case "standard":
-      return C(!1, A, "standard_mode"), !1;
+      return C(false, A, "standard_mode"), false;
   }
 }
 
@@ -2181,7 +2181,7 @@ async function ZHn(e, t, r, o, u) {
 }
 
 function vAt() {
-  return !0;
+  return true;
 }
 
 function CAt(e, t) {
@@ -2189,7 +2189,7 @@ function CAt(e, t) {
 }
 
 function nie() {
-  return !1;
+  return false;
 }
 
 async function njn(e, t, r) {
@@ -2203,7 +2203,7 @@ async function njn(e, t, r) {
   }
   if (!vAt()) throw Error(CAt("Fixture", u));
   let d = await r();
-  return await SAt(wAt(u), { recursive: !0 }), await kAt(u, b(d, null, 2), { encoding: "utf8" }), d;
+  return await SAt(wAt(u), { recursive: true }), await kAt(u, b(d, null, 2), { encoding: "utf8" }), d;
 }
 
 async function rie(e, t) {
@@ -2211,9 +2211,9 @@ async function rie(e, t) {
   let r = RE(
       e.filter((_) => {
         if (_.type === "attachment") return !tjn.has(_.attachment.type);
-        if (_.type !== "user") return !0;
-        if (_.isMeta) return !1;
-        return !0;
+        if (_.type !== "user") return true;
+        if (_.isMeta) return false;
+        return true;
       }),
     ),
     o = ojn(
@@ -2235,7 +2235,7 @@ async function rie(e, t) {
 ${b(o, null, 2)}`);
   let d = await t();
   return (
-    await SAt(wAt(u), { recursive: !0 }),
+    await SAt(wAt(u), { recursive: true }),
     await kAt(u, b({ input: o, output: d.map((_, C) => yAt(_, QRe, C)) }, null, 2), { encoding: "utf8" }),
     d
   );
@@ -2399,9 +2399,9 @@ function RAt(e) {
           "type" in r &&
           (r.type === "thinking" || r.type === "redacted_thinking")
         )
-          return !0;
+          return true;
     }
-  return !1;
+  return false;
 }
 
 function ljn(e) {
@@ -2570,7 +2570,7 @@ function uie(e) {
 
 function RS(e) {
   if (ta()) return lN(e);
-  return !1;
+  return false;
 }
 
 function Fqn(e) {
@@ -2581,36 +2581,36 @@ function Fqn(e) {
 
 function mjn(e) {
   if (ta()) return gLe(e);
-  return !1;
+  return false;
 }
 
 function s0(e) {
-  if (RS(e)) return !0;
-  if (c3(e)) return !0;
-  if (hq(e) !== null) return !0;
-  if (mjn(e)) return !0;
-  return !1;
+  if (RS(e)) return true;
+  if (c3(e)) return true;
+  if (hq(e) !== null) return true;
+  if (mjn(e)) return true;
+  return false;
 }
 
 function rxe(e) {
   let t = djn(e),
     r = XT(t);
-  if (ta() && (r.includes("/agent-memory/") || r.includes("/agent-memory-local/"))) return !0;
-  if (dC() && Z2(t)) return !0;
+  if (ta() && (r.includes("/agent-memory/") || r.includes("/agent-memory-local/"))) return true;
+  if (dC() && Z2(t)) return true;
   if (ta()) {
     let C = Di(),
       A = XT(C.replace(/[/\\]+$/, "")),
       x = XT(C);
-    if (r === A || r.startsWith(x)) return !0;
+    if (r === A || r.startsWith(x)) return true;
   }
   let o = XT(be()),
     u = XT(H$()),
     d = r.startsWith(o),
     _ = r.startsWith(u);
-  if (!d && !_) return !1;
-  if (d && r.includes("/projects/")) return !0;
-  if (ta() && r.includes("/memory/")) return !0;
-  return !1;
+  if (!d && !_) return false;
+  if (d && r.includes("/projects/")) return true;
+  if (ta() && r.includes("/memory/")) return true;
+  return false;
 }
 
 function OAt(e) {
@@ -2620,30 +2620,30 @@ function OAt(e) {
     u = XT(e);
   if (
     ![t, r, o].filter(Boolean).some((A) => {
-      if (u.includes(XT(A))) return !0;
+      if (u.includes(XT(A))) return true;
       if (nxe) return u.includes(MC(A).toLowerCase());
-      return !1;
+      return false;
     })
   )
-    return !1;
+    return false;
   let C = e.match(/(?:[A-Za-z]:[/\\]|\/)[^\s'"]+/g);
-  if (!C) return !1;
+  if (!C) return false;
   for (let A of C) {
     let x = A.replace(/[,;|&>]+$/, ""),
       M = nxe ? Tfe(x) : x;
-    if (s0(M) || rxe(M)) return !0;
+    if (s0(M) || rxe(M)) return true;
   }
-  return !1;
+  return false;
 }
 
 function DAt(e) {
-  if (uie(e) !== null) return !0;
+  if (uie(e) !== null) return true;
   if (
     ta() &&
     (e.replaceAll("\\", "/").includes("agent-memory/") || e.replaceAll("\\", "/").includes("agent-memory-local/"))
   )
-    return !0;
-  return !1;
+    return true;
+  return false;
 }
 
 function yq(e, t) {
@@ -2652,7 +2652,7 @@ function yq(e, t) {
 
 function gjn(e) {
   let t = Se();
-  if (yq(e, t) || Xm().some((u) => yq(e, u))) return !0;
+  if (yq(e, t) || Xm().some((u) => yq(e, u))) return true;
   let r = fjn(e),
     o = r.indexOf(`${QT}.claude${QT}`);
   if (o >= 0) r = r.slice(0, o);
@@ -2756,10 +2756,10 @@ function sxe(e) {
 }
 
 function Ejn(e) {
-  if (vjn.has(e)) return !0;
-  if (e.startsWith("/proc/") && (e.endsWith("/fd/0") || e.endsWith("/fd/1") || e.endsWith("/fd/2"))) return !0;
-  if (/^\/proc\/[^/]+\/(environ|cmdline|auxv|maps|mem|stat)$/.test(e)) return !0;
-  return !1;
+  if (vjn.has(e)) return true;
+  if (e.startsWith("/proc/") && (e.endsWith("/fd/0") || e.endsWith("/fd/1") || e.endsWith("/fd/2"))) return true;
+  if (/^\/proc\/[^/]+\/(environ|cmdline|auxv|maps|mem|stat)$/.test(e)) return true;
+  return false;
 }
 
 function Ajn(e) {
@@ -2790,17 +2790,17 @@ function ixe(e) {
   let t = uYn(e);
   if (!t)
     return {
-      ok: !1,
+      ok: false,
       message: `Invalid pages parameter: "${e}". Use formats like "1-5", "3", or "10-20". Pages are 1-indexed.`,
       errorCode: 7,
     };
   if ((t.lastPage === 1 / 0 ? koe + 1 : t.lastPage - t.firstPage + 1) > koe)
     return {
-      ok: !1,
+      ok: false,
       message: `Page range "${e}" exceeds maximum of ${koe} pages per request. Please use a smaller range.`,
       errorCode: 8,
     };
-  return { ok: !0, range: t };
+  return { ok: true, range: t };
 }
 
 async function Mjn({ file_path: e, offset: t = 1, limit: r = void 0, pages: o }, u, d) {
@@ -2823,7 +2823,7 @@ async function Mjn({ file_path: e, offset: t = 1, limit: r = void 0, pages: o },
       priorOp: w(W.seededFromContext ? "seeded" : W.offset === void 0 ? "edit_write" : "read"),
     });
   let pe =
-    I("tengu_read_dedup_killswitch", !1) || u.remoteCall !== void 0 || u.dedupUnchangedReads === !1 ? void 0 : _.get(B);
+    I("tengu_read_dedup_killswitch", false) || u.remoteCall !== void 0 || u.dedupUnchangedReads === false ? void 0 : _.get(B);
   if (!a.CLAUDE_CODE_SIMPLE && u.remoteCall === void 0)
     await oL(u.session.host, B, u.dynamicSkillDirTriggers, u.storageV5);
   let fe = u.nestedMemoryAttachmentTriggers;
@@ -2911,7 +2911,7 @@ async function ggr(e, t) {
   return y0(e);
 }
 
-async function WAt(e, t, r, o, u = !1) {
+async function WAt(e, t, r, o, u = false) {
   let d = r ?? Hz().maxTokens,
     _ = Bgt(e, t);
   if (!_ || _ <= d / 4) return;
@@ -2981,7 +2981,7 @@ async function Ijn(e) {
     return aS({ operation: "read", tool: "FileReadTool", filePath: r, content: tt }), { data: nt };
   }
   let W = Ya(M.options.mainLoopModel),
-    z = !1;
+    z = false;
   if (u === "")
     try {
       let xt = le();
@@ -3002,7 +3002,7 @@ async function Ijn(e) {
     if (tt && !tt.includes(r)) tt.push(r);
     aS({ operation: "read", tool: "FileReadTool", filePath: r, content: xt.file.base64 });
     let lt = xt.file.dimensions ? FDe(xt.file.dimensions) : null;
-    return { data: xt, ...(lt && { newMessages: [xe({ content: lt, isMeta: !0 })] }) };
+    return { data: xt, ...(lt && { newMessages: [xe({ content: lt, isMeta: true })] }) };
   }
   if (MOe(u)) {
     if (C !== void 0) {
@@ -3012,10 +3012,10 @@ async function Ijn(e) {
         Lt = await avn((await U()).ioPath, dn, M.storageV5);
       if (!Lt.success) throw Fln(Lt.error);
       s("tengu_pdf_page_extraction", {
-        success: !0,
+        success: true,
         pageCount: Lt.data.file.count,
         fileSize: Lt.data.file.originalSize,
-        hasPageRange: !0,
+        hasPageRange: true,
       }),
         aS({ operation: "read", tool: "FileReadTool", filePath: r, content: `PDF pages ${C}` });
       let fn =
@@ -3059,13 +3059,13 @@ async function Ijn(e) {
       let At = await avn((await U()).ioPath, void 0, M.storageV5);
       if (At.success)
         s("tengu_pdf_page_extraction", {
-          success: !0,
+          success: true,
           pageCount: At.data.file.count,
           fileSize: At.data.file.originalSize,
         });
       else
         s("tengu_pdf_page_extraction", {
-          success: !1,
+          success: false,
           available: At.error.reason !== "unavailable",
           fileSize: mt.size,
         });
@@ -3100,7 +3100,7 @@ async function Ijn(e) {
     Oe = me,
     Fe = _,
     Be,
-    ze = !1,
+    ze = false,
     We = (d ?? 1) <= 1 && _ === void 0 && C === void 0;
   try {
     await WAt(fe, u, x, M.credentials, We);
@@ -3127,7 +3127,7 @@ async function Ijn(e) {
         }
         let dn = nt.charCodeAt(nt.length - 1);
         if (dn >= 55296 && dn <= 56319) nt = nt.slice(0, -1);
-        ze = !0;
+        ze = true;
       }
       (Pe = nt),
         (Oe = ze
@@ -3151,7 +3151,7 @@ async function Ijn(e) {
     timestamp: Math.floor(Ee),
     offset: d,
     limit: Fe,
-    ...(Be !== void 0 && { isPartialView: !0 }),
+    ...(Be !== void 0 && { isPartialView: true }),
   });
   let Ve = M.nestedMemoryAttachmentTriggers;
   if (Ve && !Ve.includes(r)) Ve.push(r);
@@ -3174,7 +3174,7 @@ async function Ijn(e) {
       numLines: Oe,
       startLine: Be !== void 0 ? Math.max(1, d) : d,
       totalLines: ge,
-      ...(Be !== void 0 && { truncatedByTokenCap: !0 }),
+      ...(Be !== void 0 && { truncatedByTokenCap: true }),
     },
     ...(Pt && { artifactRead: Pt }),
   };
@@ -3238,7 +3238,7 @@ async function $ln(e, t = Hz().maxTokens, r, o, u = x1e) {
       n(`Image compression failed for ${e}: ${W instanceof Error ? W.message : String(W)}`, { level: "error" });
       try {
         let pe = await (await hz())(d)
-          .resize(400, 400, { fit: "inside", withoutEnlargement: !0 })
+          .resize(400, 400, { fit: "inside", withoutEnlargement: true })
           .jpeg({ quality: 20 })
           .toBuffer();
         return mie(pe, "jpeg", _);
@@ -3290,7 +3290,7 @@ async function hgr(e, t, r) {
 }
 
 function P7() {
-  return (Zn.CLAUDE_REPL_VERBOSE ?? !1) && ty();
+  return (Zn.CLAUDE_REPL_VERBOSE ?? false) && ty();
 }
 
 function nRt(e) {
@@ -3387,12 +3387,12 @@ function Z4e(e, t) {
 }
 
 function oRt(e) {
-  if (e.path && c3(e.path)) return !0;
-  return !1;
+  if (e.path && c3(e.path)) return true;
+  return false;
 }
 
 function sRt(e, t) {
-  if (e !== ar && e !== Kt) return !1;
+  if (e !== ar && e !== Kt) return false;
   let r = t.file_path ?? t.path;
   return r !== void 0 && c3(r);
 }
@@ -3439,29 +3439,29 @@ function c0(e) {
 
 function t1n(e) {
   if (e.path) {
-    if (s0(e.path) || rxe(e.path)) return !0;
+    if (s0(e.path) || rxe(e.path)) return true;
   }
-  if (e.glob && DAt(e.glob)) return !0;
-  if (e.command && OAt(e.command)) return !0;
-  return !1;
+  if (e.glob && DAt(e.glob)) return true;
+  if (e.command && OAt(e.command)) return true;
+  return false;
 }
 
 function n1n(e, t) {
-  if (e !== ar && e !== Kt) return !1;
+  if (e !== ar && e !== Kt) return false;
   let r = c0(t);
   return r !== void 0 && s0(r);
 }
 
 function r1n(e, t) {
-  if (e !== ar && e !== Kt) return !1;
+  if (e !== ar && e !== Kt) return false;
   let r = c0(t);
   return r !== void 0 && Bjn()(r);
 }
 
 function o1n(e, t) {
-  if (e !== ar && e !== Kt) return !1;
+  if (e !== ar && e !== Kt) return false;
   let r = c0(t);
-  if (r === void 0 || !Njn(r)) return !1;
+  if (r === void 0 || !Njn(r)) return false;
   let o = aRt(e1n()()),
     u = o.endsWith(lRt) ? o : o + lRt;
   return !aRt(r).startsWith(u) && Hjn()(r);
@@ -3497,119 +3497,119 @@ function sPe(e, t, r) {
     let M = P7();
     return {
       isCollapsible: !M,
-      isSearch: !1,
-      isRead: !1,
-      isList: !1,
+      isSearch: false,
+      isRead: false,
+      isList: false,
       isREPL: !M,
-      isMemoryWrite: !1,
-      isScratchpadWrite: !1,
-      isWorkshopWrite: !1,
+      isMemoryWrite: false,
+      isScratchpadWrite: false,
+      isWorkshopWrite: false,
       isAbsorbedSilently: !M,
     };
   }
   let o = e === ar || e === Kt ? Jle(t) : {};
   if (n1n(e, o))
     return {
-      isCollapsible: !0,
-      isSearch: !1,
-      isRead: !1,
-      isList: !1,
-      isREPL: !1,
-      isMemoryWrite: !0,
-      isScratchpadWrite: !1,
-      isWorkshopWrite: !1,
-      isAbsorbedSilently: !1,
+      isCollapsible: true,
+      isSearch: false,
+      isRead: false,
+      isList: false,
+      isREPL: false,
+      isMemoryWrite: true,
+      isScratchpadWrite: false,
+      isWorkshopWrite: false,
+      isAbsorbedSilently: false,
     };
   if (o1n(e, o))
     return {
-      isCollapsible: !0,
-      isSearch: !1,
-      isRead: !1,
-      isList: !1,
-      isREPL: !1,
-      isMemoryWrite: !1,
-      isScratchpadWrite: !1,
-      isWorkshopWrite: !0,
-      isAbsorbedSilently: !1,
+      isCollapsible: true,
+      isSearch: false,
+      isRead: false,
+      isList: false,
+      isREPL: false,
+      isMemoryWrite: false,
+      isScratchpadWrite: false,
+      isWorkshopWrite: true,
+      isAbsorbedSilently: false,
     };
   if (r1n(e, o))
     return {
-      isCollapsible: !0,
-      isSearch: !1,
-      isRead: !1,
-      isList: !1,
-      isREPL: !1,
-      isMemoryWrite: !1,
-      isScratchpadWrite: !0,
-      isWorkshopWrite: !1,
-      isAbsorbedSilently: !1,
+      isCollapsible: true,
+      isSearch: false,
+      isRead: false,
+      isList: false,
+      isREPL: false,
+      isMemoryWrite: false,
+      isScratchpadWrite: true,
+      isWorkshopWrite: false,
+      isAbsorbedSilently: false,
     };
   let u = Wte.includes(e);
   if ((Nt() && e === Kl) || u)
     return {
-      isCollapsible: !0,
-      isSearch: !1,
-      isRead: !1,
-      isList: !1,
-      isREPL: !1,
-      isMemoryWrite: !1,
-      isScratchpadWrite: !1,
-      isWorkshopWrite: !1,
-      isAbsorbedSilently: !0,
+      isCollapsible: true,
+      isSearch: false,
+      isRead: false,
+      isList: false,
+      isREPL: false,
+      isMemoryWrite: false,
+      isScratchpadWrite: false,
+      isWorkshopWrite: false,
+      isAbsorbedSilently: true,
       popsOutOnError: u,
     };
   let d = iPe(r, e);
   if (d?.isMcp)
     return {
-      isCollapsible: !0,
-      isSearch: !1,
-      isRead: !1,
-      isList: !1,
-      isREPL: !1,
-      isMemoryWrite: !1,
-      isScratchpadWrite: !1,
-      isWorkshopWrite: !1,
-      isAbsorbedSilently: !1,
+      isCollapsible: true,
+      isSearch: false,
+      isRead: false,
+      isList: false,
+      isREPL: false,
+      isMemoryWrite: false,
+      isScratchpadWrite: false,
+      isWorkshopWrite: false,
+      isAbsorbedSilently: false,
       mcpServerName: d.mcpInfo?.serverName,
     };
   if (!d?.isSearchOrReadCommand)
     return {
-      isCollapsible: !1,
-      isSearch: !1,
-      isRead: !1,
-      isList: !1,
-      isREPL: !1,
-      isMemoryWrite: !1,
-      isScratchpadWrite: !1,
-      isWorkshopWrite: !1,
-      isAbsorbedSilently: !1,
+      isCollapsible: false,
+      isSearch: false,
+      isRead: false,
+      isList: false,
+      isREPL: false,
+      isMemoryWrite: false,
+      isScratchpadWrite: false,
+      isWorkshopWrite: false,
+      isAbsorbedSilently: false,
     };
   if (Aye(d, t) !== void 0)
     return {
-      isCollapsible: !1,
-      isSearch: !1,
-      isRead: !1,
-      isList: !1,
-      isREPL: !1,
-      isMemoryWrite: !1,
-      isScratchpadWrite: !1,
-      isWorkshopWrite: !1,
-      isAbsorbedSilently: !1,
+      isCollapsible: false,
+      isSearch: false,
+      isRead: false,
+      isList: false,
+      isREPL: false,
+      isMemoryWrite: false,
+      isScratchpadWrite: false,
+      isWorkshopWrite: false,
+      isAbsorbedSilently: false,
     };
   let _ = d.isSearchOrReadCommand(t ?? {}),
-    C = _.isList ?? !1,
+    C = _.isList ?? false,
     A = _.isSearch || _.isRead || C,
     x = EM.includes(e);
   return {
-    isCollapsible: A || (Nt() ? x : !1),
+    isCollapsible: A || (Nt() ? x : false),
     isSearch: _.isSearch,
     isRead: _.isRead,
     isList: C,
-    isREPL: !1,
-    isMemoryWrite: !1,
-    isScratchpadWrite: !1,
-    isWorkshopWrite: !1,
-    isAbsorbedSilently: !1,
+    isREPL: false,
+    isMemoryWrite: false,
+    isScratchpadWrite: false,
+    isWorkshopWrite: false,
+    isAbsorbedSilently: false,
     isBash: Nt() ? !A && x : void 0,
   };
 }
@@ -3707,19 +3707,19 @@ function a1n(e, t) {
 function gie(e) {
   if (e.type === "assistant") {
     let t = e.message.content[0];
-    if (t?.type === "text" && t.text.trim().length > 0 && !gRt(t.text)) return !0;
-    if (eqe(e)) return !0;
+    if (t?.type === "text" && t.text.trim().length > 0 && !gRt(t.text)) return true;
+    if (eqe(e)) return true;
   }
-  return !1;
+  return false;
 }
 
 function eqe(e) {
-  if (e.type !== "assistant") return !1;
+  if (e.type !== "assistant") return false;
   return p$t(e.message.content[0]);
 }
 
 function p$t(e) {
-  if (cRt === null || e === void 0) return !1;
+  if (cRt === null || e === void 0) return false;
   return e.type === "thinking" && typeof e.thinking === "string" && typeof e.signature === "string" && cRt(e);
 }
 
@@ -3728,7 +3728,7 @@ function gRt(e) {
 }
 
 function uxe(e) {
-  if (e.type !== "assistant") return !1;
+  if (e.type !== "assistant") return false;
   let t = e.message.content[0];
   return t?.type === "text" && gRt(t.text);
 }
@@ -3742,9 +3742,9 @@ function hRt(e) {
     let t = e.message.content[0];
     if (t?.type === "thinking" || t?.type === "redacted_thinking") return !eqe(e);
   }
-  if (e.type === "attachment") return !0;
-  if (e.type === "system") return !0;
-  return !1;
+  if (e.type === "attachment") return true;
+  if (e.type === "system") return true;
+  return false;
 }
 
 function c1n(e) {
@@ -3757,7 +3757,7 @@ function c1n(e) {
 function u1n(e) {
   if (e.type === "assistant") return e.message.content[0]?.type === "tool_use";
   if (e.type === "grouped_tool_use") return e.messages[0]?.message.content[0]?.type === "tool_use";
-  return !1;
+  return false;
 }
 
 function pRt(e, t) {
@@ -3765,7 +3765,7 @@ function pRt(e, t) {
     let r = e.message.content.filter((o) => o.type === "tool_result");
     return r.length > 0 && r.every((o) => t.has(o.tool_use_id));
   }
-  return !1;
+  return false;
 }
 
 function pxe(e) {
@@ -3907,7 +3907,7 @@ function g1n(e) {
     o = e.memoryReadFilePaths.size,
     u = o + (e.relevantMemories?.length ?? 0),
     d = e.teamMemoryReadFilePaths,
-    _ = [...e.readFilePaths].filter((U) => !e.memoryReadFilePaths.has(U) && !(d?.has(U) ?? !1)),
+    _ = [...e.readFilePaths].filter((U) => !e.memoryReadFilePaths.has(U) && !(d?.has(U) ?? false)),
     C = e.teamMemorySearchCount ?? 0,
     A = e.teamMemoryReadFilePaths?.size ?? 0,
     x = e.teamMemoryWriteCount ?? 0,
@@ -3959,17 +3959,17 @@ function g1n(e) {
 }
 
 function h1n(e, t) {
-  if (e.type !== "user" || !t.workshopEditsByToolUseId) return !1;
-  let r = !1;
+  if (e.type !== "user" || !t.workshopEditsByToolUseId) return false;
+  let r = false;
   for (let o of e.message.content) {
     if (o.type !== "tool_result" || !o.is_error) continue;
     let u = t.workshopEditsByToolUseId.get(o.tool_use_id);
     if (!u || u.spent) continue;
-    (u.spent = !0),
+    (u.spent = true),
       (t.workshopWriteCount = Math.max(0, (t.workshopWriteCount ?? 0) - u.count)),
       (t.workshopLinesAdded = Math.max(0, (t.workshopLinesAdded ?? 0) - u.added)),
       (t.workshopLinesRemoved = Math.max(0, (t.workshopLinesRemoved ?? 0) - u.removed)),
-      (r = !0);
+      (r = true);
   }
   return r;
 }
@@ -4017,7 +4017,7 @@ function $qn(e, t) {
     if (
       r &&
       (x.type === "assistant" || x.type === "user") &&
-      x.isVirtual === !0 &&
+      x.isVirtual === true &&
       x.message.content[0]?.type !== "thinking"
     )
       continue;
@@ -4033,7 +4033,7 @@ function $qn(e, t) {
         if (((u.workshopWriteCount = (u.workshopWriteCount ?? 0) + U), M.editLines))
           (u.workshopLinesAdded = (u.workshopLinesAdded ?? 0) + M.editLines.added),
             (u.workshopLinesRemoved = (u.workshopLinesRemoved ?? 0) + M.editLines.removed);
-        let B = { count: U, added: M.editLines?.added ?? 0, removed: M.editLines?.removed ?? 0, spent: !1 };
+        let B = { count: U, added: M.editLines?.added ?? 0, removed: M.editLines?.removed ?? 0, spent: false };
         u.workshopEditsByToolUseId ??= new Map();
         for (let pe of M.toolUseIds) u.workshopEditsByToolUseId.set(pe, B);
         let W = c0(M.input),
@@ -4048,7 +4048,7 @@ function $qn(e, t) {
         if (W) u.latestDisplayHint = W;
       } else if (M.isAbsorbedSilently) {
         if (M.popsOutOnError) {
-          let B = { count: 0, added: 0, removed: 0, spent: !1 };
+          let B = { count: 0, added: 0, removed: 0, spent: false };
           u.workshopEditsByToolUseId ??= new Map();
           for (let W of M.toolUseIds) u.workshopEditsByToolUseId.set(W, B);
         }
@@ -4139,15 +4139,15 @@ function $qn(e, t) {
 }
 
 function mxe(e) {
-  if (e.type !== "attachment") return !1;
+  if (e.type !== "attachment") return false;
   let t = e.attachment;
-  if (t.type !== "queued_command" || t.commandMode !== "prompt") return !1;
+  if (t.type !== "queued_command" || t.commandMode !== "prompt") return false;
   let r = t.origin;
-  if (!t.isMeta && Gh(r)) return !0;
-  if (r?.kind === "channel") return !0;
-  if (r?.kind === "peer") return !0;
-  if (r?.kind === "slack-ping") return !0;
-  return !1;
+  if (!t.isMeta && Gh(r)) return true;
+  if (r?.kind === "channel") return true;
+  if (r?.kind === "peer") return true;
+  if (r?.kind === "slack-ping") return true;
+  return false;
 }
 
 function mRt(e) {
@@ -4212,18 +4212,18 @@ function Uqn(e) {
   for (let t = e.length - 1; t >= 0; t--) {
     let r = e[t];
     if (r.type === "assistant") {
-      if (r.message.content.some((o) => o.type === "tool_use")) return !0;
+      if (r.message.content.some((o) => o.type === "tool_use")) return true;
     } else if (r.type === "user") {
       let o = r.message.content;
-      if (!(Array.isArray(o) && o.some((d) => d.type === "tool_result")) && !r.isMeta) return !1;
-    } else if (r.type === "attachment" && mxe(r)) return !1;
+      if (!(Array.isArray(o) && o.some((d) => d.type === "tool_result")) && !r.isMeta) return false;
+    } else if (r.type === "attachment" && mxe(r)) return false;
   }
-  return !1;
+  return false;
 }
 
-function Bqn(e, t, r, o = !1, u = {}) {
+function Bqn(e, t, r, o = false, u = {}) {
   let d = [],
-    _ = u.keepAllText !== !0,
+    _ = u.keepAllText !== true,
     C = 0;
   while (C < e.length) {
     let A = e[C];
@@ -4253,7 +4253,7 @@ function Bqn(e, t, r, o = !1, u = {}) {
       let Be = B - 1;
       while (Be >= C && hRt(e[Be])) Be--;
       let ze = Be >= C ? e[Be] : void 0;
-      if (ze?.type === "assistant" && ze.message.stop_reason !== null && (gie(ze) || uxe(ze))) W = !1;
+      if (ze?.type === "assistant" && ze.message.stop_reason !== null && (gie(ze) || uxe(ze))) W = false;
     }
     let z = -1;
     if (!W) {
@@ -4264,13 +4264,13 @@ function Bqn(e, t, r, o = !1, u = {}) {
         }
     }
     let pe = new Set();
-    if (u.keepAllText === !0) {
+    if (u.keepAllText === true) {
       let Be = new Set();
       for (let ze = C; ze < B; ze++) {
         let We = e[ze];
         if (We.type !== "user") continue;
         for (let Ve of We.message.content)
-          if (typeof Ve === "object" && Ve !== null && Ve.type === "tool_result" && Ve.is_error === !0)
+          if (typeof Ve === "object" && Ve !== null && Ve.type === "tool_result" && Ve.is_error === true)
             Be.add(Ve.tool_use_id);
       }
       for (let ze = C; ze < B; ze++) {
@@ -4290,7 +4290,7 @@ function Bqn(e, t, r, o = !1, u = {}) {
             typeof Ve === "object" &&
             Ve !== null &&
             Ve.type === "tool_result" &&
-            Ve.is_error === !0 &&
+            Ve.is_error === true &&
             Be.has(Ve.tool_use_id)
           ) {
             pe.add(ze);
@@ -4333,7 +4333,7 @@ function Bqn(e, t, r, o = !1, u = {}) {
       Pe = 0;
     for (let Be = C; Be < B; Be++) {
       if (Be === z || pe.has(Be) || fe.has(Be)) {
-        if (u.keepAllText === !0 && (pe.has(Be) || Be === z) && gie(e[Be])) Ee();
+        if (u.keepAllText === true && (pe.has(Be) || Be === z) && gie(e[Be])) Ee();
         continue;
       }
       let ze = e[Be];
@@ -4383,11 +4383,11 @@ function Bqn(e, t, r, o = !1, u = {}) {
     let Oe = [...fe].map((Be) => [Be, e[Be]]);
     Ee();
     for (let [Be, ze] of Ie) {
-      if (((ze.uuid = `brief-${ze.uuid}`), W && u.keepAllText !== !0 && ze === Ie.at(-1)?.[1])) ze.isLiveBriefTurn = !0;
+      if (((ze.uuid = `brief-${ze.uuid}`), W && u.keepAllText !== true && ze === Ie.at(-1)?.[1])) ze.isLiveBriefTurn = true;
       (ze.hookCount = void 0), (ze.hookTotalMs = void 0), (ze.hookInfos = void 0), Oe.push([Be, ze]);
     }
     Oe.sort((Be, ze) => Be[0] - ze[0]);
-    let Fe = W || u.keepAllText === !0 ? 0 : B - C + U.length - Oe.length - Pe;
+    let Fe = W || u.keepAllText === true ? 0 : B - C + U.length - Oe.length - Pe;
     for (let [, Be] of Oe)
       d.push(Fe > 0 && Be.type === "system" && Be.subtype === "turn_duration" ? { ...Be, briefHiddenCount: Fe } : Be);
     C = B;
@@ -4440,7 +4440,7 @@ function fRt(e, t, r, o) {
     if (C > 0) d.linesAdded = C;
     if (A > 0) d.linesRemoved = A;
   } else if (t === $jn) {
-    let C = Q(r, (A) => Ujn?.(A) === !0);
+    let C = Q(r, (A) => Ujn?.(A) === true);
     if (C > 0) d.frameCount = C;
     if (u - C > 0) d.otherToolCount = (d.otherToolCount ?? 0) + (u - C);
   } else d.otherToolCount = u;
@@ -4495,7 +4495,7 @@ function Vdt(e) {
     else if (d.isRead) r++;
     else break;
   }
-  if (t + r >= 2) return f$t(t, r, !0);
+  if (t + r >= 2) return f$t(t, r, true);
   for (let u = e.length - 1; u >= 0; u--) if (e[u]?.activityDescription) return e[u].activityDescription;
   return;
 }
@@ -4706,7 +4706,7 @@ function C1n(e, t) {
   let r = t.get(e);
   if (Cr(r) && r.status === "completed" && Kx(r).size === 0) {
     if (
-      (t.update(e, (o) => (o.quietlyParked === !0 ? { ...o, quietlyParked: !1 } : o)),
+      (t.update(e, (o) => (o.quietlyParked === true ? { ...o, quietlyParked: false } : o)),
       bd(e),
       kie(e, t),
       r.notified && !nB(r.ownerAgentId, e))
@@ -4740,40 +4740,40 @@ function Xdt(e) {
 }
 
 function bat(e) {
-  if (!Cr(e) || !e.isBackgrounded || e.status !== "completed") return !1;
+  if (!Cr(e) || !e.isBackgrounded || e.status !== "completed") return false;
   let t = VN();
   for (let r of Kx(e)) {
-    if (r.startsWith("monitor:") || r.startsWith("workflow:")) return !0;
-    if (t && r.startsWith("bash:")) return !0;
+    if (r.startsWith("monitor:") || r.startsWith("workflow:")) return true;
+    if (t && r.startsWith("bash:")) return true;
   }
-  return !1;
+  return false;
 }
 
 function bit(e, t) {
-  if (!e) return !1;
+  if (!e) return false;
   let r = t.get(e);
   return Cr(r) && Kx(r).size > 0;
 }
 
 function cA(e, t) {
-  if (!e) return !1;
+  if (!e) return false;
   let r = t.get(e);
-  if (!Cr(r)) return !1;
-  for (let o of Kx(r)) if (o.startsWith("agent:")) return !0;
-  return !1;
+  if (!Cr(r)) return false;
+  for (let o of Kx(r)) if (o.startsWith("agent:")) return true;
+  return false;
 }
 
 function eat(e, t) {
-  if (!e) return !1;
+  if (!e) return false;
   let r = t.get(e);
-  if (!Cr(r)) return !1;
+  if (!Cr(r)) return false;
   let o = VN();
   for (let u of Kx(r)) {
-    if (u.startsWith("agent:")) return !0;
-    if (r.isBackgrounded && u.startsWith("workflow:")) return !0;
-    if (o && r.isBackgrounded && u.startsWith("bash:")) return !0;
+    if (u.startsWith("agent:")) return true;
+    if (r.isBackgrounded && u.startsWith("workflow:")) return true;
+    if (o && r.isBackgrounded && u.startsWith("bash:")) return true;
   }
-  return !1;
+  return false;
 }
 
 function D7(e, t) {
@@ -4805,7 +4805,7 @@ function nqe(e, t, r, o = {}) {
       {
         text: t,
         origin: o.origin,
-        isMeta: o.isMeta ?? !1,
+        isMeta: o.isMeta ?? false,
         ...(o.userInitiated && { userInitiatedAt: u.userStopCount ?? 0 }),
       },
     ],
@@ -4849,7 +4849,7 @@ function wx({
   worktreeBranch: F,
   ownerAgentId: U,
 }) {
-  let { claimed: B, task: W } = Z1(e, d, { skipStampIfRunning: !0 }),
+  let { claimed: B, task: W } = Z1(e, d, { skipStampIfRunning: true }),
     z = W !== void 0,
     pe = W?.ownerAgentId ?? U,
     fe = gln({ ownerAgentId: pe, keepaliveReason: `agent:${e}`, delivering: B, taskRegistry: d });
@@ -4895,7 +4895,7 @@ function wx({
 <note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>${Ie}${Ee}${Pe}`,
     }),
     mode: "task-notification",
-    skipAttachments: !0,
+    skipAttachments: true,
     priority: _$t,
     agentId: fe,
     taskId: e,
@@ -4913,7 +4913,7 @@ function kie(e, t) {
   let r = t.get(e);
   if (Cr(r) && Ph(r)) return;
   let o = nO((u) => {
-    if (u.mode !== "task-notification" || u.agentId !== po(e)) return !1;
+    if (u.mode !== "task-notification" || u.agentId !== po(e)) return false;
     let d = u.taskId ? t.get(u.taskId) : void 0;
     return (Cr(d) || d?.type === "local_workflow") && d.ownerAgentId === e;
   });
@@ -4922,7 +4922,7 @@ function kie(e, t) {
 
 function Yx(e, t, r = "user", o) {
   let u = t.get(e);
-  if (Cr(u) && Ph(u) && u.quietlyParked === !0) t.update(e, (A) => ({ ...A, notified: !1, quietlyParked: !1 }));
+  if (Cr(u) && Ph(u) && u.quietlyParked === true) t.update(e, (A) => ({ ...A, notified: false, quietlyParked: false }));
   let d = t.get(e);
   if (Cr(d) && Ph(d) && d.notified) qA(d.ownerAgentId, `agent:${e}`, t);
   if (Cr(d) && Ph(d) && !d.notified) {
@@ -4948,8 +4948,8 @@ function Yx(e, t, r = "user", o) {
       ownerAgentId: d.ownerAgentId,
     });
   }
-  let _ = !1,
-    C = !1;
+  let _ = false,
+    C = false;
   if (
     (t.update(e, (A) =>
       _6t(
@@ -4957,7 +4957,7 @@ function Yx(e, t, r = "user", o) {
         o,
         A.status !== "running" && !Ph(A),
         (x) => (
-          (_ = !0),
+          (_ = true),
           (C = x.status !== "running"),
           x.abortController?.abort(),
           x.spawnedSubagent?.killed(r),
@@ -4968,7 +4968,7 @@ function Yx(e, t, r = "user", o) {
             notified: x.notified || Ph(x),
             endTime: Date.now(),
             keepaliveReasons: new Set(),
-            evictAfter: _xe(x, { park: !1 }),
+            evictAfter: _xe(x, { park: false }),
             abortController: void 0,
             selectedAgent: void 0,
           }
@@ -4989,7 +4989,7 @@ function Yx(e, t, r = "user", o) {
 }
 
 function jqn(e, t) {
-  return !1;
+  return false;
 }
 
 function Wqn(e, t, r = "user") {
@@ -4999,8 +4999,8 @@ function Wqn(e, t, r = "user") {
 
 function XL(e, t) {
   t.update(e, (r) => {
-    if (r.notified && r.quietlyParked !== !0) return r;
-    return { ...r, notified: !0, quietlyParked: !1 };
+    if (r.notified && r.quietlyParked !== true) return r;
+    return { ...r, notified: true, quietlyParked: false };
   });
 }
 
@@ -5009,7 +5009,7 @@ function wgt(e) {
 }
 
 function tat(e, t, r) {
-  let o = !1;
+  let o = false;
   if (
     (r.update(e, (u) => {
       if (u.status !== "running") return u;
@@ -5024,7 +5024,7 @@ function tat(e, t, r) {
       )
         return u;
       let _ = d?.summary;
-      return (o = !0), { ...u, progress: _ ? { ...t, summary: _ } : t };
+      return (o = true), { ...u, progress: _ ? { ...t, summary: _ } : t };
     }),
     !o)
   )
@@ -5037,10 +5037,10 @@ function tat(e, t, r) {
 }
 
 function A1n(e, t) {
-  if (e === t) return !0;
-  if (!e || !t || e.length !== t.length) return !1;
-  for (let r = 0; r < e.length; r++) if (e[r] !== t[r]) return !1;
-  return !0;
+  if (e === t) return true;
+  if (!e || !t || e.length !== t.length) return false;
+  for (let r = 0; r < e.length; r++) if (e[r] !== t[r]) return false;
+  return true;
 }
 
 function Tit(e, t, r) {
@@ -5085,18 +5085,18 @@ function Tit(e, t, r) {
 
 function nat(e, t, r, o, u) {
   let d = e.agentId,
-    _ = !1,
-    C = !1,
-    A = !1,
-    x = !1,
-    M = !1;
+    _ = false,
+    C = false,
+    A = false,
+    x = false,
+    M = false;
   if (
     (t.update(d, (U) =>
       _6t(U, o, U.status !== "running", (B) => {
-        _ = !0;
+        _ = true;
         for (let fe of Kx(B))
           if (fe !== sF) {
-            M = !0;
+            M = true;
             break;
           }
         let W = x ? new Set(Kx(B)).add(sF) : B.keepaliveReasons,
@@ -5107,8 +5107,8 @@ function nat(e, t, r, o, u) {
             endTime: Date.now(),
             terminal: r,
             keepaliveReasons: W,
-            finalizing: u?.finalizing ?? !1,
-            evictAfter: _xe({ retain: B.retain, keepaliveReasons: W }, { park: !0 }),
+            finalizing: u?.finalizing ?? false,
+            evictAfter: _xe({ retain: B.retain, keepaliveReasons: W }, { park: true }),
             abortController: void 0,
             selectedAgent: void 0,
           },
@@ -5138,11 +5138,11 @@ function nat(e, t, r, o, u) {
 }
 
 function rat(e, t) {
-  let r = !1;
+  let r = false;
   if (
     (t.update(e, (o) => {
       if (!Cr(o) || !o.finalizing) return o;
-      return (r = !0), { ...o, finalizing: !1 };
+      return (r = true), { ...o, finalizing: false };
     }),
     r)
   )
@@ -5150,7 +5150,7 @@ function rat(e, t) {
 }
 
 function dne(e, t, r, o, u) {
-  let d = !1;
+  let d = false;
   if (
     (r.update(e, (_) =>
       _6t(
@@ -5158,7 +5158,7 @@ function dne(e, t, r, o, u) {
         u,
         _.status !== "running",
         (C) => (
-          (d = !0),
+          (d = true),
           {
             ...C,
             status: "failed",
@@ -5166,7 +5166,7 @@ function dne(e, t, r, o, u) {
             endTime: Date.now(),
             keepaliveReasons: new Set(),
             terminal: o,
-            evictAfter: _xe(C, { park: !1 }),
+            evictAfter: _xe(C, { park: false }),
             abortController: void 0,
             selectedAgent: void 0,
           }
@@ -5216,16 +5216,16 @@ function KG({
       ...(fE(C) && { webFetchSavedFiles: kz() }),
       abortController: pe,
       spawnedSubagent: W,
-      retrieved: !1,
+      retrieved: false,
       lastReportedToolCount: 0,
       lastReportedTokenCount: 0,
-      isBackgrounded: !0,
+      isBackgrounded: true,
       isObserver: U,
       forkedSkillName: B,
-      isIdle: !1,
+      isIdle: false,
       pendingMessages: [],
-      retain: !1,
-      diskLoaded: !1,
+      retain: false,
+      diskLoaded: false,
       keepaliveReasons: new Set(),
     };
   return A.register(fe), yxe(fe, A, z), fe;
@@ -5246,14 +5246,14 @@ function qqn(e, t) {
       agentType: e.agentType ?? "general-purpose",
       forkedSkillName: e.forkedSkillName,
       ...(e.agentType === Wc && { webFetchSavedFiles: kz() }),
-      retrieved: !1,
+      retrieved: false,
       lastReportedToolCount: 0,
       lastReportedTokenCount: 0,
-      isBackgrounded: !0,
-      isIdle: !1,
+      isBackgrounded: true,
+      isIdle: false,
       pendingMessages: [],
-      retain: !1,
-      diskLoaded: !1,
+      retain: false,
+      diskLoaded: false,
       keepaliveReasons: new Set(),
     };
   t.register(o);
@@ -5293,14 +5293,14 @@ function kat({
       ...(fE(C) && { webFetchSavedFiles: kz() }),
       abortController: B,
       spawnedSubagent: U,
-      retrieved: !1,
+      retrieved: false,
       lastReportedToolCount: 0,
       lastReportedTokenCount: 0,
-      isBackgrounded: !1,
-      isIdle: !1,
+      isBackgrounded: false,
+      isIdle: false,
       pendingMessages: [],
-      retain: !1,
-      diskLoaded: !1,
+      retain: false,
+      diskLoaded: false,
       keepaliveReasons: new Set(),
     },
     z,
@@ -5325,11 +5325,11 @@ function kat({
 
 function HN(e, t) {
   let r = t.get(e);
-  if (!Cr(r) || r.isBackgrounded || (Xs(r.status) && !cA(e, t))) return !1;
-  t.update(e, (u) => ({ ...u, isBackgrounded: !0 }));
+  if (!Cr(r) || r.isBackgrounded || (Xs(r.status) && !cA(e, t))) return false;
+  t.update(e, (u) => ({ ...u, isBackgrounded: true }));
   let o = dr().agentBackgroundSignalResolvers.get(e);
   if (o) o(), dr().agentBackgroundSignalResolvers.delete(e);
-  return !0;
+  return true;
 }
 
 function wat(e, t, r) {

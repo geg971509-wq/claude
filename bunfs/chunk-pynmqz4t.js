@@ -94,21 +94,21 @@ async function O(e, t) {
 }
 var x = 4194304;
 function a(e, t) {
-  return qe(it(), [...cn, ...t], { cwd: e, env: ii(), preserveOutputOnError: !1, maxBuffer: x, timeout: 1e4 });
+  return qe(it(), [...cn, ...t], { cwd: e, env: ii(), preserveOutputOnError: false, maxBuffer: x, timeout: 1e4 });
 }
 async function T(e) {
   let { code: t, stdout: r } = await a(e, ["rev-parse", "HEAD"]);
   return t === 0 ? r.trim() : null;
 }
 async function k(e, t) {
-  if (!t) return { count: null, upstreamExists: !1 };
+  if (!t) return { count: null, upstreamExists: false };
   let r = `refs/remotes/origin/${t}`,
     i = await a(e, ["rev-parse", "--verify", "--quiet", `${r}^{commit}`]);
-  if (i.code !== 0 || !i.stdout.trim()) return { count: null, upstreamExists: !1 };
+  if (i.code !== 0 || !i.stdout.trim()) return { count: null, upstreamExists: false };
   let { code: o, stdout: u } = await a(e, ["rev-list", "--count", `${r}..HEAD`]);
-  if (o !== 0) return { count: null, upstreamExists: !1 };
+  if (o !== 0) return { count: null, upstreamExists: false };
   let s = parseInt(u.trim(), 10);
-  return { count: Number.isFinite(s) ? s : null, upstreamExists: !0 };
+  return { count: Number.isFinite(s) ? s : null, upstreamExists: true };
 }
 async function v(e) {
   let { code: t, stdout: r } = await a(e, ["--no-optional-locks", "status", "--porcelain", "-unormal"]);
@@ -120,7 +120,7 @@ async function h(e) {
     let t = await f(e);
     return t.isFile() || t.isDirectory();
   } catch (t) {
-    if (X(t)) return !1;
+    if (X(t)) return false;
     throw t;
   }
 }
@@ -134,15 +134,15 @@ var m = [
   ["sequencer", "cherry-pick"],
 ];
 async function D(e) {
-  let r = (await Promise.all(m.map(([i]) => h(c(e, i))))).indexOf(!0);
+  let r = (await Promise.all(m.map(([i]) => h(c(e, i))))).indexOf(true);
   return r === -1 ? null : m[r][1];
 }
 async function P(e) {
   let t = c(e, ".gitattributes");
   try {
-    if (!(await f(t)).isFile()) return !1;
+    if (!(await f(t)).isFile()) return false;
   } catch (i) {
-    if (X(i)) return !1;
+    if (X(i)) return false;
     throw i;
   }
   let r;
@@ -151,7 +151,7 @@ async function P(e) {
     let { buffer: i, bytesRead: o } = await r.read(Buffer.alloc(65536), 0, 65536, 0);
     return i.toString("utf8", 0, o).includes("filter=lfs");
   } catch (i) {
-    if (X(i)) return !1;
+    if (X(i)) return false;
     throw i;
   } finally {
     await r?.close();

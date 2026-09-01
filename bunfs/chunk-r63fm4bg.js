@@ -51,18 +51,18 @@ var Wke = "41077d10-94b8-4194-be48-d251e9eb21b4",
   ),
   B = m(() => un({ created_by: i().optional() })),
   N = {
-    no_config_dir: !0,
-    invalid_profile_name: !0,
-    foreign_profile: !0,
-    custom_credentials_path: !0,
-    api_key_env_nondispatching: !0,
-    wif_env_quad: !1,
-    third_party_provider: !1,
-    api_key_env: !1,
-    env_credential_shadow: !1,
-    other_deployment_profile: !1,
-    federation_profile: !1,
-    unreadable_profile: !1,
+    no_config_dir: true,
+    invalid_profile_name: true,
+    foreign_profile: true,
+    custom_credentials_path: true,
+    api_key_env_nondispatching: true,
+    wif_env_quad: false,
+    third_party_provider: false,
+    api_key_env: false,
+    env_credential_shadow: false,
+    other_deployment_profile: false,
+    federation_profile: false,
+    unreadable_profile: false,
   };
 function j(e) {
   return Object.hasOwn(N, e);
@@ -101,7 +101,7 @@ async function UHt() {
     );
   let o = a.ANTHROPIC_API_KEY;
   if (o) {
-    let c = await b4t({ skipRetrievingKeyFromApiKeyHelper: !0 });
+    let c = await b4t({ skipRetrievingKeyFromApiKeyHelper: true });
     if (c.source === "ANTHROPIC_API_KEY" && c.key === o)
       throw new R(
         "ANTHROPIC_API_KEY is set in this environment and takes precedence over a profile, so a profile sign-in would not be used. Unset it to sign in this way.",
@@ -167,13 +167,13 @@ async function UHt() {
 async function FNn(e) {
   let o = await UHt();
   return (
-    await T(C(o.configDir, "credentials"), { recursive: !0, mode: 448 }), fGt(w(o.configDir, o.profile), () => W(e))
+    await T(C(o.configDir, "credentials"), { recursive: true, mode: 448 }), fGt(w(o.configDir, o.profile), () => W(e))
   );
 }
 async function W(e) {
   let { profile: o, configDir: t, isNewProfile: s } = await UHt(),
     f = C(t, "configs", `${o}.json`);
-  await T(C(t, "configs"), { recursive: !0, mode: 448 });
+  await T(C(t, "configs"), { recursive: true, mode: 448 });
   let c = {
     version: fcr,
     organization_id: e.organizationUuid,
@@ -212,44 +212,44 @@ async function W(e) {
 async function D({ revoke: e } = {}) {
   try {
     let o = ej();
-    if (o === null) return { removed: !1 };
+    if (o === null) return { removed: false };
     let t;
     try {
       t = A(o);
     } catch {
-      return { removed: !1 };
+      return { removed: false };
     }
     let s = await k(C(o, "configs", `${t}.json`));
-    if (s === null || !H(s)) return { removed: !1 };
-    if ((await S(w(o, t))) === null) return { removed: !1 };
+    if (s === null || !H(s)) return { removed: false };
+    if ((await S(w(o, t))) === null) return { removed: false };
     return await fGt(w(o, t), () => q(e));
   } catch (o) {
-    if (E(o) === "ENOENT") return { removed: !1 };
-    return n(`Logout: profile credential removal failed: ${l(o)}`, { level: "error" }), { removed: !1 };
+    if (E(o) === "ENOENT") return { removed: false };
+    return n(`Logout: profile credential removal failed: ${l(o)}`, { level: "error" }), { removed: false };
   }
 }
 async function q(e) {
   let o = ej();
-  if (o === null) return { removed: !1 };
+  if (o === null) return { removed: false };
   let t;
   try {
     t = A(o);
   } catch {
-    return { removed: !1 };
+    return { removed: false };
   }
   let s = await k(C(o, "configs", `${t}.json`));
-  if (s === null || !H(s)) return { removed: !1 };
+  if (s === null || !H(s)) return { removed: false };
   let f = w(o, t),
     c = await S(f);
-  if (c === null) return { removed: !1 };
+  if (c === null) return { removed: false };
   let g = { refreshToken: c.refreshToken, clientId: Wke };
   if (e && g.refreshToken) await e({ refreshToken: g.refreshToken, clientId: g.clientId });
   try {
     await K(f);
   } catch (p) {
-    return n(`Logout: could not remove profile credentials: ${l(p)}`, { level: "error" }), { removed: !1, ...g };
+    return n(`Logout: could not remove profile credentials: ${l(p)}`, { level: "error" }), { removed: false, ...g };
   }
-  return n(`Logout: removed credentials for profile ${t}`), mGt(), { removed: !0, ...g };
+  return n(`Logout: removed credentials for profile ${t}`), mGt(), { removed: true, ...g };
 }
 function A(e) {
   let o = a.ANTHROPIC_PROFILE || qTt(e);
@@ -309,28 +309,28 @@ async function S(e) {
 }
 async function $Nn(e) {
   let o = ej();
-  if (o === null) return !1;
+  if (o === null) return false;
   try {
     let t = await S(w(o, A(o)));
     return t !== null && t.refreshToken === e;
   } catch {
-    return !0;
+    return true;
   }
 }
 async function Z(e, o) {
   try {
-    return await M(e, o, { flag: "wx", mode: 420 }), !0;
+    return await M(e, o, { flag: "wx", mode: 420 }), true;
   } catch (t) {
-    if (E(t) === "EEXIST") return !1;
+    if (E(t) === "EEXIST") return false;
     throw t;
   }
 }
 async function oW({
-  clearOnboarding: e = !1,
-  preserveInProcessTokens: o = !1,
-  preserveNonAnthropicAuth: t = !1,
+  clearOnboarding: e = false,
+  preserveInProcessTokens: o = false,
+  preserveNonAnthropicAuth: t = false,
   storageV5: s,
-  preserveQuotaAutoResume: f = !1,
+  preserveQuotaAutoResume: f = false,
   artifactAccount: c = "signed_out",
   incomingIdentity: g,
   credentials: p,
@@ -378,9 +378,9 @@ async function oW({
       h(d);
     });
   } else {
-    let d = !1,
+    let d = false,
       r = async () => {
-        d = !0;
+        d = true;
         let u = await J(_, p);
         if ((await _.delete(p), u && Object.keys(u).length > 0)) await Q(_, u, p);
       };
@@ -396,9 +396,9 @@ async function oW({
       let r = { ...d };
       if (e) {
         if (
-          ((r.hasCompletedOnboarding = !1),
+          ((r.hasCompletedOnboarding = false),
           (r.subscriptionNoticeCount = 0),
-          (r.hasAvailableSubscription = !1),
+          (r.hasAvailableSubscription = false),
           r.customApiKeyResponses?.approved)
         )
           r.customApiKeyResponses = { ...r.customApiKeyResponses, approved: [] };
@@ -427,7 +427,7 @@ async function oW({
 }
 async function srt(
   e,
-  { preserveQuotaAutoResume: o = !1, artifactAccount: t = "signed_out", incomingIdentity: s, credentials: f } = {},
+  { preserveQuotaAutoResume: o = false, artifactAccount: t = "signed_out", incomingIdentity: s, credentials: f } = {},
 ) {
   if ((Pre(), O() && f === void 0)) WY();
   CEe(), h$(), Ac().providerCache.modelConfigs.clear(), M3(), KM();
@@ -451,9 +451,9 @@ async function srt(
   t9n();
 }
 async function eEr({ exit: e, setError: o, setInfo: t, storageV5: s, credentials: f }) {
-  t("Signing out\u2026"), wX({ action: "logout", success: !0, authMethod: "oauth" });
+  t("Signing out\u2026"), wX({ action: "logout", success: true, authMethod: "oauth" });
   try {
-    await oW({ clearOnboarding: !0, storageV5: s, credentials: f }), e();
+    await oW({ clearOnboarding: true, storageV5: s, credentials: f }), e();
   } catch (c) {
     h(c), o(`Couldn't sign out \u2014 ${c instanceof Error ? c.message : String(c)}`);
   }

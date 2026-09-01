@@ -306,7 +306,7 @@ function h(t) {
     r = [];
   for (let { title: o, limit: a } of s) {
     if (!a || a.utilization === null) continue;
-    let l = a.resets_at ? ` \xB7 resets ${N1e(a.resets_at, !0, !0, !0)}` : "";
+    let l = a.resets_at ? ` \xB7 resets ${N1e(a.resets_at, true, true, true)}` : "";
     r.push(`${o}: ${Math.floor(a.utilization)}% used${l}`);
   }
   return r.length > 0
@@ -360,7 +360,7 @@ ${c}`;
 
 ${g}
 ${o.reason}`;
-      if (I("tengu_amber_lark", !1)) {
+      if (I("tengu_amber_lark", false)) {
         let m = W9n();
         if (m)
           s += `
@@ -375,7 +375,7 @@ ${ae.dim(m)}`;
       if (s)
         i += `
 
-Spend limit: ${Math.round(s.utilization * 100)}% used \xB7 resets ${ad(s.resets_at, !0, !0, !0)}`;
+Spend limit: ${Math.round(s.utilization * 100)}% used \xB7 resets ${ad(s.resets_at, true, true, true)}`;
     }
     return { type: "text", value: i };
   },

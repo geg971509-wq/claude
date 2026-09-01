@@ -280,11 +280,11 @@ function An(e) {
       .toLowerCase()
       .replace(/^\[|\]$/g, "")
       .replace(/\.$/, "");
-    if (t === "localhost") return !0;
+    if (t === "localhost") return true;
     let n = Vo.parse(t).range();
     return n === "loopback" || n === "unspecified";
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -293,26 +293,26 @@ function Zl(e) {
   try {
     t = Vo.parse(e.replace(/^\[|\]$/g, ""));
   } catch {
-    return !1;
+    return false;
   }
   if (t.kind() === "ipv6") {
     let r = t;
     if (r.isIPv4MappedAddress()) t = r.toIPv4Address();
     else {
       let o = r.range();
-      if (o === "linkLocal") return !0;
+      if (o === "linkLocal") return true;
       if (o === "loopback" || o === "unspecified") return !Ho();
-      if (r.toNormalizedString() === "fd00:ec2:0:0:0:0:0:254") return !0;
-      return !1;
+      if (r.toNormalizedString() === "fd00:ec2:0:0:0:0:0:254") return true;
+      return false;
     }
   }
   let n = t.toString(),
     i = t.range();
-  if (i === "linkLocal") return !0;
+  if (i === "linkLocal") return true;
   if (i === "unspecified") return !Ho();
   if (i === "loopback") return !Ho();
-  if (n === "100.100.100.200") return !0;
-  return !1;
+  if (n === "100.100.100.200") return true;
+  return false;
 }
 
 var M$ = new Set(["metadata.google.internal", "metadata.goog", "metadata"]);
@@ -320,22 +320,22 @@ var M$ = new Set(["metadata.google.internal", "metadata.goog", "metadata"]);
 function mt(e) {
   try {
     let t = new URL(e);
-    if (t.protocol !== "https:" && t.protocol !== "http:") return !1;
+    if (t.protocol !== "https:" && t.protocol !== "http:") return false;
     let n = t.hostname
       .toLowerCase()
       .replace(/^\[|\]$/g, "")
       .replace(/\.$/, "");
-    if (M$.has(n)) return !1;
+    if (M$.has(n)) return false;
     return !Zl(n);
   } catch {
-    return !1;
+    return false;
   }
 }
 
 var is = (e, t, n) => {
   let i = typeof t === "function" ? {} : t,
     r = typeof t === "function" ? t : n;
-  D$(e, { ...i, all: !0 }, (o, s) => {
+  D$(e, { ...i, all: true }, (o, s) => {
     if (o) return r(o);
     if (s.length === 0) return r(Object.assign(Error(`getaddrinfo ENOTFOUND ${e}`), { code: "ENOTFOUND" }));
     for (let { address: c } of s) if (Zl(c)) return r(Error(`${Nl}: ${e} \u2192 ${c}`));
@@ -351,7 +351,7 @@ async function gi(e, t) {
     i = n.hostname.replace(/^\[|\]$/g, "").replace(/\.$/, ""),
     r = { ...t, redirect: "manual" };
   if (Vo.isValid(i)) return fetch(n, r);
-  let o = await C$.lookup(i, { all: !0 });
+  let o = await C$.lookup(i, { all: true });
   if (o.length === 0) throw Object.assign(Error(`getaddrinfo ENOTFOUND ${i}`), { code: "ENOTFOUND" });
   for (let { address: d } of o) if (Zl(d)) throw Error(`${Nl}: ${i} \u2192 ${d}`);
   let s = o.find((d) => d.family === 4) ?? o[0],
@@ -380,7 +380,7 @@ async function Qg() {
 }
 
 function os(e, t, n, i) {
-  return Xt(gi(e, { ...t, ...Ri({ url: e }), timeout: !1, signal: AbortSignal.timeout(n) }), n + 500, i);
+  return Xt(gi(e, { ...t, ...Ri({ url: e }), timeout: false, signal: AbortSignal.timeout(n) }), n + 500, i);
 }
 
 var Bl = "https://api.anthropic.com/api/oauth/cri",
@@ -391,7 +391,7 @@ function eh(e) {
   try {
     return llt(e).typ === Kl;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -445,17 +445,17 @@ function th(e) {
     try {
       v = await os(r, { method: "GET" }, L$, "JWKS fetch timed out");
     } catch (B) {
-      return Z("warn", `cri jwks unreachable: ${l(B)}`), !1;
+      return Z("warn", `cri jwks unreachable: ${l(B)}`), false;
     }
-    if (!v.ok) return v.body?.cancel().catch(() => {}), Z("warn", `cri jwks fetch returned ${v.status}`), !1;
+    if (!v.ok) return v.body?.cancel().catch(() => {}), Z("warn", `cri jwks fetch returned ${v.status}`), false;
     let k;
     try {
       k = await v.json();
     } catch {
-      return Z("warn", "cri jwks fetch returned unparseable JSON"), !1;
+      return Z("warn", "cri jwks fetch returned unparseable JSON"), false;
     }
     if (typeof k !== "object" || k === null || !Array.isArray(k.keys))
-      return Z("warn", "cri jwks fetch returned a non-JWKS body"), !1;
+      return Z("warn", "cri jwks fetch returned a non-JWKS body"), false;
     let P = new Map();
     for (let B of k.keys) {
       if (typeof B !== "object" || B === null) continue;
@@ -468,8 +468,8 @@ function th(e) {
         Z("warn", `cri jwks key ${Q.kid} failed to import: ${l(ge)}`);
       }
     }
-    if (P.size === 0) return Z("warn", "cri jwks fetch yielded no usable ES256 keys \u2014 keeping previous set"), !1;
-    return (o = P), (s = Date.now()), (u = s + p(v)), !0;
+    if (P.size === 0) return Z("warn", "cri jwks fetch yielded no usable ES256 keys \u2014 keeping previous set"), false;
+    return (o = P), (s = Date.now()), (u = s + p(v)), true;
   }
   function p(v) {
     let k = v.headers.get("cache-control") ?? "",
@@ -477,10 +477,10 @@ function th(e) {
     if (!P) return U$;
     return Math.min(Number(P[1]) * 1000, Fl / 2);
   }
-  function h(v = !1) {
+  function h(v = false) {
     if (d) return d;
     let k = Date.now();
-    if (!v && k - c < N$) return Promise.resolve(!1);
+    if (!v && k - c < N$) return Promise.resolve(false);
     return (
       (c = k),
       (d = f().finally(() => {
@@ -499,7 +499,7 @@ function th(e) {
   }
   return {
     async prime() {
-      if (!(await h(!0)))
+      if (!(await h(true)))
         Z(
           "warn",
           "cri jwks prefetch failed \u2014 the CRI wall will answer 503 until the first successful fetch (non-CRI traffic is unaffected)",
@@ -514,13 +514,13 @@ function th(e) {
             client_ip: P,
             ...(le !== void 0 && { org: le }),
           }),
-          { ok: !1, status: 401, reason: it, ...(le !== void 0 && { org: le }) }
+          { ok: false, status: 401, reason: it, ...(le !== void 0 && { org: le }) }
         ),
         ge = await y();
       if (ge === null)
         return (
           wt("auth.denied", { request_id: k, reason: "cri_jwks_unavailable", path: B, client_ip: P }),
-          { ok: !1, status: 503, reason: "jwks_unavailable" }
+          { ok: false, status: 503, reason: "jwks_unavailable" }
         );
       let re;
       try {
@@ -558,10 +558,10 @@ function th(e) {
       if (typeof Ge.sub !== "string" || Ge.sub.length === 0) return Q("invalid_token");
       let Oe = typeof Ge.act === "object" && Ge.act !== null && typeof Ge.act.sub === "string" ? Ge.act.sub : void 0;
       return {
-        ok: !0,
+        ok: true,
         claims: {
           sub: Ge.sub,
-          cri: !0,
+          cri: true,
           org: ve,
           ...(Oe !== void 0 && { act: { sub: Oe } }),
           ...(typeof Ge.exp === "number" && { exp: Ge.exp }),
@@ -634,7 +634,7 @@ async function oh(e) {
 
 function ah(e, t) {
   let n = e.email_verified;
-  if (n !== void 0 && n !== !0 && n !== "true") throw Error("id_token email is not verified");
+  if (n !== void 0 && n !== true && n !== "true") throw Error("id_token email is not verified");
   if (!t?.length) return;
   let i = e.email;
   if (typeof i !== "string" || !i.includes("@"))
@@ -835,10 +835,10 @@ function ql(e) {
 
 function Hl(e, t) {
   for (let [n, i] of t) {
-    if (e instanceof Dt.IPv4 && n instanceof Dt.IPv4 && e.match(n, i)) return !0;
-    if (e instanceof Dt.IPv6 && n instanceof Dt.IPv6 && e.match(n, i)) return !0;
+    if (e instanceof Dt.IPv4 && n instanceof Dt.IPv4 && e.match(n, i)) return true;
+    if (e instanceof Dt.IPv6 && n instanceof Dt.IPv6 && e.match(n, i)) return true;
   }
-  return !1;
+  return false;
 }
 
 function ch(e, t, n) {
@@ -859,7 +859,7 @@ function ch(e, t, n) {
 }
 
 function Gl(e, t) {
-  if (!e || t.length === 0) return !1;
+  if (!e || t.length === 0) return false;
   let n = ql(e);
   return n !== null && Hl(n, t);
 }
@@ -983,7 +983,7 @@ function bk(e, t, n, i) {
     );
   let r = Ic.validateForGatewayServing(e, {
     trustedOrigin: n === void 0 ? void 0 : new URL(n).origin,
-    includeInternal: !1,
+    includeInternal: false,
   }).map((s) => ({
     key: s.key,
     msg:
@@ -1007,12 +1007,12 @@ ${o
 }
 
 function KW(e, t) {
-  if (e === void 0) return !1;
+  if (e === void 0) return false;
   let n = e[t];
   return n !== void 0 && n !== null && n !== "";
 }
 
-var qW = m(() => Po.gatewayServableKeys({ includeInternal: !1 }));
+var qW = m(() => Po.gatewayServableKeys({ includeInternal: false }));
 
 var kk = new Set(["localhost", "127.0.0.1", "::1", "[::1]"]);
 
@@ -1027,11 +1027,11 @@ function gp(e) {
 function hp(e) {
   try {
     let t = new URL(e);
-    if (t.protocol === "https:") return !0;
-    if (t.protocol === "http:" && kk.has(t.hostname)) return !0;
-    return !1;
+    if (t.protocol === "https:") return true;
+    if (t.protocol === "http:" && kk.has(t.hostname)) return true;
+    return false;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -1123,16 +1123,16 @@ var GW = "https://api.anthropic.com",
             .refine((i) => i === void 0 || mt(i), { message: "base_url targets a metadata endpoint" }),
           auth: T.union([
             T.strictObject({ api_key: T.string().min(1) }),
-            T.strictObject({ use_azure_ad: T.literal(!0) }),
+            T.strictObject({ use_azure_ad: T.literal(true) }),
           ]),
         }),
       ]),
       n = T.string().refine(
         (i) => {
           try {
-            return Vl(i), !0;
+            return Vl(i), true;
           } catch {
-            return !1;
+            return false;
           }
         },
         { message: "must be a valid IP or CIDR" },
@@ -1202,7 +1202,7 @@ var GW = "https://api.anthropic.com",
               });
           }
         }),
-      auto_include_builtin_models: T.boolean().default(!0),
+      auto_include_builtin_models: T.boolean().default(true),
       models: T.array(
         T.strictObject({
           id: T.string().min(1),
@@ -1222,8 +1222,8 @@ var GW = "https://api.anthropic.com",
         ca_cert_pem: T.string().optional(),
         groups_claim: T.string().min(1).default("groups"),
         email_claim: T.union([T.string().min(1), T.array(T.string().min(1)).min(1)]).default("email"),
-        userinfo_fallback: T.boolean().default(!1),
-        use_pkce: T.boolean().default(!0),
+        userinfo_fallback: T.boolean().default(false),
+        use_pkce: T.boolean().default(true),
         clock_skew_seconds: T.coerce.number().int().nonnegative().optional(),
         token_endpoint_auth_method: T.enum(["client_secret_basic", "client_secret_post"]).optional(),
         id_token_signed_response_alg: T.enum([
@@ -1247,7 +1247,7 @@ var GW = "https://api.anthropic.com",
               try {
                 return new URL(i).pathname.includes("/.well-known/");
               } catch {
-                return !1;
+                return false;
               }
             },
             {
@@ -1340,9 +1340,9 @@ var GW = "https://api.anthropic.com",
               .refine(hp, { message: "forward_to.url must be https:// (http:// allowed for loopback only)" })
               .refine(mt, { message: "forward_to.url must not target a cloud metadata endpoint" }),
             headers: T.record(T.string()).default({}),
-            metrics: T.boolean().default(!0),
-            logs: T.boolean().default(!1),
-            traces: T.boolean().default(!1),
+            metrics: T.boolean().default(true),
+            logs: T.boolean().default(false),
+            traces: T.boolean().default(false),
           }),
         ).default([]),
       }).default({ forward_to: [] }),
@@ -1411,11 +1411,11 @@ var GW = "https://api.anthropic.com",
             });
         })
         .optional(),
-      enforcement: T.strictObject({ fail_closed_on_error: T.boolean().default(!1) }).default({
-        fail_closed_on_error: !1,
+      enforcement: T.strictObject({ fail_closed_on_error: T.boolean().default(false) }).default({
+        fail_closed_on_error: false,
       }),
       cri: T.strictObject({
-        enabled: T.boolean().default(!1),
+        enabled: T.boolean().default(false),
         audience: T.array(T.string().trim().min(1)).default([]),
         jwks_url: T.string()
           .optional()
@@ -1442,7 +1442,7 @@ var GW = "https://api.anthropic.com",
               try {
                 return new URL(i).href === i && !i.includes("?") && !i.includes("#");
               } catch {
-                return !1;
+                return false;
               }
             },
             {
@@ -1473,7 +1473,7 @@ var GW = "https://api.anthropic.com",
                   "cri.policy.webhook.url targets loopback, which the gateway blocks at runtime unless CLAUDE_GATEWAY_ALLOW_LOOPBACK=1 is set \u2014 as configured, the policy webhook could never run",
               }),
             timeout_ms: T.coerce.number().int().positive().max(30000).default(2000),
-            fail_closed: T.boolean().default(!0),
+            fail_closed: T.boolean().default(true),
           }),
         }).optional(),
       }).optional(),
@@ -1507,7 +1507,7 @@ var GW = "https://api.anthropic.com",
               path: ["models", c, "upstream_model", f],
               message: `references unknown upstream '${f}'`,
             });
-      let s = i.cri?.enabled === !0;
+      let s = i.cri?.enabled === true;
       if (s && (i.cri?.audience.length ?? 0) === 0)
         r.addIssue({
           code: T.ZodIssueCode.custom,
@@ -1761,7 +1761,7 @@ function wk(e, t, n) {
 }
 
 function Tc(e, t) {
-  if (t.cri === !0) return null;
+  if (t.cri === true) return null;
   let n = t.groups ?? [],
     i = t.email?.includes("@") ? t.email.slice(t.email.lastIndexOf("@") + 1).toLowerCase() : void 0;
   for (let [r, o] of e.entries()) {
@@ -1773,7 +1773,7 @@ function Tc(e, t) {
   return null;
 }
 
-var n2 = m(() => tCe(ZAe(), { strictPolicyHelperKeys: !0 }));
+var n2 = m(() => tCe(ZAe(), { strictPolicyHelperKeys: true }));
 
 function Sk(e, t) {
   let n = { ...e },
@@ -1832,13 +1832,13 @@ function o2(e, t) {
     let i = n === 0 || !/[a-z0-9]/i.test(e[n - 1]),
       r = n + t.length,
       o = r === e.length || !/[a-z0-9]/i.test(e[r]);
-    if (i && o) return !0;
+    if (i && o) return true;
   }
-  return !1;
+  return false;
 }
 
 function Tk(e, t) {
-  if (!e.startsWith(t)) return !1;
+  if (!e.startsWith(t)) return false;
   return e.length === t.length || e[t.length] === "-";
 }
 
@@ -1848,25 +1848,25 @@ function Ak(e, t) {
     let i = n.indexOf(e);
     if (i === -1) continue;
     let r = i + e.length;
-    if (r === n.length || n[r] === "-") return !0;
+    if (r === n.length || n[r] === "-") return true;
   }
-  return !1;
+  return false;
 }
 
 function vp(e, t) {
-  if (t.length === 0) return !1;
+  if (t.length === 0) return false;
   let n = t.map((r) => pn(r.trim().toLowerCase())),
     i = pn(e.trim().toLowerCase());
   if (n.includes(i)) {
-    if (!NT(i) || !Ak(i, n)) return !0;
+    if (!NT(i) || !Ak(i, n)) return true;
   }
-  for (let r of n) if (NT(r) && !Ak(r, n) && o2(i, r)) return !0;
+  for (let r of n) if (NT(r) && !Ak(r, n) && o2(i, r)) return true;
   for (let r of n) {
     if (NT(r)) continue;
-    if (Tk(i, r)) return !0;
-    if (!r.startsWith("claude-") && Tk(i, `claude-${r}`)) return !0;
+    if (Tk(i, r)) return true;
+    if (!r.startsWith("claude-") && Tk(i, `claude-${r}`)) return true;
   }
-  return !1;
+  return false;
 }
 
 var a2 = new Set(["content-type", "accept", "accept-encoding", "anthropic-beta", "anthropic-version", "user-agent"]);
@@ -1913,7 +1913,7 @@ async function Ck(e, t, n, i, r) {
           headers: f,
           body: b(d),
           ...Ri({ url: p }),
-          timeout: !1,
+          timeout: false,
           signal: AbortSignal.timeout(1e4),
         });
       if (!h.ok) continue;
@@ -1926,7 +1926,7 @@ async function Ck(e, t, n, i, r) {
     let c = o ? Ca(o, u, n, i) : null;
     if (!c?.ok) continue;
     try {
-      return (await u.client.messages.create({ ...s, model: c.model, max_tokens: 1, stream: !1 })).usage.input_tokens;
+      return (await u.client.messages.create({ ...s, model: c.model, max_tokens: 1, stream: false })).usage.input_tokens;
     } catch {}
   }
   return Math.ceil(b(s).length / 4);
@@ -1947,30 +1947,30 @@ function Eo(e) {
   return t.length > 128 ? `${t.slice(0, 128)}...` : t;
 }
 
-function Ca(e, t, n, i = !0, r = !1) {
+function Ca(e, t, n, i = true, r = false) {
   let o = pR(e),
     s = p2(e, n),
     u = s?.upstream_model[t.name];
-  if (u) return { ok: !0, model: u };
+  if (u) return { ok: true, model: u };
   if (o && (i || s)) {
     let c = t.provider === "anthropic" ? o.firstParty : o[t.provider];
     if (!c)
       return {
-        ok: !1,
+        ok: false,
         error: r
           ? `model ${Eo(e)} is not available on this upstream`
           : `model ${Eo(e)} is not available on ${t.provider}`,
       };
-    return { ok: !0, model: c };
+    return { ok: true, model: c };
   }
   if (s)
     return {
-      ok: !1,
+      ok: false,
       error: r
         ? `model ${Eo(e)} is not configured for this upstream`
         : `model ${Eo(e)} has no upstream_model.${t.name} configured`,
     };
-  return { ok: !1, error: `model ${Eo(e)} is not in the operator's model allowlist` };
+  return { ok: false, error: `model ${Eo(e)} is not in the operator's model allowlist` };
 }
 
 function Qe(e, t, n, i, r) {
@@ -2109,7 +2109,7 @@ async function Mk(e) {
               applyAuth: async (c) => {
                 t(c), c.set("x-api-key", u);
               },
-              forwardUserIdentity: n.forward_user_identity === !0,
+              forwardUserIdentity: n.forward_user_identity === true,
             };
           }
           if ("oauth_token" in n.auth) {
@@ -2122,7 +2122,7 @@ async function Mk(e) {
               applyAuth: async (c) => {
                 t(c), c.set("Authorization", `Bearer ${u}`), c.append("anthropic-beta", ud);
               },
-              forwardUserIdentity: n.forward_user_identity === !0,
+              forwardUserIdentity: n.forward_user_identity === true,
             };
           }
           let { resolveCredentialsFromConfig: i, TokenCache: r } = await import("/$bunfs/root/chunk-s49qq1he.js"),
@@ -2155,7 +2155,7 @@ async function Mk(e) {
               u.append("anthropic-beta", ud);
             },
             invalidateAuth: () => s.invalidate(),
-            forwardUserIdentity: n.forward_user_identity === !0,
+            forwardUserIdentity: n.forward_user_identity === true,
           };
         }
         case "bedrock": {
@@ -2164,7 +2164,7 @@ async function Mk(e) {
               awsRegion: n.region,
               ...(n.base_url && { baseURL: n.base_url }),
               timeout: Ac,
-              fetchOptions: { ...Ri({ url: void 0 }), timeout: !1 },
+              fetchOptions: { ...Ri({ url: void 0 }), timeout: false },
               maxRetries: 0,
             };
           if (
@@ -2217,7 +2217,7 @@ async function Mk(e) {
               defaultHeaders: { Authorization: null },
               ..._O,
               timeout: Ac,
-              fetchOptions: { ...Ri({ url: void 0 }), timeout: !1 },
+              fetchOptions: { ...Ri({ url: void 0 }), timeout: false },
               maxRetries: 0,
             },
             o;
@@ -2258,7 +2258,7 @@ async function Mk(e) {
               ...(n.base_url && { baseURL: n.base_url }),
               defaultHeaders: Kz(),
               timeout: Ac,
-              fetchOptions: { ...Ri({ url: void 0 }), timeout: !1 },
+              fetchOptions: { ...Ri({ url: void 0 }), timeout: false },
               maxRetries: 0,
             };
           if (n.auth.access_token) {
@@ -2282,7 +2282,7 @@ async function Mk(e) {
             r = {
               ...(n.base_url ? { baseURL: n.base_url } : { resource: n.resource }),
               timeout: Ac,
-              fetchOptions: { ...Ri({ url: void 0 }), timeout: !1 },
+              fetchOptions: { ...Ri({ url: void 0 }), timeout: false },
               maxRetries: 0,
             };
           if ("api_key" in n.auth) r.apiKey = n.auth.api_key;
@@ -2302,7 +2302,7 @@ async function Mk(e) {
   );
 }
 
-async function zk(e, t, n, i, r = !0, o, s = 120000, u, c) {
+async function zk(e, t, n, i, r = true, o, s = 120000, u, c) {
   let d, f;
   if (c?.body) (d = c.body.buf), (f = c.body.parsed);
   else {
@@ -2326,7 +2326,7 @@ async function zk(e, t, n, i, r = !0, o, s = 120000, u, c) {
       if (y.length === 0) return;
       Z("warn", `inference: model resolution failed request_id=${u ?? "-"}: ${y.join("; ")}`);
     },
-    k = !1,
+    k = false,
     P = null,
     B = null,
     Q = null,
@@ -2336,7 +2336,7 @@ async function zk(e, t, n, i, r = !0, o, s = 120000, u, c) {
   e.headers.forEach((ve, Oe) => {
     if (Oe.toLowerCase().startsWith("x-stainless-")) Se[Oe] = ve;
   });
-  let Ge = c?.criPrincipal === !0;
+  let Ge = c?.criPrincipal === true;
   for (let ve of n) {
     if (e.signal.aborted) break;
     let Oe = Ca(p, ve, i, r, Ge);
@@ -2346,7 +2346,7 @@ async function zk(e, t, n, i, r = !0, o, s = 120000, u, c) {
     }
     let Mn = Oe.model,
       it = Mn === p ? f : { ...f, model: Mn };
-    k = !0;
+    k = true;
     try {
       let le;
       if (ve.kind === "raw") {
@@ -2470,7 +2470,7 @@ async function Rk(e, t, n, i, r, o) {
   c.set("user-agent", f ? `${f} cc-gateway/${d}` : `cc-gateway/${d}`), Lk(c, i, o), await i.applyAuth(c);
   let p = await b2(
     u,
-    { method: e.method, headers: c, body: n, duplex: "half", ...Ri({ url: u }), timeout: !1 },
+    { method: e.method, headers: c, body: n, duplex: "half", ...Ri({ url: u }), timeout: false },
     e.signal,
     r,
   );
@@ -2482,7 +2482,7 @@ function v2(e, { requestId: t, wireModel: n, keepaliveIntervalMs: i = l2 } = {})
     o = r.encode(d2),
     s = e[Symbol.asyncIterator](),
     u = Date.now(),
-    c = !1,
+    c = false,
     d;
   return new ReadableStream({
     start(f) {
@@ -2499,7 +2499,7 @@ function v2(e, { requestId: t, wireModel: n, keepaliveIntervalMs: i = l2 } = {})
         let { value: p, done: h } = await s.next();
         if (c) return;
         if (h) {
-          (c = !0), clearInterval(d), f.close();
+          (c = true), clearInterval(d), f.close();
           return;
         }
         let y = p,
@@ -2524,13 +2524,13 @@ data: ${b({ type: "error", ...(t && { request_id: t }), error: { type: Da(h), me
 
 `),
         ),
-          (c = !0),
+          (c = true),
           clearInterval(d),
           f.close();
       }
     },
     async cancel() {
-      (c = !0), clearInterval(d), await s.return?.(void 0).catch(() => {});
+      (c = true), clearInterval(d), await s.return?.(void 0).catch(() => {});
     },
   });
 }
@@ -2560,7 +2560,7 @@ async function jk(e, t, n, i, r, o, s, u, c) {
     switch (e) {
       case "/v1/messages": {
         if (f.stream) {
-          let v = await i.messages.create({ ...f, stream: !0 }, h);
+          let v = await i.messages.create({ ...f, stream: true }, h);
           return new Response(v2(v, { requestId: u, wireModel: c }), { headers: c2 });
         }
         let y = await i.messages.create(f, h);
@@ -2639,10 +2639,10 @@ function Ep(e, t, n, i) {
     for (let u of [...o, ...s]) {
       let c = so[u];
       if (r.has(c.firstParty)) continue;
-      let d = !1;
+      let d = false;
       for (let f of t)
         if (f === "anthropic" || c[f] !== null) {
-          d = !0;
+          d = true;
           break;
         }
       if (d) r.set(c.firstParty, { type: "model", id: c.firstParty, display_name: c.firstParty });
@@ -2651,10 +2651,10 @@ function Ep(e, t, n, i) {
   return i ? [...r.values()].filter((o) => vp(o.id, i)) : [...r.values()];
 }
 
-function Uk(e, t, n = !0, i) {
+function Uk(e, t, n = true, i) {
   return Response.json({
     data: Ep(e, new Set(t.map((r) => r.provider)), n, i),
-    has_more: !1,
+    has_more: false,
     first_id: null,
     last_id: null,
   });
@@ -2815,7 +2815,7 @@ function E2(e) {
 }
 
 var $2 = m(() => T.object({ p: T.string(), s: T.undefined() })),
-  I2 = m(() => T.object({ p: T.string(), c: T.number(), s: T.literal(!0) }));
+  I2 = m(() => T.object({ p: T.string(), c: T.number(), s: T.literal(true) }));
 
 function Hk(e) {
   return Buffer.from(JSON.stringify(e)).toString("base64url");
@@ -2832,7 +2832,7 @@ function T2(e, t) {
 
 async function A2(e, t, n, i, r) {
   let o = n?.p ?? null,
-    s = n?.s === !0 ? n.c : null,
+    s = n?.s === true ? n.c : null,
     u = await e`
     SELECT s.principal, s.cents FROM spend s
     LEFT JOIN principal_emails e ON e.principal = s.principal
@@ -2849,7 +2849,7 @@ async function A2(e, t, n, i, r) {
     f = d.at(-1);
   return {
     subs: d.map((p) => p.principal),
-    nextToken: c && f !== void 0 ? Hk({ p: f.principal, c: f.cents, s: !0 }) : null,
+    nextToken: c && f !== void 0 ? Hk({ p: f.principal, c: f.cents, s: true }) : null,
   };
 }
 
@@ -2910,7 +2910,7 @@ function C2(e) {
       user_id: e.principal,
       name: e.name ?? null,
       email_address: e.email ?? null,
-      deleted: !1,
+      deleted: false,
     },
     amount: e.amount,
     currency: "USD",
@@ -2969,11 +2969,11 @@ async function x2({ req: e, url: t, sql: n, keys: i, requestId: r, oidcAdmin: o,
 }
 
 function M2(e, t, n) {
-  if (!e) return n ? { canWrite: !0, actor: `oidc:${n.sub}` } : null;
+  if (!e) return n ? { canWrite: true, actor: `oidc:${n.sub}` } : null;
   let i = Vk(e, t.writeKeys),
     r = Vk(e, t.readKeys);
-  if (i !== void 0) return { canWrite: !0, actor: `admin-key:${i}` };
-  if (r !== void 0) return { canWrite: !1, actor: `admin-key:${r}` };
+  if (i !== void 0) return { canWrite: true, actor: `admin-key:${i}` };
+  if (r !== void 0) return { canWrite: false, actor: `admin-key:${r}` };
   return null;
 }
 
@@ -3127,7 +3127,7 @@ async function Z2({ sql: e, requestId: t, auth: n }, i) {
       DELETE FROM spend_limits WHERE id = ${i} RETURNING id, scope_type, scope_id, amount, period, currency, created_at, updated_at
     `
     )[0];
-    if (!u) return !1;
+    if (!u) return false;
     return await $p(o, { actor: n.actor, action: "spend_limit.delete", target: i, before: Io(u) }), u;
   });
   if (r)
@@ -3218,10 +3218,10 @@ function Xk(e, t, n, i = null, r) {
   let o = (e.headers.get("content-type") ?? "").includes("text/event-stream"),
     s = e.body.getReader(),
     u = H2(o, i, r),
-    c = !1;
+    c = false;
   async function d() {
     if (c) return;
-    c = !0;
+    c = true;
     try {
       let p = await u.usage();
       if (p) n(t(p));
@@ -3258,7 +3258,7 @@ function H2(e, t, n) {
       c = W2();
     return {
       push(d) {
-        u += i.decode(d, { stream: !0 });
+        u += i.decode(d, { stream: true });
         let f = u.split(V2);
         u = f.pop() ?? "";
         for (let p of f) Jk(c, p);
@@ -3272,12 +3272,12 @@ function H2(e, t, n) {
   }
   let r = "",
     o = 0,
-    s = !1;
+    s = false;
   return {
     push(u) {
-      let c = i.decode(u, { stream: !0 });
+      let c = i.decode(u, { stream: true });
       if (((o += c.length), s)) return;
-      if (((r += c), r.length > Wk)) (s = !0), (r = "");
+      if (((r += c), r.length > Wk)) (s = true), (r = "");
     },
     async usage() {
       let u = s ? null : Y2(r);
@@ -3293,7 +3293,7 @@ var V2 = /\r?\n\r?\n/,
   G2 = 80;
 
 function W2() {
-  return { usage: { input_tokens: 0, output_tokens: 0 }, seen: !1, estOutputChars: 0, sawOutputTokens: !1 };
+  return { usage: { input_tokens: 0, output_tokens: 0 }, seen: false, estOutputChars: 0, sawOutputTokens: false };
 }
 
 function Jk(e, t) {
@@ -3321,7 +3321,7 @@ function Jk(e, t) {
   let s = X2().safeParse(o);
   if (!s.success) return;
   if (s.data.type === "message_start" && s.data.message?.usage) {
-    eP(e.usage, s.data.message.usage), (e.seen = !0);
+    eP(e.usage, s.data.message.usage), (e.seen = true);
     return;
   }
   if (s.data.type === "content_block_delta" && s.data.delta) {
@@ -3331,9 +3331,9 @@ function Jk(e, t) {
   }
   if (s.data.type === "message_delta" && s.data.usage) {
     if (s.data.usage.output_tokens !== void 0)
-      (e.usage.output_tokens = s.data.usage.output_tokens), (e.sawOutputTokens = !0);
+      (e.usage.output_tokens = s.data.usage.output_tokens), (e.sawOutputTokens = true);
     if (s.data.usage.server_tool_use !== void 0) e.usage.server_tool_use = s.data.usage.server_tool_use;
-    e.seen = !0;
+    e.seen = true;
   }
 }
 
@@ -3344,7 +3344,7 @@ function Yk(e, t) {
 
 function Rp(e, t) {
   let n = 0;
-  while (!0) {
+  while (true) {
     if (e.startsWith(t, n)) {
       let r = n + t.length;
       if (e.charCodeAt(r) === 32) r += 1;
@@ -3367,7 +3367,7 @@ function Rp(e, t) {
 
 function J2(e) {
   if (!e.sawOutputTokens && e.estOutputChars > 0)
-    (e.usage.output_tokens = Math.ceil(e.estOutputChars / Qk)), (e.seen = !0);
+    (e.usage.output_tokens = Math.ceil(e.estOutputChars / Qk)), (e.seen = true);
   return e.seen ? e.usage : null;
 }
 
@@ -3678,7 +3678,7 @@ function sP(e) {
   let t = e.cri?.enabled ? e.cri.policy?.webhook : void 0;
   if (!t) return null;
   let { url: n, timeout_ms: i } = t,
-    r = t.fail_closed !== !1;
+    r = t.fail_closed !== false;
   function o(s, u, c, d, f, p, h, y) {
     return (
       wt("policy.blocked", {
@@ -3743,7 +3743,7 @@ function sP(e) {
           return o(s.sub, c, "engine_error", "policy check unavailable", d.path, f, p);
         return y("engine_error"), null;
       }
-      if (h.block !== !0) return null;
+      if (h.block !== true) return null;
       return o(
         s.sub,
         c,
@@ -4470,9 +4470,9 @@ async function cP(e) {
       )`;
       let n = await t`SELECT coalesce(max(version), 0) AS v FROM _migrations`,
         i = Number(n[0].v);
-      while (!0) {
+      while (true) {
         i += 1;
-        let r = !1;
+        let r = false;
         if (
           (await t.begin(async (o) => {
             switch (i) {
@@ -4565,7 +4565,7 @@ async function cP(e) {
               default:
                 return;
             }
-            await o`INSERT INTO _migrations (version) VALUES (${i})`, (r = !0);
+            await o`INSERT INTO _migrations (version) VALUES (${i})`, (r = true);
           }),
           !r)
         )
@@ -4585,7 +4585,7 @@ var p3 = 30000,
 
 async function fP(e, t) {
   if (typeof Bun > "u") throw Error("claude gateway requires the native binary");
-  let n = !1,
+  let n = false,
     i = () => n,
     r = new Bun.SQL(e, {
       connectionTimeout: 5,
@@ -4601,7 +4601,7 @@ async function fP(e, t) {
   } catch (c) {
     throw (r.close({ timeout: 0 }).catch(() => {}), c);
   }
-  (n = !0),
+  (n = true),
     r`SHOW server_version_num`
       .then((c) => {
         let d = Number(c[0]?.server_version_num);
@@ -4662,7 +4662,7 @@ async function fP(e, t) {
         return Number(f[0].value);
       },
       close() {
-        (n = !1), clearInterval(o), clearInterval(u), r.close().catch(() => {});
+        (n = false), clearInterval(o), clearInterval(u), r.close().catch(() => {});
       },
     }
   );
@@ -4679,7 +4679,7 @@ function y3(e, t) {
   });
 }
 
-function dP(e, t, n = () => !0) {
+function dP(e, t, n = () => true) {
   let i = (u, c) =>
       void (async () => {
         for (let d = 0; d < 50 && n(); d++)
@@ -4747,7 +4747,7 @@ function za() {
 }
 
 function mP(e, t) {
-  return e !== null ? { cri: !0, org: e.org, act: e.act?.sub ?? null, upstream_kind: t } : {};
+  return e !== null ? { cri: true, org: e.org, act: e.act?.sub ?? null, upstream_kind: t } : {};
 }
 
 function k3() {
@@ -4796,7 +4796,7 @@ async function jX(e) {
     }),
     u = { readKeys: t.admin?.read_keys ?? [], writeKeys: t.admin?.write_keys ?? [] },
     c = tP(s.sql, t),
-    d = t.cri?.enabled === !0,
+    d = t.cri?.enabled === true,
     f =
       d && t.cri
         ? th({
@@ -4870,7 +4870,7 @@ async function jX(e) {
         ? Promise.all([pP(ve.cert, "utf8"), pP(ve.key, "utf8")]).then(([K, _e]) => ({ cert: K, key: _e }))
         : Promise.resolve(void 0),
     ]),
-    Qt = it?.some((K) => K.desktop !== void 0) ?? !1;
+    Qt = it?.some((K) => K.desktop !== void 0) ?? false;
   async function Di(K, _e) {
     if (!t.oidc?.userinfo_fallback || !_e || !Oe) return;
     if (re(K) && (P !== void 0 || ge(K))) return;
@@ -5008,7 +5008,7 @@ async function jX(e) {
         token_endpoint_auth_methods_supported: ["none"],
         scopes_supported: ["openid", "profile", "email"],
         gateway_protocol_version: Ug,
-        ...(d && { cri_enabled: !0 }),
+        ...(d && { cri_enabled: true }),
       });
     if (je === "/protocol" && K.method === "GET")
       return new Response(uP({ oidcConfigured: t.oidc !== void 0, criEnabled: d }), {
@@ -5260,10 +5260,10 @@ async function jX(e) {
       Ua = jo?.startsWith("Bearer ") ? jo.slice(7) : null,
       ze = null,
       bt = null,
-      Up = !1;
+      Up = false;
     if (Ua !== null)
       if (f !== null && Sp(je) && K.method === "POST" && eh(Ua)) {
-        Up = !0;
+        Up = true;
         let se = await f.authenticate(Ua, ke, _e, je);
         if (!se.ok && se.status === 503)
           return Qe(
@@ -5430,11 +5430,11 @@ async function jX(e) {
       let qt = performance.now(),
         dr = null,
         zn;
-      if (c && je === "/v1/messages" && Ne.parsed.stream !== !0 && bt === null)
+      if (c && je === "/v1/messages" && Ne.parsed.stream !== true && bt === null)
         (dr = Ne.parsed), (zn = Ne.parsed.speed === "fast" ? "fast" : void 0);
       let Xe = await zk(K, je, Mn, t.models, t.auto_include_builtin_models, Np, t.timeouts.upstream_ttfb_ms, ke, {
         body: Ne,
-        ...(bt !== null && { criPrincipal: !0 }),
+        ...(bt !== null && { criPrincipal: true }),
         ...(bt === null && { user: { sub: ze.sub, email: ze.email } }),
       });
       if (bt !== null) Xe = await xk(Xe, K, ke);
@@ -5484,7 +5484,7 @@ async function jX(e) {
     hostname: t.listen.host,
     port: t.listen.port,
     idleTimeout: 0,
-    development: !1,
+    development: false,
     ...(le && { tls: le }),
     fetch: async (K, _e) => {
       let ke = ch(_e.requestIP(K)?.address, K.headers.get("x-forwarded-for"), n),
@@ -5507,7 +5507,7 @@ async function jX(e) {
     {
       port: La.port ?? t.listen.port,
       stop: () => {
-        La.stop(!0), s.close();
+        La.stop(true), s.close();
       },
     }
   );
@@ -5596,7 +5596,7 @@ function T3(e, t = null) {
     for (let u of e.pricing?.overrides ?? []) {
       let c = e.upstreams.find((p) => p.name === u.upstream),
         d = (p) => {
-          if (!c) return !1;
+          if (!c) return false;
           let h = Ca(p, c, e.models, e.auto_include_builtin_models);
           return h.ok && Fi(e.pricing, u.upstream, h.model, p) === u;
         },

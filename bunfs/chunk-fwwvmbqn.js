@@ -252,9 +252,9 @@ async function O9e(e, t) {
   }
   await jF(C(V_e(), `${e.slug}.json`), I, {
     defaultValue: () => ({ name: e.slug, base: "dark", overrides: {} }),
-    ensureDir: !0,
+    ensureDir: true,
     indent: 2,
-    trailingNewline: !0,
+    trailingNewline: true,
   }).write(r);
 }
 function rin(e) {
@@ -268,11 +268,11 @@ function rin(e) {
 function EMt(e) {
   if (ho("themes")) return () => {};
   let t = GE.watch(V_e(), {
-    persistent: !0,
-    ignoreInitial: !0,
+    persistent: true,
+    ignoreInitial: true,
     depth: 0,
     awaitWriteFinish: { stabilityThreshold: 300, pollInterval: 100 },
-    ignorePermissionErrors: !0,
+    ignorePermissionErrors: true,
   });
   return (
     t.on("add", e),

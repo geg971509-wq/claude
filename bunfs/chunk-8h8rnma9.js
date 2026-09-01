@@ -89,7 +89,7 @@ async function w(t, e) {
   } catch (f) {
     return v(t, f), { alwaysOn: "", onInvoke: "" };
   }
-  let { frontmatter: o, content: r } = ni(s, t, { normalizeKeys: !0 }),
+  let { frontmatter: o, content: r } = ni(s, t, { normalizeKeys: true }),
     a = i$(o.description, e) ?? pee(r, "Skill"),
     i = o.when_to_use != null ? String(o.when_to_use) : void 0;
   return { alwaysOn: pln({ name: e, description: a, whenToUse: i }), onInvoke: r.trim() };
@@ -158,7 +158,7 @@ async function C(t) {
     if (!o) continue;
     let r;
     try {
-      r = await p.readdir(o, { withFileTypes: !0 });
+      r = await p.readdir(o, { withFileTypes: true });
     } catch (a) {
       v(o, a);
       continue;
@@ -198,7 +198,7 @@ async function T(t) {
     } catch {}
     let a;
     try {
-      a = await p.readdir(r, { withFileTypes: !0 });
+      a = await p.readdir(r, { withFileTypes: true });
     } catch (i) {
       v(r, i);
       continue;

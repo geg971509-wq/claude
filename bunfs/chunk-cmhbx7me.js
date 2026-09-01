@@ -25,7 +25,7 @@ function Rke(u, r) {
   };
 }
 function kke(u, r) {
-  return u !== null && (!r || u.exemptFromDiffPanelHold === !0);
+  return u !== null && (!r || u.exemptFromDiffPanelHold === true);
 }
 var x = 8000,
   h = yn(null);
@@ -49,7 +49,7 @@ function Or() {
         let t =
           o.notifications.current !== null &&
           n.priority === "immediate" &&
-          n.heldDuringDiffPanel === !0 &&
+          n.heldDuringDiffPanel === true &&
           o.notifications.current.priority !== "immediate"
             ? o.notifications.current
             : null;
@@ -114,7 +114,7 @@ function Or() {
             }));
           return;
         }
-        let n = o.priority === "immediate" ? { ...o, heldDuringDiffPanel: !0 } : o;
+        let n = o.priority === "immediate" ? { ...o, heldDuringDiffPanel: true } : o;
         r((t) => {
           if (n.fold && t.notifications.current?.key === n.key) {
             let f = n.fold(t.notifications.current, n);
@@ -180,7 +180,7 @@ function Or() {
 var Hke = { immediate: 0, high: 1, medium: 2, low: 3 };
 function g(u, r) {
   return (
-    (u.priority !== "immediate" || u.requeueOnPreempt === !0 || u.heldDuringDiffPanel === !0) &&
+    (u.priority !== "immediate" || u.requeueOnPreempt === true || u.heldDuringDiffPanel === true) &&
     !r.invalidates?.includes(u.key)
   );
 }

@@ -348,7 +348,7 @@ function Ee(e, n, t) {
     l = se(t, r),
     g = oe(),
     d = ae(),
-    w = typeof Bun < "u" && !0,
+    w = typeof Bun < "u" && true,
     h = uo(e),
     _ = a.CLAUDE_CODE_ENTRYPOINT === void 0 ? "cli" : (Sm() ?? "other"),
     p = R6(),
@@ -411,18 +411,18 @@ var ge = new Set(["APIUserAbortError", "AuthenticationError", "McpSessionExpired
 function Se(e) {
   let n = E(e, 20),
     t = n[0];
-  if (!t || n.some(T)) return !1;
+  if (!t || n.some(T)) return false;
   return _e.some((r) => t.file === r.topFile && t.function === r.topFunction);
 }
 function Re() {
   return (
-    a.CLAUDE_CODE_REMOTE === !0 ||
+    a.CLAUDE_CODE_REMOTE === true ||
     Boolean(a.CLAUDE_CODE_REMOTE_SESSION_ID) ||
     Boolean(a.CLAUDE_CODE_REMOTE_ENVIRONMENT_TYPE)
   );
 }
 function ke(e, n) {
-  if (ge.has(n)) return !0;
+  if (ge.has(n)) return true;
   if (
     uP() &&
     !Re() &&
@@ -432,7 +432,7 @@ function ke(e, n) {
     (e.syscall === "mkdir" || e.syscall === "open") &&
     D() !== "windows"
   )
-    return !0;
+    return true;
   let t = e.message ?? "";
   return he.some(
     (r) =>

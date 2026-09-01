@@ -376,7 +376,7 @@ import { d } from "/$bunfs/root/chunk-yz031c9r.js";
 import { resolve as so } from "path";
 F();
 import { join as ce, resolve as ao } from "path";
-function le(s, { backstop: a = !1 } = {}) {
+function le(s, { backstop: a = false } = {}) {
   return (
     s.allowRules.sources.length > 0 ||
     s.additionalDirectories.sources.length > 0 ||
@@ -432,7 +432,7 @@ function E(gt) {
     { message: Fe, args: He, onDone: pt } = gt;
   Yn(pt, 0);
   let ue;
-  if (Le[0] !== He) (ue = r(t, { dimColor: !0, children: [L.pointer, " /cd ", He] })), (Le[0] = He), (Le[1] = ue);
+  if (Le[0] !== He) (ue = r(t, { dimColor: true, children: [L.pointer, " /cd ", He] })), (Le[0] = He), (Le[1] = ue);
   else ue = Le[1];
   let pe;
   if (Le[2] !== Fe) (pe = e(Pe, { children: e(t, { children: Fe }) })), (Le[2] = Fe), (Le[3] = pe);
@@ -446,8 +446,8 @@ function E(gt) {
 function W(mt) {
   let R = _(33),
     { directory: Xe, trustRoot: me, disclosures: oe, backstop: lo, onConfirm: Ae, onCancel: Ve } = mt,
-    x = lo === void 0 ? !1 : lo,
-    uo = C(!1),
+    x = lo === void 0 ? false : lo,
+    uo = C(false),
     go;
   if (R[0] === d) (go = Date.now()), (R[0] = go);
   else go = R[0];
@@ -458,7 +458,7 @@ function W(mt) {
       if (uo.current || bc(ft.current, Fi)) {
         return;
       }
-      (uo.current = !0), ht();
+      (uo.current = true), ht();
     }),
       (R[1] = po);
   else po = R[1];
@@ -468,7 +468,7 @@ function W(mt) {
   if (R[2] !== Xe) (ye = nr(Xe)), (R[2] = Xe), (R[3] = ye);
   else ye = R[3];
   let ve;
-  if (R[4] !== ye) (ve = e(t, { bold: !0, children: ye })), (R[4] = ye), (R[5] = ve);
+  if (R[4] !== ye) (ve = e(t, { bold: true, children: ye })), (R[4] = ye), (R[5] = ve);
   else ve = R[5];
   let Ce;
   if (R[6] !== me)
@@ -478,7 +478,7 @@ function W(mt) {
         children: [
           "This directory is part of the repository at",
           " ",
-          e(t, { bold: !0, children: nr(me) }),
+          e(t, { bold: true, children: nr(me) }),
           ". Trusting it trusts that whole repository, including its other worktrees and subdirectories.",
         ],
       })),
@@ -517,7 +517,7 @@ function W(mt) {
   let fo;
   if (R[13] === d)
     (fo = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: e(ut, { url: "https://code.claude.com/docs/en/security", children: "Security guide" }),
     })),
       (R[13] = fo);
@@ -533,8 +533,8 @@ function W(mt) {
   let Me;
   if (R[18] !== Ue || R[19] !== Ee || R[20] !== je || R[21] !== Re)
     (Me = e(wn, {
-      hideIndexes: !0,
-      cancelFirst: !0,
+      hideIndexes: true,
+      cancelFirst: true,
       focus: "cancel",
       confirmLabel: Ue,
       cancelLabel: Ee,
@@ -551,7 +551,7 @@ function W(mt) {
   let ho;
   if (R[23] === d)
     (ho = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: r(fe, {
         children: [e(M, { chord: "enter", action: "confirm" }), e(M, { chord: "escape", action: "cancel" })],
       }),
@@ -586,10 +586,10 @@ function Je(yt) {
     (Ge =
       P.sources.length > 0 &&
       r(t, {
-        bold: !0,
+        bold: true,
         color: "warning",
         children: [
-          e(tt, { status: "warning", withSpace: !0 }),
+          e(tt, { status: "warning", withSpace: true }),
           "This directory pre-approves ",
           P.rawCount,
           " ",
@@ -612,10 +612,10 @@ function Je(yt) {
     (xe =
       D.sources.length > 0 &&
       r(t, {
-        bold: !0,
+        bold: true,
         color: "warning",
         children: [
-          e(tt, { status: "warning", withSpace: !0 }),
+          e(tt, { status: "warning", withSpace: true }),
           "This directory grants access to ",
           D.rawCount,
           " ",
@@ -641,10 +641,10 @@ function Je(yt) {
       !H &&
       De.length > 0 &&
       r(t, {
-        bold: !0,
+        bold: true,
         color: "warning",
         children: [
-          e(tt, { status: "warning", withSpace: !0 }),
+          e(tt, { status: "warning", withSpace: true }),
           "This directory configures hooks that run commands, declared in",
           " ",
           Eb(De),
@@ -660,10 +660,10 @@ function Je(yt) {
       !H &&
       Te.length > 0 &&
       r(t, {
-        bold: !0,
+        bold: true,
         color: "warning",
         children: [
-          e(tt, { status: "warning", withSpace: !0 }),
+          e(tt, { status: "warning", withSpace: true }),
           "This directory runs commands on the session",
           "'",
           "s behalf (auth / header helpers), declared in",
@@ -679,7 +679,7 @@ function Je(yt) {
     ? "These apply to this session only if you trust it. Only proceed if you trust this configuration."
     : "These will apply to this session as soon as you move. Only proceed if you trust this configuration.";
   let $e;
-  if (q[14] !== Ye) ($e = e(t, { dimColor: !0, children: Ye })), (q[14] = Ye), (q[15] = $e);
+  if (q[14] !== Ye) ($e = e(t, { dimColor: true, children: Ye })), (q[14] = Ye), (q[15] = $e);
   else $e = q[15];
   let vo;
   if (q[16] !== Ge || q[17] !== xe || q[18] !== Ne || q[19] !== ke || q[20] !== $e)
@@ -906,7 +906,7 @@ function ne(We) {
     let B;
     if (V[2] !== K || V[3] !== j.pending.pendingServers.length)
       (B = (wo) => {
-        if ((Mt(wo), Pt(!0), j.pending.pendingServers.length === 0)) K(wo);
+        if ((Mt(wo), Pt(true), j.pending.pendingServers.length === 0)) K(wo);
       }),
         (V[2] = K),
         (V[3] = j.pending.pendingServers.length),
@@ -941,7 +941,7 @@ function ne(We) {
     else z = V[12];
     let jo;
     if (V[13] !== J || V[14] !== ro || V[15] !== Z || V[16] !== _e || V[17] !== z)
-      (jo = e(W, { backstop: !0, directory: J, trustRoot: Z, disclosures: ro, onConfirm: _e, onCancel: z })),
+      (jo = e(W, { backstop: true, directory: J, trustRoot: Z, disclosures: ro, onConfirm: _e, onCancel: z })),
         (V[13] = J),
         (V[14] = ro),
         (V[15] = Z),

@@ -112,7 +112,7 @@ async function H(e, i, r) {
           auth: "teleport-org",
           headers: { "anthropic-beta": ud },
           timeout: 1e4,
-          validateStatus: () => !0,
+          validateStatus: () => true,
           credentials: r,
         },
       )

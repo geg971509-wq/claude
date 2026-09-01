@@ -35,7 +35,7 @@ var qTr = [
   GTr = "CLAUDE_CODE_WORKFLOW_LAUNCH_SHA256",
   I = /^(?!\.+$)[A-Za-z0-9._-]{1,128}$/;
 function pNn(e) {
-  let t = (l) => ({ ok: !1, error: l }),
+  let t = (l) => ({ ok: false, error: l }),
     r = e.filestore_path;
   if (typeof r !== "string" || r.length === 0) return t("filestore_path is missing or not a non-empty string");
   if (!r.startsWith(UYt) || !I.test(r.slice(UYt.length)))
@@ -48,7 +48,7 @@ function pNn(e) {
     return t("bundle_size_bytes is missing or not a positive integer");
   if (o > vHt) return t(`bundle_size_bytes exceeds ${vHt}`);
   return {
-    ok: !0,
+    ok: true,
     pointer: {
       workflowName:
         typeof e.workflow_name === "string"
@@ -67,18 +67,18 @@ function adr(e, t) {
 }
 var fNn = 1;
 function ldr(e) {
-  let t = (l) => ({ ok: !1, error: l });
+  let t = (l) => ({ ok: false, error: l });
   if (e.length < 1) return t("bundle is empty");
   if (e[0] !== fNn) return t(`unsupported bundle format version ${e[0]} (expected ${fNn})`);
   let r = 1,
     n = (l, f) => {
-      if (r + 8 > e.length) return { ok: !1, error: `bundle truncated in ${f} length frame` };
+      if (r + 8 > e.length) return { ok: false, error: `bundle truncated in ${f} length frame` };
       let k = e.readBigUInt64BE(r);
-      if (((r += 8), k > BigInt(l))) return { ok: !1, error: `${f} frame exceeds ${l} bytes` };
+      if (((r += 8), k > BigInt(l))) return { ok: false, error: `${f} frame exceeds ${l} bytes` };
       let d = Number(k);
-      if (r + d > e.length) return { ok: !1, error: `bundle truncated in ${f} frame` };
+      if (r + d > e.length) return { ok: false, error: `bundle truncated in ${f} frame` };
       let _ = e.subarray(r, r + d);
-      return (r += d), { ok: !0, buf: _ };
+      return (r += d), { ok: true, buf: _ };
     },
     o = n(dm, "script");
   if (!o.ok) return t(o.error);
@@ -86,7 +86,7 @@ function ldr(e) {
   let u = n(vHt, "args_json");
   if (!u.ok) return t(u.error);
   if (r !== e.length) return t(`bundle has ${e.length - r} trailing bytes`);
-  return { ok: !0, script: o.buf.toString("utf8"), argsJson: u.buf.toString("utf8") };
+  return { ok: true, script: o.buf.toString("utf8"), argsJson: u.buf.toString("utf8") };
 }
 function zTr(e = null) {
   return { ledger: new Map(), firstLaunch: null, restoredRecord: e };
@@ -133,9 +133,9 @@ async function D(e) {
     (await jt(
       Promise.resolve()
         .then(() => e.flushRecord())
-        .catch(() => !1),
+        .catch(() => false),
       e.recordFlushBoundMs ?? cdr,
-    )) === !0
+    )) === true
   );
 }
 var udr = [1000, 3000],
@@ -149,7 +149,7 @@ function A(e, t, r) {
 function F(e, t, r, n) {
   A(e, C2e(t, r), n),
     Y("warn", "workflow_launch_failed", { layer: t }),
-    s("tengu_workflow_launch_event", { ok: !1, layer: c(t) });
+    s("tengu_workflow_launch_event", { ok: false, layer: c(t) });
 }
 function S(e, t, r, n) {
   F(e, t, r, n), p("workflow_event_launch", t);
@@ -160,7 +160,7 @@ function W(e, t, r, n, o) {
 async function B(e, t, r, n, o) {
   let u = t.event_uuid;
   e.state.ledger.set(u, { eventUuid: u, outcome: "failed-final" }),
-    e.persistRecord({ ...t, settled: !0 }),
+    e.persistRecord({ ...t, settled: true }),
     await D(e),
     S(e, r, n, o),
     e.ackProcessed(u);
@@ -234,7 +234,7 @@ async function M(e, t, r, n, o) {
       await _("args-parse", `args_json is not valid JSON: ${h instanceof Error ? h.message : String(h)}`);
       return;
     }
-  (e.state.firstLaunch = t), e.persistRecord(k(!1));
+  (e.state.firstLaunch = t), e.persistRecord(k(false));
   let T = await D(e);
   if (o && !T) {
     u.delete(l),
@@ -249,12 +249,12 @@ async function M(e, t, r, n, o) {
     args: x,
     postResultLine: (h) => A(e, h, n),
     onRunSettled: async (h) => {
-      if (((t.outcome = h ? "executed" : "run-failed"), e.persistRecord(k(!0)), !(await D(e)))) e.persistRecord(k(!0));
+      if (((t.outcome = h ? "executed" : "run-failed"), e.persistRecord(k(true)), !(await D(e)))) e.persistRecord(k(true));
     },
   }),
     e.prependUserMessage(`/workflow-launch-exec ${U}`),
     e.ackProcessed(l),
-    s("tengu_workflow_launch_event", { ok: !0, attempt: f }),
+    s("tengu_workflow_launch_event", { ok: true, attempt: f }),
     y("workflow_event_launch"),
     Y("info", "workflow_launch_dispatched", { attempt: f });
 }
@@ -262,7 +262,7 @@ function C(e, t) {
   let r = { eventUuid: t.event_uuid, outcome: "failed-final" };
   e.state.ledger.set(t.event_uuid, r),
     (e.state.firstLaunch ??= r),
-    e.persistRecord({ ...t, settled: !0 }),
+    e.persistRecord({ ...t, settled: true }),
     e.ackProcessed(t.event_uuid),
     Y("warn", "workflow_launch_attempts_spent", { attempts: t.attempts }),
     g("workflow_event_launch", "attempts_spent");
@@ -303,7 +303,7 @@ async function KTr(e, t) {
       return;
     }
   }
-  let _ = Uke({ serverAuthoredCarrier: !0 });
+  let _ = Uke({ serverAuthoredCarrier: true });
   if (_) {
     if (d) {
       await B(t, d, "policy-gate", _, f);
@@ -351,7 +351,7 @@ async function XTr(e) {
     return;
   }
   let u = { launchUuid: t.event_uuid, artifactSha256: t.artifact_sha256 },
-    l = Uke({ serverAuthoredCarrier: !0 });
+    l = Uke({ serverAuthoredCarrier: true });
   if (l) {
     await B(e, t, "policy-gate", l, u);
     return;

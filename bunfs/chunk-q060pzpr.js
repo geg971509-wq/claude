@@ -71,7 +71,7 @@ function x(e) {
 }
 var b = m(() =>
   f({
-    success: N(!0),
+    success: N(true),
     pin: f({
       name: i().min(1).max(DT),
       id: i()

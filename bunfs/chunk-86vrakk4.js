@@ -155,7 +155,7 @@ var nt = S(function (cu, tt) {
         {
           beginKeywords: "function",
           end: /[{;]/,
-          excludeEnd: !0,
+          excludeEnd: true,
           illegal: /\S/,
           contains: [
             e.inherit(e.TITLE_MODE, { className: "title.function" }),
@@ -189,17 +189,17 @@ var rt = S(function (lu, at) {
         end: "\\s*(:=|;|\\)|=>|$)",
         illegal: `[]\\{\\}%#'"`,
         contains: [
-          { beginKeywords: "loop for declare others", endsParent: !0 },
+          { beginKeywords: "loop for declare others", endsParent: true },
           {
             className: "keyword",
             beginKeywords: "not null constant access function procedure in out aliased exception",
           },
-          { className: "type", begin: "[A-Za-z](_?[A-Za-z0-9.])*", endsParent: !0, relevance: 0 },
+          { className: "type", begin: "[A-Za-z](_?[A-Za-z0-9.])*", endsParent: true, relevance: 0 },
         ],
       };
     return {
       name: "Ada",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         keyword: [
           "abort",
@@ -287,23 +287,23 @@ var rt = S(function (lu, at) {
           begin: "(\\bwith\\s+)?(\\bprivate\\s+)?\\bpackage\\s+(\\bbody\\s+)?",
           end: "(is|$)",
           keywords: "package body",
-          excludeBegin: !0,
-          excludeEnd: !0,
+          excludeBegin: true,
+          excludeEnd: true,
           illegal: `[]\\{\\}%#'"`,
         },
         {
           begin: "(\\b(with|overriding)\\s+)?\\b(function|procedure)\\s+",
           end: "(\\bis|\\bwith|\\brenames|\\)\\s*;)",
           keywords: "overriding function procedure with is renames return",
-          returnBegin: !0,
+          returnBegin: true,
           contains: [
             l,
             {
               className: "title",
               begin: "(\\bwith\\s+)?\\b(function|procedure)\\s+",
               end: "(\\(|\\s+|$)",
-              excludeBegin: !0,
-              excludeEnd: !0,
+              excludeBegin: true,
+              excludeEnd: true,
               illegal: `[]\\{\\}%#'"`,
             },
             d,
@@ -312,9 +312,9 @@ var rt = S(function (lu, at) {
               begin: "\\breturn\\s+",
               end: "(\\s+|;|$)",
               keywords: "return",
-              excludeBegin: !0,
-              excludeEnd: !0,
-              endsParent: !0,
+              excludeBegin: true,
+              excludeEnd: true,
+              endsParent: true,
               illegal: `[]\\{\\}%#'"`,
             },
           ],
@@ -324,7 +324,7 @@ var rt = S(function (lu, at) {
           begin: "\\b(sub)?type\\s+",
           end: "\\s+",
           keywords: "type",
-          excludeBegin: !0,
+          excludeBegin: true,
           illegal: `[]\\{\\}%#'"`,
         },
         d,
@@ -445,7 +445,7 @@ var ct = S(function (pu, ot) {
     return {
       name: "Apache config",
       aliases: ["apacheconf"],
-      case_insensitive: !0,
+      case_insensitive: true,
       contains: [
         e.HASH_COMMENT_MODE,
         {
@@ -873,7 +873,7 @@ var mt = S(function (_u, pt) {
     let l = i.contains.concat([e.C_BLOCK_COMMENT_MODE, e.C_LINE_COMMENT_MODE]);
     return {
       name: "ArcGIS Arcade",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: a,
       contains: [
         e.APOS_STRING_MODE,
@@ -889,7 +889,7 @@ var mt = S(function (_u, pt) {
           contains: [
             {
               begin: "[A-Za-z_][0-9A-Za-z_]*\\s*:",
-              returnBegin: !0,
+              returnBegin: true,
               relevance: 0,
               contains: [{ className: "attr", begin: "[A-Za-z_][0-9A-Za-z_]*", relevance: 0 }],
             },
@@ -905,7 +905,7 @@ var mt = S(function (_u, pt) {
             {
               className: "function",
               begin: "(\\(.*?\\)|[A-Za-z_][0-9A-Za-z_]*)\\s*=>",
-              returnBegin: !0,
+              returnBegin: true,
               end: "\\s*=>",
               contains: [
                 {
@@ -913,7 +913,7 @@ var mt = S(function (_u, pt) {
                   variants: [
                     { begin: "[A-Za-z_][0-9A-Za-z_]*" },
                     { begin: /\(\s*\)/ },
-                    { begin: /\(/, end: /\)/, excludeBegin: !0, excludeEnd: !0, keywords: a, contains: l },
+                    { begin: /\(/, end: /\)/, excludeBegin: true, excludeEnd: true, keywords: a, contains: l },
                   ],
                 },
               ],
@@ -924,10 +924,10 @@ var mt = S(function (_u, pt) {
         {
           beginKeywords: "function",
           end: /\{/,
-          excludeEnd: !0,
+          excludeEnd: true,
           contains: [
             e.inherit(e.TITLE_MODE, { className: "title.function", begin: "[A-Za-z_][0-9A-Za-z_]*" }),
-            { className: "params", begin: /\(/, end: /\)/, excludeBegin: !0, excludeEnd: !0, contains: l },
+            { className: "params", begin: /\(/, end: /\)/, excludeBegin: true, excludeEnd: true, contains: l },
           ],
           illegal: /\[|%/,
         },
@@ -1294,16 +1294,16 @@ var ut = S(function (uu, _t) {
       D = {
         className: "function",
         begin: "(" + r + "[\\*&\\s]+)+" + _,
-        returnBegin: !0,
+        returnBegin: true,
         end: /[{;=]/,
-        excludeEnd: !0,
+        excludeEnd: true,
         keywords: N,
         illegal: /[^\w\s\*&:<>.]/,
         contains: [
           { begin: "decltype\\(auto\\)", keywords: N, relevance: 0 },
-          { begin: _, returnBegin: !0, contains: [p], relevance: 0 },
+          { begin: _, returnBegin: true, contains: [p], relevance: 0 },
           { begin: /::/, relevance: 0 },
-          { begin: /:/, endsWithParent: !0, contains: [l, d] },
+          { begin: /:/, endsWithParent: true, contains: [l, d] },
           { relevance: 0, match: /,/ },
           {
             className: "params",
@@ -1736,7 +1736,7 @@ var gt = S(function (Eu, Et) {
   function Jc(e) {
     let t = {
       variants: [
-        e.COMMENT("^[ \\t]*(?=#)", "$", { relevance: 0, excludeBegin: !0 }),
+        e.COMMENT("^[ \\t]*(?=#)", "$", { relevance: 0, excludeBegin: true }),
         e.COMMENT("[;@]", "$", { relevance: 0 }),
         e.C_LINE_COMMENT_MODE,
         e.C_BLOCK_COMMENT_MODE,
@@ -1744,7 +1744,7 @@ var gt = S(function (Eu, Et) {
     };
     return {
       name: "ARM Assembly",
-      case_insensitive: !0,
+      case_insensitive: true,
       aliases: ["arm"],
       keywords: {
         $pattern: "\\.?" + e.IDENT_RE,
@@ -1839,7 +1839,7 @@ var ft = S(function (gu, bt) {
           relevance: 10,
           variants: [{ begin: "^(={1,6})[ \t].+?([ \t]\\1)?$" }, { begin: "^[^\\[\\]\\n]+?\\n[=\\-~\\^\\+]{2,}$" }],
         },
-        { className: "meta", begin: "^:.+?:", end: "\\s", excludeEnd: !0, relevance: 10 },
+        { className: "meta", begin: "^:.+?:", end: "\\s", excludeEnd: true, relevance: 10 },
         { className: "meta", begin: "^\\[.+?\\]$", relevance: 0 },
         { className: "quote", begin: "^_{4,}\\n", end: "\\n_{4,}$", relevance: 10 },
         { className: "code", begin: "^[\\-\\.]{4,}\\n", end: "\\n[\\-\\.]{4,}$", relevance: 10 },
@@ -1861,11 +1861,11 @@ var ft = S(function (gu, bt) {
         n,
         {
           begin: "(link:)?(http|https|ftp|file|irc|image:?):\\S+?\\[[^[]*?\\]",
-          returnBegin: !0,
+          returnBegin: true,
           contains: [
             { begin: "(link|image:?):", relevance: 0 },
             { className: "link", begin: "\\w", end: "[^\\[]+", relevance: 0 },
-            { className: "string", begin: "\\[", end: "\\]", excludeBegin: !0, excludeEnd: !0, relevance: 0 },
+            { className: "string", begin: "\\[", end: "\\]", excludeBegin: true, excludeEnd: true, relevance: 0 },
           ],
           relevance: 10,
         },
@@ -1974,19 +1974,19 @@ var Nt = S(function (bu, Tt) {
           className: "class",
           beginKeywords: "aspect",
           end: /[{;=]/,
-          excludeEnd: !0,
+          excludeEnd: true,
           illegal: /[:;"\[\]]/,
           contains: [
             { beginKeywords: "extends implements pertypewithin perthis pertarget percflowbelow percflow issingleton" },
             e.UNDERSCORE_TITLE_MODE,
-            { begin: /\([^\)]*/, end: /[)]+/, keywords: n.concat(a), excludeEnd: !1 },
+            { begin: /\([^\)]*/, end: /[)]+/, keywords: n.concat(a), excludeEnd: false },
           ],
         },
         {
           className: "class",
           beginKeywords: "class interface",
           end: /[{;=]/,
-          excludeEnd: !0,
+          excludeEnd: true,
           relevance: 0,
           keywords: "class interface",
           illegal: /[:"\[\]]/,
@@ -1995,18 +1995,18 @@ var Nt = S(function (bu, Tt) {
         {
           beginKeywords: "pointcut after before around throwing returning",
           end: /[)]/,
-          excludeEnd: !1,
+          excludeEnd: false,
           illegal: /["\[\]]/,
           contains: [
-            { begin: t.concat(e.UNDERSCORE_IDENT_RE, /\s*\(/), returnBegin: !0, contains: [e.UNDERSCORE_TITLE_MODE] },
+            { begin: t.concat(e.UNDERSCORE_IDENT_RE, /\s*\(/), returnBegin: true, contains: [e.UNDERSCORE_TITLE_MODE] },
           ],
         },
         {
           begin: /[:]/,
-          returnBegin: !0,
+          returnBegin: true,
           end: /[{;]/,
           relevance: 0,
-          excludeEnd: !1,
+          excludeEnd: false,
           keywords: n,
           illegal: /["\[\]]/,
           contains: [
@@ -2018,14 +2018,14 @@ var Nt = S(function (bu, Tt) {
         {
           className: "function",
           begin: /\w+ +\w+(\.\w+)?\s*\([^\)]*\)\s*((throws)[\w\s,]+)?[\{;]/,
-          returnBegin: !0,
+          returnBegin: true,
           end: /[{;=]/,
           keywords: n,
-          excludeEnd: !0,
+          excludeEnd: true,
           contains: [
             {
               begin: t.concat(e.UNDERSCORE_IDENT_RE, /\s*\(/),
-              returnBegin: !0,
+              returnBegin: true,
               relevance: 0,
               contains: [e.UNDERSCORE_TITLE_MODE],
             },
@@ -2053,7 +2053,7 @@ var At = S(function (fu, St) {
     let t = { begin: "`[\\s\\S]" };
     return {
       name: "AutoHotkey",
-      case_insensitive: !0,
+      case_insensitive: true,
       aliases: ["ahk"],
       keywords: {
         keyword:
@@ -2156,7 +2156,7 @@ var Ot = S(function (Tu, Rt) {
       };
     return {
       name: "AutoIt",
-      case_insensitive: !0,
+      case_insensitive: true,
       illegal: /\/\*/,
       keywords: {
         keyword: t,
@@ -2173,7 +2173,7 @@ var It = S(function (Nu, vt) {
   function al(e) {
     return {
       name: "AVR Assembly",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         $pattern: "\\.?" + e.IDENT_RE,
         keyword:
@@ -2405,7 +2405,7 @@ var Lt = S(function (Ru, Dt) {
       E = {
         className: "function",
         begin: /\w[\w\d_]*\s*\(\s*\)\s*\{/,
-        returnBegin: !0,
+        returnBegin: true,
         contains: [e.inherit(e.TITLE_MODE, { begin: /\w[\w\d_]*/ })],
         relevance: 0,
       },
@@ -2665,7 +2665,7 @@ var xt = S(function (Ou, wt) {
   function ol(e) {
     return {
       name: "BASIC",
-      case_insensitive: !0,
+      case_insensitive: true,
       illegal: "^.",
       keywords: {
         $pattern: "[a-zA-Z][a-zA-Z0-9_$%!#]*",
@@ -2893,7 +2893,7 @@ var Bt = S(function (Iu, Ut) {
       contains: [
         e.COMMENT(/[^\[\]\.,\+\-<> \r\n]/, /[\[\]\.,\+\-<> \r\n]/, {
           contains: [{ match: /[ ]+[^\[\]\.,\+\-<> \r\n]/, relevance: 0 }],
-          returnEnd: !0,
+          returnEnd: true,
           relevance: 0,
         }),
         { className: "title", begin: "[\\[\\]]", relevance: 0 },
@@ -3048,14 +3048,14 @@ var Ft = S(function (Cu, Gt) {
       },
       A = {
         begin: "(" + r + "[\\*&\\s]+)+" + _,
-        returnBegin: !0,
+        returnBegin: true,
         end: /[{;=]/,
-        excludeEnd: !0,
+        excludeEnd: true,
         keywords: b,
         illegal: /[^\w\s\*&:<>.]/,
         contains: [
           { begin: "decltype\\(auto\\)", keywords: b, relevance: 0 },
-          { begin: _, returnBegin: !0, contains: [e.inherit(p, { className: "title.function" })], relevance: 0 },
+          { begin: _, returnBegin: true, contains: [e.inherit(p, { className: "title.function" })], relevance: 0 },
           { relevance: 0, match: /,/ },
           {
             className: "params",
@@ -3088,7 +3088,7 @@ var Ft = S(function (Cu, Gt) {
       name: "C",
       aliases: ["h"],
       keywords: b,
-      disableAutodetect: !0,
+      disableAutodetect: true,
       illegal: "</",
       contains: [].concat(v, A, f, [
         m,
@@ -3159,7 +3159,7 @@ var Ht = S(function (yu, qt) {
       };
     return {
       name: "C/AL",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: { keyword: n, literal: "false true" },
       illegal: /\/\*/,
       contains: [{ match: /[\w]+(?=\=)/, scope: "attribute", relevance: 0 }, o, r, i, c, e.NUMBER_MODE, m, l],
@@ -3296,7 +3296,7 @@ var Vt = S(function (Mu, Kt) {
         "small",
       ],
       a = ["doc", "by", "license", "see", "throws", "tagged"],
-      s = { className: "subst", excludeBegin: !0, excludeEnd: !0, begin: /``/, end: /``/, keywords: t, relevance: 10 },
+      s = { className: "subst", excludeBegin: true, excludeEnd: true, begin: /``/, end: /``/, keywords: t, relevance: 10 },
       o = [
         { className: "string", begin: '"""', end: '"""', relevance: 10 },
         { className: "string", begin: '"', end: '"', contains: [s] },
@@ -3415,7 +3415,7 @@ var Zt = S(function (Lu, Xt) {
       _ = { begin: "\\[|(#::?" + n + ")?\\{", end: "[\\]\\}]", relevance: 0 },
       E = { className: "symbol", begin: "[:]{1,2}" + n },
       u = { begin: "\\(", end: "\\)" },
-      b = { endsWithParent: !0, relevance: 0 },
+      b = { endsWithParent: true, relevance: 0 },
       f = { keywords: s, className: "name", begin: n, relevance: 0, starts: b },
       v = [d, u, i, c, l, m, E, _, r, p, o],
       A = {
@@ -3425,7 +3425,7 @@ var Zt = S(function (Lu, Xt) {
           keyword: "def defonce defprotocol defstruct defmulti defmethod defn- defn defmacro deftype defrecord",
         },
         end: '(\\[|#|\\d|"|:|\\{|\\)|\\(|$)',
-        contains: [{ className: "title", begin: n, relevance: 0, excludeEnd: !0, endsParent: !0 }].concat(v),
+        contains: [{ className: "title", begin: n, relevance: 0, excludeEnd: true, endsParent: true }].concat(v),
       };
     return (
       (u.contains = [A, f, b]),
@@ -3452,7 +3452,7 @@ var en = S(function (xu, jt) {
     return {
       name: "CMake",
       aliases: ["cmake.in"],
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         keyword:
           "break cmake_host_system_information cmake_minimum_required cmake_parse_arguments cmake_policy configure_file continue elseif else endforeach endfunction endif endmacro endwhile execute_process file find_file find_library find_package find_path find_program foreach function get_cmake_property get_directory_property get_filename_component get_property if include include_guard list macro mark_as_advanced math message option return separate_arguments set_directory_properties set_property set site_name string unset variable_watch while add_compile_definitions add_compile_options add_custom_command add_custom_target add_definitions add_dependencies add_executable add_library add_link_options add_subdirectory add_test aux_source_directory build_command create_test_sourcelist define_property enable_language enable_testing export fltk_wrap_ui get_source_file_property get_target_property get_test_property include_directories include_external_msproject include_regular_expression install link_directories link_libraries load_cache project qt_wrap_cpp qt_wrap_ui remove_definitions set_source_files_properties set_target_properties set_tests_properties source_group target_compile_definitions target_compile_features target_compile_options target_include_directories target_link_directories target_link_libraries target_link_options target_sources try_compile try_run ctest_build ctest_configure ctest_coverage ctest_empty_binary_directory ctest_memcheck ctest_read_custom_files ctest_run_script ctest_sleep ctest_start ctest_submit ctest_test ctest_update ctest_upload build_name exec_program export_library_dependencies install_files install_programs install_targets load_command make_directory output_required_files remove subdir_depends subdirs use_mangled_mesa utility_source variable_requires write_file qt5_use_modules qt5_use_package qt5_wrap_cpp on off true false and or not command policy target test exists is_newer_than is_directory is_symlink is_absolute matches less greater equal less_equal greater_equal strless strgreater strequal strless_equal strgreater_equal version_less version_greater version_equal version_less_equal version_greater_equal in_list defined",
@@ -3614,8 +3614,8 @@ var nn = S(function (ku, tn) {
         { begin: "@[A-Za-z$_][0-9A-Za-z$_]*" },
         {
           subLanguage: "javascript",
-          excludeBegin: !0,
-          excludeEnd: !0,
+          excludeBegin: true,
+          excludeEnd: true,
           variants: [
             { begin: "```", end: "```" },
             { begin: "`", end: "`" },
@@ -3628,7 +3628,7 @@ var nn = S(function (ku, tn) {
       p = {
         className: "params",
         begin: "\\([^\\(]",
-        returnBegin: !0,
+        returnBegin: true,
         contains: [{ begin: /\(/, end: /\)/, keywords: r, contains: ["self"].concat(l) }],
       },
       _ = {
@@ -3652,16 +3652,16 @@ var nn = S(function (ku, tn) {
           className: "function",
           begin: "^\\s*[A-Za-z$_][0-9A-Za-z$_]*\\s*=\\s*" + m,
           end: "[-=]>",
-          returnBegin: !0,
+          returnBegin: true,
           contains: [d, p],
         },
         {
           begin: /[:\(,=]\s*/,
           relevance: 0,
-          contains: [{ className: "function", begin: m, end: "[-=]>", returnBegin: !0, contains: [p] }],
+          contains: [{ className: "function", begin: m, end: "[-=]>", returnBegin: true, contains: [p] }],
         },
         _,
-        { begin: "[A-Za-z$_][0-9A-Za-z$_]*:", end: ":", returnBegin: !0, returnEnd: !0, relevance: 0 },
+        { begin: "[A-Za-z$_][0-9A-Za-z$_]*:", end: ":", returnBegin: true, returnEnd: true, relevance: 0 },
       ],
     };
   }
@@ -4090,7 +4090,7 @@ var rn = S(function (Pu, an) {
         e.QUOTE_STRING_MODE,
         e.COMMENT("\\(\\*", "\\*\\)"),
         e.C_NUMBER_MODE,
-        { className: "type", excludeBegin: !0, begin: "\\|\\s*", end: "\\w+" },
+        { className: "type", excludeBegin: true, begin: "\\|\\s*", end: "\\w+" },
         { begin: /[-=]>/ },
       ],
     };
@@ -4101,7 +4101,7 @@ var on = S(function (Uu, sn) {
   function Il(e) {
     return {
       name: "Cach\xE9 Object Script",
-      case_insensitive: !0,
+      case_insensitive: true,
       aliases: ["cls"],
       keywords:
         "property parameter class classmethod clientmethod extends as break catch close continue do d|0 else elseif for goto halt hang h|0 if job j|0 kill k|0 lock l|0 merge new open quit q|0 read r|0 return set s|0 tcommit throw trollback try tstart use view while write w|0 xecute x|0 zkill znspace zn ztrap zwrite zw zzdump zzwrite print zbreak zinsert zload zprint zremove zsave zzprint mv mvcall mvcrt mvdim mvprint zquit zsync ascii",
@@ -4116,8 +4116,8 @@ var on = S(function (Uu, sn) {
         { className: "built_in", begin: /%[a-z]+(?:\.[a-z]+)*/ },
         { className: "symbol", begin: /\^%?[a-zA-Z][\w]*/ },
         { className: "keyword", begin: /##class|##super|#define|#dim/ },
-        { begin: /&sql\(/, end: /\)/, excludeBegin: !0, excludeEnd: !0, subLanguage: "sql" },
-        { begin: /&(js|jscript|javascript)</, end: />/, excludeBegin: !0, excludeEnd: !0, subLanguage: "javascript" },
+        { begin: /&sql\(/, end: /\)/, excludeBegin: true, excludeEnd: true, subLanguage: "sql" },
+        { begin: /&(js|jscript|javascript)</, end: />/, excludeBegin: true, excludeEnd: true, subLanguage: "javascript" },
         { begin: /&html<\s*</, end: />\s*>/, subLanguage: "xml" },
       ],
     };
@@ -4480,16 +4480,16 @@ var ln = S(function (Bu, cn) {
       D = {
         className: "function",
         begin: "(" + r + "[\\*&\\s]+)+" + _,
-        returnBegin: !0,
+        returnBegin: true,
         end: /[{;=]/,
-        excludeEnd: !0,
+        excludeEnd: true,
         keywords: N,
         illegal: /[^\w\s\*&:<>.]/,
         contains: [
           { begin: "decltype\\(auto\\)", keywords: N, relevance: 0 },
-          { begin: _, returnBegin: !0, contains: [p], relevance: 0 },
+          { begin: _, returnBegin: true, contains: [p], relevance: 0 },
           { begin: /::/, relevance: 0 },
-          { begin: /:/, endsWithParent: !0, contains: [l, d] },
+          { begin: /:/, endsWithParent: true, contains: [l, d] },
           { relevance: 0, match: /,/ },
           {
             className: "params",
@@ -4556,7 +4556,7 @@ var pn = S(function (Gu, dn) {
     return {
       name: "crmsh",
       aliases: ["crm", "pcmk"],
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         keyword: "params meta operations op rule attributes utilization " + o + " number string",
         literal: "Master Started Slave Stopped start promote demote stop monitor true false",
@@ -4713,7 +4713,7 @@ var _n = S(function (Fu, mn) {
             e.inherit(e.TITLE_MODE, {
               begin:
                 "[a-zA-Z_]\\w*[!?=]?|[-+~]@|<<|>>|[=!]~|===?|<=>|[<>]=?|\\*\\*|[-/+%^&*~|]|//|//=|&[-+*]=?|&\\*\\*|\\[\\][=?]?",
-              endsParent: !0,
+              endsParent: true,
             }),
           ],
         },
@@ -4725,7 +4725,7 @@ var _n = S(function (Fu, mn) {
             e.inherit(e.TITLE_MODE, {
               begin:
                 "[a-zA-Z_]\\w*[!?=]?|[-+~]@|<<|>>|[=!]~|===?|<=>|[<>]=?|\\*\\*|[-/+%^&*~|]|//|//=|&[-+*]=?|&\\*\\*|\\[\\][=?]?",
-              endsParent: !0,
+              endsParent: true,
             }),
           ],
           relevance: 2,
@@ -4953,7 +4953,7 @@ var En = S(function (qu, un) {
       illegal: /::/,
       contains: [
         e.COMMENT("///", "$", {
-          returnBegin: !0,
+          returnBegin: true,
           contains: [
             {
               className: "doctag",
@@ -4995,29 +4995,29 @@ var En = S(function (qu, un) {
         {
           className: "meta",
           begin: "^\\s*\\[(?=[\\w])",
-          excludeBegin: !0,
+          excludeBegin: true,
           end: "\\]",
-          excludeEnd: !0,
+          excludeEnd: true,
           contains: [{ className: "string", begin: /"/, end: /"/ }],
         },
         { beginKeywords: "new return throw await else", relevance: 0 },
         {
           className: "function",
           begin: "(" + A + "\\s+)+" + e.IDENT_RE + "\\s*(<[^=]+>\\s*)?\\(",
-          returnBegin: !0,
+          returnBegin: true,
           end: /\s*[{;=]/,
-          excludeEnd: !0,
+          excludeEnd: true,
           keywords: r,
           contains: [
             { beginKeywords: n.join(" "), relevance: 0 },
-            { begin: e.IDENT_RE + "\\s*(<[^=]+>\\s*)?\\(", returnBegin: !0, contains: [e.TITLE_MODE, v], relevance: 0 },
+            { begin: e.IDENT_RE + "\\s*(<[^=]+>\\s*)?\\(", returnBegin: true, contains: [e.TITLE_MODE, v], relevance: 0 },
             { match: /\(\)/ },
             {
               className: "params",
               begin: /\(/,
               end: /\)/,
-              excludeBegin: !0,
-              excludeEnd: !0,
+              excludeBegin: true,
+              excludeEnd: true,
               keywords: r,
               relevance: 0,
               contains: [f, c, e.C_BLOCK_COMMENT_MODE],
@@ -5036,7 +5036,7 @@ var bn = S(function (Hu, gn) {
   function Dl(e) {
     return {
       name: "CSP",
-      case_insensitive: !1,
+      case_insensitive: false,
       keywords: {
         $pattern: "[a-zA-Z][a-zA-Z0-9_-]*",
         keyword: [
@@ -5064,7 +5064,7 @@ var bn = S(function (Hu, gn) {
       },
       contains: [
         { className: "string", begin: "'", end: "'" },
-        { className: "attribute", begin: "^Content", end: ":", excludeEnd: !0 },
+        { className: "attribute", begin: "^Content", end: ":", excludeEnd: true },
       ],
     };
   }
@@ -5861,7 +5861,7 @@ var Tn = S(function ($u, fn) {
       i = [e.APOS_STRING_MODE, e.QUOTE_STRING_MODE];
     return {
       name: "CSS",
-      case_insensitive: !0,
+      case_insensitive: true,
       illegal: /[=|'\$]/,
       keywords: { keyframePosition: "from to" },
       classNameAliases: { keyframePosition: "selector-tag" },
@@ -5892,7 +5892,7 @@ var Tn = S(function ($u, fn) {
               end: /\)/,
               relevance: 0,
               keywords: { built_in: "url data-uri" },
-              contains: [...i, { className: "string", begin: /[^)]/, endsWithParent: !0, excludeEnd: !0 }],
+              contains: [...i, { className: "string", begin: /[^)]/, endsWithParent: true, excludeEnd: true }],
             },
             n.FUNCTION_DISPATCH,
           ],
@@ -5906,8 +5906,8 @@ var Tn = S(function ($u, fn) {
             { className: "keyword", begin: o },
             {
               begin: /\s/,
-              endsWithParent: !0,
-              excludeEnd: !0,
+              endsWithParent: true,
+              excludeEnd: true,
               relevance: 0,
               keywords: { $pattern: /[a-z-]+/, keyword: "and or not only", attribute: Pl.join(" ") },
               contains: [{ begin: /[a-z-]+(?=:)/, className: "attribute" }, ...i, n.CSS_NUMBER_MODE],
@@ -6112,7 +6112,7 @@ var Rn = S(function (Ku, An) {
           className: "class",
           beginKeywords: "class interface",
           end: /\{/,
-          excludeEnd: !0,
+          excludeEnd: true,
           contains: [{ beginKeywords: "extends implements" }, e.UNDERSCORE_TITLE_MODE],
         },
         a,
@@ -6288,7 +6288,7 @@ var vn = S(function (Vu, On) {
           { match: /#%[01][01_]*/ },
         ],
       },
-      i = { begin: e.IDENT_RE + "\\s*=\\s*class\\s*\\(", returnBegin: !0, contains: [e.TITLE_MODE] },
+      i = { begin: e.IDENT_RE + "\\s*=\\s*class\\s*\\(", returnBegin: true, contains: [e.TITLE_MODE] },
       c = {
         className: "function",
         beginKeywords: "function constructor destructor procedure",
@@ -6303,7 +6303,7 @@ var vn = S(function (Vu, On) {
     return {
       name: "Delphi",
       aliases: ["dpr", "dfm", "pas", "pascal"],
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: t,
       illegal: /"|\$[G-Zg-z]|\/\*|<\/|\|/,
       contains: [s, r, o, i, c, a].concat(n),
@@ -6350,7 +6350,7 @@ var hn = S(function (Yu, yn) {
     return {
       name: "Django",
       aliases: ["jinja"],
-      case_insensitive: !0,
+      case_insensitive: true,
       subLanguage: "xml",
       contains: [
         e.COMMENT(/\{%\s*comment\s*%\}/, /\{%\s*endcomment\s*%\}/),
@@ -6366,7 +6366,7 @@ var hn = S(function (Yu, yn) {
               keywords: {
                 name: "comment endcomment load templatetag ifchanged endifchanged if endif firstof for endfor ifnotequal endifnotequal widthratio extends include spaceless endspaceless regroup ifequal endifequal ssi now with cycle url filter endfilter debug block endblock else autoescape endautoescape csrf_token empty elif endwith static trans blocktrans endblocktrans get_static_prefix get_media_prefix plural get_current_language language get_available_languages get_current_language_bidi get_language_info get_language_info_list localize endlocalize localtime endlocaltime timezone endtimezone get_current_timezone verbatim",
               },
-              starts: { endsWithParent: !0, keywords: "in by as", contains: [t], relevance: 0 },
+              starts: { endsWithParent: true, keywords: "in by as", contains: [t], relevance: 0 },
             },
           ],
         },
@@ -6444,7 +6444,7 @@ var wn = S(function (Zu, Ln) {
     return {
       name: "Dockerfile",
       aliases: ["docker"],
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: ["from", "maintainer", "expose", "env", "arg", "user", "onbuild", "stopsignal"],
       contains: [
         e.HASH_COMMENT_MODE,
@@ -6467,7 +6467,7 @@ var kn = S(function (Qu, xn) {
     return {
       name: "Batch file (DOS)",
       aliases: ["bat", "cmd"],
-      case_insensitive: !0,
+      case_insensitive: true,
       illegal: /\/\*/,
       keywords: {
         keyword: [
@@ -6601,16 +6601,16 @@ var Un = S(function (Ju, Pn) {
     return {
       keywords: "dsconfig",
       contains: [
-        { className: "keyword", begin: "^dsconfig", end: /\s/, excludeEnd: !0, relevance: 10 },
+        { className: "keyword", begin: "^dsconfig", end: /\s/, excludeEnd: true, relevance: 10 },
         {
           className: "built_in",
           begin: /(list|create|get|set|delete)-(\w+)/,
           end: /\s/,
-          excludeEnd: !0,
+          excludeEnd: true,
           illegal: "!@#$%^&*()",
           relevance: 10,
         },
-        { className: "built_in", begin: /--(\w+)/, end: /\s/, excludeEnd: !0 },
+        { className: "built_in", begin: /--(\w+)/, end: /\s/, excludeEnd: true },
         { className: "string", begin: /"/, end: /"/ },
         { className: "string", begin: /'/, end: /'/ },
         { className: "string", begin: /[\w\-?]+:\w+/, end: /\W/, relevance: 0 },
@@ -6694,7 +6694,7 @@ var qn = S(function (eE, Fn) {
     return {
       name: "Dust",
       aliases: ["dst"],
-      case_insensitive: !0,
+      case_insensitive: true,
       subLanguage: "xml",
       contains: [
         {
@@ -6706,7 +6706,7 @@ var qn = S(function (eE, Fn) {
             {
               className: "name",
               begin: /[a-zA-Z\.-]+/,
-              starts: { endsWithParent: !0, relevance: 0, contains: [e.QUOTE_STRING_MODE] },
+              starts: { endsWithParent: true, relevance: 0, contains: [e.QUOTE_STRING_MODE] },
             },
           ],
         },
@@ -6843,7 +6843,7 @@ var Kn = S(function (nE, zn) {
         className: "function",
         beginKeywords: "def defp defmacro defmacrop",
         end: /\B\b/,
-        contains: [e.inherit(e.TITLE_MODE, { begin: "[a-zA-Z_][a-zA-Z0-9_.]*(!|\\?)?", endsParent: !0 })],
+        contains: [e.inherit(e.TITLE_MODE, { begin: "[a-zA-Z_][a-zA-Z0-9_.]*(!|\\?)?", endsParent: true })],
       },
       A = e.inherit(v, {
         className: "class",
@@ -6943,7 +6943,7 @@ var Xn = S(function (rE, Yn) {
       subLanguage: "xml",
       contains: [
         e.COMMENT("<%#", "%>"),
-        { begin: "<%[%=-]?", end: "[%-]?%>", subLanguage: "ruby", excludeBegin: !0, excludeEnd: !0 },
+        { begin: "<%[%=-]?", end: "[%-]?%>", subLanguage: "ruby", excludeBegin: true, excludeEnd: true },
       ],
     };
   }
@@ -6967,11 +6967,11 @@ var Qn = S(function (iE, Zn) {
       i = {
         begin: n + "\\(",
         end: "\\)",
-        returnBegin: !0,
+        returnBegin: true,
         relevance: 0,
         contains: [
           { begin: n, relevance: 0 },
-          { begin: "\\(", end: "\\)", endsWithParent: !0, returnEnd: !0, relevance: 0 },
+          { begin: "\\(", end: "\\)", endsWithParent: true, returnEnd: true, relevance: 0 },
         ],
       },
       c = { begin: /\{/, end: /\}/, relevance: 0 },
@@ -6980,7 +6980,7 @@ var Qn = S(function (iE, Zn) {
       m = {
         begin: "#" + e.UNDERSCORE_IDENT_RE,
         relevance: 0,
-        returnBegin: !0,
+        returnBegin: true,
         contains: [
           { begin: "#" + e.UNDERSCORE_IDENT_RE, relevance: 0 },
           { begin: /\{/, end: /\}/, relevance: 0 },
@@ -7061,7 +7061,7 @@ var Qn = S(function (iE, Zn) {
           className: "function",
           begin: "^[a-z'][a-zA-Z0-9_']*\\s*\\(",
           end: "->",
-          returnBegin: !0,
+          returnBegin: true,
           illegal: "\\(|#|//|/\\*|\\\\|:|;",
           contains: [v, e.inherit(e.TITLE_MODE, { begin: "[a-z'][a-zA-Z0-9_']*" })],
           starts: { end: ";|\\.", keywords: a, contains: b },
@@ -7071,8 +7071,8 @@ var Qn = S(function (iE, Zn) {
           begin: "^-",
           end: "\\.",
           relevance: 0,
-          excludeEnd: !0,
-          returnBegin: !0,
+          excludeEnd: true,
+          returnBegin: true,
           keywords: { $pattern: "-" + e.IDENT_RE, keyword: f.map((A) => `${A}|1.5`).join(" ") },
           contains: [v, E, _, e.QUOTE_STRING_MODE],
         },
@@ -7127,7 +7127,7 @@ var ta = S(function (oE, ea) {
     return {
       name: "Excel formulae",
       aliases: ["xlsx", "xls"],
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         $pattern: /[a-zA-Z][\w\.]*/,
         built_in: [
@@ -7647,13 +7647,13 @@ var ta = S(function (oE, ea) {
         ],
       },
       contains: [
-        { begin: /^=/, end: /[^=]/, returnEnd: !0, illegal: /=/, relevance: 10 },
-        { className: "symbol", begin: /\b[A-Z]{1,2}\d+\b/, end: /[^\d]/, excludeEnd: !0, relevance: 0 },
+        { begin: /^=/, end: /[^=]/, returnEnd: true, illegal: /=/, relevance: 10 },
+        { className: "symbol", begin: /\b[A-Z]{1,2}\d+\b/, end: /[^\d]/, excludeEnd: true, relevance: 0 },
         { className: "symbol", begin: /[A-Z]{0,2}\d*:[A-Z]{0,2}\d*/, relevance: 0 },
         e.BACKSLASH_ESCAPE,
         e.QUOTE_STRING_MODE,
         { className: "number", begin: e.NUMBER_RE + "(%)?", relevance: 0 },
-        e.COMMENT(/\bN\(/, /\)/, { excludeBegin: !0, excludeEnd: !0, illegal: /\n/ }),
+        e.COMMENT(/\bN\(/, /\)/, { excludeBegin: true, excludeEnd: true, illegal: /\n/ }),
       ],
     };
   }
@@ -7667,22 +7667,22 @@ var aa = S(function (cE, na) {
         {
           begin: /[^\u2401\u0001]+/,
           end: /[\u2401\u0001]/,
-          excludeEnd: !0,
-          returnBegin: !0,
-          returnEnd: !1,
+          excludeEnd: true,
+          returnBegin: true,
+          returnEnd: false,
           contains: [
             {
               begin: /([^\u2401\u0001=]+)/,
               end: /=([^\u2401\u0001=]+)/,
-              returnEnd: !0,
-              returnBegin: !1,
+              returnEnd: true,
+              returnBegin: false,
               className: "attr",
             },
-            { begin: /=/, end: /([\u2401\u0001])/, excludeEnd: !0, excludeBegin: !0, className: "string" },
+            { begin: /=/, end: /([\u2401\u0001])/, excludeEnd: true, excludeBegin: true, className: "string" },
           ],
         },
       ],
-      case_insensitive: !0,
+      case_insensitive: true,
     };
   }
   na.exports = id;
@@ -7695,7 +7695,7 @@ var ia = S(function (lE, ra) {
         className: "function",
         beginKeywords: "def",
         end: /[:={\[(\n;]/,
-        excludeEnd: !0,
+        excludeEnd: true,
         contains: [
           {
             className: "title",
@@ -7766,7 +7766,7 @@ var oa = S(function (dE, sa) {
       c = { className: "string", relevance: 0, variants: [e.APOS_STRING_MODE, e.QUOTE_STRING_MODE] };
     return {
       name: "Fortran",
-      case_insensitive: !0,
+      case_insensitive: true,
       aliases: ["f90", "f95"],
       keywords: {
         $pattern: /\b[a-z][a-z0-9_]+\b|\.[a-z][a-z0-9_]+\./,
@@ -8453,8 +8453,8 @@ var da = S(function (pE, la) {
           Y = ce(ne(j, G, "*"), ne(U, "+"));
         return { scope: "operator", match: ce(Y, /:\?>/, /:\?/, /:>/, /:=/, /::?/, /\$/), relevance: 0 };
       },
-      b = u({ includeEqual: !0 }),
-      f = u({ includeEqual: !1 }),
+      b = u({ includeEqual: true }),
+      f = u({ includeEqual: false }),
       v = function (O, M) {
         return {
           begin: ne(O, fe(ne(/\s*/, ce(/\w/, /'/, /\^/, /#/, /``/, /\(/, /{\|/)))),
@@ -8542,7 +8542,7 @@ var ma = S(function (mE, pa) {
         built_in:
           "abs arccos arcsin arctan arctan2 Beta betaReg binomial ceil centropy cos cosh cvPower div div0 eDist entropy errorf execSeed exp fact floor frac gamma gammaReg log logBeta logGamma log10 log2 mapVal max min mod ncpCM ncpF ncpVUpow ncpVUsin normal pi poly power randBinomial randLinear randTriangle round rPower sigmoid sign signPower sin sinh slexp sllog10 slrec sqexp sqlog10 sqr sqrec sqrt tan tanh trunc uniform uniformInt vcPower bool_and bool_eqv bool_imp bool_not bool_or bool_xor ifThen rel_eq rel_ge rel_gt rel_le rel_lt rel_ne gday gdow ghour gleap gmillisec gminute gmonth gsecond gyear jdate jnow jstart jtime errorLevel execError gamsRelease gamsVersion handleCollect handleDelete handleStatus handleSubmit heapFree heapLimit heapSize jobHandle jobKill jobStatus jobTerminate licenseLevel licenseStatus maxExecError sleep timeClose timeComp timeElapsed timeExec timeStart",
       },
-      a = { className: "params", begin: /\(/, end: /\)/, excludeBegin: !0, excludeEnd: !0 },
+      a = { className: "params", begin: /\(/, end: /\)/, excludeBegin: true, excludeEnd: true },
       s = { className: "symbol", variants: [{ begin: /=[lgenxc]=/ }, { begin: /\$/ }] },
       o = {
         className: "comment",
@@ -8569,9 +8569,9 @@ var ma = S(function (mE, pa) {
       i = /[a-z0-9&#*=?@\\><:,()$[\]_.{}!+%^-]+/,
       c = {
         begin: /[a-z][a-z0-9_]*(\([a-z0-9_, ]*\))?[ \t]+/,
-        excludeBegin: !0,
+        excludeBegin: true,
         end: "$",
-        endsWithParent: !0,
+        endsWithParent: true,
         contains: [
           o,
           r,
@@ -8581,7 +8581,7 @@ var ma = S(function (mE, pa) {
     return {
       name: "GAMS",
       aliases: ["gms"],
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: n,
       contains: [
         e.COMMENT(/^\$ontext/, /^\$offtext/),
@@ -8589,7 +8589,7 @@ var ma = S(function (mE, pa) {
           className: "meta",
           begin: "^\\$[a-z0-9]+",
           end: "$",
-          returnBegin: !0,
+          returnBegin: true,
           contains: [{ className: "keyword", begin: "^\\$[a-z0-9]+" }],
         },
         e.COMMENT("^\\*", "$"),
@@ -8613,7 +8613,7 @@ var ma = S(function (mE, pa) {
         {
           beginKeywords: "table",
           end: ";",
-          returnBegin: !0,
+          returnBegin: true,
           contains: [
             { beginKeywords: "table", end: "$", contains: [c] },
             e.COMMENT("^\\*", "$"),
@@ -8627,7 +8627,7 @@ var ma = S(function (mE, pa) {
         {
           className: "function",
           begin: /^[a-z][a-z0-9_,\-+' ()$]+\.{2}/,
-          returnBegin: !0,
+          returnBegin: true,
           contains: [{ className: "title", begin: /^[a-z0-9_]+/ }, a, s],
         },
         e.C_NUMBER_MODE,
@@ -8680,9 +8680,9 @@ var ua = S(function (_E, _a) {
           className: "params",
           begin: /\(/,
           end: /\)/,
-          excludeBegin: !0,
-          excludeEnd: !0,
-          endsWithParent: !0,
+          excludeBegin: true,
+          excludeEnd: true,
+          endsWithParent: true,
           relevance: 0,
           contains: [{ className: "literal", begin: /\.\.\./ }, e.C_NUMBER_MODE, e.C_BLOCK_COMMENT_MODE, n, s],
         },
@@ -8690,7 +8690,7 @@ var ua = S(function (_E, _a) {
       r = { className: "title", begin: e.UNDERSCORE_IDENT_RE, relevance: 0 },
       i = function (p, _, E) {
         let u = e.inherit(
-          { className: "function", beginKeywords: p, end: _, excludeEnd: !0, contains: [].concat(o) },
+          { className: "function", beginKeywords: p, end: _, excludeEnd: true, contains: [].concat(o) },
           {},
         );
         return (
@@ -8705,7 +8705,7 @@ var ua = S(function (_E, _a) {
       l = { className: "string", begin: '"', end: '"', contains: [e.BACKSLASH_ESCAPE], relevance: 0 },
       d = {
         begin: e.UNDERSCORE_IDENT_RE + "\\s*\\(",
-        returnBegin: !0,
+        returnBegin: true,
         keywords: t,
         relevance: 0,
         contains: [
@@ -8726,7 +8726,7 @@ var ua = S(function (_E, _a) {
       {
         name: "GAUSS",
         aliases: ["gss"],
-        case_insensitive: !0,
+        case_insensitive: true,
         keywords: t,
         illegal: /(\{[%#]|[%#]\}| <- )/,
         contains: [
@@ -8849,8 +8849,8 @@ var ga = S(function (uE, Ea) {
     return {
       name: "G-code (ISO 6983)",
       aliases: ["nc"],
-      case_insensitive: !0,
-      disableAutodetect: !0,
+      case_insensitive: true,
+      disableAutodetect: true,
       keywords: n,
       contains: p,
     };
@@ -8998,10 +8998,10 @@ var Aa = S(function (bE, Sa) {
           className: "function",
           beginKeywords: "func",
           end: "\\s*(\\{|$)",
-          excludeEnd: !0,
+          excludeEnd: true,
           contains: [
             e.TITLE_MODE,
-            { className: "params", begin: /\(/, end: /\)/, endsParent: !0, keywords: o, illegal: /["']/ },
+            { className: "params", begin: /\(/, end: /\)/, endsParent: true, keywords: o, illegal: /["']/ },
           ],
         },
       ],
@@ -9073,7 +9073,7 @@ var Ia = S(function (TE, va) {
   function fd(e) {
     return {
       name: "Gradle",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: [
         "task",
         "project",
@@ -9257,8 +9257,8 @@ var ya = S(function (NE, Ca) {
     return {
       name: "GraphQL",
       aliases: ["gql"],
-      case_insensitive: !0,
-      disableAutodetect: !1,
+      case_insensitive: true,
+      disableAutodetect: false,
       keywords: {
         keyword: [
           "query",
@@ -9283,8 +9283,8 @@ var ya = S(function (NE, Ca) {
         e.NUMBER_MODE,
         { scope: "punctuation", match: /[.]{3}/, relevance: 0 },
         { scope: "punctuation", begin: /[\!\(\)\:\=\[\]\{\|\}]{1}/, relevance: 0 },
-        { scope: "variable", begin: /\$/, end: /\W/, excludeEnd: !0, relevance: 0 },
-        { scope: "meta", match: /@\w+/, excludeEnd: !0 },
+        { scope: "variable", begin: /\$/, end: /\W/, excludeEnd: true, relevance: 0 },
+        { scope: "meta", match: /@\w+/, excludeEnd: true },
         { scope: "symbol", begin: t.concat(n, t.lookahead(/\s*:/)), relevance: 0 },
       ],
       illegal: [/[;<']/, /BEGIN/],
@@ -9387,7 +9387,7 @@ var Ma = S(function (SE, ha) {
         {
           className: "symbol",
           begin: "^[ \t]*" + t.lookahead("[A-Za-z0-9_$]+:"),
-          excludeBegin: !0,
+          excludeBegin: true,
           end: "[A-Za-z0-9_$]+:",
           relevance: 0,
         },
@@ -9401,11 +9401,11 @@ var La = S(function (AE, Da) {
   function Sd(e) {
     return {
       name: "HAML",
-      case_insensitive: !0,
+      case_insensitive: true,
       contains: [
         { className: "meta", begin: "^!!!( (5|1\\.1|Strict|Frameset|Basic|Mobile|RDFa|XML\\b.*))?$", relevance: 10 },
         e.COMMENT("^\\s*(!=#|=#|-#|/).*$", null, { relevance: 0 }),
-        { begin: "^\\s*(-|=|!=)(?!#)", end: /$/, subLanguage: "ruby", excludeBegin: !0, excludeEnd: !0 },
+        { begin: "^\\s*(-|=|!=)(?!#)", end: /$/, subLanguage: "ruby", excludeBegin: true, excludeEnd: true },
         {
           className: "tag",
           begin: "^\\s*%",
@@ -9420,8 +9420,8 @@ var La = S(function (AE, Da) {
                 {
                   begin: ":\\w+\\s*=>",
                   end: ",\\s+",
-                  returnBegin: !0,
-                  endsWithParent: !0,
+                  returnBegin: true,
+                  endsWithParent: true,
                   contains: [
                     { className: "attr", begin: ":\\w+" },
                     e.APOS_STRING_MODE,
@@ -9434,13 +9434,13 @@ var La = S(function (AE, Da) {
             {
               begin: "\\(\\s*",
               end: "\\s*\\)",
-              excludeEnd: !0,
+              excludeEnd: true,
               contains: [
                 {
                   begin: "\\w+\\s*=",
                   end: "\\s+",
-                  returnBegin: !0,
-                  endsWithParent: !0,
+                  returnBegin: true,
+                  endsWithParent: true,
                   contains: [
                     { className: "attr", begin: "\\w+", relevance: 0 },
                     e.APOS_STRING_MODE,
@@ -9453,7 +9453,7 @@ var La = S(function (AE, Da) {
           ],
         },
         { begin: "^\\s*[=~]\\s*" },
-        { begin: /#\{/, end: /\}/, subLanguage: "ruby", excludeBegin: !0, excludeEnd: !0 },
+        { begin: /#\{/, end: /\}/, subLanguage: "ruby", excludeBegin: true, excludeEnd: true },
       ],
     };
   }
@@ -9519,7 +9519,7 @@ var xa = S(function (RE, wa) {
         },
       },
       b = { begin: /as\s+\|/, keywords: { keyword: "as" }, end: /\|/, contains: [{ begin: /\w+/ }] },
-      f = { contains: [e.NUMBER_MODE, e.QUOTE_STRING_MODE, e.APOS_STRING_MODE, b, u, _, E], returnEnd: !0 },
+      f = { contains: [e.NUMBER_MODE, e.QUOTE_STRING_MODE, e.APOS_STRING_MODE, b, u, _, E], returnEnd: true },
       v = e.inherit(p, { className: "name", keywords: n, starts: e.inherit(f, { end: /\)/ }) });
     E.contains = [v];
     let A = e.inherit(p, { keywords: n, className: "name", starts: e.inherit(f, { end: /\}\}/ }) }),
@@ -9528,11 +9528,11 @@ var xa = S(function (RE, wa) {
     return {
       name: "Handlebars",
       aliases: ["hbs", "html.hbs", "html.handlebars", "htmlbars"],
-      case_insensitive: !0,
+      case_insensitive: true,
       subLanguage: "xml",
       contains: [
-        { begin: /\\\{\{/, skip: !0 },
-        { begin: /\\\\(?=\{\{)/, skip: !0 },
+        { begin: /\\\{\{/, skip: true },
+        { begin: /\\\\(?=\{\{)/, skip: true },
         e.COMMENT(/\{\{!--/, /--\}\}/),
         e.COMMENT(/\{\{!/, /\}\}/),
         {
@@ -9540,7 +9540,7 @@ var xa = S(function (RE, wa) {
           begin: /\{\{\{\{(?!\/)/,
           end: /\}\}\}\}/,
           contains: [A],
-          starts: { end: /\{\{\{\{\//, returnEnd: !0, subLanguage: "xml" },
+          starts: { end: /\{\{\{\{\//, returnEnd: true, subLanguage: "xml" },
         },
         { className: "template-tag", begin: /\{\{\{\{\//, end: /\}\}\}\}/, contains: [N] },
         { className: "template-tag", begin: /\{\{#/, end: /\}\}/, contains: [A] },
@@ -9588,7 +9588,7 @@ var Pa = S(function (OE, ka) {
       aliases: ["hs"],
       keywords:
         "let in if then else case of where do module import hiding qualified type data newtype deriving class instance as default infix infixl infixr foreign export ccall stdcall cplusplus jvm dotnet safe unsafe family forall mdo proc rec",
-      unicodeRegex: !0,
+      unicodeRegex: true,
       contains: [
         { beginKeywords: "module", end: "where", keywords: "module where", contains: [_, l], illegal: "\\W\\.|;" },
         {
@@ -9668,27 +9668,27 @@ var Ba = S(function (vE, Ua) {
         e.C_BLOCK_COMMENT_MODE,
         { className: "number", begin: n, relevance: 0 },
         { className: "variable", begin: "\\$[a-zA-Z_$][a-zA-Z0-9_$]*" },
-        { className: "meta", begin: /@:?/, end: /\(|$/, excludeEnd: !0 },
+        { className: "meta", begin: /@:?/, end: /\(|$/, excludeEnd: true },
         { className: "meta", begin: "#", end: "$", keywords: { keyword: "if else elseif end error" } },
         {
           className: "type",
           begin: /:[ \t]*/,
           end: /[^A-Za-z0-9_ \t\->]/,
-          excludeBegin: !0,
-          excludeEnd: !0,
+          excludeBegin: true,
+          excludeEnd: true,
           relevance: 0,
         },
-        { className: "type", begin: /:[ \t]*/, end: /\W/, excludeBegin: !0, excludeEnd: !0 },
-        { className: "type", beginKeywords: "new", end: /\W/, excludeBegin: !0, excludeEnd: !0 },
+        { className: "type", begin: /:[ \t]*/, end: /\W/, excludeBegin: true, excludeEnd: true },
+        { className: "type", beginKeywords: "new", end: /\W/, excludeBegin: true, excludeEnd: true },
         { className: "title.class", beginKeywords: "enum", end: /\{/, contains: [e.TITLE_MODE] },
         {
           className: "title.class",
           begin: "\\babstract\\b(?=\\s*" + e.IDENT_RE + "\\s*\\()",
           end: /[\{$]/,
           contains: [
-            { className: "type", begin: /\(/, end: /\)/, excludeBegin: !0, excludeEnd: !0 },
-            { className: "type", begin: /from +/, end: /\W/, excludeBegin: !0, excludeEnd: !0 },
-            { className: "type", begin: /to +/, end: /\W/, excludeBegin: !0, excludeEnd: !0 },
+            { className: "type", begin: /\(/, end: /\)/, excludeBegin: true, excludeEnd: true },
+            { className: "type", begin: /from +/, end: /\W/, excludeBegin: true, excludeEnd: true },
+            { className: "type", begin: /to +/, end: /\W/, excludeBegin: true, excludeEnd: true },
             e.TITLE_MODE,
           ],
           keywords: { keyword: "abstract from to" },
@@ -9697,7 +9697,7 @@ var Ba = S(function (vE, Ua) {
           className: "title.class",
           begin: /\b(class|interface) +/,
           end: /[\{$]/,
-          excludeEnd: !0,
+          excludeEnd: true,
           keywords: "class interface",
           contains: [
             {
@@ -9713,7 +9713,7 @@ var Ba = S(function (vE, Ua) {
           className: "title.function",
           beginKeywords: "function",
           end: /\(/,
-          excludeEnd: !0,
+          excludeEnd: true,
           illegal: /\S/,
           contains: [e.TITLE_MODE],
         },
@@ -9727,7 +9727,7 @@ var Fa = S(function (IE, Ga) {
   function vd(e) {
     return {
       name: "HSP",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         $pattern: /[\w._]+/,
         keyword:
@@ -9776,7 +9776,7 @@ var Ha = S(function (CE, qa) {
           contains: [{ className: "punctuation", begin: /: /, relevance: 0, starts: { end: "$", relevance: 0 } }],
         },
       },
-      o = [s, { begin: "\\n\\n", starts: { subLanguage: [], endsWithParent: !0 } }];
+      o = [s, { begin: "\\n\\n", starts: { subLanguage: [], endsWithParent: true } }];
     return {
       name: "HTTP",
       aliases: ["https"],
@@ -9795,7 +9795,7 @@ var Ha = S(function (CE, qa) {
           begin: "(?=^[A-Z]+ (.*?) HTTP/([32]|1\\.[01])$)",
           end: /$/,
           contains: [
-            { className: "string", begin: " ", end: " ", excludeBegin: !0, excludeEnd: !0 },
+            { className: "string", begin: " ", end: " ", excludeBegin: true, excludeEnd: true },
             { className: "meta", begin: "HTTP/([32]|1\\.[01])" },
             { className: "keyword", begin: "[A-Z]+" },
           ],
@@ -9826,7 +9826,7 @@ var za = S(function (yE, $a) {
       p = e.COMMENT("\\^\\{", "\\}"),
       _ = { className: "symbol", begin: "[:]{1,2}" + n },
       E = { begin: "\\(", end: "\\)" },
-      u = { endsWithParent: !0, relevance: 0 },
+      u = { endsWithParent: true, relevance: 0 },
       b = { className: "name", relevance: 0, keywords: a, begin: n, starts: u },
       f = [E, i, m, p, c, _, d, r, l, o];
     return (
@@ -9843,7 +9843,7 @@ var Va = S(function (hE, Ka) {
     return {
       name: "Inform 7",
       aliases: ["i7"],
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         keyword:
           "thing room person man woman animal container supporter backdrop door scenery open closed locked inside gender is are say understand kind of rule",
@@ -9898,7 +9898,7 @@ var Ya = S(function (ME, Wa) {
     return {
       name: "TOML, also INI",
       aliases: ["toml"],
-      case_insensitive: !0,
+      case_insensitive: true,
       illegal: /\S/,
       contains: [
         a,
@@ -9926,7 +9926,7 @@ var Za = S(function (DE, Xa) {
       };
     return {
       name: "IRPF90",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         literal: ".False. .True.",
         keyword:
@@ -10052,7 +10052,7 @@ var er = S(function (LE, ja) {
         keywords: c,
         relevance: 0,
         contains: [e.C_BLOCK_COMMENT_MODE],
-        endsParent: !0,
+        endsParent: true,
       };
     return {
       name: "Java",
@@ -10311,17 +10311,17 @@ var ir = S(function (wE, rr) {
       _ = {
         begin: ".?html`",
         end: "",
-        starts: { end: "`", returnEnd: !1, contains: [e.BACKSLASH_ESCAPE, p], subLanguage: "xml" },
+        starts: { end: "`", returnEnd: false, contains: [e.BACKSLASH_ESCAPE, p], subLanguage: "xml" },
       },
       E = {
         begin: ".?css`",
         end: "",
-        starts: { end: "`", returnEnd: !1, contains: [e.BACKSLASH_ESCAPE, p], subLanguage: "css" },
+        starts: { end: "`", returnEnd: false, contains: [e.BACKSLASH_ESCAPE, p], subLanguage: "css" },
       },
       u = {
         begin: ".?gql`",
         end: "",
-        starts: { end: "`", returnEnd: !1, contains: [e.BACKSLASH_ESCAPE, p], subLanguage: "graphql" },
+        starts: { end: "`", returnEnd: false, contains: [e.BACKSLASH_ESCAPE, p], subLanguage: "graphql" },
       },
       b = { className: "string", begin: "`", end: "`", contains: [e.BACKSLASH_ESCAPE, p] },
       v = {
@@ -10335,11 +10335,11 @@ var ir = S(function (wE, rr) {
                 relevance: 0,
                 contains: [
                   { className: "doctag", begin: "@[A-Za-z]+" },
-                  { className: "type", begin: "\\{", end: "\\}", excludeEnd: !0, excludeBegin: !0, relevance: 0 },
+                  { className: "type", begin: "\\{", end: "\\}", excludeEnd: true, excludeBegin: true, relevance: 0 },
                   {
                     className: "variable",
                     begin: "[A-Za-z$_][0-9A-Za-z$_]*(?=\\s*(-)|$)",
-                    endsParent: !0,
+                    endsParent: true,
                     relevance: 0,
                   },
                   { begin: /(?=[^\n])\s/, relevance: 0 },
@@ -10359,8 +10359,8 @@ var ir = S(function (wE, rr) {
         className: "params",
         begin: /(\s*)\(/,
         end: /\)/,
-        excludeBegin: !0,
-        excludeEnd: !0,
+        excludeBegin: true,
+        excludeEnd: true,
         keywords: i,
         contains: R,
       },
@@ -10420,7 +10420,7 @@ var ir = S(function (wE, rr) {
       z = {
         begin: t.concat(/\./, t.lookahead(t.concat("[A-Za-z$_][0-9A-Za-z$_]*", /(?![0-9A-Za-z$_(])/))),
         end: "[A-Za-z$_][0-9A-Za-z$_]*",
-        excludeBegin: !0,
+        excludeBegin: true,
         keywords: "prototype",
         className: "property",
         relevance: 0,
@@ -10468,15 +10468,15 @@ var ir = S(function (wE, rr) {
             {
               className: "function",
               begin: g,
-              returnBegin: !0,
+              returnBegin: true,
               end: "\\s*=>",
               contains: [
                 {
                   className: "params",
                   variants: [
                     { begin: e.UNDERSCORE_IDENT_RE, relevance: 0 },
-                    { className: null, begin: /\(\s*\)/, skip: !0 },
-                    { begin: /(\s*)\(/, end: /\)/, excludeBegin: !0, excludeEnd: !0, keywords: i, contains: R },
+                    { className: null, begin: /\(\s*\)/, skip: true },
+                    { begin: /(\s*)\(/, end: /\)/, excludeBegin: true, excludeEnd: true, keywords: i, contains: R },
                   ],
                 },
               ],
@@ -10490,7 +10490,7 @@ var ir = S(function (wE, rr) {
                 { begin: r.begin, "on:begin": r.isTrulyOpeningTag, end: r.end },
               ],
               subLanguage: "xml",
-              contains: [{ begin: r.begin, end: r.end, skip: !0, contains: ["self"] }],
+              contains: [{ begin: r.begin, end: r.end, skip: true, contains: ["self"] }],
             },
           ],
         },
@@ -10499,7 +10499,7 @@ var ir = S(function (wE, rr) {
         {
           begin:
             "\\b(?!function)" + e.UNDERSCORE_IDENT_RE + "\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)\\s*\\{",
-          returnBegin: !0,
+          returnBegin: true,
           label: "func.def",
           contains: [y, e.inherit(e.TITLE_MODE, { begin: "[A-Za-z$_][0-9A-Za-z$_]*", className: "title.function" })],
         },
@@ -10524,7 +10524,7 @@ var or = S(function (xE, sr) {
         begin: /\(/,
         end: /\)/,
         contains: [
-          { begin: /[\w-]+ *=/, returnBegin: !0, relevance: 0, contains: [{ className: "attr", begin: /[\w-]+/ }] },
+          { begin: /[\w-]+ *=/, returnBegin: true, relevance: 0, contains: [{ className: "attr", begin: /[\w-]+/ }] },
         ],
         relevance: 0,
       },
@@ -10975,14 +10975,14 @@ var Er = S(function (BE, ur) {
             className: "function",
             beginKeywords: "fun",
             end: "[(]|$",
-            returnBegin: !0,
-            excludeEnd: !0,
+            returnBegin: true,
+            excludeEnd: true,
             keywords: t,
             relevance: 5,
             contains: [
               {
                 begin: e.UNDERSCORE_IDENT_RE + "\\s*\\(",
-                returnBegin: !0,
+                returnBegin: true,
                 relevance: 0,
                 contains: [e.UNDERSCORE_TITLE_MODE],
               },
@@ -10991,14 +10991,14 @@ var Er = S(function (BE, ur) {
                 className: "params",
                 begin: /\(/,
                 end: /\)/,
-                endsParent: !0,
+                endsParent: true,
                 keywords: t,
                 relevance: 0,
                 contains: [
                   {
                     begin: /:/,
                     end: /[=,\/]/,
-                    endsWithParent: !0,
+                    endsWithParent: true,
                     contains: [m, e.C_LINE_COMMENT_MODE, d],
                     relevance: 0,
                   },
@@ -11018,13 +11018,13 @@ var Er = S(function (BE, ur) {
             beginScope: { 3: "title.class" },
             keywords: "class interface trait",
             end: /[:\{(]|$/,
-            excludeEnd: !0,
+            excludeEnd: true,
             illegal: "extends implements",
             contains: [
               { beginKeywords: "public protected internal private constructor" },
               e.UNDERSCORE_TITLE_MODE,
-              { className: "type", begin: /</, end: />/, excludeBegin: !0, excludeEnd: !0, relevance: 0 },
-              { className: "type", begin: /[,:]\s*/, end: /[<\(,){\s]|$/, excludeBegin: !0, returnEnd: !0 },
+              { className: "type", begin: /</, end: />/, excludeBegin: true, excludeEnd: true, relevance: 0 },
+              { className: "type", begin: /[,:]\s*/, end: /[<\(,){\s]|$/, excludeBegin: true, returnEnd: true },
               i,
               c,
             ],
@@ -11058,7 +11058,7 @@ var br = S(function (GE, gr) {
       r = {
         className: "meta",
         begin: "\\[noprocess\\]",
-        starts: { end: "\\[/noprocess\\]", returnEnd: !0, contains: [o] },
+        starts: { end: "\\[/noprocess\\]", returnEnd: true, contains: [o] },
       },
       i = { className: "meta", begin: "\\[/noprocess|<\\?(lasso(script)?|=)" },
       c = { className: "symbol", begin: "'[a-zA-Z_][\\w.]*'" },
@@ -11079,7 +11079,7 @@ var br = S(function (GE, gr) {
         {
           className: "class",
           beginKeywords: "define",
-          returnEnd: !0,
+          returnEnd: true,
           end: "\\(|=>",
           contains: [e.inherit(e.TITLE_MODE, { begin: "[a-zA-Z_][\\w.]*(=(?!>))?|[-+*/%](?!>)" })],
         },
@@ -11087,14 +11087,14 @@ var br = S(function (GE, gr) {
     return {
       name: "Lasso",
       aliases: ["ls", "lassoscript"],
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: s,
       contains: [
         {
           className: "meta",
           begin: "\\]|\\?>",
           relevance: 0,
-          starts: { end: "\\[|<\\?(lasso(script)?|=)", returnEnd: !0, relevance: 0, contains: [o] },
+          starts: { end: "\\[|<\\?(lasso(script)?|=)", returnEnd: true, relevance: 0, contains: [o] },
         },
         r,
         i,
@@ -11109,7 +11109,7 @@ var br = S(function (GE, gr) {
                 className: "meta",
                 begin: "\\]|\\?>",
                 relevance: 0,
-                starts: { end: "\\[noprocess\\]|<\\?(lasso(script)?|=)", returnEnd: !0, contains: [o] },
+                starts: { end: "\\[noprocess\\]|<\\?(lasso(script)?|=)", returnEnd: true, contains: [o] },
               },
               r,
               i,
@@ -11178,10 +11178,10 @@ var Tr = S(function (FE, fr) {
         begin: /\\/,
         relevance: 0,
         contains: [
-          { endsParent: !0, begin: n },
-          { endsParent: !0, begin: a },
-          { endsParent: !0, variants: o },
-          { endsParent: !0, relevance: 0, variants: s },
+          { endsParent: true, begin: n },
+          { endsParent: true, begin: a },
+          { endsParent: true, variants: o },
+          { endsParent: true, relevance: 0, variants: s },
         ],
       },
       i = { className: "params", relevance: 0, begin: /#+\d?/ },
@@ -11191,8 +11191,8 @@ var Tr = S(function (FE, fr) {
       m = e.COMMENT("%", "$", { relevance: 0 }),
       p = [r, i, c, l, d, m],
       _ = { begin: /\{/, end: /\}/, relevance: 0, contains: ["self", ...p] },
-      E = e.inherit(_, { relevance: 0, endsParent: !0, contains: [_, ...p] }),
-      u = { begin: /\[/, end: /\]/, endsParent: !0, relevance: 0, contains: [_, ...p] },
+      E = e.inherit(_, { relevance: 0, endsParent: true, contains: [_, ...p] }),
+      u = { begin: /\[/, end: /\]/, endsParent: true, relevance: 0, contains: [_, ...p] },
       b = { begin: /\s+/, relevance: 0 },
       f = [E],
       v = [u],
@@ -11223,9 +11223,9 @@ var Tr = S(function (FE, fr) {
           className: L,
           begin: /(.|\r?\n)/,
           end: /(.|\r?\n)/,
-          excludeBegin: !0,
-          excludeEnd: !0,
-          endsParent: !0,
+          excludeBegin: true,
+          excludeEnd: true,
+          endsParent: true,
         }),
       k = function (L) {
         return { className: "string", end: "(?=\\\\end\\{" + L + "\\})" };
@@ -11234,12 +11234,12 @@ var Tr = S(function (FE, fr) {
         relevance: 0,
         begin: /\{/,
         starts: {
-          endsParent: !0,
+          endsParent: true,
           contains: [
             {
               className: L,
               end: /(?=\})/,
-              endsParent: !0,
+              endsParent: true,
               contains: [{ begin: /\{/, end: /\}/, relevance: 0, contains: ["self"] }],
             },
           ],
@@ -11286,7 +11286,7 @@ var Rr = S(function (HE, Ar) {
         scope: "params",
         begin: /\(/,
         end: /\)(?=\:?)/,
-        endsParent: !0,
+        endsParent: true,
         relevance: 7,
         contains: [
           { scope: "string", begin: '"', end: '"' },
@@ -12118,22 +12118,22 @@ var Cr = S(function ($E, Ir) {
       c("'"),
       c('"'),
       t.CSS_NUMBER_MODE,
-      { begin: "(url|data-uri)\\(", starts: { className: "string", end: "[\\)\\n]", excludeEnd: !0 } },
+      { begin: "(url|data-uri)\\(", starts: { className: "string", end: "[\\)\\n]", excludeEnd: true } },
       t.HEXCOLOR,
       m,
       l("variable", "@@?[\\w-]+", 10),
       l("variable", "@\\{[\\w-]+\\}"),
       l("built_in", "~?`[^`]*?`"),
-      { className: "attribute", begin: "[\\w-]+\\s*:", end: ":", returnBegin: !0, excludeEnd: !0 },
+      { className: "attribute", begin: "[\\w-]+\\s*:", end: ":", returnBegin: true, excludeEnd: true },
       t.IMPORTANT,
       { beginKeywords: "and not" },
       t.FUNCTION_DISPATCH,
     );
     let p = i.concat({ begin: /\{/, end: /\}/, contains: r }),
-      _ = { beginKeywords: "when", endsWithParent: !0, contains: [{ beginKeywords: "and not" }].concat(i) },
+      _ = { beginKeywords: "when", endsWithParent: true, contains: [{ beginKeywords: "and not" }].concat(i) },
       E = {
         begin: o + "\\s*:",
-        returnBegin: !0,
+        returnBegin: true,
         end: /[;}]/,
         relevance: 0,
         contains: [
@@ -12143,7 +12143,7 @@ var Cr = S(function ($E, Ir) {
             className: "attribute",
             begin: "\\b(" + Jd.join("|") + ")\\b",
             end: /(?=:)/,
-            starts: { endsWithParent: !0, illegal: "[<=$]", relevance: 0, contains: i },
+            starts: { endsWithParent: true, illegal: "[<=$]", relevance: 0, contains: i },
           },
         ],
       },
@@ -12151,20 +12151,20 @@ var Cr = S(function ($E, Ir) {
         className: "keyword",
         begin:
           "@(import|media|charset|font-face|(-[a-z]+-)?keyframes|supports|document|namespace|page|viewport|host)\\b",
-        starts: { end: "[;{}]", keywords: d, returnEnd: !0, contains: i, relevance: 0 },
+        starts: { end: "[;{}]", keywords: d, returnEnd: true, contains: i, relevance: 0 },
       },
       b = {
         className: "variable",
         variants: [{ begin: "@[\\w-]+\\s*:", relevance: 15 }, { begin: "@[\\w-]+" }],
-        starts: { end: "[;}]", returnEnd: !0, contains: p },
+        starts: { end: "[;}]", returnEnd: true, contains: p },
       },
       f = {
         variants: [
           { begin: "[\\.#:&\\[>]", end: "[;{}]" },
           { begin: o, end: /\{/ },
         ],
-        returnBegin: !0,
-        returnEnd: !0,
+        returnBegin: true,
+        returnEnd: true,
         illegal: `[<='$"]`,
         relevance: 0,
         contains: [
@@ -12187,10 +12187,10 @@ var Cr = S(function ($E, Ir) {
           t.FUNCTION_DISPATCH,
         ],
       },
-      v = { begin: `[\\w-]+:(:)?(${n.join("|")})`, returnBegin: !0, contains: [f] };
+      v = { begin: `[\\w-]+:(:)?(${n.join("|")})`, returnBegin: true, contains: [f] };
     return (
       r.push(e.C_LINE_COMMENT_MODE, e.C_BLOCK_COMMENT_MODE, u, b, v, E, f, _, t.FUNCTION_DISPATCH),
-      { name: "Less", case_insensitive: !0, illegal: `[=>'/<($"]`, contains: r }
+      { name: "Less", case_insensitive: true, illegal: `[=>'/<($"]`, contains: r }
     );
   }
   Ir.exports = ep;
@@ -12236,7 +12236,7 @@ var hr = S(function (zE, yr) {
         ],
       },
       u = { begin: "\\(\\s*", end: "\\)" },
-      b = { endsWithParent: !0, relevance: 0 };
+      b = { endsWithParent: true, relevance: 0 };
     return (
       (u.contains = [
         {
@@ -12268,7 +12268,7 @@ var Dr = S(function (KE, Mr) {
       s = e.inherit(e.TITLE_MODE, { begin: "\\b([A-Za-z0-9_\\-]+)\\b" });
     return {
       name: "LiveCode",
-      case_insensitive: !1,
+      case_insensitive: false,
       keywords: {
         keyword:
           "$_COOKIE $_FILES $_GET $_GET_BINARY $_GET_RAW $_POST $_POST_BINARY $_POST_RAW $_SESSION $_SERVER codepoint codepoints segment segments codeunit codeunits sentence sentences trueWord trueWords paragraph after byte bytes english the until http forever descending using line real8 with seventh for stdout finally element word words fourth before black ninth sixth characters chars stderr uInt1 uInt1s uInt2 uInt2s stdin string lines relative rel any fifth items from middle mid at else of catch then third it file milliseconds seconds second secs sec int1 int1s int4 int4s internet int2 int2s normal text item last long detailed effective uInt4 uInt4s repeat end repeat URL in try into switch to words https token binfile each tenth as ticks tick system real4 by dateItems without char character ascending eighth whole dateTime numeric short first ftp integer abbreviated abbr abbrev private case while if div mod wrap and or bitAnd bitNot bitOr bitXor among not in a an within contains ends with begins the keys of keys",
@@ -12476,7 +12476,7 @@ var wr = S(function (VE, Lr) {
             { begin: /'/, end: /'/, contains: [e.BACKSLASH_ESCAPE] },
             { begin: /"""/, end: /"""/, contains: [e.BACKSLASH_ESCAPE, i, c] },
             { begin: /"/, end: /"/, contains: [e.BACKSLASH_ESCAPE, i, c] },
-            { begin: /\\/, end: /(\s|$)/, excludeEnd: !0 },
+            { begin: /\\/, end: /(\s|$)/, excludeEnd: true },
           ],
         },
         {
@@ -12487,13 +12487,13 @@ var wr = S(function (VE, Lr) {
           ],
         },
         { begin: "@[A-Za-z$_](?:-[0-9A-Za-z$_]|[0-9A-Za-z$_])*" },
-        { begin: "``", end: "``", excludeBegin: !0, excludeEnd: !0, subLanguage: "javascript" },
+        { begin: "``", end: "``", excludeBegin: true, excludeEnd: true, subLanguage: "javascript" },
       ];
     i.contains = l;
     let d = {
         className: "params",
         begin: "\\(",
-        returnBegin: !0,
+        returnBegin: true,
         contains: [{ begin: /\(/, end: /\)/, keywords: s, contains: ["self"].concat(l) }],
       },
       m = { begin: "(#=>|=>|\\|>>|-?->|!->)" },
@@ -12524,7 +12524,7 @@ var wr = S(function (VE, Lr) {
         {
           className: "function",
           contains: [r, d],
-          returnBegin: !0,
+          returnBegin: true,
           variants: [
             {
               begin: "([A-Za-z$_](?:-[0-9A-Za-z$_]|[0-9A-Za-z$_])*\\s*(?:=|:=)\\s*)?(\\(.*\\)\\s*)?\\B->\\*?",
@@ -12544,8 +12544,8 @@ var wr = S(function (VE, Lr) {
         {
           begin: "[A-Za-z$_](?:-[0-9A-Za-z$_]|[0-9A-Za-z$_])*:",
           end: ":",
-          returnBegin: !0,
-          returnEnd: !0,
+          returnBegin: true,
+          returnEnd: true,
           relevance: 0,
         },
       ]),
@@ -12675,7 +12675,7 @@ var Gr = S(function (XE, Br) {
           end: "\\)",
           contains: [
             e.inherit(e.TITLE_MODE, { begin: "([_a-zA-Z]\\w*\\.)*([_a-zA-Z]\\w*:)?[_a-zA-Z]\\w*" }),
-            { className: "params", begin: "\\(", endsWithParent: !0, contains: s },
+            { className: "params", begin: "\\(", endsWithParent: true, contains: s },
           ].concat(s),
         },
         e.C_NUMBER_MODE,
@@ -12739,13 +12739,13 @@ var $r = S(function (QE, Hr) {
           { begin: "(?=^( {4}|\\t))", contains: [{ begin: "^( {4}|\\t)", end: "(\\n)$" }], relevance: 0 },
         ],
       },
-      o = { className: "bullet", begin: "^[ \t]*([*+-]|(\\d+\\.))(?=\\s+)", end: "\\s+", excludeEnd: !0 },
+      o = { className: "bullet", begin: "^[ \t]*([*+-]|(\\d+\\.))(?=\\s+)", end: "\\s+", excludeEnd: true },
       r = {
         begin: /^\[[^\n]+\]:/,
-        returnBegin: !0,
+        returnBegin: true,
         contains: [
-          { className: "symbol", begin: /\[/, end: /\]/, excludeBegin: !0, excludeEnd: !0 },
-          { className: "link", begin: /:\s*/, end: /$/, excludeBegin: !0 },
+          { className: "symbol", begin: /\[/, end: /\]/, excludeBegin: true, excludeEnd: true },
+          { className: "link", begin: /:\s*/, end: /$/, excludeBegin: true },
         ],
       },
       i = /[A-Za-z][A-Za-z0-9+.-]*/,
@@ -12757,12 +12757,12 @@ var $r = S(function (QE, Hr) {
           { begin: /\[.+?\]\([./?&#].*?\)/, relevance: 1 },
           { begin: /\[.*?\]\(.*?\)/, relevance: 0 },
         ],
-        returnBegin: !0,
+        returnBegin: true,
         contains: [
           { match: /\[(?=\])/ },
-          { className: "string", relevance: 0, begin: "\\[", end: "\\]", excludeBegin: !0, returnEnd: !0 },
-          { className: "link", relevance: 0, begin: "\\]\\(", end: "\\)", excludeBegin: !0, excludeEnd: !0 },
-          { className: "symbol", relevance: 0, begin: "\\]\\[", end: "\\]", excludeBegin: !0, excludeEnd: !0 },
+          { className: "string", relevance: 0, begin: "\\[", end: "\\]", excludeBegin: true, returnEnd: true },
+          { className: "link", relevance: 0, begin: "\\]\\(", end: "\\)", excludeBegin: true, excludeEnd: true },
+          { className: "symbol", relevance: 0, begin: "\\]\\[", end: "\\]", excludeBegin: true, excludeEnd: true },
         ],
       },
       l = {
@@ -12936,7 +12936,7 @@ var Qr = S(function (tg, Zr) {
   function fp(e) {
     return {
       name: "MIPS Assembly",
-      case_insensitive: !0,
+      case_insensitive: true,
       aliases: ["mips"],
       keywords: {
         $pattern: "\\.?" + e.IDENT_RE,
@@ -12991,7 +12991,7 @@ var ti = S(function (ag, ei) {
       contains: [
         { className: "meta", begin: "^__(END|DATA)__$" },
         { begin: "^\\s*%{1,2}={0,2}", end: "$", subLanguage: "perl" },
-        { begin: "<%{1,2}={0,2}", end: "={0,1}%>", subLanguage: "perl", excludeBegin: !0, excludeEnd: !0 },
+        { begin: "<%{1,2}={0,2}", end: "={0,1}%>", subLanguage: "perl", excludeBegin: true, excludeEnd: true },
       ],
     };
   }
@@ -13010,7 +13010,7 @@ var ai = S(function (rg, ni) {
       };
     return {
       name: "Monkey",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         keyword: [
           "public",
@@ -13148,7 +13148,7 @@ var ii = S(function (ig, ri) {
       i = {
         className: "params",
         begin: "\\([^\\(]",
-        returnBegin: !0,
+        returnBegin: true,
         contains: [{ begin: /\(/, end: /\)/, keywords: t, contains: ["self"].concat(s) }],
       };
     return {
@@ -13162,27 +13162,27 @@ var ii = S(function (ig, ri) {
           className: "function",
           begin: "^\\s*[A-Za-z$_][0-9A-Za-z$_]*\\s*=\\s*" + r,
           end: "[-=]>",
-          returnBegin: !0,
+          returnBegin: true,
           contains: [o, i],
         },
         {
           begin: /[\(,:=]\s*/,
           relevance: 0,
-          contains: [{ className: "function", begin: r, end: "[-=]>", returnBegin: !0, contains: [i] }],
+          contains: [{ className: "function", begin: r, end: "[-=]>", returnBegin: true, contains: [i] }],
         },
         {
           className: "class",
           beginKeywords: "class",
           end: "$",
           illegal: /[:="\[\]]/,
-          contains: [{ beginKeywords: "extends", endsWithParent: !0, illegal: /[:="\[\]]/, contains: [o] }, o],
+          contains: [{ beginKeywords: "extends", endsWithParent: true, illegal: /[:="\[\]]/, contains: [o] }, o],
         },
         {
           className: "name",
           begin: "[A-Za-z$_][0-9A-Za-z$_]*:",
           end: ":",
-          returnBegin: !0,
-          returnEnd: !0,
+          returnBegin: true,
+          returnEnd: true,
           relevance: 0,
         },
       ]),
@@ -13194,7 +13194,7 @@ var oi = S(function (sg, si) {
   function Rp(e) {
     return {
       name: "N1QL",
-      case_insensitive: !0,
+      case_insensitive: true,
       contains: [
         {
           beginKeywords: "build create index delete drop explain infer|10 insert merge prepare select update upsert|10",
@@ -13534,7 +13534,7 @@ var li = S(function (og, ci) {
     return {
       name: "Nested Text",
       aliases: ["nt"],
-      contains: [e.inherit(e.HASH_COMMENT_MODE, { begin: /^\s*(?=#)/, excludeBegin: !0 }), s, a, t, n],
+      contains: [e.inherit(e.HASH_COMMENT_MODE, { begin: /^\s*(?=#)/, excludeBegin: true }), s, a, t, n],
     };
   }
   ci.exports = Op;
@@ -13547,7 +13547,7 @@ var pi = S(function (cg, di) {
         variants: [{ begin: /\$\d+/ }, { begin: /\$\{\w+\}/ }, { begin: t.concat(/[$@]/, e.UNDERSCORE_IDENT_RE) }],
       },
       s = {
-        endsWithParent: !0,
+        endsWithParent: true,
         keywords: {
           $pattern: /[a-z_]{2,}|\/dev\/poll/,
           literal: [
@@ -13589,13 +13589,13 @@ var pi = S(function (cg, di) {
               { begin: /'/, end: /'/ },
             ],
           },
-          { begin: "([a-z]+):/", end: "\\s", endsWithParent: !0, excludeEnd: !0, contains: [n] },
+          { begin: "([a-z]+):/", end: "\\s", endsWithParent: true, excludeEnd: true, contains: [n] },
           {
             className: "regexp",
             contains: [e.BACKSLASH_ESCAPE, n],
             variants: [
-              { begin: "\\s\\^", end: "\\s|\\{|;", returnEnd: !0 },
-              { begin: "~\\*?\\s+", end: "\\s|\\{|;", returnEnd: !0 },
+              { begin: "\\s\\^", end: "\\s|\\{|;", returnEnd: true },
+              { begin: "~\\*?\\s+", end: "\\s|\\{|;", returnEnd: true },
               { begin: "\\*(\\.[a-z\\-]+)+" },
               { begin: "([a-z\\-]+\\.)+\\*" },
             ],
@@ -13977,7 +13977,7 @@ var Ei = S(function (dg, ui) {
       p = {
         beforeMatch: /(^|\{|;)\s*/,
         begin: new RegExp("[A-Za-z_][A-Za-z0-9_'-]*(\\.[A-Za-z_][A-Za-z0-9_'-]*)*\\s*=(?!=)"),
-        returnBegin: !0,
+        returnBegin: true,
         relevance: 0,
         contains: [
           {
@@ -14470,7 +14470,7 @@ var Ti = S(function (mg, fi) {
       };
     return {
       name: "NSIS",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: { keyword: E, literal: u },
       contains: [
         e.HASH_COMMENT_MODE,
@@ -14666,7 +14666,7 @@ var Si = S(function (_g, Ni) {
           className: "class",
           begin: "(" + c.keyword.join("|") + ")\\b",
           end: /(\{|$)/,
-          excludeEnd: !0,
+          excludeEnd: true,
           keywords: c,
           contains: [e.UNDERSCORE_TITLE_MODE],
         },
@@ -14765,7 +14765,7 @@ var Ci = S(function (gg, Ii) {
       i = { scope: "punctuation", match: /;/, relevance: 0 };
     return {
       name: "Oxygene",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: t,
       illegal: '("|\\$[G-Zg-z]|\\/\\*|</|=>|->)',
       contains: [n, a, e.C_LINE_COMMENT_MODE, s, o, e.NUMBER_MODE, r, i],
@@ -15067,7 +15067,7 @@ var Di = S(function (fg, Mi) {
       E = [
         c,
         e.HASH_COMMENT_MODE,
-        e.COMMENT(/^=\w/, /=cut/, { endsWithParent: !0 }),
+        e.COMMENT(/^=\w/, /=cut/, { endsWithParent: true }),
         r,
         {
           className: "string",
@@ -15096,7 +15096,7 @@ var Di = S(function (fg, Mi) {
             {
               className: "regexp",
               variants: [
-                { begin: p("s|tr|y", t.either(...m, { capture: !0 })) },
+                { begin: p("s|tr|y", t.either(...m, { capture: true })) },
                 { begin: p("s|tr|y", "\\(", "\\)") },
                 { begin: p("s|tr|y", "\\[", "\\]") },
                 { begin: p("s|tr|y", "\\{", "\\}") },
@@ -15108,7 +15108,7 @@ var Di = S(function (fg, Mi) {
               variants: [
                 { begin: /(m|qr)\/\//, relevance: 0 },
                 { begin: _("(?:m|qr)?", /\//, /\//) },
-                { begin: _("m|qr", t.either(...m, { capture: !0 }), /\1/) },
+                { begin: _("m|qr", t.either(...m, { capture: true }), /\1/) },
                 { begin: _("m|qr", /\(/, /\)/) },
                 { begin: _("m|qr", /\[/, /\]/) },
                 { begin: _("m|qr", /\{/, /\}/) },
@@ -15120,7 +15120,7 @@ var Di = S(function (fg, Mi) {
           className: "function",
           beginKeywords: "sub method",
           end: "(\\s*\\(.*?\\))?[;{]",
-          excludeEnd: !0,
+          excludeEnd: true,
           relevance: 5,
           contains: [e.TITLE_MODE, i],
         },
@@ -15128,7 +15128,7 @@ var Di = S(function (fg, Mi) {
           className: "class",
           beginKeywords: "class",
           end: "[;{]",
-          excludeEnd: !0,
+          excludeEnd: true,
           relevance: 5,
           contains: [e.TITLE_MODE, i, l],
         },
@@ -15202,7 +15202,7 @@ var ki = S(function (Ng, xi) {
       name: "PostgreSQL",
       aliases: ["postgres", "postgresql"],
       supersetOf: "sql",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: { keyword: o + i + r, built_in: d + m + p },
       illegal: /:==|\W\s*\(\*|(^|\s)\$[a-z]|\{\{|[a-z]:\s*$|\.\.\.|TO:|DO:/,
       contains: [
@@ -15267,7 +15267,7 @@ var ki = S(function (Ng, xi) {
         {
           begin: /\bEXTRACT\s*\(/,
           end: /\bFROM\b/,
-          returnEnd: !0,
+          returnEnd: true,
           keywords: {
             type: "CENTURY DAY DECADE DOW DOY EPOCH HOUR ISODOW ISOYEAR MICROSECONDS MILLENNIUM MILLISECONDS MINUTE MONTH QUARTER SECOND TIMEZONE TIMEZONE_HOUR TIMEZONE_MINUTE WEEK YEAR",
           },
@@ -15277,7 +15277,7 @@ var ki = S(function (Ng, xi) {
         {
           beginKeywords: "CACHE INCREMENT MAXVALUE MINVALUE",
           end: e.C_NUMBER_RE,
-          returnEnd: !0,
+          returnEnd: true,
           keywords: "BY CACHE INCREMENT MAXVALUE MINVALUE",
         },
         { className: "type", begin: /\b(WITH|WITHOUT)\s+TIME\s+ZONE\b/ },
@@ -15318,7 +15318,7 @@ var ki = S(function (Ng, xi) {
                 "xml",
                 "json",
               ],
-              endsWithParent: !0,
+              endsWithParent: true,
             },
           ],
         }),
@@ -15642,7 +15642,7 @@ var Ui = S(function (Sg, Pi) {
         ],
       };
     return {
-      case_insensitive: !1,
+      case_insensitive: false,
       keywords: N,
       contains: [
         J,
@@ -15655,7 +15655,7 @@ var Ui = S(function (Sg, Pi) {
           starts: {
             scope: "comment",
             end: e.MATCH_NOTHING_RE,
-            contains: [{ match: /\?>/, scope: "meta", endsParent: !0 }],
+            contains: [{ match: /\?>/, scope: "meta", endsParent: true }],
           },
         },
         i,
@@ -15670,18 +15670,18 @@ var Ui = S(function (Sg, Pi) {
           relevance: 0,
           beginKeywords: "fn function",
           end: /[;{]/,
-          excludeEnd: !0,
+          excludeEnd: true,
           illegal: "[$%\\[]",
           contains: [
             { beginKeywords: "use" },
             e.UNDERSCORE_TITLE_MODE,
-            { begin: "=>", endsParent: !0 },
+            { begin: "=>", endsParent: true },
             {
               scope: "params",
               begin: "\\(",
               end: "\\)",
-              excludeBegin: !0,
-              excludeEnd: !0,
+              excludeBegin: true,
+              excludeEnd: true,
               keywords: N,
               contains: ["self", J, r, D, e.C_BLOCK_COMMENT_MODE, E, u],
             },
@@ -15695,7 +15695,7 @@ var Ui = S(function (Sg, Pi) {
           ],
           relevance: 0,
           end: /\{/,
-          excludeEnd: !0,
+          excludeEnd: true,
           contains: [{ beginKeywords: "extends implements" }, e.UNDERSCORE_TITLE_MODE],
         },
         {
@@ -15729,11 +15729,11 @@ var Gi = S(function (Ag, Bi) {
           end: /\?>/,
           subLanguage: "php",
           contains: [
-            { begin: "/\\*", end: "\\*/", skip: !0 },
-            { begin: 'b"', end: '"', skip: !0 },
-            { begin: "b'", end: "'", skip: !0 },
-            e.inherit(e.APOS_STRING_MODE, { illegal: null, className: null, contains: null, skip: !0 }),
-            e.inherit(e.QUOTE_STRING_MODE, { illegal: null, className: null, contains: null, skip: !0 }),
+            { begin: "/\\*", end: "\\*/", skip: true },
+            { begin: 'b"', end: '"', skip: true },
+            { begin: "b'", end: "'", skip: true },
+            e.inherit(e.APOS_STRING_MODE, { illegal: null, className: null, contains: null, skip: true }),
+            e.inherit(e.QUOTE_STRING_MODE, { illegal: null, className: null, contains: null, skip: true }),
           ],
         },
       ],
@@ -15743,7 +15743,7 @@ var Gi = S(function (Ag, Bi) {
 });
 var qi = S(function (Rg, Fi) {
   function Fp(e) {
-    return { name: "Plain text", aliases: ["text", "txt"], disableAutodetect: !0 };
+    return { name: "Plain text", aliases: ["text", "txt"], disableAutodetect: true };
   }
   Fi.exports = Fp;
 });
@@ -15851,7 +15851,7 @@ var Ki = S(function (vg, zi) {
         className: "class",
         beginKeywords: "class enum",
         end: /\s*[{]/,
-        excludeEnd: !0,
+        excludeEnd: true,
         relevance: 0,
         contains: [e.TITLE_MODE],
       },
@@ -15859,8 +15859,8 @@ var Ki = S(function (vg, zi) {
         className: "function",
         begin: /function\s+/,
         end: /\s*\{|$/,
-        excludeEnd: !0,
-        returnBegin: !0,
+        excludeEnd: true,
+        returnBegin: true,
         relevance: 0,
         contains: [
           { begin: "function", relevance: 0, className: "keyword" },
@@ -15871,7 +15871,7 @@ var Ki = S(function (vg, zi) {
       b = {
         begin: /using\s/,
         end: /$/,
-        returnBegin: !0,
+        returnBegin: true,
         contains: [l, d, { className: "keyword", begin: /(using|assembly|command|module|namespace|type)/ }],
       },
       f = {
@@ -15885,24 +15885,24 @@ var Ki = S(function (vg, zi) {
         className: "function",
         begin: /\[.*\]\s*[\w]+[ ]??\(/,
         end: /$/,
-        returnBegin: !0,
+        returnBegin: true,
         relevance: 0,
         contains: [
           {
             className: "keyword",
             begin: "(".concat(s.keyword.toString().replace(/\s/g, "|"), ")\\b"),
-            endsParent: !0,
+            endsParent: true,
             relevance: 0,
           },
-          e.inherit(e.TITLE_MODE, { endsParent: !0 }),
+          e.inherit(e.TITLE_MODE, { endsParent: true }),
         ],
       },
       N = [A, p, r, e.NUMBER_MODE, l, d, _, i, c, v],
       R = {
         begin: /\[/,
         end: /\]/,
-        excludeBegin: !0,
-        excludeEnd: !0,
+        excludeBegin: true,
+        excludeEnd: true,
         relevance: 0,
         contains: [].concat(
           "self",
@@ -15916,7 +15916,7 @@ var Ki = S(function (vg, zi) {
       {
         name: "PowerShell",
         aliases: ["pwsh", "ps", "ps1"],
-        case_insensitive: !0,
+        case_insensitive: true,
         keywords: s,
         contains: N.concat(E, u, b, f, R),
       }
@@ -16300,7 +16300,7 @@ var Xi = S(function (Cg, Yi) {
       name: "Python profiler",
       contains: [
         e.C_NUMBER_MODE,
-        { begin: "[a-zA-Z_][\\da-zA-Z_]+\\.[\\da-zA-Z_]{1,3}", end: ":", excludeEnd: !0 },
+        { begin: "[a-zA-Z_][\\da-zA-Z_]+\\.[\\da-zA-Z_]{1,3}", end: ":", excludeEnd: true },
         {
           begin: "(ncalls|tottime|cumtime)",
           end: "$",
@@ -16310,7 +16310,7 @@ var Xi = S(function (Cg, Yi) {
         { begin: "function calls", end: "$", contains: [e.C_NUMBER_MODE], relevance: 10 },
         e.APOS_STRING_MODE,
         e.QUOTE_STRING_MODE,
-        { className: "string", begin: "\\(", end: "\\)$", excludeBegin: !0, excludeEnd: !0, relevance: 0 },
+        { className: "string", begin: "\\(", end: "\\)$", excludeBegin: true, excludeEnd: true, relevance: 0 },
       ],
     };
   }
@@ -16367,18 +16367,18 @@ var ji = S(function (hg, Ji) {
       };
     return {
       name: ".properties",
-      disableAutodetect: !0,
-      case_insensitive: !0,
+      disableAutodetect: true,
+      case_insensitive: true,
       illegal: /\S/,
       contains: [
         e.COMMENT("^\\s*[!#]", "$"),
         {
-          returnBegin: !0,
+          returnBegin: true,
           variants: [
             { begin: "([^\\\\:= \\t\\f\\n]|\\\\.)+" + a },
             { begin: "([^\\\\:= \\t\\f\\n]|\\\\.)+[ \\t\\f]+" },
           ],
-          contains: [{ className: "attr", begin: "([^\\\\:= \\t\\f\\n]|\\\\.)+", endsParent: !0 }],
+          contains: [{ className: "attr", begin: "([^\\\\:= \\t\\f\\n]|\\\\.)+", endsParent: true }],
           starts: i,
         },
         { className: "attr", begin: "([^\\\\:= \\t\\f\\n]|\\\\.)+[ \\t\\f]*$" },
@@ -16418,7 +16418,7 @@ var ts = S(function (Mg, es) {
         e.C_LINE_COMMENT_MODE,
         e.C_BLOCK_COMMENT_MODE,
         a,
-        { className: "function", beginKeywords: "rpc", end: /[{;]/, excludeEnd: !0, keywords: "rpc returns" },
+        { className: "function", beginKeywords: "rpc", end: /[{;]/, excludeEnd: true, keywords: "rpc returns" },
         { begin: /^\s*[A-Z_]+(?=\s*=[^\n]+;$)/ },
       ],
     };
@@ -16455,10 +16455,10 @@ var as = S(function (Dg, ns) {
         o,
         r,
         { beginKeywords: "class", end: "\\{|;", illegal: /=/, contains: [s, n] },
-        { beginKeywords: "define", end: /\{/, contains: [{ className: "section", begin: e.IDENT_RE, endsParent: !0 }] },
+        { beginKeywords: "define", end: /\{/, contains: [{ className: "section", begin: e.IDENT_RE, endsParent: true }] },
         {
           begin: e.IDENT_RE + "\\s+\\{",
-          returnBegin: !0,
+          returnBegin: true,
           end: /\S/,
           contains: [
             { className: "keyword", begin: e.IDENT_RE, relevance: 0.2 },
@@ -16472,7 +16472,7 @@ var as = S(function (Dg, ns) {
                 n,
                 {
                   begin: "[a-zA-Z_]+\\s*=>",
-                  returnBegin: !0,
+                  returnBegin: true,
                   end: "=>",
                   contains: [{ className: "attr", begin: e.IDENT_RE }],
                 },
@@ -16507,10 +16507,10 @@ var is = S(function (Lg, rs) {
           className: "function",
           begin: "\\b(Procedure|Declare)(C|CDLL|DLL)?\\b",
           end: "\\(",
-          excludeEnd: !0,
-          returnBegin: !0,
+          excludeEnd: true,
+          returnBegin: true,
           contains: [
-            { className: "keyword", begin: "(Procedure|Declare)(C|CDLL|DLL)?", excludeEnd: !0 },
+            { className: "keyword", begin: "(Procedure|Declare)(C|CDLL|DLL)?", excludeEnd: true },
             { className: "type", begin: "\\.\\w*" },
             e.UNDERSCORE_TITLE_MODE,
           ],
@@ -16707,17 +16707,17 @@ var os = S(function (wg, ss) {
         begin: t.lookahead(/# type:/),
         end: /$/,
         keywords: i,
-        contains: [{ begin: /# type:/ }, { begin: /#/, end: /\b\B/, endsWithParent: !0 }],
+        contains: [{ begin: /# type:/ }, { begin: /#/, end: /\b\B/, endsWithParent: true }],
       },
       f = {
         className: "params",
         variants: [
-          { className: "", begin: /\(\s*\)/, skip: !0 },
+          { className: "", begin: /\(\s*\)/, skip: true },
           {
             begin: /\(/,
             end: /\)/,
-            excludeBegin: !0,
-            excludeEnd: !0,
+            excludeBegin: true,
+            excludeEnd: true,
             keywords: i,
             contains: ["self", c, u, m, e.HASH_COMMENT_MODE],
           },
@@ -16728,7 +16728,7 @@ var os = S(function (wg, ss) {
       {
         name: "Python",
         aliases: ["py", "gyp", "ipython"],
-        unicodeRegex: !0,
+        unicodeRegex: true,
         keywords: i,
         illegal: /(<\/|\?)|=>/,
         contains: [
@@ -16799,37 +16799,37 @@ var _s = S(function (Pg, ms) {
       s = {
         className: "keyword",
         begin: "\\bproperty\\b",
-        starts: { className: "string", end: "(:|=|;|,|//|/\\*|$)", returnEnd: !0 },
+        starts: { className: "string", end: "(:|=|;|,|//|/\\*|$)", returnEnd: true },
       },
       o = {
         className: "keyword",
         begin: "\\bsignal\\b",
-        starts: { className: "string", end: "(\\(|:|=|;|,|//|/\\*|$)", returnEnd: !0 },
+        starts: { className: "string", end: "(\\(|:|=|;|,|//|/\\*|$)", returnEnd: true },
       },
       r = {
         className: "attribute",
         begin: "\\bid\\s*:",
-        starts: { className: "string", end: "[a-zA-Z_][a-zA-Z0-9\\._]*", returnEnd: !1 },
+        starts: { className: "string", end: "[a-zA-Z_][a-zA-Z0-9\\._]*", returnEnd: false },
       },
       i = {
         begin: "[a-zA-Z_][a-zA-Z0-9\\._]*\\s*:",
-        returnBegin: !0,
+        returnBegin: true,
         contains: [
-          { className: "attribute", begin: "[a-zA-Z_][a-zA-Z0-9\\._]*", end: "\\s*:", excludeEnd: !0, relevance: 0 },
+          { className: "attribute", begin: "[a-zA-Z_][a-zA-Z0-9\\._]*", end: "\\s*:", excludeEnd: true, relevance: 0 },
         ],
         relevance: 0,
       },
       c = {
         begin: t.concat("[a-zA-Z_][a-zA-Z0-9\\._]*", /\s*\{/),
         end: /\{/,
-        returnBegin: !0,
+        returnBegin: true,
         relevance: 0,
         contains: [e.inherit(e.TITLE_MODE, { begin: "[a-zA-Z_][a-zA-Z0-9\\._]*" })],
       };
     return {
       name: "QML",
       aliases: ["qt"],
-      case_insensitive: !1,
+      case_insensitive: false,
       keywords: n,
       contains: [
         { className: "meta", begin: /^\s*['"]use (strict|asm)['"]/ },
@@ -16865,15 +16865,15 @@ var _s = S(function (Pg, ms) {
           className: "function",
           beginKeywords: "function",
           end: /\{/,
-          excludeEnd: !0,
+          excludeEnd: true,
           contains: [
             e.inherit(e.TITLE_MODE, { begin: /[A-Za-z$_][0-9A-Za-z$_]*/ }),
             {
               className: "params",
               begin: /\(/,
               end: /\)/,
-              excludeBegin: !0,
-              excludeEnd: !0,
+              excludeBegin: true,
+              excludeEnd: true,
               contains: [e.C_LINE_COMMENT_MODE, e.C_BLOCK_COMMENT_MODE],
             },
           ],
@@ -16915,14 +16915,14 @@ var Es = S(function (Ug, us) {
             {
               scope: "doctag",
               match: /@examples/,
-              starts: { end: t.lookahead(t.either(/\n^#'\s*(?=@[a-zA-Z]+)/, /\n^(?!#')/)), endsParent: !0 },
+              starts: { end: t.lookahead(t.either(/\n^#'\s*(?=@[a-zA-Z]+)/, /\n^(?!#')/)), endsParent: true },
             },
             {
               scope: "doctag",
               begin: "@param",
               end: /$/,
               contains: [
-                { scope: "variable", variants: [{ match: n }, { match: /`(?:\\.|[^`\\])+`/ }], endsParent: !0 },
+                { scope: "variable", variants: [{ match: n }, { match: /`(?:\\.|[^`\\])+`/ }], endsParent: true },
               ],
             },
             { scope: "doctag", match: /@[a-zA-Z]+/ },
@@ -17090,7 +17090,7 @@ var Ss = S(function (Fg, Ns) {
       className: "attribute",
       begin: /[a-zA-Z-_]+/,
       end: /\s*:/,
-      excludeEnd: !0,
+      excludeEnd: true,
       starts: {
         end: ";",
         relevance: 0,
@@ -17103,7 +17103,7 @@ var Ss = S(function (Fg, Ns) {
     return {
       name: "Roboconf",
       aliases: ["graph", "instances"],
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: "import",
       contains: [
         { begin: "^facet [a-zA-Z-_][^\\n{]+\\{", end: /\}/, keywords: "facet", contains: [n, e.HASH_COMMENT_MODE] },
@@ -17138,7 +17138,7 @@ var Rs = S(function (qg, As) {
     return {
       name: "MikroTik RouterOS script",
       aliases: ["mikrotik"],
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         $pattern: /:?[\w-]+/,
         literal: "true false yes no nothing nil null",
@@ -17166,12 +17166,12 @@ var Rs = S(function (qg, As) {
         {
           begin: /[\w-]+=([^\s{}[\]()>]+)/,
           relevance: 0,
-          returnBegin: !0,
+          returnBegin: true,
           contains: [
             { className: "attribute", begin: /[^=]+/ },
             {
               begin: /=/,
-              endsWithParent: !0,
+              endsWithParent: true,
               relevance: 0,
               contains: [
                 i,
@@ -17194,7 +17194,7 @@ var Rs = S(function (qg, As) {
               .split(" ")
               .join("|") +
             ")([\\s[(\\]|])",
-          returnBegin: !0,
+          returnBegin: true,
           contains: [{ className: "built_in", begin: /\w+/ }],
         },
         {
@@ -17428,7 +17428,7 @@ var Cs = S(function ($g, Is) {
       u = {
         variants: [
           { match: /\(\)/ },
-          { className: "params", begin: /\(/, end: /(?=\))/, excludeBegin: !0, endsParent: !0, keywords: r },
+          { className: "params", begin: /\(/, end: /(?=\))/, excludeBegin: true, endsParent: true, keywords: r },
         ],
       },
       y = [
@@ -17464,8 +17464,8 @@ var Cs = S(function ($g, Is) {
           className: "params",
           begin: /\|(?!=)/,
           end: /\|/,
-          excludeBegin: !0,
-          excludeEnd: !0,
+          excludeBegin: true,
+          excludeEnd: true,
           relevance: 0,
           keywords: r,
         },
@@ -18198,7 +18198,7 @@ var ws = S(function (Vg, Ls) {
       ];
     return {
       name: "SAS",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         literal: [
           "null",
@@ -18259,7 +18259,7 @@ var ks = S(function (Wg, xs) {
         className: "class",
         beginKeywords: "class object trait type",
         end: /[:={\[\n;]/,
-        excludeEnd: !0,
+        excludeEnd: true,
         contains: [
           e.C_LINE_COMMENT_MODE,
           e.C_BLOCK_COMMENT_MODE,
@@ -18267,8 +18267,8 @@ var ks = S(function (Wg, xs) {
           {
             begin: /\[/,
             end: /\]/,
-            excludeBegin: !0,
-            excludeEnd: !0,
+            excludeBegin: true,
+            excludeEnd: true,
             relevance: 0,
             contains: [o, e.C_LINE_COMMENT_MODE, e.C_BLOCK_COMMENT_MODE],
           },
@@ -18276,8 +18276,8 @@ var ks = S(function (Wg, xs) {
             className: "params",
             begin: /\(/,
             end: /\)/,
-            excludeBegin: !0,
-            excludeEnd: !0,
+            excludeBegin: true,
+            excludeEnd: true,
             relevance: 0,
             contains: [o, e.C_LINE_COMMENT_MODE, e.C_BLOCK_COMMENT_MODE],
           },
@@ -18343,7 +18343,7 @@ var Us = S(function (Yg, Ps) {
       c = [e.COMMENT(";", "$", { relevance: 0 }), e.COMMENT("#\\|", "\\|#")],
       l = { begin: "[^\\(\\)\\[\\]\\{\\}\",'`;#|\\\\\\s]+", relevance: 0 },
       d = { className: "symbol", begin: "'[^\\(\\)\\[\\]\\{\\}\",'`;#|\\\\\\s]+" },
-      m = { endsWithParent: !0, relevance: 0 },
+      m = { endsWithParent: true, relevance: 0 },
       p = {
         variants: [{ begin: /'/ }, { begin: "`" }],
         contains: [{ begin: "\\(", end: "\\)", contains: ["self", o, i, r, l, d] }],
@@ -18357,12 +18357,12 @@ var Us = S(function (Yg, Ps) {
         contains: [
           {
             begin: /lambda/,
-            endsWithParent: !0,
-            returnBegin: !0,
+            endsWithParent: true,
+            returnBegin: true,
             contains: [
               _,
               {
-                endsParent: !0,
+                endsParent: true,
                 variants: [
                   { begin: /\(/, end: /\)/ },
                   { begin: /\[/, end: /\]/ },
@@ -19206,7 +19206,7 @@ var qs = S(function (Zg, Fs) {
       i = { className: "variable", begin: "(\\$[a-zA-Z-][a-zA-Z0-9_-]*)\\b", relevance: 0 };
     return {
       name: "SCSS",
-      case_insensitive: !0,
+      case_insensitive: true,
       illegal: "[=/|']",
       contains: [
         e.C_LINE_COMMENT_MODE,
@@ -19245,7 +19245,7 @@ var qs = S(function (Zg, Fs) {
         {
           begin: "@",
           end: "[{;]",
-          returnBegin: !0,
+          returnBegin: true,
           keywords: { $pattern: /[a-z-]+/, keyword: "and or not only", attribute: bm.join(" ") },
           contains: [
             { begin: "@[a-z-]+", className: "keyword" },
@@ -19396,7 +19396,7 @@ var Ws = S(function (jg, Vs) {
         n,
         {
           begin: "\\|[ ]*[a-z][a-zA-Z0-9_]*([ ]+[a-z][a-zA-Z0-9_]*)*[ ]*\\|",
-          returnBegin: !0,
+          returnBegin: true,
           end: /\|/,
           illegal: /\S/,
           contains: [{ begin: "(\\|[ ]*)?[a-z][a-zA-Z0-9_]*" }],
@@ -19991,7 +19991,7 @@ var Qs = S(function (tb, Zs) {
     }
     return {
       name: "SQL",
-      case_insensitive: !0,
+      case_insensitive: true,
       illegal: /[{}]|<\//,
       keywords: {
         $pattern: /\b[\w\.]+/,
@@ -20408,7 +20408,7 @@ var to = S(function (ab, eo) {
     return {
       name: "Stata",
       aliases: ["do", "ado"],
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords:
         "if else in foreach for forv forva forval forvalu forvalue forvalues by bys bysort xi quietly qui capture about ac ac_7 acprplot acprplot_7 adjust ado adopath adoupdate alpha ameans an ano anov anova anova_estat anova_terms anovadef aorder ap app appe appen append arch arch_dr arch_estat arch_p archlm areg areg_p args arima arima_dr arima_estat arima_p as asmprobit asmprobit_estat asmprobit_lf asmprobit_mfx__dlg asmprobit_p ass asse asser assert avplot avplot_7 avplots avplots_7 bcskew0 bgodfrey bias binreg bip0_lf biplot bipp_lf bipr_lf bipr_p biprobit bitest bitesti bitowt blogit bmemsize boot bootsamp bootstrap bootstrap_8 boxco_l boxco_p boxcox boxcox_6 boxcox_p bprobit br break brier bro brow brows browse brr brrstat bs bs_7 bsampl_w bsample bsample_7 bsqreg bstat bstat_7 bstat_8 bstrap bstrap_7 bubble bubbleplot ca ca_estat ca_p cabiplot camat canon canon_8 canon_8_p canon_estat canon_p cap caprojection capt captu captur capture cat cc cchart cchart_7 cci cd censobs_table centile cf char chdir checkdlgfiles checkestimationsample checkhlpfiles checksum chelp ci cii cl class classutil clear cli clis clist clo clog clog_lf clog_p clogi clogi_sw clogit clogit_lf clogit_p clogitp clogl_sw cloglog clonevar clslistarray cluster cluster_measures cluster_stop cluster_tree cluster_tree_8 clustermat cmdlog cnr cnre cnreg cnreg_p cnreg_sw cnsreg codebook collaps4 collapse colormult_nb colormult_nw compare compress conf confi confir confirm conren cons const constr constra constrai constrain constraint continue contract copy copyright copysource cor corc corr corr2data corr_anti corr_kmo corr_smc corre correl correla correlat correlate corrgram cou coun count cox cox_p cox_sw coxbase coxhaz coxvar cprplot cprplot_7 crc cret cretu cretur creturn cross cs cscript cscript_log csi ct ct_is ctset ctst_5 ctst_st cttost cumsp cumsp_7 cumul cusum cusum_7 cutil d|0 datasig datasign datasigna datasignat datasignatu datasignatur datasignature datetof db dbeta de dec deco decod decode deff des desc descr descri describ describe destring dfbeta dfgls dfuller di di_g dir dirstats dis discard disp disp_res disp_s displ displa display distinct do doe doed doedi doedit dotplot dotplot_7 dprobit drawnorm drop ds ds_util dstdize duplicates durbina dwstat dydx e|0 ed edi edit egen eivreg emdef en enc enco encod encode eq erase ereg ereg_lf ereg_p ereg_sw ereghet ereghet_glf ereghet_glf_sh ereghet_gp ereghet_ilf ereghet_ilf_sh ereghet_ip eret eretu eretur ereturn err erro error esize est est_cfexist est_cfname est_clickable est_expand est_hold est_table est_unhold est_unholdok estat estat_default estat_summ estat_vce_only esti estimates etodow etof etomdy ex exi exit expand expandcl fac fact facto factor factor_estat factor_p factor_pca_rotated factor_rotate factormat fcast fcast_compute fcast_graph fdades fdadesc fdadescr fdadescri fdadescrib fdadescribe fdasav fdasave fdause fh_st file open file read file close file filefilter fillin find_hlp_file findfile findit findit_7 fit fl fli flis flist for5_0 forest forestplot form forma format fpredict frac_154 frac_adj frac_chk frac_cox frac_ddp frac_dis frac_dv frac_in frac_mun frac_pp frac_pq frac_pv frac_wgt frac_xo fracgen fracplot fracplot_7 fracpoly fracpred fron_ex fron_hn fron_p fron_tn fron_tn2 frontier ftodate ftoe ftomdy ftowdate funnel funnelplot g|0 gamhet_glf gamhet_gp gamhet_ilf gamhet_ip gamma gamma_d2 gamma_p gamma_sw gammahet gdi_hexagon gdi_spokes ge gen gene gener genera generat generate genrank genstd genvmean gettoken gl gladder gladder_7 glim_l01 glim_l02 glim_l03 glim_l04 glim_l05 glim_l06 glim_l07 glim_l08 glim_l09 glim_l10 glim_l11 glim_l12 glim_lf glim_mu glim_nw1 glim_nw2 glim_nw3 glim_p glim_v1 glim_v2 glim_v3 glim_v4 glim_v5 glim_v6 glim_v7 glm glm_6 glm_p glm_sw glmpred glo glob globa global glogit glogit_8 glogit_p gmeans gnbre_lf gnbreg gnbreg_5 gnbreg_p gomp_lf gompe_sw gomper_p gompertz gompertzhet gomphet_glf gomphet_glf_sh gomphet_gp gomphet_ilf gomphet_ilf_sh gomphet_ip gphdot gphpen gphprint gprefs gprobi_p gprobit gprobit_8 gr gr7 gr_copy gr_current gr_db gr_describe gr_dir gr_draw gr_draw_replay gr_drop gr_edit gr_editviewopts gr_example gr_example2 gr_export gr_print gr_qscheme gr_query gr_read gr_rename gr_replay gr_save gr_set gr_setscheme gr_table gr_undo gr_use graph graph7 grebar greigen greigen_7 greigen_8 grmeanby grmeanby_7 gs_fileinfo gs_filetype gs_graphinfo gs_stat gsort gwood h|0 hadimvo hareg hausman haver he heck_d2 heckma_p heckman heckp_lf heckpr_p heckprob hel help hereg hetpr_lf hetpr_p hetprob hettest hexdump hilite hist hist_7 histogram hlogit hlu hmeans hotel hotelling hprobit hreg hsearch icd9 icd9_ff icd9p iis impute imtest inbase include inf infi infil infile infix inp inpu input ins insheet insp inspe inspec inspect integ inten intreg intreg_7 intreg_p intrg2_ll intrg_ll intrg_ll2 ipolate iqreg ir irf irf_create irfm iri is_svy is_svysum isid istdize ivprob_1_lf ivprob_lf ivprobit ivprobit_p ivreg ivreg_footnote ivtob_1_lf ivtob_lf ivtobit ivtobit_p jackknife jacknife jknife jknife_6 jknife_8 jkstat joinby kalarma1 kap kap_3 kapmeier kappa kapwgt kdensity kdensity_7 keep ksm ksmirnov ktau kwallis l|0 la lab labbe labbeplot labe label labelbook ladder levels levelsof leverage lfit lfit_p li lincom line linktest lis list lloghet_glf lloghet_glf_sh lloghet_gp lloghet_ilf lloghet_ilf_sh lloghet_ip llogi_sw llogis_p llogist llogistic llogistichet lnorm_lf lnorm_sw lnorma_p lnormal lnormalhet lnormhet_glf lnormhet_glf_sh lnormhet_gp lnormhet_ilf lnormhet_ilf_sh lnormhet_ip lnskew0 loadingplot loc loca local log logi logis_lf logistic logistic_p logit logit_estat logit_p loglogs logrank loneway lookfor lookup lowess lowess_7 lpredict lrecomp lroc lroc_7 lrtest ls lsens lsens_7 lsens_x lstat ltable ltable_7 ltriang lv lvr2plot lvr2plot_7 m|0 ma mac macr macro makecns man manova manova_estat manova_p manovatest mantel mark markin markout marksample mat mat_capp mat_order mat_put_rr mat_rapp mata mata_clear mata_describe mata_drop mata_matdescribe mata_matsave mata_matuse mata_memory mata_mlib mata_mosave mata_rename mata_which matalabel matcproc matlist matname matr matri matrix matrix_input__dlg matstrik mcc mcci md0_ md1_ md1debug_ md2_ md2debug_ mds mds_estat mds_p mdsconfig mdslong mdsmat mdsshepard mdytoe mdytof me_derd mean means median memory memsize menl meqparse mer merg merge meta mfp mfx mhelp mhodds minbound mixed_ll mixed_ll_reparm mkassert mkdir mkmat mkspline ml ml_5 ml_adjs ml_bhhhs ml_c_d ml_check ml_clear ml_cnt ml_debug ml_defd ml_e0 ml_e0_bfgs ml_e0_cycle ml_e0_dfp ml_e0i ml_e1 ml_e1_bfgs ml_e1_bhhh ml_e1_cycle ml_e1_dfp ml_e2 ml_e2_cycle ml_ebfg0 ml_ebfr0 ml_ebfr1 ml_ebh0q ml_ebhh0 ml_ebhr0 ml_ebr0i ml_ecr0i ml_edfp0 ml_edfr0 ml_edfr1 ml_edr0i ml_eds ml_eer0i ml_egr0i ml_elf ml_elf_bfgs ml_elf_bhhh ml_elf_cycle ml_elf_dfp ml_elfi ml_elfs ml_enr0i ml_enrr0 ml_erdu0 ml_erdu0_bfgs ml_erdu0_bhhh ml_erdu0_bhhhq ml_erdu0_cycle ml_erdu0_dfp ml_erdu0_nrbfgs ml_exde ml_footnote ml_geqnr ml_grad0 ml_graph ml_hbhhh ml_hd0 ml_hold ml_init ml_inv ml_log ml_max ml_mlout ml_mlout_8 ml_model ml_nb0 ml_opt ml_p ml_plot ml_query ml_rdgrd ml_repor ml_s_e ml_score ml_searc ml_technique ml_unhold mleval mlf_ mlmatbysum mlmatsum mlog mlogi mlogit mlogit_footnote mlogit_p mlopts mlsum mlvecsum mnl0_ mor more mov move mprobit mprobit_lf mprobit_p mrdu0_ mrdu1_ mvdecode mvencode mvreg mvreg_estat n|0 nbreg nbreg_al nbreg_lf nbreg_p nbreg_sw nestreg net newey newey_7 newey_p news nl nl_7 nl_9 nl_9_p nl_p nl_p_7 nlcom nlcom_p nlexp2 nlexp2_7 nlexp2a nlexp2a_7 nlexp3 nlexp3_7 nlgom3 nlgom3_7 nlgom4 nlgom4_7 nlinit nllog3 nllog3_7 nllog4 nllog4_7 nlog_rd nlogit nlogit_p nlogitgen nlogittree nlpred no nobreak noi nois noisi noisil noisily note notes notes_dlg nptrend numlabel numlist odbc old_ver olo olog ologi ologi_sw ologit ologit_p ologitp on one onew onewa oneway op_colnm op_comp op_diff op_inv op_str opr opro oprob oprob_sw oprobi oprobi_p oprobit oprobitp opts_exclusive order orthog orthpoly ou out outf outfi outfil outfile outs outsh outshe outshee outsheet ovtest pac pac_7 palette parse parse_dissim pause pca pca_8 pca_display pca_estat pca_p pca_rotate pcamat pchart pchart_7 pchi pchi_7 pcorr pctile pentium pergram pergram_7 permute permute_8 personal peto_st pkcollapse pkcross pkequiv pkexamine pkexamine_7 pkshape pksumm pksumm_7 pl plo plot plugin pnorm pnorm_7 poisgof poiss_lf poiss_sw poisso_p poisson poisson_estat post postclose postfile postutil pperron pr prais prais_e prais_e2 prais_p predict predictnl preserve print pro prob probi probit probit_estat probit_p proc_time procoverlay procrustes procrustes_estat procrustes_p profiler prog progr progra program prop proportion prtest prtesti pwcorr pwd q\\s qby qbys qchi qchi_7 qladder qladder_7 qnorm qnorm_7 qqplot qqplot_7 qreg qreg_c qreg_p qreg_sw qu quadchk quantile quantile_7 que quer query range ranksum ratio rchart rchart_7 rcof recast reclink recode reg reg3 reg3_p regdw regr regre regre_p2 regres regres_p regress regress_estat regriv_p remap ren rena renam rename renpfix repeat replace report reshape restore ret retu retur return rm rmdir robvar roccomp roccomp_7 roccomp_8 rocf_lf rocfit rocfit_8 rocgold rocplot rocplot_7 roctab roctab_7 rolling rologit rologit_p rot rota rotat rotate rotatemat rreg rreg_p ru run runtest rvfplot rvfplot_7 rvpplot rvpplot_7 sa safesum sample sampsi sav save savedresults saveold sc sca scal scala scalar scatter scm_mine sco scob_lf scob_p scobi_sw scobit scor score scoreplot scoreplot_help scree screeplot screeplot_help sdtest sdtesti se search separate seperate serrbar serrbar_7 serset set set_defaults sfrancia sh she shel shell shewhart shewhart_7 signestimationsample signrank signtest simul simul_7 simulate simulate_8 sktest sleep slogit slogit_d2 slogit_p smooth snapspan so sor sort spearman spikeplot spikeplot_7 spikeplt spline_x split sqreg sqreg_p sret sretu sretur sreturn ssc st st_ct st_hc st_hcd st_hcd_sh st_is st_issys st_note st_promo st_set st_show st_smpl st_subid stack statsby statsby_8 stbase stci stci_7 stcox stcox_estat stcox_fr stcox_fr_ll stcox_p stcox_sw stcoxkm stcoxkm_7 stcstat stcurv stcurve stcurve_7 stdes stem stepwise stereg stfill stgen stir stjoin stmc stmh stphplot stphplot_7 stphtest stphtest_7 stptime strate strate_7 streg streg_sw streset sts sts_7 stset stsplit stsum sttocc sttoct stvary stweib su suest suest_8 sum summ summa summar summari summariz summarize sunflower sureg survcurv survsum svar svar_p svmat svy svy_disp svy_dreg svy_est svy_est_7 svy_estat svy_get svy_gnbreg_p svy_head svy_header svy_heckman_p svy_heckprob_p svy_intreg_p svy_ivreg_p svy_logistic_p svy_logit_p svy_mlogit_p svy_nbreg_p svy_ologit_p svy_oprobit_p svy_poisson_p svy_probit_p svy_regress_p svy_sub svy_sub_7 svy_x svy_x_7 svy_x_p svydes svydes_8 svygen svygnbreg svyheckman svyheckprob svyintreg svyintreg_7 svyintrg svyivreg svylc svylog_p svylogit svymarkout svymarkout_8 svymean svymlog svymlogit svynbreg svyolog svyologit svyoprob svyoprobit svyopts svypois svypois_7 svypoisson svyprobit svyprobt svyprop svyprop_7 svyratio svyreg svyreg_p svyregress svyset svyset_7 svyset_8 svytab svytab_7 svytest svytotal sw sw_8 swcnreg swcox swereg swilk swlogis swlogit swologit swoprbt swpois swprobit swqreg swtobit swweib symmetry symmi symplot symplot_7 syntax sysdescribe sysdir sysuse szroeter ta tab tab1 tab2 tab_or tabd tabdi tabdis tabdisp tabi table tabodds tabodds_7 tabstat tabu tabul tabula tabulat tabulate te tempfile tempname tempvar tes test testnl testparm teststd tetrachoric time_it timer tis tob tobi tobit tobit_p tobit_sw token tokeni tokeniz tokenize tostring total translate translator transmap treat_ll treatr_p treatreg trim trimfill trnb_cons trnb_mean trpoiss_d2 trunc_ll truncr_p truncreg tsappend tset tsfill tsline tsline_ex tsreport tsrevar tsrline tsset tssmooth tsunab ttest ttesti tut_chk tut_wait tutorial tw tware_st two twoway twoway__fpfit_serset twoway__function_gen twoway__histogram_gen twoway__ipoint_serset twoway__ipoints_serset twoway__kdensity_gen twoway__lfit_serset twoway__normgen_gen twoway__pci_serset twoway__qfit_serset twoway__scatteri_serset twoway__sunflower_gen twoway_ksm_serset ty typ type typeof u|0 unab unabbrev unabcmd update us use uselabel var var_mkcompanion var_p varbasic varfcast vargranger varirf varirf_add varirf_cgraph varirf_create varirf_ctable varirf_describe varirf_dir varirf_drop varirf_erase varirf_graph varirf_ograph varirf_rename varirf_set varirf_table varlist varlmar varnorm varsoc varstable varstable_w varstable_w2 varwle vce vec vec_fevd vec_mkphi vec_p vec_p_w vecirf_create veclmar veclmar_w vecnorm vecnorm_w vecrank vecstable verinst vers versi versio version view viewsource vif vwls wdatetof webdescribe webseek webuse weib1_lf weib2_lf weib_lf weib_lf0 weibhet_glf weibhet_glf_sh weibhet_glfa weibhet_glfa_sh weibhet_gp weibhet_ilf weibhet_ilf_sh weibhet_ilfa weibhet_ilfa_sh weibhet_ip weibu_sw weibul_p weibull weibull_c weibull_s weibullhet wh whelp whi which whil while wilc_st wilcoxon win wind windo window winexec wntestb wntestb_7 wntestq xchart xchart_7 xcorr xcorr_7 xi xi_6 xmlsav xmlsave xmluse xpose xsh xshe xshel xshell xt_iis xt_tis xtab_p xtabond xtbin_p xtclog xtcloglog xtcloglog_8 xtcloglog_d2 xtcloglog_pa_p xtcloglog_re_p xtcnt_p xtcorr xtdata xtdes xtfront_p xtfrontier xtgee xtgee_elink xtgee_estat xtgee_makeivar xtgee_p xtgee_plink xtgls xtgls_p xthaus xthausman xtht_p xthtaylor xtile xtint_p xtintreg xtintreg_8 xtintreg_d2 xtintreg_p xtivp_1 xtivp_2 xtivreg xtline xtline_ex xtlogit xtlogit_8 xtlogit_d2 xtlogit_fe_p xtlogit_pa_p xtlogit_re_p xtmixed xtmixed_estat xtmixed_p xtnb_fe xtnb_lf xtnbreg xtnbreg_pa_p xtnbreg_refe_p xtpcse xtpcse_p xtpois xtpoisson xtpoisson_d2 xtpoisson_pa_p xtpoisson_refe_p xtpred xtprobit xtprobit_8 xtprobit_d2 xtprobit_re_p xtps_fe xtps_lf xtps_ren xtps_ren_8 xtrar_p xtrc xtrc_p xtrchh xtrefe_p xtreg xtreg_be xtreg_fe xtreg_ml xtreg_pa_p xtreg_re xtregar xtrere_p xtset xtsf_ll xtsf_llti xtsum xttab xttest0 xttobit xttobit_8 xttobit_p xttrans yx yxview__barlike_draw yxview_area_draw yxview_bar_draw yxview_dot_draw yxview_dropline_draw yxview_function_draw yxview_iarrow_draw yxview_ilabels_draw yxview_normal_draw yxview_pcarrow_draw yxview_pcbarrow_draw yxview_pccapsym_draw yxview_pcscatter_draw yxview_pcspike_draw yxview_rarea_draw yxview_rbar_draw yxview_rbarm_draw yxview_rcap_draw yxview_rcapsym_draw yxview_rconnected_draw yxview_rline_draw yxview_rscatter_draw yxview_rspike_draw yxview_spike_draw yxview_sunflower_draw zap_s zinb zinb_llf zinb_plf zip zip_llf zip_p zip_plf zt_ct_5 zt_hc_5 zt_hcd_5 zt_is_5 zt_iss_5 zt_sho_5 zt_smp_5 ztbase_5 ztcox_5 ztdes_5 ztereg_5 ztfill_5 ztgen_5 ztir_5 ztjoin_5 ztnb ztnb_p ztp ztp_p zts_5 ztset_5 ztspli_5 ztsum_5 zttoct_5 ztvary_5 ztweib_5",
       contains: [
@@ -20436,7 +20436,7 @@ var to = S(function (ab, eo) {
             },
           ],
         },
-        e.COMMENT("^[ \t]*\\*.*$", !1),
+        e.COMMENT("^[ \t]*\\*.*$", false),
         e.C_LINE_COMMENT_MODE,
         e.C_BLOCK_COMMENT_MODE,
       ],
@@ -20449,7 +20449,7 @@ var ao = S(function (rb, no) {
     return {
       name: "STEP Part 21",
       aliases: ["p21", "step", "stp"],
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: { $pattern: "[A-Z_][A-Z0-9_.]*", keyword: ["HEADER", "ENDSEC", "DATA"] },
       contains: [
         { className: "meta", begin: "ISO-10303-21;", relevance: 10 },
@@ -21272,7 +21272,7 @@ var io = S(function (ib, ro) {
     return {
       name: "Stylus",
       aliases: ["styl"],
-      case_insensitive: !1,
+      case_insensitive: false,
       keywords: "if else for in",
       illegal:
         "(" +
@@ -21318,7 +21318,7 @@ var io = S(function (ib, ro) {
           className: "function",
           begin: "^[a-zA-Z][a-zA-Z0-9_-]*\\(.*\\)",
           illegal: "[\\n]",
-          returnBegin: !0,
+          returnBegin: true,
           contains: [
             { className: "title", begin: "\\b[a-zA-Z][a-zA-Z0-9_-]*" },
             {
@@ -21359,7 +21359,7 @@ var oo = S(function (sb, so) {
   function Gm(e) {
     return {
       name: "SubUnit",
-      case_insensitive: !0,
+      case_insensitive: true,
       contains: [
         {
           className: "string",
@@ -21747,7 +21747,7 @@ var bo = S(function (ob, go) {
         end: /\)/,
         keywords: l,
         contains: [Ae, ...a, ...d, ...b, A, P, ...U, G, ee],
-        endsParent: !0,
+        endsParent: true,
         illegal: /["']/,
       },
       ke = {
@@ -21850,7 +21850,7 @@ var So = S(function (lb, No) {
   function Xm(e) {
     return {
       name: "Test Anything Protocol",
-      case_insensitive: !0,
+      case_insensitive: true,
       contains: [
         e.HASH_COMMENT_MODE,
         { className: "meta", variants: [{ begin: "^TAP version (\\d+)$" }, { begin: "^1\\.\\.(\\d+)$" }] },
@@ -21996,14 +21996,14 @@ var Ro = S(function (db, Ao) {
         {
           beginKeywords: "proc",
           end: "[\\{]",
-          excludeEnd: !0,
+          excludeEnd: true,
           contains: [
             {
               className: "title",
               begin: "[ \\t\\n\\r]+(::)?[a-zA-Z_]((::)?[a-zA-Z0-9_])*",
               end: "[ \\t\\n\\r]",
-              endsWithParent: !0,
-              excludeEnd: !0,
+              endsWithParent: true,
+              excludeEnd: true,
             },
           ],
         },
@@ -22060,7 +22060,7 @@ var vo = S(function (pb, Oo) {
           beginKeywords: "struct enum service exception",
           end: /\{/,
           illegal: /\n/,
-          contains: [e.inherit(e.TITLE_MODE, { starts: { endsWithParent: !0, excludeEnd: !0 } })],
+          contains: [e.inherit(e.TITLE_MODE, { starts: { endsWithParent: true, excludeEnd: true } })],
         },
         {
           begin: "\\b(set|list|map)\\s*<",
@@ -22336,7 +22336,7 @@ var ho = S(function (_b, yo) {
         ],
       },
       r = { scope: "number", match: /\d+/ },
-      i = { begin: /\(/, end: /\)/, excludeBegin: !0, excludeEnd: !0, contains: [o, r] },
+      i = { begin: /\(/, end: /\)/, excludeBegin: true, excludeEnd: true, contains: [o, r] },
       c = { beginKeywords: n.join(" "), keywords: { name: n }, relevance: 0, contains: [i] },
       l = {
         match: /\|(?=[A-Za-z_]+:?)/,
@@ -22359,7 +22359,7 @@ var ho = S(function (_b, yo) {
     return {
       name: "Twig",
       aliases: ["craftcms"],
-      case_insensitive: !0,
+      case_insensitive: true,
       subLanguage: "xml",
       contains: [
         e.COMMENT(/\{#/, /#\}/),
@@ -22560,17 +22560,17 @@ var Bo = S(function (ub, Uo) {
       _ = {
         begin: ".?html`",
         end: "",
-        starts: { end: "`", returnEnd: !1, contains: [e.BACKSLASH_ESCAPE, p], subLanguage: "xml" },
+        starts: { end: "`", returnEnd: false, contains: [e.BACKSLASH_ESCAPE, p], subLanguage: "xml" },
       },
       E = {
         begin: ".?css`",
         end: "",
-        starts: { end: "`", returnEnd: !1, contains: [e.BACKSLASH_ESCAPE, p], subLanguage: "css" },
+        starts: { end: "`", returnEnd: false, contains: [e.BACKSLASH_ESCAPE, p], subLanguage: "css" },
       },
       u = {
         begin: ".?gql`",
         end: "",
-        starts: { end: "`", returnEnd: !1, contains: [e.BACKSLASH_ESCAPE, p], subLanguage: "graphql" },
+        starts: { end: "`", returnEnd: false, contains: [e.BACKSLASH_ESCAPE, p], subLanguage: "graphql" },
       },
       b = { className: "string", begin: "`", end: "`", contains: [e.BACKSLASH_ESCAPE, p] },
       v = {
@@ -22584,11 +22584,11 @@ var Bo = S(function (ub, Uo) {
                 relevance: 0,
                 contains: [
                   { className: "doctag", begin: "@[A-Za-z]+" },
-                  { className: "type", begin: "\\{", end: "\\}", excludeEnd: !0, excludeBegin: !0, relevance: 0 },
+                  { className: "type", begin: "\\{", end: "\\}", excludeEnd: true, excludeBegin: true, relevance: 0 },
                   {
                     className: "variable",
                     begin: "[A-Za-z$_][0-9A-Za-z$_]*(?=\\s*(-)|$)",
-                    endsParent: !0,
+                    endsParent: true,
                     relevance: 0,
                   },
                   { begin: /(?=[^\n])\s/, relevance: 0 },
@@ -22608,8 +22608,8 @@ var Bo = S(function (ub, Uo) {
         className: "params",
         begin: /(\s*)\(/,
         end: /\)/,
-        excludeBegin: !0,
-        excludeEnd: !0,
+        excludeBegin: true,
+        excludeEnd: true,
         keywords: i,
         contains: R,
       },
@@ -22669,7 +22669,7 @@ var Bo = S(function (ub, Uo) {
       z = {
         begin: t.concat(/\./, t.lookahead(t.concat("[A-Za-z$_][0-9A-Za-z$_]*", /(?![0-9A-Za-z$_(])/))),
         end: "[A-Za-z$_][0-9A-Za-z$_]*",
-        excludeBegin: !0,
+        excludeBegin: true,
         keywords: "prototype",
         className: "property",
         relevance: 0,
@@ -22717,15 +22717,15 @@ var Bo = S(function (ub, Uo) {
             {
               className: "function",
               begin: g,
-              returnBegin: !0,
+              returnBegin: true,
               end: "\\s*=>",
               contains: [
                 {
                   className: "params",
                   variants: [
                     { begin: e.UNDERSCORE_IDENT_RE, relevance: 0 },
-                    { className: null, begin: /\(\s*\)/, skip: !0 },
-                    { begin: /(\s*)\(/, end: /\)/, excludeBegin: !0, excludeEnd: !0, keywords: i, contains: R },
+                    { className: null, begin: /\(\s*\)/, skip: true },
+                    { begin: /(\s*)\(/, end: /\)/, excludeBegin: true, excludeEnd: true, keywords: i, contains: R },
                   ],
                 },
               ],
@@ -22739,7 +22739,7 @@ var Bo = S(function (ub, Uo) {
                 { begin: r.begin, "on:begin": r.isTrulyOpeningTag, end: r.end },
               ],
               subLanguage: "xml",
-              contains: [{ begin: r.begin, end: r.end, skip: !0, contains: ["self"] }],
+              contains: [{ begin: r.begin, end: r.end, skip: true, contains: ["self"] }],
             },
           ],
         },
@@ -22748,7 +22748,7 @@ var Bo = S(function (ub, Uo) {
         {
           begin:
             "\\b(?!function)" + e.UNDERSCORE_IDENT_RE + "\\([^()]*(\\([^()]*(\\([^()]*\\)[^()]*)*\\)[^()]*)*\\)\\s*\\{",
-          returnBegin: !0,
+          returnBegin: true,
           label: "func.def",
           contains: [y, e.inherit(e.TITLE_MODE, { begin: "[A-Za-z$_][0-9A-Za-z$_]*", className: "title.function" })],
         },
@@ -22773,7 +22773,7 @@ var Bo = S(function (ub, Uo) {
       r = {
         beginKeywords: "interface",
         end: /\{/,
-        excludeEnd: !0,
+        excludeEnd: true,
         keywords: { keyword: "interface extends", built_in: s },
         contains: [n.exports.CLASS_REFERENCE],
       },
@@ -22832,7 +22832,7 @@ var Fo = S(function (Eb, Go) {
           className: "class",
           beginKeywords: "class interface namespace",
           end: /\{/,
-          excludeEnd: !0,
+          excludeEnd: true,
           illegal: "[^,:\\n\\s\\.]",
           contains: [e.UNDERSCORE_TITLE_MODE],
         },
@@ -22883,7 +22883,7 @@ var Ho = S(function (gb, qo) {
     return {
       name: "Visual Basic .NET",
       aliases: ["vb"],
-      case_insensitive: !0,
+      case_insensitive: true,
       classNameAliases: { label: "symbol" },
       keywords: {
         keyword:
@@ -23028,7 +23028,7 @@ var zo = S(function (bb, $o) {
     return {
       name: "VBScript",
       aliases: ["vbs"],
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         keyword: [
           "call",
@@ -23602,7 +23602,7 @@ var Yo = S(function (Tb, Wo) {
     return {
       name: "Verilog",
       aliases: ["v", "sv", "svh"],
-      case_insensitive: !1,
+      case_insensitive: false,
       keywords: n,
       contains: [
         e.C_BLOCK_COMMENT_MODE,
@@ -23619,7 +23619,7 @@ var Yo = S(function (Tb, Wo) {
         },
         { scope: "variable", variants: [{ begin: "#\\((?!parameter).+\\)" }, { begin: "\\.\\w+", relevance: 0 }] },
         { scope: "variable.constant", match: t.concat(/`/, t.either(...a)) },
-        { scope: "meta", begin: t.concat(/`/, t.either(...s)), end: /$|\/\/|\/\*/, returnEnd: !0, keywords: s },
+        { scope: "meta", begin: t.concat(/`/, t.either(...s)), end: /$|\/\/|\/\*/, returnEnd: true, keywords: s },
       ],
     };
   }
@@ -23633,7 +23633,7 @@ var Zo = S(function (Nb, Xo) {
       r = "\\b(" + ("\\d(_|\\d)*#\\w+(\\.\\w+)?#(" + n + ")?") + "|" + a + ")";
     return {
       name: "VHDL",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         keyword: [
           "abs",
@@ -24002,7 +24002,7 @@ var nc = S(function (Rb, tc) {
       },
       m = { relevance: 0, match: t.either(...i), className: "operator" },
       p = { className: "string", begin: /"""/, end: /"""/ },
-      _ = { className: "property", begin: t.concat(/\./, t.lookahead(n)), end: n, excludeBegin: !0, relevance: 0 },
+      _ = { className: "property", begin: t.concat(/\./, t.lookahead(n)), end: n, excludeBegin: true, relevance: 0 },
       E = { relevance: 0, match: t.concat(/\b_/, n), scope: "variable" },
       u = { relevance: 0, match: /\b[A-Z]+[a-z]+([A-Z]+[a-z]+)*/, scope: "title.class", keywords: { _: r } },
       b = e.C_NUMBER_MODE,
@@ -24071,7 +24071,7 @@ var rc = S(function (Ob, ac) {
   function p_(e) {
     return {
       name: "Intel x86 Assembly",
-      case_insensitive: !0,
+      case_insensitive: true,
       keywords: {
         $pattern: "[.%]?" + e.IDENT_RE,
         keyword:
@@ -24260,9 +24260,9 @@ var sc = S(function (vb, ic) {
       m = {
         className: "function",
         begin: /[a-z][^\n]*->/,
-        returnBegin: !0,
+        returnBegin: true,
         end: /->/,
-        contains: [e.inherit(e.TITLE_MODE, { starts: { endsWithParent: !0, keywords: o } })],
+        contains: [e.inherit(e.TITLE_MODE, { starts: { endsWithParent: true, keywords: o } })],
       };
     return {
       name: "XL",
@@ -24284,7 +24284,7 @@ var cc = S(function (Ib, oc) {
       i = e.inherit(e.APOS_STRING_MODE, { className: "string" }),
       c = e.inherit(e.QUOTE_STRING_MODE, { className: "string" }),
       l = {
-        endsWithParent: !0,
+        endsWithParent: true,
         illegal: /</,
         relevance: 0,
         contains: [
@@ -24295,7 +24295,7 @@ var cc = S(function (Ib, oc) {
             contains: [
               {
                 className: "string",
-                endsParent: !0,
+                endsParent: true,
                 variants: [
                   { begin: /"/, end: /"/, contains: [s] },
                   { begin: /'/, end: /'/, contains: [s] },
@@ -24309,8 +24309,8 @@ var cc = S(function (Ib, oc) {
     return {
       name: "HTML, XML",
       aliases: ["html", "xhtml", "rss", "atom", "xjb", "xsd", "xsl", "plist", "wsf", "svg"],
-      case_insensitive: !0,
-      unicodeRegex: !0,
+      case_insensitive: true,
+      unicodeRegex: true,
       contains: [
         {
           className: "meta",
@@ -24343,7 +24343,7 @@ var cc = S(function (Ib, oc) {
           end: />/,
           keywords: { name: "style" },
           contains: [l],
-          starts: { end: /<\/style>/, returnEnd: !0, subLanguage: ["css", "xml"] },
+          starts: { end: /<\/style>/, returnEnd: true, subLanguage: ["css", "xml"] },
         },
         {
           className: "tag",
@@ -24351,7 +24351,7 @@ var cc = S(function (Ib, oc) {
           end: />/,
           keywords: { name: "script" },
           contains: [l],
-          starts: { end: /<\/script>/, returnEnd: !0, subLanguage: ["javascript", "handlebars", "xml"] },
+          starts: { end: /<\/script>/, returnEnd: true, subLanguage: ["javascript", "handlebars", "xml"] },
         },
         { className: "tag", begin: /<>|<\/>/ },
         {
@@ -24365,7 +24365,7 @@ var cc = S(function (Ib, oc) {
           begin: t.concat(/<\//, t.lookahead(t.concat(n, />/))),
           contains: [
             { className: "name", begin: n, relevance: 0 },
-            { begin: />/, relevance: 0, endsParent: !0 },
+            { begin: />/, relevance: 0, endsParent: true },
           ],
         },
       ],
@@ -24378,7 +24378,7 @@ var dc = S(function (Cb, lc) {
     return {
       name: "XQuery",
       aliases: ["xpath", "xq", "xqm"],
-      case_insensitive: !1,
+      case_insensitive: false,
       illegal: /(proc)|(abstract)|(extends)|(until)|(#)/,
       keywords: {
         $pattern: /[a-zA-Z$][a-zA-Z0-9_:-]*/,
@@ -24573,15 +24573,15 @@ var dc = S(function (Cb, lc) {
             },
             { begin: /\bmap:/, end: /(?:contains|entry|find|for-each|get|keys|merge|put|remove|size)\b/ },
             { begin: /\bmath:/, end: /(?:a(?:cos|sin|tan[2]?)|cos|exp(?:10)?|log(?:10)?|pi|pow|sin|sqrt|tan)\b/ },
-            { begin: /\bop:/, end: /\(/, excludeEnd: !0 },
-            { begin: /\bfn:/, end: /\(/, excludeEnd: !0 },
+            { begin: /\bop:/, end: /\(/, excludeEnd: true },
+            { begin: /\bfn:/, end: /\(/, excludeEnd: true },
             {
               begin:
                 /[^</$:'"-]\b(?:abs|accumulator-(?:after|before)|adjust-(?:date(?:Time)?|time)-to-timezone|analyze-string|apply|available-(?:environment-variables|system-properties)|avg|base-uri|boolean|ceiling|codepoints?-(?:equal|to-string)|collation-key|collection|compare|concat|contains(?:-token)?|copy-of|count|current(?:-)?(?:date(?:Time)?|time|group(?:ing-key)?|output-uri|merge-(?:group|key))?data|dateTime|days?-from-(?:date(?:Time)?|duration)|deep-equal|default-(?:collation|language)|distinct-values|document(?:-uri)?|doc(?:-available)?|element-(?:available|with-id)|empty|encode-for-uri|ends-with|environment-variable|error|escape-html-uri|exactly-one|exists|false|filter|floor|fold-(?:left|right)|for-each(?:-pair)?|format-(?:date(?:Time)?|time|integer|number)|function-(?:arity|available|lookup|name)|generate-id|has-children|head|hours-from-(?:dateTime|duration|time)|id(?:ref)?|implicit-timezone|in-scope-prefixes|index-of|innermost|insert-before|iri-to-uri|json-(?:doc|to-xml)|key|lang|last|load-xquery-module|local-name(?:-from-QName)?|(?:lower|upper)-case|matches|max|minutes-from-(?:dateTime|duration|time)|min|months?-from-(?:date(?:Time)?|duration)|name(?:space-uri-?(?:for-prefix|from-QName)?)?|nilled|node-name|normalize-(?:space|unicode)|not|number|one-or-more|outermost|parse-(?:ietf-date|json)|path|position|(?:prefix-from-)?QName|random-number-generator|regex-group|remove|replace|resolve-(?:QName|uri)|reverse|root|round(?:-half-to-even)?|seconds-from-(?:dateTime|duration|time)|snapshot|sort|starts-with|static-base-uri|stream-available|string-?(?:join|length|to-codepoints)?|subsequence|substring-?(?:after|before)?|sum|system-property|tail|timezone-from-(?:date(?:Time)?|time)|tokenize|trace|trans(?:form|late)|true|type-available|unordered|unparsed-(?:entity|text)?-?(?:public-id|uri|available|lines)?|uri-collection|xml-to-json|years?-from-(?:date(?:Time)?|duration)|zero-or-one)\b/,
             },
-            { begin: /\blocal:/, end: /\(/, excludeEnd: !0 },
+            { begin: /\blocal:/, end: /\(/, excludeEnd: true },
             { begin: /\bzip:/, end: /(?:zip-file|(?:xml|html|text|binary)-entry| (?:update-)?entries)\b/ },
-            { begin: /\b(?:util|db|functx|app|xdmp|xmldb):/, end: /\(/, excludeEnd: !0 },
+            { begin: /\b(?:util|db|functx|app|xdmp|xmldb):/, end: /\(/, excludeEnd: true },
           ],
         },
         {
@@ -24605,7 +24605,7 @@ var dc = S(function (Cb, lc) {
         },
         { className: "meta", begin: /%[\w\-:]+/ },
         { className: "title", begin: /\bxquery version "[13]\.[01]"\s?(?:encoding ".+")?/, end: /;/ },
-        { beginKeywords: "element attribute comment document processing-instruction", end: /\{/, excludeEnd: !0 },
+        { beginKeywords: "element attribute comment document processing-instruction", end: /\{/, excludeEnd: true },
         {
           begin: /<([\w._:-]+)(\s+\S*=('|").*('|"))?>/,
           end: /(\/[\w._:-]+>)/,
@@ -24663,14 +24663,14 @@ var mc = S(function (yb, pc) {
         begin:
           "\\b[0-9]{4}(-[0-9][0-9]){0,2}([Tt \\t][0-9][0-9]?(:[0-9][0-9]){2})?(\\.[0-9]*)?([ \\t])*(Z|[-+][0-9][0-9]?(:[0-9][0-9])?)?\\b",
       },
-      _ = { end: ",", endsWithParent: !0, excludeEnd: !0, keywords: "true false yes no null", relevance: 0 },
+      _ = { end: ",", endsWithParent: true, excludeEnd: true, keywords: "true false yes no null", relevance: 0 },
       E = { begin: /\{/, end: /\}/, contains: [_], illegal: "\\n", relevance: 0 },
       u = { begin: "\\[", end: "\\]", contains: [_], illegal: "\\n", relevance: 0 },
       b = [
         a,
         { className: "meta", begin: "^---\\s*$", relevance: 10 },
         { className: "string", begin: "[\\|>]([1-9]?[+-])?[ ]*\\n( +)[^ ][^\\n]*\\n(\\2[^\\n]+\\n?)*" },
-        { begin: "<%[%=-]?", end: "[%-]?%>", subLanguage: "ruby", excludeBegin: !0, excludeEnd: !0, relevance: 0 },
+        { begin: "<%[%=-]?", end: "[%-]?%>", subLanguage: "ruby", excludeBegin: true, excludeEnd: true, relevance: 0 },
         { className: "type", begin: "!\\w+![\\w#;/?:@&=+$,.~*'()[\\]]+" },
         { className: "type", begin: "!<[\\w#;/?:@&=+$,.~*'()[\\]]+>" },
         { className: "type", begin: "![\\w#;/?:@&=+$,.~*'()[\\]]+" },
@@ -24688,7 +24688,7 @@ var mc = S(function (yb, pc) {
         r,
       ],
       f = [...b];
-    return f.pop(), f.push(i), (_.contains = f), { name: "YAML", case_insensitive: !0, aliases: ["yml"], contains: b };
+    return f.pop(), f.push(i), (_.contains = f), { name: "YAML", case_insensitive: true, aliases: ["yml"], contains: b };
   }
   pc.exports = E_;
 });
@@ -24716,7 +24716,7 @@ var uc = S(function (hb, _c) {
           className: "function",
           beginKeywords: "function fn",
           end: /[;{]/,
-          excludeEnd: !0,
+          excludeEnd: true,
           illegal: /\$|\[|%/,
           contains: [
             n,
@@ -24733,7 +24733,7 @@ var uc = S(function (hb, _c) {
           className: "class",
           beginKeywords: "class interface",
           end: /\{/,
-          excludeEnd: !0,
+          excludeEnd: true,
           illegal: /[:($"]/,
           contains: [{ beginKeywords: "extends implements" }, n],
         },
@@ -24776,10 +24776,10 @@ var Bc = S(function (Db, Uc) {
   class Ve {
     constructor(e) {
       if (e.data === void 0) e.data = {};
-      (this.data = e.data), (this.isMatchIgnored = !1);
+      (this.data = e.data), (this.isMatchIgnored = false);
     }
     ignoreMatch() {
-      this.isMatchIgnored = !0;
+      this.isMatchIgnored = true;
     }
   }
   function Rc(e) {
@@ -24906,7 +24906,7 @@ var Bc = S(function (Db, Uc) {
       return new Oc(this, this.options).value();
     }
     finalize() {
-      return this.closeAllNodes(), !0;
+      return this.closeAllNodes(), true;
     }
   }
   function Ne(e) {
@@ -25002,7 +25002,7 @@ var Bc = S(function (Db, Uc) {
         scope: "doctag",
         begin: "[ ]*(?=(TODO|FIXME|NOTE|BUG|OPTIMIZE|HACK|XXX):)",
         end: /(TODO|FIXME|NOTE|BUG|OPTIMIZE|HACK|XXX):/,
-        excludeBegin: !0,
+        excludeBegin: true,
         relevance: 0,
       });
       let s = Ye(
@@ -25114,7 +25114,7 @@ var Bc = S(function (Db, Uc) {
       }),
         (e.keywords = n.keywords),
         (e.begin = de(n.beforeMatch, Ic(n.begin))),
-        (e.starts = { relevance: 0, contains: [Object.assign(n, { endsParent: !0 })] }),
+        (e.starts = { relevance: 0, contains: [Object.assign(n, { endsParent: true })] }),
         (e.relevance = 0),
         delete n.beforeMatch;
     },
@@ -25153,7 +25153,7 @@ var Bc = S(function (Db, Uc) {
     },
     Ee = (e, t) => {
       if (fc[`${e}/${t}`]) return;
-      console.log(`Deprecated as of ${e}. ${t}`), (fc[`${e}/${t}`] = !0);
+      console.log(`Deprecated as of ${e}. ${t}`), (fc[`${e}/${t}`] = true);
     },
     we = Error();
   function wc(e, t, { key: n }) {
@@ -25161,8 +25161,8 @@ var Bc = S(function (Db, Uc) {
       s = e[n],
       o = {},
       r = {};
-    for (let i = 1; i <= t.length; i++) (r[i + a] = s[i]), (o[i + a] = !0), (a += Cc(t[i - 1]));
-    (e[n] = r), (e[n]._emit = o), (e[n]._multi = !0);
+    for (let i = 1; i <= t.length; i++) (r[i + a] = s[i]), (o[i + a] = true), (a += Cc(t[i - 1]));
+    (e[n] = r), (e[n]._emit = o), (e[n]._multi = true);
   }
   function J_(e) {
     if (!Array.isArray(e.begin)) return;
@@ -25203,7 +25203,7 @@ var Bc = S(function (Db, Uc) {
       compile() {
         if (this.regexes.length === 0) this.exec = () => null;
         let r = this.regexes.map((i) => i[1]);
-        (this.matcherRe = t(Xe(r, { joinWith: "|" }), !0)), (this.lastIndex = 0);
+        (this.matcherRe = t(Xe(r, { joinWith: "|" }), true)), (this.lastIndex = 0);
       }
       exec(r) {
         this.matcherRe.lastIndex = this.lastIndex;
@@ -25262,12 +25262,12 @@ var Bc = S(function (Db, Uc) {
         e.compilerExtensions.forEach((d) => d(r, i)),
         (r.__beforeBegin = null),
         [$_, z_, V_].forEach((d) => d(r, i)),
-        (r.isCompiled = !0);
+        (r.isCompiled = true);
       let l = null;
       if (typeof r.keywords === "object" && r.keywords.$pattern)
         (r.keywords = Object.assign({}, r.keywords)), (l = r.keywords.$pattern), delete r.keywords.$pattern;
       if (((l = l || /\w+/), r.keywords)) r.keywords = Lc(r.keywords, e.case_insensitive);
-      if (((c.keywordPatternRe = t(l, !0)), i)) {
+      if (((c.keywordPatternRe = t(l, true)), i)) {
         if (!r.begin) r.begin = /\B|\b/;
         if (((c.beginRe = t(c.begin)), !r.end && !r.endsWithParent)) r.end = /\B|\b/;
         if (r.end) c.endRe = t(c.end);
@@ -25296,7 +25296,7 @@ var Bc = S(function (Db, Uc) {
     return (e.classNameAliases = se(e.classNameAliases || {})), o(e);
   }
   function xc(e) {
-    if (!e) return !1;
+    if (!e) return false;
     return e.endsWithParent || xc(e.starts);
   }
   function au(e) {
@@ -25324,12 +25324,12 @@ var Bc = S(function (Db, Uc) {
       let t = Object.create(null),
         n = Object.create(null),
         a = [],
-        s = !0,
+        s = true,
         o = "Could not find the language '{}', did you forget to load/include a language module?",
-        r = { disableAutodetect: !0, name: "Plain text", contains: [] },
+        r = { disableAutodetect: true, name: "Plain text", contains: [] },
         i = {
-          ignoreUnescapedHTML: !1,
-          throwUnescapedHTML: !1,
+          ignoreUnescapedHTML: false,
+          throwUnescapedHTML: false,
           noHighlightRe: /^(no-?highlight)$/i,
           languageDetectRe: /\blang(?:uage)?-([\w-]+)\b/i,
           classPrefix: "hljs-",
@@ -25364,7 +25364,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`,
             ),
             (x = g),
             (M = I);
-        if (O === void 0) O = !0;
+        if (O === void 0) O = true;
         let U = { code: M, language: x };
         z("before:highlight", U);
         let G = U.result ? U.result : m(U.language, U.code, O);
@@ -25409,7 +25409,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`,
               X.addText(H);
               return;
             }
-            (T = m(h.subLanguage, H, !0, Oe[h.subLanguage])), (Oe[h.subLanguage] = T._top);
+            (T = m(h.subLanguage, H, true, Oe[h.subLanguage])), (Oe[h.subLanguage] = T._top);
           } else T = _(H, h.subLanguage.length ? h.subLanguage : null);
           if (h.relevance > 0) ve += T.relevance;
           X.__addSublanguage(T._emitter, T.language);
@@ -25451,7 +25451,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`,
           if (B) {
             if (T["on:end"]) {
               let Z = new Ve(T);
-              if ((T["on:end"](C, Z), Z.isMatchIgnored)) B = !1;
+              if ((T["on:end"](C, Z), Z.isMatchIgnored)) B = false;
             }
             if (B) {
               while (T.endsParent && T.parent) T = T.parent;
@@ -25462,7 +25462,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`,
         }
         function ke(T) {
           if (h.matcher.regexIndex === 0) return (H += T[0]), 1;
-          else return (Fe = !0), 0;
+          else return (Fe = true), 0;
         }
         function Pe(T) {
           let C = T[0],
@@ -25546,12 +25546,12 @@ https://github.com/highlightjs/highlight.js/issues/2277`,
           ve = 0,
           oe = 0,
           Ge = 0,
-          Fe = !1;
+          Fe = false;
         try {
           if (!te.__emitTokens) {
             h.matcher.considerAll();
             for (;;) {
-              if ((Ge++, Fe)) Fe = !1;
+              if ((Ge++, Fe)) Fe = false;
               else h.matcher.considerAll();
               h.matcher.lastIndex = oe;
               let T = h.matcher.exec(I);
@@ -25565,14 +25565,14 @@ https://github.com/highlightjs/highlight.js/issues/2277`,
           return (
             X.finalize(),
             (ie = X.toHTML()),
-            { language: g, value: ie, relevance: ve, illegal: !1, _emitter: X, _top: h }
+            { language: g, value: ie, relevance: ve, illegal: false, _emitter: X, _top: h }
           );
         } catch (T) {
           if (T.message && T.message.includes("Illegal"))
             return {
               language: g,
               value: Ke(I),
-              illegal: !0,
+              illegal: true,
               relevance: 0,
               _illegalBy: {
                 message: T.message,
@@ -25584,12 +25584,12 @@ https://github.com/highlightjs/highlight.js/issues/2277`,
               _emitter: X,
             };
           else if (s)
-            return { language: g, value: Ke(I), illegal: !1, relevance: 0, errorRaised: T, _emitter: X, _top: h };
+            return { language: g, value: Ke(I), illegal: false, relevance: 0, errorRaised: T, _emitter: X, _top: h };
           else throw T;
         }
       }
       function p(g) {
-        let I = { value: Ke(g), illegal: !1, relevance: 0, _top: r, _emitter: new i.__emitter(i) };
+        let I = { value: Ke(g), illegal: false, relevance: 0, _top: r, _emitter: new i.__emitter(i) };
         return I._emitter.addText(g), I;
       }
       function _(g, I) {
@@ -25597,7 +25597,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`,
         let O = p(g),
           M = I.filter(D)
             .filter(L)
-            .map((Y) => m(Y, g, !1));
+            .map((Y) => m(Y, g, false));
         M.unshift(O);
         let x = M.sort((Y, ee) => {
             if (Y.relevance !== ee.relevance) return ee.relevance - Y.relevance;
@@ -25635,7 +25635,7 @@ https://github.com/highlightjs/highlight.js/issues/2277`,
         }
         I = g;
         let M = I.textContent,
-          x = O ? d(M, { language: O, ignoreIllegals: !0 }) : _(M);
+          x = O ? d(M, { language: O, ignoreIllegals: true }) : _(M);
         if (
           ((g.innerHTML = x.value),
           (g.dataset.highlighted = "yes"),
@@ -25655,14 +25655,14 @@ https://github.com/highlightjs/highlight.js/issues/2277`,
       function v() {
         N(), Ee("10.6.0", "initHighlightingOnLoad() deprecated.  Use highlightAll() now.");
       }
-      let A = !1;
+      let A = false;
       function N() {
         function g() {
           N();
         }
         if (document.readyState === "loading") {
-          if (!A) window.addEventListener("DOMContentLoaded", g, !1);
-          A = !0;
+          if (!A) window.addEventListener("DOMContentLoaded", g, false);
+          A = true;
           return;
         }
         document.querySelectorAll(i.cssSelector).forEach(u);
@@ -25749,10 +25749,10 @@ https://github.com/highlightjs/highlight.js/issues/2277`,
         removePlugin: J,
       }),
         (e.debugMode = function () {
-          s = !1;
+          s = false;
         }),
         (e.safeMode = function () {
-          s = !0;
+          s = true;
         }),
         (e.versionString = ru),
         (e.regex = { concat: de, lookahead: Ic, either: Ye, optional: N_, anyNumberOfTimes: T_ });

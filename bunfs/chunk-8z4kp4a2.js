@@ -408,20 +408,20 @@ function cl(i, l, a) {
 }
 function fu(i, l, a) {
   let { toolName: s, ruleContent: c } = i.ruleValue;
-  if (c === void 0) return { shadowed: !1 };
+  if (c === void 0) return { shadowed: false };
   let f = l.find((g) => g.ruleValue.toolName === s && g.ruleValue.ruleContent === void 0);
-  if (!f) return { shadowed: !1 };
+  if (!f) return { shadowed: false };
   if (s === Qe && a.sandboxAutoAllowEnabled) {
-    if (!mu(f.source)) return { shadowed: !1 };
+    if (!mu(f.source)) return { shadowed: false };
   }
-  return { shadowed: !0, shadowedBy: f, shadowType: "ask" };
+  return { shadowed: true, shadowedBy: f, shadowType: "ask" };
 }
 function pu(i, l) {
   let { toolName: a, ruleContent: s } = i.ruleValue;
-  if (s === void 0) return { shadowed: !1 };
+  if (s === void 0) return { shadowed: false };
   let c = l.find((f) => f.ruleValue.toolName === a && f.ruleValue.ruleContent === void 0);
-  if (!c) return { shadowed: !1 };
-  return { shadowed: !0, shadowedBy: c, shadowType: "deny" };
+  if (!c) return { shadowed: false };
+  return { shadowed: true, shadowedBy: c, shadowType: "deny" };
 }
 function Fr(i, l) {
   let a = [],
@@ -468,8 +468,8 @@ function uo(jp) {
           let co;
           if (Do[2] !== Ue)
             (co = r(t, {
-              dimColor: !0,
-              children: ["Any Bash command starting with", " ", e(t, { bold: !0, children: Ue })],
+              dimColor: true,
+              children: ["Any Bash command starting with", " ", e(t, { bold: true, children: Ue })],
             })),
               (Do[2] = Ue),
               (Do[3] = co);
@@ -481,7 +481,7 @@ function uo(jp) {
           else Ue = Do[5];
           let co;
           if (Do[6] !== Ue)
-            (co = r(t, { dimColor: !0, children: ["The Bash command", " ", e(t, { bold: !0, children: Ue })] })),
+            (co = r(t, { dimColor: true, children: ["The Bash command", " ", e(t, { bold: true, children: Ue })] })),
               (Do[6] = Ue),
               (Do[7] = co);
           else co = Do[7];
@@ -489,7 +489,7 @@ function uo(jp) {
         }
       } else {
         let Ue;
-        if (Do[8] === d) (Ue = e(t, { dimColor: !0, children: "Any Bash command" })), (Do[8] = Ue);
+        if (Do[8] === d) (Ue = e(t, { dimColor: true, children: "Any Bash command" })), (Do[8] = Ue);
         else Ue = Do[8];
         return Ue;
       }
@@ -501,7 +501,7 @@ function uo(jp) {
         else Ue = Do[10];
         let co;
         if (Do[11] !== Ue)
-          (co = r(t, { dimColor: !0, children: ["Any use of the", " ", e(t, { bold: !0, children: Ue }), " tool"] })),
+          (co = r(t, { dimColor: true, children: ["Any use of the", " ", e(t, { bold: true, children: Ue }), " tool"] })),
             (Do[11] = Ue),
             (Do[12] = co);
         else co = Do[12];
@@ -515,7 +515,7 @@ function uo(jp) {
 function Ru(vl) {
   return r(
     o,
-    { flexDirection: "column", children: [e(t, { bold: !0, children: eo(vl) }), e(uo, { ruleValue: vl })] },
+    { flexDirection: "column", children: [e(t, { bold: true, children: eo(vl) }), e(uo, { ruleValue: vl })] },
     eo(vl),
   );
 }
@@ -649,8 +649,8 @@ function Wn($h) {
   else Pu = mo[5];
   let $u, Tu;
   if (mo[6] === d)
-    ($u = e(t, { bold: !0, children: eo({ toolName: tg.name }) })),
-      (Tu = e(t, { bold: !1, children: " or " })),
+    ($u = e(t, { bold: true, children: eo({ toolName: tg.name }) })),
+      (Tu = e(t, { bold: false, children: " or " })),
       (mo[6] = $u),
       (mo[7] = Tu);
   else ($u = mo[6]), (Tu = mo[7]);
@@ -664,7 +664,7 @@ function Wn($h) {
         " ",
         $u,
         Tu,
-        e(t, { bold: !0, children: eo({ toolName: _i.name, ruleContent: "ls *" }) }),
+        e(t, { bold: true, children: eo({ toolName: _i.name, ruleContent: "ls *" }) }),
       ],
     })),
       (mo[8] = ku);
@@ -676,12 +676,12 @@ function Wn($h) {
       children: [
         ku,
         e(o, {
-          borderDimColor: !0,
+          borderDimColor: true,
           borderStyle: "round",
           marginY: 1,
           paddingLeft: 1,
           children: e(xn, {
-            showCursor: !0,
+            showCursor: true,
             value: Rl,
             onChange: Th,
             onSubmit: Al,
@@ -701,7 +701,7 @@ function Wn($h) {
   else Yr = mo[13];
   let Du;
   if (mo[14] !== Wr || mo[15] !== Pl || mo[16] !== Yr)
-    (Du = e(me, { title: Pl, onCancel: Wr, color: "permission", isCancelActive: !1, inputGuide: Au, children: Yr })),
+    (Du = e(me, { title: Pl, onCancel: Wr, color: "permission", isCancelActive: false, inputGuide: Au, children: Yr })),
       (mo[14] = Wr),
       (mo[15] = Pl),
       (mo[16] = Yr),
@@ -849,7 +849,7 @@ function Qn(Xh) {
     let Hn;
     if (Xe[25] === d)
       (Hn = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: "No recent denials. Commands denied by the auto mode classifier will appear here.",
       })),
         (Xe[25] = Hn);
@@ -867,13 +867,13 @@ function Qn(Xh) {
         return {
           label: r(t, {
             children: [
-              e(tt, { status: eg ? "success" : "error", withSpace: !0 }),
+              e(tt, { status: eg ? "success" : "error", withSpace: true }),
               Xn[Gn],
-              e(t, { dimColor: !0, children: og }),
+              e(t, { dimColor: true, children: og }),
             ],
           }),
           value: String(Gn),
-          ...(Xu && { description: Xu, dimDescription: !0 }),
+          ...(Xu && { description: Xu, dimDescription: true }),
         };
       }),
         (Xe[32] = Xt),
@@ -938,7 +938,7 @@ function Jn(bg) {
   let Fl = td,
     Zr;
   if (zn[5] !== cn)
-    (Zr = e(o, { marginX: 2, flexDirection: "column", children: e(t, { bold: !0, children: cn }) })),
+    (Zr = e(o, { marginX: 2, flexDirection: "column", children: e(t, { bold: true, children: cn }) })),
       (zn[5] = cn),
       (zn[6] = Zr);
   else Zr = zn[6];
@@ -965,7 +965,7 @@ function hd(Ig) {
   return Ig.project.originalCwd;
 }
 function gd(Ng) {
-  return { path: Ng, isCurrent: !1, isDeletable: !0 };
+  return { path: Ng, isCurrent: false, isDeletable: true };
 }
 function yd(Lg) {
   return Lg.path;
@@ -1040,7 +1040,7 @@ function Zn(Mg) {
   if (Rt[16] !== Xl) (ni = e(t, { children: Xl })), (Rt[16] = Xl), (Rt[17] = ni);
   else ni = Rt[17];
   let fd;
-  if (Rt[18] === d) (fd = e(t, { dimColor: !0, children: "(Original working directory)" })), (Rt[18] = fd);
+  if (Rt[18] === d) (fd = e(t, { dimColor: true, children: "(Original working directory)" })), (Rt[18] = fd);
   else fd = Rt[18];
   let ri;
   if (Rt[19] !== ni)
@@ -1094,7 +1094,7 @@ function pe() {
       g.forEach((v, x) => {
         if (v === sp) return;
         if (f === "environment" && v.startsWith("### ")) {
-          l.push({ text: v, section: f, source: a, index: x, structure: !0 });
+          l.push({ text: v, section: f, source: a, index: x, structure: true });
           return;
         }
         l.push({ text: v, section: f, source: a, index: x });
@@ -1152,7 +1152,7 @@ function Hl(i) {
 }
 function he() {
   if (!_2()) {
-    let c = { enabled: !0, control: "internalTemplate" };
+    let c = { enabled: true, control: "internalTemplate" };
     return { allow: c, soft_deny: c, hard_deny: c, environment: c };
   }
   let i = $$(),
@@ -1171,37 +1171,37 @@ function he() {
   for (let c of He) {
     let f = roe.map((E) => ({ source: E, values: a[E]?.[c] ?? [] })).filter((E) => E.values.length > 0);
     if (f.length === 0) {
-      s[c] = { enabled: !0, control: "empty" };
+      s[c] = { enabled: true, control: "empty" };
       continue;
     }
     if (c === "environment") {
       let E = f.find((P) => P.values.includes(sp));
       s[c] = E
-        ? { enabled: !0, control: "otherSource", source: E.source }
-        : { enabled: !1, control: "otherSource", source: f[0].source };
+        ? { enabled: true, control: "otherSource", source: E.source }
+        : { enabled: false, control: "otherSource", source: f[0].source };
       continue;
     }
     let g = a.userSettings?.[c] ?? [],
       v = f.find((E) => E.source !== "userSettings" && E.values.includes(sp)),
       x = c === "soft_deny" && l.has("userSettings");
     if (!v && x) {
-      s[c] = { enabled: !0, control: "otherSource", source: "userSettings" };
+      s[c] = { enabled: true, control: "otherSource", source: "userSettings" };
       continue;
     }
     if (v) {
-      s[c] = { enabled: !0, control: "otherSource", source: v.source };
+      s[c] = { enabled: true, control: "otherSource", source: v.source };
       continue;
     }
     if (g.length > 0) {
       s[c] = { enabled: g.includes(sp), control: "user" };
       continue;
     }
-    s[c] = { enabled: !1, control: "otherSource", source: f[0].source };
+    s[c] = { enabled: false, control: "otherSource", source: f[0].source };
   }
   return s;
 }
 async function ci(i, l, a) {
-  let s = (() => !1)();
+  let s = (() => false)();
   return Hr(
     "auto_mode_rule_edit",
     () =>
@@ -1231,7 +1231,7 @@ async function ci(i, l, a) {
 }
 function ql(i) {
   return i.filter((l, a) => {
-    if (!l.startsWith("### ")) return !0;
+    if (!l.startsWith("### ")) return true;
     let s = i[a + 1];
     return s !== void 0 && !s.startsWith("### ");
   });
@@ -1253,14 +1253,14 @@ async function fn(i, l, a) {
       "settings_file_invalid",
       "the settings file has a validation error or cannot be read, so its auto mode rules are not in effect; fix it (Claude Code names the problem at startup), then try again.",
     );
-  let g = !1,
+  let g = false,
     v = 0,
     x = null,
     E = null,
     { error: P } = await Os(
       "userSettings",
       (D) => {
-        (g = !1), (v = 0), (x = null), (E = null);
+        (g = false), (v = 0), (x = null), (E = null);
         let O = D?.autoMode;
         if (Array.isArray(O))
           return (
@@ -1280,7 +1280,7 @@ async function fn(i, l, a) {
         if (oe !== null && !Array.isArray(oe)) return (E = oe.refuse), null;
         let De = (we) => we.length - (we.includes(sp) ? 1 : 0);
         if (oe !== null && De(oe) > VK && De(oe) > De(re)) return (v = De(re)), null;
-        if (oe === null) return (g = !0), null;
+        if (oe === null) return (g = true), null;
         let ve = {};
         return (ve.autoMode = { [i]: oe }), ve;
       },
@@ -1429,7 +1429,7 @@ function um(lr) {
   return r(U, {
     children: [
       e(t, { color: Ne(lr.section), children: pa }),
-      e(t, { dimColor: !0, children: ` \xB7 ${zd}`.padEnd(Se - pa.length) }),
+      e(t, { dimColor: true, children: ` \xB7 ${zd}`.padEnd(Se - pa.length) }),
     ],
   });
 }
@@ -1649,7 +1649,7 @@ function ur(fy) {
     else or = nt[25];
     let Ud = or;
     let Ry = Ct.length > 0 && sa.some((Sy) => Sy.text.toLowerCase().includes(Md));
-    let Id = go && (Ct ? Ry : !0);
+    let Id = go && (Ct ? Ry : true);
     let Cy = gi.length + (Id ? 1 : 0) + (Ct ? 0 : 1 + Q(He, Ud));
     let xy = String(Cy).length + 2;
     let rr = Math.max(1, (hn ?? na - 4) - 4 - xy - Se);
@@ -1676,7 +1676,7 @@ ${" ".repeat(Se)}\u2026 (+${ca.length - 3} lines)`
     let Ld = yn;
     let Wd = (ua, jd) => ({
       label: r(t, {
-        children: [Ey(ua), ua.structure ? e(t, { dimColor: !0, children: Ld(Bd[jd] ?? "") }) : Ld(Bd[jd] ?? "")],
+        children: [Ey(ua), ua.structure ? e(t, { dimColor: true, children: Ld(Bd[jd] ?? "") }) : Ld(Bd[jd] ?? "")],
       }),
       value: _t(ua),
     });
@@ -1688,12 +1688,12 @@ ${" ".repeat(Se)}\u2026 (+${ca.length - 3} lines)`
         label: r(t, {
           children: [
             e(t, { color: Ne("environment"), children: "Environment".padEnd(Se) }),
-            e(t, { dimColor: !0, children: cr(wy, rr) }),
+            e(t, { dimColor: true, children: cr(wy, rr) }),
             Vd.map((Yd, $y) =>
               e(
                 t,
                 {
-                  dimColor: !0,
+                  dimColor: true,
                   children: `
 ${Py(Yd.tag)}${cr(Yd.text, rr)}`,
                 },
@@ -1702,7 +1702,7 @@ ${Py(Yd.tag)}${cr(Yd.text, rr)}`,
             ),
             da > 0
               ? e(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: `
 ${" ".repeat(Se)}\u2026 (+${da} more ${da === 1 ? "line" : "lines"})`,
                 })
@@ -1724,7 +1724,7 @@ ${" ".repeat(Se)}\u2026 (+${da} more ${da === 1 ? "line" : "lines"})`,
               children: [
                 e(t, { color: Ne(Ht), children: ee(Ht).padEnd(Se) }),
                 Ht === "environment" ? "Built-in environment" : "Built-in rules",
-                e(t, { dimColor: !0, children: "" }),
+                e(t, { dimColor: true, children: "" }),
               ],
             }),
             value: `builtins:${Ht}`,
@@ -1736,7 +1736,7 @@ ${" ".repeat(Se)}\u2026 (+${da} more ${da === 1 ? "line" : "lines"})`,
               e(t, { color: Ne(Ht), children: ee(Ht).padEnd(Se) }),
               `${Ty} Built-in rules`,
               r(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: [
                   ` \xB7 ${ky}${bn.enabled ? "" : " \xB7 off"}`,
                   bn.control === "user" || bn.control === "empty"
@@ -1893,14 +1893,14 @@ async function Da(i, l) {
 function Pn(ya) {
   let pm = _(5),
     [ba, fm] = u(null),
-    va = C(!1),
+    va = C(false),
     hm;
   if (pm[0] !== ya)
     (hm = (vb) => {
       if (va.current) {
         return;
       }
-      (va.current = !0),
+      (va.current = true),
         Da(ya, vb)
           .then((Ri) => {
             let { opened: wb, path: wa } = Ri;
@@ -1916,7 +1916,7 @@ function Pn(ya) {
             fm(`could not write the file: ${Sa instanceof Error ? Sa.message : String(Sa)}`);
           })
           .finally(() => {
-            va.current = !1;
+            va.current = false;
           });
     }),
       (pm[0] = ya),
@@ -1960,7 +1960,7 @@ function Ft(Sb) {
   else Ei = mr[7];
   let Ai;
   if (mr[8] !== Ci)
-    (Ai = Ci !== null && e(t, { dimColor: !0, wrap: "wrap-trim", children: Ci })), (mr[8] = Ci), (mr[9] = Ai);
+    (Ai = Ci !== null && e(t, { dimColor: true, wrap: "wrap-trim", children: Ci })), (mr[8] = Ci), (mr[9] = Ai);
   else Ai = mr[9];
   let ym;
   if (mr[10] !== Ei || mr[11] !== Ai) (ym = r(U, { children: [Ei, Ai] })), (mr[10] = Ei), (mr[11] = Ai), (mr[12] = ym);
@@ -1976,7 +1976,7 @@ function Le(Cb) {
   let Rn = bm,
     Pi;
   if (Mt[2] !== Rn.text)
-    (Pi = e(t, { bold: !0, wrap: "wrap-trim", children: Rn.text })), (Mt[2] = Rn.text), (Mt[3] = Pi);
+    (Pi = e(t, { bold: true, wrap: "wrap-trim", children: Rn.text })), (Mt[2] = Rn.text), (Mt[3] = Pi);
   else Pi = Mt[3];
   let $i;
   if (Mt[4] !== Rn.needsGutter || Mt[5] !== Pi)
@@ -1998,7 +1998,7 @@ function Le(Cb) {
   else Mi = Mt[15];
   let Bi;
   if (Mt[16] !== xa || Mt[17] !== Mi)
-    (Bi = r(t, { dimColor: !0, children: [" ", xa, " for the auto mode classifier \xB7 From ", Mi] })),
+    (Bi = r(t, { dimColor: true, children: [" ", xa, " for the auto mode classifier \xB7 From ", Mi] })),
       (Mt[16] = xa),
       (Mt[17] = Mi),
       (Mt[18] = Bi);
@@ -2039,7 +2039,7 @@ function yr(xb) {
     let J;
     if (H[4] !== be)
       (J = r(t, {
-        italic: !0,
+        italic: true,
         children: [
           "",
           "This rule comes from the legacy autoMode.deny key, which the classifier still enforces as a soft deny.",
@@ -2081,7 +2081,7 @@ function yr(xb) {
     let J;
     if (H[17] !== be)
       (J = r(t, {
-        italic: !0,
+        italic: true,
         children: [
           "A section header that organizes the environment entries below it; it renders into the classifier prompt as written.",
           " ",
@@ -2111,7 +2111,7 @@ function yr(xb) {
     let be;
     if (H[28] === d)
       (be = r(t, {
-        italic: !0,
+        italic: true,
         children: [
           "This rule is configured by managed settings and cannot be modified.",
           `
@@ -2140,7 +2140,7 @@ function yr(xb) {
     let be;
     if (H[37] === d)
       (be = e(t, {
-        italic: !0,
+        italic: true,
         children: "This rule comes from a read-only source (the --settings flag) and cannot be modified here.",
       })),
         (H[37] = be);
@@ -2169,7 +2169,7 @@ function yr(xb) {
     let J;
     if (H[49] !== Oi)
       (J = r(t, {
-        italic: !0,
+        italic: true,
         children: [
           "This rule cannot be edited here: ",
           Oi,
@@ -2221,7 +2221,7 @@ function yr(xb) {
     (J =
       T.section === "environment" &&
       r(t, {
-        italic: !0,
+        italic: true,
         children: [
           "Environment entries describe this machine and project for the classifier.",
           _te() ? " Re-run /auto-mode-setup to rebuild them from scratch." : "",
@@ -2312,7 +2312,7 @@ function br(Ab) {
     else bo = xe[24];
     const vo = `${yo.length} built-in ${yo.length === 1 ? "rule" : "rules"} \xB7 ${le.enabled ? "in effect" : "switched off"}`;
     let Qt;
-    if (xe[25] !== vo) (Qt = r(t, { dimColor: !0, children: [" ", "\xB7", " ", vo] })), (xe[25] = vo), (xe[26] = Qt);
+    if (xe[25] !== vo) (Qt = r(t, { dimColor: true, children: [" ", "\xB7", " ", vo] })), (xe[25] = vo), (xe[26] = Qt);
     else Qt = xe[26];
     if (xe[27] !== bo || xe[28] !== Qt)
       (pr = r(t, { children: [bo, Qt] })), (xe[27] = bo), (xe[28] = Qt), (xe[29] = pr);
@@ -2369,7 +2369,7 @@ function br(Ab) {
     Lo;
   if (xe[30] !== gt || xe[31] !== le.enabled)
     (Lo = gt.map(($b, Tb) =>
-      r(t, { dimColor: !0, strikethrough: !le.enabled, wrap: "wrap-trim", children: ["- ", $b] }, Tb),
+      r(t, { dimColor: true, strikethrough: !le.enabled, wrap: "wrap-trim", children: ["- ", $b] }, Tb),
     )),
       (xe[30] = gt),
       (xe[31] = le.enabled),
@@ -2380,8 +2380,8 @@ function br(Ab) {
     (Gt =
       hr > 0 &&
       r(t, {
-        dimColor: !0,
-        italic: !0,
+        dimColor: true,
+        italic: true,
         children: [
           "\u2026 +",
           hr,
@@ -2413,7 +2413,7 @@ function br(Ab) {
     (Qt =
       le.control === "empty" &&
       e(t, {
-        italic: !0,
+        italic: true,
         children: "This section has no configured rules, so the built-ins apply. Add a rule to customize it.",
       })),
       (xe[45] = le.control),
@@ -2424,7 +2424,7 @@ function br(Ab) {
     (Qi =
       le.control === "otherSource" &&
       e(t, {
-        italic: !0,
+        italic: true,
         children: le.enabled
           ? `Kept on by ${Fe(le.source ?? "policySettings")} \u2014 it cannot be switched off here.`
           : `Replaced by rules from ${Fe(le.source ?? "policySettings")}. This control follows that configuration; add your own rules to customize the section.`,
@@ -2486,7 +2486,7 @@ function br(Ab) {
   else ns = xe[66];
   let rs;
   if (xe[67] !== Ui)
-    (rs = Ui !== null && e(t, { dimColor: !0, wrap: "wrap-trim", children: Ui })), (xe[67] = Ui), (xe[68] = rs);
+    (rs = Ui !== null && e(t, { dimColor: true, wrap: "wrap-trim", children: Ui })), (xe[67] = Ui), (xe[68] = rs);
   else rs = xe[68];
   let is;
   if (
@@ -2525,7 +2525,7 @@ function vr(Db) {
   else $m = zt[0];
   Be("confirm:no", ss, $m);
   let Tm;
-  if (zt[1] === d) (Tm = e(t, { bold: !0, color: "error", children: "Delete auto mode rule?" })), (zt[1] = Tm);
+  if (zt[1] === d) (Tm = e(t, { bold: true, color: "error", children: "Delete auto mode rule?" })), (zt[1] = Tm);
   else Tm = zt[1];
   let ls;
   if (zt[2] !== An) (ls = e(Le, { entry: An })), (zt[2] = An), (zt[3] = ls);
@@ -2585,7 +2585,7 @@ import { closeSync as Jm, constants as wr, mkdirSync as Zm, openSync as ef, writ
 import { randomBytes as of } from "crypto";
 import { dirname as nf } from "path";
 function rf(Fa) {
-  return { label: ee(Fa), value: Fa, description: Ya(Fa), dimDescription: !0 };
+  return { label: ee(Fa), value: Fa, description: Ya(Fa), dimDescription: true };
 }
 function sf(uv) {
   return uv
@@ -2616,7 +2616,7 @@ function Rs(i) {
   let l = Jzn(`${fct}${of(8).toString("hex")}.md`);
   if (l === null) return { content: null, problem: null };
   try {
-    Zm(nf(l), { recursive: !0, mode: 448 });
+    Zm(nf(l), { recursive: true, mode: 448 });
     let s = ef(l, wr.O_WRONLY | wr.O_CREAT | wr.O_EXCL | wr.O_NOFOLLOW, 384);
     try {
       tf(
@@ -2745,7 +2745,7 @@ function Rr(nv) {
       children: [
         "Write the rule as a plain sentence. A short label up front helps, e.g.,",
         qm,
-        e(t, { bold: !0, children: Wa }),
+        e(t, { bold: true, children: Wa }),
       ],
     })),
       (at[9] = Wa),
@@ -2761,14 +2761,14 @@ function Rr(nv) {
   let vs;
   if (at[12] !== Ia || at[13] !== ja || at[14] !== Ua || at[15] !== Na)
     (vs = e(o, {
-      borderDimColor: !0,
+      borderDimColor: true,
       borderStyle: "round",
       marginY: 1,
       paddingLeft: 1,
       children: e(xn, {
-        showCursor: !0,
-        multiline: !0,
-        disableBackslashReturn: !0,
+        showCursor: true,
+        multiline: true,
+        disableBackslashReturn: true,
         maxVisibleLines: 8,
         inputFilter: sf,
         value: Ua,
@@ -2791,7 +2791,7 @@ function Rr(nv) {
     (ws = ys !== null && e(t, { color: "error", wrap: "wrap-trim", children: ys })), (at[17] = ys), (at[18] = ws);
   else ws = at[18];
   let Qm;
-  if (at[19] === d) (Qm = e(t, { dimColor: !0, children: "Saved to your user settings file" })), (at[19] = Qm);
+  if (at[19] === d) (Qm = e(t, { dimColor: true, children: "Saved to your user settings file" })), (at[19] = Qm);
   else Qm = at[19];
   let Ss;
   if (at[20] !== vs || at[21] !== ws || at[22] !== bs)
@@ -2803,7 +2803,7 @@ function Rr(nv) {
   else Ss = at[23];
   let zm;
   if (at[24] !== hs || at[25] !== Ss || at[26] !== Va)
-    (zm = e(me, { title: Va, onCancel: hs, color: "permission", isCancelActive: !1, inputGuide: Hm, children: Ss })),
+    (zm = e(me, { title: Va, onCancel: hs, color: "permission", isCancelActive: false, inputGuide: Hm, children: Ss })),
       (at[24] = hs),
       (at[25] = Ss),
       (at[26] = Va),
@@ -2867,7 +2867,7 @@ function nl(nw) {
   else cf = af[1];
   const Ka = `From ${cf}`;
   let uf;
-  if (af[2] !== Ka) (uf = e(t, { dimColor: !0, children: Ka })), (af[2] = Ka), (af[3] = uf);
+  if (af[2] !== Ka) (uf = e(t, { dimColor: true, children: Ka })), (af[2] = Ka), (af[3] = uf);
   else uf = af[3];
   return uf;
 }
@@ -2892,7 +2892,7 @@ function rl(rw) {
   if (We[1] !== je.ruleValue) (xs = TS(eo(je.ruleValue))), (We[1] = je.ruleValue), (We[2] = xs);
   else xs = We[2];
   let Es;
-  if (We[3] !== xs) (Es = e(t, { bold: !0, children: xs })), (We[3] = xs), (We[4] = Es);
+  if (We[3] !== xs) (Es = e(t, { bold: true, children: xs })), (We[3] = xs), (We[4] = Es);
   else Es = We[4];
   let As;
   if (We[5] !== je.ruleValue) (As = e(uo, { ruleValue: je.ruleValue })), (We[5] = je.ruleValue), (We[6] = As);
@@ -2919,7 +2919,7 @@ function rl(rw) {
     let xt;
     if (We[14] === d)
       (xt = r(t, {
-        italic: !0,
+        italic: true,
         children: [
           "This rule is configured by managed settings and cannot be modified.",
           `
@@ -2942,7 +2942,7 @@ function rl(rw) {
     let yt;
     if (We[17] !== xt)
       (yt = r(t, {
-        italic: !0,
+        italic: true,
         children: ["This rule comes from a read-only source (", xt, ") and cannot be modified here."],
       })),
         (We[17] = xt),
@@ -2962,7 +2962,7 @@ function rl(rw) {
   else xt = We[23];
   let yt;
   if (We[24] !== xt)
-    (yt = r(t, { bold: !0, color: "error", children: ["Delete ", xt, " tool?"] })), (We[24] = xt), (We[25] = yt);
+    (yt = r(t, { bold: true, color: "error", children: ["Delete ", xt, " tool?"] })), (We[24] = xt), (We[25] = yt);
   else yt = We[25];
   let Cr;
   if (We[26] === d) (Cr = e(t, { children: "Are you sure you want to delete this permission rule?" })), (We[26] = Cr);
@@ -3174,14 +3174,14 @@ function sl(lw) {
     [hc, mw] = u(),
     [So, gc] = u(null),
     [Ro, yc] = u(null),
-    [$f, bc] = u(!1),
+    [$f, bc] = u(false),
     [Co, vc] = u(null),
-    [Ge, wc] = u(!1),
+    [Ge, wc] = u(false),
     [Sc, Vs] = u(),
     [Ys, Ut] = u(bp),
     [vt, It] = u(vp),
     [dt, ue] = u(null),
-    [Rc, fw] = u(!0),
+    [Rc, fw] = u(true),
     Tf;
   if (p[5] === d)
     (Tf = (pw) => {
@@ -3248,7 +3248,7 @@ function sl(lw) {
   let Uf;
   if (p[18] === d)
     (Uf = () => {
-      wc(!1);
+      wc(false);
     }),
       (p[18] = Uf);
   else Uf = p[18];
@@ -3269,7 +3269,7 @@ function sl(lw) {
       if (rt.ctrl || rt.meta) {
         return;
       }
-      if (rt.key === "/") rt.preventDefault(), wc(!0), Gs("");
+      if (rt.key === "/") rt.preventDefault(), wc(true), Gs("");
       else if (
         rt.key.length === 1 &&
         rt.key !== "j" &&
@@ -3279,7 +3279,7 @@ function sl(lw) {
         rt.key !== "r" &&
         rt.key !== " "
       )
-        rt.preventDefault(), wc(!0), Gs(rt.key);
+        rt.preventDefault(), wc(true), Gs(rt.key);
     }),
       (p[21] = Ge),
       (p[22] = _n),
@@ -3348,7 +3348,7 @@ function sl(lw) {
   else Hf = p[32];
   let Bw = Hf,
     qf;
-  if (p[33] === d) (qf = () => bc(!0)), (p[33] = qf);
+  if (p[33] === d) (qf = () => bc(true)), (p[33] = qf);
   else qf = p[33];
   let Fw = qf,
     Gf;
@@ -3368,7 +3368,7 @@ function sl(lw) {
         let Bc = Jf.map(xp);
         cc(Bc),
           wo(void 0, {
-            shouldQuery: !0,
+            shouldQuery: true,
             metaMessages: [
               `Permission granted for: ${Bc.join(", ")}. You may now retry ${Bc.length === 1 ? "this command" : "these commands"} if you would like.`,
             ],
@@ -3458,13 +3458,13 @@ function sl(lw) {
             "No editor is configured \u2014 set $VISUAL or $EDITOR, then reopen /permissions to edit the environment.",
           draftLines: Fn,
           expected: qo,
-          canReopen: !1,
+          canReopen: false,
         });
         return;
       }
       let Go = Rs(Fn);
       if (Go.problem !== null) {
-        ue({ mode: "env-problem", problem: Go.problem, draftLines: Fn, expected: qo, canReopen: !0 });
+        ue({ mode: "env-problem", problem: Go.problem, draftLines: Fn, expected: qo, canReopen: true });
         return;
       }
       if (Go.content === null) {
@@ -3474,7 +3474,7 @@ function sl(lw) {
             "The environment could not be opened for editing: this session has no session directory to hold the working file. Edit autoMode.environment in your settings file directly.",
           draftLines: Fn,
           expected: qo,
-          canReopen: !1,
+          canReopen: false,
         });
         return;
       }
@@ -3492,7 +3492,7 @@ function sl(lw) {
             'No changes detected \u2014 nothing was saved. If your editor opened in a separate window without waiting, configure it to wait (for example "code --wait"), then reopen.',
           draftLines: Fn,
           expected: qo,
-          canReopen: !0,
+          canReopen: true,
         });
         return;
       }
@@ -3504,7 +3504,7 @@ function sl(lw) {
           draftLines: Go.content.split(`
 `),
           expected: qo,
-          canReopen: !0,
+          canReopen: true,
         });
         return;
       }
@@ -3575,7 +3575,7 @@ function sl(lw) {
   if (dt?.mode === "env-first-confirm") {
     let R, I;
     if (p[56] === d)
-      (R = e(t, { bold: !0, children: "Replace the built-in environment?" })),
+      (R = e(t, { bold: true, children: "Replace the built-in environment?" })),
         (I = e(t, {
           wrap: "wrap-trim",
           children:
@@ -3914,7 +3914,7 @@ function sl(lw) {
           ...hS,
           `Added directory ${ae.bold(nr(dp))} to workspace${Zc ? " and saved to local settings" : " for this session"}`,
         ]),
-          bc(!1);
+          bc(false);
       }),
         (p[150] = bt),
         (p[151] = ke),
@@ -3922,7 +3922,7 @@ function sl(lw) {
         (p[153] = R);
     else R = p[153];
     let I;
-    if (p[154] === d) (I = () => bc(!1)), (p[154] = I);
+    if (p[154] === d) (I = () => bc(false)), (p[154] = I);
     else I = p[154];
     let Y;
     if (p[155] !== R || p[156] !== q)
@@ -4038,7 +4038,7 @@ function sl(lw) {
     p[193] !== q.isAutoModeAvailable
   )
     (no =
-      q.isAutoModeAvailable !== !1
+      q.isAutoModeAvailable !== false
         ? [
             e(
               Zi,

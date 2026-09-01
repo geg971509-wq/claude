@@ -106,7 +106,7 @@ import "/$bunfs/root/chunk-7s7jqj2f.js";
 import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 function i(s) {
-  return s?.permissionMode === "bypassPermissions" || s?.allowBypass === !0;
+  return s?.permissionMode === "bypassPermissions" || s?.allowBypass === true;
 }
 function l(s) {
   if (!i(s)) return;

@@ -118,12 +118,12 @@ import { D } from "/$bunfs/root/chunk-7s7jqj2f.js";
 import { Bn, _r, Ms, Qi } from "/$bunfs/root/chunk-56sxk8k2.js";
 async function Aje(e) {
   let { ctx: i, updatedInput: o, suggestions: t, permissionMode: r } = e,
-    b = !1;
+    b = false;
   try {
     let R = await i.runHooks(r, t, o);
     if (R && !("reprompted" in R)) return R;
   } catch (R) {
-    if (((b = !0), R instanceof Error)) h(ft(R, "coordinator automated permission check failed"));
+    if (((b = true), R instanceof Error)) h(ft(R, "coordinator automated permission check failed"));
     else
       h(
         ft(
@@ -141,19 +141,19 @@ function ePt({ feedback: e, contentBlocks: i, isSubagent: o }) {
   return !e && !i?.length && !o;
 }
 function tPt(e) {
-  let i = !1,
-    o = !1;
+  let i = false,
+    o = false;
   return {
     resolve(t) {
       if (o) return;
-      (o = !0), (i = !0), e(t);
+      (o = true), (i = true), e(t);
     },
     isResolved() {
       return i;
     },
     claim() {
-      if (i) return !1;
-      return (i = !0), !0;
+      if (i) return false;
+      return (i = true), true;
     },
   };
 }
@@ -181,7 +181,7 @@ function vje(e, i, o, t, r, b, R) {
       s("tengu_tool_use_cancelled", { messageID: ve(d), toolName: Un(e.name) });
     },
     persistPermissions(P) {
-      if (P.length === 0 || E$(o)) return !1;
+      if (P.length === 0 || E$(o)) return false;
       if ((FM(P, o.storageV5).catch(h), R !== void 0)) R(yH(Rgn(he(o)), P));
       else
         o.setSessionToolPermissionContext((f) => yH(f, P)),
@@ -194,8 +194,8 @@ function vje(e, i, o, t, r, b, R) {
       return X0(P, he(o), o.setToolPermissionContext);
     },
     resolveIfAborted(P) {
-      if (!o.abortController.signal.aborted) return !1;
-      return this.logCancelled(), P(this.cancelAndAbort(void 0, !0)), !0;
+      if (!o.abortController.signal.aborted) return false;
+      return this.logCancelled(), P(this.cancelAndAbort(void 0, true)), true;
     },
     cancelAndAbort(P, f, x, T) {
       let A = !!o.agentId,
@@ -206,7 +206,7 @@ function vje(e, i, o, t, r, b, R) {
       return { behavior: "ask", message: k, contentBlocks: x, ...(T?.feedbackIsFromUser && P && { userFeedback: P }) };
     },
     async runHooks(P, f, x, T) {
-      if (o.forRemoteExecution === !0) return null;
+      if (o.forRemoteExecution === true) return null;
       for await (let A of Hee(e.name, r, i, o, P, f, o.abortController.signal))
         if (A.permissionRequestResult) {
           let v = A.permissionRequestResult;
@@ -245,7 +245,7 @@ function vje(e, i, o, t, r, b, R) {
       return {
         behavior: "allow",
         updatedInput: P,
-        userModified: f?.userModified ?? !1,
+        userModified: f?.userModified ?? false,
         ...(f?.decisionReason && { decisionReason: f.decisionReason }),
         ...(f?.acceptFeedback && { acceptFeedback: f.acceptFeedback }),
         ...(f?.contentBlocks && f.contentBlocks.length > 0 && { contentBlocks: f.contentBlocks }),
@@ -258,11 +258,11 @@ function vje(e, i, o, t, r, b, R) {
     handleUserAllow(P, f, x) {
       let T = cWt(f),
         A =
-          o.forRemoteExecution === !0 || E$(o)
+          o.forRemoteExecution === true || E$(o)
             ? []
-            : e.suppressesAllPermissionUpdates?.(i) === !0
+            : e.suppressesAllPermissionUpdates?.(i) === true
               ? _D(T)
-              : e.suppressesAlwaysAllowRule?.(i) === !0 || x?.askSuppressesAlwaysAllowRule === !0
+              : e.suppressesAlwaysAllowRule?.(i) === true || x?.askSuppressesAlwaysAllowRule === true
                 ? a9([...T], e, he(o))
                 : T,
         v = this.persistPermissions(A);
@@ -271,7 +271,7 @@ function vje(e, i, o, t, r, b, R) {
           { decision: "accept", source: { type: "user", permanent: v } },
           { input: P, permissionPromptStartTimeMs: x?.permissionPromptStartTimeMs },
         );
-      let k = e.inputsEquivalent ? !e.inputsEquivalent(i, P) : !1,
+      let k = e.inputsEquivalent ? !e.inputsEquivalent(i, P) : false,
         I = x?.feedback?.trim();
       return this.buildAllow(P, {
         userModified: k,
@@ -283,7 +283,7 @@ function vje(e, i, o, t, r, b, R) {
     },
     handleHookAllow(P, f, x) {
       let T = this.persistPermissions(
-        o.forRemoteExecution === !0 ? [] : e.suppressesAllPermissionUpdates?.(i) === !0 ? _D(cWt(f)) : cWt(f),
+        o.forRemoteExecution === true ? [] : e.suppressesAllPermissionUpdates?.(i) === true ? _D(cWt(f)) : cWt(f),
       );
       return (
         this.logDecision(
@@ -326,7 +326,7 @@ var Dhe = go({
   ),
   result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
   default: { behavior: "cancelled" },
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 var V0e = go({
   kind: "permission_bash",
@@ -344,7 +344,7 @@ var V0e = go({
   ),
   result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
   default: { behavior: "cancelled" },
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 var dit = go({
   kind: "permission_browser",
@@ -361,7 +361,7 @@ var dit = go({
   ),
   result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
   default: { behavior: "cancelled" },
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 var pit = go({
   kind: "permission_enter_plan_mode",
@@ -370,7 +370,7 @@ var pit = go({
   ),
   result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
   default: { behavior: "cancelled" },
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 var Cje = go({
   kind: "permission_exit_plan_mode_v2",
@@ -387,7 +387,7 @@ var Cje = go({
   ),
   result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
   default: { behavior: "cancelled" },
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 var Ohe = go({
   kind: "permission_file",
@@ -405,7 +405,7 @@ var Ohe = go({
   ),
   result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
   default: { behavior: "cancelled" },
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 import { basename as To, posix as Ao, relative as vo } from "path";
 var Do = new Set(["date-time"]);
@@ -421,8 +421,8 @@ function _o(e) {
   return o;
 }
 function WR(e) {
-  let i = e.tool.isMcp === !0 ? e.tool.mcpInfo : void 0,
-    o = e.tool.isMcp === !0,
+  let i = e.tool.isMcp === true ? e.tool.mcpInfo : void 0,
+    o = e.tool.isMcp === true,
     t;
   if (i) t = Y4n(i);
   else {
@@ -432,17 +432,17 @@ function WR(e) {
     } catch {
       R = e.tool.name;
     }
-    let d = e.tool.isMcp === !0 && R.endsWith(" (MCP)") ? R.slice(0, -6) : R;
+    let d = e.tool.isMcp === true && R.endsWith(" (MCP)") ? R.slice(0, -6) : R;
     t = Edt(d);
   }
   let r = "",
     b;
-  if (e.tool.isMcp !== !0)
+  if (e.tool.isMcp !== true)
     try {
-      let R = e.tool.renderToolUseMessage?.(e.input, { theme: e.theme, verbose: !0 }) ?? null;
+      let R = e.tool.renderToolUseMessage?.(e.input, { theme: e.theme, verbose: true }) ?? null;
       r = typeof R === "string" ? Ci(R) : R;
     } catch {
-      (r = "parameters could not be rendered \u2014 deny unless expected"), (b = !0);
+      (r = "parameters could not be rendered \u2014 deny unless expected"), (b = true);
     }
   return {
     requestId: e.toolUseID,
@@ -456,20 +456,20 @@ function WR(e) {
     toolUseRenderFailed: b,
     paramFormatHints: _o(e.tool.inputJSONSchema),
     messageId: e.assistantMessage.message.id,
-    isMcp: e.tool.isMcp ?? !1,
+    isMcp: e.tool.isMcp ?? false,
     isAskCappedByOrg: e.tool.mcpInfo?.effectiveMaxPermission === "ask",
     showAlwaysAllow:
       ELe() &&
-      !(e.permissionResult.behavior === "ask" && e.permissionResult.suppressAlwaysAllowRule === !0) &&
-      e.tool.suppressesAlwaysAllowRule?.(e.input) !== !0 &&
-      e.tool.suppressesAllPermissionUpdates?.(e.input) !== !0 &&
+      !(e.permissionResult.behavior === "ask" && e.permissionResult.suppressAlwaysAllowRule === true) &&
+      e.tool.suppressesAlwaysAllowRule?.(e.input) !== true &&
+      e.tool.suppressesAllPermissionUpdates?.(e.input) !== true &&
       !GV(e.requestSource),
     requestSource: e.requestSource,
-    hasExternalRacer: e.hasExternalRacer ?? !1,
+    hasExternalRacer: e.hasExternalRacer ?? false,
   };
 }
 function Ae(e) {
-  if (e.forRemoteExecution === !0) return { type: "remote-agent" };
+  if (e.forRemoteExecution === true) return { type: "remote-agent" };
   let i = $tr(e);
   if (i !== void 0) return { type: "plugin", pluginName: i };
   if (E$(e)) return { type: "plugin" };
@@ -603,15 +603,15 @@ function Je(e) {
       )
       .map((u) => ({ label: cSe(u.label) ? "" : t9(u.label), description: es(u.description).text, value: u.value })),
     d,
-    _ = !1;
-  if (Qi(o) || _r(o)) (d = `(Network path \u2014 content not previewed: ${o})`), (_ = !0);
+    _ = false;
+  if (Qi(o) || _r(o)) (d = `(Network path \u2014 content not previewed: ${o})`), (_ = true);
   else
     try {
       d = SR(o, Efe);
     } catch (u) {
       if (mj(u)) d = `(Artifact too large for preview: ${o})`;
       else d = X(u) ? `(File not found: ${o})` : `(Error reading file: ${String(u)})`;
-      _ = !0;
+      _ = true;
     }
   return { ...i, filePath: o, artifactTitle: r, artifactOptions: R, fileContent: d, contentWithheld: _ };
 }
@@ -670,9 +670,9 @@ function fit(e) {
     case Y0:
     case J0:
     case tm:
-      return !0;
+      return true;
     default:
-      return !1;
+      return false;
   }
 }
 function NUn(e) {
@@ -680,9 +680,9 @@ function NUn(e) {
     case Uy:
     case Y_:
     case b7:
-      return !0;
+      return true;
     default:
-      return !1;
+      return false;
   }
 }
 function mit(e, i) {
@@ -738,7 +738,7 @@ async function So(e) {
           : {
               kind: "file-edit-diff",
               filePath: d.file_path,
-              edits: [{ old_string: d.old_string, new_string: d.new_string, replace_all: d.replace_all || !1 }],
+              edits: [{ old_string: d.old_string, new_string: d.new_string, replace_all: d.replace_all || false }],
               remoteOldContent: r ?? void 0,
               skipLocalRead: t,
             },
@@ -748,24 +748,24 @@ async function So(e) {
   if (i === Y_) {
     let d = Y_.inputSchema.parse(o),
       _ = "",
-      u = !1,
-      w = !1,
+      u = false,
+      w = false,
       P,
       f;
     if (t)
-      if (typeof r === "string") (_ = r), (u = !0), (P = "Overwrite file"), (f = "overwrite");
+      if (typeof r === "string") (_ = r), (u = true), (P = "Overwrite file"), (f = "overwrite");
       else if (r === null) (P = "Create file"), (f = "create");
-      else (P = "Write file"), (f = "write to"), (w = !0);
+      else (P = "Write file"), (f = "write to"), (w = true);
     else {
       let E = Qi(d.file_path) || _r(d.file_path);
       if (!E)
         try {
-          (_ = (await db(d.file_path, Efe)).content), (u = !0);
+          (_ = (await db(d.file_path, Efe)).content), (u = true);
         } catch (F) {
-          if (mj(F)) (u = !0), (w = !0);
+          if (mj(F)) (u = true), (w = true);
           else if (!X(F) && !Boe(F)) throw F;
         }
-      if (E) (w = !0), (P = "Write file"), (f = "write to");
+      if (E) (w = true), (P = "Write file"), (f = "write to");
       else (P = u ? "Overwrite file" : "Create file"), (f = u ? "overwrite" : "create");
     }
     let x = d.content.length > Y,
@@ -906,7 +906,7 @@ async function Lhe(e) {
   let i = WR(e),
     o = e.tool;
   if (!fit(o)) throw Error(`buildFilePermissionDescriptor called with non-file tool: ${e.tool.name}`);
-  let t = e.remoteWorkspace === !0,
+  let t = e.remoteWorkspace === true,
     r = o.isReadOnly(e.input) ? "read" : "write",
     {
       title: b,
@@ -948,29 +948,29 @@ async function Ee(e) {
         .lstat(gt(o))
         .then(
           (I) => I.isSymbolicLink(),
-          () => !1,
+          () => false,
         )),
     d = "",
-    _ = !1,
-    u = !1;
+    _ = false,
+    u = false;
   if (!r && !b)
     try {
-      (d = (await db(t, Efe)).content), (_ = !0);
+      (d = (await db(t, Efe)).content), (_ = true);
     } catch (I) {
-      if (mj(I)) (_ = !0), (u = !0);
+      if (mj(I)) (_ = true), (u = true);
       else if (!X(I) && !Boe(I)) throw I;
     }
   let w = "",
-    P = !1,
+    P = false,
     f = d.length > Y;
   if (!f)
     try {
       w = z4n(d, e.sedInfo);
     } catch {
-      P = !0;
+      P = true;
     }
   let x = f || P || w.length > Y || lk(d) || lk(w),
-    T = r || b || u || x || d === w ? [] : [{ old_string: d, new_string: w, replace_all: !1 }],
+    T = r || b || u || x || d === w ? [] : [{ old_string: d, new_string: w, replace_all: false }],
     A = r
       ? `Network path \u2014 diff not previewed. The sed command will run against ${ae(t)} on approval.`
       : R
@@ -984,7 +984,7 @@ async function Ee(e) {
               : _
                 ? "Pattern did not match any content"
                 : "File does not exist",
-    v = oo(t, "write", !1),
+    v = oo(t, "write", false),
     k =
       r || b || u || x
         ? { ...e.input }
@@ -993,8 +993,8 @@ async function Ee(e) {
     ...i,
     input: k,
     title: "Edit file",
-    subtitle: Se(t, !1),
-    question: { kind: "file-action", verbPhrase: "make this edit to", fileName: ye(t, !1) },
+    subtitle: Se(t, false),
+    question: { kind: "file-action", verbPhrase: "make this edit to", fileName: ye(t, false) },
     content: T.length > 0 ? { kind: "file-edit-diff", filePath: t, edits: T } : { kind: "no-changes", message: A },
     contentWithheld: u || r || x || b,
     filePath: t,
@@ -1024,7 +1024,7 @@ var git = go({
   ),
   result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
   default: { behavior: "cancelled" },
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 var hit = go({
   kind: "permission_powershell",
@@ -1041,7 +1041,7 @@ var hit = go({
   ),
   result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
   default: { behavior: "cancelled" },
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 var _it = go({
   kind: "permission_skill",
@@ -1058,7 +1058,7 @@ var _it = go({
   ),
   result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
   default: { behavior: "cancelled" },
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 var yit = go({
   kind: "permission_webfetch",
@@ -1075,7 +1075,7 @@ var yit = go({
   ),
   result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
   default: { behavior: "cancelled" },
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 var no = jC(() => fi.autoDenyPresence);
 async function Ce(e) {
@@ -1098,7 +1098,7 @@ function ro(e, i, o, t) {
   return lqn(b);
 }
 async function so(e, i, o, t, r) {
-  let b = !1,
+  let b = false,
     R = gt(e),
     d = "";
   try {
@@ -1112,7 +1112,7 @@ async function so(e, i, o, t, r) {
   _();
   async function u() {
     if (b) return;
-    b = !0;
+    b = true;
     try {
       await xe(t, w);
     } catch (P) {
@@ -1126,7 +1126,7 @@ async function so(e, i, o, t, r) {
     let { updatedFile: P } = Kan({ filePath: R, fileContents: d, edits: i });
     if (!w || w.type !== "connected") throw Error("IDE client not available");
     let f = R,
-      x = w.config.ideRunningInWindows === !0;
+      x = w.config.ideRunningInWindows === true;
     if (D() === "wsl" && x && a.WSL_DISTRO_NAME) (f = await new que(a.WSL_DISTRO_NAME).toIDEPath(R)), _();
     let T = await Mjt("openDiff", { old_file_path: f, new_file_path: f, new_file_contents: P, tab_name: t }, w),
       A = Array.isArray(T) ? T : [T];
@@ -1178,7 +1178,7 @@ function jo(e, i) {
     let o = Uy.inputSchema.parse(i);
     return {
       filePath: o.file_path,
-      edits: [{ old_string: o.old_string, new_string: o.new_string, replace_all: o.replace_all || !1 }],
+      edits: [{ old_string: o.old_string, new_string: o.new_string, replace_all: o.replace_all || false }],
     };
   }
   if (e === Y_) {
@@ -1192,20 +1192,20 @@ function jo(e, i) {
         if (mj(b)) return null;
         if (!X(b) && !Boe(b)) throw b;
       }
-    return { filePath: o.file_path, edits: [{ old_string: r, new_string: o.content, replace_all: !1 }] };
+    return { filePath: o.file_path, edits: [{ old_string: r, new_string: o.content, replace_all: false }] };
   }
   return null;
 }
 function Uo(e, i, o) {
   let t = o[0];
   if (!t) return i;
-  if (e === Uy) return { ...i, old_string: t.old_string, new_string: t.new_string, replace_all: t.replace_all || !1 };
+  if (e === Uy) return { ...i, old_string: t.old_string, new_string: t.new_string, replace_all: t.replace_all || false };
   if (e === Y_) return { ...i, content: t.new_string };
   return i;
 }
 function lo(e, i, o) {
   if (e !== Uy && e !== Y_) return null;
-  if (o.forRemoteExecution === !0) return null;
+  if (o.forRemoteExecution === true) return null;
   if (ow(i)) return null;
   let t = o.options.mcpClients;
   if (!RTe(t)) return null;
@@ -1220,8 +1220,8 @@ function lo(e, i, o) {
   return { ideName: o_t(t) ?? "IDE", ideClient: R, filePath: r.filePath, edits: r.edits };
 }
 function ao(e) {
-  if (e.permissionResult.localDisplayOnly === !0) return { closeTab: () => {} };
-  if (e.ctx.toolUseContext.forRemoteExecution === !0 || ow(e.input)) return { closeTab: () => {} };
+  if (e.permissionResult.localDisplayOnly === true) return { closeTab: () => {} };
+  if (e.ctx.toolUseContext.forRemoteExecution === true || ow(e.input)) return { closeTab: () => {} };
   let {
       ctx: i,
       tool: o,
@@ -1237,10 +1237,10 @@ function ao(e) {
     { filePath: P, edits: f, ideName: x, ideClient: T } = R,
     A = Fo().slice(0, 6),
     v = `\u273B [Claude Code] ${Mo(P)} (${A}) \u29C9`,
-    k = !1;
+    k = false;
   function I() {
     if (k) return;
-    (k = !0),
+    (k = true),
       xe(v, T).catch((F) => {
         n(`closeTabInIDE failed: ${F}`, { level: "error" });
       });
@@ -1260,7 +1260,7 @@ function ao(e) {
             _({ behavior: "deny", message: "User denied via IDE" }),
             u(),
             i.logDecision(
-              { decision: "reject", source: { type: "user_reject", hasFeedback: !1 } },
+              { decision: "reject", source: { type: "user_reject", hasFeedback: false } },
               { permissionPromptStartTimeMs: b },
             ),
             w(i.cancelAndAbort(void 0));
@@ -1268,14 +1268,14 @@ function ao(e) {
         }
         if (k || !d()) return;
         if ((I(), r.denialLimitFallback !== void 0))
-          rpt(i.toolUseContext), y("permission_auto_mode_denial_fallback", { autoDenied: !1 });
+          rpt(i.toolUseContext), y("permission_auto_mode_denial_fallback", { autoDenied: false });
         let S = Uo(o, t, M);
         s("tengu_ext_diff_accepted", H),
           y("ide_diff_view"),
           _({ behavior: "allow", updatedInput: S, updatedPermissions: [] }),
           u(),
           i.logDecision(
-            { decision: "accept", source: { type: "user", permanent: !1 } },
+            { decision: "accept", source: { type: "user", permanent: false } },
             { permissionPromptStartTimeMs: b },
           ),
           w(
@@ -1297,7 +1297,7 @@ function ao(e) {
 import { randomUUID as Oo } from "crypto";
 function No(e, i) {
   if (i.length === 0) return;
-  if (e.toolUseContext.forRemoteExecution === !0 || E$(e.toolUseContext)) return;
+  if (e.toolUseContext.forRemoteExecution === true || E$(e.toolUseContext)) return;
   let o = [];
   for (let t of i)
     if (t.type === "setMode") {
@@ -1323,7 +1323,7 @@ function mo(e) {
       onWin: P,
       onReprompt: f,
     } = e,
-    x = t.localDisplayOnly || t.denialLimitFallback !== void 0 || i.toolUseContext.forRemoteExecution === !0,
+    x = t.localDisplayOnly || t.denialLimitFallback !== void 0 || i.toolUseContext.forRemoteExecution === true,
     T = x ? void 0 : d,
     A = x ? void 0 : _,
     { setClassifierApprovals: v } = i,
@@ -1364,9 +1364,9 @@ function mo(e) {
       if (I) W.removeEventListener("abort", I);
       if ((V8(v, i.toolUseID), E?.(), U.behavior === "allow")) {
         let j =
-          i.tool.suppressesAllPermissionUpdates?.(r) === !0
+          i.tool.suppressesAllPermissionUpdates?.(r) === true
             ? _D(U.updatedPermissions ?? [])
-            : i.tool.suppressesAlwaysAllowRule?.(r) === !0 || t.suppressAlwaysAllowRule === !0
+            : i.tool.suppressesAlwaysAllowRule?.(r) === true || t.suppressAlwaysAllowRule === true
               ? a9(U.updatedPermissions ?? [], i.tool, he(i.toolUseContext))
               : (U.updatedPermissions ?? []);
         if ((No(i, j), j.length)) nPt(j);
@@ -1380,9 +1380,9 @@ function mo(e) {
           { decision: "reject", source: { type: "user_reject", hasFeedback: !!U.message } },
           { permissionPromptStartTimeMs: b },
         ),
-          P(i.cancelAndAbort(U.message, void 0, void 0, { feedbackIsFromUser: !0 }));
+          P(i.cancelAndAbort(U.message, void 0, void 0, { feedbackIsFromUser: true }));
     })),
-      W.addEventListener("abort", I, { once: !0 });
+      W.addEventListener("abort", I, { once: true });
   }
   if (A && !i.tool.requiresUserInteraction?.()) {
     let S = jUn(i.toolUseID),
@@ -1407,13 +1407,13 @@ function mo(e) {
           if ((y("permission_channel_relay"), E?.(), V8(v, i.toolUseID), T && k)) T.cancelRequest(k);
           if ((I?.(), q.behavior === "allow"))
             i.logDecision(
-              { decision: "accept", source: { type: "user", permanent: !1 } },
+              { decision: "accept", source: { type: "user", permanent: false } },
               { permissionPromptStartTimeMs: b },
             ),
               P(i.buildAllow(r));
           else
             i.logDecision(
-              { decision: "reject", source: { type: "user_reject", hasFeedback: !1 } },
+              { decision: "reject", source: { type: "user_reject", hasFeedback: false } },
               { permissionPromptStartTimeMs: b },
             ),
               P(i.cancelAndAbort(`Denied via channel ${q.fromServer}`));
@@ -1421,7 +1421,7 @@ function mo(e) {
       (E = () => {
         pe(), z.removeEventListener("abort", E);
       }),
-        z.addEventListener("abort", E, { once: !0 });
+        z.addEventListener("abort", E, { once: true });
     }
   }
   let M = t.serverApprovalWatch,
@@ -1429,9 +1429,9 @@ function mo(e) {
     H = M && L?.isEnabled() ? L.createObserver(M, i.toolUseContext.toolState, i.toolUseContext.credentials) : null;
   if (M && H) {
     let S = i.toolUseContext.abortController.signal,
-      W = !1;
+      W = false;
     (F = () => {
-      W = !0;
+      W = true;
     }),
       (async () => {
         let U = await H.poll(),
@@ -1445,7 +1445,7 @@ function mo(e) {
           }
           if (he(i.toolUseContext).mode === "plan") {
             n("Server approval observed but parked: session is in plan mode"),
-              (U = !1),
+              (U = false),
               (j = Math.min(Math.round(j * 1.5), z));
             continue;
           }
@@ -1455,10 +1455,10 @@ function mo(e) {
             E?.(),
             y("permission_server_approval_watch"),
             i.logDecision(
-              { decision: "accept", source: { type: "user", permanent: !1 } },
+              { decision: "accept", source: { type: "user", permanent: false } },
               { permissionPromptStartTimeMs: b },
             ),
-            P(i.buildAllow({ ...(t.updatedInput ?? r), __projectGrantServerObserved: !0 }));
+            P(i.buildAllow({ ...(t.updatedInput ?? r), __projectGrantServerObserved: true }));
           return;
         }
       })().catch((U) => {
@@ -1557,14 +1557,14 @@ async function Rje(e, i) {
       let k = lo(o.tool, A, o.toolUseContext),
         I = Date.now(),
         E,
-        F = o.toolUseContext.forRemoteExecution === !0 || ow(A),
+        F = o.toolUseContext.forRemoteExecution === true || ow(A),
         B = await Lhe({ ...f, input: A, permissionResult: r, filePath: v, remoteWorkspace: F });
       if (o.resolveIfAborted(w.resolve)) return;
       de(e, w, {
         dialog: Ohe,
         buildDescriptor: ({ input: M, permissionResult: L }) => {
-          if (E?.isReprompted() !== !0) {
-            if (k !== null) return { ...B, permissionResult: L, showingDiffInIDE: !0, ideName: k.ideName };
+          if (E?.isReprompted() !== true) {
+            if (k !== null) return { ...B, permissionResult: L, showingDiffInIDE: true, ideName: k.ideName };
             return { ...B, permissionResult: L };
           }
           return (async function* () {
@@ -1576,7 +1576,7 @@ async function Rje(e, i) {
                 input: M,
                 permissionResult: L,
                 filePath: S,
-                remoteWorkspace: o.toolUseContext.forRemoteExecution === !0 || ow(M),
+                remoteWorkspace: o.toolUseContext.forRemoteExecution === true || ow(M),
               });
             } catch (S) {
               if (
@@ -1618,7 +1618,7 @@ async function Rje(e, i) {
   if (o.tool === _i) {
     let A = r.updatedInput ?? o.input,
       v = typeof A.command === "string" ? A.command : "",
-      k = o.toolUseContext.forRemoteExecution === !0 || ow(A) ? null : qee(v);
+      k = o.toolUseContext.forRemoteExecution === true || ow(A) ? null : qee(v);
     if (k !== null) {
       let E = await Ee({
         ...f,
@@ -1632,7 +1632,7 @@ async function Rje(e, i) {
       de(e, w, {
         dialog: Ohe,
         buildDescriptor: ({ input: B, permissionResult: M }) => {
-          if (F?.isReprompted() !== !0) return { ...E, permissionResult: M };
+          if (F?.isReprompted() !== true) return { ...E, permissionResult: M };
           return (async function* () {
             let H = typeof B.command === "string" ? B.command : "",
               S = qee(H);
@@ -1724,18 +1724,18 @@ function de(e, i, o) {
         n(`Dialog teardown failed: ${l(J)}`, { level: "error" });
       }
   }
-  let H = !1,
+  let H = false,
     S = o.unaryEvent ?? { completion_type: "tool_use_single", language_name: "none" },
     W = t.toolUseContext.abortController.signal;
   function U() {
     if (H) return;
-    H = !0;
+    H = true;
     let C = t.permissionMode;
     t.toolUseContext.applyAttributionOp({ kind: "incrementPermissionPrompt" }),
       s("tengu_tool_use_show_permission_request", {
         messageID: ve(t.messageId),
         toolName: Un(t.tool.name),
-        isMcp: t.tool.isMcp ?? !1,
+        isMcp: t.tool.isMcp ?? false,
         decisionReasonType: ke(E.decisionReason?.type),
         sandboxEnabled: pt.isSandboxingEnabled(),
         permissionMode: c(C),
@@ -1783,7 +1783,7 @@ function de(e, i, o) {
           Fe();
       },
     }),
-    G = !1,
+    G = false,
     be,
     De,
     ue,
@@ -1797,7 +1797,7 @@ function de(e, i, o) {
       if (w()) return;
       if (be !== void 0 && !G && !Qy(HH(t.tool, he(t.toolUseContext)))) Ie();
       if (t.tool.requiresUserInteraction?.()) return;
-      if (b.forcedByCaller === !0) return;
+      if (b.forcedByCaller === true) return;
       Ld(t.tool, t.input, t.toolUseContext, t.assistantMessage, t.toolUseID)
         .then((C) => {
           if (C.behavior !== "allow") return;
@@ -1822,16 +1822,16 @@ function de(e, i, o) {
     B = O;
     let J = () => O.abort();
     if (W.aborted) O.abort();
-    else W.addEventListener("abort", J, { once: !0 });
+    else W.addEventListener("abort", J, { once: true });
     let ge = o.buildDescriptor({ input: k, permissionResult: E }),
       K,
-      Ue = !1,
+      Ue = false,
       Oe = [],
       Ne = (N) => {
         if (G) N = { ...N, permissionResult: E };
         if (((oe = N), K !== void 0)) {
           let se = K;
-          (K = void 0), se({ value: N, done: !1 });
+          (K = void 0), se({ value: N, done: false });
         } else Oe.push(N);
       },
       Be = (N) => {
@@ -1851,15 +1851,15 @@ function de(e, i, o) {
       [Symbol.asyncIterator]() {
         return {
           next: () => {
-            if (Ue) return Promise.resolve({ value: void 0, done: !0 });
+            if (Ue) return Promise.resolve({ value: void 0, done: true });
             let N = Oe.shift();
-            if (N !== void 0) return Promise.resolve({ value: N, done: !1 });
+            if (N !== void 0) return Promise.resolve({ value: N, done: false });
             return new Promise((se) => {
               K = se;
             });
           },
           return: () => {
-            let N = { value: void 0, done: !0 };
+            let N = { value: void 0, done: true };
             return K?.(N), (K = void 0), Promise.resolve(N);
           },
         };
@@ -1868,11 +1868,11 @@ function de(e, i, o) {
     U(), ck.emit({ ...qe({ tool: t.tool, input: k }), toolUseID: t.toolUseID });
     let We = Z !== void 0 && !A && !G,
       Le = () => {
-        (Ue = !0), K?.({ value: void 0, done: !0 }), (K = void 0);
+        (Ue = true), K?.({ value: void 0, done: true }), (K = void 0);
       };
     if (We) {
       if (O.signal.aborted) Le();
-      else O.signal.addEventListener("abort", Le, { once: !0 });
+      else O.signal.addEventListener("abort", Le, { once: true });
       Be(ge);
     }
     x(o.dialog, We ? ko : ge, { signal: O.signal, queueBehind: A, armInputGrace: A }).then((N) => {
@@ -1885,7 +1885,7 @@ function de(e, i, o) {
     switch ((ck.clearHookFailure(t.toolUseID), ck.emit(null), Re(), L(), C.behavior)) {
       case "allow": {
         if (b.denialLimitFallback !== void 0)
-          rpt(t.toolUseContext), y("permission_auto_mode_denial_fallback", { autoDenied: !1 });
+          rpt(t.toolUseContext), y("permission_auto_mode_denial_fallback", { autoDenied: false });
         q({ behavior: "allow", updatedInput: C.updatedInput, updatedPermissions: [...(C.permissionUpdates ?? [])] }),
           j("accept"),
           u(
@@ -1900,14 +1900,14 @@ function de(e, i, o) {
         return;
       }
       case "deny": {
-        if (b.denialLimitFallback !== void 0) y("permission_auto_mode_denial_fallback", { autoDenied: !1 });
+        if (b.denialLimitFallback !== void 0) y("permission_auto_mode_denial_fallback", { autoDenied: false });
         q({ behavior: "deny", message: C.feedback ?? "User denied permission" }),
           j("reject"),
           t.logDecision(
             { decision: "reject", source: { type: "user_reject", hasFeedback: !!C.feedback } },
             { permissionPromptStartTimeMs: v, input: k },
           ),
-          u(t.cancelAndAbort(C.feedback, void 0, C.contentBlocks, { feedbackIsFromUser: !0 }));
+          u(t.cancelAndAbort(C.feedback, void 0, C.contentBlocks, { feedbackIsFromUser: true }));
         return;
       }
       case "cancelled": {
@@ -1924,7 +1924,7 @@ function de(e, i, o) {
           u({ behavior: "ask", message: rI });
           return;
         }
-        u(t.cancelAndAbort(void 0, !0));
+        u(t.cancelAndAbort(void 0, true));
         return;
       }
     }
@@ -1952,10 +1952,10 @@ function de(e, i, o) {
         q({ behavior: "deny", message: ge }),
         s("tengu_auto_mode_denial_dialog_auto_denied", {
           toolName: Un(t.tool.name),
-          isMcp: t.tool.isMcp ?? !1,
+          isMcp: t.tool.isMcp ?? false,
           timeoutMs: C,
         }),
-        y("permission_auto_mode_denial_fallback", { autoDenied: !0 }),
+        y("permission_auto_mode_denial_fallback", { autoDenied: true }),
         j("reject"),
         t.logDecision({ decision: "reject", source: "config" }, { permissionPromptStartTimeMs: v, input: k }),
         e.onClassifierDenyDelivered?.(te),
@@ -1969,7 +1969,7 @@ function de(e, i, o) {
       je(Z, fe),
       M.push(() => clearTimeout(re)),
       (be = () => {
-        (G = !0), clearTimeout(re);
+        (G = true), clearTimeout(re);
         let O = E.denialLimitFallback;
         if (O !== void 0) E = { ...E, denialLimitFallback: aqn(O) };
       }),
@@ -2004,7 +2004,7 @@ function de(e, i, o) {
     Fe();
 }
 function Po(e, i) {
-  let { live: o, notice: t } = eSe(e, { suppressDropTelemetry: !0 }),
+  let { live: o, notice: t } = eSe(e, { suppressDropTelemetry: true }),
     r = xfn(o),
     b = -1;
   for (let _ = o.length - 1; _ >= 0; _--) {
@@ -2025,7 +2025,7 @@ function Po(e, i) {
     let u = o[_];
     if (!u || u.type !== "user" || typeof u.message.content === "string") continue;
     for (let w of u.message.content)
-      if (w.type === "tool_result" && R.has(w.tool_use_id)) d.set(w.tool_use_id, w.is_error !== !0 && !qo(w.content));
+      if (w.type === "tool_result" && R.has(w.tool_use_id)) d.set(w.tool_use_id, w.is_error !== true && !qo(w.content));
   }
   for (let _ = o.length - 1; _ >= 0; _--) {
     let u = o[_];
@@ -2042,10 +2042,10 @@ function Po(e, i) {
           "to" in f.input &&
           typeof f.input.to === "string" &&
           (f.input.to === vi || f.input.to === yp) &&
-          d.get(f.id) === !0,
+          d.get(f.id) === true,
       )
     ) {
-      if (i?.emitTelemetry === !0) g("swarm_idle_result_delivery", "suppressed_lead_dm");
+      if (i?.emitTelemetry === true) g("swarm_idle_result_delivery", "suppressed_lead_dm");
       return { result: void 0, summary: r };
     }
     if (!jIe(u.message.content)) continue;
@@ -2096,10 +2096,10 @@ function qo(e) {
     if (!o.startsWith("{")) continue;
     try {
       let t = V(o);
-      if (t !== null && typeof t === "object" && "success" in t && t.success === !1) return !0;
+      if (t !== null && typeof t === "object" && "success" in t && t.success === false) return true;
     } catch {}
   }
-  return !1;
+  return false;
 }
 class ho {
   permissionContextSetter = null;

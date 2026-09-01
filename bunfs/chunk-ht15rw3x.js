@@ -10,12 +10,12 @@
 // Version: 2.1.252
 import { vs } from "/$bunfs/root/chunk-3s6zpzqb.js";
 async function Vyn(n, e, t) {
-  let p = { revisionGuessUsed: !1 };
+  let p = { revisionGuessUsed: false };
   if (!n) return { sources: [], outcomes: [], report: p };
   let { parseGitRemote: l, parseGitHubRepository: y } = await import("/$bunfs/root/chunk-q9mtfzh4.js"),
     { getDefaultBranch: G } = await import("/$bunfs/root/chunk-qcxpe3gt.js");
   if (e === "HEAD") e = "";
-  let u = !1,
+  let u = false,
     s = e || t || void 0;
   if (!s) (s = (await G()) || void 0), (u = s !== void 0);
   let c = e && t && e !== t ? [e] : [],

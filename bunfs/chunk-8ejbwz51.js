@@ -33,8 +33,8 @@ F();
 function R({ onStashAndContinue: h, onCancel: m }) {
   let [g, S] = u(null),
     f = g !== null ? [...g.tracked, ...g.untracked] : [],
-    [E, T] = u(!0),
-    [w, y] = u(!1),
+    [E, T] = u(true),
+    [w, y] = u(false),
     [s, c] = u(null);
   A(() => {
     (async () => {
@@ -45,12 +45,12 @@ function R({ onStashAndContinue: h, onCancel: m }) {
         let C = i instanceof Error ? i.message : String(i);
         n(`Error getting changed files: ${C}`, { level: "error" }), c("Failed to get changed files");
       } finally {
-        T(!1);
+        T(false);
       }
     })();
   }, []);
   let b = async () => {
-    y(!0);
+    y(true);
     try {
       if ((n("Stashing changes before teleport..."), await vvn("Teleport auto-stash")))
         n("Successfully stashed changes"), h();
@@ -59,7 +59,7 @@ function R({ onStashAndContinue: h, onCancel: m }) {
       let i = a instanceof Error ? a.message : String(a);
       n(`Error stashing changes: ${i}`, { level: "error" }), c("Failed to stash changes");
     } finally {
-      y(!1);
+      y(false);
     }
   };
   if (E)
@@ -76,10 +76,10 @@ function R({ onStashAndContinue: h, onCancel: m }) {
       flexDirection: "column",
       padding: 1,
       children: [
-        r(t, { bold: !0, color: "error", children: ["Error: ", s] }),
+        r(t, { bold: true, color: "error", children: ["Error: ", s] }),
         e(o, {
           marginTop: 1,
-          children: e(t, { dimColor: !0, children: e(M, { chord: "escape", action: "cancel", bold: !0 }) }),
+          children: e(t, { dimColor: true, children: e(M, { chord: "escape", action: "cancel", bold: true }) }),
         }),
       ],
     });
@@ -119,9 +119,9 @@ function ett($e) {
   let p = _(23),
     { onComplete: N, errorsToIgnore: V, isStandalone: X } = $e,
     W = V === void 0 ? J : V,
-    qe = X === void 0 ? !1 : X,
+    qe = X === void 0 ? false : X,
     [q, Z] = u(null),
-    [k, j] = u(!1),
+    [k, j] = u(false),
     z = Ua(),
     { credentials: H } = ge(),
     ee;
@@ -158,7 +158,7 @@ function ett($e) {
     re;
   if (p[7] !== l)
     (re = () => {
-      j(!1), l();
+      j(false), l();
     }),
       (p[7] = l),
       (p[8] = re);
@@ -167,7 +167,7 @@ function ett($e) {
     ne;
   if (p[9] === d)
     (ne = () => {
-      j(!0);
+      j(true);
     }),
       (p[9] = ne);
   else ne = p[9];
@@ -206,8 +206,8 @@ function ett($e) {
                 r(o, {
                   flexDirection: "column",
                   children: [
-                    e(t, { dimColor: !0, children: "Teleport requires a Claude.ai account." }),
-                    e(t, { dimColor: !0, children: "Your Claude Pro/Max subscription will be used by Claude Code." }),
+                    e(t, { dimColor: true, children: "Teleport requires a Claude.ai account." }),
+                    e(t, { dimColor: true, children: "Your Claude Pro/Max subscription will be used by Claude Code." }),
                   ],
                 }),
                 e(wn, { confirmLabel: "Login with Claude account", cancelLabel: "Exit", onConfirm: Ke, onCancel: D }),
@@ -231,7 +231,7 @@ function rTr(h, m) {
     h.render(
       e(
         vp,
-        { session: G(), children: e(ett, { errorsToIgnore: m, onComplete: () => void g(), isStandalone: !0 }) },
+        { session: G(), children: e(ett, { errorsToIgnore: m, onComplete: () => void g(), isStandalone: true }) },
         "teleport-errors",
       ),
     );

@@ -45,10 +45,10 @@ async function w({ binaryResolution: e, log: r }) {
         return (
           r("[vitals] VITALS_EMITTER_BIN not set; guest vitals disabled (this launcher does not search PATH)"), null
         );
-      return { binary: t, viaFallback: !1 };
+      return { binary: t, viaFallback: false };
     case "search": {
       let i = t || (await Va(_));
-      return i ? { binary: i, viaFallback: !1 } : { binary: T, viaFallback: !0 };
+      return i ? { binary: i, viaFallback: false } : { binary: T, viaFallback: true };
     }
   }
 }
@@ -60,17 +60,17 @@ class u {
   spawnedAt = 0;
   respawnTimer = null;
   nextBackoffMs = d;
-  stopping = !1;
-  disabled = !1;
-  reportedOk = !1;
-  reportedUnexpectedExit = !1;
+  stopping = false;
+  disabled = false;
+  reportedOk = false;
+  reportedUnexpectedExit = false;
   constructor(e, r, t) {
     this.binary = e;
     this.binaryViaFallback = r;
     this.options = t;
   }
   async stop() {
-    if (((this.stopping = !0), this.respawnTimer)) clearTimeout(this.respawnTimer), (this.respawnTimer = null);
+    if (((this.stopping = true), this.respawnTimer)) clearTimeout(this.respawnTimer), (this.respawnTimer = null);
     let e = this.child;
     if (!e) return;
     let r = new Promise((i) => {
@@ -88,10 +88,10 @@ class u {
         cwd: void 0,
         env: b(),
         stdio: ["pipe", "ignore", "pipe"],
-        windowsHide: !0,
+        windowsHide: true,
       });
     } catch (n) {
-      i(`[vitals] spawn threw: ${l(n)}; guest vitals disabled for this session`), (this.disabled = !0);
+      i(`[vitals] spawn threw: ${l(n)}; guest vitals disabled for this session`), (this.disabled = true);
       return;
     }
     if (
@@ -103,7 +103,7 @@ class u {
       s.on("exit", (n, h) => this.onChildGone(s, null, `exited (code=${n} signal=${h})`)),
       s.on("spawn", () => {
         if ((i(`[vitals] spawned ${this.binary} pid=${s.pid}`), !this.reportedOk))
-          (this.reportedOk = !0), y("ccr_vitals_emitter");
+          (this.reportedOk = true), y("ccr_vitals_emitter");
       }),
       s.stderr)
     )
@@ -126,13 +126,13 @@ class u {
         i(`[vitals] transient spawn failure (${s}); respawning`), this.scheduleRespawn();
         return;
       }
-      if (((this.disabled = !0), s === "ENOENT" || (s === "EACCES" && this.binaryViaFallback)))
+      if (((this.disabled = true), s === "ENOENT" || (s === "EACCES" && this.binaryViaFallback)))
         i(`[vitals] ${this.binary} not found; guest vitals disabled for this session`);
       else i(`[vitals] ${t}; guest vitals disabled for this session`), p("ccr_vitals_emitter", "spawn_failed");
       return;
     }
     if ((i(`[vitals] emitter ${t}`), !this.reportedUnexpectedExit))
-      (this.reportedUnexpectedExit = !0), g("ccr_vitals_emitter", "exited_unexpectedly");
+      (this.reportedUnexpectedExit = true), g("ccr_vitals_emitter", "exited_unexpectedly");
     if (Date.now() - this.spawnedAt > c) this.nextBackoffMs = d;
     this.scheduleRespawn();
   }

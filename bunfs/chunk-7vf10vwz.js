@@ -310,7 +310,7 @@ async function oe(e, s) {
   try {
     ({ accessToken: T, orgUUID: w } = await o(s));
   } catch (c) {
-    if ((n(`[bridge:peers] auth prep failed: ${l(c)}`), e)) e.failed = !0;
+    if ((n(`[bridge:peers] auth prep failed: ${l(c)}`), e)) e.failed = true;
     return [];
   }
   let f = A3(),
@@ -323,8 +323,8 @@ async function oe(e, s) {
     d = [],
     S = new Set(),
     E = null,
-    g = !1,
-    A = !1;
+    g = false,
+    A = false;
   for (let c = 0; c < x; c++) {
     let _ = new URLSearchParams();
     if (f) _.set("limit", "100");
@@ -335,11 +335,11 @@ async function oe(e, s) {
     try {
       r = await st.get(C, { headers: b, timeout: 15000, validateStatus: (t) => t < 500 });
     } catch (t) {
-      if ((n(`[bridge:peers] list request failed: ${l(t)}`), e)) e.failed = !0;
+      if ((n(`[bridge:peers] list request failed: ${l(t)}`), e)) e.failed = true;
       return d;
     }
     if (r.status === 403 && !A && S6(r.data, $m(r.data)) === "untrusted_device") {
-      A = !0;
+      A = true;
       let t = await vV(p);
       if (t) {
         (b["X-Trusted-Device-Token"] = t), (p = t), c--;
@@ -347,11 +347,11 @@ async function oe(e, s) {
       }
     }
     if (r.status !== 200) {
-      if ((n(`[bridge:peers] list failed ${r.status}`), e)) e.failed = !0;
+      if ((n(`[bridge:peers] list failed ${r.status}`), e)) e.failed = true;
       return d;
     }
     if (r.data === null || typeof r.data !== "object" || !Array.isArray(r.data.data)) {
-      if ((n("[bridge:peers] list body `data` not an array; stopping"), e)) e.failed = !0;
+      if ((n("[bridge:peers] list body `data` not an array; stopping"), e)) e.failed = true;
       return d;
     }
     for (let t of r.data.data)
@@ -382,7 +382,7 @@ async function oe(e, s) {
             ...((t.connection_status === "connected" || t.connection_status === "disconnected") && {
               connected: t.connection_status === "connected",
             }),
-            ...(m ? { inboundReportUnavailable: !0 } : k2t(t.external_metadata)),
+            ...(m ? { inboundReportUnavailable: true } : k2t(t.external_metadata)),
           });
       } catch (m) {
         n(`[bridge:peers] skipping malformed session row: ${l(m)}`);
@@ -390,7 +390,7 @@ async function oe(e, s) {
     let i = f ? (r.data.next_cursor ?? null) : r.data.has_more ? (r.data.last_id ?? null) : null;
     if (!i) break;
     if (((E = i), c === x - 1))
-      (g = !0), n(`[bridge:peers] page budget exhausted with more sessions remaining (scanned ${x} pages)`);
+      (g = true), n(`[bridge:peers] page budget exhausted with more sessions remaining (scanned ${x} pages)`);
   }
   if (
     (n(
@@ -403,17 +403,17 @@ async function oe(e, s) {
   return d;
 }
 function ae(e) {
-  if (!e) return !1;
-  if (e.startsWith("auth:")) return !1;
-  if (e.startsWith("invalid session ID format")) return !1;
+  if (!e) return false;
+  if (e.startsWith("auth:")) return false;
+  if (e.startsWith("invalid session ID format")) return false;
   let s = /^HTTP (\d{3})/.exec(e);
   if (s) {
     let o = Number(s[1]);
-    if (o === 401 || o === 403) return !1;
-    if (o >= 500) return !1;
+    if (o === 401 || o === 403) return false;
+    if (o >= 500) return false;
   }
-  if (/status code 5\d\d/.test(e)) return !1;
-  return !0;
+  if (/status code 5\d\d/.test(e)) return false;
+  return true;
 }
 function de(e) {
   if (!e) return "other";
@@ -433,10 +433,10 @@ async function ue(e, s, o, y, R, P, T) {
   try {
     ({ accessToken: p, orgUUID: v } = await w(T));
   } catch (i) {
-    return { ok: !1, error: `auth: ${l(i)}` };
+    return { ok: false, error: `auth: ${l(i)}` };
   }
   let u = Ad(e);
-  if (!/^session_[A-Za-z0-9_-]+$/.test(u)) return { ok: !1, error: `invalid session ID format: ${e}` };
+  if (!/^session_[A-Za-z0-9_-]+$/.test(u)) return { ok: false, error: `invalid session ID format: ${e}` };
   let d = Kgt() ?? Uz(),
     S = d ? QEe(d) : "unknown",
     E = VMe(S, Zfn() ?? o, s, void 0, ybt(R, d ? pTe(S) : void 0), P),
@@ -458,10 +458,10 @@ async function ue(e, s, o, y, R, P, T) {
   try {
     r = await st.post(c, _, { headers: h, timeout: 1e4, validateStatus: (i) => i < 500 });
   } catch (i) {
-    return { ok: !1, error: l(i) };
+    return { ok: false, error: l(i) };
   }
   if ((B(u, r), r.status === 403 && S6(r.data, $m(r.data)) === "untrusted_device")) {
-    if (a.CLAUDE_CODE_REMOTE === !0 && !C && !a.CLAUDE_TRUSTED_DEVICE_TOKEN) return { ok: !1, error: `auth: ${A9t}` };
+    if (a.CLAUDE_CODE_REMOTE === true && !C && !a.CLAUDE_TRUSTED_DEVICE_TOKEN) return { ok: false, error: `auth: ${A9t}` };
     let i = await vV(C);
     if (i) {
       try {
@@ -471,21 +471,21 @@ async function ue(e, s, o, y, R, P, T) {
           validateStatus: (t) => t < 500,
         });
       } catch (t) {
-        return { ok: !1, error: l(t) };
+        return { ok: false, error: l(t) };
       }
       B(u, r);
     }
     if (r.status === 403 && S6(r.data, $m(r.data)) === "untrusted_device") {
-      if (C3()) return { ok: !1, error: `auth: ${Lde()}` };
+      if (C3()) return { ok: false, error: `auth: ${Lde()}` };
     }
   }
   if (r.status === 403 && S6(r.data, $m(r.data)) === "session_stale_relogin")
-    return { ok: !1, error: `auth: ${r8({ terminal: !0, reason: "session_stale_relogin" })}` };
+    return { ok: false, error: `auth: ${r8({ terminal: true, reason: "session_stale_relogin" })}` };
   if (!H(r.status)) {
-    if (r.status === 401 && a.CLAUDE_CODE_REMOTE === !0) return { ok: !1, error: `auth: ${L}` };
-    return { ok: !1, error: `HTTP ${r.status}` };
+    if (r.status === 401 && a.CLAUDE_CODE_REMOTE === true) return { ok: false, error: `auth: ${L}` };
+    return { ok: false, error: `HTTP ${r.status}` };
   }
-  return n(`[bridge:peers] posted to ${u}: ${s.slice(0, 60)}`), { ok: !0, msgId: g.msg_id };
+  return n(`[bridge:peers] posted to ${u}: ${s.slice(0, 60)}`), { ok: true, msgId: g.msg_id };
 }
 var L =
   "this cloud session cannot message other sessions yet \u2014 its credential is accepted for its own work but not for delivering to another session, so a reply from here is not possible; say so in your response instead of retrying";

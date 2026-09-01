@@ -25,7 +25,7 @@ import "/$bunfs/root/chunk-g2s7kk3r.js";
 import { yg } from "/$bunfs/root/chunk-3m9p2z28.js";
 import { S } from "/$bunfs/root/chunk-yz031c9r.js";
 var D = S(function (G) {
-  Object.defineProperty(G, "__esModule", { value: !0 });
+  Object.defineProperty(G, "__esModule", { value: true });
   G.resolveHttpAuthSchemeConfig =
     G.defaultSigninHttpAuthSchemeProvider =
     G.defaultSigninHttpAuthSchemeParametersProvider =
@@ -71,13 +71,13 @@ var D = S(function (G) {
   G.resolveHttpAuthSchemeConfig = Je;
 });
 var ne = S(function (te) {
-  Object.defineProperty(te, "__esModule", { value: !0 });
+  Object.defineProperty(te, "__esModule", { value: true });
   te.ruleSet = void 0;
   var ee = "required",
     o = "fn",
     s = "argv",
     p = "ref",
-    z = !0,
+    z = true,
     K = "isSet",
     _ = "booleanEquals",
     E = "error",
@@ -85,17 +85,17 @@ var ne = S(function (te) {
     d = "tree",
     C = "PartitionResult",
     q = "stringEquals",
-    X = { [ee]: !0, default: !1, type: "boolean" },
-    Q = { [ee]: !1, type: "string" },
+    X = { [ee]: true, default: false, type: "boolean" },
+    Q = { [ee]: false, type: "string" },
     W = { [p]: "Endpoint" },
-    k = { [o]: _, [s]: [{ [p]: "UseFIPS" }, !0] },
-    w = { [o]: _, [s]: [{ [p]: "UseDualStack" }, !0] },
+    k = { [o]: _, [s]: [{ [p]: "UseFIPS" }, true] },
+    w = { [o]: _, [s]: [{ [p]: "UseDualStack" }, true] },
     n = {},
     N = { [o]: "getAttr", [s]: [{ [p]: C }, "name"] },
-    A = { [o]: _, [s]: [{ [p]: "UseFIPS" }, !1] },
-    y = { [o]: _, [s]: [{ [p]: "UseDualStack" }, !1] },
+    A = { [o]: _, [s]: [{ [p]: "UseFIPS" }, false] },
+    y = { [o]: _, [s]: [{ [p]: "UseDualStack" }, false] },
     Y = { [o]: "getAttr", [s]: [{ [p]: C }, "supportsFIPS"] },
-    J = { [o]: _, [s]: [!0, { [o]: "getAttr", [s]: [{ [p]: C }, "supportsDualStack"] }] },
+    J = { [o]: _, [s]: [true, { [o]: "getAttr", [s]: [{ [p]: C }, "supportsDualStack"] }] },
     Z = [{ [p]: "Region" }],
     tt = {
       version: "1.0",
@@ -231,7 +231,7 @@ var ne = S(function (te) {
   te.ruleSet = tt;
 });
 var ie = S(function (oe) {
-  Object.defineProperty(oe, "__esModule", { value: !0 });
+  Object.defineProperty(oe, "__esModule", { value: true });
   oe.defaultEndpointResolver = void 0;
   var rt = vO(),
     b = VH(),
@@ -242,7 +242,7 @@ var ie = S(function (oe) {
   b.customEndpointFunctions.aws = rt.awsEndpointFunctions;
 });
 var pe = S(function (ce) {
-  Object.defineProperty(ce, "__esModule", { value: !0 });
+  Object.defineProperty(ce, "__esModule", { value: true });
   ce.getRuntimeConfig = void 0;
   var it = gg(),
     at = xN(),
@@ -257,7 +257,7 @@ var pe = S(function (ce) {
       apiVersion: "2023-01-01",
       base64Decoder: e?.base64Decoder ?? ae.fromBase64,
       base64Encoder: e?.base64Encoder ?? ae.toBase64,
-      disableHostPrefix: e?.disableHostPrefix ?? !1,
+      disableHostPrefix: e?.disableHostPrefix ?? false,
       endpointProvider: e?.endpointProvider ?? lt.defaultEndpointResolver,
       extensions: e?.extensions ?? [],
       httpAuthSchemeProvider: e?.httpAuthSchemeProvider ?? pt.defaultSigninHttpAuthSchemeProvider,
@@ -283,7 +283,7 @@ var pe = S(function (ce) {
   ce.getRuntimeConfig = ht;
 });
 var Se = S(function (me) {
-  Object.defineProperty(me, "__esModule", { value: !0 });
+  Object.defineProperty(me, "__esModule", { value: true });
   me.getRuntimeConfig = void 0;
   var gt = Coe(),
     _t = gt.__importDefault(CYe()),
@@ -358,8 +358,8 @@ var fr = S(function (L) {
     Ce = Pl(),
     Dt = (e) =>
       Object.assign(e, {
-        useDualstackEndpoint: e.useDualstackEndpoint ?? !1,
-        useFipsEndpoint: e.useFipsEndpoint ?? !1,
+        useDualstackEndpoint: e.useDualstackEndpoint ?? false,
+        useFipsEndpoint: e.useFipsEndpoint ?? false,
         defaultSigningName: "signin",
       }),
     qt = {
@@ -597,13 +597,13 @@ var fr = S(function (L) {
     USER_CREDENTIALS_CHANGED: "USER_CREDENTIALS_CHANGED",
   };
   Object.defineProperty(L, "$Command", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return h.Command;
     },
   });
   Object.defineProperty(L, "__Client", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return h.Client;
     },

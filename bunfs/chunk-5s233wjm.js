@@ -235,14 +235,14 @@ function D(h, p) {
     i = 0,
     C = 0,
     O = 0,
-    k = !1,
+    k = false,
     _ = new Map(),
-    l = !1,
+    l = false,
     u = () => {};
   function M() {
     while (t.length > 0 && n.at(-1) === "f") {
       let o = t.pop();
-      if (g.pop() === !0 && T > 0) {
+      if (g.pop() === true && T > 0) {
         if ((T--, n.at(-1) === "i")) n.pop();
       }
       if (o === "svg" || o === "math") {
@@ -252,10 +252,10 @@ function D(h, p) {
     }
   }
   function X(o) {
-    if (o === void 0) return !1;
+    if (o === void 0) return false;
     return o.some((e) => {
       let f = e !== null && typeof e === "object" ? e.name : void 0;
-      if (typeof f !== "string") return !1;
+      if (typeof f !== "string") return false;
       let a = f.toLowerCase();
       return a === "color" || a === "face" || a === "size";
     });
@@ -266,7 +266,7 @@ function D(h, p) {
       onStartTag(o) {
         if (l) return;
         if (((A += t.length + 1 + i), S++, p !== null && (A > cBn || S > uBn))) {
-          l = !0;
+          l = true;
           return;
         }
         let e = o.tagName;
@@ -274,7 +274,7 @@ function D(h, p) {
         let f = n.length === 0 || n.at(-1) === "i",
           a = f ? hPt.get(e) : void 0;
         if (a !== void 0 && (d > 0 || (m > 0 && e !== "script"))) {
-          (k = !0), (l = !0);
+          (k = true), (l = true);
           return;
         }
         if (a !== void 0) (R.state = a), (R.lastStartTagName = e);
@@ -284,12 +284,12 @@ function D(h, p) {
           if (v.has(e)) {
             if ((_.set(e, (_.get(e) ?? 0) + 1), i++, i > C)) C = i;
             if (p !== null && i > F) {
-              l = !0;
+              l = true;
               return;
             }
           }
           if ((t.push(e), t.length > N)) N = t.length;
-          let s = !1;
+          let s = false;
           if (e === "svg" || e === "math") E++, b.push(e), n.push("f");
           else if (e === "select") m++;
           else if (e === "frameset") d++;
@@ -304,17 +304,17 @@ function D(h, p) {
                     (r) =>
                       r.name.toLowerCase() === "encoding" &&
                       ["text/html", "application/xhtml+xml"].includes(r.value.toLowerCase()),
-                  ) === !0);
+                  ) === true);
             if (s) T++, n.push("i");
           }
           g.push(s);
         }
-        if (p !== null && (t.length > p.depth || w > p.totalOpens)) l = !0;
+        if (p !== null && (t.length > p.depth || w > p.totalOpens)) l = true;
       },
       onEndTag(o) {
         if (l) return;
         if (((A += t.length + 1 + i), S++, p !== null && (A > cBn || S > uBn))) {
-          l = !0;
+          l = true;
           return;
         }
         let e = o.tagName;
@@ -339,7 +339,7 @@ function D(h, p) {
             }
             for (let r = t.length - 1; r >= s; r--) {
               let x = t[r];
-              if (g[r] === !0 && T > 0) {
+              if (g[r] === true && T > 0) {
                 if ((T--, n.at(-1) === "i")) n.pop();
               }
               if (x === "svg" || x === "math") {
@@ -351,7 +351,7 @@ function D(h, p) {
             (t.length = s), (g.length = s);
             return;
           }
-          if (B.has(c) || a?.has(c) === !0) return;
+          if (B.has(c) || a?.has(c) === true) return;
           if (!f && y.has(c)) return;
         }
       },
@@ -364,6 +364,6 @@ function D(h, p) {
       onParseError: u,
     },
   );
-  return R.write(h, !0), { exceeded: l, maxDepth: N, totalOpens: w, maxFmtEstimate: C, formSplices: O, failClosed: k };
+  return R.write(h, true), { exceeded: l, maxDepth: N, totalOpens: w, maxFmtEstimate: C, formSplices: O, failClosed: k };
 }
 export { dpr, ppr, cBn, uBn, hPt, vEr, Htn };

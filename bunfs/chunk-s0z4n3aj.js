@@ -40,7 +40,7 @@ function M(e) {
     requestId: void 0,
     timestamp: e.timestamp ?? new Date().toISOString(),
     error: e.error,
-    ...(e.is_api_error_message && { isApiErrorMessage: !0 }),
+    ...(e.is_api_error_message && { isApiErrorMessage: true }),
     ...(e.api_error !== void 0 && { apiError: e.api_error }),
   };
 }
@@ -56,8 +56,8 @@ function p(e) {
   return n("[sdkMessageAdapter] frame uuid missing or not a string \u2014 minting one", { level: "error" }), S();
 }
 function y(e) {
-  if (typeof e.content === "string") return !0;
-  return n(`[sdkMessageAdapter] Dropping ${e.subtype} frame whose content is not a string`, { level: "error" }), !1;
+  if (typeof e.content === "string") return true;
+  return n(`[sdkMessageAdapter] Dropping ${e.subtype} frame whose content is not a string`, { level: "error" }), false;
 }
 function b(e) {
   if (e.subtype === "success")
@@ -196,7 +196,7 @@ function Jve(e) {
     ...(e.last_reason !== void 0 && { lastReason: yo(e.last_reason, { maxCodeUnits: 512 }) }),
   };
 }
-var U = { env: !0, settings: !0, clientdata: !0, experiment: !0, "model-default": !0, "unknown-model": !0, auto: !0 },
+var U = { env: true, settings: true, clientdata: true, experiment: true, "model-default": true, "unknown-model": true, auto: true },
   R = new Set(Object.keys(U));
 function PKt(e) {
   if (
@@ -229,11 +229,11 @@ function Qvt(e, o, r) {
     e((i) => (i.remoteAutocompactState === void 0 ? i : { ...i, remoteAutocompactState: void 0 }));
     return;
   }
-  let u = !1;
+  let u = false;
   if (
     (e((i) => {
       if (i.remoteAutocompactState !== void 0 && FKt(i.remoteAutocompactState, t)) return i;
-      return (u = !0), { ...i, remoteAutocompactState: t };
+      return (u = true), { ...i, remoteAutocompactState: t };
     }),
     !u)
   )
@@ -315,7 +315,7 @@ function JJ(e, o) {
             apiRefusalExplanation: e.api_refusal_explanation ?? null,
             ...(e.retracted_message_uuids !== void 0 && { retractedMessageUuids: e.retracted_message_uuids }),
             ...(e.refused_user_message_uuid !== void 0 && { refusedUserMessageUuid: e.refused_user_message_uuid }),
-            isMeta: !1,
+            isMeta: false,
             uuid: p(e.uuid),
             timestamp: new Date().toISOString(),
           },
@@ -332,7 +332,7 @@ function JJ(e, o) {
             trigger: e.trigger,
             originalModel: e.original_model,
             fallbackModel: e.fallback_model,
-            isMeta: !1,
+            isMeta: false,
             uuid: p(e.uuid),
             timestamp: new Date().toISOString(),
           },
@@ -351,7 +351,7 @@ function JJ(e, o) {
             originalModel: e.original_model,
             fallbackModel: e.fallback_model,
             persistedAsDefault: e.persisted_as_default,
-            isMeta: !1,
+            isMeta: false,
             uuid: p(e.uuid),
             timestamp: new Date().toISOString(),
           },
@@ -366,7 +366,7 @@ function JJ(e, o) {
             subtype: "informational",
             content: Et(e.content),
             level: e.level,
-            isMeta: !1,
+            isMeta: false,
             uuid: p(e.uuid),
             timestamp: new Date().toISOString(),
             ...(e.tool_use_id && { toolUseID: e.tool_use_id }),
@@ -383,7 +383,7 @@ function JJ(e, o) {
                 .filter((d) => d.trim() !== "")
             : [],
           u = typeof e.label === "string" ? yo(e.label, { maxCodeUnits: 320 }) : void 0,
-          i = e.unverified === !0 && u !== void 0 && u.trim() !== "";
+          i = e.unverified === true && u !== void 0 && u.trim() !== "";
         if (typeof e.tool_use_id !== "string" || (t.length === 0 && !i)) return { type: "ignored" };
         let a = p(e.uuid);
         return {
@@ -395,7 +395,7 @@ function JJ(e, o) {
               host: ET(typeof e.host?.name === "string" ? e.host.name : ""),
               lines: t,
               ...(u !== void 0 && { label: u }),
-              ...(i && { unverified: !0 }),
+              ...(i && { unverified: true }),
             },
             { now: () => new Date().toISOString(), uuid: () => a },
           ),
@@ -409,7 +409,7 @@ function JJ(e, o) {
       }
       return n(`[sdkMessageAdapter] Ignoring system message subtype: ${e.subtype}`), { type: "ignored" };
     case "tool_progress":
-      if (e.heartbeat === !0 || e.subagent_retry !== void 0 || e.tool_name === yt)
+      if (e.heartbeat === true || e.subagent_retry !== void 0 || e.tool_name === yt)
         return n("[sdkMessageAdapter] Ignoring heartbeat/subagent-retry tool_progress frame"), { type: "ignored" };
       let r = D(e);
       return r ? { type: "message", message: r } : { type: "ignored" };
@@ -545,7 +545,7 @@ function $Pn(e) {
   return a;
 }
 function $$e(e, o, r) {
-  if (!e.retracted.has(o)) return !1;
-  return s("tengu_refusal_retraction_late_drop", { surface: c(r) }), !0;
+  if (!e.retracted.has(o)) return false;
+  return s("tengu_refusal_retraction_late_drop", { surface: c(r) }), true;
 }
 export { FPn, net, Jve, PKt, Qvt, JJ, Zvt, eRt, tRt, kie, nRt, ret, oet, rRt, $Pn, $$e };

@@ -21,7 +21,7 @@ var s = "\\p{Default_Ignorable_Code_Point}\\u2800",
   a = new RegExp(`(?<!\\S)[${o}]+`, "gu"),
   g = /\p{Cs}/gu;
 function SCe(e, n, r) {
-  let t = r?.keepNewlines === !0 || r?.keepEmojiJoiners === !0,
+  let t = r?.keepNewlines === true || r?.keepEmojiJoiners === true,
     i = Et(e.replace(g, "\u200B")).replace(r?.keepNewlines ? u : t ? c : p, n);
   return t ? i.replace(a, "") : i;
 }

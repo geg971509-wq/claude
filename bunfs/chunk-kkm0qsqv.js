@@ -357,17 +357,17 @@ function R(G) {
   if (a[0] === d) (b = []), (a[0] = b);
   else b = a[0];
   A(v, b);
-  let l = C(!1),
+  let l = C(false),
     h;
   if (a[1] !== p || a[2] !== m)
     (h = function n(S) {
       if (l.current || ks()) {
         return;
       }
-      bb10: switch (((l.current = !0), S)) {
+      bb10: switch (((l.current = true), S)) {
         case "accept": {
           s("tengu_bypass_permissions_mode_dialog_accept", {}),
-            rn("userSettings", { skipDangerousModePermissionPrompt: !0 }, void 0, m),
+            rn("userSettings", { skipDangerousModePermissionPrompt: true }, void 0, m),
             p();
           break bb10;
         }
@@ -384,7 +384,7 @@ function R(G) {
     k;
   if (a[4] === d)
     (k = () => {
-      (l.current = !0), Jr(0);
+      (l.current = true), Jr(0);
     }),
       (a[4] = k);
   else k = a[4];
@@ -420,8 +420,8 @@ function R(G) {
       children: [
         x,
         e(wn, {
-          hideIndexes: !0,
-          cancelFirst: !0,
+          hideIndexes: true,
+          cancelFirst: true,
           focus: "cancel",
           confirmLabel: "Yes, I accept",
           cancelLabel: "No, exit",

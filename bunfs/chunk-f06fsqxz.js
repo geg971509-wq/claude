@@ -418,8 +418,8 @@ async function Ri({
       A = {
         querySource: "plugin_eval_mock",
         agents: [],
-        isNonInteractiveSession: !0,
-        hasAppendSystemPrompt: !1,
+        isNonInteractiveSession: true,
+        hasAppendSystemPrompt: false,
         mcpTools: [],
         agentContext: _a(),
         credentials: d,
@@ -542,7 +542,7 @@ async function Ai(e, t, r, s) {
   if (c === void 0) return null;
   let u = await $i(e, o);
   if (u === null || Wn("sha256").update(u).digest("hex") !== c) return null;
-  let d = rc().safeParse(Ut(u.toString("utf8"), !1));
+  let d = rc().safeParse(Ut(u.toString("utf8"), false));
   return d.success && d.data.output.length <= Hn ? { verdict: d.data.verdict, text: d.data.output } : null;
 }
 async function Ii(e, t = []) {
@@ -685,7 +685,7 @@ var ic = m(() =>
       type: T.literal("file_exists"),
       name: T.string(),
       path: T.string(),
-      exists: T.boolean().default(!0),
+      exists: T.boolean().default(true),
       weight: T.number().positive().default(1),
       arm: mn(),
     }).strict(),
@@ -750,17 +750,17 @@ var sc = m(() =>
   }),
 );
 function ji(e) {
-  if (typeof e !== "object" || e === null) return { ok: !1, error: "case.yaml must be a YAML object" };
+  if (typeof e !== "object" || e === null) return { ok: false, error: "case.yaml must be a YAML object" };
   let t = e.schema_version;
-  if (typeof t !== "string") return { ok: !1, error: 'missing required field schema_version (e.g. "1.0")' };
+  if (typeof t !== "string") return { ok: false, error: 'missing required field schema_version (e.g. "1.0")' };
   let r = parseInt(St(t, "."), 10);
-  if (Number.isNaN(r)) return { ok: !1, error: `schema_version "${t}" is not a valid version string` };
+  if (Number.isNaN(r)) return { ok: false, error: `schema_version "${t}" is not a valid version string` };
   if (r > Ni)
-    return { ok: !1, error: `schema_version "${t}" requires a newer Claude Code (this binary supports up to ${Ni}.x)` };
+    return { ok: false, error: `schema_version "${t}" requires a newer Claude Code (this binary supports up to ${Ni}.x)` };
   let s = sc().safeParse(e);
   if (!s.success)
     return {
-      ok: !1,
+      ok: false,
       error: `invalid case.yaml:
 ${s.error.issues
   .map((c) => `  ${c.path.join(".") || "(root)"}: ${c.message}`)
@@ -769,23 +769,23 @@ ${s.error.issues
     };
   if (!s.data.execution.prompt?.trim())
     return {
-      ok: !1,
+      ok: false,
       error: s.data.context.history_file
         ? "context.history_file requires execution.prompt (the resumed session needs a next turn)"
         : "execution.prompt is required (a prompt.md body, or execution.prompt in case.yaml)",
     };
   if (s.data.execution.prompt.includes(co))
     return {
-      ok: !1,
+      ok: false,
       error: `the prompt is still the blank \`init\` template \u2014 replace the "${co}" line with the user prompt to test (in prompt.md, or in execution.prompt if the case is written in case.yaml)`,
     };
   for (let o of s.data.graders)
     if (("criteria" in o ? o.criteria : "pattern" in o ? o.pattern : "").includes(uo))
       return {
-        ok: !1,
+        ok: false,
         error: `grader "${o.name}" is still the blank \`init\` template \u2014 replace the "${uo}" line with concrete pass criteria`,
       };
-  return { ok: !0, case: s.data };
+  return { ok: true, case: s.data };
 }
 var dc = 1048576,
   Ui = new Set(["schema_version", "name", "description", "tags", "plugins", "runs", "expected_outcome"]),
@@ -876,7 +876,7 @@ function Rr(e, t) {
         `${Ge.basename(t)}: unterminated frontmatter (opening "---" with no closing "---")`,
         "prose .md: unterminated frontmatter",
       );
-    return { fm: {}, body: e, hadFrontmatter: !1 };
+    return { fm: {}, body: e, hadFrontmatter: false };
   }
   let s;
   try {
@@ -887,10 +887,10 @@ function Rr(e, t) {
       "prose .md: invalid YAML frontmatter",
     );
   }
-  if (s === null || s === void 0) return { fm: {}, body: e.slice(r[0].length), hadFrontmatter: !0 };
+  if (s === null || s === void 0) return { fm: {}, body: e.slice(r[0].length), hadFrontmatter: true };
   if (typeof s !== "object" || Array.isArray(s))
     throw new R(`${Ge.basename(t)}: frontmatter must be a YAML object`, "prose .md: frontmatter not a YAML object");
-  return { fm: s, body: e.slice(r[0].length), hadFrontmatter: !0 };
+  return { fm: s, body: e.slice(r[0].length), hadFrontmatter: true };
 }
 async function Ct(e, t, r) {
   return (await gc(e, t, r))?.toString("utf8") ?? null;
@@ -948,7 +948,7 @@ async function Hi(e) {
 async function hc(e) {
   let t;
   try {
-    await Tm(Ge.dirname(e), Ge.basename(e), "graders/"), (t = await uc(e, { withFileTypes: !0 }));
+    await Tm(Ge.dirname(e), Ge.basename(e), "graders/"), (t = await uc(e, { withFileTypes: true }));
   } catch (o) {
     if (X(o)) {
       if (await zi(e))
@@ -980,7 +980,7 @@ async function zi(e) {
   try {
     return (await ac(e)).isSymbolicLink();
   } catch {
-    return !1;
+    return false;
   }
 }
 var Zi = 1048576,
@@ -1058,7 +1058,7 @@ async function Rc(e, t) {
   let r = new Map(),
     s;
   try {
-    await Tm(ze.dirname(e), ze.basename(e), "mocks/"), (s = ns(await Ji(e, { withFileTypes: !0 })));
+    await Tm(ze.dirname(e), ze.basename(e), "mocks/"), (s = ns(await Ji(e, { withFileTypes: true })));
   } catch (o) {
     if (X(o)) {
       if (await po(e))
@@ -1088,12 +1088,12 @@ function ns(e) {
 }
 async function po(e) {
   try {
-    if (!(await yc(e)).isSymbolicLink()) return !1;
+    if (!(await yc(e)).isSymbolicLink()) return false;
   } catch {
-    return !1;
+    return false;
   }
   try {
-    return await bc(e), !1;
+    return await bc(e), false;
   } catch (t) {
     return X(t);
   }
@@ -1101,7 +1101,7 @@ async function po(e) {
 async function Sc(e, t, r) {
   let s;
   try {
-    await Tm(ze.dirname(e), t, `mocks/${_c(t)}/`), (s = ns(await Ji(e, { withFileTypes: !0 })));
+    await Tm(ze.dirname(e), t, `mocks/${_c(t)}/`), (s = ns(await Ji(e, { withFileTypes: true })));
   } catch (d) {
     if (X(d) || (E(d) === "ENOTDIR" && (await po(e))))
       throw new R(
@@ -1228,7 +1228,7 @@ async function Tc(e, t, r) {
     responder: {
       kind: "fixed",
       body: A,
-      isError: w.error ?? !1,
+      isError: w.error ?? false,
       expect: S,
       baseDir: t,
       sourceFile: e,
@@ -1311,7 +1311,7 @@ import Ac from "path";
 function me(e, t, r = $c) {
   let s = r(e),
     o = r(t);
-  return Ac.relative(s, o) !== "" && n_(s, o, { alreadyComparable: !0, foldCase: !1 });
+  return Ac.relative(s, o) !== "" && n_(s, o, { alreadyComparable: true, foldCase: false });
 }
 function ct(e, t, r) {
   let s = r === "folded" ? (o, c) => o.toLowerCase() === c.toLowerCase() : (o, c) => o === c;
@@ -1338,34 +1338,34 @@ function Ir(e) {
 }
 function Or(e) {
   let t = e.trim();
-  if (t === "") return { ok: !1, error: "must not be empty" };
+  if (t === "") return { ok: false, error: "must not be empty" };
   let r = t.replaceAll("\\", "/");
   if (Pe.isAbsolute(t) || Pe.posix.isAbsolute(r) || /^[A-Za-z]:/.test(t))
-    return { ok: !1, error: "must be a relative path inside the plugin (e.g. quality/evals), not absolute" };
+    return { ok: false, error: "must be a relative path inside the plugin (e.g. quality/evals), not absolute" };
   let o = Pe.normalize(r)
     .split(Pe.sep)
     .filter((h) => h !== "" && h !== ".");
-  if (o.length === 0) return { ok: !1, error: "must name a directory below the plugin root, not the root itself" };
-  if (o.some((h) => h === "..")) return { ok: !1, error: "must stay inside the plugin root (no ..)" };
+  if (o.length === 0) return { ok: false, error: "must name a directory below the plugin root, not the root itself" };
+  if (o.some((h) => h === "..")) return { ok: false, error: "must stay inside the plugin root (no ..)" };
   if (t.length > 200 || o.length > 8)
-    return { ok: !1, error: "must be a short path (at most 200 characters, 8 segments)" };
+    return { ok: false, error: "must be a short path (at most 200 characters, 8 segments)" };
   let c = o.find((h) => !/^[A-Za-z0-9][A-Za-z0-9._@+-]*$/.test(h));
   if (c !== void 0)
     return {
-      ok: !1,
+      ok: false,
       error: `must use plain directory names (a letter or digit first, then letters, digits, . _ - @ +); ${_c(c)} is not`,
     };
   let u = o.at(-1);
-  if (/\.(md|ya?ml|json)$/i.test(u)) return { ok: !1, error: `must name a directory, not a file (${_c(u)})` };
+  if (/\.(md|ya?ml|json)$/i.test(u)) return { ok: false, error: `must name a directory, not a file (${_c(u)})` };
   for (let h of o) {
     let w = Ir(h);
-    if (w !== void 0) return { ok: !1, error: `${_c(h)} ${w}` };
+    if (w !== void 0) return { ok: false, error: `${_c(h)} ${w}` };
   }
   if (cs.has(o[0].toLowerCase()))
-    return { ok: !1, error: `must not be inside the plugin's ${o[0]}/ directory (a loaded component directory)` };
+    return { ok: false, error: `must not be inside the plugin's ${o[0]}/ directory (a loaded component directory)` };
   let d = o.find((h) => Kn.has(h));
-  if (d !== void 0) return { ok: !1, error: `must not pass through ${_c(d)}, which case discovery always skips` };
-  return { ok: !0, dir: o.join(Pe.sep), segments: o };
+  if (d !== void 0) return { ok: false, error: `must not pass through ${_c(d)}, which case discovery always skips` };
+  return { ok: true, dir: o.join(Pe.sep), segments: o };
 }
 var wo = [...efn, "bin"],
   cs = new Set(wo),
@@ -1386,7 +1386,7 @@ async function zn(e) {
   if (!e.overlapAdvisory || c === r) return c;
   let u = c.ok ? (c.observation ?? c.value.componentOverlap) : c.observation;
   return {
-    ok: !0,
+    ok: true,
     value: r.value,
     warning: [r.warning, u === void 0 ? void 0 : `${u} (advisory only: that manifest is not loaded for this run)`]
       .filter(Boolean)
@@ -1397,27 +1397,27 @@ async function Dc(e, t, r, s) {
   if (t.kind === "oversize") {
     let N = `${ia(t.manifestPath)} could not be read to check the plugin's declared component paths (${ia(t.reason)})`;
     return e.value.source === "flag"
-      ? s.writesToPlugin === !1
+      ? s.writesToPlugin === false
         ? {
-            ok: !0,
+            ok: true,
             value: e.value,
             warning: `--eval-dir cannot be verified: ${N}`,
             observation: `cannot be verified: ${N}`,
           }
-        : { ok: !1, error: `--eval-dir cannot be verified: ${N}`, observation: `cannot be verified: ${N}` }
+        : { ok: false, error: `--eval-dir cannot be verified: ${N}`, observation: `cannot be verified: ${N}` }
       : {
-          ok: !0,
+          ok: true,
           value: {
             ...e.value,
             componentOverlap: N,
-            componentOverlapUnverifiable: !0,
+            componentOverlapUnverifiable: true,
             componentOverlapRecourse: `make the plugin manifest readable first (${ia(t.reason)})`,
           },
           warning: [e.warning, N].filter(Boolean).join("; "),
         };
   }
   let o =
-      s.writesToPlugin === !1
+      s.writesToPlugin === false
         ? "discovery reads cases from a directory the plugin declares as a component location"
         : "files written there may be loaded as plugin components",
     c = await gs(t, r),
@@ -1426,15 +1426,15 @@ async function Dc(e, t, r, s) {
   if (d !== void 0 && cs.has(d)) {
     let N = `${e.value.segments.join("/")}/ (under ${u.join("/")}/ of that plugin) sits inside the plugin's ${d}/ component directory`,
       M =
-        s.writesToPlugin === !1 || s.forInit
+        s.writesToPlugin === false || s.forInit
           ? "run from the plugin root"
           : "run from the plugin root, or pass --output-dir";
     return e.value.source === "flag"
-      ? s.writesToPlugin === !1
-        ? { ok: !0, value: e.value, warning: `--eval-dir ${N} \u2014 ${o}`, observation: N }
-        : { ok: !1, error: `--eval-dir ${N} \u2014 ${M}`, observation: N }
+      ? s.writesToPlugin === false
+        ? { ok: true, value: e.value, warning: `--eval-dir ${N} \u2014 ${o}`, observation: N }
+        : { ok: false, error: `--eval-dir ${N} \u2014 ${M}`, observation: N }
       : {
-          ok: !0,
+          ok: true,
           value: { ...e.value, componentOverlap: N, componentOverlapRecourse: M },
           warning: [e.warning, `${N} \u2014 ${o}`].filter(Boolean).join("; "),
         };
@@ -1443,23 +1443,23 @@ async function Dc(e, t, r, s) {
   if (h === void 0) return e;
   let S = c.find((N) => N.kind === "dir" && ct(u, N.segments, "folded")) !== void 0,
     A = c.some((N) => N.kind === "dir" && N.segments.length === 0)
-      ? s.writesToPlugin === !1 || s.forInit
+      ? s.writesToPlugin === false || s.forInit
         ? "the manifest declares the whole plugin as a component location; narrow that declaration"
         : "the manifest declares the whole plugin as a component location; pass --output-dir (outside the plugin) or narrow that declaration"
       : S
-        ? s.writesToPlugin === !1 || s.forInit
+        ? s.writesToPlugin === false || s.forInit
           ? "run from the plugin root"
           : "run from the plugin root, or pass --output-dir"
         : void 0;
   switch (e.value.source) {
     case "flag":
-      return s.writesToPlugin === !1
-        ? { ok: !0, value: e.value, warning: `--eval-dir ${h} \u2014 ${o}`, observation: h }
-        : { ok: !1, error: `--eval-dir ${h}${A ? ` \u2014 ${A}` : ""}`, observation: h };
+      return s.writesToPlugin === false
+        ? { ok: true, value: e.value, warning: `--eval-dir ${h} \u2014 ${o}`, observation: h }
+        : { ok: false, error: `--eval-dir ${h}${A ? ` \u2014 ${A}` : ""}`, observation: h };
     case "manifest": {
-      if (s.writesToPlugin === !1)
+      if (s.writesToPlugin === false)
         return {
-          ok: !0,
+          ok: true,
           value: e.value,
           warning: `experimental.evals in ${ia(e.value.manifestPath)} ${h} \u2014 ${o}`,
           observation: h,
@@ -1467,7 +1467,7 @@ async function Dc(e, t, r, s) {
       let N = en(),
         M = yo(c, [...u, ...N.segments], N.segments, u);
       return {
-        ok: !0,
+        ok: true,
         value: M === void 0 ? N : { ...N, componentOverlap: M, componentOverlapRecourse: A },
         warning:
           `ignoring experimental.evals in ${ia(e.value.manifestPath)} \u2014 ${h}; using ${Ze}/ (fix the manifest or pass --eval-dir)` +
@@ -1476,7 +1476,7 @@ async function Dc(e, t, r, s) {
     }
     case "default":
       return {
-        ok: !0,
+        ok: true,
         value: { ...e.value, componentOverlap: h, componentOverlapRecourse: A },
         warning: [e.warning, `${h} \u2014 ${o}; ${A ?? "pass --eval-dir to use another directory"}`]
           .filter(Boolean)
@@ -1488,24 +1488,24 @@ function Nc(e, t) {
   if (e !== void 0) {
     let o = Or(e);
     return o.ok
-      ? { ok: !0, value: { dir: o.dir, segments: o.segments, source: "flag" } }
-      : { ok: !1, error: `--eval-dir ${o.error}` };
+      ? { ok: true, value: { dir: o.dir, segments: o.segments, source: "flag" } }
+      : { ok: false, error: `--eval-dir ${o.error}` };
   }
-  if (t.kind === "absent") return { ok: !0, value: en() };
+  if (t.kind === "absent") return { ok: true, value: en() };
   if (t.kind === "oversize" || t.kind === "broken")
-    return { ok: !0, value: en(), warning: `could not read ${ia(t.manifestPath)} (${ia(t.reason)}); using ${Ze}/` };
+    return { ok: true, value: en(), warning: `could not read ${ia(t.manifestPath)} (${ia(t.reason)}); using ${Ze}/` };
   let r = jc(t);
-  if (r === null) return { ok: !0, value: en() };
+  if (r === null) return { ok: true, value: en() };
   if (r.kind === "wrongType")
     return {
-      ok: !0,
+      ok: true,
       value: en(),
       warning: `ignoring ${r.misplaced ? 'the top-level "evals" key' : "experimental.evals"} ${r.raw} in ${ia(r.manifestPath)} \u2014 it must be a string naming a directory relative to the plugin root, set as "experimental": {"evals": "quality/evals"}; using ${Ze}/ (fix the manifest or pass --eval-dir)`,
     };
   if (r.kind === "misplaced") {
     let o = Or(r.value);
     return {
-      ok: !0,
+      ok: true,
       value: en(),
       warning: o.ok
         ? `ignoring the top-level "evals" key in ${ia(r.manifestPath)} \u2014 set it as "experimental": {"evals": ${_c(r.value)}} (or pass --eval-dir); using ${Ze}/`
@@ -1515,11 +1515,11 @@ function Nc(e, t) {
   let s = Or(r.value);
   if (!s.ok)
     return {
-      ok: !0,
+      ok: true,
       value: en(),
       warning: `ignoring experimental.evals ${_c(r.value)} in ${ia(r.manifestPath)} \u2014 it ${s.error}; using ${Ze}/ (fix the manifest or pass --eval-dir)`,
     };
-  return { ok: !0, value: { dir: s.dir, segments: s.segments, source: "manifest", manifestPath: r.manifestPath } };
+  return { ok: true, value: { dir: s.dir, segments: s.segments, source: "manifest", manifestPath: r.manifestPath } };
 }
 function en() {
   return { dir: Ze, segments: [Ze], source: "default" };
@@ -1567,15 +1567,15 @@ function jc(e) {
   if (r !== void 0) {
     let h = Kqt().safeParse(r);
     if (!h.success) return { kind: "wrongType", raw: RCn(r), manifestPath: s };
-    let w = as(h.data, s, !0);
+    let w = as(h.data, s, true);
     return w === void 0 ? { kind: "wrongType", raw: "[]", manifestPath: s } : { kind: "ok", value: w, manifestPath: s };
   }
   let [o, c] = t(ds);
   if (o === void 0) return null;
   let u = Kqt().safeParse(o),
-    d = u.success ? as(u.data, c, !1) : void 0;
+    d = u.success ? as(u.data, c, false) : void 0;
   return d === void 0
-    ? { kind: "wrongType", raw: RCn(o), manifestPath: c, misplaced: !0 }
+    ? { kind: "wrongType", raw: RCn(o), manifestPath: c, misplaced: true }
     : { kind: "misplaced", value: d, manifestPath: c };
 }
 async function fs(e, t, r) {
@@ -1920,22 +1920,22 @@ function Ts(e, t) {
   return r !== null && (t === r || me(r, t));
 }
 function To(e) {
-  return XAt() || e?.containerEvidence === !0;
+  return XAt() || e?.containerEvidence === true;
 }
 function Xc(e, t) {
-  if (typeof process.getuid !== "function") return !0;
+  if (typeof process.getuid !== "function") return true;
   let r = process.getuid();
   if (r !== 0) return e === r;
   let s = Nr(t);
   if (s !== null) return e === 0 || e === s.uid;
-  return e === 0 || (To(t) && t?.localUids?.has(e) === !1);
+  return e === 0 || (To(t) && t?.localUids?.has(e) === false);
 }
 function Nr(e) {
   if (typeof process.getuid !== "function" || process.getuid() !== 0) return null;
   let t = a.SUDO_UID,
     r = a.SUDO_GID,
     s = a.SUDO_USER;
-  return t !== void 0 && r !== void 0 && s !== void 0 && e?.sudoVerified === !0
+  return t !== void 0 && r !== void 0 && s !== void 0 && e?.sudoVerified === true
     ? { uid: t, gid: e.sudoPrimaryGid ?? r, user: s }
     : null;
 }
@@ -1944,17 +1944,17 @@ function Jc(e) {
   return Nr(e)?.gid ?? process.getgid();
 }
 function qc(e, t) {
-  if (typeof process.getgid !== "function") return !0;
-  if (D() === "macos") return !1;
+  if (typeof process.getgid !== "function") return true;
+  if (D() === "macos") return false;
   if (typeof process.getuid === "function" && process.getuid() === 0) {
     let r = Nr(t);
-    if (r === null) return e === 0 || (To(t) && t?.localGids?.has(e) === !1);
+    if (r === null) return e === 0 || (To(t) && t?.localGids?.has(e) === false);
     return e === r.gid && vs(t, r.gid, r.uid, r.user);
   }
   return e === process.getgid() && vs(t, e, process.getuid(), Zc(t));
 }
 function vs(e, t, r, s) {
-  if (t !== r || s === void 0 || s === "") return !1;
+  if (t !== r || s === void 0 || s === "") return false;
   let o = e?.groups?.get(t);
   return o !== void 0 && o.name === s && o.members.every((c) => c === s) && o.primaryMembers.every((c) => c === s);
 }
@@ -1979,19 +1979,19 @@ var Qc = ["/etc/userdb", "/run/userdb", "/run/host/userdb", "/usr/local/lib/user
   ]);
 async function ru() {
   try {
-    if ((await Xn(eu)).some((t) => !tu.has(t))) return !0;
+    if ((await Xn(eu)).some((t) => !tu.has(t))) return true;
   } catch (e) {
     let t = E(e);
-    if (t !== "ENOENT" && t !== "ENOTDIR") return !0;
+    if (t !== "ENOENT" && t !== "ENOTDIR") return true;
   }
   for (let e of Qc)
     try {
-      if ((await Xn(e)).some((t) => t.endsWith(".membership"))) return !0;
+      if ((await Xn(e)).some((t) => t.endsWith(".membership"))) return true;
     } catch (t) {
       let r = E(t);
-      if (r !== "ENOENT" && r !== "ENOTDIR") return !0;
+      if (r !== "ENOENT" && r !== "ENOTDIR") return true;
     }
-  return !1;
+  return false;
 }
 function Os(e) {
   return (e.groupsLoading ??= ou(e).then(() => iu(e))), e.groupsLoading;
@@ -2007,7 +2007,7 @@ async function ou(e) {
     return;
   let t = a.SUDO_USER;
   if (!/^[A-Za-z0-9._][A-Za-z0-9._-]*\$?$/.test(t)) {
-    e.sudoVerified = !1;
+    e.sudoVerified = false;
     return;
   }
   let s = (await Cs(e))
@@ -2023,11 +2023,11 @@ async function ou(e) {
     (o = d.code === 0 && Number(d.stdout.trim()) === a.SUDO_UID), (c = h.code === 0 ? Number(h.stdout.trim()) : null);
   }
   if (!o) {
-    e.sudoVerified = !1;
+    e.sudoVerified = false;
     return;
   }
   if (((e.sudoPrimaryGid = c ?? void 0), c === a.SUDO_GID)) {
-    e.sudoVerified = !0;
+    e.sudoVerified = true;
     return;
   }
   let u = await bo(["-G", "--", t]);
@@ -2041,9 +2041,9 @@ async function ou(e) {
 async function bo(e) {
   for (let t of ["/usr/bin/id", "/bin/id"]) {
     let r = await qe(t, e, {
-      preserveOutputOnError: !0,
+      preserveOutputOnError: true,
       env: { PATH: "/usr/bin:/bin", LC_ALL: "C", USER_TYPE: "external", NODE_ENV: "production" },
-      extendEnv: !1,
+      extendEnv: false,
       cwd: "/",
     });
     if (r.code === 0 || r.stderr !== "" || r.stdout !== "") return r;
@@ -2058,12 +2058,12 @@ function iu(e) {
   return Promise.all([
     Promise.all([
       Yn("/run/.containerenv", "utf8").then(
-        () => !0,
-        () => !1,
+        () => true,
+        () => false,
       ),
       Yn("/proc/1/cgroup", "utf8").then(
         (t) => /docker|kubepods|containerd|libpod/i.test(t),
-        () => !1,
+        () => false,
       ),
     ]).then(([t, r]) => {
       e.containerEvidence = t || r;
@@ -2164,17 +2164,17 @@ function hn(e, t) {
 }
 function Dr(e, t, r) {
   if (!t.reasons.has(e)) t.reasons.set(e, r);
-  return n(`plugin eval: not consulting the plugin manifest in ${ia(e)}: ${r}`, { level: "warn" }), !1;
+  return n(`plugin eval: not consulting the plugin manifest in ${ia(e)}: ${r}`, { level: "warn" }), false;
 }
 function nn(e, t, r = "tree") {
-  if (Ts(t, e)) return Promise.resolve(!0);
+  if (Ts(t, e)) return Promise.resolve(true);
   let s = `${r}:${e}`,
     o = t.verdicts.get(s);
   if (o === void 0) (o = lu(e, t, r)), t.verdicts.set(s, o);
   return o;
 }
 async function lu(e, t, r) {
-  if (typeof process.getuid !== "function") return !0;
+  if (typeof process.getuid !== "function") return true;
   await Os(t);
   let s = [
       [e, "dir"],
@@ -2185,8 +2185,8 @@ async function lu(e, t, r) {
       [ot.join(e, "plugin.json"), "file"],
       [ot.join(e, "SKILL.md"), "file"],
     ];
-  if (!(await ko(e, s, t, r)) || !(await ko(e, o, t, r))) return !1;
-  if (r === "core") return !0;
+  if (!(await ko(e, s, t, r)) || !(await ko(e, o, t, r))) return false;
+  if (r === "core") return true;
   let c;
   try {
     c = await fu(e, t);
@@ -2214,9 +2214,9 @@ function uu(e) {
     : "chmod -R g-w it, or pass --eval-dir to name the directory yourself";
 }
 function du(e, t) {
-  if (e === null) return !1;
+  if (e === null) return false;
   let r = ot.relative(e, t);
-  if (r === "") return !0;
+  if (r === "") return true;
   let s = r.split(ot.sep);
   return s.length % 2 === 0 && s.every((o, c) => (c % 2 === 0 ? o.toLowerCase() === "modules" : o !== ""));
 }
@@ -2236,7 +2236,7 @@ async function fu(e, t) {
     if (h(w)) continue;
     let _;
     try {
-      _ = await Xn(w, { withFileTypes: !0 });
+      _ = await Xn(w, { withFileTypes: true });
     } catch (A) {
       let N = E(A);
       if (N === "ENOENT" || N === "ENOTDIR") continue;
@@ -2268,7 +2268,7 @@ async function fu(e, t) {
           let [L, x] = M.pop(),
             F;
           try {
-            F = await Xn(L, { withFileTypes: !0 });
+            F = await Xn(L, { withFileTypes: true });
           } catch (U) {
             let z = E(U);
             if (z === "ENOENT" || z === "ENOTDIR") continue;
@@ -2320,9 +2320,9 @@ async function ko(e, t, r, s) {
   for (let c = 0; c < t.length; c += 64) {
     let u = t.slice(c, c + 64),
       d = await Promise.all(u.map(([h]) => Pr(h).catch((w) => ({ error: w }))));
-    if (!(await mu(e, u, d, r, s))) return !1;
+    if (!(await mu(e, u, d, r, s))) return false;
   }
-  return !0;
+  return true;
 }
 async function mu(e, t, r, s, o) {
   for (let [c, [u, d]] of t.entries()) {
@@ -2343,7 +2343,7 @@ async function mu(e, t, r, s, o) {
     if (A?.code === "symlink" && d === "in-tree") N = (await gu(u, e, s)) ?? void 0;
     if (N !== void 0) return Dr(e, s, `${ia(u)} ${N}${A?.code === "group_unverifiable" ? ` \u2014 ${uu(o)}` : ""}`);
   }
-  return !0;
+  return true;
 }
 async function gu(e, t, r) {
   let s = (S, _) => (_ === S || me(S, _)) && ot.relative(S, _).split(ot.sep).some(Jn);
@@ -2407,7 +2407,7 @@ async function Is(e, t, r, s) {
     try {
       o = await Pr(e);
     } catch {
-      return !0;
+      return true;
     }
   let c = o.dev,
     u = t.modesByDevice.get(c);
@@ -2426,7 +2426,7 @@ async function Is(e, t, r, s) {
         (A = await Vc(_, _o.O_RDONLY | _o.O_DIRECTORY | _o.O_NOFOLLOW));
       let N = await A.stat();
       if (N.dev !== c) continue;
-      if (d !== -1 && N.uid !== d) return t.modesByDevice.set(c, !0), !0;
+      if (d !== -1 && N.uid !== d) return t.modesByDevice.set(c, true), true;
       await A.chmod(448);
       let M = await A.stat();
       return t.modesByDevice.set(c, (M.mode & 2) === 0), (M.mode & 2) === 0;
@@ -2454,32 +2454,32 @@ async function Is(e, t, r, s) {
       }
     }
   }
-  return t.modesByDevice.set(c, !0), !0;
+  return t.modesByDevice.set(c, true), true;
 }
 import { constants as Co } from "fs";
 import { chmod as hu, lstat as Ao, open as wu, readdir as yu, realpath as _u } from "fs/promises";
 import bu from "path";
 var vu = Co.O_RDONLY | Co.O_DIRECTORY | Co.O_NOFOLLOW;
-async function rn(e, { harnessOwned: t = !1 } = {}) {
+async function rn(e, { harnessOwned: t = false } = {}) {
   if (D() === "windows") return;
   let r = t || D() === "linux" || D() === "wsl",
     s;
   try {
-    let o = await Ao(e, { bigint: !0 });
+    let o = await Ao(e, { bigint: true });
     if (!o.isDirectory() || o.isSymbolicLink()) return;
     let c = (d) => d.ino === o.ino && d.dev === o.dev;
     if ((Number(o.mode) & 448) !== 448) {
       if (!r) return;
-      if ((await hu(e, 448), !c(await Ao(e, { bigint: !0 })))) return;
+      if ((await hu(e, 448), !c(await Ao(e, { bigint: true })))) return;
     }
     if ((await _u(e)) !== e) return;
     let u = await wu(e, vu);
     try {
-      if (!c(await u.stat({ bigint: !0 }))) return;
+      if (!c(await u.stat({ bigint: true }))) return;
       if (
         (await u.chmod(448),
-        (s = (await yu(e, { withFileTypes: !0 })).filter((d) => d.isDirectory()).map((d) => d.name)),
-        !c(await Ao(e, { bigint: !0 })))
+        (s = (await yu(e, { withFileTypes: true })).filter((d) => d.isDirectory()).map((d) => d.name)),
+        !c(await Ao(e, { bigint: true })))
       )
         return;
     } finally {
@@ -2494,9 +2494,9 @@ var Ou = 1048576,
   $s = 16,
   Ls = 1e5;
 async function xs(e, t = {}, r = {}) {
-  if (r.targetScreened !== !0) await Tm(ee(), e, "target");
+  if (r.targetScreened !== true) await Tm(ee(), e, "target");
   let s = r.trust ?? qn(),
-    { evalDirSegments: o = [Ze], frameRoot: c = null, adoptionDecided: u = !1, consentDecided: d = !1 } = r,
+    { evalDirSegments: o = [Ze], frameRoot: c = null, adoptionDecided: u = false, consentDecided: d = false } = r,
     h,
     w = [];
   try {
@@ -2536,7 +2536,7 @@ async function xs(e, t = {}, r = {}) {
     throw U;
   }
   let S,
-    _ = !0,
+    _ = true,
     A = null;
   if (At(Z.basename(h))) {
     let U = Z.dirname(h),
@@ -2552,7 +2552,7 @@ async function xs(e, t = {}, r = {}) {
     if (B !== null && (ct(B, o, "exact") || ct(o, B, "exact"))) {
       let de = await Nu(A, o);
       if (de !== null && !We(A, de) && (We(de, h) || We(h, de))) {
-        if (((N = de), S !== N && We(S, N))) (S = N), (_ = !1);
+        if (((N = de), S !== N && We(S, N))) (S = N), (_ = false);
       }
     }
   }
@@ -2594,11 +2594,11 @@ async function xs(e, t = {}, r = {}) {
   return { cases: x, errors: F, root: S, suite: N };
 }
 function Cu(e, t) {
-  if (t.caseGlob && !Au(t.caseGlob, e.name)) return !1;
+  if (t.caseGlob && !Au(t.caseGlob, e.name)) return false;
   if (t.tags && t.tags.length > 0) {
-    if (!t.tags.some((r) => e.tags.includes(r))) return !1;
+    if (!t.tags.some((r) => e.tags.includes(r))) return false;
   }
-  return !0;
+  return true;
 }
 function Au(e, t) {
   return new RegExp(
@@ -2629,7 +2629,7 @@ async function Iu(e, t, r, s, o, c, u = null, d = [Ze]) {
             F === "ENOENT" &&
             (await It(N)
               .then((z) => z.isSymbolicLink())
-              .catch(() => !1));
+              .catch(() => false));
         throw new R(
           U
             ? `case ${_c(e.name)}: plugins entry ${_c(A)} is a symbolic link whose target does not exist`
@@ -2681,11 +2681,11 @@ async function Ms(e, t, r) {
     let u = r !== null && !We(c, t) && We(c, r) ? r : t,
       d = Z.basename(c),
       h = null,
-      w = !1,
+      w = false,
       S = Hpt(c);
     for (let _ of S ? [] : pcn) {
       let A = Z.join(c, _),
-        N = { link: !1 },
+        N = { link: false },
         M = await Vs(c, _, u, void 0, N);
       if (M !== null) {
         h =
@@ -2706,7 +2706,7 @@ async function Ms(e, t, r) {
           break;
         }
         if (U === "ENOENT" || U === "ENOTDIR") {
-          if (_ === Iqe) w = !0;
+          if (_ === Iqe) w = true;
           continue;
         }
         h = `${_}: ${l(F)} \u2014 not read here`;
@@ -2739,7 +2739,7 @@ async function Ms(e, t, r) {
       } catch {}
       if (S) {
         s.push(
-          _ === !0
+          _ === true
             ? {
                 name: d,
                 path: c,
@@ -2751,7 +2751,7 @@ async function Ms(e, t, r) {
         );
         continue;
       }
-      if (_ === !1) {
+      if (_ === false) {
         s.push({
           name: d,
           path: c,
@@ -2766,12 +2766,12 @@ async function Ms(e, t, r) {
       continue;
     }
     try {
-      let { manifest: _ } = await u9(c, d, "plugin eval", [], { noTelemetry: !0 });
+      let { manifest: _ } = await u9(c, d, "plugin eval", [], { noTelemetry: true });
       s.push({
         name: _.name,
         ...(_.version !== void 0 && { version: _.version }),
         path: c,
-        ...(_.defaultEnabled === !1 && { problem: "disabled_by_default" }),
+        ...(_.defaultEnabled === false && { problem: "disabled_by_default" }),
       });
     } catch (_) {
       let A = _ instanceof R ? _.errorClass : void 0;
@@ -2793,9 +2793,9 @@ async function js(e, t, r, s = 32) {
       let w = r.skillFolderProbes.get(h);
       if (w === void 0)
         (w = (async () => {
-          if (!(await ps(h))) return !1;
-          for (let S of Po) if (await $o(Z.join(h, S))) return !1;
-          return !0;
+          if (!(await ps(h))) return false;
+          for (let S of Po) if (await $o(Z.join(h, S))) return false;
+          return true;
         })()),
           r.skillFolderProbes.set(h, w);
       return w;
@@ -2817,8 +2817,8 @@ async function js(e, t, r, s = 32) {
 async function $u(e) {
   try {
     let t = await It(Z.join(e, ".claude-plugin"));
-    if (t.isSymbolicLink()) return !0;
-    if (!t.isDirectory()) return !1;
+    if (t.isSymbolicLink()) return true;
+    if (!t.isDirectory()) return false;
   } catch (t) {
     return !Fs(t);
   }
@@ -2826,7 +2826,7 @@ async function $u(e) {
 }
 async function $o(e) {
   try {
-    return await It(e), !0;
+    return await It(e), true;
   } catch (t) {
     return !Fs(t);
   }
@@ -2922,8 +2922,8 @@ async function Gs(e, t, r) {
       break;
     }
     let [h, w] = await Promise.all([
-      Io(Z.join(d, c), { bigint: !0 }).catch(() => null),
-      Io(Z.join(d, u), { bigint: !0 }).catch(() => null),
+      Io(Z.join(d, c), { bigint: true }).catch(() => null),
+      Io(Z.join(d, u), { bigint: true }).catch(() => null),
     ]);
     if (h === null || w === null || h.ino === 0n || h.dev !== w.dev || h.ino !== w.ino) break;
     s[o] = u;
@@ -2942,7 +2942,7 @@ async function Lu(e, t, r, s, o = []) {
     w,
     S,
     _ = r === null || d ? null : await Us(r, s);
-  if (d) (h = gt(e).includes(t[0]) || gt(s).includes(t[0])), (w = (M) => Nt(gt(M), t)), (S = () => !0);
+  if (d) (h = gt(e).includes(t[0]) || gt(s).includes(t[0])), (w = (M) => Nt(gt(M), t)), (S = () => true);
   else if (r !== null && (We(e, r) || _ !== null)) {
     let M = gt(Z.relative(r, e)),
       L = _ === null ? M : await Gs(r, _, t),
@@ -2970,7 +2970,7 @@ async function Lu(e, t, r, s, o = []) {
       onRoute: new Set(),
       listedAt: new Map(),
       deferredCuts: new Map(),
-      budget: { remaining: Ls, reported: !1 },
+      budget: { remaining: Ls, reported: false },
     };
   await Hs(e, A, c, 0, h, N);
   for (let [M, L] of N.deferredCuts) if (!N.listedAt.has(M)) u.push(L);
@@ -2995,7 +2995,7 @@ async function Hs(e, t, r, s, o, c) {
   }
   let w;
   try {
-    w = await Ns(e, { withFileTypes: !0 });
+    w = await Ns(e, { withFileTypes: true });
   } catch (A) {
     let N = E(A);
     if (N === "ENOTDIR" && s === 0) {
@@ -3104,7 +3104,7 @@ async function Hs(e, t, r, s, o, c) {
       }
       if (c.budget.remaining <= 0) {
         if (!c.budget.reported)
-          (c.budget.reported = !0),
+          (c.budget.reported = true),
             c.skipped.push({
               file: N,
               error: `the tree under the target has more than ${Ls} directories to walk (links can inflate it) \u2014 the rest was not scanned`,
@@ -3130,13 +3130,13 @@ async function Bs() {
     c = Z.join(o, "cwd"),
     u = Z.join(r, "out"),
     d = Z.join(r, "tmp");
-  await on(c, { recursive: !0 }),
-    await on(s, { recursive: !0 }),
-    await on(u, { recursive: !0 }),
-    await on(d, { recursive: !0, mode: 448 }),
+  await on(c, { recursive: true }),
+    await on(s, { recursive: true }),
+    await on(u, { recursive: true }),
+    await on(d, { recursive: true, mode: 448 }),
     await wn(
       Z.join(s, ".claude.json"),
-      b({ hasCompletedOnboarding: !0, autoUpdates: !1, bypassPermissionsModeAccepted: !1 }),
+      b({ hasCompletedOnboarding: true, autoUpdates: false, bypassPermissionsModeAccepted: false }),
     ),
     await wn(
       Z.join(o, ".gitconfig"),
@@ -3147,9 +3147,9 @@ async function Bs() {
     );
   let h = Z.join(o, ".git");
   return (
-    await on(Z.join(h, "objects"), { recursive: !0 }),
-    await on(Z.join(h, "refs", "heads"), { recursive: !0 }),
-    await on(Z.join(h, "hooks"), { recursive: !0 }),
+    await on(Z.join(h, "objects"), { recursive: true }),
+    await on(Z.join(h, "refs", "heads"), { recursive: true }),
+    await on(Z.join(h, "hooks"), { recursive: true }),
     await wn(
       Z.join(h, "HEAD"),
       `ref: refs/heads/main
@@ -3170,7 +3170,7 @@ async function Bs() {
       tmpDir: d,
       operatorConfigDir: be(),
       cleanup: async () => {
-        await rn(r), await Su(r, { recursive: !0, force: !0, maxRetries: 2 });
+        await rn(r), await Su(r, { recursive: true, force: true, maxRetries: 2 });
       },
     }
   );
@@ -3189,7 +3189,7 @@ async function Ws(e, t) {
 }
 var Qn = "a component that could not be inspected",
   Ks = "a link that leaves the tree";
-async function Vs(e, t, r, s = { hops: 16 }, o = { link: !1 }) {
+async function Vs(e, t, r, s = { hops: 16 }, o = { link: false }) {
   let c = e,
     u = t.split(Z.sep);
   for (let [d, h] of u.entries()) {
@@ -3197,7 +3197,7 @@ async function Vs(e, t, r, s = { hops: 16 }, o = { link: !1 }) {
     let w;
     try {
       if (!(await It(c)).isSymbolicLink()) continue;
-      (o.link = !0), (w = await Ru(c));
+      (o.link = true), (w = await Ru(c));
     } catch (A) {
       let N = E(A);
       return N === "ENOENT" || N === "ENOTDIR" ? null : Qn;
@@ -3218,12 +3218,12 @@ async function Vs(e, t, r, s = { hops: 16 }, o = { link: !1 }) {
   return null;
 }
 function Mu(e) {
-  let t = !1;
+  let t = false;
   for (let r of e.replace(/\\/g, "/").split("/"))
     if (r === "..") {
-      if (t) return !0;
-    } else if (r !== "" && r !== ".") t = !0;
-  return !1;
+      if (t) return true;
+    } else if (r !== "" && r !== ".") t = true;
+  return false;
 }
 function Ds(e) {
   return bA(e) ? "a network share path" : null;
@@ -3232,27 +3232,27 @@ async function ju(e, t) {
   try {
     await Tm(e, t, "plugin eval");
   } catch {
-    return !1;
+    return false;
   }
-  if (await Fu(Z.join(e, t))) return !0;
+  if (await Fu(Z.join(e, t))) return true;
   let r;
   try {
-    r = await Ns(Z.join(e, t), { withFileTypes: !0 });
+    r = await Ns(Z.join(e, t), { withFileTypes: true });
   } catch {
-    return !1;
+    return false;
   }
   for (let s of r.filter((o) => o.isDirectory()).slice(0, 64))
     try {
-      return await It(Z.join(e, t, s.name, "case.yaml")), !0;
+      return await It(Z.join(e, t, s.name, "case.yaml")), true;
     } catch {}
-  return !1;
+  return false;
 }
 async function Fu(e) {
   for (let t of Po)
     try {
-      return await It(Z.join(e, t)), !0;
+      return await It(Z.join(e, t)), true;
     } catch {}
-  return !1;
+  return false;
 }
 import { createHash as Uu, randomBytes as Gu } from "crypto";
 import _n, { basename as Hu } from "path";
@@ -3260,7 +3260,7 @@ async function Ys(e) {
   let t = new Map();
   for (let r of e) {
     let s = Hu(r),
-      { plugin: o } = await kqe(r, `${s}@${Nm}`, !0, s, !0),
+      { plugin: o } = await kqe(r, `${s}@${Nm}`, true, s, true),
       c = Wu(o.manifest.mcpServers);
     if (c.length > 0)
       throw new R(
@@ -3424,7 +3424,7 @@ function qs(e) {
   };
 }
 function Vu(e, t) {
-  return t.listings.get(e) ?? { name: e, description: "", inputSchema: { type: "object", additionalProperties: !0 } };
+  return t.listings.get(e) ?? { name: e, description: "", inputSchema: { type: "object", additionalProperties: true } };
 }
 function zu(e, t, r) {
   switch (e.kind) {
@@ -3472,26 +3472,26 @@ async function ta(e, t, r) {
     c = () => new R(`${s} vanished while being opened; try again`, `${r}: removed between lstat and open`),
     u,
     d = null,
-    h = !1;
+    h = false;
   try {
     if (D() === "windows") {
       let _ = null;
       try {
-        _ = await Gr(e, { bigint: !0 });
+        _ = await Gr(e, { bigint: true });
       } catch (A) {
         if (!X(A)) throw A;
       }
       if (_ === null)
         try {
-          (u = await Fr(e, "wx+")), (h = !0);
+          (u = await Fr(e, "wx+")), (h = true);
         } catch (A) {
           if (E(A) !== "EEXIST") throw A;
-          _ = await Gr(e, { bigint: !0 }).catch((N) => {
+          _ = await Gr(e, { bigint: true }).catch((N) => {
             throw X(N) ? c() : N;
           });
         }
       if (h) {
-        let A = await Gr(e, { bigint: !0 }).catch(() => null);
+        let A = await Gr(e, { bigint: true }).catch(() => null);
         if (A === null)
           throw new R(
             `${s} could not be examined after being created; refusing to use it`,
@@ -3520,7 +3520,7 @@ async function ta(e, t, r) {
     } else {
       let _ = GVe();
       try {
-        (u = await Fr(e, Mr.O_RDWR | Mr.O_CREAT | Mr.O_EXCL | _, 420)), (h = !0);
+        (u = await Fr(e, Mr.O_RDWR | Mr.O_CREAT | Mr.O_EXCL | _, 420)), (h = true);
       } catch (A) {
         if (E(A) !== "EEXIST") throw A;
         if (t === "create")
@@ -3532,7 +3532,7 @@ async function ta(e, t, r) {
     }
   } catch (_) {
     if (h) {
-      let A = (await u?.stat({ bigint: !0 }).catch(() => null)) ?? null;
+      let A = (await u?.stat({ bigint: true }).catch(() => null)) ?? null;
       if ((await u?.close().catch(() => {}), A !== null)) await Hr(e, A);
     }
     if (E(_) === "ELOOP")
@@ -3547,7 +3547,7 @@ async function ta(e, t, r) {
   let w = u,
     S = null;
   try {
-    let _ = (S = await w.stat({ bigint: !0 }));
+    let _ = (S = await w.stat({ bigint: true }));
     if ((d !== null || h) && _.ino === 0n)
       throw new R(
         `${s}: file identity cannot be verified on this filesystem; use a local volume`,
@@ -3566,14 +3566,14 @@ async function ta(e, t, r) {
 }
 async function Hr(e, t) {
   if (t.ino === 0n) return;
-  let r = await Gr(e, { bigint: !0 }).catch(() => null);
+  let r = await Gr(e, { bigint: true }).catch(() => null);
   if (r !== null && !r.isSymbolicLink() && r.ino === t.ino && r.dev === t.dev) await qu(e).catch(() => {});
 }
 var na = 30000;
 async function ra() {
-  if (Ne() !== "firstParty") return { ok: !0 };
+  if (Ne() !== "firstParty") return { ok: true };
   if (Qu()) return ed();
-  return { ok: !0 };
+  return { ok: true };
 }
 function Qu() {
   return cb() === "env-quad" && !a.ANTHROPIC_API_KEY && !a.ANTHROPIC_AUTH_TOKEN && !a.ANTHROPIC_UNIX_SOCKET;
@@ -3584,20 +3584,20 @@ async function ed() {
     e = await d5();
   } catch (t) {
     return {
-      ok: !1,
+      ok: false,
       message: `workload identity federation is configured (${wYe()}) but could not be set up: ${l(t)}`,
     };
   }
-  if (e === null) return { ok: !0 };
+  if (e === null) return { ok: true };
   try {
-    return await Xt(e.getToken(), na, `no answer from the token exchange within ${na / 1000}s`), { ok: !0 };
+    return await Xt(e.getToken(), na, `no answer from the token exchange within ${na / 1000}s`), { ok: true };
   } catch (t) {
     let r = t instanceof xa ? t.statusCode : null,
       s = `workload identity federation could not obtain an access token (${wYe()})${r === null ? "" : ` [HTTP ${r}]`}: ${l(t)}`;
     if ((r !== null && (r >= 500 || r === 429 || r === 408)) || (r === null && td.test(l(t))))
-      return { ok: !0, warning: `${s}; continuing \u2014 if every run fails the same way, that is why` };
+      return { ok: true, warning: `${s}; continuing \u2014 if every run fails the same way, that is why` };
     return {
-      ok: !1,
+      ok: false,
       message: `${s}${r === 401 || r === 403 ? " \u2014 the identity token was rejected: check the federation rule and organization ids, and for a rule spanning several workspaces set ANTHROPIC_WORKSPACE_ID" : ""}`,
     };
   }
@@ -3626,10 +3626,10 @@ async function aa(e) {
     s;
   try {
     s = await oa(e.root, Sn.O_RDONLY | Sn.O_DIRECTORY | Sn.O_NOFOLLOW);
-    let [o, c, u] = await Promise.all([s.stat({ bigint: !0 }), Tn(e.root, { bigint: !0 }), od(e.root)]);
+    let [o, c, u] = await Promise.all([s.stat({ bigint: true }), Tn(e.root, { bigint: true }), od(e.root)]);
     if (u !== e.root || !c.isDirectory() || c.ino !== o.ino || c.dev !== o.dev)
       throw Error("the kept directory is not the one the harness created");
-    let [d, h] = await Promise.all([Tn(e.home, { bigint: !0 }), Tn(e.tmpDir, { bigint: !0 })]);
+    let [d, h] = await Promise.all([Tn(e.home, { bigint: true }), Tn(e.tmpDir, { bigint: true })]);
     if (!d.isDirectory() || d.isSymbolicLink() || !h.isDirectory() || h.isSymbolicLink())
       throw Error("home/ or tmp/ is not a real directory");
     await nd(t, { mode: 448 }),
@@ -3639,9 +3639,9 @@ async function aa(e) {
       await r.chmod(64),
       await s.chmod(320);
     let w = (F, U) =>
-        Tn(F, { bigint: !0 }).then(
+        Tn(F, { bigint: true }).then(
           (z) => z.isDirectory() && !z.isSymbolicLink() && z.ino === U.ino && z.dev === U.dev,
-          () => !1,
+          () => false,
         ),
       [S, _, A, N, M, L] = await Promise.all([
         s.stat().then((F) => F.mode & 511),
@@ -3649,12 +3649,12 @@ async function aa(e) {
         w(Lt.join(t, "home"), d),
         w(Lt.join(t, "tmp"), h),
         Tn(e.home).then(
-          () => !0,
-          () => !1,
+          () => true,
+          () => false,
         ),
         Tn(e.tmpDir).then(
-          () => !0,
-          () => !1,
+          () => true,
+          () => false,
         ),
       ]),
       x = [Lt.basename(e.configDir), Lt.basename(e.outDir), Lt.basename(t)].sort().join("\x00");
@@ -3736,7 +3736,7 @@ async function ua(e, t) {
 }
 var ad = m(() => f({ ready: i(), server: i() }));
 async function da(e) {
-  let t = { text: "", truncated: !1 },
+  let t = { text: "", truncated: false },
     r = await pb(e);
   if (!r.ok) return t;
   let s = r.value;
@@ -3811,8 +3811,8 @@ function pa(e) {
   return !/[()]/.test(t) && GNe(t) === null && (r === void 0 || ya(t) === null);
 }
 function pd(e, t) {
-  if (lTt(e.toolName, t.toolName)) return !0;
-  if (e.toolName !== t.toolName) return !1;
+  if (lTt(e.toolName, t.toolName)) return true;
+  if (e.toolName !== t.toolName) return false;
   return e.ruleContent === void 0 || t.ruleContent === void 0 || e.ruleContent === t.ruleContent;
 }
 var ga = 67108864;
@@ -3846,8 +3846,8 @@ async function md(e, t) {
   if (s === null) return [];
   if (!s.isDirectory() || s.isSymbolicLink())
     throw (
-      (await rn(r, { harnessOwned: !0 }),
-      await In(r, { recursive: !0, force: !0 }),
+      (await rn(r, { harnessOwned: true }),
+      await In(r, { recursive: true, force: true }),
       new R(
         "the run's artifact-publish staging directory was replaced by something that is not a directory, so its publishes (and their absence) cannot be trusted \u2014 discarded, and the run is an error",
         "eval: stub publish staging dir replaced",
@@ -3862,12 +3862,12 @@ async function md(e, t) {
         "the run's artifact-publish staging directory changed while it was being indexed",
         "eval: stub publish staging dir changed",
       );
-    for (let d of await ht(r)) if (!c.has(d)) await In(C.join(r, d), { recursive: !0, force: !0 });
+    for (let d of await ht(r)) if (!c.has(d)) await In(C.join(r, d), { recursive: true, force: true });
     return await Ef(r, o), o;
   } catch (o) {
     throw (
-      (await rn(r, { harnessOwned: !0 }),
-      await In(r, { recursive: !0, force: !0 }),
+      (await rn(r, { harnessOwned: true }),
+      await In(r, { recursive: true, force: true }),
       n(`eval: stub publish index failed: ${l(o)}`, { level: "warn" }),
       new R(
         `the run's artifact publishes could not be indexed (${o instanceof R ? o.message : (E(o) ?? "unexpected error")}), so they were discarded and the run is an error`,
@@ -3902,9 +3902,9 @@ async function Ha(e) {
       ie = "",
       W = 0,
       re = "",
-      ge = !1,
-      je = !1,
-      pe = !1,
+      ge = false,
+      je = false,
+      pe = false,
       fe = null,
       le = [],
       tt = w ? Nd(w) : null,
@@ -3913,7 +3913,7 @@ async function Ha(e) {
         cwd: r.cwd,
         env: L,
         stdio: ["pipe", "pipe", "pipe"],
-        windowsHide: !0,
+        windowsHide: true,
         detached: D() !== "windows",
         ...qi("agent"),
       }),
@@ -3934,18 +3934,18 @@ async function Ha(e) {
       };
     process.on("exit", Fe), Ce.stdin?.on("error", () => {}), Ce.stdin?.end(t.execution.prompt);
     let J = setTimeout(() => {
-        (ge = !0), it();
+        (ge = true), it();
       }, Ke),
-      Be = !1,
+      Be = false,
       Ae = () => {
-        (Be = !0), it();
+        (Be = true), it();
       };
     if (S.aborted) Ae();
-    else S.addEventListener("abort", Ae, { once: !0 });
+    else S.addEventListener("abort", Ae, { once: true });
     Ce.stdout.setEncoding("utf8"),
       Ce.stdout.on("data", (Oe) => {
         if (((W += Oe.length), W > ga)) {
-          if (!je) (je = !0), it();
+          if (!je) (je = true), it();
           return;
         }
         ie += Oe;
@@ -3979,7 +3979,7 @@ async function Ha(e) {
       });
     function Ye(Oe) {
       if (pe) return;
-      (pe = !0), clearTimeout(J), S.removeEventListener("abort", Ae), process.removeListener("exit", Fe);
+      (pe = true), clearTimeout(J), S.removeEventListener("abort", Ae), process.removeListener("exit", Fe);
       let he = kf(de, ge, Oe, _, { shellGranted: zo.some((Ue) => Yo(s, Ue)) });
       (he.killedInFlight = ge || Be || je),
         Ga(
@@ -4100,27 +4100,27 @@ async function hd(e, t, r, s, o, c, u) {
     w = (P) => h.some(P),
     S = !pt.isPlatformInEnabledList()
       ? `sandbox.enabledPlatforms excludes ${D()}`
-      : w((P) => P.enabled === !1)
+      : w((P) => P.enabled === false)
         ? "sandbox.enabled is false"
-        : w((P) => P.failIfUnavailable === !1)
+        : w((P) => P.failIfUnavailable === false)
           ? "sandbox.failIfUnavailable is false (a missing backend would run the shell unconfined)"
-          : w((P) => P.allowUnsandboxedCommands === !0)
+          : w((P) => P.allowUnsandboxedCommands === true)
             ? "sandbox.allowUnsandboxedCommands is true"
             : w((P) => (P.excludedCommands?.length ?? 0) > 0)
               ? "sandbox.excludedCommands exempts commands"
-              : w((P) => P.autoAllowBashIfSandboxed === !0)
+              : w((P) => P.autoAllowBashIfSandboxed === true)
                 ? "sandbox.autoAllowBashIfSandboxed would run commands the operator never granted"
-                : w((P) => P.enableWeakerNestedSandbox === !0)
+                : w((P) => P.enableWeakerNestedSandbox === true)
                   ? "sandbox.enableWeakerNestedSandbox exposes the host /proc"
-                  : w((P) => P.enableWeakerNetworkIsolation === !0)
+                  : w((P) => P.enableWeakerNetworkIsolation === true)
                     ? "sandbox.enableWeakerNetworkIsolation loosens the egress lock"
-                    : w((P) => P.allowAppleEvents === !0)
+                    : w((P) => P.allowAppleEvents === true)
                       ? "sandbox.allowAppleEvents removes macOS automation isolation"
-                      : w((P) => P.filesystem?.disabled === !0)
+                      : w((P) => P.filesystem?.disabled === true)
                         ? "sandbox.filesystem.disabled turns filesystem confinement off"
-                        : w((P) => P.filesystem?.allowManagedReadPathsOnly === !0)
+                        : w((P) => P.filesystem?.allowManagedReadPathsOnly === true)
                           ? "sandbox.filesystem.allowManagedReadPathsOnly would drop the sandbox's own directories from the readable set"
-                          : d.length > 0 && w((P) => P.network?.allowManagedDomainsOnly === !0)
+                          : d.length > 0 && w((P) => P.network?.allowManagedDomainsOnly === true)
                             ? "sandbox.network.allowManagedDomainsOnly means the WebFetch domains you granted cannot open the sandboxed shell's network on this machine"
                             : null;
   if (S !== null)
@@ -4594,10 +4594,10 @@ async function hd(e, t, r, s, o, c, u) {
     );
   let ke = {
     sandbox: {
-      enabled: !0,
-      failIfUnavailable: !0,
-      autoAllowBashIfSandboxed: !1,
-      allowUnsandboxedCommands: !1,
+      enabled: true,
+      failIfUnavailable: true,
+      autoAllowBashIfSandboxed: false,
+      allowUnsandboxedCommands: false,
       filesystem: {
         allowWrite: [e.home, e.tmpDir].map(rr),
         denyWrite: [
@@ -4729,12 +4729,12 @@ function Ka(e) {
   );
 }
 function vd(e, t, r = []) {
-  let s = !1,
+  let s = false,
     o = [];
   for (let d of e) {
     let h = Ur(d);
     if (h.ruleContent === void 0 && qo.has(h.toolName)) {
-      s = !0;
+      s = true;
       continue;
     }
     o.push(d);
@@ -4791,7 +4791,7 @@ async function Va(e, t) {
     M = async (j, G) => {
       let Y;
       try {
-        Y = await ht(j, { withFileTypes: !0 });
+        Y = await ht(j, { withFileTypes: true });
       } catch (se) {
         if (G && E(se) === "ENOENT") return [];
         return null;
@@ -5338,7 +5338,7 @@ async function wa(e, t = "plugin eval", r = [], s) {
       }
       let z = [];
       try {
-        z = await ht(C.join(L, "worktrees"), { withFileTypes: !0 });
+        z = await ht(C.join(L, "worktrees"), { withFileTypes: true });
       } catch (B) {
         if (E(B) !== "ENOENT" && E(B) !== "ENOTDIR") throw ft(t, B);
       }
@@ -5373,7 +5373,7 @@ async function wa(e, t = "plugin eval", r = [], s) {
           d.push(z);
           continue;
         }
-        let B = await ht(z, { withFileTypes: !0 }).catch((ie) => {
+        let B = await ht(z, { withFileTypes: true }).catch((ie) => {
             if (E(ie) === "ENOENT" || E(ie) === "ENOTDIR") return [];
             throw ft(t, ie);
           }),
@@ -5401,7 +5401,7 @@ async function wa(e, t = "plugin eval", r = [], s) {
         !(await et(F).then(
           (ie) => ie.isFile(),
           (ie) => {
-            if (E(ie) === "ENOENT" || E(ie) === "ENOTDIR") return !1;
+            if (E(ie) === "ENOENT" || E(ie) === "ENOTDIR") return false;
             throw ft(t, ie);
           },
         ))
@@ -5416,9 +5416,9 @@ async function wa(e, t = "plugin eval", r = [], s) {
     M = async (L) => {
       let x = (await nr(L, 4096)) ?? "",
         F = /^gitdir:\s*(.+)$/m.exec(x);
-      if (!F?.[1]) return !1;
+      if (!F?.[1]) return false;
       let U = await h(C.dirname(L), F[1].trim());
-      if (U === null) return !1;
+      if (U === null) return false;
       d.push(U), await S(U);
       let z = ((await nr(C.join(U, "commondir"), 4096)) ?? "").trim();
       if (z) {
@@ -5426,15 +5426,15 @@ async function wa(e, t = "plugin eval", r = [], s) {
         if (B !== null) d.push(B), await S(B), w(C.dirname(B));
       }
       return et(C.join(U, "HEAD")).then(
-        () => !0,
+        () => true,
         (B) => {
-          if (E(B) === "ENOENT") return !1;
+          if (E(B) === "ENOENT") return false;
           throw ft(t, B);
         },
       );
     };
   for (let L = u; ; ) {
-    let x = !1;
+    let x = false;
     for (let U of za) {
       let z = await c(C.join(L, U));
       if (z === null) continue;
@@ -5452,9 +5452,9 @@ async function wa(e, t = "plugin eval", r = [], s) {
         await S(z),
           (x =
             (await et(C.join(z, "HEAD")).then(
-              () => !0,
+              () => true,
               (de) => {
-                if (E(de) === "ENOENT") return !1;
+                if (E(de) === "ENOENT") return false;
                 throw ft(t, de);
               },
             )) || x);
@@ -5498,27 +5498,27 @@ function Uo(e) {
 async function ba(e) {
   let t;
   try {
-    t = await ht(e, { withFileTypes: !0 });
+    t = await ht(e, { withFileTypes: true });
   } catch {
-    return !1;
+    return false;
   }
-  if (t.some((s) => Uo(s.name))) return !0;
+  if (t.some((s) => Uo(s.name))) return true;
   let r = 0;
   for (let s of t) {
     let o = C.join(e, s.name);
     if ((await Ve(s, o, "other")) !== "dir" || ++r > 200) continue;
     for (let c of Xa)
       try {
-        return await et(C.join(o, c)), !0;
+        return await et(C.join(o, c)), true;
       } catch {}
   }
-  return !1;
+  return false;
 }
 function va(e) {
   try {
-    return cn(e, "probe"), !0;
+    return cn(e, "probe"), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function cn(e, t) {
@@ -5775,7 +5775,7 @@ function Nd(e) {
             kind: "integrity",
             message: `mocks: agent-served mock results in the trace exceeded twice the run budget (${e.agentCallBudget}) \u2014 the harness's own gate refuses at the budget, so this run's mocked calls were answered other than through it; the run is not graded`,
           };
-        if (_.success && _.data.is_error === !0 && o.has(_.data.tool_use_id) && Bo(_.data.content).startsWith(d)) {
+        if (_.success && _.data.is_error === true && o.has(_.data.tool_use_id) && Bo(_.data.content).startsWith(d)) {
           let A = Bo(_.data.content).slice(d.length).trim();
           return { kind: "abort", message: `stopped by mock: ${A}`, abort: xd(A) };
         }
@@ -5812,7 +5812,7 @@ async function Ld(e, t) {
   let o = new Set(Array.isArray(e.tools) ? e.tools.map(String) : []),
     c = t.mockedTools.filter((u) => !o.has(u));
   if (c.length > 0) return { kind: "tools_missing", message: `mocked tools not offered by the child: ${c.join(", ")}` };
-  return await In(t.configPath, { force: !0 }).catch(() => {}), null;
+  return await In(t.configPath, { force: true }).catch(() => {}), null;
 }
 function Bo(e) {
   if (typeof e === "string") return e;
@@ -5876,7 +5876,7 @@ function jd(e, t, r, s) {
       if (w.has(A.server)) continue;
     } else if (_.deniedByChild) continue;
     let N = `${A.server}/${A.tool}`;
-    if ((u.set(N, (u.get(N) ?? 0) + 1), d === null && _.isError === !0 && Fd(_.output ?? ""))) d = N;
+    if ((u.set(N, (u.get(N) ?? 0) + 1), d === null && _.isError === true && Fd(_.output ?? ""))) d = N;
   }
   for (let [S, _] of u) {
     let A = c.get(S) ?? 0;
@@ -6108,13 +6108,13 @@ function Zd(e) {
 }
 var Qd = new Set(["http_proxy", "https_proxy", "no_proxy", "all_proxy"]);
 function ef(e) {
-  if (Qd.has(e)) return !0;
+  if (Qd.has(e)) return true;
   let t = e.toUpperCase();
-  if (Vd.has(t)) return !0;
-  if (t.startsWith("CLAUDE_CODE_") && Zd(t)) return !1;
-  if (t.startsWith("EVAL_")) return !0;
-  if ($Ae(e)) return !0;
-  if (NTn(e)) return !1;
+  if (Vd.has(t)) return true;
+  if (t.startsWith("CLAUDE_CODE_") && Zd(t)) return false;
+  if (t.startsWith("EVAL_")) return true;
+  if ($Ae(e)) return true;
+  if (NTn(e)) return false;
   return zd.some((r) => t.startsWith(r));
 }
 var Wo = [C.join(".aws", "sso"), C.join(".aws", "cli", "cache"), C.join(".aws", "boto", "cache")];
@@ -6213,7 +6213,7 @@ async function cf(e, t, r) {
   for (let d = c.shift(); d !== void 0; d = c.shift()) {
     let h;
     try {
-      h = await ht(d, { withFileTypes: !0 });
+      h = await ht(d, { withFileTypes: true });
     } catch (w) {
       let S = E(w);
       if (S === "ENOTDIR" && d === o) break;
@@ -6256,12 +6256,12 @@ async function uf(e, t) {
     if (
       !(await cr(o).then(
         (u) => u.isDirectory(),
-        () => !1,
+        () => false,
       ))
     )
       continue;
     let c = C.join(e.home, s);
-    await ja(C.dirname(c), { recursive: !0 });
+    await ja(C.dirname(c), { recursive: true });
     try {
       await ud(o, c, "junction");
     } catch (u) {
@@ -6278,7 +6278,7 @@ var df = new Set([
   "CLAUDE_CODE_EVAL_ALLOW_ARTIFACT_PUBLISH",
   "CLAUDE_CODE_EVAL_ALLOW_FLAG_OVERRIDES",
 ]);
-function ff(e, t, r, s, o = !1) {
+function ff(e, t, r, s, o = false) {
   for (let L of Object.keys(e.execution.env))
     if (!Gd.test(L))
       throw Error(
@@ -6407,7 +6407,7 @@ function* qa(e) {
     if (r.type !== "user") continue;
     for (let s of Vr(r)) {
       let o = ri().safeParse(s);
-      if (!o.success || o.data.is_error === !0 || !t.has(o.data.tool_use_id)) continue;
+      if (!o.success || o.data.is_error === true || !t.has(o.data.tool_use_id)) continue;
       yield { message: r };
     }
   }
@@ -6475,7 +6475,7 @@ async function _f(e, t) {
     if (
       !(await Promise.all([et(c), et(u)])
         .then(([M, L]) => M.isDirectory() && L.isFile())
-        .catch(() => !1))
+        .catch(() => false))
     )
       throw d;
     let w = await Qa(u, Aa);
@@ -6509,7 +6509,7 @@ async function Qa(e, t) {
   if (!r.ok) return null;
   let s = r.value;
   try {
-    let o = await s.stat({ bigint: !0 });
+    let o = await s.stat({ bigint: true });
     if (!o.isFile() || o.nlink !== 1n || o.size > BigInt(t)) return null;
     return await a8(s, Number(o.size));
   } catch {
@@ -6526,8 +6526,8 @@ async function Ef(e, t) {
   if (r === null || !r.isDirectory()) return;
   let s = C.join(e, "publishes.json"),
     o = C.join(e, bf);
-  if ((await rn(o, { harnessOwned: !0 }), await In(o, { recursive: !0, force: !0 }), t.length === 0)) {
-    await In(s, { recursive: !0, force: !0 });
+  if ((await rn(o, { harnessOwned: true }), await In(o, { recursive: true, force: true }), t.length === 0)) {
+    await In(s, { recursive: true, force: true });
     return;
   }
   await hHe(s, b(t, null, 2));
@@ -6555,8 +6555,8 @@ function kf(e, t, r, s, { shellGranted: o }) {
     _ = 0,
     A = new Set(),
     N = null,
-    M = !1,
-    L = !1;
+    M = false,
+    L = false;
   for (let F of e) {
     if (F.type === "assistant") {
       let U = F.message,
@@ -6588,17 +6588,17 @@ function kf(e, t, r, s, { shellGranted: o }) {
         let z = ri().safeParse(U);
         if (!z.success) continue;
         let B = u.get(z.data.tool_use_id);
-        if (B) (B.output = Bo(z.data.content)), (B.isError = z.data.is_error === !0);
+        if (B) (B.output = Bo(z.data.content)), (B.isError = z.data.is_error === true);
       }
     else if (F.type === "result") {
       let U = F;
-      if (((h = U.num_turns ?? h), (w = U.total_cost_usd ?? w), (M = !0), Array.isArray(U.permission_denials)))
+      if (((h = U.num_turns ?? h), (w = U.total_cost_usd ?? w), (M = true), Array.isArray(U.permission_denials)))
         for (let z of U.permission_denials) {
           let B = z?.tool_use_id,
             de = typeof B === "string" ? u.get(B) : void 0;
-          if (de !== void 0) de.deniedByChild = !0;
+          if (de !== void 0) de.deniedByChild = true;
         }
-      if (U.is_error === !0) {
+      if (U.is_error === true) {
         if (typeof U.result === "string") N = U.result;
         else if (Array.isArray(U.errors) && U.errors.length > 0) {
           let z = U.errors.map(String);
@@ -6614,7 +6614,7 @@ function kf(e, t, r, s, { shellGranted: o }) {
       F.parent_tool_use_id == null &&
       (F.error === "authentication_failed" || F.error === "oauth_org_not_allowed")
     )
-      L = !0;
+      L = true;
   }
   let x;
   switch (r.kind) {
@@ -6680,7 +6680,7 @@ function Ko() {
 async function Tf(e, t) {
   let r;
   try {
-    r = await ht(e, { withFileTypes: !0 });
+    r = await ht(e, { withFileTypes: true });
   } catch (o) {
     let c = E(o);
     if (c === "ENOENT" || c === "ENOTDIR") return [];
@@ -6713,7 +6713,7 @@ async function Cf(e, t) {
   for (let d = c.pop(); d !== void 0; d = c.pop()) {
     let h;
     try {
-      h = await ht(C.join(r, d), { withFileTypes: !0 });
+      h = await ht(C.join(r, d), { withFileTypes: true });
     } catch (w) {
       let S = E(w);
       if (d === "" && (S === "ENOENT" || S === "ENOTDIR")) return [];
@@ -6796,7 +6796,7 @@ async function $f(e) {
       (s === "ENOENT" || s === "ENOTDIR") &&
       !(await et(e).then(
         (o) => o.isSymbolicLink(),
-        () => !1,
+        () => false,
       )) &&
       (await nf(e))
     )
@@ -6806,7 +6806,7 @@ async function $f(e) {
       process.getuid !== void 0 &&
       (await cr(e).then(
         (o) => o.uid !== process.getuid?.(),
-        () => !1,
+        () => false,
       ))
     )
       return null;
@@ -6924,7 +6924,7 @@ function Lf() {
   );
 }
 async function xf() {
-  let { stdout: e, code: t } = await $e("id", ["-un"], { preserveOutputOnError: !1 }),
+  let { stdout: e, code: t } = await $e("id", ["-un"], { preserveOutputOnError: false }),
     r = e.trim();
   if (t !== 0 || !r) throw ae("the account name for %u could not be determined");
   return r;
@@ -7063,7 +7063,7 @@ async function jf(e) {
       o.add(u);
       let h = await wt(u);
       if (h === null) return;
-      let w = !1;
+      let w = false;
       for (let S of h.split(/\r?\n/)) {
         let _ = S.trim(),
           A = /^(include|includedir)\s+(.+)$/i.exec(_);
@@ -7108,8 +7108,8 @@ function tl(e) {
     s = r ? r[1].toUpperCase() : "FILE",
     o = r ? r[2] : t;
   if (s !== "FILE" && s !== "WRFILE" && s !== "DIR") return [];
-  let c = !1;
-  if (s === "DIR" && o.startsWith(":")) (o = o.slice(1)), (c = !0);
+  let c = false;
+  if (s === "DIR" && o.startsWith(":")) (o = o.slice(1)), (c = true);
   if (!C.isAbsolute(o)) throw ae("a Kerberos ticket cache / keytab is named by a relative path");
   return c ? [o, C.dirname(o)] : [o];
 }
@@ -7180,7 +7180,7 @@ async function $n(e, t, r = 0, s) {
   let c = o.replace(/\\\r?\n/g, ""),
     u = (S) => {
       let _ = "",
-        A = !1;
+        A = false;
       for (let N = 0; N < S.length; N++) {
         let M = S[N];
         if (M === '"') A = !A;
@@ -7326,13 +7326,13 @@ function Bf(e, t) {
     },
     s = [],
     o = "",
-    c = !1,
+    c = false,
     u = 0,
     d = () => {
       let h = e.slice(u),
         w = /^\$\{HOME\}|^\$HOME(?![A-Za-z0-9_])/.exec(h);
       if (!w) r("uses a shell expansion that cannot be resolved here");
-      (o += t), (c = !0), (u += w[0].length);
+      (o += t), (c = true), (u += w[0].length);
     };
   while (u < e.length) {
     let h = e[u];
@@ -7343,18 +7343,18 @@ function Bf(e, t) {
         `
 `
     ) {
-      if (c) s.push(o), (o = ""), (c = !1);
+      if (c) s.push(o), (o = ""), (c = false);
       u++;
     } else if (h === "\\") {
       if (u + 1 < e.length) (o += e[u + 1]), (u += 2);
       else u++;
-      c = !0;
+      c = true;
     } else if (h === "'") {
       let w = e.indexOf("'", u + 1);
       if (w === -1) r("holds an unterminated quotation");
-      (o += e.slice(u + 1, w)), (c = !0), (u = w + 1);
+      (o += e.slice(u + 1, w)), (c = true), (u = w + 1);
     } else if (h === '"') {
-      (c = !0), u++;
+      (c = true), u++;
       for (;;) {
         if (u >= e.length) r("holds an unterminated quotation");
         let w = e[u];
@@ -7369,8 +7369,8 @@ function Bf(e, t) {
       }
     } else if (h === "$") d();
     else if (h === "`") r("uses a shell expansion that cannot be resolved here");
-    else if (h === "~" && !c && (u + 1 >= e.length || /[\/\s]/.test(e[u + 1]))) (o += t), (c = !0), u++;
-    else (o += h), (c = !0), u++;
+    else if (h === "~" && !c && (u + 1 >= e.length || /[\/\s]/.test(e[u + 1]))) (o += t), (c = true), u++;
+    else (o += h), (c = true), u++;
   }
   if (c) s.push(o);
   return s;
@@ -7395,7 +7395,7 @@ async function Wf(e, t, r) {
   if (d !== void 0 && d !== "" && !C.isAbsolute(d)) throw ae("ANSIBLE_CONFIG holds a relative path");
   let h = await cr(r).then(
     (w) => (w.mode & 2) !== 0,
-    () => !0,
+    () => true,
   );
   for (let w of [
     ...(d ? [d, C.join(d, "ansible.cfg")] : []),
@@ -7405,7 +7405,7 @@ async function Wf(e, t, r) {
   ]) {
     let S = await wt(w);
     if (S === null) continue;
-    let _ = !1,
+    let _ = false,
       A = [];
     for (let N of S.split(/\r?\n/))
       if (/^[ \t]+\S/.test(N) && A.length > 0 && !/^[ \t]*[#;]/.test(N))
@@ -7609,7 +7609,7 @@ async function qf(e, t) {
 }
 var Dn = D() === "windows" ? "\\\\.\\nul" : "/dev/null";
 async function Zf(e) {
-  if (!e.isCharacterDevice()) return !1;
+  if (!e.isCharacterDevice()) return false;
   return (
     (Da ??= cr(Dn).then(
       (t) => t.rdev,
@@ -7648,8 +7648,8 @@ function ep(e) {
         d === void 0 ||
         Lwt(d.filter((h) => !La.test(h))) ||
         d.some((h) => {
-          if (h === Ma) return !0;
-          if (La.test(h)) return !1;
+          if (h === Ma) return true;
+          if (La.test(h)) return false;
           let w = /^-D([^=]+)=(.*)$/s.exec(h);
           return w === null ? HC(h) : (cqt(w[1] ?? "") && !jTn(w[1] ?? "", w[2] ?? "")) || HC(w[2] ?? "");
         })
@@ -7709,7 +7709,7 @@ function sp(e, t) {
     case "llm":
       return typeof e.focus === "object" && e.focus.source === "file" && !t;
     default:
-      return !1;
+      return false;
   }
 }
 function lp(e) {
@@ -7725,7 +7725,7 @@ async function cl(e) {
   let t = [],
     r = dl(),
     s = (h) =>
-      e.mockCallsWithOnly === !0 &&
+      e.mockCallsWithOnly === true &&
       h.arm === void 0 &&
       ((h.type === "regex" && h.target === "mock_calls") || (h.type === "llm" && h.focus === "mock_calls")),
     o = (h) => h.arm === "with-only" || up(h) || s(h),
@@ -7734,7 +7734,7 @@ async function cl(e) {
     d = !!e.skipPaidGraders && u.some((h) => h.type === "llm" || h.type === "baseline");
   for (let h of u) {
     let w = await dp(h, e);
-    if (e.arm !== void 0 && !c && o(h)) w.with_only = !0;
+    if (e.arm !== void 0 && !c && o(h)) w.with_only = true;
     (w.scored = !w.with_only), t.push(w);
   }
   return { results: t, judgeCostUsd: dl() - r, paidGradersSkipped: d };
@@ -7753,11 +7753,11 @@ async function dp(e, t) {
       case "llm":
       case "baseline":
         if (t.skipPaidGraders)
-          return { name: e.name, passed: !1, weight: e.weight, explanation: "skipped: cost ceiling" };
+          return { name: e.name, passed: false, weight: e.weight, explanation: "skipped: cost ceiling" };
         return e.type === "llm" ? await Ep(e, t) : await kp(e, t);
     }
   } catch (r) {
-    return { name: e.name, passed: !1, weight: e.weight, explanation: `grader threw: ${l(r)}` };
+    return { name: e.name, passed: false, weight: e.weight, explanation: `grader threw: ${l(r)}` };
   }
 }
 async function fp(e, t) {
@@ -7783,7 +7783,7 @@ async function fp(e, t) {
   else if (e.match.startsWith("count:")) {
     let S = parseInt(e.match.slice(6), 10);
     (h = d.length === S), (w = `found ${d.length} matches (expected ${S})`);
-  } else (h = !1), (w = `unknown match mode "${e.match}" (use contains | not_contains | count:N)`);
+  } else (h = false), (w = `unknown match mode "${e.match}" (use contains | not_contains | count:N)`);
   return { name: e.name, passed: h, weight: e.weight, explanation: w };
 }
 function pp(e, { run: t }) {
@@ -7835,9 +7835,9 @@ function sl(e, t) {
   return e.findIndex((r) => ul(r, t));
 }
 function ul(e, t) {
-  if (e.name !== t.tool) return !1;
+  if (e.name !== t.tool) return false;
   if (t.input_match) return new RegExp(t.input_match).test(e.inputText);
-  return !0;
+  return true;
 }
 var hp = new Set(".+^${}()|[]\\");
 function wp(e) {
@@ -7856,7 +7856,7 @@ function wp(e) {
   return new RegExp(`${t}$`);
 }
 function $t(e, t) {
-  return { name: e.name, passed: !1, weight: e.weight, explanation: t };
+  return { name: e.name, passed: false, weight: e.weight, explanation: t };
 }
 var yp = 8000,
   ii = 10485760;
@@ -7900,7 +7900,7 @@ async function fl(e, { run: t, cwdDiff: r, sandboxCwd: s, stubPublishDir: o, cas
             tool: d.name,
             input: d.input,
             ...(d.output !== void 0 && { output: d.output }),
-            ...(d.isError && { isError: !0 }),
+            ...(d.isError && { isError: true }),
             verdict: d.mock?.verdict,
           }),
         )
@@ -8075,8 +8075,8 @@ async function Rp(e, t) {
     o = {
       querySource: "plugin_eval_judge",
       agents: [],
-      isNonInteractiveSession: !0,
-      hasAppendSystemPrompt: !1,
+      isNonInteractiveSession: true,
+      hasAppendSystemPrompt: false,
       mcpTools: [],
       agentContext: _a(),
       onMediaStripped: (h, w) => {
@@ -8125,11 +8125,11 @@ async function Sp(e, t, r) {
         `focus file ${r} leaves the run directory through a link`,
         "grader focus file escapes the run directory via link",
       ),
-    o = await oi(e, { bigint: !0 }).catch(() => null);
+    o = await oi(e, { bigint: true }).catch(() => null);
   if (o === null || !o.isDirectory() || o.isSymbolicLink()) throw s();
   let c = await il(e).catch(() => null);
   if (c === null || c !== e) throw s();
-  let u = await oi(c, { bigint: !0 }).catch(() => null);
+  let u = await oi(c, { bigint: true }).catch(() => null);
   if (u === null || u.ino !== o.ino || u.dev !== o.dev) throw s();
   let d;
   try {
@@ -8139,7 +8139,7 @@ async function Sp(e, t, r) {
     throw new R(`focus file ${r} is unreadable (${E(h) ?? "unknown error"})`, "grader focus file unreadable");
   }
   try {
-    let h = await d.stat({ bigint: !0 });
+    let h = await d.stat({ bigint: true });
     if (!h.isFile()) throw new R(`focus file ${r} is not a regular file`, "grader focus file not a regular file");
     if (h.nlink > 1n)
       throw new R(
@@ -8151,7 +8151,7 @@ async function Sp(e, t, r) {
       S = w ?? (await il(t).catch(() => null));
     if (S === null || !me(c, S)) throw s();
     if (w === null) {
-      let N = await oi(S, { bigint: !0 }).catch(() => null);
+      let N = await oi(S, { bigint: true }).catch(() => null);
       if (N === null || N.ino !== h.ino || N.dev !== h.dev || N.nlink !== 1n) throw s();
     }
     if (h.size > BigInt(ii)) throw new R(`focus file ${r} exceeds ${Ft(ii)}`, "grader focus file too large");
@@ -8276,7 +8276,7 @@ async function bl(e, t, r, s) {
         w = [...ei].filter((S) => Object.keys(h).some((_) => _.toUpperCase() === S));
       if (w.length > 0) throw new qr(w);
     }
-    await Cp(fr.join(r.outDir, "mocks"), { recursive: !0 }),
+    await Cp(fr.join(r.outDir, "mocks"), { recursive: true }),
       await Promise.all([
         ml(u.configPath, u.configJson, { mode: 384 }),
         ...u.specs.map((h) => ml(h.path, h.json, { mode: 384 })),
@@ -8305,7 +8305,7 @@ async function bl(e, t, r, s) {
   };
 }
 function gl() {
-  return !0;
+  return true;
 }
 function vl(e) {
   return Object.values(e.recordings).reduce((t, r) => t + Object.keys(r).length, 0);
@@ -8336,7 +8336,7 @@ async function Cl({ credentials: e }) {
         });
     });
   } catch (u) {
-    if ((await Tl(c).catch(() => {}), r !== null)) await kl(r, { recursive: !0, force: !0 }).catch(() => {});
+    if ((await Tl(c).catch(() => {}), r !== null)) await kl(r, { recursive: true, force: true }).catch(() => {});
     throw u;
   }
   return (
@@ -8414,7 +8414,7 @@ async function Cl({ credentials: e }) {
         for (let u of o) u.destroy();
         o.clear();
         try {
-          if ((await Tl(c), r !== null)) await kl(r, { recursive: !0, force: !0 });
+          if ((await Tl(c), r !== null)) await kl(r, { recursive: true, force: true });
         } catch (u) {
           n(`eval mocks: agent service teardown: ${l(u)}`, { level: "error" });
         }
@@ -8427,19 +8427,19 @@ function Tl(e) {
 }
 function Mp(e, t) {
   let r = Buffer.alloc(0),
-    s = !1,
+    s = false,
     o = (u) => {
       if (s) return;
-      (s = !0),
+      (s = true),
         e.end(`${b(u)}
 `);
     };
   e.on("error", () => e.destroy()), e.setTimeout(xp, () => e.destroy());
-  let c = !1;
+  let c = false;
   e.on("data", (u) => {
     if (s || c) return;
     if (((r = Buffer.concat([r, u])), r.length > Lp)) {
-      (c = !0),
+      (c = true),
         o({
           verdict: "abort",
           text: "mock relay request too large (a hook that rewrites this tool's input may have inflated it)",
@@ -8448,7 +8448,7 @@ function Mp(e, t) {
     }
     let d = r.indexOf(10);
     if (d === -1) return;
-    c = !0;
+    c = true;
     let h = r.subarray(0, d).toString("utf8");
     e.setTimeout(0),
       jp(h, t).then(o, (w) => {
@@ -8552,7 +8552,7 @@ async function Gp(e, t, r, s) {
     signal: e.abort.signal,
   });
   if (Number.isFinite(h.costUsd) && h.costUsd > 0) e.costUsd += h.costUsd;
-  let w = !1;
+  let w = false;
   if (
     !h.text.startsWith(JY) &&
     !e.unreplayableServers.has(t.server) &&
@@ -8579,7 +8579,7 @@ ${h.text}`)
           .digest("hex"),
         adoptDir: r.replay.replayDir,
       }),
-        (w = !0);
+        (w = true);
   }
   if (!w) e.unreplayableServers.add(t.server);
   return e.replay.misses++, { verdict: h.verdict, text: h.text, replay: "miss" };
@@ -8635,7 +8635,7 @@ async function xl(e) {
     );
   let w = s.cases;
   if (t.ablation === "auto" && h === "with-without") {
-    let W = w.filter((re) => yi(re, h, !0).length === 1);
+    let W = w.filter((re) => yi(re, h, true).length === 1);
     if (W.length > 0)
       t.onNotice(
         `${W.length} ${k(W.length, "case")} ${k(W.length, "runs", "run")} single-arm (no \u0394) \u2014 no plugin to strip, or a replay case whose history carries the plugin into both arms: ${W.map((re) => re.name).join(", ")}`,
@@ -8782,7 +8782,7 @@ async function xl(e) {
           suite: u,
           resolvedCases: [],
           ablation: h,
-          authPreflightFailed: !0,
+          authPreflightFailed: true,
         }
       );
     }
@@ -8833,7 +8833,7 @@ async function xl(e) {
     let W = w.reduce((re, ge) => re + (t.runs ?? ge.runs) * yi(ge, h, t.ablation === "auto").length, 0);
     t.onLine(`Ablation: 2 arms \xD7 ${w.length} ${k(w.length, "case")} (${W} ${k(W, "run")})`);
   }
-  let F = { spent: 0, partialReason: void 0, authBackstopArmed: !0, agentService: null };
+  let F = { spent: 0, partialReason: void 0, authBackstopArmed: true, agentService: null };
   await using U = {
     async [Symbol.asyncDispose]() {
       if (F.agentService !== null) await F.agentService.close(), (F.agentService = null);
@@ -8879,7 +8879,7 @@ async function xl(e) {
     let le = (Te) => Bu([Te.join(",")]).some((Xe) => Ur(Xe).toolName === Si);
     if ((le(fe.denied) || le(t.allowTools)) && !ge)
       t.onLine(`  ${W.name}: the ${Si} tool is not available inside eval runs; --allow-tools cannot enable it`);
-    if (W.execution.artifact_publish === !0 && !ge)
+    if (W.execution.artifact_publish === true && !ge)
       t.onLine(
         `  ${W.name}: requests artifact publishing; not granted (operator opt-in required) \u2014 running without it`,
       );
@@ -9004,8 +9004,8 @@ async function zp(e, t, r, s, o, c, u, d = [], h = []) {
       o.onLine(`    ${F.passed ? "\u2713" : "\u2717"} ${An(F.name)}${U}: ${mi(F.explanation)}`);
     }
     let x = c.authBackstopArmed;
-    if (N.auth_rejected !== void 0) c.authBackstopArmed = !1;
-    if (x && N.auth_rejected === !0) {
+    if (N.auth_rejected !== void 0) c.authBackstopArmed = false;
+    if (x && N.auth_rejected === true) {
       (c.partialReason = "auth_failed"),
         o.onLine(
           "\u26A0 a run could not authenticate \u2014 every remaining run would fail the same way, so the suite stops here. Fix the credential above and re-run.",
@@ -9037,13 +9037,13 @@ function Pl(e, t) {
   return r === "" ? "." : r;
 }
 async function Xp(e, t, r, s, o, c, u, d, h) {
-  let w = !1,
+  let w = false,
     S = (L) => {
       if (w) return;
-      (w = !0), em(r, h, L);
+      (w = true), em(r, h, L);
     },
     _ = await Bs(),
-    A = !1,
+    A = false,
     N = null,
     M = 0;
   try {
@@ -9053,8 +9053,8 @@ async function Xp(e, t, r, s, o, c, u, d, h) {
       let le = await Jp(fe, _, s.signal);
       if (le.code !== 0)
         return (
-          (A = !0),
-          S({ published: !1, errored: !0 }),
+          (A = true),
+          S({ published: false, errored: true }),
           {
             score: 0,
             turns: 0,
@@ -9105,7 +9105,7 @@ async function Xp(e, t, r, s, o, c, u, d, h) {
     (M = x.costUsd), S({ published: x.artifactPublishes.length > 0, errored: x.error !== null || x.timedOut });
     let F = N?.agentRun ?? null,
       U = null,
-      z = !1,
+      z = false,
       B = null;
     if (F !== null && N) {
       let fe = F.state.inFlight;
@@ -9123,7 +9123,7 @@ async function Xp(e, t, r, s, o, c, u, d, h) {
             (x.error = x.error === null ? le.mismatch : `${x.error} \xB7 ${le.mismatch}`);
         else if (le.absorbedInFlightAnswer || fe > 0)
           (x.mockSetupFailure = "integrity"),
-            (z = !0),
+            (z = true),
             (x.error = `${x.error ?? "ended"} \xB7 mocks: an agent mock call was in flight when the child was killed (its answer or abort_when verdict never reached the run) \u2014 the run is not graded`);
       }
       if (x.aborted === null && x.mockSetupFailure === null && x.error === null)
@@ -9149,8 +9149,8 @@ async function Xp(e, t, r, s, o, c, u, d, h) {
         }
       : void 0;
     if (x.aborted !== null || x.mockSetupFailure !== null) {
-      if (x.mockSetupFailure !== null) A = !0;
-      if (x.aborted?.reason.startsWith(JY)) A = !0;
+      if (x.mockSetupFailure !== null) A = true;
+      if (x.aborted?.reason.startsWith(JY)) A = true;
       return {
         score: 0,
         turns: x.numTurns,
@@ -9207,7 +9207,7 @@ async function Xp(e, t, r, s, o, c, u, d, h) {
         signal: s.signal,
         credentials: s.credentials,
       });
-    if (x.error !== null) A = !0;
+    if (x.error !== null) A = true;
     return {
       score: DMn(ge),
       turns: x.numTurns,
@@ -9218,13 +9218,13 @@ async function Xp(e, t, r, s, o, c, u, d, h) {
       error: x.error === null ? null : An(x.error),
       ...(de && { mocks: de }),
       ...(x.mockRecordings.length > 0 && { mockRecordings: x.mockRecordings }),
-      ...(pe && { skipped_paid_graders: !0 }),
+      ...(pe && { skipped_paid_graders: true }),
       ...(x.authRejected !== null && { auth_rejected: x.authRejected }),
     };
   } catch (L) {
     return (
-      (A = !0),
-      S({ published: !1, errored: !0 }),
+      (A = true),
+      S({ published: false, errored: true }),
       {
         score: 0,
         turns: 0,
@@ -9236,9 +9236,9 @@ async function Xp(e, t, r, s, o, c, u, d, h) {
       }
     );
   } finally {
-    await $l(mr.join(_.configDir, ".credentials.json"), { force: !0 }).catch(() => {}),
+    await $l(mr.join(_.configDir, ".credentials.json"), { force: true }).catch(() => {}),
       N?.agentRun?.dispose(),
-      await $l(mr.join(_.outDir, xo), { force: !0 }).catch(() => {});
+      await $l(mr.join(_.outDir, xo), { force: true }).catch(() => {});
     let L = A && s.keepFailedRuns && !s.signal.aborted;
     if (s.keepTemp || L) {
       let x = await aa(_).then(
@@ -9264,7 +9264,7 @@ async function Jp(e, t, r) {
     let o = "",
       c = Kp("bash", [e], {
         cwd: t.cwd,
-        windowsHide: !0,
+        windowsHide: true,
         ...qi("plugin"),
         stdio: ["ignore", "ignore", "pipe"],
         env: {
@@ -9283,7 +9283,7 @@ async function Jp(e, t, r) {
       u = setTimeout((h) => h.kill("SIGKILL"), 120000, c),
       d = () => c.kill("SIGKILL");
     if (r.aborted) d();
-    else r.addEventListener("abort", d, { once: !0 });
+    else r.addEventListener("abort", d, { once: true });
     c.stderr?.setEncoding("utf8"),
       c.stderr?.on("data", (h) => {
         if (o.length < 16384) o += h;
@@ -9324,7 +9324,7 @@ async function Dl(e, t, r) {
       },
     );
   if (o === "placeholder") t.delete(yt);
-  for (let c of t) if (St(c.toLowerCase().replaceAll("\\", "/"), "/") === s) return !0;
+  for (let c of t) if (St(c.toLowerCase().replaceAll("\\", "/"), "/") === s) return true;
   return o === "present";
 }
 function Nl(e) {
@@ -9337,15 +9337,15 @@ var qp = 32,
 async function Ml(e, t, r, s, o = { count: 0 }) {
   if (s > qp) throw jn();
   let c = mr.join(e, t),
-    u = await pr(c, { bigint: !0 }).catch(() => null);
+    u = await pr(c, { bigint: true }).catch(() => null);
   if (u === null || !u.isDirectory() || u.isSymbolicLink() || (await Ll(c).catch(() => null)) !== c) throw jn();
   let d;
   try {
-    d = await Vp(c, { withFileTypes: !0 });
+    d = await Vp(c, { withFileTypes: true });
   } catch {
     throw jn();
   }
-  let h = await pr(c, { bigint: !0 }).catch(() => null);
+  let h = await pr(c, { bigint: true }).catch(() => null);
   if (h === null || h.ino !== u.ino || h.dev !== u.dev) throw jn();
   if (((o.count += d.length), o.count > Zp)) throw jn();
   for (let w of d) {
@@ -9372,7 +9372,7 @@ function em(e, t, r) {
 }
 function wi(e, t) {
   return (
-    (t.artifactPublish ?? Zn.CLAUDE_CODE_EVAL_ALLOW_ARTIFACT_PUBLISH === !0) && e.execution.artifact_publish === !0
+    (t.artifactPublish ?? Zn.CLAUDE_CODE_EVAL_ALLOW_ARTIFACT_PUBLISH === true) && e.execution.artifact_publish === true
   );
 }
 function tm(e, t) {
@@ -9456,13 +9456,13 @@ function sm(e, t, r) {
     else L.inputKeys.splice(x, 1);
   }
   for (let _ of o.values()) for (let A of _.values()) A.inputKeys.splice(0, A.rewritten);
-  let S = !1;
+  let S = false;
   if (d.length === 0)
     for (let [_, A] of o) {
       let N = [...A.values()].flatMap(({ tool: M, inputKeys: L }) => L.map(() => M));
       if (N.length === 0) continue;
       if (N.length === 1 && t.killedInFlight && u.get(_)?.has(N[0])) {
-        S = !0;
+        S = true;
         continue;
       }
       d.push(
@@ -9545,7 +9545,7 @@ async function mE(e, t, r, s) {
     process.stderr.write(`Error: --report requires a non-empty file path
 `),
       process.exit(1);
-  if (t.publish === !1 && t.publishReport)
+  if (t.publish === false && t.publishReport)
     process.stderr.write(`Error: --no-publish and --publish-report are contradictory \u2014 pass at most one.
 `),
       process.exit(1);
@@ -9627,8 +9627,8 @@ Terminated \u2014 finishing up\u2026
           re.abort();
     };
   Y9e(), process.on("SIGINT", je), process.on("SIGTERM", pe);
-  let fe = t.noScaffold ?? !0;
-  if (t.noScaffold === !1)
+  let fe = t.noScaffold ?? true;
+  if (t.noScaffold === false)
     process.stderr.write(`Note: --scaffold runs each case's scaffold_script as you. Only use it on case files you (or your org) authored.
 `);
   try {
@@ -9647,7 +9647,7 @@ Terminated \u2014 finishing up\u2026
         frameRoot: S,
         adoptionDecided: c !== void 0 || A,
         trust: d,
-        targetScreened: !0,
+        targetScreened: true,
         consentDecided: c !== void 0 || A,
         caseGlob: t.case,
         tags: t.tag,
@@ -9658,10 +9658,10 @@ Terminated \u2014 finishing up\u2026
         threshold: t.threshold ?? 1,
         allowTools: t.allowTools ?? [],
         noScaffold: fe,
-        keepTemp: t.keepTemp ?? !1,
+        keepTemp: t.keepTemp ?? false,
         mocks: u,
         keepFailedRuns: !t.json,
-        verbose: t.verbose ?? !1,
+        verbose: t.verbose ?? false,
         ablation: t.ablation ?? (c ? "with-without" : "auto"),
         onLine: (Ie) => {
           if (!t.json)
@@ -9742,9 +9742,9 @@ Terminated \u2014 finishing up\u2026
         );
     }
     let Xe = dTn(b(Ae.result, void 0, 2)),
-      ut = !1,
+      ut = false,
       Je = le.cases.length > 0 || Ke.length === 0,
-      Pt = !0;
+      Pt = true;
     if (Je) {
       let Ie = [];
       try {
@@ -9753,7 +9753,7 @@ Terminated \u2014 finishing up\u2026
             throw new bt(
               `results directory ${Te} already existed \u2014 a default results directory is always new; refusing to write into it`,
             );
-        } else await Vt(Te, { recursive: !0 });
+        } else await Vt(Te, { recursive: true });
         await un(
           we.join(Te, "aggregate-result.json"),
           `${Xe}
@@ -9768,7 +9768,7 @@ Terminated \u2014 finishing up\u2026
           );
         }
       } catch (st) {
-        if ((await eo(Ie), st instanceof bt || Ie.length > 0)) Pt = !1;
+        if ((await eo(Ie), st instanceof bt || Ie.length > 0)) Pt = false;
         Me(`warning: could not write results: ${l(st)}`);
       }
     }
@@ -9783,7 +9783,7 @@ Terminated \u2014 finishing up\u2026
       if (Ie && typeof t.json === "string")
         await Bw(`Wrote ${t.json}
 `);
-      else if (!Ie && tt === 0) ut = !0;
+      else if (!Ie && tt === 0) ut = true;
     } else if (it);
     else {
       if (
@@ -9808,20 +9808,20 @@ Re-run with --keep-temp to preserve each run's sandbox (workspace + trace.jsonl)
         result: Ae.result,
         defaultReportDir: le.cases.length > 0 && Pt ? Te : null,
         verifyDefaultReportDir:
-          t.outputDir === void 0 ? () => hr(Oe, Ee, [], { vetOwnership: he ? d : null, create: !1 }) : void 0,
+          t.outputDir === void 0 ? () => hr(Oe, Ee, [], { vetOwnership: he ? d : null, create: false }) : void 0,
       }),
       re.signal.aborted)
     )
       return Gl(ge);
     if (ut) return Vi(1);
-    return await um(le, Ke, tt, t.threshold ?? 1, it === !0), Vi(tt);
+    return await um(le, Ke, tt, t.threshold ?? 1, it === true), Vi(tt);
   } catch (le) {
     return await Pn("cli_plugin_eval", "exception"), Me(`Error: ${l(le)}`), Vi(1);
   } finally {
     process.off("SIGINT", je), process.off("SIGTERM", pe);
   }
 }
-async function um(e, t, r, s, o = !1) {
+async function um(e, t, r, s, o = false) {
   if (o) {
     await Pn("cli_plugin_eval", "auth_preflight_failed");
     return;
@@ -9849,26 +9849,26 @@ async function um(e, t, r, s, o = !1) {
     num_failing_cases: c,
     num_cases_with_run_errors: Q(
       e.cases,
-      (u) => u.runs.some((d) => d.error) || (u.runs_without?.some((d) => d.error) ?? !1),
+      (u) => u.runs.some((d) => d.error) || (u.runs_without?.some((d) => d.error) ?? false),
     ),
   });
 }
 async function jl(e) {
   let t = "setup",
-    r = !1,
+    r = false,
     { options: s, abortSignal: o, credentials: c, result: u, defaultReportDir: d, verifyDefaultReportDir: h } = e,
     w = s.report !== void 0,
-    S = s.publishReport === !0,
+    S = s.publishReport === true,
     _ = d !== null;
   if (!w && !S && !_) return;
-  let A = s.publish !== !1 && (S || (_ && !a.CLAUDE_CODE_EVAL_INTERVIEW_SESSION && I("tengu_quartz_thimble", !0)));
+  let A = s.publish !== false && (S || (_ && !a.CLAUDE_CODE_EVAL_INTERVIEW_SESSION && I("tengu_quartz_thimble", true)));
   try {
     let {
         evalReportTitle: N,
         renderEvalReportFragment: M,
         wrapReportDocument: L,
       } = await import("/$bunfs/root/chunk-86zaymat.js"),
-      x = !1,
+      x = false,
       F = null,
       U = w || _;
     if (A)
@@ -9899,8 +9899,8 @@ async function jl(e) {
       if (((t = "publish"), B !== null))
         try {
           if (s.report === void 0 && h) await h();
-          else await Vt(we.dirname(B), { recursive: !0 });
-          await un(B, de, s.report === void 0 && s.outputDir === void 0), Me(`Report: ${B}`), (r = !0);
+          else await Vt(we.dirname(B), { recursive: true });
+          await un(B, de, s.report === void 0 && s.outputDir === void 0), Me(`Report: ${B}`), (r = true);
         } catch (ie) {
           Me(`Couldn't write the report to ${B}: ${l(ie)}`), (F = "write_failed");
         }
@@ -9926,7 +9926,7 @@ async function jl(e) {
           if (re.err === null)
             process.stderr.write(`Published: ${re.url}${S ? "" : " \xB7 keep local next time with --no-publish"}
 `),
-              (r = !0);
+              (r = true);
           else
             process.stderr.write(
               r
@@ -9969,26 +9969,26 @@ async function Ul(e, { result: t, valid: r }, s) {
       process.stderr.write(`warning: --json result withheld because it failed schema validation
 `),
       await Ic("cli_plugin_eval", "json_withheld_invalid"),
-      !1
+      false
     );
   try {
     let o = `${s ?? dTn(b(t, void 0, 2))}
 `;
-    if (e === !0)
+    if (e === true)
       await new Promise((c, u) => {
         process.stdout.write(o, (d) => (d ? u(d) : c()));
       });
     else {
       let c = we.resolve(ee(), e);
-      await Vt(we.dirname(c), { recursive: !0 }), await un(c, o, !1);
+      await Vt(we.dirname(c), { recursive: true }), await un(c, o, false);
     }
-    return !0;
+    return true;
   } catch (o) {
     return (
       process.stderr.write(`${An(`warning: could not write --json result: ${String(o)}`)}
 `),
       await Ic("cli_plugin_eval", "json_write_failed"),
-      !1
+      false
     );
   }
 }
@@ -10035,7 +10035,7 @@ async function gE(e, t = {}) {
     d === null &&
     t.evalDir === void 0 &&
     !nZe(u) &&
-    (await Wt(we.join(u, Ze)).catch(() => null))?.isDirectory() !== !0 &&
+    (await Wt(we.join(u, Ze)).catch(() => null))?.isDirectory() !== true &&
     !(await hm(u))
   )
     return (
@@ -10051,12 +10051,12 @@ async function gE(e, t = {}) {
       flag: t.evalDir,
       ...zl({
         scopeDir: u,
-        scopeIsNamedDirectory: !0,
+        scopeIsNamedDirectory: true,
         trustedRoot: d,
         otherManifestDir: d === null ? w : null,
         adoptedAbove: h.adopted,
       }),
-      forInit: !0,
+      forInit: true,
     });
   if (!S.ok) return Me(`Error: ${S.error}`), await Pn("cli_plugin_eval_init", "eval_dir_refused"), Vi(1);
   if (S.warning) Me(`Warning: ${S.warning}`);
@@ -10094,23 +10094,23 @@ async function gE(e, t = {}) {
   let _ = we.join(u, S.value.dir, o.caseName),
     A = we.join(_, "prompt.md"),
     N = we.join(_, "graders", "criteria.md"),
-    M = !1,
+    M = false,
     L = [];
   try {
     return (
       await hr(u, S.value.segments, L),
       await Vt(_, { mode: 493 }),
-      (M = !0),
+      (M = true),
       await Vt(we.join(_, "graders"), { mode: 493 }),
-      await un(A, Pi, !0),
-      await un(N, Di, !0),
+      await un(A, Pi, true),
+      await un(N, Di, true),
       process.stdout.write(`Created ${we.relative(u, A)} and ${we.relative(u, N)}
 `),
       await Zs("cli_plugin_eval_init"),
       Vi(0)
     );
   } catch (x) {
-    if (M) await bi(_, { recursive: !0, force: !0 }).catch(() => {});
+    if (M) await bi(_, { recursive: true, force: true }).catch(() => {});
     return await eo(L), await Pn("cli_plugin_eval_init", "write_failed"), Me(`Error: ${l(x)}`), Vi(1);
   }
 }
@@ -10127,10 +10127,10 @@ async function fm(e, t, r) {
     ];
   if (($1(), process.stdin.isTTY))
     try {
-      process.stdin.setRawMode(!1);
+      process.stdin.setRawMode(false);
     } catch {}
   for (let h of ["SIGINT", "SIGTERM", "SIGHUP", "SIGBREAK"]) process.removeAllListeners(h), process.on(h, () => {});
-  a.set("CLAUDE_CODE_EVAL_INTERVIEW_SESSION", !0);
+  a.set("CLAUDE_CODE_EVAL_INTERVIEW_SESSION", true);
   let d = am(o, u, { cwd: e, stdio: "inherit", env: process.env });
   if (d.error)
     return (
@@ -10164,17 +10164,17 @@ async function pm(e, t, r) {
       targetIsCaseFile: !t && At(we.basename(s)),
       pluginRoot: t ? s : null,
       untrustedManifestDir: null,
-      targetResolved: !1,
+      targetResolved: false,
       enclosingVerdict: null,
     };
   }
   if (t)
     return {
       targetDir: s,
-      targetIsCaseFile: !1,
+      targetIsCaseFile: false,
       pluginRoot: s,
       untrustedManifestDir: null,
-      targetResolved: !0,
+      targetResolved: true,
       enclosingVerdict: null,
     };
   let o = At(we.basename(s)),
@@ -10197,7 +10197,7 @@ async function pm(e, t, r) {
       targetIsCaseFile: o,
       pluginRoot: _.adopted,
       untrustedManifestDir: _.refused,
-      targetResolved: !0,
+      targetResolved: true,
       enclosingVerdict: { adopted: null, refused: null, namedOnly: _.namedOnly },
     };
   }
@@ -10206,7 +10206,7 @@ async function pm(e, t, r) {
     targetIsCaseFile: o,
     pluginRoot: S ? w : null,
     untrustedManifestDir: w !== null && !S ? w : null,
-    targetResolved: !0,
+    targetResolved: true,
     enclosingVerdict: w === null ? await xr(c, r, "core") : null,
   };
 }
@@ -10216,8 +10216,8 @@ class bt extends Error {
     this.name = "EscapesBaseError";
   }
 }
-async function hr(e, t, r, { vetOwnership: s = null, create: o = !0 } = {}) {
-  if (o) await Vt(e, { recursive: !0 });
+async function hr(e, t, r, { vetOwnership: s = null, create: o = true } = {}) {
+  if (o) await Vt(e, { recursive: true });
   let c = await Wt(e);
   if (c.isSymbolicLink()) throw new bt(`output base ${e} is a symlink \u2014 refusing to write beneath it`);
   if (s !== null) {
@@ -10272,9 +10272,9 @@ async function mm(e, t, r, s) {
 async function hm(e) {
   for (let t of wwe) {
     if (t === ".claude-plugin") continue;
-    if ((await Wt(we.join(e, t)).catch(() => null)) !== null) return !0;
+    if ((await Wt(we.join(e, t)).catch(() => null)) !== null) return true;
   }
-  return !1;
+  return false;
 }
 async function wm(e, t, r, s) {
   let o, c;
@@ -10377,7 +10377,7 @@ async function Em(e, t, r) {
       else h.add(w.server);
     }
   }
-  if (!r && (await km(s))) await bi(s, { recursive: !0, force: !0 });
+  if (!r && (await km(s))) await bi(s, { recursive: true, force: true });
   try {
     await Vt(s, { mode: 493 });
   } catch (d) {
@@ -10399,7 +10399,7 @@ async function Em(e, t, r) {
     let d = new Set();
     for (let [w, { rec: S }] of c) {
       if (!d.has(S.server)) await hr(e, [En, S.server], []), d.add(S.server);
-      await un(we.join(e, w), S.json, !0);
+      await un(we.join(e, w), S.json, true);
     }
     let h = new Map([[s, new Set(d)]]);
     for (let [w, { rec: S }] of c) {
@@ -10430,10 +10430,10 @@ async function Em(e, t, r) {
 ${u.join(`
 `)}
 `,
-      !0,
+      true,
     );
   } catch (d) {
-    throw (await bi(s, { recursive: !0, force: !0 }).catch(() => {}), d);
+    throw (await bi(s, { recursive: true, force: true }).catch(() => {}), d);
   }
   Me(`${c.size} new agent-mock ${k(c.size, "recording")} under ${s} (listed in ADOPT.txt there). ${Hl}`);
   for (let d of u) Me(`  ${d}`);
@@ -10442,29 +10442,29 @@ var Hl =
   "To replay one on later runs (no model call), copy the file into the .replay/ directory shown after it - the one beside the mock that produced it. Each line carries the sha256 of the file as written; check the copy you take against the hash printed to the terminal (this file sits where the workload could still write):";
 async function km(e) {
   try {
-    if (!(await Wt(e)).isDirectory()) return !1;
+    if (!(await Wt(e)).isDirectory()) return false;
   } catch (r) {
-    if (X(r)) return !1;
+    if (X(r)) return false;
     throw r;
   }
-  let t = await _i(e, { withFileTypes: !0 });
+  let t = await _i(e, { withFileTypes: true });
   for (let r of t) {
     let s = we.join(e, r.name),
       o = await Ve(r, s, "other");
     if (r.name === "ADOPT.txt" && o === "file") continue;
-    if (o !== "dir") return !1;
-    for (let c of await _i(s, { withFileTypes: !0 }))
-      if (!lo.test(c.name) || (await Ve(c, we.join(s, c.name), "other")) !== "file") return !1;
+    if (o !== "dir") return false;
+    for (let c of await _i(s, { withFileTypes: true }))
+      if (!lo.test(c.name) || (await Ve(c, we.join(s, c.name), "other")) !== "file") return false;
   }
-  return !0;
+  return true;
 }
 async function Rm(e, t) {
   let r = await pb(e);
-  if (!r.ok) return !1;
+  if (!r.ok) return false;
   try {
     let s = await r.value.stat(),
       o = Buffer.from(t);
-    if (!s.isFile() || s.size !== o.length) return !1;
+    if (!s.isFile() || s.size !== o.length) return false;
     return (await r.value.readFile()).equals(o);
   } finally {
     await r.value.close();

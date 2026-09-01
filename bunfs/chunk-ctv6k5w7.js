@@ -191,23 +191,23 @@ function no() {
 function ro(yo) {
   let n = _(29),
     { onDone: v, isDontAskMode: X, isAutoMode: Z } = yo,
-    Co = X === void 0 ? !1 : X,
-    ko = Z === void 0 ? !1 : Z,
+    Co = X === void 0 ? false : X,
+    ko = Z === void 0 ? false : Z,
     { storageV5: x } = ge(),
     G;
   if (n[0] === d) (G = []), (n[0] = G);
   else G = n[0];
   A(no, G);
-  let E = C(!1),
+  let E = C(false),
     D = hs(Fi),
     { refusedWithin: B, noteRefused: I, epoch: vo } = pi(),
     H;
   if (n[1] !== D || n[2] !== I || n[3] !== B)
     (H = function a() {
       if (D() || B(Fi)) {
-        return I(), !0;
+        return I(), true;
       }
-      return !1;
+      return false;
     }),
       (n[1] = D),
       (n[2] = I),
@@ -227,9 +227,9 @@ function ro(yo) {
         return;
       }
       if (
-        ((E.current = !0),
+        ((E.current = true),
         Ae(
-          (xo) => ({ ...xo, claudeInChromeDefaultEnabled: c, ...(c && { hasCompletedClaudeInChromeOnboarding: !0 }) }),
+          (xo) => ({ ...xo, claudeInChromeDefaultEnabled: c, ...(c && { hasCompletedClaudeInChromeOnboarding: true }) }),
           x,
         ),
         c)
@@ -245,7 +245,7 @@ function ro(yo) {
   else U = n[8];
   let i = U,
     m;
-  if (n[9] !== i) (m = () => i(!1)), (n[9] = i), (n[10] = m);
+  if (n[9] !== i) (m = () => i(false)), (n[9] = i), (n[10] = m);
   else m = n[10];
   let P;
   if (n[11] === d)
@@ -276,7 +276,7 @@ function ro(yo) {
       ? "This session is in Auto mode, so an AI classifier approves routine browser actions \u2014 you are only prompted when it is unsure."
       : "Browser actions still go through Claude's regular permission prompts before they run.";
   let oo;
-  if (n[13] === d) (oo = e(t, { bold: !0, color: "permission", children: "/chrome" })), (n[13] = oo);
+  if (n[13] === d) (oo = e(t, { bold: true, color: "permission", children: "/chrome" })), (n[13] = oo);
   else oo = n[13];
   let u;
   if (n[14] !== T)
@@ -285,14 +285,14 @@ function ro(yo) {
       gap: 1,
       children: [
         S,
-        r(t, { dimColor: !0, children: [T, " ", "Turn browser tools off for future sessions with", " ", oo, "."] }),
+        r(t, { dimColor: true, children: [T, " ", "Turn browser tools off for future sessions with", " ", oo, "."] }),
       ],
     })),
       (n[14] = T),
       (n[15] = u);
   else u = n[15];
   let p, h;
-  if (n[16] !== i) (p = () => i(!0)), (h = () => i(!1)), (n[16] = i), (n[17] = p), (n[18] = h);
+  if (n[16] !== i) (p = () => i(true)), (h = () => i(false)), (n[16] = i), (n[17] = p), (n[18] = h);
   else (p = n[17]), (h = n[18]);
   let b;
   if (n[19] !== R.remountKey || n[20] !== a || n[21] !== O || n[22] !== p || n[23] !== h)
@@ -301,8 +301,8 @@ function ro(yo) {
       {
         refuseInput: a,
         windowAnchorMs: O,
-        hideIndexes: !0,
-        cancelFirst: !0,
+        hideIndexes: true,
+        cancelFirst: true,
         focus: "cancel",
         confirmLabel: "Yes, use my browser",
         cancelLabel: "No, keep browser tools off",

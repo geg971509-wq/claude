@@ -81,10 +81,10 @@ function X(e, t) {
 }
 var P =
   "it may be asleep, offline, not running, serving may be switched off on it, or its announcement could not be verified by this session";
-function aDn(e, t, o = !0) {
+function aDn(e, t, o = true) {
   return `This call waited ${Math.round(t / 1000)} s ${X(e, o)}; it did not \u2014 ${P}. Nothing was sent. Ask the user to check Claude Code on their machine rather than retrying immediately.`;
 }
-function lDn(e, t, o = !0) {
+function lDn(e, t, o = true) {
   return `This session already waited ${Math.round(t / 1000)} s earlier ${X(e, o)}, and it still has not \u2014 ${P}. Nothing was sent. Ask the user to check Claude Code on their machine.`;
 }
 function cDn(e) {
@@ -291,10 +291,10 @@ var oUe = 262144,
   PRt = 100;
 function ye(e) {
   let t = se(e);
-  return { content: t.content, truncated: !1, ...(t.cut && { cutHere: !0 }) };
+  return { content: t.content, truncated: false, ...(t.cut && { cutHere: true }) };
 }
 function se(e) {
-  if (typeof e === "string") return e.length > oUe ? { content: ce(e, oUe), cut: !0 } : { content: e, cut: !1 };
+  if (typeof e === "string") return e.length > oUe ? { content: ce(e, oUe), cut: true } : { content: e, cut: false };
   let { blocks: t, cut: o } = e.slice(0, PRt).reduce(
     (r, d) => {
       if (d.type === "text") {
@@ -307,7 +307,7 @@ function se(e) {
         if (a !== void 0 && a <= r.image) return r.blocks.push(d), { ...r, image: r.image - a };
         return (
           r.blocks.push({ type: "text", text: "(an image in the answer was dropped: too large, or not sent inline)" }),
-          { ...r, cut: !0 }
+          { ...r, cut: true }
         );
       }
       return r.blocks.push(d), r;
@@ -338,18 +338,18 @@ function be(e, t) {
   });
 }
 function ke(e) {
-  if (typeof e !== "object" || e === null) return { output: e, truncated: !1 };
+  if (typeof e !== "object" || e === null) return { output: e, truncated: false };
   let { entries: t, cut: o } = Object.entries(e).reduce(
     (r, [d, a]) => {
       if (typeof a !== "string") return r.entries.push([d, a]), r;
       let u = ce(a, Math.max(0, r.remaining));
       return r.entries.push([d, u]), { ...r, remaining: r.remaining - u.length, cut: r.cut || u.length < a.length };
     },
-    { entries: [], remaining: oUe, cut: !1 },
+    { entries: [], remaining: oUe, cut: false },
   );
   return { output: o ? Object.fromEntries(t) : e, truncated: o };
 }
-function iUe(e, t, o, { afterReconnect: r = !1 } = {}) {
+function iUe(e, t, o, { afterReconnect: r = false } = {}) {
   let d = DRt(t),
     a = t.name;
   switch (o.kind) {
@@ -378,7 +378,7 @@ function iUe(e, t, o, { afterReconnect: r = !1 } = {}) {
           host: d,
           homeDir: ae(t),
           ...ye(o.content),
-          isError: !1,
+          isError: false,
           output: void 0,
           disposition: void 0,
           notes: [],
@@ -437,9 +437,9 @@ function iUe(e, t, o, { afterReconnect: r = !1 } = {}) {
         outcome: {
           kind: "error",
           code: "transport_error",
-          message: o.unreadableResult === !0 ? $e(a) : IRt({ name: a, detail: eE(o.detail) }),
+          message: o.unreadableResult === true ? $e(a) : IRt({ name: a, detail: eE(o.detail) }),
           host: d,
-          ...(o.unreadableResult === !0 && { unreadableResult: !0 }),
+          ...(o.unreadableResult === true && { unreadableResult: true }),
         },
       };
   }
@@ -459,14 +459,14 @@ var ve = new Set([
   "rawOutputPath",
   "structuredContent",
 ]);
-function Ce(e, t, o, { afterReconnect: r = !1, dirSync: d } = {}) {
+function Ce(e, t, o, { afterReconnect: r = false, dirSync: d } = {}) {
   let a = { name: t.name, working_dir: D(o.target.working_dir) },
     u =
       o.outcome !== "refused" && o.outcome !== "failed"
         ? ""
         : r
           ? ` ${HRt(o.outcome)}`
-          : o.replayed === !0
+          : o.replayed === true
             ? ` ${xRt(o.served_at, o.outcome)}`
             : "";
   switch (o.outcome) {
@@ -479,15 +479,15 @@ function Ce(e, t, o, { afterReconnect: r = !1, dirSync: d } = {}) {
         host: a,
         homeDir: ae(t),
         content: g.content,
-        truncated: o.truncated === !0,
-        ...((g.cut || y.truncated) && { cutHere: !0 }),
+        truncated: o.truncated === true,
+        ...((g.cut || y.truncated) && { cutHere: true }),
         isError: o.is_error,
         output: y.output,
         hostLocal: p.hostLocal,
         disposition: o.disposition,
         notes: o.notes ?? [],
         envelope: "present",
-        delivery: r ? "after_reconnect" : o.replayed === !0 ? "replayed" : "fresh",
+        delivery: r ? "after_reconnect" : o.replayed === true ? "replayed" : "fresh",
         ...(o.served_at !== void 0 && { servedAt: o.served_at }),
         ...(d !== void 0 && { dirSync: d }),
       };
@@ -542,7 +542,7 @@ function Se(e, t) {
       ...(o.includes("persistedOutputPath") ? ["saved_output_file"] : []),
       ...(o.includes("backgroundTaskId") ? ["background_task"] : []),
     ];
-  if (o.some((u) => ve.has(u)) || Reflect.get(t, "isImage") === !0) return { output: void 0, hostLocal: r };
+  if (o.some((u) => ve.has(u)) || Reflect.get(t, "isImage") === true) return { output: void 0, hostLocal: r };
   let d = Qs(t, (u, g) => Re.has(g)),
     a = e.outputSchema?.safeParse(d);
   return { output: a?.success ? a.data : void 0, hostLocal: r };
@@ -584,7 +584,7 @@ function pRe(e) {
 }
 import { isDeepStrictEqual as Me } from "util";
 var xe = ["session", "bridge", "loopback"],
-  Ee = { session: !1, bridge: !0, loopback: !0 };
+  Ee = { session: false, bridge: true, loopback: true };
 class oQ {
   #e = new Map();
   get defaultHost() {
@@ -615,7 +615,7 @@ class oQ {
     return { changed: !Me(r, y), dropped: u };
   }
   passthroughHost(e) {
-    return this.#t().find((t) => t.passthroughTools?.has(e) === !0);
+    return this.#t().find((t) => t.passthroughTools?.has(e) === true);
   }
   sourceHosts(e) {
     return [...(this.#e.get(e)?.values() ?? [])];
@@ -680,8 +680,8 @@ function ie(e) {
 function Ae(e) {
   if (e.own === null) return { agreed: "unknown", reason: "no_own_frame" };
   if (e.peer === null) return { agreed: "unknown", reason: "peer_too_old" };
-  if (e.peerStale === !0) return { agreed: "unknown", reason: "peer_stale" };
-  if (!e.peer.takes) return { agreed: !1, reason: "peer_does_not_take" };
+  if (e.peerStale === true) return { agreed: "unknown", reason: "peer_stale" };
+  if (!e.peer.takes) return { agreed: false, reason: "peer_does_not_take" };
   switch (e.guarantee) {
     case "down":
       return { agreed: e.peer.taken === e.own.gen };
@@ -727,7 +727,7 @@ function F(e) {
         ...(e.requests !== void 0 && { requests: e.requests }),
         events: e.events,
       }),
-      t.agreed === !1 && !("reason" in t))
+      t.agreed === false && !("reason" in t))
     )
       s("tengu_dir_sync_frame_disagree", { point: de(e.point) });
   } catch {}
@@ -775,7 +775,7 @@ function j(e) {
     ...(a !== void 0 && { askId: a }),
   };
 }
-var ze = { frame: null, heardAt: null, stale: !0 };
+var ze = { frame: null, heardAt: null, stale: true };
 function ue() {
   let e = new WeakMap(),
     t = 0;
@@ -787,11 +787,11 @@ function ue() {
     heard(o, r, d) {
       let a = e.get(o);
       if (a === void 0 || a.frame.instance !== r.instance || r.seq > a.frame.seq)
-        e.set(o, { frame: r, heardAt: d, epoch: t, invalidated: !1 });
+        e.set(o, { frame: r, heardAt: d, epoch: t, invalidated: false });
     },
     invalidate(o) {
       let r = e.get(o);
-      if (r !== void 0) e.set(o, { ...r, invalidated: !0 });
+      if (r !== void 0) e.set(o, { ...r, invalidated: true });
     },
     invalidateAll() {
       t += 1;
@@ -849,9 +849,9 @@ function Zwr(e, t = gOe.subscribe) {
           Sln(
             "take_in",
             {
-              pending: () => x().dueAfterCommand.size > 0 || (r.takeInPending?.() ?? !1),
+              pending: () => x().dueAfterCommand.size > 0 || (r.takeInPending?.() ?? false),
               visit: async (a) => {
-                if ((await Ge(r, a), r.takeInPending?.() === !0)) await Ve(r, a);
+                if ((await Ge(r, a), r.takeInPending?.() === true)) await Ve(r, a);
               },
             },
             G(),
@@ -873,7 +873,7 @@ async function Ge(e, t) {
   for (let { host: r, generation: d } of o) {
     if (e.pullPoint === void 0 || t.aborted) return;
     let a = Date.now(),
-      u = await e.pullPoint(d, t, { awaitAnnounced: !0, betweenToolCalls: !0 }).catch(() => null),
+      u = await e.pullPoint(d, t, { awaitAnnounced: true, betweenToolCalls: true }).catch(() => null),
       g = t.aborted || (u?.kind === "failed" && u.reason === "aborted"),
       p = g
         ? null
@@ -918,7 +918,7 @@ function d8t(e, t, o = Date.now()) {
   return r;
 }
 function ADn(e) {
-  return e.plumbingTools?.has(TDn) === !0 && e.transport.callPlumbing !== void 0;
+  return e.plumbingTools?.has(TDn) === true && e.transport.callPlumbing !== void 0;
 }
 function eTr(e) {
   return e.toolState
@@ -1007,8 +1007,8 @@ async function Qcr(e, t, o, r) {
   if (d.callPlumbing === void 0)
     return { kind: "unreachable", transport: "unreachable", detail: "this transport carries no sync calls" };
   let a,
-    u = !1,
-    g = !1;
+    u = false,
+    g = false;
   for (let p = 1; ; p += 1) {
     if (o.aborted) return { kind: "aborted" };
     if (p > 1) r?.(p);
@@ -1026,7 +1026,7 @@ async function Qcr(e, t, o, r) {
       case "timed_out": {
         let C = y.kind === "timed_out" ? `no answer within ${Math.round(y.capMs / 1000)} s` : y.detail;
         if ((n(`dir-sync: sync_files call failed (${y.kind}): ${C}`), !u && (!t.upload || a !== void 0))) {
-          u = !0;
+          u = true;
           continue;
         }
         return { kind: "unreachable", transport: y.kind, detail: C };
@@ -1047,7 +1047,7 @@ async function Qcr(e, t, o, r) {
         continue;
       case "refused":
         if (b.reason === "unknown_job" && !g) {
-          (g = !0), (a = void 0);
+          (g = true), (a = void 0);
           continue;
         }
         return { kind: "refused", reason: b.reason };
@@ -1067,7 +1067,7 @@ async function p8t({ host: e, readOnly: t, signal: o, onStatus: r }) {
               F({
                 point: "before_command",
                 guarantee: "down",
-                empty: !0,
+                empty: true,
                 ms: 0,
                 events: 0,
                 outcome: "go",
@@ -1126,7 +1126,7 @@ async function en(e, t, o, r, d) {
     );
   };
   if (p.kind === "failed") return y({}, on(p.reason, t.name, o));
-  let _ = g.takeInPending?.() ?? !1;
+  let _ = g.takeInPending?.() ?? false;
   if (
     !_ &&
     (p.generation <= (e.caughtUp.get(t.name) ?? 0) ||
@@ -1138,11 +1138,11 @@ async function en(e, t, o, r, d) {
       (u += 1),
       Qcr(t, { upTo: p.generation, upload: T }, r, () => d?.(`Waiting for ${t.name} to take in your changes\u2026`))
     ),
-    C = await b(!1),
-    S = !1;
+    C = await b(false),
+    S = false;
   if (nn(C) && !o && g.pullPoint !== void 0) {
-    (S = !0), d?.(`Syncing with ${t.name} so it can take more changes\u2026`);
-    let T = await b(!0),
+    (S = true), d?.(`Syncing with ${t.name} so it can take more changes\u2026`);
+    let T = await b(true),
       R =
         T.kind === "done" && (T.outcome.push.kind === "sent" || T.outcome.push.kind === "unchanged")
           ? T.outcome.push.generation
@@ -1150,7 +1150,7 @@ async function en(e, t, o, r, d) {
     if (((C = T), R !== null)) {
       await g.pullPoint(R, r);
       let k = await g.pushPoint();
-      if (k !== null && k.kind !== "failed") C = await b(!1);
+      if (k !== null && k.kind !== "failed") C = await b(false);
     } else if (T.kind === "done" && T.outcome.push.kind !== "not_attempted" && !r.aborted) {
       let { push: k } = T.outcome;
       return y(
@@ -1405,7 +1405,7 @@ function ln(e) {
       return { kind: "not_attempted" };
   }
 }
-async function f8t({ host: e, word: t, signal: o, deferWrite: r = !1, exclusive: d = !1 }) {
+async function f8t({ host: e, word: t, signal: o, deferWrite: r = false, exclusive: d = false }) {
   let a = Date.now(),
     u = e.name,
     g = "files it changed there reach this session with the user's next message.",
@@ -1472,7 +1472,7 @@ async function f8t({ host: e, word: t, signal: o, deferWrite: r = !1, exclusive:
             : `Directory sync: ${u}'s earlier changes are not all here yet and are written here only after this task hands back to the main conversation \u2014 to read them now, read them on ${u} (the ${Pi} argument).`,
         )
       );
-    let S = d ? ((await b.pullPoint(y.generation, o, { awaitAnnounced: !0 })) ?? null) : null;
+    let S = d ? ((await b.pullPoint(y.generation, o, { awaitAnnounced: true })) ?? null) : null;
     if (d && S !== null) {
       let T = x().dueAfterCommand,
         R = T.get(u);
@@ -1494,7 +1494,7 @@ async function f8t({ host: e, word: t, signal: o, deferWrite: r = !1, exclusive:
         point: w("after_forward"),
         duration_ms: Date.now() - a,
         machine_push: w("error"),
-        noted: !0,
+        noted: true,
       }),
       `Directory sync: bringing ${u}'s changes here failed unexpectedly; files it changed there reach this session with the user's next message.`
     );

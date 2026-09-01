@@ -56,7 +56,7 @@ function eq(e) {
     case void 0:
     case "ran":
     case "approved_by_session":
-      return !0;
+      return true;
     case "duplicate_call":
     case "hook_blocked":
     case "denied_by_rule":
@@ -67,7 +67,7 @@ function eq(e) {
     case "denied_by_session":
     case "ask_expired":
     case "unrecognized":
-      return !1;
+      return false;
   }
 }
 var Pie = "__remote_tool_call",
@@ -337,13 +337,13 @@ function ODn(e) {
 function Pe(e) {
   if (E(e)?.op !== "outcome_of") {
     let t = Ne(e);
-    return t.ok ? { ok: !0, kind: "call", value: t.value } : t;
+    return t.ok ? { ok: true, kind: "call", value: t.value } : t;
   }
-  if (ie(e)) return { ok: !1, why: "unsupported_protocol" };
+  if (ie(e)) return { ok: false, why: "unsupported_protocol" };
   let o = Re().safeParse(e);
   return o.success
-    ? { ok: !0, kind: "outcome_query", value: { v: o.data.v, op: "outcome_of", call_id: o.data.call_id } }
-    : { ok: !1, why: "malformed" };
+    ? { ok: true, kind: "outcome_query", value: { v: o.data.v, op: "outcome_of", call_id: o.data.call_id } }
+    : { ok: false, why: "malformed" };
 }
 function LDn(e) {
   return { v: tE, op: "outcome_of", call_id: e };
@@ -371,17 +371,17 @@ function we(e) {
 }
 function $et(e, o) {
   let t = Array.isArray(e) ? e : le(e) ? Object.values(e) : void 0;
-  if (t === void 0) return !0;
+  if (t === void 0) return true;
   return o >= 1 && t.every((r) => $et(r, o - 1));
 }
 function Ne(e) {
-  if (e === void 0 || e === null) return { ok: !1, why: "missing" };
-  if (ie(e)) return { ok: !1, why: "unsupported_protocol" };
+  if (e === void 0 || e === null) return { ok: false, why: "missing" };
+  if (ie(e)) return { ok: false, why: "unsupported_protocol" };
   let o = fe().safeParse(e);
-  if (!o.success) return { ok: !1, why: "malformed" };
+  if (!o.success) return { ok: false, why: "malformed" };
   let { approval: t } = o.data;
   return {
-    ok: !0,
+    ok: true,
     value: t?.feedback === void 0 ? o.data : { ...o.data, approval: { ...t, feedback: AA(t.feedback) } },
   };
 }
@@ -472,7 +472,7 @@ var je = 16,
       input_schema: ae(),
     }),
   ),
-  Be = m(() => L().required({ epoch: !0 })),
+  Be = m(() => L().required({ epoch: true })),
   Ge = m(() =>
     f({ host: Be(), tools: H(_e()).max(je), passthrough: H(_e()).max(qe), plumbing: H(i().min(1).max(64)).max(8) }),
   );
@@ -548,7 +548,7 @@ function UDn(e) {
     host: AA(s, g),
     name: R,
     input: d,
-    request: u.ok && u.value.call_id !== y.tool_use_id ? { ok: !1, why: "malformed" } : u,
+    request: u.ok && u.value.call_id !== y.tool_use_id ? { ok: false, why: "malformed" } : u,
   };
 }
 function BDn({ instanceId: e, host: o, name: t, input: r, envelope: s, toolUseId: p, issuedAt: y, deadlineMs: c }) {
@@ -591,8 +591,8 @@ function WDn({ instanceId: e, host: o, name: t, args: r, issuedAt: s, deadlineMs
 }
 function sQ(e) {
   let o = E(e);
-  if (!o) return { content: [], isError: !0, envelope: { status: "malformed" } };
-  return { content: nn(o.content), isError: o.isError === !0, envelope: Ke(Y(o.structuredContent) ?? Y(o._meta)) };
+  if (!o) return { content: [], isError: true, envelope: { status: "malformed" } };
+  return { content: nn(o.content), isError: o.isError === true, envelope: Ke(Y(o.structuredContent) ?? Y(o._meta)) };
 }
 function Y(e) {
   let o = E(e);

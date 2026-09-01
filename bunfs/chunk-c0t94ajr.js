@@ -17,7 +17,7 @@ import { nrt } from "/$bunfs/root/chunk-8w8eqmvm.js";
 var i =
   'Generate a short kebab-case name (2-4 words) that captures the main topic of this conversation. Use lowercase words separated by hyphens. Examples: "fix-login-bug", "add-auth-feature", "refactor-api-client", "debug-test-failures". Return JSON with a "name" field.';
 function m(o) {
-  let e = Ut(h0(o), !1);
+  let e = Ut(h0(o), false);
   if (e && typeof e === "object" && "name" in e && typeof e.name === "string") return e.name;
   return null;
 }
@@ -25,7 +25,7 @@ async function c(o) {
   let e = aF();
   if (!e) return null;
   let s = new AbortController();
-  o.addEventListener("abort", () => s.abort(), { once: !0 });
+  o.addEventListener("abort", () => s.abort(), { once: true });
   try {
     let { messages: a } = await rT({
       promptMessages: [xe({ content: i })],
@@ -39,8 +39,8 @@ async function c(o) {
       querySource: "rename_generate_name",
       forkLabel: "rename",
       maxTurns: 1,
-      skipCacheWrite: !0,
-      skipTranscript: !0,
+      skipCacheWrite: true,
+      skipTranscript: true,
     });
     if (o.aborted) return null;
     let r = a
@@ -56,7 +56,7 @@ async function c(o) {
   }
 }
 async function qge(o, e, s) {
-  if (s.preferFork && I("tengu_rename_full_session_fork", !1) && Pln()) {
+  if (s.preferFork && I("tengu_rename_full_session_fork", false) && Pln()) {
     let r = await c(e);
     if (r) return r;
     if (e.aborted) return null;
@@ -77,15 +77,15 @@ ${a}
             type: "object",
             properties: { name: { type: "string" } },
             required: ["name"],
-            additionalProperties: !1,
+            additionalProperties: false,
           },
         },
         signal: e,
         options: {
           querySource: "rename_generate_name",
           agents: [],
-          isNonInteractiveSession: !1,
-          hasAppendSystemPrompt: !1,
+          isNonInteractiveSession: false,
+          hasAppendSystemPrompt: false,
           mcpTools: [],
           agentContext: _a(),
           credentials: s.credentials,

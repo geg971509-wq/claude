@@ -308,9 +308,9 @@ function M(o) {
   return o.type === "system" && o.subtype === "scheduled_task_fire" && o.cronKind === "loop";
 }
 function D(o) {
-  if (o.type !== "system") return !1;
-  if (o.subtype === "scheduled_task_fire" || o.subtype === "compact_boundary") return !0;
-  return !1;
+  if (o.type !== "system") return false;
+  if (o.subtype === "scheduled_task_fire" || o.subtype === "compact_boundary") return true;
+  return false;
 }
 function w(o) {
   let r = o.findLastIndex(M),
@@ -329,7 +329,7 @@ function w(o) {
     if (e.type === "assistant")
       for (let i of e.message.content) {
         if (i.type !== "tool_use") continue;
-        if ((c.add(i.id), i.name === pa)) p = i.input?.noop === !0;
+        if ((c.add(i.id), i.name === pa)) p = i.input?.noop === true;
       }
     else if (e.type === "user") {
       if (e.toolDenialKind !== void 0)
@@ -346,13 +346,13 @@ function w(o) {
       }
       if (
         !gk(e) &&
-        (e.verifiedSlackHumanTurn === !0 || e.origin !== void 0 || (e.queuePriority !== "later" && e.isMeta !== !0))
+        (e.verifiedSlackHumanTurn === true || e.origin !== void 0 || (e.queuePriority !== "later" && e.isMeta !== true))
       )
         return { kind: "veto", fireIdx: r, reason: "foreign_user_input" };
     } else if (e.type === "attachment" && e.attachment.type === "queued_command")
       return { kind: "veto", fireIdx: r, reason: "queued_command" };
   }
-  if (p !== !0) return { kind: "veto", fireIdx: r, reason: "model_reported_work" };
+  if (p !== true) return { kind: "veto", fireIdx: r, reason: "model_reported_work" };
   return {
     kind: "fold",
     fireIdx: r,
@@ -363,8 +363,8 @@ function w(o) {
 }
 function N(o) {
   return {
-    ...xe({ content: `[${o} prior /loop ${k(o, "wakeup")} found nothing actionable; loop is healthy.]`, isMeta: !0 }),
-    turnCompanion: !0,
+    ...xe({ content: `[${o} prior /loop ${k(o, "wakeup")} found nothing actionable; loop is healthy.]`, isMeta: true }),
+    turnCompanion: true,
   };
 }
 function T(o) {
@@ -420,10 +420,10 @@ function ke({ isLoading: o, assistantMode: r, transcript: s, storageV5: p }) {
         mode: "prompt",
         agentId: et(),
         priority: "later",
-        isMeta: !0,
-        skipSlashCommands: !0,
-        modelScheduledOrigin: !0,
-        skipAttachments: !0,
+        isMeta: true,
+        skipSlashCommands: true,
+        modelScheduledOrigin: true,
+        skipAttachments: true,
         wakeupSource: l,
         scheduledTaskId: u?.taskId,
         scheduledFireId: u?.fireId,

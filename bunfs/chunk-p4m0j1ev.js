@@ -193,7 +193,7 @@ function C() {
     getGrantFlags: () => o().getAppState().computerUseMcpState?.grantFlags ?? kL,
     getUserDeniedBundleIds: () => [],
     getSelectedDisplayId: () => o().getAppState().computerUseMcpState?.selectedDisplayId,
-    getDisplayPinnedByModel: () => o().getAppState().computerUseMcpState?.displayPinnedByModel ?? !1,
+    getDisplayPinnedByModel: () => o().getAppState().computerUseMcpState?.displayPinnedByModel ?? false,
     getDisplayResolvedForApps: () => o().getAppState().computerUseMcpState?.displayResolvedForApps,
     getLastScreenshotDims: () => {
       let t = o().getAppState().computerUseMcpState?.lastScreenshotDims;
@@ -222,7 +222,7 @@ function C() {
     onResolvedDisplayUpdated: (t) =>
       xne(o().setAppState, (e) => {
         if (e?.selectedDisplayId === t && !e.displayPinnedByModel && e.displayResolvedForApps === void 0) return e;
-        return { ...e, selectedDisplayId: t, displayPinnedByModel: !1, displayResolvedForApps: void 0 };
+        return { ...e, selectedDisplayId: t, displayPinnedByModel: false, displayResolvedForApps: void 0 };
       }),
     onDisplayPinned: (t) =>
       xne(o().setAppState, (e) => {
@@ -253,12 +253,12 @@ function C() {
       let t = await PYn(tf().currentToolUseContext?.storageV5);
       switch (t.kind) {
         case "free":
-          return { holder: void 0, isSelf: !1 };
+          return { holder: void 0, isSelf: false };
         case "held_by_self":
-          if (n_t()) return { holder: K(), isSelf: !0 };
-          return { holder: void 0, isSelf: !1 };
+          if (n_t()) return { holder: K(), isSelf: true };
+          return { holder: void 0, isSelf: false };
         case "blocked":
-          return { holder: t.by, isSelf: !1 };
+          return { holder: t.by, isSelf: false };
       }
     },
     acquireCuLock: async () => {

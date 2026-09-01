@@ -128,7 +128,7 @@ async function I(t, e) {
   let r = { namespace: "sidecar", projectKey: e, sessionId: K(), relPath: ["mcp-tasks"] },
     o = [],
     c = await Ao(
-      (a) => t.listEntries(r, { cursor: a, skipKeyStats: !0, skipScopeStats: !0 }),
+      (a) => t.listEntries(r, { cursor: a, skipKeyStats: true, skipScopeStats: true }),
       (a) => {
         for (let i of a) {
           if (i.kind !== "key" || i.key.namespace !== "sidecar") continue;

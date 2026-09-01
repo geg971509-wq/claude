@@ -31,20 +31,20 @@ function EF(e) {
   return e.getMessages?.() ?? e.messages;
 }
 function Vce(e) {
-  return (e.getIsResponseStreaming?.() ?? e.isMidTurn) === !0;
+  return (e.getIsResponseStreaming?.() ?? e.isMidTurn) === true;
 }
 function ei(e) {
   return e.userFacingName?.() ?? e.name;
 }
 function xp(e) {
-  return e.isEnabled?.() ?? !0;
+  return e.isEnabled?.() ?? true;
 }
 function awe(e, t) {
   let r = e.trimStart();
-  if (!r.startsWith("/")) return !1;
+  if (!r.startsWith("/")) return false;
   let s = r.slice(1).match(/^[a-zA-Z0-9:_-]+/)?.[0],
     o = r.slice(1).split(/\s/, 1)[0];
-  if (s !== void 0 && t(s)) return !0;
+  if (s !== void 0 && t(s)) return true;
   return o !== void 0 && o !== s && o.length > 0 && t(o);
 }
 function Hmt(e, t, r) {
@@ -52,7 +52,7 @@ function Hmt(e, t, r) {
 }
 function Kce(e, t) {
   let r = e?.immediate;
-  return typeof r === "function" ? r(t) : r === !0;
+  return typeof r === "function" ? r(t) : r === true;
 }
 function Xce(e) {
   let t = e.startsWith("/") ? e.slice(1) : e,
@@ -61,15 +61,15 @@ function Xce(e) {
   return { name: t.slice(0, r), args: t.slice(r + 1).trim() };
 }
 function pe(e, t) {
-  return e.name === t || ei(e) === t || (e.aliases?.includes(t) ?? !1);
+  return e.name === t || ei(e) === t || (e.aliases?.includes(t) ?? false);
 }
 function ua(e, t) {
   let r;
   return (
     t.find((o) => {
-      if (o.name === e) return !0;
+      if (o.name === e) return true;
       if (r === void 0 && pe(o, e)) r = o;
-      return !1;
+      return false;
     }) ?? r
   );
 }
@@ -77,9 +77,9 @@ function k9(e, t) {
   return ua(e, t) !== void 0;
 }
 function fz(e, t) {
-  if (t.trim() === "") return !1;
+  if (t.trim() === "") return false;
   let { isSensitive: r } = e;
-  return typeof r === "function" ? r(t) : r === !0;
+  return typeof r === "function" ? r(t) : r === true;
 }
 var I = String.raw`Pasted text|Image|Audio|\.\.\.Truncated text`,
   me = /\[(?:Pasted text|\.\.\.Truncated text) #\d+/,
@@ -87,12 +87,12 @@ var I = String.raw`Pasted text|Image|Audio|\.\.\.Truncated text`,
 var L = 65536,
   ge = 2 * znr;
 function B(e, t, { pastedTexts: r = [] } = {}) {
-  if (r.some(j)) return !0;
+  if (r.some(j)) return true;
   let s = e.trim();
   if (s.startsWith("!")) {
-    if (((s = s.slice(1).trimStart()), j(s))) return !0;
+    if (((s = s.slice(1).trimStart()), j(s))) return true;
   }
-  if (!s.startsWith("/")) return !1;
+  if (!s.startsWith("/")) return false;
   let { name: o, args: a } = Xce(s.replace(ue, "$1 [")),
     d = ua(o, t);
   if (!d?.isSensitive) return j(s.slice(1));
@@ -125,8 +125,8 @@ function jte(e, t) {
 function j(e) {
   if (e.length <= L) return Mwn(e);
   let t = L - ge;
-  for (let r = 0; r < e.length; r += t) if (Mwn(e.slice(r, r + L))) return !0;
-  return !1;
+  for (let r = 0; r < e.length; r += t) if (Mwn(e.slice(r, r + L))) return true;
+  return false;
 }
 import { createHash as fe } from "crypto";
 import { join as A } from "path";
@@ -344,7 +344,7 @@ function se(e, t) {
     let l = r[d],
       c = t[l.id],
       C = (k, S) => k.slice(0, l.index) + S + k.slice(l.index + l.match.length);
-    if (!l.match.startsWith("[Image") && c?.unavailable === !0)
+    if (!l.match.startsWith("[Image") && c?.unavailable === true)
       (o = C(o, "")),
         (a = C(a, "")),
         s.unshift({ id: l.id, label: l.match.startsWith("[...Truncated text") ? "Truncated text" : "Pasted text" });
@@ -447,10 +447,10 @@ function Le(e) {
   }
 }
 function je(e, t) {
-  if (typeof e !== "object" || e === null || !("pastedContents" in e)) return !1;
+  if (typeof e !== "object" || e === null || !("pastedContents" in e)) return false;
   let r = e.pastedContents;
-  if (r === null) return !1;
-  if (typeof r !== "object" || Array.isArray(r)) return !0;
+  if (r === null) return false;
+  if (typeof r !== "object" || Array.isArray(r)) return true;
   return Object.keys(r).length > Object.keys(t.pastedContents).length;
 }
 function Ie(e) {
@@ -459,21 +459,21 @@ function Ie(e) {
 var _2t = ["session", "project", "everywhere"];
 function Be(e) {
   let { prev: t, next: r, project: s, sessionId: o } = e;
-  if (!t || t.display !== r.display) return !1;
-  if (t.project !== s || t.sessionId !== o) return !1;
+  if (!t || t.display !== r.display) return false;
+  if (t.project !== s || t.sessionId !== o) return false;
   return !(Object.keys(t.pastedContents).length > 0) && !r.hasPastes;
 }
 class ae {
   getSensitiveCommands = null;
   pendingEntries = [];
-  isWriting = !1;
+  isWriting = false;
   currentFlushPromise = null;
   exitFlushHandle = null;
   lastAddedEntry = null;
   lastStoredEntry = null;
   lastAssignedTimestamp = 0;
   storedEntryGeneration = 0;
-  lastAddWasDeduped = !1;
+  lastAddWasDeduped = false;
   skippedKeys = new Set();
   pendingPasteWrites = new Set();
   pendingPasteContents = new Map();
@@ -485,24 +485,24 @@ class ae {
       r = new Set(t.map((c) => `${c.timestamp}\x00${c.sessionId ?? ""}`));
     for (let c = t.length - 1; c >= 0; c--) yield t[c];
     let s = ee(be(), "history.jsonl"),
-      o = !1,
-      a = !1,
-      d = !1,
-      l = !1;
+      o = false,
+      a = false,
+      d = false,
+      l = false;
     try {
       let c = e ? Fe(e) : cve(s);
       for await (let k of c) {
         let S = Le(k);
         if (!S.entry) {
-          if (S.rejection === "parse_failed") o = !0;
-          else a = !0;
+          if (S.rejection === "parse_failed") o = true;
+          else a = true;
           continue;
         }
-        if (S.droppedPasteRecords) d = !0;
+        if (S.droppedPasteRecords) d = true;
         let _ = S.entry,
           R = `${_.timestamp}\x00${_.sessionId ?? ""}`;
         if (this.skippedKeys.has(R) || r.has(R)) continue;
-        (l = !0), yield _;
+        (l = true), yield _;
       }
       let C = o
         ? "history_load_parse_failed"
@@ -606,12 +606,12 @@ class ae {
     for (let [s, o] of Object.entries(e.pastedContents)) {
       let a = await this.resolveStoredPastedContent(o, t);
       if (!a && o.type === "text") this.reportLostPasteContent(o.contentHash);
-      r[Number(s)] = a ?? { id: o.id, type: o.type, content: "", unavailable: !0 };
+      r[Number(s)] = a ?? { id: o.id, type: o.type, content: "", unavailable: true };
     }
     return { display: e.display, pastedContents: r };
   }
   async flushEntriesToDisk(e) {
-    if (this.pendingEntries.length === 0) return !0;
+    if (this.pendingEntries.length === 0) return true;
     let t = this.pendingEntries.slice();
     this.inFlightFlushEntries = new Set(t);
     while (this.pendingPasteWrites.size > 0) await Promise.all(this.pendingPasteWrites);
@@ -631,12 +631,12 @@ class ae {
           let a =
             "telemetryCode" in s.error &&
             (s.error.telemetryCode === "LockContended" || s.error.telemetryCode === "LockAcquireFailed");
-          return g("history_save", a ? "history_save_lock_failed" : "history_save_write_failed"), !1;
+          return g("history_save", a ? "history_save_lock_failed" : "history_save_write_failed"), false;
         }
         let o = new Set(t);
-        return (this.pendingEntries = this.pendingEntries.filter((a) => !o.has(a))), y("history_save"), !0;
+        return (this.pendingEntries = this.pendingEntries.filter((a) => !o.has(a))), y("history_save"), true;
       } catch (s) {
-        return n(`Failed to write prompt history: ${s}`), g("history_save", "history_save_write_failed"), !1;
+        return n(`Failed to write prompt history: ${s}`), g("history_save", "history_save_write_failed"), false;
       } finally {
         this.inFlightFlushEntries = null;
       }
@@ -657,11 +657,11 @@ class ae {
       );
       await an().append(s, o.join(""), 384);
       let a = new Set(t);
-      return (this.pendingEntries = this.pendingEntries.filter((d) => !a.has(d))), y("history_save"), !0;
+      return (this.pendingEntries = this.pendingEntries.filter((d) => !a.has(d))), y("history_save"), true;
     } catch (s) {
       if ((n(`Failed to write prompt history: ${s}`), r)) g("history_save", "history_save_write_failed");
       else g("history_save", "history_save_lock_failed");
-      return !1;
+      return false;
     } finally {
       if (((this.inFlightFlushEntries = null), r)) await r().catch(h);
     }
@@ -669,22 +669,22 @@ class ae {
   async flushWithRetries(e, t) {
     if (this.isWriting || this.pendingEntries.length === 0) return;
     if (e > 5) return;
-    this.isWriting = !0;
-    let r = !1;
+    this.isWriting = true;
+    let r = false;
     try {
       r = await this.immediateFlush(t);
     } finally {
-      if (((this.isWriting = !1), this.pendingEntries.length > 0))
+      if (((this.isWriting = false), this.pendingEntries.length > 0))
         await ne(500), (this.currentFlushPromise = this.flushWithRetries(r ? 0 : e + 1, t));
     }
   }
-  async addEntry(e, t, r, s = !0) {
+  async addEntry(e, t, r, s = true) {
     let o = typeof e === "string" ? { display: e, pastedContents: {} } : e,
       { input: a, removed: d } = Re(o.display, o.pastedContents ?? {}),
       l = a.trim();
     if (d.length > 0 && l === "") return;
     if (d.length > 0 && o.display.trimStart().startsWith("!")) {
-      if (s && r !== void 0 && r !== "bash") this.lastAddWasDeduped = !0;
+      if (s && r !== void 0 && r !== "bash") this.lastAddWasDeduped = true;
       return;
     }
     if (d.length > 0 && o.display.trimStart().startsWith("/")) return;
@@ -695,7 +695,7 @@ class ae {
         (l.startsWith("!") && !x.startsWith("!")) ||
         (l.startsWith("@") && !x.startsWith("@"))
       ) {
-        if (s) this.lastAddWasDeduped = !0;
+        if (s) this.lastAddWasDeduped = true;
         return;
       }
     }
@@ -704,17 +704,17 @@ class ae {
       for (let T of Jp(o.display)) x.set(T.id, (x.get(T.id) ?? 0) + 1);
       let u = new Map();
       for (let T of Jp(a)) u.set(T.id, (u.get(T.id) ?? 0) + 1);
-      let D = !1;
+      let D = false;
       for (let [T, ce] of u) {
         if (ce <= (x.get(T) ?? 0)) continue;
         let w = o.pastedContents?.[T];
         if (w !== void 0 && w.type !== "image" && w.type !== "audio" && !w.unavailable) {
-          D = !0;
+          D = true;
           break;
         }
       }
       if (D) {
-        if (s) this.lastAddWasDeduped = !0;
+        if (s) this.lastAddWasDeduped = true;
         return;
       }
     }
@@ -730,7 +730,7 @@ class ae {
         sessionId: k,
       })
     ) {
-      if (s) this.lastAddWasDeduped = !0;
+      if (s) this.lastAddWasDeduped = true;
       return;
     }
     let _ = {};
@@ -749,7 +749,7 @@ class ae {
     this.lastAssignedTimestamp = R;
     let H = { ...c, pastedContents: _, timestamp: R, project: C, sessionId: k };
     if ((this.pendingEntries.push(H), (this.lastStoredEntry = H), this.storedEntryGeneration++, s))
-      (this.lastAddedEntry = H), (this.lastAddWasDeduped = !1);
+      (this.lastAddedEntry = H), (this.lastAddWasDeduped = false);
     (this.currentFlushPromise = this.flushWithRetries(0, t)), this.currentFlushPromise;
   }
   async flushOnExit(e) {
@@ -765,7 +765,7 @@ class ae {
     let s = typeof e === "string" ? e : e.display,
       o = typeof e === "string" ? [] : re(s, e.pastedContents).map(([, a]) => a.content);
     if (B(s, (this.getSensitiveCommands ?? le().get)(), { pastedTexts: o })) {
-      if (r?.armUndo !== !1) this.lastAddWasDeduped = !0;
+      if (r?.armUndo !== false) this.lastAddWasDeduped = true;
       return;
     }
     this.registerExitFlush(t), this.addEntry(e, t, r?.submitMode, r?.armUndo).catch(h);
@@ -784,7 +784,7 @@ class ae {
     (this.pendingEntries = []),
       (this.lastAddedEntry = null),
       (this.lastStoredEntry = null),
-      (this.lastAddWasDeduped = !1),
+      (this.lastAddWasDeduped = false),
       (this.getSensitiveCommands = () => []),
       this.skippedKeys.clear(),
       this.pendingPasteContents.clear(),
@@ -792,11 +792,11 @@ class ae {
       (this.exitFlushHandle = null);
   }
   disarmUndo() {
-    (this.lastAddedEntry = null), (this.lastAddWasDeduped = !1);
+    (this.lastAddedEntry = null), (this.lastAddWasDeduped = false);
   }
   removeLast() {
     if (this.lastAddWasDeduped) {
-      this.lastAddWasDeduped = !1;
+      this.lastAddWasDeduped = false;
       return;
     }
     if (!this.lastAddedEntry) return;
@@ -826,7 +826,7 @@ function _pn(e) {
 }
 function y2t(e) {
   let t = e instanceof Error ? e.cause : void 0;
-  if (Xoe(t) && t.code === "Unavailable" && o1(t.telemetryCode) === void 0) return !0;
+  if (Xoe(t) && t.code === "Unavailable" && o1(t.telemetryCode) === void 0) return true;
   let r = E(e) ?? r1(e);
   return _$e(r) || F5t(r);
 }
@@ -843,20 +843,20 @@ function hX(e, t, r) {
   P().add(e, t, r);
 }
 function CDe(e, t, r) {
-  let s = !1;
+  let s = false;
   for (let o of e) {
     if (!o.historyEntry) continue;
-    s = !0;
+    s = true;
     try {
       hX(o.historyEntry, t, { submitMode: o.mode, armUndo: r?.armUndo });
     } catch (a) {
       h(a);
     }
   }
-  if (!s && r?.armUndo !== !1) P().disarmUndo();
+  if (!s && r?.armUndo !== false) P().disarmUndo();
 }
 function Tze(e, t, r) {
-  hX(e, t, { submitMode: r, armUndo: !1 });
+  hX(e, t, { submitMode: r, armUndo: false });
 }
 function hKn(e) {
   P().registerExitFlush(e);

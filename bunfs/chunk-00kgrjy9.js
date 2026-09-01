@@ -21,7 +21,7 @@ var M = S(function (k, E) {
   var H = ue("path");
   {
     let o = Zxn();
-    E.exports = { isSupported: !0, ...o };
+    E.exports = { isSupported: true, ...o };
   }
 });
 function c() {
@@ -39,23 +39,23 @@ function P(o, t, a) {
   return o9e(f, d, Jat);
 }
 async function v() {
-  let { stdout: o, code: t } = await $e("pbpaste", [], { useCwd: !1 });
+  let { stdout: o, code: t } = await $e("pbpaste", [], { useCwd: false });
   if (t !== 0) throw Error(`pbpaste exited with code ${t}`);
   return o;
 }
 async function C(o) {
-  let { code: t } = await $e("pbcopy", [], { input: o, useCwd: !1 });
+  let { code: t } = await $e("pbcopy", [], { input: o, useCwd: false });
   if (t !== 0) throw Error(`pbcopy exited with code ${t}`);
 }
 function U(o) {
-  if (o.length !== 1) return !1;
+  if (o.length !== 1) return false;
   let t = o[0].toLowerCase();
   return t === "escape" || t === "esc";
 }
 var A = 50,
   D = 50;
 async function h(o, t, a) {
-  await o.moveMouse(t, a, !1), await ne(A);
+  await o.moveMouse(t, a, false), await ne(A);
 }
 async function _(o, t) {
   let a;
@@ -113,13 +113,13 @@ async function B(o, t, a, f) {
   for (let u = 1; u <= i; u++) {
     let p = u / i,
       m = 1 - Math.pow(1 - p, 3);
-    if ((await o.moveMouse(Math.round(d.x + y * m), Math.round(d.y + w * m), !1), u < i)) await ne(s);
+    if ((await o.moveMouse(Math.round(d.x + y * m), Math.round(d.y + w * m), false), u < i)) await ne(s);
   }
   await ne(A);
 }
 function gon(o) {
   let t = fH(),
-    a = !1,
+    a = false,
     { getMouseAnimationEnabled: f, getHideBeforeActionEnabled: d } = o,
     y = err(),
     w = y ?? Uwn,
@@ -193,7 +193,7 @@ function gon(o) {
       async holdKey(e, r, s) {
         let i = c(),
           u = [],
-          p = !1;
+          p = false;
         try {
           await zz(async () => {
             for (let g of e) {
@@ -208,7 +208,7 @@ function gon(o) {
             await ne(Math.min(D, m - Date.now()));
           }
         } finally {
-          (p = !0), await zz(() => _(i, u));
+          (p = true), await zz(() => _(i, u));
         }
       },
       async type(e, r) {
@@ -275,7 +275,7 @@ function gon(o) {
         return t.apps.listRunning();
       },
       async openApp(e, r) {
-        return t.apps.open(e, r?.activates ?? !0);
+        return t.apps.open(e, r?.activates ?? true);
       },
     }
   );

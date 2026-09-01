@@ -39,12 +39,12 @@ var h = async (e, o, s = {}) => {
 };
 var u = j(qc(), 1);
 var w = (e) => {
-  if (e.expiration && e.expiration.getTime() < Date.now()) throw new u.TokenProviderError(`Token is expired. ${p}`, !1);
+  if (e.expiration && e.expiration.getTime() < Date.now()) throw new u.TokenProviderError(`Token is expired. ${p}`, false);
 };
 var E = j(qc(), 1);
-var i = (e, o, s = !1) => {
+var i = (e, o, s = false) => {
   if (typeof o > "u")
-    throw new E.TokenProviderError(`Value not present for '${e}' in SSO Token${s ? ". Cannot refresh" : ""}. ${p}`, !1);
+    throw new E.TokenProviderError(`Value not present for '${e}' in SSO Token${s ? ". Cannot refresh" : ""}. ${p}`, false);
 };
 var x = j(mA(), 1);
 import { promises as A } from "fs";
@@ -63,14 +63,14 @@ var C = new Date(0),
       let n = await a.parseKnownFiles(s),
         c = a.getProfileName({ profile: s.profile ?? o?.profile }),
         f = n[c];
-      if (!f) throw new S.TokenProviderError(`Profile '${c}' could not be found in shared credentials file.`, !1);
+      if (!f) throw new S.TokenProviderError(`Profile '${c}' could not be found in shared credentials file.`, false);
       else if (!f.sso_session)
         throw new S.TokenProviderError(`Profile '${c}' is missing required property 'sso_session'.`);
       let m = f.sso_session,
         d = (await a.loadSsoSessionData(s))[m];
-      if (!d) throw new S.TokenProviderError(`Sso session '${m}' could not be found in shared credentials file.`, !1);
+      if (!d) throw new S.TokenProviderError(`Sso session '${m}' could not be found in shared credentials file.`, false);
       for (let t of ["sso_start_url", "sso_region"])
-        if (!d[t]) throw new S.TokenProviderError(`Sso session '${m}' is missing required property '${t}'.`, !1);
+        if (!d[t]) throw new S.TokenProviderError(`Sso session '${m}' is missing required property '${t}'.`, false);
       let { sso_start_url: F, sso_region: _ } = d,
         r;
       try {
@@ -78,7 +78,7 @@ var C = new Date(0),
       } catch (t) {
         throw new S.TokenProviderError(
           `The SSO session token associated with profile=${c} was not found or is invalid. ${p}`,
-          !1,
+          false,
         );
       }
       i("accessToken", r.accessToken), i("expiresAt", r.expiresAt);
@@ -86,7 +86,7 @@ var C = new Date(0),
         l = { token: y, expiration: new Date(I) };
       if (l.expiration.getTime() - Date.now() > g) return l;
       if (Date.now() - C.getTime() < 30000) return w(l), l;
-      i("clientId", r.clientId, !0), i("clientSecret", r.clientSecret, !0), i("refreshToken", r.refreshToken, !0);
+      i("clientId", r.clientId, true), i("clientSecret", r.clientSecret, true), i("refreshToken", r.refreshToken, true);
       try {
         C.setTime(Date.now());
         let t = await h(r, _, s);

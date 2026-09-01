@@ -42,10 +42,10 @@ var J = 2000000,
   Z = { perFileMs: 5000, totalMs: 1e4 },
   q = Svt | (j.O_NOFOLLOW ?? 0);
 function Q(t) {
-  if (t.length === 0 || t.startsWith('"')) return !1;
-  if (/[\u0000-\u001f\u007f]/.test(t)) return !1;
-  if (t.startsWith("-") || t.startsWith(":") || K(t)) return !1;
-  if (t.includes(" => ")) return !1;
+  if (t.length === 0 || t.startsWith('"')) return false;
+  if (/[\u0000-\u001f\u007f]/.test(t)) return false;
+  if (t.startsWith("-") || t.startsWith(":") || K(t)) return false;
+  if (t.includes(" => ")) return false;
   return t.split("/").every((i) => i !== "" && i !== "." && i !== "..");
 }
 var W = /^[0-9a-f]{40,64}$/;
@@ -53,7 +53,7 @@ function w(t) {
   return ["--literal-pathspecs", ...cn, ...t];
 }
 function E(t) {
-  return { cwd: t, timeout: S7, preserveOutputOnError: !1 };
+  return { cwd: t, timeout: S7, preserveOutputOnError: false };
 }
 async function tt(t, n, i) {
   let { stdout: r, code: e } = await qe(it(), w(["ls-tree", "-r", "-l", "-z", "--full-tree", n, "--", ...i]), {
@@ -123,7 +123,7 @@ async function I(t, n) {
   let { stdout: i, code: r } = await qe(it(), w(["cat-file", "blob", n]), {
     ...E(t),
     maxBuffer: D + 65536,
-    stripFinalNewline: !1,
+    stripFinalNewline: false,
   });
   return r === 0 ? i : null;
 }
@@ -135,7 +135,7 @@ async function nt(t, n) {
     return r?.code === "ENOENT" ? { kind: "missing" } : { kind: "restricted" };
   }
   try {
-    let r = await i.stat({ bigint: !0 });
+    let r = await i.stat({ bigint: true });
     if (!r.isFile() || r.nlink !== 1n || r.dev === 0n || r.ino === 0n) return { kind: "restricted" };
     let e;
     try {
@@ -193,9 +193,9 @@ async function rt(t, n) {
 }
 async function st(t) {
   let { stdout: n, exitCode: i } = await qe(it(), w(["config", "--get", "core.autocrlf"]), E(t));
-  if (i !== 0) return !1;
+  if (i !== 0) return false;
   let r = n.trim().toLowerCase();
-  return r === "true" ? "true" : r === "input" ? "input" : !1;
+  return r === "true" ? "true" : r === "input" ? "input" : false;
 }
 function ot(t) {
   return t.slice(0, 8000).includes("\x00");
@@ -205,11 +205,11 @@ function ut(t, n, i, r) {
   if (n.filter !== "unspecified" || n.workingTreeEncoding !== "unspecified") return "unsupported";
   if (n.text === "unset") return t;
   let e;
-  if (n.text === "set") e = !1;
-  else if (n.text === "auto") e = !0;
+  if (n.text === "set") e = false;
+  else if (n.text === "auto") e = true;
   else if (n.text === "unspecified")
-    if (i === "true" || i === "input") e = !0;
-    else if (n.eol === "crlf" || n.eol === "lf") e = !0;
+    if (i === "true" || i === "input") e = true;
+    else if (n.eol === "crlf" || n.eol === "lf") e = true;
     else return t;
   else return t;
   if (
@@ -292,7 +292,7 @@ async function VKt(t, n, i = Z) {
     p = new Set(zIe(u.stdout, Number.POSITIVE_INFINITY).perFileStats.keys());
   }
   let _ = o ? null : await rt(s, f),
-    b = o ? !1 : await st(s),
+    b = o ? false : await st(s),
     g = [],
     S = [],
     A = [],

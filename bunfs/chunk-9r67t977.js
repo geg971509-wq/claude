@@ -42,14 +42,14 @@ function ue() {
     lastObservedMs: null,
     takeoverUuids: new Set(),
     queuedBeforeArmUuids: new Set(),
-    handoffInProgress: !1,
+    handoffInProgress: false,
     dispatchingTakeoverUuids: new Set(),
     pendingContinuationUuid: null,
     activeTurnClaim: null,
     episodeArmOrigin: "dialog",
-    sleptThroughReset: !1,
-    confirmingMainModel: !1,
-    recheckRequestedWhileConfirming: !1,
+    sleptThroughReset: false,
+    confirmingMainModel: false,
+    recheckRequestedWhileConfirming: false,
     armedResetKeys: new Set(),
     autoArmDedupeResetKeys: new Set(),
     changed: Ue(),
@@ -61,7 +61,7 @@ function ue() {
     unknowableRescanTimer: void 0,
     revocationRescan: "idle",
     revocationRescanGeneration: 0,
-    limitsSubscriptionStarted: !1,
+    limitsSubscriptionStarted: false,
     unsubscribeQuotaRejected: null,
     unsubscribeSessionSwitch: null,
   };
@@ -88,7 +88,7 @@ function U() {
   return q(e) ? e : {};
 }
 function B(e) {
-  if (e === void 0) return !0;
+  if (e === void 0) return true;
   if (typeof e === "string") {
     let t = e.trim().toLowerCase();
     return t !== "" && t !== "false" && t !== "0";
@@ -153,8 +153,8 @@ function rxt(e) {
     e.status === "rejected" &&
     e.resetsAt !== void 0 &&
     Number.isFinite(e.resetsAt) &&
-    e.isUsingOverage !== !0 &&
-    e.overageInUse !== !0
+    e.isUsingOverage !== true &&
+    e.overageInUse !== true
   );
 }
 function kse(e) {
@@ -237,7 +237,7 @@ function OJt(e, t = Date.now(), n = "dialog", o) {
   return j(a(), e, t, n, o);
 }
 function j(e, t, n, o, u) {
-  if (!kse(t)) return !1;
+  if (!kse(t)) return false;
   Y(e, u),
     (e.consecutiveRearms = 0),
     e.takeoverUuids.clear(),
@@ -250,21 +250,21 @@ function j(e, t, n, o, u) {
     s("tengu_quota_auto_resume_offer_armed", { origin: c(o) }),
     H(e, t.resetsAt ?? 0, null, n, o),
     e.events.emit("armed"),
-    !0
+    true
   );
 }
 function r1n(e, t = Date.now(), n) {
   let o = a();
-  if (!kse(e)) return !1;
-  if (o.handoffInProgress) return !1;
-  if (!T(o) || !ce()) return !1;
-  if (dy()) return !1;
+  if (!kse(e)) return false;
+  if (o.handoffInProgress) return false;
+  if (!T(o) || !ce()) return false;
+  if (dy()) return false;
   let u = e.resetsAt ?? 0;
-  if (u * 1000 - t > W) return !1;
-  if (ke(e.rateLimitType, at())) return !1;
-  if (r(o) || o.autoArmDedupeResetKeys.has(u)) return !1;
-  if (!j(o, e, t, "auto", n)) return !1;
-  return o.events.emit("auto-armed"), !0;
+  if (u * 1000 - t > W) return false;
+  if (ke(e.rateLimitType, at())) return false;
+  if (r(o) || o.autoArmDedupeResetKeys.has(u)) return false;
+  if (!j(o, e, t, "auto", n)) return false;
+  return o.events.emit("auto-armed"), true;
 }
 function H(e, t, n, o, u = "dialog") {
   w(e),
@@ -274,7 +274,7 @@ function H(e, t, n, o, u = "dialog") {
     e.armedResetKeys.add(t),
     F(e),
     (e.activeTurnClaim = null),
-    (e.sleptThroughReset = !1),
+    (e.sleptThroughReset = false),
     (e.lastObservedMs = o);
   let i = pe(t, n, o);
   s("tengu_quota_auto_resume_armed", {
@@ -289,20 +289,20 @@ function e0e() {
 function Iq(e) {
   return (...t) => {
     let n = e(...t);
-    if (n !== !1) e0e();
+    if (n !== false) e0e();
     return n;
   };
 }
 async function Re(e) {
   if (e.state.phase !== "armed") return;
   if (e.confirmingMainModel) {
-    e.recheckRequestedWhileConfirming = !0;
+    e.recheckRequestedWhileConfirming = true;
     return;
   }
-  e.confirmingMainModel = !0;
+  e.confirmingMainModel = true;
   try {
     for (;;) {
-      if (((e.recheckRequestedWhileConfirming = !1), qde(cf()) !== null)) return;
+      if (((e.recheckRequestedWhileConfirming = false), qde(cf()) !== null)) return;
       let t = at(),
         n = e.state,
         o = await n9n(t, void 0, e.storageV5);
@@ -315,7 +315,7 @@ async function Re(e) {
   } catch (t) {
     h(t);
   } finally {
-    e.confirmingMainModel = !1;
+    e.confirmingMainModel = false;
   }
 }
 function ge(e) {
@@ -334,7 +334,7 @@ function he(e) {
     case "escape":
     case "ctrl_c":
     case "kill_agents_chord":
-      return !0;
+      return true;
     case "dialog":
     case "low_priority":
     case "juniper_tide":
@@ -345,7 +345,7 @@ function he(e) {
     case "desktop_handoff":
     case "cloud_handoff":
     case "process_exit":
-      return !1;
+      return false;
   }
 }
 function Ae(e) {
@@ -359,12 +359,12 @@ function Ae(e) {
     case "desktop_handoff":
     case "cloud_handoff":
     case "process_exit":
-      return !0;
+      return true;
     case "escape":
     case "ctrl_c":
     case "kill_agents_chord":
     case "dialog":
-      return !1;
+      return false;
   }
 }
 function L0(e) {
@@ -391,21 +391,21 @@ var brt = {
 };
 function wrt(e) {
   let t = a();
-  if (((t.handoffInProgress = !0), !r(t))) return !1;
+  if (((t.handoffInProgress = true), !r(t))) return false;
   let n = k(t, t.state.phase);
   return Q(t, e), n;
 }
 function VQ() {
-  a().handoffInProgress = !1;
+  a().handoffInProgress = false;
 }
-function Trt(e, { dispatching: t = !1 } = {}) {
+function Trt(e, { dispatching: t = false } = {}) {
   let n = a();
   if (!r(n)) return;
   if ((V(n), n.takeoverUuids.add(e), t)) n.dispatchingTakeoverUuids.add(e);
   n.changed.emit();
 }
-function w(e, { keepIfDrained: t = !1 } = {}) {
-  if (e.pendingContinuationUuid === null) return !1;
+function w(e, { keepIfDrained: t = false } = {}) {
+  if (e.pendingContinuationUuid === null) return false;
   let n = e.pendingContinuationUuid,
     o = Sv((u) => u.uuid === n).length > 0;
   if (o || !t) (e.pendingContinuationUuid = null), e.changed.emit();
@@ -432,10 +432,10 @@ function _e(e) {
     case "desktop_handoff":
     case "cloud_handoff":
     case "process_exit":
-      return !0;
+      return true;
     case "fired":
     case "stale":
-      return !1;
+      return false;
   }
 }
 function b(e, t) {
@@ -450,11 +450,11 @@ function LJt(e, t) {
   n.lastObservedMs = e;
   let u = e - o,
     i = M(U().graceMs, ae, re);
-  if (u > i && e >= n.state.fireAtMs) n.sleptThroughReset = !0;
+  if (u > i && e >= n.state.fireAtMs) n.sleptThroughReset = true;
   if (t || e < n.state.fireAtMs) return "pending";
   if (n.sleptThroughReset)
     return (
-      (n.sleptThroughReset = !1),
+      (n.sleptThroughReset = false),
       g("quota_auto_resume", "stale"),
       s("tengu_quota_auto_resume_stale", { late_by_ms: Math.round(e - n.state.fireAtMs) }),
       f(n, { phase: "stale" }),
@@ -484,8 +484,8 @@ function z(e, t = P) {
       value: t,
       uuid: n,
       origin: { kind: "auto-continuation" },
-      isMeta: !0,
-      skipSlashCommands: !0,
+      isMeta: true,
+      skipSlashCommands: true,
       workload: b6,
     });
 }
@@ -504,7 +504,7 @@ function i1n(e) {
   return e.filter((o) => o.uuid !== n);
 }
 function be(e) {
-  if (e.episodeArmOrigin !== "auto" || T(e)) return (e.revocationRescan = "idle"), !1;
+  if (e.episodeArmOrigin !== "auto" || T(e)) return (e.revocationRescan = "idle"), false;
   if (nxt() === void 0 && e.autoContinueKeyPresence === "unknowable") {
     if (e.revocationRescan === "idle") {
       e.revocationRescan = "pending";
@@ -513,20 +513,20 @@ function be(e) {
         A(e).finally(() => {
           if (e.revocationRescan === "pending" && t === e.revocationRescanGeneration) e.revocationRescan = "done";
         }),
-        !1
+        false
       );
     }
-    if (e.revocationRescan === "pending") return !1;
+    if (e.revocationRescan === "pending") return false;
   }
-  return (e.revocationRescan = "idle"), !0;
+  return (e.revocationRescan = "idle"), true;
 }
 function m(e) {
-  if (!_rt()) return v(e, "killswitch"), !0;
-  if (be(e)) return v(e, "setting_off"), !0;
-  return !1;
+  if (!_rt()) return v(e, "killswitch"), true;
+  if (be(e)) return v(e, "setting_off"), true;
+  return false;
 }
 function V(e) {
-  if ((w(e, { keepIfDrained: !0 }), e.state.phase === "stale"))
+  if ((w(e, { keepIfDrained: true }), e.state.phase === "stale"))
     s("tengu_quota_auto_resume_stale_resumed", {}), (e.lastObservedMs = null), b(e, "stale");
   else if (e.state.phase === "armed") (e.lastObservedMs = null), b(e, "manual_submit");
 }
@@ -601,7 +601,7 @@ function C(e) {
   return e.changed.emit(), t;
 }
 function Ce(e) {
-  return e.status !== "rejected" || e.isUsingOverage === !0 || e.overageInUse === !0;
+  return e.status !== "rejected" || e.isUsingOverage === true || e.overageInUse === true;
 }
 function ye(e, t, n) {
   if (!rxt(t) || !K()) return;
@@ -637,40 +637,40 @@ function S(e, t, n, o) {
   if ((H(e, t, n, Date.now(), o), e.events.emit("rearmed"), u)) e.events.emit("taken-over");
 }
 function ke(e, t) {
-  if (e !== "seven_day_opus" && e !== "seven_day_sonnet") return !1;
-  if (R(e, t)) return !1;
+  if (e !== "seven_day_opus" && e !== "seven_day_sonnet") return false;
+  if (R(e, t)) return false;
   let n = qde(cf());
-  if (e === "seven_day_opus" && n === "opus") return !1;
-  if (e === "seven_day_sonnet" && n === "sonnet") return !1;
-  return !0;
+  if (e === "seven_day_opus" && n === "opus") return false;
+  if (e === "seven_day_sonnet" && n === "sonnet") return false;
+  return true;
 }
 function R(e, t) {
   switch (e) {
     case "five_hour":
     case "seven_day":
     case "overage":
-      return !0;
+      return true;
     case "seven_day_opus":
       return w6(Ye(t));
     case "seven_day_sonnet":
       return NSn(Ye(t));
     case "seven_day_overage_included": {
       let n = XI(Ot(t));
-      if (n === null) return !1;
+      if (n === null) return false;
       let o = n.toLowerCase();
       return TF().some((u) => u.toLowerCase() === o);
     }
     case void 0:
-      return !1;
+      return false;
   }
-  return !1;
+  return false;
 }
 function NJt(e) {
   Y(a(), e);
 }
 function Y(e, t) {
   if (e.limitsSubscriptionStarted) return;
-  (e.limitsSubscriptionStarted = !0),
+  (e.limitsSubscriptionStarted = true),
     (e.storageV5 = t),
     (e.unsubscribeQuotaRejected = e9n((n, o) => ye(e, n, o))),
     A(e),
@@ -678,7 +678,7 @@ function Y(e, t) {
       A(e);
     })),
     (e.unsubscribeSessionSwitch = au((n, o) => {
-      if (n6e(o)) Q(e, "conversation_reset"), (e.handoffInProgress = !1);
+      if (n6e(o)) Q(e, "conversation_reset"), (e.handoffInProgress = false);
     }));
 }
 function n6e(e) {
@@ -686,13 +686,13 @@ function n6e(e) {
     case "clear":
     case "resume":
     case "remote_attach":
-      return !0;
+      return true;
     case "fork":
     case "cd":
     case "spare_claim":
     case "hydrate":
     case "startup_custom_id":
-      return !1;
+      return false;
   }
 }
 export {

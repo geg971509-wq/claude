@@ -36,7 +36,7 @@ function D(r) {
   try {
     return w().safeParse(V(r));
   } catch {
-    return { success: !1 };
+    return { success: false };
   }
 }
 function y(r, o) {

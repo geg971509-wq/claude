@@ -35,7 +35,7 @@ function Vht(e, o, t, s) {
   return () => {
     let i = e(),
       n =
-        i.toolPermissionContext.pollEventDeliveryGuard === !0
+        i.toolPermissionContext.pollEventDeliveryGuard === true
           ? i.toolPermissionContext
           : s?.replaceCommandRules
             ? {
@@ -82,18 +82,18 @@ function dH(e) {
   return o.mode !== "bypassPermissions" && !(o.mode === "plan" && o.isBypassPermissionsModeAvailable);
 }
 function PI(e) {
-  if (he(e).mode !== "plan") return !1;
+  if (he(e).mode !== "plan") return false;
   return IM(e);
 }
 function IM(e) {
-  return !dH(e) || he(e).shouldAvoidPermissionPrompts === !0;
+  return !dH(e) || he(e).shouldAvoidPermissionPrompts === true;
 }
 function p(e) {
   return e === Do || e.startsWith(`${Do}(`) || e.startsWith(Hne);
 }
 function C(e) {
   let o = p,
-    t = !1,
+    t = false,
     s = {},
     i = {};
   for (let [n, r] of Object.entries(e.strippedDangerousRules ?? {})) if (r !== void 0) i[n] = [...r];
@@ -101,7 +101,7 @@ function C(e) {
     if (r === void 0) continue;
     let a = r.filter((l) => !o(l));
     if (a.length !== r.length) {
-      t = !0;
+      t = true;
       for (let l of r)
         if (o(l)) {
           let f = (i[n] ??= []);
@@ -116,7 +116,7 @@ function C(e) {
 function Rgn(e) {
   let o = e.strippedDangerousRules;
   if (o === void 0) return e;
-  let t = !1,
+  let t = false,
     s = {};
   for (let [i, n] of Object.entries(e.alwaysAllowRules)) if (n !== void 0) s[i] = n;
   for (let [i, n] of Object.entries(o)) {
@@ -124,7 +124,7 @@ function Rgn(e) {
     for (let r of n) {
       if (!p(r)) continue;
       let a = [...(s[i] ?? [])];
-      if (!a.includes(r)) a.push(r), (s[i] = a), (t = !0);
+      if (!a.includes(r)) a.push(r), (s[i] = a), (t = true);
     }
   }
   if (!t) return e;
@@ -132,7 +132,7 @@ function Rgn(e) {
 }
 function he(e) {
   let o = e.getAppState().toolPermissionContext,
-    t = o !== void 0 && o.pollEventDeliveryGuard === !0;
+    t = o !== void 0 && o.pollEventDeliveryGuard === true;
   if (t) o = C(o);
   let s = e.permissionLayers;
   if (!s) return m(e, o);
@@ -149,10 +149,10 @@ function he(e) {
         o = { ...o, bashCommandClamps: [...(o.bashCommandClamps ?? []), n.rules] };
         break;
       case "avoid_prompts":
-        if (!o.shouldAvoidPermissionPrompts) o = { ...o, shouldAvoidPermissionPrompts: !0 };
+        if (!o.shouldAvoidPermissionPrompts) o = { ...o, shouldAvoidPermissionPrompts: true };
         break;
       case "sandbox_auto_allow_suspended":
-        if (!o.sandboxAutoAllowSuspended) o = { ...o, sandboxAutoAllowSuspended: !0 };
+        if (!o.sandboxAutoAllowSuspended) o = { ...o, sandboxAutoAllowSuspended: true };
         break;
       case "permission_mode": {
         if (n.mode === "bypassPermissions" && (oy() || !o.isBypassPermissionsModeAvailable)) break;
@@ -178,7 +178,7 @@ function he(e) {
   return m(e, o);
 }
 function m(e, o) {
-  if (e.forRemoteExecution === !0 && o !== void 0 && (o.mode === "acceptEdits" || o.mode === "bypassPermissions"))
+  if (e.forRemoteExecution === true && o !== void 0 && (o.mode === "acceptEdits" || o.mode === "bypassPermissions"))
     return { ...o, mode: "default" };
   return o;
 }
@@ -211,7 +211,7 @@ function y(e) {
   return e === 0 ? { type: "disabled" } : { type: "enabled", budgetTokens: e };
 }
 function S5e(e) {
-  return e.getAppState().ultracode === !0;
+  return e.getAppState().ultracode === true;
 }
 function Nue(e, o) {
   if (o.length === 0) return e;

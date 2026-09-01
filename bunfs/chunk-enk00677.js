@@ -134,9 +134,9 @@ var s = 50,
   D = kt({
     name: lm,
     searchHint: "schedule a recurring or one-shot prompt",
-    enablesCodeExecution: !0,
+    enablesCodeExecution: true,
     maxResultSizeChars: 1e5,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return l();
     },
@@ -166,30 +166,30 @@ var s = 50,
     async validateInput(e) {
       if (!HI(e.cron))
         return {
-          result: !1,
+          result: false,
           message: `Invalid cron expression '${e.cron}'. Expected 5 fields: M H DoM Mon DoW.`,
           errorCode: 1,
         };
       if (e5e(e.cron, Date.now()) === null)
         return {
-          result: !1,
+          result: false,
           message: `Cron expression '${e.cron}' does not match any calendar date in the next year.`,
           errorCode: 2,
         };
       if ((await U2()).length >= s)
-        return { result: !1, message: `Too many scheduled jobs (max ${s}). Cancel one first.`, errorCode: 3 };
+        return { result: false, message: `Too many scheduled jobs (max ${s}). Cancel one first.`, errorCode: 3 };
       if (e.durable && iS())
         return {
-          result: !1,
+          result: false,
           message: "durable crons are not supported for teammates (teammates do not persist across sessions)",
           errorCode: 4,
         };
-      return { result: !0 };
+      return { result: true };
     },
-    async call({ cron: e, prompt: r, recurring: t = !0, durable: n = !1 }) {
+    async call({ cron: e, prompt: r, recurring: t = true, durable: n = false }) {
       let o = n && Nz(),
         a = await cTe(e, r, t, o, iS()?.agentId);
-      return RU(!0), { data: { id: a, humanSchedule: ry(e), recurring: t, durable: o } };
+      return RU(true), { data: { id: a, humanSchedule: ry(e), recurring: t, durable: o } };
     },
     mapToolResultToToolResultBlockParam(e, r) {
       let t = e.durable
@@ -204,7 +204,7 @@ var s = 50,
       };
     },
     renderToolUseMessage(e) {
-      return `${e.cron ?? ""}${e.prompt ? `: ${ir(e.prompt, 60, !0)}` : ""}`;
+      return `${e.cron ?? ""}${e.prompt ? `: ${ir(e.prompt, 60, true)}` : ""}`;
     },
   });
 export { D as CronCreateTool };

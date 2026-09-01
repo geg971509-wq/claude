@@ -247,7 +247,7 @@ var pi = () => T.string().refine(Zt),
         projectKey: e,
         sessionId: e,
         agentRelPath: r,
-        journal: T.literal(!0),
+        journal: T.literal(true),
       }).refine((t) => FCe(t.sessionId) && !t.agentRelPath.some(jN)),
       T.strictObject({
         namespace: T.literal("transcript"),
@@ -286,8 +286,8 @@ var pi = () => T.string().refine(Zt),
       T.strictObject({ namespace: T.literal("settings"), layer: T.literal("project"), projectKey: e }),
       T.strictObject({ namespace: T.literal("settings"), layer: T.literal("local"), consentRootKey: e }),
       T.strictObject({ namespace: T.literal("task"), listId: e, taskId: e }).refine((t) => !kRn(t.taskId)),
-      T.strictObject({ namespace: T.literal("task"), listId: e, meta: T.literal(!0) }),
-      T.strictObject({ namespace: T.literal("task"), listId: e, highWaterMark: T.literal(!0) }),
+      T.strictObject({ namespace: T.literal("task"), listId: e, meta: T.literal(true) }),
+      T.strictObject({ namespace: T.literal("task"), listId: e, highWaterMark: T.literal(true) }),
       T.strictObject({ namespace: T.literal("memory"), projectKey: e, relPath: r }),
       T.strictObject({ namespace: T.literal("pluginRegistry"), file: T.enum(Gzt) }),
       T.strictObject({ namespace: T.literal("marketplaceCache"), marketplace: e, form: T.enum(zzt) }),
@@ -459,7 +459,7 @@ function ki(e, r, t) {
 async function vi(e, r, t, i) {
   if (i.suspect() || !(await bi(e, t))) return P({ kind: "suspect" });
   let o = Buffer.from(b(r)),
-    a = await DCe(e, o, void 0, !0);
+    a = await DCe(e, o, void 0, true);
   return a.ok ? re(void 0) : a;
 }
 async function bi(e, r) {
@@ -570,9 +570,9 @@ function $r(e = 0, r) {
     headSeq: null,
     issuedSeq: null,
     indexBytes: 0,
-    headerValid: !0,
+    headerValid: true,
     rejectedLines: 0,
-    unbridgedVerificationRejection: !1,
+    unbridgedVerificationRejection: false,
     pendingTombstones: new Set(),
   };
 }
@@ -583,9 +583,9 @@ function fe(e) {
   let r = e.endsWith(ce) ? e : e.slice(0, e.lastIndexOf(ce) + 1),
     t = r.length === 0 ? [] : r.slice(0, -1).split(ce),
     [i, ...o] = t,
-    a = i === void 0 ? void 0 : Ps().safeParse(Ut(i, !1)),
+    a = i === void 0 ? void 0 : Ps().safeParse(Ut(i, false)),
     s = {
-      headerValid: a?.success === !0,
+      headerValid: a?.success === true,
       applyGeneration: 0,
       headSeq: null,
       logIdentity: void 0,
@@ -595,7 +595,7 @@ function fe(e) {
       bytes: Buffer.byteLength(r),
     },
     d = s.headerValid ? o : t;
-  if (((s.operationText = d.length === 0 ? "" : d.join(ce) + ce), a?.success === !0)) {
+  if (((s.operationText = d.length === 0 ? "" : d.join(ce) + ce), a?.success === true)) {
     let u = a.data;
     if (
       ((s.applyGeneration = u.applyGeneration),
@@ -615,7 +615,7 @@ function fe(e) {
     }
   }
   for (let u of d) {
-    let l = Ut(u, !1),
+    let l = Ut(u, false),
       c = Si().safeParse(l);
     if (c.success) {
       s.operations.push({ kind: "append", operation: c.data });
@@ -639,7 +639,7 @@ async function Hr(e, r, t, i) {
       for (let c of o.recordIds) {
         let f = e.byId.get(c);
         if (f === void 0) e.pendingTombstones.add(c);
-        else f.tombstoned = !0;
+        else f.tombstoned = true;
       }
       continue;
     }
@@ -649,18 +649,18 @@ async function Hr(e, r, t, i) {
       e.rejectedLines += 1;
       continue;
     }
-    let d = s.map((c) => ({ ...c, tombstoned: !1 })),
-      l = s.every((c) => c.offset + c.length <= t) ? await i(d) : re(!1);
+    let d = s.map((c) => ({ ...c, tombstoned: false })),
+      l = s.every((c) => c.offset + c.length <= t) ? await i(d) : re(false);
     if (!l.ok) return l;
     if (!l.value) {
       (e.rejectedLines += 1),
-        (e.unbridgedVerificationRejection = !0),
+        (e.unbridgedVerificationRejection = true),
         (e.headSeq = Math.max(e.headSeq ?? -1, ...s.map((c) => c.seq)));
       continue;
     }
-    e.unbridgedVerificationRejection = !1;
+    e.unbridgedVerificationRejection = false;
     for (let c of d) {
-      if (e.pendingTombstones.delete(c.recordId)) c.tombstoned = !0;
+      if (e.pendingTombstones.delete(c.recordId)) c.tombstoned = true;
       e.entries.push(c), e.byId.set(c.recordId, c);
     }
     (e.headSeq = Math.max(e.headSeq ?? -1, ...d.map((c) => c.seq))),
@@ -673,7 +673,7 @@ async function Hr(e, r, t, i) {
 function Fi(e) {
   let r = e.endsWith(ce) ? e : e.slice(0, e.lastIndexOf(ce) + 1),
     t = {
-      headerValid: !0,
+      headerValid: true,
       applyGeneration: 0,
       headSeq: null,
       logIdentity: void 0,
@@ -683,7 +683,7 @@ function Fi(e) {
       bytes: Buffer.byteLength(r),
     };
   for (let i of r.length === 0 ? [] : r.slice(0, -1).split(ce)) {
-    let o = Ut(i, !1),
+    let o = Ut(i, false),
       a = Si().safeParse(o);
     if (a.success) {
       t.operations.push({ kind: "append", operation: a.data });
@@ -708,16 +708,16 @@ async function Ei(e, r) {
   return re(o);
 }
 function xs(e, r) {
-  if (e.length === 0) return !1;
-  if (new Set(e.map((a) => a.recordId)).size !== e.length || e.some((a) => r.byId.has(a.recordId))) return !1;
+  if (e.length === 0) return false;
+  if (new Set(e.map((a) => a.recordId)).size !== e.length || e.some((a) => r.byId.has(a.recordId))) return false;
   let i = e[0]?.seq ?? -1;
-  if (i < (r.headSeq === null ? 0 : r.headSeq + 1) || e.some((a, s) => a.seq !== i + s)) return !1;
+  if (i < (r.headSeq === null ? 0 : r.headSeq + 1) || e.some((a, s) => a.seq !== i + s)) return false;
   let o = r.committedEnd;
   for (let a of e) {
-    if (a.offset < o) return !1;
+    if (a.offset < o) return false;
     o = a.offset + a.length;
   }
-  return !0;
+  return true;
 }
 function Gr(e, r, t, i) {
   return (
@@ -772,7 +772,7 @@ function Oi(e, r) {
   return `${nr()}${nr()}`;
 }
 function p4(e, r) {
-  let t = r?.includeTombstoned === !0,
+  let t = r?.includeTombstoned === true,
     o = [...e.filter((g) => t || !g.tombstoned)].sort((g, k) => g.seq - k.seq),
     a = r?.seqs;
   if (a !== void 0) {
@@ -819,19 +819,19 @@ async function In(e) {
   return r.error.kind === "absent" ? re(0) : r;
 }
 async function We(e) {
-  let r = await Ie(xn(e, { bigint: !0 }));
+  let r = await Ie(xn(e, { bigint: true }));
   if (r.ok) return re(W(r.value));
   return r.error.kind === "absent" ? re(void 0) : r;
 }
 async function sr(e, r, t) {
   let i = Gr(r.applyGeneration, t, r.headSeq, r.predecessor) + r.operationText,
-    o = await DCe(e.index, Buffer.from(i), wy, !0);
+    o = await DCe(e.index, Buffer.from(i), wy, true);
   return o.ok ? re(void 0) : o;
 }
 async function xi(e, r, t, i) {
   let o = Buffer.from(Gr(t, void 0, null) + r),
-    a = await wJe(e.index, o, "refuse", wy, !0),
-    s = !a.ok && bJe(a.error) ? await TJe(e.index, o, "refuse", wy, i, a.error.error, !0) : a;
+    a = await wJe(e.index, o, "refuse", wy, true),
+    s = !a.ok && bJe(a.error) ? await TJe(e.index, o, "refuse", wy, i, a.error.error, true) : a;
   if (!s.ok) return s;
   return s.value.created ? re(void 0) : dr(e, r);
 }
@@ -842,7 +842,7 @@ async function dr(e, r) {
   let o = await Ie(ur(i, Buffer.from(ce + r)));
   return o.ok ? re(void 0) : o;
 }
-async function Ai(e, r, t = !0, { singleName: i = !1 } = {}) {
+async function Ai(e, r, t = true, { singleName: i = false } = {}) {
   let o = await bh(ir(e.log), e.directoryMode);
   if (!o.ok) return o;
   let a = await _4(e.log, Z.O_WRONLY | Z.O_APPEND | (t ? Z.O_CREAT : 0), e.createMode);
@@ -861,7 +861,7 @@ async function fn(e, r, t) {
   let i = Z.O_WRONLY | Z.O_APPEND | (r ? Z.O_CREAT | Z.O_EXCL : 0),
     o = Bp === 0 ? await _4(e, i, t) : await Ie(Wr(e, i | Bp, t));
   if (!o.ok) return o.error.kind === "fs" ? P(await As(e, o.error)) : o;
-  let a = await Ie(o.value.stat({ bigint: !0 }));
+  let a = await Ie(o.value.stat({ bigint: true }));
   if (!a.ok || !a.value.isFile()) return await Ie(o.value.close()), a.ok ? P({ kind: "fs", error: Bs(e, "ENXIO") }) : a;
   return re({ handle: o.value, identity: W(a.value), nlink: Number(a.value.nlink), size: Number(a.value.size) });
 }
@@ -883,7 +883,7 @@ async function ur(e, r) {
     t += i;
   }
 }
-async function Zr(e, r, t, i, o, a = !0) {
+async function Zr(e, r, t, i, o, a = true) {
   return Ti(e, t && a, o, Ms, () => Ds(e, r, i, a));
 }
 async function Bi(e, r, t, i, o, a) {
@@ -897,12 +897,12 @@ async function Ti(e, r, t, i, o) {
   return o();
 }
 function Ms() {
-  return !1;
+  return false;
 }
 async function Ts(e, r, t, i) {
-  let o = await fn(e, !1, t);
+  let o = await fn(e, false, t);
   if (i && !o.ok && o.error.kind === "absent") {
-    if (((o = await fn(e, !0, t)), !o.ok && o.error.kind === "fs" && Am(o.error.error, "EEXIST"))) {
+    if (((o = await fn(e, true, t)), !o.ok && o.error.kind === "fs" && Am(o.error.error, "EEXIST"))) {
       let u = await Ie(tr(e));
       return P(
         u.ok && !u.value.isFile()
@@ -963,7 +963,7 @@ function Di(e) {
 async function ie(e) {
   let r = Bp === 0 ? await _4(e, Z.O_RDONLY) : await Ie(Wr(e, Z.O_RDONLY | Bp));
   if (!r.ok) return r;
-  let t = await Ie(r.value.stat({ bigint: !0 }));
+  let t = await Ie(r.value.stat({ bigint: true }));
   if (!t.ok) return await Ie(r.value.close()), t;
   if (!t.value.isFile()) return await Ie(r.value.close()), P({ kind: "fs", error: Bs(e, "ENXIO") });
   return re({
@@ -1034,7 +1034,7 @@ async function _i(e, r) {
   let t = mn(r),
     i = r.entries.length - t.length;
   if (i === 0) return re({ purged: 0, index: r });
-  let o = await Ie(xn(e.log, { bigint: !0 }));
+  let o = await Ie(xn(e.log, { bigint: true }));
   if (!o.ok) return o;
   let a = {
       applyGeneration: r.applyGeneration,
@@ -1124,7 +1124,7 @@ function js(e) {
 async function yn(e) {
   let r = await ar(e.marker);
   if (!r.ok) return r.error.kind === "absent" ? re(void 0) : r;
-  let t = Ri().safeParse(Ut(r.value, !1));
+  let t = Ri().safeParse(Ut(r.value, false));
   if (!t.success) return rr(e, void 0);
   let i = t.data.purgeId,
     o = et(e, i),
@@ -1159,9 +1159,9 @@ async function qs(e, r, t) {
   let o = fe(i.value),
     a = o.predecessor;
   if (a === void 0) return re("back");
-  let s = await Ie(xn(e.log, { bigint: !0 }));
+  let s = await Ie(xn(e.log, { bigint: true }));
   if (!s.ok && s.error.kind !== "absent") return s;
-  let d = await Ie(tr(r, { bigint: !0 }));
+  let d = await Ie(tr(r, { bigint: true }));
   if (!d.ok && d.error.kind !== "absent") return d;
   let u = zs(o),
     l = j(o.logIdentity),
@@ -1173,11 +1173,11 @@ async function qs(e, r, t) {
       if (z(o.logIdentity, p)) return re("finish");
     } else if (y === u && y !== a.logSize) return c ? Ur(e, "live log") : re("finish");
   }
-  let f = !1;
+  let f = false;
   if (d.ok) {
     let p = W(d.value);
     if (l && j(p)) f = c && z(o.logIdentity, p);
-    else if (c) f = !0;
+    else if (c) f = true;
     else if (d.value.isFile()) return Ur(e, "temporary log");
   }
   if (f) {
@@ -1207,11 +1207,11 @@ function zs(e) {
 async function Ws(e, r, t) {
   let i = await pe(e);
   if (!i.ok) return i;
-  if (i.value === "missing" || t === void 0 || Number(t.size) !== r.logSize) return re(!1);
+  if (i.value === "missing" || t === void 0 || Number(t.size) !== r.logSize) return re(false);
   let o = fe(i.value);
-  if (o.applyGeneration !== r.applyGeneration || o.bytes !== r.indexBytes) return re(!1);
+  if (o.applyGeneration !== r.applyGeneration || o.bytes !== r.indexBytes) return re(false);
   let a = W(t);
-  return re(j(r.logIdentity) && j(a) ? z(r.logIdentity, a) : !0);
+  return re(j(r.logIdentity) && j(a) ? z(r.logIdentity, a) : true);
 }
 async function hi(e, r) {
   let t = await Ie(qr(e, r));
@@ -1221,7 +1221,7 @@ async function rr(e, r) {
   if (r !== void 0) {
     let i = await ar(e.marker);
     if (i.ok) {
-      let o = Ri().safeParse(Ut(i.value, !1));
+      let o = Ri().safeParse(Ut(i.value, false));
       if (!(o.success && o.data.purgeId === r)) return re(void 0);
     }
   }
@@ -1327,7 +1327,7 @@ async function Zs(e, r, t, i) {
         recordId: l.recordId,
         data: c,
         ...(f && { truncated: f }),
-        tombstoned: !1,
+        tombstoned: false,
       });
     }
     return re({ items: d, ...(s.value.nextSeq !== void 0 && { nextSeq: s.value.nextSeq }) });
@@ -1480,7 +1480,7 @@ async function td(e, r, t, i) {
   }
   return re({ lines: d, liveBytes: u, lastLineStart: c });
 }
-async function gn(e, r, t, i = !1) {
+async function gn(e, r, t, i = false) {
   return mr(t, () => id(e, r, t, i));
 }
 async function id(e, r, t, i) {
@@ -1677,7 +1677,7 @@ async function ud(e, r, t) {
       g = f.indexOf(10, c);
     if (g !== -1) y = l - c + g;
     else {
-      let S = await lr(e, l - c + f.length, t, !1, s);
+      let S = await lr(e, l - c + f.length, t, false, s);
       if (!S.ok) return S;
       y = S.value;
     }
@@ -1700,7 +1700,7 @@ async function ud(e, r, t) {
   return re({ entries: d, served: u });
 }
 function $e(e, r) {
-  return { seq: e, recordId: String(e), offset: e, length: r, digest: "", tombstoned: !1 };
+  return { seq: e, recordId: String(e), offset: e, length: r, digest: "", tombstoned: false };
 }
 function io(e, r, t, i) {
   return e.map((o) => {
@@ -1724,7 +1724,7 @@ async function cd(e, r, t) {
         ? r.maxBytes
         : void 0,
     d,
-    u = !0;
+    u = true;
   if (i === void 0 || i >= e.size) {
     let h = await Je(e, t);
     if (!h.ok) return h;
@@ -1748,7 +1748,7 @@ async function cd(e, r, t) {
     g = t?.maxRecords ?? Ye,
     k = [],
     v,
-    w = !1,
+    w = false,
     S = d;
   for (;;) {
     let h = Math.max(0, S - f),
@@ -1766,7 +1766,7 @@ async function cd(e, r, t) {
       if (v !== void 0) {
         if ((k.push($e(O + 1, v - O)), k.length > g)) {
           if (p4(k, r).entries.length === k.length) return P({ kind: "fs", error: he() });
-          w = !0;
+          w = true;
           break;
         }
       }
@@ -1811,13 +1811,13 @@ async function fd(e, r, t) {
         ? r.maxBytes
         : void 0,
     u = i,
-    l = !1;
+    l = false;
   if (d !== void 0) await new Promise((S) => setImmediate(S));
   if (d !== void 0 && i > 0) {
-    let S = await lr(e, i - 1, t, !0);
+    let S = await lr(e, i - 1, t, true);
     if (!S.ok) return S;
     if (S.value === -1 || S.value + 1 >= e.size) return re({ entries: [], served: [] });
-    (u = S.value + 1), (l = !0);
+    (u = S.value + 1), (l = true);
   }
   let c = u > 0 ? 1 : 0,
     f = u - c,
@@ -1860,21 +1860,21 @@ async function fd(e, r, t) {
       I = p4(k, r),
       x = I.entries.length === k.length;
     if (x && L < e.size && d !== void 0) {
-      let O = !0;
+      let O = true;
       if (k.length > 0 && S - c >= d) {
         let C = Math.max(1, t?.chunkBytes ?? fr),
           N = Math.max(L, e.size - C),
           _ = Buffer.allocUnsafe(e.size - N),
-          U = await ot(e, _, _.length, N, !0, t);
+          U = await ot(e, _, _.length, N, true, t);
         if (!U.ok) return U;
         if (U.value.bytesRead < _.length) return P({ kind: "fs", error: oe() });
         let we = _.lastIndexOf(10);
-        if (we !== -1) k.push($e(v, N + we + 1 - v)), (I = p4(k, r)), (O = !1);
-        else if (N === L) O = !1;
+        if (we !== -1) k.push($e(v, N + we + 1 - v)), (I = p4(k, r)), (O = false);
+        else if (N === L) O = false;
       }
       while (O && x && v < e.size) {
         let C = Math.max(v, L),
-          N = await lr(e, C, t, !0);
+          N = await lr(e, C, t, true);
         if (!N.ok) return N;
         if (N.value === -1) break;
         if (
@@ -1911,7 +1911,7 @@ async function ot(e, r, t, i, o, a) {
     return qar(() => ({ bytesRead: s.call(e.handle, r, 0, t, i) }));
   return Ie(e.handle.read(r, 0, t, i));
 }
-async function lr(e, r, t, i = !1, o = t?.chunkBytes ?? fr) {
+async function lr(e, r, t, i = false, o = t?.chunkBytes ?? fr) {
   let a = Math.max(1, o),
     s = r;
   while (s < e.size) {
@@ -2020,7 +2020,7 @@ async function ut(e, r, t, i, o, a) {
   return re(S);
 }
 function at(e, r, t) {
-  if (r === void 0) return !0;
+  if (r === void 0) return true;
   let i = t !== void 0 && e.length > t,
     o = Buffer.isBuffer(r) ? r : Buffer.from(r.buffer, r.byteOffset, r.byteLength);
   if (i) return o.includes(10);
@@ -2063,7 +2063,7 @@ function gd(e) {
 `)
     : e.byteLength > 0 && e[e.byteLength - 1] === 10;
 }
-async function ao(e, r, t, i, o, a, s, { ifExists: d = !1, nonEmpty: u = !1, singleName: l = !1 } = {}) {
+async function ao(e, r, t, i, o, a, s, { ifExists: d = false, nonEmpty: u = false, singleName: l = false } = {}) {
   return XH(t, () =>
     e.namespace === "history"
       ? kd(e, r, i, l)
@@ -2076,11 +2076,11 @@ async function kd(e, r, t, i) {
   let o = await Sd(e, r.log);
   if (o !== void 0) return P(it(o));
   let a = await zi(r),
-    s = !1;
+    s = false;
   if (!a.ok && a.error.kind === "absent") {
-    let d = await Zr(r.log, pd, !0, r.createMode, r.directoryMode);
+    let d = await Zr(r.log, pd, true, r.createMode, r.directoryMode);
     if (!d.ok) return P(it(Ke(d.error, e)));
-    (s = !0), (a = await zi(r));
+    (s = true), (a = await zi(r));
   }
   if (!a.ok) {
     let d = a.error.kind === "fs" && Am(a.error.error, "ELOCKED"),
@@ -2088,9 +2088,9 @@ async function kd(e, r, t, i) {
     return P(d ? u : it(u));
   }
   try {
-    let d = await co(e, r, t, { makeParent: !0, singleName: i });
+    let d = await co(e, r, t, { makeParent: true, singleName: i });
     if (!d.ok || !s) return d;
-    return re({ ...d.value, createdStream: !0 });
+    return re({ ...d.value, createdStream: true });
   } finally {
     await a.value().catch((d) => n(`storage history append lock release failed: ${d}`, { level: "warn" }));
   }
@@ -2101,11 +2101,11 @@ async function Ce(e, r, t) {
 }
 function yr(e, r, t) {
   if (r.namespace !== "sessionLog") return;
-  if (!e.has(t)) return Ce(t, void 0, !1);
+  if (!e.has(t)) return Ce(t, void 0, false);
   return vd(e, t);
 }
 async function vd(e, r) {
-  let t = await Ie(He(r, { bigint: !0 }));
+  let t = await Ie(He(r, { bigint: true }));
   if (t.ok && lt(e, r, W(t.value))) return;
   return e.delete(r), Ce(r, void 0, t.ok);
 }
@@ -2127,7 +2127,7 @@ function uo(e, r) {
   let i = [],
     o = t.home;
   for (let a of t.hops) (o = Gs(o, a)), i.push(o);
-  return lo(i, void 0, !1);
+  return lo(i, void 0, false);
 }
 async function lo(e, r, t) {
   for (let [i, o] of e.entries()) {
@@ -2165,22 +2165,22 @@ async function Mn(e, r) {
   let i = e.screenedSessionLogs,
     o = i.has(t);
   if (!o) {
-    let f = await Ce(t, void 0, !1);
+    let f = await Ce(t, void 0, false);
     if (f !== void 0) return P(f);
   }
   let a = await ie(t);
   if (!a.ok) {
     if (!o) return a;
-    return i.delete(t), P((await Ce(t, void 0, !1)) ?? a.error);
+    return i.delete(t), P((await Ce(t, void 0, false)) ?? a.error);
   }
   let s = a.value,
     d = async (f) => (await Ie(s.handle.close()), P(f)),
     u = s.identity;
   if (o && lt(i, t, u)) return a;
   i.delete(t);
-  let l = await Ce(t, void 0, !0);
+  let l = await Ce(t, void 0, true);
   if (l !== void 0) return d(l);
-  let c = await Ie(He(t, { bigint: !0 }));
+  let c = await Ie(He(t, { bigint: true }));
   if (!c.ok && c.error.kind !== "absent") return d(c.error);
   if (!c.ok || !z(W(c.value), u)) return d({ kind: "fs", error: Bs(t, vm) });
   if (s.nlink === 1) so(i, t, u);
@@ -2209,7 +2209,7 @@ async function zi(e) {
     }),
   );
 }
-async function co(e, r, t, { rotation: i, makeParent: o, ifExists: a = !1, nonEmpty: s = !1, singleName: d = !1 }) {
+async function co(e, r, t, { rotation: i, makeParent: o, ifExists: a = false, nonEmpty: s = false, singleName: d = false }) {
   let u = await Ie(He(r.log));
   if (!u.ok && u.error.kind !== "absent") return P(Ke(u.error, e));
   if (u.ok && !u.value.isFile()) return P(Ke(hJ(r.log, u.value), e));
@@ -2241,19 +2241,19 @@ function fo(e, r) {
   let u = s.length === 1 ? s[0] : void 0;
   return { block: o ? a : (u ?? Buffer.concat(s)), acks: t, ends: i, end: d };
 }
-async function wd(e, r, t, { makeParent: i, screened: o, singleName: a = !1 }) {
+async function wd(e, r, t, { makeParent: i, screened: o, singleName: a = false }) {
   let s = r.log,
     d = i ? r.directoryMode : void 0,
     u = o !== void 0 && o.has(s);
   if (!u) {
-    let f = await Ce(s, d, !1);
+    let f = await Ce(s, d, false);
     if (f !== void 0) return P(Ke(f, e));
   }
-  let l = await fn(s, !1, r.createMode);
+  let l = await fn(s, false, r.createMode);
   if (!l.ok) {
     if ((o?.delete(s), l.error.kind !== "absent")) return P(Ke(l.error, e));
     if (u) {
-      let f = await Ce(s, d, !1);
+      let f = await Ce(s, d, false);
       if (f !== void 0) return P(Ke(f, e));
     }
     return Fd(e, s, t, o, r.createMode, a);
@@ -2265,14 +2265,14 @@ async function wd(e, r, t, { makeParent: i, screened: o, singleName: a = !1 }) {
     if (f !== void 0) return cr(e, c, f);
   }
   if (a && c.nlink > 1) return cr(e, c, y4(s));
-  return mo(e, c, t, !1);
+  return mo(e, c, t, false);
 }
 async function Fd(e, r, t, i, o, a) {
-  let s = await fn(r, !0, o),
+  let s = await fn(r, true, o),
     d = s;
   if (!d.ok) {
     if (d.error.kind !== "fs" || !Am(d.error.error, "EEXIST")) return P(Ke(d.error, e));
-    if (((d = await fn(r, !1, o)), !d.ok)) return P(Ke(d.error.kind === "absent" ? yo(r, vm) : d.error, e));
+    if (((d = await fn(r, false, o)), !d.ok)) return P(Ke(d.error.kind === "absent" ? yo(r, vm) : d.error, e));
   }
   let u = d.value,
     l = await po(r, u, i);
@@ -2291,9 +2291,9 @@ async function cr(e, r, t) {
   return await Ie(r.handle.close()), P(Ke(t, e));
 }
 async function po(e, r, t) {
-  let i = await Ce(e, void 0, !0);
+  let i = await Ce(e, void 0, true);
   if (i !== void 0) return i;
-  let o = await Ie(He(e, { bigint: !0 }));
+  let o = await Ie(He(e, { bigint: true }));
   if (!o.ok && o.error.kind !== "absent") return o.error;
   if (!o.ok || !z(r.identity, W(o.value))) return yo(e, vm);
   if (t !== void 0 && r.nlink === 1) so(t, e, r.identity);
@@ -2427,7 +2427,7 @@ class bo {
   async decidePromotionDenied(e, r) {
     let t = /^\/mnt\/[^/]+(\/|$)/;
     if (this.platform === "wsl" && (t.test(e) || t.test(Ve(e)))) return;
-    let i = !1;
+    let i = false;
     if (this.platform === "linux" || this.platform === "wsl")
       for (let o = Ve(e); ; o = ko(o))
         try {
@@ -2451,7 +2451,7 @@ class bo {
         checkedAtMs: -1 / 0,
         rearming: Promise.resolve(),
         queued: void 0,
-        confirmed: !1,
+        confirmed: false,
         demotedForLife: this.blindDirectories.has(o),
         lastCallbackAtMs: -1 / 0,
         echoMisses: 0,
@@ -2466,7 +2466,7 @@ class bo {
     } catch (d) {
       throw (await this.unwatch(o, a, t, i), d);
     }
-    let s = !1;
+    let s = false;
     return {
       rearm: (d) => this.rearm(o, a, d),
       promotable: () => this.promotable(a),
@@ -2474,7 +2474,7 @@ class bo {
         if (!a.demotedForLife) pt(a, d);
       },
       release: async () => {
-        if (!s) (s = !0), await this.unwatch(o, a, t, i);
+        if (!s) (s = true), await this.unwatch(o, a, t, i);
       },
     };
   }
@@ -2509,7 +2509,7 @@ class bo {
     r.checkedShape = void 0;
     let d = r.arm.kind === "dead" && r.arm.identity === s;
     ft(r.arm)?.close(),
-      (r.confirmed = !1),
+      (r.confirmed = false),
       (r.echoMisses = 0),
       (r.arm =
         s === void 0
@@ -2557,7 +2557,7 @@ function Md(e, r, t) {
     case "failed":
       return e.identity === r && t - e.failedAtMs < xd;
     case "dead":
-      return !1;
+      return false;
   }
 }
 function ft(e) {
@@ -2572,16 +2572,16 @@ function Bd(e, r, t, i, o) {
       (d) => {
         if (e.arm.kind === "live" && e.arm.watcher === s) {
           if (((e.lastCallbackAtMs = performance.now()), (e.callbacks += 1), (e.callbacksSinceCheck += 1), d === a)) {
-            if (((e.checkedAtMs = -1 / 0), e.confirmed)) (e.confirmed = !1), vn(e);
+            if (((e.checkedAtMs = -1 / 0), e.confirmed)) (e.confirmed = false), vn(e);
           } else if (d !== null && !e.confirmed) {
-            if (((e.confirmed = !0), o())) vn(e);
+            if (((e.confirmed = true), o())) vn(e);
           }
         }
         Cd(e.listeners, d);
       },
       (d) => {
         if (e.arm.kind === "live" && e.arm.watcher === d)
-          (e.arm = { kind: "dead", identity: r, watcher: d }), (e.confirmed = !1), vn(e);
+          (e.arm = { kind: "dead", identity: r, watcher: d }), (e.confirmed = false), vn(e);
       },
       e.arm.kind !== "failed",
     );
@@ -2589,7 +2589,7 @@ function Bd(e, r, t, i, o) {
 }
 function Td(e, r, t, i, o, a) {
   try {
-    let s = e(r, { persistent: !1, recursive: t }, (d, u) => i(typeof u === "string" ? u : null));
+    let s = e(r, { persistent: false, recursive: t }, (d, u) => i(typeof u === "string" ? u : null));
     return (
       s.on("error", (d) => {
         n(`storage watcher error at ${r}; polling carries it: ${d}`, { level: "warn" }), o(s), i(null);
@@ -2650,7 +2650,7 @@ function _d(e, r) {
     pt(e, "its directory changed without a single event");
 }
 function pt(e, r) {
-  (e.demotedForLife = !0), n(`storage watch on ${e.directory} back to polling for good: ${r}`), vn(e);
+  (e.demotedForLife = true), n(`storage watch on ${e.directory} back to polling for good: ${r}`), vn(e);
 }
 async function Ud(e) {
   return Number((await Pd(e)).type) >>> 0;
@@ -2666,7 +2666,7 @@ var Fo = 2000,
   ho = "fixed2s",
   Jd = { globalConfig: 1000 },
   Wsr = { backstopMs: Fo, longBackstopMs: Hd, echoDeadlineMs: Gd, unannouncedGraceMs: vr, strayProbeDebounceMs: Yd },
-  Qe = { exists: !1, generation: -1, lastSeq: null, records: new Map(), tombstoned: new Set() };
+  Qe = { exists: false, generation: -1, lastSeq: null, records: new Map(), tombstoned: new Set() };
 class mAt {
   backend;
   target;
@@ -2675,21 +2675,21 @@ class mAt {
   watchHandles = [];
   queued = [];
   pollTimer;
-  active = !0;
-  primed = !1;
-  rediffing = !1;
-  rediffAgain = !1;
+  active = true;
+  primed = false;
+  rediffing = false;
+  rediffAgain = false;
   gapFill = null;
   gapFillDepth = 0;
-  unlistable = !1;
+  unlistable = false;
   unobservable = new Map();
-  hinted = !1;
-  promoted = !1;
+  hinted = false;
+  promoted = false;
   longPeriodMs;
-  leafIsSymlink = !1;
+  leafIsSymlink = false;
   callbacksSeen = 0;
   strayProbe;
-  leafChanged = !1;
+  leafChanged = false;
   lastTimerRediffAt = -1 / 0;
   ticks = 0;
   observedChanges = 0;
@@ -2705,14 +2705,14 @@ class mAt {
     return this.mayStretch() ? this.longPeriodMs : Bn(this.target, this.backend.timing);
   }
   async start() {
-    this.rediffing = !0;
+    this.rediffing = true;
     let e = this.watchedDirectories().filter(({ directory: t }) => this.watchesNatively(t));
     for (let { directory: t, recursive: i } of e) {
       let o = await this.backend.bus.watchers.watch(
         t,
         i,
         (a) => {
-          if (((this.callbacksSeen += 1), this.hintConcerns(a))) (this.hinted = !0), this.rediff();
+          if (((this.callbacksSeen += 1), this.hintConcerns(a))) (this.hinted = true), this.rediff();
           else if (this.promoted && this.strayProbe === void 0)
             (this.strayProbe = setTimeout(
               (s) => {
@@ -2725,19 +2725,19 @@ class mAt {
         },
         () => this.retrust("its watcher changed state"),
       );
-      if (!this.active) return await o.release(), re(!1);
+      if (!this.active) return await o.release(), re(false);
       this.watchHandles.push(o);
     }
     let r = await this.prime();
     if (((this.leafIsSymlink = await this.leafSymlinked()), this.leafIsSymlink))
       this.longPeriodMs = Bn(this.target, this.backend.timing);
-    if (((this.rediffing = !1), r !== void 0)) return await this.stop(), P(r);
-    if (!this.active) return re(!1);
-    this.primed = !0;
+    if (((this.rediffing = false), r !== void 0)) return await this.stop(), P(r);
+    if (!this.active) return re(false);
+    this.primed = true;
     for (let t of this.queued.splice(0)) this.replayQueued(t.change, t.sourceInstanceId);
     if (((this.lastTimerRediffAt = performance.now()), this.scheduleTick(), this.rediffAgain))
-      (this.rediffAgain = !1), this.rediff();
-    return this.retrust("primed"), re(!0);
+      (this.rediffAgain = false), this.rediff();
+    return this.retrust("primed"), re(true);
   }
   scheduleTick() {
     let e = this.promoted && ho === "withRediff" ? this.longPeriodMs : Bn(this.target, this.backend.timing),
@@ -2799,17 +2799,17 @@ class mAt {
       for (let r of this.watchHandles) r.distrust("a change arrived that it never announced");
   }
   async leafSymlinked() {
-    if (this.target.target !== "key" || Ar(this.target.key)) return !1;
-    if (Rd(this.target.key) !== "follow") return !1;
+    if (this.target.target !== "key" || Ar(this.target.key)) return false;
+    if (Rd(this.target.key) !== "follow") return false;
     try {
       return (await jd(Jo(this.backend.roots, this.target.key))).isSymbolicLink();
     } catch {
-      return !1;
+      return false;
     }
   }
   hintConcerns(e) {
     let r = this.leafSpellings;
-    if (e === null || r === void 0) return !0;
+    if (e === null || r === void 0) return true;
     return OJe(e).some((t) => r.some((i) => t === i || (i.length > 0 && (t.startsWith(i) || t.startsWith("." + i)))));
   }
   watchesNatively(e) {
@@ -2825,7 +2825,7 @@ class mAt {
       n(`storage watcher rearm failed: ${d}`, { level: "warn" });
     }
     if (this.watchesPromotably() && (!this.leafIsSymlink || this.leafChanged)) {
-      this.leafChanged = !1;
+      this.leafChanged = false;
       let d = await this.leafSymlinked();
       if (d !== this.leafIsSymlink)
         (this.leafIsSymlink = d), this.retrust(d ? "the leaf is a symlink" : "the leaf is a file");
@@ -2845,7 +2845,7 @@ class mAt {
       return [
         {
           directory: Ar(r) && !lJ(r.namespace) ? IJe(this.backend.roots, r) : zd(Jo(this.backend.roots, r)),
-          recursive: !1,
+          recursive: false,
         },
       ];
     }
@@ -2892,16 +2892,16 @@ class mAt {
     }
     return yt(await this.backend.readValue(e));
   }
-  async observeStream(e, r, t = !1) {
+  async observeStream(e, r, t = false) {
     let i = ld(e),
       o = this.unobservable.get(i),
-      a = !1;
+      a = false;
     if (o !== void 0) {
       if (this.backend.clock.now() < o.nextLookAt) {
         if (o.hintTaken || (!t && !this.hinted)) return;
-        this.unobservable.set(i, { ...o, hintTaken: !0 }), (a = !0);
+        this.unobservable.set(i, { ...o, hintTaken: true }), (a = true);
       }
-      if (!t) this.hinted = !1;
+      if (!t) this.hinted = false;
     }
     let s = await this.backend.streamEntries(e, r?.stamp);
     if (typeof s === "object" && "unobservable" in s) {
@@ -2912,7 +2912,7 @@ class mAt {
     if (s === "missing") return Qe;
     let d = s.entries.reduce((u, l) => (u === null ? l.seq : Math.max(u, l.seq)), null);
     return {
-      exists: !0,
+      exists: true,
       generation: s.generation,
       lastSeq: d,
       ...(s.byteEnd !== void 0 && { byteEnd: s.byteEnd }),
@@ -2926,7 +2926,7 @@ class mAt {
     let i = this.unobservable.get(ld(e)),
       o = (i?.failures ?? 0) + 1,
       a = Math.min(Fo * 2 ** (o - 1), Wd),
-      s = i?.reported ?? !1,
+      s = i?.reported ?? false,
       d = !s && o >= $d;
     if (
       (this.unobservable.set(ld(e), {
@@ -2952,7 +2952,7 @@ class mAt {
     this.unobservable.set(e, {
       failures: 0,
       nextLookAt: this.backend.clock.now(),
-      hintTaken: !1,
+      hintTaken: false,
       reported: r.reported,
     });
   }
@@ -2963,7 +2963,7 @@ class mAt {
       return;
     }
     let t = mt(r, this.backend.instanceId);
-    this.deliverOrdered(e, t, !1);
+    this.deliverOrdered(e, t, false);
   }
   deliverOrdered(e, r, t) {
     if (this.gapFill !== null || this.opensGap(e)) {
@@ -2974,7 +2974,7 @@ class mAt {
     }
     this.deliverAbsorbed(e, r, t);
   }
-  deliverAbsorbed(e, r, t = !1) {
+  deliverAbsorbed(e, r, t = false) {
     let i = this.tracked.get(ld(e.key)),
       o = i?.kind === "value" && i.state.present,
       a =
@@ -2987,7 +2987,7 @@ class mAt {
     this.deliver(ru(a, r));
   }
   opensGap(e) {
-    if (e.kind !== "appended") return !1;
+    if (e.kind !== "appended") return false;
     let r = bn(this.tracked.get(ld(e.key)));
     if (!r.exists) return e.seq > 0;
     if (Ar(e.key) && lJ(e.key.namespace)) {
@@ -2996,7 +2996,7 @@ class mAt {
     }
     return e.seq > (r.lastSeq ?? -1) + 1;
   }
-  async deliverBehindGap(e, r, t, i = !1) {
+  async deliverBehindGap(e, r, t, i = false) {
     try {
       try {
         if (this.active && e.kind === "appended" && Ar(e.key) && this.opensGap(e))
@@ -3017,14 +3017,14 @@ class mAt {
     let t = ld(e),
       i = this.tracked.get(t),
       o = bn(i),
-      a = await this.observeStream(e, i?.kind === "stream" ? i.state : void 0, !0);
+      a = await this.observeStream(e, i?.kind === "stream" ? i.state : void 0, true);
     if (!this.active || a === void 0) return;
     if (!a.exists || gt(e, o, a)) {
       setTimeout(() => void this.rediff(), 0);
       return;
     }
     let s = [...a.records.entries()]
-      .filter(([y]) => y < r && !o.records.has(y) && o.delivered?.has(y) !== !0)
+      .filter(([y]) => y < r && !o.records.has(y) && o.delivered?.has(y) !== true)
       .sort(([y], [g]) => y - g);
     if (!o.exists)
       this.deliver(
@@ -3049,7 +3049,7 @@ class mAt {
   replayQueued(e, r) {
     if (!this.active || !this.concerns(e.key)) return;
     let t = mt(r, this.backend.instanceId);
-    this.deliverOrdered(e, t, !0);
+    this.deliverOrdered(e, t, true);
   }
   concerns(e) {
     if (this.target.target === "key") return ld(this.target.key) === ld(e);
@@ -3068,8 +3068,8 @@ class mAt {
           let o = bn(t),
             a = e.kind === "created" ? (e.records ?? []) : [];
           if (e.kind === "created" && lJ(e.key.namespace)) {
-            let u = a.filter(([p]) => !o.records.has(p) && o.delivered?.has(p) !== !0);
-            if (o.exists && u.length === 0) return !0;
+            let u = a.filter(([p]) => !o.records.has(p) && o.delivered?.has(p) !== true);
+            if (o.exists && u.length === 0) return true;
             let l = new Map(o.exists ? o.delivered : void 0),
               c = o.exists ? (o.deliveredEnd ?? -1) : -1;
             for (let [p, y] of a) l.set(p, y), (c = Math.max(c, p + 1));
@@ -3079,13 +3079,13 @@ class mAt {
               this.tracked.set(r, {
                 key: e.key,
                 kind: "stream",
-                state: { ...o, exists: !0, lastSeq: f, delivered: l, deliveredEnd: c },
+                state: { ...o, exists: true, lastSeq: f, delivered: l, deliveredEnd: c },
                 revision: i,
               }),
-              !1
+              false
             );
           }
-          if (e.kind === "created" && o.exists) return !0;
+          if (e.kind === "created" && o.exists) return true;
           let s = new Map(o.records);
           for (let [u, l] of a) s.set(u, l);
           let d = [...s.keys()].reduce((u, l) => (u === null ? l : Math.max(u, l)), o.lastSeq);
@@ -3093,20 +3093,20 @@ class mAt {
             this.tracked.set(r, {
               key: e.key,
               kind: "stream",
-              state: { exists: !0, generation: o.generation, lastSeq: d, records: s, tombstoned: o.tombstoned },
+              state: { exists: true, generation: o.generation, lastSeq: d, records: s, tombstoned: o.tombstoned },
               revision: i,
             }),
-            !1
+            false
           );
         }
         if (e.version !== void 0)
           this.tracked.set(r, {
             key: e.key,
             kind: "value",
-            state: { present: !0, hash: e.version, size: -1, mtimeMs: -1 },
+            state: { present: true, hash: e.version, size: -1, mtimeMs: -1 },
             revision: i,
           });
-        return !1;
+        return false;
       case "deleted":
         if (Ar(e.key)) this.restartRun(r);
         return (
@@ -3114,15 +3114,15 @@ class mAt {
             r,
             Ar(e.key)
               ? { key: e.key, kind: "stream", state: Qe, revision: i }
-              : { key: e.key, kind: "value", state: { present: !1 }, revision: i },
+              : { key: e.key, kind: "value", state: { present: false }, revision: i },
           ),
-          !1
+          false
         );
       case "appended": {
         let o = bn(t);
         if (lJ(e.key.namespace)) {
           let s = o.byteEnd !== void 0 && e.seq < o.byteEnd;
-          if (!s && (o.records.has(e.seq) || o.delivered?.has(e.seq) === !0)) return !0;
+          if (!s && (o.records.has(e.seq) || o.delivered?.has(e.seq) === true)) return true;
           let d = new Map(o.delivered);
           d.set(e.seq, e.recordId);
           let u = Math.max(o.deliveredEnd ?? -1, e.end ?? e.seq + 1);
@@ -3130,38 +3130,38 @@ class mAt {
             (this.tracked.set(r, {
               key: e.key,
               kind: "stream",
-              state: { ...o, exists: !0, lastSeq: Math.max(o.lastSeq ?? -1, e.seq), delivered: d, deliveredEnd: u },
+              state: { ...o, exists: true, lastSeq: Math.max(o.lastSeq ?? -1, e.seq), delivered: d, deliveredEnd: u },
               revision: i,
             }),
             s)
           )
             setTimeout(() => void this.rediff(), 0);
-          return !1;
+          return false;
         }
-        if (o.records.has(e.seq)) return !0;
+        if (o.records.has(e.seq)) return true;
         let a = new Map(o.records);
         return (
           a.set(e.seq, e.recordId),
           this.tracked.set(r, {
             key: e.key,
             kind: "stream",
-            state: { ...o, exists: !0, lastSeq: Math.max(o.lastSeq ?? -1, e.seq), records: a },
+            state: { ...o, exists: true, lastSeq: Math.max(o.lastSeq ?? -1, e.seq), records: a },
             revision: i,
           }),
-          !1
+          false
         );
       }
       case "tombstoned": {
         let o = bn(t);
-        if (o.tombstoned.has(e.recordId)) return !0;
+        if (o.tombstoned.has(e.recordId)) return true;
         return (
           this.tracked.set(r, {
             key: e.key,
             kind: "stream",
-            state: { ...o, exists: !0, tombstoned: new Set([...o.tombstoned, e.recordId]) },
+            state: { ...o, exists: true, tombstoned: new Set([...o.tombstoned, e.recordId]) },
             revision: i,
           }),
-          !1
+          false
         );
       }
     }
@@ -3169,16 +3169,16 @@ class mAt {
   async rediff() {
     if (!this.active) return;
     if (this.rediffing) {
-      this.rediffAgain = !0;
+      this.rediffAgain = true;
       return;
     }
-    this.rediffing = !0;
+    this.rediffing = true;
     try {
       await this.rediffOnce();
     } catch (e) {
       n(`storage subscription rediff failed: ${e}`, { level: "warn" });
     } finally {
-      if (((this.rediffing = !1), this.rediffAgain)) (this.rediffAgain = !1), this.rediff();
+      if (((this.rediffing = false), this.rediffAgain)) (this.rediffAgain = false), this.rediff();
     }
   }
   async rediffOnce() {
@@ -3187,10 +3187,10 @@ class mAt {
         r = await this.backend.scopeKeys(this.target.scope);
       if (!this.active) return;
       if (r.ok) {
-        this.unlistable = !1;
+        this.unlistable = false;
         for (let t of r.value) e.add(ld(t)), await this.rediffKey(t);
       } else if (!this.unlistable)
-        (this.unlistable = !0),
+        (this.unlistable = true),
           n(
             `storage subscription cannot list its scope (${r.error.telemetryCode ?? r.error.code}); looking at the members it knows until a listing succeeds`,
             { level: "warn" },
@@ -3224,7 +3224,7 @@ class mAt {
     let s = a?.kind === "value" ? a.state : void 0;
     this.tracked.set(r, { key: e, kind: "value", state: o, revision: i });
     let d = Qd(e, s, o);
-    if (d !== void 0) (this.observedChanges += 1), (this.leafChanged = !0), this.deliver(re(d));
+    if (d !== void 0) (this.observedChanges += 1), (this.leafChanged = true), this.deliver(re(d));
   }
   pruneAbsent() {
     for (let [e, r] of this.tracked)
@@ -3240,7 +3240,7 @@ class mAt {
     }
   }
   terminate() {
-    this.active = !1;
+    this.active = false;
     try {
       this.onEvent(P(Pr("invariant", { telemetryCode: "BackendClosed" })));
     } catch (e) {
@@ -3248,7 +3248,7 @@ class mAt {
     }
   }
   async stop() {
-    if (((this.active = !1), this.unobservable.clear(), this.pollTimer !== void 0))
+    if (((this.active = false), this.unobservable.clear(), this.pollTimer !== void 0))
       clearTimeout(this.pollTimer), (this.pollTimer = void 0);
     if (this.strayProbe !== void 0) clearTimeout(this.strayProbe), (this.strayProbe = void 0);
     let e = this.watchHandles.splice(0);
@@ -3270,26 +3270,26 @@ function wo(e, r, t) {
   return { ...t, ...(i.size > 0 && { delivered: i }), ...(o !== void 0 && { deliveredEnd: o }) };
 }
 function gt(e, r, t) {
-  if (!r.exists || !t.exists) return !1;
-  if (r.generation !== t.generation && t.generation !== -1 && r.generation !== -1) return !0;
-  if (!lJ(e.namespace)) return !1;
-  if (r.byteEnd !== void 0 && t.byteEnd !== void 0 && t.byteEnd < r.byteEnd) return !0;
+  if (!r.exists || !t.exists) return false;
+  if (r.generation !== t.generation && t.generation !== -1 && r.generation !== -1) return true;
+  if (!lJ(e.namespace)) return false;
+  if (r.byteEnd !== void 0 && t.byteEnd !== void 0 && t.byteEnd < r.byteEnd) return true;
   if (
     r.stamp !== void 0 &&
     t.stamp !== void 0 &&
     t.stamp.generation === r.stamp.generation &&
     t.stamp.size < r.stamp.size
   )
-    return !0;
-  for (let i of r.records.keys()) if (!t.records.has(i)) return !0;
-  return !1;
+    return true;
+  for (let i of r.records.keys()) if (!t.records.has(i)) return true;
+  return false;
 }
 function yt(e) {
-  return e === void 0 ? { present: !1 } : { present: !0, hash: e.version, size: e.size, mtimeMs: e.mtimeMs };
+  return e === void 0 ? { present: false } : { present: true, hash: e.version, size: e.size, mtimeMs: e.mtimeMs };
 }
 function Zd(e, r) {
   if (Ar(e)) return P(Pr("invariant", { telemetryCode: "StreamSnapshot" }));
-  if (r === void 0) return re({ kind: "snapshot", key: e, absent: !0, origin: "other" });
+  if (r === void 0) return re({ kind: "snapshot", key: e, absent: true, origin: "other" });
   return re({ kind: "snapshot", key: e, value: r.bytes, version: r.version, origin: "other" });
 }
 function Qd(e, r, t) {
@@ -3308,7 +3308,7 @@ function eu(e, r, t) {
   }
   let o = [],
     a = [...t.records.entries()]
-      .filter(([s]) => !r.records.has(s) && r.delivered?.has(s) !== !0)
+      .filter(([s]) => !r.records.has(s) && r.delivered?.has(s) !== true)
       .sort(([s], [d]) => s - d);
   for (let [s, d] of a) o.push({ kind: "appended", key: e, seq: s, recordId: d, origin: "other" });
   for (let s of t.tombstoned)
@@ -3392,7 +3392,7 @@ function Ro(e, r) {
 import { rmdir as tu, stat as Le, symlink as iu, unlink as br } from "fs/promises";
 import { dirname as ou, join as au, resolve as Eo } from "path";
 var su = 4096;
-async function vt(e, r, t = !1) {
+async function vt(e, r, t = false) {
   if (ae(r)) return gn(e, r, void 0, t);
   let i = await Lo(e, r);
   if (!i.ok) return P(i.error);
@@ -3415,21 +3415,21 @@ async function du(e, r, t, i) {
   let o = Kn(r) ?? G1e(r, t) ?? Ozt(r, i) ?? (W1e(r)?.framing === "jsonl" ? q1e(t) : Pzt(t));
   if (o !== void 0) return P(o);
   let a = i?.precondition?.type === "ifExists",
-    s = i?.precondition?.nonEmpty === !0;
+    s = i?.precondition?.nonEmpty === true;
   if (a && (r.namespace === "history" || r.namespace === "sessionLog"))
     return P(Fe("opts.precondition", `ifExists is not offered on ${r.namespace} streams until a caller needs it`));
   let d = t.length > 0 && !a && FO(r);
   await kw(e, en(e, r)[0].log, d);
   let u =
     t.length === 0
-      ? re({ acks: [], ends: [], createdStream: !1 })
+      ? re({ acks: [], ends: [], createdStream: false })
       : await ao(r, ...en(e, r), t, Iar(e.roots, r), FO(r), e.screenedSessionLogs, {
           ifExists: a,
           nonEmpty: s,
-          singleName: i?.singleName === !0,
+          singleName: i?.singleName === true,
         });
   if (!u.ok) return u;
-  if (i?.markLatest === !0 && u.value.acks.length > 0) await wu(en(e, r)[0].log);
+  if (i?.markLatest === true && u.value.acks.length > 0) await wu(en(e, r)[0].log);
   let l = u.value.ends.at(-1);
   if (u.value.createdStream)
     ju(e, {
@@ -3476,13 +3476,13 @@ async function lu(e, r, t, i) {
       let { index: c, createdStream: f, debris: p } = l.value,
         y = await cu(a, c, t, r);
       if (!y.ok) return y;
-      if (y.value.fresh.length === 0) return re({ ...y.value, createdStream: !1 });
+      if (y.value.fresh.length === 0) return re({ ...y.value, createdStream: false });
       if (p !== void 0) {
         let L = await mu(a, p, u);
         if (!L.ok) return P(Ke(L.error, r));
       }
       let g = Buffer.concat(y.value.fresh.map((L) => Buffer.from(L.bytes))),
-        k = await Ai(a, new Uint8Array(g), f, { singleName: i?.singleName === !0 });
+        k = await Ai(a, new Uint8Array(g), f, { singleName: i?.singleName === true });
       if (!k.ok) return P(Ke(k.error, r));
       let v = Ru(y.value.fresh, k.value.position),
         w = Yr(
@@ -3540,7 +3540,7 @@ async function cu(e, r, t, i) {
     if (s.has(f)) return P(gb(i, f));
     s.add(f),
       a.push({
-        entry: { seq: d, recordId: f, offset: 0, length: l.byteLength, digest: Be(l), tombstoned: !1 },
+        entry: { seq: d, recordId: f, offset: 0, length: l.byteLength, digest: Be(l), tombstoned: false },
         bytes: l,
       }),
       o.push({ seq: d, endSeq: d + 1, recordId: f }),
@@ -3556,9 +3556,9 @@ async function bt(e, r) {
 async function fu(e, r) {
   let t = await bt(e, r);
   if (!t.ok) return t;
-  if (!hn(t.value)) return re({ index: t.value, createdStream: !1, debris: void 0 });
+  if (!hn(t.value)) return re({ index: t.value, createdStream: false, debris: void 0 });
   let i = t.value.leftover;
-  return re({ index: $r(i === void 0 ? 0 : i.generation + 1), createdStream: !0, debris: i });
+  return re({ index: $r(i === void 0 ? 0 : i.generation + 1), createdStream: true, debris: i });
 }
 async function mu(e, r, t) {
   if (t.suspect()) return P({ kind: "suspect" });
@@ -3581,7 +3581,7 @@ async function ht(e, r) {
 function hn(e) {
   return "missing" in e;
 }
-async function Tn(e, r, t = !1) {
+async function Tn(e, r, t = false) {
   let i = e.verifiedCache.get(r.directory);
   if (i === void 0) return kt(e, r, t);
   let o = await We(r.log);
@@ -3594,30 +3594,30 @@ async function Tn(e, r, t = !1) {
 async function kt(e, r, t) {
   let i = await pe(r);
   if (!i.ok) return i;
-  if (i.value === "missing") return re({ missing: !0, leftover: void 0 });
+  if (i.value === "missing") return re({ missing: true, leftover: void 0 });
   let o = fe(i.value),
-    a = await Ie(Le(r.log, { bigint: !0 }));
+    a = await Ie(Le(r.log, { bigint: true }));
   if (!a.ok && a.error.kind !== "absent") return a;
   let s = a.ok ? await Te(o, Number(a.value.size), (u) => Re(r.log, u)) : re(void 0);
   if (!s.ok) return s;
   let d = s.value === void 0 ? re(void 0) : await We(r.log);
   if (!d.ok) return d;
   if (s.value === void 0 || d.value === void 0)
-    return H(e, r), re({ missing: !0, leftover: { generation: o.applyGeneration, digest: St(i.value) } });
+    return H(e, r), re({ missing: true, leftover: { generation: o.applyGeneration, digest: St(i.value) } });
   if (a.ok && !z(d.value, W(a.value)))
     return H(e, r), P({ kind: "classified", error: tc("unknown", { telemetryCode: "LogReplaced" }) });
   if (!s.value.headerValid && !t) {
     let u = await ht(e, r);
     if (!u.ok) return u;
-    return Tn(e, r, !0);
+    return Tn(e, r, true);
   }
   return await gu(e, r, s.value, d.value, i.value), re(s.value);
 }
 async function pu(e) {
   let r = await pe(e);
   if (!r.ok) return r;
-  if (r.value === "missing") return re({ missing: !0, leftover: void 0 });
-  return re({ missing: !0, leftover: { generation: fe(r.value).applyGeneration, digest: St(r.value) } });
+  if (r.value === "missing") return re({ missing: true, leftover: void 0 });
+  return re({ missing: true, leftover: { generation: fe(r.value).applyGeneration, digest: St(r.value) } });
 }
 function St(e) {
   return Be(Buffer.from(e));
@@ -3707,22 +3707,22 @@ async function ku(e, r, t) {
       ),
     );
   let o = ee(e, r);
-  await kw(e, o.log, !0);
+  await kw(e, o.log, true);
   let a = await mS(
     o.index,
     async (d) => {
       let u = await bt(e, o);
       if (!u.ok) return P(Ke(u.error, r));
-      if (hn(u.value)) return re({ matched: t.map(() => !1), newly: [] });
+      if (hn(u.value)) return re({ matched: t.map(() => false), newly: [] });
       let l = u.value,
         c = t.map((v) => l.byId.has(v)),
-        f = te(t.filter((v) => l.byId.get(v)?.tombstoned === !1));
+        f = te(t.filter((v) => l.byId.get(v)?.tombstoned === false));
       if (f.length === 0) return re({ matched: c, newly: f });
       let p = await dr(o, Li(f));
       if (!p.ok) return P(Ke(p.error, r));
       let y = await Tn(e, o),
         g = y.ok && !hn(y.value) ? y.value : void 0;
-      if (!(g !== void 0 && f.every((v) => g.byId.get(v)?.tombstoned === !0)))
+      if (!(g !== void 0 && f.every((v) => g.byId.get(v)?.tombstoned === true)))
         return P(tc("unknown", { telemetryCode: "TombstoneUnverified" }));
       if (d.suspect()) return P(tc("unknown", { telemetryCode: "LockSuspect" }));
       return re({ matched: c, newly: f });
@@ -3732,7 +3732,7 @@ async function ku(e, r, t) {
   if (!a.ok) return a;
   ye(e, r);
   for (let d of a.value.newly) ju(e, { kind: "tombstoned", key: r, recordId: d });
-  let s = g$e(t, (d, u) => ({ matched: a.value.matched[u] ?? !1 }));
+  let s = g$e(t, (d, u) => ({ matched: a.value.matched[u] ?? false }));
   return re({ items: s });
 }
 async function zsr(e, r) {
@@ -3750,7 +3750,7 @@ async function vu(e, r) {
       ),
     );
   let i = ee(e, r);
-  await kw(e, i.log, !0);
+  await kw(e, i.log, true);
   let o = await mS(
     i.index,
     async () => {
@@ -3809,7 +3809,7 @@ async function wt(e, r, t) {
         d = await Ie(Le(i.log));
       if (!s && !d.ok) {
         if (d.error.kind !== "absent") return P(Ke(d.error, r));
-        return H(e, i), t === void 0 ? re({ existed: !1 }) : P(Mi(r));
+        return H(e, i), t === void 0 ? re({ existed: false }) : P(Mi(r));
       }
       H(e, i);
       let u = d.ok || (s && (await Ie(Le(i.index))).ok);
@@ -3906,7 +3906,7 @@ async function wu(e) {
 function Ozt(e, r) {
   if (r?.singleName !== void 0 && typeof r.singleName !== "boolean") return Fe("opts.singleName", "must be a boolean");
   if (r?.markLatest !== void 0 && typeof r.markLatest !== "boolean") return Fe("opts.markLatest", "must be a boolean");
-  if (r?.markLatest === !0 && !Su(e))
+  if (r?.markLatest === true && !Su(e))
     return Fe(
       "opts.markLatest",
       "is offered only on a session's debug log ({ namespace: 'log', channel: 'debug', sessionId })",
@@ -3918,7 +3918,7 @@ function Ozt(e, r) {
     "type" in t &&
     t.type === "ifExists" &&
     Object.keys(t).every((i) => i === "type" || i === "nonEmpty") &&
-    (!("nonEmpty" in t) || t.nonEmpty === void 0 || t.nonEmpty === !0)
+    (!("nonEmpty" in t) || t.nonEmpty === void 0 || t.nonEmpty === true)
     ? void 0
     : Fe("opts.precondition", "must be { type: ifExists } with an optional nonEmpty: true");
 }
@@ -4077,7 +4077,7 @@ async function Lzt(e, r, t = $N) {
     o = await pe(i);
   if (o.ok && o.value !== "missing") {
     let d = await Ie(Io(i.log)),
-      u = await Te(fe(o.value), d.ok ? d.value.size : 0, async () => re(!0));
+      u = await Te(fe(o.value), d.ok ? d.value.size : 0, async () => re(true));
     if (u.ok && u.value.entries.some((l) => !l.tombstoned && l.length > t)) return P({ kind: "fs", error: kn() });
   }
   let a = await Ft(e, r, { maxBytes: t }, 0);
@@ -4096,11 +4096,11 @@ async function Lzt(e, r, t = $N) {
   return re(ro(dt(a.value.items.map((d) => d.data)), a.value.logMeta, a.value.committedEnd));
 }
 async function Mo(e) {
-  let r = await Ie(Io(e.index, { bigint: !0 }));
+  let r = await Ie(Io(e.index, { bigint: true }));
   return r.ok ? W(r.value) : void 0;
 }
 async function Pu(e, r) {
-  if (r === void 0) return !1;
+  if (r === void 0) return false;
   let t = await Mo(e);
   return t !== void 0 && !z(t, r);
 }
@@ -4130,7 +4130,7 @@ async function Vo(e, r, t, i) {
   if (e.closed) return P(So());
   let o = zvn(t);
   if (o !== void 0) return P(o);
-  let a = t?.hardened === !0,
+  let a = t?.hardened === true,
     s = r.map((y, g) => nRn(e.roots, y, g)),
     d = s.find((y) => "code" in y) ?? (a ? Kvn(s) : void 0) ?? (t?.symlinks === "follow" ? Vvn(s) : void 0);
   if (d !== void 0) return P(d);
@@ -4141,12 +4141,12 @@ async function Vo(e, r, t, i) {
   if (f !== void 0) return P(f);
   let p = g$e(r, (y, g) => {
     let k = c[g];
-    return k !== void 0 && !("code" in k) ? k : { found: !1 };
+    return k !== void 0 && !("code" in k) ? k : { found: false };
   });
   return re({ items: p });
 }
 function zvn(e) {
-  if (e?.hardened !== void 0 && e.hardened !== !0) return Fe("opts.hardened", "must be true or omitted");
+  if (e?.hardened !== void 0 && e.hardened !== true) return Fe("opts.hardened", "must be true or omitted");
   if (e?.symlinks !== void 0 && e.symlinks !== "follow" && e.symlinks !== "refuse")
     return Fe("opts.symlinks", "must be 'follow' or 'refuse'");
   return;
@@ -4173,7 +4173,7 @@ function Kvn(e) {
   return r === -1 ? void 0 : Fe("opts.hardened", `entries[${r}] is a stream key; only value keys read hardened`);
 }
 async function Cu(e, r, t, i, o) {
-  if ("code" in r) return { found: !1 };
+  if ("code" in r) return { found: false };
   let a = await ne(e.roots, r.key, "singleRead");
   if (a !== void 0) return a;
   let s = o ? "refuse" : Rd(r.key),
@@ -4181,29 +4181,29 @@ async function Cu(e, r, t, i, o) {
   if (i !== void 0 && !Ar(r.key)) {
     let y = await i(r.key);
     if (!y.ok) return Ke(y.error, r.key);
-    if (y.value === void 0) return { found: !1 };
+    if (y.value === void 0) return { found: false };
     d = y.value;
   }
   if (r.kind !== "whole" && Ar(r.key) && ae(r.key)) {
     let y = await to(e, r.key, r, $N);
-    if (!y.ok) return y.error.kind === "absent" ? { found: !1 } : Ke(y.error, r.key);
+    if (!y.ok) return y.error.kind === "absent" ? { found: false } : Ke(y.error, r.key);
     let { bytes: g, version: k, totalBytes: v, mtimeMs: w } = y.value;
-    return { found: !0, value: t(g), version: k, totalBytes: v, mtimeMs: w };
+    return { found: true, value: t(g), version: k, totalBytes: v, mtimeMs: w };
   }
   if (r.kind !== "whole" && !Ar(r.key)) {
     let y = await mar(Jo(e.roots, r.key), s, r, d);
-    if (!y.ok) return y.error.kind === "absent" ? { found: !1 } : Ke(y.error, r.key);
+    if (!y.ok) return y.error.kind === "absent" ? { found: false } : Ke(y.error, r.key);
     let { bytes: g, size: k, mtimeMs: v } = y.value;
-    return { found: !0, value: t(g), totalBytes: k, mtimeMs: v };
+    return { found: true, value: t(g), totalBytes: k, mtimeMs: v };
   }
   let u = Ar(r.key) ? await Lzt(e, r.key) : await VT(Jo(e.roots, r.key), s, d);
   if (!u.ok) {
-    if (u.error.kind === "absent") return { found: !1 };
+    if (u.error.kind === "absent") return { found: false };
     return Ke(u.error, r.key);
   }
   let { bytes: l, version: c, mtimeMs: f, storedBytes: p } = u.value;
   return {
-    found: !0,
+    found: true,
     value: t(fl(r, l)),
     version: c,
     totalBytes: l.byteLength,
@@ -4215,7 +4215,7 @@ async function Jsr(e, r, t) {
   if (e.closed) return P(So());
   let i = Kn(r) ?? yc(e.roots, r) ?? Jvn(t);
   if (i !== void 0) return P(i);
-  if (Ar(r)) return vt(e, r, t?.witness === !0);
+  if (Ar(r)) return vt(e, r, t?.witness === true);
   let o = await ne(e.roots, r, "singleRead");
   if (o !== void 0) return P(o);
   let a = await VT(Jo(e.roots, r), Rd(r));
@@ -4254,10 +4254,10 @@ async function Zsr(e, r, t) {
   let o = await ne(e.roots, r, "singleRead");
   if (o !== void 0) return P(o);
   let a = Jo(e.roots, r),
-    s = !1,
+    s = false,
     d = await ICe(a, Rd(r), void 0, async (u, l) => {
       let c = t.maxBytes ?? Sh;
-      if (l.size > c) return (s = !0), P({ kind: "fs", error: Bs(a, "EFBIG") });
+      if (l.size > c) return (s = true), P({ kind: "fs", error: Bs(a, "EFBIG") });
       let f = xu(t.algorithm),
         p = Buffer.allocUnsafe(Math.max(1, Math.min(Du, l.size))),
         y = 0;
@@ -4267,7 +4267,7 @@ async function Zsr(e, r, t) {
         if (v.value.bytesRead === 0) break;
         f.update(p.subarray(0, v.value.bytesRead)), (y += v.value.bytesRead);
       }
-      let g = await Ie(u.stat({ bigint: !0 }));
+      let g = await Ie(u.stat({ bigint: true }));
       if (!g.ok) return g;
       let k = GCe({ device: g.value.dev, inode: g.value.ino });
       return re({
@@ -4323,12 +4323,12 @@ async function tar(e, r, t, i) {
   if (o !== void 0) return P(o);
   let a = await ne(e.roots, r, "always");
   if (a !== void 0) return P(a);
-  let s = () => (i.requireMode === !0 ? P(Pr("environment", { key: r, telemetryCode: Sj })) : re({ applied: !1 })),
-    d = !1,
+  let s = () => (i.requireMode === true ? P(Pr("environment", { key: r, telemetryCode: Sj })) : re({ applied: false })),
+    d = false,
     u = await ICe(Jo(e.roots, r), "refuse", void 0, async (c) => {
-      let f = await Ie(c.stat({ bigint: !0 }));
+      let f = await Ie(c.stat({ bigint: true }));
       if (!f.ok) return f;
-      if (GCe({ device: f.value.dev, inode: f.value.ino }) !== i.ifObject) return (d = !0), P({ kind: "absent" });
+      if (GCe({ device: f.value.dev, inode: f.value.ino }) !== i.ifObject) return (d = true), P({ kind: "absent" });
       if (D() === "windows") return re(void 0);
       let p = await Ie(c.chmod(t));
       if (!p.ok && !(p.error.kind === "fs" && w0(p.error.error))) return p;
@@ -4341,7 +4341,7 @@ async function tar(e, r, t, i) {
   }
   let l = u.value;
   if (l === void 0) return s();
-  return l === t ? re({ applied: !0, mode: l & 511 }) : i.requireMode === !0 ? s() : re({ applied: !1, mode: l & 511 });
+  return l === t ? re({ applied: true, mode: l & 511 }) : i.requireMode === true ? s() : re({ applied: false, mode: l & 511 });
 }
 function Yvn(e, r, t, i) {
   return (
@@ -4395,7 +4395,7 @@ function wn(e, r) {
     mode: r?.mode ?? (r?.precondition?.type === "ifAbsent" ? jzt(e, r.publishDiscipline) : void 0),
     exactMode: r?.exactMode,
     createMode: void 0,
-    keepMode: r?.keepExistingMode === !0,
+    keepMode: r?.keepExistingMode === true,
     flush: r?.flush ?? (t === "followAtomic" || t === "refuseDefault"),
     makeParent: r?.parent !== "mustExist",
     parentMode: UN(e),
@@ -4453,7 +4453,7 @@ function Ko(e, r, t) {
     case "refuseDefault":
       return bRn(e, r, i, o, { flush: s, makeParent: It(t.discipline) && d, exactMode: a, parentMode: u });
     case "rewriteDefault":
-      return bRn(e, r, i, o, { flush: s, makeParent: d, exactMode: a, parentMode: u, refuseUnwritable: !0 });
+      return bRn(e, r, i, o, { flush: s, makeParent: d, exactMode: a, parentMode: u, refuseUnwritable: true });
   }
 }
 function yJe(e) {
@@ -4543,7 +4543,7 @@ async function Uu(e, r, t) {
             ifContended: (d) => (m4(r) && d.kind === "absent" ? re({ kind: "missing" }) : P(d)),
           });
   if (!s.ok) return P(Ke(s.error, r));
-  if (s.value.kind === "missing") return o === void 0 ? re({ existed: !1 }) : P(Mi(r));
+  if (s.value.kind === "missing") return o === void 0 ? re({ existed: false }) : P(Mi(r));
   if (s.value.kind === "mismatch") return P(hb(r, s.value.currentVersion));
   if (s.value.kind === "declined") return P(tc("unknown", { telemetryCode: "LockSuspect" }));
   if (s.value.existed) ju(e, { kind: "deleted", key: r });
@@ -4595,7 +4595,7 @@ async function Qvn(e, r, t) {
       g = (await Promise.all(p.value.map((v) => $u(e.roots, u, d, v, t?.suffix, a, s, y)))).filter((v) => v !== void 0),
       k = await Promise.all(
         g.map(({ mapped: v, path: w, stats: S, viaSymlink: h }) =>
-          Zu(v, w, t?.includeValue === !0, t?.skipScopeStats === !0, t?.skipKeyStats === !0, S, h, a, s),
+          Zu(v, w, t?.includeValue === true, t?.skipScopeStats === true, t?.skipKeyStats === true, S, h, a, s),
         ),
       );
     for (let v of k) if (v !== void 0) o.push(v);
@@ -4605,7 +4605,7 @@ async function Qvn(e, r, t) {
 var zu = 16,
   Cn = No(zu, (e) => e());
 function Wu(e) {
-  return Cn(() => Ie(Nn(e, { withFileTypes: !0 })));
+  return Cn(() => Ie(Nn(e, { withFileTypes: true })));
 }
 function Uo() {
   return { unrepresentable: 0, refusedLinks: 0, unresolvedLinks: 0, declinedLinks: 0, reserved: 0, vanished: 0 };
@@ -4640,7 +4640,7 @@ async function $u(e, r, t, i, o, a, s, d) {
   }
   let p = dJ(r);
   if (f.isSymbolicLink() && p === "follow") {
-    let h = uj(r, i.name, !0, e);
+    let h = uj(r, i.name, true, e);
     if (h?.kind === "scope" && dJ(h.scope) === "refuse") {
       a.refusedLinks += 1;
       return;
@@ -4664,7 +4664,7 @@ async function $u(e, r, t, i, o, a, s, d) {
     if (!OAt(r, i.name, g, e)) a.unrepresentable += 1;
     return;
   }
-  if (k.kind === "key" && k.unlisted === !0) return;
+  if (k.kind === "key" && k.unlisted === true) return;
   if (y !== void 0 && Ju(k) === "refuse") {
     a.refusedLinks += 1;
     return;
@@ -4696,13 +4696,13 @@ function Hu(e, r, t) {
 }
 function Mt(e, r) {
   let t = e.kind === "key" ? Kn(e.key) : Au(e.scope);
-  if (t === void 0) return !0;
+  if (t === void 0) return true;
   return (
     rn(
       r,
       `storage listing: skipping ${r} \u2014 its name is not addressable as a ${e.kind === "key" ? "key" : "grouping"} (${t.argument})`,
     ),
-    !1
+    false
   );
 }
 var Gu = 1000;
@@ -4740,7 +4740,7 @@ async function Tt(e, r, t = []) {
   return re(aU(a.value, o.value) ? "inside" : "escapes");
 }
 async function zo(e, r, t) {
-  if (e === void 0) return !1;
+  if (e === void 0) return false;
   let i = await Tt(e, r);
   if (!i.ok)
     return (
@@ -4749,7 +4749,7 @@ async function zo(e, r, t) {
         r,
         `storage listing: skipping ${r} \u2014 a link in a marketplace tree that could not be judged (${v5(i.error)})`,
       ),
-      !0
+      true
     );
   if (i.value === "escapes" || i.value === "remote" || i.value === "unscreened")
     return (
@@ -4760,9 +4760,9 @@ async function zo(e, r, t) {
           ? `storage listing: skipping ${r} \u2014 a link whose chain names a network path is never resolved`
           : `storage listing: skipping ${r} \u2014 a link that leaves its marketplace tree is never followed`,
       ),
-      !0
+      true
     );
-  return !1;
+  return false;
 }
 async function Wo(e, r, t) {
   if (r.namespace !== "marketplaceCache" || r.relPath === void 0 || r.relPath.length === 0) return;
@@ -4798,7 +4798,7 @@ async function $o(e, r) {
   return t.value.isDirectory() ? { kind: "directory", stats: t.value } : void 0;
 }
 async function Zu(e, r, t, i, o, a, s, d, u) {
-  let l = s ? { viaSymlink: !0 } : {};
+  let l = s ? { viaSymlink: true } : {};
   if (e.kind === "scope") {
     if (i) return { kind: "scope", scope: e.scope, ...l };
     if (u === "skip" && a === void 0) {
@@ -4881,7 +4881,7 @@ async function Zvn(e, r, t) {
       o,
       a,
       BN(r),
-      () => (a === "follow" ? bl(e.roots, r, o) : Promise.resolve(re(!1))),
+      () => (a === "follow" ? bl(e.roots, r, o) : Promise.resolve(re(false))),
       d,
       (k) => vl(r, o, k, e.roots, l) === "follow",
       s,
@@ -4889,8 +4889,8 @@ async function Zvn(e, r, t) {
       Bt(e.roots, r),
     );
   if (!c.ok) return c.error.kind === "absent" ? re(Noe([], t, d)) : P(Ke(c.error));
-  let f = t?.includeValue === !0,
-    p = t?.skipKeyStats === !0,
+  let f = t?.includeValue === true,
+    p = t?.skipKeyStats === true,
     g = (
       await Promise.all(
         c.value.map(({ path: k, stats: v, viaSymlink: w }) => {
@@ -4900,7 +4900,7 @@ async function Zvn(e, r, t) {
             if (!MAt(r, S)) d.unrepresentable += 1;
             return;
           }
-          if (w === !0 && Rd(h) === "refuse") {
+          if (w === true && Rd(h) === "refuse") {
             d.refusedLinks += 1;
             return;
           }
@@ -4912,7 +4912,7 @@ async function Zvn(e, r, t) {
             d.unrepresentable += 1;
             return;
           }
-          let R = w === !0 ? { viaSymlink: !0 } : {};
+          let R = w === true ? { viaSymlink: true } : {};
           if (!f && v !== void 0) return Go(h, v, R);
           if (p && !f) return { kind: "key", key: h, ...R };
           return Cn(() => Ho(h, k, v, R, f, d, s));
@@ -4941,16 +4941,16 @@ function tRn(e, r) {
     : Fe("opts.olderThanMs", "an age sweep applies only to an owner root (the bridge-spawn root scope, without dir)");
 }
 async function Qu(e, r, t) {
-  let i = await Ie(se(r, { bigint: !0 }));
+  let i = await Ie(se(r, { bigint: true }));
   if (!i.ok) return i.error.kind === "absent" ? re({ deleted: 0 }) : P(Ke(i.error));
   if (i.value.isSymbolicLink()) return P(Ke({ kind: "fs", error: Bs(r, "ELOOP") }));
   if (!i.value.isDirectory() || !Lt(i.value)) return re({ deleted: 0 });
   let o = await Ie(nn(_e(r)));
   if (!o.ok) return o.error.kind === "absent" ? re({ deleted: 0 }) : P(Ke(o.error));
-  let a = await Ie(se(le(o.value, Sr(r)), { bigint: !0 }));
+  let a = await Ie(se(le(o.value, Sr(r)), { bigint: true }));
   if (!a.ok || !a.value.isDirectory() || a.value.ino !== i.value.ino || a.value.dev !== i.value.dev)
     return re({ deleted: 0 });
-  let s = await Ie(Nn(r, { withFileTypes: !0 }));
+  let s = await Ie(Nn(r, { withFileTypes: true }));
   if (!s.ok) return s.error.kind === "absent" ? re({ deleted: 0 }) : P(Ke(s.error));
   let d = e.clock.now() - t,
     u = 0,
@@ -4962,7 +4962,7 @@ async function Qu(e, r, t) {
       continue;
     }
     let p = le(r, f.name),
-      y = await Ie(se(p, { bigint: !0 }));
+      y = await Ie(se(p, { bigint: true }));
     if (!y.ok) {
       if (y.error.kind !== "absent") c += 1;
       continue;
@@ -4971,8 +4971,8 @@ async function Qu(e, r, t) {
       l += 1;
       continue;
     }
-    let g = await Ie(se(r, { bigint: !0 })),
-      k = await Ie(se(p, { bigint: !0 })),
+    let g = await Ie(se(r, { bigint: true })),
+      k = await Ie(se(p, { bigint: true })),
       v = await Ie(nn(_e(r))),
       w = await Ie(nn(p));
     if ([g, k, v, w].some((h) => !h.ok && h.error.kind !== "absent")) {
@@ -5033,7 +5033,7 @@ async function Yo(e, r, t) {
       ),
     );
   let o = JH(e.roots, r);
-  if (o[0] !== void 0) await kw(e, o[0].directory, !1);
+  if (o[0] !== void 0) await kw(e, o[0].directory, false);
   let a = 0;
   for (let { directory: s, scope: d } of o) {
     let u = await Bo(e.roots, d, s, t);
@@ -5116,12 +5116,12 @@ async function el(e, r, t, i) {
 }
 var Oe = 16,
   Bo = No(Oe, Ue),
-  Xo = No(Oe, (e) => Nn(e, { withFileTypes: !0 })),
+  Xo = No(Oe, (e) => Nn(e, { withFileTypes: true })),
   To = No(Oe, (e) => Co(e)),
   Ct = No(Oe, (e) => Mu(e)),
   nl = No(Oe, (e) => se(e)),
   rl = No(Oe, (e) => Vn(e)),
-  Dt = No(Oe, (e) => Iu(e, { recursive: !0, force: !0 })),
+  Dt = No(Oe, (e) => Iu(e, { recursive: true, force: true })),
   tl = No(Oe, (e, r) => gS(e, r, () => ll(e, r))),
   il = No(Oe, (e, r, t) => pl(e, r, t));
 async function ol(e, r, t) {
@@ -5173,7 +5173,7 @@ async function Zo(e, r, t, i) {
   );
 }
 async function al(e, r) {
-  if (!e.isDirectory() && (!At(e) || Sn(e))) return re(!1);
+  if (!e.isDirectory() && (!At(e) || Sn(e))) return re(false);
   let t = await Ie(nl(r));
   return t.ok ? re(t.value.isDirectory()) : t;
 }
@@ -5183,7 +5183,7 @@ function sl(e, r) {
   );
 }
 async function Nt(e, r, t) {
-  let i = await Ie(se(t, { bigint: !0 }));
+  let i = await Ie(se(t, { bigint: true }));
   if (!i.ok) return i.error.kind === "absent" ? re({ kind: "absent" }) : i;
   if (i.value.isSymbolicLink()) return re({ kind: "link", posture: Wzt(e, r, t) });
   if (!i.value.isDirectory()) return re({ kind: "other", isFile: i.value.isFile() });
@@ -5273,10 +5273,10 @@ function fl(e, r) {
 }
 async function ml(e, r, t) {
   let i = t.search(ERn);
-  if (i < 0) return !1;
-  let o = uj(r, t.slice(0, i), !1, e);
-  if (o === void 0) return !0;
-  if (o.kind !== "key" || !Ar(o.key)) return !1;
+  if (i < 0) return false;
+  let o = uj(r, t.slice(0, i), false, e);
+  if (o === void 0) return true;
+  if (o.kind !== "key" || !Ar(o.key)) return false;
   let a = await Ie(rl(or(e, o.key).marker));
   return a.ok || a.error.kind !== "absent";
 }
@@ -5314,11 +5314,11 @@ async function yl(e, r, t, i, o, a, s, d, u) {
     p = [],
     y;
   async function g(h) {
-    let R = await Ie(Vn(h, { bigint: !0 }));
+    let R = await Ie(Vn(h, { bigint: true }));
     if (!R.ok) return R;
     return Vm(R.value.ino) ? re(`${R.value.dev}:${R.value.ino}`) : Ie(nn(h));
   }
-  async function k(h, R, F, L = !0) {
+  async function k(h, R, F, L = true) {
     if (R === e && !h && F.kind === "absent") return P(F);
     if (h || F.kind === "absent") {
       if (L)
@@ -5343,13 +5343,13 @@ async function yl(e, r, t, i, o, a, s, d, u) {
     if (R) {
       let A = await g(h);
       if (!A.ok) {
-        let O = await k(!0, h, A.error);
+        let O = await k(true, h, A.error);
         return O.ok ? re([]) : O;
       }
       if (l.has(A.value)) return re([]);
       l.add(A.value);
     }
-    let F = await Cn(async () => (f.length > d ? "pastCeiling" : await Ie(Nn(h, { withFileTypes: !0 }))));
+    let F = await Cn(async () => (f.length > d ? "pastCeiling" : await Ie(Nn(h, { withFileTypes: true }))));
     if (F === "pastCeiling") return P(Et());
     if (!R && (F.ok || F.error.kind !== "absent")) c.push(h);
     if (!F.ok) {
@@ -5357,7 +5357,7 @@ async function yl(e, r, t, i, o, a, s, d, u) {
       return A.ok ? re([]) : A;
     }
     let L = F.value.toSorted((A, O) => (A.name < O.name ? -1 : A.name > O.name ? 1 : 0)),
-      I = R ? { viaSymlink: !0 } : {},
+      I = R ? { viaSymlink: true } : {},
       x = [];
     for (let A of L) {
       if (MO(A.name, t)) {
@@ -5385,13 +5385,13 @@ async function yl(e, r, t, i, o, a, s, d, u) {
           we = !R && N === void 0 && (U || s === "skip");
         x.push(
           R
-            ? Promise.resolve(await v(O, !0))
+            ? Promise.resolve(await v(O, true))
             : we
               ? Cn(() => gl(O)).then((ze) => {
                   if (ze !== "directory") return kl(ze, o, U), re([]);
-                  return v(O, !1);
+                  return v(O, false);
                 })
-              : v(O, !1),
+              : v(O, false),
         );
       } else if (_.isFile()) {
         if ((f.push({ path: O, ...(N !== void 0 && { stats: N }), ...I }), f.length > d)) break;
@@ -5409,10 +5409,10 @@ async function yl(e, r, t, i, o, a, s, d, u) {
       else M.push(...A.value);
     return re(M);
   }
-  let w = await v(e, !1);
+  let w = await v(e, false);
   if (!w.ok) return w;
   p.push(...w.value);
-  let S = !1;
+  let S = false;
   for (let h = p.shift(); h !== void 0; h = p.shift()) {
     if (await zo(u, h, o)) continue;
     let R = await $o(h, r);
@@ -5421,7 +5421,7 @@ async function yl(e, r, t, i, o, a, s, d, u) {
       continue;
     }
     if (R.kind !== "directory") {
-      if ((f.push({ path: h, ...(R.kind === "file" && { stats: R.stats }), viaSymlink: !0 }), f.length > d))
+      if ((f.push({ path: h, ...(R.kind === "file" && { stats: R.stats }), viaSymlink: true }), f.length > d))
         return P(Et());
       continue;
     }
@@ -5432,12 +5432,12 @@ async function yl(e, r, t, i, o, a, s, d, u) {
           l.add(I.value);
           continue;
         }
-        let x = await k(!1, L, I.error, !1);
+        let x = await k(false, L, I.error, false);
         if (!x.ok) return x;
       }
-      S = !0;
+      S = true;
     }
-    let F = await v(h, !0);
+    let F = await v(h, true);
     if (!F.ok) return F;
     p.push(...F.value);
   }
@@ -5465,7 +5465,7 @@ function Ot(e, r) {
 function vl(e, r, t, i, o) {
   let a = Qo(e, r, _e(t), i, o);
   if (!a.mapped || dJ(a.scope) === "refuse") return dJ(a.scope);
-  let s = uj(a.scope, Sr(t), !0, i);
+  let s = uj(a.scope, Sr(t), true, i);
   return s?.kind === "scope" ? dJ(s.scope) : "follow";
 }
 function Qo(e, r, t, i, o) {
@@ -5473,13 +5473,13 @@ function Qo(e, r, t, i, o) {
   if (a !== void 0) return a;
   let s,
     d = wr(r, t);
-  if (d === "" || d === ".") s = { scope: e, mapped: !0 };
+  if (d === "" || d === ".") s = { scope: e, mapped: true };
   else {
     let u = Qo(e, r, _e(t), i, o);
     if (!u.mapped) s = u;
     else {
-      let l = uj(u.scope, Sr(t), !0, i);
-      s = l?.kind === "scope" ? { scope: l.scope, mapped: !0 } : { scope: u.scope, mapped: !1 };
+      let l = uj(u.scope, Sr(t), true, i);
+      s = l?.kind === "scope" ? { scope: l.scope, mapped: true } : { scope: u.scope, mapped: false };
     }
   }
   return o.set(t, s), s;
@@ -5488,22 +5488,22 @@ async function bl(e, r, t) {
   for (let i of Vt(e, t, e.configHome)) {
     let o = await Nt(e, r, i);
     if (!o.ok) return o;
-    if (o.value.kind === "absent") return re(!1);
-    if (o.value.kind === "link" && o.value.posture === "follow") return re(!0);
+    if (o.value.kind === "absent") return re(false);
+    if (o.value.kind === "link" && o.value.posture === "follow") return re(true);
   }
-  return re(!1);
+  return re(false);
 }
 async function ea(e, r, t) {
-  if (dJ(r) !== "follow") return re(!1);
+  if (dJ(r) !== "follow") return re(false);
   let i = wfe(e, { ...r, relPath: void 0 });
-  if (i === t) return re(!1);
+  if (i === t) return re(false);
   for (let o of Vt(e, t, i)) {
     let a = await Nt(e, r, o);
     if (!a.ok) return a;
-    if (a.value.kind === "absent") return re(!1);
-    if (a.value.kind === "link") return re(!0);
+    if (a.value.kind === "absent") return re(false);
+    if (a.value.kind === "link") return re(true);
   }
-  return re(!1);
+  return re(false);
 }
 function na(e, r) {
   if (r === "refuse")
@@ -5532,7 +5532,7 @@ async function iar(e, r, t) {
   let o = await _t(e.roots, r);
   if (!o.ok) return o;
   let a = o.value,
-    s = await Ie(Rr(a.directory, { bigint: !0 }));
+    s = await Ie(Rr(a.directory, { bigint: true }));
   if (!s.ok) return s.error.kind === "absent" ? re({ kind: "absent" }) : P(Ke(s.error));
   if (s.value.isDirectory()) {
     let f = s.value,
@@ -5546,7 +5546,7 @@ async function iar(e, r, t) {
     });
   }
   if (!s.value.isSymbolicLink()) return re({ kind: "other" });
-  if (t?.resolveLink !== !0) return re({ kind: "link" });
+  if (t?.resolveLink !== true) return re({ kind: "link" });
   let d = await Ie(wl(a.directory));
   if (!d.ok) return d.error.kind === "absent" ? re({ kind: "absent" }) : P(Ke(d.error));
   let u = await GAt(d.value, ia(a.directory));
@@ -5591,22 +5591,22 @@ async function sar(e, r, t) {
   if (!a.ok) return a;
   let { directory: s } = a.value,
     d = await Ie(Rr(s));
-  if (d.ok && d.value.isDirectory()) return re({ created: !1 });
+  if (d.ok && d.value.isDirectory()) return re({ created: false });
   if (d.ok && d.value.isSymbolicLink()) return oa(e.roots, r, s);
   if (d.ok || d.error.kind !== "absent") return P(d.ok ? _n(s) : Ke(d.error));
   if (t?.parent === "mustExist") {
     let l = await Ie(Sl(s, { mode: RJe(r) }));
-    if (l.ok) return Kt(e.roots, r, s, !0);
+    if (l.ok) return Kt(e.roots, r, s, true);
     if (l.error.kind === "absent") return P(Pr("unknown", { telemetryCode: Yoe }));
     let c = await Ie(Rr(s));
     return c.ok && (c.value.isDirectory() || c.value.isSymbolicLink())
-      ? Kt(e.roots, r, s, !1)
+      ? Kt(e.roots, r, s, false)
       : P(c.ok ? _n(s) : Ke(l.error));
   }
-  await kw(e, s, !0);
+  await kw(e, s, true);
   let u = await bh(s, RJe(r));
   if (!u.ok) return P(Ke(u.error));
-  return Kt(e.roots, r, s, !0);
+  return Kt(e.roots, r, s, true);
 }
 async function Kt(e, r, t, i) {
   let o = await _t(e, r);
@@ -5620,7 +5620,7 @@ async function oa(e, r, t) {
   if (!PJe(e, t) && Wzt(e, r, t) === "refuse") return P(Ke({ kind: "fs", error: Bs(t, "ELOOP") }));
   let i = await Ie(ta(t));
   if (!i.ok) return P(i.error.kind === "absent" ? _n(t) : Ke(i.error));
-  return i.value.isDirectory() ? re({ created: !1 }) : P(_n(t));
+  return i.value.isDirectory() ? re({ created: false }) : P(_n(t));
 }
 function _n(e) {
   return Ke({ kind: "fs", error: Bs(e, "ENOTDIR") });
@@ -5877,7 +5877,7 @@ async function la(e, r, t, i, o, a, s) {
       if (k.error.kind === "absent") return qt(ge(await jt(e, u), p), l);
       return k;
     }
-    let v = await f(k.value, u, !1);
+    let v = await f(k.value, u, false);
     if (!v.ok) return v;
     if (v.value === "foreignVolume") return re("foreignVolume");
   }
@@ -5918,7 +5918,7 @@ function Kl(e) {
   return ke === "\\" ? /^[\\/]/.test(e) : bA(e);
 }
 function fa(e, r) {
-  if (ke !== "\\") return !0;
+  if (ke !== "\\") return true;
   let t = (i) => (/^[A-Za-z]:/.test(i) ? i[0].toLowerCase() : i.toLowerCase());
   return t(e) === t(r);
 }
@@ -6008,7 +6008,7 @@ import {
 import { basename as qn, dirname as Se, join as $t, relative as $l, resolve as Wn, sep as Ht } from "path";
 var Hl = 1048576,
   Gl = 4194304,
-  ri = !1;
+  ri = false;
 async function lar(e, r, t, i) {
   if (e.closed) return P(So());
   let o = i?.precondition,
@@ -6029,9 +6029,9 @@ async function lar(e, r, t, i) {
   let d = {
       ...(i?.mode !== void 0 && { mode: i.mode }),
       ...(i?.exactMode !== void 0 && { exactMode: i.exactMode }),
-      ...(i?.requireMode === !0 && { requireMode: !0 }),
+      ...(i?.requireMode === true && { requireMode: true }),
       ...(i?.parent !== void 0 && { parent: i.parent }),
-      ...(i?.flush === !0 && { flush: !0 }),
+      ...(i?.flush === true && { flush: true }),
       ...(i?.share !== void 0 && { share: i.share }),
     },
     u = Ar(t) ? FO(t) : i?.parent !== "mustExist";
@@ -6115,7 +6115,7 @@ async function uar(e, r, t, i) {
   let [u, l] = [Wn(a), Wn(s)].sort();
   if (l.startsWith(u + Ht) || u === l) return P(Fe("to", "one scope lies inside the other; nothing can move"));
   return (
-    await kw(e, s, !0),
+    await kw(e, s, true),
     XH(u, () =>
       XH(l, async () => {
         let c = Se(a),
@@ -6127,7 +6127,7 @@ async function uar(e, r, t, i) {
         if (!k.ok) return P(k.error);
         let v = { path: f, held: k.value, screenedAbsent: k.value === "absent", screen: g },
           w = y === void 0 ? v : { path: c, held: y.value },
-          S = await Jl(a, s, r, i?.replace === !0, { source: w, destination: v });
+          S = await Jl(a, s, r, i?.replace === true, { source: w, destination: v });
         return Xl(e, a, s), S;
       }),
     )
@@ -6180,7 +6180,7 @@ function cRn(e) {
     case "pluginCache":
       return e.marketplace !== void 0 && e.plugin !== void 0 && e.version !== void 0 && e.relPath === void 0;
     default:
-      return !1;
+      return false;
   }
 }
 function ve(e, r) {
@@ -6190,7 +6190,7 @@ function ve(e, r) {
   return e.ino === r.ino ? "same" : "distinct";
 }
 function X(e) {
-  return Y(e, { bigint: !0 });
+  return Y(e, { bigint: true });
 }
 function Or(e) {
   return Vm(e.ino) ? { dev: e.dev, ino: e.ino } : "noIdentity";
@@ -6277,13 +6277,13 @@ function Pa(e) {
     case "EEXIST":
     case "EISDIR":
     case "ENOTDIR":
-      return !0;
+      return true;
     case "EPERM":
     case "EBUSY":
     case "EACCES":
       return ri;
     default:
-      return !1;
+      return false;
   }
 }
 async function Oa(e, r, t) {
@@ -6331,7 +6331,7 @@ async function ka(e, r, t, i, o) {
   if (!a.ok) return a;
   let s = a.value;
   if (!s.ok) return s;
-  if (s.value !== void 0 && s.value.dev !== i.dev) return Xt(e, r, t, !0, i, o);
+  if (s.value !== void 0 && s.value.dev !== i.dev) return Xt(e, r, t, true, i, o);
   let d = await xa(r, i, o.destination, e);
   if (!d.ok) return d;
   let u = await $n([o.destination, o.source], e, r);
@@ -6349,7 +6349,7 @@ async function ka(e, r, t, i, o) {
   }
   if (l.error.kind === "fs" && E(l.error.error) === "EXDEV") {
     let f = await d.value.restore(Ke(l.error));
-    return !f.ok && ckn(f.error) ? f : Xt(e, r, t, !0, i, o);
+    return !f.ok && ckn(f.error) ? f : Xt(e, r, t, true, i, o);
   }
   if (!Ae(l.error)) return d.value.restore(Ke(l.error));
   let c = await Q([o.destination, o.source], () => Ia(t, e, l.error));
@@ -6417,7 +6417,7 @@ async function xa(e, r, t, i) {
         return R === "same" ? "home" : R === "distinct" ? "away" : "unknown";
       },
       w = async () => {
-        if ((await v()) !== "away") return !1;
+        if ((await v()) !== "away") return false;
         let h = await Ie(X(g));
         return h.ok && ve(r, h.value) === "same";
       };
@@ -6471,7 +6471,7 @@ async function xa(e, r, t, i) {
       let y = p.value;
       if (!y.ok) return y.error.kind === "absent" ? re(void 0) : P(l(void 0));
       if (ve(r, y.value) !== "distinct") return P(l(void 0));
-      let g = await Q([t], () => Ie(ni(o, { recursive: !0, force: !0 })));
+      let g = await Q([t], () => Ie(ni(o, { recursive: true, force: true })));
       if (!g.ok) return P(l(void 0, g.error));
       if (!g.value.ok)
         n(`storage: a scope move stood but its set-aside occupant could not be removed; it stays hidden at ${o}`, {
@@ -6492,22 +6492,22 @@ async function Ia(e, r, t) {
   return !i.ok && i.error.kind === "absent" ? HFe(e) : Ke(t);
 }
 function Gt(e) {
-  return e.published ? { published: !0, atomic: e.atomic } : e;
+  return e.published ? { published: true, atomic: e.atomic } : e;
 }
 function Zl(e) {
   return e.ok ? re(Gt(e.value)) : e;
 }
 async function Aa(e, r) {
   let t = await Ie(X(e));
-  if (!t.ok) return re({ published: !0, atomic: !0, proven: t.error.kind === "absent" });
+  if (!t.ok) return re({ published: true, atomic: true, proven: t.error.kind === "absent" });
   let i = ve(r, t.value);
-  return i === "same" ? Hn("same") : re({ published: !0, atomic: !0, proven: i === "distinct" });
+  return i === "same" ? Hn("same") : re({ published: true, atomic: true, proven: i === "distinct" });
 }
 function Yt(e, r, t) {
   let i = ve(e, r);
   if (i !== "distinct") return Hn(i);
   return r.isDirectory() || r.isSymbolicLink()
-    ? re({ published: !1, kept: "destination" })
+    ? re({ published: false, kept: "destination" })
     : P(Ke({ kind: "fs", error: Bs(t, "ENOTDIR") }));
 }
 async function Ma(e, r) {
@@ -6534,7 +6534,7 @@ async function Xt(e, r, t, i, o, a) {
   let p = { path: u, held: Or(f) },
     y = [a.destination, p],
     g = async () => {
-      let x = await Q(y, () => Ie(ni(u, { recursive: !0, force: !0 })));
+      let x = await Q(y, () => Ie(ni(u, { recursive: true, force: true })));
       if (!x.ok) return x.error;
       if (!x.value.ok)
         n(`storage: a scope move's staging copy could not be removed; it stays hidden at ${u}`, { level: "warn" });
@@ -6570,7 +6570,7 @@ async function Xt(e, r, t, i, o, a) {
     let x = q(e, S.value.isSymbolicLink() ? "ELOOP" : S.value.isDirectory() ? vm : "ENOTDIR");
     return P((await g()) ?? x);
   }
-  let h = await Ba(e, Or(S.value), u, [a.source], y, s, !0);
+  let h = await Ba(e, Or(S.value), u, [a.source], y, s, true);
   if (h !== void 0) return P((await g()) ?? h);
   if (!i) {
     let x = await k((B) => (B.kind === "absent" ? void 0 : P(Ke(B))));
@@ -6623,11 +6623,11 @@ async function va(e, r, t) {
   let o = i.value;
   if (!o.ok && o.error.kind !== "absent") return P(Ke(o.error));
   if (o.ok && ve(r, o.value) === "distinct") return P(q(e, vm));
-  let a = await Q([t.destination, t.source], () => Ie(ni(e, { recursive: !0, force: !0 })));
+  let a = await Q([t.destination, t.source], () => Ie(ni(e, { recursive: true, force: true })));
   if (!a.ok) return a;
-  return a.value.ok || a.value.error.kind === "absent" ? re({ published: !0, atomic: !1 }) : P(Ke(a.value.error));
+  return a.value.ok || a.value.error.kind === "absent" ? re({ published: true, atomic: false }) : P(Ke(a.value.error));
 }
-async function Ba(e, r, t, i, o, a, s = !1) {
+async function Ba(e, r, t, i, o, a, s = false) {
   let d = [...i, { path: e, held: r }],
     u = await Q(d, () => Ie(Fa(e)));
   if (!u.ok) return u.error;
@@ -6785,14 +6785,14 @@ async function ec(e, r, t, i) {
     },
     c = (f) => ({
       ...T5(f.lock, f.key),
-      ...(aFe(f.key, t) && { createParent: !0, ...(m4(t) && { parentMode: UN(t) }) }),
+      ...(aFe(f.key, t) && { createParent: true, ...(m4(t) && { parentMode: UN(t) }) }),
     });
   return mS(Jo(e.roots, d.key), (f) => mS(Jo(e.roots, u.key), (p) => l(() => f.suspect() || p.suspect()), c(u)), c(d));
 }
 async function nc(e, r, t, i, o, a) {
   let s = await pb(e);
   if (!s.ok) return s.error.kind === "absent" ? s : P({ kind: "sourceUnexaminable", error: s.error });
-  let d = await Ie(s.value.stat({ bigint: !0 }));
+  let d = await Ie(s.value.stat({ bigint: true }));
   if ((await Ie(s.value.close()), !d.ok)) return P({ kind: "sourceUnexaminable", error: d.error });
   if (!d.value.isFile()) return P({ kind: "sourceUnexaminable", error: Ir(e, d.value) });
   if (!TAt(d.value, t)) return P({ kind: "classified", error: tc("unknown", { telemetryCode: "SourceReplaced" }) });
@@ -6815,11 +6815,11 @@ async function nc(e, r, t, i, o, a) {
     if (!OCe(l.error.error)) return l;
     return ba(e, r, t, i, o, a);
   }
-  let [c, f] = await Promise.all([Ie(Lr(e, { bigint: !0 })), Ie(Y(e, { bigint: !0 }))]);
-  if (!c.ok) return c.error.kind === "absent" ? re({ atomic: !0 }) : P({ kind: "sourceLeft", error: c.error });
-  if (!f.ok) return f.error.kind === "absent" ? re({ atomic: !0 }) : P({ kind: "sourceLeft", error: f.error });
+  let [c, f] = await Promise.all([Ie(Lr(e, { bigint: true })), Ie(Y(e, { bigint: true }))]);
+  if (!c.ok) return c.error.kind === "absent" ? re({ atomic: true }) : P({ kind: "sourceLeft", error: c.error });
+  if (!f.ok) return f.error.kind === "absent" ? re({ atomic: true }) : P({ kind: "sourceLeft", error: f.error });
   if (!TAt(c.value, t) || f.value.dev !== u.device || f.value.ino !== u.inode)
-    return re({ atomic: !0, sourceKept: !0 });
+    return re({ atomic: true, sourceKept: true });
   return Na(e);
 }
 async function ba(e, r, t, i, o, a, s = "copy") {
@@ -6831,20 +6831,20 @@ async function ba(e, r, t, i, o, a, s = "copy") {
 }
 async function rc(e, r, t, i) {
   if (!Vm(i.inode)) return P({ kind: "classified", error: Pr("invariant", { telemetryCode: "IdentityUnavailable" }) });
-  let [o, a] = await Promise.all([Ie(Lr(e, { bigint: !0 })), Ie(Y(e, { bigint: !0 }))]);
+  let [o, a] = await Promise.all([Ie(Lr(e, { bigint: true })), Ie(Y(e, { bigint: true }))]);
   if (!o.ok)
     return o.error.kind === "absent" ? P({ kind: "absent" }) : P({ kind: "sourceUnexaminable", error: o.error });
   if (!a.ok)
     return a.error.kind === "absent" ? P({ kind: "absent" }) : P({ kind: "sourceUnexaminable", error: a.error });
   if (!TAt(o.value, t) || a.value.dev !== i.device || a.value.ino !== i.inode) return P({ kind: "absent" });
-  let s = await Ie(Y(r, { bigint: !0 }));
+  let s = await Ie(Y(r, { bigint: true }));
   if (!s.ok) return s.error.kind === "absent" ? P({ kind: "destinationGone" }) : s;
   if (s.value.dev !== i.device || s.value.ino !== i.inode) return P({ kind: "destinationGone" });
   return Na(e);
 }
 async function Da(e, r, t, i, o) {
   if (!e) return re({ entries: "distinct" });
-  let [a, s] = await Promise.all([Ie(Y(r, { bigint: !0 })), Ie(Y(t, { bigint: !0 }))]);
+  let [a, s] = await Promise.all([Ie(Y(r, { bigint: true })), Ie(Y(t, { bigint: true }))]);
   if (!a.ok) return P(a.error.kind === "absent" ? Mi(i) : Ke(a.error, i));
   if (!a.value.isFile()) return P(Ke(Ir(r, a.value), i));
   if (!s.ok) return s.error.kind === "absent" ? re({ entries: "distinct" }) : P(Ke(s.error, o));
@@ -6865,7 +6865,7 @@ async function ic(e, r, t, i) {
   if (!Vm(r.ino) || !Vm(i.ino)) return re("unverifiable");
   if (i.ino !== r.ino) return re("distinct");
   if (i.nlink < 2n) return re("one");
-  let [o, a] = await Promise.all([Ie(Lr(Se(e), { bigint: !0 })), Ie(Lr(Se(t), { bigint: !0 }))]);
+  let [o, a] = await Promise.all([Ie(Lr(Se(e), { bigint: true })), Ie(Lr(Se(t), { bigint: true }))]);
   if (!o.ok) return P({ side: "source", failure: o.error });
   if (!a.ok) return a.error.kind === "absent" ? re("distinct") : P({ side: "destination", failure: a.error });
   if (!Vm(o.value.ino) || !Vm(a.value.ino)) return re("unverifiable");
@@ -6877,7 +6877,7 @@ async function ic(e, r, t, i) {
 }
 async function Na(e) {
   let r = await uJ(e);
-  return r.ok ? re({ atomic: !0 }) : P({ kind: "sourceLeft", error: r.error });
+  return r.ok ? re({ atomic: true }) : P({ kind: "sourceLeft", error: r.error });
 }
 async function Va(e, r, t, i, o = "copy") {
   let a = await Ie(Ii(e, r));
@@ -6888,23 +6888,23 @@ async function Va(e, r, t, i, o = "copy") {
     if (!c.ok) return c;
     a = await Ie(Ii(e, r));
   }
-  if (a.ok) return re({ atomic: !0 });
+  if (a.ok) return re({ atomic: true });
   if (a.error.kind !== "fs") return a;
   let s = E(a.error.error);
   if (s === void 0 || !L_.has(s)) return a;
   if (s === "EXDEV") {
     if (o === "refuse") return a;
-    let l = await DCe(r, t.bytes, wy, !0, { parentMode: i });
+    let l = await DCe(r, t.bytes, wy, true, { parentMode: i });
     if (!l.ok) return l;
     await Ka(r, t.mtimeMs);
     let c = await uJ(e);
-    return c.ok || c.error.kind === "absent" ? re({ atomic: !1 }) : P({ kind: "sourceLeft", error: c.error });
+    return c.ok || c.error.kind === "absent" ? re({ atomic: false }) : P({ kind: "sourceLeft", error: c.error });
   }
   if (!ri) return a;
   let d = await Ie(je(r));
   if (!d.ok && d.error.kind !== "absent") return d;
   let u = await Ie(Ii(e, r));
-  if (u.ok) return re({ atomic: !0 });
+  if (u.ok) return re({ atomic: true });
   return d.ok ? P({ kind: "destinationDestroyed", error: u.error }) : u;
 }
 async function ac(e, r, t) {
@@ -6941,16 +6941,16 @@ async function sc(e, r, t, i, o, a, s) {
     if (!p.ok) return P(Ke(p.error, t));
     d = await Ie(Ii(i, o));
   }
-  if (d.ok) return re({ atomic: !0 });
+  if (d.ok) return re({ atomic: true });
   if (d.error.kind !== "fs") return P(d.error.kind === "absent" ? Mi(r) : Ke(d.error, r));
   let u = E(d.error.error);
   if (u === void 0 || !L_.has(u)) return P(Ke(d.error, r));
   if (u === "EXDEV") {
-    let f = await ti(e, r, t, o, void 0, () => !0);
+    let f = await ti(e, r, t, o, void 0, () => true);
     if (!f.ok) return f;
     await Ka(o, a.mtimeMs);
     let p = await Ie(je(i));
-    if (p.ok || p.error.kind === "absent") return re({ atomic: !1 });
+    if (p.ok || p.error.kind === "absent") return re({ atomic: false });
     if ((await En(e, t, ee(e, t)), s)) ju(e, { kind: "deleted", key: t });
     return ju(e, { kind: "created", key: t, end: a.size }), P(Ke(p.error, r));
   }
@@ -6958,7 +6958,7 @@ async function sc(e, r, t, i, o, a, s) {
   let l = await Ie(je(o));
   if (!l.ok && l.error.kind !== "absent") return P(Ke(l.error, t));
   let c = await Ie(Ii(i, o));
-  if (c.ok) return re({ atomic: !0 });
+  if (c.ok) return re({ atomic: true });
   if (l.ok) await En(e, t, ee(e, t)), ju(e, { kind: "deleted", key: t });
   return P(c.error.kind === "absent" ? Mi(r) : Ke(c.error, r));
 }
@@ -6967,14 +6967,14 @@ async function En(e, r, t) {
 }
 async function dc(e, r, t, i, o) {
   if (!Vm(o.inode)) return P(Pr("invariant", { key: i, telemetryCode: "IdentityUnavailable" }));
-  let [a, s] = await Promise.all([Ie(Y(e, { bigint: !0 })), Ie(Y(r, { bigint: !0 }))]);
+  let [a, s] = await Promise.all([Ie(Y(e, { bigint: true })), Ie(Y(r, { bigint: true }))]);
   if (!a.ok) return a.error.kind === "absent" ? P(Mi(t)) : P(Ke(a.error, t));
   if (a.value.dev !== o.device || a.value.ino !== o.inode) return P(Mi(t));
   if (!s.ok && s.error.kind !== "absent") return P(Ke(s.error, i));
   if (!s.ok || s.value.dev !== o.device || s.value.ino !== o.inode)
     return P(tc("unknown", { telemetryCode: "PairDestinationGone" }));
   let d = await Ie(je(e));
-  return d.ok || d.error.kind === "absent" ? re({ atomic: !0 }) : P(Ke(d.error, t));
+  return d.ok || d.error.kind === "absent" ? re({ atomic: true }) : P(Ke(d.error, t));
 }
 async function Ka(e, r) {
   let t = r / 1000;
@@ -7049,10 +7049,10 @@ async function lc(e, r, t, i, o) {
         publishDiscipline: "atomic",
         ...(i !== void 0 && { precondition: i }),
         ...(o.parent !== void 0 && { parent: o.parent }),
-        ...(o.flush === !0 && { flush: !0 }),
+        ...(o.flush === true && { flush: true }),
       }),
       symlinks: Rn(r),
-      ...(Jt(r) ? (a ? { mode: kAt(r) } : { keepMode: !0, createMode: kAt(r) }) : { mode: wy }),
+      ...(Jt(r) ? (a ? { mode: kAt(r) } : { keepMode: true, createMode: kAt(r) }) : { mode: wy }),
     },
     d = await xt(e, r, t, i, s);
   if (!d.ok) {
@@ -7073,7 +7073,7 @@ async function cc(e, r, t, i) {
   if (i?.type === "ifAbsent" && !FO(t) && (await Pe(o.log))) return P(bg(t));
   return i?.type === "ifAbsent"
     ? mS(o.index, (s) => a(() => !s.suspect()), J1e(ue(o)))
-    : XH(Wn(ue(o)), () => a(() => !0));
+    : XH(Wn(ue(o)), () => a(() => true));
 }
 async function fc(e, r, t, i, o) {
   return Qt(e, t, i, o.parent, (a, s) => ti(e, r, t, a, i, s, o));
@@ -7100,8 +7100,8 @@ async function Qt(e, r, t, i, o) {
     l = await (t?.type === "ifAbsent"
       ? mS(a, (c) => d(() => !c.suspect()), { ...T5(s, r), createParent: u, ...(m4(r) && { parentMode: UN(r) }) })
       : e.lockUnconditionalPublishes
-        ? Q1e(e, r, s, a, d, u ? { createParent: !0 } : void 0)
-        : XH(s, () => d(() => !0)));
+        ? Q1e(e, r, s, a, d, u ? { createParent: true } : void 0)
+        : XH(s, () => d(() => true)));
   return !l.ok &&
     i === "mustExist" &&
     l.error.code === "NotFound" &&
@@ -7128,7 +7128,7 @@ var pc = new Set(["EXDEV", "EPERM", "EMLINK", "EACCES", "ENOTSUP", "EOPNOTSUPP",
 async function gc(e, r, t, i, o, a, s) {
   if (!Vm(r.identity.inode)) return "copyInstead";
   if (o?.type !== "ifAbsent") {
-    if (await URn(i, r.identity)) return re({ bytes: r.size, replaced: !1, shared: !0, unchanged: !0 });
+    if (await URn(i, r.identity)) return re({ bytes: r.size, replaced: false, shared: true, unchanged: true });
   }
   let d = s.parent !== "mustExist",
     u = z1e(i),
@@ -7140,7 +7140,7 @@ async function gc(e, r, t, i, o, a, s) {
   }
   if (!l.ok) {
     let c = E(sn(l.error));
-    if (l.error.kind === "absent" || !1 || (c !== void 0 && pc.has(c)) || OCe(sn(l.error))) return "copyInstead";
+    if (l.error.kind === "absent" || false || (c !== void 0 && pc.has(c)) || OCe(sn(l.error))) return "copyInstead";
     return P(Ke(l.error, t));
   }
   try {
@@ -7163,7 +7163,7 @@ async function gc(e, r, t, i, o, a, s) {
         return ju(e, { kind: "deleted", key: t }), P(NC(p.error.error, t, d));
       return P(p.error.kind === "occupied" ? gb(t) : NC(p.error, t, d));
     }
-    return re({ bytes: r.size, replaced: p.value.replaced, ...(c !== void 0 && { version: c }), shared: !0 });
+    return re({ bytes: r.size, replaced: p.value.replaced, ...(c !== void 0 && { version: c }), shared: true });
   } finally {
     await je(u).catch(() => {
       return;
@@ -7172,17 +7172,17 @@ async function gc(e, r, t, i, o, a, s) {
 }
 async function ei(e, r, t, i, o, a, s) {
   let d = Ea(s),
-    u = !1,
+    u = false,
     l = {};
   if (d !== void 0) l = { mode: d };
   else if (!Ar(t) && Jt(t)) l = { createMode: kAt(t) };
-  let c = !1;
+  let c = false;
   if (o?.type !== "ifAbsent") {
     let w = await Ie(Y(i));
     if (!w.ok && w.error.kind !== "absent") return P(Ke(w.error, t));
     if (w.ok && w.value.isDirectory()) return P(Ke({ kind: "fs", error: Bs(i, "EISDIR") }, t));
     if (((c = w.ok), s.exactMode === void 0 && w.ok && w.value.isFile() && !Ar(t) && Jt(t)))
-      (u = !0), (l = { mode: w.value.mode & 511 });
+      (u = true), (l = { mode: w.value.mode & 511 });
   }
   let f = Ar(t) ? FO(t) : s.parent !== "mustExist",
     p = !Ar(t) && (c || Gn(e, t)),
@@ -7192,10 +7192,10 @@ async function ei(e, r, t, i, o, a, s) {
     async (w) => {
       y = await Mr(r, w, {
         ...l,
-        ...(s.requireMode === !0 && d !== void 0 && !u && { requireMode: !0 }),
-        ...(s.exactMode !== void 0 && { modeRefusalFails: !0 }),
-        ...(s.flush === !0 && { flush: !0 }),
-        ...(p && { version: !0 }),
+        ...(s.requireMode === true && d !== void 0 && !u && { requireMode: true }),
+        ...(s.exactMode !== void 0 && { modeRefusalFails: true }),
+        ...(s.flush === true && { flush: true }),
+        ...(p && { version: true }),
       });
     },
     f,
@@ -7234,22 +7234,22 @@ async function ei(e, r, t, i, o, a, s) {
   return re({ bytes: y.bytes, replaced: v.value.replaced, ...(k !== void 0 && { version: k }) });
 }
 function Gn(e, r) {
-  for (let t of e.subscriptions) if (t.concerns(r)) return !0;
-  return !1;
+  for (let t of e.subscriptions) if (t.concerns(r)) return true;
+  return false;
 }
 function sn(e) {
   return e.kind === "fs" ? e.error : void 0;
 }
 async function Mr(e, r, t) {
   let i = t?.ingest,
-    o = i?.exactSize === !0,
+    o = i?.exactSize === true,
     a = i !== void 0 && !i.exactSize ? i.capBytes : void 0,
     s = a ?? e.size;
   if (i !== void 0) {
     let u = (await e.handle.stat()).size;
     if (o ? u !== e.size : u < Math.min(e.size, s)) throw zn();
   }
-  let d = await Ra(r, (t?.version === !0 ? an.O_RDWR : an.O_WRONLY) | an.O_CREAT | an.O_EXCL, t?.createMode ?? wy);
+  let d = await Ra(r, (t?.version === true ? an.O_RDWR : an.O_WRONLY) | an.O_CREAT | an.O_EXCL, t?.createMode ?? wy);
   try {
     let u = Buffer.allocUnsafe(Math.max(1, Math.min(i !== void 0 ? Gl : Hl, s))),
       l = 0;
@@ -7263,8 +7263,8 @@ async function Mr(e, r, t) {
       }
       l += y;
     }
-    let c = !1,
-      f = !1;
+    let c = false,
+      f = false;
     if (i !== void 0)
       if (a !== void 0) {
         if (l < Math.min(e.size, a)) throw zn();
@@ -7277,20 +7277,20 @@ async function Mr(e, r, t) {
         if (l < e.size) throw zn();
         if (await Wt(e, l)) {
           if (o) throw zn();
-          c = !0;
+          c = true;
         }
       }
     return {
       ...(await _a(d, l, {
         chmodTo: t?.mode ?? (i !== void 0 ? wy : void 0),
-        modeRefusalFails: t?.modeRefusalFails === !0,
-        flush: t?.flush === !0,
+        modeRefusalFails: t?.modeRefusalFails === true,
+        flush: t?.flush === true,
         exactSize: i !== void 0,
-        requireMode: t?.requireMode === !0 ? t.mode : void 0,
-        version: t?.version === !0,
+        requireMode: t?.requireMode === true ? t.mode : void 0,
+        version: t?.version === true,
       })),
-      ...(c && { grew: !0 }),
-      ...(f && { capped: !0 }),
+      ...(c && { grew: true }),
+      ...(f && { capped: true }),
     };
   } finally {
     await d.close();
@@ -7305,7 +7305,7 @@ async function _a(e, r, t) {
     await e.sync().catch((a) => {
       if (!w0(a)) throw a;
     });
-  let i = await e.stat({ bigint: !0 });
+  let i = await e.stat({ bigint: true });
   if (t.exactSize && Number(i.size) !== r) throw zn();
   if (t.requireMode !== void 0 && (Number(i.mode) & 4095) !== (t.requireMode & 4095)) throw vc();
   let o;
@@ -7324,17 +7324,17 @@ async function Ua(e, r, t) {
   try {
     let o = 0,
       a = e[Symbol.asyncIterator](),
-      s = !1;
+      s = false;
     try {
       for (;;) {
         let u;
         try {
           u = await a.next();
         } catch (c) {
-          throw ((s = !0), Sa(c));
+          throw ((s = true), Sa(c));
         }
-        if (u.done === !0) {
-          s = !0;
+        if (u.done === true) {
+          s = true;
           break;
         }
         let l = u.value;
@@ -7355,11 +7355,11 @@ async function Ua(e, r, t) {
     }
     let d = await _a(i, o, {
       chmodTo: t.mode ?? wy,
-      modeRefusalFails: !1,
-      flush: t.flush === !0,
-      exactSize: !0,
-      requireMode: t.requireMode === !0 ? t.mode : void 0,
-      version: !1,
+      modeRefusalFails: false,
+      flush: t.flush === true,
+      exactSize: true,
+      requireMode: t.requireMode === true ? t.mode : void 0,
+      version: false,
     });
     return { bytes: d.bytes, identity: d.identity };
   } finally {
@@ -7388,7 +7388,7 @@ function vc() {
 async function Xn(e, r, t, i, o) {
   if (Vm(r.inode)) {
     let d = await cFe(e, r, t);
-    if (d.ok) return re({ replaced: !1 });
+    if (d.ok) return re({ replaced: false });
     if (d.error.kind !== "fs") return d;
     if (Am(d.error.error, "EEXIST")) {
       let u = await Ie(Y(t));
@@ -7401,17 +7401,17 @@ async function Xn(e, r, t, i, o) {
   if (a.error.kind !== "absent") return a;
   if (!o()) return P({ kind: "suspect" });
   let s = await Ie(Ii(e, t));
-  return s.ok ? re({ replaced: !1 }) : s;
+  return s.ok ? re({ replaced: false }) : s;
 }
 async function Jn(e, r, t, i, o) {
-  let a = !1;
+  let a = false;
   if (Vm(r.inode)) {
     let f = await cFe(e, r, t);
-    if (f.ok) return re({ replaced: !1 });
+    if (f.ok) return re({ replaced: false });
     if (f.error.kind !== "fs") return f;
     if (((a = Am(f.error.error, "EEXIST")), !a && !OCe(f.error.error))) return f;
   }
-  let s = !0;
+  let s = true;
   if (!a) {
     let f = await Ie(Y(t));
     if (!f.ok && f.error.kind !== "absent") return f;
@@ -7471,16 +7471,16 @@ async function dar(e, r, t, i) {
   let l = await zar(t);
   if (!l.ok) return P(ja(r, t, l.error));
   let c = l.value,
-    f = !1,
+    f = false,
     p = async () => {
-      if (!f) (f = !0), await c.close().catch(() => {});
+      if (!f) (f = true), await c.close().catch(() => {});
     };
   await using y = { [Symbol.asyncDispose]: p };
-  let g = await Ie(c.stat({ bigint: !0 }));
+  let g = await Ie(c.stat({ bigint: true }));
   if (!g.ok) return P(Ke(g.error, r));
   let k = Ec(g.value);
   if (Bp === 0) {
-    let S = await $O(qe(t, { bigint: !0 }));
+    let S = await $O(qe(t, { bigint: true }));
     if (!S.ok) return P(ja(r, t, S.error));
     if (!(!S.value.isSymbolicLink() && (!k || (S.value.dev === g.value.dev && S.value.ino === g.value.ino))))
       return P(Ke({ kind: "fs", error: Bs(t, "ELOOP") }, r));
@@ -7497,9 +7497,9 @@ async function dar(e, r, t, i) {
     size: Number(g.value.size),
     rung: v.kind === "ingest" ? v.rung : "copy",
     identityUsable: k,
-    insideStore: v.kind === "ingest" ? v.insideStore : !0,
+    insideStore: v.kind === "ingest" ? v.insideStore : true,
     storedAtJudgement: v.kind === "alreadyStored",
-    ...(i?.expect?.singleName === !0 && { namesJudged: g.value.nlink }),
+    ...(i?.expect?.singleName === true && { namesJudged: g.value.nlink }),
   };
   return await kw(e, d, u), await gS(e, r, () => Oc(e, r, t, d, w, i, u));
 }
@@ -7582,7 +7582,7 @@ async function Rc(e, r, t, i, o, a) {
         re({ bytes: v, ...(S !== void 0 && { version: S }) })
       );
     };
-  if (!(s || e.lockUnconditionalPublishes)) return XH(d, () => u(() => !0));
+  if (!(s || e.lockUnconditionalPublishes)) return XH(d, () => u(() => true));
   let l = () =>
       s
         ? mS(t, (p) => u(() => !p.suspect()), {
@@ -7608,11 +7608,11 @@ async function Fc(e, r, t, i, o) {
       a = await Ua(e, d, {
         maxBytes: t.maxBytes,
         ...(t.mode !== void 0 && { mode: t.mode }),
-        ...(t.requireMode === !0 && { requireMode: !0 }),
-        ...(t.flush === !0 && { flush: !0 }),
+        ...(t.requireMode === true && { requireMode: true }),
+        ...(t.flush === true && { flush: true }),
       });
     },
-    !1,
+    false,
   );
   if (!s.written.ok) return await s[Symbol.asyncDispose](), s.written;
   return re({ file: s, ...a });
@@ -7642,7 +7642,7 @@ function pRn(e, r) {
   return;
 }
 function $a(e, r) {
-  return { bytes: e, atomic: !0, alreadyStored: !0, ...(r?.consumeSource === !0 && { sourceKept: !0 }) };
+  return { bytes: e, atomic: true, alreadyStored: true, ...(r?.consumeSource === true && { sourceKept: true }) };
 }
 function Ec(e) {
   return Vm(e.ino);
@@ -7652,7 +7652,7 @@ function Ha(e) {
     t,
     i = {
       folder: () => (r ??= Ie(si(me(e)))),
-      leaf: () => (t ??= i.folder().then((o) => (o.ok ? Ie(qe(Wa(o.value, Pn(e)), { bigint: !0 })) : void 0))),
+      leaf: () => (t ??= i.folder().then((o) => (o.ok ? Ie(qe(Wa(o.value, Pn(e)), { bigint: true })) : void 0))),
     };
   return i;
 }
@@ -7661,36 +7661,36 @@ async function Ga(e, r, t, i, o, a, s) {
   let d = Number(i.mode) & 4095,
     u = a?.mode === void 0 ? void 0 : a.mode & 4095,
     l = Ha(r),
-    c = await Ie(qe(t, { bigint: !0 })),
+    c = await Ie(qe(t, { bigint: true })),
     f = o && c.ok && c.value.dev === i.dev && c.value.ino === i.ino,
     p = 1n;
-  if (a?.expect?.singleName === !0 && f) {
+  if (a?.expect?.singleName === true && f) {
     let w = await Ja(r, t, l);
     if (w === "remote") return { kind: "refused", refusal: pCt };
     p = w === "other" ? 2n : 1n;
   }
   let y = await Ya(e, r, t, { dev: i.dev, ino: i.ino, usable: o }, l);
   if (y === "remote") return { kind: "refused", refusal: pCt };
-  if (y === "inside" && !f && a?.copy !== !0) return { kind: "refused", refusal: Ilr };
+  if (y === "inside" && !f && a?.copy !== true) return { kind: "refused", refusal: Ilr };
   let g = (d & wc) === 0 && (process.geteuid === void 0 || i.uid === BigInt(process.geteuid())),
     k = await Pc((await s?.()) ?? i, a?.expect, p, o, Xa(a), l);
   if (k !== void 0) return { kind: "refused", refusal: k };
-  if (f && a?.copy !== !0 && (u === void 0 || u === d) && g) return { kind: "alreadyStored" };
+  if (f && a?.copy !== true && (u === void 0 || u === d) && g) return { kind: "alreadyStored" };
   return {
     kind: "ingest",
     rung:
-      a?.copy === !0 || !o || i.nlink === 0n || y === "unverified" || (u !== void 0 && u !== d) || !g ? "copy" : "link",
+      a?.copy === true || !o || i.nlink === 0n || y === "unverified" || (u !== void 0 && u !== d) || !g ? "copy" : "link",
     insideStore: y !== "outside",
   };
 }
 async function Ya(e, r, t, i, o) {
   let a = await e.canonical,
     s = [e.roots, a, await wAt(e.roots, a)],
-    d = await Ie(qe(a.globalConfigFile, { bigint: !0 })),
+    d = await Ie(qe(a.globalConfigFile, { bigint: true })),
     u = d.ok && d.value.isSymbolicLink() ? await Ie(hc(a.globalConfigFile)) : void 0,
     l =
       u?.ok && !un(Br(me(a.globalConfigFile), u.value)) && !Cr(Br(me(a.globalConfigFile), u.value))
-        ? await Ie(dn(a.globalConfigFile, { bigint: !0 }))
+        ? await Ie(dn(a.globalConfigFile, { bigint: true }))
         : d;
   if (i.usable && [d, l].some((v) => v.ok && v.value.dev === i.dev && v.value.ino === i.ino)) return "inside";
   let c = (v) =>
@@ -7709,11 +7709,11 @@ async function Ya(e, r, t, i, o) {
   if (!f.ok) return "unverified";
   if (un(f.value)) return "remote";
   if (c(Wa(f.value, Pn(r)))) return "inside";
-  let [p, y] = await Promise.all([Ie(dn(me(t), { bigint: !0 })), Ie(dn(f.value, { bigint: !0 }))]);
+  let [p, y] = await Promise.all([Ie(dn(me(t), { bigint: true })), Ie(dn(f.value, { bigint: true }))]);
   if (!y.ok) return "unverified";
   if (p.ok && Vm(p.value.ino) && p.value.dev === y.value.dev && p.value.ino === y.value.ino) return "inside";
   if (!p.ok && p.error.kind !== "absent") return "unverified";
-  let g = await Ie(dn(e.roots.configHome, { bigint: !0 }));
+  let g = await Ie(dn(e.roots.configHome, { bigint: true }));
   if (!g.ok && g.error.kind !== "absent") return "unverified";
   if (g.ok && !Vm(g.value.ino)) return "unverified";
   if (g.ok) {
@@ -7725,7 +7725,7 @@ async function Ya(e, r, t, i, o) {
 }
 async function Lc(e, r) {
   for (let t = e; ; ) {
-    let i = await Ie(dn(t, { bigint: !0 }));
+    let i = await Ie(dn(t, { bigint: true }));
     if (!i.ok) return "unverified";
     if (i.value.dev === r.dev && i.value.ino === r.ino) return "inside";
     let o = me(t);
@@ -7738,7 +7738,7 @@ function Ln(e) {
 }
 async function Pc(e, r, t, i, o, a) {
   if (!o && r?.maxBytes !== void 0 && e.size > BigInt(r.maxBytes)) return Lfe;
-  if (r?.singleName === !0 && i && e.nlink > t) return dCt;
+  if (r?.singleName === true && i && e.nlink > t) return dCt;
   if (r?.within !== void 0) {
     let [s, d] = await Promise.all([a.folder(), Ie(si(r.within))]);
     if (!s.ok || !d.ok) return DFe;
@@ -7766,7 +7766,7 @@ async function Oc(e, r, t, i, o, a, s) {
       if (o.storedAtJudgement) {
         let O,
           C = await Ga(e, t, i, o.own, o.identityUsable, a, async () => {
-            let N = await Ie(o.handle.stat({ bigint: !0 }));
+            let N = await Ie(o.handle.stat({ bigint: true }));
             return (O = N.ok ? N.value : void 0), O;
           });
         if (C.kind === "refused") return P(ln(r, C.refusal));
@@ -7828,8 +7828,8 @@ async function Oc(e, r, t, i, o, a, s) {
           : { kind: "created", key: r, ...(x !== void 0 && { version: x }) },
       ),
         await o.close();
-      let A = !1;
-      if (a?.consumeSource === !0) {
+      let A = false;
+      if (a?.consumeSource === true) {
         let O = Ha(t),
           C =
             o.insideStore || Cr(t)
@@ -7837,7 +7837,7 @@ async function Oc(e, r, t, i, o, a, s) {
               : (await Ya(e, t, i, { dev: o.dev, ino: o.ino, usable: o.identityUsable }, O)) !== "outside"
                 ? "remote"
                 : await Ja(t, i, O),
-          N = C === "remote" || C === "unverified" || C === "inside" ? void 0 : await Ie(qe(t, { bigint: !0 }));
+          N = C === "remote" || C === "unverified" || C === "inside" ? void 0 : await Ie(qe(t, { bigint: true }));
         if (N?.ok && o.identityUsable && N.value.dev === o.dev && N.value.ino === o.ino && C === "other") {
           let _ = await Ie(za(t));
           A = !_.ok && _.error.kind !== "absent";
@@ -7853,7 +7853,7 @@ async function Oc(e, r, t, i, o, a, s) {
       });
     },
     f = d?.type === "ifAbsent" || d?.type === "ifMatch";
-  if (!(f || e.lockUnconditionalPublishes)) return XH(u, () => c(() => !0));
+  if (!(f || e.lockUnconditionalPublishes)) return XH(u, () => c(() => true));
   let p = () => (f ? mS(i, (k) => c(() => !k.suspect()), T5(u, r)) : Q1e(e, r, u, i, c)),
     y = await p();
   if (y.ok || y.error.code !== "NotFound" || d?.type === "ifMatch") return y;
@@ -7864,13 +7864,13 @@ async function Oc(e, r, t, i, o, a, s) {
 async function xc(e, r, t, i, o, a) {
   let s = e.rung === "link",
     d = { device: e.dev, inode: e.ino },
-    u = !1,
+    u = false,
     l = { bytes: 0, identity: d },
     c = await EJe(
       t,
       async (f) => {
         if (s) {
-          let y = !0;
+          let y = true;
           try {
             await bc(r, f);
           } catch (g) {
@@ -7878,24 +7878,24 @@ async function xc(e, r, t, i, o, a) {
             if (k === "ENOENT") {
               if (!(await Ie(qe(me(f)))).ok) throw g;
             } else if (!(k === "EXDEV" || k === "EMLINK" || k === "EACCES" || OCe(g))) throw g;
-            y = !1;
+            y = false;
           }
           if (y) {
             let g = await Ic(f, e);
             if (g !== void 0 && (e.namesJudged === void 0 || g.nlink === e.namesJudged + 1n)) {
-              (u = !0), (l = { bytes: e.size, identity: d });
+              (u = true), (l = { bytes: e.size, identity: d });
               return;
             }
             await za(f);
           }
         }
-        u = !1;
+        u = false;
         let p = Xa(i) ? i?.expect?.maxBytes : void 0;
         l = await Mr({ handle: e.handle, size: e.size }, f, {
           ...(i?.mode !== void 0 && { mode: i.mode }),
-          ...(i?.requireMode === !0 && i.mode !== void 0 && { requireMode: !0 }),
-          ...(i?.flush === !0 && { flush: !0 }),
-          ingest: i?.growth === "prefix" ? { exactSize: !1, ...(p !== void 0 && { capBytes: p }) } : { exactSize: !0 },
+          ...(i?.requireMode === true && i.mode !== void 0 && { requireMode: true }),
+          ...(i?.flush === true && { flush: true }),
+          ingest: i?.growth === "prefix" ? { exactSize: false, ...(p !== void 0 && { capBytes: p }) } : { exactSize: true },
         });
       },
       o,
@@ -7912,13 +7912,13 @@ async function xc(e, r, t, i, o, a) {
   });
 }
 function Xa(e) {
-  return e?.copy === !0 && e.growth === "prefix" && e.expect?.maxBytes !== void 0;
+  return e?.copy === true && e.growth === "prefix" && e.expect?.maxBytes !== void 0;
 }
 async function Ic(e, r) {
   let t = await pb(e);
   if (!t.ok) return;
   try {
-    let i = await Ie(t.value.stat({ bigint: !0 }));
+    let i = await Ie(t.value.stat({ bigint: true }));
     return i.ok && i.value.dev === r.dev && i.value.ino === r.ino ? i.value : void 0;
   } finally {
     await t.value.close().catch(() => {});
@@ -7928,7 +7928,7 @@ async function Ja(e, r, t) {
   let [i, o] = await Promise.all([t.folder(), Ie(si(me(r)))]);
   if (i.ok && un(i.value)) return "remote";
   if (!i.ok || !o.ok) return "unverified";
-  let [a, s] = await Promise.all([Ie(dn(i.value, { bigint: !0 })), Ie(dn(o.value, { bigint: !0 }))]);
+  let [a, s] = await Promise.all([Ie(dn(i.value, { bigint: true })), Ie(dn(o.value, { bigint: true }))]);
   if (!a.ok || !s.ok) return "unverified";
   if (
     !Vm(a.value.ino) || !Vm(s.value.ino)
@@ -7948,7 +7948,7 @@ function un(e) {
   return bA(e) || ns(e);
 }
 function Cr(e) {
-  return Kg(_A, e, { surfaceNetworkRaw: !0 }) !== void 0;
+  return Kg(_A, e, { surfaceNetworkRaw: true }) !== void 0;
 }
 function ja(e, r, t) {
   let i = t.kind === "fs" ? E(t.error) : void 0;
@@ -7970,7 +7970,7 @@ function Mc(e) {
 function Bc(e) {
   if (e?.consumeSource !== void 0 && typeof e.consumeSource !== "boolean")
     return Fe("opts.consumeSource", "must be a boolean");
-  if (e?.copy !== void 0 && e.copy !== !0) return Fe("opts.copy", "must be true or omitted");
+  if (e?.copy !== void 0 && e.copy !== true) return Fe("opts.copy", "must be true or omitted");
   if (e?.requireMode !== void 0 && typeof e.requireMode !== "boolean")
     return Fe("opts.requireMode", "must be a boolean");
   if (e?.flush !== void 0 && typeof e.flush !== "boolean") return Fe("opts.flush", "must be a boolean");
@@ -8011,14 +8011,14 @@ async function Vc(e, r, t, i, o) {
         return P(
           R.error === "threw" ? Pr("invariant", { telemetryCode: "EditThrew", cause: R.cause, key: r }) : R.error,
         );
-      return "write" in R.value ? "write" : re({ written: !1, found: !1, result: R.value.result });
+      return "write" in R.value ? "write" : re({ written: false, found: false, result: R.value.result });
     },
     v,
     w = () =>
       mS(
         a,
         async (R) => {
-          let F = !1;
+          let F = false;
           for (let L = 1; L <= Nc; L++) {
             let I = await VT(a, d);
             if (!I.ok && I.error.kind !== "absent") return P(Ke(I.error, r));
@@ -8033,8 +8033,8 @@ async function Vc(e, r, t, i, o) {
             if (!("write" in M))
               return re(
                 x === void 0
-                  ? { written: !1, found: !1, result: M.result }
-                  : { written: !1, found: !0, version: x.version, mtimeMs: x.mtimeMs, result: M.result },
+                  ? { written: false, found: false, result: M.result }
+                  : { written: false, found: true, version: x.version, mtimeMs: x.mtimeMs, result: M.result },
               );
             let A = LCe(M.write);
             if (x !== void 0) {
@@ -8043,7 +8043,7 @@ async function Vc(e, r, t, i, o) {
               if (!_.ok) return P(Fzt(_.error));
               return (
                 (v = { kind: "updated", version: _.value.version, value: A }),
-                re({ written: !0, version: _.value.version, result: M.result })
+                re({ written: true, version: _.value.version, result: M.result })
               );
             }
             if (f !== "atomic" && f !== "rewriteDefault") {
@@ -8051,7 +8051,7 @@ async function Vc(e, r, t, i, o) {
               if (!_.ok) return P(Fzt(_.error));
               return (
                 (v = { kind: "created", version: _.value.version, value: A }),
-                re({ written: !0, version: _.value.version, result: M.result })
+                re({ written: true, version: _.value.version, result: M.result })
               );
             }
             let O = u ?? jzt(r, i?.publishDiscipline),
@@ -8068,9 +8068,9 @@ async function Vc(e, r, t, i, o) {
             if (N.value.created)
               return (
                 (v = { kind: "created", version: N.value.version, value: A }),
-                re({ written: !0, version: N.value.version, result: M.result })
+                re({ written: true, version: N.value.version, result: M.result })
               );
-            F = !0;
+            F = true;
           }
           return P(Pr("invariant", { telemetryCode: "UpdateLoopExhausted" }));
         },
@@ -8096,10 +8096,10 @@ function Nzt(e, r, t) {
   try {
     i = e(r === void 0 ? void 0 : { value: t(r.bytes), version: r.version, mtimeMs: r.mtimeMs });
   } catch (a) {
-    return { ok: !1, error: "threw", cause: a };
+    return { ok: false, error: "threw", cause: a };
   }
   let o = Kc(i);
-  return o === void 0 ? { ok: !0, value: i } : { ok: !1, error: o };
+  return o === void 0 ? { ok: true, value: i } : { ok: false, error: o };
 }
 function Kc(e) {
   if (typeof e !== "object" || e === null) return Fe("edit", "must return { write } or { skip: true }");
@@ -8112,7 +8112,7 @@ function Kc(e) {
     return typeof e.write === "string" || e.write instanceof Uint8Array
       ? void 0
       : Fe("edit", "write must be a string or a Uint8Array");
-  return t && e.skip === !0 ? void 0 : Fe("edit", "must return { write } or { skip: true }");
+  return t && e.skip === true ? void 0 : Fe("edit", "must return { write } or { skip: true }");
 }
 async function _c(e, r) {
   let t = await Ie(Cc(e));
@@ -8165,7 +8165,7 @@ async function far(e, r, t, i) {
       precondition: i?.precondition === void 0 || i.precondition.type === "none" ? void 0 : i.precondition,
       makeParent: i?.parent !== "mustExist",
       aliases: d,
-      singleName: i?.singleName === !0,
+      singleName: i?.singleName === true,
     },
     l = (i?.publishDiscipline ?? "atomic") === "atomic",
     c = u.precondition !== void 0 || u.range !== void 0,
@@ -8284,7 +8284,7 @@ async function Yc(e, r, t, i, o) {
   if (!a.ok) return a;
   if (o.range !== void 0 && a.value === "absent") return P(Mi(r));
   let s = await Ie(di(t.log, Qa.O_RDWR | (o.range === void 0 ? Qa.O_CREAT : 0) | Bp, o.mode));
-  if (!s.ok) return P(o.range !== void 0 && s.error.kind === "absent" ? Mi(r) : NC(s.error, r, !1));
+  if (!s.ok) return P(o.range !== void 0 && s.error.kind === "absent" ? Mi(r) : NC(s.error, r, false));
   let d = await Jc(s.value, t.log, r, i, a.value === "absent", o),
     u = await Ie(s.value.close());
   if ((e.scanCountCache.delete(t.log), H(e, t), !d.ok)) return d;
@@ -8297,13 +8297,13 @@ async function Yc(e, r, t, i, o) {
   );
 }
 async function as(e, r, t, i) {
-  let o = await Ie(Uc(e, { bigint: !0 }));
+  let o = await Ie(Uc(e, { bigint: true }));
   return o.ok && j(r) && z(W(o.value), r) && Number(o.value.size) === i ? Ze(r, t, FC(o.value.mtimeNs)) : void 0;
 }
 var li = $N,
   Xc = `${li / 1048576} MiB`;
 async function Jc(e, r, t, i, o, a) {
-  let s = await Ie(e.stat({ bigint: !0 }));
+  let s = await Ie(e.stat({ bigint: true }));
   if (!s.ok) return P(Ke(s.error, t));
   if (!s.value.isFile()) return P(Ke({ kind: "fs", error: Bs(r, "ENXIO") }, t));
   if (a.singleName && s.value.nlink > 1n) return P(Ke(y4(r), t));
@@ -8401,10 +8401,10 @@ async function ss(e, r, t, i) {
   let o = 0;
   while (o < t) {
     let { bytesRead: a } = await e.read(r, o, t - o, i + o);
-    if (a <= 0) return !1;
+    if (a <= 0) return false;
     o += a;
   }
-  return !0;
+  return true;
 }
 function Qc(e) {
   let r = 0,
@@ -8428,7 +8428,7 @@ async function ef(e, r, t) {
     let s = await Je(a, void 0);
     if (s.ok) return re({ liveBytes: s.value.liveBytes, log: a, probe: s.value });
     if (!(s.error.kind === "fs" && Am(s.error.error, "EAGAIN")) || o >= 1) return s;
-    let u = await Ie(e.stat({ bigint: !0 }));
+    let u = await Ie(e.stat({ bigint: true }));
     if (!u.ok) return u;
     i = u.value;
   }
@@ -8452,8 +8452,8 @@ async function nf(e, r, t, i, o, a) {
     y = await df(p, t.log, a, !d, t.directoryMode);
   if (!y.ok) return P(d && y.error.kind === "absent" ? Mi(r) : K(NC(y.error, r, a.makeParent), "stage"));
   let g = y.value,
-    k = !1,
-    v = !1;
+    k = false,
+    v = false;
   try {
     let w = a.range?.keepBefore ?? 0;
     if (w > 0) {
@@ -8468,11 +8468,11 @@ async function nf(e, r, t, i, o, a) {
         if (!M.ok) return M;
         let A = await Ie(g.sync());
         if (!A.ok) return P(K(Ke(A.error, r), "stage"));
-        let O = await Ie(g.stat({ bigint: !0 }));
+        let O = await Ie(g.stat({ bigint: true }));
         if (!O.ok) return P(K(Ke(O.error, r), "stage"));
         let C = W(O.value),
           N = await Ie(g.close());
-        if (((v = !0), !N.ok)) return P(K(Ke(N.error, r), "stage"));
+        if (((v = true), !N.ok)) return P(K(Ke(N.error, r), "stage"));
         if (d && u !== void 0) {
           let U = await ff(e, r, t.log, u, a, M.value.readThrough);
           if (!U.ok) return U;
@@ -8512,7 +8512,7 @@ async function nf(e, r, t, i, o, a) {
               phase: "publish",
             });
           }
-          k = !0;
+          k = true;
           let U = h + M.value.liveBytes,
             we = await as(t.log, C, U, U),
             ze = await of(t.log, C, u?.identity, c);
@@ -8570,7 +8570,7 @@ async function rf(e, r, t, i, o) {
       let R = await fi(s.handle, S, s.size, h);
       if (R !== void 0) return P(R.kind === "argument" ? R.error : K(Ke(R.error, r), "stage"));
     }
-    let p = await Ie(is(t, { bigint: !0 }));
+    let p = await Ie(is(t, { bigint: true }));
     if (!p.ok) return P(p.error.kind === "absent" ? Mi(r) : K(Ke(p.error, r), "stage"));
     if (!p.value.isFile()) return P(await be(e, r, i));
     let y = await ls(t, p.value, s.identity);
@@ -8622,7 +8622,7 @@ async function tf(e, r) {
   return { proven: t, notCarried: i };
 }
 async function ds(e, r) {
-  let t = await Ie(is(e, { bigint: !0 }));
+  let t = await Ie(is(e, { bigint: true }));
   if (!t.ok) return t.error.kind === "absent" ? { now: "absent" } : { now: "unreadable", why: v5(t.error) };
   if (!t.value.isFile()) return { now: "notRegular" };
   if (r === void 0 || !j(W(t.value))) return { now: "noIdentity" };
@@ -8687,15 +8687,15 @@ async function of(e, r, t, i) {
 var af = new Set(["ELOOP", "ENXIO", "EISDIR"]);
 async function ls(e, r, t) {
   let i = W(r);
-  if (!j(i) || !j(t) || z(i, t)) return re({ elsewhere: !1 });
+  if (!j(i) || !j(t) || z(i, t)) return re({ elsewhere: false });
   let o = await ie(e);
   if (!o.ok)
     return o.error.kind === "absent" || (o.error.kind === "fs" && af.has(E(o.error.error) ?? ""))
-      ? re({ elsewhere: !0 })
+      ? re({ elsewhere: true })
       : P(o.error);
   return (
     await Ie(o.value.handle.close()),
-    re(z(o.value.identity, t) ? { elsewhere: !1, names: BigInt(o.value.nlink) } : { elsewhere: !0 })
+    re(z(o.value.identity, t) ? { elsewhere: false, names: BigInt(o.value.nlink) } : { elsewhere: true })
   );
 }
 function ts(e, r) {
@@ -8874,7 +8874,7 @@ async function cs(e, r, t, i, o, a = 0) {
   let l = await Xe(t, d.liveBytes);
   if (!l.ok) return K(Ke(l.error, r), "stage");
   if (l.value === d.witness) return;
-  let c = await Zn(r, t, !0);
+  let c = await Zn(r, t, true);
   return c.ok ? hb(r, c.value) : K(c.error, "stage");
 }
 async function be(e, r, t) {

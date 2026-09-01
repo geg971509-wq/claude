@@ -35,7 +35,7 @@ function zUn(e) {
 function VUn() {
   li().swarmPermissions.clear();
 }
-var d = !0;
+var d = true;
 function a(e, i) {
   let s = i.toolUseId === void 0 ? d : i.toolUseId === e.toolUseId,
     o = i.approvedRequest,
@@ -48,7 +48,7 @@ function a(e, i) {
 function Hje(e) {
   let i = li().swarmPermissions.pending,
     s = i.get(e.requestId);
-  if (!s) return n(`[SwarmPermissionPoller] No callback registered for mailbox response ${b(e.requestId)}`), !1;
+  if (!s) return n(`[SwarmPermissionPoller] No callback registered for mailbox response ${b(e.requestId)}`), false;
   i.delete(e.requestId);
   let o = a(s, e);
   if (o === "mismatch" || o === "input_digest_mismatch") {
@@ -63,7 +63,7 @@ function Hje(e) {
         level: "warn",
       }),
       s.onRefuse(`The ${r} did not describe this tool call, so it was refused.`, r),
-      !0
+      true
     );
   }
   if (
@@ -76,7 +76,7 @@ function Hje(e) {
       r = e.updatedInput;
     s.onAllow(r, t);
   } else s.onReject(e.feedback);
-  return !0;
+  return true;
 }
 function KUn(e) {
   li().swarmPermissions.pendingSandbox.set(e.requestId, e),
@@ -88,20 +88,20 @@ function XUn(e) {
 function YUn(e) {
   let i = li().swarmPermissions.pendingSandbox,
     s = i.get(e.requestId);
-  if (!s) return n(`[SwarmPermissionPoller] No sandbox callback registered for request ${b(e.requestId)}`), !1;
+  if (!s) return n(`[SwarmPermissionPoller] No sandbox callback registered for request ${b(e.requestId)}`), false;
   if ((i.delete(e.requestId), s.host !== e.host))
     return (
       n(
-        `[SwarmPermissionPoller] Refusing sandbox ${e.allow === !0 ? "allow" : "deny"} for request ${b(e.requestId)}: the leader answered for ${b(e.host)}, not ${b(s.host)}`,
+        `[SwarmPermissionPoller] Refusing sandbox ${e.allow === true ? "allow" : "deny"} for request ${b(e.requestId)}: the leader answered for ${b(e.host)}, not ${b(s.host)}`,
         { level: "warn" },
       ),
-      s.resolve(!1),
-      !0
+      s.resolve(false),
+      true
     );
   return (
     n(`[SwarmPermissionPoller] Processing sandbox response for request ${b(e.requestId)}: allow=${b(e.allow)}`),
     s.resolve(e.allow),
-    !0
+    true
   );
 }
 export { Tit, kje, zUn, VUn, Hje, KUn, XUn, YUn };

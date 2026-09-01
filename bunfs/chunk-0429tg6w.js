@@ -368,10 +368,10 @@ async function Ee(i, t, m, o) {
       servedSettingsChanged: te.of(m.host).servedSettingsChanged,
     }),
     H = o?.viewerOnly || !Gs() ? void 0 : await ee({ binding: y, deviceBridge: C, onNotice: iRt(m) }),
-    I = !1,
+    I = false,
     ne = new AbortController();
   try {
-    U4(!0), Gp(Gu(t), "remote_attach");
+    U4(true), Gp(Gu(t), "remote_attach");
     let u = U.then(
       (e) => {
         if (e.session_status === "archived")
@@ -401,9 +401,9 @@ View it at ${da(t, void 0, { from: "cli", m: "0" })}`))
         ...M(),
         ...o?.initialStateOverride,
         remoteSessionUrl: V,
-        replBridgeEnabled: !1,
-        replBridgeOutboundOnly: !1,
-        replBridgeExplicit: !1,
+        replBridgeEnabled: false,
+        replBridgeOutboundOnly: false,
+        replBridgeExplicit: false,
       },
       j =
         o?.viewerOnly || !Gs()
@@ -429,13 +429,13 @@ View it at ${da(t, void 0, { from: "cli", m: "0" })}`))
       [ie, D, { handle: re, elsewhere: q }, W] = await Promise.all([b(v.cwd, o?.storageV5).then(E), J, j, se]);
     r(D);
     let a = p(D);
-    F.hasRemoteReplyChannel = !1;
+    F.hasRemoteReplyChannel = false;
     let ae = {
       sessionId: t,
       getAccessToken: N,
       orgUuid: S.orgUUID,
-      viewerOnly: o?.viewerOnly ?? !1,
-      isAttachToExisting: !0,
+      viewerOnly: o?.viewerOnly ?? false,
+      isAttachToExisting: true,
       preflightCheck: u,
       deviceNotBoundNotice: C.notice,
       ...(H && { servedTools: H }),
@@ -458,7 +458,7 @@ View it at ${da(t, void 0, { from: "cli", m: "0" })}`))
         }),
       onAuth401: (e) => T(e, o?.credentials, o?.storageV5),
       dirSync: re,
-      ...(W && { homeSeed: W, homeSeedHoldsFirstSend: !1 }),
+      ...(W && { homeSeed: W, homeSeedHoldsFirstSend: false }),
       initialSequenceNum: a?.maxSequenceNum,
       seedNestedUuidAliases: a?.nestedUuidAliases,
       seedReplyChannelToolUseIds: a?.replyChannelToolUseIds,
@@ -500,7 +500,7 @@ View it at ${da(t, void 0, { from: "cli", m: "0" })}`))
       },
     );
   } finally {
-    (I = !0), ne.abort(), await C.stop(), U4(v.isRemoteMode), Gp(v.sessionId, "remote_attach", null, { cwd: v.cwd });
+    (I = true), ne.abort(), await C.stop(), U4(v.isRemoteMode), Gp(v.sessionId, "remote_attach", null, { cwd: v.cwd });
   }
 }
 async function Me(i, t, m, o) {
@@ -545,7 +545,7 @@ async function Me(i, t, m, o) {
       sessionId: i,
       getAccessToken: () => P()?.accessToken ?? g.accessToken,
       orgUuid: g.orgUUID,
-      isAttachToExisting: !0,
+      isAttachToExisting: true,
       preflightCheck: f,
       onAuth401: (r) => T(r, m, o),
       initialSequenceNum: d?.maxSequenceNum,

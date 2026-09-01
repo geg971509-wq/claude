@@ -12,7 +12,7 @@ import { Bc, bMe } from "/$bunfs/root/chunk-8tgj5dp2.js";
 import { Li } from "/$bunfs/root/chunk-z5yhadgs.js";
 import { S } from "/$bunfs/root/chunk-yz031c9r.js";
 var H = S(function (Oe) {
-  Object.defineProperty(Oe, "__esModule", { value: !0 });
+  Object.defineProperty(Oe, "__esModule", { value: true });
   Oe.AggregationTemporality = void 0;
   var ds;
   (function (e) {
@@ -20,7 +20,7 @@ var H = S(function (Oe) {
   })((ds = Oe.AggregationTemporality || (Oe.AggregationTemporality = {})));
 });
 var d = S(function (Re) {
-  Object.defineProperty(Re, "__esModule", { value: !0 });
+  Object.defineProperty(Re, "__esModule", { value: true });
   Re.DataPointType = Re.InstrumentType = void 0;
   var ms;
   (function (e) {
@@ -41,7 +41,7 @@ var d = S(function (Re) {
   })((ps = Re.DataPointType || (Re.DataPointType = {})));
 });
 var _ = S(function (Ne) {
-  Object.defineProperty(Ne, "__esModule", { value: !0 });
+  Object.defineProperty(Ne, "__esModule", { value: true });
   Ne.equalsCaseInsensitive =
     Ne.binarySearchUB =
     Ne.setEquals =
@@ -83,9 +83,9 @@ var _ = S(function (Ne) {
   }
   Ne.callWithTimeout = As;
   function Ss(e, t) {
-    if (e.size !== t.size) return !1;
-    for (let r of e) if (!t.has(r)) return !1;
-    return !0;
+    if (e.size !== t.size) return false;
+    for (let r of e) if (!t.has(r)) return false;
+    return true;
   }
   Ne.setEquals = Ss;
   function ys(e, t) {
@@ -106,7 +106,7 @@ var _ = S(function (Ne) {
   Ne.equalsCaseInsensitive = xs;
 });
 var T = S(function (Le) {
-  Object.defineProperty(Le, "__esModule", { value: !0 });
+  Object.defineProperty(Le, "__esModule", { value: true });
   Le.AggregatorKind = void 0;
   var Os;
   (function (e) {
@@ -118,7 +118,7 @@ var T = S(function (Le) {
   })((Os = Le.AggregatorKind || (Le.AggregatorKind = {})));
 });
 var De = S(function (Ue) {
-  Object.defineProperty(Ue, "__esModule", { value: !0 });
+  Object.defineProperty(Ue, "__esModule", { value: true });
   Ue.DropAggregator = void 0;
   var Ps = T();
   class Ge {
@@ -139,7 +139,7 @@ var De = S(function (Ue) {
   Ue.DropAggregator = Ge;
 });
 var Fe = S(function (Ve) {
-  Object.defineProperty(Ve, "__esModule", { value: !0 });
+  Object.defineProperty(Ve, "__esModule", { value: true });
   Ve.HistogramAggregator = Ve.HistogramAccumulation = void 0;
   var Rs = T(),
     C = d(),
@@ -147,7 +147,7 @@ var Fe = S(function (Ve) {
   function Cs(e) {
     let t = e.map(() => 0);
     return (
-      t.push(0), { buckets: { boundaries: e, counts: t }, sum: 0, count: 0, hasMinMax: !1, min: 1 / 0, max: -1 / 0 }
+      t.push(0), { buckets: { boundaries: e, counts: t }, sum: 0, count: 0, hasMinMax: false, min: 1 / 0, max: -1 / 0 }
     );
   }
   class L {
@@ -155,7 +155,7 @@ var Fe = S(function (Ve) {
     _boundaries;
     _recordMinMax;
     _current;
-    constructor(e, t, r = !0, i = Cs(t)) {
+    constructor(e, t, r = true, i = Cs(t)) {
       (this.startTime = e), (this._boundaries = t), (this._recordMinMax = r), (this._current = i);
     }
     record(e) {
@@ -163,7 +163,7 @@ var Fe = S(function (Ve) {
       if (((this._current.count += 1), (this._current.sum += e), this._recordMinMax))
         (this._current.min = Math.min(e, this._current.min)),
           (this._current.max = Math.max(e, this._current.max)),
-          (this._current.hasMinMax = !0);
+          (this._current.hasMinMax = true);
       let t = (0, Ns.binarySearchUB)(this._boundaries, e);
       this._current.buckets.counts[t] += 1;
     }
@@ -219,7 +219,7 @@ var Fe = S(function (Ve) {
         buckets: { boundaries: r.buckets.boundaries, counts: n },
         count: i.count - r.count,
         sum: i.sum - r.sum,
-        hasMinMax: !1,
+        hasMinMax: false,
         min: 1 / 0,
         max: -1 / 0,
       });
@@ -255,7 +255,7 @@ var Fe = S(function (Ve) {
   Ve.HistogramAggregator = qe;
 });
 var $e = S(function (He) {
-  Object.defineProperty(He, "__esModule", { value: !0 });
+  Object.defineProperty(He, "__esModule", { value: true });
   He.Buckets = void 0;
   class ce {
     backing;
@@ -377,7 +377,7 @@ var $e = S(function (He) {
   }
 });
 var he = S(function (ze) {
-  Object.defineProperty(ze, "__esModule", { value: !0 });
+  Object.defineProperty(ze, "__esModule", { value: true });
   ze.getSignificand =
     ze.getNormalBase2 =
     ze.MIN_VALUE =
@@ -407,7 +407,7 @@ var he = S(function (ze) {
   ze.getSignificand = Ds;
 });
 var z = S(function (Xe) {
-  Object.defineProperty(Xe, "__esModule", { value: !0 });
+  Object.defineProperty(Xe, "__esModule", { value: true });
   Xe.nextGreaterSquare = Xe.ldexp = void 0;
   function js(e, t) {
     if (e === 0 || e === Number.POSITIVE_INFINITY || e === Number.NEGATIVE_INFINITY || Number.isNaN(e)) return e;
@@ -420,13 +420,13 @@ var z = S(function (Xe) {
   Xe.nextGreaterSquare = $s;
 });
 var W = S(function (Je) {
-  Object.defineProperty(Je, "__esModule", { value: !0 });
+  Object.defineProperty(Je, "__esModule", { value: true });
   Je.MappingError = void 0;
   class Ke extends Error {}
   Je.MappingError = Ke;
 });
 var it = S(function (tt) {
-  Object.defineProperty(tt, "__esModule", { value: !0 });
+  Object.defineProperty(tt, "__esModule", { value: true });
   tt.ExponentMapping = void 0;
   var E = he(),
     Ws = z(),
@@ -468,7 +468,7 @@ var it = S(function (tt) {
   tt.ExponentMapping = et;
 });
 var ut = S(function (at) {
-  Object.defineProperty(at, "__esModule", { value: !0 });
+  Object.defineProperty(at, "__esModule", { value: true });
   at.LogarithmMapping = void 0;
   var w = he(),
     st = z(),
@@ -515,7 +515,7 @@ var ut = S(function (at) {
   at.LogarithmMapping = ot;
 });
 var dt = S(function (_t) {
-  Object.defineProperty(_t, "__esModule", { value: !0 });
+  Object.defineProperty(_t, "__esModule", { value: true });
   _t.getMapping = void 0;
   var Xs = it(),
     Ys = ut(),
@@ -533,7 +533,7 @@ var dt = S(function (_t) {
   _t.getMapping = Zs;
 });
 var St = S(function (Mt) {
-  Object.defineProperty(Mt, "__esModule", { value: !0 });
+  Object.defineProperty(Mt, "__esModule", { value: true });
   Mt.ExponentialHistogramAggregator = Mt.ExponentialHistogramAccumulation = void 0;
   var Qs = T(),
     G = d(),
@@ -569,7 +569,7 @@ var St = S(function (Mt) {
     constructor(
       e,
       t = sn,
-      r = !0,
+      r = true,
       i = 0,
       s = 0,
       o = 0,
@@ -693,12 +693,12 @@ var St = S(function (Mt) {
     }
     _updateBuckets(e, t, r) {
       let i = this._mapping.mapToIndex(t),
-        s = !1,
+        s = false,
         o = 0,
         n = 0;
       if (e.length === 0) (e.indexStart = i), (e.indexEnd = e.indexStart), (e.indexBase = e.indexStart);
-      else if (i < e.indexStart && e.indexEnd - i >= this._maxSize) (s = !0), (n = i), (o = e.indexEnd);
-      else if (i > e.indexEnd && i - e.indexStart >= this._maxSize) (s = !0), (n = e.indexStart), (o = i);
+      else if (i < e.indexStart && e.indexEnd - i >= this._maxSize) (s = true), (n = i), (o = e.indexEnd);
+      else if (i > e.indexEnd && i - e.indexStart >= this._maxSize) (s = true), (n = e.indexStart), (o = i);
       if (s) {
         let a = this._changeScale(o, n);
         this._downscale(a), (i = this._mapping.mapToIndex(t));
@@ -821,7 +821,7 @@ var St = S(function (Mt) {
   Mt.ExponentialHistogramAggregator = ft;
 });
 var Tt = S(function (xt) {
-  Object.defineProperty(xt, "__esModule", { value: !0 });
+  Object.defineProperty(xt, "__esModule", { value: true });
   xt.LastValueAggregator = xt.LastValueAccumulation = void 0;
   var on = T(),
     U = Bc(),
@@ -869,7 +869,7 @@ var Tt = S(function (xt) {
   xt.LastValueAggregator = yt;
 });
 var It = S(function (wt) {
-  Object.defineProperty(wt, "__esModule", { value: !0 });
+  Object.defineProperty(wt, "__esModule", { value: true });
   wt.SumAggregator = wt.SumAccumulation = void 0;
   var un = T(),
     ln = d();
@@ -878,7 +878,7 @@ var It = S(function (wt) {
     monotonic;
     _current;
     reset;
-    constructor(e, t, r = 0, i = !1) {
+    constructor(e, t, r = 0, i = false) {
       (this.startTime = e), (this.monotonic = t), (this._current = r), (this.reset = i);
     }
     record(e) {
@@ -911,7 +911,7 @@ var It = S(function (wt) {
     diff(e, t) {
       let r = e.toPointValue(),
         i = t.toPointValue();
-      if (this.monotonic && r > i) return new m(t.startTime, this.monotonic, i, !0);
+      if (this.monotonic && r > i) return new m(t.startTime, this.monotonic, i, true);
       return new m(t.startTime, this.monotonic, i - r);
     }
     toMetricData(e, t, r, i) {
@@ -927,7 +927,7 @@ var It = S(function (wt) {
   wt.SumAggregator = Et;
 });
 var Ct = S(function (h) {
-  Object.defineProperty(h, "__esModule", { value: !0 });
+  Object.defineProperty(h, "__esModule", { value: true });
   h.SumAggregator =
     h.SumAccumulation =
     h.LastValueAggregator =
@@ -940,66 +940,66 @@ var Ct = S(function (h) {
       void 0;
   var _n = De();
   Object.defineProperty(h, "DropAggregator", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return _n.DropAggregator;
     },
   });
   var Ot = Fe();
   Object.defineProperty(h, "HistogramAccumulation", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ot.HistogramAccumulation;
     },
   });
   Object.defineProperty(h, "HistogramAggregator", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ot.HistogramAggregator;
     },
   });
   var Pt = St();
   Object.defineProperty(h, "ExponentialHistogramAccumulation", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Pt.ExponentialHistogramAccumulation;
     },
   });
   Object.defineProperty(h, "ExponentialHistogramAggregator", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Pt.ExponentialHistogramAggregator;
     },
   });
   var Rt = Tt();
   Object.defineProperty(h, "LastValueAccumulation", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Rt.LastValueAccumulation;
     },
   });
   Object.defineProperty(h, "LastValueAggregator", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Rt.LastValueAggregator;
     },
   });
   var Nt = It();
   Object.defineProperty(h, "SumAccumulation", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Nt.SumAccumulation;
     },
   });
   Object.defineProperty(h, "SumAggregator", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Nt.SumAggregator;
     },
   });
 });
 var Vt = S(function (Lt) {
-  Object.defineProperty(Lt, "__esModule", { value: !0 });
+  Object.defineProperty(Lt, "__esModule", { value: true });
   Lt.DEFAULT_AGGREGATION =
     Lt.EXPONENTIAL_HISTOGRAM_AGGREGATION =
     Lt.HISTOGRAM_AGGREGATION =
@@ -1025,8 +1025,8 @@ var Vt = S(function (Lt) {
   }
   Lt.DropAggregation = Y;
   class D {
-    static MONOTONIC_INSTANCE = new p.SumAggregator(!0);
-    static NON_MONOTONIC_INSTANCE = new p.SumAggregator(!1);
+    static MONOTONIC_INSTANCE = new p.SumAggregator(true);
+    static NON_MONOTONIC_INSTANCE = new p.SumAggregator(false);
     createAggregator(e) {
       switch (e.type) {
         case g.InstrumentType.COUNTER:
@@ -1049,7 +1049,7 @@ var Vt = S(function (Lt) {
   class J {
     static DEFAULT_INSTANCE = new p.HistogramAggregator(
       [0, 5, 10, 25, 50, 75, 100, 250, 500, 750, 1000, 2500, 5000, 7500, 1e4],
-      !0,
+      true,
     );
     createAggregator(e) {
       return J.DEFAULT_INSTANCE;
@@ -1059,7 +1059,7 @@ var Vt = S(function (Lt) {
   class ge {
     _boundaries;
     _recordMinMax;
-    constructor(e, t = !0) {
+    constructor(e, t = true) {
       if (e == null)
         throw Error(
           "ExplicitBucketHistogramAggregation should be created with explicit boundaries, if a single bucket histogram is required, please pass an empty array",
@@ -1078,7 +1078,7 @@ var Vt = S(function (Lt) {
   class de {
     _maxSize;
     _recordMinMax;
-    constructor(e = 160, t = !0) {
+    constructor(e = 160, t = true) {
       (this._maxSize = e), (this._recordMinMax = t);
     }
     createAggregator(e) {
@@ -1117,7 +1117,7 @@ var Vt = S(function (Lt) {
   Lt.DEFAULT_AGGREGATION = new me();
 });
 var q = S(function (Ft) {
-  Object.defineProperty(Ft, "__esModule", { value: !0 });
+  Object.defineProperty(Ft, "__esModule", { value: true });
   Ft.toAggregation = Ft.AggregationType = void 0;
   var f = Vt(),
     M;
@@ -1155,7 +1155,7 @@ var q = S(function (Ft) {
   Ft.toAggregation = bn;
 });
 var pe = S(function (jt) {
-  Object.defineProperty(jt, "__esModule", { value: !0 });
+  Object.defineProperty(jt, "__esModule", { value: true });
   jt.DEFAULT_AGGREGATION_TEMPORALITY_SELECTOR = jt.DEFAULT_AGGREGATION_SELECTOR = void 0;
   var Tn = H(),
     En = q(),
@@ -1165,13 +1165,13 @@ var pe = S(function (jt) {
   jt.DEFAULT_AGGREGATION_TEMPORALITY_SELECTOR = vn;
 });
 var fe = S(function (Kt) {
-  Object.defineProperty(Kt, "__esModule", { value: !0 });
+  Object.defineProperty(Kt, "__esModule", { value: true });
   Kt.MetricReader = void 0;
   var zt = Li(),
     Wt = _(),
     Xt = pe();
   class Yt {
-    _shutdown = !1;
+    _shutdown = false;
     _metricProducers;
     _sdkMetricProducer;
     _aggregationTemporalitySelector;
@@ -1217,7 +1217,7 @@ var fe = S(function (Kt) {
       }
       if (e?.timeoutMillis == null) await this.onShutdown();
       else await (0, Wt.callWithTimeout)(this.onShutdown(), e.timeoutMillis);
-      this._shutdown = !0;
+      this._shutdown = true;
     }
     async forceFlush(e) {
       if (this._shutdown) {
@@ -1234,7 +1234,7 @@ var fe = S(function (Kt) {
   Kt.MetricReader = Yt;
 });
 var rr = S(function (er) {
-  Object.defineProperty(er, "__esModule", { value: !0 });
+  Object.defineProperty(er, "__esModule", { value: true });
   er.PeriodicExportingMetricReader = void 0;
   var Z = Li(),
     Q = Bc(),
@@ -1329,11 +1329,11 @@ var rr = S(function (er) {
   er.PeriodicExportingMetricReader = Qt;
 });
 var ar = S(function (nr) {
-  Object.defineProperty(nr, "__esModule", { value: !0 });
+  Object.defineProperty(nr, "__esModule", { value: true });
   nr.InMemoryMetricExporter = void 0;
   var ir = Bc();
   class sr {
-    _shutdown = !1;
+    _shutdown = false;
     _aggregationTemporality;
     _metrics = [];
     constructor(e) {
@@ -1359,18 +1359,18 @@ var ar = S(function (nr) {
       return this._aggregationTemporality;
     }
     shutdown() {
-      return (this._shutdown = !0), Promise.resolve();
+      return (this._shutdown = true), Promise.resolve();
     }
   }
   nr.InMemoryMetricExporter = sr;
 });
 var hr = S(function (ur) {
-  Object.defineProperty(ur, "__esModule", { value: !0 });
+  Object.defineProperty(ur, "__esModule", { value: true });
   ur.ConsoleMetricExporter = void 0;
   var cr = Bc(),
     Pn = pe();
   class Me {
-    _shutdown = !1;
+    _shutdown = false;
     _temporalitySelector;
     constructor(e) {
       this._temporalitySelector = e?.temporalitySelector ?? Pn.DEFAULT_AGGREGATION_TEMPORALITY_SELECTOR;
@@ -1389,7 +1389,7 @@ var hr = S(function (ur) {
       return this._temporalitySelector(e);
     }
     shutdown() {
-      return (this._shutdown = !0), Promise.resolve();
+      return (this._shutdown = true), Promise.resolve();
     }
     static _sendMetrics(e, t) {
       for (let r of e.scopeMetrics)
@@ -1404,7 +1404,7 @@ var hr = S(function (ur) {
   ur.ConsoleMetricExporter = Me;
 });
 var mr = S(function (gr) {
-  Object.defineProperty(gr, "__esModule", { value: !0 });
+  Object.defineProperty(gr, "__esModule", { value: true });
   gr.ViewRegistry = void 0;
   class _r {
     _registeredViews = [];
@@ -1434,7 +1434,7 @@ var mr = S(function (gr) {
   gr.ViewRegistry = _r;
 });
 var V = S(function (Mr) {
-  Object.defineProperty(Mr, "__esModule", { value: !0 });
+  Object.defineProperty(Mr, "__esModule", { value: true });
   Mr.isValidName =
     Mr.isDescriptorCompatibleWith =
     Mr.createInstrumentDescriptorWithView =
@@ -1484,7 +1484,7 @@ var V = S(function (Mr) {
   Mr.isValidName = fr;
 });
 var ee = S(function (vr) {
-  Object.defineProperty(vr, "__esModule", { value: !0 });
+  Object.defineProperty(vr, "__esModule", { value: true });
   vr.isObservableInstrument =
     vr.ObservableUpDownCounterInstrument =
     vr.ObservableGaugeInstrument =
@@ -1582,7 +1582,7 @@ var ee = S(function (vr) {
   vr.isObservableInstrument = Vn;
 });
 var Nr = S(function (Pr) {
-  Object.defineProperty(Pr, "__esModule", { value: !0 });
+  Object.defineProperty(Pr, "__esModule", { value: true });
   Pr.Meter = void 0;
   var y = V(),
     x = ee(),
@@ -1637,7 +1637,7 @@ var Nr = S(function (Pr) {
   Pr.Meter = Or;
 });
 var Ae = S(function (Lr) {
-  Object.defineProperty(Lr, "__esModule", { value: !0 });
+  Object.defineProperty(Lr, "__esModule", { value: true });
   Lr.MetricStorage = void 0;
   var Kn = V();
   class Cr {
@@ -1664,7 +1664,7 @@ var Ae = S(function (Lr) {
   Lr.MetricStorage = Cr;
 });
 var k = S(function (Br) {
-  Object.defineProperty(Br, "__esModule", { value: !0 });
+  Object.defineProperty(Br, "__esModule", { value: true });
   Br.AttributeHashMap = Br.HashMap = void 0;
   var Jn = _();
   class Se {
@@ -1694,12 +1694,12 @@ var k = S(function (Br) {
     *keys() {
       let e = this._keyMap.entries(),
         t = e.next();
-      while (t.done !== !0) yield [t.value[1], t.value[0]], (t = e.next());
+      while (t.done !== true) yield [t.value[1], t.value[0]], (t = e.next());
     }
     *entries() {
       let e = this._valueMap.entries(),
         t = e.next();
-      while (t.done !== !0) yield [this._keyMap.get(t.value[0]), t.value[1], t.value[0]], (t = e.next());
+      while (t.done !== true) yield [this._keyMap.get(t.value[0]), t.value[1], t.value[0]], (t = e.next());
     }
     get size() {
       return this._valueMap.size;
@@ -1714,7 +1714,7 @@ var k = S(function (Br) {
   Br.AttributeHashMap = Ur;
 });
 var xe = S(function (Vr) {
-  Object.defineProperty(Vr, "__esModule", { value: !0 });
+  Object.defineProperty(Vr, "__esModule", { value: true });
   Vr.DeltaMetricProcessor = void 0;
   var Qn = _(),
     ye = k();
@@ -1722,7 +1722,7 @@ var xe = S(function (Vr) {
     _activeCollectionStorage = new ye.AttributeHashMap();
     _cumulativeMemoStorage = new ye.AttributeHashMap();
     _cardinalityLimit;
-    _overflowAttributes = { "otel.metric.overflow": !0 };
+    _overflowAttributes = { "otel.metric.overflow": true };
     _overflowHashCode;
     _aggregator;
     constructor(e, t) {
@@ -1774,7 +1774,7 @@ var xe = S(function (Vr) {
   Vr.DeltaMetricProcessor = qr;
 });
 var be = S(function (Fr) {
-  Object.defineProperty(Fr, "__esModule", { value: !0 });
+  Object.defineProperty(Fr, "__esModule", { value: true });
   Fr.TemporalMetricProcessor = void 0;
   var eo = H(),
     to = k();
@@ -1824,7 +1824,7 @@ var be = S(function (Fr) {
       let i = e,
         s = t.entries(),
         o = s.next();
-      while (o.done !== !0) {
+      while (o.done !== true) {
         let [n, a, c] = o.value;
         if (e.has(n, c)) {
           let u = e.get(n, c),
@@ -1846,7 +1846,7 @@ var be = S(function (Fr) {
   }
 });
 var Wr = S(function ($r) {
-  Object.defineProperty($r, "__esModule", { value: !0 });
+  Object.defineProperty($r, "__esModule", { value: true });
   $r.AsyncMetricStorage = void 0;
   var io = Ae(),
     so = xe(),
@@ -1877,7 +1877,7 @@ var Wr = S(function ($r) {
   $r.AsyncMetricStorage = jr;
 });
 var ei = S(function (Zr) {
-  Object.defineProperty(Zr, "__esModule", { value: !0 });
+  Object.defineProperty(Zr, "__esModule", { value: true });
   Zr.getConflictResolutionRecipe =
     Zr.getDescriptionResolutionRecipe =
     Zr.getTypeConflictResolutionRecipe =
@@ -1934,7 +1934,7 @@ var ei = S(function (Zr) {
   Zr.getConflictResolutionRecipe = co;
 });
 var si = S(function (ri) {
-  Object.defineProperty(ri, "__esModule", { value: !0 });
+  Object.defineProperty(ri, "__esModule", { value: true });
   ri.MetricStorageRegistry = void 0;
   var mo = V(),
     ti = Li(),
@@ -2022,7 +2022,7 @@ To resolve the conflict:`,
   ri.MetricStorageRegistry = Te;
 });
 var ci = S(function (oi) {
-  Object.defineProperty(oi, "__esModule", { value: !0 });
+  Object.defineProperty(oi, "__esModule", { value: true });
   oi.MultiMetricStorage = void 0;
   class ni {
     _backingStorages;
@@ -2037,7 +2037,7 @@ var ci = S(function (oi) {
   oi.MultiMetricStorage = ni;
 });
 var di = S(function (_i) {
-  Object.defineProperty(_i, "__esModule", { value: !0 });
+  Object.defineProperty(_i, "__esModule", { value: true });
   _i.BatchObservableResultImpl = _i.ObservableResultImpl = void 0;
   var R = Li(),
     ui = k(),
@@ -2094,7 +2094,7 @@ var di = S(function (_i) {
   _i.BatchObservableResultImpl = hi;
 });
 var Si = S(function (Mi) {
-  Object.defineProperty(Mi, "__esModule", { value: !0 });
+  Object.defineProperty(Mi, "__esModule", { value: true });
   Mi.ObservableRegistry = void 0;
   var Mo = Li(),
     mi = ee(),
@@ -2168,7 +2168,7 @@ var Si = S(function (Mi) {
   Mi.ObservableRegistry = fi;
 });
 var Ti = S(function (xi) {
-  Object.defineProperty(xi, "__esModule", { value: !0 });
+  Object.defineProperty(xi, "__esModule", { value: true });
   xi.SyncMetricStorage = void 0;
   var Ao = Ae(),
     So = xe(),
@@ -2196,7 +2196,7 @@ var Ti = S(function (xi) {
   xi.SyncMetricStorage = yi;
 });
 var re = S(function (Oi) {
-  Object.defineProperty(Oi, "__esModule", { value: !0 });
+  Object.defineProperty(Oi, "__esModule", { value: true });
   Oi.createDenyListAttributesProcessor =
     Oi.createAllowListAttributesProcessor =
     Oi.createMultiAttributesProcessor =
@@ -2261,7 +2261,7 @@ var re = S(function (Oi) {
   var wo = new Ei();
 });
 var Gi = S(function (Ni) {
-  Object.defineProperty(Ni, "__esModule", { value: !0 });
+  Object.defineProperty(Ni, "__esModule", { value: true });
   Ni.MeterSharedState = void 0;
   var Po = V(),
     Ro = Nr(),
@@ -2335,7 +2335,7 @@ var Gi = S(function (Ni) {
   Ni.MeterSharedState = Ri;
 });
 var qi = S(function (Bi) {
-  Object.defineProperty(Bi, "__esModule", { value: !0 });
+  Object.defineProperty(Bi, "__esModule", { value: true });
   Bi.MeterProviderSharedState = void 0;
   var Do = _(),
     qo = mr(),
@@ -2364,7 +2364,7 @@ var qi = S(function (Bi) {
   Bi.MeterProviderSharedState = Ui;
 });
 var Hi = S(function (ki) {
-  Object.defineProperty(ki, "__esModule", { value: !0 });
+  Object.defineProperty(ki, "__esModule", { value: true });
   ki.MetricCollector = void 0;
   var Fo = Bc();
   class Vi {
@@ -2405,18 +2405,18 @@ var Hi = S(function (ki) {
   ki.MetricCollector = Vi;
 });
 var ie = S(function ($i) {
-  Object.defineProperty($i, "__esModule", { value: !0 });
+  Object.defineProperty($i, "__esModule", { value: true });
   $i.ExactPredicate = $i.PatternPredicate = void 0;
   var Ho = /[\^$\\.+?()[\]{}|]/g;
   class we {
     _matchAll;
     _regexp;
     constructor(e) {
-      if (e === "*") (this._matchAll = !0), (this._regexp = /.*/);
-      else (this._matchAll = !1), (this._regexp = new RegExp(we.escapePattern(e)));
+      if (e === "*") (this._matchAll = true), (this._regexp = /.*/);
+      else (this._matchAll = false), (this._regexp = new RegExp(we.escapePattern(e)));
     }
     match(e) {
-      if (this._matchAll) return !0;
+      if (this._matchAll) return true;
       return this._regexp.test(e);
     }
     static escapePattern(e) {
@@ -2434,15 +2434,15 @@ var ie = S(function ($i) {
       (this._matchAll = e === void 0), (this._pattern = e);
     }
     match(e) {
-      if (this._matchAll) return !0;
-      if (e === this._pattern) return !0;
-      return !1;
+      if (this._matchAll) return true;
+      if (e === this._pattern) return true;
+      return false;
     }
   }
   $i.ExactPredicate = ji;
 });
 var Ji = S(function (Yi) {
-  Object.defineProperty(Yi, "__esModule", { value: !0 });
+  Object.defineProperty(Yi, "__esModule", { value: true });
   Yi.InstrumentSelector = void 0;
   var Wi = ie();
   class Xi {
@@ -2467,7 +2467,7 @@ var Ji = S(function (Yi) {
   Yi.InstrumentSelector = Xi;
 });
 var ts = S(function (Qi) {
-  Object.defineProperty(Qi, "__esModule", { value: !0 });
+  Object.defineProperty(Qi, "__esModule", { value: true });
   Qi.MeterSelector = void 0;
   var ve = ie();
   class Zi {
@@ -2492,7 +2492,7 @@ var ts = S(function (Qi) {
   Qi.MeterSelector = Zi;
 });
 var as = S(function (ns) {
-  Object.defineProperty(ns, "__esModule", { value: !0 });
+  Object.defineProperty(ns, "__esModule", { value: true });
   ns.View = void 0;
   var $o = ie(),
     rs = re(),
@@ -2547,7 +2547,7 @@ var as = S(function (ns) {
   ns.View = ss;
 });
 var hs = S(function (us) {
-  Object.defineProperty(us, "__esModule", { value: !0 });
+  Object.defineProperty(us, "__esModule", { value: true });
   us.MeterProvider = void 0;
   var se = Li(),
     Ko = bMe(),
@@ -2556,7 +2556,7 @@ var hs = S(function (us) {
     Qo = as();
   class cs {
     _sharedState;
-    _shutdown = !1;
+    _shutdown = false;
     constructor(e) {
       if (
         ((this._sharedState = new Jo.MeterProviderSharedState(e?.resource ?? (0, Ko.defaultResource)())),
@@ -2579,7 +2579,7 @@ var hs = S(function (us) {
         se.diag.warn("shutdown may only be called once per MeterProvider");
         return;
       }
-      (this._shutdown = !0), await Promise.all(this._sharedState.metricCollectors.map((t) => t.shutdown(e)));
+      (this._shutdown = true), await Promise.all(this._sharedState.metricCollectors.map((t) => t.shutdown(e)));
     }
     async forceFlush(e) {
       if (this._shutdown) {
@@ -2592,7 +2592,7 @@ var hs = S(function (us) {
   us.MeterProvider = cs;
 });
 var WQ = S(function (l) {
-  Object.defineProperty(l, "__esModule", { value: !0 });
+  Object.defineProperty(l, "__esModule", { value: true });
   l.TimeoutError =
     l.createDenyListAttributesProcessor =
     l.createAllowListAttributesProcessor =
@@ -2608,82 +2608,82 @@ var WQ = S(function (l) {
       void 0;
   var ea = H();
   Object.defineProperty(l, "AggregationTemporality", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ea.AggregationTemporality;
     },
   });
   var _s = d();
   Object.defineProperty(l, "DataPointType", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return _s.DataPointType;
     },
   });
   Object.defineProperty(l, "InstrumentType", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return _s.InstrumentType;
     },
   });
   var ta = fe();
   Object.defineProperty(l, "MetricReader", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ta.MetricReader;
     },
   });
   var ra = rr();
   Object.defineProperty(l, "PeriodicExportingMetricReader", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ra.PeriodicExportingMetricReader;
     },
   });
   var ia = ar();
   Object.defineProperty(l, "InMemoryMetricExporter", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ia.InMemoryMetricExporter;
     },
   });
   var sa = hr();
   Object.defineProperty(l, "ConsoleMetricExporter", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return sa.ConsoleMetricExporter;
     },
   });
   var na = hs();
   Object.defineProperty(l, "MeterProvider", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return na.MeterProvider;
     },
   });
   var oa = q();
   Object.defineProperty(l, "AggregationType", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return oa.AggregationType;
     },
   });
   var gs = re();
   Object.defineProperty(l, "createAllowListAttributesProcessor", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gs.createAllowListAttributesProcessor;
     },
   });
   Object.defineProperty(l, "createDenyListAttributesProcessor", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gs.createDenyListAttributesProcessor;
     },
   });
   var aa = _();
   Object.defineProperty(l, "TimeoutError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return aa.TimeoutError;
     },

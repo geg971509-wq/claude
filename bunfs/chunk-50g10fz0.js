@@ -56,8 +56,8 @@ class CM {
   }
   release(e) {
     let t = this.#e.get(e);
-    if (t === void 0) return !1;
-    return t.clearAllTimers(), this.#e.delete(e), !0;
+    if (t === void 0) return false;
+    return t.clearAllTimers(), this.#e.delete(e), true;
   }
 }
 var Tht = "repl-registered";
@@ -69,26 +69,26 @@ function Eht(e, t) {
   return e.get(CM).has(t ?? F2);
 }
 function ty() {
-  if (!TR()) return !1;
-  if (a.CLAUDE_CODE_REPL === !1) return !1;
-  if (a.CLAUDE_CODE_REPL === !0) return !0;
+  if (!TR()) return false;
+  if (a.CLAUDE_CODE_REPL === false) return false;
+  if (a.CLAUDE_CODE_REPL === true) return true;
   let e = a.CLAUDE_CODE_ENTRYPOINT;
-  if (e === "cli" || e === "remote") return I("tengu_slate_harbor", !1);
-  return !1;
+  if (e === "cli" || e === "remote") return I("tengu_slate_harbor", false);
+  return false;
 }
 function Dmn() {
-  return !1;
+  return false;
 }
 function bne() {
-  return !1;
+  return false;
 }
 function Lz(e) {
   if (!kI(e)) return e;
-  let t = e.filter((r) => r.isMcp !== !0 || r.mcpInfo?.isAuthStub === !0);
+  let t = e.filter((r) => r.isMcp !== true || r.mcpInfo?.isAuthStub === true);
   return t.length === e.length ? e : t;
 }
 function kI(e) {
-  return bne() && e.some((t) => t.isMcp !== !0 && on(t, $s));
+  return bne() && e.some((t) => t.isMcp !== true && on(t, $s));
 }
 var XVe = new Set([_t, ti, Xo, Qe, Bt, mc]);
 var lC = "EnterWorktree";
@@ -107,18 +107,18 @@ Query forms:
 - "notebook jupyter" \u2014 keyword search, up to max_results best matches
 - "+slack send" \u2014 require "slack" in the name, rank by remaining terms`;
 function vM(e) {
-  if (e.alwaysLoad === !0) return !1;
-  if (jk(e, PQn())) return !1;
-  if (e.isMcp === !0) return !bne();
-  if (e.name === Kl) return !1;
+  if (e.alwaysLoad === true) return false;
+  if (jk(e, PQn())) return false;
+  if (e.isMcp === true) return !bne();
+  if (e.name === Kl) return false;
   if (e.name === yt) {
-    if (import.meta.require("/$bunfs/root/chunk-5h0ccr97.js").isForkSubagentEnabled()) return !1;
+    if (import.meta.require("/$bunfs/root/chunk-5h0ccr97.js").isForkSubagentEnabled()) return false;
   }
-  if (e.name === o) return !1;
-  if (e.name === xk && NAe()) return !1;
-  if (e.name === pa) return !1;
-  if (e.name === lC && a.CLAUDE_CODE_SESSION_KIND === "bg") return !1;
-  return e.shouldDefer === !0;
+  if (e.name === o) return false;
+  if (e.name === xk && NAe()) return false;
+  if (e.name === pa) return false;
+  if (e.name === lC && a.CLAUDE_CODE_SESSION_KIND === "bg") return false;
+  return e.shouldDefer === true;
 }
 function Omn(e) {
   return e.name;

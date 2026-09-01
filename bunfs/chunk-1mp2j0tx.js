@@ -63,7 +63,7 @@ function Syt() {
   return `Running tool calls on an attached machine is not enabled in this session; omit "${Pi}" to run here.`;
 }
 function ow(e) {
-  if (typeof e !== "object" || e === null || !(Pi in e)) return !1;
+  if (typeof e !== "object" || e === null || !(Pi in e)) return false;
   let n = e[Pi];
   return typeof n === "string" && n.trim() !== "" && !fC(n.trim());
 }
@@ -113,29 +113,29 @@ var byt = [
       "cordon",
       "taint",
     ]),
-    ...!1,
+    ...false,
   },
   R = [...i_n, ...[]];
 function vWt(e, n) {
-  if (e !== Qe) return !1;
-  if (n === void 0 || n === "") return !0;
-  if (/^[\s*]+$/.test(n)) return !0;
+  if (e !== Qe) return false;
+  if (n === void 0 || n === "") return true;
+  if (/^[\s*]+$/.test(n)) return true;
   return wyt(n, R);
 }
 function wyt(e, n) {
   let o = e.trim().toLowerCase();
-  if (o === "*") return !0;
+  if (o === "*") return true;
   for (let r of n) {
     let t = r.toLowerCase();
-    if (o === t) return !0;
-    if (o === `${t}:*` || o === `${t} *`) return !0;
-    if (o === `${t}*`) return !0;
+    if (o === t) return true;
+    if (o === `${t}:*` || o === `${t} *`) return true;
+    if (o === `${t}*`) return true;
     if (o.startsWith(`${t} `) && o.endsWith("*")) {
       let s = o.slice(t.length + 1);
       if (g.has(t)) {
-        if (/[$`]/.test(s)) return !0;
+        if (/[$`]/.test(s)) return true;
         let i = h[t];
-        if (i === "all") return !0;
+        if (i === "all") return true;
         let u = s
             .replace(/[\s:*]+$/, "")
             .split(/\s+/)
@@ -149,25 +149,25 @@ function wyt(e, n) {
         let c = u[l];
         if (c === void 0) {
           if ((t === "curl" || t === "wget") && u.some((f) => f.includes("://"))) continue;
-          return !0;
+          return true;
         }
-        if (i?.has(c)) return !0;
+        if (i?.has(c)) return true;
         continue;
       }
       if (s.startsWith("-")) {
         let i = s.slice(0, -1);
-        if (!(/^python[\d.]*$/.test(t) && /^-m\s+\w+\.[\w.]+(\s*:|\s+)$/.test(i))) return !0;
+        if (!(/^python[\d.]*$/.test(t) && /^-m\s+\w+\.[\w.]+(\s*:|\s+)$/.test(i))) return true;
       }
     }
   }
-  return !1;
+  return false;
 }
 function RWt(e, n) {
-  if (e !== Bt) return !1;
-  if (n === void 0 || n === "") return !0;
-  if (/^[\s*]+$/.test(n)) return !0;
+  if (e !== Bt) return false;
+  if (n === void 0 || n === "") return true;
+  if (/^[\s*]+$/.test(n)) return true;
   let o = n.trim().toLowerCase();
-  if (o === "*") return !0;
+  if (o === "*") return true;
   let r = [
     ...byt,
     "pwsh",
@@ -201,20 +201,20 @@ function RWt(e, n) {
     "new-object",
   ];
   for (let t of r) {
-    if (o === t) return !0;
-    if (o === `${t}:*`) return !0;
-    if (o === `${t}*`) return !0;
-    if (o === `${t} *`) return !0;
-    if (o.startsWith(`${t} -`) && o.endsWith("*")) return !0;
+    if (o === t) return true;
+    if (o === `${t}:*`) return true;
+    if (o === `${t}*`) return true;
+    if (o === `${t} *`) return true;
+    if (o.startsWith(`${t} -`) && o.endsWith("*")) return true;
     let s = t.indexOf(" "),
       i = s === -1 ? `${t}.exe` : `${t.slice(0, s)}.exe${t.slice(s)}`;
-    if (o === i) return !0;
-    if (o === `${i}:*`) return !0;
-    if (o === `${i}*`) return !0;
-    if (o === `${i} *`) return !0;
-    if (o.startsWith(`${i} -`) && o.endsWith("*")) return !0;
+    if (o === i) return true;
+    if (o === `${i}:*`) return true;
+    if (o === `${i}*`) return true;
+    if (o === `${i} *`) return true;
+    if (o.startsWith(`${i} -`) && o.endsWith("*")) return true;
   }
-  return !1;
+  return false;
 }
 function K_r(e, n) {
   return Vd(e) === yt;
@@ -246,7 +246,7 @@ function xKe(e, n) {
   return E.remember(o, t), t;
 }
 function nEe(e, n) {
-  if ((e === Qe || e === Bt) && HKe()) return !0;
+  if ((e === Qe || e === Bt) && HKe()) return true;
   return xKe(e, n);
 }
 var kWt = [...Is, "cliArg", "command", "session", "toolsNarrowing", "mcpServerPolicy"],
@@ -288,14 +288,14 @@ function WM(e) {
   return PKe(e.alwaysAskRules, "ask");
 }
 function DKe(e, n, o = {}) {
-  if (n.ruleValue.ruleContent !== void 0) return !1;
+  if (n.ruleValue.ruleContent !== void 0) return false;
   return P(e, n, o);
 }
-function P(e, n, { proxyExpansion: o = !1, globMatching: r = !1, toolAliases: t } = {}) {
+function P(e, n, { proxyExpansion: o = false, globMatching: r = false, toolAliases: t } = {}) {
   let s = my(e);
-  if (n.ruleValue.toolName === s) return !0;
-  if (o && r1e(n.ruleValue.toolName, t).includes(s)) return !0;
-  if (r && d0(n.ruleValue.toolName) && hCe(n.ruleValue.toolName, s)) return !0;
+  if (n.ruleValue.toolName === s) return true;
+  if (o && r1e(n.ruleValue.toolName, t).includes(s)) return true;
+  if (r && d0(n.ruleValue.toolName) && hCe(n.ruleValue.toolName, s)) return true;
   return lTt(n.ruleValue.toolName, s);
 }
 function NLe(e, n) {
@@ -305,18 +305,18 @@ function m(e) {
   return e.source !== "cliArg" && e.source !== "toolsNarrowing";
 }
 function Tyt(e, n, o) {
-  return P(n, o, { proxyExpansion: m(o), globMatching: !0, toolAliases: e.toolAliases });
+  return P(n, o, { proxyExpansion: m(o), globMatching: true, toolAliases: e.toolAliases });
 }
 function _s(e, n, o) {
   if (IKe(n)) return null;
   return (
-    (o ?? cg(e)).find((r) => DKe(n, r, { proxyExpansion: m(r), globMatching: !0, toolAliases: e.toolAliases })) || null
+    (o ?? cg(e)).find((r) => DKe(n, r, { proxyExpansion: m(r), globMatching: true, toolAliases: e.toolAliases })) || null
   );
 }
 function SQn(e, n) {
-  if (!IKe(n)) return !1;
-  if (s6(e).some((r) => r.ruleValue.toolName === n.name)) return !1;
-  return cg(e).some((r) => DKe(n, r, { proxyExpansion: m(r), globMatching: !0, toolAliases: e.toolAliases }));
+  if (!IKe(n)) return false;
+  if (s6(e).some((r) => r.ruleValue.toolName === n.name)) return false;
+  return cg(e).some((r) => DKe(n, r, { proxyExpansion: m(r), globMatching: true, toolAliases: e.toolAliases }));
 }
 function fV(e, n, o) {
   return cg(e).find((r) => r.ruleValue.toolName === n && r.ruleValue.ruleContent === o) || null;
@@ -330,7 +330,7 @@ function bQn(e, n, o) {
 function jg(e, n, o) {
   if (IKe(n)) return null;
   return (
-    (o ?? WM(e)).find((r) => DKe(n, r, { proxyExpansion: m(r), globMatching: !0, toolAliases: e.toolAliases })) || null
+    (o ?? WM(e)).find((r) => DKe(n, r, { proxyExpansion: m(r), globMatching: true, toolAliases: e.toolAliases })) || null
   );
 }
 function N(e) {

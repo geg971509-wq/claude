@@ -30,19 +30,19 @@ function* V(e) {
     for (let i of o) yield [i, null];
     return;
   }
-  let t = !1,
+  let t = false,
     r;
   if (e instanceof Headers) r = e.entries();
   else if (A(e)) r = e;
-  else (t = !0), (r = Object.entries(e ?? {}));
+  else (t = true), (r = Object.entries(e ?? {}));
   for (let n of r) {
     let o = n[0];
     if (typeof o !== "string") throw TypeError("expected header name to be a string");
     let i = A(n[1]) ? n[1] : [n[1]],
-      s = !1;
+      s = false;
     for (let a of i) {
       if (a === void 0) continue;
-      if (t && !s) (s = !0), yield [o, m];
+      if (t && !s) (s = true), yield [o, m];
       yield [o, a];
     }
   }
@@ -79,7 +79,7 @@ var m = Symbol("clear"),
         else t.append(i, s), r.delete(a);
       }
     }
-    return { [O]: !0, values: t, nulls: r };
+    return { [O]: true, values: t, nulls: r };
   };
 var c = (e) => {
   if (typeof globalThis.process < "u") return globalThis.process.env?.[e]?.trim() || void 0;
@@ -210,7 +210,7 @@ class U extends xP {
     awsProfile: s,
     providerChainResolver: a = null,
     workspaceId: S,
-    skipAuth: f = !1,
+    skipAuth: f = false,
     ...l
   } = {}) {
     let p = e ?? c("AWS_REGION") ?? c("AWS_DEFAULT_REGION"),
@@ -235,7 +235,7 @@ class U extends xP {
     super({ apiKey: h, baseURL: y, ...l, defaultHeaders: E([{ "anthropic-workspace-id": x }, l.defaultHeaders]) });
     if (
       (_.add(this),
-      (this.skipAuth = !1),
+      (this.skipAuth = false),
       (this.awsRegion = p),
       (this.awsAccessKey = n),
       (this.awsSecretAccessKey = o),

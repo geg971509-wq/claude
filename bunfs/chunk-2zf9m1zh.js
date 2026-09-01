@@ -72,7 +72,7 @@ function g() {
       t = p("ps", ["-A", "-o", "pid=", "-o", "ppid="], {
         cwd: "/",
         stdio: ["ignore", "pipe", "ignore"],
-        windowsHide: !0,
+        windowsHide: true,
       });
     } catch (l) {
       o(l);

@@ -210,10 +210,10 @@ function x({ tags: u, closeOnly: d, fillerClass: a, spell: e, tail: f }) {
   return new RegExp(`[${c}](?!\\\\)(?=${A}(?:${T.join("|")})${_})`, "giu");
 }
 function kAe(u, d) {
-  return d.replace(i(u, !0), "<\\");
+  return d.replace(i(u, true), "<\\");
 }
 function O$(u, d) {
-  return d.replace(i(u, !1), "<\\");
+  return d.replace(i(u, false), "<\\");
 }
 function cwt(u) {
   return u.replace(b.lookalikePattern, (d) => s[d] ?? d);
@@ -385,7 +385,7 @@ function Ape(u, d) {
   let a = b;
   return x({
     tags: u,
-    closeOnly: !1,
+    closeOnly: false,
     fillerClass: `${a.filler}${[...y].map(uwt).join("")}`,
     spell: (e) => {
       if (/^[a-z]$/.test(e)) return `[${uwt(e)}]`;
@@ -406,7 +406,7 @@ function pwt() {
 function iXe(u, d) {
   let a = O$(u, cwt(Kd(d).replace(vAe(), "")));
   if (g(a) === a) return a;
-  let e = i(u, !1);
+  let e = i(u, false);
   return a
     .split("<")
     .map((f, c) => {

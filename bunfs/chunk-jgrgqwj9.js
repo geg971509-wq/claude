@@ -9,7 +9,7 @@
 
 // Version: 2.1.252
 function XCt(n) {
-  let i = !1,
+  let i = false,
     r,
     t = {
       addDir: [],
@@ -17,8 +17,8 @@ function XCt(n) {
       pluginDirNoMcp: [],
       settings: void 0,
       mcpConfig: [],
-      strictMcpConfig: !1,
-      restricted: !1,
+      strictMcpConfig: false,
+      restricted: false,
     },
     g = [],
     a = {
@@ -36,15 +36,15 @@ function XCt(n) {
   for (let e = 0; e < n.length; e++) {
     let s = n[e];
     if (s === "agents" && !i) {
-      i = !0;
+      i = true;
       continue;
     }
     if (s === "--strict-mcp-config") {
-      t.strictMcpConfig = !0;
+      t.strictMcpConfig = true;
       continue;
     }
     if (s === "--restricted") {
-      t.restricted = !0;
+      t.restricted = true;
       continue;
     }
     let o = s.indexOf("="),
@@ -63,11 +63,11 @@ function XCt(n) {
 function xve(n, i) {
   let r = (t, g) => (t === "" || (g && t.trimStart().startsWith("{")) ? t : i(t));
   return {
-    settings: n.settings === void 0 ? void 0 : r(n.settings, !0),
-    pluginDir: n.pluginDir.map((t) => r(t, !1)),
-    pluginDirNoMcp: n.pluginDirNoMcp.map((t) => r(t, !1)),
-    addDir: n.addDir.map((t) => r(t, !1)),
-    mcpConfig: n.mcpConfig.map((t) => r(t, !0)),
+    settings: n.settings === void 0 ? void 0 : r(n.settings, true),
+    pluginDir: n.pluginDir.map((t) => r(t, false)),
+    pluginDirNoMcp: n.pluginDirNoMcp.map((t) => r(t, false)),
+    addDir: n.addDir.map((t) => r(t, false)),
+    mcpConfig: n.mcpConfig.map((t) => r(t, true)),
     strictMcpConfig: n.strictMcpConfig,
     restricted: n.restricted,
   };

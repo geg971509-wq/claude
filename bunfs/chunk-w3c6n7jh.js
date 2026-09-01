@@ -185,7 +185,7 @@ var sa = S(function (HZ, Gg) {
       };
     },
     globChars(e) {
-      return e === !0 ? LC : Wg;
+      return e === true ? LC : Wg;
     },
   };
 });
@@ -206,8 +206,8 @@ var ia = S(function (WC) {
       let e = navigator.platform.toLowerCase();
       return e === "win32" || e === "windows";
     }
-    if (typeof process < "u") return !1;
-    return !1;
+    if (typeof process < "u") return false;
+    return false;
   };
   WC.removeBackslashes = (e) => e.replace(MC, (t) => (t === "\\" ? "" : t));
   WC.escapeLast = (e, t, r) => {
@@ -225,7 +225,7 @@ var ia = S(function (WC) {
     let o = r.contains ? "" : "^",
       u = r.contains ? "" : "$",
       d = `${o}(?:${e})${u}`;
-    if (t.negated === !0) d = `(?:^(?!${d}).*$)`;
+    if (t.negated === true) d = `(?:^(?!${d}).*$)`;
     return d;
   };
   WC.basename = (e, { windows: t } = {}) => {
@@ -256,12 +256,12 @@ var Qg = S(function (YZ, zg) {
     } = sa(),
     qg = (e) => e === Jg || e === oa,
     Xg = (e) => {
-      if (e.isPrefix !== !0) e.depth = e.isGlobstar ? 1 / 0 : 1;
+      if (e.isPrefix !== true) e.depth = e.isGlobstar ? 1 / 0 : 1;
     },
     sO = (e, t) => {
       let r = t || {},
         o = e.length - 1,
-        u = r.parts === !0 || r.scanToEnd === !0,
+        u = r.parts === true || r.scanToEnd === true,
         d = [],
         x = [],
         w = [],
@@ -269,20 +269,20 @@ var Qg = S(function (YZ, zg) {
         N = -1,
         k = 0,
         C = 0,
-        F = !1,
-        U = !1,
-        M = !1,
-        q = !1,
-        Y = !1,
-        X = !1,
-        se = !1,
-        fe = !1,
-        Re = !1,
-        _e = !1,
+        F = false,
+        U = false,
+        M = false,
+        q = false,
+        Y = false,
+        X = false,
+        se = false,
+        fe = false,
+        Re = false,
+        _e = false,
         Ee = 0,
         We,
         De,
-        Pe = { value: "", depth: 0, isGlob: !1 },
+        Pe = { value: "", depth: 0, isGlob: false },
         Q = () => N >= o,
         tt = () => v.charCodeAt(N + 1),
         ue = () => ((We = De), v.charCodeAt(++N));
@@ -290,40 +290,40 @@ var Qg = S(function (YZ, zg) {
         De = ue();
         let He;
         if (De === oa) {
-          if (((se = Pe.backslashes = !0), (De = ue()), De === Vd)) X = !0;
+          if (((se = Pe.backslashes = true), (De = ue()), De === Vd)) X = true;
           continue;
         }
-        if (X === !0 || De === Vd) {
+        if (X === true || De === Vd) {
           Ee++;
-          while (Q() !== !0 && (De = ue())) {
+          while (Q() !== true && (De = ue())) {
             if (De === oa) {
-              (se = Pe.backslashes = !0), ue();
+              (se = Pe.backslashes = true), ue();
               continue;
             }
             if (De === Vd) {
               Ee++;
               continue;
             }
-            if (X !== !0 && De === $d && (De = ue()) === $d) {
-              if (((F = Pe.isBrace = !0), (M = Pe.isGlob = !0), (_e = !0), u === !0)) continue;
+            if (X !== true && De === $d && (De = ue()) === $d) {
+              if (((F = Pe.isBrace = true), (M = Pe.isGlob = true), (_e = true), u === true)) continue;
               break;
             }
-            if (X !== !0 && De === QC) {
-              if (((F = Pe.isBrace = !0), (M = Pe.isGlob = !0), (_e = !0), u === !0)) continue;
+            if (X !== true && De === QC) {
+              if (((F = Pe.isBrace = true), (M = Pe.isGlob = true), (_e = true), u === true)) continue;
               break;
             }
             if (De === nO) {
               if ((Ee--, Ee === 0)) {
-                (X = !1), (F = Pe.isBrace = !0), (_e = !0);
+                (X = false), (F = Pe.isBrace = true), (_e = true);
                 break;
               }
             }
           }
-          if (u === !0) continue;
+          if (u === true) continue;
           break;
         }
         if (De === Jg) {
-          if ((d.push(N), x.push(Pe), (Pe = { value: "", depth: 0, isGlob: !1 }), _e === !0)) continue;
+          if ((d.push(N), x.push(Pe), (Pe = { value: "", depth: 0, isGlob: false }), _e === true)) continue;
           if (We === $d && N === k + 1) {
             k += 2;
             continue;
@@ -331,17 +331,17 @@ var Qg = S(function (YZ, zg) {
           C = N + 1;
           continue;
         }
-        if (r.noext !== !0) {
-          if ((De === tO || De === zC || De === Md || De === Kg || De === Bd) === !0 && tt() === Wd) {
-            if (((M = Pe.isGlob = !0), (q = Pe.isExtglob = !0), (_e = !0), De === Bd && N === k)) Re = !0;
-            if (u === !0) {
-              while (Q() !== !0 && (De = ue())) {
+        if (r.noext !== true) {
+          if ((De === tO || De === zC || De === Md || De === Kg || De === Bd) === true && tt() === Wd) {
+            if (((M = Pe.isGlob = true), (q = Pe.isExtglob = true), (_e = true), De === Bd && N === k)) Re = true;
+            if (u === true) {
+              while (Q() !== true && (De = ue())) {
                 if (De === oa) {
-                  (se = Pe.backslashes = !0), (De = ue());
+                  (se = Pe.backslashes = true), (De = ue());
                   continue;
                 }
                 if (De === Zg) {
-                  (M = Pe.isGlob = !0), (_e = !0);
+                  (M = Pe.isGlob = true), (_e = true);
                   break;
                 }
               }
@@ -351,41 +351,41 @@ var Qg = S(function (YZ, zg) {
           }
         }
         if (De === Md) {
-          if (We === Md) Y = Pe.isGlobstar = !0;
-          if (((M = Pe.isGlob = !0), (_e = !0), u === !0)) continue;
+          if (We === Md) Y = Pe.isGlobstar = true;
+          if (((M = Pe.isGlob = true), (_e = true), u === true)) continue;
           break;
         }
         if (De === Kg) {
-          if (((M = Pe.isGlob = !0), (_e = !0), u === !0)) continue;
+          if (((M = Pe.isGlob = true), (_e = true), u === true)) continue;
           break;
         }
         if (De === eO) {
-          while (Q() !== !0 && (He = ue())) {
+          while (Q() !== true && (He = ue())) {
             if (He === oa) {
-              (se = Pe.backslashes = !0), ue();
+              (se = Pe.backslashes = true), ue();
               continue;
             }
             if (He === rO) {
-              (U = Pe.isBracket = !0), (M = Pe.isGlob = !0), (_e = !0);
+              (U = Pe.isBracket = true), (M = Pe.isGlob = true), (_e = true);
               break;
             }
           }
-          if (u === !0) continue;
+          if (u === true) continue;
           break;
         }
-        if (r.nonegate !== !0 && De === Bd && N === k) {
-          (fe = Pe.negated = !0), k++;
+        if (r.nonegate !== true && De === Bd && N === k) {
+          (fe = Pe.negated = true), k++;
           continue;
         }
-        if (r.noparen !== !0 && De === Wd) {
-          if (((M = Pe.isGlob = !0), u === !0)) {
-            while (Q() !== !0 && (De = ue())) {
+        if (r.noparen !== true && De === Wd) {
+          if (((M = Pe.isGlob = true), u === true)) {
+            while (Q() !== true && (De = ue())) {
               if (De === Wd) {
-                (se = Pe.backslashes = !0), (De = ue());
+                (se = Pe.backslashes = true), (De = ue());
                 continue;
               }
               if (De === Zg) {
-                _e = !0;
+                _e = true;
                 break;
               }
             }
@@ -393,25 +393,25 @@ var Qg = S(function (YZ, zg) {
           }
           break;
         }
-        if (M === !0) {
-          if (((_e = !0), u === !0)) continue;
+        if (M === true) {
+          if (((_e = true), u === true)) continue;
           break;
         }
       }
-      if (r.noext === !0) (q = !1), (M = !1);
+      if (r.noext === true) (q = false), (M = false);
       let ve = v,
         z = "",
         re = "";
       if (k > 0) (z = v.slice(0, k)), (v = v.slice(k)), (C -= k);
-      if (ve && M === !0 && C > 0) (ve = v.slice(0, C)), (re = v.slice(C));
-      else if (M === !0) (ve = ""), (re = v);
+      if (ve && M === true && C > 0) (ve = v.slice(0, C)), (re = v.slice(C));
+      else if (M === true) (ve = ""), (re = v);
       else ve = v;
       if (ve && ve !== "" && ve !== "/" && ve !== v) {
         if (qg(ve.charCodeAt(ve.length - 1))) ve = ve.slice(0, -1);
       }
-      if (r.unescape === !0) {
+      if (r.unescape === true) {
         if (re) re = Yg.removeBackslashes(re);
-        if (ve && se === !0) ve = Yg.removeBackslashes(ve);
+        if (ve && se === true) ve = Yg.removeBackslashes(ve);
       }
       let ze = {
         prefix: z,
@@ -427,18 +427,18 @@ var Qg = S(function (YZ, zg) {
         negated: fe,
         negatedExtglob: Re,
       };
-      if (r.tokens === !0) {
+      if (r.tokens === true) {
         if (((ze.maxDepth = 0), !qg(De))) x.push(Pe);
         ze.tokens = x;
       }
-      if (r.parts === !0 || r.tokens === !0) {
+      if (r.parts === true || r.tokens === true) {
         let He;
         for (let nt = 0; nt < d.length; nt++) {
           let Qt = He ? He + 1 : k,
             Nt = d[nt],
             Et = e.slice(Qt, Nt);
           if (r.tokens) {
-            if (nt === 0 && k !== 0) (x[nt].isPrefix = !0), (x[nt].value = z);
+            if (nt === 0 && k !== 0) (x[nt].isPrefix = true), (x[nt].value = z);
             else x[nt].value = Et;
             Xg(x[nt]), (ze.maxDepth += x[nt].depth);
           }
@@ -484,14 +484,14 @@ var sb = S(function (KZ, rb) {
         o = 0,
         u = 0,
         d = "",
-        x = !1;
+        x = false;
       for (let w of e) {
-        if (x === !0) {
-          (d += w), (x = !1);
+        if (x === true) {
+          (d += w), (x = false);
           continue;
         }
         if (w === "\\") {
-          (d += w), (x = !0);
+          (d += w), (x = true);
           continue;
         }
         if (w === '"') {
@@ -515,24 +515,24 @@ var sb = S(function (KZ, rb) {
       return t.push(d), t;
     },
     lO = (e) => {
-      let t = !1;
+      let t = false;
       for (let r of e) {
-        if (t === !0) {
-          t = !1;
+        if (t === true) {
+          t = false;
           continue;
         }
         if (r === "\\") {
-          t = !0;
+          t = true;
           continue;
         }
-        if (/[?*+@!()[\]{}]/.test(r)) return !1;
+        if (/[?*+@!()[\]{}]/.test(r)) return false;
       }
-      return !0;
+      return true;
     },
     nb = (e) => {
       let t = e.trim(),
-        r = !0;
-      while (r === !0) if (((r = !1), /^@\([^\\()[\]{}|]+\)$/.test(t))) (t = t.slice(2, -1)), (r = !0);
+        r = true;
+      while (r === true) if (((r = false), /^@\([^\\()[\]{}|]+\)$/.test(t))) (t = t.slice(2, -1)), (r = true);
       if (!lO(t)) return;
       return t.replace(/\\(.)/g, "$1");
     },
@@ -544,24 +544,24 @@ var sb = S(function (KZ, rb) {
             d = t[o],
             x = u[0];
           if (!x || u !== x.repeat(u.length) || d !== x.repeat(d.length)) continue;
-          if (u === d || u.startsWith(d) || d.startsWith(u)) return !0;
+          if (u === d || u.startsWith(d) || d.startsWith(u)) return true;
         }
-      return !1;
+      return false;
     },
-    Gd = (e, t = !0) => {
+    Gd = (e, t = true) => {
       if ((e[0] !== "+" && e[0] !== "*") || e[1] !== "(") return;
       let r = 0,
         o = 0,
         u = 0,
-        d = !1;
+        d = false;
       for (let x = 1; x < e.length; x++) {
         let w = e[x];
-        if (d === !0) {
-          d = !1;
+        if (d === true) {
+          d = false;
           continue;
         }
         if (w === "\\") {
-          d = !0;
+          d = true;
           continue;
         }
         if (w === '"') {
@@ -584,7 +584,7 @@ var sb = S(function (KZ, rb) {
         }
         if (w === ")") {
           if ((o--, o === 0)) {
-            if (t === !0 && x !== e.length - 1) return;
+            if (t === true && x !== e.length - 1) return;
             return { type: e[0], body: e.slice(2, x), end: x };
           }
         }
@@ -594,7 +594,7 @@ var sb = S(function (KZ, rb) {
       let t = 0,
         r = [];
       while (t < e.length) {
-        let u = Gd(e.slice(t), !1);
+        let u = Gd(e.slice(t), false);
         if (!u || u.type !== "*") return;
         let d = tb(u.body).map((w) => w.trim());
         if (d.length !== 1) return;
@@ -613,18 +613,18 @@ var sb = S(function (KZ, rb) {
       return t;
     },
     pO = (e, t) => {
-      if (t.maxExtglobRecursion === !1) return { risky: !1 };
+      if (t.maxExtglobRecursion === false) return { risky: false };
       let r = typeof t.maxExtglobRecursion === "number" ? t.maxExtglobRecursion : aa.DEFAULT_MAX_EXTGLOB_RECURSION,
         o = tb(e).map((u) => u.trim());
       if (o.length > 1) {
-        if (o.some((u) => u === "") || o.some((u) => /^[*?]+$/.test(u)) || uO(o)) return { risky: !0 };
+        if (o.some((u) => u === "") || o.some((u) => /^[*?]+$/.test(u)) || uO(o)) return { risky: true };
       }
       for (let u of o) {
         let d = dO(u);
-        if (d) return { risky: !0, safeOutput: d };
-        if (fO(u) > r) return { risky: !0 };
+        if (d) return { risky: true, safeOutput: d };
+        if (fO(u) > r) return { risky: true };
       }
-      return { risky: !1 };
+      return { risky: false };
     },
     Hd = (e, t) => {
       if (typeof e !== "string") throw TypeError("Expected a string");
@@ -655,24 +655,24 @@ var sb = S(function (KZ, rb) {
         Ee = (Ie) => `(${w}(?:(?!${_e}${Ie.dot ? M : k}).)*?)`,
         We = r.dot ? "" : q,
         De = r.dot ? se : fe,
-        Pe = r.bash === !0 ? Ee(r) : Re;
+        Pe = r.bash === true ? Ee(r) : Re;
       if (r.capture) Pe = `(${Pe})`;
       if (typeof r.noext === "boolean") r.noextglob = r.noext;
       let Q = {
         input: e,
         index: -1,
         start: 0,
-        dot: r.dot === !0,
+        dot: r.dot === true,
         consumed: "",
         output: "",
         prefix: "",
-        backtrack: !1,
-        negated: !1,
+        backtrack: false,
+        negated: false,
         brackets: 0,
         braces: 0,
         parens: 0,
         quotes: 0,
-        globstar: !1,
+        globstar: false,
         tokens: x,
       };
       (e = br.removePrefix(e, Q)), (u = e.length);
@@ -694,8 +694,8 @@ var sb = S(function (KZ, rb) {
         qt = () => {
           let Ie = 1;
           while (He() === "!" && (He(2) !== "(" || He(3) === "?")) nt(), Q.start++, Ie++;
-          if (Ie % 2 === 0) return !1;
-          return (Q.negated = !0), Q.start++, !0;
+          if (Ie % 2 === 0) return false;
+          return (Q.negated = true), Q.start++, true;
         },
         xt = (Ie) => {
           Q[Ie]++, ve.push(Ie);
@@ -706,7 +706,7 @@ var sb = S(function (KZ, rb) {
         Ke = (Ie) => {
           if (z.type === "globstar") {
             let ut = Q.braces > 0 && (Ie.type === "comma" || Ie.type === "brace"),
-              pe = Ie.extglob === !0 || (tt.length && (Ie.type === "pipe" || Ie.type === "paren"));
+              pe = Ie.extglob === true || (tt.length && (Ie.type === "pipe" || Ie.type === "paren"));
             if (Ie.type !== "slash" && Ie.type !== "paren" && !ut && !pe)
               (Q.output = Q.output.slice(0, -z.output.length)),
                 (z.type = "star"),
@@ -732,7 +732,7 @@ var sb = S(function (KZ, rb) {
           let je = (r.capture ? "(" : "") + pe.open;
           xt("parens"),
             Ke({ type: Ie, value: ut, output: Q.output ? "" : U }),
-            Ke({ type: "paren", extglob: !0, value: nt(), output: je }),
+            Ke({ type: "paren", extglob: true, value: nt(), output: je }),
             tt.push(pe);
         },
         rr = (Ie) => {
@@ -746,8 +746,8 @@ var sb = S(function (KZ, rb) {
             for (let Oe = Ie.tokensIndex + 1; Oe < x.length; Oe++)
               (x[Oe].value = ""), (x[Oe].output = ""), delete x[Oe].suffix;
             (Q.output = Ie.output + ie.output),
-              (Q.backtrack = !0),
-              Ke({ type: "paren", extglob: !0, value: re, output: "" }),
+              (Q.backtrack = true),
+              Ke({ type: "paren", extglob: true, value: re, output: "" }),
               Rt("parens");
             return;
           }
@@ -758,17 +758,17 @@ var sb = S(function (KZ, rb) {
             if (Ie.inner && Ie.inner.length > 1 && Ie.inner.includes("/")) Z = Ee(r);
             if (Z !== Pe || ze() || /^\)+$/.test(Qt())) ge = Ie.close = `)$))${Z}`;
             if (Ie.inner.includes("*") && (ae = Qt()) && /^\.[^\\/.]+$/.test(ae)) {
-              let ie = Hd(ae, { ...t, fastpaths: !1 }).output;
+              let ie = Hd(ae, { ...t, fastpaths: false }).output;
               ge = Ie.close = `)${ie})${Z})`;
             }
-            if (Ie.prev.type === "bos") Q.negatedExtglob = !0;
+            if (Ie.prev.type === "bos") Q.negatedExtglob = true;
           }
-          Ke({ type: "paren", extglob: !0, value: re, output: ge }), Rt("parens");
+          Ke({ type: "paren", extglob: true, value: re, output: ge }), Rt("parens");
         };
-      if (r.fastpaths !== !1 && !/(^[*!]|[/()[\]{}"])/.test(e)) {
-        let Ie = !1,
+      if (r.fastpaths !== false && !/(^[*!]|[/()[\]{}"])/.test(e)) {
+        let Ie = false,
           ut = e.replace(aO, (pe, je, ge, ae, Z, ie) => {
-            if (ae === "\\") return (Ie = !0), pe;
+            if (ae === "\\") return (Ie = true), pe;
             if (ae === "?") {
               if (je) return je + ae + (Z ? se.repeat(Z.length) : "");
               if (ie === 0) return De + (Z ? se.repeat(Z.length) : "");
@@ -781,17 +781,17 @@ var sb = S(function (KZ, rb) {
             }
             return je ? pe : `\\${pe}`;
           });
-        if (Ie === !0)
-          if (r.unescape === !0) ut = ut.replace(/\\/g, "");
+        if (Ie === true)
+          if (r.unescape === true) ut = ut.replace(/\\/g, "");
           else ut = ut.replace(/\\+/g, (pe) => (pe.length % 2 === 0 ? "\\\\" : pe ? "\\" : ""));
-        if (ut === e && r.contains === !0) return (Q.output = e), Q;
+        if (ut === e && r.contains === true) return (Q.output = e), Q;
         return (Q.output = br.wrapOutput(ut, Q, t)), Q;
       }
       while (!ze()) {
         if (((re = nt()), re === "\x00")) continue;
         if (re === "\\") {
           let pe = He();
-          if (pe === "/" && r.bash !== !0) continue;
+          if (pe === "/" && r.bash !== true) continue;
           if (pe === "." || pe === ";") continue;
           if (!pe) {
             (re += "\\"), Ke({ type: "text", value: re });
@@ -802,7 +802,7 @@ var sb = S(function (KZ, rb) {
           if (je && je[0].length > 2) {
             if (((ge = je[0].length), (Q.index += ge), ge % 2 !== 0)) re += "\\";
           }
-          if (r.unescape === !0) re = nt();
+          if (r.unescape === true) re = nt();
           else re += nt();
           if (Q.brackets === 0) {
             Ke({ type: "text", value: re });
@@ -810,16 +810,16 @@ var sb = S(function (KZ, rb) {
           }
         }
         if (Q.brackets > 0 && (re !== "]" || z.value === "[" || z.value === "[^")) {
-          if (r.posix !== !1 && re === ":") {
+          if (r.posix !== false && re === ":") {
             let pe = z.value.slice(1);
             if (pe.includes("[")) {
-              if (((z.posix = !0), pe.includes(":"))) {
+              if (((z.posix = true), pe.includes(":"))) {
                 let je = z.value.lastIndexOf("["),
                   ge = z.value.slice(0, je),
                   ae = z.value.slice(je + 2),
                   Z = iO[ae];
                 if (Z) {
-                  if (((z.value = ge + Z), (Q.backtrack = !0), nt(), !d.output && x.indexOf(z) === 1)) d.output = U;
+                  if (((z.value = ge + Z), (Q.backtrack = true), nt(), !d.output && x.indexOf(z) === 1)) d.output = U;
                   continue;
                 }
               }
@@ -827,7 +827,7 @@ var sb = S(function (KZ, rb) {
           }
           if ((re === "[" && He() !== ":") || (re === "-" && He() === "]")) re = `\\${re}`;
           if (re === "]" && (z.value === "[" || z.value === "[^")) re = `\\${re}`;
-          if (r.posix === !0 && re === "!" && z.value === "[") re = "^";
+          if (r.posix === true && re === "!" && z.value === "[") re = "^";
           (z.value += re), Et({ value: re });
           continue;
         }
@@ -836,7 +836,7 @@ var sb = S(function (KZ, rb) {
           continue;
         }
         if (re === '"') {
-          if (((Q.quotes = Q.quotes === 1 ? 0 : 1), r.keepQuotes === !0)) Ke({ type: "text", value: re });
+          if (((Q.quotes = Q.quotes === 1 ? 0 : 1), r.keepQuotes === true)) Ke({ type: "text", value: re });
           continue;
         }
         if (re === "(") {
@@ -844,7 +844,7 @@ var sb = S(function (KZ, rb) {
           continue;
         }
         if (re === ")") {
-          if (Q.parens === 0 && r.strictBrackets === !0) throw SyntaxError(Qi("opening", "("));
+          if (Q.parens === 0 && r.strictBrackets === true) throw SyntaxError(Qi("opening", "("));
           let pe = tt[tt.length - 1];
           if (pe && Q.parens === pe.parens + 1) {
             rr(tt.pop());
@@ -854,36 +854,36 @@ var sb = S(function (KZ, rb) {
           continue;
         }
         if (re === "[") {
-          if (r.nobracket === !0 || !Qt().includes("]")) {
-            if (r.nobracket !== !0 && r.strictBrackets === !0) throw SyntaxError(Qi("closing", "]"));
+          if (r.nobracket === true || !Qt().includes("]")) {
+            if (r.nobracket !== true && r.strictBrackets === true) throw SyntaxError(Qi("closing", "]"));
             re = `\\${re}`;
           } else xt("brackets");
           Ke({ type: "bracket", value: re });
           continue;
         }
         if (re === "]") {
-          if (r.nobracket === !0 || (z && z.type === "bracket" && z.value.length === 1)) {
+          if (r.nobracket === true || (z && z.type === "bracket" && z.value.length === 1)) {
             Ke({ type: "text", value: re, output: `\\${re}` });
             continue;
           }
           if (Q.brackets === 0) {
-            if (r.strictBrackets === !0) throw SyntaxError(Qi("opening", "["));
+            if (r.strictBrackets === true) throw SyntaxError(Qi("opening", "["));
             Ke({ type: "text", value: re, output: `\\${re}` });
             continue;
           }
           Rt("brackets");
           let pe = z.value.slice(1);
-          if (z.posix !== !0 && pe[0] === "^" && !pe.includes("/")) re = `/${re}`;
-          if (((z.value += re), Et({ value: re }), r.literalBrackets === !1 || br.hasRegexChars(pe))) continue;
+          if (z.posix !== true && pe[0] === "^" && !pe.includes("/")) re = `/${re}`;
+          if (((z.value += re), Et({ value: re }), r.literalBrackets === false || br.hasRegexChars(pe))) continue;
           let je = br.escapeRegex(z.value);
-          if (((Q.output = Q.output.slice(0, -z.value.length)), r.literalBrackets === !0)) {
+          if (((Q.output = Q.output.slice(0, -z.value.length)), r.literalBrackets === true)) {
             (Q.output += je), (z.value = je);
             continue;
           }
           (z.value = `(${w}${je}|${z.value})`), (Q.output += z.value);
           continue;
         }
-        if (re === "{" && r.nobrace !== !0) {
+        if (re === "{" && r.nobrace !== true) {
           xt("braces");
           let pe = {
             type: "brace",
@@ -897,21 +897,21 @@ var sb = S(function (KZ, rb) {
         }
         if (re === "}") {
           let pe = ue[ue.length - 1];
-          if (r.nobrace === !0 || !pe) {
+          if (r.nobrace === true || !pe) {
             Ke({ type: "text", value: re, output: re });
             continue;
           }
           let je = ")";
-          if (pe.dots === !0) {
+          if (pe.dots === true) {
             let ge = x.slice(),
               ae = [];
             for (let Z = ge.length - 1; Z >= 0; Z--) {
               if ((x.pop(), ge[Z].type === "brace")) break;
               if (ge[Z].type !== "dots") ae.unshift(ge[Z].value);
             }
-            (je = cO(ae, r)), (Q.backtrack = !0);
+            (je = cO(ae, r)), (Q.backtrack = true);
           }
-          if (pe.comma !== !0 && pe.dots !== !0) {
+          if (pe.comma !== true && pe.dots !== true) {
             let ge = Q.output.slice(0, pe.outputIndex),
               ae = Q.tokens.slice(pe.tokensIndex);
             (pe.value = pe.output = "\\{"), (re = je = "\\}"), (Q.output = ge);
@@ -928,7 +928,7 @@ var sb = S(function (KZ, rb) {
         if (re === ",") {
           let pe = re,
             je = ue[ue.length - 1];
-          if (je && ve[ve.length - 1] === "braces") (je.comma = !0), (pe = "|");
+          if (je && ve[ve.length - 1] === "braces") (je.comma = true), (pe = "|");
           Ke({ type: "comma", value: re, output: pe });
           continue;
         }
@@ -944,7 +944,7 @@ var sb = S(function (KZ, rb) {
           if (Q.braces > 0 && z.type === "dot") {
             if (z.value === ".") z.output = k;
             let pe = ue[ue.length - 1];
-            (z.type = "dots"), (z.output += re), (z.value += re), (pe.dots = !0);
+            (z.type = "dots"), (z.output += re), (z.value += re), (pe.dots = true);
             continue;
           }
           if (Q.braces + Q.parens === 0 && z.type !== "bos" && z.type !== "slash") {
@@ -955,7 +955,7 @@ var sb = S(function (KZ, rb) {
           continue;
         }
         if (re === "?") {
-          if (!(z && z.value === "(") && r.noextglob !== !0 && He() === "(" && He(2) !== "?") {
+          if (!(z && z.value === "(") && r.noextglob !== true && He() === "(" && He(2) !== "?") {
             bn("qmark", re);
             continue;
           }
@@ -966,7 +966,7 @@ var sb = S(function (KZ, rb) {
             Ke({ type: "text", value: re, output: ge });
             continue;
           }
-          if (r.dot !== !0 && (z.type === "slash" || z.type === "bos")) {
+          if (r.dot !== true && (z.type === "slash" || z.type === "bos")) {
             Ke({ type: "qmark", value: re, output: fe });
             continue;
           }
@@ -974,23 +974,23 @@ var sb = S(function (KZ, rb) {
           continue;
         }
         if (re === "!") {
-          if (r.noextglob !== !0 && He() === "(") {
+          if (r.noextglob !== true && He() === "(") {
             if (He(2) !== "?" || !/[!=<:]/.test(He(3))) {
               bn("negate", re);
               continue;
             }
           }
-          if (r.nonegate !== !0 && Q.index === 0) {
+          if (r.nonegate !== true && Q.index === 0) {
             qt();
             continue;
           }
         }
         if (re === "+") {
-          if (r.noextglob !== !0 && He() === "(" && He(2) !== "?") {
+          if (r.noextglob !== true && He() === "(" && He(2) !== "?") {
             bn("plus", re);
             continue;
           }
-          if ((z && z.value === "(") || r.regex === !1) {
+          if ((z && z.value === "(") || r.regex === false) {
             Ke({ type: "plus", value: re, output: C });
             continue;
           }
@@ -1002,8 +1002,8 @@ var sb = S(function (KZ, rb) {
           continue;
         }
         if (re === "@") {
-          if (r.noextglob !== !0 && He() === "(" && He(2) !== "?") {
-            Ke({ type: "at", extglob: !0, value: re, output: "" });
+          if (r.noextglob !== true && He() === "(" && He(2) !== "?") {
+            Ke({ type: "at", extglob: true, value: re, output: "" });
             continue;
           }
           Ke({ type: "text", value: re });
@@ -1016,23 +1016,23 @@ var sb = S(function (KZ, rb) {
           Ke({ type: "text", value: re });
           continue;
         }
-        if (z && (z.type === "globstar" || z.star === !0)) {
+        if (z && (z.type === "globstar" || z.star === true)) {
           (z.type = "star"),
-            (z.star = !0),
+            (z.star = true),
             (z.value += re),
             (z.output = Pe),
-            (Q.backtrack = !0),
-            (Q.globstar = !0),
+            (Q.backtrack = true),
+            (Q.globstar = true),
             Nt(re);
           continue;
         }
         let Ie = Qt();
-        if (r.noextglob !== !0 && /^\([^?]/.test(Ie)) {
+        if (r.noextglob !== true && /^\([^?]/.test(Ie)) {
           bn("star", re);
           continue;
         }
         if (z.type === "star") {
-          if (r.noglobstar === !0) {
+          if (r.noglobstar === true) {
             Nt(re);
             continue;
           }
@@ -1040,7 +1040,7 @@ var sb = S(function (KZ, rb) {
             je = pe.prev,
             ge = pe.type === "slash" || pe.type === "bos",
             ae = je && (je.type === "star" || je.type === "globstar");
-          if (r.bash === !0 && (!ge || (Ie[0] && Ie[0] !== "/"))) {
+          if (r.bash === true && (!ge || (Ie[0] && Ie[0] !== "/"))) {
             Ke({ type: "star", value: re, output: "" });
             continue;
           }
@@ -1060,7 +1060,7 @@ var sb = S(function (KZ, rb) {
               (z.value += re),
               (z.output = Ee(r)),
               (Q.output = z.output),
-              (Q.globstar = !0),
+              (Q.globstar = true),
               Nt(re);
             continue;
           }
@@ -1070,7 +1070,7 @@ var sb = S(function (KZ, rb) {
               (z.type = "globstar"),
               (z.output = Ee(r) + (r.strictSlashes ? ")" : "|$)")),
               (z.value += re),
-              (Q.globstar = !0),
+              (Q.globstar = true),
               (Q.output += pe.output + z.output),
               Nt(re);
             continue;
@@ -1083,7 +1083,7 @@ var sb = S(function (KZ, rb) {
               (z.output = `${Ee(r)}${F}|${F}${Oe})`),
               (z.value += re),
               (Q.output += pe.output + z.output),
-              (Q.globstar = !0),
+              (Q.globstar = true),
               Nt(re + nt()),
               Ke({ type: "slash", value: "/", output: "" });
             continue;
@@ -1093,7 +1093,7 @@ var sb = S(function (KZ, rb) {
               (z.value += re),
               (z.output = `(?:^|${F}|${Ee(r)}${F})`),
               (Q.output = z.output),
-              (Q.globstar = !0),
+              (Q.globstar = true),
               Nt(re + nt()),
               Ke({ type: "slash", value: "/", output: "" });
             continue;
@@ -1103,43 +1103,43 @@ var sb = S(function (KZ, rb) {
             (z.output = Ee(r)),
             (z.value += re),
             (Q.output += z.output),
-            (Q.globstar = !0),
+            (Q.globstar = true),
             Nt(re);
           continue;
         }
         let ut = { type: "star", value: re, output: Pe };
-        if (r.bash === !0) {
+        if (r.bash === true) {
           if (((ut.output = ".*?"), z.type === "bos" || z.type === "slash")) ut.output = We + ut.output;
           Ke(ut);
           continue;
         }
-        if (z && (z.type === "bracket" || z.type === "paren") && r.regex === !0) {
+        if (z && (z.type === "bracket" || z.type === "paren") && r.regex === true) {
           (ut.output = re), Ke(ut);
           continue;
         }
         if (Q.index === Q.start || z.type === "slash" || z.type === "dot") {
           if (z.type === "dot") (Q.output += Y), (z.output += Y);
-          else if (r.dot === !0) (Q.output += X), (z.output += X);
+          else if (r.dot === true) (Q.output += X), (z.output += X);
           else (Q.output += We), (z.output += We);
           if (He() !== "*") (Q.output += U), (z.output += U);
         }
         Ke(ut);
       }
       while (Q.brackets > 0) {
-        if (r.strictBrackets === !0) throw SyntaxError(Qi("closing", "]"));
+        if (r.strictBrackets === true) throw SyntaxError(Qi("closing", "]"));
         (Q.output = br.escapeLast(Q.output, "[")), Rt("brackets");
       }
       while (Q.parens > 0) {
-        if (r.strictBrackets === !0) throw SyntaxError(Qi("closing", ")"));
+        if (r.strictBrackets === true) throw SyntaxError(Qi("closing", ")"));
         (Q.output = br.escapeLast(Q.output, "(")), Rt("parens");
       }
       while (Q.braces > 0) {
-        if (r.strictBrackets === !0) throw SyntaxError(Qi("closing", "}"));
+        if (r.strictBrackets === true) throw SyntaxError(Qi("closing", "}"));
         (Q.output = br.escapeLast(Q.output, "{")), Rt("braces");
       }
-      if (r.strictSlashes !== !0 && (z.type === "star" || z.type === "bracket"))
+      if (r.strictSlashes !== true && (z.type === "star" || z.type === "bracket"))
         Ke({ type: "maybe_slash", value: "", output: `${F}?` });
-      if (Q.backtrack === !0) {
+      if (Q.backtrack === true) {
         Q.output = "";
         for (let Ie of Q.tokens)
           if (((Q.output += Ie.output != null ? Ie.output : Ie.value), Ie.suffix)) Q.output += Ie.suffix;
@@ -1166,11 +1166,11 @@ var sb = S(function (KZ, rb) {
       M = r.dot ? k : N,
       q = r.dot ? C : N,
       Y = r.capture ? "" : "?:",
-      X = { negated: !1, prefix: "" },
-      se = r.bash === !0 ? ".*?" : F;
+      X = { negated: false, prefix: "" },
+      se = r.bash === true ? ".*?" : F;
     if (r.capture) se = `(${se})`;
     let fe = (We) => {
-        if (We.noglobstar === !0) return se;
+        if (We.noglobstar === true) return se;
         return `(${Y}(?:(?!${U}${We.dot ? v : d}).)*?)`;
       },
       Re = (We) => {
@@ -1202,7 +1202,7 @@ var sb = S(function (KZ, rb) {
       },
       _e = br.removePrefix(e, X),
       Ee = Re(_e);
-    if (Ee && r.strictSlashes !== !0) Ee += `${x}?`;
+    if (Ee && r.strictSlashes !== true) Ee += `${x}?`;
     return Ee;
   };
   rb.exports = Hd;
@@ -1213,7 +1213,7 @@ var ab = S(function (ZZ, ob) {
     ib = ia(),
     hO = sa(),
     gO = (e) => e && typeof e === "object" && !Array.isArray(e),
-    cn = (e, t, r = !1) => {
+    cn = (e, t, r = false) => {
       if (Array.isArray(e)) {
         let k = e.map((F) => cn(F, t, r));
         return (F) => {
@@ -1221,46 +1221,46 @@ var ab = S(function (ZZ, ob) {
             let M = U(F);
             if (M) return M;
           }
-          return !1;
+          return false;
         };
       }
       let o = gO(e) && e.tokens && e.input;
       if (e === "" || (typeof e !== "string" && !o)) throw TypeError("Expected pattern to be a non-empty string");
       let u = t || {},
         d = u.windows,
-        x = o ? cn.compileRe(e, t) : cn.makeRe(e, t, !1, !0),
+        x = o ? cn.compileRe(e, t) : cn.makeRe(e, t, false, true),
         w = x.state;
       delete x.state;
-      let v = () => !1;
+      let v = () => false;
       if (u.ignore) {
         let k = { ...t, ignore: null, onMatch: null, onResult: null };
         v = cn(u.ignore, k, r);
       }
-      let N = (k, C = !1) => {
+      let N = (k, C = false) => {
         let { isMatch: F, match: U, output: M } = cn.test(k, x, t, { glob: e, posix: d }),
           q = { glob: e, state: w, regex: x, posix: d, input: k, output: M, match: U, isMatch: F };
         if (typeof u.onResult === "function") u.onResult(q);
-        if (F === !1) return (q.isMatch = !1), C ? q : !1;
+        if (F === false) return (q.isMatch = false), C ? q : false;
         if (v(k)) {
           if (typeof u.onIgnore === "function") u.onIgnore(q);
-          return (q.isMatch = !1), C ? q : !1;
+          return (q.isMatch = false), C ? q : false;
         }
         if (typeof u.onMatch === "function") u.onMatch(q);
-        return C ? q : !0;
+        return C ? q : true;
       };
       if (r) N.state = w;
       return N;
     };
   cn.test = (e, t, r, { glob: o, posix: u } = {}) => {
     if (typeof e !== "string") throw TypeError("Expected input to be a string");
-    if (e === "") return { isMatch: !1, output: "" };
+    if (e === "") return { isMatch: false, output: "" };
     let d = r || {},
       x = d.format || (u ? ib.toPosixSlashes : null),
       w = e === o,
       v = w && x ? x(e) : e;
-    if (w === !1) (v = x ? x(e) : e), (w = v === o);
-    if (w === !1 || d.capture === !0)
-      if (d.matchBase === !0 || d.basename === !0) w = cn.matchBase(e, t, r, u);
+    if (w === false) (v = x ? x(e) : e), (w = v === o);
+    if (w === false || d.capture === true)
+      if (d.matchBase === true || d.basename === true) w = cn.matchBase(e, t, r, u);
       else w = t.exec(v);
     return { isMatch: Boolean(w), match: w, output: v };
   };
@@ -1268,24 +1268,24 @@ var ab = S(function (ZZ, ob) {
   cn.isMatch = (e, t, r) => cn(t, r)(e);
   cn.parse = (e, t) => {
     if (Array.isArray(e)) return e.map((r) => cn.parse(r, t));
-    return jd(e, { ...t, fastpaths: !1 });
+    return jd(e, { ...t, fastpaths: false });
   };
   cn.scan = (e, t) => mO(e, t);
-  cn.compileRe = (e, t, r = !1, o = !1) => {
-    if (r === !0) return e.output;
+  cn.compileRe = (e, t, r = false, o = false) => {
+    if (r === true) return e.output;
     let u = t || {},
       d = u.contains ? "" : "^",
       x = u.contains ? "" : "$",
       w = `${d}(?:${e.output})${x}`;
-    if (e && e.negated === !0) w = `^(?!${w}).*$`;
+    if (e && e.negated === true) w = `^(?!${w}).*$`;
     let v = cn.toRegex(w, t);
-    if (o === !0) v.state = e;
+    if (o === true) v.state = e;
     return v;
   };
-  cn.makeRe = (e, t = {}, r = !1, o = !1) => {
+  cn.makeRe = (e, t = {}, r = false, o = false) => {
     if (!e || typeof e !== "string") throw TypeError("Expected a non-empty string");
-    let u = { negated: !1, fastpaths: !0 };
-    if (t.fastpaths !== !1 && (e[0] === "." || e[0] === "*")) u.output = jd.fastpaths(e, t);
+    let u = { negated: false, fastpaths: true };
+    if (t.fastpaths !== false && (e[0] === "." || e[0] === "*")) u.output = jd.fastpaths(e, t);
     if (!u.output) u = jd(e, t);
     return cn.compileRe(u, t, r, o);
   };
@@ -1294,7 +1294,7 @@ var ab = S(function (ZZ, ob) {
       let r = t || {};
       return new RegExp(e, r.flags || (r.nocase ? "i" : ""));
     } catch (r) {
-      if (t && t.debug === !0) throw r;
+      if (t && t.debug === true) throw r;
       return /$^/;
     }
   };
@@ -1304,7 +1304,7 @@ var ab = S(function (ZZ, ob) {
 var u5e = S(function (qZ, ub) {
   var cb = ab(),
     bO = ia();
-  function lb(e, t, r = !1) {
+  function lb(e, t, r = false) {
     if (t && (t.windows === null || t.windows === void 0)) t = { ...t, windows: bO.isWindows() };
     return cb(e, t, r);
   }
@@ -1312,7 +1312,7 @@ var u5e = S(function (qZ, ub) {
   ub.exports = lb;
 });
 var js = S(function (mb) {
-  Object.defineProperty(mb, "__esModule", { value: !0 });
+  Object.defineProperty(mb, "__esModule", { value: true });
   mb.celError = xO;
   mb.celErrorMerge = TO;
   mb.isCelError = pb;
@@ -1347,7 +1347,7 @@ var js = S(function (mb) {
   }
 });
 var la = S(function (gb) {
-  Object.defineProperty(gb, "__esModule", { value: !0 });
+  Object.defineProperty(gb, "__esModule", { value: true });
   gb.FieldError = void 0;
   gb.isFieldError = NO;
   var vO = ["FieldValueInvalidError", "FieldListRangeError", "ForeignFieldError"];
@@ -1363,7 +1363,7 @@ var la = S(function (gb) {
   }
 });
 var bi = S(function (yb) {
-  Object.defineProperty(yb, "__esModule", { value: !0 });
+  Object.defineProperty(yb, "__esModule", { value: true });
   yb.qualifiedName = CO;
   yb.protoCamelCase = OO;
   yb.protoSnakeCase = kO;
@@ -1388,13 +1388,13 @@ var bi = S(function (yb) {
     }
   }
   function OO(e) {
-    let t = !1,
+    let t = false,
       r = [];
     for (let o = 0; o < e.length; o++) {
       let u = e.charAt(o);
       switch (u) {
         case "_":
-          t = !0;
+          t = true;
           break;
         case "0":
         case "1":
@@ -1406,10 +1406,10 @@ var bi = S(function (yb) {
         case "7":
         case "8":
         case "9":
-          r.push(u), (t = !1);
+          r.push(u), (t = false);
           break;
         default:
-          if (t) (t = !1), (u = u.toUpperCase());
+          if (t) (t = false), (u = u.toUpperCase());
           r.push(u);
           break;
       }
@@ -1425,7 +1425,7 @@ var bi = S(function (yb) {
   }
 });
 var Kd = S(function (Sb) {
-  Object.defineProperty(Sb, "__esModule", { value: !0 });
+  Object.defineProperty(Sb, "__esModule", { value: true });
   Sb.nestedTypes = Yd;
   Sb.usedTypes = $O;
   Sb.parentTypes = BO;
@@ -1478,7 +1478,7 @@ var Kd = S(function (Sb) {
   }
 });
 var Vn = S(function (xb) {
-  Object.defineProperty(xb, "__esModule", { value: !0 });
+  Object.defineProperty(xb, "__esModule", { value: true });
   xb.ScalarType = void 0;
   var Eb;
   (function (e) {
@@ -1500,16 +1500,16 @@ var Vn = S(function (xb) {
   })(Eb || (xb.ScalarType = Eb = {}));
 });
 var Zc = S(function (wb) {
-  Object.defineProperty(wb, "__esModule", { value: !0 });
+  Object.defineProperty(wb, "__esModule", { value: true });
   wb.isMessage = jO;
   function jO(e, t) {
-    if (!(e !== null && typeof e == "object" && "$typeName" in e && typeof e.$typeName == "string")) return !1;
-    if (t === void 0) return !0;
+    if (!(e !== null && typeof e == "object" && "$typeName" in e && typeof e.$typeName == "string")) return false;
+    if (t === void 0) return true;
     return t.typeName === e.$typeName;
   }
 });
 var Xc = S(function (Nb) {
-  Object.defineProperty(Nb, "__esModule", { value: !0 });
+  Object.defineProperty(Nb, "__esModule", { value: true });
   Nb.varint64read = KO;
   Nb.varint64write = ZO;
   Nb.int64FromString = qO;
@@ -1621,7 +1621,7 @@ var Xc = S(function (Nb) {
   }
 });
 var qr = S(function (Ob) {
-  Object.defineProperty(Ob, "__esModule", { value: !0 });
+  Object.defineProperty(Ob, "__esModule", { value: true });
   Ob.protoInt64 = void 0;
   var Jc = Xc();
   Ob.protoInt64 = ak();
@@ -1644,7 +1644,7 @@ var qr = S(function (Ob) {
         d = BigInt("18446744073709551615");
       return {
         zero: BigInt(0),
-        supported: !0,
+        supported: true,
         parse(x) {
           let w = typeof x == "bigint" ? x : BigInt(x);
           if (w > o || w < r) throw Error(`invalid int64: ${x}`);
@@ -1656,22 +1656,22 @@ var qr = S(function (Ob) {
           return w;
         },
         enc(x) {
-          return e.setBigInt64(0, this.parse(x), !0), { lo: e.getInt32(0, !0), hi: e.getInt32(4, !0) };
+          return e.setBigInt64(0, this.parse(x), true), { lo: e.getInt32(0, true), hi: e.getInt32(4, true) };
         },
         uEnc(x) {
-          return e.setBigInt64(0, this.uParse(x), !0), { lo: e.getInt32(0, !0), hi: e.getInt32(4, !0) };
+          return e.setBigInt64(0, this.uParse(x), true), { lo: e.getInt32(0, true), hi: e.getInt32(4, true) };
         },
         dec(x, w) {
-          return e.setInt32(0, x, !0), e.setInt32(4, w, !0), e.getBigInt64(0, !0);
+          return e.setInt32(0, x, true), e.setInt32(4, w, true), e.getBigInt64(0, true);
         },
         uDec(x, w) {
-          return e.setInt32(0, x, !0), e.setInt32(4, w, !0), e.getBigUint64(0, !0);
+          return e.setInt32(0, x, true), e.setInt32(4, w, true), e.getBigUint64(0, true);
         },
       };
     }
     return {
       zero: "0",
-      supported: !1,
+      supported: false,
       parse(r) {
         if (typeof r != "string") r = r.toString();
         return Rb(r), r;
@@ -1704,19 +1704,19 @@ var qr = S(function (Ob) {
   }
 });
 var Ys = S(function (Db) {
-  Object.defineProperty(Db, "__esModule", { value: !0 });
+  Object.defineProperty(Db, "__esModule", { value: true });
   Db.scalarEquals = lk;
   Db.scalarZeroValue = uk;
   Db.isScalarZeroValue = dk;
   var ck = qr(),
     Sn = Vn();
   function lk(e, t, r) {
-    if (t === r) return !0;
+    if (t === r) return true;
     if (e == Sn.ScalarType.BYTES) {
-      if (!(t instanceof Uint8Array) || !(r instanceof Uint8Array)) return !1;
-      if (t.length !== r.length) return !1;
-      for (let o = 0; o < t.length; o++) if (t[o] !== r[o]) return !1;
-      return !0;
+      if (!(t instanceof Uint8Array) || !(r instanceof Uint8Array)) return false;
+      if (t.length !== r.length) return false;
+      for (let o = 0; o < t.length; o++) if (t[o] !== r[o]) return false;
+      return true;
     }
     switch (e) {
       case Sn.ScalarType.UINT64:
@@ -1726,14 +1726,14 @@ var Ys = S(function (Db) {
       case Sn.ScalarType.SINT64:
         return t == r;
     }
-    return !1;
+    return false;
   }
   function uk(e, t) {
     switch (e) {
       case Sn.ScalarType.STRING:
         return "";
       case Sn.ScalarType.BOOL:
-        return !1;
+        return false;
       case Sn.ScalarType.DOUBLE:
       case Sn.ScalarType.FLOAT:
         return 0;
@@ -1752,7 +1752,7 @@ var Ys = S(function (Db) {
   function dk(e, t) {
     switch (e) {
       case Sn.ScalarType.BOOL:
-        return t === !1;
+        return t === false;
       case Sn.ScalarType.STRING:
         return t === "";
       case Sn.ScalarType.BYTES:
@@ -1763,7 +1763,7 @@ var Ys = S(function (Db) {
   }
 });
 var Ks = S(function (Ub) {
-  Object.defineProperty(Ub, "__esModule", { value: !0 });
+  Object.defineProperty(Ub, "__esModule", { value: true });
   Ub.unsafeLocal = void 0;
   Ub.unsafeOneofCase = hk;
   Ub.unsafeIsSet = gk;
@@ -1834,7 +1834,7 @@ var Ks = S(function (Ub) {
   }
 });
 var eo = S(function (Mb) {
-  Object.defineProperty(Mb, "__esModule", { value: !0 });
+  Object.defineProperty(Mb, "__esModule", { value: true });
   Mb.isObject = ua;
   Mb.isOneofADT = vk;
   Mb.isReflectList = Nk;
@@ -1868,9 +1868,9 @@ var eo = S(function (Mb) {
             ((d = w.enum) === null || d === void 0 ? void 0 : d.typeName)
         );
       }
-      return !0;
+      return true;
     }
-    return !1;
+    return false;
   }
   function Rk(e, t) {
     var r, o, u, d;
@@ -1888,9 +1888,9 @@ var eo = S(function (Mb) {
             ((d = w.enum) === null || d === void 0 ? void 0 : d.typeName)
         );
       }
-      return !0;
+      return true;
     }
-    return !1;
+    return false;
   }
   function Ck(e, t) {
     return (
@@ -1904,7 +1904,7 @@ var eo = S(function (Mb) {
   }
 });
 var Qc = S(function ($b) {
-  Object.defineProperty($b, "__esModule", { value: !0 });
+  Object.defineProperty($b, "__esModule", { value: true });
   $b.configureTextEncoding = Uk;
   $b.getTextEncoding = Fk;
   var zc = Symbol.for("@bufbuild/protobuf/text-encoding");
@@ -1922,16 +1922,16 @@ var Qc = S(function ($b) {
         },
         decodeUtf8(o, u) {
           if (u) {
-            if (r === void 0) r = new globalThis.TextDecoder("utf-8", { fatal: !0 });
+            if (r === void 0) r = new globalThis.TextDecoder("utf-8", { fatal: true });
             return r.decode(o);
           }
           return t.decode(o);
         },
         checkUtf8(o) {
           try {
-            return encodeURIComponent(o), !0;
+            return encodeURIComponent(o), true;
           } catch (u) {
-            return !1;
+            return false;
           }
         },
       };
@@ -1940,7 +1940,7 @@ var Qc = S(function ($b) {
   }
 });
 var _i = S(function (Hb) {
-  Object.defineProperty(Hb, "__esModule", { value: !0 });
+  Object.defineProperty(Hb, "__esModule", { value: true });
   Hb.BinaryReader =
     Hb.BinaryWriter =
     Hb.INT32_MIN =
@@ -2017,21 +2017,21 @@ var _i = S(function (Hb) {
     float(e) {
       Bk(e);
       let t = new Uint8Array(4);
-      return new DataView(t.buffer).setFloat32(0, e, !0), this.raw(t);
+      return new DataView(t.buffer).setFloat32(0, e, true), this.raw(t);
     }
     double(e) {
       let t = new Uint8Array(8);
-      return new DataView(t.buffer).setFloat64(0, e, !0), this.raw(t);
+      return new DataView(t.buffer).setFloat64(0, e, true), this.raw(t);
     }
     fixed32(e) {
       Bb(e);
       let t = new Uint8Array(4);
-      return new DataView(t.buffer).setUint32(0, e, !0), this.raw(t);
+      return new DataView(t.buffer).setUint32(0, e, true), this.raw(t);
     }
     sfixed32(e) {
       Xd(e);
       let t = new Uint8Array(4);
-      return new DataView(t.buffer).setInt32(0, e, !0), this.raw(t);
+      return new DataView(t.buffer).setInt32(0, e, true), this.raw(t);
     }
     sint32(e) {
       return Xd(e), (e = ((e << 1) ^ (e >> 31)) >>> 0), (0, yi.varint32write)(e, this.buf), this;
@@ -2040,13 +2040,13 @@ var _i = S(function (Hb) {
       let t = new Uint8Array(8),
         r = new DataView(t.buffer),
         o = Xr.protoInt64.enc(e);
-      return r.setInt32(0, o.lo, !0), r.setInt32(4, o.hi, !0), this.raw(t);
+      return r.setInt32(0, o.lo, true), r.setInt32(4, o.hi, true), this.raw(t);
     }
     fixed64(e) {
       let t = new Uint8Array(8),
         r = new DataView(t.buffer),
         o = Xr.protoInt64.uEnc(e);
-      return r.setInt32(0, o.lo, !0), r.setInt32(4, o.hi, !0), this.raw(t);
+      return r.setInt32(0, o.lo, true), r.setInt32(4, o.hi, true), this.raw(t);
     }
     int64(e) {
       let t = Xr.protoInt64.enc(e);
@@ -2141,10 +2141,10 @@ var _i = S(function (Hb) {
       return e !== 0 || t !== 0;
     }
     fixed32() {
-      return this.view.getUint32((this.pos += 4) - 4, !0);
+      return this.view.getUint32((this.pos += 4) - 4, true);
     }
     sfixed32() {
-      return this.view.getInt32((this.pos += 4) - 4, !0);
+      return this.view.getInt32((this.pos += 4) - 4, true);
     }
     fixed64() {
       return Xr.protoInt64.uDec(this.sfixed32(), this.sfixed32());
@@ -2153,10 +2153,10 @@ var _i = S(function (Hb) {
       return Xr.protoInt64.dec(this.sfixed32(), this.sfixed32());
     }
     float() {
-      return this.view.getFloat32((this.pos += 4) - 4, !0);
+      return this.view.getFloat32((this.pos += 4) - 4, true);
     }
     double() {
-      return this.view.getFloat64((this.pos += 8) - 8, !0);
+      return this.view.getFloat64((this.pos += 8) - 8, true);
     }
     bytes() {
       let e = this.uint32(),
@@ -2187,7 +2187,7 @@ var _i = S(function (Hb) {
   }
 });
 var nl = S(function (ny) {
-  Object.defineProperty(ny, "__esModule", { value: !0 });
+  Object.defineProperty(ny, "__esModule", { value: true });
   ny.checkField = jk;
   ny.checkListItem = Yk;
   ny.checkMapEntry = Kk;
@@ -2206,7 +2206,7 @@ var nl = S(function (ny) {
         : e.fieldKind == "map"
           ? (0, to.isReflectMap)(t, e)
           : Jd(e, t);
-    if (r === !0) return;
+    if (r === true) return;
     let o;
     switch (e.fieldKind) {
       case "list":
@@ -2222,14 +2222,14 @@ var nl = S(function (ny) {
   }
   function Yk(e, t, r) {
     let o = Jd(e, r);
-    if (o !== !0) return new el.FieldError(e, `list item #${t + 1}: ${tl(e, r, o)}`);
+    if (o !== true) return new el.FieldError(e, `list item #${t + 1}: ${tl(e, r, o)}`);
     return;
   }
   function Kk(e, t, r) {
     let o = zb(t, e.mapKey);
-    if (o !== !0) return new el.FieldError(e, `invalid map key: ${tl({ scalar: e.mapKey }, t, o)}`);
+    if (o !== true) return new el.FieldError(e, `invalid map key: ${tl({ scalar: e.mapKey }, t, o)}`);
     let u = Jd(e, r);
-    if (u !== !0) return new el.FieldError(e, `map entry ${fa(t)}: ${tl(e, r, u)}`);
+    if (u !== true) return new el.FieldError(e, `map entry ${fa(t)}: ${tl(e, r, u)}`);
     return;
   }
   function Jd(e, t) {
@@ -2245,25 +2245,25 @@ var nl = S(function (ny) {
       case mt.ScalarType.DOUBLE:
         return typeof e == "number";
       case mt.ScalarType.FLOAT:
-        if (typeof e != "number") return !1;
-        if (Number.isNaN(e) || !Number.isFinite(e)) return !0;
+        if (typeof e != "number") return false;
+        if (Number.isNaN(e) || !Number.isFinite(e)) return true;
         if (e > da.FLOAT32_MAX || e < da.FLOAT32_MIN) return `${e.toFixed()} out of range`;
-        return !0;
+        return true;
       case mt.ScalarType.INT32:
       case mt.ScalarType.SFIXED32:
       case mt.ScalarType.SINT32:
-        if (typeof e !== "number" || !Number.isInteger(e)) return !1;
+        if (typeof e !== "number" || !Number.isInteger(e)) return false;
         if (e > da.INT32_MAX || e < da.INT32_MIN) return `${e.toFixed()} out of range`;
-        return !0;
+        return true;
       case mt.ScalarType.FIXED32:
       case mt.ScalarType.UINT32:
-        if (typeof e !== "number" || !Number.isInteger(e)) return !1;
+        if (typeof e !== "number" || !Number.isInteger(e)) return false;
         if (e > da.UINT32_MAX || e < 0) return `${e.toFixed()} out of range`;
-        return !0;
+        return true;
       case mt.ScalarType.BOOL:
         return typeof e == "boolean";
       case mt.ScalarType.STRING:
-        if (typeof e != "string") return !1;
+        if (typeof e != "string") return false;
         return (0, Hk.getTextEncoding)().checkUtf8(e) || "invalid UTF8";
       case mt.ScalarType.BYTES:
         return e instanceof Uint8Array;
@@ -2272,20 +2272,20 @@ var nl = S(function (ny) {
       case mt.ScalarType.SINT64:
         if (typeof e == "bigint" || typeof e == "number" || (typeof e == "string" && e.length > 0))
           try {
-            return Jb.protoInt64.parse(e), !0;
+            return Jb.protoInt64.parse(e), true;
           } catch (r) {
             return `${e} out of range`;
           }
-        return !1;
+        return false;
       case mt.ScalarType.FIXED64:
       case mt.ScalarType.UINT64:
         if (typeof e == "bigint" || typeof e == "number" || (typeof e == "string" && e.length > 0))
           try {
-            return Jb.protoInt64.uParse(e), !0;
+            return Jb.protoInt64.uParse(e), true;
           } catch (r) {
             return `${e} out of range`;
           }
-        return !1;
+        return false;
     }
   }
   function tl(e, t, r) {
@@ -2370,7 +2370,7 @@ var nl = S(function (ny) {
   }
 });
 var no = S(function (iy) {
-  Object.defineProperty(iy, "__esModule", { value: !0 });
+  Object.defineProperty(iy, "__esModule", { value: true });
   iy.isWrapper = Qk;
   iy.isWrapperDesc = ry;
   iy.hasCustomJsonRepresentation = eD;
@@ -2390,7 +2390,7 @@ var no = S(function (iy) {
       case "google.protobuf.Struct":
       case "google.protobuf.Value":
       case "google.protobuf.ListValue":
-        return !0;
+        return true;
       default:
         return ry(e);
     }
@@ -2413,7 +2413,7 @@ var no = S(function (iy) {
   }
 });
 var qs = S(function (py) {
-  Object.defineProperty(py, "__esModule", { value: !0 });
+  Object.defineProperty(py, "__esModule", { value: true });
   py.create = uy;
   var cy = Zc(),
     ef = Vn(),
@@ -2531,9 +2531,9 @@ var qs = S(function (py) {
   function pD(e) {
     switch (e.file.edition) {
       case oD:
-        return !1;
+        return false;
       case aD:
-        return !0;
+        return true;
       default:
         return e.fields.some((t) => t.presence != rl && t.fieldKind != "message" && !t.oneof);
     }
@@ -2549,7 +2549,7 @@ var qs = S(function (py) {
   }
 });
 var Jr = S(function (Ty) {
-  Object.defineProperty(Ty, "__esModule", { value: !0 });
+  Object.defineProperty(Ty, "__esModule", { value: true });
   Ty.reflect = bD;
   Ty.reflectList = yD;
   Ty.reflectMap = _D;
@@ -2562,7 +2562,7 @@ var Jr = S(function (Ty) {
     gD = Ys(),
     ro = qr(),
     ma = eo();
-  function bD(e, t, r = !0) {
+  function bD(e, t, r = true) {
     return new af(e, t, r);
   }
   var my = new WeakMap();
@@ -2573,7 +2573,7 @@ var Jr = S(function (Ty) {
       let t = this.desc.fields.concat().sort((r, o) => r.number - o.number);
       return my.set(this.desc, t), t;
     }
-    constructor(e, t, r = !0) {
+    constructor(e, t, r = true) {
       (this.lists = new Map()),
         (this.maps = new Map()),
         (this.check = r),
@@ -2611,7 +2611,7 @@ var Jr = S(function (Ty) {
         case "message":
           return df(e, t, this.check);
         case "scalar":
-          return t === void 0 ? (0, gD.scalarZeroValue)(e.scalar, !1) : ff(e, t);
+          return t === void 0 ? (0, gD.scalarZeroValue)(e.scalar, false) : ff(e, t);
         case "enum":
           return t !== null && t !== void 0 ? t : e.enum.values[0].number;
       }
@@ -2638,7 +2638,7 @@ var Jr = S(function (Ty) {
     if (t.parent.typeName !== e.$typeName)
       throw new by.FieldError(t, `cannot use ${t.toString()} with message ${e.$typeName}`, "ForeignFieldError");
   }
-  function yD(e, t, r = !0) {
+  function yD(e, t, r = true) {
     return new cf(e, t !== null && t !== void 0 ? t : [], r);
   }
   class cf {
@@ -2687,11 +2687,11 @@ var Jr = S(function (Ty) {
       for (let e = 0; e < this._arr.length; e++) yield [e, sf(this._field, this._arr[e], this.check)];
     }
   }
-  function _D(e, t, r = !0) {
+  function _D(e, t, r = true) {
     return new lf(e, t, r);
   }
   class lf {
-    constructor(e, t, r = !0) {
+    constructor(e, t, r = true) {
       (this.obj = this[$r.unsafeLocal] = t !== null && t !== void 0 ? t : {}), (this.check = r), (this._field = e);
     }
     field() {
@@ -2795,9 +2795,9 @@ var Jr = S(function (Ty) {
       case xn.ScalarType.BOOL:
         switch (e) {
           case "true":
-            return !0;
+            return true;
           case "false":
-            return !1;
+            return false;
         }
         break;
       case xn.ScalarType.UINT64:
@@ -2892,11 +2892,11 @@ var Jr = S(function (Ty) {
   }
 });
 var Iy = S(function (wy) {
-  Object.defineProperty(wy, "__esModule", { value: !0 });
+  Object.defineProperty(wy, "__esModule", { value: true });
   var _5 = Ks();
 });
 var Ny = S(function (Ay) {
-  Object.defineProperty(Ay, "__esModule", { value: !0 });
+  Object.defineProperty(Ay, "__esModule", { value: true });
   Ay.InvalidPathError = void 0;
   Ay.buildPath = wD;
   Ay.parsePath = ID;
@@ -3133,8 +3133,8 @@ var Ny = S(function (Ay) {
         let w = e;
         while (e < t.length && t[e] != " " && t[e] != "]") e++;
         let v = t.substring(w, e);
-        if (v === "true") x = { val: !0 };
-        else if (v === "false") x = { val: !1 };
+        if (v === "true") x = { val: true };
+        else if (v === "false") x = { val: false };
         else if (r.test(v)) x = { ext: v };
         else return { err: "Invalid ident", i: w };
       }
@@ -3161,7 +3161,7 @@ var ms = S(function (Tn) {
             var u = Object.getOwnPropertyDescriptor(t, r);
             if (!u || ("get" in u ? !t.__esModule : u.writable || u.configurable))
               u = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -3177,7 +3177,7 @@ var ms = S(function (Tn) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) kD(t, e, r);
       };
-  Object.defineProperty(Tn, "__esModule", { value: !0 });
+  Object.defineProperty(Tn, "__esModule", { value: true });
   Tn.isReflectMessage = Tn.isReflectMap = Tn.isReflectList = void 0;
   Si(la(), Tn);
   Si(bi(), Tn);
@@ -3188,26 +3188,26 @@ var ms = S(function (Tn) {
   Si(Ny(), Tn);
   var mf = eo();
   Object.defineProperty(Tn, "isReflectList", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return mf.isReflectList;
     },
   });
   Object.defineProperty(Tn, "isReflectMap", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return mf.isReflectMap;
     },
   });
   Object.defineProperty(Tn, "isReflectMessage", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return mf.isReflectMessage;
     },
   });
 });
 var Ar = S(function (Oy) {
-  Object.defineProperty(Oy, "__esModule", { value: !0 });
+  Object.defineProperty(Oy, "__esModule", { value: true });
   Oy.celUint = DD;
   Oy.isCelUint = PD;
   var Ry = Symbol.for("@bufbuild/cel/uint");
@@ -3229,10 +3229,10 @@ var Ar = S(function (Oy) {
   }
 });
 var Dy = S(function (ky) {
-  Object.defineProperty(ky, "__esModule", { value: !0 });
+  Object.defineProperty(ky, "__esModule", { value: true });
 });
 var gf = S(function (Uy) {
-  Object.defineProperty(Uy, "__esModule", { value: !0 });
+  Object.defineProperty(Uy, "__esModule", { value: true });
   Uy.clone = $D;
   var FD = Vn(),
     Py = Jr(),
@@ -3270,7 +3270,7 @@ var gf = S(function (Uy) {
   }
 });
 var ga = S(function ($y) {
-  Object.defineProperty($y, "__esModule", { value: !0 });
+  Object.defineProperty($y, "__esModule", { value: true });
   $y.base64Decode = VD;
   $y.base64Encode = WD;
   function VD(e) {
@@ -3359,7 +3359,7 @@ var ga = S(function ($y) {
   }
 });
 var bf = S(function (Vy) {
-  Object.defineProperty(Vy, "__esModule", { value: !0 });
+  Object.defineProperty(Vy, "__esModule", { value: true });
   Vy.restoreJsonNames = By;
   var YD = bi(),
     KD = Ks();
@@ -3369,7 +3369,7 @@ var bf = S(function (Vy) {
   }
 });
 var _f = S(function (Wy) {
-  Object.defineProperty(Wy, "__esModule", { value: !0 });
+  Object.defineProperty(Wy, "__esModule", { value: true });
   Wy.parseTextFormatEnumValue = qD;
   Wy.parseTextFormatScalarValue = XD;
   var Wn = Vn(),
@@ -3385,7 +3385,7 @@ var _f = S(function (Wy) {
         return t;
       case Wn.ScalarType.BYTES: {
         let r = JD(t);
-        if (r === !1) throw Error(`cannot parse ${Wn.ScalarType[e]} default value: ${t}`);
+        if (r === false) throw Error(`cannot parse ${Wn.ScalarType[e]} default value: ${t}`);
         return r;
       }
       case Wn.ScalarType.INT64:
@@ -3423,15 +3423,15 @@ var _f = S(function (Wy) {
         tail: e,
         c: "",
         next() {
-          if (this.tail.length == 0) return !1;
-          return (this.c = this.tail[0]), (this.tail = this.tail.substring(1)), !0;
+          if (this.tail.length == 0) return false;
+          return (this.c = this.tail[0]), (this.tail = this.tail.substring(1)), true;
         },
         take(o) {
           if (this.tail.length >= o) {
             let u = this.tail.substring(0, o);
             return (this.tail = this.tail.substring(o)), u;
           }
-          return !1;
+          return false;
         },
       };
     while (r.next())
@@ -3470,40 +3470,40 @@ var _f = S(function (Wy) {
               case "7": {
                 let o = r.c,
                   u = r.take(2);
-                if (u === !1) return !1;
+                if (u === false) return false;
                 let d = parseInt(o + u, 8);
-                if (Number.isNaN(d)) return !1;
+                if (Number.isNaN(d)) return false;
                 t.push(d);
                 break;
               }
               case "x": {
                 let o = r.c,
                   u = r.take(2);
-                if (u === !1) return !1;
+                if (u === false) return false;
                 let d = parseInt(o + u, 16);
-                if (Number.isNaN(d)) return !1;
+                if (Number.isNaN(d)) return false;
                 t.push(d);
                 break;
               }
               case "u": {
                 let o = r.c,
                   u = r.take(4);
-                if (u === !1) return !1;
+                if (u === false) return false;
                 let d = parseInt(o + u, 16);
-                if (Number.isNaN(d)) return !1;
+                if (Number.isNaN(d)) return false;
                 let x = new Uint8Array(4);
-                new DataView(x.buffer).setInt32(0, d, !0), t.push(x[0], x[1], x[2], x[3]);
+                new DataView(x.buffer).setInt32(0, d, true), t.push(x[0], x[1], x[2], x[3]);
                 break;
               }
               case "U": {
                 let o = r.c,
                   u = r.take(8);
-                if (u === !1) return !1;
+                if (u === false) return false;
                 let d = yf.protoInt64.uEnc(o + u),
                   x = new Uint8Array(8),
                   w = new DataView(x.buffer);
-                w.setInt32(0, d.lo, !0),
-                  w.setInt32(4, d.hi, !0),
+                w.setInt32(0, d.lo, true),
+                  w.setInt32(4, d.hi, true),
                   t.push(x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7]);
                 break;
               }
@@ -3516,7 +3516,7 @@ var _f = S(function (Wy) {
   }
 });
 var ul = S(function (t_) {
-  Object.defineProperty(t_, "__esModule", { value: !0 });
+  Object.defineProperty(t_, "__esModule", { value: true });
   t_.maximumEdition = t_.minimumEdition = void 0;
   t_.createRegistry = nP;
   t_.createMutableRegistry = rP;
@@ -3555,7 +3555,7 @@ var ul = S(function (t_) {
             if (u.has(v)) continue;
             let N = o(v);
             if (!N) throw Error(`Unable to resolve ${v}, imported by ${x.name}`);
-            if ("kind" in N) t.addFile(N, !1, !0);
+            if ("kind" in N) t.addFile(N, false, true);
             else u.add(N.name), w.push(N);
           }
           return w.concat(...w.map(d));
@@ -3705,7 +3705,7 @@ var ul = S(function (t_) {
         kind: "file",
         proto: e,
         deprecated:
-          (o = (r = e.options) === null || r === void 0 ? void 0 : r.deprecated) !== null && o !== void 0 ? o : !1,
+          (o = (r = e.options) === null || r === void 0 ? void 0 : r.deprecated) !== null && o !== void 0 ? o : false,
         edition: SP(e),
         name: e.name.replace(/\.proto$/, ""),
         dependencies: EP(e, t),
@@ -3724,7 +3724,7 @@ var ul = S(function (t_) {
         },
         add(w) {
           var v;
-          Br(((v = w.proto.options) === null || v === void 0 ? void 0 : v.mapEntry) === !0), d.set(w.typeName, w);
+          Br(((v = w.proto.options) === null || v === void 0 ? void 0 : v.mapEntry) === true), d.set(w.typeName, w);
         },
       };
     for (let w of e.enumType) Qy(w, u, void 0, t);
@@ -3733,7 +3733,7 @@ var ul = S(function (t_) {
     xf(u, t);
     for (let w of d.values()) Tf(w, t, x);
     for (let w of u.messages) Tf(w, t, x), xf(w, t);
-    t.addFile(u, !0);
+    t.addFile(u, true);
   }
   function xf(e, t) {
     switch (e.kind) {
@@ -3771,10 +3771,10 @@ var ul = S(function (t_) {
         kind: "enum",
         proto: e,
         deprecated:
-          (d = (u = e.options) === null || u === void 0 ? void 0 : u.deprecated) !== null && d !== void 0 ? d : !1,
+          (d = (u = e.options) === null || u === void 0 ? void 0 : u.deprecated) !== null && d !== void 0 ? d : false,
         file: t,
         parent: r,
-        open: !0,
+        open: true,
         name: e.name,
         typeName: ll(e, r, t),
         value: {},
@@ -3792,7 +3792,7 @@ var ul = S(function (t_) {
           kind: "enum_value",
           proto: C,
           deprecated:
-            (w = (x = C.options) === null || x === void 0 ? void 0 : x.deprecated) !== null && w !== void 0 ? w : !1,
+            (w = (x = C.options) === null || x === void 0 ? void 0 : x.deprecated) !== null && w !== void 0 ? w : false,
           parent: k,
           name: F,
           localName: (0, Xs.safeObjectProperty)(N == null ? F : F.substring(N.length)),
@@ -3811,7 +3811,7 @@ var ul = S(function (t_) {
       kind: "message",
       proto: e,
       deprecated:
-        (x = (d = e.options) === null || d === void 0 ? void 0 : d.deprecated) !== null && x !== void 0 ? x : !1,
+        (x = (d = e.options) === null || d === void 0 ? void 0 : d.deprecated) !== null && x !== void 0 ? x : false,
       file: t,
       parent: r,
       name: e.name,
@@ -3827,7 +3827,7 @@ var ul = S(function (t_) {
         return `message ${this.typeName}`;
       },
     };
-    if (((w = e.options) === null || w === void 0 ? void 0 : w.mapEntry) === !0) u.add(N);
+    if (((w = e.options) === null || w === void 0 ? void 0 : w.mapEntry) === true) u.add(N);
     else
       ((v = r === null || r === void 0 ? void 0 : r.nestedMessages) !== null && v !== void 0 ? v : t.messages).push(N),
         o.add(N);
@@ -3840,7 +3840,7 @@ var ul = S(function (t_) {
       kind: "service",
       proto: e,
       deprecated:
-        (u = (o = e.options) === null || o === void 0 ? void 0 : o.deprecated) !== null && u !== void 0 ? u : !1,
+        (u = (o = e.options) === null || o === void 0 ? void 0 : o.deprecated) !== null && u !== void 0 ? u : false,
       file: t,
       name: e.name,
       typeName: ll(e, void 0, t),
@@ -3872,7 +3872,7 @@ var ul = S(function (t_) {
       kind: "rpc",
       proto: e,
       deprecated:
-        (u = (o = e.options) === null || o === void 0 ? void 0 : o.deprecated) !== null && u !== void 0 ? u : !1,
+        (u = (o = e.options) === null || o === void 0 ? void 0 : o.deprecated) !== null && u !== void 0 ? u : false,
       parent: t,
       name: k,
       localName: (0, Xs.safeObjectProperty)(
@@ -3892,7 +3892,7 @@ var ul = S(function (t_) {
     return {
       kind: "oneof",
       proto: e,
-      deprecated: !1,
+      deprecated: false,
       parent: t,
       fields: [],
       name: e.name,
@@ -3909,7 +3909,7 @@ var ul = S(function (t_) {
         kind: "field",
         proto: e,
         deprecated:
-          (x = (d = e.options) === null || d === void 0 ? void 0 : d.deprecated) !== null && x !== void 0 ? x : !1,
+          (x = (d = e.options) === null || d === void 0 ? void 0 : d.deprecated) !== null && x !== void 0 ? x : false,
         name: e.name,
         number: e.number,
         scalar: void 0,
@@ -3922,7 +3922,7 @@ var ul = S(function (t_) {
         mapKey: void 0,
         delimitedEncoding: void 0,
         packed: void 0,
-        longAsString: !1,
+        longAsString: false,
         getDefaultValue: void 0,
       };
     if (v) {
@@ -3958,7 +3958,7 @@ var ul = S(function (t_) {
           (N.mapKey = M.scalar),
           (N.mapKind = q.fieldKind),
           (N.message = q.message),
-          (N.delimitedEncoding = !1),
+          (N.delimitedEncoding = false),
           (N.enum = q.enum),
           (N.scalar = q.scalar),
           N
@@ -4077,13 +4077,13 @@ var ul = S(function (t_) {
     return u;
   }
   function AP(e, t) {
-    if (e.label != If) return !1;
+    if (e.label != If) return false;
     switch (e.type) {
       case cP:
       case lP:
       case ya:
       case ba:
-        return !1;
+        return false;
     }
     let r = e.options;
     if (r && (0, cl.unsafeIsSetExplicit)(r, "packed")) return r.packed;
@@ -4111,7 +4111,7 @@ var ul = S(function (t_) {
     return hP == Ei("enumType", { proto: e.proto, parent: (t = e.parent) !== null && t !== void 0 ? t : e.file });
   }
   function Zy(e, t) {
-    if (e.type == ya) return !0;
+    if (e.type == ya) return true;
     return mP == Ei("messageEncoding", { proto: e, parent: t });
   }
   function CP(e, t) {
@@ -4137,7 +4137,7 @@ var ul = S(function (t_) {
   }
 });
 var vf = S(function (o_) {
-  Object.defineProperty(o_, "__esModule", { value: !0 });
+  Object.defineProperty(o_, "__esModule", { value: true });
   o_.boot = FP;
   o_.bootFileDescriptorProto = r_;
   var LP = bf(),
@@ -4204,7 +4204,7 @@ var vf = S(function (o_) {
       defaultValue: "",
       oneofIndex: 0,
       jsonName: "",
-      proto3Optional: !1,
+      proto3Optional: false,
     });
     return Object.assign(
       t,
@@ -4217,13 +4217,13 @@ var vf = S(function (o_) {
     var t, r, o;
     let u = Object.create({
       ctype: 0,
-      packed: !1,
+      packed: false,
       jstype: 0,
-      lazy: !1,
-      unverifiedLazy: !1,
-      deprecated: !1,
-      weak: !1,
-      debugRedact: !1,
+      lazy: false,
+      unverifiedLazy: false,
+      deprecated: false,
+      weak: false,
+      debugRedact: false,
       retention: 0,
     });
     return Object.assign(
@@ -4254,14 +4254,14 @@ var vf = S(function (o_) {
   }
 });
 var Ln = S(function (a_) {
-  Object.defineProperty(a_, "__esModule", { value: !0 });
+  Object.defineProperty(a_, "__esModule", { value: true });
   a_.messageDesc = WP;
   function WP(e, t, ...r) {
     return r.reduce((o, u) => o.nestedMessages[u], e.messages[t]);
   }
 });
 var gs = S(function (c_) {
-  Object.defineProperty(c_, "__esModule", { value: !0 });
+  Object.defineProperty(c_, "__esModule", { value: true });
   c_.enumDesc = HP;
   c_.tsEnum = jP;
   function HP(e, t, ...r) {
@@ -4276,7 +4276,7 @@ var gs = S(function (c_) {
   }
 });
 var Js = S(function (C_) {
-  Object.defineProperty(C_, "__esModule", { value: !0 });
+  Object.defineProperty(C_, "__esModule", { value: true });
   C_.FeatureSet_FieldPresence =
     C_.FeatureSet_VisibilityFeature_DefaultSymbolVisibilitySchema =
     C_.FeatureSet_VisibilityFeature_DefaultSymbolVisibility =
@@ -4597,7 +4597,7 @@ var Js = S(function (C_) {
           { name: "java_package", number: 1, type: 9, label: 1 },
           { name: "java_outer_classname", number: 8, type: 9, label: 1 },
           { name: "java_multiple_files", number: 10, type: 8, label: 1, defaultValue: "false", options: {} },
-          { name: "java_generate_equals_and_hash", number: 20, type: 8, label: 1, options: { deprecated: !0 } },
+          { name: "java_generate_equals_and_hash", number: 20, type: 8, label: 1, options: { deprecated: true } },
           { name: "java_string_check_utf8", number: 27, type: 8, label: 1, defaultValue: "false" },
           {
             name: "optimize_for",
@@ -4653,7 +4653,7 @@ var Js = S(function (C_) {
             number: 11,
             type: 8,
             label: 1,
-            options: { deprecated: !0 },
+            options: { deprecated: true },
           },
           { name: "features", number: 12, type: 11, label: 1, typeName: ".google.protobuf.FeatureSet" },
           {
@@ -4689,7 +4689,7 @@ var Js = S(function (C_) {
           { name: "lazy", number: 5, type: 8, label: 1, defaultValue: "false" },
           { name: "unverified_lazy", number: 15, type: 8, label: 1, defaultValue: "false" },
           { name: "deprecated", number: 3, type: 8, label: 1, defaultValue: "false" },
-          { name: "weak", number: 10, type: 8, label: 1, defaultValue: "false", options: { deprecated: !0 } },
+          { name: "weak", number: 10, type: 8, label: 1, defaultValue: "false", options: { deprecated: true } },
           { name: "debug_redact", number: 16, type: 8, label: 1, defaultValue: "false" },
           {
             name: "retention",
@@ -4809,7 +4809,7 @@ var Js = S(function (C_) {
         field: [
           { name: "allow_alias", number: 2, type: 8, label: 1 },
           { name: "deprecated", number: 3, type: 8, label: 1, defaultValue: "false" },
-          { name: "deprecated_legacy_json_field_conflicts", number: 6, type: 8, label: 1, options: { deprecated: !0 } },
+          { name: "deprecated_legacy_json_field_conflicts", number: 6, type: 8, label: 1, options: { deprecated: true } },
           { name: "features", number: 7, type: 11, label: 1, typeName: ".google.protobuf.FeatureSet" },
           {
             name: "uninterpreted_option",
@@ -5146,8 +5146,8 @@ var Js = S(function (C_) {
           {
             name: "Location",
             field: [
-              { name: "path", number: 1, type: 5, label: 3, options: { packed: !0 } },
-              { name: "span", number: 2, type: 5, label: 3, options: { packed: !0 } },
+              { name: "path", number: 1, type: 5, label: 3, options: { packed: true } },
+              { name: "span", number: 2, type: 5, label: 3, options: { packed: true } },
               { name: "leading_comments", number: 3, type: 9, label: 1 },
               { name: "trailing_comments", number: 4, type: 9, label: 1 },
               { name: "leading_detached_comments", number: 6, type: 9, label: 3 },
@@ -5171,7 +5171,7 @@ var Js = S(function (C_) {
           {
             name: "Annotation",
             field: [
-              { name: "path", number: 1, type: 5, label: 3, options: { packed: !0 } },
+              { name: "path", number: 1, type: 5, label: 3, options: { packed: true } },
               { name: "source_file", number: 2, type: 9, label: 1 },
               { name: "begin", number: 3, type: 5, label: 1 },
               { name: "end", number: 4, type: 5, label: 1 },
@@ -5428,7 +5428,7 @@ var Js = S(function (C_) {
   C_.SymbolVisibilitySchema = (0, mn.enumDesc)(C_.file_google_protobuf_descriptor, 1);
 });
 var oo = S(function (M_) {
-  Object.defineProperty(M_, "__esModule", { value: !0 });
+  Object.defineProperty(M_, "__esModule", { value: true });
   M_.fromBinary = mL;
   M_.mergeFromBinary = hL;
   M_.readField = F_;
@@ -5437,16 +5437,16 @@ var oo = S(function (M_) {
     dl = Jr(),
     _a = _i(),
     pL = Xc(),
-    L_ = { readUnknownFields: !0 };
+    L_ = { readUnknownFields: true };
   function U_(e) {
     return e ? Object.assign(Object.assign({}, L_), e) : L_;
   }
   function mL(e, t, r) {
-    let o = (0, dl.reflect)(e, void 0, !1);
-    return Nf(o, new _a.BinaryReader(t), U_(r), !1, t.byteLength), o.message;
+    let o = (0, dl.reflect)(e, void 0, false);
+    return Nf(o, new _a.BinaryReader(t), U_(r), false, t.byteLength), o.message;
   }
   function hL(e, t, r, o) {
-    return Nf((0, dl.reflect)(e, t, !1), new _a.BinaryReader(r), U_(o), !1, r.byteLength), t;
+    return Nf((0, dl.reflect)(e, t, false), new _a.BinaryReader(r), U_(o), false, r.byteLength), t;
   }
   function Nf(e, t, r, o, u) {
     var d;
@@ -5524,17 +5524,17 @@ var oo = S(function (M_) {
           break;
       }
     }
-    if (u === void 0) u = (0, D_.scalarZeroValue)(o.mapKey, !1);
+    if (u === void 0) u = (0, D_.scalarZeroValue)(o.mapKey, false);
     if (d === void 0)
       switch (o.mapKind) {
         case "scalar":
-          d = (0, D_.scalarZeroValue)(o.scalar, !1);
+          d = (0, D_.scalarZeroValue)(o.scalar, false);
           break;
         case "enum":
           d = o.enum.values[0].number;
           break;
         case "message":
-          d = (0, dl.reflect)(o.message, void 0, !1);
+          d = (0, dl.reflect)(o.message, void 0, false);
           break;
       }
     t.set(u, d);
@@ -5556,10 +5556,10 @@ var oo = S(function (M_) {
   }
   function Rf(e, t, r, o) {
     let u = r.delimitedEncoding,
-      d = o !== null && o !== void 0 ? o : (0, dl.reflect)(r.message, void 0, !1);
+      d = o !== null && o !== void 0 ? o : (0, dl.reflect)(r.message, void 0, false);
     return Nf(d, e, t, u, u ? r.number : e.uint32()), d;
   }
-  function io(e, t, r = !1) {
+  function io(e, t, r = false) {
     switch (t) {
       case wn.ScalarType.STRING:
         return e.string(r);
@@ -5595,7 +5595,7 @@ var oo = S(function (M_) {
   }
 });
 var Gn = S(function ($_) {
-  Object.defineProperty($_, "__esModule", { value: !0 });
+  Object.defineProperty($_, "__esModule", { value: true });
   $_.fileDesc = AL;
   var EL = ga(),
     xL = Js(),
@@ -5616,7 +5616,7 @@ var Gn = S(function ($_) {
   }
 });
 var Cf = S(function (B_) {
-  Object.defineProperty(B_, "__esModule", { value: !0 });
+  Object.defineProperty(B_, "__esModule", { value: true });
   B_.TimestampSchema = B_.file_google_protobuf_timestamp = void 0;
   var NL = Gn(),
     RL = Ln();
@@ -5626,7 +5626,7 @@ var Cf = S(function (B_) {
   B_.TimestampSchema = (0, RL.messageDesc)(B_.file_google_protobuf_timestamp, 0);
 });
 var K_ = S(function (Y_) {
-  Object.defineProperty(Y_, "__esModule", { value: !0 });
+  Object.defineProperty(Y_, "__esModule", { value: true });
   Y_.timestampNow = DL;
   Y_.timestampFromDate = G_;
   Y_.timestampDate = PL;
@@ -5653,7 +5653,7 @@ var K_ = S(function (Y_) {
   }
 });
 var Of = S(function (Z_) {
-  Object.defineProperty(Z_, "__esModule", { value: !0 });
+  Object.defineProperty(Z_, "__esModule", { value: true });
   Z_.DurationSchema = Z_.file_google_protobuf_duration = void 0;
   var BL = Gn(),
     VL = Ln();
@@ -5663,7 +5663,7 @@ var Of = S(function (Z_) {
   Z_.DurationSchema = (0, VL.messageDesc)(Z_.file_google_protobuf_duration, 0);
 });
 var z_ = S(function (J_) {
-  Object.defineProperty(J_, "__esModule", { value: !0 });
+  Object.defineProperty(J_, "__esModule", { value: true });
   J_.durationFromMs = jL;
   J_.durationMs = YL;
   var WL = Of(),
@@ -5681,7 +5681,7 @@ var z_ = S(function (J_) {
   }
 });
 var fl = S(function (Q_) {
-  Object.defineProperty(Q_, "__esModule", { value: !0 });
+  Object.defineProperty(Q_, "__esModule", { value: true });
   Q_.AnySchema = Q_.file_google_protobuf_any = void 0;
   var qL = Gn(),
     XL = Ln();
@@ -5691,14 +5691,14 @@ var fl = S(function (Q_) {
   Q_.AnySchema = (0, XL.messageDesc)(Q_.file_google_protobuf_any, 0);
 });
 var co = S(function (oS) {
-  Object.defineProperty(oS, "__esModule", { value: !0 });
+  Object.defineProperty(oS, "__esModule", { value: true });
   oS.toBinary = eU;
   oS.writeField = rS;
   var JL = Jr(),
     Wr = _i(),
     Ft = Vn(),
     zL = 3,
-    nS = { writeUnknownFields: !0 };
+    nS = { writeUnknownFields: true };
   function QL(e) {
     return e ? Object.assign(Object.assign({}, nS), e) : nS;
   }
@@ -5855,7 +5855,7 @@ var co = S(function (oS) {
   }
 });
 var uS = S(function (lS) {
-  Object.defineProperty(lS, "__esModule", { value: !0 });
+  Object.defineProperty(lS, "__esModule", { value: true });
   lS.anyPack = uU;
   lS.anyIs = kf;
   lS.anyUnpack = dU;
@@ -5865,12 +5865,12 @@ var uS = S(function (lS) {
     lU = co(),
     aS = oo();
   function uU(e, t, r) {
-    let o = !1;
-    if (!r) (r = (0, aU.create)(oU.AnySchema)), (o = !0);
+    let o = false;
+    if (!r) (r = (0, aU.create)(oU.AnySchema)), (o = true);
     return (r.value = (0, lU.toBinary)(e, t)), (r.typeUrl = pU(t.$typeName)), o ? r : void 0;
   }
   function kf(e, t) {
-    if (e.typeUrl === "") return !1;
+    if (e.typeUrl === "") return false;
     let r = typeof t == "string" ? t : t.typeName,
       o = cS(e.typeUrl);
     return r === o;
@@ -5896,7 +5896,7 @@ var uS = S(function (lS) {
   }
 });
 var hl = S(function (dS) {
-  Object.defineProperty(dS, "__esModule", { value: !0 });
+  Object.defineProperty(dS, "__esModule", { value: true });
   dS.SourceContextSchema = dS.file_google_protobuf_source_context = void 0;
   var yU = Gn(),
     _U = Ln();
@@ -5906,7 +5906,7 @@ var hl = S(function (dS) {
   dS.SourceContextSchema = (0, _U.messageDesc)(dS.file_google_protobuf_source_context, 0);
 });
 var Pf = S(function (yS) {
-  Object.defineProperty(yS, "__esModule", { value: !0 });
+  Object.defineProperty(yS, "__esModule", { value: true });
   yS.SyntaxSchema =
     yS.Syntax =
     yS.OptionSchema =
@@ -5972,7 +5972,7 @@ var Pf = S(function (yS) {
   yS.SyntaxSchema = (0, Df.enumDesc)(yS.file_google_protobuf_type, 0);
 });
 var xS = S(function (SS) {
-  Object.defineProperty(SS, "__esModule", { value: !0 });
+  Object.defineProperty(SS, "__esModule", { value: true });
   SS.MixinSchema = SS.MethodSchema = SS.ApiSchema = SS.file_google_protobuf_api = void 0;
   var DU = Gn(),
     PU = hl(),
@@ -5987,7 +5987,7 @@ var xS = S(function (SS) {
   SS.MixinSchema = (0, Lf.messageDesc)(SS.file_google_protobuf_api, 2);
 });
 var Ea = S(function (TS) {
-  Object.defineProperty(TS, "__esModule", { value: !0 });
+  Object.defineProperty(TS, "__esModule", { value: true });
   TS.extDesc = MU;
   function MU(e, t, ...r) {
     if (r.length == 0) return e.extensions[t];
@@ -5996,7 +5996,7 @@ var Ea = S(function (TS) {
   }
 });
 var vS = S(function (IS) {
-  Object.defineProperty(IS, "__esModule", { value: !0 });
+  Object.defineProperty(IS, "__esModule", { value: true });
   IS.cpp =
     IS.CppFeatures_StringTypeSchema =
     IS.CppFeatures_StringType =
@@ -6024,7 +6024,7 @@ var vS = S(function (IS) {
   IS.cpp = (0, HU.extDesc)(IS.file_google_protobuf_cpp_features, 0);
 });
 var OS = S(function (NS) {
-  Object.defineProperty(NS, "__esModule", { value: !0 });
+  Object.defineProperty(NS, "__esModule", { value: true });
   NS.EmptySchema = NS.file_google_protobuf_empty = void 0;
   var ZU = Gn(),
     qU = Ln();
@@ -6034,7 +6034,7 @@ var OS = S(function (NS) {
   NS.EmptySchema = (0, qU.messageDesc)(NS.file_google_protobuf_empty, 0);
 });
 var LS = S(function (kS) {
-  Object.defineProperty(kS, "__esModule", { value: !0 });
+  Object.defineProperty(kS, "__esModule", { value: true });
   kS.FieldMaskSchema = kS.file_google_protobuf_field_mask = void 0;
   var XU = Gn(),
     JU = Ln();
@@ -6044,7 +6044,7 @@ var LS = S(function (kS) {
   kS.FieldMaskSchema = (0, JU.messageDesc)(kS.file_google_protobuf_field_mask, 0);
 });
 var WS = S(function (BS) {
-  Object.defineProperty(BS, "__esModule", { value: !0 });
+  Object.defineProperty(BS, "__esModule", { value: true });
   BS.go =
     BS.GoFeatures_StripEnumPrefixSchema =
     BS.GoFeatures_StripEnumPrefix =
@@ -6093,7 +6093,7 @@ var WS = S(function (BS) {
   BS.go = (0, eF.extDesc)(BS.file_google_protobuf_go_features, 0);
 });
 var qS = S(function (KS) {
-  Object.defineProperty(KS, "__esModule", { value: !0 });
+  Object.defineProperty(KS, "__esModule", { value: true });
   KS.java =
     KS.JavaFeatures_Utf8ValidationSchema =
     KS.JavaFeatures_Utf8Validation =
@@ -6137,7 +6137,7 @@ var qS = S(function (KS) {
   KS.java = (0, dF.extDesc)(KS.file_google_protobuf_java_features, 0);
 });
 var QS = S(function (JS) {
-  Object.defineProperty(JS, "__esModule", { value: !0 });
+  Object.defineProperty(JS, "__esModule", { value: true });
   JS.NullValueSchema =
     JS.NullValue =
     JS.ListValueSchema =
@@ -6161,7 +6161,7 @@ var QS = S(function (JS) {
   JS.NullValueSchema = (0, _F.enumDesc)(JS.file_google_protobuf_struct, 0);
 });
 var nE = S(function (eE) {
-  Object.defineProperty(eE, "__esModule", { value: !0 });
+  Object.defineProperty(eE, "__esModule", { value: true });
   eE.BytesValueSchema =
     eE.StringValueSchema =
     eE.BoolValueSchema =
@@ -6189,7 +6189,7 @@ var nE = S(function (eE) {
   eE.BytesValueSchema = (0, ys.messageDesc)(eE.file_google_protobuf_wrappers, 8);
 });
 var oE = S(function (sE) {
-  Object.defineProperty(sE, "__esModule", { value: !0 });
+  Object.defineProperty(sE, "__esModule", { value: true });
   sE.CodeGeneratorResponse_FeatureSchema =
     sE.CodeGeneratorResponse_Feature =
     sE.CodeGeneratorResponse_FileSchema =
@@ -6227,7 +6227,7 @@ var jn = S(function (Wt) {
             var u = Object.getOwnPropertyDescriptor(t, r);
             if (!u || ("get" in u ? !t.__esModule : u.writable || u.configurable))
               u = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -6243,7 +6243,7 @@ var jn = S(function (Wt) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) WF(t, e, r);
       };
-  Object.defineProperty(Wt, "__esModule", { value: !0 });
+  Object.defineProperty(Wt, "__esModule", { value: true });
   In(K_(), Wt);
   In(z_(), Wt);
   In(uS(), Wt);
@@ -6265,7 +6265,7 @@ var jn = S(function (Wt) {
   In(oE(), Wt);
 });
 var Ta = S(function (uE) {
-  Object.defineProperty(uE, "__esModule", { value: !0 });
+  Object.defineProperty(uE, "__esModule", { value: true });
   uE.getExtension = cE;
   uE.setExtension = ZF;
   uE.clearExtension = qF;
@@ -6284,7 +6284,7 @@ var Ta = S(function (uE) {
     $f(t, e);
     let r = zF(e.$unknown, t),
       [o, u, d] = _l(t);
-    for (let x of r) (0, GF.readField)(o, new Mf.BinaryReader(x.data), u, x.wireType, { readUnknownFields: !0 });
+    for (let x of r) (0, GF.readField)(o, new Mf.BinaryReader(x.data), u, x.wireType, { readUnknownFields: true });
     return d();
   }
   function ZF(e, t, r) {
@@ -6293,7 +6293,7 @@ var Ta = S(function (uE) {
     let u = ((o = e.$unknown) !== null && o !== void 0 ? o : []).filter((N) => N.no !== t.number),
       [d, x] = _l(t, r),
       w = new Mf.BinaryWriter();
-    (0, YF.writeField)(w, { writeUnknownFields: !0 }, d, x);
+    (0, YF.writeField)(w, { writeUnknownFields: true }, d, x);
     let v = new Mf.BinaryReader(w.finish());
     while (v.pos < v.len) {
       let [N, k] = v.tag(),
@@ -6315,7 +6315,7 @@ var Ta = S(function (uE) {
   }
   function XF(e, t) {
     let r = e.proto.options;
-    if (!r) return !1;
+    if (!r) return false;
     return lE(r, t);
   }
   function JF(e, t) {
@@ -6359,7 +6359,7 @@ var Ta = S(function (uE) {
   }
 });
 var bE = S(function (gE) {
-  Object.defineProperty(gE, "__esModule", { value: !0 });
+  Object.defineProperty(gE, "__esModule", { value: true });
   gE.equals = mE;
   var wa = Ys(),
     dE = Jr(),
@@ -6367,21 +6367,21 @@ var bE = S(function (gE) {
     fE = jn(),
     Sl = Ta();
   function mE(e, t, r, o) {
-    if (t.$typeName != e.typeName || r.$typeName != e.typeName) return !1;
-    if (t === r) return !0;
+    if (t.$typeName != e.typeName || r.$typeName != e.typeName) return false;
+    if (t === r) return true;
     return El((0, dE.reflect)(e, t), (0, dE.reflect)(e, r), o);
   }
   function El(e, t, r) {
-    if (e.desc.typeName === "google.protobuf.Any" && (r === null || r === void 0 ? void 0 : r.unpackAny) == !0)
+    if (e.desc.typeName === "google.protobuf.Any" && (r === null || r === void 0 ? void 0 : r.unpackAny) == true)
       return oM(e.message, t.message, r);
-    for (let o of e.fields) if (!hE(o, e, t, r)) return !1;
-    if ((r === null || r === void 0 ? void 0 : r.unknown) == !0 && !aM(e, t, r.registry)) return !1;
-    if ((r === null || r === void 0 ? void 0 : r.extensions) == !0 && !cM(e, t, r)) return !1;
-    return !0;
+    for (let o of e.fields) if (!hE(o, e, t, r)) return false;
+    if ((r === null || r === void 0 ? void 0 : r.unknown) == true && !aM(e, t, r.registry)) return false;
+    if ((r === null || r === void 0 ? void 0 : r.extensions) == true && !cM(e, t, r)) return false;
+    return true;
   }
   function hE(e, t, r, o) {
-    if (!t.isSet(e) && !r.isSet(e)) return !0;
-    if (!t.isSet(e) || !r.isSet(e)) return !1;
+    if (!t.isSet(e) && !r.isSet(e)) return true;
+    if (!t.isSet(e) || !r.isSet(e)) return false;
     switch (e.fieldKind) {
       case "scalar":
         return (0, wa.scalarEquals)(e.scalar, t.get(e), r.get(e));
@@ -6394,22 +6394,22 @@ var bE = S(function (gE) {
           d = r.get(e),
           x = [];
         for (let w of u.keys()) {
-          if (!d.has(w)) return !1;
+          if (!d.has(w)) return false;
           x.push(w);
         }
-        for (let w of d.keys()) if (!u.has(w)) return !1;
+        for (let w of d.keys()) if (!u.has(w)) return false;
         for (let w of x) {
           let v = u.get(w),
             N = d.get(w);
           if (v === N) continue;
           switch (e.mapKind) {
             case "enum":
-              return !1;
+              return false;
             case "message":
-              if (!El(v, N, o)) return !1;
+              if (!El(v, N, o)) return false;
               break;
             case "scalar":
-              if (!(0, wa.scalarEquals)(e.scalar, v, N)) return !1;
+              if (!(0, wa.scalarEquals)(e.scalar, v, N)) return false;
               break;
           }
         }
@@ -6418,29 +6418,29 @@ var bE = S(function (gE) {
       case "list": {
         let u = t.get(e),
           d = r.get(e);
-        if (u.size != d.size) return !1;
+        if (u.size != d.size) return false;
         for (let x = 0; x < u.size; x++) {
           let w = u.get(x),
             v = d.get(x);
           if (w === v) continue;
           switch (e.listKind) {
             case "enum":
-              return !1;
+              return false;
             case "message":
-              if (!El(w, v, o)) return !1;
+              if (!El(w, v, o)) return false;
               break;
             case "scalar":
-              if (!(0, wa.scalarEquals)(e.scalar, w, v)) return !1;
+              if (!(0, wa.scalarEquals)(e.scalar, w, v)) return false;
               break;
           }
         }
         break;
       }
     }
-    return !0;
+    return true;
   }
   function oM(e, t, r) {
-    if (e.typeUrl !== t.typeUrl) return !1;
+    if (e.typeUrl !== t.typeUrl) return false;
     let o = (0, fE.anyUnpack)(e, r.registry),
       u = (0, fE.anyUnpack)(t, r.registry);
     if (o && u) {
@@ -6457,15 +6457,15 @@ var bE = S(function (gE) {
     }
     let u = o(e, r),
       d = o(t, r);
-    if (u.length != d.length) return !1;
+    if (u.length != d.length) return false;
     for (let x = 0; x < u.length; x++) {
       let w = u[x],
         v = d[x];
-      if (w.no != v.no) return !1;
-      if (w.wireType != v.wireType) return !1;
-      if (!(0, wa.scalarEquals)(pE.ScalarType.BYTES, w.data, v.data)) return !1;
+      if (w.no != v.no) return false;
+      if (w.wireType != v.wireType) return false;
+      if (!(0, wa.scalarEquals)(pE.ScalarType.BYTES, w.data, v.data)) return false;
     }
-    return !0;
+    return true;
   }
   function cM(e, t, r) {
     function o(x, w) {
@@ -6477,17 +6477,17 @@ var bE = S(function (gE) {
     }
     let u = o(e, r.registry),
       d = o(t, r.registry);
-    if (u.length != d.length || u.some((x) => !d.includes(x))) return !1;
+    if (u.length != d.length || u.some((x) => !d.includes(x))) return false;
     for (let x of u) {
       let [w, v] = (0, Sl.createExtensionContainer)(x, (0, Sl.getExtension)(e.message, x)),
         [N] = (0, Sl.createExtensionContainer)(x, (0, Sl.getExtension)(t.message, x));
-      if (!hE(v, w, N, r)) return !1;
+      if (!hE(v, w, N, r)) return false;
     }
-    return !0;
+    return true;
   }
 });
 var Bf = S(function (_E) {
-  Object.defineProperty(_E, "__esModule", { value: !0 });
+  Object.defineProperty(_E, "__esModule", { value: true });
   _E.isFieldSet = uM;
   _E.clearField = dM;
   var yE = Ks();
@@ -6591,7 +6591,7 @@ var xE = S(function (Gr) {
           if ((U(M), d.shift(), d.length)) v(d[0][0], d[0][1]);
         }
       };
-  Object.defineProperty(Gr, "__esModule", { value: !0 });
+  Object.defineProperty(Gr, "__esModule", { value: true });
   Gr.sizeDelimitedEncode = yM;
   Gr.sizeDelimitedDecodeStream = _M;
   Gr.sizeDelimitedPeek = EE;
@@ -6611,8 +6611,8 @@ var xE = S(function (Gr) {
       }
       let N = new Uint8Array(0);
       try {
-        for (var k = !0, C = mM(t), F; (F = yield fo(C.next())), (u = F.done), !u; k = !0) {
-          (w = F.value), (k = !1), (N = v(N, w));
+        for (var k = true, C = mM(t), F; (F = yield fo(C.next())), (u = F.done), !u; k = true) {
+          (w = F.value), (k = false), (N = v(N, w));
           for (;;) {
             let M = EE(N);
             if (M.eof) break;
@@ -6634,7 +6634,7 @@ var xE = S(function (Gr) {
     });
   }
   function EE(e) {
-    let t = { eof: !0, size: null, offset: null };
+    let t = { eof: true, size: null, offset: null };
     for (let r = 0; r < 10; r++) {
       if (r > e.byteLength) return t;
       if ((e[r] & 128) == 0) {
@@ -6646,7 +6646,7 @@ var xE = S(function (Gr) {
           if (d instanceof RangeError) return t;
           throw d;
         }
-        return { eof: !1, size: u, offset: o.pos };
+        return { eof: false, size: u, offset: o.pos };
       }
     }
     throw Error("invalid varint");
@@ -6661,7 +6661,7 @@ var xl = S(function (Hr) {
             var u = Object.getOwnPropertyDescriptor(t, r);
             if (!u || ("get" in u ? !t.__esModule : u.writable || u.configurable))
               u = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -6677,7 +6677,7 @@ var xl = S(function (Hr) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) SM(t, e, r);
       };
-  Object.defineProperty(Hr, "__esModule", { value: !0 });
+  Object.defineProperty(Hr, "__esModule", { value: true });
   Ia(_i(), Hr);
   Ia(ga(), Hr);
   Ia(Qc(), Hr);
@@ -6685,7 +6685,7 @@ var xl = S(function (Hr) {
   Ia(xE(), Hr);
 });
 var DE = S(function (kE) {
-  Object.defineProperty(kE, "__esModule", { value: !0 });
+  Object.defineProperty(kE, "__esModule", { value: true });
   kE.toJson = NE;
   kE.toJsonString = AM;
   kE.enumToJson = vM;
@@ -6699,7 +6699,7 @@ var DE = S(function (kE) {
     Ti = nl(),
     TM = 3,
     wM = 2,
-    wE = { alwaysEmitImplicit: !1, enumAsInteger: !1, useProtoFieldName: !1 };
+    wE = { alwaysEmitImplicit: false, enumAsInteger: false, useProtoFieldName: false };
   function IM(e) {
     return e ? Object.assign(Object.assign({}, wE), e) : wE;
   }
@@ -6972,7 +6972,7 @@ var DE = S(function (kE) {
   }
 });
 var ZE = S(function (KE) {
-  Object.defineProperty(KE, "__esModule", { value: !0 });
+  Object.defineProperty(KE, "__esModule", { value: true });
   KE.fromJsonString = BM;
   KE.mergeFromJsonString = VM;
   KE.fromJson = $E;
@@ -6989,7 +6989,7 @@ var ZE = S(function (KE) {
     $M = ga(),
     zs = jn(),
     PE = Ta(),
-    LE = { ignoreUnknownFields: !1 };
+    LE = { ignoreUnknownFields: false };
   function ME(e) {
     return e ? Object.assign(Object.assign({}, LE), e) : LE;
   }
@@ -7019,7 +7019,7 @@ var ZE = S(function (KE) {
     return t;
   }
   function WM(e, t) {
-    return jf(e, t, !1);
+    return jf(e, t, false);
   }
   function GM(e, t) {
     return e.values.find((r) => r.name === t) !== void 0;
@@ -7201,9 +7201,9 @@ var ZE = S(function (KE) {
       case or.ScalarType.BOOL:
         switch (t) {
           case "true":
-            return !0;
+            return true;
           case "false":
-            return !1;
+            return false;
         }
         return t;
       case or.ScalarType.INT32:
@@ -7235,30 +7235,30 @@ var ZE = S(function (KE) {
     }
   }
   function JM(e, t, r) {
-    if (!e.desc.typeName.startsWith("google.protobuf.")) return !1;
+    if (!e.desc.typeName.startsWith("google.protobuf.")) return false;
     switch (e.desc.typeName) {
       case "google.protobuf.Any":
-        return zM(e.message, t, r), !0;
+        return zM(e.message, t, r), true;
       case "google.protobuf.Timestamp":
-        return QM(e.message, t), !0;
+        return QM(e.message, t), true;
       case "google.protobuf.Duration":
-        return e$(e.message, t), !0;
+        return e$(e.message, t), true;
       case "google.protobuf.FieldMask":
-        return t$(e.message, t), !0;
+        return t$(e.message, t), true;
       case "google.protobuf.Struct":
-        return jE(e.message, t), !0;
+        return jE(e.message, t), true;
       case "google.protobuf.Value":
-        return Kf(e.message, t), !0;
+        return Kf(e.message, t), true;
       case "google.protobuf.ListValue":
-        return YE(e.message, t), !0;
+        return YE(e.message, t), true;
       default:
         if ((0, zs.isWrapperDesc)(e.desc)) {
           let o = e.desc.fields[0];
           if (t === null) e.clear(o);
           else e.set(o, Yf(o, t));
-          return !0;
+          return true;
         }
-        return !1;
+        return false;
     }
   }
   function zM(e, t, r) {
@@ -7361,7 +7361,7 @@ var ZE = S(function (KE) {
   }
 });
 var QE = S(function (zE) {
-  Object.defineProperty(zE, "__esModule", { value: !0 });
+  Object.defineProperty(zE, "__esModule", { value: true });
   zE.merge = u$;
   var qE = Jr();
   function u$(e, t, r) {
@@ -7404,7 +7404,7 @@ var ar = S(function (lt) {
             var u = Object.getOwnPropertyDescriptor(t, r);
             if (!u || ("get" in u ? !t.__esModule : u.writable || u.configurable))
               u = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -7420,7 +7420,7 @@ var ar = S(function (lt) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) f$(t, e, r);
       };
-  Object.defineProperty(lt, "__esModule", { value: !0 });
+  Object.defineProperty(lt, "__esModule", { value: true });
   lt.getOption =
     lt.hasOption =
     lt.clearExtension =
@@ -7441,20 +7441,20 @@ var ar = S(function (lt) {
   vr(ul(), lt);
   var p$ = co();
   Object.defineProperty(lt, "toBinary", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return p$.toBinary;
     },
   });
   var ex = oo();
   Object.defineProperty(lt, "fromBinary", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ex.fromBinary;
     },
   });
   Object.defineProperty(lt, "mergeFromBinary", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ex.mergeFromBinary;
     },
@@ -7464,37 +7464,37 @@ var ar = S(function (lt) {
   vr(QE(), lt);
   var mo = Ta();
   Object.defineProperty(lt, "hasExtension", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return mo.hasExtension;
     },
   });
   Object.defineProperty(lt, "getExtension", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return mo.getExtension;
     },
   });
   Object.defineProperty(lt, "setExtension", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return mo.setExtension;
     },
   });
   Object.defineProperty(lt, "clearExtension", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return mo.clearExtension;
     },
   });
   Object.defineProperty(lt, "hasOption", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return mo.hasOption;
     },
   });
   Object.defineProperty(lt, "getOption", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return mo.getOption;
     },
@@ -7502,7 +7502,7 @@ var ar = S(function (lt) {
   vr(qr(), lt);
 });
 var Na = S(function (tx) {
-  Object.defineProperty(tx, "__esModule", { value: !0 });
+  Object.defineProperty(tx, "__esModule", { value: true });
   tx.celFromScalar = h$;
   var wi = ar(),
     m$ = Ar();
@@ -7523,7 +7523,7 @@ var Na = S(function (tx) {
   }
 });
 var es = S(function (ax) {
-  Object.defineProperty(ax, "__esModule", { value: !0 });
+  Object.defineProperty(ax, "__esModule", { value: true });
   ax.EMPTY_LIST = void 0;
   ax.celList = rx;
   ax.celListConcat = _$;
@@ -7624,7 +7624,7 @@ var es = S(function (ax) {
   ax.EMPTY_LIST = rx([]);
 });
 var ho = S(function (dx) {
-  Object.defineProperty(dx, "__esModule", { value: !0 });
+  Object.defineProperty(dx, "__esModule", { value: true });
   dx.setEvalContext = lx;
   dx.getEvalContext = ux;
   dx.withEvalContext = w$;
@@ -7657,7 +7657,7 @@ var ho = S(function (dx) {
   }
 });
 var Sr = S(function (px) {
-  Object.defineProperty(px, "__esModule", { value: !0 });
+  Object.defineProperty(px, "__esModule", { value: true });
   px.DURATION = px.TIMESTAMP = px.CelScalar = void 0;
   px.mapType = Nl;
   px.listType = Rl;
@@ -7743,7 +7743,7 @@ var Sr = S(function (px) {
       case "string":
         return px.CelScalar.STRING;
       case "object":
-        switch (!0) {
+        switch (true) {
           case e === null:
             return px.CelScalar.NULL;
           case e instanceof Uint8Array:
@@ -7829,7 +7829,7 @@ var Sr = S(function (px) {
   }
 });
 var Ss = S(function (_x) {
-  Object.defineProperty(_x, "__esModule", { value: !0 });
+  Object.defineProperty(_x, "__esModule", { value: true });
   _x.toCel = K$;
   _x.unwrapAny = Z$;
   _x.reflectMsgToCel = hx;
@@ -7853,7 +7853,7 @@ var Ss = S(function (_x) {
       default:
         throw Error(`unsupported input ${typeof e}`);
     }
-    switch (!0) {
+    switch (true) {
       case e === null:
       case e instanceof Uint8Array:
       case (0, Jf.isCelList)(e):
@@ -7911,7 +7911,7 @@ var Ss = S(function (_x) {
     return e.value;
   }
   function Q$(e) {
-    switch (!0) {
+    switch (true) {
       case (0, Ol.isMessage)(e, Ts.StructSchema):
         return gx(e);
       case (0, Ol.isMessage)(e, Ts.ValueSchema):
@@ -7946,7 +7946,7 @@ var Ss = S(function (_x) {
   }
 });
 var xs = S(function (Ix) {
-  Object.defineProperty(Ix, "__esModule", { value: !0 });
+  Object.defineProperty(Ix, "__esModule", { value: true });
   Ix.EMPTY_MAP = void 0;
   Ix.celMap = xx;
   Ix.isCelMap = sB;
@@ -8076,7 +8076,7 @@ var xs = S(function (Ix) {
   Ix.EMPTY_MAP = xx(new Map());
 });
 var Rx = S(function (Nx) {
-  Object.defineProperty(Nx, "__esModule", { value: !0 });
+  Object.defineProperty(Nx, "__esModule", { value: true });
   Nx.createRegistryWithWKT = cB;
   var vx = ar(),
     ka = jn(),
@@ -8092,7 +8092,7 @@ var Rx = S(function (Nx) {
   }
 });
 var sp = S(function (Cx) {
-  Object.defineProperty(Cx, "__esModule", { value: !0 });
+  Object.defineProperty(Cx, "__esModule", { value: true });
   Cx.Namespace = void 0;
   class rp {
     _name;
@@ -8135,7 +8135,7 @@ var sp = S(function (Cx) {
   Cx.Namespace = rp;
 });
 var Ux = S(function (Lx) {
-  Object.defineProperty(Lx, "__esModule", { value: !0 });
+  Object.defineProperty(Lx, "__esModule", { value: true });
   Lx.createResolver = dB;
   var uB = Ss(),
     kx = Symbol.for("@bufbuild/cel/resolver");
@@ -8202,7 +8202,7 @@ var Ux = S(function (Lx) {
   }
 });
 var Pl = S(function (Fx) {
-  Object.defineProperty(Fx, "__esModule", { value: !0 });
+  Object.defineProperty(Fx, "__esModule", { value: true });
   Fx.SUBTRACT =
     Fx.OPT_SELECT =
     Fx.OPT_INDEX =
@@ -8264,7 +8264,7 @@ var Pl = S(function (Fx) {
   Fx.SUBTRACT = "_-_";
 });
 var ap = S(function (Gx) {
-  Object.defineProperty(Gx, "__esModule", { value: !0 });
+  Object.defineProperty(Gx, "__esModule", { value: true });
   Gx.createDuration = op;
   Gx.parseDuration = ZB;
   var GB = jn(),
@@ -8282,10 +8282,10 @@ var ap = S(function (Gx) {
       ns: 1n,
       us: 1000n,
       \u{b5}s: 1000n,
-      ms: 1000n * 1000n,
-      s: 1000n * 1000n * 1000n,
-      m: 1000n * 1000n * 1000n * 60n,
-      h: 1000n * 1000n * 1000n * 60n * 60n,
+      ms: 1000000n,
+      s: 1000000000n,
+      m: 60000000000n,
+      h: 3600000000000n,
     }),
     Bx = /^\d+/,
     KB = new RegExp(`^(${Object.keys(Wx).join("|")})`);
@@ -8312,7 +8312,7 @@ var ap = S(function (Gx) {
   }
 });
 var jx = S(function (Hx) {
-  Object.defineProperty(Hx, "__esModule", { value: !0 });
+  Object.defineProperty(Hx, "__esModule", { value: true });
   Hx.createTimestamp = tV;
   var JB = ar(),
     zB = jn(),
@@ -8329,7 +8329,7 @@ var jx = S(function (Hx) {
   }
 });
 var lp = S(function (zx) {
-  Object.defineProperty(zx, "__esModule", { value: !0 });
+  Object.defineProperty(zx, "__esModule", { value: true });
   zx.equals = cp;
   zx.equalsType = Jx;
   var Yx = ms(),
@@ -8340,12 +8340,12 @@ var lp = S(function (zx) {
     qx = Ar(),
     Xx = Sr();
   function cp(e, t) {
-    if (e === t) return !0;
+    if (e === t) return true;
     if ((0, qx.isCelUint)(e)) e = e.value;
     if ((0, qx.isCelUint)(t)) t = t.value;
     if ((typeof e === "number" || typeof e === "bigint") && (typeof t === "number" || typeof t === "bigint"))
       return e == t;
-    switch (!0) {
+    switch (true) {
       case e instanceof Uint8Array:
         return t instanceof Uint8Array && aV(e, t);
       case (0, Kx.isCelList)(e):
@@ -8356,41 +8356,41 @@ var lp = S(function (zx) {
         return (0, Xx.isCelType)(t) && Jx(e, t);
     }
     if ((0, Yx.isReflectMessage)(e)) {
-      if (!(0, Yx.isReflectMessage)(t)) return !1;
-      if (e.desc.typeName !== t.desc.typeName) return !1;
+      if (!(0, Yx.isReflectMessage)(t)) return false;
+      if (e.desc.typeName !== t.desc.typeName) return false;
       return (0, sV.equals)(e.desc, e.message, t.message, {
         registry: (0, rV.getEvalContext)().registry,
-        unpackAny: !0,
-        unknown: !0,
-        extensions: !0,
+        unpackAny: true,
+        unknown: true,
+        extensions: true,
       });
     }
-    return !1;
+    return false;
   }
   function Jx(e, t) {
     return e.kind === t.kind && e.name === t.name;
   }
   function iV(e, t) {
-    if (e.size !== t.size) return !1;
-    for (let r = 0; r < e.size; r++) if (!cp(e.get(r), t.get(r))) return !1;
-    return !0;
+    if (e.size !== t.size) return false;
+    for (let r = 0; r < e.size; r++) if (!cp(e.get(r), t.get(r))) return false;
+    return true;
   }
   function oV(e, t) {
-    if (e.size !== t.size) return !1;
+    if (e.size !== t.size) return false;
     for (let [r, o] of e) {
       let u = t.get(r);
-      if (u === void 0 || !cp(o, u)) return !1;
+      if (u === void 0 || !cp(o, u)) return false;
     }
-    return !0;
+    return true;
   }
   function aV(e, t) {
-    if (e.length !== t.length) return !1;
-    for (let r = 0; r < e.length; r++) if (e[r] !== t[r]) return !1;
-    return !0;
+    if (e.length !== t.length) return false;
+    for (let r = 0; r < e.length; r++) if (e[r] !== t[r]) return false;
+    return true;
   }
 });
 var Ii = S(function (rT) {
-  Object.defineProperty(rT, "__esModule", { value: !0 });
+  Object.defineProperty(rT, "__esModule", { value: true });
   rT.celFunc = mV;
   rT.celMethod = hV;
   var uV = lp(),
@@ -8461,7 +8461,7 @@ var Ii = S(function (rT) {
   }
 });
 var hp = S(function (fT) {
-  Object.defineProperty(fT, "__esModule", { value: !0 });
+  Object.defineProperty(fT, "__esModule", { value: true });
   fT.safeInt = So;
   fT.safeUint = Ll;
   var It = Pl(),
@@ -8547,7 +8547,7 @@ var hp = S(function (fT) {
   ];
 });
 var mT = S(function (pT) {
-  Object.defineProperty(pT, "__esModule", { value: !0 });
+  Object.defineProperty(pT, "__esModule", { value: true });
   var La = ar(),
     Pa = jn(),
     Qs = hp(),
@@ -8556,7 +8556,7 @@ var mT = S(function (pT) {
     bt = Ii(),
     vV = ho(),
     NV = new TextEncoder(),
-    RV = new TextDecoder(void 0, { fatal: !0 });
+    RV = new TextDecoder(void 0, { fatal: true });
   function CV(e) {
     switch (e) {
       case "true":
@@ -8564,13 +8564,13 @@ var mT = S(function (pT) {
       case "TRUE":
       case "t":
       case "1":
-        return !0;
+        return true;
       case "false":
       case "False":
       case "FALSE":
       case "f":
       case "0":
-        return !1;
+        return false;
     }
     throw Error(`Unable to convert string '${e}' to bool`);
   }
@@ -8634,7 +8634,7 @@ var mT = S(function (pT) {
   ];
 });
 var bp = S(function (hT) {
-  Object.defineProperty(hT, "__esModule", { value: !0 });
+  Object.defineProperty(hT, "__esModule", { value: true });
   hT.GREATER_EQUALS_STRING =
     hT.GREATER_EQUALS_INT64_UINT64 =
     hT.GREATER_EQUALS_INT64_DOUBLE =
@@ -9025,7 +9025,7 @@ var bp = S(function (hT) {
   hT.UINT_TO_UINT = "uint64_to_uint64";
 });
 var TT = S(function (xT) {
-  Object.defineProperty(xT, "__esModule", { value: !0 });
+  Object.defineProperty(xT, "__esModule", { value: true });
   xT.matches = ET;
   var Ve = Pl(),
     Rr = bp(),
@@ -9077,8 +9077,8 @@ var TT = S(function (xT) {
     return e.length - t.length;
   }
   function hH(e, t) {
-    for (let r of t) if ((0, _p.equals)(r, e)) return !0;
-    return !1;
+    for (let r of t) if ((0, _p.equals)(r, e)) return true;
+    return false;
   }
   function Ua(e, t) {
     return t.has(e);
@@ -9175,7 +9175,7 @@ var TT = S(function (xT) {
   ];
 });
 var AT = S(function (IT) {
-  Object.defineProperty(IT, "__esModule", { value: !0 });
+  Object.defineProperty(IT, "__esModule", { value: true });
   var Sp = jn(),
     vi = Sr(),
     lr = bp(),
@@ -9221,7 +9221,7 @@ var AT = S(function (IT) {
     }
     let d = new Intl.DateTimeFormat("en-US", {
         hourCycle: "h23",
-        hour12: !1,
+        hour12: false,
         timeZone: t,
         year: "numeric",
         month: "numeric",
@@ -9302,7 +9302,7 @@ var AT = S(function (IT) {
   ];
 });
 var Ep = S(function (RT) {
-  Object.defineProperty(RT, "__esModule", { value: !0 });
+  Object.defineProperty(RT, "__esModule", { value: true });
   RT.celEnv = RH;
   var vT = Rx(),
     xH = sp(),
@@ -9339,7 +9339,7 @@ var Ep = S(function (RT) {
   }
 });
 var FT = S(function (LT) {
-  Object.defineProperty(LT, "__esModule", { value: !0 });
+  Object.defineProperty(LT, "__esModule", { value: true });
   LT.embedFileDesc = PH;
   LT.pathInFileDesc = LH;
   LT.createFileDescriptorProtoBoot = kT;
@@ -9351,7 +9351,7 @@ var FT = S(function (LT) {
     Lt = Js();
   function PH(e) {
     let t = {
-      bootable: !1,
+      bootable: false,
       proto() {
         let r = (0, DH.clone)(Lt.FileDescriptorProtoSchema, e);
         return (
@@ -9368,7 +9368,7 @@ var FT = S(function (LT) {
     };
     return e.name == "google/protobuf/descriptor.proto"
       ? Object.assign(Object.assign({}, t), {
-          bootable: !0,
+          bootable: true,
           boot() {
             return kT(this.proto());
           },
@@ -9500,7 +9500,7 @@ var FT = S(function (LT) {
   }
 });
 var $T = S(function (MT) {
-  Object.defineProperty(MT, "__esModule", { value: !0 });
+  Object.defineProperty(MT, "__esModule", { value: true });
   MT.serviceDesc = GH;
   function GH(e, t, ...r) {
     if (r.length > 0) throw Error();
@@ -9508,7 +9508,7 @@ var $T = S(function (MT) {
   }
 });
 var WT = S(function (BT) {
-  Object.defineProperty(BT, "__esModule", { value: !0 });
+  Object.defineProperty(BT, "__esModule", { value: true });
   BT.symbols = BT.wktPublicImportPaths = BT.packageName = void 0;
   BT.packageName = "@bufbuild/protobuf";
   BT.wktPublicImportPaths = {
@@ -9529,44 +9529,44 @@ var WT = S(function (BT) {
     "google/protobuf/wrappers.proto": BT.packageName + "/wkt",
   };
   BT.symbols = {
-    isMessage: { typeOnly: !1, bootstrapWktFrom: "../../is-message.js", from: BT.packageName },
-    Message: { typeOnly: !0, bootstrapWktFrom: "../../types.js", from: BT.packageName },
-    create: { typeOnly: !1, bootstrapWktFrom: "../../create.js", from: BT.packageName },
-    fromJson: { typeOnly: !1, bootstrapWktFrom: "../../from-json.js", from: BT.packageName },
-    fromJsonString: { typeOnly: !1, bootstrapWktFrom: "../../from-json.js", from: BT.packageName },
-    fromBinary: { typeOnly: !1, bootstrapWktFrom: "../../from-binary.js", from: BT.packageName },
-    toBinary: { typeOnly: !1, bootstrapWktFrom: "../../to-binary.js", from: BT.packageName },
-    toJson: { typeOnly: !1, bootstrapWktFrom: "../../to-json.js", from: BT.packageName },
-    toJsonString: { typeOnly: !1, bootstrapWktFrom: "../../to-json.js", from: BT.packageName },
-    protoInt64: { typeOnly: !1, bootstrapWktFrom: "../../proto-int64.js", from: BT.packageName },
-    JsonValue: { typeOnly: !0, bootstrapWktFrom: "../../json-value.js", from: BT.packageName },
-    JsonObject: { typeOnly: !0, bootstrapWktFrom: "../../json-value.js", from: BT.packageName },
+    isMessage: { typeOnly: false, bootstrapWktFrom: "../../is-message.js", from: BT.packageName },
+    Message: { typeOnly: true, bootstrapWktFrom: "../../types.js", from: BT.packageName },
+    create: { typeOnly: false, bootstrapWktFrom: "../../create.js", from: BT.packageName },
+    fromJson: { typeOnly: false, bootstrapWktFrom: "../../from-json.js", from: BT.packageName },
+    fromJsonString: { typeOnly: false, bootstrapWktFrom: "../../from-json.js", from: BT.packageName },
+    fromBinary: { typeOnly: false, bootstrapWktFrom: "../../from-binary.js", from: BT.packageName },
+    toBinary: { typeOnly: false, bootstrapWktFrom: "../../to-binary.js", from: BT.packageName },
+    toJson: { typeOnly: false, bootstrapWktFrom: "../../to-json.js", from: BT.packageName },
+    toJsonString: { typeOnly: false, bootstrapWktFrom: "../../to-json.js", from: BT.packageName },
+    protoInt64: { typeOnly: false, bootstrapWktFrom: "../../proto-int64.js", from: BT.packageName },
+    JsonValue: { typeOnly: true, bootstrapWktFrom: "../../json-value.js", from: BT.packageName },
+    JsonObject: { typeOnly: true, bootstrapWktFrom: "../../json-value.js", from: BT.packageName },
     codegen: {
-      boot: { typeOnly: !1, bootstrapWktFrom: "../../codegenv2/boot.js", from: BT.packageName + "/codegenv2" },
-      fileDesc: { typeOnly: !1, bootstrapWktFrom: "../../codegenv2/file.js", from: BT.packageName + "/codegenv2" },
-      enumDesc: { typeOnly: !1, bootstrapWktFrom: "../../codegenv2/enum.js", from: BT.packageName + "/codegenv2" },
-      extDesc: { typeOnly: !1, bootstrapWktFrom: "../../codegenv2/extension.js", from: BT.packageName + "/codegenv2" },
+      boot: { typeOnly: false, bootstrapWktFrom: "../../codegenv2/boot.js", from: BT.packageName + "/codegenv2" },
+      fileDesc: { typeOnly: false, bootstrapWktFrom: "../../codegenv2/file.js", from: BT.packageName + "/codegenv2" },
+      enumDesc: { typeOnly: false, bootstrapWktFrom: "../../codegenv2/enum.js", from: BT.packageName + "/codegenv2" },
+      extDesc: { typeOnly: false, bootstrapWktFrom: "../../codegenv2/extension.js", from: BT.packageName + "/codegenv2" },
       messageDesc: {
-        typeOnly: !1,
+        typeOnly: false,
         bootstrapWktFrom: "../../codegenv2/message.js",
         from: BT.packageName + "/codegenv2",
       },
       serviceDesc: {
-        typeOnly: !1,
+        typeOnly: false,
         bootstrapWktFrom: "../../codegenv2/service.js",
         from: BT.packageName + "/codegenv2",
       },
-      tsEnum: { typeOnly: !1, bootstrapWktFrom: "../../codegenv2/enum.js", from: BT.packageName + "/codegenv2" },
-      GenFile: { typeOnly: !0, bootstrapWktFrom: "../../codegenv2/types.js", from: BT.packageName + "/codegenv2" },
-      GenEnum: { typeOnly: !0, bootstrapWktFrom: "../../codegenv2/types.js", from: BT.packageName + "/codegenv2" },
-      GenExtension: { typeOnly: !0, bootstrapWktFrom: "../../codegenv2/types.js", from: BT.packageName + "/codegenv2" },
-      GenMessage: { typeOnly: !0, bootstrapWktFrom: "../../codegenv2/types.js", from: BT.packageName + "/codegenv2" },
-      GenService: { typeOnly: !0, bootstrapWktFrom: "../../codegenv2/types.js", from: BT.packageName + "/codegenv2" },
+      tsEnum: { typeOnly: false, bootstrapWktFrom: "../../codegenv2/enum.js", from: BT.packageName + "/codegenv2" },
+      GenFile: { typeOnly: true, bootstrapWktFrom: "../../codegenv2/types.js", from: BT.packageName + "/codegenv2" },
+      GenEnum: { typeOnly: true, bootstrapWktFrom: "../../codegenv2/types.js", from: BT.packageName + "/codegenv2" },
+      GenExtension: { typeOnly: true, bootstrapWktFrom: "../../codegenv2/types.js", from: BT.packageName + "/codegenv2" },
+      GenMessage: { typeOnly: true, bootstrapWktFrom: "../../codegenv2/types.js", from: BT.packageName + "/codegenv2" },
+      GenService: { typeOnly: true, bootstrapWktFrom: "../../codegenv2/types.js", from: BT.packageName + "/codegenv2" },
     },
   };
 });
 var HT = S(function (GT) {
-  Object.defineProperty(GT, "__esModule", { value: !0 });
+  Object.defineProperty(GT, "__esModule", { value: true });
   GT.scalarTypeScriptType = YH;
   GT.scalarJsonType = ZH;
   var tn = Vn();
@@ -9615,7 +9615,7 @@ var HT = S(function (GT) {
   }
 });
 var YT = S(function (jT) {
-  Object.defineProperty(jT, "__esModule", { value: !0 });
+  Object.defineProperty(jT, "__esModule", { value: true });
 });
 var xp = S(function (Kn) {
   var JH =
@@ -9626,7 +9626,7 @@ var xp = S(function (Kn) {
             var u = Object.getOwnPropertyDescriptor(t, r);
             if (!u || ("get" in u ? !t.__esModule : u.writable || u.configurable))
               u = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -9642,7 +9642,7 @@ var xp = S(function (Kn) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) JH(t, e, r);
       };
-  Object.defineProperty(Kn, "__esModule", { value: !0 });
+  Object.defineProperty(Kn, "__esModule", { value: true });
   ss(vf(), Kn);
   ss(FT(), Kn);
   ss(gs(), Kn);
@@ -9655,7 +9655,7 @@ var xp = S(function (Kn) {
   ss(YT(), Kn);
 });
 var Gl = S(function (ZT) {
-  Object.defineProperty(ZT, "__esModule", { value: !0 });
+  Object.defineProperty(ZT, "__esModule", { value: true });
   ZT.SourceInfo_Extension_ComponentSchema =
     ZT.SourceInfo_Extension_Component =
     ZT.SourceInfo_Extension_VersionSchema =
@@ -9702,7 +9702,7 @@ var Gl = S(function (ZT) {
   ZT.SourceInfo_Extension_ComponentSchema = (0, zn.enumDesc)(ZT.file_cel_expr_syntax, 3, 0, 0);
 });
 var wp = S(function (XT) {
-  Object.defineProperty(XT, "__esModule", { value: !0 });
+  Object.defineProperty(XT, "__esModule", { value: true });
   class Hl {
     builder;
     function;
@@ -9713,10 +9713,10 @@ var wp = S(function (XT) {
       (this.builder = e), (this.function = t), (this.terms = [r]), (this.ops = []), (this.variadicASTs = o);
     }
     static newVariadicLogicManager(e, t, r) {
-      return new Hl(e, t, r, !0);
+      return new Hl(e, t, r, true);
     }
     static newBalancingLogicManager(e, t, r) {
-      return new Hl(e, t, r, !1);
+      return new Hl(e, t, r, false);
     }
     addTerm(e, t) {
       this.terms.push(t), this.ops.push(e);
@@ -9747,7 +9747,7 @@ var wp = S(function (XT) {
   XT.default = Hl;
 });
 var QT = S(function (zT) {
-  Object.defineProperty(zT, "__esModule", { value: !0 });
+  Object.defineProperty(zT, "__esModule", { value: true });
   var pj = wp(),
     mj = new TextEncoder(),
     Fn = "@result";
@@ -9771,7 +9771,7 @@ var QT = S(function (zT) {
     nextEntry(e, t, r) {
       return (
         (this.sourceInfo.positions[(++this.#e).toString()] = e),
-        { $typeName: "cel.expr.Expr.CreateStruct.Entry", id: this.#e, keyKind: t, value: r, optionalEntry: !1 }
+        { $typeName: "cel.expr.Expr.CreateStruct.Entry", id: this.#e, keyKind: t, value: r, optionalEntry: false }
       );
     }
     newConstExpr(e, t) {
@@ -9843,7 +9843,7 @@ var QT = S(function (zT) {
     newSelectExpr(e, t, r) {
       return this.nextExpr(e, {
         case: "selectExpr",
-        value: { $typeName: "cel.expr.Expr.Select", operand: t, field: r, testOnly: !1 },
+        value: { $typeName: "cel.expr.Expr.Select", operand: t, field: r, testOnly: false },
       });
     }
     newIndexExpr(e, t, r) {
@@ -9851,7 +9851,7 @@ var QT = S(function (zT) {
     }
     expandHasMacro(e, t) {
       if (t.exprKind.case !== "selectExpr") return this.newCallExpr(e, "has", [t]);
-      return (t.exprKind.value.testOnly = !0), t;
+      return (t.exprKind.value.testOnly = true), t;
     }
     newListExpr(e, t) {
       return this.nextExpr(e, {
@@ -9885,7 +9885,7 @@ var QT = S(function (zT) {
           iterVar: r,
           iterVar2: "",
           iterRange: t,
-          loopCondition: this.newConstExpr(e, { case: "boolValue", value: !0 }),
+          loopCondition: this.newConstExpr(e, { case: "boolValue", value: true }),
           loopStep: o,
           result: this.newIdentExpr(e, Fn),
         },
@@ -9896,7 +9896,7 @@ var QT = S(function (zT) {
         e,
         t,
         r,
-        !1,
+        false,
         this.newCallExpr(e, "_||_", [this.newIdentExpr(e, Fn), o]),
         this.newCallExpr(e, "@not_strictly_false", [this.newCallExpr(e, "!_", [this.newIdentExpr(e, Fn)])]),
       );
@@ -9906,7 +9906,7 @@ var QT = S(function (zT) {
         e,
         t,
         r,
-        !0,
+        true,
         this.newCallExpr(e, "_&&_", [this.newIdentExpr(e, Fn), o]),
         this.newCallExpr(e, "@not_strictly_false", [this.newIdentExpr(e, Fn)]),
       );
@@ -9953,7 +9953,7 @@ var QT = S(function (zT) {
           iterVar: r,
           iterVar2: "",
           iterRange: t,
-          loopCondition: this.newConstExpr(e, { case: "boolValue", value: !0 }),
+          loopCondition: this.newConstExpr(e, { case: "boolValue", value: true }),
           loopStep: this.newCallExpr(e, "_?_:_", [
             o,
             this.newCallExpr(e, "_+_", [
@@ -10031,7 +10031,7 @@ var QT = S(function (zT) {
   zT.default = JT;
 });
 var lw = S(function (aw) {
-  Object.defineProperty(aw, "__esModule", { value: !0 });
+  Object.defineProperty(aw, "__esModule", { value: true });
   aw.ParseSyntaxError = aw.ParseError = void 0;
   aw.parse = c4;
   var Ma;
@@ -10273,7 +10273,7 @@ var lw = S(function (aw) {
   function c4(e, t = {}) {
     let r = t.grammarSource,
       o = pe(e);
-    if (o.success === !0) return o.value;
+    if (o.success === true) return o.value;
     let u = e,
       d = [];
     for (let A of o.failedExpectations) {
@@ -10464,10 +10464,10 @@ var lw = S(function (aw) {
     }
     function pe(A) {
       let _ = je(A);
-      if (_.success === !0) {
+      if (_.success === true) {
         if (_.remainder.length === 0) return _;
         return {
-          success: !1,
+          success: false,
           remainder: _.remainder,
           failedExpectations: [{ expectation: a4, remainder: _.remainder }],
         };
@@ -10476,9 +10476,9 @@ var lw = S(function (aw) {
     }
     function je(A) {
       let _ = ge(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: ut(() => e.length - A.length, _.value[0], _.value[1]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -10489,23 +10489,23 @@ var lw = S(function (aw) {
       let _ = [],
         T = A,
         L = ae(T);
-      if ((_.push(...L.failedExpectations), L.success === !1))
-        return { success: !1, remainder: L.remainder, failedExpectations: _ };
+      if ((_.push(...L.failedExpectations), L.success === false))
+        return { success: false, remainder: L.remainder, failedExpectations: _ };
       T = L.remainder;
       let P = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), P?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(P[0].length);
       let V = Rv(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
-      return (T = V.remainder), { success: !0, value: [L.value, V.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
+      return (T = V.remainder), { success: true, value: [L.value, V.value], remainder: T, failedExpectations: _ };
     }
     function ae(A) {
       let _ = Z(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: rr(() => e.length - A.length, _.value),
           remainder: _.remainder,
           failedExpectations: [],
@@ -10516,25 +10516,25 @@ var lw = S(function (aw) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let P = L;
         if (_.length > 0) {
           let et = Nv(P);
-          if ((T.push(...et.failedExpectations), et.success === !1)) break;
+          if ((T.push(...et.failedExpectations), et.success === false)) break;
           P = et.remainder;
         }
         let V = ie(P);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      if (_.length < 1) return { success: !1, remainder: A, failedExpectations: T };
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      if (_.length < 1) return { success: false, remainder: A, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function ie(A) {
       let _ = Oe(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: bn(() => e.length - A.length, _.value),
           remainder: _.remainder,
           failedExpectations: [],
@@ -10545,88 +10545,88 @@ var lw = S(function (aw) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let P = L;
         if (_.length > 0) {
           let et = vv(P);
-          if ((T.push(...et.failedExpectations), et.success === !1)) break;
+          if ((T.push(...et.failedExpectations), et.success === false)) break;
           P = et.remainder;
         }
         let V = Be(P);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      if (_.length < 1) return { success: !1, remainder: A, failedExpectations: T };
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      if (_.length < 1) return { success: false, remainder: A, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function Be(A) {
       let _ = st(A);
-      if (_.success === !0)
-        return { success: !0, value: Ke(_.value[0], _.value[1]), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true)
+        return { success: true, value: Ke(_.value[0], _.value[1]), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function st(A) {
       let _ = [],
         T = A,
         L = yn(T);
-      if ((_.push(...L.failedExpectations), L.success === !1))
-        return { success: !1, remainder: L.remainder, failedExpectations: _ };
+      if ((_.push(...L.failedExpectations), L.success === false))
+        return { success: false, remainder: L.remainder, failedExpectations: _ };
       T = L.remainder;
       let P = bv(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: [L.value, P.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: [L.value, P.value], remainder: T, failedExpectations: _ };
     }
     function yn(A) {
       let _ = Rn(A);
-      if (_.success === !0)
-        return { success: !0, value: Et(_.value[0], _.value[1]), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true)
+        return { success: true, value: Et(_.value[0], _.value[1]), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function Rn(A) {
       let _ = [],
         T = A,
         L = Bt(T);
-      if ((_.push(...L.failedExpectations), L.success === !1))
-        return { success: !1, remainder: L.remainder, failedExpectations: _ };
+      if ((_.push(...L.failedExpectations), L.success === false))
+        return { success: false, remainder: L.remainder, failedExpectations: _ };
       T = L.remainder;
       let P = dv(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: [L.value, P.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: [L.value, P.value], remainder: T, failedExpectations: _ };
     }
     function Bt(A) {
       let _ = $n(A);
-      if (_.success === !0)
-        return { success: !0, value: nt(_.value[0], _.value[1]), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true)
+        return { success: true, value: nt(_.value[0], _.value[1]), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function $n(A) {
       let _ = [],
         T = A,
         L = Dr(T);
-      if ((_.push(...L.failedExpectations), L.success === !1))
-        return { success: !1, remainder: L.remainder, failedExpectations: _ };
+      if ((_.push(...L.failedExpectations), L.success === false))
+        return { success: false, remainder: L.remainder, failedExpectations: _ };
       T = L.remainder;
       let P = iv(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: [L.value, P.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: [L.value, P.value], remainder: T, failedExpectations: _ };
     }
     function Dr(A) {
       let _ = [jr, nv],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function jr(A) {
       let _ = Li(A);
-      if (_.success === !0)
-        return { success: !0, value: z(_.value[0], _.value[1]), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true)
+        return { success: true, value: z(_.value[0], _.value[1]), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function Li(A) {
@@ -10634,155 +10634,155 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = Uo(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = KA(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
-      return (T = V.remainder), { success: !0, value: [P.value, V.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
+      return (T = V.remainder), { success: true, value: [P.value, V.value], remainder: T, failedExpectations: _ };
     }
     function ci(A) {
       let _ = [],
         T = A,
         L = sr(T);
-      if ((_.push(...L.failedExpectations), L.success === !1))
-        return { success: !1, remainder: L.remainder, failedExpectations: _ };
+      if ((_.push(...L.failedExpectations), L.success === false))
+        return { success: false, remainder: L.remainder, failedExpectations: _ };
       T = L.remainder;
       let P = mr(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = Lo(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
       return (
-        (T = V.remainder), { success: !0, value: [L.value, P.value, V.value], remainder: T, failedExpectations: _ }
+        (T = V.remainder), { success: true, value: [L.value, P.value, V.value], remainder: T, failedExpectations: _ }
       );
     }
     function sr(A) {
       let _ = Ui(A);
-      if (_.success === !0) return _;
-      return { success: !0, value: null, remainder: A, failedExpectations: _.failedExpectations };
+      if (_.success === true) return _;
+      return { success: true, value: null, remainder: A, failedExpectations: _.failedExpectations };
     }
     function Ui(A) {
       let _ = Rs(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: Mt, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: Mt, remainder: _.remainder }] };
     }
     function Rs(A) {
       let _ = A.match(/^([\t\n\f\r ])+/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: bj, remainder: A }] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: bj, remainder: A }] };
     }
     function mr(A) {
       let _ = Ja(A);
-      if (_.success === !0) return _;
-      return { success: !0, value: null, remainder: A, failedExpectations: _.failedExpectations };
+      if (_.success === true) return _;
+      return { success: true, value: null, remainder: A, failedExpectations: _.failedExpectations };
     }
     function Ja(A) {
       let _ = Po(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: $t, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: $t, remainder: _.remainder }] };
     }
     function Po(A) {
       let _ = [],
         T = A,
         L = li(T);
-      if ((_.push(...L.failedExpectations), L.success === !1))
-        return { success: !1, remainder: L.remainder, failedExpectations: _ };
+      if ((_.push(...L.failedExpectations), L.success === false))
+        return { success: false, remainder: L.remainder, failedExpectations: _ };
       T = L.remainder;
       let P = za(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = as(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
       return (
-        (T = V.remainder), { success: !0, value: [L.value, P.value, V.value], remainder: T, failedExpectations: _ }
+        (T = V.remainder), { success: true, value: [L.value, P.value, V.value], remainder: T, failedExpectations: _ }
       );
     }
     function li(A) {
-      if (A.startsWith("//")) return { success: !0, value: "//", remainder: A.slice(2), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: yj, remainder: A }] };
+      if (A.startsWith("//")) return { success: true, value: "//", remainder: A.slice(2), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: yj, remainder: A }] };
     }
     function za(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = Qa(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function Qa(A) {
       if (/^[^\r\n]/g.test(A))
-        return { success: !0, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: _j, remainder: A }] };
+        return { success: true, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: _j, remainder: A }] };
     }
     function as(A) {
       let _ = Yr(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: Ej, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: Ej, remainder: _.remainder }] };
     }
     function Yr(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = xu(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      if (_.length < 1) return { success: !1, remainder: A, failedExpectations: T };
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      if (_.length < 1) return { success: false, remainder: A, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function xu(A) {
       if (/^[\r\n]/g.test(A))
-        return { success: !0, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: Sj, remainder: A }] };
+        return { success: true, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: Sj, remainder: A }] };
     }
     function Lo(A) {
       let _ = Ui(A);
-      if (_.success === !0) return _;
-      return { success: !0, value: null, remainder: A, failedExpectations: _.failedExpectations };
+      if (_.success === true) return _;
+      return { success: true, value: null, remainder: A, failedExpectations: _.failedExpectations };
     }
     function Uo(A) {
       let _ = [hr, bA, TA, UA, MA, $A, VA],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function hr(A) {
       let _ = [ec, Fo, Tu, vu, oA, lA, mA],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function ec(A) {
       let _ = tc(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: Tj, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: Tj, remainder: _.remainder }] };
     }
     function tc(A) {
       let _ = Cs(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: x(() => e.length - A.length, _.value),
           remainder: _.remainder,
           failedExpectations: [],
@@ -10791,9 +10791,9 @@ var lw = S(function (aw) {
     }
     function Cs(A) {
       let _ = A.match(/^((-)?([0-9])*\.([0-9])+([eE]([+\-])?([0-9])+)?|(-)?([0-9])+[eE]([+\-])?([0-9])+)/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
       return {
-        success: !1,
+        success: false,
         remainder: A,
         failedExpectations: [
           { expectation: Ip, remainder: A },
@@ -10804,14 +10804,14 @@ var lw = S(function (aw) {
     }
     function Fo(A) {
       let _ = nc(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: Ij, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: Ij, remainder: _.remainder }] };
     }
     function nc(A) {
       let _ = Fi(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: w(() => e.length - A.length, _.value[0]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -10822,19 +10822,19 @@ var lw = S(function (aw) {
       let _ = [],
         T = A,
         L = $o(T);
-      if ((_.push(...L.failedExpectations), L.success === !1))
-        return { success: !1, remainder: L.remainder, failedExpectations: _ };
+      if ((_.push(...L.failedExpectations), L.success === false))
+        return { success: false, remainder: L.remainder, failedExpectations: _ };
       T = L.remainder;
       let P = T.match(/^[uU]/g);
       if ((_.push({ expectation: wj, remainder: T }), P?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(P[0].length)), { success: !0, value: [L.value], remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(P[0].length)), { success: true, value: [L.value], remainder: T, failedExpectations: _ };
     }
     function $o(A) {
       let _ = A.match(/^(0x([0-9abcdefABCDEF])+|([0-9])+)/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
       return {
-        success: !1,
+        success: false,
         remainder: A,
         failedExpectations: [
           { expectation: tw, remainder: A },
@@ -10844,14 +10844,14 @@ var lw = S(function (aw) {
     }
     function Tu(A) {
       let _ = Iu(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: Aj, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: Aj, remainder: _.remainder }] };
     }
     function Iu(A) {
       let _ = Au(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: v(() => e.length - A.length, _.value),
           remainder: _.remainder,
           failedExpectations: [],
@@ -10860,9 +10860,9 @@ var lw = S(function (aw) {
     }
     function Au(A) {
       let _ = A.match(/^(-)?(0x([0-9abcdefABCDEF])+|([0-9])+)/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
       return {
-        success: !1,
+        success: false,
         remainder: A,
         failedExpectations: [
           { expectation: Ip, remainder: A },
@@ -10873,14 +10873,14 @@ var lw = S(function (aw) {
     }
     function vu(A) {
       let _ = Nu(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: Mj, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: Mj, remainder: _.remainder }] };
     }
     function Nu(A) {
       let _ = rc(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: M(() => e.length - A.length, _.value),
           remainder: _.remainder,
           failedExpectations: [],
@@ -10889,307 +10889,307 @@ var lw = S(function (aw) {
     }
     function rc(A) {
       let _ = sc(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: Fj, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: Fj, remainder: _.remainder }] };
     }
     function sc(A) {
       let _ = [Mi, he],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function Mi(A) {
       let _ = [],
         T = A,
         L = T.match(/^[rR]/g);
       if ((_.push({ expectation: vj, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = ic(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function ic(A) {
       let _ = [Ru, ac, xe, dt],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function Ru(A) {
       let _ = [],
         T = A,
         L = T.match(/^"""/g);
       if ((_.push({ expectation: jl, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = Cu(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^"""/g);
       if ((_.push({ expectation: jl, remainder: T }), V?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(V[0].length)), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(V[0].length)), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function Cu(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = oc(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function oc(A) {
       let _ = [],
         T = A,
         L = T.match(/^(?!""")/g);
-      if ((_.push(), L?.length !== 1)) return { success: !1, remainder: T, failedExpectations: _ };
+      if ((_.push(), L?.length !== 1)) return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = Bo(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function Bo(A) {
-      if (A.length > 0) return { success: !0, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
+      if (A.length > 0) return { success: true, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
     }
     function ac(A) {
       let _ = [],
         T = A,
         L = T.match(/^'''/g);
       if ((_.push({ expectation: Yl, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = B(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^'''/g);
       if ((_.push({ expectation: Yl, remainder: T }), V?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(V[0].length)), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(V[0].length)), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function B(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = K(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function K(A) {
       let _ = [],
         T = A,
         L = T.match(/^(?!''')/g);
-      if ((_.push(), L?.length !== 1)) return { success: !1, remainder: T, failedExpectations: _ };
+      if ((_.push(), L?.length !== 1)) return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = ne(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function ne(A) {
-      if (A.length > 0) return { success: !0, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
+      if (A.length > 0) return { success: true, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
     }
     function xe(A) {
       let _ = [],
         T = A,
         L = T.match(/^"/g);
       if ((_.push({ expectation: Kl, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = Ae(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^"/g);
       if ((_.push({ expectation: Kl, remainder: T }), V?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(V[0].length)), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(V[0].length)), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function Ae(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = Fe(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function Fe(A) {
       let _ = [],
         T = A,
         L = T.match(/^(?!("|([\r\n])+))/g);
-      if ((_.push(), L?.length !== 1)) return { success: !1, remainder: T, failedExpectations: _ };
+      if ((_.push(), L?.length !== 1)) return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = de(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function de(A) {
-      if (A.length > 0) return { success: !0, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
+      if (A.length > 0) return { success: true, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
     }
     function dt(A) {
       let _ = [],
         T = A,
         L = T.match(/^'/g);
       if ((_.push({ expectation: Zl, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = Dt(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^'/g);
       if ((_.push({ expectation: Zl, remainder: T }), V?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(V[0].length)), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(V[0].length)), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function Dt(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = Je(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function Je(A) {
       let _ = [],
         T = A,
         L = T.match(/^(?!('|([\r\n])+))/g);
-      if ((_.push(), L?.length !== 1)) return { success: !1, remainder: T, failedExpectations: _ };
+      if ((_.push(), L?.length !== 1)) return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = qe(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function qe(A) {
-      if (A.length > 0) return { success: !0, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
+      if (A.length > 0) return { success: true, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
     }
     function he(A) {
       let _ = [Pt, ZI, zI, nA],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function Pt(A) {
       let _ = [],
         T = A,
         L = T.match(/^"""/g);
       if ((_.push({ expectation: jl, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = ks(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^"""/g);
       if ((_.push({ expectation: jl, remainder: T }), V?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(V[0].length)), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(V[0].length)), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function ks(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = Kr(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function Kr(A) {
       let _ = [Cn, KI],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function Cn(A) {
       let _ = en(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: Uj, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: Uj, remainder: _.remainder }] };
     }
     function en(A) {
       let _ = [Vt, WI, jI],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function Vt(A) {
       let _ = qn(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: Dj, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: Dj, remainder: _.remainder }] };
     }
     function qn(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = ir(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      if (_.length < 1) return { success: !1, remainder: A, failedExpectations: T };
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      if (_.length < 1) return { success: false, remainder: A, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function ir(A) {
       let _ = $i(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: kj, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: kj, remainder: _.remainder }] };
     }
     function $i(A) {
       let _ = [cs, DI, UI, $I],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function cs(A) {
       let _ = Ds(A);
-      if (_.success === !0)
-        return { success: !0, value: N(_.value[0]), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true)
+        return { success: true, value: N(_.value[0]), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function Ds(A) {
@@ -11197,26 +11197,26 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^\\/g);
       if ((_.push({ expectation: ql, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = T.match(/^[xX]/g);
       if ((_.push({ expectation: Nj, remainder: T }), P?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(P[0].length);
       let V = Bi(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
-      return (T = V.remainder), { success: !0, value: [V.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
+      return (T = V.remainder), { success: true, value: [V.value], remainder: T, failedExpectations: _ };
     }
     function Bi(A) {
       let _ = A.match(/^([0-9abcdefABCDEF][0-9abcdefABCDEF]){0,1}/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: vp, remainder: A }] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: vp, remainder: A }] };
     }
     function DI(A) {
       let _ = PI(A);
-      if (_.success === !0)
-        return { success: !0, value: k(_.value[0]), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true)
+        return { success: true, value: k(_.value[0]), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function PI(A) {
@@ -11224,22 +11224,22 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^\\u/g);
       if ((_.push({ expectation: Rj, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = LI(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: [P.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: [P.value], remainder: T, failedExpectations: _ };
     }
     function LI(A) {
       let _ = A.match(/^([0-9abcdefABCDEF][0-9abcdefABCDEF]){0,2}/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: vp, remainder: A }] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: vp, remainder: A }] };
     }
     function UI(A) {
       let _ = FI(A);
-      if (_.success === !0)
-        return { success: !0, value: C(_.value[0]), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true)
+        return { success: true, value: C(_.value[0]), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function FI(A) {
@@ -11247,22 +11247,22 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^\\U/g);
       if ((_.push({ expectation: Cj, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = MI(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: [P.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: [P.value], remainder: T, failedExpectations: _ };
     }
     function MI(A) {
       let _ = A.match(/^([0-9abcdefABCDEF][0-9abcdefABCDEF]){0,4}/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: vp, remainder: A }] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: vp, remainder: A }] };
     }
     function $I(A) {
       let _ = BI(A);
-      if (_.success === !0)
-        return { success: !0, value: F(_.value[0]), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true)
+        return { success: true, value: F(_.value[0]), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function BI(A) {
@@ -11270,22 +11270,22 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^\\/g);
       if ((_.push({ expectation: ql, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = VI(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: [P.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: [P.value], remainder: T, failedExpectations: _ };
     }
     function VI(A) {
       let _ = A.match(/^[0-3][0-7][0-7]/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: Oj, remainder: A }] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: Oj, remainder: A }] };
     }
     function WI(A) {
       let _ = GI(A);
-      if (_.success === !0)
-        return { success: !0, value: U(_.value[0]), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true)
+        return { success: true, value: U(_.value[0]), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function GI(A) {
@@ -11293,176 +11293,176 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^\\/g);
       if ((_.push({ expectation: ql, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = HI(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: [P.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: [P.value], remainder: T, failedExpectations: _ };
     }
     function HI(A) {
       if (/^[abfnrtv]/g.test(A))
-        return { success: !0, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: Pj, remainder: A }] };
+        return { success: true, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: Pj, remainder: A }] };
     }
     function jI(A) {
       let _ = [],
         T = A,
         L = T.match(/^\\/g);
       if ((_.push({ expectation: ql, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = YI(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function YI(A) {
       if (/^["'`\\?]/g.test(A))
-        return { success: !0, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: Lj, remainder: A }] };
+        return { success: true, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: Lj, remainder: A }] };
     }
     function KI(A) {
       let _ = A.match(/^(?!""")[\s\S]/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
     }
     function ZI(A) {
       let _ = [],
         T = A,
         L = T.match(/^'''/g);
       if ((_.push({ expectation: Yl, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = qI(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^'''/g);
       if ((_.push({ expectation: Yl, remainder: T }), V?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(V[0].length)), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(V[0].length)), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function qI(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = XI(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function XI(A) {
       let _ = [Cn, JI],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function JI(A) {
       let _ = A.match(/^(?!''')[\s\S]/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
     }
     function zI(A) {
       let _ = [],
         T = A,
         L = T.match(/^"/g);
       if ((_.push({ expectation: Kl, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = QI(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^"/g);
       if ((_.push({ expectation: Kl, remainder: T }), V?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(V[0].length)), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(V[0].length)), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function QI(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = eA(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function eA(A) {
       let _ = [Cn, tA],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function tA(A) {
       let _ = A.match(/^(?!("|([\r\n])+))[\s\S]/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
     }
     function nA(A) {
       let _ = [],
         T = A,
         L = T.match(/^'/g);
       if ((_.push({ expectation: Zl, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = rA(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^'/g);
       if ((_.push({ expectation: Zl, remainder: T }), V?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(V[0].length)), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(V[0].length)), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function rA(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = sA(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function sA(A) {
       let _ = [Cn, iA],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function iA(A) {
       let _ = A.match(/^(?!('|([\r\n])+))[\s\S]/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: ni, remainder: A }] };
     }
     function oA(A) {
       let _ = aA(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: Bj, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: Bj, remainder: _.remainder }] };
     }
     function aA(A) {
       let _ = cA(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: q(() => e.length - A.length, _.value[0]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -11474,23 +11474,23 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^[bB]/g);
       if ((_.push({ expectation: $j, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = rc(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: [P.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: [P.value], remainder: T, failedExpectations: _ };
     }
     function lA(A) {
       let _ = uA(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: Gj, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: Gj, remainder: _.remainder }] };
     }
     function uA(A) {
       let _ = dA(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: Y(() => e.length - A.length, _.value),
           remainder: _.remainder,
           failedExpectations: [],
@@ -11502,28 +11502,28 @@ var lw = S(function (aw) {
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function fA(A) {
-      if (A.startsWith("true")) return { success: !0, value: "true", remainder: A.slice(4), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: Vj, remainder: A }] };
+      if (A.startsWith("true")) return { success: true, value: "true", remainder: A.slice(4), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: Vj, remainder: A }] };
     }
     function pA(A) {
-      if (A.startsWith("false")) return { success: !0, value: "false", remainder: A.slice(5), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: Wj, remainder: A }] };
+      if (A.startsWith("false")) return { success: true, value: "false", remainder: A.slice(5), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: Wj, remainder: A }] };
     }
     function mA(A) {
       let _ = hA(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: jj, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: jj, remainder: _.remainder }] };
     }
     function hA(A) {
       let _ = gA(A);
-      if (_.success === !0)
-        return { success: !0, value: X(() => e.length - A.length), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true)
+        return { success: true, value: X(() => e.length - A.length), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function gA(A) {
@@ -11531,17 +11531,17 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^null/g);
       if ((_.push({ expectation: Hj, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = T.match(/^(?![_a-zA-Z0-9])/g);
-      if ((_.push(), P?.length !== 1)) return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(P[0].length)), { success: !0, value: [], remainder: T, failedExpectations: _ };
+      if ((_.push(), P?.length !== 1)) return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(P[0].length)), { success: true, value: [], remainder: T, failedExpectations: _ };
     }
     function bA(A) {
       let _ = yA(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: fe(() => e.length - A.length, _.value[0], _.value[1]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -11553,45 +11553,45 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^(\.)?/g);
       if ((_.push({ expectation: Ni, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), P?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(P[0].length);
       let V = _A(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
       T = V.remainder;
       let et = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), et?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(et[0].length);
       let un = T.match(/^\(/g);
       if ((_.push({ expectation: Np, remainder: T }), un?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(un[0].length);
       let dn = Ou(T);
-      if ((_.push(...dn.failedExpectations), dn.success === !1))
-        return { success: !1, remainder: dn.remainder, failedExpectations: _ };
+      if ((_.push(...dn.failedExpectations), dn.success === false))
+        return { success: false, remainder: dn.remainder, failedExpectations: _ };
       T = dn.remainder;
       let Ps = T.match(/^\)/g);
       if ((_.push({ expectation: Rp, remainder: T }), Ps?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       return (
-        (T = T.slice(Ps[0].length)), { success: !0, value: [V.value, dn.value], remainder: T, failedExpectations: _ }
+        (T = T.slice(Ps[0].length)), { success: true, value: [V.value, dn.value], remainder: T, failedExpectations: _ }
       );
     }
     function _A(A) {
       let _ = SA(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: Yj, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: Yj, remainder: _.remainder }] };
     }
     function SA(A) {
       let _ = EA(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: se((T, L = Ma.getLocation(r, e, A, _.remainder), P) => {
             throw new wo(T, L, P);
           }, _.value),
@@ -11602,35 +11602,35 @@ var lw = S(function (aw) {
     }
     function EA(A) {
       let _ = A.match(/^[_a-zA-Z]([_a-zA-Z0-9])*/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: nw, remainder: A }] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: nw, remainder: A }] };
     }
     function Ou(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let P = L;
         if (_.length > 0) {
           let et = xA(P);
-          if ((T.push(...et.failedExpectations), et.success === !1)) break;
+          if ((T.push(...et.failedExpectations), et.success === false)) break;
           P = et.remainder;
         }
         let V = je(P);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function xA(A) {
-      if (A.startsWith(",")) return { success: !0, value: ",", remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: To, remainder: A }] };
+      if (A.startsWith(",")) return { success: true, value: ",", remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: To, remainder: A }] };
     }
     function TA(A) {
       let _ = wA(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: Ee(() => e.length - A.length, _.value[0], _.value[1], _.value[2]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -11641,82 +11641,82 @@ var lw = S(function (aw) {
       let _ = [],
         T = A,
         L = IA(T);
-      if ((_.push(...L.failedExpectations), L.success === !1))
-        return { success: !1, remainder: L.remainder, failedExpectations: _ };
+      if ((_.push(...L.failedExpectations), L.success === false))
+        return { success: false, remainder: L.remainder, failedExpectations: _ };
       T = L.remainder;
       let P = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), P?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(P[0].length);
       let V = vA(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
       T = V.remainder;
       let et = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), et?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(et[0].length);
       let un = T.match(/^\{/g);
       if ((_.push({ expectation: rw, remainder: T }), un?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(un[0].length);
       let dn = kA(T);
-      if ((_.push(...dn.failedExpectations), dn.success === !1))
-        return { success: !1, remainder: dn.remainder, failedExpectations: _ };
+      if ((_.push(...dn.failedExpectations), dn.success === false))
+        return { success: false, remainder: dn.remainder, failedExpectations: _ };
       T = dn.remainder;
       let Ps = T.match(/^(,)?/g);
       if ((_.push({ expectation: To, remainder: T }), Ps?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(Ps[0].length);
       let wm = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), wm?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(wm[0].length);
       let Im = T.match(/^\}/g);
       if ((_.push({ expectation: sw, remainder: T }), Im?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       return (
         (T = T.slice(Im[0].length)),
-        { success: !0, value: [L.value, V.value, dn.value], remainder: T, failedExpectations: _ }
+        { success: true, value: [L.value, V.value, dn.value], remainder: T, failedExpectations: _ }
       );
     }
     function IA(A) {
       let _ = AA(A);
-      if (_.success === !0) return _;
-      return { success: !0, value: null, remainder: A, failedExpectations: _.failedExpectations };
+      if (_.success === true) return _;
+      return { success: true, value: null, remainder: A, failedExpectations: _.failedExpectations };
     }
     function AA(A) {
-      if (A.startsWith(".")) return { success: !0, value: ".", remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: Ni, remainder: A }] };
+      if (A.startsWith(".")) return { success: true, value: ".", remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: Ni, remainder: A }] };
     }
     function vA(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let P = L;
         if (_.length > 0) {
           let et = CA(P);
-          if ((T.push(...et.failedExpectations), et.success === !1)) break;
+          if ((T.push(...et.failedExpectations), et.success === false)) break;
           P = et.remainder;
         }
         let V = Vo(P);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      if (_.length < 1) return { success: !1, remainder: A, failedExpectations: T };
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      if (_.length < 1) return { success: false, remainder: A, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function Vo(A) {
       let _ = NA(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: Kj, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: Kj, remainder: _.remainder }] };
     }
     function NA(A) {
       let _ = RA(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: Re((T, L = Ma.getLocation(r, e, A, _.remainder), P) => {
             throw new wo(T, L, P);
           }, _.value),
@@ -11727,53 +11727,53 @@ var lw = S(function (aw) {
     }
     function RA(A) {
       let _ = A.match(/^[_a-zA-Z]([_a-zA-Z0-9])*/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: nw, remainder: A }] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: nw, remainder: A }] };
     }
     function CA(A) {
       let _ = [],
         T = A,
         L = ci(T);
-      if ((_.push(...L.failedExpectations), L.success === !1))
-        return { success: !1, remainder: L.remainder, failedExpectations: _ };
+      if ((_.push(...L.failedExpectations), L.success === false))
+        return { success: false, remainder: L.remainder, failedExpectations: _ };
       T = L.remainder;
       let P = OA(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = ci(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
       return (
-        (T = V.remainder), { success: !0, value: [L.value, P.value, L.value], remainder: T, failedExpectations: _ }
+        (T = V.remainder), { success: true, value: [L.value, P.value, L.value], remainder: T, failedExpectations: _ }
       );
     }
     function OA(A) {
-      if (A.startsWith(".")) return { success: !0, value: ".", remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: Ni, remainder: A }] };
+      if (A.startsWith(".")) return { success: true, value: ".", remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: Ni, remainder: A }] };
     }
     function kA(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let P = L;
         if (_.length > 0) {
           let et = LA(P);
-          if ((T.push(...et.failedExpectations), et.success === !1)) break;
+          if ((T.push(...et.failedExpectations), et.success === false)) break;
           P = et.remainder;
         }
         let V = DA(P);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function DA(A) {
       let _ = PA(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: _e(() => e.length - A.length, _.value[0], _.value[1]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -11785,11 +11785,11 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = Vo(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?:/g);
       if (
@@ -11800,22 +11800,22 @@ var lw = S(function (aw) {
         ),
         V?.length !== 1)
       )
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(V[0].length);
       let et = je(T);
-      if ((_.push(...et.failedExpectations), et.success === !1))
-        return { success: !1, remainder: et.remainder, failedExpectations: _ };
-      return (T = et.remainder), { success: !0, value: [P.value, et.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...et.failedExpectations), et.success === false))
+        return { success: false, remainder: et.remainder, failedExpectations: _ };
+      return (T = et.remainder), { success: true, value: [P.value, et.value], remainder: T, failedExpectations: _ };
     }
     function LA(A) {
-      if (A.startsWith(",")) return { success: !0, value: ",", remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: To, remainder: A }] };
+      if (A.startsWith(",")) return { success: true, value: ",", remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: To, remainder: A }] };
     }
     function UA(A) {
       let _ = FA(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: We(() => e.length - A.length, _.value[0]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -11827,38 +11827,38 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^(\.)?/g);
       if ((_.push({ expectation: Ni, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), P?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(P[0].length);
       let V = Vo(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
-      return (T = V.remainder), { success: !0, value: [V.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
+      return (T = V.remainder), { success: true, value: [V.value], remainder: T, failedExpectations: _ };
     }
     function MA(A) {
       let _ = [],
         T = A,
         L = T.match(/^\(/g);
       if ((_.push({ expectation: Np, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = je(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^\)/g);
       if ((_.push({ expectation: Rp, remainder: T }), V?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(V[0].length)), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(V[0].length)), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function $A(A) {
       let _ = BA(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: De(() => e.length - A.length, _.value),
           remainder: _.remainder,
           failedExpectations: [],
@@ -11870,30 +11870,30 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^\[/g);
       if ((_.push({ expectation: iw, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = Ou(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^(,)?/g);
       if ((_.push({ expectation: To, remainder: T }), V?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(V[0].length);
       let et = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), et?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(et[0].length);
       let un = T.match(/^\]/g);
       if ((_.push({ expectation: ow, remainder: T }), un?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(un[0].length)), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(un[0].length)), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function VA(A) {
       let _ = WA(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: Q(() => e.length - A.length, _.value),
           remainder: _.remainder,
           failedExpectations: [],
@@ -11905,11 +11905,11 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^\{/g);
       if ((_.push({ expectation: rw, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = GA(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^(,)?(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?\}/g);
       if (
@@ -11921,31 +11921,31 @@ var lw = S(function (aw) {
         ),
         V?.length !== 1)
       )
-        return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(V[0].length)), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(V[0].length)), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function GA(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let P = L;
         if (_.length > 0) {
           let et = YA(P);
-          if ((T.push(...et.failedExpectations), et.success === !1)) break;
+          if ((T.push(...et.failedExpectations), et.success === false)) break;
           P = et.remainder;
         }
         let V = HA(P);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function HA(A) {
       let _ = jA(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: Pe(() => e.length - A.length, _.value[0], _.value[1]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -11956,60 +11956,60 @@ var lw = S(function (aw) {
       let _ = [],
         T = A,
         L = je(T);
-      if ((_.push(...L.failedExpectations), L.success === !1))
-        return { success: !1, remainder: L.remainder, failedExpectations: _ };
+      if ((_.push(...L.failedExpectations), L.success === false))
+        return { success: false, remainder: L.remainder, failedExpectations: _ };
       T = L.remainder;
       let P = T.match(/^:/g);
       if ((_.push({ expectation: Cp, remainder: T }), P?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(P[0].length);
       let V = je(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
-      return (T = V.remainder), { success: !0, value: [L.value, V.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
+      return (T = V.remainder), { success: true, value: [L.value, V.value], remainder: T, failedExpectations: _ };
     }
     function YA(A) {
-      if (A.startsWith(",")) return { success: !0, value: ",", remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: To, remainder: A }] };
+      if (A.startsWith(",")) return { success: true, value: ",", remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: To, remainder: A }] };
     }
     function KA(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = ZA(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function ZA(A) {
       let _ = [],
         T = A,
         L = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = qA(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
-      return (T = P.remainder), { success: !0, value: P.value, remainder: T, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
+      return (T = P.remainder), { success: true, value: P.value, remainder: T, failedExpectations: _ };
     }
     function qA(A) {
       let _ = [XA, zA, ev],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function XA(A) {
       let _ = JA(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: tt(() => e.length - A.length, _.value[0]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -12021,29 +12021,29 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^\./g);
       if ((_.push({ expectation: Ni, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), P?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(P[0].length);
       let V = Vo(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
       T = V.remainder;
       let et = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), et?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(et[0].length);
       let un = T.match(/^(?![(])/g);
-      if ((_.push(), un?.length !== 1)) return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(un[0].length)), { success: !0, value: [V.value], remainder: T, failedExpectations: _ };
+      if ((_.push(), un?.length !== 1)) return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(un[0].length)), { success: true, value: [V.value], remainder: T, failedExpectations: _ };
     }
     function zA(A) {
       let _ = QA(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: ue(() => e.length - A.length, _.value[0], _.value[1]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -12055,40 +12055,40 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^\./g);
       if ((_.push({ expectation: Ni, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), P?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(P[0].length);
       let V = Vo(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
       T = V.remainder;
       let et = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), et?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(et[0].length);
       let un = T.match(/^\(/g);
       if ((_.push({ expectation: Np, remainder: T }), un?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(un[0].length);
       let dn = Ou(T);
-      if ((_.push(...dn.failedExpectations), dn.success === !1))
-        return { success: !1, remainder: dn.remainder, failedExpectations: _ };
+      if ((_.push(...dn.failedExpectations), dn.success === false))
+        return { success: false, remainder: dn.remainder, failedExpectations: _ };
       T = dn.remainder;
       let Ps = T.match(/^\)/g);
       if ((_.push({ expectation: Rp, remainder: T }), Ps?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       return (
-        (T = T.slice(Ps[0].length)), { success: !0, value: [V.value, dn.value], remainder: T, failedExpectations: _ }
+        (T = T.slice(Ps[0].length)), { success: true, value: [V.value, dn.value], remainder: T, failedExpectations: _ }
       );
     }
     function ev(A) {
       let _ = tv(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: ve(() => e.length - A.length, _.value[0]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -12100,22 +12100,22 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^\[/g);
       if ((_.push({ expectation: iw, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = je(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^\]/g);
       if ((_.push({ expectation: ow, remainder: T }), V?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
-      return (T = T.slice(V[0].length)), { success: !0, value: [P.value], remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
+      return (T = T.slice(V[0].length)), { success: true, value: [P.value], remainder: T, failedExpectations: _ };
     }
     function nv(A) {
       let _ = rv(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: re(() => e.length - A.length, _.value[0], _.value[1]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -12127,22 +12127,22 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = sv(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = jr(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
-      return (T = V.remainder), { success: !0, value: [P.value, V.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
+      return (T = V.remainder), { success: true, value: [P.value, V.value], remainder: T, failedExpectations: _ };
     }
     function sv(A) {
       let _ = A.match(/^((!)+|(-)+)/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
       return {
-        success: !1,
+        success: false,
         remainder: A,
         failedExpectations: [
           { expectation: Zj, remainder: A },
@@ -12152,26 +12152,26 @@ var lw = S(function (aw) {
     }
     function iv(A) {
       let _ = ov(A);
-      if (_.success === !0) return _;
-      return { success: !0, value: null, remainder: A, failedExpectations: _.failedExpectations };
+      if (_.success === true) return _;
+      return { success: true, value: null, remainder: A, failedExpectations: _.failedExpectations };
     }
     function ov(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = av(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      if (_.length < 1) return { success: !1, remainder: A, failedExpectations: T };
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      if (_.length < 1) return { success: false, remainder: A, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function av(A) {
       let _ = cv(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: He(() => e.length - A.length, _.value[0], _.value[1]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -12183,49 +12183,49 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = lv(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = Dr(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
-      return (T = V.remainder), { success: !0, value: [P.value, V.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
+      return (T = V.remainder), { success: true, value: [P.value, V.value], remainder: T, failedExpectations: _ };
     }
     function lv(A) {
       let _ = uv(A);
-      if (_.success === !0) return { success: !0, value: ze(_.value), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true) return { success: true, value: ze(_.value), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function uv(A) {
       if (/^[*\/%]/g.test(A))
-        return { success: !0, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: qj, remainder: A }] };
+        return { success: true, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: qj, remainder: A }] };
     }
     function dv(A) {
       let _ = fv(A);
-      if (_.success === !0) return _;
-      return { success: !0, value: null, remainder: A, failedExpectations: _.failedExpectations };
+      if (_.success === true) return _;
+      return { success: true, value: null, remainder: A, failedExpectations: _.failedExpectations };
     }
     function fv(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = pv(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      if (_.length < 1) return { success: !1, remainder: A, failedExpectations: T };
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      if (_.length < 1) return { success: false, remainder: A, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function pv(A) {
       let _ = mv(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: Nt(() => e.length - A.length, _.value[0], _.value[1]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -12237,49 +12237,49 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = hv(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = Bt(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
-      return (T = V.remainder), { success: !0, value: [P.value, V.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
+      return (T = V.remainder), { success: true, value: [P.value, V.value], remainder: T, failedExpectations: _ };
     }
     function hv(A) {
       let _ = gv(A);
-      if (_.success === !0) return { success: !0, value: Qt(_.value), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true) return { success: true, value: Qt(_.value), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function gv(A) {
       if (/^[+\-]/g.test(A))
-        return { success: !0, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: xj, remainder: A }] };
+        return { success: true, value: A.slice(0, 1), remainder: A.slice(1), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: xj, remainder: A }] };
     }
     function bv(A) {
       let _ = yv(A);
-      if (_.success === !0) return _;
-      return { success: !0, value: null, remainder: A, failedExpectations: _.failedExpectations };
+      if (_.success === true) return _;
+      return { success: true, value: null, remainder: A, failedExpectations: _.failedExpectations };
     }
     function yv(A) {
       let _ = [],
         T = [],
         L = A;
-      while (!0) {
+      while (true) {
         let V = _v(L);
-        if ((T.push(...V.failedExpectations), V.success === !1)) break;
+        if ((T.push(...V.failedExpectations), V.success === false)) break;
         (L = V.remainder), _.push(V.value);
       }
-      if (_.length < 1) return { success: !1, remainder: A, failedExpectations: T };
-      return { success: !0, value: _, remainder: L, failedExpectations: T };
+      if (_.length < 1) return { success: false, remainder: A, failedExpectations: T };
+      return { success: true, value: _, remainder: L, failedExpectations: T };
     }
     function _v(A) {
       let _ = Sv(A);
-      if (_.success === !0)
+      if (_.success === true)
         return {
-          success: !0,
+          success: true,
           value: Rt(() => e.length - A.length, _.value[0], _.value[1]),
           remainder: _.remainder,
           failedExpectations: [],
@@ -12291,42 +12291,42 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = Ev(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = yn(T);
-      if ((_.push(...V.failedExpectations), V.success === !1))
-        return { success: !1, remainder: V.remainder, failedExpectations: _ };
-      return (T = V.remainder), { success: !0, value: [P.value, V.value], remainder: T, failedExpectations: _ };
+      if ((_.push(...V.failedExpectations), V.success === false))
+        return { success: false, remainder: V.remainder, failedExpectations: _ };
+      return (T = V.remainder), { success: true, value: [P.value, V.value], remainder: T, failedExpectations: _ };
     }
     function Ev(A) {
       let _ = xv(A);
-      if (_.success === !0) return _;
-      return { success: !1, remainder: _.remainder, failedExpectations: [{ expectation: r4, remainder: _.remainder }] };
+      if (_.success === true) return _;
+      return { success: false, remainder: _.remainder, failedExpectations: [{ expectation: r4, remainder: _.remainder }] };
     }
     function xv(A) {
       let _ = [Tv, Iv],
         T = [];
       for (let L = _.shift(); L !== void 0; L = _.shift()) {
         let P = L(A);
-        if ((T.push(...P.failedExpectations), P.success === !0))
-          return { success: !0, value: P.value, remainder: P.remainder, failedExpectations: T };
+        if ((T.push(...P.failedExpectations), P.success === true))
+          return { success: true, value: P.value, remainder: P.remainder, failedExpectations: T };
       }
-      return { success: !1, remainder: A, failedExpectations: T };
+      return { success: false, remainder: A, failedExpectations: T };
     }
     function Tv(A) {
       let _ = wv(A);
-      if (_.success === !0) return { success: !0, value: qt(_.value), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true) return { success: true, value: qt(_.value), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function wv(A) {
       let _ = A.match(/^(<=|<|>=|>|==|!=)/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
       return {
-        success: !1,
+        success: false,
         remainder: A,
         failedExpectations: [
           { expectation: Xj, remainder: A },
@@ -12340,18 +12340,18 @@ var lw = S(function (aw) {
     }
     function Iv(A) {
       let _ = Av(A);
-      if (_.success === !0) return { success: !0, value: xt(), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true) return { success: true, value: xt(), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function Av(A) {
-      if (A.startsWith("in")) return { success: !0, value: "in", remainder: A.slice(2), failedExpectations: [] };
-      return { success: !1, remainder: A, failedExpectations: [{ expectation: n4, remainder: A }] };
+      if (A.startsWith("in")) return { success: true, value: "in", remainder: A.slice(2), failedExpectations: [] };
+      return { success: false, remainder: A, failedExpectations: [{ expectation: n4, remainder: A }] };
     }
     function vv(A) {
       let _ = A.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?&&/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
       return {
-        success: !1,
+        success: false,
         remainder: A,
         failedExpectations: [
           { expectation: Mt, remainder: A },
@@ -12362,9 +12362,9 @@ var lw = S(function (aw) {
     }
     function Nv(A) {
       let _ = A.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?\|\|/g);
-      if (_?.length === 1) return { success: !0, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
+      if (_?.length === 1) return { success: true, value: _[0], remainder: A.slice(_[0].length), failedExpectations: [] };
       return {
-        success: !1,
+        success: false,
         remainder: A,
         failedExpectations: [
           { expectation: Mt, remainder: A },
@@ -12375,13 +12375,13 @@ var lw = S(function (aw) {
     }
     function Rv(A) {
       let _ = Cv(A);
-      if (_.success === !0) return _;
-      return { success: !0, value: null, remainder: A, failedExpectations: _.failedExpectations };
+      if (_.success === true) return _;
+      return { success: true, value: null, remainder: A, failedExpectations: _.failedExpectations };
     }
     function Cv(A) {
       let _ = Ov(A);
-      if (_.success === !0)
-        return { success: !0, value: Ie(_.value[0], _.value[1]), remainder: _.remainder, failedExpectations: [] };
+      if (_.success === true)
+        return { success: true, value: Ie(_.value[0], _.value[1]), remainder: _.remainder, failedExpectations: [] };
       return _;
     }
     function Ov(A) {
@@ -12389,35 +12389,35 @@ var lw = S(function (aw) {
         T = A,
         L = T.match(/^\?/g);
       if ((_.push({ expectation: o4, remainder: T }), L?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(L[0].length);
       let P = ae(T);
-      if ((_.push(...P.failedExpectations), P.success === !1))
-        return { success: !1, remainder: P.remainder, failedExpectations: _ };
+      if ((_.push(...P.failedExpectations), P.success === false))
+        return { success: false, remainder: P.remainder, failedExpectations: _ };
       T = P.remainder;
       let V = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), V?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(V[0].length);
       let et = T.match(/^:/g);
       if ((_.push({ expectation: Cp, remainder: T }), et?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       T = T.slice(et[0].length);
       let un = je(T);
-      if ((_.push(...un.failedExpectations), un.success === !1))
-        return { success: !1, remainder: un.remainder, failedExpectations: _ };
+      if ((_.push(...un.failedExpectations), un.success === false))
+        return { success: false, remainder: un.remainder, failedExpectations: _ };
       T = un.remainder;
       let dn = T.match(/^(([\t\n\f\r ])+)?(\/\/([^\r\n])*([\r\n])+)?(([\t\n\f\r ])+)?/g);
       if ((_.push({ expectation: Mt, remainder: T }, { expectation: $t, remainder: T }), dn?.length !== 1))
-        return { success: !1, remainder: T, failedExpectations: _ };
+        return { success: false, remainder: T, failedExpectations: _ };
       return (
-        (T = T.slice(dn[0].length)), { success: !0, value: [P.value, un.value], remainder: T, failedExpectations: _ }
+        (T = T.slice(dn[0].length)), { success: true, value: [P.value, un.value], remainder: T, failedExpectations: _ }
       );
     }
   }
 });
 var Op = S(function (uw) {
-  Object.defineProperty(uw, "__esModule", { value: !0 });
+  Object.defineProperty(uw, "__esModule", { value: true });
   uw.parse = m4;
   var d4 = Gl(),
     f4 = lw(),
@@ -12427,7 +12427,7 @@ var Op = S(function (uw) {
   }
 });
 var gw = S(function (mw) {
-  Object.defineProperty(mw, "__esModule", { value: !0 });
+  Object.defineProperty(mw, "__esModule", { value: true });
   mw.ReferenceSchema =
     mw.Decl_FunctionDecl_OverloadSchema =
     mw.Decl_FunctionDeclSchema =
@@ -12484,7 +12484,7 @@ var gw = S(function (mw) {
   mw.ReferenceSchema = (0, ur.messageDesc)(mw.file_cel_expr_checked, 3);
 });
 var yw = S(function (bw) {
-  Object.defineProperty(bw, "__esModule", { value: !0 });
+  Object.defineProperty(bw, "__esModule", { value: true });
   bw.accessByIndex = k4;
   bw.accessByName = D4;
   bw.isSet = P4;
@@ -12530,18 +12530,18 @@ var yw = S(function (bw) {
     }
   }
   function P4(e, t) {
-    if (typeof e !== "object" || e === null) return !1;
+    if (typeof e !== "object" || e === null) return false;
     if ((0, $a.isCelMap)(e)) return e.has(t);
     if (((e = (0, Pp.unwrapAny)(e)), (0, kp.isReflectMessage)(e))) {
       let r = e.desc.fields.find((o) => o.name === t);
       if (!r) return;
       return e.isSet(r);
     }
-    return !1;
+    return false;
   }
 });
 var Ow = S(function (Rw) {
-  Object.defineProperty(Rw, "__esModule", { value: !0 });
+  Object.defineProperty(Rw, "__esModule", { value: true });
   Rw.ConcreteAttributeFactory = Rw.ErrorAttr = void 0;
   var M4 = $p(),
     fr = js(),
@@ -12556,7 +12556,7 @@ var Ow = S(function (Rw) {
   }
   function Ql(e, t, r, o) {
     let u = o.resolve(t);
-    if (u === void 0) return !1;
+    if (u === void 0) return false;
     if ((0, fr.isCelError)(u)) return u;
     return e.newAccess(o.id, u, o.isOptional()).isPresent(t, r);
   }
@@ -12595,7 +12595,7 @@ var Ow = S(function (Rw) {
         throw Error("No names provided");
     }
     isOptional() {
-      return !1;
+      return false;
     }
     addAccess(e) {
       this.accesses_.push(e);
@@ -12676,7 +12676,7 @@ var Ow = S(function (Rw) {
       (this.id = e), (this.cond = t), (this.t = r), (this.f = o), (this.factory = u);
     }
     isOptional() {
-      return !1;
+      return false;
     }
     addAccess(e) {
       this.t.addAccess(e), this.f.addAccess(e);
@@ -12692,10 +12692,10 @@ var Ow = S(function (Rw) {
     }
     resolve(e) {
       let t = this.cond.eval(e);
-      switch (!0) {
-        case t === !0:
+      switch (true) {
+        case t === true:
           return this.t.resolve(e);
-        case t === !1:
+        case t === false:
           return this.f.resolve(e);
         case (0, fr.isCelError)(t):
           return t;
@@ -12714,7 +12714,7 @@ var Ow = S(function (Rw) {
       (this.id = e), (this.attrs = t), (this.factory = r);
     }
     isOptional() {
-      return !1;
+      return false;
     }
     addAccess(e) {
       let t = [],
@@ -12755,7 +12755,7 @@ var Ow = S(function (Rw) {
       (this.id = e), (this.operand = t), (this.accesses_ = r), (this.factory = o);
     }
     isOptional() {
-      return !1;
+      return false;
     }
     addAccess(e) {
       this.accesses_.push(e);
@@ -12820,7 +12820,7 @@ var Ow = S(function (Rw) {
     }
     isPresent(e, t) {
       if ((0, Cr.accessByIndex)(t, this.index) === void 0 && !this.optional) return Io(this.id, this.index);
-      return !0;
+      return true;
     }
     accessIfPresent(e, t, r) {
       let o = (0, Cr.accessByIndex)(t, this.index);
@@ -12847,7 +12847,7 @@ var Ow = S(function (Rw) {
     }
     isPresent(e, t) {
       if ((0, Cr.accessByIndex)(t, this.index) === void 0 && !this.optional) return Ao(this.id, this.index, -1);
-      return !0;
+      return true;
     }
     accessIfPresent(e, t, r) {
       let o = (0, Cr.accessByIndex)(t, this.index);
@@ -12871,7 +12871,7 @@ var Ow = S(function (Rw) {
     }
     isPresent(e, t) {
       if ((0, Cr.accessByIndex)(t, this.index) === void 0 && !this.optional) return Ao(this.id, Number(this.index), -1);
-      return !0;
+      return true;
     }
     accessIfPresent(e, t, r) {
       let o = (0, Cr.accessByIndex)(t, this.index);
@@ -12922,7 +12922,7 @@ var Ow = S(function (Rw) {
       return this.factory.newAccess(this.id, r, this.optional).access(e, t);
     }
     isPresent(e, t) {
-      if (t === void 0) return !1;
+      if (t === void 0) return false;
       let r = this.key.eval(e);
       if ((0, fr.isCelError)(r)) return r;
       return this.factory.newAccess(this.id, r, this.optional).isPresent(e, t);
@@ -12983,7 +12983,7 @@ var Ow = S(function (Rw) {
   }
 });
 var Bp = S(function (Pw) {
-  Object.defineProperty(Pw, "__esModule", { value: !0 });
+  Object.defineProperty(Pw, "__esModule", { value: true });
   Pw.EMPTY_ACTIVATION = Pw.VarActivation = Pw.ObjectActivation = void 0;
   var V4 = js(),
     W4 = Ss();
@@ -13020,7 +13020,7 @@ var Bp = S(function (Pw) {
   };
 });
 var Mw = S(function (Fw) {
-  Object.defineProperty(Fw, "__esModule", { value: !0 });
+  Object.defineProperty(Fw, "__esModule", { value: true });
   Fw.celObject = q4;
   var Ut = ar(),
     Wp = Ar(),
@@ -13047,12 +13047,12 @@ var Mw = S(function (Fw) {
     switch (t.fieldKind) {
       case "list":
         if (!(0, tu.isCelList)(r)) throw pr(t, "list", r);
-        let o = (0, Or.reflectList)(t, void 0, !1);
+        let o = (0, Or.reflectList)(t, void 0, false);
         J4(o, r), e.set(t, o);
         return;
       case "map":
         if (!(0, nu.isCelMap)(r)) throw pr(t, "map", r);
-        let u = (0, Or.reflectMap)(t, void 0, !1);
+        let u = (0, Or.reflectMap)(t, void 0, false);
         z4(u, r), e.set(t, u);
         return;
       case "enum":
@@ -13117,7 +13117,7 @@ var Mw = S(function (Fw) {
     }
     if (t === null) return null;
     if ((0, rt.isWrapperDesc)(e.message)) {
-      let r = (0, Or.reflect)(e.message, void 0, !1);
+      let r = (0, Or.reflect)(e.message, void 0, false);
       return r.set(e.message.fields[0], Ba(e.message.fields[0], e.message.fields[0].scalar, t)), r;
     }
     if (!(0, Or.isReflectMessage)(t, e.message)) throw pr(e, e.message.typeName, t);
@@ -13134,7 +13134,7 @@ var Mw = S(function (Fw) {
       case "number":
         return (0, rt.anyPack)(rt.DoubleValueSchema, (0, Ut.create)(rt.DoubleValueSchema, { value: e }));
       default:
-        switch (!0) {
+        switch (true) {
           case e instanceof Uint8Array:
             return (0, rt.anyPack)(rt.BytesValueSchema, (0, Ut.create)(rt.BytesValueSchema, { value: e }));
           case e == null:
@@ -13176,7 +13176,7 @@ var Mw = S(function (Fw) {
         else t.kind = { case: "numberValue", value: Number(e) };
         break;
       default:
-        switch (!0) {
+        switch (true) {
           case e instanceof Uint8Array:
             t.kind = { case: "stringValue", value: (0, K4.base64Encode)(e) };
             break;
@@ -13264,7 +13264,7 @@ var Mw = S(function (Fw) {
   }
 });
 var $p = S(function (zw) {
-  Object.defineProperty(zw, "__esModule", { value: !0 });
+  Object.defineProperty(zw, "__esModule", { value: true });
   zw.EvalAttr = zw.Planner = void 0;
   var $w = Ow(),
     Bw = Bp(),
@@ -13291,7 +13291,7 @@ var $p = S(function (zw) {
       let t = Number(e.id);
       switch (e.exprKind.case) {
         case "identExpr":
-          return new Ri(this.factory.createMaybe(t, e.exprKind.value.name), !1);
+          return new Ri(this.factory.createMaybe(t, e.exprKind.value.name), false);
         case "constExpr":
           return new Xp(t, this.constVal(e.exprKind.value));
         case "callExpr":
@@ -13327,8 +13327,8 @@ var $p = S(function (zw) {
     planSelect(e, t) {
       if (t.operand === void 0) throw Error("invalid select");
       let r = this.plan(t.operand),
-        o = this.relativeAttr(e, r, !1),
-        u = this.factory.newAccess(e, t.field, !1);
+        o = this.relativeAttr(e, r, false),
+        u = this.factory.newAccess(e, t.field, false);
       if (u instanceof $w.ErrorAttr) throw Error(`invalid select: ${u.error.message}`);
       if (t.testOnly) return new Gw(e, o, u, t.field);
       return o.addAccess(u), o;
@@ -13342,8 +13342,8 @@ var $p = S(function (zw) {
       for (let x = 0; x < t.entries.length; x++) {
         let w = t.entries[x];
         if (w.optionalEntry) {
-          if (o === void 0) o = Array(t.entries.length).fill(!1);
-          o[x] = !0;
+          if (o === void 0) o = Array(t.entries.length).fill(false);
+          o[x] = true;
         }
         switch (w.keyKind.case) {
           case "fieldKey":
@@ -13367,8 +13367,8 @@ var $p = S(function (zw) {
       for (let d = 0; d < t.entries.length; d++) {
         let x = t.entries[d];
         if (x.optionalEntry) {
-          if (r === void 0) r = Array(t.entries.length).fill(!1);
-          r[d] = !0;
+          if (r === void 0) r = Array(t.entries.length).fill(false);
+          r[d] = true;
         }
         switch (x.keyKind.case) {
           case "fieldKey":
@@ -13386,11 +13386,11 @@ var $p = S(function (zw) {
     }
     planCreateList(e, t) {
       if (t.optionalIndices.length > 0) {
-        let o = Array(t.elements.length).fill(!1);
+        let o = Array(t.elements.length).fill(false);
         for (let u = 0; u < t.optionalIndices.length; u++) {
           let d = t.optionalIndices[u];
           if (d < 0 || d >= t.elements.length) throw Error("invalid optional index");
-          o[d] = !0;
+          o[d] = true;
         }
       }
       return new jw(
@@ -13422,10 +13422,10 @@ var $p = S(function (zw) {
       if (t.target) r = [this.plan(t.target), ...r];
       switch (t.function) {
         case ri.INDEX:
-          return this.planCallIndex(t, r, !1);
+          return this.planCallIndex(t, r, false);
         case ri.OPT_INDEX:
         case ri.OPT_SELECT:
-          return this.planCallIndex(t, r, !0);
+          return this.planCallIndex(t, r, true);
         case ri.CONDITIONAL:
           return this.planCallConditional(e, t, r);
         case ri.LOGICAL_AND:
@@ -13450,14 +13450,14 @@ var $p = S(function (zw) {
       let o = r[0],
         u = r[1],
         d = r[2],
-        x = this.relativeAttr(u.id, u, !1),
-        w = this.relativeAttr(d.id, d, !1);
-      return new Ri(this.factory.createConditional(e, o, x, w), !1);
+        x = this.relativeAttr(u.id, u, false),
+        w = this.relativeAttr(d.id, d, false);
+      return new Ri(this.factory.createConditional(e, o, x, w), false);
     }
     planCallIndex(e, t, r) {
       let o = t[0],
         u = t[1],
-        d = this.relativeAttr(o.id, o, !1),
+        d = this.relativeAttr(o.id, o, false),
         x;
       if (u instanceof Xp) x = this.factory.newAccess(o.id, u.value, r);
       else if (u instanceof Ri) x = this.factory.newAccess(o.id, u, r);
@@ -13512,7 +13512,7 @@ var $p = S(function (zw) {
         case "google.protobuf.Timestamp":
         case "google.protobuf.Duration":
         case "google.protobuf.Any":
-          return !0;
+          return true;
         default:
           return this.registry.getMessage(e) !== void 0;
       }
@@ -13529,7 +13529,7 @@ var $p = S(function (zw) {
     }
     eval(e) {
       let t = this.attr.resolve(e);
-      if (t === void 0) return !1;
+      if (t === void 0) return false;
       if ((0, Tt.isCelError)(t)) return t;
       return this.access.isPresent(e, t);
     }
@@ -13749,7 +13749,7 @@ var $p = S(function (zw) {
         let x = new Bw.VarActivation(this.iterVar, d, r),
           w = this.cond.eval(x);
         if ((0, Tt.isCelError)(w)) return w;
-        if (w !== !0) break;
+        if (w !== true) break;
         r.value = this.step.eval(x);
       }
       return this.result.eval(r);
@@ -13766,14 +13766,14 @@ var $p = S(function (zw) {
       for (let r of this.args) {
         let o = r.eval(e);
         if (typeof o === "boolean") {
-          if (!o) return !1;
+          if (!o) return false;
           continue;
         }
         if ((0, Tt.isCelError)(o)) t.push(o);
         else t.push((0, Tt.celError)(`type mismatch: expected bool, got ${(0, Wa.celType)(o)}`, this.id));
       }
       if (t.length > 0) return (0, Tt.celErrorMerge)(t[0], ...t.slice(1));
-      return !0;
+      return true;
     }
   }
   class qw {
@@ -13787,14 +13787,14 @@ var $p = S(function (zw) {
       for (let r of this.args) {
         let o = r.eval(e);
         if (typeof o === "boolean") {
-          if (o) return !0;
+          if (o) return true;
           continue;
         }
         if ((0, Tt.isCelError)(o)) t.push(o);
         else t.push((0, Tt.celError)(`type mismatch: expected bool, got ${(0, Wa.celType)(o)}`, this.id));
       }
       if (t.length > 0) return (0, Tt.celErrorMerge)(t[0], ...t.slice(1));
-      return !1;
+      return false;
     }
   }
   class Xw {
@@ -13804,7 +13804,7 @@ var $p = S(function (zw) {
       (this.id = e), (this.arg = t);
     }
     eval(e) {
-      return this.arg.eval(e) !== !1;
+      return this.arg.eval(e) !== false;
     }
   }
   function Jw(e) {
@@ -13835,7 +13835,7 @@ var $p = S(function (zw) {
   }
 });
 var Qp = S(function (s0) {
-  Object.defineProperty(s0, "__esModule", { value: !0 });
+  Object.defineProperty(s0, "__esModule", { value: true });
   s0.plan = u3;
   var o3 = gw(),
     e0 = Gl(),
@@ -13873,7 +13873,7 @@ var Qp = S(function (s0) {
   }
 });
 var o0 = S(function (i0) {
-  Object.defineProperty(i0, "__esModule", { value: !0 });
+  Object.defineProperty(i0, "__esModule", { value: true });
   i0.run = h3;
   var f3 = Ep(),
     p3 = Op(),
@@ -13883,7 +13883,7 @@ var o0 = S(function (i0) {
   }
 });
 var p0 = S(function (Jt) {
-  Object.defineProperty(Jt, "__esModule", { value: !0 });
+  Object.defineProperty(Jt, "__esModule", { value: true });
   Jt.celFunc =
     Jt.celMethod =
     Jt.celEnv =
@@ -13909,150 +13909,150 @@ var p0 = S(function (Jt) {
       void 0;
   var a0 = js();
   Object.defineProperty(Jt, "celError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return a0.celError;
     },
   });
   Object.defineProperty(Jt, "isCelError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return a0.isCelError;
     },
   });
   var u0 = xs();
   Object.defineProperty(Jt, "celMap", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return u0.celMap;
     },
   });
   Object.defineProperty(Jt, "isCelMap", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return u0.isCelMap;
     },
   });
   var em = es();
   Object.defineProperty(Jt, "celList", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return em.celList;
     },
   });
   Object.defineProperty(Jt, "isCelList", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return em.isCelList;
     },
   });
   Object.defineProperty(Jt, "celListConcat", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return em.celListConcat;
     },
   });
   var d0 = Ar();
   Object.defineProperty(Jt, "celUint", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return d0.celUint;
     },
   });
   Object.defineProperty(Jt, "isCelUint", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return d0.isCelUint;
     },
   });
   var b3 = Na();
   Object.defineProperty(Jt, "celFromScalar", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return b3.celFromScalar;
     },
   });
   var vo = Sr();
   Object.defineProperty(Jt, "celType", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return vo.celType;
     },
   });
   Object.defineProperty(Jt, "objectType", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return vo.objectType;
     },
   });
   Object.defineProperty(Jt, "CelScalar", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return vo.CelScalar;
     },
   });
   Object.defineProperty(Jt, "listType", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return vo.listType;
     },
   });
   Object.defineProperty(Jt, "mapType", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return vo.mapType;
     },
   });
   Object.defineProperty(Jt, "isCelType", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return vo.isCelType;
     },
   });
   var y3 = o0();
   Object.defineProperty(Jt, "run", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return y3.run;
     },
   });
   var _3 = Qp();
   Object.defineProperty(Jt, "plan", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return _3.plan;
     },
   });
   var S3 = Op();
   Object.defineProperty(Jt, "parse", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return S3.parse;
     },
   });
   var E3 = Ep();
   Object.defineProperty(Jt, "celEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return E3.celEnv;
     },
   });
   var f0 = Ii();
   Object.defineProperty(Jt, "celMethod", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return f0.celMethod;
     },
   });
   Object.defineProperty(Jt, "celFunc", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return f0.celFunc;
     },
   });
 });
 var C0 = S(function (R0) {
-  Object.defineProperty(R0, "__esModule", { value: !0 });
+  Object.defineProperty(R0, "__esModule", { value: true });
   var m0 = ar(),
     su = jn(),
     au = Sr(),
@@ -14176,7 +14176,7 @@ var C0 = S(function (R0) {
     }
   }
   function I0(e, t) {
-    switch (!0) {
+    switch (true) {
       case typeof e === "number":
         if (!Number.isFinite(e) || t === void 0) return e.toString();
         return new Intl.NumberFormat("en-US", {
@@ -14184,7 +14184,7 @@ var C0 = S(function (R0) {
           minimumFractionDigits: t,
           notation: "standard",
           roundingMode: "halfEven",
-          useGrouping: !1,
+          useGrouping: false,
         }).format(e);
       case typeof e === "string":
         return w0(e);
@@ -14193,7 +14193,7 @@ var C0 = S(function (R0) {
     }
   }
   function C3(e, t) {
-    switch (!0) {
+    switch (true) {
       case typeof e === "number":
         if (!Number.isFinite(e)) return e.toString();
         let r = e.toExponential(t),
@@ -14207,7 +14207,7 @@ var C0 = S(function (R0) {
     }
   }
   function O3(e) {
-    switch (!0) {
+    switch (true) {
       case typeof e === "boolean":
         return e ? "1" : "0";
       case typeof e === "bigint":
@@ -14219,7 +14219,7 @@ var C0 = S(function (R0) {
     }
   }
   function k3(e) {
-    switch (!0) {
+    switch (true) {
       case typeof e === "bigint":
         return e.toString(8);
       case (0, Ga.isCelUint)(e):
@@ -14229,7 +14229,7 @@ var C0 = S(function (R0) {
     }
   }
   function A0(e) {
-    switch (!0) {
+    switch (true) {
       case typeof e === "bigint":
         return e.toString(10);
       case (0, Ga.isCelUint)(e):
@@ -14246,7 +14246,7 @@ var C0 = S(function (R0) {
     return t;
   }
   function v0(e) {
-    switch (!0) {
+    switch (true) {
       case typeof e === "bigint":
         return e.toString(16);
       case (0, Ga.isCelUint)(e):
@@ -14292,7 +14292,7 @@ var C0 = S(function (R0) {
       case "string":
         return e;
       case "object":
-        switch (!0) {
+        switch (true) {
           case e === null:
             return "null";
           case (0, au.isCelType)(e):
@@ -14396,11 +14396,11 @@ var C0 = S(function (R0) {
   ];
 });
 var O0 = S(function (nm) {
-  Object.defineProperty(nm, "__esModule", { value: !0 });
+  Object.defineProperty(nm, "__esModule", { value: true });
   nm.strings = void 0;
   var B3 = C0();
   Object.defineProperty(nm, "strings", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return B3.default;
     },
@@ -14411,7 +14411,7 @@ function Am(e) {
   kv ??= e;
 }
 function vm() {
-  return !1;
+  return false;
 }
 function Wht(e) {
   return `'eval' '${e.replaceAll("'", "'\\''")}' 2>/dev/null || 'true'`;
@@ -14498,22 +14498,22 @@ function g_(e) {
 function Wo(e, t) {
   let r = On.normalize(e),
     o = On.normalize(t);
-  if (o === r) return !1;
-  if (r.startsWith("/tmp/") && o === "/private" + r) return !1;
-  if (r.startsWith("/var/") && o === "/private" + r) return !1;
-  if (r.startsWith("/private/tmp/") && o === r) return !1;
-  if (r.startsWith("/private/var/") && o === r) return !1;
-  if (o === "/") return !0;
-  if (o.split("/").filter(Boolean).length <= 1) return !0;
-  if (r.startsWith(o + "/")) return !0;
+  if (o === r) return false;
+  if (r.startsWith("/tmp/") && o === "/private" + r) return false;
+  if (r.startsWith("/var/") && o === "/private" + r) return false;
+  if (r.startsWith("/private/tmp/") && o === r) return false;
+  if (r.startsWith("/private/var/") && o === r) return false;
+  if (o === "/") return true;
+  if (o.split("/").filter(Boolean).length <= 1) return true;
+  if (r.startsWith(o + "/")) return true;
   let d = r;
   if (r.startsWith("/tmp/")) d = "/private" + r;
   else if (r.startsWith("/var/")) d = "/private" + r;
-  if (d !== r && d.startsWith(o + "/")) return !0;
+  if (d !== r && d.startsWith(o + "/")) return true;
   let x = o.startsWith(r + "/"),
     w = d !== r && o.startsWith(d + "/");
-  if (o !== r && !(d !== r && o === d) && !x && !w) return !0;
-  return !1;
+  if (o !== r && !(d !== r && o === d) && !x && !w) return true;
+  return false;
 }
 function Pv(e) {
   if (e === "~") return cc();
@@ -14720,7 +14720,7 @@ function us(e, t = {}) {
   let x = new RegExp(Ho(o), t.caseInsensitive ? "i" : ""),
     w = [];
   try {
-    let v = ui.readdirSync(d, { recursive: !0, withFileTypes: !0 });
+    let v = ui.readdirSync(d, { recursive: true, withFileTypes: true });
     for (let N of v) {
       let k = N.parentPath ?? N.path ?? d,
         C = On.join(k, N.name);
@@ -14774,7 +14774,7 @@ async function $m(e) {
   if (e.ephemeral) t.add(Om(e.certPath));
   for (let r of t)
     try {
-      await Vv(r, { recursive: !0, force: !0 });
+      await Vv(r, { recursive: true, force: true });
     } catch (o) {
       W(`[mitm-ca] cleanup failed: ${o.message}`, { level: "warn" });
     }
@@ -14818,23 +14818,23 @@ function Kv(e, t, r) {
 function Zv(e, t) {
   let r = Pr.oids.sha256WithRSAEncryption,
     o = () =>
-      Gi([nn.create(xr.UNIVERSAL, Zr.OID, !1, nn.oidToDer(r).getBytes()), nn.create(xr.UNIVERSAL, Zr.NULL, !1, "")]),
+      Gi([nn.create(xr.UNIVERSAL, Zr.OID, false, nn.oidToDer(r).getBytes()), nn.create(xr.UNIVERSAL, Zr.NULL, false, "")]),
     u = (F, U) =>
       Gi([
-        nn.create(xr.UNIVERSAL, Zr.OID, !1, nn.oidToDer(F).getBytes()),
-        nn.create(xr.UNIVERSAL, Zr.OCTETSTRING, !1, nn.toDer(U).getBytes()),
+        nn.create(xr.UNIVERSAL, Zr.OID, false, nn.oidToDer(F).getBytes()),
+        nn.create(xr.UNIVERSAL, Zr.OCTETSTRING, false, nn.toDer(U).getBytes()),
       ]),
-    d = nn.create(xr.CONTEXT_SPECIFIC, 0, !0, [
+    d = nn.create(xr.CONTEXT_SPECIFIC, 0, true, [
       Gi([
-        u(Pr.oids.authorityKeyIdentifier, Gi([nn.create(xr.CONTEXT_SPECIFIC, 0, !1, Lu(e))])),
-        u("2.5.29.20", nn.create(xr.UNIVERSAL, Zr.INTEGER, !1, "\x01")),
+        u(Pr.oids.authorityKeyIdentifier, Gi([nn.create(xr.CONTEXT_SPECIFIC, 0, false, Lu(e))])),
+        u("2.5.29.20", nn.create(xr.UNIVERSAL, Zr.INTEGER, false, "\x01")),
       ]),
     ]),
     x = new Date(),
     w = e.validity.notAfter,
     v = w > x ? w : Yo(1),
     N = Gi([
-      nn.create(xr.UNIVERSAL, Zr.INTEGER, !1, "\x01"),
+      nn.create(xr.UNIVERSAL, Zr.INTEGER, false, "\x01"),
       o(),
       Pr.distinguishedNameToAsn1(e.subject),
       km(x),
@@ -14842,17 +14842,17 @@ function Zv(e, t) {
       d,
     ]),
     k = Mm(nn.toDer(N).getBytes(), t),
-    C = Gi([N, o(), nn.create(xr.UNIVERSAL, Zr.BITSTRING, !1, "\x00" + k)]);
+    C = Gi([N, o(), nn.create(xr.UNIVERSAL, Zr.BITSTRING, false, "\x00" + k)]);
   return Buffer.from(nn.toDer(C).getBytes(), "binary");
 }
 var { Class: xr, Type: Zr } = nn;
 function Gi(e) {
-  return nn.create(xr.UNIVERSAL, Zr.SEQUENCE, !0, e);
+  return nn.create(xr.UNIVERSAL, Zr.SEQUENCE, true, e);
 }
 function km(e) {
   return e.getUTCFullYear() < 2050
-    ? nn.create(xr.UNIVERSAL, Zr.UTCTIME, !1, nn.dateToUtcTime(e))
-    : nn.create(xr.UNIVERSAL, Zr.GENERALIZEDTIME, !1, nn.dateToGeneralizedTime(e));
+    ? nn.create(xr.UNIVERSAL, Zr.UTCTIME, false, nn.dateToUtcTime(e))
+    : nn.create(xr.UNIVERSAL, Zr.GENERALIZEDTIME, false, nn.dateToGeneralizedTime(e));
 }
 function qv(e, t, r) {
   let o = Dm(e, "CERTIFICATE", "tlsTerminate.caCertPath"),
@@ -14874,7 +14874,7 @@ function Mu(e, t, r, o, u) {
     leafCerts: new Map(),
     secureContexts: new Map(),
     crlDer: Zv(r, t),
-    ephemeral: u.ephemeral ?? !1,
+    ephemeral: u.ephemeral ?? false,
   };
 }
 function $u(e = {}) {
@@ -14891,8 +14891,8 @@ function $u(e = {}) {
   r.setSubject(o),
     r.setIssuer(o),
     r.setExtensions([
-      { name: "basicConstraints", cA: !0, critical: !0 },
-      { name: "keyUsage", critical: !0, keyCertSign: !0, cRLSign: !0, digitalSignature: !0 },
+      { name: "basicConstraints", cA: true, critical: true },
+      { name: "keyUsage", critical: true, keyCertSign: true, cRLSign: true, digitalSignature: true },
       { name: "subjectKeyIdentifier" },
     ]);
   let u = Pr.privateKeyToPem(t.privateKey);
@@ -14906,20 +14906,20 @@ function hc(e, t) {
   try {
     (r = Pr.certificateFromPem(e)), (o = Pr.privateKeyFromPem(t));
   } catch (x) {
-    return { ok: !1, reason: `parse: ${x.message}` };
+    return { ok: false, reason: `parse: ${x.message}` };
   }
-  if (!("n" in o) || !("d" in o)) return { ok: !1, reason: "key is not RSA" };
+  if (!("n" in o) || !("d" in o)) return { ok: false, reason: "key is not RSA" };
   if (r.validity.notBefore.getTime() > Date.now())
-    return { ok: !1, reason: `notBefore ${r.validity.notBefore.toISOString()} is in the future (clock skew?)` };
+    return { ok: false, reason: `notBefore ${r.validity.notBefore.toISOString()} is in the future (clock skew?)` };
   let u = r.publicKey;
-  if (!("n" in u) || u.n.compareTo(o.n)) return { ok: !1, reason: "key does not match certificate public key" };
+  if (!("n" in u) || u.n.compareTo(o.n)) return { ok: false, reason: "key does not match certificate public key" };
   let d;
   try {
     d = fi(e);
   } catch (x) {
-    return { ok: !1, reason: `thumbprint: ${x.message}` };
+    return { ok: false, reason: `thumbprint: ${x.message}` };
   }
-  return { ok: !0, thumbprint: d, notAfter: r.validity.notAfter, cert: r, key: o };
+  return { ok: true, thumbprint: d, notAfter: r.validity.notAfter, cert: r, key: o };
 }
 function Xv(e) {
   let { certPem: t, keyPem: r, cert: o, key: u } = $u(),
@@ -14930,7 +14930,7 @@ function Xv(e) {
     Pu(x, t, { mode: 420 }),
     Pu(w, r, { mode: 384 }),
     W(`[mitm-ca] generated ephemeral CA at ${x}`),
-    Mu(t, r, o, u, { certPath: x, keyPath: w, extraCaCertPaths: e, ephemeral: !0 })
+    Mu(t, r, o, u, { certPath: x, keyPath: w, extraCaCertPaths: e, ephemeral: true })
   );
 }
 function Dm(e, t, r) {
@@ -15100,9 +15100,9 @@ function Wu(e, t) {
     u.setSubject([{ name: "commonName", value: t }]),
     u.setIssuer(e.cert.subject.attributes),
     u.setExtensions([
-      { name: "basicConstraints", cA: !1, critical: !0 },
-      { name: "keyUsage", critical: !0, digitalSignature: !0, keyEncipherment: !0 },
-      { name: "extKeyUsage", serverAuth: !0 },
+      { name: "basicConstraints", cA: false, critical: true },
+      { name: "keyUsage", critical: true, digitalSignature: true, keyEncipherment: true },
+      { name: "extKeyUsage", serverAuth: true },
       { name: "subjectAltName", altNames: [iN(t)] },
       { name: "subjectKeyIdentifier" },
       { name: "authorityKeyIdentifier", keyIdentifier: Lu(e.cert) },
@@ -15166,11 +15166,11 @@ function Hu(e) {
   return { httpUrl: d, httpsUrl: x, noProxy: lN(o) };
 }
 function lN(e) {
-  let t = { all: !1, suffixes: [], cidr: new Ym() };
+  let t = { all: false, suffixes: [], cidr: new Ym() };
   for (let r of e.split(",")) {
     if (((r = r.trim()), !r)) continue;
     if (r === "*") {
-      t.all = !0;
+      t.all = true;
       continue;
     }
     let o = r.indexOf("/");
@@ -15209,20 +15209,20 @@ function lN(e) {
 }
 function Zo(e, t) {
   let r = Lr(t.toLowerCase().replace(/\.$/, ""));
-  if (r === "localhost") return !0;
+  if (r === "localhost") return true;
   let o = pi(r);
   if (o) {
-    if (uN.check(r, o === 6 ? "ipv6" : "ipv4")) return !0;
+    if (uN.check(r, o === 6 ? "ipv6" : "ipv4")) return true;
   }
-  if (e.noProxy.all) return !0;
+  if (e.noProxy.all) return true;
   if (o) {
-    if (e.noProxy.cidr.check(r, o === 6 ? "ipv6" : "ipv4")) return !0;
+    if (e.noProxy.cidr.check(r, o === 6 ? "ipv6" : "ipv4")) return true;
   }
   for (let u of e.noProxy.suffixes)
     if (u.startsWith(".")) {
-      if (r === u.slice(1) || r.endsWith(u)) return !0;
-    } else if (r === u || r.endsWith("." + u)) return !0;
-  return !1;
+      if (r === u.slice(1) || r.endsWith(u)) return true;
+    } else if (r === u || r.endsWith("." + u)) return true;
+  return false;
 }
 var uN = (() => {
   let e = new Ym();
@@ -15242,10 +15242,10 @@ function ju(e) {
   let u = pi(o) === 6 ? `[${o}]:${r}` : `${o}:${r}`;
   return new Promise((d, x) => {
     let w = e.dial(),
-      v = !1,
+      v = false,
       N = (C) => {
         if (v) return;
-        (v = !0), w.destroy(), x(C);
+        (v = true), w.destroy(), x(C);
       },
       k = () => N(Error("Proxy closed during CONNECT handshake"));
     w.setTimeout(e.timeoutMs ?? Zm, () => N(Error("CONNECT handshake timed out"))),
@@ -15282,7 +15282,7 @@ Host: ${u}\r
             if (!/^HTTP\/1\.[01] 2\d\d(?:\s|$)/.test(q)) return N(Error(`Proxy refused CONNECT: ${q.trim()}`));
             let Y = C.slice(M + 4);
             if (Y.length) w.unshift(Buffer.from(Y, "latin1"));
-            (v = !0), w.setTimeout(0), w.removeListener("error", N), w.removeListener("close", k), d(w);
+            (v = true), w.setTimeout(0), w.removeListener("error", N), w.removeListener("close", k), d(w);
           };
         w.on("data", F);
       });
@@ -15334,10 +15334,10 @@ function dN(e) {
   return e.replace(/\/\/[^@/]*@/, "//***:***@");
 }
 function Hi(e) {
-  if (!e || e.length > 255) return !1;
+  if (!e || e.length > 255) return false;
   let t = Lr(e);
-  if (t.includes("%")) return !1;
-  if (pi(t)) return !0;
+  if (t.includes("%")) return false;
+  if (pi(t)) return true;
   return /^[A-Za-z0-9._-]+$/.test(t);
 }
 function fn(e) {
@@ -15353,10 +15353,10 @@ function fn(e) {
 function Ec(e, t, r = Zm) {
   return new Promise((o, u) => {
     let d = Km(t, e),
-      x = !1,
+      x = false,
       w = (v) => {
         if (x) return;
-        if (((x = !0), d.setTimeout(0), v)) d.destroy(), u(v);
+        if (((x = true), d.setTimeout(0), v)) d.destroy(), u(v);
         else o(d);
       };
     d.setTimeout(r, () => w(Error("connect timed out"))),
@@ -15681,7 +15681,7 @@ async function vN(e, t, r, o, u, d, x, w = oh) {
       headers: k,
       ...(rh(d.hostname) ? {} : { servername: d.hostname }),
       ...(d.upstreamCA ? { ca: d.upstreamCA } : {}),
-      agent: !1,
+      agent: false,
     },
     (Y) => {
       Y.on("error", (X) => {
@@ -15759,29 +15759,29 @@ function dh(e) {
     u.destroy();
   });
   let r = (o) => {
-    if (!e.proxyAuthToken) return { ok: !0 };
+    if (!e.proxyAuthToken) return { ok: true };
     let u = /^basic\s+([a-z0-9+/=]+)\s*$/i.exec(o ?? "");
-    if (!u) return { ok: !1 };
+    if (!u) return { ok: false };
     let d = Buffer.from(u[1], "base64").toString("utf8"),
       x = d.indexOf(":");
-    if (x <= 0 || d.slice(x + 1) !== e.proxyAuthToken) return { ok: !1 };
-    return { ok: !0, encodedCommand: pc(d.slice(0, x)) };
+    if (x <= 0 || d.slice(x + 1) !== e.proxyAuthToken) return { ok: false };
+    return { ok: true, encodedCommand: pc(d.slice(0, x)) };
   };
   return (
     t.on("connect", async (o, u, d) => {
       u.on("error", (X) => {
         W(`Client socket error: ${X.message}`, { level: "error" }), u.destroy();
       });
-      let x = !1;
+      let x = false;
       u.once("close", () => {
-        x = !0;
+        x = true;
       });
       let w = () => {
-          (x = !0), u.destroy();
+          (x = true), u.destroy();
         },
         v = 65536,
         N = 0,
-        k = !1,
+        k = false,
         C = [],
         F = (X) => {
           if (!k) return;
@@ -15791,11 +15791,11 @@ function dh(e) {
           }
           C.push(X);
         };
-      if (!e.mitmCA) (k = !0), u.on("data", F);
+      if (!e.mitmCA) (k = true), u.on("data", F);
       if (u.readableEnded) w();
       else u.once("end", w);
       let U = () => {
-          if (((k = !1), C.length)) (d = Buffer.concat([d, ...C])), (C.length = 0);
+          if (((k = false), C.length)) (d = Buffer.concat([d, ...C])), (C.length = 0);
         },
         M = () => {
           u.removeListener("end", w), U();
@@ -15808,7 +15808,7 @@ function dh(e) {
           M(), u.end(X);
         };
       if (x || u.destroyed) return;
-      let Y = !1;
+      let Y = false;
       try {
         let X = r(o.headers["proxy-authorization"]);
         if (!X.ok) {
@@ -15841,11 +15841,11 @@ Connection blocked by network allowlist`);
           return;
         }
         let Ee = fn(fe) ?? fe;
-        if (e.mitmCA && (e.shouldTerminateTLS?.(Ee, Re) ?? !0)) {
+        if (e.mitmCA && (e.shouldTerminateTLS?.(Ee, Re) ?? true)) {
           u.write(`HTTP/1.1 200 Connection Established\r
 \r
 `),
-            (Y = !0);
+            (Y = true);
           let Q = await ah(u, d);
           if (x || u.destroyed) {
             u.destroy();
@@ -15877,7 +15877,7 @@ Connection blocked by network allowlist`);
           W(`[tls-terminate] non-TLS bytes on CONNECT ${Ee}:${Re}; opaque-tunnelling`), (d = Q.head);
         } else if (e.mitmCA) W(`[tls-terminate] policy exempts ${Ee}:${Re}; opaque-tunnelling`);
         let We = e.getMitmSocketPath?.(Ee),
-          De = !We && e.parentProxy && !Zo(e.parentProxy, Ee) ? qo(e.parentProxy, { isHttps: !0 }) : void 0,
+          De = !We && e.parentProxy && !Zo(e.parentProxy, Ee) ? qo(e.parentProxy, { isHttps: true }) : void 0,
           Pe;
         try {
           if (We)
@@ -15901,7 +15901,7 @@ Connection blocked by network allowlist`);
           u.write(`HTTP/1.1 200 Connection Established\r
 \r
 `);
-        if ((M(), (u.allowHalfOpen = !0), d.length)) Pe.write(d);
+        if ((M(), (u.allowHalfOpen = true), d.length)) Pe.write(d);
         Pe.pipe(u),
           u.pipe(Pe),
           Pe.on("error", (Q) => {
@@ -16112,18 +16112,18 @@ var ph = ((e) => ((e[(e.connect = 1)] = "connect"), (e[(e.bind = 2)] = "bind"), 
         r = (await this.readBytes(1)).readUint8(),
         o = (await this.readBytes(r)).toString();
       (this.username = t), (this.password = o);
-      let u = !1,
+      let u = false,
         d = () => {
           if (u) return;
-          (u = !0), this.socket.write(Buffer.from([1, 0])), this.handleConnectionRequest();
+          (u = true), this.socket.write(Buffer.from([1, 0])), this.handleConnectionRequest();
         },
         x = () => {
           if (u) return;
-          (u = !0), this.socket.write(Buffer.from([1, 1])), this.socket.destroy();
+          (u = true), this.socket.write(Buffer.from([1, 1])), this.socket.destroy();
         },
         w = await this.server.authHandler(this, d, x);
-      if (w === !0) d();
-      else if (w === !1) x();
+      if (w === true) d();
+      else if (w === false) x();
     }
     async handleConnectionRequest() {
       await this.readBytes(1);
@@ -16155,19 +16155,19 @@ var ph = ((e) => ((e[(e.connect = 1)] = "connect"), (e[(e.bind = 2)] = "bind"), 
       let u = (await this.readBytes(2)).readUInt16BE();
       if (!this.server.supportedCommands.has(t)) return this.socket.write(Buffer.from([5, 7])), this.socket.destroy();
       (this.destAddress = o), (this.destPort = u);
-      let d = !1,
+      let d = false,
         x = () => {
           if (d) return;
-          (d = !0), this.connect();
+          (d = true), this.connect();
         };
       if (!this.server.rulesetValidator) return x();
       let w = () => {
           if (d) return;
-          (d = !0), this.socket.write(Buffer.from([5, 2, 0, 1, 0, 0, 0, 0, 0, 0])), this.socket.destroy();
+          (d = true), this.socket.write(Buffer.from([5, 2, 0, 1, 0, 0, 0, 0, 0, 0])), this.socket.destroy();
         },
         v = await this.server.rulesetValidator(this, x, w);
-      if (v === !0) x();
-      else if (v === !1) w();
+      if (v === true) x();
+      else if (v === false) w();
     }
     connect() {
       this.socket.removeListener("error", this.errorHandler),
@@ -16184,7 +16184,7 @@ function fh(e, t) {
   e.socket.on("error", () => {});
   let r = $N.createConnection({ host: e.destAddress, port: e.destPort });
   r.setNoDelay();
-  let o = !1;
+  let o = false;
   return (
     r.on("error", (u) => {
       if (!o)
@@ -16208,7 +16208,7 @@ function fh(e, t) {
         }
     }),
     r.on("ready", () => {
-      (o = !0), t("REQUEST_GRANTED"), e.socket.pipe(r).pipe(e.socket);
+      (o = true), t("REQUEST_GRANTED"), e.socket.pipe(r).pipe(e.socket);
     }),
     e.socket.on("close", () => r.destroy()),
     r
@@ -16266,24 +16266,24 @@ function hh(e) {
   t.setRulesetValidator(async (o) => {
     try {
       let { destAddress: u, destPort: d } = o;
-      if (!Hi(u)) return W(`Rejecting malformed SOCKS host: ${JSON.stringify(u)}`, { level: "error" }), !1;
+      if (!Hi(u)) return W(`Rejecting malformed SOCKS host: ${JSON.stringify(u)}`, { level: "error" }), false;
       if ((W(`Connection request to ${u}:${d}`), !(await e.filter(d, u, pc(o.username)))))
-        return W(`Connection blocked to ${u}:${d}`, { level: "error" }), !1;
-      return W(`Connection allowed to ${u}:${d}`), !0;
+        return W(`Connection blocked to ${u}:${d}`, { level: "error" }), false;
+      return W(`Connection allowed to ${u}:${d}`), true;
     } catch (u) {
-      return W(`Error validating connection: ${u}`, { level: "error" }), !1;
+      return W(`Error validating connection: ${u}`, { level: "error" }), false;
     }
   }),
     t.setConnectionHandler((o, u) => {
       let d = fn(o.destAddress) ?? o.destAddress,
         x = o.destPort,
-        w = !1,
+        w = false,
         v;
       o.socket.once("close", () => {
-        (w = !0), v?.destroy();
+        (w = true), v?.destroy();
       }),
         o.socket.on("error", () => v?.destroy());
-      let N = e.parentProxy && !Zo(e.parentProxy, d) ? qo(e.parentProxy, { isHttps: !0 }) : void 0;
+      let N = e.parentProxy && !Zo(e.parentProxy, d) ? qo(e.parentProxy, { isHttps: true }) : void 0;
       (N ? _c(N, d, x) : Ec(d, x))
         .then((C) => {
           if (((v = C), C.on("error", () => o.socket.destroy()), w)) {
@@ -16551,7 +16551,7 @@ function nR(e) {
 }
 class ed {
   constructor() {
-    (this.byName = new Map()), (this.bySentinel = new Map()), (this.allSentinelsPrefixed = !0);
+    (this.byName = new Map()), (this.bySentinel = new Map()), (this.allSentinelsPrefixed = true);
   }
   register(e, t, r) {
     return this.registerWithSentinel(e, nR(t), t, r);
@@ -16559,7 +16559,7 @@ class ed {
   registerWithSentinel(e, t, r, o) {
     let u = this.byName.get(e);
     if (u !== void 0) return (u.realValue = r), (u.injectHosts = o), u.sentinel;
-    if (!t.startsWith(Jo)) this.allSentinelsPrefixed = !1;
+    if (!t.startsWith(Jo)) this.allSentinelsPrefixed = false;
     let d = { name: e, sentinel: t, realValue: r, injectHosts: o };
     return this.byName.set(e, d), this.bySentinel.set(t, d), t;
   }
@@ -16586,7 +16586,7 @@ class ed {
     return this.bySentinel.size;
   }
   clear() {
-    this.byName.clear(), this.bySentinel.clear(), (this.allSentinelsPrefixed = !0);
+    this.byName.clear(), this.bySentinel.clear(), (this.allSentinelsPrefixed = true);
   }
   substituteInHeaders(e, t, r) {
     if (this.bySentinel.size === 0) return;
@@ -16661,9 +16661,9 @@ function td(e) {
 }
 function vc(e) {
   let t = e.split(".");
-  if (t.length !== 3) return !1;
+  if (t.length !== 3) return false;
   let r = td(t[0]);
-  if (typeof r !== "object" || r === null || !("alg" in r)) return !1;
+  if (typeof r !== "object" || r === null || !("alg" in r)) return false;
   return td(t[1]) !== void 0;
 }
 var rR = 9999999999,
@@ -16703,12 +16703,12 @@ class rd {
     if (this.dir === void 0) this.dir = Ur.mkdtempSync(xh(iR(), "srt-credmask-"));
     let r = this.byKey.get(e);
     if (r === void 0) (r = xh(this.dir, `${this.byKey.size}.fake`)), this.byKey.set(e, r);
-    return Ur.rmSync(r, { force: !0 }), Ur.writeFileSync(r, t, { mode: 384 }), r;
+    return Ur.rmSync(r, { force: true }), Ur.writeFileSync(r, t, { mode: 384 }), r;
   }
   dispose() {
     if (this.dir !== void 0)
       try {
-        Ur.rmSync(this.dir, { recursive: !0, force: !0 });
+        Ur.rmSync(this.dir, { recursive: true, force: true });
       } catch (e) {
         W(`MaskedFileStore cleanup failed: ${e}`, { level: "error" });
       }
@@ -16778,7 +16778,7 @@ function Th(e, t, r, o) {
             }
             return M++, x.decode === "jwt" ? r.registerWithSentinel(se, Nc(sR()), Y, N) : r.register(se, Y, N);
           },
-          { maskDuplicates: x.maskDuplicates ?? !1 },
+          { maskDuplicates: x.maskDuplicates ?? false },
         );
       if (q === null || M === 0) {
         let Y =
@@ -17030,7 +17030,7 @@ import { spawn as uR } from "child_process";
 import { text as Ch } from "stream/consumers";
 async function Oh(e, t, r, o = { command: "rg" }) {
   let { command: u, args: d = [], argv0: x } = o,
-    w = uR(u, [...d, ...e, t], { argv0: x, signal: r, timeout: 1e4, windowsHide: !0 }),
+    w = uR(u, [...d, ...e, t], { argv0: x, signal: r, timeout: 1e4, windowsHide: true }),
     [v, N, k] = await Promise.all([
       Ch(w.stdout),
       Ch(w.stderr),
@@ -17178,13 +17178,13 @@ function SR(e) {
     let u = r + Ot.sep + o;
     try {
       let d = Xe.statSync(u);
-      if (d.isFile() || d.isSymbolicLink()) return !0;
+      if (d.isFile() || d.isSymbolicLink()) return true;
     } catch {
       break;
     }
     r = u;
   }
-  return !1;
+  return false;
 }
 function ER(e) {
   let t = e.split(Ot.sep),
@@ -17197,14 +17197,14 @@ function ER(e) {
   }
   return e;
 }
-async function xR(e = { command: "rg" }, t = ud, r = !1, o) {
+async function xR(e = { command: "rg" }, t = ud, r = false, o) {
   let u = process.cwd(),
     d = new AbortController(),
     x = o ?? d.signal,
     w = lc(),
     v = [...Go.map((U) => Ot.resolve(u, U)), ...w.map((U) => Ot.resolve(u, U))],
     N = Ot.resolve(u, ".git"),
-    k = !1;
+    k = false;
   try {
     k = Xe.statSync(N).isDirectory();
   } catch {}
@@ -17223,7 +17223,7 @@ async function xR(e = { command: "rg" }, t = ud, r = !1, o) {
   }
   for (let U of F) {
     let M = Ot.resolve(u, U),
-      q = !1;
+      q = false;
     for (let Y of [...w, ".git"]) {
       let X = ku(Y),
         se = M.split(Ot.sep),
@@ -17234,7 +17234,7 @@ async function xR(e = { command: "rg" }, t = ud, r = !1, o) {
           if (U.includes(".git/hooks")) v.push(Ot.join(Re, "hooks"));
           else if (U.includes(".git/config")) v.push(Ot.join(Re, "config"));
         } else v.push(se.slice(0, fe + 1).join(Ot.sep));
-        q = !0;
+        q = true;
         break;
       }
     }
@@ -17244,13 +17244,13 @@ async function xR(e = { command: "rg" }, t = ud, r = !1, o) {
 }
 var Dc = new Set(),
   $s = 0,
-  Uh = !1;
+  Uh = false;
 function Fh() {
   if (Uh) return;
   process.on("exit", () => {
-    Pc({ force: !0 });
+    Pc({ force: true });
   }),
-    (Uh = !0);
+    (Uh = true);
 }
 function Pc(e) {
   if (!e?.force) {
@@ -17273,9 +17273,9 @@ function Pc(e) {
 }
 function Mh(e) {
   try {
-    return Xe.accessSync(e, Xe.constants.X_OK), !0;
+    return Xe.accessSync(e, Xe.constants.X_OK), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function Bh(e) {
@@ -17441,7 +17441,7 @@ function $h(e, t, r, o, u, d, x) {
       e.push("--ro-bind", C, C), W(`[Sandbox Linux] Re-allowed read access within denied region: ${C}`);
     }
 }
-async function IR(e, t, r, o, u = { command: "rg" }, d = ud, x = !1, w) {
+async function IR(e, t, r, o, u = { command: "rg" }, d = ud, x = false, w) {
   let v = [],
     N = [],
     k = [],
@@ -17519,7 +17519,7 @@ async function IR(e, t, r, o, u = { command: "rg" }, d = ud, x = !1, w) {
           if (Xe.existsSync("/etc/ssh/ssh_config.d")) Z.push("/etc/ssh/ssh_config.d");
           for (let Oe of Z) {
             let Be = yT(Oe),
-              st = !1;
+              st = false;
             try {
               st = Xe.statSync(Be).isDirectory();
             } catch {
@@ -17545,7 +17545,7 @@ async function IR(e, t, r, o, u = { command: "rg" }, d = ud, x = !1, w) {
       let Z = Lh(ae);
       if (Z === null || Z.startsWith("/dev/")) continue;
       if (cd(Z, N)) continue;
-      let ie = !1;
+      let ie = false;
       try {
         ie = Xe.statSync(Z).isDirectory();
       } catch {
@@ -17639,8 +17639,8 @@ async function IR(e, t, r, o, u = { command: "rg" }, d = ud, x = !1, w) {
       try {
         Z = !Xe.statSync(ae).isDirectory();
       } catch (ie) {
-        if (ie?.code === "ENOENT" || ie?.code === "ENOTDIR") Z = !1;
-        else Z = !0;
+        if (ie?.code === "ENOENT" || ie?.code === "ENOTDIR") Z = false;
+        else Z = true;
       }
       if (Z) {
         let ie = M(kc(ae));
@@ -17660,12 +17660,12 @@ async function IR(e, t, r, o, u = { command: "rg" }, d = ud, x = !1, w) {
                 (Oe) => M(Oe).some((Be) => Be.startsWith(ae + "/") && (ge === Be || ge.startsWith(Be + "/"))) && !Z(Oe),
               )
             )
-              return !0;
+              return true;
           }
-        return !1;
+        return false;
       },
       Rt = (ge) => {
-        if (!e) return !1;
+        if (!e) return false;
         let { prospectiveReadDenyTmpfsDirsBothForms: ae } = ve();
         return ae.some((Z) => Z === ge || Z.startsWith(ge + "/"));
       },
@@ -17709,13 +17709,13 @@ async function IR(e, t, r, o, u = { command: "rg" }, d = ud, x = !1, w) {
           if (Z === "") continue;
           ae += "/" + Z;
           let ie = ut(ae);
-          if (ie === null) return W(`[Sandbox Linux] Dropping ancestor pin with vanished component: ${ge}`), !1;
+          if (ie === null) return W(`[Sandbox Linux] Dropping ancestor pin with vanished component: ${ge}`), false;
           if (ie)
             return (
-              W(`[Sandbox Linux] Dropping ancestor pin with symlink component (changed since resolution): ${ge}`), !1
+              W(`[Sandbox Linux] Dropping ancestor pin with symlink component (changed since resolution): ${ge}`), false
             );
         }
-        return !0;
+        return true;
       },
       je = [];
     for (let ge of [...Ke].sort((ae, Z) => ae.split("/").length - Z.split("/").length))
@@ -17763,10 +17763,10 @@ async function IR(e, t, r, o, u = { command: "rg" }, d = ud, x = !1, w) {
   }
   let De = (ue, ve) => M(ue).some((z) => ve === z || ve.startsWith(z === "/" ? "/" : z + "/")),
     Pe = (ue) => {
-      let ve = !1;
+      let ve = false;
       for (let z of Re) {
-        if (z.forms.some((re) => ue === re || ue.startsWith(re === "/" ? "/" : re + "/"))) ve = !0;
-        if (z.restores.some((re) => De(re, ue))) ve = !1;
+        if (z.forms.some((re) => ue === re || ue.startsWith(re === "/" ? "/" : re + "/"))) ve = true;
+        if (z.restores.some((re) => De(re, ue))) ve = false;
       }
       return ve;
     },
@@ -17827,7 +17827,7 @@ async function Gh(e) {
       binShell: se,
       ripgrepConfig: fe = { command: "rg" },
       mandatoryDenySearchDepth: Re = ud,
-      allowGitConfig: _e = !1,
+      allowGitConfig: _e = false,
       gitSafeDirectories: Ee,
       seccompConfig: We,
       bwrapPath: De,
@@ -17970,16 +17970,16 @@ class djt {
   }
 }
 function Yi(e, t, r) {
-  if (!r) return !1;
-  if ((r["*"] ?? []).some((u) => e.includes(u))) return !0;
-  if (t === void 0) return !1;
-  for (let [u, d] of Object.entries(r)) if (u !== "*" && t.includes(u) && d.some((x) => e.includes(x))) return !0;
-  return !1;
+  if (!r) return false;
+  if ((r["*"] ?? []).some((u) => e.includes(u))) return true;
+  if (t === void 0) return false;
+  for (let [u, d] of Object.entries(r)) if (u !== "*" && t.includes(u) && d.some((x) => e.includes(x))) return true;
+  return false;
 }
 function dd(e) {
   return e.replace(/[\x00-\x1f\x7f-\x9f]+/g, " ").trim();
 }
-function vR(e = !1) {
+function vR(e = false) {
   let t = process.cwd(),
     r = [];
   for (let o of Go) r.push(fs.resolve(t, o)), r.push(`**/${o}`);
@@ -18030,7 +18030,7 @@ function RR(e, t) {
 }
 function CR(e) {
   let t = [],
-    r = !1,
+    r = false,
     o = e.allows.filter((u) => !u.glob).map((u) => u.path);
   for (let u of e.denies) {
     if (!u.glob) {
@@ -18038,7 +18038,7 @@ function CR(e) {
       continue;
     }
     let d = new RegExp(hd(u.path));
-    if (d.test("/")) r = !0;
+    if (d.test("/")) r = true;
     let x = e.allows.filter((w) => Yh(d, w)).map((w) => Ki(w.path));
     t.push(pd(mi(u.path), x));
   }
@@ -18054,7 +18054,7 @@ function OR(e, t) {
   if (u.length === 0) return [];
   let d = u.filter((C) => C.glob).map((C) => new RegExp(Ho(C.path))),
     x = u.filter((C) => !C.glob).map((C) => C.path),
-    w = (C) => x.some((F) => Lc({ path: C, glob: !1 }, F)) || d.some((F) => F.test(C)),
+    w = (C) => x.some((F) => Lc({ path: C, glob: false }, F)) || d.some((F) => F.test(C)),
     v = (C) => [...o, ...u].filter((F) => Lc(F, C)).map((F) => Ki(F.path)),
     N = new Set(),
     k = (C) => {
@@ -18063,7 +18063,7 @@ function OR(e, t) {
   for (let C of r)
     if (C.glob) {
       let F = Kh(C.path);
-      if (!(d.length > 0 || x.some((Y) => F === Y || Lc({ path: F, glob: !1 }, Y) || Lc({ path: Y, glob: !1 }, F))))
+      if (!(d.length > 0 || x.some((Y) => F === Y || Lc({ path: F, glob: false }, Y) || Lc({ path: Y, glob: false }, F))))
         continue;
       let M = new RegExp(hd(C.path)),
         q = [...o, ...u].filter((Y) => Yh(M, Y)).map((Y) => Ki(Y.path));
@@ -18125,7 +18125,7 @@ function kR(e, t) {
   let w = new Set(e.writeRoots.map((v) => Ki(v.path)));
   return r.push(...Bs("allow", ["file-write-unlink", "file-write-create"], w, t)), r;
 }
-function DR(e, t, r = !1) {
+function DR(e, t, r = false) {
   if (!e) return ["(allow file-write*)"];
   let o = [],
     u = new Set();
@@ -18147,9 +18147,9 @@ function PR({
   allowLocalBinding: w,
   allowMachLookup: v,
   allowPty: N,
-  allowGitConfig: k = !1,
-  enableWeakerNetworkIsolation: C = !1,
-  allowAppleEvents: F = !1,
+  allowGitConfig: k = false,
+  enableWeakerNetworkIsolation: C = false,
+  allowAppleEvents: F = false,
   logTag: U,
 }) {
   let M = [
@@ -18396,10 +18396,10 @@ function qh(e) {
       setEnvVars: q,
       maskedFileBinds: Y,
       allowPty: X,
-      allowGitConfig: se = !1,
+      allowGitConfig: se = false,
       gitSafeDirectories: fe,
-      enableWeakerNetworkIsolation: Re = !1,
-      allowAppleEvents: _e = !1,
+      enableWeakerNetworkIsolation: Re = false,
+      allowAppleEvents: _e = false,
       binShell: Ee,
     } = e,
     We = F;
@@ -18512,7 +18512,7 @@ function zh(e, t) {
     v = (X, se) => X === se || X.startsWith(se.endsWith("/") ? se : se + "/"),
     N = (X) => {
       let se = BR.normalize(X);
-      if (o.some((fe) => v(se, fe))) return !0;
+      if (o.some((fe) => v(se, fe))) return true;
       return !r.some((fe) => v(se, fe));
     },
     k = (X, se) => {
@@ -18580,7 +18580,7 @@ function zh(e, t) {
         for (let X of q) X.destroy();
         M.close();
         try {
-          FR(x, { recursive: !0, force: !0 });
+          FR(x, { recursive: true, force: true });
         } catch {}
       },
     }
@@ -18667,7 +18667,7 @@ function Zi(e, t = {}) {
   let { exe: r, prependArgs: o } = t.srtWin ?? Tr(),
     u = GR(r, [...o, ...e], {
       encoding: "utf8",
-      windowsHide: !0,
+      windowsHide: true,
       timeout: t.timeoutMs ?? 15000,
       ...(t.stdin !== void 0 ? { input: t.stdin } : {}),
     });
@@ -18687,12 +18687,12 @@ function Sd(e, t = {}) {
   let { exe: r, prependArgs: o } = t.srtWin ?? Tr(),
     u = t.timeoutMs ?? 15000;
   return new Promise((d, x) => {
-    let w = WR(r, [...o, ...e], { windowsHide: !0 }),
-      v = !1,
+    let w = WR(r, [...o, ...e], { windowsHide: true }),
+      v = false,
       N =
         u > 0
           ? setTimeout(() => {
-              (v = !0), w.kill();
+              (v = true), w.kill();
             }, u)
           : void 0,
       k = "",
@@ -18905,7 +18905,7 @@ async function f5e(e = {}) {
         try {
           await XR(_e, { srtWin: e.srtWin });
         } finally {
-          pn.rmSync(_e, { force: !0 });
+          pn.rmSync(_e, { force: true });
         }
       }
       return (
@@ -18933,23 +18933,23 @@ async function f5e(e = {}) {
     };
   if (!e.force) {
     let Y = k();
-    if (Y && Y.notAfter.getTime() - Date.now() > w) return await N(Y.certPem, Y.keyPem, Y.thumbprint, !1);
+    if (Y && Y.notAfter.getTime() - Date.now() > w) return await N(Y.certPem, Y.keyPem, Y.thumbprint, false);
     if (Y) W(`[Sandbox Windows] persistent CA expiring ${Y.notAfter.toISOString()}; regenerating`, { level: "warn" });
   }
-  pn.mkdirSync(o, { recursive: !0 });
+  pn.mkdirSync(o, { recursive: true });
   try {
     let Y = Date.now() - 300000;
     for (let X of pn.readdirSync(o)) {
       if (!X.includes(".tmp.") && !X.startsWith(".trust.")) continue;
       let se = _n.join(o, X);
-      if (pn.statSync(se).mtimeMs < Y) pn.rmSync(se, { force: !0 });
+      if (pn.statSync(se).mtimeMs < Y) pn.rmSync(se, { force: true });
     }
   } catch {}
   let C = $u({ cn: "sandbox-runtime persistent CA" });
   v(u, JSON.stringify({ certPem: C.certPem, keyPem: C.keyPem }));
   let F = k(),
     { certPem: U, keyPem: M, thumbprint: q } = F ?? { certPem: C.certPem, keyPem: C.keyPem, thumbprint: fi(C.certPem) };
-  return await N(U, M, q, !0);
+  return await N(U, M, q, true);
 }
 function cg(e) {
   return e.timeoutMs ?? 120000;
@@ -19004,7 +19004,7 @@ function H_r(e = {}) {
   }
   dg(r);
   let o = ZR({ sublayerGuid: e.sublayerGuid, srtWin: t });
-  return r.status === 10 ? { ...o, cancelled: !0 } : o;
+  return r.status === 10 ? { ...o, cancelled: true } : o;
 }
 async function pjt(e = {}) {
   let t = e.srtWin ?? Tr(),
@@ -19016,7 +19016,7 @@ async function pjt(e = {}) {
   }
   dg(r);
   let o = await p5e({ sublayerGuid: e.sublayerGuid, srtWin: t });
-  return r.status === 10 ? { ...o, cancelled: !0 } : o;
+  return r.status === 10 ? { ...o, cancelled: true } : o;
 }
 function Id(e, t) {
   let r = new Set();
@@ -19027,9 +19027,9 @@ function Id(e, t) {
       r.add(u);
       continue;
     }
-    let x = d ? us(u, { caseInsensitive: !0 }) : [u];
+    let x = d ? us(u, { caseInsensitive: true }) : [u];
     for (let w of x) {
-      if (!pn.statSync(w, { throwIfNoEntry: !1 })) {
+      if (!pn.statSync(w, { throwIfNoEntry: false })) {
         if (t?.mode === "deny" && !d) r.add(/[\\/]$/.test(o) && !/[\\/]$/.test(w) ? w + "\\" : w);
         continue;
       }
@@ -19128,7 +19128,7 @@ function hg(e) {
       baseEnv: e.setEnvVars,
     }),
     d = [t, ...r, "exec"];
-  if (e.quiet !== !1) d.push("--quiet");
+  if (e.quiet !== false) d.push("--quiet");
   for (let k of e.denyRead ?? []) d.push("--deny-read", k);
   for (let k of e.denyWrite ?? []) d.push("--deny-write", k);
   let x = { PATH: process.env.PATH, PATHEXT: process.env.PATHEXT, ...(e.setEnvVars ?? {}), ...o, ...u };
@@ -19244,9 +19244,9 @@ function Nd(e) {
 }
 function ps(e, t) {
   let r = e.toLowerCase();
-  if (t === "*") return !0;
+  if (t === "*") return true;
   if (t.startsWith("*.")) {
-    if (QR(Lr(r))) return !1;
+    if (QR(Lr(r))) return false;
     let o = t.substring(2).toLowerCase();
     return r.endsWith("." + o);
   }
@@ -19254,7 +19254,7 @@ function ps(e, t) {
 }
 function Bc(e, t, r) {
   let { hostPattern: o, port: u } = $c(r);
-  if (u !== void 0 && u !== t) return !1;
+  if (u !== void 0 && u !== t) return false;
   return ps(e, o);
 }
 function Sg(e, t) {
@@ -19262,7 +19262,7 @@ function Sg(e, t) {
   if (!e.startsWith("*.")) return r.some((u) => ps(e, u));
   let o = e.slice(2).toLowerCase();
   return r.some((u) => {
-    if (!u.startsWith("*.")) return !1;
+    if (!u.startsWith("*.")) return false;
     let d = u.slice(2).toLowerCase();
     return o === d || o.endsWith("." + d);
   });
@@ -19275,7 +19275,7 @@ var me,
   na,
   wr,
   Vs,
-  Eg = !1,
+  Eg = false,
   Vc,
   Ji,
   Gs,
@@ -19284,7 +19284,7 @@ var me,
   zi,
   Ws,
   Wc,
-  xg = !1,
+  xg = false,
   ra,
   hi = new djt(),
   gi = new ed(),
@@ -19296,7 +19296,7 @@ function nC() {
     Fd().catch((t) => {
       W(`Cleanup failed in registerCleanup ${t}`, { level: "error" });
     });
-  process.once("exit", e), process.once("SIGINT", e), process.once("SIGTERM", e), (Eg = !0);
+  process.once("exit", e), process.once("SIGINT", e), process.once("SIGTERM", e), (Eg = true);
 }
 var rC = 1024,
   Xi = new Map();
@@ -19330,7 +19330,7 @@ function sC(e) {
   }
 }
 async function Tg(e, t, r, o) {
-  let u = (x) => (kd(`deny network-outbound ${t}:${e} (${x})`, o), !1);
+  let u = (x) => (kd(`deny network-outbound ${t}:${e} (${x})`, o), false);
   if (!me) return W("No config available, denying network request"), u("sandbox policy unavailable");
   if (!Hi(t)) return W(`Denying malformed host: ${JSON.stringify(t)}:${e}`, { level: "error" }), u("malformed host");
   let d = fn(t) ?? t;
@@ -19339,12 +19339,12 @@ async function Tg(e, t, r, o) {
       return (
         W(`Denied by config rule: ${t}:${e}`), u(me.network.deniedDomainReasons?.[x] ?? "host is on the deny list")
       );
-  for (let x of me.network.allowedDomains) if (Bc(d, e, x)) return W(`Allowed by config rule: ${t}:${e}`), !0;
+  for (let x of me.network.allowedDomains) if (Bc(d, e, x)) return W(`Allowed by config rule: ${t}:${e}`), true;
   if (!r || me.network.strictAllowlist)
     return W(`No matching config rule, denying: ${t}:${e}`), u("host is not on the allow list");
   W(`No matching config rule, asking user: ${t}:${e}`);
   try {
-    if (await r({ host: t, port: e })) return W(`User allowed: ${t}:${e}`), !0;
+    if (await r({ host: t, port: e })) return W(`User allowed: ${t}:${e}`), true;
     return W(`User denied: ${t}:${e}`), u("user denied");
   } catch (x) {
     return W(`Error in permission callback: ${x}`, { level: "error" }), u("permission prompt failed");
@@ -19373,7 +19373,7 @@ function cC(e) {
 }
 function lC(e) {
   let t = me?.network.tlsTerminate?.excludeDomains;
-  if (!t?.length) return !0;
+  if (!t?.length) return true;
   let r = fn(e) ?? e;
   for (let o of t) {
     if (!ps(r, o)) continue;
@@ -19384,9 +19384,9 @@ function lC(e) {
         `tlsTerminate.excludeDomains: masked credential(s) ${u.join(", ")} are configured for injection at ${e}, but its connections are not terminated, so the upstream will receive the placeholder`,
         { level: "error" },
       );
-    return !1;
+    return false;
   }
-  return !0;
+  return true;
 }
 async function uC(e, t) {
   let r = iC(),
@@ -19431,7 +19431,7 @@ async function uC(e, t) {
   if (x === void 0) throw Error("Failed to get mux proxy server port");
   return u.unref(), W(`Mux proxy (HTTP+SOCKS) listening on localhost:${x}`), x;
 }
-async function dC(e, t, r = !1) {
+async function dC(e, t, r = false) {
   if (Vs) {
     await Vs;
     return;
@@ -19474,7 +19474,7 @@ async function dC(e, t, r = !1) {
       } catch (v) {
         throw ((me = void 0), v);
       }
-      xg = !0;
+      xg = true;
     }
     if (u && o)
       try {
@@ -19649,14 +19649,14 @@ function hC() {
   let e = me.filesystem.allowWrite
       .map((o) => g_(o))
       .filter((o) => {
-        if (Ct() === "linux" && At(o)) return W(`Skipping glob pattern on Linux/WSL: ${o}`), !1;
-        return !0;
+        if (Ct() === "linux" && At(o)) return W(`Skipping glob pattern on Linux/WSL: ${o}`), false;
+        return true;
       }),
     t = me.filesystem.denyWrite
       .map((o) => g_(o))
       .filter((o) => {
-        if (Ct() === "linux" && At(o)) return W(`Skipping glob pattern on Linux/WSL: ${o}`), !1;
-        return !0;
+        if (Ct() === "linux" && At(o)) return W(`Skipping glob pattern on Linux/WSL: ${o}`), false;
+        return true;
       });
   return { allowOnly: [...Bz(), ...e], denyWithinAllow: t };
 }
@@ -19675,7 +19675,7 @@ function gC(e) {
 }
 function kg(e) {
   return {
-    disabled: e.filesystem.disabled ?? !1,
+    disabled: e.filesystem.disabled ?? false,
     denyRead: [...e.filesystem.denyRead],
     denyWrite: [...e.filesystem.denyWrite],
     allowRead: [...(e.filesystem.allowRead ?? [])],
@@ -19684,7 +19684,7 @@ function kg(e) {
   };
 }
 function zo(e, t) {
-  if (e.length !== t.length) return !1;
+  if (e.length !== t.length) return false;
   let r = new Set(e);
   return t.every((o) => r.has(o));
 }
@@ -19738,7 +19738,7 @@ function TC() {
   return me?.mandatoryDenySearchDepth ?? 3;
 }
 function Ig() {
-  return me?.filesystem?.allowGitConfig ?? !1;
+  return me?.filesystem?.allowGitConfig ?? false;
 }
 function Mg(e) {
   return [...(me?.git?.safeDirectories ?? []), ...(e?.git?.safeDirectories ?? [])];
@@ -19762,12 +19762,12 @@ function Bg() {
   return wr?.linuxBridge?.socksSocketPath;
 }
 async function Ud() {
-  if (!me) return !1;
+  if (!me) return false;
   if (Vs)
     try {
-      return await Vs, !0;
+      return await Vs, true;
     } catch {
-      return !1;
+      return false;
     }
   return wr !== void 0;
 }
@@ -19775,15 +19775,15 @@ async function Vg(e, t, r, o, u) {
   let d = Ct(),
     x = u?.commandId;
   vg(e, u);
-  let w = r?.filesystem !== void 0 ? (r.filesystem.disabled ?? !1) : (me?.filesystem.disabled ?? !1),
+  let w = r?.filesystem !== void 0 ? (r.filesystem.disabled ?? false) : (me?.filesystem.disabled ?? false),
     v = Dd(r?.credentials ?? me?.credentials, r?.network?.allowedDomains ?? me?.network?.allowedDomains),
     N,
     k;
   if (!w) {
     let Y = (Ee) =>
         Ee.map((We) => g_(We)).filter((We) => {
-          if (Ct() === "linux" && At(We)) return W(`[Sandbox] Skipping glob write pattern on Linux: ${We}`), !1;
-          return !0;
+          if (Ct() === "linux" && At(We)) return W(`[Sandbox] Skipping glob write pattern on Linux: ${We}`), false;
+          return true;
         }),
       X = Y(r?.filesystem?.allowWrite ?? me?.filesystem.allowWrite ?? []);
     N = { allowOnly: [...Bz(), ...X], denyWithinAllow: Y(r?.filesystem?.denyWrite ?? me?.filesystem.denyWrite ?? []) };
@@ -19956,10 +19956,10 @@ function Ag(e, t) {
     return Promise.resolve();
   }
   return new Promise((r) => {
-    let o = !1,
+    let o = false,
       u = () => {
         if (o) return;
-        (o = !0), clearTimeout(d), r();
+        (o = true), clearTimeout(d), r();
       };
     e.once("exit", () => {
       W(`${t} bridge process exited`), u();
@@ -20002,19 +20002,19 @@ async function Fd() {
     for (let d of vd({ sandboxUserSid: t, srtWin: r }) ?? []) u("grant revoke", d);
     for (let d of Ad({ sandboxUserSid: t, srtWin: r }) ?? []) u("deny restore", d);
   }
-  if (((zi = void 0), (Ws = void 0), (Wc = void 0), (ra = void 0), Pc({ force: !0 }), Vc)) Vc(), (Vc = void 0);
+  if (((zi = void 0), (Ws = void 0), (Wc = void 0), (ra = void 0), Pc({ force: true }), Vc)) Vc(), (Vc = void 0);
   if (Ji) Ji.stop(), (Ji = void 0);
   if (wr?.linuxBridge) {
     let { httpSocketPath: t, socksSocketPath: r, httpBridgeProcess: o, socksBridgeProcess: u } = wr.linuxBridge;
     if ((await Promise.all([Ag(o, "HTTP"), Ag(u, "SOCKS")]), t))
       try {
-        Cd.rmSync(t, { force: !0 }), W("Cleaned up HTTP socket");
+        Cd.rmSync(t, { force: true }), W("Cleaned up HTTP socket");
       } catch (d) {
         W(`HTTP socket cleanup error: ${d}`, { level: "error" });
       }
     if (r)
       try {
-        Cd.rmSync(r, { force: !0 }), W("Cleaned up SOCKS socket");
+        Cd.rmSync(r, { force: true }), W("Cleaned up SOCKS socket");
       } catch (d) {
         W(`SOCKS socket cleanup error: ${d}`, { level: "error" });
       }
@@ -20144,7 +20144,7 @@ function Uht() {
 }
 async function njt() {
   let e = Uht();
-  await db(_O(e), { recursive: !0 });
+  await db(_O(e), { recursive: true });
   try {
     await db(e, { mode: 448 });
   } catch (t) {
@@ -20194,8 +20194,8 @@ function cu(e) {
     .replace(/(?<=[^*.])\.+(?=(:\d+)?$)/, "")}`;
 }
 function D0(e, t) {
-  if (!e.startsWith("domain:") || !t.startsWith("domain:")) return !1;
-  if (e === "domain:*") return !0;
+  if (!e.startsWith("domain:") || !t.startsWith("domain:")) return false;
+  if (e === "domain:*") return true;
   let r;
   if (e.startsWith("domain:*.")) r = `^domain:(?:[^.:]+\\.)+${k0(e.slice(9))}$`;
   else r = `^domain:${k0(e.slice(7))}$`;
@@ -20219,7 +20219,7 @@ var F0 = 1000,
   X3 = 1800000,
   J3 = F0 + M0 + 200,
   z3 = 2000;
-function Q3({ machineServesSession: e = !1 } = {}) {
+function Q3({ machineServesSession: e = false } = {}) {
   return !sn() || e;
 }
 function mgn(e) {
@@ -20228,7 +20228,7 @@ function mgn(e) {
     o = e?.mdmPollInterval ?? X3,
     u = e?.deletionGrace ?? J3,
     d = e?.subscribedObservationLag ?? z3,
-    x = e?.bridgeStore ?? !0,
+    x = e?.bridgeStore ?? true,
     w = (Z) => Math.max(u, Z + t + 200),
     v = w(d),
     N = Ue(),
@@ -20236,8 +20236,8 @@ function mgn(e) {
     C = 0,
     F = null,
     U = null,
-    M = !1,
-    q = !1,
+    M = false,
+    q = false,
     Y = null,
     X = null,
     se = new Map(),
@@ -20246,15 +20246,15 @@ function mgn(e) {
     _e,
     Ee,
     We = null,
-    De = !1,
-    Pe = !1,
-    Q = !1,
+    De = false,
+    Pe = false,
+    Q = false,
     tt,
     ue = new Map();
-  async function ve(Z, ie, { machineServesSession: Oe = !1 } = {}) {
+  async function ve(Z, ie, { machineServesSession: Oe = false } = {}) {
     if (!Q3({ machineServesSession: Oe })) return;
     if (M || q) return;
-    if (((M = !0), (Re = Z), (_e = ie), await pe(), q)) return;
+    if (((M = true), (Re = Z), (_e = ie), await pe(), q)) return;
     fe = vt(re);
     let Be = ++C,
       st = await U0(ie);
@@ -20277,22 +20277,22 @@ function mgn(e) {
         `Settings file ${Bt} is a symlink to ${Rn}; also watching ${hn.dirname(Rn)} so atomic-save edits to the target are detected`,
       );
     (k = GE.watch(Oe, {
-      persistent: !0,
-      ignoreInitial: !0,
+      persistent: true,
+      ignoreInitial: true,
       depth: 0,
       awaitWriteFinish: { stabilityThreshold: t, pollInterval: r },
       ignored: (Rn, Bt) => {
-        if (Bt && !Bt.isFile() && !Bt.isDirectory()) return !0;
-        if (Rn.split(/[/\\]/).some((Dr) => Dr === ".git")) return !0;
-        if (!Bt || Bt.isDirectory()) return !1;
+        if (Bt && !Bt.isFile() && !Bt.isDirectory()) return true;
+        if (Rn.split(/[/\\]/).some((Dr) => Dr === ".git")) return true;
+        if (!Bt || Bt.isDirectory()) return false;
         let $n = hn.normalize(Rn);
-        if (Be.has($n)) return !1;
-        if (st && $n.startsWith(st + hn.sep) && $n.endsWith(".json")) return !1;
-        return !0;
+        if (Be.has($n)) return false;
+        if (st && $n.startsWith(st + hn.sep) && $n.endsWith(".json")) return false;
+        return true;
       },
-      ignorePermissionErrors: !0,
-      usePolling: !1,
-      atomic: !0,
+      ignorePermissionErrors: true,
+      usePolling: false,
+      atomic: true,
     })),
       k.on("change", Rt),
       k.on("unlink", bn),
@@ -20300,7 +20300,7 @@ function mgn(e) {
       k.on("error", (Rn) => n(`[settings] watcher error: ${l(Rn)}`, { level: "warn" }));
   }
   function re() {
-    if (((q = !0), fe)) fe(), (fe = null);
+    if (((q = true), fe)) fe(), (fe = null);
     if (F) clearInterval(F), (F = null);
     for (let ie of se.values()) clearTimeout(ie);
     se.clear(),
@@ -20329,10 +20329,10 @@ function mgn(e) {
     let Oe = await Z.subscribe({ target: "key", key: Te.userSettings() }, nt, { maxObservationLagMs: d });
     if (!Oe.ok)
       return (
-        n(`[settings] watching ${ie} through the storage interface failed: ${Ge(Oe.error)}`, { level: "warn" }), !1
+        n(`[settings] watching ${ie} through the storage interface failed: ${Ge(Oe.error)}`, { level: "warn" }), false
       );
     if (e?.subscribedObservationLag === void 0) v = Math.max(v, w(Oe.value.observationLagMs));
-    return n(`Watching for changes in ${ie} through the storage interface`), !0;
+    return n(`Watching for changes in ${ie} through the storage interface`), true;
   }
   function nt(Z) {
     let ie = Ee;
@@ -20342,18 +20342,18 @@ function mgn(e) {
         (n(`[settings] watching ${ie} through the storage interface ended: ${Ge(Z.error)}`, { level: "warn" }),
         !Q && O() && _e !== void 0)
       )
-        (Q = !0), He(_e, ie);
+        (Q = true), He(_e, ie);
       return;
     }
     switch (Z.value.kind) {
       case "snapshot": {
         let Oe = tt,
-          Be = "absent" in Z.value ? { present: !1 } : { present: !0, version: Z.value.version };
+          Be = "absent" in Z.value ? { present: false } : { present: true, version: Z.value.version };
         if (((tt = Be), Oe === void 0)) return;
         if (Be.present) {
           let st = !Oe.present || se.has(ie);
           if (st || Oe.version !== Be.version) {
-            if (st) De = !0;
+            if (st) De = true;
             Nt(ie);
           }
           return;
@@ -20365,13 +20365,13 @@ function mgn(e) {
       case "tombstoned":
         return;
       case "created":
-        (tt = { present: !0, version: Z.value.version }), (De = !0), Nt(ie);
+        (tt = { present: true, version: Z.value.version }), (De = true), Nt(ie);
         return;
       case "updated":
-        (tt = { present: !0, version: Z.value.version }), Nt(ie);
+        (tt = { present: true, version: Z.value.version }), Nt(ie);
         return;
       case "deleted":
-        (tt = { present: !1 }), Qt(ie, "");
+        (tt = { present: false }), Qt(ie, "");
         return;
     }
   }
@@ -20385,20 +20385,20 @@ function mgn(e) {
     if (ie)
       clearTimeout(ie),
         se.delete(Z),
-        (Pe = !0),
-        (De = !0),
+        (Pe = true),
+        (De = true),
         n(`Cancelled pending deletion of ${Z} \u2014 file was recreated`);
     if (We) clearTimeout(We);
     We = setTimeout(qt, t);
   }
   function Et() {
     if (We) clearTimeout(We), (We = null);
-    (De = !1), (Pe = !1);
+    (De = false), (Pe = false);
   }
   function qt() {
     We = null;
     let Z = De;
-    (De = !1), (Pe = !1);
+    (De = false), (Pe = false);
     let ie = Ee;
     if (q || ie === void 0) return;
     if (Z) Ke(ie);
@@ -20466,7 +20466,7 @@ function mgn(e) {
       });
   }
   function ut(Z, ie) {
-    if (!Re) return h(Error("settingsChangeDetector: ConfigChange hook gate not wired")), Promise.resolve(!0);
+    if (!Re) return h(Error("settingsChangeDetector: ConfigChange hook gate not wired")), Promise.resolve(true);
     return Re(nY(Z), ie);
   }
   async function pe() {
@@ -20581,13 +20581,13 @@ async function U0(e) {
       F.add(U);
       continue;
     }
-    let q = !1;
+    let q = false;
     for (let Y of M)
       try {
         if ((await sm(Y)).isFile()) F.add(Y);
-        else q = !0;
+        else q = true;
       } catch {
-        q = !0;
+        q = true;
       }
     if (q) F.add(U);
   }
@@ -20636,9 +20636,9 @@ function B0(e) {
     .find((r) => r !== void 0);
 }
 function W2() {
-  if (D() !== "windows") return !1;
-  if (a.CLAUDE_CODE_NANKEEN_KESTREL) return !0;
-  return I("tengu_nankeen_kestrel", !1);
+  if (D() !== "windows") return false;
+  if (a.CLAUDE_CODE_NANKEEN_KESTREL) return true;
+  return I("tengu_nankeen_kestrel", false);
 }
 var fjt = "ClaudeCodeSandbox";
 function OOe() {
@@ -20698,7 +20698,7 @@ class j0 {
     return (this.firstUseProbe ??= TY()), this.firstUseProbe;
   }
   invalidate() {
-    if ((this.clearConfig(), this.#e?.working !== !1)) (this.firstUseProbe = void 0), (this.#e = null);
+    if ((this.clearConfig(), this.#e?.working !== false)) (this.firstUseProbe = void 0), (this.#e = null);
   }
   reset() {
     (this.config = void 0), this.roundedFileCounts.clear(), (this.firstUseProbe = void 0);
@@ -20781,10 +20781,10 @@ function fu(e, t, r) {
 }
 async function yY(e) {
   try {
-    return await am(e), !0;
+    return await am(e), true;
   } catch (t) {
     let r = E(t);
-    if (r === "ENOENT" || r === "ENOTDIR") return !1;
+    if (r === "ENOENT" || r === "ENOTDIR") return false;
     throw t;
   }
 }
@@ -20827,9 +20827,9 @@ async function ojt(e, t) {
         canonical: C,
         spawnCwd: F,
         target: e,
-        relativeOutput: !1,
+        relativeOutput: false,
         isDirectory: U,
-        judgeEveryResult: !0,
+        judgeEveryResult: true,
         recheckBeforeSpawn: d,
         recheckByPath: d,
         close: async () => {},
@@ -20867,7 +20867,7 @@ async function ojt(e, t) {
       canonical: F,
       spawnCwd: M,
       target: F,
-      relativeOutput: !1,
+      relativeOutput: false,
       isDirectory: q,
       recheckBeforeSpawn: U,
       recheckByPath: U,
@@ -20913,8 +20913,8 @@ async function ojt(e, t) {
         canonical: M,
         spawnCwd: U ? `/proc/self/fd/${q.fd}` : M,
         target: ".",
-        relativeOutput: !0,
-        isDirectory: !0,
+        relativeOutput: true,
+        isDirectory: true,
         recheckBeforeSpawn: X,
         recheckByPath: Y,
         close: () => q.close(),
@@ -20927,8 +20927,8 @@ async function ojt(e, t) {
         canonical: M,
         spawnCwd: se,
         target: M,
-        relativeOutput: !1,
-        isDirectory: !0,
+        relativeOutput: false,
+        isDirectory: true,
         recheckBeforeSpawn: Y,
         recheckByPath: Y,
         close: () => q.close(),
@@ -20939,8 +20939,8 @@ async function ojt(e, t) {
       canonical: M,
       spawnCwd: Ci(M, NF().rgPath),
       target: U ? `/proc/${process.pid}/fd/${q.fd}` : M,
-      relativeOutput: !1,
-      isDirectory: !1,
+      relativeOutput: false,
+      isDirectory: false,
       recheckBeforeSpawn: X,
       recheckByPath: Y,
       close: () => q.close(),
@@ -21017,17 +21017,17 @@ function Bht(e, t, r) {
 function ajt(e, t) {
   if (t !== void 0) {
     let r = Z0(t);
-    for (let o of new Set(r)) for (let u of HLe(e, o)) if (W0(u)) return !0;
+    for (let o of new Set(r)) for (let u of HLe(e, o)) if (W0(u)) return true;
   }
-  for (let r of e.values()) for (let o of r) if (W0(o)) return !0;
-  return !1;
+  for (let r of e.values()) for (let o of r) if (W0(o)) return true;
+  return false;
 }
 function W0(e) {
   return e.includes("[") || e.includes("\\") || /\s$/.test(e);
 }
 function _Y(e) {
   let t = "",
-    r = !1;
+    r = false;
   for (let o = 0; o < e.length; o++) {
     let u = e[o];
     if (u === "\\" && o + 1 < e.length) {
@@ -21035,11 +21035,11 @@ function _Y(e) {
       continue;
     }
     if (r) {
-      if (u === "]") r = !1;
+      if (u === "]") r = false;
       t += u;
       continue;
     }
-    if (u === "[") (r = !0), (t += u);
+    if (u === "[") (r = true), (t += u);
     else if (u === "{" || u === "}") t += `[${u}]`;
     else t += u;
   }
@@ -21071,7 +21071,7 @@ function Ci(e, t) {
 function ljt(e) {
   return O() && e !== void 0 ? ee() : void 0;
 }
-function G0(e, t, r, o, u = !1, d, x) {
+function G0(e, t, r, o, u = false, d, x) {
   let { rgPath: w, rgArgs: v, argv0: N } = NF(),
     k = d ?? Ci(t, w);
   fu(e, t, k);
@@ -21081,39 +21081,39 @@ function G0(e, t, r, o, u = !1, d, x) {
     M = a.CLAUDE_CODE_GLOB_TIMEOUT_SECONDS || 0,
     q = M > 0 ? M * 1000 : U;
   if (N) {
-    let X = cm(w, F, { argv0: N, cwd: k, signal: r, windowsHide: !0, ...qi("helper") });
+    let X = cm(w, F, { argv0: N, cwd: k, signal: r, windowsHide: true, ...qi("helper") });
     if (x && X.stdin) {
       X.stdin.on("error", () => {});
       let Q = x();
       Q.on("error", (tt) => {
-        X.kill(), X.emit("error", Object.assign(tt, { stdinSourceFailed: !0 }));
+        X.kill(), X.emit("error", Object.assign(tt, { stdinSourceFailed: true }));
       }).pipe(X.stdin),
         X.once("close", () => Q.destroy());
     }
     let se = "",
       fe = "",
-      Re = !1,
-      _e = !1;
+      Re = false,
+      _e = false;
     X.stdout?.on("data", (Q) => {
       if (!Re) {
-        if (((se += Q.toString()), se.length > Ya)) (se = se.slice(0, Ya)), (Re = !0);
+        if (((se += Q.toString()), se.length > Ya)) (se = se.slice(0, Ya)), (Re = true);
       }
     }),
       X.stderr?.on("data", (Q) => {
         if (!_e) {
-          if (((fe += Q.toString()), fe.length > Ya)) (fe = fe.slice(0, Ya)), (_e = !0);
+          if (((fe += Q.toString()), fe.length > Ya)) (fe = fe.slice(0, Ya)), (_e = true);
         }
       });
     let Ee,
-      We = !1,
+      We = false,
       De = setTimeout(() => {
-        (We = !0), X.kill("SIGTERM"), (Ee = setTimeout((Q) => Q.kill("SIGKILL"), 5000, X));
+        (We = true), X.kill("SIGTERM"), (Ee = setTimeout((Q) => Q.kill("SIGKILL"), 5000, X));
       }, q),
-      Pe = !1;
+      Pe = false;
     return (
       X.on("close", (Q, tt) => {
         if (Pe) return;
-        if (((Pe = !0), clearTimeout(De), clearTimeout(Ee), Q === 0 || Q === 1)) o(null, se, fe);
+        if (((Pe = true), clearTimeout(De), clearTimeout(Ee), Q === 0 || Q === 1)) o(null, se, fe);
         else {
           let ue = Error(`ripgrep exited with code ${Q}${tt ? ` (signal ${tt})` : ""}`);
           (ue.code = Q ?? void 0), (ue.signal = tt ?? (We ? "SIGTERM" : void 0)), o(ue, se, fe);
@@ -21121,7 +21121,7 @@ function G0(e, t, r, o, u = !1, d, x) {
       }),
       X.on("error", (Q) => {
         if (Pe) return;
-        if (((Pe = !0), clearTimeout(De), clearTimeout(Ee), Q.code === "ENOENT")) si().invalidate();
+        if (((Pe = true), clearTimeout(De), clearTimeout(Ee), Q.code === "ENOENT")) si().invalidate();
         o(Q, se, fe);
       }),
       X
@@ -21130,14 +21130,14 @@ function G0(e, t, r, o, u = !1, d, x) {
   let Y = sY(
     w,
     F,
-    { cwd: k, maxBuffer: Ya, signal: r, timeout: q, killSignal: X0, windowsHide: !0, ...qi("helper") },
+    { cwd: k, maxBuffer: Ya, signal: r, timeout: q, killSignal: X0, windowsHide: true, ...qi("helper") },
     o,
   );
   if (x && Y.stdin) {
     Y.stdin.on("error", () => {});
     let X = x();
     X.on("error", (se) => {
-      Y.kill(), Y.emit("error", Object.assign(se, { stdinSourceFailed: !0 }));
+      Y.kill(), Y.emit("error", Object.assign(se, { stdinSourceFailed: true }));
     }).pipe(Y.stdin),
       Y.once("close", () => X.destroy());
   }
@@ -21152,7 +21152,7 @@ async function SY(e, t, r) {
         argv0: d,
         cwd: v,
         signal: r,
-        windowsHide: !0,
+        windowsHide: true,
         stdio: ["ignore", "pipe", "ignore"],
         ...qi("helper"),
       }),
@@ -21164,15 +21164,15 @@ async function SY(e, t, r) {
 `,
       );
     });
-    let C = !1;
+    let C = false;
     N.on("close", (F) => {
       if (C) return;
-      if (((C = !0), F === 0 || F === 1 || F === null)) x(k);
+      if (((C = true), F === 0 || F === 1 || F === null)) x(k);
       else w(Error(`rg --files exited ${F}`));
     }),
       N.on("error", (F) => {
         if (C) return;
-        C = !0;
+        C = true;
         let U = lm(F);
         if (F.code === "ENOENT" && d) si().invalidate();
         w(U);
@@ -21191,7 +21191,7 @@ async function ZXn(e, t, r, o) {
         cwd: N,
         signal: r,
         killSignal: X0,
-        windowsHide: !0,
+        windowsHide: true,
         stdio: ["ignore", "pipe", "ignore"],
         ...qi("helper"),
       }),
@@ -21203,15 +21203,15 @@ async function ZXn(e, t, r, o) {
 `);
       if (((U = se.pop() ?? ""), se.length)) o(se.map(C));
     });
-    let M = !1,
+    let M = false,
       q;
     k.on("close", (Y) => {
       if ((clearTimeout(q), M)) return;
       if (r.aborted) {
-        (M = !0), w("aborted");
+        (M = true), w("aborted");
         return;
       }
-      if (((M = !0), (U += F.end()), Y === 0 || Y === 1)) {
+      if (((M = true), (U += F.end()), Y === 0 || Y === 1)) {
         if (U) o([C(U)]);
         w("complete");
       } else if (Y === 2) {
@@ -21224,16 +21224,16 @@ async function ZXn(e, t, r, o) {
         if (M) return;
         if (Y.code === "ABORT_ERR" || Y.name === "AbortError") {
           if (k.pid === void 0) {
-            (M = !0), w("aborted");
+            (M = true), w("aborted");
             return;
           }
           (q = setTimeout(() => {
-            if (!M) (M = !0), w("aborted");
+            if (!M) (M = true), w("aborted");
           }, EY)),
             q.unref?.();
           return;
         }
-        M = !0;
+        M = true;
         let X = lm(Y);
         if (Y.code === "ENOENT" && x) si().invalidate();
         v(X);
@@ -21289,9 +21289,9 @@ async function j2(e, t, r, o) {
                 t,
                 r,
                 (X, se, fe) => {
-                  x(X, se, fe, !0);
+                  x(X, se, fe, true);
                 },
-                !0,
+                true,
                 o?.cwd,
                 o?.stdin,
               );
@@ -21329,7 +21329,7 @@ async function j2(e, t, r, o) {
           d(new Y0(N));
           return;
         }
-        if (o?.rejectOnInputError && "stdinSourceFailed" in w && w.stdinSourceFailed === !0) {
+        if (o?.rejectOnInputError && "stdinSourceFailed" in w && w.stdinSourceFailed === true) {
           d(w);
           return;
         }
@@ -21360,9 +21360,9 @@ async function j2(e, t, r, o) {
           t,
           r,
           (w, v, N) => {
-            x(w, v, N, !1);
+            x(w, v, N, false);
           },
-          !1,
+          false,
           o?.cwd,
           o?.stdin,
         );
@@ -21408,7 +21408,7 @@ async function TY() {
           cwd: ee(),
           stderr: "ignore",
           stdout: "pipe",
-          windowsHide: !0,
+          windowsHide: true,
           ...qi("helper"),
         }),
         [d, x] = await Promise.all([u.stdout.text(), u.exited]);
@@ -21419,7 +21419,7 @@ async function TY() {
       n(`Ripgrep first use test: ${o ? "PASSED" : "FAILED"} (mode=${t.mode}, path=${t.command})`),
       s("tengu_ripgrep_availability", { working: o ? 1 : 0, using_system: t.mode === "system" ? 1 : 0 });
   } catch (r) {
-    e.setStatus({ working: !1, lastTested: Date.now(), config: t }),
+    e.setStatus({ working: false, lastTested: Date.now(), config: t }),
       n(
         `Ripgrep first use test threw (mode=${t.mode}, path=${t.command}): ${r instanceof Error ? r.message : String(r)}`,
         { level: "error" },
@@ -21448,7 +21448,7 @@ import { openSync as wY } from "fs";
 var ggn = 3,
   IY = 2097152;
 function J0() {
-  return !1;
+  return false;
 }
 async function rYn() {
   if (!J0()) return;
@@ -21522,14 +21522,14 @@ function hjt(e, t) {
   if (e.startsWith("//")) return ko(e.slice(1));
   return ko(gt(e, t));
 }
-function ko(e, { evenAfterGlob: t = !1 } = {}) {
+function ko(e, { evenAfterGlob: t = false } = {}) {
   if (D() === "windows" || !e.endsWith("/")) return e;
   if (!t && At(e)) return e;
   return e.replace(/\/+$/, "") || "/";
 }
 function Oi(e) {
   if (D() === "windows") return Us(Vi(e)) ? e.replace(/[\\/]+$/, "") : e;
-  return ko(e, { evenAfterGlob: !0 });
+  return ko(e, { evenAfterGlob: true });
 }
 function Due(e, t) {
   return hjt(e, HNe(t));
@@ -21549,7 +21549,7 @@ function qht() {
 function _gn() {
   let e = at();
   if ((e.tenguSandboxGbConfig.cache.clear?.(), (e.gbHostRulesMemo = void 0), e.initializationPromise === void 0))
-    e.installedFilterRequestEnforcesAllowlist = !1;
+    e.installedFilterRequestEnforcesAllowlist = false;
 }
 function ym() {
   return DOe()
@@ -21577,8 +21577,8 @@ function LY(e) {
   }
 }
 function Oue() {
-  if (ym() === void 0) return !1;
-  if (D() !== "windows") return !0;
+  if (ym() === void 0) return false;
+  if (D() !== "windows") return true;
   return WX().source !== "unavailable";
 }
 function _jt(e) {
@@ -21586,12 +21586,12 @@ function _jt(e) {
   try {
     let r =
       t.source === "trustedPair" ? (t.caCertPath ?? null) : t.source === "managed" ? zt(Td(), "ca", "cert.pem") : null;
-    if (r === null) return !0;
+    if (r === null) return true;
     let o = oi(r, "r"),
       u;
     try {
       let d = yu(o);
-      if (!d.isFile() || d.size > UY) return !0;
+      if (!d.isFile() || d.size > UY) return true;
       let x = Buffer.alloc(d.size);
       aI(o, x, 0, x.length, 0), (u = x.toString("utf8"));
     } finally {
@@ -21599,7 +21599,7 @@ function _jt(e) {
     }
     return fi(u) === e;
   } catch {
-    return !0;
+    return true;
   }
 }
 var UY = 65536;
@@ -21639,25 +21639,25 @@ function MY() {
     _o("userSettings") ? ye("userSettings") : null,
     _o("projectSettings") ? ye("projectSettings") : null,
     _o("localSettings") ? ye("localSettings") : null,
-  ].some((e) => e?.sandbox?.enabled === !0);
+  ].some((e) => e?.sandbox?.enabled === true);
 }
 function vne() {
-  return fy().some((e) => e.sandbox?.network?.allowManagedDomainsOnly === !0);
+  return fy().some((e) => e.sandbox?.network?.allowManagedDomainsOnly === true);
 }
 var _m = /^[1-9][0-9]{0,4}$/;
 function Za(e) {
-  if (Ns(e) === 6) return !1;
+  if (Ns(e) === 6) return false;
   let t = fn(e);
   return t !== void 0 && t !== e.toLowerCase();
 }
 function $Y(e, t) {
-  if (e.length === 0 || e.length > 255) return !1;
-  if (t.includes("%")) return !1;
-  if (Ns(t) !== 0) return !0;
+  if (e.length === 0 || e.length > 255) return false;
+  if (t.includes("%")) return false;
+  if (Ns(t) !== 0) return true;
   return /^[A-Za-z0-9._-]+$/.test(t);
 }
 function BY(e) {
-  if (!e.startsWith(":")) return !1;
+  if (!e.startsWith(":")) return false;
   let t = e.slice(1);
   return _m.test(t) && Number(t) <= 65535;
 }
@@ -21675,10 +21675,10 @@ function I_r(e) {
 }
 function P_r(e) {
   let t = VY(e);
-  if (t === void 0) return !0;
-  if (!$Y(e, t)) return !0;
-  if (Ns(t) !== 0) return !1;
-  if (I_r(t)) return !0;
+  if (t === void 0) return true;
+  if (!$Y(e, t)) return true;
+  if (Ns(t) !== 0) return false;
+  if (I_r(t)) return true;
   return Za(t.replace(/\.$/, ""));
 }
 function zD(e) {
@@ -21763,18 +21763,18 @@ function fm(e, t) {
 }
 function tI(e, t, r, o) {
   let { hostPattern: u, port: d } = $c(e);
-  if (!P0(u, t)) return !1;
-  if (d === void 0) return !0;
+  if (!P0(u, t)) return false;
+  if (d === void 0) return true;
   return r === void 0 ? o === "match" : d === r;
 }
 function ygn(e, t) {
   let r = fy();
   if (fI([...fm([En(), ...r], "deny"), ...[]]).some((d) => tI(d, e, t, "match")))
-    return { allowed: !1, reason: `${e} is in sandbox.network.deniedDomains` };
-  if (!vne()) return { allowed: !0 };
-  if (pI(fm(r, "allow")).some((d) => tI(d, e, t, "no-match"))) return { allowed: !0 };
+    return { allowed: false, reason: `${e} is in sandbox.network.deniedDomains` };
+  if (!vne()) return { allowed: true };
+  if (pI(fm(r, "allow")).some((d) => tI(d, e, t, "no-match"))) return { allowed: true };
   return {
-    allowed: !1,
+    allowed: false,
     reason: `sandbox.network.allowManagedDomainsOnly is set and ${e} is not in the policy allowlist`,
   };
 }
@@ -21801,7 +21801,7 @@ function Mn(e) {
   try {
     return (
       (r = Nn(e)),
-      at().symlinkedDenyScrubPaths.push({ literal: e, resolved: r, hopDirectories: bu(e, r), danglingBaseline: !1 }),
+      at().symlinkedDenyScrubPaths.push({ literal: e, resolved: r, hopDirectories: bu(e, r), danglingBaseline: false }),
       r
     );
   } catch {
@@ -21816,7 +21816,7 @@ function Mn(e) {
       o = ke(wt(o), d);
     }
     return (
-      at().symlinkedDenyScrubPaths.push({ literal: e, resolved: o, hopDirectories: bu(e, null), danglingBaseline: !1 }),
+      at().symlinkedDenyScrubPaths.push({ literal: e, resolved: o, hopDirectories: bu(e, null), danglingBaseline: false }),
       o
     );
   }
@@ -21901,7 +21901,7 @@ function mI(e) {
   for (let r = e; ; r = wt(r))
     try {
       let o = Nn(r);
-      return t.length === 0 ? { path: o, exists: !0 } : { path: zt(o, ...t), exists: !1 };
+      return t.length === 0 ? { path: o, exists: true } : { path: zt(o, ...t), exists: false };
     } catch (o) {
       let u = E(o);
       if ((u !== "ENOENT" && u !== "ENOTDIR") || wt(r) === r) return null;
@@ -21929,7 +21929,7 @@ var KY = ["/etc", "/tmp", "/var"];
 function rI(e, t) {
   let { osLinkedRootRealpaths: r } = bI();
   return KY.some((o) => {
-    if (e !== o && !e.startsWith(o + nr)) return !1;
+    if (e !== o && !e.startsWith(o + nr)) return false;
     let u = r.get(o);
     if (u === void 0) {
       try {
@@ -21968,18 +21968,18 @@ function ZY(e) {
 }
 function mm(e, t) {
   let r = D();
-  if (r !== "linux" && r !== "wsl") return !0;
+  if (r !== "linux" && r !== "wsl") return true;
   let o = t.get(e);
   if (o !== void 0) return o;
   let u = wt(e),
     d = u === e,
-    x = !0;
+    x = true;
   try {
     NY(e, Zn.W_OK);
   } catch (w) {
     switch (E(w)) {
       case "EROFS":
-        x = !1;
+        x = false;
         break;
       case "ENOENT":
         x = d || mm(u, t);
@@ -22015,7 +22015,7 @@ function Ro(e, t) {
 function um(e) {
   return ke(e, ".claude", cU);
 }
-function hI(e = !0) {
+function hI(e = true) {
   let t = new Set();
   if ((t.add(um(Se())), e)) t.add(um(xw()));
   t.add(um(gn())), t.add(ke(be(), cU));
@@ -22024,11 +22024,11 @@ function hI(e = !0) {
   return [...t];
 }
 function dm(e) {
-  Co(wt(e), { recursive: !0 }), Co(e, { recursive: !0, mode: 448 });
+  Co(wt(e), { recursive: true }), Co(e, { recursive: true, mode: 448 });
 }
 function mu(e) {
   try {
-    return vs(oi(wt(e), Zn.O_RDONLY | Zn.O_DIRECTORY | Zn.O_NOFOLLOW)), !0;
+    return vs(oi(wt(e), Zn.O_RDONLY | Zn.O_DIRECTORY | Zn.O_NOFOLLOW)), true;
   } catch (t) {
     let r = E(t);
     return r !== "ELOOP" && r !== "ENOTDIR";
@@ -22042,24 +22042,24 @@ async function sYn() {
 function aYn() {
   for (let t of hI(!sn())) {
     if (!mu(t)) continue;
-    let r = !1;
+    let r = false;
     try {
       if (!is(t).isDirectory()) {
         if (!mu(t)) continue;
-        OY(t), dm(t), (r = !0);
+        OY(t), dm(t), (r = true);
       } else
         try {
-          vs(oi(t, Zn.O_RDONLY | Zn.O_DIRECTORY)), (r = !0);
+          vs(oi(t, Zn.O_RDONLY | Zn.O_DIRECTORY)), (r = true);
         } catch {
           try {
             if (!mu(t)) continue;
-            CY(t), dm(t), (r = !0);
+            CY(t), dm(t), (r = true);
           } catch {}
         }
     } catch {
       try {
         if (!mu(t)) continue;
-        dm(t), (r = !0);
+        dm(t), (r = true);
       } catch (o) {
         n(`ensureAtomicWriteStagingDirs: failed to create ${t}: ${o}`),
           g("sandbox_exec", "atomic_write_staging_dir_create_failed");
@@ -22079,7 +22079,7 @@ function aYn() {
   }
   let e = bI();
   if (!e.stagingDirGitignoreFired)
-    (e.stagingDirGitignoreFired = !0),
+    (e.stagingDirGitignoreFired = true),
       iqt(`.claude/${cU}/`, Se()).then((t) => {
         if (!t.written) return;
         if (t.effective) y("gitignore_global_rule");
@@ -22093,8 +22093,8 @@ function zht(e) {
     o = fy(),
     u = a.CLAUDE_CODE_EVAL_CONFINED,
     d = (B) => !u || (B === "userSettings" && _o("userSettings")),
-    x = o.some((B) => B.sandbox?.network?.allowManagedDomainsOnly === !0),
-    w = o.some((B) => B.sandbox?.filesystem?.allowManagedReadPathsOnly === !0),
+    x = o.some((B) => B.sandbox?.network?.allowManagedDomainsOnly === true),
+    w = o.some((B) => B.sandbox?.filesystem?.allowManagedReadPathsOnly === true),
     v = [],
     N = [];
   if (x && u);
@@ -22139,7 +22139,7 @@ function zht(e) {
     F = eY();
   if (F !== wd()) C.push(F);
   let U = [],
-    M = (B, K, ne = !1) => {
+    M = (B, K, ne = false) => {
       let xe = K ? [Mn(B)] : ZY(B);
       U.push(...(ne ? xe.map(As) : xe));
     },
@@ -22148,7 +22148,7 @@ function zht(e) {
       let xe = mm(wt(B), q);
       if (!xe)
         try {
-          is(B), (xe = !0);
+          is(B), (xe = true);
         } catch (Ae) {
           xe = !Ht(Ae);
         }
@@ -22165,11 +22165,11 @@ function zht(e) {
   let _e = xw(),
     Ee = Se();
   if (_e !== Ee) U.push(Mn(ke(_e, ".claude", "settings.json"))), U.push(Mn(ke(_e, ".claude", "settings.local.json")));
-  if ((M(ke(Ee, ".claude", "skills"), !0, !0), _e !== Ee)) M(ke(_e, ".claude", "skills"), !0, !0);
-  if ((M(ke(Ee, ".claude", "hooks"), !0, !0), _e !== Ee)) M(ke(_e, ".claude", "hooks"), !0, !0);
-  U.push(As(ke(be(), "local"))), U.push(...hI().map(As)), M(ke(be(), "jobs"), !0, !0);
+  if ((M(ke(Ee, ".claude", "skills"), true, true), _e !== Ee)) M(ke(_e, ".claude", "skills"), true, true);
+  if ((M(ke(Ee, ".claude", "hooks"), true, true), _e !== Ee)) M(ke(_e, ".claude", "hooks"), true, true);
+  U.push(As(ke(be(), "local"))), U.push(...hI().map(As)), M(ke(be(), "jobs"), true, true);
   let We = ke(be(), "seed-admin");
-  M(We, !1, !0), M(ke(be(), "daemon"), !0, !0);
+  M(We, false, true), M(ke(be(), "daemon"), true, true);
   {
     let B = Uht(),
       K = B;
@@ -22180,7 +22180,7 @@ function zht(e) {
         K = ke(Nn(wt(B)), d5e);
       } catch {}
     }
-    M(B, !0, !0), X.push(As(K));
+    M(B, true, true), X.push(As(K));
   }
   let De = new Set(["scheduled_tasks.json", "launch.json", "CLAUDE.md", "daemon.json", "policy-limits.json"]);
   for (let B of [
@@ -22206,22 +22206,22 @@ function zht(e) {
     let K = Mn(ke(be(), B));
     U.push(De.has(B) ? K : As(K));
   }
-  M(ke(be(), "loop.md"), !1);
+  M(ke(be(), "loop.md"), false);
   let Pe = ke(be(), "cowork_plugins");
-  M(Pe, !1, !0);
+  M(Pe, false, true);
   let Q = ihn();
-  if (kI(wd(), Q)) M(Q, !1, !0), (gm = Q);
+  if (kI(wd(), Q)) M(Q, false, true), (gm = Q);
   else
     (gm = void 0),
       n(`[sandbox] task output dir chain is not plain directories; read-only deny skipped: ${Q}`, { level: "warn" }),
       g("sandbox_exec", "task_output_deny_skipped");
   let tt = Jy();
-  if (tt !== ke(be(), "plugins") && tt !== Pe && !hu(tt)) Y(tt, !1, !0);
+  if (tt !== ke(be(), "plugins") && tt !== Pe && !hu(tt)) Y(tt, false, true);
   for (let B of XE()) {
     let K = ke(Se(), B);
-    if (!hu(K)) Y(K, !1, !0);
+    if (!hu(K)) Y(K, false, true);
   }
-  for (let B of r_n(hyt())) if (bm(B) && !hu(ke(B))) Y(ke(B), !1, !0);
+  for (let B of r_n(hyt())) if (bm(B) && !hu(ke(B))) Y(ke(B), false, true);
   let ue = cor(),
     ve = new Set(
       [...(WH(eoe()) ? dor(Zre()) : []), ...(ue === null ? [] : [ue]), ...uor()]
@@ -22236,22 +22236,22 @@ function zht(e) {
       } catch (K) {
         if (Ht(K)) continue;
       }
-    Y(B, !1);
+    Y(B, false);
   }
-  for (let B of ["mcp-skill-archives", "mcp-discovery-cache", "shares"]) M(ke(be(), B), !1, !0);
-  for (let B of ["remote-settings-helper-consent", "remote-settings-consent.json"]) M(ke(be(), B), !1);
+  for (let B of ["mcp-skill-archives", "mcp-discovery-cache", "shares"]) M(ke(be(), B), false, true);
+  for (let B of ["remote-settings-helper-consent", "remote-settings-consent.json"]) M(ke(be(), B), false);
   let z = qXe();
   for (let B of new Set([ke(be(), "remote-settings.json"), ke(nCe()), ...(z !== void 0 ? [ke(z)] : [])])) {
-    let K = !1,
-      ne = !1;
+    let K = false,
+      ne = false;
     try {
       let xe = is(B);
       (K = xe.isCharacterDevice()), (ne = xe.isSymbolicLink() && ii(B).isCharacterDevice());
     } catch {}
     if (ne) U.push(B);
-    else if (!K) Y(B, !1);
+    else if (!K) Y(B, false);
   }
-  M(ke(be(), "state"), !1, !0);
+  M(ke(be(), "state"), false, true);
   {
     let B = wt(Ls());
     for (let K of SFe) U.push(Mn(ke(B, `.claude${K}.json`)));
@@ -22269,14 +22269,14 @@ function zht(e) {
       B.add(ne), X.push(As(ne)), U.push(As(ne));
     }
   }
-  let re = (B, K = !0, ne = M) => {
+  let re = (B, K = true, ne = M) => {
     ne(ke(B, ".claude", "launch.json"), K),
-      ne(ke(B, ".claude", "workflows"), K, !0),
-      ne(ke(B, ".claude", "routines"), K, !0),
-      ne(ke(B, ".claude", "output-styles"), !1, !0),
+      ne(ke(B, ".claude", "workflows"), K, true),
+      ne(ke(B, ".claude", "routines"), K, true),
+      ne(ke(B, ".claude", "output-styles"), false, true),
       ne(ke(B, ".claude", "scheduled_tasks.json"), K),
-      ne(ke(B, ".claude", "loop.md"), !1),
-      ne(ke(B, ".mcp.json"), !1);
+      ne(ke(B, ".claude", "loop.md"), false),
+      ne(ke(B, ".mcp.json"), false);
   };
   re(Ee);
   {
@@ -22285,19 +22285,19 @@ function zht(e) {
       ne = K.normalize("NFC"),
       xe = Up(K) === Up(B) && Up(ne) === Up(ke(gu()).normalize("NFC")),
       Ae = (qe) => {
-        re(qe, !1, Y),
-          Y(ke(qe, ".claude", "skills"), !1, !0),
-          Y(ke(qe, ".claude", "commands"), !1, !0),
-          Y(ke(qe, ".claude", "agents"), !1, !0),
-          Y(ke(qe, ".claude", "hooks"), !1, !0),
-          Y(ke(qe, ".claude", "settings.json"), !1),
-          Y(ke(qe, ".claude", "settings.local.json"), !1);
+        re(qe, false, Y),
+          Y(ke(qe, ".claude", "skills"), false, true),
+          Y(ke(qe, ".claude", "commands"), false, true),
+          Y(ke(qe, ".claude", "agents"), false, true),
+          Y(ke(qe, ".claude", "hooks"), false, true),
+          Y(ke(qe, ".claude", "settings.json"), false),
+          Y(ke(qe, ".claude", "settings.local.json"), false);
       },
-      Fe = !1,
+      Fe = false,
       de = gn();
     for (;;) {
       if ((Ae(de), Up(de) === Up(ne))) {
-        if (((Fe = !0), xe)) break;
+        if (((Fe = true), xe)) break;
       }
       let qe = wt(de);
       if (qe === de) break;
@@ -22306,7 +22306,7 @@ function zht(e) {
     let dt = (qe) => {
       let he = qe;
       for (;;) {
-        Y(ke(he, ".mcp.json"), !1);
+        Y(ke(he, ".mcp.json"), false);
         let Pt = wt(he);
         if (Pt === he) break;
         he = Pt;
@@ -22376,14 +22376,14 @@ function zht(e) {
           if ((t.bareGitRepoScrubPaths.push(Ae), Et)) U.push(Ae);
         }
       };
-      if ((M(zt(B, "hooks"), !0, !0), U.push(Mn(zt(B, "config"))), qt))
+      if ((M(zt(B, "hooks"), true, true), U.push(Mn(zt(B, "config"))), qt))
         t.bareGitRepoScrubPaths.push(zt(B, "config.lock"));
       else U.push(Mn(zt(B, "config.lock")));
       let ne = zt(B, "config.worktree");
       Rt(ne), U.push(Mn(ne)), K(zt(B, "config.worktree.lock")), K(zt(B, "commondir"));
       let xe = zt(B, "worktrees");
       try {
-        for (let Ae of RY(xe, { withFileTypes: !0 })) {
+        for (let Ae of RY(xe, { withFileTypes: true })) {
           if (!Ae.isDirectory() && !Ae.isSymbolicLink()) continue;
           let Fe = zt(xe, Ae.name, "config.worktree");
           Rt(Fe), U.push(Mn(Fe)), K(zt(xe, Ae.name, "config.worktree.lock")), U.push(Mn(zt(xe, Ae.name, "commondir")));
@@ -22404,13 +22404,13 @@ function zht(e) {
     }
   }
   for (let B of rr) {
-    let K = !0;
+    let K = true;
     for (let xe of Qt) {
       let Ae = ke(B, xe);
       try {
         ii(Ae), U.push(Ae);
       } catch {
-        if (((K = !1), t.bareGitRepoScrubPaths.push(Ae), Et)) U.push(Ae);
+        if (((K = false), t.bareGitRepoScrubPaths.push(Ae), Et)) U.push(Ae);
       }
     }
     if (K) bn(B);
@@ -22445,21 +22445,21 @@ function zht(e) {
     try {
       let K = ke(B, ".mcp.json");
       if (D() === "macos") {
-        M(K, !1);
+        M(K, false);
         try {
           let ne = Nn(B);
-          if (ne !== B) M(ke(ne, ".mcp.json"), !1);
+          if (ne !== B) M(ke(ne, ".mcp.json"), false);
         } catch {}
         continue;
       }
       if (Nn(B) !== B) continue;
-      Y(K, !1);
+      Y(K, false);
     } catch {
       continue;
     }
   for (let B of t.runtimeAllowWriteDirectories.values()) {
     C.push(ko(B)), U.push(Mn(ke(B, ".claude", "settings.json"))), U.push(Mn(ke(B, ".claude", "settings.local.json")));
-    for (let ne of ["skills", "agents", "commands", "hooks"]) M(ke(B, ".claude", ne), !0, !0);
+    for (let ne of ["skills", "agents", "commands", "hooks"]) M(ke(B, ".claude", ne), true, true);
     re(B);
     let K = ke(B, ".git");
     try {
@@ -22548,9 +22548,9 @@ function zht(e) {
       let ne = yn.get(K);
       if (!ne) {
         try {
-          ne = lI.default(K, { dot: !0 });
+          ne = lI.default(K, { dot: true });
         } catch {
-          ne = () => !1;
+          ne = () => false;
         }
         yn.set(K, ne);
       }
@@ -22559,10 +22559,10 @@ function zht(e) {
     Bt = (B, K, ne) => {
       let xe = ne;
       for (;;) {
-        if (Rn(xe, B) && Dr(K, xe)) return !0;
+        if (Rn(xe, B) && Dr(K, xe)) return true;
         let Ae = wt(xe);
-        if (Ae === xe) return !1;
-        if (((xe = Ae), !At(K) && !st(K, xe))) return !1;
+        if (Ae === xe) return false;
+        if (((xe = Ae), !At(K) && !st(K, xe))) return false;
       }
     },
     $n = (B, K) => Be.some((ne) => (At(ne) ? Bt(ne, B, K) : Dr(B, ne) && st(ne, K))),
@@ -22570,9 +22570,9 @@ function zht(e) {
       if (!At(B)) return st(B, K);
       let ne = K;
       for (;;) {
-        if (Rn(ne, B)) return !0;
+        if (Rn(ne, B)) return true;
         let xe = wt(ne);
-        if (xe === ne) return !1;
+        if (xe === ne) return false;
         ne = xe;
       }
     },
@@ -22584,13 +22584,13 @@ function zht(e) {
       if (xe) xe.lexicals.push(K), (xe.trusted ||= ne);
       else ci.set(B, { lexicals: [K], trusted: ne });
     },
-    Ui = (B) => ci.get(B)?.trusted === !0,
+    Ui = (B) => ci.get(B)?.trusted === true,
     Rs = (B, K) => {
       let ne = ci.get(B);
       return ne === void 0 || ne.lexicals.some((xe) => xe === B || (st(xe, K) && rI(xe, B)));
     },
     mr = new Map(),
-    Ja = !1,
+    Ja = false,
     Po,
     li = new Map(),
     za = 0,
@@ -22610,7 +22610,7 @@ function zht(e) {
             seq: za++,
             label: Ae,
             sessionLabel: void 0,
-            synthetic: !0,
+            synthetic: true,
           }),
           xe.add(Ae);
       }
@@ -22624,7 +22624,7 @@ function zht(e) {
       n(`Sandbox: ignoring sandbox.credentials entries from disabled setting source ${B}`, { level: "info" });
       continue;
     }
-    Ja = !0;
+    Ja = true;
     let xe = B === "userSettings" && !_o("userSettings"),
       Ae = u && B !== "userSettings",
       Fe = xe || Ae;
@@ -22657,7 +22657,7 @@ function zht(e) {
                 `[sandbox] credential file deny for '${Je}' collides with the deny spelled '${Pt.path}' only through symlink resolution \u2014 installed as a canonical deny on '${he}' so the trusted tier's intent cannot be retargeted`,
               ),
                 pe.set(he, { path: he, mode: "deny" }),
-                sr(he, he, !0);
+                sr(he, he, true);
             continue;
           }
           n(
@@ -22676,7 +22676,7 @@ function zht(e) {
                 `[sandbox] credential file mask for '${Je}' dropped: a trusted-tier deny ('${Pt.path}') names the same file through a symlink \u2014 installed as a canonical deny on '${he}' so enforcement cannot be retargeted`,
               ),
                 pe.set(he, { path: he, mode: "deny" }),
-                sr(he, he, !0);
+                sr(he, he, true);
               continue;
             }
             n(
@@ -22771,7 +22771,7 @@ function zht(e) {
                     (Ds = void 0);
                 if (Ds !== void 0)
                   try {
-                    new TextDecoder("utf-8", { fatal: !0 }).decode(Ds);
+                    new TextDecoder("utf-8", { fatal: true }).decode(Ds);
                   } catch {
                     en = 'has non-UTF-8 content \u2014 binary credential files cannot be masked; use mode "deny"';
                   }
@@ -22807,7 +22807,7 @@ function zht(e) {
               `[sandbox] credential file mask for '${Pt.path}' dropped: trusted-tier deny '${Je}' names the same file through a symlink \u2014 installed as a canonical deny on '${he}' so enforcement cannot be retargeted`,
             ),
               pe.set(he, { path: he, mode: "deny" }),
-              sr(he, he, !0);
+              sr(he, he, true);
             continue;
           }
           n(
@@ -22843,7 +22843,7 @@ function zht(e) {
       if (de.mode === "mask") {
         let Cn = [xw(), ...C].find((en) => {
           let Vt = g_(ke(xw(), en)).replace(ie, "");
-          if (At(Vt)) return !1;
+          if (At(Vt)) return false;
           let qn = ki(Vt);
           return st(Vt, he) || st(Vt, qe) || st(qn, he) || st(qn, qe);
         });
@@ -23168,10 +23168,10 @@ function zht(e) {
       ? {
           files: [...pe.entries()]
             .filter(([B, K]) => {
-              if (K.mode !== "mask") return !0;
+              if (K.mode !== "mask") return true;
               let ne = Tu(B, g_(K.path).replace(ie, ""));
-              if (ne === void 0) return !0;
-              return n(`[sandbox] credential file mask for '${K.path}' dropped: shadowed by deny on '${ne}'`), !1;
+              if (ne === void 0) return true;
+              return n(`[sandbox] credential file mask for '${K.path}' dropped: shadowed by deny on '${ne}'`), false;
             })
             .map(([B, K]) => {
               if (
@@ -23199,12 +23199,12 @@ function zht(e) {
       .find((B) => B !== void 0) ?? { command: Au, args: vu, argv0: Nu },
     sc = h5e(),
     Mi = sc
-      ? { allowedDomains: void 0, deniedDomains: [], allowAllUnixSockets: !0 }
+      ? { allowedDomains: void 0, deniedDomains: [], allowAllUnixSockets: true }
       : {
           allowedDomains: v,
           deniedDomains: N,
           ...(Object.keys(k).length > 0 && { deniedDomainReasons: k }),
-          strictAllowlist: DOe().some((B) => B?.sandbox?.network?.strictAllowlist === !0) || void 0,
+          strictAllowlist: DOe().some((B) => B?.sandbox?.network?.strictAllowlist === true) || void 0,
           ...(u
             ? {}
             : {
@@ -23217,7 +23217,7 @@ function zht(e) {
               }),
         },
     ic = ym(),
-    Ru = !1;
+    Ru = false;
   if (!sc && Mi.tlsTerminate === void 0 && ic !== void 0)
     if (D() === "windows") {
       let B = LY(WX());
@@ -23233,7 +23233,7 @@ function zht(e) {
       allowRead: te(se),
       allowWrite: te(C),
       denyWrite: te(U),
-      ...(G2() === "relaxed" && { disabled: !0 }),
+      ...(G2() === "relaxed" && { disabled: true }),
     },
     oc = new Set();
   for (let B of new Set([Ee, _e])) for (let K of [Hn(B), Vr(B)]) if (K !== null) oc.add(K);
@@ -23247,7 +23247,7 @@ function zht(e) {
     filesystem: Cu,
     ignoreViolations: e.sandbox?.ignoreViolations,
     credentials: Iu,
-    enableWeakerNestedSandbox: wu() && a$() ? !1 : e.sandbox?.enableWeakerNestedSandbox,
+    enableWeakerNestedSandbox: wu() && a$() ? false : e.sandbox?.enableWeakerNestedSandbox,
     enableWeakerNetworkIsolation: e.sandbox?.enableWeakerNetworkIsolation,
     allowAppleEvents: uI(B0(["allowAppleEvents"])),
     ...(Bo.size > 0 && { git: { safeDirectories: [...Bo] } }),
@@ -23262,7 +23262,7 @@ function zht(e) {
 function Do(e) {
   ct.updateConfig(e), SI(e);
   let t = at(),
-    r = t.builtConfigEnforcesAllowlist.get(e) ?? !1;
+    r = t.builtConfigEnforcesAllowlist.get(e) ?? false;
   if (t.initializationPromise === void 0) t.installedFilterRequestEnforcesAllowlist = r;
   else t.installsSinceInitializeStartedAllEnforce &&= r;
 }
@@ -23270,12 +23270,12 @@ class gI {
   tenguSandboxGbConfig = ai(PY);
   sessionAllowedHosts = new Set();
   initializationPromise = void 0;
-  initializedWithTlsTerminate = !1;
-  installedFilterRequestEnforcesAllowlist = !1;
-  installsSinceInitializeStartedAllEnforce = !0;
+  initializedWithTlsTerminate = false;
+  installedFilterRequestEnforcesAllowlist = false;
+  installsSinceInitializeStartedAllEnforce = true;
   builtConfigEnforcesAllowlist = new WeakMap();
   settingsSubscriptionCleanup = void 0;
-  sandboxDisabledThisSession = !1;
+  sandboxDisabledThisSession = false;
   initFailureReason = void 0;
   fsReadConfigMemo = void 0;
   gbHostRulesMemo = void 0;
@@ -23283,7 +23283,7 @@ class gI {
   symlinkedDenyScrubPaths = [];
   wrapCwdsThisSession = new Set();
   wrapWriteRootsThisSession = new Set();
-  unconfinedWrapThisSession = !1;
+  unconfinedWrapThisSession = false;
   denyLiteralSymlinkCandidates = [];
   runtimeAllowWriteDirectories = new Map();
   dependencyProbeGeneration = 0;
@@ -23295,7 +23295,7 @@ function at() {
   return (hm ??= new gI());
 }
 function bI() {
-  return (qY ??= { osLinkedRootRealpaths: new Map(), stagingDirGitignoreFired: !1 });
+  return (qY ??= { osLinkedRootRealpaths: new Map(), stagingDirGitignoreFired: false });
 }
 function Sgn(e, t) {
   let { runtimeAllowWriteDirectories: r } = at();
@@ -23324,7 +23324,7 @@ function JY() {
       (k = F), (v = F.isSymbolicLink());
     } catch (F) {
       if (E(F) === "ENOENT") continue;
-      v = !1;
+      v = false;
     }
     let C;
     if (v)
@@ -23355,7 +23355,7 @@ function JY() {
       }
     }
     try {
-      if ((cI(u, { recursive: !0, force: !0 }), n(`[Sandbox] scrubbed replaced symlinked-deny path: ${u}`), !v)) {
+      if ((cI(u, { recursive: true, force: true }), n(`[Sandbox] scrubbed replaced symlinked-deny path: ${u}`), !v)) {
         let F = k === null ? "unknown" : k.isDirectory() ? "directory" : k.isFile() ? "file" : "other";
         s("tengu_sandbox_scrub_removed_non_symlink", { kind: c(F) });
       }
@@ -23406,26 +23406,26 @@ function SI(e) {
   if (!yI()) return;
   let t = at();
   if (!e || e.filesystem.disabled || (wu() && a$())) {
-    t.unconfinedWrapThisSession = !0;
+    t.unconfinedWrapThisSession = true;
     return;
   }
   let r;
   try {
     r = process.cwd();
   } catch {
-    t.unconfinedWrapThisSession = !0;
+    t.unconfinedWrapThisSession = true;
     return;
   }
   t.wrapCwdsThisSession.add(r);
   let o = _I([...Bz(), ...e.filesystem.allowWrite], new Set([r]));
   if (o === null) {
-    t.unconfinedWrapThisSession = !0;
+    t.unconfinedWrapThisSession = true;
     return;
   }
   for (let u of o) t.wrapWriteRootsThisSession.add(u);
 }
 function sI(e, t) {
-  if (e === null || t === null) return !0;
+  if (e === null || t === null) return true;
   let r = t.map((o) => o.split("/").filter(Boolean));
   return e.some((o) => {
     let u = o.split("/").filter(Boolean);
@@ -23434,14 +23434,14 @@ function sI(e, t) {
 }
 var iI;
 function e9(e, t) {
-  if (e === t) return !0;
+  if (e === t) return true;
   let r = e.normalize("NFD"),
     o = t.normalize("NFD");
-  if (r.toLowerCase() === o.toLowerCase() || r.toUpperCase() === o.toUpperCase()) return !0;
+  if (r.toLowerCase() === o.toLowerCase() || r.toUpperCase() === o.toUpperCase()) return true;
   return (iI ??= new Intl.Collator("en", { usage: "search", sensitivity: "base" })), iI.compare(r, o) === 0;
 }
 function t9(e, t) {
-  if (e === null || t === null || e.length !== t.length) return !1;
+  if (e === null || t === null || e.length !== t.length) return false;
   let r = new Set(e);
   return t.every((o) => r.has(o));
 }
@@ -23459,7 +23459,7 @@ function n9(e) {
         n(
           `[Sandbox] kept ${F.literal}: replaced by a real file/directory outside every sandbox write root (a user change, not a sandboxed plant); now denied directly`,
         ),
-        s("tengu_sandbox_scrub_spared_unreachable", { still_symlink: !1 });
+        s("tengu_sandbox_scrub_spared_unreachable", { still_symlink: false });
       continue;
     }
     let U = k === F.resolved;
@@ -23469,7 +23469,7 @@ function n9(e) {
       n(
         `[Sandbox] kept user-retargeted ${F.literal} -> ${k}: nothing it resolves through is inside a sandbox write root (not a sandboxed plant); new target denied for the next command`,
       ),
-      s("tengu_sandbox_scrub_spared_unreachable", { still_symlink: !0 });
+      s("tengu_sandbox_scrub_spared_unreachable", { still_symlink: true });
   }
   let u = ct.getConfig();
   if (!u || o.length === 0) return;
@@ -23581,15 +23581,15 @@ function i9() {
   return xI(o);
 }
 function wTe() {
-  if (!qht().disableNoSandbox) return !1;
+  if (!qht().disableNoSandbox) return false;
   return !wu() && !Me(a.IS_SANDBOX) && !Vh.getIsBubblewrapSandbox();
 }
 function Pi() {
   try {
-    if (wTe()) return !0;
-    return En()?.sandbox?.enabled ?? !1;
+    if (wTe()) return true;
+    return En()?.sandbox?.enabled ?? false;
   } catch (e) {
-    return n(`Failed to get settings for sandbox check: ${e}`), !1;
+    return n(`Failed to get settings for sandbox check: ${e}`), false;
   }
 }
 function h5e() {
@@ -23599,23 +23599,23 @@ function wI() {
   return !wu() && D() !== "windows";
 }
 function o9() {
-  if (!wI()) return !1;
-  return En()?.sandbox?.autoAllowBashIfSandboxed ?? !0;
+  if (!wI()) return false;
+  return En()?.sandbox?.autoAllowBashIfSandboxed ?? true;
 }
 function II() {
-  if (qht().forbidUnsandboxedCommands) return !0;
-  return En()?.sandbox?.allowUnsandboxedCommands === !1;
+  if (qht().forbidUnsandboxedCommands) return true;
+  return En()?.sandbox?.allowUnsandboxedCommands === false;
 }
 function a9() {
   return !z2().unsandboxedCommandsDisabled && !II();
 }
 function c9() {
-  return qht().forbidUnsandboxedCommands === !0;
+  return qht().forbidUnsandboxedCommands === true;
 }
-Am(() => qht().requireSandboxedAttempt === !0);
+Am(() => qht().requireSandboxedAttempt === true);
 function Em() {
   let e = En();
-  return Pi() && qa() && (e?.sandbox?.failIfUnavailable ?? !1);
+  return Pi() && qa() && (e?.sandbox?.failIfUnavailable ?? false);
 }
 function xm() {
   if (D() === "windows") return W2();
@@ -23624,27 +23624,27 @@ function xm() {
 function qa() {
   try {
     let e = ye("policySettings")?.sandbox?.enabledPlatforms;
-    if (e === void 0) return !0;
-    if (e.length === 0) return !1;
+    if (e === void 0) return true;
+    if (e.length === 0) return false;
     let t = D();
     return e.includes(t);
   } catch (e) {
-    return n(`Failed to check enabledPlatforms: ${e}`), !0;
+    return n(`Failed to check enabledPlatforms: ${e}`), true;
   }
 }
 function Xa() {
-  if ((wu(), at().sandboxDisabledThisSession)) return !1;
-  if (!Tm()) return !1;
+  if ((wu(), at().sandboxDisabledThisSession)) return false;
+  if (!Tm()) return false;
   return Su().errors.length === 0;
 }
 function avr() {
   let e = at();
-  if (e.initFailureReason !== void 0) return !1;
+  if (e.initFailureReason !== void 0) return false;
   if (e.checkDependenciesProbe.cache.has(void 0)) return Xa() && !h5e();
   return e.initializationPromise !== void 0 && !e.sandboxDisabledThisSession && Tm() && !h5e();
 }
 function lvr() {
-  return !1;
+  return false;
 }
 function Tm() {
   return Pi() && qa() && xm();
@@ -23728,7 +23728,7 @@ function u9() {
   }
 }
 function AI() {
-  let e = wu() && !1;
+  let e = wu() && false;
   return (Pi() || e) && qa();
 }
 function d9() {
@@ -23743,7 +23743,7 @@ function d9() {
           N = (x || w ? d.replace(/\/+$/, "") : d).replace(/\/\*\*$/, "");
         return /[*?[\]]/.test(N);
       };
-    for (let [d, x] of [...(r.allow || []).map((w) => [w, !1]), ...(r.deny || []).map((w) => [w, !0])]) {
+    for (let [d, x] of [...(r.allow || []).map((w) => [w, false]), ...(r.deny || []).map((w) => [w, true])]) {
       let w = Di(d);
       if ((w.toolName === Kt || w.toolName === _t) && w.ruleContent && u(w.ruleContent, x)) o.push(d);
     }
@@ -23838,7 +23838,7 @@ async function NI() {
         r = t ? `: ${t}` : "";
       if (Em() || (wu() && a$())) throw new hgn(`Sandbox is required but failed to initialize${r}. Restart to retry.`);
       throw (
-        ((at().sandboxDisabledThisSession = !0),
+        ((at().sandboxDisabledThisSession = true),
         new hgn(
           `Sandbox is enabled but failed to initialize${r}. Sandboxing is disabled for the rest of this session; restart to retry.`,
         ))
@@ -23916,11 +23916,11 @@ async function OI(e) {
   if (!Xa()) return;
   let r = e
       ? async (u) => {
-          if (vne()) return n(`[sandbox] Blocked network request to ${u.host} (allowManagedDomainsOnly)`), !1;
+          if (vne()) return n(`[sandbox] Blocked network request to ${u.host} (allowManagedDomainsOnly)`), false;
           return e(u);
         }
       : void 0,
-    o = !1;
+    o = false;
   if (
     ((t.initializationPromise = (async () => {
       try {
@@ -23928,7 +23928,7 @@ async function OI(e) {
           d = zht(u);
         if (
           ((at().initializedWithTlsTerminate = d.network?.tlsTerminate !== void 0),
-          (at().installsSinceInitializeStartedAllEnforce = !0),
+          (at().installsSinceInitializeStartedAllEnforce = true),
           D() === "windows")
         )
           aYn(), await sYn();
@@ -23936,7 +23936,7 @@ async function OI(e) {
         let x = at();
         if (
           ((x.installedFilterRequestEnforcesAllowlist =
-            (x.builtConfigEnforcesAllowlist.get(d) ?? !1) && x.installsSinceInitializeStartedAllEnforce),
+            (x.builtConfigEnforcesAllowlist.get(d) ?? false) && x.installsSinceInitializeStartedAllEnforce),
           (x.initFailureReason = void 0),
           D() !== "windows")
         )
@@ -23951,11 +23951,11 @@ async function OI(e) {
         }),
           y("sandbox_init");
       } catch (u) {
-        o = !0;
+        o = true;
         let d = at();
         (d.initializationPromise = void 0),
-          (d.initializedWithTlsTerminate = !1),
-          (d.installedFilterRequestEnforcesAllowlist = !1),
+          (d.initializedWithTlsTerminate = false),
+          (d.installedFilterRequestEnforcesAllowlist = false),
           n(`Failed to initialize sandbox: ${l(u)}`),
           (at().initFailureReason = q2(l(u))),
           g("sandbox_init", "sandbox_init_failed");
@@ -24027,7 +24027,7 @@ var pt = {
     let e = at();
     e.dependencyProbeGeneration++,
       e.checkDependenciesProbe.cache.clear?.(),
-      (e.sandboxDisabledThisSession = !1),
+      (e.sandboxDisabledThisSession = false),
       (e.initFailureReason = void 0);
   },
   refreshConfig: Eu,
@@ -24091,7 +24091,7 @@ function hu(e) {
 var oI = 2097152;
 function kI(e, t) {
   let r = kY(e, t);
-  if (r.startsWith("..") || bm(r)) return !1;
+  if (r.startsWith("..") || bm(r)) return false;
   let o = r.split(nr).filter(Boolean);
   if (D() === "linux" || D() === "wsl") {
     let d,
@@ -24100,64 +24100,64 @@ function kI(e, t) {
       try {
         d = x();
       } catch (v) {
-        if (E(v) !== "ENOENT") return !1;
-        Co(e, { recursive: !0, mode: 448 }), (d = x());
+        if (E(v) !== "ENOENT") return false;
+        Co(e, { recursive: true, mode: 448 }), (d = x());
       }
       let w = yu(d);
-      if (process.getuid !== void 0 && w.uid !== process.getuid()) return vs(d), !1;
+      if (process.getuid !== void 0 && w.uid !== process.getuid()) return vs(d), false;
       if ((w.mode & 18) !== 0) Q0(`/proc/self/fd/${d}`, 448);
     } catch {
-      return !1;
+      return false;
     }
     try {
       for (let w of o) {
         try {
           Co(`/proc/self/fd/${d}/${w}`, { mode: 448 });
         } catch (N) {
-          if (E(N) !== "EEXIST") return !1;
+          if (E(N) !== "EEXIST") return false;
         }
         let v;
         try {
           v = oi(`/proc/self/fd/${d}/${w}`, oI | Zn.O_DIRECTORY | Zn.O_NOFOLLOW);
         } catch {
-          return !1;
+          return false;
         }
         vs(d), (d = v);
       }
       return os(`/proc/self/fd/${d}`) === t;
     } catch {
-      return !1;
+      return false;
     } finally {
       vs(d);
     }
   }
   let u = e.replace(/[\\/]+$/, "");
   try {
-    Co(u, { recursive: !0, mode: 448 });
+    Co(u, { recursive: true, mode: 448 });
     let d = is(u);
-    if (!d.isDirectory() || (D() !== "windows" && process.getuid !== void 0 && d.uid !== process.getuid())) return !1;
+    if (!d.isDirectory() || (D() !== "windows" && process.getuid !== void 0 && d.uid !== process.getuid())) return false;
     if (D() !== "windows" && (d.mode & 18) !== 0) Q0(u, 448);
   } catch {
-    return !1;
+    return false;
   }
   for (let d of o) {
     u = zt(u, d);
     try {
       Co(u, { mode: 448 });
     } catch (x) {
-      if (E(x) !== "EEXIST") return !1;
+      if (E(x) !== "EEXIST") return false;
     }
     try {
       let x = is(u);
-      if (!x.isDirectory() || x.isSymbolicLink()) return !1;
+      if (!x.isDirectory() || x.isSymbolicLink()) return false;
     } catch {
-      return !1;
+      return false;
     }
   }
   try {
     return Nn(t) === t;
   } catch {
-    return !1;
+    return false;
   }
 }
 export {

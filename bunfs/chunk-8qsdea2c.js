@@ -46,8 +46,8 @@ class Osr {
   startupContext = {};
   bootstrapEntry = "cli";
   onceMarked = new Set();
-  reported = !1;
-  lateReported = !1;
+  reported = false;
+  lateReported = false;
   firstEmitPhases = new Set();
 }
 var hJe = new J(() => new Osr()),
@@ -105,15 +105,15 @@ function IHr(t) {
 function qvn() {
   return hJe.of(G().host).bootstrapEntry;
 }
-function Mr(t, { once: r = !1 } = {}) {
-  if (!m) return !1;
+function Mr(t, { once: r = false } = {}) {
+  if (!m) return false;
   let { onceMarked: i, memorySnapshots: o } = hJe.of(G().host);
   if (r) {
-    if (i.has(t)) return !1;
+    if (i.has(t)) return false;
     i.add(t);
   }
   if ((ij().mark(t), u)) o.push(process.memoryUsage());
-  return !0;
+  return true;
 }
 function k({ memorySnapshots: t }) {
   if (!u) return "Startup profiling not enabled";
@@ -135,22 +135,22 @@ function k({ memorySnapshots: t }) {
 function _Je() {
   let t = hJe.of(G().host);
   if (t.reported) {
-    if (!t.lateReported) (t.lateReported = !0), Lsr({ late: !0 }), O(t);
+    if (!t.lateReported) (t.lateReported = true), Lsr({ late: true }), O(t);
     return;
   }
-  (t.reported = !0), Lsr({ late: !1 }), O(t);
+  (t.reported = true), Lsr({ late: false }), O(t);
 }
 function O(t) {
   if (!u) return;
   let r = vwr(),
     i = x(r);
-  le().mkdirSync(i), Nfe(r, k(t), { encoding: "utf8", flush: !0 });
+  le().mkdirSync(i), Nfe(r, k(t), { encoding: "utf8", flush: true });
   let c = ij().getEntriesByType("mark");
   Nfe(
     Rwr(),
     JSON.stringify(
       {
-        metadata: L(t, { late: !1 }) ?? {},
+        metadata: L(t, { late: false }) ?? {},
         marks: c.map((p) => ({ name: p.name, startTime: p.startTime })),
         memory: t.memorySnapshots,
         nodeBootMs: g,
@@ -158,7 +158,7 @@ function O(t) {
       null,
       2,
     ),
-    { encoding: "utf8", flush: !0 },
+    { encoding: "utf8", flush: true },
   ),
     n("Startup profiling report:"),
     n(k(t));
@@ -190,8 +190,8 @@ function L({ firstEmitPhases: t, startupContext: r }, { late: i }) {
   }
   if (i) {
     if (S === 0) return null;
-    e.late = !0;
-  } else e.late = !1;
+    e.late = true;
+  } else e.late = false;
   let h = e.total_time_ms;
   if (typeof h === "number") e.gap_unaccounted_ms = Math.max(0, h - E);
   (e.free_mem_mb = Math.round(M.freemem() / 1048576)),
@@ -204,7 +204,7 @@ function L({ firstEmitPhases: t, startupContext: r }, { late: i }) {
   if (T !== void 0 && P !== void 0) e.spawn_to_first_checkpoint_ms = Math.round(P - T);
   return Object.assign(e, r), e;
 }
-function Lsr({ late: t } = { late: !1 }) {
+function Lsr({ late: t } = { late: false }) {
   if (!A) return;
   let r = L(hJe.of(G().host), { late: t });
   if (r === null) return;

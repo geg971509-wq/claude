@@ -12,7 +12,7 @@ import { Bl } from "/$bunfs/root/chunk-6k63g5t6.js";
 import { u_, eg } from "/$bunfs/root/chunk-zze8764r.js";
 function f_e(e, t, s, r) {
   let c = e.mcp.clients.some((i) => i.name === t);
-  if (!c && r?.appendIfAbsent === !1) return e;
+  if (!c && r?.appendIfAbsent === false) return e;
   let n = Bl(t);
   return {
     ...e,

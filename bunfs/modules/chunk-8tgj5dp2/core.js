@@ -13,12 +13,12 @@ import { $c, $r, Af, Ai, Ci, Cn, D2, Fe, Fr, G2, G4, I2, Iw, JO, KO, M2, M3, N2,
 import { $d, $l, A7, Ae, At, BD, Bee, Cp, Cs, D4t, Fn, H$, I, ID, Ja, Jn, KV, M6, ND, Nbt, Nr, On, Qo, Sr, Ste, Tt, Um, Unr, Va, Vp, Wd, Xa, Xn, Ybt, Yh, Yt, ZM, ZS, b7, bp, ci, dO, fP, fe, fnr, fp, gAe, h7, iD, iN, ie, il, jc, jd, kee, mte, mw, oD, oO, pD, pnr, qe, qo, rD, ri, sl, spe, t0, tee, vbn, vee, xa, xre, yD, yI } from "/$bunfs/root/modules/chunk-8tgj5dp2/functions-002.js";
 
 var eo = S(function (k_) {
-  Object.defineProperty(k_, "__esModule", { value: !0 });
+  Object.defineProperty(k_, "__esModule", { value: true });
   k_.isTracingSuppressed = k_.unsuppressTracing = k_.suppressTracing = void 0;
   var qx = Li(),
     Zl = (0, qx.createContextKey)("OpenTelemetry SDK Context Key SUPPRESS_TRACING");
   function Xx(e) {
-    return e.setValue(Zl, !0);
+    return e.setValue(Zl, true);
   }
   k_.suppressTracing = Xx;
   function Qx(e) {
@@ -26,13 +26,13 @@ var eo = S(function (k_) {
   }
   k_.unsuppressTracing = Qx;
   function Jx(e) {
-    return e.getValue(Zl) === !0;
+    return e.getValue(Zl) === true;
   }
   k_.isTracingSuppressed = Jx;
 });
 
 var tc = S(function (P_) {
-  Object.defineProperty(P_, "__esModule", { value: !0 });
+  Object.defineProperty(P_, "__esModule", { value: true });
   P_.BAGGAGE_MAX_TOTAL_LENGTH =
     P_.BAGGAGE_MAX_PER_NAME_VALUE_PAIRS =
     P_.BAGGAGE_MAX_NAME_VALUE_PAIRS =
@@ -51,7 +51,7 @@ var tc = S(function (P_) {
 });
 
 var oc = S(function (N_) {
-  Object.defineProperty(N_, "__esModule", { value: !0 });
+  Object.defineProperty(N_, "__esModule", { value: true });
   N_.parseKeyPairsIntoRecord = N_.parsePairKeyValue = N_.getKeyPairs = N_.serializeKeyPairs = void 0;
   var aL = Li(),
     _r = tc();
@@ -106,7 +106,7 @@ var oc = S(function (N_) {
 });
 
 var F_ = S(function (U_) {
-  Object.defineProperty(U_, "__esModule", { value: !0 });
+  Object.defineProperty(U_, "__esModule", { value: true });
   U_.W3CBaggagePropagator = void 0;
   var sc = Li(),
     _L = eo(),
@@ -150,7 +150,7 @@ var F_ = S(function (U_) {
 });
 
 var G_ = S(function (H_) {
-  Object.defineProperty(H_, "__esModule", { value: !0 });
+  Object.defineProperty(H_, "__esModule", { value: true });
   H_.AnchoredClock = void 0;
   class B_ {
     _monotonicClock;
@@ -168,7 +168,7 @@ var G_ = S(function (H_) {
 });
 
 var X_ = S(function ($_) {
-  Object.defineProperty($_, "__esModule", { value: !0 });
+  Object.defineProperty($_, "__esModule", { value: true });
   $_.isAttributeValue = $_.isAttributeKey = $_.sanitizeAttributes = void 0;
   var K_ = Li();
   function mL(e) {
@@ -196,7 +196,7 @@ var X_ = S(function ($_) {
   }
   $_.isAttributeKey = j_;
   function W_(e) {
-    if (e == null) return !0;
+    if (e == null) return true;
     if (Array.isArray(e)) return gL(e);
     return Y_(typeof e);
   }
@@ -212,25 +212,25 @@ var X_ = S(function ($_) {
           t = o;
           continue;
         }
-        return !1;
+        return false;
       }
-      return !1;
+      return false;
     }
-    return !0;
+    return true;
   }
   function Y_(e) {
     switch (e) {
       case "number":
       case "boolean":
       case "string":
-        return !0;
+        return true;
     }
-    return !1;
+    return false;
   }
 });
 
 var lc = S(function (Q_) {
-  Object.defineProperty(Q_, "__esModule", { value: !0 });
+  Object.defineProperty(Q_, "__esModule", { value: true });
   Q_.loggingErrorHandler = void 0;
   var SL = Li();
   function TL() {
@@ -258,7 +258,7 @@ var lc = S(function (Q_) {
 });
 
 var nm = S(function (em) {
-  Object.defineProperty(em, "__esModule", { value: !0 });
+  Object.defineProperty(em, "__esModule", { value: true });
   em.globalErrorHandler = em.setGlobalErrorHandler = void 0;
   var yL = lc(),
     Z_ = (0, yL.loggingErrorHandler)();
@@ -275,7 +275,7 @@ var nm = S(function (em) {
 });
 
 var lm = S(function (sm) {
-  Object.defineProperty(sm, "__esModule", { value: !0 });
+  Object.defineProperty(sm, "__esModule", { value: true });
   sm.getStringListFromEnv = sm.getBooleanFromEnv = sm.getStringFromEnv = sm.getNumberFromEnv = void 0;
   var rm = Li(),
     om = ue("util");
@@ -298,15 +298,15 @@ var lm = S(function (sm) {
   sm.getStringFromEnv = im;
   function kL(e) {
     let t = process.env[e]?.trim().toLowerCase();
-    if (t == null || t === "") return !1;
-    if (t === "true") return !0;
-    else if (t === "false") return !1;
+    if (t == null || t === "") return false;
+    if (t === "true") return true;
+    else if (t === "false") return false;
     else
       return (
         rm.diag.warn(
           `Unknown value ${(0, om.inspect)(t)} for ${e}, expected 'true' or 'false', falling back to 'false' (default)`,
         ),
-        !1
+        false
       );
   }
   sm.getBooleanFromEnv = kL;
@@ -320,19 +320,19 @@ var lm = S(function (sm) {
 });
 
 var dm = S(function (cm) {
-  Object.defineProperty(cm, "__esModule", { value: !0 });
+  Object.defineProperty(cm, "__esModule", { value: true });
   cm._globalThis = void 0;
   cm._globalThis = globalThis;
 });
 
 var mm = S(function (pm) {
-  Object.defineProperty(pm, "__esModule", { value: !0 });
+  Object.defineProperty(pm, "__esModule", { value: true });
   pm.VERSION = void 0;
   pm.VERSION = "2.7.1";
 });
 
 var cc = S(function (Em) {
-  Object.defineProperty(Em, "__esModule", { value: !0 });
+  Object.defineProperty(Em, "__esModule", { value: true });
   Em.createConstMap = void 0;
   function IL(e) {
     let t = {},
@@ -347,7 +347,7 @@ var cc = S(function (Em) {
 });
 
 var CA = S(function (gA) {
-  Object.defineProperty(gA, "__esModule", { value: !0 });
+  Object.defineProperty(gA, "__esModule", { value: true });
   gA.SEMATTRS_NET_HOST_CARRIER_ICC =
     gA.SEMATTRS_NET_HOST_CARRIER_MNC =
     gA.SEMATTRS_NET_HOST_CARRIER_MCC =
@@ -1388,7 +1388,7 @@ var vA = S(function (In) {
             var u = Object.getOwnPropertyDescriptor(t, r);
             if (!u || ("get" in u ? !t.__esModule : u.writable || u.configurable))
               u = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -1404,12 +1404,12 @@ var vA = S(function (In) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) XH(t, e, r);
       };
-  Object.defineProperty(In, "__esModule", { value: !0 });
+  Object.defineProperty(In, "__esModule", { value: true });
   QH(CA(), In);
 });
 
 var PR = S(function (RR) {
-  Object.defineProperty(RR, "__esModule", { value: !0 });
+  Object.defineProperty(RR, "__esModule", { value: true });
   RR.SEMRESATTRS_K8S_STATEFULSET_NAME =
     RR.SEMRESATTRS_K8S_STATEFULSET_UID =
     RR.SEMRESATTRS_K8S_DEPLOYMENT_NAME =
@@ -1917,7 +1917,7 @@ var MR = S(function (xn) {
             var u = Object.getOwnPropertyDescriptor(t, r);
             if (!u || ("get" in u ? !t.__esModule : u.writable || u.configurable))
               u = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -1933,12 +1933,12 @@ var MR = S(function (xn) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) tK(t, e, r);
       };
-  Object.defineProperty(xn, "__esModule", { value: !0 });
+  Object.defineProperty(xn, "__esModule", { value: true });
   nK(PR(), xn);
 });
 
 var zR = S(function (DR) {
-  Object.defineProperty(DR, "__esModule", { value: !0 });
+  Object.defineProperty(DR, "__esModule", { value: true });
   DR.ATTR_EXCEPTION_TYPE =
     DR.ATTR_EXCEPTION_STACKTRACE =
     DR.ATTR_EXCEPTION_MESSAGE =
@@ -2217,7 +2217,7 @@ var zR = S(function (DR) {
 });
 
 var VR = S(function (FR) {
-  Object.defineProperty(FR, "__esModule", { value: !0 });
+  Object.defineProperty(FR, "__esModule", { value: true });
   FR.METRIC_SIGNALR_SERVER_ACTIVE_CONNECTIONS =
     FR.METRIC_KESTREL_UPGRADED_CONNECTIONS =
     FR.METRIC_KESTREL_TLS_HANDSHAKE_DURATION =
@@ -2324,7 +2324,7 @@ var VR = S(function (FR) {
 });
 
 var jR = S(function (GR) {
-  Object.defineProperty(GR, "__esModule", { value: !0 });
+  Object.defineProperty(GR, "__esModule", { value: true });
   GR.EVENT_EXCEPTION = void 0;
   GR.EVENT_EXCEPTION = "exception";
 });
@@ -2338,7 +2338,7 @@ var Fde = S(function (yt) {
             var u = Object.getOwnPropertyDescriptor(t, r);
             if (!u || ("get" in u ? !t.__esModule : u.writable || u.configurable))
               u = {
-                enumerable: !0,
+                enumerable: true,
                 get: function () {
                   return t[r];
                 },
@@ -2354,7 +2354,7 @@ var Fde = S(function (yt) {
       function (e, t) {
         for (var r in e) if (r !== "default" && !Object.prototype.hasOwnProperty.call(t, r)) w1(t, e, r);
       };
-  Object.defineProperty(yt, "__esModule", { value: !0 });
+  Object.defineProperty(yt, "__esModule", { value: true });
   to(vA(), yt);
   to(MR(), yt);
   to(zR(), yt);
@@ -2363,13 +2363,13 @@ var Fde = S(function (yt) {
 });
 
 var $R = S(function (WR) {
-  Object.defineProperty(WR, "__esModule", { value: !0 });
+  Object.defineProperty(WR, "__esModule", { value: true });
   WR.ATTR_PROCESS_RUNTIME_NAME = void 0;
   WR.ATTR_PROCESS_RUNTIME_NAME = "process.runtime.name";
 });
 
 var QR = S(function (qR) {
-  Object.defineProperty(qR, "__esModule", { value: !0 });
+  Object.defineProperty(qR, "__esModule", { value: true });
   qR.SDK_INFO = void 0;
   var P1 = mm(),
     Ii = Fde(),
@@ -2383,7 +2383,7 @@ var QR = S(function (qR) {
 });
 
 var ZR = S(function (Sn) {
-  Object.defineProperty(Sn, "__esModule", { value: !0 });
+  Object.defineProperty(Sn, "__esModule", { value: true });
   Sn.otperformance =
     Sn.SDK_INFO =
     Sn._globalThis =
@@ -2394,39 +2394,39 @@ var ZR = S(function (Sn) {
       void 0;
   var Ni = lm();
   Object.defineProperty(Sn, "getStringFromEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ni.getStringFromEnv;
     },
   });
   Object.defineProperty(Sn, "getBooleanFromEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ni.getBooleanFromEnv;
     },
   });
   Object.defineProperty(Sn, "getNumberFromEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ni.getNumberFromEnv;
     },
   });
   Object.defineProperty(Sn, "getStringListFromEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ni.getStringListFromEnv;
     },
   });
   var D1 = dm();
   Object.defineProperty(Sn, "_globalThis", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return D1._globalThis;
     },
   });
   var I1 = QR();
   Object.defineProperty(Sn, "SDK_INFO", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return I1.SDK_INFO;
     },
@@ -2435,7 +2435,7 @@ var ZR = S(function (Sn) {
 });
 
 var uc = S(function (Wt) {
-  Object.defineProperty(Wt, "__esModule", { value: !0 });
+  Object.defineProperty(Wt, "__esModule", { value: true });
   Wt.getStringListFromEnv =
     Wt.getNumberFromEnv =
     Wt.getStringFromEnv =
@@ -2446,43 +2446,43 @@ var uc = S(function (Wt) {
       void 0;
   var Ln = ZR();
   Object.defineProperty(Wt, "SDK_INFO", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ln.SDK_INFO;
     },
   });
   Object.defineProperty(Wt, "_globalThis", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ln._globalThis;
     },
   });
   Object.defineProperty(Wt, "otperformance", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ln.otperformance;
     },
   });
   Object.defineProperty(Wt, "getBooleanFromEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ln.getBooleanFromEnv;
     },
   });
   Object.defineProperty(Wt, "getStringFromEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ln.getStringFromEnv;
     },
   });
   Object.defineProperty(Wt, "getNumberFromEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ln.getNumberFromEnv;
     },
   });
   Object.defineProperty(Wt, "getStringListFromEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ln.getStringListFromEnv;
     },
@@ -2490,7 +2490,7 @@ var uc = S(function (Wt) {
 });
 
 var iC = S(function (rC) {
-  Object.defineProperty(rC, "__esModule", { value: !0 });
+  Object.defineProperty(rC, "__esModule", { value: true });
   rC.addHrTimes =
     rC.isTimeInput =
     rC.isTimeInputHrTime =
@@ -2578,7 +2578,7 @@ var iC = S(function (rC) {
 });
 
 var lC = S(function (sC) {
-  Object.defineProperty(sC, "__esModule", { value: !0 });
+  Object.defineProperty(sC, "__esModule", { value: true });
   sC.unrefTimer = void 0;
   function nY(e) {
     if (typeof e !== "number") e.unref();
@@ -2587,7 +2587,7 @@ var lC = S(function (sC) {
 });
 
 var uC = S(function (cC) {
-  Object.defineProperty(cC, "__esModule", { value: !0 });
+  Object.defineProperty(cC, "__esModule", { value: true });
   cC.ExportResultCode = void 0;
   var rY;
   (function (e) {
@@ -2596,7 +2596,7 @@ var uC = S(function (cC) {
 });
 
 var gC = S(function (fC) {
-  Object.defineProperty(fC, "__esModule", { value: !0 });
+  Object.defineProperty(fC, "__esModule", { value: true });
   fC.CompositePropagator = void 0;
   var dC = Li();
   class pC {
@@ -2637,7 +2637,7 @@ var gC = S(function (fC) {
 });
 
 var OC = S(function (hC) {
-  Object.defineProperty(hC, "__esModule", { value: !0 });
+  Object.defineProperty(hC, "__esModule", { value: true });
   hC.validateValue = hC.validateKey = void 0;
   var _c = "[_0-9a-z-*/]",
     oY = `[a-z]${_c}{0,255}`,
@@ -2656,7 +2656,7 @@ var OC = S(function (hC) {
 });
 
 var hc = S(function (NC) {
-  Object.defineProperty(NC, "__esModule", { value: !0 });
+  Object.defineProperty(NC, "__esModule", { value: true });
   NC.TraceState = void 0;
   var Fi = OC(),
     pY = 32,
@@ -2731,7 +2731,7 @@ var hc = S(function (NC) {
 });
 
 var BC = S(function (zC) {
-  Object.defineProperty(zC, "__esModule", { value: !0 });
+  Object.defineProperty(zC, "__esModule", { value: true });
   zC.W3CTraceContextPropagator = zC.parseTraceParent = zC.TRACE_STATE_HEADER = zC.TRACE_PARENT_HEADER = void 0;
   var Bi = Li(),
     fY = eo(),
@@ -2766,7 +2766,7 @@ var BC = S(function (zC) {
       if (typeof u !== "string") return e;
       let d = LC(u);
       if (!d) return e;
-      d.isRemote = !0;
+      d.isRemote = true;
       let _ = r.get(t, zC.TRACE_STATE_HEADER);
       if (_) {
         let A = Array.isArray(_) ? _.join(",") : _;
@@ -2782,7 +2782,7 @@ var BC = S(function (zC) {
 });
 
 var jC = S(function (VC) {
-  Object.defineProperty(VC, "__esModule", { value: !0 });
+  Object.defineProperty(VC, "__esModule", { value: true });
   VC.getRPCMetadata = VC.deleteRPCMetadata = VC.setRPCMetadata = VC.RPCType = void 0;
   var KY = Li(),
     Ec = (0, KY.createContextKey)("OpenTelemetry SDK Context Key RPC_METADATA"),
@@ -2805,7 +2805,7 @@ var jC = S(function (VC) {
 });
 
 var ZC = S(function (QC) {
-  Object.defineProperty(QC, "__esModule", { value: !0 });
+  Object.defineProperty(QC, "__esModule", { value: true });
   QC.isPlainObject = void 0;
   var e$ = "[object Object]",
     t$ = "[object Null]",
@@ -2819,9 +2819,9 @@ var ZC = S(function (QC) {
     zn = Symbol ? Symbol.toStringTag : void 0,
     XC = YC.toString;
   function s$(e) {
-    if (!a$(e) || l$(e) !== e$) return !1;
+    if (!a$(e) || l$(e) !== e$) return false;
     let t = i$(e);
-    if (t === null) return !0;
+    if (t === null) return true;
     let r = $C.call(t, "constructor") && t.constructor;
     return typeof r == "function" && r instanceof r && WC.call(r) === o$;
   }
@@ -2836,9 +2836,9 @@ var ZC = S(function (QC) {
   function c$(e) {
     let t = $C.call(e, zn),
       r = e[zn],
-      o = !1;
+      o = false;
     try {
-      (e[zn] = void 0), (o = !0);
+      (e[zn] = void 0), (o = true);
     } catch {}
     let u = XC.call(e);
     if (o)
@@ -2852,7 +2852,7 @@ var ZC = S(function (QC) {
 });
 
 var sv = S(function (ov) {
-  Object.defineProperty(ov, "__esModule", { value: !0 });
+  Object.defineProperty(ov, "__esModule", { value: true });
   ov.merge = void 0;
   var ev = ZC(),
     O$ = 20;
@@ -2914,9 +2914,9 @@ var sv = S(function (ov) {
     let o = r.get(e[t]) || [];
     for (let u = 0, d = o.length; u < d; u++) {
       let _ = o[u];
-      if (_.key === t && _.obj === e) return !0;
+      if (_.key === t && _.obj === e) return true;
     }
-    return !1;
+    return false;
   }
   function ji(e) {
     return Array.isArray(e);
@@ -2939,13 +2939,13 @@ var sv = S(function (ov) {
     );
   }
   function I$(e, t) {
-    if (!(0, ev.isPlainObject)(e) || !(0, ev.isPlainObject)(t)) return !1;
-    return !0;
+    if (!(0, ev.isPlainObject)(e) || !(0, ev.isPlainObject)(t)) return false;
+    return true;
   }
 });
 
 var cv = S(function (av) {
-  Object.defineProperty(av, "__esModule", { value: !0 });
+  Object.defineProperty(av, "__esModule", { value: true });
   av.callWithTimeout = av.TimeoutError = void 0;
   class Wi extends Error {
     constructor(e) {
@@ -2972,7 +2972,7 @@ var cv = S(function (av) {
 });
 
 var fv = S(function (dv) {
-  Object.defineProperty(dv, "__esModule", { value: !0 });
+  Object.defineProperty(dv, "__esModule", { value: true });
   dv.isUrlIgnored = dv.urlMatches = void 0;
   function uv(e, t) {
     if (typeof t === "string") return e === t;
@@ -2980,15 +2980,15 @@ var fv = S(function (dv) {
   }
   dv.urlMatches = uv;
   function B$(e, t) {
-    if (!t) return !1;
-    for (let r of t) if (uv(e, r)) return !0;
-    return !1;
+    if (!t) return false;
+    for (let r of t) if (uv(e, r)) return true;
+    return false;
   }
   dv.isUrlIgnored = B$;
 });
 
 var hv = S(function (mv) {
-  Object.defineProperty(mv, "__esModule", { value: !0 });
+  Object.defineProperty(mv, "__esModule", { value: true });
   mv.Deferred = void 0;
   class _v {
     _promise;
@@ -3013,11 +3013,11 @@ var hv = S(function (mv) {
 });
 
 var Av = S(function (Sv) {
-  Object.defineProperty(Sv, "__esModule", { value: !0 });
+  Object.defineProperty(Sv, "__esModule", { value: true });
   Sv.BindOnceFuture = void 0;
   var G$ = hv();
   class Ev {
-    _isCalled = !1;
+    _isCalled = false;
     _deferred = new G$.Deferred();
     _callback;
     _that;
@@ -3032,7 +3032,7 @@ var Av = S(function (Sv) {
     }
     call(...e) {
       if (!this._isCalled) {
-        this._isCalled = !0;
+        this._isCalled = true;
         try {
           Promise.resolve(this._callback.call(this._that, ...e)).then(
             (t) => this._deferred.resolve(t),
@@ -3049,7 +3049,7 @@ var Av = S(function (Sv) {
 });
 
 var Cv = S(function (yv) {
-  Object.defineProperty(yv, "__esModule", { value: !0 });
+  Object.defineProperty(yv, "__esModule", { value: true });
   yv.diagLogLevelFromString = void 0;
   var Qt = Li(),
     bv = {
@@ -3075,7 +3075,7 @@ var Cv = S(function (yv) {
 });
 
 var wv = S(function (Ov) {
-  Object.defineProperty(Ov, "__esModule", { value: !0 });
+  Object.defineProperty(Ov, "__esModule", { value: true });
   Ov._export = void 0;
   var vv = Li(),
     j$ = eo();
@@ -3090,7 +3090,7 @@ var wv = S(function (Ov) {
 });
 
 var Bc = S(function (pe) {
-  Object.defineProperty(pe, "__esModule", { value: !0 });
+  Object.defineProperty(pe, "__esModule", { value: true });
   pe.internal =
     pe.diagLogLevelFromString =
     pe.BindOnceFuture =
@@ -3144,314 +3144,314 @@ var Bc = S(function (pe) {
       void 0;
   var Y$ = F_();
   Object.defineProperty(pe, "W3CBaggagePropagator", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Y$.W3CBaggagePropagator;
     },
   });
   var $$ = G_();
   Object.defineProperty(pe, "AnchoredClock", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return $$.AnchoredClock;
     },
   });
   var Pv = X_();
   Object.defineProperty(pe, "isAttributeValue", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Pv.isAttributeValue;
     },
   });
   Object.defineProperty(pe, "sanitizeAttributes", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Pv.sanitizeAttributes;
     },
   });
   var Mv = nm();
   Object.defineProperty(pe, "globalErrorHandler", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Mv.globalErrorHandler;
     },
   });
   Object.defineProperty(pe, "setGlobalErrorHandler", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Mv.setGlobalErrorHandler;
     },
   });
   var q$ = lc();
   Object.defineProperty(pe, "loggingErrorHandler", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return q$.loggingErrorHandler;
     },
   });
   var gt = iC();
   Object.defineProperty(pe, "addHrTimes", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gt.addHrTimes;
     },
   });
   Object.defineProperty(pe, "getTimeOrigin", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gt.getTimeOrigin;
     },
   });
   Object.defineProperty(pe, "hrTime", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gt.hrTime;
     },
   });
   Object.defineProperty(pe, "hrTimeDuration", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gt.hrTimeDuration;
     },
   });
   Object.defineProperty(pe, "hrTimeToMicroseconds", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gt.hrTimeToMicroseconds;
     },
   });
   Object.defineProperty(pe, "hrTimeToMilliseconds", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gt.hrTimeToMilliseconds;
     },
   });
   Object.defineProperty(pe, "hrTimeToNanoseconds", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gt.hrTimeToNanoseconds;
     },
   });
   Object.defineProperty(pe, "hrTimeToTimeStamp", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gt.hrTimeToTimeStamp;
     },
   });
   Object.defineProperty(pe, "isTimeInput", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gt.isTimeInput;
     },
   });
   Object.defineProperty(pe, "isTimeInputHrTime", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gt.isTimeInputHrTime;
     },
   });
   Object.defineProperty(pe, "millisToHrTime", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gt.millisToHrTime;
     },
   });
   Object.defineProperty(pe, "timeInputToHrTime", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return gt.timeInputToHrTime;
     },
   });
   var X$ = lC();
   Object.defineProperty(pe, "unrefTimer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return X$.unrefTimer;
     },
   });
   var Q$ = uC();
   Object.defineProperty(pe, "ExportResultCode", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Q$.ExportResultCode;
     },
   });
   var J$ = oc();
   Object.defineProperty(pe, "parseKeyPairsIntoRecord", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return J$.parseKeyPairsIntoRecord;
     },
   });
   var Hn = uc();
   Object.defineProperty(pe, "SDK_INFO", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Hn.SDK_INFO;
     },
   });
   Object.defineProperty(pe, "_globalThis", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Hn._globalThis;
     },
   });
   Object.defineProperty(pe, "getStringFromEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Hn.getStringFromEnv;
     },
   });
   Object.defineProperty(pe, "getBooleanFromEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Hn.getBooleanFromEnv;
     },
   });
   Object.defineProperty(pe, "getNumberFromEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Hn.getNumberFromEnv;
     },
   });
   Object.defineProperty(pe, "getStringListFromEnv", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Hn.getStringListFromEnv;
     },
   });
   Object.defineProperty(pe, "otperformance", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Hn.otperformance;
     },
   });
   var Z$ = gC();
   Object.defineProperty(pe, "CompositePropagator", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Z$.CompositePropagator;
     },
   });
   var Yi = BC();
   Object.defineProperty(pe, "TRACE_PARENT_HEADER", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Yi.TRACE_PARENT_HEADER;
     },
   });
   Object.defineProperty(pe, "TRACE_STATE_HEADER", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Yi.TRACE_STATE_HEADER;
     },
   });
   Object.defineProperty(pe, "W3CTraceContextPropagator", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Yi.W3CTraceContextPropagator;
     },
   });
   Object.defineProperty(pe, "parseTraceParent", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Yi.parseTraceParent;
     },
   });
   var $i = jC();
   Object.defineProperty(pe, "RPCType", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return $i.RPCType;
     },
   });
   Object.defineProperty(pe, "deleteRPCMetadata", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return $i.deleteRPCMetadata;
     },
   });
   Object.defineProperty(pe, "getRPCMetadata", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return $i.getRPCMetadata;
     },
   });
   Object.defineProperty(pe, "setRPCMetadata", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return $i.setRPCMetadata;
     },
   });
   var Tc = eo();
   Object.defineProperty(pe, "isTracingSuppressed", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Tc.isTracingSuppressed;
     },
   });
   Object.defineProperty(pe, "suppressTracing", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Tc.suppressTracing;
     },
   });
   Object.defineProperty(pe, "unsuppressTracing", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Tc.unsuppressTracing;
     },
   });
   var eq = hc();
   Object.defineProperty(pe, "TraceState", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return eq.TraceState;
     },
   });
   var tq = sv();
   Object.defineProperty(pe, "merge", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return tq.merge;
     },
   });
   var Dv = cv();
   Object.defineProperty(pe, "TimeoutError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Dv.TimeoutError;
     },
   });
   Object.defineProperty(pe, "callWithTimeout", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Dv.callWithTimeout;
     },
   });
   var Iv = fv();
   Object.defineProperty(pe, "isUrlIgnored", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Iv.isUrlIgnored;
     },
   });
   Object.defineProperty(pe, "urlMatches", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Iv.urlMatches;
     },
   });
   var nq = Av();
   Object.defineProperty(pe, "BindOnceFuture", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return nq.BindOnceFuture;
     },
   });
   var rq = Cv();
   Object.defineProperty(pe, "diagLogLevelFromString", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return rq.diagLogLevelFromString;
     },
@@ -3461,7 +3461,7 @@ var Bc = S(function (pe) {
 });
 
 var bc = S(function (xv) {
-  Object.defineProperty(xv, "__esModule", { value: !0 });
+  Object.defineProperty(xv, "__esModule", { value: true });
   xv._clearDefaultServiceNameCache = xv.defaultServiceName = void 0;
   var oo;
   function iq() {
@@ -3482,14 +3482,14 @@ var bc = S(function (xv) {
 });
 
 var Fv = S(function (Uv) {
-  Object.defineProperty(Uv, "__esModule", { value: !0 });
+  Object.defineProperty(Uv, "__esModule", { value: true });
   Uv.isPromiseLike = void 0;
   var lq = (e) => e !== null && typeof e === "object" && typeof e.then === "function";
   Uv.isPromiseLike = lq;
 });
 
 var kc = S(function (Hv) {
-  Object.defineProperty(Hv, "__esModule", { value: !0 });
+  Object.defineProperty(Hv, "__esModule", { value: true });
   Hv.defaultResource = Hv.emptyResource = Hv.resourceFromDetectedResource = Hv.resourceFromAttributes = void 0;
   var ao = Li(),
     yc = Bc(),
@@ -3498,7 +3498,7 @@ var kc = S(function (Hv) {
     io = Fv();
   class lo {
     _rawAttributes;
-    _asyncAttributesPending = !1;
+    _asyncAttributesPending = false;
     _schemaUrl;
     _memoizedAttributes;
     static FromAttributeList(e, t) {
@@ -3512,7 +3512,7 @@ var kc = S(function (Hv) {
     constructor(e, t) {
       let r = e.attributes ?? {};
       (this._rawAttributes = Object.entries(r).map(([o, u]) => {
-        if ((0, io.isPromiseLike)(u)) this._asyncAttributesPending = !0;
+        if ((0, io.isPromiseLike)(u)) this._asyncAttributesPending = true;
         return [o, u];
       })),
         (this._rawAttributes = Bv(this._rawAttributes)),
@@ -3527,7 +3527,7 @@ var kc = S(function (Hv) {
         let [t, r] = this._rawAttributes[e];
         this._rawAttributes[e] = [t, (0, io.isPromiseLike)(r) ? await r : r];
       }
-      this._asyncAttributesPending = !1;
+      this._asyncAttributesPending = false;
     }
     get attributes() {
       if (this.asyncAttributesPending) ao.diag.error("Accessing resource attributes before async attributes settled");
@@ -3613,7 +3613,7 @@ var kc = S(function (Hv) {
 });
 
 var Wv = S(function (Kv) {
-  Object.defineProperty(Kv, "__esModule", { value: !0 });
+  Object.defineProperty(Kv, "__esModule", { value: true });
   Kv.detectResources = void 0;
   var Gv = Li(),
     wc = kc(),
@@ -3632,7 +3632,7 @@ var Wv = S(function (Kv) {
 });
 
 var Qv = S(function (qv) {
-  Object.defineProperty(qv, "__esModule", { value: !0 });
+  Object.defineProperty(qv, "__esModule", { value: true });
   qv.envDetector = void 0;
   var Sq = Li(),
     Tq = Fde(),
@@ -3690,7 +3690,7 @@ var Qv = S(function (qv) {
 });
 
 var co = S(function (Jv) {
-  Object.defineProperty(Jv, "__esModule", { value: !0 });
+  Object.defineProperty(Jv, "__esModule", { value: true });
   Jv.ATTR_WEBENGINE_VERSION =
     Jv.ATTR_WEBENGINE_NAME =
     Jv.ATTR_WEBENGINE_DESCRIPTION =
@@ -3765,7 +3765,7 @@ var co = S(function (Jv) {
 });
 
 var nO = S(function (eO) {
-  Object.defineProperty(eO, "__esModule", { value: !0 });
+  Object.defineProperty(eO, "__esModule", { value: true });
   eO.getMachineId = void 0;
   var t2 = ue("process"),
     Kn;
@@ -3794,7 +3794,7 @@ var nO = S(function (eO) {
 });
 
 var Pc = S(function (_O) {
-  Object.defineProperty(_O, "__esModule", { value: !0 });
+  Object.defineProperty(_O, "__esModule", { value: true });
   _O.normalizeType = _O.normalizeArch = void 0;
   var r2 = (e) => {
     switch (e) {
@@ -3823,7 +3823,7 @@ var Pc = S(function (_O) {
 });
 
 var AO = S(function (EO) {
-  Object.defineProperty(EO, "__esModule", { value: !0 });
+  Object.defineProperty(EO, "__esModule", { value: true });
   EO.hostDetector = void 0;
   var Mc = co(),
     gO = ue("os"),
@@ -3844,7 +3844,7 @@ var AO = S(function (EO) {
 });
 
 var OO = S(function (CO) {
-  Object.defineProperty(CO, "__esModule", { value: !0 });
+  Object.defineProperty(CO, "__esModule", { value: true });
   CO.osDetector = void 0;
   var bO = co(),
     yO = ue("os"),
@@ -3863,7 +3863,7 @@ var OO = S(function (CO) {
 });
 
 var MO = S(function (wO) {
-  Object.defineProperty(wO, "__esModule", { value: !0 });
+  Object.defineProperty(wO, "__esModule", { value: true });
   wO.processDetector = void 0;
   var c2 = Li(),
     Jt = co(),
@@ -3893,7 +3893,7 @@ var MO = S(function (wO) {
 });
 
 var LO = S(function (NO) {
-  Object.defineProperty(NO, "__esModule", { value: !0 });
+  Object.defineProperty(NO, "__esModule", { value: true });
   NO.serviceInstanceIdDetector = void 0;
   var d2 = co(),
     p2 = ue("crypto");
@@ -3906,32 +3906,32 @@ var LO = S(function (NO) {
 });
 
 var UO = S(function (mr) {
-  Object.defineProperty(mr, "__esModule", { value: !0 });
+  Object.defineProperty(mr, "__esModule", { value: true });
   mr.serviceInstanceIdDetector = mr.processDetector = mr.osDetector = mr.hostDetector = void 0;
   var f2 = AO();
   Object.defineProperty(mr, "hostDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return f2.hostDetector;
     },
   });
   var _2 = OO();
   Object.defineProperty(mr, "osDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return _2.osDetector;
     },
   });
   var m2 = MO();
   Object.defineProperty(mr, "processDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return m2.processDetector;
     },
   });
   var g2 = LO();
   Object.defineProperty(mr, "serviceInstanceIdDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return g2.serviceInstanceIdDetector;
     },
@@ -3939,29 +3939,29 @@ var UO = S(function (mr) {
 });
 
 var zO = S(function (gr) {
-  Object.defineProperty(gr, "__esModule", { value: !0 });
+  Object.defineProperty(gr, "__esModule", { value: true });
   gr.serviceInstanceIdDetector = gr.processDetector = gr.osDetector = gr.hostDetector = void 0;
   var qi = UO();
   Object.defineProperty(gr, "hostDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return qi.hostDetector;
     },
   });
   Object.defineProperty(gr, "osDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return qi.osDetector;
     },
   });
   Object.defineProperty(gr, "processDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return qi.processDetector;
     },
   });
   Object.defineProperty(gr, "serviceInstanceIdDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return qi.serviceInstanceIdDetector;
     },
@@ -3969,7 +3969,7 @@ var zO = S(function (gr) {
 });
 
 var HO = S(function (FO) {
-  Object.defineProperty(FO, "__esModule", { value: !0 });
+  Object.defineProperty(FO, "__esModule", { value: true });
   FO.noopDetector = FO.NoopDetector = void 0;
   class Dc {
     detect() {
@@ -3981,7 +3981,7 @@ var HO = S(function (FO) {
 });
 
 var VO = S(function (Tn) {
-  Object.defineProperty(Tn, "__esModule", { value: !0 });
+  Object.defineProperty(Tn, "__esModule", { value: true });
   Tn.noopDetector =
     Tn.serviceInstanceIdDetector =
     Tn.processDetector =
@@ -3991,39 +3991,39 @@ var VO = S(function (Tn) {
       void 0;
   var T2 = Qv();
   Object.defineProperty(Tn, "envDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return T2.envDetector;
     },
   });
   var Xi = zO();
   Object.defineProperty(Tn, "hostDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Xi.hostDetector;
     },
   });
   Object.defineProperty(Tn, "osDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Xi.osDetector;
     },
   });
   Object.defineProperty(Tn, "processDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Xi.processDetector;
     },
   });
   Object.defineProperty(Tn, "serviceInstanceIdDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Xi.serviceInstanceIdDetector;
     },
   });
   var A2 = HO();
   Object.defineProperty(Tn, "noopDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return A2.noopDetector;
     },
@@ -4031,7 +4031,7 @@ var VO = S(function (Tn) {
 });
 
 var bMe = S(function (ht) {
-  Object.defineProperty(ht, "__esModule", { value: !0 });
+  Object.defineProperty(ht, "__esModule", { value: true });
   ht.defaultServiceName =
     ht.emptyResource =
     ht.defaultResource =
@@ -4045,64 +4045,64 @@ var bMe = S(function (ht) {
       void 0;
   var y2 = Wv();
   Object.defineProperty(ht, "detectResources", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return y2.detectResources;
     },
   });
   var po = VO();
   Object.defineProperty(ht, "envDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return po.envDetector;
     },
   });
   Object.defineProperty(ht, "hostDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return po.hostDetector;
     },
   });
   Object.defineProperty(ht, "osDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return po.osDetector;
     },
   });
   Object.defineProperty(ht, "processDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return po.processDetector;
     },
   });
   Object.defineProperty(ht, "serviceInstanceIdDetector", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return po.serviceInstanceIdDetector;
     },
   });
   var Ic = kc();
   Object.defineProperty(ht, "resourceFromAttributes", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ic.resourceFromAttributes;
     },
   });
   Object.defineProperty(ht, "defaultResource", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ic.defaultResource;
     },
   });
   Object.defineProperty(ht, "emptyResource", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ic.emptyResource;
     },
   });
   var R2 = bc();
   Object.defineProperty(ht, "defaultServiceName", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return R2.defaultServiceName;
     },
@@ -4131,7 +4131,7 @@ var Jp = wR(async () => {
 var AN = "max";
 
 class Zp {
-  enabled = !1;
+  enabled = false;
   headers = {};
   exceededLimits = [];
   headerless429Message = null;
@@ -4144,7 +4144,7 @@ class Zp {
   graceBand = null;
   billingAccessOverride = null;
   reset() {
-    (this.enabled = !1),
+    (this.enabled = false),
       (this.headers = {}),
       (this.exceededLimits = []),
       (this.headerless429Message = null),
@@ -4158,7 +4158,7 @@ class Zp {
       (this.billingAccessOverride = null);
   }
   setHeader(e, t) {
-    this.enabled = !0;
+    this.enabled = true;
     let r = e === "retry-after" ? "retry-after" : `anthropic-ratelimit-unified-${e}`;
     if (t === void 0 || t === "clear") {
       if ((delete this.headers[r], e === "claim")) this.exceededLimits = [];
@@ -4216,7 +4216,7 @@ class Zp {
     } else delete this.headers["retry-after"];
   }
   addExceededLimit(e, t) {
-    this.enabled = !0;
+    this.enabled = true;
     let r = Math.floor(Date.now() / 1000) + t * 3600;
     if (
       ((this.exceededLimits = this.exceededLimits.filter((o) => o.type !== e)),
@@ -4227,7 +4227,7 @@ class Zp {
     this.updateRepresentativeClaim();
   }
   setEarlyWarning(e, t, r) {
-    (this.enabled = !0), this.clearEarlyWarning();
+    (this.enabled = true), this.clearEarlyWarning();
     let u = r ?? (e === "5h" ? 4 : 120),
       d = Math.floor(Date.now() / 1000) + u * 3600;
     if (
@@ -4248,10 +4248,10 @@ class Zp {
   }
   setScenario(e) {
     if (e === "clear") {
-      (this.headers = {}), (this.headerless429Message = null), (this.overages = null), (this.enabled = !1);
+      (this.headers = {}), (this.headerless429Message = null), (this.overages = null), (this.enabled = false);
       return;
     }
-    this.enabled = !0;
+    this.enabled = true;
     let t = Math.floor(Date.now() / 1000) + 18000,
       r = Math.floor(Date.now() / 1000) + 604800;
     if (
@@ -4302,7 +4302,7 @@ class Zp {
         break;
       case "org-spend-cap-hit":
         this.setOverageScenarioHeaders(t, "rejected", "org_level_disabled_until"),
-          this.setOverages({ isEnabled: !0, balanceCents: 6532, spendLimitCents: 4000, usedCents: 4000 });
+          this.setOverages({ isEnabled: true, balanceCents: 6532, spendLimitCents: 4000, usedCents: 4000 });
         break;
       case "member-zero-credit-limit":
         this.setOverageScenarioHeaders(t, "rejected", "member_zero_credit_limit");
@@ -4373,20 +4373,20 @@ class Zp {
       (this.headers["anthropic-ratelimit-unified-overage-reset"] = String(Math.floor(o.getTime() / 1000)));
   }
   setRateLimitTier(e) {
-    (this.enabled = !0), (this.rateLimitTier = e);
+    (this.enabled = true), (this.rateLimitTier = e);
   }
   setSubscriptionType(e) {
-    (this.enabled = !0), (this.subscriptionType = e);
+    (this.enabled = true), (this.subscriptionType = e);
   }
   setBillingAccess(e) {
-    (this.enabled = !0), (this.billingAccessOverride = e);
+    (this.enabled = true), (this.billingAccessOverride = e);
   }
   setTrial(e) {
     if (e === null) {
       this.trial = null;
       return;
     }
-    (this.enabled = !0), (this.trial = e);
+    (this.enabled = true), (this.trial = e);
   }
   setOverages(e) {
     if (e === null) {
@@ -4394,13 +4394,13 @@ class Zp {
       return;
     }
     this.overages = {
-      isEnabled: !1,
+      isEnabled: false,
       balanceCents: 0,
       spendLimitCents: 15000,
       usedCents: 0,
       currency: "USD",
       paymentMethod: { type: "card", brand: "visa", last4: "4242" },
-      autoReload: !1,
+      autoReload: false,
       purchaseOutcome: "success",
       pollCount: 0,
       ...this.overages,
@@ -4434,11 +4434,11 @@ var Ze = {
     staleTTL: 60000,
     maxAge: 14400000,
     cacheKey: "gbFeaturesCache",
-    backgroundSync: !0,
+    backgroundSync: true,
     maxEntries: 10,
-    disableIdleStreams: !1,
+    disableIdleStreams: false,
     idleStreamInterval: 20000,
-    disableCache: !1,
+    disableCache: false,
   },
   Mt = Fr(),
   pt = {
@@ -4475,7 +4475,7 @@ try {
 } catch (e) {}
 
 var ir = new Map(),
-  Ef = !1,
+  Ef = false,
   Vt = new Map(),
   ii = new Map(),
   sr = new Map(),
@@ -4483,7 +4483,7 @@ var ir = new Map(),
 
 async function PN() {
   if (Ef) return;
-  Ef = !0;
+  Ef = true;
   try {
     if (Mt.localStorage) {
       let e = await Mt.localStorage.getItem(Ze.cacheKey);
@@ -4558,7 +4558,7 @@ function rx() {
     Ll = new MutationObserver(function () {
       kf();
     });
-  kf(), Ll.observe(document.documentElement, { childList: !0, subtree: !0, attributes: !1, characterData: !1 });
+  kf(), Ll.observe(document.documentElement, { childList: true, subtree: true, attributes: false, characterData: false });
 }
 
 rx();
@@ -4586,11 +4586,11 @@ class Oi {
       (this._trackedFeatures = {}),
       (this.debug = !!e.debug),
       (this._subscriptions = new Set()),
-      (this.ready = !1),
+      (this.ready = false),
       (this._assigned = new Map()),
       (this._activeAutoExperiments = new Map()),
       (this._triggeredExpKeys = new Set()),
-      (this._initialized = !1),
+      (this._initialized = false),
       (this._redirectedUrl = ""),
       (this._deferredTrackingCalls = new Map()),
       (this._autoExperimentsAllowed = !e.disableExperimentsOnLoad),
@@ -4604,7 +4604,7 @@ class Oi {
     ) {
       if (e.decryptionKey) throw Error("Encryption is not available for remoteEval");
       if (!e.clientKey) throw Error("Missing clientKey");
-      let t = !1;
+      let t = false;
       try {
         t = !!new URL(e.apiHost || "").hostname.match(/growthbook\.io$/i);
       } catch (r) {}
@@ -4615,9 +4615,9 @@ class Oi {
       this._saveStickyBucketAssignmentDoc = (r) => t.saveAssignments(r);
     }
     if (e.plugins) for (let t of e.plugins) t(this);
-    if (e.features) this.ready = !0;
+    if (e.features) this.ready = true;
     if (ur && e.enableDevMode) (window._growthbook = this), document.dispatchEvent(new Event("gbloaded"));
-    if (e.experiments) (this.ready = !0), this._updateAllAutoExperiments();
+    if (e.experiments) (this.ready = true), this._updateAllAutoExperiments();
     if (this._options.stickyBucketService && this._options.stickyBucketAssignmentDocs)
       for (let t in this._options.stickyBucketAssignmentDocs) {
         let r = this._options.stickyBucketAssignmentDocs[t];
@@ -4632,10 +4632,10 @@ class Oi {
       this._options.features = t.features;
     if (t.savedGroups) this._options.savedGroups = t.savedGroups;
     if (t.experiments) (this._options.experiments = t.experiments), this._updateAllAutoExperiments();
-    (this.ready = !0), this._render();
+    (this.ready = true), this._render();
   }
   initSync(e) {
-    this._initialized = !0;
+    this._initialized = true;
     let t = e.payload;
     if (t.encryptedExperiments || t.encryptedFeatures) throw Error("initSync does not support encrypted payloads");
     if (this._options.stickyBucketService && !this._options.stickyBucketAssignmentDocs)
@@ -4645,13 +4645,13 @@ class Oi {
       );
     if (((this._payload = t), (this._decryptedPayload = t), t.features)) this._options.features = t.features;
     if (t.experiments) (this._options.experiments = t.experiments), this._updateAllAutoExperiments();
-    return (this.ready = !0), si(this, e), this;
+    return (this.ready = true), si(this, e), this;
   }
   async init(e) {
-    if (((this._initialized = !0), (e = e || {}), e.cacheSettings)) kl(e.cacheSettings);
-    if (e.payload) return await this.setPayload(e.payload), si(this, e), { success: !0, source: "init" };
+    if (((this._initialized = true), (e = e || {}), e.cacheSettings)) kl(e.cacheSettings);
+    if (e.payload) return await this.setPayload(e.payload), si(this, e), { success: true, source: "init" };
     else {
-      let { data: t, ...r } = await this._refresh({ ...e, allowStale: !0 });
+      let { data: t, ...r } = await this._refresh({ ...e, allowStale: true });
       return si(this, e), await this.setPayload(t || {}), r;
     }
   }
@@ -4660,11 +4660,11 @@ class Oi {
       await this.init({
         skipCache: e.skipCache,
         timeout: e.timeout,
-        streaming: (this._options.backgroundSync ?? !0) && (e.autoRefresh || this._options.subscribeToChanges),
+        streaming: (this._options.backgroundSync ?? true) && (e.autoRefresh || this._options.subscribeToChanges),
       });
   }
   async refreshFeatures(e) {
-    let t = await this._refresh({ ...(e || {}), allowStale: !1 });
+    let t = await this._refresh({ ...(e || {}), allowStale: false });
     if (t.data) await this.setPayload(t.data);
   }
   getApiInfo() {
@@ -4683,7 +4683,7 @@ class Oi {
     return this._decryptedPayload || this.getPayload();
   }
   isRemoteEval() {
-    return this._options.remoteEval || !1;
+    return this._options.remoteEval || false;
   }
   getCacheKeyAttributes() {
     return this._options.cacheKeyAttributes;
@@ -4696,7 +4696,7 @@ class Oi {
       timeout: t,
       skipCache: r || this._options.disableCache,
       allowStale: o,
-      backgroundSync: u ?? this._options.backgroundSync ?? !0,
+      backgroundSync: u ?? this._options.backgroundSync ?? true,
     });
   }
   _render() {
@@ -4708,14 +4708,14 @@ class Oi {
       }
   }
   setFeatures(e) {
-    (this._options.features = e), (this.ready = !0), this._render();
+    (this._options.features = e), (this.ready = true), this._render();
   }
   async setEncryptedFeatures(e, t, r) {
     let o = await Cn(e, t || this._options.decryptionKey, r);
     this.setFeatures(JSON.parse(o));
   }
   setExperiments(e) {
-    (this._options.experiments = e), (this.ready = !0), this._updateAllAutoExperiments();
+    (this._options.experiments = e), (this.ready = true), this._updateAllAutoExperiments();
   }
   async setEncryptedExperiments(e, t, r) {
     let o = await Cn(e, t || this._options.decryptionKey, r);
@@ -4753,10 +4753,10 @@ class Oi {
   async setURL(e) {
     if (e === this._options.url) return;
     if (((this._options.url = e), (this._redirectedUrl = ""), this._options.remoteEval)) {
-      await this._refreshForRemoteEval(), this._updateAllAutoExperiments(!0);
+      await this._refreshForRemoteEval(), this._updateAllAutoExperiments(true);
       return;
     }
-    this._updateAllAutoExperiments(!0);
+    this._updateAllAutoExperiments(true);
   }
   getAttributes() {
     return { ...this._options.attributes, ...this._options.attributeOverrides };
@@ -4793,7 +4793,7 @@ class Oi {
   async _refreshForRemoteEval() {
     if (!this._options.remoteEval) return;
     if (!this._initialized) return;
-    let e = await this._refresh({ allowStale: !1 });
+    let e = await this._refresh({ allowStale: false });
     if (e.data) await this.setPayload(e.data);
   }
   getAllResults() {
@@ -4807,7 +4807,7 @@ class Oi {
   }
   destroy() {
     if (
-      ((this._destroyed = !0),
+      ((this._destroyed = true),
       this._destroyCallbacks.forEach((e) => {
         try {
           e();
@@ -4861,7 +4861,7 @@ class Oi {
       .filter((r) => r !== null);
   }
   triggerAutoExperiments() {
-    (this._autoExperimentsAllowed = !0), this._updateAllAutoExperiments(!0);
+    (this._autoExperimentsAllowed = true), this._updateAllAutoExperiments(true);
   }
   _getEvalContext() {
     return { user: this._getUserContext(), global: this._getGlobalContext(), stack: { evaluatedFeatures: new Set() } };
@@ -4908,7 +4908,7 @@ class Oi {
     let o = this._isAutoExperimentBlockedByContext(e),
       u,
       d;
-    if (o) u = Fe(this._getEvalContext(), e, -1, !1, "");
+    if (o) u = Fe(this._getEvalContext(), e, -1, false, "");
     else ({ result: u, trackingCall: d } = yi(e, null, this._getEvalContext())), this._fireSubscriptions(e, u);
     let _ = JSON.stringify(u.value);
     if (!t && u.inExperiment && r && r.valueHash === _) return u;
@@ -5049,28 +5049,28 @@ class Oi {
   _isAutoExperimentBlockedByContext(e) {
     let t = $r(e);
     if (t === "visual") {
-      if (this._options.disableVisualExperiments) return !0;
+      if (this._options.disableVisualExperiments) return true;
       if (this._options.disableJsInjection) {
-        if (e.variations.some((r) => r.js)) return !0;
+        if (e.variations.some((r) => r.js)) return true;
       }
     } else if (t === "redirect") {
-      if (this._options.disableUrlRedirectExperiments) return !0;
+      if (this._options.disableUrlRedirectExperiments) return true;
       try {
         let r = new URL(this._getContextUrl());
         for (let o of e.variations) {
           if (!o || !o.urlRedirect) continue;
           let u = new URL(o.urlRedirect);
           if (this._options.disableCrossOriginUrlRedirectExperiments) {
-            if (u.protocol !== r.protocol) return !0;
-            if (u.host !== r.host) return !0;
+            if (u.protocol !== r.protocol) return true;
+            if (u.host !== r.host) return true;
           }
         }
       } catch (r) {
-        return this.log("Error parsing current or redirect URL", { id: e.key, error: r }), !0;
+        return this.log("Error parsing current or redirect URL", { id: e.key, error: r }), true;
       }
-    } else return !0;
-    if (e.changeId && (this._options.blockedChangeIds || []).includes(e.changeId)) return !0;
-    return !1;
+    } else return true;
+    if (e.changeId && (this._options.blockedChangeIds || []).includes(e.changeId)) return true;
+    return false;
   }
   getRedirectUrl() {
     return this._redirectedUrl;
@@ -5134,7 +5134,7 @@ class Xf {
   #r;
   #o = null;
   #n = null;
-  #i = !1;
+  #i = false;
   #e = [];
   swapRemoteGateReader(e) {
     let t = this.#o;
@@ -5143,14 +5143,14 @@ class Xf {
   isEnabled() {
     if (this.#t !== void 0) return this.#t;
     let e, t;
-    if (dR("--ax-screen-reader")) (e = !0), (t = "flag");
+    if (dR("--ax-screen-reader")) (e = true), (t = "flag");
     else {
       let o = a.CLAUDE_AX_SCREEN_READER;
       if (o !== void 0) (e = o), (t = "env");
-      else (e = Je().axScreenReader === !0), (t = "settings");
+      else (e = Je().axScreenReader === true), (t = "settings");
     }
-    if (!e) return (this.#t = !1);
-    let r = this.#o?.(wx, !0) ?? !0;
+    if (!e) return (this.#t = false);
+    let r = this.#o?.(wx, true) ?? true;
     return (this.#r = r ? t : void 0), (this.#t = r);
   }
   activationSource() {
@@ -5160,7 +5160,7 @@ class Xf {
     if (this.#n === null) this.#n = e;
   }
   endStartupQuiet() {
-    this.#i = !0;
+    this.#i = true;
   }
   startupQuietOpenedAtMs() {
     return this.#i ? null : this.#n;
@@ -5172,7 +5172,7 @@ class Xf {
     return this.#e.splice(0);
   }
   reset() {
-    (this.#t = void 0), (this.#r = void 0), (this.#n = null), (this.#i = !1), (this.#e.length = 0);
+    (this.#t = void 0), (this.#r = void 0), (this.#n = null), (this.#i = false), (this.#e.length = 0);
   }
 }
 
@@ -5442,13 +5442,13 @@ var Wx = 60000,
 class Xl {
   deps;
   client = null;
-  loggedNonObjectFeatureOnce = !1;
-  loggedMalformedExperimentOnce = !1;
-  loggedValuelessPayloadOnce = !1;
+  loggedNonObjectFeatureOnce = false;
+  loggedMalformedExperimentOnce = false;
+  loggedValuelessPayloadOnce = false;
   currentBeforeExitHandler = null;
   currentExitHandler = null;
-  clientCreatedWithAuth = !1;
-  clientAuthResolutionTransientlyFailed = !1;
+  clientCreatedWithAuth = false;
+  clientAuthResolutionTransientlyFailed = false;
   clientAuthBearer = void 0;
   clientAccountUuid = void 0;
   clientOrganizationUuid = void 0;
@@ -5461,13 +5461,13 @@ class Xl {
   loggedExposures = new Set();
   refreshed = Ue();
   environmentOverrides = null;
-  environmentOverridesParsed = !1;
+  environmentOverridesParsed = false;
   clientPromise = null;
   initializePromise = null;
   refreshLoopController = null;
   refreshLoopBeforeExitListener = null;
   routeSdkRemoteEvalHere = (e) => this.fetchRemoteEval(e);
-  disposed = !1;
+  disposed = false;
   credentials;
   storageV5;
   constructor(e) {
@@ -5493,19 +5493,19 @@ class Xl {
     return this.deps.refreshOAuthTokenIfNeeded(this.credentials, this.storageV5);
   }
   onRefresh(e) {
-    let t = !0,
+    let t = true,
       r = this.refreshed.subscribe(() => R_(e));
     if (this.remoteEvalFeatureValues.size > 0)
       queueMicrotask(() => {
         if (t && this.remoteEvalFeatureValues.size > 0) R_(e);
       });
     return () => {
-      (t = !1), r();
+      (t = false), r();
     };
   }
   getEnvironmentOverrides() {
     if (this.environmentOverridesParsed) return this.environmentOverrides;
-    return (this.environmentOverridesParsed = !0), this.environmentOverrides;
+    return (this.environmentOverridesParsed = true), this.environmentOverrides;
     let e = this.deps.readEnvironmentOverrides();
     if (!e) return this.environmentOverrides;
     try {
@@ -5523,13 +5523,13 @@ class Xl {
     return t !== null && e in t;
   }
   hasOverride(e) {
-    if (this.hasEnvironmentOverride(e)) return !0;
+    if (this.hasEnvironmentOverride(e)) return true;
     let t = this.readConfigOverrides();
     return t != null && e in t;
   }
   isFeatureFromExperiment(e) {
-    if (this.experimentDataByFeature.has(e)) return !0;
-    if (!this.deps.isEnabled()) return !1;
+    if (this.experimentDataByFeature.has(e)) return true;
+    if (!this.deps.isEnabled()) return false;
     return (this.deps.readGlobalConfig().cachedExperimentFeatures ?? []).includes(e);
   }
   readConfigOverrides() {
@@ -5591,7 +5591,7 @@ class Xl {
   }
   async processRemoteEvalPayload(e) {
     let t = e.getPayload();
-    if (!t?.features || Object.keys(t.features).length === 0) return !1;
+    if (!t?.features || Object.keys(t.features).length === 0) return false;
     let r = new Map(),
       o = new Set(),
       u = {},
@@ -5614,10 +5614,10 @@ class Xl {
       if (x.source !== void 0 && x.source !== "defaultValue" && x.source !== "unknownFeature") o.add(k);
     }
     if (d.length > 0 && !this.loggedNonObjectFeatureOnce)
-      (this.loggedNonObjectFeatureOnce = !0),
+      (this.loggedNonObjectFeatureOnce = true),
         h(Error(`processRemoteEvalPayload: skipped non-object features [${d.join(", ")}]`));
     if (_.length > 0 && !this.loggedMalformedExperimentOnce)
-      (this.loggedMalformedExperimentOnce = !0),
+      (this.loggedMalformedExperimentOnce = true),
         h(
           new R(
             `processRemoteEvalPayload: skipped malformed experiment entries [${_.join(", ")}]`,
@@ -5632,22 +5632,22 @@ class Xl {
       else r.delete(k), o.delete(k), delete u[k], C.push(k);
     }
     if (C.length > 0 && !this.loggedValuelessPayloadOnce)
-      (this.loggedValuelessPayloadOnce = !0),
+      (this.loggedValuelessPayloadOnce = true),
         h(
           new R(
             `processRemoteEvalPayload: skipped value-less entries [${C.join(", ")}]`,
             "processRemoteEvalPayload: skipped value-less entries",
           ),
         );
-    if (A.size === 0) return !1;
-    if ((await e.setPayload({ ...t, features: u }), this.client !== e)) return !1;
+    if (A.size === 0) return false;
+    if ((await e.setPayload({ ...t, features: u }), this.client !== e)) return false;
     this.experimentDataByFeature.clear();
     for (let [k, M] of r) this.experimentDataByFeature.set(k, M);
     this.nonDefaultFeatureKeys.clear();
     for (let k of o) this.nonDefaultFeatureKeys.add(k);
     this.remoteEvalFeatureValues.clear();
     for (let [k, M] of A) this.remoteEvalFeatureValues.set(k, M);
-    return !0;
+    return true;
   }
   syncRemoteEvalToDisk() {
     let e = Object.fromEntries(this.remoteEvalFeatureValues),
@@ -5673,7 +5673,7 @@ class Xl {
   }
   async requestRemoteEval(e) {
     let { host: t, clientKey: r, payload: o, headers: u } = e;
-    if (!this.getFeatureValueWithSource("tengu_gb_eval_authed_enable", !1).value)
+    if (!this.getFeatureValueWithSource("tengu_gb_eval_authed_enable", false).value)
       return this.deps.fetchRemoteEvalFromSdk(e);
     let d = {};
     if (this.deps.hasWorkspaceTrust()) {
@@ -5711,7 +5711,7 @@ class Xl {
     if (this.disposed || !this.deps.isEnabled()) return null;
     let e = this.generation,
       t = { headers: {}, error: "trust not established" },
-      r = !1;
+      r = false;
     if (this.deps.hasWorkspaceTrust()) {
       try {
         await Xt(this.refreshOAuthToken(), $x, y_);
@@ -5725,7 +5725,7 @@ class Xl {
       } catch (k) {
         n(`GrowthBook: auth header resolution failed (${we(k).name}), continuing without auth`),
           (t = { headers: {}, error: "auth resolution failed" }),
-          (r = !0);
+          (r = true);
       }
     }
     if (this.disposed || e !== this.generation) return null;
@@ -5743,10 +5743,10 @@ class Xl {
       apiHost: d,
       clientKey: u,
       attributes: o,
-      remoteEval: !0,
+      remoteEval: true,
       cacheKeyAttributes: ["id", "organizationUUID"],
       ...(!t.error && { apiHostRequestHeaders: t.headers }),
-      ...!1,
+      ...false,
     });
     if (((this.client = A), !_)) return { client: A, initialized: Promise.resolve() };
     let C = A.init({ timeout: 5000 })
@@ -5812,16 +5812,16 @@ class Xl {
     if (t && e in t) return Boolean(t[e]);
     let r = this.readConfigOverrides();
     if (r && e in r) return Boolean(r[e]);
-    if (!this.deps.isEnabled()) return !1;
-    if (this.remoteEvalFeatureValues.get(e) === !0) return this.logExposureForFeature(e), !0;
+    if (!this.deps.isEnabled()) return false;
+    if (this.remoteEvalFeatureValues.get(e) === true) return this.logExposureForFeature(e), true;
     let o = this.deps.readGlobalConfig();
-    if (o.cachedGrowthBookFeatures?.[e] === !0) return this.recordDeferredExposure(e, o), !0;
-    return this.getFeatureValueBlocking(e, !1);
+    if (o.cachedGrowthBookFeatures?.[e] === true) return this.recordDeferredExposure(e, o), true;
+    return this.getFeatureValueBlocking(e, false);
   }
   refreshAfterAuthChange(e) {
     if (this.disposed || !this.deps.isEnabled()) return;
     try {
-      this.reset({ preservePendingExposures: !0, preserveLoggedExposures: e?.preserveLoggedExposures }),
+      this.reset({ preservePendingExposures: true, preserveLoggedExposures: e?.preserveLoggedExposures }),
         this.refreshed.emit(),
         this.initialize().catch((t) => {
           h(we(t));
@@ -5838,16 +5838,16 @@ class Xl {
       (this.client?.destroy(),
       (this.client = null),
       this.generation++,
-      (this.clientCreatedWithAuth = !1),
-      (this.clientAuthResolutionTransientlyFailed = !1),
+      (this.clientCreatedWithAuth = false),
+      (this.clientAuthResolutionTransientlyFailed = false),
       (this.clientAuthBearer = void 0),
       (this.clientAccountUuid = void 0),
       (this.clientOrganizationUuid = void 0),
       !e?.preserveLoggedExposures)
     )
-      (this.loggedNonObjectFeatureOnce = !1),
-        (this.loggedMalformedExperimentOnce = !1),
-        (this.loggedValuelessPayloadOnce = !1);
+      (this.loggedNonObjectFeatureOnce = false),
+        (this.loggedMalformedExperimentOnce = false),
+        (this.loggedValuelessPayloadOnce = false);
     if ((this.experimentDataByFeature.clear(), this.nonDefaultFeatureKeys.clear(), !e?.preservePendingExposures))
       this.pendingExposures.clear();
     if (!e?.preserveLoggedExposures) this.loggedExposures.clear();
@@ -5855,10 +5855,10 @@ class Xl {
       (this.clientPromise = null),
       (this.initializePromise = null),
       (this.environmentOverrides = null),
-      (this.environmentOverridesParsed = !1);
+      (this.environmentOverridesParsed = false);
   }
   dispose() {
-    if (((this.disposed = !0), this.reset(), pt.fetchRemoteEvalCall === this.routeSdkRemoteEvalHere))
+    if (((this.disposed = true), this.reset(), pt.fetchRemoteEvalCall === this.routeSdkRemoteEvalHere))
       pt.fetchRemoteEvalCall = this.deps.fetchRemoteEvalFromSdk;
   }
   async refreshFeatures() {
@@ -5884,7 +5884,7 @@ class Xl {
       }
       let e = await this.initialize();
       if (!e) return;
-      if ((await e.refreshFeatures({ skipCache: !0 }), e !== this.client)) return;
+      if ((await e.refreshFeatures({ skipCache: true }), e !== this.client)) return;
       let t = await this.processRemoteEvalPayload(e);
       if (e !== this.client) return;
       if (t) this.drainPendingExposures(), this.syncRemoteEvalToDisk(), this.refreshed.emit();
@@ -5907,14 +5907,14 @@ class Xl {
     while (!e.aborted && !this.disposed)
       try {
         let { intervalMs: t, flagged: r } = this.deps.getRefreshCadence();
-        if ((await this.deps.sleep(t, e, { unref: !0 }), e.aborted)) return;
+        if ((await this.deps.sleep(t, e, { unref: true }), e.aborted)) return;
         let o = this.remoteEvalFetchOkCount;
         if ((await this.refreshFeatures(), r && this.remoteEvalFetchOkCount === o && !e.aborted)) {
-          if ((await this.deps.sleep(Math.round(Math.random() * Yx), e, { unref: !0 }), e.aborted)) return;
+          if ((await this.deps.sleep(Math.round(Math.random() * Yx), e, { unref: true }), e.aborted)) return;
           await this.refreshFeatures();
         }
       } catch (t) {
-        h(we(t)), await this.deps.sleep(Wx, e, { unref: !0 });
+        h(we(t)), await this.deps.sleep(Wx, e, { unref: true });
       }
   }
   stopPeriodicRefresh() {
@@ -6031,7 +6031,7 @@ class Lc {
   _body;
   _eventName;
   totalAttributesCount = 0;
-  _isReadonly = !1;
+  _isReadonly = false;
   _logRecordLimits;
   set severityText(e) {
     if (this._isLogRecordReadonly()) return;
@@ -6124,7 +6124,7 @@ class Lc {
     return (this.severityText = e), this;
   }
   _makeReadonly() {
-    this._isReadonly = !0;
+    this._isReadonly = true;
   }
   _truncateToSize(e) {
     let t = this._logRecordLimits.attributeValueLengthLimit;
@@ -6283,7 +6283,7 @@ class Vc {
   _maxQueueSize;
   _scheduledDelayMillis;
   _exportTimeoutMillis;
-  _isExporting = !1;
+  _isExporting = false;
   _finishedLogRecords = [];
   _timer;
   _shutdownOnce;
@@ -6347,14 +6347,14 @@ class Vc {
   _maybeStartTimer() {
     if (this._isExporting) return;
     let e = () => {
-      (this._isExporting = !0),
+      (this._isExporting = true),
         this._flushOneBatch()
           .then(() => {
-            if (((this._isExporting = !1), this._finishedLogRecords.length > 0))
+            if (((this._isExporting = false), this._finishedLogRecords.length > 0))
               this._clearTimer(), this._maybeStartTimer();
           })
           .catch((t) => {
-            (this._isExporting = !1), We.globalErrorHandler(t);
+            (this._isExporting = false), We.globalErrorHandler(t);
           });
     };
     if (this._finishedLogRecords.length >= this._maxExportBatchSize) return e();
@@ -6525,12 +6525,12 @@ var is = {
       terminal: se(e.terminal) ? globalThis.String(e.terminal) : "",
       package_managers: se(e.package_managers) ? globalThis.String(e.package_managers) : "",
       runtimes: se(e.runtimes) ? globalThis.String(e.runtimes) : "",
-      is_running_with_bun: se(e.is_running_with_bun) ? globalThis.Boolean(e.is_running_with_bun) : !1,
-      is_ci: se(e.is_ci) ? globalThis.Boolean(e.is_ci) : !1,
-      is_claubbit: se(e.is_claubbit) ? globalThis.Boolean(e.is_claubbit) : !1,
-      is_github_action: se(e.is_github_action) ? globalThis.Boolean(e.is_github_action) : !1,
-      is_claude_code_action: se(e.is_claude_code_action) ? globalThis.Boolean(e.is_claude_code_action) : !1,
-      is_claude_ai_auth: se(e.is_claude_ai_auth) ? globalThis.Boolean(e.is_claude_ai_auth) : !1,
+      is_running_with_bun: se(e.is_running_with_bun) ? globalThis.Boolean(e.is_running_with_bun) : false,
+      is_ci: se(e.is_ci) ? globalThis.Boolean(e.is_ci) : false,
+      is_claubbit: se(e.is_claubbit) ? globalThis.Boolean(e.is_claubbit) : false,
+      is_github_action: se(e.is_github_action) ? globalThis.Boolean(e.is_github_action) : false,
+      is_claude_code_action: se(e.is_claude_code_action) ? globalThis.Boolean(e.is_claude_code_action) : false,
+      is_claude_ai_auth: se(e.is_claude_ai_auth) ? globalThis.Boolean(e.is_claude_ai_auth) : false,
       version: se(e.version) ? globalThis.String(e.version) : "",
       github_event_name: se(e.github_event_name) ? globalThis.String(e.github_event_name) : "",
       github_actions_runner_environment: se(e.github_actions_runner_environment)
@@ -6541,7 +6541,7 @@ var is = {
       wsl_version: se(e.wsl_version) ? globalThis.String(e.wsl_version) : "",
       github_actions_metadata: se(e.github_actions_metadata) ? rs.fromJSON(e.github_actions_metadata) : void 0,
       arch: se(e.arch) ? globalThis.String(e.arch) : "",
-      is_claude_code_remote: se(e.is_claude_code_remote) ? globalThis.Boolean(e.is_claude_code_remote) : !1,
+      is_claude_code_remote: se(e.is_claude_code_remote) ? globalThis.Boolean(e.is_claude_code_remote) : false,
       remote_environment_type: se(e.remote_environment_type) ? globalThis.String(e.remote_environment_type) : "",
       claude_code_container_id: se(e.claude_code_container_id) ? globalThis.String(e.claude_code_container_id) : "",
       claude_code_remote_session_id: se(e.claude_code_remote_session_id)
@@ -6549,11 +6549,11 @@ var is = {
         : "",
       tags: globalThis.Array.isArray(e?.tags) ? e.tags.map((t) => globalThis.String(t)) : [],
       deployment_environment: se(e.deployment_environment) ? globalThis.String(e.deployment_environment) : "",
-      is_conductor: se(e.is_conductor) ? globalThis.Boolean(e.is_conductor) : !1,
+      is_conductor: se(e.is_conductor) ? globalThis.Boolean(e.is_conductor) : false,
       version_base: se(e.version_base) ? globalThis.String(e.version_base) : "",
       coworker_type: se(e.coworker_type) ? globalThis.String(e.coworker_type) : "",
       build_time: se(e.build_time) ? globalThis.String(e.build_time) : "",
-      is_local_agent_mode: se(e.is_local_agent_mode) ? globalThis.Boolean(e.is_local_agent_mode) : !1,
+      is_local_agent_mode: se(e.is_local_agent_mode) ? globalThis.Boolean(e.is_local_agent_mode) : false,
       linux_distro_id: se(e.linux_distro_id) ? globalThis.String(e.linux_distro_id) : "",
       linux_distro_version: se(e.linux_distro_version) ? globalThis.String(e.linux_distro_version) : "",
       linux_kernel: se(e.linux_kernel) ? globalThis.String(e.linux_kernel) : "",
@@ -6614,12 +6614,12 @@ var is = {
       (t.terminal = e.terminal ?? ""),
       (t.package_managers = e.package_managers ?? ""),
       (t.runtimes = e.runtimes ?? ""),
-      (t.is_running_with_bun = e.is_running_with_bun ?? !1),
-      (t.is_ci = e.is_ci ?? !1),
-      (t.is_claubbit = e.is_claubbit ?? !1),
-      (t.is_github_action = e.is_github_action ?? !1),
-      (t.is_claude_code_action = e.is_claude_code_action ?? !1),
-      (t.is_claude_ai_auth = e.is_claude_ai_auth ?? !1),
+      (t.is_running_with_bun = e.is_running_with_bun ?? false),
+      (t.is_ci = e.is_ci ?? false),
+      (t.is_claubbit = e.is_claubbit ?? false),
+      (t.is_github_action = e.is_github_action ?? false),
+      (t.is_claude_code_action = e.is_claude_code_action ?? false),
+      (t.is_claude_ai_auth = e.is_claude_ai_auth ?? false),
       (t.version = e.version ?? ""),
       (t.github_event_name = e.github_event_name ?? ""),
       (t.github_actions_runner_environment = e.github_actions_runner_environment ?? ""),
@@ -6631,17 +6631,17 @@ var is = {
           ? rs.fromPartial(e.github_actions_metadata)
           : void 0),
       (t.arch = e.arch ?? ""),
-      (t.is_claude_code_remote = e.is_claude_code_remote ?? !1),
+      (t.is_claude_code_remote = e.is_claude_code_remote ?? false),
       (t.remote_environment_type = e.remote_environment_type ?? ""),
       (t.claude_code_container_id = e.claude_code_container_id ?? ""),
       (t.claude_code_remote_session_id = e.claude_code_remote_session_id ?? ""),
       (t.tags = e.tags?.map((r) => r) || []),
       (t.deployment_environment = e.deployment_environment ?? ""),
-      (t.is_conductor = e.is_conductor ?? !1),
+      (t.is_conductor = e.is_conductor ?? false),
       (t.version_base = e.version_base ?? ""),
       (t.coworker_type = e.coworker_type ?? ""),
       (t.build_time = e.build_time ?? ""),
-      (t.is_local_agent_mode = e.is_local_agent_mode ?? !1),
+      (t.is_local_agent_mode = e.is_local_agent_mode ?? false),
       (t.linux_distro_id = e.linux_distro_id ?? ""),
       (t.linux_distro_version = e.linux_distro_version ?? ""),
       (t.linux_kernel = e.linux_kernel ?? ""),
@@ -6657,7 +6657,7 @@ var ss = {
   fromJSON(e) {
     return {
       slack_team_id: se(e.slack_team_id) ? globalThis.String(e.slack_team_id) : "",
-      is_enterprise_install: se(e.is_enterprise_install) ? globalThis.Boolean(e.is_enterprise_install) : !1,
+      is_enterprise_install: se(e.is_enterprise_install) ? globalThis.Boolean(e.is_enterprise_install) : false,
       trigger: se(e.trigger) ? globalThis.String(e.trigger) : "",
       creation_method: se(e.creation_method) ? globalThis.String(e.creation_method) : "",
     };
@@ -6677,7 +6677,7 @@ var ss = {
     let t = N2();
     return (
       (t.slack_team_id = e.slack_team_id ?? ""),
-      (t.is_enterprise_install = e.is_enterprise_install ?? !1),
+      (t.is_enterprise_install = e.is_enterprise_install ?? false),
       (t.trigger = e.trigger ?? ""),
       (t.creation_method = e.creation_method ?? ""),
       t
@@ -6697,7 +6697,7 @@ var br = {
       env: se(e.env) ? is.fromJSON(e.env) : void 0,
       entrypoint: se(e.entrypoint) ? globalThis.String(e.entrypoint) : "",
       agent_sdk_version: se(e.agent_sdk_version) ? globalThis.String(e.agent_sdk_version) : "",
-      is_interactive: se(e.is_interactive) ? globalThis.Boolean(e.is_interactive) : !1,
+      is_interactive: se(e.is_interactive) ? globalThis.Boolean(e.is_interactive) : false,
       client_type: se(e.client_type) ? globalThis.String(e.client_type) : "",
       process: se(e.process) ? globalThis.String(e.process) : void 0,
       additional_metadata: se(e.additional_metadata) ? globalThis.String(e.additional_metadata) : void 0,
@@ -6777,7 +6777,7 @@ var br = {
       (t.env = e.env !== void 0 && e.env !== null ? is.fromPartial(e.env) : void 0),
       (t.entrypoint = e.entrypoint ?? ""),
       (t.agent_sdk_version = e.agent_sdk_version ?? ""),
-      (t.is_interactive = e.is_interactive ?? !1),
+      (t.is_interactive = e.is_interactive ?? false),
       (t.client_type = e.client_type ?? ""),
       (t.process = e.process ?? void 0),
       (t.additional_metadata = e.additional_metadata ?? void 0),
@@ -6963,7 +6963,7 @@ var Kc = (e) => typeof e === "boolean",
   o4 = ["sample_rate"],
   Yn = (e) => typeof e === "number" && Number.isInteger(e) && e >= 0 && e < 2147483648,
   i4 = (e) => typeof e === "number" && Number.isSafeInteger(e) && e >= 0,
-  s4 = { user_source_disabled: !0, settings_unknowable: !0, settings_invalid_key_set: !0 },
+  s4 = { user_source_disabled: true, settings_unknowable: true, settings_invalid_key_set: true },
   sk = {
     tengu_retention_sweep: {
       phase: nn("start", "complete"),
@@ -7023,14 +7023,14 @@ class dk {
     return (this.containedNoInternet ??= this.probeContainedNoInternet());
   }
   async probeContainedNoInternet() {
-    if (!((await this.isDocker()) || this.isBubblewrapSandbox() || this.sources.isSandboxEnvSet())) return !1;
+    if (!((await this.isDocker()) || this.isBubblewrapSandbox() || this.sources.isSandboxEnvSet())) return false;
     return !(await this.sources.hasInternetAccess());
   }
   passesAntDspEnvGate() {
     return (this.antDspEnvGate ??= this.evaluateAntDspEnvGate());
   }
   async evaluateAntDspEnvGate() {
-    if (!(await this.isContainedNoInternet())) return (this.antDspEnvGateSettled = !1), !1;
+    if (!(await this.isContainedNoInternet())) return (this.antDspEnvGateSettled = false), false;
     return (
       (this.antDspEnvGateSettled =
         (await this.sources.probeInternalNetworkAccess()) === null && !this.isRootOutsideDeliberateSandbox()),
@@ -7038,7 +7038,7 @@ class dk {
     );
   }
   passesAntDspEnvGateSync() {
-    return this.antDspEnvGateSettled ?? !1;
+    return this.antDspEnvGateSettled ?? false;
   }
 }
 
@@ -7160,13 +7160,13 @@ var Zc = new Set([Cr, Vk, vr]),
   vSn = new Set([$n, Cr, TMe, LEe]);
 
 var RSn = {
-    repl_main_thread: !0,
-    "repl_main_thread:outputStyle:custom": !0,
-    "repl_main_thread:outputStyle:Concise": !0,
-    "repl_main_thread:outputStyle:Proactive": !0,
-    "repl_main_thread:outputStyle:Explanatory": !0,
-    "repl_main_thread:outputStyle:Learning": !0,
-    sdk: !0,
+    repl_main_thread: true,
+    "repl_main_thread:outputStyle:custom": true,
+    "repl_main_thread:outputStyle:Concise": true,
+    "repl_main_thread:outputStyle:Proactive": true,
+    "repl_main_thread:outputStyle:Explanatory": true,
+    "repl_main_thread:outputStyle:Learning": true,
+    sdk: true,
   },
   O4 = new Set([
     ...Object.keys(RSn),
@@ -7248,7 +7248,7 @@ class hk {
   rememberBashTaskSnapshot(e, t, r) {
     if (
       (this.bashTaskSnapshots.delete(e),
-      this.bashTaskSnapshots.set(e, { snapshot: t, agentId: r, fetched: !1 }),
+      this.bashTaskSnapshots.set(e, { snapshot: t, agentId: r, fetched: false }),
       this.bashTaskSnapshots.size > mk)
     ) {
       let o = this.bashTaskSnapshots.keys().next().value;
@@ -7265,7 +7265,7 @@ class hk {
   }
   markBashTaskSnapshotFetched(e) {
     let t = this.bashTaskSnapshots.get(e);
-    if (t) this.bashTaskSnapshots.set(e, { ...t, fetched: !0 });
+    if (t) this.bashTaskSnapshots.set(e, { ...t, fetched: true });
   }
   reset() {
     (this.outputDir = void 0), this.linkedOutputs.clear(), this.outputPathBindings.clear();
@@ -7296,9 +7296,9 @@ class Tk {
   queuesByKey = new Map();
   evictedKeys = new Set();
   enqueueListener = null;
-  queueUsedReported = !1;
-  nonbookendEvictionReported = !1;
-  bookendEvictionReported = !1;
+  queueUsedReported = false;
+  nonbookendEvictionReported = false;
+  bookendEvictionReported = false;
   setQueueKey(e) {
     this.queueKey = e;
   }
@@ -7316,9 +7316,9 @@ class Tk {
       this.evictedKeys.clear(),
       (this.queueKey = () => i3t),
       (this.enqueueListener = null),
-      (this.queueUsedReported = !1),
-      (this.nonbookendEvictionReported = !1),
-      (this.bookendEvictionReported = !1);
+      (this.queueUsedReported = false),
+      (this.nonbookendEvictionReported = false),
+      (this.bookendEvictionReported = false);
   }
   currentQueueOrCreate() {
     let e = this.queueKey();
@@ -7353,7 +7353,7 @@ class Tk {
       );
       if (r === -1) {
         if (!this.bookendEvictionReported)
-          (this.bookendEvictionReported = !0), g("task_event_queue", "bookend_evicted");
+          (this.bookendEvictionReported = true), g("task_event_queue", "bookend_evicted");
         let o = t.findIndex(
           (u) =>
             u.type !== "conversation_reset" && !(u.type === "system" && u.subtype === "status" && u.status === null),
@@ -7362,11 +7362,11 @@ class Tk {
         else t.splice(o, 1);
       } else {
         if (!this.nonbookendEvictionReported)
-          (this.nonbookendEvictionReported = !0), g("task_event_queue", "nonbookend_evicted");
+          (this.nonbookendEvictionReported = true), g("task_event_queue", "nonbookend_evicted");
         t.splice(r, 1);
       }
     }
-    if ((t.push(e), !this.queueUsedReported)) (this.queueUsedReported = !0), y("task_event_queue");
+    if ((t.push(e), !this.queueUsedReported)) (this.queueUsedReported = true), y("task_event_queue");
     this.enqueueListener?.();
   }
   hasQueued(e) {
@@ -7391,8 +7391,8 @@ var ker = N4;
 
 class yk {
   runtimeState = { status: "active" };
-  hasLoggedCooldownExpiry = !1;
-  creditsExhaustedNotifiedThisTurn = !1;
+  hasLoggedCooldownExpiry = false;
+  creditsExhaustedNotifiedThisTurn = false;
   orgStatus = { status: "pending" };
   lastPrefetchAt = 0;
   inflightPrefetch = null;
@@ -7402,35 +7402,35 @@ class yk {
   orgFastModeChange = Ue();
   reset() {
     (this.runtimeState = { status: "active" }),
-      (this.hasLoggedCooldownExpiry = !1),
-      (this.creditsExhaustedNotifiedThisTurn = !1),
+      (this.hasLoggedCooldownExpiry = false),
+      (this.creditsExhaustedNotifiedThisTurn = false),
       (this.orgStatus = { status: "pending" }),
       (this.lastPrefetchAt = 0),
       (this.inflightPrefetch = null);
   }
   enterCooldown(e, t) {
-    (this.runtimeState = { status: "cooldown", resetAt: e, reason: t }), (this.hasLoggedCooldownExpiry = !1);
+    (this.runtimeState = { status: "cooldown", resetAt: e, reason: t }), (this.hasLoggedCooldownExpiry = false);
   }
   clearCooldown() {
     this.runtimeState = { status: "active" };
   }
   markCooldownExpiryLogged() {
-    this.hasLoggedCooldownExpiry = !0;
+    this.hasLoggedCooldownExpiry = true;
   }
   replaceOrgStatus(e) {
     let t = this.orgStatus;
     return (this.orgStatus = e), t;
   }
   claimCreditsExhaustedNotice() {
-    if (this.creditsExhaustedNotifiedThisTurn) return !1;
-    return (this.creditsExhaustedNotifiedThisTurn = !0), !0;
+    if (this.creditsExhaustedNotifiedThisTurn) return false;
+    return (this.creditsExhaustedNotifiedThisTurn = true), true;
   }
   rearmCreditsExhaustedNotice() {
-    this.creditsExhaustedNotifiedThisTurn = !1;
+    this.creditsExhaustedNotifiedThisTurn = false;
   }
   beginPrefetchWindow(e, t) {
-    if (e - this.lastPrefetchAt < t) return !1;
-    return (this.lastPrefetchAt = e), !0;
+    if (e - this.lastPrefetchAt < t) return false;
+    return (this.lastPrefetchAt = e), true;
   }
   trackInflightPrefetch(e) {
     this.inflightPrefetch = e;
@@ -8678,7 +8678,7 @@ var rJ = m(() =>
       AJ(),
     ]),
   ),
-  CJ = m(() => f({ async: N(!0), asyncTimeout: v().optional() })),
+  CJ = m(() => f({ async: N(true), asyncTimeout: v().optional() })),
   vJ = m(() =>
     f({
       hookEventName: N("PreToolUse"),
@@ -9151,22 +9151,22 @@ var rJ = m(() =>
         .describe(
           "ISO timestamp when the message was created on the originating process. Older emitters omit it; consumers should fall back to receive time.",
         ),
-      is_meta: N(!0)
+      is_meta: N(true)
         .optional()
         .describe(
           "@internal True when the message was synthesized by the loop (not user keyboard input). From internal UserMessage.isMeta.",
         ),
-      seeded_summon: N(!0).optional().describe("@internal Desktop host only: the host's own seeded summon."),
-      client_composed: N(!0)
+      seeded_summon: N(true).optional().describe("@internal Desktop host only: the host's own seeded summon."),
+      client_composed: N(true)
         .optional()
         .describe(
           "@internal The client composed this turn from content the user did not type; its text is delivered as written.",
         ),
-      is_visible_in_transcript_only: N(!0)
+      is_visible_in_transcript_only: N(true)
         .optional()
         .describe("@internal True when the message is stored in the transcript but not rendered in the live UI."),
-      is_virtual: N(!0).optional().describe("@internal Display-only: rendered in the UI but filtered before API send."),
-      is_compact_summary: N(!0)
+      is_virtual: N(true).optional().describe("@internal Display-only: rendered in the UI but filtered before API send."),
+      is_compact_summary: N(true)
         .optional()
         .describe("@internal True when this user message is a compact-summary synthetic message."),
       summarize_metadata: f({
@@ -9226,7 +9226,7 @@ var rJ = m(() =>
         "A user-role message. A client writes one to the CLI to submit a prompt (this starts a turn); the CLI emits them for user-role content it adds to the conversation itself, chiefly the tool_result blocks answering the assistant's tool_use blocks.",
       ),
   ),
-  l5 = m(() => EP().extend({ uuid: Z(), session_id: i(), isReplay: N(!0), file_attachments: H(_e()).optional() })),
+  l5 = m(() => EP().extend({ uuid: Z(), session_id: i(), isReplay: N(true), file_attachments: H(_e()).optional() })),
   SP = m(() =>
     f({
       type: N("bash_command"),
@@ -9382,7 +9382,7 @@ var rJ = m(() =>
         .describe(
           "Client uuid of the user message that triggered this turn (submitMessage options.uuid), stamped on the turn's FIRST reply frame only \u2014 the first assistant message in complete-message mode; with --include-partial-messages the stamp normally rides the first non-ping stream event instead (see SDKPartialAssistantMessage), and a turn that produces no stream events still stamps its first assistant message \u2014 so a consumer can bind the reply to the send it answers without waiting for the result. Wrapper-level sibling \u2014 never inside `message.content` \u2014 so it is not replayed to the model. Absent on every later frame of the turn, on subagent frames (parent_tool_use_id set), on synthetic/scheduled (meta) turns, on turns without a client uuid, and from older producers.",
         ),
-      resumed_from_incomplete_thinking: N(!0)
+      resumed_from_incomplete_thinking: N(true)
         .optional()
         .describe(
           "This turn continued the preceding truncated assistant turn inside its trailing signed thinking block (max-output-tokens recovery). Its thinking signatures are cumulative over that preceding thinking-only turn, so a history replayed through the bridge must carry this flag back for the normalizer to keep the run's prefix on the wire. Wrapper-level sibling \u2014 never inside `message.content` \u2014 so it is not replayed to the model.",
@@ -9392,7 +9392,7 @@ var rJ = m(() =>
         .describe(
           "Wire uuids of previously-delivered messages that this message replaces (refusal-fallback supersede). The list can include tombstoned tool_result frames from the refused leg, not only assistant frames. Evict the named messages on arrival and treat this frame as their canonical replacement. Idempotent with the end-of-turn model_refusal_fallback notice, whose retracted_message_uuids remains the complete audit record for the turn.",
         ),
-      aborted: N(!0)
+      aborted: N(true)
         .optional()
         .describe(
           "True when this assistant message was truncated by an interrupt/abort before the stream completed: stop_reason was never received and the content may end mid-word. Absent on normally completed messages.",
@@ -9409,7 +9409,7 @@ var rJ = m(() =>
         .describe(
           "ISO timestamp of when this content block finished on the originating process. One API assistant turn may produce several assistant messages sharing a message.id, each with its own timestamp. Uses the originating host's clock, so it's for display only; do not order messages by this field. Older emitters omit it; consumers should fall back to receive time.",
         ),
-      is_meta: N(!0)
+      is_meta: N(true)
         .optional()
         .describe("@internal True when the message was synthesized by the loop (not a model response)."),
       context_usage: d5()
@@ -9422,7 +9422,7 @@ var rJ = m(() =>
         .describe(
           "@internal The originating system local_command row's wire-form content (escaped frames), carried on the loop-synthesized local-command twin. Round-tripped so toInternalMessages rebuilds the internal system row on a bridge/SDK history replay \u2014 replay then matches the live session, where that row is model-visible \u2014 instead of dropping the output or replaying the twin's decoded display text. Wrapper-level sibling \u2014 never inside `message.content`.",
         ),
-      is_virtual: N(!0).optional().describe("@internal Display-only: rendered in the UI but filtered before API send."),
+      is_virtual: N(true).optional().describe("@internal Display-only: rendered in the UI but filtered before API send."),
       batch_tool_uses: H(ot({ id: i(), name: i() }))
         .optional()
         .describe(
@@ -9976,7 +9976,7 @@ var rJ = m(() =>
         .describe(
           "The refusal category ('cyber', 'bio', \u2026): stop_details.category from the refused API response (client lane), or the fallback block's server-gated trigger.category (server lane). Open string \u2014 new categories ship on the wire ahead of schema updates. null when neither source carried a category (normal, not an error). Absent when emitted by an older CLI.",
         ),
-      saw_cyber_refusal: N(!0)
+      saw_cyber_refusal: N(true)
         .optional()
         .describe(
           "@internal Present when ANY hop of this banner's multi-hop episode was a cyber refusal \u2014 not only the origin hop that api_refusal_category describes (the banner keeps first-hop category semantics for display). Re-arm evidence for the CLI's cyber-exclusion header on session restore; never rendered, not part of the public SDK contract. Absent on cyber-free episodes and when emitted by an older CLI.",
@@ -10858,7 +10858,7 @@ var xP = m(() =>
       subtype: N("initialize"),
       hooks: De(uP(), H(a8())).optional(),
       sdkMcpServers: H(i()).optional(),
-      sdkMcpServerConfigs: De(i(), Pu().omit({ type: !0, name: !0 }))
+      sdkMcpServerConfigs: De(i(), Pu().omit({ type: true, name: true }))
         .optional()
         .describe(
           "Settings for the SDK-hosted MCP servers named in sdkMcpServers, keyed by server name. Sent as a separate field so a CLI that predates it ignores it; entries whose name is not in sdkMcpServers, and values that do not match this shape, are ignored rather than rejected. Applied when the server is first registered.",
@@ -11390,7 +11390,7 @@ var xP = m(() =>
       _meta: De(i(), _e()).optional(),
       staging: dt([
         f({
-          ok: N(!0),
+          ok: N(true),
           outputs: H(
             f({
               lane_path: i(),
@@ -11401,7 +11401,7 @@ var xP = m(() =>
           inputs_used: H(f({ lane_path: i(), etag: i() })).describe("Lane etag each staged input actually carried."),
         }),
         f({
-          ok: N(!1),
+          ok: N(false),
           error_code: oe(["expired", "input_missing", "output_too_large", "output_conflict", "timeout", "tool_error"]),
           detail: i().describe(
             "Plain-text detail for the requesting client. May carry user-document content (tool output, lane paths) \u2014 surface it to the user where helpful, but do not log it verbatim or feed it to analytics.",
@@ -12536,7 +12536,7 @@ var eme = m(() => [
       ),
       from_session_id: i().describe("Server-verified sender session id."),
       content: i(),
-      isSynthetic: N(!0).describe(
+      isSynthetic: N(true).describe(
         "Server-asserted synthetic stamp \u2014 stripped from inbound copies at CCR ingress and re-stamped only by the notice composer.",
       ),
       inbound_origin: N("mcp_session_notice").describe(
@@ -12583,7 +12583,7 @@ var eme = m(() => [
     ),
   );
 
-var ltr = { subtype: "interrupt", cancel_queued: !0 };
+var ltr = { subtype: "interrupt", cancel_queued: true };
 
 var pbt = "Session not found:",
   R3t = "invalid session ID";
@@ -12622,10 +12622,10 @@ var iZ = m(() =>
   sZ = m(() => ps("type", [f({ type: N("control_request"), request_id: i(), request: iZ() }), Zs(), ea()]));
 
 class KP {
-  warned = !1;
+  warned = false;
   claim() {
-    if (this.warned) return !1;
-    return (this.warned = !0), !0;
+    if (this.warned) return false;
+    return (this.warned = true), true;
   }
 }
 
@@ -12699,7 +12699,7 @@ var CZ = [];
 
 var OZ = 1000,
   kZ = 30000,
-  wZ = new J(() => ({ inFlight: null, verdict: void 0, settledAt: 0, seenPopulated: !1, generation: 0 }));
+  wZ = new J(() => ({ inFlight: null, verdict: void 0, settledAt: 0, seenPopulated: false, generation: 0 }));
 
 var MZ = ["/v1/design/"];
 
@@ -12894,15 +12894,15 @@ var Ea = 262144,
   );
 
 class Ftr {
-  uncleanExitsScanned = !1;
+  uncleanExitsScanned = false;
   reportedUncleanExitPaths = new Set();
   watchedCache = void 0;
   pidFileWriteChain = Promise.resolve();
   registeredName = void 0;
   formerNames = [];
   heldNames = new Map();
-  registered = !1;
-  bornSpare = !1;
+  registered = false;
+  bornSpare = false;
   spareClaimPoll = void 0;
   registration = void 0;
   registrySweepPermitted = void 0;
@@ -12945,16 +12945,16 @@ class Ftr {
   }
   async probeRegistrySweepPermitted() {
     let e = D();
-    if (e === "wsl") return !1;
-    if (!zu() && e !== "windows" && e !== "macos") return !1;
+    if (e === "wsl") return false;
+    if (!zu() && e !== "windows" && e !== "macos") return false;
     if (
       e === "windows" &&
       (a.CONTAINER_SANDBOX_MOUNT_POINT !== void 0 ||
         a.USERNAME === "ContainerAdministrator" ||
         a.USERNAME === "ContainerUser")
     )
-      return !1;
-    if (Vh.getIsBubblewrapSandbox() || Me(a.IS_SANDBOX) || (await Vh.getIsDocker())) return !1;
+      return false;
+    if (Vh.getIsBubblewrapSandbox() || Me(a.IS_SANDBOX) || (await Vh.getIsDocker())) return false;
     return jwn();
   }
 }
@@ -12977,7 +12977,7 @@ var kre = go({
   ),
   result: m(() => Np((e) => typeof e === "object" && e !== null && "behavior" in e)),
   default: { behavior: "cancelled" },
-  yieldsToPanels: !0,
+  yieldsToPanels: true,
 });
 
 var Ra = new q9();
@@ -13079,7 +13079,7 @@ class dp {
   isKilled;
   storageV5;
   pendingExports = [];
-  isShutdown = !1;
+  isShutdown = false;
   schedule;
   cancelBackoff = null;
   attempts = 0;
@@ -13089,7 +13089,7 @@ class dp {
   refreshAttemptedFor;
   inflightRefresh = null;
   wifMintRetryAt = 0;
-  finalFlush = !1;
+  finalFlush = false;
   signalFinalFlush = () => {};
   finalFlushSignal = new Promise((e) => {
     this.signalFinalFlush = e;
@@ -13103,14 +13103,14 @@ class dp {
     (this.endpoint = `${t}${e.path || "/api/event_logging/v2/batch"}`),
       (this.timeout = e.timeout || 1e4),
       (this.maxBatchSize = e.maxBatchSize || 200),
-      (this.skipAuth = e.skipAuth ?? !1),
+      (this.skipAuth = e.skipAuth ?? false),
       (this.batchDelayMs = e.batchDelayMs || 100),
       (this.baseBackoffDelayMs = e.baseBackoffDelayMs || 500),
       (this.maxBackoffDelayMs = e.maxBackoffDelayMs || 30000),
       (this.maxAttempts = e.maxAttempts ?? 8),
       (this.oauthRefreshTimeoutMs = e.oauthRefreshTimeoutMs ?? E7),
       (this.keyHelperJoinTimeoutMs = e.keyHelperJoinTimeoutMs ?? S7),
-      (this.isKilled = e.isKilled ?? (() => !1)),
+      (this.isKilled = e.isKilled ?? (() => false)),
       (this.storageV5 = e.storageV5),
       (this.schedule =
         e.schedule ??
@@ -13162,7 +13162,7 @@ class dp {
           await nD(e);
         } catch {}
       else {
-        await eD(Jn(), { recursive: !0 });
+        await eD(Jn(), { recursive: true });
         let r =
           t
             .map((o) => b(o))
@@ -13179,7 +13179,7 @@ class dp {
   async appendEventsToFile(e, t) {
     if (t.length === 0) return;
     try {
-      await eD(Jn(), { recursive: !0 });
+      await eD(Jn(), { recursive: true });
       let r =
         t
           .map((o) => b(o))
@@ -13194,7 +13194,7 @@ class dp {
   }
   async deleteFile(e) {
     try {
-      return await nD(e), !0;
+      return await nD(e), true;
     } catch (t) {
       return X(t);
     }
@@ -13276,7 +13276,7 @@ class dp {
       return;
     }
     let r = _s(t),
-      o = await this.sendEventsInBatches(r, { startupRetry: !0 });
+      o = await this.sendEventsInBatches(r, { startupRetry: true });
     if (o.length === 0) await this.deleteFile(e);
     else await this.saveEventsToFile(e, o);
   }
@@ -13370,7 +13370,7 @@ class dp {
       return;
     }
     let o = _s(r),
-      u = await this.sendEventsInBatches(o, { startupRetry: !0 });
+      u = await this.sendEventsInBatches(o, { startupRetry: true });
     if (u.length === 0) await this.deleteStream(e, t);
     else if (await this.deleteStream(e, t)) await this.appendEventsToStream(e, t, u);
   }
@@ -13540,12 +13540,12 @@ class dp {
     (this.inflightRefresh = t), await jt(t, this.oauthRefreshTimeoutMs);
   }
   shouldSkipAuthForSend(e) {
-    if (this.skipAuth || !e) return !0;
-    if (!Tt()) return !1;
+    if (this.skipAuth || !e) return true;
+    if (!Tt()) return false;
     let t = Yt();
-    if (!Wd()) return !0;
-    if (t && iN(t.expiresAt)) return !0;
-    return !1;
+    if (!Wd()) return true;
+    if (t && iN(t.expiresAt)) return true;
+    return false;
   }
   async authHeadersForSend() {
     if (!(ZS() === null && jd())) return oO();
@@ -13595,7 +13595,7 @@ class dp {
           timeout: this.timeout,
           headers: M ? { ...r, ...M.headers } : r,
         });
-        this.logSuccess(e.events.length, !1, z.data);
+        this.logSuccess(e.events.length, false, z.data);
         return;
       }
       throw x;
@@ -13697,11 +13697,11 @@ class dp {
       });
   }
   async beginShutdown(e = 0) {
-    if (((this.finalFlush = !0), this.signalFinalFlush(), this.inflightRefresh && e > 0))
+    if (((this.finalFlush = true), this.signalFinalFlush(), this.inflightRefresh && e > 0))
       await jt(this.inflightRefresh, e);
   }
   async shutdown() {
-    (this.isShutdown = !0), this.resetBackoff(), await this.forceFlush();
+    (this.isShutdown = true), this.resetBackoff(), await this.forceFlush();
   }
   async forceFlush() {
     await Promise.all(this.pendingExports);
@@ -13842,27 +13842,27 @@ class gp {
   installed = Ue();
   cacheHits = 0;
   cacheMisses = 0;
-  readingAllowed = !1;
+  readingAllowed = false;
   enableError = null;
-  enableSettled = !1;
+  enableSettled = false;
   enablePromise = null;
-  reloadThroughStorageOwed = !1;
+  reloadThroughStorageOwed = false;
   reloadThroughStoragePromise = null;
   writeQueues = zm();
   pendingWriteCounts = new Map();
   pendingExternalRefresh = null;
-  freshnessWatcherStarted = !1;
+  freshnessWatcherStarted = false;
   freshnessBackend = void 0;
   freshnessSubscription = void 0;
-  fileWatchFallback = !0;
-  unhandedWritesInMemory = !1;
+  fileWatchFallback = true;
+  unhandedWritesInMemory = false;
   loadedVersion = void 0;
   landedWriteCount = 0;
-  freshnessResubscribed = !1;
-  insideParseErrorTelemetry = !1;
+  freshnessResubscribed = false;
+  insideParseErrorTelemetry = false;
   parseErrorLoggedFor = new Set();
-  lastGetConfigWasParseError = !1;
-  trustAccepted = !1;
+  lastGetConfigWasParseError = false;
+  trustAccepted = false;
   localSettingsGitTracked = void 0;
   projectPathForConfig = null;
   generatedUserID = null;
@@ -13873,7 +13873,7 @@ class gp {
   clientDataReadGate = null;
   clientDataStrictReadGate = null;
   clientDataStaleMatchGetter = null;
-  useRealPipelineUnderTest = !1;
+  useRealPipelineUnderTest = false;
   testGlobalConfig;
   testProjectConfig;
   now;
@@ -13918,7 +13918,7 @@ class gp {
     return (this.cacheHits = 0), (this.cacheMisses = 0), e;
   }
   allowReading() {
-    this.readingAllowed = !0;
+    this.readingAllowed = true;
   }
   enable(e) {
     if (this.enableSettled) {
@@ -13932,24 +13932,24 @@ class gp {
     this.enableError = e;
   }
   markEnableSettled() {
-    this.enableSettled = !0;
+    this.enableSettled = true;
   }
   oweReloadThroughStorage() {
-    this.reloadThroughStorageOwed = !0;
+    this.reloadThroughStorageOwed = true;
   }
   reloadThroughStorageOnce(e) {
-    if (this.reloadThroughStorageOwed) (this.reloadThroughStorageOwed = !1), (this.reloadThroughStoragePromise = e());
+    if (this.reloadThroughStorageOwed) (this.reloadThroughStorageOwed = false), (this.reloadThroughStoragePromise = e());
     return this.reloadThroughStoragePromise ?? Promise.resolve();
   }
   resetEnableGate() {
-    (this.readingAllowed = !1),
+    (this.readingAllowed = false),
       (this.enableError = null),
-      (this.enableSettled = !1),
+      (this.enableSettled = false),
       (this.enablePromise = null),
-      (this.reloadThroughStorageOwed = !1),
+      (this.reloadThroughStorageOwed = false),
       (this.reloadThroughStoragePromise = null),
-      (this.fileWatchFallback = !0),
-      (this.unhandedWritesInMemory = !1);
+      (this.fileWatchFallback = true),
+      (this.unhandedWritesInMemory = false);
   }
   beginPendingWrite(e) {
     this.pendingWriteCounts.set(e, this.pendingWriteCount(e) + 1);
@@ -13974,7 +13974,7 @@ class gp {
     this.freshnessWatcherStarted = e;
   }
   setFreshnessBackend(e) {
-    (this.freshnessBackend = e), (this.freshnessResubscribed = !1);
+    (this.freshnessBackend = e), (this.freshnessResubscribed = false);
   }
   setFreshnessSubscription(e) {
     this.freshnessSubscription = e;
@@ -13989,15 +13989,15 @@ class gp {
     this.loadedVersion = e;
   }
   claimFreshnessResubscribe() {
-    if (this.freshnessResubscribed) return !1;
-    return (this.freshnessResubscribed = !0), !0;
+    if (this.freshnessResubscribed) return false;
+    return (this.freshnessResubscribed = true), true;
   }
   setLastGetConfigWasParseError(e) {
     this.lastGetConfigWasParseError = e;
   }
   claimParseErrorLog(e) {
-    if (this.parseErrorLoggedFor.has(e)) return !1;
-    return this.parseErrorLoggedFor.add(e), !0;
+    if (this.parseErrorLoggedFor.has(e)) return false;
+    return this.parseErrorLoggedFor.add(e), true;
   }
   setInsideParseErrorTelemetry(e) {
     this.insideParseErrorTelemetry = e;
@@ -14074,10 +14074,10 @@ var ED = 15,
   SD = 10,
   TD = Object.freeze({
     toolSearchReminder: null,
-    toolParamStrictness: !1,
-    emptyInputRepair: !1,
-    toolSearchFetchRule: !1,
-    schemaDescFixes: !1,
+    toolParamStrictness: false,
+    emptyInputRepair: false,
+    toolSearchFetchRule: false,
+    schemaDescFixes: false,
   });
 
 var $7 = import.meta.require("/$bunfs/root/chunk-3474m0yz.js"),
@@ -14087,13 +14087,13 @@ var $7 = import.meta.require("/$bunfs/root/chunk-3474m0yz.js"),
     mcpServers: {},
     enabledMcpjsonServers: [],
     disabledMcpjsonServers: [],
-    hasTrustDialogAccepted: !1,
-    hasClaudeMdExternalIncludesApproved: !1,
-    hasClaudeMdExternalIncludesWarningShown: !1,
+    hasTrustDialogAccepted: false,
+    hasClaudeMdExternalIncludesApproved: false,
+    hasClaudeMdExternalIncludesWarningShown: false,
   };
 
 var fO = qe(),
-  L = new gp({ now: Date.now, testGlobalConfig: { ...fO, autoUpdates: !1 }, testProjectConfig: { ...pAe } }),
+  L = new gp({ now: Date.now, testGlobalConfig: { ...fO, autoUpdates: false }, testProjectConfig: { ...pAe } }),
   k4t = [
     "apiKeyHelper",
     "installMethod",
@@ -14482,11 +14482,11 @@ class jnr {
   datadogInitialized = null;
   sender = D4t({ maxBatchSize: Eee, getFlushIntervalMs: kee, post: vee });
   initializeDatadog = ai(async () => {
-    if (zh() || JO()) return (this.datadogInitialized = !1), !1;
+    if (zh() || JO()) return (this.datadogInitialized = false), false;
     try {
-      return (this.datadogInitialized = !0), !0;
+      return (this.datadogInitialized = true), true;
     } catch (e) {
-      return h(e), (this.datadogInitialized = !1), !1;
+      return h(e), (this.datadogInitialized = false), false;
     }
   });
   getUserBucket = ai(() => {
@@ -14531,7 +14531,7 @@ var Uee = "could not be found in the keychain";
 var zee = 15000;
 
 class sN {
-  status = { isAuthenticating: !1, output: [] };
+  status = { isAuthenticating: false, output: [] };
   changed = Ue();
   dismissTimer = null;
   static getInstance() {
@@ -14541,7 +14541,7 @@ class sN {
     return { ...this.status, output: [...this.status.output] };
   }
   startAuthentication() {
-    this.clearDismissTimer(), (this.status = { isAuthenticating: !0, output: [] }), this.changed.emit(this.getStatus());
+    this.clearDismissTimer(), (this.status = { isAuthenticating: true, output: [] }), this.changed.emit(this.getStatus());
   }
   addOutput(e) {
     this.status.output.push(e), this.changed.emit(this.getStatus());
@@ -14550,15 +14550,15 @@ class sN {
     (this.status.error = e), this.changed.emit(this.getStatus());
   }
   endAuthentication(e) {
-    if ((this.clearDismissTimer(), e)) this.status = { isAuthenticating: !1, output: [] };
+    if ((this.clearDismissTimer(), e)) this.status = { isAuthenticating: false, output: [] };
     else
-      (this.status.isAuthenticating = !1),
+      (this.status.isAuthenticating = false),
         (this.dismissTimer = setTimeout(() => this.dismiss(), zee)),
         this.dismissTimer.unref?.();
     this.changed.emit(this.getStatus());
   }
   dismiss() {
-    this.clearDismissTimer(), (this.status = { isAuthenticating: !1, output: [] }), this.changed.emit(this.getStatus());
+    this.clearDismissTimer(), (this.status = { isAuthenticating: false, output: [] }), this.changed.emit(this.getStatus());
   }
   subscribe = this.changed.subscribe;
   clearDismissTimer() {
@@ -14593,7 +14593,7 @@ var ite = m(() => T.object({ accessToken: T.string().min(1), expiresAt: T.string
   ste = /^[a-z0-9-]{1,32}$/,
   gI = pU(async (e, t, r) => {
     let { loadSharedConfigFiles: o } = await import("/$bunfs/root/chunk-wc0e60ad.js").then((m) => j(m.default, 1)),
-      { configFile: u, credentialsFile: d } = await o({ configFilepath: e, filepath: t ?? e, ignoreCache: !0 }),
+      { configFile: u, credentialsFile: d } = await o({ configFilepath: e, filepath: t ?? e, ignoreCache: true }),
       _ = u[r ?? "default"],
       A = d[r ?? "default"],
       C = { ..._, ...A },
@@ -14648,10 +14648,10 @@ var ite = m(() => T.object({ accessToken: T.string().min(1), expiresAt: T.string
     },
     (e) => Vp(e?.expiration?.getTime()),
     (e, t) => {
-      if (e === null) return !1;
-      if (e.expiration === void 0) return !0;
+      if (e === null) return false;
+      if (e.expiration === void 0) return true;
       let r = e.expiration.getTime();
-      if (r > Date.now() + pl) return !0;
+      if (r > Date.now() + pl) return true;
       return t >= r - pl && r > Date.now();
     },
   ),
@@ -14689,13 +14689,13 @@ var dte = 3600000,
 async function _te() {
   let e = KV(),
     t = Ip;
-  if (!e) return !1;
+  if (!e) return false;
   if (spe()) {
     if (!ri() && !Le()) {
       let o = Error(
         `Security: awsAuthRefresh executed before workspace trust is confirmed. If you see this message, post in ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.FEEDBACK_CHANNEL}.`,
       );
-      return wj("awsAuthRefresh invoked before trust check", o), s("tengu_awsAuthRefresh_missing_trust", {}), !1;
+      return wj("awsAuthRefresh invoked before trust check", o), s("tengu_awsAuthRefresh_missing_trust", {}), false;
     }
   }
   if (er) return er;
@@ -14704,11 +14704,11 @@ async function _te() {
       n("Fetching AWS caller identity for AWS auth refresh command"),
       await xrr(),
       n("Fetched AWS caller identity, skipping AWS auth refresh command"),
-      !1
+      false
     );
   } catch {
     if (er) return er;
-    if (ul !== null && Date.now() - ul < fte) return !1;
+    if (ul !== null && Date.now() - ul < fte) return false;
     return (
       (er = (async () => {
         try {
@@ -14749,7 +14749,7 @@ var aR = WAt(async (e) => {
           XY({ url: Soe(e), requestTimeoutMs: lpe }),
         ]),
         u = r({
-          ignoreCache: !0,
+          ignoreCache: true,
           parentClientConfig: { region: e, requestHandler: o ?? new dl.FetchHttpHandler({ requestTimeout: lpe }) },
           clientConfig: { requestHandler: o ?? new dl.FetchHttpHandler({ requestTimeout: lpe }) },
         });
@@ -14757,9 +14757,9 @@ var aR = WAt(async (e) => {
     },
     (r) => Vp(r.expiration?.getTime()),
     (r, o) => {
-      if (r.expiration === void 0) return !0;
+      if (r.expiration === void 0) return true;
       let u = r.expiration.getTime();
-      if (u > Date.now() + pl) return !0;
+      if (u > Date.now() + pl) return true;
       return o >= u - pl && u > Date.now();
     },
   );

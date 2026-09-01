@@ -46,7 +46,7 @@ async function te() {
     t = v(n, "claude");
   try {
     let o = (await Y(process.execPath)).ino;
-    await q(n, { recursive: !0 }),
+    await q(n, { recursive: true }),
       await Z(
         v(n, "..", "Info.plist"),
         `<?xml version="1.0" encoding="UTF-8"?>
@@ -74,7 +74,7 @@ async function z() {
     o = ert(process.env);
   o.CLAUDE_BG_TCC_DISCLAIMED = "1";
   try {
-    process.execve(r, t, o, { macDisclaimResponsibility: !0 });
+    process.execve(r, t, o, { macDisclaimResponsibility: true });
   } catch {}
 }
 var fe = 1048576;
@@ -110,9 +110,9 @@ async function He(r) {
     b = new WeakMap(),
     M = new WeakSet(),
     H = new WeakSet(),
-    y = !1,
-    g = !1,
-    R = !1,
+    y = false,
+    g = false,
+    R = false,
     O = process.ppid,
     L = 0,
     I = null,
@@ -136,7 +136,7 @@ async function He(r) {
       cols: l,
       rows: f,
       data(e, s) {
-        R = !0;
+        R = true;
         let i = Buffer.from(s);
         if ((A.push(i), F?.write(i), p.size)) K(tze(i));
       },
@@ -145,8 +145,8 @@ async function He(r) {
         cwd: process.cwd(),
         env: { ...process.env, TERM: "xterm-256color" },
         terminal: S,
-        windowsHide: !0,
-        detached: !1,
+        windowsHide: true,
+        detached: false,
         ...(t && { argv0: "claude bg-spare" }),
       }));
   } catch (e) {
@@ -226,7 +226,7 @@ async function He(r) {
         }),
       );
     for (let i of A.chunks) w(e, tze(i));
-    if ((w(e, tC({ t: "live" })), p.add(e), (L = 0), b.set(e, { armed: !1, missed: 0 }), w(e, tC({ t: "ping" })), y)) {
+    if ((w(e, tC({ t: "live" })), p.add(e), (L = 0), b.set(e, { armed: false, missed: 0 }), w(e, tC({ t: "ping" })), y)) {
       w(e, tC({ t: "exit", code: T, signal: U })), e.end();
       return;
     }
@@ -254,7 +254,7 @@ async function He(r) {
         } else if (i.kind === Zft)
           if (i.ctrl.t === "pong") {
             let u = b.get(e);
-            if (u) (u.armed = !0), (u.missed = 0);
+            if (u) (u.armed = true), (u.missed = 0);
           } else if (i.ctrl.t === "auth") {
             if (uR(i.ctrl.token, P)) M.add(e);
           } else V(i.ctrl);
@@ -328,10 +328,10 @@ async function He(r) {
   T = await d.exited;
   let W = 0;
   for (let e = 0; e < 20; e++)
-    if (((R = !1), await ne(5), R)) W = 0;
+    if (((R = false), await ne(5), R)) W = 0;
     else if (++W >= 2) break;
   let U = d.signalCode ?? void 0;
-  if (((y = !0), c))
+  if (((y = true), c))
     try {
       let e = sM(o),
         s = Buffer.concat(A.chunks).subarray(-4096),
@@ -353,7 +353,7 @@ async function He(r) {
     await pe(C, c ? () => ae(uT(o), Buffer.concat(A.chunks)) : void 0);
   for (let e of p) e.end();
   if (
-    (await Promise.race([new Promise((e) => C.close(() => e())), ne(2000, void 0, { unref: !0 })]), D() !== "windows")
+    (await Promise.race([new Promise((e) => C.close(() => e())), ne(2000, void 0, { unref: true })]), D() !== "windows")
   )
     await N(o).catch(() => {});
   process.exit(T);
@@ -364,8 +364,8 @@ async function pe(r, n, t = 5000) {
   await Promise.race([o, l]);
 }
 function me(r, n, t) {
-  if (r === "SIGTERM" && D() === "windows") return t.close(), !0;
-  return n.kill(r), !1;
+  if (r === "SIGTERM" && D() === "windows") return t.close(), true;
+  return n.kill(r), false;
 }
 function he(r) {
   let n = [],
@@ -428,7 +428,7 @@ function ye(r, n, t) {
 async function X(r, n) {
   try {
     let t = Mh(r);
-    await ce(Q(t), { recursive: !0 }),
+    await ce(Q(t), { recursive: true }),
       await se(
         t,
         `${new Date().toISOString()} ${n}
@@ -440,7 +440,7 @@ function _(r, n) {
   if (r)
     try {
       let t = Mh(r);
-      oe(Q(t), { recursive: !0 }),
+      oe(Q(t), { recursive: true }),
         re(
           t,
           `${new Date().toISOString()} ${n}

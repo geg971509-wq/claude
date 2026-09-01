@@ -69,7 +69,7 @@ function x7t(e) {
   if (
     e.some((n) => n === "--environment" || n.startsWith("--environment=") || n === "--pool" || n.startsWith("--pool="))
   )
-    return !0;
+    return true;
   return e.some((n) => n === "--cloud" || n.startsWith("--cloud=") || n === "--remote" || n.startsWith("--remote="));
 }
 function rge(e) {

@@ -50,10 +50,10 @@ function h(e) {
   return e === "EISDIR" || e === "ENXIO";
 }
 class k {
-  logged = !1;
+  logged = false;
   markLogged() {
-    if (this.logged) return !1;
-    return (this.logged = !0), !0;
+    if (this.logged) return false;
+    return (this.logged = true), true;
   }
 }
 var D = new J(() => new k());
@@ -83,7 +83,7 @@ async function g(e) {
           : "other non-regular node";
   if (L().markLogged())
     n(`[DaemonLock] ${o} at the lock path (${e}) \u2014 removing it as the legacy path does`, { level: "warn" });
-  await p(r, { recursive: !0, force: !0 }).catch(() => {});
+  await p(r, { recursive: true, force: true }).catch(() => {});
 }
 var S = 65536;
 async function nMn(e, r) {
@@ -91,34 +91,34 @@ async function nMn(e, r) {
     let t = () => r.write(Qie(), b(e, null, 2), { precondition: { type: "ifAbsent" }, mode: 438 & ~process.umask() }),
       o = await t();
     for (let i of [0, 1]) {
-      if (o.ok) return !0;
-      if (o.error.code === "AlreadyExists") return !1;
+      if (o.ok) return true;
+      if (o.error.code === "AlreadyExists") return false;
       let a = "telemetryCode" in o.error ? o.error.telemetryCode : void 0;
       if (o.error.code !== "Failed" || !Dk(a)) break;
       if (a === "ELOOP") {
-        if (await I()) return !1;
+        if (await I()) return false;
         break;
       }
       if (i === 1) break;
       await g(a), (o = await t());
     }
-    if (o.ok) return !0;
+    if (o.ok) return true;
     throw new R(
       `[DaemonLock] Failed to acquire daemon lock: ${o.error.code}${"telemetryCode" in o.error && o.error.telemetryCode ? ` (${o.error.telemetryCode})` : ""}`,
       "[DaemonLock] v5 acquire write failed",
     );
   }
   try {
-    return await KAt(Nw(), b(e, null, 2)), !0;
+    return await KAt(Nw(), b(e, null, 2)), true;
   } catch (t) {
-    if (E(t) === "EEXIST") return !1;
+    if (E(t) === "EEXIST") return false;
     throw t;
   }
 }
 async function rMn(e, r) {
   let t = await PP(r);
   if (!t || t.pid !== e.pid || t.startedAt !== e.startedAt) return;
-  await d0t({ ...t, bgDisabled: !0 }, r);
+  await d0t({ ...t, bgDisabled: true }, r);
 }
 async function PP(e) {
   let r;
@@ -149,7 +149,7 @@ async function PP(e) {
     if (!i.found) return null;
     if (i.totalBytes > S) return await e.delete(Qie()), null;
     r = Buffer.from(i.value).toString("utf8");
-    let a = Ut(r, !1);
+    let a = Ut(r, false);
     if (a && typeof a === "object") {
       let s = a;
       if (typeof s.pid === "number" && typeof s.version === "string") return a;
@@ -158,13 +158,13 @@ async function PP(e) {
   }
   try {
     let o = await l(Nw());
-    if (!o.isFile() || o.size > 65536) return await p(Nw(), { recursive: !0, force: !0 }).catch(() => {}), null;
+    if (!o.isFile() || o.size > 65536) return await p(Nw(), { recursive: true, force: true }).catch(() => {}), null;
     r = await f(Nw(), "utf8");
   } catch (o) {
     if (X(o)) return null;
     throw o;
   }
-  let t = Ut(r, !1);
+  let t = Ut(r, false);
   if (t && typeof t === "object") {
     let o = t;
     if (typeof o.pid === "number" && typeof o.version === "string") return t;
@@ -178,7 +178,7 @@ async function d0t(e, r) {
       let s = "telemetryCode" in i.error ? i.error.telemetryCode : void 0;
       if (s === "LockContended" || s === "LockSuspect") {
         let c = await PP(r);
-        if (c?.pid !== e.pid || c?.startedAt !== e.startedAt) return !1;
+        if (c?.pid !== e.pid || c?.startedAt !== e.startedAt) return false;
         i = await r.write(Qie(), b(e, null, 2), { mode: 438 & ~process.umask() });
       }
       if (!i.ok)
@@ -202,7 +202,7 @@ async function d0t(e, r) {
       } catch (s) {
         await d(t).catch(() => {});
         let c = E(s);
-        if (c === "EEXIST" || c === "EPERM") return !1;
+        if (c === "EEXIST" || c === "EPERM") return false;
         throw s;
       }
     } else throw (await d(t).catch(() => {}), i);
@@ -231,7 +231,7 @@ async function ont(e) {
   try {
     r = await f(`/proc/${e}/cmdline`, "utf8");
   } catch {
-    return !0;
+    return true;
   }
   let t = r.split("\x00");
   return t[0] === "claude daemon" || t.slice(1, 4).includes("daemon");
@@ -239,13 +239,13 @@ async function ont(e) {
 var uge = 2,
   p0t = 250;
 async function EBe(e, r, t) {
-  if (r === void 0) return !0;
+  if (r === void 0) return true;
   for (let o = 0; o < t; o++) {
     if (o > 0) await ne(p0t);
     let i = await Ga(e, { skipCache: o > 0 });
     if (i !== void 0) return i === r;
   }
-  return !1;
+  return false;
 }
 function zRe(e) {
   return iA(e) !== void 0;

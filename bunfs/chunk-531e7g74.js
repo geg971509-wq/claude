@@ -375,14 +375,14 @@ function io(Io) {
         ? c
         : Math.min(v, Math.max(y, Math.round(J / x) * x)),
     [m, tt] = u(ot),
-    [no, et] = u(!1),
+    [no, et] = u(false),
     yo;
   if (n[4] !== D)
     (yo = function l(vo) {
       if (D) {
         return;
       }
-      et(!0),
+      et(true),
         tt(($o) => {
           if ($o === c) {
             return vo > 0 ? y : v;
@@ -421,7 +421,7 @@ function io(Io) {
       (n[13] = ko);
   else ko = n[13];
   let h = ko,
-    P = C(!1),
+    P = C(false),
     Jo;
   if (n[14] !== no || n[15] !== I || n[16] !== h || n[17] !== g || n[18] !== m)
     (Jo = function z() {
@@ -429,10 +429,10 @@ function io(Io) {
         return;
       }
       if (!no) {
-        (P.current = !0), g(`Auto-compact window unchanged: ${h}`);
+        (P.current = true), g(`Auto-compact window unchanged: ${h}`);
         return;
       }
-      P.current = !0;
+      P.current = true;
       let nt = m === c ? "auto" : String(m);
       s6e(nt, I).then(g);
     }),
@@ -478,7 +478,7 @@ function io(Io) {
       if (P.current) {
         return;
       }
-      (P.current = !0), g(`Auto-compact window unchanged: ${h}`);
+      (P.current = true), g(`Auto-compact window unchanged: ${h}`);
     }),
       (n[33] = h),
       (n[34] = g),
@@ -487,7 +487,7 @@ function io(Io) {
   let Ao;
   if (n[36] === d)
     (Ao = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: r(fe, {
         children: [
           e(M, { chord: ["up", "down"], action: "change" }),
@@ -512,7 +512,7 @@ function io(Io) {
       children: [
         "The auto setting picks a window tuned for your model and is",
         " ",
-        e(t, { bold: !0, children: "strongly recommended" }),
+        e(t, { bold: true, children: "strongly recommended" }),
         " for the best cost and performance. You can override it below.",
       ],
     })),
@@ -542,7 +542,7 @@ function io(Io) {
       : r(o, {
           children: [
             e(t, { children: "Select auto-compact window: " }),
-            e(t, { bold: !0, color: "suggestion", children: ro }),
+            e(t, { bold: true, color: "suggestion", children: ro }),
           ],
         })),
       (n[42] = ro),

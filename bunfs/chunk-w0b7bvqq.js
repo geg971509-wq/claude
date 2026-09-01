@@ -198,7 +198,7 @@ function le(We) {
   else he = R[7];
   Be("confirm:no", Ye, he);
   let ke;
-  if (R[8] === d) (ke = e(t, { dimColor: !0, children: "Loading guest pass information\u2026" })), (R[8] = ke);
+  if (R[8] === d) (ke = e(t, { dimColor: true, children: "Loading guest pass information\u2026" })), (R[8] = ke);
   else ke = R[8];
   let J;
   if (R[9] !== b.keyName || R[10] !== b.pending)
@@ -207,12 +207,12 @@ function le(We) {
         flexDirection: "column",
         gap: 1,
         tabIndex: 0,
-        autoFocus: !0,
+        autoFocus: true,
         children: [
           ke,
           e(t, {
-            dimColor: !0,
-            italic: !0,
+            dimColor: true,
+            italic: true,
             children: b.pending
               ? r(U, { children: ["Press ", b.keyName, " again to exit"] })
               : e(M, { chord: "escape", action: "cancel" }),
@@ -265,8 +265,8 @@ function re(Ze) {
     let v;
     if (l[4] !== f.keyName || l[5] !== f.pending)
       (v = e(t, {
-        dimColor: !0,
-        italic: !0,
+        dimColor: true,
+        italic: true,
         children: f.pending
           ? r(U, { children: ["Press ", f.keyName, " again to exit"] })
           : e(M, { chord: "escape", action: "cancel" }),
@@ -350,7 +350,7 @@ function re(Ze) {
   else se = l[36];
   let ae;
   if (l[37] !== ee || l[38] !== se)
-    (ae = e(o, { flexDirection: "column", marginLeft: 2, children: r(t, { dimColor: !0, children: [ee, se] }) })),
+    (ae = e(o, { flexDirection: "column", marginLeft: 2, children: r(t, { dimColor: true, children: [ee, se] }) })),
       (l[37] = ee),
       (l[38] = se),
       (l[39] = ae);
@@ -359,8 +359,8 @@ function re(Ze) {
   if (l[40] !== f.keyName || l[41] !== f.pending)
     (oe = e(o, {
       children: e(t, {
-        dimColor: !0,
-        italic: !0,
+        dimColor: true,
+        italic: true,
         children: f.pending
           ? r(U, { children: ["Press ", f.keyName, " again to exit"] })
           : r(fe, {
@@ -409,9 +409,9 @@ function ne(rs) {
         flexDirection: "column",
         marginRight: 1,
         children: [
-          e(t, { dimColor: !0, children: "\u250C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2571" }),
-          e(t, { dimColor: !0, children: ` ) CC ${ww} \u250A\u2571` }),
-          e(t, { dimColor: !0, children: "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2571" }),
+          e(t, { dimColor: true, children: "\u250C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2571" }),
+          e(t, { dimColor: true, children: ` ) CC ${ww} \u250A\u2571` }),
+          e(t, { dimColor: true, children: "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2571" }),
         ],
       })),
         (ye[0] = A);
@@ -440,7 +440,7 @@ function ne(rs) {
 async function Ce(m, g) {
   try {
     let a = await Fun(m, g);
-    if (!a || !a.eligible) return { available: !1 };
+    if (!a || !a.eligible) return { available: false };
     let p = a.referral_code_details?.referral_link ?? null,
       c = a.referrer_reward,
       y = a.referral_code_details?.campaign ?? "claude_code_guest_pass",
@@ -448,7 +448,7 @@ async function Ce(m, g) {
     try {
       P = await oVn(y, m);
     } catch (i) {
-      return n(`Failed to fetch referral redemptions: ${i}`, { level: "error" }), { available: !1 };
+      return n(`Failed to fetch referral redemptions: ${i}`, { level: "error" }), { available: false };
     }
     let w = P.redemptions || [],
       E = P.limit || 3,
@@ -457,13 +457,13 @@ async function Ce(m, g) {
       let D = w[i];
       L.push({ passNumber: i + 1, isAvailable: !D });
     }
-    return { available: !0, passStatuses: L, referralLink: p, referrerReward: c };
+    return { available: true, passStatuses: L, referralLink: p, referrerReward: c };
   } catch (a) {
     return (
       n(`Failed to load guest pass eligibility: ${a instanceof Error ? (a.stack ?? a.message) : a}`, {
         level: "error",
       }),
-      { available: !1 }
+      { available: false }
     );
   }
 }
@@ -472,7 +472,7 @@ async function us(m, g) {
   if (p) {
     let c = Sft();
     await Ae(
-      (y) => ({ ...y, hasVisitedPasses: !0, passesLastSeenRemaining: c ?? y.passesLastSeenRemaining }),
+      (y) => ({ ...y, hasVisitedPasses: true, passesLastSeenRemaining: c ?? y.passesLastSeenRemaining }),
       g.storageV5,
     );
   }

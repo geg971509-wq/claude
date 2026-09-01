@@ -24,7 +24,7 @@ var d = Object.freeze({ settings: {}, errors: [] });
 class k {
   mdm = null;
   hkcu = null;
-  wslInherits = !1;
+  wslInherits = false;
   loadPromise = null;
   startLoad(t) {
     if (this.loadPromise) return;
@@ -54,7 +54,7 @@ class k {
     (this.mdm = t), (this.hkcu = e), (this.wslInherits = i);
   }
   reset() {
-    (this.mdm = null), (this.hkcu = null), (this.wslInherits = !1), (this.loadPromise = null);
+    (this.mdm = null), (this.hkcu = null), (this.wslInherits = false), (this.loadPromise = null);
   }
 }
 var F = new J(() => new k());
@@ -86,7 +86,7 @@ async function yor(t) {
   return _(e, t);
 }
 function p(t, e) {
-  let i = Ut(t, !1);
+  let i = Ut(t, false);
   if (!i || typeof i !== "object") return { settings: {}, errors: [] };
   let { settings: o, errors: r } = VAe(i, e);
   return { settings: o ?? {}, errors: r };
@@ -143,7 +143,7 @@ async function _(t, e) {
   if (t.plistStdouts && t.plistStdouts.length > 0) {
     let { stdout: l, label: m } = t.plistStdouts[0],
       h = p(l, m);
-    if (pP(h.settings)) return { mdm: h, hkcu: d, wslInherits: !1 };
+    if (pP(h.settings)) return { mdm: h, hkcu: d, wslInherits: false };
     i.push(...h.errors);
   }
   let o = null;
@@ -154,10 +154,10 @@ async function _(t, e) {
   if (o) i.push(...o.errors);
   let r = i.length > 0 ? { settings: {}, errors: i } : d,
     f = FNe(),
-    a = !1;
+    a = false;
   if (f) {
-    if (((a = o?.settings.wslInheritsWindowsSettings === !0 || (await C(e))), !a))
-      return { mdm: r, hkcu: d, wslInherits: !1 };
+    if (((a = o?.settings.wslInheritsWindowsSettings === true || (await C(e))), !a))
+      return { mdm: r, hkcu: d, wslInherits: false };
   }
   if (o) {
     if (pP(o.settings)) return { mdm: o, hkcu: d, wslInherits: a };
@@ -167,7 +167,7 @@ async function _(t, e) {
     let l = R(t.hkcuStdout);
     if (l) {
       let m = p(l, `Registry: ${eTt}\\${NNe}`);
-      if (!f || m.settings.wslInheritsWindowsSettings === !0) {
+      if (!f || m.settings.wslInheritsWindowsSettings === true) {
         let { wslInheritsWindowsSettings: h, managedSourcesBehavior: v, ...P } = m.settings;
         return { mdm: r, hkcu: { settings: P, errors: m.errors }, wslInherits: a };
       }
@@ -185,13 +185,13 @@ async function E(t, e) {
   return le().readdirSync(t);
 }
 async function j(t, e) {
-  if (t && (await I(c0, e))) return !0;
+  if (t && (await I(c0, e))) return true;
   return I(ib(), e);
 }
 async function y(t, e) {
-  let i = Wp(Ut(await S(t, e), !1));
-  if (!i || typeof i !== "object") return !1;
-  return zAe(i, t, { skipMcpServerEntryFilter: !0, policySource: !0 }), pP(i);
+  let i = Wp(Ut(await S(t, e), false));
+  if (!i || typeof i !== "object") return false;
+  return zAe(i, t, { skipMcpServerEntryFilter: true, policySource: true }), pP(i);
 }
 async function mEn(t) {
   if (!FNe() || !g().wslInherits) return "";
@@ -219,13 +219,13 @@ async function mEn(t) {
 async function C(t) {
   async function e(i) {
     try {
-      let o = Ut(await S(i, t), !1);
-      return !!o && typeof o === "object" && "wslInheritsWindowsSettings" in o && o.wslInheritsWindowsSettings === !0;
+      let o = Ut(await S(i, t), false);
+      return !!o && typeof o === "object" && "wslInheritsWindowsSettings" in o && o.wslInheritsWindowsSettings === true;
     } catch {
-      return !1;
+      return false;
     }
   }
-  if (await e(u(c0, "managed-settings.json"))) return !0;
+  if (await e(u(c0, "managed-settings.json"))) return true;
   try {
     let i = u(c0, "managed-settings.d");
     for (let o of await E(i, t))
@@ -235,13 +235,13 @@ async function C(t) {
         !o.name.startsWith(".") &&
         (await e(u(i, o.name)))
       )
-        return !0;
+        return true;
   } catch {}
-  return !1;
+  return false;
 }
 async function I(t, e) {
   try {
-    if (await y(u(t, "managed-settings.json"), e)) return !0;
+    if (await y(u(t, "managed-settings.json"), e)) return true;
   } catch {}
   try {
     let i = u(t, "managed-settings.d"),
@@ -249,10 +249,10 @@ async function I(t, e) {
     for (let r of o) {
       if (!(r.isFile() || r.isSymbolicLink()) || !r.name.endsWith(".json") || r.name.startsWith(".")) continue;
       try {
-        if (await y(u(i, r.name), e)) return !0;
+        if (await y(u(i, r.name), e)) return true;
       } catch {}
     }
   } catch {}
-  return !1;
+  return false;
 }
 export { qAe, X6, ooe, l0, _or, yor, mEn };

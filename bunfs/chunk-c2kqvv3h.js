@@ -101,7 +101,7 @@ class xKn {
               alwaysAllowRules: {},
               alwaysDenyRules: {},
               alwaysAskRules: {},
-              isBypassPermissionsModeAvailable: !1,
+              isBypassPermissionsModeAvailable: false,
               mcpPermissionModeOverrides: {},
             }),
             tools: t,
@@ -135,7 +135,7 @@ function V(o) {
   if (e) {
     let S = [e.serverName, e.toolName].filter((w) => Boolean(w)).map((w) => w.toLowerCase()),
       b = S.flatMap((w) => w.split(/[\s_.]+/)).filter(Boolean);
-    return { parts: b, coarseParts: S, full: b.join(" "), isMcp: !0 };
+    return { parts: b, coarseParts: S, full: b.join(" "), isMcp: true };
   }
   let d = t
     .replace(/([a-z])([A-Z])/g, "$1 $2")
@@ -143,7 +143,7 @@ function V(o) {
     .toLowerCase()
     .split(/\s+/)
     .filter(Boolean);
-  return { parts: d, coarseParts: [t.toLowerCase()], full: d.join(" "), isMcp: !1 };
+  return { parts: d, coarseParts: [t.toLowerCase()], full: d.join(" "), isMcp: false };
 }
 function ee(o) {
   let t = new Map();
@@ -224,10 +224,10 @@ var Fmt = kt({
     return b_();
   },
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   name: Kl,
   maxResultSizeChars: 1e5,
@@ -298,7 +298,7 @@ var Fmt = kt({
       if (!e || (u.newCount === 0 && a === 0)) return null;
       let l = u.newCount > 0 ? await r(u.freshDeferred, u.freshTools) : [],
         A = 0,
-        E = !0,
+        E = true,
         B = T(
           h,
           j().map((U) => U.name),
@@ -306,7 +306,7 @@ var Fmt = kt({
         K = _.map(ln),
         F = B.length === 0 || B.some((U) => _.includes(U) || K.includes(U));
       if (l.length === 0 && a > 0 && F)
-        (E = !1), (A = await q(B)), (u = z()), (l = await r(u.freshDeferred, u.freshTools));
+        (E = false), (A = await q(B)), (u = z()), (l = await r(u.freshDeferred, u.freshTools));
       return (
         s("tengu_tool_search_mcp_wait", {
           queryType: c(g),

@@ -296,7 +296,7 @@ import "/$bunfs/root/chunk-a4q326ap.js";
 import { randomUUID as g } from "crypto";
 async function F(n, b, e) {
   let u = Hk() && hnt() === "powershell",
-    l = Je().respondToBashCommands ?? !0;
+    l = Je().respondToBashCommands ?? true;
   s("tengu_input_bash", { powershell: u, respond: l });
   let d = xe({ content: mF({ inputString: `<bash-input>${n}</bash-input>`, precedingInputBlocks: b }) }),
     i = g(),
@@ -313,8 +313,8 @@ async function F(n, b, e) {
     let S = r ?? _i,
       t = (
         r
-          ? await r.call({ command: n, dangerouslyDisableSandbox: !0 }, o, void 0, void 0, a)
-          : await _i.call({ command: n, dangerouslyDisableSandbox: !0 }, o, void 0, void 0, a)
+          ? await r.call({ command: n, dangerouslyDisableSandbox: true }, o, void 0, void 0, a)
+          : await _i.call({ command: n, dangerouslyDisableSandbox: true }, o, void 0, void 0, a)
       ).data;
     if (!t) throw Error("No result received from shell command");
     let y = t.stderr,
@@ -334,8 +334,8 @@ async function F(n, b, e) {
     if (o instanceof dx) {
       if (o.interrupted)
         return {
-          messages: [rz(), d, oI({ toolUse: !1, interruptedByShutdown: qS(e.abortController.signal) })],
-          shouldQuery: !1,
+          messages: [rz(), d, oI({ toolUse: false, interruptedByShutdown: qS(e.abortController.signal) })],
+          shouldQuery: false,
         };
       let r = l && !e.abortController.signal.aborted;
       return {

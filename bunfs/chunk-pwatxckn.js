@@ -428,17 +428,17 @@ function Xe(e) {
 function on(e) {
   let t = [],
     o = 0,
-    r = !1,
-    a = !1;
+    r = false,
+    a = false;
   for (let u = 0; u < e.length; u++) {
     let p = e[u];
     if (r) {
-      if (p === "'") r = !1;
+      if (p === "'") r = false;
       continue;
     }
     if (a) {
       if (p === "`") u++;
-      else if (p === '"') a = !1;
+      else if (p === '"') a = false;
       continue;
     }
     if (
@@ -464,11 +464,11 @@ function on(e) {
       continue;
     }
     if (p === "'") {
-      r = !0;
+      r = true;
       continue;
     }
     if (p === '"') {
-      a = !0;
+      a = true;
       continue;
     }
     if (
@@ -568,7 +568,7 @@ function Ae(e) {
     if (u) return u;
   }
   let o,
-    r = !0;
+    r = true;
   for (let a of t) {
     if (!a.trim()) continue;
     let u = /^([a-z]+)-\w+$/.exec(a)?.[1],
@@ -577,7 +577,7 @@ function Ae(e) {
       o ??= p;
       continue;
     }
-    if (((r = !1), p)) return p;
+    if (((r = false), p)) return p;
   }
   return (r ? o : void 0) ?? "other";
 }
@@ -869,34 +869,34 @@ function xt(e) {
   return P.slice(T.length).replaceAll("\\", "/");
 }
 function yt(e) {
-  if (e === "head" || e === ".git") return !0;
-  if (e.startsWith(".git/") || /^git~\d+($|\/)/.test(e)) return !0;
+  if (e === "head" || e === ".git") return true;
+  if (e.startsWith(".git/") || /^git~\d+($|\/)/.test(e)) return true;
   for (let t of Sn) {
     if (t === "head") continue;
-    if (e === t || e.startsWith(t + "/")) return !0;
+    if (e === t || e.startsWith(t + "/")) return true;
   }
-  return !1;
+  return false;
 }
 function Ie(e) {
   for (let t of Be(e)) {
     let o = Tt(me(t));
-    if (yt(o)) return !0;
+    if (yt(o)) return true;
     let r = xt(t);
-    if (r !== null && yt(r)) return !0;
+    if (r !== null && yt(r)) return true;
   }
-  return !1;
+  return false;
 }
 function je(e) {
   for (let t of Be(e)) {
     let o = Tt(me(t));
-    if (vt(o)) return !0;
+    if (vt(o)) return true;
     let r = xt(t);
-    if (r !== null && vt(r)) return !0;
+    if (r !== null && vt(r)) return true;
   }
-  return !1;
+  return false;
 }
 function vt(e) {
-  if (e === ".git" || e.startsWith(".git/")) return !0;
+  if (e === ".git" || e.startsWith(".git/")) return true;
   return /^git~\d+($|\/)/.test(e);
 }
 function ze(e) {
@@ -936,24 +936,24 @@ function En(e) {
     a = Bn(r) ? r : (tx(t, r) ?? r),
     u = Qo(t, o).resolvedPath,
     p = me(a);
-  if (me(u) === p) return !0;
+  if (me(u) === p) return true;
   let P = Qo(t, Se()).resolvedPath,
     d = yn(P, u);
-  if (d === ".." || d.startsWith(".." + Qe) || bn(d)) return !1;
+  if (d === ".." || d.startsWith(".." + Qe) || bn(d)) return false;
   let T = me(P),
     k = u;
   for (;;) {
-    if (me(k) === p) return !0;
-    if (me(k) === T || k === bt(k)) return !1;
+    if (me(k) === p) return true;
+    if (me(k) === T || k === bt(k)) return false;
     k = bt(k);
   }
 }
-function Rt(e, t = !1) {
+function Rt(e, t = false) {
   let o = [],
     r = [],
     a,
-    u = !1,
-    p = !1,
+    u = false,
+    p = false,
     P = [];
   for (let L = 0; L < e.length; L++) {
     let y = b1(e[L]);
@@ -964,17 +964,17 @@ function Rt(e, t = !1) {
     let E = y.indexOf(":", 1),
       b = (E > 0 ? y.slice(1, E) : y.slice(1)).toLowerCase(),
       W = E > 0 ? y.slice(E + 1) : void 0;
-    if (b === "") return !0;
+    if (b === "") return true;
     let F = "destination".startsWith(b),
       B = kn.has(b) || "literalpath".startsWith(b),
       x = B || Pn.some((H) => H.startsWith(b)),
       A = Cn.has(b) || xn.some((H) => H.startsWith(b)),
       K = Tn.has(b) || Rn.some((H) => H.startsWith(b));
-    if (Number(F) + Number(x) + Number(A) + Number(K) !== 1) return !0;
+    if (Number(F) + Number(x) + Number(A) + Number(K) !== 1) return true;
     if (A) {
       if ("container".startsWith(b) && W !== void 0) {
         let H = b1(W);
-        if (![iv, hL, cB].every((te) => /^\$true$/i.test(te(H).trim()))) p = !0;
+        if (![iv, hL, cB].every((te) => /^\$true$/i.test(te(H).trim()))) p = true;
       }
       continue;
     }
@@ -982,36 +982,36 @@ function Rt(e, t = !1) {
     if (Z === void 0) continue;
     if (F) a = Z;
     else if (x)
-      if (((u = !0), B)) P.push(...Z.split(","));
+      if (((u = true), B)) P.push(...Z.split(","));
       else o.push(...Z.split(","));
   }
   let d = (u ? 0 : 1) + (a === void 0 ? 1 : 0);
-  if (r.length > d) return !0;
+  if (r.length > d) return true;
   let T,
     k = 0;
   if (!u && k < r.length) o.push(...r[k].split(",")), k++;
   if (a === void 0 && k < r.length) T = r[k];
-  if (o.length === 0 && P.length === 0 && !t) return !1;
+  if (o.length === 0 && P.length === 0 && !t) return false;
   let C = a ?? T;
   if (C !== void 0) {
     let L = Be(C).map((y) => (y === "" ? "." : y));
-    if (L.some(St)) return !0;
-    if (!L.some(En)) return !1;
+    if (L.some(St)) return true;
+    if (!L.some(En)) return false;
   }
-  if (p || t) return !0;
+  if (p || t) return true;
   for (let [L, y] of [
-    [!1, o],
-    [!0, P],
+    [false, o],
+    [true, P],
   ])
     for (let E of y)
       for (let b of Be(E)) {
         let W = b === "" ? "." : b;
-        if (L ? /\$/.test(W) : St(W)) return !0;
+        if (L ? /\$/.test(W) : St(W)) return true;
         let F = Pt.basename(W);
-        if (F === "." || F === "..") return !0;
-        if (Ie(F)) return !0;
+        if (F === "." || F === "..") return true;
+        if (Ie(F)) return true;
       }
-  return !1;
+  return false;
 }
 var _n = new Set(["set-content", "add-content", "remove-item", "clear-content"]);
 function Je(e) {
@@ -1023,7 +1023,7 @@ function In(e) {
   return (e.length >= 3 && "-itemtype".startsWith(e)) || (e.length >= 3 && "-type".startsWith(e));
 }
 function et(e) {
-  if (wf(e.name) !== "new-item") return !1;
+  if (wf(e.name) !== "new-item") return false;
   for (let o = 0; o < e.args.length; o++) {
     let r = e.args[o] ?? "";
     if (r.length === 0) continue;
@@ -1034,10 +1034,10 @@ function et(e) {
     if (!In(d)) continue;
     let T = p > 0 ? u.slice(p + 1) : (e.args[o + 1]?.toLowerCase() ?? ""),
       k = iv(b1(Hb(T.replace(/`[\r\n]+\s*/g, "")))).toLowerCase();
-    if (/[?*[\]($]/.test(k)) return !0;
-    for (let C of An) if (k.length > 0 && C.startsWith(k)) return !0;
+    if (/[?*[\]($]/.test(k)) return true;
+    for (let C of An) if (k.length > 0 && C.startsWith(k)) return true;
   }
-  return !1;
+  return false;
 }
 function tt(e, t, o) {
   if (o.mode === "bypassPermissions" || o.mode === "dontAsk")
@@ -1068,13 +1068,13 @@ function tt(e, t, o) {
         "Command creates a filesystem link (New-Item -ItemType SymbolicLink/Junction/HardLink) \u2014 cannot auto-allow because later path validation cannot follow just-created links",
     };
   if (u > 1) {
-    let P = !1,
-      d = !1;
+    let P = false,
+      d = false;
     for (let T of a)
       for (let k of T.commands) {
         if (k.elementType !== "CommandAst") continue;
-        if (Urt(k.name)) P = !0;
-        if (Je(k.name)) d = !0;
+        if (Urt(k.name)) P = true;
+        if (Je(k.name)) d = true;
       }
     if (P && d)
       return {
@@ -1408,7 +1408,7 @@ var nt = 5,
       operationType: "write",
       pathParams: ["-outfile", "-infile"],
       positionalSkip: 1,
-      optionalWrite: !0,
+      optionalWrite: true,
       knownSwitches: [
         "-allowinsecureredirect",
         "-allowunencryptedauthentication",
@@ -1452,7 +1452,7 @@ var nt = 5,
       operationType: "write",
       pathParams: ["-outfile", "-infile"],
       positionalSkip: 1,
-      optionalWrite: !0,
+      optionalWrite: true,
       knownSwitches: [
         "-allowinsecureredirect",
         "-allowunencryptedauthentication",
@@ -1550,13 +1550,13 @@ function Mn(e) {
 function Nn(e, t) {
   let o = new Set(),
     r = new Map(),
-    a = !1;
+    a = false;
   for (let [P, d] of t)
     for (let T of d)
       if (T === e) o.add(P);
       else if (e.length > 1 && T.startsWith(e)) {
         let k = r.get(T);
-        if (k !== void 0 && k !== P) a = !0;
+        if (k !== void 0 && k !== P) a = true;
         r.set(T, P);
       }
   if (o.size > 1) return "ambiguous";
@@ -1581,8 +1581,8 @@ function He(e) {
   return b1(e);
 }
 function st(e) {
-  if (/['"\u2018-\u201F]/.test(e)) return !0;
-  if (e.includes("\u180E")) return !0;
+  if (/['"\u2018-\u201F]/.test(e)) return true;
+  if (e.includes("\u180E")) return true;
   let t = He(e);
   return (
     t.includes(",") ||
@@ -1613,9 +1613,9 @@ function Ne(e) {
       a = r.indexOf("::");
     if (a >= 0) r = r.slice(a + 2);
     if (((r = De(Fe(r).replace(/\\/g, "/"))), Re(r))) r = Ln(r);
-    if (bTe(r)) return !0;
+    if (bTe(r)) return true;
   }
-  return !1;
+  return false;
 }
 function Et(e, t) {
   let o = new Set([e, hL(e), cB(e)]);
@@ -1645,7 +1645,7 @@ function be(e) {
     decisionReason: {
       type: "safetyCheck",
       reason: "Removal targets a protected system path",
-      classifierApprovable: !1,
+      classifierApprovable: false,
     },
   };
 }
@@ -1675,11 +1675,11 @@ function Ue(e, t, o, r) {
     }
     for (let b of E) {
       let W = Me(b, t, o, r);
-      if (W) return { allowed: !1, resolvedPath: W.resolvedPath, decisionReason: { type: "rule", rule: W.rule } };
+      if (W) return { allowed: false, resolvedPath: W.resolvedPath, decisionReason: { type: "rule", rule: W.rule } };
     }
   }
   let p = (E) => ({
-      allowed: !1,
+      allowed: false,
       resolvedPath: E,
       decisionReason: {
         type: "other",
@@ -1689,7 +1689,7 @@ function Ue(e, t, o, r) {
     d = Fe(a).replaceAll("\\", "/");
   if (/^~[^/]/.test(d))
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: d,
       decisionReason: {
         type: "other",
@@ -1699,9 +1699,9 @@ function Ue(e, t, o, r) {
   if (d.includes("`")) {
     let E = Hb(d),
       b = Me(E, t, o, r);
-    if (b) return { allowed: !1, resolvedPath: b.resolvedPath, decisionReason: { type: "rule", rule: b.rule } };
+    if (b) return { allowed: false, resolvedPath: b.resolvedPath, decisionReason: { type: "rule", rule: b.rule } };
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: d,
       decisionReason: {
         type: "other",
@@ -1712,9 +1712,9 @@ function Ue(e, t, o, r) {
   if (d.includes("::")) {
     let E = d.slice(d.indexOf("::") + 2),
       b = Me(E, t, o, r);
-    if (b) return { allowed: !1, resolvedPath: b.resolvedPath, decisionReason: { type: "rule", rule: b.rule } };
+    if (b) return { allowed: false, resolvedPath: b.resolvedPath, decisionReason: { type: "rule", rule: b.rule } };
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: d,
       decisionReason: {
         type: "other",
@@ -1724,7 +1724,7 @@ function Ue(e, t, o, r) {
   }
   if (D() === "windows" && /^[a-z]:(?![/\\])/i.test(d))
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: d,
       decisionReason: {
         type: "other",
@@ -1733,7 +1733,7 @@ function Ue(e, t, o, r) {
     };
   if (((d = De(d)), Bn(d) || /DavWWWRoot/i.test(d) || /@SSL@/i.test(d)))
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: d,
       decisionReason: {
         type: "other",
@@ -1742,13 +1742,13 @@ function Ue(e, t, o, r) {
     };
   if (d.includes("$") || d.includes("%"))
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: d,
       decisionReason: { type: "other", reason: "Variable expansion syntax in paths requires manual approval" },
     };
   if ((D() === "windows" ? /^[a-z0-9]{2,}:/i : /^[a-z0-9]+:/i).test(d))
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: d,
       decisionReason: {
         type: "other",
@@ -1757,9 +1757,9 @@ function Ue(e, t, o, r) {
     };
   if (c5e(d)) {
     let E = Me(d, t, o, r);
-    if (E) return { allowed: !1, resolvedPath: E.resolvedPath, decisionReason: { type: "rule", rule: E.rule } };
+    if (E) return { allowed: false, resolvedPath: E.resolvedPath, decisionReason: { type: "rule", rule: E.rule } };
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: Ce(t, d),
       decisionReason: {
         type: "other",
@@ -1771,7 +1771,7 @@ function Ue(e, t, o, r) {
   if (DU(d) !== -1) {
     if (r === "write" || r === "create")
       return {
-        allowed: !1,
+        allowed: false,
         resolvedPath: d,
         decisionReason: {
           type: "other",
@@ -1784,11 +1784,11 @@ function Ue(e, t, o, r) {
         K = r === "read" ? "read" : "edit";
       for (let J of ao(A)) {
         let Z = fa(J, o, K, "deny");
-        if (Z !== null) return { allowed: !1, resolvedPath: A, decisionReason: { type: "rule", rule: Z } };
+        if (Z !== null) return { allowed: false, resolvedPath: A, decisionReason: { type: "rule", rule: Z } };
       }
       if (u) return p(A);
       return {
-        allowed: !1,
+        allowed: false,
         resolvedPath: A,
         decisionReason: {
           type: "other",
@@ -1801,9 +1801,9 @@ function Ue(e, t, o, r) {
       b = Re(E) ? E : Ce(t, E),
       { resolvedPath: W } = Qo(le(), b),
       B = fa(W, o, r === "read" ? "read" : "edit", "deny");
-    if (B !== null) return { allowed: !1, resolvedPath: W, decisionReason: { type: "rule", rule: B } };
+    if (B !== null) return { allowed: false, resolvedPath: W, decisionReason: { type: "rule", rule: B } };
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: W,
       decisionReason: {
         type: "other",
@@ -1818,12 +1818,12 @@ function Ue(e, t, o, r) {
   if (u && y.allowed) return p(C);
   if (u && !y.allowed && y.decisionReason?.type === "safetyCheck")
     return {
-      allowed: !1,
+      allowed: false,
       resolvedPath: C,
       decisionReason: {
         type: "safetyCheck",
         reason: `Path '${e}' resolves near a sensitive file under quote-stripping and cannot be statically validated; requires manual approval`,
-        classifierApprovable: !1,
+        classifierApprovable: false,
       },
     };
   return { allowed: y.allowed, resolvedPath: C, decisionReason: y.decisionReason };
@@ -1850,18 +1850,18 @@ var Fn = new Set(["StringConstant", "Parameter"]),
 function At(e) {
   let t = wf(e.name),
     o = Td(rt, t);
-  if (!o) return { paths: [], operationType: "read", hasUnvalidatablePathArg: !1, optionalWrite: !1 };
+  if (!o) return { paths: [], operationType: "read", hasUnvalidatablePathArg: false, optionalWrite: false };
   let r = Mn(o),
     a = [],
     u = e.args,
     p = e.elementTypes,
-    P = !1,
+    P = false,
     d = 0,
     T = o.positionalSkip ?? 0;
   function k(C) {
     if (!p) return;
     let L = p[C + 1];
-    if (L && !Fn.has(L)) P = !0;
+    if (L && !Fn.has(L)) P = true;
   }
   for (let C = 0; C < u.length; C++) {
     let L = u[C];
@@ -1876,7 +1876,7 @@ function At(e) {
         let x;
         if (b > 0) {
           let A = L.substring(b + 1);
-          if (st(A)) P = !0;
+          if (st(A)) P = true;
           x = He(A);
         } else {
           let A = u[C + 1],
@@ -1888,7 +1888,7 @@ function At(e) {
         let x;
         if (b > 0) {
           let A = L.substring(b + 1);
-          if (st(A)) P = !0;
+          if (st(A)) P = true;
           x = He(A);
         } else {
           let A = u[C + 1],
@@ -1896,19 +1896,19 @@ function At(e) {
           if (A && !cee(A, K)) (x = A), k(C + 1), C++;
         }
         if (x !== void 0)
-          if (x.includes("/") || x.includes("\\") || x === "." || x === "..") P = !0;
+          if (x.includes("/") || x.includes("\\") || x === "." || x === "..") P = true;
           else a.push(x);
       } else if (B === "switch");
       else if (B === "value")
         if (b > 0) {
-          if (st(L.substring(b + 1))) P = !0;
+          if (st(L.substring(b + 1))) P = true;
         } else {
           let x = u[C + 1],
             A = p ? p[C + 2] : void 0;
           if (x && !cee(x, A)) k(C + 1), C++;
         }
       else {
-        P = !0;
+        P = true;
         {
           let x = u[C + 1],
             A = p ? p[C + 2] : void 0;
@@ -1927,9 +1927,9 @@ function At(e) {
     }
     d++, k(C), a.push(L);
   }
-  return { paths: a, operationType: o.operationType, hasUnvalidatablePathArg: P, optionalWrite: o.optionalWrite ?? !1 };
+  return { paths: a, operationType: o.operationType, hasUnvalidatablePathArg: P, optionalWrite: o.optionalWrite ?? false };
 }
-function Ot(e, t, o, r = !1) {
+function Ot(e, t, o, r = false) {
   if (!t.valid) return { behavior: "passthrough", message: "Cannot validate paths for unparsed command" };
   let a;
   for (let u of t.statements) {
@@ -1939,7 +1939,7 @@ function Ot(e, t, o, r = !1) {
   }
   return a ?? { behavior: "passthrough", message: "All path constraints validated successfully" };
 }
-function Vn(e, t, o = !1) {
+function Vn(e, t, o = false) {
   let r = ee(),
     a;
   if (o)
@@ -1953,19 +1953,19 @@ function Vn(e, t, o = !1) {
           "Compound command contains cd with path operation \u2014 manual approval required to prevent path resolution bypass",
       },
     };
-  let u = !1,
+  let u = false,
     p,
-    P = !1;
+    P = false;
   for (let d of e.commands) {
     if (d.elementType !== "CommandAst") {
-      (u = !0), (p = d.text);
+      (u = true), (p = d.text);
       continue;
     }
     let { paths: T, operationType: k, hasUnvalidatablePathArg: C, optionalWrite: L } = At(d),
       y = wf(d.name),
       E = Td(rt, y) !== void 0,
       b = P;
-    if (!$n.has(y)) P = !0;
+    if (!$n.has(y)) P = true;
     if (u) {
       let F = wf(d.name);
       if (p !== void 0) {
@@ -2325,14 +2325,14 @@ function at(e) {
 var Lt = new Set(["pwsh", "pwsh.exe", "powershell", "powershell.exe"]);
 function it(e) {
   let t = e.toLowerCase();
-  if (Lt.has(t)) return !0;
+  if (Lt.has(t)) return true;
   let o = Math.max(t.lastIndexOf("/"), t.lastIndexOf("\\"));
   if (o >= 0) return Lt.has(t.slice(o + 1));
-  return !1;
+  return false;
 }
 var zn = new Set(["/", "\u2013", "\u2014", "\u2015"]);
 function Oe(e, t, o) {
-  if (xin(e, t, o)) return !0;
+  if (xin(e, t, o)) return true;
   let r = { ...e, args: e.args.map((a) => (a.length > 0 && zn.has(a[0]) ? "-" + a.slice(1) : a)) };
   return xin(r, t, o);
 }
@@ -2563,10 +2563,10 @@ function ns(e) {
   if (
     tk(e).every((r) => {
       let a = r.name.toLowerCase();
-      if (Dt.has(a)) return !0;
+      if (Dt.has(a)) return true;
       let u = DW[a];
-      if (u && Dt.has(u.toLowerCase())) return !0;
-      return !1;
+      if (u && Dt.has(u.toLowerCase())) return true;
+      return false;
     })
   )
     return { behavior: "passthrough" };
@@ -2832,23 +2832,23 @@ function ct(e, t, o, r) {
               case "exact":
                 return u(b.prefix, F);
               case "prefix": {
-                if (u(F, b.prefix)) return !0;
+                if (u(F, b.prefix)) return true;
                 return p(F, b.prefix + " ");
               }
             }
             break;
           case "wildcard":
-            if (o === "exact") return !1;
-            return o6(b.pattern, F, !0, !0);
+            if (o === "exact") return false;
+            return o6(b.pattern, F, true, true);
         }
       }
-      if (W(a)) return !0;
-      if (W(L)) return !0;
+      if (W(a)) return true;
+      if (W(L)) return true;
       if (b.type === "exact") {
         let F = b.command.split(ohe)[0] ?? "";
         if (wf(P(F)) === k) {
           let x = b.command.slice(F.length).replace(/^[\s\u0085\u180e]+/, " ");
-          if (u(x, C)) return !0;
+          if (u(x, C)) return true;
         }
       } else if (b.type === "prefix") {
         let F = b.prefix.split(ohe)[0] ?? "";
@@ -2856,18 +2856,18 @@ function ct(e, t, o, r) {
           let x = b.prefix.slice(F.length).replace(/^[\s\u0085\u180e]+/, " "),
             A = k + x;
           if (o === "exact") {
-            if (u(A, L)) return !0;
-          } else if (u(L, A) || p(L, A + " ")) return !0;
+            if (u(A, L)) return true;
+          } else if (u(L, A) || p(L, A + " ")) return true;
         }
       } else if (b.type === "wildcard") {
         let F = b.pattern.split(ohe)[0] ?? "";
         if (wf(P(F)) === k && o !== "exact") {
           let x = b.pattern.slice(F.length).replace(/^[\s\u0085\u180e]+/, " "),
             A = k + x;
-          if (o6(A, L, !0, !0)) return !0;
+          if (o6(A, L, true, true)) return true;
         }
       }
-      return !1;
+      return false;
     })
     .map(([, y]) => y);
 }
@@ -2920,7 +2920,7 @@ async function qt(e, t) {
         text: t,
         element: { name: await $t(t), nameType: "unknown", elementType: "CommandAst", args: [], text: t },
         statement: null,
-        isSafeOutput: !1,
+        isSafeOutput: false,
       },
     ];
   let o = [];
@@ -2949,14 +2949,14 @@ async function qt(e, t) {
       text: t,
       element: { name: await $t(t), nameType: "unknown", elementType: "CommandAst", args: [], text: t },
       statement: null,
-      isSafeOutput: !1,
+      isSafeOutput: false,
     },
   ];
 }
 async function Ut(e) {
-  if (!e) return !1;
+  if (!e) return false;
   let t = await ile(e);
-  if (!t.valid) return !0;
+  if (!t.valid) return true;
   return (await qt(t, e)).some(({ element: r }) => wf(r.name) === "git");
 }
 async function Ht(e, t) {
@@ -3005,7 +3005,7 @@ async function xs(e, t, o) {
   if (p.behavior === "allow" && !u.valid && T === null && Rin(r.split(ohe)[0] ?? "") !== "application") return p;
   if (!u.valid) {
     let S = Hb(r.replace(/<#[\s\S]*?#>/g, " ").replace(/`[\r\n]+\s*/g, "")),
-      _ = !1,
+      _ = false,
       V;
     for (let Q of S.split(/[;|\n\r{}()&]+/)) {
       let M = Q.trim();
@@ -3017,7 +3017,7 @@ async function xs(e, t, o) {
         if (!ge) continue;
         if (V === void 0 && !rD.has(G[0] ?? "") && Ne(G)) V = G;
         if (wf(ge) === "remove-item") {
-          _ = !0;
+          _ = true;
           for (let Pe of Y.slice(se + 1)) {
             if (rD.has(Pe[0] ?? "")) continue;
             if (Ne(Pe)) return be(Pe);
@@ -3086,7 +3086,7 @@ async function xs(e, t, o) {
         behavior: "ask",
         message: `Command argument '${S}' uses a non-filesystem provider path and requires approval`,
       };
-    if (S_(_, !0))
+    if (S_(_, true))
       return {
         behavior: "ask",
         message: `Command argument '${S}' contains a UNC path that could trigger network requests`,
@@ -3156,21 +3156,21 @@ async function xs(e, t, o) {
     });
   if (B) {
     let S = k.some(({ element: z, statement: j }) => {
-        for (let M of z.redirections ?? []) if (Ie(M.target)) return !0;
+        for (let M of z.redirections ?? []) if (Ie(M.target)) return true;
         let Q = wf(z.name);
-        if (!lt.has(Q)) return !1;
-        if (z.args.flatMap(ze).some((M) => Ie(M))) return !0;
+        if (!lt.has(Q)) return false;
+        if (z.args.flatMap(ze).some((M) => Ie(M))) return true;
         if (Q === "copy-item" || Q === "move-item") {
           let M = j === null ? -1 : j.commands.indexOf(z),
             Y = j !== null && (M > 0 || (M === -1 && j.commands.length > 1));
-          if (Rt(z.args, Y)) return !0;
+          if (Rt(z.args, Y)) return true;
         }
         if (j !== null)
           for (let M of j.commands) {
             if (M.elementType === "CommandAst") continue;
-            if (Ie(M.text)) return !0;
+            if (Ie(M.text)) return true;
           }
-        return !1;
+        return false;
       }),
       _ = oct(u).some((z) => Ie(z.target));
     if (S || _)
@@ -3226,9 +3226,9 @@ async function xs(e, t, o) {
     });
   if (
     k.some(({ element: _ }) => {
-      for (let z of _.redirections ?? []) if (je(z.target)) return !0;
+      for (let z of _.redirections ?? []) if (je(z.target)) return true;
       let V = wf(_.name);
-      if (!lt.has(V)) return !1;
+      if (!lt.has(V)) return false;
       return _.args.flatMap(ze).some(je);
     }) ||
     oct(u).some((_) => je(_.target))
@@ -3271,13 +3271,13 @@ async function xs(e, t, o) {
   let ue = C.find((S) => S.behavior === "allow");
   if (ue !== void 0) return ue;
   let ye = k.filter(({ element: S, isSafeOutput: _ }) => {
-      if (_) return !1;
-      if (S.nameType === "application") return !0;
+      if (_) return false;
+      if (S.nameType === "application") return true;
       if (wf(S.name) === "set-location" && S.args.length > 0) {
         let z = S.args.find((j) => j.length === 0 || !rD.has(j[0]));
-        if (z && Ss(ee(), z) === ee()) return !1;
+        if (z && Ss(ee(), z) === ee()) return false;
       }
-      return !0;
+      return true;
     }),
     xe = (S) => {
       if (S.nameType === "application") return null;
@@ -3303,7 +3303,7 @@ async function xs(e, t, o) {
       ne.push(S);
       continue;
     }
-    let Q = !1;
+    let Q = false;
     if (j.behavior === "allow" && _.nameType === "application") {
       let M = _.name.toLowerCase(),
         Y = hL(Vt(S)).toLowerCase();
@@ -3339,7 +3339,7 @@ async function xs(e, t, o) {
         tt(
           { command: S },
           {
-            valid: !0,
+            valid: true,
             errors: [],
             variables: u.variables,
             hasStopParsing: u.hasStopParsing,
@@ -3416,7 +3416,7 @@ async function Yt() {
   let e = Rs(),
     t = Es(),
     o = await nct(),
-    r = I("tengu_brass_sled", !1) ? await rlr() : [],
+    r = I("tengu_brass_sled", false) ? await rlr() : [],
     a =
       D() === "windows"
         ? "\n   - Exception: the MSVC toolchain (`cl`, `nmake`, `msbuild`) is only on PATH inside a Visual Studio developer shell, so it may be installed even if not listed. Environment changes do NOT persist between commands, so initialize and build in ONE command: `cmd /c '\"C:\\Program Files\\Microsoft Visual Studio\\<year>\\<edition>\\VC\\Auxiliary\\Build\\vcvarsall.bat\" x64 && <build command>'`"
@@ -3543,25 +3543,25 @@ var Xt = `
   Ms = new Set(["write-output", "write-host"]);
 function Ns(e) {
   let t = e.trim();
-  if (!t) return { isSearch: !1, isRead: !1 };
+  if (!t) return { isSearch: false, isRead: false };
   let o = t.split(/\s*[;|]\s*/).filter(Boolean);
-  if (o.length === 0) return { isSearch: !1, isRead: !1 };
-  let r = !1,
-    a = !1,
-    u = !1;
+  if (o.length === 0) return { isSearch: false, isRead: false };
+  let r = false,
+    a = false,
+    u = false;
   for (let p of o) {
     let P = p.trim().split(/\s+/)[0];
     if (!P) continue;
     let d = wf(P);
     if (Ms.has(d)) continue;
-    u = !0;
+    u = true;
     let T = Os.has(d),
       k = Ls.has(d);
-    if (!T && !k) return { isSearch: !1, isRead: !1 };
-    if (T) r = !0;
-    if (k) a = !0;
+    if (!T && !k) return { isSearch: false, isRead: false };
+    if (T) r = true;
+    if (k) a = true;
   }
-  if (!u) return { isSearch: !1, isRead: !1 };
+  if (!u) return { isSearch: false, isRead: false };
   return { isSearch: r, isRead: a };
 }
 var Zt = 2000,
@@ -3571,9 +3571,9 @@ async function $s(e) {
   return !(await Ut(e));
 }
 async function Vs(e) {
-  if (!(await $s(e))) return !1;
+  if (!(await $s(e))) return false;
   let t = e.trim().split(/\s+/)[0];
-  if (!t) return !0;
+  if (!t) return true;
   let o = wf(t);
   return !Fs.includes(o);
 }
@@ -3624,7 +3624,7 @@ var zs = "command contains control characters that would be hidden in the approv
       ),
     }),
   ),
-  qs = m(() => ($d() ? Jt().omit({ run_in_background: !0 }) : Jt())),
+  qs = m(() => ($d() ? Jt().omit({ run_in_background: true }) : Jt())),
   Us = m(() =>
     f({
       stdout: i().describe("The standard output of the command"),
@@ -3649,7 +3649,7 @@ var zs = "command contains control characters that would be hidden in the approv
       timedOutAfterMs: v()
         .optional()
         .describe("Set when the command hit its timeout and was auto-backgrounded; the timeout value in ms"),
-      backgroundEndsWithFinalResponse: N(!0)
+      backgroundEndsWithFinalResponse: N(true)
         .optional()
         .describe(
           "True when this backgrounded command is owned by a synchronous subagent and is therefore terminated when that agent gives its final response; absent when the command survives (main loop, async subagents)",
@@ -3665,9 +3665,9 @@ var zs = "command contains control characters that would be hidden in the approv
     name: Bt,
     ruleContentField: "command",
     searchHint: "execute Windows PowerShell commands",
-    enablesCodeExecution: !0,
+    enablesCodeExecution: true,
     maxResultSizeChars: 30000,
-    strict: !0,
+    strict: true,
     async description({ description: e }) {
       return e || "Run PowerShell command";
     },
@@ -3675,14 +3675,14 @@ var zs = "command contains control characters that would be hidden in the approv
       return Yt();
     },
     isConcurrencySafe(e) {
-      return this.isReadOnly?.(e) ?? !1;
+      return this.isReadOnly?.(e) ?? false;
     },
     isSearchOrReadCommand(e) {
-      if (typeof e?.command !== "string") return { isSearch: !1, isRead: !1 };
+      if (typeof e?.command !== "string") return { isSearch: false, isRead: false };
       return Ns(e.command);
     },
     isReadOnly(e) {
-      if (v1n(e.command)) return !1;
+      if (v1n(e.command)) return false;
       return yxt(e.command);
     },
     toAutoClassifierInput(e) {
@@ -3691,7 +3691,7 @@ var zs = "command contains control characters that would be hidden in the approv
     },
     async preparePermissionMatcher({ command: e }) {
       let t = await ile(e);
-      if (!t.valid) return () => !0;
+      if (!t.valid) return () => true;
       let o = tk(t).flatMap((r) => {
         let a = [r.name, ...r.args].join(" "),
           u = [wf(r.name), ...r.args].join(" ");
@@ -3705,7 +3705,7 @@ var zs = "command contains control characters that would be hidden in the approv
               P = u.toLowerCase();
             return P === p || P.startsWith(`${p} `);
           }
-          return o6(r, u, !0, !0);
+          return o6(r, u, true, true);
         });
       };
     },
@@ -3729,21 +3729,21 @@ var zs = "command contains control characters that would be hidden in the approv
       return `Running ${e.description ?? ir(e.command, mT)}`;
     },
     isEnabled() {
-      return !0;
+      return true;
     },
     async validateInput(e) {
       let t = Qt(Ye(e), e.command);
-      if (t !== null) return g("sandbox_exec", "windows_policy_refusal"), { result: !1, message: t, errorCode: 11 };
+      if (t !== null) return g("sandbox_exec", "windows_policy_refusal"), { result: false, message: t, errorCode: 11 };
       if (xI() && as() && !$d() && !e.run_in_background) {
         let o = Ws(e.command);
         if (o !== null)
           return {
-            result: !1,
+            result: false,
             message: `Blocked: ${o}. To wait for a condition, use Monitor with an until-loop (e.g. \`until <check>; do sleep 2; done\` \u2014 Monitor runs bash). To wait for a command you started, use run_in_background: true. Do not chain shorter sleeps to work around this block.`,
             errorCode: 10,
           };
       }
-      return { result: !0 };
+      return { result: true };
     },
     permissionCheckFailureDecision(e, t) {
       return Gt(t);
@@ -3756,7 +3756,7 @@ var zs = "command contains control characters that would be hidden in the approv
         o.behavior !== "ask" &&
         !Bct(o.decisionReason) &&
         !Ye(e) &&
-        Ye({ ...e, dangerouslyDisableSandbox: !1 })
+        Ye({ ...e, dangerouslyDisableSandbox: false })
       ) {
         let r = l$t({ toolName: Bt, input: e, context: t });
         if (r) return r;
@@ -3792,7 +3792,7 @@ var zs = "command contains control characters that would be hidden in the approv
       if (a) {
         let b = t ? t.replace(/^(\s*\n)+/, "").trimEnd() : "",
           W = Wze(b, WDe);
-        L = oue({ filepath: a, originalSize: u ?? 0, isJson: !1, preview: W.preview, hasMore: W.hasMore });
+        L = oue({ filepath: a, originalSize: u ?? 0, isJson: false, preview: W.preview, hasMore: W.hasMore });
       } else if (t) (L = t.replace(/^(\s*\n)+/, "")), (L = L.trimEnd());
       let y = o.trim();
       if (e) {
@@ -3818,7 +3818,7 @@ var zs = "command contains control characters that would be hidden in the approv
             p,
             [y, E].filter(Boolean).join(`
 `),
-            { backgroundedByUser: P, ending: V1t(k === !0) },
+            { backgroundedByUser: P, ending: V1t(k === true) },
           ),
         };
       return {
@@ -3888,7 +3888,7 @@ var zs = "command contains control characters that would be hidden in the approv
         if (T) {
           if (RFt(t.session, he(t))) A = vFt("");
         }
-        let J = y.backgroundTaskId !== void 0 && Rbt(t.agentContext) ? !0 : void 0;
+        let J = y.backgroundTaskId !== void 0 && Rbt(t.agentContext) ? true : void 0;
         if (y.backgroundTaskId) {
           let U = tct(y.stdout || "", e.command);
           if (T && U.hints.length > 0) for (let oe of U.hints) jdt(oe, t.session.pendingHint);
@@ -3903,7 +3903,7 @@ var zs = "command contains control characters that would be hidden in the approv
                     : y.timedOutAfterMs !== void 0
                       ? w("timeout")
                       : w("explicit"),
-              ends_with_final_response: J === !0,
+              ends_with_final_response: J === true,
               shell: w("powershell"),
             });
           return {
@@ -3911,7 +3911,7 @@ var zs = "command contains control characters that would be hidden in the approv
               stdout: U.stripped,
               stderr: [y.stderr || "", A].filter(Boolean).join(`
 `),
-              interrupted: !1,
+              interrupted: false,
               backgroundTaskId: y.backgroundTaskId,
               backgroundedByUser: y.backgroundedByUser,
               backgroundedByTurnAbort: y.backgroundedByTurnAbort,
@@ -3955,9 +3955,9 @@ var zs = "command contains control characters that would be hidden in the approv
           try {
             let U = pS(t.session);
             await nU(U, t.storageV5);
-            let oe = Bze(U, y.outputTaskId, !1),
+            let oe = Bze(U, y.outputTaskId, false),
               X = O() && t.storageV5 !== void 0 ? SP(Is(oe), As(oe)) : void 0,
-              ve = !0;
+              ve = true;
             if (O() && t.storageV5 !== void 0 && X !== void 0) {
               let pe = await c$t(t.storageV5, X, y.outputFilePath, NTe, q5e());
               if (((ve = pe === "today"), typeof pe === "number")) (ue = oe), (ye = pe);
@@ -3969,7 +3969,7 @@ var zs = "command contains control characters that would be hidden in the approv
         if (xe) {
           let U = await AFt(te, y.outputFilePath, ye, Ya(t.options.mainLoopModel));
           if (U) ne = U;
-          else xe = !1;
+          else xe = false;
         }
         let ce = [y.stderr || "", A].filter(Boolean).join(`
 `),
@@ -4010,7 +4010,7 @@ var zs = "command contains control characters that would be hidden in the approv
       }
     },
     isResultTruncated(e, { columns: t }) {
-      if (e.isImage) return !1;
+      if (e.isImage) return false;
       return ik(e.stdout, t) || ik(e.stderr, t);
     },
   });
@@ -4039,7 +4039,7 @@ async function* Hs({
     Z = 0,
     H = void 0,
     re = void 0,
-    te = !1,
+    te = false,
     ae = () => o.signal.aborted && FA.backgroundsTheShell(o.signal.reason, k),
     ue = null;
   function ye() {
@@ -4055,9 +4055,9 @@ async function* Hs({
   let ne = $d(),
     ce = !ne && (await Vs(b)),
     de = !ne && !/git/i.test(b),
-    U = z1t({ requestedTimeoutMs: x, isMainAgent: P === !0, canAutoBackground: ce });
+    U = z1t({ requestedTimeoutMs: x, isMainAgent: P === true, canAutoBackground: ce });
   if (!(await gv()))
-    return { stdout: "", stderr: "PowerShell is not available on this system.", code: 0, interrupted: !1 };
+    return { stdout: "", stderr: "PowerShell is not available on this system.", code: 0, interrupted: false };
   let X;
   try {
     X = await jG(b, o.signal, "powershell", {
@@ -4077,16 +4077,16 @@ async function* Hs({
       sessionEnvVars: y,
     });
   } catch (M) {
-    if (It(M)) return { stdout: "", stderr: "Command aborted before execution", code: 145, interrupted: !0 };
+    if (It(M)) return { stdout: "", stderr: "Command aborted before execution", code: 145, interrupted: true };
     if (M instanceof Error && lln.has(M.name)) throw M;
     if ($o(M))
       return (
         n(`PowerShellTool: exec spawn failed: ${M}`),
-        { stdout: "", stderr: `Failed to execute PowerShell command: ${l(M)}`, code: 0, interrupted: !1 }
+        { stdout: "", stderr: `Failed to execute PowerShell command: ${l(M)}`, code: 0, interrupted: false }
       );
     return (
       h(ft(we(M), "PowerShell exec() pre-spawn setup failed")),
-      { stdout: "", stderr: `Failed to execute PowerShell command: ${l(M)}`, code: 0, interrupted: !1 }
+      { stdout: "", stderr: `Failed to execute PowerShell command: ${l(M)}`, code: 0, interrupted: false }
     );
   }
   let ve = X.status !== "killed" ? a$t(Bt, b, E, { useSandbox: t }) : null,
@@ -4120,7 +4120,7 @@ async function* Hs({
     X.onTimeout((M) => {
       (re = U), _("tengu_powershell_command_timeout_backgrounded", M);
     });
-  if (B === !0 && !ne) {
+  if (B === true && !ne) {
     if (X.status === "completed") {
       let Y = await pe;
       if (Y.preSpawnError) return Y;
@@ -4128,7 +4128,7 @@ async function* Hs({
     let M = await S();
     return (
       s("tengu_powershell_command_explicitly_backgrounded", { command_type: c(Ae(b)) }),
-      { stdout: "", stderr: "", code: 0, interrupted: !1, backgroundTaskId: M }
+      { stdout: "", stderr: "", code: 0, interrupted: false, backgroundTaskId: M }
     );
   }
   Bx.startPolling(X.taskOutput.taskId);
@@ -4137,7 +4137,7 @@ async function* Hs({
     j = void 0,
     Q = null;
   try {
-    while (!0) {
+    while (true) {
       let M = Date.now(),
         Y = Math.max(0, z - M),
         se;
@@ -4160,13 +4160,13 @@ async function* Hs({
           stdout: te ? A : "",
           stderr: "",
           code: 0,
-          interrupted: !1,
+          interrupted: false,
           backgroundTaskId: H,
-          ...(ae() && { backgroundedByTurnAbort: !0 }),
+          ...(ae() && { backgroundedByTurnAbort: true }),
           timedOutAfterMs: re,
         };
       if (o.signal.aborted && (Za(o.signal.reason) === "interrupt" || ae()) && !te) {
-        if (((te = !0), ce || (ae() && de))) {
+        if (((te = true), ce || (ae() && de))) {
           _(
             ae()
               ? "tengu_powershell_command_turn_abort_backgrounded"
@@ -4183,9 +4183,9 @@ async function* Hs({
             stdout: "",
             stderr: "",
             code: 0,
-            interrupted: !1,
+            interrupted: false,
             backgroundTaskId: j,
-            ...(S$t(j, r) ? { backgroundedToDeliverMessage: !0 } : { backgroundedByUser: !0 }),
+            ...(S$t(j, r) ? { backgroundedToDeliverMessage: true } : { backgroundedByUser: true }),
           };
       }
       let ge = Date.now() - V,

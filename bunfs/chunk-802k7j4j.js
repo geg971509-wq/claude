@@ -182,12 +182,12 @@ var W = m(() => H(i().refine(l_e)).max(sC)),
         .optional()
         .transform((e) => (e === "folder" ? "folder" : void 0))
         .catch(void 0),
-      acceptsHeldParents: N(!0)
+      acceptsHeldParents: N(true)
         .optional()
         .catch(void 0),
       seedless: _e()
         .optional()
-        .transform((e) => (e === !0 ? !0 : void 0))
+        .transform((e) => (e === true ? true : void 0))
         .catch(void 0),
     }),
   ),
@@ -239,7 +239,7 @@ var W = m(() => H(i().refine(l_e)).max(sC)),
       ).max(A),
       skippedOmittedCount: v().int().nonnegative(),
       skippedDeferredCount: v().int().nonnegative().optional(),
-      countsDependencyDirs: N(!0)
+      countsDependencyDirs: N(true)
         .optional()
         .catch(void 0),
       deletedWithheldCount: v().int().nonnegative().optional(),
@@ -261,7 +261,7 @@ var W = m(() => H(i().refine(l_e)).max(sC)),
       uploading: f({
         generation: v().int().positive(),
         startedAtMs: v().int().nonnegative(),
-        abandoned: N(!0)
+        abandoned: N(true)
           .optional()
           .catch(void 0),
         writer: i()
@@ -301,16 +301,16 @@ var _rn = m(() =>
 function HDt(e) {
   let n = M2(),
     t = n ? e.path.split("/").map(ymn).join("/") : e.path;
-  return !aht(t, !0) && !(n && LE(e.path)) && !(n && OX(t)) && !oht(t) && !Kwe(t);
+  return !aht(t, true) && !(n && LE(e.path)) && !(n && OX(t)) && !oht(t) && !Kwe(t);
 }
 function c_e(e, n, { engine: t }) {
-  if (e.length > L) return { ok: !1, reason: "oversize" };
-  let a = Ut(e.toString("utf8"), !1),
+  if (e.length > L) return { ok: false, reason: "oversize" };
+  let a = Ut(e.toString("utf8"), false),
     p = Z(a);
-  if (p !== null && p !== h && p !== g8) return { ok: !1, reason: "unsupported_version" };
+  if (p !== null && p !== h && p !== g8) return { ok: false, reason: "unsupported_version" };
   let o = V().safeParse(a);
-  if (!o.success || !Q(o.data)) return { ok: !1, reason: "malformed" };
-  if (o.data.side !== n) return { ok: !1, reason: "wrong_side" };
+  if (!o.success || !Q(o.data)) return { ok: false, reason: "malformed" };
+  if (o.data.side !== n) return { ok: false, reason: "wrong_side" };
   let { note: s, ...r } = o.data,
     d = s !== void 0 || (r.uploading !== void 0 && n === "laptop") || (r.halted === "start_failed" && n === "worker");
   if (
@@ -325,13 +325,13 @@ function c_e(e, n, { engine: t }) {
         (r.deletedWithheldCount ?? 0) > 0 ||
         r.deleted.length > 0))
   )
-    return { ok: !1, reason: "wrong_note" };
+    return { ok: false, reason: "wrong_note" };
   let l = s === void 0 ? void 0 : (n === "laptop" ? k() : I()).safeParse(s);
-  if (l !== void 0 && !l.success) return { ok: !1, reason: "wrong_note" };
+  if (l !== void 0 && !l.success) return { ok: false, reason: "wrong_note" };
   let _ = r.entries.filter(HDt),
     S = r.deleted.filter(HDt);
   return {
-    ok: !0,
+    ok: true,
     journal: { ...r, entries: _, deleted: S, ...(l !== void 0 && { note: l.data }) },
     droppedEntries: r.entries.length - _.length + (r.deleted.length - S.length),
   };

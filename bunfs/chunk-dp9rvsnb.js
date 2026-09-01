@@ -21,17 +21,17 @@ function Kot(e, { model: r, getAppState: o, setAppState: E, storageV5: v }) {
   if (!S9t())
     return (
       p("bridge_flag_settings", "disabled"),
-      { ok: !1, error: "apply_flag_settings: effort changes over Remote Control are turned off" }
+      { ok: false, error: "apply_flag_settings: effort changes over Remote Control are turned off" }
     );
   let s,
-    i = !1;
+    i = false;
   if ("effortLevel" in e) {
-    if (((i = !0), e.effortLevel != null)) {
+    if (((i = true), e.effortLevel != null)) {
       let t = Ik(e.effortLevel) ?? FOe(e.effortLevel);
       if (typeof t !== "string" || !Wv(t))
         return (
           p("bridge_flag_settings", "invalid_effort_level"),
-          { ok: !1, error: "apply_flag_settings: unrecognized effortLevel" }
+          { ok: false, error: "apply_flag_settings: unrecognized effortLevel" }
         );
       s = FF(t, r);
     }
@@ -39,21 +39,21 @@ function Kot(e, { model: r, getAppState: o, setAppState: E, storageV5: v }) {
     if (l !== void 0 && s !== l)
       return (
         p("bridge_flag_settings", "env_override"),
-        { ok: !1, error: "apply_flag_settings: CLAUDE_CODE_EFFORT_LEVEL overrides effort for this session" }
+        { ok: false, error: "apply_flag_settings: CLAUDE_CODE_EFFORT_LEVEL overrides effort for this session" }
       );
   }
   let a = CTe(e.effortLevel) === "ultracode",
-    f = "ultracode" in e ? e.ultracode === !0 : void 0;
-  if ((f === !0 || (f === void 0 && a)) && !BS(r))
+    f = "ultracode" in e ? e.ultracode === true : void 0;
+  if ((f === true || (f === void 0 && a)) && !BS(r))
     return (
       p("bridge_flag_settings", "ultracode_unavailable"),
       {
-        ok: !1,
+        ok: false,
         error:
           "apply_flag_settings: ultracode is not available for this session (dynamic workflows are off, or the model / your organization does not allow xhigh effort)",
       }
     );
-  if (i || f === !0) Mm(v);
+  if (i || f === true) Mm(v);
   E((l) => {
     let t = l;
     if (i) {
@@ -62,16 +62,16 @@ function Kot(e, { model: r, getAppState: o, setAppState: E, storageV5: v }) {
     }
     if (f === void 0) {
       if (a) {
-        if (!t.ultracode) t = { ...t, ultracode: !0 };
-      } else if (i && t.ultracode) t = { ...t, ultracode: !1 };
+        if (!t.ultracode) t = { ...t, ultracode: true };
+      } else if (i && t.ultracode) t = { ...t, ultracode: false };
     } else if (f) {
-      if (!t.ultracode || sl(t) !== "xhigh") t = { ...t, ultracode: !0, sessionEffort: Pk("xhigh") };
-    } else if (t.ultracode) t = { ...t, ultracode: !1 };
+      if (!t.ultracode || sl(t) !== "xhigh") t = { ...t, ultracode: true, sessionEffort: Pk("xhigh") };
+    } else if (t.ultracode) t = { ...t, ultracode: false };
     return t;
   });
   let d = o();
   return (
-    n(`[bridge] apply_flag_settings applied effort=${sl(d) ?? "auto"} ultracode=${d.ultracode === !0}`), { ok: !0 }
+    n(`[bridge] apply_flag_settings applied effort=${sl(d) ?? "auto"} ultracode=${d.ultracode === true}`), { ok: true }
   );
 }
 function g(e) {

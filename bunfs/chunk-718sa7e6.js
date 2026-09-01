@@ -30,7 +30,7 @@ var CYe = S(function (e, s) {
       "test:watch": "yarn g:vitest watch",
     },
     engines: { node: ">=18.0.0" },
-    sideEffects: !1,
+    sideEffects: false,
     author: { name: "AWS SDK for JavaScript Team", url: "https://aws.amazon.com/javascript/" },
     license: "Apache-2.0",
     dependencies: {

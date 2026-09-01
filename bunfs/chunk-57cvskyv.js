@@ -17,8 +17,8 @@ import { qhn, dKe } from "/$bunfs/root/chunk-2n1hsggr.js";
 import { Fd, FS, Ip } from "/$bunfs/root/chunk-e53y7x75.js";
 var a = ecn.filter((e) => e !== "userSettings");
 function Rie(e) {
-  if (qhn()) return !1;
-  if (dKe()) return !0;
+  if (qhn()) return false;
+  if (dKe()) return true;
   return (e ?? Xvt()).length > 0;
 }
 function Xvt(e = Yvt()) {
@@ -28,10 +28,10 @@ function Xvt(e = Yvt()) {
   return r;
 }
 function c(e, r) {
-  if (FS()) return !1;
+  if (FS()) return false;
   let o = r?.extraKnownMarketplaces ?? {};
   return Object.entries(e?.extraKnownMarketplaces ?? {}).some(([t, l]) => {
-    if (Object.hasOwn(o, t)) return !1;
+    if (Object.hasOwn(o, t)) return false;
     let s = l.source;
     if (s.source === "url") return !!s.headersHelper && /^https:\/\//i.test(s.url) && Ip(s) && !u(t, s.url);
     if (s.source === "settings")
@@ -43,20 +43,20 @@ function c(e, r) {
             !!n.headersHelper && typeof n.source === "object" && n.source.source === "archive" && !Fd(`${n.name}@${t}`),
         )
       );
-    return !1;
+    return false;
   });
 }
 function u(e, r) {
   let o = xi();
-  if (a.some((t) => o.includes(t) && Object.hasOwn(ye(t)?.extraKnownMarketplaces ?? {}, e))) return !0;
+  if (a.some((t) => o.includes(t) && Object.hasOwn(ye(t)?.extraKnownMarketplaces ?? {}, e))) return true;
   return FGn({ source: "url", url: r }, e) !== void 0;
 }
 function p(e) {
   return Object.hasOwn(VA(), e);
 }
 function i(e) {
-  if (ox() || nh()) return !1;
-  let { servers: r } = kp(e, { expandVars: !1 });
+  if (ox() || nh()) return false;
+  let { servers: r } = kp(e, { expandVars: false });
   return Object.entries(r).some(
     ([o, t]) => "headersHelper" in t && !!t.headersHelper && !(e === "project" && wye(o) === "rejected") && p9(o, t),
   );

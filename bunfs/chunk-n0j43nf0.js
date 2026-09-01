@@ -106,10 +106,10 @@ import "/$bunfs/root/chunk-7s7jqj2f.js";
 import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 function m() {
-  if (!Yo()) return !1;
-  if (Ne() !== "firstParty" || Ct() || !Mt("allow_remote_sessions")) return !1;
-  if (!Tt() || !o()) return !1;
-  return Boolean(a.CLAUDE_CODE_HARBOR_KITE_CLOUD) || I("tengu_harbor_kite_cloud", !1);
+  if (!Yo()) return false;
+  if (Ne() !== "firstParty" || Ct() || !Mt("allow_remote_sessions")) return false;
+  if (!Tt() || !o()) return false;
+  return Boolean(a.CLAUDE_CODE_HARBOR_KITE_CLOUD) || I("tengu_harbor_kite_cloud", false);
 }
 function o() {
   return Boolean(a.CLAUDE_CODE_ORGANIZATION_UUID) || Boolean(On()?.organizationUuid) || Wd();

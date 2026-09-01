@@ -334,7 +334,7 @@ var Yt = 1,
     f({
       withheldSensitive: ie(),
       withheldReadDenied: ie(),
-      rulesUnreadable: q().default(!1),
+      rulesUnreadable: q().default(false),
       includesNotSent: ie(),
       symlinksNotSent: ie(),
       notDestinations: ie(),
@@ -378,27 +378,27 @@ function Or(e) {
   return e.length <= svt && e.every((t) => t <= E$e) && e.reduce((t, n) => t + n, 0) <= TIn;
 }
 function yt(e) {
-  if (e.length > ht) return { ok: !1, reason: "oversize" };
+  if (e.length > ht) return { ok: false, reason: "oversize" };
   let t = e.toString("utf8");
-  if (xr(t)) return { ok: !1, reason: "malformed" };
+  if (xr(t)) return { ok: false, reason: "malformed" };
   let n = We(t),
     r = Er().safeParse(n);
-  if (r.success && r.data.version !== Yt) return { ok: !1, reason: "unsupported_version" };
-  if (Dr(n)) return { ok: !1, reason: "malformed" };
-  if (!Mr(n)) return { ok: !1, reason: "malformed" };
+  if (r.success && r.data.version !== Yt) return { ok: false, reason: "unsupported_version" };
+  if (Dr(n)) return { ok: false, reason: "malformed" };
+  if (!Mr(n)) return { ok: false, reason: "malformed" };
   let o = Ar().safeParse(n);
-  if (!o.success) return { ok: !1, reason: "malformed" };
+  if (!o.success) return { ok: false, reason: "malformed" };
   let d = o.data,
     _ = d.files.filter(Fr);
-  if (!Hr(_.map((D) => D.path))) return { ok: !1, reason: "malformed" };
+  if (!Hr(_.map((D) => D.path))) return { ok: false, reason: "malformed" };
   let h = _.filter((D) => D.size <= E$e);
-  if (!Or(h.map((D) => D.size))) return { ok: !1, reason: "over_cap" };
+  if (!Or(h.map((D) => D.size))) return { ok: false, reason: "over_cap" };
   let S = h.map(Cr),
     T = S.filter((D) => D !== null);
-  if (T.length !== S.length) return { ok: !1, reason: "content_mismatch" };
+  if (T.length !== S.length) return { ok: false, reason: "content_mismatch" };
   let P = Tr(d.settings);
   return {
-    ok: !0,
+    ok: true,
     pack: {
       generation: d.generation,
       writtenAtMs: d.writtenAtMs,
@@ -435,18 +435,18 @@ function We(e) {
 }
 function xr(e) {
   let t = 0,
-    n = !1;
+    n = false;
   for (let r = 0; r < e.length; r++) {
     let o = e[r];
     if (n) {
       if (o === "\\") r++;
-      else if (o === '"') n = !1;
-    } else if (o === '"') n = !0;
+      else if (o === '"') n = false;
+    } else if (o === '"') n = true;
     else if (o === "[" || o === "{") {
-      if ((t++, t > hr)) return !0;
+      if ((t++, t > hr)) return true;
     } else if (o === "]" || o === "}") t--;
   }
-  return !1;
+  return false;
 }
 function Dr(e) {
   let t = He(e) ? e.files : void 0;
@@ -468,13 +468,13 @@ function Nr(e) {
     n = 1;
   for (let r = t.pop(); r !== void 0; r = t.pop()) {
     let { value: o, depth: d } = r;
-    if (d > qt) return !1;
+    if (d > qt) return false;
     if (typeof o !== "object" || o === null) continue;
     let _ = Array.isArray(o) ? o : Object.values(o);
-    if (((n += _.length), n > _r)) return !1;
+    if (((n += _.length), n > _r)) return false;
     for (let h of _) t.push({ value: h, depth: d + 1 });
   }
-  return !0;
+  return true;
 }
 function Ir(e) {
   let t = [e];
@@ -493,9 +493,9 @@ function Ir(e) {
         continue;
       }
     }
-    return !1;
+    return false;
   }
-  return !0;
+  return true;
 }
 function Qt(e) {
   return Object.fromEntries(
@@ -579,7 +579,7 @@ function oo(e) {
   try {
     return e();
   } catch {
-    return !1;
+    return false;
   }
 }
 function Rt(e) {
@@ -716,7 +716,7 @@ var nn = "[A-Za-z0-9_.@*+][A-Za-z0-9_.@*+:~-]*",
     "codeberg.org",
   ]);
 function uo(e, t) {
-  if (/(?:^|[\s:=])\d{4,}:\*$/.test(e.trim())) return !1;
+  if (/(?:^|[\s:=])\d{4,}:\*$/.test(e.trim())) return false;
   let n = e
       .trim()
       .replace(/(?::\*|\s+\*)$/, "")
@@ -805,7 +805,7 @@ function Be(e, t) {
 function po(e) {
   return /^[.*]+$/.test(e) && !/^(?:\.|\.{3,}|\*{1,2}|\*\.\*)$/.test(e);
 }
-function _o(e, t = !1) {
+function _o(e, t = false) {
   let n = /^-[A-Za-z][A-Za-z0-9_.-]+$/.test(e)
       ? Array.from({ length: e.length - 2 }, (h, S) => S + 2)
           .filter((h) => /^[A-Za-z]+$/.test(e.slice(1, h)))
@@ -834,7 +834,7 @@ function _o(e, t = !1) {
       .some((h) => /\d/.test(h) && /^[0-9a-f:*]+$/i.test(h) && (h.includes("::") || Dn(h, ":") >= 2)) ||
     _.some((h) => {
       let S = h.replace(/[/:].*$/, "").toLowerCase();
-      if (lo.has(S)) return !1;
+      if (lo.has(S)) return false;
       return (
         /^[a-z0-9*-]+(?:\.[a-z0-9*-]+)*\.[a-z*][a-z0-9*-]*$/.test(S) ||
         nse(S.replace(/\*/g, "")) ||
@@ -911,7 +911,7 @@ function Ro(e, t) {
       let h = Ao(pe(e, _), _);
       return _ === "allow" && typeof t === "function" ? vo(h, t) : h;
     }),
-    r = t === !0 || n.some(({ behavior: _, counts: h, carveOutLost: S }) => (_ === "allow" ? S : Eo(h) > 0)),
+    r = t === true || n.some(({ behavior: _, counts: h, carveOutLost: S }) => (_ === "allow" ? S : Eo(h) > 0)),
     o = n.map((_) => (_.behavior === "allow" && r ? ko(_) : _)),
     d = o.reduce((_, { behavior: h, rules: S }) => {
       if (S.length > 0) _[h] = S;
@@ -1095,10 +1095,10 @@ function Fo(e) {
   return t === null ? [] : [{ ...e, kind: t }];
 }
 function Co(e, t) {
-  if (e === null) return { plan: null, refilteredKeys: 0, permissionsDropped: !1 };
-  let n = fn(e, { settingsToCloud: () => !0, preToolUseHookActiveHere: !1 }),
+  if (e === null) return { plan: null, refilteredKeys: 0, permissionsDropped: false };
+  let n = fn(e, { settingsToCloud: () => true, preToolUseHookActiveHere: false }),
     r = n.counts.withheldKeys;
-  if (n.document === null) return { plan: null, refilteredKeys: r, permissionsDropped: !1 };
+  if (n.document === null) return { plan: null, refilteredKeys: r, permissionsDropped: false };
   let { permissions: o, ...d } = n.document,
     _ = o?.allow !== void 0 && !t,
     { allow: h, ...S } = o ?? {},
@@ -1118,7 +1118,7 @@ var Ht = 1,
       outcome: oe(["applied", "partial"]),
       filesApplied: At(),
       filesRefused: At(),
-      settingsWritten: q().default(!1),
+      settingsWritten: q().default(false),
       replacedForeign: At(),
       writtenAtMs: ON().min(0),
     }),
@@ -1129,21 +1129,21 @@ function Ot(e) {
   return Buffer.from(b(t.data));
 }
 function hn(e) {
-  if (e.length > No) return { ok: !1, reason: "oversize" };
-  let t = Ut(e.toString("utf8"), !1),
+  if (e.length > No) return { ok: false, reason: "oversize" };
+  let t = Ut(e.toString("utf8"), false),
     n = Io().safeParse(t);
-  if (n.success && n.data.version !== Ht) return { ok: !1, reason: "unsupported_version" };
+  if (n.success && n.data.version !== Ht) return { ok: false, reason: "unsupported_version" };
   let r = gn().safeParse(t);
-  if (!r.success) return { ok: !1, reason: "malformed" };
+  if (!r.success) return { ok: false, reason: "malformed" };
   let { version: o, ...d } = r.data;
-  return { ok: !0, ready: d };
+  return { ok: true, ready: d };
 }
 var Pt = 300000,
   xt = 60000,
   Rn = 3,
   En = 500,
   Lo = 2000,
-  vn = !0,
+  vn = true,
   Wo =
     "Settings sync: the user's machine sent this session a copy of their Claude Code settings (their CLAUDE.md instructions, permission rules and preferences), but it had not been applied when this turn began, so this turn runs on the session's default settings; if the copy lands it takes effect from a later turn. If the user refers to instructions, rules or preferences from their machine that you do not see in effect, say they have not arrived here yet.",
   zo =
@@ -1159,12 +1159,12 @@ var Uo = "restored-without-announcement";
 function Sn(e) {
   return e === "flag_off" || e === "verdict_off";
 }
-var $o = { etag: "", beforeFirstCommand: !0, ordinal: 0.5 };
+var $o = { etag: "", beforeFirstCommand: true, ordinal: 0.5 };
 function jo(e) {
   try {
-    return e.enabledNow?.() === !0;
+    return e.enabledNow?.() === true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function wn(e, t, n) {
@@ -1179,40 +1179,40 @@ function wn(e, t, n) {
 }
 function kn(e, t) {
   let n,
-    r = !1,
+    r = false,
     o,
-    d = !1,
+    d = false,
     _ = new Set(),
     h = new Set(),
     S,
     T,
-    P = !1,
+    P = false,
     D = 0,
     W = 0,
-    Se = !1,
-    ue = !1,
+    Se = false,
+    ue = false,
     K,
     ce,
-    z = !1,
+    z = false,
     Fe = 0,
     I,
     ge,
-    fe = !1,
+    fe = false,
     ae,
     ke,
     Re,
-    Ge = !1,
-    he = !1,
-    w = !1,
+    Ge = false,
+    he = false,
+    w = false,
     G = !t.epochGt1,
     ye = t.epochGt1 && jo(t),
-    Ce = !1,
+    Ce = false,
     Ae,
-    Ct = !1,
+    Ct = false,
     Ne = 0,
-    Ie = !1,
-    Nt = !1,
-    lt = !1,
+    Ie = false,
+    Nt = false,
+    lt = false,
     Oe = new Set(),
     me = () => {
       for (let l of [...Oe]) l();
@@ -1221,11 +1221,11 @@ function kn(e, t) {
       if (!r) {
         if (((o = l), K !== void 0 || ce !== void 0)) (Ie ||= !Sn(l)), It();
       }
-      if (((r = !0), (K = void 0), (ce = void 0), w && !z)) Z("lane_unavailable", 0, t.now(), !1);
-      (w = !1), (ye = !1), (G = !0), me();
+      if (((r = true), (K = void 0), (ce = void 0), w && !z)) Z("lane_unavailable", 0, t.now(), false);
+      (w = false), (ye = false), (G = true), me();
     },
     It = () => {
-      if (!P) (P = !0), Y("info", "home_seed_announcement_discarded", { reason: o ?? "stopped" });
+      if (!P) (P = true), Y("info", "home_seed_announcement_discarded", { reason: o ?? "stopped" });
     },
     Ve = () => {
       let l = [K, ce, w || ye ? $o : void 0].filter((u) => u !== void 0);
@@ -1236,31 +1236,31 @@ function kn(e, t) {
       (Ie ||= !Sn(o)), It();
       return;
     }
-    if (!G) (G = !0), (ye = !1);
-    else if (w && !z) (w = !1), Ee("superseded", 0, t.now());
+    if (!G) (G = true), (ye = false);
+    else if (w && !z) (w = false), Ee("superseded", 0, t.now());
     if (l.etag === K?.etag || l.etag === ce?.etag) return;
     if (l.etag === ge) {
-      if (ae !== void 0 && I === void 0) I = { etag: l.etag, ready: sr(ae), readyWritten: !1 };
+      if (ae !== void 0 && I === void 0) I = { etag: l.etag, ready: sr(ae), readyWritten: false };
       if (I !== void 0 && !I.readyWritten)
-        if (z || !Se || n !== "served") fe = !0;
+        if (z || !Se || n !== "served") fe = true;
         else ft();
       return;
     }
     if (I !== void 0 && l.etag === I.etag) {
       if (!I.readyWritten)
-        if (z) fe = !0;
+        if (z) fe = true;
         else ft();
       return;
     }
     if (((K = l), t.epochGt1 && !Ct)) {
-      Ct = !0;
+      Ct = true;
       let u = t.now();
       (ke ??= t.readSidecar(e.configHome).catch(() => null)),
         ke.then((A) => {
           Zn(A, u);
         });
     }
-    if (n === "served") Xe(!1);
+    if (n === "served") Xe(false);
   }
   function Zn(l, u) {
     if (l === null || l.packEtag === void 0 || K?.etag !== l.packEtag || I !== void 0 || ge !== void 0) return;
@@ -1276,17 +1276,17 @@ function kn(e, t) {
     }
     be(l === "off" ? "verdict_off" : "verdict_refused");
   }
-  function dt(l = !1) {
-    if (!G && Se && Ae === "absent" && !r && !d) (G = !0), (w = !0), (ye = !1);
+  function dt(l = false) {
+    if (!G && Se && Ae === "absent" && !r && !d) (G = true), (w = true), (ye = false);
     if (!w || n !== "served" || z || r || d) return;
-    (z = !0), (Ce = !0);
+    (z = true), (Ce = true);
     let u = t.now();
     Qn(!l, u)
       .catch((A) => {
         Y("error", "home_seed_recovery_threw", { name: Aue(A) }), Ee("threw", 0, u);
       })
       .finally(() => {
-        (z = !1), (w = !1), me(), Le();
+        (z = false), (w = false), me(), Le();
       });
   }
   async function Qn(l, u) {
@@ -1303,7 +1303,7 @@ function kn(e, t) {
     let A = await t.pullRow(k6t);
     if (Ye(u)) return;
     if (A.kind !== "ok") {
-      if (A.kind === "not_found") Z("no_ready_row", 0, u, !1);
+      if (A.kind === "not_found") Z("no_ready_row", 0, u, false);
       else {
         let j = ut(A);
         if (j === "refused") be("ready_refused");
@@ -1313,7 +1313,7 @@ function kn(e, t) {
     }
     let v = hn(A.buf);
     if (!v.ok) {
-      Z("ready_unreadable", 0, u, !0);
+      Z("ready_unreadable", 0, u, true);
       return;
     }
     let R = v.ready.generation,
@@ -1322,16 +1322,16 @@ function kn(e, t) {
     if (M.kind !== "ok") {
       let j = M.kind === "not_found" ? "not_found" : ut(M);
       if (j === "refused") be("pack_refused");
-      Z(j === "not_found" ? "pack_absent" : j === "auth" ? "auth_failed" : "request_failed", R, u, !0);
+      Z(j === "not_found" ? "pack_absent" : j === "auth" ? "auth_failed" : "request_failed", R, u, true);
       return;
     }
     let F = yt(M.buf);
     if (!F.ok) {
-      Y("warn", "home_seed_bad_pack", { reason: F.reason }), Z("pack_unreadable", R, u, !0);
+      Y("warn", "home_seed_bad_pack", { reason: F.reason }), Z("pack_unreadable", R, u, true);
       return;
     }
     if (F.pack.generation !== R) {
-      Z("generation_mismatch", R, u, !0);
+      Z("generation_mismatch", R, u, true);
       return;
     }
     let C = kt({
@@ -1340,42 +1340,42 @@ function kn(e, t) {
       refused: F.refused,
       sidecar: null,
       lastAppliedGeneration: 0,
-      permissionsAdmissible: !1,
+      permissionsAdmissible: false,
     });
     if (C.kind === "stale_generation") {
-      Z("generation_mismatch", R, u, !0);
+      Z("generation_mismatch", R, u, true);
       return;
     }
     if (F.refused.settings !== "none") {
-      Z("settings_refused", R, u, !0);
+      Z("settings_refused", R, u, true);
       return;
     }
     let x = er(C.plan, F.pack.settings);
     if (x.deny.length === 0 && x.ask.length === 0) {
-      if (x.dropped > 0) Z("rules_unverifiable", R, u, !0, x.dropped);
-      else Z("no_rules", R, u, !1);
+      if (x.dropped > 0) Z("rules_unverifiable", R, u, true, x.dropped);
+      else Z("no_rules", R, u, false);
       return;
     }
     if (e.settingsPath === void 0) {
-      Z("no_rules", R, u, !1);
+      Z("no_rules", R, u, false);
       return;
     }
     let U = await t.readStandingSettings(e.settingsPath).catch(() => ({ kind: "unusable" }));
     if (Ye(u)) return;
     let B = U.kind === "unusable" ? null : tr(C.plan, x, U);
     if (B === null) {
-      Z("settings_unusable", R, u, !0);
+      Z("settings_unusable", R, u, true);
       return;
     }
     let L = await t.execute(B, e, t.applyDeps()),
       le = !he;
     if (L.outcome === "config_home_unsafe" || L.outcome === "flag_off") {
-      if (L.outcome === "flag_off") lt = !0;
-      J(L.outcome, "recovery", L, L.generation, u), Z("nothing_applied", R, u, !1);
+      if (L.outcome === "flag_off") lt = true;
+      J(L.outcome, "recovery", L, L.generation, u), Z("nothing_applied", R, u, false);
       return;
     }
     if (!L.settingsWritten) {
-      J(L.outcome, "recovery", L, L.generation, u), Z("nothing_applied", R, u, !0);
+      J(L.outcome, "recovery", L, L.generation, u), Z("nothing_applied", R, u, true);
       return;
     }
     try {
@@ -1422,7 +1422,7 @@ function kn(e, t) {
       ...l,
       writes: [],
       removals: [],
-      restoreRecord: !0,
+      restoreRecord: true,
       settings: {
         document: {
           permissions: {
@@ -1440,12 +1440,12 @@ function kn(e, t) {
     return Y("warn", "home_seed_lane_request_failed", { outcome: u, kind: l.errorKind, status: l.status ?? 0 }), u;
   }
   function Ye(l) {
-    if (r || d) return Ee("gate_closed", 0, l), !0;
-    if (K !== void 0) return (w = !1), Ee("superseded", 0, l), !0;
-    return !1;
+    if (r || d) return Ee("gate_closed", 0, l), true;
+    if (K !== void 0) return (w = false), Ee("superseded", 0, l), true;
+    return false;
   }
   function Z(l, u, A, v, R = 0) {
-    if (((w = !1), Ee(l, u, A, R), v && nr(l))) ct({ kind: "not_restored", reason: l });
+    if (((w = false), Ee(l, u, A, R), v && nr(l))) ct({ kind: "not_restored", reason: l });
   }
   function nr(l) {
     return (
@@ -1483,40 +1483,40 @@ function kn(e, t) {
   }
   function Xe(l) {
     if (!Se || z || K === void 0 || r || d) return;
-    (z = !0),
+    (z = true),
       rr(l)
         .catch((u) => {
           Y("error", "home_seed_run_threw", { name: Aue(u) });
         })
         .finally(() => {
-          (z = !1), (ce = void 0), me(), Le();
+          (z = false), (ce = void 0), me(), Le();
         });
   }
   function Le() {
     if (K !== void 0 && n === "served") {
-      if ((Xe(!1), z)) fe = !1;
+      if ((Xe(false), z)) fe = false;
       return;
     }
     if (!fe) return;
     if (I === void 0 || I.readyWritten) {
-      fe = !1;
+      fe = false;
       return;
     }
-    if ((ft(), z)) fe = !1;
+    if ((ft(), z)) fe = false;
   }
   function ft() {
     if (I === void 0 || z || r || d || !Se || n !== "served") return;
     let l = I;
-    (z = !0),
+    (z = true),
       mt(l.ready)
         .then((u) => {
-          if (u) l.readyWritten = !0;
+          if (u) l.readyWritten = true;
         })
         .catch((u) => {
           Y("error", "home_seed_run_threw", { name: Aue(u) });
         })
         .finally(() => {
-          (z = !1), me(), Le();
+          (z = false), me(), Le();
         });
   }
   async function rr(l) {
@@ -1593,8 +1593,8 @@ function kn(e, t) {
     let x = await t.execute(C.plan, e, t.applyDeps()),
       U = !he;
     if (x.outcome === "config_home_unsafe" || x.outcome === "flag_off") {
-      if (x.outcome === "flag_off") lt = !0;
-      else Ie = !0;
+      if (x.outcome === "flag_off") lt = true;
+      else Ie = true;
       J(x.outcome, v, x, x.generation, u);
       return;
     }
@@ -1617,7 +1617,7 @@ function kn(e, t) {
     }),
       J(x.outcome, v, x, x.generation, u, { appliedBeforeFirstAsk: U, outputStyleCheck: le });
     let j = lr(x, U),
-      se = { etag: R.etag, ready: j, readyWritten: !1 };
+      se = { etag: R.etag, ready: j, readyWritten: false };
     (I = se), (ce = void 0), me(), (se.readyWritten = await mt(j));
   }
   function Wt(l, u) {
@@ -1704,13 +1704,13 @@ function kn(e, t) {
   }
   async function mt(l) {
     let u = t.limits.requestRetryDelayMs,
-      A = !1;
+      A = false;
     for (let v = 1; ; v++) {
-      if (r || d) return !1;
+      if (r || d) return false;
       let R = await t.putRow(k6t, l, Re);
-      if (R.kind === "ok") return (Re = R.content_sha256), !0;
+      if (R.kind === "ok") return (Re = R.content_sha256), true;
       if (R.kind === "conflict" && !A) {
-        if (((A = !0), r || d)) return !1;
+        if (((A = true), r || d)) return false;
         let F = await t.pullRow(k6t);
         Re = F.kind === "ok" ? F.content_sha256 : void 0;
         continue;
@@ -1721,7 +1721,7 @@ function kn(e, t) {
             kind: R.kind,
             ...(R.kind === "error" && { errorKind: R.errorKind, status: R.status ?? 0 }),
           }),
-          !1
+          false
         );
       await t.sleep(u), (u *= 2);
     }
@@ -1729,7 +1729,7 @@ function kn(e, t) {
   function sr(l) {
     return Ot({
       generation: l.generation,
-      appliedBeforeFirstAsk: !1,
+      appliedBeforeFirstAsk: false,
       outcome: "applied",
       filesApplied: l.entries.length,
       filesRefused: 0,
@@ -1753,7 +1753,7 @@ function kn(e, t) {
   let dr = () => Ne === 0 && (!t.epochGt1 || Ae === "absent"),
     qe = (l) => {
       if (Nt || !dr() || !Se || lt) return "none";
-      Nt = !0;
+      Nt = true;
       try {
         t.notifyAgent(l === "pending" ? Wo : zo);
       } catch {
@@ -1773,21 +1773,21 @@ function kn(e, t) {
         let M = r || d ? void 0 : Ve();
         return M !== void 0 && M.ordinal > Fe ? M : void 0;
       };
-    if (v() === void 0 || t.limits.holdMaxMs <= 0) return (he = !0), ur(), Promise.resolve();
+    if (v() === void 0 || t.limits.holdMaxMs <= 0) return (he = true), ur(), Promise.resolve();
     let R = pt();
     return new Promise((M) => {
-      let F = !1,
+      let F = false,
         C = 0,
         x = n !== void 0 && ue,
         U = [],
         B = (se) => {
           if (F) return;
-          F = !0;
+          F = true;
           for (let pr of U) pr();
           if ((Oe.delete(L), se !== "released" && se !== "gate_off")) Fe = Math.max(Fe, Ve()?.ordinal ?? 0);
           let re = R || pt(),
             mr = se === "interrupted" ? "none" : Ie ? qe("dropped") : re && se !== "gate_off" ? qe("pending") : "none";
-          (he = !0), M();
+          (he = true), M();
           try {
             t.telemetry.hold({ outcome: se, waitedMs: t.now() - u, verdictWaitMs: C, firstAsk: A, agentNotice: mr });
           } catch {
@@ -1795,7 +1795,7 @@ function kn(e, t) {
           }
         },
         L = () => {
-          if (!x && n !== void 0 && ue) (x = !0), (C = t.now() - u), le();
+          if (!x && n !== void 0 && ue) (x = true), (C = t.now() - u), le();
           if (r || d) B("gate_off");
           else if (v() === void 0) B("released");
         },
@@ -1811,19 +1811,19 @@ function kn(e, t) {
         }, t.limits.verdictWaitMaxMs)),
           U.push(() => le());
       let j = () => B("interrupted");
-      l.addEventListener("abort", j, { once: !0 }), U.push(() => l.removeEventListener("abort", j));
+      l.addEventListener("abort", j, { once: true }), U.push(() => l.removeEventListener("abort", j));
     });
   }
   let gt;
   try {
     gt = t.enabled();
   } catch {
-    gt = Promise.resolve(!1);
+    gt = Promise.resolve(false);
   }
   gt.then(
     (l) => {
-      if (((ue = !0), l)) {
-        if (((Se = !0), jt(), K !== void 0 && n === "served")) Xe(!1);
+      if (((ue = true), l)) {
+        if (((Se = true), jt(), K !== void 0 && n === "served")) Xe(false);
         else if (fe) Le();
         else dt();
         return;
@@ -1831,13 +1831,13 @@ function kn(e, t) {
       be("flag_off");
     },
     () => {
-      (ue = !0), be("flag_off");
+      (ue = true), be("flag_off");
     },
   ).finally(me);
-  let $t = !1,
+  let $t = false,
     jt = () => {
       if ($t || !t.epochGt1) return;
-      ($t = !0),
+      ($t = true),
         t
           .sidecarState(e.configHome)
           .catch(() => "invalid")
@@ -1845,7 +1845,7 @@ function kn(e, t) {
             if (((Ae = l), l === "absent")) dt();
             else {
               if (l === "invalid" && !G) Ee("sidecar_invalid", 0, t.now());
-              (G = !0), (ye = !1);
+              (G = true), (ye = false);
             }
             me();
           });
@@ -1858,7 +1858,7 @@ function kn(e, t) {
       });
     }),
     Gt = () => {};
-  Ge = !0;
+  Ge = true;
   try {
     Gt = t.verdicts.subscribe((l) => {
       let u = Ge;
@@ -1869,7 +1869,7 @@ function kn(e, t) {
   } catch {
     Y("error", "home_seed_verdict_subscribe_threw", {});
   } finally {
-    Ge = !1;
+    Ge = false;
   }
   return {
     beforeTurn: cr,
@@ -1885,7 +1885,7 @@ function kn(e, t) {
     onApplied: (l) => (_.add(l), wn(l, S, "home_seed_applied_listener_threw"), (S = void 0), () => _.delete(l)),
     onRestore: (l) => (h.add(l), wn(l, T, "home_seed_restore_listener_threw"), (T = void 0), () => h.delete(l)),
     stop: () => {
-      (d = !0), fr(), Gt(), be("stopped");
+      (d = true), fr(), Gt(), be("stopped");
     },
   };
 }
@@ -1902,9 +1902,9 @@ import { realpath as Yo, stat as qo } from "fs/promises";
 import { basename as An, dirname as Hn, join as Zo, relative as Jo, sep as Qo } from "path";
 async function ei(e) {
   try {
-    return await qo(e), !0;
+    return await qo(e), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function nt(e, t) {
@@ -1945,7 +1945,7 @@ function si(e) {
 }
 function xn({ storageV5: e, flagOn: t, configHome: n, settingsToCloud: r = eO }) {
   let o = (_) => async (h, S, T) => {
-    if (!(await r().catch(() => !1)))
+    if (!(await r().catch(() => false)))
       throw de(Error("settings forwarding is not enabled for this account"), "HOME_DEST_FLAG_OFF");
     return _(h, S, T);
   };
@@ -1984,7 +1984,7 @@ async function li(e, t) {
     if (E(o) !== "EEXIST") throw o;
   });
   let n = await Dt(e);
-  await di(n, rt(t)), await On(rt(t), { recursive: !0 });
+  await di(n, rt(t)), await On(rt(t), { recursive: true });
   let r = await Dt(rt(t));
   if (!Mn({ path: r, directory: n }))
     throw de(Error("destination parent escaped the config home"), "HOME_DEST_PARENT_ESCAPE");
@@ -2027,12 +2027,12 @@ function Cn(e, t) {
   try {
     return Hzn(t.content.toString("utf8"), ci(e, ...t.path.split("/")), "User").every((n) => mi(e, n));
   } catch {
-    return !1;
+    return false;
   }
 }
 function mi(e, t) {
   let n = fi(e, t);
-  if (n === "" || n === ".." || n.startsWith(`..${Fn}`) || ui(n)) return !1;
+  if (n === "" || n === ".." || n.startsWith(`..${Fn}`) || ui(n)) return false;
   let r = avt(n.split(Fn).join("/"));
   return r !== null && r.kind !== "output_style";
 }
@@ -2091,34 +2091,34 @@ async function hi(e, t, n = MVe) {
   try {
     o = await Wn(r);
   } catch (T) {
-    return { ok: !1, reason: X(T) ? "missing" : "unresolvable" };
+    return { ok: false, reason: X(T) ? "missing" : "unresolvable" };
   }
-  if (o.isSymbolicLink()) return { ok: !1, reason: "symlink" };
-  if (!o.isDirectory()) return { ok: !1, reason: "not_directory" };
+  if (o.isSymbolicLink()) return { ok: false, reason: "symlink" };
+  if (!o.isDirectory()) return { ok: false, reason: "not_directory" };
   let d, _;
   try {
     (d = await Ue(r)), (_ = await Ue(t));
   } catch {
-    return { ok: !1, reason: "unresolvable" };
+    return { ok: false, reason: "unresolvable" };
   }
-  if (st({ path: _, directory: d })) return { ok: !1, reason: "overlaps_repo" };
-  if (await Vn(d)) return { ok: !1, reason: "inside_git_worktree" };
+  if (st({ path: _, directory: d })) return { ok: false, reason: "overlaps_repo" };
+  if (await Vn(d)) return { ok: false, reason: "inside_git_worktree" };
   if (st({ path: d, directory: _ })) Y("info", "home_under_cwd_no_worktree", {});
   let h;
   try {
     h = await Ue(n);
   } catch (T) {
-    if (!je(E(T))) return { ok: !1, reason: "unresolvable" };
+    if (!je(E(T))) return { ok: false, reason: "unresolvable" };
     h = null;
   }
   if ([n, h].some((T) => T !== null && (st({ path: d, directory: T }) || st({ path: T, directory: d }))))
-    return { ok: !1, reason: "inside_synced_root" };
-  return { ok: !0, real: d };
+    return { ok: false, reason: "inside_synced_root" };
+  return { ok: true, real: d };
 }
 async function Vn(e) {
   for (let t = e; ; t = Ft(t)) {
-    if ((await $e(xe(t, ".git"))) !== "absent") return !0;
-    if (Ft(t) === t) return !1;
+    if ((await $e(xe(t, ".git"))) !== "absent") return true;
+    if (Ft(t) === t) return false;
   }
 }
 async function $e(e) {
@@ -2178,7 +2178,7 @@ async function Yn(e, t, n) {
     fe = T.length + (_.length - ge) + (Fe ? 1 : 0),
     ae = (w) => Q(h, (G) => G.result === w),
     ke = I === 0 ? "empty" : fe === I ? "applied" : "partial",
-    Re = e.restoreRecord === !0,
+    Re = e.restoreRecord === true,
     he =
       !(Re
         ? !S.written
@@ -2230,7 +2230,7 @@ function ve(e, t) {
 }
 async function yi(e, t, n) {
   let r = await bi(e, n);
-  if (r !== "clear") return { result: r, stoodForeign: !1 };
+  if (r !== "clear") return { result: r, stoodForeign: false };
   let o = await vi(e.path, t, n);
   return { result: await wi(e, n), stoodForeign: o };
 }
@@ -2266,15 +2266,15 @@ async function we(e) {
   try {
     return (await Ue(e.configHome)) === e.homeReal && !(await Vn(e.homeReal));
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Ri(e, t) {
   let n = ve(t.configHome, e),
     o = (await nt(t.homeReal, n)) !== e ? "resolved_spelling" : await at(n);
-  if (o !== null) return Y("warn", "home_seed_write_escaped", { reason: o }), !1;
-  if (!(await we(t))) return Y("warn", "home_seed_write_unverified", {}), !1;
-  return !0;
+  if (o !== null) return Y("warn", "home_seed_write_escaped", { reason: o }), false;
+  if (!(await we(t))) return Y("warn", "home_seed_write_unverified", {}), false;
+  return true;
 }
 async function at(e) {
   let t = await $e(e);
@@ -2316,10 +2316,10 @@ async function vi(e, t, n) {
   switch (r.kind) {
     case "absent":
     case "not_regular":
-      return !1;
+      return false;
     case "too_large":
     case "unreadable":
-      return !0;
+      return true;
     case "read":
       return t === void 0 || Nn(r.content) !== t;
   }
@@ -2358,29 +2358,29 @@ async function Ln(e, t) {
   }
 }
 async function ki(e, t, n) {
-  let r = { written: !1, removed: !1, removeFailed: !1, replaced: "none", sha256After: e.priorSettingsSha256 };
+  let r = { written: false, removed: false, removeFailed: false, replaced: "none", sha256After: e.priorSettingsSha256 };
   if (t === void 0 || (e.settings === null && e.priorSettingsSha256 === null)) return r;
   if (Bn(t) !== A$e || !(await Ai(n.homeReal, t)))
-    return Y("warn", "home_seed_settings_path_refused", {}), e.settings === null ? { ...r, removeFailed: !0 } : r;
+    return Y("warn", "home_seed_settings_path_refused", {}), e.settings === null ? { ...r, removeFailed: true } : r;
   let o = t;
   if (e.settings === null && !(await we(n)))
-    return Y("warn", "home_seed_settings_remove_failed", { code: "home_unvetted" }), { ...r, removeFailed: !0 };
+    return Y("warn", "home_seed_settings_remove_failed", { code: "home_unvetted" }), { ...r, removeFailed: true };
   let d = await Me(o, ht);
   if (d.kind === "not_regular" || d.kind === "unreadable")
     return (
       Y("warn", "home_seed_settings_not_replaceable", { reason: d.kind }),
-      e.settings === null ? { ...r, removeFailed: !0 } : r
+      e.settings === null ? { ...r, removeFailed: true } : r
     );
   let _ =
     d.kind === "absent" ? "none" : d.kind === "read" && Nn(d.content) === e.priorSettingsSha256 ? "ours" : "foreign";
   if (e.settings === null) {
     if (_ !== "ours") return { ...r, replaced: _, sha256After: null };
     try {
-      return await zn(o), { ...r, removed: !0, replaced: _, sha256After: null };
+      return await zn(o), { ...r, removed: true, replaced: _, sha256After: null };
     } catch (h) {
       let S = E(h) ?? "unknown";
       if (je(S)) return { ...r, replaced: _, sha256After: null };
-      return Y("warn", "home_seed_settings_remove_failed", { code: S }), { ...r, removeFailed: !0, replaced: _ };
+      return Y("warn", "home_seed_settings_remove_failed", { code: S }), { ...r, removeFailed: true, replaced: _ };
     }
   }
   if (!(await we(n)))
@@ -2394,7 +2394,7 @@ async function ki(e, t, n) {
         Y("warn", "home_seed_write_unverified", { reason: h ?? "home_unvetted" }),
         { ...r, replaced: _, sha256After: e.settings.sha256 }
       );
-    return { ...r, written: !0, replaced: _, sha256After: e.settings.sha256 };
+    return { ...r, written: true, replaced: _, sha256After: e.settings.sha256 };
   } catch (h) {
     return (
       n.deps.consumeInternalWrite(o),
@@ -2407,23 +2407,23 @@ async function Ai(e, t) {
   try {
     return (await Ue(Ft(t))) === e && Bn(t) !== "";
   } catch {
-    return !1;
+    return false;
   }
 }
 async function Hi(e, t) {
-  if (!(await we(e))) return Y("warn", "home_seed_sidecar_write_failed", { code: "home_unvetted" }), !1;
+  if (!(await we(e))) return Y("warn", "home_seed_sidecar_write_failed", { code: "home_unvetted" }), false;
   let n = xe(e.configHome, tt),
     r = await at(n);
-  if (r !== null && r !== "leaf_absent") return Y("warn", "home_seed_sidecar_write_refused", { reason: r }), !1;
+  if (r !== null && r !== "leaf_absent") return Y("warn", "home_seed_sidecar_write_refused", { reason: r }), false;
   try {
     await e.deps.writeHomeFile(e.configHome, n, _n(t));
   } catch (d) {
-    return Y("warn", "home_seed_sidecar_write_failed", { code: E(d) ?? "unknown" }), !1;
+    return Y("warn", "home_seed_sidecar_write_failed", { code: E(d) ?? "unknown" }), false;
   }
   let o = await at(n);
   if (o !== null || !(await we(e)))
-    return Y("warn", "home_seed_sidecar_write_unverified", { reason: o ?? "home_unvetted" }), !1;
-  return !0;
+    return Y("warn", "home_seed_sidecar_write_unverified", { reason: o ?? "home_unvetted" }), false;
+  return true;
 }
 async function Oi(e, t) {
   let n = Buffer.allocUnsafe(t),

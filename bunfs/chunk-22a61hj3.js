@@ -58,12 +58,12 @@ import { He } from "/$bunfs/root/chunk-79g5tayq.js";
 import { Q } from "/$bunfs/root/chunk-wag5ye9w.js";
 import { j } from "/$bunfs/root/chunk-yz031c9r.js";
 function de(e, t, s) {
-  if (x0t(e)) return !1;
-  if (e.source === t) return !0;
+  if (x0t(e)) return false;
+  if (e.source === t) return true;
   return "plugin" in e && e.plugin === s && MI(e.source) === MI(t);
 }
 function x0t(e) {
-  return "orphan" in e && e.orphan === !0;
+  return "orphan" in e && e.orphan === true;
 }
 function I0t(e, t) {
   return de(e, t.source, t.name);
@@ -72,8 +72,8 @@ function P0t(e, t) {
   return de(e, t.source, t.name);
 }
 function Ze(e, t, s) {
-  if (Dne(e.source)) return !1;
-  if (e.source === t) return !0;
+  if (Dne(e.source)) return false;
+  if (e.source === t) return true;
   let a = Ud(e.source);
   return "plugin" in e && e.plugin === s && (a === void 0 || a === Ud(t));
 }
@@ -147,7 +147,7 @@ async function _nt(e) {
     }
     return { source: "url", url: o };
   }
-  let c = !1;
+  let c = false;
   if (t.startsWith("./") || t.startsWith("../") || t.startsWith("/") || t.startsWith("~") || c) {
     let u = Je(t.startsWith("~") ? t.replace(/^~/, Xe()) : t),
       o;
@@ -315,12 +315,12 @@ async function wXt(e, t, s) {
   let a = await D0t(e, s);
   if (!a) return null;
   let r = a.tokens[t];
-  if (r) return { alwaysOn: r.always_on, onInvoke: r.on_invoke, isEstimate: !1 };
+  if (r) return { alwaysOn: r.always_on, onInvoke: r.on_invoke, isEstimate: false };
   let c = [...a.components.commands, ...a.components.agents, ...a.components.skills],
     u = 0,
     o = 0;
   for (let y of c) (u += y.chars?.always_on ?? 0), (o += y.chars?.on_invoke ?? 0);
-  return { alwaysOn: Math.round(u / Se), onInvoke: Math.round(o / Se), isEstimate: !0 };
+  return { alwaysOn: Math.round(u / Se), onInvoke: Math.round(o / Se), isEstimate: true };
 }
 function O0t(e) {
   if (e < 1000) return String(e);
@@ -379,9 +379,9 @@ function CMn(e, t) {
 }
 function Me(e) {
   try {
-    return new RegExp(e), !0;
+    return new RegExp(e), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function U(e) {
@@ -468,7 +468,7 @@ async function bt(e) {
     else if (r === "EISDIR") c = `Path is not a file: ${t}`;
     else c = `Failed to read file: ${l(a)}`;
     return {
-      success: !1,
+      success: false,
       errors: [{ path: "file", message: c, code: r }],
       warnings: [],
       filePath: t,
@@ -485,7 +485,7 @@ async function Ve(e, t) {
     r = V(ui(t));
   } catch (o) {
     return {
-      success: !1,
+      success: false,
       errors: [{ path: "json", message: `Invalid JSON syntax: ${l(o)}` }],
       warnings: [],
       filePath: e,
@@ -670,7 +670,7 @@ async function vt(e) {
     else if (h === "EISDIR") R = `Path is not a file: ${a}`;
     else R = `Failed to read file: ${l(d)}`;
     return {
-      success: !1,
+      success: false,
       errors: [{ path: "file", message: R, code: h }],
       warnings: [],
       filePath: a,
@@ -682,7 +682,7 @@ async function vt(e) {
     c = V(ui(r));
   } catch (d) {
     return {
-      success: !1,
+      success: false,
       errors: [{ path: "json", message: `Invalid JSON syntax: ${l(d)}` }],
       warnings: [],
       filePath: a,
@@ -854,7 +854,7 @@ async function vt(e) {
         if (d.plugins.filter((N) => N.name === h.name).length > 1)
           t.push({ path: `plugins[${R}].name`, message: `Duplicate plugin name "${h.name}" found in marketplace` });
         let M = typeof h.source === "object" && h.source.source === "archive";
-        if (M && EX(h) && h.strict !== !1)
+        if (M && EX(h) && h.strict !== false)
           t.push({
             path: `plugins[${R}].headersHelper`,
             message: `Plugin "${Fp(h.name)}" sets headersHelper but is not "strict": false. An entry with headersHelper must inline its full manifest (strict: false, with commands/agents/hooks/mcpServers declared in the entry) so users can review what it ships before the command runs; Claude Code refuses to run the helper otherwise.`,
@@ -982,7 +982,7 @@ function Pt(e, t, s, a) {
         message:
           "No frontmatter block found. Add YAML frontmatter between --- delimiters at the top of the file to set description and other metadata.",
       });
-    return { success: !0, errors: r, warnings: c, filePath: e, fileType: s };
+    return { success: true, errors: r, warnings: c, filePath: e, fileType: s };
   }
   let y = k_n(o[1] || "");
   if (!y.ok) {
@@ -995,7 +995,7 @@ function Pt(e, t, s, a) {
           : "At runtime this agent loads with its name taken from the filename and every other frontmatter field silently dropped.";
     return (
       r.push({ path: "frontmatter", message: `YAML frontmatter failed to parse: ${LR(y.error, 200)}. ` + p }),
-      { success: !1, errors: r, warnings: c, filePath: e, fileType: s }
+      { success: false, errors: r, warnings: c, filePath: e, fileType: s }
     );
   }
   let S = y.value;
@@ -1005,7 +1005,7 @@ function Pt(e, t, s, a) {
         path: "frontmatter",
         message: `Frontmatter must be a YAML mapping (key: value pairs), got ${Array.isArray(S) ? "an array" : typeof S}.`,
       }),
-      { success: !1, errors: r, warnings: c, filePath: e, fileType: s }
+      { success: false, errors: r, warnings: c, filePath: e, fileType: s }
     );
   let P = S ?? {};
   if (P.description !== void 0) {
@@ -1033,10 +1033,10 @@ function Pt(e, t, s, a) {
       r.push({ path: "allowed-tools", message: "allowed-tools array must contain only strings." });
   }
   if (s === "skill" || s === "command") {
-    let p = !1;
+    let p = false;
     ((T) => {
       if (T == null || He(T)) return;
-      (p = !0),
+      (p = true),
         c.push({
           path: "metadata",
           message: `'metadata' must be a mapping (key: value pairs); got ${Array.isArray(T) ? "array" : typeof T}. It is dropped at load time.`,
@@ -1056,7 +1056,7 @@ function Pt(e, t, s, a) {
   return { success: r.length === 0, errors: r, warnings: c, filePath: e, fileType: s };
 }
 async function Ct(e, t) {
-  let s = { result: { success: !0, errors: [], warnings: [], filePath: e, fileType: "hooks" }, modules: [] },
+  let s = { result: { success: true, errors: [], warnings: [], filePath: e, fileType: "hooks" }, modules: [] },
     a = (C) => ({
       result: K(
         e,
@@ -1076,7 +1076,7 @@ async function Ct(e, t) {
   } catch (C) {
     return {
       result: {
-        success: !1,
+        success: false,
         errors: [{ path: "file", message: `Failed to read file: ${l(C)}` }],
         warnings: [],
         filePath: e,
@@ -1095,7 +1095,7 @@ async function Ct(e, t) {
   } catch (C) {
     return {
       result: {
-        success: !1,
+        success: false,
         errors: [
           { path: "json", message: `Invalid JSON syntax: ${l(C)}. At runtime this breaks the entire plugin load.` },
         ],
@@ -1108,7 +1108,7 @@ async function Ct(e, t) {
   }
   let S = ITt().safeParse(y);
   if (!S.success)
-    return { result: { success: !1, errors: Ie(S.error), warnings: [], filePath: e, fileType: "hooks" }, modules: [] };
+    return { result: { success: false, errors: Ie(S.error), warnings: [], filePath: e, fileType: "hooks" }, modules: [] };
   let P = [],
     g = [],
     p = S.data.modules ?? [];
@@ -1167,7 +1167,7 @@ async function Rt(e) {
   if (a !== void 0) {
     let r = s.map((c) => w.relative(e, c));
     t.push({
-      success: !1,
+      success: false,
       errors: [
         {
           path: "modules",
@@ -1184,7 +1184,7 @@ async function Rt(e) {
 async function be(e, t) {
   let s;
   try {
-    s = await ke(e, { withFileTypes: !0 });
+    s = await ke(e, { withFileTypes: true });
   } catch (c) {
     let u = E(c);
     if (u === "ENOENT" || u === "ENOTDIR") return { files: [], skippedSymlinks: 0 };
@@ -1197,7 +1197,7 @@ async function be(e, t) {
   for (let c of s) {
     let u = w.join(e, c.name);
     if (c.isDirectory()) {
-      let o = await be(u, !1);
+      let o = await be(u, false);
       r.push(...o.files), (a += o.skippedSymlinks);
     } else if (c.isFile() && c.name.toLowerCase().endsWith(".md")) r.push(u);
   }
@@ -1218,27 +1218,27 @@ async function ye(e) {
   return { dirs: t.filter((a, r) => s[r] === "ok"), refused: t.filter((a, r) => s[r] === "refused") };
 }
 async function Et(e) {
-  if ((await Bwe(e, w.join(e, ".claude-plugin"))) === "ok") return !0;
+  if ((await Bwe(e, w.join(e, ".claude-plugin"))) === "ok") return true;
   let t = w.join(e, "skills"),
     s = await Bwe(e, t);
-  if (s === "refused") return !0;
-  if (s !== "ok") return !1;
-  let { files: a } = await be(t, !0);
+  if (s === "refused") return true;
+  if (s !== "ok") return false;
+  let { files: a } = await be(t, true);
   for (let r of a)
     if (
       await pt(r).then(
-        () => !0,
+        () => true,
         (u) => {
           let o = E(u);
           return o !== "ENOENT" && o !== "ENOTDIR";
         },
       )
     )
-      return !0;
-  return !1;
+      return true;
+  return false;
 }
 function K(e, t, s) {
-  return { success: !0, errors: [], warnings: [{ path: "directory", message: s }], filePath: e, fileType: t };
+  return { success: true, errors: [], warnings: [{ path: "directory", message: s }], filePath: e, fileType: t };
 }
 async function ae(e, t, s) {
   let a = [],
@@ -1265,7 +1265,7 @@ async function ae(e, t, s) {
         d = await qgt(T);
       } catch (R) {
         a.push({
-          success: !1,
+          success: false,
           errors: [{ path: "file", message: `Failed to read: ${LR(l(R), 200)}` }],
           warnings: [],
           filePath: A,
@@ -1329,7 +1329,7 @@ async function At(e) {
     if (A)
       return [
         {
-          success: !1,
+          success: false,
           errors: [
             {
               path: "directory",
@@ -1345,7 +1345,7 @@ async function At(e) {
   }
   let s = w.join(e, ".claude"),
     a = w.basename(e) === ".claude",
-    [r, c] = await Promise.all([Bwe(e, s), a ? Promise.resolve(!1) : Et(e)]),
+    [r, c] = await Promise.all([Bwe(e, s), a ? Promise.resolve(false) : Et(e)]),
     u = a || c ? await ye(e) : { dirs: [], refused: [] },
     o = r === "ok" ? await ye(s) : { dirs: [], refused: [] },
     y = a ? "project" : "plugin",
@@ -1369,7 +1369,7 @@ async function ve(e) {
     s = new Set(["claude.md", "claude.local.md"]),
     a = [];
   try {
-    a = await ke(e, { withFileTypes: !0 });
+    a = await ke(e, { withFileTypes: true });
   } catch {}
   for (let c of a) {
     if (!c.isFile() || !s.has(c.name.toLowerCase())) continue;
@@ -1378,7 +1378,7 @@ async function ve(e) {
         ? "Remove it from the plugin root."
         : "To ship context with your plugin, use a skill (skills/<name>/SKILL.md) instead.";
     t.push({
-      success: !0,
+      success: true,
       errors: [],
       warnings: [{ path: "root", message: `${c.name} at the plugin root is not loaded as project context. ${o}` }],
       filePath: w.join(e, LR(c.name, 64)),
@@ -1410,7 +1410,7 @@ async function Tt(e) {
       P = S.errors[0]?.code;
     if (P !== "ENOENT" && P !== "ENOTDIR") return S;
     return {
-      success: !1,
+      success: false,
       errors: [
         {
           path: "directory",
@@ -1437,7 +1437,7 @@ async function Tt(e) {
       } catch (r) {
         if (E(r) === "ENOENT")
           return {
-            success: !1,
+            success: false,
             errors: [{ path: "file", message: `File not found: ${t}` }],
             warnings: [],
             filePath: t,
@@ -1518,7 +1518,7 @@ async function xt(e) {
       .catch(() => new Set());
   let y = [];
   function S(d, h) {
-    if (h.length > 0) y.push({ success: !0, errors: [], warnings: h, filePath: d, fileType: "plugin" });
+    if (h.length > 0) y.push({ success: true, errors: [], warnings: h, filePath: d, fileType: "plugin" });
   }
   let P = w.join(e, ".mcp.json"),
     g = await re(P);
@@ -1558,7 +1558,7 @@ import { dirname as ce, join as ue, relative as se, resolve as Pe, sep as Ke } f
 async function UBe(e, t = {}) {
   let s = [],
     a = await Nt(e);
-  if (!a.ok) return { ok: !1, error: a.error, warnings: s };
+  if (!a.ok) return { ok: false, error: a.error, warnings: s };
   let { pluginRoot: r, manifestPath: c, manifest: u } = a,
     o = await te(c),
     y = [o];
@@ -1571,7 +1571,7 @@ async function UBe(e, t = {}) {
       .join(`
 `);
     return {
-      ok: !1,
+      ok: false,
       error: `Plugin validation failed for ${S.filePath}:
 ${h}`,
       warnings: s,
@@ -1579,7 +1579,7 @@ ${h}`,
   }
   let P = u.name;
   if (typeof P !== "string" || P.length === 0)
-    return { ok: !1, error: `plugin.json at ${c} has no "name" field`, warnings: s };
+    return { ok: false, error: `plugin.json at ${c} has no "name" field`, warnings: s };
   let g = await _t(r, P),
     p = typeof u.version === "string" && u.version.length > 0 ? u.version : void 0,
     C,
@@ -1588,7 +1588,7 @@ ${h}`,
   else if (g?.entry.version) (C = g.entry.version), (T = "marketplace entry");
   else
     return {
-      ok: !1,
+      ok: false,
       error:
         `No version to tag. Set "version" in ${se(ee(), c)}` +
         (g ? ` or in the marketplace entry at ${se(ee(), g.path)} plugins[${g.entryIndex}].` : ".") +
@@ -1597,27 +1597,27 @@ ${h}`,
     };
   if (g?.entry.version && p !== void 0 && g.entry.version !== p)
     return {
-      ok: !1,
+      ok: false,
       error: `Version mismatch: plugin.json says "${p}" but ${se(ee(), g.path)} plugins[${g.entryIndex}].version says "${g.entry.version}". plugin.json wins at install time, so update the marketplace entry to "${p}" (or remove it) before tagging.`,
       warnings: s,
     };
   if (Ye.valid(C) === null)
     return {
-      ok: !1,
+      ok: false,
       error: `Version "${C}" is not valid semver. Dependency resolution (resolveVersionRange) ignores tags whose suffix doesn't parse as semver, so this tag would never be selected.`,
       warnings: s,
     };
   let A = jGn(P, C);
   if (!wS(A))
     return {
-      ok: !1,
+      ok: false,
       error: `Computed tag name "${A}" is not a valid git ref. Check the plugin name for characters git rejects (spaces, ~, ^, :, ?, *, [, \\, or sequences like .., @{, //).`,
       warnings: s,
     };
   let d = Hn(r);
   if (d === null)
     return {
-      ok: !1,
+      ok: false,
       error: `${r} is not inside a git repository. Dependency tags are resolved via git ls-remote, so the plugin must live in a git repo.`,
       warnings: s,
     };
@@ -1632,7 +1632,7 @@ ${h}`,
   \u2026and ${h.length - 5} more`
             : "";
       return {
-        ok: !1,
+        ok: false,
         error: `Uncommitted changes affecting this release \u2014 commit them first so the tag points at the version you intend to release (or use --force):
   ${R}${x}`,
         warnings: s,
@@ -1642,13 +1642,13 @@ ${h}`,
   if (!t.force) {
     if (await It(d, A))
       return {
-        ok: !1,
+        ok: false,
         error: `Tag "${A}" already exists locally. Bump the version in ${T}, or re-run with --force to move the tag.`,
         warnings: s,
       };
   }
   return {
-    ok: !0,
+    ok: true,
     warnings: s,
     plan: {
       pluginName: P,
@@ -1667,20 +1667,20 @@ async function BBe(e, t) {
   if (t.force) s.push("-f");
   s.push("-a", e.tag, "-m", ike(e, t.message), "HEAD");
   let a = await $e("git", s);
-  if (a.code !== 0) return { ok: !1, error: `git tag failed (exit ${a.code}): ${a.stderr.trim() || a.stdout.trim()}` };
-  if (!t.push) return { ok: !0, pushed: !1 };
+  if (a.code !== 0) return { ok: false, error: `git tag failed (exit ${a.code}): ${a.stderr.trim() || a.stdout.trim()}` };
+  if (!t.push) return { ok: true, pushed: false };
   if (!/^[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(t.remote))
-    return { ok: !1, error: `Tag created locally but not pushed: "${t.remote}" is not a valid remote name.` };
+    return { ok: false, error: `Tag created locally but not pushed: "${t.remote}" is not a valid remote name.` };
   let r = ["-C", e.gitRoot, "push"];
   if (t.force) r.push("--force");
   r.push(t.remote, `refs/tags/${e.tag}`);
-  let c = await $e("git", r, { allowRepoGitHooks: !0, useCwd: !0 });
+  let c = await $e("git", r, { allowRepoGitHooks: true, useCwd: true });
   if (c.code !== 0)
     return {
-      ok: !1,
+      ok: false,
       error: `Tag created locally but push failed (exit ${c.code}): ${c.stderr.trim() || c.stdout.trim()}`,
     };
-  return { ok: !0, pushed: !0 };
+  return { ok: true, pushed: true };
 }
 function ike(e, t) {
   return t === void 0 ? `${e.pluginName} ${e.version}` : t.replaceAll("%s", e.version);
@@ -1691,7 +1691,7 @@ async function Nt(e) {
   try {
     s = await Mt(t);
   } catch (r) {
-    return { ok: !1, error: X(r) ? `Path not found: ${t}` : `Cannot stat ${t}: ${l(r)}` };
+    return { ok: false, error: X(r) ? `Path not found: ${t}` : `Cannot stat ${t}: ${l(r)}` };
   }
   let a = s.isFile()
     ? [[ce(ce(t)), t]]
@@ -1705,17 +1705,17 @@ async function Nt(e) {
       u = await Ue(c, { encoding: "utf-8" });
     } catch (y) {
       if (X(y)) continue;
-      return { ok: !1, error: `Cannot read ${c}: ${l(y)}` };
+      return { ok: false, error: `Cannot read ${c}: ${l(y)}` };
     }
     let o;
     try {
       o = V(ui(u));
     } catch (y) {
-      return { ok: !1, error: `Invalid JSON in ${c}: ${l(y)}` };
+      return { ok: false, error: `Invalid JSON in ${c}: ${l(y)}` };
     }
-    return { ok: !0, pluginRoot: r, manifestPath: c, manifest: typeof o === "object" && o !== null ? o : {} };
+    return { ok: true, pluginRoot: r, manifestPath: c, manifest: typeof o === "object" && o !== null ? o : {} };
   }
-  return { ok: !1, error: `No plugin manifest found. Expected ${ue(t, ".claude-plugin", "plugin.json")}.` };
+  return { ok: false, error: `No plugin manifest found. Expected ${ue(t, ".claude-plugin", "plugin.json")}.` };
 }
 async function _t(e, t) {
   let s = Hn(e) ?? void 0,

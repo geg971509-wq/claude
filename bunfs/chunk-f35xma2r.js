@@ -71,16 +71,16 @@ var p = m(() =>
       return u();
     },
     isEnabled() {
-      if (!V6() && !a.CLAUDE_CODE_SKILL_PROPOSALS) return !1;
-      if (!a.CLAUDE_CODE_REMOTE_ENVIRONMENT_TYPE || a.CLAUDE_CODE_ENVIRONMENT_KIND !== void 0) return !1;
-      if (a.CLAUDE_CODE_SKILL_PROPOSALS) return !0;
+      if (!V6() && !a.CLAUDE_CODE_SKILL_PROPOSALS) return false;
+      if (!a.CLAUDE_CODE_REMOTE_ENVIRONMENT_TYPE || a.CLAUDE_CODE_ENVIRONMENT_KIND !== void 0) return false;
+      if (a.CLAUDE_CODE_SKILL_PROPOSALS) return true;
       return a.CLAUDE_CODE_SYNC_SKILLS && !Iw();
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     toAutoClassifierInput(t) {
       return (t.proposals ?? [])

@@ -45,7 +45,7 @@ function Z8n(
   if (d !== void 0 && (v(d) === void 0 || f(r()))) return null;
   let u = 0,
     l,
-    S = !1;
+    S = false;
   e.completion.then(
     (a) => {
       if (v(a) !== void 0) e.failureAnsweredAtMs ??= r();
@@ -61,7 +61,7 @@ function Z8n(
     V = async (a) => {
       let g = r();
       await ne(n, a);
-      for (let _ = !1; !a.aborted; _ = !0) e.status.publish(_ ? ee(r() - g) : Z, "progress"), await ne(o, a);
+      for (let _ = false; !a.aborted; _ = true) e.status.publish(_ ? ee(r() - g) : Z, "progress"), await ne(o, a);
     },
     X = () => {
       if (((u += 1), l === void 0)) {
@@ -81,7 +81,7 @@ function Z8n(
     let P = r(),
       k = e.outcome();
     if (k !== void 0) {
-      let x = N(k, !1, P);
+      let x = N(k, false, P);
       if (x !== void 0) y(0, "upload_failed");
       return x;
     }
@@ -107,15 +107,15 @@ function Z8n(
     }
     if (p === "released") {
       if (!S)
-        (S = !0),
+        (S = true),
           setTimeout(() => {
-            S = !1;
+            S = false;
           }, 0),
           e.status.publish(te, "info");
-      return y(b(), "released"), { go: !1, reason: oe };
+      return y(b(), "released"), { go: false, reason: oe };
     }
-    if (p === "withdrawn") return y(b(), "withdrawn"), { go: !1, reason: re };
-    let U = N(p.settled, !0, P);
+    if (p === "withdrawn") return y(b(), "withdrawn"), { go: false, reason: re };
+    let U = N(p.settled, true, P);
     return y(b(), U === void 0 ? "upload_settled" : "upload_failed"), U;
   };
 }
@@ -126,9 +126,9 @@ function v(e) {
     case "lane_full":
     case "unavailable":
     case "unauthorized":
-      return { go: !1, reason: se };
+      return { go: false, reason: se };
     case "deadline":
-      return { go: !1, reason: ae };
+      return { go: false, reason: ae };
     case "sent":
     case "unchanged":
     case "conflict_resolved":
@@ -188,12 +188,12 @@ async function t7n() {
   if (!(await Ec()) || C(Se())) return "unspecified";
   return L(ci().remoteFileMode) ?? "unspecified";
 }
-async function Wwe(e, { flagKnownOn: t = !1 } = {}) {
+async function Wwe(e, { flagKnownOn: t = false } = {}) {
   if ((!t && !(await Ec())) || C(e)) return "unspecified";
   let n = fAe(e);
   return L(ie().projects?.[n]?.remoteFileMode) ?? "unspecified";
 }
-async function C6t(e, { flagKnownOn: t = !1 } = {}) {
+async function C6t(e, { flagKnownOn: t = false } = {}) {
   if ((!t && !(await Ec())) || C(e)) return "unspecified";
   let n = zN(tr(D(e)));
   return L(ie().projects?.[n]?.remoteFileMode) ?? "unspecified";
@@ -203,7 +203,7 @@ async function Ygt(e, t) {
   if (t === void 0) return (await Wwe(e)) === "container_sync";
   return E6t(t) && (await Ec()) && !C(e);
 }
-function Y(e, { home: t, configHome: n, foldCase: o = !1, wholeDrive: i = !1 }) {
+function Y(e, { home: t, configHome: n, foldCase: o = false, wholeDrive: i = false }) {
   let r = (d) => A(d, o),
     f = fe(e, { home: t, configHome: n, foldCase: o });
   if (f !== null) return { kind: "refused", reason: f };
@@ -222,7 +222,7 @@ function m(e, t, n) {
   let o = W(A(e, n), A(t, n));
   return o === "" || (o !== ".." && !o.startsWith(".." + K) && !M(o));
 }
-function fe(e, { home: t, configHome: n, foldCase: o = !1 }) {
+function fe(e, { home: t, configHome: n, foldCase: o = false }) {
   if (e === j(e).root) return "folder_is_root";
   if (m(e, t, o)) return "folder_is_home";
   if (m(e, n, o) || m(n, e, o)) return "folder_holds_config";
@@ -246,7 +246,7 @@ function bue(e, t = {}) {
 }
 async function Jgt(e) {
   return le(D(e, ".git")).then(
-    () => !0,
+    () => true,
     (t) => !["ENOENT", "ENOTDIR"].includes(E(t) ?? ""),
   );
 }
@@ -266,13 +266,13 @@ function Qgt({ staysAttached: e, folderSync: t = PX(), home: n, configHome: o, s
   return u;
 }
 async function Zgt(e, t) {
-  if (!(await Ec())) return !1;
+  if (!(await Ec())) return false;
   let n = L(ci().remoteFileMode) ?? "unspecified";
-  if (n === e) return !0;
+  if (n === e) return true;
   return (
     await jc((o) => (o.remoteFileMode === e ? o : { ...o, remoteFileMode: e }), t),
     s("tengu_dir_sync_mode_set", { mode: c(e), previous: c(n) }),
-    !0
+    true
   );
 }
 var v6t = 1e4,
@@ -286,7 +286,7 @@ var v6t = 1e4,
   tmn =
     "Files Claude changes in the cloud session won't be copied back to this directory in this session; your other changes here still sync to it";
 function l7n(e, t) {
-  if (!t || e === !1) return "upload_only";
+  if (!t || e === false) return "upload_only";
   return e ? "two_way" : "pending";
 }
 var c7n = "File sync stopped: its local record for this session was removed",
@@ -307,7 +307,7 @@ async function f7n(e) {
     if (are()) return "switched_off";
     throw Error("directory sync flag unknown just now");
   }
-  return (await Wwe(e, { flagKnownOn: !0 })) === "container_sync" ? "given" : "withdrawn";
+  return (await Wwe(e, { flagKnownOn: true })) === "container_sync" ? "given" : "withdrawn";
 }
 function m7n(e) {
   return e
@@ -322,12 +322,12 @@ async function h7n(e) {
     if (are()) return "switched_off";
     throw Error("directory sync flag unknown just now");
   }
-  return (await C6t(e, { flagKnownOn: !0 })) === "container_sync" ? "given" : "withdrawn";
+  return (await C6t(e, { flagKnownOn: true })) === "container_sync" ? "given" : "withdrawn";
 }
 function tht(e, t, n, o = "warning") {
-  let i = !1,
+  let i = false,
     r = () => {
-      if (!i) (i = !0), e(n, o);
+      if (!i) (i = true), e(n, o);
     };
   return {
     state: () => ({ state: "stopped", reason: t, message: n }),
@@ -338,12 +338,12 @@ function tht(e, t, n, o = "warning") {
     laneChanged() {},
     afterConnect: r,
     afterDisconnect() {},
-    drain: async () => !0,
+    drain: async () => true,
     shutdown: async () => {},
   };
 }
 function O(e) {
-  let t = !1;
+  let t = false;
   return {
     state: () => (t ? { state: "stopped", reason: "shut_down" } : e),
     activate() {},
@@ -353,9 +353,9 @@ function O(e) {
     laneChanged() {},
     afterConnect() {},
     afterDisconnect() {},
-    drain: async () => !0,
+    drain: async () => true,
     shutdown: async () => {
-      t = !0;
+      t = true;
     },
   };
 }
@@ -377,19 +377,19 @@ function B(e, t) {
       if (await nmn(o, i)) return;
       let r = Date.now();
       if (n !== null && r - n >= fOe) return;
-      return (n ??= r), { go: !1, reason: t.reason };
+      return (n ??= r), { go: false, reason: t.reason };
     },
   };
 }
 async function nmn(...e) {
-  let t = !1;
+  let t = false;
   return (
     Promise.race(e).then(
       () => {
-        t = !0;
+        t = true;
       },
       () => {
-        t = !0;
+        t = true;
       },
     ),
     await ne(0),
@@ -400,9 +400,9 @@ import { lstat as pe, realpath as me } from "fs/promises";
 import { dirname as z, join as ge } from "path";
 var dne = { head: "HEAD", objects: "objects", refs: "refs" };
 function rmn(e) {
-  let t = !1,
-    n = !1,
-    o = !1;
+  let t = false,
+    n = false,
+    o = false;
   for (let i of e) {
     let r = i.isDirectory || i.isSymbolicLink;
     (t ||= i.name === dne.head && !i.isDirectory),
@@ -425,8 +425,8 @@ async function R6t(e) {
 async function qwe(e) {
   let t = await me(e).catch(() => e);
   for (let n = t; ; n = z(n)) {
-    if (await R6t(n)) return !0;
-    if (z(n) === n) return !1;
+    if (await R6t(n)) return true;
+    if (z(n) === n) return false;
   }
 }
 export {

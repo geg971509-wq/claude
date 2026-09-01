@@ -27,7 +27,7 @@ function HMt(o) {
     throw TypeError("`callbacks` must be an object, got a function instead. Did you mean `{onEvent: fn}`?");
   let { onEvent: i = O, onError: C = O, onRetry: m = O, onComment: p } = o,
     s = [],
-    g = !0,
+    g = true,
     c,
     a = "",
     f = 0,
@@ -35,7 +35,7 @@ function HMt(o) {
   function F(t) {
     if (
       (g &&
-        ((g = !1), t.charCodeAt(0) === 239 && t.charCodeAt(1) === 187 && t.charCodeAt(2) === 191 && (t = t.slice(3))),
+        ((g = false), t.charCodeAt(0) === 239 && t.charCodeAt(1) === 187 && t.charCodeAt(2) === 191 && (t = t.slice(3))),
       s.length === 0)
     ) {
       let d = b(t);
@@ -220,7 +220,7 @@ ${e}`),
       let e = s.join("");
       y(e, 0, e.length);
     }
-    (g = !0), (c = void 0), (a = ""), (f = 0), (l = void 0), (s.length = 0);
+    (g = true), (c = void 0), (a = ""), (f = 0), (l = void 0), (s.length = 0);
   }
   return { feed: F, reset: T };
 }

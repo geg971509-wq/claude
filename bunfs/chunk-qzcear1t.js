@@ -47,8 +47,8 @@ function Uke(t) {
   if (!t_t()) return "dynamic workflows are disabled for this session (org policy `allow_workflows`).";
   return null;
 }
-async function trt({ script: t, args: o, telemetrySource: d, serverAuthoredCarrier: C = !1, context: p }) {
-  let n = (l, e) => ({ ok: !1, layer: l, line: C2e(l, e) }),
+async function trt({ script: t, args: o, telemetrySource: d, serverAuthoredCarrier: C = false, context: p }) {
+  let n = (l, e) => ({ ok: false, layer: l, line: C2e(l, e) }),
     g = Uke({ serverAuthoredCarrier: C });
   if (g) return n("policy-gate", g);
   if (t.length > dm) return n("script-too-large", `workflow script exceeds ${dm} bytes.`);
@@ -65,15 +65,15 @@ async function trt({ script: t, args: o, telemetrySource: d, serverAuthoredCarri
   let f = `wf_${A().slice(0, 12)}`,
     S = Oh("local_workflow"),
     W = W_t(i.meta.name, f, t, p.storageV5),
-    y = rit(i.meta.name, void 0, !1),
-    x = oit(i.meta.description, void 0, !1);
+    y = rit(i.meta.name, void 0, false),
+    x = oit(i.meta.description, void 0, false);
   s("tengu_workflow_launched", {
     invocation_mode: c(d),
     workflow_source: c(d),
     phase_count: i.meta.phases?.length ?? 0,
-    launched_from_subagent: !1,
+    launched_from_subagent: false,
     has_args: o != null,
-    is_resume: !1,
+    is_resume: false,
     script_size_chars: t.length,
   });
   let r = await new Promise((l) => {
@@ -89,10 +89,10 @@ async function trt({ script: t, args: o, telemetrySource: d, serverAuthoredCarri
       canUseTool: p.canUseTool ?? Ld,
       toolUseId: void 0,
       transcriptDir: F0(f),
-      telemetry: { source: d, name: y, description: x, scriptIsVerbatimBuiltIn: !1 },
-      isResume: !1,
+      telemetry: { source: d, name: y, description: x, scriptIsVerbatimBuiltIn: false },
+      isResume: false,
       onSettled: l,
-      suppressCompletionNotification: !0,
+      suppressCompletionNotification: true,
     });
   });
   switch (r.status) {
@@ -129,7 +129,7 @@ async function trt({ script: t, args: o, telemetrySource: d, serverAuthoredCarri
               result: `<result omitted: ${h}>`,
             }) ?? '{"status":"completed"}';
       }
-      return { ok: !0, line: `remote-workflow: ${e}`, workflowName: i.meta.name };
+      return { ok: true, line: `remote-workflow: ${e}`, workflowName: i.meta.name };
     }
     case "failed":
       return n("workflow-failed", `workflow failed after ${r.durationMs}ms (${r.agentCount} agents): ${r.error}`);

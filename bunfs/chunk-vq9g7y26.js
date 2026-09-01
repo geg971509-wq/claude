@@ -89,10 +89,10 @@ function re(e) {
 }
 function f(e) {
   let t = re(e);
-  if (t !== null && t.test(e.text)) return { rest: e.text.replace(t, ""), hadPrefix: !0, base: "home" };
-  if (e.quote !== "'" && A.test(e.text)) return { rest: e.text.replace(A, ""), hadPrefix: !0, base: "project" };
-  if (e.quote !== "'" && U.test(e.text)) return { rest: e.text.replace(U, ""), hadPrefix: !0, base: "plugin" };
-  return { rest: e.text, hadPrefix: !1, base: null };
+  if (t !== null && t.test(e.text)) return { rest: e.text.replace(t, ""), hadPrefix: true, base: "home" };
+  if (e.quote !== "'" && A.test(e.text)) return { rest: e.text.replace(A, ""), hadPrefix: true, base: "project" };
+  if (e.quote !== "'" && U.test(e.text)) return { rest: e.text.replace(U, ""), hadPrefix: true, base: "plugin" };
+  return { rest: e.text, hadPrefix: false, base: null };
 }
 var oe = /[\s*?[\]]/u;
 function se(e, t) {
@@ -105,9 +105,9 @@ function x(e) {
   return E.test(e.replace(/^(?:\.\.?\/)+/, ""));
 }
 function d(e) {
-  if (e.quote === null && j.test(e.text)) return !1;
+  if (e.quote === null && j.test(e.text)) return false;
   let { rest: t, hadPrefix: r } = f(e);
-  if (t.startsWith("-") || q.test(t) || C.test(t) || F.test(t) || t.endsWith("/") || (!P(t) && !g.test(t))) return !1;
+  if (t.startsWith("-") || q.test(t) || C.test(t) || F.test(t) || t.endsWith("/") || (!P(t) && !g.test(t))) return false;
   return r || t.startsWith("/") || t.startsWith("./") || t.startsWith("../") || (t.includes("/") && _.test(t));
 }
 function R(e) {
@@ -256,12 +256,12 @@ async function ght(e, t, r = ue) {
   try {
     n = await t.open(e);
   } catch {
-    return { ok: !1, reason: "unreadable" };
+    return { ok: false, reason: "unreadable" };
   }
   try {
     let i = await n.stat();
-    if (!i.isFile()) return { ok: !1, reason: "not_regular" };
-    if (i.nlink > 1) return { ok: !1, reason: "multiply_linked" };
+    if (!i.isFile()) return { ok: false, reason: "not_regular" };
+    if (i.nlink > 1) return { ok: false, reason: "multiply_linked" };
     let o = Buffer.alloc(r + 1),
       s = 0;
     while (s < o.length) {
@@ -269,11 +269,11 @@ async function ght(e, t, r = ue) {
       if (u === 0) break;
       s += u;
     }
-    if (s > r) return { ok: !1, reason: "too_large" };
+    if (s > r) return { ok: false, reason: "too_large" };
     let a = Buffer.from(o.subarray(0, s));
-    return { ok: !0, sha256: Nn(a), bytes: a };
+    return { ok: true, sha256: Nn(a), bytes: a };
   } catch {
-    return { ok: !1, reason: "unreadable" };
+    return { ok: false, reason: "unreadable" };
   } finally {
     await n.close().catch(() => {});
   }
@@ -285,10 +285,10 @@ function vOe() {
   return aC() && Gs();
 }
 function aC() {
-  return !1;
+  return false;
 }
 function FX() {
-  return Zn.CLAUDE_CODE_REMOTE_TOOLS_SESSION_CHANNEL === !1;
+  return Zn.CLAUDE_CODE_REMOTE_TOOLS_SESSION_CHANNEL === false;
 }
 function JCr() {
   return M6t() === void 0;
@@ -305,7 +305,7 @@ function pe() {
 }
 function N6t(e = Se()) {
   let t = fe();
-  if (!de(t)) return !0;
+  if (!de(t)) return true;
   let r = t;
   try {
     r = ce(t);

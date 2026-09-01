@@ -66,7 +66,7 @@ async function O() {
     let e = new k(),
       t = new P();
     await e.start();
-    while (!0) {
+    while (true) {
       let s = await t.read();
       if (s === null) break;
       await e.handleMessage(s);
@@ -79,13 +79,13 @@ class k {
   mcpClients = new Map();
   nextClientId = 1;
   server = null;
-  running = !1;
+  running = false;
   socketPath = null;
   async start() {
     if (this.running) return;
     if (((this.socketPath = _ze()), g() !== "win32")) {
       let e = hze();
-      await d(e).catch(() => {}), await S(e, { recursive: !0, mode: 448 }), await y(e, 448).catch(() => {});
+      await d(e).catch(() => {}), await S(e, { recursive: true, mode: 448 }), await y(e, 448).catch(() => {});
       try {
         let t = await w(e);
         for (let s of t) {
@@ -105,7 +105,7 @@ class k {
       (this.server = B((e) => this.handleMcpClient(e))),
       await new Promise((e, t) => {
         this.server.listen(this.socketPath, () => {
-          n("Socket server listening for connections"), (this.running = !0), e();
+          n("Socket server listening for connections"), (this.running = true), e();
         }),
           this.server.on("error", (s) => {
             n("Socket server error:", s), t(s);
@@ -136,7 +136,7 @@ class k {
         if ((await w(e)).length === 0) await R(e), n("Removed empty socket directory");
       } catch {}
     }
-    this.running = !1;
+    this.running = false;
   }
   async isRunning() {
     return this.running;
@@ -239,16 +239,16 @@ class k {
 class P {
   buffer = Buffer.alloc(0);
   pendingResolve = null;
-  closed = !1;
+  closed = false;
   constructor() {
     process.stdin.on("data", (e) => {
       (this.buffer = Buffer.concat([this.buffer, e])), this.tryProcessMessage();
     }),
       process.stdin.on("end", () => {
-        if (((this.closed = !0), this.pendingResolve)) this.pendingResolve(null), (this.pendingResolve = null);
+        if (((this.closed = true), this.pendingResolve)) this.pendingResolve(null), (this.pendingResolve = null);
       }),
       process.stdin.on("error", () => {
-        if (((this.closed = !0), this.pendingResolve)) this.pendingResolve(null), (this.pendingResolve = null);
+        if (((this.closed = true), this.pendingResolve)) this.pendingResolve(null), (this.pendingResolve = null);
       });
   }
   tryProcessMessage() {

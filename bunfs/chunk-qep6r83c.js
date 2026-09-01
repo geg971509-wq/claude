@@ -29,7 +29,7 @@ function gcr(t) {
   return n > i || (n === i && o >= r);
 }
 async function Fwr(t) {
-  let e = (await f("git", ["--version"], { windowsHide: !0 })).stdout,
+  let e = (await f("git", ["--version"], { windowsHide: true })).stdout,
     n = gcr(e);
   if (n === null)
     t.onStatus(
@@ -42,7 +42,7 @@ async function Fwr(t) {
     );
   }
   let o = s(t.baseDir, ".runner");
-  await l(o, { recursive: !0 });
+  await l(o, { recursive: true });
   let i = s(o, "code-sign"),
     r = s(o, "commit_signing_key.pub"),
     a = _(t.execPath);
@@ -57,7 +57,7 @@ async function Fwr(t) {
       ["tag.gpgsign", "true"],
     ],
     u = t.gitConfigPath ? ["--file", t.gitConfigPath] : ["--global"];
-  for (let [g, m] of c) await f("git", ["config", ...u, "--replace-all", g, m], { windowsHide: !0 });
+  for (let [g, m] of c) await f("git", ["config", ...u, "--replace-all", g, m], { windowsHide: true });
   return (
     t.onStatus(`[runner:git] --configure-git: identity=Claude <noreply@anthropic.com>, gpg.ssh.program=${i}`),
     await ycr(o, u, t.onStatus),
@@ -93,7 +93,7 @@ function B5t(t) {
 }
 async function Uwr() {
   try {
-    let { stdout: t } = await f("git", ["--version"], { windowsHide: !0 });
+    let { stdout: t } = await f("git", ["--version"], { windowsHide: true });
     return t;
   } catch {
     return "";
@@ -122,7 +122,7 @@ async function jwr(t) {
     throw Error(`--use-anthropic-git-proxy: apiBaseUrl is not a valid URL: ${e}`);
   }
   let o = s(t.baseDir, ".runner");
-  await l(o, { recursive: !0 });
+  await l(o, { recursive: true });
   let i = _cr(t.baseDir);
   await p(i, hcr, { mode: 448 }), await h(i, 448);
   let r = t.gitConfigPath ? ["--file", t.gitConfigPath] : ["--global"],
@@ -132,13 +132,13 @@ async function jwr(t) {
       [`credential.https://${n}.username`, "unused"],
       [`http.https://${n}/.proactiveAuth`, "basic"],
     ];
-  for (let [c, u] of a) await f("git", ["config", ...r, "--replace-all", c, u], { windowsHide: !0 });
+  for (let [c, u] of a) await f("git", ["config", ...r, "--replace-all", c, u], { windowsHide: true });
   return t.onStatus(`[runner:git] --use-anthropic-git-proxy: credential helper registered for https://${n} (${i})`), e;
 }
 async function ycr(t, e, n) {
   let o = s(t, "git-hooks"),
     i = e[0] === "--file" ? e : [],
-    r = await f("git", ["config", ...i, "--get", "core.hooksPath"], { windowsHide: !0 }).then(
+    r = await f("git", ["config", ...i, "--get", "core.hooksPath"], { windowsHide: true }).then(
       (a) => a.stdout.trim(),
       () => "",
     );
@@ -148,7 +148,7 @@ async function ycr(t, e, n) {
     );
     return;
   }
-  await l(o, { recursive: !0 });
+  await l(o, { recursive: true });
   for (let a of w) {
     let c = s(o, a);
     await p(c, y, { mode: 493 }), await h(c, 493);
@@ -157,7 +157,7 @@ async function ycr(t, e, n) {
     let c = s(o, a);
     await p(c, E, { mode: 493 }), await h(c, 493);
   }
-  await f("git", ["config", ...e, "--replace-all", "core.hooksPath", o], { windowsHide: !0 }),
+  await f("git", ["config", ...e, "--replace-all", "core.hooksPath", o], { windowsHide: true }),
     n(`[runner:git] --configure-git: core.hooksPath=${o}`);
 }
 var w = [
@@ -211,13 +211,13 @@ function C(t) {
   return t.replace(/'/g, "'\\''");
 }
 function Scr(t) {
-  let e = !1,
+  let e = false,
     n,
     o,
     i;
   for (let r = 0; r < t.length; r++) {
     let a = t[r];
-    if (a === "-Y" && t[r + 1] === "sign") (e = !0), r++;
+    if (a === "-Y" && t[r + 1] === "sign") (e = true), r++;
     else if (a === "-n") n = t[++r];
     else if (a === "-f") o = t[++r];
     else if (a.startsWith("-")) {
@@ -269,7 +269,7 @@ function D() {
     return O("git", ["rev-parse", "--show-object-format"], {
       encoding: "utf8",
       stdio: ["ignore", "pipe", "ignore"],
-      windowsHide: !0,
+      windowsHide: true,
       cwd: void 0,
     }).trim() === "sha256"
       ? "sha256"

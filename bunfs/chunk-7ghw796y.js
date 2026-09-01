@@ -20,7 +20,7 @@ function vCn(e = PGt) {
   return { backend: O() ? e() : void 0, configHome: be() };
 }
 function X0r(e) {
-  return rEt(a.CLAUDE_CODE_HOVER_REST ?? !1), e === void 0 ? void 0 : IGt(e);
+  return rEt(a.CLAUDE_CODE_HOVER_REST ?? false), e === void 0 ? void 0 : IGt(e);
 }
 function IGt(e) {
   let o = O() ? e.backend : void 0;
@@ -48,7 +48,7 @@ function PGt() {
   if (!O()) return;
   return;
 }
-var f = { home: !1, workspace: !1, system: !1, userNamed: !1 };
+var f = { home: false, workspace: false, system: false, userNamed: false };
 function Y0r(e = {}) {
   return u(() => {
     g(e.globalConfigFile);

@@ -58,7 +58,7 @@ var s = m(() => ot({})),
     name: Z9,
     searchHint: "wait for and receive queued harness events",
     maxResultSizeChars: 1e5,
-    skipAggregateToolResultBudget: !0,
+    skipAggregateToolResultBudget: true,
     get inputSchema() {
       return s();
     },
@@ -69,10 +69,10 @@ var s = m(() => ot({})),
       return $2();
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     async description() {
       return "Wait for pending harness events";

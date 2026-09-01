@@ -75,7 +75,7 @@ async function BYt(t, r) {
       await d({ request_type: "limit_increase", details: null }, r),
       {
         type: "message",
-        filed: !0,
+        filed: true,
         value:
           t == null
             ? "Request sent to your admin for usage credits."
@@ -88,20 +88,20 @@ async function BYt(t, r) {
     let i = c(e);
     if (ic(e, (o) => c(o) !== null)) n(`Admin request rejected: ${i ?? l(e)}`, { level: "error" });
     else h(e);
-    if (i) return { type: "message", value: i, filed: !1 };
+    if (i) return { type: "message", value: i, filed: false };
   }
-  return { type: "message", filed: !1, value: "Contact your admin to manage usage credit settings." };
+  return { type: "message", filed: false, value: "Contact your admin to manage usage credit settings." };
 }
 function g2e() {
   {
-    if (wt()) return !1;
+    if (wt()) return false;
     let t = Fn(),
       r = cw() !== null,
-      e = I("tengu_ember_latch", !1) || r,
+      e = I("tengu_ember_latch", false) || r,
       i = eb() && (r || ((t === "pro" || t === "max") && !Ct()));
     return e && i;
   }
-  return !1;
+  return false;
 }
 async function jge(t, r) {
   let e = Fn(),
@@ -118,7 +118,7 @@ async function jge(t, r) {
         return { type: "message", value: "Your organization is out of usage credits. Contact your admin to add more." };
       case "org_level_disabled_until":
       case "org_spend_cap_reached":
-        if (s.disabled_reason === "org_level_disabled_until" && s.spend_limit_reached === !1) break;
+        if (s.disabled_reason === "org_level_disabled_until" && s.spend_limit_reached === false) break;
         return {
           type: "message",
           value: "Your organization's usage credit cap is reached for this period. Contact your admin to raise it.",
@@ -128,7 +128,7 @@ async function jge(t, r) {
     if (s?.is_enabled && s.monthly_limit === null)
       return { type: "message", value: "Your organization already has unlimited usage credits. No request needed." };
     try {
-      if ((await p("limit_increase", r))?.is_allowed === !1)
+      if ((await p("limit_increase", r))?.is_allowed === false)
         return { type: "message", value: "Contact your admin to manage usage credit settings." };
     } catch (u) {
       n(`Extra usage eligibility check failed: ${u}`, { level: "error" });
@@ -143,7 +143,7 @@ async function jge(t, r) {
     return { type: "confirm-admin-request", extraUsage: s };
   }
   let a = i ? "https://claude.ai/admin-settings/usage" : Tmt;
-  if (!t.openInBrowser || wt()) return { type: "browser-opened", url: a, opened: !1 };
+  if (!t.openInBrowser || wt()) return { type: "browser-opened", url: a, opened: false };
   try {
     let s = await Lr(a);
     return { type: "browser-opened", url: a, opened: s };

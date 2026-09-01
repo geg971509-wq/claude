@@ -61,10 +61,10 @@ async function yAe(n) {
   }
 }
 function uR(n, t) {
-  if (typeof n !== "string" || !t || n.length === 0) return !1;
+  if (typeof n !== "string" || !t || n.length === 0) return false;
   let r = Buffer.from(n),
     i = Buffer.from(t);
-  if (r.length !== i.length) return !1;
+  if (r.length !== i.length) return false;
   return s(r, i);
 }
 export { ype, Qbt, LY, yAe, uR };

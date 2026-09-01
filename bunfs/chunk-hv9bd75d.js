@@ -25,13 +25,13 @@ var mQt = ["-verbose", "-debug"],
   gQt = [...E, ...A, "-outbuffer", ...P],
   R = new Set([...mQt, ...gQt]);
 function T(e) {
-  if (e.length < 2) return !1;
+  if (e.length < 2) return false;
   return P.includes(e) || E.some((t) => t.startsWith(e));
 }
 var He = new Set([...E, ...P]),
   O = new Set(["silentlycontinue", "0", "stop", "1", "continue", "2", "ignore", "4"]);
 function y(e) {
-  if (e.length < 2) return !1;
+  if (e.length < 2) return false;
   return x.includes(e) || A.some((t) => t.startsWith(e));
 }
 var N = new Set(["global", "script", "local", "private", "variable"]),
@@ -83,17 +83,17 @@ function se(e, t) {
   return n;
 }
 function re(e, t) {
-  if (e.length < 2) return !1;
+  if (e.length < 2) return false;
   for (let n of [W, ne]) {
     let s = se(e, n);
-    if (s !== null && t.includes(s)) return !0;
+    if (s !== null && t.includes(s)) return true;
   }
-  return !1;
+  return false;
 }
 var ae = new Set([...x, "-ea", "-wa", "-p"]),
-  oe = !1;
+  oe = false;
 function ie(e, t, n, s) {
-  if (!s && ae.has(e)) return !1;
+  if (!s && ae.has(e)) return false;
   return t.includes(e) || re(e, n);
 }
 function M(e, t, n) {
@@ -213,7 +213,7 @@ var C1n = new Set([
   ]),
   le = ["-variable", "-sessionvariable", "-responseheadersvariable", "-statuscodevariable"];
 function B(e) {
-  if (e.length < 3) return !1;
+  if (e.length < 3) return false;
   return le.some((t) => t.startsWith(e));
 }
 var ohe = /[\t\n\v\f\r \u0085\u00a0\u1680\u180e\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]+/,
@@ -321,20 +321,20 @@ function $R(e, t) {
   for (let r = 0; r < n.length; r++) {
     if (n[r] !== "StringConstant" && n[r] !== "Parameter") {
       if (!/[$(@{[]/.test(s[r] ?? "")) continue;
-      return !0;
+      return true;
     }
     if (n[r] === "Parameter") {
       let c = o?.[r];
       if (c) {
-        if (c.some((i) => i.type !== "StringConstant")) return !0;
+        if (c.some((i) => i.type !== "StringConstant")) return true;
       } else {
         let i = s[r] ?? "",
           l = i.indexOf(":");
-        if (l > 0 && /[$(@{[]/.test(i.slice(l + 1))) return !0;
+        if (l > 0 && /[$(@{[]/.test(i.slice(l + 1))) return true;
       }
     }
   }
-  return !1;
+  return false;
 }
 var V = Object.assign(Object.create(null), {
     "get-childitem": {
@@ -453,35 +453,35 @@ var V = Object.assign(Object.create(null), {
     },
     "get-itempropertyvalue": { safeFlags: ["-Path", "-LiteralPath", "-Name"] },
     "get-psprovider": { safeFlags: ["-PSProvider"] },
-    "get-computerinfo": { allowAllFlags: !0 },
-    "get-host": { allowAllFlags: !0 },
+    "get-computerinfo": { allowAllFlags: true },
+    "get-host": { allowAllFlags: true },
     "get-date": { safeFlags: ["-Date", "-Format", "-UFormat", "-DisplayHint", "-AsUTC"] },
     "get-location": { safeFlags: ["-PSProvider", "-PSDrive", "-Stack", "-StackName"] },
     "get-psdrive": { safeFlags: ["-Name", "-PSProvider", "-Scope"] },
     "get-module": { safeFlags: ["-Name", "-ListAvailable", "-All", "-FullyQualifiedName", "-PSEdition"] },
     "get-alias": { safeFlags: ["-Name", "-Definition", "-Scope", "-Exclude"] },
     "get-history": { safeFlags: ["-Id", "-Count"] },
-    "get-culture": { allowAllFlags: !0 },
-    "get-uiculture": { allowAllFlags: !0 },
+    "get-culture": { allowAllFlags: true },
+    "get-uiculture": { allowAllFlags: true },
     "get-timezone": { safeFlags: ["-Name", "-Id", "-ListAvailable"] },
-    "get-uptime": { allowAllFlags: !0 },
+    "get-uptime": { allowAllFlags: true },
     "write-output": { safeFlags: ["-InputObject", "-NoEnumerate"], additionalCommandIsDangerousCallback: $R },
     "write-host": {
       safeFlags: ["-Object", "-NoNewline", "-Separator", "-ForegroundColor", "-BackgroundColor"],
       additionalCommandIsDangerousCallback: $R,
     },
     "start-sleep": { safeFlags: ["-Seconds", "-Milliseconds", "-Duration"], additionalCommandIsDangerousCallback: $R },
-    "format-table": { allowAllFlags: !0, additionalCommandIsDangerousCallback: $R },
-    "format-list": { allowAllFlags: !0, additionalCommandIsDangerousCallback: $R },
-    "format-wide": { allowAllFlags: !0, additionalCommandIsDangerousCallback: $R },
-    "format-custom": { allowAllFlags: !0, additionalCommandIsDangerousCallback: $R },
-    "measure-object": { allowAllFlags: !0, additionalCommandIsDangerousCallback: $R },
-    "select-object": { allowAllFlags: !0, additionalCommandIsDangerousCallback: $R },
-    "sort-object": { allowAllFlags: !0, additionalCommandIsDangerousCallback: $R },
-    "group-object": { allowAllFlags: !0, additionalCommandIsDangerousCallback: $R },
-    "where-object": { allowAllFlags: !0, additionalCommandIsDangerousCallback: $R },
-    "out-string": { allowAllFlags: !0, additionalCommandIsDangerousCallback: $R },
-    "out-host": { allowAllFlags: !0, additionalCommandIsDangerousCallback: $R },
+    "format-table": { allowAllFlags: true, additionalCommandIsDangerousCallback: $R },
+    "format-list": { allowAllFlags: true, additionalCommandIsDangerousCallback: $R },
+    "format-wide": { allowAllFlags: true, additionalCommandIsDangerousCallback: $R },
+    "format-custom": { allowAllFlags: true, additionalCommandIsDangerousCallback: $R },
+    "measure-object": { allowAllFlags: true, additionalCommandIsDangerousCallback: $R },
+    "select-object": { allowAllFlags: true, additionalCommandIsDangerousCallback: $R },
+    "sort-object": { allowAllFlags: true, additionalCommandIsDangerousCallback: $R },
+    "group-object": { allowAllFlags: true, additionalCommandIsDangerousCallback: $R },
+    "where-object": { allowAllFlags: true, additionalCommandIsDangerousCallback: $R },
+    "out-string": { allowAllFlags: true, additionalCommandIsDangerousCallback: $R },
+    "out-host": { allowAllFlags: true, additionalCommandIsDangerousCallback: $R },
     "get-netadapter": { safeFlags: ["-Name", "-InterfaceDescription", "-InterfaceIndex", "-Physical"] },
     "get-netipaddress": { safeFlags: ["-InterfaceIndex", "-InterfaceAlias", "-AddressFamily", "-Type"] },
     "get-netroute": { safeFlags: ["-InterfaceIndex", "-InterfaceAlias", "-AddressFamily", "-DestinationPrefix"] },
@@ -510,13 +510,13 @@ var V = Object.assign(Object.create(null), {
     netstat: { safeFlags: ["-a", "-b", "-e", "-f", "-n", "-o", "-p", "-q", "-r", "-s", "-t", "-x", "-y"] },
     systeminfo: { safeFlags: ["/FO", "/NH"] },
     tasklist: { safeFlags: ["/M", "/SVC", "/V", "/FI", "/FO", "/NH"] },
-    "where.exe": { allowAllFlags: !0 },
+    "where.exe": { allowAllFlags: true },
     hostname: {
       safeFlags: ["-a", "-d", "-f", "-i", "-I", "-s", "-y", "-A"],
       additionalCommandIsDangerousCallback: (e, t) => (t?.args ?? []).some((n) => !n.startsWith("-")),
     },
     whoami: { safeFlags: ["/user", "/groups", "/claims", "/priv", "/logonid", "/all", "/fo", "/nh"] },
-    ver: { allowAllFlags: !0 },
+    ver: { allowAllFlags: true },
     arp: {
       safeFlags: ["-a", "-g", "-v", "-n"],
       additionalCommandIsDangerousCallback: (e, t) => (t?.args ?? []).some((n) => !n.startsWith("-")),
@@ -524,7 +524,7 @@ var V = Object.assign(Object.create(null), {
     route: {
       safeFlags: ["print", "PRINT", "-4", "-6"],
       additionalCommandIsDangerousCallback: (e, t) => {
-        if (!t) return !0;
+        if (!t) return true;
         return t.args.find((s) => !s.startsWith("-"))?.toLowerCase() !== "print";
       },
     },
@@ -644,7 +644,7 @@ function wf(e) {
 }
 function Urt(e) {
   let t = e.toLowerCase();
-  if (t === "cd.." || t === "cd\\" || t === "cd/" || t === "cd~" || /^[a-z]:$/.test(t)) return !0;
+  if (t === "cd.." || t === "cd\\" || t === "cd/" || t === "cd~" || /^[a-z]:$/.test(t)) return true;
   let n = wf(e);
   return (
     n === "set-location" ||
@@ -660,14 +660,14 @@ function s0e(e) {
 }
 function hQt(e, t) {
   let n = wf(e.name);
-  if (!Se.has(n)) return !1;
+  if (!Se.has(n)) return false;
   return ihe(e, t);
 }
 function _Qt(e) {
-  if (e.statementType !== "PipelineAst") return !1;
-  if (e.commands.length === 0) return !1;
-  for (let t of e.commands) if (t.elementType !== "CommandAst") return !1;
-  return !0;
+  if (e.statementType !== "PipelineAst") return false;
+  if (e.commands.length === 0) return false;
+  for (let t of e.commands) if (t.elementType !== "CommandAst") return false;
+  return true;
 }
 function _e(e) {
   let t = e.toLowerCase(),
@@ -679,20 +679,20 @@ function _e(e) {
 }
 function v1n(e) {
   let t = e.trim();
-  if (!t) return !1;
-  if (/\$\(/.test(t)) return !0;
-  if (/(?:^|[^\w.])@\w+/.test(t)) return !0;
-  if (/\.\w+\s*\(/.test(t)) return !0;
-  if (/\$\w+\s*[+\-*/]?=/.test(t)) return !0;
-  if (/--%/.test(t)) return !0;
-  if (/\\\\/.test(t) || /(?<!:)\/\//.test(t)) return !0;
-  if (/::/.test(t)) return !0;
-  return !1;
+  if (!t) return false;
+  if (/\$\(/.test(t)) return true;
+  if (/(?:^|[^\w.])@\w+/.test(t)) return true;
+  if (/\.\w+\s*\(/.test(t)) return true;
+  if (/\$\w+\s*[+\-*/]?=/.test(t)) return true;
+  if (/--%/.test(t)) return true;
+  if (/\\\\/.test(t) || /(?<!:)\/\//.test(t)) return true;
+  if (/::/.test(t)) return true;
+  return false;
 }
 function yxt(e, t) {
-  if (!e.trim()) return !1;
-  if (!t) return !1;
-  if (!t.valid) return !1;
+  if (!e.trim()) return false;
+  if (!t) return false;
+  if (!t.valid) return false;
   let s = j1(t);
   if (
     s.hasScriptBlocks ||
@@ -703,31 +703,31 @@ function yxt(e, t) {
     s.hasAssignments ||
     s.hasStopParsing
   )
-    return !1;
+    return false;
   let o = rct(t);
-  if (o.length === 0) return !1;
+  if (o.length === 0) return false;
   if (o.reduce((c, i) => c + i.commands.length, 0) > 1) {
-    if (o.some((i) => i.commands.some((l) => Urt(l.name)))) return !1;
+    if (o.some((i) => i.commands.some((l) => Urt(l.name)))) return false;
   }
   for (let c of o) {
-    if (!c || c.commands.length === 0) return !1;
+    if (!c || c.commands.length === 0) return false;
     if (c.redirections.length > 0) {
-      if (c.redirections.some((u) => !u.isMerging && !Lxe(u.target))) return !1;
+      if (c.redirections.some((u) => !u.isMerging && !Lxe(u.target))) return false;
     }
     let i = c.commands[0];
-    if (!i) return !1;
-    if (!ihe(i, e)) return !1;
+    if (!i) return false;
+    if (!ihe(i, e)) return false;
     for (let l = 1; l < c.commands.length; l++) {
       let u = c.commands[l];
-      if (!u || u.nameType === "application") return !1;
+      if (!u || u.nameType === "application") return false;
       if (s0e(u.name) && u.args.length === 0) continue;
-      if (!ihe(u, e)) return !1;
+      if (!ihe(u, e)) return false;
     }
-    if (c.nestedCommands && c.nestedCommands.length > 0) return !1;
+    if (c.nestedCommands && c.nestedCommands.length > 0) return false;
   }
-  return !0;
+  return true;
 }
-var b = (e, t = !1) => (t && e.length > 1 && e[1] === "-" ? e : e.replace(/(?!^)[-']/g, ""));
+var b = (e, t = false) => (t && e.length > 1 && e[1] === "-" ? e : e.replace(/(?!^)[-']/g, ""));
 function a0e(e, t, n = "full") {
   let s = n === "full" ? T : H;
   for (let o = 0; o < e.length; o++) {
@@ -753,9 +753,9 @@ function a0e(e, t, n = "full") {
         .toLowerCase()
         .replace(/^['"]|['"]$/g, "")
         .trim();
-    if (m.length > 0 && !O.has(m)) return !0;
+    if (m.length > 0 && !O.has(m)) return true;
   }
-  return !1;
+  return false;
 }
 function l0e(e, t, n = "full") {
   let s = n === "full" ? y : j,
@@ -769,19 +769,19 @@ function l0e(e, t, n = "full") {
       u = (l !== null ? i.slice(0, l.colonIdx) : i).toLowerCase();
     if (!o(u) && !o(b(u, n === "exact"))) {
       let p = Hb(u.replace(/`[\r\n]+\s*/g, "")).toLowerCase();
-      if (p !== u && (o(p) || o(b(p, n === "exact")))) return !0;
+      if (p !== u && (o(p) || o(b(p, n === "exact")))) return true;
       let C = p.indexOf(":", 1);
-      if (C > 0 && o(b(p.slice(0, C), n === "exact"))) return !0;
-      if (/[^\x20-\x7e]/.test(p)) return !0;
+      if (C > 0 && o(b(p.slice(0, C), n === "exact"))) return true;
+      if (/[^\x20-\x7e]/.test(p)) return true;
       continue;
     }
     let f;
     if (l !== null) {
-      if (l.isHereString) return !0;
-      if (l.post.includes("$") || l.post.includes("`")) return !0;
+      if (l.isHereString) return true;
+      if (l.post.includes("$") || l.post.includes("`")) return true;
       f = l.postResolved !== "" ? l.postResolved : (e[r + 1] ?? "");
     } else f = e[r + 1] ?? "";
-    if (f.includes("$") || f.includes("`")) return !0;
+    if (f.includes("$") || f.includes("`")) return true;
     let g = iv(b1(f)).toLowerCase().trim();
     if (g.length === 0) continue;
     let m = g.startsWith("+") ? g.slice(1) : g,
@@ -789,13 +789,13 @@ function l0e(e, t, n = "full") {
       S = m;
     if (d >= 0) {
       let p = m.slice(0, d);
-      if (!N.has(p) && !/^[0-9]+$/.test(p)) return !0;
+      if (!N.has(p) && !/^[0-9]+$/.test(p)) return true;
       S = m.slice(d + 1);
     }
-    if (!/^[a-z0-9_]+$/.test(S)) return !0;
-    if (k.has(S)) return !0;
+    if (!/^[a-z0-9_]+$/.test(S)) return true;
+    if (k.has(S)) return true;
   }
-  return !1;
+  return false;
 }
 function h(e) {
   return e.includes('"') || (/[\s\u0085\u180e]/.test(e) && (e.match(/\\+$/)?.[0].length ?? 0) % 2 === 1);
@@ -809,49 +809,49 @@ function v(e) {
     o = /^@['"\u2018-\u201F]/.test(n) || /^@['"\u2018-\u201F]/.test(s);
   return { colonIdx: t, post: n, postResolved: s, isHereString: o };
 }
-function I(e, t = !0) {
+function I(e, t = true) {
   let n = e.replace(/`[\r\n]+\s*/g, "");
-  if (h(e) || h(w(n))) return !0;
+  if (h(e) || h(w(n))) return true;
   if (t) {
     let s = v(e);
     if (s !== null) {
       let { post: o, postResolved: r } = s;
-      if (s.isHereString) return !0;
+      if (s.isHereString) return true;
       let c = iv(r),
         i = iv(o),
         l = hL(r),
         u = hL(o),
         f = cB(r),
         g = cB(o);
-      if (h(c) || h(i) || h(w(c)) || h(l) || h(u) || h(w(l)) || h(f) || h(g) || h(w(f))) return !0;
+      if (h(c) || h(i) || h(w(c)) || h(l) || h(u) || h(w(l)) || h(f) || h(g) || h(w(f))) return true;
     }
   }
-  return !1;
+  return false;
 }
 function ihe(e, t) {
   if (e.nameType === "application") {
     let i = e.text.split(/\s/, 1)[0]?.toLowerCase() ?? "";
-    if (!Ce.has(i)) return !1;
+    if (!Ce.has(i)) return false;
   }
   let n = _e(e.name);
-  if (!n) return !1;
-  if (n.regex && !n.regex.test(t)) return !1;
-  if (n.additionalCommandIsDangerousCallback?.(t, e)) return !1;
-  if (!e.elementTypes) return !1;
+  if (!n) return false;
+  if (n.regex && !n.regex.test(t)) return false;
+  if (n.additionalCommandIsDangerousCallback?.(t, e)) return false;
+  if (!e.elementTypes) return false;
   for (let i = 1; i < e.elementTypes.length; i++) {
     let l = e.elementTypes[i];
     if (l !== "StringConstant" && l !== "Parameter") {
       if (!/[$(@{[]/.test(e.args[i - 1] ?? "")) continue;
-      return !1;
+      return false;
     }
     if (l === "Parameter") {
       let u = e.children?.[i - 1];
       if (u) {
-        if (u.some((f) => f.type !== "StringConstant")) return !1;
+        if (u.some((f) => f.type !== "StringConstant")) return false;
       } else {
         let f = e.args[i - 1] ?? "",
           g = f.indexOf(":");
-        if (g > 0 && /[$(@{[]/.test(f.slice(g + 1))) return !1;
+        if (g > 0 && /[$(@{[]/.test(f.slice(g + 1))) return false;
       }
     }
   }
@@ -861,15 +861,15 @@ function ihe(e, t) {
     c = e.nameType !== "cmdlet";
   if (D() === "windows") {
     if (c || o) {
-      for (let i of e.args) if (I(i, !r || e.nameType === "application")) return !1;
+      for (let i of e.args) if (I(i, !r || e.nameType === "application")) return false;
     }
-    if (xe(e.name) !== null) return !1;
+    if (xe(e.name) !== null) return false;
   }
   if (!r || e.nameType === "application")
     for (let i = 1; i < e.elementTypes.length; i++) {
       let l = e.elementTypes[i];
-      if (l !== "StringConstant" && l !== "Parameter") return !1;
-      if (l === "Parameter" && !o && (e.args[i - 1] ?? "").includes(":")) return !1;
+      if (l !== "StringConstant" && l !== "Parameter") return false;
+      if (l === "Parameter" && !o && (e.args[i - 1] ?? "").includes(":")) return false;
     }
   if (o) {
     let i = null;
@@ -878,27 +878,27 @@ function ihe(e, t) {
       if (e.elementTypes[l] === "Parameter") {
         let f = v(u);
         if (f !== null) {
-          if (f.isHereString) return !1;
+          if (f.isHereString) return false;
           (i ??= e.args.slice(0, l - 1)), i.push(u.slice(0, f.colonIdx), Hb(iv(f.postResolved)));
           continue;
         }
       }
       i?.push(u);
     }
-    if (i !== null && !Q(s, i)) return !1;
+    if (i !== null && !Q(s, i)) return false;
     return Q(s, e.args);
   }
-  if (r && a0e(e.args, e.elementTypes)) return !1;
-  if (r && l0e(e.args, e.elementTypes)) return !1;
-  if (n.allowAllFlags) return !0;
+  if (r && a0e(e.args, e.elementTypes)) return false;
+  if (r && l0e(e.args, e.elementTypes)) return false;
+  if (n.allowAllFlags) return true;
   if (!n.safeFlags || n.safeFlags.length === 0)
     return !e.args.some((l, u) => {
       if (r) return cee(l, e.elementTypes?.[u + 1]);
-      return l.startsWith("-") || !1;
+      return l.startsWith("-") || false;
     });
   for (let i = 0; i < e.args.length; i++) {
     let l = e.args[i];
-    if (r ? cee(l, e.elementTypes?.[i + 1]) : l.startsWith("-") || !1) {
+    if (r ? cee(l, e.elementTypes?.[i + 1]) : l.startsWith("-") || false) {
       let f = r ? "-" + l.slice(1) : l;
       if (r || l.startsWith("/")) {
         let d = f.indexOf(":");
@@ -906,13 +906,13 @@ function ihe(e, t) {
       }
       let g = f.toLowerCase();
       if (r && R.has(g)) continue;
-      if (!(r ? n.safeFlags.some((d) => d.toLowerCase() === g) : n.safeFlags.includes(f))) return !1;
+      if (!(r ? n.safeFlags.some((d) => d.toLowerCase() === g) : n.safeFlags.includes(f))) return false;
     }
   }
-  return !0;
+  return true;
 }
 function Q(e, t) {
-  for (let n of t) if (n.length > 0 && n[0] !== "-" && rD.has(n[0])) return !1;
+  for (let n of t) if (n.length > 0 && n[0] !== "-" && rD.has(n[0])) return false;
   switch (e) {
     case "git":
       return Le(t);
@@ -923,7 +923,7 @@ function Q(e, t) {
     case "dotnet":
       return ye(t);
     default:
-      return !1;
+      return false;
   }
 }
 var ve = new Set([
@@ -958,38 +958,38 @@ function te(e, t) {
   for (let n = 0; n < e.length; n++) {
     let s = e[n] ?? "",
       o = t[n] ?? "";
-    if (o.includes("\x00") || G(s).includes("\x00")) return !1;
-    if (cKe(o) !== cKe(s) || (o === "--") !== (s === "--")) return !1;
-    if (cKe(s) && s !== o && z(s) !== z(o)) return !1;
+    if (o.includes("\x00") || G(s).includes("\x00")) return false;
+    if (cKe(o) !== cKe(s) || (o === "--") !== (s === "--")) return false;
+    if (cKe(s) && s !== o && z(s) !== z(o)) return false;
   }
-  return !0;
+  return true;
 }
 function L(e) {
   return e.map((t) => M8(Hb(t.replace(/`[\r\n]+\s*/g, ""))));
 }
 function Le(e) {
   let t = L(e);
-  if (!te(e, t)) return !1;
+  if (!te(e, t)) return false;
   return X(e) && X(t);
 }
 function X(e) {
-  if (e.length === 0) return !0;
+  if (e.length === 0) return true;
   if (D() === "windows") {
-    for (let u of e) if (I(u)) return !1;
+    for (let u of e) if (I(u)) return false;
   }
-  for (let u of e) if (u.includes("$")) return !1;
+  for (let u of e) if (u.includes("$")) return false;
   let t = 0;
   while (t < e.length) {
     let u = e[t];
     if (!u || !u.startsWith("-")) break;
-    for (let m of Ie) if (u.length > m.length && u.startsWith(m) && (m === "-C" || u[m.length] !== "-")) return !1;
+    for (let m of Ie) if (u.length > m.length && u.startsWith(m) && (m === "-C" || u[m.length] !== "-")) return false;
     let f = u.includes("="),
       g = f ? St(u, "=") : u;
-    if (ve.has(g)) return !1;
+    if (ve.has(g)) return false;
     if (!f && J.has(g)) t += 2;
     else t++;
   }
-  if (t >= e.length) return !0;
+  if (t >= e.length) return true;
   let n = e[t]?.toLowerCase() || "",
     s = t + 1 < e.length ? e[t + 1]?.toLowerCase() || "" : "",
     o = `git ${n} ${s}`,
@@ -997,60 +997,60 @@ function X(e) {
     c = aKe[o],
     i = 2;
   if (!c) (c = aKe[r]), (i = 1);
-  if (!c) return !1;
+  if (!c) return false;
   let l = e.slice(t + i);
   if (n === "ls-remote") {
-    let u = !1;
+    let u = false;
     for (let f of l) {
       if (!u && f === "--") {
-        u = !0;
+        u = true;
         continue;
       }
-      if (u || f === "-" || !f.startsWith("-")) return !1;
+      if (u || f === "-" || !f.startsWith("-")) return false;
     }
   }
-  if (c.additionalCommandIsDangerousCallback && c.additionalCommandIsDangerousCallback("", l)) return !1;
+  if (c.additionalCommandIsDangerousCallback && c.additionalCommandIsDangerousCallback("", l)) return false;
   return TLe(l, 0, c, { commandName: "git" });
 }
 function Re(e) {
   let t = L(e);
-  if (!te(e, t)) return !1;
+  if (!te(e, t)) return false;
   return K(e) && K(t);
 }
 function K(e) {
-  return !1;
+  return false;
 }
 var q = new Set(Z_t.filter((e) => /^-[^-]$/.test(e)).map((e) => e[1])),
   Te = [...Z_t.filter((e) => e.startsWith("--")), "--tls"];
 function Oe(e) {
-  if (e.length === 0) return !0;
+  if (e.length === 0) return true;
   let t = L(e);
   if (D() === "windows") {
-    for (let r of e) if (I(r)) return !1;
+    for (let r of e) if (I(r)) return false;
   }
-  for (let r of t) if (r.includes("$")) return !1;
+  for (let r of t) if (r.includes("$")) return false;
   for (let r of t) {
     if (r[0] === "-" && r[1] !== "-")
       for (let i = 1; i < r.length; i++) {
         let l = r[i];
-        if (q.has(l)) return !1;
-        if (l !== "h" && q.has(l.toLowerCase())) return !1;
+        if (q.has(l)) return false;
+        if (l !== "h" && q.has(l.toLowerCase())) return false;
       }
     let c = r.toLowerCase();
-    if (Te.some((i) => c.startsWith(i))) return !1;
+    if (Te.some((i) => c.startsWith(i))) return false;
   }
   let n = `docker ${t[0]?.toLowerCase()}`;
-  if (tyt.includes(n)) return !0;
+  if (tyt.includes(n)) return true;
   let s = eyt[n];
-  if (!s) return !1;
+  if (!s) return false;
   let o = t.slice(1);
-  if (s.additionalCommandIsDangerousCallback && s.additionalCommandIsDangerousCallback("", o)) return !1;
+  if (s.additionalCommandIsDangerousCallback && s.additionalCommandIsDangerousCallback("", o)) return false;
   return TLe(o, 0, s);
 }
 function ye(e) {
-  if (e.length === 0) return !1;
-  for (let t of e) if (!pe.has(t.toLowerCase())) return !1;
-  return !0;
+  if (e.length === 0) return false;
+  for (let t of e) if (!pe.has(t.toLowerCase())) return false;
+  return true;
 }
 var yQt = new Set(["invoke-command", "start-job", "start-threadjob", "register-scheduledjob"]),
   SQt = new Set([

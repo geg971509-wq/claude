@@ -45,15 +45,15 @@ function gke(u, d = process.stdin) {
       let p = m.trim().toLowerCase();
       n(p === "y" || p === "yes"), l.close();
     }),
-    l.once("close", () => n(!1)),
+    l.once("close", () => n(false)),
     f
   );
 }
 function kTr() {
-  return N_e({ ...Fw(!1), patchConsole: !1 });
+  return N_e({ ...Fw(false), patchConsole: false });
 }
 function Nur(u) {
-  return { ok: !0, days: tkn, seconds: hU };
+  return { ok: true, days: tkn, seconds: hU };
 }
 async function HTr(u, d) {
   s("tengu_setup_token_command", {});
@@ -66,7 +66,7 @@ async function HTr(u, d) {
       await Vi(1);
     return;
   }
-  let f = Lre(!0);
+  let f = Lre(true);
   if (!f.valid)
     u.unmount(),
       process.stderr.write(`${f.message}
@@ -77,7 +77,7 @@ setup-token creates a long-lived Claude.ai subscription token, which this policy
   let l = !El(),
     { ConsoleOAuthFlow: m } = await import("/$bunfs/root/chunk-z6h08h2s.js"),
     p = G(),
-    g = !1;
+    g = false;
   if (
     (await new Promise((h) => {
       u.render(
@@ -110,7 +110,7 @@ setup-token creates a long-lived Claude.ai subscription token, which this policy
                 gap: 1,
                 children: [
                   r(t, {
-                    bold: !0,
+                    bold: true,
                     children: [
                       "This will guide you through long-lived (",
                       n.days === 365 ? "1-year" : `${n.days}-day`,
@@ -122,7 +122,7 @@ setup-token creates a long-lived Claude.ai subscription token, which this policy
                       h();
                     },
                     onAccountOnHold: () => {
-                      (g = !0), h();
+                      (g = true), h();
                     },
                     mode: "setup-token",
                     expiresIn: n.seconds,
@@ -147,7 +147,7 @@ async function xTr(u) {
   s("tengu_doctor_command", {});
   let d;
   try {
-    let n = await J_e({ probeKeychain: !0, storageV5: u }),
+    let n = await J_e({ probeKeychain: true, storageV5: u }),
       f = OP(),
       l = [
         "Claude Code doctor",
@@ -270,7 +270,7 @@ async function ITr(u, d, n) {
 `),
       process.exit(0);
   let { setup: f } = await import("/$bunfs/root/chunk-x5de9qrh.js");
-  await f(y(), "default", !1, !1, void 0, !1, void 0, void 0, void 0, n);
+  await f(y(), "default", false, false, void 0, false, void 0, void 0, void 0, n);
   let { install: l } = await import("/$bunfs/root/chunk-q4bkz7tv.js");
   await new Promise((m) => {
     let p = [];

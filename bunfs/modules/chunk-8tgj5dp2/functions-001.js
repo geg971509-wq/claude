@@ -20,7 +20,7 @@ function mSn() {
     modelConfigs: new Map(),
     capabilityOverrides: new Map(),
     probeResults: new Map(),
-    preconnectFired: !1,
+    preconnectFired: false,
   };
 }
 
@@ -41,14 +41,14 @@ function pN() {
     lastGoodAntOverrideConfig: null,
     antCapabilitiesByModelId: new Map(),
     warnedEnforcementMessages: new Set(),
-    resolvingBestModel: !1,
+    resolvingBestModel: false,
     modelCapabilitiesByCachePath: new Map(),
     gatewayModelsByCachePath: new Map(),
     modelCapabilitiesStorageV5: void 0,
     gatewayModelsStorageV5: void 0,
     servedCatalogByKey: new Map(),
     servedCatalogRefreshes: new Map(),
-    servedCatalogShadowStarted: !1,
+    servedCatalogShadowStarted: false,
   };
 }
 
@@ -364,7 +364,7 @@ function Ser(e) {
 }
 
 function DEe() {
-  return !1;
+  return false;
 }
 
 function Sl() {
@@ -381,7 +381,7 @@ function Al() {
 
 function bl() {
   let e = Ft();
-  return e.enabled && e.subscriptionType !== null && !1;
+  return e.enabled && e.subscriptionType !== null && false;
 }
 
 function ber() {
@@ -442,7 +442,7 @@ function ni(e, t) {
 
 function nf(e, t) {
   let r = Br("__" + t[0], e, 1);
-  if (r === null) return !1;
+  if (r === null) return false;
   return r >= t[1] && r < t[2];
 }
 
@@ -462,14 +462,14 @@ function vl(e) {
 }
 
 function jr(e, t) {
-  if (!t.length) return !1;
-  let r = !1,
-    o = !1;
+  if (!t.length) return false;
+  let r = false,
+    o = false;
   for (let u = 0; u < t.length; u++) {
     let d = ON(e, t[u].type, t[u].pattern);
-    if (t[u].include === !1) {
-      if (d) return !1;
-    } else if (((r = !0), d)) o = !0;
+    if (t[u].include === false) {
+      if (d) return false;
+    } else if (((r = true), d)) o = true;
   }
   return o || !r;
 }
@@ -480,7 +480,7 @@ function CN(e, t, r) {
     if (r) o = "\\/?" + o.replace(/(^\/|\/$)/g, "") + "\\/?";
     return new RegExp("^" + o + "$", "i").test(e);
   } catch (o) {
-    return !1;
+    return false;
   }
 }
 
@@ -488,18 +488,18 @@ function vN(e, t) {
   try {
     let r = new URL(t.replace(/^([^:/?]*)\./i, "https://$1.").replace(/\*/g, "_____"), "https://_____"),
       o = [
-        [e.host, r.host, !1],
-        [e.pathname, r.pathname, !0],
+        [e.host, r.host, false],
+        [e.pathname, r.pathname, true],
       ];
-    if (r.hash) o.push([e.hash, r.hash, !1]);
+    if (r.hash) o.push([e.hash, r.hash, false]);
     return (
       r.searchParams.forEach((u, d) => {
-        o.push([e.searchParams.get(d) || "", u, !1]);
+        o.push([e.searchParams.get(d) || "", u, false]);
       }),
       !o.some((u) => !CN(u[0], u[1], u[2]))
     );
   } catch (r) {
-    return !1;
+    return false;
   }
 }
 
@@ -508,12 +508,12 @@ function ON(e, t, r) {
     let o = new URL(e, "https://_");
     if (t === "regex") {
       let u = vl(r);
-      if (!u) return !1;
+      if (!u) return false;
       return u.test(o.href) || u.test(o.href.substring(o.origin.length));
     } else if (t === "simple") return vN(o, r);
-    return !1;
+    return false;
   } catch (o) {
-    return !1;
+    return false;
   }
 }
 
@@ -555,7 +555,7 @@ function _f(e) {
   try {
     return e();
   } catch (t) {
-    return console.error(t), !1;
+    return console.error(t), false;
   }
 }
 
@@ -563,7 +563,7 @@ async function Cn(e, t, r) {
   if (((t = t || ""), (r = r || (globalThis.crypto && globalThis.crypto.subtle) || tf.SubtleCrypto), !r))
     throw Error("No SubtleCrypto implementation found");
   try {
-    let o = await r.importKey("raw", Rl(t), { name: "AES-CBC", length: 128 }, !0, ["encrypt", "decrypt"]),
+    let o = await r.importKey("raw", Rl(t), { name: "AES-CBC", length: 128 }, true, ["encrypt", "decrypt"]),
       [u, d] = e.split("."),
       _ = await r.decrypt({ name: "AES-CBC", iv: Rl(u) }, o, Rl(d));
     return new TextDecoder().decode(_);
@@ -623,11 +623,11 @@ function $r(e) {
 
 async function oi(e, t) {
   return new Promise((r) => {
-    let o = !1,
+    let o = false,
       u,
       d = (_) => {
         if (o) return;
-        (o = !0), u && clearTimeout(u), r(_ || null);
+        (o = true), u && clearTimeout(u), r(_ || null);
       };
     if (t) u = setTimeout(() => d(), t);
     e.then((_) => d(_)).catch(() => d());
@@ -640,7 +640,7 @@ function kl(e) {
 
 async function Tf(e) {
   let { instance: t, timeout: r, skipCache: o, allowStale: u, backgroundSync: d } = e;
-  if (!d) Ze.backgroundSync = !1;
+  if (!d) Ze.backgroundSync = false;
   return wN({ instance: t, allowStale: u, timeout: r, skipCache: o });
 }
 
@@ -688,8 +688,8 @@ async function wN(e) {
     if (k.sse) lr.add(d);
     if (k.staleAt < A) Ol(t);
     else Ml(t);
-    return { data: k.data, success: !0, source: "cache" };
-  } else return (await oi(Ol(t), o)) || { data: null, success: !1, source: "timeout", error: Error("Timeout") };
+    return { data: k.data, success: true, source: "cache" };
+  } else return (await oi(Ol(t), o)) || { data: null, success: false, source: "timeout", error: Error("Timeout") };
 }
 
 function qr(e) {
@@ -768,14 +768,14 @@ async function Ol(e) {
         if (k.headers.get("x-sse-support") === "enabled") lr.add(d);
         return k.json();
       })
-      .then((k) => (Cf(d, _, k), Ml(e), ii.delete(_), { data: k, success: !0, source: "network" }))
-      .catch((k) => (ii.delete(_), { data: null, source: "error", success: !1, error: k }))),
+      .then((k) => (Cf(d, _, k), Ml(e), ii.delete(_), { data: k, success: true, source: "network" }))
+      .catch((k) => (ii.delete(_), { data: null, source: "error", success: false, error: k }))),
       ii.set(_, A);
   return A;
 }
 
 function Ml(e) {
-  let t = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1,
+  let t = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false,
     r = qr(e),
     o = Pl(e),
     { streamingHost: u, streamingHostRequestHeaders: d } = e.getApiHosts(),
@@ -855,15 +855,15 @@ function IN() {
 function si(e, t) {
   if (t.streaming) {
     if (!e.getClientKey()) throw Error("Must specify clientKey to enable streaming");
-    if (t.payload) Ml(e, !0);
+    if (t.payload) Ml(e, true);
     kN(e);
   }
 }
 
 function xN(e) {
   return e === "html"
-    ? { childList: !0, subtree: !0, attributes: !0, characterData: !0 }
-    : { childList: !1, subtree: !1, attributes: !0, attributeFilter: [e] };
+    ? { childList: true, subtree: true, attributes: true, characterData: true }
+    : { childList: false, subtree: false, attributes: true, attributeFilter: [e] };
 }
 
 function _i(e) {
@@ -875,7 +875,7 @@ function _i(e) {
 function gi(e, t, r, o, u) {
   var d = r(e),
     _ = {
-      isDirty: !1,
+      isDirty: false,
       originalValue: d,
       virtualValue: d,
       mutations: [],
@@ -902,7 +902,7 @@ function gi(e, t, r, o, u) {
       getCurrentValue: r,
     };
   if (t === "position" && e.parentNode)
-    _.observer.observe(e.parentNode, { childList: !0, subtree: !0, attributes: !1, characterData: !1 });
+    _.observer.observe(e.parentNode, { childList: true, subtree: true, attributes: false, characterData: false });
   else _.observer.observe(e, xN(t));
   return _;
 }
@@ -910,8 +910,8 @@ function gi(e, t, r, o, u) {
 function hi(e, t) {
   var r = t.getCurrentValue(t.el);
   if (((t.virtualValue = e), e && typeof e !== "string")) {
-    if (!r || e.parentNode !== r.parentNode || e.insertBeforeNode !== r.insertBeforeNode) (t.isDirty = !0), Of();
-  } else if (e !== r) (t.isDirty = !0), Of();
+    if (!r || e.parentNode !== r.parentNode || e.insertBeforeNode !== r.insertBeforeNode) (t.isDirty = true), Of();
+  } else if (e !== r) (t.isDirty = true), Of();
 }
 
 function LN(e) {
@@ -1002,7 +1002,7 @@ function QN(e, t) {
 
 function di(e, t, r) {
   if (!r.isDirty) return;
-  r.isDirty = !1;
+  r.isDirty = false;
   var o = r.virtualValue;
   if (!r.mutations.length) QN(e, t);
   r.setValue(e, o);
@@ -1153,21 +1153,21 @@ function mn(e, t, r) {
   for (let [o, u] of Object.entries(t))
     switch (o) {
       case "$or":
-        if (!zf(e, u, r)) return !1;
+        if (!zf(e, u, r)) return false;
         break;
       case "$nor":
-        if (zf(e, u, r)) return !1;
+        if (zf(e, u, r)) return false;
         break;
       case "$and":
-        if (!_x(e, u, r)) return !1;
+        if (!_x(e, u, r)) return false;
         break;
       case "$not":
-        if (mn(e, u, r)) return !1;
+        if (mn(e, u, r)) return false;
         break;
       default:
-        if (!Qr(u, lx(e, o), r)) return !1;
+        if (!Qr(u, lx(e, o), r)) return false;
     }
-  return !0;
+  return true;
 }
 
 function lx(e, t) {
@@ -1190,8 +1190,8 @@ function Qr(e, t, r) {
   if (typeof e === "boolean") return t !== null && !!t === e;
   if (e === null) return t === null;
   if (Array.isArray(e) || !Bf(e)) return JSON.stringify(t) === JSON.stringify(e);
-  for (let o in e) if (!fx(o, t, e[o], r)) return !1;
-  return !0;
+  for (let o in e) if (!fx(o, t, e[o], r)) return false;
+  return true;
 }
 
 function Bf(e) {
@@ -1208,10 +1208,10 @@ function ux(e) {
 }
 
 function dx(e, t, r) {
-  if (!Array.isArray(e)) return !1;
+  if (!Array.isArray(e)) return false;
   let o = Bf(t) ? (u) => Qr(t, u, r) : (u) => mn(u, t, r);
-  for (let u = 0; u < e.length; u++) if (e[u] && o(e[u])) return !0;
-  return !1;
+  for (let u = 0; u < e.length; u++) if (e[u] && o(e[u])) return true;
+  return false;
 }
 
 function Ti(e, t) {
@@ -1248,56 +1248,56 @@ function fx(e, t, r, o) {
     case "$exists":
       return r ? t != null : t == null;
     case "$in":
-      if (!Array.isArray(r)) return !1;
+      if (!Array.isArray(r)) return false;
       return Ti(t, r);
     case "$inGroup":
       return Ti(t, o[r] || []);
     case "$notInGroup":
       return !Ti(t, o[r] || []);
     case "$nin":
-      if (!Array.isArray(r)) return !1;
+      if (!Array.isArray(r)) return false;
       return !Ti(t, r);
     case "$not":
       return !Qr(r, t, o);
     case "$size":
-      if (!Array.isArray(t)) return !1;
+      if (!Array.isArray(t)) return false;
       return Qr(r, t.length, o);
     case "$elemMatch":
       return dx(t, r, o);
     case "$all":
-      if (!Array.isArray(t)) return !1;
+      if (!Array.isArray(t)) return false;
       for (let u = 0; u < r.length; u++) {
-        let d = !1;
+        let d = false;
         for (let _ = 0; _ < t.length; _++)
           if (Qr(r[u], t[_], o)) {
-            d = !0;
+            d = true;
             break;
           }
-        if (!d) return !1;
+        if (!d) return false;
       }
-      return !0;
+      return true;
     case "$regex":
       try {
         return cx(r).test(t);
       } catch (u) {
-        return !1;
+        return false;
       }
     case "$type":
       return ux(t) === r;
     default:
-      return console.error("Unknown operator: " + e), !1;
+      return console.error("Unknown operator: " + e), false;
   }
 }
 
 function zf(e, t, r) {
-  if (!t.length) return !0;
-  for (let o = 0; o < t.length; o++) if (mn(e, t[o], r)) return !0;
-  return !1;
+  if (!t.length) return true;
+  for (let o = 0; o < t.length; o++) if (mn(e, t[o], r)) return true;
+  return false;
 }
 
 function _x(e, t, r) {
-  for (let o = 0; o < t.length; o++) if (!mn(e, t[o], r)) return !1;
-  return !0;
+  for (let o = 0; o < t.length; o++) if (!mn(e, t[o], r)) return false;
+  return true;
 }
 
 function hx(e) {
@@ -1458,26 +1458,26 @@ function Ai(e, t) {
 function yi(e, t, r) {
   let o = e.key,
     u = e.variations.length;
-  if (u < 2) return { result: Fe(r, e, -1, !1, t) };
-  if (r.global.enabled === !1 || r.user.enabled === !1) return { result: Fe(r, e, -1, !1, t) };
-  if (((e = Ax(e, r)), e.urlPatterns && !jr(r.user.url || "", e.urlPatterns))) return { result: Fe(r, e, -1, !1, t) };
+  if (u < 2) return { result: Fe(r, e, -1, false, t) };
+  if (r.global.enabled === false || r.user.enabled === false) return { result: Fe(r, e, -1, false, t) };
+  if (((e = Ax(e, r)), e.urlPatterns && !jr(r.user.url || "", e.urlPatterns))) return { result: Fe(r, e, -1, false, t) };
   let d = sf(o, r.user.url || "", u);
-  if (d !== null) return { result: Fe(r, e, d, !1, t) };
+  if (d !== null) return { result: Fe(r, e, d, false, t) };
   let _ = Ex(r);
   if (o in _) {
     let F = _[o];
-    return { result: Fe(r, e, F, !1, t) };
+    return { result: Fe(r, e, F, false, t) };
   }
-  if (e.status === "draft" || e.active === !1) return { result: Fe(r, e, -1, !1, t) };
+  if (e.status === "draft" || e.active === false) return { result: Fe(r, e, -1, false, t) };
   let { hashAttribute: A, hashValue: C } = kn(
     r,
     e.hashAttribute,
     r.user.saveStickyBucketAssignmentDoc && !e.disableStickyBucketing ? e.fallbackAttribute : void 0,
   );
-  if (!C) return { result: Fe(r, e, -1, !1, t) };
+  if (!C) return { result: Fe(r, e, -1, false, t) };
   let k = -1,
-    M = !1,
-    x = !1;
+    M = false,
+    x = false;
   if (r.user.saveStickyBucketAssignmentDoc && !e.disableStickyBucketing) {
     let { variation: F, versionIsBlocked: Q } = Rx({
       ctx: r,
@@ -1492,35 +1492,35 @@ function yi(e, t, r) {
   }
   if (!M) {
     if (e.filters) {
-      if (Kf(e.filters, r)) return { result: Fe(r, e, -1, !1, t) };
-    } else if (e.namespace && !nf(C, e.namespace)) return { result: Fe(r, e, -1, !1, t) };
-    if (e.include && !_f(e.include)) return { result: Fe(r, e, -1, !1, t) };
-    if (e.condition && !Gf(e.condition, r)) return { result: Fe(r, e, -1, !1, t) };
+      if (Kf(e.filters, r)) return { result: Fe(r, e, -1, false, t) };
+    } else if (e.namespace && !nf(C, e.namespace)) return { result: Fe(r, e, -1, false, t) };
+    if (e.include && !_f(e.include)) return { result: Fe(r, e, -1, false, t) };
+    if (e.condition && !Gf(e.condition, r)) return { result: Fe(r, e, -1, false, t) };
     if (e.parentConditions) {
       let F = new Set(r.stack.evaluatedFeatures);
       for (let Q of e.parentConditions) {
         r.stack.evaluatedFeatures = new Set(F);
         let ee = Ai(Q.id, r);
-        if (ee.source === "cyclicPrerequisite") return { result: Fe(r, e, -1, !1, t) };
+        if (ee.source === "cyclicPrerequisite") return { result: Fe(r, e, -1, false, t) };
         let de = { value: ee.value };
-        if (!mn(de, Q.condition || {})) return { result: Fe(r, e, -1, !1, t) };
+        if (!mn(de, Q.condition || {})) return { result: Fe(r, e, -1, false, t) };
       }
     }
-    if (e.groups && !yx(e.groups, r)) return { result: Fe(r, e, -1, !1, t) };
+    if (e.groups && !yx(e.groups, r)) return { result: Fe(r, e, -1, false, t) };
   }
-  if (e.url && !bx(e.url, r)) return { result: Fe(r, e, -1, !1, t) };
+  if (e.url && !bx(e.url, r)) return { result: Fe(r, e, -1, false, t) };
   let z = Br(e.seed || o, C, e.hashVersion || 1);
-  if (z === null) return { result: Fe(r, e, -1, !1, t) };
+  if (z === null) return { result: Fe(r, e, -1, false, t) };
   if (!M) {
     let F = e.ranges || of(u, e.coverage === void 0 ? 1 : e.coverage, e.weights);
     k = rf(z, F);
   }
-  if (x) return { result: Fe(r, e, -1, !1, t, void 0, !0) };
-  if (k < 0) return { result: Fe(r, e, -1, !1, t) };
-  if ("force" in e) return { result: Fe(r, e, e.force === void 0 ? -1 : e.force, !1, t) };
-  if (r.global.qaMode || r.user.qaMode) return { result: Fe(r, e, -1, !1, t) };
-  if (e.status === "stopped") return { result: Fe(r, e, -1, !1, t) };
-  let W = Fe(r, e, k, !0, t, z, M);
+  if (x) return { result: Fe(r, e, -1, false, t, void 0, true) };
+  if (k < 0) return { result: Fe(r, e, -1, false, t) };
+  if ("force" in e) return { result: Fe(r, e, e.force === void 0 ? -1 : e.force, false, t) };
+  if (r.global.qaMode || r.user.qaMode) return { result: Fe(r, e, -1, false, t) };
+  if (e.status === "stopped") return { result: Fe(r, e, -1, false, t) };
+  let W = Fe(r, e, k, true, t, z, M);
   if (r.user.saveStickyBucketAssignmentDoc && !e.disableStickyBucketing) {
     let { changed: F, key: Q, doc: ee } = vx(r, A, Wr(C), { [Gl(e.key, e.bucketVersion)]: W.key });
     if (F)
@@ -1556,26 +1556,26 @@ function Gf(e, t) {
 function Kf(e, t) {
   return e.some((r) => {
     let { hashValue: o } = kn(t, r.attribute);
-    if (!o) return !0;
+    if (!o) return true;
     let u = Br(r.seed, o, r.hashVersion || 2);
-    if (u === null) return !0;
+    if (u === null) return true;
     return !r.ranges.some((d) => ni(u, d));
   });
 }
 
 function Tx(e, t, r, o, u, d, _) {
-  if (!u && d === void 0) return !0;
-  if (!u && d === 0) return !1;
+  if (!u && d === void 0) return true;
+  if (!u && d === 0) return false;
   let { hashValue: A } = kn(e, r, o);
-  if (!A) return !1;
+  if (!A) return false;
   let C = Br(t, A, _ || 1);
-  if (C === null) return !1;
-  return u ? ni(C, u) : d !== void 0 ? C <= d : !0;
+  if (C === null) return false;
+  return u ? ni(C, u) : d !== void 0 ? C <= d : true;
 }
 
 function Fe(e, t, r, o, u, d, _) {
-  let A = !0;
-  if (r < 0 || r >= t.variations.length) (r = 0), (A = !1);
+  let A = true;
+  if (r < 0 || r >= t.variations.length) (r = 0), (A = false);
   let { hashAttribute: C, hashValue: k } = kn(
       e,
       t.hashAttribute,
@@ -1622,17 +1622,17 @@ function kn(e, t, r) {
 
 function bx(e, t) {
   let r = t.user.url;
-  if (!r) return !1;
+  if (!r) return false;
   let o = r.replace(/^https?:\/\//, "").replace(/^[^/]*\//, "/");
-  if (e.test(r)) return !0;
-  if (e.test(o)) return !0;
-  return !1;
+  if (e.test(r)) return true;
+  if (e.test(o)) return true;
+  return false;
 }
 
 function yx(e, t) {
   let r = t.global.groups || {};
-  for (let o = 0; o < e.length; o++) if (r[e[o]]) return !0;
-  return !1;
+  for (let o = 0; o < e.length; o++) if (r[e[o]]) return true;
+  return false;
 }
 
 function Rx(e) {
@@ -1651,7 +1651,7 @@ function Rx(e) {
   if (_ > 0)
     for (let z = 0; z <= _; z++) {
       let W = Gl(r, z);
-      if (k[W] !== void 0) return { variation: -1, versionIsBlocked: !0 };
+      if (k[W] !== void 0) return { variation: -1, versionIsBlocked: true };
     }
   let M = k[C];
   if (M === void 0) return { variation: -1 };
@@ -1825,7 +1825,7 @@ function O6() {
 function Enr() {
   {
     let e = Dt();
-    if (e.isEnabled()) return { screenReaderMode: !0, screenReaderActivationSource: ke(e.activationSource()) };
+    if (e.isEnabled()) return { screenReaderMode: true, screenReaderActivationSource: ke(e.activationSource()) };
   }
   return {};
 }
@@ -1900,8 +1900,8 @@ function C4t() {
   let e = qkn();
   if (e !== null) return e;
   let t = o_.reader;
-  if (!t) return !1;
-  let { value: r, source: o } = t(Ux, !1);
+  if (!t) return false;
+  let { value: r, source: o } = t(Ux, false);
   if (o === "fallback") return r;
   return Gkn(r), r;
 }
@@ -1914,8 +1914,8 @@ function aNe() {
   let e = jkn();
   if (e !== null) return e;
   let t = a_.reader;
-  if (!t) return !1;
-  let { value: r, source: o } = t(zx, !1);
+  if (!t) return false;
+  let { value: r, source: o } = t(zx, false);
   if (o === "fallback") return r;
   return Wkn(r), r;
 }
@@ -1956,8 +1956,8 @@ function d_() {
 function f_() {
   let e = wn();
   if (e.keepAcrossTokenChanges !== void 0) return e.keepAcrossTokenChanges;
-  let t = Wl?.(Kx, !1);
-  if (t === void 0) return !1;
+  let t = Wl?.(Kx, false);
+  if (t === void 0) return false;
   return (e.keepAcrossTokenChanges = t), t;
 }
 
@@ -1967,11 +1967,11 @@ function g_(e) {
 
 function Hnr() {
   let e = m_.reader;
-  if (!e) return !0;
+  if (!e) return true;
   try {
-    return e("tengu_foamy_spring", !0) !== !1;
+    return e("tengu_foamy_spring", true) !== false;
   } catch {
-    return !0;
+    return true;
   }
 }
 
@@ -1988,7 +1988,7 @@ function Mi(e) {
 }
 
 function b_() {
-  return Mi(!0);
+  return Mi(true);
 }
 
 function pre() {
@@ -2028,7 +2028,7 @@ function WO() {
       attributeValueLengthLimit: jn.getNumberFromEnv("OTEL_LOGRECORD_ATTRIBUTE_VALUE_LENGTH_LIMIT") ?? 1 / 0,
       attributeCountLimit: jn.getNumberFromEnv("OTEL_LOGRECORD_ATTRIBUTE_COUNT_LIMIT") ?? 128,
     },
-    includeTraceContext: !0,
+    includeTraceContext: true,
   };
 }
 
@@ -2071,7 +2071,7 @@ function QO(e, t) {
 }
 
 function O2() {
-  if (a.CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST) return !1;
+  if (a.CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST) return false;
   return !pr();
 }
 
@@ -2092,7 +2092,7 @@ function p$() {
 }
 
 function zk() {
-  if (p$()) return !1;
+  if (p$()) return false;
   return yj();
 }
 
@@ -2127,12 +2127,12 @@ function I2() {
     terminal: "",
     package_managers: "",
     runtimes: "",
-    is_running_with_bun: !1,
-    is_ci: !1,
-    is_claubbit: !1,
-    is_github_action: !1,
-    is_claude_code_action: !1,
-    is_claude_ai_auth: !1,
+    is_running_with_bun: false,
+    is_ci: false,
+    is_claubbit: false,
+    is_github_action: false,
+    is_claude_code_action: false,
+    is_claude_ai_auth: false,
     version: "",
     github_event_name: "",
     github_actions_runner_environment: "",
@@ -2141,17 +2141,17 @@ function I2() {
     wsl_version: "",
     github_actions_metadata: void 0,
     arch: "",
-    is_claude_code_remote: !1,
+    is_claude_code_remote: false,
     remote_environment_type: "",
     claude_code_container_id: "",
     claude_code_remote_session_id: "",
     tags: [],
     deployment_environment: "",
-    is_conductor: !1,
+    is_conductor: false,
     version_base: "",
     coworker_type: "",
     build_time: "",
-    is_local_agent_mode: !1,
+    is_local_agent_mode: false,
     linux_distro_id: "",
     linux_distro_version: "",
     linux_kernel: "",
@@ -2162,7 +2162,7 @@ function I2() {
 }
 
 function N2() {
-  return { slack_team_id: "", is_enterprise_install: !1, trigger: "", creation_method: "" };
+  return { slack_team_id: "", is_enterprise_install: false, trigger: "", creation_method: "" };
 }
 
 function x2() {
@@ -2176,7 +2176,7 @@ function x2() {
     env: void 0,
     entrypoint: "",
     agent_sdk_version: "",
-    is_interactive: !1,
+    is_interactive: false,
     client_type: "",
     process: void 0,
     additional_metadata: void 0,
@@ -2274,8 +2274,8 @@ function e3t({ url: e, payload: t, storageV5: r }) {
 
 function t3t(e, t) {
   let r = e.toLowerCase();
-  for (let o of t) if (typeof o === "string" && o.length > 0 && r.includes(o.toLowerCase())) return !0;
-  return !1;
+  for (let o of t) if (typeof o === "string" && o.length > 0 && r.includes(o.toLowerCase())) return true;
+  return false;
 }
 
 function H2(e) {
@@ -2437,7 +2437,7 @@ function E4(e) {
   try {
     return new URL(e).protocol === "https:";
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -2463,11 +2463,11 @@ function yo() {
 }
 
 function b4() {
-  return !1;
+  return false;
 }
 
 function y4() {
-  return !1;
+  return false;
 }
 
 function he(e, t) {
@@ -2487,8 +2487,8 @@ function _C(e) {
 }
 
 function jde(e) {
-  if (e === void 0) return !0;
-  if (e.startsWith("agent:")) return !0;
+  if (e === void 0) return true;
+  if (e.startsWith("agent:")) return true;
   return O4.has(e);
 }
 
@@ -2531,13 +2531,13 @@ function uw() {
 }
 
 function MSt(e, t) {
-  if (!uw() || !s0(za(e))) return !1;
-  if (hh(t, "per_turn_effort") === !0) return !0;
-  return fk?.(t) === !0;
+  if (!uw() || !s0(za(e))) return false;
+  if (hh(t, "per_turn_effort") === true) return true;
+  return fk?.(t) === true;
 }
 
 function ver(e, t) {
-  if (!MSt(e, t)) return !1;
+  if (!MSt(e, t)) return false;
   let r = Ep();
   return !yA(r, GI) && !yA(r, Kk);
 }
@@ -2577,8 +2577,8 @@ function dr() {
 }
 
 function Ek(e) {
-  if (dr().terminalEmitClaims.has(e)) return !1;
-  return dr().terminalEmitClaims.add(e), !0;
+  if (dr().terminalEmitClaims.has(e)) return false;
+  return dr().terminalEmitClaims.add(e), true;
 }
 
 function xSn(e) {
@@ -2625,12 +2625,12 @@ function ys(e, t, r) {
     summary: r?.summary ?? "",
     usage: r?.usage,
     ...(r?.skipTranscript !== void 0 && { skip_transcript: r.skipTranscript }),
-    ...(r?.ambient && { ambient: !0 }),
+    ...(r?.ambient && { ambient: true }),
   });
 }
 
 function Yr() {
-  if (Ne() !== "firstParty") return !1;
+  if (Ne() !== "firstParty") return false;
   return !a.CLAUDE_CODE_DISABLE_FAST_MODE;
 }
 
@@ -2639,7 +2639,7 @@ function Rs() {
 }
 
 function Zy(e) {
-  if (!Yr()) return !1;
+  if (!Yr()) return false;
   return f$(e) === null;
 }
 
@@ -2673,7 +2673,7 @@ function kT(e) {
     let r = e !== void 0 ? (e ?? eS()) : at();
     if (!(!ba() && lf(r) && kr(r))) return "model_not_allowed";
   }
-  let t = ye("flagSettings")?.fastMode === !0;
+  let t = ye("flagSettings")?.fastMode === true;
   if (Le() && NQe() && !t) return "sdk_opt_in_required";
   if (ge.orgStatus.status === "pending" && !Rs() && !t) return "pending";
   if (ge.orgStatus.status === "disabled" && !Rs()) {
@@ -2721,29 +2721,29 @@ function CMe() {
 }
 
 function Her(e, t) {
-  if (!Yr()) return !1;
+  if (!Yr()) return false;
   return !!e && (sn() || Zy() || t);
 }
 
 function NSt(e) {
-  if (!Yr()) return !1;
-  if (!Zy(e)) return !1;
-  if (!lf(e)) return !1;
+  if (!Yr()) return false;
+  if (!Zy(e)) return false;
+  if (!lf(e)) return false;
   return DSn(Je());
 }
 
 function DSn(e) {
-  if (e.fastMode !== !0) return !1;
-  if (!e.fastModePerSessionOptIn) return !0;
-  if (ye("policySettings")?.fastModePerSessionOptIn === !0) return !1;
-  return ye("flagSettings")?.fastMode === !0;
+  if (e.fastMode !== true) return false;
+  if (!e.fastModePerSessionOptIn) return true;
+  if (ye("policySettings")?.fastModePerSessionOptIn === true) return false;
+  return ye("flagSettings")?.fastMode === true;
 }
 
 function lf(e) {
-  if (!Yr()) return !1;
+  if (!Yr()) return false;
   let t = e ?? eS(),
     r = Ot(t);
-  if (hh(Ye(r), "fast_mode")) return !0;
+  if (hh(Ye(r), "fast_mode")) return true;
   let o = r.toLowerCase();
   return o.includes("opus-4-8") || o.includes("opus-5");
 }
@@ -2753,7 +2753,7 @@ function dw(e, t) {
     if (e === null) return !!t;
     return !!t && lf(e);
   }
-  if (!lf(e)) return !1;
+  if (!lf(e)) return false;
   return !!t || NSt(e);
 }
 
@@ -2801,8 +2801,8 @@ function Der(e) {
   if (ge.orgStatus.status === "disabled" && ge.orgStatus.source === "server" && !Rk(ge.orgStatus.reason)) return;
   ge.replaceOrgStatus({ status: "disabled", reason: "preference", source: "server" }),
     rn("userSettings", { fastMode: void 0 }, void 0, e),
-    Ae((t) => (t.penguinModeOrgEnabled === !1 ? t : { ...t, penguinModeOrgEnabled: !1 }), e),
-    ge.orgFastModeChange.emit(!1);
+    Ae((t) => (t.penguinModeOrgEnabled === false ? t : { ...t, penguinModeOrgEnabled: false }), e),
+    ge.orgFastModeChange.emit(false);
 }
 
 function Oer(e) {
@@ -2862,9 +2862,9 @@ function Ler(e, t) {
     });
   } else
     rn("userSettings", { fastMode: void 0 }, void 0, t),
-      Ae((o) => (o.penguinModeOrgEnabled === !1 ? o : { ...o, penguinModeOrgEnabled: !1 }), t),
+      Ae((o) => (o.penguinModeOrgEnabled === false ? o : { ...o, penguinModeOrgEnabled: false }), t),
       ge.replaceOrgStatus({ status: "disabled", reason: "extra_usage_disabled", source: "server" }),
-      ge.orgFastModeChange.emit(!1);
+      ge.orgFastModeChange.emit(false);
   ge.overageRejection.emit(r);
 }
 
@@ -2898,7 +2898,7 @@ function Rk(e) {
 function eu(e) {
   let t = ge.replaceOrgStatus(e);
   if (e.status === "pending") return;
-  let r = t.status !== "pending" ? t.status === "enabled" : ie().penguinModeOrgEnabled === !0,
+  let r = t.status !== "pending" ? t.status === "enabled" : ie().penguinModeOrgEnabled === true,
     o = e.status === "enabled",
     u = t.status === "disabled" && e.status === "disabled" && t.reason !== e.reason;
   if (r !== o || u) ge.orgFastModeChange.emit(o);
@@ -2920,8 +2920,8 @@ function OSn() {
     ge.replaceOrgStatus({ status: "enabled" });
     return;
   }
-  let e = !1,
-    t = ie().penguinModeOrgEnabled === !0;
+  let e = false,
+    t = ie().penguinModeOrgEnabled === true;
   ge.replaceOrgStatus(e || t ? { status: "enabled" } : { status: "disabled", reason: "unknown", source: "guess" });
 }
 
@@ -2936,8 +2936,8 @@ async function mre(e, t) {
   let r = ZS();
   if (!(Yt()?.accessToken && Wd()) && !r) {
     if (a3t()) return;
-    let A = !1,
-      C = ie().penguinModeOrgEnabled === !0;
+    let A = false,
+      C = ie().penguinModeOrgEnabled === true;
     eu(A || C ? { status: "enabled" } : { status: "disabled", reason: "preference", source: "guess" });
     return;
   }
@@ -2981,7 +2981,7 @@ async function mre(e, t) {
       }
       n(`Org fast mode: ${A.enabled ? "enabled" : `disabled (${A.disabled_reason ?? "preference"})`}`);
     } catch (A) {
-      let k = ie().penguinModeOrgEnabled === !0;
+      let k = ie().penguinModeOrgEnabled === true;
       if (!a3t()) eu(k ? { status: "enabled" } : { status: "disabled", reason: "network_error", source: "guess" });
       let M = ge.orgStatus.status === "disabled" ? `disabled (${ge.orgStatus.reason})` : "enabled (cached)";
       n(`Failed to fetch org fast mode status, standing on ${M}: ${A}`, { level: "error" }),
@@ -2993,7 +2993,7 @@ async function mre(e, t) {
 }
 
 function FEe(e, t, r) {
-  Object.defineProperty(e, t, { value: r, enumerable: !0, writable: !0, configurable: !0 });
+  Object.defineProperty(e, t, { value: r, enumerable: true, writable: true, configurable: true });
 }
 
 function Td(e, t) {
@@ -3089,7 +3089,7 @@ function Y4(e, t) {
 }
 
 function Os() {
-  let e = !1;
+  let e = false;
   try {
     let t = Ha().policy.orgPricing;
     if (t !== void 0) return t.value;
@@ -3103,7 +3103,7 @@ function Os() {
         A = _ ? r?.modelPricing : void 0,
         C = SO().length > 0 && !n5(),
         k = r?.modelPricing !== void 0 ? A : C ? void 0 : ZTn();
-      if (((e = !0), (u.value = k && $4(k, r?.modelOverrides)), u.value))
+      if (((e = true), (u.value = k && $4(k, r?.modelOverrides)), u.value))
         y("settings_model_pricing", {
           rows: u.value.exact.size,
           multiplier: u.value.multiplier,
@@ -3182,7 +3182,7 @@ function Ner(e, t) {
 
 function hre(e) {
   let t = Ye(e);
-  if (gre[t] !== void 0) return !0;
+  if (gre[t] !== void 0) return true;
   let r = ie().additionalModelCostsCache;
   return !!r && (Td(r, e) !== void 0 || Td(r, t) !== void 0);
 }
@@ -3309,17 +3309,17 @@ function c3t({
 
 function ru(e, t) {
   try {
-    return new Headers([[e, t]]), !1;
+    return new Headers([[e, t]]), false;
   } catch {
-    return !0;
+    return true;
   }
 }
 
 function Z4(e) {
   try {
-    return new Headers([[e, "x"]]), !1;
+    return new Headers([[e, "x"]]), false;
   } catch {
-    return !0;
+    return true;
   }
 }
 
@@ -3554,7 +3554,7 @@ function su(e, t) {
 
 function r3(e, t, r) {
   let o = t3.exec(t);
-  return o !== null && o.index < e.length ? su(e.slice(0, o.index), !1) + e.slice(o.index) : su(e, r);
+  return o !== null && o.index < e.length ? su(e.slice(0, o.index), false) + e.slice(o.index) : su(e, r);
 }
 
 function o3(e) {
@@ -3601,11 +3601,11 @@ function m$(e) {
 }
 
 function _u() {
-  if (!a.CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY) return !1;
-  if (Ne() !== "firstParty") return !1;
-  if (jo()) return !1;
-  if (!a.ANTHROPIC_BASE_URL) return !1;
-  return !0;
+  if (!a.CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY) return false;
+  if (Ne() !== "firstParty") return false;
+  if (jo()) return false;
+  if (!a.ANTHROPIC_BASE_URL) return false;
+  return true;
 }
 
 function pu() {
@@ -3621,7 +3621,7 @@ function fu() {
 }
 
 function Is(e) {
-  let t = u3().safeParse(Ut(e, !1));
+  let t = u3().safeParse(Ut(e, false));
   return t.success ? t.data : null;
 }
 
@@ -3728,7 +3728,7 @@ async function Wer(e) {
     c3t({
       apiKey: M.has("x-api-key") ? null : _ || null,
       getApiKeySource: () => {
-        let { source: ee } = py({ skipRetrievingKeyFromApiKeyHelper: !0 });
+        let { source: ee } = py({ skipRetrievingKeyFromApiKeyHelper: true });
         return ee !== "none" ? ee : u ? "apiKeyHelper" : "unknown";
       },
       authToken: null,
@@ -3770,7 +3770,7 @@ async function Wer(e) {
       if (de && de.baseUrl === t && bs(de.models, B)) return;
       let me = b({ baseUrl: t, fetchedAt: Date.now(), models: B });
       try {
-        await rw(pu(), { recursive: !0 });
+        await rw(pu(), { recursive: true });
       } catch (Ie) {
         n(`[gatewayDiscovery] cache folder could not be made: ${Ie instanceof Error ? Ie.message : "unknown"}`);
         return;
@@ -3785,7 +3785,7 @@ async function Wer(e) {
     }
     let Q = aw(F);
     if (Q && Q.baseUrl === t && bs(Q.models, B)) return;
-    await rw(pu(), { recursive: !0 }),
+    await rw(pu(), { recursive: true }),
       await l3(F, b({ baseUrl: t, fetchedAt: Date.now(), models: B }), { encoding: "utf-8", mode: 384 }),
       Oo().delete(F),
       n(`[gatewayDiscovery] cached ${B.length} models`);
@@ -3814,10 +3814,10 @@ function ko(e) {
         let k = new Date(A);
         C = { kind: "retirement", retirementDate: A, isPast: !Number.isNaN(k.getTime()) && k < new Date() };
       }
-      return { isDeprecated: !0, modelName: _.modelName, copy: C };
+      return { isDeprecated: true, modelName: _.modelName, copy: C };
     }
   }
-  return { isDeprecated: !1 };
+  return { isDeprecated: false };
 }
 
 function _w(e) {
@@ -3825,16 +3825,16 @@ function _w(e) {
 }
 
 function _Y(e) {
-  if (ra() && zde(Ye(pn(e))) && LMe()) return !0;
+  if (ra() && zde(Ye(pn(e))) && LMe()) return true;
   let t = ko(e);
-  if (!t.isDeprecated) return !1;
+  if (!t.isDeprecated) return false;
   switch (t.copy.kind) {
     case "remap":
-      return !0;
+      return true;
     case "retirement":
       return t.copy.isPast;
     case "none":
-      return !1;
+      return false;
   }
 }
 
@@ -3908,14 +3908,14 @@ function p3(e, t) {
     if (r === void 0) continue;
     for (let [o, u] of Object.entries(r)) {
       if (!z6(u, e)) continue;
-      if (t.has(bw(o))) return !0;
+      if (t.has(bw(o))) return true;
     }
   }
-  return !1;
+  return false;
 }
 
 function EH(e, t) {
-  if (t.size === 0) return !1;
+  if (t.size === 0) return false;
   let r = pn(e.trim().toLowerCase()),
     o = jm(r) ? Ot(r) : r;
   return t.has(Ye(o)) || p3(o, t);
@@ -3950,9 +3950,9 @@ function gu(e, t) {
     let o = r === 0 || !/[a-z0-9]/i.test(e[r - 1]),
       u = r + t.length,
       d = u === e.length || !/[a-z0-9]/i.test(e[u]);
-    if (o && d) return !0;
+    if (o && d) return true;
   }
-  return !1;
+  return false;
 }
 
 function f3(e, t, r) {
@@ -3964,15 +3964,15 @@ function f3(e, t, r) {
 }
 
 function hw(e, t) {
-  if (!e.startsWith(t)) return !1;
+  if (!e.startsWith(t)) return false;
   return e.length === t.length || e[t.length] === "-";
 }
 
 function _3(e, t) {
   let r = jm(e) ? Ot(e).toLowerCase() : e;
-  if (hw(r, t)) return !0;
-  if (!t.startsWith("claude-") && hw(r, `claude-${t}`)) return !0;
-  return !1;
+  if (hw(r, t)) return true;
+  if (!t.startsWith("claude-") && hw(r, `claude-${t}`)) return true;
+  return false;
 }
 
 function Tw(e, t) {
@@ -3981,9 +3981,9 @@ function Tw(e, t) {
     let o = r.indexOf(e);
     if (o === -1) continue;
     let u = o + e.length;
-    if (u === r.length || r[u] === "-") return !0;
+    if (u === r.length || r[u] === "-") return true;
   }
-  return !1;
+  return false;
 }
 
 function Aw(e, t) {
@@ -3994,28 +3994,28 @@ function Aw(e, t) {
 function Ns(e, t) {
   let r = pn(Ot(e).trim().toLowerCase()),
     o = g3t(e);
-  if (o !== null && pn(o) === r) return !0;
-  if (jm(r)) return !1;
-  return kr(r, { ...t, envFreeAliasResolution: !0 });
+  if (o !== null && pn(o) === r) return true;
+  if (jm(r)) return false;
+  return kr(r, { ...t, envFreeAliasResolution: true });
 }
 
 function kr(e, t) {
   if (t?.allowlist === void 0) {
     try {
-      if (SO().length > 0 && !n5()) return !1;
+      if (SO().length > 0 && !n5()) return false;
     } catch {
-      return !1;
+      return false;
     }
-    if (!t?.skipEntitlementDenyOverlay && EH(e, AH())) return !1;
+    if (!t?.skipEntitlementDenyOverlay && EH(e, AH())) return false;
   }
   let r = En() || {},
     o = t?.allowlist ?? r.availableModels;
-  if (!o) return !0;
-  if (o.length === 0) return !1;
+  if (!o) return true;
+  if (o.length === 0) return false;
   let u = o.map((C) => pn(C.trim().toLowerCase())),
     d = pn(e.trim().toLowerCase());
   if (u.includes(d) && !NT(d)) {
-    if (t?.envFreeAliasResolution || !jm(d) || Ns(d, t)) return !0;
+    if (t?.envFreeAliasResolution || !jm(d) || Ns(d, t)) return true;
   }
   let _;
   if (t?.overridesMap !== void 0) _ = Aw(e, t.overridesMap);
@@ -4025,40 +4025,40 @@ function kr(e, t) {
     try {
       C = ye("policySettings");
     } catch {
-      return !1;
+      return false;
     }
     _ = C?.availableModels !== void 0 ? Aw(e, C.modelOverrides ?? $Y() ?? {}) : SMe(e);
   }
   let A = pn(_.trim().toLowerCase());
   if (u.includes(A)) {
     if (!NT(A) || !Tw(A, u)) {
-      if (t?.envFreeAliasResolution || A !== d || !jm(A) || Ns(A, t)) return !0;
+      if (t?.envFreeAliasResolution || A !== d || !jm(A) || Ns(A, t)) return true;
     }
   }
-  for (let C of u) if (NT(C) && !Tw(C, u) && f3(A, C, t?.envFreeAliasResolution)) return !0;
+  for (let C of u) if (NT(C) && !Tw(C, u) && f3(A, C, t?.envFreeAliasResolution)) return true;
   if (jm(A)) {
     let C = Ot(A).toLowerCase();
-    if (u.includes(C)) return !0;
+    if (u.includes(C)) return true;
   }
   for (let C of u)
     if (!NT(C) && jm(C)) {
       let k = t?.envFreeAliasResolution ? g3t(C) : Ot(C).toLowerCase();
-      if (k !== null && pn(k) === A) return !0;
+      if (k !== null && pn(k) === A) return true;
     }
   for (let C of u)
     if (!NT(C) && !jm(C)) {
-      if (_3(A, C)) return !0;
+      if (_3(A, C)) return true;
     }
-  return !1;
+  return false;
 }
 
 function yw() {
   let e = ie().cachedExtraUsageDisabledReason;
-  if (e === void 0) return !1;
-  if (e === null) return !0;
+  if (e === void 0) return false;
+  if (e === null) return true;
   switch (e) {
     case "out_of_credits":
-      return !0;
+      return true;
     case "overage_not_provisioned":
     case "org_level_disabled":
     case "org_level_disabled_until":
@@ -4071,9 +4071,9 @@ function yw() {
     case "no_limits_configured":
     case "fetch_error":
     case "unknown":
-      return !1;
+      return false;
     default:
-      return !1;
+      return false;
   }
 }
 
@@ -4082,15 +4082,15 @@ function Rw() {
 }
 
 function CH() {
-  if (nN()) return !1;
+  if (nN()) return false;
   if (Rw()) return yw();
-  return !0;
+  return true;
 }
 
 function sO() {
-  if (nN()) return !1;
+  if (nN()) return false;
   if (Rw()) return yw();
-  return !0;
+  return true;
 }
 
 function Ow() {
@@ -4108,12 +4108,12 @@ function Ow() {
 
 function kw() {
   let e = Ow(),
-    t = wo().state !== "inactive" || En()?.enforceAvailableModels === !0;
+    t = wo().state !== "inactive" || En()?.enforceAvailableModels === true;
   return e.sonnet && !e.opus && !t;
 }
 
 function xMe() {
-  if (a.ANTHROPIC_SMALL_FAST_MODEL !== void 0) return !0;
+  if (a.ANTHROPIC_SMALL_FAST_MODEL !== void 0) return true;
   let e = Ne(),
     t = (e === "firstParty" && (jo() || unr())) || NH(e);
   return a.ANTHROPIC_DEFAULT_HAIKU_MODEL !== void 0 || t;
@@ -4215,11 +4215,11 @@ function eSr() {
     let t = e.defaultModel(),
       r = Ac();
     if (r.resolvingBestModel) return t;
-    r.resolvingBestModel = !0;
+    r.resolvingBestModel = true;
     try {
       if (kr(t)) return t;
     } finally {
-      r.resolvingBestModel = !1;
+      r.resolvingBestModel = false;
     }
   }
   return wl();
@@ -4237,24 +4237,24 @@ function zEe() {
   if (
     Ne() === "firstParty" &&
     jo() &&
-    $3().some((t) => t.disabled === !0 && typeof t.value === "string" && yre(t.value))
+    $3().some((t) => t.disabled === true && typeof t.value === "string" && yre(t.value))
   )
-    return !1;
-  if (a.ANTHROPIC_DEFAULT_FABLE_MODEL) return !0;
+    return false;
+  if (a.ANTHROPIC_DEFAULT_FABLE_MODEL) return true;
   let e = Ne();
-  if (e !== "firstParty" && e !== "gateway") return !1;
-  if (e === "firstParty" && !jo()) return !1;
-  return $3().some((t) => t.disabled !== !0 && typeof t.value === "string" && yre(t.value));
+  if (e !== "firstParty" && e !== "gateway") return false;
+  if (e === "firstParty" && !jo()) return false;
+  return $3().some((t) => t.disabled !== true && typeof t.value === "string" && yre(t.value));
 }
 
 function p3t() {
-  if (Ne() !== "firstParty" || !jo()) return !1;
-  return ($3() ?? []).some((e) => e.disabled !== !0 && typeof e.value === "string" && $8e(e.value));
+  if (Ne() !== "firstParty" || !jo()) return false;
+  return ($3() ?? []).some((e) => e.disabled !== true && typeof e.value === "string" && $8e(e.value));
 }
 
 function KI(e) {
   let t = a.ANTHROPIC_DEFAULT_FABLE_MODEL;
-  if (!t) return !1;
+  if (!t) return false;
   return pn(e) === pn(t);
 }
 
@@ -4313,7 +4313,7 @@ function T6(e, t) {
     o = t?.ignoreModelOverrides ? (C) => SC(pn(C.toLowerCase()).trim()) : m3,
     u = o(e),
     d = o(r),
-    _ = $3().find((C) => C.disabled === !0 && typeof C.value === "string" && (o(C.value) === u || o(C.value) === d));
+    _ = $3().find((C) => C.disabled === true && typeof C.value === "string" && (o(C.value) === u || o(C.value) === d));
   if (_) return { reason: "disabled", description: _.description };
   let A = t?.ignoreModelOverrides ? SC(r) : Ye(r);
   if (!zEe() && A === "claude-fable-5") return { reason: "absent", displayName: XI(r) ?? "That model" };
@@ -4338,7 +4338,7 @@ function fRr(e) {
 }
 
 function BSt(e) {
-  return !1;
+  return false;
 }
 
 function Hs(e, t, r = Ne()) {
@@ -4404,7 +4404,7 @@ function qde(e) {
 }
 
 function Ger(e) {
-  return !1;
+  return false;
 }
 
 function E_(e) {
@@ -4416,7 +4416,7 @@ function E_(e) {
   let u = $St(r);
   if (u === null || !(nA(u) ?? kr(u)) || EH(u, o)) return null;
   if (r === t) return u;
-  return (r === "opus" ? CH() : r === "sonnet" ? sO() : !0) && k3(u) ? `${u}[1m]` : u;
+  return (r === "opus" ? CH() : r === "sonnet" ? sO() : true) && k3(u) ? `${u}[1m]` : u;
 }
 
 function f3t(e) {
@@ -4431,7 +4431,7 @@ function f3t(e) {
 }
 
 function _p(e) {
-  let { permissionMode: t, mainLoopModel: r, exceeds200kTokens: o = !1 } = e;
+  let { permissionMode: t, mainLoopModel: r, exceeds200kTokens: o = false } = e;
   if (t !== "plan") return r;
   let u = cf(),
     d = qde(u);
@@ -4460,14 +4460,14 @@ function yY() {
 }
 
 function zer() {
-  return !1;
+  return false;
 }
 
 function Mw(e) {
   if (zer()) return null;
   let t = qSn(e, null) ?? e,
     r = WSn(t) ?? t;
-  return T6(r, { ignoreModelOverrides: !0 }) === null ? r : null;
+  return T6(r, { ignoreModelOverrides: true }) === null ? r : null;
 }
 
 function eS() {
@@ -4535,9 +4535,9 @@ function Sre() {
   if (oR(pn(r))) return null;
   if (Ger(r)) return null;
   if (zer()) return null;
-  if (wo().state !== "inactive" || En()?.enforceAvailableModels === !0) return null;
+  if (wo().state !== "inactive" || En()?.enforceAvailableModels === true) return null;
   if (!kr(t)) return null;
-  if (T6(t, { ignoreModelOverrides: !0 }) !== null) return null;
+  if (T6(t, { ignoreModelOverrides: true }) !== null) return null;
   return t;
 }
 
@@ -4566,12 +4566,12 @@ function qSn(e, t, r) {
     A = wo();
   if (A.state === "refused") return null;
   let C = A.state === "inactive" && A.cascadeTrusted;
-  if (A.state === "active") (u = A.allowlist), (d = !0), (_ = A.overridesMap);
+  if (A.state === "active") (u = A.allowlist), (d = true), (_ = A.overridesMap);
   else if (!A.cascadeTrusted) return null;
   if (!d) return null;
   if (C && Object.keys(_).length === 0 && o.modelOverrides) _ = o.modelOverrides;
   if (!u || u.length === 0) return null;
-  let k = { overridesMap: _, envFreeAliasResolution: !0, allowlist: u },
+  let k = { overridesMap: _, envFreeAliasResolution: true, allowlist: u },
     M = { overridesMap: _ },
     x = (Ve) => {
       let xe = SC(pn(Ve));
@@ -4597,7 +4597,7 @@ function qSn(e, t, r) {
           }
         }
       }
-      if (T6(pn(Oe), { ignoreModelOverrides: !0 }) !== null) {
+      if (T6(pn(Oe), { ignoreModelOverrides: true }) !== null) {
         let ze = `enforceAvailableModels: the managed modelOverrides target "${Oe}" is server-unavailable; using the unmapped candidate`;
         if (!it().has(ze)) it().add(ze), n(ze, { level: "warn" });
         return Ve;
@@ -4618,7 +4618,7 @@ function qSn(e, t, r) {
     if (pn(Pe) !== pn(ee)) W = xe;
     if (kr(xe, k))
       if (pn(Pe) !== pn(ee)) {
-        if (T6(xe, { ignoreModelOverrides: !0 }) === null) return z(xe);
+        if (T6(xe, { ignoreModelOverrides: true }) === null) return z(xe);
       } else return null;
   } else {
     let Ve = Pt(),
@@ -4666,7 +4666,7 @@ function qSn(e, t, r) {
     if (ze !== null) {
       let Ur = Pe !== Oe && k3(ze, M) ? Xe(ze) : ze;
       if (Cw(Ur) && kr(Ur, k)) {
-        if (T6(Ur, { ignoreModelOverrides: !0 }) === null) return z(Ur);
+        if (T6(Ur, { ignoreModelOverrides: true }) === null) return z(Ur);
         de.push(xe);
       }
       continue;
@@ -4676,7 +4676,7 @@ function qSn(e, t, r) {
     if (zde(Ke) && ra()) {
       let Rn = Nt(Pt()),
         $p = Pe !== Re && k3(Rn, M) ? Xe(Rn) : Rn;
-      if (T6($p, { ignoreModelOverrides: !0 }) === null) return z($p);
+      if (T6($p, { ignoreModelOverrides: true }) === null) return z($p);
       de.push(xe);
       continue;
     }
@@ -4688,7 +4688,7 @@ function qSn(e, t, r) {
     if (!Cw(Lt)) continue;
     let Yp = !rr || /[-@]\d{8}$/.test(ti);
     if (kr(Lt, k)) {
-      if (T6(Lt, { ignoreModelOverrides: !0 }) === null) {
+      if (T6(Lt, { ignoreModelOverrides: true }) === null) {
         let Rn = JI(Lt);
         if (Rn !== Lt) return z(k3(Lt, M) ? Lt : Rn, { isConcreteEntry: Yp });
         return z(Lt, { isConcreteEntry: Yp });
@@ -4713,10 +4713,10 @@ function qSn(e, t, r) {
 }
 
 function k3(e, t) {
-  if (Ver(e, t)) return !1;
+  if (Ver(e, t)) return false;
   let r = SC(JI(e).trim());
-  if (!r.startsWith("claude-")) return !0;
-  return r.includes("opus") && ra() ? YS() : !0;
+  if (!r.startsWith("claude-")) return true;
+  return r.includes("opus") && ra() ? YS() : true;
 }
 
 function Ver(e, t) {
@@ -4724,7 +4724,7 @@ function Ver(e, t) {
     o = JI(r).trim(),
     u = SC(o);
   if (u.startsWith("claude-")) return Vde(u);
-  if (Vde(Ye(o, t))) return !0;
+  if (Vde(Ye(o, t))) return true;
   return o !== r && t?.overridesMap === void 0 && Vde(Ye(r));
 }
 
@@ -4766,10 +4766,10 @@ function wo() {
           );
       return { state: "refused" };
     }
-    if (!t) return { state: "inactive", cascadeTrusted: !0 };
+    if (!t) return { state: "inactive", cascadeTrusted: true };
     let { availableModels: o, enforceAvailableModels: u, modelOverrides: d } = t;
     if (e.length === 0 && o === void 0 && u === void 0 && d === void 0 && (cS() === "hkcu" || cS() === "parent"))
-      return { state: "inactive", cascadeTrusted: !0 };
+      return { state: "inactive", cascadeTrusted: true };
     if (u && o === void 0) {
       if (
         !it().has(
@@ -4783,10 +4783,10 @@ function wo() {
             "enforceAvailableModels: the policy view sets the enforce flag but not availableModels; enforcement is disabled (the flag requires a policy-owned allowlist)",
             { level: "warn" },
           );
-      return r(!1), { state: "inactive", cascadeTrusted: !1 };
+      return r(false), { state: "inactive", cascadeTrusted: false };
     }
-    if (u !== !0 || o === void 0 || o.length === 0) return r(!1), { state: "inactive", cascadeTrusted: !1 };
-    return r(!0), { state: "active", allowlist: o, overridesMap: d ?? $Y() ?? {} };
+    if (u !== true || o === void 0 || o.length === 0) return r(false), { state: "inactive", cascadeTrusted: false };
+    return r(true), { state: "active", allowlist: o, overridesMap: d ?? $Y() ?? {} };
   } catch (e) {
     let t = `enforceAvailableModels: policy-tier settings read failed; refusing cascade-trust mode: ${e instanceof Error ? e.message : String(e)}`;
     if (!it().has(t)) it().add(t), n(t, { level: "warn" });
@@ -4796,10 +4796,10 @@ function wo() {
 
 function nA(e) {
   let t = wo();
-  if (t.state === "refused") return !1;
+  if (t.state === "refused") return false;
   if (t.state === "inactive") return null;
-  let r = { allowlist: t.allowlist, overridesMap: t.overridesMap, envFreeAliasResolution: !0 };
-  if (!kr(e, r)) return !1;
+  let r = { allowlist: t.allowlist, overridesMap: t.overridesMap, envFreeAliasResolution: true };
+  if (!kr(e, r)) return false;
   let o = e.trim().toLowerCase(),
     u = /\[1m\]/i.test(o) ? pn(o).trim() : o;
   return !(jm(u) || (ra() && zde(u))) || Ns(u, r);
@@ -4819,13 +4819,13 @@ function tSr(e) {
 
 function pf(e) {
   let t = pn(e.trim().toLowerCase());
-  if (oR(t)) return !1;
-  if (t === "best") return !1;
+  if (oR(t)) return false;
+  if (t === "best") return false;
   return tSr(e);
 }
 
 function GSn(e) {
-  if (!pf(e)) return !1;
+  if (!pf(e)) return false;
   let t = e.trim().toLowerCase();
   return Ot(e).toLowerCase() === el().toLowerCase() || (jm(t) && t === pn(t));
 }
@@ -4841,10 +4841,10 @@ function g3t(e) {
 
 function Cw(e) {
   let t = e.toLowerCase();
-  if (S3.test(t)) return !0;
-  if (t.startsWith("arn:aws:bedrock:")) return !0;
-  if (Ne() === "foundry") return !0;
-  return !1;
+  if (S3.test(t)) return true;
+  if (t.startsWith("arn:aws:bedrock:")) return true;
+  if (Ne() === "foundry") return true;
+  return false;
 }
 
 function xs(e) {
@@ -4871,7 +4871,7 @@ function xs(e) {
 
 function zSn() {
   let e = Dw();
-  if (qSn(e.setting, e.envFamily, e.concreteBaseline) !== null) return !0;
+  if (qSn(e.setting, e.envFamily, e.concreteBaseline) !== null) return true;
   return WSn(e.setting) !== null;
 }
 
@@ -4880,7 +4880,7 @@ function el() {
 }
 
 function E6() {
-  return a.CLAUDE_CODE_NO_MODEL_FALLBACK === !0;
+  return a.CLAUDE_CODE_NO_MODEL_FALLBACK === true;
 }
 
 function qSt() {
@@ -4987,10 +4987,10 @@ function b3() {
 }
 
 function Ye(e, t) {
-  let r = t?.overridesMap !== void 0 ? hu(t.overridesMap, e, !0) : hu(b3(), e, !1);
+  let r = t?.overridesMap !== void 0 ? hu(t.overridesMap, e, true) : hu(b3(), e, false);
   if (r === void 0 && t?.overridesMap === void 0) {
     let o = $Y();
-    r = hu(o, e, !0);
+    r = hu(o, e, true);
   }
   if (r !== void 0) return r;
   if (!t?.deterministic && e.includes("application-inference-profile")) {
@@ -5025,15 +5025,15 @@ function Pf(e) {
   return y3.has(r) ? 4 : 3;
 }
 
-function h3t(e = !1) {
+function h3t(e = false) {
   let { setting: t, attribution: r } = NV();
   if (r !== "tier") return `${$u(hr(Ot(t))) ?? cs(t)}${WSt(r)}`;
   if (VSt()) {
     let u = wl(),
       d = $u(hr(u)) ?? "Opus",
       _ = e && lf(u);
-    if (YS()) return `${d} with 1M context \xB7 Best for everyday, complex tasks${_ ? zSt(!0, u) : ""}`;
-    return `${d} \xB7 Best for everyday, complex tasks${_ ? zSt(!0, u) : ""}`;
+    if (YS()) return `${d} with 1M context \xB7 Best for everyday, complex tasks${_ ? zSt(true, u) : ""}`;
+    return `${d} \xB7 Best for everyday, complex tasks${_ ? zSt(true, u) : ""}`;
   }
   return `${$u(hr(df())) ?? "Sonnet"} \xB7 Efficient for routine tasks`;
 }
@@ -5052,14 +5052,14 @@ function zSt(e, t) {
 }
 
 function VSt() {
-  if (uAe() || qbt() || I7e()) return !0;
+  if (uAe() || qbt() || I7e()) return true;
   return fpe() && !kw();
 }
 
 function YS() {
-  if (nN() || Dre() || Ne() !== "firstParty") return !1;
-  if (Tt() && Fn() === null) return !1;
-  return !0;
+  if (nN() || Dre() || Ne() !== "firstParty") return false;
+  if (Tt() && Fn() === null) return false;
+  return true;
 }
 
 function aO(e) {
@@ -5225,7 +5225,7 @@ function YI(e) {
     M;
   if (A === void 0) (k = fc()[o]), (M = k !== u);
   else {
-    if (!kr(r, { allowlist: A, overridesMap: C, envFreeAliasResolution: !0 })) return t;
+    if (!kr(r, { allowlist: A, overridesMap: C, envFreeAliasResolution: true })) return t;
     let z = z3(C, o);
     (k = z ?? u), (M = z !== void 0);
   }
@@ -5261,12 +5261,12 @@ function yu() {
 }
 
 function Vs(e) {
-  let t = Y3().safeParse(Ut(e, !1));
+  let t = Y3().safeParse(Ut(e, false));
   return t.success ? t.data.models : null;
 }
 
 function y3t() {
-  return !1;
+  return false;
 }
 
 function q3(e) {
@@ -5333,7 +5333,7 @@ async function Yer(e, t) {
     }
     let _ = b({ models: o, timestamp: Date.now() });
     try {
-      await Nw(bu(), { recursive: !0 });
+      await Nw(bu(), { recursive: true });
     } catch (C) {
       n(`[modelCapabilities] cache folder could not be made: ${C instanceof Error ? C.message : "unknown"}`);
       return;
@@ -5350,7 +5350,7 @@ async function Yer(e, t) {
     n("[modelCapabilities] cache unchanged, skipping write");
     return;
   }
-  await Nw(bu(), { recursive: !0 }),
+  await Nw(bu(), { recursive: true }),
     await G3(r, b({ models: o, timestamp: Date.now() }), { encoding: "utf-8", mode: 384 }),
     Po().delete(r),
     n(`[modelCapabilities] cached ${o.length} models`);
@@ -5361,7 +5361,7 @@ function nN() {
 }
 
 function Cc(e) {
-  if (nN()) return !1;
+  if (nN()) return false;
   return /\[1m\]/i.test(e);
 }
 
@@ -5377,7 +5377,7 @@ function Bw(e) {
 
 function Fw(e) {
   let t = pn(e);
-  return Ql(t)?.context?.native_1m === !0 || t === Q4t;
+  return Ql(t)?.context?.native_1m === true || t === Q4t;
 }
 
 function XSt(e) {
@@ -5385,7 +5385,7 @@ function XSt(e) {
 }
 
 function Jer(e) {
-  if (Me(process.env.DISABLE_COMPACT)) return !0;
+  if (Me(process.env.DISABLE_COMPACT)) return true;
   return Hw(e);
 }
 
@@ -5395,12 +5395,12 @@ function Hw(e) {
 }
 
 function A_(e) {
-  if (nN()) return !1;
+  if (nN()) return false;
   let t = Bw(e);
-  if (t === void 0) return !1;
+  if (t === void 0) return false;
   let r = Ql(pn(t))?.context,
     o = za(e);
-  if ((o === "firstParty" && jo()) || NH(o) || o === "mantle") return !0;
+  if ((o === "firstParty" && jo()) || NH(o) || o === "mantle") return true;
   return eQ(o, r);
 }
 
@@ -5410,11 +5410,11 @@ function eQ(e, t) {
     case "bedrock":
     case "vertex":
     case "foundry":
-      return r?.[e] === !0;
+      return r?.[e] === true;
     case "gateway":
-      return r?.bedrock === !0 && r?.vertex === !0 && r?.foundry === !0;
+      return r?.bedrock === true && r?.vertex === true && r?.foundry === true;
     default:
-      return !1;
+      return false;
   }
 }
 
@@ -5429,10 +5429,10 @@ function Vde(e) {
 }
 
 function TC(e) {
-  if (nN()) return !1;
+  if (nN()) return false;
   let t = Ye(e);
-  if (Vde(t)) return !1;
-  if (Ql(t)?.context?.supports_1m_beta) return !0;
+  if (Vde(t)) return false;
+  if (Ql(t)?.context?.supports_1m_beta) return true;
   return s0(za(e));
 }
 
@@ -5548,7 +5548,7 @@ function oQ(e, t) {
 }
 
 function YSt() {
-  return Je().showThinkingSummaries ?? !1;
+  return Je().showThinkingSummaries ?? false;
 }
 
 function XSn({ explicitDisplay: e, isNonInteractive: t, outputFormat: r, verbose: o }) {
@@ -5563,9 +5563,9 @@ function YSn({ isNonInteractive: e, outputFormat: t, verbose: r }) {
 }
 
 function ttr(e, t) {
-  if (e === !1) return { type: "disabled" };
+  if (e === false) return { type: "disabled" };
   if (t.type !== "disabled") return t;
-  let r = XSn({ explicitDisplay: void 0, isNonInteractive: !1, outputFormat: "text", verbose: !1 });
+  let r = XSn({ explicitDisplay: void 0, isNonInteractive: false, outputFormat: "text", verbose: false });
   return r ? { type: "adaptive", display: r } : { type: "adaptive" };
 }
 
@@ -5574,11 +5574,11 @@ function ntr(
   { useExactTools: t, forwardSubagentText: r, isAsync: o, isNonInteractiveSession: u, sessionDisplayExplicit: d },
 ) {
   if (d || !u || t || r || o || e.type === "disabled" || e.display === "omitted") return e;
-  return { ...e, display: "omitted", displayExplicit: !1 };
+  return { ...e, display: "omitted", displayExplicit: false };
 }
 
 function UV() {
-  return I("tengu_turtle_carbon", !0);
+  return I("tengu_turtle_carbon", true);
 }
 
 function G8e(e) {
@@ -5592,7 +5592,7 @@ function z8e(e) {
   return t;
 }
 
-function RH(e, t = !1) {
+function RH(e, t = false) {
   let r = t ? sQ : iQ;
   return r[e % r.length];
 }
@@ -5620,14 +5620,14 @@ function MMe(e) {
     t === "claude-sonnet-5" ||
     t === "claude-haiku-4-5"
   )
-    return !1;
-  if (hh(t, "rejects_disabled_thinking")) return !0;
+    return false;
+  if (hh(t, "rejects_disabled_thinking")) return true;
   return s0(za(e));
 }
 
 function H3(e) {
   if (MMe(e)) return [void 0, 2048];
-  return [!1, 0];
+  return [false, 0];
 }
 
 function KEe(e) {
@@ -5643,20 +5643,20 @@ function KEe(e) {
     r === "claude-sonnet-4-5" ||
     r === "claude-haiku-4-5"
   )
-    return !1;
-  if (hh(r, "adaptive_thinking") || r === "claude-mythos-5") return !0;
+    return false;
+  if (hh(r, "adaptive_thinking") || r === "claude-mythos-5") return true;
   return s0(za(e));
 }
 
 function QSn() {
   if (process.env.MAX_THINKING_TOKENS) return ol(process.env.MAX_THINKING_TOKENS) > 0 ? null : "MAX_THINKING_TOKENS";
   let { settings: e } = ob();
-  return e.alwaysThinkingEnabled === !1 ? "alwaysThinkingEnabled" : null;
+  return e.alwaysThinkingEnabled === false ? "alwaysThinkingEnabled" : null;
 }
 
 function rN() {
-  if (QSn() !== null) return !1;
-  return !0;
+  if (QSn() !== null) return false;
+  return true;
 }
 
 function aQ(e) {
@@ -5689,10 +5689,10 @@ function JSt(e) {
   if (t !== void 0) return t;
   let r = Ye(e),
     o = za(e);
-  if (o === "foundry") return !0;
+  if (o === "foundry") return true;
   if (s0(o)) return !r.includes("claude-3-");
-  if (r === "claude-haiku-4-5" || r.includes("claude-3-")) return !1;
-  return !0;
+  if (r === "claude-haiku-4-5" || r.includes("claude-3-")) return false;
+  return true;
 }
 
 function lQ(e) {
@@ -5717,7 +5717,7 @@ function lQ(e) {
 function cQ(e) {
   let t = Ye(e),
     r = za(e);
-  if (r === "foundry") return !0;
+  if (r === "foundry") return true;
   if (s0(r)) return !t.includes("claude-3-");
   return hh(t, "context_management") || t === "claude-mythos-5";
 }
@@ -5725,9 +5725,9 @@ function cQ(e) {
 function QSt(e) {
   let t = Ye(e),
     r = za(e);
-  if (!s0(r)) return !1;
-  if (t.includes("claude-3-") || t === "claude-opus-4-0" || t === "claude-sonnet-4-0") return !1;
-  return !0;
+  if (!s0(r)) return false;
+  if (t.includes("claude-3-") || t === "claude-opus-4-0" || t === "claude-sonnet-4-0") return false;
+  return true;
 }
 
 function Gs() {
@@ -5746,8 +5746,8 @@ function NMe(e) {
 }
 
 function uQ(e) {
-  if (_h("hipaa")) return !1;
-  if (a.CLAUDE_CODE_FORCE_MID_CONVERSATION_SYSTEM) return !0;
+  if (_h("hipaa")) return false;
+  if (a.CLAUDE_CODE_FORCE_MID_CONVERSATION_SYSTEM) return true;
   let t = bY(e, "mid_conversation_system");
   if (t !== void 0) return t;
   let r = Ye(e);
@@ -5763,8 +5763,8 @@ function uQ(e) {
     r === "claude-sonnet-4-6" ||
     r === "claude-haiku-4-5"
   )
-    return !1;
-  if (hh(r, "mid_conv_system") || r === "claude-mythos-5") return !0;
+    return false;
+  if (hh(r, "mid_conv_system") || r === "claude-mythos-5") return true;
   return s0(za(e));
 }
 
@@ -5787,8 +5787,8 @@ function T3t(e) {
     r === "claude-sonnet-4-6" ||
     r === "claude-haiku-4-5"
   )
-    return !0;
-  return !1;
+    return true;
+  return false;
 }
 
 function E3t() {
@@ -5812,10 +5812,10 @@ function wY(e) {
     t === "claude-sonnet-4-5" ||
     t === "claude-haiku-4-5"
   )
-    return !1;
+    return false;
   if (r !== "firstParty" && !NH(r) && (t === "claude-opus-4-6" || t === "claude-sonnet-4-6" || t.includes("haiku")))
-    return !1;
-  return !0;
+    return false;
+  return true;
 }
 
 function otr() {
@@ -5831,8 +5831,8 @@ function FMe(e = Ne()) {
 }
 
 function Kde() {
-  if (!uw()) return !1;
-  if (!jo()) return !1;
+  if (!uw()) return false;
+  if (!jo()) return false;
   let e = Ne();
   return e === "firstParty" || e === "anthropicAws";
 }
@@ -5853,10 +5853,10 @@ function dQ(e) {
   if (!a.DISABLE_INTERLEAVED_THINKING && JSt(e)) t.push(Cr);
   if (d && JSt(e) && !Le() && !YSt()) t.push(DSt);
   if (Ts && d && JSt(e) && Ne() === "firstParty") t.push(Ts);
-  let _ = a.USE_API_CONTEXT_MANAGEMENT && !1,
+  let _ = a.USE_API_CONTEXT_MANAGEMENT && false,
     A = cQ(e);
   if (s0(za(e)) && !OV() && (_ || A)) t.push(TMe);
-  let C = I("tengu_tool_pear", !1);
+  let C = I("tengu_tool_pear", false);
   if (s0(za(e)) && !OV() && QSt(e) && C) t.push(PV);
   if (u === "vertex" && lQ(r)) t.push(Ro);
   if (u === "foundry") t.push(Ro);
@@ -5897,8 +5897,8 @@ function ZSt(e, t) {
   let u = o.map(Jc);
   if (!uw())
     u = u.filter((d) => {
-      if (jw.has(d)) return !0;
-      return n(`SDK beta '${d.header}' dropped on 3P`, { level: "debug" }), !1;
+      if (jw.has(d)) return true;
+      return n(`SDK beta '${d.header}' dropped on 3P`, { level: "debug" }), false;
     });
   return [...r, ...u.filter((d) => !r.includes(d))];
 }

@@ -86,7 +86,7 @@ function _(e) {
     mcp_servers: e.mcpServers,
   };
 }
-async function P2e({ includeBehaviors: e = !0, storageV5: o, credentials: d }) {
+async function P2e({ includeBehaviors: e = true, storageV5: o, credentials: d }) {
   let t = Tt(),
     a = t && Wd(),
     [s, u] = await Promise.all([

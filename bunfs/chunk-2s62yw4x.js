@@ -347,7 +347,7 @@ async function se(e, o, a) {
   let u = mf(e);
   if (u.scheme === "uds") {
     if (iZ(u.target)) return { kind: "refused", reason: "self", message: Kse(e) };
-    return { kind: "uds", sock: u.target, label: e, byName: !1 };
+    return { kind: "uds", sock: u.target, label: e, byName: false };
   }
   if (u.scheme === "bridge") {
     if (dB(u.target)) return { kind: "refused", reason: "self", message: Kse(e) };
@@ -359,7 +359,7 @@ async function se(e, o, a) {
       kind: "bridge",
       sessionId: u.target,
       label: e,
-      byName: !1,
+      byName: false,
       ...(Gmt(a.session, u.target) && { identityNote: kIt }),
     };
   }
@@ -375,7 +375,7 @@ async function se(e, o, a) {
         kind: "uds",
         sock: t.sock,
         label: t.displayName,
-        byName: !0,
+        byName: true,
         contestedNote: ee(t.sameNamedSiblings),
         identityNote: ` (${Vse}${x0e(t)})${
           t.previouslyPinned
@@ -398,7 +398,7 @@ ${RIt}`
         kind: "bridge",
         sessionId: t.sessionId,
         label: t.displayName,
-        byName: !0,
+        byName: true,
         via: t.via,
         contestedNote: ee(t.sameNamedSiblings),
         identityNote: ` (${Not(t.via)}${t.via === "remote-control" && !t.reportsInbound && !t.inboundReportUnavailable ? kIt : ""}${Fot(t)})${
@@ -485,12 +485,12 @@ function K(e) {
 }
 function re({ toolUseId: e, toolState: o }, a) {
   if (!e) return;
-  o.get(V).set(e, K(a), !0);
+  o.get(V).set(e, K(a), true);
 }
 function be({ toolUseId: e, toolState: o }, a) {
-  if (!e) return !1;
+  if (!e) return false;
   let u = o.get(V),
-    t = u.take(e, K(a)) === !0;
+    t = u.take(e, K(a)) === true;
   return u.dropToolUse(e), t;
 }
 var oe =
@@ -525,7 +525,7 @@ var ve = kt({
   searchHint: "send files to another Claude Code session",
   ruleContentField: "files",
   maxResultSizeChars: 1e5,
-  shouldDefer: !0,
+  shouldDefer: true,
   userFacingName() {
     return "SendFile";
   },
@@ -539,10 +539,10 @@ var ve = kt({
     return kxe();
   },
   isConcurrencySafe() {
-    return !1;
+    return false;
   },
   isReadOnly() {
-    return !1;
+    return false;
   },
   toAutoClassifierInput(e) {
     let o = Array.isArray(e.files) ? e.files.join(", ") : typeof e.files === "string" ? e.files : "[no files]",
@@ -598,7 +598,7 @@ var ve = kt({
             transport: w("refused"),
             file_count: e.files.length,
             delivered_count: 0,
-            success: !1,
+            success: false,
           }),
           { behavior: "deny", message: Ci(h.message), decisionReason: { type: "other", reason: ye[h.reason] } }
         );
@@ -610,7 +610,7 @@ var ve = kt({
           decisionReason: {
             type: "safetyCheck",
             reason: "isolatePeerMachines is enabled \u2014 file transfer to another session requires explicit approval",
-            classifierApprovable: !1,
+            classifierApprovable: false,
             circuitBreaker: "isolatePeerMachines",
           },
         }
@@ -629,25 +629,25 @@ var ve = kt({
   async validateInput({ to: e, files: o }, a) {
     if (!kxe())
       return (
-        s("tengu_send_file", { transport: w("gated_off"), file_count: o.length, delivered_count: 0, success: !1 }),
-        { result: !1, message: Z, errorCode: 9 }
+        s("tengu_send_file", { transport: w("gated_off"), file_count: o.length, delivered_count: 0, success: false }),
+        { result: false, message: Z, errorCode: 9 }
       );
     let u = Sbt(e, Js);
-    if (u !== void 0) return { result: !1, message: u, errorCode: 9 };
+    if (u !== void 0) return { result: false, message: u, errorCode: 9 };
     let t = mf(e);
     if ((t.scheme === "uds" && iZ(t.target)) || (t.scheme === "bridge" && dB(t.target)))
-      return { result: !1, message: Kse(e), errorCode: 9 };
+      return { result: false, message: Kse(e), errorCode: 9 };
     for (let p of o) {
       let b = Fpn(p);
       if (b !== void 0) return b;
       if (_r(gt(p)))
         return {
-          result: !1,
+          result: false,
           message: `Attachment "${p}" is a /net autofs -hosts path, which is not supported.`,
           errorCode: 1,
         };
     }
-    return { result: !0 };
+    return { result: true };
   },
   async description() {
     return kqn;
@@ -688,8 +688,8 @@ var ve = kt({
       C = he(o);
     if (!kxe())
       return (
-        s("tengu_send_file", { transport: w("gated_off"), file_count: b.length, delivered_count: 0, success: !1 }),
-        { data: { success: !1, message: Z, files: [] } }
+        s("tengu_send_file", { transport: w("gated_off"), file_count: b.length, delivered_count: 0, success: false }),
+        { data: { success: false, message: Z, files: [] } }
       );
     let d = _ ?? (await se(t, p ?? "", o));
     if (_?.kind === "bridge") {
@@ -709,24 +709,24 @@ var ve = kt({
       d = { kind: "refused", reason: "self", message: Kse(t) };
     if (d.kind === "refused")
       return (
-        s("tengu_send_file", { transport: w("refused"), file_count: b.length, delivered_count: 0, success: !1 }),
-        { data: { success: !1, message: d.message, files: [] } }
+        s("tengu_send_file", { transport: w("refused"), file_count: b.length, delivered_count: 0, success: false }),
+        { data: { success: false, message: d.message, files: [] } }
       );
     let B = Vqe(d.kind),
       z = (r) => (p?.trim() ? p : `Sent you ${r.length} ${k(r.length, "file")}: ${r.join(", ")}`),
       L = (r, y) => {
         s("tengu_send_file", { transport: c(d.kind), file_count: b.length, delivered_count: y, success: r });
       },
-      I = (r, y = []) => (L(!1, 0), { data: { success: !1, message: r, files: y } });
+      I = (r, y = []) => (L(false, 0), { data: { success: false, message: r, files: y } });
     async function W(r) {
       let y;
       try {
         y = await fe(r);
       } catch {
-        return !0;
+        return true;
       }
-      if (y === r) return !0;
-      if (rw(y, C).behavior === "allow") return !0;
+      if (y === r) return true;
+      if (rw(y, C).behavior === "allow") return true;
       return `resolves to '${y}', which is not readable under this session's permissions`;
     }
     let P = b.map((r) => gt(r)),
@@ -741,7 +741,7 @@ var ve = kt({
                 return;
               }
               let Y = await W(g);
-              if (Y !== !0) {
+              if (Y !== true) {
                 r[A] = { path: g, error: Y };
                 return;
               }
@@ -765,10 +765,10 @@ var ve = kt({
       let { sendToUdsSocket: X } = import.meta.require("/$bunfs/root/chunk-j0bs780t.js");
       try {
         let { msgId: g } = await X(d.sock, z(S.map((A) => A.file_name)), o.storageV5, B, S, epe(o.messages));
-        if ((L(!0, S.length), d.pin)) bhe(o.setAppState, d.pin.displayName, d.pin);
+        if ((L(true, S.length), d.pin)) bhe(o.setAppState, d.pin.displayName, d.pin);
         return {
           data: {
-            success: !0,
+            success: true,
             message: `${S.length} ${k(S.length, "file")} \u2192 ${d.label}${d.identityNote ?? ""}${d.contestedNote ?? ""}`,
             msg_id: g,
             files: r,
@@ -815,7 +815,7 @@ var ve = kt({
               return;
             }
             let S = await W(r);
-            if (S !== !0) {
+            if (S !== true) {
               O[y] = { path: r, error: S };
               return;
             }
@@ -860,10 +860,10 @@ var ve = kt({
           : "";
       return I(`Failed to send to ${d.label}: ${j.error ?? "unknown"}${S}`, O);
     }
-    if ((L(!0, F.length), d.pin)) bhe(o.setAppState, d.pin.displayName, d.pin);
+    if ((L(true, F.length), d.pin)) bhe(o.setAppState, d.pin.displayName, d.pin);
     return {
       data: {
-        success: !0,
+        success: true,
         message: `${F.length} ${k(F.length, "file")} \u2192 ${d.label}${d.identityNote ?? ""}${d.contestedNote ?? ""}`,
         msg_id: j.msgId,
         files: O,

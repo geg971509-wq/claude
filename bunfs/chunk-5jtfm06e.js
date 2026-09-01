@@ -44,12 +44,12 @@ async function NDt(t, r, e) {
           .catch(() => {
             return;
           })
-      )?.ok === !0
+      )?.ok === true
     );
   try {
-    return await S(Gb(), { recursive: !0 }), await Wn(n(t), u(r)), !0;
+    return await S(Gb(), { recursive: true }), await Wn(n(t), u(r)), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function Arn(t, r) {
@@ -105,7 +105,7 @@ async function kst() {
               let s = g().safeParse(V(o));
               if (s.success && r - s.data.ts <= l) return;
             } catch {}
-          await w(a, { recursive: !0, force: !0 }).catch(() => {});
+          await w(a, { recursive: true, force: true }).catch(() => {});
         }),
     );
   });

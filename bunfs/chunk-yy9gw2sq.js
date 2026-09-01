@@ -47,15 +47,15 @@ async function Ttn(e) {
     return (
       n(`[it2Setup] Failed to install it2: ${a}`, { level: "error" }),
       p("swarm_iterm2_it2_install", `${e}_install_failed`),
-      { success: !1, error: a, packageManager: e }
+      { success: false, error: a, packageManager: e }
     );
   }
-  return n("[it2Setup] it2 installed successfully"), y("swarm_iterm2_it2_install"), { success: !0, packageManager: e };
+  return n("[it2Setup] it2 installed successfully"), y("swarm_iterm2_it2_install"), { success: true, packageManager: e };
 }
 async function Etn() {
   if ((n("[it2Setup] Verifying it2 setup..."), !(await f())))
     return (
-      p("swarm_iterm2_it2_verify", "not_installed"), { success: !1, error: "it2 CLI is not installed or not in PATH" }
+      p("swarm_iterm2_it2_verify", "not_installed"), { success: false, error: "it2 CLI is not installed or not in PATH" }
     );
   let t = await $e("it2", ["session", "list"]);
   if (t.code !== 0) {
@@ -64,14 +64,14 @@ async function Etn() {
       return (
         n("[it2Setup] Python API not enabled in iTerm2"),
         g("swarm_iterm2_it2_verify", "python_api_not_enabled"),
-        { success: !1, error: "Python API not enabled in iTerm2 preferences", needsPythonApiEnabled: !0 }
+        { success: false, error: "Python API not enabled in iTerm2 preferences", needsPythonApiEnabled: true }
       );
     return (
       p("swarm_iterm2_it2_verify", "communication_failed"),
-      { success: !1, error: t.stderr || "Failed to communicate with iTerm2" }
+      { success: false, error: t.stderr || "Failed to communicate with iTerm2" }
     );
   }
-  return n("[it2Setup] it2 setup verified successfully"), y("swarm_iterm2_it2_verify"), { success: !0 };
+  return n("[it2Setup] it2 setup verified successfully"), y("swarm_iterm2_it2_verify"), { success: true };
 }
 function Atn() {
   return [
@@ -83,21 +83,21 @@ function Atn() {
   ];
 }
 function Ctn(e) {
-  if (ie().iterm2It2SetupComplete !== !0)
-    Ae((a) => ({ ...a, iterm2It2SetupComplete: !0 }), e), n("[it2Setup] Marked it2 setup as complete");
+  if (ie().iterm2It2SetupComplete !== true)
+    Ae((a) => ({ ...a, iterm2It2SetupComplete: true }), e), n("[it2Setup] Marked it2 setup as complete");
 }
 function vtn(e, t) {
   if (ie().preferTmuxOverIterm2 !== e)
     Ae((s) => ({ ...s, preferTmuxOverIterm2: e }), t), n(`[it2Setup] Set preferTmuxOverIterm2 = ${e}`);
 }
 function d() {
-  return ie().preferTmuxOverIterm2 === !0;
+  return ie().preferTmuxOverIterm2 === true;
 }
 async function gPt(e = Cz) {
   if (e.backendsRegistered) return;
   let { TmuxBackend: t } = await import("/$bunfs/root/chunk-wxpzz7tk.js"),
     { ITermBackend: a } = await import("/$bunfs/root/chunk-kwk7get1.js");
-  (e.TmuxBackendClass = t), (e.ITermBackendClass = a), (e.backendsRegistered = !0);
+  (e.TmuxBackendClass = t), (e.ITermBackendClass = a), (e.backendsRegistered = true);
 }
 function c(e) {
   if (e.tmuxBackend) return e.tmuxBackend;
@@ -133,7 +133,7 @@ async function Hit(e = Cz) {
     n("[BackendRegistry] Selected: iterm2 (explicit teammateMode)");
     let i = u(e);
     return (
-      (e.cachedDetectionResult = { backend: i, isNative: !0, needsIt2Setup: !1 }),
+      (e.cachedDetectionResult = { backend: i, isNative: true, needsIt2Setup: false }),
       y("swarm_backend_detect"),
       e.cachedDetectionResult
     );
@@ -144,7 +144,7 @@ async function Hit(e = Cz) {
     n("[BackendRegistry] Selected: tmux (running inside tmux session)");
     let i = c(e);
     return (
-      (e.cachedDetectionResult = { backend: i, isNative: !0, needsIt2Setup: !1 }),
+      (e.cachedDetectionResult = { backend: i, isNative: true, needsIt2Setup: false }),
       y("swarm_backend_detect"),
       e.cachedDetectionResult
     );
@@ -158,7 +158,7 @@ async function Hit(e = Cz) {
         n("[BackendRegistry] Selected: iterm2 (native iTerm2 with it2 CLI)");
         let m = u(e);
         return (
-          (e.cachedDetectionResult = { backend: m, isNative: !0, needsIt2Setup: !1 }),
+          (e.cachedDetectionResult = { backend: m, isNative: true, needsIt2Setup: false }),
           y("swarm_backend_detect"),
           e.cachedDetectionResult
         );
@@ -169,7 +169,7 @@ async function Hit(e = Cz) {
       n("[BackendRegistry] Selected: tmux (fallback in iTerm2, it2 setup recommended)");
       let r = c(e);
       return (
-        (e.cachedDetectionResult = { backend: r, isNative: !1, needsIt2Setup: !i }),
+        (e.cachedDetectionResult = { backend: r, isNative: false, needsIt2Setup: !i }),
         g("swarm_backend_detect", i ? "fallback_to_tmux" : "needs_it2_setup"),
         e.cachedDetectionResult
       );
@@ -185,7 +185,7 @@ async function Hit(e = Cz) {
     n("[BackendRegistry] Selected: tmux (external session mode)");
     let i = c(e);
     return (
-      (e.cachedDetectionResult = { backend: i, isNative: !1, needsIt2Setup: !1 }),
+      (e.cachedDetectionResult = { backend: i, isNative: false, needsIt2Setup: false }),
       y("swarm_backend_detect"),
       e.cachedDetectionResult
     );
@@ -230,20 +230,20 @@ function Rtn(e = Cz) {
   return e.cachedDetectionResult;
 }
 function ktn(e = Cz) {
-  n("[BackendRegistry] Marking in-process fallback as active"), (e.inProcessFallbackActive = !0);
+  n("[BackendRegistry] Marking in-process fallback as active"), (e.inProcessFallbackActive = true);
 }
 function x() {
   return DHe();
 }
 function Mje(e = Cz) {
-  if (Le()) return n("[BackendRegistry] isInProcessEnabled: true (non-interactive session)"), !0;
+  if (Le()) return n("[BackendRegistry] isInProcessEnabled: true (non-interactive session)"), true;
   let t = x(),
     a;
-  if (t === "in-process") a = !0;
-  else if (t === "tmux" || t === "iterm2") a = !1;
+  if (t === "in-process") a = true;
+  else if (t === "tmux" || t === "iterm2") a = false;
   else {
     if (e.inProcessFallbackActive)
-      return n("[BackendRegistry] isInProcessEnabled: true (fallback after pane backend unavailable)"), !0;
+      return n("[BackendRegistry] isInProcessEnabled: true (fallback after pane backend unavailable)"), true;
     let s = Dgt(),
       i = _M(e);
     a = !s && !i;
@@ -251,6 +251,6 @@ function Mje(e = Cz) {
   return n(`[BackendRegistry] isInProcessEnabled: ${a} (mode=${t}, insideTmux=${Dgt()}, inITerm2=${_M(e)})`), a;
 }
 function Nje(e = Cz) {
-  (e.cachedDetectionResult = null), (e.backendsRegistered = !1), (e.inProcessFallbackActive = !1);
+  (e.cachedDetectionResult = null), (e.backendsRegistered = false), (e.inProcessFallbackActive = false);
 }
 export { kit, Ttn, Etn, Atn, Ctn, vtn, gPt, Hit, Lje, Rtn, ktn, Mje, Nje };

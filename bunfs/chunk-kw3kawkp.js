@@ -43,8 +43,8 @@ function Et(nt, bo) {
     {
       flexDirection: "row",
       children: [
-        e(t, { bold: !0, children: nt.label }),
-        nt.detail ? r(t, { dimColor: !0, children: [" \xB7 ", nt.detail] }) : null,
+        e(t, { bold: true, children: nt.label }),
+        nt.detail ? r(t, { dimColor: true, children: [" \xB7 ", nt.detail] }) : null,
       ],
     },
     bo,
@@ -196,7 +196,7 @@ function ce() {
 async function P(v, R) {
   let { originalCwd: l, preEnterOriginalCwd: M, liveLaunchAnchor: p } = v,
     c = CP(l) ? zt() : l;
-  while (!0)
+  while (true)
     try {
       qu(c), Lc(c);
       break;
@@ -212,7 +212,7 @@ async function P(v, R) {
     if (
       p === void 0 ||
       Xle(N, ySe(p, v.worktreePath), {
-        requireCovered: !0,
+        requireCovered: true,
         coveredWitnesses: nPe(p, v.worktreePath),
         extraCoveredRoots: (() => {
           let m = q4(v.worktreePath);
@@ -502,14 +502,14 @@ function HRe(wr) {
       onBeforeExit: Be,
     } = wr,
     { storageV5: Pe } = ge(),
-    [vt, vr] = u(!1),
+    [vt, vr] = u(false),
     Xt;
   if (L[0] !== kt || L[1] !== ht) (Xt = () => kt?.() ?? ht), (L[0] = kt), (L[1] = ht), (L[2] = Xt);
   else Xt = L[2];
   let fe = Xt,
     Zt;
   if (L[3] !== z || L[4] !== wt || L[5] !== J)
-    (Zt = () => ((wt ?? z)?.() ?? J) === !0), (L[3] = z), (L[4] = wt), (L[5] = J), (L[6] = Zt);
+    (Zt = () => ((wt ?? z)?.() ?? J) === true), (L[3] = z), (L[4] = wt), (L[5] = J), (L[6] = Zt);
   else Zt = L[6];
   let pe = Zt,
     _e;
@@ -558,14 +558,14 @@ function HRe(wr) {
         break bb0;
       }
       if (vt && Qe) {
-        _e = e(Ltt, { messages: Qe, isMidTurn: xr ?? !1, responseStreaming: pe() });
+        _e = e(Ltt, { messages: Qe, isMidTurn: xr ?? false, responseStreaming: pe() });
         break bb0;
       }
       if (de.length > 0) {
         let Xe;
         if (Qe !== void 0 && xkt(Qe)) {
           let K;
-          if (L[31] === d) (K = () => vr(!0)), (L[31] = K);
+          if (L[31] === d) (K = () => vr(true)), (L[31] = K);
           else K = L[31];
           Xe = K;
         }

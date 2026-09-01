@@ -22,13 +22,13 @@ function Gj(w) {
     return null;
   }
   let v;
-  if (a[0] !== l) (v = l ? $t(l, { hideTrailingZeros: !0 }) : void 0), (a[0] = l), (a[1] = v);
+  if (a[0] !== l) (v = l ? $t(l, { hideTrailingZeros: true }) : void 0), (a[0] = l), (a[1] = v);
   else v = a[1];
   let x = v;
   if (b === void 0) {
     const m = `(timeout ${x})`;
     let p;
-    if (a[2] !== m) (p = e(t, { dimColor: !0, children: m })), (a[2] = m), (a[3] = p);
+    if (a[2] !== m) (p = e(t, { dimColor: true, children: m })), (a[2] = m), (a[3] = p);
     else p = a[3];
     return p;
   }
@@ -40,13 +40,13 @@ function Gj(w) {
   if (x) {
     const u = `(${O} \xB7 timeout ${x})`;
     let d;
-    if (a[6] !== u) (d = e(t, { dimColor: !0, children: u })), (a[6] = u), (a[7] = d);
+    if (a[6] !== u) (d = e(t, { dimColor: true, children: u })), (a[6] = u), (a[7] = d);
     else d = a[7];
     return d;
   }
   const u = `(${O})`;
   let d;
-  if (a[8] !== u) (d = e(t, { dimColor: !0, children: u })), (a[8] = u), (a[9] = d);
+  if (a[8] !== u) (d = e(t, { dimColor: true, children: u })), (a[8] = u), (a[9] = d);
   else d = a[9];
   return d;
 }

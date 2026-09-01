@@ -24,7 +24,7 @@ async function rke({
   cacheSafeParams: r,
   parentController: n,
   onRetry: e,
-  threadHistory: s = !0,
+  threadHistory: s = true,
   history: a,
 }) {
   let f = `<system-reminder>This is a side question from the user. You must answer this question directly in a single response.
@@ -69,8 +69,8 @@ ${o.response}`
         querySource: "side_question",
         forkLabel: "side_question",
         maxTurns: 1,
-        skipCacheWrite: !0,
-        skipTranscript: !0,
+        skipCacheWrite: true,
+        skipTranscript: true,
         overrides: { abortController: y },
         onMessage: e
           ? (i) => {
@@ -90,7 +90,7 @@ ${o.response}`
     if (c && u && !p) c.append(t, u, d?.content);
     return { response: u, synthetic: p, usage: o.totalUsage, ...(d && !p && { refusalFallback: d }) };
   } catch (o) {
-    if (o instanceof sc || y.signal.aborted) return { response: null, synthetic: !1, usage: hp, aborted: !0 };
+    if (o instanceof sc || y.signal.aborted) return { response: null, synthetic: false, usage: hp, aborted: true };
     throw o;
   }
 }
@@ -103,17 +103,17 @@ function w(t) {
 
 `,
     ).trim();
-    if (e) return { response: e, synthetic: !1 };
+    if (e) return { response: e, synthetic: false };
     let s = r.find((a) => a.type === "tool_use");
     if (s)
       return {
         response: `(The model tried to call ${"name" in s ? s.name : "a tool"} instead of answering directly. Try rephrasing or ask in the main conversation.)`,
-        synthetic: !0,
+        synthetic: true,
       };
   }
   let n = t.find(m);
-  if (n) return { response: `(API error: ${n.error.formatted})`, synthetic: !0 };
-  return { response: null, synthetic: !1 };
+  if (n) return { response: `(API error: ${n.error.formatted})`, synthetic: true };
+  return { response: null, synthetic: false };
 }
 function m(t) {
   return t.type === "system" && "subtype" in t && t.subtype === "api_error";

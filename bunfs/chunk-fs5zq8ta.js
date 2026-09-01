@@ -41,7 +41,7 @@ function UFn(t, e, a, i, r, d) {
     i !== "started")
   )
     return;
-  let s = !0;
+  let s = true;
   if ((t.set((n) => ((s = n.startedSeen.includes(e)), S(n, e))), !s))
     y("workshop_build_started", { artifact_slug: Khe(e) });
 }

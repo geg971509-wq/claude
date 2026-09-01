@@ -30,18 +30,18 @@ import { ef } from "/$bunfs/root/chunk-gdhqsw8a.js";
 import { gp } from "/$bunfs/root/chunk-g5y4mxg8.js";
 import { i, v, q, _e, H, f, un, De } from "/$bunfs/root/chunk-saay52v7.js";
 function Uhe() {
-  return a.CLAUDE_CODE_ARTIFACT_TYPES ?? I("tengu_cobalt_plinth_larch", !1);
+  return a.CLAUDE_CODE_ARTIFACT_TYPES ?? I("tengu_cobalt_plinth_larch", false);
 }
 var G = "tengu_cobalt_plinth_hazel";
 function j() {
-  return a.CLAUDE_CODE_ARTIFACT_TYPE_CLOUD_CREATE ?? I(G, !1);
+  return a.CLAUDE_CODE_ARTIFACT_TYPE_CLOUD_CREATE ?? I(G, false);
 }
 var W = "tengu_cobalt_plinth_linden";
 function F() {
-  return ef() && I(W, !1) && l5e() && Nht();
+  return ef() && I(W, false) && l5e() && Nht();
 }
 function fBn() {
-  if (!a.CLAUDE_CODE_REMOTE) return !0;
+  if (!a.CLAUDE_CODE_REMOTE) return true;
   return (ef() && j()) || F();
 }
 var Dtn =
@@ -49,7 +49,7 @@ var Dtn =
 function Otn() {
   return ef() && !VP(rDt) && !F();
 }
-var V = { ok: !1, reason: "relay-unavailable", status: 0, route: "relay", fromFrame: !1 };
+var V = { ok: false, reason: "relay-unavailable", status: 0, route: "relay", fromFrame: false };
 function K(e) {
   return `/api/frame/types/${encodeURIComponent(e)}/create`;
 }
@@ -74,7 +74,7 @@ var te =
 async function mBn(e, r) {
   let l = "direct",
     t = F(),
-    o = () => ({ route: l === "relay" ? w("relay") : w("direct"), ...(t && { agent: !0 }) }),
+    o = () => ({ route: l === "relay" ? w("relay") : w("direct"), ...(t && { agent: true }) }),
     s = (d, h, z) => (
       p("artifact_create_from_type", d, { ...o(), ...(z !== void 0 && { status: z }) }),
       { kind: "error", message: h, reason: d }
@@ -87,7 +87,7 @@ async function mBn(e, r) {
   let A = K(e),
     T = { target_type_version: null, ...(r.title !== void 0 && r.title !== "" && { title: r.title }) },
     C = {
-      refreshOAuth: !0,
+      refreshOAuth: true,
       headers: Yu(),
       timeout: 60000,
       maxContentLength: Q,
@@ -104,7 +104,7 @@ async function mBn(e, r) {
     let d = c.ok && c.fromFrame ? c.response?.headers?.["retry-after"] : void 0,
       h = c.ok && (c.status === 409 || c.status === 429) && typeof d === "string" ? d : void 0;
     if (h !== void 0)
-      await ne(Math.min(RT(h) ?? 1000, 1e4), r.signal, { throwOnAbort: !0 }), (c = await E()), (l = c.route);
+      await ne(Math.min(RT(h) ?? 1000, 1e4), r.signal, { throwOnAbort: true }), (c = await E()), (l = c.route);
   } catch (d) {
     if (sa(d) || r.signal.aborted) throw d;
     let h = KP(d);
@@ -189,7 +189,7 @@ async function Ltn(e, r, l) {
 function re(e) {
   return `Created from the Artifact type ${G_(e.slug)}, release ${SZ(e.current)}.${Mtn(e)}`;
 }
-function Mtn(e, r = !0) {
+function Mtn(e, r = true) {
   let l = SZ(e.current),
     { blocked: t } = e;
   if (t !== void 0 && t.to !== e.current) {
@@ -231,8 +231,8 @@ var ae = 24,
   D = 128,
   ie = /[\p{C}\p{Zl}\p{Zp}[\]"\\<>\uFF3B\uFF3D\uFF02\uFF1C\uFF1E]/u;
 function x(e) {
-  if (e === "" || ie.test(e)) return !1;
-  for (let r of e) if (OT(r.codePointAt(0) ?? 0)) return !1;
+  if (e === "" || ie.test(e)) return false;
+  for (let r of e) if (OT(r.codePointAt(0) ?? 0)) return false;
   return e.replace(pN, "") === e && e.replace(z3, "") === e;
 }
 function oHe(e) {
@@ -252,7 +252,7 @@ function yPt(e, r) {
 }
 var oe = "tengu_cobalt_plinth_rowan";
 function Ntn() {
-  return a.CLAUDE_CODE_ARTIFACT_TYPE_CATALOG ?? I(oe, !1);
+  return a.CLAUDE_CODE_ARTIFACT_TYPE_CATALOG ?? I(oe, false);
 }
 function se(e) {
   return e === void 0 || e === "" ? "/api/frame/types" : `/api/frame/types?q=${encodeURIComponent(e)}`;
@@ -373,7 +373,7 @@ async function Y(e, r) {
     let t;
     try {
       t = await op.get(e, {
-        refreshOAuth: !0,
+        refreshOAuth: true,
         headers: Yu(),
         timeout: 15000,
         maxContentLength: r.maxContentLength,
@@ -382,17 +382,17 @@ async function Y(e, r) {
       });
     } catch (u) {
       if (sa(u) || r.signal.aborted) throw u;
-      if (aDt(u)) return p(r.feature, "oversize_body"), { threw: !0, oversize: !0 };
+      if (aDt(u)) return p(r.feature, "oversize_body"), { threw: true, oversize: true };
       if (l === 0) {
-        await ne(300 + Math.random() * 500, r.signal, { throwOnAbort: !0 });
+        await ne(300 + Math.random() * 500, r.signal, { throwOnAbort: true });
         continue;
       }
-      return p(r.feature, "request_error"), { threw: !0, oversize: !1 };
+      return p(r.feature, "request_error"), { threw: true, oversize: false };
     }
     let o = t.ok && (t.status === 503 || t.status === 429) ? t.response?.headers?.["retry-after"] : void 0;
     if (t.ok && (t.status >= 500 || typeof o === "string") && l === 0) {
       let u = typeof o === "string" ? Math.min(RT(o) ?? 1000, 5000) : 300 + Math.random() * 500;
-      await ne(u, r.signal, { throwOnAbort: !0 });
+      await ne(u, r.signal, { throwOnAbort: true });
       continue;
     }
     return t;
@@ -432,7 +432,7 @@ async function gBn(e) {
         }
       : { err: "the Artifact type listing could not be read (network error) \u2014 retry", reason: "request_error" };
   if (N(r))
-    return g("artifact_type_list", "catalog_off"), { err: null, rows: [], dropped: 0, more: !1, unavailable: !0 };
+    return g("artifact_type_list", "catalog_off"), { err: null, rows: [], dropped: 0, more: false, unavailable: true };
   if (!r.ok || !r.fromFrame || r.status !== 200) return B(r, "artifact_type_list", "the Artifact type listing");
   let l = ye().safeParse(r.data);
   if (!l.success)
@@ -460,7 +460,7 @@ async function gBn(e) {
   let u = o.length + s < t.length || (typeof l.data.next_page_token === "string" && l.data.next_page_token !== "");
   if (s > 0) g("artifact_type_list", "rows_dropped", { count: s });
   else y("artifact_type_list", { n_types: o.length, queried: e.query !== void 0 && e.query !== "", more: u });
-  return { err: null, rows: o, dropped: s, more: u, unavailable: !1 };
+  return { err: null, rows: o, dropped: s, more: u, unavailable: false };
 }
 var we =
   "Artifact type not found in this account's catalog \u2014 check the link (use a `type_url` from action \"list_types\"); a type that exists but isn't listed for this account, a single-file page, or the catalog not being available to this account all answer this way";
@@ -541,13 +541,13 @@ async function Wtn(e, r, l, t) {
   if (o !== void 0 && !o.includes(fB)) return { kind: "none" };
   let s = await GP({ ...e, file: fB }, r, l, "artifact_type_instructions_read");
   if (s.err !== null) {
-    if (s.missingFile === !0 && o === void 0) return { kind: "none" };
+    if (s.missingFile === true && o === void 0) return { kind: "none" };
     let u = wZ(s);
     if (u !== s.err) n(`[artifact] type instructions read failed: ${s.err}`);
     return {
       kind: "unavailable",
       why:
-        s.missingFile === !0 ? "the file is not on the version of the Artifact that was read" : jtn({ ...s, err: u }),
+        s.missingFile === true ? "the file is not on the version of the Artifact that was read" : jtn({ ...s, err: u }),
       known: o !== void 0,
     };
   }
@@ -591,12 +591,12 @@ ${Slr}`;
 async function hBn(e, r, l) {
   let t = de().frozenArtifactTypes;
   if (!(t !== void 0 ? t.typeCatalogOn : Uhe() && U0() && Ntn())) return "";
-  let s = Ja(r, { timeoutMs: Btn, refTimer: !0 });
+  let s = Ja(r, { timeoutMs: Btn, refTimer: true });
   try {
     return wPt(await Wtn(e, s.signal, l));
   } catch (u) {
     if (r.aborted || !s.signal.aborted) throw u;
-    return wPt({ kind: "unavailable", why: "reading the instructions took too long", known: !1 });
+    return wPt({ kind: "unavailable", why: "reading the instructions took too long", known: false });
   } finally {
     s.cleanup();
   }

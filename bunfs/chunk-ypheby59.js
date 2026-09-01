@@ -13,7 +13,7 @@ class yge {
   activeOperations = new Set();
   lastUserActivityTime = 0;
   lastCLIRecordedTime;
-  isCLIActive = !1;
+  isCLIActive = false;
   USER_ACTIVITY_TIMEOUT_MS = 5000;
   getNow;
   getActiveTimeCounter;
@@ -49,7 +49,7 @@ class yge {
   startCLIActivity(t) {
     if (this.activeOperations.has(t)) this.endCLIActivity(t);
     let e = this.activeOperations.size === 0;
-    if ((this.activeOperations.add(t), e)) (this.isCLIActive = !0), (this.lastCLIRecordedTime = this.getNow());
+    if ((this.activeOperations.add(t), e)) (this.isCLIActive = true), (this.lastCLIRecordedTime = this.getNow());
   }
   endCLIActivity(t) {
     if ((this.activeOperations.delete(t), this.activeOperations.size === 0)) {
@@ -59,7 +59,7 @@ class yge {
         let s = this.getActiveTimeCounter();
         if (s) s.add(i, { type: "cli" });
       }
-      (this.lastCLIRecordedTime = e), (this.isCLIActive = !1);
+      (this.lastCLIRecordedTime = e), (this.isCLIActive = false);
     }
   }
   async trackOperation(t, e) {

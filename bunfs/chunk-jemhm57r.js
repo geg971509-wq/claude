@@ -118,8 +118,8 @@ var g = ue("/$bunfs/root/loopAutonomousPreamble-07qcyhv4.md");
 var y = ue("/$bunfs/root/loopAutonomousPreamblePersistent-3zqtkrvg.md");
 var re = g;
 function m() {
-  if (a.CLAUDE_CODE_LOOP_PERSISTENT) return !0;
-  return I("tengu_kairos_loop_persistent", !1);
+  if (a.CLAUDE_CODE_LOOP_PERSISTENT) return true;
+  return I("tengu_kairos_loop_persistent", false);
 }
 function v() {
   return m() ? y : g;
@@ -127,7 +127,7 @@ function v() {
 function w() {
   s("tengu_kairos_loop_persistent_activated", { variant: m() });
 }
-function h(e = !1) {
+function h(e = false) {
   if (!jX()) return "";
   let o =
     !e && m()
@@ -161,7 +161,7 @@ function P(e, t) {
   let o = t === Tne ? x() : b();
   if (e.autonomousPreambleDelivered || e.lastLoopFileDelivered !== null) return o;
   return (
-    (e.autonomousPreambleDelivered = !0),
+    (e.autonomousPreambleDelivered = true),
     `${v()}
 
 ---
@@ -175,14 +175,14 @@ var k = "__autonomous_preamble__",
 function F() {
   return `# /loop tick \u2014 loop.md tasks
 
-Work the tasks from the loop.md contents established earlier in this conversation. If you cannot find them, treat this as a no-op tick. The recurring cron will fire the next tick automatically \u2014 do not call ${pa} from this tick.${h(!0)}`;
+Work the tasks from the loop.md contents established earlier in this conversation. If you cannot find them, treat this as a no-op tick. The recurring cron will fire the next tick automatically \u2014 do not call ${pa} from this tick.${h(true)}`;
 }
 function M() {
   return `# /loop tick \u2014 loop.md tasks (dynamic pacing)
 
 Work the tasks from the loop.md contents established earlier in this conversation. If you cannot find them, treat this as a no-op tick.
 
-You scheduled this tick via the ${pa} tool (not a recurring cron). To keep the loop alive, call ${pa} again at the end of this turn with \`prompt\` set to the literal sentinel \`${d}\` and \`noop\` set to \`true\` if this tick changed nothing (or \`false\` if it did) \u2014 otherwise the loop ends after this tick.${f}${h(!0)}`;
+You scheduled this tick via the ${pa} tool (not a recurring cron). To keep the loop alive, call ${pa} again at the end of this turn with \`prompt\` set to the literal sentinel \`${d}\` and \`noop\` set to \`true\` if this tick changed nothing (or \`false\` if it did) \u2014 otherwise the loop ends after this tick.${f}${h(true)}`;
 }
 function N() {
   return `# /loop tick \u2014 loop.md absent (dynamic pacing)
@@ -267,7 +267,7 @@ ${r}`
   if (e.lastLoopFileDelivered === k || e.autonomousPreambleDelivered) return i;
   return (
     (e.lastLoopFileDelivered = k),
-    (e.autonomousPreambleDelivered = !0),
+    (e.autonomousPreambleDelivered = true),
     `${v()}
 
 ---

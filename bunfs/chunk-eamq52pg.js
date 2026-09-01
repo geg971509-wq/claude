@@ -220,7 +220,7 @@ function z(e) {
     },
     async return() {
       let r = t.cancel();
-      return t.releaseLock(), await r, { done: !0, value: void 0 };
+      return t.releaseLock(), await r, { done: true, value: void 0 };
     },
     [Symbol.asyncIterator]() {
       return this;
@@ -300,19 +300,19 @@ function* xe(e) {
     for (let n of s) yield [n, null];
     return;
   }
-  let t = !1,
+  let t = false,
     r;
   if (e instanceof Headers) r = e.entries();
   else if (P(e)) r = e;
-  else (t = !0), (r = Object.entries(e ?? {}));
+  else (t = true), (r = Object.entries(e ?? {}));
   for (let o of r) {
     let s = o[0];
     if (typeof s !== "string") throw TypeError("expected header name to be a string");
     let n = P(o[1]) ? o[1] : [o[1]],
-      a = !1;
+      a = false;
     for (let i of n) {
       if (i === void 0) continue;
-      if (t && !a) (a = !0), yield [s, O];
+      if (t && !a) (a = true), yield [s, O];
       yield [s, i];
     }
   }
@@ -349,7 +349,7 @@ var O = Symbol("clear"),
         else t.append(n, a), r.delete(i);
       }
     }
-    return { [V]: !0, values: t, nulls: r };
+    return { [V]: true, values: t, nulls: r };
   };
 function Y(e) {
   return e.replace(/[^A-Za-z0-9\-._~!$&'()*+,;=:@]+/g, encodeURIComponent);
@@ -358,10 +358,10 @@ var q = Object.freeze(Object.create(null)),
   Oe = (e = Y) =>
     function (r, ...o) {
       if (r.length === 1) return r[0];
-      let s = !1,
+      let s = false,
         n = [],
         a = r.reduce((d, p, m) => {
-          if (/[?#]/.test(p)) s = !0;
+          if (/[?#]/.test(p)) s = true;
           let h = o[m],
             y = (s ? encodeURIComponent : e)("" + h);
           if (
@@ -449,7 +449,7 @@ class re extends qf {
   } = {}) {
     super({ baseURL: t, authToken: r, ...i });
     T.add(this),
-      (this.skipAuth = !1),
+      (this.skipAuth = false),
       (this.messages = Le(this)),
       (this.completions = new Fve(this)),
       (this.beta = Be(this));
@@ -463,7 +463,7 @@ class re extends qf {
       (this.awsAccessKey = s),
       (this.awsRegion = e),
       (this.awsSessionToken = n),
-      (this.skipAuth = i.skipAuth ?? !1),
+      (this.skipAuth = i.skipAuth ?? false),
       (this.providerChainResolver = a);
   }
   validateHeaders() {}
@@ -619,7 +619,7 @@ class ce extends qf {
     awsSessionToken: n = null,
     awsProfile: a,
     providerChainResolver: i = null,
-    skipAuth: u = !1,
+    skipAuth: u = false,
     ...c
   } = {}) {
     let d = e ?? f("AWS_REGION") ?? f("AWS_DEFAULT_REGION"),
@@ -640,7 +640,7 @@ class ce extends qf {
     H.add(this),
       (this.messages = new nL(this)),
       (this.beta = De(this)),
-      (this.skipAuth = !1),
+      (this.skipAuth = false),
       (this.awsRegion = d),
       (this.awsAccessKey = o),
       (this.awsSecretAccessKey = s),

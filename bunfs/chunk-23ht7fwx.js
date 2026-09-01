@@ -45,7 +45,7 @@ function X() {
       children: [
         "An update to our Consumer Terms and Privacy Policy will take effect on",
         " ",
-        e(t, { bold: !0, children: "October 8, 2025" }),
+        e(t, { bold: true, children: "October 8, 2025" }),
         ". You can accept the updated terms today.",
       ],
     })),
@@ -57,7 +57,7 @@ function X() {
   let de, ue;
   if (y[2] === d)
     (de = e(t, { children: "\xB7 " })),
-      (ue = e(t, { bold: !0, children: "Help improve our AI models " })),
+      (ue = e(t, { bold: true, children: "Help improve our AI models " })),
       (y[2] = de),
       (y[3] = ue);
   else (de = y[2]), (ue = y[3]);
@@ -93,7 +93,7 @@ function X() {
           children: r(t, {
             children: [
               e(t, { children: "\xB7 " }),
-              e(t, { bold: !0, children: "Updates to data retention " }),
+              e(t, { bold: true, children: "Updates to data retention " }),
               e(t, {
                 children:
                   "\u2014 To help us improve our AI models and safety protections, we're extending data retention to 5 years.",
@@ -147,7 +147,7 @@ function Z() {
     (Ae = r(o, {
       flexDirection: "column",
       children: [
-        e(t, { bold: !0, children: "Help improve our AI models" }),
+        e(t, { bold: true, children: "Help improve our AI models" }),
         e(t, {
           children:
             "Allow the use of your chats and coding sessions to train and improve Anthropic AI models. You can change this anytime in Privacy Settings",
@@ -168,7 +168,7 @@ function Z() {
         r(o, {
           flexDirection: "column",
           children: [
-            e(t, { bold: !0, children: "How this affects data retention" }),
+            e(t, { bold: true, children: "How this affects data retention" }),
             e(t, {
               children:
                 "Turning ON the improve Claude setting extends data retention from 30 days to 5 years. Turning it OFF keeps the default 30-day data retention. Delete data anytime.",
@@ -250,15 +250,15 @@ function XRt(so) {
     (Ge = async function v(Le) {
       bb25: switch (Le) {
         case "accept_opt_in": {
-          await qke(!0, m), s("tengu_grove_policy_submitted", { state: !0, dismissable: i?.notice_is_grace_period });
+          await qke(true, m), s("tengu_grove_policy_submitted", { state: true, dismissable: i?.notice_is_grace_period });
           break bb25;
         }
         case "accept_opt_out": {
-          await qke(!1, m), s("tengu_grove_policy_submitted", { state: !1, dismissable: i?.notice_is_grace_period });
+          await qke(false, m), s("tengu_grove_policy_submitted", { state: false, dismissable: i?.notice_is_grace_period });
           break bb25;
         }
         case "defer": {
-          s("tengu_grove_policy_dismissed", { state: !0 });
+          s("tengu_grove_policy_dismissed", { state: true });
           break bb25;
         }
         case "escape": {
@@ -334,7 +334,7 @@ function XRt(so) {
     (Ye = r(o, {
       flexDirection: "column",
       children: [
-        e(t, { bold: !0, children: "Please select how you'd like to continue" }),
+        e(t, { bold: true, children: "Please select how you'd like to continue" }),
         e(t, { children: "Your choice takes effect immediately upon confirmation." }),
       ],
     })),
@@ -444,7 +444,7 @@ function YRt(_o) {
   else ze = p[10];
   let Je;
   if (p[11] === d)
-    (Je = e(o, { width: 44, children: e(t, { bold: !0, children: "Help improve our AI models" }) })), (p[11] = Je);
+    (Je = e(o, { width: 44, children: e(t, { bold: true, children: "Help improve our AI models" }) })), (p[11] = Je);
   else Je = p[11];
   let K;
   if (p[12] !== O) (K = r(o, { children: [Je, e(o, { children: O })] })), (p[12] = O), (p[13] = K);

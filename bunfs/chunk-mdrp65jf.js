@@ -431,7 +431,7 @@ function x(Ne) {
     T = W(ee),
     v = W(oe),
     { storageV5: M } = ge(),
-    K = C(!1),
+    K = C(false),
     q,
     G;
   if (
@@ -450,10 +450,10 @@ function x(Ne) {
       if (K.current) {
         return;
       }
-      (K.current = !0),
+      (K.current = true),
         (async () => {
           let r = await Zme(w, u || null, R, I, S, T, v, "fork_session", k, {
-            keepParent: !0,
+            keepParent: true,
             taskFreeInFlight: { tasks: 0, queued: 0, kinds: [] },
             storageV5: M,
           });
@@ -504,7 +504,7 @@ function x(Ne) {
   else (q = j[10]), (G = j[11]);
   A(q, G);
   let Q;
-  if (j[12] === d) (Q = e(t, { dimColor: !0, children: "Forking\u2026" })), (j[12] = Q);
+  if (j[12] === d) (Q = e(t, { dimColor: true, children: "Forking\u2026" })), (j[12] = Q);
   else Q = j[12];
   return Q;
 }

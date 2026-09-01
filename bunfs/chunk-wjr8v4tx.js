@@ -65,11 +65,11 @@ function L2t() {
   return (r.attrs = Object.freeze(o));
 }
 var k = {
-  OTEL_METRICS_INCLUDE_SESSION_ID: !0,
-  OTEL_METRICS_INCLUDE_VERSION: !1,
-  OTEL_METRICS_INCLUDE_ACCOUNT_UUID: !0,
-  OTEL_METRICS_INCLUDE_ENTRYPOINT: !1,
-  OTEL_METRICS_INCLUDE_RESOURCE_ATTRIBUTES: !0,
+  OTEL_METRICS_INCLUDE_SESSION_ID: true,
+  OTEL_METRICS_INCLUDE_VERSION: false,
+  OTEL_METRICS_INCLUDE_ACCOUNT_UUID: true,
+  OTEL_METRICS_INCLUDE_ENTRYPOINT: false,
+  OTEL_METRICS_INCLUDE_RESOURCE_ATTRIBUTES: true,
 };
 function p(e) {
   let t = k[e],
@@ -80,9 +80,9 @@ function p(e) {
 function R(e) {
   for (let t = 0; t < e.length; t++) {
     let r = e.charCodeAt(t);
-    if (r < 33 || r === 44 || r === 59 || r === 92 || r > 126) return !1;
+    if (r < 33 || r === 44 || r === 59 || r === 92 || r > 126) return false;
   }
-  return !0;
+  return true;
 }
 var b = 255,
   L = ai((e) => {
@@ -184,7 +184,7 @@ class I {
   bind(e, t) {
     if (typeof t === "function") {
       let r = (...i) => this.with(e, () => t(...i));
-      return Object.defineProperty(r, "length", { configurable: !0, enumerable: !1, writable: !1, value: t.length }), r;
+      return Object.defineProperty(r, "length", { configurable: true, enumerable: false, writable: false, value: t.length }), r;
     }
     return t;
   }
@@ -215,7 +215,7 @@ var d = j(Li(), 1),
   O = j(Bc(), 1);
 class x {
   nextSequence = 0;
-  warnedNoEventLogger = !1;
+  warnedNoEventLogger = false;
 }
 var M = new J(() => new x());
 function P() {
@@ -254,7 +254,7 @@ async function Po(e, t = {}, r) {
     return;
   }
   if (!V0n(l) && !i.warnedNoEventLogger)
-    (i.warnedNoEventLogger = !0),
+    (i.warnedNoEventLogger = true),
       n(`[3P telemetry] Event dropped (no event logger initialized): ${e}`, { level: "warn" });
 }
 function I9(e) {
@@ -289,15 +289,15 @@ function Ypn(e) {
     ...(e.errorCount !== void 0 && { error_count: String(e.errorCount) }),
   });
 }
-var _ = !1;
+var _ = false;
 function n8n(e) {
   if (_) return;
-  _ = !0;
+  _ = true;
   try {
     let t = e.name !== "Error" ? e.name : e.constructor?.name || "Error";
     Po("internal_error", { error_name: IR(t) ?? "Error", error_code: uo(e) });
   } finally {
-    _ = !1;
+    _ = false;
   }
 }
 function $v(e) {

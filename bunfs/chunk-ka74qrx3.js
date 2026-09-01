@@ -158,7 +158,7 @@ var m = {
     if (!S(e)) return { state: "write-failed", code: "EINVAL" };
     if (!I.has(F(e))) return { state: "write-failed", code: "EINVAL" };
     try {
-      await H(L(e), { recursive: !0, mode: 448 });
+      await H(L(e), { recursive: true, mode: 448 });
     } catch (n) {
       return { state: "write-failed", code: E(n) };
     }
@@ -182,7 +182,7 @@ var m = {
     let { storePath: e } = c(),
       t;
     try {
-      t = await N(e, { bigint: !0 });
+      t = await N(e, { bigint: true });
     } catch (r) {
       let n = E(r);
       return w(n) === "absent" ? { state: "absent" } : { state: "read-failed", code: n };

@@ -301,12 +301,12 @@ async function _(e, u = {}, o, p) {
       return;
     }
     let { printAgentsJson: n } = await import("/$bunfs/root/chunk-wrtbdhba.js");
-    await n(e.cwd, e.all === !0, o), Uw();
+    await n(e.cwd, e.all === true, o), Uw();
   }
   if (process.stdout.isTTY) {
     if ((await sMe(), cy())) {
       let n = byn();
-      s("tengu_fleetview", { viaCommander: !0, relaunch: n });
+      s("tengu_fleetview", { viaCommander: true, relaunch: n });
       let { config: t } = XCt(process.argv.slice(2));
       if (((t.restricted ||= xj()), t.pluginDir.length > 0 || t.pluginDirNoMcp.length > 0))
         FQe(t.pluginDir), $Qe(t.pluginDirNoMcp), om("claude agents --plugin-dir (commander action)");
@@ -337,7 +337,7 @@ async function _(e, u = {}, o, p) {
         } = await import("/$bunfs/root/chunk-v2ty9dg7.js");
       w(l);
       let c = h(l),
-        r = await d(f(!1)),
+        r = await d(f(false)),
         { ensureAgentsWorkspaceTrust: y, agentsTrustDecision: S } = await import("/$bunfs/root/chunk-s0mn9e4d.js");
       await y(r, S(), o), LQe("agents_view");
       let { checkHasTrustDialogAccepted: T } = await import("/$bunfs/root/chunk-rx63xaph.js");
@@ -357,7 +357,7 @@ async function _(e, u = {}, o, p) {
         storageV5: o,
         credentials: p,
       };
-      await m(r, v), await Ln(0, "other", { suppressResumeHint: !0 });
+      await m(r, v), await Ln(0, "other", { suppressResumeHint: true });
       return;
     }
   }

@@ -23,10 +23,10 @@ async function p(n, t) {
 }
 class g {
   pendingWrite = Promise.resolve();
-  cleanupRegistered = !1;
+  cleanupRegistered = false;
   append(n, t) {
     if (((this.pendingWrite = this.pendingWrite.then(p.bind(null, n, t)).catch(s)), !this.cleanupRegistered))
-      (this.cleanupRegistered = !0), vt(() => this.flush());
+      (this.cleanupRegistered = true), vt(() => this.flush());
   }
   flush() {
     return this.pendingWrite;
@@ -43,7 +43,7 @@ function Y(n, t, i) {
   try {
     o = e(n, t, l(i));
   } catch {
-    o = e(n, t, { diagnostics_payload_failed: !0 });
+    o = e(n, t, { diagnostics_payload_failed: true });
   }
   c().append(r, o);
 }
@@ -51,7 +51,7 @@ function l(n) {
   try {
     return (typeof n === "function" ? n() : n) ?? {};
   } catch {
-    return { diagnostics_payload_failed: !0 };
+    return { diagnostics_payload_failed: true };
   }
 }
 function e(n, t, i) {

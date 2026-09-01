@@ -325,14 +325,14 @@ function T() {
   return a.USE_LOCAL_OAUTH || a.LOCAL_BRIDGE;
 }
 function U(e, r = {}) {
-  let { availabilityFunnel: c = !1, storageV5: g, credentials: E } = r,
+  let { availabilityFunnel: c = false, storageV5: g, credentials: E } = r,
     d = new D(),
     v = e?.CLAUDE_CODE_REMOTE_SESSION_ID ?? a.CLAUDE_CODE_REMOTE_SESSION_ID,
     p,
     _ = b();
   d.info(`Bridge URL: ${_}`);
   let f,
-    m = !1,
+    m = false,
     C = e?.CLAUDE_CHROME_PERMISSION_MODE ?? process.env.CLAUDE_CHROME_PERMISSION_MODE,
     S;
   if (C)
@@ -370,15 +370,15 @@ function U(e, r = {}) {
       url: _,
       getUserId: async () => {
         let t = ie().oauthAccount?.accountUuid || process.env.CLAUDE_CODE_ACCOUNT_UUID;
-        if (Ne() !== "firstParty") return (m = !1), t;
+        if (Ne() !== "firstParty") return (m = false), t;
         await Cs({ credentials: E, storageV5: g }).catch(() => {});
         let o = Yt()?.accessToken;
-        if (!o) return (m = !1), t;
+        if (!o) return (m = false), t;
         if (f?.token !== o) {
           let l = await ipe(o).catch(() => {
             return;
           });
-          if (!l?.account_uuid) return (m = !1), t;
+          if (!l?.account_uuid) return (m = false), t;
           f = { token: o, accountUuid: l.account_uuid.toLowerCase() };
         }
         let i = f.accountUuid,
@@ -403,7 +403,7 @@ function U(e, r = {}) {
       ...(T() && { devUserId: "dev_user_local" }),
     },
     ...(S && { initialPermissionMode: S }),
-    ...!1,
+    ...false,
     trackEvent: (t, o) => {
       if (c && t === "chrome_bridge_connection_succeeded") {
         let u = o?.status;
@@ -437,10 +437,10 @@ async function le(e) {
     let E = U(void 0, { storageV5: c, credentials: g }),
       d = BLt(E),
       v = new Jpe(),
-      p = !1,
+      p = false,
       _ = async () => {
         if (p) return;
-        (p = !0), await vY(), await OY(), process.exit(0);
+        (p = true), await vY(), await OY(), process.exit(0);
       };
     process.stdin.on("end", () => void _()),
       process.stdin.on("error", () => void _()),

@@ -398,7 +398,7 @@ import "/$bunfs/root/chunk-a4q326ap.js";
 import { d, fn } from "/$bunfs/root/chunk-yz031c9r.js";
 function A(p) {
   if (!p.task_id) return null;
-  return r(t, { dimColor: !0, children: [" ", p.task_id] });
+  return r(t, { dimColor: true, children: [" ", p.task_id] });
 }
 function F(p) {
   let T = p.at(-1)?.data;
@@ -411,11 +411,11 @@ function F(p) {
           "\xA0\xA0\xA0\xA0\xA0Waiting for task",
           " ",
           e(t, {
-            dimColor: !0,
+            dimColor: true,
             children: e(M, {
               chord: "escape",
               action: "give additional instructions",
-              parens: !0,
+              parens: true,
               format: { keyCase: "lower" },
             }),
           }),
@@ -447,14 +447,14 @@ function J(p, g, { verbose: T, theme: y }) {
 function N(V) {
   let b = _(15),
     { content: u, verbose: O, theme: C } = V,
-    c = O === void 0 ? !1 : O,
+    c = O === void 0 ? false : O,
     x = Ro("app:toggleTranscript", "Global", "ctrl+o"),
     P,
     l;
   if (b[0] !== u || b[1] !== x || b[2] !== C || b[3] !== c) {
     l = fn;
     bb0: {
-      let R = v().safeParse(typeof u === "string" ? Ut(u, !1) : u);
+      let R = v().safeParse(typeof u === "string" ? Ut(u, false) : u);
       if (!R.success) {
         let a;
         if (b[6] !== u || b[7] !== c)
@@ -482,8 +482,8 @@ function N(V) {
         let X = {
           stdout: n.output ?? "",
           stderr: "",
-          isImage: !1,
-          dangerouslyDisableSandbox: !0,
+          isImage: false,
+          dangerouslyDisableSandbox: true,
           returnCodeInterpretation: n.error,
         };
         l = e(gq, { content: X, verbose: c });
@@ -508,8 +508,8 @@ function N(V) {
                   paddingLeft: 2,
                   marginTop: 1,
                   children: [
-                    n.prompt && e(sge, { prompt: n.prompt, theme: C, dim: !0 }),
-                    n.harnessHead && e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: n.harnessHead }) }),
+                    n.prompt && e(sge, { prompt: n.prompt, theme: C, dim: true }),
+                    n.harnessHead && e(o, { marginTop: 1, children: e(t, { dimColor: true, children: n.harnessHead }) }),
                     n.result &&
                       e(o, {
                         marginTop: 1,
@@ -520,7 +520,7 @@ function N(V) {
                         flexDirection: "column",
                         marginTop: 1,
                         children: [
-                          e(t, { color: "error", bold: !0, children: "Error:" }),
+                          e(t, { color: "error", bold: true, children: "Error:" }),
                           e(o, { paddingLeft: 2, children: e(t, { color: "error", children: n.error }) }),
                         ],
                       }),
@@ -532,7 +532,7 @@ function N(V) {
           }
           let a;
           if (b[10] !== x)
-            (a = e(Pe, { children: r(t, { dimColor: !0, children: ["Read output (", x, " to expand)"] }) })),
+            (a = e(Pe, { children: r(t, { dimColor: true, children: ["Read output (", x, " to expand)"] }) })),
               (b[10] = x),
               (b[11] = a);
           else a = b[11];
@@ -542,7 +542,7 @@ function N(V) {
         if (h.retrieval_status === "timeout" || n.status === "running") {
           let a;
           if (b[12] === d)
-            (a = e(Pe, { children: e(t, { dimColor: !0, children: "Task is still running\u2026" }) })), (b[12] = a);
+            (a = e(Pe, { children: e(t, { dimColor: true, children: "Task is still running\u2026" }) })), (b[12] = a);
           else a = b[12];
           l = a;
           break bb0;
@@ -550,13 +550,13 @@ function N(V) {
         if (h.retrieval_status === "not_ready") {
           let a;
           if (b[13] === d)
-            (a = e(Pe, { children: e(t, { dimColor: !0, children: "Task is still running\u2026" }) })), (b[13] = a);
+            (a = e(Pe, { children: e(t, { dimColor: true, children: "Task is still running\u2026" }) })), (b[13] = a);
           else a = b[13];
           l = a;
           break bb0;
         }
         let a;
-        if (b[14] === d) (a = e(Pe, { children: e(t, { dimColor: !0, children: "Task not ready" }) })), (b[14] = a);
+        if (b[14] === d) (a = e(Pe, { children: e(t, { dimColor: true, children: "Task not ready" }) })), (b[14] = a);
         else a = b[14];
         l = a;
         break bb0;
@@ -567,7 +567,7 @@ function N(V) {
           children: [
             r(t, { children: ["\xA0\xA0", n.description, " [", n.status, "]"] }),
             n.output && c && e(o, { paddingLeft: 4, marginTop: 1, children: e(t, { children: n.output }) }),
-            !c && n.output && r(t, { dimColor: !0, children: ["     ", "(", x, " to expand)"] }),
+            !c && n.output && r(t, { dimColor: true, children: ["     ", "(", x, " to expand)"] }),
           ],
         });
         break bb0;

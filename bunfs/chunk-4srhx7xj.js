@@ -115,7 +115,7 @@ function gRe(Vt) {
   let go = it,
     ct;
   if (i[11] !== eo || i[12] !== io)
-    (ct = { isActive: !0, onExit: Wt, onCancel: io, initialQuery: eo, backspaceExitsOnEmpty: !1 }),
+    (ct = { isActive: true, onExit: Wt, onCancel: io, initialQuery: eo, backspaceExitsOnEmpty: false }),
       (i[11] = eo),
       (i[12] = io),
       (i[13] = ct);
@@ -242,12 +242,12 @@ function gRe(Vt) {
   let To = kt,
     Tt;
   if (i[50] !== Re || i[51] !== Ie)
-    (Tt = Re ? e(t, { dimColor: !0, children: Ie }) : null), (i[50] = Re), (i[51] = Ie), (i[52] = Tt);
+    (Tt = Re ? e(t, { dimColor: true, children: Ie }) : null), (i[50] = Re), (i[51] = Ie), (i[52] = Tt);
   else Tt = i[52];
   let re = Tt,
     It;
   if (i[53] !== ho || i[54] !== uo || i[55] !== co || i[56] !== g)
-    (It = e(Hd, { query: g, cursorOffset: ho, placeholder: co, isFocused: !0, isTerminalFocused: uo })),
+    (It = e(Hd, { query: g, cursorOffset: ho, placeholder: co, isFocused: true, isTerminalFocused: uo })),
       (i[53] = ho),
       (i[54] = uo),
       (i[55] = co),
@@ -327,7 +327,7 @@ function gRe(Vt) {
   let Io = Rt,
     Ct = m !== "up",
     Ae;
-  if (i[79] !== $e) (Ae = e(t, { bold: !0, color: "permission", children: $e })), (i[79] = $e), (i[80] = Ae);
+  if (i[79] !== $e) (Ae = e(t, { bold: true, color: "permission", children: $e })), (i[79] = $e), (i[80] = Ae);
   else Ae = i[80];
   const Po = Ct && Pt,
     Do = !Ct && Pt;
@@ -352,7 +352,7 @@ function gRe(Vt) {
   else Se = i[92];
   let Ge;
   if (i[93] !== so || i[94] !== We || i[95] !== Be || i[96] !== Oe || i[97] !== Se)
-    (Ge = e(t, { dimColor: !0, children: r(fe, { children: [We, Be, Oe, Se, so] }) })),
+    (Ge = e(t, { dimColor: true, children: r(fe, { children: [We, Be, Oe, Se, so] }) })),
       (i[93] = so),
       (i[94] = We),
       (i[95] = Be),
@@ -376,7 +376,7 @@ function gRe(Vt) {
       children: r(o, {
         flexDirection: "column",
         tabIndex: 0,
-        autoFocus: !0,
+        autoFocus: true,
         onKeyDown: xo,
         onPaste: yo,
         onWheel: go,
@@ -457,7 +457,7 @@ function Qe(sn) {
             isFocused: Et,
             showScrollUp: q === "up" ? Lt : Kt,
             showScrollDown: q === "up" ? Kt : Lt,
-            styled: !1,
+            styled: false,
             onClick: () => de(Me),
             onHoverChange: (an) => an && b(Me),
             children: ae(Me, Et),

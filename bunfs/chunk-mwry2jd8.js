@@ -36,16 +36,16 @@ import { resolve as Ne, sep as _e } from "path";
 var re = (e) => e === "a" || e === "e" || e === "i" || e === "o" || e === "u",
   se = (e, t) => {
     let n = e[t];
-    if (re(n)) return !0;
-    if (n !== "y") return !1;
+    if (re(n)) return true;
+    if (n !== "y") return false;
     let o = t;
     while (o > 0 && e[o - 1] === "y") o--;
-    let s = o === 0 ? !0 : re(e[o - 1]);
+    let s = o === 0 ? true : re(e[o - 1]);
     return (t - o) % 2 === 0 ? !s : s;
   },
   j = (e) => {
     let t = 0,
-      n = !1;
+      n = false;
     for (let o = 0; o < e.length; o++) {
       let s = e[o],
         r = re(s) || (s === "y" && o > 0 && !n);
@@ -55,16 +55,16 @@ var re = (e) => e === "a" || e === "e" || e === "i" || e === "o" || e === "u",
     return t;
   },
   Be = (e) => {
-    let t = !1;
+    let t = false;
     for (let n = 0; n < e.length; n++) {
       let o = e[n];
-      if (((t = re(o) || (o === "y" && n > 0 && !t)), t)) return !0;
+      if (((t = re(o) || (o === "y" && n > 0 && !t)), t)) return true;
     }
-    return !1;
+    return false;
   },
   We = (e) => e.length >= 2 && e.at(-1) === e.at(-2) && !se(e, e.length - 1),
   je = (e) => {
-    if (e.length < 3) return !1;
+    if (e.length < 3) return false;
     let t = e.at(-1);
     return !se(e, e.length - 3) && se(e, e.length - 2) && !se(e, e.length - 1) && t !== "w" && t !== "x" && t !== "y";
   },
@@ -204,8 +204,8 @@ var Gt = /[\p{L}\p{M}\p{N}]+/gu,
   Qe = (e) => {
     let t = Qt(e);
     return t.length > 1
-      ? [{ text: e, compound: !0 }, ...t.map((n) => ({ text: n, compound: !1 }))]
-      : [{ text: e, compound: !1 }];
+      ? [{ text: e, compound: true }, ...t.map((n) => ({ text: n, compound: false }))]
+      : [{ text: e, compound: false }];
   },
   Z = String.raw`(^|[^\p{L}\p{N}]|[\u3040-\u30FF\u3400-\u4DBF\u4E00-\u9FFF\uAC00-\uD7AF\uF900-\uFAFF])`,
   ie = String.raw`(?!(?![\u3040-\u30FF\u3400-\u4DBF\u4E00-\u9FFF\uAC00-\uD7AF\uF900-\uFAFF])[\p{L}\p{N}])`,
@@ -231,16 +231,16 @@ var Gt = /[\p{L}\p{M}\p{N}]+/gu,
   $e = /^\p{N}+$/u,
   Zt = (e) => {
     let t = [],
-      n = !1,
-      o = !1;
+      n = false,
+      o = false;
     for (let s of e) {
       let r = t.at(-1);
       if (r !== void 0 && $e.test(s) && o) {
-        r.push(s), (n = !0);
+        r.push(s), (n = true);
         continue;
       }
       if (r !== void 0 && n && O.test(s)) {
-        r.push(s), (n = !1), (o = !0);
+        r.push(s), (n = false), (o = true);
         continue;
       }
       t.push([s]), (n = $e.test(s)), (o = O.test(s));
@@ -281,7 +281,7 @@ var Gt = /[\p{L}\p{M}\p{N}]+/gu,
             : r !== void 0 && !O.test(r) && [...de(r)].length > 1
               ? o + r
               : void 0;
-      if (i !== void 0) t.push({ text: i, compound: !0 });
+      if (i !== void 0) t.push({ text: i, compound: true });
     }
     return t;
   },
@@ -307,7 +307,7 @@ var Gt = /[\p{L}\p{M}\p{N}]+/gu,
                 }
                 let u = Xt(h),
                   p = u.length > 1,
-                  f = (h.match(/\p{N}{3,}/gu) ?? []).map((m) => ({ text: m, compound: !0 }));
+                  f = (h.match(/\p{N}{3,}/gu) ?? []).map((m) => ({ text: m, compound: true }));
                 return [...u.map((m, g) => ({ text: m, compound: p && g === 0 })), ...f].filter(
                   (m) => !m.compound || t.compounds,
                 );
@@ -328,13 +328,13 @@ var Gt = /[\p{L}\p{M}\p{N}]+/gu,
           let a = be(r);
           return t.dualStem && a !== r ? [a, r] : [a];
         });
-    if (s.length > 0 || o.length === 0 || t.singleCharFallback === !1) return s;
+    if (s.length > 0 || o.length === 0 || t.singleCharFallback === false) return s;
     return o.map(de);
   },
-  L = (e) => ce(e, { dualStem: !1, compounds: !0 }),
-  Ie = (e) => ce(e, { dualStem: !1, compounds: !0, singleCharFallback: !1 }),
-  U = (e) => ce(e, { dualStem: !0, compounds: !0 }),
-  Ke = (e) => ce(e, { dualStem: !1, compounds: !1 });
+  L = (e) => ce(e, { dualStem: false, compounds: true }),
+  Ie = (e) => ce(e, { dualStem: false, compounds: true, singleCharFallback: false }),
+  U = (e) => ce(e, { dualStem: true, compounds: true }),
+  Ke = (e) => ce(e, { dualStem: false, compounds: false });
 var x = ["filename", "frontmatter", "headings", "body"],
   tn = /^---[ \t]*\r?\n([\s\S]*?)\r?\n---[ \t]*(?:\r?\n|$)/,
   nn = /^[\w-]+:/m,
@@ -527,8 +527,8 @@ var S = x.length,
   k = (e, t) => {
     let n = e.pathToId.get(t),
       o = n === void 0 ? void 0 : e.docs.get(n);
-    if (n === void 0 || o === void 0) return !1;
-    return tt(e, n, o), !0;
+    if (n === void 0 || o === void 0) return false;
+    return tt(e, n, o), true;
   },
   fn = (e, t) => {
     let n = 0;
@@ -622,16 +622,16 @@ var Re = {
     }, 0),
   st = (e, t, n) => {
     let o = n.map((s) => at(e, s, t));
-    if (o.some((s) => s === void 0)) return !1;
+    if (o.some((s) => s === void 0)) return false;
     return x.some((s) => {
       let r = [];
       for (let c of o) {
         let l = c === void 0 ? void 0 : ee(c.entry, c.slot, s);
-        if (l === void 0) return !1;
+        if (l === void 0) return false;
         r.push(l);
       }
       let [i, ...a] = r;
-      if (i === void 0) return !1;
+      if (i === void 0) return false;
       return i.some((c) => a.every((l, d) => yn(l, c + d + 1)));
     });
   },
@@ -646,11 +646,11 @@ var Re = {
     while (n <= o) {
       let s = (n + o) >> 1,
         r = e[s];
-      if (r === t) return !0;
+      if (r === t) return true;
       if (r < t) n = s + 1;
       else o = s - 1;
     }
-    return !1;
+    return false;
   },
   dt = { span: 1 / 0, termCount: 0 },
   bn = (e, t, n) => {
@@ -687,8 +687,8 @@ var Re = {
       r = new Set(),
       i = s.filter((a) => {
         let c = a.join(" ");
-        if (r.has(c)) return !1;
-        return r.add(c), !0;
+        if (r.has(c)) return false;
+        return r.add(c), true;
       });
     return { terms: o, phrases: [], boostPhrases: i };
   },
@@ -785,23 +785,23 @@ var B = Symbol("transient-read-failure"),
       (o) => A(o) === "structural",
     ),
   pt = async (e, t) => {
-    if (!(await ft(e, t))) return !1;
+    if (!(await ft(e, t))) return false;
     return ne(e).then(
-      () => !0,
-      () => !1,
+      () => true,
+      () => false,
     );
   },
   mt = async (e, t, n, o = N) => {
-    if (e.pathToId.get(n) === void 0) return !1;
+    if (e.pathToId.get(n) === void 0) return false;
     let r = await ne(t).catch(() => B);
-    if (typeof r !== "string") return !1;
+    if (typeof r !== "string") return false;
     let i = await lt(K(t, n), { withinReal: r, maxBytes: o.maxFileBytes }).catch((l) =>
       ut(l) ? fe : A(l) === "structural" ? void 0 : B,
     );
-    if (i === B) return !1;
+    if (i === B) return false;
     if (i === fe) return k(e, n);
     if (i === void 0) {
-      if (!(await pt(t, n))) return !1;
+      if (!(await pt(t, n))) return false;
       return k(e, n);
     }
     if (i.byteLength > o.maxFileBytes) return k(e, n);
@@ -809,7 +809,7 @@ var B = Symbol("transient-read-failure"),
       c = await Me(K(t, n)).catch(() => {
         return;
       });
-    return Pe(e, we(n, a), { hash: ht(a), size: c?.size ?? i.byteLength, mtimeMs: c?.mtimeMs ?? 0 }), !0;
+    return Pe(e, we(n, a), { hash: ht(a), size: c?.size ?? i.byteLength, mtimeMs: c?.mtimeMs ?? 0 }), true;
   },
   N = { excludeBasenames: ["MEMORY.md"], maxFiles: 2000, maxFileBytes: 1048576 },
   Pn = new TextEncoder(),
@@ -841,9 +841,9 @@ var B = Symbol("transient-read-failure"),
     return s(o) + s(n);
   },
   De = (e, t) => {
-    if (t.excludeLog?.(e)) return !0;
-    if (t.isRecallVisible !== void 0 && !t.isRecallVisible(e)) return !0;
-    if (t.excludePrefixes?.some((o) => e.startsWith(o))) return !0;
+    if (t.excludeLog?.(e)) return true;
+    if (t.isRecallVisible !== void 0 && !t.isRecallVisible(e)) return true;
+    if (t.excludePrefixes?.some((o) => e.startsWith(o))) return true;
     if (t.excludePaths !== void 0) return t.excludePaths.has(e);
     let n = e.slice(e.lastIndexOf("/") + 1);
     return t.excludeBasenames.includes(n);
@@ -851,13 +851,13 @@ var B = Symbol("transient-read-failure"),
   vn = async (e, t = N) => {
     let n = [],
       o = new Set(),
-      s = !1,
+      s = false,
       r = [""];
     while (r.length > 0) {
       let f = r.pop(),
-        m = await Sn(K(e, f), { withFileTypes: !0 }).catch((g) => {
+        m = await Sn(K(e, f), { withFileTypes: true }).catch((g) => {
           if (f === "") {
-            if (X(g)) return (s = !0), [];
+            if (X(g)) return (s = true), [];
             throw g;
           }
           switch (A(g)) {
@@ -873,7 +873,7 @@ var B = Symbol("transient-read-failure"),
         let I = f === "" ? g.name : `${f}/${g.name}`;
         if (g.isSymbolicLink()) continue;
         if (g.isDirectory()) {
-          if (t.excludePrefixes?.some((w) => `${I}/`.startsWith(w)) ?? !1) continue;
+          if (t.excludePrefixes?.some((w) => `${I}/`.startsWith(w)) ?? false) continue;
           r.push(I);
         } else n.push(I);
       }
@@ -919,10 +919,10 @@ var Rn = (e, t, n = new Set(), o = new Set(), s) => {
     let r = new Set(t.map((d) => d.path)),
       i = [...o].map((d) => d + "/"),
       a = (d) => i.length > 0 && i.some((h) => d.startsWith(h)),
-      c = [...e.pathToId.keys()].filter((d) => s?.(d) === !0 || (!r.has(d) && !n.has(d) && !a(d))),
+      c = [...e.pathToId.keys()].filter((d) => s?.(d) === true || (!r.has(d) && !n.has(d) && !a(d))),
       l = t.filter((d) => {
         let h = e.pathToId.get(d.path);
-        if (h === void 0) return !0;
+        if (h === void 0) return true;
         let u = e.docs.get(h);
         return u.size !== d.size || u.mtimeMs !== d.mtimeMs;
       });
@@ -936,7 +936,7 @@ var Rn = (e, t, n = new Set(), o = new Set(), s) => {
       unchanged: e.docs.size,
       rehashedUnchanged: 0,
       transientSkips: 0,
-      scanCompleted: !1,
+      scanCompleted: false,
     };
     if (o?.aborted) return s;
     let r = await vn(t, n).catch(() => {
@@ -958,8 +958,8 @@ var Rn = (e, t, n = new Set(), o = new Set(), s) => {
     let h =
         l.length === 0 ||
         (await ne(t).then(
-          () => !0,
-          () => !1,
+          () => true,
+          () => false,
         ))
           ? [...c, ...l]
           : c,
@@ -970,10 +970,10 @@ var Rn = (e, t, n = new Set(), o = new Set(), s) => {
       g = 0,
       I = 0,
       w = 0,
-      T = !1;
+      T = false;
     for (let y of a.toIndex) {
       if (o?.aborted) {
-        T = !0;
+        T = true;
         break;
       }
       let P = await lt(K(t, y.path), { withinReal: i, maxBytes: n.maxFileBytes }).catch((Y) =>
@@ -1022,7 +1022,7 @@ var Rn = (e, t, n = new Set(), o = new Set(), s) => {
   };
 var C = async (e, t = {}) => {
   let { logFeatureSad: n } = await import("/$bunfs/root/chunk-x7tw2btw.js").catch(() => ({ logFeatureSad: void 0 }));
-  n?.("memory_recall_select", e, { via_index: !0, ...t });
+  n?.("memory_recall_select", e, { via_index: true, ...t });
 };
 import { join as Cn } from "path";
 import { lstat as An, open as Tn, unlink as Dn } from "fs/promises";
@@ -1182,21 +1182,21 @@ var yt = 10,
   It = async (e) => {
     let t,
       n = await xt(e).catch((o) => ((t = St(o)), X(o) ? void 0 : pe));
-    if (n === pe) return { owned: t ?? !1, absent: !1 };
-    if (n === void 0) return { owned: !0, absent: !0 };
+    if (n === pe) return { owned: t ?? false, absent: false };
+    if (n === void 0) return { owned: true, absent: true };
     try {
       let o = V(n);
-      return { owned: typeof o === "object" && o !== null && typeof o.version === "number", absent: !1 };
+      return { owned: typeof o === "object" && o !== null && typeof o.version === "number", absent: false };
     } catch {
       let o = n.trim().slice(0, oe.length);
-      return { owned: o === "" || oe.startsWith(o), absent: !1 };
+      return { owned: o === "" || oe.startsWith(o), absent: false };
     }
   },
   wt = async (e) => {
     let t,
       n = await xt(e).catch((s) => ((t = St(s)), X(s) ? void 0 : pe));
-    if (n === pe) return { index: void 0, pathOwned: t ?? !1 };
-    if (n === void 0) return { index: void 0, pathOwned: !0 };
+    if (n === pe) return { index: void 0, pathOwned: t ?? false };
+    if (n === void 0) return { index: void 0, pathOwned: true };
     let o;
     try {
       o = V(n);
@@ -1204,17 +1204,17 @@ var yt = 10,
       let s = n.trim().slice(0, oe.length);
       return { index: void 0, pathOwned: s === "" || oe.startsWith(s) };
     }
-    if (typeof o !== "object" || o === null || typeof o.version !== "number") return { index: void 0, pathOwned: !1 };
+    if (typeof o !== "object" || o === null || typeof o.version !== "number") return { index: void 0, pathOwned: false };
     try {
-      return { index: Nn(o), pathOwned: !0 };
+      return { index: Nn(o), pathOwned: true };
     } catch {
-      return { index: void 0, pathOwned: !0 };
+      return { index: void 0, pathOwned: true };
     }
   };
 var _n = ".bm25-index.json",
-  Ft = async (e, t = N, n, o = !0) => {
+  Ft = async (e, t = N, n, o = true) => {
     let s = Cn(e, _n),
-      r = o ? await wt(s) : { index: void 0, pathOwned: !1 },
+      r = o ? await wt(s) : { index: void 0, pathOwned: false },
       i = r.index ?? q(),
       a = await gt(i, e, t, n),
       c = r.index !== void 0 && !a.scanCompleted;
@@ -1223,7 +1223,7 @@ var _n = ".bm25-index.json",
       indexPath: s,
       index: c ? q() : i,
       lastSync: c
-        ? { added: 0, updated: 0, removed: 0, unchanged: 0, rehashedUnchanged: 0, transientSkips: 0, scanCompleted: !1 }
+        ? { added: 0, updated: 0, removed: 0, unchanged: 0, rehashedUnchanged: 0, transientSkips: 0, scanCompleted: false }
         : a,
       loadedFromDisk: r.index !== void 0,
       persistable: r.pathOwned && !c,
@@ -1284,8 +1284,8 @@ var he = Symbol("transient-realpath-failure"),
     if (e.length <= Un) return e;
     let t = Rt(e, Hn),
       n = Rt(e, e.length - Gn),
-      o = `${vt(e.slice(0, t), !0)}
-${vt(e.slice(n), !1)}`;
+      o = `${vt(e.slice(0, t), true)}
+${vt(e.slice(n), false)}`;
     return ((e.match(/"/g) ?? []).length & 1) === 0 ? o : o.replaceAll('"', " ");
   },
   Tt = 64,
@@ -1299,16 +1299,16 @@ ${vt(e.slice(n), !1)}`;
       a = new Map(),
       c = (u) => {
         let p = t(u);
-        if (p === 0) return !1;
+        if (p === 0) return false;
         if (p === 1) {
           let f = n(u);
           if (f !== void 0) {
             let m = a.get(f) ?? 0;
-            if (m >= At) return !1;
+            if (m >= At) return false;
             a.set(f, m + 1);
           }
         }
-        return !0;
+        return true;
       };
     for (let u of s) if (r.has(u) && c(u)) i.add(u);
     let l = i.size;
@@ -1402,16 +1402,16 @@ var Mt = new Mn(() => new Dt()),
     return a;
   },
   Xo = (e, t, n, o) => {
-    zt(Mt.of(e), t, null, n, o, !0)
+    zt(Mt.of(e), t, null, n, o, true)
       .then(({ store: s }) => {
-        if (!s.lastSync.scanCompleted) C("index_prewarm_failed", { prewarm: !0, sweep_incomplete: !0 });
-        else if (s.lastSync.transientSkips > 0) C("index_prewarm_failed", { prewarm: !0, transient_skips: !0 });
+        if (!s.lastSync.scanCompleted) C("index_prewarm_failed", { prewarm: true, sweep_incomplete: true });
+        else if (s.lastSync.transientSkips > 0) C("index_prewarm_failed", { prewarm: true, transient_skips: true });
       })
       .catch(() => {
-        C("index_prewarm_failed", { prewarm: !0 });
+        C("index_prewarm_failed", { prewarm: true });
       });
   },
-  Jo = async (e, t, n, o, s = 5, r = null, i, a = !1, c) => {
+  Jo = async (e, t, n, o, s = 5, r = null, i, a = false, c) => {
     let l = performance.now(),
       d = Mt.of(e),
       h = d.isHeld(n, a),
@@ -1488,7 +1488,7 @@ var Mt = new Mn(() => new Dt()),
       let F = await Promise.all(
           R.map(async (z) =>
             (await me(Ne(n, z)).then(
-              () => !1,
+              () => false,
               (_) => A(_) === "structural",
             ))
               ? z

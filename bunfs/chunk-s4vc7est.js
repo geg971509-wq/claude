@@ -148,30 +148,30 @@ async function Var(e, r) {
     let s = await Ie(_(`/proc/self/fd/${e.fd}`));
     if (s.ok) return re(!s.value.endsWith(" (deleted)") && s.value === r);
     if (s.error.kind === "fs" && R(s.error.error)) return s;
-    return s.error.kind === "fs" && Am(s.error.error, "ENAMETOOLONG") ? re(!1) : re("unavailable");
+    return s.error.kind === "fs" && Am(s.error.error, "ENAMETOOLONG") ? re(false) : re("unavailable");
   }
-  let [o, i] = await Promise.all([Ie(l(r, { bigint: !0 })), Ie(e.stat({ bigint: !0 }))]);
+  let [o, i] = await Promise.all([Ie(l(r, { bigint: true })), Ie(e.stat({ bigint: true }))]);
   if (!i.ok) return i;
   let a = h(o, i.value);
-  if (!a.ok || a.value !== !0) return a;
+  if (!a.ok || a.value !== true) return a;
   let f = await Ie(L(F(r)));
-  if (!f.ok) return f.error.kind === "absent" ? re(!1) : f;
-  if (f.value !== F(r)) return re(!1);
-  let u = await Ie(l(r, { bigint: !0 })),
+  if (!f.ok) return f.error.kind === "absent" ? re(false) : f;
+  if (f.value !== F(r)) return re(false);
+  let u = await Ie(l(r, { bigint: true })),
     c = h(u, i.value);
-  if (!c.ok || c.value !== !0) return c;
-  return (o.ok && o.value.nlink > 1n) || (u.ok && u.value.nlink > 1n) || i.value.nlink > 1n ? re("otherNames") : re(!0);
+  if (!c.ok || c.value !== true) return c;
+  return (o.ok && o.value.nlink > 1n) || (u.ok && u.value.nlink > 1n) || i.value.nlink > 1n ? re("otherNames") : re(true);
 }
 function h(e, r) {
-  if (!e.ok) return e.error.kind === "absent" ? re(!1) : e;
-  if (!e.value.isFile()) return re(!1);
+  if (!e.ok) return e.error.kind === "absent" ? re(false) : e;
+  if (!e.value.isFile()) return re(false);
   if (!Vm(r.ino) || !Vm(e.value.ino) || r.nlink === 0n || e.value.nlink === 0n) return re("unavailable");
   return re(e.value.ino === r.ino && e.value.dev === r.dev);
 }
 class T {
   available = void 0;
   probing = void 0;
-  procUnreadableLogged = !1;
+  procUnreadableLogged = false;
 }
 var z = new J(() => new T());
 function Q() {
@@ -180,7 +180,7 @@ function Q() {
 async function NRn() {
   let e = Q();
   if (e.available !== void 0) return re(e.available);
-  return (e.available = !1), re(!1);
+  return (e.available = false), re(false);
 }
 function Vm(e) {
   return e !== 0n && e !== -1n && e !== 0xffffffffffffffffn;
@@ -200,13 +200,13 @@ async function cFe(e, r, t) {
   if (!Vm(r.inode)) return P({ kind: "classified", error: tc("unknown", { telemetryCode: qAt }) });
   let o = await Ie(j(e, t));
   if (!o.ok) return o;
-  let i = await Ie(l(t, { bigint: !0 }));
+  let i = await Ie(l(t, { bigint: true }));
   if (!i.ok)
     return i.error.kind === "absent" ? P({ kind: "classified", error: tc("unknown", { telemetryCode: qAt }) }) : i;
   if (!Vm(i.value.ino)) return P({ kind: "classified", error: tc("unknown", { telemetryCode: qAt }) });
   if (p(i.value, r) || (await S(t, r))) return re(void 0);
   let a = { device: i.value.dev, inode: i.value.ino },
-    [f, u] = await Promise.all([Ie(l(e, { bigint: !0 })), Ie(H(e, { bigint: !0 }))]),
+    [f, u] = await Promise.all([Ie(l(e, { bigint: true })), Ie(H(e, { bigint: true }))]),
     c = (f.ok && p(f.value, a)) || (u.ok && p(u.value, a));
   if (
     (n(
@@ -215,21 +215,21 @@ async function cFe(e, r, t) {
     ),
     c)
   ) {
-    let s = await Ie(l(t, { bigint: !0 }));
+    let s = await Ie(l(t, { bigint: true }));
     if (s.ok && p(s.value, a)) await Ie(B(t));
   }
   return P({ kind: "classified", error: tc("unknown", { telemetryCode: FRn }) });
 }
 async function URn(e, r) {
-  let t = await Ie(l(e, { bigint: !0 }));
-  if (!t.ok) return !1;
+  let t = await Ie(l(e, { bigint: true }));
+  if (!t.ok) return false;
   return p(t.value, r) || S(e, r);
 }
 async function S(e, r) {
   let t = await Ie(g(e, b.O_RDONLY | Bp));
-  if (!t.ok) return !1;
+  if (!t.ok) return false;
   try {
-    let o = await Ie(t.value.stat({ bigint: !0 }));
+    let o = await Ie(t.value.stat({ bigint: true }));
     return o.ok && p(o.value, r);
   } finally {
     await Ie(t.value.close());
@@ -240,10 +240,10 @@ function p(e, r) {
 }
 async function GAt(e, r) {
   if (D() === "windows") return re(/^[\\/]/.test(e));
-  if (bA(e)) return re(!0);
+  if (bA(e)) return re(true);
   let t = e.startsWith("/"),
     o = y(r);
-  if (t && !k(e, o) && !m(e)) return re(!1);
+  if (t && !k(e, o) && !m(e)) return re(false);
   let i = await Ie(L(r));
   if (!i.ok) return i;
   let a = [...o, ...y(i.value)];
@@ -251,7 +251,7 @@ async function GAt(e, r) {
   return re(k(r + "/" + e, a) || k(i.value + "/" + e, a) || m(r + "/" + e) || m(i.value + "/" + e));
 }
 function A(e) {
-  if (!e.startsWith("/")) return !1;
+  if (!e.startsWith("/")) return false;
   let r = [];
   for (let t of e.split("/")) {
     if (t === "" || t === ".") continue;
@@ -268,7 +268,7 @@ function Z(e) {
   return r === null ? void 0 : `//${r[1].toLowerCase()}/${r[2].toLowerCase()}`;
 }
 function q(e, r) {
-  if (r === void 0) return !1;
+  if (r === void 0) return false;
   let t = e.replace(/\\/g, "/").toLowerCase();
   return t === r || t.startsWith(r + "/");
 }
@@ -280,7 +280,7 @@ function k(e, r) {
   return qCt(e).some((t) => !r.includes(t));
 }
 function m(e) {
-  if (!e.startsWith("/")) return !1;
+  if (!e.startsWith("/")) return false;
   let r = [];
   for (let t of e.split("/")) {
     if (t === "" || t === ".") continue;
@@ -288,9 +288,9 @@ function m(e) {
       r.pop();
       continue;
     }
-    if ((r.push(t), r.length === 2 && r[0].toLowerCase() === "network")) return !0;
+    if ((r.push(t), r.length === 2 && r[0].toLowerCase() === "network")) return true;
   }
-  return !1;
+  return false;
 }
 var oVt = 40;
 async function iVt(e, r = []) {
@@ -331,7 +331,7 @@ async function iVt(e, r = []) {
 }
 function ee(e, r, t, o) {
   if (A(e) && /(^|\/)net$/i.test(e)) return t === void 0 || k(`${e}/${t}`, r);
-  if (q(e, o)) return !1;
+  if (q(e, o)) return false;
   return ne(e, r);
 }
 function ne(e, r = []) {

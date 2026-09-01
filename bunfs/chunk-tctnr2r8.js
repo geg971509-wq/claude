@@ -381,14 +381,14 @@ function N() {
   let mt = _(1),
     Te;
   if (mt[0] === d)
-    (Te = e(t, { dimColor: !0, children: " \u2014 previous content replaced (no diff shown)" })), (mt[0] = Te);
+    (Te = e(t, { dimColor: true, children: " \u2014 previous content replaced (no diff shown)" })), (mt[0] = Te);
   else Te = mt[0];
   return Te;
 }
 function he(gt) {
   let g = _(37),
     { filePath: D, content: Y, verbose: m, replacedUndiffedContent: Fe } = gt,
-    oe = Fe === void 0 ? !1 : Fe,
+    oe = Fe === void 0 ? false : Fe,
     { columns: ht } = Ee(),
     v = Math.max(1, ht - 12),
     U = Y || "(No content)",
@@ -412,7 +412,7 @@ function he(gt) {
   let ne = we,
     ie = m ? 0 : me(U, v) - b,
     q;
-  if (g[6] !== M) (q = e(t, { bold: !0, children: M })), (g[6] = M), (g[7] = q);
+  if (g[6] !== M) (q = e(t, { bold: true, children: M })), (g[6] = M), (g[7] = q);
   else q = g[7];
   let z;
   if (g[8] !== M) (z = k(M, "line")), (g[8] = M), (g[9] = z);
@@ -421,7 +421,7 @@ function he(gt) {
   if (g[10] !== D || g[11] !== m) (A = m ? D : X(ee(), D)), (g[10] = D), (g[11] = m), (g[12] = A);
   else A = g[12];
   let G;
-  if (g[13] !== A) (G = e(t, { bold: !0, children: A })), (g[13] = A), (g[14] = G);
+  if (g[13] !== A) (G = e(t, { bold: true, children: A })), (g[13] = A), (g[14] = G);
   else G = g[14];
   let J;
   if (g[15] !== oe) (J = oe && e(N, {})), (g[15] = oe), (g[16] = J);
@@ -451,7 +451,7 @@ function he(gt) {
   else Z = g[29];
   let E;
   if (g[30] !== ie || g[31] !== m)
-    (E = !m && e(Jm, { count: ie, expandable: !0 })), (g[30] = ie), (g[31] = m), (g[32] = E);
+    (E = !m && e(Jm, { count: ie, expandable: true })), (g[30] = ie), (g[31] = m), (g[32] = E);
   else E = g[32];
   let De;
   if (g[33] !== Z || g[34] !== E || g[35] !== K)
@@ -468,8 +468,8 @@ function be({ type: i, content: a, structuredPatch: s, originalFile: l }) {
 }
 function lt(i, { columns: a }) {
   let { type: s, content: l } = i;
-  if (s !== "create" && !be(i)) return !1;
-  if (typeof l !== "string") return !1;
+  if (s !== "create" && !be(i)) return false;
+  if (typeof l !== "string") return false;
   let f = l.endsWith(P) ? b + 1 : b;
   return re(l, Math.max(1, a - 12), f);
 }
@@ -566,7 +566,7 @@ async function ge(i, a) {
     if (f === null) return { type: "create" };
     return {
       type: "update",
-      patch: VL({ filePath: i, fileContents: f, edits: [{ old_string: f, new_string: a, replace_all: !1 }] }),
+      patch: VL({ filePath: i, fileContents: f, edits: [{ old_string: f, new_string: a, replace_all: false }] }),
       oldContent: f,
     };
   } catch (s) {
@@ -583,24 +583,24 @@ function pt(i, { verbose: a }) {
 function ut(i, a, { style: s, verbose: l }) {
   return xe(i, a, { style: s, verbose: l });
 }
-function xe(i, a, { style: s, verbose: l, replacedUndiffedContent: f = !1 }) {
+function xe(i, a, { style: s, verbose: l, replacedUndiffedContent: f = false }) {
   let { filePath: c = "", content: p, structuredPatch: T, type: w, originalFile: B } = i;
   if (!c) return null;
   switch (w) {
     case "create": {
       if (c.startsWith(va()) && !l) {
-        if (s !== "condensed") return e(Pe, { children: e(t, { dimColor: !0, children: "/plan to preview" }) });
+        if (s !== "condensed") return e(Pe, { children: e(t, { dimColor: true, children: "/plan to preview" }) });
       } else if (s === "condensed" && !l) {
         let C = O(p);
         return r(t, {
           children: [
             "Wrote ",
-            e(t, { bold: !0, children: C }),
+            e(t, { bold: true, children: C }),
             " ",
             k(C, "line"),
             " to",
             " ",
-            e(t, { bold: !0, children: X(ee(), c) }),
+            e(t, { bold: true, children: X(ee(), c) }),
             f && e(N, {}),
           ],
         });
@@ -608,14 +608,14 @@ function xe(i, a, { style: s, verbose: l, replacedUndiffedContent: f = !1 }) {
         let C = O(p);
         return e(Pe, {
           children: r(t, {
-            children: ["Wrote ", e(t, { bold: !0, children: C }), " ", k(C, "line"), f && e(N, {}), " ", e(Gc, {})],
+            children: ["Wrote ", e(t, { bold: true, children: C }), " ", k(C, "line"), f && e(N, {}), " ", e(Gc, {})],
           }),
         });
       }
       return e(he, { filePath: c, content: p, verbose: l, replacedUndiffedContent: f });
     }
     case "update": {
-      if (be(i)) return xe({ ...i, type: "create" }, a, { style: s, verbose: l, replacedUndiffedContent: !0 });
+      if (be(i)) return xe({ ...i, type: "create" }, a, { style: s, verbose: l, replacedUndiffedContent: true });
       let V = c.startsWith(va());
       return e(GUe, {
         filePath: c,

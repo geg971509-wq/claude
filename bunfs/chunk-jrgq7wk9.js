@@ -62,8 +62,8 @@ function MQ(r) {
   return `${e} background ${e === 1 ? "task" : "tasks"}`;
 }
 function KYt(r) {
-  if (r.length !== 1) return !1;
+  if (r.length !== 1) return false;
   let n = r[0];
-  return n.type === "remote_agent" && n.isUltraplan === !0 && n.ultraplanPhase !== void 0;
+  return n.type === "remote_agent" && n.isUltraplan === true && n.ultraplanPhase !== void 0;
 }
 export { MQ, KYt };

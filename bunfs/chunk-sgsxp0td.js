@@ -13,30 +13,30 @@ var qc = S(function (h) {
   class s extends Error {
     name = "ProviderError";
     tryNextLink;
-    constructor(r, t = !0) {
+    constructor(r, t = true) {
       let n,
-        e = !0;
+        e = true;
       if (typeof t === "boolean") (n = void 0), (e = t);
-      else if (t != null && typeof t === "object") (n = t.logger), (e = t.tryNextLink ?? !0);
+      else if (t != null && typeof t === "object") (n = t.logger), (e = t.tryNextLink ?? true);
       super(r);
       (this.tryNextLink = e),
         Object.setPrototypeOf(this, s.prototype),
         n?.debug?.(`@smithy/property-provider ${e ? "->" : "(!)"} ${r}`);
     }
-    static from(r, t = !0) {
+    static from(r, t = true) {
       return Object.assign(new this(r.message, t), r);
     }
   }
   class f extends s {
     name = "CredentialsProviderError";
-    constructor(r, t = !0) {
+    constructor(r, t = true) {
       super(r, t);
       Object.setPrototypeOf(this, f.prototype);
     }
   }
   class l extends s {
     name = "TokenProviderError";
-    constructor(r, t = !0) {
+    constructor(r, t = true) {
       super(r, t);
       Object.setPrototypeOf(this, l.prototype);
     }
@@ -60,11 +60,11 @@ var qc = S(function (h) {
       let e,
         o,
         i,
-        c = !1,
+        c = false,
         a = async () => {
           if (!o) o = r();
           try {
-            (e = await o), (i = !0), (c = !1);
+            (e = await o), (i = true), (c = false);
           } finally {
             o = void 0;
           }
@@ -78,7 +78,7 @@ var qc = S(function (h) {
       return async (u) => {
         if (!i || u?.forceRefresh) e = await a();
         if (c) return e;
-        if (n && !n(e)) return (c = !0), e;
+        if (n && !n(e)) return (c = true), e;
         if (t(e)) return await a(), e;
         return e;
       };

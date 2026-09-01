@@ -401,16 +401,16 @@ var R = null,
   W = 8;
 function Re(s, c) {
   if (s.action === "live-edit")
-    return z ? z.renderLiveEditToolUse(s, c?.verbose === !0, vh()) : e(t, { children: "live-edit" });
+    return z ? z.renderLiveEditToolUse(s, c?.verbose === true, vh()) : e(t, { children: "live-edit" });
   if (s.action === "preview") {
     let a = s,
       i = typeof a.file_path === "string" ? a.file_path : "",
       g = hw(ll(i) ?? "(no file)");
-    if (c?.verbose !== !0) return r(t, { children: ["preview ", ul(D(g), 60)] });
+    if (c?.verbose !== true) return r(t, { children: ["preview ", ul(D(g), 60)] });
     let f = Vrt(a),
       d = Krt(a);
     return r(t, {
-      children: ["preview ", ul(g, 1024), e(t, { dimColor: !0, children: ` \xB7 ${f.join("/")} \xB7 ${d.join("+")}` })],
+      children: ["preview ", ul(g, 1024), e(t, { dimColor: true, children: ` \xB7 ${f.join("/")} \xB7 ${d.join("+")}` })],
     });
   }
   if (s.action === "sync")
@@ -427,23 +427,23 @@ function Re(s, c) {
   }
   if (s.action === "list_types") {
     let a = typeof s.type_query === "string" && s.type_query !== "" ? ll(ce(s.type_query, 200)) : null;
-    return r(t, { children: ["list types", a ? e(t, { dimColor: !0, children: ` "${a}"` }) : ""] });
+    return r(t, { children: ["list types", a ? e(t, { dimColor: true, children: ` "${a}"` }) : ""] });
   }
   if (s.action === "describe_type")
     return r(t, {
-      children: ["describe type", " ", e(t, { dimColor: !0, children: kc(wx(s), "(unrecognized address)") })],
+      children: ["describe type", " ", e(t, { dimColor: true, children: kc(wx(s), "(unrecognized address)") })],
     });
   if (s.action === "comments" || s.action === "reply" || s.action === "resolve") {
     let a = typeof s.url === "string" ? kn(s.url) : null,
-      i = s.action === "reply" && c?.verbose === !0 ? c0e(_L(s).replyText) : void 0,
-      g = (s.action === "reply" || s.action === "resolve") && c?.verbose === !0 && a !== null ? qr(a.slug) : void 0,
+      i = s.action === "reply" && c?.verbose === true ? c0e(_L(s).replyText) : void 0,
+      g = (s.action === "reply" || s.action === "resolve") && c?.verbose === true && a !== null ? qr(a.slug) : void 0,
       f = vz(g);
     return r(t, {
       children: [
         s.action,
-        r(t, { dimColor: !0, children: [" ", a !== null ? ro(a) : "(unrecognized address)"] }),
-        f !== "" && e(t, { dimColor: !0, children: f }),
-        i !== void 0 && i !== "" && e(t, { dimColor: !0, children: ` \u2014 "${i}"` }),
+        r(t, { dimColor: true, children: [" ", a !== null ? ro(a) : "(unrecognized address)"] }),
+        f !== "" && e(t, { dimColor: true, children: f }),
+        i !== void 0 && i !== "" && e(t, { dimColor: true, children: ` \u2014 "${i}"` }),
       ],
     });
   }
@@ -478,7 +478,7 @@ function Re(s, c) {
           : i?.kind === "unresolvable"
             ? " \u2192 (unresolvable out_dir)"
             : "";
-    if (s.action === "write_db" && c?.verbose === !0) {
+    if (s.action === "write_db" && c?.verbose === true) {
       let f = typeof s.url === "string" ? kn(s.url) : null,
         d = f !== null ? qr(f.slug) : void 0,
         y = vz(d),
@@ -498,14 +498,14 @@ function Re(s, c) {
           p,
           ")",
           " ",
-          e(t, { dimColor: !0, children: kc(s.url, "(unrecognized address)") }),
-          e(t, { dimColor: !0, children: ` \u2014 ${w}${y}` }),
+          e(t, { dimColor: true, children: kc(s.url, "(unrecognized address)") }),
+          e(t, { dimColor: true, children: ` \u2014 ${w}${y}` }),
           F !== "" && e(t, { color: "warning", children: F }),
-          M !== "" && e(t, { dimColor: !0, children: ` \u2014 ${M}` }),
+          M !== "" && e(t, { dimColor: true, children: ` \u2014 ${M}` }),
         ],
       });
     }
-    if (s.action === "room_send" && c?.verbose === !0) {
+    if (s.action === "room_send" && c?.verbose === true) {
       let f = typeof s.url === "string" ? kn(s.url) : null,
         d = f !== null ? qr(f.slug) : void 0,
         y = vz(d),
@@ -515,36 +515,36 @@ function Re(s, c) {
         children: [
           a,
           " ",
-          e(t, { dimColor: !0, children: kc(s.url, "(unrecognized address)") }),
-          y !== "" && e(t, { dimColor: !0, children: y }),
+          e(t, { dimColor: true, children: kc(s.url, "(unrecognized address)") }),
+          y !== "" && e(t, { dimColor: true, children: y }),
           w !== "" && e(t, { color: "warning", children: w }),
-          p !== "" && e(t, { dimColor: !0, children: ` \u2014 ${p}` }),
+          p !== "" && e(t, { dimColor: true, children: ` \u2014 ${p}` }),
         ],
       });
     }
-    if (s.action === "resume_replies" && c?.verbose === !0) {
+    if (s.action === "resume_replies" && c?.verbose === true) {
       let f = typeof s.url === "string" ? kn(s.url) : null,
         d = f !== null ? qr(f.slug) : void 0;
       return r(t, {
         children: [
           a,
           " ",
-          e(t, { dimColor: !0, children: kc(s.url, "(unrecognized address)") }),
-          e(t, { dimColor: !0, children: vz(d) }),
+          e(t, { dimColor: true, children: kc(s.url, "(unrecognized address)") }),
+          e(t, { dimColor: true, children: vz(d) }),
         ],
       });
     }
-    return r(t, { children: [a, " ", r(t, { dimColor: !0, children: [kc(s.url, "(unrecognized address)"), g] })] });
+    return r(t, { children: [a, " ", r(t, { dimColor: true, children: [kc(s.url, "(unrecognized address)"), g] })] });
   }
   if (s.action === "read") {
     let a = dN(s.url),
       i = a !== null ? qr(a.slug) : void 0,
-      g = c?.verbose === !0 ? Zc(i) : "";
+      g = c?.verbose === true ? Zc(i) : "";
     return r(t, {
       children: [
         "read",
         " ",
-        e(t, { dimColor: !0, children: a !== null ? ro(a) : "(unrecognized address)" }),
+        e(t, { dimColor: true, children: a !== null ? ro(a) : "(unrecognized address)" }),
         g !== "" && e(t, { color: "warning", children: g }),
       ],
     });
@@ -552,14 +552,14 @@ function Re(s, c) {
   if (s.action === "upload_asset") {
     let a = typeof s.url === "string" ? kn(s.url) : null,
       i = a !== null ? qr(a.slug) : void 0,
-      g = c?.verbose === !0,
+      g = c?.verbose === true,
       f = g ? Zc(i) : "",
       d = ul(ll(s.file_path ?? "") ?? "(unprintable path)", 1024);
     return r(t, {
       children: [
         "upload ",
         d,
-        e(t, { dimColor: !0, children: ` \u2192 ${kc(s.url, "(unrecognized address)")}${g ? vz(i) : ""}` }),
+        e(t, { dimColor: true, children: ` \u2192 ${kc(s.url, "(unrecognized address)")}${g ? vz(i) : ""}` }),
         f !== "" && e(t, { color: "warning", children: f }),
       ],
     });
@@ -567,7 +567,7 @@ function Re(s, c) {
   if (s.action === "list_files" || s.action === "read_file") {
     let a = typeof s.url === "string" ? kn(s.url) : null,
       i = a !== null ? qr(a.slug) : void 0,
-      g = c?.verbose === !0,
+      g = c?.verbose === true,
       f = g ? Zc(i) : "",
       d = "list files",
       y = "";
@@ -580,7 +580,7 @@ function Re(s, c) {
     return r(t, {
       children: [
         d,
-        e(t, { dimColor: !0, children: ` of ${kc(s.url, "(unrecognized address)")}${g ? vz(i) : ""}${y}` }),
+        e(t, { dimColor: true, children: ` of ${kc(s.url, "(unrecognized address)")}${g ? vz(i) : ""}${y}` }),
         f !== "" && e(t, { color: "warning", children: f }),
       ],
     });
@@ -588,7 +588,7 @@ function Re(s, c) {
   if (s.action === "delete") {
     let a = typeof s.url === "string" ? kn(s.url) : null,
       i = a !== null ? qr(a.slug) : void 0,
-      g = c?.verbose === !0,
+      g = c?.verbose === true,
       f = g ? Zc(i) : "",
       d = s[Brt],
       y = He(d) ? d.title : void 0,
@@ -597,7 +597,7 @@ function Re(s, c) {
       children: [
         "delete",
         p ? ` "${p}"` : "",
-        e(t, { dimColor: !0, children: ` \xB7 ${kc(s.url, "(unrecognized address)")}${g ? vz(i) : ""}` }),
+        e(t, { dimColor: true, children: ` \xB7 ${kc(s.url, "(unrecognized address)")}${g ? vz(i) : ""}` }),
         f !== "" && e(t, { color: "warning", children: f }),
       ],
     });
@@ -605,7 +605,7 @@ function Re(s, c) {
   if (s.action === "list_assets" || s.action === "read_asset" || s.action === "delete_asset") {
     let a = typeof s.url === "string" ? kn(s.url) : null,
       i = a !== null ? qr(a.slug) : void 0,
-      g = c?.verbose === !0,
+      g = c?.verbose === true,
       f = g ? Zc(i) : "",
       { assetId: d } = YQ(s),
       y = d !== void 0 && qw.test(d) ? d : "(no id)",
@@ -620,7 +620,7 @@ function Re(s, c) {
       children: [
         w,
         e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: ` ${s.action === "delete_asset" ? "from" : "of"} ${kc(s.url, "(unrecognized address)")}${g ? vz(i) : ""}${p !== void 0 ? ` \u2192 ${ul(ll(`${p}.*`) ?? "(unprintable path)", 1024)}` : ""}`,
         }),
         f !== "" && e(t, { color: "warning", children: f }),
@@ -628,7 +628,7 @@ function Re(s, c) {
     });
   }
   let { file_path: T, url: n } = s,
-    m = c?.verbose === !0,
+    m = c?.verbose === true,
     l = m && yL() && jrt(s) ? Nse.trimStart() : void 0,
     h = wx(s);
   if (h !== void 0) {
@@ -637,10 +637,10 @@ function Re(s, c) {
     return r(t, {
       children: [
         i !== void 0 ? `${i} ` : "",
-        r(t, { dimColor: !0, children: ["\u2192 new Artifact from type ", a] }),
+        r(t, { dimColor: true, children: ["\u2192 new Artifact from type ", a] }),
         l !== void 0 &&
           e(t, {
-            dimColor: !0,
+            dimColor: true,
             children: `
 ${l}`,
           }),
@@ -652,10 +652,10 @@ ${l}`,
   return r(t, {
     children: [
       v,
-      b !== void 0 && r(t, { dimColor: !0, children: [" \u2192 ", b] }),
+      b !== void 0 && r(t, { dimColor: true, children: [" \u2192 ", b] }),
       l !== void 0 &&
         e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: `
 ${l}`,
         }),
@@ -668,7 +668,7 @@ function Ee(s) {
   let T = c.status === 503 ? "Publish service temporarily unavailable" : "Publish service busy";
   return e(Pe, {
     children: r(t, {
-      dimColor: !0,
+      dimColor: true,
       children: [T, " \u2014 retrying (attempt ", c.attempt, " of ", c.maxAttempts, ")\u2026"],
     }),
   });
@@ -693,14 +693,14 @@ function Ae(s, c, T) {
           f = ll(g) ?? "";
         return g.length < a.length ? `${f}\u2026` : f;
       },
-      b = T?.verbose === !0 ? n.issues : n.issues.slice(0, W),
+      b = T?.verbose === true ? n.issues : n.issues.slice(0, W),
       v = n.issues.length - b.length + (n.issuesDropped ?? 0);
     return e(Pe, {
       children: r(o, {
         flexDirection: "column",
         children: [
           r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
               m === 0 ? "Could not preview " : "Previewed ",
               h(D(n.file), 80),
@@ -726,7 +726,7 @@ function Ae(s, c, T) {
               {
                 paddingLeft: 2,
                 flexDirection: "row",
-                children: [e(t, { dimColor: !0, children: "\xB7 " }), e(t, { dimColor: !0, children: h(a.text, 200) })],
+                children: [e(t, { dimColor: true, children: "\xB7 " }), e(t, { dimColor: true, children: h(a.text, 200) })],
               },
               i,
             ),
@@ -735,18 +735,18 @@ function Ae(s, c, T) {
             e(o, {
               paddingLeft: 2,
               children: r(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: ["\xB7 \u2026 ", v, " more", n.issues.length > b.length ? " (ctrl+o)" : ""],
               }),
             }),
-          T?.verbose === !0 &&
+          T?.verbose === true &&
             n.shots.map((a, i) =>
               e(
                 o,
                 {
                   paddingLeft: 2,
                   children: r(t, {
-                    dimColor: !0,
+                    dimColor: true,
                     children: [
                       h(`${a.width} ${a.theme}`, 20),
                       ":",
@@ -764,11 +764,11 @@ function Ae(s, c, T) {
   }
   if ("read" in s) return e(WRe, { bytes: s.read.bytes, status: `${s.read.code} ${s.read.codeText}` });
   if ("threads" in s) {
-    let n = s.threads_dropped === !0,
+    let n = s.threads_dropped === true,
       m = s.thread_filter !== void 0;
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: m
           ? s.threads.some((l) => l.id === s.thread_filter)
             ? "read 1 comment thread (filtered)"
@@ -786,14 +786,14 @@ function Ae(s, c, T) {
   if ("replied" in s)
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: s.replied
           ? "replied to comment thread"
-          : s.summon_answered === !0
+          : s.summon_answered === true
             ? "reply not posted (summon already answered)"
-            : s.summon_foreign === !0
+            : s.summon_foreign === true
               ? "reply not posted (another user's summon or activation)"
-              : s.already_answered === !0
+              : s.already_answered === true
                 ? "reply not posted (thread already answered)"
                 : "reply needs thread activation by the user",
       }),
@@ -801,24 +801,24 @@ function Ae(s, c, T) {
   if ("thread_resolved" in s)
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: s.thread_resolved
           ? "resolved comment thread"
-          : s.not_authorized === !0
+          : s.not_authorized === true
             ? "not resolved (not the thread starter or a writer)"
-            : s.summon_foreign === !0
+            : s.summon_foreign === true
               ? "not resolved (another user's activation)"
-              : s.relayed_credential === !0
+              : s.relayed_credential === true
                 ? "not resolved (unavailable from this session)"
                 : "not resolved (thread not activated)",
       }),
     });
   if ("liveEdit" in s)
     return e(Pe, {
-      children: e(t, { dimColor: !0, children: R ? R.renderLiveEditResultText(s.liveEdit) : "live edit landed" }),
+      children: e(t, { dimColor: true, children: R ? R.renderLiveEditResultText(s.liveEdit) : "live edit landed" }),
     });
   if ("sync" in s)
-    return e(Pe, { children: e(t, { dimColor: !0, children: R ? R.renderSyncResultText(s.sync) : "synced" }) });
+    return e(Pe, { children: e(t, { dimColor: true, children: R ? R.renderSyncResultText(s.sync) : "synced" }) });
   if ("db_read" in s) {
     let n = s.db_read,
       m = n.docs?.length ?? 0,
@@ -833,8 +833,8 @@ function Ae(s, c, T) {
           : void 0;
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
-        children: n.found === !1 ? "no such document" : (b ?? `read ${m} ${k(m, "document")}`),
+        dimColor: true,
+        children: n.found === false ? "no such document" : (b ?? `read ${m} ${k(m, "document")}`),
       }),
     });
   }
@@ -842,7 +842,7 @@ function Ae(s, c, T) {
     let n = "results" in s.db_write && Array.isArray(s.db_write.results) ? s.db_write.results.length : void 0;
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: !s.db_write.committed
           ? "database write not committed"
           : n !== void 0
@@ -860,8 +860,8 @@ function Ae(s, c, T) {
       l = typeof n.reason === "string" ? Rh(n.reason, { max: 32 }) : void 0;
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
-        children: n.delivered === !0 ? `sent to ${m}` : l === void 0 ? "not sent" : `not sent (${l})`,
+        dimColor: true,
+        children: n.delivered === true ? `sent to ${m}` : l === void 0 ? "not sent" : `not sent (${l})`,
       }),
     });
   }
@@ -869,7 +869,7 @@ function Ae(s, c, T) {
     let n = s.asset_upload;
     return e(Pe, {
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [
           "uploaded ",
           ll(n.file_name) ?? "asset",
@@ -885,7 +885,7 @@ function Ae(s, c, T) {
     let n = s.asset_list.assets.length;
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children:
           n === 0
             ? "no assets listed"
@@ -896,14 +896,14 @@ function Ae(s, c, T) {
   if ("file_list" in s) {
     let n = s.file_list.files.length;
     return e(Pe, {
-      children: e(t, { dimColor: !0, children: n === 0 ? "no files listed" : `listed ${n} ${k(n, "file")}` }),
+      children: e(t, { dimColor: true, children: n === 0 ? "no files listed" : `listed ${n} ${k(n, "file")}` }),
     });
   }
   if ("file_read" in s) {
     let n = s.file_read;
     return e(Pe, {
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: ["saved ", ul(ll(n.saved_to) ?? "file", 1024), " (", Ft(n.size_bytes), ")"],
       }),
     });
@@ -912,26 +912,26 @@ function Ae(s, c, T) {
     let n = s.asset_read;
     return e(Pe, {
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: ["saved ", ul(ll(n.path) ?? "asset", 1024), " (", Ft(n.size_bytes), ")"],
       }),
     });
   }
   if ("asset_delete" in s)
     return e(Pe, {
-      children: e(t, { dimColor: !0, children: s.asset_delete.deleted ? "asset deleted" : "no such asset" }),
+      children: e(t, { dimColor: true, children: s.asset_delete.deleted ? "asset deleted" : "no such asset" }),
     });
   if ("artifact_delete" in s)
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
-        children: s.artifact_delete.already_gone === !0 ? "Artifact was already deleted" : "Artifact deleted",
+        dimColor: true,
+        children: s.artifact_delete.already_gone === true ? "Artifact was already deleted" : "Artifact deleted",
       }),
     });
   if ("watch" in s)
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: s.watch.watching
           ? s.watch.events?.includes("comment")
             ? "watching for republishes and to-Claude comments"
@@ -943,7 +943,7 @@ function Ae(s, c, T) {
     });
   if ("unwatch" in s)
     return e(Pe, {
-      children: e(t, { dimColor: !0, children: s.unwatch.was_watching ? "stopped watching" : "no watch to stop" }),
+      children: e(t, { dimColor: true, children: s.unwatch.was_watching ? "stopped watching" : "no watch to stop" }),
     });
   if ("watches" in s) {
     let { watching: n, stopped: m } = oXe(s.watches),
@@ -955,14 +955,14 @@ function Ae(s, c, T) {
         .filter((d) => d !== "")
         .join(", "),
       i = Array.isArray(s.rooms) ? s.rooms : [],
-      g = Q(i, (d) => d?.connected !== !0),
+      g = Q(i, (d) => d?.connected !== true),
       f =
         i.length > 0
           ? ` \xB7 ${i.length} artifact ${k(i.length, "room")} joined${g > 0 ? ` (${g} reconnecting)` : ""}`
           : "";
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: `${n} artifact ${k(n, "watch", "watches")}${m > 0 ? ` \xB7 ${m} with auto-replies paused or stopped` : ""}${a !== "" ? `, ${a}` : ""}${f}`,
       }),
     });
@@ -970,7 +970,7 @@ function Ae(s, c, T) {
   if ("resume_replies" in s)
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: s.resume_replies.resumed
           ? "auto-replies resumed"
           : s.resume_replies.reason === "stop_latched"
@@ -983,14 +983,14 @@ function Ae(s, c, T) {
   if ("verify" in s)
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children:
           s.verify.state === "no_row"
             ? "no diagnostics readable: none captured in 24h, or not readable for this artifact"
             : s.verify.state !== "empty" && s.verify.state !== "entries"
               ? "unrecognized diagnostics result \u2014 verify again for a current read"
               : s.verify.entries.length === 0
-                ? (s.verify.dropped ?? 0) > 0 || s.verify.truncated === !0
+                ? (s.verify.dropped ?? 0) > 0 || s.verify.truncated === true
                   ? "diagnostics captured but none readable (size cap) \u2014 not a clean signal"
                   : "loaded clean: zero diagnostics captured"
                 : `read ${s.verify.entries.length} diagnostic ${k(s.verify.entries.length, "entry", "entries")}`,
@@ -1006,7 +1006,7 @@ function Ae(s, c, T) {
       m = ` \xB7 ${s.page_data.provenance.authorship}`;
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: s.page_data.islandPresent
           ? `read ${s.page_data.entries.length} ${k(s.page_data.entries.length, "entry", "entries")} [${s.page_data.schema}]${n}${m}`
           : `no ${s.page_data.schema} data island on the page${m}`,
@@ -1016,10 +1016,10 @@ function Ae(s, c, T) {
   if ("artifact_types" in s)
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children:
           s.artifact_types.length === 0
-            ? s.unavailable === !0
+            ? s.unavailable === true
               ? "artifact types not available to this account"
               : "no artifact types listed"
             : `listed ${s.artifact_types.length} artifact ${k(s.artifact_types.length, "type")}`,
@@ -1030,7 +1030,7 @@ function Ae(s, c, T) {
       m = n ? ro(n) : void 0;
     return e(Pe, {
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [
           "described artifact type",
           " ",
@@ -1043,7 +1043,7 @@ function Ae(s, c, T) {
   if ("artifacts" in s)
     return e(Pe, {
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children:
           s.artifacts.length === 0
             ? s.scope === "shared"
@@ -1062,7 +1062,7 @@ function Ae(s, c, T) {
     };
     return e(Pe, {
       children: r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [
           "Created ",
           n(s.url),
@@ -1076,7 +1076,7 @@ function Ae(s, c, T) {
   }
   return e(Pe, {
     children: r(t, {
-      dimColor: !0,
+      dimColor: true,
       children: [s.updated ? "Updated" : "Published", " ", e(u, { name: s.url, url: s.url })],
     }),
   });

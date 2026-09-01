@@ -25,7 +25,7 @@ var $ir = (e) =>
 var y = j(Jh(), 1);
 var d = j(qc(), 1),
   D = j(mA(), 1),
-  h = !1,
+  h = false,
   O = async ({
     ssoStartUrl: e,
     ssoSession: f,
@@ -115,7 +115,7 @@ var F = j(qc(), 1),
       throw new F.CredentialsProviderError(
         `Profile is configured with invalid SSO credentials. Required parameters "sso_account_id", "sso_region", "sso_role_name", "sso_start_url". Got ${Object.keys(e).join(", ")}
 Reference: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html`,
-        { tryNextLink: !1, logger: f },
+        { tryNextLink: false, logger: f },
       );
     return e;
   };
@@ -137,9 +137,9 @@ var SCn =
         let p = (await m.loadSsoSessionData(e))[o.sso_session],
           w = ` configurations in profile ${t} and sso-session ${o.sso_session}`;
         if (r && r !== p.sso_region)
-          throw new S.CredentialsProviderError("Conflicting SSO region" + w, { tryNextLink: !1, logger: e.logger });
+          throw new S.CredentialsProviderError("Conflicting SSO region" + w, { tryNextLink: false, logger: e.logger });
         if (s && s !== p.sso_start_url)
-          throw new S.CredentialsProviderError("Conflicting SSO start_url" + w, { tryNextLink: !1, logger: e.logger });
+          throw new S.CredentialsProviderError("Conflicting SSO start_url" + w, { tryNextLink: false, logger: e.logger });
         (o.sso_region = p.sso_region), (o.sso_start_url = p.sso_start_url);
       }
       let { sso_start_url: u, sso_account_id: l, sso_region: g, sso_role_name: N, sso_session: C } = Uir(o, e.logger);
@@ -161,7 +161,7 @@ var SCn =
     } else if (!s || !n || !r || !i)
       throw new S.CredentialsProviderError(
         'Incomplete configuration. The fromSSO() argument hash must include "ssoStartUrl", "ssoAccountId", "ssoRegion", "ssoRoleName"',
-        { tryNextLink: !1, logger: e.logger },
+        { tryNextLink: false, logger: e.logger },
       );
     else
       return O({

@@ -128,14 +128,14 @@ function l(e) {
   return e === void 0 || e === null || e === "";
 }
 function d({ manifest: e, userConfig: i }) {
-  if (!e.user_config) return !1;
+  if (!e.user_config) return false;
   let r = i || {};
   for (let [n, o] of Object.entries(e.user_config))
     if (o.required) {
       let t = r[n];
-      if (l(t) || (Array.isArray(t) && (t.length === 0 || t.some(l)))) return !0;
+      if (l(t) || (Array.isArray(t) && (t.length === 0 || t.some(l)))) return true;
     }
-  return !1;
+  return false;
 }
 export {
   a8e as CURRENT_MANIFEST_VERSION,

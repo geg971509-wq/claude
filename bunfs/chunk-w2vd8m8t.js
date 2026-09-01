@@ -143,19 +143,19 @@ function a() {
 async function B(s, n) {
   if (!pM()) return { type: "text", value: "Keybinding customization is disabled in this environment." };
   let e = Cze(),
-    t = !1,
+    t = false,
     r = n.storageV5;
   if (r) {
     let i = await r.write(bpn, a(), { precondition: { type: "ifAbsent" } });
     if (!i.ok)
-      if (i.error.code === "AlreadyExists") t = !0;
+      if (i.error.code === "AlreadyExists") t = true;
       else throw new R(`keybindings template write failed: ${Ge(i.error)}`, "keybindings template write failed");
   } else {
     await le().mkdir(f(e));
     try {
       await c(e, a(), { encoding: "utf-8", flag: "wx" });
     } catch (i) {
-      if (E(i) === "EEXIST") t = !0;
+      if (E(i) === "EEXIST") t = true;
       else throw i;
     }
   }

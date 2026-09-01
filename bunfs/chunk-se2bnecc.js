@@ -63,17 +63,17 @@ async function Q(e) {
         return (
           p("tips_org_tips_file_load", "not_regular_file"),
           n(`spinnerTipsOverride.tipsFile ${e} is not a regular file; ignoring it`, { level: "warn" }),
-          { entries: [], transient: !1 }
+          { entries: [], transient: false }
         );
       if (u.size > O)
         return (
           p("tips_org_tips_file_load", "too_large"),
           n(`spinnerTipsOverride.tipsFile ${e} is larger than ${O} bytes; ignoring it`, { level: "warn" }),
-          { entries: [], transient: !1 }
+          { entries: [], transient: false }
         );
       let c = Buffer.alloc(O + 1),
         { bytesRead: g } = await i.read(c, 0, c.length, 0);
-      if (g > O) return p("tips_org_tips_file_load", "too_large"), { entries: [], transient: !1 };
+      if (g > O) return p("tips_org_tips_file_load", "too_large"), { entries: [], transient: false };
       r = ui(c.toString("utf8", 0, g));
     } finally {
       await i.close();
@@ -86,9 +86,9 @@ async function Q(e) {
         n(`spinnerTipsOverride.tipsFile ${e} must be a JSON array of tips (or {"tips": [...]}); ignoring it`, {
           level: "warn",
         }),
-        { entries: [], transient: !1 }
+        { entries: [], transient: false }
       );
-    return y("tips_org_tips_file_load"), { entries: d, transient: !1 };
+    return y("tips_org_tips_file_load"), { entries: d, transient: false };
   } catch (t) {
     let i = E(t),
       r = X(t)
@@ -133,9 +133,9 @@ function te() {
         "spinnerTipsOverride.tipsFile from remote managed settings is ignored; ship inline tips or install the file path via managed-settings.json",
         { level: "warn" },
       ),
-      !0
+      true
     );
-  return !1;
+  return false;
 }
 function ie(e) {
   if (!e) return;
@@ -169,7 +169,7 @@ function C(e, t) {
 }
 function Sge() {
   let e = R(x);
-  if (C(e, "excludeDefault") !== !0) return !1;
+  if (C(e, "excludeDefault") !== true) return false;
   return e.some((t) => !!t.override.tipsFile) || e.some((t) => (t.override.tips?.length ?? 0) > 0);
 }
 async function FMn(e) {
@@ -210,8 +210,8 @@ async function FMn(e) {
           content: async () => v,
           cooldownSessions: a,
           priority: _,
-          isRelevant: async () => !0,
-          providerAgnostic: !0,
+          isRelevant: async () => true,
+          providerAgnostic: true,
         });
     },
     b = 0;

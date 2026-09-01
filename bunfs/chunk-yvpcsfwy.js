@@ -412,14 +412,14 @@ async function ae() {
         try {
           let n = await fetch(f, { headers: { "User-Agent": WI() }, signal: AbortSignal.timeout(ce), ...b });
           if ((n.body?.cancel().catch(() => {}), n.status !== 200))
-            return { success: !1, error: `Failed to connect to ${S}: Status ${n.status}`, usedProxy: T };
-          return { success: !0 };
+            return { success: false, error: `Failed to connect to ${S}: Status ${n.status}`, usedProxy: T };
+          return { success: true };
         } catch (n) {
           if (n instanceof Error && n.name === "TimeoutError")
-            return { success: !1, error: `Connection to ${S} timed out after ${ce / 1000} seconds`, usedProxy: T };
+            return { success: false, error: `Connection to ${S} timed out after ${ce / 1000} seconds`, usedProxy: T };
           let Y = W9(n);
           return {
-            success: !1,
+            success: false,
             error: `Failed to connect to ${S}: ${n instanceof Error ? n.code || n.message : String(n)}`,
             sslHint: Y ?? void 0,
             usedProxy: T,
@@ -429,16 +429,16 @@ async function ae() {
       x = (await Promise.all(g.map(R))).find((f) => !f.success);
     if (x)
       s("tengu_preflight_check_failed", {
-        isConnectivityError: !1,
+        isConnectivityError: false,
         hasErrorMessage: !!x.error,
         isSSLError: !!x.sslHint,
       });
-    return x || { success: !0 };
+    return x || { success: true };
   } catch (i) {
     return (
       h(i),
-      s("tengu_preflight_check_failed", { isConnectivityError: !0 }),
-      { success: !1, error: `Connectivity check error: ${i instanceof Error ? i.code || i.message : String(i)}` }
+      s("tengu_preflight_check_failed", { isConnectivityError: true }),
+      { success: false, error: `Connectivity check error: ${i instanceof Error ? i.code || i.message : String(i)}` }
     );
   }
 }
@@ -446,7 +446,7 @@ function q(Ge) {
   let D = _(14),
     { onSuccess: O } = Ge,
     [l, Ve] = u(null),
-    [I, Xe] = u(!0),
+    [I, Xe] = u(true),
     Se = hoe()?.source,
     ie = Yn(1000) && I,
     Ce,
@@ -455,7 +455,7 @@ function q(Ge) {
     (Ce = () => {
       let se = async function se() {
         let qe = await ae();
-        Ve(qe), Xe(!1);
+        Ve(qe), Xe(false);
       };
       se();
     }),
@@ -546,7 +546,7 @@ function J() {
   if (et[0] === d)
     (Ee = r(t, {
       color: "permission",
-      children: ["Press ", e(t, { bold: !0, children: "Enter" }), " to continue\u2026"],
+      children: ["Press ", e(t, { bold: true, children: "Enter" }), " to continue\u2026"],
     })),
       (et[0] = Ee);
   else Ee = et[0];
@@ -561,7 +561,7 @@ function P(ct) {
     { children: pe } = ct,
     { marker: me } = We(w),
     Q;
-  if (le[0] !== me) (Q = e(t, { dimColor: !0, children: me })), (le[0] = me), (le[1] = Q);
+  if (le[0] !== me) (Q = e(t, { dimColor: true, children: me })), (le[0] = me), (le[1] = Q);
   else Q = le[1];
   let Z;
   if (le[2] !== pe) (Z = e(o, { flexDirection: "column", children: pe })), (le[2] = pe), (le[3] = Z);
@@ -617,7 +617,7 @@ function Yt({ host: i, onDone: c }) {
   let [g, R] = u(0),
     [m] = u(() => El()),
     [x] = u(() => D7e() || O7e()),
-    f = C(!1),
+    f = C(false),
     [S, b] = mn(),
     { storageV5: T } = ge();
   A(() => {
@@ -631,7 +631,7 @@ function Yt({ host: i, onDone: c }) {
         s("tengu_onboarding_step", { oauthEnabled: m, stepId: ke(k[V]?.id) }), y("onboarding_step_complete");
     } else {
       if (f.current) return;
-      (f.current = !0), y("onboarding_complete"), c();
+      (f.current = true), y("onboarding_complete"), c();
     }
   }
   function Y(v) {
@@ -642,10 +642,10 @@ function Yt({ host: i, onDone: c }) {
       marginX: 1,
       children: e(EQ, {
         onThemeSelect: Y,
-        showIntroText: !0,
+        showIntroText: true,
         helpText: "To change this later, run /theme",
-        hideEscToCancel: !0,
-        skipExitHandling: !0,
+        hideEscToCancel: true,
+        skipExitHandling: true,
       }),
     }),
     he = r(o, {
@@ -653,7 +653,7 @@ function Yt({ host: i, onDone: c }) {
       gap: 1,
       paddingLeft: 1,
       children: [
-        e(t, { bold: !0, children: "Security notes:" }),
+        e(t, { bold: true, children: "Security notes:" }),
         e(o, {
           flexDirection: "column",
           width: 70,
@@ -663,7 +663,7 @@ function Yt({ host: i, onDone: c }) {
                 children: [
                   e(t, { children: "Claude can make mistakes." }),
                   r(t, {
-                    dimColor: !0,
+                    dimColor: true,
                     wrap: "wrap",
                     children: [
                       "You're responsible for Claude's actions and should always",
@@ -714,7 +714,7 @@ function Yt({ host: i, onDone: c }) {
         gap: 1,
         paddingLeft: 1,
         children: [
-          e(t, { bold: !0, children: "Use Claude Code's terminal setup?" }),
+          e(t, { bold: true, children: "Use Claude Code's terminal setup?" }),
           r(o, {
             flexDirection: "column",
             width: 70,
@@ -744,7 +744,7 @@ function Yt({ host: i, onDone: c }) {
                 onCancel: n,
               }),
               e(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: L.pending
                   ? r(U, { children: ["Press ", L.keyName, " again to exit"] })
                   : r(fe, {
@@ -776,7 +776,7 @@ function Yt({ host: i, onDone: c }) {
           children: [
             G?.component,
             L.pending &&
-              e(o, { padding: 1, children: r(t, { dimColor: !0, children: ["Press ", L.keyName, " again to exit"] }) }),
+              e(o, { padding: 1, children: r(t, { dimColor: true, children: ["Press ", L.keyName, " again to exit"] }) }),
           ],
         }),
       ],

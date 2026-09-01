@@ -111,7 +111,7 @@ import "/$bunfs/root/chunk-a4q326ap.js";
 var a = m(() =>
     ot({ keywords: H(i().min(1).max(64)).max(8).optional().describe("Optional filter; omit to list everything.") }),
   ),
-  u = m(() => f({ connectors: H(tae()), opt_in_required: N(!0).optional(), message: i().optional() }));
+  u = m(() => f({ connectors: H(tae()), opt_in_required: N(true).optional(), message: i().optional() }));
 function n(e, t) {
   let o = e.toLowerCase();
   return t.some((r) => o.includes(r.toLowerCase()));
@@ -119,7 +119,7 @@ function n(e, t) {
 function c(e, t) {
   if (!t?.length) return e;
   return e.filter((o) => {
-    if (typeof o.name === "string" && n(o.name, t)) return !0;
+    if (typeof o.name === "string" && n(o.name, t)) return true;
     let r = o.description;
     return typeof r === "string" && n(r, t);
   });
@@ -129,7 +129,7 @@ var T = kt({
   searchHint: "list the user's installed MCP connectors",
   maxResultSizeChars: 300000,
   persistenceThresholdCeiling: 300000,
-  shouldDefer: !0,
+  shouldDefer: true,
   get inputSchema() {
     return a();
   },
@@ -138,10 +138,10 @@ var T = kt({
   },
   isEnabled: I8,
   isConcurrencySafe() {
-    return !0;
+    return true;
   },
   isReadOnly() {
-    return !0;
+    return true;
   },
   async description() {
     return Jen;

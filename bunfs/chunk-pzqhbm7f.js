@@ -329,7 +329,7 @@ async function S(e) {
       customSystemPrompt: r,
       excludeDynamicSections: e.options.excludeDynamicSections,
       cacheBreakerPhrase: e.options.cacheBreakerPhrase,
-      analysisOnly: !0,
+      analysisOnly: true,
       storageV5: e.storageV5,
       credentials: e.credentials,
     }),
@@ -345,14 +345,14 @@ async function S(e) {
   };
 }
 var b = async (e, i) => {
-    let a = !1,
-      n = !1,
+    let a = false,
+      n = false,
       t = await m2e(i.abortController.signal, async () => {
         try {
           let o = await S(i);
           return (a = o !== null), o;
         } catch (o) {
-          throw ((n = !0), o);
+          throw ((n = true), o);
         }
       });
     switch (t.kind) {
@@ -377,7 +377,7 @@ var b = async (e, i) => {
     type: "local",
     name: "recap",
     description: "Generate a one-line session recap now",
-    supportsNonInteractive: !0,
+    supportsNonInteractive: true,
     thinClientDispatch: "post-text",
     load: () => Promise.resolve({ call: b }),
   },

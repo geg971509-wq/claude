@@ -120,7 +120,7 @@ async function C(e) {
       stderr: d,
       code: o,
       error: r,
-    } = await qe(a, n, { abortSignal: e.abortSignal, cwd: i, preserveOutputOnError: !0 }),
+    } = await qe(a, n, { abortSignal: e.abortSignal, cwd: i, preserveOutputOnError: true }),
     t = r && !r.startsWith(`Command failed with exit code ${o}`) ? r : "";
   if (t) p("input_remote_bash", "spawn_failed");
   else y("input_remote_bash");

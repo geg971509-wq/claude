@@ -79,7 +79,7 @@ async function mQn(e) {
   let t = gyt(e),
     r = 0,
     o = async (s) => {
-      for (let c of await O(s, { withFileTypes: !0 })) {
+      for (let c of await O(s, { withFileTypes: true })) {
         let d = b(s, c.name);
         if (c.isDirectory()) await o(d);
         else
@@ -100,7 +100,7 @@ async function mQn(e) {
 async function LLe(e) {
   let t = gyt(e);
   try {
-    await N(t, { recursive: !0, force: !0 });
+    await N(t, { recursive: true, force: true });
   } catch (r) {
     n(`Failed to delete plugin data dir ${t}: ${l(r)}`, { level: "warn" });
   }
@@ -122,42 +122,42 @@ function _yt(e) {
   return kKe().safeParse(e).data;
 }
 var z = {
-  "path-not-found": !1,
-  "path-traversal": !1,
-  "mcp-config-invalid": !1,
-  "lsp-config-invalid": !1,
-  "hook-load-failed": !1,
-  "component-load-failed": !1,
-  "mcpb-download-failed": !1,
-  "mcpb-extract-failed": !1,
-  "mcpb-invalid-manifest": !1,
-  "lsp-server-start-failed": !1,
-  "lsp-server-crashed": !1,
-  "lsp-request-timeout": !1,
-  "lsp-request-failed": !1,
-  "plugin-not-installed": !1,
-  "marketplace-blocked-by-policy": !1,
-  "autoupdate-blocked-by-pinner": !1,
-  "autoupdate-deferred-entry-helper": !1,
-  "autoupdate-disabled-by-policy": !1,
-  "plugin-cache-miss": !0,
-  "generic-error": !0,
-  "manifest-parse-error": !0,
-  "manifest-validation-error": !0,
-  "marketplace-not-found": !0,
-  "marketplace-load-failed": !0,
-  "plugin-not-found": !0,
-  "git-auth-failed": !0,
-  "git-timeout": !0,
-  "network-error": !0,
-  "dependency-unsatisfied": !0,
-  "dependency-version-unsatisfied": !0,
+  "path-not-found": false,
+  "path-traversal": false,
+  "mcp-config-invalid": false,
+  "lsp-config-invalid": false,
+  "hook-load-failed": false,
+  "component-load-failed": false,
+  "mcpb-download-failed": false,
+  "mcpb-extract-failed": false,
+  "mcpb-invalid-manifest": false,
+  "lsp-server-start-failed": false,
+  "lsp-server-crashed": false,
+  "lsp-request-timeout": false,
+  "lsp-request-failed": false,
+  "plugin-not-installed": false,
+  "marketplace-blocked-by-policy": false,
+  "autoupdate-blocked-by-pinner": false,
+  "autoupdate-deferred-entry-helper": false,
+  "autoupdate-disabled-by-policy": false,
+  "plugin-cache-miss": true,
+  "generic-error": true,
+  "manifest-parse-error": true,
+  "manifest-validation-error": true,
+  "marketplace-not-found": true,
+  "marketplace-load-failed": true,
+  "plugin-not-found": true,
+  "git-auth-failed": true,
+  "git-timeout": true,
+  "network-error": true,
+  "dependency-unsatisfied": true,
+  "dependency-version-unsatisfied": true,
 };
 function rY(e) {
   if (e.type === "path-not-found") return e.plugin === void 0 && e.errno !== void 0;
-  if (e.type === "plugin-not-installed") return e.seedHasOtherVersion === !0 || e.registryReadFailed === !0;
-  if (e.type === "generic-error") return e.orphan !== !0;
-  if (e.type === "marketplace-load-failed") return e.untrustedReservedName !== !0;
+  if (e.type === "plugin-not-installed") return e.seedHasOtherVersion === true || e.registryReadFailed === true;
+  if (e.type === "generic-error") return e.orphan !== true;
+  if (e.type === "marketplace-load-failed") return e.untrustedReservedName !== true;
   return z[e.type];
 }
 function ZTe(e) {
@@ -356,7 +356,7 @@ var eEe = "is network-shaped, carries a dot segment or link component, or could 
 function pC(e, { trustedRoots: t = [] } = {}) {
   let r = ee(e, t),
     { absolute: o, root: s, tail: c } = r;
-  if (r.dotSegmentInTail) return { absolute: o, suspect: !0 };
+  if (r.dotSegmentInTail) return { absolute: o, suspect: true };
   if (s !== void 0) {
     let u = M(Se(), s);
     return { absolute: o, suspect: VCt(u, c) };
@@ -365,7 +365,7 @@ function pC(e, { trustedRoots: t = [] } = {}) {
   return { absolute: o, suspect: d };
 }
 function ee(e, t) {
-  if (e.trim() === "") return { absolute: e, root: void 0, tail: e, dotSegmentInTail: !1, networkShapedUnvouched: !0 };
+  if (e.trim() === "") return { absolute: e, root: void 0, tail: e, dotSegmentInTail: false, networkShapedUnvouched: true };
   let r = M(Se(), e),
     { root: o, tail: s } = ie(e, t);
   return {
@@ -422,7 +422,7 @@ function wWt(e) {
 }
 function TWt(e, t) {
   return (
-    x5t(e, { exactDots: !0 }) ?? H5t(e, { exactDots: !0 }) ?? (t === void 0 ? void 0 : k5t(e, t.walkRoot, t.distroDir))
+    x5t(e, { exactDots: true }) ?? H5t(e, { exactDots: true }) ?? (t === void 0 ? void 0 : k5t(e, t.walkRoot, t.distroDir))
   );
 }
 function re() {
@@ -439,8 +439,8 @@ function re() {
     workflows: void 0,
     hookRegistration: void 0,
     hookRegistrationInFlight: void 0,
-    hookRegistrationFailed: !1,
-    hookRegistrationRetried: !1,
+    hookRegistrationFailed: false,
+    hookRegistrationRetried: false,
     hookRegistrationArgs: void 0,
     hookHotReloadUnsubscribe: void 0,
     hookHotReloadSettingsSnapshot: void 0,
@@ -457,7 +457,7 @@ function re() {
     marketplaceHelperMemo: new Map(),
     addDirMarketplacesMemo: void 0,
     headlessInstallPass: void 0,
-    installedPluginsMigrated: !1,
+    installedPluginsMigrated: false,
     installedPluginsFile: null,
     installedPluginsEpoch: 0,
     installedPluginsSnapshot: null,
@@ -474,8 +474,8 @@ function re() {
     commandProducerDirsDenied: new Set(),
     commandProducerDirsScannedAt: 0,
     commandProducerDirsComparable: null,
-    commandProducerDirsNeedCanonicalCandidate: !1,
-    commandProducerDirsWslProviderUndeterminable: !1,
+    commandProducerDirsNeedCanonicalCandidate: false,
+    commandProducerDirsWslProviderUndeterminable: false,
     commandProducerDirsChanged: Ue(),
     inUseMarkerCleanup: void 0,
     hintedPluginIds: new Set(),
@@ -557,7 +557,7 @@ function r_n(e) {
   }
   return [...r];
 }
-function mde(e, { emit: t = !0 } = {}) {
+function mde(e, { emit: t = true } = {}) {
   let r = I(),
     o = A(G4(e), r === "undeterminable" ? void 0 : r);
   if (o === void 0) return;
@@ -576,26 +576,26 @@ var gQn = jC(() => Jt().commandProducerDirsChanged);
 function hQn(e, t, r, { maxAgeMs: o = 0 } = {}) {
   let s = Jt();
   if (!(o > 0 && Date.now() - s.commandProducerDirsScannedAt < o) || s.commandProducerDirsComparable === null) {
-    let u = { foldCase: !0 },
+    let u = { foldCase: true },
       P = bb(Se(), u),
       y = bb(r, u),
-      g = t.map((p) => bb(p, u)).filter((p) => !n_(p, P, { alreadyComparable: !0 })),
+      g = t.map((p) => bb(p, u)).filter((p) => !n_(p, P, { alreadyComparable: true })),
       v = r_n(t).map((p) => bb(p, u));
     (s.commandProducerDirsComparable = [...g, ...v]),
       (s.commandProducerDirsNeedCanonicalCandidate =
-        v.length > 0 || g.some((p) => !n_(y, p, { alreadyComparable: !0 })));
+        v.length > 0 || g.some((p) => !n_(y, p, { alreadyComparable: true })));
   }
   if (
     s.commandProducerDirsWslProviderUndeterminable &&
-    (rZe(G4(e)) !== void 0 || rZe(bb(e, { foldCase: !0 })) !== void 0)
+    (rZe(G4(e)) !== void 0 || rZe(bb(e, { foldCase: true })) !== void 0)
   )
-    return !0;
-  if (s.commandProducerDirsComparable.length === 0) return !1;
-  if (s.commandProducerDirsNeedCanonicalCandidate && Hve(L(e) ? e : E(e), { allowLocalWsl: !0 })) return !0;
+    return true;
+  if (s.commandProducerDirsComparable.length === 0) return false;
+  if (s.commandProducerDirsNeedCanonicalCandidate && Hve(L(e) ? e : E(e), { allowLocalWsl: true })) return true;
   let d = s.commandProducerDirsNeedCanonicalCandidate
-    ? bb(e, { foldCase: !0, knownNotSuspect: !0 })
+    ? bb(e, { foldCase: true, knownNotSuspect: true })
     : E(e).normalize("NFC").toLowerCase();
-  return s.commandProducerDirsComparable.some((u) => n_(u, d, { alreadyComparable: !0 }));
+  return s.commandProducerDirsComparable.some((u) => n_(u, d, { alreadyComparable: true }));
 }
 function I() {
   let e = Jt(),
@@ -609,10 +609,10 @@ function I() {
 }
 var me = 30000;
 function A(e, t) {
-  let r = H5t(e, { exactDots: !0 }) ?? (t === void 0 ? void 0 : k5t(e, t.prefix));
+  let r = H5t(e, { exactDots: true }) ?? (t === void 0 ? void 0 : k5t(e, t.prefix));
   if (r !== void 0) return r;
   if (L(e)) return !jCt(e) && (!SA(e) || zCt(e)) ? e : void 0;
-  return x5t(e, { exactDots: !0 });
+  return x5t(e, { exactDots: true });
 }
 export {
   dc,

@@ -44,33 +44,33 @@ async function Lie(r, o) {
   } else
     try {
       let e = await C(r).catch((d) => (E(d) === "ENOENT" ? null : Promise.reject(d)));
-      if (e && (!e.isFile() || e.size > fse)) return { ok: !1, error: `${r} is not a regular file (or exceeds 1MiB)` };
+      if (e && (!e.isFile() || e.size > fse)) return { ok: false, error: `${r} is not a regular file (or exceeds 1MiB)` };
       t = await an().read(r);
     } catch (e) {
-      if (E(e) === "ENOENT") return { ok: !0, config: $Rt(), unknownKeys: [] };
-      return { ok: !1, error: `failed to read ${r}: ${l(e)}` };
+      if (E(e) === "ENOENT") return { ok: true, config: $Rt(), unknownKeys: [] };
+      return { ok: false, error: `failed to read ${r}: ${l(e)}` };
     }
-  let s = Ut(t, !1);
-  if (s === null) return { ok: !1, error: `failed to parse ${r} as JSON` };
+  let s = Ut(t, false);
+  if (s === null) return { ok: false, error: `failed to parse ${r} as JSON` };
   let u = p().safeParse(s);
-  if (!u.success) return { ok: !1, error: `config validation failed: ${u.error.message}` };
+  if (!u.success) return { ok: false, error: `config validation failed: ${u.error.message}` };
   let a = new Set(Object.keys(p().shape)),
     c = typeof s === "object" && s !== null ? Object.keys(s).filter((e) => !a.has(e)) : [];
-  return { ok: !0, config: u.data, unknownKeys: c };
+  return { ok: true, config: u.data, unknownKeys: c };
 }
 async function K(r, o) {
   let t = await xke(r);
   switch (t.kind) {
     case "text":
-      return { ok: !0, raw: t.text };
+      return { ok: true, raw: t.text };
     case "absent":
-      return { ok: !1, result: { ok: !0, config: $Rt(), unknownKeys: [] } };
+      return { ok: false, result: { ok: true, config: $Rt(), unknownKeys: [] } };
     case "refused":
-      return { ok: !1, result: { ok: !1, error: `${o} is not a regular file (or exceeds 1MiB)` } };
+      return { ok: false, result: { ok: false, error: `${o} is not a regular file (or exceeds 1MiB)` } };
     case "failed":
-      return { ok: !1, result: { ok: !1, error: `failed to read ${o}: ${t.error.code}` } };
+      return { ok: false, result: { ok: false, error: `failed to read ${o}: ${t.error.code}` } };
     case "threw":
-      return { ok: !1, result: { ok: !1, error: `failed to read ${o}: ${l(t.error)}` } };
+      return { ok: false, result: { ok: false, error: `failed to read ${o}: ${l(t.error)}` } };
   }
 }
 function URt(r, o) {
@@ -78,8 +78,8 @@ function URt(r, o) {
     s = y(t),
     u = w(r),
     a = GE.watch(t, {
-      persistent: !0,
-      ignoreInitial: !0,
+      persistent: true,
+      ignoreInitial: true,
       depth: 0,
       usePolling: D() === "macos",
       interval: 100,
@@ -88,8 +88,8 @@ function URt(r, o) {
         return e !== s && w(e) !== u;
       },
       awaitWriteFinish: { stabilityThreshold: 300, pollInterval: 100 },
-      atomic: !0,
-      ignorePermissionErrors: !0,
+      atomic: true,
+      ignorePermissionErrors: true,
     });
   return (
     a.on("add", o),

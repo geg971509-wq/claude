@@ -35,7 +35,7 @@ function Kvt(T) {
             }),
             m,
           ),
-            c(!0);
+            c(true);
           break bb2;
         }
         case "no": {
@@ -49,7 +49,7 @@ function Kvt(T) {
             }),
             m,
           ),
-            c(!1);
+            c(false);
         }
       }
     }),
@@ -63,7 +63,7 @@ function Kvt(T) {
   if (n[4] !== o) (f = () => o("no")), (n[4] = o), (n[5] = f);
   else f = n[5];
   let b;
-  if (n[6] === d) (b = e(t, { bold: !0, children: "ANTHROPIC_API_KEY" })), (n[6] = b);
+  if (n[6] === d) (b = e(t, { bold: true, children: "ANTHROPIC_API_KEY" })), (n[6] = b);
   else b = n[6];
   let l;
   if (n[7] !== a) (l = r(t, { children: [b, r(t, { children: [": sk-ant-...", a] })] })), (n[7] = a), (n[8] = l);
@@ -72,12 +72,12 @@ function Kvt(T) {
   if (n[9] === d) (P = e(t, { children: "Do you want to use this API key?" })), (n[9] = P);
   else P = n[9];
   let I;
-  if (n[10] === d) (I = r(t, { children: ["No (", e(t, { bold: !0, children: "recommended" }), ")"] })), (n[10] = I);
+  if (n[10] === d) (I = r(t, { children: ["No (", e(t, { bold: true, children: "recommended" }), ")"] })), (n[10] = I);
   else I = n[10];
   let y;
   if (n[11] !== o)
     (y = e(wn, {
-      hideIndexes: !0,
+      hideIndexes: true,
       focus: "cancel",
       cancelLabel: I,
       onConfirm: () => o("yes"),

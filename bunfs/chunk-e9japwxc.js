@@ -410,11 +410,11 @@ function N(L) {
           : a === "error"
             ? r(t, {
                 color: "error",
-                children: ["Couldn't start your trial. Press ", e(t, { bold: !0, children: "Enter" }), " to continue."],
+                children: ["Couldn't start your trial. Press ", e(t, { bold: true, children: "Enter" }), " to continue."],
               })
             : r(t, {
                 color: "permission",
-                children: ["Press ", e(t, { bold: !0, children: "Enter" }), " to start your trial"],
+                children: ["Press ", e(t, { bold: true, children: "Enter" }), " to start your trial"],
               }),
       ],
     })),

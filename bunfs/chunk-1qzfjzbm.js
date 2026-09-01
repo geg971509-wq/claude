@@ -380,22 +380,22 @@ function oe(n, a, f) {
       ...Md(v, "auto_mode_scan", "scanning for auto-mode setup"),
       type: "auto_mode_scan",
       status: "running",
-      skipTranscript: !0,
+      skipTranscript: true,
       gathersFromGitHubOrg: f,
       abortController: a,
     };
   return n.register(k), v;
 }
 function X(n, a, f) {
-  let v = !1;
+  let v = false;
   if (
     (a.update(n, (k) => {
       if (k.status !== "running") return k;
-      return (v = !0), { ...k, status: f, endTime: Date.now(), notified: !0, abortController: void 0 };
+      return (v = true), { ...k, status: f, endTime: Date.now(), notified: true, abortController: void 0 };
     }),
     v)
   )
-    ys(n, f, { skipTranscript: !0, ambient: !0 });
+    ys(n, f, { skipTranscript: true, ambient: true });
 }
 F();
 function Y(n) {
@@ -427,19 +427,19 @@ ${n.warnings.join(`
       : "")
   );
 }
-function ie(n = !1) {
+function ie(n = false) {
   return {
     step: n ? "existing" : "confirm",
     hasExisting: n,
     mode: "append",
     posture: "mixed",
-    gathersFromGitHubOrg: !1,
-    flaggedPicking: !1,
+    gathersFromGitHubOrg: false,
+    flaggedPicking: false,
     flaggedSelection: [],
     confirmSelection: ["shell"],
     confirmFocus: 1,
-    confirmSrAtPosture: !0,
-    shownLogged: !1,
+    confirmSrAtPosture: true,
+    shownLogged: false,
     resolution: "none",
   };
 }
@@ -501,7 +501,7 @@ function de({
     ),
     A(() => {
       if (!n.shownLogged)
-        (n.shownLogged = !0), s("tengu_auto_mode_setup_wizard_shown", { has_existing: n.hasExisting ? 1 : 0 });
+        (n.shownLogged = true), s("tengu_auto_mode_setup_wizard_shown", { has_existing: n.hasExisting ? 1 : 0 });
     }, [n]);
   function z() {
     let S = B.now(),
@@ -509,7 +509,7 @@ function de({
     return (n.lastAcceptAt = Math.max(S, w ?? S)), w !== void 0 && S - w >= Xj;
   }
   function T(S) {
-    if (!z()) return !1;
+    if (!z()) return false;
     return n.step === S && n.resolution === "none";
   }
   function P(S) {
@@ -612,7 +612,7 @@ function de({
   if (C === "review" && n.proposal) {
     let S = n.proposal;
     return e(nke, {
-      hideIndexes: !0,
+      hideIndexes: true,
       proposal: S,
       onCancel: i,
       onDecline: () => {
@@ -640,12 +640,12 @@ function de({
   if (C === "flagged" && n.proposal && n.saved) {
     let S = n.saved;
     return e(MBe, {
-      hideIndexes: !0,
+      hideIndexes: true,
       flagged: n.proposal.remove_from_permissions_allow,
       initialPicking: n.flaggedPicking,
       onPickingChange: (w) => {
-        if (!T("flagged")) return !1;
-        return (n.flaggedPicking = w), !0;
+        if (!T("flagged")) return false;
+        return (n.flaggedPicking = w), true;
       },
       initialSelection: n.flaggedSelection,
       onSelectionChange: (w) => {
@@ -752,9 +752,9 @@ function ae({ persisted: n, cancel: a, footer: f, onContinue: v, isFreshKeypress
             children: [
               D(0),
               r(t, { color: m === 0 ? "suggestion" : void 0, children: [ee.padEnd(ne), " "] }),
-              r(t, { dimColor: !0, children: [L.triangleLeft, " "] }),
+              r(t, { dimColor: true, children: [L.triangleLeft, " "] }),
               e(t, { children: P }),
-              r(t, { dimColor: !0, children: [" ", L.triangleRight] }),
+              r(t, { dimColor: true, children: [" ", L.triangleRight] }),
             ],
           }),
           Q.map((i, O) => {
@@ -774,7 +774,7 @@ function ae({ persisted: n, cancel: a, footer: f, onContinue: v, isFreshKeypress
           }),
           r(o, {
             marginTop: 1,
-            children: [D(b - 1), e(t, { bold: !0, color: m === b - 1 ? "suggestion" : void 0, children: "Continue" })],
+            children: [D(b - 1), e(t, { bold: true, color: m === b - 1 ? "suggestion" : void 0, children: "Continue" })],
           }),
         ],
       }),
@@ -800,7 +800,7 @@ function se({ persisted: n, cancel: a, onContinue: f }) {
                 options: V,
                 defaultValue: n.posture,
                 onChange: (x) => {
-                  (n.posture = x), (n.confirmSrAtPosture = !1), E(), k((b) => b + 1);
+                  (n.posture = x), (n.confirmSrAtPosture = false), E(), k((b) => b + 1);
                 },
                 onCancel: a,
               }),
@@ -849,7 +849,7 @@ function ge() {
   return $kn();
 }
 async function Se(n) {
-  FVt(!0);
+  FVt(true);
   try {
     await Re(n);
   } catch (a) {
@@ -862,7 +862,7 @@ async function Se(n) {
       h(new R(`background auto-mode setup crashed: ${l(a)}`, "background auto-mode setup crashed")),
       W("error", "background_crash");
   } finally {
-    FVt(!1);
+    FVt(false);
   }
 }
 async function Re(n) {
@@ -881,7 +881,7 @@ async function xe(n, a, f) {
       (T) => (
         h(new R(`background auto-mode scan rejected: ${l(T)}`, "background auto-mode scan rejected")),
         {
-          ok: !1,
+          ok: false,
           code: "api_failed",
           reason:
             "The model call didn\u2019t complete. This is usually temporary \u2014 re-run /auto-mode-setup to try again.",
@@ -901,7 +901,7 @@ async function xe(n, a, f) {
     return;
   }
   X(a, v, "completed");
-  let C = await k(NBe, { ...m.proposal, mode: n.mode }, { queueBehind: !0 });
+  let C = await k(NBe, { ...m.proposal, mode: n.mode }, { queueBehind: true });
   if (C !== "accept") {
     E?.(Dt("Auto-mode proposal discarded \u2014 nothing was saved. Re-run /auto-mode-setup anytime.", "notice")),
       W(C === "decline" ? "decline" : "cancel", "background_review");
@@ -917,7 +917,7 @@ async function xe(n, a, f) {
   }
   let z = { removed: 0, skipped: 0, notFound: 0 };
   if (m.proposal.remove_from_permissions_allow.length > 0) {
-    let T = await k(FBe, { flagged: m.proposal.remove_from_permissions_allow, runId: a }, { queueBehind: !0 }),
+    let T = await k(FBe, { flagged: m.proposal.remove_from_permissions_allow, runId: a }, { queueBehind: true }),
       P = T === "cancelled" ? [] : T.toRemove.filter((D) => m.proposal.remove_from_permissions_allow.includes(D));
     if (P.length > 0)
       try {
@@ -963,14 +963,14 @@ var Oo = async (n, a, f) => {
   let v = hTn(n),
     k = new AbortController(),
     E = ie(Te()),
-    x = !1,
+    x = false,
     b = a.requestDialog;
   return e(de, {
     state: E,
     onBackgroundStart:
       b &&
       ((m) => {
-        (x = !0),
+        (x = true),
           Se({
             answers: m,
             mode: E.mode,
@@ -1000,7 +1000,7 @@ var Oo = async (n, a, f) => {
 };
 function Te() {
   let n = $$().safeParse(ye("userSettings")?.autoMode);
-  if (!n.success) return !1;
+  if (!n.success) return false;
   let a = n.data;
   return (
     (a.environment?.length ?? 0) > 0 ||

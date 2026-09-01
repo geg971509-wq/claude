@@ -151,20 +151,20 @@ async function Vt(i) {
   return r;
 }
 function S(i, e) {
-  if (i === e) return !0;
+  if (i === e) return true;
   let o = ht(e, i);
   return o !== "" && !o.startsWith("..") && !ot(o);
 }
 async function Rt(i) {
-  if (Le()) return { committed: !1, skipReason: "non_interactive" };
-  if (sn()) return { committed: !1, skipReason: "remote_workspace" };
-  if (!Mt("allow_local_checkpoint_commit")) return { committed: !1, skipReason: "policy" };
+  if (Le()) return { committed: false, skipReason: "non_interactive" };
+  if (sn()) return { committed: false, skipReason: "remote_workspace" };
+  if (!Mt("allow_local_checkpoint_commit")) return { committed: false, skipReason: "policy" };
   let e = Hn(ee());
-  if (e === null) return { committed: !1, skipReason: "not_git" };
-  if (ufe() !== !1) return { committed: !1, skipReason: "bare_repo" };
+  if (e === null) return { committed: false, skipReason: "not_git" };
+  if (ufe() !== false) return { committed: false, skipReason: "bare_repo" };
   let o = bS(e),
     r = bS(pt());
-  if (o === null || r === null || S(r, o)) return { committed: !1, skipReason: "gitroot_uncontained" };
+  if (o === null || r === null || S(r, o)) return { committed: false, skipReason: "gitroot_uncontained" };
   let a = K(),
     d = a.slice(0, 8),
     l = `${O}${d}`,
@@ -172,16 +172,16 @@ async function Rt(i) {
     f;
   try {
     let m = await l4(e);
-    if (m === null) return { committed: !1, skipReason: "not_git" };
+    if (m === null) return { committed: false, skipReason: "not_git" };
     let A = bS(m);
-    if (A === null || !S(A, o)) return { committed: !1, skipReason: "gitdir_uncontained" };
+    if (A === null || !S(A, o)) return { committed: false, skipReason: "gitdir_uncontained" };
     if (
       (await _(n(m, "commondir")).catch((t) => {
         if (t.code === "ENOENT") return null;
         throw t;
       })) !== null
     )
-      return { committed: !1, skipReason: "gitdir_uncontained" };
+      return { committed: false, skipReason: "gitdir_uncontained" };
     for (let t of [
       "objects",
       "refs",
@@ -196,13 +196,13 @@ async function Rt(i) {
         if (R.code === "ENOENT") return null;
         throw R;
       });
-      if (p !== null && p.isSymbolicLink()) return { committed: !1, skipReason: "gitdir_uncontained" };
+      if (p !== null && p.isSymbolicLink()) return { committed: false, skipReason: "gitdir_uncontained" };
     }
-    let rt = await mt(n(m, "objects"), { withFileTypes: !0 }).catch((t) => {
+    let rt = await mt(n(m, "objects"), { withFileTypes: true }).catch((t) => {
       if (t.code === "ENOENT") return [];
       throw t;
     });
-    for (let t of rt) if (t.isSymbolicLink()) return { committed: !1, skipReason: "gitdir_uncontained" };
+    for (let t of rt) if (t.isSymbolicLink()) return { committed: false, skipReason: "gitdir_uncontained" };
     let w = ii({
       GIT_COMMON_DIR: m,
       GIT_WORK_TREE: e,
@@ -222,7 +222,7 @@ async function Rt(i) {
         env: w,
         timeout: h,
       });
-      if (t.code === 0 && t.stdout.trim() === "true") return { committed: !1, skipReason: "sparse_checkout" };
+      if (t.code === 0 && t.stdout.trim() === "true") return { committed: false, skipReason: "sparse_checkout" };
     }
     let nt = await _(n(m, "lfs")).catch((t) => {
         if (t.code === "ENOENT") return null;
@@ -234,16 +234,16 @@ async function Rt(i) {
         throw t;
       }),
       st = T !== null && T.isFile() && T.size <= 65536 ? await et(F, "utf-8").catch(() => "") : "";
-    if (nt !== null || /\bfilter\s*=\s*lfs\b/.test(st)) return { committed: !1, skipReason: "content_filters" };
-    if (await kt(m)) return { committed: !1, skipReason: "sequencer_in_progress" };
+    if (nt !== null || /\bfilter\s*=\s*lfs\b/.test(st)) return { committed: false, skipReason: "content_filters" };
+    if (await kt(m)) return { committed: false, skipReason: "sequencer_in_progress" };
     let G = await qe(it(), [...u, "rev-parse", "--verify", "HEAD"], { cwd: e, env: w, timeout: h });
-    if (G.code !== 0) return { committed: !1, skipReason: "no_head" };
+    if (G.code !== 0) return { committed: false, skipReason: "no_head" };
     let L = G.stdout.trim(),
       D = (t, p) => qe(it(), [...cn, ...t], { cwd: p.cwd, env: w, input: p.input, timeout: h });
     f = n(m, `claude-checkpoint-index.${process.pid}`);
     let k = { ...w, GIT_INDEX_FILE: f };
     if ((await qe(it(), [...u, "read-tree", L], { cwd: e, env: k, timeout: h })).code !== 0)
-      return { committed: !1, skipReason: "git_error" };
+      return { committed: false, skipReason: "git_error" };
     let [M, H] = await Promise.all([
       qe(it(), [...u, "ls-files", "-z", "--cached"], { cwd: e, env: k, maxBuffer: 33554432, timeout: h }),
       qe(it(), [...u, "ls-files", "-z", "-o", "--exclude-standard"], {
@@ -253,10 +253,10 @@ async function Rt(i) {
         timeout: h,
       }),
     ]);
-    if (M.code !== 0 || H.code !== 0) return { committed: !1, skipReason: "git_error" };
+    if (M.code !== 0 || H.code !== 0) return { committed: false, skipReason: "git_error" };
     let j = M.stdout.split("\x00").filter((t) => t.length > 0),
       W = H.stdout.split("\x00").filter((t) => t.length > 0);
-    if (j.length + W.length > gt) return { committed: !1, skipReason: "too_large" };
+    if (j.length + W.length > gt) return { committed: false, skipReason: "too_large" };
     let I = [],
       E = [],
       B = 0,
@@ -284,20 +284,20 @@ async function Rt(i) {
         let lt = (R.mode & 64) !== 0 ? "100755" : "100644";
         E.push({ path: t, mode: lt });
       };
-    if ((await Promise.all([...j.map((t) => z(t, !0)), ...W.map((t) => z(t, !1))]), B > _t))
-      return { committed: !1, skipReason: "too_large" };
+    if ((await Promise.all([...j.map((t) => z(t, true)), ...W.map((t) => z(t, false))]), B > _t))
+      return { committed: false, skipReason: "too_large" };
     let N = n(e, ".claude"),
       P = !Y5(N),
       J = Tt({ sessionId: a, ref: l, trigger: i.trigger, todos: i.todos });
     try {
       if (P) await $Ce(e, N);
-      await tt(N, { recursive: !0 }),
+      await tt(N, { recursive: true }),
         await O_(n(e, ".claude", "RESUME.md"), J, { encoding: "utf-8", allowSymlink: !P, checkParentDir: P });
     } catch {
-      return { committed: !1, skipReason: "resume_write_refused" };
+      return { committed: false, skipReason: "resume_write_refused" };
     }
     let U = await qe(it(), [...u, "hash-object", "-w", "--stdin"], { cwd: e, env: w, input: J, timeout: h });
-    if (U.code !== 0) return { committed: !1, skipReason: "git_error" };
+    if (U.code !== 0) return { committed: false, skipReason: "git_error" };
     let at = U.stdout.trim(),
       x = [];
     if (E.length > 0) {
@@ -312,7 +312,7 @@ async function Rt(i) {
         maxBuffer: 8388608,
         timeout: 4 * h,
       });
-      if (t.code !== 0) return { committed: !1, skipReason: "git_error" };
+      if (t.code !== 0) return { committed: false, skipReason: "git_error" };
       if (
         ((x = t.stdout
           .split(`
@@ -320,7 +320,7 @@ async function Rt(i) {
           .filter((p) => p.length > 0)),
         x.length !== E.length)
       )
-        return { committed: !1, skipReason: "git_error" };
+        return { committed: false, skipReason: "git_error" };
     }
     let ct = [...E.map((t, p) => `${t.mode} ${x[p]}	${t.path}`), `100644 ${at}	${v}`].join(`
 `);
@@ -337,7 +337,7 @@ async function Rt(i) {
         })
       ).code !== 0
     )
-      return { committed: !1, skipReason: "git_error" };
+      return { committed: false, skipReason: "git_error" };
     if (I.length > 0) {
       if (
         (
@@ -349,10 +349,10 @@ async function Rt(i) {
           })
         ).code !== 0
       )
-        return { committed: !1, skipReason: "git_error" };
+        return { committed: false, skipReason: "git_error" };
     }
     let Y = await qe(it(), [...u, "write-tree"], { cwd: e, env: k, timeout: h });
-    if (Y.code !== 0) return { committed: !1, skipReason: "git_error" };
+    if (Y.code !== 0) return { committed: false, skipReason: "git_error" };
     let ut = Y.stdout.trim(),
       q = await qe(
         it(),
@@ -373,7 +373,7 @@ async function Rt(i) {
         ],
         { cwd: e, env: w, timeout: h },
       );
-    if (q.code !== 0) return { committed: !1, skipReason: "git_error" };
+    if (q.code !== 0) return { committed: false, skipReason: "git_error" };
     let V = q.stdout.trim();
     if (
       (await _(n(m, "commondir")).catch((t) => {
@@ -381,7 +381,7 @@ async function Rt(i) {
         throw t;
       })) !== null
     )
-      return { committed: !1, skipReason: "gitdir_uncontained" };
+      return { committed: false, skipReason: "gitdir_uncontained" };
     if (
       (
         await qe(it(), [...u, "-c", "core.logAllRefUpdates=false", "update-ref", "--no-deref", l, V], {
@@ -391,12 +391,12 @@ async function Rt(i) {
         })
       ).code !== 0
     )
-      return { committed: !1, skipReason: "git_error" };
-    return await Et(e, D), await Ct(e, l, D).catch(() => {}), { committed: !0, ref: l, resumePath: v, commitSha: V };
+      return { committed: false, skipReason: "git_error" };
+    return await Et(e, D), await Ct(e, l, D).catch(() => {}), { committed: true, ref: l, resumePath: v, commitSha: V };
   } catch {
-    return { committed: !1, skipReason: "git_error" };
+    return { committed: false, skipReason: "git_error" };
   } finally {
-    if (f !== void 0) await ft(f, { force: !0 }).catch(() => {});
+    if (f !== void 0) await ft(f, { force: true }).catch(() => {});
   }
 }
 async function kt(i) {
@@ -404,12 +404,12 @@ async function kt(i) {
     await Promise.all(
       ["MERGE_HEAD", "CHERRY_PICK_HEAD", "REVERT_HEAD", "BISECT_LOG", "rebase-merge", "rebase-apply"].map((o) =>
         _(n(i, o)).then(
-          () => !0,
-          () => !1,
+          () => true,
+          () => false,
         ),
       ),
     )
-  ).includes(!0);
+  ).includes(true);
 }
 async function Et(i, e) {
   let o = await e(["rev-parse", "--git-path", "info/exclude"], { cwd: i });
@@ -425,7 +425,7 @@ async function Et(i, e) {
   let a = await et(r, "utf-8").catch(() => ""),
     d = `/${v}`;
   if (a.split(/\r?\n/).includes(d)) return;
-  await tt(n(r, ".."), { recursive: !0 }).catch(() => {});
+  await tt(n(r, ".."), { recursive: true }).catch(() => {});
   let l =
     a.length > 0 &&
     !a.endsWith(`

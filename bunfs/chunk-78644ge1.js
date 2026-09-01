@@ -16,16 +16,16 @@ import { Gue, zue, a_t, l_t } from "/$bunfs/root/chunk-ky33xsw7.js";
 import { A, br, C, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
 import { FN } from "/$bunfs/root/chunk-manh1369.js";
 function QOn(e) {
-  if (e.wheelUp || e.wheelDown || e.escape) return !1;
-  if (e.pageUp || e.pageDown) return !1;
-  if ((e.home || e.end) && e.ctrl) return !1;
+  if (e.wheelUp || e.wheelDown || e.escape) return false;
+  if (e.pageUp || e.pageDown) return false;
+  if ((e.home || e.end) && e.ctrl) return false;
   if ((e.leftArrow || e.rightArrow || e.upArrow || e.downArrow || e.home || e.end) && (e.shift || e.meta || e.super))
-    return !1;
-  return !0;
+    return false;
+  return true;
 }
 function p(e) {
-  if (e.name === "escape" || e.name === "pageup" || e.name === "pagedown") return !1;
-  if ((e.name === "home" || e.name === "end") && e.ctrl) return !1;
+  if (e.name === "escape" || e.name === "pageup" || e.name === "pagedown") return false;
+  if ((e.name === "home" || e.name === "end") && e.ctrl) return false;
   if (
     (e.name === "left" ||
       e.name === "right" ||
@@ -35,8 +35,8 @@ function p(e) {
       e.name === "end") &&
     (e.shift || e.meta || e.superKey)
   )
-    return !1;
-  return !0;
+    return false;
+  return true;
 }
 function ZOn(e, t) {
   return (o) => {
@@ -50,11 +50,11 @@ function ZOn(e, t) {
     if (p(o)) e.clearSelection();
   };
 }
-function Itt(e, t = !0) {
+function Itt(e, t = true) {
   ht(
     {
       "selection:clear": () => {
-        if (!e.hasSelection()) return !1;
+        if (!e.hasSelection()) return false;
         e.clearSelection();
       },
     },
@@ -90,7 +90,7 @@ function Ptt(e) {
   };
 }
 function Dtt(e, t, o) {
-  let r = C(!1),
+  let r = C(false),
     n = C(null),
     [i] = u(() => ({
       peek: () => n.current,
@@ -108,24 +108,24 @@ function Dtt(e, t, o) {
           let l = e.getState(),
             f = e.hasSelection();
           if (l?.isDragging) {
-            (r.current = !1), (n.current = null);
+            (r.current = false), (n.current = null);
             return;
           }
           if (!f) {
-            (r.current = !1), (n.current = null);
+            (r.current = false), (n.current = null);
             return;
           }
           if (r.current) {
             n.current = null;
             return;
           }
-          if (!(ie().copyOnSelect ?? !0)) return;
+          if (!(ie().copyOnSelect ?? true)) return;
           let s = e.copySelectionNoClear();
           if (!s || !s.trim()) {
-            r.current = !0;
+            r.current = true;
             return;
           }
-          (r.current = !0), (n.current = s), y("clipboard_write"), a(s);
+          (r.current = true), (n.current = s), y("clipboard_write"), a(s);
         })
       );
     }, [t, e]),

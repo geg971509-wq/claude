@@ -52,7 +52,7 @@ async function M7(e, t) {
     n(`Not marking a symlinked plugin version: ${r}`);
     return;
   }
-  if (!n_(nYn(), bb(r, { knownNotSuspect: !0 }), { alreadyComparable: !0 })) {
+  if (!n_(nYn(), bb(r, { knownNotSuspect: true }), { alreadyComparable: true })) {
     n(`Not writing .orphaned_at outside the plugin cache root: ${r}`);
     return;
   }
@@ -85,13 +85,13 @@ async function LGn(e) {
     if (!o || o.records.length === 0) return;
     let u = { pagesLeft: ec },
       d = Date.now(),
-      _ = bb(t, { foldCase: !0 }),
+      _ = bb(t, { foldCase: true }),
       C = o.records
         .map((A) => pC(A))
         .filter((A) => !A.suspect)
-        .map((A) => ({ absolute: A.absolute, comparable: bb(A.absolute, { foldCase: !0, knownNotSuspect: !0 }) }));
+        .map((A) => ({ absolute: A.absolute, comparable: bb(A.absolute, { foldCase: true, knownNotSuspect: true }) }));
     for (let A of C) o.keys.add(i6(A.comparable));
-    await Promise.all(C.filter((A) => n_(_, A.comparable, { alreadyComparable: !0 })).map((A) => aYn(A.absolute, e)));
+    await Promise.all(C.filter((A) => n_(_, A.comparable, { alreadyComparable: true })).map((A) => aYn(A.absolute, e)));
     for (let A of await rMe(t, e, t, u)) {
       let x = B2t.exec(A);
       if (x) {
@@ -100,7 +100,7 @@ async function LGn(e) {
           F > -sYn &&
           F < QPt &&
           !VPt(o.keys, i6(PM(t, A) + KPt)) &&
-          !VPt(o.keys, i6(bb(PM(t, A), { foldCase: !0 }) + KPt))
+          !VPt(o.keys, i6(bb(PM(t, A), { foldCase: true }) + KPt))
         )
           continue;
       }
@@ -109,7 +109,7 @@ async function LGn(e) {
         let U = PM(M, F);
         for (let B of await rMe(U, e, t, u)) {
           let W = PM(U, B);
-          if (o.keys.has(i6(W)) || o.keys.has(i6(bb(W, { foldCase: !0 })))) continue;
+          if (o.keys.has(i6(W)) || o.keys.has(i6(bb(W, { foldCase: true })))) continue;
           let z = g8n.exec(B);
           if (z && (await TYn(W, Number(z[1])))) continue;
           await bYn(W, d, e);
@@ -161,8 +161,8 @@ async function SYn(e, t) {
 }
 
 function VPt(e, t) {
-  for (let r of e) if (r.startsWith(t)) return !0;
-  return !1;
+  for (let r of e) if (r.startsWith(t)) return true;
+  return false;
 }
 
 function JPt(e, t) {
@@ -247,7 +247,7 @@ async function YPt(e) {
   try {
     if (!(await oMe(e)).isDirectory()) return;
     if (D() === "windows" && (await hie(e)).kind !== "directory") return;
-    t = await XPt(e, { withFileTypes: !0 });
+    t = await XPt(e, { withFileTypes: true });
   } catch (r) {
     n(`Failed to re-check dir before removal: ${e}: ${r}`);
     return;
@@ -270,7 +270,7 @@ async function rMe(e, t, r, o) {
   switch (
     (
       await Ao(
-        (C) => t.listEntries(u, { cursor: C, skipKeyStats: !0, skipScopeStats: !0 }),
+        (C) => t.listEntries(u, { cursor: C, skipKeyStats: true, skipScopeStats: true }),
         (C) => {
           for (let A of C) {
             if (A.kind !== "scope") continue;
@@ -295,7 +295,7 @@ async function rMe(e, t, r, o) {
 
 async function wYn(e) {
   try {
-    let t = await XPt(e, { withFileTypes: !0 }),
+    let t = await XPt(e, { withFileTypes: true }),
       r = [];
     for (let o of t)
       try {
@@ -310,7 +310,7 @@ async function wYn(e) {
 }
 
 async function TYn(e, t) {
-  if (!(t === 1 || ms(t))) return !1;
+  if (!(t === 1 || ms(t))) return false;
   let r;
   try {
     r = (await oMe(e)).mtimeMs;
@@ -318,7 +318,7 @@ async function TYn(e, t) {
     let d = E(u);
     return d !== "ENOENT" && d !== "ENOTDIR";
   }
-  if (!JF(r, iYn)) return !1;
+  if (!JF(r, iYn)) return false;
   let o = await rwt(t);
   return o === null || o <= r;
 }
@@ -438,7 +438,7 @@ function Tpt({ failedCount: e, updatedCount: t, policyRefusedCount: r }) {
   return r > 0 ? L.warning : null;
 }
 
-function Zln(e, t = [], { debugHint: r = !0 } = {}) {
+function Zln(e, t = [], { debugHint: r = true } = {}) {
   let o = t.length > 0 ? `: ${t.map((u) => Fp(u)).join(", ")}` : "";
   return `${e} ${k(e, "marketplace")} could not be refreshed${r ? " (see --debug)" : ""}${o}`;
 }
@@ -461,7 +461,7 @@ function NGn({
         : "",
     F = o > 0 ? ` \xB7 ${o} ${k(o, "plugin")} blocked by managed policy \u2014 ask your admin` : "",
     U = u.length > 0 ? ` \xB7 ${eVe(u.length, u)}` : "",
-    B = d.length > 0 ? ` \xB7 ${Zln(d.length, d, { debugHint: !1 })}` : "",
+    B = d.length > 0 ? ` \xB7 ${Zln(d.length, d, { debugHint: false })}` : "",
     W = _ > 0 ? ` \xB7 ${_} ${k(_, "plugin")} held at the current version by another plugin's dependency pin` : "",
     z = C > 0 ? ` \xB7 ${C} ${k(C, "plugin")} failed to update${vYn(A, C)}` : "";
   return `${e > 0 ? `Updated ${e} ${k(e, "marketplace")}` : "No marketplaces updated"}${x}${B}${z}${U}${M}${W}${F}`;
@@ -511,22 +511,22 @@ async function Ept(e, t, r) {
     let pe = await sye(z),
       fe = NI(z),
       me = `${e}.staging`;
-    await cMe(me, { recursive: !0, force: !0 }), await ZPt(me, { recursive: !0 });
+    await cMe(me, { recursive: true, force: true }), await ZPt(me, { recursive: true });
     for (let [Ie, Ee] of Object.entries(pe)) {
       if (!Ie.startsWith(oxt)) continue;
       let Pe = Ie.slice(oxt.length);
       if (!Pe || Pe.endsWith("/")) continue;
       let Oe = uMe(me, Pe);
-      await ZPt(txt(Oe), { recursive: !0 }), await ext(Oe, Ee);
+      await ZPt(txt(Oe), { recursive: true }), await ext(Oe, Ee);
       let Fe = fe[Ie];
       if (Fe && Fe & 73) await EYn(Oe, Fe & 511).catch(() => {});
     }
     await ext(uMe(me, igt), C);
     let ge = `${e}.backup`;
-    await cMe(ge, { recursive: !0, force: !0 }).catch(() => {});
-    let Ce = !1;
+    await cMe(ge, { recursive: true, force: true }).catch(() => {});
+    let Ce = false;
     try {
-      await lMe(e, ge), (Ce = !0);
+      await lMe(e, ge), (Ce = true);
     } catch (Ie) {
       if (E(Ie) !== "ENOENT") throw Ie;
     }
@@ -536,14 +536,14 @@ async function Ept(e, t, r) {
       if (Ce) await lMe(ge, e).catch(() => {});
       throw Ie;
     }
-    return await cMe(ge, { recursive: !0, force: !0 }).catch(() => {}), (_ = w("updated")), C;
+    return await cMe(ge, { recursive: true, force: true }).catch(() => {}), (_ = w("updated")), C;
   } catch (M) {
     return (x = MYn(M)), n(`Official marketplace GCS fetch failed: ${l(M)}`, { level: "warn" }), null;
   } finally {
     s("tengu_plugin_remote_fetch", {
       source: w("marketplace_gcs"),
       host: w("downloads.claude.ai"),
-      is_official: !0,
+      is_official: true,
       outcome: _,
       duration_ms: Math.round(performance.now() - d),
       ...(A !== void 0 && { bytes: A }),
@@ -608,17 +608,17 @@ function N7() {
 }
 
 function fxt(e, t, r) {
-  let o = bb(t, { foldCase: !0, knownNotSuspect: !0 }),
-    u = bb(e, { foldCase: !0 }),
-    d = r === e ? u : bb(r, { foldCase: !0 });
+  let o = bb(t, { foldCase: true, knownNotSuspect: true }),
+    u = bb(e, { foldCase: true }),
+    d = r === e ? u : bb(r, { foldCase: true });
   if (o === d) return "same";
-  return o !== u && n_(u, o, { alreadyComparable: !0 }) ? "inside" : "outside";
+  return o !== u && n_(u, o, { alreadyComparable: true }) ? "inside" : "outside";
 }
 
 async function gxt(e, t, r, o, u) {
   let d = mMe(e, t),
     _ = d !== "" && !d.startsWith("..") && !OM(d) ? d.split(/[\\/]/)[0] : void 0,
-    C = mMe(bb(e), bb(t, { knownNotSuspect: !0 })).split(/[\\/]/)[0],
+    C = mMe(bb(e), bb(t, { knownNotSuspect: true })).split(/[\\/]/)[0],
     A = te([_, C].filter((W) => W !== void 0 && W !== "" && W !== ".."));
   if (A.length === 0) return;
   let x = u ?? (await zl(o)),
@@ -639,7 +639,7 @@ async function gxt(e, t, r, o, u) {
 }
 
 function DM(e) {
-  if (mM(e) === ".git") return !1;
+  if (mM(e) === ".git") return false;
   return !(
     e === "" ||
     e !== IM(e) ||
@@ -683,7 +683,7 @@ async function FYn(e, t, r, { knownAlready: o, ownEntry: u, selfKey: d } = {}) {
     await Tc(vl(e, _));
 }
 
-async function wMe(e, t, r, { known: o, isSelf: u = () => !1 } = {}) {
+async function wMe(e, t, r, { known: o, isSelf: u = () => false } = {}) {
   let d = await Wie(e, t);
   if (d === void 0 && o === void 0) return { owner: void 0, known: o };
   let _ = o ?? (await zl(r)),
@@ -774,7 +774,7 @@ async function BYn(e, t, r) {
 
 async function Wie(e, t) {
   try {
-    return await dxt(vl(e, t), { bigint: !0 });
+    return await dxt(vl(e, t), { bigint: true });
   } catch (r) {
     let o = E(r);
     if (o === "ENOENT" || o === "ENOTDIR") return;
@@ -788,7 +788,7 @@ async function zie(e, t, r, o, u = (d) => [d]) {
     for (let _ of u(d)) {
       if (_ === t) continue;
       try {
-        let C = await dxt(vl(e, _), { bigint: !0 });
+        let C = await dxt(vl(e, _), { bigint: true });
         if (r.ino !== 0n && C.ino !== 0n ? C.dev === r.dev && C.ino === r.ino : mM(_) === mM(t)) return d;
       } catch (C) {
         let A = E(C);
@@ -913,7 +913,7 @@ function dk() {
     t = { ...lle(), ...(Je().enabledPlugins ?? {}) };
   for (let [u, d] of Object.entries(t))
     if (d && Vt(u).marketplace === ag) {
-      e[ag] = { source: Xte, sourceIsFallback: !0 };
+      e[ag] = { source: Xte, sourceIsFallback: true };
       break;
     }
   let r = LSe(),
@@ -1021,7 +1021,7 @@ function Txt(e, t) {
   if (_ !== void 0 && JF(_.at, qYn, u)) return _.admitted;
   let C = gMe(t, r),
     A = C === void 0;
-  if ((d.set(o, { admitted: A, at: u }), C !== void 0 && _?.admitted !== !1))
+  if ((d.set(o, { admitted: A, at: u }), C !== void 0 && _?.admitted !== false))
     n(`Marketplace ${b(e)} is ignored everywhere: ${C.cause} \u2014 ${KYn[C.kind]}.`, { level: "warn" });
   return A;
 }
@@ -1048,12 +1048,12 @@ function VYn(e) {
     let { protocol: t } = new URL(e);
     return t === "https:" || t === "http:";
   } catch {
-    return !1;
+    return false;
   }
 }
 
 function YYn(e, t) {
-  if (t === void 0 || Wm(e)) return !0;
+  if (t === void 0 || Wm(e)) return true;
   switch (e.source) {
     case "url":
     case "git":
@@ -1062,7 +1062,7 @@ function YYn(e, t) {
     case "github":
       return t.source === "github" && bs({ ...e, repo: e.repo.toLowerCase() }, { ...t, repo: t.repo.toLowerCase() });
     default:
-      return !0;
+      return true;
   }
 }
 
@@ -1216,26 +1216,26 @@ async function oce(e, t) {
   return vxt.run(r, async () => {
     await le().mkdir(vl(r, ".."));
     let u,
-      d = !1;
+      d = false;
     try {
       u = await Gi(r, {
         lockfilePath: `${r}.lock`,
-        realpath: !1,
+        realpath: false,
         retries: { retries: 5, minTimeout: 100, maxTimeout: 1000 },
         onCompromised: (_) => {
           n(`known_marketplaces.json lock compromised: ${_}`, { level: "error" });
         },
       });
     } catch (_) {
-      n(`Failed to acquire known_marketplaces.json lock, writing without it: ${l(_)}`, { level: "error" }), (d = !0);
+      n(`Failed to acquire known_marketplaces.json lock, writing without it: ${l(_)}`, { level: "error" }), (d = true);
     }
     try {
       let _ = await zl(t),
         C = new Map($M()[HM(t)]),
         A = e(_);
-      if (A === null) return !1;
+      if (A === null) return false;
       if ((await t5n(A, t, C), d)) s("tengu_known_marketplaces_fallback_write", {});
-      return !0;
+      return true;
     } finally {
       await KT(u, "known_marketplaces.json");
     }
@@ -1252,7 +1252,7 @@ async function hMe(e, t) {
 
 async function Apt(e) {
   let t = XE();
-  if (t.length === 0) return !1;
+  if (t.length === 0) return false;
   let r = new Set(),
     o = [];
   for (let d of t) {
@@ -1265,10 +1265,10 @@ async function Apt(e) {
         n(`Seed marketplace '${C}' not found under ${d}/marketplaces/, skipping`, { level: "warn" });
         continue;
       }
-      r.add(C), o.push([C, { source: A.source, installLocation: x, lastUpdated: A.lastUpdated, autoUpdate: !1 }]);
+      r.add(C), o.push([C, { source: A.source, installLocation: x, lastUpdated: A.lastUpdated, autoUpdate: false }]);
     }
   }
-  if (o.length === 0) return !1;
+  if (o.length === 0) return false;
   let u = 0;
   if (
     (await oce((d) => {
@@ -1280,8 +1280,8 @@ async function Apt(e) {
     }, e),
     u > 0)
   )
-    return n(`Synced ${u} marketplace(s) from seed dir(s)`), !0;
-  return !1;
+    return n(`Synced ${u} marketplace(s) from seed dir(s)`), true;
+  return false;
 }
 
 async function r5n(e) {
@@ -1355,9 +1355,9 @@ async function yMe(e, t, r) {
   let o = O() && e !== void 0 ? Gze(t, dc()) : null;
   if (e === void 0 || o === null) return r();
   let u = await e.statMeta(o);
-  if (u.ok) return !0;
+  if (u.ok) return true;
   let d = "telemetryCode" in u.error && typeof u.error.telemetryCode === "string" ? u.error.telemetryCode : void 0;
-  return Dk(d) ? r() : !1;
+  return Dk(d) ? r() : false;
 }
 
 async function lxt(e, t, r, o, u) {
@@ -1368,8 +1368,8 @@ async function lxt(e, t, r, o, u) {
       le()
         .stat(d)
         .then(
-          () => !0,
-          () => !1,
+          () => true,
+          () => false,
         ),
     ))
   )
@@ -1438,7 +1438,7 @@ async function Cxt() {
         (e.stderr?.includes("successfully authenticated") || e.stdout?.includes("successfully authenticated"));
     return n(`SSH config check: code=${e.code} configured=${t}`), t;
   } catch (e) {
-    return n(`SSH configuration check failed: ${l(e)}`, { level: "warn" }), !1;
+    return n(`SSH configuration check failed: ${l(e)}`, { level: "warn" }), false;
   }
 }
 
@@ -1633,8 +1633,8 @@ async function Lk(e, t, r, o, u, d, _) {
       if (
         await yMe(r, ge, () =>
           C.stat(ge).then(
-            () => !0,
-            () => !1,
+            () => true,
+            () => false,
           ),
         )
       ) {
@@ -1654,7 +1654,7 @@ async function Lk(e, t, r, o, u, d, _) {
       `Cannot fetch marketplace ${b(IM(t))}: the directory it would use as its backup (${M}) is the registered marketplace ${b(U)}'s directory. Remove or rename that marketplace first (claude plugin marketplace remove).`,
       "marketplace backup path is another marketplace clone",
     );
-  let B = !1;
+  let B = false;
   try {
     await C.rename(M, t);
   } catch (fe) {
@@ -1663,8 +1663,8 @@ async function Lk(e, t, r, o, u, d, _) {
       if (
         !(await yMe(r, me, () =>
           C.stat(me).then(
-            () => !0,
-            () => !1,
+            () => true,
+            () => false,
           ),
         ))
       )
@@ -1680,7 +1680,7 @@ Technical details: ${l(fe)}`);
   }
   try {
     await C.rename(t, M),
-      (B = !0),
+      (B = true),
       n(`Found stale marketplace directory at ${t}, moving aside to allow re-clone`, { level: "warn" }),
       Wf(d, "Found stale directory, cleaning up and re-cloning\u2026");
   } catch (fe) {
@@ -1860,7 +1860,7 @@ async function _5n(e, t, r, o, u, d, _, C, A) {
     (Dk(W.error.telemetryCode) ||
       (await e.scopeKind(Far(x.name)).then(
         (z) => z.ok && z.value.kind === "directory",
-        () => !1,
+        () => false,
       )))
   ) {
     try {
@@ -1902,7 +1902,7 @@ async function PMe(e, t, r, o, u, d) {
   await _.mkdir(C);
   let x,
     M,
-    F = !1,
+    F = false,
     U,
     B,
     W = y5n(e);
@@ -1915,16 +1915,16 @@ async function PMe(e, t, r, o, u, d) {
             Pe = b(Ee, null, 2),
             Oe = await _5n(r, e, Pe, x, C, t, u, d, A);
           if ("published" in Oe) return Oe.published;
-          (F = !0), Wf(t, "Saving marketplace to cache"), await Wn(x, Pe), (M = x), (B = Oe.declined);
+          (F = true), Wf(t, "Saving marketplace to cache"), await Wn(x, Pe), (M = x), (B = Oe.declined);
           break;
         }
-        (F = !0), await Axt(e.url, x, await _gt(e, { marketplaceName: o, trustedDeclaration: Zee(e, o) }), t), (M = x);
+        (F = true), await Axt(e.url, x, await _gt(e, { marketplaceName: o, trustedDeclaration: Zee(e, o) }), t), (M = x);
         break;
       }
       case "github": {
         let Ee = `git@${vs}:${e.repo}.git`,
           Pe = `https://github.com/${e.repo}.git`;
-        if (((x = vl(C, W)), (F = !0), CCe())) {
+        if (((x = vl(C, W)), (F = true), CCe())) {
           Wf(t, `Cloning via HTTPS: ${Pe}`),
             await Ext(x, Pe),
             await Lk(Pe, x, r, e.ref, e.sparsePaths, t, { skipLfs: e.skipLfs }),
@@ -1977,7 +1977,7 @@ async function PMe(e, t, r, o, u, d) {
       }
       case "git": {
         (x = vl(C, W)),
-          (F = !0),
+          (F = true),
           await Lk(e.url, x, r, e.ref, e.sparsePaths, t, { skipLfs: e.skipLfs }),
           (M = vl(x, e.path || ".claude-plugin/marketplace.json"));
         break;
@@ -1986,16 +1986,16 @@ async function PMe(e, t, r, o, u, d) {
         throw Error("NPM marketplace sources not yet implemented");
       case "file": {
         let Ee = Xp(e.path);
-        (M = Ee), (x = Nie(Nie(Ee))), (F = !1);
+        (M = Ee), (x = Nie(Nie(Ee))), (F = false);
         break;
       }
       case "directory": {
         let Ee = Xp(e.path);
-        (M = vl(Ee, ".claude-plugin", "marketplace.json")), (x = Ee), (F = !1);
+        (M = vl(Ee, ".claude-plugin", "marketplace.json")), (x = Ee), (F = false);
         break;
       }
       case "settings": {
-        if (((x = vl(C, e.name)), (M = vl(x, ".claude-plugin", "marketplace.json")), (F = !1), !DM(e.name)))
+        if (((x = vl(C, e.name)), (M = vl(x, ".claude-plugin", "marketplace.json")), (F = false), !DM(e.name)))
           throw new R(
             `Marketplace name ${b(e.name)} is not a plain directory name; refusing to cache it`,
             "settings marketplace name is not a plain cache component",
@@ -2052,12 +2052,12 @@ async function PMe(e, t, r, o, u, d) {
     if (!Ce.startsWith(Ie + pxt))
       throw Error(`Marketplace name '${fe.name}' resolves to a path outside the cache directory`);
     if (x !== ge && !Wm(e)) {
-      let Ee = !1;
+      let Ee = false;
       try {
         let [Pe, Oe] = await Promise.all([_.stat(x), _.stat(ge)]);
         Ee = Pe.dev === Oe.dev && Pe.ino === Oe.ino && Pe.ino !== 0;
       } catch {}
-      if (Ee) (x = ge), (F = !1);
+      if (Ee) (x = ge), (F = false);
       else
         try {
           try {
@@ -2065,7 +2065,7 @@ async function PMe(e, t, r, o, u, d) {
           } catch (Pe) {
             n(`Progress callback error: ${l(Pe)}`, { level: "warn" });
           }
-          await Tc(ge), await _.rename(x, ge), (x = ge), (F = !1);
+          await Tc(ge), await _.rename(x, ge), (x = ge), (F = false);
         } catch (Pe) {
           let Oe = l(Pe);
           throw Error(`Failed to finalize marketplace cache. Please manually delete the directory at ${ge} if it exists and try again.
@@ -2117,7 +2117,7 @@ Tip: The shorthand "${u.repo}" assumes github.com. ` +
     if (bs(U.source, u))
       return (
         n(`Source already materialized as '${F}', skipping clone`),
-        { name: F, alreadyMaterialized: !0, resolvedSource: u }
+        { name: F, alreadyMaterialized: true, resolvedSource: u }
       );
   let _ = gMe(uxt(u, "pending-add"), GYn(u));
   if (_ !== void 0)
@@ -2187,7 +2187,7 @@ Tip: The shorthand "${u.repo}" assumes github.com. ` +
   return (
     Jt().marketplaces.delete(C.name),
     n(`Added marketplace source: ${C.name}`),
-    { name: C.name, alreadyMaterialized: !1, resolvedSource: u }
+    { name: C.name, alreadyMaterialized: false, resolvedSource: u }
   );
 }
 
@@ -2205,7 +2205,7 @@ async function MSe(e, t, r, o) {
     throw Error(
       `Marketplace '${e}' is registered from the read-only seed directory (${A}) and will be re-registered on next startup.${x}`,
     );
-  let M = !1;
+  let M = false;
   if (t !== void 0) {
     if (!IA(ye(t), e)) {
       let W = A
@@ -2216,13 +2216,13 @@ async function MSe(e, t, r, o) {
     M = Boolean(A) || UH.some((W) => W !== t && IA(ye(W), e)) || Boolean(IA(ye("policySettings"), e));
   }
   if (!M) {
-    let W = !1;
-    if (_ !== void 0) axt(e, r), (W = !0);
+    let W = false;
+    if (_ !== void 0) axt(e, r), (W = true);
     try {
       await oce((me) => {
         if (!Object.hasOwn(me, e)) {
           if (Uie(e, r) === void 0 && !W) return null;
-          if (!W) axt(e, r), (W = !0);
+          if (!W) axt(e, r), (W = true);
         }
         return delete me[e], me;
       }, r);
@@ -2246,26 +2246,26 @@ async function MSe(e, t, r, o) {
   for (let W of UH) {
     let z = t === void 0 || W === t;
     if (!z && !F) continue;
-    let pe = !1,
+    let pe = false,
       fe = await Os(
         W,
         (me) => {
           if (!me) return null;
-          let ge = !1,
+          let ge = false,
             Ce = {};
           if (z && IA(me, e)) {
             let Ie = { ...me.extraKnownMarketplaces };
-            (Ie[e] = void 0), (Ce.extraKnownMarketplaces = Ie), (ge = !0);
+            (Ie[e] = void 0), (Ce.extraKnownMarketplaces = Ie), (ge = true);
           }
           if (F && me.enabledPlugins) {
             let Ie = `@${e}`,
               Ee = { ...me.enabledPlugins },
-              Pe = !1;
-            for (let Oe in Ee) if (Oe.endsWith(Ie)) (Ee[Oe] = void 0), (Pe = !0);
-            if (Pe) (Ce.enabledPlugins = Ee), (ge = !0);
+              Pe = false;
+            for (let Oe in Ee) if (Oe.endsWith(Ie)) (Ee[Oe] = void 0), (Pe = true);
+            if (Pe) (Ce.enabledPlugins = Ee), (ge = true);
           }
           if (!ge) return null;
-          return (pe = !0), Ce;
+          return (pe = true), Ce;
         },
         void 0,
         r,
@@ -2541,7 +2541,7 @@ async function $Gn(e) {
       n(`Skipping marketplace '${_}' in bulk refresh: ${A}`, { level: "warn" }), r.push(_);
       continue;
     }
-    let x = !1;
+    let x = false;
     if (_ === ag) {
       try {
         await Pxt(_, C.installLocation, e, u);
@@ -2554,13 +2554,13 @@ async function $Gn(e) {
           (d[_] = { forSource: C.source, patch: { lastUpdated: new Date().toISOString() } });
         continue;
       }
-      if (!I("tengu_plugin_official_mkt_git_fallback", !0)) {
+      if (!I("tengu_plugin_official_mkt_git_fallback", true)) {
         p("plugin_official_marketplace_fetch", "gcs_failed_fallback_disabled"),
           n("Skipping official marketplace bulk refresh: GCS failed, git fallback disabled"),
           r.push(_);
         continue;
       }
-      x = !0;
+      x = true;
     }
     try {
       let { cachePath: M } = await PMe(C.source, void 0, e, _, void 0, u);
@@ -2577,11 +2577,11 @@ async function $Gn(e) {
   }
   return (
     await oce((_) => {
-      let C = !1;
+      let C = false;
       for (let [A, { forSource: x, patch: M }] of Object.entries(d)) {
         let F = _[A];
         if (!F || !bs(F.source, x) || jb(F.installLocation)) continue;
-        (_[A] = { ...F, ...M }), (C = !0);
+        (_[A] = { ...F, ...M }), (C = true);
       }
       return C ? _ : null;
     }, e),
@@ -2645,7 +2645,7 @@ async function E5n(e, t, r, o) {
     n(`Skipping refresh for settings-sourced marketplace '${e}' \u2014 no upstream`);
     return;
   }
-  let _ = !1;
+  let _ = false;
   try {
     let { installLocation: C, source: A } = d,
       x = jb(C);
@@ -2659,12 +2659,12 @@ async function E5n(e, t, r, o) {
         y("plugin_official_marketplace_fetch"), await hMe(e, t);
         return;
       }
-      if (!I("tengu_plugin_official_mkt_git_fallback", !0))
+      if (!I("tengu_plugin_official_mkt_git_fallback", true))
         throw (
           (p("plugin_official_marketplace_fetch", "gcs_failed_fallback_disabled"),
           Error("Official marketplace GCS fetch failed and git fallback is disabled"))
         );
-      (_ = !0), n("Official marketplace GCS failed; falling back to git", { level: "warn" });
+      (_ = true), n("Official marketplace GCS failed; falling back to git", { level: "warn" });
     }
     if (A.source === "github" || A.source === "git") {
       let M = { ...o, skipLfs: A.skipLfs };
@@ -2762,23 +2762,23 @@ async function UGn(e, t, r) {
 
 async function BGn(e) {
   let t = dk();
-  if (Object.keys(t).length === 0) return !1;
+  if (Object.keys(t).length === 0) return false;
   try {
     return await oce((r) => {
-      let o = !1;
+      let o = false;
       for (let [u, d] of Object.entries(t)) {
         if (d.autoUpdate === void 0) continue;
         let _ = r[u];
         if (!_ || jb(_.installLocation)) continue;
         if (_.autoUpdate === d.autoUpdate) continue;
         (r[u] = { ..._, autoUpdate: d.autoUpdate }),
-          (o = !0),
+          (o = true),
           n(`Synced autoUpdate=${d.autoUpdate} from settings for marketplace: ${u}`);
       }
       return o ? r : null;
     }, e);
   } catch (r) {
-    return n(`syncDeclaredAutoUpdateToJson: failed to update known_marketplaces.json: ${l(r)}`, { level: "error" }), !1;
+    return n(`syncDeclaredAutoUpdateToJson: failed to update known_marketplaces.json: ${l(r)}`, { level: "error" }), false;
   }
 }
 
@@ -2903,7 +2903,7 @@ async function eUt(e, t, r, o) {
   if (u === void 0)
     (u = x5n(LMe(ly(), "claude-lsremote-"))
       .then((M) => {
-        let F = () => W5n(M, { recursive: !0, force: !0 }).catch(() => {}),
+        let F = () => W5n(M, { recursive: true, force: true }).catch(() => {}),
           U;
         try {
           U = Ioe(M);
@@ -2996,9 +2996,9 @@ async function Lxt(e) {
     d = OA(e),
     _;
   try {
-    let C = !1;
+    let C = false;
     try {
-      r.renameSync(u, o), (C = !0);
+      r.renameSync(u, o), (C = true);
     } catch (F) {
       let U = E(F);
       if (U !== "ENOENT" && U !== "EEXIST") throw F;
@@ -3017,14 +3017,14 @@ async function Lxt(e) {
           await Kie(B);
         }
       } else _ = Kie(nm());
-      (t.installedPluginsMigrated = !0), await _;
+      (t.installedPluginsMigrated = true), await _;
       return;
     }
     if (O() && e !== void 0 && d !== null) {
       let F = await o6n(e, d);
       if (F !== void 0)
         n(`Converted installed_plugins.json from V1 to V2 format (${F.v1PluginCount} plugins)`), await Kie(F.data);
-      t.installedPluginsMigrated = !0;
+      t.installedPluginsMigrated = true;
       return;
     }
     let A;
@@ -3032,7 +3032,7 @@ async function Lxt(e) {
       A = r.readFileSync(o, { encoding: "utf-8" });
     } catch (F) {
       if (!X(F)) throw F;
-      t.installedPluginsMigrated = !0;
+      t.installedPluginsMigrated = true;
       return;
     }
     let x = V(A);
@@ -3043,12 +3043,12 @@ async function Lxt(e) {
         n(`Converted installed_plugins.json from V1 to V2 format (${Object.keys(F.plugins).length} plugins)`),
         (_ = Kie(U));
     }
-    t.installedPluginsMigrated = !0;
+    t.installedPluginsMigrated = true;
   } catch (C) {
     let A = l(C);
     if ((n(`Failed to migrate plugin files: ${A}`, { level: "error" }), !$o(C) && !(C instanceof SyntaxError)))
       h(we(C));
-    jM("migrate-single-file", C, !0), (t.installedPluginsMigrated = !0);
+    jM("migrate-single-file", C, true), (t.installedPluginsMigrated = true);
   }
   await _;
 }
@@ -3067,7 +3067,7 @@ async function Kie(e) {
       for (let A of C) {
         o.add(i6(X5n(Se(), A.installPath)));
         let x = pC(A.installPath);
-        if (!x.suspect) o.add(i6(bb(x.absolute, { foldCase: !0, knownNotSuspect: !0 })));
+        if (!x.suspect) o.add(i6(bb(x.absolute, { foldCase: true, knownNotSuspect: true })));
         let M = TWt(A.installPath, u);
         if (M !== void 0) o.add(i6(M));
       }
@@ -3080,21 +3080,21 @@ async function Kie(e) {
       try {
         if (!(await Twe(r, C))?.isDirectory) continue;
         let M = await t.readdir(x),
-          F = !1;
+          F = false;
         for (let W of M) {
           if (!(await Twe(x, W))?.isDirectory) continue;
           let z = v0(x, W.name),
             pe = await t.readdir(z);
           for (let fe of pe)
             if (fe.name.endsWith(".zip") || (await Twe(z, fe))?.isDirectory) {
-              F = !0;
+              F = true;
               break;
             }
           if (F) break;
         }
         if (F) continue;
         let U = (W) => o.has(W) || d.some((z) => z.startsWith(W + J5n));
-        if (!(U(i6(x)) || U(i6(bb(x, { foldCase: !0 }))))) await Tc(x), n(`Cleaned up legacy cache directory: ${A}`);
+        if (!(U(i6(x)) || U(i6(bb(x, { foldCase: true }))))) await Tc(x), n(`Cleaned up legacy cache directory: ${A}`);
       } catch (M) {
         n(`Skipping legacy cache entry ${A}: ${l(M)}`, { level: "warn" });
       }
@@ -3214,7 +3214,7 @@ function Uxt(e) {
     !$o(e) && !(e instanceof SyntaxError))
   )
     h(we(e));
-  jM("load", e, !0);
+  jM("load", e, true);
   let r = { version: 2, plugins: {} };
   return JMe.add(r), r;
 }
@@ -3242,7 +3242,7 @@ async function Hxt(e, t) {
     let d = b(e, null, 2);
     QH(u, d), (Jt().installedPluginsFile = e), n(`Saved ${Object.keys(e.plugins).length} installed plugins to ${u}`);
   } catch (d) {
-    throw (n(`Failed to save installed_plugins.json to ${u}: ${l(d)}`, { level: "error" }), jM("save", d, !1), d);
+    throw (n(`Failed to save installed_plugins.json to ${u}: ${l(d)}`, { level: "error" }), jM("save", d, false), d);
   }
 }
 
@@ -3259,7 +3259,7 @@ function jxt(e) {
           ),
           { cause: e, ...ZMe(e) },
         );
-  return jM("save", r, !1), r;
+  return jM("save", r, false), r;
 }
 
 function Wxt(e) {
@@ -3285,7 +3285,7 @@ async function Gxt(e, t, r) {
   let o = await qxt(e, t, (u) => i6n(u, r), jxt);
   if (o.loadError !== void 0)
     n(`Failed to load installed plugins from disk: ${l(o.loadError)}`, { level: "error" }),
-      jM("load-from-disk", o.loadError, !0);
+      jM("load-from-disk", o.loadError, true);
   if (o.written !== void 0)
     GMe(o.written), n(`Saved ${Object.keys(o.written.plugins).length} installed plugins through the storage interface`);
   return o.result;
@@ -3316,9 +3316,9 @@ async function o6n(e, t) {
 }
 
 function s6n(e) {
-  if (e === void 0) return { skip: !0, result: { converted: void 0 } };
+  if (e === void 0) return { skip: true, result: { converted: void 0 } };
   let t = Xie(Buffer.from(e.value).toString("utf-8"));
-  if (t.version !== 1) return { skip: !0, result: { converted: void 0 } };
+  if (t.version !== 1) return { skip: true, result: { converted: void 0 } };
   let r = OTt().parse(t.data),
     o = Qie(r);
   return { write: b(o, null, 2), result: { converted: { data: o, v1PluginCount: Object.keys(r.plugins).length } } };
@@ -3335,7 +3335,7 @@ function i6n(e, t) {
     }
   let u = t(r),
     d = { result: u.result, written: u.write ? r : void 0, loadError: o };
-  return u.write ? { write: b(r, null, 2), result: d } : { skip: !0, result: d };
+  return u.write ? { write: b(r, null, 2), result: d } : { skip: true, result: d };
 }
 
 async function Nq(e, t) {
@@ -3351,7 +3351,7 @@ async function tUt(e, t, r, o) {
   let u = await Nq((d) => a6n(d, e, t, r), o);
   if (u) {
     if ((n(`Removed installation for ${e} at scope ${t}`), u.producerDirs.length > 0)) {
-      for (let d of u.producerDirs) mde(d, { emit: !1 });
+      for (let d of u.producerDirs) mde(d, { emit: false });
       Wne();
     }
   }
@@ -3359,7 +3359,7 @@ async function tUt(e, t, r, o) {
 
 function a6n(e, t, r, o) {
   let u = e.plugins[t];
-  if (!u) return { write: !1, result: !1 };
+  if (!u) return { write: false, result: false };
   let d = [];
   if (
     ((e.plugins[t] = u.filter((_) => {
@@ -3372,7 +3372,7 @@ function a6n(e, t, r, o) {
     e.plugins[t].length === 0)
   )
     delete e.plugins[t];
-  return { write: !0, result: { producerDirs: d } };
+  return { write: true, result: { producerDirs: d } };
 }
 
 async function Kxt(e, t) {
@@ -3381,7 +3381,7 @@ async function Kxt(e, t) {
 }
 
 function l6n(e, t) {
-  let r = !1;
+  let r = false;
   for (let { oldId: o, newId: u } of t) {
     let d = e.plugins[o];
     if (!d) continue;
@@ -3389,7 +3389,7 @@ function l6n(e, t) {
     if (_.length === d.length) continue;
     if (_.length > 0) e.plugins[o] = _;
     else delete e.plugins[o];
-    r = !0;
+    r = true;
   }
   return { write: r, result: r };
 }
@@ -3421,7 +3421,7 @@ async function Iv(e) {
 
 function Vxt(e) {
   let t = l(e);
-  n(`Failed to load installed plugins from disk: ${t}`, { level: "error" }), jM("load-from-disk", e, !0);
+  n(`Failed to load installed plugins from disk: ${t}`, { level: "error" }), jM("load-from-disk", e, true);
   let r = { version: 2, plugins: {} };
   return JMe.add(r), r;
 }
@@ -3457,7 +3457,7 @@ function Fxt(
   { newPath: u, newVersion: d, gitCommitSha: _, resolvedVersion: C, sourceCommand: A, sourceProducerPath: x },
 ) {
   let M = e.plugins[t];
-  if (!M) return { write: !1, result: "no-plugin" };
+  if (!M) return { write: false, result: "no-plugin" };
   let F = M.find((U) => U.scope === r && U.projectPath === o);
   if (F) {
     if (((F.installPath = u), F.version !== void 0)) F.version = d;
@@ -3478,9 +3478,9 @@ function Fxt(
         ].slice(-zqt);
       delete F.sourceProducerPath;
     }
-    return { write: !0, result: "updated" };
+    return { write: true, result: "updated" };
   }
-  return { write: !1, result: "no-installation" };
+  return { write: false, result: "no-installation" };
 }
 
 async function qGn(e) {
@@ -3491,7 +3491,7 @@ async function qGn(e) {
   } catch (r) {
     if ($o(r) || r instanceof SyntaxError) n(`Plugin migration skipped (fs/parse error): ${l(r)}`, { level: "error" });
     else h(r);
-    jM("migrate-from-enabled", r, !0);
+    jM("migrate-from-enabled", r, true);
   }
   if (O() && e !== void 0) await VMe(e);
   let t = eOe();
@@ -3518,10 +3518,10 @@ function c6n(e, t) {
 }
 
 function AD(e) {
-  if (e.scope === "user" || e.scope === "managed") return !0;
+  if (e.scope === "user" || e.scope === "managed") return true;
   let t = Se();
-  if (e.projectPath === t) return !0;
-  if (!e.projectPath) return !1;
+  if (e.projectPath === t) return true;
+  if (!e.projectPath) return false;
   let r = Vr(t);
   return r !== null && Vr(e.projectPath) === r;
 }
@@ -3533,15 +3533,15 @@ function Cqe(...e) {
 
 function tH(e) {
   let r = nm().plugins[e];
-  if (!r || r.length === 0) return !1;
-  if (!r.some(AD)) return !1;
+  if (!r || r.length === 0) return false;
+  if (!r.some(AD)) return false;
   return En().enabledPlugins?.[e] !== void 0;
 }
 
 function _Pe(e) {
   let r = nm().plugins[e];
-  if (!r || r.length === 0) return !1;
-  if (!r.some((u) => u.scope === "user" || u.scope === "managed")) return !1;
+  if (!r || r.length === 0) return false;
+  if (!r.some((u) => u.scope === "user" || u.scope === "managed")) return false;
   return En().enabledPlugins?.[e] !== void 0;
 }
 
@@ -3553,8 +3553,8 @@ async function Yxt(e, t, r = "user", o, u) {
 function u6n(e, t, r, o, u) {
   let d = e.plugins[t] || [],
     _ = d.findIndex((U) => U.scope === o && U.projectPath === u),
-    C = _ >= 0 && d[_]?.auto !== !0,
-    A = r.auto === !0 && !C,
+    C = _ >= 0 && d[_]?.auto !== true,
+    A = r.auto === true && !C,
     x = {
       scope: o,
       installPath: r.installPath,
@@ -3564,7 +3564,7 @@ function u6n(e, t, r, o, u) {
       gitCommitSha: r.gitCommitSha,
       ...(r.resolvedVersion && { resolvedVersion: r.resolvedVersion }),
       ...(u && { projectPath: u }),
-      ...(A && { auto: !0 }),
+      ...(A && { auto: true }),
       ...(r.sourceCommand !== void 0 && { sourceCommand: r.sourceCommand }),
       ...(r.sourceProducerPath !== void 0 && { sourceProducerPath: r.sourceProducerPath }),
     },
@@ -3576,7 +3576,7 @@ function u6n(e, t, r, o, u) {
   let F = _ >= 0;
   if (F) d[_] = x;
   else d.push(x);
-  return (e.plugins[t] = d), { write: !0, result: F };
+  return (e.plugins[t] = d), { write: true, result: F };
 }
 
 async function GGn(e, t, r, o) {
@@ -3587,8 +3587,8 @@ async function GGn(e, t, r, o) {
 
 function d6n(e, t, r, o) {
   let d = e.plugins[t]?.find((_) => _.scope === r && _.projectPath === o);
-  if (d?.auto !== !0) return { write: !1, result: !1 };
-  return delete d.auto, { write: !0, result: !0 };
+  if (d?.auto !== true) return { write: false, result: false };
+  return delete d.auto, { write: true, result: true };
 }
 
 async function Yie(e) {
@@ -3628,7 +3628,7 @@ async function Nxt(e, t, r) {
 async function p6n(e) {
   let t = new Set(
       Object.entries(ye("policySettings")?.enabledPlugins || {})
-        .filter(([fe, me]) => me === !0 && AO().safeParse(fe).success)
+        .filter(([fe, me]) => me === true && AO().safeParse(fe).success)
         .map(([fe]) => fe),
     ),
     r = Se(),
@@ -3645,25 +3645,25 @@ async function p6n(e) {
     let Ce = ye(fe)?.enabledPlugins || {};
     for (let Ie of Object.keys(Ce)) {
       if (!AO().safeParse(Ie).success) continue;
-      if (Ce[Ie] !== !0) continue;
+      if (Ce[Ie] !== true) continue;
       let Ee = fe === "userSettings" || (fe === "localSettings" && !_()),
         Pe = Ujt(fe),
         Oe = o.get(Ie);
-      o.set(Ie, { scope: Pe, projectPath: Pe === "user" ? void 0 : r, fromOwnConfig: Ee || (Oe?.fromOwnConfig ?? !1) });
+      o.set(Ie, { scope: Pe, projectPath: Pe === "user" ? void 0 : r, fromOwnConfig: Ee || (Oe?.fromOwnConfig ?? false) });
     }
   }
   let C = new Set();
   for (let [fe, me] of Object.entries(ye("flagSettings")?.enabledPlugins || {})) {
-    if (me !== !0 || !AO().safeParse(fe).success || Fd(fe)) continue;
+    if (me !== true || !AO().safeParse(fe).success || Fd(fe)) continue;
     let ge = o.get(fe);
     if (ge) {
       if (!ge.fromOwnConfig) C.add(fe);
-      ge.fromOwnConfig = !0;
+      ge.fromOwnConfig = true;
       continue;
     }
-    o.set(fe, { scope: "user", projectPath: void 0, fromOwnConfig: !0 }), C.add(fe);
+    o.set(fe, { scope: "user", projectPath: void 0, fromOwnConfig: true }), C.add(fe);
   }
-  for (let fe of t) o.set(fe, { scope: "managed", projectPath: void 0, fromOwnConfig: !0 }), C.delete(fe);
+  for (let fe of t) o.set(fe, { scope: "managed", projectPath: void 0, fromOwnConfig: true }), C.delete(fe);
   let A = OA(e),
     x = O() && e !== void 0 && A !== null ? await Fq(e, A) : qMe(),
     M = x !== null,
@@ -3676,8 +3676,8 @@ async function p6n(e) {
         ge = [...o.entries()].every(([Ie, Ee]) => {
           let Pe = me[Ie];
           if (t.has(Ie)) return Pe?.length === 1 && Pe[0]?.scope === "managed";
-          let Oe = Pe?.some((Fe) => Fe.scope === Ee.scope && Fe.projectPath === Ee.projectPath) ?? !1;
-          if (!Ee.fromOwnConfig) return !0;
+          let Oe = Pe?.some((Fe) => Fe.scope === Ee.scope && Fe.projectPath === Ee.projectPath) ?? false;
+          if (!Ee.fromOwnConfig) return true;
           return Oe;
         }),
         Ce = Object.entries(me).every(([Ie, Ee]) => t.has(Ie) || !Ee.some((Pe) => Pe.scope === "managed"));
@@ -3710,20 +3710,20 @@ async function p6n(e) {
   for (let [fe, me] of o) {
     let ge = W[fe];
     if (ge && ge.length > 0) {
-      let Ce = !1;
+      let Ce = false;
       if (me.scope === "managed") {
         let Ie = ge[0];
         if (Ie && (Ie.scope !== "managed" || Ie.projectPath !== void 0))
           (Ie.scope = "managed"),
             delete Ie.projectPath,
             (Ie.lastUpdated = B),
-            (Ce = !0),
+            (Ce = true),
             n(`Updated ${fe} scope to managed (settings.json is source of truth)`);
         if (ge.length > 1)
-          n(`Collapsed ${fe} to single managed entry (was ${ge.length})`), (W[fe] = ge.slice(0, 1)), (Ce = !0);
+          n(`Collapsed ${fe} to single managed entry (was ${ge.length})`), (W[fe] = ge.slice(0, 1)), (Ce = true);
       } else {
         let Ie = ge.find((Fe) => Fe.scope === me.scope && Fe.projectPath === me.projectPath),
-          Ee = !1;
+          Ee = false;
         if (!Ie && me.fromOwnConfig && C.has(fe)) {
           let { marketplace: Fe } = Vt(fe),
             Be = Fe ? U?.[Fe]?.source : void 0;
@@ -3752,21 +3752,21 @@ async function p6n(e) {
             ...(Fe.previousProducerPaths !== void 0 && { previousProducerPaths: Fe.previousProducerPaths }),
             ...(me.projectPath && { projectPath: me.projectPath }),
           }),
-            (Ce = !0),
+            (Ce = true),
             n(`Added ${fe} installation for scope ${me.scope}${me.projectPath ? ` (${me.projectPath})` : ""}`);
         }
         let Pe = new Set(),
           Oe = ge.filter((Fe) => {
-            if (Fe.scope === "managed") return !1;
+            if (Fe.scope === "managed") return false;
             let Be = `${Fe.scope}|${Fe.projectPath ?? ""}`;
-            if (Pe.has(Be)) return !1;
-            return Pe.add(Be), !0;
+            if (Pe.has(Be)) return false;
+            return Pe.add(Be), true;
           });
         if (Oe.length < ge.length) {
           if ((n(`Cleaned ${fe} (${ge.length}\u2192${Oe.length}: stale managed and/or duplicates)`), Oe.length === 0))
             delete W[fe];
           else W[fe] = Oe;
-          Ce = !0;
+          Ce = true;
         }
       }
       if (Ce) z++;
@@ -3818,10 +3818,10 @@ async function p6n(e) {
                 if (
                   (!en || ((await wPe(Be)) && (await Sh(Be)) === "other")) &&
                   !(await tte(Be, e)) &&
-                  !(en && (await tS(Be, { excludeSelf: !0 }, e).catch(() => !0)))
+                  !(en && (await tS(Be, { excludeSelf: true }, e).catch(() => true)))
                 )
                   if (en) await DO(Be);
-                  else await le().rm(Be, { recursive: !0, force: !0 });
+                  else await le().rm(Be, { recursive: true, force: true });
               } catch {}
               continue;
             }
@@ -3891,7 +3891,7 @@ function Xxt(e, t) {
 }
 
 function T6n() {
-  return a.CLAUDE_CODE_PLUGIN_BINARY_ASSETS || I("tengu_plugin_binary_assets", !1) === !0;
+  return a.CLAUDE_CODE_PLUGIN_BINARY_ASSETS || I("tengu_plugin_binary_assets", false) === true;
 }
 
 async function tae(e, t, r) {
@@ -3922,7 +3922,7 @@ async function v6n(e, t, r, o, u) {
     B,
     W,
     z,
-    pe = !1;
+    pe = false;
   function fe(me, ge) {
     (z ??= me instanceof rm ? me.code : (uo(me) ?? px(me) ?? "unknown")),
       n(`${rv} ${t}: ${ge}: ${me instanceof Error ? me.message : String(me)}`, { level: "warn" });
@@ -3938,7 +3938,7 @@ async function v6n(e, t, r, o, u) {
     }
     let Ie = await E6n(e, me, ge);
     if (!Ie) return;
-    pe = !0;
+    pe = true;
     let Ee = Object.entries(Ie);
     _ = Ee.length;
     let Pe = oh(e, "bin"),
@@ -3967,7 +3967,7 @@ async function v6n(e, t, r, o, u) {
         }
         let en = oh(ut, Pt),
           nn = ge === null ? void 0 : A0(ge, Pt);
-        switch (await Zie(en, ct.sha256, { ensureMode: 493, guestWritable: !0 }, me, nn)) {
+        switch (await Zie(en, ct.sha256, { ensureMode: 493, guestWritable: true }, me, nn)) {
           case "match":
             A++, ze.push([Pt, ct]);
             continue;
@@ -4224,20 +4224,20 @@ async function C0(e, t, r, o) {
 }
 
 async function nMt(e, t, r, o) {
-  if (O() && r !== void 0 && o !== null) return !0;
+  if (O() && r !== void 0 && o !== null) return true;
   try {
     let [u, d] = await Promise.all([Zxt(t), Zxt(e)]),
       _ = _6n(u, d);
-    if (_ === "" || _.startsWith("..") || y6n(_)) return !1;
+    if (_ === "" || _.startsWith("..") || y6n(_)) return false;
   } catch {
-    return !1;
+    return false;
   }
-  return !0;
+  return true;
 }
 
 async function x6n(e, t, r) {
   if (O() && t !== void 0 && r !== null) return Jie(t, r);
-  return (await $_(e).catch(() => null))?.isDirectory() === !0;
+  return (await $_(e).catch(() => null))?.isDirectory() === true;
 }
 
 async function Jie(e, t) {
@@ -4269,7 +4269,7 @@ async function rMt(e, t, r, o) {
     if (!d.ok) throw oMt(d.error);
     return;
   }
-  await NS(oh(e, t), { recursive: !0, force: !0 });
+  await NS(oh(e, t), { recursive: true, force: true });
 }
 
 function oMt(e) {
@@ -4297,7 +4297,7 @@ async function Zie(e, t, r, o, u) {
     if (!C.isFile()) return "not_regular";
     if (C.size > $q) return "mismatch";
     let A = sMt("sha256");
-    for await (let x of _.createReadStream({ autoClose: !1 })) A.update(x);
+    for await (let x of _.createReadStream({ autoClose: false })) A.update(x);
     if (A.digest("hex") !== t) return "mismatch";
     if (r?.ensureMode !== void 0 && D() !== "windows" && (C.mode & 511) !== r.ensureMode)
       await _.chmod(r.ensureMode).catch(() => {
@@ -4350,18 +4350,18 @@ async function O6n(e, t, r, o, u, d, _, C) {
       await h6n(A, M, M).catch(() => {
         return;
       }),
-      { cachePath: A, cacheHit: !0 }
+      { cachePath: A, cacheHit: true }
     );
   }
   let x = await $_(A).catch(() => null);
-  if (x && !x.isFile()) await NS(A, { recursive: !0, force: !0 });
+  if (x && !x.isFile()) await NS(A, { recursive: true, force: true });
   return dMt(u, d, async () => {
     let M = oh(t, `.partial-${e}-${iOe()}`);
     try {
-      return await $6n(e, M, _, C), await sOe(M, A), { cachePath: A, cacheHit: !1 };
+      return await $6n(e, M, _, C), await sOe(M, A), { cachePath: A, cacheHit: false };
     } catch (F) {
       throw (
-        (await NS(M, { force: !0 }).catch(() => {
+        (await NS(M, { force: true }).catch(() => {
           return;
         }),
         F)
@@ -4373,7 +4373,7 @@ async function O6n(e, t, r, o, u, d, _, C) {
 async function D6n(e, t, r, o, u, d, _) {
   let C = Te.pluginAssetCache(e),
     A = await nOe(r, C);
-  if (A.ok && A.value.digest === e) return await r.touch(C), { cachePath: t, cacheHit: !0 };
+  if (A.ok && A.value.digest === e) return await r.touch(C), { cachePath: t, cacheHit: true };
   return (
     await L6n(r, C, e, t, A),
     dMt(o, u, async () => {
@@ -4382,10 +4382,10 @@ async function D6n(e, t, r, o, u, d, _) {
           maxBytes: $q,
           precondition: { type: "ifAbsent" },
           mode: 384,
-          flush: !0,
+          flush: true,
           acquireTimeoutMs: Math.min(d, Loe),
         });
-      if (M.ok) return { cachePath: t, cacheHit: !1 };
+      if (M.ok) return { cachePath: t, cacheHit: false };
       let F = x.failure();
       if (F !== void 0) throw F;
       if (M.error.code === "Failed" && M.error.telemetryCode === Lfe)
@@ -4418,7 +4418,7 @@ async function L6n(e, t, r, o, u) {
   let d = iu(u.error);
   if (d === "EISDIR" || d === "ENXIO") {
     let _ = await $_(o).catch(() => null);
-    if (_ && !_.isFile() && !_.isSymbolicLink()) await NS(o, { recursive: !0, force: !0 });
+    if (_ && !_.isFile() && !_.isSymbolicLink()) await NS(o, { recursive: true, force: true });
     return;
   }
   await e.delete(t);
@@ -4450,7 +4450,7 @@ async function dMt(e, t, r) {
 
 async function N6n(e, t, r) {
   if (O() && t !== void 0 && r !== null) return;
-  await iMt(e, { recursive: !0, mode: 448 });
+  await iMt(e, { recursive: true, mode: 448 });
 }
 
 async function pMt(e, t, r) {
@@ -4459,7 +4459,7 @@ async function pMt(e, t, r) {
       auth: "teleport-org",
       responseType: "stream",
       timeout: t,
-      validateStatus: () => !0,
+      validateStatus: () => true,
       credentials: r,
       headers: { accept: "application/octet-stream", "anthropic-beta": ud },
     })
@@ -4498,7 +4498,7 @@ function mMt(e, t, r, o) {
     A = W;
   }
   e.once("error", x);
-  let M = !1;
+  let M = false;
   function F() {
     if ((e.off("error", x), clearTimeout(_), !M)) e.destroy();
   }
@@ -4516,7 +4516,7 @@ function mMt(e, t, r, o) {
         u.update(z), yield z;
       }
       if ((clearTimeout(_), o)) U();
-      M = !0;
+      M = true;
     } catch (W) {
       throw W instanceof rm
         ? W
@@ -4529,7 +4529,7 @@ function mMt(e, t, r, o) {
 }
 
 async function $6n(e, t, r, o) {
-  let u = mMt(await pMt(e, r, o), e, r, !1),
+  let u = mMt(await pMt(e, r, o), e, r, false),
     d,
     _;
   try {
@@ -4547,7 +4547,7 @@ async function $6n(e, t, r, o) {
   }
   if (_ !== void 0) {
     if (
-      (await NS(t, { force: !0 }).catch(() => {
+      (await NS(t, { force: true }).catch(() => {
         return;
       }),
       _ instanceof rm)
@@ -4559,7 +4559,7 @@ async function $6n(e, t, r, o) {
     u.verifyDigest();
   } catch (C) {
     throw (
-      (await NS(t, { force: !0 }).catch(() => {
+      (await NS(t, { force: true }).catch(() => {
         return;
       }),
       C)
@@ -4569,11 +4569,11 @@ async function $6n(e, t, r, o) {
 
 function U6n(e, t, r) {
   let o,
-    u = !1;
+    u = false;
   async function* d() {
-    u = !0;
+    u = true;
     try {
-      yield* mMt(await pMt(e, t, r), e, t, !0).chunks;
+      yield* mMt(await pMt(e, t, r), e, t, true).chunks;
     } catch (_) {
       throw ((o = _), _);
     }
@@ -4613,17 +4613,17 @@ async function B6n(e, t, r, o, u, d, _) {
       if (D() === "windows") throw new rm("asset cache and plugin bin/ are on different volumes", "asset_place_exdev");
     }
     let x = oh(r, `.place-${o}-${iOe()}`),
-      M = !1;
+      M = false;
     try {
-      await Jxt(A, x, Qxt.COPYFILE_EXCL), await sOe(x, C), (M = !0);
+      await Jxt(A, x, Qxt.COPYFILE_EXCL), await sOe(x, C), (M = true);
     } finally {
       if (!M)
-        await NS(x, { force: !0 }).catch(() => {
+        await NS(x, { force: true }).catch(() => {
           return;
         });
     }
   } finally {
-    await NS(A, { force: !0 }).catch(() => {
+    await NS(A, { force: true }).catch(() => {
       return;
     });
   }
@@ -4636,7 +4636,7 @@ async function H6n(e, t, r, o, u, d) {
   if (O() && u !== void 0 && d !== null) {
     let x = await j6n(u, d, t, r);
     if (x !== "created") return x;
-    return (await Zie(C, o, { ensureMode: 493, guestWritable: !0 }, u, A0(d, r))) === "match"
+    return (await Zie(C, o, { ensureMode: 493, guestWritable: true }, u, A0(d, r))) === "match"
       ? "placed"
       : "failed_created";
   }
@@ -4646,7 +4646,7 @@ async function H6n(e, t, r, o, u, d) {
     if (E(x) === "EEXIST") return "exists";
     return "failed_clean";
   }
-  return (await Zie(C, o, { ensureMode: 493, guestWritable: !0 })) === "match" ? "placed" : "failed_created";
+  return (await Zie(C, o, { ensureMode: 493, guestWritable: true })) === "match" ? "placed" : "failed_created";
 }
 
 async function j6n(e, t, r, o) {
@@ -4669,7 +4669,7 @@ async function sOe(e, t) {
     let o = E(r);
     if (o === "EXDEV" || o === void 0) throw r;
     if (!L_.has(o)) throw r;
-    await NS(t, { force: !0 }), await eMt(e, t);
+    await NS(t, { force: true }), await eMt(e, t);
   }
 }
 
@@ -4688,7 +4688,7 @@ async function W6n(e, t, r) {
     if (!C) continue;
     let A = d.startsWith(".") ? cMt : lMt;
     if (u - C.mtimeMs > A)
-      await NS(_, { recursive: !0, force: !0 }).catch(() => {
+      await NS(_, { recursive: true, force: true }).catch(() => {
         return;
       });
   }
@@ -4719,7 +4719,7 @@ async function G6n(e, t) {
     let d = oh(e, u),
       _ = await $_(d).catch(() => null);
     if (_ && o - _.mtimeMs > cMt)
-      await NS(d, { recursive: !0, force: !0 }).catch(() => {
+      await NS(d, { recursive: true, force: true }).catch(() => {
         return;
       });
   }
@@ -4734,33 +4734,33 @@ async function nae(e) {
   try {
     t = await q6n(e);
   } catch (o) {
-    if (Ht(o)) return { ran: !1 };
+    if (Ht(o)) return { ran: false };
     throw o;
   }
   let r = new Set(t);
-  if (!r.has("package.json")) return { ran: !1 };
+  if (!r.has("package.json")) return { ran: false };
   for (let o of aOe) {
     if (!r.has(o.lockfile)) continue;
     n(`Installing plugin dependencies: ${o.command} ${o.args.join(" ")} in ${e}`);
     let u = await qe(o.command, o.args, { cwd: e, timeout: K6n, toolCgroupClass: "plugin" });
     if (u.code !== 0)
       return {
-        ran: !0,
+        ran: true,
         error:
           `Plugin dependency install failed (${o.command}): ${u.stderr || u.stdout || u.error || "no output"}`.slice(
             0,
             500,
           ),
       };
-    return n(`Plugin dependency install succeeded (${o.command}) in ${e}`), { ran: !0 };
+    return n(`Plugin dependency install succeeded (${o.command}) in ${e}`), { ran: true };
   }
   if (r.has("yarn.lock") || r.has("pnpm-lock.yaml"))
     return {
-      ran: !1,
+      ran: false,
       error:
         "Skipped: yarn/pnpm lockfiles are not supported (resolution-time hooks bypass --ignore-scripts). Use bun or npm.",
     };
-  return { ran: !1 };
+  return { ran: false };
 }
 
 function J6n() {
@@ -4774,7 +4774,7 @@ function gOe(e, t) {
   return r;
 }
 
-async function ncn(e, t, r = "user", o, u, d, _, C, A, x, M, F = { explicitInstall: !1 }, U) {
+async function ncn(e, t, r = "user", o, u, d, _, C, A, x, M, F = { explicitInstall: false }, U) {
   let B = typeof t.source === "string" && u ? u : t.source,
     W =
       d && typeof B === "object" && (B.source === "github" || B.source === "url" || B.source === "git-subdir")
@@ -4822,7 +4822,7 @@ async function ncn(e, t, r = "user", o, u, d, _, C, A, x, M, F = { explicitInsta
     Pe = cF(e, Ee),
     Oe = pe.path,
     Fe = bXn(pe.stagingScope, Pe),
-    Be = !0;
+    Be = true;
   if (pe.path !== Pe) {
     let ze = QG(M);
     try {
@@ -4836,7 +4836,7 @@ async function ncn(e, t, r = "user", o, u, d, _, C, A, x, M, F = { explicitInsta
             await Tc(pe.path).catch((ct) => {
               n(`Failed to remove the staging tree ${pe.path} after publishing: ${l(ct)}`, { level: "warn" });
             }),
-            (Be = !1);
+            (Be = false);
       } else await RXn(pe.path, Pe, { pluginId: e, version: Ee, strictCache: ze }, M, Fe), (Oe = Pe);
     } catch (We) {
       if (ze) await Tc(pe.path).catch(() => {});
@@ -4872,7 +4872,7 @@ async function ncn(e, t, r = "user", o, u, d, _, C, A, x, M, F = { explicitInsta
         installPath: Oe,
         gitCommitSha: ge,
         ...(d && { resolvedVersion: d.version }),
-        ...(_ && { auto: !0 }),
+        ...(_ && { auto: true }),
         ...(typeof W === "object" &&
           W.source === "command" && {
             sourceCommand: rC(W),
@@ -4921,7 +4921,7 @@ function ocn(e) {
   }
 }
 
-async function zGn(e, t, r, { deleteDataDir: o = !0 } = {}, u) {
+async function zGn(e, t, r, { deleteDataDir: o = true } = {}, u) {
   if (e.size === 0) return [];
   let d = (O() && u !== void 0 ? await Iv(u) : oT()).plugins,
     _ = [],
@@ -4958,33 +4958,33 @@ async function zGn(e, t, r, { deleteDataDir: o = !0 } = {}, u) {
 
 async function Rpt(e, t, r) {
   let o = Gv(t);
-  if (!fye(o).has(e)) return !1;
+  if (!fye(o).has(e)) return false;
   let u = t !== "user" ? ee() : void 0,
     d = O() && r !== void 0,
     C = (d ? await Iv(r) : oT()).plugins[e]?.find((U) => U.scope === t && U.projectPath === u);
-  if (!C) return !1;
+  if (!C) return false;
   let { absolute: A, suspect: x } = pC(C.installPath, { trustedRoots: ule(e, await cc(r), VA()) });
-  if (x) return !1;
+  if (x) return false;
   let M = Af(),
     F = d ? qDe(A, M) : null;
   if (O() && r !== void 0 && F !== null && !(await vb(A, M))) {
-    let U = await r.scopeKind(F, { resolveLink: !0 });
+    let U = await r.scopeKind(F, { resolveLink: true });
     if (!U.ok) {
       let { error: W } = U;
-      if ("telemetryCode" in W && TA(W.telemetryCode)) return !1;
+      if ("telemetryCode" in W && TA(W.telemetryCode)) return false;
       throw CXn(W, C.installPath);
     }
     let B = U.value;
-    return B.kind === "link" ? B.linkResolves === !0 : B.kind !== "absent";
+    return B.kind === "link" ? B.linkResolves === true : B.kind !== "absent";
   }
   return Z6n(A);
 }
 
 async function Z6n(e) {
   try {
-    return await le().stat(e), !0;
+    return await le().stat(e), true;
   } catch (t) {
-    if (Ht(t)) return !1;
+    if (Ht(t)) return false;
     throw t;
   }
 }
@@ -5010,9 +5010,9 @@ async function rXn(e) {
       );
       continue;
     }
-    if (Fd(o)) return { ok: !1, blockedDependency: o };
+    if (Fd(o)) return { ok: false, blockedDependency: o };
     let d = rae(o, e.knownMarketplaces, { failClosedOnUnknownSource: e.failClosedOnUnknownSource });
-    if (d) return { ok: !1, blockedDependency: o, blockedMarketplace: d };
+    if (d) return { ok: false, blockedDependency: o, blockedMarketplace: d };
     let _ = await xv(o, e.storageV5);
     if (!_) {
       n(
@@ -5023,7 +5023,7 @@ async function rXn(e) {
     }
     e.depInfo.set(o, _), t.push(o);
   }
-  return { ok: !0, ids: t };
+  return { ok: true, ids: t };
 }
 
 function fMt({
@@ -5039,9 +5039,9 @@ function fMt({
     A = new Set();
   for (let M of e) {
     let F = o[M],
-      U = d.get(M) ?? !0;
+      U = d.get(M) ?? true;
     if (F !== void 0) {
-      if (F !== !1 || U) A.add(M);
+      if (F !== false || U) A.add(M);
       continue;
     }
     if (u.has(M) || U || (M === t && r)) A.add(M);
@@ -5069,13 +5069,13 @@ async function vqe({
   storageV5: M,
 }) {
   let F = Gv(r);
-  if (Fd(e)) return { ok: !1, reason: "blocked-by-policy", pluginName: t.name };
+  if (Fd(e)) return { ok: false, reason: "blocked-by-policy", pluginName: t.name };
   let U = await cc(M),
     B = O() && M !== void 0 && Object.keys(U).length === 0,
     W = rae(e, U, { failClosedOnUnknownSource: B });
-  if (W) return { ok: !1, reason: "marketplace-blocked-by-policy", pluginName: t.name, marketplaceName: W };
+  if (W) return { ok: false, reason: "marketplace-blocked-by-policy", pluginName: t.name, marketplaceName: W };
   let z = new Map();
-  if (pYe(t.source) && !o) return { ok: !1, reason: "local-source-no-location", pluginName: t.name };
+  if (pYe(t.source) && !o) return { ok: false, reason: "local-source-no-location", pluginName: t.name };
   if (o) z.set(e, { entry: t, marketplaceInstallLocation: o });
   let pe = Vt(e).marketplace,
     fe = new Set((pe ? (await TE(pe, M))?.allowCrossMarketplaceDependenciesOn : void 0) ?? []),
@@ -5115,14 +5115,14 @@ async function vqe({
     fe,
     Fe,
   );
-  if (!Be.ok) return { ok: !1, reason: "resolution-failed", resolution: Be };
+  if (!Be.ok) return { ok: false, reason: "resolution-failed", resolution: Be };
   for (let wn of Be.closure) {
     if (wn === e || Ce.has(wn)) continue;
-    if (Fd(wn)) return { ok: !1, reason: "dependency-blocked-by-policy", pluginName: t.name, blockedDependency: wn };
+    if (Fd(wn)) return { ok: false, reason: "dependency-blocked-by-policy", pluginName: t.name, blockedDependency: wn };
     let sr = rae(wn, U, { failClosedOnUnknownSource: B });
     if (sr)
       return {
-        ok: !1,
+        ok: false,
         reason: "dependency-marketplace-blocked-by-policy",
         pluginName: t.name,
         blockedDependency: wn,
@@ -5134,12 +5134,12 @@ async function vqe({
   for (let wn of xi()) Object.assign(We, ye(wn)?.enabledPlugins ?? {});
   let Ve = new Set(Object.keys(We).filter((wn) => We[wn] !== void 0)),
     Pt =
-      A === !0 ||
+      A === true ||
       Ee.some((wn) => {
-        if (wn.source === e) return !1;
+        if (wn.source === e) return false;
         let sr = We[wn.source];
         return (
-          (sr !== void 0 ? sr === !0 || Array.isArray(sr) : wn.manifest.defaultEnabled !== !1) &&
+          (sr !== void 0 ? sr === true || Array.isArray(sr) : wn.manifest.defaultEnabled !== false) &&
           (wn.manifest.dependencies ?? []).some((jn) => xfe(Qm(jn, wn.source), e))
         );
       });
@@ -5150,7 +5150,7 @@ async function vqe({
     en = new Map();
   for (let wn of Be.closure) {
     let sr = ct(wn);
-    ut.set(wn, sr?.defaultEnabled ?? !0),
+    ut.set(wn, sr?.defaultEnabled ?? true),
       en.set(
         wn,
         (sr?.dependencies ?? []).map((Jn) => Qm(Jn, wn)),
@@ -5169,10 +5169,10 @@ async function vqe({
     tt = {};
   for (let wn of Be.closure) {
     let sr = ze[wn];
-    (tt[wn] = Array.isArray(sr) ? sr : (nn.get(wn) ?? !0)), xt.set(wn, tt[wn]);
+    (tt[wn] = Array.isArray(sr) ? sr : (nn.get(wn) ?? true)), xt.set(wn, tt[wn]);
   }
   let { error: lt } = await Os(F, (wn) => ({ enabledPlugins: { ...wn?.enabledPlugins, ...tt } }), void 0, M);
-  if (lt) return { ok: !1, reason: "settings-write-failed", message: lt.message };
+  if (lt) return { ok: false, reason: "settings-write-failed", message: lt.message };
   async function mt(wn, sr) {
     if (!pYe(sr.entry.source)) return;
     let { entryPath: Jn, reason: jn } = RNt(await dle(wn, sr.marketplaceInstallLocation, sr.entry.source, U, VA(), M));
@@ -5184,7 +5184,7 @@ async function vqe({
     nt = Be.closure;
   async function ht() {
     let wn = {};
-    for (let Jn of nt) wn[Jn] = Jn === e && Xe.has(Jn) && !Array.isArray(ze[Jn]) ? (nn.get(e) ?? !0) : ze[Jn];
+    for (let Jn of nt) wn[Jn] = Jn === e && Xe.has(Jn) && !Array.isArray(ze[Jn]) ? (nn.get(e) ?? true) : ze[Jn];
     let { error: sr } = await rn(F, { enabledPlugins: wn }, { legacyRevocation: "skip" }, M);
     if (sr)
       n(
@@ -5217,13 +5217,13 @@ async function vqe({
       jn = new Map();
     async function Ar(br) {
       let So = z.get(br);
-      if (!So) return { ok: !0, dependencies: void 0 };
+      if (!So) return { ok: true, dependencies: void 0 };
       let Ui = [...(Jn.get(br) ?? []), ...(sr.get(br) ?? [])],
         ki,
         Xn = So.entry;
       if (Ui.length > 0) {
         let lr = vct(Ui);
-        if (!lr.ok) return { ok: !1, reason: "range-conflict", dep: br, ranges: Ui, why: lr.reason };
+        if (!lr.ok) return { ok: false, reason: "range-conflict", dep: br, ranges: Ui, why: lr.reason };
         if (lr.range !== "*") {
           let Mr = NSe(So.entry.source),
             Io = U[Vt(br).marketplace ?? ""]?.source,
@@ -5231,7 +5231,7 @@ async function vqe({
             Qn = Er ? vpt(Io) : Mr;
           if (Qn !== null) {
             let mr = await eUt(Qn, So.entry.name, lr.range, jn);
-            if (mr === null && !Er) return { ok: !1, reason: "no-matching-tag", dep: br, range: lr.range };
+            if (mr === null && !Er) return { ok: false, reason: "no-matching-tag", dep: br, range: lr.range };
             if (mr === null)
               n(
                 `materializeOne(${br}): no ${So.entry.name}--v* tag satisfying ${lr.range} on marketplace repo; falling through to HEAD copy`,
@@ -5250,10 +5250,10 @@ async function vqe({
         me,
         await mt(br, { ...So, entry: Xn }),
         ki,
-        C === !0 || br !== e,
+        C === true || br !== e,
         So.marketplaceInstallLocation,
         AX(br, U),
-        br === e && C !== !0 ? x : { kind: "none", pluginId: br },
+        br === e && C !== true ? x : { kind: "none", pluginId: br },
         M,
         { explicitInstall: d && br === e, consented: br === e ? _ : void 0 },
       );
@@ -5265,7 +5265,7 @@ async function vqe({
         if (Er) Er.push(Mr.version);
         else Jn.set(Io, [Mr.version]);
       }
-      return { ok: !0, dependencies: Rn.dependencies ?? [] };
+      return { ok: true, dependencies: Rn.dependencies ?? [] };
     }
     for (let br = Be.closure.length - 1; br >= 0; br--) {
       let So = Be.closure[br];
@@ -5301,12 +5301,12 @@ async function vqe({
       if (wn.has(br) || (Fe.has(br) && Tn.has(br)) || !Ce.has(br)) continue;
       let Ui = So.concat(sr.get(br) ?? []),
         ki = vct(Ui);
-      if (!ki.ok) return await ht(), { ok: !1, reason: "range-conflict", dep: br, ranges: Ui, why: ki.reason };
+      if (!ki.ok) return await ht(), { ok: false, reason: "range-conflict", dep: br, ranges: Ui, why: ki.reason };
       let Xn = Pe.get(br);
       if (ki.range !== "*" && !G5(Xn, ki.range))
         return (
           await ht(),
-          { ok: !1, reason: "range-conflict", dep: br, ranges: Ui, why: "installed-unsatisfied", installed: Xn }
+          { ok: false, reason: "range-conflict", dep: br, ranges: Ui, why: "installed-unsatisfied", installed: Xn }
         );
     }
     let Zr = [{ manifestDeps: At, declaringId: e }];
@@ -5329,14 +5329,14 @@ async function vqe({
         if (!lr.ok) {
           if ((await ht(), lr.blockedMarketplace))
             return {
-              ok: !1,
+              ok: false,
               reason: "dependency-marketplace-blocked-by-policy",
               pluginName: t.name,
               blockedDependency: lr.blockedDependency,
               marketplaceName: lr.blockedMarketplace,
             };
           return {
-            ok: !1,
+            ok: false,
             reason: "dependency-blocked-by-policy",
             pluginName: t.name,
             blockedDependency: lr.blockedDependency,
@@ -5349,9 +5349,9 @@ async function vqe({
       }
       if (br.length === 0) break;
       let So = {};
-      for (let Xn of br) (So[Xn] = !0), xt.set(Xn, !0);
+      for (let Xn of br) (So[Xn] = true), xt.set(Xn, true);
       let { error: Ui } = await Os(F, (Xn) => ({ enabledPlugins: { ...Xn?.enabledPlugins, ...So } }), void 0, M);
-      if (Ui) return await ht(), { ok: !1, reason: "settings-write-failed", message: Ui.message };
+      if (Ui) return await ht(), { ok: false, reason: "settings-write-failed", message: Ui.message };
       let ki = [];
       for (let Xn of br) {
         let Rn = Ce.has(Xn),
@@ -5393,7 +5393,7 @@ async function vqe({
     Sn = new Map();
   for (let wn of nt) {
     let sr = ct(wn);
-    fn.set(wn, sr?.defaultEnabled ?? dn.get(wn) ?? !0);
+    fn.set(wn, sr?.defaultEnabled ?? dn.get(wn) ?? true);
     let Jn = (sr?.dependencies ?? []).map((jn) => Qm(jn, wn));
     for (let jn of Lt.get(wn) ?? []) Jn.push(Qm(jn, wn));
     Sn.set(wn, Jn);
@@ -5410,25 +5410,25 @@ async function vqe({
     hn = {};
   for (let wn of nt) {
     let sr = ze[wn],
-      Jn = bn.get(wn) ?? !0;
+      Jn = bn.get(wn) ?? true;
     if (sr !== void 0 && sr !== Jn) continue;
     if (xt.get(wn) !== Jn) hn[wn] = Jn;
   }
-  let Ke = !0;
+  let Ke = true;
   if (Object.keys(hn).length > 0) {
     let { error: wn } = await Os(F, (sr) => ({ enabledPlugins: { ...sr?.enabledPlugins, ...hn } }), void 0, M);
-    if (wn) (Ke = !1), n(`Failed to apply defaultEnabled correction for ${e}: ${wn.message}`, { level: "warn" });
+    if (wn) (Ke = false), n(`Failed to apply defaultEnabled correction for ${e}: ${wn.message}`, { level: "warn" });
   }
   let mn = xi(),
     yn = mn.indexOf(F);
   function er(wn) {
     for (let sr = mn.length - 1; sr > yn; sr--) {
       let Jn = ye(mn[sr])?.enabledPlugins?.[wn];
-      if (Jn !== void 0) return Jn === !1;
+      if (Jn !== void 0) return Jn === false;
     }
-    return !1;
+    return false;
   }
-  let Cn = nt.filter((wn) => bn.get(wn) === !1 && (Ke || xt.get(wn) === !1)),
+  let Cn = nt.filter((wn) => bn.get(wn) === false && (Ke || xt.get(wn) === false)),
     Pn = nt.filter((wn) => Cn.includes(wn) || er(wn));
   Qu(M);
   let nr = Vt(e).marketplace,
@@ -5443,7 +5443,7 @@ async function vqe({
     ...(Cn.includes(e) && { "install.disabled_by_default": "true" }),
   });
   let Pr = DB([...Xe].filter((wn) => wn !== e));
-  return { ok: !0, closure: Be.closure, depNote: Pr, installedDisabled: Pn, installedDisabledByDefault: Cn };
+  return { ok: true, closure: Be.closure, depNote: Pr, installedDisabled: Pn, installedDisabledByDefault: Cn };
 }
 
 function gMt({ reason: e, errorKind: t, pluginId: r, entry: o, marketplaceName: u, trigger: d }) {
@@ -5478,40 +5478,40 @@ async function yPe(e) {
       switch ((gMt({ reason: x.reason, pluginId: t, entry: r, marketplaceName: o, trigger: _ }), x.reason)) {
         case "local-source-no-location":
           return {
-            success: !1,
+            success: false,
             error: `Cannot install local plugin "${x.pluginName}" without marketplace install location`,
           };
         case "settings-write-failed":
-          return { success: !1, error: `Failed to update settings: ${x.message}` };
+          return { success: false, error: `Failed to update settings: ${x.message}` };
         case "resolution-failed":
-          return { success: !1, error: ocn(x.resolution) };
+          return { success: false, error: ocn(x.resolution) };
         case "blocked-by-policy":
           return {
-            success: !1,
+            success: false,
             error: `Plugin "${x.pluginName}" is blocked by your organization's policy and cannot be installed`,
           };
         case "dependency-blocked-by-policy":
           return {
-            success: !1,
+            success: false,
             error: `Cannot install "${x.pluginName}": dependency "${x.blockedDependency}" is blocked by your organization's policy`,
           };
         case "marketplace-blocked-by-policy":
           return {
-            success: !1,
+            success: false,
             error: `Cannot install "${x.pluginName}": marketplace "${x.marketplaceName}" is blocked by your organization's policy`,
           };
         case "dependency-marketplace-blocked-by-policy":
           return {
-            success: !1,
+            success: false,
             error: `Cannot install "${x.pluginName}": dependency "${x.blockedDependency}" is from marketplace "${x.marketplaceName}", which is blocked by your organization's policy`,
           };
         case "range-conflict": {
           let W = x.dep === t ? "Plugin" : "Dependency";
-          return { success: !1, error: Rct(W, x.dep, x.ranges, x.why, x.installed) };
+          return { success: false, error: Rct(W, x.dep, x.ranges, x.why, x.installed) };
         }
         case "no-matching-tag": {
           let W = x.dep === t ? "Plugin" : "Dependency";
-          return { success: !1, error: CNt(W, x.dep, x.range) };
+          return { success: false, error: CNt(W, x.dep, x.range) };
         }
       }
     s("tengu_plugin_installed", {
@@ -5526,7 +5526,7 @@ async function yPe(e) {
       U = x.installedDisabled.includes(t),
       B = x.installedDisabledByDefault.includes(t);
     return {
-      success: !0,
+      success: true,
       message: U
         ? B
           ? `\u2713 Installed ${r.name}${x.depNote}. This plugin is disabled by default \u2014 ${F}`
@@ -5549,7 +5549,7 @@ async function yPe(e) {
         marketplaceName: o,
         trigger: _,
       }),
-      { success: !1, error: x ? A : `Failed to install: ${A}`, refusal: x ? C : void 0 }
+      { success: false, error: x ? A : `Failed to install: ${A}`, refusal: x ? C : void 0 }
     );
   }
 }
@@ -5594,7 +5594,7 @@ async function TXn(e, t) {
     return;
   }
   try {
-    let [o, u] = await Promise.all([pOe(e, { bigint: !0 }), pOe(t, { bigint: !0 })]);
+    let [o, u] = await Promise.all([pOe(e, { bigint: true }), pOe(t, { bigint: true })]);
     if (!(o.isDirectory() && u.isDirectory() && o.ino !== 0n && u.ino !== 0n && (o.dev !== u.dev || o.ino !== u.ino))) {
       n(
         `A publish that stood left the replaced plugin version set aside at ${e}; it could not be proven distinct from the published version, so it is left in place`,
@@ -5656,7 +5656,7 @@ function _Mt(e, t) {
 
 async function SMt(e) {
   try {
-    await X6n(fOe(e, gI), { force: !0 });
+    await X6n(fOe(e, gI), { force: true });
   } catch (t) {
     n(`Could not drop a stray orphan marker from the staged plugin: ${t instanceof Error ? t.message : String(t)}`, {
       level: "warn",
@@ -5674,7 +5674,7 @@ function CXn(e, t) {
 }
 
 function AXn(e) {
-  return E(e) === "EXDEV" || !1;
+  return E(e) === "EXDEV" || false;
 }
 
 async function RXn(e, t, r, o, u) {
@@ -5682,7 +5682,7 @@ async function RXn(e, t, r, o, u) {
     if (await vb(t, Af())) await SMt(e);
     else {
       await hMt(o, u.from);
-      let M = await o.moveScope(u.from, u.to, { replace: !0 });
+      let M = await o.moveScope(u.from, u.to, { replace: true });
       if (M.ok) return;
       let F = wXn(M.error);
       if (F !== void 0) {
@@ -5749,27 +5749,27 @@ async function PXn(e, t, r, o, u) {
         level: "debug",
       });
     }
-  if (r && (await TPe(t)) === "refused") return !1;
+  if (r && (await TPe(t)) === "refused") return false;
   if ((await le().mkdir(Uq(t)), r)) {
-    if (!(await wPe(t))) return !1;
+    if (!(await wPe(t))) return false;
     if (
       await pOe(t).then(
-        () => !0,
+        () => true,
         (_) => {
-          if (Ym(_)) return !1;
+          if (Ym(_)) return false;
           throw i5(
             `Could not move the staged plugin into ${t}: what occupies that cache path could not be examined; retry the install.`,
           );
         },
       )
     )
-      return !1;
+      return false;
   }
   try {
-    return await Ii(e, t), !0;
+    return await Ii(e, t), true;
   } catch (d) {
     let _ = E(d);
-    if (_ === "ENOTEMPTY" || _ === "EEXIST" || _ === "EPERM" || _ === "EISDIR") return !1;
+    if (_ === "ENOTEMPTY" || _ === "EEXIST" || _ === "EPERM" || _ === "EISDIR") return false;
     throw d;
   }
 }
@@ -5869,15 +5869,15 @@ async function EOe(e) {
   let t = Af(),
     r = Iy(t, e),
     o = r.split(Oy);
-  if (!r || aae(r) || o.length !== 2 || o.some((C) => C === "" || C === "." || C === "..")) return !1;
+  if (!r || aae(r) || o.length !== 2 || o.some((C) => C === "" || C === "." || C === "..")) return false;
   let [u, d] = o;
-  if (u === void 0 || d === void 0) return !1;
+  if (u === void 0 || d === void 0) return false;
   let _ = await Hm(t);
   return (await TMt(Ks(_, u))) && (await TMt(Ks(_, u, d)));
 }
 
 async function TMt(e) {
-  if ((await zk(e)).isDirectory() && (await Q_(fd(e), wc(e)))) return !0;
+  if ((await zk(e)).isDirectory() && (await Q_(fd(e), wc(e)))) return true;
   let r = await GM(e).catch((o) => {
     if (Ym(o) || E(o) === "ELOOP") return null;
     throw o;
@@ -5939,9 +5939,9 @@ async function rUt(e, t, r, o = "cache") {
 async function icn(e, t, r, o) {
   switch (await Sh(e)) {
     case "absent":
-      return !1;
+      return false;
     case "other":
-      return !0;
+      return true;
     case "symlink":
       return (
         await o(),
@@ -5949,7 +5949,7 @@ async function icn(e, t, r, o) {
         n(
           `Plugin ${t} version ${r}: removed a link wearing its archive's name at ${e}; it is never served \u2014 the archive is rebuilt or the cached directory used`,
         ),
-        !1
+        false
       );
     default:
       throw P0(e, t, r);
@@ -5957,7 +5957,7 @@ async function icn(e, t, r, o) {
 }
 
 async function WXn(e) {
-  return (await bOe(e)) && (await iIt(e)) && (await QR(e, { whenUnreadable: !1 }));
+  return (await bOe(e)) && (await iIt(e)) && (await QR(e, { whenUnreadable: false }));
 }
 
 async function zXn(e, t, r, o, u) {
@@ -5965,17 +5965,17 @@ async function zXn(e, t, r, o, u) {
   if (d === "absent") return "absent";
   if (d === "unexaminable") throw P0(e, t, r);
   if (d === "symlink") return (await WXn(e)) ? "serve" : "republish";
-  return (o ? (await wOe(e, u)).reusable : await QR(e, { whenUnreadable: !1 })) ? "serve" : "republish";
+  return (o ? (await wOe(e, u)).reusable : await QR(e, { whenUnreadable: false })) ? "serve" : "republish";
 }
 
 async function GXn(e) {
   try {
-    if (!(await zk(e)).isDirectory()) return !1;
+    if (!(await zk(e)).isDirectory()) return false;
     let r = fd(e),
       [o, u] = await Promise.all([Hm(e), Hm(r)]);
     return o === Ks(u, wc(e)) && (await EOe(r));
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -6002,7 +6002,7 @@ async function bOe(e) {
     let [t, r] = await Promise.all([Hm(Af()), Hm(fd(e))]);
     return (await AB(Ks(r, wc(e)), aH(t), void 0, { trustedRoot: t })) === "clean";
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -6040,7 +6040,7 @@ async function LMt(e, t) {
   return r;
 }
 
-async function scn(e, t, { staged: r = !1 } = {}) {
+async function scn(e, t, { staged: r = false } = {}) {
   if (!QG(t)) return;
   if ((await LMt(e, "dependency install")) === null) {
     n(
@@ -6061,8 +6061,8 @@ async function scn(e, t, { staged: r = !1 } = {}) {
   );
 }
 
-async function acn(e, t, { staged: r = !1 } = {}) {
-  if (!QG(t) || r) return !0;
+async function acn(e, t, { staged: r = false } = {}) {
+  if (!QG(t) || r) return true;
   let o = await POe(e).catch(() => null);
   if (o === null)
     return (
@@ -6070,14 +6070,14 @@ async function acn(e, t, { staged: r = !1 } = {}) {
         `Plugin cache: ${e} is left as a directory this time (fully usable): it is not a version directory inside the plugin cache`,
         { level: "warn" },
       ),
-      !1
+      false
     );
   if (await Bq(e, t))
-    return n(`Plugin cache: ${e} is left as a directory this time (fully usable): another session is using it`), !1;
+    return n(`Plugin cache: ${e} is left as a directory this time (fully usable): another session is using it`), false;
   if ((await Hm(e).catch(() => null)) !== o)
     return (
       n(`Plugin cache: ${e} is left as a directory this time: it moved while its users were probed`, { level: "warn" }),
-      !1
+      false
     );
   if (!(await V4(e, t)))
     return (
@@ -6085,9 +6085,9 @@ async function acn(e, t, { staged: r = !1 } = {}) {
         `Plugin cache: ${e} is left as a directory this time (fully usable): this session's liveness record in it could not be withdrawn \u2014 it is never archived with one inside`,
         { level: "warn" },
       ),
-      !1
+      false
     );
-  return !0;
+  return true;
 }
 
 async function lcn(e, t) {
@@ -6144,13 +6144,13 @@ async function ccn(e, t) {
     );
 }
 
-async function DA(e, t, r = !1) {
+async function DA(e, t, r = false) {
   if (!QG(t)) return;
   if (r) {
     n(`materializeLinks: ${e}: link-mode command source (used in place), not converted`);
     return;
   }
-  await HWe(e, Af(), sce, t, () => tS(e, { refusedCountsAsLive: !1 }, t).catch(() => !0));
+  await HWe(e, Af(), sce, t, () => tS(e, { refusedCountsAsLive: false }, t).catch(() => true));
 }
 
 function oUt(e, t, r) {
@@ -6191,9 +6191,9 @@ async function FMt(e, t) {
   let r = qze(t, Af());
   if (r === null) return null;
   let o = await e.statMeta(r);
-  if (o.ok) return !0;
+  if (o.ok) return true;
   let u = "telemetryCode" in o.error && typeof o.error.telemetryCode === "string" ? o.error.telemetryCode : void 0;
-  return Dk(u) ? null : !1;
+  return Dk(u) ? null : false;
 }
 
 async function zM(e, t) {
@@ -6219,11 +6219,11 @@ async function qXn(e, t) {
 
 async function NMt(e, t) {
   let r = O() && e !== void 0 ? await FMt(e, t) : null;
-  if (r !== null) return { exists: r, isDirectory: !1 };
+  if (r !== null) return { exists: r, isDirectory: false };
   try {
-    return { exists: !0, isDirectory: (await GM(t)).isDirectory() };
+    return { exists: true, isDirectory: (await GM(t)).isDirectory() };
   } catch {
-    return { exists: !1, isDirectory: !1 };
+    return { exists: false, isDirectory: false };
   }
 }
 
@@ -6233,7 +6233,7 @@ async function EPe(e, t, r = CO) {
     let d = await I6(t, { namespace: "pluginCache", marketplace: o.marketplace, plugin: o.plugin, version: o.version });
     if (d.error !== void 0) {
       let _ = d.error;
-      if ("telemetryCode" in _ && TA(_.telemetryCode)) return !1;
+      if ("telemetryCode" in _ && TA(_.telemetryCode)) return false;
       throw new R(`Failed to list plugin cache dir: ${Ge(_)}`, "failed to list plugin cache dir (v5 backend error)");
     }
     return d.names.some(({ name: _ }) => !r(_));
@@ -6242,7 +6242,7 @@ async function EPe(e, t, r = CO) {
   try {
     u = await qM(e);
   } catch (d) {
-    if (Ht(d)) return !1;
+    if (Ht(d)) return false;
     throw d;
   }
   return u.some((d) => !r(d));
@@ -6255,24 +6255,24 @@ async function tte(e, t) {
 }
 
 async function JAr(e, t, r, o) {
-  if (!t) return !0;
+  if (!t) return true;
   let u = [];
   function d(A, x) {
     if (!A) return;
     for (let M of Array.isArray(A) ? A : [A]) if (typeof M === "string") u.push({ relPath: M, mustBeDirectory: x });
   }
-  if ((d(t.agents, !1), d(t.skills, !0), typeof t.commands === "string" || Array.isArray(t.commands)))
-    d(t.commands, !1);
+  if ((d(t.agents, false), d(t.skills, true), typeof t.commands === "string" || Array.isArray(t.commands)))
+    d(t.commands, false);
   else if (t.commands && typeof t.commands === "object") {
     for (let A of Object.values(t.commands))
-      if (A && typeof A === "object" && A.source) u.push({ relPath: A.source, mustBeDirectory: !1 });
+      if (A && typeof A === "object" && A.source) u.push({ relPath: A.source, mustBeDirectory: false });
   }
-  if (u.length === 0) return !0;
+  if (u.length === 0) return true;
   let C = (
     await Promise.all(
       u.map(async ({ relPath: A, mustBeDirectory: x }) => {
         let M = $Se(e, A);
-        if (M === null) return { relPath: A, ok: !0 };
+        if (M === null) return { relPath: A, ok: true };
         let { exists: F, isDirectory: U } = await NMt(o, M);
         return { relPath: A, ok: F && (!x || U) };
       }),
@@ -6282,9 +6282,9 @@ async function JAr(e, t, r, o) {
     .map((A) => A.relPath);
   if (C.length > 0)
     return (
-      n(`Cache at ${e} for ${r} is missing entry-declared component paths (${C.join(", ")}); treating as stale`), !1
+      n(`Cache at ${e} for ${r} is missing entry-declared component paths (${C.join(", ")}); treating as stale`), false
     );
-  return !0;
+  return true;
 }
 
 async function kpt(e, t) {
@@ -6294,7 +6294,7 @@ async function kpt(e, t) {
     await t.delete(Te.pluginCache(r.marketplace, r.plugin, r.version, [gI]));
     return;
   }
-  await x0(Ks(e, gI), { force: !0 }).catch(() => {});
+  await x0(Ks(e, gI), { force: true }).catch(() => {});
 }
 
 async function VXn(e, { storageV5: t, trustedRoots: r = [] } = {}) {
@@ -6351,22 +6351,22 @@ function iae(e) {
 
 async function wOe(e, t) {
   let r = await W2t(e);
-  if (r === "not-live") return { live: !1, reusable: !1, unclassifiable: !1 };
-  if (r === "unclassifiable") return { live: !0, reusable: !1, unclassifiable: !0 };
+  if (r === "not-live") return { live: false, reusable: false, unclassifiable: false };
+  if (r === "unclassifiable") return { live: true, reusable: false, unclassifiable: true };
   let o = await _8n(t);
-  return { live: !0, reusable: o !== void 0 && !(await VDe(e, o)), unclassifiable: !1 };
+  return { live: true, reusable: o !== void 0 && !(await VDe(e, o)), unclassifiable: false };
 }
 
 async function Bq(e, t) {
   try {
-    return await tS(e, { excludeSelf: !0 }, t);
+    return await tS(e, { excludeSelf: true }, t);
   } catch {
-    return !0;
+    return true;
   }
 }
 
 async function vMt(e, t, r, o) {
-  await sce(e, t, e, t, r, o, new Set(), RB(), !1, !1, !0);
+  await sce(e, t, e, t, r, o, new Set(), RB(), false, false, true);
 }
 
 async function KGn(e) {
@@ -6375,23 +6375,23 @@ async function KGn(e) {
     try {
       for (let o of await qM(r)) {
         if (mH(o)) continue;
-        if (await EPe(Ks(r, o))) return !0;
+        if (await EPe(Ks(r, o))) return true;
       }
     } catch (o) {
       if (X(o) || E(o) === "ENOTDIR") continue;
-      return !0;
+      return true;
     }
   }
-  return !1;
+  return false;
 }
 
-async function sce(e, t, r = e, o = t, u = r, d = !1, _ = new Set(), C = RB(), A = !1, x = !1, M = !1) {
+async function sce(e, t, r = e, o = t, u = r, d = false, _ = new Set(), C = RB(), A = false, x = false, M = false) {
   if (d) await FXn(t);
   else await le().mkdir(t);
   let F = Xa(e),
     U = Xa(t),
     B = U.startsWith(F + Oy) ? Iy(F, U).split(Oy)[0] : void 0,
-    W = await qM(e, { withFileTypes: !0 }),
+    W = await qM(e, { withFileTypes: true }),
     z,
     pe,
     fe,
@@ -6425,7 +6425,7 @@ async function sce(e, t, r = e, o = t, u = r, d = !1, _ = new Set(), C = RB(), A
             "plugin copy source directory is a reparse point",
           );
       }
-      await sce(Ie, Ee, r, o, u, d, _, C, A, x, !1);
+      await sce(Ie, Ee, r, o, u, d, _, C, A, x, false);
     } else if (Ce.isFile) {
       if (d) {
         let Pe = await zk(Ie);
@@ -6519,7 +6519,7 @@ async function sce(e, t, r = e, o = t, u = r, d = !1, _ = new Set(), C = RB(), A
           );
         if (Pt.isFile()) {
           if (d) XR(C, 1, Pt.size);
-          if (d || x) await hB(Oe, Ee, { exactMode: !0, exclusive: !0, nonBlocking: d });
+          if (d || x) await hB(Oe, Ee, { exactMode: true, exclusive: true, nonBlocking: d });
           else await hOe(Oe, Ee);
         } else if (Pt.isDirectory()) {
           if (d) XR(C, 1, 0);
@@ -6546,23 +6546,23 @@ function eIt(e, t) {
 async function YXn(e, t) {
   let r;
   do {
-    let o = await e.listEntries(t, { skipKeyStats: !0, skipScopeStats: !0, ...(r === void 0 ? {} : { cursor: r }) });
+    let o = await e.listEntries(t, { skipKeyStats: true, skipScopeStats: true, ...(r === void 0 ? {} : { cursor: r }) });
     if (!o.ok)
       throw new R(
         `Failed to list the staged plugin copy (${Ge(o.error)}); retry the load or the install.`,
         "plugin cache staged copy could not be listed",
       );
     let u = o.value.skipped;
-    if (o.value.items.length > 0 || (u !== void 0 && Object.values(u).some((d) => d > 0))) return !1;
+    if (o.value.items.length > 0 || (u !== void 0 && Object.values(u).some((d) => d > 0))) return false;
     r = o.value.cursor;
   } while (r !== void 0);
-  return !0;
+  return true;
 }
 
 async function ace(e, t, r, o, u, d) {
   let _ = PB(),
     C = d?.linkFarm ?? RF(o?.source),
-    A = d?.forceOverwrite ?? !1,
+    A = d?.forceOverwrite ?? false,
     x = d?.storageV5,
     M = QG(x),
     F = cF(t, r),
@@ -6575,12 +6575,12 @@ async function ace(e, t, r, o, u, d) {
   if (_) {
     if (W !== "absent" && (M ? await icn(U, t, r, () => B("cache", "before reuse")) : await $a(U))) {
       if (!A) {
-        if ((n(`Plugin ${t} version ${r} already cached at ${U}`), M && (await wPe(F).catch(() => !1))))
+        if ((n(`Plugin ${t} version ${r} already cached at ${U}`), M && (await wPe(F).catch(() => false))))
           await Promise.all([fH(F), fH(U)]);
         return U;
       }
       if (M) await B("cache", "before overwrite");
-      await x0(U, { force: !0 });
+      await x0(U, { force: true });
     } else if (M && !A) {
       if ((await pe()) === "serve")
         return (
@@ -6592,7 +6592,7 @@ async function ace(e, t, r, o, u, d) {
     }
   } else if (M ? (await pe()) !== "absent" : await $a(F)) {
     if (!M || (await pe()) === "serve") await DA(F, x, C);
-    let Be = !1,
+    let Be = false,
       ze;
     if (M) ze = (await pe()) === "serve";
     else {
@@ -6611,14 +6611,14 @@ async function ace(e, t, r, o, u, d) {
   let fe = await HMt(t, r);
   if (fe) return n(`Using seed cache for ${t}@${r} at ${fe}`), fe;
   if ((await Ugr(F, x), RF(o?.source))) {
-    let Be = !0;
+    let Be = true;
     if (M) {
       await B("link", "before relink");
       let We = await Sh(F);
       if (We === "unexaminable") throw P0(F, t, r, "link");
       Be = We !== "symlink";
     }
-    let ze = Be ? await wOe(F, e) : { live: !1, reusable: !1 };
+    let ze = Be ? await wOe(F, e) : { live: false, reusable: false };
     if (ze.reusable) return n(`Plugin ${t} version ${r} already linked at ${F}`), F;
     if (!M && ze.live && (await Bq(F, x)))
       return n(`Link farm for ${t} at ${F} is in use by another session; deferring the relink until it exits`), F;
@@ -6630,7 +6630,7 @@ async function ace(e, t, r, o, u, d) {
       if (
         We !== null &&
         (We.isDirectory() || We.isSymbolicLink()) &&
-        (await tS(F, { excludeSelf: !0 }, x).catch(() => !0))
+        (await tS(F, { excludeSelf: true }, x).catch(() => true))
       )
         throw new R(
           `Could not link ${t} ${r}: another session is recorded as using the entry at its cache path; retry the load or the install.`,
@@ -6648,9 +6648,9 @@ async function ace(e, t, r, o, u, d) {
       await B("publish", Be), await yOe(me, t, r, "publish");
     },
     Ce = M && _,
-    Ie = !1,
-    Ee = !1,
-    Pe = !1;
+    Ie = false,
+    Ee = false,
+    Pe = false;
   try {
     if (o && typeof o.source === "string" && u) {
       let Ve = gOe(u, o.source);
@@ -6669,20 +6669,20 @@ async function ace(e, t, r, o, u, d) {
     if (ze !== null && x !== void 0 && !(await vb(F, Af())) ? await YXn(x, ze) : (await qM(me)).length === 0)
       throw Error(`Failed to copy plugin ${t} to versioned cache: destination is empty after copy`);
     if (M) eIt(await cH(me, sce), me);
-    if (Ce) Pe = !0;
+    if (Ce) Pe = true;
     else if (M) {
       await ge("during publish");
       try {
-        await pH(me, F), (Ie = !0);
+        await pH(me, F), (Ie = true);
       } catch (Ve) {
         let Pt = async () => {
             let tt = await Sh(F);
             return tt === "other" || (tt === "symlink" && (await bOe(F)));
           },
-          ct = async () => (await wPe(F)) && (await Pt()) && (await QR(F, { whenUnreadable: !1 }).catch(() => !1)),
+          ct = async () => (await wPe(F)) && (await Pt()) && (await QR(F, { whenUnreadable: false }).catch(() => false)),
           ut = async (tt) => {
             if (await ct())
-              return n(`Plugin ${t} version ${r} was cached concurrently at ${F}; using it (${l(tt)})`), !0;
+              return n(`Plugin ${t} version ${r} was cached concurrently at ${F}; using it (${l(tt)})`), true;
             throw new R(
               `Could not publish ${t} ${r} into the plugin cache (${l(tt)}); retry the load or the install.`,
               "plugin cache staged publish could not complete",
@@ -6691,7 +6691,7 @@ async function ace(e, t, r, o, u, d) {
           en = async () => {
             await ge("during publish");
             try {
-              await pH(me, F), (Ie = !0);
+              await pH(me, F), (Ie = true);
             } catch (tt) {
               Ee = await ut(tt);
             }
@@ -6706,9 +6706,9 @@ async function ace(e, t, r, o, u, d) {
             nn === "other" &&
             (await zk(F).then(
               (mt) => mt.isDirectory(),
-              () => !1,
+              () => false,
             ));
-          if ((tt || nn === "symlink") && (await tS(F, { excludeSelf: !0 }, x).catch(() => !0)))
+          if ((tt || nn === "symlink") && (await tS(F, { excludeSelf: true }, x).catch(() => true)))
             throw new R(
               `Could not publish ${t} ${r}: another session is recorded as using the entry at its cache path; retry the load or the install.`,
               "plugin cache payload-free debris has live users",
@@ -6721,7 +6721,7 @@ async function ace(e, t, r, o, u, d) {
             nn === "symlink"
               ? await nC(F).then(
                   (mt) => mt !== "directory",
-                  () => !1,
+                  () => false,
                 )
               : (await DO(F)) === "removed")
           )
@@ -6746,7 +6746,7 @@ async function ace(e, t, r, o, u, d) {
         try {
           await pH(me, F);
         } catch (Be) {
-          if ((await Sh(F)) !== "other" || (await QR(F)) || (await tS(F, { excludeSelf: !0 }, x).catch(() => !0)))
+          if ((await Sh(F)) !== "other" || (await QR(F)) || (await tS(F, { excludeSelf: true }, x).catch(() => true)))
             throw Be;
           if ((await V4(F, x), (await DO(F)) !== "removed")) throw Be;
           await ge("after a failed archive"), await pH(me, F);
@@ -6781,7 +6781,7 @@ async function ace(e, t, r, o, u, d) {
         if (Pe && (await Sh(U)) === "absent") await Fe();
         throw Be;
       }
-      if (Pe && (await wPe(F).catch(() => !1)) && (await Sh(F)) === "other" && !(await QR(F))) await KWe(F);
+      if (Pe && (await wPe(F).catch(() => false)) && (await Sh(F)) === "other" && !(await QR(F))) await KWe(F);
       return n(`Successfully cached plugin ${t} as ZIP at ${U}`), U;
     }
   } finally {
@@ -6846,7 +6846,7 @@ async function Bgr(e, t, r = {}) {
     n(`Installing npm package ${u} to cache`);
     let A = ["install", u, "--prefix", o, "--no-fund", "--no-audit", "--no-progress", "--loglevel=error"];
     if (r.registry) A.push("--registry", r.registry);
-    let x = await $e("npm", A, { useCwd: !1, toolCgroupClass: "plugin" });
+    let x = await $e("npm", A, { useCwd: false, toolCgroupClass: "plugin" });
     if (x.code !== 0)
       throw ft(Error(`Failed to install npm package: ${x.stderr}`), "plugin npm install failed (stderr redacted)");
   } else n(`npm cache hit for ${e}@${_} (pinned, matches requested)`);
@@ -6870,7 +6870,7 @@ async function XXn(e, t, r) {
       let A = await hie(u);
       switch (A.kind) {
         case "junction":
-          C = !0;
+          C = true;
           break;
         case "directory":
           break;
@@ -7044,13 +7044,13 @@ async function Wgr(e, t, r, o, u, d = t) {
       fe = W ? ` sha=${W}` : "";
     return n(`Extracted subdir ${r} from ${_}${pe}${fe} to ${t}`), W;
   } finally {
-    await x0(C, { recursive: !0, force: !0 });
+    await x0(C, { recursive: true, force: true });
   }
 }
 
-async function EMt(e, t, r, o = !1, { noFollowFiles: u = !1 } = {}) {
+async function EMt(e, t, r, o = false, { noFollowFiles: u = false } = {}) {
   if (!(await $a(e))) throw Error(`Source path does not exist: ${e}`);
-  await sce(e, t, e, t, r || e, o, new Set(), RB(), !1, u, !0);
+  await sce(e, t, e, t, r || e, o, new Set(), RB(), false, u, true);
   let d = Ks(t, ".git");
   await Tc(d);
 }
@@ -7110,13 +7110,13 @@ async function Rqe(e, t) {
     A = async () => {
       if (d !== void 0) await le().mkdir(fd(_));
     },
-    x = !1,
+    x = false,
     M,
     F,
     U,
     B;
   try {
-    if ((n(`Caching plugin from source: ${b(XGn(e))} to temporary path ${_}`), (x = !0), typeof e === "string"))
+    if ((n(`Caching plugin from source: ${b(XGn(e))} to temporary path ${_}`), (x = true), typeof e === "string"))
       await A(), await EMt(e, _, t?.containmentRoot, u);
     else
       switch (e.source) {
@@ -7138,7 +7138,7 @@ async function Rqe(e, t) {
             _,
             C,
             t?.archiveAuth,
-            t?.entryDeclaresComponents ?? !1,
+            t?.entryDeclaresComponents ?? false,
             t?.declaredComponentPaths === void 0 ? [] : t.declaredComponentPaths,
           );
           break;
@@ -7147,7 +7147,7 @@ async function Rqe(e, t) {
             e,
             _,
             async (Ie, Ee) => {
-              await A(), await EMt(Ie, Ee, void 0, u, { noFollowFiles: !0 });
+              await A(), await EMt(Ie, Ee, void 0, u, { noFollowFiles: true });
             },
             t?.commandSourceConsent,
           );
@@ -7166,7 +7166,7 @@ async function Rqe(e, t) {
       }
     if (u && !RF(e)) eIt(await cH(_, sce), _);
     let ge = typeof e === "string" ? e : e.source;
-    if (((B = await u9(_, o, ge, [Ks(_, dcn)])), !RF(e))) await rfn(_, { keepGit: !0 });
+    if (((B = await u9(_, o, ge, [Ks(_, dcn)])), !RF(e))) await rfn(_, { keepGit: true });
   } catch (ge) {
     if (x && (u || (await $a(_)))) {
       n(`Cleaning up failed installation at ${_}`);
@@ -7205,7 +7205,7 @@ function Ggr(e, t) {
   return d === null ? void 0 : { scope: u, path: d };
 }
 
-async function n8n(e, t, r, o, u = !1, d = []) {
+async function n8n(e, t, r, o, u = false, d = []) {
   return Hr("plugin_archive_install", async () => {
     if (d === null)
       throw new R(
@@ -7243,7 +7243,7 @@ async function n8n(e, t, r, o, u = !1, d = []) {
           }
         }
       }
-      if ((await u9(U, wc(r), "archive", [Ks(U, dcn)], { isProbe: !0 }), !u && !(await tfn(U))))
+      if ((await u9(U, wc(r), "archive", [Ks(U, dcn)], { isProbe: true }), !u && !(await tfn(U))))
         throw new R(
           `Plugin archive from ${Tp(e.url)} has no plugin content at its root (expected .claude-plugin/ or a commands/, skills/, agents/, hooks/, themes/, output-styles/, monitors/, workflows/, SKILL.md, .mcp.json, or .lsp.json at the top level, optionally inside a single wrapper directory). The archive was not installed.`,
           "plugin archive has no plugin-shaped root",
@@ -7251,7 +7251,7 @@ async function n8n(e, t, r, o, u = !1, d = []) {
       if (fd(t) !== Af()) await le().mkdir(fd(t));
       return await Ii(U, t), A;
     } finally {
-      await x0(x, { recursive: !0, force: !0 }).catch(() => {});
+      await x0(x, { recursive: true, force: true }).catch(() => {});
     }
   });
 }
@@ -7417,11 +7417,11 @@ function $Se(e, t) {
   return o;
 }
 
-async function Wk(e, t, r, o, u, d, _, C, A = !1, x) {
+async function Wk(e, t, r, o, u, d, _, C, A = false, x) {
   let M = await Promise.all(
       e.map(async (U) => {
         let B = $Se(t, U);
-        if (B === null) return { relPath: U, fullPath: null, exists: !1, isDirectory: !1 };
+        if (B === null) return { relPath: U, fullPath: null, exists: false, isDirectory: false };
         return { relPath: U, fullPath: B, ...(await NMt(x, B)) };
       }),
     ),
@@ -7560,7 +7560,7 @@ function RMt(e, t, r) {
   });
 }
 
-async function kqe(e, t, r, o, u = !0, d) {
+async function kqe(e, t, r, o, u = true, d) {
   let _ = [],
     C = [],
     { manifest: A, manifestPath: x, depConstraints: M } = await u9(e, o, t, [], void 0, d),
@@ -7571,14 +7571,14 @@ async function kqe(e, t, r, o, u = !0, d) {
       if (O() && d !== void 0 && ht !== null) {
         let At = new Set(),
           dn,
-          Lt = !1;
+          Lt = false;
         do {
           let fn = await d.listEntries(
             { namespace: "pluginCache", marketplace: ht.marketplace, plugin: ht.plugin, version: ht.version },
-            { skipKeyStats: !0, ...(dn === void 0 ? {} : { cursor: dn }) },
+            { skipKeyStats: true, ...(dn === void 0 ? {} : { cursor: dn }) },
           );
           if (!fn.ok) {
-            Lt = !0;
+            Lt = true;
             break;
           }
           for (let Sn of fn.value.items) {
@@ -7588,7 +7588,7 @@ async function kqe(e, t, r, o, u = !0, d) {
           dn = fn.value.cursor;
         } while (dn !== void 0);
         if (!Lt) {
-          let fn = (Sn, bn) => (bn ? Promise.resolve(!0) : $a(Ks(e, Sn)));
+          let fn = (Sn, bn) => (bn ? Promise.resolve(true) : $a(Ks(e, Sn)));
           return Promise.all([...nt.map((Sn) => fn(Sn, At.has(Sn))), fn("workflows", At.has("workflows"))]);
         }
       }
@@ -7607,7 +7607,7 @@ async function kqe(e, t, r, o, u = !0, d) {
     else if (nt === "outputStyles") fn = A.outputStyles;
     let Sn = [];
     if (Lt !== void 0) Sn.push(`experimental.${nt}`);
-    if (A[nt] !== void 0 && (Lt === void 0 || !0)) Sn.push(nt);
+    if (A[nt] !== void 0 && (Lt === void 0 || true)) Sn.push(nt);
     if (!fn || !ht) continue;
     iV(A.name, me, At);
     let bn = Ks(e, dn);
@@ -7659,7 +7659,7 @@ async function kqe(e, t, r, o, u = !0, d) {
         mode: "assign",
         origin: "manifest",
         resolvePath: $Se,
-        registerInlineContent: !0,
+        registerInlineContent: true,
         errors: _,
       },
       d,
@@ -7668,7 +7668,7 @@ async function kqe(e, t, r, o, u = !0, d) {
   if (Ce) F.agentsPath = ze;
   if (A.agents) {
     let nt = Array.isArray(A.agents) ? A.agents : [A.agents],
-      ht = await Wk(nt, e, A.name, t, "agents", "Agent", "specified in manifest but", _, !1, d);
+      ht = await Wk(nt, e, A.name, t, "agents", "Agent", "specified in manifest but", _, false, d);
     if (ht.length > 0) F.agentsPaths = ht;
   }
   let We = Ks(e, "skills");
@@ -7677,11 +7677,11 @@ async function kqe(e, t, r, o, u = !0, d) {
     let nt = Array.isArray(A.skills) ? A.skills : [A.skills],
       ht = Xa(We),
       At = Xa(e),
-      dn = (await Wk(nt, e, A.name, t, "skills", "Skill", "specified in manifest but", _, !0, d)).filter((Lt) => {
+      dn = (await Wk(nt, e, A.name, t, "skills", "Skill", "specified in manifest but", _, true, d)).filter((Lt) => {
         let fn = Xa(Lt);
-        if (fn === ht) return !1;
-        if (me === nu && fn === At) return !1;
-        return !0;
+        if (fn === ht) return false;
+        if (me === nu && fn === At) return false;
+        return true;
       });
     if (dn.length > 0) F.skillsPaths = dn;
   } else if (!Ie && me !== nu) {
@@ -7691,7 +7691,7 @@ async function kqe(e, t, r, o, u = !0, d) {
   if (Pe) F.outputStylesPath = Ve;
   if (Ee) {
     let nt = Array.isArray(Ee) ? Ee : [Ee],
-      ht = await Wk(nt, e, A.name, t, "output-styles", "Output style", "specified in manifest but", _, !1, d);
+      ht = await Wk(nt, e, A.name, t, "output-styles", "Output style", "specified in manifest but", _, false, d);
     if (ht.length > 0) F.outputStylesPaths = ht;
   }
   let Pt = Ks(e, "themes");
@@ -7699,13 +7699,13 @@ async function kqe(e, t, r, o, u = !0, d) {
   let ct = A.experimental?.themes ?? A.themes;
   if (ct) {
     let nt = Array.isArray(ct) ? ct : [ct],
-      ht = await Wk(nt, e, A.name, t, "themes", "Theme", "specified in manifest but", _, !1, d);
+      ht = await Wk(nt, e, A.name, t, "themes", "Theme", "specified in manifest but", _, false, d);
     if (ht.length > 0) F.themesPaths = ht;
   }
   if (Fe) F.workflowsPath = Ks(e, "workflows");
   if (A.workflows) {
     let nt = Array.isArray(A.workflows) ? A.workflows : [A.workflows],
-      ht = await Wk(nt, e, A.name, t, "workflows", "Workflow", "specified in manifest but", _, !1, d);
+      ht = await Wk(nt, e, A.name, t, "workflows", "Workflow", "specified in manifest but", _, false, d);
     if (ht.length > 0) F.workflowsPaths = ht;
   }
   let ut,
@@ -7823,7 +7823,7 @@ function PMt(e) {
 
 async function c8n(e, t, r) {
   let o = Ks(e, "settings.json"),
-    u = !1;
+    u = false;
   try {
     let d = O() && r !== void 0 ? await lae(r, o) : null,
       _;
@@ -7842,7 +7842,7 @@ async function c8n(e, t, r) {
       if (A) return n(`Loaded settings from settings.json for plugin ${t.name}`), y("plugin_load_settings"), A;
     }
   } catch (d) {
-    if (!Ht(d)) (u = !0), n(`Failed to parse settings.json for plugin ${t.name}: ${d}`, { level: "warn" });
+    if (!Ht(d)) (u = true), n(`Failed to parse settings.json for plugin ${t.name}: ${d}`, { level: "warn" });
   }
   if (t.settings) {
     let d = PMt(t.settings);
@@ -7896,14 +7896,14 @@ function xMt(e, t) {
   return r;
 }
 
-async function IOe({ cacheOnly: e, preview: t = !1, storageV5: r, credentials: o }) {
+async function IOe({ cacheOnly: e, preview: t = false, storageV5: r, credentials: o }) {
   let u = En(),
     d = { ...lle(), ...(u.enabledPlugins || {}) },
     _ = [],
     C = [],
     A = [],
     x = Object.entries(d).filter(([Ee, Pe]) => {
-      if (!AO().safeParse(Ee).success || Pe === void 0) return !1;
+      if (!AO().safeParse(Ee).success || Pe === void 0) return false;
       let { marketplace: Fe } = Vt(Ee);
       return Fe !== Uh && !uc(Fe);
     }),
@@ -7932,7 +7932,7 @@ async function IOe({ cacheOnly: e, preview: t = !1, storageV5: r, credentials: o
       let { name: Oe, marketplace: Fe } = Vt(Ee),
         Be = Fe ? W.get(Fe) : null,
         ze = Fe ? M[Fe] : void 0;
-      if (!Oe || !Fe || !Be?.renames || Pe === !1 || hI(ze?.source)) return [[Ee, Pe]];
+      if (!Oe || !Fe || !Be?.renames || Pe === false || hI(ze?.source)) return [[Ee, Pe]];
       let We = fe.get(Fe);
       if (!We) (We = new Set(Be.plugins.map((ct) => ct.name))), fe.set(Fe, We);
       if (We.has(Oe)) return [[Ee, Pe]];
@@ -8011,7 +8011,7 @@ async function IOe({ cacheOnly: e, preview: t = !1, storageV5: r, credentials: o
                 source: Ee,
                 marketplace: Fe,
                 reason: nt,
-                untrustedReservedName: !0,
+                untrustedReservedName: true,
               });
             else n(`Skipping reserved-name refusal error for disabled plugin ${Ee}`);
             return null;
@@ -8059,7 +8059,7 @@ async function IOe({ cacheOnly: e, preview: t = !1, storageV5: r, credentials: o
           Pt = await VXn(ge.plugins[Ee], { storageV5: r, trustedRoots: Ve }),
           ct = Pt === void 0 ? void 0 : { ...Pt, installPath: Xa(Se(), Pt.installPath) };
         if (typeof ze.entry.source !== "string" && !ct) {
-          if (!Is.filter(OOe).some((ht) => ye(ht)?.enabledPlugins?.[Ee] === !0)) {
+          if (!Is.filter(OOe).some((ht) => ye(ht)?.enabledPlugins?.[Ee] === true)) {
             let ht = await JG(
               Ee,
               ze.entry.source,
@@ -8075,8 +8075,8 @@ async function IOe({ cacheOnly: e, preview: t = !1, storageV5: r, credentials: o
                   type: "plugin-not-installed",
                   source: Ee,
                   plugin: ze.entry.name,
-                  ...(dn && { seedHasOtherVersion: !0 }),
-                  ...(l_(Pe) && Ce && { registryReadFailed: !0 }),
+                  ...(dn && { seedHasOtherVersion: true }),
+                  ...(l_(Pe) && Ce && { registryReadFailed: true }),
                 }),
                 null
               );
@@ -8088,14 +8088,14 @@ async function IOe({ cacheOnly: e, preview: t = !1, storageV5: r, credentials: o
             (ct !== void 0 && (ct.sourceCommand !== void 0 || ct.sourceProducerPath !== void 0)),
           en = ut || ct?.previousProducerPaths !== void 0;
         if (ut && FS()) {
-          if (l_(Pe)) C.push({ type: "generic-error", orphan: !0, source: Ee, plugin: ze.entry.name, error: hM });
+          if (l_(Pe)) C.push({ type: "generic-error", orphan: true, source: Ee, plugin: ze.entry.name, error: hM });
           return null;
         }
         if (RF(ze.entry.source) && ct === void 0) {
           if (l_(Pe))
             C.push({
               type: "generic-error",
-              orphan: !0,
+              orphan: true,
               source: Ee,
               plugin: ze.entry.name,
               error: `Not loading ${or(Ee, 200)}: it installs as a link farm but has no install record here; ${Uk("plugin install", Ee, { tail: "to record it", fallback: "install it explicitly to record it" })}.`,
@@ -8104,15 +8104,15 @@ async function IOe({ cacheOnly: e, preview: t = !1, storageV5: r, credentials: o
         }
         let nn = Pt?.installPath !== void 0 ? pC(Pt.installPath, { trustedRoots: Ve }) : void 0,
           xt = nn?.absolute,
-          tt = nn?.suspect ?? !1,
+          tt = nn?.suspect ?? false,
           lt =
             ct !== void 0 &&
-            (ct.sourceCommand?.endsWith(lgt) === !0 ||
+            (ct.sourceCommand?.endsWith(lgt) === true ||
               (ct.sourceCommand === void 0 &&
                 (ct.sourceProducerPath !== void 0 || ct.previousProducerPaths !== void 0) &&
                 RF(ze.entry.source)) ||
               tt ||
-              (en && xt !== void 0 && (await Xze(xt, { unclassifiableIsFarm: !0 }))));
+              (en && xt !== void 0 && (await Xze(xt, { unclassifiableIsFarm: true }))));
         if (
           ct !== void 0 &&
           lt &&
@@ -8120,13 +8120,13 @@ async function IOe({ cacheOnly: e, preview: t = !1, storageV5: r, credentials: o
             ct.sourceProducerPath === void 0 ||
             IU(ct.sourceProducerPath) ||
             kve(ct.sourceProducerPath) ||
-            n_(ct.sourceProducerPath, Se(), { foldCase: !0 }) ||
+            n_(ct.sourceProducerPath, Se(), { foldCase: true }) ||
             (xt !== void 0 && (await VDe(xt, ct.sourceProducerPath))))
         ) {
           if (l_(Pe))
             C.push({
               type: "generic-error",
-              orphan: !0,
+              orphan: true,
               source: Ee,
               plugin: ze.entry.name,
               error: tt
@@ -8135,14 +8135,14 @@ async function IOe({ cacheOnly: e, preview: t = !1, storageV5: r, credentials: o
             });
           return null;
         }
-        let mt = ct !== void 0 ? ct.sourceCommand?.endsWith(lgt) === !0 : RF(ze.entry.source),
+        let mt = ct !== void 0 ? ct.sourceCommand?.endsWith(lgt) === true : RF(ze.entry.source),
           Xe = await (e
             ? k8n(
                 ze.entry,
                 ze.marketplaceInstallLocation,
                 Be?.source,
                 Ee,
-                Pe === !0,
+                Pe === true,
                 C,
                 A,
                 ct?.installPath,
@@ -8154,7 +8154,7 @@ async function IOe({ cacheOnly: e, preview: t = !1, storageV5: r, credentials: o
                 ze.marketplaceInstallLocation,
                 Be?.source,
                 Ee,
-                Pe === !0,
+                Pe === true,
                 C,
                 A,
                 ct?.version,
@@ -8180,7 +8180,7 @@ async function IOe({ cacheOnly: e, preview: t = !1, storageV5: r, credentials: o
 function ucn(e, t) {
   return {
     type: "generic-error",
-    orphan: !0,
+    orphan: true,
     source: e,
     plugin: t,
     error: `${Oo(e)} is installed by running a command, and background command execution is currently switched off, so its missing cache was not rebuilt. Run \`${Ra("plugin update", e) ?? "claude plugin update <plugin>@<marketplace>"}\` in a terminal to rebuild it.`,
@@ -8197,7 +8197,7 @@ async function k8n(
   _,
   C,
   A,
-  { storageV5: x, linkFarm: M = !1, entryEnabled: F = u, registryReadFailed: U = !1 } = {},
+  { storageV5: x, linkFarm: M = false, entryEnabled: F = u, registryReadFailed: U = false } = {},
 ) {
   let B;
   if (typeof e.source === "string") {
@@ -8241,7 +8241,7 @@ async function k8n(
     if (C) await DA(C, x, M);
     if (C && (C.endsWith(".zip") ? await $a(C) : await tte(C, x))) B = C;
     else if (!C) {
-      let W = Is.filter(OOe).some((fe) => ye(fe)?.enabledPlugins?.[o] === !0),
+      let W = Is.filter(OOe).some((fe) => ye(fe)?.enabledPlugins?.[o] === true),
         z = await JG(o, e.source, void 0, void 0, e.version, "sha" in e.source ? e.source.sha : void 0),
         pe;
       if (W) {
@@ -8267,8 +8267,8 @@ async function k8n(
             type: "plugin-not-installed",
             source: o,
             plugin: e.name,
-            ...(fe && { seedHasOtherVersion: !0 }),
-            ...(F && U && { registryReadFailed: !0 }),
+            ...(fe && { seedHasOtherVersion: true }),
+            ...(F && U && { registryReadFailed: true }),
           }),
           null
         );
@@ -8294,7 +8294,7 @@ async function k8n(
   return sIt(e, o, u, d, _, B, { storageV5: x, linkFarm: M, entryEnabled: F });
 }
 
-async function v8n(e, t, r, o, u, d, _, C, A, { storageV5: x, linkFarm: M = !1, entryEnabled: F = u, credentials: U }) {
+async function v8n(e, t, r, o, u, d, _, C, A, { storageV5: x, linkFarm: M = false, entryEnabled: F = u, credentials: U }) {
   n(`Loading plugin ${e.name} from source: ${b(XGn(e.source))}`);
   let B;
   if (typeof e.source === "string") {
@@ -8384,7 +8384,7 @@ async function v8n(e, t, r, o, u, d, _, C, A, { storageV5: x, linkFarm: M = !1, 
                 trustedMarketplaceAuth: Zee(r, ND(o)),
                 trustedSettingsEntryAuth: ete(ND(o), e.name),
                 entry: e,
-                runEntryHelper: !1,
+                runEntryHelper: false,
               }),
               entryDeclaresComponents: xqe(e),
               declaredComponentPaths: Hqe(e),
@@ -8426,7 +8426,7 @@ async function v8n(e, t, r, o, u, d, _, C, A, { storageV5: x, linkFarm: M = !1, 
     } catch (pe) {
       throw (
         (n(`Failed to extract plugin ZIP ${B}, deleting corrupt file: ${pe}`),
-        await x0(B, { force: !0 }).catch(() => {}),
+        await x0(B, { force: true }).catch(() => {}),
         pe)
       );
     }
@@ -8434,10 +8434,10 @@ async function v8n(e, t, r, o, u, d, _, C, A, { storageV5: x, linkFarm: M = !1, 
   return sIt(e, o, u, d, _, B, { storageV5: x, linkFarm: M, entryEnabled: F });
 }
 
-async function sIt(e, t, r, o, u, d, { storageV5: _, linkFarm: C = !1, entryEnabled: A = r } = {}) {
+async function sIt(e, t, r, o, u, d, { storageV5: _, linkFarm: C = false, entryEnabled: A = r } = {}) {
   let x = [];
   await DA(d, _, C);
-  let { plugin: M, errors: F, warnings: U, hasManifest: B } = await kqe(d, t, r, e.name, e.strict ?? !0, _);
+  let { plugin: M, errors: F, warnings: U, hasManifest: B } = await kqe(d, t, r, e.name, e.strict ?? true, _);
   if ((x.push(...F), typeof e.source === "object" && "sha" in e.source && e.source.sha)) M.sha = e.source.sha;
   if (
     typeof e.source === "string" &&
@@ -8446,7 +8446,7 @@ async function sIt(e, t, r, o, u, d, { storageV5: _, linkFarm: C = !1, entryEnab
   ) {
     let z = Array.isArray(e.skills) ? e.skills : [e.skills];
     if (z.length > 0) {
-      let pe = await Wk(z, d, e.name, t, "skills", "Skill", "declared in marketplace entry but", [], !0, _);
+      let pe = await Wk(z, d, e.name, t, "skills", "Skill", "declared in marketplace entry but", [], true, _);
       if (pe.length > 0) {
         let fe = Ks(d, "skills"),
           me = Xa(fe),
@@ -8478,7 +8478,7 @@ async function sIt(e, t, r, o, u, d, { storageV5: _, linkFarm: C = !1, entryEnab
   } else if (
     !e.strict &&
     B &&
-    (e.commands || e.agents || e.skills || e.hooks || e.outputStyles || e.themes || e.experimental?.themes || !1)
+    (e.commands || e.agents || e.skills || e.hooks || e.outputStyles || e.themes || e.experimental?.themes || false)
   ) {
     if (
       (n(
@@ -8510,20 +8510,20 @@ async function MMt({ plugin: e, entry: t, pluginPath: r, pluginId: o, mode: u, e
         mode: u,
         origin: "marketplace-entry",
         resolvePath: $Se,
-        registerInlineContent: !1,
+        registerInlineContent: false,
         errors: d,
       },
       _,
     );
   if (t.agents) {
     let A = Array.isArray(t.agents) ? t.agents : [t.agents],
-      x = await Wk(A, r, t.name, o, "agents", "Agent", "from marketplace entry", d, !1, _);
+      x = await Wk(A, r, t.name, o, "agents", "Agent", "from marketplace entry", d, false, _);
     if (x.length > 0) e.agentsPaths = u === "append" ? [...(e.agentsPaths || []), ...x] : x;
   }
   if (t.skills) {
     let A = Array.isArray(t.skills) ? t.skills : [t.skills],
       x = Xa(Ks(r, "skills")),
-      M = (await Wk(A, r, t.name, o, "skills", "Skill", "from marketplace entry", d, !0, _)).filter((F) => Xa(F) !== x);
+      M = (await Wk(A, r, t.name, o, "skills", "Skill", "from marketplace entry", d, true, _)).filter((F) => Xa(F) !== x);
     if (u === "append") {
       let F = new Set((e.skillsPaths || []).map((B) => Xa(B))),
         U = M.filter((B) => !F.has(Xa(B)));
@@ -8532,13 +8532,13 @@ async function MMt({ plugin: e, entry: t, pluginPath: r, pluginId: o, mode: u, e
   }
   if (t.outputStyles) {
     let A = Array.isArray(t.outputStyles) ? t.outputStyles : [t.outputStyles],
-      x = await Wk(A, r, t.name, o, "output-styles", "Output style", "from marketplace entry", d, !1, _);
+      x = await Wk(A, r, t.name, o, "output-styles", "Output style", "from marketplace entry", d, false, _);
     if (x.length > 0) e.outputStylesPaths = u === "append" ? [...(e.outputStylesPaths || []), ...x] : x;
   }
   let C = t.experimental?.themes ?? t.themes;
   if (C) {
     let A = Array.isArray(C) ? C : [C],
-      x = await Wk(A, r, t.name, o, "themes", "Theme", "from marketplace entry", d, !1, _);
+      x = await Wk(A, r, t.name, o, "themes", "Theme", "from marketplace entry", d, false, _);
     if (x.length > 0) e.themesPaths = u === "append" ? [...(e.themesPaths || []), ...x] : x;
   }
   if (t.hooks) {
@@ -8562,7 +8562,7 @@ function Hqe(e) {
     r.push(_.themes);
   }
   let u = [],
-    d = !1;
+    d = false;
   for (let _ of r) {
     let C = Array.isArray(_)
       ? _
@@ -8577,7 +8577,7 @@ function Hqe(e) {
       let x = A.startsWith("./") ? A.slice(2) : A;
       if (x === "" || x === ".") continue;
       if (x.split(/[\\/]/).some((M) => /^[. ]+$/.test(M)) || !Mde(x)) {
-        d = !0;
+        d = true;
         continue;
       }
       if ((u.push(x), u.length >= 32)) return u;
@@ -8588,23 +8588,23 @@ function Hqe(e) {
 }
 
 function xqe(e) {
-  if (!e || typeof e !== "object") return !1;
+  if (!e || typeof e !== "object") return false;
   let t = e;
   return YGn.some((r) => (r === "experimental" ? x8n(t[r]) : aIt(t[r])));
 }
 
 function aIt(e) {
-  if (e === void 0 || e === null) return !1;
+  if (e === void 0 || e === null) return false;
   if (Array.isArray(e)) return e.length > 0;
   if (typeof e === "string") return e.length > 0;
   return typeof e === "object" && Object.keys(e).length > 0;
 }
 
 function x8n(e) {
-  if (!e || typeof e !== "object" || Array.isArray(e)) return !1;
+  if (!e || typeof e !== "object" || Array.isArray(e)) return false;
   let t = e;
-  if (P8n.some((r) => aIt(t[r]))) return !0;
-  return !1;
+  if (P8n.some((r) => aIt(t[r]))) return true;
+  return false;
 }
 
 function O8n(e) {
@@ -8617,8 +8617,8 @@ function Hpt(e) {
 }
 
 async function L8n(e) {
-  for (let t of xpt) if (await $a(Ks(e, t))) return !0;
-  return !1;
+  for (let t of xpt) if (await $a(Ks(e, t))) return true;
+  return false;
 }
 
 async function _Oe(e, t) {
@@ -8626,18 +8626,18 @@ async function _Oe(e, t) {
   for (let o of t) {
     let u = Xa(r, o);
     if (!u.startsWith(r + Oy)) continue;
-    if (await $a(u)) return !0;
+    if (await $a(u)) return true;
   }
-  return !1;
+  return false;
 }
 
 async function F8n(e) {
-  let t = (await qM(e, { withFileTypes: !0 })).filter((r) => r.name !== "__MACOSX" && r.name !== ".DS_Store");
+  let t = (await qM(e, { withFileTypes: true })).filter((r) => r.name !== "__MACOSX" && r.name !== ".DS_Store");
   return t.length === 1 && t[0].isDirectory() ? Ks(e, t[0].name) : void 0;
 }
 
 function lIt(e, t, r) {
-  if (t && !r) return !1;
+  if (t && !r) return false;
   return e.length === 0 || Air.test(e);
 }
 
@@ -8649,9 +8649,9 @@ function TOe(e, t) {
 async function fcn(e, t) {
   let r = TOe(e, um);
   try {
-    let { manifest: o, manifestPath: u } = await u9(e, r, `${r}@${um}`, [], { noTelemetry: !0 }, t),
+    let { manifest: o, manifestPath: u } = await u9(e, r, `${r}@${um}`, [], { noTelemetry: true }, t),
       d = u === null || wc(u) === "SKILL.md";
-    return lIt(o.name, d, !0) ? void 0 : o.name;
+    return lIt(o.name, d, true) ? void 0 : o.name;
   } catch {
     return;
   }
@@ -8682,20 +8682,20 @@ function OOe(e) {
     case "userSettings":
     case "flagSettings":
     case "policySettings":
-      return !0;
+      return true;
     case "localSettings":
       return !CC({ onIndeterminate: "tracked" });
     case "projectSettings":
-      return !1;
+      return false;
   }
 }
 
-function oae(e, t, r, o, { repoAuthoredContent: u = !1 } = {}) {
+function oae(e, t, r, o, { repoAuthoredContent: u = false } = {}) {
   let d = u ? j4() : void 0,
     _ = (C) => {
       let A = OTe(C, r);
-      if (A === void 0 || A.enabled) return !1;
-      if (d === void 0) return !0;
+      if (A === void 0 || A.enabled) return false;
+      if (d === void 0) return true;
       let x = d[A.index];
       return x !== void 0 && OOe(x);
     };
@@ -8704,9 +8704,9 @@ function oae(e, t, r, o, { repoAuthoredContent: u = !1 } = {}) {
 
 function SOe(e) {
   let t = Se();
-  if (n_(t, e, { foldCase: !0 })) return !0;
+  if (n_(t, e, { foldCase: true })) return true;
   let r = (o) => Xa(o).normalize("NFC").toLowerCase();
-  return n_(r(t), r(e), { alreadyComparable: !0 });
+  return n_(r(t), r(e), { alreadyComparable: true });
 }
 
 async function IMt(e, { marketplaceName: t = Nm, storageV5: r, enabledPluginsIndexed: o }) {
@@ -8793,7 +8793,7 @@ async function IMt(e, { marketplaceName: t = Nm, storageV5: r, enabledPluginsInd
             let Ce = await kH(),
               Ie = Ks(Ce, `inline-${x}-${W.replace(/[^a-zA-Z0-9\-_]/g, "-")}`);
             if (
-              (await x0(Ie, { recursive: !0, force: !0 }),
+              (await x0(Ie, { recursive: true, force: true }),
               await uye(M, Ie),
               n(`Extracted inline plugin zip to ${Ie}`),
               (M = await ugt(Ie)),
@@ -8801,7 +8801,7 @@ async function IMt(e, { marketplaceName: t = Nm, storageV5: r, enabledPluginsInd
             )
               n(`Inline plugin zip had wrapper directory; using ${M}`);
           }
-          let { plugin: z, errors: pe, warnings: fe, manifestPath: me } = await kqe(M, `${W}@${t}`, !0, W, !0, r),
+          let { plugin: z, errors: pe, warnings: fe, manifestPath: me } = await kqe(M, `${W}@${t}`, true, W, true, r),
             ge = cIt(z, `${t}[${x}]`, me, t === um);
           if (ge) {
             if (oae(W, t, o, z.name, { repoAuthoredContent: A.kind === "path" && SOe(Xa(A.value)) }))
@@ -8816,7 +8816,7 @@ async function IMt(e, { marketplaceName: t = Nm, storageV5: r, enabledPluginsInd
           if (U.installationPreference !== void 0) z.installationPreference = U.installationPreference;
           if (U.marketplaceName !== void 0) kBe(z.name, Ud(z.repository), U.marketplaceName, F);
           if (((z.enabled = Ygn(z.source, o, z.manifest.defaultEnabled)), A.kind === "path" && A.skipMcpDiscovery))
-            (z.skipMcpDiscovery = !0), (z.mcpServers = {});
+            (z.skipMcpDiscovery = true), (z.mcpServers = {});
           return n(`Loaded inline plugin from path: ${z.name}`), { plugin: z, errors: pe, warnings: fe };
         } catch (M) {
           let F = (pe) => pe.replace(/\?[^\s"']*/g, ""),
@@ -8832,7 +8832,7 @@ async function IMt(e, { marketplaceName: t = Nm, storageV5: r, enabledPluginsInd
             } catch {}
           let z =
             B !== void 0 && W !== void 0 && !Hpt(W)
-              ? await u9(W, B, `${B}@${t}`, [], { noTelemetry: !0 }, r)
+              ? await u9(W, B, `${B}@${t}`, [], { noTelemetry: true }, r)
                   .then(({ manifest: pe }) => pe.name)
                   .catch(() => {
                     return;
@@ -8880,16 +8880,16 @@ async function $8n(e, t) {
 }
 
 async function OMt(e, t, r) {
-  if ((await $8n(e, t)).has(".claude-plugin")) return !0;
-  return !1;
+  if ((await $8n(e, t)).has(".claude-plugin")) return true;
+  return false;
 }
 
 async function sUt(e, t = jxe()) {
   let r = await FGe(e),
     o = [],
     u = r.filter((U) => {
-      if (U.scope === "project" && !LSe()) return o.push(U), !1;
-      return !0;
+      if (U.scope === "project" && !LSe()) return o.push(U), false;
+      return true;
     }),
     d = (U, B, W) => oae(U, nu, t, W, { repoAuthoredContent: B === "project" }),
     _ = await Xb(
@@ -8898,16 +8898,16 @@ async function sUt(e, t = jxe()) {
         await new Promise((z) => setImmediate(z));
         let W = wc(U);
         try {
-          if (!(await OMt(e, U, W).catch(() => !1))) return null;
+          if (!(await OMt(e, U, W).catch(() => false))) return null;
           let {
             plugin: z,
             errors: pe,
             warnings: fe,
             hasManifest: me,
             manifestPath: ge,
-          } = await kqe(U, `${W}@${nu}`, !0, W, !1, e);
+          } = await kqe(U, `${W}@${nu}`, true, W, false, e);
           if (!LGe(z, me)) return pe.length || fe.length ? { plugin: null, errors: pe, warnings: fe } : null;
-          let Ce = cIt(z, `${W}@${nu}`, ge, !1);
+          let Ce = cIt(z, `${W}@${nu}`, ge, false);
           if (Ce) {
             if (d(W, B, z.name))
               return (
@@ -8930,7 +8930,7 @@ async function sUt(e, t = jxe()) {
           }
           return { plugin: z, errors: pe, warnings: fe };
         } catch (z) {
-          let pe = await u9(U, W, `${W}@${nu}`, [], { noTelemetry: !0 }, e)
+          let pe = await u9(U, W, `${W}@${nu}`, [], { noTelemetry: true }, e)
             .then(({ manifest: fe }) => fe.name)
             .catch(() => {
               return;
@@ -8961,7 +8961,7 @@ async function sUt(e, t = jxe()) {
       let W = B.scope !== U.plugin.scope;
       C.push({
         type: "generic-error",
-        orphan: !0,
+        orphan: true,
         source: `${wc(U.plugin.path)}@${nu}`,
         error: W
           ? `Not loaded \u2014 your ${Zl(FSe(B))} (same plugin name "${Qt(U.plugin.name)}") shadowed the project's ${Zl(FSe(U.plugin))}. To use the project's copy here, rename or move yours.`
@@ -9012,7 +9012,7 @@ async function sUt(e, t = jxe()) {
 
 function mcn(e, t) {
   let r = fp(e);
-  return t.find((o) => o.enabled !== !1 && Ud(o.source) !== um && fp(o.name) === r);
+  return t.find((o) => o.enabled !== false && Ud(o.source) !== um && fp(o.name) === r);
 }
 
 function Vgr(e) {
@@ -9025,19 +9025,19 @@ function Vgr(e) {
           n(`Plugin "${x.name}" from --plugin-dir is blocked by managed settings`, { level: "warn" }),
           t.push({
             type: "generic-error",
-            orphan: !0,
+            orphan: true,
             source: x.source,
             plugin: x.name,
             error: `--plugin-dir copy of "${Qt(x.name)}" ignored: plugin is locked by managed settings`,
           }),
-          !1
+          false
         );
-      return !0;
+      return true;
     }),
-    d = new Set(u.filter((x) => x.enabled !== !1).map((x) => x.name)),
+    d = new Set(u.filter((x) => x.enabled !== false).map((x) => x.name)),
     _ = e.marketplace.filter((x) => {
-      if (d.has(x.name)) return n(`Plugin "${x.name}" from --plugin-dir overrides installed version`), !1;
-      return !0;
+      if (d.has(x.name)) return n(`Plugin "${x.name}" from --plugin-dir overrides installed version`), false;
+      return true;
     }),
     C = [];
   if (e.skill?.length) {
@@ -9046,15 +9046,15 @@ function Vgr(e) {
     for (let M of d) x.set(M, "a session-only plugin (--plugin-dir / --plugin-url)");
     C = e.skill.filter((M) => {
       let F = e.managedNames?.has(M.name) ? "managed settings" : x.get(M.name);
-      if (!F) return !0;
+      if (!F) return true;
       return (
         t.push({
           type: "generic-error",
-          orphan: !0,
+          orphan: true,
           source: `${wc(M.path)}@${nu}`,
           error: `Not loaded \u2014 the name "${Qt(M.name)}" is already taken by ${Qt(F)}, which takes precedence. Give the plugin at ${Zl(FSe(M))} a different "name" (in plugin.json or SKILL.md frontmatter) to load this copy.`,
         }),
-        !1
+        false
       );
     });
   }
@@ -9064,7 +9064,7 @@ function Vgr(e) {
     for (let F of [u, _, C, e.builtin])
       for (let U of F) {
         let B = fp(U.name);
-        if (U.enabled !== !1 && !x.has(B)) x.set(B, U.source);
+        if (U.enabled !== false && !x.has(B)) x.set(B, U.source);
       }
     let M = new Map();
     A = e.synced.filter((F) => {
@@ -9073,7 +9073,7 @@ function Vgr(e) {
         return (
           t.push({
             type: "generic-error",
-            orphan: !0,
+            orphan: true,
             source: `${wc(F.path)}@${um}`,
             error:
               U.fate === "used"
@@ -9082,22 +9082,22 @@ function Vgr(e) {
                   ? `Not loaded \u2014 the claude.ai-synced copy in ${wc(F.path)}/ declares the same plugin name "${F.name}" as ${wc(U.first.path)}/, which is kept as a disabled row`
                   : `Not loaded \u2014 the claude.ai-synced copy in ${wc(F.path)}/ declares the same plugin name "${F.name}" as ${wc(U.first.path)}/ (the first claude.ai copy of that name); only one synced copy per name is considered`,
           }),
-          !1
+          false
         );
       let B,
         W = x.get(fp(F.name));
       if (o?.has(fp(F.name)))
         t.push({
           type: "generic-error",
-          orphan: !0,
+          orphan: true,
           source: F.source,
           error: `claude.ai-synced copy of "${F.name}" ignored: plugin is locked by managed settings`,
         }),
           (B = "dropped");
-      else if (W === void 0 || F.enabled === !1) B = F.enabled === !1 ? "disabled" : "used";
+      else if (W === void 0 || F.enabled === false) B = F.enabled === false ? "disabled" : "used";
       else
         n(`Synced plugin "${F.name}" shadowed by local copy ${W}`),
-          r.push({ type: "synced-plugin-shadowed", orphan: !0, source: F.source, shadowedBy: Oo(W) }),
+          r.push({ type: "synced-plugin-shadowed", orphan: true, source: F.source, shadowedBy: Oo(W) }),
           (B = "dropped");
       return M.set(fp(F.name), { first: F, fate: B }), B !== "dropped";
     });
@@ -9111,7 +9111,7 @@ function Dh(e, t) {
   let o = dIt(e);
   r.pluginLoadArm = o;
   let d = (async () => {
-    let _ = await LOe(() => IOe({ cacheOnly: !1, storageV5: e, credentials: t }), { storageV5: e });
+    let _ = await LOe(() => IOe({ cacheOnly: false, storageV5: e, credentials: t }), { storageV5: e });
     if (r.pluginLoad === d || ((!O() || e === void 0) && r.pluginLoadArm !== "v5" && r.pluginLoadCacheOnlyArm !== "v5"))
       (r.pluginLoadCacheOnly = Promise.resolve(_)), (r.pluginLoadCacheOnlyArm = o);
     return _;
@@ -9145,15 +9145,15 @@ function is(e, t) {
         let o = Dh(e, t);
         return (r.pluginLoadCacheOnlyArm = r.pluginLoadArm), o;
       }
-      return LOe(() => IOe({ cacheOnly: !0, storageV5: e, credentials: void 0 }), { storageV5: e });
+      return LOe(() => IOe({ cacheOnly: true, storageV5: e, credentials: void 0 }), { storageV5: e });
     })()),
     r.pluginLoadCacheOnly
   );
 }
 
 async function Ipt(e) {
-  return LOe(() => IOe({ cacheOnly: !0, preview: !0, storageV5: e, credentials: void 0 }), {
-    preview: !0,
+  return LOe(() => IOe({ cacheOnly: true, preview: true, storageV5: e, credentials: void 0 }), {
+    preview: true,
     storageV5: e,
   });
 }
@@ -9165,8 +9165,8 @@ async function JGn(e) {
     .map((r) => Ks(r.path, "bin"))
     .filter((r) => {
       if (Oy !== "\\" && /[:"'$`\\\n\r]/.test(r))
-        return n(`Dropping plugin bin path with shell metacharacters: ${r}`), !1;
-      return !0;
+        return n(`Dropping plugin bin path with shell metacharacters: ${r}`), false;
+      return true;
     });
 }
 
@@ -9191,7 +9191,7 @@ async function LOe(e, t) {
       ? []
       : [
           ...M4().map((ge) => ({ kind: "path", value: ge })),
-          ...N4().map((ge) => ({ kind: "path", value: ge, skipMcpDiscovery: !0 })),
+          ...N4().map((ge) => ({ kind: "path", value: ge, skipMcpDiscovery: true })),
           ...lie().map((ge) => ({ kind: "url", value: ge })),
         ],
     d = jxe(),
@@ -9222,7 +9222,7 @@ async function LOe(e, t) {
     W = [..._.errors, ...C.errors, ...A.errors, ...x.errors, ...U],
     z = [..._.warnings, ...C.warnings, ...A.warnings, ...x.warnings, ...B],
     { demoted: pe, errors: fe } = V1e(F);
-  for (let ge of F) if (pe.has(ge.source)) ge.enabled = !1;
+  for (let ge of F) if (pe.has(ge.source)) ge.enabled = false;
   W.push(...fe);
   let me = F.filter((ge) => ge.enabled);
   if ((n(`Found ${F.length} plugins (${me.length} enabled, ${F.length - me.length} disabled)`), t?.preview));
@@ -9332,7 +9332,7 @@ async function gIt(e, t, r) {
       return (
         n(`Skipping plugin output-style ${e}: not a regular file or exceeds ${mIt} byte limit`, { level: "warn" }), null
       );
-    let { frontmatter: d, content: _ } = ni(u, e, { normalizeKeys: !0 }),
+    let { frontmatter: d, content: _ } = ni(u, e, { normalizeKeys: true }),
       C = W8n(e, ".md"),
       A = (d.name != null ? String(d.name) : void 0) || C,
       x = `${t}:${A}`,
@@ -9460,7 +9460,7 @@ async function aQn(e, t) {
         .map((x) => ({ name: x.name, source: x.source })),
       ...A.flat().map((x) => ({ name: x.name, source: x.source })),
     ],
-    { resolves: !0 },
+    { resolves: true },
   );
   for (let x of A)
     for (let M of x)
@@ -9481,7 +9481,7 @@ function kNt() {
 
 async function jq() {
   let e = await fee(ee()),
-    t = Object.values(e).filter((d) => d !== null && d.source === "plugin" && d.forceForPlugin === !0),
+    t = Object.values(e).filter((d) => d !== null && d.source === "plugin" && d.forceForPlugin === true),
     r = t[0];
   if (r) {
     if (t.length > 1)
@@ -9532,7 +9532,7 @@ function mQn(e) {
 }
 
 function fQn(e) {
-  if (!Pte(e)) return !1;
+  if (!Pte(e)) return false;
   return !(UOe.isBriefEnabled() || nue());
 }
 
@@ -9593,20 +9593,20 @@ function AQn(e) {
   let t = $l()?.tengu_heron_brook;
   if (typeof t === "string" && t.trim() !== "") {
     let o = t.trim();
-    return s("tengu_heron_brook_applied", { len: o.length, fromClientData: !0 }), o;
+    return s("tengu_heron_brook_applied", { len: o.length, fromClientData: true }), o;
   }
   let r = I("tengu_heron_brook", "");
   if (r.trim() !== "") {
     let o = r.trim();
-    return s("tengu_heron_brook_applied", { len: o.length, fromClientData: !1 }), o;
+    return s("tengu_heron_brook_applied", { len: o.length, fromClientData: false }), o;
   }
-  if ($Wt(e)) return s("tengu_heron_brook_applied", { len: bIt.length, fromClientData: !1 }), bIt;
+  if ($Wt(e)) return s("tengu_heron_brook_applied", { len: bIt.length, fromClientData: false }), bIt;
   return null;
 }
 
 function PQn(e) {
   if (!Oyt(e)) return null;
-  return s("tengu_willow_tern_applied", { fromClientData: WKe() === !0 }), RQn;
+  return s("tengu_willow_tern_applied", { fromClientData: WKe() === true }), RQn;
 }
 
 function xQn(e) {
@@ -9618,7 +9618,7 @@ function xQn(e) {
 }
 
 function IQn(e) {
-  if (!I("tengu_amber_sextant", !0)) return null;
+  if (!I("tengu_amber_sextant", true)) return null;
   if (Pte(e) || $Qn())
     return `You are operating autonomously. The user is not watching in real time and cannot answer questions mid-task, so asking 'Want me to\u2026?' or 'Shall I\u2026?' will block the work. For reversible actions that follow from the original request, proceed without asking. Stop only for destructive actions or genuine scope changes the user must decide. Offering follow-ups after the task is done is fine; asking permission before doing the work is not.
 
@@ -9696,7 +9696,7 @@ function VQn() {
       "Be careful not to introduce security vulnerabilities such as command injection, XSS, SQL injection, and other OWASP top 10 vulnerabilities. If you notice that you wrote insecure code, immediately fix it. Prioritize writing safe, secure, and correct code.",
       ...t,
       "Avoid backwards-compatibility hacks like renaming unused _vars, re-exporting types, adding // removed comments for removed code, etc. If you are certain that something is unused, you can delete it completely.",
-      ...(I("tengu_verified_vs_assumed", !1)
+      ...(I("tengu_verified_vs_assumed", false)
         ? [
             "When reporting results, be accurate about what you verified vs. what you assumed. Distinguish between what you confirmed (ran a command, read a file) and what you believe but did not check. Do not assert assumptions as facts.",
           ]
@@ -9826,7 +9826,7 @@ Date: ${kue()}`,
     [x, M] = await Promise.all([ZA(A), jq()]),
     F = Je(),
     U = new Set(e.map((me) => me.name)),
-    B = o?.excludeDynamicSections === !0,
+    B = o?.excludeDynamicSections === true,
     W = UOe.isBriefEnabled() || nue(),
     z = [
       bc(`communication${C}${W ? ":send_user_msg" : ""}`, () => hQn(u)),
@@ -9834,7 +9834,7 @@ Date: ${kue()}`,
       bc(`action_caution${C}`, () => _Qn(u)),
       bc("task_continuity", () => SQn(_)),
       bc(kQn, () => (aze(Ye(t)) || KI(t) ? TQn : null)),
-      bc("tool_param_json", () => (Lnr() || ((Pte(_) || KI(u)) && I("tengu_silent_harbor", !1)) ? vQn : null)),
+      bc("tool_param_json", () => (Lnr() || ((Pte(_) || KI(u)) && I("tengu_silent_harbor", false)) ? vQn : null)),
       bc(`session_guidance${C}${B ? ":sdk" : ""}:${ay()}`, () => JQn(U, x, d, B)),
       ...(o?.excludeDynamicSections ? [] : [bc(`memory${C}`, () => nKe(u, { analysisOnly: o?.analysisOnly }))]),
       ...(o?.excludeDynamicSections
@@ -9867,7 +9867,7 @@ Date: ${kue()}`,
   return [
     ...(d
       ? [t7n(M, t)]
-      : [GQn(M), KQn(t), M === null || M.keepCodingInstructions === !0 ? VQn() : null, YQn(), XQn(U), ZQn()]),
+      : [GQn(M), KQn(t), M === null || M.keepCodingInstructions === true ? VQn() : null, YQn(), XQn(U), ZQn()]),
     ...(o?.excludeDynamicSections ? [$Jn(u)] : []),
     ...(Kde() ? [TO] : []),
     ...pe,
@@ -10066,7 +10066,7 @@ function xIt(e) {
 
 function cVn(e) {
   let t = PIt.of(e);
-  (t.committed = !0), t.resolve();
+  (t.committed = true), t.resolve();
 }
 
 function S7n() {
@@ -10156,36 +10156,36 @@ async function Zse(e, t) {
       }),
       t.model && ebt(t.model))
     ) {
-      if (e.strict === !0) {
+      if (e.strict === true) {
         let Pe = U6t(Ie);
-        if (Pe.ok) (fe.strict = !0), (fe.input_schema = Pe.schema);
+        if (Pe.ok) (fe.strict = true), (fe.input_schema = Pe.schema);
         else
           n(
             `Tool ${e.name} has strict: true but its schema is not strict-compatible (${Pe.reason}); sending non-strict`,
             { level: "warn" },
           );
-      } else if (e.strictInputJSONSchema && I("tengu_structured_output_strict", !1))
-        (fe.strict = !0), (fe.input_schema = e.strictInputJSONSchema);
+      } else if (e.strictInputJSONSchema && I("tengu_structured_output_strict", false))
+        (fe.strict = true), (fe.input_schema = e.strictInputJSONSchema);
     }
     let Ee = a.CLAUDE_CODE_ENABLE_FINE_GRAINED_TOOL_STREAMING;
     if (
-      Ee !== !1 &&
-      ((r === "firstParty" && jo() && I("tengu_fgts", !1)) ||
+      Ee !== false &&
+      ((r === "firstParty" && jo() && I("tengu_fgts", false)) ||
         (r === "vertex" && !a.ANTHROPIC_VERTEX_BASE_URL && u?.eagerInputStreaming?.vertex) ||
         (r === "bedrock" && !a.ANTHROPIC_BEDROCK_BASE_URL && u?.eagerInputStreaming?.bedrock) ||
-        Ee === !0)
+        Ee === true)
     )
-      fe.eager_input_streaming = !0;
+      fe.eager_input_streaming = true;
     s4t.register(pe, fe, ge);
   }
   let me = {
     name: fe.name,
     description: t.recordedDescription ?? fe.description,
     input_schema: fe.input_schema,
-    ...(fe.strict && { strict: !0 }),
-    ...(fe.eager_input_streaming && { eager_input_streaming: !0 }),
+    ...(fe.strict && { strict: true }),
+    ...(fe.eager_input_streaming && { eager_input_streaming: true }),
   };
-  if (t.deferLoading) me.defer_loading = !0;
+  if (t.deferLoading) me.defer_loading = true;
   if (t.cacheControl) me.cache_control = t.cacheControl;
   if (OV()) {
     let ge = !UKe(),
@@ -10199,7 +10199,7 @@ async function Zse(e, t) {
           description: me.description,
           input_schema: me.input_schema,
           ...(me.cache_control && { cache_control: me.cache_control }),
-          ...(ge && me.defer_loading && { defer_loading: !0 }),
+          ...(ge && me.defer_loading && { defer_loading: true }),
         }
       );
   }
@@ -10325,7 +10325,7 @@ ${o}`,
       IMPORTANT: this context may or may not be relevant to your tasks. You should not respond to this context unless it is highly relevant to your task.
 </system-reminder>
 `,
-      isMeta: !0,
+      isMeta: true,
     }),
     ...e,
   ];
@@ -10333,7 +10333,7 @@ ${o}`,
 
 async function uVn(e, t, r, o, u) {
   if (zh()) return;
-  if (!Le()) await Promise.race([xIt(e), ne(v7n, void 0, { unref: !0 })]);
+  if (!Le()) await Promise.race([xIt(e), ne(v7n, void 0, { unref: true })]);
   let d = () => {
       if (Object.keys(t).length === 0) return Promise.resolve({ tools: [] });
       try {
@@ -10422,8 +10422,8 @@ function M0(e, t, r, o) {
         ...(M !== void 0 && { run_in_background: M }),
         ...("dangerouslyDisableSandbox" in u &&
           u.dangerouslyDisableSandbox !== void 0 && { dangerouslyDisableSandbox: u.dangerouslyDisableSandbox }),
-        ...!1,
-        ...!1,
+        ...false,
+        ...false,
       };
     }
     case Uy.name: {
@@ -10447,18 +10447,18 @@ function M0(e, t, r, o) {
         file_path: A,
         old_string: x[0].old_string,
         new_string: x[0].new_string,
-        ...!1,
+        ...false,
       };
     }
     case Y_.name: {
       let u = Y_.inputSchema.safeParse(t);
       if (!u.success) return t;
       let d = /\.(md|mdx)$/i.test(u.data.file_path);
-      return { file_path: u.data.file_path, content: d ? u.data.content : Uge(u.data.content), ...!1 };
+      return { file_path: u.data.file_path, content: d ? u.data.content : Uge(u.data.content), ...false };
     }
     case AM: {
       let u = t;
-      return { task_id: u.task_id ?? u.agentId ?? u.bash_id ?? "", block: u.block ?? !0, timeout: u.timeout ?? 30000 };
+      return { task_id: u.task_id ?? u.agentId ?? u.bash_id ?? "", block: u.block ?? true, timeout: u.timeout ?? 30000 };
     }
     default:
       return t;

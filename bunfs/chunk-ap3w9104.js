@@ -33,7 +33,7 @@ function nq(q) {
         t(E9e(s)),
         p?.setAltScreenBackground(s),
         () => {
-          if (p ? !p.isAltScreenActive : !1) {
+          if (p ? !p.isAltScreenActive : false) {
             return;
           }
           p?.setAltScreenBackground(void 0), t(q_e());
@@ -56,10 +56,10 @@ function nq(q) {
       }
       return (
         t(fG() + x8(n)),
-        f?.setAltScreenActive(!0, n),
+        f?.setAltScreenActive(true, n),
         () => {
-          let D = f ? !f.isAltScreenActive : !1;
-          if ((f?.setAltScreenActive(!1), f?.clearTextSelection(), D)) {
+          let D = f ? !f.isAltScreenActive : false;
+          if ((f?.setAltScreenActive(false), f?.clearTextSelection(), D)) {
             t(n !== "off" ? F1 : "");
             return;
           }

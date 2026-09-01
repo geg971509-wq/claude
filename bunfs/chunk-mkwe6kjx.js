@@ -117,7 +117,7 @@ var n = m(() => ot({ id: i().describe("Job ID returned by CronCreate.") })),
     name: $S,
     searchHint: "cancel a scheduled cron job",
     maxResultSizeChars: 1e5,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return n();
     },
@@ -141,11 +141,11 @@ var n = m(() => ot({ id: i().describe("Job ID returned by CronCreate.") })),
     },
     async validateInput(e) {
       let r = (await U2()).find((a) => a.id === e.id);
-      if (!r) return { result: !1, message: `No scheduled job with id '${e.id}'`, errorCode: 1 };
+      if (!r) return { result: false, message: `No scheduled job with id '${e.id}'`, errorCode: 1 };
       let o = iS();
       if (o && r.agentId !== o.agentId)
-        return { result: !1, message: `Cannot delete cron job '${e.id}': owned by another agent`, errorCode: 2 };
-      return { result: !0 };
+        return { result: false, message: `Cannot delete cron job '${e.id}': owned by another agent`, errorCode: 2 };
+      return { result: true };
     },
     async call({ id: e }) {
       return await Fz([e]), { data: { id: e } };

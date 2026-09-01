@@ -37,7 +37,7 @@ class Azt {
   }
   async mkdir(r, e) {
     try {
-      await w(r, { recursive: !0, mode: e });
+      await w(r, { recursive: true, mode: e });
     } catch (t) {
       if (E(t) !== "EEXIST") throw t;
     }
@@ -81,7 +81,7 @@ class Azt {
     }
   }
   async listEntries(r) {
-    return (await u(r, { withFileTypes: !0 })).map((t) => ({
+    return (await u(r, { withFileTypes: true })).map((t) => ({
       name: t.name,
       isDirectory: t.isDirectory(),
       isFile: t.isFile(),

@@ -38,7 +38,7 @@ function nJ(r, t, e = 10 * B * R) {
       timeout: _,
       cwd: ee(),
       stdio: l,
-      reject: !1,
+      reject: false,
       input: u,
       useToolMemoryCgroup: c,
     });
@@ -50,7 +50,7 @@ function nJ(r, t, e = 10 * B * R) {
 }
 var p = 1000,
   g = 60;
-function $e(r, t, e = { timeout: 10 * g * p, preserveOutputOnError: !0, useCwd: !0 }) {
+function $e(r, t, e = { timeout: 10 * g * p, preserveOutputOnError: true, useCwd: true }) {
   return qe(r, t, {
     allowRepoGitHooks: e.allowRepoGitHooks,
     abortSignal: e.abortSignal,
@@ -69,7 +69,7 @@ function $e(r, t, e = { timeout: 10 * g * p, preserveOutputOnError: !0, useCwd: 
   });
 }
 function F(r) {
-  return E(r) === "ERR_CHILD_PROCESS_STDIO_MAXBUFFER" || r?.isMaxBuffer === !0 || r?.name === "MaxBufferError";
+  return E(r) === "ERR_CHILD_PROCESS_STDIO_MAXBUFFER" || r?.isMaxBuffer === true || r?.name === "MaxBufferError";
 }
 var D = new Set(["EPIPE", "ECONNRESET", "EOF"]);
 function P(r) {
@@ -102,7 +102,7 @@ async function qe(
   {
     abortSignal: e,
     timeout: s = 10 * g * p,
-    preserveOutputOnError: d = !0,
+    preserveOutputOnError: d = true,
     cwd: _,
     env: u,
     extendEnv: l,
@@ -114,9 +114,9 @@ async function qe(
     stderr: C,
     stripFinalNewline: S,
     allowRepoGitHooks: U,
-    useToolMemoryCgroup: W = !0,
+    useToolMemoryCgroup: W = true,
     toolCgroupClass: M = "helper",
-  } = { timeout: 10 * g * p, preserveOutputOnError: !0, maxBuffer: 1e6 },
+  } = { timeout: 10 * g * p, preserveOutputOnError: true, maxBuffer: 1e6 },
 ) {
   let N = r,
     w = Asr(N, t, u ?? process.env, u && "GIT_CONFIG_COUNT" in u ? u.GIT_CONFIG_COUNT : a.GIT_CONFIG_COUNT, {
@@ -138,7 +138,7 @@ async function qe(
       ...(C === void 0 ? {} : { stderr: C }),
       ...(l === void 0 ? {} : { extendEnv: l }),
       ...(W ? qi(M) : {}),
-      reject: !1,
+      reject: false,
     }),
     b = x === void 0 ? void 0 : P(y),
     o;
@@ -150,7 +150,7 @@ async function qe(
     else if (F(i))
       return (
         n(`execFileNoThrow maxBuffer exceeded: ${v}`, { level: "error" }),
-        { stdout: "", stderr: "", code: 1, maxBufferExceeded: !0 }
+        { stdout: "", stderr: "", code: 1, maxBufferExceeded: true }
       );
     else h(ft(we(i), "execFileNoThrow unexpected rejection"));
     return { stdout: "", stderr: "", code: 1 };
@@ -160,7 +160,7 @@ async function qe(
     return n(`execFileNoThrow ${i}`, { level: "error" }), { stdout: "", stderr: "", code: 1, error: i };
   }
   if (!o.failed) return { stdout: o.stdout || "", stderr: o.stderr || "", code: 0, exitCode: 0 };
-  let T = F(o) ? { maxBufferExceeded: !0 } : {};
+  let T = F(o) ? { maxBufferExceeded: true } : {};
   if (!d) return { stdout: "", stderr: "", code: o.exitCode ?? 1, exitCode: o.exitCode, ...T };
   let I = o.exitCode ?? 1;
   return { stdout: o.stdout || "", stderr: o.stderr || "", code: I, error: G(o, I), exitCode: o.exitCode, ...T };

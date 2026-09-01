@@ -148,12 +148,12 @@ async function F() {
   for (let e of d) {
     let { code: s, stdout: i } = await $e("mdfind", [`kMDItemCFBundleIdentifier == "${e.bundleId}"`], {
       timeout: 5000,
-      useCwd: !1,
+      useCwd: false,
     });
     if (s === 0 && i.trim().length > 0) return { name: e.name, command: e.app };
   }
   for (let e of d) {
-    let { code: s } = await $e("ls", [`/Applications/${e.app}.app`], { timeout: 1000, useCwd: !1 });
+    let { code: s } = await $e("ls", [`/Applications/${e.app}.app`], { timeout: 1000, useCwd: false });
     if (s === 0) return { name: e.name, command: e.app };
   }
   return { name: "Terminal.app", command: "Terminal" };
@@ -195,7 +195,7 @@ async function M() {
 }
 async function h(r, t) {
   let e = await M();
-  if (!e) return n("No terminal emulator detected", { level: "error" }), !1;
+  if (!e) return n("No terminal emulator detected", { level: "error" }), false;
   n(`Launching in terminal: ${e.name} (${e.command})`);
   let s = ["--deep-link-origin"];
   if (t.repo) {
@@ -211,7 +211,7 @@ async function h(r, t) {
     case "win32":
       return v(e, r, t);
     default:
-      return !1;
+      return false;
   }
 }
 async function k(r, t, e, s) {
@@ -229,8 +229,8 @@ async function k(r, t, e, s) {
     write text ${w(o)}
   end tell
 end tell`,
-        { code: m } = await $e("osascript", ["-e", l], { useCwd: !1 });
-      if (m === 0) return !0;
+        { code: m } = await $e("osascript", ["-e", l], { useCwd: false });
+      if (m === 0) return true;
       break;
     }
     case "Terminal": {
@@ -239,39 +239,39 @@ end tell`,
   do script ${w(o)}
   activate
 end tell`,
-        { code: m } = await $e("osascript", ["-e", l], { useCwd: !1 });
+        { code: m } = await $e("osascript", ["-e", l], { useCwd: false });
       return m === 0;
     }
     case "Ghostty": {
       let o = ["-na", r.command, "--args", "--window-save-state=never"];
       if (i) o.push(`--working-directory=${i}`);
       o.push("-e", t, ...u(s));
-      let { code: l } = await $e("open", o, { useCwd: !1 });
-      if (l === 0) return !0;
+      let { code: l } = await $e("open", o, { useCwd: false });
+      if (l === 0) return true;
       break;
     }
     case "Alacritty": {
       let o = ["-na", r.command, "--args"];
       if (i) o.push("--working-directory", i);
       o.push("-e", t, ...e);
-      let { code: l } = await $e("open", o, { useCwd: !1 });
-      if (l === 0) return !0;
+      let { code: l } = await $e("open", o, { useCwd: false });
+      if (l === 0) return true;
       break;
     }
     case "kitty": {
       let o = ["-na", r.command, "--args"];
       if (i) o.push("--directory", i);
       o.push(t, ...e);
-      let { code: l } = await $e("open", o, { useCwd: !1 });
-      if (l === 0) return !0;
+      let { code: l } = await $e("open", o, { useCwd: false });
+      if (l === 0) return true;
       break;
     }
     case "WezTerm": {
       let o = ["-na", r.command, "--args", "start"];
       if (i) o.push("--cwd", i);
       o.push("--", t, ...e);
-      let { code: l } = await $e("open", o, { useCwd: !1 });
-      if (l === 0) return !0;
+      let { code: l } = await $e("open", o, { useCwd: false });
+      if (l === 0) return true;
       break;
     }
   }
@@ -343,14 +343,14 @@ async function T(r, t, e = {}) {
   let s = (i) =>
     new Promise((o) => {
       let l = (c) => {
-          n(`Failed to spawn ${r}: ${c.message}`, { level: "error" }), o(!1);
+          n(`Failed to spawn ${r}: ${c.message}`, { level: "error" }), o(false);
         },
         m;
       try {
         m = x(r, t, {
-          detached: !0,
+          detached: true,
           stdio: "ignore",
-          windowsHide: !1,
+          windowsHide: false,
           cwd: i,
           windowsVerbatimArguments: e.windowsVerbatimArguments,
         });
@@ -360,12 +360,12 @@ async function T(r, t, e = {}) {
       fS(m.pid),
         m.once("error", l),
         m.once("spawn", () => {
-          m.unref(), o(!0);
+          m.unref(), o(true);
         });
     });
-  if (await s(e.cwd)) return !0;
+  if (await s(e.cwd)) return true;
   if (e.cwd) return s(void 0);
-  return !1;
+  return false;
 }
 var E = /^[A-Za-z0-9 /._=-]+$/;
 function u(r) {

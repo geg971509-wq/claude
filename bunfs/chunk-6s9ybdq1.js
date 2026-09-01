@@ -94,7 +94,7 @@ function N(e, t) {
     var f = r.length,
       s = t ? f : -1,
       p = Object(r);
-    while (t ? s-- : ++s < f) if (o(p[s], s, p) === !1) break;
+    while (t ? s-- : ++s < f) if (o(p[s], s, p) === false) break;
     return r;
   };
 }

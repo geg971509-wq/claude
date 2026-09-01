@@ -32,7 +32,7 @@ function VU(Ht) {
   if (i[2] !== f || i[3] !== m) (G = m ? f : tt(ee(), f)), (i[2] = f), (i[3] = m), (i[4] = G);
   else G = i[4];
   let J;
-  if (i[5] !== G) (J = e(t, { bold: !0, color: "subtle", children: G })), (i[5] = G), (i[6] = J);
+  if (i[5] !== G) (J = e(t, { bold: true, color: "subtle", children: G })), (i[5] = G), (i[6] = J);
   else J = i[6];
   let lt;
   if (i[7] !== F || i[8] !== J)
@@ -62,7 +62,7 @@ function VU(Ht) {
     const b = st - 12;
     let V;
     if (i[16] !== f || i[17] !== g || i[18] !== b)
-      (V = e(o_, { code: g, filePath: f, width: b, dim: !0 })), (i[16] = f), (i[17] = g), (i[18] = b), (i[19] = V);
+      (V = e(o_, { code: g, filePath: f, width: b, dim: true })), (i[16] = f), (i[17] = g), (i[18] = b), (i[19] = V);
     else V = i[19];
     let Y;
     if (i[20] !== K || i[21] !== m) (Y = !m && e(Jm, { count: K })), (i[20] = K), (i[21] = m), (i[22] = Y);
@@ -86,7 +86,7 @@ function VU(Ht) {
   const l = st - 12;
   let g;
   if (i[29] !== E || i[30] !== f || i[31] !== X || i[32] !== A || i[33] !== l)
-    (g = e(SQ, { hunks: A, dim: !0, width: l, filePath: f, firstLine: X, fileContent: E })),
+    (g = e(SQ, { hunks: A, dim: true, width: l, filePath: f, firstLine: X, fileContent: E })),
       (i[29] = E),
       (i[30] = f),
       (i[31] = X),
@@ -132,7 +132,7 @@ function GUe(zt) {
     y = T.reduce(at, 0),
     v;
   if (a[0] !== c)
-    (v = c > 0 ? r(U, { children: ["Added ", e(t, { bold: !0, children: c }), " ", c > 1 ? "lines" : "line"] }) : null),
+    (v = c > 0 ? r(U, { children: ["Added ", e(t, { bold: true, children: c }), " ", c > 1 ? "lines" : "line"] }) : null),
       (a[0] = c),
       (a[1] = v);
   else v = a[1];
@@ -142,7 +142,7 @@ function GUe(zt) {
     (I =
       y > 0
         ? r(U, {
-            children: [c === 0 ? "R" : "r", "emoved ", e(t, { bold: !0, children: y }), " ", y > 1 ? "lines" : "line"],
+            children: [c === 0 ? "R" : "r", "emoved ", e(t, { bold: true, children: y }), " ", y > 1 ? "lines" : "line"],
           })
         : null),
       (a[2] = c),
@@ -157,7 +157,7 @@ function GUe(zt) {
   if (Z) {
     if (ct !== "condensed" && !rt) {
       let u;
-      if (a[9] !== Z) (u = e(Pe, { children: e(t, { dimColor: !0, children: Z }) })), (a[9] = Z), (a[10] = u);
+      if (a[9] !== Z) (u = e(Pe, { children: e(t, { dimColor: true, children: Z }) })), (a[9] = Z), (a[10] = u);
       else u = a[10];
       return u;
     }
@@ -178,7 +178,7 @@ function GUe(zt) {
   const H = Gt - 12;
   let O;
   if (a[16] !== nt || a[17] !== et || a[18] !== ot || a[19] !== T || a[20] !== H)
-    (O = e(SQ, { hunks: T, dim: !1, width: H, filePath: et, firstLine: ot, fileContent: nt })),
+    (O = e(SQ, { hunks: T, dim: false, width: H, filePath: et, firstLine: ot, fileContent: nt })),
       (a[16] = nt),
       (a[17] = et),
       (a[18] = ot),

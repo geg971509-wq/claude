@@ -458,7 +458,7 @@ function j(je) {
     { message: X, args: z, onDone: Oe } = je;
   Yn(Oe, 0);
   let U;
-  if (q[0] !== z) (U = r(t, { dimColor: !0, children: [L.pointer, " /resume ", z] })), (q[0] = z), (q[1] = U);
+  if (q[0] !== z) (U = r(t, { dimColor: true, children: [L.pointer, " /resume ", z] })), (q[0] = z), (q[1] = U);
   else U = q[1];
   let D;
   if (q[2] !== X) (D = e(Pe, { children: e(t, { children: X }) })), (q[2] = X), (q[3] = D);
@@ -472,20 +472,20 @@ function j(je) {
 function se({ onDone: s, onResume: d }) {
   let [v, T] = u([]),
     [g, O] = u([]),
-    [b, w] = u(!0),
-    [M, a] = u(!1),
-    [n, c] = u(!1),
+    [b, w] = u(true),
+    [M, a] = u(false),
+    [n, c] = u(false),
     { rows: f } = Ee(),
     I = Ua(),
     { storageV5: P } = ge(),
-    S = C(!1),
-    H = C(!1),
+    S = C(false),
+    H = C(false),
     k = C(null),
-    V = C(!1),
+    V = C(false),
     E = C(0),
     x = B(
       async (m, i) => {
-        w(!0), (k.current = null);
+        w(true), (k.current = null);
         try {
           let R = m ? await xPe(void 0, void 0, P) : await ebe(i, void 0, void 0, P);
           if (S.current) return;
@@ -496,7 +496,7 @@ function se({ onDone: s, onResume: d }) {
           if (S.current) return;
           s("Failed to load conversations");
         } finally {
-          w(!1);
+          w(false);
         }
       },
       [s, P],
@@ -505,7 +505,7 @@ function se({ onDone: s, onResume: d }) {
     async function m() {
       let i = await LW(Se());
       if (S.current) return;
-      O(i), x(!1, i);
+      O(i), x(false, i);
     }
     m();
   }, [x]);
@@ -514,8 +514,8 @@ function se({ onDone: s, onResume: d }) {
         if (V.current) return;
         let i = k.current;
         if (!i || i.nextIndex >= i.allStatLogs.length) return;
-        V.current = !0;
-        let R = !1;
+        V.current = true;
+        let R = false;
         ute(i.allStatLogs, i.nextIndex, m, P)
           .then((p) => {
             if (k.current !== i || S.current) return;
@@ -528,10 +528,10 @@ function se({ onDone: s, onResume: d }) {
               }),
                 T((N) => N.concat(y)),
                 (E.current += y.length);
-            } else if (i.nextIndex < i.allStatLogs.length) R = !0;
+            } else if (i.nextIndex < i.allStatLogs.length) R = true;
           })
           .finally(() => {
-            if (((V.current = !1), R)) J(m);
+            if (((V.current = false), R)) J(m);
           });
       },
       [P],
@@ -542,7 +542,7 @@ function se({ onDone: s, onResume: d }) {
     }, [n, x, g]);
   async function Z(m) {
     if (H.current) return;
-    H.current = !0;
+    H.current = true;
     let i = Kr(Jc(m));
     if (!i) {
       s("Failed to resume conversation");
@@ -577,16 +577,16 @@ function se({ onDone: s, onResume: d }) {
       s(y, { display: "user" });
       return;
     }
-    a(!0), d(i, R, "slash_command_picker");
+    a(true), d(i, R, "slash_command_picker");
   }
   function W() {
-    (S.current = !0), s("Resume cancelled", { display: "system" });
+    (S.current = true), s("Resume cancelled", { display: "system" });
   }
   if ((Be("confirm:no", W, { context: "Confirmation", isActive: b && !M }), b || M))
     return r(fo, {
       color: "suggestion",
       children: [
-        e(t, { bold: !0, color: "suggestion", children: "Resume session" }),
+        e(t, { bold: true, color: "suggestion", children: "Resume session" }),
         e(o, {
           marginTop: 1,
           children: e(rr, { message: M ? "Resuming conversation\u2026" : "Loading conversations\u2026" }),
@@ -611,7 +611,7 @@ var Fe = async (s, d, v) => {
   let T = async (a, n, c) => {
       let f = await uq(a);
       if (f) {
-        s(Xie({ sessionId: a, holder: f, canFork: !1 }), { display: "user" });
+        s(Xie({ sessionId: a, holder: f, canFork: false }), { display: "user" });
         return;
       }
       try {
@@ -642,7 +642,7 @@ var Fe = async (s, d, v) => {
     if (n) return T(w, n, "slash_command_session_id"), null;
   }
   if (pce()) {
-    let a = await eM(g, { exact: !0 }, d.storageV5);
+    let a = await eM(g, { exact: true }, d.storageV5);
     if (a.length === 1) {
       let n = a[0],
         c = Kr(Jc(n));

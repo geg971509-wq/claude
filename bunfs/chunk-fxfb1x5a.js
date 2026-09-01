@@ -507,7 +507,7 @@ function xt(e) {
     },
     async sendPermissionResponseEvent(o, u, S) {
       wm(o, "sessionId");
-      let { url: _, body: L } = yIe(e.baseUrl, o, [u], e.useCcrV2Routing?.() ?? !0);
+      let { url: _, body: L } = yIe(e.baseUrl, o, [u], e.useCcrV2Routing?.() ?? true);
       t(`[bridge:api] POST ${_} type=${u.type}`);
       let x = await st.post(_, L, { headers: await d(S), timeout: 1e4, validateStatus: (te) => te < 500 });
       it(x.status, x.data, "SendPermissionResponseEvent"),
@@ -548,7 +548,7 @@ function it(e, t, r, a) {
   }
 }
 function ct(e) {
-  if (!e) return !1;
+  if (!e) return false;
   return e.includes("expired") || e.includes("lifetime");
 }
 function Bt(e) {
@@ -745,7 +745,7 @@ function Ut(e) {
       let L = S?.dir,
         x = () => {
           let Z = L;
-          return (L = void 0), Z ? mr(Z, { recursive: !0, force: !0 }).catch(() => {}) : Promise.resolve();
+          return (L = void 0), Z ? mr(Z, { recursive: true, force: true }).catch(() => {}) : Promise.resolve();
         },
         te = e.ownerIdentity?.(),
         G = {
@@ -793,7 +793,7 @@ function Ut(e) {
         e.onDebug(`[bridge:session] Debug log: ${d}`);
       let U;
       try {
-        U = gr(e.execPath, o, { cwd: r, stdio: ["pipe", "pipe", "pipe"], env: we, windowsHide: !0 });
+        U = gr(e.execPath, o, { cwd: r, stdio: ["pipe", "pipe", "pipe"], env: we, windowsHide: true });
       } catch (Z) {
         throw (x(), Z);
       }
@@ -801,8 +801,8 @@ function Ut(e) {
       let B = [],
         j = null,
         J = [],
-        P = !1,
-        We = !1;
+        P = false,
+        We = false;
       if (U.stderr)
         Yt({ input: U.stderr }).on("line", (X) => {
           if (X.startsWith(dMe)) {
@@ -857,7 +857,7 @@ function Ut(e) {
                   e.onPermissionRequest(t.sessionId, pe, t.accessToken);
               } else if (Ee.type === "user" && !We && t.onFirstUserMessage) {
                 let me = yr(Ee);
-                if (me) (We = !0), t.onFirstUserMessage(me);
+                if (me) (We = true), t.onFirstUserMessage(me);
               }
             }
           }
@@ -898,7 +898,7 @@ function Ut(e) {
           },
           forceKill() {
             if (!P && U.pid)
-              (P = !0),
+              (P = true),
                 e.onDebug(`[bridge:session] Sending SIGKILL to sessionId=${t.sessionId} pid=${U.pid}`),
                 U.kill("SIGKILL");
           },
@@ -1064,7 +1064,7 @@ async function Wr(e) {
     }
 }
 async function Wt(e) {
-  await Cr(e, { recursive: !0, force: !0 }).catch(() => {});
+  await Cr(e, { recursive: true, force: true }).catch(() => {});
 }
 async function Qt(e) {
   if (e?.dir) await Wt(e.dir);
@@ -1110,7 +1110,7 @@ async function Zt(e, t) {
     a
   );
 }
-var Lr = { type: "utf8", errorCorrectionLevel: "L", small: !0 };
+var Lr = { type: "utf8", errorCorrectionLevel: "L", small: true };
 function er(e) {
   let t = e.write ?? ((m) => process.stdout.write(m)),
     r = e.verbose,
@@ -1125,7 +1125,7 @@ function er(e) {
     L = "",
     x = null,
     te = [],
-    G = !1,
+    G = false,
     we = "",
     K = null,
     U = 0,
@@ -1458,10 +1458,10 @@ function tr(e) {
     let d = new AbortController(),
       i = () => d.abort();
     if (e.aborted || t.signal.aborted) return d.abort(), { signal: d.signal, cleanup: () => {} };
-    e.addEventListener("abort", i, { once: !0 });
+    e.addEventListener("abort", i, { once: true });
     let I = t.signal;
     return (
-      I.addEventListener("abort", i, { once: !0 }),
+      I.addEventListener("abort", i, { once: true }),
       {
         signal: d.signal,
         cleanup: () => {
@@ -1544,10 +1544,10 @@ function Fr(e) {
     : void 0;
 }
 function nr(e) {
-  if (e instanceof Ae) return !0;
+  if (e instanceof Ae) return true;
   if (e && typeof e === "object" && "status" in e && typeof e.status === "number")
     return e.status >= 400 && e.status < 500 && e.status !== 408 && e.status !== 429;
-  return !1;
+  return false;
 }
 var Gr = {
     connInitialMs: 2000,
@@ -1580,30 +1580,30 @@ function zr(e, t, r) {
 async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
   let L = new AbortController();
   if (I.aborted) L.abort();
-  else I.addEventListener("abort", () => L.abort(), { once: !0 });
+  else I.addEventListener("abort", () => L.abort(), { once: true });
   let x = L.signal,
     te = r,
     G = 0,
-    we = !1,
+    we = false,
     K = new Map(),
     U = new Map((e.initialSessionRequeues ?? []).map((f) => [f, 0])),
-    B = !1,
+    B = false,
     j = (f, F) => {
       let M = Tr(f),
-        v = !1;
-      for (let q of [...U.keys()]) if (Tr(q) === M) U.delete(q), (v = !0);
+        v = false;
+      for (let q of [...U.keys()]) if (Tr(q) === M) U.delete(q), (v = true);
       if (!v) return;
-      if (F) B = !0;
+      if (F) B = true;
       if (U.size === 0)
         if (B) g("bridge_shutdown_requeue", "requeue_dropped");
         else y("bridge_shutdown_requeue");
     },
-    J = !1,
+    J = false,
     P = new Map(),
     We = (f) => {
       let F = Tr(f);
-      for (let M of P.keys()) if (Tr(M) === F) return !0;
-      return !1;
+      for (let M of P.keys()) if (Tr(M) === F) return true;
+      return false;
     },
     Ie = new Set();
   function Oe(f, F) {
@@ -1629,15 +1629,15 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
     le = new Map(),
     Re = tr(x);
   async function xe() {
-    let f = !1,
-      F = !1,
+    let f = false,
+      F = false,
       M = [];
     for (let [v, q] of P) {
       let C = X.get(v),
         ie = q.accessToken;
       if (!C || !ie) continue;
       try {
-        await a.heartbeatWork(t, C, ie), (f = !0);
+        await a.heartbeatWork(t, C, ie), (f = true);
       } catch (ke) {
         if ((n(`[bridge:heartbeat] Failed for sessionId=${v} workId=${C}: ${l(ke)}`), ke instanceof Ae))
           if (
@@ -1648,7 +1648,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
             ke.status === 401 || ke.status === 403)
           )
             M.push(v);
-          else F = !0;
+          else F = true;
       }
     }
     for (let v of M) {
@@ -1672,15 +1672,15 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
     for (let [f, F] of U) {
       if (x.aborted) return;
       if (We(f)) {
-        j(f, !1);
+        j(f, false);
         continue;
       }
       let M = await kt(a, t, f, x);
       if (M === "aborted") return;
-      if (M === "done") j(f, !1);
+      if (M === "done") j(f, false);
       else if (F + 1 >= Et)
         n(`[bridge:poll] Giving up startup re-queue of sessionId=${f} after ${Et} attempts`, { level: "warn" }),
-          j(f, !0);
+          j(f, true);
       else U.set(f, F + 1);
     }
     for (let [f, F] of K) {
@@ -1728,8 +1728,8 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
     ye = null,
     Ke = 0,
     qe = null,
-    Ze = !1,
-    et = !1;
+    Ze = false,
+    et = false;
   if (
     (n(`[bridge:work] Starting poll loop spawnMode=${e.spawnMode} maxSessions=${e.maxSessions} environmentId=${t}`),
     Y("info", "bridge_loop_started", { max_sessions: e.maxSessions, spawn_mode: e.spawnMode }),
@@ -1745,10 +1745,10 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
       if (Ne) i.updateSessionActivity(be.get(ie) ?? ie, Ne);
     }
     if (P.size === 0) {
-      if (!Ze) (Ze = !0), i.updateIdleStatus();
+      if (!Ze) (Ze = true), i.updateIdleStatus();
       return;
     }
-    Ze = !1;
+    Ze = false;
     let [f, F] = [...P.entries()].pop(),
       M = Z.get(f);
     if (!M) return;
@@ -1773,7 +1773,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
   function ut(f, F, M) {
     return (v) => {
       let q = X.get(f);
-      P.delete(f), Oe(f, !1), Z.delete(f), X.delete(f), pe.get(f)?.stop(), pe.delete(f);
+      P.delete(f), Oe(f, false), Z.delete(f), X.delete(f), pe.get(f)?.stop(), pe.delete(f);
       let C = be.get(f) ?? f;
       if ((be.delete(f), i.removeSession(C), je.delete(C), m?.forget(C), C === N && _)) fe.set(C, new Set([_]));
       else fe.delete(C);
@@ -1810,7 +1810,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
       }
       if (v !== "interrupted" && q) Ee.add(q), re(Tt(a, t, q, te, i, o.stopWorkBaseDelayMs));
       let A = v === "failed" && !x.aborted && !et;
-      if (A) He.add(f), (J = !0);
+      if (A) He.add(f), (J = true);
       let ge = me.get(f);
       if (ge)
         if ((me.delete(f), A)) {
@@ -1858,10 +1858,10 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
         i.logReconnected(A),
           n(`[bridge:poll] Reconnected after ${$t(A)}`),
           s("tengu_bridge_reconnected", { disconnected_ms: A }),
-          (Ze = !1);
+          (Ze = false);
       }
-      if (((ce = 0), (Se = 0), (ue = null), (De = null), (ye = null), (J = !1), we))
-        (we = !1),
+      if (((ce = 0), (Se = 0), (ue = null), (De = null), (ye = null), (J = false), we))
+        (we = false),
           s("tengu_bridge_env_reregister", { attempt: G, outcome: w("recovered") }),
           y("bridge_env_reregister");
       if (((G = 0), !M)) {
@@ -2000,7 +2000,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
           let ge = P.get(A);
           if (ge) {
             K.delete(A),
-              j(A, !1),
+              j(A, false),
               ge.updateAccessToken(C.session_ingress_token),
               pe.get(A)?.updateAccessToken(C.session_ingress_token),
               X.set(A, M.id),
@@ -2088,11 +2088,11 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
                   switch (he.type) {
                     case "tool_start":
                     case "text":
-                      Oe(A, !0);
+                      Oe(A, true);
                       break;
                     case "result":
                     case "error":
-                      Oe(A, !1);
+                      Oe(A, false);
                       break;
                   }
                 },
@@ -2105,7 +2105,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
                     import("/$bunfs/root/chunk-3q6bb1yt.js")
                       .then(async ({ getBridgeSession: Ve }) => {
                         m ??= jnt({
-                          isOwnTitle: (de, W) => fe.get(de)?.has(W) ?? !1,
+                          isOwnTitle: (de, W) => fe.get(de)?.has(W) ?? false,
                           onRemoteTitleAdopted: (de, W) => i.setSessionTitle(de, W),
                         });
                         let T = await Ve(_e, { baseUrl: e.apiBaseUrl });
@@ -2127,7 +2127,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
           if (typeof pt === "string") {
             i.logError(`Failed to spawn session ${A}: ${pt}`), re(Qt(tt));
             let he = me.get(A);
-            if (he) me.delete(A), re(Ft(he, i, { force: !0, storageV5: e.storageV5 }));
+            if (he) me.delete(A), re(Ft(he, i, { force: true, storageV5: e.storageV5 }));
             Ee.add(M.id), re(Tt(a, t, M.id, te, i, o.stopWorkBaseDelayMs));
             break;
           }
@@ -2149,7 +2149,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
               worktree_create_ms: Qe,
             }),
             P.set(A, gt),
-            j(A, !1),
+            j(A, false),
             e.onSessionServiced?.(A),
             X.set(A, M.id),
             be.set(A, _e),
@@ -2204,7 +2204,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
             if (x.aborted) break;
             if (v.outcome !== "fatal") {
               if (v.outcome === "reregistered") {
-                (te = v.environmentSecret), (we = !0);
+                (te = v.environmentSecret), (we = true);
                 let q = new Map(K);
                 K.clear();
                 for (let C of v.pendingRequeues) K.set(C, (q.get(C) ?? 0) + 1);
@@ -2226,7 +2226,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
           } else
             s("tengu_bridge_env_reregister", { attempt: G, outcome: w("gave_up") }),
               p("bridge_env_reregister", "gave_up");
-        if (((et = !0), F.status !== 401 && ct(F.errorType))) i.logStatus(qt(F.message));
+        if (((et = true), F.status !== 401 && ct(F.errorType))) i.logStatus(qt(F.message));
         else if (Bt(F)) n(`[bridge:work] Suppressed 403 error: ${F.message}`);
         else if (It(F) && He.size > 0) dt();
         else i.logError(F.message), n(`[bridge:work] Fatal bridge error: ${F.message}`, { level: "error" });
@@ -2253,7 +2253,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
           i.logError(`Server unreachable for ${Math.round(q / 60000)} minutes, giving up.`),
             s("tengu_bridge_poll_give_up", { error_type: w("connection"), elapsed_ms: q }),
             Y("error", "bridge_poll_give_up", { error_type: "connection", elapsed_ms: q }),
-            (et = !0);
+            (et = true);
           break;
         }
         (De = null), (Se = 0), (ce = ce ? Math.min(ce * 2, o.connCapMs) : o.connInitialMs);
@@ -2280,7 +2280,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
           i.logError(`Persistent errors for ${Math.round(q / 60000)} minutes, giving up.`),
             s("tengu_bridge_poll_give_up", { error_type: w("general"), elapsed_ms: q }),
             Y("error", "bridge_poll_give_up", { error_type: "general", elapsed_ms: q }),
-            (et = !0);
+            (et = true);
           break;
         }
         (ue = null), (ce = 0), (Se = Se ? Math.min(Se * 2, o.generalCapMs) : o.generalInitialMs);
@@ -2295,7 +2295,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
       }
     }
   }
-  ot(), i.clearStatus({ final: !0 });
+  ot(), i.clearStatus({ final: true });
   let Pt = Date.now() - Le;
   s("tengu_bridge_shutdown", { active_sessions: P.size, loop_duration_ms: Pt }),
     Y("info", "bridge_shutdown", { active_sessions: P.size, loop_duration_ms: Pt });
@@ -2318,7 +2318,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
         isPersistedStampFresh: C,
       } = await import("/$bunfs/root/chunk-a19k99c4.js");
       await (e.enqueuePointerWrite ?? ((ke) => ke()))(async () => {
-        let ke = await F(e.dir, { noClear: !0 }, e.storageV5);
+        let ke = await F(e.dir, { noClear: true }, e.storageV5);
         if (!ke) return;
         let { ageMs: Ne, ...A } = ke,
           ge = [...P.keys()],
@@ -2345,7 +2345,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
     let F = Promise.allSettled(
         [...f.entries()].map(([v, q]) =>
           a
-            .stopWork(t, q, te, !0)
+            .stopWork(t, q, te, true)
             .then(() => y("bridge_work_stop"))
             .catch((C) => {
               if (It(C)) g("bridge_work_stop", "env_gone");
@@ -2396,7 +2396,7 @@ async function dr(e, t, r, a, d, i, I, o = Gr, u, S, _) {
   if (e.ownsPointer) {
     let { clearBridgePointer: f } = await import("/$bunfs/root/chunk-a19k99c4.js");
     await (e.enqueuePointerWrite ?? ((M) => M()))(async () => {
-      (e.pointerCleared = !0), await f(e.dir, e.storageV5);
+      (e.pointerCleared = true), await f(e.dir, e.storageV5);
     });
   }
   i.logVerbose("Environment offline.");
@@ -2412,8 +2412,8 @@ var Yr = new Set([
   "ERR_PROXY_TUNNEL",
 ]);
 function Xr(e) {
-  if (e && typeof e === "object" && "code" in e && typeof e.code === "string" && Yr.has(e.code)) return !0;
-  return !1;
+  if (e && typeof e === "object" && "code" in e && typeof e.code === "string" && Yr.has(e.code)) return true;
+  return false;
 }
 function Kr(e) {
   return !!e && typeof e === "object" && "code" in e && typeof e.code === "string" && e.code === "ERR_BAD_RESPONSE";
@@ -2427,7 +2427,7 @@ function Rt(e) {
 async function Tt(e, t, r, a, d, i = 1000) {
   for (let o = 1; o <= 3; o++)
     try {
-      await e.stopWork(t, r, a, !1),
+      await e.stopWork(t, r, a, false),
         n(`[bridge:work] stopWork succeeded for workId=${r} on attempt ${o}/3`),
         y("bridge_work_stop");
       return;
@@ -2441,7 +2441,7 @@ async function Tt(e, t, r, a, d, i = 1000) {
         else
           d.logError(`Failed to stop work ${r}: ${u.message}`),
             p("bridge_work_stop", u.status === 401 ? "fatal_401" : u.status === 403 ? "fatal_403" : "fatal_other");
-        Y("error", "bridge_stop_work_failed", { attempts: o, fatal: !0 });
+        Y("error", "bridge_stop_work_failed", { attempts: o, fatal: true });
         return;
       }
       let S = l(u);
@@ -2461,7 +2461,7 @@ async function Ft(e, t, r) {
       commitsAhead: i,
       gitError: I,
     } = a
-      ? { dirty: !1, commitsAhead: 0, gitError: !1 }
+      ? { dirty: false, commitsAhead: 0, gitError: false }
       : await HIe(e.worktreePath, e.headCommit, { hookBased: e.hookBased });
   if (d || i > 0) {
     let u = `${i} ${k(i, "commit")}`,
@@ -2514,27 +2514,27 @@ function en(e) {
   return t;
 }
 function tn(e) {
-  let t = !1,
-    r = !1,
+  let t = false,
+    r = false,
     a,
     d,
     i,
     I,
     o,
-    u = !1,
+    u = false,
     S,
     _,
     L,
     x,
-    te = !1,
-    G = !1,
+    te = false,
+    G = false,
     we = [];
   for (let U = 0; U < e.length; U++) {
     let B = e[U];
-    if (B === "--help" || B === "-h") u = !0;
-    else if (B === "--verbose" || B === "-v") t = !0;
-    else if (B === "--sandbox") r = !0;
-    else if (B === "--no-sandbox") r = !1;
+    if (B === "--help" || B === "-h") u = true;
+    else if (B === "--verbose" || B === "-v") t = true;
+    else if (B === "--sandbox") r = true;
+    else if (B === "--no-sandbox") r = false;
     else if (B === "--debug-file" && U + 1 < e.length) a = jt(e[++U]);
     else if (B.startsWith("--debug-file=")) a = jt(B.slice(13));
     else if (B === "--permission-mode" && U + 1 < e.length) d = bm(e[++U]);
@@ -2547,7 +2547,7 @@ function tn(e) {
       if (((x = e[++U]), !x)) return K("--session-id requires a value");
     } else if (B.startsWith("--session-id=")) {
       if (((x = B.slice(13)), !x)) return K("--session-id requires a value");
-    } else if (B === "--continue" || B === "-c") te = !0;
+    } else if (B === "--continue" || B === "-c") te = true;
     else if (B === "--spawn" || B.startsWith("--spawn=")) {
       if (S !== void 0) return K("--spawn may only be specified once");
       let j = B.startsWith("--spawn=") ? B.slice(8) : e[++U],
@@ -2560,9 +2560,9 @@ function tn(e) {
         J = Zr(j);
       if (typeof J === "number") _ = J;
       else return K(J);
-    } else if (B === "--create-session-in-dir") L = !0;
-    else if (B === "--no-create-session-in-dir") L = !1;
-    else if (B === "--enable-live-preview") G = !0;
+    } else if (B === "--create-session-in-dir") L = true;
+    else if (B === "--no-create-session-in-dir") L = false;
+    else if (B === "--enable-live-preview") G = true;
     else if (B === "--preview-port" || B.startsWith("--preview-port=")) {
       let j = B.startsWith("--preview-port=") ? B.slice(15) : e[++U],
         J = en(j);
@@ -2694,9 +2694,9 @@ async function sn(e) {
 async function on(e, t, r) {
   try {
     let { getFeatureValue_CACHED_MAY_BE_STALE: a } = await import("/$bunfs/root/chunk-2sq45cbb.js");
-    if (!a("tengu_bridge_unarchive_on_resume", !0)) return !1;
+    if (!a("tengu_bridge_unarchive_on_resume", true)) return false;
     let d = await sn(r);
-    if (!d) return !1;
+    if (!d) return false;
     let { accessToken: i, useV2: I, orgUUID: o, trustedDeviceToken: u } = d,
       { unarchiveCodeSession: S } = await import("/$bunfs/root/chunk-rnbgmv20.js"),
       _ = await S(t, i, e, 1e4, { useV2: I, orgUUID: o, trustedDeviceToken: u });
@@ -2708,14 +2708,14 @@ async function on(e, t, r) {
       return (
         y("bridge_session_unarchive"),
         n(`[bridge:init] Unarchived reaped session ${e} before reattach (status=${String(_)})`),
-        !0
+        true
       );
     if (_ === 409)
       return (
         n(
           `[bridge:init] Session ${e} already active (unarchived by another client) \u2014 resuming without a mutation to compensate`,
         ),
-        !1
+        false
       );
     return (
       p("bridge_session_unarchive", typeof _ === "number" ? `http_${_}` : _),
@@ -2723,10 +2723,10 @@ async function on(e, t, r) {
         `[bridge:init] Unarchive of reaped session ${e} failed (status=${String(_)}) \u2014 keeping prior reattach behavior`,
         { level: "warn" },
       ),
-      !1
+      false
     );
   } catch (a) {
-    return n(`[bridge:init] unarchiveBridgeSessionIfNeeded(${e}) failed: ${l(a)}`, { level: "warn" }), !1;
+    return n(`[bridge:init] unarchiveBridgeSessionIfNeeded(${e}) failed: ${l(a)}`, { level: "warn" }), false;
   }
 }
 async function an(e, t) {
@@ -2738,7 +2738,7 @@ function lr(e, t, r, a, d, i, I, o, u, S) {
     (L, x, te, G, we, K, U, B, j, J) =>
       void x().then((P) =>
         U(() => {
-          if (K.aborted || J()) return Promise.resolve(!1);
+          if (K.aborted || J()) return Promise.resolve(false);
           if (
             G.activeSessionIds !== void 0 &&
             (G.activeSessionIdsPersistedAt === void 0 || !j(G.activeSessionIdsPersistedAt, Date.now(), B))
@@ -2851,7 +2851,7 @@ control. Press Ctrl+C to stop.
       (H.close(),
       await m((W) => {
         if (W.remoteDialogSeen) return W;
-        return { ...W, remoteDialogSeen: !0 };
+        return { ...W, remoteDialogSeen: true };
       }, t),
       de.toLowerCase() !== "y" && de.toLowerCase() !== "yes")
     )
@@ -2927,15 +2927,15 @@ Spawn mode for this project:
   else if (re !== void 0) (Se = re), (ce = "saved");
   else (Se = "same-dir"), (ce = "gate_default");
   let ue = Se === "single-session" ? 1 : (te ?? ar),
-    De = G ?? !0,
+    De = G ?? true,
     ye,
     Ke,
     qe,
     Ze,
-    et = !1,
-    ht = !1,
+    et = false,
+    ht = false,
     Ge,
-    ot = !1;
+    ot = false;
   if (!j && De) {
     let {
         readBridgePointer: T,
@@ -2946,7 +2946,7 @@ Spawn mode for this project:
     if (W) {
       let { isProcessRunning: z, isSameProcessAsync: Ce } = await import("/$bunfs/root/chunk-dhwwm6zh.js");
       if (W.pid !== void 0 && W.pid !== process.pid && z(W.pid) && (await Ce(W.pid, W.procStart)))
-        (ot = !0),
+        (ot = true),
           n(
             `[bridge:init] Pointer writer pid ${W.pid} still running; registering a fresh env and deferring pointer write`,
           );
@@ -3003,7 +3003,7 @@ Spawn mode for this project:
         isPersistedStampFresh: de,
       } = await import("/$bunfs/root/chunk-a19k99c4.js"),
       W = J ?? P,
-      z = await T(W, { noClear: !0 }, t);
+      z = await T(W, { noClear: true }, t);
     if (z?.pid !== void 0 && z.pid !== process.pid) {
       let { isProcessRunning: yt, isSameProcessAsync: cr } = await import("/$bunfs/root/chunk-dhwwm6zh.js");
       if (yt(z.pid) && (await cr(z.pid, z.procStart))) {
@@ -3012,7 +3012,7 @@ Spawn mode for this project:
             `Error: Session ${j} is already being served by another \`claude remote-control\` instance (pid ${z.pid}) in ${W}. Use that terminal, or stop it first.`,
           ),
             process.exit(1);
-        (ot = !0), (q = z);
+        (ot = true), (q = z);
       }
     }
     if (
@@ -3128,7 +3128,7 @@ Spawn mode for this project:
         (C.ownsPointer = C.preserveOnShutdown),
         C.preserveOnShutdown)
       ) {
-        let W = await H(P, { noClear: !0 }, t);
+        let W = await H(P, { noClear: true }, t);
         if (W && W.pid !== void 0 && W.pid !== process.pid)
           n(`[bridge:init] Lost pointer write race to pid ${W.pid}; backing off`, { level: "error" }),
             console.error(
@@ -3139,13 +3139,13 @@ Spawn mode for this project:
       if (((Ge = Ke), Ge)) {
         let W = hc(Ge),
           z = W === Ge ? [Ge] : [Ge, W],
-          Ce = !1,
+          Ce = false,
           Xe = [];
         for (let Fe of z)
           try {
             await M.reconnectSession(ie, Fe),
               n(`[bridge:init] Adopted session ${Fe} re-queued via bridge/reconnect`),
-              (Ce = !0);
+              (Ce = true);
             break;
           } catch (vt) {
             Xe.push(vt), n(`[bridge:init] reconnectSession(${Fe}) failed: ${l(vt)}`);
@@ -3172,16 +3172,16 @@ Spawn mode for this project:
       if (et) ht = await on(j, le, r);
       let T = hc(j),
         H = T === j ? [j] : [j, T],
-        de = !1,
+        de = false,
         W;
       for (let z of H)
         try {
           await M.reconnectSession(ie, z),
             n(`[bridge:init] Session ${z} re-queued via bridge/reconnect`),
             (Ne = j),
-            (de = !0),
-            (C.preserveOnShutdown = !0),
-            (C.ownsPointer = !1);
+            (de = true),
+            (C.preserveOnShutdown = true),
+            (C.ownsPointer = false);
           break;
         } catch (Ce) {
           (W = Ce), n(`[bridge:init] reconnectSession(${z}) failed: ${l(Ce)}`);
@@ -3221,7 +3221,7 @@ The session may still be resumable \u2014 try running the same command again.`,
   }),
     Y("info", "bridge_started", { max_sessions: C.maxSessions, sandbox: C.sandbox, spawn_mode: C.spawnMode });
   let ge = er({ verbose: i }),
-    $e = rp({ pinToCurrentBinary: !0 }),
+    $e = rp({ pinToCurrentBinary: true }),
     Pe = Ut({
       execPath: $e.cmd,
       scriptArgs: $e.prefixArgs,
@@ -3275,7 +3275,7 @@ The session may still be resumable \u2014 try running the same command again.`,
       }
     },
     { markPrintModeSignalHandlersRegistered: St } = await import("/$bunfs/root/chunk-kpr5g6qh.js");
-  if (process.stdin.isTTY) Kw(process.stdin, !0), process.stdin.resume(), process.stdin.on("data", _e);
+  if (process.stdin.isTTY) Kw(process.stdin, true), process.stdin.resume(), process.stdin.on("data", _e);
   let tt = new AbortController(),
     pt = () => {
       n("[bridge:shutdown] SIGINT received, shutting down"), tt.abort();
@@ -3346,9 +3346,9 @@ The session may still be resumable \u2014 try running the same command again.`,
       }),
       await T(C.dir, Te, t))
     )
-      (C.preserveOnShutdown = !0),
-        (C.ownsPointer = !0),
-        (nt = lr(T, z, C.dir, Te, t, tt.signal, Ce, de, W, () => C.pointerCleared === !0));
+      (C.preserveOnShutdown = true),
+        (C.ownsPointer = true),
+        (nt = lr(T, z, C.dir, Te, t, tt.signal, Ce, de, W, () => C.pointerCleared === true));
   }
   let Ve = C.enqueuePointerWrite ?? ((T) => T());
   if (C.ownsPointer && Te !== null && ie === ye && qe?.length) {
@@ -3392,7 +3392,7 @@ The session may still be resumable \u2014 try running the same command again.`,
       process.stdin.off("data", _e),
       process.stdin.isTTY)
     )
-      Kw(process.stdin, !1);
+      Kw(process.stdin, false);
     process.stdin.pause();
   }
   await FH();
@@ -3430,7 +3430,7 @@ async function Ci(e, t) {
   let { initSinks: S } = await import("/$bunfs/root/chunk-ptryj1qs.js");
   S();
   let { getSettingsWithErrors: _ } = await import("/$bunfs/root/chunk-vbxndy62.js");
-  if (_().settings.disableRemoteControl === !0)
+  if (_().settings.disableRemoteControl === true)
     throw new _t("Remote Control is disabled by your organization's policy (managed setting `disableRemoteControl`).");
   let { composePolicyLimitsClient: L, primePolicyLimitsCache: x } = await import("/$bunfs/root/chunk-qvdq8j6c.js");
   L({ storageV5: e.storageV5 }), await x(e.storageV5);
@@ -3463,7 +3463,7 @@ async function Ci(e, t) {
     pe = await be(e.storageV5),
     Ee = Dt(),
     me,
-    He = !1,
+    He = false,
     ve = [],
     je;
   {
@@ -3476,7 +3476,7 @@ async function Ci(e, t) {
     if (ue) {
       let { isProcessRunning: De, isSameProcessAsync: ye } = await import("/$bunfs/root/chunk-dhwwm6zh.js");
       if (ue.pid !== void 0 && ue.pid !== process.pid && De(ue.pid) && (await ye(ue.pid, ue.procStart)))
-        (He = !0), a(`pointer writer pid ${ue.pid} still running; registering fresh env, deferring pointer write`);
+        (He = true), a(`pointer writer pid ${ue.pid} still running; registering fresh env, deferring pointer write`);
       else if (ue.source === "standalone") {
         if (
           ((me = ue.environmentId),
@@ -3497,7 +3497,7 @@ async function Ci(e, t) {
       gitRepoUrl: Oe,
       maxSessions: e.capacity,
       spawnMode: e.spawnMode,
-      verbose: !1,
+      verbose: false,
       sandbox: e.sandbox,
       bridgeId: Ee,
       workerType: "claude_code",
@@ -3542,15 +3542,15 @@ async function Ci(e, t) {
     Re = [];
   if (N === me && ve.length > 0) {
     a(`re-queuing ${ve.length} session(s) interrupted by the previous shutdown`);
-    let re = !1;
+    let re = false;
     for (let [ce, Se] of ve.entries()) {
       if (t.aborted) {
-        (re = !0), (le = ve.slice(ce));
+        (re = true), (le = ve.slice(ce));
         break;
       }
       let ue = await kt(m, N, Se, t);
       if ((a(`re-queue ${Se}: ${ue}`), ue === "aborted")) {
-        (re = !0), (le = ve.slice(ce));
+        (re = true), (le = ve.slice(ce));
         break;
       }
       if (ue === "retry") Re.push(Se);
@@ -3560,12 +3560,12 @@ async function Ci(e, t) {
   if (Re.length > 0 || le.length > 0)
     (fe.initialSessionRequeues = [...le, ...Re]), (fe.initialSessionRequeuesPersistedAt = je);
   let xe = ln(a),
-    Je = rp({ pinToCurrentBinary: !0 }),
+    Je = rp({ pinToCurrentBinary: true }),
     Ue = Ut({
       execPath: Je.cmd,
       scriptArgs: Je.prefixArgs,
       env: process.env,
-      verbose: !1,
+      verbose: false,
       sandbox: e.sandbox,
       permissionMode: e.permissionMode,
       onDebug: a,
@@ -3620,7 +3620,7 @@ async function Ci(e, t) {
       fe.preserveOnShutdown)
     )
       (fe.enqueuePointerWrite = ce()),
-        (Me = lr(re, De, r, ye, e.storageV5, t, fe.enqueuePointerWrite, Se, ue, () => fe.pointerCleared === !0));
+        (Me = lr(re, De, r, ye, e.storageV5, t, fe.enqueuePointerWrite, Se, ue, () => fe.pointerCleared === true));
   }
   try {
     await dr(fe, N, oe, m, Ue, xe, t, void 0, Le, async () => e.getAccessToken());

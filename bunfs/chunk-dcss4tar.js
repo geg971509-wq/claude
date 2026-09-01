@@ -28,7 +28,7 @@ function y() {
 }
 async function O() {
   let e = y();
-  await D(e, { recursive: !0 });
+  await D(e, { recursive: true });
 }
 function z(e, t) {
   let o = t.split("/")[1] || "png";
@@ -101,7 +101,7 @@ async function n6n() {
       if (a.name === o) continue;
       let s = d(t, a.name);
       try {
-        await e.rm(s, { recursive: !0, force: !0 }), n(`Cleaned up old image cache: ${s}`);
+        await e.rm(s, { recursive: true, force: true }), n(`Cleaned up old image cache: ${s}`);
       } catch {}
     }
     try {
@@ -226,7 +226,7 @@ async function i6n(e, t) {
     c().set(o, null);
     return;
   }
-  let l = s.length > R ? void 0 : J().safeParse(Ut(s.toString("utf8"), !1));
+  let l = s.length > R ? void 0 : J().safeParse(Ut(s.toString("utf8"), false));
   if (!l?.success || (l.data.catalog !== null && l.data.catalog.surface !== t)) {
     n(`[servedCatalog] cache file ${l === void 0 ? "oversized" : "invalid"}, discarding`), c().set(o, null);
     try {

@@ -50,7 +50,7 @@ function gq(Y) {
         if (c[11] === d)
           (l = e(Pe, {
             height: 1,
-            children: e(t, { dimColor: !0, children: "[Image data detected and sent to Claude]" }),
+            children: e(t, { dimColor: true, children: "[Image data detected and sent to Claude]" }),
           })),
             (c[11] = l);
         else l = c[11];
@@ -62,7 +62,7 @@ function gq(Y) {
       if (c[12] !== i || c[13] !== m)
         (g = i !== "" ? e(i_, { content: i, verbose: m }) : null), (c[12] = i), (c[13] = m), (c[14] = g);
       else g = c[14];
-      v = u.trim() !== "" ? e(i_, { content: u, verbose: m, isError: !0 }) : null;
+      v = u.trim() !== "" ? e(i_, { content: u, verbose: m, isError: true }) : null;
     }
     (c[0] = w),
       (c[1] = N),
@@ -78,7 +78,7 @@ function gq(Y) {
   } else (R = c[4]), (a = c[5]), (u = c[6]), (b = c[7]), (g = c[8]), (v = c[9]), (O = c[10]);
   if (O !== fn) return O;
   let l;
-  if (c[15] !== a) (l = a ? e(Pe, { children: e(t, { dimColor: !0, children: a }) }) : null), (c[15] = a), (c[16] = l);
+  if (c[15] !== a) (l = a ? e(Pe, { children: e(t, { dimColor: true, children: a }) }) : null), (c[15] = a), (c[16] = l);
   else l = c[16];
   let x;
   if (c[17] !== D || c[18] !== a || c[19] !== y || c[20] !== B || c[21] !== u || c[22] !== i)
@@ -87,10 +87,10 @@ function gq(Y) {
         ? e(Pe, {
             height: 1,
             children: e(t, {
-              dimColor: !0,
+              dimColor: true,
               children: D
                 ? r(U, {
-                    children: ["Running in the background", " ", e(M, { chord: "down", action: "manage", parens: !0 })],
+                    children: ["Running in the background", " ", e(M, { chord: "down", action: "manage", parens: true })],
                   })
                 : B || (y ? "Done" : "(No output)"),
             }),

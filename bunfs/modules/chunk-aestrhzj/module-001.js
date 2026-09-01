@@ -165,13 +165,13 @@ var Zc = S(function (M3, Nc) {
       for (let [r, o] of Object.entries(i)) {
         if (r === "__proto__" || r === "constructor") continue;
         if (typeof t[r] > "u" && typeof o < "u") t[r] = o;
-        if (e && Lc(t[r]) && Lc(o)) Uc(!0, t[r], o);
+        if (e && Lc(t[r]) && Lc(o)) Uc(true, t[r], o);
       }
     }
     return t;
   }
-  Nc.exports = Uc.bind(void 0, !1);
-  Nc.exports.deep = Uc.bind(void 0, !0);
+  Nc.exports = Uc.bind(void 0, false);
+  Nc.exports.deep = Uc.bind(void 0, true);
 });
 
 var Fc = S(function (z3, om) {
@@ -218,17 +218,17 @@ var Ba = S(function (N3, cm) {
       if (t.error) throw new Fa(t, e);
     },
     zP = (e) => {
-      let t = !1;
+      let t = false;
       try {
         let n;
         if (typeof e.body !== "object" || Buffer.isBuffer(e.body)) n = JSON.parse(e.body);
         else n = e.body;
         if (((t = typeof n.error === "string" && n.error.length), t))
-          Object.defineProperty(e, "body", { value: n, configurable: !0 });
+          Object.defineProperty(e, "body", { value: n, configurable: true });
       } catch (n) {}
       return t;
     };
-  function LP(e, { statusCode: t = 200, body: n = !0, bearer: i = !1 } = {}) {
+  function LP(e, { statusCode: t = 200, body: n = true, bearer: i = false } = {}) {
     if (e.statusCode !== t) {
       if (i) MP(e);
       if (zP(e)) throw new Fa(e.body, e);
@@ -498,14 +498,14 @@ var Ha = S(function (H3, Pm) {
         n = e.length || qc;
       if (
         ((this[Mi] = typeof n !== "function" ? qc : n),
-        (this[Uo] = e.stale || !1),
+        (this[Uo] = e.stale || false),
         e.maxAge && typeof e.maxAge !== "number")
       )
         throw TypeError("maxAge must be a number");
       (this[fi] = e.maxAge || 0),
         (this[In] = e.dispose),
-        (this[vm] = e.noDisposeOnSet || !1),
-        (this[Sm] = e.updateAgeOnGet || !1),
+        (this[vm] = e.noDisposeOnSet || false),
+        (this[Sm] = e.updateAgeOnGet || false),
         this.reset();
     }
     set max(e) {
@@ -573,7 +573,7 @@ var Ha = S(function (H3, Pm) {
     }
     dump() {
       return this[dt]
-        .map((e) => (qa(this, e) ? !1 : { k: e.key, v: e.value, e: e.now + (e.maxAge || 0) }))
+        .map((e) => (qa(this, e) ? false : { k: e.key, v: e.value, e: e.now + (e.maxAge || 0) }))
         .toArray()
         .filter((e) => e);
     }
@@ -585,7 +585,7 @@ var Ha = S(function (H3, Pm) {
       let i = n ? Date.now() : 0,
         r = this[Mi](t, e);
       if (this[pr].has(e)) {
-        if (r > this[di]) return zi(this, this[pr].get(e)), !1;
+        if (r > this[di]) return zi(this, this[pr].get(e)), false;
         let u = this[pr].get(e).value;
         if (this[In]) {
           if (!this[vm]) this[In](e, u.value);
@@ -598,26 +598,26 @@ var Ha = S(function (H3, Pm) {
           (u.length = r),
           this.get(e),
           Lo(this),
-          !0
+          true
         );
       }
       let o = new km(e, t, r, i, n);
       if (o.length > this[di]) {
         if (this[In]) this[In](e, t);
-        return !1;
+        return false;
       }
-      return (this[Tn] += o.length), this[dt].unshift(o), this[pr].set(e, this[dt].head), Lo(this), !0;
+      return (this[Tn] += o.length), this[dt].unshift(o), this[pr].set(e, this[dt].head), Lo(this), true;
     }
     has(e) {
-      if (!this[pr].has(e)) return !1;
+      if (!this[pr].has(e)) return false;
       let t = this[pr].get(e).value;
       return !qa(this, t);
     }
     get(e) {
-      return Hc(this, e, !0);
+      return Hc(this, e, true);
     }
     peek(e) {
-      return Hc(this, e, !1);
+      return Hc(this, e, false);
     }
     pop() {
       let e = this[dt].tail;
@@ -641,7 +641,7 @@ var Ha = S(function (H3, Pm) {
       }
     }
     prune() {
-      this[pr].forEach((e, t) => Hc(this, t, !1));
+      this[pr].forEach((e, t) => Hc(this, t, false));
     }
   }
   var Hc = (e, t, n) => {
@@ -658,7 +658,7 @@ var Ha = S(function (H3, Pm) {
       }
     },
     qa = (e, t) => {
-      if (!t || (!t.maxAge && !e[fi])) return !1;
+      if (!t || (!t.maxAge && !e[fi])) return false;
       let n = Date.now() - t.now;
       return t.maxAge ? n > t.maxAge : e[fi] && n > e[fi];
     },
@@ -747,12 +747,12 @@ var Em = S(function (V3, HP) {
       types: [
         { type: "feat", section: "Features" },
         { type: "fix", section: "Fixes" },
-        { type: "chore", hidden: !0 },
-        { type: "docs", hidden: !0 },
-        { type: "style", hidden: !0 },
-        { type: "refactor", section: "Refactor", hidden: !1 },
-        { type: "perf", section: "Performance", hidden: !1 },
-        { type: "test", hidden: !0 },
+        { type: "chore", hidden: true },
+        { type: "docs", hidden: true },
+        { type: "style", hidden: true },
+        { type: "refactor", section: "Refactor", hidden: false },
+        { type: "perf", section: "Performance", hidden: false },
+        { type: "test", hidden: true },
       ],
     },
   };
@@ -793,7 +793,7 @@ var Li = S(function (W3, Wc) {
     e.end();
   }
   var Tm = new eE({ max: 100 });
-  Wc.exports = async function (t, { accessToken: n, mTLS: i = !1, DPoP: r } = {}) {
+  Wc.exports = async function (t, { accessToken: n, mTLS: i = false, DPoP: r } = {}) {
     let o;
     try {
       (o = new QP(t.url)), delete t.url, WP(/^(https?:)$/.test(o.protocol));
@@ -841,11 +841,11 @@ var Li = S(function (W3, Wc) {
                 } catch (Q) {
                   throw (Object.defineProperty(Q, "response", { value: v }), Q);
                 } finally {
-                  Object.defineProperty(v, "body", { value: B, configurable: !0 });
+                  Object.defineProperty(v, "body", { value: B, configurable: true });
                 }
                 return B;
               },
-              configurable: !0,
+              configurable: true,
             });
             break;
           }
@@ -854,9 +854,9 @@ var Li = S(function (W3, Wc) {
             Object.defineProperty(v, "body", {
               get() {
                 let B = Buffer.concat(P);
-                return Object.defineProperty(v, "body", { value: B, configurable: !0 }), B;
+                return Object.defineProperty(v, "body", { value: B, configurable: true }), B;
               },
-              configurable: !0,
+              configurable: true,
             });
             break;
           }
@@ -963,19 +963,19 @@ var Yc = S(function (Y3, Um) {
       let r = sE(t),
         o = { alg: t, use: i };
       return this.filter((s) => {
-        let u = !0;
-        if (u && r !== void 0 && s.jwk.kty !== r) u = !1;
-        if (u && n !== void 0 && s.jwk.kid !== n) u = !1;
-        if (u && i !== void 0 && s.jwk.use !== void 0 && s.jwk.use !== i) u = !1;
-        if (u && s.jwk.alg && s.jwk.alg !== t) u = !1;
-        else if (!s.algorithms.has(t)) u = !1;
+        let u = true;
+        if (u && r !== void 0 && s.jwk.kty !== r) u = false;
+        if (u && n !== void 0 && s.jwk.kid !== n) u = false;
+        if (u && i !== void 0 && s.jwk.use !== void 0 && s.jwk.use !== i) u = false;
+        if (u && s.jwk.alg && s.jwk.alg !== t) u = false;
+        else if (!s.algorithms.has(t)) u = false;
         return u;
       }).sort((s, u) => Lm(u, o) - Lm(s, o));
     }
     get(...t) {
       return this.all(...t)[0];
     }
-    static async fromJWKS(t, { onlyPublic: n = !1, onlyPrivate: i = !1 } = {}) {
+    static async fromJWKS(t, { onlyPublic: n = false, onlyPrivate: i = false } = {}) {
       if (!Mm(t) || !Array.isArray(t.keys) || t.keys.some((o) => !Mm(o) || !("kty" in o)))
         throw TypeError("jwks must be a JSON Web Key Set formatted object");
       let r = [];
@@ -1016,7 +1016,7 @@ var Yc = S(function (Y3, Um) {
               break;
           }
         if (d && !f)
-          switch (!0) {
+          switch (true) {
             case d.startsWith("ECDH"):
               f = "enc";
               break;
@@ -1039,8 +1039,8 @@ var Yc = S(function (Y3, Um) {
             return (
               Object.defineProperty(this, "algorithms", {
                 value: uE(this.jwk.use, this.jwk.alg, this.jwk.kty, this.jwk.crv),
-                enumerable: !0,
-                configurable: !1,
+                enumerable: true,
+                configurable: false,
               }),
               this.algorithms
             );
@@ -1222,13 +1222,13 @@ var Xm = S(function (pi, Ym) {
     return Zo(e);
   };
   pi.keys = function (e) {
-    return Zo(e, { excludeValues: !0, algorithm: "sha1", encoding: "hex" });
+    return Zo(e, { excludeValues: true, algorithm: "sha1", encoding: "hex" });
   };
   pi.MD5 = function (e) {
     return Zo(e, { algorithm: "md5", encoding: "hex" });
   };
   pi.keysMD5 = function (e) {
-    return Zo(e, { algorithm: "md5", encoding: "hex", excludeValues: !0 });
+    return Zo(e, { algorithm: "md5", encoding: "hex", excludeValues: true });
   };
   var Ui = tl.getHashes ? tl.getHashes().slice() : ["sha1", "md5"];
   Ui.push("passthrough");
@@ -1239,16 +1239,16 @@ var Xm = S(function (pi, Ym) {
     if (
       ((n.algorithm = t.algorithm || "sha1"),
       (n.encoding = t.encoding || "hex"),
-      (n.excludeValues = t.excludeValues ? !0 : !1),
+      (n.excludeValues = t.excludeValues ? true : false),
       (n.algorithm = n.algorithm.toLowerCase()),
       (n.encoding = n.encoding.toLowerCase()),
-      (n.ignoreUnknown = t.ignoreUnknown !== !0 ? !1 : !0),
-      (n.respectType = t.respectType === !1 ? !1 : !0),
-      (n.respectFunctionNames = t.respectFunctionNames === !1 ? !1 : !0),
-      (n.respectFunctionProperties = t.respectFunctionProperties === !1 ? !1 : !0),
-      (n.unorderedArrays = t.unorderedArrays !== !0 ? !1 : !0),
-      (n.unorderedSets = t.unorderedSets === !1 ? !1 : !0),
-      (n.unorderedObjects = t.unorderedObjects === !1 ? !1 : !0),
+      (n.ignoreUnknown = t.ignoreUnknown !== true ? false : true),
+      (n.respectType = t.respectType === false ? false : true),
+      (n.respectFunctionNames = t.respectFunctionNames === false ? false : true),
+      (n.respectFunctionProperties = t.respectFunctionProperties === false ? false : true),
+      (n.unorderedArrays = t.unorderedArrays !== true ? false : true),
+      (n.unorderedSets = t.unorderedSets === false ? false : true),
+      (n.unorderedObjects = t.unorderedObjects === false ? false : true),
       (n.replacer = t.replacer || void 0),
       (n.excludeKeys = t.excludeKeys || void 0),
       typeof e > "u")
@@ -1262,7 +1262,7 @@ var Xm = S(function (pi, Ym) {
     return n;
   }
   function Gm(e) {
-    if (typeof e !== "function") return !1;
+    if (typeof e !== "function") return false;
     var t = /^function\s+\w*\s*\(\s*\)\s*{\s+\[native code\]\s+}$/i;
     return t.exec(Function.prototype.toString.call(e)) != null;
   }
@@ -1313,7 +1313,7 @@ var Xm = S(function (pi, Ym) {
         else {
           var d = Object.keys(r);
           if (e.unorderedObjects) d = d.sort();
-          if (e.respectType !== !1 && !Gm(r)) d.splice(0, 0, "prototype", "__proto__", "constructor");
+          if (e.respectType !== false && !Gm(r)) d.splice(0, 0, "prototype", "__proto__", "constructor");
           if (e.excludeKeys)
             d = d.filter(function (p) {
               return !e.excludeKeys(p);
@@ -1327,7 +1327,7 @@ var Xm = S(function (pi, Ym) {
         }
       },
       _array: function (r, o) {
-        o = typeof o < "u" ? o : e.unorderedArrays !== !1;
+        o = typeof o < "u" ? o : e.unorderedArrays !== false;
         var s = this;
         if ((i("array:" + r.length + ":"), !o || r.length <= 1))
           return r.forEach(function (d) {
@@ -1340,7 +1340,7 @@ var Xm = S(function (pi, Ym) {
               h = rl(e, f, p);
             return h.dispatch(d), (u = u.concat(p.slice(n.length))), f.read().toString();
           });
-        return (n = n.concat(u)), c.sort(), this._array(c, !1);
+        return (n = n.concat(u)), c.sort(), this._array(c, false);
       },
       _date: function (r) {
         return i("date:" + r.toJSON());
@@ -1360,7 +1360,7 @@ var Xm = S(function (pi, Ym) {
       _function: function (r) {
         if ((i("fn:"), Gm(r))) this.dispatch("[native]");
         else this.dispatch(r.toString());
-        if (e.respectFunctionNames !== !1) this.dispatch("function-name:" + String(r.name));
+        if (e.respectFunctionNames !== false) this.dispatch("function-name:" + String(r.name));
         if (e.respectFunctionProperties) this._object(r);
       },
       _number: function (r) {
@@ -1414,12 +1414,12 @@ var Xm = S(function (pi, Ym) {
       _map: function (r) {
         i("map:");
         var o = Array.from(r);
-        return this._array(o, e.unorderedSets !== !1);
+        return this._array(o, e.unorderedSets !== false);
       },
       _set: function (r) {
         i("set:");
         var o = Array.from(r);
-        return this._array(o, e.unorderedSets !== !1);
+        return this._array(o, e.unorderedSets !== false);
       },
       _file: function (r) {
         return i("file:"), this.dispatch([r.name, r.size, r.type, r.lastModfied]);
@@ -1521,7 +1521,7 @@ var ol = S(function ($E, il) {
       if (!nl.has(e)) nl.set(e, new wE({ max: 100 }));
       return nl.get(e);
     };
-  async function rg(e = !1) {
+  async function rg(e = false) {
     SE(this, "jwks_uri");
     let t = eg.get(this),
       n = tg(this);
@@ -1541,8 +1541,8 @@ var ol = S(function ($E, il) {
                 Fo.delete(this);
               }),
               r = kE(i),
-              o = OE.fromJWKS(r, { onlyPublic: !0 });
-            return n.set("throttle", !0, 60000), eg.set(this, o), o;
+              o = OE.fromJWKS(r, { onlyPublic: true });
+            return n.set("throttle", true, 60000), eg.set(this, o), o;
           })(),
         ),
         Fo.get(this)
@@ -1550,10 +1550,10 @@ var ol = S(function ($E, il) {
     }
     return t;
   }
-  async function EE({ kid: e, kty: t, alg: n, use: i }, { allowMulti: r = !1 } = {}) {
+  async function EE({ kid: e, kty: t, alg: n, use: i }, { allowMulti: r = false } = {}) {
     let o = tg(this),
       s = { kid: e, kty: t, alg: n, use: i },
-      u = vE(s, { algorithm: "sha256", ignoreUnknown: !0, unorderedArrays: !0, unorderedSets: !0, respectType: !1 }),
+      u = vE(s, { algorithm: "sha256", ignoreUnknown: true, unorderedArrays: true, unorderedSets: true, respectType: false }),
       c = o.get(u) || o.get("throttle"),
       d = await rg.call(this, !c),
       f = d.all(s);
@@ -1567,7 +1567,7 @@ var ol = S(function ($E, il) {
         ],
         jwks: d,
       });
-    return o.set(u, !0), f;
+    return o.set(u, true), f;
   }
   $E.queryKeyStore = EE;
   $E.keystore = rg;
@@ -1609,7 +1609,7 @@ var sg = S(function (e5, ag) {
         (this.#o = i.interval * 1000 || 5000);
     }
     abort() {
-      this.#e = !0;
+      this.#e = true;
     }
     async poll({ signal: e } = {}) {
       if ((e && e.aborted) || this.#e) throw new Ya("polling aborted");
@@ -1657,7 +1657,7 @@ var sg = S(function (e5, ag) {
       return this.expires_in === 0;
     }
     [ng.custom]() {
-      return `${this.constructor.name} ${ng(this.#r, { depth: 1 / 0, colors: process.stdout.isTTY, compact: !1, sorted: !0 })}`;
+      return `${this.constructor.name} ${ng(this.#r, { depth: 1 / 0, colors: process.stdout.isTTY, compact: false, sorted: true })}`;
     }
   }
   ag.exports = og;
@@ -1751,7 +1751,7 @@ var Ol = S(function (t5, Sl) {
   function bg(e) {
     if (!Nn(e) || !Array.isArray(e.keys) || e.keys.some((t) => !Nn(t) || !("kty" in t)))
       throw TypeError("jwks must be a JSON Web Key Set formatted object");
-    return DE.fromJWKS(e, { onlyPrivate: !0 });
+    return DE.fromJWKS(e, { onlyPrivate: true });
   }
   function ZE(e, t) {
     try {
@@ -1802,7 +1802,7 @@ var Ol = S(function (t5, Sl) {
               id_token_signed_response_alg: "PS256",
               authorization_signed_response_alg: "PS256",
               response_types: ["code id_token"],
-              tls_client_certificate_bound_access_tokens: !0,
+              tls_client_certificate_bound_access_tokens: true,
               token_endpoint_auth_method: void 0,
             }
           : void 0),
@@ -1850,7 +1850,7 @@ var Ol = S(function (t5, Sl) {
               get() {
                 return this.#e.get(s);
               },
-              enumerable: !0,
+              enumerable: true,
             });
         }),
         i !== void 0)
@@ -2164,7 +2164,7 @@ var Ol = S(function (t5, Sl) {
         o,
         s;
       try {
-        ({ header: o, payload: s } = jE(e, { complete: !0 }));
+        ({ header: o, payload: s } = jE(e, { complete: true }));
       } catch (c) {
         throw new ie({ printf: ["failed to decode JWT (%s: %s)", c.name, c.message], jwt: e });
       }
@@ -2330,7 +2330,7 @@ var Ol = S(function (t5, Sl) {
             });
       if (s.body) s.body = s.body.toString();
       let f = await this.requestResource(d, e, s),
-        p = Ln(f, { bearer: !0 });
+        p = Ln(f, { bearer: true });
       if (u) {
         if (!/^application\/jwt/.test(f.headers["content-type"]))
           throw new ie({ message: "expected application/jwt response from the userinfo_endpoint", response: f });
@@ -2357,7 +2357,7 @@ var Ol = S(function (t5, Sl) {
       return p;
     }
     encryptionSecret(e) {
-      let t = e <= 256 ? "sha256" : e <= 384 ? "sha384" : e <= 512 ? "sha512" : !1;
+      let t = e <= 256 ? "sha256" : e <= 384 ? "sha384" : e <= 512 ? "sha512" : false;
       if (!t) throw Error("unsupported symmetric encryption key derivation");
       return al
         .createHash(t)
@@ -2409,7 +2409,7 @@ var Ol = S(function (t5, Sl) {
       let r = { ...n, token: e };
       if (t) r.token_type_hint = t;
       let o = await Bo.call(this, "revocation", { form: r }, { clientAssertionPayload: i });
-      Ln(o, { body: !1 });
+      Ln(o, { body: false });
     }
     async introspect(e, t, { introspectBody: n, clientAssertionPayload: i } = {}) {
       if ((er(this.issuer, "introspection_endpoint"), t !== void 0 && typeof t !== "string"))
@@ -2432,7 +2432,7 @@ var Ol = S(function (t5, Sl) {
           url: this.issuer.registration_endpoint,
           method: "POST",
         }),
-        s = Ln(o, { statusCode: 201, bearer: !0 });
+        s = Ln(o, { statusCode: 201, bearer: true });
       return new this(s, i, r);
     }
     get metadata() {
@@ -2445,7 +2445,7 @@ var Ol = S(function (t5, Sl) {
           responseType: "json",
           headers: { Authorization: ml(t), Accept: "application/json" },
         }),
-        o = Ln(r, { bearer: !0 });
+        o = Ln(r, { bearer: true });
       return new this(o, n, i);
     }
     async requestObject(
@@ -2489,7 +2489,7 @@ var Ol = S(function (t5, Sl) {
       }
       if (!n) return r;
       let d = { alg: n, enc: i, cty: "oauth-authz-req+jwt" };
-      if (d.alg.match(/^(RSA|ECDH)/)) [o] = await gg.call(this.issuer, { alg: d.alg, use: "enc" }, { allowMulti: !0 });
+      if (d.alg.match(/^(RSA|ECDH)/)) [o] = await gg.call(this.issuer, { alg: d.alg, use: "enc" }, { allowMulti: true });
       else o = this.secretForAlg(d.alg === "dir" ? d.enc : d.alg);
       return new Ct.CompactEncrypt(new TextEncoder().encode(r))
         .setProtectedHeader({ ...d, kid: o instanceof Uint8Array ? void 0 : o.jwk.kid })
@@ -2519,7 +2519,7 @@ var Ol = S(function (t5, Sl) {
       return this.#t;
     }
     [ug.custom]() {
-      return `${this.constructor.name} ${ug(this.metadata, { depth: 1 / 0, colors: process.stdout.isTTY, compact: !1, sorted: !0 })}`;
+      return `${this.constructor.name} ${ug(this.metadata, { depth: 1 / 0, colors: process.stdout.isTTY, compact: false, sorted: true })}`;
     }
     fapi() {
       return this.fapi1() || this.fapi2();
@@ -2646,7 +2646,7 @@ var Ol = S(function (t5, Sl) {
     if (wg(t) || Ct.cryptoRuntime === "WebCryptoAPI") hl.set(t, n);
     return n;
   }
-  Sl.exports = (e, t = !1) =>
+  Sl.exports = (e, t = false) =>
     class extends wl {
       constructor(...i) {
         super(e, t, ...i);
@@ -2666,17 +2666,17 @@ var Og = S(function (r5, Sg) {
 var Pg = S(function (n5, kg) {
   var GE = /^\d+$/;
   function WE(e) {
-    if (e.includes("://")) return !0;
+    if (e.includes("://")) return true;
     let t = e.replace(/(\/|\?)/g, "#").split("#")[0];
     if (t.includes(":")) {
       let n = t.indexOf(":"),
         i = t.slice(n + 1);
-      if (!GE.test(i)) return !0;
+      if (!GE.test(i)) return true;
     }
-    return !1;
+    return false;
   }
   function JE(e) {
-    if (!e.includes("@")) return !1;
+    if (!e.includes("@")) return false;
     let t = e.split("@"),
       n = t[t.length - 1];
     return !(n.includes(":") || n.includes("/") || n.includes("?"));
@@ -2712,11 +2712,11 @@ var Ag = S(function (i5, Tg) {
     Pl = Symbol(),
     n$ = {
       claim_types_supported: ["normal"],
-      claims_parameter_supported: !1,
+      claims_parameter_supported: false,
       grant_types_supported: ["authorization_code", "implicit"],
-      request_parameter_supported: !1,
-      request_uri_parameter_supported: !0,
-      require_request_uri_registration: !1,
+      request_parameter_supported: false,
+      request_uri_parameter_supported: true,
+      require_request_uri_registration: false,
       response_modes_supported: ["query", "fragment"],
       token_endpoint_auth_methods_supported: ["client_secret_basic"],
     };
@@ -2744,15 +2744,15 @@ var Ag = S(function (i5, Tg) {
               get() {
                 return this.#e.get(i);
               },
-              enumerable: !0,
+              enumerable: true,
             });
         }),
         es.set(this.issuer, this);
       let n = XE(this, t);
       Object.defineProperties(this, {
-        Client: { value: n, enumerable: !0 },
-        FAPI1Client: { value: class extends n {}, enumerable: !0 },
-        FAPI2Client: { value: class extends n {}, enumerable: !0 },
+        Client: { value: n, enumerable: true },
+        FAPI1Client: { value: class extends n {}, enumerable: true },
+        FAPI2Client: { value: class extends n {}, enumerable: true },
       });
     }
     get metadata() {
@@ -2797,10 +2797,10 @@ var Ag = S(function (i5, Tg) {
       return new $l({ ...n$, ...i, [Pl]: !!r$.find((r) => t.startsWith(r)) });
     }
     async reloadJwksUri() {
-      await t$.call(this, !0);
+      await t$.call(this, true);
     }
     [Eg.custom]() {
-      return `${this.constructor.name} ${Eg(this.metadata, { depth: 1 / 0, colors: process.stdout.isTTY, compact: !1, sorted: !0 })}`;
+      return `${this.constructor.name} ${Eg(this.metadata, { depth: 1 / 0, colors: process.stdout.isTTY, compact: false, sorted: true })}`;
     }
   }
   function i$(e) {
@@ -2831,7 +2831,7 @@ var Mg = S(function (o5, xg) {
     else this.success(t, n);
   }
   function Dg(
-    { client: e, params: t = {}, passReqToCallback: n = !1, sessionKey: i, usePKCE: r = !0, extras: o = {} } = {},
+    { client: e, params: t = {}, passReqToCallback: n = false, sessionKey: i, usePKCE: r = true, extras: o = {} } = {},
     s,
   ) {
     if (!(e instanceof s$)) throw TypeError("client must be an instance of openid-client Client");
@@ -2853,10 +2853,10 @@ var Mg = S(function (o5, xg) {
       this._params.response_type = l$.call(e);
     if (!this._params.redirect_uri) this._params.redirect_uri = d$.call(e);
     if (!this._params.scope) this._params.scope = "openid";
-    if (this._usePKCE === !0) {
+    if (this._usePKCE === true) {
       let u = Array.isArray(this._issuer.code_challenge_methods_supported)
         ? this._issuer.code_challenge_methods_supported
-        : !1;
+        : false;
       if (u && u.includes("S256")) this._usePKCE = "S256";
       else if (u && u.includes("plain")) this._usePKCE = "plain";
       else if (u) throw TypeError("neither code_challenge_method supported by the client is supported by the issuer");

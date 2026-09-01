@@ -10,30 +10,30 @@
 // Version: 2.1.252
 function GOe(r) {
   let t = r.split("+"),
-    e = { key: "", ctrl: !1, alt: !1, shift: !1, meta: !1, super: !1 };
+    e = { key: "", ctrl: false, alt: false, shift: false, meta: false, super: false };
   for (let s of t) {
     let a = s.toLowerCase();
     switch (a) {
       case "ctrl":
       case "control":
-        e.ctrl = !0;
+        e.ctrl = true;
         break;
       case "alt":
       case "opt":
       case "option":
-        e.alt = !0;
+        e.alt = true;
         break;
       case "shift":
-        e.shift = !0;
+        e.shift = true;
         break;
       case "meta":
-        e.meta = !0;
+        e.meta = true;
         break;
       case "cmd":
       case "command":
       case "super":
       case "win":
-        e.super = !0;
+        e.super = true;
         break;
       case "esc":
         e.key = "escape";

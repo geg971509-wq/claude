@@ -20,12 +20,12 @@ import { L } from "/$bunfs/root/chunk-v4qqyykc.js";
 import { d } from "/$bunfs/root/chunk-yz031c9r.js";
 F();
 F();
-var s = yn(!1);
+var s = yn(false);
 function gBe(J) {
   let K = _(2),
     { children: x } = J,
     y;
-  if (K[0] !== x) (y = e(s.Provider, { value: !0, children: x })), (K[0] = x), (K[1] = y);
+  if (K[0] !== x) (y = e(s.Provider, { value: true, children: x })), (K[0] = x), (K[1] = y);
   else y = K[1];
   return y;
 }
@@ -45,7 +45,7 @@ function JU(po) {
   let a = _(18),
     { displayName: C, count: k, addMargin: B, fallbackLabel: O, body: c } = po,
     S = k === void 0 ? 1 : k,
-    mo = B === void 0 ? !0 : B,
+    mo = B === void 0 ? true : B,
     E = uu("app:toggleTranscript", "Global", "ctrl+o"),
     H;
   if (a[0] !== C || a[1] !== O) (H = t7e(C) || O), (a[0] = C), (a[1] = O), (a[2] = H);
@@ -57,18 +57,18 @@ function JU(po) {
   let f = U;
   const P = mo ? 1 : 0;
   let w;
-  if (a[5] === d) (w = r(t, { "aria-hidden": !0, children: [L.pointerSmall, " "] })), (a[5] = w);
+  if (a[5] === d) (w = r(t, { "aria-hidden": true, children: [L.pointerSmall, " "] })), (a[5] = w);
   else w = a[5];
   const h = S === 1 ? "Message" : `${S} messages`;
   let l;
-  if (a[6] !== f) (l = f ? r(t, { italic: !0, children: [": ", f] }) : ""), (a[6] = f), (a[7] = l);
+  if (a[6] !== f) (l = f ? r(t, { italic: true, children: [": ", f] }) : ""), (a[6] = f), (a[7] = l);
   else l = a[7];
   let T;
-  if (a[8] !== E) (T = e(M, { chord: E, action: "expand", parens: !0, format: A })), (a[8] = E), (a[9] = T);
+  if (a[8] !== E) (T = e(M, { chord: E, action: "expand", parens: true, format: A })), (a[8] = E), (a[9] = T);
   else T = a[9];
   let R;
   if (a[10] !== N || a[11] !== h || a[12] !== l || a[13] !== T)
-    (R = r(t, { dimColor: !0, children: [w, h, " from @", N, l, " ", T] })),
+    (R = r(t, { dimColor: true, children: [w, h, " from @", N, l, " ", T] })),
       (a[10] = N),
       (a[11] = h),
       (a[12] = l),

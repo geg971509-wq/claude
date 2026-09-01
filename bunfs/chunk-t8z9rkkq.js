@@ -26,7 +26,7 @@ import { kb } from "/$bunfs/root/chunk-8kwjh4ab.js";
 import { CS, ac, BP } from "/$bunfs/root/chunk-ddrmb5hs.js";
 import { mt } from "/$bunfs/root/chunk-d5bnjcbw.js";
 import { gG } from "/$bunfs/root/chunk-zgfc288e.js";
-function GK(t = !0, e = !1) {
+function GK(t = true, e = false) {
   if (!t) return Q3;
   let o = gG(Lo("theme", "dark").value);
   if (e) return ae.dim(mt("promptBorder", o)(Q3));
@@ -52,7 +52,7 @@ async function QHt(t, e, o) {
     ),
   };
 }
-var V2e = { unvetted: !0 };
+var V2e = { unvetted: true };
 function K2e(t, e) {
   let o = e ? "enabled" : "disabled";
   switch (t.kind) {
@@ -64,7 +64,7 @@ function K2e(t, e) {
       return `Fast mode was not ${o} on the workspace: ${t.reason}`;
   }
 }
-function X2e(t, e, o, m = !0, a, u = V2e) {
+function X2e(t, e, o, m = true, a, u = V2e) {
   VI();
   let S = () => {
       if (m) return;
@@ -83,7 +83,7 @@ function X2e(t, e, o, m = !0, a, u = V2e) {
     S();
     let r = Gr()?.sendControlRequest({
       subtype: "apply_flag_settings",
-      settings: { fastMode: e ? !0 : null, ...(e && { model: CMe() }) },
+      settings: { fastMode: e ? true : null, ...(e && { model: CMe() }) },
     });
     if (!r) return f(), Promise.resolve(void 0);
     return r.then(
@@ -98,7 +98,7 @@ function X2e(t, e, o, m = !0, a, u = V2e) {
     );
   }
   if (e && !("unvetted" in u)) {
-    let r = !1;
+    let r = false;
     if (
       (o((i) => {
         let d = kq(i);
@@ -108,10 +108,10 @@ function X2e(t, e, o, m = !0, a, u = V2e) {
     )
       return Promise.resolve({ kind: "stale" });
   }
-  if ((S(), m)) rn("userSettings", { fastMode: e ? !0 : void 0 }, void 0, a);
+  if ((S(), m)) rn("userSettings", { fastMode: e ? true : void 0 }, void 0, a);
   return f(), Promise.resolve(void 0);
 }
-async function Y2e(t, e, o, m, a, u = !0, S, f, r, i) {
+async function Y2e(t, e, o, m, a, u = true, S, f, r, i) {
   let d = await rg(t, async () => {
     if (f) await jt(f(), vJt);
     if (r?.aborted) return { kind: "refused", refusal: Rse };
@@ -131,7 +131,7 @@ async function Y2e(t, e, o, m, a, u = !0, S, f, r, i) {
   if (d.kind === "refused") return d.refusal;
   if (d.remote !== void 0) return K2e(d.remote, e);
   if ((s("tengu_fast_mode_toggled", { enabled: e, source: c(a), remote: ba() }), e)) {
-    let M = GK(!0),
+    let M = GK(true),
       F = d.willPromote ? `${jPe}${og(yC())}` : "",
       p = at(),
       h = lf(p) ? Ye(p) : "claude-opus-5",

@@ -42,16 +42,16 @@ async function sB(a, r) {
         i.push(e);
       continue;
     }
-    let y = !1;
+    let y = false;
     for (let o of c) {
       let p = Vt(o).marketplace;
       if (p === u) {
-        y = !0;
+        y = true;
         break;
       }
       if (!p) continue;
       if ((await TE(p, r))?.allowCrossMarketplaceDependenciesOn?.includes(u)) {
-        y = !0;
+        y = true;
         break;
       }
     }
@@ -94,9 +94,9 @@ async function sB(a, r) {
           scope: m ?? "user",
           marketplaceInstallLocation: o.marketplaceInstallLocation,
           trigger: "dependency-resolution",
-          explicit: !1,
+          explicit: false,
           auto: m !== void 0,
-          requiredByEnabledDependent: !0,
+          requiredByEnabledDependent: true,
           storageV5: r,
         });
       if (S.ok) {

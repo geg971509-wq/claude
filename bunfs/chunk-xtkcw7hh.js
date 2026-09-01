@@ -96,7 +96,7 @@ async function IZe(e, m) {
     Qbn(),
     WTt(),
     wV(),
-    lNe({ preservePendingExposures: !0, preserveLoggedExposures: !0 }),
+    lNe({ preservePendingExposures: true, preserveLoggedExposures: true }),
     d$(),
     nyn(),
     n4(),

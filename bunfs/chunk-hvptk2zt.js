@@ -146,10 +146,10 @@ var N = m(() =>
       return rhe();
     },
     isConcurrencySafe() {
-      return !1;
+      return false;
     },
     isReadOnly() {
-      return !1;
+      return false;
     },
     get inputSchema() {
       return N();
@@ -158,7 +158,7 @@ var N = m(() =>
       return T();
     },
     async validateInput() {
-      return { result: !0 };
+      return { result: true };
     },
     async prompt() {
       return dQt;
@@ -206,7 +206,7 @@ var N = m(() =>
             if (d > l) return s(`${u} is over ${l / 1024}KB. Trim it before sharing.`);
             let k = await O(o, "utf8"),
               y = await pQt(e.short_code, k, r);
-            return p("updated", y.share_url, y.short_code, !1);
+            return p("updated", y.share_url, y.short_code, false);
           }
         } catch (e) {
           let o = e instanceof Error ? e.message : String(e);
@@ -227,11 +227,11 @@ var N = m(() =>
           let o = a ?? (await h(r))?.short_code;
           if (o) {
             let d = await pQt(o, _, r);
-            return p("updated", d.share_url, d.short_code, !0);
+            return p("updated", d.share_url, d.short_code, true);
           }
         }
         let e = await E1n(_, void 0, r);
-        return p("created", e.share_url, e.short_code, !1);
+        return p("created", e.share_url, e.short_code, false);
       } catch (e) {
         let o = e instanceof Error ? e.message : String(e);
         return s(`Upload didn't go through (${o}). Fall back to the manual share copy.`);

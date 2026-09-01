@@ -14,7 +14,7 @@ import { wt } from "/$bunfs/root/chunk-8tgj5dp2.js";
 import { r8e, de, Zyt } from "/$bunfs/root/chunk-xgfepdf4.js";
 import { jL, lp, Pm, cp, Uee } from "/$bunfs/root/chunk-zze8764r.js";
 function Uq() {
-  if (!wt()) return !0;
+  if (!wt()) return true;
   return Cl() !== null && iHn();
 }
 function B$n(e) {
@@ -25,13 +25,13 @@ function B$n(e) {
   };
 }
 function _he() {
-  if (de().autoReact.enabledMemo !== !0) return new Set();
+  if (de().autoReact.enabledMemo !== true) return new Set();
   return new Set(Array.from(u(), (e) => e.slug));
 }
 function eZ() {
   let { autoReact: e, durable: t, live: n, wakes: r } = de(),
     i = new Set();
-  if (e.enabledMemo === !1 || e.userDisarmed) return i;
+  if (e.enabledMemo === false || e.userDisarmed) return i;
   for (let [o, s] of n.bootingWiredArms) {
     if (s.scanGeneration !== r.scanGeneration || n.retiredInFlightArms.has(o) || t.stopLatches.isStopped(o)) continue;
     if (!lp(o) || (s.freshPublish && cp(o) && s.stopGeneration === jL(o))) i.add(o);
@@ -43,11 +43,11 @@ function* u() {
 }
 function jZt(e) {
   let { live: t } = de();
-  for (let n of u()) if (e?.reconnecting !== !0 || n.timer !== void 0 || t.inFlightSubscribes.has(n.slug)) return !0;
-  return !1;
+  for (let n of u()) if (e?.reconnecting !== true || n.timer !== void 0 || t.inFlightSubscribes.has(n.slug)) return true;
+  return false;
 }
 function j$n() {
-  return de().autoReact.enabledMemo === !0 && jZt({ reconnecting: !0 });
+  return de().autoReact.enabledMemo === true && jZt({ reconnecting: true });
 }
 function kot(e) {
   let t = de().live;

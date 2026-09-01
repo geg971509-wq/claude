@@ -334,11 +334,11 @@ function ze(e, L) {
     isAscii: i === e.length,
     nodeCount: 0,
     deadline: performance.now() + (L ?? 50),
-    aborted: !1,
+    aborted: false,
     inBacktick: 0,
     inDquote: 0,
     stopToken: null,
-    zshBraceDiff: !1,
+    zshBraceDiff: false,
   };
   try {
     let o = Fe(r);
@@ -361,8 +361,8 @@ function qe(e) {
   return L;
 }
 function Ke(e) {
-  if ((e.nodeCount++, e.nodeCount > 50000)) throw ((e.aborted = !0), Error("budget"));
-  if ((e.nodeCount & 127) === 0 && performance.now() > e.deadline) throw ((e.aborted = !0), Error("timeout"));
+  if ((e.nodeCount++, e.nodeCount > 50000)) throw ((e.aborted = true), Error("budget"));
+  if ((e.nodeCount & 127) === 0 && performance.now() > e.deadline) throw ((e.aborted = true), Error("timeout"));
 }
 function u(e, L, t, i, r) {
   return Ke(e), { type: L, text: F(e, t, i), startIndex: t, endIndex: i, children: r };
@@ -394,7 +394,7 @@ function g(e, L, t) {
 function Fe(e) {
   let L = [];
   m(e.L);
-  while (!0) {
+  while (true) {
     let r = w(e.L);
     if (T(e.L, "cmd").type === "NEWLINE") {
       m(e.L);
@@ -435,7 +435,7 @@ function v(e, L) {
 }
 function D(e, L) {
   let t = [];
-  while (!0) {
+  while (true) {
     m(e.L);
     let i = w(e.L),
       r = T(e.L, "cmd");
@@ -521,7 +521,7 @@ function D(e, L) {
 function ke(e) {
   let L = he(e);
   if (!L) return null;
-  while (!0) {
+  while (true) {
     let t = w(e.L),
       i = T(e.L, "cmd");
     if (i.type === "OP" && (i.value === "&&" || i.value === "||")) {
@@ -547,7 +547,7 @@ function ke(e) {
   return L;
 }
 function q(e) {
-  while (!0) {
+  while (true) {
     let L = w(e.L);
     if (T(e.L, "cmd").type !== "NEWLINE") {
       v(e.L, L);
@@ -559,7 +559,7 @@ function he(e) {
   let L = U(e);
   if (!L) return null;
   let t = [L];
-  while (!0) {
+  while (true) {
     let r = w(e.L),
       o = T(e.L, "cmd");
     if (o.type === "OP" && (o.value === "|" || o.value === "|&")) {
@@ -654,17 +654,17 @@ function U(e) {
     return W(e, u(e, "test_command", i.startIndex, f.endIndex, b));
   }
   if (t.type === "WORD" && ne(c(e.L))) {
-    if (t.value === "if") return W(e, Pe(e, t), !0);
-    if (t.value === "while" || t.value === "until") return W(e, en(e, t), !0);
-    if (t.value === "for") return W(e, me(e, t), !0);
-    if (t.value === "select") return W(e, me(e, t), !0);
-    if (t.value === "case") return W(e, nn(e, t), !0);
+    if (t.value === "if") return W(e, Pe(e, t), true);
+    if (t.value === "while" || t.value === "until") return W(e, en(e, t), true);
+    if (t.value === "for") return W(e, me(e, t), true);
+    if (t.value === "select") return W(e, me(e, t), true);
+    if (t.value === "case") return W(e, nn(e, t), true);
     if (t.value === "function") return on(e, t);
     if (Ae.has(t.value)) return W(e, Ln(e, t));
     if (t.value === "unset" || t.value === "unsetenv") {
       let i = w(e.L);
       m(e.L);
-      let r = !1;
+      let r = false;
       if (c(e.L) === "(") T(e.L, "cmd"), m(e.L), (r = c(e.L) === ")");
       if ((v(e.L, i), !r)) return W(e, cn(e, t));
     }
@@ -675,7 +675,7 @@ function Ue(e) {
   let L = e.L.b,
     t = [],
     i = [];
-  while (!0) {
+  while (true) {
     m(e.L);
     let y = Ne(e);
     if (y) {
@@ -721,7 +721,7 @@ function Ue(e) {
     l = C(e, "cmd");
   if (l && l.type === "word") {
     m(e.L);
-    let y = !1;
+    let y = false;
     if (c(e.L) === "(") {
       let k = w(e.L);
       T(e.L, "cmd"), m(e.L), (y = c(e.L) === ")"), v(e.L, k);
@@ -753,9 +753,9 @@ function Ue(e) {
     b = [],
     p = [],
     h = null;
-  while (!0) {
+  while (true) {
     m(e.L);
-    let y = j(e, !0);
+    let y = j(e, true);
     if (y) {
       if (y.type === "heredoc_redirect") h = y;
       else if (y.type === "herestring_redirect") b.push(y);
@@ -836,9 +836,9 @@ function Ue(e) {
   }
   return S;
 }
-function W(e, L, t = !1) {
+function W(e, L, t = false) {
   let i = [];
-  while (!0) {
+  while (true) {
     m(e.L);
     let o = w(e.L),
       a = j(e);
@@ -895,7 +895,7 @@ function Ne(e) {
     let S = T(e.L, "cmd"),
       y = g(e, "(", S),
       k = [y];
-    while (!0) {
+    while (true) {
       if ((m(e.L), c(e.L) === ")")) break;
       let A = C(e, "arg");
       if (!A) break;
@@ -971,20 +971,20 @@ function xe(e) {
       `
 `
   )
-    return !1;
-  if (L === "|" || L === "&" || L === ";" || L === "(" || L === ")") return !1;
+    return false;
+  if (L === "|" || L === "&" || L === ";" || L === "(" || L === ")") return false;
   if (L === "<" || L === ">") return c(e.L, 1) === "(";
   if (O(L)) {
     let t = e.L.i;
     while (t < e.L.len && O(e.L.src[t])) t++;
     let i = t < e.L.len ? e.L.src[t] : "";
-    if (i === ">" || i === "<") return !1;
+    if (i === ">" || i === "<") return false;
   }
-  if (L === "}") return !1;
-  if (e.stopToken === "]" && L === "]") return !1;
-  return !0;
+  if (L === "}") return false;
+  if (e.stopToken === "]" && L === "]") return false;
+  return true;
 }
-function j(e, L = !1) {
+function j(e, L = false) {
   let t = w(e.L);
   m(e.L);
   let i = null;
@@ -1004,18 +1004,18 @@ function j(e, L = !1) {
       while (a < e.L.len && /[A-Za-z0-9_]/.test(e.L.src[a])) a++;
       if (e.L.src[a] === "[") {
         let l = 0,
-          d = !1,
-          f = !1;
+          d = false,
+          f = false;
         while (a < e.L.len) {
           let b = e.L.src[a];
           if (d) {
-            if (b === "'") d = !1;
+            if (b === "'") d = false;
           } else if (f) {
             if (b === "\\" && a + 1 < e.L.len) a++;
-            else if (b === '"') f = !1;
+            else if (b === '"') f = false;
           } else if (b === "\\" && a + 1 < e.L.len) a++;
-          else if (b === "'") d = !0;
-          else if (b === '"') f = !0;
+          else if (b === "'") d = true;
+          else if (b === '"') f = true;
           else if (b === "[") l++;
           else if (b === "]") {
             if ((l--, l === 0)) {
@@ -1064,16 +1064,16 @@ function j(e, L = !1) {
     let a = g(e, o, r);
     We(e.L);
     let l = e.L.b,
-      d = !1,
+      d = false,
       f = "",
       b = c(e.L);
     if (b === "'" || b === '"') {
-      (d = !0), n(e.L);
+      (d = true), n(e.L);
       while (e.L.i < e.L.len && c(e.L) !== b) (f += c(e.L)), n(e.L);
       if (e.L.i < e.L.len) n(e.L);
     } else if (b === "\\") {
       if (
-        ((d = !0),
+        ((d = true),
         n(e.L),
         e.L.i < e.L.len &&
           c(e.L) !==
@@ -1085,7 +1085,7 @@ function j(e, L = !1) {
     } else while (e.L.i < e.L.len && Me(c(e.L))) (f += c(e.L)), n(e.L);
     let p = e.L.b;
     if (b === '"' && /[`$\\\n]/.test(f))
-      throw ((e.aborted = !0), Error("heredoc delimiter contains substitution/escape chars"));
+      throw ((e.aborted = true), Error("heredoc delimiter contains substitution/escape chars"));
     if (e.L.i < e.L.len) {
       let I = c(e.L);
       if (
@@ -1102,10 +1102,10 @@ function j(e, L = !1) {
         I !== "(" &&
         I !== ")"
       )
-        throw ((e.aborted = !0), Error("heredoc delimiter word continues past scanned segment"));
+        throw ((e.aborted = true), Error("heredoc delimiter word continues past scanned segment"));
     }
     if (/[\uD800-\uDFFF]/.test(f))
-      throw ((e.aborted = !0), Error("heredoc delimiter contains astral/surrogate code unit"));
+      throw ((e.aborted = true), Error("heredoc delimiter contains astral/surrogate code unit"));
     let h = u(e, "heredoc_start", l, p, []);
     e.L.heredocs.push({
       delim: f,
@@ -1118,7 +1118,7 @@ function j(e, L = !1) {
     });
     let x = i ? [i, a, h] : [a, h],
       E = i ? i.startIndex : a.startIndex;
-    while (!0) {
+    while (true) {
       m(e.L);
       let I = c(e.L);
       if (
@@ -1142,7 +1142,7 @@ function j(e, L = !1) {
         let k = e.L.b;
         n(e.L), m(e.L);
         let _ = [];
-        while (!0) {
+        while (true) {
           let N = U(e);
           if (!N) break;
           if ((_.push(N), m(e.L), c(e.L) === "|" && c(e.L, 1) !== "|")) {
@@ -1216,7 +1216,7 @@ function j(e, L = !1) {
     l.push(a);
     let d = a.endIndex,
       f = 0;
-    while (!0) {
+    while (true) {
       if ((m(e.L), !xe(e))) break;
       if (!L && f >= 1) break;
       let p = c(e.L),
@@ -1260,7 +1260,7 @@ function le(e) {
     L.bodyStart = e.L.b;
     let t = L.delim.length;
     if (L.stripTabs && L.delim.startsWith("\t"))
-      throw ((e.aborted = !0), Error("ambiguous heredoc terminator (<<- tab-prefixed delim)"));
+      throw ((e.aborted = true), Error("ambiguous heredoc terminator (<<- tab-prefixed delim)"));
     while (e.L.i < e.L.len) {
       let i = e.L.i,
         r = e.L.b,
@@ -1300,7 +1300,7 @@ function le(e) {
           )
             break;
           if (f === ")" || f === "`" || f === "}")
-            throw ((e.aborted = !0), Error("ambiguous heredoc terminator (shell_eof_token)"));
+            throw ((e.aborted = true), Error("ambiguous heredoc terminator (shell_eof_token)"));
           d++;
         }
       }
@@ -1321,7 +1321,7 @@ function Qe(e, L, t) {
   Xe(e, L);
   let r = [],
     o = e.L.b,
-    a = !1;
+    a = false;
   while (e.L.b < t) {
     let l = c(e.L);
     if (l === "\\") {
@@ -1348,7 +1348,7 @@ function Qe(e, L, t) {
           f.type === "arithmetic_expansion")
       ) {
         if (a && d > o) r.push(u(e, "heredoc_content", o, d, []));
-        r.push(f), (o = e.L.b), (a = !0);
+        r.push(f), (o = e.L.b), (a = true);
       }
       continue;
     }
@@ -1718,8 +1718,8 @@ function K(e) {
       d = V(e, "))", "var");
     m(e.L);
     let f,
-      b = !1;
-    if (c(e.L) !== ")" || c(e.L, 1) !== ")") Te(e, l, "))"), (b = !0);
+      b = false;
+    if (c(e.L) !== ")" || c(e.L, 1) !== ")") Te(e, l, "))"), (b = true);
     if (c(e.L) === ")" && c(e.L, 1) === ")") {
       let p = e.L.b;
       n(e.L), n(e.L), (f = u(e, "))", p, e.L.b, []));
@@ -1733,8 +1733,8 @@ function K(e) {
       d = V(e, "]", "var");
     m(e.L);
     let f,
-      b = !1;
-    if (c(e.L) !== "]") Te(e, l, "]"), (b = !0);
+      b = false;
+    if (c(e.L) !== "]") Te(e, l, "]"), (b = true);
     if (c(e.L) === "]") {
       let p = e.L.b;
       n(e.L), (f = u(e, "]", p, e.L.b, []));
@@ -1749,12 +1749,12 @@ function K(e) {
     let d = D(e, ")");
     (e.inDquote = l), m(e.L);
     let f,
-      b = !1;
+      b = false;
     if (c(e.L) === ")") {
       let p = e.L.b;
       n(e.L), (f = u(e, ")", p, e.L.b, []));
     } else {
-      b = !0;
+      b = true;
       let p = e.L.b,
         h = 1;
       while (e.L.i < e.L.len) {
@@ -1820,7 +1820,7 @@ function K(e) {
     let a = u(e, "${", t, e.L.b, []),
       l = Ge(e),
       d,
-      f = !1;
+      f = false;
     while (
       c(e.L) ===
       `
@@ -1831,7 +1831,7 @@ function K(e) {
       let b = e.L.b;
       n(e.L), (d = u(e, "}", b, e.L.b, []));
     } else {
-      f = !0;
+      f = true;
       let b = e.L.b,
         p = 1;
       while (e.L.i < e.L.len) {
@@ -1915,7 +1915,7 @@ function K(e) {
       } else d = u(e, "ERROR", e.L.b, e.L.b, []);
       l.push(h);
     }
-    if (!f && e.inDquote > 0 && F(e, a.endIndex, d.startIndex).includes("'")) f = !0;
+    if (!f && e.inDquote > 0 && F(e, a.endIndex, d.startIndex).includes("'")) f = true;
     return u(e, f || e.zshBraceDiff ? "ERROR" : "expansion", t, d.endIndex, [a, ...l, d]);
   }
   n(e.L);
@@ -2090,16 +2090,16 @@ function Ge(e) {
       }
       if (c(e.L) === '"') {
         L.push(z(e));
-        let b = J(e, "regex", !0);
+        let b = J(e, "regex", true);
         if (b) L.push(b);
       } else {
-        let b = J(e, "regex", !0);
+        let b = J(e, "regex", true);
         if (b) L.push(b);
       }
       if (c(e.L) === "/") {
         let b = e.L.b;
         n(e.L), L.push(u(e, "/", b, e.L.b, []));
-        let p = J(e, "replword", !1);
+        let p = J(e, "replword", false);
         if (p)
           if (p.type === "concatenation" && p.children.length === 2 && p.children[0].type === "command_substitution")
             L.push(p.children[0]), L.push(p.children[1]);
@@ -2107,7 +2107,7 @@ function Ge(e) {
       }
     } else if (l === "#" || l === "##" || l === "%" || l === "%%") for (let f of Je(e)) L.push(f);
     else {
-      let f = J(e, d ? "regex" : "word", !1);
+      let f = J(e, d ? "regex" : "word", false);
       if (f) L.push(f);
     }
   }
@@ -2161,7 +2161,7 @@ function J(e, L, t) {
           if (c(e.L) === "'") n(e.L);
           continue;
         }
-        if (h === "$" && c(e.L, 1) === "(") e.zshBraceDiff = !0;
+        if (h === "$" && c(e.L, 1) === "(") e.zshBraceDiff = true;
         if (h === '"' || h === "'") {
           n(e.L);
           while (e.L.i < e.L.len && c(e.L) !== h) {
@@ -2172,7 +2172,7 @@ function J(e, L, t) {
           continue;
         }
         if (h === "`") {
-          (e.zshBraceDiff = !0), n(e.L);
+          (e.zshBraceDiff = true), n(e.L);
           while (e.L.i < e.L.len && c(e.L) !== "`") {
             if (c(e.L) === "\\" && e.L.i + 1 < e.L.len) n(e.L);
             n(e.L);
@@ -2180,7 +2180,7 @@ function J(e, L, t) {
           if (c(e.L) === "`") n(e.L);
           continue;
         }
-        if (h === "{") e.zshBraceDiff = !0;
+        if (h === "{") e.zshBraceDiff = true;
         n(e.L);
       }
       if (e.L.b > p) f.push(u(e, "word", p, e.L.b, []));
@@ -2201,7 +2201,7 @@ function J(e, L, t) {
   if (L === "regex") {
     while (e.L.i < e.L.len) {
       let f = c(e.L);
-      if (f === "{") e.zshBraceDiff = !0;
+      if (f === "{") e.zshBraceDiff = true;
       if (f === "}") break;
       if (t && f === "/") break;
       if (f === "\\" && e.L.i + 1 < e.L.len) {
@@ -2218,7 +2218,7 @@ function J(e, L, t) {
         continue;
       }
       if (f === "`") {
-        (e.zshBraceDiff = !0), n(e.L);
+        (e.zshBraceDiff = true), n(e.L);
         while (e.L.i < e.L.len && c(e.L) !== "`") {
           if (c(e.L) === "\\" && e.L.i + 1 < e.L.len) n(e.L);
           n(e.L);
@@ -2248,21 +2248,21 @@ function J(e, L, t) {
                 n(e.L);
               }
             } else if (h === "`") {
-              (e.zshBraceDiff = !0), n(e.L);
+              (e.zshBraceDiff = true), n(e.L);
               while (e.L.i < e.L.len && c(e.L) !== "`") {
                 if (c(e.L) === "\\" && e.L.i + 1 < e.L.len) n(e.L);
                 n(e.L);
               }
             } else if (h === "$" && c(e.L, 1) === "{") p++, n(e.L);
-            else if (h === "$" && c(e.L, 1) === "(") e.zshBraceDiff = !0;
-            else if (h === "{") e.zshBraceDiff = !0;
+            else if (h === "$" && c(e.L, 1) === "(") e.zshBraceDiff = true;
+            else if (h === "{") e.zshBraceDiff = true;
             else if (h === "}") p--;
             n(e.L);
           }
           continue;
         }
         if (b === "(") {
-          e.zshBraceDiff = !0;
+          e.zshBraceDiff = true;
           let p = 0;
           n(e.L), n(e.L), p++;
           while (e.L.i < e.L.len && p > 0) {
@@ -2308,7 +2308,7 @@ function J(e, L, t) {
   while (e.L.i < e.L.len) {
     let d = c(e.L);
     if (d === "}") break;
-    if (d === "{") e.zshBraceDiff = !0;
+    if (d === "{") e.zshBraceDiff = true;
     if (t && d === "/") break;
     if (d === "\\" && e.L.i + 1 < e.L.len) {
       n(e.L), n(e.L);
@@ -2357,7 +2357,7 @@ function J(e, L, t) {
       continue;
     }
     if ((d === "<" || d === ">") && f === "(") {
-      (e.zshBraceDiff = !0), a();
+      (e.zshBraceDiff = true), a();
       let b = se(e);
       if (b) r.push(b);
       o = e.L.b;
@@ -2387,7 +2387,7 @@ function Je(e) {
   while (e.L.i < e.L.len) {
     let r = c(e.L);
     if (r === "}") break;
-    if (r === "{") e.zshBraceDiff = !0;
+    if (r === "{") e.zshBraceDiff = true;
     if (r === "\\" && e.L.i + 1 < e.L.len) {
       n(e.L), n(e.L);
       continue;
@@ -2406,7 +2406,7 @@ function Je(e) {
       continue;
     }
     if (r === "`") {
-      (e.zshBraceDiff = !0), n(e.L);
+      (e.zshBraceDiff = true), n(e.L);
       while (e.L.i < e.L.len && c(e.L) !== "`") {
         if (c(e.L) === "\\" && e.L.i + 1 < e.L.len) n(e.L);
         n(e.L);
@@ -2452,21 +2452,21 @@ function Je(e) {
               n(e.L);
             }
           } else if (l === "`") {
-            (e.zshBraceDiff = !0), n(e.L);
+            (e.zshBraceDiff = true), n(e.L);
             while (e.L.i < e.L.len && c(e.L) !== "`") {
               if (c(e.L) === "\\" && e.L.i + 1 < e.L.len) n(e.L);
               n(e.L);
             }
           } else if (l === "$" && c(e.L, 1) === "{") a++, n(e.L);
-          else if (l === "$" && c(e.L, 1) === "(") e.zshBraceDiff = !0;
-          else if (l === "{") e.zshBraceDiff = !0;
+          else if (l === "$" && c(e.L, 1) === "(") e.zshBraceDiff = true;
+          else if (l === "{") e.zshBraceDiff = true;
           else if (l === "}") a--;
           n(e.L);
         }
         continue;
       }
       if (o === "(") {
-        e.zshBraceDiff = !0;
+        e.zshBraceDiff = true;
         let a = 1;
         n(e.L), n(e.L);
         while (e.L.i < e.L.len && a > 0) {
@@ -2508,12 +2508,12 @@ function ie(e) {
   let t = u(e, "`", L, e.L.b, []),
     i = e.L.i;
   {
-    let f = !1;
+    let f = false;
     while (i < e.L.len) {
       let b = e.L.src[i];
       if (b === "\\") {
         let p = e.L.src[i + 1];
-        if (p === "`" || p === "$" || p === "\\") f = !0;
+        if (p === "`" || p === "$" || p === "\\") f = true;
         i += 2;
         continue;
       }
@@ -2539,7 +2539,7 @@ function ie(e) {
     a = e.L.heredocs;
   e.L.heredocs = [];
   let l = [];
-  while (!0) {
+  while (true) {
     if ((m(e.L), c(e.L) === "`" || c(e.L) === "")) break;
     let f = w(e.L),
       b = T(e.L, "cmd");
@@ -2577,7 +2577,7 @@ function Pe(e, L) {
   i.push(...r), X(e, "then", i);
   let o = D(e, null);
   i.push(...o);
-  while (!0) {
+  while (true) {
     let l = w(e.L),
       d = T(e.L, "cmd");
     if (d.type === "WORD" && d.value === "elif") {
@@ -2665,7 +2665,7 @@ function me(e, L) {
     a = T(e.L, "arg");
   if (a.type === "WORD" && a.value === "in") {
     i.push(g(e, "in", a));
-    while (!0) {
+    while (true) {
       m(e.L);
       let p = c(e.L);
       if (
@@ -2709,7 +2709,7 @@ function nn(e, L) {
   let r = C(e, "arg");
   if (r) i.push(r);
   m(e.L), X(e, "in", i), q(e);
-  while (!0) {
+  while (true) {
     m(e.L), q(e);
     let a = w(e.L),
       l = T(e.L, "arg");
@@ -2734,8 +2734,8 @@ function tn(e) {
     let d = e.L.b;
     n(e.L), t.push(u(e, "(", d, e.L.b, []));
   }
-  let i = !0;
-  while (!0) {
+  let i = true;
+  while (true) {
     m(e.L);
     let d = c(e.L);
     if (d === ")" || d === "") break;
@@ -2748,7 +2748,7 @@ function tn(e) {
       t.push(u(e, "concatenation", p.startIndex, h.endIndex, b));
     } else t.push(...f);
     if (
-      ((i = !1),
+      ((i = false),
       m(e.L),
       c(e.L) === "\\" &&
         c(e.L, 1) ===
@@ -2796,9 +2796,9 @@ function sn(e) {
     t = e.L.b,
     i = e.L.i,
     r = 0,
-    o = !1,
-    a = !1,
-    l = !1;
+    o = false,
+    a = false,
+    l = false;
   while (e.L.i < e.L.len) {
     let p = c(e.L);
     if (p === "\\" && e.L.i + 1 < e.L.len) {
@@ -2806,7 +2806,7 @@ function sn(e) {
       continue;
     }
     if (p === '"' || p === "'") {
-      (l = !0), n(e.L);
+      (l = true), n(e.L);
       while (e.L.i < e.L.len && c(e.L) !== p) {
         if (c(e.L) === "\\" && e.L.i + 1 < e.L.len) n(e.L);
         n(e.L);
@@ -2842,8 +2842,8 @@ function sn(e) {
 `
     )
       break;
-    if (p === "$") o = !0;
-    if (p === "[") a = !0;
+    if (p === "$") o = true;
+    if (p === "[") a = true;
     n(e.L);
   }
   if (e.L.b === t) return [];
@@ -2924,7 +2924,7 @@ function Ln(e, L) {
   let t = g(e, L.value, L),
     i = [t],
     r = [];
-  while (!0) {
+  while (true) {
     m(e.L);
     let f = j(e);
     if (f) {
@@ -2980,7 +2980,7 @@ function cn(e, L) {
   let t = g(e, "unset", L),
     i = [t],
     r = [];
-  while (!0) {
+  while (true) {
     m(e.L);
     let f = j(e);
     if (f) {
@@ -3032,7 +3032,7 @@ function ve(e, L) {
 function de(e, L) {
   let t = ye(e, L);
   if (!t) return null;
-  while (!0) {
+  while (true) {
     m(e.L);
     let i = w(e.L);
     if (L === "]]" && c(e.L) === "|" && c(e.L, 1) === "|") {
@@ -3053,7 +3053,7 @@ function de(e, L) {
 function ye(e, L) {
   let t = ge(e, L);
   if (!t) return null;
-  while (!0) {
+  while (true) {
     m(e.L);
     let i = w(e.L);
     if (L === "]]" && c(e.L) === "&" && c(e.L, 1) === "&") {
@@ -3073,7 +3073,7 @@ function ye(e, L) {
 }
 function re(e, L) {
   if ((m(e.L), L === "]]"))
-    while (!0) {
+    while (true) {
       let t = c(e.L);
       if (
         t ===
@@ -3230,12 +3230,12 @@ function ln(e, L) {
           b = h;
         else v(e.L, p);
       }
-      if (!b) b = Ie(e, !0);
+      if (!b) b = Ie(e, true);
       if (!b) return P(e, t, o);
       return u(e, "binary_expression", t.startIndex, b.endIndex, [t, o, b]);
     }
     if (d === "=") {
-      let f = Ie(e, !1);
+      let f = Ie(e, false);
       if (!f) return P(e, t, o);
       return u(e, "binary_expression", t.startIndex, f.endIndex, [t, o, f]);
     }
@@ -3501,7 +3501,7 @@ function te(e, L, t = "var") {
 }
 function V(e, L, t = "var") {
   let i = [];
-  while (!0) {
+  while (true) {
     let r = Y(e, L, t);
     if (r) i.push(r);
     if ((m(e.L), c(e.L) === "," && !Z(e, L))) {
@@ -3574,7 +3574,7 @@ function dn(e) {
 function ue(e, L, t, i) {
   let r = fe(e, L, i);
   if (!r) return null;
-  while (!0) {
+  while (true) {
     if ((m(e.L), Z(e, L))) break;
     if (c(e.L) === ",") break;
     let o = dn(e);
@@ -3736,13 +3736,13 @@ async function SWt(e) {
 var f3 = Symbol("parse-aborted");
 async function JTe(e) {
   if (!e) return null;
-  if (e.length > Oe) return s("tengu_tree_sitter_parse_abort", { cmdLength: e.length, panic: !1 }), f3;
+  if (e.length > Oe) return s("tengu_tree_sitter_parse_abort", { cmdLength: e.length, panic: false }), f3;
   try {
     let L = KE().parse(e);
-    if (L === null) return s("tengu_tree_sitter_parse_abort", { cmdLength: e.length, panic: !1 }), f3;
+    if (L === null) return s("tengu_tree_sitter_parse_abort", { cmdLength: e.length, panic: false }), f3;
     return L;
   } catch {
-    return s("tengu_tree_sitter_parse_abort", { cmdLength: e.length, panic: !0 }), f3;
+    return s("tengu_tree_sitter_parse_abort", { cmdLength: e.length, panic: true }), f3;
   }
 }
 function dV(e, L) {
@@ -3778,11 +3778,11 @@ function QTe(e) {
     return i && hn.has(i.text) ? [i.text] : [];
   }
   let L = [],
-    t = !1;
+    t = false;
   for (let i of e.children) {
     if (i.type === "variable_assignment") continue;
     if (i.type === "command_name" || (!t && i.type === "word")) {
-      t = !0;
+      t = true;
       let r = i.children[0] ?? i;
       if (r.type === "concatenation")
         L.push(r.children.some((o) => be.has(o.type)) ? r.text : r.children.map(oe).join(""));

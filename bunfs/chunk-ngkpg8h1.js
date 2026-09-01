@@ -363,7 +363,7 @@ function ne(r, s) {
     o = r.file_path,
     l = r.old_string ?? "",
     c = r.new_string ?? "",
-    m = r.replace_all ?? !1;
+    m = r.replace_all ?? false;
   if ("edits" in r && r.edits != null) return e(VU, { file_path: o, operation: "update", firstLine: null, verbose: a });
   if (l === "") return e(VU, { file_path: o, operation: "write", content: c, firstLine: wr(c), verbose: a });
   return e(O, { filePath: o, oldString: l, newString: c, replaceAll: m, style: i, verbose: a });
@@ -373,7 +373,7 @@ function ie(r, s) {
   if (!i && typeof r === "string" && $r(r, "tool_use_error")) {
     let a = $r(r, "tool_use_error");
     if (a?.includes("File has not been read yet"))
-      return e(Pe, { children: e(t, { dimColor: !0, children: "File must be read first" }) });
+      return e(Pe, { children: e(t, { dimColor: true, children: "File must be read first" }) });
     if (a?.includes(S0)) return e(Pe, { children: e(t, { color: "error", children: "File not found" }) });
     return e(Pe, { children: e(t, { color: "error", children: "Error editing file" }) });
   }

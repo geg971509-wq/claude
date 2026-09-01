@@ -71,7 +71,7 @@ var WT = S(function (se) {
     },
     G = 3000,
     X = (e, { keepAlive: t, keepAliveMsecs: n }, r = G) => {
-      if (t !== !0) return -1;
+      if (t !== true) return -1;
       let s = () => {
         if (e.socket) e.socket.setKeepAlive(t, n || 0);
         else
@@ -104,25 +104,25 @@ var WT = S(function (se) {
       return m.setTimeout(r.bind(null, n === 0 ? 0 : B), B);
     },
     I = 6000;
-  async function q(e, t, n = I, r = !1) {
+  async function q(e, t, n = I, r = false) {
     let s = t.headers ?? {},
       o = s.Expect || s.expect,
       i = -1,
-      c = !0;
+      c = true;
     if (!r && o === "100-continue")
       c = await Promise.race([
         new Promise((h) => {
-          i = Number(m.setTimeout(() => h(!0), Math.max(I, n)));
+          i = Number(m.setTimeout(() => h(true), Math.max(I, n)));
         }),
         new Promise((h) => {
           e.on("continue", () => {
-            m.clearTimeout(i), h(!0);
+            m.clearTimeout(i), h(true);
           }),
             e.on("response", () => {
-              m.clearTimeout(i), h(!1);
+              m.clearTimeout(i), h(false);
             }),
             e.on("error", () => {
-              m.clearTimeout(i), h(!1);
+              m.clearTimeout(i), h(false);
             });
         }),
       ]);
@@ -153,7 +153,7 @@ var WT = S(function (se) {
     config;
     configProvider;
     socketWarningTimestamp = 0;
-    externalAgent = !1;
+    externalAgent = false;
     metadata = { handlerProtocol: "http/1.1" };
     static create(e) {
       if (typeof e?.handle === "function") return e;
@@ -199,7 +199,7 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
           httpsAgent: i,
           throwOnRequestTimeout: c,
         } = e || {},
-        h = !0,
+        h = true,
         l = 50;
       return {
         connectionTimeout: n,
@@ -208,12 +208,12 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
         socketAcquisitionWarningTimeout: s,
         throwOnRequestTimeout: c,
         httpAgent: (() => {
-          if (o instanceof x.Agent || typeof o?.destroy === "function") return (this.externalAgent = !0), o;
-          return new x.Agent({ keepAlive: !0, maxSockets: 50, ...o });
+          if (o instanceof x.Agent || typeof o?.destroy === "function") return (this.externalAgent = true), o;
+          return new x.Agent({ keepAlive: true, maxSockets: 50, ...o });
         })(),
         httpsAgent: (() => {
-          if (i instanceof R.Agent || typeof i?.destroy === "function") return (this.externalAgent = !0), i;
-          return new R.Agent({ keepAlive: !0, maxSockets: 50, ...i });
+          if (i instanceof R.Agent || typeof i?.destroy === "function") return (this.externalAgent = true), i;
+          return new R.Agent({ keepAlive: true, maxSockets: 50, ...i });
         })(),
         logger: console,
       };
@@ -242,7 +242,7 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
           w = e.headers ?? {},
           _ = (w.Expect ?? w.expect) === "100-continue",
           b = T ? o.httpsAgent : o.httpAgent;
-        if (_ && !this.externalAgent) b = new (T ? R.Agent : x.Agent)({ keepAlive: !1, maxSockets: 1 / 0 });
+        if (_ && !this.externalAgent) b = new (T ? R.Agent : x.Agent)({ keepAlive: false, maxSockets: 1 / 0 });
         c.push(
           m.setTimeout(
             () => {
@@ -288,7 +288,7 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
           };
           if (typeof t.addEventListener === "function") {
             let u = t;
-            u.addEventListener("abort", a, { once: !0 }), d.once("close", () => u.removeEventListener("abort", a));
+            u.addEventListener("abort", a, { once: true }), d.once("close", () => u.removeEventListener("abort", a));
           } else t.onabort = a;
         }
         let p = n ?? o.requestTimeout;
@@ -432,7 +432,7 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
       if (!this.config) {
         if (
           ((this.config = await this.configProvider),
-          this.connectionManager.setDisableConcurrentStreams(this.config.disableConcurrentStreams || !1),
+          this.connectionManager.setDisableConcurrentStreams(this.config.disableConcurrentStreams || false),
           this.config.maxConcurrentStreams)
         )
           this.connectionManager.setMaxConcurrentStreams(this.config.maxConcurrentStreams);
@@ -440,7 +440,7 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
       let { requestTimeout: r, disableConcurrentStreams: s } = this.config,
         o = n ?? r;
       return new Promise((i, c) => {
-        let h = !1,
+        let h = false,
           l = void 0,
           T = async (f) => {
             await l, i(f);
@@ -449,7 +449,7 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
             await l, c(f);
           };
         if (t?.aborted) {
-          h = !0;
+          h = true;
           let f = Error("Request aborted");
           (f.name = "AbortError"), w(f);
           return;
@@ -465,11 +465,11 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
           H = { destination: new URL(C) },
           d = this.connectionManager.lease(H, {
             requestTimeout: this.config?.sessionTimeout,
-            disableConcurrentStreams: s || !1,
+            disableConcurrentStreams: s || false,
           }),
           p = (f) => {
             if (s) this.destroySession(d);
-            (h = !0), w(f);
+            (h = true), w(f);
           },
           E = N.buildQueryString(v || {}),
           a = e.path;
@@ -480,7 +480,7 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
           (d.ref(),
           u.on("response", (f) => {
             let g = new M.HttpResponse({ statusCode: f[":status"] || -1, headers: j(f), body: u });
-            if (((h = !0), T({ response: g }), s)) d.close(), this.connectionManager.deleteSession(C, d);
+            if (((h = true), T({ response: g }), s)) d.close(), this.connectionManager.deleteSession(C, d);
           }),
           o)
         )
@@ -497,7 +497,7 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
           };
           if (typeof t.addEventListener === "function") {
             let g = t;
-            g.addEventListener("abort", f, { once: !0 }), u.once("close", () => g.removeEventListener("abort", f));
+            g.addEventListener("abort", f, { once: true }), u.once("close", () => g.removeEventListener("abort", f));
           } else t.onabort = f;
         }
         u.on("frameError", (f, g, Q) => {
@@ -549,7 +549,7 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
   async function oe(e) {
     let t = [],
       n = e.getReader(),
-      r = !1,
+      r = false,
       s = 0;
     while (!r) {
       let { done: c, value: h } = await n.read();

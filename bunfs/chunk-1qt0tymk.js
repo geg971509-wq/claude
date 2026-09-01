@@ -77,10 +77,10 @@ var De = 2000,
 function Se(e, t) {
   let i = "",
     r = "",
-    f = !0,
+    f = true,
     d = 0,
     o = "",
-    u = !1;
+    u = false;
   function g(S, k) {
     let _ = yl(co(r), se),
       A = `${S}|${k}|${_}`;
@@ -127,7 +127,7 @@ function Se(e, t) {
         if (o.startsWith("blocked|")) g("working", "active");
       },
       dispose() {
-        (u = !0), clearInterval(m);
+        (u = true), clearInterval(m);
       },
       get lastLine() {
         return yl(co(r), se);
@@ -151,8 +151,8 @@ function ae(e, t, i) {
     S,
     k = new ot("utf8"),
     _,
-    A = !1,
-    y = !1,
+    A = false,
+    y = false,
     N = 0,
     F = 0,
     x,
@@ -163,21 +163,21 @@ function ae(e, t, i) {
     B,
     K,
     z,
-    W = !1,
-    re = !1,
-    ue = !1,
+    W = false,
+    re = false,
+    ue = false,
     Q = "",
-    Te = !1,
+    Te = false,
     q = r;
   if (q === void 0)
-    Ga(t, { skipCache: !0 }).then((v) => {
+    Ga(t, { skipCache: true }).then((v) => {
       q = v;
     });
   let Ce = [],
     fe = 0;
   function Z(v) {
     if (_) {
-      if (_.destroyed) return !1;
+      if (_.destroyed) return false;
       if (!_.write(v)) {
         if (!U)
           (U = setTimeout(() => {
@@ -190,10 +190,10 @@ function ae(e, t, i) {
           }, ct)),
             R.unref();
       }
-      return !0;
+      return true;
     }
     if (fe < 2 * eze) Ce.push(v), (fe += v.length);
-    return !1;
+    return false;
   }
   function te() {
     if (U) clearTimeout(U), (U = void 0);
@@ -201,7 +201,7 @@ function ae(e, t, i) {
   }
   function j(v, C, P) {
     if (y) return;
-    if (((y = !0), (A = !0), G)) clearTimeout(G), (G = void 0);
+    if (((y = true), (A = true), G)) clearTimeout(G), (G = void 0);
     te(), _?.destroy(), (_ = void 0);
     let L = k.end();
     if (L) g.emit(L);
@@ -260,9 +260,9 @@ function ae(e, t, i) {
         }
       }
     } else if (v.ctrl.t === "hello") {
-      if (W) (re = !0), k.end(), (Q = "");
+      if (W) (re = true), k.end(), (Q = "");
       else oe(uT(e)).catch(() => {});
-      if (((W = !0), (T = v.ctrl.replPid), (z = v.ctrl.version), (B = void 0), T > 1 && D() !== "windows")) {
+      if (((W = true), (T = v.ctrl.replPid), (z = v.ctrl.version), (B = void 0), T > 1 && D() !== "windows")) {
         let C = T;
         Bre(C).then((P) => {
           if (T !== C || y || A || P === void 0) return;
@@ -271,9 +271,9 @@ function ae(e, t, i) {
       }
     } else if (v.ctrl.t === "live") {
       if (!ue) {
-        if (((ue = !0), Q.length > 0)) g.emit(Q), (Q = "");
+        if (((ue = true), Q.length > 0)) g.emit(Q), (Q = "");
       }
-      if (re) (re = !1), S?.();
+      if (re) (re = false), S?.();
     } else if (v.ctrl.t === "exit") j(v.ctrl.code, v.ctrl.signal);
     else if (v.ctrl.t === "ping") Z(tC({ t: "pong" }));
     else if (v.ctrl.t === "auth-required")
@@ -292,7 +292,7 @@ function ae(e, t, i) {
   function Ie() {
     if (A) return;
     let v = new nt(),
-      C = !1;
+      C = false;
     v.on("error", (P) => {
       (Te = E(P) === "ENOENT"), me();
     }),
@@ -314,7 +314,7 @@ function ae(e, t, i) {
         me();
       }),
       v.once("connect", () => {
-        (C = !0), (N = 0), (F = 0), (_ = v), v.on("drain", te);
+        (C = true), (N = 0), (F = 0), (_ = v), v.on("drain", te);
         let P = Mh(e),
           L = `${P}.read`;
         if (
@@ -349,7 +349,7 @@ ${J}`,
     try {
       process.kill(t, 0);
     } catch {
-      (A = !0),
+      (A = true),
         tl(uT(e), 8388608)
           .then((C) => C ?? "")
           .then((C) => {
@@ -377,7 +377,7 @@ ${J}`,
             process.kill(t, "SIGKILL");
           } catch {}
         }
-      (A = !0),
+      (A = true),
         tl(uT(e), 8388608)
           .then((P) => P ?? "")
           .then((P) => {
@@ -494,7 +494,7 @@ ${J}`,
         }
       },
       dispose: () => {
-        if (((A = !0), x)) clearTimeout(x), (x = void 0);
+        if (((A = true), x)) clearTimeout(x), (x = void 0);
         if (G) clearTimeout(G), (G = void 0);
         te(), _?.destroy(), (_ = void 0);
       },
@@ -520,14 +520,14 @@ var xe = [100, 250, 500, 1000, 2000],
   He = 30;
 function Ve(e, t, i, r, f) {
   let d,
-    o = !1,
+    o = false,
     u = 0,
-    g = !1,
+    g = false,
     m;
   function S() {
     if (o) return;
     let _ = new lt(),
-      A = !1;
+      A = false;
     _.on("error", () => k()),
       _.once("close", () => {
         if (d === _) d = void 0;
@@ -536,9 +536,9 @@ function Ve(e, t, i, r, f) {
         k();
       }),
       _.once("connect", () => {
-        (A = !0),
+        (A = true),
           (u = 0),
-          (g = !1),
+          (g = false),
           (d = _),
           _.write(
             b({ proto: Ca, role: "supervisor", supervisorPid: process.pid, auth: f }) +
@@ -561,7 +561,7 @@ function Ve(e, t, i, r, f) {
   function k() {
     if (o || m || g) return;
     if (u >= He) {
-      (g = !0),
+      (g = true),
         n(`[bg-rv] ${e}: ${u} connect attempts failed \u2014 giving up (pid-poll is liveness backstop)`, {
           level: "warn",
         }),
@@ -580,8 +580,8 @@ function Ve(e, t, i, r, f) {
     {
       send(_) {
         if (!d || d.destroyed) {
-          if (u >= He) (u = 0), (g = !1), k();
-          return !1;
+          if (u >= He) (u = 0), (g = false), k();
+          return false;
         }
         try {
           return (
@@ -590,14 +590,14 @@ function Ve(e, t, i, r, f) {
                 `
 `,
             ),
-            !0
+            true
           );
         } catch (A) {
-          return n(`[bg-rv] send failed: ${String(A)}`), !1;
+          return n(`[bg-rv] send failed: ${String(A)}`), false;
         }
       },
       close() {
-        if (((o = !0), m)) clearTimeout(m);
+        if (((o = true), m)) clearTimeout(m);
         d?.destroy(), (d = void 0);
       },
     }
@@ -607,7 +607,7 @@ var ft = 1e4,
   Fe = 20,
   gt = new Set([129, 143]);
 function $e() {
-  return I("tengu_bg_revival_guard", !0);
+  return I("tengu_bg_revival_guard", true);
 }
 var mt =
     "Continue from where you left off. Note: this session was automatically restarted after its process exited unexpectedly; the user has not sent a new message since the restart. Re-verify anything time-sensitive (branch state, running processes, prior partial work) before continuing.",
@@ -628,13 +628,13 @@ var mt =
   je = 4096;
 function z5t() {
   return (e, t, i) => {
-    let { cmd: r, prefixArgs: f } = rp({ pinToCurrentBinary: !0 }),
+    let { cmd: r, prefixArgs: f } = rp({ pinToCurrentBinary: true }),
       d = [r, ...f, "--bg-pty-host", i.ptySock, String(i.cols), String(i.rows), "--", e, ...t],
       o = {
         cwd: i.cwd,
         env: i.env,
-        detached: !0,
-        windowsHide: !0,
+        detached: true,
+        windowsHide: true,
         ...qi("agent"),
         ...(D() !== "windows" && { argv0: "claude bg-pty-host" }),
       },
@@ -674,7 +674,7 @@ function Ye(e, t, i, r, f) {
   let o = {
       ...d,
       ...(i && { CLAUDE_BG_AUTH_SNAPSHOT_PATH: i }),
-      ...(O() && I("tengu_hover_rest", !1) && { CLAUDE_CODE_HOVER_REST: "1" }),
+      ...(O() && I("tengu_hover_rest", false) && { CLAUDE_CODE_HOVER_REST: "1" }),
       ...(D() === "windows" && { CLAUDE_CODE_ALT_SCREEN_FULL_REPAINT: "1" }),
       ...e.env,
       CLAUDE_CODE_SESSION_KIND: "bg",
@@ -709,8 +709,8 @@ function Ye(e, t, i, r, f) {
     let m = new Set(),
       S = new Set(),
       k = new Set(),
-      _ = !1,
-      A = !1;
+      _ = false,
+      A = false;
     for (let y of Dpe) {
       let N = y.selection === void 0 || Me(o[y.selection]);
       if (
@@ -759,7 +759,7 @@ async function Ae(e, t) {
   if (!t || D() !== "macos") return;
   let i = Gbe(e);
   try {
-    return await Qe(Qft(), { recursive: !0, mode: 448 }), await Ee(i, JSON.stringify(t), { mode: 384 }), i;
+    return await Qe(Qft(), { recursive: true, mode: 448 }), await Ee(i, JSON.stringify(t), { mode: 384 }), i;
   } catch (r) {
     n(`writeAuthSnapshot failed: ${l(r)}`, { level: "warn" });
     return;
@@ -769,7 +769,7 @@ async function we(e, t) {
   if (D() === "windows") return;
   let i = zbe(e);
   try {
-    return await Qe(Qft(), { recursive: !0, mode: 448 }), await Ee(i, JSON.stringify(t), { mode: 384 }), i;
+    return await Qe(Qft(), { recursive: true, mode: 448 }), await Ee(i, JSON.stringify(t), { mode: 384 }), i;
   } catch (r) {
     n(`writeSocketTokensFile failed: ${l(r)}`, { level: "warn" });
     return;
@@ -825,7 +825,7 @@ function Ze(e) {
   return e.kind === "retiring" ? `retiring:${e.reason}` : e.kind === "retired" ? `retired:${e.outcome}` : e.kind;
 }
 function Tt(e, t) {
-  if (e.kind === "retired") return !1;
+  if (e.kind === "retired") return false;
   switch (t.kind) {
     case "spawning":
       return e.kind === "upgrading" || e.kind === "running";
@@ -834,9 +834,9 @@ function Tt(e, t) {
     case "upgrading":
       return e.kind === "running";
     case "retiring":
-      return !0;
+      return true;
     case "retired":
-      return !0;
+      return true;
   }
 }
 class Lj {
@@ -871,7 +871,7 @@ class Lj {
   lastSpawnAt = 0;
   fastCrashStreak = 0;
   lastExitCause;
-  lastExitExternalStop = !1;
+  lastExitExternalStop = false;
   effectiveCwd;
   liveTranscriptPath;
   hostWokeAt;
@@ -882,30 +882,30 @@ class Lj {
   ptySockPath;
   rvAuth = de(16).toString("hex");
   ptyAuth = de(16).toString("hex");
-  authRekeyFired = !1;
+  authRekeyFired = false;
   authRekeyCount = 0;
   pendingAuthRekey;
   rosterExtras = {};
   unverifiedSock;
   phase = { kind: "spawning" };
-  workerReady = !1;
-  sessionIdTakenLatch = !1;
+  workerReady = false;
+  sessionIdTakenLatch = false;
   firedInteractiveMarks = [];
-  bootedViaResume = !1;
-  resizeDeferred = !1;
+  bootedViaResume = false;
+  resizeDeferred = false;
   lastInputAt;
-  downgradeRefusalLogged = !1;
-  deleteJobDirOnSettle = !1;
+  downgradeRefusalLogged = false;
+  deleteJobDirOnSettle = false;
   get shouldDeleteJobDir() {
     return this.deleteJobDirOnSettle;
   }
   adoptedAt;
   lastRvHeartbeat;
-  stalledLogged = !1;
+  stalledLogged = false;
   lastCheckPidAt = Date.now();
   replyChain = Promise.resolve();
   killOutcome = "killed";
-  handoffKill = !1;
+  handoffKill = false;
   get isKilling() {
     return this.phase.kind === "retiring" && this.phase.reason === "reap";
   }
@@ -923,7 +923,7 @@ class Lj {
   }
   replayInteractiveMarksTo(e) {
     let t = this.attachers.get(e);
-    if (!t || t.caps?.imark !== !0) return;
+    if (!t || t.caps?.imark !== true) return;
     for (let i of this.firedInteractiveMarks) t.deliver(DBt({ ...i, nonce: t.imarkNonce }));
   }
   get isVersionStale() {
@@ -944,7 +944,7 @@ class Lj {
     );
   }
   get marksCapable() {
-    if (this.isVersionStale) return !1;
+    if (this.isVersionStale) return false;
     return this.bootedViaResume || this.firedInteractiveMarks.length > 0;
   }
   get bootingForAttachMetrics() {
@@ -969,12 +969,12 @@ class Lj {
           level: "warn",
         }),
         s("tengu_bg_phase_illegal", {}),
-        !1
+        false
       );
-    return (this.phase = e), !0;
+    return (this.phase = e), true;
   }
   shutdownWorker() {
-    let e = this.rv?.send({ type: "shutdown" }) ?? !1;
+    let e = this.rv?.send({ type: "shutdown" }) ?? false;
     if (!e) this.sigtermWorker();
     else
       setTimeout(
@@ -990,7 +990,7 @@ class Lj {
   }
   noteDowngradeRefused(e) {
     if (this.downgradeRefusalLogged || !this.record.cliVersion) return;
-    (this.downgradeRefusalLogged = !0),
+    (this.downgradeRefusalLogged = true),
       s("tengu_bg_respawn_downgrade_refused", {
         short: Dv(this.dispatch.short),
         trigger: c(e),
@@ -998,9 +998,9 @@ class Lj {
       });
   }
   async respawnIfIdleStale(e, t = "sweep") {
-    if (this.dispatch.launch.mode === "exec") return { respawned: !1, reason: "not-stale" };
-    if (this.isTransitioning) return { respawned: !1, reason: "in-progress" };
-    if (this.record.outcome) return { respawned: !1, reason: "no-state" };
+    if (this.dispatch.launch.mode === "exec") return { respawned: false, reason: "not-stale" };
+    if (this.isTransitioning) return { respawned: false, reason: "in-progress" };
+    if (this.record.outcome) return { respawned: false, reason: "no-state" };
     if (
       this.record.cliVersion &&
       rBe(
@@ -1018,7 +1018,7 @@ class Lj {
         }.VERSION,
       )
     )
-      return this.noteDowngradeRefused(t), { respawned: !1, reason: "not-stale" };
+      return this.noteDowngradeRefused(t), { respawned: false, reason: "not-stale" };
     if (
       ORe(
         this.record.cliVersion,
@@ -1035,24 +1035,24 @@ class Lj {
         }.VERSION,
       )
     )
-      return { respawned: !1, reason: "not-stale" };
-    if (this.attachers.size > 0) return { respawned: !1, reason: "attached" };
-    if (!this.isVersionStale) return { respawned: !1, reason: "not-stale" };
+      return { respawned: false, reason: "not-stale" };
+    if (this.attachers.size > 0) return { respawned: false, reason: "attached" };
+    if (!this.isVersionStale) return { respawned: false, reason: "not-stale" };
     if (t !== "attach" && this.lastInputAt && Date.now() - this.lastInputAt < yt)
-      return { respawned: !1, reason: "busy" };
+      return { respawned: false, reason: "busy" };
     let i = Date.now(),
       r = await fr(cr(this.dispatch.short), this.storageV5);
-    if (this.isTransitioning) return { respawned: !1, reason: "in-progress" };
-    if (this.record.outcome) return { respawned: !1, reason: "no-state" };
-    if (this.attachers.size > 0) return { respawned: !1, reason: "attached" };
-    if (this.lastInputAt && this.lastInputAt >= i) return { respawned: !1, reason: "busy" };
-    if (!r) return { respawned: !1, reason: "no-state" };
+    if (this.isTransitioning) return { respawned: false, reason: "in-progress" };
+    if (this.record.outcome) return { respawned: false, reason: "no-state" };
+    if (this.attachers.size > 0) return { respawned: false, reason: "attached" };
+    if (this.lastInputAt && this.lastInputAt >= i) return { respawned: false, reason: "busy" };
+    if (!r) return { respawned: false, reason: "no-state" };
     if (t !== "attach" && !Xi(r) && this.adoptedAt && Date.now() - this.adoptedAt < ze)
-      return { respawned: !1, reason: "busy" };
-    if (Xi(r) && t === "sweep" && !e?.has(this.dispatch.short)) return { respawned: !1, reason: "settled" };
-    if (!Xi(r) && r.tempo !== "idle" && !this.isParkedIdleFork(r)) return { respawned: !1, reason: "busy" };
-    if (ye(r)) return { respawned: !1, reason: "inflight" };
-    if (!this.transitionTo({ kind: "upgrading" })) return { respawned: !1, reason: "in-progress" };
+      return { respawned: false, reason: "busy" };
+    if (Xi(r) && t === "sweep" && !e?.has(this.dispatch.short)) return { respawned: false, reason: "settled" };
+    if (!Xi(r) && r.tempo !== "idle" && !this.isParkedIdleFork(r)) return { respawned: false, reason: "busy" };
+    if (ye(r)) return { respawned: false, reason: "inflight" };
+    if (!this.transitionTo({ kind: "upgrading" })) return { respawned: false, reason: "in-progress" };
     return (
       this.onState.emit({ pid: this.record.pid }),
       s("tengu_bg_respawn_stale", {
@@ -1061,7 +1061,7 @@ class Lj {
         trigger: c(t),
         worker_cli_version: us(this.record.cliVersion),
       }),
-      { respawned: !0 }
+      { respawned: true }
     );
   }
   isParkedIdleFork(e) {
@@ -1083,23 +1083,23 @@ class Lj {
       e.state === "working" &&
       e.tempo === "blocked" &&
       e.needs === Mg &&
-      e.interactiveLineage === !0
+      e.interactiveLineage === true
     );
   }
   async retireIfSettled(e, t, i = e) {
-    if (this.isTransitioning) return { retired: !1, reason: "in-progress" };
-    if (this.record.outcome) return { retired: !1, reason: "no-state" };
-    if (this.attachers.size > 0) return { retired: !1, reason: "attached" };
-    if (aK(this.dispatch)) return { retired: !1, reason: "host-managed" };
-    if (t?.has(this.dispatch.short)) return { retired: !1, reason: "pinned" };
-    if (this.adoptedAt && Date.now() - this.adoptedAt < ze) return { retired: !1, reason: "recent-adopt" };
-    if (this.lastInputAt && Date.now() - this.lastInputAt < e) return { retired: !1, reason: "recent-input" };
+    if (this.isTransitioning) return { retired: false, reason: "in-progress" };
+    if (this.record.outcome) return { retired: false, reason: "no-state" };
+    if (this.attachers.size > 0) return { retired: false, reason: "attached" };
+    if (aK(this.dispatch)) return { retired: false, reason: "host-managed" };
+    if (t?.has(this.dispatch.short)) return { retired: false, reason: "pinned" };
+    if (this.adoptedAt && Date.now() - this.adoptedAt < ze) return { retired: false, reason: "recent-adopt" };
+    if (this.lastInputAt && Date.now() - this.lastInputAt < e) return { retired: false, reason: "recent-input" };
     let r = await fr(cr(this.dispatch.short), this.storageV5);
-    if (this.isTransitioning || this.attachers.size > 0) return { retired: !1, reason: "in-progress" };
-    if (this.lastInputAt && Date.now() - this.lastInputAt < e) return { retired: !1, reason: "recent-input" };
+    if (this.isTransitioning || this.attachers.size > 0) return { retired: false, reason: "in-progress" };
+    if (this.lastInputAt && Date.now() - this.lastInputAt < e) return { retired: false, reason: "recent-input" };
     if (!r) {
       if (this.dispatch.source === "spare" && Date.now() - this.dispatch.createdAt > e) {
-        if (!this.transitionTo({ kind: "retiring", reason: "grace" })) return { retired: !1, reason: "in-progress" };
+        if (!this.transitionTo({ kind: "retiring", reason: "grace" })) return { retired: false, reason: "in-progress" };
         return (
           s("tengu_bg_retired", {
             short: Dv(this.dispatch.short),
@@ -1107,10 +1107,10 @@ class Lj {
             settledForMs: Date.now() - this.dispatch.createdAt,
             state: w("stale-spare"),
           }),
-          { retired: !0 }
+          { retired: true }
         );
       }
-      return { retired: !1, reason: "no-state" };
+      return { retired: false, reason: "no-state" };
     }
     if (
       this.dispatch.source !== "shell" &&
@@ -1125,17 +1125,17 @@ class Lj {
       let S = Date.parse(r.createdAt),
         k = Date.parse(r.updatedAt),
         _ = Date.now() - (k > S ? k : S);
-      if (_ < wt) return { retired: !1, reason: "empty-idle-grace" };
-      if (!this.transitionTo({ kind: "retiring", reason: "grace" })) return { retired: !1, reason: "in-progress" };
+      if (_ < wt) return { retired: false, reason: "empty-idle-grace" };
+      if (!this.transitionTo({ kind: "retiring", reason: "grace" })) return { retired: false, reason: "in-progress" };
       return (
-        (this.deleteJobDirOnSettle = !0),
+        (this.deleteJobDirOnSettle = true),
         s("tengu_bg_retired", {
           short: Dv(this.dispatch.short),
           rvSent: this.shutdownWorker(),
           settledForMs: _,
           state: w("empty-idle"),
         }),
-        { retired: !0 }
+        { retired: true }
       );
     }
     let f = this.isParkedIdleFork(r);
@@ -1146,17 +1146,17 @@ class Lj {
           (r.tempo === "idle" || (r.state === "blocked" && r.tempo === "blocked") || f))
       )
     )
-      return { retired: !1, reason: "not-settled" };
+      return { retired: false, reason: "not-settled" };
     let o = r.inFlight?.kinds ?? [],
       u = Xi(r) && o.length > 0 && o.every((S) => et.includes(S));
     if ((r.inFlight?.queued ?? 1) > 0 || ((r.inFlight?.tasks ?? 1) > 0 && !u))
-      return { retired: !1, reason: "inflight" };
-    if (o.includes("session_cron")) return { retired: !1, reason: "session-cron" };
-    if (r.routine) return { retired: !1, reason: "routine" };
+      return { retired: false, reason: "inflight" };
+    if (o.includes("session_cron")) return { retired: false, reason: "session-cron" };
+    if (r.routine) return { retired: false, reason: "routine" };
     let g = r.bridgeSessionId ? Math.max(e, i) : e,
       m = r.updatedAt && Date.now() - Date.parse(r.updatedAt);
-    if (!m || m < g) return { retired: !1, reason: "grace" };
-    if (!this.transitionTo({ kind: "retiring", reason: "grace" })) return { retired: !1, reason: "in-progress" };
+    if (!m || m < g) return { retired: false, reason: "grace" };
+    if (!this.transitionTo({ kind: "retiring", reason: "grace" })) return { retired: false, reason: "in-progress" };
     return (
       s("tengu_bg_retired", {
         short: Dv(this.dispatch.short),
@@ -1166,7 +1166,7 @@ class Lj {
         detritusOnly: u,
         state: r.state,
       }),
-      { retired: !0 }
+      { retired: true }
     );
   }
   sigtermWorker() {
@@ -1200,12 +1200,12 @@ class Lj {
       );
       return;
     }
-    (this.authRekeyFired = !0),
+    (this.authRekeyFired = true),
       fr(cr(this.dispatch.short), this.storageV5).then((t) => {
         let i = qe(t, e);
         if (i === "settled") {
-          (this.authRekeyFired = !1),
-            s("tengu_bg_adopt_token_lost_respawn", { source: c(e), deferred: !1, skipped: w("settled") }),
+          (this.authRekeyFired = false),
+            s("tengu_bg_adopt_token_lost_respawn", { source: c(e), deferred: false, skipped: w("settled") }),
             n(
               `[bg] worker ${this.dispatch.short}: auth mismatch (${e}) \u2014 worker already settled; leaving to retireIfSettled`,
               { level: "warn" },
@@ -1213,7 +1213,7 @@ class Lj {
           return;
         }
         if (i !== null) {
-          s("tengu_bg_adopt_token_lost_respawn", { source: c(e), deferred: !0, reason: c(i) }),
+          s("tengu_bg_adopt_token_lost_respawn", { source: c(e), deferred: true, reason: c(i) }),
             n(
               `[bg] worker ${this.dispatch.short}: auth mismatch (${e}) \u2014 ` +
                 (i === "active" ? "worker is mid-turn" : "worker has non-resumable in-flight work") +
@@ -1223,7 +1223,7 @@ class Lj {
             (this.pendingAuthRekey = e);
           return;
         }
-        s("tengu_bg_adopt_token_lost_respawn", { source: c(e), deferred: !1 }),
+        s("tengu_bg_adopt_token_lost_respawn", { source: c(e), deferred: false }),
           n(
             `[bg] worker ${this.dispatch.short}: auth mismatch (${e}) \u2014 respawning to re-key (--resume preserves the session)`,
             { level: "warn" },
@@ -1288,7 +1288,7 @@ class Lj {
         (o.attempt = 1),
         o
           .buildBridgeReattachEnvFromState()
-          .then((u) => o.doSpawn(u, !0))
+          .then((u) => o.doSpawn(u, true))
           .catch(h),
         o
       );
@@ -1331,7 +1331,7 @@ class Lj {
       i.wirePty(ae(t.ptySockPath, t.pid, { short: e.short, auth: i.ptyAuth })),
       i.resize(e.cols ?? 200, e.rows ?? 50),
       i.connectRv(),
-      Ga(t.pid, { skipCache: !0 }).then((r) => {
+      Ga(t.pid, { skipCache: true }).then((r) => {
         if (i.record.pid !== t.pid || i.isDetached || i.record.outcome) return;
         if (r) i.procStart = r;
         i.patch({ pid: t.pid });
@@ -1351,7 +1351,7 @@ class Lj {
       f = Ye(e, r, t, QGe(e.short), i);
     if ((delete f.CLAUDE_BG_PTY_AUTH, e.reattachEnv)) Object.assign(f, e.reattachEnv);
     Eq(f), Xe(f, e);
-    let d = Je(e, 1, !1, e.sessionId, void 0, e.respawnFlags);
+    let d = Je(e, 1, false, e.sessionId, void 0, e.respawnFlags);
     return { env: f, argv: d };
   }
   static async adopt(e, t, i, r, f, d) {
@@ -1361,7 +1361,7 @@ class Lj {
           delete t.dispatch.env[g];
     }
     if (!ms(t.pid)) return null;
-    let o = await Ga(t.pid, { skipCache: !0 });
+    let o = await Ga(t.pid, { skipCache: true });
     if (o && t.procStart !== o) return null;
     let u = new Lj(
       t.dispatch,
@@ -1376,7 +1376,7 @@ class Lj {
         state: "adopted",
         detail: "adopted from previous supervisor",
         cliVersion: t.cliVersion,
-        ...(t.ptySock ? {} : { legacy: !0 }),
+        ...(t.ptySock ? {} : { legacy: true }),
       },
       f,
       d,
@@ -1385,7 +1385,7 @@ class Lj {
       ((u.attempt = t.attempt),
       (u.procStart = t.procStart),
       (u.rosterExtras = OBt(t)),
-      (u.workerReady = !0),
+      (u.workerReady = true),
       (u.adoptedAt = Date.now()),
       (u.rvSockPath = t.rendezvousSock),
       (u.ptySockPath = t.ptySock),
@@ -1393,7 +1393,7 @@ class Lj {
       (u.ptyAuth = t.ptyAuth),
       u.dispatch.launch.mode === "exec")
     )
-      (u.execTracker = Se(cr(u.dispatch.short), u.storageV5)), (u.workerReady = !0);
+      (u.execTracker = Se(cr(u.dispatch.short), u.storageV5)), (u.workerReady = true);
     if (t.ptySock)
       u.wirePty(
         ae(t.ptySock, t.pid, {
@@ -1404,7 +1404,7 @@ class Lj {
         }),
       ),
         (u.ptyCols = 0),
-        u.seedFocus(!1);
+        u.seedFocus(false);
     if (t.decModes) u.decModes.seed(t.decModes);
     if (t.firedInteractiveMarks) u.firedInteractiveMarks = t.firedInteractiveMarks.slice(0, 2);
     if (
@@ -1548,7 +1548,7 @@ class Lj {
   }
   resize(e, t) {
     if (((this.ptyCols = e), (this.ptyRows = t), D() === "windows" && !this.workerReady)) {
-      this.resizeDeferred = !0;
+      this.resizeDeferred = true;
       return;
     }
     try {
@@ -1570,7 +1570,7 @@ class Lj {
   resizeForRepaint(e, t) {
     if (e !== this.ptyCols || t !== this.ptyRows)
       return this.resize(e, t), this.signalPtyPgrp(), this.rv?.send({ type: "repaint" }), () => {};
-    let i = this.rv?.send({ type: "repaint" }) === !0,
+    let i = this.rv?.send({ type: "repaint" }) === true,
       r = () => {},
       f = setTimeout(
         (d, o) => {
@@ -1644,7 +1644,7 @@ class Lj {
   async reply(e) {
     (this.lastInputAt = Date.now()), (this.lastInputAttacher = void 0);
     let t = await fr(cr(this.dispatch.short), this.storageV5);
-    if ((!t || (t.tempo ?? this.record.tempo) === "blocked") && this.rv?.send({ type: "reply", text: e })) return !0;
+    if ((!t || (t.tempo ?? this.record.tempo) === "blocked") && this.rv?.send({ type: "reply", text: e })) return true;
     if (this.pty) {
       let i = this.dispatch.launch.mode !== "exec";
       return (
@@ -1661,13 +1661,13 @@ class Lj {
                 );
             }),
         )),
-        !0
+        true
       );
     }
-    return this.rv?.send({ type: "reply", text: e }) ?? !1;
+    return this.rv?.send({ type: "reply", text: e }) ?? false;
   }
   sendAttacherCaps(e) {
-    return this.rv?.send({ type: "attacher-caps", caps: e }) ?? !1;
+    return this.rv?.send({ type: "attacher-caps", caps: e }) ?? false;
   }
   kill(e = "SIGTERM", t = "killed", i) {
     if (this.phase.kind === "retired") return;
@@ -1710,20 +1710,20 @@ class Lj {
       this.pty?.dispose(),
       (this.pty = void 0);
   }
-  async doSpawn(e, t = !1) {
+  async doSpawn(e, t = false) {
     if (
       (this.attempt++,
-      (this.authRekeyFired = !1),
+      (this.authRekeyFired = false),
       (this.pendingAuthRekey = void 0),
-      (this.workerReady = !1),
+      (this.workerReady = false),
       (this.firedInteractiveMarks = []),
       this.attempt > 1)
     )
       this.liveTranscriptPath = null;
-    (this.resizeDeferred = !1),
+    (this.resizeDeferred = false),
       (this.ringSpawnMark = this.ring.length),
       (this.lastSpawnAt = Date.now()),
-      (this.lastExitExternalStop = !1);
+      (this.lastExitExternalStop = false);
     let i = this.dispatch,
       r = cr(i.short);
     await Ose(i.short, this.storageV5).catch(() => {});
@@ -1757,19 +1757,19 @@ class Lj {
     }
     await ce(Mh(this.ptySockPath ?? oh(i.short))).catch(() => {});
     let u = i.launch.mode === "resume" ? i.launch.sessionId : void 0,
-      g = !1,
-      m = !1,
+      g = false,
+      m = false,
       S = i.sessionId,
       k,
       _ = i.respawnFlags,
       A = i.cwd,
-      y = !1;
+      y = false;
     if (this.attempt > 1) {
       let R = await fr(r, this.storageV5);
       (S = R?.resumeSessionId ?? i.sessionId),
         (_ = R?.respawnFlags ?? i.respawnFlags),
         (A = R?.cwd ?? i.cwd),
-        (y = R?.interactiveLineage === !0);
+        (y = R?.interactiveLineage === true);
       let T = _d(Ng(this.storageV5)),
         B = await S4(S, A, R?.linkScanPath, void 0, T);
       if (((g = B.hasMessages), g)) (k = B.path), (this.liveTranscriptPath = B.path);
@@ -1810,7 +1810,7 @@ class Lj {
       U;
     try {
       let { cmd: R, prefixArgs: T } =
-        i.launch.mode === "exec" ? { cmd: SS(i.launch.cmd), prefixArgs: [] } : rp({ pinToCurrentBinary: !0 });
+        i.launch.mode === "exec" ? { cmd: SS(i.launch.cmd), prefixArgs: [] } : rp({ pinToCurrentBinary: true });
       U = this.spawnPty(R, [...T, ...N], {
         cols: x,
         rows: G,
@@ -1825,8 +1825,8 @@ class Lj {
         B = Xl()[0];
       if (X(R)) {
         let K = await pt(A).then(
-          () => !0,
-          () => !1,
+          () => true,
+          () => false,
         );
         if (this.record.outcome) return;
         if (!K) return this.settleCwdGone("cold", A);
@@ -1855,13 +1855,13 @@ class Lj {
       return this.scheduleRespawn(l(R));
     }
     if (i.launch.mode === "exec")
-      this.execTracker?.dispose(), (this.execTracker = Se(r, this.storageV5)), (this.workerReady = !0);
+      this.execTracker?.dispose(), (this.execTracker = Se(r, this.storageV5)), (this.workerReady = true);
     if (D() === "windows") Ee(C9(i.short), String(U.pid)).catch(() => {});
     this.wirePty(U),
       this.rv?.close(),
       (this.rv = void 0),
       (this.lastRvHeartbeat = void 0),
-      (this.stalledLogged = !1),
+      (this.stalledLogged = false),
       this.connectRv(),
       this.patch({
         pid: U.pid,
@@ -1886,7 +1886,7 @@ class Lj {
         source: c(this.dispatch.source),
         launch_mode: c(this.dispatch.launch.mode),
       }),
-      Ga(U.pid, { skipCache: !0 }).then((R) => {
+      Ga(U.pid, { skipCache: true }).then((R) => {
         if (!R || this.record.pid !== U.pid || this.isDetached || this.record.outcome) return;
         (this.procStart = R), this.patch({ pid: U.pid });
       });
@@ -1906,10 +1906,10 @@ class Lj {
         if (this.decModes.feed(i) && this.record.pid) this.onState.emit({ pid: this.record.pid });
         this.execTracker?.feed(i), this.pushRing(i.includes(_F) ? i.replaceAll(_F, "") : i), this.onStream.emit(i);
       }));
-    let t = !1;
+    let t = false;
     this.offExit = e.onExit(({ exitCode: i, signal: r, hostStderr: f }) => {
       if (t) return;
-      (t = !0),
+      (t = true),
         this.offData?.dispose(),
         (this.execLastLine = this.execTracker?.lastLine),
         this.execTracker?.dispose(),
@@ -1943,7 +1943,7 @@ class Lj {
         let r = qe(i, t);
         if (r === "settled") {
           (this.pendingAuthRekey = void 0),
-            (this.authRekeyFired = !1),
+            (this.authRekeyFired = false),
             n(
               `[bg] worker ${this.dispatch.short}: deferred auth-mismatch re-key (${t}) dropped \u2014 worker settled; leaving to retireIfSettled`,
               { level: "warn" },
@@ -1984,12 +1984,12 @@ class Lj {
     let G = !this.workerReady && A === iQe,
       U = g ? ` \u2014 ${g}` : k ? ` \u2014 ${k}` : A ? ` \u2014 ${A}` : "",
       R = this.effectiveCwd ?? this.dispatch.cwd,
-      T = !1;
+      T = false;
     if (A === "setcwd")
       try {
         T = !Be(R).isDirectory();
       } catch {
-        T = !0;
+        T = true;
       }
     let B = this.dispatch.launch.mode === "exec" && (t === "SIGINT" || t === "SIGQUIT"),
       K;
@@ -2026,7 +2026,7 @@ class Lj {
         this.patch({ pid: 0, state: "starting", detail: "upgrading" }),
         (this.procStart = void 0),
         this.buildBridgeReattachEnvFromState()
-          .then((W) => this.doSpawn(W, !0))
+          .then((W) => this.doSpawn(W, true))
           .catch(h);
       return;
     }
@@ -2055,7 +2055,7 @@ class Lj {
       );
     }
     if (G) {
-      (this.sessionIdTakenLatch = !0),
+      (this.sessionIdTakenLatch = true),
         s("tengu_bg_session_id_taken", {
           short: Dv(this.dispatch.short),
           attempt: this.attempt,
@@ -2192,13 +2192,13 @@ class Lj {
             if ((this.firedInteractiveMarks.push(t), this.record.pid)) this.onState.emit({ pid: this.record.pid });
           }
           for (let i of this.attachers.values())
-            if (i.caps?.imark === !0) i.deliver(DBt({ ...t, nonce: i.imarkNonce }));
+            if (i.caps?.imark === true) i.deliver(DBt({ ...t, nonce: i.imarkNonce }));
         }
       },
       () => void this.checkPid(),
       () => {
-        if (((this.workerReady = !0), this.resizeDeferred))
-          (this.resizeDeferred = !1), this.resize(this.ptyCols, this.ptyRows);
+        if (((this.workerReady = true), this.resizeDeferred))
+          (this.resizeDeferred = false), this.resize(this.ptyCols, this.ptyRows);
         if (this.attachers.size > 0) {
           let e = [...this.attachers.values()].at(-1);
           this.sendAttacherCaps(e.caps ?? null);
@@ -2211,25 +2211,25 @@ class Lj {
   startPidPoll() {
     if (this.pidPoll) return;
     (this.lastCheckPidAt = Date.now()),
-      (this.pidPoll = setInterval(() => void this.checkPid(!0), ve)),
+      (this.pidPoll = setInterval(() => void this.checkPid(true), ve)),
       this.pidPoll.unref();
   }
   pidRecycled() {
-    if (!this.procStart || !this.record.pid) return !1;
+    if (!this.procStart || !this.record.pid) return false;
     let e = $re(this.record.pid);
     return e !== void 0 && e !== this.procStart;
   }
   async pidRecycledAsync() {
-    if (!this.procStart || !this.record.pid) return !1;
+    if (!this.procStart || !this.record.pid) return false;
     let e = await Ga(this.record.pid);
     return e !== void 0 && e !== this.procStart;
   }
   async failIfHostExited(e) {
     let t = this.record.pid;
-    if (!t || this.record.outcome || this.isKilling || !this.pty) return !1;
+    if (!t || this.record.outcome || this.isKilling || !this.pty) return false;
     let i = await $4t(t);
-    if (!gfe(i)) return !1;
-    if (this.record.outcome || this.isKilling || !this.pty || this.record.pid !== t) return !1;
+    if (!gfe(i)) return false;
+    if (this.record.outcome || this.isKilling || !this.pty || this.record.pid !== t) return false;
     return (
       n(
         `bg: ${this.dispatch.short} pty host pid=${t} has exited but is unreaped (state ${i}) via=${e} \u2014 reaping it and marking the session failed`,
@@ -2243,11 +2243,11 @@ class Lj {
         attachers: this.attachers.size,
       }),
       this.kill("SIGKILL", "failed", this.dispatch.launch.mode === "exec" ? mDe : Fce),
-      !0
+      true
     );
   }
   pidPollTick = 0;
-  async checkPid(e = !1) {
+  async checkPid(e = false) {
     let t = Date.now() - this.lastCheckPidAt;
     this.lastCheckPidAt = Date.now();
     let i = t > Ke;
@@ -2259,14 +2259,14 @@ class Lj {
         process.kill(this.record.pid, 0);
       } catch (f) {
         let d = E(f);
-        if (d === "ESRCH" || d === "EPERM") this.logVanished(!1, e), this.settle(this.isKilling ? "killed" : "crashed");
+        if (d === "ESRCH" || d === "EPERM") this.logVanished(false, e), this.settle(this.isKilling ? "killed" : "crashed");
         return;
       }
     let r = this.lastRvHeartbeat;
     if (!i && !this.stalledLogged && r !== void 0 && Date.now() - r > At) {
       let f = await fr(cr(this.dispatch.short), this.storageV5);
       if (!this.stalledLogged && (f?.tempo ?? this.record.tempo) === "active")
-        (this.stalledLogged = !0),
+        (this.stalledLogged = true),
           s("tengu_bg_worker_stalled", { short: Dv(this.dispatch.short), sinceMs: Date.now() - r });
     }
     if (this.pty) {
@@ -2276,7 +2276,7 @@ class Lj {
     if (e && this.pidPollTick++ % 12 !== 0) return;
     if (await this.pidRecycledAsync()) {
       if (this.record.outcome || this.pty) return;
-      this.logVanished(!0, e), this.settle(this.isKilling ? "killed" : "crashed");
+      this.logVanished(true, e), this.settle(this.isKilling ? "killed" : "crashed");
     }
   }
   logVanished(e, t) {
@@ -2292,7 +2292,7 @@ class Lj {
   }
   clearLiveness() {
     if (this.pidPoll) clearInterval(this.pidPoll), (this.pidPoll = null);
-    this.rv?.close(), (this.rv = void 0), (this.lastRvHeartbeat = void 0), (this.stalledLogged = !1);
+    this.rv?.close(), (this.rv = void 0), (this.lastRvHeartbeat = void 0), (this.stalledLogged = false);
   }
 }
 async function qwr(e) {
@@ -2374,7 +2374,7 @@ async function V5t(e) {
   if (ru()) return null;
   if (!(await ZE())) {
     if (!e.launcherNotRunnableEpisode.logged)
-      (e.launcherNotRunnableEpisode.logged = !0),
+      (e.launcherNotRunnableEpisode.logged = true),
         p("agent_launcher", "spare_launcher_not_runnable"),
         n(
           `bg spare: launcher \`${Xl()[0]}\` was deleted or is not executable \u2014 not minting a warm spare until it is restored`,
@@ -2383,17 +2383,17 @@ async function V5t(e) {
     return null;
   }
   return (
-    (e.launcherNotRunnableEpisode.logged = !1),
+    (e.launcherNotRunnableEpisode.logged = false),
     Hr("daemon_bg_spare_refill", async () => {
       let t = Re(4).toString("hex"),
         i = i5n(t),
         r = s5n(t),
         f = Re(16).toString("hex"),
         d = Re(16).toString("hex");
-      await It(E2(), { recursive: !0, mode: 448 }).catch(() => {});
+      await It(E2(), { recursive: true, mode: 448 }).catch(() => {});
       let o = await we(`spare-${t}`, { ptyAuth: f, claimAuth: d });
       await Y(i).catch(() => {}), await Y(r).catch(() => {});
-      let { cmd: u, prefixArgs: g } = rp({ pinToCurrentBinary: !0 }),
+      let { cmd: u, prefixArgs: g } = rp({ pinToCurrentBinary: true }),
         m = await Dt(Mh(i), "w").catch(() => null),
         S = xsr("agent"),
         k = S?.(),
@@ -2403,8 +2403,8 @@ async function V5t(e) {
           cwd: E2(),
           env: Nt(o ? { tokensPath: o } : { ptyAuth: f, claimAuth: d }),
           stdio: ["ignore", "ignore", m?.fd ?? "ignore"],
-          detached: !0,
-          windowsHide: !0,
+          detached: true,
+          windowsHide: true,
           ...qi("agent"),
           argv0: "claude bg-pty-host",
         })),
@@ -2435,15 +2435,15 @@ async function V5t(e) {
             HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
             DD_SOURCEMAP_GROUP: "darwin",
           }.VERSION,
-          claimed: !1,
+          claimed: false,
           dispose() {
-            y = !0;
+            y = true;
             try {
               _.kill("SIGTERM");
             } catch {}
           },
         },
-        y = !1;
+        y = false;
       return (
         _.exited.then(async (N) => {
           let F = Date.now(),
@@ -2510,7 +2510,7 @@ function Nt(e) {
   );
 }
 function K5t(e, t, i, r, f, d) {
-  t.claimed = !0;
+  t.claimed = true;
   let o = Lj.claim(e, {
     pid: t.hostPid,
     ptySockPath: t.ptySock,

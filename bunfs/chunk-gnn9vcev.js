@@ -32,10 +32,10 @@ function L() {
     state: { phase: "idle" },
     shownWallResetsAt: null,
     pendingAsk: null,
-    claiming: !1,
+    claiming: false,
     continuableWallResetsAt: null,
     unsettledClaimWallResetsAt: null,
-    sessionSwitchSubscribed: !1,
+    sessionSwitchSubscribed: false,
     changed: Ue(),
     events: Ue(),
   };
@@ -116,9 +116,9 @@ function M(e) {
   return {
     eligible: r.eligible,
     ineligibleReason: r.ineligible_reason ?? null,
-    inExperiment: r.in_experiment ?? !1,
+    inExperiment: r.in_experiment ?? false,
     arm: r.arm ?? null,
-    available: r.available ?? !1,
+    available: r.available ?? false,
     nextAvailableAt: r.next_available_at ?? null,
     weeklyResetsAt: r.weekly_resets_at ?? null,
     resetsPerWeek: r.resets_per_week ?? 1,
@@ -137,7 +137,7 @@ function M(e) {
 async function E(e) {
   try {
     if (!Wd()) return { kind: "no_profile_scope" };
-    let t = await dI(e, { atWall: !0 });
+    let t = await dI(e, { atWall: true });
     if (!wmt(t))
       return (
         n("[juniper-tide] status fetch returned a fieldless or non-object body (in-band error)", { level: "warn" }),
@@ -167,7 +167,7 @@ async function C(e) {
             auth: "async",
             headers: { "Content-Type": "application/json" },
             timeout: O,
-            refreshOAuth: !0,
+            refreshOAuth: true,
             credentials: e,
           },
         ),
@@ -249,7 +249,7 @@ function Fke(e, t = Date.now()) {
 function S(e) {
   if (e === null) return;
   let t = Date.parse(e);
-  return Number.isFinite(t) ? ad(Math.floor(t / 1000), !1, !0, !0) : void 0;
+  return Number.isFinite(t) ? ad(Math.floor(t / 1000), false, true, true) : void 0;
 }
 function yNn(e, t) {
   if (!nDe() || !bse(e)) return;
@@ -303,7 +303,7 @@ function P({ wallResetsAt: e, accountEpoch: t, failures: r, result: a, autoArmed
     (s("tengu_juniper_tide_asked", {
       outcome: c(a.kind === "answered" ? (l === null ? "absent" : "block") : a.kind),
       attempt: r + 1,
-      eligible: l?.eligible ?? !1,
+      eligible: l?.eligible ?? false,
       ineligible_reason: ke(l?.ineligibleReason) ?? void 0,
       config_version: wft(),
     }),
@@ -363,11 +363,11 @@ async function B(e, t) {
   s("tengu_juniper_tide_selected", { entry: c(e), auto_armed: xq(), config_version: l });
   let w = Date.now(),
     d;
-  r.claiming = !0;
+  r.claiming = true;
   try {
     d = (await jt(C(t), Q)) ?? { result: "error", nextAvailableAt: null };
   } finally {
-    r.claiming = !1;
+    r.claiming = false;
   }
   switch (
     (s("tengu_juniper_tide_result", {
@@ -458,16 +458,16 @@ function Z(e) {
 function ee(e, t) {
   let r = mL();
   if (r.phase !== "answered" || r.wallResetsAt !== e || r.status === null) return;
-  _({ ...r, status: { ...r.status, available: !1, nextAvailableAt: t ?? r.status.nextAvailableAt } });
+  _({ ...r, status: { ...r.status, available: false, nextAvailableAt: t ?? r.status.nextAvailableAt } });
 }
 function te(e) {
   let t = mL();
   if (t.phase !== "answered" || t.wallResetsAt !== e || t.status === null) return;
-  _({ ...t, status: { ...t.status, eligible: !1, available: !1 } });
+  _({ ...t, status: { ...t.status, eligible: false, available: false } });
 }
 function ne(e) {
   if (e.sessionSwitchSubscribed) return;
-  (e.sessionSwitchSubscribed = !0),
+  (e.sessionSwitchSubscribed = true),
     au((t, r) => {
       if (n6e(r)) e.continuableWallResetsAt = null;
     });

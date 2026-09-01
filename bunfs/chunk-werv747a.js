@@ -29,21 +29,21 @@ function pU(i, u = 300000, l) {
         t.set(s, g);
         try {
           let m = await g;
-          if (t.get(s) === g) e.set(s, { value: m, timestamp: Date.now(), refreshing: !1, lifetimeMs: o(m) });
+          if (t.get(s) === g) e.set(s, { value: m, timestamp: Date.now(), refreshing: false, lifetimeMs: o(m) });
           return m;
         } finally {
           if (t.get(s) === g) t.delete(s);
         }
       }
       if (r && h - r.timestamp > r.lifetimeMs && !r.refreshing) {
-        r.refreshing = !0;
+        r.refreshing = true;
         let f = r,
           g = i(...c);
         return (
           (f.refreshPromise = g),
           g
             .then((m) => {
-              if (e.get(s) === f) e.set(s, { value: m, timestamp: Date.now(), refreshing: !1, lifetimeMs: o(m) });
+              if (e.get(s) === f) e.set(s, { value: m, timestamp: Date.now(), refreshing: false, lifetimeMs: o(m) });
             })
             .catch((m) => {
               if ((n(String(m), { level: "error" }), e.get(s) === f)) e.delete(s);

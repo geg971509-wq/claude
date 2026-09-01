@@ -43,7 +43,7 @@ function jKt() {
   if (w[1] !== m.sessionMode) (E = KZe(m.sessionMode)), (w[1] = m.sessionMode), (w[2] = E);
   else E = w[2];
   let G;
-  if (w[3] !== E) (G = r(t, { bold: !0, children: [E, "\u2026"] })), (w[3] = E), (w[4] = G);
+  if (w[3] !== E) (G = r(t, { bold: true, children: [E, "\u2026"] })), (w[3] = E), (w[4] = G);
   else G = w[4];
   let H;
   if (w[5] !== v || w[6] !== O || w[7] !== m.sessionMode || w[8] !== m.steps) {
@@ -70,7 +70,7 @@ function jKt() {
   else N = w[15];
   let I;
   if (w[16] !== N)
-    (I = e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: N }) })), (w[16] = N), (w[17] = I);
+    (I = e(o, { marginTop: 1, children: e(t, { dimColor: true, children: N }) })), (w[16] = N), (w[17] = I);
   else I = w[17];
   let X;
   if (w[18] !== G || w[19] !== H || w[20] !== I)
@@ -158,7 +158,7 @@ function BU(be) {
       if (c[4] === d) (p = e(t, { color: "success", children: `  ${L.tick} ` })), (c[4] = p);
       else p = c[4];
       let n;
-      if (c[5] !== S) (n = e(t, { dimColor: !0, children: S })), (c[5] = S), (c[6] = n);
+      if (c[5] !== S) (n = e(t, { dimColor: true, children: S })), (c[5] = S), (c[6] = n);
       else n = c[6];
       let f;
       if (c[7] !== x || c[8] !== n)
@@ -171,7 +171,7 @@ function BU(be) {
       if (c[10] === d) (p = e(o, { width: 4, paddingLeft: 2, children: e(wo, {}) })), (c[10] = p);
       else p = c[10];
       let n;
-      if (c[11] !== S) (n = e(t, { dimColor: !0, children: S })), (c[11] = S), (c[12] = n);
+      if (c[11] !== S) (n = e(t, { dimColor: true, children: S })), (c[11] = S), (c[12] = n);
       else n = c[12];
       let f;
       if (c[13] !== x || c[14] !== n)
@@ -179,7 +179,7 @@ function BU(be) {
       else f = c[15];
       let T;
       if (c[16] !== y)
-        (T = y !== void 0 && y !== "" && e(o, { paddingLeft: 6, children: e(t, { dimColor: !0, children: y }) })),
+        (T = y !== void 0 && y !== "" && e(o, { paddingLeft: 6, children: e(t, { dimColor: true, children: y }) })),
           (c[16] = y),
           (c[17] = T);
       else T = c[17];
@@ -211,7 +211,7 @@ function BU(be) {
     case "pending": {
       const p = `  ${L.circle} ${x}`;
       let n;
-      if (c[29] !== p) (n = e(o, { children: e(t, { dimColor: !0, children: p }) })), (c[29] = p), (c[30] = n);
+      if (c[29] !== p) (n = e(o, { children: e(t, { dimColor: true, children: p }) })), (c[29] = p), (c[30] = n);
       else n = c[30];
       return n;
     }

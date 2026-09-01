@@ -19,10 +19,10 @@ import { e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
 var qRe = 10;
 function BLn(n) {
   if (typeof n === "string") return B(n, 9);
-  if (!Array.isArray(n)) return !1;
+  if (!Array.isArray(n)) return false;
   let i = 0;
   for (let s of n) {
-    if (((i += 1), i > 10)) return !0;
+    if (((i += 1), i > 10)) return true;
     if (s.type !== "text") continue;
     let a = s.text,
       l = 0;
@@ -38,9 +38,9 @@ function BLn(n) {
         break;
       l++, i++;
     }
-    if (i > 10) return !0;
+    if (i > 10) return true;
   }
-  return !1;
+  return false;
 }
 function B(n, i) {
   let s = 0;
@@ -53,10 +53,10 @@ function B(n, i) {
       )),
       s === -1)
     )
-      return !1;
+      return false;
     s++;
   }
-  return !0;
+  return true;
 }
 function ep(V) {
   let R = _(26),
@@ -112,7 +112,7 @@ function ep(V) {
   else c = R[14];
   let T;
   if (R[15] !== L || R[16] !== m)
-    (T = !m && e(Jm, { count: L, expandable: !0 })), (R[15] = L), (R[16] = m), (R[17] = T);
+    (T = !m && e(Jm, { count: L, expandable: true })), (R[15] = L), (R[16] = m), (R[17] = T);
   else T = R[17];
   let y;
   if (R[18] !== x || R[19] !== N || R[20] !== c || R[21] !== T)

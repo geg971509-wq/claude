@@ -185,7 +185,7 @@ function T(ut) {
   if ((ko(q, i ? 1000 : null), i)) {
     const A = Date.now() - i.setAt;
     let h;
-    if (s[1] !== A) (h = $t(A, { mostSignificantOnly: !0 })), (s[1] = A), (s[2] = h);
+    if (s[1] !== A) (h = $t(A, { mostSignificantOnly: true })), (s[1] = A), (s[2] = h);
     else h = s[2];
     let gt = h;
     const G = Cu() - i.tokensAtStart;
@@ -242,12 +242,12 @@ function T(ut) {
       let c = Gpn(X);
       if (c) {
         let v = [];
-        if (c.durationMs !== void 0) v.push($t(c.durationMs, { mostSignificantOnly: !0 }));
+        if (c.durationMs !== void 0) v.push($t(c.durationMs, { mostSignificantOnly: true }));
         if (c.iterations !== void 0) v.push(`${c.iterations} ${k(c.iterations, "turn")}`);
         if (c.tokens !== void 0) v.push(`${Gn(c.tokens)} tokens`);
         let h;
         if (s[26] === d)
-          (h = r(t, { children: [e(tt, { status: "success", withSpace: !0 }), "Goal achieved"] })), (s[26] = h);
+          (h = r(t, { children: [e(tt, { status: "success", withSpace: true }), "Goal achieved"] })), (s[26] = h);
         else h = s[26];
         const G = v.join(" \xB7 ");
         let C;
@@ -295,7 +295,7 @@ function N(kt) {
     { label: P, children: j } = kt,
     x;
   if (E[0] !== P)
-    (x = e(o, { flexShrink: 0, children: r(t, { dimColor: !0, children: [P, ": "] }) })), (E[0] = P), (E[1] = x);
+    (x = e(o, { flexShrink: 0, children: r(t, { dimColor: true, children: [P, ": "] }) })), (E[0] = P), (E[1] = x);
   else x = E[1];
   let L;
   if (E[2] !== j) (L = e(o, { flexGrow: 1, children: e(t, { wrap: "wrap", children: j }) })), (E[2] = j), (E[3] = L);
@@ -321,6 +321,6 @@ var Rt = async (p, f, l) => {
     );
   let a = _we(y, f);
   if (a !== null) return p(a, { display: "system" }), null;
-  return p(`Goal set: ${y}`, { shouldQuery: !0, metaMessages: [ngt(y)] }), null;
+  return p(`Goal set: ${y}`, { shouldQuery: true, metaMessages: [ngt(y)] }), null;
 };
 export { Rt as call };

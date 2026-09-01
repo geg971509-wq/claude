@@ -19,10 +19,10 @@ import { UI, YE, bde, VM } from "/$bunfs/root/chunk-c76q2y0e.js";
 import { D } from "/$bunfs/root/chunk-7s7jqj2f.js";
 import { ue } from "/$bunfs/root/chunk-yz031c9r.js";
 var u = null,
-  y = !1;
+  y = false;
 function f() {
   if (y) return u;
-  return (y = !0), null;
+  return (y = true), null;
   if (process.env.CLIPBOARD_NAPI_NODE_PATH)
     try {
       return (u = ue(process.env.CLIPBOARD_NAPI_NODE_PATH)), u;
@@ -98,8 +98,8 @@ function tw(t) {
 }
 class w {
   tool = void 0;
-  addonWriteFailed = !1;
-  addonWriteSucceeded = !1;
+  addonWriteFailed = false;
+  addonWriteSucceeded = false;
   waylandCopyGeneration = 0;
   async probe() {
     if (D() !== "linux" || (typeof this.tool === "string" && this.tool !== "addon")) return;
@@ -125,7 +125,7 @@ class w {
     this.tool = null;
   }
   recordAddonWrite(t) {
-    if (t) this.addonWriteSucceeded = !0;
+    if (t) this.addonWriteSucceeded = true;
     else this.addonWriteFailed ||= !this.addonWriteSucceeded;
   }
   beginWaylandCopy() {
@@ -135,7 +135,7 @@ class w {
     return t === this.waylandCopyGeneration;
   }
   reset() {
-    (this.tool = void 0), (this.addonWriteFailed = !1), (this.addonWriteSucceeded = !1);
+    (this.tool = void 0), (this.addonWriteFailed = false), (this.addonWriteSucceeded = false);
   }
 }
 var M = new J(() => new w());
@@ -185,12 +185,12 @@ function l_t(t) {
 }
 async function W(t) {
   let e = h();
-  if (!e) return !1;
-  let o = { input: t, useCwd: !1, timeout: 2000 },
+  if (!e) return false;
+  let o = { input: t, useCwd: false, timeout: 2000 },
     r = a.LC_TERMINAL ?? "unset",
     i = e.length > 0 ? "attacher socket" : "$TMUX",
     { code: s } = await $e("tmux", [...e, "load-buffer", "-w", "-"], o);
-  if ((n(`clipboard: tmux load-buffer -w - \u2192 exit ${s} (server=${i} LC_TERMINAL=${r})`), s === 0)) return !0;
+  if ((n(`clipboard: tmux load-buffer -w - \u2192 exit ${s} (server=${i} LC_TERMINAL=${r})`), s === 0)) return true;
   let c = await $e("tmux", [...e, "load-buffer", "-"], o);
   return n(`clipboard: retry tmux load-buffer - \u2192 exit ${c.code} (server=${i} LC_TERMINAL=${r})`), c.code === 0;
 }
@@ -221,7 +221,7 @@ async function h_(t) {
 var E = "[Console]::InputEncoding = [Text.Encoding]::UTF8; Set-Clipboard -Value ([Console]::In.ReadToEnd())",
   B = "[Console]::OutputEncoding = [Text.Encoding]::UTF8; Get-Clipboard -Raw";
 function O(t) {
-  let e = { input: t, useCwd: !1, timeout: 2000 };
+  let e = { input: t, useCwd: false, timeout: 2000 };
   switch (D()) {
     case "macos":
       $e("pbcopy", [], e);
@@ -234,16 +234,16 @@ function O(t) {
         });
       else if (o.tool === "wl-copy") U(t);
       else if (o.tool === "xclip") {
-        let r = { ...e, useToolMemoryCgroup: !1 };
+        let r = { ...e, useToolMemoryCgroup: false };
         $e("xclip", ["-selection", "clipboard"], r), $e("xclip", ["-selection", "primary"], r);
       } else if (o.tool === "xsel") {
-        let r = { ...e, useToolMemoryCgroup: !1 };
+        let r = { ...e, useToolMemoryCgroup: false };
         $e("xsel", ["--clipboard", "--input"], r), $e("xsel", ["--primary", "--input"], r);
       } else if (o.tool === "addon") {
         try {
-          o.recordAddonWrite(f()?.setLinuxClipboardText(t) !== !1);
+          o.recordAddonWrite(f()?.setLinuxClipboardText(t) !== false);
         } catch {
-          o.recordAddonWrite(!1);
+          o.recordAddonWrite(false);
         }
         o.probe();
       }
@@ -262,13 +262,13 @@ function O(t) {
 async function U(t) {
   let e = d(),
     o = e.beginWaylandCopy(),
-    r = { input: t, useCwd: !1, timeout: 2000, stdout: "ignore", stderr: "ignore", useToolMemoryCgroup: !1 };
+    r = { input: t, useCwd: false, timeout: 2000, stdout: "ignore", stderr: "ignore", useToolMemoryCgroup: false };
   if ((await $e("wl-copy", [], r), !e.isLatestWaylandCopy(o))) return;
   await $e("wl-copy", ["--primary"], r);
 }
 async function I5e(t = "clipboard") {
   if (p()) return "";
-  let e = { useCwd: !1, timeout: 2000 };
+  let e = { useCwd: false, timeout: 2000 };
   switch (D()) {
     case "macos": {
       let o = await $e("pbpaste", [], e);
@@ -391,16 +391,16 @@ function Y(t) {
 function* H(t) {
   let e = "",
     o = "",
-    r = !1,
-    i = !1;
+    r = false,
+    i = false;
   for (let s of t)
     if (i) {
       if (r) o += s;
       else e += s;
-      i = !1;
-    } else if (s === "\\") i = !0;
-    else if (s === ";") yield [e, o], (e = ""), (o = ""), (r = !1);
-    else if (s === "=" && !r) r = !0;
+      i = false;
+    } else if (s === "\\") i = true;
+    else if (s === ";") yield [e, o], (e = ""), (o = ""), (r = false);
+    else if (s === "=" && !r) r = true;
     else if (r) o += s;
     else e += s;
   if (e || r) yield [e, o];
@@ -425,7 +425,7 @@ var xTe = nf(Sd.HYPERLINK, "", ""),
   nJn = `${S}${Sd.SET_TITLE_AND_ICON};${YE}`,
   u_t = nf(Sd.TAB_STATUS, "indicator=;status=;status-color=");
 function P5e() {
-  return !1;
+  return false;
 }
 function rJn(t) {
   let e = [],

@@ -103,7 +103,7 @@ async function c() {
     pt.invalidateDependencyCache();
     let t = l(e);
     n(`/sandbox install failed: ${t}`, { level: "error" });
-    let a = q2(t, { omitCcRemedy: !0 }).replace(/\.$/, "");
+    let a = q2(t, { omitCcRemedy: true }).replace(/\.$/, "");
     if (e instanceof yd && e.code === "install_timeout")
       return (
         g("sandbox_windows_install", "uac_timeout"),
@@ -144,7 +144,7 @@ async function i(e) {
   } catch (t) {
     let a = l(t);
     n(`/sandbox install: managed sandbox CA step failed: ${a}`, { level: "error" });
-    let s = q2(a, { omitCcRemedy: !0 }).replace(/\.$/, "");
+    let s = q2(a, { omitCcRemedy: true }).replace(/\.$/, "");
     if (t instanceof yd && (t.code === "trust_ca_failed" || t.code === "spawn_failed" || t.code === "srt_win_timeout"))
       return (
         g("sandbox_windows_install", "trust_ca_failed"),

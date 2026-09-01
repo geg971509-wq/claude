@@ -19,11 +19,11 @@ var s = import.meta.require("/$bunfs/root/chunk-zfgvpn6x.js").ExtraUsageDialog;
 async function Xme(u, n) {
   let t = Iq(u);
   if (s && g2e()) return e(s, { onDone: t });
-  let o = await jge({ openInBrowser: !0 }, n.credentials);
+  let o = await jge({ openInBrowser: true }, n.credentials);
   if (o.type === "message") return t(o.value), null;
   if (o.type === "confirm-admin-request") {
     if (wt()) return t(Bge), null;
-    return e(BUe, { extraUsage: o.extraUsage, accepts: () => !0, onDone: t });
+    return e(BUe, { extraUsage: o.extraUsage, accepts: () => true, onDone: t });
   }
   let i = Fn();
   if (i === "team" || i === "enterprise")

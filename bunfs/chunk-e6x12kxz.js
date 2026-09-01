@@ -115,43 +115,43 @@ function Fn(Nr) {
   if (!Nr.voiceWarmingUp) {
     return Nr;
   }
-  return { ...Nr, voiceWarmingUp: !1 };
+  return { ...Nr, voiceWarmingUp: false };
 }
 function Hn(Dr) {
   if (!Dr.awaitingVoiceSubmitDoubleTap) {
     return Dr;
   }
-  return { ...Dr, awaitingVoiceSubmitDoubleTap: !1 };
+  return { ...Dr, awaitingVoiceSubmitDoubleTap: false };
 }
 function jn(Lr) {
   if (!Lr.voiceWarmingUp) {
     return Lr;
   }
-  return { ...Lr, voiceWarmingUp: !1 };
+  return { ...Lr, voiceWarmingUp: false };
 }
 function zn($r) {
   if (!$r.awaitingVoiceSubmitDoubleTap) {
     return $r;
   }
-  return { ...$r, awaitingVoiceSubmitDoubleTap: !1 };
+  return { ...$r, awaitingVoiceSubmitDoubleTap: false };
 }
 function Gn(Kr) {
   if (!Kr.awaitingVoiceSubmitDoubleTap) {
     return Kr;
   }
-  return { ...Kr, awaitingVoiceSubmitDoubleTap: !1 };
+  return { ...Kr, awaitingVoiceSubmitDoubleTap: false };
 }
 function Xn(Br) {
   if (!Br.voiceWarmingUp) {
     return Br;
   }
-  return { ...Br, voiceWarmingUp: !1 };
+  return { ...Br, voiceWarmingUp: false };
 }
 function Jn(Wr) {
   if (Wr.voiceWarmingUp) {
     return Wr;
   }
-  return { ...Wr, voiceWarmingUp: !0 };
+  return { ...Wr, voiceWarmingUp: true };
 }
 var Kn = import.meta.require("/$bunfs/root/chunk-7axtjvnz.js"),
   Xe = 120,
@@ -160,12 +160,12 @@ var Kn = import.meta.require("/$bunfs/root/chunk-7axtjvnz.js"),
   Ut = 2,
   qr = 300;
 function jr(a, l) {
-  if ((a.key === "return" ? "enter" : a.key.toLowerCase()) !== l.key) return !1;
-  if (a.ctrl !== l.ctrl) return !1;
-  if (a.shift !== l.shift) return !1;
-  if (a.meta !== (l.alt || l.meta)) return !1;
-  if (a.superKey !== l.super) return !1;
-  return !0;
+  if ((a.key === "return" ? "enter" : a.key.toLowerCase()) !== l.key) return false;
+  if (a.ctrl !== l.ctrl) return false;
+  if (a.shift !== l.shift) return false;
+  if (a.meta !== (l.alt || l.meta)) return false;
+  if (a.superKey !== l.super) return false;
+  return true;
 }
 function zr(a) {
   return pT.changed.subscribe(a);
@@ -173,7 +173,7 @@ function zr(a) {
 function Gr() {
   return Dmt(pT);
 }
-function Dme({ composer: a, isActive: l = !0 }) {
+function Dme({ composer: a, isActive: l = true }) {
   let { addNotification: k } = Or(),
     V = $nt(),
     H = DQ(),
@@ -181,7 +181,7 @@ function Dme({ composer: a, isActive: l = !0 }) {
     O = C(""),
     T = C(null),
     _e = B(
-      (b, { char: I = " ", anchor: S = !1, floor: q = 0 } = {}) => {
+      (b, { char: I = " ", anchor: S = false, floor: q = 0 } = {}) => {
         let { value: M, cursorOffset: x } = a,
           G = M.slice(0, x),
           L = M.slice(x),
@@ -209,7 +209,7 @@ function Dme({ composer: a, isActive: l = !0 }) {
       (R.current = null), (O.current = ""), a.setValueWithCursor(b + I, b.length);
     }, [a]),
     ve = PR(),
-    de = W((b) => b.settings.voice?.autoSubmit === !0),
+    de = W((b) => b.settings.voice?.autoSubmit === true),
     ce = W((b) => b.settings.voice?.mode ?? "hold"),
     fe = Rp((b) => b.voiceState),
     ae = Rp((b) => b.voiceInterimTranscript);
@@ -253,7 +253,7 @@ function Dme({ composer: a, isActive: l = !0 }) {
           Q = I.length + x.length + b.length;
         a.setValueWithCursor(L, Q), (T.current = L), y("voice_transcript_insert"), (R.current = I + x + b);
         let X = ce === "tap" || de,
-          w = a.submit !== void 0 && X && wsr(b) >= 3 && a.submit(L, !0);
+          w = a.submit !== void 0 && X && wsr(b) >= 3 && a.submit(L, true);
         V((D) => {
           let Z = a.submit !== void 0 && ce !== "tap" && !w;
           if (D.awaitingVoiceSubmitDoubleTap === Z) return D;
@@ -268,7 +268,7 @@ function Dme({ composer: a, isActive: l = !0 }) {
         k({ key: "voice-error", kind: "warning", text: b, color: "error", priority: "immediate", timeoutMs: 1e4 });
       },
       enabled: ve,
-      focusMode: !1,
+      focusMode: false,
       mode: ce,
     }),
     Y = z(() => {
@@ -348,7 +348,7 @@ function Oie(Ci) {
     Pe = C(0),
     Rt = C(0),
     Ir = C(0),
-    er = C(!1),
+    er = C(false),
     we = C(null),
     kt = C(0),
     ke = C(null),
@@ -356,7 +356,7 @@ function Oie(Ci) {
     xn;
   if (ze[5] !== be || ze[6] !== Jt)
     (In = () => {
-      if (Jt !== "recording") (er.current = !1), (Ir.current = 0), be(Fn);
+      if (Jt !== "recording") (er.current = false), (Ir.current = 0), be(Fn);
       else {
         if (((kt.current = 0), ke.current)) ke.current(), (ke.current = null);
         be(Hn);
@@ -447,7 +447,7 @@ function Oie(Ci) {
                 }
                 let tr = Ke.value;
                 let Oi = tr.endsWith(J) || (J === " " && tr.endsWith("\u3000")) ? tr.slice(0, -1) : tr;
-                if (!Vi(Oi, !0)) {
+                if (!Vi(Oi, true)) {
                   return;
                 }
                 be(Gn);
@@ -496,8 +496,8 @@ function Oie(Ci) {
           return;
         }
         if (Tr) {
-          if (J !== null) Ve(Ee, { char: J, anchor: !0 });
-          else Ve(0, { anchor: !0 });
+          if (J !== null) Ve(Ee, { char: J, anchor: true });
+          else Ve(0, { anchor: true });
         } else if (J !== null) Ve(Ee, { char: J, floor: 0 });
         if ((at(), Tr && Ie().voiceState === "idle")) St();
         return;
@@ -519,10 +519,10 @@ function Oie(Ci) {
       let Pi = Pe.current;
       if (((Pe.current = Pe.current + Ee), J === null || (Ct === "idle" && Pe.current >= Hr))) {
         if ((oe.stopImmediatePropagation(), we.current)) we.current(), (we.current = null);
-        if (((Pe.current = 0), (er.current = !0), be(Xn), J !== null))
-          (Ir.current = Ve(Rt.current + Ee, { char: J, anchor: !0 })), (Rt.current = 0), at();
-        else Ve(0, { anchor: !0 }), at(Fr);
-        if (Ie().voiceState === "idle") (er.current = !1), St();
+        if (((Pe.current = 0), (er.current = true), be(Xn), J !== null))
+          (Ir.current = Ve(Rt.current + Ee, { char: J, anchor: true })), (Rt.current = 0), at();
+        else Ve(0, { anchor: true }), at(Fr);
+        if (Ie().voiceState === "idle") (er.current = false), St();
         return;
       }
       if (Pi >= Ut) oe.stopImmediatePropagation(), Ve(Ee, { char: J, floor: Rt.current });
@@ -575,7 +575,7 @@ function lQ(Yi) {
           (We = r(t, {
             children: [
               r(t, { color: "error", children: [vr, " REC"] }),
-              e(t, { dimColor: !0, children: " \xB7 tap to send" }),
+              e(t, { dimColor: true, children: " \xB7 tap to send" }),
             ],
           })),
             (Xr[0] = We);
@@ -583,7 +583,7 @@ function lQ(Yi) {
         return We;
       }
       let We;
-      if (Xr[1] === d) (We = e(t, { dimColor: !0, children: "listening\u2026" })), (Xr[1] = We);
+      if (Xr[1] === d) (We = e(t, { dimColor: true, children: "listening\u2026" })), (Xr[1] = We);
       else We = Xr[1];
       return We;
     }
@@ -609,7 +609,7 @@ function gUe() {
 function cQ() {
   let ta = _(1),
     Zn;
-  if (ta[0] === d) (Zn = e(t, { dimColor: !0, children: "keep holding\u2026" })), (ta[0] = Zn);
+  if (ta[0] === d) (Zn = e(t, { dimColor: true, children: "keep holding\u2026" })), (ta[0] = Zn);
   else Zn = ta[0];
   return Zn;
 }
@@ -647,7 +647,7 @@ import { basename as et, dirname as Wt } from "path";
 F();
 var Ye = j(mm(), 1);
 function tn(a) {
-  return `${Ye.major(a, { loose: !0 })}.${Ye.minor(a, { loose: !0 })}.${Ye.patch(a, { loose: !0 })}`;
+  return `${Ye.major(a, { loose: true })}.${Ye.minor(a, { loose: true })}.${Ye.patch(a, { loose: true })}`;
 }
 function st(
   a,
@@ -675,7 +675,7 @@ function dr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
     R = W((Y) => Y.autoUpdaterResult),
     O = At(),
     [T, _e] = u({}),
-    [ue, ve] = u(!1),
+    [ue, ve] = u(false),
     de = st(R?.version);
   A(() => {
     ree().then(ve);
@@ -713,7 +713,7 @@ function dr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
       I = await tye(b),
       { maxVersion: S, forceDowngradeEnabled: q } = await oee(),
       M = null,
-      x = !1;
+      x = false;
     if (q && S) {
       if (((x = Qae(Y, S, "auto_updater")), x)) M = S;
     }
@@ -726,12 +726,12 @@ function dr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
     if ((_e({ global: Y, latest: M ?? I }), !M || Zae(M))) return;
     if (x) s("tengu_auto_updater_forced_downgrade", { from_version: us(Y), to_version: us(M) });
     let G = Date.now();
-    l(!0);
+    l(true);
     let L = ie();
     if (L.installMethod !== "native" && !Me(process.env.DISABLE_INSTALLATION_CHECKS)) await xxe();
     let Q = await nee();
     if ((n(`AutoUpdater: Detected installation type: ${Q}`), Q === "development")) {
-      n("AutoUpdater: Cannot auto-update development build"), l(!1);
+      n("AutoUpdater: Cannot auto-update development build"), l(false);
       return;
     }
     let X, w, D;
@@ -739,7 +739,7 @@ function dr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
     else if (Q === "npm-global")
       n("AutoUpdater: Using global update method"), (w = "global"), (D = await nye(M, H)), (X = D.status);
     else if (Q === "native") {
-      n("AutoUpdater: Unexpected native installation in non-native updater"), l(!1);
+      n("AutoUpdater: Unexpected native installation in non-native updater"), l(false);
       return;
     } else {
       n("AutoUpdater: Unknown installation type, falling back to config");
@@ -747,7 +747,7 @@ function dr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
       if (((w = se ? "local" : "global"), se)) X = await Q_e(b, M, H);
       else (D = await nye(M, H)), (X = D.status);
     }
-    l(!1);
+    l(false);
     let Z = D?.failureHint;
     if (X !== "in_progress")
       Yae(
@@ -809,14 +809,14 @@ function dr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
     children: [
       V &&
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           wrap: "truncate",
           children: ["globalVersion: ", T.global, " \xB7 latestVersion:", " ", T.latest],
         }),
       a
         ? e(U, {
             children: e(o, {
-              children: e(t, { color: "text", dimColor: !0, wrap: "truncate", children: "Auto-updating\u2026" }),
+              children: e(t, { color: "text", dimColor: true, wrap: "truncate", children: "Auto-updating\u2026" }),
             }),
           })
         : R?.status === "success" &&
@@ -825,17 +825,17 @@ function dr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
           r(t, {
             color: "success",
             wrap: "truncate",
-            children: [e(tt, { status: "success", withSpace: !0 }), "Update installed \xB7 Restart to apply"],
+            children: [e(tt, { status: "success", withSpace: true }), "Update installed \xB7 Restart to apply"],
           }),
       R?.status === "no_permissions" &&
         r(t, {
           color: "error",
           wrap: "truncate",
           children: [
-            e(tt, { status: "error", withSpace: !0 }),
+            e(tt, { status: "error", withSpace: true }),
             "Auto-update failed: no write permission to npm prefix \xB7 Run",
             " ",
-            e(t, { bold: !0, children: "claude doctor" }),
+            e(t, { bold: true, children: "claude doctor" }),
           ],
         }),
       R?.status === "install_failed" &&
@@ -848,7 +848,7 @@ function dr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
                     color: "error",
                     wrap: "truncate",
                     children: [
-                      e(tt, { status: "error", withSpace: !0 }),
+                      e(tt, { status: "error", withSpace: true }),
                       "Update failed and ",
                       et(P.originalPath),
                       " could not be restored \u2014 it was preserved at:",
@@ -866,7 +866,7 @@ function dr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
                           " or run",
                           " ",
                           r(t, {
-                            bold: !0,
+                            bold: true,
                             children: [
                               "npm i -g ",
                               {
@@ -893,7 +893,7 @@ function dr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
                           " \xB7 reinstall with",
                           " ",
                           r(t, {
-                            bold: !0,
+                            bold: true,
                             children: [
                               "npm i -g ",
                               {
@@ -918,13 +918,13 @@ function dr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
                 color: "error",
                 wrap: "truncate",
                 children: [
-                  e(tt, { status: "error", withSpace: !0 }),
+                  e(tt, { status: "error", withSpace: true }),
                   "Update failed and ",
                   et(P.originalPath),
                   " could not be restored (no preserved copy found) \xB7 reinstall with",
                   " ",
                   r(t, {
-                    bold: !0,
+                    bold: true,
                     children: [
                       "npm i -g ",
                       {
@@ -947,23 +947,23 @@ function dr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
                 color: "error",
                 wrap: "truncate",
                 children: [
-                  e(tt, { status: "error", withSpace: !0 }),
+                  e(tt, { status: "error", withSpace: true }),
                   "Auto-update failed: claude.exe in use (close other Claude Code sessions, including VS Code) \xB7 Run",
                   " ",
-                  e(t, { bold: !0, children: "claude doctor" }),
+                  e(t, { bold: true, children: "claude doctor" }),
                 ],
               })
             : r(t, {
                 color: "error",
                 wrap: "truncate",
                 children: [
-                  e(tt, { status: "error", withSpace: !0 }),
+                  e(tt, { status: "error", withSpace: true }),
                   "Auto-update failed \xB7 Try ",
-                  e(t, { bold: !0, children: "claude doctor" }),
+                  e(t, { bold: true, children: "claude doctor" }),
                   " or",
                   " ",
                   e(t, {
-                    bold: !0,
+                    bold: true,
                     children: ue
                       ? `cd ~/.claude/local && npm update ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.PACKAGE_URL}`
                       : `npm i -g ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.PACKAGE_URL}`,
@@ -1066,11 +1066,11 @@ function pr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
       ve(S ?? "affects your version");
     }
     if (eye()) return;
-    l(!0);
+    l(true);
     let I = Date.now();
     s("tengu_native_auto_updater_start", {});
     try {
-      let S = await Xae(ce, !1, H),
+      let S = await Xae(ce, false, H),
         q = {
           ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
           PACKAGE_URL: "@anthropic-ai/claude-code",
@@ -1155,7 +1155,7 @@ function pr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
           return { ...L, autoUpdaterResult: { version: null, status: "install_failed" } };
         });
     } finally {
-      l(!1);
+      l(false);
     }
   }
   let ae = br(fe);
@@ -1170,28 +1170,28 @@ function pr({ isUpdating: a, onChangeIsUpdating: l, showSuccessMessage: k, verbo
     flexDirection: "row",
     gap: 1,
     children: [
-      V && r(t, { dimColor: !0, wrap: "truncate", children: ["current: ", T.current, " \xB7 ", ce, ": ", T.latest] }),
+      V && r(t, { dimColor: true, wrap: "truncate", children: ["current: ", T.current, " \xB7 ", ce, ": ", T.latest] }),
       a
-        ? e(o, { children: e(t, { dimColor: !0, wrap: "truncate", children: "Checking for updates" }) })
+        ? e(o, { children: e(t, { dimColor: true, wrap: "truncate", children: "Checking for updates" }) })
         : R?.status === "success" &&
           k &&
           de &&
           r(t, {
             color: "success",
             wrap: "truncate",
-            children: [e(tt, { status: "success", withSpace: !0 }), "Update installed \xB7 Restart to update"],
+            children: [e(tt, { status: "success", withSpace: true }), "Update installed \xB7 Restart to update"],
           }),
       R?.status === "install_failed" &&
         r(t, {
           color: "error",
           wrap: "truncate",
           children: [
-            e(tt, { status: "error", withSpace: !0 }),
+            e(tt, { status: "error", withSpace: true }),
             "Auto-update failed \xB7 Run ",
-            e(t, { bold: !0, children: "claude doctor" }),
+            e(t, { bold: true, children: "claude doctor" }),
           ],
         }),
-      ue && !1,
+      ue && false,
     ],
   });
 }
@@ -1292,7 +1292,7 @@ function qt(ys) {
       if (mt === "homebrew") (mr = Y_e()), (dn = mr === "claude-code@latest" ? "latest" : "stable");
       let Ae = mt === "homebrew" ? await j9e(mr ?? "claude-code", dn) : await FMt(dn);
       let ot = await Blt();
-      let Vo = !1;
+      let Vo = false;
       if (ot && Ae && ff(Ae, ot)) {
         if (
           (n(`PackageManagerAutoUpdater: maxVersion ${ot} is set, capping update from ${Ae} to ${ot}`),
@@ -1318,7 +1318,7 @@ function qt(ys) {
             yo(null);
           return;
         }
-        (Ae = ot), (Vo = !0);
+        (Ae = ot), (Vo = true);
       }
       let Io =
         Ae &&
@@ -1352,7 +1352,7 @@ function qt(ys) {
       if (ln()) {
         return;
       }
-      fr(!0);
+      fr(true);
       let Vs = Date.now();
       let pn = { pm_homebrew: mt === "homebrew", pm_winget: mt === "winget" };
       s("tengu_pkg_manager_auto_updater_start", pn);
@@ -1363,7 +1363,7 @@ function qt(ys) {
         env: mt === "homebrew" ? { ...process.env, HOMEBREW_NO_AUTO_UPDATE: "" } : void 0,
       });
       let To = Date.now() - Vs;
-      if ((fr(!1), gt.code === 0))
+      if ((fr(false), gt.code === 0))
         s("tengu_pkg_manager_auto_updater_success", { ...pn, latency_ms: To }),
           Ft((fn) => {
             let Po = fn.autoUpdaterResult;
@@ -1412,7 +1412,7 @@ function qt(ys) {
       (Re =
         ft &&
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           wrap: "truncate",
           children: [
             "current: ",
@@ -1456,7 +1456,7 @@ function qt(ys) {
   if (rt) {
     const Re = He === "unknown" ? "Updating\u2026" : `Updating via ${He}\u2026`;
     let Ce;
-    if (me[22] !== Re) (Ce = e(t, { dimColor: !0, wrap: "truncate", children: Re })), (me[22] = Re), (me[23] = Ce);
+    if (me[22] !== Re) (Ce = e(t, { dimColor: true, wrap: "truncate", children: Re })), (me[22] = Re), (me[23] = Ce);
     else Ce = me[23];
     return Ce;
   }
@@ -1469,7 +1469,7 @@ function qt(ys) {
     (Re =
       ft &&
       r(t, {
-        dimColor: !0,
+        dimColor: true,
         wrap: "truncate",
         children: [
           "currentVersion: ",
@@ -1493,11 +1493,11 @@ function qt(ys) {
   if (me[26] !== cn || me[27] !== He) (Ce = hn(He, cn)), (me[26] = cn), (me[27] = He), (me[28] = Ce);
   else Ce = me[28];
   let $e;
-  if (me[29] !== Ce) ($e = e(t, { bold: !0, children: Ce })), (me[29] = Ce), (me[30] = $e);
+  if (me[29] !== Ce) ($e = e(t, { bold: true, children: Ce })), (me[29] = Ce), (me[30] = $e);
   else $e = me[30];
   let it;
   if (me[31] !== _r)
-    (it = _r && e(t, { dimColor: !0, children: " (auto-update failed)" })), (me[31] = _r), (me[32] = it);
+    (it = _r && e(t, { dimColor: true, children: " (auto-update failed)" })), (me[31] = _r), (me[32] = it);
   else it = me[32];
   let hr;
   if (me[33] !== it || me[34] !== $e)

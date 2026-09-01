@@ -348,12 +348,12 @@ import "/$bunfs/root/chunk-7jz6r17g.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 F();
 function V({ repositoryRoot: _, onDone: d, storageV5: S }) {
-  let [a, w] = u(!1),
-    i = C(!1),
+  let [a, w] = u(false),
+    i = C(false),
     f = Hi(
       () => {
         if (i.current) return;
-        (i.current = !0), g("ccr_dir_sync_mode_prompt", "cancelled"), Jr(1);
+        (i.current = true), g("ccr_dir_sync_mode_prompt", "cancelled"), Jr(1);
       },
       void 0,
       !a,
@@ -364,7 +364,7 @@ function V({ repositoryRoot: _, onDone: d, storageV5: S }) {
     }, []);
   function m(n) {
     if (i.current) return;
-    if (((i.current = !0), w(!0), s("tengu_dir_sync_mode_prompt", { choice: c(n) }), n === "not_now")) {
+    if (((i.current = true), w(true), s("tengu_dir_sync_mode_prompt", { choice: c(n) }), n === "not_now")) {
       g("ccr_dir_sync_mode_prompt", "dismissed"), d(n);
       return;
     }
@@ -384,7 +384,7 @@ function V({ repositoryRoot: _, onDone: d, storageV5: S }) {
   return r(me, {
     title: dst,
     onCancel: () => m("not_now"),
-    isCancelActive: !1,
+    isCancelActive: false,
     inputGuide: f.pending
       ? r(t, { children: ["Press ", f.keyName, " again to exit"] })
       : r(fe, {
@@ -397,7 +397,7 @@ function V({ repositoryRoot: _, onDone: d, storageV5: S }) {
       r(o, {
         flexDirection: "column",
         gap: 1,
-        children: [e(t, { bold: !0, children: nr(_) }), e(t, { children: pst }), e(t, { dimColor: !0, children: fst })],
+        children: [e(t, { bold: true, children: nr(_) }), e(t, { children: pst }), e(t, { dimColor: true, children: fst })],
       }),
       e(Ce, {
         options: [

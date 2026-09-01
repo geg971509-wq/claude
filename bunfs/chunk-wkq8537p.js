@@ -139,15 +139,15 @@ var N = S(function (Ir, te) {
     je = ue("stream"),
     Ce = ue("util");
   function P(e) {
-    if (((this.buffer = null), (this.writable = !0), (this.readable = !0), !e)) return (this.buffer = x.alloc(0)), this;
+    if (((this.buffer = null), (this.writable = true), (this.readable = true), !e)) return (this.buffer = x.alloc(0)), this;
     if (typeof e.pipe === "function") return (this.buffer = x.alloc(0)), e.pipe(this), this;
     if (e.length || typeof e === "object")
       return (
         (this.buffer = e),
-        (this.writable = !1),
+        (this.writable = false),
         process.nextTick(
           function () {
-            this.emit("end", e), (this.readable = !1), this.emit("close");
+            this.emit("end", e), (this.readable = false), this.emit("close");
           }.bind(this),
         ),
         this
@@ -160,7 +160,7 @@ var N = S(function (Ir, te) {
   };
   P.prototype.end = function (r) {
     if (r) this.write(r);
-    this.emit("end", r), this.emit("close"), (this.writable = !1), (this.readable = !1);
+    this.emit("end", r), this.emit("close"), (this.writable = false), (this.readable = false);
   };
   te.exports = P;
 });
@@ -169,8 +169,8 @@ var ie = S(function (xr, ne) {
     H = ue("buffer").SlowBuffer;
   ne.exports = L;
   function L(e, r) {
-    if (!E.isBuffer(e) || !E.isBuffer(r)) return !1;
-    if (e.length !== r.length) return !1;
+    if (!E.isBuffer(e) || !E.isBuffer(r)) return false;
+    if (e.length !== r.length) return false;
     var t = 0;
     for (var n = 0; n < e.length; n++) t |= e[n] ^ r[n];
     return t === 0;
@@ -255,7 +255,7 @@ var j = S(function (Pr, ve) {
     Xe =
       "timingSafeEqual" in c
         ? function (r, t) {
-            if (r.byteLength !== t.byteLength) return !1;
+            if (r.byteLength !== t.byteLength) return false;
             return c.timingSafeEqual(r, t);
           }
         : function (r, t) {
@@ -381,11 +381,11 @@ var we = S(function (Rr, be) {
   function R(e) {
     var r = e.secret;
     if (
-      ((r = r == null ? e.privateKey : r), (r = r == null ? e.key : r), /^hs/i.test(e.header.alg) === !0 && r == null)
+      ((r = r == null ? e.privateKey : r), (r = r == null ? e.key : r), /^hs/i.test(e.header.alg) === true && r == null)
     )
       throw TypeError("secret must be a string or buffer or a KeyObject");
     var t = new ye(r);
-    (this.readable = !0),
+    (this.readable = true),
       (this.header = e.header),
       (this.encoding = e.encoding),
       (this.secret = this.privateKey = this.key = t),
@@ -412,9 +412,9 @@ var we = S(function (Rr, be) {
         secret: this.secret.buffer,
         encoding: this.encoding,
       });
-      return this.emit("done", r), this.emit("data", r), this.emit("end"), (this.readable = !1), r;
+      return this.emit("done", r), this.emit("data", r), this.emit("end"), (this.readable = false), r;
     } catch (t) {
-      (this.readable = !1), this.emit("error", t), this.emit("close");
+      (this.readable = false), this.emit("error", t), this.emit("close");
     }
   };
   R.sign = ge;
@@ -479,10 +479,10 @@ var Le = S(function (Or, Pe) {
   function w(e) {
     e = e || {};
     var r = e.secret;
-    if (((r = r == null ? e.publicKey : r), (r = r == null ? e.key : r), /^hs/i.test(e.algorithm) === !0 && r == null))
+    if (((r = r == null ? e.publicKey : r), (r = r == null ? e.key : r), /^hs/i.test(e.algorithm) === true && r == null))
       throw TypeError("secret must be a string or buffer or a KeyObject");
     var t = new Ee(r);
-    (this.readable = !0),
+    (this.readable = true),
       (this.algorithm = e.algorithm),
       (this.encoding = e.encoding),
       (this.secret = this.publicKey = this.key = t),
@@ -505,9 +505,9 @@ var Le = S(function (Or, Pe) {
     try {
       var r = Ie(this.signature.buffer, this.algorithm, this.key.buffer),
         t = xe(this.signature.buffer, this.encoding);
-      return this.emit("done", r, t), this.emit("data", r), this.emit("end"), (this.readable = !1), r;
+      return this.emit("done", r, t), this.emit("data", r), this.emit("end"), (this.readable = false), r;
     } catch (n) {
-      (this.readable = !1), this.emit("error", n), this.emit("close");
+      (this.readable = false), this.emit("error", n), this.emit("close");
     }
   };
   w.decode = xe;

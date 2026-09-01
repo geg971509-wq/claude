@@ -47,8 +47,8 @@ function TUe(k) {
     let c;
     if (n[7] === d)
       (c = r(t, {
-        dimColor: !0,
-        children: ["Press ", e(t, { bold: !0, children: "Enter" }), " to restart Claude Code."],
+        dimColor: true,
+        children: ["Press ", e(t, { bold: true, children: "Enter" }), " to restart Claude Code."],
       })),
         (n[7] = c);
     else c = n[7];

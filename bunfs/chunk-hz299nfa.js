@@ -25,11 +25,11 @@ import { j6, TAe, SNe } from "/$bunfs/root/chunk-4t3vsqt7.js";
 import { hC, Mt, od, fSn, lw } from "/$bunfs/root/chunk-fs02hzwy.js";
 import { te } from "/$bunfs/root/chunk-wag5ye9w.js";
 function h6() {
-  if (!pr()) return !1;
+  if (!pr()) return false;
   return !!a.ANTHROPIC_UNIX_SOCKET || M$();
 }
 function aMe() {
-  return h6() && i() && I("tengu_ccr_bridge", !1);
+  return h6() && i() && I("tengu_ccr_bridge", false);
 }
 function c8e() {
   if (aMe()) return null;
@@ -39,23 +39,23 @@ function c8e() {
   return "not_in_rollout";
 }
 function u() {
-  return !1;
+  return false;
 }
 function TEe() {
-  return Sw()?.settings.disableRemoteControl === !0;
+  return Sw()?.settings.disableRemoteControl === true;
 }
 function ch() {
-  if (u()) return !0;
-  if (TEe()) return !1;
+  if (u()) return true;
+  if (TEe()) return false;
   return !eA() && aMe();
 }
 function wyn() {
-  if (u()) return !0;
+  if (u()) return true;
   return !TEe() && !eA() && h6();
 }
 async function Tyn() {
-  if (u()) return !0;
-  if (TEe()) return !1;
+  if (u()) return true;
+  if (TEe()) return false;
   return h6() && !eA() && i() && (await Mp("tengu_ccr_bridge"));
 }
 function B(e) {
@@ -151,7 +151,7 @@ function v() {
   ];
 }
 async function Ayn() {
-  if (eA() && !u()) return { disabledReason: null, inRemoteSession: !0, checks: [] };
+  if (eA() && !u()) return { disabledReason: null, inRemoteSession: true, checks: [] };
   U3(), await O();
   let e = await h9t(),
     o = _Vt() ?? (a.DISABLE_GROWTHBOOK ? "DISABLE_GROWTHBOOK" : null),
@@ -209,7 +209,7 @@ async function Ayn() {
         detail: C ? void 0 : "no server response this session",
       },
     ];
-  return { disabledReason: e, inRemoteSession: !1, checks: T };
+  return { disabledReason: e, inRemoteSession: false, checks: T };
 }
 function w() {
   try {
@@ -229,7 +229,7 @@ function N(e) {
 }
 function _9t({ prefix: e, suffix: o }) {
   try {
-    let { source: t } = qg({ skipRetrievingKeyFromApiKeyHelper: !0 });
+    let { source: t } = qg({ skipRetrievingKeyFromApiKeyHelper: true });
     if (t === "ANTHROPIC_API_KEY")
       return `${e} ANTHROPIC_API_KEY is set, so this session is using API-key auth \u2014 unset it (or run in a shell without it) ${o}`;
     if (t === "apiKeyHelper")
@@ -270,21 +270,21 @@ function c() {
   try {
     return Boolean(Yt()?.scopes?.includes(M_));
   } catch {
-    return !1;
+    return false;
   }
 }
 function i() {
   try {
     return Tt();
   } catch {
-    return !1;
+    return false;
   }
 }
 function d() {
   try {
     return Wd();
   } catch {
-    return !1;
+    return false;
   }
 }
 function _() {
@@ -326,7 +326,7 @@ function aSt() {
   }
 }
 function y9t() {
-  if (!hC()) return !0;
+  if (!hC()) return true;
   return lw() !== null;
 }
 function k() {
@@ -340,52 +340,52 @@ function eA() {
   return Me(process.env.CLAUDE_CODE_REMOTE) || $n();
 }
 function Cyn() {
-  return I("tengu_bridge_repl_v2_cse_shim_enabled", !0);
+  return I("tengu_bridge_repl_v2_cse_shim_enabled", true);
 }
 function AV() {
-  return I("tengu_luminous_seal", !0);
+  return I("tengu_luminous_seal", true);
 }
 function vyn() {
-  return I("tengu_bridge_partial_messages", !1);
+  return I("tengu_bridge_partial_messages", false);
 }
 function lSt() {
-  return I("tengu_wobbly_pinwheel", !0);
+  return I("tengu_wobbly_pinwheel", true);
 }
 function S9t() {
-  return I("tengu_copper_kestrel", !0);
+  return I("tengu_copper_kestrel", true);
 }
 function lMe() {
-  return I("tengu_bridge_auth_revive", !0);
+  return I("tengu_bridge_auth_revive", true);
 }
 function b9t() {
-  return I("tengu_ethereal_mist", !0);
+  return I("tengu_ethereal_mist", true);
 }
 function Ryn() {
-  return I("tengu_bridge_resume_respects_local_owner", !0);
+  return I("tengu_bridge_resume_respects_local_owner", true);
 }
 function kyn() {
-  return I("tengu_sequential_puffin", !0);
+  return I("tengu_sequential_puffin", true);
 }
 function EEe() {
-  return I("tengu_bridge_owner_pinned_end", !0);
+  return I("tengu_bridge_owner_pinned_end", true);
 }
 function Hyn() {
-  return I("tengu_glimmering_glade", !0);
+  return I("tengu_glimmering_glade", true);
 }
 function w9t() {
-  return I("tengu_bridge_host_declined_end", !0);
+  return I("tengu_bridge_host_declined_end", true);
 }
 function xyn() {
-  return I("tengu_bridge_signed_out_neutral", !0);
+  return I("tengu_bridge_signed_out_neutral", true);
 }
 function ore() {
-  return I("tengu_ccr_v2_send_events_cli", !0);
+  return I("tengu_ccr_v2_send_events_cli", true);
 }
 function A3() {
-  return I("tengu_ccr_v2_session_crud_cli", !1);
+  return I("tengu_ccr_v2_session_crud_cli", false);
 }
 function u8e() {
-  return I("tengu_composed_quail", !0);
+  return I("tengu_composed_quail", true);
 }
 function Jvr() {
   let e = gh("tengu_bridge_min_version", { minVersion: "0.0.0" });
@@ -414,39 +414,39 @@ function d8e() {
   return T9t().value;
 }
 function T9t() {
-  if (eA()) return { value: !1, source: "remote_env" };
-  if (mY()) return { value: !0, source: "persistent_remote_session" };
+  if (eA()) return { value: false, source: "remote_env" };
+  if (mY()) return { value: true, source: "persistent_remote_session" };
   let e = fSn("remote_control_at_startup");
   if (e !== void 0) return { value: e, source: "org_policy" };
-  return { value: I("tengu_cobalt_harbor", !1), source: "growthbook" };
+  return { value: I("tengu_cobalt_harbor", false), source: "growthbook" };
 }
 function mY() {
-  return !1;
+  return false;
 }
 function Qvr() {
-  return !1;
+  return false;
 }
 function p8e() {
-  return I("tengu_amber_relay", !1);
+  return I("tengu_amber_relay", false);
 }
 function Zvr() {
-  return !1;
+  return false;
 }
 function eRr() {
-  return I("tengu_bridge_vivid", !1);
+  return I("tengu_bridge_vivid", false);
 }
 function Iyn() {
-  return !1;
+  return false;
 }
 function f8e() {
-  return { enabled: I("tengu_bridge_subagent_frames", !0), forwardText: I("tengu_bridge_subagent_text", !1) };
+  return { enabled: I("tengu_bridge_subagent_frames", true), forwardText: I("tengu_bridge_subagent_text", false) };
 }
 function Pyn(e, o) {
   if (e.replBridgeOutboundOnly && !o)
     return e.replBridgeSessionGroupingId !== void 0 ? { ...e, replBridgeSessionGroupingId: void 0 } : e;
   if (e.replBridgeEnabled === o && !e.replBridgeOutboundOnly)
     return !o && e.replBridgeSessionGroupingId !== void 0 ? { ...e, replBridgeSessionGroupingId: void 0 } : e;
-  return { ...e, replBridgeEnabled: o, replBridgeOutboundOnly: !1, ...(!o && { replBridgeSessionGroupingId: void 0 }) };
+  return { ...e, replBridgeEnabled: o, replBridgeOutboundOnly: false, ...(!o && { replBridgeSessionGroupingId: void 0 }) };
 }
 function tRr(e, o) {
   if (e.replBridgeEnabled && !e.replBridgeOutboundOnly) return e;

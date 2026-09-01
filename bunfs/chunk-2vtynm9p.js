@@ -141,9 +141,9 @@ class F {
   pendingAtClose = 0;
   inFlight;
   undelivered = [];
-  retaining = !1;
-  draining = !1;
-  closed = !1;
+  retaining = false;
+  draining = false;
+  closed = false;
   backpressureResolvers = [];
   sleepResolve = null;
   flushResolvers = [];
@@ -167,7 +167,7 @@ class F {
   }
   discardUndelivered() {
     let e = this.undelivered.length;
-    return (this.undelivered = []), (this.retaining = !1), e;
+    return (this.undelivered = []), (this.retaining = false), e;
   }
   async enqueue(e) {
     let t = Array.isArray(e) ? e : [e];
@@ -208,9 +208,9 @@ class F {
   }
   close(e) {
     if (this.closed) return;
-    (this.closed = !0),
+    (this.closed = true),
       (this.pendingAtClose = this.pending.length),
-      (this.retaining = e?.retainUndelivered === !0),
+      (this.retaining = e?.retainUndelivered === true),
       (this.undelivered = this.retaining ? (this.inFlight ?? []).concat(this.pending) : []),
       (this.inFlight = void 0),
       (this.pending = []),
@@ -223,7 +223,7 @@ class F {
   }
   async drain() {
     if (this.draining || this.closed) return;
-    this.draining = !0;
+    this.draining = true;
     let e = 0;
     try {
       while (this.pending.length > 0 && !this.closed) {
@@ -248,7 +248,7 @@ class F {
         this.releaseBackpressure();
       }
     } finally {
-      if (((this.draining = !1), this.pending.length === 0)) {
+      if (((this.draining = false), this.pending.length === 0)) {
         for (let t of this.flushResolvers) t();
         this.flushResolvers = [];
       }
@@ -307,7 +307,7 @@ var me = 1000,
   Ee = 500,
   ye = 8000;
 function ke() {
-  return !0;
+  return true;
 }
 var Een = new Set(["workflow_launch", "queued_notification", "session_notice"]),
   Te = m(() => f({ event_type: i() })),
@@ -331,7 +331,7 @@ class sje {
   lastSequenceNum = 0;
   seenSequenceNums = new Set();
   reconnectAttempts = 0;
-  hasEverConnected = !1;
+  hasEverConnected = false;
   reconnectStartTime = null;
   reconnectTimer = null;
   connectErrorsSeen = new Set();
@@ -445,7 +445,7 @@ class sje {
       } else this.onDiagnostic?.(`SSE connected in ${v}ms`);
       this.connectErrorsSeen.clear();
       let _ = this.hasEverConnected;
-      (this.hasEverConnected = !0),
+      (this.hasEverConnected = true),
         (this.state = "connected"),
         (this.reconnectAttempts = 0),
         (this.reconnectStartTime = null),
@@ -502,7 +502,7 @@ class sje {
     let r = e.getReader(),
       o = new cje();
     try {
-      while (!0) {
+      while (true) {
         let { done: d, value: u } = await r.read();
         if (d) break;
         for (let v of o.push(u)) {
@@ -747,7 +747,7 @@ function Re(e) {
 class W {
   inflight = null;
   pending = null;
-  closed = !1;
+  closed = false;
   config;
   constructor(e) {
     this.config = e;
@@ -757,14 +757,14 @@ class W {
     (this.pending = this.pending ? te(this.pending, e) : e), this.drain();
   }
   close() {
-    (this.closed = !0), (this.pending = null);
+    (this.closed = true), (this.pending = null);
   }
   async flush() {
     while (!this.closed)
       if (this.inflight) await this.inflight;
       else if (this.pending) await this.drain();
-      else return !0;
-    return !1;
+      else return true;
+    return false;
   }
   async drain() {
     if (this.inflight || this.closed) return;
@@ -856,13 +856,13 @@ var Le = 10,
     auth_exhausted: 4094,
   },
   qe = {
-    epoch_conflict: !0,
-    superseded_by_worker: !0,
-    session_not_active: !0,
-    epoch_stale: !0,
-    session_not_found: !1,
-    token_expired: !1,
-    auth_exhausted: !1,
+    epoch_conflict: true,
+    superseded_by_worker: true,
+    session_not_active: true,
+    epoch_stale: true,
+    session_not_found: false,
+    token_expired: false,
+    auth_exhausted: false,
   },
   je = 3,
   ze = 10,
@@ -872,11 +872,11 @@ function ie(e) {
   return e !== void 0 && e >= 400 && e < 500 ? "not_accepted" : "indeterminate";
 }
 function G(e) {
-  let t = !1,
-    r = !1;
+  let t = false,
+    r = false;
   for (let o of e)
-    if (o.payload.subtype === "task_notification") t = !0;
-    else if (o.payload.subtype === "background_tasks_changed") r = !0;
+    if (o.payload.subtype === "task_notification") t = true;
+    else if (o.payload.subtype === "background_tasks_changed") r = true;
   return t || r ? { has_terminal_bookend: t, has_level: r } : null;
 }
 function Ve(e) {
@@ -967,7 +967,7 @@ function Ze(e, t) {
   return {
     reported: e,
     pendingActionOutstanding:
-      t.readFailed === !0 ||
+      t.readFailed === true ||
       (t.external?.pending_action !== void 0 && t.external.pending_action !== null) ||
       (Array.isArray(r) && r.length > 0),
   };
@@ -988,18 +988,18 @@ class lje {
   unsubscribeIdleTracker;
   probeBeatSpacingMs;
   heartbeatTimer = null;
-  heartbeatInFlight = !1;
+  heartbeatInFlight = false;
   lastHeartbeatSentAtMs = 0;
   lastHeartbeatSuccessAtMs = Date.now();
   lastHeartbeat429AtMs = 0;
-  idleGrantLatched = !1;
-  reactivationBeatArmed = !1;
-  pendingForcedBeat = !1;
+  idleGrantLatched = false;
+  reactivationBeatArmed = false;
+  pendingForcedBeat = false;
   probeBeatTimer = null;
   pendingBeatTrigger = null;
-  closed = !1;
+  closed = false;
   goodbyeFlushed = Promise.resolve();
-  epochSuperseded = !1;
+  epochSuperseded = false;
   lastEpochMismatchCause;
   epochMismatchCount = 0;
   consecutiveAuthFailures = 0;
@@ -1018,7 +1018,7 @@ class lje {
   noSubscriberStreamEventFlushIntervalMs = 0;
   lastReportedHasSubscribers;
   hasSubscribersReports = 0;
-  streamedEphemeralSinceLastAssistant = !1;
+  streamedEphemeralSinceLastAssistant = false;
   workerState;
   eventUploader;
   internalEventUploader;
@@ -1036,7 +1036,7 @@ class lje {
   readTransport;
   nonOrigin403Transient;
   heartbeatStreakStartedAtMs = 0;
-  heartbeatLostFiredForStreak = !1;
+  heartbeatLostFiredForStreak = false;
   adoptRefreshedAuth;
   gzipRequestBodyFetch;
   constructor(e, t, r) {
@@ -1050,13 +1050,13 @@ class lje {
         })),
       (this.onHeartbeatLost = r?.onHeartbeatLost),
       (this.readTransport = e),
-      (this.nonOrigin403Transient = r?.nonOrigin403Transient ?? !1),
+      (this.nonOrigin403Transient = r?.nonOrigin403Transient ?? false),
       (this.heartbeatIntervalMs = r?.heartbeatIntervalMs ?? le),
       (this.seedHeartbeatIntervalMs = this.heartbeatIntervalMs),
-      (this.advertiseHeartbeatProbeSupport = r?.advertiseHeartbeatProbeSupport ?? !1),
-      (this.beatOnStaleReconnect = r?.beatOnStaleReconnect ?? !1),
+      (this.advertiseHeartbeatProbeSupport = r?.advertiseHeartbeatProbeSupport ?? false),
+      (this.beatOnStaleReconnect = r?.beatOnStaleReconnect ?? false),
       (this.idleTracker = r?.idleTracker),
-      (this.beatOnReactivation = (r?.beatOnReactivation ?? !1) && this.idleTracker !== void 0),
+      (this.beatOnReactivation = (r?.beatOnReactivation ?? false) && this.idleTracker !== void 0),
       (this.probeBeatSpacingMs = r?.probeBeatSpacingMs ?? Pe),
       (this.heartbeatJitterFraction = r?.heartbeatJitterFraction ?? 0),
       (this.maxAdvisedIntervalMs = this.advertiseHeartbeatProbeSupport
@@ -1069,7 +1069,7 @@ class lje {
       (this.onRequestAuthOk = r?.onRequestAuthOk),
       (this.adoptRefreshedAuth = r?.adoptRefreshedAuth),
       (this.gzipRequestBodyFetch = r?.gzipRequestBodyFetch),
-      (this.reportParkAtInit = r?.reportParkAtInit ?? !1),
+      (this.reportParkAtInit = r?.reportParkAtInit ?? false),
       (this.initStateGetOrderingBoundMs = r?.initStateGetOrderingBoundMs ?? Ge),
       t.protocol !== "http:" && t.protocol !== "https:")
     )
@@ -1082,7 +1082,7 @@ class lje {
           let u = await this.request("put", "/worker", { worker_epoch: this.workerEpoch, ...d }, "PUT worker");
           if (u.ok) {
             if (d.worker_status !== void 0) y("ccr_worker_state_publish");
-            return !0;
+            return true;
           }
           if (D(u.status)) {
             if (
@@ -1091,9 +1091,9 @@ class lje {
               d.worker_status !== void 0)
             )
               g("ccr_worker_state_publish", "state_4xx_dropped");
-            return !0;
+            return true;
           }
-          return !1;
+          return false;
         },
         baseDelayMs: 500,
         maxDelayMs: 30000,
@@ -1246,7 +1246,7 @@ class lje {
       o = await Promise.race([
         r.then(
           (A) => A.metadata,
-          () => ({ external: null, internal: null, readFailed: !0 }),
+          () => ({ external: null, internal: null, readFailed: true }),
         ),
         ne(this.initStateGetOrderingBoundMs).then(() => "pending"),
       ]),
@@ -1262,7 +1262,7 @@ class lje {
           : d.status === "requires_action"
             ? { ...u, worker_status: "requires_action", requires_action_details: d.details }
             : u,
-      _ = { ok: !1 },
+      _ = { ok: false },
       w = new Set(),
       S = 10,
       T = 0;
@@ -1318,7 +1318,7 @@ class lje {
       Y("info", "cli_worker_state_restored", {
         duration_ms: k,
         had_state: R.external !== null || R.internal !== null,
-        read_failed: R.readFailed === !0,
+        read_failed: R.readFailed === true,
       });
     return d ? { ...R, initParkReport: Ze(d.status, R) } : R;
   }
@@ -1326,13 +1326,13 @@ class lje {
     let t = Date.now(),
       r = this.getAuthHeaders();
     if (Object.keys(r).length === 0)
-      return { metadata: { external: null, internal: null, readFailed: !0 }, durationMs: 0 };
+      return { metadata: { external: null, internal: null, readFailed: true }, durationMs: 0 };
     let o = await this.getWithRetry(`${this.sessionBaseUrl}/worker`, r, e);
     return {
       metadata: {
         external: o?.worker?.external_metadata ?? null,
         internal: o?.worker?.internal_metadata ?? null,
-        ...(o === null && { readFailed: !0 }),
+        ...(o === null && { readFailed: true }),
       },
       durationMs: Date.now() - t,
     };
@@ -1340,11 +1340,11 @@ class lje {
   async readWorkerState() {
     return (await this.getWorkerState("worker_state_reread")).metadata;
   }
-  async request(e, t, r, o, { timeout: d = 1e4, parseBody: u = !1, countTowardEscalation: v = !0, signal: _ } = {}) {
+  async request(e, t, r, o, { timeout: d = 1e4, parseBody: u = false, countTowardEscalation: v = true, signal: _ } = {}) {
     let w = this.getAuthHeaders();
-    if (Object.keys(w).length === 0) return { ok: !1, reason: "no_auth_headers" };
+    if (Object.keys(w).length === 0) return { ok: false, reason: "no_auth_headers" };
     let S = `${this.sessionBaseUrl}${t}`,
-      T = _ ? Ja(_, { timeoutMs: d, refTimer: !0 }) : void 0;
+      T = _ ? Ja(_, { timeoutMs: d, refTimer: true }) : void 0;
     try {
       let R = {
           method: e.toUpperCase(),
@@ -1363,16 +1363,16 @@ class lje {
       if (k.ok) {
         if (((this.consecutiveAuthFailures = 0), (this.consecutiveNotFound = 0), u))
           try {
-            return { ok: !0, data: await k.json() };
+            return { ok: true, data: await k.json() };
           } catch {
-            return { ok: !0 };
+            return { ok: true };
           }
-        return await R1(k), { ok: !0 };
+        return await R1(k), { ok: true };
       }
       let A;
       if (k.status === 409 && !this.closed) A = await K(k);
       else await R1(k);
-      if (this.closed) return { ok: !1, status: k.status, reason: `http_${k.status}` };
+      if (this.closed) return { ok: false, status: k.status, reason: `http_${k.status}` };
       if (k.status === 409) this.handleEpochMismatch(A);
       if (k.status === 404 && v) {
         if ((this.consecutiveNotFound++, this.consecutiveNotFound >= je))
@@ -1422,14 +1422,14 @@ class lje {
         let I = k.headers.get("retry-after"),
           P = I ? parseInt(I, 10) : NaN;
         if (!isNaN(P) && P >= 0)
-          return { ok: !1, retryAfterMs: P * 1000, status: k.status, reason: `http_${k.status}` };
+          return { ok: false, retryAfterMs: P * 1000, status: k.status, reason: `http_${k.status}` };
       }
-      return { ok: !1, status: k.status, reason: `http_${k.status}`, ...(C && { nonOriginRefusal: C }) };
+      return { ok: false, status: k.status, reason: `http_${k.status}`, ...(C && { nonOriginRefusal: C }) };
     } catch (R) {
       return (
         n(`CCRClient: ${o} failed: ${l(R)}`, { level: "warn" }),
         Y("warn", "cli_worker_request_error", { method: e, path: t, error_code: U(R) }),
-        { ok: !1, reason: `fetch_failed:${U(R)}` }
+        { ok: false, reason: `fetch_failed:${U(R)}` }
       );
     } finally {
       T?.cleanup();
@@ -1477,7 +1477,7 @@ class lje {
   }
   escalateEpochMismatch(e) {
     return (
-      (this.lastEpochMismatchCause = e), this.epochMismatchCount++, (this.epochSuperseded = !0), this.onEpochMismatch(e)
+      (this.lastEpochMismatchCause = e), this.epochMismatchCount++, (this.epochSuperseded = true), this.onEpochMismatch(e)
     );
   }
   startHeartbeat() {
@@ -1509,7 +1509,7 @@ class lje {
       "/worker",
       { worker_epoch: this.workerEpoch, connection_status: "disconnected" },
       "PUT worker (goodbye)",
-      { timeout: Ce, countTowardEscalation: !1 },
+      { timeout: Ce, countTowardEscalation: false },
     )
       .then((e) => {
         if (e.ok) y("ccr_worker_goodbye");
@@ -1534,7 +1534,7 @@ class lje {
     )
       this.pendingBeatTrigger = e;
     if (this.heartbeatInFlight) {
-      this.pendingForcedBeat = !0;
+      this.pendingForcedBeat = true;
       return;
     }
     let r = Date.now() - this.lastHeartbeatSentAtMs;
@@ -1559,7 +1559,7 @@ class lje {
         (this.pendingBeatTrigger = null), this.clearProbeBeatTimer();
         return;
       }
-      this.reactivationBeatArmed = !1;
+      this.reactivationBeatArmed = false;
     }
     this.heartbeatNow(e);
   }
@@ -1575,11 +1575,11 @@ class lje {
     this.reactivationBeatArmed = this.idleGrantLatched;
   }
   armReactivationIfEarned(e, t) {
-    if (this.beatOnReactivation && e !== void 0 && e >= t) this.reactivationBeatArmed = !0;
+    if (this.beatOnReactivation && e !== void 0 && e >= t) this.reactivationBeatArmed = true;
   }
   sendReactivationBeat() {
     if (!this.reactivationBeatWanted()) return;
-    (this.reactivationBeatArmed = !1), this.heartbeatNow("reactivate");
+    (this.reactivationBeatArmed = false), this.heartbeatNow("reactivate");
   }
   isIdleAdvised() {
     return this.advertiseHeartbeatProbeSupport && this.idleGrantLatched;
@@ -1611,13 +1611,13 @@ class lje {
     if (this.staleReconnectBeatWanted()) this.heartbeatNow("resync_stale");
   }
   staleReconnectBeatWanted() {
-    if (!this.beatOnStaleReconnect || this.heartbeatIntervalMs <= this.seedHeartbeatIntervalMs) return !1;
+    if (!this.beatOnStaleReconnect || this.heartbeatIntervalMs <= this.seedHeartbeatIntervalMs) return false;
     let e = Date.now();
-    if (e - this.lastHeartbeatSuccessAtMs <= this.heartbeatIntervalMs * Be) return !1;
+    if (e - this.lastHeartbeatSuccessAtMs <= this.heartbeatIntervalMs * Be) return false;
     return e - this.lastHeartbeat429AtMs > this.heartbeatIntervalMs;
   }
   resetHeartbeatStreak() {
-    (this.consecutiveHeartbeatFailures = 0), (this.heartbeatLostFiredForStreak = !1);
+    (this.consecutiveHeartbeatFailures = 0), (this.heartbeatLostFiredForStreak = false);
   }
   async sendHeartbeat(e) {
     if (this.closed) {
@@ -1625,7 +1625,7 @@ class lje {
       return;
     }
     if (this.heartbeatInFlight) return;
-    if (((this.heartbeatInFlight = !0), (this.lastHeartbeatSentAtMs = Date.now()), e === "resync_stale"))
+    if (((this.heartbeatInFlight = true), (this.lastHeartbeatSentAtMs = Date.now()), e === "resync_stale"))
       Y("info", "cli_heartbeat_reconnect_stale_beat", {
         gap_ms: this.lastHeartbeatSentAtMs - this.lastHeartbeatSuccessAtMs,
         interval_ms: this.heartbeatIntervalMs,
@@ -1641,7 +1641,7 @@ class lje {
             session_id: this.sessionId,
             worker_epoch: this.workerEpoch,
             ...(this.advertiseHeartbeatProbeSupport && {
-              supports_heartbeat_probe: !0,
+              supports_heartbeat_probe: true,
               current_interval_seconds: Math.round(this.heartbeatIntervalMs / 1000),
               ...(r !== void 0 && { idle_seconds: r }),
             }),
@@ -1649,7 +1649,7 @@ class lje {
           "Heartbeat",
           {
             timeout: Math.max(Me, Math.min(ce, this.heartbeatIntervalMs * (1 - this.heartbeatJitterFraction) - de)),
-            parseBody: !0,
+            parseBody: true,
             countTowardEscalation: e === void 0,
           },
         );
@@ -1662,8 +1662,8 @@ class lje {
         }
         if (this.isIdleAdvised() && o.status !== 429)
           Y("warn", "cli_heartbeat_idle_reverted_on_failure", { status: o.status }),
-            (this.idleGrantLatched = !1),
-            (this.reactivationBeatArmed = !1),
+            (this.idleGrantLatched = false),
+            (this.reactivationBeatArmed = false),
             this.applyShorterIntervalNow(this.seedHeartbeatIntervalMs);
         if (
           (this.reclampCurrentIntervalToTokenLifetime(), o.status !== void 0 && Oe.has(o.status) && !o.nonOriginRefusal)
@@ -1682,7 +1682,7 @@ class lje {
             this.consecutiveHeartbeatFailures >= xe &&
             Date.now() - this.heartbeatStreakStartedAtMs >= z)
         ) {
-          this.heartbeatLostFiredForStreak = !0;
+          this.heartbeatLostFiredForStreak = true;
           try {
             this.onHeartbeatLost?.();
           } catch (v) {
@@ -1702,7 +1702,7 @@ class lje {
       else if (e === "reactivate") y("ccr_reactivation_beat");
       if ((n("CCRClient: Heartbeat sent"), o.data?.refreshed_auth && this.adoptRefreshedAuth))
         try {
-          let v = !1,
+          let v = false,
             _ = this.adoptRefreshedAuth(o.data.refreshed_auth.expires_in_seconds);
           _.then(
             (T) => {
@@ -1715,7 +1715,7 @@ class lje {
           );
           let w = await jt(_, Math.min(ue, this.heartbeatIntervalMs)),
             S;
-          if (w === void 0) (v = !0), (S = { adopted: !1, reason: "adopt_timeout" });
+          if (w === void 0) (v = true), (S = { adopted: false, reason: "adopt_timeout" });
           else S = w;
           if (
             (Y("info", "cli_heartbeat_refreshed_auth_signal", {
@@ -1742,7 +1742,7 @@ class lje {
       if (this.advertiseHeartbeatProbeSupport) {
         let v = d * 1000 > this.seedHeartbeatIntervalMs;
         if (v) this.armReactivationIfEarned(r, d);
-        else this.reactivationBeatArmed = !1;
+        else this.reactivationBeatArmed = false;
         this.idleGrantLatched = v;
       }
       let u = this.clampToTokenLifetime(Math.min(Math.max(d * 1000, se), this.maxAdvisedIntervalMs));
@@ -1754,8 +1754,8 @@ class lje {
         this.applyShorterIntervalNow(u);
       else this.heartbeatIntervalMs = u;
     } finally {
-      if (((this.heartbeatInFlight = !1), this.pendingForcedBeat && !this.closed))
-        (this.pendingForcedBeat = !1), this.refireForcedBeat();
+      if (((this.heartbeatInFlight = false), this.pendingForcedBeat && !this.closed))
+        (this.pendingForcedBeat = false), this.refireForcedBeat();
     }
   }
   reportDurableUpload(e, t) {
@@ -1779,8 +1779,8 @@ class lje {
         continue;
       }
       if (r.type === "stream_event") {
-        if (((this.streamedEphemeralSinceLastAssistant = !0), this.streamEventFlushIntervalMs <= 0)) {
-          if (Buffer.byteLength(b(r)) <= x) t.push({ payload: r, ephemeral: !0 });
+        if (((this.streamedEphemeralSinceLastAssistant = true), this.streamEventFlushIntervalMs <= 0)) {
+          if (Buffer.byteLength(b(r)) <= x) t.push({ payload: r, ephemeral: true });
           else g("ccr_partial_messages", "oversize_ephemeral_skipped");
           continue;
         }
@@ -1788,19 +1788,19 @@ class lje {
         continue;
       }
       if ((t.push(...this.takeStreamEventBuffer()), r.type === "assistant" && this.streamedEphemeralSinceLastAssistant))
-        y("ccr_partial_messages"), (this.streamedEphemeralSinceLastAssistant = !1);
+        y("ccr_partial_messages"), (this.streamedEphemeralSinceLastAssistant = false);
       t.push(this.toClientEvent(r));
     }
     if (t.length > 0) await this.eventUploader.enqueue(t);
   }
   toClientEvent(e) {
     let t = e,
-      r = t.historical === !0,
+      r = t.historical === true,
       o = oe(e);
     return {
       payload: { ...t, uuid: typeof t.uuid === "string" ? t.uuid : re() },
-      ...(r && { historical: !0 }),
-      ...(o && { ephemeral: !0 }),
+      ...(r && { historical: true }),
+      ...(o && { ephemeral: true }),
     };
   }
   setNoSubscriberStreamEventFlushIntervalMs(e) {
@@ -1812,7 +1812,7 @@ class lje {
     if ((this.streamEventBuffer.push(e), !this.streamEventTimer))
       this.streamEventTimer = setTimeout(
         () => void this.flushStreamEventBuffer(),
-        this.lastReportedHasSubscribers === !1
+        this.lastReportedHasSubscribers === false
           ? Math.max(this.noSubscriberStreamEventFlushIntervalMs, this.streamEventFlushIntervalMs)
           : this.streamEventFlushIntervalMs,
       );
@@ -1821,7 +1821,7 @@ class lje {
     this.hasSubscribersReports++;
     let t = typeof e === "boolean" ? e : void 0,
       r = this.lastReportedHasSubscribers;
-    if (((this.lastReportedHasSubscribers = t), r === !1 && t !== !1 && this.streamEventTimer))
+    if (((this.lastReportedHasSubscribers = t), r === false && t !== false && this.streamEventTimer))
       this.flushStreamEventBuffer();
   }
   async flushStreamEventBuffer() {
@@ -1847,18 +1847,18 @@ class lje {
     this.streamEventBuffer = [];
     let u = J(e)
       .filter((v) => {
-        if (Buffer.byteLength(b(v)) <= x) return !0;
+        if (Buffer.byteLength(b(v)) <= x) return true;
         return (
           n(`CCRClient: dropping oversize ephemeral stream_event (>${x} bytes)`, { level: "warn" }),
           g("ccr_partial_messages", "oversize_ephemeral_skipped"),
-          !1
+          false
         );
       })
-      .map((v) => ({ payload: v, ephemeral: !0 }));
+      .map((v) => ({ payload: v, ephemeral: true }));
     if (t) u.push(this.toClientEvent({ ...t, estimated_tokens_delta: r }));
     return u;
   }
-  async writeInternalEvent(e, t, { isCompaction: r = !1, agentId: o, preservedEventIds: d } = {}) {
+  async writeInternalEvent(e, t, { isCompaction: r = false, agentId: o, preservedEventIds: d } = {}) {
     let u = d,
       v = Q(t);
     if (u && u.length > O)
@@ -1867,7 +1867,7 @@ class lje {
     let _ = v ?? t,
       w = {
         payload: { type: e, ..._, uuid: typeof _.uuid === "string" ? _.uuid : re() },
-        ...(r && { is_compaction: !0 }),
+        ...(r && { is_compaction: true }),
         ...(o && { session_agent_id: o }),
         ...(u?.length && { preserved_event_ids: u }),
       };
@@ -1877,7 +1877,7 @@ class lje {
     return this.internalEventUploader.flush();
   }
   async postInternalEventsBatch(e, t = {}) {
-    let r = this.refuseInternalEventsCall(!0);
+    let r = this.refuseInternalEventsCall(true);
     if (r) return r;
     let o = this.epochMismatchCount;
     try {
@@ -1886,11 +1886,11 @@ class lje {
         "/worker/internal-events",
         { worker_epoch: this.workerEpoch, events: e },
         "internal events batch",
-        { parseBody: !0, countTowardEscalation: !1, signal: t.signal },
+        { parseBody: true, countTowardEscalation: false, signal: t.signal },
       );
       if (d.ok) {
         let u = Xe().safeParse(d.data);
-        return { ok: !0, results: u.success ? u.data.results : void 0 };
+        return { ok: true, results: u.success ? u.data.results : void 0 };
       }
       return this.internalEventsFailure(d, o);
     } catch (d) {
@@ -1898,7 +1898,7 @@ class lje {
     }
   }
   async getInternalEventsPage(e, t = {}) {
-    let r = this.refuseInternalEventsCall(!1);
+    let r = this.refuseInternalEventsCall(false);
     if (r) return r;
     let o = new URL(`${this.sessionBaseUrl}/worker/internal-events`);
     if (e.limit !== void 0) o.searchParams.set("limit", String(e.limit));
@@ -1910,8 +1910,8 @@ class lje {
       u;
     try {
       let v = this.getAuthHeaders();
-      if (Object.keys(v).length === 0) return { ok: !1, reason: "no_auth_headers" };
-      u = t.signal ? Ja(t.signal, { timeoutMs: 30000, refTimer: !0 }) : void 0;
+      if (Object.keys(v).length === 0) return { ok: false, reason: "no_auth_headers" };
+      u = t.signal ? Ja(t.signal, { timeoutMs: 30000, refTimer: true }) : void 0;
       let _ = await fetch(o, {
         headers: { ...v, "anthropic-version": "2023-06-01", "anthropic-client-platform": Cg(), "User-Agent": Ka() },
         signal: u?.signal ?? AbortSignal.timeout(30000),
@@ -1927,11 +1927,11 @@ class lje {
         let A = Ye().safeParse(k);
         if (!A.success)
           return (
-            Y("warn", "cli_worker_internal_events_page_foreign"), { ok: !1, status: _.status, reason: "foreign_body" }
+            Y("warn", "cli_worker_internal_events_page_foreign"), { ok: false, status: _.status, reason: "foreign_body" }
           );
         let M = Number(_.headers.get("content-length") ?? Number.NaN);
         return {
-          ok: !0,
+          ok: true,
           data: A.data.data,
           ...(A.data.next_cursor && { nextCursor: A.data.next_cursor }),
           bytes: Number.isFinite(M) ? M : null,
@@ -1981,11 +1981,11 @@ class lje {
   refuseInternalEventsCall(e) {
     if (this.closed)
       return {
-        ok: !1,
+        ok: false,
         reason: "client_closed",
         ...(this.lastEpochMismatchCause && { conflict: this.lastEpochMismatchCause }),
       };
-    if (e && this.workerEpoch <= 0) return { ok: !1, reason: "not_initialized" };
+    if (e && this.workerEpoch <= 0) return { ok: false, reason: "not_initialized" };
     return;
   }
   internalEventsFailure(e, t, { errorType: r, resourceType: o, closedConflict: d } = {}) {
@@ -1998,7 +1998,7 @@ class lje {
             : void 0),
       v = e.status ?? (u && qe[u] ? 409 : void 0);
     return {
-      ok: !1,
+      ok: false,
       reason: v === 409 ? "http_409" : (e.reason ?? "unknown"),
       ...(v !== void 0 && { status: v }),
       ...(e.retryAfterMs !== void 0 && { retryAfterMs: e.retryAfterMs }),
@@ -2196,7 +2196,7 @@ class lje {
   }
   closeExceptInternalEvents(e) {
     let t = this.closed;
-    if (((this.closed = !0), !t && e?.goodbye !== !1)) this.sendGoodbye();
+    if (((this.closed = true), !t && e?.goodbye !== false)) this.sendGoodbye();
     if (
       (this.stopHeartbeat(), this.clearProbeBeatTimer(), this.unsubscribeIdleTracker?.(), V9n(), this.streamEventTimer)
     )
@@ -2204,7 +2204,7 @@ class lje {
     (this.streamEventBuffer = []),
       (this.pendingProcessingAcks = []),
       this.workerState.close(),
-      this.eventUploader.close({ retainUndelivered: e?.retainUndeliveredClientEvents === !0 }),
+      this.eventUploader.close({ retainUndelivered: e?.retainUndeliveredClientEvents === true }),
       this.deliveryUploader.close();
   }
   registerShutdownCleanup(e = { registerCleanup: vt, registerPreExitFlush: BC }) {

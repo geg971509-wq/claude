@@ -387,7 +387,7 @@ async function Be(t) {
   let r = rt(t),
     a = null,
     m = null,
-    f = !1;
+    f = false;
   return {
     write(d, u) {
       let A = `[${new Date().toISOString()}] [${d}] ${co(u)}
@@ -412,7 +412,7 @@ async function Be(t) {
       }
     },
     async close() {
-      (f = !0), await a, await nt(r);
+      (f = true), await a, await nt(r);
     },
   };
 }
@@ -464,7 +464,7 @@ import { basename as Ae, join as Oe } from "path";
 var Vt = 86400000,
   Ue = 262144;
 async function Ie(t, e) {
-  await ot(vdn(), { recursive: !0, mode: 448 }).catch(() => {}),
+  await ot(vdn(), { recursive: true, mode: 448 }).catch(() => {}),
     await Nt(t, Oe(vdn(), Ae(t))).catch(() => st(t).catch(() => {})),
     Ce(Ae(t), e);
 }
@@ -484,7 +484,7 @@ async function dt(t, e) {
   if (!o.isFile()) {
     p("daemon_bg_dispatch_ingest", "not_a_file"),
       n(`[bg-dispatch] removed non-regular ${Ae(t)}`, { level: "warn" }),
-      await at(t, { recursive: !0, force: !0 }).catch(() => {});
+      await at(t, { recursive: true, force: true }).catch(() => {});
     return;
   }
   if (o.size > Ue) return p("daemon_bg_dispatch_ingest", "oversized"), Ie(t, `oversized (${o.size} bytes)`);
@@ -507,28 +507,28 @@ async function Ft(t) {
     });
     return;
   }
-  await ot(kte(), { recursive: !0, mode: 448 }).catch(() => {});
+  await ot(kte(), { recursive: true, mode: 448 }).catch(() => {});
 }
 function ct(t) {
   let e,
-    o = !0;
+    o = true;
   try {
     e = V(t);
   } catch {
-    (e = void 0), (o = !1);
+    (e = void 0), (o = false);
   }
   let r;
   try {
     r = Wft().safeParse(e);
   } catch {
-    return p("daemon_bg_dispatch_ingest", "transform_throw"), { ok: !1, reason: "transform_throw" };
+    return p("daemon_bg_dispatch_ingest", "transform_throw"), { ok: false, reason: "transform_throw" };
   }
-  if (!r.success) return p("daemon_bg_dispatch_ingest", o ? "schema" : "bad_json"), { ok: !1, reason: "schema" };
-  if (Date.now() - r.data.createdAt > Vt) return p("daemon_bg_dispatch_ingest", "stale"), { ok: !1, reason: "stale" };
-  return { ok: !0, dispatch: r.data };
+  if (!r.success) return p("daemon_bg_dispatch_ingest", o ? "schema" : "bad_json"), { ok: false, reason: "schema" };
+  if (Date.now() - r.data.createdAt > Vt) return p("daemon_bg_dispatch_ingest", "stale"), { ok: false, reason: "stale" };
+  return { ok: true, dispatch: r.data };
 }
 async function ze(t) {
-  await at(Oe(kte(), t), { recursive: !0, force: !0 }).catch(() => {});
+  await at(Oe(kte(), t), { recursive: true, force: true }).catch(() => {});
 }
 async function ut(t) {
   p("daemon_bg_dispatch_ingest", "not_a_file"),
@@ -594,7 +594,7 @@ async function Ht(t, e) {
       a = [],
       m = [];
     do {
-      let f = await e.listEntries(lt, { cursor: r, skipKeyStats: !0, skipScopeStats: !0 });
+      let f = await e.listEntries(lt, { cursor: r, skipKeyStats: true, skipScopeStats: true });
       if (!f.ok) throw new R(`dispatch drain v5 list failed: ${f.error.code}`, "dispatch drain v5 list failed");
       for (let d of f.value.items) {
         let u = d.kind === "key" ? d.key : d.scope;
@@ -642,7 +642,7 @@ async function Gt(t, e) {
   let o = D(),
     r = o === "macos",
     a = GE.watch(kte(), {
-      ignoreInitial: !0,
+      ignoreInitial: true,
       depth: 0,
       usePolling: r,
       interval: 100,
@@ -684,17 +684,17 @@ async function wt(t, e = {}) {
       let f = new Set(),
         d = e.spawnPty ?? z5t(),
         u = e.onKeepAliveChange ?? (() => {}),
-        A = !1,
-        v = !1,
+        A = false,
+        v = false,
         M = Promise.withResolvers(),
         S = null,
-        N = !1,
-        i = { logged: !1 },
-        C = !1,
-        F = !1,
+        N = false,
+        i = { logged: false },
+        C = false,
+        F = false,
         L = e.spawnPty === void 0,
         W = () => {
-          if (!I("tengu_bg_spare_enable", !0)) {
+          if (!I("tengu_bg_spare_enable", true)) {
             if (S) S.dispose(), (S = null);
             return;
           }
@@ -703,17 +703,17 @@ async function wt(t, e = {}) {
             return;
           }
           if (!F || S || C || N || A || !v || !d || !L || D() === "windows") return;
-          C = !0;
+          C = true;
           let _ = null,
-            T = !1;
+            T = false;
           V5t({
             log: t,
             launcherNotRunnableEpisode: i,
             credentials: e.credentials,
             onExit: (H) => {
-              if (H) N = !0;
+              if (H) N = true;
               if (_ === null) {
-                T = !0;
+                T = true;
                 return;
               }
               if (S === _) {
@@ -738,19 +738,19 @@ async function wt(t, e = {}) {
               h(H);
             })
             .finally(() => {
-              C = !1;
+              C = false;
             });
         },
         J = Date.now(),
         te = async (_, T = 0, H) => {
           if (A) return "closed";
-          F = !0;
-          let ee = !1;
+          F = true;
+          let ee = false;
           if (aK(_) && !a.has(_.short))
             try {
               if ((await sr(e.storageV5), e.storageV5)) await Utt(e.storageV5, _.short);
               else await Jt(pX(_.short), "");
-              ee = !0;
+              ee = true;
             } catch (de) {
               return h(de), p("daemon_bg_session_create", "host_tombstone_write"), "dropped";
             }
@@ -815,7 +815,7 @@ async function wt(t, e = {}) {
                 HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js",
                 DD_SOURCEMAP_GROUP: "darwin",
               }.VERSION &&
-            I("tengu_bg_spare_enable", !0)
+            I("tengu_bg_spare_enable", true)
           ) {
             let de = S;
             S = null;
@@ -867,13 +867,13 @@ async function wt(t, e = {}) {
       let K = await gLn(
         a,
         te,
-        e.onNudge ?? (async () => ({ restarting: !1, upgradePending: !1 })),
+        e.onNudge ?? (async () => ({ restarting: false, upgradePending: false })),
         (_) => {
           let T = _ ? z("SIGTERM") : 0;
           return e.onShutdown?.(), T;
         },
         () => v,
-        e.onYield ?? (() => !1),
+        e.onYield ?? (() => false),
         M.promise,
         e.storageV5,
       );
@@ -881,14 +881,14 @@ async function wt(t, e = {}) {
         t(`bg: control socket bound at ${p_(lI())}`),
         K.onLeaseChange.subscribe(u),
         K.onLeaseChange.subscribe(() => {
-          if (K.leaseCount() > 0 && !F) (F = !0), W();
+          if (K.leaseCount() > 0 && !F) (F = true), W();
         }),
         await Promise.all(
           D() === "windows"
             ? [dr(e.storageV5)]
             : [
-                We(UBt(), { recursive: !0, mode: 448 }).catch(() => {}),
-                We(Vbe(), { recursive: !0, mode: 448 }).catch(() => {}),
+                We(UBt(), { recursive: true, mode: 448 }).catch(() => {}),
+                We(Vbe(), { recursive: true, mode: 448 }).catch(() => {}),
               ],
         ),
         o5n();
@@ -938,18 +938,18 @@ async function wt(t, e = {}) {
               ) &&
               !Ee
             )
-              U++, s("tengu_bg_adopt_upgrade_respawn", {}), te(T.dispatch, 0, !0).catch((ee) => h(ee));
+              U++, s("tengu_bg_adopt_upgrade_respawn", {}), te(T.dispatch, 0, true).catch((ee) => h(ee));
             else {
               re++;
-              let ee = !1;
-              if (T.pendingRespawn === "upgrade" && Ee) me++, (ee = !0);
+              let ee = false;
+              if (T.pendingRespawn === "upgrade" && Ee) me++, (ee = true);
               let ie = await $kt(T.ptySock, T.dispatch),
                 ge = ie ?? { state: "failed", detail: "process gone while supervisor was down" };
               if (
                 (await Oce(_, ge.state, ge.detail, { resumable: ie ? void 0 : "auto-resume" }, e.storageV5)) ===
                 "dead-epoch"
               )
-                oe++, (ee = !0);
+                oe++, (ee = true);
               if (ee) Re++;
               if (e.credentials) e.credentials.discardSpentCredentialFile(zbe(_)).catch(() => {});
               else Z(zbe(_)).catch(() => {});
@@ -997,7 +997,7 @@ async function wt(t, e = {}) {
         else p("daemon_bg_adopt", "all_workers_dead");
       let he = await PP(e.storageV5).catch(() => null),
         fe = he?.pid === process.pid,
-        ke = !(he !== null && he.pid !== process.pid) && !(e.isShuttingDown?.() ?? !1);
+        ke = !(he !== null && he.pid !== process.pid) && !(e.isShuttingDown?.() ?? false);
       if (!fe)
         t(
           `bg: skipped post-adopt sweeps + roster rewrite \u2014 daemon.lock is ${he ? `held by pid ${he.pid}` : "absent"} (yield/handover in flight)`,
@@ -1011,18 +1011,18 @@ async function wt(t, e = {}) {
         }, e.storageV5).catch((_) => h(_));
       let _e = ke ? await gt((_) => void te(_).catch((T) => h(T)), e.storageV5) : null;
       if (((r = _e ?? void 0), (v = ke), ke)) M.resolve();
-      if ((u(), ke && a.size > 0)) F = !0;
+      if ((u(), ke && a.size > 0)) F = true;
       if ((W(), ke)) Me().catch((_) => h(_));
       J = Date.now();
-      let Se = !1,
+      let Se = false,
         be = setInterval(
           async (_, T) => {
             if (Se) return;
-            Se = !0;
+            Se = true;
             try {
               await je(_, T);
             } finally {
-              Se = !1;
+              Se = false;
             }
           },
           xe,
@@ -1048,7 +1048,7 @@ async function wt(t, e = {}) {
                 q
                   .retireIfSettled(ge, ue, le)
                   .then((P) => P.retired)
-                  .catch((P) => (h(P), !1)),
+                  .catch((P) => (h(P), false)),
               ),
             ),
             pe = Q(de, (q) => q);
@@ -1111,7 +1111,7 @@ async function wt(t, e = {}) {
                 x.noteDowngradeRefused("prewarm");
                 continue;
               }
-              if ((await x.respawnIfIdleStale(void 0, "prewarm").catch((ye) => (h(ye), { respawned: !1 }))).respawned)
+              if ((await x.respawnIfIdleStale(void 0, "prewarm").catch((ye) => (h(ye), { respawned: false }))).respawned)
                 q--;
               else P--;
             }
@@ -1122,7 +1122,7 @@ async function wt(t, e = {}) {
       be.unref();
       async function Me() {
         let _ = I("tengu_bg_prewarm_burst_delay_ms", 15000);
-        await ne(_, void 0, { unref: !0 });
+        await ne(_, void 0, { unref: true });
         let T = I("tengu_bg_prewarm_burst_concurrency", 3);
         if (T <= 0 || !A7t() || A) return;
         let H = await Je(e.storageV5),
@@ -1142,16 +1142,16 @@ async function wt(t, e = {}) {
           le = 0,
           ue = 0,
           de = 0,
-          pe = !1,
-          q = !1,
+          pe = false,
+          q = false,
           P = ge + rr;
         while (ee.size > 0 && Date.now() < P && !A) {
           if (Date.now() - J > xe * 2) {
-            q = !0;
+            q = true;
             break;
           }
           if (RK()) {
-            pe = !0;
+            pe = true;
             break;
           }
           let x = T - Q([...a.values()], (se) => se.isBooting && !se.isUnverified);
@@ -1161,12 +1161,12 @@ async function wt(t, e = {}) {
               de++;
               continue;
             }
-            if ((await se.respawnIfIdleStale(void 0, "burst").catch(($e) => (h($e), { respawned: !1 }))).respawned)
+            if ((await se.respawnIfIdleStale(void 0, "burst").catch(($e) => (h($e), { respawned: false }))).respawned)
               le++, x--;
             else ue++;
           }
           if (ee.size === 0) break;
-          await ne(tr, void 0, { unref: !0 });
+          await ne(tr, void 0, { unref: true });
         }
         t(
           `bg: post-takeover prewarm burst \u2014 respawned ${le}/${ie} stale workers` +
@@ -1198,8 +1198,8 @@ async function wt(t, e = {}) {
         pendingSettleWrites: () => f.size,
         killAll: z,
         close: async (_) => {
-          let T = _?.displaced ?? !1;
-          if (((A = !0), clearInterval(be), S)) S.dispose(), (S = null);
+          let T = _?.displaced ?? false;
+          if (((A = true), clearInterval(be), S)) S.dispose(), (S = null);
           await Promise.all([
             _e?.close().catch(() => {}),
             K.close({ skipUnlink: T || _?.skipPathCleanup }).catch(() => {}),
@@ -1209,7 +1209,7 @@ async function wt(t, e = {}) {
             (await Promise.allSettled([...f]),
             !T && a.size === 0 && !B.parseFailed && !_?.skipPathCleanup && D() !== "windows")
           )
-            await Ne(dX(), { recursive: !0, force: !0 }).catch(() => {});
+            await Ne(dX(), { recursive: true, force: true }).catch(() => {});
         },
       };
     };
@@ -1219,7 +1219,7 @@ async function wt(t, e = {}) {
     for (let u of a.values()) u.stop();
     await r?.close().catch(() => {});
     let d = await PP(e.storageV5).catch(() => null);
-    throw (await o?.close(d?.pid === process.pid ? void 0 : { skipUnlink: !0 }).catch(() => {}), f);
+    throw (await o?.close(d?.pid === process.pid ? void 0 : { skipUnlink: true }).catch(() => {}), f);
   }
 }
 function Xe(t, e, o, r, a, m = {}) {
@@ -1238,7 +1238,7 @@ function Xe(t, e, o, r, a, m = {}) {
           ? mt(m.storageV5, e.record.short, u, (i) =>
               h(new R(`jobdir retire deleteScope: ${i}`, "jobdir retire deleteScope failed")),
             ).catch((i) => h(i))
-          : Ne(u, { recursive: !0, force: !0 }).catch((i) => h(i)),
+          : Ne(u, { recursive: true, force: true }).catch((i) => h(i)),
       );
     else if (d === "killed" && e.isHandoffKill) s("tengu_bg_handoff_settle", { jobSessionId: ve(e.record.sessionId) });
     else
@@ -1268,7 +1268,7 @@ function Xe(t, e, o, r, a, m = {}) {
                   () => {
                     return;
                   },
-                  (L) => (E(L) === "ENOENT" ? Ne(u, { recursive: !0, force: !0 }).catch((W) => h(W)) : void 0),
+                  (L) => (E(L) === "ENOENT" ? Ne(u, { recursive: true, force: true }).catch((W) => h(W)) : void 0),
                 );
               }
               return;
@@ -1304,7 +1304,7 @@ function Xe(t, e, o, r, a, m = {}) {
                 inFlight: void 0,
                 needs: void 0,
                 block: void 0,
-                ...(M && { sessionIdTaken: !0 }),
+                ...(M && { sessionIdTaken: true }),
                 updatedAt: C,
                 firstTerminalAt: F.firstTerminalAt ?? C,
               },
@@ -1438,7 +1438,7 @@ async function sr(t) {
     await $tt(t);
     return;
   }
-  await We(JGe(), { recursive: !0, mode: 448 });
+  await We(JGe(), { recursive: true, mode: 448 });
 }
 async function dr(t) {
   if (O() && t !== void 0) {
@@ -1447,7 +1447,7 @@ async function dr(t) {
     });
     return;
   }
-  await We(Uce(), { recursive: !0 }).catch(() => {});
+  await We(Uce(), { recursive: true }).catch(() => {});
 }
 async function qe(t, e, o) {
   for (let r of [Le(C9(e)), Le(Mh(oh(e))), Le(uT(oh(e))), Le(sM(o ?? oh(e)))])
@@ -1455,8 +1455,8 @@ async function qe(t, e, o) {
 }
 async function lr(t) {
   let e = await zt(t).catch(() => null);
-  if (e === null || e.isDirectory()) return !1;
-  return await Ne(t, { recursive: !0, force: !0 }), !0;
+  if (e === null || e.isDirectory()) return false;
+  return await Ne(t, { recursive: true, force: true }), true;
 }
 async function mt(t, e, o, r) {
   if (await lr(o)) return;
@@ -1489,12 +1489,12 @@ class Fe {
   onStateChange;
   child = null;
   spawnedAt = 0;
-  stopping = !1;
+  stopping = false;
   consecutiveCrashes = 0;
   backoffTimer = null;
-  wrapperParkLogged = !1;
+  wrapperParkLogged = false;
   exitPromise = null;
-  lastBusy = !1;
+  lastBusy = false;
   lastBusyAt = 0;
   constructor(t, e, o, r, a, m, f) {
     this.id = t;
@@ -1513,18 +1513,18 @@ class Fe {
     return this.lastBusy && this.child !== null && Date.now() - this.lastBusyAt < kr;
   }
   start(t = 0) {
-    if (((this.stopping = !1), t > 0)) this.scheduleRespawn(t);
+    if (((this.stopping = false), t > 0)) this.scheduleRespawn(t);
     else this.spawn();
   }
   updateConfig(t) {
     this.config = t;
   }
   async stop(t) {
-    if (((this.stopping = !0), this.backoffTimer)) clearTimeout(this.backoffTimer), (this.backoffTimer = null);
+    if (((this.stopping = true), this.backoffTimer)) clearTimeout(this.backoffTimer), (this.backoffTimer = null);
     let e = this.child;
     if (!e) return;
     let o = this.exitPromise,
-      r = !1;
+      r = false;
     if (typeof e.send === "function")
       try {
         r = e.send(t !== void 0 ? { type: "shutdown", cause: t } : { type: "shutdown" });
@@ -1538,7 +1538,7 @@ class Fe {
     let t = ru();
     if (t) {
       if ((this.logger.write(this.id, `not started: ${t}`), !this.wrapperParkLogged))
-        (this.wrapperParkLogged = !0), p("agent_launcher", "registry_worker_refused");
+        (this.wrapperParkLogged = true), p("agent_launcher", "registry_worker_refused");
       this.scheduleRespawn(_r);
       return;
     }
@@ -1547,7 +1547,7 @@ class Fe {
     let o = qP(this.invocation),
       r = ur(o.cmd, [...o.prefixArgs, "--daemon-worker", this.kind], {
         stdio: this.authManager ? ["pipe", "pipe", "pipe", "ipc"] : ["pipe", "pipe", "pipe"],
-        windowsHide: !0,
+        windowsHide: true,
       });
     if (
       ((this.child = r),
@@ -1581,18 +1581,18 @@ class Fe {
     let m = _t({ input: r.stderr });
     m.on("line", (d) => this.logger.write(this.id, d)),
       r.on("spawn", () => {
-        (this.wrapperParkLogged = !1), y("daemon_worker_spawn");
+        (this.wrapperParkLogged = false), y("daemon_worker_spawn");
       });
-    let f = !1;
+    let f = false;
     this.exitPromise = new Promise((d) => {
       let u = (A, v) => {
         if (f) return;
         if (
-          ((f = !0),
+          ((f = true),
           a.close(),
           m.close(),
           (this.child = null),
-          (this.lastBusy = !1),
+          (this.lastBusy = false),
           this.onStateChange?.(),
           this.authManager)
         )
@@ -1615,7 +1615,7 @@ class Fe {
               ),
               !this.wrapperParkLogged)
             )
-              (this.wrapperParkLogged = !0), p("agent_launcher", "registry_worker_refused");
+              (this.wrapperParkLogged = true), p("agent_launcher", "registry_worker_refused");
             u(VGe, null);
             return;
           }
@@ -1655,7 +1655,7 @@ class Fe {
         ),
         !this.wrapperParkLogged)
       )
-        (this.wrapperParkLogged = !0), p("agent_launcher", "registry_worker_launcher_forked");
+        (this.wrapperParkLogged = true), p("agent_launcher", "registry_worker_launcher_forked");
       s("tengu_daemon_worker_permanent_exit", { exit_code: t ?? void 0, uptime_ms: r, worker_kind: c(this.kind) });
       return;
     }
@@ -1787,16 +1787,16 @@ async function bt(t) {
     i = m(e, () => {
       N = N.then(S).catch((L) => h(L));
     }),
-    C = !1;
+    C = false;
   function F() {
     if (C) return;
-    (C = !0), i();
+    (C = true), i();
   }
   return {
     workerCount: () => br(u),
     hasOAuthConsumer: () => {
-      for (let L of d.values()) if (eW[L.kind].needsOAuth) return !0;
-      return !1;
+      for (let L of d.values()) if (eW[L.kind].needsOAuth) return true;
+      return false;
     },
     busyWorkerCount: () => {
       let L = 0;
@@ -1831,7 +1831,7 @@ async function yt(t) {
   }
 }
 function Rr(t, e) {
-  if (t.target !== e.target) return !0;
+  if (t.target !== e.target) return true;
   return !G0e() && t.mtimeMs !== e.mtimeMs;
 }
 function Ar(t) {
@@ -1864,9 +1864,9 @@ async function Pt(t) {
   ),
     mh();
   let C = await Ch(uge, S),
-    F = !1;
+    F = false;
   if (C && C.origin === "transient" && r !== "transient") {
-    (F = !0),
+    (F = true),
       i.write(
         "supervisor",
         `transient daemon running (pid=${C.pid}, origin=transient) \u2014 asking it to yield to origin=${r}`,
@@ -1900,9 +1900,9 @@ async function Pt(t) {
     )
       g("daemon_start", "daemon_start_yield_failed");
     else y("daemon_start");
-    return await i.close(), { upgradeDetected: !1, exitCode: 1 };
+    return await i.close(), { upgradeDetected: false, exitCode: 1 };
   }
-  let L = rp({ pinToCurrentBinary: !0 }),
+  let L = rp({ pinToCurrentBinary: true }),
     W = G0e() ? I7t() : L.target,
     J = await yt(W).catch((P) => {
       if ($o(P)) n(`binaryIdentity(${W}) failed at startup: ${P.code}`, { level: "error" });
@@ -1911,7 +1911,7 @@ async function Pt(t) {
     }),
     te = await Ga(process.pid);
   if (te === void 0) {
-    if ((await ne(p0t), (te = await Ga(process.pid, { skipCache: !0 })), te === void 0))
+    if ((await ne(p0t), (te = await Ga(process.pid, { skipCache: true })), te === void 0))
       i.write(
         "supervisor",
         "own process start-time probe failed twice \u2014 writing a procStart-less lock; kill paths will refuse to signal this daemon",
@@ -1943,18 +1943,18 @@ async function Pt(t) {
   if (!K) {
     let P = await PP(S);
     if (P) {
-      let se = !1;
+      let se = false;
       try {
         process.kill(P.pid, 0), (se = (await ont(P.pid)) && (await EBe(P.pid, iA(P), uge)));
       } catch (ye) {
-        if (E(ye) !== "ESRCH") se = !0;
+        if (E(ye) !== "ESRCH") se = true;
       }
       if (se)
         return (
           i.write("supervisor", `another daemon won the lock race (pid=${P.pid}) \u2014 exiting`),
           y("daemon_start"),
           await i.close(),
-          { upgradeDetected: !1, exitCode: 1 }
+          { upgradeDetected: false, exitCode: 1 }
         );
       K = await d0t(z, S);
     } else K = await d0t(z, S);
@@ -1963,7 +1963,7 @@ async function Pt(t) {
         i.write("supervisor", "another daemon won the lock race \u2014 exiting"),
         y("daemon_start"),
         await i.close(),
-        { upgradeDetected: !1, exitCode: 1 }
+        { upgradeDetected: false, exitCode: 1 }
       );
     await ne(Pr);
     let x = await PP(S).catch(() => z);
@@ -1977,7 +1977,7 @@ async function Pt(t) {
       )
         y("daemon_start");
       else g("daemon_start", "lock_vanished_after_replace");
-      return await i.close(), { upgradeDetected: !1, exitCode: 1 };
+      return await i.close(), { upgradeDetected: false, exitCode: 1 };
     }
   }
   let B = async () => {
@@ -2003,34 +2003,34 @@ async function Pt(t) {
     re = d(
       m,
       (P) => i.write("supervisor", P),
-      () => Y?.hasOAuthConsumer() ?? !1,
+      () => Y?.hasOAuthConsumer() ?? false,
       S,
       N,
     ),
-    oe = !1,
+    oe = false,
     me = null,
-    Re = !1,
+    Re = false,
     U = null,
-    Ee = !1,
-    he = !1,
-    fe = !1,
-    Pe = !1,
-    ke = !1,
-    _e = !1,
+    Ee = false,
+    he = false,
+    fe = false,
+    Pe = false,
+    ke = false,
+    _e = false,
     Se = () => m.aborted || fe || Ee || ke || oe || he || Pe || _e,
     be = null,
     je = () => {
-      if (r !== "transient") return !1;
+      if (r !== "transient") return false;
       if (!fe)
-        (fe = !0),
+        (fe = true),
           i.write("supervisor", "yielding to a foreground/service daemon \u2014 bg workers will be re-adopted"),
           s("tengu_daemon_yield", {}),
           be?.();
-      return !0;
+      return true;
     },
     Me = async () => {
       if (oe || !J) return oe;
-      if (Se()) return !1;
+      if (Se()) return false;
       let P;
       try {
         P = await yt(W);
@@ -2043,18 +2043,18 @@ async function Pt(t) {
               s("tengu_daemon_upgrade_deferred_busy", {
                 busy_workers: 0,
                 deferred_ms: (U.suspendedAt ?? Date.now()) - U.start,
-                cap_expired: !1,
+                cap_expired: false,
                 phase: w("resolved"),
               });
             U = null;
           } else if (U.suspendedAt === null) U.suspendedAt = Date.now();
         }
-        return !1;
+        return false;
       }
-      if (Se()) return !1;
+      if (Se()) return false;
       if (U !== null && U.suspendedAt !== null) (U.start += Date.now() - U.suspendedAt), (U.suspendedAt = null);
-      if (P !== null && !Rr(J, P)) return (me = null), (U = null), !1;
-      if (P !== null && hLn(J.target, P.target) && I("tengu_daemon_refuse_stale_upgrade", !0)) {
+      if (P !== null && !Rr(J, P)) return (me = null), (U = null), false;
+      if (P !== null && hLn(J.target, P.target) && I("tengu_daemon_refuse_stale_upgrade", true)) {
         if (((U = null), me !== P.target))
           (me = P.target),
             i.write(
@@ -2062,14 +2062,14 @@ async function Pt(t) {
               `binary at ${W} changed to an OLDER build (${J.target} \u2192 ${P.target}) \u2014 refusing self-restart for upgrade; keeping the running build (\`claude daemon stop --any\` to override)`,
             ),
             s("tengu_daemon_upgrade_refused_stale_binary", {});
-        return !1;
+        return false;
       }
       let x = ru(),
         se = Xl();
       if (r !== "service" && (se.length > 0 || x !== null)) {
         if (!(await ZE())) {
           if (!Re)
-            (Re = !0),
+            (Re = true),
               i.write(
                 "supervisor",
                 x !== null
@@ -2077,27 +2077,27 @@ async function Pt(t) {
                   : `binary at ${W} changed but launcher \`${se[0]}\` is not runnable right now \u2014 deferring the upgrade restart until it is (re-checked every poll)`,
               ),
               g("agent_launcher", "upgrade_deferred_launcher_unrunnable");
-          return (U = null), !1;
+          return (U = null), false;
         }
-        Re = !1;
+        Re = false;
       }
       let ye = Y?.busyWorkerCount() ?? 0;
-      if (ye > 0 && P !== null && I("tengu_daemon_upgrade_defer_busy", !0)) {
+      if (ye > 0 && P !== null && I("tengu_daemon_upgrade_defer_busy", true)) {
         if (U === null)
-          U = { target: P.target, start: Date.now(), logged: !1, suspendedAt: null, capExpiredEmitted: !1 };
-        else if (U.target !== P.target) (U.target = P.target), (U.logged = !1);
+          U = { target: P.target, start: Date.now(), logged: false, suspendedAt: null, capExpiredEmitted: false };
+        else if (U.target !== P.target) (U.target = P.target), (U.logged = false);
         if (Date.now() - U.start < M) {
           if (!U.logged)
-            (U.logged = !0),
+            (U.logged = true),
               i.write(
                 "supervisor",
                 `binary at ${W} changed but ${ye} registry worker(s) report a mid-turn session \u2014 deferring the upgrade restart until idle (re-checked every poll, capped at ${Math.round(M / 60000)}m)`,
               ),
-              s("tengu_daemon_upgrade_deferred_busy", { busy_workers: ye, cap_expired: !1, phase: w("start") });
-          return !1;
+              s("tengu_daemon_upgrade_deferred_busy", { busy_workers: ye, cap_expired: false, phase: w("start") });
+          return false;
         }
         if (!U.capExpiredEmitted)
-          (U.capExpiredEmitted = !0),
+          (U.capExpiredEmitted = true),
             i.write(
               "supervisor",
               `busy-worker upgrade defer cap reached \u2014 proceeding with the restart while ${ye} worker(s) are still busy`,
@@ -2105,7 +2105,7 @@ async function Pt(t) {
             s("tengu_daemon_upgrade_deferred_busy", {
               busy_workers: ye,
               deferred_ms: Date.now() - U.start,
-              cap_expired: !0,
+              cap_expired: true,
               phase: w("cap_expired"),
             });
       } else {
@@ -2113,36 +2113,36 @@ async function Pt(t) {
           s("tengu_daemon_upgrade_deferred_busy", {
             busy_workers: ye,
             deferred_ms: Date.now() - U.start,
-            cap_expired: !1,
+            cap_expired: false,
             phase: w("resolved"),
           });
         U = null;
       }
-      if (Se()) return !1;
-      if (((oe = !0), P === null))
+      if (Se()) return false;
+      if (((oe = true), P === null))
         i.write("supervisor", `binary at ${W} was deleted (was ${J.target}) \u2014 exiting for upgrade`);
       else {
         let $e = J.target === P.target ? "mtime changed" : `${J.target} \u2192 ${P.target}`;
         i.write("supervisor", `binary at ${W} changed (${$e}) \u2014 self-restarting for upgrade`);
       }
-      return be?.(), !0;
+      return be?.(), true;
     },
     _ = { manager: null },
     T = null,
-    H = !1,
+    H = false,
     ee = () => (_.manager?.leaseCount() ?? 0) + (_.manager?.liveHandleCount() ?? 0),
     ie = () => {
       if (r !== "transient") return;
       if (ke || oe || Ee || fe || Pe || m.aborted) return;
       if (ee() > 0) {
-        if (((H = !0), T)) clearTimeout(T), (T = null);
+        if (((H = true), T)) clearTimeout(T), (T = null);
         return;
       }
       if (T) return;
       let P = H ? A : v;
       T = setTimeout(() => {
         if (((T = null), ee() > 0)) {
-          H = !0;
+          H = true;
           return;
         }
         if (m.aborted || oe) return;
@@ -2150,7 +2150,7 @@ async function Pt(t) {
           ie();
           return;
         }
-        ke = !0;
+        ke = true;
         let x = Y?.workerCount() ?? 0;
         i.write(
           "supervisor",
@@ -2167,7 +2167,7 @@ async function Pt(t) {
         getAuthSnapshot: r === "service" ? () => re.getAuthSnapshot() : void 0,
         onNudge: async () => ({ restarting: await Me(), upgradePending: U !== null }),
         onShutdown: () => {
-          (Ee = !0), i.write("supervisor", "shutdown requested via control socket"), be?.();
+          (Ee = true), i.write("supervisor", "shutdown requested via control socket"), be?.();
         },
         onYield: je,
         onKeepAliveChange: ie,
@@ -2180,7 +2180,7 @@ async function Pt(t) {
       if (Se())
         return void (async () => {
           if (he && !_e && (await B()) === null) P.killAll("SIGTERM");
-          await P.close({ skipPathCleanup: !0 });
+          await P.close({ skipPathCleanup: true });
         })().catch((se) => h(yDe(se)));
       (_.manager = P), ie();
     })
@@ -2199,7 +2199,7 @@ async function Pt(t) {
       i.write("supervisor", `bg manager failed to start: ${se} \u2014 control pipe unavailable; exiting`),
         process.stderr.write(`bg manager failed to start: ${se}
 `),
-        (Pe = !0),
+        (Pe = true),
         be?.();
     }),
     (Y = await bt({ jsonPath: e, invocation: L, logger: i, authManager: re, watch: f, storageV5: S }));
@@ -2216,7 +2216,7 @@ async function Pt(t) {
   try {
     await new Promise((P) => {
       if (((be = P), m.aborted || oe || ke || Ee || fe || Pe)) return void P();
-      if ((m.addEventListener("abort", () => P(), { once: !0 }), !J))
+      if ((m.addEventListener("abort", () => P(), { once: true }), !J))
         i.write("supervisor", `binary identity unresolvable at ${W}; upgrade polling disabled`);
       le = setInterval(() => {
         if (m.aborted || oe || he || fe) {
@@ -2224,17 +2224,17 @@ async function Pt(t) {
           return;
         }
         if ((Me(), r === "service" && yyn()))
-          (he = !0),
+          (he = true),
             i.write("supervisor", "service recall flag set \u2014 draining workers and uninstalling service"),
             be?.();
         if (r === "transient" && !fe)
           B()
             .then((x) => {
               if (x !== null && !fe && !m.aborted)
-                (_e = !0),
-                  (fe = !0),
+                (_e = true),
+                  (fe = true),
                   i.write("supervisor", `lockfile now held by pid=${x} \u2014 displaced, yielding`),
-                  s("tengu_daemon_yield", { displaced: !0, displaced_by_pid: x }),
+                  s("tengu_daemon_yield", { displaced: true, displaced_by_pid: x }),
                   be?.();
             })
             .catch((x) => h(yDe(x)));
@@ -2249,7 +2249,7 @@ async function Pt(t) {
   if ((Y.disposeWatcher(), await Y.drainReloads(), !_e)) {
     let P = await B();
     if (P !== null)
-      (_e = !0),
+      (_e = true),
         i.write(
           "supervisor",
           `lockfile now held by pid=${P} \u2014 displaced; leaving successor's control.sock in place`,
@@ -2286,10 +2286,10 @@ async function Pt(t) {
       ever_had_keep_alive: H,
       origin: c(r),
     });
-  let pe = !1,
+  let pe = false,
     q = async () => {
       if (pe) return;
-      pe = !0;
+      pe = true;
       let P = await PP(S);
       if (P && P.pid === z.pid && P.startedAt === z.startedAt) await oMn(S);
     };
@@ -2297,10 +2297,10 @@ async function Pt(t) {
   if (ke || he || fe || Pe) {
     if ((await q(), he && !_e)) {
       if ((_.manager?.killAll("SIGTERM"), !_.manager)) {
-        let P = await cT({ silent: !0 }, S).catch(() => null);
+        let P = await cT({ silent: true }, S).catch(() => null);
         for (let x of Object.values(P?.workers ?? {}))
           if (x.pid > 0)
-            await k7t(x.pid, x.procStart).catch(() => !1), await G3(x.replPid, x.replProcStart).catch(() => !1);
+            await k7t(x.pid, x.procStart).catch(() => false), await G3(x.replPid, x.replProcStart).catch(() => false);
       }
     }
   }
@@ -2349,15 +2349,15 @@ function Dt() {
 }
 function Gr(t) {
   let e = Rb(),
-    o = !1,
+    o = false,
     r = tW(),
     a,
     m,
     f = new Set();
   for (let i = 0; i < t.length; i++) {
     let C = t[i];
-    if (C === "--json-path" && t[i + 1]) f.add(i), f.add(++i), (e = t[i]), (o = !0);
-    else if (C.startsWith("--json-path=")) f.add(i), (e = C.slice(12)), (o = !0);
+    if (C === "--json-path" && t[i + 1]) f.add(i), f.add(++i), (e = t[i]), (o = true);
+    else if (C.startsWith("--json-path=")) f.add(i), (e = C.slice(12)), (o = true);
     else if (C === "--log-file" && t[i + 1]) f.add(i), f.add(++i), (r = t[i]);
     else if (C.startsWith("--log-file=")) f.add(i), (r = C.slice(11));
     else if (C === "--origin" && t[i + 1]) f.add(i), f.add(++i), (a = Rt(t[i]));
@@ -2415,7 +2415,7 @@ function Kr(t) {
   return `transient \u2014 started on-demand by \`${o.label}\` (pid ${o.pid}) in ${o.cwd}`;
 }
 function Ur(t) {
-  let e = Ut(t, !1);
+  let e = Ut(t, false);
   if (e === null || typeof e !== "object") return;
   let o = e;
   if (typeof o.label === "string" && typeof o.cwd === "string" && typeof o.pid === "number")
@@ -2483,7 +2483,7 @@ function Tt(t) {
   return `warning: the service manager accepted the ${t}, but the installed daemon is not reachable after ${IP / 1000}s \u2014 the first start after an update can be slow. Check \`claude daemon status\` and \`claude daemon logs\`; if the service file points at a binary or launcher that no longer exists, \`claude daemon install\` rewrites it from the current settings.`;
 }
 async function ae(t) {
-  await Promise.race([Promise.all([vY(), OY()]), ne(500, void 0, { unref: !0 })]).catch(() => {}), process.exit(t);
+  await Promise.race([Promise.all([vY(), OY()]), ne(500, void 0, { unref: true })]).catch(() => {}), process.exit(t);
 }
 async function Xo(t, e) {
   if ((await sMe(), t.includes("--help") || t.includes("-h"))) {
@@ -2553,10 +2553,10 @@ async function Xo(t, e) {
       } catch {}
       _G();
       let S = new AbortController(),
-        N = !1,
+        N = false,
         i = () => {
           if (N) G("forced shutdown"), process.exit(1);
-          (N = !0), S.abort();
+          (N = true), S.abort();
         };
       process.on("SIGINT", i), process.on("SIGTERM", i);
       let C = m ?? "foreground",
@@ -2591,7 +2591,7 @@ async function Xo(t, e) {
           G(
             `\`claude daemon ${u}\` is disabled in this version \u2014 the daemon runs on demand and exits when the last client disconnects.`,
           ),
-          await C_("tengu_daemon_install", { ok: !1, disabled: !0 }),
+          await C_("tengu_daemon_install", { ok: false, disabled: true }),
           ae(1)
         );
       if (!(await _Q()))
@@ -2614,7 +2614,7 @@ async function Xo(t, e) {
       if (v)
         return (
           p("daemon_service_install", "daemon_service_install_launcher"),
-          await C_("tengu_daemon_install", { ok: !1, launcher: !0 }),
+          await C_("tengu_daemon_install", { ok: false, launcher: true }),
           G(`install refused: ${v}`),
           ae(1)
         );
@@ -2622,7 +2622,7 @@ async function Xo(t, e) {
       if (M.kind === "foreground")
         return (
           p("daemon_service_install", "daemon_service_install_foreground"),
-          await C_("tengu_daemon_install", { ok: !1, foreground: !0 }),
+          await C_("tengu_daemon_install", { ok: false, foreground: true }),
           G(At("install", M.lock.pid)),
           ae(1)
         );
@@ -2634,14 +2634,14 @@ async function Xo(t, e) {
               ? "daemon_service_install_holder_unverified"
               : "daemon_service_install_holder_alive",
           ),
-          await C_("tengu_daemon_install", { ok: !1, holderAlive: !0, holderUnverified: M.outcome === "unverified" }),
+          await C_("tengu_daemon_install", { ok: false, holderAlive: true, holderUnverified: M.outcome === "unverified" }),
           G(Ct("install", M)),
           ae(1)
         );
       if (M.kind === "unknown-origin")
         return (
           p("daemon_service_install", "daemon_service_install_holder_unknown_origin"),
-          await C_("tengu_daemon_install", { ok: !1, holderAlive: !0, holderUnknownOrigin: !0 }),
+          await C_("tengu_daemon_install", { ok: false, holderAlive: true, holderUnknownOrigin: true }),
           G(It("install", M.lock.pid)),
           ae(1)
         );
@@ -2649,7 +2649,7 @@ async function Xo(t, e) {
       let S = await sBe({ jsonPath: r, logPath: a });
       if (!S.ok) {
         if (
-          (await C_("tengu_daemon_install", { ok: !1 }),
+          (await C_("tengu_daemon_install", { ok: false }),
           p("daemon_service_install", "daemon_service_install_failed"),
           G(`install failed: ${S.error}`),
           S.servicePath)
@@ -2659,7 +2659,7 @@ async function Xo(t, e) {
       }
       y("daemon_service_install"), j(`installed: ${S.servicePath}`);
       let N = await Nkt(IP, A);
-      if ((await C_("tengu_daemon_install", { ok: !0, reachable: N !== null }), N))
+      if ((await C_("tengu_daemon_install", { ok: true, reachable: N !== null }), N))
         j(`running: pid=${N.pid} origin=${N.origin} (managed by ${D() === "macos" ? "launchd" : "systemd"})`);
       else
         G(
@@ -2674,7 +2674,7 @@ async function Xo(t, e) {
           G(
             `\`claude daemon ${u}\` is disabled in this version \u2014 the daemon runs on demand and exits when the last client disconnects.`,
           ),
-          await C_("tengu_daemon_install", { ok: !1, disabled: !0 }),
+          await C_("tengu_daemon_install", { ok: false, disabled: true }),
           ae(1)
         );
       if (!(await _Q()))
@@ -2692,8 +2692,8 @@ async function Xo(t, e) {
           await C_("tengu_daemon_control", {
             op_start: u === "start",
             op_restart: u === "restart",
-            ok: !1,
-            launcher: !0,
+            ok: false,
+            launcher: true,
           }),
           G(`${u} refused: ${v}`),
           ae(1)
@@ -2705,8 +2705,8 @@ async function Xo(t, e) {
           await C_("tengu_daemon_control", {
             op_start: u === "start",
             op_restart: u === "restart",
-            ok: !1,
-            foreground: !0,
+            ok: false,
+            foreground: true,
           }),
           G(At(u, M.lock.pid)),
           ae(1)
@@ -2723,8 +2723,8 @@ async function Xo(t, e) {
             op_start: u === "start",
             op_restart: u === "restart",
             holderUnverified: M.outcome === "unverified",
-            ok: !1,
-            holderAlive: !0,
+            ok: false,
+            holderAlive: true,
           }),
           G(Ct(u, M)),
           ae(1)
@@ -2735,9 +2735,9 @@ async function Xo(t, e) {
           await C_("tengu_daemon_control", {
             op_start: u === "start",
             op_restart: u === "restart",
-            ok: !1,
-            holderAlive: !0,
-            holderUnknownOrigin: !0,
+            ok: false,
+            holderAlive: true,
+            holderUnknownOrigin: true,
           }),
           G(It(u, M.lock.pid)),
           ae(1)
@@ -2757,7 +2757,7 @@ async function Xo(t, e) {
             op_start: u === "start",
             op_restart: u === "restart",
             ok: C.ok,
-            regenerated: !0,
+            regenerated: true,
             reachable: F,
           }),
           C.ok && F)
@@ -2770,7 +2770,7 @@ async function Xo(t, e) {
       let N = await (u === "start" ? qtt() : SLn());
       if (!N.ok)
         return (
-          await C_("tengu_daemon_control", { op_start: u === "start", op_restart: u === "restart", ok: !1 }),
+          await C_("tengu_daemon_control", { op_start: u === "start", op_restart: u === "restart", ok: false }),
           G(`${u} failed: ${N.error}`),
           ae(1)
         );
@@ -2779,7 +2779,7 @@ async function Xo(t, e) {
         (await C_("tengu_daemon_control", {
           op_start: u === "start",
           op_restart: u === "restart",
-          ok: !0,
+          ok: true,
           reachable: i,
         }),
         i)
@@ -2791,7 +2791,7 @@ async function Xo(t, e) {
     case "uninstall": {
       De(d, []);
       let v = await MRe();
-      if ((await C_("tengu_daemon_control", { op_uninstall: !0, ok: v.ok }), v.ok))
+      if ((await C_("tengu_daemon_control", { op_uninstall: true, ok: v.ok }), v.ok))
         y("daemon_service_uninstall"), j("uninstalled");
       else p("daemon_service_uninstall", "daemon_service_uninstall_failed"), G(`uninstall failed: ${v.error}`);
       return ae(v.ok ? 0 : 1);
@@ -2811,7 +2811,7 @@ async function Xo(t, e) {
           else p("daemon_stop", re);
           return (
             await C_("tengu_daemon_control", {
-              op_stop: !0,
+              op_stop: true,
               ok: B,
               reaped: Y,
               holderUnverified: re === "daemon_stop_holder_unverified",
@@ -2828,7 +2828,7 @@ async function Xo(t, e) {
         let B = await PP(A);
         if (B && ms(B.pid)) {
           let Y = await ont(B.pid),
-            re = Y ? await Ga(B.pid, { skipCache: !0 }) : void 0,
+            re = Y ? await Ga(B.pid, { skipCache: true }) : void 0,
             oe = iA(B),
             me = oe !== void 0 && re !== void 0;
           if (!Y || (me && re !== oe)) W = B.pid;
@@ -2847,29 +2847,29 @@ async function Xo(t, e) {
         );
       let J = await Kp({ proto: Ca, op: "shutdown", reapWorkers: !v });
       if (J.ok && J.op === "shutdown") {
-        let B = v ? { reaped: 0, kept: 0 } : await C7t({ supervisorKilledAll: !0 }, A);
+        let B = v ? { reaped: 0, kept: 0 } : await C7t({ supervisorKilledAll: true }, A);
         S(B.kept);
         let Y = Math.max(J.reaped, B.reaped);
         if (i) {
           let re = await aBe();
-          if (!re.ok) return G(`stop failed: ${re.error}`), N(!1, Y);
+          if (!re.ok) return G(`stop failed: ${re.error}`), N(false, Y);
         }
         if ((j(M(Y)), !i)) j("note: the next `claude agents` or `claude --bg` will start a new one");
-        return N(!0, Y);
+        return N(true, Y);
       }
-      let te = !1;
+      let te = false;
       if (i) {
         let B = await aBe();
-        if (!B.ok) return G(`stop failed: ${B.error}`), N(!1, 0);
-        te = !0;
+        if (!B.ok) return G(`stop failed: ${B.error}`), N(false, 0);
+        te = true;
       } else if (F && D() !== "windows")
         try {
-          process.kill(F.pid, "SIGTERM"), (te = !0);
+          process.kill(F.pid, "SIGTERM"), (te = true);
         } catch (B) {
-          if (E(B) === "ESRCH") te = !0;
+          if (E(B) === "ESRCH") te = true;
           else {
             let Y = E(B) === "EPERM" ? " (running as another user \u2014 try with elevated privileges)" : "";
-            return G(`could not stop daemon (pid=${F.pid}): ${l(B)}${Y}`), N(!1, 0);
+            return G(`could not stop daemon (pid=${F.pid}): ${l(B)}${Y}`), N(false, 0);
           }
         }
       let z = v ? { reaped: 0, kept: 0 } : await C7t({}, A),
@@ -2881,7 +2881,7 @@ async function Xo(t, e) {
               `supervisor (pid=${F.pid}) is still running \u2014 stop it with ` +
               `\`taskkill /PID ${F.pid}\` or close the terminal it was started in.`,
           ),
-          N(!1, K)
+          N(false, K)
         );
       if (!te && !F && L)
         return (
@@ -2889,13 +2889,13 @@ async function Xo(t, e) {
             (K > 0 ? `terminated ${K} background ${k(K, "session")}; ` : "") +
               `the daemon was not stopped: pid=${L.pid} is holding ${Nw()} but could not be verified as the daemon, so it was not signalled. If no daemon is running, delete that file; if pid ${L.pid} is a live process you own, stop it yourself.`,
           ),
-          N(!1, K, "daemon_stop_holder_unverified")
+          N(false, K, "daemon_stop_holder_unverified")
         );
       if (W !== void 0)
         G(`note: ${Nw()} is stale (pid=${W} is not the daemon). The next daemon start reclaims it automatically.`);
       if (!te && !F && K === 0) j("no daemon running");
       else if ((j(M(K)), !i && F)) j("note: the next `claude agents` or `claude --bg` will start a new one");
-      return N(!0, K);
+      return N(true, K);
     }
     case "status": {
       De(d, []);
@@ -3024,11 +3024,11 @@ async function zr(t, e, o, r) {
     )
       await C_("tengu_daemon_upgrade_respawn_unreachable", { stderr_captured: d.length > 0 });
   }
-  if (m) Tr(Mr(m), { recursive: !0, force: !0 }).catch(() => {});
+  if (m) Tr(Mr(m), { recursive: true, force: true }).catch(() => {});
   if (a)
     h(`daemon: upgrade self-respawn failed: ${l(a)}`),
       await C_("tengu_bg_daemon_spawn_failed", {
-        respawn: !0,
+        respawn: true,
         errno_enoent: E(a) === "ENOENT",
         errno_eacces: E(a) === "EACCES",
         errno: uo(a) ?? w("unknown"),
@@ -3060,9 +3060,9 @@ async function Yr(t, e) {
   }
   let r = (await o.stat()).size,
     a = Buffer.alloc(65536),
-    m = !1;
+    m = false;
   process.on("SIGINT", () => {
-    m = !0;
+    m = true;
   });
   while (!m) {
     if ((await o.stat()).size < r) r = 0;
@@ -3078,16 +3078,16 @@ async function Jr(t, e) {
   if (!r.ok || !r.value.items[0].found)
     G(`cannot open ${t}: ${r.ok ? "no such file or directory" : Ge(r.error)}`), process.exit(1);
   let a = r.value.items[0].totalBytes,
-    m = !1;
+    m = false;
   process.on("SIGINT", () => {
-    m = !0;
+    m = true;
   });
-  let f = !1;
+  let f = false;
   while (!m) {
     let d = await e.read([{ key: o, offset: a, length: 65536 }]);
     if (!d.ok) {
       if (d.error.code === "Unavailable" || (d.error.code === "Failed" && d.error.failureClass === "permission")) {
-        if (!f) G(`cannot read ${t}: ${Ge(d.error)}; retrying`), (f = !0);
+        if (!f) G(`cannot read ${t}: ${Ge(d.error)}; retrying`), (f = true);
         await ne(500);
         continue;
       }
@@ -3095,11 +3095,11 @@ async function Jr(t, e) {
     }
     let u = d.value.items[0];
     if (!u.found) {
-      if (!f) G(`cannot read ${t}: no such file or directory; retrying`), (f = !0);
+      if (!f) G(`cannot read ${t}: no such file or directory; retrying`), (f = true);
       await ne(500);
       continue;
     }
-    if (((f = !1), u.totalBytes < a)) {
+    if (((f = false), u.totalBytes < a)) {
       a = 0;
       continue;
     }

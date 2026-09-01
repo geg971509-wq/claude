@@ -172,7 +172,7 @@ async function ue(e, t, r, a) {
 }
 async function me(e) {
   try {
-    return await K(e), !0;
+    return await K(e), true;
   } catch (t) {
     return E(t) !== "ENOENT";
   }
@@ -197,10 +197,10 @@ function F(e, t, r = null) {
 }
 async function Y(e) {
   try {
-    return await e(), !0;
+    return await e(), true;
   } catch (t) {
     let r = E(t);
-    if (r === "EEXIST" || r === "WORKING_DEST_SYMLINK") return !1;
+    if (r === "EEXIST" || r === "WORKING_DEST_SYMLINK") return false;
     throw t;
   }
 }
@@ -233,13 +233,13 @@ function ern(e) {
 function ge(e) {
   return /^(.{1,6})~\d+$/.exec(Jl(e))?.[1] ?? null;
 }
-function mst(e, t = !1) {
+function mst(e, t = false) {
   return RHe(e, "/", "file", t);
 }
 function E2n(e) {
   return RHe(e, "/", "directory");
 }
-function RHe(e, t, r, a = !1) {
+function RHe(e, t, r, a = false) {
   let i = t === "/" ? e : e.split(t).join("/"),
     o = te([i.replace(Ce, ""), G9(i)]);
   return (
@@ -270,13 +270,13 @@ function RHe(e, t, r, a = !1) {
   );
 }
 var De = /[\u061c\u200e\u200f\u202a-\u202e\u2066-\u2069]/;
-async function trn(e, t, r, a = !1) {
+async function trn(e, t, r, a = false) {
   return !(await Be(e, t, r, a)) && !Sae(r);
 }
-async function Be(e, t, r, a = !1) {
+async function Be(e, t, r, a = false) {
   return (await gst(e, t, r, a)) !== null;
 }
-async function gst(e, t, r, a = !1) {
+async function gst(e, t, r, a = false) {
   let i = C(e, r);
   try {
     if (Cue(e, i).split(P).join("/") !== r) return "place";
@@ -318,19 +318,19 @@ async function he(e, t, r, a = null) {
     },
     s = async (f, l) => {
       let [p, ..._] = f;
-      if (p === void 0) return { refused: !1, deepest: l };
+      if (p === void 0) return { refused: false, deepest: l };
       let m = await c(p);
-      if (m === "absent") return { refused: !1, deepest: l };
-      return m === "plain" ? s(_, p) : { refused: !0, deepest: p };
+      if (m === "absent") return { refused: false, deepest: l };
+      return m === "plain" ? s(_, p) : { refused: true, deepest: p };
     },
     { refused: d, deepest: u } = await s(o, t);
-  if (d) return !0;
+  if (d) return true;
   try {
     let f = W(r, await J(u)),
       l = W(t, u);
     return f !== "" && V(f, "directory", a !== null && f === l ? f.split(P).join("/") : null);
   } catch {
-    return !1;
+    return false;
   }
 }
 function V(e, t, r = null) {
@@ -372,17 +372,17 @@ async function v(e, t, r, a = null) {
 }
 async function Re(e, t, r) {
   try {
-    if (!(await e.lstat(t)).isFile()) return !1;
+    if (!(await e.lstat(t)).isFile()) return false;
     let a = await e.open(t, pmn);
     try {
-      let i = await a.stat({ bigint: !0 });
-      if (!i.isFile() || i.size !== BigInt(r.length)) return !1;
+      let i = await a.stat({ bigint: true });
+      if (!i.isFile() || i.size !== BigInt(r.length)) return false;
       return (await a.readFile()).equals(r);
     } finally {
       await a.close();
     }
   } catch {
-    return !1;
+    return false;
   }
 }
 var ye = 255,
@@ -391,8 +391,8 @@ var ye = 255,
 function Ge(e, t) {
   return Array.from(e).reduce(
     (r, a) =>
-      !r.done && Buffer.byteLength(r.text + a) <= t ? { text: r.text + a, done: !1 } : { text: r.text, done: !0 },
-    { text: "", done: !1 },
+      !r.done && Buffer.byteLength(r.text + a) <= t ? { text: r.text + a, done: false } : { text: r.text, done: true },
+    { text: "", done: false },
   ).text;
 }
 function Ue(e) {
@@ -449,7 +449,7 @@ async function A2n({
   realRoot: r,
   anchor: a,
   baseEntry: i,
-  trackedHere: o = !1,
+  trackedHere: o = false,
   recreates: c = null,
   deps: s,
   signal: d,
@@ -459,20 +459,20 @@ async function A2n({
     l = i,
     p = Ye(f, s.writeFile ?? ((y, A, N, S, we) => P7n(f, S, y, A, N, DX, we))),
     _ = 0,
-    m = !1,
-    L = !1,
+    m = false,
+    L = false,
     h = (y, A = null, N = {}) => ({
       change: { path: e.path, status: y, copyPath: null },
       entry: A,
       localAbsent: L,
       bytesWritten: 0,
       bytesFetched: _,
-      understated: !1,
-      refused: !1,
+      understated: false,
+      refused: false,
       laneLost: null,
-      credentialRefused: !1,
+      credentialRefused: false,
       filterSettled: m,
-      replacedUnkept: !1,
+      replacedUnkept: false,
       ...N,
     }),
     w = { abs: C(t, e.path), rel: e.path };
@@ -484,7 +484,7 @@ async function A2n({
   if (RHe(e.path, "/", "file", o)) return h("failed");
   let O = o ? e.path : null;
   if (e.size > Lm) return h("failed");
-  if (a.rootOnly) return h("failed", null, { refused: !0 });
+  if (a.rootOnly) return h("failed", null, { refused: true });
   let T = await Ne(w.abs),
     B = e.path.split("/");
   if (
@@ -493,8 +493,8 @@ async function A2n({
     (T === "absent" && l === void 0 && Buffer.byteLength(B.at(-1) ?? "") > We)
   )
     return h("failed");
-  if (await he(w.abs, t, r, O)) return h("failed", null, { refused: !0 });
-  if (DX(e.path)) return h("failed", null, { credentialRefused: !0 });
+  if (await he(w.abs, t, r, O)) return h("failed", null, { refused: true });
+  if (DX(e.path)) return h("failed", null, { credentialRefused: true });
   let g = await (s.fetchContent !== void 0 ? s.fetchContent(e, d) : s.client.getLaneFile(cmn(e.path), d, e.size));
   if (g.kind !== "ok" && g.kind !== "not_found") {
     let { status: y, laneLost: A } = $e(g);
@@ -559,7 +559,7 @@ async function A2n({
   if (re === "conflict" && !ne && s.bothChanged === "skip") return h("skipped_local_change");
   let ae = b?.mode ?? null;
   try {
-    let y = (S) => (l?.sent?.includes(e.sha256) === !0 ? { ...S, origin: "pushed" } : S),
+    let y = (S) => (l?.sent?.includes(e.sha256) === true ? { ...S, origin: "pushed" } : S),
       A = (S) => y(ve(e, g.etag, S));
     switch (re) {
       case "already_equal":
@@ -592,7 +592,7 @@ async function A2n({
                     status: "applied",
                     copyPath: null,
                     keptAt: S.keptAt,
-                    ...(l !== void 0 && b !== null && IHe(l.agreed, b) && Ve(l) && { keptEarlierCloudVersion: !0 }),
+                    ...(l !== void 0 && b !== null && IHe(l.agreed, b) && Ve(l) && { keptEarlierCloudVersion: true }),
                   },
                 }),
             }),
@@ -660,7 +660,7 @@ async function je({
       if (T.sha256 !== r.sha256) return { kind: "raced", observedMode: T.mode };
       return await R(t, o.abs, c), { kind: "mode_only", stat: await M(e, t, o.rel, F(T.mode, r.mode, d)) };
     }
-    return await v(t, o, u, c), { kind: "written", stat: await ue(e, t, o.rel, w), keptAt: null, replacedUnkept: !1 };
+    return await v(t, o, u, c), { kind: "written", stat: await ue(e, t, o.rel, w), keptAt: null, replacedUnkept: false };
   }
   if (s.sha256 === r.sha256)
     return await R(t, o.abs, c), { kind: "mode_only", stat: await M(e, t, o.rel, F(s.mode, r.mode, d)) };
@@ -682,7 +682,7 @@ async function je({
       T = await l(a, i, r.path),
       B = O && T !== null && T.sha256 === s.sha256,
       g = B ? await p.keep(r.path, T.content, T.mode) : null,
-      I = !1;
+      I = false;
     try {
       let k = B ? await l(a, i, r.path) : T;
       if (k !== null && k.sha256 === r.sha256)
@@ -695,7 +695,7 @@ async function je({
         await R(t, o.abs, c),
         await H(e, t),
         await t.rename(m.rel, o.rel),
-        (I = !0),
+        (I = true),
         await v(t, o, u, c),
         { kind: "written", stat: b, keptAt: g, replacedUnkept: O && g === null }
       );
@@ -711,7 +711,7 @@ async function H(e, t) {
       if (X(o) || E(o) === "ENOTDIR") return null;
       throw o;
     },
-    [a, i] = await Promise.all([e.fs.lstat(t.realRoot, { bigint: !0 }).catch(r), t.lstat("").catch(r)]);
+    [a, i] = await Promise.all([e.fs.lstat(t.realRoot, { bigint: true }).catch(r), t.lstat("").catch(r)]);
   if (a === null || i === null || !a.isDirectory() || a.dev !== i.dev || a.ino !== i.ino) {
     let o = Error("sync root is gone");
     throw ((o.code = "WORKING_ROOT_GONE"), o);
@@ -732,7 +732,7 @@ async function Je({
   entry: r,
   gitRoot: a,
   realRoot: i,
-  trackedHere: o = !1,
+  trackedHere: o = false,
   content: c,
   shadowedMode: s,
   deps: d,
@@ -740,7 +740,7 @@ async function Je({
   digestFile: f,
 }) {
   let l = F(s, r.mode),
-    p = !1,
+    p = false,
     _ = await se({
       path: r.path,
       now: d.now(),

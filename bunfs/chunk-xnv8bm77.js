@@ -85,9 +85,9 @@ function W2e(e, o) {
     if (
       n.envVarPriority.some((f) => {
         let s = process.env[f]?.trim();
-        if (!s) return !1;
+        if (!s) return false;
         let d = T(s);
-        if (!d) return !0;
+        if (!d) return true;
         return l(d) === t;
       })
     )

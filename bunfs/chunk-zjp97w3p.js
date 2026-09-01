@@ -22,31 +22,31 @@ var q = S(function (J) {
     b = () => {
       let e = [],
         t = [],
-        r = !1,
+        r = false,
         n = new Set(),
         a = (i) => i.sort((s, l) => A[l.step] - A[s.step] || P[l.priority || "normal"] - P[s.priority || "normal"]),
         o = (i) => {
-          let s = !1,
+          let s = false,
             l = (h) => {
               let m = C(h.name, h.aliases);
               if (m.includes(i)) {
-                s = !0;
+                s = true;
                 for (let c of m) n.delete(c);
-                return !1;
+                return false;
               }
-              return !0;
+              return true;
             };
           return (e = e.filter(l)), (t = t.filter(l)), s;
         },
         d = (i) => {
-          let s = !1,
+          let s = false,
             l = (h) => {
               if (h.middleware === i) {
-                s = !0;
+                s = true;
                 for (let m of C(h.name, h.aliases)) n.delete(m);
-                return !1;
+                return false;
               }
-              return !0;
+              return true;
             };
           return (e = e.filter(l)), (t = t.filter(l)), s;
         },
@@ -75,7 +75,7 @@ var q = S(function (J) {
             s
           );
         },
-        w = (i = !1) => {
+        w = (i = false) => {
           let s = [],
             l = [],
             h = {};
@@ -162,25 +162,25 @@ var q = S(function (J) {
             else return d(i);
           },
           removeByTag: (i) => {
-            let s = !1,
+            let s = false,
               l = (h) => {
                 let { tags: m, name: c, aliases: f } = h;
                 if (m && m.includes(i)) {
                   let p = C(c, f);
                   for (let v of p) n.delete(v);
-                  return (s = !0), !1;
+                  return (s = true), false;
                 }
-                return !0;
+                return true;
               };
             return (e = e.filter(l)), (t = t.filter(l)), s;
           },
           concat: (i) => {
             let s = u(b());
-            return s.use(i), s.identifyOnResolve(r || s.identifyOnResolve() || (i.identifyOnResolve?.() ?? !1)), s;
+            return s.use(i), s.identifyOnResolve(r || s.identifyOnResolve() || (i.identifyOnResolve?.() ?? false)), s;
           },
           applyToStack: u,
           identify: () =>
-            w(!0).map((i) => {
+            w(true).map((i) => {
               let s = i.step ?? i.relation + " " + i.toMiddleware;
               return x(i.name, i.aliases) + " - " + s;
             }),
@@ -220,7 +220,7 @@ var Pt = S(function (E) {
     send(e, t, r) {
       let n = typeof t !== "function" ? t : void 0,
         a = typeof t === "function" ? t : r,
-        o = n === void 0 && this.config.cacheMiddleware === !0,
+        o = n === void 0 && this.config.cacheMiddleware === true,
         d;
       if (o) {
         if (!this.handlers) this.handlers = new WeakMap();
@@ -399,7 +399,7 @@ var Pt = S(function (E) {
         (this.$metadata = e.$metadata);
     }
     static isInstance(e) {
-      if (!e) return !1;
+      if (!e) return false;
       let t = e;
       return (
         _.prototype.isPrototypeOf(t) ||
@@ -407,14 +407,14 @@ var Pt = S(function (E) {
       );
     }
     static [Symbol.hasInstance](e) {
-      if (!e) return !1;
+      if (!e) return false;
       let t = e;
       if (this === _) return _.isInstance(e);
       if (_.isInstance(e)) {
         if (t.name && this.name) return this.prototype.isPrototypeOf(e) || t.name === this.name;
         return this.prototype.isPrototypeOf(e);
       }
-      return !1;
+      return false;
     }
   }
   var B = (e, t = {}) => {
@@ -457,9 +457,9 @@ var Pt = S(function (E) {
           return {};
       }
     },
-    L = !1,
+    L = false,
     se = (e) => {
-      if (e && !L && parseInt(e.substring(1, e.indexOf("."))) < 16) L = !0;
+      if (e && !L && parseInt(e.substring(1, e.indexOf("."))) < 16) L = true;
     },
     oe = (e) => {
       let t = [];
@@ -599,19 +599,19 @@ var Pt = S(function (E) {
       return e;
     };
   Object.defineProperty(E, "collectBody", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return T.collectBody;
     },
   });
   Object.defineProperty(E, "extendedEncodeURIComponent", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return T.extendedEncodeURIComponent;
     },
   });
   Object.defineProperty(E, "resolvedPath", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return T.resolvedPath;
     },
@@ -642,7 +642,7 @@ var Pt = S(function (E) {
   Object.keys(D).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(E, e))
       Object.defineProperty(E, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return D[e];
         },

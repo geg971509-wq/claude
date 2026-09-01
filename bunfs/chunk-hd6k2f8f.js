@@ -366,7 +366,7 @@ var si = 1e4;
 async function Pr(e, t = si) {
   try {
     await cu(
-      ri(e, { recursive: !0 }).then(() => ni(e, Lr.W_OK | Lr.X_OK)),
+      ri(e, { recursive: true }).then(() => ni(e, Lr.W_OK | Lr.X_OK)),
       t,
       `base directory check for ${e}`,
     );
@@ -430,14 +430,14 @@ async function Gr(e, t) {
   let n = [...e.pinned],
     r = new Map(),
     s,
-    d = !1,
+    d = false,
     o = D(),
     f;
   if (o === "macos")
     f = pi([process.pid, ...n.map(([u]) => u)], t).then((u) => {
       let i = di(u, process.pid, e.pinned);
       if (i === void 0) {
-        d = !0;
+        d = true;
         return;
       }
       s = i.ownPgrp;
@@ -453,15 +453,15 @@ async function Gr(e, t) {
       }));
   else
     f = Mr(n, async ([u, i]) => {
-      if ((await r0(u, i)) === !0) r.set(u, void 0);
+      if ((await r0(u, i)) === true) r.set(u, void 0);
     });
   let h = await jt(
-    f.then(() => !0),
+    f.then(() => true),
     t,
   ).catch(() => {
     return;
   });
-  return { proven: r, ownPgrp: s, incomplete: d || h !== !0 };
+  return { proven: r, ownPgrp: s, incomplete: d || h !== true };
 }
 function di(e, t, n) {
   let r = e.get(t);
@@ -507,7 +507,7 @@ function xr(e, t) {
     else if (u.pgrp === e.pid) r.push(u);
   }
   let d = e.alive ? s !== void 0 && e.token !== void 0 && s.token !== e.token : s !== void 0,
-    o = { rootPid: e.pid, pinned: new Map(), unpinned: 0, truncated: !1, degraded: t.degraded, rootRecycled: d };
+    o = { rootPid: e.pid, pinned: new Map(), unpinned: 0, truncated: false, degraded: t.degraded, rootRecycled: d };
   if (d) return o;
   let f = e.alive ? [...r, ...(n.get(e.pid) ?? [])] : r,
     h = new Set([e.pid]);
@@ -515,7 +515,7 @@ function xr(e, t) {
     let u = f.shift();
     if (u.pid <= 1 || h.has(u.pid)) continue;
     if (h.size > ai) {
-      o.truncated = !0;
+      o.truncated = true;
       break;
     }
     if ((h.add(u.pid), u.token === void 0)) o.unpinned++;
@@ -542,7 +542,7 @@ function ui() {
       t.push({ pid: Number(n), ppid: s, pgrp: vzt(r), token: d !== void 0 && d.length > 0 ? d : void 0 });
     } catch {}
   }
-  return { rows: t, degraded: !1 };
+  return { rows: t, degraded: false };
 }
 function ci() {
   try {
@@ -559,7 +559,7 @@ async function li(e) {
       timeout: e,
       env: Br(),
       cwd: "/",
-      stripFinalNewline: !1,
+      stripFinalNewline: false,
     }),
     n = fi(t.stdout);
   return n.length === 0 ? void 0 : { rows: n, degraded: t.code !== 0 };
@@ -585,7 +585,7 @@ async function pi(e, t) {
     timeout: t,
     env: Br(),
     cwd: "/",
-    stripFinalNewline: !1,
+    stripFinalNewline: false,
   });
   return hi(n.stdout);
 }
@@ -757,7 +757,7 @@ async function Zr(e = {}) {
   if (
     !(await mi(n).then(
       (i) => i.isDirectory(),
-      () => !1,
+      () => false,
     ))
   )
     return { state: r, lock: void 0 };
@@ -846,8 +846,8 @@ function Fn({ getAccessToken: e, onRefresh: t, label: n }) {
     onRefresh: t,
     label: n,
     maxFailures: 1 / 0,
-    adaptiveBuffer: !0,
-    rescheduleFromNewToken: !0,
+    adaptiveBuffer: true,
+    rescheduleFromNewToken: true,
     decodeExpiry: fr,
     formatDelay: $t,
   });
@@ -984,7 +984,7 @@ function Bi(e) {
 }
 var Gn = 67108864;
 async function ks(e, t, n, r, s) {
-  let d = await qn(B(e, t), { withFileTypes: !0 });
+  let d = await qn(B(e, t), { withFileTypes: true });
   for (let o of d) {
     if (t === "" && s && !s(o.name)) continue;
     let f = t === "" ? o.name : B(t, o.name);
@@ -1058,13 +1058,13 @@ async function bs(e) {
   } catch (h) {
     return e(`[runner] governed git: seed serialization failed (${h}); governed sessions seed an empty gitconfig`), "";
   } finally {
-    if (f) await ot(f, { recursive: !0, force: !0 }).catch(() => {});
+    if (f) await ot(f, { recursive: true, force: true }).catch(() => {});
   }
 }
 function ss(e, t) {
   let n = e.toLowerCase();
-  if (n.startsWith("user.")) return !0;
-  if (n === "core.autocrlf" || n === "core.safecrlf" || n === "core.eol") return !0;
+  if (n.startsWith("user.")) return true;
+  if (n === "core.autocrlf" || n === "core.safecrlf" || n === "core.eol") return true;
   if (n.startsWith("url.") && n.endsWith(".insteadof")) {
     let r = e.slice(4, e.length - 10);
     return !/\/\/[^/]*@/.test(r);
@@ -1072,10 +1072,10 @@ function ss(e, t) {
   if (n.startsWith("alias.")) return !t.trimStart().startsWith("!");
   if (n.startsWith("http.")) {
     let r = n.slice(5);
-    if (r.includes(".")) return !1;
+    if (r.includes(".")) return false;
     return Ki.has(r);
   }
-  return !1;
+  return false;
 }
 var Ki = new Set(["postbuffer", "lowspeedlimit", "lowspeedtime", "version"]);
 async function gr(e) {
@@ -1083,7 +1083,7 @@ async function gr(e) {
     let r = Wt("git", e, {
         cwd: void 0,
         stdio: ["ignore", "pipe", "pipe"],
-        windowsHide: !0,
+        windowsHide: true,
         ...qi("helper"),
         env: { ...process.env, GIT_CONFIG_GLOBAL: "/dev/null", GIT_CONFIG_SYSTEM: "/dev/null" },
       }),
@@ -1116,8 +1116,8 @@ async function Rs(e, t) {
       `lstat ${n}`,
     );
   if (r !== void 0 && !r.isDirectory())
-    return t(`[runner:session] ${n} exists and is not a plain directory \u2014 not following`), !1;
-  return !0;
+    return t(`[runner:session] ${n} exists and is not a plain directory \u2014 not following`), false;
+  return true;
 }
 async function ji(e, t, n, r, s = T4()) {
   if (!t) return;
@@ -1133,7 +1133,7 @@ async function ji(e, t, n, r, s = T4()) {
             if (i.startsWith("hooks" + Fe + ".ccr-launcher" + Fe) || i === "hooks" + Fe + ".ccr-launcher") continue;
             let m = B(e, f),
               T = f.lastIndexOf(Fe);
-            if (T > 0) await Lt(B(e, f.slice(0, T)), { recursive: !0 });
+            if (T > 0) await Lt(B(e, f.slice(0, T)), { recursive: true });
             await tn(m, h, { mode: u }), d.push(f);
           }
           if (t.mcpServers) {
@@ -1203,7 +1203,7 @@ async function Zi(e, t, n, r, s) {
     return;
   }
   let f = B(e, "hooks", ".ccr-launcher");
-  await Ce(ot(f, { recursive: !0, force: !0 }), `rm ${f}`), await Ce(Lt(f, { recursive: !0, mode: 448 }), `mkdir ${f}`);
+  await Ce(ot(f, { recursive: true, force: true }), `rm ${f}`), await Ce(Lt(f, { recursive: true, mode: 448 }), `mkdir ${f}`);
   for (let u of t) {
     let i = B(f, u.filename);
     n.push(i),
@@ -1222,7 +1222,7 @@ async function Zi(e, t, n, r, s) {
 }
 async function os(e, t, n, r) {
   try {
-    await Lt(e, { recursive: !0, mode: 448 }), await tn(`${e}/${t}`, n, { mode: 384 });
+    await Lt(e, { recursive: true, mode: 448 }), await tn(`${e}/${t}`, n, { mode: 384 });
   } catch (s) {
     r(`[runner:debug] failed to write ${t} to ${e} (best-effort): ${s}`);
   }
@@ -1233,22 +1233,22 @@ function Ts(e, t) {
 async function hr(e, t, n, r, s = On) {
   try {
     return (
-      await An(Lt(nn(e), { recursive: !0, mode: 448 }), s, "[runner:session] mkdir for session-ingress token file", r),
+      await An(Lt(nn(e), { recursive: true, mode: 448 }), s, "[runner:session] mkdir for session-ingress token file", r),
       await An(Wn(e, t, 384), s, "[runner:session] write session-ingress token file", r),
-      !0
+      true
     );
   } catch (d) {
-    return n(`[runner:session] session-ingress token file write failed (staged-file fetches degraded): ${d}`), !1;
+    return n(`[runner:session] session-ingress token file write failed (staged-file fetches degraded): ${d}`), false;
   }
 }
 async function An(e, t, n, r) {
-  let s = !1;
+  let s = false;
   e.then(
     () => {
-      s = !0;
+      s = true;
     },
     () => {
-      s = !0;
+      s = true;
     },
   );
   try {
@@ -1375,15 +1375,15 @@ async function ys(e, t, n) {
     Ie = h > 1,
     Xe = Qe !== void 0 && !Ie;
   i(`[runner:session] Handling session ${e}`);
-  let mt = !1,
-    tt = !1,
+  let mt = false,
+    tt = false,
     j = mt ? Qr().catch(() => ({})) : void 0,
-    bt = !1,
+    bt = false,
     ct,
     rt = Kr(),
     Ue,
-    st = !1,
-    Pe = !1,
+    st = false,
+    Pe = false,
     H = { current: void 0 },
     S,
     x = "failed",
@@ -1400,24 +1400,24 @@ async function ys(e, t, n) {
     Ke,
     dt,
     it = Promise.resolve(),
-    Rt = !1,
+    Rt = false,
     Gt = Promise.resolve(),
-    wt = !1,
+    wt = false,
     Xt,
     xt = [],
     ee = [],
     Ee = [],
     lt = [],
-    Ve = !1,
-    Ae = !1,
+    Ve = false,
+    Ae = false,
     Tt = process.env.SELF_HOSTED_RUNNER_HOOKS_DIR,
     He = [],
     ft,
     _ = Promise.resolve(),
     N,
-    w = !1,
+    w = false,
     z = async () => {
-      if ((await _, (w = !0), N !== void 0)) throw N;
+      if ((await _, (w = true), N !== void 0)) throw N;
     };
   try {
     if (((Ue = Date.now()), be?.({ kind: "start" }), !e || !/^[a-zA-Z0-9_-]+$/.test(e)))
@@ -1558,7 +1558,7 @@ async function ys(e, t, n) {
       dt = Ts(Ye, Y);
       let Ze = dt,
         we = (L) => {
-          Rt = !0;
+          Rt = true;
           let I = L.catch(() => {});
           (Gt = Promise.all([Gt, I]).then(() => {})),
             I.then(() => {
@@ -1612,8 +1612,8 @@ async function ys(e, t, n) {
             Promise.resolve()
           );
         },
-        rn = (L) => ke(Ho(L), { kind: "activity", withDeferred: !0 }),
-        Mt = (L, I, K, oe) => ke(jn(L, I, K, oe), { kind: "step", withDeferred: !0 }),
+        rn = (L) => ke(Ho(L), { kind: "activity", withDeferred: true }),
+        Mt = (L, I, K, oe) => ke(jn(L, I, K, oe), { kind: "step", withDeferred: true }),
         Pn = (...L) => {
           if (Y === void 0 || !H.current) return;
           yt.push(jn(...L));
@@ -1628,7 +1628,7 @@ async function ys(e, t, n) {
             return;
           })),
         sn = Xo({
-          gateOn: !1,
+          gateOn: false,
           workerEpoch: Y,
           hintedBeforeRegister: Re,
           refetch: async () => (await Jt())?.config,
@@ -1639,12 +1639,12 @@ async function ys(e, t, n) {
         expected_steps: Yt.length > 0 ? "provision,clone,start_cc" : "provision,start_cc",
       });
       let ln = Oo(vo(S.push_targets));
-      await cu(Lt(Ke, { recursive: !0 }), On, `[runner:stuck] mkdir ${Ke} (check NFS/CSI mount health)`),
-        await cu(Lt(Ye, { recursive: !0, mode: 448 }), On, `[runner:stuck] mkdir ${Ye}`);
+      await cu(Lt(Ke, { recursive: true }), On, `[runner:stuck] mkdir ${Ke} (check NFS/CSI mount health)`),
+        await cu(Lt(Ye, { recursive: true, mode: 448 }), On, `[runner:stuck] mkdir ${Ye}`);
       let Tn = Fi(S.api_base_url);
       if ((await ji(Ye, et, i, m, Tn), Le?.toolConfig.gitConfig)) {
         if ((await zi(zt, Pt ?? ""), Xe)) {
-          await ot(zt + ".lock", { force: !0 }).catch(() => {});
+          await ot(zt + ".lock", { force: true }).catch(() => {});
           for (let [L, I] of B5t(d)) await gr(["config", "--file", zt, "--replace-all", L, I]);
         }
       }
@@ -1695,7 +1695,7 @@ async function ys(e, t, n) {
                   }
                 );
               let ze = await cu(
-                ot(le, { recursive: !0, force: !0 }).then(
+                ot(le, { recursive: true, force: true }).then(
                   () => {
                     return;
                   },
@@ -1767,7 +1767,7 @@ async function ys(e, t, n) {
                   (await g1n({
                     baseDir: d,
                     sources: [{ ...v, ...(ze && { prefetchedTip: ze }), ...(nt && { standbyCheckout: nt }) }],
-                    alwaysFetch: !0,
+                    alwaysFetch: true,
                     skipReset: Ie,
                     skipValidation: Zn.CLAUDE_RUNNER_TRUST_CANONICAL_PREWARM && !Ie,
                     onDebug: i,
@@ -1791,7 +1791,7 @@ async function ys(e, t, n) {
                           ...(Ct.done !== void 0 && { progress_done: String(Ct.done) }),
                           ...(Ct.total !== void 0 && { progress_total: String(Ct.total) }),
                         }),
-                        { kind: "progress", withDeferred: !1 },
+                        { kind: "progress", withDeferred: false },
                       ).catch(() => {});
                     },
                     signal: n,
@@ -1916,8 +1916,8 @@ async function ys(e, t, n) {
         if (
           !(
             L !== null &&
-            (await cu($o(Ke, L), On, `[runner:stuck] mkdir ${L} (check NFS/CSI mount health)`).catch(() => !1)) &&
-            (await cu(Co(Ke, L), Ss, `[runner:stuck] realpath ${L} (check NFS/CSI mount health)`).catch(() => !1))
+            (await cu($o(Ke, L), On, `[runner:stuck] mkdir ${L} (check NFS/CSI mount health)`).catch(() => false)) &&
+            (await cu(Co(Ke, L), Ss, `[runner:stuck] realpath ${L} (check NFS/CSI mount health)`).catch(() => false))
           )
         )
           i(
@@ -1928,8 +1928,8 @@ async function ys(e, t, n) {
       if (It.length > 0) i(`[runner:session] cwd=${pt} + ${It.length} --add-dir`);
       yn(Ye, "config dir", pt, It), yn(re, "stage-file root", pt, It);
       let fn = [],
-        _n = !1,
-        Dn = !1,
+        _n = false,
+        Dn = false,
         nr = {};
       if (vt !== "off") {
         try {
@@ -1940,8 +1940,8 @@ async function ys(e, t, n) {
               _e = K instanceof ht ? K.entry.kind : "unknown";
             m(`[runner:confine] WARN (would refuse): ${oe}`),
               p("self_hosted_confine", "self_hosted_confine_scan_threw_warn", { confine_kind: c(_e) }),
-              (_n = !0),
-              (Dn = !0);
+              (_n = true),
+              (Dn = true);
           } else {
             let oe = K instanceof ht ? K.entry.kind : "unknown";
             throw (p("self_hosted_confine", "self_hosted_confine_scan_threw_enforce", { confine_kind: c(oe) }), K);
@@ -1958,7 +1958,7 @@ async function ys(e, t, n) {
             let oe = K instanceof Error ? K.message : String(K);
             m(`[runner:confine] WARN (would refuse under enforce): ${oe}`),
               p("self_hosted_confine", "self_hosted_confine_overlap_warn"),
-              (_n = !0);
+              (_n = true);
           }
         else
           try {
@@ -1981,8 +1981,8 @@ async function ys(e, t, n) {
           if (_e !== void 0) I.add(L(_e)), I.add(L(_e.normalize("NFC")));
         }
         let K = (oe) => {
-          for (let _e of I) if (oe === _e || oe.startsWith(_e.endsWith(Fe) ? _e : _e + Fe)) return !0;
-          return !1;
+          for (let _e of I) if (oe === _e || oe.startsWith(_e.endsWith(Fe) ? _e : _e + Fe)) return true;
+          return false;
         };
         for (let oe of fn)
           if (!K(L(oe.path))) {
@@ -1995,7 +1995,7 @@ async function ys(e, t, n) {
             if (vt === "warn") {
               m(`[runner:confine] WARN (would refuse): ${_e.message}`),
                 p("self_hosted_confine", "self_hosted_confine_violation_warn"),
-                (_n = !0);
+                (_n = true);
               continue;
             }
             throw (p("self_hosted_confine", "self_hosted_confine_violation_enforce"), _e);
@@ -2017,7 +2017,7 @@ async function ys(e, t, n) {
               `realpath ${oe}`,
             );
           for (let ue of [_e, _e.normalize("NFC"), ...(v !== void 0 ? [v, v.normalize("NFC")] : [])])
-            L[ue] = { hasTrustDialogAccepted: !0 };
+            L[ue] = { hasTrustDialogAccepted: true };
         }
         let I = await b({ ...(et?.mcpServers && { mcpServers: et.mcpServers }), projects: L }),
           K = B(Ye, `.claude${Tn}.json`);
@@ -2051,7 +2051,7 @@ async function ys(e, t, n) {
         );
       let pn,
         C = new Map(),
-        W = !1,
+        W = false,
         Ge =
           b({
             type: "control_request",
@@ -2061,13 +2061,13 @@ async function ys(e, t, n) {
           `
 `,
         on = (L, I) => {
-          if (!_r(L)) return !1;
-          if (W) return !0;
+          if (!_r(L)) return false;
+          if (W) return true;
           return (
-            (W = !0),
+            (W = true),
             m(`[runner:session] ${e} ${I} says session gone server-side \u2014 sending end_session to child`),
             pn?.(Ge),
-            !0
+            true
           );
         },
         Qt = Fn({
@@ -2183,7 +2183,7 @@ async function ys(e, t, n) {
           We;
         try {
           if ((await Mt("start_cc", "started", "Starting Claude Code"), tt)) await z();
-          ft?.cancel(), (Ve = !0);
+          ft?.cancel(), (Ve = true);
           let ye = void 0;
           (We = DZe({
             sessionId: e,
@@ -2224,11 +2224,11 @@ async function ys(e, t, n) {
                   }
                 : void 0,
               onChildInit: () => {
-                (st = !0), be?.({ kind: "end", durationSec: (Date.now() - Ue) / 1000 });
+                (st = true), be?.({ kind: "end", durationSec: (Date.now() - Ue) / 1000 });
               },
               onSessionStartHookError: Z,
               postSessionHookTimeoutMs: t.postSessionHookTimeoutMs ?? bn,
-              pushOutcomeOnRelease: je ?? !1,
+              pushOutcomeOnRelease: je ?? false,
               signal: n,
               onTokenAck: (le) => {
                 let Ft = C.get(le);
@@ -2251,7 +2251,7 @@ async function ys(e, t, n) {
       if ($e.result === "failed")
         (he = `child exited ${$e.exitCode ?? "null"}: ${$e.stderrTail}`),
           (me = "SESSION_FAILURE_KIND_RUNNER_CRASH"),
-          (Pe = !0);
+          (Pe = true);
       else if ($e.result === "interrupted") he = `child interrupted (SIGTERM/watchdog): ${$e.stderrTail}`;
       if ((i(`[runner:session] Session ${e} completed: ${x}`), x === "failed" || x === "interrupted")) {
         let L = await ms({
@@ -2267,8 +2267,8 @@ async function ys(e, t, n) {
           onStatus: m,
           signal: n,
         });
-        if (L === "session_gone") W = !0;
-        else if (L === "epoch_stale") (Ae = !0), (me = void 0);
+        if (L === "session_gone") W = true;
+        else if (L === "epoch_stale") (Ae = true), (me = void 0);
       }
       if (
         x === "failed" &&
@@ -2283,7 +2283,7 @@ async function ys(e, t, n) {
           (x = "completed"),
           (he = void 0),
           (me = void 0),
-          (Pe = !1);
+          (Pe = false);
       if (x === "failed") p("self_hosted_session_handle", "self_hosted_session_child_failed");
       else if (x === "completed") y("self_hosted_session_handle");
       if (ut !== void 0 && (x === "completed" || x === "failed")) q?.(x);
@@ -2299,10 +2299,10 @@ async function ys(e, t, n) {
       }
       let Ze = tt
         ? await z().then(
-            () => !1,
+            () => false,
             (ke) => Sn(ke),
           )
-        : !1;
+        : false;
       if (Sn(se) || Ze) {
         let ke =
           Ze && !Sn(se) ? ` Setup had meanwhile thrown: ${Rl(se instanceof Error ? se.message : String(se))}` : "";
@@ -2310,7 +2310,7 @@ async function ys(e, t, n) {
           i(
             `[runner:session] epoch fence tripped \u2014 another runner has taken ${e} (we got epoch ${Y} but server rejected). Aborting before spawn.${ke}`,
           ),
-          (Ae = !0),
+          (Ae = true),
           (x = "abandoned"),
           { result: "abandoned" }
         );
@@ -2325,7 +2325,7 @@ async function ys(e, t, n) {
       }
       if (yt) ge = "SETUP_FAILURE_KIND_SOURCE_REF_NOT_FOUND";
       if (
-        ((Pe = !0),
+        ((Pe = true),
         p("self_hosted_session_handle", "self_hosted_session_setup_failed"),
         i(`[runner:session] Session ${e} threw: ${we}`),
         Y === void 0)
@@ -2348,7 +2348,7 @@ async function ys(e, t, n) {
           signal: n,
         })) === "epoch_stale"
       )
-        Ae = !0;
+        Ae = true;
       x = "failed";
     }
   } catch (re) {
@@ -2360,7 +2360,7 @@ async function ys(e, t, n) {
       let Re = yme(re);
       if (Re !== void 0 && Re >= 500) me = "SESSION_FAILURE_KIND_ANTHROPIC_CONTROL_PLANE_5XX";
     }
-    if (((Pe = !0), p("self_hosted_session_handle", "self_hosted_session_prespawn_failed"), H.current && S))
+    if (((Pe = true), p("self_hosted_session_handle", "self_hosted_session_prespawn_failed"), H.current && S))
       i(`[runner:session] FATAL pre-spawn: ${e}: ${F} \u2014 cannot post failure to UI: no worker epoch obtained`);
     else if (H.current)
       i(`[runner:session] FATAL pre-spawn: ${e}: ${F} \u2014 cannot post failure to UI: config not yet fetched`);
@@ -2440,7 +2440,7 @@ async function ys(e, t, n) {
           let De = Wt("git", ["-C", F.path, "config", "--local", "--unset-all", ...Re], {
               cwd: void 0,
               stdio: "ignore",
-              windowsHide: !0,
+              windowsHide: true,
               ...qi("helper"),
             }),
             se = setTimeout((we) => we.kill("SIGKILL"), un, De),
@@ -2450,12 +2450,12 @@ async function ys(e, t, n) {
           De.on("close", Ze), De.on("error", Ze);
         });
     for (let F of ee)
-      await cu(ot(F, { recursive: !0, force: !0 }), ts, `[runner:hook] rm -rf ${F}`).catch((Re) => {
+      await cu(ot(F, { recursive: true, force: true }), ts, `[runner:hook] rm -rf ${F}`).catch((Re) => {
         i(`[runner:hook] cleanup ${F} failed: ${Re}`);
       });
     if (fe) delete process.env.CLAUDE_CODE_SESSION_ACCESS_TOKEN;
     if (dt) {
-      if (((wt = !0), await it, await as(dt, m, Xt, P), Rt)) {
+      if (((wt = true), await it, await as(dt, m, Xt, P), Rt)) {
         let F = dt;
         Gt.then(() => as(F, m, void 0, P)).catch(() => {});
       }
@@ -2614,7 +2614,7 @@ function eo(e) {
   Z(
     `[runner:session] Spawning child: ${[t, ...n].join(" ")} (${et.length - n.length} args) ANTHROPIC_BASE_URL=${r.api_base_url} CLAUDE_CODE_WORKER_EPOCH=${o} cwd=${f}`,
   );
-  let j = Wt(t, et, { cwd: f, stdio: ["pipe", "pipe", "pipe", "pipe"], env: tt, windowsHide: !0, detached: !0 }),
+  let j = Wt(t, et, { cwd: f, stdio: ["pipe", "pipe", "pipe", "pipe"], env: tt, windowsHide: true, detached: true }),
     bt;
   try {
     (bt = j.stdio[3]),
@@ -2650,7 +2650,7 @@ function eo(e) {
       onStatus: ie,
     }),
     rt = () => ct.terminate();
-  if ((fe.addEventListener("abort", rt, { once: !0 }), fe.aborted)) ct.terminate();
+  if ((fe.addEventListener("abort", rt, { once: true }), fe.aborted)) ct.terminate();
   let Ue = new Map(),
     st = () => {
       let _ = 0;
@@ -2659,12 +2659,12 @@ function eo(e) {
     },
     Pe = null,
     H,
-    S = !1,
-    x = !1,
-    he = !1,
-    ge = !1,
-    me = !1,
-    pe = !1,
+    S = false,
+    x = false,
+    he = false,
+    ge = false,
+    me = false,
+    pe = false,
     Oe = 120000,
     _t = () => Pe !== null && Date.now() < Pe,
     Ye = () => ({
@@ -2675,17 +2675,17 @@ function eo(e) {
     }),
     zt = Be("SELF_HOSTED_RUNNER_BG_RESULT_GRACE_MS") || Jn,
     at = new Set(),
-    Y = !1,
+    Y = false,
     Ke = new Set(),
     dt = new Set(),
-    it = !1,
+    it = false,
     Rt,
     Gt = () => {
       if (Rt !== void 0) clearTimeout(Rt), (Rt = void 0);
     },
-    wt = (_, N = !1, w = !1) => {
-      if (!N) Gt(), (Y = !1), Ke.clear();
-      if (it) (it = !1), Z(`[runner:session] ${s} background-result follow-up cleared (${_})`), Se?.(!1, w);
+    wt = (_, N = false, w = false) => {
+      if (!N) Gt(), (Y = false), Ke.clear();
+      if (it) (it = false), Z(`[runner:session] ${s} background-result follow-up cleared (${_})`), Se?.(false, w);
     },
     Xt = () => {
       Gt(),
@@ -2701,13 +2701,13 @@ function eo(e) {
     },
     xt = () => {
       if (!it)
-        (it = !0),
+        (it = true),
           ie(
             `[runner:session] ${s} background task finished; follow-up turn ` +
               "pending \u2014 session still counted as busy (grace " +
               `${$t(zt)})`,
           ),
-          Se?.(!0);
+          Se?.(true);
       if (!S) Xt();
     },
     ee = (_) => {
@@ -2718,11 +2718,11 @@ function eo(e) {
         ee(_);
         return;
       }
-      if (at.delete(_)) (Y = !0), Ke.add(_);
+      if (at.delete(_)) (Y = true), Ke.add(_);
       if (st() > 0) return;
       if (ge) return;
       if (!(Y || !S)) return;
-      (Y = !0), Ke.add(_), xt();
+      (Y = true), Ke.add(_), xt();
     },
     lt = () => {
       if (S || Ue.size > 0 || _t() || it) return;
@@ -2747,7 +2747,7 @@ function eo(e) {
       if (w.type === "system" && w.subtype === "task_started") {
         if (typeof w.task_id === "string" && w.task_type !== "in_process_teammate") {
           if (
-            (Ue.set(w.task_id, typeof w.task_type === "string" ? w.task_type : "unknown"), w.owned_by_subagent === !0)
+            (Ue.set(w.task_id, typeof w.task_type === "string" ? w.task_type : "unknown"), w.owned_by_subagent === true)
           )
             dt.add(w.task_id);
           else dt.delete(w.task_id);
@@ -2758,7 +2758,7 @@ function eo(e) {
       if (w.type === "system" && w.subtype === "task_updated") {
         let z = w.patch,
           re = z?.status;
-        if (typeof w.task_id === "string" && z?.is_backgrounded === !0 && Ue.has(w.task_id)) at.add(w.task_id);
+        if (typeof w.task_id === "string" && z?.is_backgrounded === true && Ue.has(w.task_id)) at.add(w.task_id);
         if (
           typeof w.task_id === "string" &&
           (re === "completed" || re === "failed" || re === "killed") &&
@@ -2794,25 +2794,25 @@ function eo(e) {
         return;
       }
       if (w.type === "system" && w.subtype === "init") {
-        if (!me) (me = !0), Qe?.();
+        if (!me) (me = true), Qe?.();
         P?.("activity");
         return;
       }
       if (w.type === "system" && w.subtype === "turn_starting") {
         if (!me) return;
         if (
-          ((he = !0),
+          ((he = true),
           P?.("activity"),
           w.mode === void 0 ||
             (w.mode === "task-notification" && !("task_id" in w)) ||
             (w.mode === "task-notification" && typeof w.task_id === "string" && Ke.has(w.task_id)))
         )
           wt("follow-up turn starting");
-        else wt("non-follow-up turn starting", !0), Gt();
+        else wt("non-follow-up turn starting", true), Gt();
         return;
       }
       if (w.type === "system" && w.subtype === "session_state_changed") {
-        if (typeof w.waiting_on_user === "boolean") (x = !0), (ge = w.waiting_on_user);
+        if (typeof w.waiting_on_user === "boolean") (x = true), (ge = w.waiting_on_user);
         if (w.state === "idle") {
           if (!pe) P?.("turn-end");
           return;
@@ -2820,9 +2820,9 @@ function eo(e) {
         if (!me) return;
         if (typeof w.waiting_on_user === "boolean")
           P?.(w.waiting_on_user ? "awaiting-action" : "activity"),
-            wt(w.waiting_on_user ? "child parked at a prompt" : "child running", !0);
-        else if (w.state === "requires_action") P?.("awaiting-action"), wt("child parked at a prompt", !0);
-        else if (w.state === "running") P?.("activity"), wt("child running", !0);
+            wt(w.waiting_on_user ? "child parked at a prompt" : "child running", true);
+        else if (w.state === "requires_action") P?.("awaiting-action"), wt("child parked at a prompt", true);
+        else if (w.state === "running") P?.("activity"), wt("child running", true);
         return;
       }
       if (w.type === "assistant") {
@@ -2840,10 +2840,10 @@ function eo(e) {
         }
       }
       if (w.type === "result") {
-        if ((ct.noteTurnEnd(), (S = !1), (pe = !0), Y && st() === 0 && !ge)) xt();
+        if ((ct.noteTurnEnd(), (S = false), (pe = true), Y && st() === 0 && !ge)) xt();
         if (Ue.size === 0 && !_t() && !it) P?.("turn-end");
         else if (ge && !a.CLAUDE_RUNNER_DISABLE_AWAITING_ACTION_OVERRIDE)
-          P?.("awaiting-action", Ye()), wt("child parked at a prompt", !0);
+          P?.("awaiting-action", Ye()), wt("child parked at a prompt", true);
         else {
           for (let z of Ue.keys()) at.add(z);
           if ((P?.("turn-end-deferred", Ye()), it)) Xt();
@@ -2857,10 +2857,10 @@ function eo(e) {
             );
         }
       } else if (w.type === "user" || w.type === "assistant") {
-        if (w.from_subagent === !0) return;
+        if (w.from_subagent === true) return;
         if ((ct.noteTurnStart(), !S && w.type === "user")) Pe = null;
         let z = !S;
-        if (((S = !0), H !== void 0)) clearTimeout(H), (H = void 0);
+        if (((S = true), H !== void 0)) clearTimeout(H), (H = void 0);
         if (!x) P?.("activity");
         if (z) {
           if ((wt("follow-up turn opened", he), he)) Gt();
@@ -2875,7 +2875,7 @@ function eo(e) {
   if (j.stderr)
     pr({ input: j.stderr }).on("line", (N) => {
       if (!me && N.startsWith("SDKStartup: phase=system_init_emitted"))
-        (me = !0),
+        (me = true),
           Qe?.(),
           P?.("init-observed"),
           Z(`[runner:session] ${s} sawInit latched via stderr SDKStartup marker`);
@@ -2884,12 +2884,12 @@ function eo(e) {
       else Z(`[runner:session] stderr: ${w}`);
       if ((He.push(w), He.length > Ae)) He.shift();
     });
-  let ft = !1;
+  let ft = false;
   return new Promise((_) => {
     j.on("close", (N, w) => {
       if ((fe.removeEventListener("abort", rt), ct.stop(), H !== void 0)) clearTimeout(H), (H = void 0);
       if (Ue.size > 0) Ue.clear(), dt.clear(), ae?.(0);
-      wt("child exited", !1, !0);
+      wt("child exited", false, true);
       let z = He.join(`
 `);
       if (ct.terminationRequested)
@@ -2900,7 +2900,7 @@ function eo(e) {
           _({ result: "interrupted", exitCode: N, exitSignal: w, stderrTail: z });
       else if (N === 0) {
         if ((ie(`[runner:session] ${s} child exited pid=${j.pid} code=0 (completed)`), !ft))
-          (ft = !0), xe?.("completed");
+          (ft = true), xe?.("completed");
         _({ result: "completed", exitCode: 0, exitSignal: null, stderrTail: z });
       } else {
         if (
@@ -2909,13 +2909,13 @@ function eo(e) {
           ),
           !ft)
         )
-          (ft = !0), xe?.("failed");
+          (ft = true), xe?.("failed");
         _({ result: "failed", exitCode: N, exitSignal: w, stderrTail: z });
       }
     }),
       j.on("error", (N) => {
         if ((fe.removeEventListener("abort", rt), ct.stop(), Z(`[runner:session] ${s} spawn error: ${N.message}`), !ft))
-          (ft = !0), xe?.("failed");
+          (ft = true), xe?.("failed");
         _({ result: "failed", exitCode: null, exitSignal: null, stderrTail: `spawn error: ${N.message}` });
       });
   });
@@ -2952,10 +2952,10 @@ class mr {
   maxLifetimeGraceTimer;
   sigkillTimer;
   sigkillGraceTimer;
-  stopped = !1;
-  turnInFlight = !1;
-  maxLifetimeDeferred = !1;
-  terminating = !1;
+  stopped = false;
+  turnInFlight = false;
+  maxLifetimeDeferred = false;
+  terminating = false;
   treeSnapshot;
   reap = Promise.resolve();
   rootToken;
@@ -2979,7 +2979,7 @@ class mr {
       (this.onStatus = e.onStatus),
       this.child.pid !== void 0)
     )
-      Ga(this.child.pid, { skipCache: !0 }).then(
+      Ga(this.child.pid, { skipCache: true }).then(
         (t) => {
           this.rootToken = t;
         },
@@ -2997,7 +2997,7 @@ class mr {
               this.terminate();
             return;
           }
-          (this.maxLifetimeDeferred = !0),
+          (this.maxLifetimeDeferred = true),
             this.onStatus(
               `[runner:session] ${this.sessionId} max session age reached (${n}ms) \u2014 waiting up to ${this.maxLifetimeGraceMs}ms for in-flight turn to finish before terminating`,
             ),
@@ -3019,10 +3019,10 @@ class mr {
     }
   }
   noteTurnStart() {
-    this.turnInFlight = !0;
+    this.turnInFlight = true;
   }
   noteTurnEnd() {
-    if (((this.turnInFlight = !1), this.maxLifetimeDeferred && !this.stopped && !this.terminating))
+    if (((this.turnInFlight = false), this.maxLifetimeDeferred && !this.stopped && !this.terminating))
       this.onStatus(
         `[runner:session] ${this.sessionId} in-flight turn finished after max session age \u2014 aborting child pid=${this.child.pid}`,
       ),
@@ -3093,7 +3093,7 @@ class mr {
   terminate() {
     if (this.terminating) return;
     if (this.stopped) return;
-    (this.terminating = !0), (this.terminatedAt = Date.now());
+    (this.terminating = true), (this.terminatedAt = Date.now());
     {
       let e = this.child.pid;
       if (e !== void 0)
@@ -3126,7 +3126,7 @@ class mr {
   }
   stop() {
     if (
-      ((this.stopped = !0),
+      ((this.stopped = true),
       this.reapDescendants(Math.max(1, Math.min(ro, this.terminatedAt + this.sigkillTimeoutMs - Date.now()))),
       this.sigkillTimer)
     )
@@ -3201,13 +3201,13 @@ function ls(e) {
   let t = e.errorRetryMs ?? 30000,
     n = e.maxShortRetries ?? 5,
     r,
-    s = !1,
+    s = false,
     d = e.intervalMs,
     o = 0,
     f = () => h();
-  e.signal.addEventListener("abort", f, { once: !0 });
+  e.signal.addEventListener("abort", f, { once: true });
   function h() {
-    if (((s = !0), r)) clearTimeout(r);
+    if (((s = true), r)) clearTimeout(r);
     e.signal.removeEventListener("abort", f);
   }
   function u() {
@@ -3233,13 +3233,13 @@ function fs(e) {
   return Math.max(30000, Math.min(1440000, r));
 }
 function Sn(e) {
-  return e instanceof Error && "isEpochMismatch" in e && e.isEpochMismatch === !0;
+  return e instanceof Error && "isEpochMismatch" in e && e.isEpochMismatch === true;
 }
 function Rr(e) {
-  return e instanceof Error && "isNotFound" in e && e.isNotFound === !0;
+  return e instanceof Error && "isNotFound" in e && e.isNotFound === true;
 }
 function uo(e) {
-  return e instanceof Error && "isSessionNotActive" in e && e.isSessionNotActive === !0;
+  return e instanceof Error && "isSessionNotActive" in e && e.isSessionNotActive === true;
 }
 function _r(e) {
   return Rr(e) || uo(e);
@@ -3263,7 +3263,7 @@ function co(e, t, n) {
   }
   return {
     mountBaseUrl: s.href.replace(/\/+$/, ""),
-    toolConfig: { gitConfig: e.tool_config?.git_config === !0, ghPathShim: e.tool_config?.gh_path_shim === !0 },
+    toolConfig: { gitConfig: e.tool_config?.git_config === true, ghPathShim: e.tool_config?.gh_path_shim === true },
     getSessionToken: t,
   };
 }
@@ -3283,7 +3283,7 @@ function lo(e, t = [], n = [], r, s, d) {
           ref: u.revision,
           url: U.url,
           getAuthToken: d.getSessionToken,
-          governedMount: !0,
+          governedMount: true,
           upstreamUrl: U.upstreamUrl,
           upstreamHost: i,
         });
@@ -3373,24 +3373,24 @@ function po(e, t, n) {
   );
 }
 function Tr() {
-  return Zn.CLAUDE_RUNNER_TRUST_CANONICAL_PREWARM === !0 && Be("SELF_HOSTED_RUNNER_DRAIN_GRACE_MS") === 0;
+  return Zn.CLAUDE_RUNNER_TRUST_CANONICAL_PREWARM === true && Be("SELF_HOSTED_RUNNER_DRAIN_GRACE_MS") === 0;
 }
 function ho(e, t) {
-  if (!Zn.CLAUDE_RUNNER_TRUST_CANONICAL_PREWARM) return !0;
+  if (!Zn.CLAUDE_RUNNER_TRUST_CANONICAL_PREWARM) return true;
   if (!Tr())
     return (
       e(
         `[runner:warn] CLAUDE_RUNNER_TRUST_CANONICAL_PREWARM ignored: drain-grace is ${Be("SELF_HOSTED_RUNNER_DRAIN_GRACE_MS")}ms (> 0), so a prior session ` +
           "could have written to the canonical \u2014 sanitizing anyway",
       ),
-      !0
+      true
     );
   return (
     e(
       "[runner:session] CLAUDE_RUNNER_TRUST_CANONICAL_PREWARM \u2014 skipping " +
         `sanitizeCanonicalGitState for ${t} (trusted one-shot prewarm)`,
     ),
-    !1
+    false
   );
 }
 var go = new Map([
@@ -3414,7 +3414,7 @@ async function mo(e, t, n) {
     );
   }
   if (!s.isDirectory()) {
-    await ot(r, { force: !0 }),
+    await ot(r, { force: true }),
       t(
         `[runner:session] sanitized canonical at ${e}: .git was not a directory (gitlink/symlink) \u2014 removed, will fresh-init`,
       );
@@ -3448,12 +3448,12 @@ async function mo(e, t, n) {
         if (U && !U.isSymbolicLink() && (A === "dir" ? U.isDirectory() : U.isFile())) continue;
         t(`[runner:session] sanitize: kept entry .git/${k} has unexpected type \u2014 removing`);
       }
-      await ot(B(r, k), { recursive: !0, force: !0 });
+      await ot(B(r, k), { recursive: true, force: true });
     }
-    await Sr(B(r, "refs"), !0),
-      await Sr(B(r, "objects"), !1),
-      await ot(B(r, "objects", "info"), { recursive: !0, force: !0 }),
-      await ot(B(r, "objects", "pack", "multi-pack-index"), { recursive: !0, force: !0 });
+    await Sr(B(r, "refs"), true),
+      await Sr(B(r, "objects"), false),
+      await ot(B(r, "objects", "info"), { recursive: true, force: true }),
+      await ot(B(r, "objects", "pack", "multi-pack-index"), { recursive: true, force: true });
     let h = B(r, "HEAD"),
       u = await Ht(h).catch(() => {
         return;
@@ -3471,7 +3471,7 @@ async function mo(e, t, n) {
       ) &&
       !/^[0-9a-f]{40}([0-9a-f]{24})?\n?$/.test(i)
     )
-      await ot(h, { force: !0 });
+      await ot(h, { force: true });
     await tn(B(r, "config"), o, { mode: 420 }),
       t(`[runner:session] sanitized canonical .git/ at ${e} (git-proxy cross-session isolation)`);
   } catch (f) {
@@ -3501,15 +3501,15 @@ async function Sr(e, t) {
       throw o;
     }
     if (d.isSymbolicLink()) {
-      await ot(s, { force: !0 });
+      await ot(s, { force: true });
       continue;
     }
-    if (t && d.isDirectory()) await Sr(s, !0);
+    if (t && d.isDirectory()) await Sr(s, true);
   }
 }
 async function $n(e, t, n) {
-  await ot(e, { recursive: !0, force: !0 }),
-    await Lt(nn(e), { recursive: !0 }),
+  await ot(e, { recursive: true, force: true }),
+    await Lt(nn(e), { recursive: true }),
     await tn(e, t, { mode: n }),
     await Li(e, n);
 }
@@ -3521,11 +3521,11 @@ async function _o(e, t, n) {
     let d = await Ht(s).catch(() => {
       return;
     });
-    if (!d) await Lt(s, { recursive: !0 });
+    if (!d) await Lt(s, { recursive: true });
     else if (!d.isDirectory() || d.isSymbolicLink())
-      await ot(s, { recursive: !0, force: !0 }), await Lt(s, { recursive: !0 });
+      await ot(s, { recursive: true, force: true }), await Lt(s, { recursive: true });
     if (t) for (let o of t) await $n(o.path, o.content, o.mode);
-    await ot(r, { recursive: !0, force: !0 }), await Lt(r, { recursive: !0 });
+    await ot(r, { recursive: true, force: true }), await Lt(r, { recursive: true });
     for (let o of e) await $n(o.path, o.content, 493);
     n(`[runner:session] clean-slated ${r} and rewrote ${e.length} hook stubs (cross-session isolation)`);
   } catch (d) {
@@ -3538,18 +3538,18 @@ async function _o(e, t, n) {
 async function So(e, t) {
   try {
     if (
-      (await ot(nn(e.xdgConfigPath), { recursive: !0, force: !0 }),
+      (await ot(nn(e.xdgConfigPath), { recursive: true, force: true }),
       e.homeGitconfigPath && e.homeGitconfigPath !== e.globalConfigPath)
     )
-      await ot(e.homeGitconfigPath, { recursive: !0, force: !0 });
+      await ot(e.homeGitconfigPath, { recursive: true, force: true });
     if ((await $n(e.globalConfigPath, e.globalConfigSnapshot, 420), e.credHelper)) {
       let n = nn(e.credHelper.path),
         r = await Ht(n).catch(() => {
           return;
         });
-      if (!r) await Lt(n, { recursive: !0 });
+      if (!r) await Lt(n, { recursive: true });
       else if (!r.isDirectory() || r.isSymbolicLink())
-        await ot(n, { recursive: !0, force: !0 }), await Lt(n, { recursive: !0 });
+        await ot(n, { recursive: true, force: true }), await Lt(n, { recursive: true });
       if (e.signingArtifacts) for (let s of e.signingArtifacts) await $n(s.path, s.content, s.mode);
       await $n(e.credHelper.path, e.credHelper.content, 448);
     }
@@ -3564,12 +3564,12 @@ async function So(e, t) {
   }
 }
 async function wo(e, t, n) {
-  if (n) await ot(B(e, ".git", "config.lock"), { force: !0 }).catch(() => {});
+  if (n) await ot(B(e, ".git", "config.lock"), { force: true }).catch(() => {});
   await new Promise((r) => {
     let s = Wt("git", ["-C", e, "config", "--local", "--unset-all", "credential.helper", "^$"], {
         cwd: void 0,
         stdio: "ignore",
-        windowsHide: !0,
+        windowsHide: true,
         ...qi("helper"),
       }),
       d = setTimeout((f) => f.kill("SIGKILL"), un, s),
@@ -3602,14 +3602,14 @@ async function Eo(e, t, n, r) {
 }
 async function $s(e, t, n, r = Wt, s = un) {
   await new Promise((d, o) => {
-    let f = !1,
+    let f = false,
       h = "",
       u = (k) => {
         if (f) return;
-        if (((f = !0), clearTimeout(T), n?.removeEventListener("abort", m), k)) o(k);
+        if (((f = true), clearTimeout(T), n?.removeEventListener("abort", m), k)) o(k);
         else d();
       },
-      i = r("git", e, { cwd: void 0, stdio: ["ignore", "ignore", "pipe"], windowsHide: !0, ...qi("helper") });
+      i = r("git", e, { cwd: void 0, stdio: ["ignore", "ignore", "pipe"], windowsHide: true, ...qi("helper") });
     i.stderr?.on("data", (k) => (h += String(k)));
     let m = () => {
         i.kill("SIGKILL"), u(t({ code: null, stderr: h.trim() }));
@@ -3623,7 +3623,7 @@ async function $s(e, t, n, r = Wt, s = un) {
         u,
       );
     if (n?.aborted) m();
-    else n?.addEventListener("abort", m, { once: !0 });
+    else n?.addEventListener("abort", m, { once: true });
     i.on("close", (k) => u(k === 0 ? void 0 : t({ code: k, stderr: h.trim() }))), i.on("error", (k) => u(k));
   });
 }
@@ -3657,7 +3657,7 @@ function To(e, t, n) {
   return n?.(`[runner:git] rewrote ${e} -> ${d} (--git-host-rewrite)`), d;
 }
 function yo(e) {
-  if (e.startsWith("ssh://")) return !0;
+  if (e.startsWith("ssh://")) return true;
   return !e.includes("://") && /^[^@]+@[^:]+:.+$/.test(e);
 }
 function vo(e) {
@@ -3805,8 +3805,8 @@ async function Ao(e, t, n) {
           `could not be read (${P instanceof Error ? P.message : String(P)}) \u2014 refusing rather than skip the scan`,
         );
       }
-      let M = Ut(U, !1);
-      if (n && (u === e || e.startsWith(u + Fe)) && M?.disableAllHooks === !0) n.repoDisablesAllHooks = !0;
+      let M = Ut(U, false);
+      if (n && (u === e || e.startsWith(u + Fe)) && M?.disableAllHooks === true) n.repoDisablesAllHooks = true;
       if (M?.env !== void 0 && M?.env !== null && typeof M.env === "object" && Object.keys(M.env).length > 0)
         throw new ht(
           {
@@ -3818,10 +3818,10 @@ async function Ao(e, t, n) {
           "sets env vars that reach every child subprocess (BASH_ENV/LD_PRELOAD/NODE_OPTIONS/GIT_* are unsandboxed-exec inlets). Runner-level env belongs in the operator wrapper script or runner env, not repo settings",
         );
       for (let [P, ae, Se] of [
-        ["sandbox.enabled", M?.sandbox?.enabled, !1],
-        ["disableAllHooks", M?.disableAllHooks, !1],
-        ["sandbox.allowUnsandboxedCommands", M?.sandbox?.allowUnsandboxedCommands, !0],
-        ["sandbox.failIfUnavailable", M?.sandbox?.failIfUnavailable, !1],
+        ["sandbox.enabled", M?.sandbox?.enabled, false],
+        ["disableAllHooks", M?.disableAllHooks, false],
+        ["sandbox.allowUnsandboxedCommands", M?.sandbox?.allowUnsandboxedCommands, true],
+        ["sandbox.failIfUnavailable", M?.sandbox?.failIfUnavailable, false],
       ])
         if (ae === Se)
           throw new ht(
@@ -3923,23 +3923,23 @@ function Cs(e, t) {
 async function $o(e, t) {
   let n = wn(e),
     r = wn(t);
-  if (r !== n && !r.startsWith(n + Fe)) return !1;
+  if (r !== n && !r.startsWith(n + Fe)) return false;
   let s = r.slice(n.length).split(Fe).filter(Boolean);
   for (let d of s) {
     n = B(n, d);
     try {
       let o = await Ht(n);
-      if (o.isSymbolicLink() || !o.isDirectory()) return !1;
+      if (o.isSymbolicLink() || !o.isDirectory()) return false;
     } catch (o) {
-      if (!X(o)) return !1;
+      if (!X(o)) return false;
       try {
         await Lt(n);
       } catch {
-        return !1;
+        return false;
       }
     }
   }
-  return !0;
+  return true;
 }
 async function Co(e, t) {
   try {
@@ -3947,7 +3947,7 @@ async function Co(e, t) {
       r = await En(t);
     return r === n || r.startsWith(n + Fe);
   } catch {
-    return !1;
+    return false;
   }
 }
 async function No(e, t, n, r, s, d, o = Wt) {
@@ -3959,15 +3959,15 @@ async function No(e, t, n, r, s, d, o = Wt) {
     },
     h = (i, m, T, k = []) =>
       new Promise((A) => {
-        let U = !1,
+        let U = false,
           q = (P) => {
             if (U) return;
-            (U = !0), clearTimeout(ie), r?.removeEventListener("abort", Z), A(P);
+            (U = true), clearTimeout(ie), r?.removeEventListener("abort", Z), A(P);
           },
           M = o("git", [...S1, ...k, "-C", e, ...i], {
             cwd: void 0,
             stdio: ["ignore", "ignore", "pipe"],
-            windowsHide: !0,
+            windowsHide: true,
             ...qi("helper"),
             env: f,
           }),
@@ -3991,7 +3991,7 @@ async function No(e, t, n, r, s, d, o = Wt) {
             q,
           );
         if (r?.aborted) Z();
-        else r?.addEventListener("abort", Z, { once: !0 });
+        else r?.addEventListener("abort", Z, { once: true });
         M.on("close", (P) => {
           if (P === 0) n(`[runner:session] created outcome branch '${t}' in ${e} (${m})`), q("ok");
           else n(`[runner:session] ${m} in ${e} exited ${P}: ${be.trim()}`), q("failed");
@@ -4011,7 +4011,7 @@ async function No(e, t, n, r, s, d, o = Wt) {
   if ((await h(["checkout", "-B", t, ...(d ? [d] : [])], `checkout -B '${t}'`, d ? axt : un)) === "failed")
     n(`[runner:session] outcome branch '${t}' not created in ${e} \u2014 continuing on current HEAD`);
 }
-async function Lo(e, t, n, r, s = Wt, d = !1, o, f) {
+async function Lo(e, t, n, r, s = Wt, d = false, o, f) {
   if (o && f) throw Error("fetchOutcomeBranches: hardenedGitUrl and governedAuth are mutually exclusive");
   let h = 0,
     u = f?.url;
@@ -4020,10 +4020,10 @@ async function Lo(e, t, n, r, s = Wt, d = !1, o, f) {
     let m = `+refs/heads/${i}:refs/remotes/origin/${i}`;
     if (
       (await new Promise((k) => {
-        let A = !1,
+        let A = false,
           U = (ie) => {
             if (A) return;
-            (A = !0), clearTimeout(Z), r?.removeEventListener("abort", be), k(ie);
+            (A = true), clearTimeout(Z), r?.removeEventListener("abort", be), k(ie);
           },
           q = s(
             "git",
@@ -4044,7 +4044,7 @@ async function Lo(e, t, n, r, s = Wt, d = !1, o, f) {
             ],
             {
               stdio: ["ignore", "ignore", "pipe"],
-              windowsHide: !0,
+              windowsHide: true,
               ...qi("helper"),
               env: {
                 ...process.env,
@@ -4063,7 +4063,7 @@ async function Lo(e, t, n, r, s = Wt, d = !1, o, f) {
           if (q.pid) WE(q.pid);
           U(null);
         };
-        r?.addEventListener("abort", be, { once: !0 });
+        r?.addEventListener("abort", be, { once: true });
         let Z = setTimeout(
           (ie, P, ae, Se) => {
             if ((ie(`[runner:session] fetch outcome branch in ${P} timed out after ${ns}ms \u2014 continuing`), ae.pid))
@@ -4128,38 +4128,38 @@ function Ns(e) {
   };
 }
 async function Po(e, t, n, r, s, d) {
-  if (d?.aborted) return !1;
+  if (d?.aborted) return false;
   if (!wS(t))
     return (
       s(
         `[runner:session] push-on-release resume: branch '${t}' rejected by isSafeRefName (refspec metachar guard); skipping fetch`,
       ),
-      !1
+      false
     );
   let o = Ns(n);
   return new Promise((f) => {
-    let h = !1,
+    let h = false,
       u = (A) => {
         if (h) return;
-        (h = !0), clearTimeout(k), d?.removeEventListener("abort", i), f(A);
+        (h = true), clearTimeout(k), d?.removeEventListener("abort", i), f(A);
       },
       i = () => {
-        m.kill("SIGKILL"), u(!1);
+        m.kill("SIGKILL"), u(false);
       },
       m = Wt(
         "git",
         [...o.args, "-C", e, "fetch", "--no-write-fetch-head", o.authURL, `+refs/heads/${t}:refs/remotes/origin/${t}`],
-        { stdio: ["ignore", "ignore", "pipe"], cwd: void 0, env: o.env, windowsHide: !0, ...qi("helper") },
+        { stdio: ["ignore", "ignore", "pipe"], cwd: void 0, env: o.env, windowsHide: true, ...qi("helper") },
       ),
       T = "";
-    m.stderr?.on("data", (A) => (T += String(A))), d?.addEventListener("abort", i, { once: !0 });
+    m.stderr?.on("data", (A) => (T += String(A))), d?.addEventListener("abort", i, { once: true });
     let k = setTimeout(
       (A, U, q, M, be) => {
         A(
           `[runner:session] push-on-release resume: fetch '${U}' timed out after ${q}ms; starting from source HEAD (best-effort)`,
         ),
           M.kill("SIGKILL"),
-          be(!1);
+          be(false);
       },
       r,
       s,
@@ -4173,28 +4173,28 @@ async function Po(e, t, n, r, s, d) {
         s(
           `[runner:session] push-on-release resume: fetched prior '${t}' from source remote; starting from preserved work`,
         ),
-          u(!0);
+          u(true);
       else
         s(
           `[runner:session] push-on-release resume: no prior '${t}' on source remote (${Mrt(T, o.authURL, o.token).trim() || `exit ${A}`}); starting from source HEAD`,
         ),
-          u(!1);
+          u(false);
     }),
-      m.on("error", () => u(!1));
+      m.on("error", () => u(false));
   });
 }
 async function hs(e, t, n = un) {
   return new Promise((r) => {
-    let s = !1,
+    let s = false,
       d = (u) => {
         if (s) return;
-        (s = !0), clearTimeout(h), r(u);
+        (s = true), clearTimeout(h), r(u);
       },
       o = Wt("git", [...S1, "-C", e, "rev-parse", "--verify", t], {
         stdio: ["ignore", "pipe", "ignore"],
         cwd: void 0,
         env: { ...process.env, ...KK },
-        windowsHide: !0,
+        windowsHide: true,
         ...qi("helper"),
       }),
       f = "";
@@ -4218,19 +4218,19 @@ async function Do(e, t, n, r, s) {
     return;
   }
   let d = Boolean(n.governedMount && n.upstreamUrl),
-    o = d ? { ...n, url: n.upstreamUrl, getAuthToken: void 0, governedMount: !1 } : n,
+    o = d ? { ...n, url: n.upstreamUrl, getAuthToken: void 0, governedMount: false } : n,
     f = Ns(o);
   return new Promise((h) => {
-    let u = !1,
+    let u = false,
       i = () => {
         if (u) return;
-        (u = !0), clearTimeout(k), h();
+        (u = true), clearTimeout(k), h();
       },
       m = Wt("git", [...f.args, "-C", e, "push", f.authURL, `refs/heads/${t}:refs/heads/${t}`], {
         stdio: ["ignore", "ignore", "pipe"],
         cwd: void 0,
         env: f.env,
-        windowsHide: !0,
+        windowsHide: true,
         ...qi("helper"),
       }),
       T = "";
@@ -4269,15 +4269,15 @@ async function Do(e, t, n, r, s) {
 async function xo(e, t, n, r, s, d = Wt, o = un) {
   let f = (u, i) =>
     new Promise((m) => {
-      let T = !1,
+      let T = false,
         k = (M) => {
           if (T) return;
-          (T = !0), clearTimeout(q), m(M);
+          (T = true), clearTimeout(q), m(M);
         },
         A = d("git", [...S1, "-C", e, ...u], {
           stdio: ["ignore", "ignore", "pipe"],
           cwd: void 0,
-          windowsHide: !0,
+          windowsHide: true,
           ...qi("helper"),
           env: {
             ...process.env,
@@ -4467,25 +4467,25 @@ function Go(e, t, n, r) {
   });
 }
 function Wo({ gateOn: e, maxAgeS: t, maxTipAgeS: n, trustedOneShot: r, useWorktrees: s, workerEpoch: d, source: o }) {
-  if (!e) return { eligible: !1, reason: "gate off" };
-  if (t === void 0 || t < 1) return { eligible: !1, reason: "no usable freshness bound" };
+  if (!e) return { eligible: false, reason: "gate off" };
+  if (t === void 0 || t < 1) return { eligible: false, reason: "no usable freshness bound" };
   if (!r)
     return {
-      eligible: !1,
+      eligible: false,
       reason:
         "canonical is not a trusted one-shot prewarm (CLAUDE_RUNNER_TRUST_CANONICAL_PREWARM unset or drain-grace > 0)",
     };
-  if (s) return { eligible: !1, reason: "worktree mode (capacity > 1)" };
-  if (!Ds(d)) return { eligible: !1, reason: `worker epoch unknown (${d ?? "unset"})` };
+  if (s) return { eligible: false, reason: "worktree mode (capacity > 1)" };
+  if (!Ds(d)) return { eligible: false, reason: `worker epoch unknown (${d ?? "unset"})` };
   let f = Bo(d),
     h;
   if (!o.ref) h = "staging";
   else h = (o.ref.startsWith("refs/heads/") ? o.ref.slice(11) : o.ref) === "warm" ? "warm" : void 0;
   if (h === void 0)
-    return { eligible: !1, reason: `session named a revision the standby does not prefetch (${ce(b(o.ref), 80)})` };
+    return { eligible: false, reason: `session named a revision the standby does not prefetch (${ce(b(o.ref), 80)})` };
   if (o.repo.toLowerCase() !== dr || !oj(o.upstreamHost, ur))
-    return { eligible: !1, reason: `not the prefetched repository (${o.upstreamHost ?? "unknown host"}/${o.repo})` };
-  return { eligible: !0, branch: h, maxAgeS: t, maxTipAgeS: n ?? Vo, laterWorker: f };
+    return { eligible: false, reason: `not the prefetched repository (${o.upstreamHost ?? "unknown host"}/${o.repo})` };
+  return { eligible: true, branch: h, maxAgeS: t, maxTipAgeS: n ?? Vo, laterWorker: f };
 }
 function Ds(e) {
   return e !== void 0 && Number.isInteger(e) && e >= 1;
@@ -4547,18 +4547,18 @@ async function qo({ useWorktrees: e, workerEpoch: t, source: n, checkpoint: r, o
 }
 var Zo = 30000;
 function Jo({ gateOn: e, claimed: t, waitMs: n, trustedOneShot: r, useWorktrees: s, source: d }) {
-  if (!e) return { eligible: !1, reason: "gate off" };
-  if (!t) return { eligible: !1, reason: "the claimed marker could not be written at session start" };
+  if (!e) return { eligible: false, reason: "gate off" };
+  if (!t) return { eligible: false, reason: "the claimed marker could not be written at session start" };
   if (!r)
     return {
-      eligible: !1,
+      eligible: false,
       reason:
         "canonical is not a trusted one-shot prewarm (CLAUDE_RUNNER_TRUST_CANONICAL_PREWARM unset or drain-grace > 0)",
     };
-  if (s) return { eligible: !1, reason: "worktree mode (capacity > 1)" };
+  if (s) return { eligible: false, reason: "worktree mode (capacity > 1)" };
   if (d.repo.toLowerCase() !== dr || !oj(d.upstreamHost, ur))
-    return { eligible: !1, reason: `not the prefetched repository (${d.upstreamHost ?? "unknown host"}/${d.repo})` };
-  return { eligible: !0, waitMs: n ?? Zo };
+    return { eligible: false, reason: `not the prefetched repository (${d.upstreamHost ?? "unknown host"}/${d.repo})` };
+  return { eligible: true, waitMs: n ?? Zo };
 }
 function Qo({ claimed: e, useWorktrees: t, source: n, onDebug: r, dir: s = hn }) {
   return;
@@ -4587,13 +4587,13 @@ ${h}`;
         usage: { input_tokens: 0, output_tokens: 0 },
       },
       parent_tool_use_id: null,
-      isApiErrorMessage: !0,
+      isApiErrorMessage: true,
     },
     f = {
       type: "result",
       uuid: Xn(),
       subtype: "error_during_execution",
-      is_error: !0,
+      is_error: true,
       duration_ms: 0,
       duration_api_ms: 0,
       num_turns: 0,
@@ -4610,7 +4610,7 @@ var Ms = { POLL: "POLL_WAKE_SOURCE_POLL", SSE: "POLL_WAKE_SOURCE_SSE", LOCAL: "P
 class yr {
   ac = new AbortController();
   pending = null;
-  atCapacity = !1;
+  atCapacity = false;
   wake(e) {
     if (e === "SSE" && this.atCapacity) return;
     if (this.pending !== "SSE") this.pending = e;
@@ -4621,7 +4621,7 @@ class yr {
     let n = new AbortController(),
       r = () => n.abort(),
       s = this.ac.signal;
-    t.addEventListener("abort", r, { once: !0 }), s.addEventListener("abort", r, { once: !0 });
+    t.addEventListener("abort", r, { once: true }), s.addEventListener("abort", r, { once: true });
     try {
       await ne(e, n.signal);
     } finally {
@@ -4643,14 +4643,14 @@ function ia(e) {
 function Us(e) {
   let { baseUrl: t, runnerId: n, tokenState: r, onWake: s, onDebug: d, signal: o } = e,
     f = `${t}/v1/code/runners/self-hosted/runners/${encodeURIComponent(n)}/work-hints/stream`,
-    h = !1,
+    h = false,
     u = 0,
     i = null,
     m = () => {
-      (h = !0), i?.abort();
+      (h = true), i?.abort();
     };
   return (
-    o.addEventListener("abort", m, { once: !0 }),
+    o.addEventListener("abort", m, { once: true }),
     (async () => {
       while (!h && !o.aborted) {
         i = new AbortController();
@@ -4692,7 +4692,7 @@ async function oa(e, t, n) {
   let r = e.getReader(),
     s = new TextDecoder(),
     d = "",
-    o = !1,
+    o = false,
     f,
     h = () => {
       if (f !== void 0) clearTimeout(f);
@@ -4703,7 +4703,7 @@ async function oa(e, t, n) {
     while (!n.signal.aborted) {
       let { done: u, value: i } = await r.read();
       if (u) return o;
-      (o = !0), h(), (d += s.decode(i, { stream: !0 }));
+      (o = true), h(), (d += s.decode(i, { stream: true }));
       let m;
       while (
         (m = d.indexOf(`
@@ -4722,7 +4722,7 @@ async function oa(e, t, n) {
 var ga = "runner",
   Bs = "https://api.anthropic.com",
   Ks = 1,
-  zs = !0,
+  zs = true,
   Ln = 20000,
   Fs = 5000,
   ma = 30000,
@@ -4764,8 +4764,8 @@ function va(e, t) {
   return n;
 }
 function Oa(e) {
-  if (bo(e)) return !1;
-  if (Me(e)) return !0;
+  if (bo(e)) return false;
+  if (Me(e)) return true;
   if (e === void 0 || e.trim() === "") return zs;
   throw Error(`SELF_HOSTED_RUNNER_TRUST_WORKSPACE must be one of 1/true/yes/on or 0/false/no/off (got: ${b(e)})`);
 }
@@ -4848,18 +4848,18 @@ function $a(e) {
         break;
       }
       case "--use-anthropic-git-proxy":
-        n.useAnthropicGitProxy = !0;
+        n.useAnthropicGitProxy = true;
         break;
       case "--configure-git":
-        n.configureGit = !0;
+        n.configureGit = true;
         break;
       case "--push-outcome-on-release":
-        n.pushOutcomeOnRelease = !0;
+        n.pushOutcomeOnRelease = true;
         break;
       case "--trust-workspace":
-        if (o === "false" || o === "0") (n.trustWorkspace = !1), s++;
-        else if (o === "true" || o === "1") (n.trustWorkspace = !0), s++;
-        else n.trustWorkspace = !0;
+        if (o === "false" || o === "0") (n.trustWorkspace = false), s++;
+        else if (o === "true" || o === "1") (n.trustWorkspace = true), s++;
+        else n.trustWorkspace = true;
         break;
       case "--confine-repo-settings":
         if (o === "enforce" || o === "warn" || o === "off") (n.confineRepoSettings = o), s++;
@@ -5353,32 +5353,32 @@ Run 'claude self-hosted-runner --help' for usage.`),
     U = Math.max($r(), tr) + cn,
     q =
       k > 0
-        ? `[runner] --defer-shutdown-max-min is set (${$t(k, { hideTrailingZeros: !0 })}): the FIRST shutdown signal does not start that ${m}s budget \u2014 the runner stops ` +
+        ? `[runner] --defer-shutdown-max-min is set (${$t(k, { hideTrailingZeros: true })}): the FIRST shutdown signal does not start that ${m}s budget \u2014 the runner stops ` +
           "taking work but keeps serving the attached sessions; " +
           (A > 0
-            ? `each is released (parked, resumable) once its user has been idle ${$t(A, { hideTrailingZeros: !0 })} (--release-idle-session-min)`
+            ? `each is released (parked, resumable) once its user has been idle ${$t(A, { hideTrailingZeros: true })} (--release-idle-session-min)`
             : "none is released early (--release-idle-session-min is not set)") +
-          `, and the runner exits as soon as it holds no session; ${$t(k, { hideTrailingZeros: !0 })} after the signal every remaining session is released at once and anything still attached ${$t(U, { hideTrailingZeros: !0 })} later is drained. If your supervisor's stop timeout ends first, every still-attached session is killed WITHOUT its post-session hook or deregister and is requeued to another runner about a minute later. Size the stop timeout to at least ${Math.ceil((k + U) / 1000) + m}s (M + post-ceiling grace + the budget above). A second signal drains immediately.`
+          `, and the runner exits as soon as it holds no session; ${$t(k, { hideTrailingZeros: true })} after the signal every remaining session is released at once and anything still attached ${$t(U, { hideTrailingZeros: true })} later is drained. If your supervisor's stop timeout ends first, every still-attached session is killed WITHOUT its post-session hook or deregister and is requeued to another runner about a minute later. Size the stop timeout to at least ${Math.ceil((k + U) / 1000) + m}s (M + post-ceiling grace + the budget above). A second signal drains immediately.`
         : void 0;
   if (q !== void 0) i(q);
-  let M = (S, x, he, ge = !1) => {
+  let M = (S, x, he, ge = false) => {
     let me = process.env[S];
     if (me === void 0 || me === "")
-      return he !== void 0 && he > 0 ? `${$t(he, { hideTrailingZeros: !0 })} (default)` : "disabled (not configured)";
+      return he !== void 0 && he > 0 ? `${$t(he, { hideTrailingZeros: true })} (default)` : "disabled (not configured)";
     let pe = t.envSetByFlag.has(S) ? x : `env ${S}`,
       Oe = Be(S);
-    if (Oe > 0) return `${$t(Oe, { hideTrailingZeros: !0 })} (from ${pe})`;
+    if (Oe > 0) return `${$t(Oe, { hideTrailingZeros: true })} (from ${pe})`;
     let _t = Number(me);
     if (ge && he !== void 0 && he > 0) {
       let Ye = Number.isFinite(_t) && _t === 0 ? "0 is not accepted" : "not a usable ms duration";
-      return `${$t(he, { hideTrailingZeros: !0 })} ` + `(default \u2014 ${pe} ignored: ${Ye})`;
+      return `${$t(he, { hideTrailingZeros: true })} ` + `(default \u2014 ${pe} ignored: ${Ye})`;
     }
     return Number.isFinite(_t) && _t === 0
       ? `disabled (from ${pe})`
       : `disabled (from ${pe} \u2014 not a usable ms duration, treated as 0)`;
   };
   i(
-    `[runner] watchdog config: idle-release=${M("SELF_HOSTED_RUNNER_SESSION_IDLE_MS", "--release-idle-session-min")}; startup-timeout=${M("SELF_HOSTED_RUNNER_STARTUP_TIMEOUT_MS", "--startup-timeout-min", kr)}; kill-session-after=${M("SELF_HOSTED_RUNNER_MAX_LIFETIME_MS", "--kill-session-after-min")}; exit-if-unused=${M("SELF_HOSTED_RUNNER_IDLE_SHUTDOWN_MS", "--exit-if-unused-min")}; defer-shutdown-max=${M("SELF_HOSTED_RUNNER_DEFER_SHUTDOWN_MAX_MS", "--defer-shutdown-max-min")}; bg-result-grace=${M("SELF_HOSTED_RUNNER_BG_RESULT_GRACE_MS", "SELF_HOSTED_RUNNER_BG_RESULT_GRACE_MS", Jn, !0)}`,
+    `[runner] watchdog config: idle-release=${M("SELF_HOSTED_RUNNER_SESSION_IDLE_MS", "--release-idle-session-min")}; startup-timeout=${M("SELF_HOSTED_RUNNER_STARTUP_TIMEOUT_MS", "--startup-timeout-min", kr)}; kill-session-after=${M("SELF_HOSTED_RUNNER_MAX_LIFETIME_MS", "--kill-session-after-min")}; exit-if-unused=${M("SELF_HOSTED_RUNNER_IDLE_SHUTDOWN_MS", "--exit-if-unused-min")}; defer-shutdown-max=${M("SELF_HOSTED_RUNNER_DEFER_SHUTDOWN_MAX_MS", "--defer-shutdown-max-min")}; bg-result-grace=${M("SELF_HOSTED_RUNNER_BG_RESULT_GRACE_MS", "SELF_HOSTED_RUNNER_BG_RESULT_GRACE_MS", Jn, true)}`,
   );
   let be = process.env.SELF_HOSTED_RUNNER_HOOKS_DIR,
     Z = t.execPath;
@@ -5391,7 +5391,7 @@ Run 'claude self-hosted-runner --help' for usage.`),
   let ae = Ca(n, t.capacity);
   if (ae !== null) i(ae);
   if (t.debugTokenDir)
-    await Or(t.debugTokenDir, { recursive: !0, mode: 448 })
+    await Or(t.debugTokenDir, { recursive: true, mode: 448 })
       .then(() => {
         i(`[runner:debug] debug token dir ready: ${t.debugTokenDir}`);
       })
@@ -5437,7 +5437,7 @@ Run 'claude self-hosted-runner --help' for usage.`),
   let Qe = new AbortController(),
     kt = new AbortController(),
     je = "running",
-    Bt = !0,
+    Bt = true,
     vt = {},
     et = (S) => {
       let x = vt.current,
@@ -5452,7 +5452,7 @@ Run 'claude self-hosted-runner --help' for usage.`),
         if (
           ((je = "deferring"),
           i(
-            `Received shutdown signal, deferring drain: refusing new work, serving the attached sessions until they are released or ${$t(k, { hideTrailingZeros: !0 })} passes; a second signal drains immediately ${et(S)}`,
+            `Received shutdown signal, deferring drain: refusing new work, serving the attached sessions until they are released or ${$t(k, { hideTrailingZeros: true })} passes; a second signal drains immediately ${et(S)}`,
           ),
           i(T),
           q !== void 0)
@@ -5543,11 +5543,11 @@ Run 'claude self-hosted-runner --help' for usage.`),
     i(
       `[runner:git] --use-anthropic-git-proxy: wiping HOME-level git config (${me}, ${mn(Oe, "git")}, ${mn(t.baseDir, ".runner")}) for cross-session isolation. Operator-provisioned git config must live in system config (/etc/gitconfig) or via --configure-git; see the self-hosted runners guide.`,
     ),
-      await Qn(me, { recursive: !0, force: !0 }),
-      await Qn(mn(vr(), ".gitconfig"), { recursive: !0, force: !0 }),
-      await Qn(mn(Oe, "git"), { recursive: !0, force: !0 }),
-      await Qn(mn(t.baseDir, ".runner"), { recursive: !0, force: !0 }),
-      await Or(ha(me), { recursive: !0 });
+      await Qn(me, { recursive: true, force: true }),
+      await Qn(mn(vr(), ".gitconfig"), { recursive: true, force: true }),
+      await Qn(mn(Oe, "git"), { recursive: true, force: true }),
+      await Qn(mn(t.baseDir, ".runner"), { recursive: true, force: true }),
+      await Or(ha(me), { recursive: true });
   }
   if (t.configureGit)
     try {
@@ -5565,7 +5565,7 @@ Run 'claude self-hosted-runner --help' for usage.`),
           aa("git", ["--version"], {
             encoding: "utf-8",
             cwd: void 0,
-            windowsHide: !0,
+            windowsHide: true,
             timeout: 5000,
             killSignal: "SIGKILL",
           }),
@@ -5672,7 +5672,7 @@ Run 'claude self-hosted-runner --help' for usage.`),
             if (je !== "draining") Dt(S, "loop");
           },
           onClosed: () => {
-            Bt = !1;
+            Bt = false;
           },
         },
       },
@@ -5685,7 +5685,7 @@ Run 'claude self-hosted-runner --help' for usage.`),
   }
 }
 function qs(e) {
-  return e instanceof Error && "isAuthFailure" in e && e.isAuthFailure === !0;
+  return e instanceof Error && "isAuthFailure" in e && e.isAuthFailure === true;
 }
 async function Da(e, t) {
   let {
@@ -5714,11 +5714,11 @@ async function Da(e, t) {
     Se = new Map(),
     fe = 0,
     ve = Date.now(),
-    Ne = !1,
-    xe = !0,
+    Ne = false,
+    xe = true,
     Qe = 0,
     kt = Date.now(),
-    je = !1,
+    je = false,
     Bt = null,
     vt = Be("SELF_HOSTED_RUNNER_IDLE_SHUTDOWN_MS"),
     et = Be("SELF_HOSTED_RUNNER_DRAIN_GRACE_MS"),
@@ -5727,7 +5727,7 @@ async function Da(e, t) {
     Ot = e.retireAtMsOverride ?? Sa(),
     Zt = e.retireReleaseRetryMsOverride ?? ya,
     Ie = e.retireDeferredGraceMsOverride ?? tr,
-    Xe = !1,
+    Xe = false,
     mt,
     tt,
     j = e.deferShutdown,
@@ -5737,7 +5737,7 @@ async function Da(e, t) {
     Ue = j?.ceilingGraceMsOverride ?? cn,
     st,
     Pe,
-    H = !1,
+    H = false,
     S = () => Q([...m.entries()], ([ee, Ee]) => !Ee.controller.signal.aborted && !ge.has(ee)),
     x = () => Q([...m.entries()], ([ee, Ee]) => !Ee.controller.signal.aborted && ge.has(ee) && !pe.has(ee)),
     he = () =>
@@ -5759,9 +5759,9 @@ async function Da(e, t) {
     at = e.sseHintsEnabledOverride ?? Me(process.env.CCR_SHR_SSE_HINTS),
     Y = new yr(),
     Ke = e.openWorkHintsStream ?? Us,
-    dt = e.warmupReportEnabledOverride ?? !1,
+    dt = e.warmupReportEnabledOverride ?? false,
     it = e.readWarmupComplete ?? Vr,
-    Rt = !1,
+    Rt = false,
     Gt;
   if (at)
     h("[runner:hints] CCR_SHR_SSE_HINTS enabled \u2014 opening stream"),
@@ -5773,7 +5773,7 @@ async function Da(e, t) {
         mt = setTimeout(wt, Math.min(ee, 2147483647));
         return;
       }
-      (Xe = !0), (tt = "retire");
+      (Xe = true), (tt = "retire");
       let Ee = Oe.size;
       if (
         (Oe.clear(),
@@ -5800,20 +5800,20 @@ async function Da(e, t) {
         u("[runner:shutdown] shutdown requested while already retiring \u2014 sessions are already being released");
         return;
       }
-      (Xe = !0),
+      (Xe = true),
         (tt = "shutdown"),
         u(
           `[runner:shutdown] shutdown requested \u2014 deferring drain: ${m.size} active session(s), refusing new work; ` +
             (Pt > 0
-              ? `each is released once its user has been idle ${$t(Pt, { hideTrailingZeros: !0 })} (--release-idle-session-min) or when it ends`
+              ? `each is released once its user has been idle ${$t(Pt, { hideTrailingZeros: true })} (--release-idle-session-min) or when it ends`
               : "none is released early (--release-idle-session-min is not set)") +
-            `; ${$t(j.maxMs, { hideTrailingZeros: !0 })} after the signal every session still attached is released at once; exiting as soon as the slots are empty`,
+            `; ${$t(j.maxMs, { hideTrailingZeros: true })} after the signal every session still attached is released at once; exiting as soon as the slots are empty`,
         ),
         Y.wake("LOCAL");
     },
     xt = () => {
       if (((st = void 0), j === void 0 || t.aborted)) return;
-      H = !0;
+      H = true;
       let ee = Oe.size;
       if (ee > 0) Oe.clear(), Y.wake("LOCAL");
       let Ee = S(),
@@ -5829,9 +5829,9 @@ async function Da(e, t) {
       }
       y("self_hosted_defer_ceiling"),
         u(
-          `[runner:shutdown] defer ceiling reached (${$t(j.maxMs, { hideTrailingZeros: !0 })}) \u2014 ` +
+          `[runner:shutdown] defer ceiling reached (${$t(j.maxMs, { hideTrailingZeros: true })}) \u2014 ` +
             (Ee > 0 ? `releasing the remaining ${Ee} session(s) now` : `waiting on ${x()} in-flight release(s)`) +
-            `; any still attached after ${$t(ct + Ue, { hideTrailingZeros: !0 })} will be drained`,
+            `; any still attached after ${$t(ct + Ue, { hideTrailingZeros: true })} will be drained`,
         ),
         lt();
       for (let Tt of m.values()) Tt.releaseForShutdown();
@@ -5863,7 +5863,7 @@ async function Da(e, t) {
   }
   if (bt && j !== void 0)
     if (j.signal.aborted) Xt();
-    else j.signal.addEventListener("abort", Xt, { once: !0 });
+    else j.signal.addEventListener("abort", Xt, { once: true });
   try {
     while (!t.aborted) {
       if (Xe && _t() === 0) {
@@ -5884,7 +5884,7 @@ async function Da(e, t) {
         try {
           Rt = await it();
         } catch {
-          Rt = !1;
+          Rt = false;
         }
         if (Rt)
           u(
@@ -5908,7 +5908,7 @@ async function Da(e, t) {
           }
         }
         if (((P = _.lease_expires_at), (ve = Date.now()), (Z = 0), (ie = 0), xe || Ne))
-          y("self_hosted_poll"), (xe = !1), (Ne = !1);
+          y("self_hosted_poll"), (xe = false), (Ne = false);
         if (i) (i.lastPollAt = ve), (i.activeSessions = m.size);
       } catch (_) {
         if (t.aborted) break;
@@ -5936,7 +5936,7 @@ async function Da(e, t) {
             await ne(e.pollIntervalOverrideMs ?? F, t);
           continue;
         }
-        if (((Z = 0), xe || !Ne)) g("self_hosted_poll", "self_hosted_poll_failed"), (xe = !1), (Ne = !0);
+        if (((Z = 0), xe || !Ne)) g("self_hosted_poll", "self_hosted_poll_failed"), (xe = false), (Ne = true);
         let z;
         if (N === "timeout" || N === "transport") ie++, (z = Ma(ie, P));
         else if (N === "5xx") z = Zs(Ln, P, Ra);
@@ -5964,7 +5964,7 @@ async function Da(e, t) {
           return;
         }
       } else Bt = null;
-      if (Ae.length > 0) je = !0;
+      if (Ae.length > 0) je = true;
       let He = new Set(Ve);
       for (let [_, N] of m)
         if (!He.has(_))
@@ -6023,17 +6023,17 @@ async function Da(e, t) {
             if (!C.has(re)) C.set(re, 0);
         }
         let Le,
-          De = !1,
-          se = !1,
+          De = false,
+          se = false,
           Ze = (C) => {
             se = C;
             let W = m.get(_);
             if (W !== void 0) W.turnInFlight = C;
             U?.();
           },
-          we = !1,
+          we = false,
           yt,
-          ke = !1,
+          ke = false,
           rn = "retire",
           Mt = () => (rn === "shutdown" ? "defer ceiling passed" : "retire time passed"),
           Pn = () => (rn === "shutdown" ? "while shutting down" : "while retiring"),
@@ -6072,11 +6072,11 @@ async function Da(e, t) {
               return;
             }
             if (C === "activity") {
-              Ze(!0), (we = !1), (yt = void 0), (Jt = 0), pt(), Yt(), me.delete(_);
+              Ze(true), (we = false), (yt = void 0), (Jt = 0), pt(), Yt(), me.delete(_);
               return;
             }
             if (C === "turn-end-deferred") {
-              if ((Ze(!1), (we = !0), (yt = void 0), pt(), Pt > 0)) It(W, 0);
+              if ((Ze(false), (we = true), (yt = void 0), pt(), Pt > 0)) It(W, 0);
               if (ke) Vt();
               return;
             }
@@ -6084,7 +6084,7 @@ async function Da(e, t) {
               yt = void 0;
               return;
             }
-            pt(), Yt(), Ze(!1), (we = !1), (yt = C);
+            pt(), Yt(), Ze(false), (we = false), (yt = C);
             let Ge = ke ? (Jt === 0 ? 0 : Zt) : C === "startup" ? Dt : Pt,
               on = ke ? Zt : Ge,
               Qt = () => (ke ? (Jt === 0 ? "now" : `in ${$t(Zt)}`) : `in ${$t(on)}`),
@@ -6100,7 +6100,7 @@ async function Da(e, t) {
             if (
               C === "awaiting-action" &&
               W !== void 0 &&
-              (W.liveTasks > 0 || W.wakeupInMs !== void 0 || W.bgResultAwaitingFollowup === !0)
+              (W.liveTasks > 0 || W.wakeupInMs !== void 0 || W.bgResultAwaitingFollowup === true)
             ) {
               let ut = W.liveTaskIds.slice(0, 5).join(","),
                 At = [
@@ -6108,7 +6108,7 @@ async function Da(e, t) {
                     ? `${W.liveTasks} background task(s) live [${ut}${W.liveTasks > 5 ? ",\u2026" : ""}]`
                     : void 0,
                   W.wakeupInMs !== void 0 ? `wakeup pending in ${$t(W.wakeupInMs)}` : void 0,
-                  W.bgResultAwaitingFollowup === !0 ? "finished background task awaiting the follow-up turn" : void 0,
+                  W.bgResultAwaitingFollowup === true ? "finished background task awaiting the follow-up turn" : void 0,
                 ].filter(Boolean);
               u(
                 `[runner:session] ${_} awaiting user action overrides deferral (${At.join(" / ")}) \u2014 idle clock armed`,
@@ -6116,7 +6116,7 @@ async function Da(e, t) {
             }
             if (!ke)
               u(
-                `[runner:session] ${_} idle clock armed (${C}): releases in ${$t(Ge, { hideTrailingZeros: !0 })} at ${new Date(Date.now() + Ge).toISOString()} unless new activity arrives`,
+                `[runner:session] ${_} idle clock armed (${C}): releases in ${$t(Ge, { hideTrailingZeros: true })} at ${new Date(Date.now() + Ge).toISOString()} unless new activity arrives`,
               );
             Le = setTimeout(() => {
               if (((Le = void 0), De || w.signal.aborted)) return;
@@ -6248,7 +6248,7 @@ async function Da(e, t) {
           Vt = () => {
             if (De || w.signal.aborted || !we) return;
             let C = m.get(_)?.liveBgTasks ?? 0;
-            if (C === 0 && m.get(_)?.bgResultPendingFollowup === !0) {
+            if (C === 0 && m.get(_)?.bgResultPendingFollowup === true) {
               u(
                 `[runner:session] ${_} ${Mt()} while a finished background task's follow-up turn is pending \u2014 waiting for it before releasing`,
               );
@@ -6258,7 +6258,7 @@ async function Da(e, t) {
               u(
                 `[runner:session] ${_} ${Mt()} with only perpetual monitor task(s) / a scheduled wakeup holding the turn \u2014 releasing now`,
               ),
-                (we = !1),
+                (we = false),
                 Yt(),
                 de("turn-end");
               return;
@@ -6270,7 +6270,7 @@ async function Da(e, t) {
               (sn = setTimeout(() => {
                 if (((sn = void 0), De || w.signal.aborted || !we)) return;
                 let W = m.get(_)?.liveBgTasks ?? 0,
-                  Ge = m.get(_)?.bgResultPendingFollowup === !0;
+                  Ge = m.get(_)?.bgResultPendingFollowup === true;
                 if (W === 0 && Ge) {
                   u(
                     `[runner:session] ${_} ${Rn()} elapsed but a finished background task's follow-up turn is pending \u2014 waiting for it before releasing`,
@@ -6282,7 +6282,7 @@ async function Da(e, t) {
                     ? `[runner:session] ${_} background work finished during the ${Rn()}; only perpetual monitor task(s) / a scheduled wakeup still hold the turn \u2014 releasing now`
                     : `[runner:session] ${_} ${W} background task(s) still live after the ${Rn()} \u2014 releasing anyway (a parked session beats a lost worker)`,
                 ),
-                  (we = !1),
+                  (we = false),
                   de("turn-end");
               }, Ie));
           },
@@ -6292,7 +6292,7 @@ async function Da(e, t) {
               h(`[runner:session] ${_} ${C} release request adds nothing to the standing ${rn} request \u2014 ignored`);
               return;
             }
-            if (((ke = !0), (rn = C), yt === void 0)) {
+            if (((ke = true), (rn = C), yt === void 0)) {
               if (we && !se) {
                 Vt();
                 return;
@@ -6426,7 +6426,7 @@ async function Da(e, t) {
               u(`Session ${_} handler threw: ${W}`);
             })
             .finally(() => {
-              if (((De = !0), Le !== void 0)) clearTimeout(Le), (Le = void 0);
+              if (((De = true), Le !== void 0)) clearTimeout(Le), (Le = void 0);
               if ((pt(), Yt(), !pe.has(_))) ge.delete(_);
               if ((me.delete(_), i))
                 i.sessionIdle.delete(z), i.sessionClientPlatform.delete(z), i.claimVisibility?.delete(z), pIn(i, z);
@@ -6442,8 +6442,8 @@ async function Da(e, t) {
             task: pn,
             controller: w,
             liveBgTasks: 0,
-            bgResultPendingFollowup: !1,
-            turnInFlight: !1,
+            bgResultPendingFollowup: false,
+            turnInFlight: false,
             releaseForRetire: _n,
             releaseForShutdown: Dn,
           }),
@@ -6458,7 +6458,7 @@ async function Da(e, t) {
           w = Date.now(),
           z = w - lt,
           re = N !== null ? N * 1000 - w : null,
-          F = re !== null ? `${re < 0 ? "-" : ""}${$t(Math.abs(re), { mostSignificantOnly: !0 })}` : "unknown",
+          F = re !== null ? `${re < 0 ? "-" : ""}${$t(Math.abs(re), { mostSignificantOnly: true })}` : "unknown",
           Re = i?.lockedAccountEmail ?? (je ? "yes" : "no");
         u(
           `[runner:health] polling ok \xB7 ${_}/${d.capacity} slots \xB7 last_poll=${z}ms ago \xB7 locked_account=${Re} \xB7 runner_token expires in ${F} \xB7 ${Qe} sessions handled`,
@@ -6473,10 +6473,10 @@ async function Da(e, t) {
     if (Pe !== void 0) clearTimeout(Pe), (Pe = void 0);
     j?.signal.removeEventListener("abort", Xt), j?.onClosed?.(), Gt?.close();
     let ee = e.drainTimeoutMs ?? br(T, k, 0, d.pushOutcomeOnRelease ? kn : 0) * 1000,
-      Ee = !1,
+      Ee = false,
       lt = setInterval(() => {
         if (Ee) return;
-        (Ee = !0),
+        (Ee = true),
           n
             .pollWork(s.runnerToken, r, 0)
             .then(() => {
@@ -6487,7 +6487,7 @@ async function Da(e, t) {
               h(`[runner] shutdown: lease heartbeat failed (best-effort): ${Ae}`);
             })
             .finally(() => {
-              Ee = !1;
+              Ee = false;
             });
       }, e.shutdownLeaseHeartbeatMs ?? _a);
     try {
@@ -6545,22 +6545,22 @@ async function Da(e, t) {
     } finally {
       clearInterval(lt);
     }
-    let Ve = !1;
+    let Ve = false;
     await cu(
       n
         .deregisterRunner(s.runnerToken)
         .then(() => {
-          if ((u("[runner:exit] Deregistered \u2014 sessions requeued"), !Ve)) (Ve = !0), y("self_hosted_deregister");
+          if ((u("[runner:exit] Deregistered \u2014 sessions requeued"), !Ve)) (Ve = true), y("self_hosted_deregister");
         })
         .catch((Ae) => {
           if ((h(`[runner:exit] deregisterRunner failed (best-effort): ${Ae}`), !Ve))
-            (Ve = !0), g("self_hosted_deregister", "rpc_failed");
+            (Ve = true), g("self_hosted_deregister", "rpc_failed");
         }),
       5000,
       "[runner:exit] deregister",
     ).catch(() => {
       if ((h("[runner:exit] deregisterRunner timed out (best-effort) \u2014 lease expiry will requeue"), !Ve))
-        (Ve = !0), g("self_hosted_deregister", "timeout");
+        (Ve = true), g("self_hosted_deregister", "timeout");
     });
   }
 }
@@ -6585,7 +6585,7 @@ function Zs(e, t, n) {
 }
 async function Gs(e, t, n, r) {
   try {
-    await Or(e, { recursive: !0, mode: 448 }), await la(`${e}/${t}`, n, { mode: 384 });
+    await Or(e, { recursive: true, mode: 448 }), await la(`${e}/${t}`, n, { mode: 384 });
   } catch (s) {
     r(`[runner:debug] failed to write ${t} to ${e} (best-effort): ${s}`);
   }

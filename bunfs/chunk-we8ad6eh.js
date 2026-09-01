@@ -80,7 +80,7 @@ class GH extends xYe {
       (this.LOG_LEVEL_SEVERITY = new Map(jYe.options.map((i, s) => [i, s]))),
       (this.isMessageIgnored = (i, s) => {
         let o = this._loggingLevels.get(s);
-        return o ? this.LOG_LEVEL_SEVERITY.get(i) < this.LOG_LEVEL_SEVERITY.get(o) : !1;
+        return o ? this.LOG_LEVEL_SEVERITY.get(i) < this.LOG_LEVEL_SEVERITY.get(o) : false;
       }),
       (this._capabilities = t?.capabilities ?? {}),
       (this._instructions = t?.instructions),

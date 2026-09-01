@@ -19,16 +19,16 @@ var o = "tengu_orford_ness",
   t = "2.1.193";
 function n() {
   try {
-    return I(o, !1);
+    return I(o, false);
   } catch {
-    return !1;
+    return false;
   }
 }
 function rSn() {
   let r = lw();
   if (!Mt("allow_error_reporting")) {
     if (r === null) return "blocked_cache_miss";
-    return r.restrictions.allow_error_reporting?.allowed === !1 ? "blocked_restriction" : "blocked_tainted";
+    return r.restrictions.allow_error_reporting?.allowed === false ? "blocked_restriction" : "blocked_tainted";
   }
   if (r !== null) return "allowed_taints_clean";
   if (Yl() && !I6(M_)) return "blocked_scopeless_oauth";
@@ -37,9 +37,9 @@ function rSn() {
   return "allowed_untaintable";
 }
 function fer() {
-  if (process.env.DISABLE_ERROR_REPORTING) return !1;
-  if (zh()) return !1;
-  if (Ne() !== "firstParty" || !jo()) return !1;
+  if (process.env.DISABLE_ERROR_REPORTING) return false;
+  if (zh()) return false;
+  if (Ne() !== "firstParty" || !jo()) return false;
   if (
     !e.gte(
       e.coerce(
@@ -69,8 +69,8 @@ function fer() {
       t,
     )
   )
-    return !1;
-  if (!rSn().startsWith("allowed")) return !1;
+    return false;
+  if (!rSn().startsWith("allowed")) return false;
   return n();
 }
 export { rSn, fer };

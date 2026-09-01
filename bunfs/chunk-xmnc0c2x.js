@@ -59,7 +59,7 @@ function R(e, t) {
 function D(e, t, o) {
   let { relativePattern: l, root: i } = uyt(e, t),
     d = KTe(i ?? ee(), o);
-  if (d === ".." || d.startsWith("../")) return !1;
+  if (d === ".." || d.startsWith("../")) return false;
   let r = l
     .replace(/\/{2,}/g, "/")
     .replace(/^\//, "")
@@ -82,7 +82,7 @@ function x(e) {
 }
 async function HBe(e, t) {
   if (await M(e)) {
-    v0(!0), r$e(!0);
+    v0(true), r$e(true);
     return;
   }
   await pNe(e, t);
@@ -118,7 +118,7 @@ async function g0t(e, t) {
   return { result: "ok", directory: l };
 }
 function h0t(e, t, o = (i) => i, l) {
-  let i = l?.terminalAffordances !== !1,
+  let i = l?.terminalAffordances !== false,
     d = l?.display ?? ((r) => r);
   if (((e = d(e)), t.result === "blockedByRule")) {
     let r = d(eo(t.rule.ruleValue)),
@@ -138,7 +138,7 @@ function h0t(e, t, o = (i) => i, l) {
 async function N(e, t, o) {
   if (a.CLAUDE_CODE_DISABLE_CLAUDE_MDS) return "";
   let l = new Set();
-  for (let m of await J_(e, !1, o)) l.add(Up(m.path));
+  for (let m of await J_(e, false, o)) l.add(Up(m.path));
   let i = [],
     d = t;
   while (d !== A(d).root) i.push(d), (d = b(d));
@@ -164,14 +164,14 @@ async function _0t(e, t, o, l) {
       }),
     );
   qu(t), Lc(t), yS(ee());
-  let m = !0;
+  let m = true;
   try {
     await CPe(l);
   } catch (p) {
-    m = !1;
-    let C = !1;
+    m = false;
+    let C = false;
     try {
-      qu(i), (C = !0);
+      qu(i), (C = true);
     } catch {
       n(
         `directory move: transcript move failed and rollback chdir failed; completing the move with the transcript left in its previous home: ${p}`,
@@ -237,7 +237,7 @@ async function _0t(e, t, o, l) {
         "settings stay in effect for this process \u2014 they cannot be unset \u2014 and " +
         "the new directory's settings env is applied on top of them.",
     ),
-    v = !1;
+    v = false;
   try {
     v = !a.CLAUDE_CODE_SANDBOXED && !AR() && !qd() && dKe();
   } catch (p) {
@@ -259,7 +259,7 @@ async function _0t(e, t, o, l) {
   };
 }
 function y0t() {
-  Nre(), OD(), kl.notifyChange("projectSettings", { trustFlip: !0 });
+  Nre(), OD(), kl.notifyChange("projectSettings", { trustFlip: true });
 }
 function S0t(e) {
   if (e.gatedNotice === "") return e.modelMessage;
@@ -287,18 +287,18 @@ async function ATr(e, t) {
     };
   if (typeof e.path !== "string" || e.path.trim() === "")
     return { kind: "invalid", message: "set_cwd: invalid request \u2014 path must be a non-empty string" };
-  let o = e.trust_accepted === !0;
+  let o = e.trust_accepted === true;
   if (o && typeof e.trusted_directory !== "string")
     return {
       kind: "invalid",
       message:
         "set_cwd: invalid request \u2014 trust_accepted requires trusted_directory (echo the directory from the needs_trust response)",
     };
-  let l = !1;
+  let l = false;
   try {
     l = dK(e.path, gt(e.path), t.toolPermissionContext.trustedNetworkDirectories).ok;
   } catch {
-    l = !1;
+    l = false;
   }
   if (!l)
     return {
@@ -349,13 +349,13 @@ async function ATr(e, t) {
         status: "rejected",
         reason: "blocked_by_rule",
         message: Hur(
-          h0t(i.directory, i.check, void 0, { terminalAffordances: !1 }),
+          h0t(i.directory, i.check, void 0, { terminalAffordances: false }),
           "A Cd permission rule blocks this directory. The rule text contains control or invisible characters, so it is not echoed here \u2014 check the Cd(...) entries in your settings.",
         ),
       },
     };
   if (i.result === "same")
-    return { kind: "response", response: { status: "ok", cwd: i.directory, changed: !1, transcript_relocated: !0 } };
+    return { kind: "response", response: { status: "ok", cwd: i.directory, changed: false, transcript_relocated: true } };
   let r = i.directory;
   if (!N6(r)) {
     let f = DO(r),
@@ -399,6 +399,6 @@ async function ATr(e, t) {
     n(`set_cwd: enqueueing the move notice failed (continuing): ${f}`, { level: "error" });
   }
   let g = ee();
-  return { kind: "response", response: { status: "ok", cwd: k.test(g) ? r : g, changed: !0, transcript_relocated: m } };
+  return { kind: "response", response: { status: "ok", cwd: k.test(g) ? r : g, changed: true, transcript_relocated: m } };
 }
 export { HBe, g0t, h0t, _0t, y0t, S0t, Hur, ATr };

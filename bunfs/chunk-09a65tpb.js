@@ -294,28 +294,28 @@ import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-7jz6r17g.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 function p(r) {
-  let e = !1;
+  let e = false;
   for (let o = r.length - 1; o >= 0; o--) {
     let a = r[o];
     if (a?.type === "assistant") {
-      e = !0;
+      e = true;
       let t = a.message.content;
-      if (Array.isArray(t) && t.some((u) => u.type === "tool_use" && u.name === zS)) return !0;
+      if (Array.isArray(t) && t.some((u) => u.type === "tool_use" && u.name === zS)) return true;
       continue;
     }
     if (a?.type === "user") {
       let t = a.message.content;
-      if (!(Array.isArray(t) && t.length > 0 && t.every((c) => c.type === "tool_result"))) return !1;
-      if (e) return !1;
+      if (!(Array.isArray(t) && t.length > 0 && t.every((c) => c.type === "tool_result"))) return false;
+      if (e) return false;
     }
   }
-  return !1;
+  return false;
 }
 var d = m(() => ot({})),
   _ = m(() => f({ ended: q(), message: i() })),
   A = kt({
     name: zS,
-    shouldDefer: !0,
+    shouldDefer: true,
     searchHint:
       "end the conversation \u2014 only for sustained user abuse, or when the user explicitly asks to see it demonstrated",
     maxResultSizeChars: 1e4,
@@ -339,10 +339,10 @@ var d = m(() => ot({})),
       return r !== void 0 && PIt(r);
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     isConcurrencySafe() {
-      return !1;
+      return false;
     },
     async checkPermissions(r) {
       return { behavior: "allow", updatedInput: r };
@@ -362,12 +362,12 @@ var d = m(() => ot({})),
       if (e.agentId)
         return (
           s("tengu_end_conversation_tool_call", { surface: w(a), is_non_interactive: o, phase: w("reflect") }),
-          { data: { ended: !1, message: ben } }
+          { data: { ended: false, message: ben } }
         );
       if (!p(e.messages))
         return (
           s("tengu_end_conversation_tool_call", { surface: w(a), is_non_interactive: o, phase: w("reflect") }),
-          { data: { ended: !1, message: Ten } }
+          { data: { ended: false, message: Ten } }
         );
       s("tengu_end_conversation_tool_call", { surface: w(a), is_non_interactive: o, phase: w("end") });
       try {
@@ -377,9 +377,9 @@ var d = m(() => ot({})),
       }
       if ((e.abortController.abort("end_conversation"), o)) {
         let { gracefulShutdown: t } = await import("/$bunfs/root/chunk-kpr5g6qh.js");
-        return t(1, "other", { finalMessage: wen }), { data: { ended: !0, message: IIt } };
+        return t(1, "other", { finalMessage: wen }), { data: { ended: true, message: IIt } };
       }
-      return e.setAppState((t) => ({ ...t, endedByModel: !0 })), { data: { ended: !0, message: IIt } };
+      return e.setAppState((t) => ({ ...t, endedByModel: true })), { data: { ended: true, message: IIt } };
     },
   });
 export { A as EndConversationTool, p as lastAssistantTurnCalledEndConversation };

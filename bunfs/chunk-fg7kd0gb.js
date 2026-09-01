@@ -207,19 +207,19 @@ function Ae(e, o) {
 }
 var je = new Set(["clear", "resume", "help", "exit", "feedback"]);
 function Pje(e, o) {
-  if (!o) return !1;
+  if (!o) return false;
   return !(e && e.type !== "prompt" && je.has(e.name));
 }
 async function Pe(e, o, t) {
   let m = [],
-    l = !1,
+    l = false,
     u = e.agentId ? void 0 : e.getAppState().activeGoal;
   try {
     let S = t.executeStopHooks(
         he(e).mode,
         e.abortController.signal,
         void 0,
-        !1,
+        false,
         e.agentId,
         e,
         [...e.messages, ...o],
@@ -236,7 +236,7 @@ async function Pe(e, o, t) {
           else if (v.type === "hook_error_during_execution") I.push(v.content);
         }
       }
-      if (T.blockingError) m.push(xe({ content: t.getStopHookMessage(T.blockingError), isMeta: !0 })), (l = !0);
+      if (T.blockingError) m.push(xe({ content: t.getStopHookMessage(T.blockingError), isMeta: true })), (l = true);
       if (T.additionalContexts && T.additionalContexts.length > 0)
         m.push(
           In({
@@ -247,7 +247,7 @@ async function Pe(e, o, t) {
             hookEvent: "Stop",
           }),
         ),
-          (l = !0);
+          (l = true);
     }
     if (I.length > 0) m.push(Dt(`Stop hook error: ${I.join("; ")}`, "warning"));
   } catch (S) {
@@ -259,7 +259,7 @@ async function Pe(e, o, t) {
         he(e).mode,
         e.abortController.signal,
         void 0,
-        !1,
+        false,
         e.agentId,
         e,
         [],
@@ -298,7 +298,7 @@ async function Ve(e, o, t, m, l, u, S, I = [], T, v, N, z, B) {
           parentAgentId: t.agentId,
           depth: vc(t.agentContext) + 1,
           agentType: "subagent",
-          isAsync: !1,
+          isAsync: false,
           isBackgroundAgent:
             t.agentContext && "isBackgroundAgent" in t.agentContext ? t.agentContext.isBackgroundAgent : void 0,
           ...PH(t.agentContext),
@@ -317,12 +317,12 @@ async function Ve(e, o, t, m, l, u, S, I = [], T, v, N, z, B) {
       frozenCommandDenies: A,
     } = await mpt(e, o, t, r, {
       extractAttachments: T ? void 0 : Qee,
-      replaceCommandRules: !0,
+      replaceCommandRules: true,
       replaceDenyRules: !T,
       deferInvocationRecording: J,
     }),
     H = E.length > 0 ? [...(t.permissionLayers ?? []), ...E] : t.permissionLayers;
-  if (l.length > 0 || m.length > 0) k.push(xe({ content: [...l, ...m], isMeta: !0 }));
+  if (l.length > 0 || m.length > 0) k.push(xe({ content: [...l, ...m], isMeta: true }));
   if (B && B.length > 0) k.push(In({ type: "inlined_image_paths", paths: B }));
   let V = await udt(e, gn(), {
     options: {
@@ -368,13 +368,13 @@ async function Ve(e, o, t, m, l, u, S, I = [], T, v, N, z, B) {
       });
     } catch (q) {
       if ((await N?.settleTurnEnd(null), It(q)))
-        return { messages: [D, oI({ toolUse: !1 })], shouldQuery: !1, command: e, aborted: !0, forkDispatched: !0 };
+        return { messages: [D, oI({ toolUse: false })], shouldQuery: false, command: e, aborted: true, forkDispatched: true };
       return {
         messages: [D, xe({ content: `<local-command-stderr>${Wt(oae(q, e.name, t.session))}</local-command-stderr>` })],
-        shouldQuery: !1,
+        shouldQuery: false,
         command: e,
-        threw: !0,
-        forkDispatched: !0,
+        threw: true,
+        forkDispatched: true,
       };
     }
     if (O)
@@ -388,9 +388,9 @@ async function Ve(e, o, t, m, l, u, S, I = [], T, v, N, z, B) {
 ` + E4n({ agentId: O.agentId, skillName: e.name, description: `/${ei(e)} ${o}`.trim() }),
             ),
           ],
-          shouldQuery: !1,
+          shouldQuery: false,
           command: e,
-          forkDispatched: !0,
+          forkDispatched: true,
         }
       );
     P();
@@ -430,14 +430,14 @@ async function Ve(e, o, t, m, l, u, S, I = [], T, v, N, z, B) {
       onModelRestricted: cFt(QA(e), t.onQueryEvent),
       toolUseContext: { ...t, getAppState: f, permissionLayers: H },
       canUseTool: u,
-      isAsync: !1,
+      isAsync: false,
       querySource: "agent:custom",
       spawnedBySkill: QA(e),
-      spawnedByForkedSkill: !0,
+      spawnedByForkedSkill: true,
       model: e.model,
       availableTools: _,
       webFetchReadmissionAllowed: C,
-      override: { shareFileHistory: !0, agentId: G, readFileState: i },
+      override: { shareFileHistory: true, agentId: G, readFileState: i },
     })) {
       if (
         O.type === "api_metrics" ||
@@ -463,7 +463,7 @@ async function Ve(e, o, t, m, l, u, S, I = [], T, v, N, z, B) {
     if (It(O))
       return (
         await N?.settleTurnEnd(null),
-        { messages: [D, oI({ toolUse: !1 })], shouldQuery: !1, command: e, aborted: !0, forkDispatched: !0 }
+        { messages: [D, oI({ toolUse: false })], shouldQuery: false, command: e, aborted: true, forkDispatched: true }
       );
     await N?.settleTurnEnd(null);
     let q = await Pe(t, F, S);
@@ -475,8 +475,8 @@ async function Ve(e, o, t, m, l, u, S, I = [], T, v, N, z, B) {
       ],
       shouldQuery: q.requestQuery,
       command: e,
-      threw: !0,
-      forkDispatched: !0,
+      threw: true,
+      forkDispatched: true,
     };
   } finally {
     Eve(G), t.emitToolProgress?.({ kind: "clear", toolUseId: se });
@@ -489,7 +489,7 @@ async function Ve(e, o, t, m, l, u, S, I = [], T, v, N, z, B) {
     shouldQuery: ue.requestQuery,
     command: e,
     resultText: R,
-    forkDispatched: !0,
+    forkDispatched: true,
   };
 }
 function apr(e, o, { interactive: t }) {
@@ -554,7 +554,7 @@ async function AEr(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z) {
           }),
           ...m,
         ],
-        shouldQuery: !0,
+        shouldQuery: true,
       }
     );
   }
@@ -565,7 +565,7 @@ async function AEr(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z) {
     let b = "Commands are in the form `/command [args]`";
     return {
       messages: [rz(), ...m, xe({ content: mF({ inputString: b, precedingInputBlocks: o }) })],
-      shouldQuery: !1,
+      shouldQuery: false,
       resultText: b,
     };
   }
@@ -576,11 +576,11 @@ async function AEr(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z) {
     let b = Ex(z);
     P = b && b.commandName === r.commandName ? b.args : void 0;
   }
-  let M = !1;
+  let M = false;
   if (yu()) {
     let b = Fhe(d, l.options.commands);
     if (b) (d = b.commandName), (f = b.args);
-    else if (d.includes("://")) M = !0;
+    else if (d.includes("://")) M = true;
   }
   let k = ua(d, l.options.commands);
   if (k && !xp(k)) k = void 0;
@@ -608,7 +608,7 @@ async function AEr(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z) {
   let C = iI().has(d);
   if (Pje(k, l.getAppState().endedByModel)) {
     let b = wk("Claude ended this conversation. Start a new session (or /clear) to continue.");
-    return { messages: [Dt(b, "warning")], shouldQuery: !1, resultText: b };
+    return { messages: [Dt(b, "warning")], shouldQuery: false, resultText: b };
   }
   let A = k?.type === "prompt" && k.source === "bundled",
     H =
@@ -618,9 +618,9 @@ async function AEr(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z) {
       Pp(Vt(k.pluginInfo.repository).marketplace),
     V = E || (k?.type === "prompt" && k.source === "mcp");
   if (!k) {
-    let b = !1;
+    let b = false;
     try {
-      await le().stat(`/${d}`), (b = !0);
+      await le().stat(`/${d}`), (b = true);
     } catch {}
     if ((Dje(d) || M) && !b) {
       let Q = apr(d, l.options.commands, { interactive: !l.options.isNonInteractiveSession });
@@ -628,7 +628,7 @@ async function AEr(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z) {
         let { command: X, reason: ne, kind: ie } = Q;
         s("tengu_input_slash_invalid", {
           input_length: d.length,
-          had_suggestion: !1,
+          had_suggestion: false,
           policy_denied: ie !== "stale_list",
         }),
           p("cmd_dispatch", ie === "stale_list" ? "cmd_stale_list" : `cmd_policy_${ie}`);
@@ -641,7 +641,7 @@ async function AEr(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z) {
               sm(`/${pe}${ce ? ` ${ce}` : ""}`),
               sm(`<local-command-stdout>${ne}</local-command-stdout>`),
             ],
-            shouldQuery: !1,
+            shouldQuery: false,
             resultText: ne,
           };
         return {
@@ -650,14 +650,14 @@ async function AEr(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z) {
             Dt(ne, "warning"),
             ...(ce && ce !== "***" ? [Dt(`Args from /${pe}: ${ce}`, "warning")] : []),
           ],
-          shouldQuery: !1,
+          shouldQuery: false,
           resultText: ne,
         };
       }
       if (l.options.isNonInteractiveSession && iI().has(d)) {
         let X = vbe(),
           ne = Ae(d, X) ?? `/${PS(Qn(d))} isn't available in this environment.`;
-        s("tengu_input_slash_invalid", { input_length: d.length, had_suggestion: !1 }),
+        s("tengu_input_slash_invalid", { input_length: d.length, had_suggestion: false }),
           p("cmd_dispatch", "cmd_unavailable_headless");
         let ie = ua(d, X),
           pe = !f ? "" : ie !== void 0 && fz(ie, f) ? "***" : PS(q3(f));
@@ -667,7 +667,7 @@ async function AEr(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z) {
             sm(`/${PS(Qn(d))}${pe ? ` ${pe}` : ""}`),
             sm(`<local-command-stdout>${ne}</local-command-stdout>`),
           ],
-          shouldQuery: !1,
+          shouldQuery: false,
           resultText: ne,
         };
       }
@@ -695,12 +695,12 @@ async function AEr(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z) {
             sm(`/${Y}${f ? ` ${PS(q3(f))}` : ""}`),
             sm(`<local-command-stdout>${ge}</local-command-stdout>`),
           ],
-          shouldQuery: !1,
+          shouldQuery: false,
           resultText: ge,
         };
       return {
         messages: [...m, Dt(ge, "warning"), ...(f ? [Dt(`Args from unknown skill: ${q3(f)}`, "warning")] : [])],
-        shouldQuery: !1,
+        shouldQuery: false,
         resultText: ge,
       };
     }
@@ -713,7 +713,7 @@ async function AEr(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z) {
           ? "builtin"
           : "custom",
     U = fz(k, f) ? `/${d} ***` : e;
-  if (!(l.deferSlashToEngine?.(k) ?? !1)) {
+  if (!(l.deferSlashToEngine?.(k) ?? false)) {
     let b = oe();
     s$e(b),
       Po("user_prompt", {
@@ -768,12 +768,12 @@ async function AEr(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z) {
       ..._4e(R.type === "prompt" ? R.source : void 0, d),
       ...(R.type === "prompt" && { command_content_chars: R.contentLength }),
       ...(R.type === "prompt" && { _PROTO_skill_name: R.name }),
-      ...!1,
+      ...false,
     });
   }
   if (F.length === 0) {
     if (fe) y("cmd_dispatch");
-    return Te(), { messages: [], shouldQuery: !1, model: re, resultText: ue, nextInput: ye, submitNextInput: O };
+    return Te(), { messages: [], shouldQuery: false, model: re, resultText: ue, nextInput: ye, submitNextInput: O };
   }
   if (
     F.length === 2 &&
@@ -782,7 +782,7 @@ async function AEr(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z) {
     F[1].message.content.startsWith("Unknown command:")
   ) {
     if (!(e.startsWith("/var") || e.startsWith("/tmp") || e.startsWith("/private")))
-      s("tengu_input_slash_invalid", { input_length: d.length, had_suggestion: !1 }), p("cmd_dispatch", "cmd_unknown");
+      s("tengu_input_slash_invalid", { input_length: d.length, had_suggestion: false }), p("cmd_dispatch", "cmd_unknown");
     return { messages: [rz(), ...F], shouldQuery: W, allowedTools: se, disallowedTools: de, model: re };
   }
   if (!q) y("cmd_dispatch"), Te();
@@ -814,7 +814,7 @@ function _e(e, o) {
   let t = `/${ei(e)} opens an interactive panel and isn't available in this environment. Run it from the Claude Code terminal instead.`;
   return {
     messages: [sm(be(e, o)), sm(`<local-command-stdout>${t}</local-command-stdout>`)],
-    shouldQuery: !1,
+    shouldQuery: false,
     command: e,
     resultText: t,
   };
@@ -828,18 +828,18 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
     if (t.options.isNonInteractiveSession)
       return {
         messages: [sm(be(r, o)), sm(`<local-command-stdout>${f}</local-command-stdout>`)],
-        shouldQuery: !1,
+        shouldQuery: false,
         command: r,
         resultText: f,
       };
-    return { messages: [Dt(f, "warning")], shouldQuery: !1, command: r, resultText: f };
+    return { messages: [Dt(f, "warning")], shouldQuery: false, command: r, resultText: f };
   }
   if (rk(r)) {
     if ((p(d, "cmd_skill_override_off"), t.options.isNonInteractiveSession)) {
       let P = `Skill "${Rr(r.name, 200)}" is disabled via skillOverrides. Remove the override from your settings to run it.`;
       return {
         messages: [sm(be(r, o)), sm(`<local-command-stdout>${P}</local-command-stdout>`)],
-        shouldQuery: !1,
+        shouldQuery: false,
         command: r,
         resultText: P,
       };
@@ -848,12 +848,12 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
       E = !o ? "" : fz(r, o) ? "***" : PS(q3(o));
     return {
       messages: [Dt(f, "warning"), ...(o ? [Dt(`Args from disabled skill: ${E}`, "warning")] : [])],
-      shouldQuery: !1,
+      shouldQuery: false,
       command: r,
       resultText: f,
     };
   }
-  if (r.type === "prompt" && r.userInvocable !== !1) ddt(t.session, r.name, t.storageV5);
+  if (r.type === "prompt" && r.userInvocable !== false) ddt(t.session, r.name, t.storageV5);
   if (r.type === "prompt" && r.pluginInfo) Jw(r.pluginInfo.repository);
   if (!t.deferSlashToEngine?.(r))
     ke({
@@ -863,7 +863,7 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
       setAppState: t.setAppState,
       credentials: t.credentials,
     });
-  if (r.userInvocable === !1)
+  if (r.userInvocable === false)
     return (
       p(d, "cmd_not_user_invocable"),
       {
@@ -873,7 +873,7 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
             content: `This skill can only be invoked by Claude, not directly by users. Ask Claude to use the "${Qn(e)}" skill for you.`,
           }),
         ],
-        shouldQuery: !1,
+        shouldQuery: false,
         command: r,
       }
     );
@@ -882,20 +882,20 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
     switch (r.type) {
       case "local-jsx":
         return new Promise((f) => {
-          let E = !1,
+          let E = false,
             P = (i, _) => {
               if (E) return;
-              if (((E = !0), y(d), _?.display === "skip")) {
+              if (((E = true), y(d), _?.display === "skip")) {
                 f({
                   messages: [],
-                  shouldQuery: !1,
+                  shouldQuery: false,
                   command: r,
                   nextInput: _?.nextInput,
                   submitNextInput: _?.submitNextInput,
                 });
                 return;
               }
-              let C = (_?.metaMessages ?? []).map((H) => xe({ content: H, isMeta: !0 })),
+              let C = (_?.metaMessages ?? []).map((H) => xe({ content: H, isMeta: true })),
                 A = Nt() && typeof i === "string" && i.endsWith(" dismissed");
               f({
                 messages:
@@ -910,7 +910,7 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
                           : xe({ content: `<local-command-stdout>${sf}</local-command-stdout>` }),
                         ...C,
                       ],
-                shouldQuery: _?.shouldQuery ?? !1,
+                shouldQuery: _?.shouldQuery ?? false,
                 command: r,
                 nextInput: _?.nextInput,
                 submitNextInput: _?.submitNextInput,
@@ -929,13 +929,13 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
               if (E) return;
               let _ = t.localJsx;
               if (!_) {
-                p(d, "cmd_local_jsx_no_panel_host"), (E = !0), f(_e(r, o));
+                p(d, "cmd_local_jsx_no_panel_host"), (E = true), f(_e(r, o));
                 return;
               }
-              _.show(i, { commandName: ei(r), immediate: k, hidesPrompt: !0, retireAtTurnBoundary: !0 }).closed.then(
+              _.show(i, { commandName: ei(r), immediate: k, hidesPrompt: true, retireAtTurnBoundary: true }).closed.then(
                 (A) => {
                   if (A === "dismissed" && !E)
-                    (E = !0), p(d, "cmd_local_jsx_dismissed"), f({ messages: [], shouldQuery: !1, command: r });
+                    (E = true), p(d, "cmd_local_jsx_dismissed"), f({ messages: [], shouldQuery: false, command: r });
                 },
               );
             })
@@ -944,8 +944,8 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
               if (_) n(`local-jsx command aborted: ${i instanceof Error ? i.message : String(i)}`);
               else h(ft(we(i), "local-jsx slash command threw"));
               if ((p(d, _ ? "cmd_local_jsx_aborted" : "cmd_local_jsx_threw"), E)) return;
-              if (((E = !0), _)) {
-                f({ messages: [], shouldQuery: !1, command: r });
+              if (((E = true), _)) {
+                f({ messages: [], shouldQuery: false, command: r });
                 return;
               }
               f({
@@ -953,7 +953,7 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
                   xe({ content: mF({ inputString: ae(r, o), precedingInputBlocks: m }), uuid: I }),
                   sm(`<local-command-stderr>${Wt(PS(oae(i, r.name, t.session)))}</local-command-stderr>`),
                 ],
-                shouldQuery: !1,
+                shouldQuery: false,
                 command: r,
               });
             });
@@ -962,7 +962,7 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
         if (t.deferSlashToEngine?.(r)) {
           let P = `/${ei(r)} ${o}`.trim(),
             M = xe({ content: mF({ inputString: P, precedingInputBlocks: m }), uuid: I });
-          return { messages: [M], shouldQuery: !1, command: r, engineDeferredSlash: { text: P, messageUuid: M.uuid } };
+          return { messages: [M], shouldQuery: false, command: r, engineDeferredSlash: { text: P, messageUuid: M.uuid } };
         }
         let f = xe({ content: mF({ inputString: ae(r, o), precedingInputBlocks: m }), uuid: I }),
           E = sn();
@@ -973,7 +973,7 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
             i = E ? await OU(k, t.abortController.signal, () => new Ze()) : await k;
           if (i.type === "text" && i.level === "error") p(d, "cmd_returned_error");
           else y(d);
-          if (i.type === "skip") return { messages: [], shouldQuery: !1, command: r };
+          if (i.type === "skip") return { messages: [], shouldQuery: false, command: r };
           if (i.type === "compact") {
             let A = [
                 P,
@@ -988,26 +988,26 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
                   : []),
               ],
               H = { ...i.compactionResult, messagesToKeep: [...i.compactionResult.messagesToKeep, ...A] };
-            return { messages: Jee(H), shouldQuery: !1, command: r };
+            return { messages: Jee(H), shouldQuery: false, command: r };
           }
           if (i.type === "query")
             return {
               messages: [
                 f,
                 sm(`<local-command-stdout>${PS(i.value)}</local-command-stdout>`),
-                ...(i.metaMessages ?? []).map((A) => xe({ content: A, isMeta: !0 })),
-                xe({ content: i.prompt, isMeta: !0 }),
+                ...(i.metaMessages ?? []).map((A) => xe({ content: A, isMeta: true })),
+                xe({ content: i.prompt, isMeta: true }),
               ],
-              shouldQuery: !0,
+              shouldQuery: true,
               command: r,
               resultText: i.value,
             };
           let _ = i.level === "error" ? "local-command-stderr" : "local-command-stdout",
             C = sm(`<${_}>${PS(i.value)}</${_}>`, { contextUsage: i.contextUsage });
-          if (E) return Ue(t, f, { messages: [C], shouldQuery: !1, command: r, resultText: i.value });
+          if (E) return Ue(t, f, { messages: [C], shouldQuery: false, command: r, resultText: i.value });
           return {
-            messages: [f, C, ...(i.metaMessages ?? []).map((A) => xe({ content: A, isMeta: !0 }))],
-            shouldQuery: !1,
+            messages: [f, C, ...(i.metaMessages ?? []).map((A) => xe({ content: A, isMeta: true }))],
+            shouldQuery: false,
             command: r,
             resultText: i.value,
           };
@@ -1021,8 +1021,8 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
             i = E ? qEt : "Interrupted",
             _ = M ? (mo(t.session) ? i : P instanceof Error ? P.message || i : i) : oae(P, r.name, t.session),
             C = sm(`<${k}>${Wt(PS(_))}</${k}>`);
-          if (E) return Ue(t, f, { messages: [C], shouldQuery: !1, command: r });
-          return { messages: [f, C], shouldQuery: !1, command: r };
+          if (E) return Ue(t, f, { messages: [C], shouldQuery: false, command: r });
+          return { messages: [f, C], shouldQuery: false, command: r };
         }
       }
       case "prompt": {
@@ -1032,8 +1032,8 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
             trailingArgs: E,
             capped: P,
           } = r.context === "fork" || r.getContext !== void 0 || r.argsMayContainSlashCommands
-            ? { stacked: [], trailingArgs: o, capped: !1 }
-            : lpr(o, N, t.options.commands, T ? (v ?? (() => !0)) : void 0),
+            ? { stacked: [], trailingArgs: o, capped: false }
+            : lpr(o, N, t.options.commands, T ? (v ?? (() => true)) : void 0),
           M = E,
           k;
         if (f.length > 0) s("tengu_stacked_slash_commands", { stacked_count: f.length });
@@ -1070,11 +1070,11 @@ async function Ge(e, o, t, m, l, u, S, I, T, v, N, z, B, G, x, Z, J) {
 
 Original prompt: ${A}`;
                 return {
-                  messages: [Dt(F, "warning", void 0, !0)],
-                  shouldQuery: !1,
+                  messages: [Dt(F, "warning", void 0, true)],
+                  shouldQuery: false,
                   resultText: F,
                   command: r,
-                  forkDispatched: !0,
+                  forkDispatched: true,
                 };
               }
               if (U.preventContinuation) {
@@ -1082,11 +1082,11 @@ Original prompt: ${A}`;
                 return (
                   p(d, "cmd_prompt_submit_hook_stopped"),
                   {
-                    messages: [xe({ content: D }), Dt(D, "warning", void 0, !0)],
-                    shouldQuery: !1,
+                    messages: [xe({ content: D }), Dt(D, "warning", void 0, true)],
+                    shouldQuery: false,
                     resultText: D,
                     command: r,
-                    forkDispatched: !0,
+                    forkDispatched: true,
                   }
                 );
               }
@@ -1142,7 +1142,7 @@ Original prompt: ${A}`;
               if (!(C.isMcp && C.loadedFrom !== "mcp")) e3e(C.name, C, "user-slash");
               let H = await Ie(C, E, t, [], [], void 0, A.hookMessages, T, Z),
                 V = H.messages[0];
-              if (V?.type === "user" && !V.isMeta) V.stackedExpansion = !0;
+              if (V?.type === "user" && !V.isMeta) V.stackedExpansion = true;
               _.messages.push(...H.messages),
                 (_.allowedTools = [...(_.allowedTools ?? []), ...(H.allowedTools ?? [])]),
                 (_.disallowedTools = [...(_.disallowedTools ?? []), ...(H.disallowedTools ?? [])]),
@@ -1166,8 +1166,8 @@ Original prompt: ${A}`;
             p(d, "cmd_prompt_aborted");
             let _ = [xe({ content: mF({ inputString: ae(r, o), precedingInputBlocks: m }), uuid: I })];
             if (!_V(t.abortController.signal.reason))
-              _.push(oI({ toolUse: !1, interruptedByShutdown: qS(t.abortController.signal) }));
-            return { messages: _, shouldQuery: !1, command: r };
+              _.push(oI({ toolUse: false, interruptedByShutdown: qS(t.abortController.signal) }));
+            return { messages: _, shouldQuery: false, command: r };
           }
           return (
             p(d, "cmd_prompt_threw"),
@@ -1176,7 +1176,7 @@ Original prompt: ${A}`;
                 xe({ content: mF({ inputString: ae(r, o), precedingInputBlocks: m }), uuid: I }),
                 xe({ content: `<local-command-stderr>${Wt(oae(i, r.name, t.session))}</local-command-stderr>` }),
               ],
-              shouldQuery: !1,
+              shouldQuery: false,
               command: r,
             }
           );
@@ -1189,7 +1189,7 @@ Original prompt: ${A}`;
         p(d, "cmd_malformed"),
         {
           messages: [xe({ content: mF({ inputString: f.message, precedingInputBlocks: m }) })],
-          shouldQuery: !1,
+          shouldQuery: false,
           command: r,
         }
       );
@@ -1204,16 +1204,16 @@ function be(e, o) {
 }
 var De = 5;
 function lpr(e, o, t, m) {
-  if (o === void 0 && m === void 0) return { stacked: [], trailingArgs: e, capped: !1 };
+  if (o === void 0 && m === void 0) return { stacked: [], trailingArgs: e, capped: false };
   let l = [],
     u = e,
     S = o,
-    I = !1;
+    I = false;
   for (let T = 0; ; T++) {
     let v = u.trimStart();
     if (!v.startsWith("/")) break;
     if (T >= De) {
-      I = !0;
+      I = true;
       break;
     }
     let N = Ex(v);
@@ -1232,7 +1232,7 @@ function lpr(e, o, t, m) {
       B.context === "fork" ||
       B.getContext !== void 0 ||
       B.argsMayContainSlashCommands ||
-      B.userInvocable === !1 ||
+      B.userInvocable === false ||
       !xp(B) ||
       rk(B)
     )
@@ -1253,7 +1253,7 @@ function Fe(e, o) {
 `);
 }
 function Re(e, o) {
-  if (e.userInvocable !== !1) return Fe(e.name, o);
+  if (e.userInvocable !== false) return Fe(e.name, o);
   if (
     e.loadedFrom === "skills" ||
     e.loadedFrom === "syncedSkills" ||
@@ -1286,14 +1286,14 @@ ${u.blockingError.blockingError}`,
             : `${S}
 
 Original prompt: ${l}`;
-        return { blocked: { messages: [Dt(I, "warning", void 0, !0)], shouldQuery: !1, resultText: I, command: e } };
+        return { blocked: { messages: [Dt(I, "warning", void 0, true)], shouldQuery: false, resultText: I, command: e } };
       }
       if (u.preventContinuation) {
         let S = u.stopReason ? `${see}: ${u.stopReason}` : see;
         return {
           blocked: {
-            messages: [xe({ content: S, isMeta: !0 }), Dt(S, "warning", void 0, !0)],
-            shouldQuery: !1,
+            messages: [xe({ content: S, isMeta: true }), Dt(S, "warning", void 0, true)],
+            shouldQuery: false,
             resultText: S,
             command: e,
           },
@@ -1325,7 +1325,7 @@ Original prompt: ${l}`;
   }
   return { hookMessages: m };
 }
-async function CEr(e, o, t, m, l = !1) {
+async function CEr(e, o, t, m, l = false) {
   let u = ua(e, t);
   if (!u) throw new kP(`Unknown command: ${Qn(e)}`);
   if (u.type !== "prompt")
@@ -1334,7 +1334,7 @@ async function CEr(e, o, t, m, l = !1) {
     );
   return Ie(u, o, m, [], [], void 0, [], void 0, void 0, l);
 }
-async function Ie(e, o, t, m = [], l = [], u, S = [], I, T, v = !1) {
+async function Ie(e, o, t, m = [], l = [], u, S = [], I, T, v = false) {
   if (e.loadedFrom === "syncedSkills" && kG()) throw new kP(`Unknown command: ${Qn(e.name)}`);
   if (dTe(t) && !v) {
     let i = Re(e, o),
@@ -1367,8 +1367,8 @@ Do not instruct workers to invoke this via the ${Do} tool \u2014 it will be refu
         },
       ];
       return {
-        messages: [xe({ content: i, uuid: u, origin: T }), ...Ce([xe({ content: Se(l, m, D), isMeta: !0 }), ...S])],
-        shouldQuery: !0,
+        messages: [xe({ content: i, uuid: u, origin: T }), ...Ce([xe({ content: Se(l, m, D), isMeta: true }), ...S])],
+        shouldQuery: true,
         disallowedTools: Bu(e.disallowedTools ?? []),
         command: e,
       };
@@ -1388,8 +1388,8 @@ Instruct a worker to use this skill by including "Use the /${Qn(e.name)} skill" 
       },
     ];
     return {
-      messages: [xe({ content: i, uuid: u, origin: T }), ...Ce([xe({ content: Se(l, m, V), isMeta: !0 }), ...S])],
-      shouldQuery: !0,
+      messages: [xe({ content: i, uuid: u, origin: T }), ...Ce([xe({ content: Se(l, m, V), isMeta: true }), ...S])],
+      shouldQuery: true,
       disallowedTools: Bu(e.disallowedTools ?? []),
       command: e,
     };
@@ -1403,8 +1403,8 @@ Instruct a worker to use this skill by including "Use the /${Qn(e.name)} skill" 
               ...t,
               options: {
                 ...t.options,
-                ...(I && { modelScheduledOrigin: !0 }),
-                ...(v && { isSkillPreload: !0, readOnlySkillLoad: !0 }),
+                ...(I && { modelScheduledOrigin: true }),
+                ...(v && { isSkillPreload: true, readOnlySkillLoad: true }),
               },
             }
           : t,
@@ -1451,10 +1451,10 @@ Instruct a worker to use this skill by including "Use the /${Qn(e.name)} skill" 
   return {
     messages: [
       xe({ content: J, uuid: u, origin: T }),
-      ...Ce([xe({ content: f, isMeta: !0 }), ...(M ? [M] : []), ...P, ...S]),
+      ...Ce([xe({ content: f, isMeta: true }), ...(M ? [M] : []), ...P, ...S]),
       In({ type: "command_permissions", allowedTools: r, model: SY(e.model) }),
     ],
-    shouldQuery: !0,
+    shouldQuery: true,
     allowedTools: r,
     disallowedTools: d,
     model: SY(e.model),
@@ -1468,10 +1468,10 @@ function Se(e, o, t) {
 function Ue(e, o, t) {
   return (
     e.applyMessageOp({ type: "insert-after-uuid", uuid: o.uuid, messages: t.messages }),
-    { ...t, messages: [], settledInPlace: !0 }
+    { ...t, messages: [], settledInPlace: true }
   );
 }
 function Ce(e) {
-  return e.map((o) => (o.type === "user" ? { ...o, turnCompanion: !0 } : o));
+  return e.map((o) => (o.type === "user" ? { ...o, turnCompanion: true } : o));
 }
 export { Pje, apr, Dje, oae, AEr, lpr, cpr, nBn, CEr };

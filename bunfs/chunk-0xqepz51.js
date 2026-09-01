@@ -41,12 +41,12 @@ function MBe({
     xe = hn(),
     { refusedWithin: Ae, noteRefused: Se } = pi();
   function ze() {
-    if (!k.settled || Ae(Xj)) return Se(), !0;
-    return !1;
+    if (!k.settled || Ae(Xj)) return Se(), true;
+    return false;
   }
   function _e() {
-    if (!I.settled) return w(), !0;
-    return !1;
+    if (!I.settled) return w(), true;
+    return false;
   }
   let V = C(A),
     le = z(() => Av(s), [s]),
@@ -94,12 +94,12 @@ function MBe({
       gap: 1,
       children: [
         e(t, {
-          dimColor: !0,
+          dimColor: true,
           children:
             "These permissions.allow entries in your user settings are broad enough that auto mode either ignores them at runtime, or auto-approves destructive commands with no check. Removing one means matching commands prompt again outside auto mode too.",
         }),
         e(o, { flexDirection: "column", children: le.map((p, L) => r(t, { children: [" \xB7 ", String(p)] }, s[L])) }),
-        e(t, { dimColor: !0, children: "Removed entries can be restored by re-adding them verbatim." }),
+        e(t, { dimColor: true, children: "Removed entries can be restored by re-adding them verbatim." }),
         e(
           Ce,
           {
@@ -115,8 +115,8 @@ function MBe({
             onChange: (p) => {
               if ((w(), p === "all")) c(s);
               else if (p === "pick") {
-                if (R(!0) === !1) return;
-                T(!0);
+                if (R(true) === false) return;
+                T(true);
               } else c([]);
             },
             onCancel: D,
@@ -140,9 +140,9 @@ function nke(lt) {
   if (n[0] !== j.settled || n[1] !== h)
     (Me = function B() {
       if (!j.settled) {
-        return h(), !0;
+        return h(), true;
       }
-      return !1;
+      return false;
     }),
       (n[0] = j.settled),
       (n[1] = h),
@@ -150,7 +150,7 @@ function nke(lt) {
   else Me = n[2];
   let B = Me,
     G = W === "decline" && !j.settled,
-    Pe = C(!1),
+    Pe = C(false),
     Ee;
   if (n[3] === d)
     (Ee = r(fe, {
@@ -160,7 +160,7 @@ function nke(lt) {
   else Ee = n[3];
   let K;
   if (n[4] !== a.environment)
-    (K = e(l, { label: "Environment", entries: a.environment, headers: !0 })), (n[4] = a.environment), (n[5] = K);
+    (K = e(l, { label: "Environment", entries: a.environment, headers: true })), (n[4] = a.environment), (n[5] = K);
   else K = n[5];
   let O;
   if (n[6] !== a.allow) (O = x(a.allow)), (n[6] = a.allow), (n[7] = O);
@@ -191,7 +191,7 @@ function nke(lt) {
   else J = n[17];
   let Q;
   if (n[18] !== a.notes)
-    (Q = e(l, { label: "Notes", entries: a.notes, empty: "none", dim: !0 })), (n[18] = a.notes), (n[19] = Q);
+    (Q = e(l, { label: "Notes", entries: a.notes, empty: "none", dim: true })), (n[18] = a.notes), (n[19] = Q);
   else Q = n[19];
   const he = G ? "held" : "settled";
   let Fe;
@@ -209,7 +209,7 @@ function nke(lt) {
         return;
       }
       if (!Pe.current) {
-        Pe.current = !0;
+        Pe.current = true;
         return;
       }
       ce?.(ct);
@@ -287,17 +287,17 @@ function l(pt) {
   let ke = _(10),
     { label: ye, entries: re, empty: be, dim: ve, headers: we } = pt,
     se;
-  if (ke[0] !== ye) (se = e(t, { bold: !0, children: ye })), (ke[0] = ye), (ke[1] = se);
+  if (ke[0] !== ye) (se = e(t, { bold: true, children: ye })), (ke[0] = ye), (ke[1] = se);
   else se = ke[1];
   let ae;
   if (ke[2] !== ve || ke[3] !== be || ke[4] !== re || ke[5] !== we)
     (ae =
       re.length === 0
-        ? r(t, { dimColor: !0, children: [" ", be ?? "nothing found"] })
+        ? r(t, { dimColor: true, children: [" ", be ?? "nothing found"] })
         : re.map((Re, Te) => {
             let De = Be;
             return we && Re.startsWith("### ")
-              ? r(t, { dimColor: !0, children: ["  ", De(Re.slice(4))] }, Te)
+              ? r(t, { dimColor: true, children: ["  ", De(Re.slice(4))] }, Te)
               : r(t, { dimColor: ve, children: ["  \xB7 ", De(Re)] }, Te);
           })),
       (ke[2] = ve),
@@ -330,13 +330,13 @@ var NBe = go({
     ),
     result: m(() => oe(["accept", "decline", "cancelled"])),
     default: "cancelled",
-    yieldsToPanels: !0,
+    yieldsToPanels: true,
   }),
   FBe = go({
     kind: "auto_mode_flagged_allow",
     payload: m(() => f({ flagged: H(i()), runId: i() })),
     result: m(() => dt([f({ toRemove: H(i()) }), N("cancelled")])),
     default: "cancelled",
-    yieldsToPanels: !0,
+    yieldsToPanels: true,
   });
 export { Xj, MBe, nke, NBe, FBe };

@@ -122,8 +122,8 @@ var i = "deep-research",
   ];
 var o = "tengu_sorrel_avocet";
 function l() {
-  if (I(o, !1)) return !1;
-  return !0;
+  if (I(o, false)) return false;
+  return true;
 }
 function a() {
   LUn(

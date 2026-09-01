@@ -68,7 +68,7 @@ function $0t(Fr) {
   }
   let ko;
   if (zr[0] !== ae)
-    (ko = e(o, { width: "100%", flexDirection: "column", children: e(ue, { tasks: ae, isStandalone: !0 }) })),
+    (ko = e(o, { width: "100%", flexDirection: "column", children: e(ue, { tasks: ae, isStandalone: true }) })),
       (zr[0] = ae),
       (zr[1] = ko);
   else ko = zr[1];
@@ -81,7 +81,7 @@ function Kt(n, i) {
   if (!isNaN(l) && !isNaN(m)) return l - m;
   return n.id.localeCompare(i.id);
 }
-function ue({ tasks: n, isStandalone: i = !1 }) {
+function ue({ tasks: n, isStandalone: i = false }) {
   let l = W((f) => f.teamContext),
     m = W((f) => f.tasks),
     [p, g] = u(0),
@@ -179,13 +179,13 @@ function ue({ tasks: n, isStandalone: i = !1 }) {
             ownerColor: f.owner ? E[f.owner] : void 0,
             openBlockers: f.blockedBy.filter((b) => st.has(b)),
             activity: f.owner ? j[f.owner] : void 0,
-            ownerActive: f.owner ? w.has(f.owner) : !1,
+            ownerActive: f.owner ? w.has(f.owner) : false,
             columns: x,
           },
           f.id,
         ),
       ),
-      M > 0 && ut && e(t, { dimColor: !0, children: ut }),
+      M > 0 && ut && e(t, { dimColor: true, children: ut }),
     ],
   });
   if (i)
@@ -196,14 +196,14 @@ function ue({ tasks: n, isStandalone: i = !1 }) {
       children: [
         e(o, {
           children: r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
-              e(t, { bold: !0, children: n.length }),
+              e(t, { bold: true, children: n.length }),
               " tasks (",
-              e(t, { bold: !0, children: B }),
+              e(t, { bold: true, children: B }),
               " done, ",
-              tt > 0 && r(U, { children: [e(t, { bold: !0, children: tt }), " in progress, "] }),
-              e(t, { bold: !0, children: Y }),
+              tt > 0 && r(U, { children: [e(t, { bold: true, children: tt }), " in progress, "] }),
+              e(t, { bold: true, children: Y }),
               " open)",
             ],
           }),
@@ -269,7 +269,7 @@ function Mn(Yr) {
     (De =
       Vt &&
       r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [" (", _e ? r(t, { color: _e, children: ["@", q.owner] }) : `@${q.owner}`, ")"],
       })),
       (ct[19] = _e),
@@ -281,7 +281,7 @@ function Mn(Yr) {
   if (ct[23] !== ce || ct[24] !== Ie)
     (Le =
       ce &&
-      r(t, { dimColor: !0, children: [" ", L.pointerSmall, " blocked by", " ", [...Ie].sort(yo).map(_o).join(", ")] })),
+      r(t, { dimColor: true, children: [" ", L.pointerSmall, " blocked by", " ", [...Ie].sort(yo).map(_o).join(", ")] })),
       (ct[23] = ce),
       (ct[24] = Ie),
       (ct[25] = Le);
@@ -297,7 +297,7 @@ function Mn(Yr) {
   else $e = ct[30];
   let We;
   if (ct[31] !== Ae || ct[32] !== Tn)
-    (We = Tn && Ae && e(o, { children: r(t, { dimColor: !0, children: ["  ", Ae, L.ellipsis] }) })),
+    (We = Tn && Ae && e(o, { children: r(t, { dimColor: true, children: ["  ", Ae, L.ellipsis] }) })),
       (ct[31] = Ae),
       (ct[32] = Tn),
       (ct[33] = We);
@@ -316,7 +316,7 @@ function Cn(n) {
   return Math.min(95, Math.round(l * 100));
 }
 function yn() {
-  return { toolWindowStart: null, toolWindowEnd: null, thinkingBurstStart: null, wasThinking: !1 };
+  return { toolWindowStart: null, toolWindowEnd: null, thinkingBurstStart: null, wasThinking: false };
 }
 function _n(n, i) {
   let { toolWindowStart: l, toolWindowEnd: m, thinkingBurstStart: p } = n;
@@ -357,7 +357,7 @@ function En(n, i) {
   return Math.min(Math.max((l - 1e4) / 1e4, 0), 1);
 }
 F();
-function Bn(n, i, l = !1, m = !1) {
+function Bn(n, i, l = false, m = false) {
   let p = C(n),
     g = C(i),
     h = C(0),
@@ -440,9 +440,9 @@ function Gn({
   columns: G,
   thinkingStatus: E,
   effortSuffix: j,
-  isCompacting: w = !1,
+  isCompacting: w = false,
   compactingStartTime: B = null,
-  showToolCallTimer: Y = !1,
+  showToolCallTimer: Y = false,
   retryStatus: tt = null,
 }) {
   let [st, D] = Bi(i ? null : n === "requesting" ? 50 : 100),
@@ -571,7 +571,7 @@ function Gn({
     oe = G - fo - 5,
     Ht = Me && oe > ne;
   if (!Ht && Me && R.kind === "thinking" && (j || gt !== "thinking")) {
-    if (oe > Ln) (V = "thinking"), (ne = Ln), (Ht = !0);
+    if (oe > Ln) (V = "thinking"), (ne = Ln), (Ht = true);
   }
   let an = Ht ? ne + rn : 0,
     Ce = sn && oe > an + Ot,
@@ -583,15 +583,15 @@ function Gn({
     go = !un && Z > 0.5 ? "warning" : void 0,
     mn = Z > 0 ? "warning" : void 0,
     ye = [
-      ...(M ? [e(t, { dimColor: !0, children: M }, "suffix")] : []),
-      ...(!N && Ce ? [e(t, { dimColor: !0, children: vt }, "elapsedTime")] : []),
+      ...(M ? [e(t, { dimColor: true, children: M }, "suffix")] : []),
+      ...(!N && Ce ? [e(t, { dimColor: true, children: vt }, "elapsedTime")] : []),
       ...(!N && ln
         ? [
             r(
               o,
               {
                 flexDirection: "row",
-                children: [e(jn, { mode: n }), r(t, { dimColor: !0, children: [Pt, " tokens"] })],
+                children: [e(jn, { mode: n }), r(t, { dimColor: true, children: [Pt, " tokens"] })],
               },
               "tokens",
             ),
@@ -611,9 +611,9 @@ function Gn({
           ? e(fe, { children: ye })
           : r(U, {
               children: [
-                e(t, { dimColor: !0, children: "(" }),
+                e(t, { dimColor: true, children: "(" }),
                 e(fe, { children: ye }),
-                e(t, { dimColor: !0, children: ")" }),
+                e(t, { dimColor: true, children: ")" }),
               ],
             })
         : null;
@@ -660,7 +660,7 @@ function Gn({
           gap: 1,
           marginLeft: $n,
           width: "100%",
-          children: [e(Py, { ratio: yt / 100, width: on, variant: "pill" }), e(t, { dimColor: !0, children: uo })],
+          children: [e(Py, { ratio: yt / 100, width: on, variant: "pill" }), e(t, { dimColor: true, children: uo })],
         }),
     ],
   });
@@ -681,7 +681,7 @@ function bnt(Ei) {
     No;
   if (X[5] === d)
     (No = e(o, {
-      "aria-hidden": !0,
+      "aria-hidden": true,
       flexWrap: "wrap",
       height: 1,
       width: 2,
@@ -701,7 +701,7 @@ function bnt(Ei) {
           Ao,
           r(o, {
             flexShrink: 1,
-            children: [It, r(t, { dimColor: !0, children: [" \xB7 will retry in ", me, " \xB7 check your network"] })],
+            children: [It, r(t, { dimColor: true, children: [" \xB7 will retry in ", me, " \xB7 check your network"] })],
           }),
         ],
       })),
@@ -716,7 +716,7 @@ function bnt(Ei) {
     let It;
     if (X[9] === d)
       (It = e(o, {
-        "aria-hidden": !0,
+        "aria-hidden": true,
         flexWrap: "wrap",
         height: 1,
         width: 2,
@@ -732,7 +732,7 @@ function bnt(Ei) {
     if (X[13] !== Dt) (kt = e(t, { color: "warning", children: Dt })), (X[13] = Dt), (X[14] = kt);
     else kt = X[14];
     let bt;
-    if (X[15] !== je) (bt = e(t, { dimColor: !0, children: je })), (X[15] = je), (X[16] = bt);
+    if (X[15] !== je) (bt = e(t, { dimColor: true, children: je })), (X[15] = je), (X[16] = bt);
     else bt = X[16];
     let de;
     if (X[17] !== kt || X[18] !== bt)
@@ -765,7 +765,7 @@ function bnt(Ei) {
   if (X[29] !== Dn) (kt = e(t, { color: "error", children: Dn })), (X[29] = Dn), (X[30] = kt);
   else kt = X[30];
   let bt;
-  if (X[31] !== He) (bt = e(t, { dimColor: !0, children: He })), (X[31] = He), (X[32] = bt);
+  if (X[31] !== He) (bt = e(t, { dimColor: true, children: He })), (X[31] = He), (X[32] = bt);
   else bt = X[32];
   let de;
   if (X[33] !== kt || X[34] !== bt)
@@ -786,7 +786,7 @@ function jn(Ai) {
     case "thinking": {
       let pe;
       if (Oo[0] === d)
-        (pe = e(o, { width: 2, children: e(t, { "aria-hidden": !0, dimColor: !0, children: L.arrowDown }) })),
+        (pe = e(o, { width: 2, children: e(t, { "aria-hidden": true, dimColor: true, children: L.arrowDown }) })),
           (Oo[0] = pe);
       else pe = Oo[0];
       return pe;
@@ -794,7 +794,7 @@ function jn(Ai) {
     case "requesting": {
       let pe;
       if (Oo[1] === d)
-        (pe = e(o, { width: 2, children: e(t, { "aria-hidden": !0, dimColor: !0, children: L.arrowUp }) })),
+        (pe = e(o, { width: 2, children: e(t, { "aria-hidden": true, dimColor: true, children: L.arrowUp }) })),
           (Oo[1] = pe);
       else pe = Oo[1];
       return pe;
@@ -858,7 +858,7 @@ function xXt(Et) {
   let Cs = ss.useRenderInput("Spinner", Zo, tr),
     er;
   if (Qn[6] !== Yn || Qn[7] !== Jn)
-    (er = C0() && (Ms || I("tengu_kairos_brief", !1)) && Yn && !Jn), (Qn[6] = Yn), (Qn[7] = Jn), (Qn[8] = er);
+    (er = C0() && (Ms || I("tengu_kairos_brief", false)) && Yn && !Jn), (Qn[6] = Yn), (Qn[7] = Jn), (Qn[8] = er);
   else er = Qn[8];
   let Zn = er,
     nr;
@@ -921,7 +921,7 @@ function co({
   compactingStartTime: k,
   spinnerSuffix: M,
   verbose: H,
-  hasActiveTools: G = !1,
+  hasActiveTools: G = false,
   turnEffort: E,
   turnModel: j,
   retryStatus: w,
@@ -985,11 +985,11 @@ function co({
     Zt = "claudeShimmer",
     te = g ?? jt,
     xe = h ?? Zt,
-    be = I("tengu_shining_fractals", !1),
+    be = I("tengu_shining_fractals", false),
     pt = J && z4e(),
     lt = W((S) => S.narration),
-    we = !1,
-    ee = tt.spinnerTipsEnabled !== !1,
+    we = false,
+    ee = tt.spinnerTipsEnabled !== false,
     ht = ee && Qt > 1800000,
     At = ee && Qt > 30000 && !ie().btwUseCount,
     Z = we
@@ -1048,16 +1048,16 @@ function co({
               r(t, {
                 wrap: "truncate-end",
                 children: [
-                  e(t, { dimColor: !0, bold: !0, children: " now: " }),
-                  e(t, { dimColor: !0, italic: !0, children: lt.now }),
+                  e(t, { dimColor: true, bold: true, children: " now: " }),
+                  e(t, { dimColor: true, italic: true, children: lt.now }),
                 ],
               }),
             lt?.next &&
               r(t, {
                 wrap: "truncate-end",
                 children: [
-                  e(t, { dimColor: !0, bold: !0, children: "next: " }),
-                  e(t, { dimColor: !0, italic: !0, children: lt.next }),
+                  e(t, { dimColor: true, bold: true, children: "next: " }),
+                  e(t, { dimColor: true, italic: true, children: lt.next }),
                 ],
               }),
             Z &&
@@ -1065,8 +1065,8 @@ function co({
                 marginTop: lt ? 1 : 0,
                 children: r(t, {
                   children: [
-                    e(t, { dimColor: !0, bold: !0, children: ` ${vt === "Tip" ? "tip" : vt}: ` }),
-                    e(t, { dimColor: !0, italic: !0, children: Z }),
+                    e(t, { dimColor: true, bold: true, children: ` ${vt === "Tip" ? "tip" : vt}: ` }),
+                    e(t, { dimColor: true, italic: true, children: Z }),
                   ],
                 }),
               }),
@@ -1078,14 +1078,14 @@ function co({
           ? e(o, {
               width: "100%",
               flexDirection: "column",
-              children: e(Pe, { children: e(t, { dimColor: !0, children: P }) }),
+              children: e(Pe, { children: e(t, { dimColor: true, children: P }) }),
             })
           : w
             ? Pt
               ? e(o, {
                   width: "100%",
                   flexDirection: "column",
-                  children: e(Pe, { children: e(t, { dimColor: !0, children: Pt }) }),
+                  children: e(Pe, { children: e(t, { dimColor: true, children: Pt }) }),
                 })
               : null
             : Ot || Ct
@@ -1093,8 +1093,8 @@ function co({
                   width: "100%",
                   flexDirection: "column",
                   children: [
-                    Ct && e(Pe, { children: e(t, { dimColor: !0, children: Ct }) }),
-                    Ot && e(Pe, { children: e(t, { dimColor: !0, children: Ot }) }),
+                    Ct && e(Pe, { children: e(t, { dimColor: true, children: Ct }) }),
+                    Ot && e(Pe, { children: e(t, { dimColor: true, children: Ot }) }),
                   ],
                 })
               : null,
@@ -1167,10 +1167,10 @@ function nn(Is) {
       ? e(t, { color: "error", children: Ut + qe })
       : r(U, {
           children: [
-            ze ? e(t, { dimColor: !0, children: ze }) : null,
+            ze ? e(t, { dimColor: true, children: ze }) : null,
             Xe ? e(t, { children: Xe }) : null,
-            Ye ? e(t, { dimColor: !0, children: Ye }) : null,
-            e(t, { dimColor: !0, children: qe }),
+            Ye ? e(t, { dimColor: true, children: Ye }) : null,
+            e(t, { dimColor: true, children: qe }),
           ],
         })),
       (wt[21] = Ye),
@@ -1250,7 +1250,7 @@ function wo() {
     else Te = ge[0];
     let Jt;
     if (ge[1] !== Yt)
-      (Jt = e(o, { ref: Yt, "aria-hidden": !0, flexWrap: "wrap", height: 1, width: 2, children: Te })),
+      (Jt = e(o, { ref: Yt, "aria-hidden": true, flexWrap: "wrap", height: 1, width: 2, children: Te })),
         (ge[1] = Yt),
         (ge[2] = Jt);
     else Jt = ge[2];
@@ -1267,7 +1267,7 @@ function wo() {
   else en = ge[5];
   let xr;
   if (ge[6] !== Yt || ge[7] !== en)
-    (xr = e(o, { ref: Yt, "aria-hidden": !0, flexWrap: "wrap", height: 1, width: 2, children: en })),
+    (xr = e(o, { ref: Yt, "aria-hidden": true, flexWrap: "wrap", height: 1, width: 2, children: en })),
       (ge[6] = Yt),
       (ge[7] = en),
       (ge[8] = xr);
@@ -1290,10 +1290,10 @@ function NMn({ entries: n, responseLength: i, event: l }) {
   let m = l.id != null ? n.find((p) => p.id === l.id) : n.findLast((p) => p.id == null);
   if (!m) return i;
   if (l.type === "content_block_start")
-    return (m.thinkingTokenEstimate = 0), (m.thinkingBlockBaseline = i), (m.sawEstimatedTokensThisBlock = !1), i;
+    return (m.thinkingTokenEstimate = 0), (m.thinkingBlockBaseline = i), (m.sawEstimatedTokensThisBlock = false), i;
   if (l.type === "thinking_progress") {
     if (
-      ((m.sawEstimatedTokensThisBlock = !0),
+      ((m.sawEstimatedTokensThisBlock = true),
       (m.thinkingTokenEstimate = (m.thinkingTokenEstimate ?? 0) + l.estimatedTokensDelta),
       m.outputTokens == null && l.id == null)
     ) {

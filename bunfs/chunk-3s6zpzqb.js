@@ -39,7 +39,7 @@ function qo(t) {
   return Ivn(t, "github.com");
 }
 function oj(t, e) {
-  if (!t || !e) return !1;
+  if (!t || !e) return false;
   let n = rJ(t);
   return n !== "" && n === rJ(e);
 }
@@ -55,12 +55,12 @@ function o(t) {
 function pfe(t) {
   t = t.replace(/^[\x00-\x20]+/, "");
   let e = t.indexOf("://");
-  if (e === -1) return !1;
+  if (e === -1) return false;
   let n = t.slice(e + 3),
     s = t.slice(0, e).toLowerCase();
   if (u.has(s)) {
     let i = n.match(/^[/\\]+/)?.[0] ?? "";
-    if (i.includes("\\")) return !0;
+    if (i.includes("\\")) return true;
     n = n.slice(i.length);
   }
   let r = n.search(/[/?#]/);
@@ -68,20 +68,20 @@ function pfe(t) {
 }
 function ffe(t) {
   if (t.includes("://")) {
-    if (pfe(t)) return !0;
+    if (pfe(t)) return true;
     try {
       let r = new URL(t);
-      if (r.protocol === "http:" || r.protocol === "https:") return !1;
+      if (r.protocol === "http:" || r.protocol === "https:") return false;
       return o(r.hostname);
     } catch {
-      return !0;
+      return true;
     }
   }
   let e = t.indexOf(":"),
     n = t.indexOf("@");
-  if (e >= 0 && n > e) return !0;
+  if (e >= 0 && n > e) return true;
   let s = t.match(/^(?:[^@]+@)?([^:]+):/)?.[1];
-  return s ? o(s) : !1;
+  return s ? o(s) : false;
 }
 function c(t) {
   let e = t.length;

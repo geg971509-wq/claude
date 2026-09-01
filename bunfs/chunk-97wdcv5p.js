@@ -294,7 +294,7 @@ import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-7jz6r17g.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 async function M(e, t, o) {
-  if ((await WSe(po(e), { agentType: t.agentType, isObserver: !0 }, o), (await KA(po(e), o))?.isObserver !== !0))
+  if ((await WSe(po(e), { agentType: t.agentType, isObserver: true }, o), (await KA(po(e), o))?.isObserver !== true))
     throw Error("observer marker read-back failed");
 }
 var v = {
@@ -316,7 +316,7 @@ var v = {
       w = r.options.tools.filter(K_),
       l = `${e.agentType}@${t.observedEnvelopeName}`,
       i = vc(r.agentContext) + 1,
-      A = wIt(yE(e, hD(c, B2(w), { skipReplFilter: !0 }), !0, !1, !1, i).resolvedTools),
+      A = wIt(yE(e, hD(c, B2(w), { skipReplFilter: true }), true, false, false, i).resolvedTools),
       u = q0(e.model, r.options.mainLoopModel, void 0, c.mode),
       y = KG({
         agentId: s,
@@ -328,7 +328,7 @@ var v = {
         selectedAgent: e,
         taskRegistry: p,
         cwd: void 0,
-        isObserver: !0,
+        isObserver: true,
         sessionScratch: r.session.sessionScratch,
       });
     XL(s, p);
@@ -339,7 +339,7 @@ var v = {
         startTime: Date.now(),
         agentType: e.agentType,
         agentDepth: i,
-        isAsync: !0,
+        isAsync: true,
         source: e.source,
         pluginId: W8(e) ? Vt(e.plugin) : void 0,
       },
@@ -352,7 +352,7 @@ var v = {
         subagentName: e.agentType,
         isBuiltIn: ja(e),
         invocationKind: "spawn",
-        invocationEmitted: !1,
+        invocationEmitted: false,
         ...PH(r.agentContext),
       };
     await fw(k, () =>
@@ -366,10 +366,10 @@ var v = {
               promptMessages: [xe({ content: o }), xe({ content: a, origin: { kind: "observer-activity" } })],
               toolUseContext: r,
               canUseTool: f,
-              isAsync: !0,
+              isAsync: true,
               querySource: jW(e.agentType, ja(e)),
               availableTools: A,
-              useExactTools: !0,
+              useExactTools: true,
               session: d,
               spawnMode: g,
               override: { agentId: po(s), abortController: y.abortController },
@@ -382,7 +382,7 @@ var v = {
           toolUseContext: r,
           taskRegistry: p,
           agentIdForCleanup: s,
-          enableSummarization: !1,
+          enableSummarization: false,
           getWorktreeResult: async () => ({}),
         }),
       ),
@@ -395,7 +395,7 @@ var v = {
       promptOrigin: { kind: "observer-activity" },
       toolUseContext: o,
       canUseTool: a,
-      suppressOwnerNotification: !0,
+      suppressOwnerNotification: true,
       workerPermissionMode: r,
     });
   },

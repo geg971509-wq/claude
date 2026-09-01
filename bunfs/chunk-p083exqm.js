@@ -334,7 +334,7 @@ import "/$bunfs/root/chunk-a4q326ap.js";
 import { d } from "/$bunfs/root/chunk-yz031c9r.js";
 F();
 function oe(_e) {
-  return h(_e), { offer: !1, reason: "probe_failed", failure: "threw", line: null };
+  return h(_e), { offer: false, reason: "probe_failed", failure: "threw", line: null };
 }
 function ie() {
   return Jr(1);
@@ -357,14 +357,14 @@ function ne(ge) {
   if (i[0] === d) (I = { kind: "deciding" }), (i[0] = I);
   else I = i[0];
   let [G, J] = u(I),
-    K = C(!1),
+    K = C(false),
     L;
   if (i[1] !== B)
     (L = function n(ke) {
       if (K.current) {
         return;
       }
-      (K.current = !0), J({ kind: "done" }), B(ke);
+      (K.current = true), J({ kind: "done" }), B(ke);
     }),
       (i[1] = B),
       (i[2] = L);
@@ -373,7 +373,7 @@ function ne(ge) {
     Q;
   if (i[3] !== D || i[4] !== n || i[5] !== b)
     (Q = () => {
-      let U = !0;
+      let U = true;
       return (
         D()
           .catch(oe)
@@ -385,7 +385,7 @@ function ne(ge) {
             else n(c);
           }),
         () => {
-          U = !1;
+          U = false;
         }
       );
     }),
@@ -421,7 +421,7 @@ function ne(ge) {
   else S = i[17];
   let X;
   if (i[18] !== l || i[19] !== R || i[20] !== S)
-    (X = r(me, { title: "File sync", onCancel: l, isCancelActive: !1, inputGuide: W, children: [R, S] })),
+    (X = r(me, { title: "File sync", onCancel: l, isCancelActive: false, inputGuide: W, children: [R, S] })),
       (i[18] = l),
       (i[19] = R),
       (i[20] = S),
@@ -434,7 +434,7 @@ function O() {
     a = Hi(ie),
     Y;
   if (Re[0] !== a.keyName || Re[1] !== a.pending)
-    (Y = a.pending ? r(t, { dimColor: !0, children: ["Press ", a.keyName, " again to exit"] }) : null),
+    (Y = a.pending ? r(t, { dimColor: true, children: ["Press ", a.keyName, " again to exit"] }) : null),
       (Re[0] = a.keyName),
       (Re[1] = a.pending),
       (Re[2] = Y);
@@ -454,7 +454,7 @@ function P(Se) {
   let m = Hi(re),
     ee;
   if (j[3] !== m.keyName || j[4] !== m.pending)
-    (ee = m.pending ? r(t, { dimColor: !0, children: ["Press ", m.keyName, " again to exit"] }) : null),
+    (ee = m.pending ? r(t, { dimColor: true, children: ["Press ", m.keyName, " again to exit"] }) : null),
       (j[3] = m.keyName),
       (j[4] = m.pending),
       (j[5] = ee);

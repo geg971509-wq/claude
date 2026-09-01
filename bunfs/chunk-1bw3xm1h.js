@@ -14,8 +14,8 @@ import { S } from "/$bunfs/root/chunk-yz031c9r.js";
 var x = S(function (re) {
   var ne = (e, n, t) => {
       if (!(n in e)) return;
-      if (e[n] === "true") return !0;
-      if (e[n] === "false") return !1;
+      if (e[n] === "true") return true;
+      if (e[n] === "false") return false;
       throw Error(`Cannot load ${t} "${n}". Expected "true" or "false", got ${e[n]}.`);
     },
     te = (e, n, t) => {
@@ -42,12 +42,12 @@ var VH = S(function ($e) {
     }
     get(e, n) {
       let t = this.hash(e);
-      if (t === !1) return n();
+      if (t === false) return n();
       if (!this.data.has(t)) {
         if (this.data.size > this.capacity + 10) {
           let r = this.data.keys(),
             s = 0;
-          while (!0) {
+          while (true) {
             let { value: o, done: i } = r.next();
             if ((this.data.delete(o), i || ++s > 10)) break;
           }
@@ -62,10 +62,10 @@ var VH = S(function ($e) {
     hash(e) {
       let n = "",
         { parameters: t } = this;
-      if (t.length === 0) return !1;
+      if (t.length === 0) return false;
       for (let r of t) {
         let s = String(e[r] ?? "");
-        if (s.includes("|;")) return !1;
+        if (s.includes("|;")) return false;
         n += s + "|;";
       }
       return n;
@@ -76,11 +76,11 @@ var VH = S(function ($e) {
     ),
     A = (e) => ie.test(e) || (e.startsWith("[") && e.endsWith("]")),
     ce = new RegExp("^(?!.*-$)(?!-)[a-zA-Z0-9-]{1,63}$"),
-    w = (e, n = !1) => {
+    w = (e, n = false) => {
       if (!n) return ce.test(e);
       let t = e.split(".");
-      for (let r of t) if (!w(r)) return !1;
-      return !0;
+      for (let r of t) if (!w(r)) return false;
+      return true;
     },
     m = {},
     N = "endpoints";
@@ -214,7 +214,7 @@ var VH = S(function ($e) {
       let r = C(n, t);
       return (
         t.logger?.debug?.(`${N} evaluateCondition: ${d(n)} = ${d(r)}`),
-        { result: r === "" ? !0 : !!r, ...(e != null && { toAssign: { name: e, value: r } }) }
+        { result: r === "" ? true : !!r, ...(e != null && { toAssign: { name: e, value: r } }) }
       );
     },
     P = (e = [], n) => {
@@ -224,7 +224,7 @@ var VH = S(function ($e) {
         if (!s) return { result: s };
         if (o) (t[o.name] = o.value), n.logger?.debug?.(`${N} assign: ${o.name} := ${d(o.value)}`);
       }
-      return { result: !0, referenceRecord: t };
+      return { result: true, referenceRecord: t };
     },
     Re = (e, n) =>
       Object.entries(e).reduce(
@@ -328,31 +328,31 @@ var _g = S(function (Be) {
     De = VH(),
     W = "AWS_USE_DUALSTACK_ENDPOINT",
     K = "use_dualstack_endpoint",
-    be = !1,
+    be = false,
     Ce = {
       environmentVariableSelector: (e) => f.booleanSelector(e, W, f.SelectorType.ENV),
       configFileSelector: (e) => f.booleanSelector(e, K, f.SelectorType.CONFIG),
-      default: !1,
+      default: false,
     },
     j = "AWS_USE_FIPS_ENDPOINT",
     M = "use_fips_endpoint",
-    Fe = !1,
+    Fe = false,
     ye = {
       environmentVariableSelector: (e) => f.booleanSelector(e, j, f.SelectorType.ENV),
       configFileSelector: (e) => f.booleanSelector(e, M, f.SelectorType.CONFIG),
-      default: !1,
+      default: false,
     },
     Le = (e) => {
       let { tls: n, endpoint: t, urlParser: r, useDualstackEndpoint: s } = e;
       return Object.assign(e, {
-        tls: n ?? !0,
+        tls: n ?? true,
         endpoint: _.normalizeProvider(typeof t === "string" ? r(t) : t),
-        isCustomEndpoint: !0,
-        useDualstackEndpoint: _.normalizeProvider(s ?? !1),
+        isCustomEndpoint: true,
+        useDualstackEndpoint: _.normalizeProvider(s ?? false),
       });
     },
     Ge = async (e) => {
-      let { tls: n = !0 } = e,
+      let { tls: n = true } = e,
         t = await e.region();
       if (!new RegExp(/^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9])$/).test(t))
         throw Error("Invalid region in client config");
@@ -363,10 +363,10 @@ var _g = S(function (Be) {
       return e.urlParser(`${n ? "https:" : "http:"}//${i}`);
     },
     Ve = (e) => {
-      let n = _.normalizeProvider(e.useDualstackEndpoint ?? !1),
+      let n = _.normalizeProvider(e.useDualstackEndpoint ?? false),
         { endpoint: t, useFipsEndpoint: r, urlParser: s, tls: o } = e;
       return Object.assign(e, {
-        tls: o ?? !0,
+        tls: o ?? true,
         endpoint: t
           ? _.normalizeProvider(typeof t === "string" ? s(t) : t)
           : () => Ge({ ...e, useDualstackEndpoint: n, useFipsEndpoint: r }),
@@ -412,7 +412,7 @@ var _g = S(function (Be) {
         },
         useFipsEndpoint: async () => {
           let r = typeof n === "string" ? n : await n();
-          if (B(r)) return !0;
+          if (B(r)) return true;
           return typeof t !== "function" ? Promise.resolve(!!t) : t();
         },
       });
@@ -431,7 +431,7 @@ var _g = S(function (Be) {
     },
     Ze = (
       e,
-      { useFipsEndpoint: n = !1, useDualstackEndpoint: t = !1, signingService: r, regionHash: s, partitionHash: o },
+      { useFipsEndpoint: n = false, useDualstackEndpoint: t = false, signingService: r, regionHash: s, partitionHash: o },
     ) => {
       let i = Me(e, { partitionHash: o }),
         a = e in s ? e : (o[i]?.endpoint ?? e),

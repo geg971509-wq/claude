@@ -27,7 +27,7 @@ import { Vpt, Wb } from "/$bunfs/root/modules/chunk-zze8764r/functions-020.js";
 function $1t({ toolName: e, toolUseID: t, abortSignal: r, onProgress: o }) {
   if (e === yt) return nTn;
   let u = Date.now(),
-    d = !1,
+    d = false,
     _ = 0,
     C = setInterval(() => {
       try {
@@ -48,7 +48,7 @@ function $1t({ toolName: e, toolUseID: t, abortSignal: r, onProgress: o }) {
   C.unref();
   function A() {
     if (d) return;
-    (d = !0), clearInterval(C);
+    (d = true), clearInterval(C);
   }
   return A;
 }
@@ -141,10 +141,10 @@ function oTn(e, t) {
             try {
               return Boolean(u?.isConcurrencySafe(d.data));
             } catch {
-              return !1;
+              return false;
             }
           })()
-        : !1;
+        : false;
     if (_ && r.at(-1)?.isConcurrencySafe) r.at(-1).blocks.push(o);
     else r.push({ isConcurrencySafe: _, blocks: [o] });
     return r;
@@ -244,19 +244,19 @@ function k3n(e) {
     return;
   }
   if (typeof e === "object" && e !== null && e.updatedPermissions !== void 0 && t.data.updatedPermissions === void 0)
-    return { ...t.data, updatedPermissionsDropped: !0 };
+    return { ...t.data, updatedPermissionsDropped: true };
   return t.data;
 }
 
 function Gye(e, t, r) {
-  if (typeof e !== "string") return !1;
-  if (e === t) return y("bridge_permission_toolname_check"), !1;
+  if (typeof e !== "string") return false;
+  if (e === t) return y("bridge_permission_toolname_check"), false;
   return (
     n(`Ignoring can_use_tool control_response for request_id=${r}: toolName '${e}' does not match pending '${t}'`, {
       level: "warn",
     }),
     p("bridge_permission_toolname_check", "toolname_mismatch"),
-    !0
+    true
   );
 }
 
@@ -311,7 +311,7 @@ function Mut(e) {
   return e.flatMap((t) => {
     switch (t.type) {
       case "assistant":
-        if (t.is_meta === !0) {
+        if (t.is_meta === true) {
           if (typeof t.local_command_source === "string")
             return [
               {
@@ -321,7 +321,7 @@ function Mut(e) {
                 level: "info",
                 timestamp: t.timestamp ?? new Date().toISOString(),
                 uuid: t.uuid ?? O1(),
-                isMeta: !1,
+                isMeta: false,
               },
             ];
           return [];
@@ -333,10 +333,10 @@ function Mut(e) {
             uuid: t.uuid ?? O1(),
             requestId: void 0,
             timestamp: t.timestamp ?? new Date().toISOString(),
-            ...(t.resumed_from_incomplete_thinking === !0 && { resumedFromIncompleteThinking: !0 }),
-            ...(t.is_virtual === !0 && { isVirtual: !0 }),
-            ...(t.aborted === !0 && { isAbortedMidStream: !0 }),
-            ...(t.is_api_error_message === !0 && { isApiErrorMessage: !0 }),
+            ...(t.resumed_from_incomplete_thinking === true && { resumedFromIncompleteThinking: true }),
+            ...(t.is_virtual === true && { isVirtual: true }),
+            ...(t.aborted === true && { isAbortedMidStream: true }),
+            ...(t.is_api_error_message === true && { isApiErrorMessage: true }),
             ...(t.api_error !== void 0 && { apiError: t.api_error }),
             ...(t.batch_tool_uses !== void 0 && t.batch_tool_uses.length > 0 && { batchToolUses: t.batch_tool_uses }),
           },
@@ -349,7 +349,7 @@ function Mut(e) {
             uuid: t.uuid ?? O1(),
             timestamp: t.timestamp ?? new Date().toISOString(),
             isMeta: t.isSynthetic,
-            ...(t.is_virtual === !0 && { isVirtual: !0 }),
+            ...(t.is_virtual === true && { isVirtual: true }),
           },
         ];
       case "system":
@@ -451,11 +451,11 @@ function Fut(e) {
     requestId: e.request_id,
     apiRefusalCategory: e.api_refusal_category,
     apiRefusalExplanation: e.api_refusal_explanation,
-    ...(e.saw_cyber_refusal && { sawCyberRefusal: !0 }),
+    ...(e.saw_cyber_refusal && { sawCyberRefusal: true }),
     ...(e.retracted_message_uuids !== void 0 && { retractedMessageUuids: e.retracted_message_uuids }),
     ...(e.refused_user_message_uuid !== void 0 && { refusedUserMessageUuid: e.refused_user_message_uuid }),
     ...(e.provisional && { provisional: e.provisional }),
-    isMeta: !1,
+    isMeta: false,
     uuid: e.uuid,
     timestamp: new Date().toISOString(),
   };
@@ -472,7 +472,7 @@ function $ut(e) {
     apiRefusalCategory: e.api_refusal_category,
     apiRefusalExplanation: e.api_refusal_explanation,
     refusedUserMessageUuid: e.refused_user_message_uuid,
-    isMeta: !1,
+    isMeta: false,
     uuid: e.uuid,
     timestamp: new Date().toISOString(),
   };
@@ -487,7 +487,7 @@ function Uut(e) {
     trigger: e.trigger,
     originalModel: e.original_model,
     fallbackModel: e.fallback_model,
-    isMeta: !1,
+    isMeta: false,
     uuid: e.uuid,
     timestamp: new Date().toISOString(),
   };
@@ -503,7 +503,7 @@ function But(e) {
     originalModel: e.original_model,
     fallbackModel: e.fallback_model,
     persistedAsDefault: e.persisted_as_default,
-    isMeta: !1,
+    isMeta: false,
     uuid: e.uuid,
     timestamp: new Date().toISOString(),
   };
@@ -532,11 +532,11 @@ function o4e(e, t = "local") {
 
 function wTe(e) {
   let t = {
-    aborted: e.isAbortedMidStream ? !0 : void 0,
-    is_api_error_message: e.isApiErrorMessage === !0 ? !0 : void 0,
+    aborted: e.isAbortedMidStream ? true : void 0,
+    is_api_error_message: e.isApiErrorMessage === true ? true : void 0,
     api_error: e.apiError,
-    resumed_from_incomplete_thinking: e.resumedFromIncompleteThinking === !0 ? !0 : void 0,
-    is_virtual: e.isVirtual === !0 ? !0 : void 0,
+    resumed_from_incomplete_thinking: e.resumedFromIncompleteThinking === true ? true : void 0,
+    is_virtual: e.isVirtual === true ? true : void 0,
     batch_tool_uses: e.batchToolUses !== void 0 && e.batchToolUses.length > 0 ? e.batchToolUses : void 0,
   };
   return Qs(t, (r) => r !== void 0);
@@ -550,7 +550,7 @@ function jut(e, t) {
     parent_tool_use_id: null,
     uuid: e.source_uuid || t.uuid,
     timestamp: t.timestamp,
-    isReplay: !0,
+    isReplay: true,
     ...(e.fileAttachments?.length && { file_attachments: e.fileAttachments }),
     ...(e.origin && { origin: R2(e.origin) }),
   };
@@ -617,7 +617,7 @@ function H3n(e, t) {
               type: "assistant",
               message: Qc({ content: kTe(r.attachment) }).message,
               parent_tool_use_id: null,
-              is_meta: !0,
+              is_meta: true,
               session_id: K(),
               uuid: r.uuid,
               timestamp: r.timestamp,
@@ -640,7 +640,7 @@ function Wut(e, t, r) {
     host: { name: e.host, ...(e.workingDir !== void 0 && { working_dir: e.workingDir }) },
     ...(e.disposition !== void 0 && { disposition: e.disposition }),
     ...(e.label !== void 0 && { label: e.label }),
-    ...(e.unverified === !0 && { unverified: !0 }),
+    ...(e.unverified === true && { unverified: true }),
     lines: e.lines,
     uuid: t,
     session_id: r,
@@ -648,13 +648,13 @@ function Wut(e, t, r) {
 }
 
 function i4e(e, t, r, o) {
-  let u = !1,
-    d = !1,
+  let u = false,
+    d = false,
     _ = Et(e)
       .replace(/<local-command-(stdout|stderr)>([\s\S]*?)<\/local-command-\1>/g, (A, x, M) => {
         if (x === "stdout" ? u : d) return A;
-        if (x === "stdout") u = !0;
-        else d = !0;
+        if (x === "stdout") u = true;
+        else d = true;
         return kC(M);
       })
       .trim();
@@ -663,7 +663,7 @@ function i4e(e, t, r, o) {
     type: "assistant",
     message: { ...Qc({ content: _ }).message, stop_reason: "end_turn", stop_sequence: null },
     parent_tool_use_id: null,
-    is_meta: !0,
+    is_meta: true,
     local_command_source: Et(e),
     session_id: K(),
     uuid: t,
@@ -688,7 +688,7 @@ function Gut(e) {
   return { type: "tool_use_summary", summary: e.summary, preceding_tool_use_ids: e.precedingToolUseIds };
 }
 
-function yTn(e, { includeOverageInUse: t = !0, unifiedWindows: r } = {}) {
+function yTn(e, { includeOverageInUse: t = true, unifiedWindows: r } = {}) {
   if (!e) return;
   return {
     status: e.status,
@@ -704,7 +704,7 @@ function yTn(e, { includeOverageInUse: t = !0, unifiedWindows: r } = {}) {
     ...(e.isUsingOverage !== void 0 && { isUsingOverage: e.isUsingOverage }),
     ...(e.overageInUse !== void 0 && t && { overageInUse: e.overageInUse }),
     ...(e.surpassedThreshold !== void 0 && { surpassedThreshold: e.surpassedThreshold }),
-    ...(e.rateLimitGraceActive === !0 && { rateLimitGraceActive: !0 }),
+    ...(e.rateLimitGraceActive === true && { rateLimitGraceActive: true }),
     ...(e.overagePeriodMonthly !== void 0 && { overagePeriodMonthly: e.overagePeriodMonthly }),
     ...(e.overagePeriodChannel !== void 0 && { overagePeriodChannel: e.overagePeriodChannel }),
     ...(e.errorCode !== void 0 && { errorCode: e.errorCode }),
@@ -721,7 +721,7 @@ function x3n(e) {
     status: e.status,
     resetsAt: e.resetsAt ?? null,
     rateLimitType: e.rateLimitType ?? null,
-    isUsingOverage: e.isUsingOverage ?? !1,
+    isUsingOverage: e.isUsingOverage ?? false,
   };
 }
 
@@ -762,14 +762,14 @@ function IN(e) {
 }
 
 function zut(e, t = null) {
-  if (!e) return !1;
+  if (!e) return false;
   if (e.type === "assistant") {
     let r = bO(e.message.content);
     return r?.type === "text" || r?.type === "thinking" || r?.type === "redacted_thinking";
   }
   if (e.type === "user") {
     let r = e.message.content;
-    if (Array.isArray(r) && r.length > 0 && r.every((o) => "type" in o && o.type === "tool_result")) return !0;
+    if (Array.isArray(r) && r.length > 0 && r.every((o) => "type" in o && o.type === "tool_result")) return true;
   }
   return t === "end_turn";
 }
@@ -797,9 +797,9 @@ function man(e) {
 }
 
 function kTn(e) {
-  if (e.type !== "assistant" && e.type !== "user") return !1;
+  if (e.type !== "assistant" && e.type !== "user") return false;
   let t = e.message.content;
-  if (!Array.isArray(t)) return !1;
+  if (!Array.isArray(t)) return false;
   let r = t[0];
   return r?.type === "tool_use" || r?.type === "tool_result";
 }
@@ -829,7 +829,7 @@ function* gan(e, t) {
             ...(u.requestId !== void 0 && { request_id: u.requestId }),
             ...(r !== void 0 && { subagent_type: r }),
             ...(o !== void 0 && { task_description: o }),
-            ...(u.isApiErrorMessage === !0 && { is_api_error_message: !0 }),
+            ...(u.isApiErrorMessage === true && { is_api_error_message: true }),
             ...(e.data.message.type === "assistant" &&
               e.data.message.apiError !== void 0 && { api_error: e.data.message.apiError }),
             ...(d.length > 0 && { tool_use_meta: d }),
@@ -918,7 +918,7 @@ function* p7(e, t, r) {
           tool_name: e.data.toolName,
           parent_tool_use_id: e.parentToolUseID,
           elapsed_time_seconds: e.data.elapsedTimeSeconds,
-          heartbeat: !0,
+          heartbeat: true,
           session_id: K(),
           uuid: e.uuid,
         };
@@ -932,7 +932,7 @@ function* p7(e, t, r) {
           session_id: K(),
           uuid: e.uuid,
           subagent_type: e.data.agentType,
-          ...(e.data.resolved !== !0 && {
+          ...(e.data.resolved !== true && {
             subagent_retry: {
               agent_id: e.data.agentId,
               attempt: e.data.attempt,
@@ -959,7 +959,7 @@ function* p7(e, t, r) {
           tool_use_result: u.mcpMeta ? { content: u.toolUseResult, ...u.mcpMeta } : u.toolUseResult,
           ...(d.length > 0 && { tool_result_meta: d }),
           ...(u.origin && { origin: u.origin }),
-          ...(e.isVirtual === !0 && { is_virtual: !0 }),
+          ...(e.isVirtual === true && { is_virtual: true }),
         };
       }
       return;
@@ -993,7 +993,7 @@ async function* P3n(e, t, r, o) {
   let x = oKn(e.traceparent),
     M = yTe([A], [C], t, o)[Symbol.asyncIterator]();
   try {
-    while (!0) {
+    while (true) {
       let F = await iKn(x, () => M.next());
       if (F.done) break;
       let U = F.value;
@@ -1069,7 +1069,7 @@ async function* D3n(e, t, r, o) {
     if (Array.isArray(me))
       try {
         let ge =
-          F.suppressesAllPermissionUpdates?.(x.input) === !0 || (F.mcpInfo?.serverName === uy && aC())
+          F.suppressesAllPermissionUpdates?.(x.input) === true || (F.mcpInfo?.serverName === uy && aC())
             ? _D(me)
             : a9(me, F, he(o));
         o.setSessionToolPermissionContext((Ce) => yH(Ce, ge)), await FM(ge, o.storageV5);
@@ -1078,7 +1078,7 @@ async function* D3n(e, t, r, o) {
       }
   }
   let B = async (fe, me, ge, Ce, Ie, Ee) =>
-    Ee?.behavior === "ask" && Ee.forcedByCaller === !0
+    Ee?.behavior === "ask" && Ee.forcedByCaller === true
       ? Ee
       : { ...d, updatedInput: U, decisionReason: { type: "mode", mode: "default" } };
   if (
@@ -1093,7 +1093,7 @@ async function* D3n(e, t, r, o) {
   }
   let z = MN(_.message.content, t);
   yield { ..._, session_id: K(), parent_tool_use_id: null, ...(z.length > 0 && { tool_use_meta: z }) };
-  for await (let fe of yTe([x], [_], B, { ...o, requireCanUseTool: !0 })) {
+  for await (let fe of yTe([x], [_], B, { ...o, requireCanUseTool: true })) {
     if (eH(fe)) continue;
     if (fe.message) {
       if ((r.push(fe.message), u)) await Wb(r, void 0, void 0, void 0, o.storageV5);
@@ -1156,9 +1156,9 @@ function Xut(e, t, r = STn) {
       for (let x of A.message.content)
         if (x.type === "tool_result" && x.tool_use_id) {
           let M = u.get(x.tool_use_id);
-          if (M && x.is_error !== !0 && typeof x.content === "string" && !bjt(x.content)) {
+          if (M && x.is_error !== true && typeof x.content === "string" && !bjt(x.content)) {
             let W =
-                A.toolUseResult?.file?.truncatedByTokenCap === !0 ||
+                A.toolUseResult?.file?.truncatedByTokenCap === true ||
                 C.has(x.tool_use_id) ||
                 x.content.startsWith("<system-reminder>" + Lue),
               pe = x.content
@@ -1177,17 +1177,17 @@ function Xut(e, t, r = STn) {
                 timestamp: fe,
                 offset: me ? 1 : (M.offset ?? 1),
                 limit: me ? void 0 : M.limit,
-                ...(W && { isPartialView: !0 }),
+                ...(W && { isPartialView: true }),
               });
             }
           }
           let F = d.get(x.tool_use_id);
-          if (F && x.is_error !== !0 && A.timestamp) {
+          if (F && x.is_error !== true && A.timestamp) {
             let B = new Date(A.timestamp).getTime();
             o.set(F.filePath, { content: QE(F.content), timestamp: B, offset: void 0, limit: void 0 });
           }
           let U = _.get(x.tool_use_id);
-          if (U && x.is_error !== !0)
+          if (U && x.is_error !== true)
             try {
               let { content: B } = jAt(U);
               o.set(U, {
@@ -1195,7 +1195,7 @@ function Xut(e, t, r = STn) {
                 timestamp: dU(U),
                 offset: void 0,
                 limit: void 0,
-                contentNotInModelContext: !0,
+                contentNotInModelContext: true,
               });
             } catch (B) {
               n(`extractReadFilesFromMessages: skipping Edit disk read for ${U}: ${l(B)}`);
@@ -1273,7 +1273,7 @@ function DTn(e, t, r) {
       .catch(() => {});
     return;
   }
-  Bot.mkdir(vTn(e), { recursive: !0 })
+  Bot.mkdir(vTn(e), { recursive: true })
     .then(() =>
       Bot.appendFile(
         e,
@@ -1290,7 +1290,7 @@ function LTn(e, t, r, o, u) {
     return;
   } catch {
   } finally {
-    r.dumpInFlight = !1;
+    r.dumpInFlight = false;
   }
 }
 
@@ -1300,9 +1300,9 @@ function Wot(e, t) {
     o = O() && t !== void 0 ? { storageV5: t, key: Te.log(e, "apiDump") } : void 0;
   return async (u, d) => {
     let _ = Lu().dumpPrompts.stateByAgent,
-      C = _.get(e) ?? { initialized: !1, lastInitDataHash: "", dumpInFlight: !1 };
+      C = _.get(e) ?? { initialized: false, lastInitDataHash: "", dumpInFlight: false };
     if ((_.set(e, C), d?.method === "POST" && d.body && !C.dumpInFlight)) {
-      C.dumpInFlight = !0;
+      C.dumpInFlight = true;
       let A = new Date().toISOString();
       setImmediate(LTn, d.body, A, C, r, o);
     }
@@ -1315,7 +1315,7 @@ function ETe() {
 }
 
 function QC() {
-  if (a.CLAUDE_CODE_IS_COWORK) return !0;
+  if (a.CLAUDE_CODE_IS_COWORK) return true;
   return ETe();
 }
 
@@ -1340,7 +1340,7 @@ function GZ(e) {
 function CTe() {
   let e = UT();
   if (e.hydrationAttempted || !Got()) return;
-  e.hydrationAttempted = !0;
+  e.hydrationAttempted = true;
   let t = e.previousStateBySource;
   try {
     uY(wd());
@@ -1357,7 +1357,7 @@ function CTe() {
       t.set(d, {
         ..._,
         pendingChanges: null,
-        baselineFromDisk: !0,
+        baselineFromDisk: true,
         content: () => ({ model: _.model, system: [], tools: [] }),
       });
     }
@@ -1381,11 +1381,11 @@ function OT() {
       (e.pendingPersist = e.pendingPersist
         .then(async () => {
           if (o.action === "remove") {
-            uY(wd()), await $Tn(r, { force: !0 });
+            uY(wd()), await $Tn(r, { force: true });
             return;
           }
           if (e.latestQueuedPersist !== o) return;
-          await NTn(wd(), { recursive: !0, mode: 448 }), uY(wd()), await Wn(r, o.payload);
+          await NTn(wd(), { recursive: true, mode: 448 }), uY(wd()), await Wn(r, o.payload);
         })
         .catch(() => {}));
   } catch {}
@@ -1439,18 +1439,18 @@ function Yot(e) {
     let {
         system: t,
         toolSchemas: r,
-        anyDeferLoading: o = !1,
+        anyDeferLoading: o = false,
         querySource: u,
         model: d,
         agentId: _,
         fastMode: C,
         globalCacheStrategy: A = "",
         betas: x = [],
-        autoModeActive: M = !1,
-        isUsingOverage: F = !1,
-        is1hCacheTTL: U = !1,
+        autoModeActive: M = false,
+        isUsingOverage: F = false,
+        is1hCacheTTL: U = false,
         queryDepth: B,
-        cacheDiagnosis: W = !1,
+        cacheDiagnosis: W = false,
         effortValue: z,
         extraBodyParams: pe,
         getMessageHashes: fe,
@@ -1471,7 +1471,7 @@ function Yot(e) {
       Pt = KTn(Ie),
       ct = void 0,
       ut = () => ({ model: d, system: t, tools: r, messages: ct }),
-      en = C ?? !1,
+      en = C ?? false,
       nn = [...x].sort(),
       xt = z === void 0 ? "" : String(z),
       tt = pe === void 0 ? 0 : sC(pe);
@@ -1506,8 +1506,8 @@ function Yot(e) {
         callCount: 1,
         pendingChanges: null,
         prevCacheReadTokens: null,
-        cacheDeletionsPending: !1,
-        baselineFromDisk: !1,
+        cacheDeletionsPending: false,
+        baselineFromDisk: false,
         messageHashes: Ce,
         content: ut,
         perToolHashes: ze(),
@@ -1644,20 +1644,20 @@ function Xot({ querySource: e, agentId: t, messages: r, getMessageHashes: o }) {
       d.pendingChanges = YTn.some((pe) => z[pe]) ? z : null;
     } else if (B !== -1)
       d.pendingChanges = {
-        systemPromptChanged: !1,
-        toolSchemasChanged: !1,
-        modelChanged: !1,
-        fastModeChanged: !1,
-        cacheControlChanged: !1,
-        globalCacheStrategyChanged: !1,
-        betasChanged: !1,
-        autoModeChanged: !1,
-        overageChanged: !1,
-        cacheDiagnosisChanged: !1,
-        effortChanged: !1,
-        extraBodyChanged: !1,
-        deferLoadingPresenceChanged: !1,
-        messagesHistoryChanged: !0,
+        systemPromptChanged: false,
+        toolSchemasChanged: false,
+        modelChanged: false,
+        fastModeChanged: false,
+        cacheControlChanged: false,
+        globalCacheStrategyChanged: false,
+        betasChanged: false,
+        autoModeChanged: false,
+        overageChanged: false,
+        cacheDiagnosisChanged: false,
+        effortChanged: false,
+        extraBodyChanged: false,
+        deferLoadingPresenceChanged: false,
+        messagesHistoryChanged: true,
         firstChangedMessageIndex: B,
         prevMessageCount: C.length,
         addedToolCount: 0,
@@ -1742,7 +1742,7 @@ async function Jot(e, t, r, o, u, d, _) {
     let x = A.prevCacheReadTokens;
     A.prevCacheReadTokens = t;
     let M = A.baselineFromDisk;
-    A.baselineFromDisk = !1;
+    A.baselineFromDisk = false;
     let F = o.findLast((Ee) => Ee.type === "assistant"),
       U = F ? Date.now() - new Date(F.timestamp).getTime() : null;
     if (x === null) {
@@ -1751,7 +1751,7 @@ async function Jot(e, t, r, o, u, d, _) {
     }
     let B = A.pendingChanges;
     if (A.cacheDeletionsPending) {
-      (A.cacheDeletionsPending = !1),
+      (A.cacheDeletionsPending = false),
         n(`[PROMPT CACHE] cache deletion applied, cache read: ${x} \u2192 ${t} (expected drop)`),
         (A.pendingChanges = null);
       return;
@@ -1771,20 +1771,20 @@ async function Jot(e, t, r, o, u, d, _) {
     else if (U !== null) me = "likely server-side (prompt unchanged, <5min gap)";
     else me = "unknown cause";
     s("tengu_prompt_cache_break", {
-      systemPromptChanged: B?.systemPromptChanged ?? !1,
-      toolSchemasChanged: B?.toolSchemasChanged ?? !1,
-      modelChanged: B?.modelChanged ?? !1,
-      fastModeChanged: B?.fastModeChanged ?? !1,
-      cacheControlChanged: B?.cacheControlChanged ?? !1,
-      globalCacheStrategyChanged: B?.globalCacheStrategyChanged ?? !1,
-      betasChanged: B?.betasChanged ?? !1,
-      autoModeChanged: B?.autoModeChanged ?? !1,
-      overageChanged: B?.overageChanged ?? !1,
-      cacheDiagnosisChanged: B?.cacheDiagnosisChanged ?? !1,
-      effortChanged: B?.effortChanged ?? !1,
-      extraBodyChanged: B?.extraBodyChanged ?? !1,
-      deferLoadingPresenceChanged: B?.deferLoadingPresenceChanged ?? !1,
-      messagesHistoryChanged: B?.messagesHistoryChanged ?? !1,
+      systemPromptChanged: B?.systemPromptChanged ?? false,
+      toolSchemasChanged: B?.toolSchemasChanged ?? false,
+      modelChanged: B?.modelChanged ?? false,
+      fastModeChanged: B?.fastModeChanged ?? false,
+      cacheControlChanged: B?.cacheControlChanged ?? false,
+      globalCacheStrategyChanged: B?.globalCacheStrategyChanged ?? false,
+      betasChanged: B?.betasChanged ?? false,
+      autoModeChanged: B?.autoModeChanged ?? false,
+      overageChanged: B?.overageChanged ?? false,
+      cacheDiagnosisChanged: B?.cacheDiagnosisChanged ?? false,
+      effortChanged: B?.effortChanged ?? false,
+      extraBodyChanged: B?.extraBodyChanged ?? false,
+      deferLoadingPresenceChanged: B?.deferLoadingPresenceChanged ?? false,
+      messagesHistoryChanged: B?.messagesHistoryChanged ?? false,
       firstChangedMessageIndex: B?.firstChangedMessageIndex ?? -1,
       addedToolCount: B?.addedToolCount ?? 0,
       removedToolCount: B?.removedToolCount ?? 0,
@@ -1855,7 +1855,7 @@ function est(e, t) {
   CTe();
   let r = qZ(e, t),
     o = r ? UT().previousStateBySource.get(r) : void 0;
-  if (o) (o.cacheDeletionsPending = !0), OT();
+  if (o) (o.cacheDeletionsPending = true), OT();
 }
 
 function D1(e) {
@@ -1867,8 +1867,8 @@ function D1(e) {
     if (o) (o.prevCacheReadTokens = null), OT();
     return;
   }
-  let r = !1;
-  for (let [o, u] of t) if (GZ(o)) (u.prevCacheReadTokens = null), (r = !0);
+  let r = false;
+  for (let [o, u] of t) if (GZ(o)) (u.prevCacheReadTokens = null), (r = true);
   if (r) OT();
 }
 
@@ -1881,7 +1881,7 @@ function M3n(e) {
     r = t.previousStateBySource.size === 0 && !t.hydrationAttempted;
   if (e?.size) {
     for (let o of [...t.previousStateBySource.keys()]) if (!e.has(o)) t.previousStateBySource.delete(o);
-  } else t.previousStateBySource.clear(), (t.hydrationAttempted = !1);
+  } else t.previousStateBySource.clear(), (t.hydrationAttempted = false);
   if (!r) OT();
 }
 
@@ -2067,11 +2067,11 @@ function YZ() {
 }
 
 function a4e() {
-  YZ().setState(() => !0);
+  YZ().setState(() => true);
 }
 
 function ist() {
-  YZ().setState(() => !1);
+  YZ().setState(() => false);
 }
 
 function F3n() {
@@ -2084,7 +2084,7 @@ function $3n(e) {
 
 function ATe(e) {
   if (e?.reason !== "error" || !e.detail) return;
-  return `${_k} \xB7 automatic compaction failed: ` + ir(e.detail, rvn, !0);
+  return `${_k} \xB7 automatic compaction failed: ` + ir(e.detail, rvn, true);
 }
 
 function ast(e) {
@@ -2099,7 +2099,7 @@ function RTe(e) {
   return (
     !e.hasAttempted &&
     !iL(e.querySource) &&
-    (e.hasPrecomputedSwap === !0 || !ZE(e.querySource)) &&
+    (e.hasPrecomputedSwap === true || !ZE(e.querySource)) &&
     Qf() &&
     LB() &&
     !e.aborted
@@ -2122,7 +2122,7 @@ async function QZ(e) {
     F = C?.kind,
     U = C?.kind === "failed" ? C.failure.cause : void 0;
   if (!RTe({ hasAttempted: t, querySource: r, aborted: o, hasPrecomputedSwap: _ !== void 0 }))
-    return { result: null, hookBlocked: !1 };
+    return { result: null, hookBlocked: false };
   let { toolUseContext: W } = d,
     z = Gy(W.options.mainLoopModel, tu(W));
   s("tengu_reactive_compact_triggered", {
@@ -2151,7 +2151,7 @@ async function QZ(e) {
               querySource: r,
               trigger: "auto",
               thresholdSource: x,
-              precomputed: !0,
+              precomputed: true,
               precomputeTelemetry: {
                 statusAtPTL: _.statusAtPTL,
                 leadMs: _.leadMs,
@@ -2191,30 +2191,30 @@ async function QZ(e) {
       n(`Reactive compact blocked by PreCompact hook: ${me.blockedBy}`),
       W.onCompactEvent?.({ type: "compact_progress", event: { type: "compact_end" } }),
       W.onCompactEvent?.({ type: "sdk_status", status: null }),
-      { result: null, hookBlocked: !0 }
+      { result: null, hookBlocked: true }
     );
   W.onCompactEvent?.({ type: "compact_progress", event: { type: "compact_start", hintText: M } });
   let Ce = await ge().catch((Oe) => {
     let Fe = l(Oe);
     if (vD(Fe)) n(`Reactive compact API call failed: ${Fe}`, { level: "error" });
     else h(Oe);
-    return { ok: !1, reason: "error", detail: Fe };
+    return { ok: false, reason: "error", detail: Fe };
   });
   W.onCompactEvent?.({ type: "compact_progress", event: { type: "compact_end" } });
   let Ie = Ih(u);
   if (!Ce.ok) {
     let Oe = Ce.reason === "error" ? (Ce.detail ?? Ce.reason) : Ce.reason;
     return (
-      rue({ trigger: "auto", success: !1, durationMs: performance.now() - pe, preTokens: Ie, error: Oe }),
+      rue({ trigger: "auto", success: false, durationMs: performance.now() - pe, preTokens: Ie, error: Oe }),
       W.onCompactEvent?.({ type: "sdk_status", status: null, metadata: { compactResult: "failed", compactError: Oe } }),
-      { result: null, hookBlocked: !1, failure: { reason: Ce.reason, detail: Ce.detail } }
+      { result: null, hookBlocked: false, failure: { reason: Ce.reason, detail: Ce.detail } }
     );
   }
   let Ee = Ce.result.boundaryMarker;
   if (
     (rue({
       trigger: "auto",
-      success: !0,
+      success: true,
       durationMs: performance.now() - pe,
       preTokens: Ie,
       postTokens: Ou(Ee) ? Ee.compactMetadata.postTokens : void 0,
@@ -2227,7 +2227,7 @@ async function QZ(e) {
   let Pe =
     [me.userDisplayMessage, Ce.result.userDisplayMessage].filter(Boolean).join(`
 `) || void 0;
-  return { result: { ...Ce.result, userDisplayMessage: Pe }, hookBlocked: !1 };
+  return { result: { ...Ce.result, userDisplayMessage: Pe }, hookBlocked: false };
 }
 
 async function han(e, t, r) {
@@ -2262,7 +2262,7 @@ async function han(e, t, r) {
       if (w_n(M)) g("compact_reactive", "compact_reactive_aborted");
       else p("compact_reactive", `compact_reactive_aborted_${M}`);
     else p("compact_reactive", `compact_reactive_${A.reason}`);
-    return { ok: !1, reason: A.reason, detail: A.detail };
+    return { ok: false, reason: A.reason, detail: A.detail };
   }
   return G1t({
     compactResult: A.result,
@@ -2274,7 +2274,7 @@ async function han(e, t, r) {
     querySource: d,
     trigger: _,
     thresholdSource: r?.thresholdSource,
-    precomputed: !1,
+    precomputed: false,
     manualPrecomputeReuse: r?.manualPrecomputeReuse,
     mainChainTailAtStart: C,
   });
@@ -2304,7 +2304,7 @@ async function G1t(e) {
     await Vpt(U.storageV5), yQe(th([...t.summaryMessages, ...e.messagesToPreserve]));
   let pe = r.at(-1)?.uuid,
     fe = L1(_, W, pe);
-  if (((fe.compactMetadata.durationMs = Math.round(performance.now() - o)), A)) fe.compactMetadata.precomputed = !0;
+  if (((fe.compactMetadata.durationMs = Math.round(performance.now() - o)), A)) fe.compactMetadata.precomputed = true;
   let me = L7(r);
   if (me.size > 0) fe.compactMetadata.preCompactDiscoveredTools = [...me].sort();
   let ge = e.messagesToPreserve.map(Nle),
@@ -2370,7 +2370,7 @@ async function G1t(e) {
     JC(d, U.agentContext, U.agentId))
   )
     SCt(_ === "manual" ? "manual" : C !== void 0 ? "auto" : "reactive"), NU(F);
-  return { ok: !0, result: Pe };
+  return { ok: true, result: Pe };
 }
 
 async function ivn(e, t, r) {
@@ -2467,16 +2467,16 @@ async function lst(e, t, r, o, u) {
 
 function dvn(e) {
   let t = a.CLAUDE_CODE_SKIP_PLUGIN_MCP_SERVERS_EXCEPT;
-  if (!t) return !1;
+  if (!t) return false;
   let r = !LM(e);
   return t.split(",").some((o) => {
     let u = o.trim();
-    if (!u) return !1;
+    if (!u) return false;
     return u.includes("@") ? Vy(u, e.repository) : r && Vy(u, e.name);
   });
 }
 
-async function DL(e, t = [], r, o, { readOnlyListing: u = !1 } = {}) {
+async function DL(e, t = [], r, o, { readOnlyListing: u = false } = {}) {
   if (e.isBuiltin) return;
   if (a.CLAUDE_CODE_SKIP_PLUGIN_MCP_SERVERS) {
     if (!dvn(e)) {
@@ -2493,8 +2493,8 @@ async function DL(e, t = [], r, o, { readOnlyListing: u = !1 } = {}) {
     C = u && Dne(e.source),
     A = 0,
     x = (F) => {
-      if (C) return A++, !0;
-      if (!_) return !1;
+      if (C) return A++, true;
+      if (!_) return false;
       if (PL(F))
         return (
           n(
@@ -2502,7 +2502,7 @@ async function DL(e, t = [], r, o, { readOnlyListing: u = !1 } = {}) {
               "not resolved without a pre-approval download here \u2014 declare MCP servers inline or via a local in-dir .mcp.json.",
             { level: "warn" },
           ),
-          !0
+          true
         );
       if (g4(F) || F.split(/[/\\]/).some((U) => /^\.\. [ .]*$/.test(U)))
         return (
@@ -2510,9 +2510,9 @@ async function DL(e, t = [], r, o, { readOnlyListing: u = !1 } = {}) {
             `Skipping out-of-directory MCP source "${F}" for directory-loaded plugin "${e.name}": it may only reference files inside the plugin directory here.`,
             { level: "warn" },
           ),
-          !0
+          true
         );
-      return !1;
+      return false;
     },
     M = C ? null : await DTe(e, ".mcp.json", r, { confine: _ });
   if (M) d = { ...d, ...M };
@@ -2552,7 +2552,7 @@ async function DL(e, t = [], r, o, { readOnlyListing: u = !1 } = {}) {
   return Object.keys(d).length > 0 ? d : void 0;
 }
 
-async function DTe(e, t, r, { confine: o = !1 } = {}) {
+async function DTe(e, t, r, { confine: o = false } = {}) {
   let u = le(),
     d = uvn(e.path, t);
   if (o) {
@@ -2693,9 +2693,9 @@ function yvn(e, t, r, o, u, d) {
   }
   let U;
   if ((F.type === "sse" || F.type === "http" || F.type === "ws") && "url" in F) {
-    let B = !1;
+    let B = false;
     try {
-      new URL(F.url), (B = !0);
+      new URL(F.url), (B = true);
     } catch {}
     if (!B) {
       if (!A?.trim()) (U = "url_empty"), (C = "No URL configured for this server");
@@ -2758,15 +2758,15 @@ function eee(e, t) {
 }
 
 function F1(e, t) {
-  if (t === "*") return !0;
+  if (t === "*") return true;
   let r;
   try {
     r = new URL(e);
   } catch {
-    return !1;
+    return false;
   }
   let o = t.replaceAll("*", BT),
-    u = !1,
+    u = false,
     d;
   try {
     d = new URL(o);
@@ -2774,7 +2774,7 @@ function F1(e, t) {
     let M = o.replace(new RegExp(`:${BT}(?=[/?#]|$)`), ":0");
     if (M !== o)
       try {
-        (d = new URL(M)), (u = !0);
+        (d = new URL(M)), (u = true);
       } catch {}
   }
   if (!d) {
@@ -2782,7 +2782,7 @@ function F1(e, t) {
       F = t.replace(/[.+?^${}()|[\]\\]/g, "\\$&");
     return new RegExp(`^${F.replaceAll("*", "[^/]*")}$`).test(M);
   }
-  if (d.protocol !== `${BT}:` && d.protocol !== r.protocol) return !1;
+  if (d.protocol !== `${BT}:` && d.protocol !== r.protocol) return false;
   let _ = r.hostname.replace(/\.$/, "").toLowerCase(),
     A = d.hostname
       .replace(/\.$/, "")
@@ -2790,10 +2790,10 @@ function F1(e, t) {
       .replaceAll(BT, "*")
       .replace(/[.+?^${}()|[\]\\]/g, "\\$&")
       .replaceAll("*", "[^/]*");
-  if (!new RegExp(`^${A}$`).test(_)) return !1;
-  if (d.port === "" && d.hostname.includes(BT)) u = !0;
-  if (!u && d.port !== r.port) return !1;
-  if ((d.pathname === "/" || d.pathname === "") && d.search === "" && !o.endsWith("/")) return !0;
+  if (!new RegExp(`^${A}$`).test(_)) return false;
+  if (d.port === "" && d.hostname.includes(BT)) u = true;
+  if (!u && d.port !== r.port) return false;
+  if ((d.pathname === "/" || d.pathname === "") && d.search === "" && !o.endsWith("/")) return true;
   let x = (d.pathname + d.search)
     .replaceAll(BT, "*")
     .replace(/[.+?^${}()|[\]\\]/g, "\\$&")
@@ -2802,12 +2802,12 @@ function F1(e, t) {
 }
 
 function zx() {
-  return !1;
+  return false;
 }
 
 function kvn() {
   return {
-    roots: { listChanged: !0 },
+    roots: { listChanged: true },
     elicitation: {},
     ...(zx() && { tasks: { requests: { elicitation: { create: {} } } } }),
   };
@@ -2834,7 +2834,7 @@ function Tvn(e) {
 }
 
 function k3e() {
-  return I("tengu_mcp_stateless_skip_init", !0);
+  return I("tengu_mcp_stateless_skip_init", true);
 }
 
 function cst() {
@@ -2849,7 +2849,7 @@ function cst() {
 }
 
 function Pvn(e) {
-  if (!st.isAxiosError(e)) return !1;
+  if (!st.isAxiosError(e)) return false;
   let t = e.response?.status;
   if (t !== void 0) return t >= 500 && t < 600;
   return e.code !== void 0 && Rvn.has(e.code);
@@ -2960,7 +2960,7 @@ async function Ivn(e) {
         ),
       x = Date.now(),
       M;
-    while (!0) {
+    while (true) {
       t++;
       try {
         M = await A();
@@ -3096,7 +3096,7 @@ function Uvn(e) {
 }
 
 function IG(e) {
-  return pst(e, !1);
+  return pst(e, false);
 }
 
 function pst(e, t) {
@@ -3133,7 +3133,7 @@ function pst(e, t) {
   if (!t) {
     let d = e.cause;
     for (let _ = 0; _ < 4 && d !== void 0; _++) {
-      let C = pst(d, !0);
+      let C = pst(d, true);
       if (C !== "other") return C;
       d = d instanceof Error ? d.cause : void 0;
     }
@@ -3142,9 +3142,9 @@ function pst(e, t) {
 }
 
 function Cee(e) {
-  if (e.type !== "failed") return !1;
+  if (e.type !== "failed") return false;
   let t = e.config.type ?? "";
-  if (!Hvn.has(t)) return !1;
+  if (!Hvn.has(t)) return false;
   if (e.errorCode !== void 0) return GTe.has(e.errorCode);
   return t === "sse";
 }
@@ -3157,7 +3157,7 @@ function $L(e, t) {
 function u_(e, t) {
   let r = ln(t),
     o = e.name;
-  if (!o) return !1;
+  if (!o) return false;
   return o.startsWith(`mcp__${r}__`) || o.startsWith(`${r}:`);
 }
 
@@ -3212,14 +3212,14 @@ function Tsn(e, t) {
 function _9n(e, t, r) {
   return Tsn(e, (o) => {
     if (r !== void 0 && wsn(o.config, r))
-      return Z(o.name, "excludeStalePluginClients: marking stale (declared under a previous workspace root)"), !0;
+      return Z(o.name, "excludeStalePluginClients: marking stale (declared under a previous workspace root)"), true;
     let u = t[o.name];
     if (!u) {
-      if (o.config.scope === "dynamic") return Z(o.name, "excludeStalePluginClients: marking stale (removed)"), !0;
-      return !1;
+      if (o.config.scope === "dynamic") return Z(o.name, "excludeStalePluginClients: marking stale (removed)"), true;
+      return false;
     }
-    if (MM(o.config) !== MM(u)) return Z(o.name, "excludeStalePluginClients: marking stale (config hash changed)"), !0;
-    return !1;
+    if (MM(o.config) !== MM(u)) return Z(o.name, "excludeStalePluginClients: marking stale (config hash changed)"), true;
+    return false;
   });
 }
 
@@ -3294,7 +3294,7 @@ function S9n(e) {
 
 function mst(e) {
   let t = gw();
-  if (hQe().some((u) => u.workspaceKey === t && Mpe(u.name, e))) return !0;
+  if (hQe().some((u) => u.workspaceKey === t && Mpe(u.name, e))) return true;
   let r = !$T(),
     o = CC({ onIndeterminate: "tracked" });
   for (let u of xi()) {
@@ -3302,10 +3302,10 @@ function mst(e) {
     if (u === "localSettings" && o) continue;
     let d = ye(u);
     if (!d) continue;
-    if (d.enableAllProjectMcpServers) return !0;
-    if (d.enabledMcpjsonServers?.some((_) => Mpe(_, e))) return !0;
+    if (d.enableAllProjectMcpServers) return true;
+    if (d.enabledMcpjsonServers?.some((_) => Mpe(_, e))) return true;
   }
-  return !1;
+  return false;
 }
 
 function wye(e) {
@@ -3366,14 +3366,14 @@ function Esn(e) {
     case "sse":
     case "http":
     case "sdk":
-      return !0;
+      return true;
     case "ws":
     case "sse-ide":
     case "ws-ide":
     case "claudeai-proxy":
-      return !1;
+      return false;
     default:
-      return !1;
+      return false;
   }
 }
 
@@ -3394,10 +3394,10 @@ function Asn(e) {
   }
   let r = [];
   for (let [o, { config: u, sourceAgents: d }] of t)
-    if (Wvn(u)) r.push({ name: o, sourceAgents: d, transport: "stdio", command: u.command, needsAuth: !1 });
-    else if (zvn(u)) r.push({ name: o, sourceAgents: d, transport: "sse", url: u.url, needsAuth: !0 });
-    else if (Gvn(u)) r.push({ name: o, sourceAgents: d, transport: "http", url: u.url, needsAuth: !0 });
-    else if (qvn(u)) r.push({ name: o, sourceAgents: d, transport: "ws", url: u.url, needsAuth: !1 });
+    if (Wvn(u)) r.push({ name: o, sourceAgents: d, transport: "stdio", command: u.command, needsAuth: false });
+    else if (zvn(u)) r.push({ name: o, sourceAgents: d, transport: "sse", url: u.url, needsAuth: true });
+    else if (Gvn(u)) r.push({ name: o, sourceAgents: d, transport: "http", url: u.url, needsAuth: true });
+    else if (qvn(u)) r.push({ name: o, sourceAgents: d, transport: "ws", url: u.url, needsAuth: false });
   return r.sort((o, u) => o.name.localeCompare(u.name));
 }
 
@@ -3436,7 +3436,7 @@ function kte(e) {
 }
 
 function _st(e, t) {
-  if (e.length !== t.length) return !1;
+  if (e.length !== t.length) return false;
   return e.every((r, o) => r === t[o]);
 }
 
@@ -3520,23 +3520,23 @@ function oEn(e, t) {
   for (let [r, o] of e) {
     if (o === "rest") continue;
     let u = t[r];
-    if (typeof u === "string" && (o === "scheme" ? rEn : nEn).test(u)) return !0;
+    if (typeof u === "string" && (o === "scheme" ? rEn : nEn).test(u)) return true;
   }
-  return !1;
+  return false;
 }
 
 function sEn(e, t) {
   for (let r of e.matchAll(new RegExp(Uxe, "g"))) {
     let o = t[r[1]];
     if (typeof o !== "string") continue;
-    if (/[?#]/.test(o)) return !0;
+    if (/[?#]/.test(o)) return true;
     let u = o
       .replace(/[\t\n\r]/g, "")
       .replaceAll("\\", "/")
       .replace(/%2e/gi, ".");
-    if (kst.test(u)) return !0;
+    if (kst.test(u)) return true;
   }
-  return !1;
+  return false;
 }
 
 function iEn(e) {
@@ -3619,7 +3619,7 @@ function a2(e, t) {
   if ("configError" in e && e.configError) return null;
   let r = kte(e);
   if (r) {
-    if (t?.includeEnv === !1) return `stdio:${b(r)}`;
+    if (t?.includeEnv === false) return `stdio:${b(r)}`;
     let d = Object.entries(e.env ?? {})
         .filter(([C]) => !aEn.has(C))
         .sort(([C], [A]) => (C < A ? -1 : C > A ? 1 : 0)),
@@ -3634,7 +3634,7 @@ function a2(e, t) {
 function Xgr(e, t) {
   let r = new Map();
   for (let [_, C] of Object.entries(t)) {
-    let A = a2(C, { includeEnv: !1 });
+    let A = a2(C, { includeEnv: false });
     if (A && !r.has(A)) r.set(A, _);
   }
   let o = {},
@@ -3646,7 +3646,7 @@ function Xgr(e, t) {
       o[_] = C;
       continue;
     }
-    let x = a2(C, { includeEnv: !1 }),
+    let x = a2(C, { includeEnv: false }),
       M = x !== null ? r.get(x) : void 0;
     if (M !== void 0) {
       n(`Suppressing plugin MCP server "${_}": duplicates manually-configured "${M}"`),
@@ -3676,7 +3676,7 @@ function cUt(e) {
   let t = new Map();
   for (let { scope: o, servers: u, displayServers: d } of e)
     for (let [_, C] of Object.entries(u)) {
-      let A = a2(C, { includeEnv: !1 });
+      let A = a2(C, { includeEnv: false });
       if (!A) continue;
       let x = t.get(_);
       if (!x) t.set(_, (x = []));
@@ -3759,8 +3759,8 @@ function gst(e, t) {
 
 function cce(e, t) {
   let r = uEn();
-  if (!r.deniedMcpServers) return !1;
-  for (let o of r.deniedMcpServers) if (UXe(o) && o.serverName === e) return !0;
+  if (!r.deniedMcpServers) return false;
+  for (let o of r.deniedMcpServers) if (UXe(o) && o.serverName === e) return true;
   if (t) {
     let { env: o, fallbackEnv: u } = Jvn(),
       d = kte(t);
@@ -3774,22 +3774,22 @@ function cce(e, t) {
             C,
           )
         )
-          return !0;
+          return true;
     }
     let _ = Tte(t);
     if (_) {
       let C = nee(_);
-      for (let A of r.deniedMcpServers) if (Lqt(A) && F1(C, wst(A.serverUrl, o, u).expanded)) return !0;
+      for (let A of r.deniedMcpServers) if (Lqt(A) && F1(C, wst(A.serverUrl, o, u).expanded)) return true;
     }
   }
-  return !1;
+  return false;
 }
 
 function p9(e, t) {
-  if (cce(e, t)) return !1;
+  if (cce(e, t)) return false;
   let r = cEn();
-  if (!r.allowedMcpServers) return !0;
-  if (r.allowedMcpServers.length === 0) return !1;
+  if (!r.allowedMcpServers) return true;
+  if (r.allowedMcpServers.length === 0) return false;
   let o = r.allowedMcpServers.some(Oqt),
     u = r.allowedMcpServers.some(Lqt);
   if (t) {
@@ -3799,43 +3799,43 @@ function p9(e, t) {
     if (_)
       if (o) {
         let A = _.map(nee),
-          x = !1;
+          x = false;
         for (let M of r.allowedMcpServers)
           if (Oqt(M)) {
             let F = M.serverCommand.map((U) => {
               let B = bst(U, d);
               return (x ||= B.missingVars.length > 0), B.expanded;
             });
-            if (_st(F, A)) return ree("ok"), !0;
+            if (_st(F, A)) return ree("ok"), true;
           }
-        return gst(x, !1), !1;
+        return gst(x, false), false;
       } else {
-        for (let A of r.allowedMcpServers) if (UXe(A) && A.serverName === e) return !0;
-        return !1;
+        for (let A of r.allowedMcpServers) if (UXe(A) && A.serverName === e) return true;
+        return false;
       }
     else if (C)
       if (u) {
         let A = nee(C),
-          x = !1,
-          M = !1;
+          x = false,
+          M = false;
         for (let F of r.allowedMcpServers) {
           if (!Lqt(F)) continue;
           let { expanded: U, unsafeExpansion: B, missingVars: W } = wst(F.serverUrl, d);
           if (((x ||= W.length > 0), (M ||= B), B)) continue;
-          if (F1(A, U)) return ree("ok"), !0;
+          if (F1(A, U)) return ree("ok"), true;
         }
-        return gst(x, M), !1;
+        return gst(x, M), false;
       } else {
-        for (let A of r.allowedMcpServers) if (UXe(A) && A.serverName === e) return !0;
-        return !1;
+        for (let A of r.allowedMcpServers) if (UXe(A) && A.serverName === e) return true;
+        return false;
       }
     else {
-      for (let A of r.allowedMcpServers) if (UXe(A) && A.serverName === e) return !0;
-      return !1;
+      for (let A of r.allowedMcpServers) if (UXe(A) && A.serverName === e) return true;
+      return false;
     }
   }
-  for (let d of r.allowedMcpServers) if (UXe(d) && d.serverName === e) return !0;
-  return !1;
+  for (let d of r.allowedMcpServers) if (UXe(d) && d.serverName === e) return true;
+  return false;
 }
 
 function Ppt(e) {
@@ -3854,9 +3854,9 @@ function Zx(e) {
 }
 
 function As(e, t) {
-  if (!pEn.has(t.scope)) return !1;
-  if (t.scope === "claudeai" && UY()) return !0;
-  if (t.type === "sdk") return !1;
+  if (!pEn.has(t.scope)) return false;
+  if (t.scope === "claudeai" && UY()) return true;
+  if (t.type === "sdk") return false;
   if (Ppt(e) || LT(t) || t.type === "sse-ide" || t.type === "ws-ide") return cce(e, t);
   return !p9(e, t);
 }
@@ -3873,7 +3873,7 @@ function USe(e) {
 
 function mEn(e) {
   let t = [],
-    r = !1;
+    r = false;
   function o(d) {
     let { expanded: _, missingVars: C } = iD(d);
     return t.push(...C), _;
@@ -4031,17 +4031,17 @@ async function uce() {
     throw o;
   }
   if (!t.trim()) return {};
-  let r = f({ mcpServers: De(i(), _e()).default({}) }).safeParse(Ut(t, !1));
+  let r = f({ mcpServers: De(i(), _e()).default({}) }).safeParse(Ut(t, false));
   if (!r.success) throw Error(".mcp.json is malformed (not valid JSON, or mcpServers is not an object)");
   return r.data.mcpServers;
 }
 
-function kp(e, { expandVars: t = !0 } = {}) {
+function kp(e, { expandVars: t = true } = {}) {
   if ($n()) return { servers: uF(), errors: [] };
   return Tst(e, { expandVars: t });
 }
 
-function Tst(e, { expandVars: t = !0 } = {}) {
+function Tst(e, { expandVars: t = true } = {}) {
   let r = { project: "projectSettings", user: "userSettings", local: "localSettings" };
   if (e in r && !_o(r[e])) return { servers: uF(), errors: [] };
   switch (e) {
@@ -4173,10 +4173,10 @@ async function nH(e = {}, t = {}) {
         if (!ze || !LM(Be)) return ze;
         let We = Qs(ze, (Ve, Pt) => {
           let ct = z(Pt);
-          if (ct === "approved") return !0;
-          if (ct === "pending" && t.includePendingProjectServers) return B.add(Pt), !0;
-          if (ct === "rejected" && t.includeRejectedProjectServers) return W.add(Pt), !0;
-          return !1;
+          if (ct === "approved") return true;
+          if (ct === "pending" && t.includePendingProjectServers) return B.add(Pt), true;
+          if (ct === "rejected" && t.includeRejectedProjectServers) return W.add(Pt), true;
+          return false;
         });
         return t.purpose === "deviceBridge" ? ts(We, (Ve) => ({ ...Ve, scope: "project" })) : We;
       }),
@@ -4492,7 +4492,7 @@ function Lqe(e) {
       }
     );
   }
-  let C = Ut(_, !1);
+  let C = Ut(_, false);
   if (!C)
     return (
       n(`MCP config is not valid JSON: ${t} (scope=${o}, length=${_.length}, first100=${b(_.slice(0, 100))})`, {

@@ -433,7 +433,7 @@ async function x(i) {
     let E = k !== null && typeof k === "object" && "code" in k ? String(k.code) : "",
       R = E === "ENOTFOUND" || E === "ECONNREFUSED";
     return {
-      ok: !1,
+      ok: false,
       message: `Couldn't reach the server \u2014 ${l(k)}${R ? "" : ". The move may still have gone through \u2014 check the session in the web UI."}`,
       mayHaveCommitted: !R,
     };
@@ -444,28 +444,28 @@ async function x(i) {
       R = k?.environment_id ?? m;
     return (
       n(`[code-session] move-to-cloud ${a} \u2192 ${E} (env ${R})`),
-      { ok: !0, environmentKind: E, environmentId: R, sessionId: a }
+      { ok: true, environmentKind: E, environmentId: R, sessionId: a }
     );
   }
   let I = $m(f.data) ?? "";
   if ((n(`[code-session] move-to-cloud ${a} failed ${f.status}${I ? `: ${I}` : ""}`), f.status >= 500))
     return {
-      ok: !1,
+      ok: false,
       message: `The server responded with ${f.status}. The move may still have gone through \u2014 check the session in the web UI.`,
-      mayHaveCommitted: !0,
+      mayHaveCommitted: true,
     };
   if (f.status === 400 && /not a bridge session/i.test(I))
     return {
-      ok: !1,
+      ok: false,
       message: "This session is already on cloud \u2014 refresh the web UI to see it.",
-      mayHaveCommitted: !0,
+      mayHaveCommitted: true,
     };
   return {
-    ok: !1,
+    ok: false,
     message:
       (I && !/^the request was invalid\.?$/i.test(I) ? I : "") ||
       `The server couldn\u2019t move this session (HTTP ${f.status}). Run with --debug to see the raw response.`,
-    mayHaveCommitted: !1,
+    mayHaveCommitted: false,
   };
 }
 function j(i) {
@@ -479,7 +479,7 @@ function j(i) {
 }
 async function G(i) {
   if (!Hn(ee())) return { kind: "no-git" };
-  let [a, d, _, m] = await Promise.all([cl(), cfe({ ignoreUntracked: !0 }), lJe(), Szt()]);
+  let [a, d, _, m] = await Promise.all([cl(), cfe({ ignoreUntracked: true }), lJe(), Szt()]);
   if (!d) return { kind: "dirty", branch: a };
   if (_ || !m) return { kind: "unpushed", branch: a };
   return { kind: "ready", outcomeBranch: `claude/teleport-${i.slice(-8)}` };
@@ -613,15 +613,15 @@ function X(i) {
 var J = 1e4,
   W = 100,
   P = 250;
-function H(i, a = !1) {
+function H(i, a = false) {
   i.setAppState((d) => {
     if (!d.replBridgeEnabled) return d;
     return {
       ...d,
-      replBridgeSkipNextArchive: !0,
-      replBridgeEnabled: !1,
-      replBridgeExplicit: !1,
-      replBridgeOutboundOnly: !1,
+      replBridgeSkipNextArchive: true,
+      replBridgeEnabled: false,
+      replBridgeExplicit: false,
+      replBridgeOutboundOnly: false,
       ...(a && { replBridgeSessionGroupingId: void 0 }),
     };
   });
@@ -629,7 +629,7 @@ function H(i, a = !1) {
 function q(i) {
   i.setAppState((a) => {
     if (a.replBridgeEnabled) return a;
-    return { ...a, replBridgeEnabled: !0 };
+    return { ...a, replBridgeEnabled: true };
   });
 }
 async function K(i, a, d = J) {
@@ -643,7 +643,7 @@ async function K(i, a, d = J) {
   return null;
 }
 async function L(i) {
-  let a = !1,
+  let a = false,
     d;
   try {
     d = await N({
@@ -664,7 +664,7 @@ async function L(i) {
         return (
           Mdt(d.sessionId),
           u2(void 0, void 0, void 0, i.storageV5),
-          setTimeout(H, P, i, !0),
+          setTimeout(H, P, i, true),
           f1(
             `Couldn\u2019t teleport: ${d.failure.message}
 ${B}`,
@@ -677,7 +677,7 @@ ${B}`,
       Mdt(d.success.sessionId), u2(void 0, void 0, void 0, i.storageV5);
       let _ = d.sessionUrl,
         m = U(d.success.sessionId);
-      if (m.kind === "disconnect") return setTimeout(H, P, i, !0), D(_, { kind: "disconnected" });
+      if (m.kind === "disconnect") return setTimeout(H, P, i, true), D(_, { kind: "disconnected" });
       H(i), await ne(0), q(i);
       let v = await K(m.oldSessionId, i.abortController.signal);
       return D(_, v ? { kind: "reconnected", newUrl: da(v, void 0, { from: "cli" }) } : { kind: "reconnect-pending" });
@@ -690,12 +690,12 @@ function V(i) {
 function qe({ onExit: i, context: a, exposure: d, retireOnSurface: _ }) {
   let [m, v] = u("menu");
   A(() => {
-    if (!d.logged) (d.logged = !0), V("shown");
+    if (!d.logged) (d.logged = true), V("shown");
   }, [d]);
-  let T = C(!1),
+  let T = C(false),
     S = (h) => {
-      if (T.current) return !1;
-      return (T.current = !0), V(h), !0;
+      if (T.current) return false;
+      return (T.current = true), V(h), true;
     },
     b = () => {
       if (S("cancel")) i("Teleport cancelled", { display: "system" });
@@ -707,7 +707,7 @@ function qe({ onExit: i, context: a, exposure: d, retireOnSurface: _ }) {
       },
       onCancel: () => i("Teleport cancelled", { display: "system" }),
       onError: (h) => i(h, { display: "system" }),
-      isEmbedded: !0,
+      isEmbedded: true,
       source: "localCommand",
     });
   if (m === "sending")
@@ -717,16 +717,16 @@ function qe({ onExit: i, context: a, exposure: d, retireOnSurface: _ }) {
       children: [
         r(o, {
           flexDirection: "row",
-          children: [e(wo, {}), e(t, { bold: !0, children: "Moving your session\u2026" })],
+          children: [e(wo, {}), e(t, { bold: true, children: "Moving your session\u2026" })],
         }),
-        e(t, { dimColor: !0, children: "Same session, picking up from your branch\u2019s last push." }),
+        e(t, { dimColor: true, children: "Same session, picking up from your branch\u2019s last push." }),
       ],
     });
   return r(o, {
     flexDirection: "column",
     padding: 1,
     children: [
-      e(t, { bold: !0, children: "Teleport" }),
+      e(t, { bold: true, children: "Teleport" }),
       e(o, {
         flexDirection: "column",
         marginTop: 1,

@@ -371,14 +371,14 @@ function It(Se) {
     [D] = u(oe),
     [O, Z] = u(""),
     [yt, Ct] = u(0),
-    [y, tt] = u(!1),
+    [y, tt] = u(false),
     { copiedVia: et, copy: X, reset: _t } = Yj(i.state === "waiting_for_login" ? i.url : null),
     rt = xt(),
     Ft;
   if (m[1] === d) (Ft = new Set()), (m[1] = Ft);
   else Ft = m[1];
   let M = C(Ft),
-    st = C(!1),
+    st = C(false),
     Re = Ee(),
     wt = Math.max(50, Re.columns - H.length - 4),
     Kt;
@@ -390,12 +390,12 @@ function It(Se) {
       }
       if (i.state !== "error") {
         if (S.key === "escape" || ((S.ctrl || S.meta) && (S.key === "c" || S.key === "d")))
-          S.preventDefault(), (st.current = !0), k("Design login cancelled.");
+          S.preventDefault(), (st.current = true), k("Design login cancelled.");
         return;
       }
       if ((S.preventDefault(), S.key === "return" && i.toRetry))
         Z(""), Ct(0), b({ state: "about_to_retry", nextState: i.toRetry });
-      else (st.current = !0), k("Design login cancelled.");
+      else (st.current = true), k("Design login cancelled.");
     }),
       (m[2] = i.state),
       (m[3] = i.toRetry),
@@ -442,13 +442,13 @@ function It(Se) {
         let bt = Zot();
         let Dt = await D.startOAuthFlow(
           async (Pe) => {
-            if ((_t(), tt(!1), b({ state: "waiting_for_login", url: Pe }), xL())) tt(!0);
-            else M.current.add(rt.setTimeout(() => tt(!0), 3000));
+            if ((_t(), tt(false), b({ state: "waiting_for_login", url: Pe }), xL())) tt(true);
+            else M.current.add(rt.setTimeout(() => tt(true), 3000));
           },
           {
-            loginWithClaudeAi: !0,
+            loginWithClaudeAi: true,
             oauthClient: { clientId: bt, scopes: wJ },
-            skipProfileFetch: !0,
+            skipProfileFetch: true,
             successRedirectUrl: ke.CLAUDEAI_SUCCESS_URL,
           },
         );
@@ -556,15 +556,15 @@ function It(Se) {
         gap: 1,
         paddingBottom: 1,
         children: [
-          e(t, { bold: !0, children: "Design login" }),
+          e(t, { bold: true, children: "Design login" }),
           e(t, {
-            dimColor: !0,
+            dimColor: true,
             children:
               "Authorize design-system access (read and write your organization's claude.ai/design projects) with your claude.ai account. This is separate from this session's authentication and changes nothing else.",
           }),
           ht &&
             e(t, {
-              dimColor: !0,
+              dimColor: true,
               children: "A design credential is already stored \u2014 completing this flow replaces it.",
             }),
         ],
@@ -589,14 +589,14 @@ function It(Se) {
             children: [
               r(o, {
                 children: [
-                  r(t, { dimColor: !0, children: ["Browser didn't open? Use the url below to sign in", " "] }),
+                  r(t, { dimColor: true, children: ["Browser didn't open? Use the url below to sign in", " "] }),
                   e(cL, { via: et }),
                 ],
               }),
               e(uL, { via: et }),
             ],
           }),
-          e(ut, { url: i.url, assumeSupport: !0, children: e(t, { dimColor: !0, children: i.url }) }),
+          e(ut, { url: i.url, assumeSupport: true, children: e(t, { dimColor: true, children: i.url }) }),
         ],
       })),
       (m[37] = i.state),
@@ -728,7 +728,7 @@ function lt(Te) {
       else g = v[16];
       const I = P.toRetry ? "Press Enter to retry, or any other key to cancel." : "Press any key to close.";
       let E;
-      if (v[17] !== I) (E = e(t, { dimColor: !0, children: I })), (v[17] = I), (v[18] = E);
+      if (v[17] !== I) (E = e(t, { dimColor: true, children: I })), (v[17] = I), (v[18] = E);
       else E = v[18];
       let se;
       if (v[19] !== g || v[20] !== E)

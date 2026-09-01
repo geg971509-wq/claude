@@ -62,10 +62,10 @@ function qw() {
 }
 
 function A3t(e, t) {
-  let r = !1,
-    o = !1,
+  let r = false,
+    o = false,
     u = (_, A) => {
-      (r = !0), _.abort(new Ws(A));
+      (r = true), _.abort(new Ws(A));
     },
     d = setTimeout(u, t, e, t);
   return {
@@ -77,7 +77,7 @@ function A3t(e, t) {
       clearTimeout(d), (d = setTimeout(u, _, e, _));
     },
     clear: () => {
-      (o = !0), clearTimeout(d);
+      (o = true), clearTimeout(d);
     },
     fired: () => r,
   };
@@ -94,7 +94,7 @@ function Xw(e, t = {}) {
     u = new AbortController(),
     d = () => u.abort(t.signal?.reason);
   if (t.signal?.aborted) d();
-  else t.signal?.addEventListener("abort", d, { once: !0 });
+  else t.signal?.addEventListener("abort", d, { once: true });
   let _ = A3t(u, r),
     A = 0;
   return {
@@ -103,13 +103,13 @@ function Xw(e, t = {}) {
         if (((A = C), C === e.length)) _.relax(o);
         else _.touch();
       }),
-      { objectMode: !1 },
+      { objectMode: false },
     ),
     signal: u.signal,
     dispose: () => {
       _.clear(), t.signal?.removeEventListener("abort", d);
     },
-    seen: () => ({ body_bytes: e.length, bytes_handed: A, stalled: _.fired() && t.signal?.aborted !== !0 }),
+    seen: () => ({ body_bytes: e.length, bytes_handed: A, stalled: _.fired() && t.signal?.aborted !== true }),
   };
 }
 
@@ -158,7 +158,7 @@ function Tre(e) {
 
 function AQ(e, t) {
   if (
-    (s("tengu_client_event_signed", { ok: !1, error: t instanceof RangeError ? w("RangeError") : w("other") }),
+    (s("tengu_client_event_signed", { ok: false, error: t instanceof RangeError ? w("RangeError") : w("other") }),
     !e.noteSignFailure())
   )
     return;
@@ -170,7 +170,7 @@ function A6(e) {
 }
 
 function nbt(e) {
-  if (e === void 0) return !1;
+  if (e === void 0) return false;
   switch (e) {
     case "blocking_limit":
     case "rapid_refill_breaker":
@@ -183,7 +183,7 @@ function nbt(e) {
     case "structured_output_retry_exhausted":
     case "tool_deferred_unavailable":
     case "turn_setup_failed":
-      return !0;
+      return true;
     case "aborted_streaming":
     case "aborted_tools":
     case "stop_hook_prevented":
@@ -192,9 +192,9 @@ function nbt(e) {
     case "max_turns":
     case "background_requested":
     case "completed":
-      return !1;
+      return false;
     default:
-      return !1;
+      return false;
   }
 }
 
@@ -236,10 +236,10 @@ function fe(e, t, r) {
 
 function ubt(e, t, r) {
   try {
-    return e(t), !0;
+    return e(t), true;
   } catch (o) {
     let u = typeof t.subtype === "string" ? `${t.type}:${t.subtype}` : t.type;
-    return n(`[${r}] Dropping ${u} frame \u2014 handler threw: ${l(o)}`, { level: "error" }), !1;
+    return n(`[${r}] Dropping ${u} frame \u2014 handler threw: ${l(o)}`, { level: "error" }), false;
   }
 }
 
@@ -260,10 +260,10 @@ function dbt(e) {
 }
 
 function UMe(e) {
-  if (!st.isAxiosError(e)) return !1;
-  if (!e.response) return !0;
-  if (e.response.status >= 500) return !0;
-  return !1;
+  if (!st.isAxiosError(e)) return false;
+  if (!e.response) return true;
+  if (e.response.status >= 500) return true;
+  return false;
 }
 
 async function ctr(e, t) {
@@ -440,7 +440,7 @@ async function BMe(e) {
 async function oZ(e, t, r) {
   if (e.status !== 403) return e;
   let { isViolinWoodEnabled: o } = await import("/$bunfs/root/chunk-vxgmswvs.js");
-  if (!(await o().catch(() => !1))) return e;
+  if (!(await o().catch(() => false))) return e;
   let [{ classifyElevatedAuthError: u }, { extractErrorDetail: d }] = await Promise.all([
     import("/$bunfs/root/chunk-rnbgmv20.js"),
     import("/$bunfs/root/chunk-qw33fw59.js"),
@@ -456,7 +456,7 @@ async function oZ(e, t, r) {
 
 async function jMe() {
   let { isViolinWoodEnabled: e } = await import("/$bunfs/root/chunk-vxgmswvs.js");
-  if (!(await e().catch(() => !1))) return {};
+  if (!(await e().catch(() => false))) return {};
   let { getTrustedDeviceToken: t } = await import("/$bunfs/root/chunk-m90nqn8m.js"),
     r = await t().catch(() => {
       return;
@@ -467,7 +467,7 @@ async function jMe() {
 async function ia(e, t, r, o) {
   if (!pr())
     return {
-      ok: !1,
+      ok: false,
       reason: "Cloud sessions are only available on the first-party Anthropic API provider.",
       cause: "not_first_party",
     };
@@ -484,12 +484,12 @@ async function ia(e, t, r, o) {
     if (k.status === 200 || k.status === 201)
       return (
         n(`${r} Successfully sent event to session ${e}`),
-        k.data?.results?.[0]?.duplicate === !0 ? { ok: !0, duplicate: !0 } : { ok: !0 }
+        k.data?.results?.[0]?.duplicate === true ? { ok: true, duplicate: true } : { ok: true }
       );
     n(`${r} Failed with status ${k.status}: ${b(k.data)}`);
     let M = k.data?.error?.message;
     return {
-      ok: !1,
+      ok: false,
       reason: typeof M === "string" ? `${or(M, 300)} (HTTP ${k.status})` : `HTTP ${k.status}`,
       status: k.status,
     };
@@ -497,7 +497,7 @@ async function ia(e, t, r, o) {
     return (
       n(`${r} Error: ${l(u)}`),
       {
-        ok: !1,
+        ok: false,
         reason: l(u),
         ...(st.isAxiosError(u) && {
           cause: u.response !== void 0 ? "server" : u.code === "ECONNABORTED" ? "timeout" : "network",
@@ -552,10 +552,10 @@ async function K8e(e, t) {
       o = `${zt().BASE_API_URL}/v1/code/sessions/${e}`;
     n(`[updateSessionTitle] Updating title for session ${e}: "${t}"`);
     let u = await st.put(o, { title: t }, { headers: await BMe(r), validateStatus: (d) => d < 500 });
-    if (u.status === 200) return n(`[updateSessionTitle] Successfully updated title for session ${e}`), !0;
-    return n(`[updateSessionTitle] Failed with status ${u.status}: ${b(u.data)}`), !1;
+    if (u.status === 200) return n(`[updateSessionTitle] Successfully updated title for session ${e}`), true;
+    return n(`[updateSessionTitle] Failed with status ${u.status}: ${b(u.data)}`), false;
   } catch (r) {
-    return n(`[updateSessionTitle] Error: ${l(r)}`), !1;
+    return n(`[updateSessionTitle] Error: ${l(r)}`), false;
   }
 }
 
@@ -570,7 +570,7 @@ async function X8e(e, t) {
   }
 }
 
-async function WMe(e, t, r = !1) {
+async function WMe(e, t, r = false) {
   try {
     let { accessToken: o } = await iR(),
       u = `${zt().BASE_API_URL}/v1/code/sessions/${e}/client/presence`,
@@ -639,16 +639,16 @@ async function jV(e, t, r) {
 }
 
 async function sR(e, t = 1e4) {
-  if (!pr()) return n(`[archiveRemoteSession] ${e} skipped: non-first-party provider`), !1;
+  if (!pr()) return n(`[archiveRemoteSession] ${e} skipped: non-first-party provider`), false;
   let r = Ere();
-  if (!r) return !1;
+  if (!r) return false;
   let o = `${zt().BASE_API_URL}/v1/code/sessions/${e}/archive`;
   try {
     let u = await st.post(o, {}, { headers: await BMe(r), timeout: t, validateStatus: (d) => d < 500 });
-    if (u.status === 200 || u.status === 409) return n(`[archiveRemoteSession] archived ${e}`), !0;
-    return n(`[archiveRemoteSession] ${e} failed ${u.status}: ${b(u.data)}`), !1;
+    if (u.status === 200 || u.status === 409) return n(`[archiveRemoteSession] archived ${e}`), true;
+    return n(`[archiveRemoteSession] ${e} failed ${u.status}: ${b(u.data)}`), false;
   } catch (u) {
-    return n(`[archiveRemoteSession] ${e} failed: ${l(u)}`, { level: "error" }), !1;
+    return n(`[archiveRemoteSession] ${e} failed: ${l(u)}`, { level: "error" }), false;
   }
 }
 
@@ -665,9 +665,9 @@ function WV() {
 }
 
 function Yde() {
-  if (!WV()) return { host: "memory", auth: "async", refreshOAuth: !0 };
+  if (!WV()) return { host: "memory", auth: "async", refreshOAuth: true };
   let e = Zn.CLAUDE_CODE_MEMORY_API_TOKEN;
-  return { host: "memory", auth: "none", refreshOAuth: !1, ...(e && { headers: { Authorization: `Bearer ${e}` } }) };
+  return { host: "memory", auth: "none", refreshOAuth: false, ...(e && { headers: { Authorization: `Bearer ${e}` } }) };
 }
 
 function fZ(e) {
@@ -675,10 +675,10 @@ function fZ(e) {
   try {
     t = new URL(zt().BASE_API_URL).origin;
   } catch {
-    return !1;
+    return false;
   }
-  if (e.origin === t) return !0;
-  if (a.CLAUDE_CODE_CUSTOM_OAUTH_URL) return !1;
+  if (e.origin === t) return true;
+  if (a.CLAUDE_CODE_CUSTOM_OAUTH_URL) return false;
   return pZ.has(e.origin);
 }
 
@@ -688,17 +688,17 @@ function Y8e(e) {
 }
 
 function $P(e) {
-  if (!e) return { ok: !1, reason: "unparseable" };
+  if (!e) return { ok: false, reason: "unparseable" };
   let t;
   try {
     t = new URL(e);
   } catch {
-    return { ok: !1, reason: "unparseable" };
+    return { ok: false, reason: "unparseable" };
   }
-  if (t.protocol !== "https:") return { ok: !1, reason: "not_https" };
-  if (t.username || t.password || t.port) return { ok: !1, reason: "userinfo_or_port" };
-  if (!fZ(t)) return { ok: !1, reason: "untrusted_origin" };
-  return { ok: !0, origin: t.origin };
+  if (t.protocol !== "https:") return { ok: false, reason: "not_https" };
+  if (t.username || t.password || t.port) return { ok: false, reason: "userinfo_or_port" };
+  if (!fZ(t)) return { ok: false, reason: "untrusted_origin" };
+  return { ok: true, origin: t.origin };
 }
 
 function utr(e) {
@@ -755,7 +755,7 @@ function fbn(e) {
 }
 
 function qP(e) {
-  if (!e.bypassEssentialTrafficOnly && !0 && Ct()) return "essential-traffic-only";
+  if (!e.bypassEssentialTrafficOnly && true && Ct()) return "essential-traffic-only";
   if (Ne() !== "firstParty") return "data-residency";
   return;
 }
@@ -764,10 +764,10 @@ function dtr() {
   return qP({}) === void 0;
 }
 
-async function Xn(e, t, r, o = {}, u = !1) {
+async function Xn(e, t, r, o = {}, u = false) {
   b5();
   let d = qP(o);
-  if (d !== void 0) return { ok: !1, reason: d };
+  if (d !== void 0) return { ok: false, reason: d };
   if (o.frameTunnel && (o.host !== "frame" || o.auth !== "none"))
     throw Error("frameTunnel requires host 'frame' and auth 'none'");
   let _ = {},
@@ -776,27 +776,27 @@ async function Xn(e, t, r, o = {}, u = !1) {
   if (o.auth === "teleport-org") {
     if ((await Cs({ credentials: o.credentials, storageV5: o.storageV5 }), await Qk(o.credentials)))
       return {
-        ok: !1,
+        ok: false,
         reason: "no-auth",
         detail: "OAuth refresh token is no longer valid; run /login to re-authenticate",
       };
-    if (!Yt()?.accessToken) return { ok: !1, reason: "no-auth", detail: "No OAuth token in keychain" };
+    if (!Yt()?.accessToken) return { ok: false, reason: "no-auth", detail: "No OAuth token in keychain" };
     let { accessToken: F, orgUUID: Q } = await iR(o.credentials);
     (C = F), (_ = { ...JS(F), "x-organization-uuid": Q }), (A = t.replace(":orgUUID", Q));
   } else if (o.auth === "session-jwt") {
     let F = rl();
-    if (!F) return { ok: !1, reason: "no-auth", detail: "No session access token" };
+    if (!F) return { ok: false, reason: "no-auth", detail: "No session access token" };
     _ = { Authorization: `Bearer ${F}` };
   } else if (o.auth === "claude-ai-oauth") {
     await WP(o);
     let F = Yt(),
       Q = F?.accessToken;
-    if (!g4t(F) || !Q) return { ok: !1, reason: "no-auth", detail: "no claude.ai login" };
+    if (!g4t(F) || !Q) return { ok: false, reason: "no-auth", detail: "no claude.ai login" };
     _ = { Authorization: `Bearer ${Q}`, "anthropic-beta": ud };
   } else if (o.auth !== "none") {
     await WP(o);
     let F = o.auth === "async" ? await oO() : IV();
-    if (F.error && o.auth !== "optional") return { ok: !1, reason: "no-auth", detail: F.error };
+    if (F.error && o.auth !== "optional") return { ok: false, reason: "no-auth", detail: F.error };
     _ = F.headers;
   }
   if (o.host === "frame" && x3t() !== void 0 && a.CLAUDE_CODE_ARTIFACTS_API_TOKEN)
@@ -846,7 +846,7 @@ async function Xn(e, t, r, o = {}, u = !1) {
         maxContentLength: o.maxContentLength,
         maxBodyLength: o.maxBodyLength,
         ...(x !== void 0 && { maxRedirects: x }),
-        ...(o.frameTunnel && { httpsAgent: o.frameTunnel.agent, proxy: !1 }),
+        ...(o.frameTunnel && { httpsAgent: o.frameTunnel.agent, proxy: false }),
         headers: k,
       });
     } catch (F) {
@@ -854,22 +854,22 @@ async function Xn(e, t, r, o = {}, u = !1) {
     } finally {
       if (U) U.dispose(), o.streamUpload?.onSettled?.(U.seen());
       else if (o.streamUpload && Buffer.isBuffer(z))
-        o.streamUpload.onSettled?.({ body_bytes: z.length, bytes_handed: z.length, stalled: !1 });
+        o.streamUpload.onSettled?.({ body_bytes: z.length, bytes_handed: z.length, stalled: false });
     }
   } catch (F) {
     if (C !== null && !u && !o.isBackground && st.isAxiosError(F) && F.response?.status === 401) {
       let Q = await YP(C, o.credentials, o.storageV5);
-      if (Q === "retry") return sa(F.response.data), Xn(e, t, r, o, !0);
+      if (Q === "retry") return sa(F.response.data), Xn(e, t, r, o, true);
       if (Q !== null) return sa(F.response.data), Q;
     }
     throw F;
   }
   if (C !== null && B.status === 401 && !u && !o.isBackground) {
     let F = await YP(C, o.credentials, o.storageV5);
-    if (F === "retry") return sa(B.data), Xn(e, t, r, o, !0);
+    if (F === "retry") return sa(B.data), Xn(e, t, r, o, true);
     if (F !== null) return sa(B.data), F;
   }
-  return { ok: !0, data: B.data, status: B.status, response: B, ...(o.reportSentAuth && { sentAuthFingerprint: M }) };
+  return { ok: true, data: B.data, status: B.status, response: B, ...(o.reportSentAuth && { sentAuthFingerprint: M }) };
 }
 
 async function WP(e) {
@@ -904,8 +904,8 @@ function hZ(e) {
 }
 
 function XP(e) {
-  if (Array.isArray(e)) return !0;
-  if (typeof e !== "object" || e === null) return !1;
+  if (Array.isArray(e)) return true;
+  if (typeof e !== "object" || e === null) return false;
   let t = Object.getPrototypeOf(e);
   return t === Object.prototype || t === null;
 }
@@ -927,7 +927,7 @@ async function YP(e, t, r) {
   if (await ym(e, t, r)) return "retry";
   if (await Qk(t))
     return {
-      ok: !1,
+      ok: false,
       reason: "no-auth",
       detail: "OAuth refresh token is no longer valid; run /login to re-authenticate",
     };
@@ -991,13 +991,13 @@ async function bZ(e) {
 async function ptr() {
   if (Ct()) return;
   if (ox()) return;
-  let e = I("tengu_mcp_directory_bff", !1),
+  let e = I("tengu_mcp_directory_bff", false),
     t = w(e ? "bff" : "legacy"),
     r = TZ();
   if (r.length === 0) {
     (qt().officialUrls = new Set()),
       y("mcp_registry_fetch"),
-      s("tengu_mcp_registry_fetch", { source: t, success: !0, url_count: 0, duration_ms: 0, empty_visibility: !0 });
+      s("tengu_mcp_registry_fetch", { source: t, success: true, url_count: 0, duration_ms: 0, empty_visibility: true });
     return;
   }
   let o = Date.now();
@@ -1006,16 +1006,16 @@ async function ptr() {
     (qt().officialUrls = u),
       n(`[mcp-registry] Loaded ${u.size} official MCP URLs (${e ? "bff" : "legacy"})`),
       y("mcp_registry_fetch"),
-      s("tengu_mcp_registry_fetch", { source: t, success: !0, url_count: u.size, duration_ms: Date.now() - o });
+      s("tengu_mcp_registry_fetch", { source: t, success: true, url_count: u.size, duration_ms: Date.now() - o });
   } catch (u) {
     n(`Failed to fetch MCP registry: ${l(u)}`, { level: "error" }),
       g("mcp_registry_fetch", "fetch_failed"),
-      s("tengu_mcp_registry_fetch", { source: t, success: !1, url_count: 0, duration_ms: Date.now() - o });
+      s("tengu_mcp_registry_fetch", { source: t, success: false, url_count: 0, duration_ms: Date.now() - o });
   }
 }
 
 function eM(e) {
-  return qt().officialUrls?.has(e) ?? !1;
+  return qt().officialUrls?.has(e) ?? false;
 }
 
 function tM(e) {
@@ -1026,9 +1026,9 @@ function tM(e) {
 }
 
 function gtr(e, t = CZ) {
-  if (mbn.has(e)) return !0;
+  if (mbn.has(e)) return true;
   let r = tM(e);
-  if (t.some((o) => tM(o) === r)) return !1;
+  if (t.some((o) => tM(o) === r)) return false;
   return RZ.has(r) || yZ.some((o) => r.startsWith(o));
 }
 
@@ -1064,7 +1064,7 @@ async function Are() {
 }
 
 function rM(e) {
-  if (((e.seenPopulated = !0), e.generation++, e.verdict === "empty")) e.verdict = void 0;
+  if (((e.seenPopulated = true), e.generation++, e.verdict === "empty")) e.verdict = void 0;
 }
 
 async function PZ(e, t) {
@@ -1099,15 +1099,15 @@ function rA(e) {
     let t = new URL(e);
     return t.protocol === "https:" && FT(t.href) && MZ.some((r) => t.pathname.startsWith(r));
   } catch {
-    return !1;
+    return false;
   }
 }
 
 function qMe(e) {
-  if (QI() && e.oauth?.xaa) return !0;
-  if (e.headersHelper || (e.headers && Object.keys(e.headers).length > 0)) return !0;
-  if (rA(e.url)) return !0;
-  return !1;
+  if (QI() && e.oauth?.xaa) return true;
+  if (e.headersHelper || (e.headers && Object.keys(e.headers).length > 0)) return true;
+  if (rA(e.url)) return true;
+  return false;
 }
 
 function Jde(e, t) {
@@ -1116,24 +1116,24 @@ function Jde(e, t) {
 
 async function GMe(e, t) {
   let r = await Are();
-  if (r === Eu) return !0;
+  if (r === Eu) return true;
   return !!r?.mcpOAuth?.[ga(e, t)]?.refreshToken;
 }
 
 function JEe(e, t, r) {
-  if (qMe(t)) return !1;
+  if (qMe(t)) return false;
   let o = r?.[ga(e, t)];
-  return o !== void 0 && !o.accessToken && !o.refreshToken && o.discoveryState?.oauthMetadataFound === !0;
+  return o !== void 0 && !o.accessToken && !o.refreshToken && o.discoveryState?.oauthMetadataFound === true;
 }
 
 function htr(e, t, r) {
-  if (qMe(t)) return !1;
+  if (qMe(t)) return false;
   let o = r?.[ga(e, t)];
   return o !== void 0 && !!o.accessToken && !o.refreshToken && o.expiresAt !== void 0 && o.expiresAt < Date.now();
 }
 
 function aM(e, t) {
-  if (e?.serverName !== DZ) return !1;
+  if (e?.serverName !== DZ) return false;
   let r = ln(e.toolName);
   return t.some((o) => r.startsWith(o));
 }
@@ -1152,17 +1152,17 @@ function HH(e, t) {
     u =
       t.mode === "bypassPermissions" ||
       t.mode === "auto" ||
-      (t.mode === "plan" && t.isBypassPermissionsModeAvailable === !0);
+      (t.mode === "plan" && t.isBypassPermissionsModeAvailable === true);
   if (o !== void 0 && u) return o;
-  if (u && (IZ(e?.mcpInfo) || (NZ(e?.mcpInfo) && t.chromeClassifierFloorEnabled === !0)))
-    return t.canAutoClassifierRun === !0 ? "auto" : "default";
+  if (u && (IZ(e?.mcpInfo) || (NZ(e?.mcpInfo) && t.chromeClassifierFloorEnabled === true)))
+    return t.canAutoClassifierRun === true ? "auto" : "default";
   return t.mode;
 }
 
 function ytr(e) {
-  if (e === null) return { ok: !0, override: void 0 };
-  if (e === "default" || e === "auto") return { ok: !0, override: e };
-  return { ok: !1, rejected: e };
+  if (e === null) return { ok: true, override: void 0 };
+  if (e === "default" || e === "auto") return { ok: true, override: e };
+  return { ok: false, rejected: e };
 }
 
 function xZ(e) {
@@ -1170,7 +1170,7 @@ function xZ(e) {
 }
 
 function Q8e(e) {
-  return xZ(e) || e.sandboxAutoAllowSuspended === !0;
+  return xZ(e) || e.sandboxAutoAllowSuspended === true;
 }
 
 function lM(e) {
@@ -1187,21 +1187,21 @@ function $d(e) {
 }
 
 function Qde(e, t) {
-  if (e === "Slack sign-in (Claude Code tag)") return !0;
+  if (e === "Slack sign-in (Claude Code tag)") return true;
   let r = lM(e);
-  if (r === void 0) return !1;
+  if (r === void 0) return false;
   if (LZ.has(r)) return !(t?.hostCarrier && cM.has(e));
   if (UZ.has(r)) return !(t?.hostCarrier && t.config && BZ(e, t.config));
   return zZ.has(r);
 }
 
 function BZ(e, t) {
-  if (!zMe.has(e) || t.type !== "http") return !1;
+  if (!zMe.has(e) || t.type !== "http") return false;
   let r;
   try {
     r = new URL(t.url);
   } catch {
-    return !1;
+    return false;
   }
   return r.protocol === "http:" && r.username === "" && r.password === "" && FZ.has(r.hostname);
 }
@@ -1270,7 +1270,7 @@ function bbn(e) {
       o = r === -1 ? e.length : r,
       u = o - t <= Xd,
       d = ce(e.slice(t, Math.min(o, t + Xd)), Xd),
-      _ = SCe(d, " ", { keepEmojiJoiners: !0 }).replace(/\s+/g, " ").trim();
+      _ = SCe(d, " ", { keepEmojiJoiners: true }).replace(/\s+/g, " ").trim();
     if (_ !== "" || !u) {
       let A = ce(_, L3t),
         C = !u || A.length < _.length;
@@ -1440,7 +1440,7 @@ function Sbt(e, t) {
 }
 
 function xH(e) {
-  if (!Bn(e)) return !0;
+  if (!Bn(e)) return true;
   return AY(e) !== void 0;
 }
 
@@ -1523,28 +1523,28 @@ function Ebn(e, t, r) {
     let o = AY(e);
     return o !== void 0 && d9.test(o);
   }
-  if (tZe(e)) return !1;
+  if (tZe(e)) return false;
   if (Zd(Qn(e)) === Zd(Qn(t))) return e.endsWith(".sock");
   return r?.verifiedPeerPid !== void 0 && r.ownerUids !== void 0 && bM(e, r.ownerUids);
 }
 
 function bM(e, t) {
   let r = Qn(e);
-  if (!/^(\d+(-[0-9a-f]{8})?|[0-9a-f]{1,16})\.sock$/.test(o9(r))) return !1;
+  if (!/^(\d+(-[0-9a-f]{8})?|[0-9a-f]{1,16})\.sock$/.test(o9(r))) return false;
   let o = Zd(r);
   for (let u of u9) {
     let d = u.exec(o);
     if (d) return d[1] === void 0 || t.some((_) => String(_) === d[1]);
   }
-  return !1;
+  return false;
 }
 
 function Ttr(e, t, r, o = []) {
   let u = AY(e),
     d = AY(t);
-  if (u !== void 0 && d !== void 0 && TM.test(d) && !TM.test(u)) return !1;
-  if (Ebn(e, t)) return !0;
-  return (r?.includes(np) ?? !1) && bM(e, o);
+  if (u !== void 0 && d !== void 0 && TM.test(d) && !TM.test(u)) return false;
+  if (Ebn(e, t)) return true;
+  return (r?.includes(np) ?? false) && bM(e, o);
 }
 
 function M3t(e) {
@@ -1576,7 +1576,7 @@ function eAe(e, t) {
 
 function b$(e) {
   let t = e.teamContext;
-  if (t?.leadAgentId && t.isLeader !== !1) return t.leadAgentId;
+  if (t?.leadAgentId && t.isLeader !== false) return t.leadAgentId;
   let r = ds(t);
   return r ? Yk(vi, r) : void 0;
 }
@@ -1643,8 +1643,8 @@ function ZI(e, t) {
       name: U.title || "untitled",
       id: U.id,
       kind: "cloud-session",
-      ...(M3t(U.title) && { derivedName: !0 }),
-      ...(U.acceptsPeerMessages === !0 && { reportsInbound: !0 }),
+      ...(M3t(U.title) && { derivedName: true }),
+      ...(U.acceptsPeerMessages === true && { reportsInbound: true }),
       where: U.remoteControl ? "remote" : "cloud",
       lastActive: U.lastActive,
       sock: void 0,
@@ -1664,9 +1664,9 @@ function ZI(e, t) {
       name: U.title || "untitled",
       id: U.id,
       kind: "bridge-session",
-      ...(M3t(U.title) && { derivedName: !0 }),
-      ...(U.acceptsPeerMessages === !0 && { reportsInbound: !0 }),
-      ...(U.inboundReportUnavailable && { inboundReportUnavailable: !0 }),
+      ...(M3t(U.title) && { derivedName: true }),
+      ...(U.acceptsPeerMessages === true && { reportsInbound: true }),
+      ...(U.inboundReportUnavailable && { inboundReportUnavailable: true }),
       where: ZEe(U) ? "cloud" : "remote",
       lastActive: Number.isNaN(F) ? void 0 : F,
       sock: void 0,
@@ -1683,10 +1683,10 @@ function ZI(e, t) {
     M = new Set(),
     x = m9(
       k.filter((U) => {
-        if (U.kind !== "session") return !0;
+        if (U.kind !== "session") return true;
         let B = `${Sr(U.name)}\x00${U.id}`;
-        if (M.has(B)) return !1;
-        return M.add(B), !0;
+        if (M.has(B)) return false;
+        return M.add(B), true;
       }),
     ),
     z = new Map();
@@ -1749,7 +1749,7 @@ function o7e(e, t) {
     u =
       e.lastActive === void 0
         ? ""
-        : `, ${e.kind === "subagent" ? "started" : "active"} ${$t(Math.max(0, t - e.lastActive), { mostSignificantOnly: !0 })} ago`;
+        : `, ${e.kind === "subagent" ? "started" : "active"} ${$t(Math.max(0, t - e.lastActive), { mostSignificantOnly: true })} ago`;
   return `${w$(e)} \u2014 ${r}, ${o}${u}`;
 }
 
@@ -1885,7 +1885,7 @@ async function fa(e, t) {
     o;
   try {
     o = await Ao(
-      (u) => e.listEntries({ namespace: "session" }, { cursor: u, skipKeyStats: !0 }),
+      (u) => e.listEntries({ namespace: "session" }, { cursor: u, skipKeyStats: true }),
       (u) => {
         for (let d of u) if (d.kind === "key" && d.key.namespace === "session") r.push(d.key.file);
       },
@@ -1938,7 +1938,7 @@ function DM(e, t) {
 async function Rtr(e, t, r, { sweepPermitted: o }) {
   if (O() && r !== void 0) return k9(r, e, t);
   let u = P3();
-  await y9(u, { recursive: !0, mode: 448 }), await w9(u, o);
+  await y9(u, { recursive: true, mode: 448 }), await w9(u, o);
   let d = Pr(u, DM(process.pid, e));
   try {
     await ip(d);
@@ -2019,7 +2019,7 @@ async function Htr(e, t, r) {
   let o = P3(),
     u;
   if (O() && t !== void 0) {
-    let M = await fa(t, { partialOnCap: !1 });
+    let M = await fa(t, { partialOnCap: false });
     if (M === void 0) return { kind: "unusable" };
     u = M;
   } else
@@ -2057,7 +2057,7 @@ async function Htr(e, t, r) {
     if (r?.requireLiveOwner) {
       let z = iA(x);
       if (z !== void 0) {
-        let W = await Ga(M.pid, { skipCache: !0 });
+        let W = await Ga(M.pid, { skipCache: true });
         if (W !== void 0 && !V7e(z, W)) return { kind: "dead-owner" };
       }
     }
@@ -2070,7 +2070,7 @@ async function Htr(e, t, r) {
     let W = 0;
     if (!Gg(x)) {
       let U = iA(z),
-        B = U === void 0 ? void 0 : await Ga(x, { skipCache: !0 });
+        B = U === void 0 ? void 0 : await Ga(x, { skipCache: true });
       if (U === void 0 || B === void 0) W = 1;
       else W = V7e(U, B) ? 2 : 0;
     }
@@ -2161,7 +2161,7 @@ function Ntr(e) {
 }
 
 function H9() {
-  if (D() === "windows") return !1;
+  if (D() === "windows") return false;
   return typeof Bun < "u" && typeof Bun.ant?.getPeerPid === "function";
 }
 
@@ -2261,7 +2261,7 @@ function l7e() {
     t = Date.now(),
     r = HM(e, t);
   if (r !== void 0) return r;
-  let o = !1;
+  let o = false;
   try {
     let { mtimeMs: u } = D9(Et(P3(), Aa));
     o = t - u < BM;
@@ -2298,7 +2298,7 @@ function Ibn(e) {
 }
 
 async function K9(e, t) {
-  if (!VM()) return !1;
+  if (!VM()) return false;
   let r = Promise.withResolvers();
   e.setPidFileWriteChain(r.promise);
   let o = R6() ?? "interactive";
@@ -2325,7 +2325,7 @@ async function K9(e, t) {
     });
   try {
     let C = await $9();
-    await L9(_, { recursive: !0, mode: 448 }), await N9(_, 448);
+    await L9(_, { recursive: true, mode: 448 }), await N9(_, 448);
     let k = d ? { name: d, source: "user" } : o === "interactive" ? { name: vM(Se()), source: "derived" } : void 0,
       M = b({
         pid: process.pid,
@@ -2358,7 +2358,7 @@ async function K9(e, t) {
           logPath: a.CLAUDE_CODE_SESSION_LOG,
           agent: a.CLAUDE_CODE_AGENT,
           jobId: o === "bg" && a.CLAUDE_JOB_DIR ? z9(a.CLAUDE_JOB_DIR) : void 0,
-          spare: u ? !0 : void 0,
+          spare: u ? true : void 0,
         },
       });
     if (t) {
@@ -2366,7 +2366,7 @@ async function K9(e, t) {
       if (!x.ok)
         throw (n(`[concurrentSessions] v5 pid-file write failed: ${Ge(x.error)}`), Error("v5 pid-file write failed"));
     } else await ap(A, M);
-    if (((e.registered = !0), u)) W9(t);
+    if (((e.registered = true), u)) W9(t);
     if (k && e.registeredName === void 0) e.setRegisteredName(k.name, k.source);
     return (
       au((x) => {
@@ -2375,10 +2375,10 @@ async function K9(e, t) {
       Okn((x) => {
         on({ cwd: x }, t);
       }),
-      !0
+      true
     );
   } catch (C) {
-    return n(`[concurrentSessions] register failed: ${l(C)}`), !1;
+    return n(`[concurrentSessions] register failed: ${l(C)}`), false;
   } finally {
     r.resolve();
   }
@@ -2391,18 +2391,18 @@ async function on(e, t) {
       try {
         if (t) {
           let _ = await t.read([Ta()]);
-          if (!_.ok) return n(`[concurrentSessions] updatePidFile failed: ${Ge(_.error)}`), !1;
+          if (!_.ok) return n(`[concurrentSessions] updatePidFile failed: ${Ge(_.error)}`), false;
           let A = _.value.items[0];
-          if (!A?.found) return n("[concurrentSessions] updatePidFile failed: pid file not found"), !1;
+          if (!A?.found) return n("[concurrentSessions] updatePidFile failed: pid file not found"), false;
           let C = V(Buffer.from(A.value).toString("utf8")),
             k = await t.write(Ta(), b({ ...C, ...e }), { publishDiscipline: "inPlace" });
-          if (!k.ok) return n(`[concurrentSessions] updatePidFile failed: ${Ge(k.error)}`), !1;
-          return !0;
+          if (!k.ok) return n(`[concurrentSessions] updatePidFile failed: ${Ge(k.error)}`), false;
+          return true;
         }
         let d = V(await U9(r, "utf8"));
-        return await ap(r, b({ ...d, ...e })), !0;
+        return await ap(r, b({ ...d, ...e })), true;
       } catch (d) {
-        return n(`[concurrentSessions] updatePidFile failed: ${l(d)}`), !1;
+        return n(`[concurrentSessions] updatePidFile failed: ${l(d)}`), false;
       }
     });
   return (
@@ -2416,7 +2416,7 @@ async function on(e, t) {
 }
 
 async function oN(e, t, r = "user") {
-  if (!e) return !1;
+  if (!e) return false;
   let o = D3();
   return (
     o.setRegisteredName(e, r),
@@ -2471,13 +2471,13 @@ function GM(e) {
 }
 
 async function sSr(e) {
-  if (!D3().bornSpare) return !0;
+  if (!D3().bornSpare) return true;
   return on({ spare: void 0, updatedAt: Date.now() }, e);
 }
 
 async function KM(e) {
   let t = cO();
-  if (!t) return !1;
+  if (!t) return false;
   if (O() && e !== void 0) {
     let r = O3t(t, ["state.json"]);
     if (r !== void 0)
@@ -2485,11 +2485,11 @@ async function KM(e) {
         let o = await e.statMeta(r);
         return o.ok || (o.error.code !== "NotFound" && o.error.code !== "Unavailable");
       } catch {
-        return !1;
+        return false;
       }
   }
   try {
-    return await x9(Et(t, "state.json")), !0;
+    return await x9(Et(t, "state.json")), true;
   } catch (r) {
     return !X(r);
   }
@@ -2497,20 +2497,20 @@ async function KM(e) {
 
 function W9(e) {
   let t = D3(),
-    r = { registry: t, storageV5: e, clearing: !1 };
+    r = { registry: t, storageV5: e, clearing: false };
   (t.spareClaimPoll = setInterval(Y9, j9, r)), t.spareClaimPoll.unref();
 }
 
 function Y9(e) {
   if (e.clearing || e.registry.spareClaimPoll === void 0) return;
-  (e.clearing = !0),
+  (e.clearing = true),
     KM(e.storageV5)
-      .then((t) => (t ? sSr(e.storageV5) : !1))
+      .then((t) => (t ? sSr(e.storageV5) : false))
       .then((t) => {
         if (t) GM(e.registry);
       })
       .finally(() => {
-        e.clearing = !1;
+        e.clearing = false;
       });
 }
 
@@ -2530,13 +2530,13 @@ async function UM(e, t) {
     let r = await e.delete(Te.session(t));
     return r.ok && r.value.existed;
   } catch {
-    return !1;
+    return false;
   }
 }
 
 async function jM(e) {
   return fa(e, {
-    partialOnCap: !0,
+    partialOnCap: true,
     onIssue: (t, r) => n(`[concurrentSessions] session list ${t}`, r === void 0 ? void 0 : { level: r }),
   });
 }
@@ -2587,7 +2587,7 @@ function Abt(e, t, r = []) {
   let o = D(),
     u = !zu();
   if (e === null) {
-    if (r.some((d) => d !== void 0 && d !== t)) return !1;
+    if (r.some((d) => d !== void 0 && d !== t)) return false;
     return o !== "windows" && !(o === "macos" && u);
   }
   if (e.pidDomain !== void 0) return e.pidDomain === t;
@@ -2597,7 +2597,7 @@ function Abt(e, t, r = []) {
     case "macos":
       return !u || e.cwd === void 0 || e.cwd.startsWith(xM() + F9) || e.cwd === xM();
     default:
-      return !0;
+      return true;
   }
 }
 
@@ -2675,8 +2675,8 @@ async function u7e(e) {
       (e
         ? await UM(e, M)
         : await Bo(z).then(
-            () => !0,
-            () => !1,
+            () => true,
+            () => false,
           )) &&
         !o.uncleanExitsScanned &&
         U !== null &&
@@ -2717,7 +2717,7 @@ async function u7e(e) {
       if (e) UM(e, M).catch(() => {});
       else Bo(Et(t, M)).catch(() => {});
     }
-  if (u) o.setUncleanExitsScanned(!0);
+  if (u) o.setUncleanExitsScanned(true);
   return _;
 }
 
@@ -2727,7 +2727,7 @@ async function $9() {
   let { code: t, stdout: r } = await $e(
     "tmux",
     ["display-message", "-p", "-t", e, "#{session_name}:#{window_id}.#{pane_id}"],
-    { useCwd: !1, timeout: 1000 },
+    { useCwd: false, timeout: 1000 },
   );
   return t === 0 ? r.trim() : void 0;
 }
@@ -2737,7 +2737,7 @@ function $tr(e) {
 }
 
 function E$(e) {
-  return e.hookCaller !== void 0 || e.pluginSteered === !0;
+  return e.hookCaller !== void 0 || e.pluginSteered === true;
 }
 
 function GV(e) {
@@ -2794,7 +2794,7 @@ function fh(e) {
 }
 
 function ka(e) {
-  return e?.agentType === "subagent" && e.delegatedObservation === !0;
+  return e?.agentType === "subagent" && e.delegatedObservation === true;
 }
 
 function vc(e) {
@@ -2815,7 +2815,7 @@ function Y3t(e) {
 }
 
 function Rbt(e) {
-  return e !== void 0 && e.agentType === "subagent" && e.isAsync === !1;
+  return e !== void 0 && e.agentType === "subagent" && e.isAsync === false;
 }
 
 function EC(e) {
@@ -2825,8 +2825,8 @@ function EC(e) {
 function kbt(e) {
   return (
     e.agentContext.agentType === "teammate" ||
-    (EC(e.agentContext) && e.agentContext.isAsync === !0) ||
-    e.forRemoteExecution === !0 ||
+    (EC(e.agentContext) && e.agentContext.isAsync === true) ||
+    e.forRemoteExecution === true ||
     E$(e)
   );
 }
@@ -2845,7 +2845,7 @@ function rpe(e) {
     if (!EC(e)) return {};
     let t = Lbn(e);
     if (t === void 0) return {};
-    return { subagent_type: t, is_built_in_agent: e.isBuiltIn ?? !1 };
+    return { subagent_type: t, is_built_in_agent: e.isBuiltIn ?? false };
   } catch {
     return {};
   }
@@ -2863,7 +2863,7 @@ function PH(e) {
 
 function Mbn(e) {
   if (e.agentType === "main" || !e.invokingRequestId || e.invocationEmitted) return;
-  return (e.invocationEmitted = !0), { invokingRequestId: e.invokingRequestId, invocationKind: e.invocationKind };
+  return (e.invocationEmitted = true), { invokingRequestId: e.invokingRequestId, invocationKind: e.invocationKind };
 }
 
 function Tl() {
@@ -2929,20 +2929,20 @@ function QMe() {
 }
 
 function YM(e, t) {
-  if (process.env.CLAUDE_CODE_ENTRYPOINT === "local-agent") return !0;
-  if (e === "claudeai-proxy") return !0;
-  if (t && eM(t)) return !0;
-  if (t && rA(t)) return !0;
-  return !1;
+  if (process.env.CLAUDE_CODE_ENTRYPOINT === "local-agent") return true;
+  if (e === "claudeai-proxy") return true;
+  if (t && eM(t)) return true;
+  if (t && rA(t)) return true;
+  return false;
 }
 
 function xT(e, t) {
   if (t === void 0) {
-    if (Q3t.has(e)) return !0;
+    if (Q3t.has(e)) return true;
     return YM(void 0, void 0);
   }
-  if (uM(e, t)) return !0;
-  if ("url" in t && aXe(t.url) && ln(e) === uy) return !0;
+  if (uM(e, t)) return true;
+  if ("url" in t && aXe(t.url) && ln(e) === uy) return true;
   return YM(t.type, IAe(t));
 }
 
@@ -3143,7 +3143,7 @@ function Vtr(e, t, r) {
       activity: "notebook_edit",
       fileExtension: DH(o.notebook_path),
       toolName: e,
-      isNewFile: !1,
+      isNewFile: false,
       deliverChannel: void 0,
       messageID: u,
     });
@@ -3246,7 +3246,7 @@ async function d7() {
     packageManagers: e.join(","),
     runtimes: t.join(","),
     isRunningWithBun: a.isRunningWithBun(),
-    isCi: Me(!1),
+    isCi: Me(false),
     isClaubbit: a.CLAUBBIT,
     isClaudeCodeRemote: Me(process.env.CLAUDE_CODE_REMOTE),
     isLocalAgentMode: process.env.CLAUDE_CODE_ENTRYPOINT === "local-agent",
@@ -3525,7 +3525,7 @@ function iD(e) {
   try {
     return new URL(e).protocol === "https:";
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -3541,7 +3541,7 @@ function b7(e) {
 }
 
 function ZMe(e) {
-  return gh(y7, {})?.[e] === !0;
+  return gh(y7, {})?.[e] === true;
 }
 
 function lSr() {
@@ -3585,7 +3585,7 @@ function rP() {
 async function Jtr(e, t, r = {}) {
   try {
     let o = await Pa({ model: r.model, betas: r.betas }),
-      u = { event_name: t, event_id: aD(), core_metadata: o, user_metadata: Mi(!0), event_metadata: r },
+      u = { event_name: t, event_id: aD(), core_metadata: o, user_metadata: Mi(true), event_metadata: r },
       d = t0();
     if (d) u.user_id = d;
     let _ = new Date();
@@ -3620,14 +3620,14 @@ function v7() {
 }
 
 function Qtr(e) {
-  if (!rP() || ZMe("firstParty")) return !0;
+  if (!rP() || ZMe("firstParty")) return true;
   let { firstPartyEventLogger: t, lastBatchConfig: r } = eNe.of(G().host);
   if (!t) {
-    if (r === null) return !0;
-    return !1;
+    if (r === null) return true;
+    return false;
   }
   let o = t0(),
-    { accountUuid: u, organizationUuid: d } = Mi(!0),
+    { accountUuid: u, organizationUuid: d } = Mi(true),
     _ = {
       event_type: "GrowthbookExperimentEvent",
       event_id: aD(),
@@ -3644,7 +3644,7 @@ function Qtr(e) {
       environment: v7(),
     },
     A = new Date();
-  return t.emit({ timestamp: A, observedTimestamp: A, body: "growthbook_experiment", attributes: _ }), !0;
+  return t.emit({ timestamp: A, observedTimestamp: A, body: "growthbook_experiment", attributes: _ }), true;
 }
 
 function Hre(e) {
@@ -3890,8 +3890,8 @@ function Inr() {
     ...(e.githubActionsMetadata && { githubActionsMetadata: e.githubActionsMetadata }),
     ...(u && { releaseChannel: u }),
     ...(_ && { entrypoint: _ }),
-    ...(ci().hasUsedRemoteSession && { hasUsedRemoteSession: !0 }),
-    ...(ie().hasRemoteEnvironment && { hasRemoteEnvironment: !0 }),
+    ...(ci().hasUsedRemoteSession && { hasUsedRemoteSession: true }),
+    ...(ie().hasRemoteEnvironment && { hasRemoteEnvironment: true }),
   };
 }
 
@@ -3942,10 +3942,10 @@ function lNe(e) {
 function vSr() {
   let t = 360,
     r = I("tengu_gb_refresh_interval_minutes", null);
-  if (r === null) return { intervalMs: t * 60 * 1000, flagged: !1 };
+  if (r === null) return { intervalMs: t * 60 * 1000, flagged: false };
   let o = typeof r === "string" ? Number(r) : r,
     u = typeof o === "number" && Number.isFinite(o) && o > 0 ? Math.min(Math.max(o, 5), 360) : t;
-  return { intervalMs: Math.round(Math.min(u * (0.9 + Math.random() * 0.2), 360) * 60 * 1000), flagged: !0 };
+  return { intervalMs: Math.round(Math.min(u * (0.9 + Math.random() * 0.2), 360) * 60 * 1000), flagged: true };
 }
 
 function cNe() {
@@ -3959,7 +3959,7 @@ function zbt(e) {
 }
 
 function RSr() {
-  return I("tengu_kestrel_moor", !0);
+  return I("tengu_kestrel_moor", true);
 }
 
 function pwn() {
@@ -4039,38 +4039,38 @@ function k$(e, t, r) {
     u = o.length - 1;
   for (let d = 0; d < o.length; d++) {
     let _ = Jl(o[d]);
-    if (N7e.has(_)) return !0;
-    if (d === u && r?.has(_)) return !0;
+    if (N7e.has(_)) return true;
+    if (d === u && r?.has(_)) return true;
   }
-  return !1;
+  return false;
 }
 
 function ta() {
-  if (Ey()) return !1;
+  if (Ey()) return false;
   return Vbt();
 }
 
 function Vbt() {
-  if (Dr()) return !1;
-  if (qC()) return !1;
+  if (Dr()) return false;
+  if (qC()) return false;
   let e = process.env.CLAUDE_CODE_DISABLE_AUTO_MEMORY;
-  if (Me(e)) return !1;
-  if (bo(e)) return !0;
-  if (a.CLAUDE_CODE_SIMPLE) return !1;
+  if (Me(e)) return false;
+  if (bo(e)) return true;
+  if (a.CLAUDE_CODE_SIMPLE) return false;
   if (a.CLAUDE_CODE_REMOTE && !process.env.CLAUDE_CODE_REMOTE_MEMORY_DIR && !a.CLAUDE_COWORK_MEMORY_PATH_OVERRIDE)
-    return !1;
-  if (Kbt()) return !1;
+    return false;
+  if (Kbt()) return false;
   let t = Je();
   if (t.autoMemoryEnabled !== void 0) return t.autoMemoryEnabled;
-  return !0;
+  return true;
 }
 
 function dNe() {
-  return I("tengu_mill_orange", !1);
+  return I("tengu_mill_orange", false);
 }
 
 function aN() {
-  if (I("tengu_moth_copse", !1)) return !0;
+  if (I("tengu_moth_copse", false)) return true;
   return F7e();
 }
 
@@ -4080,16 +4080,16 @@ function F7e() {
 
 function Kbt() {
   let e = I("tengu_sepia_cormorant", null);
-  if (!Array.isArray(e) || e.length === 0) return !1;
+  if (!Array.isArray(e) || e.length === 0) return false;
   let t = nc(),
     r = t !== void 0 ? t : CR();
-  if (typeof r !== "string" || !t3t(r, e)) return !1;
-  return I("tengu_umber_petrel", !1);
+  if (typeof r !== "string" || !t3t(r, e)) return false;
+  return I("tengu_umber_petrel", false);
 }
 
 function $7e() {
-  if (!I("tengu_passport_quail", !1)) return !1;
-  return !Le() || I("tengu_slate_thimble", !1);
+  if (!I("tengu_passport_quail", false)) return false;
+  return !Le() || I("tengu_slate_thimble", false);
 }
 
 function H$() {
@@ -4116,7 +4116,7 @@ function _D(e) {
 }
 
 function fp() {
-  return fD(a.CLAUDE_COWORK_MEMORY_PATH_OVERRIDE, !1);
+  return fD(a.CLAUDE_COWORK_MEMORY_PATH_OVERRIDE, false);
 }
 
 function pD() {
@@ -4126,7 +4126,7 @@ function pD() {
       ye("flagSettings")?.autoMemoryDirectory ??
       (e ? (ye("localSettings")?.autoMemoryDirectory ?? ye("projectSettings")?.autoMemoryDirectory) : void 0) ??
       ye("userSettings")?.autoMemoryDirectory;
-  return fD(t, !0);
+  return fD(t, true);
 }
 
 function IY() {
@@ -4156,7 +4156,7 @@ function gwn(e) {
     return;
   }
   return (r) => {
-    if (!r.startsWith("logs/")) return !1;
+    if (!r.startsWith("logs/")) return false;
     let o = r.slice(r.lastIndexOf("/") + 1);
     return o === `${t}.md` || o.startsWith(`${t}-`);
   };
@@ -4170,9 +4170,9 @@ function B7(e = new Date()) {
 }
 
 function JRr() {
-  if (Gr() !== null) return !1;
-  if (!ta()) return !1;
-  return I("tengu_hazel_quire", !1);
+  if (Gr() !== null) return false;
+  if (!ta()) return false;
+  return I("tengu_hazel_quire", false);
 }
 
 function PY() {
@@ -4184,9 +4184,9 @@ function lN(e) {
 }
 
 function Mre(e, t = Di()) {
-  if (!t.endsWith(Ia) || _D(t.replace(/[/\\]+$/, ""))) return !1;
+  if (!t.endsWith(Ia) || _D(t.replace(/[/\\]+$/, ""))) return false;
   let r = Da(e);
-  if (!r.startsWith(t)) return !1;
+  if (!r.startsWith(t)) return false;
   return !k$(r, t);
 }
 
@@ -4250,7 +4250,7 @@ function Wo() {
   let t = e,
     r = null,
     o = t.marsh_lantern;
-  if (o === !0) r = Object.freeze({ everyNTurns: ED, maxNames: SD });
+  if (o === true) r = Object.freeze({ everyNTurns: ED, maxNames: SD });
   else if (typeof o === "object" && o !== null && !Array.isArray(o)) {
     let u = o,
       d = typeof u.stride === "number" && Number.isInteger(u.stride) && u.stride >= 1 ? u.stride : ED,
@@ -4259,10 +4259,10 @@ function Wo() {
   }
   return Object.freeze({
     toolSearchReminder: r,
-    toolParamStrictness: t.bracken_spool === !0,
-    emptyInputRepair: t.teasel_cove === !0,
-    toolSearchFetchRule: t.gorse_hollow === !0,
-    schemaDescFixes: t.thistle_skein === !0,
+    toolParamStrictness: t.bracken_spool === true,
+    emptyInputRepair: t.teasel_cove === true,
+    toolSearchFetchRule: t.gorse_hollow === true,
+    schemaDescFixes: t.thistle_skein === true,
   });
 }
 
@@ -4309,7 +4309,7 @@ function Fnr(e, t) {
 function j7(e, t) {
   if (t instanceof FEt) return `<${e}>`;
   if (t instanceof XYe) return 0;
-  if (t instanceof $Et) return !1;
+  if (t instanceof $Et) return false;
   if (t instanceof tvn) return [];
   if (t instanceof WEt) {
     let r = t.options;
@@ -4329,16 +4329,16 @@ function qe() {
     autoUpdates: void 0,
     theme: "dark",
     preferredNotifChannel: "auto",
-    verbose: !1,
+    verbose: false,
     editorMode: "normal",
-    autoCompactEnabled: !0,
-    autoScrollEnabled: !0,
-    showTurnDuration: !0,
-    externalEditorContext: !1,
-    showMessageTimestamps: !1,
-    hasSeenTasksHint: !1,
-    hasUsedStash: !1,
-    hasUsedBackgroundTask: !1,
+    autoCompactEnabled: true,
+    autoScrollEnabled: true,
+    showTurnDuration: true,
+    externalEditorContext: false,
+    showMessageTimestamps: false,
+    hasSeenTasksHint: false,
+    hasUsedStash: false,
+    hasUsedBackgroundTask: false,
     queuedCommandUpHintCount: 0,
     diffTool: "auto",
     customApiKeyResponses: { approved: [], rejected: [] },
@@ -4347,21 +4347,21 @@ function qe() {
     memoryUsageCount: 0,
     promptQueueUseCount: 0,
     btwUseCount: 0,
-    todoFeatureEnabled: !0,
-    showExpandedTodos: !1,
-    briefTranscript: !1,
+    todoFeatureEnabled: true,
+    showExpandedTodos: false,
+    briefTranscript: false,
     messageIdleNotifThresholdMs: 60000,
-    autoConnectIde: !1,
-    autoInstallIdeExtension: !0,
-    fileCheckpointingEnabled: !0,
-    terminalProgressBarEnabled: !0,
+    autoConnectIde: false,
+    autoInstallIdeExtension: true,
+    fileCheckpointingEnabled: true,
+    terminalProgressBarEnabled: true,
     cachedDynamicConfigs: {},
     cachedGrowthBookFeatures: {},
-    respectGitignore: !0,
-    copyFullResponse: !1,
-    unpinOpus47LaunchEffort: !1,
-    unpinOpus48LaunchEffort: !1,
-    unpinFable5LaunchEffort: !1,
+    respectGitignore: true,
+    copyFullResponse: false,
+    unpinOpus47LaunchEffort: false,
+    unpinOpus48LaunchEffort: false,
+    unpinFable5LaunchEffort: false,
   };
 }
 
@@ -4370,18 +4370,18 @@ function QRr(e) {
 }
 
 function B7e() {
-  L.setTrustAccepted(!1);
+  L.setTrustAccepted(false);
 }
 
 function ri() {
-  if (L.trustAccepted) return !0;
+  if (L.trustAccepted) return true;
   let e = J7();
-  if (e) L.setTrustAccepted(!0);
+  if (e) L.setTrustAccepted(true);
   return e;
 }
 
 function M6() {
-  if (Le()) return !0;
+  if (Le()) return true;
   return ri();
 }
 
@@ -4394,7 +4394,7 @@ function H4t(e) {
 }
 
 function j7e(e) {
-  return ie().projects?.[e]?.hasTrustDialogAccepted === !0;
+  return ie().projects?.[e]?.hasTrustDialogAccepted === true;
 }
 
 function gw(e) {
@@ -4430,8 +4430,8 @@ async function Swn(e) {
 
 function CC({ onIndeterminate: e }) {
   if (!ri()) {
-    if (q7() && Y6(Se(), Vr) === tt(Se())) return !1;
-    return !0;
+    if (q7() && Y6(Se(), Vr) === tt(Se())) return false;
+    return true;
   }
   let t = Se(),
     r = L.localSettingsGitTracked?.cwd === t ? L.localSettingsGitTracked.value : void 0;
@@ -4448,7 +4448,7 @@ function q7() {
   let e = Se(),
     t = le();
   try {
-    if (t.realpathSync(tt(e)) === t.realpathSync(vD())) return !0;
+    if (t.realpathSync(tt(e)) === t.realpathSync(vD())) return true;
   } catch {}
   return tt(be()) === tt(He(e, ".claude"));
 }
@@ -4458,11 +4458,11 @@ function X7() {
     t = [e],
     r = Y6(e, Vr);
   if (r !== tt(e)) t.push(r);
-  let o = !1;
+  let o = false;
   for (let u of t) {
     let d = Q7(u);
     if (d === "tracked") return "tracked";
-    if (d === "indeterminate") o = !0;
+    if (d === "indeterminate") o = true;
   }
   return o ? "indeterminate" : "untracked";
 }
@@ -4495,7 +4495,7 @@ function Q7(e) {
         cwd: e,
         encoding: "utf8",
         timeout: 2000,
-        windowsHide: !0,
+        windowsHide: true,
         env: {
           ...process.env,
           GIT_LITERAL_PATHSPECS: "",
@@ -4518,12 +4518,12 @@ function Q7(e) {
 }
 
 function J7() {
-  if (a.CLAUDE_CODE_SANDBOXED) return !0;
-  if (z5()) return !0;
-  if (wt()) return !0;
+  if (a.CLAUDE_CODE_SANDBOXED) return true;
+  if (z5()) return true;
+  if (wt()) return true;
   let e = ie(),
     t = mNe();
-  if (e.projects?.[t]?.hasTrustDialogAccepted) return !0;
+  if (e.projects?.[t]?.hasTrustDialogAccepted) return true;
   return OD(e, Se());
 }
 
@@ -4536,20 +4536,20 @@ function OD(e, t) {
 
 function kD(e, t, r) {
   let o = zN(t);
-  while (!0) {
-    if (!(r === null || o === r || o.startsWith(r.endsWith("/") ? r : r + "/"))) return !1;
-    if (e.projects?.[o]?.hasTrustDialogAccepted) return !0;
-    if (o === r) return !1;
+  while (true) {
+    if (!(r === null || o === r || o.startsWith(r.endsWith("/") ? r : r + "/"))) return false;
+    if (e.projects?.[o]?.hasTrustDialogAccepted) return true;
+    if (o === r) return false;
     let d = zN(tt(o, ".."));
-    if (d === o) return !1;
+    if (d === o) return false;
     o = d;
   }
 }
 
-function N6(e, { advisoryNoFsProbe: t = !1 } = {}) {
+function N6(e, { advisoryNoFsProbe: t = false } = {}) {
   let r = ie();
   if (t) return kD(r, tr(tt(e)), null);
-  if (r.projects?.[gw(e)]?.hasTrustDialogAccepted === !0) return !0;
+  if (r.projects?.[gw(e)]?.hasTrustDialogAccepted === true) return true;
   return OD(r, e);
 }
 
@@ -4557,7 +4557,7 @@ function pNe(e, t) {
   let r = gw(e);
   return Ae((o) => {
     if (o.projects?.[r]?.hasTrustDialogAccepted) return o;
-    return { ...o, projects: { ...o.projects, [r]: { ...(o.projects?.[r] ?? pAe), hasTrustDialogAccepted: !0 } } };
+    return { ...o, projects: { ...o.projects, [r]: { ...(o.projects?.[r] ?? pAe), hasTrustDialogAccepted: true } } };
   }, t);
 }
 
@@ -4566,7 +4566,7 @@ function ZRr(e) {
 }
 
 function an() {
-  return !1;
+  return false;
 }
 
 function ekr(e) {
@@ -4575,9 +4575,9 @@ function ekr(e) {
 
 function At(e) {
   let t = L.cache.config;
-  if (!t) return !1;
+  if (!t) return false;
   let r = t.oauthAccount !== void 0 && e.oauthAccount === void 0,
-    o = t.hasCompletedOnboarding === !0 && e.hasCompletedOnboarding !== !0;
+    o = t.hasCompletedOnboarding === true && e.hasCompletedOnboarding !== true;
   return r || o;
 }
 
@@ -4586,16 +4586,16 @@ async function Z7(e) {
   if (!t.ok)
     return (
       n(`Config read through storage failed; continuing from defaults: ${Ge(t.error)}`, { level: "error" }),
-      L.setLastGetConfigWasParseError(!1),
+      L.setLastGetConfigWasParseError(false),
       qe()
     );
   let r = t.value.items[0];
-  if (!r?.found) return L.setLastGetConfigWasParseError(!1), qe();
+  if (!r?.found) return L.setLastGetConfigWasParseError(false), qe();
   try {
     let o = V(ui(r.value));
-    return L.setLastGetConfigWasParseError(!1), { ...qe(), ...o };
+    return L.setLastGetConfigWasParseError(false), { ...qe(), ...o };
   } catch {
-    return L.setLastGetConfigWasParseError(!0), qe();
+    return L.setLastGetConfigWasParseError(true), qe();
   }
 }
 
@@ -4645,14 +4645,14 @@ function Ya(e) {
 }
 
 function $a(e, t) {
-  if (!(O() && L.unhandedWritesInMemory) || e !== void 0) return !1;
+  if (!(O() && L.unhandedWritesInMemory) || e !== void 0) return false;
   return (
     g("storage_v5_backend", "unhanded_config_writer"),
     n(
       `config: ${t} ran without the storage backend in a process whose config record has no file behind it; the change is in memory only and is replaced when a backend-handed save or refresh rebuilds the config from the record`,
       { level: "warn" },
     ),
-    !0
+    true
   );
 }
 
@@ -4663,39 +4663,39 @@ function Ae(e, t) {
 }
 
 function Ybt(e, t) {
-  return Ap(e, t).catch(() => !1);
+  return Ap(e, t).catch(() => false);
 }
 
 function Ap(e, t) {
   if (an()) {
     let o = e(L.testGlobalConfig);
-    if (o === L.testGlobalConfig) return Promise.resolve(!0);
-    return L.overwriteTestGlobalConfig(o), Promise.resolve(!0);
+    if (o === L.testGlobalConfig) return Promise.resolve(true);
+    return L.overwriteTestGlobalConfig(o), Promise.resolve(true);
   }
   let r = Ya((o) => {
     let u = e(o);
     if (u === o) return o;
     return { ...u, projects: Yo(o.projects, u.projects) };
   });
-  if ($a(t, "saveGlobalConfig")) return Promise.resolve(!1);
+  if ($a(t, "saveGlobalConfig")) return Promise.resolve(false);
   return Wa(Ls(), () => eee(e, r, t));
 }
 
 async function eee(e, t, r) {
   let o = null,
-    u = !1,
-    d = !1;
+    u = false,
+    d = false;
   try {
     let _ = await Qo(
       Ls(),
       qe,
       (A) => {
         let C = e(A);
-        if (C === A) return (u = !0), A;
+        if (C === A) return (u = true), A;
         return (o = St({ ...C, projects: Yo(A.projects, C.projects) })), o;
       },
       t,
-      { onCompromised: () => (d = !0) },
+      { onCompromised: () => (d = true) },
       r,
     );
     if (_ && o) Xo(o);
@@ -4704,7 +4704,7 @@ async function eee(e, t, r) {
     n(`Failed to save config with lock: ${_}`, { level: "error" });
     let A = await qo(t, r),
       C = e(A);
-    if (C === A) return !0;
+    if (C === A) return true;
     if (((o = St({ ...C, projects: Yo(A.projects, C.projects) })), At(A) && At(o)))
       if (L.pendingWriteCount(Ls()) > 1 && t) {
         if (
@@ -4715,7 +4715,7 @@ async function eee(e, t, r) {
           (C = e(A)),
           C === A)
         )
-          return !0;
+          return true;
         o = St({ ...C, projects: Yo(A.projects, C.projects) });
       } else
         return (
@@ -4724,9 +4724,9 @@ async function eee(e, t, r) {
             { level: "error" },
           ),
           s("tengu_config_auth_loss_prevented", {}),
-          !1
+          false
         );
-    return await Qa(o, "save_global", r), !1;
+    return await Qa(o, "save_global", r), false;
   }
 }
 
@@ -4740,13 +4740,13 @@ function $o(e) {
   if ((delete e.showSpinnerTree, e.installMethod !== void 0)) return e;
   let t = e,
     r = "unknown",
-    o = e.autoUpdates ?? !0;
+    o = e.autoUpdates ?? true;
   switch (t.autoUpdaterStatus) {
     case "migrated":
       r = "local";
       break;
     case "disabled":
-      o = !1;
+      o = false;
       break;
     case "enabled":
       r = "global";
@@ -4789,7 +4789,7 @@ function St(e) {
 function xa(e) {
   if (!e) return e;
   let t = {},
-    r = !1;
+    r = false;
   for (let [o, u] of Object.entries(e)) {
     if (!u || typeof u !== "object") {
       t[o] = u;
@@ -4797,7 +4797,7 @@ function xa(e) {
     }
     let d = u;
     if (d.history !== void 0 || d.projectOnboardingSeenCount !== void 0 || d.hasCompletedProjectOnboarding !== void 0) {
-      r = !0;
+      r = true;
       let { history: _, projectOnboardingSeenCount: A, hasCompletedProjectOnboarding: C, ...k } = d;
       t[o] = k;
     } else t[o] = u;
@@ -4820,9 +4820,9 @@ function Yo(e, t) {
 function MD() {
   if (L.freshnessWatcherStarted) return;
   if (xr()) return;
-  L.setFreshnessWatcherStarted(!0);
+  L.setFreshnessWatcherStarted(true);
   let e = Ls();
-  VEt(e, { interval: PD, persistent: !1 }, (t) => {
+  VEt(e, { interval: PD, persistent: false }, (t) => {
     if (t.mtimeMs <= L.cache.mtime) return;
     if (L.pendingWriteCount(e) > 0) {
       L.deferExternalRefresh(t);
@@ -4831,7 +4831,7 @@ function MD() {
     wD(t);
   }),
     vt(async () => {
-      Sp(e), L.setFreshnessWatcherStarted(!1), L.setFreshnessBackend(void 0);
+      Sp(e), L.setFreshnessWatcherStarted(false), L.setFreshnessBackend(void 0);
     });
 }
 
@@ -4864,7 +4864,7 @@ function DD(e, t, r, o) {
     L.deferExternalRefresh(o);
     return;
   }
-  let u = Ut(ui(t), !1);
+  let u = Ut(ui(t), false);
   if (u === null || typeof u !== "object") return;
   L.installDiskRead($o({ ...qe(), ...u }), r);
 }
@@ -4911,7 +4911,7 @@ async function lR(e) {
       L.setFreshnessBackend(void 0);
       return;
     }
-    L.setFreshnessSubscription(t), Sp(Ls()), L.setFreshnessWatcherStarted(!1);
+    L.setFreshnessSubscription(t), Sp(Ls()), L.setFreshnessWatcherStarted(false);
   }
 }
 
@@ -5023,7 +5023,7 @@ async function tb(e) {
       if (!d?.found) return;
       t = d.value;
     } else t = await le().readFile(Ls(), { encoding: "utf-8" });
-    let r = Ut(ui(t), !1);
+    let r = Ut(ui(t), false);
     if (r === null || typeof r !== "object" || !("oauthAccount" in r)) return;
     let o = r.oauthAccount;
     if (o === null || typeof o !== "object") return;
@@ -5046,7 +5046,7 @@ function x4t() {
       ? void 0
       : e.getSettingsForSource("projectSettings")?.remoteControlAtStartup,
     r = e.getSettingsForSource("localSettings")?.remoteControlAtStartup;
-  if (t === !1 || r === !1) return { value: !1, source: "project_or_local_false" };
+  if (t === false || r === false) return { value: false, source: "project_or_local_false" };
   let o = e.getSecuritySensitiveSettingWithSources("remoteControlAtStartup")[0],
     u = ie().remoteControlAtStartup,
     d =
@@ -5055,9 +5055,9 @@ function x4t() {
         : u !== void 0
           ? { value: u, source: "legacy_global_config" }
           : { value: void 0, source: "none" };
-  if (d.value !== !0 && (t === !0 || r === !0))
+  if (d.value !== true && (t === true || r === true))
     n(
-      `remoteControlAtStartup: true in ${t === !0 && r === !0 ? "project and local" : t === !0 ? "project" : "local"} settings ignored \u2014 repo-scoped settings cannot enable Remote Control; set it at user scope (/config)`,
+      `remoteControlAtStartup: true in ${t === true && r === true ? "project and local" : t === true ? "project" : "local"} settings ignored \u2014 repo-scoped settings cannot enable Remote Control; set it at user scope (/config)`,
     );
   return d;
 }
@@ -5085,7 +5085,7 @@ function Bnr(e) {
 
 async function Qa(e, t, r) {
   Xo(e);
-  let o = !1;
+  let o = false;
   try {
     let u = Qs(e, (d, _) => b(d) !== b(fO[_]));
     if (O() && r !== void 0) {
@@ -5098,9 +5098,9 @@ async function Qa(e, t, r) {
       if (!d.ok) throw Error("Config fallback write through storage failed", { cause: Ge(d.error) });
     } else {
       let d = Ls();
-      await le().mkdir(La(d)), await O_(d, b(u, null, 2), { encoding: "utf-8", mode: 384, allowSymlink: !0 });
+      await le().mkdir(La(d)), await O_(d, b(u, null, 2), { encoding: "utf-8", mode: 384, allowSymlink: true });
     }
-    o = !0;
+    o = true;
   } catch (u) {
     n(`Config fallback write also failed; continuing without persisting: ${u}`, { level: "error" });
   }
@@ -5193,7 +5193,7 @@ async function zD(e, t, r) {
 }
 
 async function FD(e) {
-  let t = await zD(e, "backup", !0);
+  let t = await zD(e, "backup", true);
   return t.ok ? re(t.value.map((r) => r.stamp)) : t;
 }
 
@@ -5231,8 +5231,8 @@ async function Qo(e, t, r, o, u, d) {
         n(`Config stale-write stat failed: ${ee}`);
       }
     let W = await il(e, t),
-      U = !1,
-      B = !1;
+      U = false,
+      B = false;
     if (e === Ls()) {
       let ee = L.cache.config,
         de = o ?? ee;
@@ -5247,14 +5247,14 @@ async function Qo(e, t, r, o, u, d) {
         ),
           s("tengu_config_auto_repaired", {
             file_size_before: me,
-            had_cached_auth: L.cache.config?.oauthAccount !== void 0 || L.cache.config?.hasCompletedOnboarding === !0,
+            had_cached_auth: L.cache.config?.oauthAccount !== void 0 || L.cache.config?.hasCompletedOnboarding === true,
           }),
           (W = { ...de }),
-          (U = !0);
-      } else if (At(W)) B = !0;
+          (U = true);
+      } else if (At(W)) B = true;
     }
     let F = r(W);
-    if (F === W && !U) return !1;
+    if (F === W && !U) return false;
     if (B && At(F)) {
       let ee = L.pendingWriteCount(e),
         de = o ?? L.cache.config;
@@ -5271,11 +5271,11 @@ async function Qo(e, t, r, o, u, d) {
             { level: "error" },
           ),
           s("tengu_config_auth_loss_prevented", {}),
-          !1
+          false
         );
     }
     let Q = Qs(F, (ee, de) => b(ee) !== b(_[de]));
-    return await Ja(e, U), await O_(e, b(Q, null, 2), { encoding: "utf-8", mode: 384, allowSymlink: !0 }), !0;
+    return await Ja(e, U), await O_(e, b(Q, null, 2), { encoding: "utf-8", mode: 384, allowSymlink: true }), true;
   } finally {
     if (k)
       try {
@@ -5290,7 +5290,7 @@ async function Qo(e, t, r, o, u, d) {
 
 async function see(e, t, r) {
   let o = `${ja(t)}.corrupted.`,
-    u = await zD(e, "corrupted", !1);
+    u = await zD(e, "corrupted", false);
   if (!u.ok) {
     n(`Could not back up corrupted config (${u.error}); continuing.`, { level: "error" });
     return;
@@ -5312,7 +5312,7 @@ async function see(e, t, r) {
   } else n(`Could not back up corrupted config (${Ge(_.error)}); continuing.`, { level: "error" });
 }
 
-async function Rp(e, t, r, o = !1) {
+async function Rp(e, t, r, o = false) {
   try {
     n(VD(r.message), { level: "error" }),
       process.stderr.write(HD(t, r.message)),
@@ -5332,7 +5332,7 @@ async function Rp(e, t, r, o = !1) {
         setImmediate(
           (d, _) => {
             try {
-              s("tengu_config_parse_error", { file_size: d, had_cached_auth: !1, has_timestamped_backup: _ });
+              s("tengu_config_parse_error", { file_size: d, had_cached_auth: false, has_timestamped_backup: _ });
             } catch {}
           },
           r.text.length,
@@ -5341,16 +5341,16 @@ async function Rp(e, t, r, o = !1) {
       return;
     }
     if (!L.insideParseErrorTelemetry && L.claimParseErrorLog(t)) {
-      L.setInsideParseErrorTelemetry(!0);
+      L.setInsideParseErrorTelemetry(true);
       try {
         let d = L.cache.config;
         s("tengu_config_parse_error", {
           file_size: r.text.length,
-          had_cached_auth: d?.oauthAccount !== void 0 || d?.hasCompletedOnboarding === !0,
+          had_cached_auth: d?.oauthAccount !== void 0 || d?.hasCompletedOnboarding === true,
           has_timestamped_backup: u !== null,
         });
       } finally {
-        L.setInsideParseErrorTelemetry(!1);
+        L.setInsideParseErrorTelemetry(false);
       }
     }
   } catch (u) {
@@ -5386,21 +5386,21 @@ async function cee(e, t, r, o, u) {
               );
           }
           let Q,
-            ee = !1,
+            ee = false,
             de = "";
           if (F === void 0) Q = r();
           else
             try {
               Q = { ...r(), ...V(ui(F)) };
             } catch (Re) {
-              (ee = !0), (de = Re instanceof Error ? Re.message : String(Re)), (Q = r());
+              (ee = true), (de = Re instanceof Error ? Re.message : String(Re)), (Q = r());
             }
           B.push(() => L.setLastGetConfigWasParseError(ee));
           let me = U !== void 0 && U.version === A,
             Ce = U !== void 0 && !me ? new Uint8Array(U.value) : void 0,
             Ie = ee && F !== void 0 && Ce !== void 0 ? { text: F, bytes: Ce, message: de } : void 0,
-            ut = !1,
-            Ve = !1,
+            ut = false,
+            Ve = false,
             xe = L.cache.config,
             Pe = u ?? xe;
           if (ee && Pe) {
@@ -5413,19 +5413,19 @@ async function cee(e, t, r, o, u) {
                 s("tengu_config_auto_repaired", {
                   file_size_before: Re,
                   had_cached_auth:
-                    L.cache.config?.oauthAccount !== void 0 || L.cache.config?.hasCompletedOnboarding === !0,
+                    L.cache.config?.oauthAccount !== void 0 || L.cache.config?.hasCompletedOnboarding === true,
                 });
             }),
               (Q = { ...Pe }),
-              (ut = !0);
-          } else if (At(Q)) Ve = !0;
+              (ut = true);
+          } else if (At(Q)) Ve = true;
           let Oe = o(Q);
           if (Oe === Q && !ut)
-            return { skip: !0, result: { didWrite: !1, after: B, corrupt: Ie, ...(U === void 0 && { missing: !0 }) } };
+            return { skip: true, result: { didWrite: false, after: B, corrupt: Ie, ...(U === void 0 && { missing: true }) } };
           if (Ie !== void 0 && U !== void 0 && W < lee - 1)
             return {
-              skip: !0,
-              result: { didWrite: !1, after: [], restart: { version: U.version, repairingFromCache: ut, corrupt: Ie } },
+              skip: true,
+              result: { didWrite: false, after: [], restart: { version: U.version, repairingFromCache: ut, corrupt: Ie } },
             };
           if (Ve && At(Oe)) {
             let Re = L.pendingWriteCount(t),
@@ -5447,18 +5447,18 @@ async function cee(e, t, r, o, u) {
                   ),
                     s("tengu_config_auth_loss_prevented", {});
                 }),
-                { skip: !0, result: { didWrite: !1, after: B, corrupt: Ie, ...(U === void 0 && { missing: !0 }) } }
+                { skip: true, result: { didWrite: false, after: B, corrupt: Ie, ...(U === void 0 && { missing: true }) } }
               );
           }
           let ze = Qs(Oe, (Re, Ke) => b(Re) !== b(d[Ke]));
           return {
             write: b(ze, null, 2),
             result: {
-              didWrite: !0,
+              didWrite: true,
               after: B,
               corrupt: Ie,
               ...(U !== void 0 && { backup: { replaced: Ce, repairingFromCache: ut } }),
-              ...(U === void 0 && { missing: !0 }),
+              ...(U === void 0 && { missing: true }),
             },
           };
         },
@@ -5480,7 +5480,7 @@ async function cee(e, t, r, o, u) {
     throw Error("Config update through storage failed", { cause: Ge(k.error) });
   }
   let x = k.value.result;
-  if (x === void 0) return !1;
+  if (x === void 0) return false;
   if (x.missing)
     try {
       let W = await Nr(t, e);
@@ -5490,7 +5490,7 @@ async function cee(e, t, r, o, u) {
     }
   if (x.corrupt !== void 0) await Rp(e, t, x.corrupt);
   let z = x.backup !== void 0 && x.backup.replaced === void 0;
-  if (x.didWrite && !z) await Ja(t, x.backup?.repairingFromCache ?? !1, { backend: e, replaced: x.backup?.replaced });
+  if (x.didWrite && !z) await Ja(t, x.backup?.repairingFromCache ?? false, { backend: e, replaced: x.backup?.replaced });
   for (let W of x.after)
     try {
       W();
@@ -5500,7 +5500,7 @@ async function cee(e, t, r, o, u) {
   return x.didWrite;
 }
 
-async function Cp(e, t, r = !1) {
+async function Cp(e, t, r = false) {
   let o = await e.read([Te.globalConfig()]).then(
     (C) => (C.ok ? C : Ge(C.error)),
     (C) => String(C),
@@ -5509,7 +5509,7 @@ async function Cp(e, t, r = !1) {
     return n(`Startup config read through storage failed; reading the file directly: ${o}`, { level: "warn" }), null;
   let u = o.value.items[0];
   if (!u?.found) {
-    if (!r) L.setLastGetConfigWasParseError(!1);
+    if (!r) L.setLastGetConfigWasParseError(false);
     let C = r ? null : await Nr(t, e);
     if (C) process.stderr.write(Op(t, C));
     return { config: qe(), stats: null, version: void 0 };
@@ -5521,10 +5521,10 @@ async function Cp(e, t, r = !1) {
     A = V(ui(d));
   } catch (C) {
     let k = C instanceof Error ? C.message : String(C);
-    if (!r) L.setLastGetConfigWasParseError(!0), await Rp(e, t, { text: d, bytes: u.value, message: k }, !0);
+    if (!r) L.setLastGetConfigWasParseError(true), await Rp(e, t, { text: d, bytes: u.value, message: k }, true);
     throw new xR(k, t, qe());
   }
-  if (!r) L.setLastGetConfigWasParseError(!1);
+  if (!r) L.setLastGetConfigWasParseError(false);
   return { config: { ...qe(), ...A }, stats: _, version: u.version };
 }
 
@@ -5547,7 +5547,7 @@ function uee(e) {
   return L.writeQueues.run(Tp, async () => {
     let t = Ls(),
       r = L.writeGeneration,
-      o = await Cp(e, t, !0).catch((u) => {
+      o = await Cp(e, t, true).catch((u) => {
         if (u instanceof xR) return "unparseable";
         throw u;
       });
@@ -5573,15 +5573,15 @@ function BD(e, t, r, o) {
     (n(`Re-read ~/.claude.json through the storage interface after the direct start-up read: ${u}`),
     L.freshnessBackend === void 0)
   ) {
-    if (L.freshnessWatcherStarted) Sp(t), L.setFreshnessWatcherStarted(!1);
+    if (L.freshnessWatcherStarted) Sp(t), L.setFreshnessWatcherStarted(false);
     Va(e);
   }
 }
 
 async function dee(e, t) {
   let r = Date.now();
-  if ((Y("info", "enable_configs_started"), e !== void 0 && t?.fileWatchFallback === !1)) L.setFileWatchFallback(!1);
-  if (O() && e !== void 0 && t?.writersWithoutBackend === "memory") L.setUnhandedWritesInMemory(!0);
+  if ((Y("info", "enable_configs_started"), e !== void 0 && t?.fileWatchFallback === false)) L.setFileWatchFallback(false);
+  if (O() && e !== void 0 && t?.writersWithoutBackend === "memory") L.setUnhandedWritesInMemory(true);
   let o = Ls();
   L.allowReading();
   try {
@@ -5594,7 +5594,7 @@ async function dee(e, t) {
       try {
         d = await le().stat(o);
       } catch {}
-      let _ = $o(await il(o, qe, !0));
+      let _ = $o(await il(o, qe, true));
       if ((L.installDiskRead(_, d), e !== void 0 && xr())) Va(e);
       else MD();
       if (e === void 0) L.oweReloadThroughStorage();
@@ -5689,7 +5689,7 @@ async function il(e, t, r) {
     let u = await o.readFile(e, { encoding: "utf-8" });
     try {
       let d = V(ui(u));
-      return L.setLastGetConfigWasParseError(!1), { ...t(), ...d };
+      return L.setLastGetConfigWasParseError(false), { ...t(), ...d };
     } catch (d) {
       let _ = d instanceof Error ? d.message : String(d);
       throw new xR(_, e, t());
@@ -5710,14 +5710,14 @@ async function il(e, t, r) {
         await o.mkdir(k);
         let M = (await o.readdir(k)).map((U) => U.name).filter((U) => U.startsWith(`${C}.corrupted.`)),
           x,
-          z = !1,
+          z = false,
           W = await o.readFile(e, { encoding: "utf-8" });
         _ = W.length;
         for (let U of M)
           try {
             let B = await o.readFile(He(k, U), { encoding: "utf-8" });
             if (W === B) {
-              z = !0;
+              z = true;
               break;
             }
           } catch {}
@@ -5742,7 +5742,7 @@ async function il(e, t, r) {
           setImmediate(
             (C, k) => {
               try {
-                s("tengu_config_parse_error", { file_size: C, had_cached_auth: !1, has_timestamped_backup: k });
+                s("tengu_config_parse_error", { file_size: C, had_cached_auth: false, has_timestamped_backup: k });
               } catch {}
             },
             _,
@@ -5751,16 +5751,16 @@ async function il(e, t, r) {
         throw u;
       }
       if (!L.insideParseErrorTelemetry && L.claimParseErrorLog(e)) {
-        L.setInsideParseErrorTelemetry(!0);
+        L.setInsideParseErrorTelemetry(true);
         try {
           let C = e === Ls() ? L.cache.config : null;
           s("tengu_config_parse_error", {
             file_size: _,
-            had_cached_auth: C?.oauthAccount !== void 0 || C?.hasCompletedOnboarding === !0,
+            had_cached_auth: C?.oauthAccount !== void 0 || C?.hasCompletedOnboarding === true,
             has_timestamped_backup: A !== null,
           });
         } finally {
-          L.setInsideParseErrorTelemetry(!1);
+          L.setInsideParseErrorTelemetry(false);
         }
       }
     }
@@ -5879,7 +5879,7 @@ function gNe(e) {
     let A = St({ ...u, projects: { ...u.projects, [r]: _ } });
     if (At(A)) return;
     let C = Qs(A, (k, M) => b(k) !== b(fO[M]));
-    MRn(t, b(C, null, 2), { encoding: "utf-8", mode: 384, allowSymlink: !0 });
+    MRn(t, b(C, null, 2), { encoding: "utf-8", mode: 384, allowSymlink: true });
   } catch {}
 }
 
@@ -5905,12 +5905,12 @@ function W7e(e) {
     let d = St({ ...u, projects: Yo(o.projects, u.projects) });
     if (At(d)) return;
     let _ = Qs(d, (A, C) => b(A) !== b(fO[C]));
-    MRn(t, b(_, null, 2), { encoding: "utf-8", mode: 384, allowSymlink: !0 });
+    MRn(t, b(_, null, 2), { encoding: "utf-8", mode: 384, allowSymlink: true });
   } catch {}
 }
 
 function Twn(e, t) {
-  if (an()) return Promise.resolve(!0);
+  if (an()) return Promise.resolve(true);
   if ($a(t, "deleteProjectConfig")) {
     let o = L.cache.config?.projects?.[e] !== void 0;
     if (o)
@@ -5932,8 +5932,8 @@ async function fee(e, t, r) {
       Ls(),
       qe,
       (_) => {
-        if (!_.projects?.[e]) return (u = !1), _;
-        u = !0;
+        if (!_.projects?.[e]) return (u = false), _;
+        u = true;
         let { [e]: A, ...C } = _.projects;
         return (o = St({ ..._, projects: C })), o;
       },
@@ -5942,7 +5942,7 @@ async function fee(e, t, r) {
       r,
     );
     if (d && o) Xo(o);
-    return d || u === !1;
+    return d || u === false;
   } catch (d) {
     n(`Failed to save config with lock: ${d}`, { level: "error" });
     let _ = await qo(t, r);
@@ -5959,16 +5959,16 @@ async function fee(e, t, r) {
             { level: "error" },
           ),
           s("tengu_config_auth_loss_prevented", {}),
-          !1
+          false
         );
-    if (!_.projects?.[e]) return !0;
+    if (!_.projects?.[e]) return true;
     let { [e]: A, ...C } = _.projects;
     return (o = St({ ..._, projects: C })), Qa(o, "delete_project", r);
   }
 }
 
 function q7e(e, t) {
-  if (an()) return L.deleteTestProjectConfigFields(e), Promise.resolve(!0);
+  if (an()) return L.deleteTestProjectConfigFields(e), Promise.resolve(true);
   if ($a(t, "deleteCurrentProjectConfigFields")) {
     let o = mNe(),
       u = L.cache.config?.projects?.[o],
@@ -6005,17 +6005,17 @@ async function YD(e, t) {
   let r = (A) => WD(A, e),
     o = t.projectPath(),
     u = (await t.readConfigFallback()).projects?.[o];
-  if (!u || !e.some((A) => A in u)) return !0;
+  if (!u || !e.some((A) => A in u)) return true;
   let d = null,
     _ = null;
   try {
     let A = await t.saveWithLock((C) => {
       let k = C.projects?.[o];
-      if (!k || !e.some((M) => M in k)) return (_ = !1), C;
-      return (_ = !0), (d = St({ ...C, projects: { ...C.projects, [o]: r(k) } })), d;
+      if (!k || !e.some((M) => M in k)) return (_ = false), C;
+      return (_ = true), (d = St({ ...C, projects: { ...C.projects, [o]: r(k) } })), d;
     });
     if (A && d) t.writeCache(d);
-    return A || _ === !1;
+    return A || _ === false;
   } catch (A) {
     n(`Failed to save config with lock: ${A}`, { level: "error" });
     let C = await t.readConfigFallback();
@@ -6032,10 +6032,10 @@ async function YD(e, t) {
             { level: "error" },
           ),
           s("tengu_config_auth_loss_prevented", {}),
-          !1
+          false
         );
     let k = C.projects?.[o];
-    if (!k || !e.some((M) => M in k)) return !0;
+    if (!k || !e.some((M) => M in k)) return true;
     return (d = St({ ...C, projects: { ...C.projects, [o]: r(k) } })), t.fallbackSave(d);
   }
 }
@@ -6065,7 +6065,7 @@ function DY() {
   let e = nve();
   if (e) return { type: "env", envVar: e };
   let t = ie();
-  if (t.autoUpdates === !1 && (t.installMethod !== "native" || t.autoUpdatesProtectedForNative !== !0))
+  if (t.autoUpdates === false && (t.installMethod !== "native" || t.autoUpdatesProtectedForNative !== true))
     return { type: "config" };
   return null;
 }
@@ -6114,7 +6114,7 @@ async function mee(e) {
   return (await Ap(
     (d) => ((o = RD(d.remoteControlMachineId) ? d.remoteControlMachineId : o), { ...d, remoteControlMachineId: o }),
     e,
-  ).catch(() => !1)) || o !== r
+  ).catch(() => false)) || o !== r
     ? o
     : null;
 }
@@ -6298,7 +6298,7 @@ function xwn() {
 }
 
 function Iwn() {
-  if (!L.clientDataCacheKeyGetter) return !1;
+  if (!L.clientDataCacheKeyGetter) return false;
   let e = ie().clientDataCacheSlots;
   return Na(e, L.clientDataCacheKeyGetter()) !== null;
 }
@@ -6369,10 +6369,10 @@ function BSr(e, t, r, o) {
     (d = { windowStartMs: 0, forwardedInWindow: 0, droppedSinceForward: 0 }), e.set(u, d);
   }
   if (o - d.windowStartMs >= Ree) (d.windowStartMs = o), (d.forwardedInWindow = 0);
-  if (d.forwardedInWindow >= yee) return d.droppedSinceForward++, { admitted: !1, droppedSinceLastForward: 0 };
+  if (d.forwardedInWindow >= yee) return d.droppedSinceForward++, { admitted: false, droppedSinceLastForward: 0 };
   d.forwardedInWindow++;
   let _ = d.droppedSinceForward;
-  return (d.droppedSinceForward = 0), { admitted: !0, droppedSinceLastForward: _ };
+  return (d.droppedSinceForward = 0), { admitted: true, droppedSinceLastForward: _ };
 }
 
 async function vee(e) {
@@ -6413,7 +6413,7 @@ async function _Ne(e, t) {
     let d = await Pa({ model: t.model, betas: t.betas }),
       { envContext: _, head_sha: A, ...C } = d,
       k = { ...C, ..._, ...t, userBucket: r.getUserBucket(), ...(u !== void 0 && { droppedSinceLastForward: u }) };
-    if ((NSr(k), typeof k.toolName === "string")) k.toolName = FSr(k.toolName, k.isMcp === !0);
+    if ((NSr(k), typeof k.toolName === "string")) k.toolName = FSr(k.toolName, k.isMcp === true);
     if (
       typeof k.feature_name === "string" &&
       k.feature_name.startsWith("tool_skill_") &&
@@ -6663,7 +6663,7 @@ function n4t({
   return x.toString();
 }
 
-async function $bn(e, { state: t, codeVerifier: r, port: o, useManualRedirect: u = !1, expiresIn: d, clientId: _ }) {
+async function $bn(e, { state: t, codeVerifier: r, port: o, useManualRedirect: u = false, expiresIn: d, clientId: _ }) {
   let A = {
     grant_type: "authorization_code",
     code: e,
@@ -6707,7 +6707,7 @@ async function C$(
     let M = k.data,
       { access_token: x, refresh_token: z = e, expires_in: W } = M,
       U = Date.now() + W * 1000,
-      B = t4t(M.refresh_token_expires_in, !1),
+      B = t4t(M.refresh_token_expires_in, false),
       F = xbt(M.scope);
     s("tengu_oauth_token_refresh_success", {}), y("oauth_token_refresh");
     let Q = ie(),
@@ -6825,7 +6825,7 @@ async function Ubn(e, t) {
 }
 
 function iN(e) {
-  if (e === null) return !1;
+  if (e === null) return false;
   let t = 300000;
   return Date.now() + t >= e;
 }
@@ -6882,11 +6882,11 @@ async function Bbn(e, t) {
     !Tt() ||
     !Wd()
   )
-    return !1;
+    return false;
   let k = Yt();
-  if (!k?.accessToken) return !1;
+  if (!k?.accessToken) return false;
   let M = await ope(k.accessToken);
-  if (!M?.account || !M.organization) return !1;
+  if (!M?.account || !M.organization) return false;
   if (d) n("OAuth profile fetch succeeded, overriding env var account info", { level: "info" });
   return (
     h7e(
@@ -6896,7 +6896,7 @@ async function Bbn(e, t) {
         organizationUuid: M.organization.uuid,
         displayName: M.account.display_name || void 0,
         fullName: M.account.full_name || void 0,
-        hasExtraUsageEnabled: M.organization.has_extra_usage_enabled ?? !1,
+        hasExtraUsageEnabled: M.organization.has_extra_usage_enabled ?? false,
         billingType: M.organization.billing_type ?? void 0,
         accountCreatedAt: M.account.created_at,
         subscriptionCreatedAt: M.organization.subscription_created_at ?? void 0,
@@ -6908,7 +6908,7 @@ async function Bbn(e, t) {
       },
       t,
     ),
-    !0
+    true
   );
 }
 
@@ -6980,9 +6980,9 @@ function al(e) {
 }
 
 function o4t(e) {
-  if (!st.isAxiosError(e) || !e.response) return !1;
+  if (!st.isAxiosError(e) || !e.response) return false;
   let t = e.response.status;
-  if (t !== 400 && t !== 401 && t !== 403) return !1;
+  if (t !== 400 && t !== 401 && t !== 403) return false;
   return SYe(e.response.data) !== null;
 }
 
@@ -6991,19 +6991,19 @@ function tnr(e) {
 }
 
 function v$(e) {
-  if (!st.isAxiosError(e) || !e.response) return !1;
+  if (!st.isAxiosError(e) || !e.response) return false;
   let t = e.response.status;
-  if (t !== 400 && t !== 401) return !1;
+  if (t !== 400 && t !== 401) return false;
   return al(e.response.data).code === "invalid_grant" && SYe(e.response.data) === null;
 }
 
 function nnr(e) {
-  if (!st.isAxiosError(e) || e.response?.status !== 400) return !1;
+  if (!st.isAxiosError(e) || e.response?.status !== 400) return false;
   return al(e.response.data).code === "invalid_scope";
 }
 
 function rnr(e) {
-  if (!st.isAxiosError(e) || e.response?.status !== 400) return !1;
+  if (!st.isAxiosError(e) || e.response?.status !== 400) return false;
   let { code: t } = al(e.response.data);
   return typeof t === "string" && xee.has(t);
 }
@@ -7021,7 +7021,7 @@ function cSr(e) {
 async function JD() {
   {
     let e = u0(),
-      t = await Qh(`security delete-generic-password -a ${IC()} -s "${e}"`, { reject: !1 });
+      t = await Qh(`security delete-generic-password -a ${IC()} -s "${e}"`, { reject: false });
     if (t.exitCode !== 0 && !t.stderr.includes(Uee))
       throw Error(t.stderr ? `Failed to delete keychain entry: ${t.stderr}` : "Failed to delete keychain entry");
   }
@@ -7060,10 +7060,10 @@ function cl(e) {
       (u === 100 && d >= 64 && d <= 127)
     );
   }
-  if (!ll(t)) return !1;
+  if (!ll(t)) return false;
   let r = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/.exec(t);
   if (r?.[1]) return cl(r[1]);
-  if (t === "::1") return !0;
+  if (t === "::1") return true;
   let o = parseInt(/^([0-9a-f]{1,4}):/.exec(t)?.[1] ?? "0", 16);
   return (o >= 65152 && o <= 65215) || (o >= 64512 && o <= 65023);
 }
@@ -7078,7 +7078,7 @@ async function onr(e) {
     let A, C;
     try {
       if (((A = new URL(u).hostname.replace(/^\[|\]$/g, "")), !A)) throw Error("no hostname");
-      C = wp(A) || ll(A) ? [A] : (await Xt(ZD(A, { all: !0 }), 1e4, "DNS resolution timed out")).map((x) => x.address);
+      C = wp(A) || ll(A) ? [A] : (await Xt(ZD(A, { all: true }), 1e4, "DNS resolution timed out")).map((x) => x.address);
     } catch {
       throw new R(
         "Could not resolve the configured HTTP proxy. Connect to your organization's network (or VPN) and try again.",
@@ -7097,7 +7097,7 @@ async function onr(e) {
   if (o) d = [r];
   else
     try {
-      d = (await Xt(ZD(r, { all: !0 }), 1e4, "DNS resolution timed out")).map((A) => A.address);
+      d = (await Xt(ZD(r, { all: true }), 1e4, "DNS resolution timed out")).map((A) => A.address);
     } catch {
       throw new R(
         `Could not resolve gateway host ${r}. Connect to your organization's network (or VPN) and try again.`,
@@ -7258,7 +7258,7 @@ function RY(e) {
 
 function Pp() {
   {
-    if (!a.CLAUDE_CODE_USE_GATEWAY) return !1;
+    if (!a.CLAUDE_CODE_USE_GATEWAY) return false;
     let e = a.ANTHROPIC_BASE_URL,
       t = a.ANTHROPIC_AUTH_TOKEN;
     if (!e || !t)
@@ -7266,10 +7266,10 @@ function Pp() {
         n("CLAUDE_CODE_USE_GATEWAY is set but ANTHROPIC_BASE_URL or ANTHROPIC_AUTH_TOKEN is missing; ignoring", {
           level: "warn",
         }),
-        !1
+        false
       );
     let r = mi();
-    if (GC(r) || r?.jwt === t) return !0;
+    if (GC(r) || r?.jwt === t) return true;
     let o = r?.url;
     if (!o)
       try {
@@ -7278,13 +7278,13 @@ function Pp() {
         throw new Qd(`CLAUDE_CODE_USE_GATEWAY is set but ANTHROPIC_BASE_URL is invalid: ${l(d)}`);
       }
     let u = cR(t);
-    return MJ({ url: o, jwt: t, expiresAt: u !== null ? u * 1000 : Number.MAX_SAFE_INTEGER, unpinned: !0 }), !0;
+    return MJ({ url: o, jwt: t, expiresAt: u !== null ? u * 1000 : Number.MAX_SAFE_INTEGER, unpinned: true }), true;
   }
-  return !1;
+  return false;
 }
 
 function S7e() {
-  return a.CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST && mi()?.unpinned === !0;
+  return a.CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST && mi()?.unpinned === true;
 }
 
 async function Xee(e, t, r) {
@@ -7421,7 +7421,7 @@ function uSr(e) {
         if (A) return async () => A;
       }
       let { fromIni: _ } = await import("/$bunfs/root/chunk-dbfgsxg1.js");
-      return _({ ...(o && { profile: o }), configFilepath: u ?? d, filepath: d ?? u, ignoreCache: !0 });
+      return _({ ...(o && { profile: o }), configFilepath: u ?? d, filepath: d ?? u, ignoreCache: true });
     }
     throw Dbt(e, _I);
   };
@@ -7487,13 +7487,13 @@ function a4t() {
 }
 
 function jd() {
-  if (!nCn()) return !1;
-  if (a4t()) return !1;
+  if (!nCn()) return false;
+  if (a4t()) return false;
   if (cb() === "profile-implicit") {
     let e = Yt();
-    if (g4t(e) && bYe()) return TI(), !1;
+    if (g4t(e) && bYe()) return TI(), false;
   }
-  return AI(), !0;
+  return AI(), true;
 }
 
 function zV() {
@@ -7542,17 +7542,17 @@ async function E7e(e) {
 }
 
 function El() {
-  if (Co()) return !1;
+  if (Co()) return false;
   if (a.ANTHROPIC_UNIX_SOCKET) return !!a.CLAUDE_CODE_OAUTH_TOKEN;
-  if (jd()) return !1;
+  if (jd()) return false;
   let e = !pr(),
     r = (En() || {}).apiKeyHelper,
     o = N3(),
     u;
   try {
-    u = qg({ skipRetrievingKeyFromApiKeyHelper: !0 }).source;
+    u = qg({ skipRetrievingKeyFromApiKeyHelper: true }).source;
   } catch {
-    return !1;
+    return false;
   }
   let d = u === "ANTHROPIC_API_KEY" || u === "apiKeyHelper",
     _ = a.CLAUDE_CODE_API_KEY_FILE_DESCRIPTOR,
@@ -7583,21 +7583,21 @@ function N3() {
 
 function Fl() {
   if (Co()) {
-    if (oS()) return { source: "apiKeyHelper", hasToken: !0 };
-    return { source: "none", hasToken: !1 };
+    if (oS()) return { source: "apiKeyHelper", hasToken: true };
+    return { source: "none", hasToken: false };
   }
-  if (N3() && !w7e()) return { source: "ANTHROPIC_AUTH_TOKEN", hasToken: !0 };
-  if (a.CLAUDE_CODE_OAUTH_TOKEN) return { source: "CLAUDE_CODE_OAUTH_TOKEN", hasToken: !0 };
+  if (N3() && !w7e()) return { source: "ANTHROPIC_AUTH_TOKEN", hasToken: true };
+  if (a.CLAUDE_CODE_OAUTH_TOKEN) return { source: "CLAUDE_CODE_OAUTH_TOKEN", hasToken: true };
   if (F$()) {
     if (a.CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR)
-      return { source: "CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR", hasToken: !0 };
-    return { source: "CCR_OAUTH_TOKEN_FILE", hasToken: !0 };
+      return { source: "CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR", hasToken: true };
+    return { source: "CCR_OAUTH_TOKEN_FILE", hasToken: true };
   }
-  if (oS() && !nr()) return { source: "apiKeyHelper", hasToken: !0 };
-  if (jd()) return { source: "profile", hasToken: !0 };
+  if (oS() && !nr()) return { source: "apiKeyHelper", hasToken: true };
+  if (jd()) return { source: "profile", hasToken: true };
   let r = Yt();
-  if (Jk(r?.scopes) && r?.accessToken) return { source: "claude.ai", hasToken: !0 };
-  return { source: "none", hasToken: !1 };
+  if (Jk(r?.scopes) && r?.accessToken) return { source: "claude.ai", hasToken: true };
+  return { source: "none", hasToken: false };
 }
 
 function F3() {
@@ -7626,7 +7626,7 @@ function py(e = {}) {
 }
 
 function xre() {
-  return !nr() && py({ skipRetrievingKeyFromApiKeyHelper: !0 }).source === "apiKeyHelper";
+  return !nr() && py({ skipRetrievingKeyFromApiKeyHelper: true }).source === "apiKeyHelper";
 }
 
 function $3() {
@@ -7647,7 +7647,7 @@ function $3() {
       value: o.value,
       label: _R(o.label) || (typeof o.value === "string" ? _R(o.value) : ""),
       description: bCe(o.description),
-      ...(o.disabled === !0 && { disabled: !0 }),
+      ...(o.disabled === true && { disabled: true }),
       ...(typeof o.promoListPrice === "string" && { promoListPrice: _R(o.promoListPrice) }),
     }));
   return rI.set(e, r), r;
@@ -7679,13 +7679,13 @@ function Obt() {
 }
 
 function unr() {
-  if (a.ANTHROPIC_AUTH_TOKEN) return !1;
+  if (a.ANTHROPIC_AUTH_TOKEN) return false;
   try {
     let { key: e, source: t } = qg();
-    if (!e || t === "/login managed key") return !1;
+    if (!e || t === "/login managed key") return false;
     return e.startsWith("sk-ant-") && e.slice(7, 10) === "api";
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -7702,10 +7702,10 @@ function zbn() {
 
 function l4t() {
   try {
-    let { key: e, source: t } = qg({ skipRetrievingKeyFromApiKeyHelper: !0 });
+    let { key: e, source: t } = qg({ skipRetrievingKeyFromApiKeyHelper: true });
     return e !== null && t !== "none";
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -7721,7 +7721,7 @@ function qg(e = {}) {
   }
   let t = t_() ? void 0 : a.ANTHROPIC_API_KEY;
   if (NQe() && t) return { key: t, source: "ANTHROPIC_API_KEY" };
-  if (Me(!1)) {
+  if (Me(false)) {
     let d = xwt();
     if (d) return { key: d, source: "ANTHROPIC_API_KEY" };
     if (
@@ -7765,7 +7765,7 @@ function oS() {
 
 function bI() {
   let e = oS();
-  if (!e) return !1;
+  if (!e) return false;
   let t = ye("projectSettings"),
     r = ye("localSettings");
   return t?.apiKeyHelper === e || r?.apiKeyHelper === e;
@@ -7778,7 +7778,7 @@ function KV() {
 
 function spe() {
   let e = KV();
-  if (!e) return !1;
+  if (!e) return false;
   let t = ye("projectSettings"),
     r = ye("localSettings");
   return t?.awsAuthRefresh === e || r?.awsAuthRefresh === e;
@@ -7791,7 +7791,7 @@ function Hp() {
 
 function dnr() {
   let e = Hp();
-  if (!e) return !1;
+  if (!e) return false;
   let t = ye("projectSettings"),
     r = ye("localSettings");
   return t?.awsCredentialExport === e || r?.awsCredentialExport === e;
@@ -7813,9 +7813,9 @@ function c4t() {
 
 function lte(e) {
   let t = cR(e.value);
-  if (t === null) return !0;
+  if (t === null) return true;
   let r = t * 1000 - fI;
-  if (e.timestamp >= r) return !0;
+  if (e.timestamp >= r) return true;
   return Date.now() < r;
 }
 
@@ -7833,7 +7833,7 @@ async function ape(e) {
   if (!oS()) return null;
   let t = dSr(),
     r = v7e.of(G().host),
-    o = () => ((r.inflight = { promise: oI(r, e, !0, r.epoch), startedAt: Date.now() }), r.inflight.promise);
+    o = () => ((r.inflight = { promise: oI(r, e, true, r.epoch), startedAt: Date.now() }), r.inflight.promise);
   if (r.cache) {
     if (!lte(r.cache) && pr() && xre() && !N3()) {
       if (r.inflight) {
@@ -7846,7 +7846,7 @@ async function ape(e) {
       return o();
     }
     if (Date.now() - r.cache.timestamp < t) return r.cache.value;
-    if (!r.inflight) r.inflight = { promise: oI(r, e, !1, r.epoch), startedAt: null };
+    if (!r.inflight) r.inflight = { promise: oI(r, e, false, r.epoch), startedAt: null };
     return r.cache.value;
   }
   if (r.inflight) return r.inflight.promise;
@@ -7870,7 +7870,7 @@ async function oI(e, t, r, o) {
       return (e.cache = { ...e.cache, timestamp: Date.now() }), e.cache.value;
     if (((e.lastFailure = d), xre())) {
       let _ = sN.getInstance();
-      _.startAuthentication(), _.setError(`apiKeyHelper failed: ${d}`), _.endAuthentication(!1);
+      _.startAuthentication(), _.setError(`apiKeyHelper failed: ${d}`), _.endAuthentication(false);
     }
     return (e.cache = { value: " ", timestamp: Date.now() }), " ";
   } finally {
@@ -7889,7 +7889,7 @@ async function ute(e) {
       return wj("apiKeyHelper invoked before trust check", _), s("tengu_apiKeyHelper_missing_trust11", {}), null;
     }
   }
-  let r = await Qh(t, { timeout: 600000, reject: !1, useToolMemoryCgroup: !1 });
+  let r = await Qh(t, { timeout: 600000, reject: false, useToolMemoryCgroup: false });
   if (r.failed) {
     let d = r.timedOut ? "timed out" : `exited ${r.exitCode}`,
       _ = r.stderr && ce(r.stderr.trim(), 500);
@@ -7938,17 +7938,17 @@ function Nbt(e, t) {
     r.startAuthentication(),
     new Promise((o) => {
       let u;
-      if (typeof e === "string") u = pI(e, { timeout: sI, signal: t, windowsHide: !0 });
+      if (typeof e === "string") u = pI(e, { timeout: sI, signal: t, windowsHide: true });
       else {
-        let d = TP(e.file, !0);
+        let d = TP(e.file, true);
         if (d === null) {
-          n("AWS auth refresh: executable not found in a safe directory"), r.endAuthentication(!1), o(!1);
+          n("AWS auth refresh: executable not found in a safe directory"), r.endAuthentication(false), o(false);
           return;
         }
         u = Qee(/\.(cmd|bat)$/i.test(d) ? '"' + d + '"' : d, e.args, {
           timeout: sI,
           signal: t,
-          windowsHide: !0,
+          windowsHide: true,
           shell: /\.(cmd|bat)$/i.test(d),
           env: e.env,
         });
@@ -7963,9 +7963,9 @@ function Nbt(e, t) {
           if (_) r.setError(_), n(_, { level: "error" });
         }),
         u.on("close", (d, _) => {
-          if (d === 0) n("AWS auth refresh completed successfully"), r.endAuthentication(!0), o(!0);
+          if (d === 0) n("AWS auth refresh completed successfully"), r.endAuthentication(true), o(true);
           else {
-            let A = t?.aborted === !0,
+            let A = t?.aborted === true,
               k = A
                 ? null
                 : !A && _ === "SIGTERM"
@@ -7984,7 +7984,7 @@ function Nbt(e, t) {
                           " exited with an error). Run it in another terminal and try again.",
                       );
             if (k) console.error(k);
-            r.endAuthentication(!1), o(!1);
+            r.endAuthentication(false), o(false);
           }
         });
     })
@@ -8006,7 +8006,7 @@ async function mte() {
   }
   try {
     n("Running AWS credential export command");
-    let t = await Qh(e, { reject: !1, useToolMemoryCgroup: !1 });
+    let t = await Qh(e, { reject: false, useToolMemoryCgroup: false });
     if (t.exitCode !== 0 || !t.stdout) throw Error("awsCredentialExport did not return a valid value");
     let r = V(t.stdout.trim()),
       o = Hrr(r);
@@ -8064,8 +8064,8 @@ function yI(e) {
 function rNe(e) {
   let t = yI(e),
     r = Date.now();
-  if (r - (xp.get(t) ?? 0) < gte) return !1;
-  return xp.set(t, r), aR.cache.delete(t), SI.clear(), hI.clear(), !0;
+  if (r - (xp.get(t) ?? 0) < gte) return false;
+  return xp.set(t, r), aR.cache.delete(t), SI.clear(), hI.clear(), true;
 }
 
 function x6() {
@@ -8083,7 +8083,7 @@ function R7e() {
 
 function Fbt() {
   let e = R7e();
-  if (!e) return !1;
+  if (!e) return false;
   let t = ye("projectSettings"),
     r = ye("localSettings");
   return t?.gcpAuthRefresh === e || r?.gcpAuthRefresh === e;
@@ -8099,26 +8099,26 @@ async function pSr() {
       o = ne(hte).then(() => {
         throw new uN("GCP credentials check timed out");
       });
-    return await Promise.race([r, o]), !0;
+    return await Promise.race([r, o]), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 
 async function Ste() {
   let e = R7e();
-  if (!e) return !1;
+  if (!e) return false;
   if (Fbt()) {
     if (!ri() && !Le()) {
       let r = Error(
         `Security: gcpAuthRefresh executed before workspace trust is confirmed. If you see this message, post in ${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.FEEDBACK_CHANNEL}.`,
       );
-      return wj("gcpAuthRefresh invoked before trust check", r), s("tengu_gcpAuthRefresh_missing_trust", {}), !1;
+      return wj("gcpAuthRefresh invoked before trust check", r), s("tengu_gcpAuthRefresh_missing_trust", {}), false;
     }
   }
   try {
     if ((n("Checking GCP credentials validity for auth refresh"), await pSr()))
-      return n("GCP credentials are valid, skipping auth refresh command"), !1;
+      return n("GCP credentials are valid, skipping auth refresh command"), false;
   } catch {}
   return fSr(e);
 }
@@ -8129,7 +8129,7 @@ function fSr(e) {
   return (
     t.startAuthentication(),
     new Promise((r) => {
-      let o = pI(e, { timeout: Tte, windowsHide: !0 });
+      let o = pI(e, { timeout: Tte, windowsHide: true });
       fS(o.pid),
         o.stdout.on("data", (u) => {
           let d = u.toString().trim();
@@ -8140,7 +8140,7 @@ function fSr(e) {
           if (d) t.setError(d), n(d, { level: "error" });
         }),
         o.on("close", (u, d) => {
-          if (u === 0) n("GCP auth refresh completed successfully"), t.endAuthentication(!0), r(!0);
+          if (u === 0) n("GCP auth refresh completed successfully"), t.endAuthentication(true), r(true);
           else {
             let A =
               d === "SIGTERM"
@@ -8148,7 +8148,7 @@ function fSr(e) {
                     "GCP auth refresh timed out after 3 minutes. Run your auth command manually in a separate terminal.",
                   )
                 : ae.red("Error running gcpAuthRefresh (in settings or ~/.claude.json):");
-            console.error(A), t.endAuthentication(!1), r(!1);
+            console.error(A), t.endAuthentication(false), r(false);
           }
         });
     })
@@ -8222,14 +8222,14 @@ async function gnr(e, t) {
     throw Error("Invalid API key format. API key must contain only alphanumeric characters, dashes, and underscores.");
   let r = ei();
   await CI();
-  let o = !0;
+  let o = true;
   if (o) {
     let d = u0(),
       _ = IC(),
       A = Buffer.from(e, "utf-8").toString("hex"),
       C = `add-generic-password -U -a "${_}" -s "${d}" -X "${A}"
 `,
-      k = await Ff("security", ["-i"], { input: C, reject: !1, timeout: 5000 });
+      k = await Ff("security", ["-i"], { input: C, reject: false, timeout: 5000 });
     if (k.exitCode !== 0) {
       let M = (k.stderr || k.stdout || "").trim().replace(/\s*\n\s*/g, "; ");
       throw (
@@ -8302,22 +8302,22 @@ async function oNe({ isCompromised: e, postedRefreshToken: t, refreshedTokens: r
         rateLimitTier: r.rateLimitTier,
         clientId: r.clientId,
       },
-      A = !1,
+      A = false,
       C = OI(),
-      k = { success: !1 },
-      M = !1,
+      k = { success: false },
+      M = false,
       x;
     for (let z = 0; z < 3; z++) {
       if (z > 0) await ne(100 * z);
-      (A = !1), (M = !1);
+      (A = false), (M = false);
       try {
         k = await vn().mutate((W) => {
           let U = W.claudeAiOauth?.refreshToken;
-          if (!(W.claudeAiOauth !== void 0 && W.claudeAiOauth !== null && (U === "" || U === t))) return (A = !0), W;
+          if (!(W.claudeAiOauth !== void 0 && W.claudeAiOauth !== null && (U === "" || U === t))) return (A = true), W;
           return { ...W, claudeAiOauth: vI(W.claudeAiOauth, _) };
         }, o);
       } catch (W) {
-        n(`OAuth refresh CAS save failed: ${l(W)}`, { level: "error" }), (k = { success: !1 }), (M = !0), (x = W);
+        n(`OAuth refresh CAS save failed: ${l(W)}`, { level: "error" }), (k = { success: false }), (M = true), (x = W);
         continue;
       }
       if (A || k.success) break;
@@ -8345,8 +8345,8 @@ function OI() {
 }
 
 async function f4t(e, t) {
-  if (!Jk(e.scopes)) return s("tengu_oauth_tokens_not_claude_ai", {}), { success: !0 };
-  if (!e.refreshToken || !e.expiresAt) return s("tengu_oauth_tokens_inference_only", {}), { success: !0 };
+  if (!Jk(e.scopes)) return s("tengu_oauth_tokens_not_claude_ai", {}), { success: true };
+  if (!e.refreshToken || !e.expiresAt) return s("tengu_oauth_tokens_inference_only", {}), { success: true };
   let { accessToken: r, refreshToken: o, expiresAt: u, refreshTokenExpiresAt: d, scopes: _, clientId: A } = e,
     C = vn(),
     k = OI();
@@ -8377,7 +8377,7 @@ async function f4t(e, t) {
     return (
       n(`Failed to save OAuth tokens: ${l(M)}`, { level: "error" }),
       s("tengu_oauth_tokens_save_exception", { storageBackend: k, ..._m(M) }),
-      { success: !1, warning: "Failed to save OAuth tokens" }
+      { success: false, warning: "Failed to save OAuth tokens" }
     );
   }
 }
@@ -8408,11 +8408,11 @@ function ARr() {
 async function iNe(e, t) {
   Zo.add(e), s("tengu_oauth_refresh_token_marked_dead_invalid_grant", {});
   try {
-    let r = !1,
+    let r = false,
       o = await vn().mutate((u) => {
         let d = u.claudeAiOauth;
         if (!d || d.refreshToken !== e) return u;
-        return (r = !0), { ...u, claudeAiOauth: { ...d, refreshToken: "", accessToken: "", expiresAt: 0 } };
+        return (r = true), { ...u, claudeAiOauth: { ...d, refreshToken: "", accessToken: "", expiresAt: 0 } };
       }, t);
     if (r && o.success) s("tengu_oauth_refresh_token_cleared_on_disk", {});
     else if (r) n("OAuth dead-token disk clear: backend write failed", { level: "error" });
@@ -8427,7 +8427,7 @@ function k7e() {
   try {
     return wI(vn().read());
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -8437,7 +8437,7 @@ async function Qk(e) {
   try {
     return wI(await vn().readAsync(e));
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -8446,7 +8446,7 @@ function kI(e) {
     let t = e.refreshToken;
     return t === "" || (!!t && Zo.has(t));
   }
-  if (Rc()) return !1;
+  if (Rc()) return false;
   return;
 }
 
@@ -8482,7 +8482,7 @@ function Cte() {
   if (e && (!LJ() || Rc())) return t(e);
   if (Rc()) return null;
   try {
-    let u = vn().read({ fromStoreCopy: !0 })?.claudeAiOauth;
+    let u = vn().read({ fromStoreCopy: true })?.claudeAiOauth;
     if (u?.accessToken) return u;
   } catch (r) {
     h(r);
@@ -8645,7 +8645,7 @@ function ym(e, t, r) {
   let A = cI(e, u),
     C = () => wte(e, t, r),
     k = UI(d, u),
-    M = (k ? k.catch(() => !1).then(C) : C()).finally(() => {
+    M = (k ? k.catch(() => false).then(C) : C()).finally(() => {
       o.pending401Handlers.delete(A);
     });
   return o.pending401Handlers.set(A, M), M;
@@ -8658,7 +8658,7 @@ async function gSr(e) {
     u = Date.now() + e.timeoutMs;
   while (Date.now() < u) {
     let _ = r();
-    if (_ && _ !== e.failedAccessToken) return !0;
+    if (_ && _ !== e.failedAccessToken) return true;
     await o(Math.min(t, Math.max(1, u - Date.now())));
   }
   let d = r();
@@ -8710,8 +8710,8 @@ async function wte(e, t, r) {
             dn(),
             s("tengu_oauth_401_sdk_callback_refreshed", {}),
             y("oauth_401_recovery"),
-            Bbt({ recovered: !0 }),
-            !0
+            Bbt({ recovered: true }),
+            true
           );
         n(
           A === null
@@ -8723,7 +8723,7 @@ async function wte(e, t, r) {
         p("oauth_401_recovery", "oauth_401_sdk_callback_failed"),
           n(`SDK getOAuthToken callback failed: ${A instanceof Error ? A.message : String(A)}`, { level: "error" });
       }
-    let d = !1;
+    let d = false;
     if (!Rc()) {
       if (((d = Boolean(a.CLAUDE_CODE_OAUTH_TOKEN) && !Kp() && !a.ANTHROPIC_UNIX_SOCKET), d))
         n(
@@ -8741,8 +8741,8 @@ async function wte(e, t, r) {
               dn(),
               s("tengu_oauth_401_recovered_from_disk", {}),
               y("oauth_401_recovery"),
-              Bbt({ recovered: !0 }),
-              !0
+              Bbt({ recovered: true }),
+              true
             );
           }
         } catch (A) {
@@ -8766,8 +8766,8 @@ async function wte(e, t, r) {
             dn(),
             s("tengu_oauth_401_recovered_from_rotation", {}),
             y("oauth_401_recovery"),
-            Bbt({ recovered: !0 }),
-            !0
+            Bbt({ recovered: true }),
+            true
           );
         }
       }
@@ -8781,7 +8781,7 @@ async function wte(e, t, r) {
             ? "oauth_401_no_refresh_token_bg_worker"
             : "oauth_401_no_refresh_token_interactive",
       ),
-      Bbt({ recovered: !1 }) === "exit")
+      Bbt({ recovered: false }) === "exit")
     )
       s("tengu_oauth_401_zombie_exit", {}),
         n(
@@ -8789,11 +8789,11 @@ async function wte(e, t, r) {
           { level: "error" },
         ),
         setTimeout(() => process.exit(1), 2000);
-    return !1;
+    return false;
   }
   if (o.accessToken !== e)
-    return dn(), s("tengu_oauth_401_recovered_from_keychain", {}), y("oauth_401_recovery"), Bbt({ recovered: !0 }), !0;
-  return Cs({ force: !0, entryAccessToken: e, credentials: t, storageV5: r });
+    return dn(), s("tengu_oauth_401_recovered_from_keychain", {}), y("oauth_401_recovery"), Bbt({ recovered: true }), true;
+  return Cs({ force: true, entryAccessToken: e, credentials: t, storageV5: r });
 }
 
 function qa(e) {
@@ -8830,7 +8830,7 @@ async function HY(e) {
 }
 
 function Wbt() {
-  if (Co() || a.CLAUDE_CODE_OAUTH_TOKEN || a.CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR || Rc()) return !1;
+  if (Co() || a.CLAUDE_CODE_OAUTH_TOKEN || a.CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR || Rc()) return false;
   return !(OJ() && !LJ());
 }
 
@@ -8880,7 +8880,7 @@ function dI(e, t) {
 function ewn(e, t) {
   return {
     lockfilePath: Bp(e, ".oauth_refresh.lock"),
-    realpath: !1,
+    realpath: false,
     stale: 60000,
     update: 5000,
     onCompromised: (r) => {
@@ -8890,10 +8890,10 @@ function ewn(e, t) {
 }
 
 async function _nr(e) {
-  let t = !1,
+  let t = false,
     r = new AbortController(),
     o = () => {
-      (t = !0), r.abort();
+      (t = true), r.abort();
     },
     u = await Gi(e, ewn(e, o)),
     _ = `${await ete(e).catch(() => e)}.lock`,
@@ -8958,7 +8958,7 @@ function Cs(e = {}) {
   return sNe(e).then((t) => t === "refreshed");
 }
 
-function sNe({ retryCount: e = 0, force: t = !1, entryAccessToken: r, credentials: o, storageV5: u } = {}) {
+function sNe({ retryCount: e = 0, force: t = false, entryAccessToken: r, credentials: o, storageV5: u } = {}) {
   let d = upe.of(G().host);
   if (e === 0 && !t) {
     let _ = xI(o, u),
@@ -9047,7 +9047,7 @@ async function Up(e, t, r, o, u, d, _, A) {
     );
   }
   let U = null,
-    B = !0;
+    B = true;
   try {
     if ((AC(), (await vn().readAsyncStrict?.(_)) === Eu))
       return (
@@ -9111,7 +9111,7 @@ async function Up(e, t, r, o, u, d, _, A) {
 }
 
 function Tt() {
-  if (!El()) return !1;
+  if (!El()) return false;
   return Jk(Yt()?.scopes);
 }
 
@@ -9155,9 +9155,9 @@ function nwn() {
 }
 
 function ppe() {
-  if (!pr()) return !1;
-  if (Tt()) return !1;
-  return !0;
+  if (!pr()) return false;
+  if (Tt()) return false;
+  return true;
 }
 
 function On() {
@@ -9175,13 +9175,13 @@ function PT() {
 
 function _Sr() {
   let e = On()?.billingType;
-  if (!Tt() || !e) return !1;
+  if (!Tt() || !e) return false;
   return BI.has(e);
 }
 
 function eb() {
-  if (a.DISABLE_EXTRA_USAGE_COMMAND) return !1;
-  if (cw() !== null) return !0;
+  if (a.DISABLE_EXTRA_USAGE_COMMAND) return false;
+  if (cw() !== null) return true;
   return _Sr();
 }
 
@@ -9215,7 +9215,7 @@ function HI() {
 }
 
 function jp() {
-  if (Co() || a.CLAUDE_CODE_OAUTH_TOKEN || Rc()) return !1;
+  if (Co() || a.CLAUDE_CODE_OAUTH_TOKEN || Rc()) return false;
   return !(OJ() && !LJ());
 }
 
@@ -9295,7 +9295,7 @@ function Wp() {
 
 function SSr() {
   let e = Wp();
-  if (!e) return !1;
+  if (!e) return false;
   let t = ye("projectSettings"),
     r = ye("localSettings");
   return t?.otelHeadersHelper === e || r?.otelHeadersHelper === e;
@@ -9325,17 +9325,17 @@ async function swn() {
     (r.inflight = (async () => {
       try {
         let o = e.trim(),
-          u = !1;
+          u = false;
         try {
           u = (await Fp(o)).isFile();
         } catch {}
         let d = null;
         if (u)
           try {
-            let C = await Ff(o, [], { timeout: 30000, reject: !1, useToolMemoryCgroup: !1 });
+            let C = await Ff(o, [], { timeout: 30000, reject: false, useToolMemoryCgroup: false });
             if (!(C.failed && !C.timedOut && typeof C.exitCode !== "number" && !C.signal)) d = C;
           } catch {}
-        if (!d) d = await Qh(e, { timeout: 30000, reject: !1, useToolMemoryCgroup: !1 });
+        if (!d) d = await Qh(e, { timeout: 30000, reject: false, useToolMemoryCgroup: false });
         if (d.failed) {
           let C;
           if (d.timedOut) C = "timed out";
@@ -9456,7 +9456,7 @@ async function S4t(e = {}) {
   }
   let t = t_() ? void 0 : a.ANTHROPIC_API_KEY;
   if (NQe() && t) return { key: t, source: "ANTHROPIC_API_KEY" };
-  if (Me(!1)) {
+  if (Me(false)) {
     let d = xwt();
     if (d) return { key: d, source: "ANTHROPIC_API_KEY" };
     if (
@@ -9500,25 +9500,25 @@ async function b4t(e = {}) {
 
 async function xRr() {
   try {
-    let { key: e, source: t } = await S4t({ skipRetrievingKeyFromApiKeyHelper: !0 });
+    let { key: e, source: t } = await S4t({ skipRetrievingKeyFromApiKeyHelper: true });
     return e !== null && t !== "none";
   } catch {
-    return !1;
+    return false;
   }
 }
 
 async function w4t() {
-  if (Co()) return !1;
+  if (Co()) return false;
   if (a.ANTHROPIC_UNIX_SOCKET) return !!a.CLAUDE_CODE_OAUTH_TOKEN;
-  if (jd()) return !1;
+  if (jd()) return false;
   let e = !pr(),
     r = (En() || {}).apiKeyHelper,
     o = N3(),
     u;
   try {
-    u = (await S4t({ skipRetrievingKeyFromApiKeyHelper: !0 })).source;
+    u = (await S4t({ skipRetrievingKeyFromApiKeyHelper: true })).source;
   } catch {
-    return !1;
+    return false;
   }
   let d = u === "ANTHROPIC_API_KEY" || u === "apiKeyHelper",
     _ = a.CLAUDE_CODE_API_KEY_FILE_DESCRIPTOR,
@@ -9528,25 +9528,25 @@ async function w4t() {
 
 async function T4t(e) {
   if (Co()) {
-    if (oS()) return { source: "apiKeyHelper", hasToken: !0 };
-    return { source: "none", hasToken: !1 };
+    if (oS()) return { source: "apiKeyHelper", hasToken: true };
+    return { source: "none", hasToken: false };
   }
-  if (N3() && !w7e()) return { source: "ANTHROPIC_AUTH_TOKEN", hasToken: !0 };
-  if (a.CLAUDE_CODE_OAUTH_TOKEN) return { source: "CLAUDE_CODE_OAUTH_TOKEN", hasToken: !0 };
+  if (N3() && !w7e()) return { source: "ANTHROPIC_AUTH_TOKEN", hasToken: true };
+  if (a.CLAUDE_CODE_OAUTH_TOKEN) return { source: "CLAUDE_CODE_OAUTH_TOKEN", hasToken: true };
   if (F$()) {
     if (a.CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR)
-      return { source: "CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR", hasToken: !0 };
-    return { source: "CCR_OAUTH_TOKEN_FILE", hasToken: !0 };
+      return { source: "CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR", hasToken: true };
+    return { source: "CCR_OAUTH_TOKEN_FILE", hasToken: true };
   }
-  if (oS() && !nr()) return { source: "apiKeyHelper", hasToken: !0 };
-  if (jd()) return { source: "profile", hasToken: !0 };
+  if (oS() && !nr()) return { source: "apiKeyHelper", hasToken: true };
+  if (jd()) return { source: "profile", hasToken: true };
   let o = await qa(e);
-  if (Jk(o?.scopes) && o?.accessToken) return { source: "claude.ai", hasToken: !0 };
-  return { source: "none", hasToken: !1 };
+  if (Jk(o?.scopes) && o?.accessToken) return { source: "claude.ai", hasToken: true };
+  return { source: "none", hasToken: false };
 }
 
 async function Ore(e) {
-  if (!(await w4t())) return !1;
+  if (!(await w4t())) return false;
   return Jk((await qa(e))?.scopes);
 }
 
@@ -9556,9 +9556,9 @@ async function IRr(e) {
 }
 
 async function PRr(e) {
-  if (!pr()) return !1;
-  if (await Ore(e)) return !1;
-  return !0;
+  if (!pr()) return false;
+  if (await Ore(e)) return false;
+  return true;
 }
 
 async function E4t() {
@@ -9567,7 +9567,7 @@ async function E4t() {
 
 async function DRr(e) {
   let t = (await E4t())?.billingType;
-  if (!(await Ore(e)) || !t) return !1;
+  if (!(await Ore(e)) || !t) return false;
   return BI.has(t);
 }
 
@@ -9660,7 +9660,7 @@ async function jRr(e) {
 }
 
 function xte() {
-  if (l4t() || !!a.ANTHROPIC_AUTH_TOKEN || !!a.CLAUDE_CODE_API_KEY_FILE_DESCRIPTOR || !!oS()) return !0;
+  if (l4t() || !!a.ANTHROPIC_AUTH_TOKEN || !!a.CLAUDE_CODE_API_KEY_FILE_DESCRIPTOR || !!oS()) return true;
   return Ne() === "firstParty" && !jd() && !El();
 }
 
@@ -9674,7 +9674,7 @@ async function Zk(e) {
     o = r !== void 0 || t?.forceLoginMethod !== void 0;
   if (a.CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST) {
     if (o) g("auth_force_login_org", "managed_by_host_under_pin");
-    return { valid: !0 };
+    return { valid: true };
   }
   if (a.ANTHROPIC_UNIX_SOCKET) {
     let x = { api_provider: c(Ne()), auth_token_source: c(Fl().source) };
@@ -9682,12 +9682,12 @@ async function Zk(e) {
     else if (El() && r !== void 0) g("auth_force_login_org", "unix_socket_ssh_under_pin", x);
     else if (Gbt()) g("auth_force_login_org", "unix_socket_unreadable_policy", x);
     else y("auth_force_login_org");
-    return { valid: !0 };
+    return { valid: true };
   }
   if (!El()) {
     if (o && xte())
       return {
-        valid: !1,
+        valid: false,
         message: `This machine's managed settings require a first-party login, but an
 Anthropic-issued credential (ANTHROPIC_API_KEY, ANTHROPIC_AUTH_TOKEN,
 or apiKeyHelper) is configured. A non-OAuth Anthropic credential
@@ -9697,7 +9697,7 @@ Remove the credential and run: claude auth login
 
 If this is a third-party desktop session: forceLoginOrgUUID targets first-party OAuth and should be removed from managed-settings.json.`,
       };
-    return { valid: !0 };
+    return { valid: true };
   }
   if (Gbt()) {
     let x = SO()[0] ?? ynr()[0];
@@ -9709,7 +9709,7 @@ If this is a third-party desktop session: forceLoginOrgUUID targets first-party 
       return (
         await Pn("auth_force_login_org", "policy_unreadable_fail_close", { errno: B }),
         {
-          valid: !1,
+          valid: false,
           message: `Unable to read managed policy settings.
 This machine may require organization login enforcement, but the policy file failed to load.
 Contact your administrator.
@@ -9719,11 +9719,11 @@ Detail: ${x.file ? `${x.file}: ${x.message}` : x.message}`,
       );
     }
   }
-  if (r === void 0) return { valid: !0 };
+  if (r === void 0) return { valid: true };
   let u = typeof r === "string" ? [r] : r;
   if (u.length === 0)
     return {
-      valid: !1,
+      valid: false,
       message: `forceLoginOrgUUID in managed settings is set to an empty array.
 No organizations are permitted. This is almost certainly a misconfiguration.
 Contact your administrator.`,
@@ -9731,23 +9731,23 @@ Contact your administrator.`,
   let d = u.length === 1 ? `organization ${u[0]}` : `one of these organizations: ${u.join(", ")}`;
   await Cs({ credentials: e });
   let _ = Yt();
-  if (!_) return { valid: !0 };
+  if (!_) return { valid: true };
   let { source: A } = Fl(),
     C = A === "CLAUDE_CODE_OAUTH_TOKEN" || A === "CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR",
     k = await ipe(_.accessToken);
   if (!k)
     return {
-      valid: !1,
+      valid: false,
       message: `Unable to verify organization for the current authentication token.
 This machine requires ${d} but the token could not be validated.
 This may be a network error, or the token may have been revoked.
 Try again, or run: claude auth login`,
     };
   let M = k.organization_uuid;
-  if (u.includes(M)) return { valid: !0 };
+  if (u.includes(M)) return { valid: true };
   if (C)
     return {
-      valid: !1,
+      valid: false,
       message: `The ${A === "CLAUDE_CODE_OAUTH_TOKEN" ? "CLAUDE_CODE_OAUTH_TOKEN" : "CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR"} environment variable provides a token for a
 different organization than required by this machine's managed settings.
 
@@ -9757,7 +9757,7 @@ Token organization: ${M}
 Remove the environment variable or obtain a token for a permitted organization.`,
     };
   return {
-    valid: !1,
+    valid: false,
     message: `Your authentication token belongs to organization ${M},
 but this machine requires ${d}.
 
@@ -9772,9 +9772,9 @@ function YV() {
 }
 
 function D7e() {
-  if (!WH(cS())) return !1;
+  if (!WH(cS())) return false;
   let e = ye("policySettings");
-  if (e?.forceLoginMethod === "gateway") return !0;
+  if (e?.forceLoginMethod === "gateway") return true;
   return e?.forceLoginGatewayUrl !== void 0 && e?.forceLoginMethod === void 0;
 }
 
@@ -9789,20 +9789,20 @@ function Gbt() {
 function Lre(e) {
   if (a.CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST) {
     if (YV() !== void 0) g("auth_force_login_org", "managed_by_host_under_method_pin");
-    return { valid: !0 };
+    return { valid: true };
   }
   let t = YV();
-  if (t === void 0) return { valid: !0 };
+  if (t === void 0) return { valid: true };
   if (t === "gateway")
     return {
-      valid: !1,
+      valid: false,
       message:
         "forceLoginMethod is 'gateway' in managed settings; run /login from an interactive terminal to authenticate.",
     };
-  if (e === (t === "claudeai")) return { valid: !0 };
+  if (e === (t === "claudeai")) return { valid: true };
   let r = aA("forceLoginMethod") === "policySettings" ? "managed settings" : "settings";
   return {
-    valid: !1,
+    valid: false,
     message:
       t === "claudeai"
         ? `forceLoginMethod is 'claudeai' in ${r}; log in with a Claude.ai subscription account instead.`
@@ -9901,12 +9901,12 @@ async function dh(e, t) {
       if (A && A !== r) return await e();
       let C = t.oauthRefreshLatch;
       if (C?.attempted) throw o;
-      if (C) C.attempted = !0;
+      if (C) C.attempted = true;
       await ym(r, t?.credentials);
       let k = Yt()?.accessToken;
       if (!k || k === r) throw o;
       let M = await e();
-      if (C) C.attempted = !1;
+      if (C) C.attempted = false;
       return M;
     }
     let _ = Yt()?.accessToken;

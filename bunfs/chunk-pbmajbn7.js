@@ -32,12 +32,12 @@ function Slt(t) {
   return dg + (m6 + C_n(1)).repeat(t) + dg;
 }
 class JZ {
-  _didStopImmediatePropagation = !1;
+  _didStopImmediatePropagation = false;
   didStopImmediatePropagation() {
     return this._didStopImmediatePropagation;
   }
   stopImmediatePropagation() {
-    this._didStopImmediatePropagation = !0;
+    this._didStopImmediatePropagation = true;
   }
 }
 import { EventEmitter as Y } from "events";
@@ -49,10 +49,10 @@ class w9e extends Y {
   emit(t, ...r) {
     if (t === "error") return super.emit(t, ...r);
     let i = this.rawListeners(t);
-    if (i.length === 0) return !1;
+    if (i.length === 0) return false;
     let u = r[0] instanceof JZ ? r[0] : null;
     for (let s of i) if ((s.apply(this, r), u?.didStopImmediatePropagation())) break;
-    return !0;
+    return true;
   }
 }
 function sjn(t) {
@@ -62,12 +62,12 @@ function ylt() {
   return mv().xtversionName;
 }
 function ip() {
-  if (Cl()?.isVscodeTerm) return !0;
-  if (a.TERM_PROGRAM === "vscode") return !0;
-  return mv().xtversionName?.startsWith("xterm.js") ?? !1;
+  if (Cl()?.isVscodeTerm) return true;
+  if (a.TERM_PROGRAM === "vscode") return true;
+  return mv().xtversionName?.startsWith("xterm.js") ?? false;
 }
 function ajn() {
-  return mv().xtversionName?.toLowerCase().startsWith("ghostty") ?? !1;
+  return mv().xtversionName?.toLowerCase().startsWith("ghostty") ?? false;
 }
 class f {
   value = void 0;
@@ -116,13 +116,13 @@ function YR() {
   return g.of(G().host).get();
 }
 function Uon() {
-  if (process.env.CURSOR_TRACE_ID !== void 0) return !0;
-  if (a.VSCODE_GIT_ASKPASS_MAIN?.includes("cursor")) return !0;
+  if (process.env.CURSOR_TRACE_ID !== void 0) return true;
+  if (a.VSCODE_GIT_ASKPASS_MAIN?.includes("cursor")) return true;
   if (a.TERM_PROGRAM === "vscode") {
     let t = U(a.TERM_PROGRAM_VERSION);
     if (t !== null) return t >= 1092000 && t < 1105000;
   }
-  return ylt()?.startsWith("xterm.js") ?? !1;
+  return ylt()?.startsWith("xterm.js") ?? false;
 }
 function U(t) {
   if (!t) return null;
@@ -131,7 +131,7 @@ function U(t) {
   return +r[1] * 1e6 + +r[2] * 1000 + +r[3];
 }
 function Bon(t, r, i) {
-  return !r && (t || !1 || i) ? 3 : 1;
+  return !r && (t || false || i) ? 3 : 1;
 }
 function X(t, r, i) {
   let u = Bon(t, r, i),
@@ -152,9 +152,9 @@ function pjn() {
   return Mx();
 }
 function Mx() {
-  if (a.CLAUDE_BG_BACKEND === "daemon") return Cl()?.syncOutput !== !1;
-  if (a.TMUX) return mv().synchronizedOutputSupported === !0;
-  if (a.CLAUDE_CODE_FORCE_SYNC_OUTPUT) return !0;
+  if (a.CLAUDE_BG_BACKEND === "daemon") return Cl()?.syncOutput !== false;
+  if (a.TMUX) return mv().synchronizedOutputSupported === true;
+  if (a.CLAUDE_CODE_FORCE_SYNC_OUTPUT) return true;
   let t = a.TERM_PROGRAM,
     r = a.TERM;
   if (
@@ -169,24 +169,24 @@ function Mx() {
     t === "rio" ||
     t === "Tabby"
   )
-    return !0;
-  if (nw.isJetBrainsIdeTerminal()) return !0;
-  if (parseInt(a.KONSOLE_VERSION ?? "", 10) >= 211200) return !0;
-  if (r?.includes("kitty") || a.KITTY_WINDOW_ID) return !0;
-  if (r === "xterm-ghostty") return !0;
-  if (r?.startsWith("foot")) return !0;
-  if (r?.includes("alacritty")) return !0;
-  if (a.ZED_TERM) return !0;
-  if (a.WT_SESSION) return !0;
+    return true;
+  if (nw.isJetBrainsIdeTerminal()) return true;
+  if (parseInt(a.KONSOLE_VERSION ?? "", 10) >= 211200) return true;
+  if (r?.includes("kitty") || a.KITTY_WINDOW_ID) return true;
+  if (r === "xterm-ghostty") return true;
+  if (r?.startsWith("foot")) return true;
+  if (r?.includes("alacritty")) return true;
+  if (a.ZED_TERM) return true;
+  if (a.WT_SESSION) return true;
   let i = a.VTE_VERSION;
   if (i) {
-    if (parseInt(i, 10) >= 6800) return !0;
+    if (parseInt(i, 10) >= 6800) return true;
   }
-  if (mv().synchronizedOutputSupported) return !0;
-  return !1;
+  if (mv().synchronizedOutputSupported) return true;
+  return false;
 }
 function pMt() {
-  if (a.CLAUDE_BG_BACKEND === "daemon") return !1;
+  if (a.CLAUDE_BG_BACKEND === "daemon") return false;
   return (
     Mx() &&
     a.TMUX == null &&
@@ -199,14 +199,14 @@ function pMt() {
 function W_e() {
   let t = Cl()?.progressReporting;
   if (t !== void 0) return t;
-  if (!process.stdout.isTTY) return !1;
-  if (a.WT_SESSION) return !1;
-  if (a.ConEmuANSI || a.ConEmuPID || a.ConEmuTask) return !0;
+  if (!process.stdout.isTTY) return false;
+  if (a.WT_SESSION) return false;
+  if (a.ConEmuANSI || a.ConEmuPID || a.ConEmuTask) return true;
   let r = E.coerce(a.TERM_PROGRAM_VERSION);
-  if (!r) return !1;
+  if (!r) return false;
   if (a.TERM_PROGRAM === "ghostty") return ph(r.version, "1.2.0");
   if (a.TERM_PROGRAM === "iTerm.app") return ph(r.version, "3.6.6");
-  return !1;
+  return false;
 }
 var q = ["iTerm.app", "kitty", "WezTerm", "ghostty", "tmux", "windows-terminal", "WarpTerminal"];
 function fMt(t) {
@@ -238,14 +238,14 @@ function Gon(t, r) {
     t.stdout.write(r);
   } catch (s) {
     if (t.tolerateDeadStdout && (v(s) === "EIO" || v(s) === "EPIPE")) {
-      (t.stdoutDead = !0), gMt(t, i, u);
+      (t.stdoutDead = true), gMt(t, i, u);
       return;
     }
     throw s;
   }
   gMt(t, i, u);
 }
-function zon(t, r, i = !1, u) {
+function zon(t, r, i = false, u) {
   let s = u !== void 0 && u > 1 ? u - 1 : void 0;
   if (r.length === 0) return;
   let d = !i,
@@ -457,30 +457,30 @@ function hxe() {
   return {
     lastWheelTime: 0,
     lastWheelDownTime: 0,
-    bugConfirmed: !1,
-    notified: !1,
-    trackpadGesture: !1,
+    bugConfirmed: false,
+    notified: false,
+    trackpadGesture: false,
     pendingArrowBoost: 0,
   };
 }
 function Q(t) {
-  (t.bugConfirmed = !0), (t.trackpadGesture = !0), t.pendingArrowBoost++;
+  (t.bugConfirmed = true), (t.trackpadGesture = true), t.pendingArrowBoost++;
 }
 function S(t) {
-  (t.trackpadGesture = !1), (t.pendingArrowBoost = 0);
+  (t.trackpadGesture = false), (t.pendingArrowBoost = 0);
 }
 function ljn(t) {
   let r = t.pendingArrowBoost;
   return (t.pendingArrowBoost = 0), r;
 }
 function jon(t) {
-  if (t.bugConfirmed) return !0;
+  if (t.bugConfirmed) return true;
   if (
     process.env.INTELLIJ_TERMINAL_COMMAND_BLOCKS_REWORKED !== void 0 ||
     process.env.INTELLIJ_TERMINAL_COMMAND_BLOCKS !== void 0
   )
-    return (t.bugConfirmed = !0), !0;
-  return !1;
+    return (t.bugConfirmed = true), true;
+  return false;
 }
 var Z = 75,
   ee = 250,
@@ -512,7 +512,7 @@ function cjn(t, r, i, u) {
       !o.isPasted &&
       i - t.lastWheelTime < Z
     ) {
-      if (!t.notified) (t.notified = !0), u();
+      if (!t.notified) (t.notified = true), u();
       Q(t), (s ??= r.slice(0, d));
       continue;
     }
@@ -525,7 +525,7 @@ var b = yn({
   stdin: process.stdin,
   internal_eventEmitter: new w9e(),
   setRawMode() {},
-  isRawModeSupported: !1,
+  isRawModeSupported: false,
   internal_querier: null,
   internal_jediTermInput: hxe(),
 });

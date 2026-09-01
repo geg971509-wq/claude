@@ -73,7 +73,7 @@ function u(e, t) {
   try {
     let n = QU(r);
     if (!n) return e;
-    let o = lnt().highlight(e, { language: n, ignoreIllegals: !0 }),
+    let o = lnt().highlight(e, { language: n, ignoreIllegals: true }),
       s = o._emitter ?? o.emitter,
       i = s?.rootNode ?? s?.root;
     if (!i || typeof i === "string") return e;

@@ -69,9 +69,9 @@ function Pe(he) {
   let y;
   if (w[0] !== x || w[1] !== S)
     (y = e(md, {
-      fromLeftEdge: !0,
+      fromLeftEdge: true,
       flexShrink: 0,
-      children: r(t, { "aria-hidden": S, "aria-label": x, dimColor: !0, children: ["  ", "\u23BF \xA0"] }),
+      children: r(t, { "aria-hidden": S, "aria-label": x, dimColor: true, children: ["  ", "\u23BF \xA0"] }),
     })),
       (w[0] = x),
       (w[1] = S),
@@ -97,7 +97,7 @@ function Pe(he) {
   else Q = w[10];
   return Q;
 }
-var i = yn(!1);
+var i = yn(false);
 function VBe() {
   return We(i);
 }
@@ -105,7 +105,7 @@ function P(ge) {
   let xe = _(2),
     { children: G } = ge,
     U;
-  if (xe[0] !== G) (U = e(i.Provider, { value: !0, children: G })), (xe[0] = G), (xe[1] = U);
+  if (xe[0] !== G) (U = e(i.Provider, { value: true, children: G })), (xe[0] = G), (xe[1] = U);
   else U = xe[1];
   return U;
 }

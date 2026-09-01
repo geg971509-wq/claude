@@ -66,7 +66,7 @@ class LKn {
   correspondents = new Map();
   senderMode = null;
   userTypedName = void 0;
-  hasAdopter = !1;
+  hasAdopter = false;
   lastYield = void 0;
   yielded = Ue();
   pendingYield = void 0;
@@ -91,7 +91,7 @@ class LKn {
       (this.pendingYield = void 0),
       (this.senderMode = null),
       (this.userTypedName = void 0),
-      (this.hasAdopter = !1);
+      (this.hasAdopter = false);
   }
 }
 var Yhr = new J(() => new LKn());
@@ -108,30 +108,30 @@ function x2t() {
 }
 var w = { whenRegistered: a7e, listLive: LF };
 function Ipn() {
-  return I("tengu_session_name_uniqueness", !0);
+  return I("tengu_session_name_uniqueness", true);
 }
 async function Dze(e, i, s = w, t = e) {
-  if (!Ipn()) return { name: e, yielded: !1 };
-  if (((t = Ppn(t) ?? t), !(await s.whenRegistered()))) return { name: e, yielded: !1 };
+  if (!Ipn()) return { name: e, yielded: false };
+  if (((t = Ppn(t) ?? t), !(await s.whenRegistered()))) return { name: e, yielded: false };
   try {
     let r = await s.listLive(),
       o = r.find((u) => u.pid === process.pid);
-    if (!o) return { name: e, yielded: !1 };
+    if (!o) return { name: e, yielded: false };
     let a = Xhr({ desiredName: e, self: o, live: r, moment: i, slug: s.slug, suffixBase: t });
-    if (a.kind === "keep") return { name: e, yielded: !1 };
+    if (a.kind === "keep") return { name: e, yielded: false };
     let c = _(e, o),
       d = Us(c !== void 0 && Sr(c) !== Sr(e) ? c : a.newName) || a.newName;
     return (
       n(`[session-name] "${e}" is held by live pid ${a.holders[0]?.pid}; this session takes "${d}"`, { level: "info" }),
       y("session_name_collision"),
       (ih().lastYield = { base: Sr(t), name: d }),
-      { name: d, yielded: !0 }
+      { name: d, yielded: true }
     );
   } catch (r) {
     return (
       n(`[session-name] uniqueness check failed, keeping "${e}": ${l(r)}`, { level: "warn" }),
       p("session_name_collision", "check_failed"),
-      { name: e, yielded: !1 }
+      { name: e, yielded: false }
     );
   }
 }
@@ -180,13 +180,13 @@ async function Dpn(e) {
     let m = await Dze(u, f ? "recheck" : "startup", o, g);
     if (!h(u)) return;
     if (!m.yielded) {
-      if (!f) a(() => void d(u, !0));
+      if (!f) a(() => void d(u, true));
       return;
     }
     if ((await t(m.name, "collision"), ih().userTypedName === u)) ih().userTypedName = m.name;
-    if ((r?.(m.name, u), ih().announceYield(m.name, u), !f)) a(() => void d(m.name, !0, u));
+    if ((r?.(m.name, u), ih().announceYield(m.name, u), !f)) a(() => void d(m.name, true, u));
   };
-  await d(c.name, !1);
+  await d(c.name, false);
 }
 function zmt(e) {
   let { name: i, onYield: s, deps: t } = e,
@@ -250,7 +250,7 @@ async function Opn(e, i, s, t, r = i5e, o = w.listLive) {
       if (P !== "uds" || !S || (a !== void 0 && bbt(S, a)) || g.get(v) !== S) return;
       try {
         await r(S, f, t, d, void 0, void 0, ih().senderMode?.(), {
-          trackReceipts: !1,
+          trackReceipts: false,
           expectPeerPid: v,
           ...(x !== void 0 && { expectPeerProcStart: x }),
         });

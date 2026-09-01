@@ -385,7 +385,7 @@ function X(ct) {
   if (n[8] !== a) (g = TKt(a)), (n[8] = a), (n[9] = g);
   else g = n[9];
   let k;
-  if (n[10] !== g) (k = e(t, { bold: !0, children: g })), (n[10] = g), (n[11] = k);
+  if (n[10] !== g) (k = e(t, { bold: true, children: g })), (n[10] = g), (n[11] = k);
   else k = n[11];
   let h;
   if (n[12] !== D || n[13] !== N || n[14] !== a)
@@ -405,7 +405,7 @@ function X(ct) {
       e(o, {
         marginTop: 1,
         children: e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: r(fe, {
             children: [
               e(t, { children: y ? "Cancelling\u2026" : "Typing is paused until the prompt opens" }),

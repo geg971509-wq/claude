@@ -432,30 +432,30 @@ function Yt({ getMessages: f, onDone: i, storageV5: r, session: D }) {
     [O, X] = u(null),
     k = C([]),
     [Z, z] = u(null),
-    H = C(!1),
-    fe = C(!1),
+    H = C(false),
+    fe = C(false),
     se = C(0),
-    [ke, ie] = u(!1),
+    [ke, ie] = u(false),
     x = C(null);
   function Me() {
     s("tengu_model_command_menu", { action: w("cancel") });
     let o = xm(K);
     i(`${pte}${og(o)}`, { display: "system" });
   }
-  function Ae(o, t, S = !1) {
+  function Ae(o, t, S = false) {
     if (!S && ext(o)) {
-      (fe.current = !1), (se.current += 1), z({ model: o, effort: t });
+      (fe.current = false), (se.current += 1), z({ model: o, effort: t });
       return;
     }
     let b = Jge(o, t),
       N = H.current;
-    H.current = !1;
+    H.current = false;
     let ee = new AbortController();
     (x.current = ee),
-      ie(!0),
+      ie(true),
       rg(D, () => CS(D, j.getState, o, "picker", { signal: ee.signal }))
         .then((L) => {
-          if ((ie(!1), ee.signal.aborted)) return;
+          if ((ie(false), ee.signal.aborted)) return;
           if (((k.current = L.messages), L.decision === "block")) {
             g("model_switch", "blocked_by_hook"), i(BP(o, L.reason, L.messages), { display: "system" });
             return;
@@ -474,7 +474,7 @@ function Yt({ getMessages: f, onDone: i, storageV5: r, session: D }) {
           Ce(o, b, L.skipConfirm, N);
         })
         .catch((L) => {
-          if ((ie(!1), ee.signal.aborted)) return;
+          if ((ie(false), ee.signal.aborted)) return;
           h(we(L)), i(`Model switch failed: ${ac(l(L))}`, { display: "system" });
         });
   }
@@ -494,8 +494,8 @@ function Yt({ getMessages: f, onDone: i, storageV5: r, session: D }) {
     if ((s("tengu_model_command_menu", { action: _n(o), from_model: _n(m), to_model: _n(o) }), t?.fromUltracode)) Mm(r);
     else if (t !== void 0) Gz(t.level, sW(o), void 0, r);
     j5();
-    let b = !1,
-      N = !1;
+    let b = false,
+      N = false;
     if (Yr()) VI();
     ng(D, j.getState(), o, "picker"),
       G(
@@ -526,7 +526,7 @@ function Yt({ getMessages: f, onDone: i, storageV5: r, session: D }) {
         L += ` \u2014 CLAUDE_CODE_EFFORT_LEVEL=${pt} overrides effort this session; clear it and ${pe} takes over`;
       }
     }
-    if (((L += GQ(b, N, o, { announceKeptOn: !0 })), ee)) L += RJt(o);
+    if (((L += GQ(b, N, o, { announceKeptOn: true })), ee)) L += RJt(o);
     if (k.current.length > 0)
       (L += `
 ${k.current.map(ac).join(`
@@ -540,13 +540,13 @@ ${k.current.map(ac).join(`
     return e(Wme, {
       variant: "picker",
       onDone: (b, N) => {
-        if (S !== se.current) return !1;
-        if (fe.current) return !1;
-        if (((fe.current = !0), z(null), b === "consent")) {
-          Ae(o, t, !0);
+        if (S !== se.current) return false;
+        if (fe.current) return false;
+        if (((fe.current = true), z(null), b === "consent")) {
+          Ae(o, t, true);
           return;
         }
-        (H.current = !1), i(N ?? `${pte}${og(xm(K))}`, { display: "system" });
+        (H.current = false), i(N ?? `${pte}${og(xm(K))}`, { display: "system" });
       },
     });
   }
@@ -554,7 +554,7 @@ ${k.current.map(ac).join(`
     return e(s1, {
       message: "Running PreModelSwitch hooks\u2026",
       onCancel: () => {
-        x.current?.abort(), ie(!1), i("Model switch cancelled", { display: "system" });
+        x.current?.abort(), ie(false), i("Model switch cancelled", { display: "system" });
       },
     });
   if (O)
@@ -571,7 +571,7 @@ ${k.current.map(ac).join(`
         M(O.model, O.pick, O.saveAsDefault);
       },
       onCancel: () => {
-        X(null), (H.current = !1);
+        X(null), (H.current = false);
       },
     });
   return e(AQ, {
@@ -579,11 +579,11 @@ ${k.current.map(ac).join(`
     sessionModel: E,
     onSelect: Ae,
     onSetDefault: (o) => {
-      H.current = !0;
+      H.current = true;
     },
     onCancel: Me,
-    isStandaloneCommand: !0,
-    skipSettingsWrite: !0,
+    isStandaloneCommand: true,
+    skipSettingsWrite: true,
     showFastModeNotice: Yr() && q && lf(K) && Zy(),
   });
 }
@@ -603,7 +603,7 @@ function ut(No) {
         I(Ue, { display: "system" });
         return;
       }
-      let Ke = !1;
+      let Ke = false;
       return (
         yt
           .sendControlRequest({ subtype: "list_models" }, { signal: re.signal, timeoutMs: ct })
@@ -622,7 +622,7 @@ function ut(No) {
               I(at, { display: "system" });
           }),
         () => {
-          Ke = !0;
+          Ke = true;
         }
       );
     }),
@@ -706,8 +706,8 @@ function ut(No) {
       headerText: "Models reported by the cloud session. Your pick applies to that session.",
       onSelect: kt,
       onCancel: Te,
-      isStandaloneCommand: !0,
-      skipSettingsWrite: !0,
+      isStandaloneCommand: true,
+      skipSettingsWrite: true,
     })),
       (le[27] = Qe),
       (le[28] = te),
@@ -727,14 +727,14 @@ function Le(Vo) {
   if (V[0] === d) (Ct = []), (V[0] = Ct);
   else Ct = V[0];
   let Ze = C(Ct),
-    [Go, je] = u(!1),
+    [Go, je] = u(false),
     Ft = C(null),
     [bt, vt] = u(null),
     [Wo] = u(Gt),
-    De = C(!1),
-    ze = C(!1),
+    De = C(false),
+    ze = C(false),
     xe = C(0),
-    Fe = C(!1),
+    Fe = C(false),
     St;
   if (V[1] !== me || V[2] !== c || V[3] !== ne || V[4] !== ae || V[5] !== oe || V[6] !== R)
     (St = (Re, et) => {
@@ -783,10 +783,10 @@ ${$t.map(ac).join(`
     (Ot = (Ie, Nt) => {
       let Pe = new AbortController();
       (Ft.current = Pe),
-        je(!0),
+        je(true),
         rg(ne, () => CS(ne, R.getState, Ie, "command", { signal: Pe.signal }))
           .then((he) => {
-            if ((je(!1), Pe.signal.aborted)) {
+            if ((je(false), Pe.signal.aborted)) {
               return;
             }
             if (((Ze.current = he.messages), he.decision === "block")) {
@@ -805,7 +805,7 @@ ${$t.map(ac).join(`
             nt(Ie, Nt, he.skipConfirm);
           })
           .catch((Tt) => {
-            if ((je(!1), Pe.signal.aborted)) {
+            if ((je(false), Pe.signal.aborted)) {
               return;
             }
             h(we(Tt)), c(`Model switch failed: ${ac(l(Tt))}`, { display: "system" });
@@ -837,12 +837,12 @@ ${$t.map(ac).join(`
             return;
           }
           if (!ye.ok) {
-            (Fe.current = !0), c(ye.message, { display: "system" });
+            (Fe.current = true), c(ye.message, { display: "system" });
             return;
           }
           if (aW(ye.model)) {
             g("model_fable_consent", "remote_thin_client_blocked"),
-              (Fe.current = !0),
+              (Fe.current = true),
               c(
                 "Fable 5 uses usage credits, and this cloud session can\u2019t show the consent prompt yet \xB7 switch models from the workspace, or consent once in a local session first",
                 { display: "system" },
@@ -852,18 +852,18 @@ ${$t.map(ac).join(`
           let J = ye.model;
           return Dt.sendControlRequest({ subtype: "set_model", model: J ?? void 0 })
             .then(() => {
-              let st = !1;
+              let st = false;
               if (
                 (ae(
                   (Ye) => (
                     (st = Yr() && !!Ye.fastMode && !dw(J, Ye.fastMode)),
                     ng(ne, Ye, J, "command"),
-                    { ...Ye, mainLoopModel: J, mainLoopModelForSession: null, ...(st && { fastMode: !1 }) }
+                    { ...Ye, mainLoopModel: J, mainLoopModelForSession: null, ...(st && { fastMode: false }) }
                   ),
                 ),
                 st)
               )
-                pw(!0, !1);
+                pw(true, false);
               if (De.current) {
                 me({
                   key: `remote-model-switch-landed-${J ?? "default"}`,
@@ -885,7 +885,7 @@ ${$t.map(ac).join(`
                 });
               if (ye.substitutedFrom !== void 0) g("model_switch", "family_alias_stepped_down");
               else y("model_switch");
-              (Fe.current = !0), c(J === null ? "Reset model to the workspace default" : `${dte}${og(xm(J))}`);
+              (Fe.current = true), c(J === null ? "Reset model to the workspace default" : `${dte}${og(xm(J))}`);
             })
             .catch((it) => {
               if ((n(`[remote] set_model rejected: ${l(it)}`), De.current)) {
@@ -893,7 +893,7 @@ ${$t.map(ac).join(`
               }
               let It = it instanceof kb;
               p("model_switch", It ? "timeout" : "remote_rejected"),
-                (Fe.current = !0),
+                (Fe.current = true),
                 c(It ? `${JUt}${og(U)} may still have been applied` : `${QUt}${og(U)}: ${ac(l(it))}`, {
                   display: "system",
                 });
@@ -907,7 +907,7 @@ ${$t.map(ac).join(`
           return;
         }
         if (ext(_e.model)) {
-          (ze.current = !1),
+          (ze.current = false),
             (xe.current = xe.current + 1),
             vt({ model: _e.model, substitutedFrom: _e.substitutedFrom });
           return;
@@ -944,8 +944,8 @@ ${$t.map(ac).join(`
         if (Fe.current) {
           return;
         }
-        (Fe.current = !0),
-          (De.current = !0),
+        (Fe.current = true),
+          (De.current = true),
           g("model_switch", "remote_wait_cancelled"),
           c(`Stopped waiting for the cloud session \u2014 you\u2019ll get a notice if the switch to ${U} still lands`, {
             display: "system",
@@ -970,12 +970,12 @@ ${$t.map(ac).join(`
         variant: "picker",
         onDone: (qo, Qo) => {
           if (Ko !== xe.current) {
-            return !1;
+            return false;
           }
           if (ze.current) {
-            return !1;
+            return false;
           }
-          if (((ze.current = !0), vt(null), qo === "consent")) {
+          if (((ze.current = true), vt(null), qo === "consent")) {
             de(rt, lt);
             return;
           }
@@ -1047,7 +1047,7 @@ ${$t.map(ac).join(`
       (Y = e(s1, {
         message: "Running PreModelSwitch hooks\u2026",
         onCancel: () => {
-          Ft.current?.abort(), je(!1), c("Model switch cancelled", { display: "system" });
+          Ft.current?.abort(), je(false), c("Model switch cancelled", { display: "system" });
         },
       })),
         (V[60] = c),

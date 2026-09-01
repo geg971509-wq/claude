@@ -53,7 +53,7 @@ var E = new Set(["scheduled_trigger", "force_run_trigger", "github_webhook_trigg
   D = "session_inbox",
   G = "projects-relay";
 function uUn({ relayMessageIds: e, isSynthetic: r }) {
-  return e !== void 0 || r !== !0;
+  return e !== void 0 || r !== true;
 }
 function p(e) {
   return e && M.has(e) ? { kind: "task-notification", subkind: "scheduled-trigger" } : { kind: "task-notification" };
@@ -106,27 +106,27 @@ function Got(e, r, t) {
 }
 function dUn(e, r, t, a) {
   if (e) return e.kind === "human";
-  if (!r) return !0;
+  if (!r) return true;
   return S(t, a) || ven(t, a) !== void 0;
 }
-function zot(e, r, t = !1) {
+function zot(e, r, t = false) {
   let a;
   try {
     a = fje(e);
   } catch {
-    return !1;
+    return false;
   }
-  if (!a || M0e(a.content)) return !1;
+  if (!a || M0e(a.content)) return false;
   let { clientPlatform: u, inboundOrigin: o } = a;
   if (o !== void 0) return r === "bridge" ? Yse(u, o) : DIt(o, t);
   return S(u, void 0) || (r === "remote-worker" && k(u));
 }
-function DIt(e, r = !1) {
+function DIt(e, r = false) {
   return e === T || e === B || e === F || (r && e === b);
 }
 function pUn({ isRelayHuman: e, isSynthetic: r, ccrTurnId: t }) {
   if (!e) return {};
-  return { ...(!r && { verifiedSlackHumanTurn: !0 }), ...(t !== void 0 && { ccrTurnId: t }) };
+  return { ...(!r && { verifiedSlackHumanTurn: true }), ...(t !== void 0 && { ccrTurnId: t }) };
 }
 function dje(e, r, t, a, u, o) {
   let d = M0e(e);
@@ -167,7 +167,7 @@ function pje(e, r, t) {
   if (r && h.has(r)) return { kind: "human" };
   return;
 }
-function fUn(e, r, t, a, u, o = !1, d = !1) {
+function fUn(e, r, t, a, u, o = false, d = false) {
   let l = M0e(e);
   if (l) return { kind: "peer", from: l, inbound_origin: t, ...Cre(e) };
   if (t && !x.has(t)) {
@@ -184,7 +184,7 @@ function fUn(e, r, t, a, u, o = !1, d = !1) {
   return dje(e, r, t, a, void 0, u);
 }
 function Jse(e) {
-  return e.verifiedSlackHumanTurn === !0 && e.priority !== "now";
+  return e.verifiedSlackHumanTurn === true && e.priority !== "now";
 }
 function mUn(e, r) {
   if (e === "now") return e;
@@ -192,18 +192,18 @@ function mUn(e, r) {
 }
 function OIt(e) {
   let a = e.trimStart(),
-    u = !1;
+    u = false;
   while (a.startsWith("<system-reminder>")) {
     let d = a.indexOf("</system-reminder>");
     if (d < 0) break;
-    (a = a.slice(d + 18).trimStart()), (u = !0);
+    (a = a.slice(d + 18).trimStart()), (u = true);
   }
   let o = (u ? a : e).trimEnd();
   while (o.endsWith("</system-reminder>")) {
     let d = o.lastIndexOf(`
 `);
     if (!(d < 0 ? o : o.slice(d + 1)).startsWith("<system-reminder>")) break;
-    (o = (d < 0 ? "" : o.slice(0, d)).trimEnd()), (u = !0);
+    (o = (d < 0 ? "" : o.slice(0, d)).trimEnd()), (u = true);
   }
   if (!u) return e;
   return o === "" ? e : o;
@@ -249,7 +249,7 @@ function M0e(e) {
 }
 function mje(e) {
   if (typeof e === "string") return M0e(e) !== void 0;
-  if (!Array.isArray(e)) return !1;
+  if (!Array.isArray(e)) return false;
   return e.some(
     (r) =>
       typeof r === "object" &&
@@ -266,7 +266,7 @@ function xen(e) {
   return e.filter((r) => !O(r));
 }
 function O(e) {
-  if (e.type !== "text") return !1;
+  if (e.type !== "text") return false;
   return typeof e.text !== "string" || e.text.trim() === "";
 }
 function Y(e) {
@@ -279,7 +279,7 @@ function Y(e) {
   });
 }
 function A(e) {
-  if (e.type !== "image" || e.source?.type !== "base64") return !1;
+  if (e.type !== "image" || e.source?.type !== "base64") return false;
   return !e.source.media_type;
 }
 export {

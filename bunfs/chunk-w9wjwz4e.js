@@ -58,7 +58,7 @@ async function v(o, s, t, i, m) {
       return (
         n(`Plugin workflow ${o}: not a regular file or exceeds ${dm} bytes \u2014 skipping`, { level: "warn" }), null
       );
-    let r = Tf(e, { validateBody: !1 });
+    let r = Tf(e, { validateBody: false });
     if ("error" in r)
       return n(`Plugin workflow ${o} has invalid meta: ${r.error} \u2014 skipping`, { level: "warn" }), null;
     let l = `${s}:${r.meta.name}`;
@@ -123,13 +123,13 @@ function P(o) {
 }
 import { join as h } from "path";
 function W(o, s) {
-  if (!s || OUn(o.script)) return !0;
+  if (!s || OUn(o.script)) return true;
   return (
     n(
       `Workflow ${o.filePath ?? o.name} (${o.source}) would override ${o.name} but does not parse \u2014 keeping the ${s.source} copy`,
       { level: "warn" },
     ),
-    !1
+    false
   );
 }
 function S(o) {
@@ -149,7 +149,7 @@ async function T(o, s) {
     return await TG("workflows", o);
   } catch (t) {
     if ($o(t))
-      return n(`loadWorkflowsDir: project-dir walk failed: ${t.code}`, { level: "error" }), (s.walkFailed = !0), [];
+      return n(`loadWorkflowsDir: project-dir walk failed: ${t.code}`, { level: "error" }), (s.walkFailed = true), [];
     throw t;
   }
 }
@@ -180,7 +180,7 @@ async function D(o, s, t, i) {
         if (f.byteLength > dm)
           return n(`Workflow ${l} exceeds ${dm} bytes \u2014 skipping`, { level: "warn" }), t.skippedOversize++, null;
         let u = f.toString("utf-8"),
-          d = Tf(u, { validateBody: !1 });
+          d = Tf(u, { validateBody: false });
         if ("error" in d)
           return (
             n(`Workflow ${l} has invalid meta: ${d.error} \u2014 skipping`, { level: "warn" }),
@@ -229,7 +229,7 @@ async function M(o, s, t) {
       n(`User workflows listing of ${s} truncated at ${ec} pages \u2014 loading the ${i.length} workflow files seen`, {
         level: "warn",
       }),
-        (t.userListingTruncated = !0);
+        (t.userListingTruncated = true);
       break;
   }
   return (
@@ -250,7 +250,7 @@ async function M(o, s, t) {
         if (f.value.byteLength > dm)
           return n(`Workflow ${u} exceeds ${dm} bytes \u2014 skipping`, { level: "warn" }), t.skippedOversize++, null;
         let d = Buffer.from(f.value).toString("utf-8"),
-          w = Tf(d, { validateBody: !1 });
+          w = Tf(d, { validateBody: false });
         if ("error" in w)
           return (
             n(`Workflow ${u} has invalid meta: ${w.error} \u2014 skipping`, { level: "warn" }),
@@ -277,8 +277,8 @@ async function b(o, s) {
       skippedOversize: 0,
       skippedUnreadable: 0,
       nearMissExt: 0,
-      walkFailed: !1,
-      userListingTruncated: !1,
+      walkFailed: false,
+      userListingTruncated: false,
     },
     m = await T(o, i),
     [c, ...e] = await Promise.all([
@@ -317,7 +317,7 @@ async function b(o, s) {
         skipped_oversize: i.skippedOversize,
         skipped_unreadable: i.skippedUnreadable,
         near_miss_ext: i.nearMissExt,
-        ...(i.userListingTruncated && { user_listing_truncated: !0 }),
+        ...(i.userListingTruncated && { user_listing_truncated: true }),
       },
     );
   else y("workflow_discover", { found: r.size });

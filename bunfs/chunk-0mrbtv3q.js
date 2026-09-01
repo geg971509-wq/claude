@@ -124,9 +124,9 @@ function HQn(t, e) {
   let n = c.exec(t);
   if (n === null) return null;
   let r = e + n[0].length;
-  if (t.charCodeAt(r) === 62) return { len: r + 1 - e, annotated: !1 };
+  if (t.charCodeAt(r) === 62) return { len: r + 1 - e, annotated: false };
   let i = Gne(t, r);
-  return i && t.charCodeAt(r + i) === 62 ? { len: r + i + 1 - e, annotated: !0 } : null;
+  return i && t.charCodeAt(r + i) === 62 ? { len: r + i + 1 - e, annotated: true } : null;
 }
 function NKe(t) {
   let e = GM(t);

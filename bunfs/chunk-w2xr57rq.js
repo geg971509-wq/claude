@@ -85,7 +85,7 @@ async function Y(e, t) {
   }
   let g;
   try {
-    g = await K(l, { all: !0 });
+    g = await K(l, { all: true });
   } catch (k) {
     throw new Ihe(`could not resolve ${l}: ${we(k).message}`);
   }
@@ -148,8 +148,8 @@ async function Tje(e, t) {
       agentId: y,
       taskRef: { id: r },
       killTask: () => {
-        if (!iFt(r, p)) return !1;
-        return em(r, d, { quiet: !0 }), !0;
+        if (!iFt(r, p)) return false;
+        return em(r, d, { quiet: true }), true;
       },
     }),
     _ = ab(T),
@@ -204,8 +204,8 @@ async function Tje(e, t) {
       if (!u || u.status !== "running" || !C()) return;
       let h = Z(c);
       if (h > L) {
-        WL(l, `[Dropped ${h}-byte frame (exceeds ${L}); closing]`, r, { isHousekeeping: !0, agentId: y }),
-          em(r, d, { quiet: !0 });
+        WL(l, `[Dropped ${h}-byte frame (exceeds ${L}); closing]`, r, { isHousekeeping: true, agentId: y }),
+          em(r, d, { quiet: true });
         return;
       }
       if (s) {
@@ -243,7 +243,7 @@ async function Tje(e, t) {
       s?.resume?.();
     let S = d.all()[r];
     if (!e.quietLifecycle && S?.status === "running" && C())
-      WL(l, `[WebSocket upgrade rejected: HTTP ${u}]`, r, { isHousekeeping: !0, agentId: y });
+      WL(l, `[WebSocket upgrade rejected: HTTP ${u}]`, r, { isHousekeeping: true, agentId: y });
     try {
       p.terminate();
     } catch {}
@@ -256,7 +256,7 @@ async function Tje(e, t) {
       let s = d.all()[r];
       if (!s || s.status !== "running" || !C()) return;
       if ((n(`[callWs] socket error: ${c.message}`), !e.quietLifecycle && W === void 0))
-        WL(l, `[WebSocket error: ${c.message}]`, r, { isHousekeeping: !0, agentId: y });
+        WL(l, `[WebSocket error: ${c.message}]`, r, { isHousekeeping: true, agentId: y });
     }),
     p.on("close", (c, s) => {
       clearInterval(x), M.finish();
@@ -270,17 +270,17 @@ async function Tje(e, t) {
       } catch {}
       if (!e.quietLifecycle) {
         let h = s.length ? ` ${s.toString("utf8")}` : "";
-        WL(l, `[WebSocket closed: ${c}${h}]`, r, { isHousekeeping: !0, agentId: y });
+        WL(l, `[WebSocket closed: ${c}${h}]`, r, { isHousekeeping: true, agentId: y });
       }
-      em(r, d, { quiet: !0, connectionLost: !0 });
+      em(r, d, { quiet: true, connectionLost: true });
     });
   let j = w
       ? void 0
       : setTimeout(
           (c, s, u, h, b, S) => {
             if (c.isKilled()) return;
-            if (!S) WL(s, "[Monitor timed out \u2014 re-arm if needed.]", u, { isHousekeeping: !0, agentId: h });
-            em(u, b, { quiet: !0 });
+            if (!S) WL(s, "[Monitor timed out \u2014 re-arm if needed.]", u, { isHousekeeping: true, agentId: h });
+            em(u, b, { quiet: true });
           },
           g,
           M,
@@ -297,8 +297,8 @@ async function Tje(e, t) {
       url: T,
       timeoutId: j,
       agentId: y,
-      ...(e.ambient && { ambient: !0 }),
-      ...(e.autoReactArmed && { autoReactArmed: !0 }),
+      ...(e.ambient && { ambient: true }),
+      ...(e.autoReactArmed && { autoReactArmed: true }),
       ...(e.autoReactSlug && { autoReactSlug: e.autoReactSlug }),
       ...(e.frameLive && { frameLive: { ...e.frameLive, armedAt: Date.now() } }),
     };
@@ -309,7 +309,7 @@ async function Tje(e, t) {
           try {
             b.onLifecycle?.("close", ait, Date.now() - S);
           } catch {}
-          em(u, h, { quiet: !0, connectionLost: !0 });
+          em(u, h, { quiet: true, connectionLost: true });
         }
       },
       e.handshakeDeadlineMs ?? G,
@@ -344,7 +344,7 @@ var oe = "Shell command or script. Each stdout line is an event; exit ends the w
               /^[\x00-\x7F]*$/.test(e)
             );
           } catch {
-            return !1;
+            return false;
           }
         }, "url must be a valid ASCII ws:// or wss:// URL with no userinfo or whitespace"),
       protocols: H(i().regex(/^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/, "protocol must be an RFC 6455 token"))
@@ -363,7 +363,7 @@ function ie() {
       .describe(`Kill the monitor after this deadline. Default ${B}ms, max ${N}ms. Ignored when persistent is true.`),
     persistent: q()
       .optional()
-      .default(!1)
+      .default(false)
       .describe(
         "Run for the lifetime of the session (no timeout). Use for session-length watches like PR monitoring or log tails. Stop with TaskStop.",
       ),
@@ -375,7 +375,7 @@ function ce(e) {
 }
 function MUn(e) {
   if (!a.CLAUDE_CODE_REMOTE) return { timeout_ms: e.timeout_ms, persistent: e.persistent };
-  return { timeout_ms: e.persistent ? F : Math.min(e.timeout_ms, F), persistent: !1 };
+  return { timeout_ms: e.persistent ? F : Math.min(e.timeout_ms, F), persistent: false };
 }
 function le(...e) {
   return Q(e, Boolean) === 1;
@@ -403,13 +403,13 @@ async function de(e, t, o, l) {
       agentId: y,
       taskRef: r,
       killTask: () => {
-        if (!r.id) return !1;
-        return JB(r.id, d), !0;
+        if (!r.id) return false;
+        return JB(r.id, d), true;
       },
     }),
     M = await jG(e, k.signal, "bash", {
       session: o.session,
-      preventCwdChanges: !0,
+      preventCwdChanges: true,
       shouldUseSandbox: vv({ command: e }),
       sandboxAttributionId: A,
       attributionMessageId: l?.message.id,
@@ -433,7 +433,7 @@ async function de(e, t, o, l) {
     : setTimeout(
         (D, p, E, x, C) => {
           if (D.isKilled()) return;
-          WL(p, "[Monitor timed out \u2014 re-arm if needed.]", E, { isHousekeeping: !0, agentId: x }), JB(E, C);
+          WL(p, "[Monitor timed out \u2014 re-arm if needed.]", E, { isHousekeeping: true, agentId: x }), JB(E, C);
         },
         w,
         O,
@@ -490,9 +490,9 @@ function pe(e) {
 }
 var fe = {
     name: ma,
-    enablesCodeExecution: !0,
+    enablesCodeExecution: true,
     maxResultSizeChars: 1e4,
-    shouldDefer: !0,
+    shouldDefer: true,
     permissionCheckFailureDecision(e, t) {
       return v$t(ma, t);
     },
@@ -510,7 +510,7 @@ var fe = {
       return xI() && as();
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     renderToolUseMessage(e) {
       if (!e.description) return null;

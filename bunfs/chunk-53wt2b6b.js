@@ -20,15 +20,15 @@ class t {
   processingChain = Promise.resolve();
   activeTokens = void 0;
   activeKeyFile = void 0;
-  authRequired = !1;
-  authOkReported = !1;
-  authDropReported = !1;
+  authRequired = false;
+  authOkReported = false;
+  authDropReported = false;
   firstLineDeadlineMs = THt;
-  silentDropReported = !1;
+  silentDropReported = false;
   lastStartFailureCause = void 0;
   lastStartDegradedCause = void 0;
   lastStartFailureDetail = void 0;
-  startInFlight = !1;
+  startInFlight = false;
   peerDirOwnerUids = [];
   reset() {
     (this.onEnqueue = null),
@@ -40,15 +40,15 @@ class t {
       (this.processingChain = Promise.resolve()),
       (this.activeTokens = void 0),
       (this.activeKeyFile = void 0),
-      (this.authRequired = !1),
-      (this.authOkReported = !1),
-      (this.authDropReported = !1),
+      (this.authRequired = false),
+      (this.authOkReported = false),
+      (this.authDropReported = false),
       (this.firstLineDeadlineMs = THt),
-      (this.silentDropReported = !1),
+      (this.silentDropReported = false),
       (this.lastStartFailureCause = void 0),
       (this.lastStartDegradedCause = void 0),
       (this.lastStartFailureDetail = void 0),
-      (this.startInFlight = !1),
+      (this.startInFlight = false),
       (this.peerDirOwnerUids = []);
   }
 }

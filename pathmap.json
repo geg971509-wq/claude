@@ -4,7 +4,7 @@
   "/$bunfs/root/chunk-phnty5cg.js": "bunfs/chunk-phnty5cg.js",
   "/$bunfs/root/chunk-fxb0gsq0.js": "bunfs/chunk-fxb0gsq0.js",
   "/$bunfs/root/chunk-dqkj2bph.js": "bunfs/chunk-dqkj2bph.js",
-  "/$bunfs/root/cli": "bunfs/cli",
+  "/$bunfs/root/cli": "src/cli.js",
   "/$bunfs/root/chunk-yz031c9r.js": "bunfs/chunk-yz031c9r.js",
   "/$bunfs/root/chunk-seg02tvx.js": "bunfs/chunk-seg02tvx.js",
   "/$bunfs/root/image-processor.js": "bunfs/image-processor.js",

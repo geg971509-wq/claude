@@ -40,7 +40,7 @@ function ql(I) {
     if (a[3] !== m || a[4] !== u) (n = m.repeat(u)), (a[3] = m), (a[4] = u), (a[5] = n);
     else n = a[5];
     let f;
-    if (a[6] !== i) (f = e(t, { dimColor: !0, children: e(oo, { children: i }) })), (a[6] = i), (a[7] = f);
+    if (a[6] !== i) (f = e(t, { dimColor: true, children: e(oo, { children: i }) })), (a[6] = i), (a[7] = f);
     else f = a[7];
     let W;
     if (a[8] !== m || a[9] !== M) (W = m.repeat(M)), (a[8] = m), (a[9] = M), (a[10] = W);

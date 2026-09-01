@@ -318,7 +318,7 @@ function L() {
   if (e.historySpoolDir === null)
     (e.historySpoolDir = b(j(), `cc-history-prefetch-${process.pid}`)),
       vt(() =>
-        e.historySpoolDir === null ? void 0 : N(e.historySpoolDir, { recursive: !0, force: !0 }).catch(() => {}),
+        e.historySpoolDir === null ? void 0 : N(e.historySpoolDir, { recursive: true, force: true }).catch(() => {}),
       );
   return e.historySpoolDir;
 }
@@ -331,13 +331,13 @@ function E(e, s, r) {
   let o = oi().historyPrefetchEntries,
     a = o.get(e);
   if (a && !a.settled) return;
-  if (r?.force !== !0 && a?.settledOk === !0 && a.settledAt !== void 0 && Date.now() - a.settledAt < B) return;
+  if (r?.force !== true && a?.settledOk === true && a.settledAt !== void 0 && Date.now() - a.settledAt < B) return;
   let i = L(),
     u = b(i, `${e}.${Date.now()}.json`),
     p = performance.now(),
-    f = { path: u, written: Promise.resolve(null), settled: !1, pageSize: k },
+    f = { path: u, written: Promise.resolve(null), settled: false, pageSize: k },
     m = (async () => {
-      await O(i, { recursive: !0, mode: 448 });
+      await O(i, { recursive: true, mode: 448 });
       let c = async (d) =>
           bt.get(`/v1/code/sessions/${e}/events?limit=${d}&sort_order=desc`, {
             auth: "teleport-org",
@@ -345,7 +345,7 @@ function E(e, s, r) {
             headers: await jMe(),
             responseType: "stream",
             timeout: 15000,
-            validateStatus: () => !0,
+            validateStatus: () => true,
           }),
         t = await c(k);
       if (t.ok && t.status === 400)
@@ -367,10 +367,10 @@ function E(e, s, r) {
     ).unref();
   m.then((c) => {
     if (
-      ((f.settled = !0),
+      ((f.settled = true),
       (f.settledAt = Date.now()),
       (f.settledOk = c !== null),
-      c === null && a?.settled === !0 && o.get(e) === f)
+      c === null && a?.settled === true && o.get(e) === f)
     )
       o.set(e, { ...a, settledAt: Date.now() });
     n(`[historyPrefetch] ${e} ${c ? `\u2192 ${c}` : "null"} +${(performance.now() - p).toFixed(0)}ms`);
@@ -428,7 +428,7 @@ async function Ae(e, { maxAgeMs: s, tailMessages: r, credentials: o }) {
   let i = a.get(e);
   if (!i) return null;
   let u = () => {
-    if (i.settled && i.settledAt !== void 0 && Date.now() - i.settledAt >= s) E(e, o, { force: !0 });
+    if (i.settled && i.settledAt !== void 0 && Date.now() - i.settledAt >= s) E(e, o, { force: true });
   };
   if (i.peeked !== void 0) return u(), i.peeked;
   let p = await i.written;
@@ -483,7 +483,7 @@ function P(e) {
     o = 0,
     a = new Set(),
     i = new Map(),
-    u = !1,
+    u = false,
     p = new Set(),
     f,
     m,
@@ -507,7 +507,7 @@ function P(e) {
       }
       if (!Q(t)) continue;
       if (R(t)) {
-        (r = []), a.clear(), i.clear(), (u = !1), p.clear();
+        (r = []), a.clear(), i.clear(), (u = false), p.clear();
         continue;
       }
       if (w !== null) {
@@ -525,7 +525,7 @@ function P(e) {
         r.push(...d);
         continue;
       }
-      let S = JJ(t.payload, { convertUserTextMessages: !0 });
+      let S = JJ(t.payload, { convertUserTextMessages: true });
       if (S.type === "message") r.push(S.message);
     } catch (d) {
       n(
@@ -592,7 +592,7 @@ function J(e, s) {
 }
 function Z(e) {
   let s = w;
-  if (s === null) return !1;
+  if (s === null) return false;
   if (e.type === "system" && e.subtype === "init") {
     let r = net(e);
     return s.hasReplyChannelInit({ mcp_servers: r.mcpServers, tools: r.tools });
@@ -604,7 +604,7 @@ function Z(e) {
   );
 }
 function R(e) {
-  if (e.payload.type !== "conversation_reset" || (e.source !== void 0 && e.source !== "worker")) return !1;
+  if (e.payload.type !== "conversation_reset" || (e.source !== void 0 && e.source !== "worker")) return false;
   let s = e.payload.new_conversation_id;
   return typeof s === "string" && s !== "";
 }
@@ -612,7 +612,7 @@ function M(e) {
   return e.some(R);
 }
 function Q(e) {
-  if (e.source === void 0 || e.source === "worker") return !0;
+  if (e.source === void 0 || e.source === "worker") return true;
   if (e.payload.type === "user") return !xie(e.payload);
   return pRt.has(e.payload.type);
 }

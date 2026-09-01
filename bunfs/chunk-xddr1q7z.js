@@ -344,7 +344,7 @@ function b({ file_path: o, offset: n, limit: s, pages: l }, { verbose: c }) {
 function k({ file_path: o }) {
   let n = o ? _pt(o) : null;
   if (!n) return null;
-  return r(t, { dimColor: !0, children: [" ", n] });
+  return r(t, { dimColor: true, children: [" ", n] });
 }
 function F(o) {
   switch (o.type) {
@@ -358,7 +358,7 @@ function F(o) {
       if (!n || n.length < 1) return e(t, { color: "error", children: "No cells found in notebook" });
       return e(Pe, {
         height: 1,
-        children: r(t, { children: ["Read ", e(t, { bold: !0, children: n.length }), " cells"] }),
+        children: r(t, { children: ["Read ", e(t, { bold: true, children: n.length }), " cells"] }),
       });
     }
     case "pdf": {
@@ -372,7 +372,7 @@ function F(o) {
         children: r(t, {
           children: [
             "Read ",
-            e(t, { bold: !0, children: o.file.count }),
+            e(t, { bold: true, children: o.file.count }),
             " ",
             o.file.count === 1 ? "page" : "pages",
             " (",
@@ -385,14 +385,14 @@ function F(o) {
       let { numLines: n } = o.file;
       return e(Pe, {
         height: 1,
-        children: r(t, { children: ["Read ", e(t, { bold: !0, children: n }), " ", n === 1 ? "line" : "lines"] }),
+        children: r(t, { children: ["Read ", e(t, { bold: true, children: n }), " ", n === 1 ? "line" : "lines"] }),
       });
     }
     case "file_unchanged":
       return e(Pe, {
         height: 1,
         children: e(t, {
-          dimColor: !0,
+          dimColor: true,
           children:
             o.source === "seeded" ? `Already in context (${Bo(Hs(g(o.file.filePath)))})` : "Unchanged since last read",
         }),

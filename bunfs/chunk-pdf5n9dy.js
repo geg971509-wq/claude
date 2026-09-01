@@ -10,7 +10,7 @@
 // Version: 2.1.252
 import { et } from "/$bunfs/root/chunk-f9h0bg01.js";
 function MKn(n, e) {
-  return n !== void 0 && n.mode === "poll-event" && n.pollEvent?.wake === !0 && !e;
+  return n !== void 0 && n.mode === "poll-event" && n.pollEvent?.wake === true && !e;
 }
 function Lpn(n) {
   return n === "prompt" || n === "orphaned-permission" || n === "task-notification" || n === "poll-event";
@@ -44,7 +44,7 @@ function Mpn(n) {
   return n.queueMode ?? t(Oze(n));
 }
 function IDe(n) {
-  return n.queueSkipAttachments === !0 || Mpn(n) === "task-notification" ? !0 : void 0;
+  return n.queueSkipAttachments === true || Mpn(n) === "task-notification" ? true : void 0;
 }
 function t(n) {
   return n?.kind === "task-notification" ? "task-notification" : "prompt";

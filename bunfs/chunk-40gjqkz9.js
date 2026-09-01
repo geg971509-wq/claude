@@ -18,8 +18,8 @@ try {
 } catch (n) {}
 var Gn = Gr
     ? function (n, r, t, e, i) {
-        var a = !1,
-          o = new Gr(n + qn, { eval: !0 })
+        var a = false,
+          o = new Gr(n + qn, { eval: true })
             .on("error", function (s) {
               return i(s, null);
             })
@@ -32,7 +32,7 @@ var Gn = Gr
         return (
           o.postMessage(t, e),
           (o.terminate = function () {
-            return (a = !0), Gr.prototype.terminate.call(o);
+            return (a = true), Gr.prototype.terminate.call(o);
           }),
           o
         );
@@ -858,7 +858,7 @@ var fY = (function () {
         var a = this.b.length - this.s.z;
         this.b.set(r.subarray(0, a), this.s.z),
           (this.s.z = this.b.length),
-          this.p(this.b, !1),
+          this.p(this.b, false),
           this.b.set(this.b.subarray(-32768)),
           this.b.set(r.subarray(a), 32768),
           (this.s.z = r.length - a + 32768),
@@ -866,12 +866,12 @@ var fY = (function () {
           (this.s.w = 32768);
       } else this.b.set(r, this.s.z), (this.s.z += r.length);
       if (((this.s.l = t & 1), this.s.z > this.s.w + 8191 || t))
-        this.p(this.b, t || !1), (this.s.w = this.s.i), (this.s.i -= 2);
+        this.p(this.b, t || false), (this.s.w = this.s.i), (this.s.i -= 2);
     }),
     (n.prototype.flush = function () {
       if (!this.ondata) c(5);
       if (this.s.l) c(4);
-      this.p(this.b, !1), (this.s.w = this.s.i), (this.s.i -= 2);
+      this.p(this.b, false), (this.s.w = this.s.i), (this.s.i -= 2);
     }),
     n
   );
@@ -932,7 +932,7 @@ var E3 = (function () {
       }
     }),
     (n.prototype.c = function (r) {
-      this.s.i = +(this.d = r || !1);
+      this.s.i = +(this.d = r || false);
       var t = this.s.b,
         e = Ir(this.p, this.s, this.o);
       this.ondata(d(e, t, this.s.b), this.d),
@@ -1346,7 +1346,7 @@ var tn = function (n, r, t, e) {
   Vr = typeof TextDecoder < "u" && new TextDecoder(),
   Cn = 0;
 try {
-  Vr.decode(er, { stream: !0 }), (Cn = 1);
+  Vr.decode(er, { stream: true }), (Cn = 1);
 } catch (n) {}
 var Dn = function (n) {
     for (var r = "", t = 0; ; ) {
@@ -1370,7 +1370,7 @@ var Dn = function (n) {
       (n.prototype.push = function (r, t) {
         if (!this.ondata) c(5);
         if (((t = !!t), this.t)) {
-          if ((this.ondata(this.t.decode(r, { stream: !0 }), t), t)) {
+          if ((this.ondata(this.t.decode(r, { stream: true }), t), t)) {
             if (this.t.decode().length) c(8);
             this.t = null;
           }
@@ -1399,7 +1399,7 @@ var $vr = (function () {
     (n.prototype.push = function (r, t) {
       if (!this.ondata) c(5);
       if (this.d) c(4);
-      this.ondata(rMe(r), (this.d = t || !1));
+      this.ondata(rMe(r), (this.d = t || false));
     }),
     n
   );
@@ -1535,7 +1535,7 @@ var Tn = function (n) {
       (n.prototype.push = function (r, t) {
         if (!this.ondata) c(5);
         if ((this.c.p(r), (this.size += r.length), t)) this.crc = this.c.d();
-        this.process(r, t || !1);
+        this.process(r, t || false);
       }),
       n
     );
@@ -1595,7 +1595,7 @@ var jvr = (function () {
     (n.prototype.add = function (r) {
       var t = this;
       if (!this.ondata) c(5);
-      if (this.d & 2) this.ondata(c(4 + (this.d & 1) * 8, 0, 1), null, !1);
+      if (this.d & 2) this.ondata(c(4 + (this.d & 1) * 8, 0, 1), null, false);
       else {
         var e = rMe(r.filename),
           i = e.length,
@@ -1603,14 +1603,14 @@ var jvr = (function () {
           o = a && rMe(a),
           s = i != r.filename.length || (o && a.length != o.length),
           l = i + ir(r.extra) + 30;
-        if (i > 65535) this.ondata(c(11, 0, 1), null, !1);
+        if (i > 65535) this.ondata(c(11, 0, 1), null, false);
         var h = new S(l);
         gr(h, 0, r, e, s, -1);
         var f = [h],
           u = function () {
             for (var p = 0, x = f; p < x.length; p++) {
               var C = x[p];
-              t.ondata(null, C, !1);
+              t.ondata(null, C, false);
             }
             f = [];
           },
@@ -1660,7 +1660,7 @@ var jvr = (function () {
     (n.prototype.end = function () {
       var r = this;
       if (this.d & 2) {
-        this.ondata(c(4 + (this.d & 1) * 8, 0, 1), null, !0);
+        this.ondata(c(4 + (this.d & 1) * 8, 0, 1), null, true);
         return;
       }
       if (this.d) this.e();
@@ -1689,7 +1689,7 @@ var jvr = (function () {
           (r += 46 + o.f.length + ir(o.extra) + (o.o ? o.o.length : 0)),
           (t += o.b);
       }
-      en(s, r, this.u.length, e, t), this.ondata(null, s, !0), (this.d = 2);
+      en(s, r, this.u.length, e, t), this.ondata(null, s, true), (this.d = 2);
     }),
     (n.prototype.terminate = function () {
       for (var r = 0, t = this.u; r < t.length; r++) {
@@ -1945,20 +1945,20 @@ var zvr = (function () {
                     compression: y,
                     start: function () {
                       if (!q.ondata) c(5);
-                      if (!D) q.ondata(null, er, !0);
+                      if (!D) q.ondata(null, er, true);
                       else {
                         var P = e.o[y];
-                        if (!P) q.ondata(c(14, "unknown compression type " + y, 1), null, !1);
+                        if (!P) q.ondata(c(14, "unknown compression type " + y, 1), null, false);
                         (H = D < 0 ? new P(G) : new P(G, D, U)),
                           (H.ondata = function (L, or, J) {
                             q.ondata(L, or, J);
                           });
                         for (var O = 0, E = g; O < E.length; O++) {
                           var W = E[O];
-                          H.push(W, !1);
+                          H.push(W, false);
                         }
                         if (e.k[0] == g && e.c) e.d = H;
-                        else H.push(er, !0);
+                        else H.push(er, true);
                       }
                     },
                     terminate: function () {

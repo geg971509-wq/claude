@@ -365,7 +365,7 @@ function _e(q, it) {
   };
 }
 function Re(at) {
-  return { ...at, copyFullResponse: !0 };
+  return { ...at, copyFullResponse: true };
 }
 var z = "response.md",
   xe = 20;
@@ -447,7 +447,7 @@ function Y(n) {
 async function D(n, o) {
   let a = xl(),
     i = be(a, o);
-  return await we(a, { recursive: !0, mode: 448 }), await O_(i, n, { encoding: "utf-8" }), i;
+  return await we(a, { recursive: true, mode: 448 }), await O_(i, n, { encoding: "utf-8" }), i;
 }
 async function v(n, o) {
   let a = await h_(n);
@@ -539,7 +539,7 @@ function ee(He) {
       let S = x(le);
       if (le === "always") {
         if (!ie().copyFullResponse) await Ae(Re, U);
-        s("tengu_copy", { block_count: k.length, always: !0, message_age: P });
+        s("tengu_copy", { block_count: k.length, always: true, message_age: P });
         let et = await v(S.text, S.filename);
         b(`${et}
 Preference saved. Use /config to change copyFullResponse`);
@@ -561,7 +561,7 @@ Preference saved. Use /config to change copyFullResponse`);
   if (h[15] !== k.length || h[16] !== x || h[17] !== P || h[18] !== b) {
     let Z = async function Z(nt) {
       let J = x(nt);
-      s("tengu_copy", { selected_block: J.blockIndex, block_count: k.length, message_age: P, write_shortcut: !0 });
+      s("tengu_copy", { selected_block: J.blockIndex, block_count: k.length, message_age: P, write_shortcut: true });
       try {
         let ot = await D(J.text, J.filename);
         b(`Written to ${ot}`);
@@ -577,7 +577,7 @@ Preference saved. Use /config to change copyFullResponse`);
   } else pe = h[19];
   let B = pe,
     L;
-  if (h[20] === d) (L = e(t, { dimColor: !0, children: "Select content to copy:" })), (h[20] = L);
+  if (h[20] === d) (L = e(t, { dimColor: true, children: "Select content to copy:" })), (h[20] = L);
   else L = h[20];
   let me;
   if (h[21] === d)
@@ -604,7 +604,7 @@ Preference saved. Use /config to change copyFullResponse`);
   else K = h[25];
   let X;
   if (h[26] !== G || h[27] !== K || h[28] !== O)
-    (X = e(Ce, { options: G, hideIndexes: !1, onFocus: me, onChange: O, onCancel: K })),
+    (X = e(Ce, { options: G, hideIndexes: false, onFocus: me, onChange: O, onCancel: K })),
       (h[26] = G),
       (h[27] = K),
       (h[28] = O),

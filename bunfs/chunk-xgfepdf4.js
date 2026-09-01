@@ -44,14 +44,14 @@ class u {
   #e;
   #n;
   #t;
-  #r = !1;
+  #r = false;
   constructor(e, t, n) {
     (this.#e = e), (this.#n = t), (this.#t = n);
   }
   settle(e) {
     if (this.#r) return;
-    if (((this.#r = !0), this.#e.get(this.#n) !== this.#t)) return;
-    if ((this.#t.pending--, e.wasWatching || e.teardown !== "unsent")) this.#t.confirmed = !0;
+    if (((this.#r = true), this.#e.get(this.#n) !== this.#t)) return;
+    if ((this.#t.pending--, e.wasWatching || e.teardown !== "unsent")) this.#t.confirmed = true;
     if (this.#t.pending === 0 && !this.#t.confirmed) this.#e.delete(this.#n);
   }
 }
@@ -69,7 +69,7 @@ class l {
   recordStop(e) {
     this.#t.delete(e);
     let t = this.#e.get(e);
-    if (t === void 0) (t = { pending: 0, confirmed: !1, generation: this.#n++ }), this.#e.set(e, t);
+    if (t === void 0) (t = { pending: 0, confirmed: false, generation: this.#n++ }), this.#e.set(e, t);
     else t.generation = this.#n++;
     return t.pending++, new u(this.#e, e, t);
   }
@@ -77,13 +77,13 @@ class l {
     this.#t.delete(e);
     let t = this.#e.get(e);
     if (t === void 0) this.confirmStop(e);
-    else t.confirmed = !0;
+    else t.confirmed = true;
   }
   confirmStop(e) {
     this.#t.delete(e);
     let t = this.#e.get(e);
-    if (t === void 0) this.#e.set(e, { pending: 0, confirmed: !0, generation: this.#n++ });
-    else (t.confirmed = !0), (t.generation = this.#n++);
+    if (t === void 0) this.#e.set(e, { pending: 0, confirmed: true, generation: this.#n++ });
+    else (t.confirmed = true), (t.generation = this.#n++);
   }
   noteRelatchAsk(e, t) {
     this.#r.note(e, t, this.latchGeneration(t));
@@ -176,10 +176,10 @@ function y() {
       activityRefreshMs: h,
       activityEdgeDebounceMs: b,
       activityUnsubscribe: void 0,
-      disposed: !1,
-      activityOkReported: !1,
+      disposed: false,
+      activityOkReported: false,
       summonDeclared: new Map(),
-      summonArmOkReported: !1,
+      summonArmOkReported: false,
       armOutcomes: new Map(),
       mcpWriteSlugs: new Map(),
       announcedArmFailures: new Set(),
@@ -219,7 +219,7 @@ function y() {
       artifacts: new Map(),
       optIn: null,
       responderDispatchOptIn: null,
-      userDisarmed: !1,
+      userDisarmed: false,
       enabledMemo: null,
       unattendedReplies: new Map(),
       postSeq: 0,
@@ -278,7 +278,7 @@ function y() {
       shareProbesInFlight: new Map(),
       capsReadsInFlight: new Map(),
     },
-    templateLanes: { prototypeArmed: !1, boundSlugs: new Map(), controlPlaneArmed: !1, controlPlaneSlugs: new Set() },
+    templateLanes: { prototypeArmed: false, boundSlugs: new Map(), controlPlaneArmed: false, controlPlaneSlugs: new Set() },
     postedReplyIds: new Set(),
     frameRelay: {
       declinedUntil: new Map(),
@@ -286,13 +286,13 @@ function y() {
       hopFailedUntil: new Map(),
       servedUntil: new Map(),
       vouched: new Set(),
-      botContextNoted: !1,
+      botContextNoted: false,
     },
     contentHostEgressDenied: new Set(),
-    assetsOnRoster: !1,
+    assetsOnRoster: false,
     accountEpoch: 0,
     conversationEpoch: 0,
-    authoringProgress: { slotsByBlockIndex: new Map(), failureReported: !1 },
+    authoringProgress: { slotsByBlockIndex: new Map(), failureReported: false },
     mintedStoredPageProbes: new WeakSet(),
     mintedRoundTripPublishSignals: new WeakSet(),
     durable: {
@@ -308,10 +308,10 @@ function y() {
       liveDocRegrantSights: new s(),
       firstWatchAskSights: new s(),
       pendingOps: new Set(),
-      originatorRefused: !1,
+      originatorRefused: false,
       subscribeForbidden: null,
       watchUrlWithheld: null,
-      watchUrlGranted: !1,
+      watchUrlGranted: false,
       armsInFlight: new Map(),
       armOutcomes: new Map(),
       announcedArmFailures: new Set(),
@@ -323,7 +323,7 @@ function y() {
       bySlug: new Map(),
       pendingRestore: null,
       lastWritten: null,
-      wroteCurrentLine: !1,
+      wroteCurrentLine: false,
       failureSeqAtWrite: 0,
       storageV5: void 0,
       unsubscribeSwitch: void 0,
@@ -333,13 +333,13 @@ function y() {
       writeChain: Promise.resolve(),
       owedLines: new Map(),
       pendingLines: new Map(),
-      exitStamped: !1,
+      exitStamped: false,
       tornStops: new Set(),
       forgottenAt: new Map(),
       leftWith: null,
       unsubscribeMaterialized: void 0,
       earlySeed: void 0,
-      onFile: !1,
+      onFile: false,
       adoptPendingFor: null,
     },
     interactionSchemas: void 0,
@@ -348,7 +348,7 @@ function y() {
     refusedPublishBodies: new Map(),
     approvedSourcePins: new Map(),
     gatedThumbnailHrefs: new Map(),
-    approvalStashEvicted: !1,
+    approvalStashEvicted: false,
     publishObservationNonce: f(),
     consumedPublishApprovals: new Set(),
     readDeliveries: new Map(),
@@ -372,7 +372,7 @@ function y() {
     prReviewComposeLatch: null,
     liveEditGateLatch: null,
     livePathsGateLatch: null,
-    artifactDisabledSessionEvaluated: !1,
+    artifactDisabledSessionEvaluated: false,
     anchorSnippets: new Map(),
     marked: { plain: void 0, inertHtml: void 0, prReviewSubset: void 0 },
     bundleEmbedVerdicts: { hljs: void 0 },
@@ -383,7 +383,7 @@ function y() {
   };
 }
 function r8e(e) {
-  if (((e.stopped = !0), e.abort.abort(), e.timer !== void 0)) clearTimeout(e.timer), (e.timer = void 0);
+  if (((e.stopped = true), e.abort.abort(), e.timer !== void 0)) clearTimeout(e.timer), (e.timer = void 0);
   delete e.lease, delete e.renewable, delete e.wake;
 }
 class g {
@@ -400,7 +400,7 @@ function de() {
 function cY() {
   let e = o().current;
   if (e === void 0) return;
-  for (let t of e.liveDocWatch.noticeBudgets.values()) t.disclosed = !1;
+  for (let t of e.liveDocWatch.noticeBudgets.values()) t.disclosed = false;
 }
 function gEe() {
   let e = o().current;
@@ -467,13 +467,13 @@ function T(e) {
     if (n.batchTimer !== void 0) clearTimeout(n.batchTimer), (n.batchTimer = void 0);
     (n.batch = void 0), (n.batchPos = void 0), (n.batchHeardAt = void 0), (n.settling = void 0);
   }
-  t?.stop({ killTask: !1 });
+  t?.stop({ killTask: false });
 }
 function vZn(e = "signed_out", t) {
   let n = o().current;
   if (n === void 0) return;
   if (e !== "same_account") {
-    (n.assetsOnRoster = !1),
+    (n.assetsOnRoster = false),
       n.accountEpoch++,
       n.postedReplyIds.clear(),
       n.commentTargets.clear(),
@@ -488,7 +488,7 @@ function vZn(e = "signed_out", t) {
       n.live.repliesConsent.declined.clear(),
       n.live.repliesConsent.approved.clear();
     for (let r of n.autoReact.artifacts.values())
-      for (let d of r.threads.values()) d.ownReplyIds.clear(), (d.ownReplyIdsIncomplete = !1);
+      for (let d of r.threads.values()) d.ownReplyIds.clear(), (d.ownReplyIdsIncomplete = false);
     n.liveDocWatch.journalUnavailable.clear();
     for (let r of n.liveDocWatch.journalNegotiations) r.abort();
     n.liveDocWatch.journalNegotiations.clear();
@@ -519,7 +519,7 @@ function hEe() {
 function _Ee(e) {
   let t = o().current;
   if (t === void 0) return;
-  if (e?.continuesConversation !== !0)
+  if (e?.continuesConversation !== true)
     t.conversationEpoch++,
       t.ownPublishedSlugs.clear(),
       t.roomJoinArming.clear(),

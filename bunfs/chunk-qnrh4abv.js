@@ -106,7 +106,7 @@ function N(e, t, r, i, s) {
 function M(e) {
   return e >= 1;
 }
-function U(e, t, r, i, s = () => !0) {
+function U(e, t, r, i, s = () => true) {
   let p = e.get(t);
   if (p !== void 0) return e.delete(t), e.set(t, p), p;
   while (e.size >= Math.max(1, r)) {
@@ -150,8 +150,8 @@ function Zmn(e = {}, t) {
   }
   function o(u, c) {
     let _ = i();
-    if (u !== void 0 && u.length > _.maxChainLength) return { admitted: !1, reason: "hop-runaway" };
-    if (we(u, c) >= _.maxSelfHops) return { admitted: !1, reason: "hop-loop" };
+    if (u !== void 0 && u.length > _.maxChainLength) return { admitted: false, reason: "hop-runaway" };
+    if (we(u, c) >= _.maxSelfHops) return { admitted: false, reason: "hop-loop" };
     return;
   }
   function d(u) {
@@ -161,16 +161,16 @@ function Zmn(e = {}, t) {
     if (A) return A;
     let w = p(u.senderKey, c);
     if (w.lastBody !== void 0 && w.lastBody === u.body && _ - w.lastBodyAt < c.dedupWindowMs)
-      return { admitted: !1, reason: "duplicate" };
+      return { admitted: false, reason: "duplicate" };
     if (
       ((w.tokens = N(w.tokens, w.lastRefill, _, c.bucketCapacity, c.refillPerSecond)), (w.lastRefill = _), !M(w.tokens))
     )
-      return { admitted: !1, reason: "rate-limited" };
-    return (w.tokens -= 1), (w.lastBody = u.body), (w.lastBodyAt = _), { admitted: !0 };
+      return { admitted: false, reason: "rate-limited" };
+    return (w.tokens -= 1), (w.lastBody = u.body), (w.lastBodyAt = _), { admitted: true };
   }
   return { admit: d, checkHopChain: o, trackedSenderCount: () => s.size };
 }
-var he = { "rate-limited": !0, duplicate: !0, "hop-loop": !0, "hop-runaway": !0, "queue-full": !0 };
+var he = { "rate-limited": true, duplicate: true, "hop-loop": true, "hop-runaway": true, "queue-full": true };
 function ke(e) {
   return typeof e === "string" && Object.hasOwn(he, e);
 }
@@ -228,8 +228,8 @@ function rgn({ trailMs: e = Ie } = {}) {
     i = 0;
   function s(l = Date.now()) {
     if (l - r >= H) (r = l), (i = 0);
-    if (i >= Ae) return !1;
-    return i++, !0;
+    if (i >= Ae) return false;
+    return i++, true;
   }
   function p(l, P, y, h = Date.now()) {
     let S = t.get(l);
@@ -287,7 +287,7 @@ function rgn({ trailMs: e = Ie } = {}) {
       if (y.pending > 0) P.push(K(y, s));
       else if (y.timer !== void 0) clearTimeout(y.timer), (y.timer = void 0);
     if (P.length === 0) return;
-    await Promise.race([Promise.allSettled(P), ne(l, void 0, { unref: !0 })]);
+    await Promise.race([Promise.allSettled(P), ne(l, void 0, { unref: true })]);
   }
   function w() {
     for (let l of t.values()) if (l.timer !== void 0) clearTimeout(l.timer);
@@ -325,12 +325,12 @@ function Q(e, t = Date.now) {
   let r = new Map();
   function i(d, u) {
     let { bucketCapacity: c, refillPerSecond: _, maxTrackedSenders: A } = e(),
-      w = !1,
+      w = false,
       l = U(
         r,
         d,
         A,
-        () => ((w = !0), { tokens: c, updatedAt: u, sentInBurst: 0, burstStartedAt: u }),
+        () => ((w = true), { tokens: c, updatedAt: u, sentInBurst: 0, burstStartedAt: u }),
         (P) => N(P.tokens, P.updatedAt, u, c, _) >= c,
       );
     if (!w) {
@@ -342,15 +342,15 @@ function Q(e, t = Date.now) {
   }
   function s(d) {
     let u = i(d, t());
-    if (!M(u.tokens)) return { ok: !1, sentInBurst: u.sentInBurst };
+    if (!M(u.tokens)) return { ok: false, sentInBurst: u.sentInBurst };
     (u.tokens -= 1), (u.sentInBurst += 1);
     let c = u,
-      _ = !1;
+      _ = false;
     return {
-      ok: !0,
+      ok: true,
       refund: () => {
         if (_) return;
-        (_ = !0),
+        (_ = true),
           (c.tokens = Math.min(e().bucketCapacity, c.tokens + 1)),
           (c.sentInBurst = Math.max(0, c.sentInBurst - 1));
       },
@@ -439,7 +439,7 @@ class HM extends Error {
   }
 }
 function qD(e) {
-  if (e instanceof HM || J6t(e) || mTe(e) || fTe(e)) return !0;
+  if (e instanceof HM || J6t(e) || mTe(e) || fTe(e)) return true;
   let t = E(e);
   return t === "EBUSY" || t === "EAGAIN" || t === "EACCES";
 }
@@ -452,7 +452,7 @@ function Ke(e) {
   return Ge.includes(e) ? e : void 0;
 }
 function je(e) {
-  if (typeof e !== "object" || e === null) return !1;
+  if (typeof e !== "object" || e === null) return false;
   let { name: t, until: r } = e;
   return typeof t === "string" && Lht(r);
 }
@@ -466,10 +466,10 @@ function We(e) {
 function Xe() {
   return (li().outbound.pacer ??= Q(o5e));
 }
-var ze = { ok: !0, refund: () => {} };
+var ze = { ok: true, refund: () => {} };
 function E_r() {
-  if (a.CLAUDE_CODE_HARBOR_KITE_PACING_OFF) return !1;
-  return !I("tengu_harbor_kite_pacing_off", !1);
+  if (a.CLAUDE_CODE_HARBOR_KITE_PACING_OFF) return false;
+  return !I("tengu_harbor_kite_pacing_off", false);
 }
 function ign(e) {
   fe(e, (t, r) => t.credit(r));
@@ -484,7 +484,7 @@ function fe(e, t) {
   if (i !== "uds") return;
   t(r, tS(s) ?? s);
 }
-async function i5e(e, t, r, i, s, p, o, { trackReceipts: d = !0, expectPeerPid: u, expectPeerProcStart: c } = {}) {
+async function i5e(e, t, r, i, s, p, o, { trackReceipts: d = true, expectPeerPid: u, expectPeerProcStart: c } = {}) {
   let _ = MF(),
     A = _ ? S$(_) : void 0,
     w = VMe(A, i, t, void 0, ybt(p, A ? pTe(A) : void 0), o),
@@ -509,7 +509,7 @@ async function i5e(e, t, r, i, s, p, o, { trackReceipts: d = !0, expectPeerPid: 
   if ((n(`[uds-client] Sending ${t.length} chars to ${Fu(e)}`), d)) A_r(l.msg_id, S$(e));
   try {
     await ge(e, P, r, {
-      noFollowSymlink: !0,
+      noFollowSymlink: true,
       preflightedJson: y,
       ...(u !== void 0 && { expectPeerPid: u }),
       ...(c !== void 0 && { expectPeerProcStart: c }),
@@ -544,12 +544,12 @@ function sgn(e, t) {
       if (i.length >= me) i.shift();
       i.push(o);
     }
-    return { destination: o.to, wasHeld: !1 };
+    return { destination: o.to, wasHeld: false };
   }
   let p = i.findIndex((o) => o.msgId === e);
   if (p !== -1 && t !== "held") {
     let [o] = i.splice(p, 1);
-    return o ? { destination: o.to, wasHeld: !0 } : void 0;
+    return o ? { destination: o.to, wasHeld: true } : void 0;
   }
   return;
 }
@@ -579,7 +579,7 @@ async function POe(e, t, r = GD(), { expectPeerPid: i, expectPeerProcStart: s, s
   return (
     n(`[uds-client] Sending control:${t.action} to ${Fu(e)}`),
     await ge(e, { type: "control", ...t, ...r }, p, {
-      noFollowSymlink: !0,
+      noFollowSymlink: true,
       ...(i !== void 0 && { expectPeerPid: i }),
       ...(s !== void 0 && { expectPeerProcStart: s }),
     }),
@@ -613,8 +613,8 @@ async function lgn(e) {
 }
 async function z(e) {
   let t = e.procStartFt ?? e.procStart;
-  if (t === void 0 || Gg(e.pid)) return !1;
-  return (await r0(e.pid, t)) === !0;
+  if (t === void 0 || Gg(e.pid)) return false;
+  return (await r0(e.pid, t)) === true;
 }
 function le(e) {
   let t = b(e),
@@ -624,23 +624,23 @@ function le(e) {
 }
 async function qe(e) {
   let t = tS(e);
-  if (t === void 0) return !1;
+  if (t === void 0) return false;
   for (let r of await F()) {
     if (!r.sock || tS(r.sock) !== t) continue;
     if (Gg(r.pid)) continue;
     if ((r.procStartFt ?? r.procStart) !== void 0) {
-      if (await z(r)) return !0;
+      if (await z(r)) return true;
       continue;
     }
-    if (ms(r.pid)) return !0;
+    if (ms(r.pid)) return true;
   }
-  return !1;
+  return false;
 }
 async function ge(
   e,
   t,
   r,
-  { noFollowSymlink: i = !1, expectPeerPid: s, expectPeerProcStart: p, preflightedJson: o } = {},
+  { noFollowSymlink: i = false, expectPeerPid: s, expectPeerProcStart: p, preflightedJson: o } = {},
 ) {
   let d = o ?? le(t);
   if (!xH(e))
@@ -680,24 +680,24 @@ async function ge(
 `;
   return new Promise((l, P) => {
     let y = pe({ path: e }),
-      h = !1;
+      h = false;
     y.setTimeout(5000, () => {
-      (h = !0), y.destroy(), P(Error(`Timed out sending to ${e}`));
+      (h = true), y.destroy(), P(Error(`Timed out sending to ${e}`));
     }),
       y.on("error", (S) => {
-        (h = !0), P(S);
+        (h = true), P(S);
       }),
       y.on("connect", () => {
         if (s !== void 0 && D() !== "windows") {
           let S = Pht(y);
           if (S === void 0) {
-            (h = !0),
+            (h = true),
               y.destroy(),
               P(new HM("endpoint-unverifiable", "Refusing to send: connected endpoint identity could not be read"));
             return;
           }
           if (S !== s) {
-            (h = !0),
+            (h = true),
               y.destroy(),
               n(`[uds-client] connected endpoint is pid ${S}, expected ${s} \u2014 refusing to write`),
               P(new HM("wrong-endpoint", "Refusing to send: connected endpoint is not the expected process"));
@@ -706,20 +706,20 @@ async function ge(
           let x = process.getuid?.(),
             T = G(y);
           if (x !== void 0 && T === null) {
-            (h = !0),
+            (h = true),
               y.destroy(),
               P(new HM("endpoint-unverifiable", "Refusing to send: connected endpoint owner could not be read"));
             return;
           }
           if (x !== void 0 && T !== x) {
-            (h = !0),
+            (h = true),
               y.destroy(),
               n(`[uds-client] connected endpoint is owned by uid ${T}, not ours \u2014 refusing to write`),
               P(new HM("wrong-endpoint", "Refusing to send: connected endpoint is not owned by this user"));
             return;
           }
           if (p !== void 0 && wAe(S) !== p) {
-            (h = !0),
+            (h = true),
               y.destroy(),
               n(
                 `[uds-client] connected endpoint pid ${S} is not the process that wrote to us (start token differs \u2014 recycled pid) \u2014 refusing to write`,
@@ -752,14 +752,14 @@ async function ge(
 function Se(e) {
   return new Promise((t) => {
     if (!xH(e)) {
-      t(!1);
+      t(false);
       return;
     }
     let r = pe({ path: e }),
       i = (s) => {
         r.destroy(), t(s);
       };
-    r.on("connect", () => i(!0)), r.on("error", (s) => i(E(s) === "EBUSY")), r.setTimeout(250, () => i(!1));
+    r.on("connect", () => i(true)), r.on("error", (s) => i(E(s) === "EBUSY")), r.setTimeout(250, () => i(false));
   });
 }
 var v_r = 4000000000000000;
@@ -820,7 +820,7 @@ async function be(e, t) {
       sessionId: typeof o.sessionId === "string" ? o.sessionId : void 0,
       jobId: typeof o.jobId === "string" ? o.jobId : void 0,
       parkedJobId: typeof o.parkedJobId === "string" ? o.parkedJobId : void 0,
-      spare: o.spare === !0,
+      spare: o.spare === true,
       bridgeSessionId: typeof o.bridgeSessionId === "string" ? o.bridgeSessionId : void 0,
       logPath: typeof o.logPath === "string" ? o.logPath : void 0,
       status: Ke(o.status),
@@ -846,7 +846,7 @@ async function be(e, t) {
   }
 }
 async function a5e() {
-  return (await F({ rejectUnreadable: !0 })).map(({ file: e, ...t }) => t);
+  return (await F({ rejectUnreadable: true })).map(({ file: e, ...t }) => t);
 }
 function ye(e, t, r, i) {
   if (O() && i !== void 0) {
@@ -878,7 +878,7 @@ function MF() {
 }
 async function cgn(e) {
   let t = MF(),
-    r = (await F({ rejectUnreadable: !0 })).filter((d) => d.sock && !(t && r7e(d.sock, t)) && !d.spare),
+    r = (await F({ rejectUnreadable: true })).filter((d) => d.sock && !(t && r7e(d.sock, t)) && !d.spare),
     i = await Promise.all(r.map((d) => Se(d.sock))),
     s = await Rre(),
     p = s ? await LY() : "",

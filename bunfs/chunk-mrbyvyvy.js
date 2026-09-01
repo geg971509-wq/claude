@@ -457,7 +457,7 @@ function rt(n) {
 }
 async function b(n, s) {
   let i = rt(n);
-  return await Z(et(i), { recursive: !0 }), await tt(i, s, { encoding: "utf-8", flush: !0 }), i;
+  return await Z(et(i), { recursive: true }), await tt(i, s, { encoding: "utf-8", flush: true }), i;
 }
 function Ct(te) {
   return te.project.originalCwd;
@@ -471,14 +471,14 @@ function P(Xt) {
     [, it] = u(null),
     [E, Yt] = u(nt),
     [U, qt] = u(nt.length),
-    [m, st] = u(!1),
+    [m, st] = u(false),
     { columns: A } = Ee(),
     Ht = ct(Ct),
     Kt = ct(vt),
     at;
   if (x[0] === d)
     (at = () => {
-      st(!1), it(null);
+      st(false), it(null);
     }),
       (x[0] = at);
   else at = x[0];
@@ -489,8 +489,8 @@ function P(Xt) {
       if (pt === "clipboard") {
         let mt = await h_(S);
         if (mt) process.stdout.write(mt);
-        y("export_clipboard"), g({ success: !0, message: "Conversation copied to clipboard" });
-      } else if (pt === "file") it("file"), st(!0);
+        y("export_clipboard"), g({ success: true, message: "Conversation copied to clipboard" });
+      } else if (pt === "file") it("file"), st(true);
     }),
       (x[1] = S),
       (x[2] = g),
@@ -502,12 +502,12 @@ function P(Xt) {
     (ft = async () => {
       try {
         let Wt = await b(E, S);
-        y("export_file"), g({ success: !0, message: `Conversation exported to: ${Wt}` });
+        y("export_file"), g({ success: true, message: `Conversation exported to: ${Wt}` });
       } catch (k) {
         let ut = k;
         p("export_file", "write_failed"),
           g({
-            success: !1,
+            success: false,
             message: `Failed to export conversation: ${ut instanceof Error ? ut.message : "Unknown error"}`,
           });
       }
@@ -522,7 +522,7 @@ function P(Xt) {
   if (x[8] !== g || x[9] !== m)
     (k = () => {
       if (m) Qt();
-      else g({ success: !1, message: "Export cancelled" });
+      else g({ success: false, message: "Export cancelled" });
     }),
       (x[8] = g),
       (x[9] = m),
@@ -592,8 +592,8 @@ function P(Xt) {
                   value: E,
                   onChange: Yt,
                   onSubmit: z,
-                  focus: !0,
-                  showCursor: !0,
+                  focus: true,
+                  showCursor: true,
                   columns: A,
                   cursorOffset: U,
                   onChangeCursorOffset: qt,

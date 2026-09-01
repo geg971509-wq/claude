@@ -14,7 +14,7 @@ import { b, V, n } from "/$bunfs/root/chunk-fv016jr6.js";
 import { mkdir as v, readFile as g } from "fs/promises";
 import { dirname as P } from "path";
 function jF(e, f, c) {
-  let { defaultValue: a, mode: T, ensureDir: s = !1, indent: p, trailingNewline: w = !1 } = c;
+  let { defaultValue: a, mode: T, ensureDir: s = false, indent: p, trailingNewline: w = false } = c;
   function u() {
     return S(a) ? a() : a;
   }
@@ -37,7 +37,7 @@ function jF(e, f, c) {
     return o.data;
   }
   async function d(t) {
-    if (s !== !1) await v(P(e), { recursive: !0, mode: s === !0 ? void 0 : s.mode });
+    if (s !== false) await v(P(e), { recursive: true, mode: s === true ? void 0 : s.mode });
     let r =
       b(t, null, p) +
       (w

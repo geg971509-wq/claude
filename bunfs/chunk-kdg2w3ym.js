@@ -70,7 +70,7 @@ function _q(U) {
   if (O !== fn) return O;
   let p;
   if (l[16] !== i || l[17] !== L)
-    (p = e(t, { color: L, bold: i, underline: !0, children: "learn more" })), (l[16] = i), (l[17] = L), (l[18] = p);
+    (p = e(t, { color: L, bold: i, underline: true, children: "learn more" })), (l[16] = i), (l[17] = L), (l[18] = p);
   else p = l[18];
   let R;
   if (l[19] !== n.url || l[20] !== p)

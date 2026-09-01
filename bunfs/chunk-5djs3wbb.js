@@ -105,12 +105,12 @@ function c6t(e, t) {
   else h(t);
 }
 function D(e) {
-  if (!(e instanceof Error) || e.cause === void 0 || e.cause === null) return !1;
+  if (!(e instanceof Error) || e.cause === void 0 || e.cause === null) return false;
   let t = e.cause;
-  if (typeof t !== "object" || typeof t.code !== "string") return !1;
+  if (typeof t !== "object" || typeof t.code !== "string") return false;
   return F(t);
 }
-var O = { realpath: !1, retries: { retries: 10, minTimeout: 5, maxTimeout: 100 }, onCompromised: () => {} };
+var O = { realpath: false, retries: { retries: 10, minTimeout: 5, maxTimeout: 100 }, onCompromised: () => {} };
 function L8n(e) {
   return new R(
     `Internal error: team file for "${e}" not found. The session team should have been initialized at startup.`,
@@ -131,7 +131,7 @@ async function Az(e, t, r, i) {
     let s = await Rf(e);
     if (!s) throw Error("Team config file unreadable (lock acquired, read failed)");
     let f = t(s);
-    if (f === !1) return;
+    if (f === false) return;
     try {
       await u6t(e, s);
     } catch (m) {
@@ -153,7 +153,7 @@ async function Lfn(e, t, r) {
       e,
       (i) => {
         let o = i.members.findIndex((a) => a.agentId === t);
-        if (o === -1) return !1;
+        if (o === -1) return false;
         i.members.splice(o, 1);
       },
       void 0,
@@ -169,21 +169,21 @@ async function L(e, t, r, i) {
     s = xwe(50),
     f,
     m = (u) => {
-      if (u === void 0) return { skip: !0, result: { kind: "missing" } };
+      if (u === void 0) return { skip: true, result: { kind: "missing" } };
       let c;
       try {
         c = P(V(Buffer.from(u.value).toString("utf8"))) ?? void 0;
       } catch (v) {
-        return { skip: !0, result: { kind: "unreadable", parseError: l(v) } };
+        return { skip: true, result: { kind: "unreadable", parseError: l(v) } };
       }
-      if (!c) return { skip: !0, result: { kind: "unreadable" } };
+      if (!c) return { skip: true, result: { kind: "unreadable" } };
       let T;
       try {
         T = t(c);
       } catch (v) {
-        return { skip: !0, result: { kind: "threw", error: v } };
+        return { skip: true, result: { kind: "threw", error: v } };
       }
-      if (T === !1) return { skip: !0, result: { kind: "declined" } };
+      if (T === false) return { skip: true, result: { kind: "declined" } };
       return (f = T), { write: b(c, null, 2), result: { kind: "applied", result: T } };
     },
     d;
@@ -240,39 +240,39 @@ async function u6t(e, t, r) {
     return;
   }
   let i = Ofn(e);
-  await B(i, { recursive: !0 }), await _(rne(e), b(t, null, 2));
+  await B(i, { recursive: true }), await _(rne(e), b(t, null, 2));
 }
 async function hue(e, t, r) {
   let i = t.agentId || t.name;
-  if (!i) return n("[TeammateTool] removeTeammateFromTeamFile called with no identifier"), !1;
-  let o = !1;
+  if (!i) return n("[TeammateTool] removeTeammateFromTeamFile called with no identifier"), false;
+  let o = false;
   try {
     let a =
       (await Az(
         e,
         (s) => {
-          o = !1;
+          o = false;
           let f = s.members.length;
           s.members = s.members.filter((d) => {
-            if (t.agentId && d.agentId === t.agentId) return !1;
-            if (t.name && d.name === t.name) return !1;
-            return !0;
+            if (t.agentId && d.agentId === t.agentId) return false;
+            if (t.name && d.name === t.name) return false;
+            return true;
           });
           let m = s.members.length !== f;
           return (o = !m), m;
         },
-        { bestEffortWrite: !0 },
+        { bestEffortWrite: true },
         r,
-      )) ?? !1;
+      )) ?? false;
     if (a) n(`[TeammateTool] Removed teammate from team file: ${i}`);
     else if (o) n(`[TeammateTool] Teammate ${i} not found in team file for "${e}"`);
     return a;
   } catch (a) {
-    return n(`[TeammateTool] Cannot remove teammate ${i} from "${e}": ${l(a)}`), !1;
+    return n(`[TeammateTool] Cannot remove teammate ${i} from "${e}": ${l(a)}`), false;
   }
 }
 async function mVe(e, t, r, i) {
-  let o = !1;
+  let o = false;
   try {
     let a =
       (await Az(
@@ -280,18 +280,18 @@ async function mVe(e, t, r, i) {
         (s) => {
           let f = s.members.findIndex((d) => d.agentId === t),
             m = s.members[f];
-          if (!m) return (o = !1), !1;
-          if (r?.onlyIfJoinedBefore !== void 0 && m.joinedAt >= r.onlyIfJoinedBefore) return (o = !0), !1;
-          return (o = !1), s.members.splice(f, 1), !0;
+          if (!m) return (o = false), false;
+          if (r?.onlyIfJoinedBefore !== void 0 && m.joinedAt >= r.onlyIfJoinedBefore) return (o = true), false;
+          return (o = false), s.members.splice(f, 1), true;
         },
-        { bestEffortWrite: !0 },
+        { bestEffortWrite: true },
         i,
-      )) ?? !1;
+      )) ?? false;
     if (a) n(`[TeammateTool] Removed member ${t} from team ${e}`);
     else if (o) n(`[TeammateTool] Skipped stale removal of ${t} from team ${e} (re-added after removal was initiated)`);
     return a;
   } catch (a) {
-    return n(`[TeammateTool] removeMemberByAgentId(${t}) failed for team ${e}: ${l(a)}`), !1;
+    return n(`[TeammateTool] removeMemberByAgentId(${t}) failed for team ${e}: ${l(a)}`), false;
   }
 }
 async function d6t(e, t, r, i) {
@@ -302,8 +302,8 @@ async function d6t(e, t, r, i) {
         e,
         (a) => {
           let s = a.members.find((f) => f.name === t);
-          if (!s) return (o = "absent"), !1;
-          if (s.mode === r) return (o = "unchanged"), !1;
+          if (!s) return (o = "absent"), false;
+          if (s.mode === r) return (o = "unchanged"), false;
           (o = "set"), (s.mode = r);
         },
         void 0,
@@ -331,8 +331,8 @@ async function gVe(e, t, r, i) {
         e,
         (a) => {
           let s = a.members.find((f) => f.name === t);
-          if (!s) return (o = "absent"), !1;
-          if (s.isActive === r) return (o = "unchanged"), !1;
+          if (!s) return (o = "absent"), false;
+          if (s.isActive === r) return (o = "unchanged"), false;
           (o = "set"), (s.isActive = r);
         },
         void 0,
@@ -375,7 +375,7 @@ async function U(e) {
     n(`[TeammateTool] git worktree remove failed, falling back to rm: ${i.stderr}`);
   }
   try {
-    await I(e, { recursive: !0, force: !0 }), n(`[TeammateTool] Removed worktree directory manually: ${e}`);
+    await I(e, { recursive: true, force: true }), n(`[TeammateTool] Removed worktree directory manually: ${e}`);
   } catch (i) {
     n(`[TeammateTool] Failed to remove worktree ${e}: ${l(i)}`);
   }
@@ -423,7 +423,7 @@ async function s_r(e, t) {
     for (let a of i) await U(a);
     let o = Ofn(e);
     try {
-      await I(o, { recursive: !0, force: !0 }), n(`[TeammateTool] Cleaned up team directory: ${o}`);
+      await I(o, { recursive: true, force: true }), n(`[TeammateTool] Cleaned up team directory: ${o}`);
     } catch (a) {
       n(`[TeammateTool] Failed to clean up team directory ${o}: ${l(a)}`);
     }

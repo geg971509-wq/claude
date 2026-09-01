@@ -152,8 +152,8 @@ function Fe() {
   return new Date(Date.now() - e * 24 * 60 * 60 * 1000);
 }
 function Ae() {
-  if (ye("policySettings")?.cleanupPeriodDays !== void 0) return !0;
-  if (aEn()) return !0;
+  if (ye("policySettings")?.cleanupPeriodDays !== void 0) return true;
+  if (aEn()) return true;
   return K3().some((e) => e.file !== EEn && (ioe.some((t) => t === e.path) || e.severity !== "warning"));
 }
 function e6n() {
@@ -202,7 +202,7 @@ async function Zpr() {
   if (t === null) return zw();
   let r = Ofe.errors(),
     a = Ofe.baseLogs(),
-    o = await oe(r, t, !1);
+    o = await oe(r, t, false);
   try {
     let u;
     try {
@@ -211,7 +211,7 @@ async function Zpr() {
       return o;
     }
     let d = u.filter((y) => y.isDirectory() && y.name.startsWith("mcp-logs-")).map((y) => p(a, y.name));
-    for (let y of d) (o = YP(o, await oe(y, t, !0))), await I(y, e);
+    for (let y of d) (o = YP(o, await oe(y, t, true))), await I(y, e);
   } catch (u) {
     if (X(u));
     else if (u_e(u)) n(`cleanup mcp-logs scan failed: ${u.code}`, { level: "error" });
@@ -224,19 +224,19 @@ async function F(e, t, r, a, o = t, u) {
   try {
     d = await r.stat(e);
   } catch (y) {
-    if (X(y)) return !1;
+    if (X(y)) return false;
     throw y;
   }
-  if (!(d.mtime < t)) return a.filesRetainedFresh++, !1;
-  if (u !== void 0 && (await u(e, d))) return !1;
+  if (!(d.mtime < t)) return a.filesRetainedFresh++, false;
+  if (u !== void 0 && (await u(e, d))) return false;
   try {
     await r.unlink(e);
   } catch (y) {
-    if (X(y)) return !1;
+    if (X(y)) return false;
     if (d.mtime < o) a.filesPastCutoff++;
     throw y;
   }
-  return !0;
+  return true;
 }
 async function I(e, t) {
   try {
@@ -252,7 +252,7 @@ async function xe(e, t, r, a) {
     for (let g of o) {
       let D = p(e, g.name),
         S =
-          (await Q(g, D, r)) === "directory" ? await G(D, r, { requireCompleteWalk: !0 }) : (await r.lstat(D)).mtimeMs;
+          (await Q(g, D, r)) === "directory" ? await G(D, r, { requireCompleteWalk: true }) : (await r.lstat(D)).mtimeMs;
       if (S !== null) u = Math.max(u ?? -1 / 0, S);
     }
     if (!((u ?? (await pe(e, r))) < t.getTime())) return;
@@ -263,19 +263,19 @@ async function xe(e, t, r, a) {
             r.lstat(p(e, g)).then(
               (D) => D.isDirectory(),
               (D) => {
-                if (X(D)) return !1;
+                if (X(D)) return false;
                 throw D;
               },
             ),
           ),
         )
-      ).includes(!0)
+      ).includes(true)
     ) {
-      for (let g of o) await r.rm(p(e, g.name), { recursive: !0, force: !0 });
+      for (let g of o) await r.rm(p(e, g.name), { recursive: true, force: true });
       if (o.length > 0) a.messages++;
       return;
     }
-    await r.rm(e, { recursive: !0, force: !0 }), a.messages++;
+    await r.rm(e, { recursive: true, force: true }), a.messages++;
   } catch (o) {
     if (!X(o)) a.errors++;
   }
@@ -299,8 +299,8 @@ async function fe(e, t, r, a) {
     if (d !== "directory") continue;
     let y = p(e, u.name);
     try {
-      if (((await G(y, r, { requireCompleteWalk: !0 })) ?? (await pe(y, r))) < t.getTime())
-        await r.rm(y, { recursive: !0, force: !0 }), a.messages++;
+      if (((await G(y, r, { requireCompleteWalk: true })) ?? (await pe(y, r))) < t.getTime())
+        await r.rm(y, { recursive: true, force: true }), a.messages++;
     } catch (g) {
       if (!X(g)) a.errors++;
     }
@@ -321,7 +321,7 @@ async function L(e, t) {
   try {
     return (await t.lstat(e)).isDirectory();
   } catch {
-    return !1;
+    return false;
   }
 }
 async function ee(e, t, r, a, o = {}) {
@@ -345,7 +345,7 @@ async function ee(e, t, r, a, o = {}) {
   }
   await I(e, r);
 }
-async function G(e, t, { requireCompleteWalk: r = !1 } = {}) {
+async function G(e, t, { requireCompleteWalk: r = false } = {}) {
   let a = -1 / 0,
     o = await t.readdir(e).catch((u) => {
       if (r && !X(u)) throw u;
@@ -400,19 +400,19 @@ async function efr() {
     D = d
       ? void 0
       : async (S, _) => {
-          if (_h("hipaa") || _h("zdr")) return !1;
-          if (y !== null && _.mtime < y) return !1;
+          if (_h("hipaa") || _h("zdr")) return false;
+          if (y !== null && _.mtime < y) return false;
           let P = await ie(J(S), a, e);
-          if (P === "release-now") return !1;
-          if (P === "grace") return t.transcriptsExemptedDesktop++, !0;
+          if (P === "release-now") return false;
+          if (P === "grace") return t.transcriptsExemptedDesktop++, true;
           if (_.size === 0) {
             if (
               !(await a.stat(S.slice(0, -6)).then(
                 (E) => E.isDirectory(),
-                () => !1,
+                () => false,
               ))
             )
-              return t.transcriptsExemptedDesktop++, !0;
+              return t.transcriptsExemptedDesktop++, true;
           }
           g ??= Buffer.allocUnsafe(bp);
           let { head: v, tail: R } = await qJe(S, _.size, g);
@@ -424,15 +424,15 @@ async function efr() {
           let T = _.size > bp ? qRn(R) : R,
             k = _J(v, "entrypoint"),
             b = sVt(T, "entrypoint");
-          if (!((k !== void 0 && xTn(k)) || (b !== void 0 && xTn(b)))) return !1;
+          if (!((k !== void 0 && xTn(k)) || (b !== void 0 && xTn(b)))) return false;
           let j = Z(S).startsWith("agent-") ? (_J(v, "sessionId") ?? sVt(T, "sessionId")) : void 0;
           if (j !== void 0 && Ie(j)) {
             let B = p(ue(S), `${j}${U}`);
             if (B !== J(S)) {
-              if ((await ie(B, a, e)) === "release-now") return !1;
+              if ((await ie(B, a, e)) === "release-now") return false;
             }
           }
-          return t.transcriptsExemptedDesktop++, !0;
+          return t.transcriptsExemptedDesktop++, true;
         };
   for (let S of o) {
     if (!S.isDirectory()) continue;
@@ -478,14 +478,14 @@ async function efr() {
                   (await a.unlink(p(_, `${A}.ccr-tip.json`)).catch(() => {}),
                   await a.unlink(p(_, `${A}.precompact.json`)).catch(() => {}),
                   v.push(J(b)),
-                  await a.rm(p(_, A), { recursive: !0, force: !0 }).catch(() => {
+                  await a.rm(p(_, A), { recursive: true, force: true }).catch(() => {
                     t.errors++;
                   }),
                   u !== null)
                 ) {
                   let j = p(u, S.name);
                   if ((await a.lstat(j).catch(() => null))?.isDirectory())
-                    await a.rm(p(j, A), { recursive: !0, force: !0 }).catch(() => {
+                    await a.rm(p(j, A), { recursive: true, force: true }).catch(() => {
                       t.errors++;
                     }),
                       await I(j, a);
@@ -502,7 +502,7 @@ async function efr() {
           let E = await G(b, a);
           if (E !== null && E < e.getTime())
             try {
-              await a.rm(b, { recursive: !0, force: !0 }), t.messages++;
+              await a.rm(b, { recursive: true, force: true }), t.messages++;
             } catch {
               t.errors++;
             }
@@ -584,7 +584,7 @@ async function efr() {
   }
   return t;
 }
-async function C(e, t, r = !0, a) {
+async function C(e, t, r = true, a) {
   let o = Db(a),
     u = zw();
   if (o === null) return u;
@@ -667,7 +667,7 @@ async function ifr() {
 }
 async function sfr() {
   let e = p(be(), "mcp-discovery-cache"),
-    t = await C(e, (u) => u.endsWith(".json") || u.includes(".json.tmp."), !1),
+    t = await C(e, (u) => u.endsWith(".json") || u.includes(".json.tmp."), false),
     r = Db();
   if (r === null) return t;
   let a = le(),
@@ -702,8 +702,8 @@ async function M(
   {
     exclude: t,
     skipIf: r,
-    refuseRedirectedRoot: a = !1,
-    removeEmptyBaseDir: o = !0,
+    refuseRedirectedRoot: a = false,
+    removeEmptyBaseDir: o = true,
     maxAgeDays: u,
     baseDir: d,
     storageV5: y,
@@ -734,7 +734,7 @@ async function M(
     try {
       if ((await S.stat(T)).mtime < g) {
         if (await r?.(T)) continue;
-        await S.rm(T, { recursive: !0, force: !0 }), D.messages++;
+        await S.rm(T, { recursive: true, force: true }), D.messages++;
       }
     } catch {
       D.errors++;
@@ -764,7 +764,7 @@ async function pfr(e) {
     r = await Y(t).catch(() => null);
   if (!r) return zw();
   return M(d5e, {
-    removeEmptyBaseDir: !1,
+    removeEmptyBaseDir: false,
     maxAgeDays: z,
     baseDir: t,
     skipIf: async (a) => {
@@ -791,13 +791,13 @@ async function Me(e) {
   return (t.messages += u.value.deleted), (t.errors += u.value.failed ?? 0), t;
 }
 function ffr() {
-  return C(AWe(), "", !1, Nlt);
+  return C(AWe(), "", false, Nlt);
 }
 async function mfr(e) {
   return YP(
     YP(
-      await M(zJn, { refuseRedirectedRoot: !0, storageV5: e }),
-      await M(VJn, { refuseRedirectedRoot: !0, storageV5: e }),
+      await M(zJn, { refuseRedirectedRoot: true, storageV5: e }),
+      await M(VJn, { refuseRedirectedRoot: true, storageV5: e }),
     ),
     await de(iV, e),
   );
@@ -819,12 +819,12 @@ async function de(e, t) {
   }
   for (let y of d) {
     if (!y.isDirectory() || !$ne(y.name)) continue;
-    r = YP(r, await M(p(e, "*", NM), { baseDir: p(o, y.name, NM), refuseRedirectedRoot: !0, storageV5: t }));
+    r = YP(r, await M(p(e, "*", NM), { baseDir: p(o, y.name, NM), refuseRedirectedRoot: true, storageV5: t }));
   }
   return r;
 }
 function gfr(e) {
-  return M(oKe, { refuseRedirectedRoot: !0, storageV5: e });
+  return M(oKe, { refuseRedirectedRoot: true, storageV5: e });
 }
 async function me(e, t, r, a) {
   let o = zw(),
@@ -871,14 +871,14 @@ function _fr(e) {
   return me(iV, oKe, "skills_sync_trash_move_failed", e);
 }
 function yfr(e) {
-  return M(SLe, { refuseRedirectedRoot: !0, storageV5: e });
+  return M(SLe, { refuseRedirectedRoot: true, storageV5: e });
 }
 async function Sfr(e) {
-  return YP(await M(KJn, { refuseRedirectedRoot: !0, storageV5: e }), await de(sV, e));
+  return YP(await M(KJn, { refuseRedirectedRoot: true, storageV5: e }), await de(sV, e));
 }
 async function bfr() {
   let e = p(dc(), "store"),
-    t = await C(e, (a) => a.endsWith(".json") || a.includes(".json.tmp."), !1),
+    t = await C(e, (a) => a.endsWith(".json") || a.includes(".json.tmp."), false),
     r = Db();
   if (r !== null) await fe(e, r, le(), t);
   return t;
@@ -910,13 +910,13 @@ async function wfr() {
       if (!D.isDirectory() || D.name === y) continue;
       let S = p(d, D.name);
       try {
-        if ((await r.stat(S)).mtime < e) await r.rm(S, { recursive: !0, force: !0 }), t.messages++;
+        if ((await r.stat(S)).mtime < e) await r.rm(S, { recursive: true, force: true }), t.messages++;
       } catch {
         t.errors++;
       }
     }
     try {
-      if ((await r.stat(d)).mtime < e) await r.rm(d, { recursive: !0, force: !0 }), t.messages++;
+      if ((await r.stat(d)).mtime < e) await r.rm(d, { recursive: true, force: true }), t.messages++;
     } catch {
       t.errors++;
     }
@@ -928,7 +928,7 @@ async function Tfr() {
     t = await C(p(e, "facets"), (r) => r.endsWith(".json") || r.includes(".json.tmp."));
   return (
     (t = YP(t, await C(p(e, "session-meta"), (r) => r.endsWith(".json") || r.includes(".json.tmp.")))),
-    (t = YP(t, await C(e, (r) => r.endsWith(".html") || Lar(r), !1))),
+    (t = YP(t, await C(e, (r) => r.endsWith(".html") || Lar(r), false))),
     await I(e, le()),
     t
   );
@@ -988,8 +988,8 @@ async function Afr() {
   }
   if (!u.isDirectory()) return e;
   try {
-    if (((await G(o, r, { requireCompleteWalk: !0 })) ?? u.mtimeMs) < t.getTime())
-      return await r.rm(o, { recursive: !0, force: !0 }), e.messages++, e;
+    if (((await G(o, r, { requireCompleteWalk: true })) ?? u.mtimeMs) < t.getTime())
+      return await r.rm(o, { recursive: true, force: true }), e.messages++, e;
   } catch {
     e.errors++;
   }
@@ -998,11 +998,11 @@ async function Afr() {
 async function Cfr() {
   let e = p(be(), "shares"),
     t = await M("shares");
-  return (t = YP(t, await C(e, ".zip", !1))), await I(e, le()), t;
+  return (t = YP(t, await C(e, ".zip", false))), await I(e, le()), t;
 }
 async function vfr() {
   let e = p(be(), "telemetry"),
-    t = await C(e, ".json", !1),
+    t = await C(e, ".json", false),
     r = Db();
   if (r === null) return t;
   let a = p(e, "runs"),
@@ -1011,7 +1011,7 @@ async function vfr() {
   return await I(e, le()), t;
 }
 function Rfr() {
-  return C(p(be(), "dump-prompts"), ".jsonl", !0, ne);
+  return C(p(be(), "dump-prompts"), ".jsonl", true, ne);
 }
 function kfr() {
   return C(p(be(), "shell-snapshots"), ".sh");
@@ -1044,7 +1044,7 @@ async function xfr(e) {
   let t = be(),
     r = await C(p(t, "jobs", "settled"), ".json");
   (r = YP(r, await C(p(t, "daemon", "dispatch", "rejected"), ".json"))),
-    (r = YP(r, await C(p(t, "daemon", "dispatch"), ".json", !1))),
+    (r = YP(r, await C(p(t, "daemon", "dispatch"), ".json", false))),
     (r = YP(r, await C(p(t, "daemon", "auth"), ".json")));
   try {
     let g = p(t, "daemon", "host-managed"),
@@ -1074,8 +1074,8 @@ async function xfr(e) {
     o = Db(),
     u = new Set();
   if (!a) for (let g of await Dce(e)) u.add(g);
-  let d = !1,
-    y = !1;
+  let d = false,
+    y = false;
   try {
     let g = p(t, "daemon", "roster.json"),
       D = await le().lstat(g);
@@ -1085,7 +1085,7 @@ async function xfr(e) {
     if (_ !== null && typeof _ === "object" && "workers" in _) {
       let P = _.workers;
       if (P !== null && typeof P === "object") {
-        d = !0;
+        d = true;
         for (let [v, R] of Object.entries(P))
           if (
             R !== null &&
@@ -1095,7 +1095,7 @@ async function xfr(e) {
             ms(R.pid) &&
             (await Bm(R.pid, "procStart" in R && typeof R.procStart === "string" ? R.procStart : void 0))
           )
-            u.add(v), (y = !0);
+            u.add(v), (y = true);
       }
     }
   } catch {}
@@ -1115,7 +1115,7 @@ async function xfr(e) {
               S)
             );
           }
-          if (!a && (D === null || !Xi(D))) return !0;
+          if (!a && (D === null || !Xi(D))) return true;
           if (D?.worktreePath && Xi(D) && o)
             await dan({
               worktreePath: D.worktreePath,
@@ -1124,7 +1124,7 @@ async function xfr(e) {
               hookBased: D.worktreeHookBased,
               cutoff: o,
             }).catch(() => {});
-          return !1;
+          return false;
         },
       }),
     )),
@@ -1155,7 +1155,7 @@ async function xfr(e) {
   return await kst(), r;
 }
 function Ifr() {
-  return C(p(be(), "backups"), "", !1);
+  return C(p(be(), "backups"), "", false);
 }
 async function Pfr() {
   let e = Db(),
@@ -1183,7 +1183,7 @@ async function Dfr() {
   return C(p(be(), "feedback-bundles"), ".zip");
 }
 async function Ofr() {
-  return C(p(be(), "feedback", "drafts"), (e) => e.endsWith(".json") || e.includes(".json.tmp."), !0, 30);
+  return C(p(be(), "feedback", "drafts"), (e) => e.endsWith(".json") || e.includes(".json.tmp."), true, 30);
 }
 async function Lfr() {
   let e = await C(p(be(), "traces"), ".json"),
@@ -1215,8 +1215,8 @@ function Se(e) {
 }
 async function De(e, t, r) {
   let a = await Ne(e, t);
-  if (a === "run") return !1;
-  if (a === "fresh") return n(`${r}: skipping, ran recently`), !0;
+  if (a === "run") return false;
+  if (a === "fresh") return n(`${r}: skipping, ran recently`), true;
   let o = "notRegular" in a ? a.notRegular : a.unreadable,
     u = "telemetryCode" in o ? o.telemetryCode : void 0;
   if (
@@ -1230,11 +1230,11 @@ async function De(e, t, r) {
   ) {
     let d = await e.delete(Te.state(t));
     return (
-      n(`${r}: marker is not a regular file (${Ge(a.notRegular)}) \u2014 ${Se(d)}; running`, { level: "warn" }), !1
+      n(`${r}: marker is not a regular file (${Ge(a.notRegular)}) \u2014 ${Se(d)}; running`, { level: "warn" }), false
     );
   }
   return (
-    n(`${r}: skipping this run, marker unreadable through the backend (${Ge(a.unreadable)})`, { level: "warn" }), !0
+    n(`${r}: skipping this run, marker unreadable through the backend (${Ge(a.unreadable)})`, { level: "warn" }), true
   );
 }
 async function brn(e) {
@@ -1290,7 +1290,7 @@ async function WEr(e) {
     await Gi(r.target, {
       lockfilePath: r.lockfilePath,
       retries: 0,
-      realpath: !1,
+      realpath: false,
       onCompromised: (d) => n(`npm cache cleanup: lock compromised: ${d}`, { level: "error" }),
     });
   } catch {
@@ -1341,12 +1341,12 @@ async function WEr(e) {
     let v = Date.now() - u;
     if (P.length > 0) n(`npm cache cleanup: Removed ${P.length} old @anthropic-ai entries in ${v}ms`);
     else n(`npm cache cleanup: completed in ${v}ms`);
-    s("tengu_npm_cache_cleanup", { success: !0, durationMs: v, entriesRemoved: P.length });
+    s("tengu_npm_cache_cleanup", { success: true, durationMs: v, entriesRemoved: P.length });
   } catch (d) {
     n(`npm cache cleanup failed: ${d}`, { level: "error" }),
-      s("tengu_npm_cache_cleanup", { success: !1, durationMs: Date.now() - u });
+      s("tengu_npm_cache_cleanup", { success: false, durationMs: Date.now() - u });
   } finally {
-    await CRn(r.target, { lockfilePath: r.lockfilePath, realpath: !1 }).catch(() => {});
+    await CRn(r.target, { lockfilePath: r.lockfilePath, realpath: false }).catch(() => {});
   }
 }
 async function qEr(e) {
@@ -1366,7 +1366,7 @@ async function qEr(e) {
     await Gi(r.target, {
       lockfilePath: r.lockfilePath,
       retries: 0,
-      realpath: !1,
+      realpath: false,
       onCompromised: (a) => n(`version cleanup: lock compromised: ${a}`, { level: "error" }),
     });
   } catch {
@@ -1386,7 +1386,7 @@ async function qEr(e) {
   } catch (a) {
     n(`version cleanup: failed to run or write marker: ${a}`, { level: "error" });
   } finally {
-    await CRn(r.target, { lockfilePath: r.lockfilePath, realpath: !1 }).catch(() => {});
+    await CRn(r.target, { lockfilePath: r.lockfilePath, realpath: false }).catch(() => {});
   }
 }
 async function Mfr() {
@@ -1406,7 +1406,7 @@ async function Mfr() {
       let y = p(o, d.name);
       try {
         if (!((await r.stat(y)).mtime < e)) continue;
-        if (d.isDirectory()) await r.rm(y, { recursive: !0, force: !0 });
+        if (d.isDirectory()) await r.rm(y, { recursive: true, force: true });
         else await r.unlink(y);
         t.messages++;
       } catch {
@@ -1447,7 +1447,7 @@ async function ce(e, t, r) {
     if (!u.isFile() || !u.name.endsWith(".md")) continue;
     let d = p(e, u.name);
     try {
-      let { content: y, mtimeMs: g } = await HB(d, 0, b3, yV, void 0, { truncateOnByteLimit: !0 });
+      let { content: y, mtimeMs: g } = await HB(d, 0, b3, yV, void 0, { truncateOnByteLimit: true });
       if (!(g < t.getTime())) continue;
       if (ni(y, d).frontmatter.type !== Be) continue;
       await r.unlink(d), a.messages++;
@@ -1462,7 +1462,7 @@ async function Trn(e) {
   let t = await vst(e),
     r = En()?.cleanupPeriodDays;
   if (t !== null) {
-    s("tengu_retention_sweep", { skipped: !0, skipReason: c(t) }),
+    s("tengu_retention_sweep", { skipped: true, skipReason: c(t) }),
       Ypn({ result: "skipped", skipReason: t, periodDays: r ?? H, usedDefault: r === void 0 });
     return;
   }
@@ -1515,7 +1515,7 @@ async function Trn(e) {
   let d = o.reduce(YP, zw());
   s("tengu_retention_sweep", {
     phase: w("complete"),
-    skipped: !1,
+    skipped: false,
     transcriptsDeleted: a.transcripts,
     transcriptsExemptedDesktop: a.transcriptsExemptedDesktop,
     sessionFilesDeleted: a.messages,

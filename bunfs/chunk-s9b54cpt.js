@@ -53,7 +53,7 @@ import { He } from "/$bunfs/root/chunk-79g5tayq.js";
 import { te } from "/$bunfs/root/chunk-wag5ye9w.js";
 import { j, S } from "/$bunfs/root/chunk-yz031c9r.js";
 var q = S(function (J) {
-  Object.defineProperty(J, "__esModule", { value: !0 });
+  Object.defineProperty(J, "__esModule", { value: true });
   J.dynamicAnchor = void 0;
   var T = Wc(),
     at = _5(),
@@ -62,7 +62,7 @@ var q = S(function (J) {
     it = { keyword: "$dynamicAnchor", schemaType: "string", code: (e) => G(e, e.schema) };
   function G(e, t) {
     let { gen: r, it: a } = e;
-    a.schemaEnv.root.dynamicAnchors[t] = !0;
+    a.schemaEnv.root.dynamicAnchors[t] = true;
     let i = T._`${at.default.dynamicAnchors}${(0, T.getProperty)(t)}`,
       o = a.errSchemaPath === "#" ? a.validateName : ct(e);
     r.if(T._`!${i}`, () => r.assign(i, o));
@@ -78,7 +78,7 @@ var q = S(function (J) {
   J.default = it;
 });
 var N = S(function (oe) {
-  Object.defineProperty(oe, "__esModule", { value: !0 });
+  Object.defineProperty(oe, "__esModule", { value: true });
   oe.dynamicRef = void 0;
   var Q = Wc(),
     dt = _5(),
@@ -90,7 +90,7 @@ var N = S(function (oe) {
     let o = t.slice(1);
     if (i.allErrors) u();
     else {
-      let c = r.let("valid", !1);
+      let c = r.let("valid", false);
       u(c), e.ok(c);
     }
     function u(c) {
@@ -103,7 +103,7 @@ var N = S(function (oe) {
       return h
         ? () =>
             r.block(() => {
-              (0, ee.callRef)(e, c), r.let(h, !0);
+              (0, ee.callRef)(e, c), r.let(h, true);
             })
         : () => (0, ee.callRef)(e, c);
     }
@@ -112,7 +112,7 @@ var N = S(function (oe) {
   oe.default = lt;
 });
 var se = S(function (ae) {
-  Object.defineProperty(ae, "__esModule", { value: !0 });
+  Object.defineProperty(ae, "__esModule", { value: true });
   var mt = q(),
     ft = $p(),
     ht = {
@@ -126,13 +126,13 @@ var se = S(function (ae) {
   ae.default = ht;
 });
 var ce = S(function (ie) {
-  Object.defineProperty(ie, "__esModule", { value: !0 });
+  Object.defineProperty(ie, "__esModule", { value: true });
   var yt = N(),
     vt = { keyword: "$recursiveRef", schemaType: "string", code: (e) => (0, yt.dynamicRef)(e, e.schema) };
   ie.default = vt;
 });
 var de = S(function (ue) {
-  Object.defineProperty(ue, "__esModule", { value: !0 });
+  Object.defineProperty(ue, "__esModule", { value: true });
   var bt = q(),
     $t = N(),
     St = se(),
@@ -141,7 +141,7 @@ var de = S(function (ue) {
   ue.default = Pt;
 });
 var me = S(function (pe) {
-  Object.defineProperty(pe, "__esModule", { value: !0 });
+  Object.defineProperty(pe, "__esModule", { value: true });
   var le = nzt(),
     jt = {
       keyword: "dependentRequired",
@@ -153,7 +153,7 @@ var me = S(function (pe) {
   pe.default = jt;
 });
 var he = S(function (fe) {
-  Object.defineProperty(fe, "__esModule", { value: !0 });
+  Object.defineProperty(fe, "__esModule", { value: true });
   var Mt = nzt(),
     At = {
       keyword: "dependentSchemas",
@@ -164,7 +164,7 @@ var he = S(function (fe) {
   fe.default = At;
 });
 var ye = S(function (ge) {
-  Object.defineProperty(ge, "__esModule", { value: !0 });
+  Object.defineProperty(ge, "__esModule", { value: true });
   var kt = $p(),
     Ot = {
       keyword: ["maxContains", "minContains"],
@@ -177,7 +177,7 @@ var ye = S(function (ge) {
   ge.default = Ot;
 });
 var _e = S(function (ve) {
-  Object.defineProperty(ve, "__esModule", { value: !0 });
+  Object.defineProperty(ve, "__esModule", { value: true });
   var Tt = me(),
     It = he(),
     Nt = ye(),
@@ -185,7 +185,7 @@ var _e = S(function (ve) {
   ve.default = Lt;
 });
 var Pe = S(function (Ce) {
-  Object.defineProperty(Ce, "__esModule", { value: !0 });
+  Object.defineProperty(Ce, "__esModule", { value: true });
   var C = Wc(),
     $e = $p(),
     Vt = _5(),
@@ -197,17 +197,17 @@ var Pe = S(function (Ce) {
       keyword: "unevaluatedProperties",
       type: "object",
       schemaType: ["boolean", "object"],
-      trackErrors: !0,
+      trackErrors: true,
       error: Ht,
       code(e) {
         let { gen: t, schema: r, data: a, errsCount: i, it: o } = e;
         if (!i) throw Error("ajv implementation error");
         let { allErrors: u, props: d } = o;
         if (d instanceof C.Name) t.if(C._`${d} !== true`, () => t.forIn("key", a, (m) => t.if(h(d, m), () => c(m))));
-        else if (d !== !0) t.forIn("key", a, (m) => (d === void 0 ? c(m) : t.if(f(d, m), () => c(m))));
-        (o.props = !0), e.ok(C._`${i} === ${Vt.default.errors}`);
+        else if (d !== true) t.forIn("key", a, (m) => (d === void 0 ? c(m) : t.if(f(d, m), () => c(m))));
+        (o.props = true), e.ok(C._`${i} === ${Vt.default.errors}`);
         function c(m) {
-          if (r === !1) {
+          if (r === false) {
             if ((e.setParams({ unevaluatedProperty: m }), e.error(), !u)) t.break();
             return;
           }
@@ -222,7 +222,7 @@ var Pe = S(function (Ce) {
         }
         function f(m, _) {
           let F = [];
-          for (let z in m) if (m[z] === !0) F.push(C._`${_} !== ${z}`);
+          for (let z in m) if (m[z] === true) F.push(C._`${_} !== ${z}`);
           return (0, C.and)(...F);
         }
       },
@@ -230,7 +230,7 @@ var Pe = S(function (Ce) {
   Ce.default = Ft;
 });
 var Ee = S(function (je) {
-  Object.defineProperty(je, "__esModule", { value: !0 });
+  Object.defineProperty(je, "__esModule", { value: true });
   var P = Wc(),
     Re = $p(),
     Ut = {
@@ -245,14 +245,14 @@ var Ee = S(function (je) {
       code(e) {
         let { gen: t, schema: r, data: a, it: i } = e,
           o = i.items || 0;
-        if (o === !0) return;
+        if (o === true) return;
         let u = t.const("len", P._`${a}.length`);
-        if (r === !1) e.setParams({ len: o }), e.fail(P._`${u} > ${o}`);
+        if (r === false) e.setParams({ len: o }), e.fail(P._`${u} > ${o}`);
         else if (typeof r == "object" && !(0, Re.alwaysValidSchema)(i, r)) {
           let c = t.var("valid", P._`${u} <= ${o}`);
           t.if((0, P.not)(c), () => d(c, o)), e.ok(c);
         }
-        i.items = !0;
+        i.items = true;
         function d(c, h) {
           t.forRange("i", h, u, (f) => {
             if ((e.subschema({ keyword: "unevaluatedItems", dataProp: f, dataPropType: Re.Type.Num }, c), !i.allErrors))
@@ -264,14 +264,14 @@ var Ee = S(function (je) {
   je.default = Wt;
 });
 var Ae = S(function (Me) {
-  Object.defineProperty(Me, "__esModule", { value: !0 });
+  Object.defineProperty(Me, "__esModule", { value: true });
   var Kt = Pe(),
     Yt = Ee(),
     Gt = [Kt.default, Yt.default];
   Me.default = Gt;
 });
 var xe = S(function (Oe) {
-  Object.defineProperty(Oe, "__esModule", { value: !0 });
+  Object.defineProperty(Oe, "__esModule", { value: true });
   var Jt = zCn(),
     Xt = VCn(),
     Qt = KCn(),
@@ -284,7 +284,7 @@ var xe = S(function (Oe) {
       er.default,
       Jt.default,
       Xt.default,
-      (0, Qt.default)(!0),
+      (0, Qt.default)(true),
       or.default,
       ke.metadataVocabulary,
       ke.contentVocabulary,
@@ -298,13 +298,13 @@ var Te = S(function (Do, sr) {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     $id: "https://json-schema.org/draft/2020-12/schema",
     $vocabulary: {
-      "https://json-schema.org/draft/2020-12/vocab/core": !0,
-      "https://json-schema.org/draft/2020-12/vocab/applicator": !0,
-      "https://json-schema.org/draft/2020-12/vocab/unevaluated": !0,
-      "https://json-schema.org/draft/2020-12/vocab/validation": !0,
-      "https://json-schema.org/draft/2020-12/vocab/meta-data": !0,
-      "https://json-schema.org/draft/2020-12/vocab/format-annotation": !0,
-      "https://json-schema.org/draft/2020-12/vocab/content": !0,
+      "https://json-schema.org/draft/2020-12/vocab/core": true,
+      "https://json-schema.org/draft/2020-12/vocab/applicator": true,
+      "https://json-schema.org/draft/2020-12/vocab/unevaluated": true,
+      "https://json-schema.org/draft/2020-12/vocab/validation": true,
+      "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
+      "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
+      "https://json-schema.org/draft/2020-12/vocab/content": true,
     },
     $dynamicAnchor: "meta",
     title: "Core and Validation specifications meta-schema",
@@ -325,7 +325,7 @@ var Te = S(function (Do, sr) {
         $comment: '"definitions" has been replaced by "$defs".',
         type: "object",
         additionalProperties: { $dynamicRef: "#meta" },
-        deprecated: !0,
+        deprecated: true,
         default: {},
       },
       dependencies: {
@@ -333,18 +333,18 @@ var Te = S(function (Do, sr) {
           '"dependencies" has been split and replaced by "dependentSchemas" and "dependentRequired" in order to serve their differing semantics.',
         type: "object",
         additionalProperties: { anyOf: [{ $dynamicRef: "#meta" }, { $ref: "meta/validation#/$defs/stringArray" }] },
-        deprecated: !0,
+        deprecated: true,
         default: {},
       },
       $recursiveAnchor: {
         $comment: '"$recursiveAnchor" has been replaced by "$dynamicAnchor".',
         $ref: "meta/core#/$defs/anchorString",
-        deprecated: !0,
+        deprecated: true,
       },
       $recursiveRef: {
         $comment: '"$recursiveRef" has been replaced by "$dynamicRef".',
         $ref: "meta/core#/$defs/uriReferenceString",
-        deprecated: !0,
+        deprecated: true,
       },
     },
   };
@@ -353,7 +353,7 @@ var qe = S(function (Vo, ir) {
   ir.exports = {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     $id: "https://json-schema.org/draft/2020-12/meta/applicator",
-    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/applicator": !0 },
+    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/applicator": true },
     $dynamicAnchor: "meta",
     title: "Applicator vocabulary meta-schema",
     type: ["object", "boolean"],
@@ -386,7 +386,7 @@ var Ie = S(function (Ho, cr) {
   cr.exports = {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     $id: "https://json-schema.org/draft/2020-12/meta/unevaluated",
-    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/unevaluated": !0 },
+    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/unevaluated": true },
     $dynamicAnchor: "meta",
     title: "Unevaluated applicator vocabulary meta-schema",
     type: ["object", "boolean"],
@@ -397,7 +397,7 @@ var Ne = S(function (Fo, ur) {
   ur.exports = {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     $id: "https://json-schema.org/draft/2020-12/meta/content",
-    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/content": !0 },
+    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/content": true },
     $dynamicAnchor: "meta",
     title: "Content vocabulary meta-schema",
     type: ["object", "boolean"],
@@ -412,7 +412,7 @@ var De = S(function (zo, dr) {
   dr.exports = {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     $id: "https://json-schema.org/draft/2020-12/meta/core",
-    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/core": !0 },
+    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/core": true },
     $dynamicAnchor: "meta",
     title: "Core vocabulary meta-schema",
     type: ["object", "boolean"],
@@ -442,7 +442,7 @@ var Ve = S(function (Uo, lr) {
   lr.exports = {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     $id: "https://json-schema.org/draft/2020-12/meta/format-annotation",
-    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/format-annotation": !0 },
+    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/format-annotation": true },
     $dynamicAnchor: "meta",
     title: "Format vocabulary meta-schema for annotation results",
     type: ["object", "boolean"],
@@ -453,18 +453,18 @@ var Fe = S(function (Wo, pr) {
   pr.exports = {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     $id: "https://json-schema.org/draft/2020-12/meta/meta-data",
-    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/meta-data": !0 },
+    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/meta-data": true },
     $dynamicAnchor: "meta",
     title: "Meta-data vocabulary meta-schema",
     type: ["object", "boolean"],
     properties: {
       title: { type: "string" },
       description: { type: "string" },
-      default: !0,
-      deprecated: { type: "boolean", default: !1 },
-      readOnly: { type: "boolean", default: !1 },
-      writeOnly: { type: "boolean", default: !1 },
-      examples: { type: "array", items: !0 },
+      default: true,
+      deprecated: { type: "boolean", default: false },
+      readOnly: { type: "boolean", default: false },
+      writeOnly: { type: "boolean", default: false },
+      examples: { type: "array", items: true },
     },
   };
 });
@@ -472,7 +472,7 @@ var ze = S(function (Bo, fr) {
   fr.exports = {
     $schema: "https://json-schema.org/draft/2020-12/schema",
     $id: "https://json-schema.org/draft/2020-12/meta/validation",
-    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/validation": !0 },
+    $vocabulary: { "https://json-schema.org/draft/2020-12/vocab/validation": true },
     $dynamicAnchor: "meta",
     title: "Validation vocabulary meta-schema",
     type: ["object", "boolean"],
@@ -480,11 +480,11 @@ var ze = S(function (Bo, fr) {
       type: {
         anyOf: [
           { $ref: "#/$defs/simpleTypes" },
-          { type: "array", items: { $ref: "#/$defs/simpleTypes" }, minItems: 1, uniqueItems: !0 },
+          { type: "array", items: { $ref: "#/$defs/simpleTypes" }, minItems: 1, uniqueItems: true },
         ],
       },
-      const: !0,
-      enum: { type: "array", items: !0 },
+      const: true,
+      enum: { type: "array", items: true },
       multipleOf: { type: "number", exclusiveMinimum: 0 },
       maximum: { type: "number" },
       exclusiveMaximum: { type: "number" },
@@ -495,7 +495,7 @@ var ze = S(function (Bo, fr) {
       pattern: { type: "string", format: "regex" },
       maxItems: { $ref: "#/$defs/nonNegativeInteger" },
       minItems: { $ref: "#/$defs/nonNegativeIntegerDefault0" },
-      uniqueItems: { type: "boolean", default: !1 },
+      uniqueItems: { type: "boolean", default: false },
       maxContains: { $ref: "#/$defs/nonNegativeInteger" },
       minContains: { $ref: "#/$defs/nonNegativeInteger", default: 1 },
       maxProperties: { $ref: "#/$defs/nonNegativeInteger" },
@@ -507,12 +507,12 @@ var ze = S(function (Bo, fr) {
       nonNegativeInteger: { type: "integer", minimum: 0 },
       nonNegativeIntegerDefault0: { $ref: "#/$defs/nonNegativeInteger", default: 0 },
       simpleTypes: { enum: ["array", "boolean", "integer", "null", "number", "object", "string"] },
-      stringArray: { type: "array", items: { type: "string" }, uniqueItems: !0, default: [] },
+      stringArray: { type: "array", items: { type: "string" }, uniqueItems: true, default: [] },
     },
   };
 });
 var We = S(function (Ue) {
-  Object.defineProperty(Ue, "__esModule", { value: !0 });
+  Object.defineProperty(Ue, "__esModule", { value: true });
   var hr = Te(),
     gr = qe(),
     yr = Ie(),
@@ -523,7 +523,7 @@ var We = S(function (Ue) {
     Sr = ze(),
     Cr = ["/properties"];
   function Pr(e) {
-    return [hr, gr, yr, vr, _r, t(this, br), $r, t(this, Sr)].forEach((r) => this.addMetaSchema(r, void 0, !1)), this;
+    return [hr, gr, yr, vr, _r, t(this, br), $r, t(this, Sr)].forEach((r) => this.addMetaSchema(r, void 0, false)), this;
     function t(r, a) {
       return e ? r.$dataMetaSchema(a, Cr) : a;
     }
@@ -531,7 +531,7 @@ var We = S(function (Ue) {
   Ue.default = Pr;
 });
 var Be = S(function (v, D) {
-  Object.defineProperty(v, "__esModule", { value: !0 });
+  Object.defineProperty(v, "__esModule", { value: true });
   v.MissingRefError =
     v.ValidationError =
     v.CodeGen =
@@ -550,7 +550,7 @@ var Be = S(function (v, D) {
     L = "https://json-schema.org/draft/2020-12/schema";
   class E extends jr.default {
     constructor(e = {}) {
-      super({ ...e, dynamicRef: !0, next: !0, unevaluated: !0 });
+      super({ ...e, dynamicRef: true, next: true, unevaluated: true });
     }
     _addVocabularies() {
       if ((super._addVocabularies(), Er.default.forEach((e) => this.addVocabulary(e)), this.opts.discriminator))
@@ -569,62 +569,62 @@ var Be = S(function (v, D) {
   v.Ajv2020 = E;
   D.exports = v = E;
   D.exports.Ajv2020 = E;
-  Object.defineProperty(v, "__esModule", { value: !0 });
+  Object.defineProperty(v, "__esModule", { value: true });
   v.default = E;
   var wr = WYe();
   Object.defineProperty(v, "KeywordCxt", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return wr.KeywordCxt;
     },
   });
   var R = Wc();
   Object.defineProperty(v, "_", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return R._;
     },
   });
   Object.defineProperty(v, "str", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return R.str;
     },
   });
   Object.defineProperty(v, "stringify", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return R.stringify;
     },
   });
   Object.defineProperty(v, "nil", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return R.nil;
     },
   });
   Object.defineProperty(v, "Name", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return R.Name;
     },
   });
   Object.defineProperty(v, "CodeGen", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return R.CodeGen;
     },
   });
   var kr = LEt();
   Object.defineProperty(v, "ValidationError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return kr.default;
     },
   });
   var Or = qYe();
   Object.defineProperty(v, "MissingRefError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Or.default;
     },
@@ -656,7 +656,7 @@ var Xe = 0,
 class p_e {
   ws;
   parseMessage;
-  started = !1;
+  started = false;
   opened;
   constructor(e, t) {
     this.ws = e;
@@ -715,7 +715,7 @@ class p_e {
     if (this.started) throw Error("Start can only be called once per transport.");
     if ((await this.opened, this.ws.readyState !== A))
       throw (Y("error", "mcp_websocket_start_not_opened"), Error("WebSocket is not open. Cannot start transport."));
-    this.started = !0;
+    this.started = true;
   }
   async close() {
     if (this.ws.readyState === A || this.ws.readyState === Xe) this.ws.close();
@@ -790,10 +790,10 @@ function B(e, t, r) {
   return e.set(t, i), i;
 }
 function Qe() {
-  return I("tengu_mcp_claudeai_eligibility_gate", !1);
+  return I("tengu_mcp_claudeai_eligibility_gate", false);
 }
 function Ust(e) {
-  return e.type === "claudeai-proxy" && e.eligible === !1 && Qe();
+  return e.type === "claudeai-proxy" && e.eligible === false && Qe();
 }
 import { readFile as et } from "fs/promises";
 async function Cae(e) {
@@ -890,7 +890,7 @@ var H = "https://json-schema.org/draft/2020-12/schema",
 function qr() {
   if (M === void 0) {
     try {
-      M = new Ke.Ajv2020({ allErrors: !1, validateFormats: !1 }).getSchema(H) ?? null;
+      M = new Ke.Ajv2020({ allErrors: false, validateFormats: false }).getSchema(H) ?? null;
     } catch {
       M = null;
     }
@@ -901,7 +901,7 @@ function qr() {
   return M;
 }
 function Ir() {
-  return !1;
+  return false;
 }
 function Nr(e) {
   if (!He(e) || !He(e.properties)) return null;
@@ -914,8 +914,8 @@ function jst(e) {
 function Lr(e, t, r) {
   let a = Nr(t);
   if (a !== null)
-    return { valid: !1, check: "propertyKey", detail: `property key ${b(a.slice(0, 80))} does not match ${O}` };
-  if (e === null) return { valid: !0 };
+    return { valid: false, check: "propertyKey", detail: `property key ${b(a.slice(0, 80))} does not match ${O}` };
+  if (e === null) return { valid: true };
   let i = t;
   if (He(t)) {
     let o = Object.entries(t);
@@ -926,18 +926,18 @@ function Lr(e, t, r) {
         let { $schema: d, ...c } = i;
         i = c;
       } else if (typeof u === "string" && (u === H || u === `${H}#`));
-      else return { valid: !0 };
+      else return { valid: true };
   }
   try {
-    if (e(i)) return { valid: !0 };
+    if (e(i)) return { valid: true };
     let o = e.errors?.[0];
     return {
-      valid: !1,
+      valid: false,
       check: "meta",
       detail: o ? `schema${o.instancePath} ${o.message ?? "is invalid"}` : "schema is invalid",
     };
   } catch (o) {
-    return { valid: !1, check: "meta", detail: `validation threw: ${o instanceof Error ? o.message : String(o)}` };
+    return { valid: false, check: "meta", detail: `validation threw: ${o instanceof Error ? o.message : String(o)}` };
   }
 }
 function Wst() {
@@ -947,9 +947,9 @@ function Wst() {
 }
 function Dr() {
   try {
-    return qg({ skipRetrievingKeyFromApiKeyHelper: !0 }).source === "/login managed key";
+    return qg({ skipRetrievingKeyFromApiKeyHelper: true }).source === "/login managed key";
   } catch {
-    return !1;
+    return false;
   }
 }
 import { isAbsolute as Vr } from "path";
@@ -990,8 +990,8 @@ function Fr(e) {
   return Hr(e.scope) === "repo" || (e.agentSource !== void 0 && Ye(e.agentSource) === "repo");
 }
 function zr(e, t) {
-  if (t !== void 0) return !0;
-  if (e.scope === "project") return !0;
+  if (t !== void 0) return true;
+  if (e.scope === "project") return true;
   return e.agentSource !== void 0 && Ye(e.agentSource) !== "operator";
 }
 async function Ur(e, t) {
@@ -1081,7 +1081,7 @@ function zst(e, t) {
             destination: "session",
           },
         ],
-        metadata: { command: { name: r, chrome: { hostHandlesOriginConsent: !0 } } },
+        metadata: { command: { name: r, chrome: { hostHandlesOriginConsent: true } } },
       };
     },
   };

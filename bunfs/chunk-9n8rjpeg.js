@@ -160,11 +160,11 @@ async function p() {
 async function x() {
   let n = s(),
     e;
-  if (n) e = { available: !1, installed: !1, policyLocked: !1, reasons: [n] };
+  if (n) e = { available: false, installed: false, policyLocked: false, reasons: [n] };
   else {
     let a = await pt.checkDependenciesAsync();
     e = {
-      available: !0,
+      available: true,
       installed: a.errors.length === 0,
       policyLocked: pt.areSandboxSettingsLockedByPolicy(),
       reasons: a.errors,

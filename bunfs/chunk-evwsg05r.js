@@ -126,7 +126,7 @@ var Y = m(() => f({ number: v(), title: i(), closedAt: i() })),
   W = 86400000,
   Q = 30;
 function z() {
-  return jF(G(be(), "cache", "my-closed-issues.json"), L, { defaultValue: () => [], ensureDir: !0 });
+  return jF(G(be(), "cache", "my-closed-issues.json"), L, { defaultValue: () => [], ensureDir: true });
 }
 function B() {
   return Te.cache("my-closed-issues", "my-closed-issues.json");
@@ -159,7 +159,7 @@ async function E(e) {
         "--limit",
         "30",
       ],
-      { timeout: q, preserveOutputOnError: !1 },
+      { timeout: q, preserveOutputOnError: false },
     ),
     k = Date.now() - l,
     g = null;
@@ -273,7 +273,7 @@ function ae() {
   let Ve = _(4),
     { storageV5: I } = ge(),
     { addNotification: T } = Or(),
-    Z = C(!1),
+    Z = C(false),
     ee,
     se;
   if (Ve[0] !== T || Ve[1] !== I)
@@ -281,7 +281,7 @@ function ae() {
       if (Z.current) {
         return;
       }
-      if (((Z.current = !0), pr())) {
+      if (((Z.current = true), pr())) {
         let oe = function (Ye) {
           let qe = new Set(D.map(ue));
           let N = Ye.filter((We) => !qe.has(We.number));
@@ -293,7 +293,7 @@ function ae() {
             T({ key: "closed-issue-notice", kind: "event", segments: U(D), priority: "low", timeoutMs: P, fold: de }),
             x(N.map(fe), I);
         };
-        let j = !1;
+        let j = false;
         let D = [];
         let K = async function K() {
           let Qe = await S(I);
@@ -309,7 +309,7 @@ function ae() {
         return (
           K().catch(h),
           () => {
-            j = !0;
+            j = true;
           }
         );
       }

@@ -341,7 +341,7 @@ function g(u) {
     (a =
       l &&
       e(md, {
-        fromLeftEdge: !0,
+        fromLeftEdge: true,
         minWidth: 2,
         children: e(t, { "aria-label": "claude:", color: "text", children: vr }),
       })),

@@ -468,16 +468,16 @@ function ht(e, t) {
 }
 async function q(e, t) {
   return dt(e, t, { mode: 384, flag: "wx" }).then(
-    () => !0,
+    () => true,
     (r) => {
       if (r.code !== "EEXIST") throw r;
-      return !1;
+      return false;
     },
   );
 }
 async function Mt(e, t) {
   if (t) return;
-  await Y(e, { recursive: !0, mode: 448 });
+  await Y(e, { recursive: true, mode: 448 });
 }
 async function _t(e, t) {
   if (t) {
@@ -485,13 +485,13 @@ async function _t(e, t) {
     return r.ok || r.error.code !== "NotFound";
   }
   return ut(e).then(
-    () => !0,
-    () => !1,
+    () => true,
+    () => false,
   );
 }
 async function Ct(e, t, r) {
   if (r && t.length > 0) {
-    if (await _t(e, r)) return !1;
+    if (await _t(e, r)) return false;
     let s = await r.backend.append(
       r.key,
       t.map((g) => ({
@@ -501,12 +501,12 @@ async function Ct(e, t, r) {
 `,
       })),
     );
-    if (s.ok) return !0;
+    if (s.ok) return true;
     throw Object.assign(new R(`transcript import append failed: ${s.error.code}`, "transcript import append failed"), {
       cause: s.error,
     });
   }
-  if (r) await Y(Tt(e), { recursive: !0, mode: 448 });
+  if (r) await Y(Tt(e), { recursive: true, mode: 448 });
   let o =
     t
       .map((s) => b(s))
@@ -517,10 +517,10 @@ async function Ct(e, t, r) {
 `
       : "");
   return dt(e, o, { mode: 384, flag: "wx" }).then(
-    () => !0,
+    () => true,
     (s) => {
       if (s.code !== "EEXIST") throw s;
-      return !1;
+      return false;
     },
   );
 }
@@ -653,7 +653,7 @@ function Xt(e, t = et, r = St()) {
           let _ = U.input;
           if (U.type !== "tool_use" || U.name !== Pt || _?.id === void 0) return;
           if (y()) {
-            if (!M) j.push({ i: d, b: L }), (M = !0);
+            if (!M) j.push({ i: d, b: L }), (M = true);
             return;
           }
           let B = _.id,
@@ -661,7 +661,7 @@ function Xt(e, t = et, r = St()) {
             P = z?.content.length ?? 0,
             Z = _.command === "update" && !_.content ? Math.ceil((P * (_.old_str?.length ?? 0)) / Ft) : 0;
           if ((N(Math.max(Ot, _.content?.length ?? 0, P) + Z), y())) {
-            if (!M) j.push({ i: d, b: L }), (M = !0);
+            if (!M) j.push({ i: d, b: L }), (M = true);
             return;
           }
           let W =
@@ -679,7 +679,7 @@ function Xt(e, t = et, r = St()) {
             language: z?.language ?? _.language ?? "",
             content: W,
             version: (z?.version ?? 0) + 1,
-            final: !1,
+            final: false,
           };
           if (C === void 0) N(p.size * zt), (C = new Map(p));
           C.set(B, X), (A[d][L] = X);
@@ -689,7 +689,7 @@ function Xt(e, t = et, r = St()) {
     },
     S = new WeakSet(),
     x = (d) => {
-      let p = [{ i: d, inherited: new Map(), marked: !1 }];
+      let p = [{ i: d, inherited: new Map(), marked: false }];
       while (p.length > 0) {
         let { i: c, inherited: T, marked: M } = p.pop();
         if (I.has(c)) continue;
@@ -698,7 +698,7 @@ function Xt(e, t = et, r = St()) {
           L = g.get(c) ?? [];
         if (L.every((_) => I.has(_)) && !S.has(C)) {
           S.add(C);
-          for (let _ of C.values()) _.final = !0;
+          for (let _ of C.values()) _.final = true;
         }
         for (let _ = L.length - 1; _ >= 0; _--) p.push({ i: L[_], inherited: C, marked: U });
       }
@@ -732,14 +732,14 @@ function Ht(e, t, r) {
     agentContext: _a(),
     options: {
       commands: [],
-      debug: !1,
+      debug: false,
       mainLoopModel: at(),
       tools: o,
-      verbose: !1,
-      thinkingConfig: { type: "disabled", mechanical: !0 },
+      verbose: false,
+      thinkingConfig: { type: "disabled", mechanical: true },
       mcpClients: [],
       mcpResources: {},
-      isNonInteractiveSession: !0,
+      isNonInteractiveSession: true,
       agentDefinitions: { activeAgents: [], allAgents: [] },
       autoCompactWindow: A.autoCompactWindow,
       fastMode: A.fastMode,
@@ -776,7 +776,7 @@ function Ht(e, t, r) {
     applyFileHistoryOp: () => {},
     applyAttributionOp: () => {},
     markPrResolvedThisSession: () => {},
-    isUltrareviewOverageConfirmed: () => !1,
+    isUltrareviewOverageConfirmed: () => false,
     markUltrareviewOverageConfirmed: () => {},
     storageV5: r,
   };
@@ -802,7 +802,7 @@ async function Zt(e, t, r, o, s, g) {
 async function Jt(e, t, r, o, s, g, E, A) {
   let I = {
     parentUuid: e.parent_message_uuid ?? null,
-    isSidechain: !1,
+    isSidechain: false,
     uuid: e.uuid,
     timestamp: e.created_at,
     cwd: t,
@@ -926,7 +926,7 @@ async function Qt(e) {
     o = new TextDecoder(),
     s = (y) => {
       let j = r[y];
-      return j ? (Ut(o.decode(j), !1) ?? void 0) : void 0;
+      return j ? (Ut(o.decode(j), false) ?? void 0) : void 0;
     },
     g;
   try {
@@ -978,8 +978,8 @@ async function Kt(e, t) {
     };
   if (!t.dryRun)
     await Mt(o, E ? g : void 0),
-      await Y(F(t.cwd, "projects"), { recursive: !0, mode: 448 }),
-      await Y(F(t.cwd, "files"), { recursive: !0, mode: 448 });
+      await Y(F(t.cwd, "projects"), { recursive: true, mode: 448 }),
+      await Y(F(t.cwd, "files"), { recursive: true, mode: 448 });
   let N = (u) => {
       let S = u.name.trim();
       if (S && S !== "New conversation") return S;
@@ -991,7 +991,7 @@ async function Kt(e, t) {
   let j = new Set();
   for (let { project: u, dirName: S } of A) {
     let x = F(t.cwd, "projects", S);
-    if (!t.dryRun) await Y(x, { recursive: !0, mode: 448 });
+    if (!t.dryRun) await Y(x, { recursive: true, mode: 448 });
     let O = u.prompt_template?.trim();
     if (O && !t.dryRun) await q(F(x, "project-instructions.md"), O);
     for (let d of u.docs) {
@@ -1022,7 +1022,7 @@ async function Kt(e, t) {
       d = u.chat_messages.map(() => []),
       p = F(o, `${S}.jsonl`),
       c = Nc(p, g),
-      T = t.dryRun ? !1 : await _t(p, c),
+      T = t.dryRun ? false : await _t(p, c),
       M = T ? u.chat_messages.map(() => []) : Xt(u.chat_messages, et, s),
       C = await Promise.all(u.chat_messages.map((_, B) => Jt(_, t.cwd, S, r.files, y, x, d[B], M[B]))),
       U = C;
@@ -1045,7 +1045,7 @@ async function Kt(e, t) {
             U.push({
               ...K,
               parentUuid: W,
-              isSidechain: !1,
+              isSidechain: false,
               cwd: t.cwd,
               userType: "external",
               sessionId: S,

@@ -54,7 +54,7 @@ async function mEr(e) {
   let o = await ee(e).finally(() => e.claim?.end());
   if (o.kind === "took_over")
     y("artifact_live_subscribe", {
-      took_over: !0,
+      took_over: true,
       holders: e.holders.length,
       armable_count: o.armable.size,
       yielded_count: o.yielded.size,
@@ -81,15 +81,15 @@ async function ee(e) {
   }
   if (s?.sessionId !== e.conversationId) return { ...R, kind: "registry_stale" };
   let l = s.tmux;
-  if (e.holdersIncomplete === !0 && !e.alreadyReplying) return { ...R, kind: "holder_unreachable" };
-  let f = e.slugs.filter((t) => !(e.claim?.lost.has(t) ?? !1)).slice(0, B6e);
+  if (e.holdersIncomplete === true && !e.alreadyReplying) return { ...R, kind: "holder_unreachable" };
+  let f = e.slugs.filter((t) => !(e.claim?.lost.has(t) ?? false)).slice(0, B6e);
   if (f.length === 0) return { ...R, kind: "nothing_freed" };
   let h = [];
   for (let t of e.holders) {
     if (
       t.sock === void 0 ||
       t.sock === "" ||
-      !(t.peerFeatures?.includes(W3t) ?? !1) ||
+      !(t.peerFeatures?.includes(W3t) ?? false) ||
       tS(t.sock) === r ||
       Sot(t.kind)
     ) {
@@ -129,7 +129,7 @@ async function ee(e) {
         action: "unyield_artifact_replies",
         orig_msg_id: t.msgId,
         slugs: m,
-        ...(i?.stopped === !0 && { stopped: !0 }),
+        ...(i?.stopped === true && { stopped: true }),
       };
       u(t.sock, _, Y(t.pid)).catch((p) => {
         if ((n(`[reply-yield] unyield to ${Fu(t.sock)} failed: ${II(String(p))}`), qD(p) && !ms(t.pid))) {
@@ -162,7 +162,7 @@ async function ee(e) {
           i,
           new Set(
             [...i.yielded].filter((k) =>
-              p.has(k) ? q(k, i, p, e.alreadyReplying === !0) : !e.alreadyReplying && !H.has(k),
+              p.has(k) ? q(k, i, p, e.alreadyReplying === true) : !e.alreadyReplying && !H.has(k),
             ),
           ),
         ),
@@ -203,21 +203,21 @@ async function ee(e) {
     x = new Map(),
     L = new Map(),
     S = new Map(e.claim?.lost ?? []),
-    C = !0,
-    K = !1,
+    C = true,
+    K = false,
     O = 0;
   B.forEach((t, d) => {
     for (let [i, m] of t.lostTo) S.set(i, m);
     if (t.kind === "gone") return;
     if ((O++, t.kind === "unreachable")) {
-      C = !1;
+      C = false;
       return;
     }
     if (t.kind === "yielded") {
       for (let i of t.yielded) v[d].yielded.add(i), P.set(i, (P.get(i) ?? 0) + 1);
       for (let i of t.notHeld) x.set(i, (x.get(i) ?? 0) + 1);
       for (let i of new Set([...t.yielded, ...t.notHeld])) L.set(i, (L.get(i) ?? 0) + 1);
-    } else if (((C = !1), t.kind === "refused")) K = !0;
+    } else if (((C = false), t.kind === "refused")) K = true;
   });
   let w = new Set(),
     F = new Set();
@@ -233,7 +233,7 @@ async function ee(e) {
   }
   for (let t of v) {
     let d = new Set(
-      [...t.yielded].filter((i) => (S.has(i) ? q(i, t, S, e.alreadyReplying === !0) : !e.alreadyReplying && !w.has(i))),
+      [...t.yielded].filter((i) => (S.has(i) ? q(i, t, S, e.alreadyReplying === true) : !e.alreadyReplying && !w.has(i))),
     );
     if (d.size > 0) A(t, d);
   }
@@ -262,10 +262,10 @@ function q(e, o, r, a) {
   return (s !== void 0 && s === S$(o.sock)) || (!a && !Tv(e));
 }
 function I1n(e, o = t3) {
-  j(e, !0, o);
+  j(e, true, o);
 }
 function Idr(e, o = t3) {
-  j(e, !1, o);
+  j(e, false, o);
 }
 function j(e, o, r) {
   let { wakes: a } = de(),
@@ -273,7 +273,7 @@ function j(e, o, r) {
   if (s === void 0 || Tv(e)) return;
   a.takenFrom.delete(e);
   for (let l of s) {
-    let f = { action: "unyield_artifact_replies", orig_msg_id: l.msgId, slugs: [e], ...(o && { stopped: !0 }) },
+    let f = { action: "unyield_artifact_replies", orig_msg_id: l.msgId, slugs: [e], ...(o && { stopped: true }) },
       h = D() !== "windows" ? { expectPeerPid: l.pid } : {};
     r(l.sock, f, h).catch((c) => {
       if ((n(`[reply-yield] release to ${Fu(l.sock)} failed: ${II(String(c))}`), qD(c) && !ms(l.pid))) return;
@@ -335,7 +335,7 @@ function gEr(e, o) {
 <event>${Wt(a)}</event>`,
     }),
     mode: "task-notification",
-    passive: !0,
+    passive: true,
     priority: "next",
     origin: { kind: "task-notification", source: ex },
     agentId: et(),
@@ -361,11 +361,11 @@ function vQt(e) {
         };
       },
       (o, r, a) => {
-        for (let u of r) if (a?.stopped?.has(u) ?? !1) K3n(u, o);
+        for (let u of r) if (a?.stopped?.has(u) ?? false) K3n(u, o);
         let s = new Set(r.filter((u) => X3n(u))),
           l = new Set(r.filter((u) => G3n(u))),
           f = Ddr(o, r),
-          h = f.filter((u) => l.has(u) && !lp(u) && E(u) && !(a?.transferring?.has(u) ?? !1));
+          h = f.filter((u) => l.has(u) && !lp(u) && E(u) && !(a?.transferring?.has(u) ?? false));
         if (h.length > 0) e.reverted(h);
         let c = f.filter((u) => l.has(u) && s.has(u));
         if (c.length > 0) e.stoppedElsewhere(c);
@@ -387,7 +387,7 @@ function Pdr(e, o) {
     }
     let u = E(c),
       I = cp(c) && !$ee(c),
-      T = a.enabledMemo !== !1 && !a.userDisarmed && !s.stopLatches.isStopped(c) && (!lp(c) || I);
+      T = a.enabledMemo !== false && !a.userDisarmed && !s.stopLatches.isStopped(c) && (!lp(c) || I);
     if (!u || !T) {
       f.push(c);
       continue;
@@ -414,7 +414,7 @@ function Ddr(e, o) {
     if (!lp(s) && E(s) && l?.taskId !== void 0 && NIe(l.taskId) && f !== null)
       $q({
         ...f,
-        seed: !1,
+        seed: false,
         confirm: void 0,
         confirmBase: void 0,
         confirmAfter: void 0,

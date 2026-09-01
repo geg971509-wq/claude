@@ -61,7 +61,7 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
     [D, J] = u(0),
     [h, S] = u("list"),
     [i, P] = u(null),
-    [j, q] = u(!1),
+    [j, q] = u(false),
     [Re, Se] = u(0),
     [f, K] = u(null),
     [Me, H] = u(null),
@@ -71,9 +71,9 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
     Ae = Ee().columns - 6,
     v = xt(),
     oe = C(0),
-    ae = C(!1),
+    ae = C(false),
     le = C(0),
-    Le = C(!1),
+    Le = C(false),
     { storageV5: N, credentials: ot } = ge(),
     G = ct((n) => n.id),
     ce = b !== void 0,
@@ -131,7 +131,7 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
           (Be.current = -1 / 0),
           Ne(_t(n)),
           (le.current = v.now()),
-          (ae.current = !1),
+          (ae.current = false),
           S("review");
       },
       [v, Ne],
@@ -141,11 +141,11 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
         let a = v.now(),
           l = le.current;
         if (((le.current = Math.max(a, l)), a - l < Ze || Le.current)) return;
-        Le.current = !0;
+        Le.current = true;
         try {
           await xBe(n, "panel", N).catch(() => {}), S("list"), P(null), await V();
         } finally {
-          Le.current = !1;
+          Le.current = false;
         }
       },
       [V, v, N],
@@ -248,7 +248,7 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
         return;
       }
       let l = he() ?? i;
-      if (((ae.current = !0), S("submitting"), E(null), l !== i)) await pe(l);
+      if (((ae.current = true), S("submitting"), E(null), l !== i)) await pe(l);
       let m;
       try {
         m = await fge({
@@ -260,11 +260,11 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
           credentials: ot,
         });
       } catch {
-        m = { success: !1, error: "Couldn't send feedback. The draft is still queued. Try again later." };
+        m = { success: false, error: "Couldn't send feedback. The draft is still queued. Try again later." };
       }
       if (m.success) Ft(m.feedbackId), S("receipt"), V();
       else {
-        if (((ae.current = !1), E(m.error), m.payloadTooLarge)) {
+        if (((ae.current = false), E(m.error), m.payloadTooLarge)) {
           let T = Y.indexOf("transcript");
           if (T >= 0) Se(T);
         }
@@ -364,7 +364,7 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
       hideInputGuide: h === "receipt" || h === "submitting",
       inputGuide: Bt,
       children: [
-        h === "list" && g === null && e(t, { dimColor: !0, children: "Loading\u2026" }),
+        h === "list" && g === null && e(t, { dimColor: true, children: "Loading\u2026" }),
         h === "list" &&
           g !== null &&
           X.length === 0 &&
@@ -374,7 +374,7 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
             children: [
               e(t, { children: "No feedback drafts queued." }),
               e(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: "Claude drafts feedback at high-signal moments; drafts appear here for your review.",
               }),
               b
@@ -383,10 +383,10 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
                     gap: 1,
                     children: [
                       e(et, { isSelected: ue }),
-                      e(t, { dimColor: !0, children: "/bug works anytime. Any other key closes this panel." }),
+                      e(t, { dimColor: true, children: "/bug works anytime. Any other key closes this panel." }),
                     ],
                   })
-                : e(t, { dimColor: !0, children: "Any key closes this panel." }),
+                : e(t, { dimColor: true, children: "Any key closes this panel." }),
             ],
           }),
         h === "list" &&
@@ -401,7 +401,7 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
               e(o, {
                 marginTop: 1,
                 children: e(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   wrap: "wrap",
                   children:
                     "Drafts live only on this machine and are never sent without you. Unsent drafts expire after 30 days.",
@@ -426,7 +426,7 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
                 label: "Title:",
                 value: f.title,
                 isFocused: c === "title",
-                bold: !0,
+                bold: true,
                 columns: Ae,
                 cursorOffset: Me,
                 onChange: (n) => K((a) => (a ? { ...a, title: n } : a)),
@@ -439,7 +439,7 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
                 label: "Area:",
                 value: f.area,
                 isFocused: c === "area",
-                dim: !0,
+                dim: true,
                 columns: Ae,
                 cursorOffset: Me,
                 onChange: (n) => K((a) => (a ? { ...a, area: n } : a)),
@@ -466,8 +466,8 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
                 label: "Details:",
                 value: f.details,
                 isFocused: c === "details",
-                dim: !0,
-                multiline: !0,
+                dim: true,
+                multiline: true,
                 columns: Ae,
                 cursorOffset: Me,
                 onChange: (n) => {
@@ -497,7 +497,7 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
                           e(t, { children: "Send transcript: " }),
                           e(se, { value: j ? "yes" : "no", isFocused: c === "transcript" }),
                           r(t, {
-                            dimColor: !0,
+                            dimColor: true,
                             children: [" \xB7 ", j ? "sends this conversation to Anthropic" : "report only"],
                           }),
                         ],
@@ -506,7 +506,7 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
                         e(o, {
                           marginLeft: 4,
                           children: r(t, {
-                            dimColor: !0,
+                            dimColor: true,
                             wrap: "wrap",
                             children: ["from ", nr(i.cwd), " \xB7 session", " ", nr(i.source_session_id)],
                           }),
@@ -515,18 +515,18 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
                   })
                 : r(o, {
                     children: [
-                      e(R, { isFocused: !1 }),
+                      e(R, { isFocused: false }),
                       r(t, {
-                        children: ["Send transcript: ", e(t, { dimColor: !0, children: "expired (report only)" })],
+                        children: ["Send transcript: ", e(t, { dimColor: true, children: "expired (report only)" })],
                       }),
                     ],
                   }),
               r(o, {
                 marginTop: 1,
                 children: [
-                  e(R, { isFocused: !1 }),
+                  e(R, { isFocused: false }),
                   r(t, {
-                    dimColor: !0,
+                    dimColor: true,
                     wrap: "wrap",
                     children: [
                       "Environment info (",
@@ -576,7 +576,7 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
               e(o, {
                 marginTop: 1,
                 children: e(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   wrap: "wrap",
                   children:
                     "We may use these reports to debug related issues and improve Claude Code. Turn off Claude-drafted feedback anytime in /config.",
@@ -591,9 +591,9 @@ function KRe({ messages: p, onDone: y, abortSignal: w, onWriteNew: b }) {
             children: [
               r(t, {
                 color: "success",
-                children: [e(tt, { status: "success", withSpace: !0 }), "Feedback sent (receipt ", st, "). Thanks!"],
+                children: [e(tt, { status: "success", withSpace: true }), "Feedback sent (receipt ", st, "). Thanks!"],
               }),
-              e(o, { marginTop: 1, children: e(t, { dimColor: !0, italic: !0, children: "Any key to continue" }) }),
+              e(o, { marginTop: 1, children: e(t, { dimColor: true, italic: true, children: "Any key to continue" }) }),
             ],
           }),
       ],
@@ -634,15 +634,15 @@ function se(bn) {
     { value: te, isFocused: wn } = bn;
   if (!wn) {
     let be;
-    if (Pe[0] !== te) (be = e(t, { dimColor: !0, children: te })), (Pe[0] = te), (Pe[1] = be);
+    if (Pe[0] !== te) (be = e(t, { dimColor: true, children: te })), (Pe[0] = te), (Pe[1] = be);
     else be = Pe[1];
     return be;
   }
   let be;
-  if (Pe[2] === d) (be = r(t, { dimColor: !0, children: [L.triangleLeft, " "] })), (Pe[2] = be);
+  if (Pe[2] === d) (be = r(t, { dimColor: true, children: [L.triangleLeft, " "] })), (Pe[2] = be);
   else be = Pe[2];
   let It;
-  if (Pe[3] === d) (It = r(t, { dimColor: !0, children: [" ", L.triangleRight] })), (Pe[3] = It);
+  if (Pe[3] === d) (It = r(t, { dimColor: true, children: [" ", L.triangleRight] })), (Pe[3] = It);
   else It = Pe[3];
   let Ot;
   if (Pe[4] !== te) (Ot = r(t, { children: [be, te, It] })), (Pe[4] = te), (Pe[5] = Ot);
@@ -697,11 +697,11 @@ function Fe(kn) {
       children: re
         ? e(o, {
             borderStyle: O && !ke ? "single" : void 0,
-            borderLeft: !0,
-            borderTop: !1,
-            borderBottom: !1,
-            borderRight: !1,
-            borderDimColor: !0,
+            borderLeft: true,
+            borderTop: false,
+            borderBottom: false,
+            borderRight: false,
+            borderDimColor: true,
             paddingLeft: O && !ke ? 1 : 0,
             children: e(xn, {
               value: ne,
@@ -715,12 +715,12 @@ function Fe(kn) {
               onChangeCursorOffset: ht,
               multiline: O,
               inputFilter: (Cn) => Tt(Cn, O),
-              clearOnSubmit: !1,
-              disableCtrlCClear: !0,
+              clearOnSubmit: false,
+              disableCtrlCClear: true,
               disableBackslashReturn: O,
               disableCursorMovementForUpDownKeys: !O,
-              disableEscapeDoublePress: !0,
-              showCursor: !0,
+              disableEscapeDoublePress: true,
+              showCursor: true,
             }),
           })
         : O
@@ -766,7 +766,7 @@ function nt(_n) {
   let Ve = _(12),
     { title: Ct, drafts: vt, offset: Ce, cursor: ve } = _n,
     Xe;
-  if (Ve[0] !== Ct) (Xe = e(t, { bold: !0, children: Ct })), (Ve[0] = Ct), (Ve[1] = Xe);
+  if (Ve[0] !== Ct) (Xe = e(t, { bold: true, children: Ct })), (Ve[0] = Ct), (Ve[1] = Xe);
   else Xe = Ve[1];
   let Je;
   if (Ve[2] !== ve || Ve[3] !== vt || Ve[4] !== Ce) {
@@ -790,7 +790,7 @@ function nt(_n) {
                 nr(ie.title),
                 " ",
                 r(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: [
                     rt(ie.created_at),
                     " \xB7",

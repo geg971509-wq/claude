@@ -71,7 +71,7 @@ var XJe = "output-file",
   tCt = [Ol, eve, E0, R4, eCt, M, O, Koe, vFe, Pfe],
   CJ = "fork-boilerplate";
 function YJe(t) {
-  if (t.type !== "user") return !1;
+  if (t.type !== "user") return false;
   let e = t.message?.content;
   return (
     Array.isArray(e) && e.some((r) => r?.type === "text" && typeof r.text === "string" && r.text.startsWith(`<${CJ}>`))
@@ -316,7 +316,7 @@ async function LHr(t) {
 async function j(t) {
   let e;
   try {
-    e = await k(t, { withFileTypes: !0 });
+    e = await k(t, { withFileTypes: true });
   } catch {
     return h(Error(`No logs found at ${t}`)), [];
   }

@@ -298,7 +298,7 @@ async function K(e, r, s, i) {
     return await y(e, r, s, i);
   } catch (n) {
     return (
-      h(n), p("cross_session_notify_idle", "subscribe_internal_error"), { ok: !1, reason: "send-failed", error: n }
+      h(n), p("cross_session_notify_idle", "subscribe_internal_error"), { ok: false, reason: "send-failed", error: n }
     );
   }
 }
@@ -315,7 +315,7 @@ async function y(e, r, s, i) {
   } catch {
     o = void 0;
   }
-  if (o !== void 0 && !(o.features?.includes(j3t) ?? !1)) return t("peer-unsupported");
+  if (o !== void 0 && !(o.features?.includes(j3t) ?? false)) return t("peer-unsupported");
   if (!Ttr(n, a, o?.features, await x()) || !vre(S$(n))) return t("unreachable-namespace");
   let b = D() !== "windows" ? o?.pid : void 0,
     u = GD(),
@@ -328,27 +328,27 @@ async function y(e, r, s, i) {
         ...(b !== void 0 && { expectPeerPid: b }),
         storageV5: s,
       }),
-      { ok: !0, peerKnownCapable: o !== void 0 }
+      { ok: true, peerKnownCapable: o !== void 0 }
     );
   } catch (d) {
     if ($z(d) === "gone") {
       Pot(u.msg_id);
       for (let c of f) Pot(c);
-      return p("cross_session_notify_idle", "subscribe_peer_gone"), { ok: !1, reason: "peer-gone", error: d };
+      return p("cross_session_notify_idle", "subscribe_peer_gone"), { ok: false, reason: "peer-gone", error: d };
     }
     if (qD(d)) {
       Pot(u.msg_id);
       let c = f.some(j6e);
       return (
         p("cross_session_notify_idle", "subscribe_send_failed"),
-        { ok: !1, reason: "send-failed", ...(c && { restoredEarlier: !0 }), error: d }
+        { ok: false, reason: "send-failed", ...(c && { restoredEarlier: true }), error: d }
       );
     }
-    return g("cross_session_notify_idle", "subscribe_send_uncertain"), { ok: !1, reason: "send-uncertain", error: d };
+    return g("cross_session_notify_idle", "subscribe_send_uncertain"), { ok: false, reason: "send-uncertain", error: d };
   }
 }
 function t(e) {
-  return g("cross_session_notify_idle", m[e]), { ok: !1, reason: e };
+  return g("cross_session_notify_idle", m[e]), { ok: false, reason: e };
 }
 function w(e) {
   return `notify_when_idle: ${e} is THIS session \u2014 nothing was subscribed; you already know when your own turn ends.`;
@@ -361,7 +361,7 @@ var m = {
   "peer-unsupported": "subscribe_peer_unsupported",
   cap: "subscribe_cap",
 };
-function _(e, r = !0) {
+function _(e, r = true) {
   let s = Iot(e);
   if (!r)
     return `Subscription sent to "${s}" \u2014 but whether it supports idle notices is unknown (no readable session-registry record vouches for it), so a notice may never come; you will be told if it lapses unheard. Do not rely on it.`;

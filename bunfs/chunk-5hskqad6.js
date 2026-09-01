@@ -86,7 +86,7 @@ function ytn(e, o) {
       totalTokens: 0,
       totalToolCalls: 0,
       logs: [],
-      notified: !0,
+      notified: true,
     };
   o.register(r);
 }
@@ -101,7 +101,7 @@ function Stn(e, o, t) {
       if (g.type === "workflow_agent" || g.type === "workflow_phase") i.set(`${g.type}:${g.index}`, l);
     }
     let a = r.agentCount,
-      f = !1;
+      f = false;
     for (let l of o)
       if (l.type === "workflow_agent" || l.type === "workflow_phase") {
         let g = `${l.type}:${l.index}`,
@@ -109,7 +109,7 @@ function Stn(e, o, t) {
         if (k !== void 0) s[k] = l;
         else i.set(g, s.length), s.push(l);
         if (l.type === "workflow_agent" && l.state === "start") a = Math.max(a, l.index);
-      } else s.push(l), (f = !0);
+      } else s.push(l), (f = true);
     if (f && s.length > M * 2) {
       let l = s.length - M,
         g = [];
@@ -191,7 +191,7 @@ function lPt(e, o, t, r, s, i) {
 function _Z(e, o) {
   let t = o.get(e);
   if (t?.type === "local_workflow" && t.v2Run) return x1(e, o);
-  let r = W(e, o, "paused", { notified: !0 });
+  let r = W(e, o, "paused", { notified: true });
   if (r) qA(r.ownerAgentId, `workflow:${e}`, o);
   return r !== null;
 }
@@ -200,7 +200,7 @@ function cPt(e) {
   return `Resume the paused workflow by calling: Workflow({scriptPath: '${e.scriptPath}', resumeFromRunId: '${e.workflowRunId}'${o}}) \u2014 completed agents return cached results.`;
 }
 function x1(e, o) {
-  let t = W(e, o, "killed", { notified: !0 });
+  let t = W(e, o, "killed", { notified: true });
   if (t)
     t.v2Run?.kill(),
       qA(t.ownerAgentId, `workflow:${e}`, o),
@@ -209,12 +209,12 @@ function x1(e, o) {
   return t !== null;
 }
 function F(e, o, t, r) {
-  let s = !1;
+  let s = false;
   if (
     (r.update(e, (i) => {
       if (i.status !== "running") return i;
       let a = i.agentControllers?.get(o);
-      if (a && !a.signal.aborted) a.abort(new DOMException(t, "AbortError")), (s = !0);
+      if (a && !a.signal.aborted) a.abort(new DOMException(t, "AbortError")), (s = true);
       return i;
     }),
     s)
@@ -339,7 +339,7 @@ function uPt({
   Wa({
     value: Du({ taskId: e, toolUseId: g, outputFile: x, status: t, summary: U, body: `${C}${P}${L}${V}${X}` }),
     mode: "task-notification",
-    skipAttachments: !0,
+    skipAttachments: true,
     agentId: j,
     priority: "next",
     taskId: e,

@@ -106,7 +106,7 @@ function gt({
     [ie, St] = u("session"),
     ke = W((i) => i.transcripts),
     Ct = Ee().columns - 4,
-    pe = I("tengu_amber_lynx", !1),
+    pe = I("tengu_amber_lynx", false),
     vt = B(async () => {
       if ((R("submitting"), D(null), O(null), g === "bundle")) {
         let ne = await aKt({
@@ -250,7 +250,7 @@ function gt({
                 },
                 cursorOffset: oe,
                 onChangeCursorOffset: se,
-                showCursor: !0,
+                showCursor: true,
               }),
               A &&
                 r(o, {
@@ -258,7 +258,7 @@ function gt({
                   gap: 1,
                   children: [
                     e(Br, { error: A }),
-                    e(t, { dimColor: !0, children: "Edit and press Enter to retry, or Esc to cancel" }),
+                    e(t, { dimColor: true, children: "Edit and press Enter to retry, or Esc to cancel" }),
                   ],
                 }),
             ],
@@ -288,13 +288,13 @@ function gt({
                 marginLeft: 2,
                 flexDirection: "column",
                 children: [
-                  r(t, { children: ["- Your feedback / bug description:", " ", e(t, { dimColor: !0, children: x })] }),
+                  r(t, { children: ["- Your feedback / bug description:", " ", e(t, { dimColor: true, children: x })] }),
                   r(t, {
                     children: [
                       "- Environment info:",
                       " ",
                       r(t, {
-                        dimColor: !0,
+                        dimColor: true,
                         children: [
                           a.platform,
                           ", ",
@@ -322,7 +322,7 @@ function gt({
                         "- Remote workspace:",
                         " ",
                         r(t, {
-                          dimColor: !0,
+                          dimColor: true,
                           children: [P ? `session ${P}; ` : "", "git metadata is not collected from this machine"],
                         }),
                       ],
@@ -332,12 +332,12 @@ function gt({
                     children: [
                       "- Session transcript:",
                       " ",
-                      e(t, { dimColor: !0, children: g === "share" ? ye.session : ye[ie] }),
+                      e(t, { dimColor: true, children: g === "share" ? ye.session : ye[ie] }),
                     ],
                   }),
                 ],
               }),
-              e(o, { marginTop: 1, children: e(t, { wrap: "wrap", dimColor: !0, children: q[g].consentFooter }) }),
+              e(o, { marginTop: 1, children: e(t, { wrap: "wrap", dimColor: true, children: q[g].consentFooter }) }),
             ],
           }),
         y === "submitting" && e(o, { flexDirection: "row", gap: 1, children: e(t, { children: q[g].submitting }) }),
@@ -348,15 +348,15 @@ function gt({
             children: [
               r(t, {
                 color: "success",
-                children: [e(tt, { status: "success", withSpace: !0 }), "Feedback bundle saved"],
+                children: [e(tt, { status: "success", withSpace: true }), "Feedback bundle saved"],
               }),
               Q &&
                 r(o, {
                   marginTop: 1,
                   flexDirection: "column",
                   children: [
-                    r(t, { children: ["Bundle: ", e(t, { dimColor: !0, children: Q })] }),
-                    r(t, { children: ["Reference ID: ", e(t, { dimColor: !0, children: X })] }),
+                    r(t, { children: ["Bundle: ", e(t, { dimColor: true, children: Q })] }),
+                    r(t, { children: ["Reference ID: ", e(t, { dimColor: true, children: X })] }),
                     e(o, {
                       marginTop: 1,
                       children: e(t, {
@@ -367,7 +367,7 @@ function gt({
                     }),
                   ],
                 }),
-              e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: "Press any key to close" }) }),
+              e(o, { marginTop: 1, children: e(t, { dimColor: true, children: "Press any key to close" }) }),
             ],
           }),
         y === "done" &&
@@ -380,14 +380,14 @@ function gt({
                     ? e(Br, { error: A })
                     : r(t, {
                         color: "success",
-                        children: [e(tt, { status: "success", withSpace: !0 }), "Feedback sent"],
+                        children: [e(tt, { status: "success", withSpace: true }), "Feedback sent"],
                       }),
                   X &&
                     r(U, {
                       children: [
                         e(o, {
                           marginTop: 1,
-                          children: r(t, { children: ["Reference ID: ", e(t, { dimColor: !0, children: X })] }),
+                          children: r(t, { children: ["Reference ID: ", e(t, { dimColor: true, children: X })] }),
                         }),
                         e(o, {
                           marginTop: 1,
@@ -398,19 +398,19 @@ function gt({
                         }),
                       ],
                     }),
-                  e(o, { marginTop: 1, children: e(t, { dimColor: !0, italic: !0, children: "Any key to close" }) }),
+                  e(o, { marginTop: 1, children: e(t, { dimColor: true, italic: true, children: "Any key to close" }) }),
                 ],
               })
             : r(o, {
                 flexDirection: "column",
                 children: [
                   A ? e(Br, { error: A }) : e(t, { color: "success", children: "Thank you for your report!" }),
-                  X && r(t, { dimColor: !0, children: ["Feedback ID: ", X] }),
+                  X && r(t, { dimColor: true, children: ["Feedback ID: ", X] }),
                   e(o, {
                     marginTop: 1,
                     children: e(t, {
-                      dimColor: !0,
-                      italic: !0,
+                      dimColor: true,
+                      italic: true,
                       children: r(fe, {
                         children: [
                           e(M, { chord: "enter", action: "open GitHub issue" }),
@@ -494,9 +494,9 @@ async function ft(m, s, f) {
         userPrompt: m,
         signal: s,
         options: {
-          hasAppendSystemPrompt: !1,
+          hasAppendSystemPrompt: false,
           toolChoice: void 0,
-          isNonInteractiveSession: !1,
+          isNonInteractiveSession: false,
           agents: [],
           querySource: "feedback",
           mcpTools: [],
@@ -547,7 +547,7 @@ function We(Dn) {
   let Mt;
   if (_t[2] !== L.branchName || _t[3] !== He || _t[4] !== lt || _t[5] !== ct || _t[6] !== dt)
     (Mt = r(t, {
-      children: ["- Git repo metadata:", " ", r(t, { dimColor: !0, children: [L.branchName, He, lt, ct, dt] })],
+      children: ["- Git repo metadata:", " ", r(t, { dimColor: true, children: [L.branchName, He, lt, ct, dt] })],
     })),
       (_t[2] = L.branchName),
       (_t[3] = He),
@@ -589,7 +589,7 @@ function yt(Mn) {
   if (ht[0] !== Z.messages) (Ht = () => [...Z.messages]), (ht[0] = Z.messages), (ht[1] = Ht);
   else Ht = ht[1];
   let [bt] = u(Ht),
-    Jt = C(!1);
+    Jt = C(false);
   if (Gt !== void 0) {
     return Gt;
   }
@@ -600,7 +600,7 @@ function yt(Mn) {
         return;
       }
       let Gn = qe(ae, Z, "", "/feedback");
-      (Jt.current = !0), jn(Gn);
+      (Jt.current = true), jn(Gn);
     }),
       (ht[2] = Z),
       (ht[3] = ae),

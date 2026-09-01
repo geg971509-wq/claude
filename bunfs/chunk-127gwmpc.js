@@ -100,7 +100,7 @@ var Pl = S(function (p) {
       return e;
     }
     static isInstance(t) {
-      if (!t) return !1;
+      if (!t) return false;
       let e = t;
       return (
         "method" in e &&
@@ -133,7 +133,7 @@ var Pl = S(function (p) {
         (this.body = t.body);
     }
     static isInstance(t) {
-      if (!t) return !1;
+      if (!t) return false;
       let e = t;
       return typeof e.statusCode === "number" && typeof e.headers === "object";
     }

@@ -199,8 +199,8 @@ function ce(jo) {
     { chromeClient: Y, onDone: He } = jo,
     [B, Fo] = u(null),
     [eo, Ko] = u(null),
-    [We, Go] = u(!1),
-    X = C(!1),
+    [We, Go] = u(false),
+    X = C(false),
     oo;
   if (v[0] === d) (oo = ie().chromeExtension?.pairedDeviceId), (v[0] = oo);
   else oo = v[0];
@@ -209,7 +209,7 @@ function ce(jo) {
     to;
   if (v[1] !== Y)
     (ro = () => (
-      (X.current = !1),
+      (X.current = false),
       Ye(Y)
         .then((Jo) => {
           if (!X.current) Fo(Jo);
@@ -218,7 +218,7 @@ function ce(jo) {
           if ((p("chrome_browser_picker", "list_failed"), !X.current)) Ko(we(Qo).message);
         }),
       () => {
-        X.current = !0;
+        X.current = true;
       }
     )),
       (to = [Y]),
@@ -233,7 +233,7 @@ function ce(jo) {
       if (X.current) {
         return;
       }
-      (X.current = !0), He(Xo);
+      (X.current = true), He(Xo);
     }),
       (v[4] = He),
       (v[5] = so);
@@ -245,7 +245,7 @@ function ce(jo) {
       if (We) {
         return;
       }
-      Go(!0);
+      Go(true);
       let lo = B?.find((Zo) => Zo.deviceId === co);
       Pe(Y, "select_browser", { deviceId: co })
         .then(() => {
@@ -276,7 +276,7 @@ function ce(jo) {
   }
   if (B === null) {
     let P;
-    if (v[16] === d) (P = e(t, { dimColor: !0, children: "Looking for connected browsers\u2026" })), (v[16] = P);
+    if (v[16] === d) (P = e(t, { dimColor: true, children: "Looking for connected browsers\u2026" })), (v[16] = P);
     else P = v[16];
     let g;
     if (v[17] !== l) (g = e(O, { onDone: l, children: P })), (v[17] = l), (v[18] = g);
@@ -307,7 +307,7 @@ function ce(jo) {
           children: [
             e(t, { children: De.name }),
             r(t, {
-              dimColor: !0,
+              dimColor: true,
               children: [" ", "\xB7 ", De.osPlatform ?? "unknown OS", De.deviceId === no ? " \xB7 current" : ""],
             }),
           ],
@@ -328,7 +328,7 @@ function ce(jo) {
   else Ee = v[28];
   let Ie;
   if (v[29] !== se || v[30] !== Te || v[31] !== Ee)
-    (Ie = e(Ce, { options: Te, onChange: se, onCancel: Ee, defaultFocusValue: no, hideIndexes: !0 })),
+    (Ie = e(Ce, { options: Te, onChange: se, onCancel: Ee, defaultFocusValue: no, hideIndexes: true })),
       (v[29] = se),
       (v[30] = Te),
       (v[31] = Ee),
@@ -348,7 +348,7 @@ function O(en) {
   else uo = Ue[0];
   let Se;
   if (Ue[1] !== Re)
-    (Se = e(Ce, { options: uo, onChange: () => Re(), onCancel: () => Re(), hideIndexes: !0 })),
+    (Se = e(Ce, { options: uo, onChange: () => Re(), onCancel: () => Re(), hideIndexes: true })),
       (Ue[1] = Re),
       (Ue[2] = Se);
   else Se = Ue[2];
@@ -394,8 +394,8 @@ function Je(Sn) {
     qe = W(So),
     { storageV5: Le } = ge(),
     [Ve, Be] = u(0),
-    [ee, _n] = u(kn ?? !1),
-    [je, ho] = u(!1),
+    [ee, _n] = u(kn ?? false),
+    [je, ho] = u(false),
     [L, Bn] = u(Pn),
     [Fe, go] = u("menu"),
     bo;
@@ -420,14 +420,14 @@ function Je(Sn) {
     (xo = function de(Nn) {
       bb19: switch (Nn) {
         case "install-extension": {
-          Be(ko), ho(!0), ae(Ix);
+          Be(ko), ho(true), ae(Ix);
           break bb19;
         }
         case "reconnect": {
           Be(_o),
             fx()
               .then((yo) => {
-                if ((Bn(yo), yo)) ho(!1);
+                if ((Bn(yo), yo)) ho(false);
               })
               .catch(h),
             ae(mRe);
@@ -473,7 +473,7 @@ function Je(Sn) {
     else I = s[13];
     let ue;
     if (s[14] !== oe)
-      (ue = { label: r(U, { children: [I, e(t, { dimColor: !0, children: oe })] }), value: "manage-permissions" }),
+      (ue = { label: r(U, { children: [I, e(t, { dimColor: true, children: oe })] }), value: "manage-permissions" }),
         (s[14] = oe),
         (s[15] = ue);
     else ue = s[15];
@@ -482,7 +482,7 @@ function Je(Sn) {
     else G = s[16];
     let J;
     if (s[17] !== oe)
-      (J = { label: r(U, { children: [G, e(t, { dimColor: !0, children: oe })] }), value: "reconnect" }),
+      (J = { label: r(U, { children: [G, e(t, { dimColor: true, children: oe })] }), value: "reconnect" }),
         (s[17] = oe),
         (s[18] = J);
     else J = s[18];
@@ -565,19 +565,19 @@ function Je(Sn) {
                   if ((go("menu"), Be(Mo), Eo)) Z(Eo);
                 },
               })
-            : e(Ce, { options: K, onChange: de, hideIndexes: !0 }, Ve),
+            : e(Ce, { options: K, onChange: de, hideIndexes: true }, Ve),
           je &&
             r(t, { color: "warning", children: ["Once installed, select ", '"Reconnect extension"', " to connect."] }),
           r(t, {
             children: [
-              e(t, { dimColor: !0, children: "Usage: " }),
+              e(t, { dimColor: true, children: "Usage: " }),
               e(t, { children: "claude --chrome" }),
-              e(t, { dimColor: !0, children: " or " }),
+              e(t, { dimColor: true, children: " or " }),
               e(t, { children: "claude --no-chrome" }),
             ],
           }),
           e(t, {
-            dimColor: !0,
+            dimColor: true,
             children:
               "Site-level permissions are inherited from the Chrome extension. Manage permissions in the Chrome extension settings to control which sites Claude can browse, click, and type on.",
           }),
@@ -621,7 +621,7 @@ var In = async function (b) {
         n(`[Claude in Chrome] Extension detection failed: ${N instanceof Error ? N.message : String(N)}`, {
           level: "error",
         }),
-        !1
+        false
       ),
     ),
     w = ie(),

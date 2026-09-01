@@ -97,7 +97,7 @@ async function c5n(e, n = {}, o) {
       throw c;
     }
     if (a === 0) continue;
-    await B(s, { force: !0 }), await B(j(r, e), { recursive: !0, force: !0 });
+    await B(s, { force: true }), await B(j(r, e), { recursive: true, force: true });
     return;
   }
   throw Error(
@@ -111,17 +111,17 @@ async function q(e, n, o) {
     s = r(e, n),
     a = await t.statMeta(s);
   if (!a.ok) {
-    if (a.error.code === "NotFound") return !1;
+    if (a.error.code === "NotFound") return false;
     throw Error("Session delete: transcript unreadable via storage", { cause: a.error });
   }
-  if ((a.value.storedBytes ?? a.value.size) === 0) return !1;
+  if ((a.value.storedBytes ?? a.value.size) === 0) return false;
   for (let d of ["transcript", "sidecar"]) {
     let u = await t.deleteScope({ namespace: d, projectKey: e, sessionId: n });
     if (!u.ok) throw Error("Session delete: session directory not deletable via storage", { cause: u.error });
   }
   let c = await t.delete(s);
   if (!c.ok) throw Error("Session delete: transcript not deletable via storage", { cause: c.error });
-  return !0;
+  return true;
 }
 async function J(e, n) {
   if (e.dir) {
@@ -147,7 +147,7 @@ async function J(e, n) {
     return t.names.map((r) => j(o, r));
   }
   try {
-    return (await A(o, { withFileTypes: !0 }))
+    return (await A(o, { withFileTypes: true }))
       .filter((r) => r.isDirectory() || r.isSymbolicLink())
       .map((r) => j(o, r.name));
   } catch {
@@ -159,7 +159,7 @@ async function L(e, n) {
   if (o === void 0 || !o.hoverRestOn) return fb(e);
   let t = await fb(e, o),
     r = Wu(e),
-    s = !1,
+    s = false,
     a = [];
   for (let c of t) if (c === r || (await SJ(c, e, s, o))) a.push(c);
   return a;
@@ -172,9 +172,9 @@ async function _(e) {
     do {
       let r = await e.backend.listEntries(
         { namespace: "transcript" },
-        { skipScopeStats: !0, ...(o !== void 0 && { cursor: o }) },
+        { skipScopeStats: true, ...(o !== void 0 && { cursor: o }) },
       );
-      if (!r.ok) return t === 0 ? void 0 : { names: n, laterPageFailed: !0 };
+      if (!r.ok) return t === 0 ? void 0 : { names: n, laterPageFailed: true };
       for (let s of r.value.items) {
         let a = fU(s, e.isKeySegment);
         if (a !== void 0) n.push(a);
@@ -183,7 +183,7 @@ async function _(e) {
     } while (o && ++t < G);
     return { names: n, laterPageFailed: Boolean(o) };
   } catch {
-    return t === 0 && n.length === 0 ? void 0 : { names: n, laterPageFailed: !0 };
+    return t === 0 && n.length === 0 ? void 0 : { names: n, laterPageFailed: true };
   }
 }
 async function z(e, n, o, t) {
@@ -231,12 +231,12 @@ async function nze(e, n, o) {
     t = await W(e, M.O_WRONLY | M.O_APPEND);
   } catch (r) {
     let s = E(r);
-    if (s === "ENOENT" || s === "ENOTDIR") return !1;
+    if (s === "ENOENT" || s === "ENOTDIR") return false;
     throw r;
   }
   try {
     let { size: r } = await t.stat();
-    if (r === 0) return !1;
+    if (r === 0) return false;
     let s = void 0,
       a = Buffer.from(n, "utf8"),
       c = 0;
@@ -249,18 +249,18 @@ async function nze(e, n, o) {
         );
       if (((c += d), s !== void 0)) s += d;
     }
-    return !0;
+    return true;
   } finally {
     await t.close();
   }
 }
 async function U({ backend: e, key: n }, o) {
-  let t = await e.append(n, [{ data: o }], { precondition: { type: "ifExists", nonEmpty: !0 } });
+  let t = await e.append(n, [{ data: o }], { precondition: { type: "ifExists", nonEmpty: true } });
   if (!t.ok) {
-    if (t.error.code === "NotFound") return !1;
+    if (t.error.code === "NotFound") return false;
     throw Error("Session append: transcript not writable via storage", { cause: t.error });
   }
-  return !0;
+  return true;
 }
 function F(e, n, o) {
   if (!O() || o === void 0) return;
@@ -310,19 +310,19 @@ class Z_ {
   queue = [];
   readResolve;
   readReject;
-  isDone = !1;
+  isDone = false;
   hasError;
-  started = !1;
+  started = false;
   constructor(e) {
     this.returned = e;
   }
   [Symbol.asyncIterator]() {
     if (this.started) throw Error("Stream can only be iterated once");
-    return (this.started = !0), this;
+    return (this.started = true), this;
   }
   next() {
-    if (this.queue.length > 0) return Promise.resolve({ done: !1, value: this.queue.shift() });
-    if (this.isDone) return Promise.resolve({ done: !0, value: void 0 });
+    if (this.queue.length > 0) return Promise.resolve({ done: false, value: this.queue.shift() });
+    if (this.isDone) return Promise.resolve({ done: true, value: void 0 });
     if (this.hasError) return Promise.reject(this.hasError);
     return new Promise((e, n) => {
       (this.readResolve = e), (this.readReject = n);
@@ -331,13 +331,13 @@ class Z_ {
   enqueue(e) {
     if (this.readResolve) {
       let n = this.readResolve;
-      (this.readResolve = void 0), (this.readReject = void 0), n({ done: !1, value: e });
+      (this.readResolve = void 0), (this.readReject = void 0), n({ done: false, value: e });
     } else this.queue.push(e);
   }
   done() {
-    if (((this.isDone = !0), this.readResolve)) {
+    if (((this.isDone = true), this.readResolve)) {
       let e = this.readResolve;
-      (this.readResolve = void 0), (this.readReject = void 0), e({ done: !0, value: void 0 });
+      (this.readResolve = void 0), (this.readReject = void 0), e({ done: true, value: void 0 });
     }
   }
   error(e) {
@@ -347,8 +347,8 @@ class Z_ {
     }
   }
   return() {
-    if (((this.isDone = !0), this.returned)) this.returned();
-    return Promise.resolve({ done: !0, value: void 0 });
+    if (((this.isDone = true), this.returned)) this.returned();
+    return Promise.resolve({ done: true, value: void 0 });
   }
 }
 import { readdir as x, stat as ee } from "fs/promises";
@@ -405,7 +405,7 @@ async function SDe(e, n, o, t, r, s) {
         (l) =>
           t.listEntries(
             { namespace: "transcript", projectKey: a },
-            { skipScopeStats: !0, ...(n ? {} : { skipKeyStats: !0 }), ...(l !== void 0 && { cursor: l }) },
+            { skipScopeStats: true, ...(n ? {} : { skipKeyStats: true }), ...(l !== void 0 && { cursor: l }) },
           ),
         (l) => {
           for (let p of l) {
@@ -545,7 +545,7 @@ async function ae(e, n, o, t) {
     return w;
   }
   let c = aa(),
-    d = !1,
+    d = false,
     u = a.map((w) => {
       let h = Cm(w),
         g = d ? h.toLowerCase() : h;
@@ -557,7 +557,7 @@ async function ae(e, n, o, t) {
   if (p === null) {
     let w;
     try {
-      w = await x(c, { withFileTypes: !0 });
+      w = await x(c, { withFileTypes: true });
     } catch {
       let h = [],
         g = await fb(r),
@@ -595,7 +595,7 @@ async function ce(e, n) {
   if (r === null) {
     let c;
     try {
-      c = await x(o, { withFileTypes: !0 });
+      c = await x(o, { withFileTypes: true });
     } catch {
       return [];
     }
@@ -608,9 +608,9 @@ async function u5n(e, n) {
   let o = O() ? n : void 0,
     { dir: t, limit: r, offset: s, includeWorktrees: a, includeProgrammatic: c } = e ?? {},
     d = s ?? 0,
-    u = c ?? !0,
+    u = c ?? true,
     l = (r !== void 0 && r > 0) || d > 0,
-    p = t ? await ae(t, a ?? !0, l, o) : await ce(l, o);
+    p = t ? await ae(t, a ?? true, l, o) : await ce(l, o);
   if (!l) return se(p, u, o);
   return oe(p, r, d, u, o);
 }

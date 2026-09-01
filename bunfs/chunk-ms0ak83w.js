@@ -25,7 +25,7 @@ function sQn(n) {
       closeTagCount: 0,
       taggedContentChars: 0,
       memoryFileCount: 0,
-      missingFilenamesAttr: !1,
+      missingFilenamesAttr: false,
       openTagCharsBucket: 0,
     };
   let r = [...n.matchAll(a)],
@@ -53,11 +53,11 @@ function sQn(n) {
 }
 var c = 300;
 function m(n) {
-  if (n.length <= c) return { sentence: Bd(n).trim(), cut: !1 };
+  if (n.length <= c) return { sentence: Bd(n).trim(), cut: false };
   let r = n.slice(0, c),
     e = r.charCodeAt(r.length - 1);
   if (e >= 55296 && e <= 56319) r = r.slice(0, -1);
-  return { sentence: `${Bd(r).trim()}\u2026`, cut: !0 };
+  return { sentence: `${Bd(r).trim()}\u2026`, cut: true };
 }
 var p = { resolved: 0, unknown: 0, read: 0, written: 0, injectedBody: 0, surfaced: 0, listed: 0 },
   f = 32;
@@ -104,7 +104,7 @@ function lQn(n) {
   }
   if (e !== null) {
     let { sentence: t } = m(n.slice(e, e + c + 1));
-    if (t !== "" && t !== "\u2026") r.push({ sentence: t, filenames: s, incomplete: !0 });
+    if (t !== "" && t !== "\u2026") r.push({ sentence: t, filenames: s, incomplete: true });
   }
   return r;
 }

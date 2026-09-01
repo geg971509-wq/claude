@@ -123,7 +123,7 @@ var n = m(() => ot({})),
     name: Ene,
     searchHint: "list active cron jobs",
     maxResultSizeChars: 1e5,
-    shouldDefer: !0,
+    shouldDefer: true,
     get inputSchema() {
       return n();
     },
@@ -134,10 +134,10 @@ var n = m(() => ot({})),
       return cC();
     },
     isConcurrencySafe() {
-      return !0;
+      return true;
     },
     isReadOnly() {
-      return !0;
+      return true;
     },
     async description() {
       return Vmn;
@@ -155,8 +155,8 @@ var n = m(() => ot({})),
             cron: t.cron,
             humanSchedule: ry(t.cron),
             prompt: t.prompt,
-            ...(t.recurring ? { recurring: !0 } : {}),
-            ...(t.durable === !1 ? { durable: !1 } : {}),
+            ...(t.recurring ? { recurring: true } : {}),
+            ...(t.durable === false ? { durable: false } : {}),
           })),
         },
       };
@@ -170,7 +170,7 @@ var n = m(() => ot({})),
             ? r.jobs
                 .map(
                   (e) =>
-                    `${e.id} \u2014 ${e.humanSchedule}${e.recurring ? " (recurring)" : " (one-shot)"}${e.durable === !1 ? " [session-only]" : ""}: ${ir(e.prompt, 80, !0)}`,
+                    `${e.id} \u2014 ${e.humanSchedule}${e.recurring ? " (recurring)" : " (one-shot)"}${e.durable === false ? " [session-only]" : ""}: ${ir(e.prompt, 80, true)}`,
                 )
                 .join(`
 `)

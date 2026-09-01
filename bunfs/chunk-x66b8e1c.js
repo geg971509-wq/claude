@@ -48,7 +48,7 @@ function Xtt(o) {
 F();
 var et = 30000;
 function $7t(o, n, i) {
-  let r = !1,
+  let r = false,
     s = () => {},
     l = () => {
       if (r) return;
@@ -62,7 +62,7 @@ function $7t(o, n, i) {
   return (
     l(),
     () => {
-      (r = !0), s();
+      (r = true), s();
     }
   );
 }
@@ -83,7 +83,7 @@ function P0(o, n, i, r, s) {
       d(o);
       return;
     }
-    l({ key: o, kind: s?.kind ?? "warning", color: s?.color, priority: n, pinned: !0, jsx: r(i) });
+    l({ key: o, kind: s?.kind ?? "warning", color: s?.color, priority: n, pinned: true, jsx: r(i) });
   }, [i, o, n, r, s, l, d]);
 }
 var I = 30000,

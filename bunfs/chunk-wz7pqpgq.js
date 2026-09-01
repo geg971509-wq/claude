@@ -45,13 +45,13 @@ var fIt = 43200000,
   );
 class D {
   subscribers = [];
-  idle = !1;
+  idle = false;
   idleSince = 0;
-  busyObserved = !1;
-  turnEnded = !1;
+  busyObserved = false;
+  turnEnded = false;
   turnConversationId = void 0;
-  parkedHoldBack = !1;
-  exited = !1;
+  parkedHoldBack = false;
+  exited = false;
   inflight = new Set();
   inflightBatch = [];
   unavailableRetries = new Map();
@@ -77,13 +77,13 @@ class D {
       (this.pendingNotices.length = 0),
       (this.pendingNoticeOverflow = 0),
       (this.onReplayDone = null),
-      (this.idle = !1),
+      (this.idle = false),
       (this.idleSince = 0),
-      (this.busyObserved = !1),
-      (this.turnEnded = !1),
+      (this.busyObserved = false),
+      (this.turnEnded = false),
       (this.turnConversationId = void 0),
-      (this.parkedHoldBack = !1),
-      (this.exited = !1),
+      (this.parkedHoldBack = false),
+      (this.exited = false),
       this.inflight.clear(),
       (this.inflightBatch = []);
     for (let e of this.unavailableRetries.values()) clearTimeout(e);
@@ -153,11 +153,11 @@ function YZt(e, t, r, o, s, l, b, _) {
 }
 function mIt(e, t) {
   let r = Pu;
-  if (!e && t) (r.busyObserved = !0), (r.parkedHoldBack = !1);
+  if (!e && t) (r.busyObserved = true), (r.parkedHoldBack = false);
   if (e === r.idle) return;
   if (((r.idle = e), e)) {
     if (r.busyObserved)
-      (r.turnEnded = !0), (r.idleSince = Date.now()), (r.turnConversationId = K()), (r.busyObserved = !1);
+      (r.turnEnded = true), (r.idleSince = Date.now()), (r.turnConversationId = K()), (r.busyObserved = false);
     else if (!r.turnEnded) r.idleSince = Date.now();
     if (((r.parkedHoldBack = H0e() > 0), r.subscribers.length > 0)) w();
     return;
@@ -176,10 +176,10 @@ function W() {
     return;
   }
   if (H0e() > 0) {
-    (Pu.parkedHoldBack = !0), w(G$n);
+    (Pu.parkedHoldBack = true), w(G$n);
     return;
   }
-  Pu.parkedHoldBack = !1;
+  Pu.parkedHoldBack = false;
   let e = gIt("idle").finally(() => {
     Pu.inflight.delete(e);
   });
@@ -188,7 +188,7 @@ function W() {
 async function gIt(e) {
   let t = Pu;
   if (e === "exited") {
-    if (((t.exited = !0), t.inflight.size > 0)) await Promise.all([...t.inflight].map((l) => l.catch(() => {})));
+    if (((t.exited = true), t.inflight.size > 0)) await Promise.all([...t.inflight].map((l) => l.catch(() => {})));
   }
   let r = e === "exited" && t.idle && GNt() === 0 && !t.parkedHoldBack && H0e() === 0 ? "idle" : e;
   if ((T(Date.now()), t.subscribers.length === 0 || t.sendNotice === null)) return;
@@ -233,7 +233,7 @@ async function V(e, t, r, o, s) {
     return;
   }
   let u = (d) => {
-    if (d.verifiedPeerPid === void 0) return !1;
+    if (d.verifiedPeerPid === void 0) return false;
     let v = a.get(d.verifiedPeerPid);
     return v !== void 0 && tS(v) === d.targetKey;
   };
@@ -256,7 +256,7 @@ async function V(e, t, r, o, s) {
         (k) => {
           let x = z(k);
           if (o === "idle" && x === "transient" && !d.retried) {
-            if ((C([{ ...d, retried: !0 }]), e.idle)) w();
+            if ((C([{ ...d, retried: true }]), e.idle)) w();
             g("cross_session_notify_idle", "notice_send_retrying");
             return;
           }
@@ -324,7 +324,7 @@ function JZt(e) {
 function QZt(e, t, r) {
   let o = Pu.outstanding,
     s = tS(r);
-  if (s === void 0) return { ok: !1, reason: "invalid-target" };
+  if (s === void 0) return { ok: false, reason: "invalid-target" };
   let l = K();
   for (let a = o.length - 1; a >= 0; a--) {
     let u = o[a];
@@ -338,7 +338,7 @@ function QZt(e, t, r) {
     clearTimeout(a.expiry), o.splice(o.indexOf(a), 1), g("cross_session_notify_idle", "prior_trimmed");
   }
   let _ = b.map((a) => a.msgId);
-  if (o.length - _.length >= w0e) return { ok: !1, reason: "cap" };
+  if (o.length - _.length >= w0e) return { ok: false, reason: "cap" };
   let c = setTimeout(Zdr, fIt, e);
   return (
     c.unref?.(),
@@ -351,7 +351,7 @@ function QZt(e, t, r) {
       requestedAt: Date.now(),
       expiry: c,
     }),
-    { ok: !0, priors: _ }
+    { ok: true, priors: _ }
   );
 }
 function Zdr(e) {
@@ -383,12 +383,12 @@ function Pot(e) {
   if (o) clearTimeout(o.expiry);
 }
 function ZZt(e, t, r, o, s, l) {
-  if (typeof e !== "string") return !1;
+  if (typeof e !== "string") return false;
   let b = Pu,
     _ = b.outstanding.findIndex((d) => d.msgId === e);
-  if (_ === -1) return !1;
+  if (_ === -1) return false;
   let [c] = b.outstanding.splice(_, 1);
-  if (!c) return !1;
+  if (!c) return false;
   if ((clearTimeout(c.expiry), t === "idle" || t === "exited"))
     for (let d = b.outstanding.length - 1; d >= 0; d--) {
       let v = b.outstanding[d];
@@ -397,8 +397,8 @@ function ZZt(e, t, r, o, s, l) {
   let a = t === "idle" || t === "exited" || t === "unavailable";
   if (!a) g("cross_session_notify_idle", "notice_state_unrecognized");
   let u = a ? t : "unavailable";
-  if (!Yo()) return g("cross_session_notify_idle", "requester_gate_off"), !0;
-  if (c.conversationId !== K()) return g("cross_session_notify_idle", "conversation_cleared"), !0;
+  if (!Yo()) return g("cross_session_notify_idle", "requester_gate_off"), true;
+  if (c.conversationId !== K()) return g("cross_session_notify_idle", "conversation_cleared"), true;
   if (u === "unavailable" && a) g("cross_session_notify_idle", "peer_unavailable");
   return (
     R({
@@ -408,7 +408,7 @@ function ZZt(e, t, r, o, s, l) {
       ...(u === "idle" && typeof o === "string" && { detail: JZt(o) }),
       gate: { fromMode: s, selfSent: l },
     }),
-    !0
+    true
   );
 }
 function j(e) {
@@ -461,13 +461,13 @@ function _It(e) {
   Pu.getLastTurnText = e;
 }
 function yIt(e) {
-  if (e !== null) Pu.exited = !1;
+  if (e !== null) Pu.exited = false;
   Pu.sendNotice = e;
 }
 function SIt(e, t = null) {
   if (((Pu.onSubscribed = e), (Pu.onReplayDone = t), e !== null)) {
     let r = Pu.pendingAnnounces.splice(0);
-    for (let [s, l] of r) M(s, l, !0);
+    for (let [s, l] of r) M(s, l, true);
     let o = Pu.pendingAnnounceOverflow;
     Pu.pendingAnnounceOverflow = 0;
     try {
@@ -477,7 +477,7 @@ function SIt(e, t = null) {
     }
   }
 }
-function M(e, t, r = !1) {
+function M(e, t, r = false) {
   let o = Pu;
   if (o.onSubscribed === null) {
     if (o.pendingAnnounces.length < w0e) o.pendingAnnounces.push([e, t]);
@@ -553,7 +553,7 @@ function C(e) {
     )
       t.push(r);
 }
-function Dot(e, t, r, o, s, l = !1) {
+function Dot(e, t, r, o, s, l = false) {
   let b = Pu.sendNotice;
   if (b === null || nZ() === "refuse") return;
   b(e, { orig_msg_id: t, state: "unavailable" }, r, L(r, o), s).then(
@@ -576,7 +576,7 @@ function Dot(e, t, r, o, s, l = !1) {
   );
 }
 function G(e, t, r, o, s) {
-  Pu.unavailableRetries.delete(t), Dot(e, t, r, o, s, !0);
+  Pu.unavailableRetries.delete(t), Dot(e, t, r, o, s, true);
 }
 function L(e, t) {
   return e !== void 0 || t;
@@ -589,9 +589,9 @@ function ren(e) {
     value: e.map(epr).join(`
 `),
     priority: "later",
-    skipSlashCommands: !0,
-    isMeta: !0,
-    skipAttachments: !0,
+    skipSlashCommands: true,
+    isMeta: true,
+    skipAttachments: true,
   });
 }
 function z(e) {

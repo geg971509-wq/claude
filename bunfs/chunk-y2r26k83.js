@@ -19,33 +19,33 @@ var A = {
   default: {
     keyCase: "title",
     modCase: "lower",
-    caretCtrl: !1,
+    caretCtrl: false,
     modSep: "+",
     arrowSep: "/",
     chordSep: " ",
-    shiftAsCase: !1,
+    shiftAsCase: false,
     charCase: "preserve",
     platform: "other",
   },
   compact: {
     keyCase: "lower",
     modCase: "lower",
-    caretCtrl: !0,
+    caretCtrl: true,
     modSep: "+",
     arrowSep: "",
     chordSep: " ",
-    shiftAsCase: !0,
+    shiftAsCase: true,
     charCase: "preserve",
     platform: "other",
   },
   symbol: {
     keyCase: "glyph",
     modCase: "glyph",
-    caretCtrl: !1,
+    caretCtrl: false,
     modSep: "",
     arrowSep: "",
     chordSep: " ",
-    shiftAsCase: !0,
+    shiftAsCase: true,
     charCase: "upper",
     platform: "other",
   },
@@ -107,7 +107,7 @@ var L = {
     },
   },
   D = new Set(["up", "down", "left", "right"]),
-  N = { ctrl: !1, alt: !1, shift: !1, meta: !1, super: !1 };
+  N = { ctrl: false, alt: false, shift: false, meta: false, super: false };
 function S(t) {
   let o = [];
   if (t.ctrl) o.push("ctrl");
@@ -160,8 +160,8 @@ F();
 function M(ae) {
   let h = _(13),
     { chord: w, action: f, format: P, parens: q, bold: I } = ae,
-    ie = q === void 0 ? !1 : q,
-    R = I === void 0 ? !1 : I,
+    ie = q === void 0 ? false : q,
+    R = I === void 0 ? false : I,
     X;
   if (h[0] === d) (X = O()), (h[0] = X);
   else X = h[0];
@@ -174,7 +174,7 @@ function M(ae) {
     return null;
   }
   let J;
-  if (h[4] !== R || h[5] !== y) (J = R ? e(ca, { bold: !0, children: y }) : y), (h[4] = R), (h[5] = y), (h[6] = J);
+  if (h[4] !== R || h[5] !== y) (J = R ? e(ca, { bold: true, children: y }) : y), (h[4] = R), (h[5] = y), (h[6] = J);
   else J = h[6];
   let c = J;
   if (ie) {

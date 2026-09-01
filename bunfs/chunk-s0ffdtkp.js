@@ -91,7 +91,7 @@ var K = (e, { profile: r = "default", logger: t } = {}) =>
     t.logger?.debug(
       `@aws-sdk/credential-provider-ini - finding credential resolver using ${i ? `source_profile=[${i}]` : `profile=[${e}]`}`,
     );
-    let g = i ? s(i, r, t, { ...o, [i]: !0 }, F(r[i] ?? {})) : (await O(n.credential_source, e, t.logger)(t))();
+    let g = i ? s(i, r, t, { ...o, [i]: true }, F(r[i] ?? {})) : (await O(n.credential_source, e, t.logger)(t))();
     if (F(n)) return g.then((l) => I.setCredentialFeature(l, "CREDENTIALS_PROFILE_SOURCE_PROFILE", "o"));
     else {
       let l = {
@@ -105,7 +105,7 @@ var K = (e, { profile: r = "default", logger: t } = {}) =>
         if (!t.mfaCodeProvider)
           throw new P.CredentialsProviderError(
             `Profile ${e} requires multi-factor authentication, but no MFA code callback was provided.`,
-            { logger: t.logger, tryNextLink: !1 },
+            { logger: t.logger, tryNextLink: false },
           );
         (l.SerialNumber = a), (l.TokenCode = await t.mfaCodeProvider(a));
       }
@@ -138,7 +138,7 @@ class w {
     if (!e)
       throw new f.CredentialsProviderError(
         `Failed to load a token for session ${this.loginSession}, please re-authenticate using aws login`,
-        { tryNextLink: !1, logger: this.logger },
+        { tryNextLink: false, logger: this.logger },
       );
     let r = e.accessToken,
       t = Date.now();
@@ -183,7 +183,7 @@ class w {
       if (!d || !c || !m || !h)
         throw new f.CredentialsProviderError("Token refresh response missing required fields", {
           logger: this.logger,
-          tryNextLink: !1,
+          tryNextLink: false,
         });
       let E = (b ?? 900) * 1000,
         p = new Date(Date.now() + E),
@@ -226,7 +226,7 @@ class w {
           default:
             c = `Failed to refresh token: ${String(a)}. Please re-authenticate using \`aws login\``;
         }
-        throw new f.CredentialsProviderError(c, { logger: this.logger, tryNextLink: !1 });
+        throw new f.CredentialsProviderError(c, { logger: this.logger, tryNextLink: false });
       }
       throw new f.CredentialsProviderError(
         `Failed to refresh token: ${String(a)}. Please re-authenticate using aws login`,
@@ -249,13 +249,13 @@ class w {
       if (o.length > 0)
         throw new f.CredentialsProviderError(`Token validation failed, missing fields: ${o.join(", ")}`, {
           logger: this.logger,
-          tryNextLink: !1,
+          tryNextLink: false,
         });
       return t;
     } catch (r) {
       throw new f.CredentialsProviderError(`Failed to load token from ${e}: ${String(r)}`, {
         logger: this.logger,
-        tryNextLink: !1,
+        tryNextLink: false,
       });
     }
   }
@@ -263,7 +263,7 @@ class w {
     let r = this.getTokenFilePath(),
       t = ue(r);
     try {
-      await T.mkdir(t, { recursive: !0 });
+      await T.mkdir(t, { recursive: true });
     } catch (o) {}
     await T.writeFile(r, JSON.stringify(e, null, 2), "utf8");
   }
@@ -299,7 +299,7 @@ class w {
         }
         return r(t);
       },
-      { step: "finalizeRequest", name: "dpopInterceptor", override: !0 },
+      { step: "finalizeRequest", name: "dpopInterceptor", override: true },
     );
   }
   async generateDpop(e = "POST", r) {
@@ -330,7 +330,7 @@ class w {
     } catch (o) {
       throw new f.CredentialsProviderError(
         `Failed to generate Dpop proof: ${o instanceof Error ? o.message : String(o)}`,
-        { logger: this.logger, tryNextLink: !1 },
+        { logger: this.logger, tryNextLink: false },
       );
     }
   }
@@ -344,7 +344,7 @@ var gGt =
       s = t[o];
     if (!s?.login_session)
       throw new U.CredentialsProviderError(`Profile ${o} does not contain login_session.`, {
-        tryNextLink: !0,
+        tryNextLink: true,
         logger: e?.logger,
       });
     let i = await new w(s, e, r).loadCredentials();
@@ -418,7 +418,7 @@ var te = j(Jh(), 1),
         parentClientConfig: r.parentClientConfig,
       })().then((o) => te.setCredentialFeature(o, "CREDENTIALS_PROFILE_STS_WEB_ID_TOKEN", "q")),
     );
-var A = async (e, r, t, o = {}, s = !1) => {
+var A = async (e, r, t, o = {}, s = false) => {
   let n = r[e];
   if (Object.keys(o).length > 0 && v(n)) return R(n, t);
   if (s || K(n, { profile: e, logger: t.logger })) return B(e, r, t, o, A);

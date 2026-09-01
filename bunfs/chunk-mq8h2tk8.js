@@ -37,7 +37,7 @@ function S(e) {
     let d = p(r, e);
     if (
       (g(t, r, r === "policySettings" ? [...d, ...INe()] : d, e),
-      n === void 0 && !(r === "policySettings" && cS() === "hkcu") && d.some((C) => C?.[e.enableKey] === !0))
+      n === void 0 && !(r === "policySettings" && cS() === "hkcu") && d.some((C) => C?.[e.enableKey] === true))
     )
       n = r;
   }
@@ -64,14 +64,14 @@ function k(e, t) {
   return e?.[t.enableKey] !== void 0 || (t.legacyDisableKey !== void 0 && e?.[t.legacyDisableKey] !== void 0);
 }
 function g(e, t, n, o) {
-  if (n.some((l) => l?.[o.enableKey] === !1)) e.push({ layer: t, via: "enableKey" });
+  if (n.some((l) => l?.[o.enableKey] === false)) e.push({ layer: t, via: "enableKey" });
   let i = o.legacyDisableKey;
-  if (i !== void 0 && n.some((l) => l?.[i] === !0)) e.push({ layer: t, via: "legacyDisableKey" });
+  if (i !== void 0 && n.some((l) => l?.[i] === true)) e.push({ layer: t, via: "legacyDisableKey" });
 }
 function D(e) {
-  if (a[e] || Me(b(vT(), e)) || Me(xNe(e)) || Me(b(Rde(), e))) return !0;
-  for (let t of ["flagSettings", "userSettings"]) if (_o(t) && Me(b(ye(t)?.env, e))) return !0;
-  return !1;
+  if (a[e] || Me(b(vT(), e)) || Me(xNe(e)) || Me(b(Rde(), e))) return true;
+  for (let t of ["flagSettings", "userSettings"]) if (_o(t) && Me(b(ye(t)?.env, e))) return true;
+  return false;
 }
 function b(e, t) {
   if (e === void 0) return;
@@ -83,7 +83,7 @@ var m = {
   enableKey: "enableArtifact",
   legacyDisableKey: "disableArtifact",
   envDisableVar: "CLAUDE_CODE_DISABLE_ARTIFACT",
-  defaultOn: !0,
+  defaultOn: true,
 };
 function eMe() {
   return S(m);
@@ -96,7 +96,7 @@ function Z_r() {
   return uP() || e === "claude-code-github-action" || e === "mcp";
 }
 function A(e) {
-  return e === "local-agent" || e?.startsWith("claude-coworker") === !0;
+  return e === "local-agent" || e?.startsWith("claude-coworker") === true;
 }
 function jI() {
   return N$() === "local-agent" && v_() && !Hwt() && Grr();
@@ -106,7 +106,7 @@ function lY() {
 }
 function eyr() {
   let e = a.CLAUDE_CODE_ENTRYPOINT;
-  if (e === "local-agent" && jI()) return !1;
+  if (e === "local-agent" && jI()) return false;
   return A(e);
 }
 function ZKe() {
@@ -116,11 +116,11 @@ function O() {
   return mEe() && E();
 }
 function E() {
-  if (Ne() !== "firstParty") return !1;
-  if (Ct()) return !1;
-  if (bo(a.CLAUDE_CODE_ARTIFACT)) return !1;
-  if (!Me(a.CLAUDE_CODE_ARTIFACT) && Z_r()) return !1;
-  return !0;
+  if (Ne() !== "firstParty") return false;
+  if (Ct()) return false;
+  if (bo(a.CLAUDE_CODE_ARTIFACT)) return false;
+  if (!Me(a.CLAUDE_CODE_ARTIFACT) && Z_r()) return false;
+  return true;
 }
 function _() {
   return mEe() && f();
@@ -129,7 +129,7 @@ function f() {
   return !eyr() && E();
 }
 function _vr() {
-  if (u()) return !1;
+  if (u()) return false;
   return _();
 }
 function P() {
@@ -137,13 +137,13 @@ function P() {
   return e === void 0 || e === "prosumer_oauth" || e === "no_auth";
 }
 function y() {
-  return (Me(a.CLAUDE_CODE_ARTIFACT) && !1) || I("tengu_cobalt_plinth", P());
+  return (Me(a.CLAUDE_CODE_ARTIFACT) && false) || I("tengu_cobalt_plinth", P());
 }
 function v() {
   return y() && W_n();
 }
 function L() {
-  if (!y()) return !1;
+  if (!y()) return false;
   return Jyt() || W_n();
 }
 function Zv() {
@@ -151,20 +151,20 @@ function Zv() {
   return mEe() && YM() && W_n();
 }
 function YM() {
-  if (u()) return !1;
-  if (Df() !== null) return !0;
-  if (!f()) return !1;
+  if (u()) return false;
+  if (Df() !== null) return true;
+  if (!f()) return false;
   return L();
 }
 function yvr() {
-  if (u()) return !1;
-  if (!O()) return !1;
+  if (u()) return false;
+  if (!O()) return false;
   return v();
 }
 function R() {
   let e = new Set(),
-    t = !1,
-    n = !1;
+    t = false,
+    n = false;
   for (let i of eMe().offSources)
     switch (i.layer) {
       case "env":
@@ -175,11 +175,11 @@ function R() {
         break;
       case "policySettings":
       case "flagSettings":
-        t = !0;
+        t = true;
         break;
       case "localSettings":
       case "projectSettings":
-        n = !0;
+        n = true;
         break;
     }
   if (t) e.delete("setting"), e.delete("config_pref");
@@ -195,7 +195,7 @@ function j_n() {
   let e = de();
   if (e.artifactDisabledSessionEvaluated) return;
   if (Sw() === null) return;
-  if (((e.artifactDisabledSessionEvaluated = !0), !U())) return;
+  if (((e.artifactDisabledSessionEvaluated = true), !U())) return;
   let t = R();
   if (t === null) return;
   s("tengu_artifact_disabled_session", {
@@ -215,7 +215,7 @@ function e8e() {
 function W_n() {
   if (Jyt()) return Yyt() === null;
   let e = Fn();
-  if (e !== "team" && e !== "enterprise" && e !== "pro" && e !== "max" && e != null) return !1;
+  if (e !== "team" && e !== "enterprise" && e !== "pro" && e !== "max" && e != null) return false;
   return Mt("allow_cobalt_plinth");
 }
 function Yyt() {
@@ -228,60 +228,60 @@ function Yyt() {
   return lw() === null ? "cache_miss" : "org_denied";
 }
 function Zne() {
-  return !1;
+  return false;
 }
 function qk() {
-  return Zv() && I("tengu_gable_onyx_sluice", !1);
+  return Zv() && I("tengu_gable_onyx_sluice", false);
 }
 SZn(qk);
 function q_n() {
-  return YM() && I("tengu_gable_onyx_sluice", !1);
+  return YM() && I("tengu_gable_onyx_sluice", false);
 }
 function Svr() {
-  return !1;
+  return false;
 }
 function G_n() {
-  return !1;
+  return false;
 }
 function z_n() {
-  return !1;
+  return false;
 }
 function o9t() {
-  return !1;
+  return false;
 }
 function V_n() {
-  return Zv() && I("tengu_ethereal_nova", !0);
+  return Zv() && I("tengu_ethereal_nova", true);
 }
 function bvr() {
-  return !1;
+  return false;
 }
 function K_n() {
-  return qk() && !ay() && !I("tengu_cedar_transom", !1) && I("tengu_larch_pavise", !1);
+  return qk() && !ay() && !I("tengu_cedar_transom", false) && I("tengu_larch_pavise", false);
 }
 function X_n() {
   return o9t() && !ay();
 }
 function Y_n() {
-  return !1;
+  return false;
 }
 function J_n() {
-  return !1;
+  return false;
 }
 function Q_n() {
-  return I("tengu_cobalt_plinth_thrift", !1) === !0;
+  return I("tengu_cobalt_plinth_thrift", false) === true;
 }
 var nyr = "tengu_russet_pergola";
 function Z_n() {
-  return !1;
+  return false;
 }
 function i9t() {
-  return !1;
+  return false;
 }
 function eyn() {
-  return i9t() && I("tengu_walnut_sconce", !1);
+  return i9t() && I("tengu_walnut_sconce", false);
 }
 function Y() {
-  return !1;
+  return false;
 }
 function ere() {
   let e = de();

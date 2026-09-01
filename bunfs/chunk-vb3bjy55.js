@@ -80,9 +80,9 @@ var Ee = (e) => {
   };
 var xe = (e) =>
     Object.assign(e, {
-      useDualstackEndpoint: e.useDualstackEndpoint ?? !1,
-      useFipsEndpoint: e.useFipsEndpoint ?? !1,
-      useGlobalEndpoint: e.useGlobalEndpoint ?? !1,
+      useDualstackEndpoint: e.useDualstackEndpoint ?? false,
+      useFipsEndpoint: e.useFipsEndpoint ?? false,
+      useGlobalEndpoint: e.useGlobalEndpoint ?? false,
       defaultSigningName: "sts",
     }),
   i = {
@@ -112,7 +112,7 @@ var ye = {
   main: "./dist-cjs/index.js",
   types: "./dist-types/index.d.ts",
   module: "./dist-es/index.js",
-  sideEffects: !1,
+  sideEffects: false,
   dependencies: {
     "@aws-crypto/sha256-browser": "5.2.0",
     "@aws-crypto/sha256-js": "5.2.0",
@@ -191,8 +191,8 @@ var Ke = j(gg(), 1),
   b = j(yg(), 1);
 var Ne = j(vO(), 1),
   I = j(VH(), 1);
-var Te = { ["required"]: !1, ["type"]: "string" },
-  re = { ["required"]: !0, default: !1, ["type"]: "boolean" },
+var Te = { ["required"]: false, ["type"]: "string" },
+  re = { ["required"]: true, default: false, ["type"]: "boolean" },
   We = { ["ref"]: "Endpoint" },
   Re = { ["fn"]: "isSet", ["argv"]: [{ ["ref"]: "Region" }] },
   c = { ["ref"]: "Region" },
@@ -206,11 +206,11 @@ var Te = { ["required"]: !1, ["type"]: "string" },
   },
   l = {},
   Ce = { conditions: [{ ["fn"]: "stringEquals", ["argv"]: [c, "aws-global"] }], ["endpoint"]: p, ["type"]: "endpoint" },
-  He = { ["fn"]: "booleanEquals", ["argv"]: [we, !0] },
-  Oe = { ["fn"]: "booleanEquals", ["argv"]: [Me, !0] },
+  He = { ["fn"]: "booleanEquals", ["argv"]: [we, true] },
+  Oe = { ["fn"]: "booleanEquals", ["argv"]: [Me, true] },
   ve = { ["fn"]: "getAttr", ["argv"]: [{ ["ref"]: "PartitionResult" }, "supportsFIPS"] },
   Fe = { ["ref"]: "PartitionResult" },
-  De = { ["fn"]: "booleanEquals", ["argv"]: [!0, { ["fn"]: "getAttr", ["argv"]: [Fe, "supportsDualStack"] }] },
+  De = { ["fn"]: "booleanEquals", ["argv"]: [true, { ["fn"]: "getAttr", ["argv"]: [Fe, "supportsDualStack"] }] },
   be = [{ ["fn"]: "isSet", ["argv"]: [We] }],
   Ge = [He],
   ke = [Oe],
@@ -220,12 +220,12 @@ var Te = { ["required"]: !1, ["type"]: "string" },
     rules: [
       {
         conditions: [
-          { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseGlobalEndpoint" }, !0] },
+          { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseGlobalEndpoint" }, true] },
           { ["fn"]: "not", ["argv"]: be },
           Re,
           Pe,
-          { ["fn"]: "booleanEquals", ["argv"]: [we, !1] },
-          { ["fn"]: "booleanEquals", ["argv"]: [Me, !1] },
+          { ["fn"]: "booleanEquals", ["argv"]: [we, false] },
+          { ["fn"]: "booleanEquals", ["argv"]: [Me, false] },
         ],
         rules: [
           {
@@ -302,7 +302,7 @@ var Te = { ["required"]: !1, ["type"]: "string" },
                 conditions: [He, Oe],
                 rules: [
                   {
-                    conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [!0, ve] }, De],
+                    conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [true, ve] }, De],
                     rules: [
                       {
                         endpoint: {
@@ -326,7 +326,7 @@ var Te = { ["required"]: !1, ["type"]: "string" },
                 conditions: Ge,
                 rules: [
                   {
-                    conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [ve, !0] }],
+                    conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [ve, true] }],
                     rules: [
                       {
                         conditions: [
@@ -399,7 +399,7 @@ var Ve = (e) => ({
   apiVersion: "2011-06-15",
   base64Decoder: e?.base64Decoder ?? D.fromBase64,
   base64Encoder: e?.base64Encoder ?? D.toBase64,
-  disableHostPrefix: e?.disableHostPrefix ?? !1,
+  disableHostPrefix: e?.disableHostPrefix ?? false,
   endpointProvider: e?.endpointProvider ?? je,
   extensions: e?.extensions ?? [],
   httpAuthSchemeProvider: e?.httpAuthSchemeProvider ?? Ee,

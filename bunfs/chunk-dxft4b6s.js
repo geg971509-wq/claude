@@ -199,7 +199,7 @@ function ie(n, s, i, l) {
   if (f.equals(l.cursor) && !_e(s)) return;
   let c = We(l.cursor, f, s, n, i);
   if (c.from === c.to) {
-    if (n === "change" || n === "yank") l.setRegister("", !1);
+    if (n === "change" || n === "yank") l.setRegister("", false);
     if (n === "change") l.enterInsert(c.from), oe(l, { type: "operator", op: n, motion: s, count: i });
     return;
   }
@@ -247,7 +247,7 @@ function ae(n, s, i) {
       L +
       `
 `;
-  if ((i.setRegister(L, !0), n === "yank")) i.setOffset(m);
+  if ((i.setRegister(L, true), n === "yank")) i.setOffset(m);
   else if (n === "delete") {
     let O = m,
       S = x;
@@ -281,12 +281,12 @@ function Re(n, s) {
   if (l === i) return;
   let f = s.text.slice(i, l),
     c = s.text.slice(0, i) + s.text.slice(l);
-  s.setRegister(f, !1), s.setText(c), s.setOffset(eke(c, i)), s.recordChange({ type: "x", count: n });
+  s.setRegister(f, false), s.setText(c), s.setOffset(eke(c, i)), s.recordChange({ type: "x", count: n });
 }
 function ve(n, s) {
   let i = s.cursor.offset,
     l = tt(s, n);
-  if (l > i) s.setRegister(s.text.slice(i, l), !1), s.setText(s.text.slice(0, i) + s.text.slice(l));
+  if (l > i) s.setRegister(s.text.slice(i, l), false), s.setText(s.text.slice(0, i) + s.text.slice(l));
   s.enterInsert(i), s.recordChange({ type: "substitute", count: n });
 }
 function Le(n, s, i) {
@@ -422,14 +422,14 @@ function ue(n, s) {
 function We(n, s, i, l, f) {
   let c = Math.min(n.offset, s.offset),
     d = Math.max(n.offset, s.offset),
-    m = !1;
+    m = false;
   if (l === "change" && (i === "w" || i === "W")) {
     let x = n;
     for (let O = 0; O < f - 1; O++) x = i === "w" ? x.nextVimWord() : x.nextWORD();
     let L = i === "w" ? x.endOfVimWord() : x.endOfWORD();
     d = n.measuredText.nextOffset(L.offset);
   } else if (Ze(i)) {
-    m = !0;
+    m = true;
     let x = n.text,
       L = x.indexOf(
         `
@@ -464,7 +464,7 @@ function Et(n, s, i) {
     c = n.snapOutOfPlaceholder(n.measuredText.nextOffset(l), "end");
   return { from: f, to: c };
 }
-function pe(n, s, i, l, f = !1) {
+function pe(n, s, i, l, f = false) {
   let c = l.text.slice(s, i);
   if (
     f &&
@@ -653,7 +653,7 @@ function st(n, s, i, l) {
     L = ((c[d] ?? "").match(/^\s*/)?.[0] ?? "").length;
   l.setText(x), l.setOffset(ue(c, d) + L);
 }
-function it(n, s, i, l, f, c = !1) {
+function it(n, s, i, l, f, c = false) {
   if (f && n === "change") {
     let d = l.text.slice(s, i),
       m = d;
@@ -663,7 +663,7 @@ function it(n, s, i, l, f, c = !1) {
     )
       m += `
 `;
-    l.setRegister(m, !0);
+    l.setRegister(m, true);
     let x = l.text.slice(0, s),
       L = l.text.slice(i),
       O =
@@ -690,7 +690,7 @@ function it(n, s, i, l, f, c = !1) {
     )
       d += `
 `;
-    l.setRegister(d, !0);
+    l.setRegister(d, true);
     let m = s;
     if (
       i === l.text.length &&
@@ -886,7 +886,7 @@ function Tt() {
   return { mode: "INSERT", insertedText: "" };
 }
 function Ct() {
-  return { lastFind: null, register: "", registerIsLinewise: !1 };
+  return { lastFind: null, register: "", registerIsLinewise: false };
 }
 function Qe(n, s, i) {
   switch (n.type) {
@@ -924,8 +924,8 @@ var Dt = Object.assign(Object.create(null), {
   s: (n, s) => ({ execute: () => ve(n, s) }),
   S: (n, s) => ({ execute: () => ae("change", n, s) }),
   J: (n, s) => ({ execute: () => we(n, s) }),
-  p: (n, s) => ({ execute: () => de(!0, n, s) }),
-  P: (n, s) => ({ execute: () => de(!1, n, s) }),
+  p: (n, s) => ({ execute: () => de(true, n, s) }),
+  P: (n, s) => ({ execute: () => de(false, n, s) }),
   D: (n, s) => ({ execute: () => ie("delete", "$", 1, s) }),
   C: (n, s) => ({ execute: () => ie("change", "$", 1, s) }),
   Y: (n, s) => ({ execute: () => ae("yank", n, s) }),
@@ -936,8 +936,8 @@ var Dt = Object.assign(Object.create(null), {
     },
   }),
   ".": (n, s) => ({ execute: () => s.onDotRepeat?.() }),
-  ";": (n, s) => ({ execute: () => Pe(!1, n, s) }),
-  ",": (n, s) => ({ execute: () => Pe(!0, n, s) }),
+  ";": (n, s) => ({ execute: () => Pe(false, n, s) }),
+  ",": (n, s) => ({ execute: () => Pe(true, n, s) }),
   u: (n, s) => ({ execute: () => s.onUndo?.() }),
   i: (n, s) => ({ execute: () => s.enterInsert(s.cursor.offset) }),
   I: (n, s) => ({ execute: () => s.enterInsert(s.cursor.firstNonBlankInLogicalLine().offset) }),
@@ -1080,12 +1080,12 @@ function Lt(n, s, i) {
 var Jt = Object.assign(Object.create(null), {
   x: () => ({ exit: "operator", op: "delete" }),
   s: () => ({ exit: "operator", op: "change" }),
-  X: () => ({ exit: "operator", op: "delete", forceLinewise: !0 }),
-  D: () => ({ exit: "operator", op: "delete", forceLinewise: !0 }),
-  C: () => ({ exit: "operator", op: "change", forceLinewise: !0 }),
-  S: () => ({ exit: "operator", op: "change", forceLinewise: !0 }),
-  R: () => ({ exit: "operator", op: "change", forceLinewise: !0 }),
-  Y: () => ({ exit: "operator", op: "yank", forceLinewise: !0 }),
+  X: () => ({ exit: "operator", op: "delete", forceLinewise: true }),
+  D: () => ({ exit: "operator", op: "delete", forceLinewise: true }),
+  C: () => ({ exit: "operator", op: "change", forceLinewise: true }),
+  S: () => ({ exit: "operator", op: "change", forceLinewise: true }),
+  R: () => ({ exit: "operator", op: "change", forceLinewise: true }),
+  Y: () => ({ exit: "operator", op: "yank", forceLinewise: true }),
   r: () => ({ next: { type: "replace" } }),
   "~": () => ({ exit: "case", op: "toggle" }),
   u: () => ({ exit: "case", op: "lower" }),
@@ -1107,8 +1107,8 @@ var Jt = Object.assign(Object.create(null), {
       s.setOffset(i.offset);
     },
   }),
-  ";": (n, s) => ({ next: { type: "idle" }, move: () => Pe(!1, n, s) }),
-  ",": (n, s) => ({ next: { type: "idle" }, move: () => Pe(!0, n, s) }),
+  ";": (n, s) => ({ next: { type: "idle" }, move: () => Pe(false, n, s) }),
+  ",": (n, s) => ({ next: { type: "idle" }, move: () => Pe(true, n, s) }),
 });
 function St(n, s, i) {
   if (Ge(n)) return { exit: "operator", op: De[n] };
@@ -1188,18 +1188,18 @@ var $e = new Set([
   "f12",
 ]);
 function qe(n) {
-  if (!n) return !1;
+  if (!n) return false;
   switch (n.type) {
     case "openLine":
     case "substitute":
-      return !0;
+      return true;
     case "operator":
     case "operatorFind":
     case "operatorTextObj":
     case "visualOp":
       return n.op === "change";
     default:
-      return !1;
+      return false;
   }
 }
 function ze(n) {
@@ -1285,7 +1285,7 @@ function ze(n) {
       },
       [c],
     );
-  function ne(p, R, g = !1) {
+  function ne(p, R, g = false) {
     return {
       cursor: p,
       text: p.text,
@@ -1390,7 +1390,7 @@ function ze(n) {
     let R = X.current;
     if (!R) return;
     let g = Ei.fromText(s, l, p.offset);
-    Z(R, g, ne(g, p, !0));
+    Z(R, g, ne(g, p, true));
   }
   function k(p, R) {
     let g = s.normalize("NFC"),
@@ -1400,7 +1400,7 @@ function ze(n) {
         if (!h) return;
         let E = Ei.fromText(g, l, v);
         Z(h, E, {
-          ...ne(E, R, !0),
+          ...ne(E, R, true),
           text: g,
           setText: (M) => {
             (g = M), i(M);
@@ -1419,13 +1419,13 @@ function ze(n) {
         let T = _.slice(h).join(""),
           I = Be();
         if (I.size > 0 && I.has(T.normalize("NFC"))) {
-          y("vim_insert_remap"), W(R, { buffer: { text: g, offset: v }, claimEmptyInsert: !0 });
+          y("vim_insert_remap"), W(R, { buffer: { text: g, offset: v }, claimEmptyInsert: true });
           return;
         }
         let A = Ei.fromText(g, l, v).insert(T);
         i(A.text), R.setOffset(A.offset), (b.current = { mode: "INSERT", insertedText: b.current.insertedText + T });
         let H = NN(A.text.slice(0, A.offset));
-        if (H && T.endsWith(H)) fe(I, H, A.offset, !0);
+        if (H && T.endsWith(H)) fe(I, H, A.offset, true);
         return;
       }
       let E = b.current;
@@ -1437,7 +1437,7 @@ function ze(n) {
       }
       let w = Ei.fromText(g, l, v),
         N = {
-          ...ne(w, R, !1),
+          ...ne(w, R, false),
           text: g,
           setText: (T) => {
             (g = T), i(T);
@@ -1509,12 +1509,12 @@ function ze(n) {
             Oe = v.text.slice(0, he) + v.text.slice(v.offset);
           i(Oe),
             y("vim_insert_remap"),
-            W(R, { buffer: { text: Oe, offset: he }, claimEmptyInsert: !0 }),
+            W(R, { buffer: { text: Oe, offset: he }, claimEmptyInsert: true }),
             p.preventDefault();
           return;
         }
         if (A && !I && N.has(P)) {
-          K(), y("vim_insert_remap"), W(R, { claimEmptyInsert: !0 }), p.preventDefault();
+          K(), y("vim_insert_remap"), W(R, { claimEmptyInsert: true }), p.preventDefault();
           return;
         }
         let ye = A ? NN(P) : "";
@@ -1524,7 +1524,7 @@ function ze(n) {
       return;
     }
     if (g.mode === "VISUAL") {
-      let N = { ...ne(v, R, !1), onUndo: d, onDotRepeat: () => D(R) },
+      let N = { ...ne(v, R, false), onUndo: d, onDotRepeat: () => D(R) },
         P = g.command.type === "idle" || g.command.type === "count",
         T = p.key;
       if (p.name === "left") T = P ? "h" : "";
@@ -1552,7 +1552,7 @@ function ze(n) {
       else
         switch (I.exit) {
           case "operator":
-            if ((at(I.op, g.anchor, N, A || I.forceLinewise === !0), b.current.mode === "VISUAL")) W(R);
+            if ((at(I.op, g.anchor, N, A || I.forceLinewise === true), b.current.mode === "VISUAL")) W(R);
             break;
           case "replace":
             ct(I.char, g.anchor, N, A), W(R);
@@ -1629,7 +1629,7 @@ function ze(n) {
         }
       }
     }
-    let h = { ...ne(v, R, !1), onUndo: d, onDotRepeat: () => D(R) },
+    let h = { ...ne(v, R, false), onUndo: d, onDotRepeat: () => D(R) },
       E =
         g.command.type === "idle" ||
         g.command.type === "count" ||
@@ -1733,10 +1733,10 @@ function zt() {
   return xxn(s), s;
 }
 function Zt(n, s) {
-  if (n.ctrl && (n.key === "k" || n.key === "u" || n.key === "w")) return !0;
-  if ((n.meta || n.ctrl) && n.key === "backspace") return !0;
-  if (s && n.meta && !n.ctrl && n.key.toLowerCase() === "d") return !0;
-  return !1;
+  if (n.ctrl && (n.key === "k" || n.key === "u" || n.key === "w")) return true;
+  if ((n.meta || n.ctrl) && n.key === "backspace") return true;
+  if (s && n.meta && !n.ctrl && n.key.toLowerCase() === "d") return true;
+  return false;
 }
 function en(n) {
   return (n.ctrl || n.meta) && n.key === "y";
@@ -1773,11 +1773,11 @@ function np({
   passthroughCtrlKeys: d = [],
   initialQuery: m = "",
   buffer: x,
-  backspaceExitsOnEmpty: L = !0,
-  multiline: O = !1,
+  backspaceExitsOnEmpty: L = true,
+  multiline: O = false,
   onSpaceOnEmpty: S,
   onTabOnEmpty: b,
-  honorEditorMode: V = !1,
+  honorEditorMode: V = false,
 }) {
   let j = b9e(),
     G = tHt() === "readline",
@@ -1847,7 +1847,7 @@ function np({
     ),
     xe = B(
       (h) => {
-        if (!n || !O || h.name !== "return") return !1;
+        if (!n || !O || h.name !== "return") return false;
         let E = Z.current;
         return (E > 0 && re.current[E - 1] === "\\") || h.shift || h.meta;
       },
@@ -2134,11 +2134,11 @@ function Hd({
   prefix: f = dir,
   width: c,
   cursorOffset: d,
-  borderless: m = !1,
+  borderless: m = false,
   highlights: x = [],
   dimRange: L,
   cursorChar: O,
-  prefixDim: S = !1,
+  prefixDim: S = false,
   prefixColor: b,
   onCursorOffsetChange: V,
   onFocus: j,
@@ -2189,11 +2189,11 @@ function Hd({
             : te
               ? r(U, {
                   children: [
-                    O ?? e(t, { inverse: !0, children: s.charAt(0) }),
-                    e(t, { dimColor: !0, children: O ? s : s.slice(1) }),
+                    O ?? e(t, { inverse: true, children: s.charAt(0) }),
+                    e(t, { dimColor: true, children: O ? s : s.slice(1) }),
                   ],
                 })
-              : e(t, { dimColor: !0, children: s })
+              : e(t, { dimColor: true, children: s })
           : n
             ? e(t, { children: n })
             : e(t, { children: s }),

@@ -41,25 +41,25 @@ function ct(t) {
   Atomics.wait(st, 0, 0, t);
 }
 function V(t, n) {
-  return !1;
+  return false;
 }
 var j = 128;
 async function ut(t) {
   try {
     return ((await Y(t)).mode & j) === 0;
   } catch {
-    return !1;
+    return false;
   }
 }
 async function VRn(t, n) {
-  let e = !1;
+  let e = false;
   for (let r = 0; ; r++)
     try {
       return await t(), e;
     } catch (i) {
       if (V(i, r)) {
         if (r === 0 && n !== void 0 && (await ut(n))) throw i;
-        (e = !0), await ne(X);
+        (e = true), await ne(X);
         continue;
       }
       throw i;
@@ -72,18 +72,18 @@ function ft(t) {
   try {
     return (C(t).mode & j) === 0;
   } catch {
-    return !1;
+    return false;
   }
 }
 function KRn(t, n, e = rt) {
-  let r = !1;
+  let r = false;
   for (let i = 0; ; i++)
     try {
       return e(t, n), r;
     } catch (a) {
       if (V(a, i)) {
         if (i === 0 && ft(n)) throw a;
-        (r = !0), ct(X);
+        (r = true), ct(X);
         continue;
       }
       throw a;
@@ -93,7 +93,7 @@ var Zar = new Set(["ENOSPC", "EIO", "EDQUOT", "EFBIG"]),
   H = 67108864,
   KCe = o.O_NONBLOCK;
 async function K(t, n, e = "darwin") {
-  if (e !== "win32") return !0;
+  if (e !== "win32") return true;
   try {
     return (await Y(t)).isFile();
   } catch (r) {
@@ -101,15 +101,15 @@ async function K(t, n, e = "darwin") {
   }
 }
 function z(t, n, e = "darwin") {
-  if (e !== "win32") return !0;
+  if (e !== "win32") return true;
   try {
     return C(t).isFile();
   } catch (r) {
     return n && E(r) === "ENOENT";
   }
 }
-async function lt(t, n = !1) {
-  if (!n && !(await K(t, !0))) return { kind: "unavailable" };
+async function lt(t, n = false) {
+  if (!n && !(await K(t, true))) return { kind: "unavailable" };
   let e;
   try {
     e = await A(t, o.O_RDONLY | (n ? 0 : o.O_NOFOLLOW) | KCe);
@@ -126,19 +126,19 @@ async function lt(t, n = !1) {
     await e.close().catch(() => {});
   }
 }
-async function dt(t, n, e = !1) {
-  if (!e && !(await K(t, !0))) return !1;
+async function dt(t, n, e = false) {
+  if (!e && !(await K(t, true))) return false;
   let r;
   try {
     r = await A(t, o.O_WRONLY | o.O_CREAT | o.O_TRUNC | (e ? 0 : o.O_NOFOLLOW) | KCe, n.mode);
   } catch {
-    return !1;
+    return false;
   }
   try {
-    if (!(await r.stat()).isFile()) return await r.close().catch(() => {}), !1;
-    return await r.writeFile(n.bytes), await r.chmod(n.mode).catch(() => {}), await r.close(), !0;
+    if (!(await r.stat()).isFile()) return await r.close().catch(() => {}), false;
+    return await r.writeFile(n.bytes), await r.chmod(n.mode).catch(() => {}), await r.close(), true;
   } catch {
-    return await r.close().catch(() => {}), !1;
+    return await r.close().catch(() => {}), false;
   }
 }
 function S(t, n, e) {
@@ -155,11 +155,11 @@ function w0(t) {
 }
 var v = 3;
 async function Q(t, n) {
-  if (n !== "win32") return !1;
+  if (n !== "win32") return false;
   try {
-    return await Y(t), !0;
+    return await Y(t), true;
   } catch (e) {
-    return E(e) === "ENOENT" ? !1 : { cause: e };
+    return E(e) === "ENOENT" ? false : { cause: e };
   }
 }
 function M(t, n) {
@@ -172,7 +172,7 @@ async function G(t, n, e) {
   for (let r = 1; ; r++) {
     let i = mU(t),
       a = await Q(i, n);
-    if (a !== !1) {
+    if (a !== false) {
       if (r < v) continue;
       throw M(i, a);
     }
@@ -205,8 +205,8 @@ async function KAt(t, n, e, r = "darwin") {
 }
 async function hFe(t, n = "darwin") {
   let e = await Q(t, n);
-  if (e === !0) throw M(t, e);
-  if (e !== !1) throw e.cause;
+  if (e === true) throw M(t, e);
+  if (e !== false) throw e.cause;
 }
 async function Wn(t, n, e, r) {
   return XCe(t, n, { mode: e, renameFn: r });
@@ -222,12 +222,12 @@ async function XCe(t, n, e) {
       renameFn: P,
     } = e,
     d = r ?? i,
-    N = w === !0 ? 0 : o.O_NOFOLLOW,
+    N = w === true ? 0 : o.O_NOFOLLOW,
     h,
-    p = !1,
-    y = !1,
+    p = false,
+    y = false,
     b = async (s) => {
-      let c = await lt(t, w === !0),
+      let c = await lt(t, w === true),
         m = c.kind === "snapshot" ? c : void 0,
         f = await A(t, o.O_WRONLY | o.O_CREAT | N | KCe, a ?? d),
         T;
@@ -242,13 +242,13 @@ async function XCe(t, n, e) {
           (await f.close().catch(() => {}),
           Object.assign(Error("refusing the in-place arm on a non-regular target"), { code: "ENXIO", path: t }))
         );
-      let U = !1;
+      let U = false;
       try {
-        if (!l) await f.truncate(0), (U = !0);
+        if (!l) await f.truncate(0), (U = true);
         await f.writeFile(n, { encoding: "utf8" });
         let g = l ? void 0 : (a ?? (c.kind !== "absent" ? r : void 0));
         if (g !== void 0) await f.chmod(g).catch(() => {});
-        if (u === !0)
+        if (u === true)
           try {
             await f.sync();
           } catch (R) {
@@ -259,10 +259,10 @@ async function XCe(t, n, e) {
         if ((await f.close().catch(() => {}), !U)) throw ((p = s !== void 0), S(g, s, "untouched"));
         p = s !== void 0;
         let q =
-          m !== void 0 && (await dt(t, m, w === !0))
+          m !== void 0 && (await dt(t, m, w === true))
             ? "restored"
             : (await F(t).then(
-                  () => !0,
+                  () => true,
                   (Z) => E(Z) === "ENOENT",
                 ))
               ? "removed"
@@ -274,11 +274,11 @@ async function XCe(t, n, e) {
     };
   try {
     try {
-      if (a !== void 0 || u === !0) {
+      if (a !== void 0 || u === true) {
         let c = await ht(t, a ?? d),
           m = c.fh;
         h = c.tmp;
-        let f = !1,
+        let f = false,
           T;
         try {
           if ((await m.writeFile(n, { encoding: "utf8" }), a !== void 0))
@@ -287,31 +287,31 @@ async function XCe(t, n, e) {
             } catch (l) {
               if (!w0(l)) throw l;
             }
-          if (u === !0)
+          if (u === true)
             try {
               await m.sync();
             } catch (l) {
               if (!w0(l)) throw l;
             }
         } catch (l) {
-          (f = !0), (T = l);
+          (f = true), (T = l);
         }
-        if (!f) y = !0;
+        if (!f) y = true;
         try {
           await m.close();
         } catch (l) {
-          if (!f) throw ((p = !0), S(l, h, "untouched"));
+          if (!f) throw ((p = true), S(l, h, "untouched"));
         }
         if (f) throw T;
-      } else (h = await Rfe(t, n, d)), (y = !0);
+      } else (h = await Rfe(t, n, d)), (y = true);
     } catch (c) {
-      if (_ !== !0) throw c;
+      if (_ !== true) throw c;
       if (y) throw c;
       if (E(c) !== "EACCES") throw c;
       if (
         !(await it(t).then(
-          () => !0,
-          () => !1,
+          () => true,
+          () => false,
         ))
       )
         throw c;
@@ -338,7 +338,7 @@ function x(t) {
   } catch {}
 }
 function mt(t) {
-  if (!z(t, !0)) return { kind: "unavailable" };
+  if (!z(t, true)) return { kind: "unavailable" };
   let n;
   try {
     n = L(t, o.O_RDONLY | o.O_NOFOLLOW | KCe);
@@ -358,42 +358,42 @@ function mt(t) {
   }
 }
 function wt(t, n) {
-  if (!z(t, !0)) return !1;
+  if (!z(t, true)) return false;
   let e;
   try {
     e = L(t, o.O_WRONLY | o.O_CREAT | o.O_TRUNC | o.O_NOFOLLOW | KCe, n.mode);
   } catch {
-    return !1;
+    return false;
   }
-  let r = !1;
+  let r = false;
   try {
-    if (!k(e).isFile()) return (r = !0), O(e), !1;
+    if (!k(e).isFile()) return (r = true), O(e), false;
     W(e, n.bytes);
     try {
       B(e, n.mode);
     } catch {}
-    return (r = !0), O(e), !0;
+    return (r = true), O(e), true;
   } catch {
     if (!r)
       try {
         O(e);
       } catch {}
-    return !1;
+    return false;
   }
 }
 function yt(t, n) {
-  if (n !== "win32") return !1;
+  if (n !== "win32") return false;
   try {
-    return C(t), !0;
+    return C(t), true;
   } catch (e) {
-    return E(e) === "ENOENT" ? !1 : { cause: e };
+    return E(e) === "ENOENT" ? false : { cause: e };
   }
 }
 function pt(t, n, e, r = "darwin") {
   for (let i = 1; ; i++) {
     let a = mU(t),
       u = yt(a, r);
-    if (u !== !1) {
+    if (u !== false) {
       if (i < v) continue;
       throw M(a, u);
     }
@@ -409,7 +409,7 @@ function pt(t, n, e, r = "darwin") {
   }
 }
 function QH(t, n, e, r) {
-  let i = !1,
+  let i = false,
     a;
   try {
     a = pt(t, n, e);
@@ -421,7 +421,7 @@ function QH(t, n, e, r) {
       let _ = mt(t),
         P = _.kind === "snapshot" ? _ : void 0,
         d = L(t, o.O_WRONLY | o.O_CREAT | o.O_NOFOLLOW | KCe, e),
-        N = !1;
+        N = false;
       {
         let y;
         try {
@@ -430,7 +430,7 @@ function QH(t, n, e, r) {
           try {
             O(d);
           } catch {}
-          throw ((i = !0), S(b, a, "untouched"));
+          throw ((i = true), S(b, a, "untouched"));
         }
         if (((N = y.isCharacterDevice()), !y.isFile() && !N)) {
           try {
@@ -439,22 +439,22 @@ function QH(t, n, e, r) {
           throw Object.assign(Error("refusing the in-place arm on a non-regular target"), { code: "ENXIO", path: t });
         }
       }
-      let h = !1,
-        p = !1;
+      let h = false,
+        p = false;
       try {
-        if (!N) et(d, 0), (p = !0);
+        if (!N) et(d, 0), (p = true);
         if ((W(d, n, { encoding: "utf8" }), e !== void 0 && _.kind !== "absent" && !N))
           try {
             B(d, e);
           } catch {}
-        (h = !0), O(d);
+        (h = true), O(d);
       } catch (y) {
         if (!h)
           try {
             O(d);
           } catch {}
-        if (!p) throw ((i = !0), S(y, a, "untouched"));
-        i = !0;
+        if (!p) throw ((i = true), S(y, a, "untouched"));
+        i = true;
         let b = P !== void 0 && wt(t, P),
           s = "partial";
         if (b) s = "restored";

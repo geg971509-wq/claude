@@ -21,10 +21,10 @@ class e {
   cliOwnedBearerProviders = new WeakMap();
   identityEpoch = 0;
   identityBaseline = void 0;
-  identitySeedAttempted = !1;
-  identityChangedThisProcess = !1;
+  identitySeedAttempted = false;
+  identityChangedThisProcess = false;
   identityTrippedHandler = null;
-  identityTripUnowned = !1;
+  identityTripUnowned = false;
   headlessMcpTeardown = null;
   headlessConnectorMountInFlight = void 0;
   authCacheRead = null;
@@ -34,7 +34,7 @@ class e {
   pendingCrossOrgNotice = void 0;
   claudeAiConnectedThisSession = new Set();
   pendingScopeExpansionNotice = void 0;
-  scopeExpansionDisclosed = !1;
+  scopeExpansionDisclosed = false;
   officialUrls = void 0;
   vscodeClient = null;
   toolRefreshSequences = new WeakMap();
@@ -55,7 +55,7 @@ class e {
   supersededDials = new WeakSet();
   swrRefreshDialsInFlight = new WeakSet();
   reauthDecisionSinkForTest = void 0;
-  holdStaleReauthEntryForTest = !1;
+  holdStaleReauthEntryForTest = false;
   oauthCallbackListeners = new Map();
   oauthCallbackSubmitters = new Map();
   activeOAuthFlows = new Map();

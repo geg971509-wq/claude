@@ -110,7 +110,7 @@ function IEe(e = {}) {
   if (Ne() !== "firstParty") return "third_party_provider";
   if (!e.skipBaseUrlCheck && !jo()) return "custom_base_url";
   try {
-    let { key: t } = qg({ skipRetrievingKeyFromApiKeyHelper: !0 });
+    let { key: t } = qg({ skipRetrievingKeyFromApiKeyHelper: true });
     if (t) return;
   } catch {}
   if (jd()) return;
@@ -132,7 +132,7 @@ function vSt() {
   }
 }
 function V9t(e) {
-  let o = Ut(e, !1),
+  let o = Ut(e, false),
     t = z9t().safeParse(o);
   return t.success ? t.data : null;
 }
@@ -195,16 +195,16 @@ function Mt(e) {
   let o = _();
   if (!o) {
     if (S.has(e)) {
-      if (hC()) return !1;
-      if (R.has(e) && Ct() && !(e === "allow_product_feedback" && p$())) return !1;
+      if (hC()) return false;
+      if (R.has(e) && Ct() && !(e === "allow_product_feedback" && p$())) return false;
     }
-    return !0;
+    return true;
   }
   let t = o[e];
   if (t) return t.allowed;
   let r = lw()?.compliance_taints ?? [];
-  for (let [p, u] of w) if (u === e && r.includes(p)) return !1;
-  return !0;
+  for (let [p, u] of w) if (u === e && r.includes(p)) return false;
+  return true;
 }
 Nrr({ isPolicyAllowed: (e) => Mt(e), policyDenyKind: (e) => nO(e), policyDeniedReason: (e, o, t) => od(e, o, t) });
 function od(e, o, t, r) {
@@ -227,7 +227,7 @@ function dSn(e, o) {
   return t === "cache_miss" ? prr() : drr(fR());
 }
 function pSn(e) {
-  return _()?.[e]?.allowed === !0;
+  return _()?.[e]?.allowed === true;
 }
 function fSn(e) {
   let o = lw()?.defaults[e];

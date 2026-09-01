@@ -26,7 +26,7 @@ je(pl, {
 function Rr(e, t) {
   if (He(t)) {
     let r = Object.create(null);
-    for (let o of Object.keys(t).toSorted()) Object.defineProperty(r, o, { value: t[o], enumerable: !0 });
+    for (let o of Object.keys(t).toSorted()) Object.defineProperty(r, o, { value: t[o], enumerable: true });
     return r;
   }
   return t;
@@ -179,7 +179,7 @@ function mt(e, t, r) {
   let n = Object.create(null);
   t.set(e, n);
   for (let s of Object.keys(e))
-    Object.defineProperty(n, s, { value: mt(e[s], t, r), enumerable: !0, writable: !0, configurable: !0 });
+    Object.defineProperty(n, s, { value: mt(e[s], t, r), enumerable: true, writable: true, configurable: true });
   return n;
 }
 var Hr = (e) => `an array of ${e} items is past the ${vy} an event may carry`;
@@ -206,11 +206,11 @@ function $s(e) {
   return ee.freezeInto(e, new Set()), e;
 }
 function de(e) {
-  if (typeof e !== "object" || e === null) return !1;
+  if (typeof e !== "object" || e === null) return false;
   try {
-    return Reflect.get(RegExp.prototype, "source", e), !0;
+    return Reflect.get(RegExp.prototype, "source", e), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 var ut = (e) => O.isPlainData(e) && !de(e);
@@ -218,9 +218,9 @@ function ct(e, t, r) {
   if (de(e)) return r(e, String(t));
   if (Array.isArray(e)) return Array.prototype.some.call(e, (o) => ct(o, t, r));
   if (ut(e)) {
-    if (typeof t !== "object" || t === null) return !1;
-    for (let o of Object.keys(e)) if (!Object.hasOwn(t, o) || !ct(e[o], t[o], r)) return !1;
-    return !0;
+    if (typeof t !== "object" || t === null) return false;
+    for (let o of Object.keys(e)) if (!Object.hasOwn(t, o) || !ct(e[o], t[o], r)) return false;
+    return true;
   }
   return e === t;
 }
@@ -329,7 +329,7 @@ function Po(e, t) {
       Bf.chainReport().log(
         `matcher: a value of ${t.length} characters is past the ${G.MATCH_STRING_LIMIT} a RegExp matcher reads; it matches, so the hook decides`,
       ),
-      !0
+      true
     );
   if (ye(ge(e).flags) !== void 0) e.lastIndex = 0;
   return RegExp.prototype.exec.call(e, t) !== null;
@@ -340,7 +340,7 @@ function Fs(e, t) {
 }
 var Ls = (e, t = "matcher") => N.fromWireAt(e, t, "");
 var Ds = (e, t) => T.matchesWith(e, t, M.testsFromStart);
-var Cr = (e, t) => T.matchesWith(e, t, () => !0);
+var Cr = (e, t) => T.matchesWith(e, t, () => true);
 var Bs = (e, t, r) => !T.isPlainObject(e) || !Object.hasOwn(e, t) || Cr(e[t], r);
 var jf = {};
 je(jf, {
@@ -648,7 +648,7 @@ function WJ(e, t = "Error", r) {
 var Mr;
 function Gs() {
   if (!Mr) {
-    let e = F.createContext({ __proto__: null }, { codeGeneration: { strings: !1, wasm: !1 } });
+    let e = F.createContext({ __proto__: null }, { codeGeneration: { strings: false, wasm: false } });
     yie(e),
       (Mr = F.runInContext(
         `(e => {
@@ -936,7 +936,7 @@ je(QO, {
   runsOfNeighbours: () => Tt,
   watchForOverrun: () => Ko,
 });
-var K = (e) => e.core === !0 || e.managed === !0;
+var K = (e) => e.core === true || e.managed === true;
 var Pw = {};
 je(Pw, {
   ABORT_GRACE_MS: () => Ue,
@@ -994,15 +994,15 @@ function Fo(e) {
 function Lo({ error: e, handler: t, site: r, effect: o }) {
   let n = xe(t.name, l(e));
   if ((Bf.chainReport().log(`hook failed: ${n} (${r.event}; ${o})`, "error"), !K(t)))
-    Bf.chainReport().hookFailed({ plugin: t.name, event: r.event, reason: n, effect: o, overran: !1 });
+    Bf.chainReport().hookFailed({ plugin: t.name, event: r.event, reason: n, effect: o, overran: false });
   return n;
 }
 var Do = "skipped; what is below it ran in its place";
 var Bo = "skipped; its last next() run's result stands";
 function Ko(e, t, r) {
-  let o = !1,
+  let o = false,
     n = () => {
-      o = !0;
+      o = true;
     };
   e.then(n, n),
     setTimeout(() => {
@@ -1014,7 +1014,7 @@ function Ko(e, t, r) {
           event: r.event,
           reason: p,
           effect: "counted toward a runaway",
-          overran: !0,
+          overran: true,
         });
     }, Pw.ABORT_GRACE_MS).unref?.();
 }
@@ -1022,7 +1022,7 @@ function Ve(e, t) {
   if (e === void 0) return () => {};
   if (e.aborted) return t.abort(e.reason), () => {};
   let r = () => t.abort(e.reason);
-  return e.addEventListener("abort", r, { once: !0 }), () => e.removeEventListener("abort", r);
+  return e.addEventListener("abort", r, { once: true }), () => e.removeEventListener("abort", r);
 }
 function Uo({ handler: e, below: t, site: r, e: o, budget: n, downstreamSignal: s, state: p }) {
   async function i(a, m) {
@@ -1076,10 +1076,10 @@ function Qs(e) {
     s = d.sealed(t);
   return (
     Object.defineProperties(s, {
-      signal: { value: r, enumerable: !0 },
-      is: { value: e.is, enumerable: !0 },
-      event: { value: o, enumerable: !0 },
-      origin: { value: n, enumerable: !0 },
+      signal: { value: r, enumerable: true },
+      is: { value: e.is, enumerable: true },
+      event: { value: o, enumerable: true },
+      origin: { value: n, enumerable: true },
     }),
     Object.freeze(s)
   );
@@ -1115,7 +1115,7 @@ function St(e) {
 }
 var Ot = ({ call: e, signal: t, event: r, origin: o }) =>
   Ay.makeNext({ call: e, signal: t, is: Ay.isEvent(r), event: r, origin: o });
-var Rt = () => ({ pendingDownstream: 0, settled: !1, inFlight: void 0, fromBelow: [], belowRejected: void 0 });
+var Rt = () => ({ pendingDownstream: 0, settled: false, inFlight: void 0, fromBelow: [], belowRejected: void 0 });
 var At = (e, t) => t.aborted && (It(e) || l(e) === Re.abortReason(t));
 var zo =
   ({ handler: e, below: t, site: r, budgetMs: o, origin: n, nothingBelow: s }) =>
@@ -1159,11 +1159,11 @@ var zo =
         site: r,
         effect: a.inFlight === void 0 ? U.SKIPPED_BELOW_RAN : U.SKIPPED_LAST_NEXT_STANDS,
       });
-      if (((a.settled = !0), y.isExpired() && w !== void 0)) f.abort(new Re.HooksError(j)), U.watchForOverrun(w, e, r);
+      if (((a.settled = true), y.isExpired() && w !== void 0)) f.abort(new Re.HooksError(j)), U.watchForOverrun(w, e, r);
       if (a.inFlight === void 0 && s) throw b;
       v = await (a.inFlight ?? E(p));
     } finally {
-      if (((a.settled = !0), y.clear(), g(), u(), a.pendingDownstream > 0))
+      if (((a.settled = true), y.clear(), g(), u(), a.pendingDownstream > 0))
         m.abort(new Re.HooksError(`${e.name} settled the call`));
     }
     return v;
@@ -1293,7 +1293,7 @@ var Yo = (e, t, r) =>
 var Jo = (e) => (e === void 0 ? void 0 : "a drop that carries a context");
 function qo(e) {
   let { isError: t, ...r } = e;
-  return t === !0 ? e : r;
+  return t === true ? e : r;
 }
 function V(e) {
   if (!Array.isArray(e)) return;
@@ -1312,10 +1312,10 @@ function Ht(e, t) {
   for (let o of e) r.set(o, (r.get(o) ?? 0) + 1);
   for (let o of t) {
     let n = r.get(o) ?? 0;
-    if (n === 0) return !1;
+    if (n === 0) return false;
     r.set(o, n - 1);
   }
-  return !0;
+  return true;
 }
 var Qo = ({ event: e, check: t, checkArgument: r }) => ({ event: e, check: jt(t), checkArgument: r });
 var Zo = (e, t) =>
@@ -2369,7 +2369,7 @@ function In(e, t) {
   let r = e,
     o = Date.now(),
     n,
-    s = !1,
+    s = false,
     p = () => {},
     i = Pw.observed(
       new Promise((u, f) => {
@@ -2377,7 +2377,7 @@ function In(e, t) {
       }),
     );
   function a() {
-    (s = !0), p(new Re.HooksError(t));
+    (s = true), p(new Re.HooksError(t));
   }
   function m() {
     (o = Date.now()), (n = setTimeout(a, r));
@@ -2399,9 +2399,9 @@ function Gt(e) {
   return e.catch(() => {}), e;
 }
 function jn(e, t) {
-  if (e <= 0) return { expired: void 0, isExpired: () => !1, pause() {}, resume() {}, clear() {} };
+  if (e <= 0) return { expired: void 0, isExpired: () => false, pause() {}, resume() {}, clear() {} };
   let r = 0,
-    o = !1,
+    o = false,
     n,
     s = ve.createDeadline(e, `exceeded ${e}ms budget`),
     p = Promise.withResolvers();
@@ -2420,7 +2420,7 @@ function jn(e, t) {
       if (--r === 0 && !o) s.resume(), n?.resume();
     },
     clear() {
-      (o = !0), s.clear(), n?.clear(), a();
+      (o = true), s.clear(), n?.clear(), a();
     },
   };
 }
@@ -2516,7 +2516,7 @@ function Hn({ engine: e, core: t, pluginName: r, callInterface: o, invoke: n, wr
     identity: new Set(Object.keys(p)),
     local: t,
     own: new Map(),
-    finalized: !1,
+    finalized: false,
     pluginName: r,
     callInterface: o,
     invoke: n,
@@ -2624,7 +2624,7 @@ function qi(e) {
       return t.finalized;
     },
     wrap:
-      (r, o = !1) =>
+      (r, o = false) =>
       async (n, s) => {
         let p = new WeakMap(),
           i;
@@ -2660,7 +2660,7 @@ function qi(e) {
         if (s !== "*" && !Object.hasOwn(r, s) && !t.identity.has(s)) t.slots[s] = W.suppressedStub(s, p, t.wrapMethod);
       let n = o?.["*"];
       if (n !== void 0) Object.setPrototypeOf(t.engine, W.missingNounTrap(n, t.wrapMethod));
-      Object.freeze(t.engine), (t.finalized = !0);
+      Object.freeze(t.engine), (t.finalized = true);
     },
     call: (r, o, n) => {
       let s = t.own.get(r);
@@ -2697,7 +2697,7 @@ var _ie = {};
 je(_ie, { FLAG_NOUN_NAME: () => Zi, default: () => _ie, flagInterface: () => Qi, internalBuild: () => ep });
 var Qi = (e) => d.sealNoun({ value: (t, r) => e("flag.value", { name: t, fallback: r }) });
 var Zi = "flag";
-var ep = () => !1;
+var ep = () => false;
 var Fn = (e) => e !== _ie.FLAG_NOUN_NAME || _ie.internalBuild();
 function Ln(e, t, r) {
   let { register: o } = typeof e === "object" && e !== null ? e : {};
@@ -2714,7 +2714,7 @@ function Dn(e, t) {
 }
 var Qe = {};
 je(Qe, { audioInterface: () => tp, default: () => Qe, loopWithoutSignal: () => Vr });
-var Vr = (e, t) => e === !0 && t === void 0;
+var Vr = (e, t) => e === true && t === void 0;
 var tp = (e, t) =>
   d.sealNoun({
     play: (r, o) => {
@@ -2725,7 +2725,7 @@ var tp = (e, t) =>
           ? Promise.reject(
               new Re.HooksError(`${e}: $.audio.play with loop needs options.signal: the clip repeats until it aborts`),
             )
-          : t("audio.play", { clip: r, loop: s === !0, gain: p }, n);
+          : t("audio.play", { clip: r, loop: s === true, gain: p }, n);
     },
     speak: (r, o) => t("audio.speak", { text: String(r), voice: o?.voice }),
   });
@@ -2804,8 +2804,8 @@ function rp({ pluginName: e, live: t, unloaded: r, invoke: o, signalFrom: n }) {
         t?.add(w);
       });
     },
-    after: (i, a) => p({ event: "after", ms: i, fn: a, repeat: !1 }),
-    every: (i, a) => p({ event: "every", ms: i, fn: a, repeat: !0 }),
+    after: (i, a) => p({ event: "after", ms: i, fn: a, repeat: false }),
+    every: (i, a) => p({ event: "every", ms: i, fn: a, repeat: true }),
   });
 }
 var et = {};
@@ -2958,7 +2958,7 @@ var qr = (e, t) => ({
   tool: Yr,
   prompt: t,
   description: e.description ?? t.split(/\s+/).slice(0, Jr).join(" "),
-  run_in_background: e.background === !0,
+  run_in_background: e.background === true,
   ...(e.model !== void 0 && { model: e.model }),
   ...(e.subagentType !== void 0 && { subagent_type: e.subagentType }),
   ...(e.name !== void 0 && { name: e.name }),
@@ -2980,7 +2980,7 @@ var cp = (e, t) =>
         ? d.sealNoun({
             model: Qr(n.result) ?? r.model ?? "inherit",
             text: n.text ?? "",
-            ...(n.isError === !0 && { isError: !0 }),
+            ...(n.isError === true && { isError: true }),
           })
         : d.sealNoun({ deny: n.deny });
     },
@@ -3089,7 +3089,7 @@ function yp(e, t) {
               question: i,
               header: g,
               options: f.map((E) => ({ label: E, description: "" })),
-              multiSelect: m.multiSelect === !0,
+              multiSelect: m.multiSelect === true,
             },
           ],
         }),
@@ -3200,8 +3200,8 @@ var Gn = ({ pluginName: e, engine: t, interfaces: r }, { invoke: o, wrapMethod: 
   interfaces: r,
   registrations: new Map(),
   named: new Set(),
-  everyEvent: !1,
-  registered: !1,
+  everyEvent: false,
+  registered: false,
   invoke: o,
   wrapMethod: n,
   copyMatcher: s,
@@ -3212,12 +3212,12 @@ function sr(e, { event: t, hook: r, matcher: o }) {
     if (e.named.has(t)) throw new Re.HooksError(`${e.pluginName}: on("${t}") registered twice`);
     e.named.add(t);
   }
-  Oe(e, { event: t, hook: r, matcher: o, observing: !1 });
+  Oe(e, { event: t, hook: r, matcher: o, observing: false });
 }
 function ir(e, t, r) {
   if (e.everyEvent) throw new Re.HooksError(`${e.pluginName}: on("*") registered twice`);
-  e.everyEvent = !0;
-  for (let o of A.EVERY_EVENT) Oe(e, { event: o, hook: t, matcher: r, observing: !0 });
+  e.everyEvent = true;
+  for (let o of A.EVERY_EVENT) Oe(e, { event: o, hook: t, matcher: r, observing: true });
 }
 var Xn = (e) =>
   d.sealed(
@@ -3241,7 +3241,7 @@ async function gp(e) {
   let { loaded: t, host: r, invoke: o, wrapMethod: n, signalFrom: s } = e,
     { modulePath: p, pluginName: i, pluginRoot: a } = e.args,
     m = new Set(),
-    u = !1,
+    u = false,
     f = { plugin: d.sealNoun({ name: i, root: a }) };
   Object.setPrototypeOf(f, null);
   let g = qe.createInterfaceOps({
@@ -3263,13 +3263,13 @@ async function gp(e) {
     y = Ae.createRegistrar({ pluginName: i, engine: f, interfaces: g }, e);
   return (
     await o(A.registerOf(t, i, p), [Ae.makeOn(y), O.freezeDeep(e.args.options)]),
-    (y.registered = !0),
+    (y.registered = true),
     {
       registrations: y.registrations,
       finalize: g.finalize,
       callInterface: g.call,
       dispose() {
-        u = !0;
+        u = true;
         for (let x of m) x.cancel();
         m.clear();
       },
@@ -3370,7 +3370,7 @@ function Ie(e) {
   try {
     return e();
   } catch {
-    return !1;
+    return false;
   }
 }
 var pr = (e) => Ie(() => e instanceof Error);
@@ -3672,7 +3672,7 @@ function ls({ timers: e, id: t, fire: r }) {
 async function Kp(e, t, r = {}) {
   let { pluginName: o } = e,
     { stamp: n, signal: s } = r,
-    p = !1;
+    p = false;
   function i(c) {
     if (n === void 0) return c();
     let h = Atomics.load(n.view, 0);
@@ -3686,7 +3686,7 @@ async function Kp(e, t, r = {}) {
   let a = new Map(),
     m = 0,
     u = z.nullPrototypeSandbox(),
-    f = fe.createContext(u, { codeGeneration: { strings: !1, wasm: !1 } });
+    f = fe.createContext(u, { codeGeneration: { strings: false, wasm: false } });
   z.shareErrorInstanceOf(f), yie(f);
   let g = P5t(f),
     y = fe.runInContext("((self, fn, ...args) => Reflect.apply(fn, self, args))", f),
@@ -3806,14 +3806,14 @@ async function Kp(e, t, r = {}) {
     ),
     Fe = (c) => d.sealed(ue((...h) => Bf.chainReport().log(`[${o}] console.${c}: ${h.map(lZe).join(" ")}`)));
   Object.assign(u, {
-    setTimeout: vo(!1),
-    setInterval: vo(!0),
+    setTimeout: vo(false),
+    setInterval: vo(true),
     clearTimeout: wo,
     clearInterval: wo,
     console: d.sealNoun({ log: Fe("log"), info: Fe("info"), warn: Fe("warn"), error: Fe("error"), debug: Fe("debug") }),
   });
   let Ss = { ...e, options: w(e.options) };
-  s?.addEventListener("abort", Sr, { once: !0 });
+  s?.addEventListener("abort", Sr, { once: true });
   let Tr;
   try {
     if (
@@ -3827,14 +3827,14 @@ async function Kp(e, t, r = {}) {
         copyMatcher: v,
         stamped: i,
       })),
-      s?.aborted === !0)
+      s?.aborted === true)
     )
       throw new Re.HooksError(`${o}: unloaded while its module loaded`);
   } catch (c) {
     throw (Sr(), c);
   }
   function Sr() {
-    p = !0;
+    p = true;
     for (let c of a.values()) q.clear(c);
     a.clear();
   }

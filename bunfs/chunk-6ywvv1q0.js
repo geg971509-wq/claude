@@ -10,7 +10,7 @@
 // Version: 2.1.252
 import { Dr, xj } from "/$bunfs/root/chunk-gcks6mn0.js";
 function fdn(n, e) {
-  return e && !n.restricted ? { ...n, restricted: !0 } : n;
+  return e && !n.restricted ? { ...n, restricted: true } : n;
 }
 function Lce(n) {
   return (
@@ -34,7 +34,7 @@ function Lce(n) {
       n.managedSettings,
     ].some((e) => e !== void 0) ||
     Boolean(n.disableSlashCommands) ||
-    n.sessionPersistence === !1 ||
+    n.sessionPersistence === false ||
     Boolean(n.dangerouslySkipPermissions) ||
     Boolean(n.allowDangerouslySkipPermissions) ||
     Boolean(n.allowBypass) ||

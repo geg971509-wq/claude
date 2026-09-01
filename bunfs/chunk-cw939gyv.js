@@ -70,7 +70,7 @@ function dDt(e, t) {
   let r = new Set();
   for (let o of e) {
     let d = r.has(o.name) ? "duplicate_name" : me(o, t);
-    if (d !== null) return { ok: !1, reason: d, name: o.name };
+    if (d !== null) return { ok: false, reason: d, name: o.name };
     r.add(o.name);
   }
   let a = e
@@ -79,7 +79,7 @@ function dDt(e, t) {
       bytes: Buffer.concat([Buffer.from(`${Ie[o.kind]} ${o.name}\x00`), Buffer.from(o.id, "hex")]),
     }))
     .toSorted((o, d) => Buffer.compare(o.sortKey, d.sortKey));
-  return { ok: !0, tree: K("tree", Buffer.concat(a.map((o) => o.bytes)), t) };
+  return { ok: true, tree: K("tree", Buffer.concat(a.map((o) => o.bytes)), t) };
 }
 function tst(e, t) {
   let r = Z(t),
@@ -100,12 +100,12 @@ function tst(e, t) {
   return a;
 }
 function Ae({ tree: e, parents: t, author: r, committer: a, message: o }, d) {
-  if (![e, ...t].every((l) => Xq(l, d))) return { ok: !1, reason: "bad_id" };
-  if (!je(r) || !je(a)) return { ok: !1, reason: "bad_signature" };
-  if (o.includes("\x00")) return { ok: !1, reason: "nul_in_message" };
+  if (![e, ...t].every((l) => Xq(l, d))) return { ok: false, reason: "bad_id" };
+  if (!je(r) || !je(a)) return { ok: false, reason: "bad_signature" };
+  if (o.includes("\x00")) return { ok: false, reason: "nul_in_message" };
   let s = [`tree ${e}`, ...t.map((l) => `parent ${l}`), `author ${Ce(r)}`, `committer ${Ce(a)}`, "", o].join(`
 `);
-  return { ok: !0, commit: K("commit", Buffer.from(s), d) };
+  return { ok: true, commit: K("commit", Buffer.from(s), d) };
 }
 function nst(e, t) {
   let [r = "", ...a] = e.toString("latin1").split(`
@@ -262,13 +262,13 @@ function rst({ store: e, identity: t }) {
         O = await Le(c.node, "", k, e);
       if (!O.ok) return O;
       let R = { rootTree: O.id, files: new Map(u), trees: k };
-      return se(a, O.id, R, Ne), { ok: !0, rootTree: O.id, listing: R };
+      return se(a, O.id, R, Ne), { ok: true, rootTree: O.id, listing: R };
     },
     async writeCommit({ tree: u, parents: c, message: k, whenUnix: O }) {
       let R = { ...t, unixSeconds: O, utcOffsetMinutes: 0 },
         F = Ae({ tree: u, parents: c, author: R, committer: R, message: k }, r);
       if (!F.ok) return F;
-      return { ok: !0, id: await e.put("commit", F.commit.body) };
+      return { ok: true, id: await e.put("commit", F.commit.body) };
     },
     async listingOf(u) {
       let c = await s(u);
@@ -342,18 +342,18 @@ function rst({ store: e, identity: t }) {
       return k;
     },
     async isAncestor(u, c) {
-      let k = !1,
+      let k = false,
         O = new Set(),
         R = [c];
       for (let F = R.pop(); F !== void 0; F = R.pop()) {
-        if (F === u) return !0;
+        if (F === u) return true;
         if (O.has(F)) continue;
         O.add(F);
         let P = await s(F);
         if (P.kind === "ok") for (let M of P.parents) R.push(M);
-        else k = !0;
+        else k = true;
       }
-      return k ? "unknown" : !1;
+      return k ? "unknown" : false;
     },
     async commitParents(u) {
       let c = await s(u);
@@ -368,29 +368,29 @@ function Dt(e) {
   let t = { entries: new Map() },
     r = e.size,
     a = 0;
-  if (r > ye) return { ok: !1, reason: "too_large", path: "" };
+  if (r > ye) return { ok: false, reason: "too_large", path: "" };
   for (let [o, d] of e) {
-    if (((a += o.length), a > Se)) return { ok: !1, reason: "too_large", path: o };
+    if (((a += o.length), a > Se)) return { ok: false, reason: "too_large", path: o };
     let s = o.split("/");
-    if (s.some((g) => g === "" || g === "." || g === "..")) return { ok: !1, reason: "bad_path", path: o };
-    if (s.length - 1 > ve) return { ok: !1, reason: "too_large", path: o };
+    if (s.some((g) => g === "" || g === "." || g === "..")) return { ok: false, reason: "bad_path", path: o };
+    if (s.length - 1 > ve) return { ok: false, reason: "too_large", path: o };
     let l = t,
       h = 0;
     for (let g of s.slice(0, -1)) {
       h += (h === 0 ? 0 : 1) + g.length;
       let p = l.entries.get(g);
       if (p === void 0) {
-        if (((r += 1), (a += h), r > ye || a > Se)) return { ok: !1, reason: "too_large", path: o };
+        if (((r += 1), (a += h), r > ye || a > Se)) return { ok: false, reason: "too_large", path: o };
         let u = { entries: new Map() };
         l.entries.set(g, u), (l = u);
       } else if ("entries" in p) l = p;
-      else return { ok: !1, reason: "path_conflict", path: o };
+      else return { ok: false, reason: "path_conflict", path: o };
     }
     let y = s.at(-1) ?? "";
-    if (l.entries.has(y)) return { ok: !1, reason: "path_conflict", path: o };
+    if (l.entries.has(y)) return { ok: false, reason: "path_conflict", path: o };
     l.entries.set(y, d);
   }
-  return { ok: !0, node: t };
+  return { ok: true, node: t };
 }
 async function Le(e, t, r, a) {
   let o = [];
@@ -403,13 +403,13 @@ async function Le(e, t, r, a) {
       continue;
     }
     let g = At(h.mode);
-    if (g === null) return { ok: !1, reason: "bad_mode", path: y };
+    if (g === null) return { ok: false, reason: "bad_mode", path: y };
     o.push({ name: l, kind: g, id: h.blobId });
   }
   let d = dDt(o, a.objectFormat);
-  if (!d.ok) return { ok: !1, reason: d.reason, path: t === "" ? d.name : t + "/" + d.name };
+  if (!d.ok) return { ok: false, reason: d.reason, path: t === "" ? d.name : t + "/" + d.name };
   let s = await a.put("tree", d.tree.body);
-  return r.set(t, s), { ok: !0, id: s };
+  return r.set(t, s), { ok: true, id: s };
 }
 function be(e, t) {
   let r = e.get(t);
@@ -444,7 +444,7 @@ var $e = "PACK",
   Xt = Ye(zt);
 async function ost(e, t) {
   let r = new Set(),
-    a = e.filter((l) => (r.has(l.id) ? !1 : Boolean(r.add(l.id)))),
+    a = e.filter((l) => (r.has(l.id) ? false : Boolean(r.add(l.id)))),
     o = Buffer.alloc(ae);
   o.write($e, 0, "latin1"), o.writeUInt32BE(We, 4), o.writeUInt32BE(a.length, 8);
   let d = [o],
@@ -465,7 +465,7 @@ async function i2n(e, { objectFormat: t, maxInflatedBytes: r, maxObjects: a }) {
   }
 }
 function z(e, t) {
-  return { ok: !1, reason: e, detail: t };
+  return { ok: false, reason: e, detail: t };
 }
 async function Vt(e, t, r, a) {
   let o = Z(t);
@@ -514,10 +514,10 @@ async function Jt(e, t, r, a, o) {
   if (h > o) return z("over_budget", "the objects inflate past the budget");
   let u = await ke(e.subarray(y, r), h);
   if (!u.ok) return z(u.reason, `${u.detail} at ${t}`);
-  return { ok: !0, entry: { offset: t, data: u.data, base: g }, next: y + u.consumed, inflatedBytes: h };
+  return { ok: true, entry: { offset: t, data: u.data, base: g }, next: y + u.consumed, inflatedBytes: h };
 }
 async function ke(e, t) {
-  let r = { info: !0, maxOutputLength: Math.max(1, t), chunkSize: Math.max(Ve, t + 1) },
+  let r = { info: true, maxOutputLength: Math.max(1, t), chunkSize: Math.max(Ve, t + 1) },
     a;
   try {
     a = t < Xe ? Lt(e, r) : await Xt(e, r);
@@ -527,7 +527,7 @@ async function ke(e, t) {
       : z("malformed", "a zlib stream does not inflate to its declared size");
   }
   if (!Zt(a) || a.buffer.length !== t) return z("malformed", "a zlib stream is shorter than its declared size");
-  return { ok: !0, data: a.buffer, consumed: a.engine.bytesWritten };
+  return { ok: true, data: a.buffer, consumed: a.engine.bytesWritten };
 }
 function Zt(e) {
   return (
@@ -579,7 +579,7 @@ async function qt(e, t, r) {
   }
   let y = e.map((g) => d.get(g.offset));
   if (!y.every((g) => g !== void 0)) return z("thin_pack", "a delta rests on an object the pack does not carry");
-  return { ok: !0, objects: y };
+  return { ok: true, objects: y };
 }
 function Qt(e, t) {
   let r = [];
@@ -611,8 +611,8 @@ function en(e, t, r) {
   }
 }
 function nn(e) {
-  let t = we(e, 0, e.length, !0),
-    r = t === null ? null : we(e, t.next, e.length, !0);
+  let t = we(e, 0, e.length, true),
+    r = t === null ? null : we(e, t.next, e.length, true);
   return t === null || r === null ? null : { baseSize: t.value, resultSize: r.value, next: r.next };
 }
 function rn(e, t, r) {
@@ -696,7 +696,7 @@ async function s2n({ root: e, sessionId: t, budgetBytes: r, objectFormat: a = "s
   if (d === null) return { kind: "unreadable", detail: "not an id a directory can be named after" };
   let s;
   try {
-    if ((await ln(d, { recursive: !0, mode: En }), (s = q(await re(e), t, Re)), (await re(d)) !== s))
+    if ((await ln(d, { recursive: true, mode: En }), (s = q(await re(e), t, Re)), (await re(d)) !== s))
       return { kind: "unreadable", detail: "the session directory is not a plain directory under the root" };
   } catch (u) {
     return { kind: "unreadable", detail: "cannot create the session directory: " + String(u) };
@@ -770,10 +770,10 @@ function a2n({ objectFormat: e = "sha1", budgetBytes: t = Number.POSITIVE_INFINI
         return h;
       },
       async putDeflated(s, l, h, y) {
-        if (r.has(s)) return !0;
+        if (r.has(s)) return true;
         let g = Xq(s, e) ? await ce(y, h) : null;
-        if (g === null || K(l, g, e).id !== s) return !1;
-        return r.set(s, { id: s, type: l, size: h, deflated: y }), !0;
+        if (g === null || K(l, g, e).id !== s) return false;
+        return r.set(s, { id: s, type: l, size: h, deflated: y }), true;
       },
       hold: (s) => Promise.resolve(s.filter((l) => !r.has(l))),
       stats: () => Promise.resolve({ objects: r.size, bytes: a(), sessionBytes: a(), budgetBytes: t, segments: 0 }),
@@ -796,9 +796,9 @@ function On({
 }) {
   let h = Promise.resolve(),
     y = null,
-    g = !1,
-    p = !1,
-    u = !1,
+    g = false,
+    p = false,
+    u = false,
     c = new Set(),
     k = new Set();
   function O(S) {
@@ -837,17 +837,17 @@ function On({
     if (u) return "absent";
     let w = [];
     for (let x = s.get(S) ?? null; x !== null; x = x.next) w.push(x);
-    let _ = !1;
+    let _ = false;
     for (let x of w) {
       if (x.segment.vanished) continue;
       let j = await jn(x);
       if (j === "vanished") Cn(x.segment, s);
-      else if (j === "unreadable") _ = !0;
+      else if (j === "unreadable") _ = true;
       else {
         let L = await ce(j, x.size);
         if (L !== null && K(x.type, L, e).id === S)
           return c.delete(S), k.add(S), F(S, x), { entry: x, deflated: j, body: L };
-        (_ = !0), R(S, x);
+        (_ = true), R(S, x);
       }
     }
     let T = s.get(S);
@@ -858,8 +858,8 @@ function On({
   async function M() {
     if (g) throw Error("this session can append nothing more in this process: its segment could not be made or mended");
     if (((y ??= await Fn(r, a, Math.min(o, yn), e)), y === null))
-      throw ((g = !0), Error("cannot create a segment to append to"));
-    if (!d.includes(y.segment)) d.unshift(y.segment), (p = !0);
+      throw ((g = true), Error("cannot create a segment to append to"));
+    if (!d.includes(y.segment)) d.unshift(y.segment), (p = true);
     return y;
   }
   function B(S) {
@@ -867,8 +867,8 @@ function On({
     return w !== void 0 && w.segment.own && !w.kept;
   }
   function I(S) {
-    for (let w = s.get(S) ?? null; w !== null; w = w.next) if (w.segment.own && !w.kept) return !0;
-    return !1;
+    for (let w = s.get(S) ?? null; w !== null; w = w.next) if (w.segment.own && !w.kept) return true;
+    return false;
   }
   function C(S) {
     return O(async () => {
@@ -880,7 +880,7 @@ function On({
       } catch (T) {
         throw (
           (await w.handle.truncate(w.offset).catch(() => {
-            g = !0;
+            g = true;
           }),
           T)
         );
@@ -888,7 +888,7 @@ function On({
       (w.offset += _.length), (w.segment.bytes = w.offset), l.add(S);
     });
   }
-  function A(S, w, _, T, x = !1) {
+  function A(S, w, _, T, x = false) {
     return O(async () => {
       if (u) throw Error("the object store is closed");
       if (s.get(S)?.segment.own && !c.has(S)) return;
@@ -900,7 +900,7 @@ function On({
       } catch (ue) {
         throw (
           (await j.handle.truncate(j.offset).catch(() => {
-            g = !0;
+            g = true;
           }),
           ue)
         );
@@ -941,7 +941,7 @@ function On({
     }
     for (let [T, x] of _) {
       if (!T.name.startsWith(a + ".") && (await In(T, r))) {
-        p = !0;
+        p = true;
         continue;
       }
       for (let j of x) {
@@ -949,7 +949,7 @@ function On({
         if (L === "absent" || L === "corrupt") w.push(j);
         else if (!L.entry.segment.secured)
           try {
-            await A(j, L.entry.type, L.entry.size, L.deflated, !0);
+            await A(j, L.entry.type, L.entry.size, L.deflated, true);
           } catch (J) {
             n("dir-sync object store: cannot carry a copy over: " + String(J)), w.push(j);
           }
@@ -1000,9 +1000,9 @@ function On({
     },
     async putDeflated(S, w, _, T) {
       if (u) throw Error("the object store is closed");
-      if (!Xq(S, e) || !Number.isSafeInteger(_) || _ < 0 || _ > Yhe || T.length > Yhe) return !1;
+      if (!Xq(S, e) || !Number.isSafeInteger(_) || _ < 0 || _ > Yhe || T.length > Yhe) return false;
       let x = await ce(T, _);
-      if (x === null || K(w, x, e).id !== S) return !1;
+      if (x === null || K(w, x, e).id !== S) return false;
       let j = s.get(S);
       if (
         j !== void 0 &&
@@ -1013,9 +1013,9 @@ function On({
           await C(S).catch((L) => {
             n("dir-sync object store: adoption not recorded: " + String(L));
           });
-        return !0;
+        return true;
       }
-      return await A(S, w, _, T), !0;
+      return await A(S, w, _, T), true;
     },
     hold: W,
     async stats() {
@@ -1023,23 +1023,23 @@ function On({
         await h,
         {
           objects: s.size,
-          bytes: U(() => !0),
+          bytes: U(() => true),
           sessionBytes: U((S) => S.secured),
           budgetBytes: t,
           segments: new Set(d.filter((S) => !S.vanished).map((S) => S.inode)).size,
         }
       );
     },
-    wouldExceed: (S) => U(() => !0) + S > t,
+    wouldExceed: (S) => U(() => true) + S > t,
     flush: () =>
       O(async () => {
         if (u) return;
-        if ((await y?.handle.sync(), p)) (p = !1), await Dn(r);
+        if ((await y?.handle.sync(), p)) (p = false), await Dn(r);
       }),
     close: () =>
       O(async () => {
         if (u) return;
-        (u = !0),
+        (u = true),
           await y?.handle.sync().catch(() => {
             return;
           }),
@@ -1053,7 +1053,7 @@ async function Rn(e, t) {
   let r, a;
   try {
     (a = await re(e)),
-      (r = (await Ee(e, { withFileTypes: !0 }))
+      (r = (await Ee(e, { withFileTypes: true }))
         .filter((s) => s.isDirectory() && ot.test(s.name))
         .map((s) => s.name)
         .toSorted((s, l) => Number(l === t) - Number(s === t) || (s < l ? -1 : 1)));
@@ -1069,8 +1069,8 @@ async function Rn(e, t) {
       y;
     try {
       if ((await re(l)) !== l) continue;
-      y = et(await de(l, { bigint: !0 }));
-      let p = (await Ee(l, { withFileTypes: !0 }))
+      y = et(await de(l, { bigint: true }));
+      let p = (await Ee(l, { withFileTypes: true }))
           .filter((c) => c.isFile() && nt.test(c.name))
           .map((c) => c.name)
           .toSorted(),
@@ -1084,7 +1084,7 @@ async function Rn(e, t) {
     for (let p of h) {
       let u = q(l, p);
       try {
-        let c = await de(u, { bigint: !0 }),
+        let c = await de(u, { bigint: true }),
           k = oe(c);
         if (k !== "") g.push({ name: p, path: u, inode: k, bytes: Number(c.size) });
       } catch {
@@ -1092,7 +1092,7 @@ async function Rn(e, t) {
       }
     }
     try {
-      if ((await re(l)) !== l || et(await de(l, { bigint: !0 })) !== y) continue;
+      if ((await re(l)) !== l || et(await de(l, { bigint: true })) !== y) continue;
     } catch {
       continue;
     }
@@ -1109,7 +1109,7 @@ async function Rn(e, t) {
         bytes: k,
         secured: s === t,
         own: s === t && p.startsWith(t + "."),
-        vanished: !1,
+        vanished: false,
       };
       d.set(c, R), o.push(R);
     }
@@ -1118,10 +1118,10 @@ async function Rn(e, t) {
 }
 async function xn(e) {
   try {
-    let t = (await Ee(e, { withFileTypes: !0 })).filter((r) => r.name.startsWith(wn));
+    let t = (await Ee(e, { withFileTypes: true })).filter((r) => r.name.startsWith(wn));
     await Promise.all(
       t.map((r) =>
-        dn(q(e, r.name), { recursive: !0, force: !0 }).catch(() => {
+        dn(q(e, r.name), { recursive: true, force: true }).catch(() => {
           return;
         }),
       ),
@@ -1141,9 +1141,9 @@ async function Fn(e, t, r, a) {
     if ((await re(d)) !== d) throw Error("the new segment is not inside the session directory");
     let l = Buffer.concat([ne, Buffer.from([rt, it[a]])]);
     await Oe(s, l, 0);
-    let h = await s.stat({ bigint: !0 });
+    let h = await s.stat({ bigint: true });
     return {
-      segment: { name: o, paths: [d], inode: oe(h), bytes: l.length, secured: !0, own: !0, vanished: !1 },
+      segment: { name: o, paths: [d], inode: oe(h), bytes: l.length, secured: true, own: true, vanished: false },
       handle: s,
       offset: l.length,
     };
@@ -1258,7 +1258,7 @@ function Mn(e, t) {
     headerBytes: s.next + t,
   };
 }
-function Ze({ type: e, kept: t = !1, size: r, deflatedSize: a, id: o }) {
+function Ze({ type: e, kept: t = false, size: r, deflatedSize: a, id: o }) {
   return Buffer.concat([
     Buffer.from([st, (e === "adopt" ? lt : at[e]) | (t ? Te : 0)]),
     qe(r),
@@ -1289,7 +1289,7 @@ async function ct(e) {
   while (e.paths[0] !== void 0)
     try {
       let t = await ie(e.paths[0], ea());
-      if (oe(await t.stat({ bigint: !0 })) !== e.inode)
+      if (oe(await t.stat({ bigint: true })) !== e.inode)
         return (
           await t.close().catch(() => {
             return;
@@ -1303,7 +1303,7 @@ async function ct(e) {
       if (r !== "ENOENT") return "unreadable";
       e.paths.shift();
     }
-  return (e.vanished = !0), "vanished";
+  return (e.vanished = true), "vanished";
 }
 async function jn(e) {
   let t = await ct(e.segment);
@@ -1326,7 +1326,7 @@ async function jn(e) {
   }
 }
 function Cn(e, t) {
-  e.vanished = !0;
+  e.vanished = true;
   for (let [r, a] of t) {
     let o = [];
     for (let s = a; s !== null; s = s.next) if (s.segment !== e) o.push(s);
@@ -1340,12 +1340,12 @@ function Cn(e, t) {
 }
 async function In(e, t) {
   let r = e.paths[0];
-  if (r === void 0) return !1;
+  if (r === void 0) return false;
   let a = q(t, e.name);
   try {
     let o = await ie(r, ea());
     try {
-      if (oe(await o.stat({ bigint: !0 })) !== e.inode) return !1;
+      if (oe(await o.stat({ bigint: true })) !== e.inode) return false;
       await an(r, a);
     } finally {
       await o.close().catch(() => {
@@ -1353,20 +1353,20 @@ async function In(e, t) {
       });
     }
   } catch (o) {
-    return n("dir-sync object store: cannot link a segment, copying its records instead: " + String(o)), !1;
+    return n("dir-sync object store: cannot link a segment, copying its records instead: " + String(o)), false;
   }
   try {
-    if (oe(await de(a, { bigint: !0 })) !== e.inode)
+    if (oe(await de(a, { bigint: true })) !== e.inode)
       return (
         await tt(a).catch(() => {
           return;
         }),
-        !1
+        false
       );
   } catch {
-    return !1;
+    return false;
   }
-  return e.paths.unshift(a), (e.secured = !0), await An(a), !0;
+  return e.paths.unshift(a), (e.secured = true), await An(a), true;
 }
 function et(e) {
   return String(e.dev) + ":" + String(e.ino);
@@ -1415,7 +1415,7 @@ var xe = 1,
 async function ist(e, { maxEntries: t = ft } = {}) {
   let r = new Map();
   for (let [a, o, d, s, l, h, y, g] of await $n(e))
-    r.set(a, { stat: { size: o, mtimeMs: d, mode: l, observedAtMs: y }, ctimeMs: s, ino: h, blobId: g, touched: !1 });
+    r.set(a, { stat: { size: o, mtimeMs: d, mode: l, observedAtMs: y }, ctimeMs: s, ino: h, blobId: g, touched: false });
   return {
     lookup(a, o) {
       let d = r.get(a);
@@ -1429,11 +1429,11 @@ async function ist(e, { maxEntries: t = ft } = {}) {
         !mrn(d.stat)
       )
         return null;
-      return (d.touched = !0), d.blobId;
+      return (d.touched = true), d.blobId;
     },
     remember(a, { size: o, mtimeMs: d, ctimeMs: s, mode: l, ino: h, observedAtMs: y }, g) {
       let p = { size: o, mtimeMs: d, mode: l, observedAtMs: y };
-      if (mrn(p)) r.set(a, { stat: p, ctimeMs: s, ino: h, blobId: g, touched: !0 });
+      if (mrn(p)) r.set(a, { stat: p, ctimeMs: s, ino: h, blobId: g, touched: true });
       else r.delete(a);
     },
     forget(a) {
@@ -1460,9 +1460,9 @@ async function ist(e, { maxEntries: t = ft } = {}) {
       while (Buffer.byteLength(o) > mt && a.length > 0)
         (a.length = Math.floor(a.length / 2)), (o = b({ version: xe, entries: a }));
       try {
-        return await Nn(zn(e), { recursive: !0, mode: Gn }), await Wn(e, o, Ln), !0;
+        return await Nn(zn(e), { recursive: true, mode: Gn }), await Wn(e, o, Ln), true;
       } catch (d) {
-        return n("dir-sync stat cache: not saved: " + String(d)), !1;
+        return n("dir-sync stat cache: not saved: " + String(d)), false;
       }
     },
   };
@@ -1474,7 +1474,7 @@ async function $n(e) {
       let r = await t.stat();
       if (!r.isFile() || r.size > mt) return [];
       let a = await hne(t, r.size),
-        o = Yn().safeParse(Ut(a.toString("utf8"), !1));
+        o = Yn().safeParse(Ut(a.toString("utf8"), false));
       return o.success
         ? o.data.entries.flatMap((d) => {
             let s = Hn().safeParse(d);
@@ -1505,7 +1505,7 @@ function gt({ wanted: e, known: t, peer: r, peerHasBlob: a, sizeOf: o, outOfSigh
   for (let [p, u] of [...e].toSorted(Kn)) h(p, u, u.bytes);
   let y = [],
     g = te([...t.keys(), ...r.keys()])
-      .filter((p) => !e.has(p) && d(p) !== !1)
+      .filter((p) => !e.has(p) && d(p) !== false)
       .toSorted();
   for (let p of g) {
     let u = t.get(p),
@@ -1790,11 +1790,11 @@ function Fe(e) {
 }
 async function ar(e, t, { basis: r, acked: a }) {
   if (r === null || a.length === 0) return Fe(t);
-  for (let [o, d] of a.entries()) if ((await e.isAncestor(d, r)) === !1) return t[1 + o]?.files ?? Fe(t);
+  for (let [o, d] of a.entries()) if ((await e.isAncestor(d, r)) === false) return t[1 + o]?.files ?? Fe(t);
   return Fe(t);
 }
 function lr(e, t) {
-  let r = (l) => (t instanceof Map || t instanceof Set ? t.has(l) : !1),
+  let r = (l) => (t instanceof Map || t instanceof Set ? t.has(l) : false),
     a = new Set();
   for (let l of e.keys()) for (let h = l.indexOf("/"); h >= 0; h = l.indexOf("/", h + 1)) a.add(l.slice(0, h));
   let o = [],
@@ -1826,7 +1826,7 @@ async function cr({ candidates: e, folder: t, realRoot: r, statCache: a, through
       let g = y.ctimeMs !== void 0 && y.ino !== void 0,
         p = { size: y.size, mtimeMs: y.mtimeMs, ctimeMs: y.ctimeMs ?? 0, mode: y.mode, ino: y.ino ?? 0 },
         u = g ? a.lookup(y.path, p) : null;
-      if (u !== null) return { kind: "file", file: { stat: y, blobId: u, kept: null }, hashed: !1 };
+      if (u !== null) return { kind: "file", file: { stat: y, blobId: u, kept: null }, hashed: false };
       if (Rt(d)) return { kind: "skip", path: y.path, reason: "unreadable" };
       let c = await OF(t, r, y.path, o);
       if (c.kind === "skip") return { kind: "skip", path: y.path, reason: c.skipped.reason };
@@ -1836,7 +1836,7 @@ async function cr({ candidates: e, folder: t, realRoot: r, statCache: a, through
       if (g) a.remember(y.path, R, k);
       let F = c.content.length <= qn && s + c.content.length <= Qn;
       if (F) s += c.content.length;
-      return { kind: "file", file: { stat: O, blobId: k, kept: F ? c.content : null }, hashed: !0 };
+      return { kind: "file", file: { stat: O, blobId: k, kept: F ? c.content : null }, hashed: true };
     }),
     h = await Promise.all(e.map(l));
   return {
@@ -1854,13 +1854,13 @@ function ur(e, t, r) {
     h = new Set(o),
     y = new Set(l),
     g = (p, u) => {
-      for (let c = u.lastIndexOf("/"); c > 0; c = u.lastIndexOf("/", c - 1)) if (p.has(u.slice(0, c))) return !0;
-      return !1;
+      for (let c = u.lastIndexOf("/"); c > 0; c = u.lastIndexOf("/", c - 1)) if (p.has(u.slice(0, c))) return true;
+      return false;
     };
   return (p) => {
     if (d.has(p) || g(h, p)) return "excluded";
     if (s.has(p) || y.has(p) || g(y, p)) return "transient";
-    return !1;
+    return false;
   };
 }
 async function fr({

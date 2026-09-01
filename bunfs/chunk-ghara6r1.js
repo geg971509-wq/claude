@@ -57,11 +57,11 @@ function Iir(e) {
 }
 function u1e() {
   let e = E.reader;
-  if (!e) return !1;
+  if (!e) return false;
   try {
-    return e(W, !1) === !0;
+    return e(W, false) === true;
   } catch {
-    return !1;
+    return false;
   }
 }
 var _Ce = "account_on_hold",
@@ -75,7 +75,7 @@ function BTt(e) {
 }
 var K = ZAn(d1e);
 function eCn(e) {
-  if (!u1e() || !e.startsWith(h)) return !1;
+  if (!u1e() || !e.startsWith(h)) return false;
   let t = e.slice(h.length);
   return x(t) && Toe(t) === t;
 }
@@ -85,7 +85,7 @@ function D(e) {
   try {
     return e === new URL(zt().CLAUDE_AI_ORIGIN).origin;
   } catch {
-    return !1;
+    return false;
   }
 }
 function Toe(e) {
@@ -160,9 +160,9 @@ function p1e(e) {
 }
 var U = ["ANTHROPIC_FEDERATION_RULE_ID", "ANTHROPIC_ORGANIZATION_ID"];
 class C {
-  precedenceSource = { filled: !1 };
-  authType = { filled: !1 };
-  accountInfo = { filled: !1 };
+  precedenceSource = { filled: false };
+  authType = { filled: false };
+  accountInfo = { filled: false };
   primedFiles = void 0;
 }
 var a = new J(() => new C());
@@ -170,7 +170,7 @@ function cb() {
   let e = a.of(G().host);
   if (e.precedenceSource.filled) return e.precedenceSource.value;
   let t = b();
-  return (e.precedenceSource = { filled: !0, value: t }), t;
+  return (e.precedenceSource = { filled: true, value: t }), t;
 }
 function b() {
   let e = ej(),
@@ -189,10 +189,10 @@ function b() {
 }
 function WTt() {
   let e = a.of(G().host);
-  (e.precedenceSource = { filled: !1 }), (e.authType = { filled: !1 }), tCn();
+  (e.precedenceSource = { filled: false }), (e.authType = { filled: false }), tCn();
 }
 function tCn() {
-  a.of(G().host).accountInfo = { filled: !1 };
+  a.of(G().host).accountInfo = { filled: false };
 }
 function nCn() {
   return cb() !== null;
@@ -201,7 +201,7 @@ function A() {
   let e = a.of(G().host);
   if (e.authType.filled) return e.authType.value;
   let t = z();
-  return (e.authType = { filled: !0, value: t }), t;
+  return (e.authType = { filled: true, value: t }), t;
 }
 function z() {
   let e = cb();

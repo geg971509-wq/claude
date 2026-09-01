@@ -76,10 +76,10 @@ import { T } from "/$bunfs/root/chunk-ma6kk3k0.js";
 import { He } from "/$bunfs/root/chunk-79g5tayq.js";
 import { Q } from "/$bunfs/root/chunk-wag5ye9w.js";
 function rwe() {
-  return I("tengu_idle_amber_finch", !1);
+  return I("tengu_idle_amber_finch", false);
 }
 function W5n() {
-  return I("tengu_quiet_slate_wren", !1);
+  return I("tengu_quiet_slate_wren", false);
 }
 function A2() {
   return !rwe() && !a.DISABLE_UPGRADE_COMMAND && Fn() !== "enterprise";
@@ -112,7 +112,7 @@ function we() {
   return o.launchConfig.parsed;
 }
 function De(e) {
-  if (e === void 0) return !1;
+  if (e === void 0) return false;
   let o = P();
   if (o.planLimitsEndDate === null || o.planLimitsEndDate.value !== e) o.planLimitsEndDate = { value: e, ms: Pe(e) };
   return Date.now() >= o.planLimitsEndDate.ms;
@@ -122,8 +122,8 @@ function Lte() {
 }
 function C2() {
   let e = we();
-  if (e.enabled === !1) return !1;
-  return e.overageConsentRequired === !0 || De(e.planLimitsEndDate);
+  if (e.enabled === false) return false;
+  return e.overageConsentRequired === true || De(e.planLimitsEndDate);
 }
 function uM() {
   return Ne() !== "firstParty" || !Tt() || I7e() || mw() === "default_claude_zero";
@@ -144,13 +144,13 @@ function Te() {
   return Fn() === "enterprise" && !I7e();
 }
 function dz() {
-  if (Te()) return !0;
+  if (Te()) return true;
   let e = Fn();
-  if (e === null) return !1;
+  if (e === null) return false;
   return Le().includes(e);
 }
 function J() {
-  return I("tengu_saffron_picker_dim", !1);
+  return I("tengu_saffron_picker_dim", false);
 }
 var xe = m(() =>
   T.object({
@@ -192,49 +192,49 @@ function mze() {
   if (!e) return VVt();
   let o = ie().fableOverageConsentV2;
   return (
-    (e.organizationUuid !== void 0 && o?.[e.organizationUuid] === !0) ||
-    (e.accountUuid !== void 0 && o?.[`acct:${e.accountUuid}`] === !0)
+    (e.organizationUuid !== void 0 && o?.[e.organizationUuid] === true) ||
+    (e.accountUuid !== void 0 && o?.[`acct:${e.accountUuid}`] === true)
   );
 }
 function Ie(e, o) {
-  if (ie().fableOverageConsentV2?.[e] === !0) return;
-  Ae((t) => ({ ...t, fableOverageConsentV2: { ...t.fableOverageConsentV2, [e]: !0 } }), o);
+  if (ie().fableOverageConsentV2?.[e] === true) return;
+  Ae((t) => ({ ...t, fableOverageConsentV2: { ...t.fableOverageConsentV2, [e]: true } }), o);
 }
 function Mte(e) {
   let o = ne();
   if (o === null) {
-    x0n(!0);
+    x0n(true);
     return;
   }
   Ie(o, e);
 }
 function owe() {
   let e = ie().cachedExtraUsageDisabledReason;
-  if (e === void 0) return !1;
-  if (e === null) return !0;
+  if (e === void 0) return false;
+  if (e === null) return true;
   return D8e(e);
 }
 function Qdn() {
-  if (mze() && owe()) return !0;
-  if (uM()) return !0;
+  if (mze() && owe()) return true;
+  if (uM()) return true;
   return !Lte();
 }
 function u2t(e) {
-  if (!oA()) return !1;
+  if (!oA()) return false;
   let o = gh("tengu-model-error-overrides", {});
-  if (typeof o !== "object" || o === null) return !1;
+  if (typeof o !== "object" || o === null) return false;
   let t = o[e];
-  if (typeof t !== "object" || t === null) return !1;
+  if (typeof t !== "object" || t === null) return false;
   let s = t.block;
   return typeof s === "string" && s.trim() !== "";
 }
 function qce() {
-  if (dz()) return !1;
+  if (dz()) return false;
   return !Qdn();
 }
 function q5n() {
-  if (dz()) return !1;
-  if (qce()) return !0;
+  if (dz()) return false;
+  if (qce()) return true;
   return Lte() && !uM() && Re();
 }
 var oe = "tengu-model-error-overrides",
@@ -315,7 +315,7 @@ function k() {
   return {
     value: !ra() ? fc().sonnet5 : D() ? "sonnet" : fc().sonnet5,
     label: "Sonnet",
-    description: `Sonnet 5 \xB7 ${x}${v("claude-sonnet-5", !1)}`,
+    description: `Sonnet 5 \xB7 ${x}${v("claude-sonnet-5", false)}`,
     descriptionForModel: "Sonnet 5 - efficient for routine tasks. Generally recommended for most coding tasks",
   };
 }
@@ -342,7 +342,7 @@ function _e() {
   return !uM() && C2() ? G : "";
 }
 function Be(e) {
-  if (e.disabled === !0 || typeof e.value !== "string") return e;
+  if (e.disabled === true || typeof e.value !== "string") return e;
   if (!(e.value === "fable" || e.value === "fable[1m]" || pR(hr(e.value)) === NY)) return e;
   let t = e.description.endsWith(G) ? e.description.slice(0, -G.length) : e.description;
   return { ...e, description: `${t}${_e()}` };
@@ -401,7 +401,7 @@ function je() {
     descriptionForModel: "Opus 4.8 - previous Opus version",
   };
 }
-function Se(e = !1) {
+function Se(e = false) {
   return {
     value: !ra() ? fc().opus5 : "opus",
     label: "Opus",
@@ -413,7 +413,7 @@ function pe() {
   return {
     value: !ra() ? fc().sonnet46 + "[1m]" : "claude-sonnet-4-6[1m]",
     label: "Sonnet 4.6 (1M context)",
-    description: `Sonnet 4.6 for long sessions${v("claude-sonnet-4-6", !1)}`,
+    description: `Sonnet 4.6 for long sessions${v("claude-sonnet-4-6", false)}`,
     descriptionForModel: "Sonnet 4.6 with 1M context window - for long sessions with large codebases",
   };
 }
@@ -424,9 +424,9 @@ function B() {
     descriptionForModel: "Sonnet 5 with 1M context window - for long sessions with large codebases",
   };
   if (Tt()) return { ...e, description: "Sonnet 5 for long sessions" };
-  return { ...e, description: `Sonnet 5 for long sessions${v("claude-sonnet-5", !1)}` };
+  return { ...e, description: `Sonnet 5 for long sessions${v("claude-sonnet-5", false)}` };
 }
-function Ke(e = !1, o = !0) {
+function Ke(e = false, o = true) {
   return {
     value: !ra() ? fc().opus46 + "[1m]" : "claude-opus-4-6[1m]",
     label: "Opus 4.6 (1M context)",
@@ -450,7 +450,7 @@ function We() {
     descriptionForModel: "Opus 4.8 with 1M context window - for long sessions with large codebases",
   };
 }
-function fe(e = !1) {
+function fe(e = false) {
   return {
     value: !ra() ? fc().opus5 + "[1m]" : "opus[1m]",
     label: "Opus (1M context)",
@@ -472,7 +472,7 @@ function he() {
   return {
     value: "haiku",
     label: "Haiku",
-    description: `Haiku 4.5 \xB7 ${Y}${v("claude-haiku-4-5", !1)}`,
+    description: `Haiku 4.5 \xB7 ${Y}${v("claude-haiku-4-5", false)}`,
     descriptionForModel: "Haiku 4.5 - fastest for quick answers. Lower cost but less capable than Sonnet 4.6.",
   };
 }
@@ -480,7 +480,7 @@ function Xe() {
   return {
     value: "haiku",
     label: "Haiku",
-    description: `Haiku 3.5 for simple tasks${v("claude-3-5-haiku", !1)}`,
+    description: `Haiku 3.5 for simple tasks${v("claude-3-5-haiku", false)}`,
     descriptionForModel: "Haiku 3.5 - faster and lower cost, but less capable than Sonnet. Use for simple tasks.",
   };
 }
@@ -488,17 +488,17 @@ function Ze() {
   return MV() === fc().haiku45 ? he() : Xe();
 }
 function j() {
-  if (Fn() === "pro" && I("tengu_gypsum_kite", !1)) return " \xB7 ~2\xD7 usage vs Sonnet";
+  if (Fn() === "pro" && I("tengu_gypsum_kite", false)) return " \xB7 ~2\xD7 usage vs Sonnet";
   return "";
 }
-function K(e = !1) {
-  let o = e ? v("claude-opus-5", !1) : "";
+function K(e = false) {
+  let o = e ? v("claude-opus-5", false) : "";
   return { value: "opus", label: "Opus", description: `Opus 5 \xB7 ${E}${j()}${o}` };
 }
 function me() {
   let e = !ra(),
     o = Tt() ? " \xB7 Draws from usage credits" : "",
-    t = o === "" ? "" : v("claude-sonnet-4-6", !1);
+    t = o === "" ? "" : v("claude-sonnet-4-6", false);
   return {
     value: e ? fc().sonnet46 + "[1m]" : "claude-sonnet-4-6[1m]",
     label: "Sonnet 4.6 (1M context)",
@@ -507,10 +507,10 @@ function me() {
 }
 function be() {
   let e = Tt() ? " \xB7 Draws from usage credits" : "",
-    o = e === "" ? "" : v("claude-opus-5", !1);
+    o = e === "" ? "" : v("claude-opus-5", false);
   return { value: "opus[1m]", label: "Opus (1M context)", description: `Opus 5 with 1M context${j()}${e}${o}` };
 }
-function q(e = !1, o = !1) {
+function q(e = false, o = false) {
   let t = !ra(),
     s = wl(),
     r = $u(hr(s)) ?? "Opus",
@@ -557,7 +557,7 @@ function on(e) {
   let o = Tt();
   if (YS()) return q(!o, e);
   let t = wl();
-  if (Ye(t) === "claude-opus-5") return o ? K(!1) : Se(e);
+  if (Ye(t) === "claude-opus-5") return o ? K(false) : Se(e);
   let s = $u(hr(t)) ?? "Opus",
     r = o ? "" : v(t, e);
   return {
@@ -567,7 +567,7 @@ function on(e) {
     descriptionForModel: `${s} - best for everyday, complex tasks`,
   };
 }
-function tn(e = !1) {
+function tn(e = false) {
   if (Tt()) {
     if (VSt()) {
       let d = [w(e)];
@@ -578,7 +578,7 @@ function tn(e = !1) {
     let i = [w(e)];
     if (sO() && !H()) i.push(D() ? B() : me());
     if (YS()) i.push(q());
-    else if ((i.push(K(!1)), CH() && !U())) i.push(be());
+    else if ((i.push(K(false)), CH() && !U())) i.push(be());
     return i.push(Oe), z(i, e, "sonnet");
   }
   if (ra()) {
@@ -635,7 +635,7 @@ function tn(e = !1) {
 }
 function S(e) {
   let o = so[e];
-  if (o[Ne()] !== null) return !0;
+  if (o[Ne()] !== null) return true;
   return Boolean(Je().modelOverrides?.[o.firstParty]);
 }
 function A(e) {
@@ -655,13 +655,13 @@ function A(e) {
     return { value: e, label: o, description: `Newer version available \xB7 select ${s.alias} for ${r}` };
   return { value: e, label: o, description: `${s.slogan} (${e})` };
 }
-function dM(e = !1) {
+function dM(e = false) {
   return iwe(e).filter((o) => !o.disabled);
 }
 var sn = new Set(["claude-vscode"]);
 function Zdn(e) {
   if (!sn.has(a.CLAUDE_CODE_ENTRYPOINT ?? "")) return [];
-  let o = Q(e, (s) => s.disabled === !0),
+  let o = Q(e, (s) => s.disabled === true),
     t = { total: e.length, disabled: o };
   if (Ne() !== "firstParty") {
     if (o > 0) g("model_unavailable_gate", "suppressed_rows_non_first_party", t);
@@ -673,7 +673,7 @@ function Zdn(e) {
     else y("model_unavailable_gate", t);
     return [];
   }
-  return y("model_unavailable_gate", t), e.filter((s) => s.disabled === !0);
+  return y("model_unavailable_gate", t), e.filter((s) => s.disabled === true);
 }
 function ymt() {
   return Zdn(iwe());
@@ -682,20 +682,20 @@ function rn(e, o, t) {
   if (e === null) return;
   e.dropped++, e.dropReasons.add(EH(o, t) ? "entitlement_denied" : "allowlist_filtered");
 }
-function epn(e = !1) {
+function epn(e = false) {
   let o = {
     dropped: 0,
     duplicates: 0,
     dropReasons: new Set(),
     disabledReasons: new Set(),
     curatedRows: 0,
-    curatedReplaced: !1,
+    curatedReplaced: false,
   };
   try {
     let t = iwe(e, o);
     y("model_picker_options", {
       total: t.length,
-      disabled: Q(t, (s) => s.disabled === !0),
+      disabled: Q(t, (s) => s.disabled === true),
       dropped: o.dropped,
       duplicates: o.duplicates,
       curated_rows: o.curatedRows,
@@ -708,20 +708,20 @@ function epn(e = !1) {
     throw (p("model_picker_options", "build_failed"), t);
   }
 }
-function iwe(e = !1, o = null) {
+function iwe(e = false, o = null) {
   let t = new Set(),
     s = ln(e, o).filter((c) => {
-      if (c.value === null) return !0;
+      if (c.value === null) return true;
       if (t.has(c.value)) {
         if (o !== null) o.duplicates++;
-        return n(`model options: dropping duplicate row "${c.label}" (value ${c.value})`, { level: "warn" }), !1;
+        return n(`model options: dropping duplicate row "${c.label}" (value ${c.value})`, { level: "warn" }), false;
       }
-      return t.add(c.value), !0;
+      return t.add(c.value), true;
     }),
     { setting: r, attribution: f } = NV(),
     i = f === "org" ? r : null,
     d = i ? Ye(i) : null,
-    O = i ? /\[1m\]$/i.test(i) : !1,
+    O = i ? /\[1m\]$/i.test(i) : false,
     u = d
       ? s.map((c) => {
           if (c.value === null || oR(c.value)) return c;
@@ -731,21 +731,21 @@ function iwe(e = !1, o = null) {
         })
       : s,
     M = dn(u, o).map((c) => {
-      if (c.disabled === !0) return c;
+      if (c.disabled === true) return c;
       try {
         let b = re(Ye(c.value === null ? el() : Ot(c.value)));
         if (b !== null) {
           if (o !== null) o.disabledReasons.add("error_override");
-          return { ...c, disabled: !0, description: b };
+          return { ...c, disabled: true, description: b };
         }
       } catch (b) {
         n(`model-error-overrides picker hint failed: ${b}`, { level: "error" });
       }
       return c;
     }),
-    _ = M.filter((c) => c.disabled === !0);
+    _ = M.filter((c) => c.disabled === true);
   if (_.length === 0) return M;
-  return [...M.filter((c) => c.disabled !== !0), ..._];
+  return [...M.filter((c) => c.disabled !== true), ..._];
 }
 function ln(e, o) {
   let t = tn(e),
@@ -764,7 +764,7 @@ function ln(e, o) {
       let M = Be(l);
       if (M.disabled && !u) continue;
       if (!t.some((_) => h(_, M))) {
-        if (M.disabled === !0 && o !== null) o.disabledReasons.add("server_disabled");
+        if (M.disabled === true && o !== null) o.disabledReasons.add("server_disabled");
         C(t, M);
       }
     }
@@ -783,7 +783,7 @@ function ln(e, o) {
       if (!["opus", "sonnet", "haiku"].some((c) => M.includes(c))) continue;
       if (_Y(l)) continue;
       if (pn(l) !== l) {
-        if (!(M.includes("opus") ? CH() : M.includes("sonnet") ? sO() : !0) || Vde(Ye(M))) continue;
+        if (!(M.includes("opus") ? CH() : M.includes("sonnet") ? sO() : true) || Vde(Ye(M))) continue;
       }
       let _ = A(l);
       if (_ !== null && !t.some((c) => h(c, _))) t.push(_);
@@ -810,10 +810,10 @@ function ln(e, o) {
         o,
       );
     }
-    let u = K(!1);
+    let u = K(false);
     return F(t.some((l) => typeof l.value === "string" && pn(l.value) === l.value && h(l, u)) ? t : [...t, u], o);
   } else if (i === "opus[1m]" && ra()) {
-    let u = q(!1);
+    let u = q(false);
     return F(t.some((l) => typeof l.value === "string" && pn(l.value) !== l.value && h(l, u)) ? t : [...t, u], o);
   } else {
     let u = { value: i, label: "", description: "" };
@@ -822,11 +822,11 @@ function ln(e, o) {
   }
 }
 function tpn(e) {
-  if (_Y(e) || !kr(e) || T6(e)?.reason === "absent") return !1;
+  if (_Y(e) || !kr(e) || T6(e)?.reason === "absent") return false;
   let o = pn(e);
-  if (o === e) return !0;
+  if (o === e) return true;
   let t = Ye(o.toLowerCase());
-  return (t.includes("opus") ? CH() : t.includes("sonnet") ? sO() : !0) && !Vde(t);
+  return (t.includes("opus") ? CH() : t.includes("sonnet") ? sO() : true) && !Vde(t);
 }
 function an(e, o) {
   let t = VEe();
@@ -843,14 +843,14 @@ function an(e, o) {
       M = T6(u);
     if (M?.reason === "disabled") {
       if (o !== null) o.disabledReasons.add("server_disabled");
-      i.push({ ...l, disabled: !0, description: M.description });
+      i.push({ ...l, disabled: true, description: M.description });
       continue;
     }
     i.push(l);
   }
   if (i.length === 0) return e;
-  if (o !== null) (o.curatedRows = i.length), (o.curatedReplaced = s.replaceBuiltInOptions === !0);
-  if (s.replaceBuiltInOptions === !0) return [...e.filter((O) => O.value === null), ...i];
+  if (o !== null) (o.curatedRows = i.length), (o.curatedReplaced = s.replaceBuiltInOptions === true);
+  if (s.replaceBuiltInOptions === true) return [...e.filter((O) => O.value === null), ...i];
   let d = [...e];
   for (let O of i) if (!d.some((u) => h(u, O))) d.push(O);
   return d;
@@ -877,7 +877,7 @@ function ye(e, o, t) {
   let r = $St(s);
   if (r === null) return t?.(), null;
   let f = o.value !== s,
-    i = s === "opus" ? CH() : s === "sonnet" ? sO() : !0,
+    i = s === "opus" ? CH() : s === "sonnet" ? sO() : true,
     d = f && i && k3(r) ? `${r}[1m]` : r,
     O = Ye(r),
     u = d !== r;
@@ -919,17 +919,17 @@ function gX(e) {
       description: o.description,
       ...(o.promoListPrice !== void 0 && { promoListPrice: o.promoListPrice }),
       ...(r && {
-        supportsEffort: !0,
+        supportsEffort: true,
         supportedEffortLevels: $h.filter((O) => {
-          if (O === "max" && !V2(s)) return !1;
-          if (O === "xhigh" && !K2(s)) return !1;
-          return !0;
+          if (O === "max" && !V2(s)) return false;
+          if (O === "xhigh" && !K2(s)) return false;
+          return true;
         }),
       }),
-      ...(f && { supportsAdaptiveThinking: !0 }),
-      ...(i && { supportsFastMode: !0 }),
-      ...(d && { supportsAutoMode: !0 }),
-      ...(o.disabled && { disabled: !0 }),
+      ...(f && { supportsAdaptiveThinking: true }),
+      ...(i && { supportsFastMode: true }),
+      ...(d && { supportsAutoMode: true }),
+      ...(o.disabled && { disabled: true }),
     };
   });
 }
@@ -942,31 +942,31 @@ function npn(e) {
     value: o,
     label: _R(t) || (o !== null ? _R(o) : ""),
     description: bCe(s),
-    ...(e.disabled === !0 && { disabled: !0 }),
+    ...(e.disabled === true && { disabled: true }),
   };
 }
 function h(e, o) {
-  if (e.value === o.value) return !0;
-  if (typeof e.value !== "string" || typeof o.value !== "string") return !1;
-  if (Me(e.value) && Me(o.value)) return !0;
+  if (e.value === o.value) return true;
+  if (typeof e.value !== "string" || typeof o.value !== "string") return false;
+  if (Me(e.value) && Me(o.value)) return true;
   let t = Ot(e.value);
-  if (hr(t) !== hr(Ot(o.value))) return !1;
+  if (hr(t) !== hr(Ot(o.value))) return false;
   return Cc(e.value) === Cc(o.value) || A_(t);
 }
 function gze(e) {
   return e === "fable" || e === "fable[1m]" || yre(e);
 }
 function Me(e) {
-  if (e === "fable" || e === "fable[1m]") return !0;
+  if (e === "fable" || e === "fable[1m]") return true;
   return /(?:^|[./])claude-fable-5(?:[-@]\d{8})?(?:-v\d+(?::\d+)?)?(?:\[[12]m\])?$/i.test(e);
 }
 function dn(e, o) {
   if (!J() || uM() || vf() || !ee() || !(Lte() || dz())) return e;
   return e.map((t) => {
-    if (t.disabled === !0 || typeof t.value !== "string" || !gze(t.value)) return t;
+    if (t.disabled === true || typeof t.value !== "string" || !gze(t.value)) return t;
     let s = C2() ? "" : " \u2014 requires usage credits";
     if (o !== null) o.disabledReasons.add("credits_required");
-    return { ...t, disabled: !0, label: "Fable (disabled)", description: `${t.description}${s}` };
+    return { ...t, disabled: true, label: "Fable (disabled)", description: `${t.description}${s}` };
   });
 }
 function C(e, o) {

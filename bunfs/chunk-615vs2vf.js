@@ -53,7 +53,7 @@ async function PDt(e) {
   try {
     i = (e.isEgressAllowed ?? h8)();
   } catch {
-    i = !1;
+    i = false;
   }
   if (!i) return P("egress");
   let t = yrn({
@@ -62,7 +62,7 @@ async function PDt(e) {
   });
   if (t.status === "missing") return P("account");
   if (t.status === "mismatch") return P("account_mismatch");
-  return (await (e.hasDeviceProof ?? p)().catch(() => !1))
+  return (await (e.hasDeviceProof ?? p)().catch(() => false))
     ? re({ accountUuid: t.accountUuid, source: t.source })
     : P("no_device_proof");
 }

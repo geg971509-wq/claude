@@ -63,20 +63,20 @@ function l() {
   return Tt();
 }
 async function E() {
-  if (!l()) return { ok: !1, reason: "no_auth" };
+  if (!l()) return { ok: false, reason: "no_auth" };
   try {
     let e = await bt.get(N, { timeout: b });
-    if (!e.ok) return { ok: !1, reason: "fetch_failed" };
+    if (!e.ok) return { ok: false, reason: "fetch_failed" };
     let t = _().safeParse(e.data);
     if (!t.success)
       return (
         Y("warn", "notif_prefs_fetch_parse_failed", { issues: t.error.issues.map((r) => r.path.join(".")).join(",") }),
-        { ok: !1, reason: "parse_failed" }
+        { ok: false, reason: "parse_failed" }
       );
-    return { ok: !0, prefs: t.data };
+    return { ok: true, prefs: t.data };
   } catch (e) {
     let { kind: t } = os(e);
-    return Y("warn", "notif_prefs_fetch_failed", { kind: t }), { ok: !1, reason: "fetch_failed" };
+    return Y("warn", "notif_prefs_fetch_failed", { kind: t }), { ok: false, reason: "fetch_failed" };
   }
 }
 async function k(e) {

@@ -22,8 +22,8 @@ function von(n) {
       rightArrow: t === "rightArrow",
       pageDown: t === "pageDown",
       pageUp: t === "pageUp",
-      wheelUp: !1,
-      wheelDown: !1,
+      wheelUp: false,
+      wheelDown: false,
       home: t === "home",
       end: t === "end",
       return: t === "return",
@@ -204,7 +204,7 @@ function wc() {
 }
 function E8(y, J) {
   let me = _(5),
-    v = J === void 0 ? !0 : J,
+    v = J === void 0 ? true : J,
     g = wc(),
     Q,
     X;

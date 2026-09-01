@@ -55,7 +55,7 @@ async function $kt(t, e) {
 }
 async function C7t(t = {}, e) {
   return Hr("daemon_bg_reap_all", async () => {
-    let o = await cT({ silent: !0 }, e),
+    let o = await cT({ silent: true }, e),
       r = new Map();
     for (let [a, i] of Object.entries(o.workers))
       r.set(a, {
@@ -150,7 +150,7 @@ async function v7t(t) {
     o;
   do {
     let r = await t
-      .listEntries({ namespace: "daemon", relPath: ["pty-pids"] }, { cursor: o, skipKeyStats: !0, skipScopeStats: !0 })
+      .listEntries({ namespace: "daemon", relPath: ["pty-pids"] }, { cursor: o, skipKeyStats: true, skipScopeStats: true })
       .catch(() => {
         return;
       });
@@ -192,44 +192,44 @@ async function v(t, e) {
 }
 function Kie(t, e) {
   return new Promise((o) => {
-    let r = !1,
+    let r = false,
       s = (l) => {
         if (r) return;
-        (r = !0), o(l);
+        (r = true), o(l);
       },
       c = x(t);
     c.unref(),
       c.setTimeout(2000, () => {
-        c.destroy(), s(!1);
+        c.destroy(), s(false);
       }),
       c.on("error", () => {
         p(t).catch(() => {});
         let l = Mh(t);
         if (e && D() === "windows") v(e, t).catch(() => {});
         else p(l).catch(() => {}), p(`${l}.read`).catch(() => {}), p(uT(t)).catch(() => {});
-        s(!1);
+        s(false);
       }),
       c.once("connect", () => {
         c.resume(), c.write(tC({ t: "kill", sig: "SIGTERM" }));
       }),
-      c.once("close", () => s(!0));
+      c.once("close", () => s(true));
   });
 }
 function jtt(t) {
   return new Promise((e) => {
-    let o = !1,
+    let o = false,
       r = (c) => {
         if (o) return;
-        (o = !0), e(c);
+        (o = true), e(c);
       },
       s = x(t);
     s.unref(),
       s.setTimeout(250, () => {
-        s.destroy(), r(!1);
+        s.destroy(), r(false);
       }),
-      s.on("error", () => r(!1)),
+      s.on("error", () => r(false)),
       s.once("connect", () => {
-        s.end(tC({ t: "pong" })), r(!0);
+        s.end(tC({ t: "pong" })), r(true);
       });
   });
 }
@@ -255,7 +255,7 @@ function Btt(t) {
   return nge(t) !== null;
 }
 function ORe(t, e) {
-  if (!t) return !1;
+  if (!t) return false;
   let o = nge(t),
     r = nge(e);
   return o !== null && r !== null && o !== r;
@@ -285,10 +285,10 @@ function rBe(t, e) {
   let o = LRe(t),
     r = LRe(e);
   if (o !== null && r !== null) {
-    if (nge(t) !== nge(e)) return !1;
+    if (nge(t) !== nge(e)) return false;
     return o > r;
   }
-  if (Btt(t) || Btt(e)) return !1;
+  if (Btt(t) || Btt(e)) return false;
   return S.valid(t) !== null && S.valid(e) !== null && S.gt(t, e);
 }
 var _ = new Set([1000, 1002, 1003, 1004, 1006, 2004, 2031]),
@@ -300,7 +300,7 @@ function oBe() {
     feed(o, r) {
       let s = e ? e + o : o,
         c = 0,
-        l = !1;
+        l = false;
       for (let m of s.matchAll(C)) {
         let w = m[2] === "h";
         for (let a of m[1].split(";")) {
@@ -308,7 +308,7 @@ function oBe() {
           if (_.has(i) && t.has(i) !== w) {
             if (w) t.add(i), r?.(i);
             else t.delete(i);
-            l = !0;
+            l = true;
           }
         }
         c = m.index + m[0].length;
@@ -328,7 +328,7 @@ function oBe() {
 import { freemem as M } from "os";
 function E7t() {
   let t = I("tengu_bg_low_mem_mb", 1024) * 1024 * 1024;
-  if (t <= 0) return { lowMem: !1, level: void 0 };
+  if (t <= 0) return { lowMem: false, level: void 0 };
   if (D() !== "macos") return { lowMem: M() < t, level: void 0 };
   let e = K();
   return { lowMem: e !== void 0 && e >= N, level: e };
@@ -348,6 +348,6 @@ function K() {
   }
 }
 function A7t() {
-  return I("tengu_bg_attach_upgrade", !0);
+  return I("tengu_bg_attach_upgrade", true);
 }
 export { nge, Btt, ORe, LRe, hLn, rBe, oBe, E7t, RK, A7t, $kt, C7t, v7t, iBe, R7t, Kie, jtt, k7t };

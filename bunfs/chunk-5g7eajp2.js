@@ -13,7 +13,7 @@ import { tE, Fet } from "/$bunfs/root/chunk-v87rvfy2.js";
 class Q4 {
   #e = new Map();
   #t = new Set();
-  #n = !1;
+  #n = false;
   #o = void 0;
   accept(e, { instanceId: t, now: o, transport: n }) {
     let r = e.host.name,
@@ -72,7 +72,7 @@ class Q4 {
     this.#o = e;
   }
   #s() {
-    this.#n = !0;
+    this.#n = true;
     let e = [...this.#t];
     this.#t.clear();
     for (let t of e)

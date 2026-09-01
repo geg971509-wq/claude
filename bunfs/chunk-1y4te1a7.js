@@ -40,17 +40,17 @@ async function de(e, t, { input: r, keepBytes: i, stopPastBytes: o }) {
   return new Promise((d) => {
     let u = 0,
       y = [],
-      g = !1,
+      g = false,
       m = "",
-      w = !1,
+      w = false,
       b = (R) => {
         if (w) return;
-        (w = !0),
+        (w = true),
           d({
             ...(R !== void 0 && { exitCode: R }),
             bytes: u,
             content: y === null ? null : Buffer.concat(y),
-            ...(g && { stopped: !0 }),
+            ...(g && { stopped: true }),
             stderr: ce(m, O),
           });
       };
@@ -61,7 +61,7 @@ async function de(e, t, { input: r, keepBytes: i, stopPastBytes: o }) {
         stdio: [r === void 0 ? "ignore" : "pipe", "pipe", "pipe"],
         signal: a,
         timeout: f,
-        windowsHide: !0,
+        windowsHide: true,
       });
       if (
         (R.stdout?.on("data", (B) => {
@@ -69,7 +69,7 @@ async function de(e, t, { input: r, keepBytes: i, stopPastBytes: o }) {
           if (((u += B.length), y !== null))
             if (u <= i) y.push(B);
             else y = null;
-          if (!g && u > o) (g = !0), R.kill();
+          if (!g && u > o) (g = true), R.kill();
         }),
         R.stderr?.on("data", (B) => {
           if (m.length < O) m += B.toString("utf8");
@@ -154,7 +154,7 @@ async function fe(e, t, r, i) {
     l = await qe(cH(), [...a, ...t], {
       cwd: f,
       env: M(e, i, r.env),
-      extendEnv: !1,
+      extendEnv: false,
       abortSignal: o,
       timeout: s,
       maxBuffer: Math.min(r.maxBuffer ?? Ne, Fe),
@@ -165,7 +165,7 @@ async function fe(e, t, r, i) {
     exitCode: l.exitCode,
     stdout: c ? l.stdout : "",
     stderr: ce(l.stderr, O),
-    ...(l.maxBufferExceeded && { maxBufferExceeded: !0 }),
+    ...(l.maxBufferExceeded && { maxBufferExceeded: true }),
   };
 }
 async function SDt(e, t, r, i = {}) {
@@ -176,7 +176,7 @@ async function SDt(e, t, r, i = {}) {
   return new Promise((c) => {
     let d = [],
       u = 0,
-      y = !1,
+      y = false,
       g;
     try {
       g = L(cH(), [...f, ...t], {
@@ -185,7 +185,7 @@ async function SDt(e, t, r, i = {}) {
         stdio: [i.input === void 0 ? "ignore" : "pipe", "pipe", "pipe"],
         signal: s,
         timeout: a,
-        windowsHide: !0,
+        windowsHide: true,
         ...qi("helper"),
       });
     } catch {
@@ -198,7 +198,7 @@ async function SDt(e, t, r, i = {}) {
       try {
         r(b);
       } catch {
-        (y = !0), g.kill();
+        (y = true), g.kill();
       }
     }),
       g.stderr?.on("data", (b) => {
@@ -206,13 +206,13 @@ async function SDt(e, t, r, i = {}) {
       }),
       g.stdout?.on("error", () => {}),
       g.stderr?.on("error", () => {});
-    let w = !1;
+    let w = false;
     if (i.input !== void 0)
       g.stdin?.on("error", () => {
-        w = !0;
+        w = true;
       }),
         g.stdin?.end(i.input, () => {
-          w ||= g.stdin?.writableFinished !== !0;
+          w ||= g.stdin?.writableFinished !== true;
         });
     g.once("error", () => c({ exitCode: void 0, stderr: m() })),
       g.once("close", (b) => c({ exitCode: y || w || b === null ? void 0 : b, stderr: m() }));
@@ -247,26 +247,26 @@ async function t_e(e, t, r = {}) {
   return { ...o, fields: s?.fields ?? null, fieldBytes: s?.fieldBytes ?? null };
 }
 async function bDt(e, t, r) {
-  if (!A(t)) return !1;
+  if (!A(t)) return false;
   let i = await N(e);
-  if (i.kind === "refused") return !1;
+  if (i.kind === "refused") return false;
   if (
     await K(r).then(
-      () => !0,
+      () => true,
       (a) => !X(a),
     )
   )
-    return !1;
+    return false;
   let s;
   try {
     s = await le(r, z.O_WRONLY | z.O_CREAT | z.O_EXCL | GVe(), 384);
   } catch {
-    return !1;
+    return false;
   }
   try {
     return await je(e, ["cat-file", "blob", t], s.fd, i.pins);
   } catch {
-    return !1;
+    return false;
   } finally {
     await s.close();
   }
@@ -281,10 +281,10 @@ async function je(e, t, r, i) {
       stdio: ["ignore", r, "ignore"],
       signal: o,
       timeout: s,
-      windowsHide: !0,
+      windowsHide: true,
       ...qi("helper"),
     });
-    c.once("error", () => l(!1)), c.once("close", (d) => l(d === 0));
+    c.once("error", () => l(false)), c.once("close", (d) => l(d === 0));
   });
 }
 function M({ gitDir: e, commonDir: t }, r, i = {}) {
@@ -300,7 +300,7 @@ function Le(e, t, r) {
     env: M(e, r),
     stdio: ["pipe", "pipe", "ignore"],
     signal: i,
-    windowsHide: !0,
+    windowsHide: true,
   }).on("error", () => {});
 }
 var He = 2,
@@ -310,11 +310,11 @@ async function C2n(e, { maxBytes: t }) {
     o = 0,
     s = new Set(),
     a = null,
-    f = !1,
+    f = false,
     l = null,
     c = Promise.resolve(),
     d = async () => {
-      if (f || r?.aborted === !0) return null;
+      if (f || r?.aborted === true) return null;
       let m = await N(e);
       if (m.kind === "refused") return null;
       try {
@@ -336,12 +336,12 @@ async function C2n(e, { maxBytes: t }) {
       if (l === null) {
         if (o > He) return { kind: "unavailable" };
         let B = await d();
-        if (B === null) return (f = !0), { kind: "unavailable" };
+        if (B === null) return (f = true), { kind: "unavailable" };
         if (f) return B.end(), { kind: "unavailable" };
         l = B;
       }
       let w = l;
-      if ((await V(e)).kind === "refused") return u(w), (f = !0), { kind: "unavailable" };
+      if ((await V(e)).kind === "refused") return u(w), (f = true), { kind: "unavailable" };
       if (!w.alive) return { kind: "unavailable" };
       a = m;
       let b = await w.request(m, i);
@@ -354,7 +354,7 @@ async function C2n(e, { maxBytes: t }) {
       return { kind: "ok", bytes: R };
     },
     g = () => {
-      (f = !0), l?.end(), (l = null);
+      (f = true), l?.end(), (l = null);
     };
   return {
     read: (m) => {
@@ -378,8 +378,8 @@ function ze(e, t) {
 }
 class pe {
   child;
-  alive = !0;
-  overran = !1;
+  alive = true;
+  overran = false;
   chunks = [];
   buffered = 0;
   wake = null;
@@ -387,7 +387,7 @@ class pe {
   constructor(e) {
     this.child = e;
     let t = () => {
-      (this.alive = !1), this.wake?.();
+      (this.alive = false), this.wake?.();
     };
     e.stdout?.on("data", (r) => this.arrived(r)),
       e.stdout?.on("error", t),
@@ -423,7 +423,7 @@ class pe {
     return r.subarray(0, e);
   }
   end() {
-    (this.alive = !1), (this.chunks = []), (this.buffered = 0);
+    (this.alive = false), (this.chunks = []), (this.buffered = 0);
     try {
       this.child.stdin?.end();
     } catch {}
@@ -437,7 +437,7 @@ class pe {
         let i = this.peek(r).toString("utf8"),
           o = ze(i, this.phase.id);
         if (o === null) {
-          (this.overran = !0), this.end();
+          (this.overran = true), this.end();
           return;
         }
         this.phase = {
@@ -447,13 +447,13 @@ class pe {
           total: r + 1 + (o.kind === "found" ? o.size + 1 : 0),
         };
       } else if (this.buffered > q) {
-        (this.overran = !0), this.end();
+        (this.overran = true), this.end();
         return;
       }
     }
     let t = this.phase.kind === "sized" ? this.phase.total : this.phase.kind === "header" ? q : 0;
     if (this.buffered > t) {
-      (this.overran = !0), this.end();
+      (this.overran = true), this.end();
       return;
     }
     this.wake?.();
@@ -649,12 +649,12 @@ async function XP(e, t) {
   return new Map(o.filter((s) => i.has(s.name)).map((s) => [s.name, s.id]));
 }
 async function irn(e, t, r, i) {
-  if (!UD(t) || !A(r) || (i.kind === "replace" && !A(i.current))) return !1;
+  if (!UD(t) || !A(r) || (i.kind === "replace" && !A(i.current))) return false;
   return (await dn(e, ["update-ref", "--no-deref", t, r, ...Qe(i)])).exitCode === 0;
 }
 async function Qq(e, t) {
-  if (!t.every((i) => UD(i.name) && A(i.id))) return !1;
-  if (t.length === 0) return !0;
+  if (!t.every((i) => UD(i.name) && A(i.id))) return false;
+  if (t.length === 0) return true;
   return (
     (
       await dn(e, ["update-ref", "--stdin"], {
@@ -670,8 +670,8 @@ update ${i.name} ${i.id}
   );
 }
 async function kHe(e, t) {
-  if (!t.every(UD)) return !1;
-  if (t.length === 0) return !0;
+  if (!t.every(UD)) return false;
+  if (t.length === 0) return true;
   return (
     (
       await dn(e, ["update-ref", "--stdin"], {
@@ -732,10 +732,10 @@ var wW = 104857600,
   be = 16,
   pt = "ccr-sync";
 function P(e, t) {
-  return { ok: !1, reason: "git_error", stage: e, detail: t };
+  return { ok: false, reason: "git_error", stage: e, detail: t };
 }
 function E(e, t) {
-  return { ok: !1, reason: "git_error", stage: e, detail: t };
+  return { ok: false, reason: "git_error", stage: e, detail: t };
 }
 function srn(e, { maxHeaderBytes: t = ot } = {}) {
   let r = Buffer.from(e.buffer, e.byteOffset, e.length),
@@ -780,23 +780,23 @@ function mWe(e) {
 }
 function arn(e, { refNames: t, maxPrerequisites: r = st }) {
   let i = srn(e);
-  if (i === null) return { ok: !1, reason: "not_a_bundle" };
-  if (!i.capabilities.every((a) => ft.test(a))) return { ok: !1, reason: "unsupported_bundle" };
+  if (i === null) return { ok: false, reason: "not_a_bundle" };
+  if (!i.capabilities.every((a) => ft.test(a))) return { ok: false, reason: "unsupported_bundle" };
   let o = new Set(t),
     s = new Set(i.refs.map((a) => a.name));
   if (o.size !== t.length || o.size > xe || s.size !== i.refs.length || s.size !== o.size || !t.every((a) => s.has(a)))
-    return { ok: !1, reason: "unexpected_refs" };
-  if (i.prerequisites.length > r) return { ok: !1, reason: "too_many_prerequisites" };
-  return { ok: !0, header: i };
+    return { ok: false, reason: "unexpected_refs" };
+  if (i.prerequisites.length > r) return { ok: false, reason: "too_many_prerequisites" };
+  return { ok: true, header: i };
 }
-async function HHe({ repository: e, tips: t, prerequisites: r, maxBytes: i = wW, declareForkPoints: o = !1 }) {
+async function HHe({ repository: e, tips: t, prerequisites: r, maxBytes: i = wW, declareForkPoints: o = false }) {
   return gt({ repository: e, tips: t, prerequisites: r, maxBytes: i, declareForkPoints: o }).catch(
     (s) => (h(s), P("threw", "unexpected throw")),
   );
 }
 async function gt({ repository: e, tips: t, prerequisites: r, maxBytes: i, declareForkPoints: o }) {
-  await J(e.gitDir, (k) => k.startsWith(`${pt}-`), { directories: !0 });
-  let s = { ok: !1, reason: "aborted" };
+  await J(e.gitDir, (k) => k.startsWith(`${pt}-`), { directories: true });
+  let s = { ok: false, reason: "aborted" };
   if (t.length === 0 || t.length > xe || new Set(t).size !== t.length || !t.every(BVe))
     return P("arguments", "tips are not distinct plain ref names");
   if (r.length > he || new Set(r).size !== r.length || !r.every((k) => tn.test(k)))
@@ -812,7 +812,7 @@ async function gt({ repository: e, tips: t, prerequisites: r, maxBytes: i, decla
           ? s
           : P("range", "could not look the prerequisites up")
         : k > 0
-          ? { ok: !1, reason: "prerequisites_missing", missingCount: k }
+          ? { ok: false, reason: "prerequisites_missing", missingCount: k }
           : null,
     c = [...new Set(f.map((k) => k.id)), ...r.map((k) => `^${k}`), "--"],
     d = await mt(e, c);
@@ -825,14 +825,14 @@ async function gt({ repository: e, tips: t, prerequisites: r, maxBytes: i, decla
     y = l(u.missingCount);
   if (y !== null) return y;
   if (Rt(e.signal)) return s;
-  if (u.floorBytes !== null && u.floorBytes > be * i) return { ok: !1, reason: "too_large", sizeBytes: u.floorBytes };
+  if (u.floorBytes !== null && u.floorBytes > be * i) return { ok: false, reason: "too_large", sizeBytes: u.floorBytes };
   let g = d.commits,
     m = o ? te([...r, ...d.forkPoints]) : [...r],
     w = m.length <= he ? m : [...r],
     b = g.size,
     R = f.filter((k) => g.has(k.id)),
     B = f.filter((k) => !g.has(k.id));
-  if (R.length === 0) return { ok: !1, reason: "nothing_to_send", omitted: f };
+  if (R.length === 0) return { ok: false, reason: "nothing_to_send", omitted: f };
   let v = await de(
     e,
     [
@@ -863,7 +863,7 @@ async function gt({ repository: e, tips: t, prerequisites: r, maxBytes: i, decla
     },
   );
   if (Rt(e.signal)) return s;
-  if (v.stopped || (v.exitCode === 0 && v.content === null)) return { ok: !1, reason: "too_large", sizeBytes: v.bytes };
+  if (v.stopped || (v.exitCode === 0 && v.content === null)) return { ok: false, reason: "too_large", sizeBytes: v.bytes };
   if (v.exitCode !== 0 || v.content === null) return P("bundle_create", zR("pack-objects", v));
   let x = R.some((k) => k.id.length === 64),
     _ = Buffer.concat([
@@ -876,13 +876,13 @@ async function gt({ repository: e, tips: t, prerequisites: r, maxBytes: i, decla
       }),
       v.content,
     ]);
-  if (_.length > i) return { ok: !1, reason: "too_large", sizeBytes: _.length };
+  if (_.length > i) return { ok: false, reason: "too_large", sizeBytes: _.length };
   let I = await XP(e, t);
   if (I === null) return Rt(e.signal) ? s : P("header", "could not re-read the tips after packing");
   if (!t.every((k) => I.get(k) === a.get(k))) return Rt(e.signal) ? s : P("header", "a tip moved while packing");
   if (Rt(e.signal)) return s;
   return {
-    ok: !0,
+    ok: true,
     content: _,
     sizeBytes: _.length,
     sha256: Nn(_),
@@ -912,9 +912,9 @@ function yt(e) {
     { kept: o } = i.reduceRight(
       (s, a) =>
         s.full || s.bytes + Buffer.byteLength(a) > r
-          ? { bytes: s.bytes, kept: s.kept, full: !0 }
-          : { bytes: s.bytes + Buffer.byteLength(a), kept: s.kept + 1, full: !1 },
-      { bytes: 0, kept: 0, full: !1 },
+          ? { bytes: s.bytes, kept: s.kept, full: true }
+          : { bytes: s.bytes + Buffer.byteLength(a), kept: s.kept + 1, full: false },
+      { bytes: 0, kept: 0, full: false },
     );
   return `${t} ${i.slice(i.length - o).join("")}`;
 }
@@ -968,7 +968,7 @@ async function wae({ repository: e, content: t, targets: r, heldBases: i, heldRe
   );
 }
 async function wt({ repository: e, content: t, targets: r, heldBases: i, heldRefs: o, maxBytes: s }) {
-  let a = { ok: !1, reason: "aborted" },
+  let a = { ok: false, reason: "aborted" },
     f = [...r.keys()],
     l = [...r.values()];
   if (
@@ -985,12 +985,12 @@ async function wt({ repository: e, content: t, targets: r, heldBases: i, heldRef
       "targets do not map plain ref names onto distinct refs of ours, a held basis is not an object id, the held refs are not a glob under refs/claude/, or the byte cap is not positive",
     );
   let c = { bases: i, refs: o };
-  if (t.length > s) return { ok: !1, reason: "too_large", sizeBytes: t.length };
+  if (t.length > s) return { ok: false, reason: "too_large", sizeBytes: t.length };
   let d = arn(t, { refNames: f });
   if (!d.ok) return d;
   let { header: u } = d,
     y = t.subarray(u.packOffset);
-  if (y.length < ct || y.subarray(0, ye.length).toString("latin1") !== ye) return { ok: !1, reason: "not_a_bundle" };
+  if (y.length < ct || y.subarray(0, ye.length).toString("latin1") !== ye) return { ok: false, reason: "not_a_bundle" };
   if (Rt(e.signal)) return a;
   let g = await Pe(e, u.prerequisites);
   if (g === null) return Rt(e.signal) ? a : E("prerequisites", "could not look the prerequisites up");
@@ -1006,20 +1006,20 @@ async function wt({ repository: e, content: t, targets: r, heldBases: i, heldRef
       n(
         `dir-sync: a bundle names ${m.length} prerequisites this side holds only as objects, not as history of its own`,
       );
-    return { ok: !1, reason: "prerequisites_missing", missingCount: w.length, missing: w.slice(0, at) };
+    return { ok: false, reason: "prerequisites_missing", missingCount: w.length, missing: w.slice(0, at) };
   }
   let b = C(e.gitDir, "objects", "pack"),
     R = Math.max(Ce, lt * e.timeoutMs);
   await Promise.all([
     Ct(b, R),
-    J(b, (_) => _.startsWith(ke), { directories: !0, olderThanMs: R }),
-    J(C(e.gitDir, ...N2.split("/").filter(Boolean)), (_) => _.endsWith(".lock"), { recursive: !0 }),
+    J(b, (_) => _.startsWith(ke), { directories: true, olderThanMs: R }),
+    J(C(e.gitDir, ...N2.split("/").filter(Boolean)), (_) => _.endsWith(".lock"), { recursive: true }),
   ]);
   let B = Ze(),
     v = C(b, `${ke}${B}`),
     x = `${hst}${B}`;
   try {
-    await et(C(v, "pack"), { recursive: !0 });
+    await et(C(v, "pack"), { recursive: true });
   } catch {
     return E("unpack", "could not create the quarantine directory");
   }
@@ -1037,7 +1037,7 @@ async function wt({ repository: e, content: t, targets: r, heldBases: i, heldRef
     if (_.published) await Ge(C(b, x), [".keep"]);
     return _.outcome;
   } finally {
-    await Ee(v, { recursive: !0, force: !0 }).catch(() => {
+    await Ee(v, { recursive: true, force: true }).catch(() => {
       n("dir-sync: could not remove a receive quarantine (non-fatal; swept later)");
     });
   }
@@ -1052,8 +1052,8 @@ async function _t({
   packName: a,
   held: f,
 }) {
-  let l = (p) => ({ outcome: p, published: !1 }),
-    c = l({ ok: !1, reason: "aborted" }),
+  let l = (p) => ({ outcome: p, published: false }),
+    c = l({ ok: false, reason: "aborted" }),
     d = C(o, "pack", a),
     u = await dn(
       e,
@@ -1062,7 +1062,7 @@ async function _t({
     );
   if (Rt(e.signal)) return c;
   if (u.exitCode === void 0) return l(E("unpack", zR("index-pack", u)));
-  if (u.exitCode !== 0) return n(`dir-sync: ${zR("index-pack", u)}`), l({ ok: !1, reason: "unpack_failed", detail: G });
+  if (u.exitCode !== 0) return n(`dir-sync: ${zR("index-pack", u)}`), l({ ok: false, reason: "unpack_failed", detail: G });
   let y = { env: { GIT_ALTERNATE_OBJECT_DIRECTORIES: `"${o.replace(/["\\]/g, (p) => `\\${p}`)}"` } },
     g = await Bt(`${d}.idx`, r.readUInt32BE(8));
   if (g === null) return Rt(e.signal) ? c : l(E("tips", "could not read the received pack index"));
@@ -1070,7 +1070,7 @@ async function _t({
   if (!m.every((p) => g.has(p)))
     return (
       n("dir-sync: a tip the header names is not an object the pack delivered"),
-      l({ ok: !1, reason: "unpack_failed", detail: G })
+      l({ ok: false, reason: "unpack_failed", detail: G })
     );
   let w = await dn(e, ["cat-file", "--batch-check=%(objecttype)"], {
       ...y,
@@ -1087,13 +1087,13 @@ async function _t({
       .filter((p) => p !== "");
   if (w.exitCode !== 0 || b.length !== m.length) return Rt(e.signal) ? c : l(E("tips", "could not look the tips up"));
   if (!b.every((p) => p === "commit"))
-    return n("dir-sync: a tip the header names is not a commit"), l({ ok: !1, reason: "unpack_failed", detail: G });
+    return n("dir-sync: a tip the header names is not a commit"), l({ ok: false, reason: "unpack_failed", detail: G });
   let R = await Gt(e, g, f, y.env);
   if (R === null) return Rt(e.signal) ? c : l(E("walk", "could not read the delivered commits"));
   if (R > 0)
     return (
       n(`dir-sync: a bundle's commits reach ${R} parents outside the pack that are not history this side holds`),
-      l({ ok: !1, reason: "unpack_failed", detail: G })
+      l({ ok: false, reason: "unpack_failed", detail: G })
     );
   let B = (p) =>
       dn(e, ["rev-list", p, "--no-object-names", ...m, "--not", ...t.prerequisites, "--"], { ...y, maxBuffer: H }),
@@ -1107,7 +1107,7 @@ async function _t({
     x = await B("--objects");
   if (Rt(e.signal)) return c;
   if (x.exitCode === void 0) return l(E("walk", zR("rev-list", x)));
-  if (x.exitCode !== 0) return n(`dir-sync: ${zR("rev-list", x)}`), l({ ok: !1, reason: "unpack_failed", detail: G });
+  if (x.exitCode !== 0) return n(`dir-sync: ${zR("rev-list", x)}`), l({ ok: false, reason: "unpack_failed", detail: G });
   let _ = v(x.stdout),
     I = Q([...g], (p) => !_.has(p)),
     k = Q([..._], (p) => !g.has(p));
@@ -1115,7 +1115,7 @@ async function _t({
     let p = await B("--objects-edge-aggressive");
     if (Rt(e.signal)) return c;
     if (p.exitCode === void 0) return l(E("walk", zR("rev-list", p)));
-    if (p.exitCode !== 0) return n(`dir-sync: ${zR("rev-list", p)}`), l({ ok: !1, reason: "unpack_failed", detail: G });
+    if (p.exitCode !== 0) return n(`dir-sync: ${zR("rev-list", p)}`), l({ ok: false, reason: "unpack_failed", detail: G });
     k = Q([...v(p.stdout)], (S) => !g.has(S));
   }
   if (I > 0 || k > 0)
@@ -1123,7 +1123,7 @@ async function _t({
       n(
         `dir-sync: a bundle's range names ${k} objects its pack lacks and its pack carries ${I} the range does not name`,
       ),
-      l({ ok: !1, reason: "unpack_failed", detail: G })
+      l({ ok: false, reason: "unpack_failed", detail: G })
     );
   if (Rt(e.signal)) return c;
   try {
@@ -1149,12 +1149,12 @@ async function _t({
   }
   let T = t.refs.map((p) => ({ name: i.get(p.name) ?? "", id: p.id })),
     U = { ...e, signal: void 0 },
-    se = { outcome: { ok: !0, refs: T, prerequisiteCount: t.prerequisites.length }, published: !0 },
+    se = { outcome: { ok: true, refs: T, prerequisiteCount: t.prerequisites.length }, published: true },
     oe = await XP(
       U,
       T.map((p) => p.name),
     );
-  if (oe === null) return { outcome: E("update", "could not read the target refs"), published: !0 };
+  if (oe === null) return { outcome: E("update", "could not read the target refs"), published: true };
   if (await Qq(U, T)) return se;
   let D = await XP(
       U,
@@ -1164,13 +1164,13 @@ async function _t({
     Te = D !== null && T.every((p) => D.get(p.name) === p.id);
   if (Ie)
     return {
-      outcome: { ok: !1, reason: "ref_update_failed", detail: "the ref transaction was declined" },
-      published: !0,
+      outcome: { ok: false, reason: "ref_update_failed", detail: "the ref transaction was declined" },
+      published: true,
     };
   if (Te) return se;
   return {
     outcome: E("update", "the ref transaction ended in a state that could not be read back whole"),
-    published: !0,
+    published: true,
   };
 }
 async function Bt(e, t) {
@@ -1216,7 +1216,7 @@ function xt(e) {
 async function J(e, t, r = {}) {
   let i;
   try {
-    i = await ne(e, { recursive: r.recursive === !0 });
+    i = await ne(e, { recursive: r.recursive === true });
   } catch {
     return;
   }
@@ -1229,7 +1229,7 @@ async function J(e, t, r = {}) {
         try {
           let f = await ee(a);
           if (f.mtimeMs >= o) return;
-          if (f.isFile() || (r.directories === !0 && f.isDirectory())) await Ee(a, { recursive: !0, force: !0 });
+          if (f.isFile() || (r.directories === true && f.isDirectory())) await Ee(a, { recursive: true, force: true });
         } catch (f) {
           if (!X(f)) n("dir-sync: could not sweep a stale sync file (non-fatal)");
         }

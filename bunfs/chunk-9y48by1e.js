@@ -117,7 +117,7 @@ function T(e) {
         _ = b$e(d, {
           baseURL: o,
           fetch: (g, v) =>
-            fetch(g, { ...v, ...m({ forAnthropicAPI: !0, url: String(g) }), signal: AbortSignal.timeout(1e4) }),
+            fetch(g, { ...v, ...m({ forAnthropicAPI: true, url: String(g) }), signal: AbortSignal.timeout(1e4) }),
           userAgent: u(),
           onSafetyWarning: (g) => n(g, { level: "warn" }),
           onCacheWriteError: (g) => n(String(g), { level: "warn" }),
@@ -281,7 +281,7 @@ async function D(e, t) {
   let i = Vpe();
   if (i === null) return n("wif: no config directory; federation token cache disabled"), null;
   try {
-    await R(i, { recursive: !0, mode: 448 });
+    await R(i, { recursive: true, mode: 448 });
     {
       let d = await F(i),
         u = d.mode & 511;

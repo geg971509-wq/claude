@@ -112,14 +112,14 @@ var O = 50,
   z = 1500,
   x = 5000,
   P = new Set(["chrome://newtab/", "about:blank"]),
-  w = m(() => f({ error: s4().or(dS()).or(N(!1)).or(N("")), result: f({ isError: N(!0).optional() }) }));
+  w = m(() => f({ error: s4().or(dS()).or(N(false)).or(N("")), result: f({ isError: N(true).optional() }) }));
 function M(e) {
   let o = w().safeParse(e);
-  return o.success && o.data.result.isError !== !0;
+  return o.success && o.data.result.isError !== true;
 }
 var A = m(() => f({ availableTabs: H(f({ tabId: v(), url: i() })) }));
 function E({ sessionId: e, onlyIfEmpty: o, clientOverride: c, callTimeoutMs: l = x }) {
-  if (a.CLAUDE_CODE_REMOTE_SESSION_ID || !I("tengu_chrome_tab_group_close", !0))
+  if (a.CLAUDE_CODE_REMOTE_SESSION_ID || !I("tengu_chrome_tab_group_close", true))
     return Promise.resolve({ status: "disabled" });
   let r = pp().closesInFlight,
     u = r.get(e);
@@ -139,7 +139,7 @@ async function F({ sessionId: e, onlyIfEmpty: o, clientOverride: c, callTimeoutM
     t,
     b;
   try {
-    let s = await Xt(r.callTool("tabs_context_mcp", { createIfEmpty: !1 }, u), l, "tabs_context_mcp timed out"),
+    let s = await Xt(r.callTool("tabs_context_mcp", { createIfEmpty: false }, u), l, "tabs_context_mcp timed out"),
       { tabGroupId: _, json: S } = l9e(s);
     if (_ === void 0 || S === void 0) return n("[closeSessionTabGroup] no group for session"), { status: "no_group" };
     b = _;
@@ -198,18 +198,18 @@ async function F({ sessionId: e, onlyIfEmpty: o, clientOverride: c, callTimeoutM
 function ee() {
   let e = pp();
   if (e.tabGroupCleanupRegistered) return;
-  e.tabGroupCleanupRegistered = !0;
+  e.tabGroupCleanupRegistered = true;
   let o = G().id;
   (e.unsubscribeSessionSwitch = au((c, l) => {
     if (c === o) return;
     let r = o;
-    (o = c), E({ sessionId: r, onlyIfEmpty: !0 }).catch(h);
+    (o = c), E({ sessionId: r, onlyIfEmpty: true }).catch(h);
   })),
     (e.unregisterExitCleanup = vt(() => {
       if (!xo()) return;
       let c = Array.from(e.closesInFlight.values(), (l) => l.promise);
       return Xt(
-        Promise.allSettled([...c, E({ sessionId: G().id, onlyIfEmpty: !0 })]),
+        Promise.allSettled([...c, E({ sessionId: G().id, onlyIfEmpty: true })]),
         z,
         "chrome tab group close timed out at exit",
       ).catch(() => {});

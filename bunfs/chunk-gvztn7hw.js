@@ -459,7 +459,7 @@ function Ye(Cn) {
     k = st.currency,
     [N, lt] = u(void 0),
     [Z, ye] = u(void 0),
-    [Q, St] = u(!1),
+    [Q, St] = u(false),
     [be, ui] = u(0),
     [ut, E] = u(null),
     mi,
@@ -471,7 +471,7 @@ function Ye(Cn) {
         lt(Ut.spendLimitCents), ye(Ut.spendLimitCents);
         return;
       }
-      let jt = !1;
+      let jt = false;
       return (
         dI(w.credentials)
           .then((pi) => {
@@ -490,7 +490,7 @@ function Ye(Cn) {
             lt(null), ye(null);
           }),
         () => {
-          jt = !0;
+          jt = true;
         }
       );
     }),
@@ -504,7 +504,7 @@ function Ye(Cn) {
   bb0: {
     if (at.resetsAt) {
       let Xe;
-      if (b[5] !== at.resetsAt) (Xe = ad(at.resetsAt, !0)), (b[5] = at.resetsAt), (b[6] = Xe);
+      if (b[5] !== at.resetsAt) (Xe = ad(at.resetsAt, true)), (b[5] = at.resetsAt), (b[6] = Xe);
       else Xe = b[6];
       kt = Xe;
       break bb0;
@@ -575,11 +575,11 @@ function Ye(Cn) {
         );
         return;
       }
-      St(!0);
+      St(true);
       let ct = Z ?? null;
       let ee = await _3e(ct, k, w.credentials);
       if (!ee.ok) {
-        St(!1),
+        St(false),
           E(
             ee.reason
               ? `Could not update your spend limit: ${ee.reason}`
@@ -590,7 +590,7 @@ function Ye(Cn) {
       let Jt = ee.disabledUntil != null ? new Date(ee.disabledUntil) : null;
       let _i = Jt != null && (Number.isNaN(Jt.getTime()) || Jt > new Date());
       if ((s("tengu_spend_limit_nudge_save", { removed: ct === null, reblocked: _i }), _i)) {
-        St(!1);
+        St(false);
         let ft = ee.usedCredits !== null ? Math.max(N ?? 0, ee.usedCredits) : N;
         lt(ft ?? null),
           ye(($t) => (ft !== null && ft !== void 0 && $t !== null ? Math.max($t ?? 0, ft) : $t)),
@@ -602,7 +602,7 @@ function Ye(Cn) {
         return;
       }
       E(null);
-      let ht = { ...Id(), isUsingOverage: !0 };
+      let ht = { ...Id(), isUsingOverage: true };
       if ((delete ht.overageDisabledReason, ht.status === "rejected")) ht.status = "allowed";
       if ((S3e(ht), ct === null)) j(mt("success", rt)("Removed monthly spend limit"));
       else j(mt("success", rt)(`Increased monthly spend limit to ${ji(ct, k, "fit")}`));
@@ -699,7 +699,7 @@ function Ye(Cn) {
             gap: 2,
             children: [
               r(t, { color: Li ? "suggestion" : void 0, children: [Li ? L.pointer : " ", " ", yt.label] }),
-              yt.hint ? e(t, { dimColor: !0, wrap: "truncate-end", children: yt.hint }) : null,
+              yt.hint ? e(t, { dimColor: true, wrap: "truncate-end", children: yt.hint }) : null,
             ],
           },
           yt.id,
@@ -751,14 +751,14 @@ function Zt(m) {
     case "upgrade":
     case "team":
     case "extra-usage":
-      return !0;
+      return true;
     case "cancel":
     case "auto-resume":
     case "low-priority":
     case "juniper-tide":
     case "juniper-tide-spent":
     case "cancel-auto-resume":
-      return !1;
+      return false;
   }
 }
 function Et(yo) {
@@ -775,13 +775,13 @@ function Et(yo) {
   if (a[1] === d) (Si = mw()), (a[1] = Si);
   else Si = a[1];
   let bo = Si,
-    Ro = On()?.hasExtraUsageEnabled === !0,
+    Ro = On()?.hasExtraUsageEnabled === true,
     Ui = On()?.billingType === "usage_based",
     ki = Kt === "max" && bo === "default_claude_max_20x",
     wt = Kt === "team" || Kt === "enterprise",
-    vo = I("tengu_jade_anvil_4", !1),
+    vo = I("tengu_jade_anvil_4", false),
     Ni;
-  if (a[2] === d) (Ni = I("tengu_coral_beacon", !1)), (a[2] = Ni);
+  if (a[2] === d) (Ni = I("tengu_coral_beacon", false)), (a[2] = Ni);
   else Ni = a[2];
   let Lo = Ni,
     ze = i.upgradePaths,
@@ -808,9 +808,9 @@ function Et(yo) {
   if (a[12] !== i || a[13] !== K) ($i = K ? void 0 : Fke(i)), (a[12] = i), (a[13] = K), (a[14] = $i);
   else $i = a[14];
   let De = $i,
-    [wo, Co] = u(!1),
+    [wo, Co] = u(false),
     Xi;
-  if (a[15] === d) (Xi = I(BRe, !1)), (a[15] = Xi);
+  if (a[15] === d) (Xi = I(BRe, false)), (a[15] = Xi);
   else Xi = a[15];
   let Oo = Xi,
     Bi;
@@ -827,7 +827,7 @@ function Et(yo) {
       if (!Pe) {
         return;
       }
-      let Ki = !1;
+      let Ki = false;
       return (
         gle(g.credentials)
           .then((Yt) => {
@@ -838,7 +838,7 @@ function Et(yo) {
           })
           .catch(nn),
         () => {
-          Ki = !0;
+          Ki = true;
         }
       );
     }),
@@ -911,7 +911,7 @@ function Et(yo) {
         W.push(R);
       } else if (De !== void 0) {
         let R;
-        if (a[40] !== De) (R = { label: De, value: "juniper-tide-spent", disabled: !0 }), (a[40] = De), (a[41] = R);
+        if (a[40] !== De) (R = { label: De, value: "juniper-tide-spent", disabled: true }), (a[40] = De), (a[41] = R);
         else R = a[41];
         W.push(R);
       }
@@ -962,7 +962,7 @@ function Et(yo) {
       (a[56] = Yi);
   else (R = a[55]), (Yi = a[56]);
   A(R, Yi);
-  let zi = C(!1),
+  let zi = C(false),
     Gi,
     Zi;
   if (a[57] !== i || a[58] !== g.credentials || a[59] !== Ct)
@@ -970,7 +970,7 @@ function Et(yo) {
       if (zi.current || Ct !== "failed") {
         return;
       }
-      (zi.current = !0), WYt(i, g.credentials);
+      (zi.current = true), WYt(i, g.credentials);
     }),
       (Zi = [Ct, i, g.credentials]),
       (a[57] = i),
@@ -1011,7 +1011,7 @@ function Et(yo) {
     if (a[75] !== g.credentials || a[76] !== h)
       (O = function ke() {
         s("tengu_rate_limit_options_menu_select_juniper_tide", {}),
-          Co(!0),
+          Co(true),
           w2e("dialog", g.credentials)
             .then((So) => {
               h(So.text);
@@ -1120,9 +1120,9 @@ function Et(yo) {
         title: "What do you want to do?",
         onCancel: on,
         color: "suggestion",
-        hideInputGuide: !0,
+        hideInputGuide: true,
         children: e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: "Resetting your session limit\u2026 this usually takes a few seconds",
         }),
       })),

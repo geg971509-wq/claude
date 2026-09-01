@@ -50,9 +50,9 @@ function Z() {
 function pe() {
   return Te.state("daemon-auth-status");
 }
-function ZMn(e, t, h = () => !0, s, u) {
+function ZMn(e, t, h = () => true, s, u) {
   let n,
-    d = !1,
+    d = false,
     c = null,
     p = new Set(),
     k = null,
@@ -136,15 +136,15 @@ function ZMn(e, t, h = () => !0, s, u) {
     }
   }
   async function H(r) {
-    if (d) return t("auth: 401 ignored (3P provider active, no OAuth)"), !1;
+    if (d) return t("auth: 401 ignored (3P provider active, no OAuth)"), false;
     t("auth: handling 401");
     let o = await g();
     if (await o.handleOAuth401Error(r, u, s))
-      return o.clearOAuthTokenCache(), await C(), t("auth: 401 recovery succeeded"), !0;
+      return o.clearOAuthTokenCache(), await C(), t("auth: 401 recovery succeeded"), true;
     t("auth: 401 recovery failed, signalling re-auth required"), (n = void 0), await B(), o.clearOAuthTokenCache();
     let w = await o.getClaudeAIOAuthTokensAsync(u);
-    if (w?.accessToken !== void 0 && w.accessToken !== r) return await C(), !0;
-    return M(r), !1;
+    if (w?.accessToken !== void 0 && w.accessToken !== r) return await C(), true;
+    return M(r), false;
   }
   let _ = null;
   function B() {
@@ -238,7 +238,7 @@ function ZMn(e, t, h = () => !0, s, u) {
         t(`auth: 401 handler error: ${o}`);
         for (let T of p)
           try {
-            let w = { type: "auth_401_result", refreshed: !1, requestId: r.requestId };
+            let w = { type: "auth_401_result", refreshed: false, requestId: r.requestId };
             T.send(w);
           } catch {}
       });
@@ -259,7 +259,7 @@ function ZMn(e, t, h = () => !0, s, u) {
       let r = await g(),
         o = await r.getClaudeAIOAuthTokensAsync(u);
       if (!o?.accessToken && r.isUsing3PServices()) {
-        (d = !0), t("auth: 3P provider active, skipping OAuth refresh loop");
+        (d = true), t("auth: 3P provider active, skipping OAuth refresh loop");
         return;
       }
       if (o?.accessToken)
@@ -286,7 +286,7 @@ function ZMn(e, t, h = () => !0, s, u) {
         if (c) clearTimeout(c), (c = null);
         if (k) clearInterval(k), (k = null);
       },
-      { once: !0 },
+      { once: true },
     ),
     {
       ready: E,
@@ -313,7 +313,7 @@ function Q(e, t, h) {
   if (typeof process.send === "function") {
     let c = function (p) {
         let k = d.get(p);
-        if (k) d.delete(p), k.resolve(!1);
+        if (k) d.delete(p), k.resolve(false);
       },
       n = e;
     process.on("message", (p) => {
@@ -343,7 +343,7 @@ function Q(e, t, h) {
             try {
               process.send(y);
             } catch {
-              clearTimeout(A), d.delete(k), g(!1);
+              clearTimeout(A), d.delete(k), g(false);
             }
           });
         },
@@ -380,9 +380,9 @@ var K = m(() =>
       spawnMode: oe(["same-dir", "worktree"]).default("same-dir"),
       capacity: v().int().positive().default(32),
       permissionMode: Sa(bm, oe(wO)).optional(),
-      sandbox: q().default(!1),
+      sandbox: q().default(false),
       sessionTimeoutSeconds: v().int().positive().optional(),
-      createSessionOnStart: q().default(!1),
+      createSessionOnStart: q().default(false),
     }).strict(),
   ),
   he = 60000,
@@ -396,7 +396,7 @@ var K = m(() =>
     if (!k()) h(hDe), process.exit(1);
     let { runBridgeHeadless: y, BridgeHeadlessPermanentError: g } = await import("/$bunfs/root/chunk-fxfb1x5a.js"),
       A = null,
-      C = !1,
+      C = false,
       I = (S) => {
         if (typeof process.send !== "function") return;
         try {
@@ -410,11 +410,11 @@ var K = m(() =>
         let E = S > 0;
         if (E !== C) (C = E), I(E);
         if (E) {
-          if (A === null) (A = setInterval((L) => L(!0), he, I)), A.unref?.();
+          if (A === null) (A = setInterval((L) => L(true), he, I)), A.unref?.();
         } else M();
       },
       { getFeatureValue_CACHED_MAY_BE_STALE: z } = await import("/$bunfs/root/chunk-2sq45cbb.js"),
-      H = z("tengu_daemon_upgrade_defer_busy", !0),
+      H = z("tengu_daemon_upgrade_defer_busy", true),
       _ = null,
       B = () => {},
       U = new Promise((S) => {
@@ -480,7 +480,7 @@ async function c2e(e, t, h) {
       (s) => {
         let u = CYt(s.remoteControl),
           n = u.filter((d) => d.dir !== e);
-        if (n.length === u.length) return !1;
+        if (n.length === u.length) return false;
         if (n.length === 0) delete s.remoteControl;
         else s.remoteControl = n;
       },
@@ -491,9 +491,9 @@ async function c2e(e, t, h) {
 }
 var re = m(() => f({ intervalSeconds: v().positive().default(30) }).strict()),
   eW = {
-    heartbeat: { schema: re, run: ke, needsOAuth: !1 },
-    scheduled: { schema: vYt, run: tNn, needsOAuth: !0 },
-    remoteControl: { schema: K, run: te, needsOAuth: !0 },
+    heartbeat: { schema: re, run: ke, needsOAuth: false },
+    scheduled: { schema: vYt, run: tNn, needsOAuth: true },
+    remoteControl: { schema: K, run: te, needsOAuth: true },
   };
 async function ke(e, t, h, s) {
   let { intervalSeconds: u } = re().parse(e);
@@ -587,9 +587,9 @@ function Kur(e) {
 var ye = 30000;
 function we(e) {
   try {
-    return process.kill(e, 0), !0;
+    return process.kill(e, 0), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function Xur(e, t) {
@@ -609,11 +609,11 @@ function Xur(e, t) {
     },
     s = h.ppid();
   if (s <= 1) return;
-  let u = !1,
+  let u = false,
     n = setInterval(() => {
       if (u) return;
       if (!(!h.isAlive(s) || (D() !== "windows" && h.ppid() !== s))) return;
-      (u = !0),
+      (u = true),
         clearInterval(n),
         h.log("parent supervisor gone \u2014 exiting"),
         e.abort(),

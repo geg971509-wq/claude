@@ -52,7 +52,7 @@ var f = ["chrome", "brave", "arc", "edge", "chromium", "vivaldi", "opera"],
     opera: {
       macos: ["Library", "Application Support", "com.operasoftware.Opera"],
       linux: [".config", "opera"],
-      windows: { path: ["Opera Software", "Opera Stable"], useRoaming: !0 },
+      windows: { path: ["Opera Software", "Opera Stable"], useRoaming: true },
     },
   };
 function U6n() {
@@ -81,12 +81,12 @@ function U6n() {
   return r;
 }
 async function g(t, r) {
-  if (t.length === 0) return r?.("[Claude in Chrome] No browser paths to check"), { isInstalled: !1, browser: null };
+  if (t.length === 0) return r?.("[Claude in Chrome] No browser paths to check"), { isInstalled: false, browser: null };
   let i = w();
   for (let { browser: e, path: a } of t) {
     let s = [];
     try {
-      s = await p(a, { withFileTypes: !0 });
+      s = await p(a, { withFileTypes: true });
     } catch (o) {
       if (Ht(o)) continue;
       throw o;
@@ -101,12 +101,12 @@ async function g(t, r) {
         let m = n(a, o, "Extensions", l);
         try {
           return (
-            await p(m), r?.(`[Claude in Chrome] Extension ${l} found in ${e} ${o}`), { isInstalled: !0, browser: e }
+            await p(m), r?.(`[Claude in Chrome] Extension ${l} found in ${e} ${o}`), { isInstalled: true, browser: e }
           );
         } catch {}
       }
   }
-  return r?.("[Claude in Chrome] Extension not found in any browser"), { isInstalled: !1, browser: null };
+  return r?.("[Claude in Chrome] Extension not found in any browser"), { isInstalled: false, browser: null };
 }
 async function B6n(t, r) {
   return (await g(t, r)).isInstalled;

@@ -85,7 +85,7 @@ function Ce(i) {
         for (let g = 0; g < u; g++) {
           let D = a[g],
             m = l[g];
-          if (D && m) (D.wordDiff = !0), (m.wordDiff = !0), (D.matchedLine = m), (m.matchedLine = D);
+          if (D && m) (D.wordDiff = true), (m.wordDiff = true), (D.matchedLine = m), (m.matchedLine = D);
         }
         c.push(...a.filter(Boolean)), c.push(...l.filter(Boolean)), (d = s);
       } else c.push(n), d++;
@@ -94,7 +94,7 @@ function Ce(i) {
   return c;
 }
 function be(i, c) {
-  return Usn(i, c, { ignoreCase: !1 });
+  return Usn(i, c, { ignoreCase: false });
 }
 function Le(i, c, d, n, a) {
   let { type: s, i: l, wordDiff: u, matchedLine: g, originalCode: D } = i;
@@ -112,14 +112,14 @@ function Le(i, c, d, n, a) {
     h = 0;
   if (
     (f.forEach((L, A) => {
-      let v = !1,
+      let v = false,
         P;
       if (s === "add") {
-        if (L.added) (v = !0), (P = "diffAddedWord");
-        else if (!L.removed) v = !0;
+        if (L.added) (v = true), (P = "diffAddedWord");
+        else if (!L.removed) v = true;
       } else if (s === "remove") {
-        if (L.removed) (v = !0), (P = "diffRemovedWord");
-        else if (!L.added) v = !0;
+        if (L.removed) (v = true), (P = "diffRemovedWord");
+        else if (!L.added) v = true;
       }
       if (!v) return;
       l_(L.value, R, "wrap")
@@ -156,11 +156,11 @@ function Le(i, c, d, n, a) {
         flexDirection: "row",
         children: [
           e(md, {
-            fromLeftEdge: !0,
+            fromLeftEdge: true,
             children: r(t, { color: a ? "text" : void 0, backgroundColor: O, dimColor: n, children: [N, w] }),
           }),
           e(t, { color: a ? "text" : void 0, backgroundColor: O, dimColor: n, children: L }),
-          H ? e(t, { dimColor: !0, children: H }) : null,
+          H ? e(t, { dimColor: true, children: H }) : null,
           e(t, { color: a ? "text" : void 0, backgroundColor: O, dimColor: n, children: " ".repeat(me) }),
         ],
       },
@@ -216,7 +216,7 @@ function ie(i, c, d, n, a) {
           flexDirection: "row",
           children: [
             e(md, {
-              fromLeftEdge: !0,
+              fromLeftEdge: true,
               children: r(t, {
                 color: a ? "text" : void 0,
                 backgroundColor: B,
@@ -225,7 +225,7 @@ function ie(i, c, d, n, a) {
               }),
             }),
             e(t, { color: a ? "text" : void 0, backgroundColor: B, dimColor: n, children: y }),
-            E ? e(t, { dimColor: !0, children: E }) : null,
+            E ? e(t, { dimColor: true, children: E }) : null,
             e(t, { color: a ? "text" : void 0, backgroundColor: B, dimColor: n, children: " ".repeat(H) }),
           ],
         },
@@ -308,10 +308,10 @@ function le(i, c, d, n, a, s, l, u, g, D) {
 var gx = du(function (Je) {
   let q = _(16),
     { patch: J, dim: Q, filePath: Qe, firstLine: Ue, fileContent: Xe, width: U, skipHighlighting: Re } = Je,
-    Ze = Re === void 0 ? !1 : Re,
+    Ze = Re === void 0 ? false : Re,
     [Ie] = mn(),
     et = fe(glt()),
-    tt = Ts().syntaxHighlightingDisabled ?? !1,
+    tt = Ts().syntaxHighlightingDisabled ?? false,
     K = Math.max(1, Math.floor(U)),
     nt = Nt(),
     { structuredDiff: ot } = VZ(),
@@ -327,7 +327,7 @@ var gx = du(function (Je) {
   if (V > 0 && X && Z) {
     let M;
     if (q[4] !== V || q[5] !== X)
-      (M = e(md, { fromLeftEdge: !0, flexShrink: 0, children: e(KZ, { lines: X, width: V }) })),
+      (M = e(md, { fromLeftEdge: true, flexShrink: 0, children: e(KZ, { lines: X, width: V }) })),
         (q[4] = V),
         (q[5] = X),
         (q[6] = M);

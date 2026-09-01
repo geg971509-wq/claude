@@ -13,7 +13,7 @@ import { Bc } from "/$bunfs/root/chunk-8tgj5dp2.js";
 import { Li } from "/$bunfs/root/chunk-z5yhadgs.js";
 import { S, ue } from "/$bunfs/root/chunk-yz031c9r.js";
 var be = S(function (me) {
-  Object.defineProperty(me, "__esModule", { value: !0 });
+  Object.defineProperty(me, "__esModule", { value: true });
   me.OTLPExporterBase = void 0;
   class he {
     _delegate;
@@ -33,7 +33,7 @@ var be = S(function (me) {
   me.OTLPExporterBase = he;
 });
 var vt = S(function (xe) {
-  Object.defineProperty(xe, "__esModule", { value: !0 });
+  Object.defineProperty(xe, "__esModule", { value: true });
   xe.OTLPExporterError = void 0;
   class Oe extends Error {
     code;
@@ -47,7 +47,7 @@ var vt = S(function (xe) {
   xe.OTLPExporterError = Oe;
 });
 var at = S(function (Ne) {
-  Object.defineProperty(Ne, "__esModule", { value: !0 });
+  Object.defineProperty(Ne, "__esModule", { value: true });
   Ne.getSharedConfigurationDefaults =
     Ne.mergeOtlpSharedConfigurationWithDefaults =
     Ne.wrapStaticHeadersInFunction =
@@ -77,7 +77,7 @@ var at = S(function (Ne) {
   Ne.getSharedConfigurationDefaults = Ho;
 });
 var Ee = S(function (we) {
-  Object.defineProperty(we, "__esModule", { value: !0 });
+  Object.defineProperty(we, "__esModule", { value: true });
   we.CompressionAlgorithm = void 0;
   var zo;
   (function (l) {
@@ -85,7 +85,7 @@ var Ee = S(function (we) {
   })((zo = we.CompressionAlgorithm || (we.CompressionAlgorithm = {})));
 });
 var _t = S(function (Ue) {
-  Object.defineProperty(Ue, "__esModule", { value: !0 });
+  Object.defineProperty(Ue, "__esModule", { value: true });
   Ue.createBoundedQueueExportPromiseHandler = void 0;
   class Pe {
     _concurrencyLimit;
@@ -115,7 +115,7 @@ var _t = S(function (Ue) {
   Ue.createBoundedQueueExportPromiseHandler = Jo;
 });
 var Le = S(function (_e) {
-  Object.defineProperty(_e, "__esModule", { value: !0 });
+  Object.defineProperty(_e, "__esModule", { value: true });
   _e.createLoggingPartialSuccessResponseHandler = void 0;
   var Go = Li();
   function Yo(l) {
@@ -132,7 +132,7 @@ var Le = S(function (_e) {
   _e.createLoggingPartialSuccessResponseHandler = Wo;
 });
 var At = S(function (De) {
-  Object.defineProperty(De, "__esModule", { value: !0 });
+  Object.defineProperty(De, "__esModule", { value: true });
   De.createOtlpExportDelegate = void 0;
   var rt = Bc(),
     Re = vt(),
@@ -216,7 +216,7 @@ var At = S(function (De) {
   De.createOtlpExportDelegate = Zo;
 });
 var Be = S(function (Ce) {
-  Object.defineProperty(Ce, "__esModule", { value: !0 });
+  Object.defineProperty(Ce, "__esModule", { value: true });
   Ce.createOtlpNetworkExportDelegate = void 0;
   var Qo = _t(),
     ti = At();
@@ -229,7 +229,7 @@ var Be = S(function (Ce) {
   Ce.createOtlpNetworkExportDelegate = ei;
 });
 var UP = S(function (Z) {
-  Object.defineProperty(Z, "__esModule", { value: !0 });
+  Object.defineProperty(Z, "__esModule", { value: true });
   Z.createOtlpNetworkExportDelegate =
     Z.CompressionAlgorithm =
     Z.getSharedConfigurationDefaults =
@@ -239,41 +239,41 @@ var UP = S(function (Z) {
       void 0;
   var ri = be();
   Object.defineProperty(Z, "OTLPExporterBase", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ri.OTLPExporterBase;
     },
   });
   var ni = vt();
   Object.defineProperty(Z, "OTLPExporterError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ni.OTLPExporterError;
     },
   });
   var qe = at();
   Object.defineProperty(Z, "mergeOtlpSharedConfigurationWithDefaults", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return qe.mergeOtlpSharedConfigurationWithDefaults;
     },
   });
   Object.defineProperty(Z, "getSharedConfigurationDefaults", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return qe.getSharedConfigurationDefaults;
     },
   });
   var oi = Ee();
   Object.defineProperty(Z, "CompressionAlgorithm", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return oi.CompressionAlgorithm;
     },
   });
   var ii = Be();
   Object.defineProperty(Z, "createOtlpNetworkExportDelegate", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ii.createOtlpNetworkExportDelegate;
     },
@@ -285,12 +285,12 @@ var bJt = S(function (ac, He) {
     var f = Array(arguments.length - 1),
       d = 0,
       i = 2,
-      o = !0;
+      o = true;
     while (i < arguments.length) f[d++] = arguments[i++];
     return new Promise(function (t, r) {
       f[d] = function (c) {
         if (o)
-          if (((o = !1), c)) r(c);
+          if (((o = false), c)) r(c);
           else {
             var s = Array(arguments.length - 1),
               m = 0;
@@ -301,7 +301,7 @@ var bJt = S(function (ac, He) {
       try {
         l.apply(u || null, f);
       } catch (n) {
-        if (o) (o = !1), r(n);
+        if (o) (o = false), r(n);
       }
     });
   }
@@ -605,7 +605,7 @@ var VHt = S(function (ft, Lt) {
         u(d), (l.Long = f(d));
       })();
   })(typeof globalThis < "u" ? globalThis : typeof self < "u" ? self : ft, function (l) {
-    Object.defineProperty(l, "__esModule", { value: !0 }), (l.default = void 0);
+    Object.defineProperty(l, "__esModule", { value: true }), (l.default = void 0);
     var u = null;
     try {
       u = new WebAssembly.Instance(
@@ -630,9 +630,9 @@ var VHt = S(function (ft, Lt) {
     function f(v, y, O) {
       (this.low = v | 0), (this.high = y | 0), (this.unsigned = !!O);
     }
-    f.prototype.__isLong__, Object.defineProperty(f.prototype, "__isLong__", { value: !0 });
+    f.prototype.__isLong__, Object.defineProperty(f.prototype, "__isLong__", { value: true });
     function d(v) {
-      return (v && v.__isLong__) === !0;
+      return (v && v.__isLong__) === true;
     }
     function i(v) {
       var y = Math.clz32(v & -v);
@@ -647,13 +647,13 @@ var VHt = S(function (ft, Lt) {
         if (((v >>>= 0), (P = 0 <= v && v < 256))) {
           if (((T = e[v]), T)) return T;
         }
-        if (((O = n(v, 0, !0)), P)) e[v] = O;
+        if (((O = n(v, 0, true)), P)) e[v] = O;
         return O;
       } else {
         if (((v |= 0), (P = -128 <= v && v < 128))) {
           if (((T = o[v]), T)) return T;
         }
-        if (((O = n(v, v < 0 ? -1 : 0, !1)), P)) o[v] = O;
+        if (((O = n(v, v < 0 ? -1 : 0, false)), P)) o[v] = O;
         return O;
       }
     }
@@ -678,7 +678,7 @@ var VHt = S(function (ft, Lt) {
     var c = Math.pow;
     function s(v, y, O) {
       if (v.length === 0) throw Error("empty string");
-      if (typeof y === "number") (O = y), (y = !1);
+      if (typeof y === "number") (O = y), (y = false);
       else y = !!y;
       if (v === "NaN" || v === "Infinity" || v === "+Infinity" || v === "-Infinity") return y ? W : j;
       if (((O = O || 10), O < 2 || 36 < O)) throw RangeError("radix");
@@ -712,19 +712,19 @@ var VHt = S(function (ft, Lt) {
       pe = t(Y),
       j = t(0);
     f.ZERO = j;
-    var W = t(0, !0);
+    var W = t(0, true);
     f.UZERO = W;
     var it = t(1);
     f.ONE = it;
-    var se = t(1, !0);
+    var se = t(1, true);
     f.UONE = se;
     var Ut = t(-1);
     f.NEG_ONE = Ut;
-    var de = n(-1, 2147483647, !1);
+    var de = n(-1, 2147483647, false);
     f.MAX_VALUE = de;
-    var ye = n(-1, -1, !0);
+    var ye = n(-1, -1, true);
     f.MAX_UNSIGNED_VALUE = ye;
-    var D = n(0, -2147483648, !1);
+    var D = n(0, -2147483648, false);
     f.MIN_VALUE = D;
     var b = f.prototype;
     if (
@@ -748,7 +748,7 @@ var VHt = S(function (ft, Lt) {
         var E = r(c(y, 6), this.unsigned),
           A = this,
           M = "";
-        while (!0) {
+        while (true) {
           var B = A.div(E),
             k = A.sub(B.mul(E)).toInt() >>> 0,
             _ = k.toString(y);
@@ -779,8 +779,8 @@ var VHt = S(function (ft, Lt) {
       }),
       (b.isSafeInteger = function () {
         var y = this.high >> 21;
-        if (!y) return !0;
-        if (this.unsigned) return !1;
+        if (!y) return true;
+        if (this.unsigned) return false;
         return y === -1 && !(this.low === 0 && this.high === -2097152);
       }),
       (b.isZero = function () {
@@ -801,7 +801,7 @@ var VHt = S(function (ft, Lt) {
       }),
       (b.equals = function (y) {
         if (!d(y)) y = m(y);
-        if (this.unsigned !== y.unsigned && this.high >>> 31 === 1 && y.high >>> 31 === 1) return !1;
+        if (this.unsigned !== y.unsigned && this.high >>> 31 === 1 && y.high >>> 31 === 1) return false;
         return this.high === y.high && this.low === y.low;
       }),
       (b.eq = b.equals),
@@ -1065,11 +1065,11 @@ var VHt = S(function (ft, Lt) {
       (b.rotr = b.rotateRight),
       (b.toSigned = function () {
         if (!this.unsigned) return this;
-        return n(this.low, this.high, !1);
+        return n(this.low, this.high, false);
       }),
       (b.toUnsigned = function () {
         if (this.unsigned) return this;
-        return n(this.low, this.high, !0);
+        return n(this.low, this.high, true);
       }),
       (b.toBytes = function (y) {
         return y ? this.toBytesLE() : this.toBytesBE();
@@ -1353,7 +1353,7 @@ var jQ = S(function (Dt) {
     var d = u[f];
     if (d != null && u.hasOwnProperty(f))
       return typeof d !== "object" || (Array.isArray(d) ? d.length : Object.keys(d).length) > 0;
-    return !1;
+    return false;
   };
   x.Buffer = (function () {
     try {
@@ -1399,7 +1399,7 @@ var jQ = S(function (Dt) {
   x.merge = ar;
   x.recursionLimit = 100;
   x.makeProp = function (u, f) {
-    Object.defineProperty(u, f, { enumerable: !0, configurable: !0, writable: !0 });
+    Object.defineProperty(u, f, { enumerable: true, configurable: true, writable: true });
   };
   x.lcFirst = function (u) {
     return u.charAt(0).toLowerCase() + u.substring(1);
@@ -1421,22 +1421,22 @@ var jQ = S(function (Dt) {
     }
     return (
       (u.prototype = Object.create(Error.prototype, {
-        constructor: { value: u, writable: !0, enumerable: !1, configurable: !0 },
+        constructor: { value: u, writable: true, enumerable: false, configurable: true },
         name: {
           get: function () {
             return l;
           },
           set: void 0,
-          enumerable: !1,
-          configurable: !0,
+          enumerable: false,
+          configurable: true,
         },
         toString: {
           value: function () {
             return this.name + ": " + this.message;
           },
-          writable: !0,
-          enumerable: !1,
-          configurable: !0,
+          writable: true,
+          enumerable: false,
+          configurable: true,
         },
       })),
       u
@@ -1457,7 +1457,7 @@ var jQ = S(function (Dt) {
       for (var d = 0; d < u.length; ++d) if (u[d] !== f) delete this[u[d]];
     };
   };
-  x.toJSONOptions = { longs: String, enums: String, bytes: String, json: !0 };
+  x.toJSONOptions = { longs: String, enums: String, bytes: String, json: true };
   x._configure = function () {
     var l = x.Buffer;
     if (!l) {
@@ -1825,19 +1825,19 @@ var XHt = S(function (Sc, gr) {
     var u = K.Long ? "toLong" : "toNumber";
     K.merge(U.prototype, {
       int64: function () {
-        return Ft.call(this)[u](!1);
+        return Ft.call(this)[u](false);
       },
       uint64: function () {
-        return Ft.call(this)[u](!0);
+        return Ft.call(this)[u](true);
       },
       sint64: function () {
-        return Ft.call(this).zzDecode()[u](!1);
+        return Ft.call(this).zzDecode()[u](false);
       },
       fixed64: function () {
-        return Or.call(this)[u](!0);
+        return Or.call(this)[u](true);
       },
       sfixed64: function () {
-        return Or.call(this)[u](!1);
+        return Or.call(this)[u](false);
       },
     });
   };
@@ -1886,7 +1886,7 @@ var Ur = S(function (Nc, Pr) {
       return e.rpcImpl(u, f[e.requestDelimited ? "encodeDelimited" : "encode"](i).finish(), function (r, n) {
         if (r) return e.emit("error", r, u), o(r);
         if (n === null) {
-          e.end(!0);
+          e.end(true);
           return;
         }
         if (!(n instanceof d))
@@ -1937,7 +1937,7 @@ var EJt = S(function (Lr) {
   Ar();
 });
 var gt = S(function (Rr, kr) {
-  Object.defineProperty(Rr, "__esModule", { value: !0 });
+  Object.defineProperty(Rr, "__esModule", { value: true });
   var g = EJt(),
     h = g.Reader,
     N = g.Writer,
@@ -2114,7 +2114,7 @@ var gt = S(function (Rr, kr) {
                         if (t.stringValue != null) r.stringValue = String(t.stringValue);
                         if (t.boolValue != null) r.boolValue = Boolean(t.boolValue);
                         if (t.intValue != null) {
-                          if (p.Long) (r.intValue = p.Long.fromValue(t.intValue)).unsigned = !1;
+                          if (p.Long) (r.intValue = p.Long.fromValue(t.intValue)).unsigned = false;
                           else if (typeof t.intValue === "string") r.intValue = parseInt(t.intValue, 10);
                           else if (typeof t.intValue === "number") r.intValue = t.intValue;
                           else if (typeof t.intValue === "object")
@@ -3594,7 +3594,7 @@ var gt = S(function (Rr, kr) {
                             break;
                         }
                         if (e.startTimeUnixNano != null) {
-                          if (p.Long) (t.startTimeUnixNano = p.Long.fromValue(e.startTimeUnixNano)).unsigned = !1;
+                          if (p.Long) (t.startTimeUnixNano = p.Long.fromValue(e.startTimeUnixNano)).unsigned = false;
                           else if (typeof e.startTimeUnixNano === "string")
                             t.startTimeUnixNano = parseInt(e.startTimeUnixNano, 10);
                           else if (typeof e.startTimeUnixNano === "number") t.startTimeUnixNano = e.startTimeUnixNano;
@@ -3605,7 +3605,7 @@ var gt = S(function (Rr, kr) {
                             ).toNumber();
                         }
                         if (e.endTimeUnixNano != null) {
-                          if (p.Long) (t.endTimeUnixNano = p.Long.fromValue(e.endTimeUnixNano)).unsigned = !1;
+                          if (p.Long) (t.endTimeUnixNano = p.Long.fromValue(e.endTimeUnixNano)).unsigned = false;
                           else if (typeof e.endTimeUnixNano === "string")
                             t.endTimeUnixNano = parseInt(e.endTimeUnixNano, 10);
                           else if (typeof e.endTimeUnixNano === "number") t.endTimeUnixNano = e.endTimeUnixNano;
@@ -3668,12 +3668,12 @@ var gt = S(function (Rr, kr) {
                           else if (((r.parentSpanId = []), t.bytes !== Array))
                             r.parentSpanId = p.newBuffer(r.parentSpanId);
                           if (((r.name = ""), (r.kind = t.enums === String ? "SPAN_KIND_UNSPECIFIED" : 0), p.Long)) {
-                            var n = new p.Long(0, 0, !1);
+                            var n = new p.Long(0, 0, false);
                             r.startTimeUnixNano =
                               t.longs === String ? n.toString() : t.longs === Number ? n.toNumber() : n;
                           } else r.startTimeUnixNano = t.longs === String ? "0" : 0;
                           if (p.Long) {
-                            var n = new p.Long(0, 0, !1);
+                            var n = new p.Long(0, 0, false);
                             r.endTimeUnixNano =
                               t.longs === String ? n.toString() : t.longs === Number ? n.toNumber() : n;
                           } else r.endTimeUnixNano = t.longs === String ? "0" : 0;
@@ -3884,7 +3884,7 @@ var gt = S(function (Rr, kr) {
                             if (t instanceof a.opentelemetry.proto.trace.v1.Span.Event) return t;
                             var r = new a.opentelemetry.proto.trace.v1.Span.Event();
                             if (t.timeUnixNano != null) {
-                              if (p.Long) (r.timeUnixNano = p.Long.fromValue(t.timeUnixNano)).unsigned = !1;
+                              if (p.Long) (r.timeUnixNano = p.Long.fromValue(t.timeUnixNano)).unsigned = false;
                               else if (typeof t.timeUnixNano === "string")
                                 r.timeUnixNano = parseInt(t.timeUnixNano, 10);
                               else if (typeof t.timeUnixNano === "number") r.timeUnixNano = t.timeUnixNano;
@@ -3917,7 +3917,7 @@ var gt = S(function (Rr, kr) {
                             if (r.arrays || r.defaults) n.attributes = [];
                             if (r.defaults) {
                               if (p.Long) {
-                                var c = new p.Long(0, 0, !1);
+                                var c = new p.Long(0, 0, false);
                                 n.timeUnixNano =
                                   r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                               } else n.timeUnixNano = r.longs === String ? "0" : 0;
@@ -4607,7 +4607,7 @@ var gt = S(function (Rr, kr) {
                               return t;
                             var r = new a.opentelemetry.proto.collector.trace.v1.ExportTracePartialSuccess();
                             if (t.rejectedSpans != null) {
-                              if (p.Long) (r.rejectedSpans = p.Long.fromValue(t.rejectedSpans)).unsigned = !1;
+                              if (p.Long) (r.rejectedSpans = p.Long.fromValue(t.rejectedSpans)).unsigned = false;
                               else if (typeof t.rejectedSpans === "string")
                                 r.rejectedSpans = parseInt(t.rejectedSpans, 10);
                               else if (typeof t.rejectedSpans === "number") r.rejectedSpans = t.rejectedSpans;
@@ -4625,7 +4625,7 @@ var gt = S(function (Rr, kr) {
                             var n = {};
                             if (r.defaults) {
                               if (p.Long) {
-                                var c = new p.Long(0, 0, !1);
+                                var c = new p.Long(0, 0, false);
                                 n.rejectedSpans =
                                   r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                               } else n.rejectedSpans = r.longs === String ? "0" : 0;
@@ -4973,7 +4973,7 @@ var gt = S(function (Rr, kr) {
                               return t;
                             var r = new a.opentelemetry.proto.collector.metrics.v1.ExportMetricsPartialSuccess();
                             if (t.rejectedDataPoints != null) {
-                              if (p.Long) (r.rejectedDataPoints = p.Long.fromValue(t.rejectedDataPoints)).unsigned = !1;
+                              if (p.Long) (r.rejectedDataPoints = p.Long.fromValue(t.rejectedDataPoints)).unsigned = false;
                               else if (typeof t.rejectedDataPoints === "string")
                                 r.rejectedDataPoints = parseInt(t.rejectedDataPoints, 10);
                               else if (typeof t.rejectedDataPoints === "number")
@@ -4992,7 +4992,7 @@ var gt = S(function (Rr, kr) {
                             var n = {};
                             if (r.defaults) {
                               if (p.Long) {
-                                var c = new p.Long(0, 0, !1);
+                                var c = new p.Long(0, 0, false);
                                 n.rejectedDataPoints =
                                   r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                               } else n.rejectedDataPoints = r.longs === String ? "0" : 0;
@@ -5340,7 +5340,7 @@ var gt = S(function (Rr, kr) {
                             if (t instanceof a.opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess) return t;
                             var r = new a.opentelemetry.proto.collector.logs.v1.ExportLogsPartialSuccess();
                             if (t.rejectedLogRecords != null) {
-                              if (p.Long) (r.rejectedLogRecords = p.Long.fromValue(t.rejectedLogRecords)).unsigned = !1;
+                              if (p.Long) (r.rejectedLogRecords = p.Long.fromValue(t.rejectedLogRecords)).unsigned = false;
                               else if (typeof t.rejectedLogRecords === "string")
                                 r.rejectedLogRecords = parseInt(t.rejectedLogRecords, 10);
                               else if (typeof t.rejectedLogRecords === "number")
@@ -5359,7 +5359,7 @@ var gt = S(function (Rr, kr) {
                             var n = {};
                             if (r.defaults) {
                               if (p.Long) {
-                                var c = new p.Long(0, 0, !1);
+                                var c = new p.Long(0, 0, false);
                                 n.rejectedLogRecords =
                                   r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                               } else n.rejectedLogRecords = r.longs === String ? "0" : 0;
@@ -6288,7 +6288,7 @@ var gt = S(function (Rr, kr) {
                         if (t.arrays || t.defaults) r.dataPoints = [];
                         if (t.defaults)
                           (r.aggregationTemporality = t.enums === String ? "AGGREGATION_TEMPORALITY_UNSPECIFIED" : 0),
-                            (r.isMonotonic = !1);
+                            (r.isMonotonic = false);
                         if (e.dataPoints && e.dataPoints.length) {
                           r.dataPoints = [];
                           for (var n = 0; n < e.dataPoints.length; ++n)
@@ -6913,7 +6913,7 @@ var gt = S(function (Rr, kr) {
                           }
                         }
                         if (t.startTimeUnixNano != null) {
-                          if (p.Long) (r.startTimeUnixNano = p.Long.fromValue(t.startTimeUnixNano)).unsigned = !1;
+                          if (p.Long) (r.startTimeUnixNano = p.Long.fromValue(t.startTimeUnixNano)).unsigned = false;
                           else if (typeof t.startTimeUnixNano === "string")
                             r.startTimeUnixNano = parseInt(t.startTimeUnixNano, 10);
                           else if (typeof t.startTimeUnixNano === "number") r.startTimeUnixNano = t.startTimeUnixNano;
@@ -6924,7 +6924,7 @@ var gt = S(function (Rr, kr) {
                             ).toNumber();
                         }
                         if (t.timeUnixNano != null) {
-                          if (p.Long) (r.timeUnixNano = p.Long.fromValue(t.timeUnixNano)).unsigned = !1;
+                          if (p.Long) (r.timeUnixNano = p.Long.fromValue(t.timeUnixNano)).unsigned = false;
                           else if (typeof t.timeUnixNano === "string") r.timeUnixNano = parseInt(t.timeUnixNano, 10);
                           else if (typeof t.timeUnixNano === "number") r.timeUnixNano = t.timeUnixNano;
                           else if (typeof t.timeUnixNano === "object")
@@ -6935,7 +6935,7 @@ var gt = S(function (Rr, kr) {
                         }
                         if (t.asDouble != null) r.asDouble = Number(t.asDouble);
                         if (t.asInt != null) {
-                          if (p.Long) (r.asInt = p.Long.fromValue(t.asInt)).unsigned = !1;
+                          if (p.Long) (r.asInt = p.Long.fromValue(t.asInt)).unsigned = false;
                           else if (typeof t.asInt === "string") r.asInt = parseInt(t.asInt, 10);
                           else if (typeof t.asInt === "number") r.asInt = t.asInt;
                           else if (typeof t.asInt === "object")
@@ -6964,12 +6964,12 @@ var gt = S(function (Rr, kr) {
                         if (r.arrays || r.defaults) (n.exemplars = []), (n.attributes = []);
                         if (r.defaults) {
                           if (p.Long) {
-                            var c = new p.Long(0, 0, !1);
+                            var c = new p.Long(0, 0, false);
                             n.startTimeUnixNano =
                               r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                           } else n.startTimeUnixNano = r.longs === String ? "0" : 0;
                           if (p.Long) {
-                            var c = new p.Long(0, 0, !1);
+                            var c = new p.Long(0, 0, false);
                             n.timeUnixNano = r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                           } else n.timeUnixNano = r.longs === String ? "0" : 0;
                           n.flags = 0;
@@ -7282,7 +7282,7 @@ var gt = S(function (Rr, kr) {
                           }
                         }
                         if (t.startTimeUnixNano != null) {
-                          if (p.Long) (r.startTimeUnixNano = p.Long.fromValue(t.startTimeUnixNano)).unsigned = !1;
+                          if (p.Long) (r.startTimeUnixNano = p.Long.fromValue(t.startTimeUnixNano)).unsigned = false;
                           else if (typeof t.startTimeUnixNano === "string")
                             r.startTimeUnixNano = parseInt(t.startTimeUnixNano, 10);
                           else if (typeof t.startTimeUnixNano === "number") r.startTimeUnixNano = t.startTimeUnixNano;
@@ -7293,7 +7293,7 @@ var gt = S(function (Rr, kr) {
                             ).toNumber();
                         }
                         if (t.timeUnixNano != null) {
-                          if (p.Long) (r.timeUnixNano = p.Long.fromValue(t.timeUnixNano)).unsigned = !1;
+                          if (p.Long) (r.timeUnixNano = p.Long.fromValue(t.timeUnixNano)).unsigned = false;
                           else if (typeof t.timeUnixNano === "string") r.timeUnixNano = parseInt(t.timeUnixNano, 10);
                           else if (typeof t.timeUnixNano === "number") r.timeUnixNano = t.timeUnixNano;
                           else if (typeof t.timeUnixNano === "object")
@@ -7303,7 +7303,7 @@ var gt = S(function (Rr, kr) {
                             ).toNumber();
                         }
                         if (t.count != null) {
-                          if (p.Long) (r.count = p.Long.fromValue(t.count)).unsigned = !1;
+                          if (p.Long) (r.count = p.Long.fromValue(t.count)).unsigned = false;
                           else if (typeof t.count === "string") r.count = parseInt(t.count, 10);
                           else if (typeof t.count === "number") r.count = t.count;
                           else if (typeof t.count === "object")
@@ -7317,7 +7317,7 @@ var gt = S(function (Rr, kr) {
                             );
                           r.bucketCounts = [];
                           for (var n = 0; n < t.bucketCounts.length; ++n)
-                            if (p.Long) (r.bucketCounts[n] = p.Long.fromValue(t.bucketCounts[n])).unsigned = !1;
+                            if (p.Long) (r.bucketCounts[n] = p.Long.fromValue(t.bucketCounts[n])).unsigned = false;
                             else if (typeof t.bucketCounts[n] === "string")
                               r.bucketCounts[n] = parseInt(t.bucketCounts[n], 10);
                             else if (typeof t.bucketCounts[n] === "number") r.bucketCounts[n] = t.bucketCounts[n];
@@ -7362,16 +7362,16 @@ var gt = S(function (Rr, kr) {
                           (n.bucketCounts = []), (n.explicitBounds = []), (n.exemplars = []), (n.attributes = []);
                         if (r.defaults) {
                           if (p.Long) {
-                            var c = new p.Long(0, 0, !1);
+                            var c = new p.Long(0, 0, false);
                             n.startTimeUnixNano =
                               r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                           } else n.startTimeUnixNano = r.longs === String ? "0" : 0;
                           if (p.Long) {
-                            var c = new p.Long(0, 0, !1);
+                            var c = new p.Long(0, 0, false);
                             n.timeUnixNano = r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                           } else n.timeUnixNano = r.longs === String ? "0" : 0;
                           if (p.Long) {
-                            var c = new p.Long(0, 0, !1);
+                            var c = new p.Long(0, 0, false);
                             n.count = r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                           } else n.count = r.longs === String ? "0" : 0;
                           n.flags = 0;
@@ -7730,7 +7730,7 @@ var gt = S(function (Rr, kr) {
                           }
                         }
                         if (t.startTimeUnixNano != null) {
-                          if (p.Long) (r.startTimeUnixNano = p.Long.fromValue(t.startTimeUnixNano)).unsigned = !1;
+                          if (p.Long) (r.startTimeUnixNano = p.Long.fromValue(t.startTimeUnixNano)).unsigned = false;
                           else if (typeof t.startTimeUnixNano === "string")
                             r.startTimeUnixNano = parseInt(t.startTimeUnixNano, 10);
                           else if (typeof t.startTimeUnixNano === "number") r.startTimeUnixNano = t.startTimeUnixNano;
@@ -7741,7 +7741,7 @@ var gt = S(function (Rr, kr) {
                             ).toNumber();
                         }
                         if (t.timeUnixNano != null) {
-                          if (p.Long) (r.timeUnixNano = p.Long.fromValue(t.timeUnixNano)).unsigned = !1;
+                          if (p.Long) (r.timeUnixNano = p.Long.fromValue(t.timeUnixNano)).unsigned = false;
                           else if (typeof t.timeUnixNano === "string") r.timeUnixNano = parseInt(t.timeUnixNano, 10);
                           else if (typeof t.timeUnixNano === "number") r.timeUnixNano = t.timeUnixNano;
                           else if (typeof t.timeUnixNano === "object")
@@ -7751,7 +7751,7 @@ var gt = S(function (Rr, kr) {
                             ).toNumber();
                         }
                         if (t.count != null) {
-                          if (p.Long) (r.count = p.Long.fromValue(t.count)).unsigned = !1;
+                          if (p.Long) (r.count = p.Long.fromValue(t.count)).unsigned = false;
                           else if (typeof t.count === "string") r.count = parseInt(t.count, 10);
                           else if (typeof t.count === "number") r.count = t.count;
                           else if (typeof t.count === "object")
@@ -7760,7 +7760,7 @@ var gt = S(function (Rr, kr) {
                         if (t.sum != null) r.sum = Number(t.sum);
                         if (t.scale != null) r.scale = t.scale | 0;
                         if (t.zeroCount != null) {
-                          if (p.Long) (r.zeroCount = p.Long.fromValue(t.zeroCount)).unsigned = !1;
+                          if (p.Long) (r.zeroCount = p.Long.fromValue(t.zeroCount)).unsigned = false;
                           else if (typeof t.zeroCount === "string") r.zeroCount = parseInt(t.zeroCount, 10);
                           else if (typeof t.zeroCount === "number") r.zeroCount = t.zeroCount;
                           else if (typeof t.zeroCount === "object")
@@ -7812,20 +7812,20 @@ var gt = S(function (Rr, kr) {
                         if (r.arrays || r.defaults) (n.attributes = []), (n.exemplars = []);
                         if (r.defaults) {
                           if (p.Long) {
-                            var c = new p.Long(0, 0, !1);
+                            var c = new p.Long(0, 0, false);
                             n.startTimeUnixNano =
                               r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                           } else n.startTimeUnixNano = r.longs === String ? "0" : 0;
                           if (p.Long) {
-                            var c = new p.Long(0, 0, !1);
+                            var c = new p.Long(0, 0, false);
                             n.timeUnixNano = r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                           } else n.timeUnixNano = r.longs === String ? "0" : 0;
                           if (p.Long) {
-                            var c = new p.Long(0, 0, !1);
+                            var c = new p.Long(0, 0, false);
                             n.count = r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                           } else n.count = r.longs === String ? "0" : 0;
                           if (((n.scale = 0), p.Long)) {
-                            var c = new p.Long(0, 0, !1);
+                            var c = new p.Long(0, 0, false);
                             n.zeroCount = r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                           } else n.zeroCount = r.longs === String ? "0" : 0;
                           (n.positive = null), (n.negative = null), (n.flags = 0), (n.zeroThreshold = 0);
@@ -8006,7 +8006,7 @@ var gt = S(function (Rr, kr) {
                                 );
                               n.bucketCounts = [];
                               for (var c = 0; c < r.bucketCounts.length; ++c)
-                                if (p.Long) (n.bucketCounts[c] = p.Long.fromValue(r.bucketCounts[c])).unsigned = !0;
+                                if (p.Long) (n.bucketCounts[c] = p.Long.fromValue(r.bucketCounts[c])).unsigned = true;
                                 else if (typeof r.bucketCounts[c] === "string")
                                   n.bucketCounts[c] = parseInt(r.bucketCounts[c], 10);
                                 else if (typeof r.bucketCounts[c] === "number") n.bucketCounts[c] = r.bucketCounts[c];
@@ -8014,7 +8014,7 @@ var gt = S(function (Rr, kr) {
                                   n.bucketCounts[c] = new p.LongBits(
                                     r.bucketCounts[c].low >>> 0,
                                     r.bucketCounts[c].high >>> 0,
-                                  ).toNumber(!0);
+                                  ).toNumber(true);
                             }
                             return n;
                           }),
@@ -8038,7 +8038,7 @@ var gt = S(function (Rr, kr) {
                                         ? new p.LongBits(
                                             r.bucketCounts[s].low >>> 0,
                                             r.bucketCounts[s].high >>> 0,
-                                          ).toNumber(!0)
+                                          ).toNumber(true)
                                         : r.bucketCounts[s];
                             }
                             return c;
@@ -8220,7 +8220,7 @@ var gt = S(function (Rr, kr) {
                           }
                         }
                         if (e.startTimeUnixNano != null) {
-                          if (p.Long) (t.startTimeUnixNano = p.Long.fromValue(e.startTimeUnixNano)).unsigned = !1;
+                          if (p.Long) (t.startTimeUnixNano = p.Long.fromValue(e.startTimeUnixNano)).unsigned = false;
                           else if (typeof e.startTimeUnixNano === "string")
                             t.startTimeUnixNano = parseInt(e.startTimeUnixNano, 10);
                           else if (typeof e.startTimeUnixNano === "number") t.startTimeUnixNano = e.startTimeUnixNano;
@@ -8231,7 +8231,7 @@ var gt = S(function (Rr, kr) {
                             ).toNumber();
                         }
                         if (e.timeUnixNano != null) {
-                          if (p.Long) (t.timeUnixNano = p.Long.fromValue(e.timeUnixNano)).unsigned = !1;
+                          if (p.Long) (t.timeUnixNano = p.Long.fromValue(e.timeUnixNano)).unsigned = false;
                           else if (typeof e.timeUnixNano === "string") t.timeUnixNano = parseInt(e.timeUnixNano, 10);
                           else if (typeof e.timeUnixNano === "number") t.timeUnixNano = e.timeUnixNano;
                           else if (typeof e.timeUnixNano === "object")
@@ -8241,7 +8241,7 @@ var gt = S(function (Rr, kr) {
                             ).toNumber();
                         }
                         if (e.count != null) {
-                          if (p.Long) (t.count = p.Long.fromValue(e.count)).unsigned = !1;
+                          if (p.Long) (t.count = p.Long.fromValue(e.count)).unsigned = false;
                           else if (typeof e.count === "string") t.count = parseInt(e.count, 10);
                           else if (typeof e.count === "number") t.count = e.count;
                           else if (typeof e.count === "object")
@@ -8274,16 +8274,16 @@ var gt = S(function (Rr, kr) {
                         if (t.arrays || t.defaults) (r.quantileValues = []), (r.attributes = []);
                         if (t.defaults) {
                           if (p.Long) {
-                            var n = new p.Long(0, 0, !1);
+                            var n = new p.Long(0, 0, false);
                             r.startTimeUnixNano =
                               t.longs === String ? n.toString() : t.longs === Number ? n.toNumber() : n;
                           } else r.startTimeUnixNano = t.longs === String ? "0" : 0;
                           if (p.Long) {
-                            var n = new p.Long(0, 0, !1);
+                            var n = new p.Long(0, 0, false);
                             r.timeUnixNano = t.longs === String ? n.toString() : t.longs === Number ? n.toNumber() : n;
                           } else r.timeUnixNano = t.longs === String ? "0" : 0;
                           if (p.Long) {
-                            var n = new p.Long(0, 0, !1);
+                            var n = new p.Long(0, 0, false);
                             r.count = t.longs === String ? n.toString() : t.longs === Number ? n.toNumber() : n;
                           } else r.count = t.longs === String ? "0" : 0;
                           (r.sum = 0), (r.flags = 0);
@@ -8584,7 +8584,7 @@ var gt = S(function (Rr, kr) {
                           }
                         }
                         if (t.timeUnixNano != null) {
-                          if (p.Long) (r.timeUnixNano = p.Long.fromValue(t.timeUnixNano)).unsigned = !1;
+                          if (p.Long) (r.timeUnixNano = p.Long.fromValue(t.timeUnixNano)).unsigned = false;
                           else if (typeof t.timeUnixNano === "string") r.timeUnixNano = parseInt(t.timeUnixNano, 10);
                           else if (typeof t.timeUnixNano === "number") r.timeUnixNano = t.timeUnixNano;
                           else if (typeof t.timeUnixNano === "object")
@@ -8595,7 +8595,7 @@ var gt = S(function (Rr, kr) {
                         }
                         if (t.asDouble != null) r.asDouble = Number(t.asDouble);
                         if (t.asInt != null) {
-                          if (p.Long) (r.asInt = p.Long.fromValue(t.asInt)).unsigned = !1;
+                          if (p.Long) (r.asInt = p.Long.fromValue(t.asInt)).unsigned = false;
                           else if (typeof t.asInt === "string") r.asInt = parseInt(t.asInt, 10);
                           else if (typeof t.asInt === "number") r.asInt = t.asInt;
                           else if (typeof t.asInt === "object")
@@ -8619,7 +8619,7 @@ var gt = S(function (Rr, kr) {
                         if (r.arrays || r.defaults) n.filteredAttributes = [];
                         if (r.defaults) {
                           if (p.Long) {
-                            var c = new p.Long(0, 0, !1);
+                            var c = new p.Long(0, 0, false);
                             n.timeUnixNano = r.longs === String ? c.toString() : r.longs === Number ? c.toNumber() : c;
                           } else n.timeUnixNano = r.longs === String ? "0" : 0;
                           if (r.bytes === String) n.spanId = "";
@@ -9304,7 +9304,7 @@ var gt = S(function (Rr, kr) {
                         if (e instanceof a.opentelemetry.proto.logs.v1.LogRecord) return e;
                         var t = new a.opentelemetry.proto.logs.v1.LogRecord();
                         if (e.timeUnixNano != null) {
-                          if (p.Long) (t.timeUnixNano = p.Long.fromValue(e.timeUnixNano)).unsigned = !1;
+                          if (p.Long) (t.timeUnixNano = p.Long.fromValue(e.timeUnixNano)).unsigned = false;
                           else if (typeof e.timeUnixNano === "string") t.timeUnixNano = parseInt(e.timeUnixNano, 10);
                           else if (typeof e.timeUnixNano === "number") t.timeUnixNano = e.timeUnixNano;
                           else if (typeof e.timeUnixNano === "object")
@@ -9314,7 +9314,7 @@ var gt = S(function (Rr, kr) {
                             ).toNumber();
                         }
                         if (e.observedTimeUnixNano != null) {
-                          if (p.Long) (t.observedTimeUnixNano = p.Long.fromValue(e.observedTimeUnixNano)).unsigned = !1;
+                          if (p.Long) (t.observedTimeUnixNano = p.Long.fromValue(e.observedTimeUnixNano)).unsigned = false;
                           else if (typeof e.observedTimeUnixNano === "string")
                             t.observedTimeUnixNano = parseInt(e.observedTimeUnixNano, 10);
                           else if (typeof e.observedTimeUnixNano === "number")
@@ -9470,7 +9470,7 @@ var gt = S(function (Rr, kr) {
                         if (t.arrays || t.defaults) r.attributes = [];
                         if (t.defaults) {
                           if (p.Long) {
-                            var n = new p.Long(0, 0, !1);
+                            var n = new p.Long(0, 0, false);
                             r.timeUnixNano = t.longs === String ? n.toString() : t.longs === Number ? n.toNumber() : n;
                           } else r.timeUnixNano = t.longs === String ? "0" : 0;
                           if (
@@ -9486,7 +9486,7 @@ var gt = S(function (Rr, kr) {
                           if (t.bytes === String) r.spanId = "";
                           else if (((r.spanId = []), t.bytes !== Array)) r.spanId = p.newBuffer(r.spanId);
                           if (p.Long) {
-                            var n = new p.Long(0, 0, !1);
+                            var n = new p.Long(0, 0, false);
                             r.observedTimeUnixNano =
                               t.longs === String ? n.toString() : t.longs === Number ? n.toNumber() : n;
                           } else r.observedTimeUnixNano = t.longs === String ? "0" : 0;
@@ -9576,7 +9576,7 @@ var gt = S(function (Rr, kr) {
   kr.exports = a;
 });
 var Vr = S(function (Mr) {
-  Object.defineProperty(Mr, "__esModule", { value: !0 });
+  Object.defineProperty(Mr, "__esModule", { value: true });
   Mr.hexToBinary = void 0;
   function Dr(l) {
     if (l >= 48 && l <= 57) return l - 48;
@@ -9596,7 +9596,7 @@ var Vr = S(function (Mr) {
   Mr.hexToBinary = vi;
 });
 var Nt = S(function (Kr) {
-  Object.defineProperty(Kr, "__esModule", { value: !0 });
+  Object.defineProperty(Kr, "__esModule", { value: true });
   Kr.getOtlpEncoder = Kr.encodeAsString = Kr.encodeAsLongBits = Kr.toLongBits = Kr.hrTimeToNanos = void 0;
   var bi = Bc(),
     zt = Vr();
@@ -9631,8 +9631,8 @@ var Nt = S(function (Kr) {
   var xi = { encodeHrTime: Gt, encodeSpanContext: zt.hexToBinary, encodeOptionalSpanContext: Fr };
   function Si(l) {
     if (l === void 0) return xi;
-    let u = l.useLongBits ?? !0,
-      f = l.useHex ?? !1;
+    let u = l.useLongBits ?? true,
+      f = l.useHex ?? false;
     return {
       encodeHrTime: u ? Gt : Oi,
       encodeSpanContext: f ? Br : zt.hexToBinary,
@@ -9642,7 +9642,7 @@ var Nt = S(function (Kr) {
   Kr.getOtlpEncoder = Si;
 });
 var Tt = S(function (Jr) {
-  Object.defineProperty(Jr, "__esModule", { value: !0 });
+  Object.defineProperty(Jr, "__esModule", { value: true });
   Jr.toAnyValue = Jr.toKeyValue = Jr.toAttributes = Jr.createInstrumentationScope = Jr.createResource = void 0;
   function Ei(l) {
     let u = { attributes: zr(l.attributes), droppedAttributesCount: 0 },
@@ -9679,7 +9679,7 @@ var Tt = S(function (Jr) {
   Jr.toAnyValue = Wt;
 });
 var $t = S(function (Wr) {
-  Object.defineProperty(Wr, "__esModule", { value: !0 });
+  Object.defineProperty(Wr, "__esModule", { value: true });
   Wr.toLogAttributes = Wr.createExportLogsServiceRequest = void 0;
   var Ri = Nt(),
     wt = Tt();
@@ -9743,7 +9743,7 @@ var $t = S(function (Wr) {
   Wr.toLogAttributes = Yr;
 });
 var tn = S(function (Zr) {
-  Object.defineProperty(Zr, "__esModule", { value: !0 });
+  Object.defineProperty(Zr, "__esModule", { value: true });
   Zr.ProtobufLogsSerializer = void 0;
   var Xr = gt(),
     qi = $t(),
@@ -9758,18 +9758,18 @@ var tn = S(function (Zr) {
   };
 });
 var en = S(function (Xt) {
-  Object.defineProperty(Xt, "__esModule", { value: !0 });
+  Object.defineProperty(Xt, "__esModule", { value: true });
   Xt.ProtobufLogsSerializer = void 0;
   var Ki = tn();
   Object.defineProperty(Xt, "ProtobufLogsSerializer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ki.ProtobufLogsSerializer;
     },
   });
 });
 var nn = S(function (rn) {
-  Object.defineProperty(rn, "__esModule", { value: !0 });
+  Object.defineProperty(rn, "__esModule", { value: true });
   rn.EAggregationTemporality = void 0;
   var zi;
   (function (l) {
@@ -9779,7 +9779,7 @@ var nn = S(function (rn) {
   })((zi = rn.EAggregationTemporality || (rn.EAggregationTemporality = {})));
 });
 var Qt = S(function (pn) {
-  Object.defineProperty(pn, "__esModule", { value: !0 });
+  Object.defineProperty(pn, "__esModule", { value: true });
   pn.createExportMetricsServiceRequest = pn.toMetric = pn.toScopeMetrics = pn.toResourceMetrics = void 0;
   var on = Li(),
     lt = WQ(),
@@ -9889,7 +9889,7 @@ var Qt = S(function (pn) {
   pn.createExportMetricsServiceRequest = Xi;
 });
 var mn = S(function (yn) {
-  Object.defineProperty(yn, "__esModule", { value: !0 });
+  Object.defineProperty(yn, "__esModule", { value: true });
   yn.ProtobufMetricsSerializer = void 0;
   var dn = gt(),
     eu = Qt(),
@@ -9904,18 +9904,18 @@ var mn = S(function (yn) {
   };
 });
 var vn = S(function (te) {
-  Object.defineProperty(te, "__esModule", { value: !0 });
+  Object.defineProperty(te, "__esModule", { value: true });
   te.ProtobufMetricsSerializer = void 0;
   var ou = mn();
   Object.defineProperty(te, "ProtobufMetricsSerializer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ou.ProtobufMetricsSerializer;
     },
   });
 });
 var ee = S(function (gn) {
-  Object.defineProperty(gn, "__esModule", { value: !0 });
+  Object.defineProperty(gn, "__esModule", { value: true });
   gn.createExportTraceServiceRequest = gn.toOtlpSpanEvent = gn.toOtlpLink = gn.sdkSpanToOtlpSpan = void 0;
   var ht = Tt(),
     uu = Nt(),
@@ -10017,7 +10017,7 @@ var ee = S(function (gn) {
   }
 });
 var Pn = S(function (wn) {
-  Object.defineProperty(wn, "__esModule", { value: !0 });
+  Object.defineProperty(wn, "__esModule", { value: true });
   wn.ProtobufTraceSerializer = void 0;
   var Tn = gt(),
     hu = ee(),
@@ -10032,23 +10032,23 @@ var Pn = S(function (wn) {
   };
 });
 var Un = S(function (re) {
-  Object.defineProperty(re, "__esModule", { value: !0 });
+  Object.defineProperty(re, "__esModule", { value: true });
   re.ProtobufTraceSerializer = void 0;
   var bu = Pn();
   Object.defineProperty(re, "ProtobufTraceSerializer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return bu.ProtobufTraceSerializer;
     },
   });
 });
 var An = S(function (In) {
-  Object.defineProperty(In, "__esModule", { value: !0 });
+  Object.defineProperty(In, "__esModule", { value: true });
   In.JsonLogsSerializer = void 0;
   var xu = $t();
   In.JsonLogsSerializer = {
     serializeRequest: (l) => {
-      let u = (0, xu.createExportLogsServiceRequest)(l, { useHex: !0, useLongBits: !1 });
+      let u = (0, xu.createExportLogsServiceRequest)(l, { useHex: true, useLongBits: false });
       return new TextEncoder().encode(JSON.stringify(u));
     },
     deserializeResponse: (l) => {
@@ -10058,23 +10058,23 @@ var An = S(function (In) {
   };
 });
 var Ln = S(function (ne) {
-  Object.defineProperty(ne, "__esModule", { value: !0 });
+  Object.defineProperty(ne, "__esModule", { value: true });
   ne.JsonLogsSerializer = void 0;
   var Su = An();
   Object.defineProperty(ne, "JsonLogsSerializer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Su.JsonLogsSerializer;
     },
   });
 });
 var Dn = S(function (Rn) {
-  Object.defineProperty(Rn, "__esModule", { value: !0 });
+  Object.defineProperty(Rn, "__esModule", { value: true });
   Rn.JsonMetricsSerializer = void 0;
   var Nu = Qt();
   Rn.JsonMetricsSerializer = {
     serializeRequest: (l) => {
-      let u = (0, Nu.createExportMetricsServiceRequest)([l], { useLongBits: !1 });
+      let u = (0, Nu.createExportMetricsServiceRequest)([l], { useLongBits: false });
       return new TextEncoder().encode(JSON.stringify(u));
     },
     deserializeResponse: (l) => {
@@ -10084,23 +10084,23 @@ var Dn = S(function (Rn) {
   };
 });
 var Mn = S(function (oe) {
-  Object.defineProperty(oe, "__esModule", { value: !0 });
+  Object.defineProperty(oe, "__esModule", { value: true });
   oe.JsonMetricsSerializer = void 0;
   var Tu = Dn();
   Object.defineProperty(oe, "JsonMetricsSerializer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Tu.JsonMetricsSerializer;
     },
   });
 });
 var Bn = S(function (Cn) {
-  Object.defineProperty(Cn, "__esModule", { value: !0 });
+  Object.defineProperty(Cn, "__esModule", { value: true });
   Cn.JsonTraceSerializer = void 0;
   var Eu = ee();
   Cn.JsonTraceSerializer = {
     serializeRequest: (l) => {
-      let u = (0, Eu.createExportTraceServiceRequest)(l, { useHex: !0, useLongBits: !1 });
+      let u = (0, Eu.createExportTraceServiceRequest)(l, { useHex: true, useLongBits: false });
       return new TextEncoder().encode(JSON.stringify(u));
     },
     deserializeResponse: (l) => {
@@ -10110,18 +10110,18 @@ var Bn = S(function (Cn) {
   };
 });
 var qn = S(function (ie) {
-  Object.defineProperty(ie, "__esModule", { value: !0 });
+  Object.defineProperty(ie, "__esModule", { value: true });
   ie.JsonTraceSerializer = void 0;
   var Pu = Bn();
   Object.defineProperty(ie, "JsonTraceSerializer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Pu.JsonTraceSerializer;
     },
   });
 });
 var yx = S(function (et) {
-  Object.defineProperty(et, "__esModule", { value: !0 });
+  Object.defineProperty(et, "__esModule", { value: true });
   et.JsonTraceSerializer =
     et.JsonMetricsSerializer =
     et.JsonLogsSerializer =
@@ -10131,49 +10131,49 @@ var yx = S(function (et) {
       void 0;
   var Iu = en();
   Object.defineProperty(et, "ProtobufLogsSerializer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Iu.ProtobufLogsSerializer;
     },
   });
   var _u = vn();
   Object.defineProperty(et, "ProtobufMetricsSerializer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return _u.ProtobufMetricsSerializer;
     },
   });
   var Au = Un();
   Object.defineProperty(et, "ProtobufTraceSerializer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Au.ProtobufTraceSerializer;
     },
   });
   var Lu = Ln();
   Object.defineProperty(et, "JsonLogsSerializer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Lu.JsonLogsSerializer;
     },
   });
   var Ru = Mn();
   Object.defineProperty(et, "JsonMetricsSerializer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ru.JsonMetricsSerializer;
     },
   });
   var ku = qn();
   Object.defineProperty(et, "JsonTraceSerializer", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return ku.JsonTraceSerializer;
     },
   });
 });
 var Kn = S(function (Hn) {
-  Object.defineProperty(Hn, "__esModule", { value: !0 });
+  Object.defineProperty(Hn, "__esModule", { value: true });
   Hn.validateAndNormalizeHeaders = void 0;
   var Mu = Li();
   function Cu(l) {
@@ -10189,7 +10189,7 @@ var Kn = S(function (Hn) {
   Hn.validateAndNormalizeHeaders = Cu;
 });
 var Gn = S(function (zn) {
-  Object.defineProperty(zn, "__esModule", { value: !0 });
+  Object.defineProperty(zn, "__esModule", { value: true });
   zn.getHttpConfigurationDefaults = zn.mergeOtlpHttpConfigurationWithDefaults = void 0;
   var jn = at(),
     Vu = Kn();
@@ -10225,7 +10225,7 @@ var Gn = S(function (zn) {
   zn.getHttpConfigurationDefaults = Fu;
 });
 var Et = S(function ($n) {
-  Object.defineProperty($n, "__esModule", { value: !0 });
+  Object.defineProperty($n, "__esModule", { value: true });
   $n.getNodeHttpConfigurationDefaults =
     $n.mergeOtlpNodeHttpConfigurationWithDefaults =
     $n.httpAgentFactoryFromOptions =
@@ -10253,12 +10253,12 @@ var Et = S(function ($n) {
   }
   $n.mergeOtlpNodeHttpConfigurationWithDefaults = ju;
   function zu(l, u) {
-    return { ...(0, Yn.getHttpConfigurationDefaults)(l, u), agentFactory: Wn({ keepAlive: !0 }) };
+    return { ...(0, Yn.getHttpConfigurationDefaults)(l, u), agentFactory: Wn({ keepAlive: true }) };
   }
   $n.getNodeHttpConfigurationDefaults = zu;
 });
 var to = S(function (Zn) {
-  Object.defineProperty(Zn, "__esModule", { value: !0 });
+  Object.defineProperty(Zn, "__esModule", { value: true });
   Zn.parseRetryAfterToMills = Zn.isExportRetryable = void 0;
   function Yu(l) {
     return [429, 502, 503, 504].includes(l);
@@ -10275,12 +10275,12 @@ var to = S(function (Zn) {
   Zn.parseRetryAfterToMills = Wu;
 });
 var no = S(function (eo) {
-  Object.defineProperty(eo, "__esModule", { value: !0 });
+  Object.defineProperty(eo, "__esModule", { value: true });
   eo.VERSION = void 0;
   eo.VERSION = "0.208.0";
 });
 var ao = S(function (lo) {
-  Object.defineProperty(lo, "__esModule", { value: !0 });
+  Object.defineProperty(lo, "__esModule", { value: true });
   lo.compressAndSend = lo.sendWithHttp = void 0;
   var Xu = ue("zlib"),
     Zu = ue("stream"),
@@ -10330,7 +10330,7 @@ var ao = S(function (lo) {
   }
 });
 var yo = S(function (po) {
-  Object.defineProperty(po, "__esModule", { value: !0 });
+  Object.defineProperty(po, "__esModule", { value: true });
   po.createHttpExporterTransport = void 0;
   var ol = ao();
   class fo {
@@ -10380,7 +10380,7 @@ var yo = S(function (po) {
   po.createHttpExporterTransport = ul;
 });
 var Oo = S(function (vo) {
-  Object.defineProperty(vo, "__esModule", { value: !0 });
+  Object.defineProperty(vo, "__esModule", { value: true });
   vo.createRetryingTransport = void 0;
   var ll = 5,
     cl = 1000,
@@ -10428,7 +10428,7 @@ var Oo = S(function (vo) {
   vo.createRetryingTransport = sl;
 });
 var go = S(function (xo) {
-  Object.defineProperty(xo, "__esModule", { value: !0 });
+  Object.defineProperty(xo, "__esModule", { value: true });
   xo.createOtlpHttpExportDelegate = void 0;
   var dl = At(),
     yl = yo(),
@@ -10447,7 +10447,7 @@ var go = S(function (xo) {
   xo.createOtlpHttpExportDelegate = vl;
 });
 var le = S(function (Po) {
-  Object.defineProperty(Po, "__esModule", { value: !0 });
+  Object.defineProperty(Po, "__esModule", { value: true });
   Po.getSharedConfigurationFromEnvironment = void 0;
   var wo = Bc(),
     Eo = Li();
@@ -10481,7 +10481,7 @@ var le = S(function (Po) {
   Po.getSharedConfigurationFromEnvironment = xl;
 });
 var Ao = S(function (Io) {
-  Object.defineProperty(Io, "__esModule", { value: !0 });
+  Object.defineProperty(Io, "__esModule", { value: true });
   Io.getNodeHttpConfigurationFromEnvironment = void 0;
   var Sl = ue("fs"),
     gl = ue("path"),
@@ -10574,13 +10574,13 @@ var Ao = S(function (Io) {
       ...(0, Nl.getSharedConfigurationFromEnvironment)(l),
       url: _l(l) ?? Il(u),
       headers: (0, Tl.wrapStaticHeadersInFunction)(El(l)),
-      agentFactory: (0, wl.httpAgentFactoryFromOptions)({ keepAlive: !0, ca: Rl(l), cert: Al(l), key: Ll(l) }),
+      agentFactory: (0, wl.httpAgentFactoryFromOptions)({ keepAlive: true, ca: Rl(l), cert: Al(l), key: Ll(l) }),
     };
   }
   Io.getNodeHttpConfigurationFromEnvironment = kl;
 });
 var ko = S(function (Lo) {
-  Object.defineProperty(Lo, "__esModule", { value: !0 });
+  Object.defineProperty(Lo, "__esModule", { value: true });
   Lo.convertLegacyHeaders = void 0;
   var Dl = at();
   function Ml(l) {
@@ -10590,7 +10590,7 @@ var ko = S(function (Lo) {
   Lo.convertLegacyHeaders = Ml;
 });
 var Vo = S(function (Mo) {
-  Object.defineProperty(Mo, "__esModule", { value: !0 });
+  Object.defineProperty(Mo, "__esModule", { value: true });
   Mo.convertLegacyHttpOptions = void 0;
   var Cl = Li(),
     Do = Et(),
@@ -10623,7 +10623,7 @@ var Vo = S(function (Mo) {
   Mo.convertLegacyHttpOptions = Fl;
 });
 var y1 = S(function (ct) {
-  Object.defineProperty(ct, "__esModule", { value: !0 });
+  Object.defineProperty(ct, "__esModule", { value: true });
   ct.convertLegacyHttpOptions =
     ct.getSharedConfigurationFromEnvironment =
     ct.createOtlpHttpExportDelegate =
@@ -10631,28 +10631,28 @@ var y1 = S(function (ct) {
       void 0;
   var Kl = Et();
   Object.defineProperty(ct, "httpAgentFactoryFromOptions", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Kl.httpAgentFactoryFromOptions;
     },
   });
   var jl = go();
   Object.defineProperty(ct, "createOtlpHttpExportDelegate", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return jl.createOtlpHttpExportDelegate;
     },
   });
   var zl = le();
   Object.defineProperty(ct, "getSharedConfigurationFromEnvironment", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return zl.getSharedConfigurationFromEnvironment;
     },
   });
   var Jl = Vo();
   Object.defineProperty(ct, "convertLegacyHttpOptions", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Jl.convertLegacyHttpOptions;
     },

@@ -38,17 +38,17 @@ function N(l) {
     if (s.context !== "Task") continue;
     let u = OM(s.chord);
     if (s.action === "task:background") {
-      if (!C.has(u)) return !0;
-    } else if (s.action === null && C.has(u)) return !0;
+      if (!C.has(u)) return true;
+    } else if (s.action === null && C.has(u)) return true;
   }
-  return !1;
+  return false;
 }
 function _Be({ handler: l, isActive: s }) {
   let u = uv(),
     n = Ro("task:background", "Task", f),
     g = wc(),
     c = g?.bindings,
-    i = z(() => (c ? N(c) : !1), [c]),
+    i = z(() => (c ? N(c) : false), [c]),
     p = br(l),
     m = !(u && !i);
   A(() => {
@@ -86,7 +86,7 @@ function s0t(b) {
   else I = T[4];
   let E = I,
     L;
-  if (T[5] !== E) (L = { handler: E, isActive: !0 }), (T[5] = E), (T[6] = L);
+  if (T[5] !== E) (L = { handler: E, isActive: true }), (T[5] = E), (T[6] = L);
   else L = T[6];
   let { cohesionFixes: j, gateOnShortcut: fe } = _Be(L),
     U = Ro("task:background", "Task", "ctrl+b"),
@@ -102,8 +102,8 @@ function s0t(b) {
     (K = e(o, {
       paddingLeft: 5,
       children: e(t, {
-        dimColor: !0,
-        children: e(M, { chord: k, action: "run in background", parens: !0, format: H }),
+        dimColor: true,
+        children: e(M, { chord: k, action: "run in background", parens: true, format: H }),
       }),
     })),
       (T[8] = k),
@@ -138,7 +138,7 @@ function yTr(l, { verbose: s, theme: u }) {
 }
 function STr(l, { verbose: s, tools: u, terminalSize: n, inProgressToolCallCount: g }) {
   let c = l.at(-1);
-  if (!c || !c.data) return e(Pe, { height: 1, children: e(t, { dimColor: !0, children: "Running\u2026" }) });
+  if (!c || !c.data) return e(Pe, { height: 1, children: e(t, { dimColor: true, children: "Running\u2026" }) });
   let i = c.data;
   return e(TQ, {
     fullOutput: i.fullOutput,
@@ -152,7 +152,7 @@ function STr(l, { verbose: s, tools: u, terminalSize: n, inProgressToolCallCount
   });
 }
 function bTr() {
-  return e(Pe, { height: 1, children: e(t, { dimColor: !0, children: "Waiting\u2026" }) });
+  return e(Pe, { height: 1, children: e(t, { dimColor: true, children: "Waiting\u2026" }) });
 }
 function wTr(l, s, { verbose: u, theme: n, tools: g, style: c }) {
   let p = s.at(-1)?.data?.timeoutMs;

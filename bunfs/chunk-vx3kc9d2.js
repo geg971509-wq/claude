@@ -214,12 +214,12 @@ async function tt(e) {
   for (let o of t) {
     let r = C(o, Ze);
     try {
-      return await le().stat(r), !0;
+      return await le().stat(r), true;
     } catch {}
   }
-  return !1;
+  return false;
 }
-async function ae(e, t = !1) {
+async function ae(e, t = false) {
   let o = x().jetbrainsPluginInstalled;
   if (t) o.delete(e);
   let r = o.get(e);
@@ -230,9 +230,9 @@ async function ae(e, t = !1) {
 var de = () => import.meta.require("/$bunfs/root/chunk-gt7a0gcj.js");
 function me(e) {
   try {
-    return process.kill(e, 0), !0;
+    return process.kill(e, 0), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function it() {
@@ -371,12 +371,12 @@ var P = {
   },
 };
 function K(e) {
-  if (!e) return !1;
+  if (!e) return false;
   let t = P[e];
   return t && t.ideKind === "vscode";
 }
 function Jz(e) {
-  if (!e) return !1;
+  if (!e) return false;
   let t = P[e];
   return t && t.ideKind === "jetbrains";
 }
@@ -399,10 +399,10 @@ function Ijt() {
   if (!mH()) return null;
   return a.terminal;
 }
-function Wue(e = !1) {
-  if (a.CLAUDE_CODE_AUTO_CONNECT_IDE === !1) return !1;
+function Wue(e = false) {
+  if (a.CLAUDE_CODE_AUTO_CONNECT_IDE === false) return false;
   return Boolean(
-    ie().autoConnectIde || e || mH() || a.CLAUDE_CODE_SSE_PORT !== void 0 || a.CLAUDE_CODE_AUTO_CONNECT_IDE === !0,
+    ie().autoConnectIde || e || mH() || a.CLAUDE_CODE_SSE_PORT !== void 0 || a.CLAUDE_CODE_AUTO_CONNECT_IDE === true,
   );
 }
 async function Pjt() {
@@ -446,13 +446,13 @@ async function ye(e) {
       o = [],
       r,
       i,
-      d = !1,
-      f = !1,
+      d = false,
+      f = false,
       w;
     try {
       let I = V(t);
       if (I.workspaceFolders) o = I.workspaceFolders;
-      (r = I.pid), (i = I.ideName), (d = I.transport === "ws"), (f = I.runningInWindows === !0), (w = I.authToken);
+      (r = I.pid), (i = I.ideName), (d = I.transport === "ws"), (f = I.runningInWindows === true), (w = I.authToken);
     } catch (I) {
       o = t
         .split(`
@@ -480,17 +480,17 @@ async function j(e, t, o = 500) {
     return new Promise((r) => {
       let i = rt({ host: e, port: t, timeout: o });
       i.on("connect", () => {
-        i.destroy(), r(!0);
+        i.destroy(), r(true);
       }),
         i.on("error", () => {
-          r(!1);
+          r(false);
         }),
         i.on("timeout", () => {
-          i.destroy(), r(!1);
+          i.destroy(), r(false);
         });
     });
   } catch (r) {
-    return !1;
+    return false;
   }
 }
 async function st() {
@@ -536,13 +536,13 @@ async function dt() {
         continue;
       }
       let r = await ge(o.runningInWindows, o.port),
-        i = !1;
+        i = false;
       if (o.pid) {
         if (!me(o.pid)) {
-          if (D() !== "wsl") i = !0;
-          else if (!(await j(r, o.port))) i = !0;
+          if (D() !== "wsl") i = true;
+          else if (!(await j(r, o.port))) i = true;
         }
-      } else if (!(await j(r, o.port))) i = !0;
+      } else if (!(await j(r, o.port))) i = true;
       if (i)
         try {
           await le().unlink(t);
@@ -563,14 +563,14 @@ async function ct(e, t) {
       !ie().diffTool)
     )
       await Ae((i) => ({ ...i, diffTool: "auto" }), t);
-    return { installed: !0, error: null, installedVersion: o, ideType: e };
+    return { installed: true, error: null, installedVersion: o, ideType: e };
   } catch (o) {
     s("tengu_ext_install_error", { ide_type: c(e), error_code: Rg(o) }),
       p("ide_extension_install", "ide_extension_install_failed");
     let r = o instanceof Error ? o.message : String(o);
     return (
       n(`IDE extension install failed: ${r}`, { level: "error" }),
-      { installed: !1, error: r, installedVersion: null, ideType: e }
+      { installed: false, error: r, installedVersion: null, ideType: e }
     );
   }
 }
@@ -586,7 +586,7 @@ async function Djt() {
       await ne(1000, t);
       continue;
     }
-    let r = await Ojt(!1);
+    let r = await Ojt(false);
     if (t.aborted) return null;
     if (r.length === 1) return r[0];
     await ne(1000, t);
@@ -608,9 +608,9 @@ async function Ojt(e) {
       w = D() !== "wsl" && mH();
     for (let u of d) {
       if (!u) continue;
-      let m = !1;
-      if (a.CLAUDE_CODE_IDE_SKIP_VALID_CHECK) m = !0;
-      else if (u.port === o) m = !0;
+      let m = false;
+      if (a.CLAUDE_CODE_IDE_SKIP_VALID_CHECK) m = true;
+      else if (u.port === o) m = true;
       else
         for (let v of u.workspaceFolders) {
           if (!v) continue;
@@ -619,7 +619,7 @@ async function Ojt(e) {
             if (!JYn(v, a.WSL_DISTRO_NAME)) continue;
             let E = A(T).normalize("NFC");
             if (r === E || r.startsWith(E + L)) {
-              m = !0;
+              m = true;
               break;
             }
             T = await new que(a.WSL_DISTRO_NAME).toLocalPath(v);
@@ -629,13 +629,13 @@ async function Ojt(e) {
             let E = r.replace(/^[a-zA-Z]:/, (M) => M.toUpperCase()),
               R = N.replace(/^[a-zA-Z]:/, (M) => M.toUpperCase());
             if (E === R || E.startsWith(R + L)) {
-              m = !0;
+              m = true;
               break;
             }
             continue;
           }
           if (r === N || r.startsWith(N + L)) {
-            m = !0;
+            m = true;
             break;
           }
         }
@@ -685,10 +685,10 @@ async function ce(e) {
     let t = await Ljt(e);
     if (t)
       try {
-        if ((await qe(t, ["--list-extensions"], { env: F() })).stdout?.includes(lt)) return !0;
+        if ((await qe(t, ["--list-extensions"], { env: F() })).stdout?.includes(lt)) return true;
       } catch {}
   } else if (Jz(e)) return await ae(e);
-  return !1;
+  return false;
 }
 async function ut(e) {
   if (K(e)) {
@@ -805,7 +805,7 @@ async function GYn() {
   return (await $e("cursor", ["--version"])).code === 0;
 }
 async function zYn() {
-  if ((await $e("windsurf", ["--version"])).code === 0) return !0;
+  if ((await $e("windsurf", ["--version"])).code === 0) return true;
   return (await $e("devin-desktop", ["--version"])).code === 0;
 }
 async function VYn() {
@@ -821,7 +821,7 @@ async function yt() {
         (
           await Qh(
             'ps aux | grep -E "Visual Studio Code|Code Helper|Cursor Helper|Windsurf Helper|Devin Helper|Devin.app|IntelliJ IDEA|PyCharm|WebStorm|PhpStorm|RubyMine|CLion|GoLand|Rider|DataGrip|AppCode|DataSpell|Aqua|Gateway|Fleet|Android Studio" | grep -v grep',
-            { reject: !1 },
+            { reject: false },
           )
         ).stdout ?? "";
       for (let [i, d] of Object.entries(P))
@@ -835,7 +835,7 @@ async function yt() {
         (
           await Qh(
             'tasklist | findstr /I "Code.exe Cursor.exe Windsurf.exe Devin.exe idea64.exe pycharm64.exe webstorm64.exe phpstorm64.exe rubymine64.exe clion64.exe goland64.exe rider64.exe datagrip64.exe appcode.exe dataspell64.exe aqua64.exe gateway64.exe fleet.exe studio64.exe"',
-            { reject: !1 },
+            { reject: false },
           )
         ).stdout ?? ""
       ).toLowerCase();
@@ -850,7 +850,7 @@ async function yt() {
         (
           await Qh(
             'ps aux | grep -E "code|cursor|windsurf|devin-desktop|idea|pycharm|webstorm|phpstorm|rubymine|clion|goland|rider|datagrip|dataspell|aqua|gateway|fleet|android-studio" | grep -v grep',
-            { reject: !1 },
+            { reject: false },
           )
         ).stdout ?? ""
       ).toLowerCase();
@@ -936,7 +936,7 @@ async function XYn(e) {
 }
 async function Fgn(e, t, o, r, i, d) {
   Djt().then(e);
-  let f = ie().autoInstallIdeExtension ?? !0;
+  let f = ie().autoInstallIdeExtension ?? true;
   if (!a.CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL && f) {
     let w = t ?? Ijt();
     if (w) {
@@ -944,14 +944,14 @@ async function Fgn(e, t, o, r, i, d) {
         ce(w).then(async (u) => {
           ct(w, d)
             .catch((m) => ({
-              installed: !1,
+              installed: false,
               error: m.message || "Installation failed",
               installedVersion: null,
               ideType: w,
             }))
             .then((m) => {
               if ((r(m), m?.installed && !i?.aborted)) Djt().then(e);
-              if (!u && m?.installed === !0 && !de().hasIdeOnboardingDialogBeenShown()) o(m);
+              if (!u && m?.installed === true && !de().hasIdeOnboardingDialogBeenShown()) o(m);
             });
         });
       else if (Jz(w))
@@ -972,7 +972,7 @@ async function wt(e, t) {
   if (a.CLAUDE_CODE_IDE_HOST_OVERRIDE) return a.CLAUDE_CODE_IDE_HOST_OVERRIDE;
   if (D() !== "wsl" || !e) return "127.0.0.1";
   try {
-    let o = await Qh("ip route show | grep -i default", { reject: !1 });
+    let o = await Qh("ip route show | grep -i default", { reject: false });
     if (o.exitCode === 0 && o.stdout) {
       let r = o.stdout.match(/default via (\d+\.\d+\.\d+\.\d+)/);
       if (r) {

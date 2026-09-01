@@ -57,21 +57,21 @@ import { BS, ETe, sl } from "/$bunfs/root/chunk-83h0j7w2.js";
 import { ewe, pmt } from "/$bunfs/root/chunk-308krgtb.js";
 import { zK } from "/$bunfs/root/chunk-0b318m6z.js";
 function b(e, t, n) {
-  if (!Tt()) return !1;
+  if (!Tt()) return false;
   let o = e !== null ? Ot(e) : el(),
     i = o.toLowerCase(),
     r = i.includes("opus") || i.includes("fable"),
     s = i.includes("opus-4-6"),
     c = i.includes("sonnet-4-6");
-  if (t && lf(e)) return !0;
-  if ((i.includes("fable") || KI(o)) && !uM() && (Lte() || dz())) return !0;
-  if (!Cc(i)) return !1;
-  if (r && n) return !1;
+  if (t && lf(e)) return true;
+  if ((i.includes("fable") || KI(o)) && !uM() && (Lte() || dz())) return true;
+  if (!Cc(i)) return false;
+  if (r && n) return false;
   return s || c;
 }
 function GQ(e, t, n, o) {
   let i = Yr(),
-    r = i && t && (!e || o?.announceKeptOn === !0),
+    r = i && t && (!e || o?.announceKeptOn === true),
     s = i && !!e && !t;
   return (
     (r ? " \xB7 Fast mode ON" : "") +
@@ -81,22 +81,22 @@ function GQ(e, t, n, o) {
 }
 function e1n(e, t, n) {
   if (!!e === t) return null;
-  return t ? `Fast mode ON${b(n, !0, YS()) ? " \xB7 Draws from usage credits" : ""}` : "Fast mode OFF";
+  return t ? `Fast mode ON${b(n, true, YS()) ? " \xB7 Draws from usage credits" : ""}` : "Fast mode OFF";
 }
 function k() {
   return Ac().providerCache.validatedModels;
 }
 async function J2e(e, t) {
   let n = e.trim();
-  if (!n) return { valid: !1, error: "Model name cannot be empty" };
-  if (!kr(n, t.skipEntitlementDenyOverlay ? { skipEntitlementDenyOverlay: !0 } : void 0))
-    return { valid: !1, error: `Model '${n}' is not in the list of available models` };
+  if (!n) return { valid: false, error: "Model name cannot be empty" };
+  if (!kr(n, t.skipEntitlementDenyOverlay ? { skipEntitlementDenyOverlay: true } : void 0))
+    return { valid: false, error: `Model '${n}' is not in the list of available models` };
   if (!t.forceServerProbe) {
     let o = n.toLowerCase();
-    if (fN.includes(o)) return { valid: !0 };
-    if (n === a.ANTHROPIC_CUSTOM_MODEL_OPTION) return { valid: !0 };
-    if (tpn(n) && VEe()?.picker.options.some((i) => i.model.trim() === n)) return { valid: !0 };
-    if (k().has(n)) return { valid: !0 };
+    if (fN.includes(o)) return { valid: true };
+    if (n === a.ANTHROPIC_CUSTOM_MODEL_OPTION) return { valid: true };
+    if (tpn(n) && VEe()?.picker.options.some((i) => i.model.trim() === n)) return { valid: true };
+    if (k().has(n)) return { valid: true };
   }
   try {
     return (
@@ -109,7 +109,7 @@ async function J2e(e, t) {
         messages: [{ role: "user", content: [{ type: "text", text: "Hi", cache_control: { type: "ephemeral" } }] }],
       }),
       k().add(n),
-      { valid: !0 }
+      { valid: true }
     );
   } catch (o) {
     return _(o, n);
@@ -119,11 +119,11 @@ function _(e, t) {
   if (e instanceof _me) {
     let o = x(t),
       i = o ? `. Try '${o}' instead` : "";
-    return { valid: !1, error: `Model '${t}' not found${i}`, notFound: !0 };
+    return { valid: false, error: `Model '${t}' not found${i}`, notFound: true };
   }
   if (e instanceof Gt) {
-    if (e instanceof hme) return { valid: !1, error: "Authentication failed. Please check your API credentials." };
-    if (e instanceof kd) return { valid: !1, error: "Network error. Please check your internet connection." };
+    if (e instanceof hme) return { valid: false, error: "Authentication failed. Please check your API credentials." };
+    if (e instanceof kd) return { valid: false, error: "Network error. Please check your internet connection." };
     let o = e.error;
     if (
       o &&
@@ -134,10 +134,10 @@ function _(e, t) {
       typeof o.message === "string" &&
       o.message.includes("model:")
     )
-      return { valid: !1, error: `Model '${t}' not found`, notFound: !0 };
-    return { valid: !1, error: `API error: ${e.message}` };
+      return { valid: false, error: `Model '${t}' not found`, notFound: true };
+    return { valid: false, error: `API error: ${e.message}` };
   }
-  return { valid: !1, error: `Unable to validate model: ${e instanceof Error ? e.message : String(e)}` };
+  return { valid: false, error: `Unable to validate model: ${e instanceof Error ? e.message : String(e)}` };
 }
 var w = ["fable", "opus", "sonnet"];
 function O(e, t) {
@@ -193,7 +193,7 @@ async function E(e, t) {
     if (!i?.length) return o;
     let r = i.filter((s) => {
       if (s == null || typeof s !== "object" || typeof s.apiName !== "string" || typeof s.entitled !== "boolean")
-        return !0;
+        return true;
       return s.entitled || !EH(e, MSn([s]));
     });
     return r.length === i.length ? o : { ...o, modelAccessCache: r };
@@ -205,20 +205,20 @@ async function Xge(e, t, n) {
   if (o && EH(o, AH())) {
     let r = E_(o);
     if (r === null) {
-      if (!kr(o, { skipEntitlementDenyOverlay: !0 }))
+      if (!kr(o, { skipEntitlementDenyOverlay: true }))
         return (
           p("model_switch", "denied_by_entitlement"),
           {
-            ok: !1,
+            ok: false,
             message: `Model '${o}' is restricted by your organization's settings. Run /model to choose a different model.`,
           }
         );
-      let s = await J2e(h(o) ? Ot(o) : o, { forceServerProbe: !0, skipEntitlementDenyOverlay: !0, credentials: n });
+      let s = await J2e(h(o) ? Ot(o) : o, { forceServerProbe: true, skipEntitlementDenyOverlay: true, credentials: n });
       if (!s.valid)
         return (
           p("model_switch", s.notFound ? "denied_by_entitlement" : "entitlement_probe_failed"),
           {
-            ok: !1,
+            ok: false,
             message: `Model '${o}' is restricted by your organization's settings. Run /model to choose a different model.`,
           }
         );
@@ -229,7 +229,7 @@ async function Xge(e, t, n) {
     if (r === null)
       return (
         p("model_switch", "not_allowed"),
-        { ok: !1, message: `Model '${o}' is not available. Your organization restricts model selection.` }
+        { ok: false, message: `Model '${o}' is not available. Your organization restricts model selection.` }
       );
     (i = o), (o = r);
   }
@@ -237,7 +237,7 @@ async function Xge(e, t, n) {
     return (
       p("model_switch", "opus_1m_unavailable"),
       {
-        ok: !1,
+        ok: false,
         message:
           "Opus with 1M context is not available for your account. Learn more: https://code.claude.com/docs/en/model-config#extended-context-with-1m",
       }
@@ -246,7 +246,7 @@ async function Xge(e, t, n) {
     return (
       p("model_switch", "sonnet_1m_unavailable"),
       {
-        ok: !1,
+        ok: false,
         message:
           "Sonnet with 1M context is not available for your account. Learn more: https://code.claude.com/docs/en/model-config#extended-context-with-1m",
       }
@@ -259,48 +259,48 @@ async function Xge(e, t, n) {
           return (
             p("model_switch", "disabled_by_org"),
             {
-              ok: !1,
+              ok: false,
               message: `Model '${o}' is not currently available for your account${r.description ? `. ${r.description}` : "."}`,
             }
           );
         case "absent": {
-          let s = await J2e(h(o) ? Ot(o) : o, { forceServerProbe: !0, credentials: n });
+          let s = await J2e(h(o) ? Ot(o) : o, { forceServerProbe: true, credentials: n });
           if (!s.valid)
             return (
               p("model_switch", s.notFound ? "fable_unavailable" : "fable_probe_failed"),
               {
-                ok: !1,
+                ok: false,
                 message: s.notFound
                   ? `${r.displayName} isn't available for your account yet. Run /model to pick another model.`
                   : s.error,
               }
             );
-          return zK(t, n), { ok: !0, model: o, ...(i !== void 0 && { substitutedFrom: i }) };
+          return zK(t, n), { ok: true, model: o, ...(i !== void 0 && { substitutedFrom: i }) };
         }
       }
   }
-  if (!o || h(o)) return { ok: !0, model: o };
+  if (!o || h(o)) return { ok: true, model: o };
   try {
     let r = await J2e(o, { credentials: n });
-    if (!r.valid) return p("model_switch", "invalid_model"), { ok: !1, message: r.error };
-    return { ok: !0, model: o, ...(i !== void 0 && { substitutedFrom: i }) };
+    if (!r.valid) return p("model_switch", "invalid_model"), { ok: false, message: r.error };
+    return { ok: true, model: o, ...(i !== void 0 && { substitutedFrom: i }) };
   } catch (r) {
-    return p("model_switch", "validate_exception"), { ok: !1, message: `Failed to validate model: ${l(r)}` };
+    return p("model_switch", "validate_exception"), { ok: false, message: `Failed to validate model: ${l(r)}` };
   }
 }
 async function CS(e, t, n, o, i = {}) {
   let r = t(),
     s = Rv(r),
     c = P(r, n);
-  if (c.length === 0) return { decision: "proceed", skipConfirm: !1, messages: [] };
+  if (c.length === 0) return { decision: "proceed", skipConfirm: false, messages: [] };
   let d = [],
     f,
-    u = !1,
-    m = !0;
+    u = false,
+    m = true;
   for (let S of c) {
     let M = await ipt(e, { ...S, requestedModel: n, source: o }, { signal: i.signal });
     if ((d.push(...M.messages), M.decision === "block")) return { decision: "block", reason: M.reason, messages: d };
-    if (M.decision === "ask") (u = !0), (f ??= M.reason);
+    if (M.decision === "ask") (u = true), (f ??= M.reason);
     else m = m && M.skipConfirm;
   }
   if (Rv(t()) !== s) {
@@ -310,7 +310,7 @@ async function CS(e, t, n, o, i = {}) {
         reason: "the session model changed while a PreModelSwitch hook was running; pick again",
         messages: d,
       };
-    let S = await CS(e, t, n, o, { ...i, revalidating: !0 });
+    let S = await CS(e, t, n, o, { ...i, revalidating: true });
     return { ...S, messages: [...d, ...S.messages] };
   }
   return u ? { decision: "ask", reason: f, messages: d } : { decision: "proceed", skipConfirm: m, messages: d };
@@ -353,7 +353,7 @@ function Q2e(e, t, n, o, i, r, s, c) {
   if (Yr()) {
     if ((VI(), u !== !!d)) o((m) => ({ ...m, fastMode: u })), pw(d, u);
   }
-  return (f += GQ(d, u, t, { announceKeptOn: !0 })), (f += RJt(t)), f;
+  return (f += GQ(d, u, t, { announceKeptOn: true })), (f += RJt(t)), f;
 }
 function Z2e(e, t) {
   rn("userSettings", { model: e ?? void 0 }, void 0, t), y("model_set_default");
@@ -400,14 +400,14 @@ function h(e) {
 }
 function kJt(e) {
   let t = e.toLowerCase();
-  if (!(t.includes("opus") && t.includes("[1m]"))) return !1;
-  if ((t.includes("opusplan") ? [wl(), Ot(e)] : [Ot(e)]).every((o) => A_(o))) return !1;
+  if (!(t.includes("opus") && t.includes("[1m]"))) return false;
+  if ((t.includes("opusplan") ? [wl(), Ot(e)] : [Ot(e)]).every((o) => A_(o))) return false;
   return !CH() && !YS();
 }
 function HJt(e) {
   let t = e.toLowerCase();
-  if (!(t.includes("sonnet[1m]") || t.includes("sonnet-4-6[1m]") || t.includes("sonnet-5[1m]"))) return !1;
-  if (A_(Ot(e))) return !1;
+  if (!(t.includes("sonnet[1m]") || t.includes("sonnet-4-6[1m]") || t.includes("sonnet-5[1m]"))) return false;
+  if (A_(Ot(e))) return false;
   return !sO();
 }
 function xm(e) {
@@ -418,9 +418,9 @@ function sW(e) {
   return Ot(e ?? eS());
 }
 function ZHt(e, t, n, o, i) {
-  if (!i) return !1;
+  if (!i) return false;
   let r = Cu();
-  if (r === 0 || r === o) return !1;
+  if (r === 0 || r === o) return false;
   return hr(sW(e)) !== hr(sW(i2({ mainLoopModel: t, mainLoopModelForSession: n })));
 }
 function e6e(e) {
@@ -440,18 +440,18 @@ Base model: ${t}`;
 }
 function ext(e) {
   let t = e ?? eS();
-  if (!uf(Ot(t))) return !1;
+  if (!uf(Ot(t))) return false;
   return q5n();
 }
 function aW(e) {
-  if (e === null) return !1;
+  if (e === null) return false;
   return uf(Ot(e)) && qce();
 }
 function Jge(e, t) {
   if (t === void 0) return;
-  if (t !== "ultracode") return { level: t, fromUltracode: !1, ultracode: !1 };
+  if (t !== "ultracode") return { level: t, fromUltracode: false, ultracode: false };
   return BS(sW(e))
-    ? { level: "xhigh", fromUltracode: !0, ultracode: !0 }
-    : { level: ETe(sW(e)), fromUltracode: !0, ultracode: !1 };
+    ? { level: "xhigh", fromUltracode: true, ultracode: true }
+    : { level: ETe(sW(e)), fromUltracode: true, ultracode: false };
 }
 export { GQ, e1n, J2e, Xge, CS, Yge, ac, BP, Q2e, Z2e, RJt, kJt, HJt, xm, sW, ZHt, e6e, ext, aW, Jge };

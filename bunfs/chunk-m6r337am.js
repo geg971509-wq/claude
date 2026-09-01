@@ -80,7 +80,7 @@ function N(e, n, t) {
 function le(e, n, t, l) {
   let r = l ? E + H : E;
   for (let [o, i] of e) {
-    if (((r += N(o.foreground, !0, n)), !t)) r += N(o.background, !1, n);
+    if (((r += N(o.foreground, true, n)), !t)) r += N(o.background, false, n);
     r += i;
   }
   return r + E;
@@ -399,7 +399,7 @@ function J(e, n, t) {
   if (!e.lang) return [[T(t), l]];
   let r;
   try {
-    r = oe().highlight(l, { language: e.lang, ignoreIllegals: !0 });
+    r = oe().highlight(l, { language: e.lang, ignoreIllegals: true });
   } catch {
     return [[T(t), l]];
   }
@@ -487,7 +487,7 @@ function Y(e) {
   );
 }
 function Ce(e) {
-  if (e.length !== 1) return !1;
+  if (e.length !== 1) return false;
   let n = e.codePointAt(0);
   return n === 1564 || (n >= 8234 && n <= 8238) || (n >= 8294 && n <= 8297);
 }
@@ -502,7 +502,7 @@ function v(e) {
   return n;
 }
 function Me(e, n, t) {
-  return N(e.foreground, !0, n) + (t ? "" : N(e.background, !1, n));
+  return N(e.foreground, true, n) + (t ? "" : N(e.background, false, n));
 }
 function Se(e, n, t) {
   let l = [],
@@ -517,14 +517,14 @@ function Se(e, n, t) {
 }
 function Le(e) {
   let n = 0,
-    t = !1,
+    t = false,
     l = [];
   for (let [r, o] of e) {
     if (!o.includes("\t")) {
       (n += v(o)), l.push([r, o]);
       continue;
     }
-    t = !0;
+    t = true;
     let i = "";
     for (let { segment: d } of gs().segment(o))
       if (d === "\t") {
@@ -718,8 +718,8 @@ class A {
         ne = M === "-" ? [[T(i), D]] : J(c, D, i),
         w = { marker: M, lineNumber: y, lines: [ne] };
       if ((Y(w), Te(w, i, b[k]), S > 0)) w.lines[0].push([T(i), Zie(S)]);
-      if ((V(w, g, i, r, !1), r === "ansi" && M === "-")) we(w);
-      De(w, i), Q(w, i, u, t), x.push(...Z(w, t, !1, r));
+      if ((V(w, g, i, r, false), r === "ansi" && M === "-")) we(w);
+      De(w, i), Q(w, i, u, t), x.push(...Z(w, t, false, r));
     }
     return x;
   }
@@ -746,7 +746,7 @@ class I {
         x = J(c, f, r);
       if (b > 0) x.push([T(r), Zie(b)]);
       let k = { marker: null, lineNumber: g + 1, lines: [x] };
-      Y(k), V(k, m, r, l, !0), Q(k, r, u, t), p.push(...Z(k, t, !0, l));
+      Y(k), V(k, m, r, l, true), Q(k, r, u, t), p.push(...Z(k, t, true, l));
     }
     return p;
   }

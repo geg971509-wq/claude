@@ -49,13 +49,13 @@ function M1n(e, t, r) {
       selectedAgent: d,
       agentType: "main-session",
       abortController: u,
-      retrieved: !1,
+      retrieved: false,
       lastReportedToolCount: 0,
       lastReportedTokenCount: 0,
-      isBackgrounded: !0,
+      isBackgrounded: true,
       pendingMessages: [],
-      retain: !1,
-      diskLoaded: !1,
+      retain: false,
+      diskLoaded: false,
     };
   return (
     n(`[LocalMainSessionTask] Registering task ${o} with description: ${e}`),
@@ -72,7 +72,7 @@ function vRt(e, t, r) {
   if (
     (r.update(e, (_) => {
       if (_.status !== "running") return _;
-      return (u = _.toolUseId), (d = _.description), { ..._, status: o, endTime: Date.now(), notified: !0 };
+      return (u = _.toolUseId), (d = _.description), { ..._, status: o, endTime: Date.now(), notified: true };
     }),
     r.updateTranscript(e, (_) => ({ ..._, messages: _.messages.length ? [_.messages.at(-1)] : [] })),
     bd(e),
@@ -85,7 +85,7 @@ function vRt(e, t, r) {
 }
 
 function r$t(e) {
-  if (typeof e !== "object" || e === null || !("type" in e) || !("agentType" in e)) return !1;
+  if (typeof e !== "object" || e === null || !("type" in e) || !("agentType" in e)) return false;
   return e.type === "local_agent" && e.agentType === "main-session";
 }
 
@@ -100,10 +100,10 @@ function Rqn({ messages: e, queryParams: t, description: r, taskRegistry: o, age
       parentAgentId: fh(x) ? void 0 : x.agentId,
       agentType: "subagent",
       subagentName: "main-session",
-      isBuiltIn: !0,
-      isAsync: !0,
-      isMainSession: !0,
-      isBackgroundAgent: !0,
+      isBuiltIn: true,
+      isAsync: true,
+      isMainSession: true,
+      isBackgroundAgent: true,
     };
   return (
     fw(M, async () => {
@@ -120,8 +120,8 @@ function Rqn({ messages: e, queryParams: t, description: r, taskRegistry: o, age
           toolUseContext: { ...t.toolUseContext, agentId: po(_), agentContext: M },
         })) {
           if (C.aborted) {
-            let me = !1;
-            if ((o.update(_, (ge) => ((me = ge.notified === !0), me ? ge : { ...ge, notified: !0 })), !me))
+            let me = false;
+            if ((o.update(_, (ge) => ((me = ge.notified === true), me ? ge : { ...ge, notified: true })), !me))
               ys(_, "stopped", { summary: r });
             return;
           }
@@ -168,9 +168,9 @@ function Rqn({ messages: e, queryParams: t, description: r, taskRegistry: o, age
           }),
             o.updateTranscript(_, (me) => (me.messages === F ? me : { ...me, messages: F }));
         }
-        vRt(_, !0, o);
+        vRt(_, true, o);
       } catch (B) {
-        h(ft(we(B), "startBackgroundSession: query loop failed")), vRt(_, !1, o);
+        h(ft(we(B), "startBackgroundSession: query loop failed")), vRt(_, false, o);
       } finally {
         if (U) F.push(...U.preserved);
       }
@@ -199,7 +199,7 @@ function ARt(e, t, r, o, u) {
   let d = Sl(e),
     _ = 0,
     C = Date.now(),
-    A = !1,
+    A = false,
     x = setInterval(() => {
       P_t(e).then(
         (M) => {
@@ -215,7 +215,7 @@ function ARt(e, t, r, o, u) {
                 C = Date.now();
                 return;
               }
-              (A = !0), clearInterval(x);
+              (A = true), clearInterval(x);
               let U = `${ZCe}"${t}" appears to be waiting for interactive input`;
               Wa({
                 value: Du({
@@ -230,7 +230,7 @@ ${F.trimEnd()}
 The command is likely blocked on an interactive prompt. Stop this task and re-run with piped input (e.g., \`echo y | command\`) or a non-interactive flag if one exists.`,
                 }),
                 mode: "task-notification",
-                skipAttachments: !0,
+                skipAttachments: true,
                 priority: "next",
                 agentId: u ?? et(),
               }),
@@ -245,7 +245,7 @@ The command is likely blocked on an interactive prompt. Stop this task and re-ru
   return (
     x.unref(),
     () => {
-      (A = !0), clearInterval(x);
+      (A = true), clearInterval(x);
     }
   );
 }
@@ -302,7 +302,7 @@ function kxe(e, t, r, o, u, d, _ = "bash", C, A, x) {
     (Wa({
       value: Du({ taskId: e, toolUseId: d, outputFile: W, status: r, summary: Wt(B) }),
       mode: "task-notification",
-      skipAttachments: !0,
+      skipAttachments: true,
       priority: "next",
       agentId: C ?? et(),
       taskId: e,
@@ -356,10 +356,10 @@ async function zee(e, t) {
       status: "running",
       command: r,
       cwd: ee(),
-      completionStatusSentInAttachment: !1,
+      completionStatusSentInAttachment: false,
       shellCommand: u,
       lastReportedTotalLines: 0,
-      isBackgrounded: !0,
+      isBackgrounded: true,
       agentId: _,
       kind: C,
     };
@@ -391,13 +391,13 @@ function Gqn(e, t) {
       status: "running",
       command: o,
       cwd: ee(),
-      completionStatusSentInAttachment: !1,
+      completionStatusSentInAttachment: false,
       shellCommand: e.shellCommand,
       lastReportedTotalLines: e.lastReportedTotalLines,
-      isBackgrounded: !0,
+      isBackgrounded: true,
       agentId: C !== void 0 ? po(C) : void 0,
       kind: _,
-      isAdopted: !0,
+      isAdopted: true,
     };
   t.register(A),
     e.shellCommand.result.then(async (x) => {
@@ -430,10 +430,10 @@ function y$t(e, t, r) {
       status: "running",
       command: o,
       cwd: ee(),
-      completionStatusSentInAttachment: !1,
+      completionStatusSentInAttachment: false,
       shellCommand: d,
       lastReportedTotalLines: 0,
-      isBackgrounded: !1,
+      isBackgrounded: false,
       agentId: _,
       caller: C,
       autoBackgroundArmed: A,
@@ -443,7 +443,7 @@ function y$t(e, t, r) {
 
 function PRt(e, t, r) {
   let o = t.get(e);
-  if (!Zg(o) || o.isBackgrounded || !o.shellCommand) return !1;
+  if (!Zg(o) || o.isBackgrounded || !o.shellCommand) return false;
   return ept(e, o.shellCommand, o.description, t, o.toolUseId, r);
 }
 
@@ -465,26 +465,26 @@ function s9(e) {
 
 function S$t(e, t) {
   let r = t.get(e);
-  return Zg(r) && r.backgroundedToDeliverMessage === !0;
+  return Zg(r) && r.backgroundedToDeliverMessage === true;
 }
 
 function Zdt(e, t) {
   for (let [r, o] of Object.entries(t.all())) {
     if (o.toolUseId !== e) continue;
-    if (!wxe(o)) return !1;
+    if (!wxe(o)) return false;
     if (o.type === "local_bash") return PRt(r, t);
-    return HN(r, t), !0;
+    return HN(r, t), true;
   }
-  return !1;
+  return false;
 }
 
 function ept(e, t, r, o, u, d) {
   let _ = o.get(e),
     C = _ && Zg(_) ? _.agentId : void 0;
-  if (!t.background(e, { capMs: CRt(C) })) return !1;
+  if (!t.background(e, { capMs: CRt(C) })) return false;
   o.update(e, (M) => {
     if (M.isBackgrounded) return M;
-    return { ...M, isBackgrounded: !0, ...d };
+    return { ...M, isBackgrounded: true, ...d };
   });
   let A = ARt(e, r, void 0, u, C),
     x = RRt(e, r, o, u, void 0, C);
@@ -500,20 +500,20 @@ function ept(e, t, r, o, u, d) {
       cancelStallWatchdog: A,
       releaseBgCap: x,
     }),
-    !0
+    true
   );
 }
 
 function b$t(e, t, r) {
-  let o = !1;
+  let o = false;
   if (
     (r.update(e, (u) => {
       if (u.notified) return u;
       return (
-        (o = !0),
+        (o = true),
         {
           ...u,
-          notified: !0,
+          notified: true,
           status: Sxe(t),
           result: { code: t.code, interrupted: t.interrupted },
           shellCommand: null,
@@ -566,12 +566,12 @@ function xRt({
               return;
             })
           : void 0,
-      F = !1,
+      F = false,
       U = Sxe(x),
       { taskOutput: B } = e,
       W = B.stdoutToFile ? void 0 : B.pipedStdoutBytes;
     _.update(t, (z) => {
-      if (z.status === "killed") return (F = !0), z;
+      if (z.status === "killed") return (F = true), z;
       if (z.notified) return z;
       return {
         ...z,
@@ -603,11 +603,11 @@ function W1n(e) {
 
 function ORt(e) {
   let t = e.filter((u) => !j1n.has(u.type));
-  if (t.length !== 1 || t[0].type !== "command") return !1;
+  if (t.length !== 1 || t[0].type !== "command") return false;
   let [r, ...o] = t[0].children;
-  if (r?.type !== "command_name") return !1;
-  for (let u of o) if (!q1n.has(u.type) && !G1n.has(u.type)) return !1;
-  return !0;
+  if (r?.type !== "command_name") return false;
+  for (let u of o) if (!q1n.has(u.type) && !G1n.has(u.type)) return false;
+  return true;
 }
 
 function Txe(e) {
@@ -628,47 +628,47 @@ function LRt(e) {
   if (!ORt(t.children)) return null;
   let r = [],
     o = /\$[({]|`|[<>]\(/,
-    u = !1,
+    u = false,
     d = (_) => {
       if (_.type === "ERROR") {
-        u = !0;
+        u = true;
         return;
       }
       if (_.type === "command_substitution" || _.type === "process_substitution") {
         if (!ORt(_.children)) {
-          u = !0;
+          u = true;
           return;
         }
       }
       if (_.type === "string" && _.children.some((C) => !z1n.has(C.type))) {
-        u = !0;
+        u = true;
         return;
       }
       if (_.type === "concatenation" && _.children.some((C) => C.type === "simple_expansion" || C.type === "$")) {
-        u = !0;
+        u = true;
         return;
       }
       if (_.type === "expansion") {
-        u = !0;
+        u = true;
         return;
       }
       if (_.type === "arithmetic_expansion") {
-        u = !0;
+        u = true;
         return;
       }
       if (_.type === "raw_string" || _.type === "ansi_c_string") {
-        u = !0;
+        u = true;
         return;
       }
       if (_.type === "regex" || _.type === "extglob_pattern" || _.type === "word") {
-        if (o.test(_.text) || (_.type === "word" && _.text.includes("\\"))) u = !0;
+        if (o.test(_.text) || (_.type === "word" && _.text.includes("\\"))) u = true;
         return;
       }
       if (H1n.has(_.type)) return;
       if (_.type === "command") {
         let C = _.children.find((A) => A.type === "command_name")?.children[0];
         if (C && (C.type !== "word" || !K1n.test(C.text) || W1n(C.text))) {
-          u = !0;
+          u = true;
           return;
         }
         r.push(_.children.map(Txe).join(" "));
@@ -753,7 +753,7 @@ function uln(e, t) {
 function dln(e) {
   Ae((t) => {
     if (t.claudeCodeHints?.disabled) return t;
-    return { ...t, claudeCodeHints: { ...t.claudeCodeHints, disabled: !0 } };
+    return { ...t, claudeCodeHints: { ...t.claudeCodeHints, disabled: true } };
   }, e);
 }
 
@@ -770,7 +770,7 @@ function Z1n(e, t) {
 }
 
 function uKn() {
-  return !1;
+  return false;
 }
 
 function dKn(e) {
@@ -783,9 +783,9 @@ function a$t(e, t, r, o) {
     d = Z1n(e, t);
   if (u.has(d)) return null;
   J1n(u, Q1n), u.add(d);
-  let _ = !0;
+  let _ = true;
   return () => {
-    if (_) (_ = !1), u.delete(d);
+    if (_) (_ = false), u.delete(d);
   };
 }
 
@@ -807,9 +807,9 @@ async function c$t(e, t, r, o, u) {
   if (C === void 0) return n(`Shell output ${r}: its temp root could not be resolved; persisting it as today`), "today";
   let A = await e.writeFromFile(t, r, {
     mode: 438 & ~process.umask(),
-    copy: !0,
+    copy: true,
     growth: "prefix",
-    expect: { within: C, singleName: !0, maxBytes: o },
+    expect: { within: C, singleName: true, maxBytes: o },
   });
   if (!A.ok) {
     let U = fKn(A.error);
@@ -904,7 +904,7 @@ function AKn(e) {
     return null;
   }
   if (t[0] !== "sed") return null;
-  let r = !1,
+  let r = false,
     o = null,
     u = null;
   for (let C = 1; C < t.length; C++) {
@@ -913,11 +913,11 @@ function AKn(e) {
       if (A.startsWith("--")) {
         if (A === "--in-place" || A.startsWith("--in-place=")) return null;
         if (A === "--expression") return null;
-        if (A === "--quiet" || A === "--silent") r = !0;
+        if (A === "--quiet" || A === "--silent") r = true;
       } else {
         if (A.includes("i")) return null;
         if (A === "-e") return null;
-        if (A.includes("n")) r = !0;
+        if (A.includes("n")) r = true;
       }
       continue;
     }
@@ -1055,7 +1055,7 @@ function WKn(e) {
   }
   if (d === null || _ === null || _ === "-") return null;
   if (/[*?[{]/.test(_)) return null;
-  return { filePath: _, startLine: void 0, endLine: void 0, requiresExitZero: !0, contentNotInModelContext: !0 };
+  return { filePath: _, startLine: void 0, endLine: void 0, requiresExitZero: true, contentNotInModelContext: true };
 }
 
 function GKn(e, t) {
@@ -1108,7 +1108,7 @@ async function jRt(e, t, r, o, u) {
           timestamp: Math.floor(x.mtimeMs),
           offset: U.offset,
           limit: U.limit,
-          ...((C.contentNotInModelContext || u) && { contentNotInModelContext: !0 }),
+          ...((C.contentNotInModelContext || u) && { contentNotInModelContext: true }),
         });
       } catch {}
     }),
@@ -1200,7 +1200,7 @@ async function KRt(e, t) {
   let r = JKn(Di(), e).replaceAll(ZKn, "/"),
     o;
   try {
-    o = await HB(e, 0, BTe, JX, void 0, { truncateOnByteLimit: !0 });
+    o = await HB(e, 0, BTe, JX, void 0, { truncateOnByteLimit: true });
   } catch {
     return null;
   }
@@ -1294,8 +1294,8 @@ function QRt(e) {
 function vie() {
   return {
     debounceTimer: null,
-    pushInProgress: !1,
-    hasPendingChanges: !1,
+    pushInProgress: false,
+    hasPendingChanges: false,
     changeSeq: 0,
     currentPushPromise: null,
     lastSyncCompletedAt: null,
@@ -1322,11 +1322,11 @@ function Cie() {
 
 function Zmr(e, t = {}) {
   let r = u0(Di(), e).replaceAll(bq, "/");
-  if (r === "" || r.startsWith("..")) return !1;
+  if (r === "" || r.startsWith("..")) return false;
   let o = r.split("/");
   if (lb(o[0]) === "team") {
     let u = o.at(-1);
-    return u.startsWith(Wyt) || (t.backendStaging === !0 && EAt(u));
+    return u.startsWith(Wyt) || (t.backendStaging === true && EAt(u));
   }
   return tD(r);
 }
@@ -1404,8 +1404,8 @@ function h2n(e, t) {
 
 function Vqn(e, t) {
   let r = rPt(e, t);
-  if (r && (RS(r) || c3(r))) return !0;
-  return !1;
+  if (r && (RS(r) || c3(r))) return true;
+  return false;
 }
 
 function Kqn(e) {
@@ -1423,7 +1423,7 @@ function egr(e) {
 async function tPt(e, t, r, o) {
   if (!Kqn(r)) return;
   try {
-    let u = t ?? (await HB(r, 0, b3, yV, void 0, { truncateOnByteLimit: !0 })).content;
+    let u = t ?? (await HB(r, 0, b3, yV, void 0, { truncateOnByteLimit: true })).content;
     s("tengu_memdir_pin_write", {
       tool: c(e),
       pinned_state: c(FU(zv(u).frontmatter.metadata.pinned)),
@@ -1499,7 +1499,7 @@ async function y2n(e, t, r, o, u) {
     }
   if (F && (U || B) && RS(F)) {
     let z = Boolean(C && EC(C)),
-      pe = d.notices.take(z ? F : void 0, z && U ? { peek: !0 } : void 0);
+      pe = d.notices.take(z ? F : void 0, z && U ? { peek: true } : void 0);
     if (pe !== null)
       return (
         s("tengu_team_mem_conflict_notice_delivered", { ...x }),
@@ -1546,7 +1546,7 @@ function Rxe(e, t, r) {
 }
 
 function BAr() {
-  let e = { type: "callback", callback: y2n, timeout: 1, internal: !0 };
+  let e = { type: "callback", callback: y2n, timeout: 1, internal: true };
   kU({
     PostToolUse: [
       { matcher: _t, hooks: [e] },
@@ -1562,14 +1562,14 @@ function BAr() {
 
 function sPt() {
   let e = `\uD83E\uDD16 Generated with [Claude Code](${Vte})`;
-  if (!I("tengu_pr_footer_surface_suffix", !1)) return e;
+  if (!I("tengu_pr_footer_surface_suffix", false)) return e;
   let t = $rr();
   return t ? `${e} via ${t}` : e;
 }
 
-function iPt({ includeOutboundOnly: e = !1 } = {}) {
+function iPt({ includeOutboundOnly: e = false } = {}) {
   if (a.CLAUDE_CODE_SUPPRESS_SESSION_ATTRIBUTION) return null;
-  if (Je().attribution?.sessionUrl === !1) return null;
+  if (Je().attribution?.sessionUrl === false) return null;
   if (IQe() === "remote") {
     let t = a.CLAUDE_CODE_REMOTE_SESSION_ID;
     if (!t) return null;
@@ -1622,7 +1622,7 @@ function k2n() {
     r = Je(),
     o = r.attribution;
   if (o !== void 0 && yEn(o)) return { commit: o.commit ?? t, pr: o.pr ?? e };
-  if (r.includeCoAuthoredBy === !1) return cPt().fire("attribution_texts"), { commit: "", pr: "" };
+  if (r.includeCoAuthoredBy === false) return cPt().fire("attribution_texts"), { commit: "", pr: "" };
   return { commit: t, pr: e };
 }
 
@@ -1633,9 +1633,9 @@ function w2n(e) {
 }
 
 function uPt(e) {
-  if (XI(e) === null) return !1;
+  if (XI(e) === null) return false;
   let t = SMe(e);
-  if (t !== e && Object.hasOwn(L$, t)) return !0;
+  if (t !== e && Object.hasOwn(L$, t)) return true;
   let r = Ye(e),
     o = hr(e).toLowerCase(),
     u = o.indexOf(r),
@@ -1645,7 +1645,7 @@ function uPt(e) {
     (u = o.indexOf(x)), (d = x.length);
   }
   if (u === -1) {
-    if (!e.includes("application-inference-profile")) return !1;
+    if (!e.includes("application-inference-profile")) return false;
     let x = pie(hr(e));
     return !!x && uPt(x);
   }
@@ -1655,8 +1655,8 @@ function uPt(e) {
 }
 
 function oPt(e) {
-  for (let t of JAt) if (e.includes(`<${t}>`)) return !0;
-  return !1;
+  for (let t of JAt) if (e.includes(`<${t}>`)) return true;
+  return false;
 }
 
 function T2n(e) {
@@ -1665,13 +1665,13 @@ function T2n(e) {
     if (r.type !== "user") continue;
     let o = r.message?.content;
     if (!o) continue;
-    let u = !1;
+    let u = false;
     if (typeof o === "string") {
       if (oPt(o)) continue;
       u = o.trim().length > 0;
     } else if (Array.isArray(o))
       u = o.some((d) => {
-        if (!d || typeof d !== "object" || !("type" in d)) return !1;
+        if (!d || typeof d !== "object" || !("type" in d)) return false;
         return (
           (d.type === "text" && typeof d.text === "string" && !oPt(d.text)) ||
           d.type === "image" ||
@@ -1743,7 +1743,7 @@ async function R2n(e) {
 }
 
 async function T$t(e, t) {
-  let r = iPt({ includeOutboundOnly: !0 }),
+  let r = iPt({ includeOutboundOnly: true }),
     o = r?.url ?? null,
     u = aPt(r),
     d = await P2n(e, o, u, t),
@@ -1763,7 +1763,7 @@ async function P2n(e, t, r, o) {
   let u = O() ? o : void 0,
     d = Je();
   if (d.attribution?.pr !== void 0) return d.attribution.pr;
-  if (d.includeCoAuthoredBy === !1) return cPt().fire("pr_base"), "";
+  if (d.includeCoAuthoredBy === false) return cPt().fire("pr_base"), "";
   let _ = sPt(),
     C = e();
   if ((n(`PR Attribution: appState.attribution exists: ${!!C.attribution}`), C.attribution)) {
@@ -1796,7 +1796,7 @@ function uPe(e) {
 async function dPe(e, t, r) {
   if (!aNe()) return "";
   if (!r) return "";
-  let o = e.codeReview && Je().includeCodeReviewSuggestion === !0,
+  let o = e.codeReview && Je().includeCodeReviewSuggestion === true,
     u = [
       e.verify ? `\`/${SF}\`` : void 0,
       e.simplify ? `\`/${qGe}\`` : void 0,
@@ -1820,7 +1820,7 @@ async function dPe(e, t, r) {
 }
 
 function kM() {
-  return !1;
+  return false;
 }
 
 function iqe(e) {
@@ -2158,7 +2158,7 @@ function bPt() {
   return;
 }
 
-async function kPt(e, t, r = !1, o = []) {
+async function kPt(e, t, r = false, o = []) {
   if (td(e)) return L2n(t, r, o);
   let u = Ny(),
     d = [
@@ -2265,26 +2265,26 @@ function qee(e) {
   let u = uu(t);
   if (u[0] !== "sed") return null;
   let d = u.slice(1),
-    _ = !1,
-    C = !1,
+    _ = false,
+    C = false,
     A = null,
     x = null,
     M = 0;
   while (M < d.length) {
     let Ce = d[M];
     if (Ce === "-i" || Ce === "--in-place") {
-      if (((_ = !0), M++, M < d.length)) {
+      if (((_ = true), M++, M < d.length)) {
         let Ie = d[M];
         if (typeof Ie === "string" && !Ie.startsWith("-") && (Ie === "" || Ie.startsWith("."))) M++;
       }
       continue;
     }
     if (Ce.startsWith("-i")) {
-      (_ = !0), M++;
+      (_ = true), M++;
       continue;
     }
     if (Ce === "-E" || Ce === "-r" || Ce === "--regexp-extended") {
-      (C = !0), M++;
+      (C = true), M++;
       continue;
     }
     if (Ce === "-e" || Ce === "--expression") {
@@ -2307,7 +2307,7 @@ function qee(e) {
     M++;
   }
   if (!_ || !A || !x) return null;
-  if (S_(x, !0) || (D() === "windows" && /(?<!:)[\\/]{2,}[^ \t\r\n\f\v\\/]/.test(x))) return null;
+  if (S_(x, true) || (D() === "windows" && /(?<!:)[\\/]{2,}[^ \t\r\n\f\v\\/]/.test(x))) return null;
   if (!A.match(/^s\//)) return null;
   let U = A.slice(2),
     B = { pattern: "", replacement: "", flags: "" },
@@ -2371,35 +2371,35 @@ function z4n(e, t) {
 
 function tgr(e) {
   let t = Ia(e);
-  if (t.length === 0) return { isSearch: !1, isRead: !1, isList: !1 };
-  let r = !1,
-    o = !1,
-    u = !1,
-    d = !1;
+  if (t.length === 0) return { isSearch: false, isRead: false, isList: false };
+  let r = false,
+    o = false,
+    u = false,
+    d = false;
   for (let _ of t) {
     let C = _.trim().split(/\s+/)[0];
     if (!C || Q2n.has(C)) continue;
-    d = !0;
+    d = true;
     let A = V2n.has(C),
       x = Y2n.has(C),
       M = X2n.has(C);
-    if (!A && !x && !M) return { isSearch: !1, isRead: !1, isList: !1 };
-    if (A) r = !0;
-    if (x) o = !0;
-    if (M) u = !0;
+    if (!A && !x && !M) return { isSearch: false, isRead: false, isList: false };
+    if (A) r = true;
+    if (x) o = true;
+    if (M) u = true;
   }
-  if (!d) return { isSearch: !1, isRead: !1, isList: !1 };
+  if (!d) return { isSearch: false, isRead: false, isList: false };
   return { isSearch: r, isRead: o, isList: u };
 }
 
 function Z2n(e) {
   let t = Ia(e);
-  if (t.length === 0) return !1;
-  let r = !1;
+  if (t.length === 0) return false;
+  let r = false;
   for (let o of t) {
     let u = o.trim().split(/\s+/)[0];
     if (!u) continue;
-    if (((r = !0), !J2n.has(u))) return !1;
+    if (((r = true), !J2n.has(u))) return false;
   }
   return r;
 }
@@ -2421,21 +2421,21 @@ function Tq(e) {
 
 function ngr(e) {
   let t = KE()?.parse(e);
-  if (!t) return !1;
+  if (!t) return false;
   {
     let r = WTe(e, t);
-    if (r.kind !== "simple") return !1;
-    if (r.commands.some((o) => FP(o.text))) return !1;
+    if (r.kind !== "simple") return false;
+    if (r.commands.some((o) => FP(o.text))) return false;
   }
-  return !0;
+  return true;
 }
 
 function rgr(e) {
-  if (!ngr(e)) return !1;
+  if (!ngr(e)) return false;
   let t = Ia(e);
-  if (t.length === 0) return !0;
+  if (t.length === 0) return true;
   let r = t[0]?.trim().split(/\s+/)[0];
-  if (!r) return !0;
+  if (!r) return true;
   return !mVn.includes(r);
 }
 
@@ -2489,7 +2489,7 @@ async function _Vn(e, t, r) {
             timestamp: z,
             offset: void 0,
             limit: void 0,
-            ...(!pe && { contentNotInModelContext: !0 }),
+            ...(!pe && { contentNotInModelContext: true }),
           }),
           x === "utf8" && M !== "CRLF")
         )
@@ -2508,12 +2508,12 @@ async function _Vn(e, t, r) {
           stdout: "",
           stderr: `sed: ${o}: No such file or directory
 Exit code 1`,
-          interrupted: !1,
+          interrupted: false,
         },
       };
     throw F;
   }
-  return xE(_, A, u), t.applyFileHistoryOp({ kind: "touch" }), { data: { stdout: "", stderr: "", interrupted: !1 } };
+  return xE(_, A, u), t.applyFileHistoryOp({ kind: "touch" }), { data: { stdout: "", stderr: "", interrupted: false } };
 }
 
 async function kVn(e, t, r) {
@@ -2574,7 +2574,7 @@ async function* wVn({
     (tt = $d() || r?.background === "forbidden"),
       (nn = !tt && rgr(ge)),
       (xt = !tt && !/git/i.test(ge)),
-      (lt = z1t({ requestedTimeoutMs: Pe, isMainAgent: A === !0, canAutoBackground: nn })),
+      (lt = z1t({ requestedTimeoutMs: Pe, isMainAgent: A === true, canAutoBackground: nn })),
       (en = await jG(ge, o.signal, "bash", {
         timeout: lt,
         caller: U,
@@ -2586,8 +2586,8 @@ async function* wVn({
         },
         session: _,
         preventCwdChanges: C,
-        ...(r?.scrubCredentialEnv && { scrubCredentialEnv: !0 }),
-        ...(r?.sandbox === "required" && { requireConfiningSandbox: !0 }),
+        ...(r?.scrubCredentialEnv && { scrubCredentialEnv: true }),
+        ...(r?.sandbox === "required" && { requireConfiningSandbox: true }),
         shouldUseSandbox: t,
         sandboxAttributionId: x,
         attributionMessageId: M,
@@ -2632,7 +2632,7 @@ async function* wVn({
     en.onTimeout((Ke) => {
       (Pt = lt), nt("tengu_bash_command_timeout_backgrounded", Ke);
     });
-  if (Ee === !0 && !tt) {
+  if (Ee === true && !tt) {
     if (en.status === "completed") {
       let mn = await mt;
       if (mn.preSpawnError) return mn;
@@ -2640,12 +2640,12 @@ async function* wVn({
     let Ke = await Xe();
     return (
       s("tengu_bash_command_explicitly_backgrounded", { command_type: Tq(ge) }),
-      { stdout: "", stderr: "", code: 0, interrupted: !1, backgroundTaskId: Ke }
+      { stdout: "", stderr: "", code: 0, interrupted: false, backgroundTaskId: Ke }
     );
   }
   let ht = Date.now(),
     At = void 0,
-    dn = !1,
+    dn = false,
     Lt = null,
     fn = () => o.signal.aborted && FA.backgroundsTheShell(o.signal.reason, U),
     Sn = () => {
@@ -2667,12 +2667,12 @@ async function* wVn({
       }),
     ]);
     if (Ke !== null) return en.cleanup(), Ke;
-    if (Ve) return { stdout: "", stderr: "", code: 0, interrupted: !1, backgroundTaskId: Ve, timedOutAfterMs: Pt };
+    if (Ve) return { stdout: "", stderr: "", code: 0, interrupted: false, backgroundTaskId: Ve, timedOutAfterMs: Pt };
   }
   Bx.startPolling(en.taskOutput.taskId);
   let hn = null;
   try {
-    while (!0) {
+    while (true) {
       let Ke;
       if (!dn && fn()) Ke = Promise.resolve(null);
       else Ke = ut();
@@ -2693,21 +2693,21 @@ async function* wVn({
           stdout: dn ? Fe : "",
           stderr: "",
           code: 0,
-          interrupted: !1,
+          interrupted: false,
           backgroundTaskId: Ve,
-          ...(dn && { backgroundedByTurnAbort: !0 }),
+          ...(dn && { backgroundedByTurnAbort: true }),
           timedOutAfterMs: Pt,
         };
       if (!dn && fn()) {
-        if (((dn = !0), xt)) {
+        if (((dn = true), xt)) {
           if ((nt("tengu_bash_command_turn_abort_backgrounded"), Ve))
             return {
               stdout: Fe,
               stderr: "",
               code: 0,
-              interrupted: !1,
+              interrupted: false,
               backgroundTaskId: Ve,
-              backgroundedByTurnAbort: !0,
+              backgroundedByTurnAbort: true,
               timedOutAfterMs: Pt,
             };
           continue;
@@ -2721,9 +2721,9 @@ async function* wVn({
             stdout: "",
             stderr: "",
             code: 0,
-            interrupted: !1,
+            interrupted: false,
             backgroundTaskId: At,
-            ...(S$t(At, u) ? { backgroundedToDeliverMessage: !0 } : { backgroundedByUser: !0 }),
+            ...(S$t(At, u) ? { backgroundedToDeliverMessage: true } : { backgroundedByUser: true }),
           };
       }
       let yn = Date.now() - ht,
@@ -2759,7 +2759,7 @@ async function* wVn({
 function xA(e, t) {
   return () => {
     let r = e.getAppState();
-    if (r.toolPermissionContext.pollEventDeliveryGuard === !0) return r;
+    if (r.toolPermissionContext.pollEventDeliveryGuard === true) return r;
     return {
       ...r,
       toolPermissionContext: {
@@ -2786,7 +2786,7 @@ async function VG(e, t, r, o) {
   return (
     await Promise.all(
       i1t(e).map(async ({ raw: C, command: A }, x) => {
-        let M = { ...t, innerCall: !0, toolUseId: `${_}${hln}${x}` };
+        let M = { ...t, innerCall: true, toolUseId: `${_}${hln}${x}` };
         try {
           let F = await Ld(d, { command: A }, t, Qc({ content: [] }), "");
           if (F.behavior !== "allow") {
@@ -2815,7 +2815,7 @@ async function VG(e, t, r, o) {
   );
 }
 
-function DPt(e, t, r = !1) {
+function DPt(e, t, r = false) {
   let o = [];
   if (e.trim()) o.push(e.trim());
   if (t.trim())
@@ -2831,7 +2831,7 @@ ${t.trim()}`);
   );
 }
 
-function TVn(e, t, r, o = !1) {
+function TVn(e, t, r, o = false) {
   if (e instanceof dx) {
     if (e.interrupted) throw new kP(`Shell command interrupted for pattern "${t}": [Command interrupted]`);
     let _ = DPt(e.stdout, e.stderr, o);
@@ -2857,7 +2857,7 @@ function Mk(e, t, r) {
 }
 
 function AVn(e, t) {
-  if (t === "policySettings") return !1;
+  if (t === "policySettings") return false;
   return e === "skills" || e === "syncedSkills" || e === "commands_DEPRECATED" || e === "plugin";
 }
 
@@ -2918,7 +2918,7 @@ function UPt(e) {
 function Iie(e, t, r, o = "Skill") {
   let u = i$(e.description, r),
     d = u ?? pee(t, o),
-    _ = e["user-invocable"] === void 0 ? !0 : VKe(e["user-invocable"]),
+    _ = e["user-invocable"] === void 0 ? true : VKe(e["user-invocable"]),
     C = e.model,
     A;
   if (typeof C === "string" && C.trim().length > 0) {
@@ -3051,7 +3051,7 @@ ${u}`
 
 ${u}`
           : u;
-      if (((ut = PE(ut, Pt, !0, x, Vue({ loadedFrom: me }) ? (en) => VX(jA(en)) : jA)), pe)) {
+      if (((ut = PE(ut, Pt, true, x, Vue({ loadedFrom: me }) ? (en) => VX(jA(en)) : jA)), pe)) {
         let en = Pie(pe);
         ut = ut.replaceAll("${CLAUDE_SKILL_DIR}", () => en);
       }
@@ -3081,7 +3081,7 @@ async function DVn(e, t, r, o) {
         n(`[skills] skipping ${t}: .claude-plugin/plugin.json is not a regular file or exceeds ${Nk} byte limit`, {
           level: "warn",
         }),
-        { skip: !0 }
+        { skip: true }
       );
     let d = JSON.parse(ui(u));
     if (d !== null && typeof d === "object" && "name" in d && typeof d.name === "string" && d.name)
@@ -3139,7 +3139,7 @@ async function FVn(e, t, r) {
     let A = `@${nu}`;
     if (t === "userSettings" && e === ac(be(), "skills")) {
       let M = Je().enabledPlugins;
-      for (let F in M) if (M[F] === !1 && F.endsWith(A)) _.add(F.slice(0, -A.length));
+      for (let F in M) if (M[F] === false && F.endsWith(A)) _.add(F.slice(0, -A.length));
     }
   }
   let C = await Promise.all(
@@ -3178,7 +3178,7 @@ async function FVn(e, t, r) {
             }
             if (Oe !== null && _.has(Oe)) return null;
           } else if (_.has(A)) {
-            let Oe = !1,
+            let Oe = false,
               Fe = await Ao(
                 (Be) =>
                   r.listEntries(
@@ -3221,7 +3221,7 @@ async function FVn(e, t, r) {
             null
           );
         let W = Buffer.from(B.value).toString("utf-8"),
-          { frontmatter: z, content: pe, parseError: fe } = ni(W, M, { normalizeKeys: !0 });
+          { frontmatter: z, content: pe, parseError: fe } = ni(W, M, { normalizeKeys: true });
         if (fe)
           n(`[skills] YAML frontmatter in ${M} failed to parse and was ignored: ${fe}`, { level: "error" }),
             g("skill_load_dir", "skill_load_yaml_failed");
@@ -3297,7 +3297,7 @@ async function wM(e, t, r = "skills", o) {
       (t === "projectSettings" && e === ac(Se(), ".claude", "skills"))
     ) {
       let F = Je().enabledPlugins;
-      for (let U in F) if (F[U] === !1 && U.endsWith(x)) C.add(U.slice(0, -x.length));
+      for (let U in F) if (F[U] === false && U.endsWith(x)) C.add(U.slice(0, -x.length));
     }
   }
   let A = await Promise.all(
@@ -3335,7 +3335,7 @@ async function wM(e, t, r = "skills", o) {
           if (!X(Ee)) n(`[skills] failed to read ${F}: ${Ee}`, { level: "warn" }), (_ = "skill_load_read_failed");
           return null;
         }
-        let { frontmatter: z, content: pe, parseError: fe } = ni(W, F, { normalizeKeys: !0 });
+        let { frontmatter: z, content: pe, parseError: fe } = ni(W, F, { normalizeKeys: true });
         if (fe)
           n(`[skills] YAML frontmatter in ${F} failed to parse and was ignored: ${fe}`, { level: "error" }),
             g("skill_load_dir", "skill_load_yaml_failed");
@@ -3443,7 +3443,7 @@ async function jVn(e, t, r) {
       d = [...o, ...u.flat()],
       _ = NVn(d),
       C = [],
-      A = !1;
+      A = false;
     for (let { baseDir: x, filePath: M, frontmatter: F, content: U, source: B } of _)
       try {
         let z = tMe(M) ? TM(M) : void 0,
@@ -3464,7 +3464,7 @@ async function jVn(e, t, r) {
           filePath: M,
         });
       } catch (W) {
-        n(`[skills] failed to load command from ${M}: ${W}`, { level: "error" }), (A = !0);
+        n(`[skills] failed to load command from ${M}: ${W}`, { level: "error" }), (A = true);
       }
     if (A) p("skill_load_commands_dir", "skill_load_commands_parse_failed");
     else y("skill_load_commands_dir");
@@ -3489,7 +3489,7 @@ async function jPt(e) {
   let o = `@${nu}`,
     u = Je().enabledPlugins,
     d = new Set();
-  for (let C in u) if (u[C] === !1 && C.endsWith(o)) d.add(C.slice(0, -o.length));
+  for (let C in u) if (u[C] === false && C.endsWith(o)) d.add(C.slice(0, -o.length));
   let _ = await Promise.all(
     r.map(async (C) => {
       if (!C.isDirectory() && !C.isSymbolicLink()) return null;
@@ -3512,7 +3512,7 @@ async function WVn(e, t) {
     u = `@${nu}`,
     d = Je().enabledPlugins,
     _ = new Set();
-  for (let A in d) if (d[A] === !1 && A.endsWith(u)) _.add(A.slice(0, -u.length));
+  for (let A in d) if (d[A] === false && A.endsWith(u)) _.add(A.slice(0, -u.length));
   let C = await Promise.all(
     o.map(async (A) => {
       if (_.has(A)) return null;
@@ -3567,8 +3567,8 @@ async function zVn(e, t) {
   function W() {
     let Oe = new Set([A, x, F.flat(), U.flat(), B].flat().map(({ skill: Fe }) => n6(Fe.name)));
     return M.filter(({ skill: Fe }) => {
-      if (!Oe.has(n6(Fe.name))) return !0;
-      return n(`[skills] dropping synced skill '${Fe.name}': a local skill owns that name`), !1;
+      if (!Oe.has(n6(Fe.name))) return true;
+      return n(`[skills] dropping synced skill '${Fe.name}': a local skill owns that name`), false;
     });
   }
   let z = M.length === 0 ? M : W(),
@@ -3597,7 +3597,7 @@ async function zVn(e, t) {
   qv(
     "skill",
     ge.map((Oe) => ({ name: Oe.name, source: Oe.source })),
-    { resolves: !1 },
+    { resolves: false },
   );
   let Ce = pe.length - ge.length;
   if (Ce > 0) n(`Deduplicated ${Ce} skills (same file)`);
@@ -3867,7 +3867,7 @@ async function oL(e, t, r, o) {
 async function qdt() {
   let e = Se();
   if (e === gn()) return;
-  await Q4e(await TG("skills", e), { replace: !0 });
+  await Q4e(await TG("skills", e), { replace: true });
 }
 
 function Lqn() {
@@ -3924,10 +3924,10 @@ async function XVn(e, t, r) {
           n(`Failed to read plugin command ${d}: ${x}`, { level: "error" });
           return;
         }
-        let { frontmatter: C, content: A } = ni(_, d, { normalizeKeys: !0 });
+        let { frontmatter: C, content: A } = ni(_, d, { normalizeKeys: true });
         o.push({ filePath: d, baseDir: t, frontmatter: C, content: Mk(To().skillContentIntern, d, A) });
       },
-      { stopAtSkillDir: !0, logLabel: "commands" },
+      { stopAtSkillDir: true, logLabel: "commands" },
     ),
     o.sort((d, _) => d.filePath.localeCompare(_.filePath))
   );
@@ -3952,7 +3952,7 @@ function QVn(e) {
   return r;
 }
 
-async function zPt(e, t, r, o, u, d = { isSkillMode: !1 }, _ = new Set()) {
+async function zPt(e, t, r, o, u, d = { isSkillMode: false }, _ = new Set()) {
   let C = await XVn(e, e, _),
     A = QVn(C),
     x = [];
@@ -3964,7 +3964,7 @@ async function zPt(e, t, r, o, u, d = { isSkillMode: !1 }, _ = new Set()) {
   return x;
 }
 
-function Rq(e, t, r, o, u, d, _ = { isSkillMode: !1 }) {
+function Rq(e, t, r, o, u, d, _ = { isSkillMode: false }) {
   try {
     let { frontmatter: C, content: A } = t,
       x = i$(C.description, e),
@@ -3999,7 +3999,7 @@ function Rq(e, t, r, o, u, d, _ = { isSkillMode: !1 }) {
       n(`Plugin command ${e} has invalid effort '${We}'. Valid options: ${$h.join(", ")} or an integer`);
     let Pt = VKe(C["disable-model-invocation"]),
       ct = C["user-invocable"],
-      ut = ct === void 0 ? !0 : VKe(ct),
+      ut = ct === void 0 ? true : VKe(ct),
       en = KWt(C.shell, e),
       nn;
     if ((d || _.isSkillMode) && C.hooks) {
@@ -4045,7 +4045,7 @@ function Rq(e, t, r, o, u, d, _ = { isSkillMode: !1 }) {
 
 ${A}`
           : A;
-        if (((lt = PE(lt, xt, !0, ge, jA)), (lt = bG(lt, { path: u, source: r })), o.userConfig))
+        if (((lt = PE(lt, xt, true, ge, jA)), (lt = bG(lt, { path: u, source: r })), o.userConfig))
           lt = N2(lt, await hv(r, tt.credentials), o.userConfig, jA);
         if (_.isSkillMode) lt = lt.replace(/\$\{CLAUDE_SKILL_DIR\}/g, U);
         if (
@@ -4078,7 +4078,7 @@ function DSe(e) {
                 x = [];
               if (C.commandsPath)
                 try {
-                  let M = await zPt(C.commandsPath, C.name, C.source, C.manifest, C.path, { isSkillMode: !1 }, A);
+                  let M = await zPt(C.commandsPath, C.name, C.source, C.manifest, C.path, { isSkillMode: false }, A);
                   if ((x.push(...M), M.length > 0))
                     n(`Loaded ${M.length} commands from plugin ${C.name} default directory`);
                 } catch (M) {
@@ -4096,7 +4096,7 @@ function DSe(e) {
                         (n(`Checking commandPath ${F} - isDirectory: ${B.isDirectory()}, isFile: ${B.isFile()}`),
                         B.isDirectory())
                       ) {
-                        let W = await zPt(F, C.name, C.source, C.manifest, C.path, { isSkillMode: !1 }, A);
+                        let W = await zPt(F, C.name, C.source, C.manifest, C.path, { isSkillMode: false }, A);
                         if (W.length > 0) n(`Loaded ${W.length} commands from plugin ${C.name} custom path: ${F}`);
                         else
                           n(
@@ -4109,7 +4109,7 @@ function DSe(e) {
                         let W = await eP(U, F, MA);
                         if (W === null)
                           return n(`Skipping plugin command ${F}: exceeds ${MA} byte limit`, { level: "warn" }), [];
-                        let { frontmatter: z, content: pe } = ni(W, F, { normalizeKeys: !0 }),
+                        let { frontmatter: z, content: pe } = ni(W, F, { normalizeKeys: true }),
                           fe,
                           me;
                         if (C.commandsMetadata) {
@@ -4138,7 +4138,7 @@ function DSe(e) {
                             frontmatter: ge,
                             content: Mk(To().skillContentIntern, F, pe),
                           },
-                          Ie = Rq(fe, Ce, C.source, C.manifest, C.path, !1);
+                          Ie = Rq(fe, Ce, C.source, C.manifest, C.path, false);
                         if (Ie)
                           return (
                             n(
@@ -4164,7 +4164,7 @@ function DSe(e) {
                   if (F.content && !F.source)
                     try {
                       let { frontmatter: U, content: B } = ni(F.content, `<inline:${C.name}:${M}>`, {
-                          normalizeKeys: !0,
+                          normalizeKeys: true,
                         }),
                         W = {
                           ...U,
@@ -4181,7 +4181,7 @@ function DSe(e) {
                           frontmatter: W,
                           content: Mk(To().skillContentIntern, pe, B),
                         },
-                        me = Rq(z, fe, C.source, C.manifest, C.path, !1);
+                        me = Rq(z, fe, C.source, C.manifest, C.path, false);
                       if (me) x.push(me), n(`Loaded inline content command from plugin ${C.name}: ${z}`);
                     } catch (U) {
                       (u = "plugin_load_commands_inline_failed"),
@@ -4222,12 +4222,12 @@ async function GPt(e, t, r, o, u, d) {
   if (x !== null) {
     if (O5(_, A, d)) return C;
     try {
-      let { frontmatter: F, content: U } = ni(x, A, { normalizeKeys: !0 }),
+      let { frontmatter: F, content: U } = ni(x, A, { normalizeKeys: true }),
         B = typeof F.name === "string" ? F.name.trim() : "",
         z = ((B.startsWith(`${t}:`) ? B.slice(t.length + 1) : B) || g0(e)).replace(/[^a-zA-Z0-9_-]/g, "-"),
         pe = `${t}:${z}`,
         fe = { filePath: A, baseDir: ev(A), frontmatter: F, content: Mk(To().skillContentIntern, A, U) },
-        me = Rq(pe, fe, r, o, u, !0, { isSkillMode: !0 });
+        me = Rq(pe, fe, r, o, u, true, { isSkillMode: true });
       if (me) C.push({ skill: me, filePath: A });
     } catch (F) {
       n(`Failed to load skill from ${A}: ${F}`, { level: "error" });
@@ -4261,10 +4261,10 @@ async function GPt(e, t, r, o, u, d) {
         }
         if (O5(_, B, d)) return;
         try {
-          let { frontmatter: z, content: pe } = ni(W, B, { normalizeKeys: !0 }),
+          let { frontmatter: z, content: pe } = ni(W, B, { normalizeKeys: true }),
             fe = `${t}:${F.name.replace(/[^a-zA-Z0-9_-]/g, "-")}`,
             me = { filePath: B, baseDir: ev(B), frontmatter: z, content: Mk(To().skillContentIntern, B, pe) },
-            ge = Rq(fe, me, r, o, u, !0, { isSkillMode: !0 });
+            ge = Rq(fe, me, r, o, u, true, { isSkillMode: true });
           if (ge) C.push({ skill: ge, filePath: B });
         } catch (z) {
           n(`Failed to load skill from ${B}: ${z}`, { level: "error" });

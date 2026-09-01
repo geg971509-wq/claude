@@ -326,8 +326,8 @@ import "/$bunfs/root/chunk-7jz6r17g.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 async function l(n, o) {
   let r = wt();
-  if (!r) wX({ action: "logout", success: !0, authMethod: "oauth" });
-  if ((await oW({ clearOnboarding: !0, storageV5: o.storageV5, credentials: o.credentials }), r))
+  if (!r) wX({ action: "logout", success: true, authMethod: "oauth" });
+  if ((await oW({ clearOnboarding: true, storageV5: o.storageV5, credentials: o.credentials }), r))
     return (
       n(
         "This background session shares credentials with other sessions; /logout here has no effect. Run /logout from your main terminal to sign out.",

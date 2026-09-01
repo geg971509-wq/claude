@@ -141,7 +141,7 @@ function a() {
     name: "run",
     menuDescription: "Launch this project\u2019s app to see your change working",
     description: o,
-    userInvocable: !0,
+    userInvocable: true,
     files: () => r().then((t) => t.RUN_EXAMPLE_FILES),
     async getPromptForCommand(t) {
       let { SKILL_MD: n } = await r(),

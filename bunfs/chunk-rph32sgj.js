@@ -396,8 +396,8 @@ function Ke(e) {
   };
 }
 function Oe(e) {
-  if (e === null || typeof e !== "object") return !1;
-  if (Be(e)) return !0;
+  if (e === null || typeof e !== "object") return false;
+  if (Be(e)) return true;
   if (Je(e)) return e.some(Oe);
   return Object.values(e).some(Oe);
 }
@@ -473,13 +473,13 @@ class xe {
     return r;
   }
   within(e, r) {
-    if (r === _) return !0;
+    if (r === _) return true;
     let t = e;
     while (t !== _) {
-      if (t === r) return !0;
+      if (t === r) return true;
       t = this.rows[t]?.in ?? _;
     }
-    return !1;
+    return false;
   }
   restore(e) {
     if (this.rows.length > 0) throw new R("restore() on a non-empty world", "world: restore on a non-empty world");
@@ -518,7 +518,7 @@ class xe {
   }
   retract(e) {
     let r = this.rows[e];
-    if (!r || r.status === "retracted") return !1;
+    if (!r || r.status === "retracted") return false;
     let t = this.inFlight.delete(e);
     (r.status = "retracted"), this.rules.delete(e);
     let o = this.evalControllers.get(e);
@@ -526,7 +526,7 @@ class xe {
     if (t) this.adjustPending(r.addr, -1);
     for (let a of this.childrenOf.get(e) ?? []) if (this.rows[a].status !== "retracted") this.retract(a);
     if ((this.emit({ kind: "retracted", row: r }), this.deliver(r), t)) this.wakeIdle(r.addr);
-    return !0;
+    return true;
   }
   eval(e, r, t, o = {}) {
     let a = this.append(e, t, "pending", "eval", this.writeScopeOf(o)),
@@ -600,7 +600,7 @@ class xe {
         d = this.subscribe((h) => {
           if ((h.kind === "put" || h.kind === "retracted") && h.row.fact.topic === "budget" && this.isOpen(e)) a(), t();
         });
-      r.addEventListener("abort", u, { once: !0 });
+      r.addEventListener("abort", u, { once: true });
     });
   }
   spentAt(e) {
@@ -643,11 +643,11 @@ class xe {
     let r = e;
     while (r !== _) {
       let t = this.rows[r];
-      if (!t) return !1;
-      if (t.status === "retracted") return !0;
+      if (!t) return false;
+      if (t.status === "retracted") return true;
       r = t.in;
     }
-    return !1;
+    return false;
   }
   append(e, r, t, o, a) {
     if (this.rows.length >= this.maxRows)
@@ -839,7 +839,7 @@ function Ye(e, r, t) {
     }),
     ae = QT((k) => {
       if (typeof k !== "number" || !Number.isSafeInteger(k)) throw TypeError("retract() expects an address (a number)");
-      if (k === t || !r.within(k, t)) return !1;
+      if (k === t || !r.within(k, t)) return false;
       return r.retract(k);
     }),
     le = QT((k, S, I) => {
@@ -909,7 +909,7 @@ function Ye(e, r, t) {
     Re = QT((k, S) => {
       M(k, "setTimeout() expects a function");
       let I = typeof S === "number" && Number.isFinite(S) && S >= 0 ? S : 0;
-      return r.eval({ topic: "timer", ms: I }, (E) => ne(I, E, { throwOnAbort: !0 }).then(() => C(() => a(k))), P, {
+      return r.eval({ topic: "timer", ms: I }, (E) => ne(I, E, { throwOnAbort: true }).then(() => C(() => a(k))), P, {
         in: t,
       });
     }),
@@ -931,7 +931,7 @@ function Ye(e, r, t) {
     ["setTimeout", Re],
     ["clearTimeout", U],
   ])
-    Object.defineProperty(h, k, { value: S, writable: !1, enumerable: !0, configurable: !1 });
+    Object.defineProperty(h, k, { value: S, writable: false, enumerable: true, configurable: false });
   for (let k of ["parallel", "pipeline", "workflow"]) Reflect.deleteProperty(h, k);
   return {
     agentAddrByIndex: W,
@@ -965,7 +965,7 @@ class ge {
     if (this.logs.length < Tr) this.logs.push(ap(e));
   }
   sink;
-  killed = !1;
+  killed = false;
   scope = -1;
   syncTimeoutMs;
   reportedRows = 0;
@@ -979,9 +979,9 @@ class ge {
   }
   static lost(e, r, t) {
     let o = new ge(e, void 0, r);
-    return (o.scope = t), (o.lostOnResume = !0), o;
+    return (o.scope = t), (o.lostOnResume = true), o;
   }
-  lostOnResume = !1;
+  lostOnResume = false;
   get isLost() {
     return this.lostOnResume;
   }
@@ -1003,7 +1003,7 @@ class ge {
     };
   }
   kill() {
-    if (((this.killed = !0), this.controller.abort(), this.scope >= 0)) this.world.retract(this.scope);
+    if (((this.killed = true), this.controller.abort(), this.scope >= 0)) this.world.retract(this.scope);
     (this.ctx = void 0), (this.words = void 0);
   }
   async run(e, r, t, o) {
@@ -1055,7 +1055,7 @@ class ge {
     return this.requireOpen(), this.requireFounded(), this.world.put(B(e), r, { in: this.scope });
   }
   retract(e) {
-    if ((this.requireOpen(), this.requireFounded(), e === this.scope || !this.world.within(e, this.scope))) return !1;
+    if ((this.requireOpen(), this.requireFounded(), e === this.scope || !this.world.within(e, this.scope))) return false;
     return this.world.retract(e);
   }
   read(e) {
@@ -1096,7 +1096,7 @@ class ge {
     let e = this.controller.signal;
     if (e.aborted) return Promise.resolve();
     return new Promise((r) => {
-      e.addEventListener("abort", () => r(), { once: !0 });
+      e.addEventListener("abort", () => r(), { once: true });
     });
   }
   found(e, r, t) {
@@ -1154,7 +1154,7 @@ class ge {
       !this.vmScript)
     )
       throw new R("a run restored from the journal cannot be founded", "workflow v2: found() on a lost run");
-    let d = this.evalScript(this.vmScript, { topic: "script", founding: !0, runId: this.runId }, "host", "script", {
+    let d = this.evalScript(this.vmScript, { topic: "script", founding: true, runId: this.runId }, "host", "script", {
       in: _,
     });
     if (d !== this.scope)
@@ -1198,11 +1198,11 @@ class ke {
 }
 function Xe(e, r) {
   let t = 0;
-  for (let o of e.read({ topic: "script", founding: !0, status: "failed" }, { in: _ }))
+  for (let o of e.read({ topic: "script", founding: true, status: "failed" }, { in: _ }))
     $e(o) && je(o.addr, o.fact.runId, e, r) && t++;
-  for (let o of e.read({ topic: "script", founding: !0, status: "done" }, { in: _ }))
+  for (let o of e.read({ topic: "script", founding: true, status: "done" }, { in: _ }))
     $e(o) && je(o.addr, o.fact.runId, e, r) && t++;
-  for (let o of e.read({ topic: "script", founding: !0, status: "retracted" }, { in: _ }))
+  for (let o of e.read({ topic: "script", founding: true, status: "retracted" }, { in: _ }))
     if ($e(o) && je(o.addr, o.fact.runId, e, r)) r.byId.get(String(o.fact.runId))?.kill(), t++;
   return t;
 }
@@ -1210,8 +1210,8 @@ function $e(e) {
   return e.in === _ && e.kind === "eval" && e.by === "host";
 }
 function je(e, r, t, o) {
-  if (typeof r !== "string" || o.byId.has(r)) return !1;
-  return o.byId.set(r, ge.lost(r, t, e)), !0;
+  if (typeof r !== "string" || o.byId.has(r)) return false;
+  return o.byId.set(r, ge.lost(r, t, e)), true;
 }
 function be(e) {
   if (typeof e.runId !== "string") return;
@@ -1260,7 +1260,7 @@ function nr(e) {
 }
 function or(e, r, t) {
   let o = nr(r),
-    a = !1,
+    a = false,
     u = Promise.resolve(),
     d = (h) => {
       u = u
@@ -1270,7 +1270,7 @@ function or(e, r, t) {
             if (!g.ok) n(`world journal append failed: ${Ge(g.error)}`, { level: "warn" });
             return;
           }
-          if (!a) await xr(Ae(r), { recursive: !0 }), (a = !0);
+          if (!a) await xr(Ae(r), { recursive: true }), (a = true);
           await Wr(r, P5(h));
         })
         .catch((g) => {
@@ -1326,7 +1326,7 @@ function er(e) {
   return r;
 }
 async function jr(e, r) {
-  let t = new TextDecoder("utf-8", { ignoreBOM: !0 }),
+  let t = new TextDecoder("utf-8", { ignoreBOM: true }),
     o = [],
     a;
   for (;;) {
@@ -1466,7 +1466,7 @@ var Dr = "script contains control characters that would be hidden in the approva
           `Run ID of a prior Workflow invocation to resume from. Completed agent() calls with unchanged (prompt, opts) return their cached results instantly; only edited or new calls re-run. Same-session only. Stop the prior run first (${ny}) before resuming.`,
         ),
       ...(A()?.runOpFields() ?? {}),
-      ...!1,
+      ...false,
     }).refine((e) => e.script || e.name || e.scriptPath || e.runId, {
       message: "Must provide script, name, scriptPath, or runId",
     }),
@@ -1523,7 +1523,7 @@ async function fr(e, r, t) {
       (o = u.script), (a = u.path);
     }
     if (wje().some((u) => u.script === o))
-      return { script: o, resolvedScriptPath: a, source: "built-in", scriptMatchesDefinition: !0 };
+      return { script: o, resolvedScriptPath: a, source: "built-in", scriptMatchesDefinition: true };
     return { script: o, resolvedScriptPath: a };
   }
   if (e.name) {
@@ -1542,7 +1542,7 @@ async function fr(e, r, t) {
   return { error: "Must provide script, name, or scriptPath" };
 }
 var pr = {
-    result: !1,
+    result: false,
     message: "Tool dispatch was retracted by a server fallback; the input may be truncated.",
     errorCode: 7,
   },
@@ -1550,7 +1550,7 @@ var pr = {
     name: eu,
     aliases: ["RunWorkflow"],
     searchHint: "orchestrate subagents with deterministic JavaScript workflow",
-    enablesCodeExecution: !0,
+    enablesCodeExecution: true,
     maxResultSizeChars: 1e5,
     isEnabled: () => Zu(),
     async prompt(e) {
@@ -1587,20 +1587,20 @@ name: ${e.name}`;
       if (h3(r.abortController.signal)) return pr;
       if (vTe())
         return {
-          result: !1,
+          result: false,
           message: "Dynamic workflows are disabled by managed settings (`disableWorkflows`).",
           errorCode: 5,
         };
       if (!Zu())
         return {
-          result: !1,
+          result: false,
           message:
             'Dynamic workflows are not enabled for this session (org policy, launch gate, or the "Dynamic workflows" setting in /config).',
           errorCode: 6,
         };
       if (typeof e.runId === "string") {
         let a = A();
-        if (!a) return { result: !1, message: "runId is not a field of this tool here.", errorCode: 9 };
+        if (!a) return { result: false, message: "runId is not a field of this tool here.", errorCode: 9 };
         await dr(r);
         let u = await a.validateRunOp(e, r);
         if (u) return u;
@@ -1614,28 +1614,28 @@ name: ${e.name}`;
         ].filter((u) => Boolean(u));
         if (a.length > 0)
           return {
-            result: !1,
+            result: false,
             message: `This session restricts the Workflow tool to named workflows (${DUn} is set). Not allowed here: ${a.join(", ")}. Invoke as {name, args} only.`,
             errorCode: 8,
           };
       }
       if (e.scriptPath) {
         let a = ttn(e.scriptPath, r);
-        if (a !== null) return { result: !1, message: a, errorCode: 15 };
+        if (a !== null) return { result: false, message: a, errorCode: 15 };
       }
       let t = await fr(e, r, r.storageV5);
       if (h3(r.abortController.signal)) return pr;
       if ("error" in t) {
         if (e.name && !e.scriptPath) p("workflow_resolve", "not_found");
-        return { result: !1, message: t.error, errorCode: 1 };
+        return { result: false, message: t.error, errorCode: 1 };
       }
       if (e.name && !e.scriptPath) y("workflow_resolve");
       let o = Tf(t.script);
       if ("error" in o)
-        return { result: !1, message: `Invalid workflow script: ${o.error}${Le(e, r.options.tools)}`, errorCode: 2 };
+        return { result: false, message: `Invalid workflow script: ${o.error}${Le(e, r.options.tools)}`, errorCode: 2 };
       if (e.script && tit(o.scriptBody))
         return {
-          result: !1,
+          result: false,
           message: `Workflow scripts must be deterministic: Date.now()/Math.random()/new Date() are unavailable (breaks resume). Stamp results after the workflow returns, or pass timestamps via args.${Le(e, r.options.tools)}`,
           errorCode: 4,
         };
@@ -1643,12 +1643,12 @@ name: ${e.name}`;
         for (let [a, u] of Object.entries(r.taskRegistry.all()))
           if (u.type === "local_workflow" && u.status === "running" && u.workflowRunId === e.resumeFromRunId)
             return {
-              result: !1,
+              result: false,
               message: `Workflow ${e.resumeFromRunId} is still running (task ${a}). Stop it first with ${ny}({taskId: "${a}"}) before resuming.`,
               errorCode: 3,
             };
       }
-      return { result: !0 };
+      return { result: true };
     },
     async checkPermissions(e, r) {
       let t = he(r),
@@ -1726,7 +1726,7 @@ name: ${e.name}`;
       let u = await fr(e, r, r.storageV5);
       if ("error" in u) throw new ye(u.error);
       let { script: d, source: h, resolvedScriptPath: g } = u,
-        T = h === "built-in" && u.scriptMatchesDefinition === !0,
+        T = h === "built-in" && u.scriptMatchesDefinition === true,
         P = Tf(d);
       if ("error" in P) throw new ye(`Invalid workflow script: ${P.error}`);
       let W = e.resumeFromRunId ?? `wf_${Lr().slice(0, 12)}`,
@@ -1828,7 +1828,7 @@ name: ${e.name}`;
           type: "tool_result",
           content: `Workflow script has a syntax error and was not launched:
 ${e.error}`,
-          is_error: !0,
+          is_error: true,
         };
       let t = A()?.runOpToolResultText(e.runId, e.runOp);
       if (t) return { tool_use_id: r, type: "tool_result", content: t.content, is_error: t.isError };
@@ -1850,7 +1850,7 @@ Session: ${e.sessionUrl}
               : "") +
             `
 The workflow runs against a fresh clone of the pushed branch; phase progress is visible at the session URL, not in /workflows. You will be notified when it completes.`,
-          is_error: !1,
+          is_error: false,
         };
       let o = e.summary
           ? `
@@ -1874,7 +1874,7 @@ To resume after editing the script: Workflow({scriptPath: "${e.scriptPath}", res
         h = `Workflow launched in background. Task ID: ${e.taskId}${o}${a}${u}${d}
 
 You will be notified when it completes. Use /workflows to watch live progress.`;
-      return { tool_use_id: r, type: "tool_result", content: h, is_error: !1 };
+      return { tool_use_id: r, type: "tool_result", content: h, is_error: false };
     },
   });
 export { ye as WorkflowInputError, to as WorkflowTool };

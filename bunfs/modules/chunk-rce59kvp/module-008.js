@@ -42,13 +42,13 @@ function nAe(S) {
     if (j.type === "user") {
       if (b9(j)) {
         for (let H of j.message.content) if (H.type === "tool_result" && H.is_error) x.add(H.tool_use_id);
-      } else if (pU(j)) return !1;
+      } else if (pU(j)) return false;
       continue;
     }
     if (j.type !== "assistant") continue;
-    for (let H of j.message.content) if (VVe(H, x) !== null) return !0;
+    for (let H of j.message.content) if (VVe(H, x) !== null) return true;
   }
-  return !1;
+  return false;
 }
 
 function Uat(S) {
@@ -59,8 +59,8 @@ function Uat(S) {
     if (pU(Z)) x++;
     if (Z.type === "system" && Z.subtype === "away_summary") P = H;
   }
-  if (x < Oat) return !1;
-  if (P === -1) return !0;
+  if (x < Oat) return false;
+  if (P === -1) return true;
   let j = 0;
   for (let H = P + 1; H < S.length; H++) if (pU(S[H])) j++;
   return j >= Fat;
@@ -81,7 +81,7 @@ async function jat(S, x, P, j) {
     } catch {
       return;
     }
-  P({ force: !0 });
+  P({ force: true });
 }
 
 function Hat() {
@@ -91,8 +91,8 @@ function Hat() {
 
 class AZ {
   #e;
-  #t = !1;
-  #o = !1;
+  #t = false;
+  #o = false;
   #r = null;
   #i = null;
   #n = null;
@@ -105,8 +105,8 @@ class AZ {
   #p = null;
   #m = null;
   #f = null;
-  #g = !1;
-  #b = !1;
+  #g = false;
+  #b = false;
   constructor(S) {
     this.#e = S;
   }
@@ -124,7 +124,7 @@ class AZ {
     this.#a = this.#e.now();
   }
   dispose() {
-    if (this.#t) (this.#t = !1), this.#h();
+    if (this.#t) (this.#t = false), this.#h();
     this.#S();
   }
   async #k(S) {
@@ -139,7 +139,7 @@ class AZ {
       n("[awaySummary] skipped: cache stale");
       return;
     }
-    if (!S?.force && !0 && Id().status !== "allowed") {
+    if (!S?.force && true && Id().status !== "allowed") {
       n("[awaySummary] skipped: at or near rate limit");
       return;
     }
@@ -218,7 +218,7 @@ class AZ {
       let x = this.#e.now(),
         P = x - this.#p;
       if (P >= Lat) {
-        (this.#m = x), (this.#f = P), (this.#g = !0);
+        (this.#m = x), (this.#f = P), (this.#g = true);
         let j = this.#e.transcript.getSnapshot();
         this.#b = oAe(j) || nAe(j);
       }
@@ -241,7 +241,7 @@ class AZ {
       this.#R();
   };
   #R() {
-    (this.#g = !1), (this.#m = null), (this.#p = null), (this.#f = null), (this.#b = !1);
+    (this.#g = false), (this.#m = null), (this.#p = null), (this.#f = null), (this.#b = false);
   }
   #x() {
     {
@@ -266,7 +266,7 @@ class AZ {
   }
 }
 
-function MZ(S, x, P = !0) {
+function MZ(S, x, P = true) {
   let j = xt(),
     H = Xn(),
     Z = Iu(),
@@ -297,10 +297,10 @@ function MZ(S, x, P = !0) {
 F();
 
 function EZ(S, x) {
-  let P = C(!1);
+  let P = C(false);
   A(() => {
     if (!Fy() || P.current) return;
-    if (((P.current = !0), S)) j3e(S, x);
+    if (((P.current = true), S)) j3e(S, x);
   }, [S, x]);
 }
 
@@ -320,14 +320,14 @@ var $at = new J(() => new rAe()),
   Wat = D() === "windows" ? /^[A-Za-z0-9/\\][A-Za-z0-9_.+:\\?/-]*$/ : /^[A-Za-z0-9/][A-Za-z0-9_.+/-]*$/;
 
 async function iAe(S, x) {
-  if (!x || !x.trim()) return n("[binaryCheck] Empty command provided, returning false"), !1;
+  if (!x || !x.trim()) return n("[binaryCheck] Empty command provided, returning false"), false;
   let P = x.trim();
-  if (!Wat.test(P)) return n(`[binaryCheck] Rejected command with unsafe characters: '${P}'`), !1;
+  if (!Wat.test(P)) return n(`[binaryCheck] Rejected command with unsafe characters: '${P}'`), false;
   let j = $at.of(S),
     H = j.lookup(P);
   if (H !== void 0) return n(`[binaryCheck] Cache hit for '${P}': ${H}`), H;
-  let Z = !1;
-  if (await Va(P).catch(() => null)) Z = !0;
+  let Z = false;
+  if (await Va(P).catch(() => null)) Z = true;
   return j.remember(P, Z), n(`[binaryCheck] Binary '${P}' ${Z ? "found" : "not found"}`), Z;
 }
 
@@ -453,13 +453,13 @@ function cAe(S) {
 
 function Qat() {
   let S = ie();
-  return S.lspRecommendationDisabled === !0 || (S.lspRecommendationIgnoredCount ?? 0) >= Vat;
+  return S.lspRecommendationDisabled === true || (S.lspRecommendationIgnoredCount ?? 0) >= Vat;
 }
 
 F();
 
 function NZ() {
-  let S = C(!1),
+  let S = C(false),
     x = C(new Map()),
     P = B((j, H) => {
       if (sn() || dy()) return;
@@ -467,11 +467,11 @@ function NZ() {
         x.current.set(j, H);
         return;
       }
-      (S.current = !0),
+      (S.current = true),
         H()
           .catch(h)
           .finally(() => {
-            S.current = !1;
+            S.current = false;
             let [Z] = x.current;
             if (Z) {
               let [re, ue] = Z;
@@ -493,7 +493,7 @@ async function GI(S, x, P, j, H, Z) {
         kind: "feedback",
         jsx: r(t, {
           color: "success",
-          children: [e(tt, { status: "success", withSpace: !0 }), re, " installed \xB7 restart to apply"],
+          children: [e(tt, { status: "success", withSpace: true }), re, " installed \xB7 restart to apply"],
         }),
         priority: "immediate",
         timeoutMs: 5000,
@@ -566,13 +566,13 @@ function hU(LZ, OZ) {
                   marketplaceName: gU.marketplaceName,
                   fileExtension: gU.fileExtension,
                 },
-                { queueBehind: !0 },
+                { queueBehind: true },
               );
               if (Zat === "cancelled") {
                 for (const TJo of dAe.slice(vJo)) uAe.current.delete(TJo);
                 return;
               }
-              d5t(!0), fAe(gU, Zat, BZ, fU);
+              d5t(true), fAe(gU, Zat, BZ, fU);
               return;
             }
           } catch (wJo) {
@@ -626,9 +626,9 @@ function fAe({ pluginId: S, pluginName: x }, P, j, H) {
             AX(S, re),
             void 0,
             H,
-            { explicitInstall: !1 },
+            { explicitInstall: false },
           ),
-            await Os("userSettings", (de) => ({ enabledPlugins: { ...de?.enabledPlugins, [S]: !0 } }), void 0, H),
+            await Os("userSettings", (de) => ({ enabledPlugins: { ...de?.enabledPlugins, [S]: true } }), void 0, H),
             n(`[useLspPluginRecommendation] Plugin installed: ${S}`);
         },
         H,
@@ -645,7 +645,7 @@ function fAe({ pluginId: S, pluginName: x }, P, j, H) {
     case "disable":
       Ae((Z) => {
         if (Z.lspRecommendationDisabled) return Z;
-        return { ...Z, lspRecommendationDisabled: !0 };
+        return { ...Z, lspRecommendationDisabled: true };
       }, H);
       break;
   }
@@ -685,7 +685,7 @@ function yU(HZ, $Z) {
             marketplaceName: Zp.marketplaceName,
             sourceCommand: Zp.sourceCommand,
           },
-          { queueBehind: !0 },
+          { queueBehind: true },
         );
         if (gAe === "cancelled") {
           return;
@@ -836,7 +836,7 @@ var alt = (S) => {
 F();
 
 function blt(_Ae) {
-  return _Ae.hasSeenEffortMediumNudge ? _Ae : { ..._Ae, hasSeenEffortMediumNudge: !0 };
+  return _Ae.hasSeenEffortMediumNudge ? _Ae : { ..._Ae, hasSeenEffortMediumNudge: true };
 }
 
 var RAe = "Switch your default effort to medium?",
@@ -863,11 +863,11 @@ function CU(IXo) {
   if (Zh[3] === d) (clt = []), (Zh[3] = clt);
   else clt = Zh[3];
   A(llt, clt), Hi();
-  let mlt = C(!1),
+  let mlt = C(false),
     plt;
   if (Zh[4] !== VZ || Zh[5] !== bAe || Zh[6] !== JI)
     (plt = async function kU() {
-      let bU = await wse("medium", bAe, !0, JI);
+      let bU = await wse("medium", bAe, true, JI);
       if (!bU.effortUpdate) {
         return (
           L6(`[${bU.message}]`),
@@ -900,7 +900,7 @@ function CU(IXo) {
       if (mlt.current) {
         return;
       }
-      if (((mlt.current = !0), GZ === "accept" && !Wde(at()))) {
+      if (((mlt.current = true), GZ === "accept" && !Wde(at()))) {
         p("effort_medium_nudge", "unavailable_at_accept"),
           s("tengu_effort_medium_nudge_resolved", {
             choice: c(GZ),
@@ -940,8 +940,8 @@ function CU(IXo) {
   else QZ = Zh[18];
   const CAe = $u.confirmLabel ?? xAe,
     vAe = $u.cancelLabel ?? PAe,
-    wAe = $u.cancelFirst === !0,
-    TAe = $u.cancelFirst === !0 ? "cancel" : "confirm";
+    wAe = $u.cancelFirst === true,
+    TAe = $u.cancelFirst === true ? "cancel" : "confirm";
   let zZ, JZ;
   if (Zh[19] !== XI)
     (zZ = () => void XI("accept")), (JZ = () => void XI("decline")), (Zh[19] = XI), (Zh[20] = zZ), (Zh[21] = JZ);
@@ -1121,7 +1121,7 @@ function z3o(s) {
 }
 
 function Y3o() {
-  return !1;
+  return false;
 }
 
 function nee(S, x, P) {
@@ -1316,7 +1316,7 @@ function oMe({ width: S, minCol: x, onAskAboutSelection: P }) {
     { storageV5: Z } = ge(),
     re = W((An) => An.fileHistory.trackSequence ?? 0),
     [ue, de] = u(G7t),
-    { stats: pe, files: Re, hunks: be, loading: Pe, source: Oe, baseMode: Ie, noCommits: He } = f7t(re, !0, ue);
+    { stats: pe, files: Re, hunks: be, loading: Pe, source: Oe, baseMode: Ie, noCommits: He } = f7t(re, true, ue);
   Be("app:cycleDiffBase", () => de(z7t(ue, Z)), { context: "DiffPanel" });
   let Fe = W((An) => An.todos[et()]),
     Ve = GL() ? Fe : void 0,
@@ -1325,9 +1325,9 @@ function oMe({ width: S, minCol: x, onAskAboutSelection: P }) {
     { processQueue: st } = Or();
   A(
     () => (
-      ot((An) => (An.diffPanelVisible ? An : { ...An, diffPanelVisible: !0 })),
+      ot((An) => (An.diffPanelVisible ? An : { ...An, diffPanelVisible: true })),
       () => {
-        ot((An) => (An.diffPanelVisible ? { ...An, diffPanelVisible: !1 } : An)), st();
+        ot((An) => (An.diffPanelVisible ? { ...An, diffPanelVisible: false } : An)), st();
       }
     ),
     [ot, st],
@@ -1350,7 +1350,7 @@ function oMe({ width: S, minCol: x, onAskAboutSelection: P }) {
     jt = e7t(),
     Gt = so || jt,
     vo = Ox();
-  Ckt(nt, vo, !Gt, void 0, { requireScope: !0 }),
+  Ckt(nt, vo, !Gt, void 0, { requireScope: true }),
     MAe(
       x,
       () => {
@@ -1363,7 +1363,7 @@ function oMe({ width: S, minCol: x, onAskAboutSelection: P }) {
       Gt ? void 0 : P,
       (An) => IAe(An, kt.current, Ht.current),
     );
-  let [qt, lo] = u(!1),
+  let [qt, lo] = u(false),
     {
       files: To,
       preSessionFiles: ao,
@@ -1426,7 +1426,7 @@ function oMe({ width: S, minCol: x, onAskAboutSelection: P }) {
     { context: "Global", isActive: nn > 0 },
   );
   let Rn = Ro("app:diffFileListDown", "Global", "alt+down"),
-    [mr, Pr] = u(!1);
+    [mr, Pr] = u(false);
   Be("app:toggleDiffPreSession", () => Pr((An) => !An), { context: "Global", isActive: ao.length > 0 });
   function Ir(An) {
     let Wr = Ht.current.get(An);
@@ -1440,7 +1440,7 @@ function oMe({ width: S, minCol: x, onAskAboutSelection: P }) {
     onWheel: (An) => {
       nt.handle?.scrollBy(An.deltaY * 3), An.preventDefault(), An.stopPropagation();
     },
-    selectionScope: !0,
+    selectionScope: true,
     children: [
       r(o, {
         flexDirection: "column",
@@ -1452,10 +1452,10 @@ function oMe({ width: S, minCol: x, onAskAboutSelection: P }) {
             flexDirection: "row",
             children: [
               zo !== null
-                ? e(t, { dimColor: !0, wrap: "truncate", children: zo })
+                ? e(t, { dimColor: true, wrap: "truncate", children: zo })
                 : r(t, {
                     children: [
-                      r(t, { bold: !0, children: [No, " ", k(No, "file")] }),
+                      r(t, { bold: true, children: [No, " ", k(No, "file")] }),
                       " ",
                       "changed",
                       (Pn > 0 || Yt > 0) && " ",
@@ -1468,8 +1468,8 @@ function oMe({ width: S, minCol: x, onAskAboutSelection: P }) {
           }),
           pe !== null &&
             (He
-              ? No > 0 && e(t, { dimColor: !0, children: "no commits yet \u2014 showing staged and new files" })
-              : (ue !== "session" || Ie !== "session") && e(t, { dimColor: !0, children: Ylt(ue, Oe, ue !== Ie) })),
+              ? No > 0 && e(t, { dimColor: true, children: "no commits yet \u2014 showing staged and new files" })
+              : (ue !== "session" || Ie !== "session") && e(t, { dimColor: true, children: Ylt(ue, Oe, ue !== Ie) })),
           Rt > 0 &&
             r(o, {
               marginTop: 1,
@@ -1477,7 +1477,7 @@ function oMe({ width: S, minCol: x, onAskAboutSelection: P }) {
               gap: 1,
               children: [
                 e(Py, { ratio: lt / Rt, width: Math.min(20, to - 12), fillColor: "success", emptyColor: "inactive" }),
-                r(t, { dimColor: !0, children: [lt, "/", Rt] }),
+                r(t, { dimColor: true, children: [lt, "/", Rt] }),
               ],
             }),
           (Go.length > 0 || jo > 0) &&
@@ -1491,7 +1491,7 @@ function oMe({ width: S, minCol: x, onAskAboutSelection: P }) {
                     }
                   : void 0,
               children: [
-                Oo > 0 && r(t, { dimColor: !0, children: [qH, " ", Oo, " more above"] }),
+                Oo > 0 && r(t, { dimColor: true, children: [qH, " ", Oo, " more above"] }),
                 Go.map((An) =>
                   e(
                     aMe,
@@ -1507,7 +1507,7 @@ function oMe({ width: S, minCol: x, onAskAboutSelection: P }) {
                 ),
                 (xo > 0 || Qo > 0 || dn > 0) &&
                   r(t, {
-                    dimColor: !0,
+                    dimColor: true,
                     children: [
                       xo > 0 ? `${mR} ` : "\u2026 ",
                       [
@@ -1533,16 +1533,16 @@ function oMe({ width: S, minCol: x, onAskAboutSelection: P }) {
           ref: nt.attach,
           flexGrow: 1,
           flexDirection: "column",
-          stickyScroll: !1,
+          stickyScroll: false,
           paddingX: 1,
           children: r(o, {
             flexDirection: "column",
             width: to,
             children: [
               Pe
-                ? e(rr, { message: "Loading diff\u2026", dimColor: !0 })
+                ? e(rr, { message: "Loading diff\u2026", dimColor: true })
                 : zo !== null
-                  ? en !== null && e(t, { dimColor: !0, children: en })
+                  ? en !== null && e(t, { dimColor: true, children: en })
                   : Re.length === 0
                     ? e(sr, {
                         hint: "Per-file diff is skipped above 500 files",
@@ -1624,10 +1624,10 @@ function Ylt(S, x, P) {
 function rMe(t4o) {
   let eE = _(21),
     { files: hg, hunks: OAe, shown: aee, onToggle: FAe, width: ZI } = t4o,
-    [cee, Ilt] = u(!1),
+    [cee, Ilt] = u(false),
     Elt,
     Dlt;
-  if (eE[0] === d) (Elt = () => Ilt(!0)), (Dlt = () => Ilt(!1)), (eE[0] = Elt), (eE[1] = Dlt);
+  if (eE[0] === d) (Elt = () => Ilt(true)), (Dlt = () => Ilt(false)), (eE[0] = Elt), (eE[1] = Dlt);
   else (Elt = eE[0]), (Dlt = eE[1]);
   const BAe = !cee,
     o4o = hg.length;
@@ -1672,7 +1672,7 @@ function rMe(t4o) {
                   flexDirection: "row",
                   width: ZI,
                   children: [
-                    e(t, { dimColor: !0, children: ub(fee.path, Math.max(ZI - 12, 8)) }),
+                    e(t, { dimColor: true, children: ub(fee.path, Math.max(ZI - 12, 8)) }),
                     e(o, { flexGrow: 1 }),
                     e(Hh, { added: fee.linesAdded, removed: fee.linesRemoved }),
                   ],
@@ -1682,7 +1682,7 @@ function rMe(t4o) {
             ),
           }),
           hg.length > _U
-            ? r(t, { dimColor: !0, children: ["diffs hidden above ", _U, " files"] })
+            ? r(t, { dimColor: true, children: ["diffs hidden above ", _U, " files"] })
             : hg.map((HR) =>
                 r(
                   o,
@@ -1725,10 +1725,10 @@ function rMe(t4o) {
 function iMe(n4o) {
   let $Ae = _(8),
     { onClose: HAe } = n4o,
-    [gee, Llt] = u(!1),
+    [gee, Llt] = u(false),
     Olt,
     Flt;
-  if ($Ae[0] === d) (Olt = () => Llt(!0)), (Flt = () => Llt(!1)), ($Ae[0] = Olt), ($Ae[1] = Flt);
+  if ($Ae[0] === d) (Olt = () => Llt(true)), (Flt = () => Llt(false)), ($Ae[0] = Olt), ($Ae[1] = Flt);
   else (Olt = $Ae[0]), (Flt = $Ae[1]);
   const WAe = !gee;
   let bee;
@@ -1748,10 +1748,10 @@ function iMe(n4o) {
 function sMe(r4o) {
   let Cee = _(13),
     { count: tE, shown: i4o, onToggle: qAe } = r4o,
-    [kee, Ult] = u(!1),
+    [kee, Ult] = u(false),
     jlt,
     Hlt;
-  if (Cee[0] === d) (jlt = () => Ult(!0)), (Hlt = () => Ult(!1)), (Cee[0] = jlt), (Cee[1] = Hlt);
+  if (Cee[0] === d) (jlt = () => Ult(true)), (Hlt = () => Ult(false)), (Cee[0] = jlt), (Cee[1] = Hlt);
   else (jlt = Cee[0]), (Hlt = Cee[1]);
   const VAe = !kee;
   let vee;
@@ -1781,7 +1781,7 @@ function sMe(r4o) {
 function aMe(s4o) {
   let nE = _(17),
     { path: KAe, added: QAe, removed: zAe, width: a4o, onClick: YAe } = s4o,
-    [Pee, Wlt] = u(!1);
+    [Pee, Wlt] = u(false);
   const JAe = Math.max(a4o - 12, 8);
   let qlt;
   if (nE[0] !== KAe || nE[1] !== JAe) (qlt = ub(KAe, JAe)), (nE[0] = KAe), (nE[1] = JAe), (nE[2] = qlt);
@@ -1789,7 +1789,7 @@ function aMe(s4o) {
   let XAe = qlt,
     Vlt,
     Glt;
-  if (nE[3] === d) (Vlt = () => Wlt(!0)), (Glt = () => Wlt(!1)), (nE[3] = Vlt), (nE[4] = Glt);
+  if (nE[3] === d) (Vlt = () => Wlt(true)), (Glt = () => Wlt(false)), (nE[3] = Vlt), (nE[4] = Glt);
   else (Vlt = nE[3]), (Glt = nE[4]);
   const ZAe = !Pee;
   let Aee;
@@ -1922,7 +1922,7 @@ function bmt() {
 }
 
 function kmt() {
-  return jx(!1);
+  return jx(false);
 }
 
 function vmt(hZo) {
@@ -1995,10 +1995,10 @@ function Dte(e7o) {
       onCommandsChange: bMe,
       onQueryParamsChange: aE,
     } = e7o,
-    lE = nct === void 0 ? !1 : nct,
-    KC = rct === void 0 ? !1 : rct,
-    kMe = sct === void 0 ? !1 : sct,
-    xu = act === void 0 ? !1 : act,
+    lE = nct === void 0 ? false : nct,
+    KC = rct === void 0 ? false : rct,
+    kMe = sct === void 0 ? false : sct,
+    xu = act === void 0 ? false : act,
     { storageV5: Fs, credentials: Ud } = ge(),
     CMe = Tke(),
     sp = Iu(),
@@ -2073,11 +2073,11 @@ function Dte(e7o) {
     Pu = Oc(),
     m7o = W(omt),
     [Kl, hct] = u("prompt"),
-    [yct, Sct] = u(!1),
+    [yct, Sct] = u(false),
     bct;
   if (Ar[19] === d)
     (bct = () => {
-      hct("prompt"), Sct(!1);
+      hct("prompt"), Sct(false);
     }),
       (Ar[19] = bct);
   else bct = Ar[19];
@@ -2218,7 +2218,7 @@ function Dte(e7o) {
         debug: ey,
         embedded: xu,
         onDetachToCaller: oy,
-        hasSuppressedDialogs: !1,
+        hasSuppressedDialogs: false,
         isRemoteSession: ll,
         addNotification: Pc,
         store: Vi,
@@ -2322,7 +2322,7 @@ function Dte(e7o) {
         scheduleTimeout: Hd.setTimeout,
         rewriteEdit: (_7o, R7o) => ar.rewriteInputOverAutoContinuePrefill(_7o, R7o),
         onEdit: (x7o, P7o) => {
-          Qa.onPromptEdit(x7o, P7o), hx.recordUserActivity(), D4(!0);
+          Qa.onPromptEdit(x7o, P7o), hx.recordUserActivity(), D4(true);
         },
       })
     )),
@@ -3458,7 +3458,7 @@ function Dte(e7o) {
         (Ar[432] = DU);
     else DU = Ar[432];
     let NU;
-    if (Ar[433] === d) (NU = () => Sct(!0)), (Ar[433] = NU);
+    if (Ar[433] === d) (NU = () => Sct(true)), (Ar[433] = NU);
     else NU = Ar[433];
     return xE(
       e(iR, {

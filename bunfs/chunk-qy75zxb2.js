@@ -207,9 +207,9 @@ function H(e) {
   return k;
 }
 function U(e, t) {
-  if (e === k) return !0;
+  if (e === k) return true;
   if (e === z) return E(t) !== "ERR_DLOPEN_FAILED";
-  return !1;
+  return false;
 }
 function G(e) {
   if (!(e instanceof Error)) return { error_name: c(typeof e), error_code: w("") };
@@ -238,7 +238,7 @@ async function eue(e, t, r, i) {
         );
       if (t > i.targetRawSize)
         return (
-          s("tengu_image_resize", { over_byte_limit: !0, over_dimension_limit: !1, original_size_bytes: t }),
+          s("tengu_image_resize", { over_byte_limit: true, over_dimension_limit: false, original_size_bytes: t }),
           { buffer: await o(e).jpeg({ quality: 80 }).toBuffer(), mediaType: "jpeg" }
         );
       return { buffer: e, mediaType: g };
@@ -265,7 +265,7 @@ async function eue(e, t, r, i) {
       !S && t > i.targetRawSize)
     ) {
       if (A) {
-        let b = await o(e).png({ compressionLevel: 9, palette: !0 }).toBuffer();
+        let b = await o(e).png({ compressionLevel: 9, palette: true }).toBuffer();
         if (b.length <= i.targetRawSize)
           return {
             buffer: b,
@@ -286,12 +286,12 @@ async function eue(e, t, r, i) {
     if (x > i.maxWidth) (_ = Math.round((_ * i.maxWidth) / x)), (x = i.maxWidth);
     if (_ > i.maxHeight) (x = Math.round((x * i.maxHeight) / _)), (_ = i.maxHeight);
     n(`Resizing to ${x}x${_}`);
-    let L = await o(e).resize(x, _, { fit: "inside", withoutEnlargement: !0 }).toBuffer();
+    let L = await o(e).resize(x, _, { fit: "inside", withoutEnlargement: true }).toBuffer();
     if (L.length > i.targetRawSize) {
       if (A) {
         let F = await o(e)
-          .resize(x, _, { fit: "inside", withoutEnlargement: !0 })
-          .png({ compressionLevel: 9, palette: !0 })
+          .resize(x, _, { fit: "inside", withoutEnlargement: true })
+          .png({ compressionLevel: 9, palette: true })
           .toBuffer();
         if (F.length <= i.targetRawSize)
           return {
@@ -301,7 +301,7 @@ async function eue(e, t, r, i) {
           };
       }
       for (let F of [80, 60, 40, 20]) {
-        let O = await o(e).resize(x, _, { fit: "inside", withoutEnlargement: !0 }).jpeg({ quality: F }).toBuffer();
+        let O = await o(e).resize(x, _, { fit: "inside", withoutEnlargement: true }).jpeg({ quality: F }).toBuffer();
         if (O.length <= i.targetRawSize)
           return {
             buffer: O,
@@ -312,7 +312,7 @@ async function eue(e, t, r, i) {
       let b = Math.min(x, 1000),
         P = Math.round((_ * b) / Math.max(x, 1));
       n("Still too large, compressing with JPEG");
-      let M = await o(e).resize(b, P, { fit: "inside", withoutEnlargement: !0 }).jpeg({ quality: 20 }).toBuffer();
+      let M = await o(e).resize(b, P, { fit: "inside", withoutEnlargement: true }).jpeg({ quality: 20 }).toBuffer();
       return (
         n(`JPEG compressed buffer size: ${M.length}`),
         {
@@ -479,7 +479,7 @@ async function ie(e, t) {
   for (let i of r) {
     let o = Math.round((e.metadata.width || 2000) * i),
       d = Math.round((e.metadata.height || 2000) * i),
-      m = t(e.imageBuffer).resize(o, d, { fit: "inside", withoutEnlargement: !0 });
+      m = t(e.imageBuffer).resize(o, d, { fit: "inside", withoutEnlargement: true });
     m = ne(m, e.format);
     let f = await m.toBuffer();
     if (f.length <= e.maxBytes) return T(f, e.format, e.originalSize);
@@ -489,7 +489,7 @@ async function ie(e, t) {
 function ne(e, t) {
   switch (t) {
     case "png":
-      return e.png({ compressionLevel: 9, palette: !0 });
+      return e.png({ compressionLevel: 9, palette: true });
     case "jpeg":
     case "jpg":
       return e.jpeg({ quality: 80 });
@@ -501,15 +501,15 @@ function ne(e, t) {
 }
 async function ae(e, t) {
   let r = await t(e.imageBuffer)
-    .resize(800, 800, { fit: "inside", withoutEnlargement: !0 })
-    .png({ compressionLevel: 9, palette: !0, colors: 64 })
+    .resize(800, 800, { fit: "inside", withoutEnlargement: true })
+    .png({ compressionLevel: 9, palette: true, colors: 64 })
     .toBuffer();
   if (r.length <= e.maxBytes) return T(r, "png", e.originalSize);
   return null;
 }
 async function oe(e, t, r) {
   let i = await r(e.imageBuffer)
-    .resize(600, 600, { fit: "inside", withoutEnlargement: !0 })
+    .resize(600, 600, { fit: "inside", withoutEnlargement: true })
     .jpeg({ quality: t })
     .toBuffer();
   if (i.length <= e.maxBytes) return T(i, "jpeg", e.originalSize);
@@ -517,7 +517,7 @@ async function oe(e, t, r) {
 }
 async function se(e, t) {
   let r = await t(e.imageBuffer)
-    .resize(400, 400, { fit: "inside", withoutEnlargement: !0 })
+    .resize(400, 400, { fit: "inside", withoutEnlargement: true })
     .jpeg({ quality: 20 })
     .toBuffer();
   return T(r, "jpeg", e.originalSize);
@@ -572,7 +572,7 @@ function ue() {
     d = Go([o]),
     f = `set fp to open for access POSIX file ${`"${o.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`} with write permission`,
     g = "",
-    u = !1,
+    u = false,
     I =
       '"$(command -v powershell.exe 2>/dev/null || echo /mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe)"',
     x = "",
@@ -615,9 +615,9 @@ function ue() {
   return { commands: S.darwin || S.linux, screenshotPath: o };
 }
 async function v(e) {
-  if (typeof e === "string") return Qh(e, { reject: !1 });
+  if (typeof e === "string") return Qh(e, { reject: false });
   let [t, ...r] = e;
-  return Ff(t, r, { reject: !1 });
+  return Ff(t, r, { reject: false });
 }
 async function KKn() {
   try {
@@ -756,9 +756,9 @@ async function YKn(e, t) {
   return { path: i, base64: g, mediaType: d, dimensions: f.dimensions };
 }
 function JKn(e) {
-  if (e.includes("\x00")) return !0;
+  if (e.includes("\x00")) return true;
   let t = e.slice(0, 4096);
-  if (t.length < 32) return !1;
+  if (t.length < 32) return false;
   let r = 0;
   for (let i of t) if (i === "\uFFFD") r++;
   return r / t.length > 0.05;

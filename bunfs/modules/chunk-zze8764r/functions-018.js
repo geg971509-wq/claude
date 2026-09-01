@@ -25,33 +25,33 @@ function JIe(e) {
   let t = gHt(e);
   if (t === 4) return hHt(e);
   if (t === 6) return Hir(e);
-  return !1;
+  return false;
 }
 
 function hHt(e) {
   let t = e.split(".").map(Number),
     [r, o] = t;
-  if (t.length !== 4 || r === void 0 || o === void 0 || t.some((u) => Number.isNaN(u))) return !1;
-  if (r === 127) return !1;
-  if (r === 0) return !0;
-  if (r === 10) return !0;
-  if (r === 169 && o === 254) return !0;
-  if (r === 172 && o >= 16 && o <= 31) return !0;
-  if (r === 100 && o >= 64 && o <= 127) return !0;
-  if (r === 192 && o === 168) return !0;
-  return !1;
+  if (t.length !== 4 || r === void 0 || o === void 0 || t.some((u) => Number.isNaN(u))) return false;
+  if (r === 127) return false;
+  if (r === 0) return true;
+  if (r === 10) return true;
+  if (r === 169 && o === 254) return true;
+  if (r === 172 && o >= 16 && o <= 31) return true;
+  if (r === 100 && o >= 64 && o <= 127) return true;
+  if (r === 192 && o === 168) return true;
+  return false;
 }
 
 function Hir(e) {
   let t = e.toLowerCase();
-  if (t === "::1") return !1;
-  if (t === "::") return !0;
+  if (t === "::1") return false;
+  if (t === "::") return true;
   let r = Wir(t);
   if (r !== null) return hHt(r);
-  if (t.startsWith("fc") || t.startsWith("fd")) return !0;
+  if (t.startsWith("fc") || t.startsWith("fd")) return true;
   let o = St(t, ":");
-  if (o && o.length === 4 && o >= "fe80" && o <= "febf") return !0;
-  return !1;
+  if (o && o.length === 4 && o >= "fe80" && o <= "febf") return true;
+  return false;
 }
 
 function jir(e) {
@@ -92,7 +92,7 @@ function Wir(e) {
 }
 
 function yHt(e, t, r) {
-  let o = "all" in t && t.all === !0,
+  let o = "all" in t && t.all === true,
     u = gHt(e);
   if (u !== 0) {
     if (JIe(e)) {
@@ -104,7 +104,7 @@ function yHt(e, t, r) {
     else r(null, e, d);
     return;
   }
-  Bir(e, { all: !0 }, (d, _) => {
+  Bir(e, { all: true }, (d, _) => {
     if (d) {
       r(d, "");
       return;
@@ -170,7 +170,7 @@ async function Zpt(e, t, r, o, u = Mi) {
   if (d.allowedUrls !== void 0) {
     if (!d.allowedUrls.some((M) => F1(e.url, M))) {
       let M = `HTTP hook blocked: ${e.url} does not match any pattern in allowedHttpHookUrls`;
-      return n(M, { level: "warn" }), { ok: !1, body: "", error: M };
+      return n(M, { level: "warn" }), { ok: false, body: "", error: M };
     }
   }
   let _ = e.timeout ? e.timeout * 1000 : u,
@@ -192,9 +192,9 @@ async function Zpt(e, t, r, o, u = Mi) {
       headers: x,
       signal: C,
       responseType: "text",
-      validateStatus: () => !0,
+      validateStatus: () => true,
       maxRedirects: 0,
-      proxy: M ?? !1,
+      proxy: M ?? false,
       lookup: M || F ? void 0 : yHt,
     });
     A();
@@ -204,9 +204,9 @@ async function Zpt(e, t, r, o, u = Mi) {
       { ok: U.status >= 200 && U.status < 300, statusCode: U.status, body: B }
     );
   } catch (x) {
-    if ((A(), C.aborted)) return { ok: !1, body: "", aborted: !0 };
+    if ((A(), C.aborted)) return { ok: false, body: "", aborted: true };
     let M = l(x);
-    return n(`Hooks: HTTP hook error: ${M}`, { level: "error" }), { ok: !1, body: "", error: M };
+    return n(`Hooks: HTTP hook error: ${M}`, { level: "error" }), { ok: false, body: "", error: M };
   }
 }
 
@@ -242,12 +242,12 @@ async function HNe(e, t, r, o, u, d = Mi) {
   let _ = o ?? zO();
   if (_ === void 0) {
     let U = `mcp_tool hooks are not available for the '${t}' hook event (no MCP client context)`;
-    return n(`Hooks: mcp_tool hook skipped \u2014 ${U}`, { level: "warn" }), { ok: !1, body: "", error: U };
+    return n(`Hooks: mcp_tool hook skipped \u2014 ${U}`, { level: "warn" }), { ok: false, body: "", error: U };
   }
   let C = _.find((U) => U.name === e.server);
   if (!C || !Zo(C)) {
     let U = `MCP server '${e.server}' not connected`;
-    return n(`Hooks: mcp_tool hook skipped \u2014 ${U}`, { level: "warn" }), { ok: !1, body: "", error: U };
+    return n(`Hooks: mcp_tool hook skipped \u2014 ${U}`, { level: "warn" }), { ok: false, body: "", error: U };
   }
   let A = e.input ? Vir(e.input, r) : {},
     x = e.timeout ? e.timeout * 1000 : d,
@@ -258,7 +258,7 @@ async function HNe(e, t, r, o, u, d = Mi) {
     if (!U) {
       F();
       let pe = `MCP server '${e.server}' not connected`;
-      return n(`Hooks: mcp_tool hook skipped \u2014 ${pe}`, { level: "warn" }), { ok: !1, body: "", error: pe };
+      return n(`Hooks: mcp_tool hook skipped \u2014 ${pe}`, { level: "warn" }), { ok: false, body: "", error: pe };
     }
     let B = await U(C, { signal: u, timeoutMs: Math.min(x, $c()), context: "mcp_tool hook" }),
       W = await FI(B, { name: e.tool, arguments: A }, { signal: M, timeout: x });
@@ -269,12 +269,12 @@ async function HNe(e, t, r, o, u, d = Mi) {
           .join(`
 `)
       : "";
-    if (W.isError) return { ok: !1, body: z, error: z || "MCP tool returned an error" };
-    return { ok: !0, body: z };
+    if (W.isError) return { ok: false, body: z, error: z || "MCP tool returned an error" };
+    return { ok: true, body: z };
   } catch (U) {
-    if ((F(), M.aborted)) return { ok: !1, body: "", aborted: !0 };
+    if ((F(), M.aborted)) return { ok: false, body: "", aborted: true };
     let B = l(U);
-    return n(`Hooks: mcp_tool hook error: ${B}`, { level: "error" }), { ok: !1, body: "", error: B };
+    return n(`Hooks: mcp_tool hook error: ${B}`, { level: "error" }), { ok: false, body: "", error: B };
   }
 }
 
@@ -516,7 +516,7 @@ async function OPe(e, t, r, o, u = Mi) {
 async function eft(e, t, r, { timeoutMs: o = Mi, storageV5: u, credentials: d } = {}) {
   let _ = { ...Ea(e, ee()), hook_event_name: "ConfigChange", source: t, file_path: r },
     C = await CE({ session: e, hookInput: _, timeoutMs: o, matchQuery: t, storageV5: u, credentials: d });
-  if (t === "policy_settings") return C.map((A) => ({ ...A, blocked: !1 }));
+  if (t === "policy_settings") return C.map((A) => ({ ...A, blocked: false }));
   return C;
 }
 
@@ -641,8 +641,8 @@ async function* rGe(e, t, r, o, u = Mi, d, _) {
     signal: o,
     timeoutMs: u,
     sessionHooks: r,
-    forceSyncExecution: !0,
-    suppressPerInvocationTelemetry: !0,
+    forceSyncExecution: true,
+    suppressPerInvocationTelemetry: true,
     storageV5: d,
     credentials: _,
   });
@@ -776,7 +776,7 @@ function EHt(e) {
 }
 
 function CHt(e = Ag()) {
-  return e.map((t) => ({ id: t.id, schedule: t.cron, recurring: t.recurring ?? !1, prompt: Ku(t.prompt, zNe) }));
+  return e.map((t) => ({ id: t.id, schedule: t.cron, recurring: t.recurring ?? false, prompt: Ku(t.prompt, zNe) }));
 }
 
 async function LPe(e, t, r = Mi) {
@@ -808,7 +808,7 @@ async function LPe(e, t, r = Mi) {
   });
 }
 
-async function* y9(e, t, r = Mi, o = !1, u, d, _, C, A = "turn_end") {
+async function* y9(e, t, r = Mi, o = false, u, d, _, C, A = "turn_end") {
   let x = u ? "SubagentStop" : "Stop";
   if (ka(d.agentContext)) return;
   let M = aP(d.agentContext),
@@ -941,12 +941,12 @@ function nar(e) {
 }
 
 async function tft(e, t, { storageV5: r, credentials: o } = {}) {
-  if (Bv("WorktreeRemove").length === 0) return !1;
+  if (Bv("WorktreeRemove").length === 0) return false;
   let u = { ...Ea(e, ee()), hook_event_name: "WorktreeRemove", worktree_path: t },
     d = await CE({ session: e, hookInput: u, timeoutMs: Mi, storageV5: r, credentials: o }),
-    _ = !1;
+    _ = false;
   for (let C of d)
-    if (C.succeeded) _ = !0;
+    if (C.succeeded) _ = true;
     else n(`WorktreeRemove hook failed [${C.command}]: ${C.output.trim()}`, { level: "error" });
   return _;
 }
@@ -959,7 +959,7 @@ async function cun() {
   let e = OHt();
   if (e.size === 0) return;
   let t = Promise.allSettled([...e]);
-  await Promise.race([t, ne(Ahr, void 0, { unref: !0 })]);
+  await Promise.race([t, ne(Ahr, void 0, { unref: true })]);
 }
 
 function sGe() {
@@ -1023,13 +1023,13 @@ function AHt({
           if (A !== void 0) fe = A;
           if (pe !== void 0) me = pe;
           else if (x !== void 0) me = x;
-          rO({ summary: me, body: `${fe} ${z || W}`, priority: "next", stopHookActive: !0 });
+          rO({ summary: me, body: `${fe} ${z || W}`, priority: "next", stopHookActive: true });
         }
       }),
       U = OHt();
-    return U.add(F), F.finally(() => U.delete(F)), !0;
+    return U.add(F), F.finally(() => U.delete(F)), true;
   }
-  if (!r.background(e, { skipSpill: !0 })) return !1;
+  if (!r.background(e, { skipSpill: true })) return false;
   return (
     oHe({
       processId: e,
@@ -1041,7 +1041,7 @@ function AHt({
       shellCommand: r,
       pluginId: M,
     }),
-    !0
+    true
   );
 }
 
@@ -1093,7 +1093,7 @@ async function yce(e, t, r, { threshold: o = J8n, storageV5: u } = {}) {
         source: c(r),
         originalSizeBytes: e.length,
         persistedSizeBytes: 0,
-        truncatedFallback: !0,
+        truncatedFallback: true,
       }),
       `${e.slice(0, o)}
 
@@ -1105,7 +1105,7 @@ async function yce(e, t, r, { threshold: o = J8n, storageV5: u } = {}) {
       source: c(r),
       originalSizeBytes: d.originalSize,
       persistedSizeBytes: _.length,
-      truncatedFallback: !1,
+      truncatedFallback: false,
     }),
     _
   );
@@ -1114,7 +1114,7 @@ async function yce(e, t, r, { threshold: o = J8n, storageV5: u } = {}) {
 function MPe(e) {
   let t = e.trim();
   if (!t.startsWith("{")) return n("Hook output does not start with {, treating as plain text"), { plainText: e };
-  if (BUt(e)) return { json: { async: !0 } };
+  if (BUt(e)) return { json: { async: true } };
   try {
     let r = DHt(t);
     if ("json" in r) return r;
@@ -1137,26 +1137,26 @@ function car(e) {
     .split(`
 `)
     .filter((o) => o.trim() !== "");
-  if (t.length < 2) return !1;
+  if (t.length < 2) return false;
   using r = Jd`parseHookOutput: json lines (${t.length})`;
   return t.every((o) => {
     try {
       let u = l9().safeParse(Ps(o.trim()));
       return !u.success || Object.keys(u.data).length === 0;
     } catch {
-      return !1;
+      return false;
     }
   });
 }
 
 function BUt(e) {
   let t = wr(e).trim();
-  if (!t.startsWith("{")) return !1;
+  if (!t.startsWith("{")) return false;
   try {
     let r = V(t);
-    return typeof r === "object" && r !== null && "async" in r && r.async === !0;
+    return typeof r === "object" && r !== null && "async" in r && r.async === true;
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -1211,8 +1211,8 @@ function mK({
 }) {
   let M = {},
     F = e;
-  if (F.continue === !1) {
-    if (((M.preventContinuation = !0), F.stopReason)) M.stopReason = F.stopReason;
+  if (F.continue === false) {
+    if (((M.preventContinuation = true), F.stopReason)) M.stopReason = F.stopReason;
   }
   if (e.decision)
     switch (e.decision) {
@@ -1347,7 +1347,7 @@ function mK({
         if (e.hookSpecificOutput.updatedMCPToolOutput)
           uar(e.hookSpecificOutput.updatedToolOutput !== void 0),
             (M.updatedMCPToolOutput = e.hookSpecificOutput.updatedMCPToolOutput);
-        else if (e.hookSpecificOutput.updatedMCPToolOutput !== void 0) M.legacyMcpRewriteSuppressed = !0;
+        else if (e.hookSpecificOutput.updatedMCPToolOutput !== void 0) M.legacyMcpRewriteSuppressed = true;
         break;
       case "PostToolUseFailure":
         M.additionalContext = e.hookSpecificOutput.additionalContext;
@@ -1423,17 +1423,17 @@ async function dar(e, t) {
     if (r) {
       let o = await e.scopeKind(
         { namespace: "pluginCache", marketplace: r.marketplace, plugin: r.plugin, version: r.version },
-        { resolveLink: !0 },
+        { resolveLink: true },
       );
       if (o.ok)
         switch (o.value.kind) {
           case "absent":
-            return !1;
+            return false;
           case "directory":
           case "other":
-            return !0;
+            return true;
           case "link":
-            return o.value.linkResolves === !0;
+            return o.value.linkResolves === true;
           default:
             return o.value;
         }
@@ -1446,7 +1446,7 @@ async function fK(e, t, r, o, u, d, _, C, A, x, M, F, U, B, W, z, pe, fe) {
   let me = t === "SessionStart" || t === "Setup" || t === "SessionEnd",
     ge = Date.now(),
     Ce,
-    Ie = !1,
+    Ie = false,
     Ee = D() === "windows",
     Pe = e.shell ?? jD(),
     Oe = Pe === "powershell",
@@ -1535,28 +1535,28 @@ async function fK(e, t, r, o, u, d, _, C, A, x, M, F, U, B, W, z, pe, fe) {
   let Xe = await mun(_, d),
     nt = !Ee,
     ht;
-  if (Pt) ht = KNe(Pt[0], Pt[1], { env: tt, cwd: Xe, detached: nt, windowsHide: !0, ...V9e(t) });
+  if (Pt) ht = KNe(Pt[0], Pt[1], { env: tt, cwd: Xe, detached: nt, windowsHide: true, ...V9e(t) });
   else if (Pe === "powershell") {
     let jn = await gv();
     if (!jn)
       throw Error(
         `Hook "${e.command}" has shell: 'powershell' but no PowerShell executable (pwsh or powershell) was found on PATH. Install PowerShell, or remove "shell": "powershell" to use bash.`,
       );
-    ht = KNe(jn, ict(en), { env: tt, cwd: Xe, detached: nt, windowsHide: !0, ...V9e(t) });
+    ht = KNe(jn, ict(en), { env: tt, cwd: Xe, detached: nt, windowsHide: true, ...V9e(t) });
   } else {
     let jn = Ee ? qN() : null;
     if (Ee && !jn)
       throw Error(
         `Hook "${e.command}" requires bash but Git Bash was not found. Install Git for Windows (https://git-scm.com/downloads/win), or add "shell": "powershell" to this hook's config.`,
       );
-    let Ar = Ee ? jn : !0;
+    let Ar = Ee ? jn : true;
     if (Ee && jn) $At(tt, jn);
-    ht = KNe(en, [], { env: tt, cwd: Xe, shell: Ar, detached: nt, windowsHide: !0, ...V9e(t) });
+    ht = KNe(en, [], { env: tt, cwd: Xe, shell: Ar, detached: nt, windowsHide: true, ...V9e(t) });
   }
   let At = new Bx(`hook_${ht.pid}`, null),
     dn = LK(ht, C, nn, At),
-    Lt = !1,
-    fn = !1,
+    Lt = false,
+    fn = false,
     Sn = !Le() || HQe();
   if ((e.async || (e.asyncRewake && Sn)) && !B) {
     let jn = `async_hook_${ht.pid}`;
@@ -1577,12 +1577,12 @@ async function fK(e, t, r, o, u, d, _, C, A, x, M, F, U, B, W, z, pe, fe) {
       Ar(Zr);
     }
     if (
-      ((fn = !0),
+      ((fn = true),
       AHt({
         processId: jn,
         hookId: A,
         shellCommand: dn,
-        asyncResponse: { async: !0, asyncTimeout: nn },
+        asyncResponse: { async: true, asyncTimeout: nn },
         hookEvent: t,
         hookName: r,
         command: ct,
@@ -1592,13 +1592,13 @@ async function fK(e, t, r, o, u, d, _, C, A, x, M, F, U, B, W, z, pe, fe) {
         pluginId: F,
       }))
     )
-      return { stdout: "", stderr: "", output: "", status: 0, backgrounded: !0 };
+      return { stdout: "", stderr: "", output: "", status: 0, backgrounded: true };
   }
   let bn = "",
     hn = "",
     Ke = "";
   ht.stdout.setEncoding("utf8"), ht.stderr.setEncoding("utf8");
-  let mn = !1,
+  let mn = false,
     yn = null,
     er = new Promise((jn) => {
       yn = jn;
@@ -1610,7 +1610,7 @@ async function fK(e, t, r, o, u, d, _, C, A, x, M, F, U, B, W, z, pe, fe) {
       if (((bn += jn), (Ke += jn), !mn)) {
         let Ar = wr(bn).trim();
         if (!Ar.includes("}")) return;
-        (mn = !0), n(`Hooks: Checking first line for async: ${Ar}`);
+        (mn = true), n(`Hooks: Checking first line for async: ${Ar}`);
         try {
           let Tn = V(Ar);
           if ((n(`Hooks: Parsed initial response: ${b(Tn)}`), G_(Tn) && !B)) {
@@ -1628,10 +1628,10 @@ async function fK(e, t, r, o, u, d, _, C, A, x, M, F, U, B, W, z, pe, fe) {
                 pluginId: F,
               }))
             )
-              (Lt = !0),
+              (Lt = true),
                 ht.stdout.removeListener("data", Pn),
                 ht.stderr.removeListener("data", Cn),
-                yn?.({ stdout: bn, stderr: hn, output: Ke, status: 0, backgrounded: !0 });
+                yn?.({ stdout: bn, stderr: hn, output: Ke, status: 0, backgrounded: true });
           } else if (G_(Tn) && B)
             n("Hooks: Detected async hook but forceSyncExecution is true, waiting for completion");
           else n("Hooks: Initial response is not async, continuing normal processing");
@@ -1671,9 +1671,9 @@ async function fK(e, t, r, o, u, d, _, C, A, x, M, F, U, B, W, z, pe, fe) {
     wn = new Promise((jn, Ar) => {
       ht.on("error", Ar);
     }),
-    sr = !1;
+    sr = false;
   ht.on("exit", () => {
-    if (!C.aborted) sr = !0;
+    if (!C.aborted) sr = true;
   });
   let Jn = new Promise((jn) => {
     let Ar = null;
@@ -1686,7 +1686,7 @@ async function fK(e, t, r, o, u, d, _, C, A, x, M, F, U, B, W, z, pe, fe) {
             output: Ke,
             status: Ar,
             aborted: C.aborted && !sr,
-            ...(Tn !== null && { exitedNormally: !0 }),
+            ...(Tn !== null && { exitedNormally: true }),
           });
         });
     });
@@ -1697,7 +1697,7 @@ async function fK(e, t, r, o, u, d, _, C, A, x, M, F, U, B, W, z, pe, fe) {
     let jn = await Promise.race([er, Jn, wn]);
     return (
       (Ce = jn.status),
-      (Ie = jn.aborted ?? !1),
+      (Ie = jn.aborted ?? false),
       { ...jn, stdout: x2(jn.stdout), stderr: x2(jn.stderr), output: x2(jn.output) }
     );
   } catch (jn) {
@@ -1707,12 +1707,12 @@ async function fK(e, t, r, o, u, d, _, C, A, x, M, F, U, B, W, z, pe, fe) {
       let Tn = "Hook command closed stdin before hook input was fully written (EPIPE)";
       return { stdout: "", stderr: Tn, output: Tn, status: 1 };
     } else if (Ar === "ABORT_ERR")
-      return (Ie = !0), { stdout: "", stderr: "Hook cancelled", output: "Hook cancelled", status: 1, aborted: !0 };
+      return (Ie = true), { stdout: "", stderr: "Hook cancelled", output: "Hook cancelled", status: 1, aborted: true };
     else {
       let Tn = l(jn);
       n(`Hook command failed to spawn (${r}): ${Tn}`, { level: "error" });
       let Zr = `Error occurred while executing hook command: ${Tn}`;
-      return { stdout: "", stderr: Zr, output: Zr, status: 1, spawnFailed: !0 };
+      return { stdout: "", stderr: Zr, output: Zr, status: 1, spawnFailed: true };
     }
   } finally {
     if (me)
@@ -1746,7 +1746,7 @@ async function uun({
     status: B,
     aborted: W,
     spawnFailed: z,
-  } = await fK(e, t, `${t}:device`, r, o, u, d, _, ov(), void 0, void 0, void 0, void 0, !0, C, {
+  } = await fK(e, t, `${t}:device`, r, o, u, d, _, ov(), void 0, void 0, void 0, void 0, true, C, {
     base: x,
     omit: A,
     shellPrefix: M,
@@ -1769,10 +1769,10 @@ function jUt({ hookEvent: e, stdout: t, stderr: r, pluginId: o }) {
 async function dun(e, t, r, o) {
   return k5(o, async () => {
     let u = await NHt(t, r);
-    if (u === void 0) return !1;
+    if (u === void 0) return false;
     let d = Ur(e);
-    if (Vd(d.toolName) !== u.toolName) return !1;
-    if (!d.ruleContent) return !0;
+    if (Vd(d.toolName) !== u.toolName) return false;
+    if (!d.ruleContent) return true;
     if (!u.judgeable) return null;
     return u.patternMatcher !== void 0 && u.patternMatcher(d.ruleContent);
   });
@@ -1865,7 +1865,7 @@ function Azn(e) {
 }
 
 function vhr(e) {
-  if (!/^[a-zA-Z0-9_|, -]+$/.test(e)) return !1;
+  if (!/^[a-zA-Z0-9_|, -]+$/.test(e)) return false;
   return e
     .split(/[|,]/)
     .map((t) => t.trim())
@@ -1889,17 +1889,17 @@ function par(e, t) {
 }
 
 function VNe(e, t, r, o) {
-  if (!t || t === "*") return !0;
+  if (!t || t === "*") return true;
   let u = LHt(t, r, o);
   if (u !== void 0) return u.includes(e);
   try {
     let d = new RegExp(t);
-    if (d.test(e)) return !0;
-    for (let _ of MTt(e)) if (d.test(_)) return !0;
-    for (let _ of Z6(e, o)) if (d.test(_)) return !0;
-    return !1;
+    if (d.test(e)) return true;
+    for (let _ of MTt(e)) if (d.test(_)) return true;
+    for (let _ of Z6(e, o)) if (d.test(_)) return true;
+    return false;
   } catch {
-    return n(`Invalid regex pattern in hook matcher: ${t}`), !1;
+    return n(`Invalid regex pattern in hook matcher: ${t}`), false;
   }
 }
 
@@ -1909,9 +1909,9 @@ async function mar(e, t) {
   let { toolName: o, patternMatcher: u } = r;
   return (d) => {
     let _ = Ur(d);
-    if (Vd(_.toolName) !== o) return !1;
-    if (!_.ruleContent) return !0;
-    return u ? u(_.ruleContent) : !1;
+    if (Vd(_.toolName) !== o) return false;
+    if (!_.ruleContent) return true;
+    return u ? u(_.ruleContent) : false;
   };
 }
 
@@ -1928,11 +1928,11 @@ async function NHt(e, t) {
     o = t && no(t, e.tool_name),
     u = o?.inputSchema.safeParse(e.tool_input),
     d = u?.success && o?.preparePermissionMatcher ? await o.preparePermissionMatcher(u.data) : void 0;
-  return { toolName: r, patternMatcher: d, judgeable: u?.success === !0 };
+  return { toolName: r, patternMatcher: d, judgeable: u?.success === true };
 }
 
 function far(e) {
-  return e.hook.type !== "callback" && e.hook.type !== "function" && e.deviceForwarded !== !0;
+  return e.hook.type !== "callback" && e.hook.type !== "function" && e.deviceForwarded !== true;
 }
 
 function gar(e, t) {
@@ -1945,9 +1945,9 @@ function gar(e, t) {
           outcome: "success",
           permissionBehavior: "ask",
           hookPermissionDecisionReason: Yde.model_hook,
-          heldForServedCall: !0,
+          heldForServedCall: true,
         }
-      : { hook: e, outcome: "success", systemMessage: Vde(t, e.type, "model_hook"), heldForServedCall: !0 }
+      : { hook: e, outcome: "success", systemMessage: Vde(t, e.type, "model_hook"), heldForServedCall: true }
   );
 }
 
@@ -2009,13 +2009,13 @@ async function har(e, t, r) {
 
 async function Rhr(e, t, r = new Set()) {
   let o = async (d) => {
-      if (BH.has(d)) return !0;
+      if (BH.has(d)) return true;
       let _ = Mo(d);
-      if (_ === void 0) return !1;
-      if (rh([_, await UHt(_)].map(kf), e)) return !0;
-      if (d === "policySettings") return !1;
+      if (_ === void 0) return false;
+      if (rh([_, await UHt(_)].map(kf), e)) return true;
+      if (d === "policySettings") return false;
       let C = await XNe(_, d === "userSettings" ? void 0 : t, su.workspace);
-      return C === "absent" ? !1 : C === void 0 || C.nlink > 1;
+      return C === "absent" ? false : C === void 0 || C.nlink > 1;
     },
     u = await Promise.all(Is.map(async (d) => (r.has(d) || (await o(d)) ? [d] : [])));
   for (let d of u.flat()) r.add(d);
@@ -2204,9 +2204,9 @@ function Tar(e, t, r, o) {
           outcome: "success",
           permissionBehavior: "ask",
           hookPermissionDecisionReason: Yde[r],
-          heldForServedCall: !0,
+          heldForServedCall: true,
         }
-      : { hook: e, outcome: "success", systemMessage: Vde(t, e.type, r), heldForServedCall: !0 }
+      : { hook: e, outcome: "success", systemMessage: Vde(t, e.type, r), heldForServedCall: true }
   );
 }
 
@@ -2220,9 +2220,9 @@ function Ear(e) {
 
 function Car(e, t) {
   let r =
-    e.outcome === "cancelled" && t?.aborted !== !0
+    e.outcome === "cancelled" && t?.aborted !== true
       ? "gave no verdict in time"
-      : e.outcome === "non_blocking_error" && e.ranByContract !== !0
+      : e.outcome === "non_blocking_error" && e.ranByContract !== true
         ? "could not render a verdict"
         : void 0;
   if (r === void 0) return e;
@@ -2241,7 +2241,7 @@ function Car(e, t) {
 }
 
 function BHt(e) {
-  return e.hook.type === "callback" && e.hook.internal === !0;
+  return e.hook.type === "callback" && e.hook.internal === true;
 }
 
 function pK(e, t) {
@@ -2250,10 +2250,10 @@ function pK(e, t) {
 
 function Xae(e) {
   let t = e.lastIndexOf("@");
-  if (t <= 0) return !1;
+  if (t <= 0) return false;
   let r = e.slice(t + 1);
-  if (Pp(r)) return !0;
-  return !1;
+  if (Pp(r)) return true;
+  return false;
 }
 
 function Czn(e) {
@@ -2268,7 +2268,7 @@ function Czn(e) {
 }
 
 function khr(e) {
-  if (!Xae(e)) return !1;
+  if (!Xae(e)) return false;
   let t = e.lastIndexOf("@"),
     r = e.slice(0, t);
   return (I("tengu_amber_lattice", {}).plugins ?? []).includes(r);
@@ -2315,7 +2315,7 @@ function Rar(e, t) {
 function Vae(e, t, r, o) {
   if (o?.managedHooksOnly) {
     let C = ye("policySettings");
-    if (C?.disableAllHooks === !0) return [];
+    if (C?.disableAllHooks === true) return [];
     return [...(C?.hooks?.[r] ?? [])];
   }
   let u = o?.managedHooksExcluded ? Rar(Bv(r), r) : [...Bv(r)],
@@ -2350,14 +2350,14 @@ function WUt(e) {
 
 function iT(e, t, r) {
   let o = SX()?.[e];
-  if (o && o.length > 0) return !0;
+  if (o && o.length > 0) return true;
   if (!f_()) {
     let _ = die()?.[e];
-    if (_ && _.length > 0) return !0;
+    if (_ && _.length > 0) return true;
   }
   let u = VO()?.[e];
-  if (u && u.length > 0) return !0;
-  if (t === void 0) return !1;
+  if (u && u.length > 0) return true;
+  if (t === void 0) return false;
   return (typeof r === "string" ? [r] : r).some((_) => t.has(_, e));
 }
 
@@ -2420,7 +2420,7 @@ async function vzn(e, t, r, o, u, d) {
       me = F.filter((Be) => Be.hook.type === "callback"),
       ge = F.filter((Be) => Be.hook.type === "function"),
       Ce = (Be) => {
-        if (d?.recordMatchers !== !0) return Be;
+        if (d?.recordMatchers !== true) return Be;
         try {
           let ze = te(
               F.filter(
@@ -2456,19 +2456,19 @@ async function vzn(e, t, r, o, u, d) {
           Be.hook.type !== "http" &&
           Be.hook.type !== "mcp_tool"
         )
-          return !0;
+          return true;
         let ze = Be.hook.if;
-        if (!ze) return !0;
-        if (!Pe) return n(`Hook if condition "${ze}" cannot be evaluated for non-tool event ${o.hook_event_name}`), !1;
-        if (Pe(ze)) return !0;
-        return n(`Skipping hook due to if condition "${ze}" not matching`), !1;
+        if (!ze) return true;
+        if (!Pe) return n(`Hook if condition "${ze}" cannot be evaluated for non-tool event ${o.hook_event_name}`), false;
+        if (Pe(ze)) return true;
+        return n(`Skipping hook due to if condition "${ze}" not matching`), false;
       }),
       Fe =
         r === "SessionStart" || r === "Setup"
           ? Oe.filter((Be) => {
               if (Be.hook.type === "http")
-                return n(`Skipping HTTP hook ${Be.hook.url} \u2014 HTTP hooks are not supported for ${r}`), !1;
-              return !0;
+                return n(`Skipping HTTP hook ${Be.hook.url} \u2014 HTTP hooks are not supported for ${r}`), false;
+              return true;
             })
           : Oe;
     return (
@@ -2523,8 +2523,8 @@ ${e.blockingError}`;
 function RHt(e, t) {
   let r = fxn(),
     o = `${e}:${t}`;
-  if (r.has(o)) return !1;
-  return r.add(o), !0;
+  if (r.has(o)) return false;
+  return r.add(o), true;
 }
 
 function jHt(e, t) {
@@ -2567,7 +2567,7 @@ async function* xHt(e) {
       ...(r.hookPermissionDecisionReason !== void 0 && {
         hookPermissionDecisionReason: r.hookPermissionDecisionReason,
       }),
-      ...(r.heldForServedCall && { heldForServedCall: !0 }),
+      ...(r.heldForServedCall && { heldForServedCall: true }),
       ...(r.updatedInput !== void 0 && { updatedInput: r.updatedInput }),
       ...(r.preventContinuation !== void 0 && { preventContinuation: r.preventContinuation }),
       ...(r.stopReason !== void 0 && { stopReason: r.stopReason }),
@@ -2764,11 +2764,11 @@ async function* MHt({
   function mt(mn) {
     if (tt !== void 0) return tt;
     try {
-      return (tt = { ok: !0, value: b(t) });
+      return (tt = { ok: true, value: b(t) });
     } catch (yn) {
       return (
         h(ft(Error(`Failed to stringify hook ${ge} input`, { cause: yn }), "Failed to stringify hook input")),
-        (tt = { ok: !1, error: yn })
+        (tt = { ok: false, error: yn })
       );
     }
   }
@@ -2815,7 +2815,7 @@ async function* MHt({
             s("tengu_sdk_hook_callback_timeout", { hookEvent: c(me) }),
             yield {
               blockingError: { blockingError: `${ge} hook callback timed out after ${br}ms`, command: _9(mn) },
-              suppressOriginalPrompt: !0,
+              suppressOriginalPrompt: true,
               outcome: "blocking",
               hook: mn,
             };
@@ -3336,11 +3336,11 @@ async function* MHt({
                   }),
                   outcome: "non_blocking_error",
                   hook: mn,
-                  ...(Xn.exitedNormally === !0 &&
+                  ...(Xn.exitedNormally === true &&
                     !Xn.spawnFailed &&
                     Xn.status <= 128 &&
                     Xn.status !== 126 &&
-                    Xn.status !== 127 && { ranByContract: !0 }),
+                    Xn.status !== 127 && { ranByContract: true }),
                 };
               return;
             }
@@ -3533,11 +3533,11 @@ async function* MHt({
           }),
           outcome: "non_blocking_error",
           hook: mn,
-          ...(Xn.exitedNormally === !0 &&
+          ...(Xn.exitedNormally === true &&
             !Xn.spawnFailed &&
             Xn.status <= 128 &&
             Xn.status !== 126 &&
-            Xn.status !== 127 && { ranByContract: !0 }),
+            Xn.status !== 127 && { ranByContract: true }),
         };
         return;
       } catch (br) {
@@ -3648,7 +3648,7 @@ async function* MHt({
     }
     if (yn.preventContinuation)
       n(`Hook ${me} (${fk(yn.hook)}) requested preventContinuation`),
-        yield { preventContinuation: !0, stopReason: yn.stopReason };
+        yield { preventContinuation: true, stopReason: yn.stopReason };
     let er = yn.hook?.type === "prompt" ? { hook: yn.hook, stopReason: yn.stopReason, impossible: yn.impossible } : {};
     if (yn.blockingError)
       yield { blockingError: yn.blockingError, suppressOriginalPrompt: yn.suppressOriginalPrompt, ...er },
@@ -3664,7 +3664,7 @@ async function* MHt({
             : "",
         ),
       );
-    if (yn.timedOut && yn.hook.type === "prompt" && me === "Stop") yield { hook: yn.hook, timedOut: !0 };
+    if (yn.timedOut && yn.hook.type === "prompt" && me === "Stop") yield { hook: yn.hook, timedOut: true };
     if ((bn++, yn.systemMessage)) {
       (At.systemMessageChars += yn.systemMessage.length), Sn(yn.hook, "systemMessageChars", yn.systemMessage.length);
       let Cn = await yce(yn.systemMessage, `${o}-${bn}`, "systemMessage", { storageV5: Ce });
@@ -3675,7 +3675,7 @@ async function* MHt({
           hookName: ge,
           toolUseID: o,
           hookEvent: me,
-          ...(yn.heldForServedCall && { heldForServedCall: !0 }),
+          ...(yn.heldForServedCall && { heldForServedCall: true }),
         }),
       };
     }
@@ -3696,7 +3696,7 @@ async function* MHt({
         };
     if (yn.watchPaths && yn.watchPaths.length > 0)
       n(`Hook ${me} (${fk(yn.hook)}) provided ${yn.watchPaths.length} watchPaths`), yield { watchPaths: yn.watchPaths };
-    if (yn.reloadSkills) n(`Hook ${me} (${fk(yn.hook)}) requested reloadSkills`), yield { reloadSkills: !0 };
+    if (yn.reloadSkills) n(`Hook ${me} (${fk(yn.hook)}) requested reloadSkills`), yield { reloadSkills: true };
     if (yn.sessionTitle)
       n(`Hook ${me} (${fk(yn.hook)}) provided sessionTitle (${[...yn.sessionTitle].length} chars)`),
         yield { sessionTitle: yn.sessionTitle };
@@ -3731,7 +3731,7 @@ async function* MHt({
       yield {
         permissionBehavior: hn,
         hookPermissionDecisionReason: yn.hookPermissionDecisionReason,
-        ...(yn.heldForServedCall && { heldForServedCall: !0 }),
+        ...(yn.heldForServedCall && { heldForServedCall: true }),
         hookSource: We.find((Pn) => Pn.hook === yn.hook)?.hookSource,
         updatedInput: Cn,
       };
@@ -3871,7 +3871,7 @@ async function CE({
     return h(ge), p(Hfe(x), "hook_input_stringify_failed"), [];
   }
   let z,
-    pe = !1,
+    pe = false,
     fe = U.map(async ({ hook: ge, pluginRoot: Ce, pluginId: Ie, skillRoot: Ee }, Pe) => {
       if (ge.type === "callback") {
         let We = ge.timeout ? ge.timeout * 1000 : _,
@@ -3882,7 +3882,7 @@ async function CE({
           if ((Pt?.(), G_(ut)))
             return (
               n(`${M} [callback] returned async response, returning empty output`),
-              { command: "callback", succeeded: !0, output: "", blocked: !1 }
+              { command: "callback", succeeded: true, output: "", blocked: false }
             );
           let en =
               x === "WorktreeCreate" && ip(ut) && ut.hookSpecificOutput?.hookEventName === "WorktreeCreate"
@@ -3892,22 +3892,22 @@ async function CE({
           return (
             Gae(ut, M),
             n(`${M} [callback] completed successfully`),
-            { command: "callback", succeeded: !0, output: en, blocked: nn }
+            { command: "callback", succeeded: true, output: en, blocked: nn }
           );
         } catch (ct) {
           if ((Pt?.(), It(ct))) {
             let en = ct instanceof la || !!d?.aborted;
             if (en)
               n(ct instanceof la ? `${M} [callback] cancelled (control stream closed)` : `${M} [callback] cancelled`),
-                (pe = !0);
+                (pe = true);
             else n(`${M} [callback] timed out`, { level: "error" }), (z ??= "hook_callback_timeout");
-            return { command: "callback", succeeded: !1, output: "", blocked: !1, ...(en && { cancelled: !0 }) };
+            return { command: "callback", succeeded: false, output: "", blocked: false, ...(en && { cancelled: true }) };
           }
           let ut = ct instanceof Error ? ct.message : String(ct);
           return (
             n(`${M} [callback] failed to run: ${ut}`, { level: "error" }),
             (z ??= "hook_callback_failed"),
-            { command: "callback", succeeded: !1, output: ut, blocked: !1 }
+            { command: "callback", succeeded: false, output: ut, blocked: false }
           );
         }
       }
@@ -3916,9 +3916,9 @@ async function CE({
           (z ??= "hook_type_unsupported"),
           {
             command: ge.prompt,
-            succeeded: !1,
+            succeeded: false,
             output: "Prompt stop hooks are not yet supported outside REPL",
-            blocked: !1,
+            blocked: false,
           }
         );
       if (ge.type === "mcp_tool") {
@@ -3930,16 +3930,16 @@ async function CE({
               (z ??= "hook_cancelled"),
               {
                 command: We,
-                succeeded: !1,
+                succeeded: false,
                 output: "Hook cancelled",
-                blocked: !1,
-                ...(d?.aborted && { cancelled: !0 }),
+                blocked: false,
+                ...(d?.aborted && { cancelled: true }),
               }
             );
           if (Ve.error || !Ve.ok)
             return (
               (z ??= "hook_mcp_tool_failed"),
-              { command: We, succeeded: !1, output: Ve.error || "MCP tool returned an error", blocked: !1 }
+              { command: We, succeeded: false, output: Ve.error || "MCP tool returned an error", blocked: false }
             );
           let { json: Pt, validationError: ct } = MPe(Ve.body);
           if (ct) throw Error(ct);
@@ -3950,7 +3950,7 @@ async function CE({
             Gae(Pt, M),
             {
               command: We,
-              succeeded: !0,
+              succeeded: true,
               output: en ? ut?.reason || "" : Ve.body,
               blocked: en,
               watchPaths:
@@ -3965,7 +3965,7 @@ async function CE({
           return (
             n(`${M} [${We}] failed to run: ${Pt}`, { level: "error" }),
             (z ??= "hook_mcp_exec_failed"),
-            { command: We, succeeded: !1, output: Pt, blocked: !1 }
+            { command: We, succeeded: false, output: Pt, blocked: false }
           );
         }
       }
@@ -3974,9 +3974,9 @@ async function CE({
           (z ??= "hook_type_unsupported"),
           {
             command: ge.prompt,
-            succeeded: !1,
+            succeeded: false,
             output: "Agent stop hooks are not yet supported outside REPL",
-            blocked: !1,
+            blocked: false,
           }
         );
       if (ge.type === "function")
@@ -3989,9 +3989,9 @@ async function CE({
           (z ??= "hook_type_unsupported"),
           {
             command: "function",
-            succeeded: !1,
+            succeeded: false,
             output: "Internal error: function hook executed outside REPL context",
-            blocked: !1,
+            blocked: false,
           }
         );
       if (ge.type === "http")
@@ -4003,10 +4003,10 @@ async function CE({
               (z ??= "hook_cancelled"),
               {
                 command: ge.url,
-                succeeded: !1,
+                succeeded: false,
                 output: "Hook cancelled",
-                blocked: !1,
-                ...(d?.aborted && { cancelled: !0 }),
+                blocked: false,
+                ...(d?.aborted && { cancelled: true }),
               }
             );
           if (We.error || !We.ok) {
@@ -4014,7 +4014,7 @@ async function CE({
             return (
               n(`${M} [${ge.url}] failed: ${en}`, { level: "error" }),
               (z ??= "hook_http_request_failed"),
-              { command: ge.url, succeeded: !1, output: en, blocked: !1 }
+              { command: ge.url, succeeded: false, output: en, blocked: false }
             );
           }
           let { json: Ve, validationError: Pt } = rft(We.body);
@@ -4032,7 +4032,7 @@ async function CE({
                 : We.body;
           return {
             command: ge.url,
-            succeeded: !0,
+            succeeded: true,
             output: ut,
             blocked: !!ct,
             systemMessage: Ve && ip(Ve) ? Ve.systemMessage : void 0,
@@ -4042,7 +4042,7 @@ async function CE({
           return (
             n(`${M} [${ge.url}] failed to run: ${Ve}`, { level: "error" }),
             (z ??= "hook_http_exec_failed"),
-            { command: ge.url, succeeded: !1, output: Ve, blocked: !1 }
+            { command: ge.url, succeeded: false, output: Ve, blocked: false }
           );
         }
       let Oe = ge.timeout ? ge.timeout * 1000 : _,
@@ -4073,7 +4073,7 @@ async function CE({
           return (
             n(`${M} [${Fe}] cancelled`),
             (z ??= "hook_cancelled"),
-            { command: Fe, succeeded: !1, output: "Hook cancelled", blocked: !1, ...(d?.aborted && { cancelled: !0 }) }
+            { command: Fe, succeeded: false, output: "Hook cancelled", blocked: false, ...(d?.aborted && { cancelled: true }) }
           );
         n(`${M} [${Fe}] completed with status ${We.status}`);
         let { json: Ve, validationError: Pt } = MPe(We.stdout);
@@ -4101,7 +4101,7 @@ async function CE({
         return (
           n(`${M} [${Fe}] failed to run: ${Ve}`, { level: "error" }),
           (z ??= "hook_exec_failed"),
-          { command: Fe, succeeded: !1, output: Ve, blocked: !1 }
+          { command: Fe, succeeded: false, output: Ve, blocked: false }
         );
       }
     }),
@@ -4116,14 +4116,14 @@ async function CE({
 
 function zUt() {
   let e = SX()?.InstructionsLoaded;
-  if (e && e.length > 0) return !0;
+  if (e && e.length > 0) return true;
   if (!f_()) {
     let r = die()?.InstructionsLoaded;
-    if (r && r.length > 0) return !0;
+    if (r && r.length > 0) return true;
   }
   let t = VO()?.InstructionsLoaded;
-  if (t && t.length > 0) return !0;
-  return !1;
+  if (t && t.length > 0) return true;
+  return false;
 }
 
 function hun(e, t) {
@@ -4154,7 +4154,7 @@ function hun(e, t) {
   }
 }
 
-async function VUt(e, t, r, o = !1) {
+async function VUt(e, t, r, o = false) {
   if (Fv()) return;
   let u = Phr.of(e.host);
   if (ho("statusLine")) return;
@@ -4172,7 +4172,7 @@ async function VUt(e, t, r, o = !1) {
     let x = A.stderr.trim();
     if (x) n(`StatusLine [${d.command}] stderr: ${x}`);
     if (A.status === 0) {
-      if (!u.okLogged) (u.okLogged = !0), y("status_line_command");
+      if (!u.okLogged) (u.okLogged = true), y("status_line_command");
       let M = A.stdout
         .trim()
         .split(`
@@ -4186,12 +4186,12 @@ async function VUt(e, t, r, o = !1) {
       }
     } else if (o) n(`StatusLine [${d.command}] completed with status ${A.status}`, { level: "warn" });
     if (A.status !== 0 && !u.badLogged)
-      (u.badLogged = !0),
+      (u.badLogged = true),
         p("status_line_command", A.spawnFailed ? "spawn_failed" : Date.now() - C >= Mi ? "timeout" : "nonzero_exit");
     return;
   } catch (_) {
     if ((n(`Status hook failed: ${_}`, { level: "error" }), !u.badLogged))
-      (u.badLogged = !0), p("status_line_command", "exec_error");
+      (u.badLogged = true), p("status_line_command", "exec_error");
     return;
   }
 }
@@ -4356,7 +4356,7 @@ function XHt(e, t, r, o) {
   let { content: d, paths: _ } = Kar(e),
     C = d.includes("<!--"),
     A = o !== void 0 && d.includes("@"),
-    x = C || A ? new SM({ gfm: !1 }).lex(d) : void 0,
+    x = C || A ? new SM({ gfm: false }).lex(d) : void 0,
     M = C && x ? gde(x).content : d,
     F = x && o !== void 0 ? rlr(x, o) : [],
     U = M;
@@ -4375,7 +4375,7 @@ function Hzn(e, t, r) {
 
 function Var(e) {
   let { content: t } = tKe(e);
-  return { path: PY(), type: "AutoMem", content: t, contentDiffersFromDisk: !0, rawContent: e };
+  return { path: PY(), type: "AutoMem", content: t, contentDiffersFromDisk: true, rawContent: e };
 }
 
 async function Yar() {
@@ -4390,7 +4390,7 @@ async function Yar() {
         .stat(PY())
         .then(
           (u) => u.isFile(),
-          () => !1,
+          () => false,
         ));
   if ((fUe(r, "auto", o), r.entries.length === 0)) return null;
   return {
@@ -4399,7 +4399,7 @@ async function Yar() {
     content: `Memory files under \`${e}\` (paths below are relative to it):
 
 ${r.content}`,
-    contentDiffersFromDisk: !0,
+    contentDiffersFromDisk: true,
   };
 }
 
@@ -4423,7 +4423,7 @@ function Jar(e, t, r) {
     return;
   }
   if (!e.hasLoggedPinnedInjection)
-    (e.hasLoggedPinnedInjection = !0),
+    (e.hasLoggedPinnedInjection = true),
       s("tengu_memdir_pinned_injected", {
         pinned_file_count: t.pinnedCount,
         pinned_injected_count: r.length,
@@ -4442,7 +4442,7 @@ function Zar(e, t) {
   let r = e.pinnedHeaderScans.get(t);
   if (r) return r;
   let o = M_t(),
-    u = Ain(t, gr().signal, { regularFilesOnly: !0 })
+    u = Ain(t, gr().signal, { regularFilesOnly: true })
       .catch((d) => {
         if (X(d)) return [];
         throw (e.pinnedHeaderScans.delete(t), d);
@@ -4466,17 +4466,17 @@ async function JHt(e) {
           let C = tKe(_.content, "memory");
           return C.wasLineTruncated || C.wasByteTruncated
             ? {
-                entry: { ..._, content: C.content, contentDiffersFromDisk: !0, rawContent: _.rawContent ?? _.content },
-                truncated: !0,
+                entry: { ..._, content: C.content, contentDiffersFromDisk: true, rawContent: _.rawContent ?? _.content },
+                truncated: true,
               }
-            : { entry: _, truncated: !1 };
+            : { entry: _, truncated: false };
         }),
       d = o.reduce(
         (_, C) => {
           let A = C.info !== null && C.info.content.trim() !== "";
           return { filled: _.filled + (A ? 1 : 0), failed: _.failed || (C.info === null && _.filled < RU) };
         },
-        { filled: 0, failed: !1 },
+        { filled: 0, failed: false },
       ).failed;
     return {
       entries: u.map((_) => _.entry),
@@ -4484,10 +4484,10 @@ async function JHt(e) {
       malformedCount: r.malformedCount,
       truncatedPaths: new Set(u.filter((_) => _.truncated).map((_) => _.entry.path)),
       readFailed: d,
-      scanFailed: !1,
+      scanFailed: false,
     };
   } catch (t) {
-    return h(t), { ...Xar, scanFailed: !0 };
+    return h(t), { ...Xar, scanFailed: true };
   }
 }
 
@@ -4505,21 +4505,21 @@ function ejt(e, t) {
     s("tengu_claude_md_permission_error", { is_access_error: 1, has_home_dir: t.includes(be()) ? 1 : 0 });
   let r = t$e();
   if (e === "EACCES") {
-    if (!r.memoryReadEacces) (r.memoryReadEacces = !0), g("context_claude_md_load", "read_eacces");
-  } else if (!r.memoryReadFailed) (r.memoryReadFailed = !0), g("context_claude_md_load", "read_failed");
+    if (!r.memoryReadEacces) (r.memoryReadEacces = true), g("context_claude_md_load", "read_eacces");
+  } else if (!r.memoryReadFailed) (r.memoryReadFailed = true), g("context_claude_md_load", "read_failed");
 }
 
 async function nlr({ backend: e, key: t }) {
   let r = await e.read([{ key: t, offset: 0, length: Jae + 1 }]);
   if (!r.ok) {
     let d = r.error.code === "InvalidArgument" ? void 0 : r.error.telemetryCode;
-    if (d === "ENXIO" || d === "EFBIG") return { kind: "skipped", isDirectory: !1 };
-    if (d === "EISDIR") return { kind: "skipped", isDirectory: !0 };
+    if (d === "ENXIO" || d === "EFBIG") return { kind: "skipped", isDirectory: false };
+    if (d === "EISDIR") return { kind: "skipped", isDirectory: true };
     return { kind: "error", code: d };
   }
   let o = r.value.items[0];
   if (!o.found) return { kind: "absent" };
-  if (o.totalBytes > Jae) return { kind: "skipped", isDirectory: !1 };
+  if (o.totalBytes > Jae) return { kind: "skipped", isDirectory: false };
   let u = o.value;
   return { kind: "content", content: Buffer.from(u.buffer, u.byteOffset, u.byteLength).toString("utf8") };
 }
@@ -4527,7 +4527,7 @@ async function nlr({ backend: e, key: t }) {
 async function n$e(e, t, r, o) {
   try {
     let u,
-      d = !1;
+      d = false;
     if (o) {
       let _ = await nlr(o);
       switch (_.kind) {
@@ -4551,7 +4551,7 @@ async function n$e(e, t, r, o) {
     if (u === null) {
       n(`[CLAUDE.md] skipping ${e}: not a regular file or exceeds ${Jae} byte limit`);
       let _ = t$e();
-      if (!_.skip && !d) (_.skip = !0), g("context_claude_md_load", "file_skipped_special_or_oversize");
+      if (!_.skip && !d) (_.skip = true), g("context_claude_md_load", "file_skipped_special_or_oversize");
       return { info: null, includePaths: [] };
     }
     return XHt(u, e, t, r);
@@ -4609,13 +4609,13 @@ function rlr(e, t) {
 }
 
 function njt(e, t) {
-  if (t !== "User" && t !== "Project" && t !== "Local") return !1;
+  if (t !== "User" && t !== "Project" && t !== "Local") return false;
   let r = Je().claudeMdExcludes;
-  if (!r || r.length === 0) return !1;
-  let o = { dot: !0 },
+  if (!r || r.length === 0) return false;
+  let o = { dot: true },
     u = e.replaceAll("\\", "/"),
     d = slr(r).filter((_) => _.length > 0);
-  if (d.length === 0) return !1;
+  if (d.length === 0) return false;
   return VHt.default.isMatch(u, d, o);
 }
 
@@ -4751,7 +4751,7 @@ async function JM({
     if (x instanceof Error && x.message.includes("EACCES"))
       s("tengu_claude_rules_md_permission_error", { is_access_error: 1, has_home_dir: e.includes(be()) ? 1 : 0 });
     let M = t$e();
-    if (!M.rulesWalk) (M.rulesWalk = !0), g("context_claude_md_load", "rules_walk_failed");
+    if (!M.rulesWalk) (M.rulesWalk = true), g("context_claude_md_load", "rules_walk_failed");
     return [];
   }
 }
@@ -4769,12 +4769,12 @@ async function ilr(e, t, r, o, u) {
             .catch(() => {
               return;
             })
-        : await o.hostFiles.stat(djt(r, t), { follow: !1 }).catch(() => {
+        : await o.hostFiles.stat(djt(r, t), { follow: false }).catch(() => {
             return;
           });
     if (d?.ok) return d.value.kind === "link";
     let _ = d !== void 0 && d.error.code === "Failed" ? d.error.telemetryCode : void 0;
-    if (o1(_) !== void 0 || /^ERR_[A-Z0-9_]+$/.test(_ ?? "")) return !1;
+    if (o1(_) !== void 0 || /^ERR_[A-Z0-9_]+$/.test(_ ?? "")) return false;
     n(
       `claudemd: the storage backend could not say whether the ${r} rules folder is a symlink (${_ ?? d?.error.code ?? "no answer"}) \u2014 checking directly`,
     );
@@ -4782,7 +4782,7 @@ async function ilr(e, t, r, o, u) {
   try {
     return (await e.lstat(t)).isSymbolicLink();
   } catch {
-    return !1;
+    return false;
   }
 }
 
@@ -4823,7 +4823,7 @@ function pjt() {
   return N$() !== "local-agent";
 }
 
-function J_(e, t = !1, r, o) {
+function J_(e, t = false, r, o) {
   let u = U0(e),
     d = u.files.get(t);
   if (!d) (d = llr(e.root, u, SG.of(e), t, r, o)), u.files.set(t, d);
@@ -4840,13 +4840,13 @@ async function llr(e, t, r, o, u, d) {
   let C = [],
     A = new Set(),
     x = ci(),
-    M = o || x.hasClaudeMdExternalIncludesApproved || !1,
+    M = o || x.hasClaudeMdExternalIncludesApproved || false,
     F = hAe("Managed");
   C.push(...(await Dg(F, "Managed", A, M)));
   let U = oor();
-  if (U) C.push({ path: VTn, type: "Managed", content: U, globs: [], contentDiffersFromDisk: !0, rawContent: U });
+  if (U) C.push({ path: VTn, type: "Managed", content: U, globs: [], contentDiffersFromDisk: true, rawContent: U });
   let B = ye("policySettings")?.claudeMd;
-  if (B) C.push({ path: YHt, type: "Managed", content: B, globs: [], contentDiffersFromDisk: !0, rawContent: B });
+  if (B) C.push({ path: YHt, type: "Managed", content: B, globs: [], contentDiffersFromDisk: true, rawContent: B });
   let W = P4t();
   if (
     (C.push(
@@ -4855,7 +4855,7 @@ async function llr(e, t, r, o, u, d) {
         type: "Managed",
         processedPaths: A,
         includeExternal: M,
-        conditionalRule: !1,
+        conditionalRule: false,
         storageV5: u,
       })),
     ),
@@ -4863,7 +4863,7 @@ async function llr(e, t, r, o, u, d) {
   ) {
     let Ie = hAe("User");
     C.push(
-      ...(await Dg(Ie, "User", A, !0, 0, void 0, u !== void 0 ? { backend: u, key: Te.state("user-memory") } : void 0)),
+      ...(await Dg(Ie, "User", A, true, 0, void 0, u !== void 0 ? { backend: u, key: Te.state("user-memory") } : void 0)),
     );
     let Ee = _pe();
     C.push(
@@ -4871,8 +4871,8 @@ async function llr(e, t, r, o, u, d) {
         rulesDir: Ee,
         type: "User",
         processedPaths: A,
-        includeExternal: !0,
-        conditionalRule: !1,
+        includeExternal: true,
+        conditionalRule: false,
         storageV5: u,
       })),
     );
@@ -4896,7 +4896,7 @@ async function llr(e, t, r, o, u, d) {
           type: "Project",
           processedPaths: A,
           includeExternal: M,
-          conditionalRule: !1,
+          conditionalRule: false,
           storageV5: u,
         })),
       );
@@ -4921,7 +4921,7 @@ async function llr(e, t, r, o, u, d) {
             type: "Project",
             processedPaths: A,
             includeExternal: M,
-            conditionalRule: !1,
+            conditionalRule: false,
             storageV5: u,
           })),
         ),
@@ -4939,8 +4939,8 @@ async function llr(e, t, r, o, u, d) {
       let Ee = await JHt(t),
         Pe = Ee.entries.filter((Oe) => {
           let Fe = Up(Oe.path);
-          if (A.has(Fe)) return !1;
-          return A.add(Fe), !0;
+          if (A.has(Fe)) return false;
+          return A.add(Fe), true;
         });
       C.push(...Pe), Jar(t, Ee, Pe);
     }
@@ -4969,7 +4969,7 @@ async function llr(e, t, r, o, u, d) {
   let Ce = {};
   for (let Ie of C) Ce[Ie.type] = (Ce[Ie.type] ?? 0) + 1;
   if (!t.hasLoggedInitialLoad)
-    (t.hasLoggedInitialLoad = !0),
+    (t.hasLoggedInitialLoad = true),
       s("tengu_claudemd__initial_load", {
         file_count: C.length,
         total_content_length: ge,
@@ -4999,7 +4999,7 @@ function fjt(e) {
 
 function clr(e) {
   if (!e.shouldFireHook) return;
-  e.shouldFireHook = !1;
+  e.shouldFireHook = false;
   let t = e.nextEagerLoadReason;
   return (e.nextEagerLoadReason = "session_start"), t;
 }
@@ -5019,7 +5019,7 @@ function xxe(e) {
 
 function yun(e, t = "session_start") {
   let r = U0(e);
-  (r.nextEagerLoadReason = t), (r.shouldFireHook = !0), YA(e);
+  (r.nextEagerLoadReason = t), (r.shouldFireHook = true), YA(e);
 }
 
 function GCt(e = "session_start") {
@@ -5041,10 +5041,10 @@ function I3(e) {
 }
 
 function dGe(e) {
-  if (e.type === "AutoMem" && aN()) return !1;
-  if ((e.type === "Project" || e.type === "Local") && I("tengu_paper_halyard", !1)) return !1;
-  if (!e.content) return !1;
-  return !0;
+  if (e.type === "AutoMem" && aN()) return false;
+  if ((e.type === "Project" || e.type === "Local") && I("tengu_paper_halyard", false)) return false;
+  if (!e.content) return false;
+  return true;
 }
 
 function GHt(e, t) {
@@ -5073,7 +5073,7 @@ ${t}`;
 }
 
 function ulr(e) {
-  if ((e.type === "Project" || e.type === "Local") && I("tengu_paper_halyard", !1)) return !1;
+  if ((e.type === "Project" || e.type === "Local") && I("tengu_paper_halyard", false)) return false;
   return Boolean(e.content);
 }
 
@@ -5127,34 +5127,34 @@ async function rHt(e, t, r) {
   if (a.CLAUDE_CODE_DISABLE_CLAUDE_MDS) return [];
   let o = [],
     u = P4t();
-  if ((o.push(...(await Zae(e, u, "Managed", t, !1, r))), _o("userSettings"))) {
+  if ((o.push(...(await Zae(e, u, "Managed", t, false, r))), _o("userSettings"))) {
     let d = _pe();
-    o.push(...(await Zae(e, d, "User", t, !0, r)));
+    o.push(...(await Zae(e, d, "User", t, true, r)));
   }
   return o;
 }
 
-async function KUt(e, t, r, { skipProject: o = !1 } = {}) {
+async function KUt(e, t, r, { skipProject: o = false } = {}) {
   if (a.CLAUDE_CODE_DISABLE_CLAUDE_MDS) return [];
   let u = [],
     d = _o("projectSettings") && !o;
   if (d) {
     let _ = qm(e, "CLAUDE.md");
-    u.push(...(await Dg(_, "Project", r, !1)));
+    u.push(...(await Dg(_, "Project", r, false)));
     let C = qm(e, ".claude", "CLAUDE.md");
-    u.push(...(await Dg(C, "Project", r, !1)));
+    u.push(...(await Dg(C, "Project", r, false)));
   }
   if (_o("localSettings")) {
     let _ = qm(e, "CLAUDE.local.md");
-    u.push(...(await Dg(_, "Local", r, !1)));
+    u.push(...(await Dg(_, "Local", r, false)));
   }
   if (d) {
     let _ = qm(e, ".claude", "rules"),
       C = new Set(r);
     u.push(
-      ...(await JM({ rulesDir: _, type: "Project", processedPaths: C, includeExternal: !1, conditionalRule: !1 })),
+      ...(await JM({ rulesDir: _, type: "Project", processedPaths: C, includeExternal: false, conditionalRule: false })),
     ),
-      u.push(...(await Zae(t, _, "Project", r, !1)));
+      u.push(...(await Zae(t, _, "Project", r, false)));
     for (let A of C) r.add(A);
   }
   return u;
@@ -5163,11 +5163,11 @@ async function KUt(e, t, r, { skipProject: o = !1 } = {}) {
 async function oHt(e, t, r) {
   if (a.CLAUDE_CODE_DISABLE_CLAUDE_MDS || !_o("projectSettings")) return [];
   let o = qm(e, ".claude", "rules");
-  return Zae(t, o, "Project", r, !1);
+  return Zae(t, o, "Project", r, false);
 }
 
 async function Zae(e, t, r, o, u, d) {
-  let _ = await JM({ rulesDir: t, type: r, processedPaths: o, includeExternal: u, conditionalRule: !0, storageV5: d }),
+  let _ = await JM({ rulesDir: t, type: r, processedPaths: o, includeExternal: u, conditionalRule: true, storageV5: d }),
     C = r === "Project" ? N0(N0(t)) : Se(),
     A = Qae(e) ? zHt(C, e) : e;
   if (Qae(e) && (!A || A.startsWith("..") || Qae(A))) {
@@ -5176,8 +5176,8 @@ async function Zae(e, t, r, o, u, d) {
     if (M !== x) A = zHt(C, qm(M, Lar(e)));
   }
   return _.filter((x) => {
-    if (!x.globs || x.globs.length === 0) return !1;
-    if (!A || A.startsWith("..") || Qae(A)) return !1;
+    if (!x.globs || x.globs.length === 0) return false;
+    if (!A || A.startsWith("..") || Qae(A)) return false;
     return KHt.default().add(L8(x.globs, "claudemd_rule_globs")).ignores(A);
   });
 }
@@ -5194,8 +5194,8 @@ function Sun(e) {
 
 async function Izn(e, t) {
   let r = ci();
-  if (r.hasClaudeMdExternalIncludesApproved || r.hasClaudeMdExternalIncludesWarningShown) return !1;
-  return Sun(await J_(e, !0, t));
+  if (r.hasClaudeMdExternalIncludesApproved || r.hasClaudeMdExternalIncludesWarningShown) return false;
+  return Sun(await J_(e, true, t));
 }
 
 function FTt(e) {
@@ -5252,16 +5252,16 @@ function UTt(e, t) {
     o = new Set(e.map((d) => d.path)),
     u = [...t.keys()].filter((d) => !o.has(d));
   if (r.length === 0 && u.length === 0) return;
-  return { files: r, ...(u.length > 0 && { removed: u }), changed: !0 };
+  return { files: r, ...(u.length > 0 && { removed: u }), changed: true };
 }
 
 function ylr(e) {
   let t = new Set();
   for (let [, r] of e.matchAll(hlr)) {
-    if (t.has(r)) return !1;
+    if (t.has(r)) return false;
     t.add(r);
   }
-  return !0;
+  return true;
 }
 
 function Slr(e) {
@@ -5283,8 +5283,8 @@ function klr(e, t) {
 }
 
 function wlr(e) {
-  for (let t of e) if (kjt.has(t)) return !0;
-  return !1;
+  for (let t of e) if (kjt.has(t)) return true;
+  return false;
 }
 
 function Tlr(e, t) {
@@ -5300,7 +5300,7 @@ function a$e(e, t) {
       : e;
   return `${yjt}
 
-${Tlr(r, t?.serverEnvelope === !0)}`;
+${Tlr(r, t?.serverEnvelope === true)}`;
 }
 
 function E4n(e) {
@@ -5404,7 +5404,7 @@ function Ulr() {
 }
 
 function f2(e) {
-  if (ta() && I("tengu_amber_prism", !1)) return e + qlt;
+  if (ta() && I("tengu_amber_prism", false)) return e + qlt;
   return e;
 }
 

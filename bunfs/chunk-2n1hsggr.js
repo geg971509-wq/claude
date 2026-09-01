@@ -153,17 +153,17 @@ function dn() {
   return Boolean(process.env.CLAUDE_MEMORY_STORES?.trim());
 }
 class kJn {
-  settled = !1;
+  settled = false;
   racePromise = null;
-  raceSettled = !1;
+  raceSettled = false;
   waiters = [];
   settle() {
-    this.settled = !0;
+    this.settled = true;
     for (let e of this.waiters) e();
     this.waiters = [];
   }
   isPending() {
-    if (this.settled || this.raceSettled) return !1;
+    if (this.settled || this.raceSettled) return false;
     return dn();
   }
   async wait(e) {
@@ -172,7 +172,7 @@ class kJn {
     if (!this.racePromise)
       (this.racePromise = Promise.race([new Promise((t) => this.waiters.push(t)), ne(aLe)])),
         this.racePromise.then(() => {
-          this.raceSettled = !0;
+          this.raceSettled = true;
         });
     await Promise.race([this.racePromise, ne(aLe, e)]);
   }
@@ -196,7 +196,7 @@ function phn() {
 import { join as Er } from "path";
 function Jue() {
   let e = Je().viewMode;
-  return e ? e === "focus" : (ie().briefTranscript ?? !1);
+  return e ? e === "focus" : (ie().briefTranscript ?? false);
 }
 var gr = ["", ":L"];
 function X5e() {
@@ -208,11 +208,11 @@ function mn() {
   zC("focus_mode");
 }
 function Ci(e) {
-  if (!e.startsWith("/")) return !1;
+  if (!e.startsWith("/")) return false;
   try {
     return new URL(e, "https://sentinel.invalid").origin === "https://sentinel.invalid";
   } catch {
-    return !1;
+    return false;
   }
 }
 function $i(e) {
@@ -249,7 +249,7 @@ var Oi = "mount must match /^[A-Za-z0-9_-]+$/",
     ]),
   );
 function sLe(e) {
-  if (e.length === 0) return !1;
+  if (e.length === 0) return false;
   return e.split("/").every((r) => /^[A-Za-z0-9._-]+$/.test(r) && r !== "." && r !== "..");
 }
 function Y2() {
@@ -268,14 +268,14 @@ function pn(e, t) {
   if (!r.success) throw Error(`${t} failed validation: ${r.error.message}`);
   let o = [],
     u = new Set(),
-    d = !1;
+    d = false;
   for (let S of r.data) {
     let _ = typeof S === "string" ? { path: S, mode: "rw", scope: "team" } : S,
       x = _.mount ?? $i(_.path);
     if (u.has(x)) throw Error(`${t} has duplicate mount: ${x}`);
     if ((u.add(x), _.scope === "user")) {
       if (d) throw Error(`${t} has more than one scope:"user" entry`);
-      d = !0;
+      d = true;
     }
     o.push({
       path: _.path,
@@ -340,7 +340,7 @@ function hn(e) {
     if (d === "project" && !ZWt(S)) continue;
     if (d !== "workspace_silo" && d !== "project") continue;
     if (r.has(S)) continue;
-    r.add(S), t.push({ kind: d, id: S, name: _, visibility: x, isDefault: u.data.default === !0 });
+    r.add(S), t.push({ kind: d, id: S, name: _, visibility: x, isDefault: u.data.default === true });
   }
   return t;
 }
@@ -385,7 +385,7 @@ async function Gi(e) {
   return t;
 }
 function Hi(e) {
-  if (e === void 0) return !1;
+  if (e === void 0) return false;
   return Mr(e.fetchedAt);
 }
 function Mr(e) {
@@ -420,7 +420,7 @@ function Ke(e) {
       r.pathname.startsWith("/v1/code/memory/")
     );
   } catch {
-    return !1;
+    return false;
   }
 }
 function yn() {
@@ -516,14 +516,14 @@ var Ki = 3600000,
 class HJn {
   lastPickerData = null;
   discoveryGeneration = 0;
-  grantMissingEmitted = !1;
-  selectionNotGrantedEmitted = !1;
-  promptIndexFallbackEmitted = !1;
+  grantMissingEmitted = false;
+  selectionNotGrantedEmitted = false;
+  promptIndexFallbackEmitted = false;
   identityWaitSpentGen = -1;
   identityWaitDelay;
-  decidingRun = !1;
-  decisionRunEverStarted = !1;
-  shrinkSubscribed = !1;
+  decidingRun = false;
+  decisionRunEverStarted = false;
+  shrinkSubscribed = false;
   disarmLateSettleRebuild = null;
   reconnectChain = Promise.resolve();
   storageV5 = void 0;
@@ -544,21 +544,21 @@ class HJn {
   }
   clearAccountState() {
     this.discoveryGeneration++,
-      (this.grantMissingEmitted = !1),
-      (this.selectionNotGrantedEmitted = !1),
-      (this.promptIndexFallbackEmitted = !1),
+      (this.grantMissingEmitted = false),
+      (this.selectionNotGrantedEmitted = false),
+      (this.promptIndexFallbackEmitted = false),
       this.clearCaches();
   }
   reset() {
     this.disarmLateSettleRebuild?.(),
       (this.disarmLateSettleRebuild = null),
       (this.discoveryGeneration = 0),
-      (this.grantMissingEmitted = !1),
-      (this.selectionNotGrantedEmitted = !1),
-      (this.promptIndexFallbackEmitted = !1),
+      (this.grantMissingEmitted = false),
+      (this.selectionNotGrantedEmitted = false),
+      (this.promptIndexFallbackEmitted = false),
       (this.identityWaitSpentGen = -1),
-      (this.decidingRun = !1),
-      (this.decisionRunEverStarted = !1),
+      (this.decidingRun = false),
+      (this.decisionRunEverStarted = false),
       (this.reconnectChain = Promise.resolve()),
       (this.storageV5 = void 0),
       (this.credentials = void 0),
@@ -574,16 +574,16 @@ class HJn {
     this.credentials = t;
   }
   emitGrantMissingOnce() {
-    if (!this.grantMissingEmitted) (this.grantMissingEmitted = !0), g("org_memory_picker", "grant_missing");
+    if (!this.grantMissingEmitted) (this.grantMissingEmitted = true), g("org_memory_picker", "grant_missing");
   }
   pickedCandidateIsPrivate(e) {
-    return this.lastPickerData?.candidates.some((t) => t.id === e && t.visibility === "private") === !0;
+    return this.lastPickerData?.candidates.some((t) => t.id === e && t.visibility === "private") === true;
   }
   rootPromptIndexFocus(e) {
     let t = e.prompt_index;
     if (t !== void 0 && sLe(t)) return { index: t, source: "mirror" };
     if (!this.promptIndexFallbackEmitted && !KKe())
-      (this.promptIndexFallbackEmitted = !0), g("org_memory_picker", "prompt_index_absent");
+      (this.promptIndexFallbackEmitted = true), g("org_memory_picker", "prompt_index_absent");
     return { index: wn, source: "fallback" };
   }
   withSelectedGroupingMounts(e, t, r) {
@@ -604,8 +604,8 @@ class HJn {
     let d = [...o],
       S = (k) => d.some((A) => If(A.path) === If(k)),
       _ = (k, A) => {
-        if (S(A)) return !0;
-        return (d = vr(d, k, A)), !1;
+        if (S(A)) return true;
+        return (d = vr(d, k, A)), false;
       };
     for (let k of L_n().filter(zyt)) {
       let A = If(k.path),
@@ -634,11 +634,11 @@ class HJn {
         scope: "team",
         mode: "ro",
         promptIndex: "MEMORY.md",
-        ...(u.visibility === "private" && { owned: !0 }),
+        ...(u.visibility === "private" && { owned: true }),
       });
     else if (u.visibility === "private")
       d.forEach((k, A) => {
-        if (If(k.path) === If(u.path)) d[A] = { ...k, owned: !0 };
+        if (If(k.path) === If(u.path)) d[A] = { ...k, owned: true };
       });
     let P = Gyt();
     if (P !== void 0 && Ke(P.path) && !_(qe, P.path))
@@ -714,9 +714,9 @@ class HJn {
     if (!this.decidingRun) return null;
     let u = await this.awaitSelectionIdentity(),
       d = () => {
-        if (this.discoveryGeneration !== e) return !0;
+        if (this.discoveryGeneration !== e) return true;
         let T = t ?? u;
-        if (T === null) return !1;
+        if (T === null) return false;
         let M = s$();
         return M !== null && M !== T;
       };
@@ -786,7 +786,7 @@ class HJn {
       );
     if (!Vyt(u.path, t)) {
       if (!this.selectionNotGrantedEmitted && !KKe())
-        (this.selectionNotGrantedEmitted = !0), g("org_memory_picker", "selection_not_granted");
+        (this.selectionNotGrantedEmitted = true), g("org_memory_picker", "selection_not_granted");
       return o;
     }
     if (o.some((S) => If(S.path) === If(u.path))) return o;
@@ -809,13 +809,13 @@ class HJn {
       u = () => o !== null && e === this.discoveryGeneration && yn() === o,
       d = o === null ? void 0 : (await Gi(this.storageV5))[r];
     if (o !== null && Hi(d) && d.account === o) {
-      if (d.stores === null) return Wk("server_off"), t(null), y("org_memory_discovery", { off: !0, cached: !0 }), null;
+      if (d.stores === null) return Wk("server_off"), t(null), y("org_memory_discovery", { off: true, cached: true }), null;
       let P = Sr(d.stores);
       if (P.kind === "configs") {
         let k = hn(d.candidates);
         return (
-          t({ candidates: k, writeOptInAvailable: d.writeOptInAvailable === !0 }),
-          y("org_memory_discovery", { stores: P.configs.length, cached: !0, ...Dt(k) }),
+          t({ candidates: k, writeOptInAvailable: d.writeOptInAvailable === true }),
+          y("org_memory_discovery", { stores: P.configs.length, cached: true, ...Dt(k) }),
           this.applyGrantAdjustments(e, o, P.configs)
         );
       }
@@ -823,8 +823,8 @@ class HJn {
         let k = hn(d.candidates);
         if (k.length > 0) {
           if (
-            (t({ candidates: k, writeOptInAvailable: d.writeOptInAvailable === !0 }),
-            y("org_memory_discovery", { stores: 0, cached: !0, ...Dt(k) }),
+            (t({ candidates: k, writeOptInAvailable: d.writeOptInAvailable === true }),
+            y("org_memory_discovery", { stores: 0, cached: true, ...Dt(k) }),
             Op().state !== "undecided" || (await this.awaitSelectionIdentity()) === null || dEe() !== null)
           )
             return this.applyGrantAdjustments(e, o, []);
@@ -836,11 +836,11 @@ class HJn {
     }
     let S = await Yi(this.credentials);
     if (S.kind === "transient") return Wk("transient"), g("org_memory_discovery", "transient"), null;
-    let _ = S.kind === "stores" ? { candidates: hn(S.candidates), writeOptInAvailable: S.writeOptIn === !0 } : null;
+    let _ = S.kind === "stores" ? { candidates: hn(S.candidates), writeOptInAvailable: S.writeOptIn === true } : null;
     if (S.kind === "off") {
       if ((t(null), o !== null && e === this.discoveryGeneration && yn() === o))
         await Ir(r, { fetchedAt: Date.now(), account: o, stores: null }, this.storageV5);
-      return y("org_memory_discovery", { off: !0, cached: !1 }), Wk("server_off"), null;
+      return y("org_memory_discovery", { off: true, cached: false }), Wk("server_off"), null;
     }
     let x = Sr(S.stores);
     if (x.kind === "invalid") return Wk("invalid"), t(null), p("org_memory_discovery", "invalid_stores"), null;
@@ -848,30 +848,30 @@ class HJn {
     if (x.kind === "empty") {
       if (_ !== null && _.candidates.length > 0) {
         if (S.stores.length === 0 && o !== null && u()) await kr(r, o, S, this.storageV5);
-        if ((t(_), S.stores.length === 0)) y("org_memory_discovery", { stores: 0, cached: !1, ...Dt(_.candidates) });
+        if ((t(_), S.stores.length === 0)) y("org_memory_discovery", { stores: 0, cached: false, ...Dt(_.candidates) });
         else g("org_memory_discovery", "all_stores_dropped");
         if (Op().state !== "undecided" || (await this.awaitSelectionIdentity()) === null || dEe() !== null)
           return this.applyGrantAdjustments(e, o, []);
         return Wk("no_selection"), null;
       }
       if (Array.isArray(S.candidates) && S.candidates.length === 0 && S.stores.length === 0 && _ !== null) {
-        if ((t(_), y("org_memory_discovery", { stores: 0, cached: !1 }), Op().state !== "undecided"))
+        if ((t(_), y("org_memory_discovery", { stores: 0, cached: false }), Op().state !== "undecided"))
           return this.applyGrantAdjustments(e, o, []);
         return Wk("empty"), null;
       }
       if (S.candidates === void 0 && S.stores.length === 0)
-        return Wk("empty"), t(null), y("org_memory_discovery", { stores: 0, cached: !1 }), null;
+        return Wk("empty"), t(null), y("org_memory_discovery", { stores: 0, cached: false }), null;
       return Wk("empty"), t(null), g("org_memory_discovery", "all_stores_dropped"), null;
     }
     return (
       t(_),
-      y("org_memory_discovery", { stores: x.configs.length, cached: !1, ...Dt(_?.candidates ?? []) }),
+      y("org_memory_discovery", { stores: x.configs.length, cached: false, ...Dt(_?.candidates ?? []) }),
       this.applyGrantAdjustments(e, o, x.configs)
     );
   }
   ensureShrinkSubscription() {
     if (this.shrinkSubscribed) return;
-    (this.shrinkSubscribed = !0),
+    (this.shrinkSubscribed = true),
       M_n(() => {
         this.discoverMemoized.cache.clear(), mn();
       });
@@ -885,18 +885,18 @@ class HJn {
   async discoverForDecision(e, t) {
     this.adoptHandIns(e, t),
       this.ensureShrinkSubscription(),
-      (this.decidingRun = !0),
-      (this.decisionRunEverStarted = !0);
+      (this.decidingRun = true),
+      (this.decisionRunEverStarted = true);
     try {
       return await this.discover();
     } catch (r) {
       throw (Wk("transient"), r);
     } finally {
-      this.decidingRun = !1;
+      this.decidingRun = false;
     }
   }
   async discover(e, t) {
-    if ((this.adoptHandIns(e, t), this.ensureShrinkSubscription(), ci().orgMemoryRead === !1))
+    if ((this.adoptHandIns(e, t), this.ensureShrinkSubscription(), ci().orgMemoryRead === false))
       return Wk("read_disabled"), null;
     return this.discoverMemoized();
   }
@@ -978,14 +978,14 @@ function Shn(e) {
   return t !== void 0 && e.some((r) => If(r.path) === If(t.path));
 }
 function Xi() {
-  if (!jo()) return !1;
-  if (!Tt()) return !1;
+  if (!jo()) return false;
+  if (!Tt()) return false;
   return Yl() && I6(M_) && I6(XN);
 }
 function QX() {
-  if (!ta()) return !1;
-  if (Ct()) return !1;
-  if (!Mt("allow_memory_sync")) return !1;
+  if (!ta()) return false;
+  if (Ct()) return false;
+  if (!Mt("allow_memory_sync")) return false;
   return rl() !== null || Xi() || WV();
 }
 var it = j(c$(), 1);
@@ -1004,10 +1004,10 @@ import {
 import { join as Pe, normalize as Ns, sep as Re } from "path";
 import { join as Rn } from "path";
 function bn() {
-  return Dr(!1);
+  return Dr(false);
 }
 function $t() {
-  return Dr(!0);
+  return Dr(true);
 }
 function Nne() {
   return bn() === "tools";
@@ -1016,7 +1016,7 @@ function Dr(e) {
   if ($n()) return "files";
   let t = zkn();
   if (!Vbt()) {
-    if (e && t === null) yCt(!1);
+    if (e && t === null) yCt(false);
     return "files";
   }
   if (t !== null) return t ? "tools" : "files";
@@ -1026,16 +1026,16 @@ function Dr(e) {
     a.CLAUDE_COWORK_MEMORY_GUIDELINES !== void 0 ||
     F7e()
   )
-    return yCt(!1), "files";
-  let r = I("tengu_linen_orbit", !1) || Tde();
+    return yCt(false), "files";
+  let r = I("tengu_linen_orbit", false) || Tde();
   if (r || e) yCt(r);
   return r ? "tools" : "files";
 }
 function nV() {
-  if (!Nne()) return !1;
-  if (Ct()) return !1;
-  if (!Tde()) return !1;
-  return ci().orgMemoryRead !== !1;
+  if (!Nne()) return false;
+  if (Ct()) return false;
+  if (!Tde()) return false;
+  return ci().orgMemoryRead !== false;
 }
 function Ot() {
   return (Cde().length > 0 || ($Te() && Op().state === "undecided")) && nV();
@@ -1157,7 +1157,7 @@ class et {
       (this.reqOpts = {
         host: "memory",
         timeout: Ji,
-        validateStatus: () => !0,
+        validateStatus: () => true,
         auth: Yde().auth === "none" ? "none" : rl() ? "session-jwt" : void 0,
       });
   }
@@ -1172,7 +1172,7 @@ class et {
       ...o,
       headers: {
         Authorization: await this.credentialProvider.getAuthorization({
-          forceRefresh: !0,
+          forceRefresh: true,
           failedAuthorization: o.headers.Authorization,
         }),
       },
@@ -1238,7 +1238,7 @@ class et {
       o = r.slice(0, r.lastIndexOf("/") + 1),
       u;
     try {
-      u = await this.list(o, { depthOne: !0, signal: t?.signal });
+      u = await this.list(o, { depthOne: true, signal: t?.signal });
     } catch (S) {
       if (S instanceof Fm) return null;
       throw S;
@@ -1428,10 +1428,10 @@ function bhn(e) {
     .reduce(
       (r, o) => {
         let u = Buffer.byteLength(o) + (r.lines.length > 0 ? 1 : 0);
-        if (r.stopped || r.bytes + u > yV) return (r.stopped = !0), r;
+        if (r.stopped || r.bytes + u > yV) return (r.stopped = true), r;
         return (r.bytes += u), r.lines.push(o), r;
       },
-      { bytes: 0, lines: [], stopped: !1 },
+      { bytes: 0, lines: [], stopped: false },
     )
     .lines.join(`
 `);
@@ -1484,7 +1484,7 @@ function whn(e) {
 }
 var Thn = "memory-types";
 function Ehn() {
-  return I("tengu_ochre_finch", !1);
+  return I("tengu_ochre_finch", false);
 }
 var hs = {
   user: "the user's role, expertise, or working preferences",
@@ -1648,7 +1648,7 @@ var dLe = [
     "When you save a `feedback` memory because the user corrected how you ran a repeatable step \u2014 how you verified, committed, opened a PR, or used a project skill \u2014 fold the same correction into the project skill that drives that step (`.claude/skills/<name>/SKILL.md`): a terse, general edit, so the next session gets it right unprompted. Edit existing skill files only; never create one \u2014 a new project skill silently shadows a same-named built-in skill. The single exception is verify, because how a project verifies changes is project-specific: put a verify correction in the `.claude/skills/verify/SKILL.md` closest to the code it covers \u2014 the repo root for repo-wide corrections, a subproject directory (e.g. `ios/.claude/skills/verify/SKILL.md`) for corrections that only apply to that subtree \u2014 and if that file does not exist, create it. Each correction lives in exactly one skill file: the closest-scoped one, never duplicated at broader scopes.",
   ys = ["## Project skill upkeep", "", at, ""];
 function pLe() {
-  return I("tengu_gorse_fathom", !1);
+  return I("tengu_gorse_fathom", false);
 }
 function Ue() {
   return pLe() ? ys : [];
@@ -1687,7 +1687,7 @@ var ze = [
     "A memory that summarizes repo state (activity logs, architecture snapshots) is frozen in time. If the user asks about *recent* or *current* state, prefer `git log` or reading the code over recalling the snapshot.",
   ];
 function ct() {
-  return I(fyt, !1);
+  return I(fyt, false);
 }
 var Lt =
     "Before saving, check for an existing file that already covers it. Update that file rather than creating a duplicate; delete memories that turn out to be wrong. Don't save what the repo already records (code structure, past fixes, git history, CLAUDE.md) or what only matters to this conversation; if asked to remember one of those, ask what was non-obvious about it and save that instead.",
@@ -1862,7 +1862,7 @@ function l3(e) {
   Fa().sharedMemoryServedViaTools = e;
 }
 function Jjt() {
-  return Fa().sharedMemoryServedViaTools ?? !1;
+  return Fa().sharedMemoryServedViaTools ?? false;
 }
 var zr = 5000,
   ws = 60000;
@@ -1907,7 +1907,7 @@ async function Gr(e = zr, t = {}) {
 async function Hr(e, t, r) {
   let o = e.promptIndex;
   if (!sLe(o)) return g("memory_prompt_index", "unsafe_path"), null;
-  let u = r ? Vjt(e, !1, YX(e)) : new et(e);
+  let u = r ? Vjt(e, false, YX(e)) : new et(e);
   try {
     let d = await Xt(u.readByPath(y_(o)), t, `promptIndex fetch for ${e.mount}`);
     if (d === null)
@@ -1929,7 +1929,7 @@ async function Hr(e, t, r) {
 }
 async function OJn(e, t = {}) {
   if (e.promptIndex === void 0 || !QX()) return null;
-  let r = await Hr(e, t.timeoutMs ?? zr, !0);
+  let r = await Hr(e, t.timeoutMs ?? zr, true);
   return r === null ? null : { content: r.content, promptIndex: r.promptIndex };
 }
 import { readdir as Ss } from "fs/promises";
@@ -1979,7 +1979,7 @@ function Chn(e) {
 }
 async function jTe(e) {
   try {
-    if ((Y2() ?? []).length > 0) return !1;
+    if ((Y2() ?? []).length > 0) return false;
   } catch {}
   try {
     return !(await Ss(e)).some((r) => hS(r).includes(C5));
@@ -1994,9 +1994,9 @@ function Kr(e) {
       teamDir: r,
       skipIndex: o,
       extraGuidelines: u,
-      citeMemories: d = !1,
+      citeMemories: d = false,
       teamMounts: S,
-      noPrivateDir: _ = !1,
+      noPrivateDir: _ = false,
     } = e,
     x = (S ?? []).filter((W) => W.mode === "rw"),
     P =
@@ -2109,20 +2109,20 @@ function eKe(e) {
   return e;
 }
 function dC() {
-  if (!ta()) return !1;
+  if (!ta()) return false;
   return ks.of(G().host).hasTeamStore();
 }
 class Jr {
   raw = void 0;
-  valid = !1;
+  valid = false;
   hasTeamStore() {
     let e = process.env.CLAUDE_MEMORY_STORES;
     if (e !== this.raw) {
       this.raw = e;
       try {
-        this.valid = Y2()?.some((t) => t.scope === "team") ?? !1;
+        this.valid = Y2()?.some((t) => t.scope === "team") ?? false;
       } catch {
-        this.valid = !1;
+        this.valid = false;
       }
     }
     return this.valid;
@@ -2182,10 +2182,10 @@ async function Es(e) {
     t = await Ut(Ky().replace(/[/\\]+$/, ""));
   } catch (r) {
     let o = E(r);
-    if (o === "ENOENT" || o === "ENOTDIR") return !0;
-    return !1;
+    if (o === "ENOENT" || o === "ENOTDIR") return true;
+    return false;
   }
-  if (e === t) return !0;
+  if (e === t) return true;
   return e.startsWith(t + pt);
 }
 function Z2(e) {
@@ -2237,7 +2237,7 @@ metadata:
 {applicable, durable, and legible content}
 \`\`\``;
 function En() {
-  return I("tengu_stone_shell", !1);
+  return I("tengu_stone_shell", false);
 }
 function B_t() {
   return En();
@@ -2274,7 +2274,7 @@ ${r}`,
 `);
 }
 import { join as zt, sep as As } from "path";
-function no(e, t = !1) {
+function no(e, t = false) {
   let r = Di(),
     o = Ky(),
     u = t
@@ -2336,7 +2336,7 @@ function no(e, t = !1) {
   ].join(`
 `);
 }
-function ro(e, t, r, o = !1) {
+function ro(e, t, r, o = false) {
   let u = Ky(),
     d = (L) => (zt(u, L) + As).normalize("NFC"),
     S = (L) => {
@@ -2371,7 +2371,7 @@ These directories already exist \u2014 write to them directly with the Write too
     W = !A
       ? []
       : o
-        ? ((L) => ["", ...Be({ skipIndex: !0, file: `memory to its own file in ${L}` })])(F)
+        ? ((L) => ["", ...Be({ skipIndex: true, file: `memory to its own file in ${L}` })])(F)
         : [
             "",
             "## How to save memories",
@@ -2554,11 +2554,11 @@ async function Ds(e, t) {
   do {
     let d = await e.listEntries(
       { namespace: "memory", projectKey: t },
-      { skipScopeStats: !0, skipKeyStats: !0, ...(u !== void 0 && { cursor: u }) },
+      { skipScopeStats: true, skipKeyStats: true, ...(u !== void 0 && { cursor: u }) },
     );
     if (!d.ok) return;
     for (let S of d.value.items) {
-      if (S.viaSymlink === !0) continue;
+      if (S.viaSymlink === true) continue;
       if (S.kind === "key") r++;
       else o++;
     }
@@ -2567,7 +2567,7 @@ async function Ds(e, t) {
   return { total_file_count: r, total_subdir_count: o };
 }
 function Tn(e, t, r) {
-  let { extraGuidelines: o, skipIndex: u = !1, inlineTypes: d = !1, includeSkillUpkeep: S = !0 } = r ?? {},
+  let { extraGuidelines: o, skipIndex: u = false, inlineTypes: d = false, includeSkillUpkeep: S = true } = r ?? {},
     _ = Be({ skipIndex: u });
   return [
     `# ${e}`,
@@ -2610,7 +2610,7 @@ function oo(e, t) {
     try {
       _ = d.readFileSync(S, { encoding: "utf-8" });
     } catch {}
-  let x = Tn(r, o, { extraGuidelines: u, inlineTypes: !0, includeSkillUpkeep: !1 });
+  let x = Tn(r, o, { extraGuidelines: u, inlineTypes: true, includeSkillUpkeep: false });
   if (_.trim()) {
     let P = tKe(_),
       k = r === Pn ? "auto" : "agent";
@@ -2627,7 +2627,7 @@ function oo(e, t) {
 `);
 }
 async function nKe(e, t = {}, r) {
-  let { analysisOnly: o = !1 } = t;
+  let { analysisOnly: o = false } = t;
   $t();
   let u = ta();
   if (u) await x$().warmCanonicalWcRoot();
@@ -2635,7 +2635,7 @@ async function nKe(e, t = {}, r) {
     S = a.CLAUDE_COWORK_MEMORY_GUIDELINES;
   if (u && S) {
     let W = Di();
-    if ((await xe(W, d), ve(W, { memory_type: w("auto") }, d), y("memory_load_prompt"), !o)) Oe(!1), l3(!1);
+    if ((await xe(W, d), ve(W, { memory_type: w("auto") }, d), y("memory_load_prompt"), !o)) Oe(false), l3(false);
     return `# auto memory
 ${S}`;
   }
@@ -2646,7 +2646,7 @@ ${S}`;
     if ((await fEe(Cs), Op().state === "undecided")) xJn();
   }
   let k = P ? J2() : [];
-  if (!o && !(P && k.length > 0)) l3(!1);
+  if (!o && !(P && k.length > 0)) l3(false);
   let A = new Map(k.map((W) => [W.mount, W])),
     T = !P,
     M = u ? await Gr(void 0, { serveConnectedStores: P }) : [],
@@ -2680,7 +2680,7 @@ ${S}`;
       y("memory_load_prompt"),
       !o)
     )
-      Oe(!0);
+      Oe(true);
     return to(W, Z);
   }
   if (P && k.length > 0) {
@@ -2704,7 +2704,7 @@ ${S}`;
       y("memory_load_prompt"),
       !o)
     )
-      Oe(!1), l3(se !== void 0);
+      Oe(false), l3(se !== void 0);
     return jr(
       ae.map((U) => U.view),
       { extraGuidelines: Z, indexLoaded: me, personalMemoryDir: L, personalSkipIndex: C, lean: td(e) },
@@ -2724,14 +2724,14 @@ ${S}`;
         memory_type: w("team"),
         team_write_steered: me.some((L) => L.mode === "rw" && XD(L.promptIndex) !== ""),
       });
-    if ((y("memory_load_prompt"), !o)) Oe(!1);
+    if ((y("memory_load_prompt"), !o)) Oe(false);
     return Kr({
       autoDir: W,
       teamDir: se,
       skipIndex: C,
       extraGuidelines: Z,
       citeMemories: ct(),
-      ...(me.length > 0 && { teamMounts: me, noPrivateDir: !0 }),
+      ...(me.length > 0 && { teamMounts: me, noPrivateDir: true }),
     });
   }
   if (T && dC()) {
@@ -2752,13 +2752,13 @@ ${S}`;
         y("memory_load_prompt"),
         !o)
       )
-        Oe(!1);
+        Oe(false);
       return ro(me.map(se), L.map(se), Z, C);
     }
     if (
       (await xe(ae), ve(W, { memory_type: w("auto") }), ve(ae, { memory_type: w("team") }), y("memory_load_prompt"), !o)
     )
-      Oe(!1);
+      Oe(false);
     return no(Z, C);
   }
   if (u) {
@@ -2769,38 +2769,38 @@ ${S}`;
       y("memory_load_prompt"),
       !o)
     )
-      Oe(!1);
+      Oe(false);
     return Tn("auto memory", W, { extraGuidelines: Z, skipIndex: C }).join(`
 `);
   }
   let de = a.CLAUDE_CODE_DISABLE_AUTO_MEMORY;
   if (
-    (s("tengu_memdir_disabled", { disabled_by_env_var: de, disabled_by_setting: !de && Je().autoMemoryEnabled === !1 }),
+    (s("tengu_memdir_disabled", { disabled_by_env_var: de, disabled_by_setting: !de && Je().autoMemoryEnabled === false }),
     process.env.CLAUDE_MEMORY_STORES?.trim())
   )
     s("tengu_team_memdir_disabled", {});
   return null;
 }
 function io(e) {
-  if (!ta()) return !1;
-  if (dC()) return !1;
-  if (Ot()) return !1;
-  if (td(e)) return !1;
-  if (nde()) return !1;
-  return !0;
+  if (!ta()) return false;
+  if (dC()) return false;
+  if (Ot()) return false;
+  if (td(e)) return false;
+  if (nde()) return false;
+  return true;
 }
 function $Jn(e) {
   if (($t(), !io(e))) return null;
-  return Tn(Pn, null, { skipIndex: !1 }).join(`
+  return Tn(Pn, null, { skipIndex: false }).join(`
 `);
 }
 async function UJn(e, t = {}, r) {
-  let { analysisOnly: o = !1 } = t;
+  let { analysisOnly: o = false } = t;
   if (($t(), !io(e))) return nKe(e, t, r);
   await x$().warmCanonicalWcRoot();
   let u = Di(),
     d = r !== void 0 && (await jTe(u)) ? r : void 0;
-  if ((await xe(u, d), !o)) Oe(!1), l3(!1);
+  if ((await xe(u, d), !o)) Oe(false), l3(false);
   ve(
     u,
     {
@@ -2928,7 +2928,7 @@ function W_t(e, t, r, o) {
       let _ = O() && o ? Ks() : void 0,
         x = K();
       try {
-        if ((await Us(u, { recursive: !0, mode: 448 }), O() && o && _ !== void 0 && Zt(S))) {
+        if ((await Us(u, { recursive: true, mode: 448 }), O() && o && _ !== void 0 && Zt(S))) {
           let P = await o.write(Te.sidecar(_, x, ["workflows", "scripts", S]), r, {
             publishDiscipline: "inPlace",
             mode: 384,
@@ -3175,7 +3175,7 @@ var iV = Ae("skills", u3),
   SLe = Ae("plugins", eWt),
   KJn = Ae(sV, NM);
 class yo {
-  availability = () => !1;
+  availability = () => false;
   register(e) {
     this.availability = e;
   }
@@ -3223,7 +3223,7 @@ async function vo(e) {
   return k;
 }
 function ha(e) {
-  if (a4(e) === e) return !0;
+  if (a4(e) === e) return true;
   return vd().rootByPath.delete(e), Hn(e) === e;
 }
 function ga(e) {
@@ -3232,13 +3232,13 @@ function ga(e) {
   return vd().canonicalRootByRoot.delete(e), Vr(e);
 }
 function xo() {
-  return !0;
+  return true;
 }
 function vt(e, t) {
   let r = xo(),
     o = r ? ug(e) : e,
     u = r ? ug(t) : t;
-  if (o === u) return !0;
+  if (o === u) return true;
   let d = _o(o, u);
   return d !== "" && d !== ".." && !d.startsWith(`..${So}`) && !ma(d);
 }
@@ -3256,11 +3256,11 @@ function bo(e, t) {
     o = (d) => (r ? ug(d) : d),
     u = r ? ug(e) : e;
   return t.some((d) => {
-    if (!vt(d, e)) return !1;
+    if (!vt(d, e)) return false;
     let S = _o(r ? ug(d) : d, u);
-    if (S === "") return !0;
+    if (S === "") return true;
     let _ = S.split(So);
-    if (_[0].startsWith(".")) return !0;
+    if (_[0].startsWith(".")) return true;
     return ya.some((x) => x.every((P, k) => _[k] !== void 0 && o(_[k]) === o(P)));
   });
 }
@@ -3415,27 +3415,27 @@ var Wn = { ">": ">", ">>": ">>", "<": "<", ">&": ">&", "<&": "<&", ">|": ">|", "
   Fhn = /<\d*-\d*>/,
   Ma = /\{[^}]*['"]/;
 function Ve(e) {
-  let t = !1,
-    r = !1,
-    o = !1,
-    u = !0,
+  let t = false,
+    r = false,
+    o = false,
+    u = true,
     d = 0;
   while (d < e.length) {
     let S = e[d];
     if (o)
       if (S === "\\" && (e[d + 1] === "`" || e[d + 1] === "\\" || e[d + 1] === "$")) d += 2;
       else {
-        if (S === "`") o = !1;
+        if (S === "`") o = false;
         d++;
       }
     else if (t) {
-      if (S === "'") t = !1;
+      if (S === "'") t = false;
       d++;
     } else if (r)
       if (S === "\\" && (e[d + 1] === '"' || e[d + 1] === "\\" || e[d + 1] === "`")) d += 2;
-      else if (S === "`") (o = !0), d++;
+      else if (S === "`") (o = true), d++;
       else {
-        if (S === '"') r = !1;
+        if (S === '"') r = false;
         d++;
       }
     else if (S === "\\" && d + 1 < e.length) {
@@ -3444,7 +3444,7 @@ function Ve(e) {
         `
 `
       )
-        u = !1;
+        u = false;
       d += 2;
     } else if (S === "#" && u) {
       while (
@@ -3454,12 +3454,12 @@ function Ve(e) {
 `
       )
         d++;
-      u = !0;
-    } else if (S === "`") (o = !0), (u = !1), d++;
+      u = true;
+    } else if (S === "`") (o = true), (u = false), d++;
     else {
-      if (S === "*" || S === "?" || S === "[") return !0;
-      if (S === "'") t = !0;
-      else if (S === '"') r = !0;
+      if (S === "*" || S === "?" || S === "[") return true;
+      if (S === "'") t = true;
+      else if (S === '"') r = true;
       (u =
         S === " " ||
         S === "\t" ||
@@ -3476,32 +3476,32 @@ function Ve(e) {
         d++;
     }
   }
-  return !1;
+  return false;
 }
 function Ia(e) {
   if (!e.includes("{")) return e;
   let t = [],
-    r = !1,
-    o = !1,
-    u = !1,
-    d = !0,
+    r = false,
+    o = false,
+    u = false,
+    d = true,
     S = 0;
   while (S < e.length) {
     let _ = e[S];
     if (u)
       if (_ === "\\" && (e[S + 1] === "`" || e[S + 1] === "\\" || e[S + 1] === "$")) t.push(_, e[S + 1]), (S += 2);
       else {
-        if (_ === "`") u = !1;
+        if (_ === "`") u = false;
         t.push(_ === "{" ? " " : _), S++;
       }
     else if (r) {
-      if (_ === "'") r = !1;
+      if (_ === "'") r = false;
       t.push(_ === "{" ? " " : _), S++;
     } else if (o)
       if (_ === "\\" && (e[S + 1] === '"' || e[S + 1] === "\\" || e[S + 1] === "`")) t.push(_, e[S + 1]), (S += 2);
-      else if (_ === "`") (u = !0), t.push(_), S++;
+      else if (_ === "`") (u = true), t.push(_), S++;
       else {
-        if (_ === '"') o = !1;
+        if (_ === '"') o = false;
         t.push(_ === "{" ? " " : _), S++;
       }
     else if (_ === "\\" && S + 1 < e.length) {
@@ -3511,7 +3511,7 @@ function Ia(e) {
           `
 `)
       )
-        d = !1;
+        d = false;
       S += 2;
     } else if (_ === "#" && d) {
       while (
@@ -3521,11 +3521,11 @@ function Ia(e) {
 `
       )
         t.push(e[S]), S++;
-      d = !0;
-    } else if (_ === "`") (u = !0), (d = !1), t.push(_), S++;
+      d = true;
+    } else if (_ === "`") (u = true), (d = false), t.push(_), S++;
     else {
-      if (_ === "'") r = !0;
-      else if (_ === '"') o = !0;
+      if (_ === "'") r = true;
+      else if (_ === '"') o = true;
       (d =
         _ === " " ||
         _ === "\t" ||
@@ -3552,18 +3552,18 @@ async function ide(e) {
   return t === null ? { kind: "simple", commands: [], bareAssignmentNames: [] } : WTe(e, t);
 }
 function WTe(e, t) {
-  if (Ohn.test(e)) return { kind: "too-complex", reason: "Contains lone surrogate", differential: !0 };
-  if (Dhn.test(e)) return { kind: "too-complex", reason: "Contains control characters", differential: !0 };
-  if (Ta.test(e)) return { kind: "too-complex", reason: "Contains Unicode whitespace", differential: !0 };
-  if (Lhn.test(e)) return { kind: "too-complex", reason: "Contains backslash-escaped whitespace", differential: !0 };
-  if (rWt.test(e)) return { kind: "too-complex", reason: "Contains zsh ~[ dynamic directory syntax", differential: !0 };
-  if (oWt.test(e)) return { kind: "too-complex", reason: "Contains zsh =cmd equals expansion", differential: !0 };
-  if (Fhn.test(e)) return { kind: "too-complex", reason: "Contains zsh <N-M> numeric-range glob", differential: !0 };
+  if (Ohn.test(e)) return { kind: "too-complex", reason: "Contains lone surrogate", differential: true };
+  if (Dhn.test(e)) return { kind: "too-complex", reason: "Contains control characters", differential: true };
+  if (Ta.test(e)) return { kind: "too-complex", reason: "Contains Unicode whitespace", differential: true };
+  if (Lhn.test(e)) return { kind: "too-complex", reason: "Contains backslash-escaped whitespace", differential: true };
+  if (rWt.test(e)) return { kind: "too-complex", reason: "Contains zsh ~[ dynamic directory syntax", differential: true };
+  if (oWt.test(e)) return { kind: "too-complex", reason: "Contains zsh =cmd equals expansion", differential: true };
+  if (Fhn.test(e)) return { kind: "too-complex", reason: "Contains zsh <N-M> numeric-range glob", differential: true };
   if (Ma.test(Ia(e)))
     return {
       kind: "too-complex",
       reason: "Contains brace with quote character (expansion obfuscation)",
-      differential: !0,
+      differential: true,
     };
   if (e.trim() === "") return { kind: "simple", commands: [], bareAssignmentNames: [] };
   if (t === f3)
@@ -3603,9 +3603,9 @@ function WTe(e, t) {
   return x;
 }
 function Oo(e) {
-  if (e.type === "ERROR" && e.text.startsWith("${")) return !0;
-  for (let t of e.children) if (t && Oo(t)) return !0;
-  return !1;
+  if (e.type === "ERROR" && e.text.startsWith("${")) return true;
+  for (let t of e.children) if (t && Oo(t)) return true;
+  return false;
 }
 function Ca(e) {
   let t = No(e);
@@ -3663,7 +3663,7 @@ function No(e) {
             kind: "too-complex",
             reason:
               "statement directly follows another statement on the same line \u2014 bash reads the text as one command (`!` and shell keywords are plain words after an assignment), not two statements",
-            differential: !0,
+            differential: true,
           };
       }
       t = r;
@@ -3684,11 +3684,11 @@ function ge(e, t, r, o) {
   if (er.has(e.type)) {
     let u = e.type === "pipeline",
       d = t.length,
-      S = !1;
+      S = false;
     if (!u) {
       for (let k of e.children)
         if (k && (k.type === "||" || k.type === "&")) {
-          S = !0;
+          S = true;
           break;
         }
     }
@@ -3736,8 +3736,8 @@ function ge(e, t, r, o) {
   if (e.type === "declaration_command") {
     let u = t.length,
       d = new Map(r),
-      S = !1,
-      _ = !1,
+      S = false,
+      _ = false,
       x = [],
       P = -1;
     for (let k of e.children) {
@@ -3777,8 +3777,8 @@ function ge(e, t, r, o) {
               nodeType: "declaration_command",
             };
           if (x[0] === "declare" || x[0] === "typeset" || x[0] === "local" || x[0] === "readonly") {
-            if (/^[+-].*f/.test(T)) S = !0;
-            if (/^[+-].*[uU]/.test(T)) _ = !0;
+            if (/^[+-].*f/.test(T)) S = true;
+            if (/^[+-].*[uU]/.test(T)) _ = true;
             if (S && _)
               return {
                 kind: "too-complex",
@@ -3873,7 +3873,7 @@ function ge(e, t, r, o) {
     let u = null,
       d = null,
       S = t.length,
-      _ = !1;
+      _ = false;
     for (let k of e.children) {
       if (!k) continue;
       if (k.type === "variable_name") u = k.text;
@@ -3891,7 +3891,7 @@ function ge(e, t, r, o) {
       } else {
         let A = Ie(k, t, r, o);
         if (typeof A !== "string") return A;
-        if (qn(k)) _ = !0;
+        if (qn(k)) _ = true;
       }
     }
     if (u === null || d === null) return B(e);
@@ -3925,7 +3925,7 @@ function ge(e, t, r, o) {
     let u = null,
       d = null;
     if (e.type === "while_statement") (u = new Set(r.keys())), (d = new Map(r)), Nn(r, e);
-    let S = !1;
+    let S = false;
     for (let _ of e.children) {
       if (!_) continue;
       if (
@@ -3939,7 +3939,7 @@ function ge(e, t, r, o) {
       )
         continue;
       if (_.type === "then") {
-        S = !0;
+        S = true;
         continue;
       }
       if (_.type === "do_group") {
@@ -4025,11 +4025,11 @@ function ge(e, t, r, o) {
   if (e.type === "subshell") {
     let u = new Map(r),
       d = t.length,
-      S = !1;
+      S = false;
     for (let _ of e.children) {
       if (!_) continue;
       if (_.type === "(" || _.type === ")") continue;
-      if (_.type !== "comment") S = !0;
+      if (_.type !== "comment") S = true;
       let x = ge(_, t, u, o);
       if (x) return x;
     }
@@ -4048,7 +4048,7 @@ function ge(e, t, r, o) {
           return {
             kind: "too-complex",
             reason: "test_command early-close (quote in operator position)",
-            differential: !0,
+            differential: true,
           };
         continue;
       }
@@ -4059,9 +4059,9 @@ function ge(e, t, r, o) {
   }
   if (e.type === "unset_command") {
     let u = [],
-      d = !1,
-      S = !1,
-      _ = !1;
+      d = false,
+      S = false,
+      _ = false;
     for (let x of e.children) {
       if (!x) continue;
       switch (x.type) {
@@ -4070,7 +4070,7 @@ function ge(e, t, r, o) {
           break;
         case "variable_name":
           if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(x.text)) return B(x);
-          if ((u.push(x.text), (S = !0), d || _)) {
+          if ((u.push(x.text), (S = true), d || _)) {
             let P = r.get(x.text);
             if (P !== void 0 && Qa(P))
               return {
@@ -4094,12 +4094,12 @@ function ge(e, t, r, o) {
           if (P.startsWith("-")) {
             if (S) return B(x);
             if (P !== "-f" && P !== "-v") return B(x);
-            if (P === "-f") d = !0;
+            if (P === "-f") d = true;
             u.push(P);
             break;
           }
           if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(P)) return B(x);
-          if ((u.push(P), (S = !0), d || _)) {
+          if ((u.push(P), (S = true), d || _)) {
             let k = r.get(P);
             if (k !== void 0 && Qa(k))
               return {
@@ -4164,9 +4164,9 @@ function Ro(e, t) {
         r++;
       continue;
     }
-    return !1;
+    return false;
   }
-  return !0;
+  return true;
 }
 function Fo(e, t) {
   let r = Buffer.from(e.text, "utf8"),
@@ -4203,9 +4203,9 @@ function Fo(e, t) {
   return null;
 }
 function Na(e) {
-  let t = !1,
-    r = !1,
-    o = !1,
+  let t = false,
+    r = false,
+    o = false,
     u = 0,
     d;
   for (let S = 0; S < e.length; S++) {
@@ -4223,14 +4223,14 @@ function Na(e) {
       continue;
     }
     if (!t && !r) {
-      if (_ === "=" && e[S + 1] === "(" && (o || S === 0 || d === "|")) return !0;
+      if (_ === "=" && e[S + 1] === "(" && (o || S === 0 || d === "|")) return true;
       if (_ === "(") u++;
       else if (_ === ")") u = Math.max(0, u - 1);
-      else if (u === 0 && (_ === "|" || _ === "&") && d === _) o = !0;
+      else if (u === 0 && (_ === "|" || _ === "&") && d === _) o = true;
       d = _;
     }
   }
-  return !1;
+  return false;
 }
 function On(e) {
   let t = e.replace(/\[(?::[a-zA-Z]+:|=[A-Za-z0-9-]*=|\.[A-Za-z0-9-]*\.|[!^]?)\]\](?!\])/g, "\x00"),
@@ -4239,10 +4239,10 @@ function On(e) {
   while (o !== -1) {
     let u = o > 0 ? t[o - 1] : "",
       d = o + 2 < t.length ? t[o + 2] : "";
-    if (!(r.test(u) && r.test(d))) return !0;
+    if (!(r.test(u) && r.test(d))) return true;
     o = t.indexOf("]]", o + 1);
   }
-  return !1;
+  return false;
 }
 function Wo(e, t, r, o, u, d) {
   if (Lo.has(e.type)) {
@@ -4259,7 +4259,7 @@ function Wo(e, t, r, o, u, d) {
         return {
           kind: "too-complex",
           reason: "zsh $name[expr] / $name:mod in [[ ]] operand \u2014 recursive eval",
-          differential: !0,
+          differential: true,
         };
       let x = Wo(_, t, r, o, u, d);
       if (x) return x;
@@ -4283,7 +4283,7 @@ function Wo(e, t, r, o, u, d) {
         return {
           kind: "too-complex",
           reason: "Test command has a synthesized zero-width token \u2014 parser diverged from shell",
-          differential: !0,
+          differential: true,
         };
       return t.push(e.text), null;
     case "regex":
@@ -4292,19 +4292,19 @@ function Wo(e, t, r, o, u, d) {
         return {
           kind: "too-complex",
           reason: `[[ ]] ${e.type} contains expansion / command / process substitution`,
-          differential: !0,
+          differential: true,
         };
       if (e.text.startsWith("=("))
         return {
           kind: "too-complex",
           reason: `[[ ]] ${e.type === "extglob_pattern" ? "pattern" : e.type} contains zsh =(CMD) process substitution`,
-          differential: !0,
+          differential: true,
         };
       if (e.type === "regex" && Na(e.text))
         return {
           kind: "too-complex",
           reason: `[[ ]] ${e.type} contains zsh =(CMD) process substitution`,
-          differential: !0,
+          differential: true,
         };
       if (e.type === "extglob_pattern") {
         let S = e.text,
@@ -4318,7 +4318,7 @@ function Wo(e, t, r, o, u, d) {
             return {
               kind: "too-complex",
               reason: "[[ ]] pattern contains unquoted & (zsh splits the word at & at any depth)",
-              differential: !0,
+              differential: true,
             };
           _++;
         }
@@ -4337,13 +4337,13 @@ function Wo(e, t, r, o, u, d) {
             return {
               kind: "too-complex",
               reason: "[[ ]] regex contains glued || (zsh splits it as a cond operator)",
-              differential: !0,
+              differential: true,
             };
           if (P === "&")
             return {
               kind: "too-complex",
               reason: "[[ ]] regex contains unquoted & (zsh splits the word at & at any depth)",
-              differential: !0,
+              differential: true,
             };
           if (P === '"' || P === "'") {
             let k = P;
@@ -4361,7 +4361,7 @@ function Wo(e, t, r, o, u, d) {
               return {
                 kind: "too-complex",
                 reason: "[[ ]] regex has unbalanced parentheses (parser desync)",
-                differential: !0,
+                differential: true,
               };
           }
           x++;
@@ -4370,21 +4370,21 @@ function Wo(e, t, r, o, u, d) {
           return {
             kind: "too-complex",
             reason: "[[ ]] regex has unbalanced parentheses (parser desync)",
-            differential: !0,
+            differential: true,
           };
       }
       if (e.text.includes("&&"))
         return {
           kind: "too-complex",
           reason: "[[ ]] pattern leaf contains `&&` \u2014 shell cond-lexer divergence (zsh splits the word there)",
-          differential: !0,
+          differential: true,
         };
       if (On(e.text))
         return {
           kind: "too-complex",
           reason:
             "[[ ]] pattern leaf contains a potential standalone `]]` closer \u2014 shell cond-lexer divergence (zsh may close the conditional early)",
-          differential: !0,
+          differential: true,
         };
       return t.push(e.text), null;
     case "test_rhs_missing":
@@ -4397,7 +4397,7 @@ function Wo(e, t, r, o, u, d) {
       if (typeof S !== "string") {
         if (d && S.kind === "too-complex") {
           let { nodeType: _, ...x } = S;
-          return { ...x, differential: !0 };
+          return { ...x, differential: true };
         }
         return S;
       }
@@ -4407,7 +4407,7 @@ function Wo(e, t, r, o, u, d) {
           reason: d
             ? "[[ ]] quoted operand contains `]]` closer or `]]`+separator bytes \u2014 possible parser quote-state desync"
             : "test command quoted operand contains `]]`+separator bytes \u2014 possible parser quote-state desync",
-          differential: !0,
+          differential: true,
         };
       return t.push(S), null;
     }
@@ -4675,12 +4675,12 @@ function Gn(e, t, r, o) {
 function Yn(e) {
   let t = null,
     r = null,
-    o = !1;
+    o = false;
   for (let d of e.children) {
     if (!d) continue;
     if (d.type === "heredoc_start") t = d.text;
     else if (d.type === "heredoc_body") r = d;
-    else if (d.type === "<<-") o = !0;
+    else if (d.type === "<<-") o = true;
     else if (d.type === "<<" || d.type === "heredoc_end" || d.type === "file_descriptor");
     else return B(d);
   }
@@ -4696,7 +4696,7 @@ function Yn(e) {
       kind: "too-complex",
       reason: "Heredoc with unquoted delimiter undergoes shell expansion",
       nodeType: "heredoc_redirect",
-      differential: !0,
+      differential: true,
     };
   if (t !== null && (t.startsWith("'") || t.startsWith('"')) && t.slice(1, -1).includes("\\"))
     return { kind: "too-complex", reason: "Quoted heredoc delimiter contains backslash", nodeType: "heredoc_redirect" };
@@ -4747,14 +4747,14 @@ var Vn = new Set(["command", "builtin", "noglob", "nocorrect", "time"]),
 function Ua(e, t, r, o) {
   let u = [],
     d = [],
-    S = (A, T = !0) => {
+    S = (A, T = true) => {
       let M = A.match(/^[A-Za-z_][A-Za-z0-9_]*/);
       if (M) {
         if ((u.push(M[0]), T)) d.push(M[0]);
       }
     },
     _ = e,
-    x = !1,
+    x = false,
     P;
   for (;;) {
     let A = _[0];
@@ -4767,16 +4767,16 @@ function Ua(e, t, r, o) {
             reason: `'${P} noglob' runs the wrapped command on zsh (for 'command', under POSIX_BUILTINS) but not bash \u2014 cannot statically model whether it executes`,
             nodeType: "command",
           };
-        x = !0;
+        x = true;
       }
       let T = 1;
       while (T < _.length && /^-[-pvV]*$/.test(_[T])) {
-        if (/[vV]/.test(_[T])) x = !0;
+        if (/[vV]/.test(_[T])) x = true;
         T++;
       }
       (_ = _.slice(T)), (P = A);
     } else if (A === "!") {
-      if (P === "builtin" || P === "command") x = !0;
+      if (P === "builtin" || P === "command") x = true;
       (_ = _.slice(1)), (P = void 0);
     } else if (/^[A-Za-z_]\w*(\[[^\]]*\])?\+?=/.test(A)) S(A), (_ = _.slice(1)), (P = void 0);
     else break;
@@ -4784,11 +4784,11 @@ function Ua(e, t, r, o) {
   let k = _[0];
   if (k === void 0) for (let A of t) S(A.name);
   else if (Go.has(k)) {
-    let A = !1;
+    let A = false;
     for (let T = 1; T < _.length; T++) {
       let M = _[T];
       if (!A && M === "--") {
-        A = !0;
+        A = true;
         continue;
       }
       if (!A && /^[+-].*m/.test(M))
@@ -4802,12 +4802,12 @@ function Ua(e, t, r, o) {
     }
   } else if (k === "read") {
     let A = 1,
-      T = !1,
-      M = !1;
+      T = false,
+      M = false;
     while (A < _.length) {
       let C = _[A];
       if (!T && C === "--") {
-        (T = !0), A++;
+        (T = true), A++;
         continue;
       }
       if (!T && C.startsWith("-")) {
@@ -4815,12 +4815,12 @@ function Ua(e, t, r, o) {
           A += 2;
           continue;
         }
-        let N = !1;
+        let N = false;
         for (let F = 1; F < C.length; F++) {
           let Y = C[F];
           if (Y === "a" || Y === "A") {
             let Z = F < C.length - 1 ? C.slice(F + 1) : _[A + 1];
-            if (Z) S(Z), (M = !0);
+            if (Z) S(Z), (M = true);
             N = F === C.length - 1;
             break;
           }
@@ -4832,7 +4832,7 @@ function Ua(e, t, r, o) {
         A += N ? 2 : 1;
         continue;
       }
-      S(C), (M = !0), A++;
+      S(C), (M = true), A++;
     }
     if (!M) u.push("REPLY");
   } else if (k === "printf")
@@ -4862,8 +4862,8 @@ function Ua(e, t, r, o) {
         }
     }
   else if (!x && (k === "unset" || k === "unsetenv")) {
-    let A = !1,
-      T = !1;
+    let A = false,
+      T = false;
     for (let M = 1; M < _.length; M++) {
       let C = _[M];
       if (C.startsWith("-")) {
@@ -4879,10 +4879,10 @@ function Ua(e, t, r, o) {
             reason: `'unset ${C}' (wrapped form) \u2014 flag other than -f/-v (zsh -m pattern-unset, bash -n nameref) cannot be statically modelled`,
             nodeType: "command",
           };
-        if (C === "-f") A = !0;
+        if (C === "-f") A = true;
         continue;
       }
-      if (((T = !0), !/^[A-Za-z_][A-Za-z0-9_]*$/.test(C)))
+      if (((T = true), !/^[A-Za-z_][A-Za-z0-9_]*$/.test(C)))
         return {
           kind: "too-complex",
           reason: `'unset ${C}' (wrapped form) \u2014 non-identifier operand may pathname-expand; cannot statically know which var is unset`,
@@ -4910,7 +4910,7 @@ function Ua(e, t, r, o) {
     for (let A = 1; A < _.length; A++) {
       let T = _[A];
       if (T === "--" || T === "-" || !T.startsWith("-")) break;
-      let M = !1;
+      let M = false;
       for (let C = 1; C < T.length; C++) {
         let N = T[C];
         if (N === "v") {
@@ -4940,28 +4940,28 @@ function Ua(e, t, r, o) {
       break;
     }
   else if (k === "mapfile" || k === "readarray") {
-    let A = !1;
+    let A = false;
     for (let T = 1; T < _.length; T++) {
       let M = _[T];
       if (M.startsWith("-")) {
         if (/^-[dnOsuCc]$/.test(M)) T++;
         continue;
       }
-      S(M), (A = !0);
+      S(M), (A = true);
     }
     if (!A) u.push("MAPFILE");
   } else if (!x && (k === "cd" || k === "chdir" || k === "pushd" || k === "popd")) {
-    let A = !1;
+    let A = false;
     if (k === "pushd" || k === "popd")
       for (let T = 1; T < _.length; T++) {
         let M = _[T];
         if (M === "--") break;
         if (/^-[a-zA-Z]*n[a-zA-Z]*$/.test(M)) {
-          A = !0;
+          A = true;
           break;
         }
         if (k === "popd" && (/^\+0*[1-9]/.test(M) || /^-0+$/.test(M))) {
-          A = !0;
+          A = true;
           break;
         }
       }
@@ -5037,7 +5037,7 @@ function za(e, t, r, o, u) {
         break;
       }
       case "simple_expansion": {
-        let T = Vt(A, o, !1);
+        let T = Vt(A, o, false);
         if (typeof T !== "string") return T;
         d.push(T);
         break;
@@ -5081,11 +5081,11 @@ function za(e, t, r, o, u) {
 function nr(e, t, r, o) {
   let u = new Map(r),
     d = t.length,
-    S = !1;
+    S = false;
   for (let _ of e.children) {
     if (!_) continue;
     if (_.type === "$(" || _.type === "`" || _.type === ")") continue;
-    if (_.type !== "comment") S = !0;
+    if (_.type !== "comment") S = true;
     let x = ge(_, t, u, o);
     if (x) return x;
   }
@@ -5101,21 +5101,21 @@ function Ie(e, t, r, o) {
           kind: "too-complex",
           reason: "Word contains brace expansion syntax",
           nodeType: "word",
-          differential: !0,
+          differential: true,
         };
       if (Un.test(e.text) || zn.test(e.text))
         return {
           kind: "too-complex",
           reason: "Brace body contains backslash-escaped brace",
           nodeType: "word",
-          differential: !0,
+          differential: true,
         };
       if (Mhn.test(e.text))
         return {
           kind: "too-complex",
           reason: "Word contains unescaped ` or $ \u2014 parser missed expansion",
           nodeType: "word",
-          differential: !0,
+          differential: true,
         };
       if (Nhn.test(e.text))
         return {
@@ -5139,16 +5139,16 @@ function Ie(e, t, r, o) {
       return Yo(e, t, r, o);
     case "concatenation": {
       if (jn.test(e.text))
-        return { kind: "too-complex", reason: "Brace expansion", nodeType: "concatenation", differential: !0 };
+        return { kind: "too-complex", reason: "Brace expansion", nodeType: "concatenation", differential: true };
       if (Un.test(e.text) || zn.test(e.text))
         return {
           kind: "too-complex",
           reason: "Brace body contains backslash-escaped brace",
           nodeType: "concatenation",
-          differential: !0,
+          differential: true,
         };
       let u = "",
-        d = !1,
+        d = false,
         S = e.startIndex;
       for (let _ = 0; _ < e.children.length; _++) {
         let x = e.children[_];
@@ -5160,7 +5160,7 @@ function Ie(e, t, r, o) {
               "Concatenation has unparsed bytes between children \u2014 parser dropped content that shell will see",
             nodeType: "concatenation",
           };
-        if (((S = x.endIndex), x.type === "word" && x.text.includes("{"))) d = !0;
+        if (((S = x.endIndex), x.type === "word" && x.text.includes("{"))) d = true;
         if (
           (x.type === "simple_expansion" || x.type === "expansion") &&
           (e.children[_ + 1]?.text.startsWith("[") || /^:[a-zA-Z&]/.test(e.children[_ + 1]?.text ?? ""))
@@ -5169,7 +5169,7 @@ function Ie(e, t, r, o) {
             kind: "too-complex",
             reason: "zsh $name[expr] / $name:mod in bare concatenation \u2014 recursive eval",
             nodeType: "concatenation",
-            differential: !0,
+            differential: true,
           };
         let P = Ie(x, t, r, o);
         if (typeof P !== "string") return P;
@@ -5186,14 +5186,14 @@ function Ie(e, t, r, o) {
           kind: "too-complex",
           reason: "zsh ~[ dynamic directory syntax (post-collapse)",
           nodeType: "concatenation",
-          differential: !0,
+          differential: true,
         };
       if (oWt.test(u))
         return {
           kind: "too-complex",
           reason: "zsh =cmd expansion (post-collapse)",
           nodeType: "concatenation",
-          differential: !0,
+          differential: true,
         };
       return u;
     }
@@ -5203,7 +5203,7 @@ function Ie(e, t, r, o) {
       return z;
     }
     case "simple_expansion":
-      return Vt(e, r, !1);
+      return Vt(e, r, false);
     default:
       return B(e);
   }
@@ -5211,9 +5211,9 @@ function Ie(e, t, r, o) {
 function Yo(e, t, r, o) {
   let u = "",
     d = -1,
-    S = !1,
-    _ = !1,
-    x = !1;
+    S = false,
+    _ = false,
+    x = false;
   for (let P of e.children) {
     if (!P) continue;
     if (d !== -1 && P.startIndex > d) {
@@ -5225,16 +5225,16 @@ function Yo(e, t, r, o) {
           kind: "too-complex",
           reason: "Unanalyzable backtick body in double-quoted string gap \u2014 shell-evaluated value unknown",
           nodeType: "string",
-          differential: !0,
+          differential: true,
         };
-      if (k.length > 0) (u += k), (_ = !0);
+      if (k.length > 0) (u += k), (_ = true);
     }
     switch (((d = P.endIndex), P.type)) {
       case '"':
         d = P.endIndex;
         break;
       case "string_content":
-        (u += P.text.replace(/\\\n/g, "").replace(/\\([$`"\\])/g, "$1")), (_ = !0);
+        (u += P.text.replace(/\\\n/g, "").replace(/\\([$`"\\])/g, "$1")), (_ = true);
         break;
       case Eo: {
         let k = e.children[e.children.indexOf(P) + 1];
@@ -5244,17 +5244,17 @@ function Yo(e, t, r, o) {
               kind: "too-complex",
               reason: "Legacy $[...] arithmetic inside double-quotes \u2014 recursive subscript eval",
               nodeType: "string",
-              differential: !0,
+              differential: true,
             };
           if (/^[+^=~]/.test(k.text))
             return {
               kind: "too-complex",
               reason: "zsh $+/$^/$=/$~ prefix-flag expansion \u2014 value defeats downstream content checks",
               nodeType: "string",
-              differential: !0,
+              differential: true,
             };
         }
-        (u += Eo), (_ = !0);
+        (u += Eo), (_ = true);
         break;
       }
       case "command_substitution": {
@@ -5275,19 +5275,19 @@ function Yo(e, t, r, o) {
             (u +=
               `
 ` + Me),
-              (_ = !0);
+              (_ = true);
             break;
           }
-          (u += T), (_ = !0);
+          (u += T), (_ = true);
           break;
         }
         let A = nr(P, t, r, o);
         if (A) return A;
-        (u += Me), (S = !0);
+        (u += Me), (S = true);
         break;
       }
       case "simple_expansion": {
-        let k = Vt(P, r, !0);
+        let k = Vt(P, r, true);
         if (typeof k !== "string") return k;
         {
           let A = e.children[e.children.indexOf(P) + 1],
@@ -5300,19 +5300,19 @@ function Yo(e, t, r, o) {
               kind: "too-complex",
               reason: 'zsh "$name[expr]" / "$name:mod" inside double-quotes \u2014 recursive eval',
               nodeType: "string",
-              differential: !0,
+              differential: true,
             };
         }
-        if (Qa(k)) S = !0;
-        else if (k !== "") _ = !0;
-        else x = !0;
+        if (Qa(k)) S = true;
+        else if (k !== "") _ = true;
+        else x = true;
         u += k;
         break;
       }
       case "arithmetic_expansion": {
         let k = rr(P);
         if (k) return k;
-        (u += z), (S = !0);
+        (u += z), (S = true);
         break;
       }
       default:
@@ -5329,7 +5329,7 @@ function Yo(e, t, r, o) {
         kind: "too-complex",
         reason: "Delimiters-only string node contains unparsed command substitution",
         nodeType: "string",
-        differential: !0,
+        differential: true,
       };
     return P;
   }
@@ -5368,9 +5368,9 @@ function nt(e, t) {
   e.push({ argv: ["true"], envVars: [], redirects: [], text: t.text, hasUnquotedGlob: Ve(t.text) });
 }
 function qn(e) {
-  if (e.type === "arithmetic_expansion") return !0;
-  for (let t of e.children) if (t && qn(t)) return !0;
-  return !1;
+  if (e.type === "arithmetic_expansion") return true;
+  for (let t of e.children) if (t && qn(t)) return true;
+  return false;
 }
 function Ga(e) {
   let t = null;
@@ -5381,7 +5381,7 @@ function Ga(e) {
     else return null;
   }
   if (!t) return null;
-  let r = !1,
+  let r = false,
     o = null;
   for (let u of t.children) {
     if (!u) continue;
@@ -5390,7 +5390,7 @@ function Ga(e) {
       if (d.length !== 1) return null;
       let S = d[0];
       if (S?.type !== "command_name" || S.text !== "cat") return null;
-      r = !0;
+      r = true;
     } else if (u.type === "heredoc_redirect") {
       if (Yn(u) !== null) return null;
       for (let d of u.children) {
@@ -5401,13 +5401,13 @@ function Ga(e) {
   }
   if (!r || o === null) return null;
   if (Qn.test(o)) return "DANGEROUS";
-  if (Xo(o) !== !1) return "DANGEROUS";
+  if (Xo(o) !== false) return "DANGEROUS";
   return o;
 }
 function Zn(e, t, r, o) {
   let u = null,
     d = "",
-    S = !1;
+    S = false;
   for (let _ of e.children) {
     if (!_) continue;
     if (_.type === "variable_name") u = _.text;
@@ -5419,7 +5419,7 @@ function Zn(e, t, r, o) {
       if (x) return x;
       d = Me;
     } else if (_.type === "simple_expansion") {
-      let x = Vt(_, r, !0);
+      let x = Vt(_, r, true);
       if (typeof x !== "string") return x;
       d = x;
     } else {
@@ -5528,14 +5528,14 @@ var Vo = new Set([
 ]);
 function Vt(e, t, r) {
   let o = null,
-    u = !1;
+    u = false;
   for (let S of e.children) {
     if (S?.type === "variable_name") {
       o = S.text;
       break;
     }
     if (S?.type === "special_variable_name") {
-      (o = S.text), (u = !0);
+      (o = S.text), (u = true);
       break;
     }
   }
@@ -5672,22 +5672,22 @@ function kt(e, t) {
       o,
       u = [],
       d = [],
-      S = !1;
+      S = false;
     for (let C of e.children) {
       if (!C) continue;
-      if (C.type === "command_name") (o = C), (r = Xn(C.children[0] ?? C) ?? void 0), (S = !0);
+      if (C.type === "command_name") (o = C), (r = Xn(C.children[0] ?? C) ?? void 0), (S = true);
       else if (!S || C.type === "file_redirect" || C.type === "herestring_redirect" || C.type === "heredoc_redirect");
       else u.push(Xn(C) ?? ""), d.push(C);
     }
-    let _ = !1,
+    let _ = false,
       x;
     while (r !== void 0 && (Vn.has(r) || r === "!")) {
-      if ((x === "builtin" || x === "command") && r !== "builtin" && r !== "command" && r !== "noglob") _ = !0;
+      if ((x === "builtin" || x === "command") && r !== "builtin" && r !== "command" && r !== "noglob") _ = true;
       let C = r === "!" ? void 0 : r;
       while (u.length > 0) {
         let N = u[0];
         if (/^-[-pvV]*$/.test(N)) {
-          if (/[vV]/.test(N)) _ = !0;
+          if (/[vV]/.test(N)) _ = true;
           u.shift(), d.shift();
         } else if (/^[A-Za-z_]\w*(\[[^\]]*\])?\+?=/.test(N)) {
           let F = N.match(/^[A-Za-z_][A-Za-z0-9_]*/)[0];
@@ -5703,11 +5703,11 @@ function kt(e, t) {
     if (r === "read") {
       t.set("REPLY", z);
       let C = 0,
-        N = !1;
+        N = false;
       while (C < P.length) {
         let F = P[C];
         if (!N && F === "--") {
-          (N = !0), C++;
+          (N = true), C++;
           continue;
         }
         if (!N && F.startsWith("-")) {
@@ -5715,7 +5715,7 @@ function kt(e, t) {
             C += 2;
             continue;
           }
-          let Y = !1;
+          let Y = false;
           for (let Z = 1; Z < F.length; Z++) {
             let de = F[Z];
             if (de === "a" || de === "A") {
@@ -5777,7 +5777,7 @@ function xt(e, t) {
   }
   for (let r of e.keys()) if (!t.has(r)) e.set(r, z);
 }
-function Ln(e, t, r = !1) {
+function Ln(e, t, r = false) {
   if (r) {
     e.set(t.name, z);
     return;
@@ -5797,10 +5797,10 @@ function qo(e) {
 function Ko(e) {
   for (let t of e.children) {
     if (!t) continue;
-    if (t.type === "simple_expansion" || t.type === "expansion") return !0;
-    if (Ko(t)) return !0;
+    if (t.type === "simple_expansion" || t.type === "expansion") return true;
+    if (Ko(t)) return true;
   }
-  return !1;
+  return false;
 }
 function Ha(e) {
   if (e === "~" || e.startsWith("~/")) return "HOME";
@@ -5956,7 +5956,7 @@ function Xo(e) {
   if (/(?<![A-Za-z_])extension[\s\\]*\(/.test(e))
     return "awk program contains extension() which loads arbitrary native code (legacy gawk)";
   if (/"\/inet[46]?\//.test(e)) return "awk program opens a gawk /inet/ network socket which can exfiltrate data";
-  return !1;
+  return false;
 }
 var J_t = new Set([
   "watch",
@@ -6107,10 +6107,10 @@ var Uhn = {
     "status",
   ]);
 function Jo(e, t) {
-  if (!or.has(e)) return !1;
-  if (t.includes("[") || t.includes("`") || /\$\(/.test(t) || Qa(t)) return !0;
-  if (!/^(0|[1-9][0-9]{0,17})$/.test(t)) return !0;
-  return !1;
+  if (!or.has(e)) return false;
+  if (t.includes("[") || t.includes("`") || /\$\(/.test(t) || Qa(t)) return true;
+  if (!/^(0|[1-9][0-9]{0,17})$/.test(t)) return true;
+  return false;
 }
 function Jn(e) {
   let t = e.toLowerCase();
@@ -6130,7 +6130,7 @@ function QJn(e) {
   let t = null;
   for (let r of e) {
     let o = r.argv,
-      u = !1;
+      u = false;
     for (;;) {
       let x = o[0]?.replace(/^.*[\\/]/, ""),
         P =
@@ -6154,22 +6154,22 @@ function QJn(e) {
           else if ((A === "--kill-after" || A === "--signal") && o[k + 1] && /^[A-Za-z0-9_.+-]+$/.test(o[k + 1]))
             k += 2;
           else if (A.startsWith("--"))
-            return { ok: !1, reason: `timeout with ${A} flag cannot be statically analyzed` };
+            return { ok: false, reason: `timeout with ${A} flag cannot be statically analyzed` };
           else if (A === "-v") k++;
           else if ((A === "-k" || A === "-s") && o[k + 1] && /^[A-Za-z0-9_.+-]+$/.test(o[k + 1])) k += 2;
           else if (/^-[ks][A-Za-z0-9_.+-]+$/.test(A)) k++;
-          else if (A.startsWith("-")) return { ok: !1, reason: `timeout with ${A} flag cannot be statically analyzed` };
+          else if (A.startsWith("-")) return { ok: false, reason: `timeout with ${A} flag cannot be statically analyzed` };
           else break;
         }
         if (o[k] && /^\d+(?:\.\d+)?[smhd]?$/.test(o[k])) o = o.slice(k + 1);
-        else if (o[k]) return { ok: !1, reason: `timeout duration '${o[k]}' cannot be statically analyzed` };
+        else if (o[k]) return { ok: false, reason: `timeout duration '${o[k]}' cannot be statically analyzed` };
         else break;
       } else if (P === "nice")
         if (o[1] === "-n" && o[2] && /^-?\d+$/.test(o[2])) o = o.slice(3);
         else if (o[1] && /^-\d+$/.test(o[1])) o = o.slice(2);
         else if (o[1] && (/[$(`]/.test(o[1]) || Qa(o[1])))
           return {
-            ok: !1,
+            ok: false,
             reason: `nice argument '${o[1]}' contains expansion \u2014 cannot statically determine wrapped command`,
           };
         else o = o.slice(1);
@@ -6180,7 +6180,7 @@ function QJn(e) {
           if (A.includes("=") && !A.startsWith("-")) k++;
           else if (A === "-i" || A === "-0" || A === "-v") k++;
           else if (A === "-u" && o[k + 1]) k += 2;
-          else if (A.startsWith("-")) return { ok: !1, reason: `env with ${A} flag cannot be statically analyzed` };
+          else if (A.startsWith("-")) return { ok: false, reason: `env with ${A} flag cannot be statically analyzed` };
           else break;
         }
         if (k < o.length) o = o.slice(k);
@@ -6192,18 +6192,18 @@ function QJn(e) {
           if (ka.test(A) && o[k + 1]) k += 2;
           else if (Ea.test(A)) k++;
           else if (Ra.test(A)) k++;
-          else if (A.startsWith("-")) return { ok: !1, reason: `stdbuf with ${A} flag cannot be statically analyzed` };
+          else if (A.startsWith("-")) return { ok: false, reason: `stdbuf with ${A} flag cannot be statically analyzed` };
           else break;
         }
         if (k > 1 && k < o.length) o = o.slice(k);
         else break;
       } else if (P === "command") {
         let k = 1,
-          A = !1;
+          A = false;
         while (k < o.length && o[k].startsWith("-") && o[k] !== "--") {
           let T = o[k];
-          if (!/^-[pvV]+$/.test(T)) return { ok: !1, reason: `command with ${T} flag cannot be statically analyzed` };
-          if (T.includes("v") || T.includes("V")) A = !0;
+          if (!/^-[pvV]+$/.test(T)) return { ok: false, reason: `command with ${T} flag cannot be statically analyzed` };
+          if (T.includes("v") || T.includes("V")) A = true;
           k++;
         }
         if (o[k] === "--") k++;
@@ -6214,17 +6214,17 @@ function QJn(e) {
         if (k < o.length) o = o.slice(k);
         else break;
       } else if (P === "xargs")
-        if (o.length >= 2 && !o[1].startsWith("-")) (o = o.slice(1)), (u = !0);
+        if (o.length >= 2 && !o[1].startsWith("-")) (o = o.slice(1)), (u = true);
         else break;
       else break;
     }
     let d = o[0];
     if (d === void 0) continue;
-    if (d === "") return { ok: !1, reason: "Empty command name \u2014 argv[0] may not reflect what bash runs" };
+    if (d === "") return { ok: false, reason: "Empty command name \u2014 argv[0] may not reflect what bash runs" };
     if (d.includes(Me) || d.includes(z))
-      return { ok: !1, reason: "Command name is runtime-determined (placeholder argv[0])" };
+      return { ok: false, reason: "Command name is runtime-determined (placeholder argv[0])" };
     if (d.startsWith("-") || d.startsWith("|") || d.startsWith("&"))
-      return { ok: !1, reason: "Command appears to be an incomplete fragment" };
+      return { ok: false, reason: "Command appears to be an incomplete fragment" };
     let S = Td(Uhn, d),
       _ = d === "test" || d === "[" || d === "[[";
     if (S !== void 0)
@@ -6233,13 +6233,13 @@ function QJn(e) {
           k = o[x + 1];
         if (S.has(P) && k !== void 0 && (k.includes("[") || Qa(k)))
           return {
-            ok: !1,
+            ok: false,
             reason: `'${d} ${P}' operand contains array subscript or runtime-determined value \u2014 bash evaluates $(cmd) in subscripts`,
           };
         if (_) {
           if (P === "-t" && k !== void 0 && !wLe.test(k))
             return {
-              ok: !1,
+              ok: false,
               reason: `'${d} -t' operand is non-numeric \u2014 zsh arith-evals identifiers (may run $(cmd))`,
             };
           continue;
@@ -6250,7 +6250,7 @@ function QJn(e) {
               let T = o[x + 1];
               if (T !== void 0 && (T.includes("[") || Qa(T)))
                 return {
-                  ok: !1,
+                  ok: false,
                   reason: `'${d} ${A}' (combined in '${P}') operand contains array subscript \u2014 bash evaluates $(cmd) in subscripts`,
                 };
             }
@@ -6263,7 +6263,7 @@ function QJn(e) {
             let M = P.slice(T + 1);
             if (/[A-Za-z_][A-Za-z0-9_]*\[/.test(M) || Qa(M))
               return {
-                ok: !1,
+                ok: false,
                 reason: `'${d} ${A}' (fused in '${P}') operand contains array subscript \u2014 bash evaluates $(cmd) in subscripts`,
               };
           }
@@ -6275,25 +6275,25 @@ function QJn(e) {
           if (P === void 0) continue;
           if (P.includes("[") || !wLe.test(P))
             return {
-              ok: !1,
+              ok: false,
               reason: `'${d} ... ${o[x]} ...' operand is non-numeric \u2014 \`[[\` arithmetically evaluates identifiers/subscripts (may run $(cmd))`,
             };
         }
       }
     if (Bhn.has(d)) {
-      let x = !1;
+      let x = false;
       for (let P = 1; P < o.length; P++) {
         let k = o[P];
-        if (x !== !1) {
+        if (x !== false) {
           let A = x;
-          if (((x = !1), A === "numeric" && !Io.test(k)))
+          if (((x = false), A === "numeric" && !Io.test(k)))
             return {
-              ok: !1,
+              ok: false,
               reason: `'read ${o[P - 1]}' operand '${k}' is non-numeric \u2014 zsh arith-evals subscripts/expressions (may run $(cmd))`,
             };
           if (A === "prompt" && (qa.test(k) || (k[0] === "-" && /[A-Za-z_][A-Za-z0-9_]*\[/.test(k)) || k.includes(Me)))
             return {
-              ok: !1,
+              ok: false,
               reason: `'read ${o[P - 1]}' operand '${k}' is a subscripted NAME, dash-prefixed with a subscript, or runtime-determined \u2014 zsh -p takes no operand; may arith-eval the subscript and run $(cmd)`,
             };
           continue;
@@ -6311,14 +6311,14 @@ function QJn(e) {
                   if (A === k.length - 1) x = M ? "numeric" : T === "-p" ? "prompt" : "string";
                   else if (M && !Io.test(k.slice(A + 1)))
                     return {
-                      ok: !1,
+                      ok: false,
                       reason: `'read ${T}' (fused in '${k}') operand is non-numeric \u2014 zsh arith-evals subscripts/expressions (may run $(cmd))`,
                     };
                   else if (T === "-p") {
                     let C = k.slice(A + 1);
                     if (/[A-Za-z_][A-Za-z0-9_]*\[/.test(C) || C.includes(Me))
                       return {
-                        ok: !1,
+                        ok: false,
                         reason: `'read -p' fused remainder '${C}' contains a subscripted identifier or cmdsub \u2014 on zsh (-p is no-arg) this may reach matheval via a following option and run $(cmd)`,
                       };
                   }
@@ -6330,7 +6330,7 @@ function QJn(e) {
         }
         if (k.includes("[") || Qa(k))
           return {
-            ok: !1,
+            ok: false,
             reason: `'${d}' positional NAME '${k}' contains array subscript or runtime-determined value \u2014 bash evaluates $(cmd) in subscripts`,
           };
       }
@@ -6339,50 +6339,50 @@ function QJn(e) {
       let x = d === "declare" || d === "typeset" || d === "local",
         P = x || d === "export" || d === "readonly",
         k = x || d === "readonly",
-        A = !1,
-        T = !1;
+        A = false,
+        T = false;
       for (let M = 1; M < o.length; M++) {
         let C = o[M];
         if (x && /^[+-].*[niaAEF]/.test(C))
           return {
-            ok: !1,
+            ok: false,
             reason: `'${d}' with -n/-i/-a/-A/-E/-F flag (reached as plain command via wrapper/quote) changes assignment eval semantics`,
           };
         if (k) {
-          if (/^[+-].*f/.test(C)) A = !0;
-          if (/^[+-].*[uU]/.test(C)) T = !0;
+          if (/^[+-].*f/.test(C)) A = true;
+          if (/^[+-].*[uU]/.test(C)) T = true;
           if (A && T)
             return {
-              ok: !1,
+              ok: false,
               reason: `'${d}' with both -f and -u/-U flags (reached as plain command via wrapper/quote) \u2014 zsh marks a function for autoload (synonym of 'autoload')`,
             };
         }
         if (Ao.has(d) && /^[+-].*[iEF]/.test(C))
           return {
-            ok: !1,
+            ok: false,
             reason: `'${d}' with -i/-E/-F flag (reached as plain command via wrapper/quote) \u2014 zsh bin_typeset mathevals the RHS`,
           };
         if ((P || d === "private") && /^[+-].*m/.test(C))
           return {
-            ok: !1,
+            ok: false,
             reason: `'${d}' with -m/+m flag (reached as plain command via wrapper/quote) \u2014 zsh pattern-assigns every matching variable`,
           };
         if (Ao.has(d) && /^[+-].*T/.test(C))
           return {
-            ok: !1,
+            ok: false,
             reason: `'${d} -T' creates a user-defined zsh tied pair \u2014 tracked literals for its operands are unreliable`,
           };
         let N = C.includes("[") && /[$`]/.test(C);
         if (N || Qa(C))
           return {
-            ok: !1,
+            ok: false,
             reason: N
               ? `'${d}' operand '${Gt(C)}' contains array subscript with expansion \u2014 shell arith-evals $(cmd) in subscripts`
               : `'${d}' operand '${Gt(C)}' is runtime-determined and may carry an array subscript \u2014 shell arith-evals $(cmd) in subscripts`,
           };
         if ((d === "float" || d === "integer") && !/^[+-]/.test(C))
           return {
-            ok: !1,
+            ok: false,
             reason: `zsh '${d}' operand \u2014 implicit typeset -E/-i arithmetically evaluates the (existing or assigned) value`,
           };
       }
@@ -6393,7 +6393,7 @@ function QJn(e) {
           k = P.includes("[") && /[$`]/.test(P);
         if (k || Qa(P))
           return {
-            ok: !1,
+            ok: false,
             reason: k
               ? `printf operand '${Gt(P)}' contains array subscript with expansion \u2014 zsh arith-evals %d/%i operands (may run $(cmd))`
               : `printf operand '${Gt(P)}' is runtime-determined and may carry an array subscript \u2014 zsh arith-evals %d/%i operands (may run $(cmd))`,
@@ -6410,7 +6410,7 @@ function QJn(e) {
             let T = k < P.length - 1 ? P.slice(k + 1) : o[x + 1];
             if (T !== void 0 && T !== "" && !jhn.has(T.toLowerCase().replace(/[_-]/g, "")))
               return {
-                ok: !1,
+                ok: false,
                 reason: `'set -o/+o ${T}' changes shell parsing/globbing state \u2014 can enable globsubst/extendedglob and defeat static analysis`,
               };
             if (k === P.length - 1) x++;
@@ -6419,7 +6419,7 @@ function QJn(e) {
           if (A === "A") break;
           if (!Whn.has(A))
             return {
-              ok: !1,
+              ok: false,
               reason: `'set ${P[0]}${A}' changes shell option state (allexport/keyword/\u2026) \u2014 defeats static env-var analysis; see SET_O_SAFE_LETTERS`,
             };
         }
@@ -6429,7 +6429,7 @@ function QJn(e) {
         let P = o[x];
         if (/\$\(|`/.test(P) || Qa(P))
           return {
-            ok: !1,
+            ok: false,
             reason: "'print -P' operand contains command substitution \u2014 zsh prompt expansion evaluates $(cmd)",
           };
       }
@@ -6438,16 +6438,16 @@ function QJn(e) {
         let P = o[x];
         if (/^[+-].*x/.test(P))
           return {
-            ok: !1,
+            ok: false,
             reason: "'jobs -x' executes its argument as a command \u2014 cannot be statically analyzed",
           };
       }
-    if (n_n.has(d)) return { ok: !1, reason: `Shell keyword '${d}' as command name \u2014 tree-sitter mis-parse` };
+    if (n_n.has(d)) return { ok: false, reason: `Shell keyword '${d}' as command name \u2014 tree-sitter mis-parse` };
     if (u) {
       if (d === "find" || d === "jq")
-        return { ok: !1, reason: `${d} through xargs \u2014 stdin-appended arguments cannot be statically analyzed` };
+        return { ok: false, reason: `${d} through xargs \u2014 stdin-appended arguments cannot be statically analyzed` };
       if (sWt.has(d)) {
-        let x = !1;
+        let x = false;
         for (let P = 1; P < o.length; P++) {
           let k = o[P];
           if (k === "--") {
@@ -6455,14 +6455,14 @@ function QJn(e) {
             break;
           }
           if (k === "-" || !k.startsWith("-")) {
-            x = !0;
+            x = true;
             break;
           }
           if (!k.includes("=") && Ya.test(k)) P++;
         }
         if (!x)
           return {
-            ok: !1,
+            ok: false,
             reason: `${d} through xargs with no static program \u2014 stdin-supplied program text cannot be statically analyzed`,
           };
       }
@@ -6470,40 +6470,40 @@ function QJn(e) {
     if (d === "jq") {
       for (let x of o) {
         if (/\bsystem\s*\(/.test(x))
-          return { ok: !1, reason: "jq command contains system() function which executes arbitrary commands" };
+          return { ok: false, reason: "jq command contains system() function which executes arbitrary commands" };
         if (/\b(?:include|import)\b/.test(x))
           return {
-            ok: !1,
+            ok: false,
             reason:
               'jq command contains include/import \u2014 modules can load arbitrary .jq files via {search:"."} and call env or other builtins',
           };
       }
       if (o.some((x) => /^(?:-[A-Za-z]*[fL]|--(?:from-file|rawfile|slurpfile|library-path)(?:$|=))/.test(x)))
         return {
-          ok: !1,
+          ok: false,
           reason: "jq command contains dangerous flags that could execute code or read arbitrary files",
         };
     }
     if (sWt.has(d)) {
       if (r.hasUnquotedGlob)
         return {
-          ok: !1,
+          ok: false,
           reason:
             "awk command contains unquoted glob characters \u2014 could glob-expand to a planted program or flag before awk runs",
         };
       for (let x of o) {
         let P = Xo(x);
-        if (P !== !1) return { ok: !1, reason: P };
+        if (P !== false) return { ok: false, reason: P };
         if (Qa(x))
           return {
-            ok: !1,
+            ok: false,
             reason:
               "awk argument is runtime-determined \u2014 substituted text becomes awk code and cannot be statically analyzed",
           };
       }
       if (o.some((x) => /^-[bcCghIkMnNOPrsStV]*[fEileDW]/.test(x) || /^--(?:fil|e|i|lo|s|de)/.test(x)))
         return {
-          ok: !1,
+          ok: false,
           reason:
             "awk command uses flags that read the program from a file, load extensions, or supply program fragments \u2014 cannot be statically analyzed",
         };
@@ -6511,7 +6511,7 @@ function QJn(e) {
     if (d === "find") {
       if (r.hasUnquotedGlob)
         return {
-          ok: !1,
+          ok: false,
           reason:
             "find contains unquoted glob characters \u2014 could glob-expand to a dangerous action before find runs",
         };
@@ -6519,7 +6519,7 @@ function QJn(e) {
         let P = o[x];
         if ($hn.has(P))
           return {
-            ok: !1,
+            ok: false,
             reason: `find with '${P}' executes commands or modifies files \u2014 cannot be auto-allowed by a Bash(find:*) prefix rule`,
           };
         if (X_t.has(P) || Y_t.test(P)) {
@@ -6527,27 +6527,27 @@ function QJn(e) {
           continue;
         }
         if (Qa(P))
-          return { ok: !1, reason: "find argument is runtime-determined \u2014 could resolve to a dangerous action" };
+          return { ok: false, reason: "find argument is runtime-determined \u2014 could resolve to a dangerous action" };
         if (/[[\]*?]/.test(P))
           return {
-            ok: !1,
+            ok: false,
             reason: `find argument '${P}' contains glob characters \u2014 could glob-expand to a dangerous action`,
           };
       }
     }
-    if (iWt.has(d)) return { ok: !1, reason: `Zsh builtin '${d}' can bypass security checks` };
+    if (iWt.has(d)) return { ok: false, reason: `Zsh builtin '${d}' can bypass security checks` };
     if (iKe.has(d))
       if (d === "fc" && !o.slice(1).some((x) => /^[+-].*[es]/.test(x)));
       else if (d === "compgen" && !o.slice(1).some((x) => /^[+-].*[CFW]/.test(x)));
-      else return { ok: !1, reason: `'${d}' evaluates arguments as shell code` };
+      else return { ok: false, reason: `'${d}' evaluates arguments as shell code` };
     if (J_t.has(d) && o.length > 1)
-      return { ok: !1, reason: `'${d}' runs its argument as a command \u2014 cannot be statically analyzed` };
+      return { ok: false, reason: `'${d}' runs its argument as a command \u2014 cannot be statically analyzed` };
     for (let x of r.argv)
       if (x.includes("/proc/") && Qn.test(x))
-        return { ok: !1, reason: "Accesses /proc/*/environ which may expose secrets" };
+        return { ok: false, reason: "Accesses /proc/*/environ which may expose secrets" };
     for (let x of r.redirects)
       if (x.target.includes("/proc/") && Qn.test(x.target))
-        return { ok: !1, reason: "Accesses /proc/*/environ which may expose secrets" };
+        return { ok: false, reason: "Accesses /proc/*/environ which may expose secrets" };
     for (let x of r.argv)
       if (
         x.includes(`
@@ -6555,7 +6555,7 @@ function QJn(e) {
         Ht.test(x)
       )
         t ??= {
-          ok: !1,
+          ok: false,
           kind: "newline-hash",
           reason: "Newline followed by # inside a quoted argument can hide arguments from path validation",
         };
@@ -6566,7 +6566,7 @@ function QJn(e) {
         Ht.test(x.value)
       )
         t ??= {
-          ok: !1,
+          ok: false,
           kind: "newline-hash",
           reason: "Newline followed by # inside an env var value can hide arguments from path validation",
         };
@@ -6577,13 +6577,13 @@ function QJn(e) {
         Ht.test(x.target)
       )
         t ??= {
-          ok: !1,
+          ok: false,
           kind: "newline-hash",
           reason: "Newline followed by # inside a redirect target can hide arguments from path validation",
         };
   }
   if (t) return t;
-  return { ok: !0 };
+  return { ok: true };
 }
 var Et = { "--all": "none", "--branches": "none", "--tags": "none", "--remotes": "none" },
   qt = { "--since": "string", "--after": "string", "--until": "string", "--before": "string" },
@@ -6606,26 +6606,26 @@ function Za(e) {
 }
 var Xa = new Set(["oneline", "short", "medium", "full", "fuller", "email", "raw"]);
 function Ja(e) {
-  if (e === "") return !1;
-  if (e.includes("%")) return !1;
-  if (e.startsWith("format:") || e.startsWith("tformat:")) return !1;
+  if (e === "") return false;
+  if (e.includes("%")) return false;
+  if (e.startsWith("format:") || e.startsWith("tformat:")) return false;
   return !Xa.has(e);
 }
 function Ne(e) {
   let t = (r) => Qa(r) || ei.test(r) || Za(r);
   for (let r = 0; r < e.length; r++) {
     let o = e[r];
-    if (ei.test(o)) return !0;
+    if (ei.test(o)) return true;
     for (let u of ["--format", "--pretty", "--sort"]) {
       let d;
       if (o === u && r + 1 < e.length) d = e[r + 1];
       else if (o.startsWith(`${u}=`)) d = o.slice(u.length + 1);
       if (d === void 0) continue;
-      if (t(d)) return !0;
-      if (u !== "--sort" && Ja(d)) return !0;
+      if (t(d)) return true;
+      if (u !== "--sort" && Ja(d)) return true;
     }
   }
-  return !1;
+  return false;
 }
 var aKe = {
   "git diff": {
@@ -6774,9 +6774,9 @@ var aKe = {
       let r = new Set(["show", "list"]),
         o = new Set(["expire", "delete", "exists", "drop", "write"]),
         u = t[0];
-      if (u && !u.startsWith("-") && !r.has(u)) return !0;
-      for (let d of t) if (o.has(d)) return !0;
-      return !1;
+      if (u && !u.startsWith("-") && !r.has(u)) return true;
+      for (let d of t) if (o.has(d)) return true;
+      return false;
     },
   },
   "git stash list": { safeFlags: { ...Jt, ...Et, ...Qt } },
@@ -6797,21 +6797,21 @@ var aKe = {
       "--sort": "string",
     },
     additionalCommandIsDangerousCallback: (e, t) => {
-      if (Ne(t)) return !0;
-      let r = !1;
+      if (Ne(t)) return true;
+      let r = false;
       for (let o = 0; o < t.length; o++) {
         let u = t[o];
         if (!r && u === "--") {
-          r = !0;
+          r = true;
           continue;
         }
         if (!r && (!u || u.startsWith("-"))) {
           if (u === "--sort") o++;
           continue;
         }
-        return !0;
+        return true;
       }
-      return !1;
+      return false;
     },
   },
   "git status": {
@@ -6932,8 +6932,8 @@ var aKe = {
         o = r === -1 ? t : t.slice(0, r),
         u = r === -1 ? [] : t.slice(r + 1),
         d = o.filter((S) => S !== "-n").concat(u);
-      if (d.length !== 1) return !0;
-      if (!o.includes("-n")) return !0;
+      if (d.length !== 1) return true;
+      if (!o.includes("-n")) return true;
       return !/^[a-zA-Z0-9_][a-zA-Z0-9_-]*$/.test(d[0]);
     },
   },
@@ -7129,7 +7129,7 @@ var aKe = {
       "--ignore-case": "none",
     },
     additionalCommandIsDangerousCallback: (e, t) => {
-      if (Ne(t)) return !0;
+      if (Ne(t)) return true;
       let r = new Set([
           "--contains",
           "--no-contains",
@@ -7141,8 +7141,8 @@ var aKe = {
           "-n",
         ]),
         o = 0,
-        u = !1,
-        d = !1;
+        u = false,
+        d = false;
       while (o < t.length) {
         let S = t[o];
         if (!S) {
@@ -7150,21 +7150,21 @@ var aKe = {
           continue;
         }
         if (S === "--" && !d) {
-          (d = !0), o++;
+          (d = true), o++;
           continue;
         }
         if (!d && S.startsWith("-")) {
-          if (S === "--list" || S === "-l") u = !0;
-          else if (S[0] === "-" && S[1] !== "-" && S.length > 2 && !S.includes("=") && S.slice(1).includes("l")) u = !0;
+          if (S === "--list" || S === "-l") u = true;
+          else if (S[0] === "-" && S[1] !== "-" && S.length > 2 && !S.includes("=") && S.slice(1).includes("l")) u = true;
           if (S.includes("=")) o++;
           else if (r.has(S)) o += 2;
           else o++;
         } else {
-          if (!u) return !0;
+          if (!u) return true;
           o++;
         }
       }
-      return !1;
+      return false;
     },
   },
   "git branch": {
@@ -7195,13 +7195,13 @@ var aKe = {
       "--ignore-case": "none",
     },
     additionalCommandIsDangerousCallback: (e, t) => {
-      if (Ne(t)) return !0;
+      if (Ne(t)) return true;
       let r = new Set(["--contains", "--no-contains", "--points-at", "--sort"]),
         o = new Set(["--merged", "--no-merged"]),
         u = 0,
         d = "",
-        S = !1,
-        _ = !1;
+        S = false,
+        _ = false;
       while (u < t.length) {
         let x = t[u];
         if (!x) {
@@ -7209,22 +7209,22 @@ var aKe = {
           continue;
         }
         if (x === "--" && !_) {
-          (_ = !0), (d = ""), u++;
+          (_ = true), (d = ""), u++;
           continue;
         }
         if (!_ && x.startsWith("-")) {
-          if (x === "--list" || x === "-l") S = !0;
-          else if (x[0] === "-" && x[1] !== "-" && x.length > 2 && !x.includes("=") && x.slice(1).includes("l")) S = !0;
+          if (x === "--list" || x === "-l") S = true;
+          else if (x[0] === "-" && x[1] !== "-" && x.length > 2 && !x.includes("=") && x.slice(1).includes("l")) S = true;
           if (x.includes("=")) (d = St(x, "=")), u++;
           else if (r.has(x)) (d = x), (u += 2);
           else (d = x), u++;
         } else {
           let P = o.has(d);
-          if (!S && !P) return !0;
+          if (!S && !P) return true;
           u++;
         }
       }
-      return !1;
+      return false;
     },
   },
 };
@@ -7237,13 +7237,13 @@ function he(e, t) {
       if (d === -1) continue;
       if (((o = r.slice(d + 1)), !o)) continue;
     }
-    if (Qa(o)) return !0;
+    if (Qa(o)) return true;
     if (!o.includes("/") && !o.includes("://") && !o.includes("@")) continue;
-    if (o.includes("://")) return !0;
-    if (o.includes("@")) return !0;
-    if ((o.match(/\//g) || []).length >= 2) return !0;
+    if (o.includes("://")) return true;
+    if (o.includes("@")) return true;
+    if ((o.match(/\//g) || []).length >= 2) return true;
   }
-  return !1;
+  return false;
 }
 var lKe = {
     "gh pr view": {
@@ -7590,12 +7590,12 @@ var lKe = {
 function aWt(e) {
   return e.some((t) => {
     if (Z_t.some((o) => t === o || t.startsWith(`${o}=`) || (o.length === 2 && t.length > 2 && t.startsWith(o))))
-      return !0;
+      return true;
     let r = t.match(/^-([A-Za-z]+)/)?.[1];
     if (r !== void 0 && r.length >= 2) {
-      for (let o of r) if (el.has(o)) return !0;
+      for (let o of r) if (el.has(o)) return true;
     }
-    return !1;
+    return false;
   });
 }
 var eyt = {
@@ -7686,7 +7686,7 @@ var eyt = {
   },
   eQn = {
     pyright: {
-      respectsDoubleDash: !1,
+      respectsDoubleDash: false,
       safeFlags: {
         "--outputjson": "none",
         "--pythonversion": "string",
@@ -7704,32 +7704,32 @@ var eyt = {
   tyt = ["docker ps", "docker images"],
   oi = /^--?[A-Za-z0-9][\w-]*=/,
   nl = /(?:^|[^A-Za-z0-9_])[\\/]\?\?(?:[\\/]|$)/;
-function S_(e, t = !1) {
-  if (D() !== "windows") return !1;
-  if (t && Bn(e)) return !0;
+function S_(e, t = false) {
+  if (D() !== "windows") return false;
+  if (t && Bn(e)) return true;
   if (t && /^-[A-Za-z0-9]/.test(e)) {
     let S = e.replace(/^(?:-[A-Za-z0-9]+)+/, "");
-    if (S.length > 0 && S_(S, !0)) return !0;
+    if (S.length > 0 && S_(S, true)) return true;
   }
   if (t && oi.test(e)) {
     let S = e;
     while (oi.test(S)) S = S.slice(S.indexOf("=") + 1);
-    if (S.length > 0 && S_(S, !0)) return !0;
+    if (S.length > 0 && S_(S, true)) return true;
   }
-  if (/\\\\[^ \t\r\n\f\v\\/]+(?:@(?:\d+|ssl))?(?:[\\/]|$|\s)/i.test(e)) return !0;
-  if (nl.test(e)) return !0;
-  if (/(?<!:)\/\/[^ \t\r\n\f\v\\/]+(?:@(?:\d+|ssl))?(?:[\\/]|$|\s)/i.test(e)) return !0;
-  if ((t ? /(?<![:\w])\/\\{1,}[^ \t\r\n\f\v\\/]+[\\/]/ : /\/\\{2,}[^ \t\r\n\f\v\\/]/).test(e)) return !0;
-  if ((t ? /(?<![:\w])\\{1,}\/[^ \t\r\n\f\v\\/]+[\\/]/ : /\\{2,}\/[^ \t\r\n\f\v\\/]/).test(e)) return !0;
-  if (/@SSL@\d+/i.test(e) || /@\d+@SSL/i.test(e)) return !0;
-  if (/DavWWWRoot/i.test(e)) return !0;
+  if (/\\\\[^ \t\r\n\f\v\\/]+(?:@(?:\d+|ssl))?(?:[\\/]|$|\s)/i.test(e)) return true;
+  if (nl.test(e)) return true;
+  if (/(?<!:)\/\/[^ \t\r\n\f\v\\/]+(?:@(?:\d+|ssl))?(?:[\\/]|$|\s)/i.test(e)) return true;
+  if ((t ? /(?<![:\w])\/\\{1,}[^ \t\r\n\f\v\\/]+[\\/]/ : /\/\\{2,}[^ \t\r\n\f\v\\/]/).test(e)) return true;
+  if ((t ? /(?<![:\w])\\{1,}\/[^ \t\r\n\f\v\\/]+[\\/]/ : /\\{2,}\/[^ \t\r\n\f\v\\/]/).test(e)) return true;
+  if (/@SSL@\d+/i.test(e) || /@\d+@SSL/i.test(e)) return true;
+  if (/DavWWWRoot/i.test(e)) return true;
   if (
     /^\\\\(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})[\\/]/.test(e) ||
     /^\/\/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})[\\/]/.test(e)
   )
-    return !0;
-  if (/^\\\\(\[[\da-fA-F:]+\])[\\/]/.test(e) || /^\/\/(\[[\da-fA-F:]+\])[\\/]/.test(e)) return !0;
-  return !1;
+    return true;
+  if (/^\\\\(\[[\da-fA-F:]+\])[\\/]/.test(e) || /^\/\/(\[[\da-fA-F:]+\])[\\/]/.test(e)) return true;
+  return false;
 }
 var ol = /^-[a-zA-Z0-9_-]/;
 function cKe(e) {
@@ -7738,11 +7738,11 @@ function cKe(e) {
 function ii(e, t) {
   switch (t) {
     case "none":
-      return !1;
+      return false;
     case "number":
       return /^\d+$/.test(e);
     case "string":
-      return !0;
+      return true;
     case "char":
       return e.length === 1;
     case "{}":
@@ -7750,7 +7750,7 @@ function ii(e, t) {
     case "EOF":
       return e === "EOF";
     default:
-      return !1;
+      return false;
   }
 }
 function TLe(e, t, r, o) {
@@ -7764,10 +7764,10 @@ function TLe(e, t, r, o) {
     if (o?.xargsTargetCommands && o.commandName === "xargs" && (!d.startsWith("-") || d === "--")) {
       if (d === "--" && u + 1 < e.length) u++, (d = e[u]);
       if (d && o.xargsTargetCommands.includes(d)) break;
-      return !1;
+      return false;
     }
     if (d === "--") {
-      if (r.respectsDoubleDash !== !1) {
+      if (r.respectsDoubleDash !== false) {
         u++;
         break;
       }
@@ -7778,7 +7778,7 @@ function TLe(e, t, r, o) {
       let S = d.includes("="),
         [_, ...x] = d.split("="),
         P = x.join("=");
-      if (!_) return !1;
+      if (!_) return false;
       let k = r.safeFlags[_];
       if (!k) {
         if (o?.commandName === "git" && _.match(/^-\d+$/)) {
@@ -7802,42 +7802,42 @@ function TLe(e, t, r, o) {
               if (ii(T, M)) {
                 u++;
                 continue;
-              } else return !1;
+              } else return false;
           }
         }
         if (_.startsWith("-") && !_.startsWith("--") && _.length > 2) {
           for (let A = 1; A < _.length; A++) {
             let T = "-" + _[A],
               M = r.safeFlags[T];
-            if (!M) return !1;
-            if (M !== "none") return !1;
+            if (!M) return false;
+            if (M !== "none") return false;
           }
           u++;
           continue;
-        } else return !1;
+        } else return false;
       }
       if (k === "none") {
-        if (S) return !1;
+        if (S) return false;
         u++;
       } else {
         let A;
         if (S) (A = P), u++;
         else {
-          if (u + 1 >= e.length || (e[u + 1] && cKe(e[u + 1]))) return !1;
+          if (u + 1 >= e.length || (e[u + 1] && cKe(e[u + 1]))) return false;
           (A = e[u + 1] || ""), (u += 2);
         }
-        if (Do(A)) return !1;
+        if (Do(A)) return false;
         if (k === "string" && A.startsWith("-"))
           if (_ === "--sort" && o?.commandName === "git" && A.match(/^-[a-zA-Z]/));
-          else return !1;
-        if (!ii(A, k)) return !1;
+          else return false;
+        if (!ii(A, k)) return false;
       }
     } else {
-      if (Qa(d)) return !1;
+      if (Qa(d)) return false;
       u++;
     }
   }
-  return !0;
+  return true;
 }
 import { posix as cl } from "path";
 function nyt(e) {
@@ -7845,7 +7845,7 @@ function nyt(e) {
   return t.toolName === e.toolName && t.ruleContent === e.ruleContent;
 }
 function $I() {
-  return ye("policySettings")?.allowManagedPermissionRulesOnly === !0;
+  return ye("policySettings")?.allowManagedPermissionRulesOnly === true;
 }
 function ELe() {
   return !$I();
@@ -7862,7 +7862,7 @@ function lWt(e, t) {
   return o;
 }
 function uKe() {
-  return a.CLAUDE_CODE_EVAL_CONFINED === !0;
+  return a.CLAUDE_CODE_EVAL_CONFINED === true;
 }
 function d3(e = {}) {
   let t = sl(e);
@@ -7876,10 +7876,10 @@ function sl(e = {}) {
     let { gateProject: r, gateLocal: o } = ryt(),
       u = new Set(),
       d = t.filter((S) => {
-        if (S.ruleBehavior !== "allow") return !0;
-        if (S.source === "projectSettings" && r) return u.add(".claude/settings.json"), !1;
-        if (S.source === "localSettings" && o) return u.add(".claude/settings.local.json"), !1;
-        return !0;
+        if (S.ruleBehavior !== "allow") return true;
+        if (S.source === "projectSettings" && r) return u.add(".claude/settings.json"), false;
+        if (S.source === "localSettings" && o) return u.add(".claude/settings.local.json"), false;
+        return true;
       });
     if (d.length !== t.length) ui("permissions.allow", t.length - d.length, [...u]);
     return d;
@@ -7889,7 +7889,7 @@ function sl(e = {}) {
 function sde(e = {}) {
   if (uKe()) return [];
   let t = e.strictPersistedTrust ?? qd(),
-    { gateProject: r, gateLocal: o } = t ? { gateProject: !1, gateLocal: !1 } : ryt(),
+    { gateProject: r, gateLocal: o } = t ? { gateProject: false, gateLocal: false } : ryt(),
     u = [],
     d = 0,
     S = new Set();
@@ -7912,18 +7912,18 @@ function ryt() {
   return { gateProject: !$T(), gateLocal: CC({ onIndeterminate: "untracked" }) };
 }
 function si(e) {
-  if (!xi().includes(e)) return !1;
+  if (!xi().includes(e)) return false;
   return GTe(e).some((t) => t.ruleBehavior === "allow") || (ye(e)?.permissions?.additionalDirectories?.length ?? 0) > 0;
 }
 function qhn() {
-  if (a.CLAUDE_CODE_SANDBOXED) return !0;
-  if (z5()) return !0;
-  if (wt()) return !0;
-  if (AR()) return !0;
+  if (a.CLAUDE_CODE_SANDBOXED) return true;
+  if (z5()) return true;
+  if (wt()) return true;
+  if (AR()) return true;
   return qd();
 }
 function al() {
-  if (qhn()) return !1;
+  if (qhn()) return false;
   return dKe();
 }
 function dKe() {
@@ -7933,8 +7933,8 @@ function dKe() {
 class ai {
   warned = new Set();
   firstTimeFor(e) {
-    if (this.warned.has(e)) return !1;
-    return this.warned.add(e), !0;
+    if (this.warned.has(e)) return false;
+    return this.warned.add(e), true;
   }
   reset() {
     this.warned.clear();
@@ -7963,39 +7963,39 @@ function GTe(e) {
 }
 var ll = UH;
 async function tQn(e, t) {
-  if (!ll.includes(e.source)) return !1;
+  if (!ll.includes(e.source)) return false;
   let r = eo(e.ruleValue),
     o = (u) => eo(Ur(u));
   try {
-    let u = !1;
+    let u = false;
     if (e.source === "localSettings") {
       let _ = $H();
       if (_) u = !!xC(_).settings?.permissions?.[e.ruleBehavior]?.some((P) => o(P) === r);
     }
-    let d = !1,
+    let d = false,
       { error: S } = await Os(
         e.source,
         (_) => {
           let x = _?.permissions?.[e.ruleBehavior];
           if (!x || !x.some((P) => o(P) === r)) return null;
-          return (d = !0), { permissions: { [e.ruleBehavior]: x.filter((P) => o(P) !== r) } };
+          return (d = true), { permissions: { [e.ruleBehavior]: x.filter((P) => o(P) !== r) } };
         },
         void 0,
         t,
       );
-    if (S) return !1;
+    if (S) return false;
     if (!d && u) {
       let _ = $H();
       if (_) return !xC(_).settings?.permissions?.[e.ruleBehavior]?.some((P) => o(P) === r);
     }
     return d || u;
   } catch (u) {
-    return h(u), !1;
+    return h(u), false;
   }
 }
 async function di({ ruleValues: e, ruleBehavior: t }, r, o) {
-  if ($I()) return !1;
-  if (e.length < 1) return !0;
+  if ($I()) return false;
+  if (e.length < 1) return true;
   let u = e.map(eo);
   try {
     let d = await Os(
@@ -8011,13 +8011,13 @@ async function di({ ruleValues: e, ruleBehavior: t }, r, o) {
       o,
     );
     if (d.error) throw d.error;
-    return !0;
+    return true;
   } catch (d) {
     return (
       n(`Failed to add permission rules to ${r} settings: ${d instanceof Error ? d.message : String(d)}`, {
         level: "error",
       }),
-      !1
+      false
     );
   }
 }
@@ -8028,16 +8028,16 @@ function ul(e) {
   return t;
 }
 var dl = {
-    userSettings: !0,
-    projectSettings: !0,
-    localSettings: !0,
-    flagSettings: !0,
-    policySettings: !0,
-    cliArg: !0,
-    command: !0,
-    toolsNarrowing: !0,
-    mcpServerPolicy: !0,
-    session: !0,
+    userSettings: true,
+    projectSettings: true,
+    localSettings: true,
+    flagSettings: true,
+    policySettings: true,
+    cliArg: true,
+    command: true,
+    toolsNarrowing: true,
+    mcpServerPolicy: true,
+    session: true,
   },
   ml = new Set(Object.keys(dl)),
   tn = { allow: "alwaysAllowRules", deny: "alwaysDenyRules", ask: "alwaysAskRules" };
@@ -8053,7 +8053,7 @@ function pKe(e) {
   });
 }
 function ar(e) {
-  if (e === null || typeof e !== "object") return !1;
+  if (e === null || typeof e !== "object") return false;
   let t = e;
   return typeof t.toolName === "string" && (t.ruleContent === void 0 || typeof t.ruleContent === "string");
 }
@@ -8241,8 +8241,8 @@ function fl(e, t) {
 function nQn(e, t, r, o) {
   let u = (S, _) => {
       let x = Ur(eo(S));
-      if (x.ruleContent !== void 0) return !1;
-      if (!(t.has(x.toolName) || o(x))) return !1;
+      if (x.ruleContent !== void 0) return false;
+      if (!(t.has(x.toolName) || o(x))) return false;
       return !r(x, _);
     },
     d = [];
@@ -8358,7 +8358,7 @@ async function FM(e, t) {
 function zTe(e, t = "session") {
   let r = hKe(e);
   if (r === "/") return;
-  let o = FTt(r, { escapeGlobs: !0 }),
+  let o = FTt(r, { escapeGlobs: true }),
     u = cl.isAbsolute(r) ? `/${o}/**` : o.startsWith("\\") ? `./${o}/**` : `${o}/**`;
   return { type: "addRules", rules: [{ toolName: _t, ruleContent: u }], behavior: "allow", destination: t };
 }
@@ -8435,25 +8435,25 @@ function mKe(e) {
   return e.match(/^(.+):\*$/)?.[1] ?? null;
 }
 function ur(e) {
-  if (e.endsWith(":*")) return !1;
+  if (e.endsWith(":*")) return false;
   for (let t = 0; t < e.length; t++)
     if (e[t] === "*") {
       let r = 0,
         o = t - 1;
       while (o >= 0 && e[o] === "\\") r++, o--;
-      if (r % 2 === 0) return !0;
+      if (r % 2 === 0) return true;
     }
-  return !1;
+  return false;
 }
 function oQn(e) {
   let t = e.trimEnd();
-  if (!t.endsWith("*")) return !1;
+  if (!t.endsWith("*")) return false;
   let r = 0,
     o = t.length - 2;
   while (o >= 0 && t[o] === "\\") r++, o--;
   return r % 2 === 0;
 }
-function o6(e, t, r = !1, o = !1) {
+function o6(e, t, r = false, o = false) {
   let u = e.trim(),
     d = o ? u.replace(/[ \t]+/g, " ") : u,
     S = o ? t.replace(/[ \t]+/g, " ") : t,
@@ -8602,11 +8602,11 @@ function Tl() {
 function cyt(e) {
   let t = gt(e),
     r = yr(t);
-  if (r.endsWith(`${re}.claude${re}settings.json`) || r.endsWith(`${re}.claude${re}settings.local.json`)) return !0;
+  if (r.endsWith(`${re}.claude${re}settings.json`) || r.endsWith(`${re}.claude${re}settings.local.json`)) return true;
   return Tl().some((o) => yr(o) === r);
 }
 function Ml(e) {
-  if (cyt(e)) return !0;
+  if (cyt(e)) return true;
   let t = pe(Se(), ".claude", "commands"),
     r = pe(Se(), ".claude", "agents"),
     o = pe(Se(), ".claude", "skills");
@@ -8614,13 +8614,13 @@ function Ml(e) {
 }
 function wi(e, t) {
   let r = uV();
-  if (!r) return !1;
+  if (!r) return false;
   let o = we(e);
-  if (Rl(o) !== we(va())) return !1;
+  if (Rl(o) !== we(va())) return false;
   let u = El(o);
   return (
     u === `${r}.md` ||
-    (u === `${r}.workshop.md` && t?.includeWorkshopDoc === !0 && bLe()) ||
+    (u === `${r}.workshop.md` && t?.includeWorkshopDoc === true && bLe()) ||
     (u.startsWith(`${r}-agent-`) && u.endsWith(".md"))
   );
 }
@@ -8634,12 +8634,12 @@ function Cl(e) {
   return r === t || r.startsWith(t + re);
 }
 function Kv() {
-  if (I("tengu_scratch", !1)) return !0;
+  if (I("tengu_scratch", false)) return true;
   {
     let { isArtifactToolEligible: e } = import.meta.require("/$bunfs/root/chunk-zbjaq6pk.js");
     return e();
   }
-  return !1;
+  return false;
 }
 function uWt() {
   let e = r6();
@@ -8694,7 +8694,7 @@ function bi(e) {
 }
 function _Ke(e) {
   let t = bi(e);
-  if (t === null) return !1;
+  if (t === null) return false;
   return t.comparePath === t.compareDir || (t.comparePath.startsWith(t.prefix) && !k$(t.comparePath, t.prefix, SH));
 }
 function vLe(e) {
@@ -8723,13 +8723,13 @@ function mr(e) {
 function _i(e) {
   let t = yr(we(e)),
     r = yr(pe(be(), "jobs") + re);
-  if (!t.startsWith(r)) return !1;
+  if (!t.startsWith(r)) return false;
   let u = t.slice(r.length).split(re);
   return u.length === 2 && u[1].startsWith("adopt.json");
 }
 function fr(e) {
   let t = a.CLAUDE_CODE_HOST_CREDS_FILE;
-  if (!t) return !1;
+  if (!t) return false;
   let o = t.replace(D() === "windows" ? /[\\/]+$/ : /\/+$/, "") || t,
     u = yr(we(e));
   return ao(o).some((d) => yr(we(d)) === u);
@@ -8740,13 +8740,13 @@ var pr = {
     decisionReason: {
       type: "safetyCheck",
       reason: "host-creds file rewrite redirects the bearer token",
-      classifierApprovable: !1,
+      classifierApprovable: false,
     },
   },
   Si = {
     behavior: "deny",
     message: "Cannot write to memory while it is paused. Run /pause-memory to resume automemory.",
-    decisionReason: { type: "safetyCheck", reason: yi, classifierApprovable: !1 },
+    decisionReason: { type: "safetyCheck", reason: yi, classifierApprovable: false },
   },
   hr = {
     behavior: "deny",
@@ -8755,7 +8755,7 @@ var pr = {
     decisionReason: {
       type: "safetyCheck",
       reason: "seed-admin git configuration is a code-execution surface for the upload",
-      classifierApprovable: !1,
+      classifierApprovable: false,
     },
   },
   vi = {
@@ -8764,31 +8764,31 @@ var pr = {
     decisionReason: {
       type: "safetyCheck",
       reason: "adopt.json is a code-execution surface for the fork",
-      classifierApprovable: !1,
+      classifierApprovable: false,
     },
   };
 function ki(e) {
-  if (a.CLAUDE_CODE_SESSION_KIND !== "bg") return !1;
+  if (a.CLAUDE_CODE_SESSION_KIND !== "bg") return false;
   let t = process.env.CLAUDE_JOB_DIR;
-  if (!t) return !1;
+  if (!t) return false;
   let r = pe(be(), "jobs") + re,
     o = we(t);
-  if (!o.startsWith(r)) return !1;
+  if (!o.startsWith(r)) return false;
   let u = o + re + "tmp" + re;
-  if (!yr(e).startsWith(yr(u))) return !1;
+  if (!yr(e).startsWith(yr(u))) return false;
   return !k$(e, u, SH);
 }
 function Fe(e, t) {
-  if (!t || t.size === 0) return !1;
+  if (!t || t.size === 0) return false;
   for (let r of t.values())
     for (let o of r) {
       if (Bn(e) !== Bn(o)) continue;
-      if (rf(e, o)) return !0;
+      if (rf(e, o)) return true;
     }
-  return !1;
+  return false;
 }
 function aV(e, t) {
-  if (Dj(e)) return !0;
+  if (Dj(e)) return true;
   return Bn(e) && !Ms(e) && !Fe(e, t);
 }
 function kLe(e, t) {
@@ -8827,23 +8827,23 @@ function fi(e) {
 }
 function $l(e, t) {
   let r = t.startsWith("~/.claude/") ? Pt() : t.startsWith("/.claude/") ? Se() : null;
-  if (r === null) return !1;
+  if (r === null) return false;
   let o = gt(pe(r, ".claude")).split(re);
   if (o.length > 1 && o.at(-1) === "") o.pop();
   let u = gt(e).split(re);
   for (let d = 0; d < o.length; d++)
     if (u[d] !== o[d] && !(d === 0 && /^[a-z]:$/i.test(u[d] ?? "") && u[d].toLowerCase() === o[d].toLowerCase()))
-      return !1;
-  for (let d = o.length; d < u.length; d++) if (Jl(u[d]) === ".claude") return !0;
-  return !1;
+      return false;
+  for (let d = o.length; d < u.length; d++) if (Jl(u[d]) === ".claude") return true;
+  return false;
 }
 function Ol(e, t, r) {
   let o = gt(e),
     u = o.split(re),
     d = u.at(-1);
-  if (!_r(o) && (!bA(o) || Ms(o)) && hQn(o, hyt(), be(), { maxAgeMs: 5000 })) return !0;
-  if (aV(e, r)) return !0;
-  let S = !1,
+  if (!_r(o) && (!bA(o) || Ms(o)) && hQn(o, hyt(), be(), { maxAgeMs: 5000 })) return true;
+  if (aV(e, r)) return true;
+  let S = false,
     _ = Ei(u);
   for (let x = 0; x < u.length; x++) {
     let P = u[x],
@@ -8852,50 +8852,50 @@ function Ol(e, t, r) {
       if (k !== yr(A)) continue;
       if (A === ".claude") {
         let T = x >= _;
-        if (S) return !0;
+        if (S) return true;
         let M = u[x + 1],
           C = M ? Jl(M) : void 0;
         if (t && C) {
           if (C === "skills" || C === "agents" || C === "commands") {
-            if (T) S = !0;
+            if (T) S = true;
             break;
           }
           if (C === "scheduled_tasks.json" && x + 1 === u.length - 1) break;
         }
         if (C === "worktrees") {
-          if (T) S = !0;
+          if (T) S = true;
           break;
         }
       }
-      return !0;
+      return true;
     }
   }
   for (let x of gKe) {
     let P = x.split("/");
-    for (let k = 0; k + P.length <= u.length; k++) if (P.every((A, T) => Jl(u[k + T]) === yr(A))) return !0;
+    for (let k = 0; k + P.length <= u.length; k++) if (P.every((A, T) => Jl(u[k + T]) === yr(A))) return true;
   }
   if (d) {
     let x = Jl(d);
-    if (VTe.some((P) => yr(P) === x)) return !0;
+    if (VTe.some((P) => yr(P) === x)) return true;
   }
-  return !1;
+  return false;
 }
 function $M(e, t) {
-  if (Dj(e)) return !0;
+  if (Dj(e)) return true;
   if (D() === "windows" || D() === "wsl") {
-    if (e.indexOf(":", 2) !== -1) return !0;
+    if (e.indexOf(":", 2) !== -1) return true;
   }
-  if (/~\d/.test(e)) return !0;
-  if (e.startsWith("\\\\?\\") || e.startsWith("\\\\.\\") || e.startsWith("//?/") || e.startsWith("//./")) return !0;
+  if (/~\d/.test(e)) return true;
+  if (e.startsWith("\\\\?\\") || e.startsWith("\\\\.\\") || e.startsWith("//?/") || e.startsWith("//./")) return true;
   let r = e.split(/[/\\]/);
   for (let o of r) {
     if (o === "" || o === "." || o === "..") continue;
-    if (pme.test(o)) return !0;
+    if (pme.test(o)) return true;
   }
-  if (zxn.test(e)) return !0;
-  if (/(^|\/|\\)\.{3,}(\/|\\|$)/.test(e)) return !0;
-  if (S_(e, !0) && !Ms(e) && !Fe(e, t)) return !0;
-  return !1;
+  if (zxn.test(e)) return true;
+  if (/(^|\/|\\)\.{3,}(\/|\\|$)/.test(e)) return true;
+  if (S_(e, true) && !Ms(e) && !Fe(e, t)) return true;
+  return false;
 }
 function tY(e, t, r, o, u) {
   let d = r || o,
@@ -8903,33 +8903,33 @@ function tY(e, t, r, o, u) {
   for (let _ of S)
     if ($M(_, u))
       return {
-        safe: !1,
+        safe: false,
         message: `Claude requested permissions to write to ${e}, which contains a suspicious Windows path pattern that requires manual approval.`,
-        classifierApprovable: !1,
+        classifierApprovable: false,
         circuitBreaker: "suspiciousWindowsPath",
       };
   for (let _ of S)
     if (d) {
       if (cyt(_))
         return {
-          safe: !1,
+          safe: false,
           message: `Claude requested permissions to write to ${e}, but you haven't granted it yet.`,
-          classifierApprovable: !0,
+          classifierApprovable: true,
         };
     } else if (Ml(_))
       return {
-        safe: !1,
+        safe: false,
         message: `Claude requested permissions to write to ${e}, but you haven't granted it yet.`,
-        classifierApprovable: !0,
+        classifierApprovable: true,
       };
   for (let _ of S)
     if (Ol(_, d, u))
       return {
-        safe: !1,
+        safe: false,
         message: `Claude requested permissions to edit ${e} which is a sensitive file.`,
-        classifierApprovable: !0,
+        classifierApprovable: true,
       };
-  return { safe: !0 };
+  return { safe: true };
 }
 function TT(e) {
   return new Set([Se(), ...e.additionalWorkingDirectories.keys()]);
@@ -8944,7 +8944,7 @@ function dWt(e) {
 function Xy(e, t, r) {
   let o = r ?? ao(e),
     u = Array.from(TT(t)).flatMap((d) => dWt(d));
-  return o.every((d) => u.some((S) => rf(d, S, { caseFold: !1, uncShapeParity: !0 })));
+  return o.every((d) => u.some((S) => rf(d, S, { caseFold: false, uncShapeParity: true })));
 }
 function Ri(e, t, r, o) {
   if (!r.restricted) return null;
@@ -8957,7 +8957,7 @@ function Ri(e, t, r, o) {
   };
 }
 function pWt() {
-  return I("tengu_auto_mode_worktree_fast_path", !1);
+  return I("tengu_auto_mode_worktree_fast_path", false);
 }
 async function zhn(e) {
   if (!pWt()) return [];
@@ -8982,18 +8982,18 @@ async function zhn(e) {
   }
   return Array.from(t);
 }
-function rf(e, t, { caseFold: r, skipPrivateAlias: o = !1, uncShapeParity: u = !1 } = { caseFold: !0 }) {
+function rf(e, t, { caseFold: r, skipPrivateAlias: o = false, uncShapeParity: u = false } = { caseFold: true }) {
   let d = gt(e),
     S = gt(t);
-  if (u && (Bn(d) !== Bn(S) || Bn(e) !== Bn(t))) return !1;
+  if (u && (Bn(d) !== Bn(S) || Bn(e) !== Bn(t))) return false;
   let _ = r ? /^\/private\/var\//i : /^\/private\/var\//,
     x = r ? /^\/private\/tmp(\/|$)/i : /^\/private\/tmp(\/|$)/,
     P = (M) => (o ? M : M.replace(_, "/var/").replace(x, "/tmp$1")),
     k = P(d),
     A = P(S),
     T = r ? KTe(yr(A), yr(k)) : KTe(A, k);
-  if (T === "") return !0;
-  if (g4(T)) return !1;
+  if (T === "") return true;
+  if (g4(T)) return false;
   return !Ee.isAbsolute(T);
 }
 function Nl(e) {
@@ -9196,7 +9196,7 @@ function cn(e, t, r) {
   return _;
 }
 var yKe = /[^\p{ASCII}]/u;
-function dyt(e, t, r = () => [], o = !1) {
+function dyt(e, t, r = () => [], o = false) {
   let u = new Set();
   for (let d of e) {
     if ((!o && !yKe.test(d)) || u.has(d)) continue;
@@ -9248,15 +9248,15 @@ function lde(e, t) {
   let r = gt(t);
   if (D() === "windows" && r.includes("\\")) r = MC(r);
   let { relativePattern: o, root: u } = uyt(e, "session"),
-    d = Ai(Pi(o), !0),
+    d = Ai(Pi(o), true),
     S = D() === "windows",
     _ = u ?? ee(),
     x = KTe(S ? yr(_) : _, S ? yr(r) : r);
-  if (x && it.default.isPathValid(x) && it.default().add(d).test(x).ignored) return !0;
+  if (x && it.default.isPathValid(x) && it.default().add(d).test(x).ignored) return true;
   let P = e.trim(),
     k = !ur(P) && !P.endsWith(":*");
   if (P.startsWith("*") || k) return o6(e, t);
-  return !1;
+  return false;
 }
 function Wl() {
   let e = r6();
@@ -9351,8 +9351,8 @@ function PLe(e, t) {
       cg(t).filter((o) => !Ul.has(o.source)),
     ) !== null
   )
-    return !0;
-  if (cn(t, "read", "deny").size === 0) return !1;
+    return true;
+  if (cn(t, "read", "deny").size === 0) return false;
   return ao(e).some((o) => fa(o, t, "read", "deny") !== null);
 }
 var Yy = new Proxy(
@@ -9372,11 +9372,11 @@ function rw(e, t) {
   return $k(Yy, { file_path: e }, t);
 }
 function W_r(e, t) {
-  if (_s(t, Yy) !== null || jg(t, Yy) !== null) return !1;
+  if (_s(t, Yy) !== null || jg(t, Yy) !== null) return false;
   let r = rw(e, t);
-  if (r.behavior === "allow") return !0;
-  if (r.behavior !== "ask") return !1;
-  if (t.mode !== "bypassPermissions") return !1;
+  if (r.behavior === "allow") return true;
+  if (r.behavior !== "ask") return false;
+  if (t.mode !== "bypassPermissions") return false;
   let o = r.decisionReason;
   return !(o?.type === "rule" && o.rule.ruleBehavior === "ask");
 }
@@ -9388,7 +9388,7 @@ function nY(e, t, r, o) {
   return !zl(e, r) && W_r(t, o);
 }
 function Bl() {
-  return I("tengu_playful_lobster", !0);
+  return I("tengu_playful_lobster", true);
 }
 class iQn {
   loggedPaths = new Set();
@@ -9412,7 +9412,7 @@ function Gl(e) {
     let t = le().statSync(e);
     return t.isFile() && t.nlink > 1;
   } catch {
-    return !1;
+    return false;
   }
 }
 function $k(e, t, r, o) {
@@ -9431,7 +9431,7 @@ function $k(e, t, r, o) {
         try {
           x = Bl() && Mi(`${r.mode}:${_()}`) && Gl(_());
         } catch {
-          x = !1;
+          x = false;
         }
       return x;
     };
@@ -9444,7 +9444,7 @@ function $k(e, t, r, o) {
         decisionReason: { type: "rule", rule: de },
       };
   }
-  let k = Ri(u, d, r, () => lV(_(), t, d, { restricted: !0 }));
+  let k = Ri(u, d, r, () => lV(_(), t, d, { restricted: true }));
   if (k) return k;
   let A = fWt(e, t, r, d);
   if (A) return A;
@@ -9497,7 +9497,7 @@ function Xv(e, t, r, o) {
       };
   }
   let S = gt(u),
-    _ = Ri(u, d, r, () => TKe(S, t, d, { permissionMode: r.mode, restricted: !0 }));
+    _ = Ri(u, d, r, () => TKe(S, t, d, { permissionMode: r.mode, restricted: true }));
   if (_) return _;
   if (lN(S) && Ey()) return Si;
   if (d.some(_i)) return vi;
@@ -9542,7 +9542,7 @@ function Xv(e, t, r, o) {
         type: "safetyCheck",
         reason: A.message,
         ...(r.restricted
-          ? { classifierApprovable: !1, circuitBreaker: "restrictedMode" }
+          ? { classifierApprovable: false, circuitBreaker: "restrictedMode" }
           : { classifierApprovable: A.classifierApprovable, circuitBreaker: A.circuitBreaker }),
       },
     };
@@ -9618,7 +9618,7 @@ function gWt(e) {
   return { type: "other", reason: e.reason };
 }
 function wKe(e, t) {
-  return !(t.servedCall === !0 && e.behavior === "allow");
+  return !(t.servedCall === true && e.behavior === "allow");
 }
 function TKe(e, t, r, o) {
   if (r && r.length > 0) {
@@ -9649,10 +9649,10 @@ function lV(e, t, r, o) {
     return {
       behavior: "deny",
       message: "Cannot read memory while it is paused. Run /pause-memory to resume automemory.",
-      decisionReason: { type: "safetyCheck", reason: yi, classifierApprovable: !1 },
+      decisionReason: { type: "safetyCheck", reason: yi, classifierApprovable: false },
     };
   if (!o?.restricted && Cl(u)) return fe(t, "Project directory files are allowed for reading");
-  if (wi(u, { includeWorkshopDoc: !0 })) return fe(t, "Plan files for current session are allowed for reading");
+  if (wi(u, { includeWorkshopDoc: true })) return fe(t, "Plan files for current session are allowed for reading");
   let d = I_(),
     S = d.endsWith(re) ? d : d + re;
   if (u === d || u.startsWith(S)) return fe(t, "Tool result files are allowed for reading");

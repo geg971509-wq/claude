@@ -371,7 +371,7 @@ function No(b) {
   );
 }
 function Ko(Et) {
-  return { ...Et, hasTrustDialogAccepted: !0 };
+  return { ...Et, hasTrustDialogAccepted: true };
 }
 function Vo(wt) {
   let n = _(67),
@@ -436,11 +436,11 @@ function Vo(wt) {
   else Co = n[11];
   let Re = Co.length > 0,
     xo;
-  if (n[12] !== v) (xo = v?.some(Go) ?? !1), (n[12] = v), (n[13] = xo);
+  if (n[12] !== v) (xo = v?.some(Go) ?? false), (n[12] = v), (n[13] = xo);
   else xo = n[13];
   let xt = xo,
     So;
-  if (n[14] !== v) (So = v?.some(No) ?? !1), (n[14] = v), (n[15] = So);
+  if (n[14] !== v) (So = v?.some(No) ?? false), (n[14] = v), (n[15] = So);
   else So = n[15];
   let St = So,
     g = yt.length > 0 || xt || St,
@@ -478,16 +478,16 @@ function Vo(wt) {
       (n[19] = _o);
   else (vo = n[18]), (_o = n[19]);
   A(vo, _o);
-  let G = C(!1),
+  let G = C(false),
     l = hs(),
     { refusedWithin: u, noteRefused: h, epoch: Ht } = pi(),
     To;
   if (n[20] !== l || n[21] !== h || n[22] !== u)
     (To = function N() {
       if (l() || u()) {
-        return h(), !0;
+        return h(), true;
       }
-      return !1;
+      return false;
     }),
       (n[20] = l),
       (n[21] = h),
@@ -507,7 +507,7 @@ function Vo(wt) {
         h();
         return;
       }
-      if (((G.current = !0), vt === "exit")) {
+      if (((G.current = true), vt === "exit")) {
         if (w) {
           p("onboarding_trust_dialog", "gated_grants_backstop_declined"), E();
           return;
@@ -537,7 +537,7 @@ function Vo(wt) {
         }),
         Ao)
       )
-        v0(!0), r$e(!0);
+        v0(true), r$e(true);
       else jc(Ko, xe);
       E();
     }),
@@ -554,7 +554,7 @@ function Vo(wt) {
     Po;
   if (n[32] === d)
     (Po = () => {
-      (G.current = !0), Jr(1);
+      (G.current = true), Jr(1);
     }),
       (n[32] = Po);
   else Po = n[32];
@@ -577,7 +577,7 @@ function Vo(wt) {
       if (G.current || ks()) {
         return;
       }
-      (G.current = !0), Jr(0);
+      (G.current = true), Jr(0);
     }),
       (n[33] = w),
       (n[34] = l),
@@ -602,7 +602,7 @@ function Vo(wt) {
     Rt = 1;
   let ie, ce, ue;
   if (n[40] === d)
-    (ie = e(t, { bold: !0, children: nr(le().cwd()) })),
+    (ie = e(t, { bold: true, children: nr(le().cwd()) })),
       (ce = r(t, {
         children: [
           "Quick safety check: Is this a project you created or one you trust? (Like your own code, a well-known open source project, or work from your team). If not, take a moment to review what",
@@ -624,10 +624,10 @@ function Vo(wt) {
           r(U, {
             children: [
               r(t, {
-                bold: !0,
+                bold: true,
                 color: "warning",
                 children: [
-                  e(tt, { status: "warning", withSpace: !0 }),
+                  e(tt, { status: "warning", withSpace: true }),
                   "This folder pre-approves ",
                   T.rawCount,
                   " ",
@@ -647,10 +647,10 @@ function Vo(wt) {
           r(U, {
             children: [
               r(t, {
-                bold: !0,
+                bold: true,
                 color: "warning",
                 children: [
-                  e(tt, { status: "warning", withSpace: !0 }),
+                  e(tt, { status: "warning", withSpace: true }),
                   "This folder adds ",
                   j.rawCount,
                   " ",
@@ -672,16 +672,16 @@ function Vo(wt) {
           }),
         V &&
           r(t, {
-            bold: !0,
+            bold: true,
             color: "warning",
             children: [
-              e(tt, { status: "warning", withSpace: !0 }),
+              e(tt, { status: "warning", withSpace: true }),
               "This folder runs commands to mint HTTP headers (headersHelper), declared in ",
               Eb(yo),
             ],
           }),
         e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: "These will apply without asking. Only proceed if you trust this configuration.",
         }),
       ],
@@ -689,7 +689,7 @@ function Vo(wt) {
   let Io;
   if (n[43] === d)
     (Io = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: e(ut, { url: "https://code.claude.com/docs/en/security", children: "Security guide" }),
     })),
       (n[43] = Io);
@@ -704,8 +704,8 @@ function Vo(wt) {
       {
         refuseInput: N,
         windowAnchorMs: Ee,
-        hideIndexes: !0,
-        cancelFirst: !0,
+        hideIndexes: true,
+        cancelFirst: true,
         focus: "cancel",
         confirmLabel: "Yes, I trust this folder",
         cancelLabel: w ? "No, continue without these permissions" : "No, exit",
@@ -724,7 +724,7 @@ function Vo(wt) {
   let me;
   if (n[53] !== P.keyName || n[54] !== P.pending)
     (me = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: P.pending
         ? r(U, { children: ["Press ", P.keyName, " again to exit"] })
         : r(fe, {

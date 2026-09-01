@@ -361,7 +361,7 @@ async function E(s, e, n) {
           precomputedKind: c.precomputedKind,
           precomputedFailureCause: c.precomputedFailureCause,
         })
-    ).catch((d) => (h(d), { ok: !1, reason: "error", detail: l(d) }));
+    ).catch((d) => (h(d), { ok: false, reason: "error", detail: l(d) }));
     if (!p.ok)
       switch (p.reason) {
         case "too_few_groups":
@@ -405,29 +405,29 @@ async function E(s, e, n) {
   }
 }
 async function _(s, e, n, o, m, r) {
-  if (e) return { hit: !1, reuse: "miss_custom_instructions" };
-  if (n) return { hit: !1, reuse: "miss_hook" };
+  if (e) return { hit: false, reuse: "miss_custom_instructions" };
+  if (n) return { hit: false, reuse: "miss_hook" };
   let u = performance.now(),
     t = await Lln(s, void 0, m, r),
     i = performance.now() - u;
-  if (t === null) return gqe("none", t, i), { hit: !1, reuse: "miss_not_ready", precomputedKind: "none" };
+  if (t === null) return gqe("none", t, i), { hit: false, reuse: "miss_not_ready", precomputedKind: "none" };
   if (t.kind === "turn_aborted") throw (gqe("aborted", t, i), Error(ek));
   if (t.kind === "failed")
     return (
       gqe("failed", t, i),
-      { hit: !1, reuse: "miss_not_ready", precomputedKind: "failed", precomputedFailureCause: t.failure.cause }
+      { hit: false, reuse: "miss_not_ready", precomputedKind: "failed", precomputedFailureCause: t.failure.cause }
     );
   let a = Mln(o, t.ready.precomputedAtUuid);
   if (a === null)
     return (
       gqe("none", t, i),
       M$t(t.ready, "boundary_uuid_missing", void 0),
-      { hit: !1, reuse: "miss_not_ready", precomputedKind: "none" }
+      { hit: false, reuse: "miss_not_ready", precomputedKind: "none" }
     );
   return (
     gqe("applied", t, i),
     {
-      hit: !0,
+      hit: true,
       reuse: "hit",
       finalize: {
         compactResult: t.ready.result,
@@ -435,13 +435,13 @@ async function _(s, e, n, o, m, r) {
         preCompactMessages: o,
         querySource: void 0,
         trigger: "manual",
-        precomputed: !0,
+        precomputed: true,
         manualPrecomputeReuse: "hit",
         precomputeTelemetry: {
           statusAtPTL: t.statusAtPTL === "ready" ? "ready" : "pending",
           leadMs: u - t.ready.startedAt,
           totalMs: t.ready.readyDurationMs,
-          borrowed: !1,
+          borrowed: false,
           messagesSinceTokens: th(a),
         },
       },

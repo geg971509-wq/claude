@@ -39,7 +39,7 @@ function x() {
     ke;
   if (uo[0] === d)
     (ke = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: "Claude Code will be able to read files in this directory and make edits when auto-accept edits is on.",
     })),
       (uo[0] = ke);
@@ -69,12 +69,12 @@ function Z(fo) {
   let V;
   if (N[1] !== ie || N[2] !== le || N[3] !== K)
     (V = e(o, {
-      borderDimColor: !0,
+      borderDimColor: true,
       borderStyle: "round",
       marginTop: 1,
       paddingLeft: 1,
       children: e(xn, {
-        showCursor: !0,
+        showCursor: true,
         placeholder: `Directory path${L.ellipsis}`,
         value: K,
         onChange: ie,
@@ -93,7 +93,7 @@ function Z(fo) {
   if (N[5] !== ae || N[6] !== O)
     (j =
       O.length > 0 &&
-      e(o, { marginBottom: 1, children: e(xK, { suggestions: O, selectedSuggestion: ae, noPad: !0 }) })),
+      e(o, { marginBottom: 1, children: e(xK, { suggestions: O, selectedSuggestion: ae, noPad: true }) })),
       (N[5] = ae),
       (N[6] = O),
       (N[7] = j);
@@ -162,7 +162,7 @@ function mge(po) {
   if (l[8] !== b || l[9] !== ue)
     (Ge = async (So) => {
       let de = await tSe(So, ue);
-      if (de.resultType === "success") b(de.absolutePath, !1);
+      if (de.resultType === "success") b(de.absolutePath, false);
       else Te(nSe(de));
     }),
       (l[8] = b),
@@ -214,11 +214,11 @@ function mge(po) {
       }
       bb74: switch (ko) {
         case "yes-session": {
-          b(i, !1);
+          b(i, false);
           break bb74;
         }
         case "yes-remember": {
-          b(i, !0);
+          b(i, true);
           break bb74;
         }
         case "no": {
@@ -277,7 +277,7 @@ function mge(po) {
       title: "Add directory to workspace",
       onCancel: y,
       color: "permission",
-      isCancelActive: !1,
+      isCancelActive: false,
       inputGuide: J,
       children: Q,
     })),

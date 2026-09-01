@@ -8,7 +8,7 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-var p = { stream: !0 };
+var p = { stream: true };
 function u(n, t) {
   let e = n.charCodeAt(t);
   if (e === 10) return 1;
@@ -39,10 +39,10 @@ function m(n, t) {
 function h(n) {
   if (!/\S/.test(n)) return null;
   let t = {},
-    e = !1;
+    e = false;
   for (let i of n.split(/\r\n|\r|\n/)) {
     if (i.startsWith(":")) {
-      e = !0;
+      e = true;
       continue;
     }
     let r = i.indexOf(":");

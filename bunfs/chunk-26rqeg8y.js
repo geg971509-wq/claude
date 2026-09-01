@@ -72,13 +72,13 @@ var z = Tmt,
   hi = 1e6;
 function on(m) {
   let a = m.trim();
-  if (a === "") return { ok: !1, error: "Enter an amount" };
+  if (a === "") return { ok: false, error: "Enter an amount" };
   let i = /^([0-9]+)(?:\.([0-9]{1,2}))?$/.exec(a);
-  if (!i) return { ok: !1, error: "Enter an amount like 20 or 20.50" };
+  if (!i) return { ok: false, error: "Enter an amount like 20 or 20.50" };
   let g = Number(i[1]) * 100 + Number((i[2] ?? "").padEnd(2, "0"));
-  if (g <= 0) return { ok: !1, error: "Enter an amount" };
-  if (g > hi) return { ok: !1, error: `Enter an amount of ${hi / 100} or less` };
-  return { ok: !0, cents: g };
+  if (g <= 0) return { ok: false, error: "Enter an amount" };
+  if (g > hi) return { ok: false, error: `Enter an amount of ${hi / 100} or less` };
+  return { ok: true, cents: g };
 }
 function Tn(m) {
   return m % 100 === 0 ? String(m / 100) : (m / 100).toFixed(2);
@@ -87,16 +87,16 @@ function qie(zo) {
   let mo = _(7),
     [ka, Fi] = u(zo),
     [Da, Pa] = u(zo.length),
-    Oi = C(!0),
+    Oi = C(true),
     Ni = C(zo),
     Go = C(zo.length),
-    Vi = C(!1),
+    Vi = C(false),
     Ra = C(null),
-    $a = C(!1),
+    $a = C(false),
     Li;
   if (mo[0] === d)
     (Li = () => {
-      $a.current = !1;
+      $a.current = false;
     }),
       (mo[0] = Li);
   else Li = mo[0];
@@ -116,10 +116,10 @@ function qie(zo) {
       let dn = Ni.current;
       if (Oi.current) {
         if (
-          ((Oi.current = !1),
+          ((Oi.current = false),
           dn !== "" && !Vi.current && Go.current === dn.length && On.length > dn.length && On.startsWith(dn))
         ) {
-          ($a.current = !0), Si(On, dn);
+          ($a.current = true), Si(On, dn);
           return;
         }
       } else if ($a.current && On.startsWith(dn)) {
@@ -139,7 +139,7 @@ function qie(zo) {
         (Ra.current = null), (Go.current = Aa), Pa(Aa);
         return;
       }
-      if (Ba !== Ni.current.length) Vi.current = !0;
+      if (Ba !== Ni.current.length) Vi.current = true;
       (Go.current = Ba), Pa(Ba);
     }),
       (mo[3] = Yi);
@@ -193,7 +193,7 @@ function vi({
   let { storageV5: T, credentials: b } = ge(),
     P = s2e(a.s),
     [D, O] = u(a.s),
-    [j, H] = u(!1);
+    [j, H] = u(false);
   if (D !== a.s) H(ju(D)), O(a.s);
   let V = Yn(vb, D),
     N = j && !V && P(),
@@ -201,7 +201,7 @@ function vi({
     [q, ae] = u([]),
     [ke, De] = u(),
     [Y, oe] = u(null);
-  async function de(f = !0) {
+  async function de(f = true) {
     if (f) i({ s: "loading" });
     try {
       let k = cw(),
@@ -220,7 +220,7 @@ function vi({
       let wa = uo?.bundles ?? [];
       ae(wa.length > 0 ? wa : xa === "USD" ? GWn : []), De(uo?.stripe_product_id);
       let co = uo?.expiry_policy_months ?? $e?.expiry_policy_months ?? null;
-      if ((oe(co), I("tengu_satchel_banjo", !1))) {
+      if ((oe(co), I("tengu_satchel_banjo", false))) {
         if (co !== null)
           if (Number.isInteger(co) && co > 0) y("extra_usage_expiry_notice");
           else p("extra_usage_expiry_notice", "invalid_months");
@@ -230,7 +230,7 @@ function vi({
         return;
       }
       if (
-        ((te ??= ne?.extra_usage ?? { is_enabled: !1, monthly_limit: null, used_credits: null, utilization: null }),
+        ((te ??= ne?.extra_usage ?? { is_enabled: false, monthly_limit: null, used_credits: null, utilization: null }),
         g === "buy_select")
       ) {
         if (!Be)
@@ -267,15 +267,15 @@ function vi({
       i({
         s: "enabling",
         work: NNt(b).then(async (f) => {
-          if ((s("tengu_extra_usage_inline_dialog_enable_result", { success: f }), !f)) return !1;
+          if ((s("tengu_extra_usage_inline_dialog_enable_result", { success: f }), !f)) return false;
           if (!cw())
             mi(T),
               await Ae((k) => {
                 if (!k.oauthAccount) return k;
-                if (k.oauthAccount.hasExtraUsageEnabled === !0) return k;
-                return { ...k, oauthAccount: { ...k.oauthAccount, hasExtraUsageEnabled: !0 } };
+                if (k.oauthAccount.hasExtraUsageEnabled === true) return k;
+                return { ...k, oauthAccount: { ...k.oauthAccount, hasExtraUsageEnabled: true } };
               }, T);
-          return await de(!1), !0;
+          return await de(false), true;
         }),
       });
   }
@@ -317,7 +317,7 @@ function vi({
     let ne = qWn(f, k, te, R, b),
       $e = f
         ? ne.then(async (Be) => {
-            if (Be.ok) await de(!1);
+            if (Be.ok) await de(false);
             return Be;
           })
         : ne;
@@ -336,7 +336,7 @@ function vi({
       i({ s: "buy_purchasing" }),
       E)
     ) {
-      if (!(await E().catch(() => !1))) {
+      if (!(await E().catch(() => false))) {
         i({ s: "error", msg: "Couldn't turn on usage credits \u2014 no charge was made." });
         return;
       }
@@ -385,7 +385,7 @@ function vi({
     case "loading":
       return e(o, { paddingTop: 1, children: e(rr, { message: "Loading usage credit status\u2026" }) });
     case "enabling":
-      return e(Ca, { message: "Turning on usage credits\u2026", work: a.work, failure: !1, onDone: Mn });
+      return e(Ca, { message: "Turning on usage credits\u2026", work: a.work, failure: false, onDone: Mn });
     case "adjusting":
       return e(o, { paddingTop: 1, children: e(rr, { message: "Updating spend limit\u2026" }) });
     case "auto_reload_saving":
@@ -393,14 +393,14 @@ function vi({
         ? e(Ca, {
             message: "Turning on auto-reload\u2026",
             work: a.work,
-            failure: { ok: !1, reason: null },
-            onDone: (f) => Fn(f, !0),
+            failure: { ok: false, reason: null },
+            onDone: (f) => Fn(f, true),
           })
         : e(Ctt, {
             message: "Turning off auto-reload\u2026",
             work: a.work,
-            failure: { ok: !1, reason: null },
-            onDone: (f) => Fn(f, !1),
+            failure: { ok: false, reason: null },
+            onDone: (f) => Fn(f, false),
           });
     case "buy_purchasing":
       return e(Wo, { message: "Processing payment\u2026 (may take a few seconds)" });
@@ -454,8 +454,8 @@ function vi({
         current: a.current,
         pm: a.pm,
         currency: R,
-        onSave: (f, k) => io(!0, f, k),
-        onTurnOff: () => io(!1),
+        onSave: (f, k) => io(true, f, k),
+        onTurnOff: () => io(false),
         onCancel: () => void de(),
       });
     case "error":
@@ -513,9 +513,9 @@ function Di(Nc) {
   if (Ve[0] !== Vn || Ve[1] !== Un || Ve[2] !== Ln)
     (Qi = function go() {
       if (Vn() || Ln()) {
-        return Un(), !0;
+        return Un(), true;
       }
-      return !1;
+      return false;
     }),
       (Ve[0] = Vn),
       (Ve[1] = Un),
@@ -525,7 +525,7 @@ function Di(Nc) {
   let go = Qi,
     La = Hm(),
     Ua = Vs(jc),
-    Zi = C(!1),
+    Zi = C(false),
     nt,
     ot,
     tt,
@@ -566,7 +566,7 @@ function Di(Nc) {
           Un();
           return;
         }
-        (Zi.current = !0), Vc();
+        (Zi.current = true), Vc();
       };
     };
     tt = me;
@@ -584,11 +584,11 @@ function Di(Nc) {
         (Ve[34] = jn),
         (Ve[35] = Le);
     else Le = Ve[35];
-    if (Ve[36] !== Le) (bo = e(t, { dimColor: !0, children: Le })), (Ve[36] = Le), (Ve[37] = bo);
+    if (Ve[36] !== Le) (bo = e(t, { dimColor: true, children: Le })), (Ve[36] = Le), (Ve[37] = bo);
     else bo = Ve[37];
     if (Ve[38] === d)
       (_o = r(t, {
-        dimColor: !0,
+        dimColor: true,
         children: [
           "By turning on, you agree to turn on usage credits as defined in our Help Center article:",
           `
@@ -602,7 +602,7 @@ function Di(Nc) {
     dt = Ua.remountKey;
     mt = go;
     ft = La;
-    gt = !0;
+    gt = true;
     pt = "Turn on";
     bt = "Cancel";
     _t = "cancel";
@@ -737,7 +737,7 @@ function Ou(m, a) {
   return Math.round((i(a) - i(m)) / 86400000);
 }
 function xi(m, a) {
-  if (!I("tengu_juniper_bassoon", !1)) return null;
+  if (!I("tengu_juniper_bassoon", false)) return null;
   let i = null;
   for (let b of m?.promo_tranches ?? []) {
     let P = b.remaining_amount_minor_units,
@@ -757,7 +757,7 @@ function xi(m, a) {
   if (i.expiresMs - a.getTime() < 864000000) {
     let b = Ou(a, new Date(i.expiresMs)),
       P = b <= 0 ? "today" : b === 1 ? "in 1 day" : `in ${b} days`;
-    return { text: `${g} of your balance expires ${P}${x}`, urgent: !0 };
+    return { text: `${g} of your balance expires ${P}${x}`, urgent: true };
   }
   let v = new Date(i.expiresMs),
     T = v.toLocaleDateString("en-US", {
@@ -765,10 +765,10 @@ function xi(m, a) {
       day: "numeric",
       ...(v.getFullYear() !== a.getFullYear() && { year: "numeric" }),
     });
-  return { text: `${g} expires ${T}${x}`, urgent: !1 };
+  return { text: `${g} expires ${T}${x}`, urgent: false };
 }
 function Nu(m) {
-  if (!I("tengu_satchel_banjo", !1)) return null;
+  if (!I("tengu_satchel_banjo", false)) return null;
   if (m === null || !Number.isInteger(m) || m <= 0) return null;
   return `Usage credits are valid for ${m} ${m === 1 ? "month" : "months"}. Learn more: ${V5n}`;
 }
@@ -803,7 +803,7 @@ function Pi(Lc) {
   if (J[8] !== tn || J[9] !== Ue) (rl = tn ? ji(tn.amount, Ue) : "\u2014"), (J[8] = tn), (J[9] = Ue), (J[10] = rl);
   else rl = J[10];
   let Kc = rl,
-    Yc = tn?.auto_reload_settings?.enabled === !0,
+    Yc = tn?.auto_reload_settings?.enabled === true,
     wt,
     al;
   if (J[11] !== tn) {
@@ -814,7 +814,7 @@ function Pi(Lc) {
     (J[11] = tn), (J[12] = wt), (J[13] = al);
   } else (wt = J[12]), (al = J[13]);
   let Te = al,
-    Kn = se.is_enabled === !1;
+    Kn = se.is_enabled === false;
   const Wa = `${Kc} balance \xB7 auto-reload ${Yc ? "on" : "off"}
 `;
   let kt;
@@ -881,14 +881,14 @@ function Pi(Lc) {
   else Mt = J[39];
   let Et;
   if (J[40] !== qa || J[41] !== wt)
-    (Et = r(t, { dimColor: !0, children: ["Resets ", wt, " \xB7 ", qa, " monthly limit"] })),
+    (Et = r(t, { dimColor: true, children: ["Resets ", wt, " \xB7 ", qa, " monthly limit"] })),
       (J[40] = qa),
       (J[41] = wt),
       (J[42] = Et);
   else Et = J[42];
   let Ft;
   if (J[43] !== Te)
-    (Ft = Te !== null && !Te.urgent && e(t, { dimColor: !0, children: Te.text })), (J[43] = Te), (J[44] = Ft);
+    (Ft = Te !== null && !Te.urgent && e(t, { dimColor: true, children: Te.text })), (J[43] = Te), (J[44] = Ft);
   else Ft = J[44];
   let Ot;
   if (J[45] !== Mt || J[46] !== Et || J[47] !== Ft)
@@ -976,7 +976,7 @@ function Ri(Xc) {
   if (Pe[12] !== Ia) (mn = ye(Ia)), (Pe[12] = Ia), (Pe[13] = mn);
   else mn = Pe[13];
   let gn;
-  if (Pe[14] !== mn) (gn = r(t, { dimColor: !0, children: ["Payment: ", mn] })), (Pe[14] = mn), (Pe[15] = gn);
+  if (Pe[14] !== mn) (gn = r(t, { dimColor: true, children: ["Payment: ", mn] })), (Pe[14] = mn), (Pe[15] = gn);
   else gn = Pe[15];
   let St;
   if (Pe[16] !== Co || Pe[17] !== Se || Pe[18] !== Ut)
@@ -989,13 +989,13 @@ function Ri(Xc) {
   let fl;
   if (Pe[20] === d)
     (fl = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: "By confirming, you allow Anthropic to charge your card in the amount above.",
     })),
       (Pe[20] = fl);
   else fl = Pe[20];
   let Kt;
-  if (Pe[21] !== Vt) (Kt = Vt !== null && e(t, { dimColor: !0, children: Vt })), (Pe[21] = Vt), (Pe[22] = Kt);
+  if (Pe[21] !== Vt) (Kt = Vt !== null && e(t, { dimColor: true, children: Vt })), (Pe[21] = Vt), (Pe[22] = Kt);
   else Kt = Pe[22];
   let Yt;
   if (Pe[23] !== gn || Pe[24] !== St || Pe[25] !== Kt)
@@ -1044,7 +1044,7 @@ function $i(Jc) {
       onCancel: Ke,
     } = Jc,
     { credentials: Ht } = ge(),
-    [zc, _l] = u(!1),
+    [zc, _l] = u(false),
     rn = bl ? bl.local_credit_minor_units : Me,
     an = rn - Me,
     yl;
@@ -1057,13 +1057,13 @@ function $i(Jc) {
     vl;
   if (X[3] !== Me || X[4] !== Ht || X[5] !== W || X[6] !== Wt)
     (hl = () => {
-      let Cl = !0;
+      let Cl = true;
       return (
         nsn(Me, W, Wt, Ht).then((Qc) => {
           if (Cl) Gc(Qc);
         }),
         () => {
-          Cl = !1;
+          Cl = false;
         }
       );
     }),
@@ -1102,12 +1102,12 @@ function $i(Jc) {
   if (X[14] !== qe) (Jt = "\u2500".repeat(qe)), (X[14] = qe), (X[15] = Jt);
   else Jt = X[15];
   let wl;
-  if (X[16] !== Jt) (wl = e(t, { dimColor: !0, children: Jt })), (X[16] = Jt), (X[17] = wl);
+  if (X[16] !== Jt) (wl = e(t, { dimColor: true, children: Jt })), (X[16] = Jt), (X[17] = wl);
   else wl = X[17];
   let Hn = wl;
   if (zc) {
     let In;
-    if (X[18] === d) (In = () => _l(!1)), (X[18] = In);
+    if (X[18] === d) (In = () => _l(false)), (X[18] = In);
     else In = X[18];
     let pn;
     if (X[19] !== W || X[20] !== ts || X[21] !== Ye)
@@ -1147,9 +1147,9 @@ function $i(Jc) {
   let Qt;
   if (X[35] !== W || X[36] !== sn || X[37] !== xo || X[38] !== he || X[39] !== re)
     (Qt = he
-      ? e(ue, { label: xo, value: "\u2026", dim: !0 })
+      ? e(ue, { label: xo, value: "\u2026", dim: true })
       : re
-        ? e(ue, { label: xo, value: "\u2014", dim: !0 })
+        ? e(ue, { label: xo, value: "\u2014", dim: true })
         : e(ue, { label: `${xo} (${wi(sn.tax_rate_pct)})`, value: ji(sn.tax_minor_units, W) })),
       (X[35] = W),
       (X[36] = sn),
@@ -1168,7 +1168,7 @@ function $i(Jc) {
       (X[45] = Zt);
   else Zt = X[45];
   let er;
-  if (X[46] !== Zt) (er = e(ue, { label: "Total due", value: Zt, bold: !0 })), (X[46] = Zt), (X[47] = er);
+  if (X[46] !== Zt) (er = e(ue, { label: "Total due", value: Zt, bold: true })), (X[46] = Zt), (X[47] = er);
   else er = X[47];
   let nr;
   if (X[48] !== qe || X[49] !== Hn || X[50] !== Gt || X[51] !== Qt || X[52] !== er || X[53] !== zt)
@@ -1188,7 +1188,7 @@ function $i(Jc) {
   if (X[56] !== ns) (or = ye(ns)), (X[56] = ns), (X[57] = or);
   else or = X[57];
   let tr;
-  if (X[58] !== or) (tr = e(t, { dimColor: !0, children: or })), (X[58] = or), (X[59] = tr);
+  if (X[58] !== or) (tr = e(t, { dimColor: true, children: or })), (X[58] = or), (X[59] = tr);
   else tr = X[59];
   let ar;
   if (X[60] !== qe || X[61] !== tr)
@@ -1207,7 +1207,7 @@ function $i(Jc) {
         Ke();
         return;
       }
-      _l(!0);
+      _l(true);
     }),
       (X[65] = Ke),
       (X[66] = ir);
@@ -1224,7 +1224,7 @@ function $i(Jc) {
   if (X[71] !== re)
     (ur =
       !re &&
-      e(t, { dimColor: !0, children: "By confirming, you allow Anthropic to charge your card in the amount above." })),
+      e(t, { dimColor: true, children: "By confirming, you allow Anthropic to charge your card in the amount above." })),
       (X[71] = re),
       (X[72] = ur);
   else ur = X[72];
@@ -1288,8 +1288,8 @@ function cn(td) {
     { columns: ps } = Ee(),
     [mr, Al] = u(""),
     [bs, Tl] = u(0),
-    [rd, ad] = u(!1),
-    Ml = C(!1),
+    [rd, ad] = u(false),
+    Ml = C(false),
     El = mr.trim().toLowerCase() === Bn,
     wo = rd && !El ? "error" : El ? "success" : void 0,
     Fl;
@@ -1322,8 +1322,8 @@ function cn(td) {
         if (Ml.current) {
           return;
         }
-        (Ml.current = !0), gs();
-      } else Al(""), Tl(0), ad(!0);
+        (Ml.current = true), gs();
+      } else Al(""), Tl(0), ad(true);
     }),
       (Fe[12] = gs),
       (Fe[13] = _r);
@@ -1332,12 +1332,12 @@ function cn(td) {
   if (Fe[14] !== ps || Fe[15] !== bs || Fe[16] !== Xe || Fe[17] !== _r || Fe[18] !== mr)
     (yr = e(xn, {
       value: mr,
-      disableEscapeDoublePress: !0,
+      disableEscapeDoublePress: true,
       onChange: Al,
       onSubmit: _r,
       onExit: Xe,
-      focus: !0,
-      showCursor: !0,
+      focus: true,
+      showCursor: true,
       columns: ps,
       cursorOffset: bs,
       onChangeCursorOffset: Tl,
@@ -1366,7 +1366,7 @@ function cn(td) {
   else vr = Fe[26];
   let Nl;
   if (Fe[27] !== Xe || Fe[28] !== vr)
-    (Nl = e(me, { title: "Confirm amount", onCancel: Xe, color: "warning", isCancelActive: !1, children: vr })),
+    (Nl = e(me, { title: "Confirm amount", onCancel: Xe, color: "warning", isCancelActive: false, children: vr })),
       (Fe[27] = Xe),
       (Fe[28] = vr),
       (Fe[29] = Nl);
@@ -1388,7 +1388,7 @@ function Ai(id) {
   else Vl = ie[2];
   let vs = Vl,
     [yn, Ll] = u(0),
-    [Cs, Ul] = u(!1),
+    [Cs, Ul] = u(false),
     Dr,
     Pr,
     Rr,
@@ -1426,7 +1426,7 @@ function Ai(id) {
             return;
           }
           if (Oe.cents > yi) {
-            Ul(!0);
+            Ul(true);
             return;
           }
           ko(Oe.cents);
@@ -1453,7 +1453,7 @@ function Ai(id) {
       Rr = hn;
       if (Cs && Oe.ok) {
         let We;
-        if (ie[28] === d) (We = () => Ul(!1)), (ie[28] = We);
+        if (ie[28] === d) (We = () => Ul(false)), (ie[28] = We);
         else We = ie[28];
         xs = e(cn, {
           question: "Set your monthly spend limit to",
@@ -1502,7 +1502,7 @@ function Ai(id) {
           onChange: Po,
           onSubmit: Mo,
           onHistoryDown: Kl,
-          disableCursorMovementForUpDownKeys: !0,
+          disableCursorMovementForUpDownKeys: true,
           focus: Ds,
           showCursor: Ps,
           columns: Do,
@@ -1571,7 +1571,7 @@ function Ai(id) {
   else hn = ie[49];
   let We;
   if (ie[50] === d)
-    (We = e(t, { dimColor: !0, children: "This spend limit goes into effect immediately." })), (ie[50] = We);
+    (We = e(t, { dimColor: true, children: "This spend limit goes into effect immediately." })), (ie[50] = We);
   else We = ie[50];
   let He;
   if (ie[51] !== yn || ie[52] !== Rr || ie[53] !== Re)
@@ -1632,7 +1632,7 @@ function Ti(md) {
   let S = _(134),
     { current: Je, pm: ln, currency: pe, onSave: Rs, onTurnOff: $s, onCancel: Or } = md,
     { columns: un } = Ee(),
-    ze = Je?.enabled === !0,
+    ze = Je?.enabled === true,
     Xl;
   if (S[0] !== Je)
     (Xl = Je?.threshold_in_minor_units != null ? Tn(Je.threshold_in_minor_units) : "5"), (S[0] = Je), (S[1] = Xl);
@@ -1651,7 +1651,7 @@ function Ti(md) {
   else Hl = S[5];
   let xe = Hl,
     [Ne, Il] = u(0),
-    [Bs, Jl] = u(!1),
+    [Bs, Jl] = u(false),
     Nr,
     jr,
     Vr,
@@ -1712,7 +1712,7 @@ function Ti(md) {
           if (!ce.ok || !le.ok || !zl) {
             return;
           }
-          Jl(!0);
+          Jl(true);
           return;
         } else if (Gl === "off") $s();
         else Or();
@@ -1755,7 +1755,7 @@ function Ti(md) {
       Vr = $n;
       if (Bs && ce.ok && le.ok) {
         let we;
-        if (S[50] === d) (we = () => Jl(!1)), (S[50] = we);
+        if (S[50] === d) (we = () => Jl(false)), (S[50] = we);
         else we = S[50];
         As = e(cn, {
           question: "Auto-reload will top your balance up to",
@@ -1785,10 +1785,10 @@ function Ti(md) {
       let Ge;
       if (S[55] !== ln) (Ge = ye(ln)), (S[55] = ln), (S[56] = Ge);
       else Ge = S[56];
-      if (S[57] !== Ge) (Uo = r(t, { dimColor: !0, children: ["Card on file: ", Ge] })), (S[57] = Ge), (S[58] = Uo);
+      if (S[57] !== Ge) (Uo = r(t, { dimColor: true, children: ["Card on file: ", Ge] })), (S[57] = Ge), (S[58] = Uo);
       else Uo = S[58];
       let Ko;
-      if (S[59] === d) (Ko = e(t, { dimColor: !0, children: "When usage credit balance falls below:" })), (S[59] = Ko);
+      if (S[59] === d) (Ko = e(t, { dimColor: true, children: "When usage credit balance falls below:" })), (S[59] = Ko);
       else Ko = S[59];
       const Os = Ts ? "error" : Q === 0 ? "suggestion" : "inactive";
       let Ir;
@@ -1809,7 +1809,7 @@ function Ti(md) {
           onChange: Eo,
           onSubmit: Zl,
           onHistoryDown: eu,
-          disableCursorMovementForUpDownKeys: !0,
+          disableCursorMovementForUpDownKeys: true,
           focus: Ns,
           showCursor: js,
           columns: un,
@@ -1835,7 +1835,7 @@ function Ti(md) {
       else nu = S[77];
       Wr = r(o, { flexDirection: "column", children: [Ko, nu, Ts && e(t, { color: "error", children: Ts })] });
       let ou;
-      if (S[78] === d) (ou = e(t, { dimColor: !0, children: "Reload balance to:" })), (S[78] = ou);
+      if (S[78] === d) (ou = e(t, { dimColor: true, children: "Reload balance to:" })), (S[78] = ou);
       else ou = S[78];
       const Ls = Ms ? "error" : Q === 1 ? "suggestion" : "inactive";
       let Gr;
@@ -1858,7 +1858,7 @@ function Ti(md) {
           onSubmit: tu,
           onHistoryUp: ru,
           onHistoryDown: au,
-          disableCursorMovementForUpDownKeys: !0,
+          disableCursorMovementForUpDownKeys: true,
           focus: Us,
           showCursor: Ss,
           columns: un,
@@ -1953,7 +1953,7 @@ function Ti(md) {
   let Pn;
   if (S[100] !== Dn)
     (Pn = r(t, {
-      dimColor: !0,
+      dimColor: true,
       children: [
         "By selecting Agree, you authorize Anthropic to automatically charge",
         " ",
@@ -2044,7 +2044,7 @@ function va(yd) {
     { title: Ks, subtitle: Ys, initial: hd, minCents: zn, currency: Qe, footer: ea, onSubmit: qs, onCancel: Gn } = yd,
     { columns: Xs } = Ee(),
     { value: Ze, setValue: Ws, cursor: Hs, setCursor: Is } = qie(hd),
-    [Js, vd] = u(!1),
+    [Js, vd] = u(false),
     du;
   if (_e[0] !== Ze) (du = on(Ze)), (_e[0] = Ze), (_e[1] = du);
   else du = _e[1];
@@ -2075,7 +2075,7 @@ function va(yd) {
   if (_e[10] !== en || _e[11] !== qs || _e[12] !== Z.cents || _e[13] !== Z.ok)
     (fu = function Yo() {
       if (!Z.ok || en) {
-        vd(!0);
+        vd(true);
         return;
       }
       qs(Z.cents);
@@ -2088,7 +2088,7 @@ function va(yd) {
   else fu = _e[14];
   let Yo = fu,
     oa;
-  if (_e[15] !== Ys) (oa = e(t, { dimColor: !0, children: Ys })), (_e[15] = Ys), (_e[16] = oa);
+  if (_e[15] !== Ys) (oa = e(t, { dimColor: true, children: Ys })), (_e[15] = Ys), (_e[16] = oa);
   else oa = _e[16];
   let ta;
   if (_e[17] !== Qe) (ta = Ste(Qe)), (_e[17] = Qe), (_e[18] = ta);
@@ -2111,8 +2111,8 @@ function va(yd) {
       onChange: Ws,
       onSubmit: Yo,
       onExit: Gn,
-      focus: !0,
-      showCursor: !0,
+      focus: true,
+      showCursor: true,
       columns: Xs,
       cursorOffset: Hs,
       onChangeCursorOffset: Is,
@@ -2131,7 +2131,7 @@ function va(yd) {
     (sa = r(o, { flexDirection: "row", gap: 1, children: [ra, aa] })), (_e[29] = ra), (_e[30] = aa), (_e[31] = sa);
   else sa = _e[31];
   let ia;
-  if (_e[32] !== ea) (ia = ea && e(t, { dimColor: !0, children: ea })), (_e[32] = ea), (_e[33] = ia);
+  if (_e[32] !== ea) (ia = ea && e(t, { dimColor: true, children: ea })), (_e[32] = ea), (_e[33] = ia);
   else ia = _e[33];
   let la;
   if (_e[34] !== en || _e[35] !== Qe || _e[36] !== Z.cents || _e[37] !== Z.ok)
@@ -2176,7 +2176,7 @@ function Mi(Cd) {
     bu;
   if (Gs[0] !== no || Gs[1] !== Zn || Gs[2] !== Qn || Gs[3] !== eo || Gs[4] !== zs)
     (bu = () => {
-      let nn = !1;
+      let nn = false;
       let _u;
       let qo = function qo(kd) {
         s("tengu_extra_usage_inline_dialog_buy_result", { status: c(kd) });
@@ -2186,7 +2186,7 @@ function Mi(Cd) {
           return;
         }
         if (((pu.current = pu.current + 1), pu.current > bi)) {
-          (nn = !0), eo(`Purchase timed out \u2014 check ${z}`);
+          (nn = true), eo(`Purchase timed out \u2014 check ${z}`);
           return;
         }
         try {
@@ -2194,10 +2194,10 @@ function Mi(Cd) {
           if (nn) {
             return;
           }
-          if (Qs.status === "paid") (nn = !0), qo("success"), zs();
-          else if (Qs.status === "failed") (nn = !0), qo("failed"), eo("Payment failed");
+          if (Qs.status === "paid") (nn = true), qo("success"), zs();
+          else if (Qs.status === "failed") (nn = true), qo("failed"), eo("Payment failed");
           else if (Qs.status === "action_needed")
-            (nn = !0),
+            (nn = true),
               qo("3ds_fallback"),
               eo(
                 `Your card requires additional verification \u2014 this purchase was not completed. Try again at ${z}`,
@@ -2208,7 +2208,7 @@ function Mi(Cd) {
           if (nn) {
             return;
           }
-          if (((nn = !0), ic(Zs))) n(`Purchase status poll failed: ${l(Zs)}`, { level: "error" });
+          if (((nn = true), ic(Zs))) n(`Purchase status poll failed: ${l(Zs)}`, { level: "error" });
           else h(Zs);
           eo("Failed to check purchase status");
         }
@@ -2216,7 +2216,7 @@ function Mi(Cd) {
       return (
         ma(),
         () => {
-          (nn = !0), _u?.();
+          (nn = true), _u?.();
         }
       );
     }),
@@ -2241,7 +2241,7 @@ function Wo(Dd) {
   let hu = _(3),
     { message: ei } = Dd,
     vu;
-  if (hu[0] === d) (vu = e(iq, { autoplay: !0 })), (hu[0] = vu);
+  if (hu[0] === d) (vu = e(iq, { autoplay: true })), (hu[0] = vu);
   else vu = hu[0];
   let Cu;
   if (hu[1] !== ei)
@@ -2250,7 +2250,7 @@ function Wo(Dd) {
       gap: 2,
       alignItems: "center",
       paddingTop: 2,
-      children: [vu, e(t, { dimColor: !0, children: ei })],
+      children: [vu, e(t, { dimColor: true, children: ei })],
     })),
       (hu[1] = ei),
       (hu[2] = Cu);
@@ -2262,7 +2262,7 @@ function Ei(Pd) {
     { message: ni, onDone: oi } = Pd,
     fa;
   if (ti[0] !== oi)
-    (fa = e(iq, { sequence: "celebrate", reserveCrouchRow: !0, onComplete: oi })), (ti[0] = oi), (ti[1] = fa);
+    (fa = e(iq, { sequence: "celebrate", reserveCrouchRow: true, onComplete: oi })), (ti[0] = oi), (ti[1] = fa);
   else fa = ti[1];
   let ga;
   if (ti[2] !== ni)
@@ -2281,8 +2281,8 @@ function Ca(Rd) {
   let ro = _(15),
     { message: ri, work: oo, onDone: to, failure: ai } = Rd,
     si = C(null),
-    wu = C(!1),
-    ii = C(!1),
+    wu = C(false),
+    ii = C(false),
     ku;
   if (ro[0] !== ai || ro[1] !== to)
     (ku = ($d) => {
@@ -2303,7 +2303,7 @@ function Ca(Rd) {
           h(Ad), pa(null);
         }),
       () => {
-        ii.current = !0;
+        ii.current = true;
       }
     )),
       (ro[3] = pa),
@@ -2318,9 +2318,9 @@ function Ca(Rd) {
   if (ro[8] !== to)
     (ba = e(iq, {
       sequence: "celebrate",
-      reserveCrouchRow: !0,
+      reserveCrouchRow: true,
       onComplete: () => {
-        if (((wu.current = !0), si.current && !ii.current)) to(si.current.value);
+        if (((wu.current = true), si.current && !ii.current)) to(si.current.value);
       },
     })),
       (ro[8] = to),
@@ -2328,7 +2328,7 @@ function Ca(Rd) {
   else ba = ro[9];
   let _a;
   if (ro[10] !== ri)
-    (_a = e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: ri }) })), (ro[10] = ri), (ro[11] = _a);
+    (_a = e(o, { marginTop: 1, children: e(t, { dimColor: true, children: ri }) })), (ro[10] = ri), (ro[11] = _a);
   else _a = ro[11];
   let $u;
   if (ro[12] !== ba || ro[13] !== _a)
@@ -2349,7 +2349,7 @@ function Ctt(Td) {
     Tu;
   if (ya[3] !== ha || ya[4] !== ao)
     (Tu = () => {
-      let di = !1;
+      let di = false;
       return (
         ao
           .then((Md) => {
@@ -2359,7 +2359,7 @@ function Ctt(Td) {
             if ((h(Ed), !di)) ha(null);
           }),
         () => {
-          di = !0;
+          di = true;
         }
       );
     }),
@@ -2384,7 +2384,7 @@ function ju(m) {
     case "auto_reload_saving":
     case "buy_purchasing":
     case "buy_polling":
-      return !0;
+      return true;
     case "not_enabled":
     case "enabled":
     case "buy_select":
@@ -2394,7 +2394,7 @@ function ju(m) {
     case "adjust_limit":
     case "auto_reload_config":
     case "error":
-      return !1;
+      return false;
   }
 }
 export { qie, ykt, Ctt };

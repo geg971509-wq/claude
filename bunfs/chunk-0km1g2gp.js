@@ -41,7 +41,7 @@ var EN = S(function (to) {
       }
       return t(r);
     },
-    zr = { name: "hostHeaderMiddleware", step: "build", priority: "low", tags: ["HOST"], override: !0 },
+    zr = { name: "hostHeaderMiddleware", step: "build", priority: "low", tags: ["HOST"], override: true },
     eo = (e) => ({
       applyToStack: (t) => {
         t.add(vr(e), zr);
@@ -69,7 +69,7 @@ var AN = S(function (ao) {
         throw (c?.error?.({ clientName: o, commandName: a, input: m(r.input), error: s, metadata: s.$metadata }), s);
       }
     },
-    Br = { name: "loggerMiddleware", tags: ["LOGGER"], step: "initialize", override: !0 },
+    Br = { name: "loggerMiddleware", tags: ["LOGGER"], step: "initialize", override: true },
     oo = (e) => ({
       applyToStack: (t) => {
         t.add($r(), Br);
@@ -179,7 +179,7 @@ var Ur = S(function (ho) {
   ho.InvokeStoreBase = Xe;
 });
 var jr = S(function (Vr) {
-  Object.defineProperty(Vr, "__esModule", { value: !0 });
+  Object.defineProperty(Vr, "__esModule", { value: true });
   Vr.recursionDetectionMiddleware = void 0;
   var po = Ur(),
     mo = Pl(),
@@ -206,7 +206,7 @@ var CN = S(function (Tt) {
       step: "build",
       tags: ["RECURSION_DETECTION"],
       name: "recursionDetectionMiddleware",
-      override: !0,
+      override: true,
       priority: "low",
     },
     wo = (e) => ({
@@ -218,7 +218,7 @@ var CN = S(function (Tt) {
   Object.keys(Nt).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(Tt, e))
       Object.defineProperty(Tt, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return Nt[e];
         },
@@ -228,16 +228,16 @@ var CN = S(function (Tt) {
 var vO = S(function (We) {
   var Ae = VH(),
     bo = yR(),
-    Hr = (e, t = !1) => {
+    Hr = (e, t = false) => {
       if (t) {
-        for (let r of e.split(".")) if (!Hr(r)) return !1;
-        return !0;
+        for (let r of e.split(".")) if (!Hr(r)) return false;
+        return true;
       }
-      if (!Ae.isValidHostLabel(e)) return !1;
-      if (e.length < 3 || e.length > 63) return !1;
-      if (e !== e.toLowerCase()) return !1;
-      if (Ae.isIpAddress(e)) return !1;
-      return !0;
+      if (!Ae.isValidHostLabel(e)) return false;
+      if (e.length < 3 || e.length > 63) return false;
+      if (e !== e.toLowerCase()) return false;
+      if (Ae.isIpAddress(e)) return false;
+      return true;
     },
     qr = ":",
     No = "/",
@@ -257,8 +257,8 @@ var vO = S(function (We) {
           dualStackDnsSuffix: "api.aws",
           implicitGlobalRegion: "us-east-1",
           name: "aws",
-          supportsDualStack: !0,
-          supportsFIPS: !0,
+          supportsDualStack: true,
+          supportsFIPS: true,
         },
         regionRegex: "^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$",
         regions: {
@@ -306,8 +306,8 @@ var vO = S(function (We) {
           dualStackDnsSuffix: "api.amazonwebservices.com.cn",
           implicitGlobalRegion: "cn-northwest-1",
           name: "aws-cn",
-          supportsDualStack: !0,
-          supportsFIPS: !0,
+          supportsDualStack: true,
+          supportsFIPS: true,
         },
         regionRegex: "^cn\\-\\w+\\-\\d+$",
         regions: {
@@ -323,8 +323,8 @@ var vO = S(function (We) {
           dualStackDnsSuffix: "api.amazonwebservices.eu",
           implicitGlobalRegion: "eusc-de-east-1",
           name: "aws-eusc",
-          supportsDualStack: !0,
-          supportsFIPS: !0,
+          supportsDualStack: true,
+          supportsFIPS: true,
         },
         regionRegex: "^eusc\\-(de)\\-\\w+\\-\\d+$",
         regions: { "eusc-de-east-1": { description: "EU (Germany)" } },
@@ -336,8 +336,8 @@ var vO = S(function (We) {
           dualStackDnsSuffix: "api.aws.ic.gov",
           implicitGlobalRegion: "us-iso-east-1",
           name: "aws-iso",
-          supportsDualStack: !0,
-          supportsFIPS: !0,
+          supportsDualStack: true,
+          supportsFIPS: true,
         },
         regionRegex: "^us\\-iso\\-\\w+\\-\\d+$",
         regions: {
@@ -353,8 +353,8 @@ var vO = S(function (We) {
           dualStackDnsSuffix: "api.aws.scloud",
           implicitGlobalRegion: "us-isob-east-1",
           name: "aws-iso-b",
-          supportsDualStack: !0,
-          supportsFIPS: !0,
+          supportsDualStack: true,
+          supportsFIPS: true,
         },
         regionRegex: "^us\\-isob\\-\\w+\\-\\d+$",
         regions: {
@@ -370,8 +370,8 @@ var vO = S(function (We) {
           dualStackDnsSuffix: "api.cloud-aws.adc-e.uk",
           implicitGlobalRegion: "eu-isoe-west-1",
           name: "aws-iso-e",
-          supportsDualStack: !0,
-          supportsFIPS: !0,
+          supportsDualStack: true,
+          supportsFIPS: true,
         },
         regionRegex: "^eu\\-isoe\\-\\w+\\-\\d+$",
         regions: {
@@ -386,8 +386,8 @@ var vO = S(function (We) {
           dualStackDnsSuffix: "api.aws.hci.ic.gov",
           implicitGlobalRegion: "us-isof-south-1",
           name: "aws-iso-f",
-          supportsDualStack: !0,
-          supportsFIPS: !0,
+          supportsDualStack: true,
+          supportsFIPS: true,
         },
         regionRegex: "^us\\-isof\\-\\w+\\-\\d+$",
         regions: {
@@ -403,8 +403,8 @@ var vO = S(function (We) {
           dualStackDnsSuffix: "api.aws",
           implicitGlobalRegion: "us-gov-west-1",
           name: "aws-us-gov",
-          supportsDualStack: !0,
-          supportsFIPS: !0,
+          supportsDualStack: true,
+          supportsFIPS: true,
         },
         regionRegex: "^us\\-gov\\-\\w+\\-\\d+$",
         regions: {
@@ -468,19 +468,19 @@ var vO = S(function (We) {
     },
     Jr = (e) => bo.parseUrl(e.url);
   Object.defineProperty(We, "EndpointError", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ae.EndpointError;
     },
   });
   Object.defineProperty(We, "isIpAddress", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ae.isIpAddress;
     },
   });
   Object.defineProperty(We, "resolveEndpoint", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ae.resolveEndpoint;
     },
@@ -543,7 +543,7 @@ var Lt = S(function (ua) {
   }
   var Dt = Symbol("@smithy/core/cbor::tagSymbol");
   function kt(e) {
-    return (e[Dt] = !0), e;
+    return (e[Dt] = true), e;
   }
   var qo = typeof TextDecoder < "u",
     Ho = typeof Buffer < "u",
@@ -1200,14 +1200,14 @@ var ms = S(function (Nh, ps) {
   (() => {
     var e = {
         d: (n, i) => {
-          for (var u in i) e.o(i, u) && !e.o(n, u) && Object.defineProperty(n, u, { enumerable: !0, get: i[u] });
+          for (var u in i) e.o(i, u) && !e.o(n, u) && Object.defineProperty(n, u, { enumerable: true, get: i[u] });
         },
         o: (n, i) => Object.prototype.hasOwnProperty.call(n, i),
         r: (n) => {
           typeof Symbol < "u" &&
             Symbol.toStringTag &&
             Object.defineProperty(n, Symbol.toStringTag, { value: "Module" }),
-            Object.defineProperty(n, "__esModule", { value: !0 });
+            Object.defineProperty(n, "__esModule", { value: true });
         },
       },
       t = {};
@@ -1240,12 +1240,12 @@ var ms = S(function (Nh, ps) {
         "__lookupSetter__",
       ],
       d = ["__proto__", "constructor", "prototype"],
-      f = { allowBooleanAttributes: !1, unpairedTags: [] };
+      f = { allowBooleanAttributes: false, unpairedTags: [] };
     function m(n, i) {
       i = Object.assign({}, f, i);
       let u = [],
-        l = !1,
-        p = !1;
+        l = false,
+        p = false;
       n[0] === "\uFEFF" && (n = n.substr(1));
       for (let h = 0; h < n.length; h++)
         if (n[h] === "<" && n[h + 1] === "?") {
@@ -1262,8 +1262,8 @@ var ms = S(function (Nh, ps) {
               continue;
             }
             {
-              let g = !1;
-              n[h] === "/" && ((g = !0), h++);
+              let g = false;
+              n[h] === "/" && ((g = true), h++);
               let E = "";
               for (
                 ;
@@ -1286,14 +1286,14 @@ var ms = S(function (Nh, ps) {
                 );
               }
               let x = I(n, h);
-              if (x === !1) return M("InvalidAttr", "Attributes for '" + E + "' have open quote.", q(n, h));
+              if (x === false) return M("InvalidAttr", "Attributes for '" + E + "' have open quote.", q(n, h));
               let A = x.value;
               if (((h = x.index), A[A.length - 1] === "/")) {
                 let C = h - A.length;
                 A = A.substring(0, A.length - 1);
                 let z = v(A, i);
-                if (z !== !0) return M(z.err.code, z.err.msg, q(n, C + z.err.line));
-                l = !0;
+                if (z !== true) return M(z.err.code, z.err.msg, q(n, C + z.err.line));
+                l = true;
               } else if (g) {
                 if (!x.tagClosed)
                   return M("InvalidTag", "Closing tag '" + E + "' doesn't have proper closing.", q(n, h));
@@ -1318,13 +1318,13 @@ var ms = S(function (Nh, ps) {
                       q(n, w),
                     );
                   }
-                  u.length == 0 && (p = !0);
+                  u.length == 0 && (p = true);
                 }
               } else {
                 let C = v(A, i);
-                if (C !== !0) return M(C.err.code, C.err.msg, q(n, h - A.length + C.err.line));
-                if (p === !0) return M("InvalidXml", "Multiple possible root nodes found.", q(n, h));
-                i.unpairedTags.indexOf(E) !== -1 || u.push({ tagName: E, tagStartPos: w }), (l = !0);
+                if (C !== true) return M(C.err.code, C.err.msg, q(n, h - A.length + C.err.line));
+                if (p === true) return M("InvalidXml", "Multiple possible root nodes found.", q(n, h));
+                i.unpairedTags.indexOf(E) !== -1 || u.push({ tagName: E, tagStartPos: w }), (l = true);
               }
               for (h++; h < n.length; h++)
                 if (n[h] === "<") {
@@ -1338,7 +1338,7 @@ var ms = S(function (Nh, ps) {
                   let C = W(n, h);
                   if (C == -1) return M("InvalidChar", "char '&' is not expected.", q(n, h));
                   h = C;
-                } else if (p === !0 && !y(n[h])) return M("InvalidXml", "Extra text at the end", q(n, h));
+                } else if (p === true && !y(n[h])) return M("InvalidXml", "Extra text at the end", q(n, h));
               n[h] === "<" && h--;
             }
           }
@@ -1429,11 +1429,11 @@ var ms = S(function (Nh, ps) {
     function I(n, i) {
       let u = "",
         l = "",
-        p = !1;
+        p = false;
       for (; i < n.length; i++) {
         if (n[i] === T || n[i] === _) l === "" ? (l = n[i]) : l !== n[i] || (l = "");
         else if (n[i] === ">" && l === "") {
-          p = !0;
+          p = true;
           break;
         }
         u += n[i];
@@ -1457,7 +1457,7 @@ var ms = S(function (Nh, ps) {
           return M("InvalidAttr", "Attribute '" + h + "' is repeated.", K(u[p]));
         l[h] = 1;
       }
-      return !0;
+      return true;
     }
     function W(n, i) {
       if (n[++i] === ";") return -1;
@@ -1496,18 +1496,18 @@ var ms = S(function (Nh, ps) {
     }
     let br = (n) => (c.includes(n) ? "__" + n : n),
       gi = {
-        preserveOrder: !1,
+        preserveOrder: false,
         attributeNamePrefix: "@_",
-        attributesGroupName: !1,
+        attributesGroupName: false,
         textNodeName: "#text",
-        ignoreAttributes: !0,
-        removeNSPrefix: !1,
-        allowBooleanAttributes: !1,
-        parseTagValue: !0,
-        parseAttributeValue: !1,
-        trimValues: !0,
-        cdataPropName: !1,
-        numberParseOptions: { hex: !0, leadingZeros: !0, eNotation: !0 },
+        ignoreAttributes: true,
+        removeNSPrefix: false,
+        allowBooleanAttributes: false,
+        parseTagValue: true,
+        parseAttributeValue: false,
+        trimValues: true,
+        cdataPropName: false,
+        numberParseOptions: { hex: true, leadingZeros: true, eNotation: true },
         tagValueProcessor: function (n, i) {
           return i;
         },
@@ -1515,23 +1515,23 @@ var ms = S(function (Nh, ps) {
           return i;
         },
         stopNodes: [],
-        alwaysCreateTextNode: !1,
-        isArray: () => !1,
-        commentPropName: !1,
+        alwaysCreateTextNode: false,
+        isArray: () => false,
+        commentPropName: false,
         unpairedTags: [],
-        processEntities: !0,
-        htmlEntities: !1,
-        ignoreDeclaration: !1,
-        ignorePiTags: !1,
-        transformTagName: !1,
-        transformAttributeName: !1,
+        processEntities: true,
+        htmlEntities: false,
+        ignoreDeclaration: false,
+        ignorePiTags: false,
+        transformTagName: false,
+        transformAttributeName: false,
         updateTag: function (n, i, u) {
           return n;
         },
-        captureMetaData: !1,
+        captureMetaData: false,
         maxNestedTags: 100,
-        strictReservedNames: !0,
-        jPath: !0,
+        strictReservedNames: true,
+        jPath: true,
         onDangerousProperty: br,
       };
     function yi(n, i) {
@@ -1560,7 +1560,7 @@ var ms = S(function (Nh, ps) {
           }
         : typeof n == "object" && n !== null
           ? {
-              enabled: n.enabled !== !1,
+              enabled: n.enabled !== false,
               maxEntitySize: Math.max(1, n.maxEntitySize ?? 1e4),
               maxExpansionDepth: Math.max(1, n.maxExpansionDepth ?? 10),
               maxTotalExpansions: Math.max(1, n.maxTotalExpansions ?? 1000),
@@ -1569,7 +1569,7 @@ var ms = S(function (Nh, ps) {
               allowedTags: n.allowedTags ?? null,
               tagFilter: n.tagFilter ?? null,
             }
-          : Nr(!0);
+          : Nr(true);
     }
     let Ei = function (n) {
         let i = Object.assign({}, gi, n),
@@ -1631,14 +1631,14 @@ var ms = S(function (Nh, ps) {
         {
           i += 9;
           let p = 1,
-            h = !1,
-            w = !1,
+            h = false,
+            w = false,
             g = "";
           for (; i < n.length; i++)
             if (n[i] !== "<" || w)
               if (n[i] === ">") {
-                if ((w ? n[i - 1] === "-" && n[i - 2] === "-" && ((w = !1), p--) : p--, p === 0)) break;
-              } else n[i] === "[" ? (h = !0) : (g += n[i]);
+                if ((w ? n[i - 1] === "-" && n[i - 2] === "-" && ((w = false), p--) : p--, p === 0)) break;
+              } else n[i] === "[" ? (h = true) : (g += n[i]);
             else {
               if (h && xe(n, "!ENTITY", i)) {
                 let E, x;
@@ -1648,7 +1648,7 @@ var ms = S(function (Nh, ps) {
                   x.indexOf("&") === -1)
                 ) {
                   if (
-                    this.options.enabled !== !1 &&
+                    this.options.enabled !== false &&
                     this.options.maxEntityCount != null &&
                     l >= this.options.maxEntityCount
                   )
@@ -1667,7 +1667,7 @@ var ms = S(function (Nh, ps) {
                 i = E;
               } else {
                 if (!xe(n, "!--", i)) throw Error("Invalid DOCTYPE");
-                w = !0;
+                w = true;
               }
               p++, (g = "");
             }
@@ -1686,7 +1686,7 @@ var ms = S(function (Nh, ps) {
         let p = "";
         if (
           (([i, p] = this.readIdentifierVal(n, i, "entity")),
-          this.options.enabled !== !1 && this.options.maxEntitySize != null && p.length > this.options.maxEntitySize)
+          this.options.enabled !== false && this.options.maxEntitySize != null && p.length > this.options.maxEntitySize)
         )
           throw Error(`Entity "${l}" size (${p.length}) exceeds maximum allowed size (${this.options.maxEntitySize})`);
         return [l, p, --i];
@@ -1783,8 +1783,8 @@ var ms = S(function (Nh, ps) {
       return i;
     };
     function xe(n, i, u) {
-      for (let l = 0; l < i.length; l++) if (i[l] !== n[u + l + 1]) return !1;
-      return !0;
+      for (let l = 0; l < i.length; l++) if (i[l] !== n[u + l + 1]) return false;
+      return true;
     }
     function ve(n) {
       if (a(n)) return n;
@@ -1792,7 +1792,7 @@ var ms = S(function (Nh, ps) {
     }
     let Si = /^[-+]?0x[a-fA-F0-9]+$/,
       wi = /^([\-\+])?(0*)([0-9]*(\.[0-9]*)?)$/,
-      xi = { hex: !0, leadingZeros: !0, decimalPoint: ".", eNotation: !0, infinity: "original" },
+      xi = { hex: true, leadingZeros: true, decimalPoint: ".", eNotation: true, infinity: "original" },
       bi = /^([-+])?(0*)(\d*(\.\d*)?[eE][-\+]?\d+)$/,
       Ni = new Set(["push", "pop", "reset", "updateCurrent", "restore"]);
     class Ge {
@@ -1836,7 +1836,7 @@ var ms = S(function (Nh, ps) {
         return this.path[this.path.length - 1].values?.[n];
       }
       hasAttr(n) {
-        if (this.path.length === 0) return !1;
+        if (this.path.length === 0) return false;
         let i = this.path[this.path.length - 1];
         return i.values !== void 0 && n in i.values;
       }
@@ -1852,7 +1852,7 @@ var ms = S(function (Nh, ps) {
       getDepth() {
         return this.path.length;
       }
-      toString(n, i = !0) {
+      toString(n, i = true) {
         let u = n || this.separator;
         return this.path.map((l) => (i && l.namespace ? `${l.namespace}:${l.tag}` : l.tag)).join(u);
       }
@@ -1867,14 +1867,14 @@ var ms = S(function (Nh, ps) {
         return i.length !== 0 && (n.hasDeepWildcard() ? this._matchWithDeepWildcard(i) : this._matchSimple(i));
       }
       _matchSimple(n) {
-        if (this.path.length !== n.length) return !1;
+        if (this.path.length !== n.length) return false;
         for (let i = 0; i < n.length; i++) {
           let u = n[i],
             l = this.path[i],
             p = i === this.path.length - 1;
-          if (!this._matchSegment(u, l, p)) return !1;
+          if (!this._matchSegment(u, l, p)) return false;
         }
-        return !0;
+        return true;
       }
       _matchWithDeepWildcard(n) {
         let i = this.path.length - 1,
@@ -1882,45 +1882,45 @@ var ms = S(function (Nh, ps) {
         for (; u >= 0 && i >= 0; ) {
           let l = n[u];
           if (l.type === "deep-wildcard") {
-            if ((u--, u < 0)) return !0;
+            if ((u--, u < 0)) return true;
             let p = n[u],
-              h = !1;
+              h = false;
             for (let w = i; w >= 0; w--) {
               let g = w === this.path.length - 1;
               if (this._matchSegment(p, this.path[w], g)) {
-                (i = w - 1), u--, (h = !0);
+                (i = w - 1), u--, (h = true);
                 break;
               }
             }
-            if (!h) return !1;
+            if (!h) return false;
           } else {
             let p = i === this.path.length - 1;
-            if (!this._matchSegment(l, this.path[i], p)) return !1;
+            if (!this._matchSegment(l, this.path[i], p)) return false;
             i--, u--;
           }
         }
         return u < 0;
       }
       _matchSegment(n, i, u) {
-        if (n.tag !== "*" && n.tag !== i.tag) return !1;
-        if (n.namespace !== void 0 && n.namespace !== "*" && n.namespace !== i.namespace) return !1;
+        if (n.tag !== "*" && n.tag !== i.tag) return false;
+        if (n.namespace !== void 0 && n.namespace !== "*" && n.namespace !== i.namespace) return false;
         if (n.attrName !== void 0) {
-          if (!u) return !1;
-          if (!i.values || !(n.attrName in i.values)) return !1;
+          if (!u) return false;
+          if (!i.values || !(n.attrName in i.values)) return false;
           if (n.attrValue !== void 0) {
             let l = i.values[n.attrName];
-            if (String(l) !== String(n.attrValue)) return !1;
+            if (String(l) !== String(n.attrValue)) return false;
           }
         }
         if (n.position !== void 0) {
-          if (!u) return !1;
+          if (!u) return false;
           let l = i.counter ?? 0;
-          if (n.position === "first" && l !== 0) return !1;
-          if (n.position === "odd" && l % 2 != 1) return !1;
-          if (n.position === "even" && l % 2 != 0) return !1;
-          if (n.position === "nth" && l !== n.positionValue) return !1;
+          if (n.position === "first" && l !== 0) return false;
+          if (n.position === "odd" && l % 2 != 1) return false;
+          if (n.position === "even" && l % 2 != 0) return false;
+          if (n.position === "nth" && l !== n.positionValue) return false;
         }
-        return !0;
+        return true;
       }
       snapshot() {
         return { path: this.path.map((n) => ({ ...n })), siblingStacks: this.siblingStacks.map((n) => new Map(n)) };
@@ -2092,16 +2092,16 @@ var ms = S(function (Nh, ps) {
               : Array.isArray(i)
                 ? (u) => {
                     for (let l of i) {
-                      if (typeof l == "string" && u === l) return !0;
-                      if (l instanceof RegExp && l.test(u)) return !0;
+                      if (typeof l == "string" && u === l) return true;
+                      if (l instanceof RegExp && l.test(u)) return true;
                     }
                   }
-                : () => !1),
+                : () => false),
           (this.entityExpansionCount = 0),
           (this.currentExpandedLength = 0),
           (this.matcher = new Ge()),
           (this.readonlyMatcher = this.matcher.readOnly()),
-          (this.isCurrentNodeStopNode = !1),
+          (this.isCurrentNodeStopNode = false),
           this.options.stopNodes && this.options.stopNodes.length > 0)
         ) {
           this.stopNodeExpressions = [];
@@ -2147,7 +2147,7 @@ var ms = S(function (Nh, ps) {
     }
     let Ii = new RegExp(`([^\\s=]+)\\s*(=\\s*(['"])([\\s\\S]*?)\\3)?`, "gm");
     function Oi(n, i, u) {
-      if (this.options.ignoreAttributes !== !0 && typeof n == "string") {
+      if (this.options.ignoreAttributes !== true && typeof n == "string") {
         let l = o(n, Ii),
           p = l.length,
           h = {},
@@ -2184,7 +2184,7 @@ var ms = S(function (Nh, ps) {
                   : typeof D != typeof A || D !== A
                     ? D
                     : Cr(A, this.options.parseAttributeValue, this.options.numberParseOptions);
-            } else this.options.allowBooleanAttributes && (h[C] = !0);
+            } else this.options.allowBooleanAttributes && (h[C] = true);
         }
         if (!Object.keys(h).length) return;
         if (this.options.attributesGroupName) {
@@ -2221,12 +2221,12 @@ var ms = S(function (Nh, ps) {
               throw Error(`Unpaired tag can not be used as closing tag: </${g}>`);
             E && this.options.unpairedTags.indexOf(E) !== -1 && (this.matcher.pop(), this.tagsNodeStack.pop()),
               this.matcher.pop(),
-              (this.isCurrentNodeStopNode = !1),
+              (this.isCurrentNodeStopNode = false),
               (u = this.tagsNodeStack.pop()),
               (l = ""),
               (h = w);
           } else if (n[h + 1] === "?") {
-            let w = ft(n, h, !1, "?>");
+            let w = ft(n, h, false, "?>");
             if (!w) throw Error("Pi Tag is not closed.");
             if (
               ((l = this.saveTextToParentTag(l, u, this.readonlyMatcher)),
@@ -2256,7 +2256,7 @@ var ms = S(function (Nh, ps) {
             let w = Ne(n, "]]>", h, "CDATA is not closed.") - 2,
               g = n.substring(h + 9, w);
             l = this.saveTextToParentTag(l, u, this.readonlyMatcher);
-            let E = this.parseTextData(g, u.tagname, this.readonlyMatcher, !0, !1, !0, !0);
+            let E = this.parseTextData(g, u.tagname, this.readonlyMatcher, true, false, true, true);
             E == null && (E = ""),
               this.options.cdataPropName
                 ? u.add(this.options.cdataPropName, [{ [this.options.textNodeName]: g }])
@@ -2278,15 +2278,15 @@ var ms = S(function (Nh, ps) {
                   g === this.options.attributesGroupName))
             )
               throw Error(`Invalid tag name: ${g}`);
-            u && l && u.tagname !== "!xml" && (l = this.saveTextToParentTag(l, u, this.readonlyMatcher, !1));
+            u && l && u.tagname !== "!xml" && (l = this.saveTextToParentTag(l, u, this.readonlyMatcher, false));
             let z = u;
             z &&
               this.options.unpairedTags.indexOf(z.tagname) !== -1 &&
               ((u = this.tagsNodeStack.pop()), this.matcher.pop());
-            let D = !1;
+            let D = false;
             x.length > 0 &&
               x.lastIndexOf("/") === x.length - 1 &&
-              ((D = !0),
+              ((D = true),
               g[g.length - 1] === "/" ? ((g = g.substr(0, g.length - 1)), (x = g)) : (x = x.substr(0, x.length - 1)),
               (A = g !== x));
             let k,
@@ -2311,7 +2311,7 @@ var ms = S(function (Nh, ps) {
               B && (yt[":@"] = B),
                 yt.add(this.options.textNodeName, Z),
                 this.matcher.pop(),
-                (this.isCurrentNodeStopNode = !1),
+                (this.isCurrentNodeStopNode = false),
                 this.addChild(u, yt, this.readonlyMatcher, H);
             } else {
               if (D) {
@@ -2320,14 +2320,14 @@ var ms = S(function (Nh, ps) {
                 B && (Z[":@"] = B),
                   this.addChild(u, Z, this.readonlyMatcher, H),
                   this.matcher.pop(),
-                  (this.isCurrentNodeStopNode = !1);
+                  (this.isCurrentNodeStopNode = false);
               } else {
                 if (this.options.unpairedTags.indexOf(g) !== -1) {
                   let Z = new oe(g);
                   B && (Z[":@"] = B),
                     this.addChild(u, Z, this.readonlyMatcher, H),
                     this.matcher.pop(),
-                    (this.isCurrentNodeStopNode = !1),
+                    (this.isCurrentNodeStopNode = false),
                     (h = w.closeIndex);
                   continue;
                 }
@@ -2348,7 +2348,7 @@ var ms = S(function (Nh, ps) {
       this.options.captureMetaData || (l = void 0);
       let p = this.options.jPath ? u.toString() : u,
         h = this.options.updateTag(i.tagname, p, i[":@"]);
-      h === !1 || (typeof h == "string" ? ((i.tagname = h), n.addChild(i, l)) : n.addChild(i, l));
+      h === false || (typeof h == "string" ? ((i.tagname = h), n.addChild(i, l)) : n.addChild(i, l));
     }
     function Pi(n, i, u) {
       let l = this.options.processEntities;
@@ -2409,7 +2409,7 @@ var ms = S(function (Nh, ps) {
       return (
         n &&
           (l === void 0 && (l = i.child.length === 0),
-          (n = this.parseTextData(n, i.tagname, u, !1, !!i[":@"] && Object.keys(i[":@"]).length !== 0, l)) !== void 0 &&
+          (n = this.parseTextData(n, i.tagname, u, false, !!i[":@"] && Object.keys(i[":@"]).length !== 0, l)) !== void 0 &&
             n !== "" &&
             i.add(this.options.textNodeName, n),
           (n = "")),
@@ -2417,9 +2417,9 @@ var ms = S(function (Nh, ps) {
       );
     }
     function vi(n, i) {
-      if (!n || n.length === 0) return !1;
-      for (let u = 0; u < n.length; u++) if (i.matches(n[u])) return !0;
-      return !1;
+      if (!n || n.length === 0) return false;
+      for (let u = 0; u < n.length; u++) if (i.matches(n[u])) return true;
+      return false;
     }
     function Ne(n, i, u, l) {
       let p = n.indexOf(i, u);
@@ -2445,7 +2445,7 @@ var ms = S(function (Nh, ps) {
       let { data: h, index: w } = p,
         g = h.search(/\s/),
         E = h,
-        x = !0;
+        x = true;
       g !== -1 && ((E = h.substring(0, g)), (h = h.substring(g + 1).trimStart()));
       let A = E;
       if (u) {
@@ -2639,7 +2639,7 @@ var ms = S(function (Nh, ps) {
           let g = p[w],
             E = g.startsWith(l.attributeNamePrefix) ? g.substring(l.attributeNamePrefix.length) : g,
             x = l.jPath ? u.toString() + "." + E : u;
-          l.isArray(g, x, !0, !0) ? (n[g] = [i[g]]) : (n[g] = i[g]);
+          l.isArray(g, x, true, true) ? (n[g] = [i[g]]) : (n[g] = i[g]);
         }
       }
     }
@@ -2656,9 +2656,9 @@ var ms = S(function (Nh, ps) {
         if (typeof n != "string" && n.toString) n = n.toString();
         else if (typeof n != "string") throw Error("XML data is accepted in String or Bytes[] form.");
         if (i) {
-          i === !0 && (i = {});
+          i === true && (i = {});
           let p = m(n, i);
-          if (p !== !0) throw Error(`${p.err.msg}:${p.err.line}:${p.err.col}`);
+          if (p !== true) throw Error(`${p.err.msg}:${p.err.line}:${p.err.col}`);
         }
         let u = new _r(this.options);
         u.addExternalEntities(this.externalEntities);
@@ -2692,7 +2692,7 @@ var ms = S(function (Nh, ps) {
     }
     function Mr(n, i, u, l, p) {
       let h = "",
-        w = !1;
+        w = false;
       if (i.maxNestedTags && l.getDepth() > i.maxNestedTags) throw Error("Maximum nested tags exceeded");
       if (!Array.isArray(n)) {
         if (n != null) {
@@ -2710,22 +2710,22 @@ var ms = S(function (Nh, ps) {
         let C = Hi(l, p);
         if (x === i.textNodeName) {
           let B = E[x];
-          C || ((B = i.tagValueProcessor(x, B)), (B = gt(B, i))), w && (h += u), (h += B), (w = !1), l.pop();
+          C || ((B = i.tagValueProcessor(x, B)), (B = gt(B, i))), w && (h += u), (h += B), (w = false), l.pop();
           continue;
         }
         if (x === i.cdataPropName) {
-          w && (h += u), (h += `<![CDATA[${E[x][0][i.textNodeName]}]]>`), (w = !1), l.pop();
+          w && (h += u), (h += `<![CDATA[${E[x][0][i.textNodeName]}]]>`), (w = false), l.pop();
           continue;
         }
         if (x === i.commentPropName) {
-          (h += u + `<!--${E[x][0][i.textNodeName]}-->`), (w = !0), l.pop();
+          (h += u + `<!--${E[x][0][i.textNodeName]}-->`), (w = true), l.pop();
           continue;
         }
         if (x[0] === "?") {
           let B = kr(E[":@"], i, C),
             ne = x === "?xml" ? "" : u,
             H = E[x][0][i.textNodeName];
-          (H = H.length !== 0 ? " " + H : ""), (h += ne + `<${x}${H}${B}?>`), (w = !0), l.pop();
+          (H = H.length !== 0 ? " " + H : ""), (h += ne + `<${x}${H}${B}?>`), (w = true), l.pop();
           continue;
         }
         let z = u;
@@ -2744,7 +2744,7 @@ var ms = S(function (Nh, ps) {
                   k && u !== "" && (k.includes("/>") || k.includes("</")) ? (h += u + i.indentBy + k + u) : (h += k),
                   (h += `</${x}>`))
               : (h += D + "/>"),
-          (w = !0),
+          (w = true),
           l.pop();
       }
       return h;
@@ -2752,10 +2752,10 @@ var ms = S(function (Nh, ps) {
     function ji(n, i) {
       if (!n || i.ignoreAttributes) return null;
       let u = {},
-        l = !1;
+        l = false;
       for (let p in n)
         Object.prototype.hasOwnProperty.call(n, p) &&
-          ((u[p.startsWith(i.attributeNamePrefix) ? p.substr(i.attributeNamePrefix.length) : p] = n[p]), (l = !0));
+          ((u[p.startsWith(i.attributeNamePrefix) ? p.substr(i.attributeNamePrefix.length) : p] = n[p]), (l = true));
       return l ? u : null;
     }
     function Dr(n, i) {
@@ -2784,7 +2784,7 @@ var ms = S(function (Nh, ps) {
         for (let l in n) {
           if (!Object.prototype.hasOwnProperty.call(n, l)) continue;
           let p = n[l];
-          p === !0 && i.suppressBooleanAttributes
+          p === true && i.suppressBooleanAttributes
             ? (u += ` ${l.substr(i.attributeNamePrefix.length)}`)
             : (u += ` ${l.substr(i.attributeNamePrefix.length)}="${p}"`);
         }
@@ -2804,16 +2804,16 @@ var ms = S(function (Nh, ps) {
           if (!Object.prototype.hasOwnProperty.call(n, p)) continue;
           let h;
           u ? (h = n[p]) : ((h = i.attributeValueProcessor(p, n[p])), (h = gt(h, i))),
-            h === !0 && i.suppressBooleanAttributes
+            h === true && i.suppressBooleanAttributes
               ? (l += ` ${p.substr(i.attributeNamePrefix.length)}`)
               : (l += ` ${p.substr(i.attributeNamePrefix.length)}="${h}"`);
         }
       return l;
     }
     function Hi(n, i) {
-      if (!i || i.length === 0) return !1;
-      for (let u = 0; u < i.length; u++) if (n.matches(i[u])) return !0;
-      return !1;
+      if (!i || i.length === 0) return false;
+      for (let u = 0; u < i.length; u++) if (n.matches(i[u])) return true;
+      return false;
     }
     function gt(n, i) {
       if (n && n.length > 0 && i.processEntities)
@@ -2825,23 +2825,23 @@ var ms = S(function (Nh, ps) {
     }
     let Gi = {
       attributeNamePrefix: "@_",
-      attributesGroupName: !1,
+      attributesGroupName: false,
       textNodeName: "#text",
-      ignoreAttributes: !0,
-      cdataPropName: !1,
-      format: !1,
+      ignoreAttributes: true,
+      cdataPropName: false,
+      format: false,
       indentBy: "  ",
-      suppressEmptyNode: !1,
-      suppressUnpairedNode: !0,
-      suppressBooleanAttributes: !0,
+      suppressEmptyNode: false,
+      suppressUnpairedNode: true,
+      suppressBooleanAttributes: true,
       tagValueProcessor: function (n, i) {
         return i;
       },
       attributeValueProcessor: function (n, i) {
         return i;
       },
-      preserveOrder: !1,
-      commentPropName: !1,
+      preserveOrder: false,
+      commentPropName: false,
       unpairedTags: [],
       entities: [
         { regex: new RegExp("&", "g"), val: "&amp;" },
@@ -2850,11 +2850,11 @@ var ms = S(function (Nh, ps) {
         { regex: new RegExp("'", "g"), val: "&apos;" },
         { regex: new RegExp('"', "g"), val: "&quot;" },
       ],
-      processEntities: !0,
+      processEntities: true,
       stopNodes: [],
-      oneListGroup: !1,
+      oneListGroup: false,
       maxNestedTags: 100,
-      jPath: !0,
+      jPath: true,
     };
     function te(n) {
       if (
@@ -2874,9 +2874,9 @@ var ms = S(function (Nh, ps) {
             : l instanceof be && this.stopNodeExpressions.push(l);
         }
       var i;
-      this.options.ignoreAttributes === !0 || this.options.attributesGroupName
+      this.options.ignoreAttributes === true || this.options.attributesGroupName
         ? (this.isAttribute = function () {
-            return !1;
+            return false;
           })
         : ((this.ignoreAttributesFn =
             typeof (i = this.options.ignoreAttributes) == "function"
@@ -2884,11 +2884,11 @@ var ms = S(function (Nh, ps) {
               : Array.isArray(i)
                 ? (u) => {
                     for (let l of i) {
-                      if (typeof l == "string" && u === l) return !0;
-                      if (l instanceof RegExp && l.test(u)) return !0;
+                      if (typeof l == "string" && u === l) return true;
+                      if (l instanceof RegExp && l.test(u)) return true;
                     }
                   }
-                : () => !1),
+                : () => false),
           (this.attrPrefixLen = this.options.attributeNamePrefix.length),
           (this.isAttribute = Ki)),
         (this.processTextOrObjNode = Xi),
@@ -3027,7 +3027,7 @@ var ms = S(function (Nh, ps) {
       (te.prototype.extractAttributes = function (n) {
         if (!n || typeof n != "object") return null;
         let i = {},
-          u = !1;
+          u = false;
         if (this.options.attributesGroupName && n[this.options.attributesGroupName]) {
           let l = n[this.options.attributesGroupName];
           for (let p in l)
@@ -3037,12 +3037,12 @@ var ms = S(function (Nh, ps) {
                   ? p.substring(this.options.attributeNamePrefix.length)
                   : p
               ] = l[p]),
-              (u = !0));
+              (u = true));
         } else
           for (let l in n) {
             if (!Object.prototype.hasOwnProperty.call(n, l)) continue;
             let p = this.isAttribute(l);
-            p && ((i[p] = n[l]), (u = !0));
+            p && ((i[p] = n[l]), (u = true));
           }
         return u ? i : null;
       }),
@@ -3084,7 +3084,7 @@ var ms = S(function (Nh, ps) {
                 ? l.substring(this.options.attributeNamePrefix.length)
                 : l,
               h = u[l];
-            h === !0 && this.options.suppressBooleanAttributes ? (i += " " + p) : (i += " " + p + '="' + h + '"');
+            h === true && this.options.suppressBooleanAttributes ? (i += " " + p) : (i += " " + p + '="' + h + '"');
           }
         } else
           for (let u in n) {
@@ -3092,7 +3092,7 @@ var ms = S(function (Nh, ps) {
             let l = this.isAttribute(u);
             if (l) {
               let p = n[u];
-              p === !0 && this.options.suppressBooleanAttributes ? (i += " " + l) : (i += " " + l + '="' + p + '"');
+              p === true && this.options.suppressBooleanAttributes ? (i += " " + l) : (i += " " + l + '="' + p + '"');
             }
           }
         return i;
@@ -3108,7 +3108,7 @@ var ms = S(function (Nh, ps) {
           return (
             i[0] === "?" && ((h = "?"), (p = "")),
             (!u && u !== "") || n.indexOf("<") !== -1
-              ? this.options.commentPropName !== !1 && i === this.options.commentPropName && h.length === 0
+              ? this.options.commentPropName !== false && i === this.options.commentPropName && h.length === 0
                 ? this.indentate(l) + `<!--${n}-->` + this.newLine
                 : this.indentate(l) + "<" + i + u + h + this.tagEndChar + n + this.indentate(l) + p
               : this.indentate(l) + "<" + i + u + h + ">" + n + p
@@ -3125,14 +3125,14 @@ var ms = S(function (Nh, ps) {
         );
       }),
       (te.prototype.checkStopNode = function (n) {
-        if (!this.stopNodeExpressions || this.stopNodeExpressions.length === 0) return !1;
-        for (let i = 0; i < this.stopNodeExpressions.length; i++) if (n.matches(this.stopNodeExpressions[i])) return !0;
-        return !1;
+        if (!this.stopNodeExpressions || this.stopNodeExpressions.length === 0) return false;
+        for (let i = 0; i < this.stopNodeExpressions.length; i++) if (n.matches(this.stopNodeExpressions[i])) return true;
+        return false;
       }),
       (te.prototype.buildTextValNode = function (n, i, u, l, p) {
-        if (this.options.cdataPropName !== !1 && i === this.options.cdataPropName)
+        if (this.options.cdataPropName !== false && i === this.options.cdataPropName)
           return this.indentate(l) + `<![CDATA[${n}]]>` + this.newLine;
-        if (this.options.commentPropName !== !1 && i === this.options.commentPropName)
+        if (this.options.commentPropName !== false && i === this.options.commentPropName)
           return this.indentate(l) + `<!--${n}-->` + this.newLine;
         if (i[0] === "?") return this.indentate(l) + "<" + i + u + "?" + this.tagEndChar;
         {
@@ -3159,16 +3159,16 @@ var ms = S(function (Nh, ps) {
   })();
 });
 var ys = S(function (gs) {
-  Object.defineProperty(gs, "__esModule", { value: !0 });
+  Object.defineProperty(gs, "__esModule", { value: true });
   gs.parseXML = Ta;
   var Na = ms(),
     Ut = new Na.XMLParser({
       attributeNamePrefix: "",
-      htmlEntities: !0,
-      ignoreAttributes: !1,
-      ignoreDeclaration: !0,
-      parseTagValue: !1,
-      trimValues: !1,
+      htmlEntities: true,
+      ignoreAttributes: false,
+      ignoreDeclaration: true,
+      parseTagValue: false,
+      trimValues: false,
       tagValueProcessor: (e, t) =>
         t.trim() === "" &&
         t.includes(`
@@ -3183,7 +3183,7 @@ var ys = S(function (gs) {
 `,
   );
   function Ta(e) {
-    return Ut.parse(e, !0);
+    return Ut.parse(e, true);
   }
 });
 var Ft = S(function (Es) {
@@ -3281,7 +3281,7 @@ var Ft = S(function (Es) {
     }
   }
   Object.defineProperty(Es, "parseXML", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return Ca.parseXML;
     },
@@ -3303,10 +3303,10 @@ var gg = S(function (Ya) {
     Fe = H_(),
     Rs = yg(),
     re = Ft(),
-    jt = { warningEmitted: !1 },
+    jt = { warningEmitted: false },
     Da = (e) => {
       if (e && !jt.warningEmitted && parseInt(e.substring(1, e.indexOf("."))) < 18)
-        (jt.warningEmitted = !0),
+        (jt.warningEmitted = true),
           process.emitWarning(`NodeDeprecationWarning: The AWS SDK for JavaScript (v3) will
 no longer support Node.js 16.x on January 6, 2025.
 
@@ -3358,7 +3358,7 @@ More information can be found at: https://a.co/74kJMmI`);
         { config: o, signer: a } = s,
         { signingRegion: c, signingName: d } = s,
         f = r.context;
-      if (f?.authSchemes?.length ?? !1) {
+      if (f?.authSchemes?.length ?? false) {
         let [y, N] = f.authSchemes;
         if (y?.name === "sigv4a" && N?.name === "sigv4") (c = N?.signingRegion ?? c), (d = N?.signingName ?? d);
       }
@@ -3371,7 +3371,7 @@ More information can be found at: https://a.co/74kJMmI`);
           let s = Ve("config", e.config),
             o = s.systemClockOffset;
           if (((s.systemClockOffset = Ns(r, s.systemClockOffset)), s.systemClockOffset !== o && t.$metadata))
-            t.$metadata.clockSkewCorrected = !0;
+            t.$metadata.clockSkewCorrected = true;
         }
         throw t;
       };
@@ -3416,11 +3416,11 @@ More information can be found at: https://a.co/74kJMmI`);
     Ua = {
       environmentVariableSelector(e) {
         if (e.AWS_SIGV4A_SIGNING_REGION_SET) return e.AWS_SIGV4A_SIGNING_REGION_SET.split(",").map((t) => t.trim());
-        throw new Ss.ProviderError("AWS_SIGV4A_SIGNING_REGION_SET not set in env.", { tryNextLink: !0 });
+        throw new Ss.ProviderError("AWS_SIGV4A_SIGNING_REGION_SET not set in env.", { tryNextLink: true });
       },
       configFileSelector(e) {
         if (e.sigv4a_signing_region_set) return (e.sigv4a_signing_region_set ?? "").split(",").map((t) => t.trim());
-        throw new Ss.ProviderError("sigv4a_signing_region_set not set in profile.", { tryNextLink: !0 });
+        throw new Ss.ProviderError("sigv4a_signing_region_set not set in profile.", { tryNextLink: true });
       },
       default: void 0,
     },
@@ -3430,7 +3430,7 @@ More information can be found at: https://a.co/74kJMmI`);
         s = void 0;
       Object.defineProperty(e, "credentials", {
         set(m) {
-          if (m && m !== t && m !== s) r = !0;
+          if (m && m !== t && m !== s) r = true;
           t = m;
           let y = Fa(e, { credentials: t, credentialDefaultProvider: e.credentialDefaultProvider }),
             N = ja(e, y);
@@ -3438,17 +3438,17 @@ More information can be found at: https://a.co/74kJMmI`);
             (s = async (b) => N(b).then((T) => Ma.setCredentialFeature(T, "CREDENTIALS_CODE", "e"))),
               (s.memoized = N.memoized),
               (s.configBound = N.configBound),
-              (s.attributed = !0);
+              (s.attributed = true);
           else s = N;
         },
         get() {
           return s;
         },
-        enumerable: !0,
-        configurable: !0,
+        enumerable: true,
+        configurable: true,
       }),
         (e.credentials = t);
-      let { signingEscapePath: o = !0, systemClockOffset: a = e.systemClockOffset || 0, sha256: c } = e,
+      let { signingEscapePath: o = true, systemClockOffset: a = e.systemClockOffset || 0, sha256: c } = e,
         d;
       if (e.signer) d = ge.normalizeProvider(e.signer);
       else if (e.regionInfoProvider)
@@ -3514,16 +3514,16 @@ More information can be found at: https://a.co/74kJMmI`);
           "@aws-sdk/core::resolveAwsSdkSigV4Config - `credentials` not provided and no credentialDefaultProvider was configured.",
         );
       };
-    return (s.memoized = !0), s;
+    return (s.memoized = true), s;
   }
   function ja(e, t) {
     if (t.configBound) return t;
     let r = async (s) => t({ ...s, callerClientConfig: e });
-    return (r.memoized = t.memoized), (r.configBound = !0), r;
+    return (r.memoized = t.memoized), (r.configBound = true), r;
   }
   class Oe {
     queryCompat;
-    constructor(e = !1) {
+    constructor(e = false) {
       this.queryCompat = e;
     }
     resolveRestContentType(e, t) {
@@ -3841,7 +3841,7 @@ More information can be found at: https://a.co/74kJMmI`);
     }
     writeDiscriminatedDocument(e, t) {
       if ((this.write(e, t), typeof this.buffer === "object"))
-        this.buffer.__type = L.NormalizedSchema.of(e).getName(!0);
+        this.buffer.__type = L.NormalizedSchema.of(e).getName(true);
     }
     flush() {
       let { rootSchema: e } = this;
@@ -3940,7 +3940,7 @@ More information can be found at: https://a.co/74kJMmI`);
     constructor({ defaultNamespace: e, serviceTarget: t, awsQueryCompatible: r }) {
       super({ defaultNamespace: e });
       (this.serviceTarget = t),
-        (this.codec = new rt({ timestampFormat: { useTrait: !0, default: 7 }, jsonName: !1 })),
+        (this.codec = new rt({ timestampFormat: { useTrait: true, default: 7 }, jsonName: false })),
         (this.serializer = this.codec.createSerializer()),
         (this.deserializer = this.codec.createDeserializer()),
         (this.awsQueryCompatible = !!r),
@@ -4023,7 +4023,7 @@ More information can be found at: https://a.co/74kJMmI`);
     mixin = new Oe();
     constructor({ defaultNamespace: e }) {
       super({ defaultNamespace: e });
-      let t = { timestampFormat: { useTrait: !0, default: 7 }, httpBindings: !0, jsonName: !0 };
+      let t = { timestampFormat: { useTrait: true, default: 7 }, httpBindings: true, jsonName: true };
       (this.codec = new rt(t)),
         (this.serializer = new Q.HttpInterceptingShapeSerializer(this.codec.createSerializer(), t)),
         (this.deserializer = new Q.HttpInterceptingShapeDeserializer(this.codec.createDeserializer(), t));
@@ -4156,7 +4156,7 @@ More information can be found at: https://a.co/74kJMmI`);
           return c;
         }
         if (r.isDocumentSchema()) return t;
-        throw Error(`@aws-sdk/core/protocols - xml deserializer unhandled schema type for ${r.getName(!0)}`);
+        throw Error(`@aws-sdk/core/protocols - xml deserializer unhandled schema type for ${r.getName(true)}`);
       }
       if (r.isListSchema()) return [];
       if (r.isMapSchema() || r.isStructSchema()) return {};
@@ -4215,7 +4215,7 @@ More information can be found at: https://a.co/74kJMmI`);
               break;
           }
       } else if (s.isDocumentSchema())
-        throw Error(`@aws-sdk/core/protocols - QuerySerializer unsupported document type ${s.getName(!0)}`);
+        throw Error(`@aws-sdk/core/protocols - QuerySerializer unsupported document type ${s.getName(true)}`);
       else if (s.isListSchema()) {
         if (Array.isArray(t))
           if (t.length === 0) {
@@ -4255,7 +4255,7 @@ More information can be found at: https://a.co/74kJMmI`);
             this.write(a, t[o], d);
           }
       } else if (s.isUnitSchema());
-      else throw Error(`@aws-sdk/core/protocols - QuerySerializer unrecognized schema type ${s.getName(!0)}`);
+      else throw Error(`@aws-sdk/core/protocols - QuerySerializer unrecognized schema type ${s.getName(true)}`);
     }
     flush() {
       if (this.buffer === void 0)
@@ -4285,11 +4285,11 @@ More information can be found at: https://a.co/74kJMmI`);
       super({ defaultNamespace: e.defaultNamespace });
       this.options = e;
       let t = {
-        timestampFormat: { useTrait: !0, default: 5 },
-        httpBindings: !1,
+        timestampFormat: { useTrait: true, default: 5 },
+        httpBindings: false,
         xmlNamespace: e.xmlNamespace,
         serviceNamespace: e.defaultNamespace,
-        serializeEmptyLists: !0,
+        serializeEmptyLists: true,
       };
       (this.serializer = new Bs(t)), (this.deserializer = new nt(t));
     }
@@ -4335,7 +4335,7 @@ More information can be found at: https://a.co/74kJMmI`);
       return { $metadata: this.deserializeMetadata(r), ...a };
     }
     useNestedResult() {
-      return !0;
+      return true;
     }
     async handleError(e, t, r, s, o) {
       let a = this.loadQueryErrorCode(r, s) ?? "Unknown",
@@ -4390,11 +4390,11 @@ More information can be found at: https://a.co/74kJMmI`);
     constructor(e) {
       super(e);
       this.options = e;
-      let t = { capitalizeKeys: !0, flattenLists: !0, serializeEmptyLists: !1 };
+      let t = { capitalizeKeys: true, flattenLists: true, serializeEmptyLists: false };
       Object.assign(this.serializer.settings, t);
     }
     useNestedResult() {
-      return !1;
+      return false;
     }
   }
   var Us = (e, t) =>
@@ -4468,7 +4468,7 @@ More information can be found at: https://a.co/74kJMmI`);
             : (s.xmlName ?? e.getName());
       if (!o || !e.isStructSchema())
         throw Error(
-          `@aws-sdk/core/protocols - xml serializer, cannot write struct with empty name or non-struct, schema=${e.getName(!0)}.`,
+          `@aws-sdk/core/protocols - xml serializer, cannot write struct with empty name or non-struct, schema=${e.getName(true)}.`,
         );
       let a = re.XmlNode.of(o),
         [c, d] = this.getXmlnsAttribute(e, r);
@@ -4493,7 +4493,7 @@ More information can be found at: https://a.co/74kJMmI`);
     }
     writeList(e, t, r, s) {
       if (!e.isMemberSchema())
-        throw Error(`@aws-sdk/core/protocols - xml serializer, cannot write non-member list: ${e.getName(!0)}`);
+        throw Error(`@aws-sdk/core/protocols - xml serializer, cannot write non-member list: ${e.getName(true)}`);
       let o = e.getMergedTraits(),
         a = e.getValueSchema(),
         c = a.getMergedTraits(),
@@ -4520,9 +4520,9 @@ More information can be found at: https://a.co/74kJMmI`);
         r.addChildNode(b);
       }
     }
-    writeMap(e, t, r, s, o = !1) {
+    writeMap(e, t, r, s, o = false) {
       if (!e.isMemberSchema())
-        throw Error(`@aws-sdk/core/protocols - xml serializer, cannot write non-member map: ${e.getName(!0)}`);
+        throw Error(`@aws-sdk/core/protocols - xml serializer, cannot write non-member map: ${e.getName(true)}`);
       let a = e.getMergedTraits(),
         c = e.getKeySchema(),
         f = c.getMergedTraits().xmlName ?? "key",
@@ -4539,7 +4539,7 @@ More information can be found at: https://a.co/74kJMmI`);
           v.addChildNode(ee);
           let K = re.XmlNode.of(N);
           if (m.isListSchema()) this.writeList(m, M, K, I);
-          else if (m.isMapSchema()) this.writeMap(m, M, K, I, !0);
+          else if (m.isMapSchema()) this.writeMap(m, M, K, I, true);
           else if (m.isStructSchema()) K = this.writeStruct(m, M, I);
           else this.writeSimpleInto(m, M, K, I);
           v.addChildNode(K);
@@ -4593,13 +4593,13 @@ More information can be found at: https://a.co/74kJMmI`);
           );
         else
           throw Error(
-            `@aws-sdk/core/protocols - xml serializer, unhandled schema type for object value and schema: ${r.getName(!0)}`,
+            `@aws-sdk/core/protocols - xml serializer, unhandled schema type for object value and schema: ${r.getName(true)}`,
           );
       if (r.isBooleanSchema() || r.isNumericSchema() || r.isBigIntegerSchema() || r.isBigDecimalSchema()) s = String(t);
       if (r.isStringSchema())
         if (t === void 0 && r.isIdempotencyToken()) s = G.generateIdempotencyToken();
         else s = String(t);
-      if (s === null) throw Error(`Unhandled schema-value pair ${r.getName(!0)}=${t}`);
+      if (s === null) throw Error(`Unhandled schema-value pair ${r.getName(true)}=${t}`);
       return s;
     }
     writeSimpleInto(e, t, r, s) {
@@ -4640,8 +4640,8 @@ More information can be found at: https://a.co/74kJMmI`);
     constructor(e) {
       super(e);
       let t = {
-        timestampFormat: { useTrait: !0, default: 5 },
-        httpBindings: !0,
+        timestampFormat: { useTrait: true, default: 5 },
+        httpBindings: true,
         xmlNamespace: e.xmlNamespace,
         serviceNamespace: e.defaultNamespace,
       };
@@ -4745,7 +4745,7 @@ var RO = S(function (Qc) {
     ie = gg(),
     Gs = void 0;
   function Uc(e) {
-    if (e === void 0) return !0;
+    if (e === void 0) return true;
     return typeof e === "string" && e.length <= 50;
   }
   function Vc(e) {
@@ -4866,7 +4866,7 @@ var RO = S(function (Qc) {
       step: "build",
       priority: "low",
       tags: ["SET_USER_AGENT", "USER_AGENT"],
-      override: !0,
+      override: true,
     },
     Kc = (e) => ({
       applyToStack: (t) => {
@@ -4905,7 +4905,7 @@ var vN = S(function (nu) {
       step: "build",
       tags: ["SET_CONTENT_LENGTH", "CONTENT_LENGTH"],
       name: "contentLengthMiddleware",
-      override: !0,
+      override: true,
     },
     su = (e) => ({
       applyToStack: (t) => {
@@ -4917,7 +4917,7 @@ var vN = S(function (nu) {
   nu.getContentLengthPlugin = su;
 });
 var sn = S(function (tn) {
-  Object.defineProperty(tn, "__esModule", { value: !0 });
+  Object.defineProperty(tn, "__esModule", { value: true });
   tn.getEndpointUrlConfig = void 0;
   var Js = mA(),
     Zs = "AWS_ENDPOINT_URL",
@@ -4949,7 +4949,7 @@ var sn = S(function (tn) {
   tn.getEndpointUrlConfig = cu;
 });
 var an = S(function (nn) {
-  Object.defineProperty(nn, "__esModule", { value: !0 });
+  Object.defineProperty(nn, "__esModule", { value: true });
   nn.getEndpointFromConfig = void 0;
   var uu = by(),
     lu = sn(),
@@ -4967,15 +4967,15 @@ var Rn = S(function (Tu) {
       if (typeof e.Bucket === "string")
         e.Bucket = t.replace(/#/g, encodeURIComponent("#")).replace(/\?/g, encodeURIComponent("?"));
       if (Su(t)) {
-        if (e.ForcePathStyle === !0) throw Error("Path-style addressing cannot be used with ARN buckets");
+        if (e.ForcePathStyle === true) throw Error("Path-style addressing cannot be used with ARN buckets");
       } else if (
         !Eu(t) ||
         (t.indexOf(".") !== -1 && !String(e.Endpoint).startsWith("http:")) ||
         t.toLowerCase() !== t ||
         t.length < 3
       )
-        e.ForcePathStyle = !0;
-      if (e.DisableMultiRegionAccessPoints) (e.disableMultiRegionAccessPoints = !0), (e.DisableMRAP = !0);
+        e.ForcePathStyle = true;
+      if (e.DisableMultiRegionAccessPoints) (e.disableMultiRegionAccessPoints = true), (e.DisableMRAP = true);
       return e;
     },
     mu = /^[a-z0-9][a-z0-9\.\-]{1,61}[a-z0-9]$/,
@@ -5007,7 +5007,7 @@ var Rn = S(function (Tu) {
         };
       if (e === "endpoint" || t === "endpoint")
         return async () => {
-          if (r.isCustomEndpoint === !1) return;
+          if (r.isCustomEndpoint === false) return;
           let o = await s();
           if (o && typeof o === "object") {
             if ("url" in o) return o.url.href;
@@ -5032,7 +5032,7 @@ var Rn = S(function (Tu) {
         let c;
         if (r.serviceConfiguredEndpoint) c = await r.serviceConfiguredEndpoint();
         else c = await un.getEndpointFromConfig(r.serviceId);
-        if (c) (r.endpoint = () => Promise.resolve(rr(c))), (r.isCustomEndpoint = !0);
+        if (c) (r.endpoint = () => Promise.resolve(rr(c))), (r.isCustomEndpoint = true);
       }
       let o = await dn(e, t, r);
       if (typeof r.endpointProvider !== "function") throw Error("config.endpointProvider is not set.");
@@ -5102,7 +5102,7 @@ var Rn = S(function (Tu) {
       step: "serialize",
       tags: ["ENDPOINT_PARAMETERS", "ENDPOINT_V2", "ENDPOINT"],
       name: "endpointV2Middleware",
-      override: !0,
+      override: true,
       relation: "before",
       toMiddleware: fu.serializerMiddlewareOption.name,
     },
@@ -5112,15 +5112,15 @@ var Rn = S(function (Tu) {
       },
     }),
     bu = (e) => {
-      let t = e.tls ?? !0,
+      let t = e.tls ?? true,
         { endpoint: r, useDualstackEndpoint: s, useFipsEndpoint: o } = e,
         a = r != null ? async () => rr(await ot.normalizeProvider(r)()) : void 0,
         d = Object.assign(e, {
           endpoint: a,
           tls: t,
           isCustomEndpoint: !!r,
-          useDualstackEndpoint: ot.normalizeProvider(s ?? !1),
-          useFipsEndpoint: ot.normalizeProvider(o ?? !1),
+          useDualstackEndpoint: ot.normalizeProvider(s ?? false),
+          useFipsEndpoint: ot.normalizeProvider(o ?? false),
         }),
         f = void 0;
       return (
@@ -5190,10 +5190,10 @@ var nr = S(function (Fu) {
         "Load failed",
         "Network request failed",
       ]);
-      if (!(e && e instanceof TypeError)) return !1;
+      if (!(e && e instanceof TypeError)) return false;
       return t.has(e.message);
     },
-    Uu = (e) => e.$metadata?.httpStatusCode === 429 || ku.includes(e.name) || e.$retryable?.throttling == !0,
+    Uu = (e) => e.$metadata?.httpStatusCode === 429 || ku.includes(e.name) || e.$retryable?.throttling == true,
     sr = (e, t = 0) =>
       pn(e) ||
       mn(e) ||
@@ -5206,10 +5206,10 @@ var nr = S(function (Fu) {
     Vu = (e) => {
       if (e.$metadata?.httpStatusCode !== void 0) {
         let t = e.$metadata.httpStatusCode;
-        if (500 <= t && t <= 599 && !sr(e)) return !0;
-        return !1;
+        if (500 <= t && t <= 599 && !sr(e)) return true;
+        return false;
       }
-      return !1;
+      return false;
     };
   Fu.isBrowserNetworkError = gn;
   Fu.isClockSkewCorrectedError = mn;
@@ -5235,7 +5235,7 @@ var kO = S(function (tl) {
     scaleConstant;
     smooth;
     currentCapacity = 0;
-    enabled = !1;
+    enabled = false;
     lastMaxRate = 0;
     measuredTxRate = 0;
     requestCount = 0;
@@ -5307,7 +5307,7 @@ var kO = S(function (tl) {
       );
     }
     enableTokenBucket() {
-      this.enabled = !0;
+      this.enabled = true;
     }
     updateTokenBucketRate(e) {
       this.refillTokenBucket(),
@@ -5452,7 +5452,7 @@ var kO = S(function (tl) {
   tl.TIMEOUT_RETRY_COST = wn;
 });
 var Cn = S(function (Tn) {
-  Object.defineProperty(Tn, "__esModule", { value: !0 });
+  Object.defineProperty(Tn, "__esModule", { value: true });
   Tn.isStreamingPayload = void 0;
   var yl = ue("stream"),
     El = (e) => e?.body instanceof yl.Readable || (typeof ReadableStream < "u" && e?.body instanceof ReadableStream);
@@ -5488,7 +5488,7 @@ var jT = S(function (Ml) {
     },
     On = (e, t) => Math.floor(Math.min(j.MAXIMUM_RETRY_DELAY, Math.random() * 2 ** t * e)),
     Mn = (e) => {
-      if (!e) return !1;
+      if (!e) return false;
       return Ee.isRetryableByTrait(e) || Ee.isClockSkewError(e) || Ee.isThrottlingError(e) || Ee.isTransientError(e);
     },
     Dn = (e) => {
@@ -5528,7 +5528,7 @@ var jT = S(function (Ml) {
         c = await this.getMaxAttempts(),
         { request: d } = t;
       if (De.HttpRequest.isInstance(d)) d.headers[j.INVOCATION_ID_HEADER] = In.v4();
-      while (!0)
+      while (true)
         try {
           if (De.HttpRequest.isInstance(d)) d.headers[j.REQUEST_HEADER] = `attempt=${o + 1}; max=${c}`;
           if (r?.beforeRequest) await r.beforeRequest();
@@ -5627,7 +5627,7 @@ var jT = S(function (Ml) {
       tags: ["RETRY", "HEADERS", "OMIT_RETRY_HEADERS"],
       relation: "before",
       toMiddleware: "awsAuthMiddleware",
-      override: !0,
+      override: true,
     },
     Cl = (e) => ({
       applyToStack: (t) => {
@@ -5646,7 +5646,7 @@ var jT = S(function (Ml) {
           { request: y } = s,
           N = De.HttpRequest.isInstance(y);
         if (N) y.headers[j.INVOCATION_ID_HEADER] = In.v4();
-        while (!0)
+        while (true)
           try {
             if (N) y.headers[j.REQUEST_HEADER] = `attempt=${f + 1}; max=${a}`;
             let { response: b, output: T } = await t(s);
@@ -5696,7 +5696,7 @@ var jT = S(function (Ml) {
       if (Ee.isServerError(e)) return "SERVER_ERROR";
       return "CLIENT_ERROR";
     },
-    Ln = { name: "retryMiddleware", tags: ["RETRY"], step: "finalizeRequest", priority: "high", override: !0 },
+    Ln = { name: "retryMiddleware", tags: ["RETRY"], step: "finalizeRequest", priority: "high", override: true },
     Ol = (e) => ({
       applyToStack: (t) => {
         t.add(Bn(e), Ln);
@@ -5731,7 +5731,7 @@ var jT = S(function (Ml) {
   Ml.retryMiddlewareOptions = Ln;
 });
 var jn = S(function (Fn) {
-  Object.defineProperty(Fn, "__esModule", { value: !0 });
+  Object.defineProperty(Fn, "__esModule", { value: true });
   Fn.warning = void 0;
   Fn.stsRegionDefaultResolver = Jl;
   var Vn = _g(),
@@ -5751,7 +5751,7 @@ var jn = S(function (Fn) {
       { ...Vn.NODE_REGION_CONFIG_FILE_OPTIONS, ...e },
     );
   }
-  Fn.warning = { silence: !1 };
+  Fn.warning = { silence: false };
 });
 var _P = S(function (Se) {
   var qe = _g(),
@@ -5766,31 +5766,31 @@ var _P = S(function (Se) {
     }),
     td = (e) => ({ region: e.region() });
   Object.defineProperty(Se, "NODE_REGION_CONFIG_FILE_OPTIONS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return qe.NODE_REGION_CONFIG_FILE_OPTIONS;
     },
   });
   Object.defineProperty(Se, "NODE_REGION_CONFIG_OPTIONS", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return qe.NODE_REGION_CONFIG_OPTIONS;
     },
   });
   Object.defineProperty(Se, "REGION_ENV_NAME", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return qe.REGION_ENV_NAME;
     },
   });
   Object.defineProperty(Se, "REGION_INI_NAME", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return qe.REGION_INI_NAME;
     },
   });
   Object.defineProperty(Se, "resolveRegionConfig", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return qe.resolveRegionConfig;
     },
@@ -5800,7 +5800,7 @@ var _P = S(function (Se) {
   Object.keys(qn).forEach(function (e) {
     if (e !== "default" && !Object.prototype.hasOwnProperty.call(Se, e))
       Object.defineProperty(Se, e, {
-        enumerable: !0,
+        enumerable: true,
         get: function () {
           return qn[e];
         },
@@ -5811,7 +5811,7 @@ var RN = S(function (ud) {
   var Hn = ue("os"),
     hr = ue("process"),
     nd = RO(),
-    Gn = { isCrtAvailable: !1 },
+    Gn = { isCrtAvailable: false },
     id = () => {
       if (Gn.isCrtAvailable) return ["md/crt-avail"];
       return null;
@@ -5960,7 +5960,7 @@ var xN = S(function (qd) {
     se = Ft();
   class Pe {
     queryCompat;
-    constructor(e = !1) {
+    constructor(e = false) {
       this.queryCompat = e;
     }
     resolveRestContentType(e, t) {
@@ -6278,7 +6278,7 @@ var xN = S(function (qd) {
     }
     writeDiscriminatedDocument(e, t) {
       if ((this.write(e, t), typeof this.buffer === "object"))
-        this.buffer.__type = U.NormalizedSchema.of(e).getName(!0);
+        this.buffer.__type = U.NormalizedSchema.of(e).getName(true);
     }
     flush() {
       let { rootSchema: e } = this;
@@ -6377,7 +6377,7 @@ var xN = S(function (qd) {
     constructor({ defaultNamespace: e, serviceTarget: t, awsQueryCompatible: r }) {
       super({ defaultNamespace: e });
       (this.serviceTarget = t),
-        (this.codec = new ut({ timestampFormat: { useTrait: !0, default: 7 }, jsonName: !1 })),
+        (this.codec = new ut({ timestampFormat: { useTrait: true, default: 7 }, jsonName: false })),
         (this.serializer = this.codec.createSerializer()),
         (this.deserializer = this.codec.createDeserializer()),
         (this.awsQueryCompatible = !!r),
@@ -6460,7 +6460,7 @@ var xN = S(function (qd) {
     mixin = new Pe();
     constructor({ defaultNamespace: e }) {
       super({ defaultNamespace: e });
-      let t = { timestampFormat: { useTrait: !0, default: 7 }, httpBindings: !0, jsonName: !0 };
+      let t = { timestampFormat: { useTrait: true, default: 7 }, httpBindings: true, jsonName: true };
       (this.codec = new ut(t)),
         (this.serializer = new Y.HttpInterceptingShapeSerializer(this.codec.createSerializer(), t)),
         (this.deserializer = new Y.HttpInterceptingShapeDeserializer(this.codec.createDeserializer(), t));
@@ -6593,7 +6593,7 @@ var xN = S(function (qd) {
           return c;
         }
         if (r.isDocumentSchema()) return t;
-        throw Error(`@aws-sdk/core/protocols - xml deserializer unhandled schema type for ${r.getName(!0)}`);
+        throw Error(`@aws-sdk/core/protocols - xml deserializer unhandled schema type for ${r.getName(true)}`);
       }
       if (r.isListSchema()) return [];
       if (r.isMapSchema() || r.isStructSchema()) return {};
@@ -6652,7 +6652,7 @@ var xN = S(function (qd) {
               break;
           }
       } else if (s.isDocumentSchema())
-        throw Error(`@aws-sdk/core/protocols - QuerySerializer unsupported document type ${s.getName(!0)}`);
+        throw Error(`@aws-sdk/core/protocols - QuerySerializer unsupported document type ${s.getName(true)}`);
       else if (s.isListSchema()) {
         if (Array.isArray(t))
           if (t.length === 0) {
@@ -6692,7 +6692,7 @@ var xN = S(function (qd) {
             this.write(a, t[o], d);
           }
       } else if (s.isUnitSchema());
-      else throw Error(`@aws-sdk/core/protocols - QuerySerializer unrecognized schema type ${s.getName(!0)}`);
+      else throw Error(`@aws-sdk/core/protocols - QuerySerializer unrecognized schema type ${s.getName(true)}`);
     }
     flush() {
       if (this.buffer === void 0)
@@ -6722,11 +6722,11 @@ var xN = S(function (qd) {
       super({ defaultNamespace: e.defaultNamespace });
       this.options = e;
       let t = {
-        timestampFormat: { useTrait: !0, default: 5 },
-        httpBindings: !1,
+        timestampFormat: { useTrait: true, default: 5 },
+        httpBindings: false,
         xmlNamespace: e.xmlNamespace,
         serviceNamespace: e.defaultNamespace,
-        serializeEmptyLists: !0,
+        serializeEmptyLists: true,
       };
       (this.serializer = new di(t)), (this.deserializer = new dt(t));
     }
@@ -6772,7 +6772,7 @@ var xN = S(function (qd) {
       return { $metadata: this.deserializeMetadata(r), ...a };
     }
     useNestedResult() {
-      return !0;
+      return true;
     }
     async handleError(e, t, r, s, o) {
       let a = this.loadQueryErrorCode(r, s) ?? "Unknown",
@@ -6827,11 +6827,11 @@ var xN = S(function (qd) {
     constructor(e) {
       super(e);
       this.options = e;
-      let t = { capitalizeKeys: !0, flattenLists: !0, serializeEmptyLists: !1 };
+      let t = { capitalizeKeys: true, flattenLists: true, serializeEmptyLists: false };
       Object.assign(this.serializer.settings, t);
     }
     useNestedResult() {
-      return !1;
+      return false;
     }
   }
   var fi = (e, t) =>
@@ -6905,7 +6905,7 @@ var xN = S(function (qd) {
             : (s.xmlName ?? e.getName());
       if (!o || !e.isStructSchema())
         throw Error(
-          `@aws-sdk/core/protocols - xml serializer, cannot write struct with empty name or non-struct, schema=${e.getName(!0)}.`,
+          `@aws-sdk/core/protocols - xml serializer, cannot write struct with empty name or non-struct, schema=${e.getName(true)}.`,
         );
       let a = se.XmlNode.of(o),
         [c, d] = this.getXmlnsAttribute(e, r);
@@ -6930,7 +6930,7 @@ var xN = S(function (qd) {
     }
     writeList(e, t, r, s) {
       if (!e.isMemberSchema())
-        throw Error(`@aws-sdk/core/protocols - xml serializer, cannot write non-member list: ${e.getName(!0)}`);
+        throw Error(`@aws-sdk/core/protocols - xml serializer, cannot write non-member list: ${e.getName(true)}`);
       let o = e.getMergedTraits(),
         a = e.getValueSchema(),
         c = a.getMergedTraits(),
@@ -6957,9 +6957,9 @@ var xN = S(function (qd) {
         r.addChildNode(b);
       }
     }
-    writeMap(e, t, r, s, o = !1) {
+    writeMap(e, t, r, s, o = false) {
       if (!e.isMemberSchema())
-        throw Error(`@aws-sdk/core/protocols - xml serializer, cannot write non-member map: ${e.getName(!0)}`);
+        throw Error(`@aws-sdk/core/protocols - xml serializer, cannot write non-member map: ${e.getName(true)}`);
       let a = e.getMergedTraits(),
         c = e.getKeySchema(),
         f = c.getMergedTraits().xmlName ?? "key",
@@ -6976,7 +6976,7 @@ var xN = S(function (qd) {
           v.addChildNode(ee);
           let K = se.XmlNode.of(N);
           if (m.isListSchema()) this.writeList(m, M, K, I);
-          else if (m.isMapSchema()) this.writeMap(m, M, K, I, !0);
+          else if (m.isMapSchema()) this.writeMap(m, M, K, I, true);
           else if (m.isStructSchema()) K = this.writeStruct(m, M, I);
           else this.writeSimpleInto(m, M, K, I);
           v.addChildNode(K);
@@ -7030,13 +7030,13 @@ var xN = S(function (qd) {
           );
         else
           throw Error(
-            `@aws-sdk/core/protocols - xml serializer, unhandled schema type for object value and schema: ${r.getName(!0)}`,
+            `@aws-sdk/core/protocols - xml serializer, unhandled schema type for object value and schema: ${r.getName(true)}`,
           );
       if (r.isBooleanSchema() || r.isNumericSchema() || r.isBigIntegerSchema() || r.isBigDecimalSchema()) s = String(t);
       if (r.isStringSchema())
         if (t === void 0 && r.isIdempotencyToken()) s = X.generateIdempotencyToken();
         else s = String(t);
-      if (s === null) throw Error(`Unhandled schema-value pair ${r.getName(!0)}=${t}`);
+      if (s === null) throw Error(`Unhandled schema-value pair ${r.getName(true)}=${t}`);
       return s;
     }
     writeSimpleInto(e, t, r, s) {
@@ -7077,8 +7077,8 @@ var xN = S(function (qd) {
     constructor(e) {
       super(e);
       let t = {
-        timestampFormat: { useTrait: !0, default: 5 },
-        httpBindings: !0,
+        timestampFormat: { useTrait: true, default: 5 },
+        httpBindings: true,
         xmlNamespace: e.xmlNamespace,
         serviceNamespace: e.defaultNamespace,
       };

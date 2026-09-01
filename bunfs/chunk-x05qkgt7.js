@@ -21,22 +21,22 @@ import { aF, rT, xe } from "/$bunfs/root/chunk-zze8764r.js";
 import { Bd } from "/$bunfs/root/chunk-ms0ak83w.js";
 function Oke() {
   let e = process.env.CLAUDE_CODE_ENABLE_AWAY_SUMMARY;
-  if (bo(e)) return !1;
-  if (Me(e)) return !0;
-  if (Le()) return !1;
-  if (Je()?.awaySummaryEnabled === !1) return !1;
-  return !0;
+  if (bo(e)) return false;
+  if (Me(e)) return true;
+  if (Le()) return false;
+  if (Je()?.awaySummaryEnabled === false) return false;
+  return true;
 }
 function l() {
   let e = a.CLAUDE_CODE_ENABLE_REMOTE_RECAP;
   if (e !== void 0) return e;
-  return I("tengu_harbor_moth", !1);
+  return I("tengu_harbor_moth", false);
 }
 function CHt(e, t) {
   if (!t.onMetadataChanged) return;
   if (wt() || !mxt() || !l()) return;
   if (e.startedForTurnEnd) return;
-  (e.startedForTurnEnd = !0), S(e, t);
+  (e.startedForTurnEnd = true), S(e, t);
 }
 function $Yt(e) {
   e.reset();
@@ -74,7 +74,7 @@ async function m2e(e, t) {
   }
   if (!r) return n("[awaySummary] no CacheSafeParams saved, skipping"), { kind: "no-turn" };
   let o = new AbortController();
-  e.addEventListener("abort", () => o.abort(), { once: !0 });
+  e.addEventListener("abort", () => o.abort(), { once: true });
   try {
     let { messages: i } = await rT({
       promptMessages: [xe({ content: k })],
@@ -88,13 +88,13 @@ async function m2e(e, t) {
       querySource: "away_summary",
       forkLabel: "away_summary",
       maxTurns: 1,
-      skipCacheWrite: !0,
-      skipTranscript: !0,
+      skipCacheWrite: true,
+      skipTranscript: true,
     });
     if (e.aborted) return { kind: "aborted" };
     let u = i.find((c) => c.type === "assistant" && c.isApiErrorMessage);
-    if (u) return { kind: "api-error", text: f([u], !0) };
-    let s = f(i, !1),
+    if (u) return { kind: "api-error", text: f([u], true) };
+    let s = f(i, false),
       d = s.length > m;
     if (d) {
       let c = dcr(s, m);

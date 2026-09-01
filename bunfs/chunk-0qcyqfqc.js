@@ -478,8 +478,8 @@ var L = Nr(() => {
 async function Wn(e, t, r, n, o, a) {
   if (!(t instanceof Uint8Array)) throw TypeError(v(t, "Uint8Array"));
   let i = parseInt(e.slice(1, 4), 10),
-    c = await u.subtle.importKey("raw", t.subarray(i >> 3), "AES-CBC", !1, ["decrypt"]),
-    s = await u.subtle.importKey("raw", t.subarray(0, i >> 3), { hash: `SHA-${i << 1}`, name: "HMAC" }, !1, ["sign"]),
+    c = await u.subtle.importKey("raw", t.subarray(i >> 3), "AES-CBC", false, ["decrypt"]),
+    s = await u.subtle.importKey("raw", t.subarray(0, i >> 3), { hash: `SHA-${i << 1}`, name: "HMAC" }, false, ["sign"]),
     d = I(a, n, r, De(a.length << 3)),
     f = new Uint8Array((await u.subtle.sign("HMAC", s, d)).slice(0, i >> 3)),
     W;
@@ -496,7 +496,7 @@ async function Wn(e, t, r, n, o, a) {
 }
 async function Pn(e, t, r, n, o, a) {
   let i;
-  if (t instanceof Uint8Array) i = await u.subtle.importKey("raw", t, "AES-GCM", !1, ["decrypt"]);
+  if (t instanceof Uint8Array) i = await u.subtle.importKey("raw", t, "AES-GCM", false, ["decrypt"]);
   else U(t, e, "decrypt"), (i = t);
   try {
     return new Uint8Array(
@@ -551,7 +551,7 @@ var St = Nr(() => {
 });
 var In = (...e) => {
     let t = e.filter(Boolean);
-    if (t.length === 0 || t.length === 1) return !0;
+    if (t.length === 0 || t.length === 1) return true;
     let r;
     for (let n of t) {
       let o = Object.keys(n);
@@ -560,11 +560,11 @@ var In = (...e) => {
         continue;
       }
       for (let a of o) {
-        if (r.has(a)) return !1;
+        if (r.has(a)) return false;
         r.add(a);
       }
     }
-    return !0;
+    return true;
   },
   F;
 var pe = Nr(() => {
@@ -574,8 +574,8 @@ function Tn(e) {
   return typeof e === "object" && e !== null;
 }
 function w(e) {
-  if (!Tn(e) || Object.prototype.toString.call(e) !== "[object Object]") return !1;
-  if (Object.getPrototypeOf(e) === null) return !0;
+  if (!Tn(e) || Object.prototype.toString.call(e) !== "[object Object]") return false;
+  if (Object.getPrototypeOf(e) === null) return true;
   let t = e;
   while (Object.getPrototypeOf(t) !== null) t = Object.getPrototypeOf(t);
   return Object.getPrototypeOf(e) === t;
@@ -583,14 +583,14 @@ function w(e) {
 var O = () => {};
 var Rn, ue;
 var At = Nr(() => {
-  (Rn = [{ hash: "SHA-256", name: "HMAC" }, !0, ["sign"]]), (ue = Rn);
+  (Rn = [{ hash: "SHA-256", name: "HMAC" }, true, ["sign"]]), (ue = Rn);
 });
 function dr(e, t) {
   if (e.algorithm.length !== parseInt(t.slice(1, 4), 10)) throw TypeError(`Invalid key size for alg: ${t}`);
 }
 function pr(e, t, r) {
   if (K(e)) return U(e, t, r), e;
-  if (e instanceof Uint8Array) return u.subtle.importKey("raw", e, "AES-KW", !0, [r]);
+  if (e instanceof Uint8Array) return u.subtle.importKey("raw", e, "AES-KW", true, [r]);
   throw TypeError(v(e, ...y, "Uint8Array"));
 }
 var Se = async (e, t, r) => {
@@ -626,7 +626,7 @@ async function Xe(e, t, r, n, o = new Uint8Array(0), a = new Uint8Array(0)) {
 }
 async function ur(e) {
   if (!K(e)) throw TypeError(v(e, ...y));
-  return u.subtle.generateKey(e.algorithm, !0, ["deriveBits"]);
+  return u.subtle.generateKey(e.algorithm, true, ["deriveBits"]);
 }
 function Ye(e) {
   if (!K(e)) throw TypeError(v(e, ...y));
@@ -650,7 +650,7 @@ var fr = Nr(() => {
   h();
 });
 function Dn(e, t) {
-  if (e instanceof Uint8Array) return u.subtle.importKey("raw", e, "PBKDF2", !1, ["deriveBits"]);
+  if (e instanceof Uint8Array) return u.subtle.importKey("raw", e, "PBKDF2", false, ["deriveBits"]);
   if (K(e)) return U(e, t, "deriveBits", "deriveKey"), e;
   throw TypeError(v(e, ...y, "Uint8Array"));
 }
@@ -662,7 +662,7 @@ async function hr(e, t, r, n) {
     c = { length: a, name: "AES-KW" },
     s = await Dn(n, t);
   if (s.usages.includes("deriveBits")) return new Uint8Array(await u.subtle.deriveBits(i, s, a));
-  if (s.usages.includes("deriveKey")) return u.subtle.deriveKey(i, s, c, !1, ["wrapKey", "unwrapKey"]);
+  if (s.usages.includes("deriveKey")) return u.subtle.deriveKey(i, s, c, false, ["wrapKey", "unwrapKey"]);
   throw TypeError('PBKDF2 key "usages" must include "deriveBits" or "deriveKey"');
 }
 var mr = async (e, t, r, n = 2048, o = X(new Uint8Array(16))) => {
@@ -819,13 +819,13 @@ var _r = async (e, t, r) => {
   Z = (e, t, r = 0) => {
     if (r === 0) t.unshift(t.length), t.unshift(6);
     let n = e.indexOf(t[0], r);
-    if (n === -1) return !1;
+    if (n === -1) return false;
     let o = e.subarray(n, n + t.length);
-    if (o.length !== t.length) return !1;
+    if (o.length !== t.length) return false;
     return o.every((a, i) => a === t[i]) || Z(e, t, n + 1);
   },
   Ar = (e) => {
-    switch (!0) {
+    switch (true) {
       case Z(e, [42, 134, 72, 206, 61, 3, 1, 7]):
         return "P-256";
       case Z(e, [43, 129, 4, 0, 34]):
@@ -899,7 +899,7 @@ var _r = async (e, t, r) => {
       t,
       s,
       i,
-      (a = o === null || o === void 0 ? void 0 : o.extractable) !== null && a !== void 0 ? a : !1,
+      (a = o === null || o === void 0 ? void 0 : o.extractable) !== null && a !== void 0 ? a : false,
       c,
     );
   },
@@ -1030,7 +1030,7 @@ var Nn = async (e) => {
     var t, r;
     if (!e.alg) throw TypeError('"alg" argument is required when "jwk.alg" is not present');
     let { algorithm: n, keyUsages: o } = Mn(e),
-      a = [n, (t = e.ext) !== null && t !== void 0 ? t : !1, (r = e.key_ops) !== null && r !== void 0 ? r : o];
+      a = [n, (t = e.ext) !== null && t !== void 0 ? t : false, (r = e.key_ops) !== null && r !== void 0 ? r : o];
     if (n.name === "PBKDF2") return u.subtle.importKey("raw", A(e.k), ...a);
     let i = { ...e };
     return delete i.alg, delete i.use, u.subtle.importKey("jwk", i, ...a);
@@ -1063,8 +1063,8 @@ async function ne(e, t, r) {
   switch ((t || (t = e.alg), e.kty)) {
     case "oct":
       if (typeof e.k !== "string" || !e.k) throw TypeError('missing "k" (Key Value) Parameter value');
-      if (((r !== null && r !== void 0) || (r = e.ext !== !0), r))
-        return Ct({ ...e, alg: t, ext: (n = e.ext) !== null && n !== void 0 ? n : !1 });
+      if (((r !== null && r !== void 0) || (r = e.ext !== true), r))
+        return Ct({ ...e, alg: t, ext: (n = e.ext) !== null && n !== void 0 ? n : false });
       return A(e.k);
     case "RSA":
       if (e.oth !== void 0) throw new l('RSA JWK "oth" (Other Primes Info) Parameter value is not supported');
@@ -1114,8 +1114,8 @@ var Ke = Nr(() => {
 async function Vn(e, t, r, n, o) {
   if (!(r instanceof Uint8Array)) throw TypeError(v(r, "Uint8Array"));
   let a = parseInt(e.slice(1, 4), 10),
-    i = await u.subtle.importKey("raw", r.subarray(a >> 3), "AES-CBC", !1, ["encrypt"]),
-    c = await u.subtle.importKey("raw", r.subarray(0, a >> 3), { hash: `SHA-${a << 1}`, name: "HMAC" }, !1, ["sign"]),
+    i = await u.subtle.importKey("raw", r.subarray(a >> 3), "AES-CBC", false, ["encrypt"]),
+    c = await u.subtle.importKey("raw", r.subarray(0, a >> 3), { hash: `SHA-${a << 1}`, name: "HMAC" }, false, ["sign"]),
     s = new Uint8Array(await u.subtle.encrypt({ iv: n, name: "AES-CBC" }, i, t)),
     d = I(o, n, s, De(o.length << 3)),
     f = new Uint8Array((await u.subtle.sign("HMAC", c, d)).slice(0, a >> 3));
@@ -1123,7 +1123,7 @@ async function Vn(e, t, r, n, o) {
 }
 async function zn(e, t, r, n, o) {
   let a;
-  if (r instanceof Uint8Array) a = await u.subtle.importKey("raw", r, "AES-GCM", !1, ["encrypt"]);
+  if (r instanceof Uint8Array) a = await u.subtle.importKey("raw", r, "AES-GCM", false, ["encrypt"]);
   else U(r, e, "encrypt"), (a = r);
   let i = new Uint8Array(await u.subtle.encrypt({ additionalData: o, iv: n, name: "AES-GCM", tagLength: 128 }, a, t)),
     c = i.slice(-16);
@@ -1362,8 +1362,8 @@ async function Ce(e, t, r) {
     } catch (M) {
       throw new p("Failed to base64url decode the encrypted_key");
     }
-  let W = !1;
-  if (typeof t === "function") (t = await t(o, e)), (W = !0);
+  let W = false;
+  if (typeof t === "function") (t = await t(o, e)), (W = true);
   let b;
   try {
     b = await Tr(i, t, f, a, r);
@@ -1771,7 +1771,7 @@ class Lr {
           .setSharedUnprotectedHeader(this._unprotectedHeader)
           .setUnprotectedHeader(s.unprotectedHeader)
           .setKeyManagementParameters({ p2c: W })
-          .encrypt(s.key, { ...s.options, ...e, [Ot]: !0 });
+          .encrypt(s.key, { ...s.options, ...e, [Ot]: true });
         if (((i.ciphertext = _.ciphertext), (i.iv = _.iv), (i.tag = _.tag), _.aad)) i.aad = _.aad;
         if (_.protected) i.protected = _.protected;
         if (_.unprotected) i.unprotected = _.unprotected;
@@ -1833,7 +1833,7 @@ function Pe(e, t, r) {
   if (K(t)) return ar(t, e, r), t;
   if (t instanceof Uint8Array) {
     if (!e.startsWith("HS")) throw TypeError(v(t, ...y));
-    return u.subtle.importKey("raw", t, { hash: `SHA-${e.slice(-3)}`, name: "HMAC" }, !1, [r]);
+    return u.subtle.importKey("raw", t, { hash: `SHA-${e.slice(-3)}`, name: "HMAC" }, false, [r]);
   }
   throw TypeError(v(t, ...y, "Uint8Array"));
 }
@@ -1850,7 +1850,7 @@ var no = async (e, t, r, n) => {
     try {
       return await u.subtle.verify(a, o, r, n);
     } catch (i) {
-      return !1;
+      return false;
     }
   },
   kr;
@@ -1880,8 +1880,8 @@ async function Je(e, t, r) {
     }
   if (!F(o, e.header)) throw new m("JWS Protected and JWS Unprotected Header Parameter names must be disjoint");
   let a = { ...o, ...e.header },
-    i = V(m, new Map([["b64", !0]]), r === null || r === void 0 ? void 0 : r.crit, o, a),
-    c = !0;
+    i = V(m, new Map([["b64", true]]), r === null || r === void 0 ? void 0 : r.crit, o, a),
+    c = true;
   if (i.has("b64")) {
     if (((c = o.b64), typeof c !== "boolean"))
       throw new m('The "b64" (base64url-encode payload) Header Parameter must be a boolean');
@@ -1894,8 +1894,8 @@ async function Je(e, t, r) {
     if (typeof e.payload !== "string") throw new m("JWS Payload must be a string");
   } else if (typeof e.payload !== "string" && !(e.payload instanceof Uint8Array))
     throw new m("JWS Payload must be a string or an Uint8Array instance");
-  let f = !1;
-  if (typeof t === "function") (t = await t(o, e)), (f = !0);
+  let f = false;
+  if (typeof t === "function") (t = await t(o, e)), (f = true);
   Q(s, t, "verify");
   let W = I(
       E.encode((n = e.protected) !== null && n !== void 0 ? n : ""),
@@ -2009,7 +2009,7 @@ var Gr = (e) => e.toLowerCase().replace(/^application\//, ""),
   io = (e, t) => {
     if (typeof e === "string") return t.includes(e);
     if (Array.isArray(e)) return t.some(Set.prototype.has.bind(new Set(e)));
-    return !1;
+    return false;
   },
   ye = (e, t, r = {}) => {
     let { typ: n } = r;
@@ -2078,7 +2078,7 @@ async function so(e, t, r) {
   let o = await Lt(e, t, r);
   if (
     ((n = o.protectedHeader.crit) === null || n === void 0 ? void 0 : n.includes("b64")) &&
-    o.protectedHeader.b64 === !1
+    o.protectedHeader.b64 === false
   )
     throw new C("JWTs MUST NOT use unencoded payload");
   let i = { payload: ye(o.protectedHeader, o.payload, r), protectedHeader: o.protectedHeader };
@@ -2166,8 +2166,8 @@ class we {
     if (!F(this._protectedHeader, this._unprotectedHeader))
       throw new m("JWS Protected and JWS Unprotected Header Parameter names must be disjoint");
     let r = { ...this._protectedHeader, ...this._unprotectedHeader },
-      n = V(m, new Map([["b64", !0]]), t === null || t === void 0 ? void 0 : t.crit, this._protectedHeader, r),
-      o = !0;
+      n = V(m, new Map([["b64", true]]), t === null || t === void 0 ? void 0 : t.crit, this._protectedHeader, r),
+      o = true;
     if (n.has("b64")) {
       if (((o = this._protectedHeader.b64), typeof o !== "boolean"))
         throw new m('The "b64" (base64url-encode payload) Header Parameter must be a boolean');
@@ -2318,7 +2318,7 @@ var en = Nr(() => {
         (n.setProtectedHeader(this._protectedHeader),
         Array.isArray((r = this._protectedHeader) === null || r === void 0 ? void 0 : r.crit) &&
           this._protectedHeader.crit.includes("b64") &&
-          this._protectedHeader.b64 === !1)
+          this._protectedHeader.b64 === false)
       )
         throw new C("JWTs MUST NOT use unencoded payload");
       return n.sign(e, t);
@@ -2348,13 +2348,13 @@ var rn = Nr(() => {
       return (this._iv = e), this;
     }
     replicateIssuerAsHeader() {
-      return (this._replicateIssuerAsHeader = !0), this;
+      return (this._replicateIssuerAsHeader = true), this;
     }
     replicateSubjectAsHeader() {
-      return (this._replicateSubjectAsHeader = !0), this;
+      return (this._replicateSubjectAsHeader = true), this;
     }
     replicateAudienceAsHeader() {
-      return (this._replicateAudienceAsHeader = !0), this;
+      return (this._replicateAudienceAsHeader = true), this;
     }
     async encrypt(e, t) {
       let r = new ot(E.encode(JSON.stringify(this._payload)));
@@ -2415,7 +2415,7 @@ var on = Nr(() => {
 async function lo(e, t) {
   let r = { ...e, ...(t === null || t === void 0 ? void 0 : t.header) };
   if (!w(r.jwk)) throw new m('"jwk" (JSON Web Key) Header Parameter must be a JSON object');
-  let n = await ne({ ...r.jwk, ext: !0 }, r.alg, !0);
+  let n = await ne({ ...r.jwk, ext: true }, r.alg, true);
   if (n instanceof Uint8Array || n.type !== "public")
     throw new m('"jwk" (JSON Web Key) Header Parameter must be a public key');
   return n;
@@ -2503,7 +2503,7 @@ class ct {
 async function sn(e, t, r) {
   let n = e.get(t) || e.set(t, {}).get(t);
   if (n[r] === void 0) {
-    let o = await ne({ ...t, ext: !0 }, r);
+    let o = await ne({ ...t, ext: true }, r);
     if (o instanceof Uint8Array || o.type !== "public") throw new te("JSON Web Key Set members must be public keys");
     n[r] = o;
   }
@@ -2523,11 +2523,11 @@ var zt = Nr(() => {
 var wo = async (e, t, r) => {
     let n,
       o,
-      a = !1;
+      a = false;
     if (typeof AbortController === "function")
       (n = new AbortController()),
         (o = setTimeout(() => {
-          (a = !0), n.abort();
+          (a = true), n.abort();
         }, t));
     let i = await fetch(e.href, { signal: n ? n.signal : void 0, redirect: "manual", headers: r.headers }).catch(
       (c) => {
@@ -2595,10 +2595,10 @@ var un = Nr(() => {
             : 600000);
     }
     coolingDown() {
-      return typeof this._jwksTimestamp === "number" ? Date.now() < this._jwksTimestamp + this._cooldownDuration : !1;
+      return typeof this._jwksTimestamp === "number" ? Date.now() < this._jwksTimestamp + this._cooldownDuration : false;
     }
     fresh() {
-      return typeof this._jwksTimestamp === "number" ? Date.now() < this._jwksTimestamp + this._cacheMaxAge : !1;
+      return typeof this._jwksTimestamp === "number" ? Date.now() < this._jwksTimestamp + this._cacheMaxAge : false;
     }
     async getKey(e, t) {
       if (!this._jwks || !this.fresh()) await this.reload();
@@ -2606,7 +2606,7 @@ var un = Nr(() => {
         return await super.getKey(e, t);
       } catch (r) {
         if (r instanceof se) {
-          if (this.coolingDown() === !1) return await this.reload(), super.getKey(e, t);
+          if (this.coolingDown() === false) return await this.reload(), super.getKey(e, t);
         }
         throw r;
       }
@@ -2740,7 +2740,7 @@ async function wn(e, t) {
   }
   return u.subtle.generateKey(
     o,
-    (r = t === null || t === void 0 ? void 0 : t.extractable) !== null && r !== void 0 ? r : !1,
+    (r = t === null || t === void 0 ? void 0 : t.extractable) !== null && r !== void 0 ? r : false,
     a,
   );
 }
@@ -2839,7 +2839,7 @@ async function En(e, t) {
   }
   return u.subtle.generateKey(
     a,
-    (o = t === null || t === void 0 ? void 0 : t.extractable) !== null && o !== void 0 ? o : !1,
+    (o = t === null || t === void 0 ? void 0 : t.extractable) !== null && o !== void 0 ? o : false,
     i,
   );
 }

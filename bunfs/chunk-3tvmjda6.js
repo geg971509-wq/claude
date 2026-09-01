@@ -414,14 +414,14 @@ async function j(d, p, u, r) {
     } catch (y) {
       c.push(`  \u2717 ${jP(a.label)}: ${jw(l(y))}`);
     }
-  let o = !1;
+  let o = false;
   if (n.length > 0)
     try {
       let a = await r6e(
         d.map((y) => ({ sourceId: y.sourceId, displayName: y.displayName, unmappable: y.result.unmappable })),
         { dryRun: p },
       );
-      if (typeof a === "string") c.push(`  \u2713 ${jw(a)}`), (o = !0);
+      if (typeof a === "string") c.push(`  \u2713 ${jw(a)}`), (o = true);
       else c.push(`  - skipped ${jw(a.skipped)}`);
     } catch (a) {
       c.push(`  \u2717 fallback skill: ${jw(l(a))}`);

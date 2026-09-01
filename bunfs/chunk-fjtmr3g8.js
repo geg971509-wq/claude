@@ -64,7 +64,7 @@ async function An(i, l) {
     f = x === -1 ? void 0 : h[x];
   for (let w = x + 1; x !== -1 && w < h.length; w++) {
     let C = h[w];
-    if (C === void 0 || C.type !== "user" || C.isMeta === !0) break;
+    if (C === void 0 || C.type !== "user" || C.isMeta === true) break;
     f = C;
   }
   let S = (f && Yp(f)) ?? "",
@@ -111,7 +111,7 @@ async function Rn(i, l) {
     } catch (f) {
       throw (p("workflow_save", "write_failed"), f);
     }
-  await Hl(m, { recursive: !0, mode: 448 });
+  await Hl(m, { recursive: true, mode: 448 });
   try {
     if (i.overwrite) await O_(h, i.script, { encoding: "utf8", mode: 384, checkParentDir: x });
     else await Jl(h, i.script, { encoding: "utf8", mode: 384, flag: "wx" });
@@ -170,7 +170,7 @@ function hRe(ku) {
     [Jt, wu] = u(Bl),
     [li, Cu] = u(Bl.length),
     [Se, vu] = u("project"),
-    [ne, Zl] = u(!1),
+    [ne, Zl] = u(false),
     [re, Ul] = u(null),
     [Dn, ai] = u(null),
     Ol;
@@ -208,7 +208,7 @@ function hRe(ku) {
       if (!oa) {
         return;
       }
-      Zl(!0),
+      Zl(true),
         ai(null),
         Rn({ name: oa, scope: Se, script: ni, overwrite: re !== null, cwd: ii }, ri)
           .then((ci) => {
@@ -222,7 +222,7 @@ function hRe(ku) {
               let Su = mi.match(/at (.+?)\. /);
               Ul(Su?.[1] ?? "(unknown path)");
             } else ai(mi);
-            Zl(!1);
+            Zl(false);
           });
     }),
       (it[2] = re),
@@ -241,7 +241,7 @@ function hRe(ku) {
   else na = it[12];
   let Wn = na,
     ra;
-  if (it[13] === d) (ra = { context: "Settings", isActive: !0 }), (it[13] = ra);
+  if (it[13] === d) (ra = { context: "Settings", isActive: true }), (it[13] = ra);
   else ra = it[13];
   Be("confirm:no", Wn, ra);
   let sa;
@@ -267,7 +267,7 @@ function hRe(ku) {
   const di = Se === "project" ? "Project" : "User";
   let Nn;
   if (it[20] !== di || it[21] !== fi)
-    (Nn = r(t, { dimColor: !0, children: [di, " scope \xB7 ", fi] })), (it[20] = di), (it[21] = fi), (it[22] = Nn);
+    (Nn = r(t, { dimColor: true, children: [di, " scope \xB7 ", fi] })), (it[20] = di), (it[21] = fi), (it[22] = Nn);
   else Nn = it[22];
   const gi = re ? "overwrite" : "save";
   let In;
@@ -338,7 +338,7 @@ function hRe(ku) {
   else qn = it[41];
   let En;
   if (it[42] !== ne)
-    (En = ne && e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: "Saving\u2026" }) })),
+    (En = ne && e(o, { marginTop: 1, children: e(t, { dimColor: true, children: "Saving\u2026" }) })),
       (it[42] = ne),
       (it[43] = En);
   else En = it[43];
@@ -360,7 +360,7 @@ function hRe(ku) {
         subtitle: Nn,
         onCancel: Wn,
         color: "permission",
-        isCancelActive: !1,
+        isCancelActive: false,
         inputGuide: Fn,
         children: Kn,
       }),
@@ -377,7 +377,7 @@ function Mc(rm, sm) {
   return rm + se(sm.text);
 }
 function Sc(Qn, im) {
-  return e(t, { color: Qn.color, dimColor: Qn.dimColor, bold: Qn.bold ?? !1, children: Qn.text }, im);
+  return e(t, { color: Qn.color, dimColor: Qn.dimColor, bold: Qn.bold ?? false, children: Qn.text }, im);
 }
 function Ac(bm, ym) {
   return bm + se(ym.text);
@@ -386,10 +386,10 @@ function Tc(km, wm) {
   return km + se(wm.text);
 }
 function Pc(ar, Cm) {
-  return e(t, { color: ar.color, dimColor: ar.dimColor, bold: ar.bold ?? !1, children: ar.text }, Cm);
+  return e(t, { color: ar.color, dimColor: ar.dimColor, bold: ar.bold ?? false, children: ar.text }, Cm);
 }
 function Rc(cr, vm) {
-  return e(t, { color: cr.color, dimColor: cr.dimColor, bold: cr.bold ?? !1, children: cr.text }, vm);
+  return e(t, { color: cr.color, dimColor: cr.dimColor, bold: cr.bold ?? false, children: cr.text }, vm);
 }
 function uQ(i, l, a) {
   if (l <= a) return { from: 0, to: l, above: 0, below: 0 };
@@ -525,7 +525,7 @@ function Ds(lm) {
   else ka = ya[2];
   const Ci = `  ${ka}`;
   let wa;
-  if (ya[3] !== Ci) (wa = e(t, { dimColor: !0, wrap: "truncate-end", children: Ci })), (ya[3] = Ci), (ya[4] = wa);
+  if (ya[3] !== Ci) (wa = e(t, { dimColor: true, wrap: "truncate-end", children: Ci })), (ya[3] = Ci), (ya[4] = wa);
   else wa = ya[4];
   return wa;
 }
@@ -571,10 +571,10 @@ function Ws(am) {
         (et = rt(qt.title, Si)), (lt[14] = qt.title), (lt[15] = Si), (lt[16] = et);
       else et = lt[16];
       let mt;
-      if (lt[17] !== et) (mt = { text: et, color: "permission", bold: !0 }), (lt[17] = et), (lt[18] = mt);
+      if (lt[17] !== et) (mt = { text: et, color: "permission", bold: true }), (lt[17] = et), (lt[18] = mt);
       else mt = lt[18];
       let At;
-      if (lt[19] !== Un) (At = { text: Un, dimColor: !0 }), (lt[19] = Un), (lt[20] = At);
+      if (lt[19] !== Un) (At = { text: Un, dimColor: true }), (lt[19] = Un), (lt[20] = At);
       else At = lt[20];
       let Ae;
       if (lt[21] !== mt || lt[22] !== At) (Ae = [mt, At]), (lt[21] = mt), (lt[22] = At), (lt[23] = Ae);
@@ -585,8 +585,8 @@ function Ws(am) {
       else Ao = lt[26];
       wt.push(Ao);
     } else
-      wt.push(e(st, { contentWidth: tt, segs: [{ text: rt(qt.title, tt), color: "permission", bold: !0 }] }, "title")),
-        wt.push(e(st, { contentWidth: tt, segs: [{ text: rt(va, tt), dimColor: !0 }] }, "count")),
+      wt.push(e(st, { contentWidth: tt, segs: [{ text: rt(qt.title, tt), color: "permission", bold: true }] }, "title")),
+        wt.push(e(st, { contentWidth: tt, segs: [{ text: rt(va, tt), dimColor: true }] }, "count")),
         wt.push(e(st, { contentWidth: tt, segs: [{ text: "" }] }, "gap"));
     let cm = wt.length;
     if (Qt.length === 0) {
@@ -594,7 +594,7 @@ function Ws(am) {
       if (lt[27] !== Ze || lt[28] !== qt) (et = pn(qt, Ze)), (lt[27] = Ze), (lt[28] = qt), (lt[29] = et);
       else et = lt[29];
       let mt;
-      if (lt[30] !== et) (mt = [{ text: et, dimColor: !0 }]), (lt[30] = et), (lt[31] = mt);
+      if (lt[30] !== et) (mt = [{ text: et, dimColor: true }]), (lt[30] = et), (lt[31] = mt);
       else mt = lt[31];
       let At;
       if (lt[32] !== tt || lt[33] !== mt)
@@ -643,7 +643,7 @@ function Ws(am) {
         (mt = r(t, { color: "text", children: [" ", mg.bottomLeft, et] })), (lt[37] = et), (lt[38] = mt);
       else mt = lt[38];
       let At;
-      if (lt[39] !== tr) (At = e(t, { dimColor: !0, children: tr })), (lt[39] = tr), (lt[40] = At);
+      if (lt[39] !== tr) (At = e(t, { dimColor: true, children: tr })), (lt[39] = tr), (lt[40] = At);
       else At = lt[40];
       let Ae;
       if (lt[41] === d) (Ae = e(t, { color: "text", children: mg.bottomRight })), (lt[41] = Ae);
@@ -738,7 +738,7 @@ function mn(i, l) {
   let h = l.tag ? ` ${rt(l.tag, Math.max(0, i - m - 2))} ` : "",
     x = Math.max(0, i - m - se(h));
   if ((a.push(e(t, { color: "text", children: mP.repeat(x) }, "dash")), h))
-    a.push(e(t, { dimColor: !0, children: h }, "tag"));
+    a.push(e(t, { dimColor: true, children: h }, "tag"));
   return a;
 }
 function Gt($m) {
@@ -883,7 +883,7 @@ function js(Am) {
       let Pm = Gi < Ki.to ? kl(Oe[Gi], Gi, br, kr, ae) : [];
       let Dr;
       if (Vi < zi.to) Dr = wl(Wt[Vi], Vi, yr, kr, Yt, Tm, Ei);
-      else if (Wt.length === 0 && to === 0) Dr = [{ text: pn(Po, Xe), dimColor: !0 }];
+      else if (Wt.length === 0 && to === 0) Dr = [{ text: pn(Po, Xe), dimColor: true }];
       else Dr = [];
       Ra.push(e(po, { left: Pm, right: Dr, leftWidth: ae, rightWidth: Yt }, to));
     }
@@ -976,13 +976,13 @@ function Ns(ce, Et, Ji) {
       if (!ce || !Et) {
         return;
       }
-      let ja = !1;
+      let ja = false;
       return (
         An(ce, Et).then((Dm) => {
           if (!ja) Rm({ agentId: Et, transcript: Dm });
         }),
         () => {
-          ja = !0;
+          ja = true;
         }
       );
     }),
@@ -1048,8 +1048,8 @@ function $l({ agent: i, status: l, transcript: a, promptExpanded: m, width: h, n
   f.push([
     { text: V, color: w },
     { text: " " },
-    { text: dn[l], color: w, bold: !0 },
-    ...(T ? [{ text: T, dimColor: !0 }] : []),
+    { text: dn[l], color: w, bold: true },
+    ...(T ? [{ text: T, dimColor: true }] : []),
   ]);
   let W = [];
   if (i.tokens != null) W.push(`${Gn(i.tokens)} tok`);
@@ -1060,19 +1060,19 @@ function $l({ agent: i, status: l, transcript: a, promptExpanded: m, width: h, n
     let J = Math.floor((x - i.lastProgressAt) / 1000);
     if (J >= 30) W.push(`idle ${$t(J * 1000)}`);
   }
-  if (W.length > 0) f.push([{ text: rt(W.join(" \xB7 "), h), dimColor: !0 }]);
+  if (W.length > 0) f.push([{ text: rt(W.join(" \xB7 "), h), dimColor: true }]);
   f.push([{ text: "" }]);
   let N = a !== "loading" && a?.prompt ? a.prompt : (i.promptPreview ?? ""),
     j = N ? Ps(N, P) : [],
     q = j.length > As,
-    X = [{ text: "Prompt", bold: !0, dimColor: !0 }];
-  if (q) X.push({ text: ` \xB7 ${j.length} lines${m ? "" : ` \xB7 ${iCe} expand`}`, dimColor: !0 });
+    X = [{ text: "Prompt", bold: true, dimColor: true }];
+  if (q) X.push({ text: ` \xB7 ${j.length} lines${m ? "" : ` \xB7 ${iCe} expand`}`, dimColor: true });
   if ((f.push(X), N)) {
     let J = m ? j : j.slice(0, As);
-    for (let Q of J) f.push([{ text: "  " + Q, dimColor: !0 }]);
+    for (let Q of J) f.push([{ text: "  " + Q, dimColor: true }]);
     if (!m && q) {
       let Q = j.length - As;
-      f.push([{ text: `${"  "}\u2026 ${Q} more ${k(Q, "line")}`, dimColor: !0 }]);
+      f.push([{ text: `${"  "}\u2026 ${Q} more ${k(Q, "line")}`, dimColor: true }]);
     }
   } else
     f.push([
@@ -1086,40 +1086,40 @@ function $l({ agent: i, status: l, transcript: a, promptExpanded: m, width: h, n
               : l === "running"
                 ? "Not available yet (agent still running)."
                 : "Transcript not available."),
-        dimColor: !0,
+        dimColor: true,
       },
     ]);
   if ((f.push([{ text: "" }]), l !== "queued")) {
     let J = a !== "loading" && a ? a.toolCalls : [];
     if (
       (f.push([
-        { text: "Activity", bold: !0, dimColor: !0 },
-        ...(J.length > Ts ? [{ text: ` \xB7 last ${Ts} of ${J.length} tool calls`, dimColor: !0 }] : []),
+        { text: "Activity", bold: true, dimColor: true },
+        ...(J.length > Ts ? [{ text: ` \xB7 last ${Ts} of ${J.length} tool calls`, dimColor: true }] : []),
       ]),
       J.length > 0)
     )
       for (let Q of J.slice(-Ts)) {
         let Y = Q.summary ? `(${Q.summary})` : "";
-        f.push([{ text: rt(`  ${Q.name}${Y}`, h), dimColor: !0 }]);
+        f.push([{ text: rt(`  ${Q.name}${Y}`, h), dimColor: true }]);
       }
     else if (i.lastToolName != null) {
       let Q = i.lastToolSummary ? `(${i.lastToolSummary})` : "";
-      f.push([{ text: rt(`  ${i.lastToolName}${Q}`, h), dimColor: !0 }]);
-    } else f.push([{ text: `  ${l === "running" ? "No tool calls yet." : "No tool calls."}`, dimColor: !0 }]);
+      f.push([{ text: rt(`  ${i.lastToolName}${Q}`, h), dimColor: true }]);
+    } else f.push([{ text: `  ${l === "running" ? "No tool calls yet." : "No tool calls."}`, dimColor: true }]);
     f.push([{ text: "" }]);
   }
-  switch ((f.push([{ text: "Outcome", bold: !0, dimColor: !0 }]), l)) {
+  switch ((f.push([{ text: "Outcome", bold: true, dimColor: true }]), l)) {
     case "queued":
-      f.push([{ text: "  Waiting for an agent slot.", dimColor: !0 }]);
+      f.push([{ text: "  Waiting for an agent slot.", dimColor: true }]);
       break;
     case "running":
-      f.push([{ text: `${"  "}Still running\u2026`, dimColor: !0 }]);
+      f.push([{ text: `${"  "}Still running\u2026`, dimColor: true }]);
       break;
     case "interrupted":
-      f.push([{ text: "  The workflow stopped before this agent finished.", dimColor: !0 }]);
+      f.push([{ text: "  The workflow stopped before this agent finished.", dimColor: true }]);
       break;
     case "skipped":
-      f.push([{ text: "  Skipped by user.", dimColor: !0 }]);
+      f.push([{ text: "  Skipped by user.", dimColor: true }]);
       break;
     case "blocked":
     case "failed": {
@@ -1128,7 +1128,7 @@ function $l({ agent: i, status: l, transcript: a, promptExpanded: m, width: h, n
     }
     case "done": {
       let J = a !== "loading" && a?.finalText ? a.finalText : (i.resultPreview ?? "");
-      if (!J) f.push([{ text: "  " + (a === "loading" ? "Loading\u2026" : "(empty)"), dimColor: !0 }]);
+      if (!J) f.push([{ text: "  " + (a === "loading" ? "Loading\u2026" : "(empty)"), dimColor: true }]);
       else for (let Q of Ps(J, P)) f.push([{ text: "  " + Q }]);
       break;
     }
@@ -1292,10 +1292,10 @@ function Fs(Fm) {
     if (dt[12] !== qo || dt[13] !== he) (Ne = rt(qo, he)), (dt[12] = qo), (dt[13] = he), (dt[14] = Ne);
     else Ne = dt[14];
     let Hr;
-    if (dt[15] !== Ne) (Hr = { text: Ne, color: "permission", bold: !0 }), (dt[15] = Ne), (dt[16] = Hr);
+    if (dt[15] !== Ne) (Hr = { text: Ne, color: "permission", bold: true }), (dt[15] = Ne), (dt[16] = Hr);
     else Hr = dt[16];
     let Jr;
-    if (dt[17] !== Vr) (Jr = { text: Vr, dimColor: !0 }), (dt[17] = Vr), (dt[18] = Jr);
+    if (dt[17] !== Vr) (Jr = { text: Vr, dimColor: true }), (dt[17] = Vr), (dt[18] = Jr);
     else Jr = dt[18];
     let Qr;
     if (dt[19] !== Hr || dt[20] !== Jr) (Qr = [Hr, Jr]), (dt[19] = Hr), (dt[20] = Jr), (dt[21] = Qr);
@@ -1318,7 +1318,7 @@ function Fs(Fm) {
         (Ur = r(t, { color: "text", children: [" ", mg.bottomLeft, Ie] })), (dt[27] = Ie), (dt[28] = Ur);
       else Ur = dt[28];
       let Or;
-      if (dt[29] !== Zr) (Or = e(t, { dimColor: !0, children: Zr })), (dt[29] = Zr), (dt[30] = Or);
+      if (dt[29] !== Zr) (Or = e(t, { dimColor: true, children: Zr })), (dt[29] = Zr), (dt[30] = Or);
       else Or = dt[30];
       let Ea;
       if (dt[31] === d) (Ea = e(t, { color: "text", children: mg.bottomRight })), (dt[31] = Ea);
@@ -1374,7 +1374,7 @@ function _Re({
   onPause: f,
   onResume: S,
   initialPhaseIndex: P,
-  promptVisibleBelow: V = !1,
+  promptVisibleBelow: V = false,
 }) {
   fs("workflow-detail-dialog");
   let { availableRows: w, width: C, rows: D } = wkt(V),
@@ -1385,9 +1385,9 @@ function _Re({
     [q, X] = u(() => (P !== void 0 ? Math.max(0, P) : 0)),
     [J, Q] = u(0),
     [Y, Rt] = u(P !== void 0 ? "agents" : "phases"),
-    [Vt, Ht] = u(!1),
+    [Vt, Ht] = u(false),
     [xt, ft] = u(0),
-    [$e, fo] = u(!1),
+    [$e, fo] = u(false),
     [Me, gn] = u("all"),
     go = Math.min(q, Math.max(0, N.length - 1)),
     St = N[go],
@@ -1397,7 +1397,7 @@ function _Re({
       return { ...St, agents: St.agents.filter((v) => Pt(v, oe) === Me) };
     }, [St, Me, Y, oe]),
     Ge = ut ? Math.min(J, Math.max(0, ut.agents.length - 1)) : 0,
-    [Sl, Ls] = u(!1),
+    [Sl, Ls] = u(false),
     ho = i.script.length > 0,
     Al = z(() => {
       if (!ho) return "";
@@ -1408,7 +1408,7 @@ function _Re({
     Tl = z(() => d7t(i), [i.script, i.description, i.summary]),
     { name: hn, subtext: bn, stats: yn } = p7t(i, Tl, j, W);
   function xo() {
-    ft(0), fo(!1);
+    ft(0), fo(false);
   }
   function Pl(v) {
     X((pt) => Mt(Mt(pt, 0, N.length - 1) + v, 0, N.length - 1)), Q(0), xo();
@@ -1428,7 +1428,7 @@ function _Re({
     Rl(v);
   }
   function Es() {
-    if ((Ht(!1), Y === "agent")) {
+    if ((Ht(false), Y === "agent")) {
       Rt("agents");
       return;
     }
@@ -1445,7 +1445,7 @@ function _Re({
   function Wl() {
     if (!Z || !St) return;
     if (Me !== "all") gn("all"), Q(St.agents.indexOf(Z));
-    if ((xo(), ko === "loading")) Ht(!0);
+    if ((xo(), ko === "loading")) Ht(true);
     else Rt("agent");
   }
   function jl() {
@@ -1476,15 +1476,15 @@ function _Re({
     ko = Ns(i.workflowRunId, Z?.agentId, Z?.toolCalls),
     Il = Yn(Vt ? vl : null);
   if (Vt) {
-    if (!Z) Ht(!1);
-    else if (ko !== "loading" || Il) Ht(!1), Rt("agent");
+    if (!Z) Ht(false);
+    else if (ko !== "loading" || Il) Ht(false), Rt("agent");
   }
   let Hs = Ve === "queued" || Ve === "running" ? Math.floor(Date.now() / 1000) * 1000 : 0,
     Cn = z(
       () =>
         Y === "agent" && Z && Ve
           ? $l({ agent: Z, status: Ve, transcript: ko, promptExpanded: $e, width: Vs, nowMs: Hs })
-          : { lines: [], promptExpandable: !1 },
+          : { lines: [], promptExpandable: false },
       [Y, Z, Ve, ko, $e, Vs, Hs],
     ),
     wo = Cn.lines;
@@ -1523,7 +1523,7 @@ function _Re({
       else if (v.key === " ") v.preventDefault(), l();
       else if (v.key === "p" && (vn || $n)) v.preventDefault(), _l();
       else if (v.key === "f" && Y === "agents") v.preventDefault(), jl();
-      else if (v.key === "s" && ho) v.preventDefault(), Ls(!0);
+      else if (v.key === "s" && ho) v.preventDefault(), Ls(true);
     },
     Co = N.length > 0;
   if (Sl)
@@ -1532,7 +1532,7 @@ function _Re({
       defaultName: Al,
       onDone: (v) => {
         if (v) l(v);
-        else Ls(!1);
+        else Ls(false);
       },
     });
   let _t = w < 18,
@@ -1576,8 +1576,8 @@ function _Re({
     onKeyDown: ql,
     children: e(me, {
       title: null,
-      hideBorder: !0,
-      hideInputGuide: !0,
+      hideBorder: true,
+      hideInputGuide: true,
       onCancel: Es,
       color: "text",
       children: r(o, {
@@ -1673,7 +1673,7 @@ function _Re({
                         : null,
                     ],
                   }),
-          r(t, { dimColor: !0, italic: !0, wrap: "truncate-end", children: [" ", Gl] }),
+          r(t, { dimColor: true, italic: true, wrap: "truncate-end", children: [" ", Gl] }),
         ],
       }),
     }),

@@ -31,11 +31,11 @@ async function IHt(s, e, r) {
   let n = !s || s.trim() === "",
     a;
   if (n) {
-    let i = await qge(e.messages, e.abortController.signal, { preferFork: !0, credentials: e.credentials });
+    let i = await qge(e.messages, e.abortController.signal, { preferFork: true, credentials: e.credentials });
     if (!i) return { message: "Could not generate a name: no conversation context yet. Usage: /rename <name>" };
     a = i;
   } else a = s.trim();
-  let t = await N4e(a, "user", e.storageV5, r && !n, !0, e.credentials);
+  let t = await N4e(a, "user", e.storageV5, r && !n, true, e.credentials);
   if (t === null)
     return {
       message: n
@@ -61,7 +61,7 @@ async function IHt(s, e, r) {
   };
 }
 async function ZTr(s, e, r) {
-  let { message: n, newName: a, requestedName: t, isGenerated: o } = await IHt(r, e, !0);
+  let { message: n, newName: a, requestedName: t, isGenerated: o } = await IHt(r, e, true);
   return s(n, { display: "system", metaMessages: a && !o ? [mdr(a, t)] : void 0 }), null;
 }
 export { mdr, QYt, IHt, ZTr };

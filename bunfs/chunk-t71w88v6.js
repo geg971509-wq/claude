@@ -108,7 +108,7 @@ function WP(e, t, i) {
   try {
     let c = t ? gz(e, t) : e,
       d = i ? h(i) + c : c;
-    Nfe(l, d, { encoding: "utf-8", flush: !0 });
+    Nfe(l, d, { encoding: "utf-8", flush: true });
     let s = lW(l);
     if (s.content === null) return s;
     let r = s.content;

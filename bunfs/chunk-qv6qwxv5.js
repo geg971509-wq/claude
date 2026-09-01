@@ -118,7 +118,7 @@ var m = 100,
   S = new RegExp(`^${vZ}$`),
   E = 8;
 function x() {
-  return Zn.CLAUDE_WORKSHOP_PROGRESS !== !1 && bZn();
+  return Zn.CLAUDE_WORKSHOP_PROGRESS !== false && bZn();
 }
 function a(t, r) {
   try {
@@ -126,13 +126,13 @@ function a(t, r) {
   } catch (e) {
     h(ft(e, `workshop authoring-progress hook failed (${r})`));
     let o = de().authoringProgress;
-    if (!o.failureReported) (o.failureReported = !0), p("workshop_authoring_progress", "hook_failed");
+    if (!o.failureReported) (o.failureReported = true), p("workshop_authoring_progress", "hook_failed");
   }
 }
 function U() {
   a(() => {
     let { slotsByBlockIndex: t } = de().authoringProgress,
-      r = !1;
+      r = false;
     for (let e of t.values()) r = r || e.shown;
     if ((t.clear(), r)) T2t.setSpinnerMessage(null);
   }, "reset");
@@ -144,21 +144,21 @@ function W(t, r) {
   a(() => {
     let { slotsByBlockIndex: n } = de().authoringProgress;
     if (n.size >= _ || !x()) return;
-    n.set(t, { raw: "", flushedAt: 0, matched: null, shown: !1, batch: e !== void 0 });
+    n.set(t, { raw: "", flushedAt: 0, matched: null, shown: false, batch: e !== void 0 });
   }, "start");
 }
 function G(t, r) {
   let e = de().authoringProgress.slotsByBlockIndex.get(t);
-  if (!e || e.matched === !1) return;
+  if (!e || e.matched === false) return;
   a(() => P(e, r), "delta");
 }
 function P(t, r) {
   if (t.raw.length < w) t.raw += r;
   if (t.matched === null) {
     let i = R(t.raw);
-    if (i.some(FKe)) t.matched = !0;
+    if (i.some(FKe)) t.matched = true;
     else if (t.raw.length >= l || (i.length > 0 && !t.batch)) {
-      (t.matched = !1), (t.raw = "");
+      (t.matched = false), (t.raw = "");
       return;
     } else return;
   }
@@ -167,7 +167,7 @@ function P(t, r) {
   t.flushedAt = e;
   let o = b(t.raw, t.batch);
   if (!o) return;
-  t.shown = !0;
+  t.shown = true;
   let n = process.stdout.columns || 80;
   T2t.setSpinnerMessage(rt(o, Math.max(40, n - E)));
 }
@@ -184,7 +184,7 @@ function R(t) {
   for (let e of t.slice(0, l).matchAll(/"(?:file_path|path)"\s*:\s*"((?:[^"\\]|\\.)*)"/g)) r.push(e[1]);
   return r;
 }
-function b(t, r = !1) {
+function b(t, r = false) {
   let e = -1;
   for (let s of t.matchAll(/"(?:new_string|new_str|content)"\s*:\s*"/g)) e = s.index + s[0].length;
   if (e < 0) return "";

@@ -18,11 +18,11 @@ import { nre } from "/$bunfs/root/chunk-51qp0385.js";
 import { W6n } from "/$bunfs/root/chunk-xmz34fj0.js";
 import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
 class s {
-  settingsLoaded = !1;
+  settingsLoaded = false;
   helperResult = null;
   claimSettingsLoad() {
-    if (this.settingsLoaded) return !1;
-    return (this.settingsLoaded = !0), !0;
+    if (this.settingsLoaded) return false;
+    return (this.settingsLoaded = true), true;
   }
   beginHelperRun() {
     return (this.helperResult = { error: null }), this.helperResult;
@@ -49,7 +49,7 @@ async function ixe(t) {
     ]);
     await r(e),
       await Promise.all([mAe(e), o(e, Ha())]),
-      i(ie().cachedGrowthBookFeatures?.tengu_windows_credman === !0),
+      i(ie().cachedGrowthBookFeatures?.tengu_windows_credman === true),
       await n(e);
   } else await mAe();
   if ((await qAe(), await CXe(IEn), O() && e !== void 0)) {

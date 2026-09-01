@@ -89,10 +89,10 @@ var Pe = new J(() => new he()),
       }
       return t;
     },
-    readStartToken: (e) => Ga(e, { skipCache: !0 }),
+    readStartToken: (e) => Ga(e, { skipCache: true }),
   };
 function Le(e, t = process.pid) {
-  if (t === 1) return !1;
+  if (t === 1) return false;
   return Array.isArray(e) && e.includes(t);
 }
 async function Ke(e, t = Ne) {
@@ -127,9 +127,9 @@ async function Ke(e, t = Ne) {
 async function ye(e) {
   let t = e.selfPid ?? process.pid;
   if (e.selfSentAncestry !== void 0 && t !== 1) return Le(e.selfSentAncestry, t);
-  if (!e.needsVerdict) return !1;
+  if (!e.needsVerdict) return false;
   if (t === 1 || e.platform === "windows") return e.childTokenPresented;
-  if (e.platform !== "macos") return !1;
+  if (e.platform !== "macos") return false;
   let i = await (e.verdictOf ?? Ke)(e.verifiedPeerPid);
   return i === "self" || (i === "no-evidence" && e.childTokenPresented);
 }
@@ -151,8 +151,8 @@ function yHt() {
   return Bnt(c());
 }
 function fe(e) {
-  if (typeof e !== "object" || e === null) return !1;
-  if (!("type" in e)) return !1;
+  if (typeof e !== "object" || e === null) return false;
+  if (!("type" in e)) return false;
   return typeof e.type === "string";
 }
 function SHt(e) {
@@ -186,9 +186,9 @@ function Ie(e) {
         `[uds-messaging] Dropping ${Fu(e.type)} message: session_id mismatch (got "${Fu(String(e.session_id))}", expected "${K()}")`,
         { level: "warn" },
       ),
-      !1
+      false
     );
-  return !0;
+  return true;
 }
 async function Ye(e, t, i, r, d) {
   let s = e.message?.content;
@@ -247,9 +247,9 @@ async function Ye(e, t, i, r, d) {
       uuid: w,
       priority: m,
       origin: _,
-      skipSlashCommands: !0,
-      isMeta: !0,
-      skipAttachments: !0,
+      skipSlashCommands: true,
+      isMeta: true,
+      skipAttachments: true,
     };
   if (J6e(v) !== "accept") return;
   gE(v), n(`[uds-messaging] Routed user message to queue (priority=${m}): ${Fu(k, 80)}`), c().onEnqueue?.(), Oe(v);
@@ -259,7 +259,7 @@ function Oe(e) {
     i = c().activeSocketPath;
   if (
     t !== void 0 &&
-    t.selfSent !== !0 &&
+    t.selfSent !== true &&
     t.verifiedPeerPid !== void 0 &&
     typeof t.from === "string" &&
     i !== void 0 &&
@@ -383,7 +383,7 @@ async function be(e, t, i, r, d) {
           `[uds-messaging] yield_artifact_replies refused: requester is not a verified live session of this conversation (${Fu(s.data.from)})`,
         ),
           g("artifact_comments_autoreact", "yield_requester_unverified"),
-          BZt(s.data, o, t === void 0 ? void 0 : { pid: t, writeToken: i }, Date.now(), { refuse: !0 });
+          BZt(s.data, o, t === void 0 ? void 0 : { pid: t, writeToken: i }, Date.now(), { refuse: true });
         return;
       }
       BZt(
@@ -430,7 +430,7 @@ function ze(e, t, i, r, d) {
 }
 var Qe = 3000;
 function Je(e = 3000) {
-  return Promise.race([c().processingChain, ne(e, void 0, { unref: !0 })]);
+  return Promise.race([c().processingChain, ne(e, void 0, { unref: true })]);
 }
 function Ze(e) {
   e.setEncoding("utf8");
@@ -441,7 +441,7 @@ function Ze(e) {
         if (
           (n(`[uds-messaging] Closing a connection that sent no complete line within ${t} ms`), !c().silentDropReported)
         )
-          (c().silentDropReported = !0), g("cross_session_inbox_auth", "silent_connection_deadline");
+          (c().silentDropReported = true), g("cross_session_inbox_auth", "silent_connection_deadline");
         e.destroy();
       } catch (S) {
         n(`[uds-messaging] Failed to close a silent connection: ${S}`, { level: "warn" });
@@ -454,7 +454,7 @@ function Ze(e) {
   e.once("close", r), e.once("error", r);
   let d,
     s,
-    w = !1,
+    w = false,
     o,
     m,
     k = process.pid !== 1 && men();
@@ -465,21 +465,21 @@ function Ze(e) {
   }
   let u = "",
     _,
-    v = !1,
+    v = false,
     f = (S) => {
       if (
         (n(`[uds-messaging] Dropped ${S} from a connection that did not authenticate; closing it`, { level: "warn" }),
         !c().authDropReported)
       )
-        (c().authDropReported = !0), p("cross_session_inbox_auth", "unauthed_drop");
+        (c().authDropReported = true), p("cross_session_inbox_auth", "unauthed_drop");
       e.destroy();
     },
     b = (S) => {
       let A = !v;
-      if (((v = !0), Itr(S))) {
+      if (((v = true), Itr(S))) {
         if (A) {
           if (((_ = Ptr(S.token, c().activeTokens)), _ !== void 0 && !c().authOkReported))
-            (c().authOkReported = !0), y("cross_session_inbox_auth");
+            (c().authOkReported = true), y("cross_session_inbox_auth");
           if (_ === void 0 && c().authRequired) f("a bad auth frame");
         }
         return;
@@ -492,7 +492,7 @@ function Ze(e) {
         if (
           ((d = Pht(e)),
           (s = d === void 0 ? void 0 : m !== void 0 ? (m.pid === d ? m.token : void 0) : wAe(d)),
-          (w = !0),
+          (w = true),
           d !== void 0 && k)
         )
           o = m !== void 0 && m.pid === d && wAe(d) === m.token ? Wwn(d) : void 0;
@@ -519,7 +519,7 @@ function Ze(e) {
       let L = u.slice(0, A);
       if (((u = u.slice(A + 1)), r(), !L.trim())) {
         if (c().authRequired && _ === void 0) {
-          (v = !0), f("a blank line"), (u = "");
+          (v = true), f("a blank line"), (u = "");
           return;
         }
         continue;
@@ -532,7 +532,7 @@ function Ze(e) {
           (n(`[uds-messaging] Failed to parse JSON line: ${II(L)}`, { level: "warn" }),
           c().authRequired && _ === void 0)
         ) {
-          (v = !0), f("an unparseable line"), (u = "");
+          (v = true), f("an unparseable line"), (u = "");
           return;
         }
         continue;
@@ -546,9 +546,9 @@ function Ze(e) {
     e.on("end", () => {
       if (u.trim() && !e.destroyed) {
         let S,
-          A = !1;
+          A = false;
         try {
-          (S = Ps(u)), (A = !0);
+          (S = Ps(u)), (A = true);
         } catch {
           if (
             (n(`[uds-messaging] Failed to parse final buffer: ${II(u)}`, { level: "warn" }),
@@ -579,7 +579,7 @@ function nNn(e = process.getuid?.() ?? 0) {
     i = t ? F(t, "tmp") : "/tmp";
   return F(i, `cc-socks-${e}`, `${process.pid}.sock`);
 }
-async function H(e, t, i, { settleHeld: r = !0 } = {}) {
+async function H(e, t, i, { settleHeld: r = true } = {}) {
   for (let o of c().connectedClients) o.destroy();
   if ((c().connectedClients.clear(), e.close(), r)) nen();
   let d = r ? K6e() : void 0;
@@ -626,12 +626,12 @@ function me(e) {
 function ee(e, t) {
   return new Promise((i, r) => {
     function d(s) {
-      if (E(s) === "EADDRINUSE") i(!1);
+      if (E(s) === "EADDRINUSE") i(false);
       else r(s);
     }
     e.once("error", d),
       e.listen(t, () => {
-        e.removeListener("error", d), i(!0);
+        e.removeListener("error", d), i(true);
       });
   });
 }
@@ -737,13 +737,13 @@ function Te(e) {
     w = s === t.path,
     o = `'${Array.from(s, (u) => {
       if (an.test(u)) return u;
-      return (w = !1), "?";
+      return (w = false), "?";
     }).join("")}'`,
     m = w,
     k = (u, _) => (m ? `chmod ${u} ${Go([t.path])}${_}` : `clear its ${u === "o-w" ? "other" : "group"}-write bit${_}`);
   switch (se(e)) {
     case "directory_rule": {
-      if (t.ownerRefused === !0)
+      if (t.ownerRefused === true)
         return `${o} is not owned by you or root ${r} \u2014 use a private directory (XDG_RUNTIME_DIR / CLAUDE_CODE_TMPDIR), ${d}`;
       let u = (t.mode & 512) !== 0;
       if (!u && (t.mode & 2) !== 0)
@@ -774,13 +774,13 @@ function un(e) {
     case "foreign_owner":
     case "leaf_shape":
     case "not_directory":
-      return !0;
+      return true;
     case "dangling_link":
     case "symlink_loop":
     case "raced":
     case "uid_collapse":
     case "internal":
-      return !1;
+      return false;
     case void 0:
       break;
   }
@@ -893,20 +893,20 @@ async function Re(e) {
     u = (h) => h !== void 0 && w.has(h),
     _ = (h, U, R) => t === void 0 || r(h) || (!U && (m(h) ? u(R) : h === 0)),
     v = (h, U, R) => {
-      if (!_(h.uid, U, R)) return !1;
-      if ((h.mode & 512) !== 0) return !0;
-      if ((h.mode & 2) !== 0) return !1;
-      if ((h.mode & 16) !== 0) return !1;
-      return !0;
+      if (!_(h.uid, U, R)) return false;
+      if ((h.mode & 512) !== 0) return true;
+      if ((h.mode & 2) !== 0) return false;
+      if ((h.mode & 16) !== 0) return false;
+      return true;
     },
     f = a.TERMUX_VERSION && a.PREFIX ? I(I(a.PREFIX)) : void 0,
     b = (h) => I(h) === h || h === f,
     C = async (h, U, R = 0) => {
       if (R > 16) throw x("symlink_loop", Error("sockets-directory chain: too many levels of symlinks"));
-      let M = !1,
+      let M = false,
         ge,
-        pe = !1;
-      for (let T = h, z = !0; ; T = I(T), z = !1) {
+        pe = false;
+      for (let T = h, z = true; ; T = I(T), z = false) {
         let O;
         try {
           O = await N(T);
@@ -917,9 +917,9 @@ async function Re(e) {
           ge ??= T;
           let q = z && U;
           if (O.isSymbolicLink()) {
-            pe = !0;
+            pe = true;
             let Q = k(O.uid) ? await o(T, O) : void 0;
-            if (!_(O.uid, !1, Q))
+            if (!_(O.uid, false, Q))
               throw x(
                 "foreign_owner",
                 Error("a sockets-directory component is a symlink owned by another user \u2014 refusing to use it"),
@@ -946,7 +946,7 @@ async function Re(e) {
                 ),
                 V(T, O, !_(O.uid, q, Q)),
               );
-            if (z) M = !0;
+            if (z) M = true;
           }
         }
         if (b(T)) break;
@@ -954,7 +954,7 @@ async function Re(e) {
       return { startExists: M, deepestExisting: ge, sawSymlink: pe };
     },
     S = I(e),
-    A = await C(S, !1),
+    A = await C(S, false),
     L = !A.startExists,
     P;
   try {
@@ -983,7 +983,7 @@ async function Re(e) {
         if (E(M) !== "EEXIST") throw M;
         U(await N(R));
       }
-    if (!(await C(S, !0)).startExists) throw x("raced", Error("sockets base directory vanished while being set up"));
+    if (!(await C(S, true)).startExists) throw x("raced", Error("sockets base directory vanished while being set up"));
   }
   if (P === void 0) {
     try {
@@ -1062,7 +1062,7 @@ async function Jur(e) {
     }
     if (I(f) === f) break;
   }
-  let _ = !1;
+  let _ = false;
   try {
     for (let f of u)
       try {
@@ -1076,7 +1076,7 @@ async function Jur(e) {
           );
       }
     try {
-      await te(d, { mode: 448 }), (_ = !0);
+      await te(d, { mode: 448 }), (_ = true);
     } catch (f) {
       if (E(f) !== "EEXIST") throw f;
     }
@@ -1090,11 +1090,11 @@ async function Jur(e) {
   return w(v), r;
 }
 async function Qur(e, t, i = {}) {
-  c().startInFlight = !0;
+  c().startInFlight = true;
   try {
     return await ln(e, t, i);
   } finally {
-    c().startInFlight = !1;
+    c().startInFlight = false;
   }
 }
 async function ln(e, t, i = {}) {
@@ -1113,7 +1113,7 @@ async function ln(e, t, i = {}) {
       );
     return;
   }
-  if (!i.isExplicit && !0 && !ie(e)) e = ue(e);
+  if (!i.isExplicit && true && !ie(e)) e = ue(e);
   if (i.isExplicit) {
     if (((e = await Jur(e)), (await me(e)) === "live"))
       throw new Qd(
@@ -1148,7 +1148,7 @@ async function ln(e, t, i = {}) {
   c().activeSocketPath = e;
   let d, s;
   try {
-    d = Xe({ allowHalfOpen: !0 }, (o) => {
+    d = Xe({ allowHalfOpen: true }, (o) => {
       c().connectedClients.add(o),
         n("[uds-messaging] Client connected"),
         Ze(o),
@@ -1191,7 +1191,7 @@ async function ln(e, t, i = {}) {
             { level: "error" },
           ),
           (c().lastStartFailureCause = "key_publish_failed"),
-          await H(d, e, t, { settleHeld: !1 }),
+          await H(d, e, t, { settleHeld: false }),
           o(),
           W(),
           i.isExplicit)
@@ -1277,7 +1277,7 @@ async function ln(e, t, i = {}) {
       let m = E(o);
       if (s !== void 0)
         throw (
-          (await H(d, e, t, { settleHeld: !1 }),
+          (await H(d, e, t, { settleHeld: false }),
           s(),
           W(),
           (c().lastStartFailureCause = "post_bind_setup_failed"),
@@ -1296,7 +1296,7 @@ async function ln(e, t, i = {}) {
               : "the socket could not be created there";
       throw new Qd(`--messaging-socket-path: cannot bind at ${e} (${m ?? String(o)}): ${k}.`);
     }
-    if (s !== void 0) await H(d, e, t, { settleHeld: !1 }), s(), (c().lastStartFailureCause = "post_bind_setup_failed");
+    if (s !== void 0) await H(d, e, t, { settleHeld: false }), s(), (c().lastStartFailureCause = "post_bind_setup_failed");
     if (E(o) === "ENAMETOOLONG")
       n(
         `[uds-messaging] Socket path too long (${e.length} bytes, max ~104): ${e}. Try a shorter --messaging-socket-path, or set CLAUDE_CODE_TMPDIR or $XDG_RUNTIME_DIR to a shorter directory.`,

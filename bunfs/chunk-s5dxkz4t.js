@@ -297,7 +297,7 @@ var We = kt({
     return V();
   },
   isConcurrencySafe() {
-    return !1;
+    return false;
   },
   isReadOnly(e) {
     return te(e.method);
@@ -320,18 +320,18 @@ var We = kt({
   coerceInput: T,
   async validateInput(e) {
     let t = ee[e.method].filter((o) => e[o] === void 0);
-    if (t.length > 0) return { result: !1, message: `${e.method} requires: ${t.join(", ")}.`, errorCode: 1 };
+    if (t.length > 0) return { result: false, message: `${e.method} requires: ${t.join(", ")}.`, errorCode: 1 };
     if (e.method === "project_write") {
       let o = e.content !== void 0,
         c = e.local_path !== void 0;
       if (o === c)
         return {
-          result: !1,
+          result: false,
           message: 'project_write requires exactly one of "content" or "local_path".',
           errorCode: 1,
         };
     }
-    return { result: !0 };
+    return { result: true };
   },
   async call(e, t) {
     let o = t.abortController.signal,
@@ -424,12 +424,12 @@ async function ce(e) {
     throw _;
   }
   try {
-    let _ = await h.stat({ bigint: !0 }),
+    let _ = await h.stat({ bigint: true }),
       p = "project_write: local_path was replaced during the upload.",
       g,
       y;
     try {
-      (g = await R(c)), (y = await Q(g, { bigint: !0 }));
+      (g = await R(c)), (y = await Q(g, { bigint: true }));
     } catch {
       throw Error("project_write: local_path was replaced during the upload.");
     }
@@ -463,10 +463,10 @@ async function X(e, t, o, c) {
     if (u !== void 0) {
       let s = await e.write(u, c, { publishDiscipline: "inPlace", mode: 384 });
       if (!s.ok) throw Error("project_read: spill to tool-results failed", { cause: s.error });
-      return !0;
+      return true;
     }
   }
-  return !1;
+  return false;
 }
 async function ue(e, t, o, c, u, s, d) {
   let r = (p) => {
@@ -586,12 +586,12 @@ async function fe(e, t, o, c, u, s) {
         n = e.n ?? 5;
       try {
         let h = await Hjn(t, r, n, c, s);
-        return { method: "project_search", rag: !0, hits: me(h) };
+        return { method: "project_search", rag: true, hits: me(h) };
       } catch (h) {
         if (h instanceof U9e && h.status === 403)
           return {
             method: "project_search",
-            rag: !1,
+            rag: false,
             docs: (await X_e(t, c, s)).documents.map((p) => p.file_name).filter((p) => p !== null),
           };
         throw h;
@@ -611,7 +611,7 @@ async function fe(e, t, o, c, u, s) {
         path: p,
         doc_uuid: y.uuid,
         replaced: g !== void 0,
-        present_to_user: e.present_to_user ?? !1,
+        present_to_user: e.present_to_user ?? false,
         ...(e.local_path !== void 0 ? { local_path: x(Se(), e.local_path) } : {}),
       };
     }
@@ -626,7 +626,7 @@ async function fe(e, t, o, c, u, s) {
           );
         throw G(n, r);
       }
-      return await din(t, h.uuid, c, s), { method: "project_delete", path: r, deleted: !0 };
+      return await din(t, h.uuid, c, s), { method: "project_delete", path: r, deleted: true };
     }
   }
 }

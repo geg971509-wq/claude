@@ -19,10 +19,10 @@ import { Ft } from "/$bunfs/root/chunk-ef7xmm9b.js";
 import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
 var Vte = "https://claude.com/claude-code";
 function L(t, e) {
-  return t?.includes("_staging_") === !0 || e?.includes("staging") === !0;
+  return t?.includes("_staging_") === true || e?.includes("staging") === true;
 }
 function N2t(t, e) {
-  return t?.includes("_local_") === !0 || e?.includes("localhost") === !0;
+  return t?.includes("_local_") === true || e?.includes("localhost") === true;
 }
 function jDe(t, e) {
   if (N2t(t, e)) return "http://localhost:4000";
@@ -40,7 +40,7 @@ var Kte = "<persisted-output>",
   Jpn = "</persisted-output>",
   G = "[Old tool result content cleared]",
   j = "tengu_velvet_ibis";
-function Uze(t, e, r = xz, i = !1) {
+function Uze(t, e, r = xz, i = false) {
   if (!Number.isFinite(e)) return e;
   if (i) return Math.min(e, r);
   let o = I(j, {})?.[t];
@@ -105,15 +105,15 @@ async function jze(t, e, r, i) {
     t,
     e.name,
     r,
-    Uze(e.name, e.maxResultSizeChars, e.persistenceThresholdCeiling, e.skipAggregateToolResultBudget === !0),
+    Uze(e.name, e.maxResultSizeChars, e.persistenceThresholdCeiling, e.skipAggregateToolResultBudget === true),
     i,
   );
 }
 function H(t) {
-  if (!t) return !0;
+  if (!t) return true;
   if (typeof t === "string") return t.trim() === "";
-  if (!Array.isArray(t)) return !1;
-  if (t.length === 0) return !0;
+  if (!Array.isArray(t)) return false;
+  if (t.length === 0) return true;
   return t.every(
     (e) =>
       typeof e === "object" &&
@@ -148,11 +148,11 @@ async function J(t, e, r, i, a) {
   );
 }
 function Wze(t, e) {
-  if (t.length <= e) return { preview: t, hasMore: !1 };
+  if (t.length <= e) return { preview: t, hasMore: false };
   let i = t.slice(0, e).lastIndexOf(`
 `),
     a = i > e * 0.5 ? i : e;
-  return { preview: t.slice(0, a), hasMore: !0 };
+  return { preview: t.slice(0, a), hasMore: true };
 }
 function D9(t) {
   return "error" in t;
@@ -164,7 +164,7 @@ function r8n(t) {
   return { seenIds: new Set(t.seenIds), replacements: new Map(t.replacements) };
 }
 function o8n(t, e) {
-  if (!I("tengu_hawthorn_steeple", !1)) return;
+  if (!I("tengu_hawthorn_steeple", false)) return;
   if (t) return F2t(t, e ?? []);
   return rgt();
 }
@@ -263,7 +263,7 @@ async function Q(t, e, r) {
 function i8n(t) {
   let e = new Set();
   for (let r of t)
-    if (!Number.isFinite(r.maxResultSizeChars) || r.skipAggregateToolResultBudget === !0) {
+    if (!Number.isFinite(r.maxResultSizeChars) || r.skipAggregateToolResultBudget === true) {
       e.add(r.name);
       for (let i of r.aliases ?? []) e.add(i);
     }

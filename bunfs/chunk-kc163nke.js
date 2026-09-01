@@ -129,7 +129,7 @@ function se(o) {
       unlisten: u.addListener((e, r) => {
         for (let i of m) i.deliverLocal(e, r);
       }),
-      closed: !1,
+      closed: false,
       indexCache: new Map(),
       verifiedCache: new Map(),
       scanCountCache: new Map(),
@@ -140,7 +140,7 @@ function se(o) {
       roots: s,
       instanceId: t.instanceId,
       bus: u,
-      nativeWatch: o.nativeWatch ?? !0,
+      nativeWatch: o.nativeWatch ?? true,
       timing: c,
       read: (e, r) => Xsr(t, e, r),
       readText: (e, r) => Ysr(t, e, r),
@@ -190,7 +190,7 @@ async function g(o, s, n, a) {
   let c = pAt(o.roots, s) ?? B1e(n) ?? dAt(a?.meta);
   if (c !== void 0) return P(c);
   let l = uAt(a?.holder);
-  await kw(o, iFe(o.roots, s), !0);
+  await kw(o, iFe(o.roots, s), true);
   let u = await Msr(o.roots, s, n, l, a?.meta, o.clock);
   if (!u.ok) return P(b(u.error, s));
   if (u.value.kind === "held") {
@@ -258,7 +258,7 @@ async function F(o, s) {
 }
 async function w(o) {
   if (o.closed) return re(void 0);
-  (o.closed = !0), o.unlisten();
+  (o.closed = true), o.unlisten();
   let s = [...o.subscriptions];
   o.subscriptions.clear();
   for (let n of s) await n.stop(), n.terminate();
@@ -277,7 +277,7 @@ async function E(o, s, n) {
   return a.value === "missing" ? "missing" : { generation: a.value.applyGeneration, entries: a.value.entries };
 }
 async function h(o, s) {
-  let n = { skipKeyStats: !0, skipScopeStats: !0 };
+  let n = { skipKeyStats: true, skipScopeStats: true };
   if (cj(s)) {
     let c = await Zvn(o, s, n);
     return c.ok ? re(c.value.items.map((l) => l.key).filter(fAt)) : P(S(c.error));

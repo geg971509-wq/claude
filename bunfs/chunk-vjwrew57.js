@@ -42,7 +42,7 @@ function u6e(e, t) {
   v.of(e).registerResolver(t);
 }
 function S(e, t) {
-  return v.of(e).resolver?.(t) ?? !1;
+  return v.of(e).resolver?.(t) ?? false;
 }
 var O = 3;
 class T1n {
@@ -50,11 +50,11 @@ class T1n {
   current = void 0;
   heartbeat;
   wedgeTimer = void 0;
-  wedgeDisarmed = !1;
+  wedgeDisarmed = false;
   authToken;
-  currentAuthed = !1;
+  currentAuthed = false;
   unauthedDrops = 0;
-  gateReported = !1;
+  gateReported = false;
   nativeBrowserEnv;
   pendingInteractiveMarks;
   storageV5;
@@ -71,21 +71,21 @@ class T1n {
       this.heartbeat.unref();
   }
   onConnection(e) {
-    this.current?.destroy(), (this.current = e), (this.currentAuthed = !1), kQe(!1);
+    this.current?.destroy(), (this.current = e), (this.currentAuthed = false), kQe(false);
     while (this.pendingInteractiveMarks.length > 0) {
       let o = this.pendingInteractiveMarks[0];
       if (o === void 0 || !this.send(o)) break;
       this.pendingInteractiveMarks.shift();
     }
     (this.unauthedDrops = 0),
-      (this.gateReported = !1),
+      (this.gateReported = false),
       this.clearPreBootState().catch((o) => {
         if (!X(o)) Aa(o);
       }),
       this.restorePromptDraft().catch(() => {}),
       e.on("error", () => e.destroy()),
       e.once("close", () => {
-        if (this.current === e) (this.current = void 0), kQe(!1);
+        if (this.current === e) (this.current = void 0), kQe(false);
       });
     let t = "",
       r = new P("utf8");
@@ -112,12 +112,12 @@ class T1n {
       (this.wedgeTimer = void 0),
       this.current?.destroy(),
       (this.current = void 0),
-      kQe(!1),
+      kQe(false),
       this.restoreNativeBrowserEnv(),
       this.server.close();
   }
   send(e) {
-    if (!this.current || this.current.destroyed) return !1;
+    if (!this.current || this.current.destroyed) return false;
     try {
       return (
         this.current.write(
@@ -125,15 +125,15 @@ class T1n {
             `
 `,
         ),
-        !0
+        true
       );
     } catch {
-      return !1;
+      return false;
     }
   }
   noteUnauthedRejection() {
     if ((this.unauthedDrops++, !this.gateReported && this.unauthedDrops >= O))
-      (this.gateReported = !0), p("bg_rv_gate", "unauthed_drops");
+      (this.gateReported = true), p("bg_rv_gate", "unauthed_drops");
   }
   restoreNativeBrowserEnv() {
     if (this.nativeBrowserEnv === void 0) delete process.env.BROWSER;
@@ -150,7 +150,7 @@ class T1n {
     if ("role" in t) {
       if (this.authToken)
         if ("auth" in t && uR(t.auth, this.authToken)) {
-          if (((this.currentAuthed = !0), !this.gateReported)) (this.gateReported = !0), y("bg_rv_gate");
+          if (((this.currentAuthed = true), !this.gateReported)) (this.gateReported = true), y("bg_rv_gate");
         } else {
           if (!this.currentAuthed) this.noteUnauthedRejection();
           this.send({ type: "auth-rejected" });
@@ -184,7 +184,7 @@ class T1n {
     if (r.type === "reply" && typeof r.text === "string") W(r);
   }
   handleAttacherCaps(e) {
-    if ((oHn(e.caps), kQe(!0), e.caps)) ein(Date.now());
+    if ((oHn(e.caps), kQe(true), e.caps)) ein(Date.now());
     else Rlt();
     if ((Gnr(e.caps?.colorLevel), !e.caps)) this.restoreNativeBrowserEnv();
     else if (typeof e.caps.browser === "string") process.env.BROWSER = e.caps.browser;
@@ -193,10 +193,10 @@ class T1n {
   }
   async waitForInkMount(e) {
     for (let t = 0; !Io.has(process.stdout); t++) {
-      if (t >= 60 || this.current !== e) return !1;
+      if (t >= 60 || this.current !== e) return false;
       await ne(500);
     }
-    return !0;
+    return true;
   }
   async clearPreBootState() {
     let e = a.CLAUDE_JOB_DIR;
@@ -223,7 +223,7 @@ class T1n {
     (this.wedgeTimer = setTimeout((r) => this.onStartupWedgeTimeout(r), t, e)), this.wedgeTimer.unref();
   }
   disarmStartupWedgeWatchdog() {
-    (this.wedgeDisarmed = !0), clearTimeout(this.wedgeTimer), (this.wedgeTimer = void 0);
+    (this.wedgeDisarmed = true), clearTimeout(this.wedgeTimer), (this.wedgeTimer = void 0);
   }
   onStartupWedgeTimeout(e) {
     fr(e, this.storageV5)
@@ -270,8 +270,8 @@ async function aEr(e) {
     i = [];
   K9n((u) => {
     let m = { type: "interactive-mark", ...u };
-    if (Oq(m)) return !0;
-    return i.push(m), !0;
+    if (Oq(m)) return true;
+    return i.push(m), true;
   }),
     delete process.env.CLAUDE_BG_RENDEZVOUS_SOCK;
   let s = a.CLAUDE_BG_RV_AUTH;
@@ -289,7 +289,7 @@ function lEr() {
   e.server?.stop(), (e.server = void 0);
 }
 function Oq(e) {
-  return d().server?.send(e) ?? !1;
+  return d().server?.send(e) ?? false;
 }
 function I(e) {
   Oq({ type: "shutting-down" });
@@ -299,7 +299,7 @@ function I(e) {
   if (o) r.push(L(o).catch(() => {}));
   if (t) {
     let i = t.getLastSequenceNum();
-    t.teardown({ skipArchive: !0 }).catch(() => {});
+    t.teardown({ skipArchive: true }).catch(() => {});
     let s = a.CLAUDE_JOB_DIR;
     if (s && i > 0) r.push(U(s, i, e).catch(() => {}));
   }
@@ -310,7 +310,7 @@ function I(e) {
 }
 function C() {
   if (Cl() !== null) ein(Date.now());
-  if (!Io.get(process.stdout)?.forceRedraw({ flushReact: !0 }))
+  if (!Io.get(process.stdout)?.forceRedraw({ flushReact: true }))
     process.stdout.write(
       sy +
         dg +

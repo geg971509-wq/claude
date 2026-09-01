@@ -45,14 +45,14 @@ class dNn {
     let r = this.writers.get(e);
     if (!r) {
       let t = f(e),
-        i = !1;
+        i = false;
       (r = c({
         writeFn: (o) => {
           this.pendingWrites.run(e, async () => {
             try {
               await u(t, e, o);
             } catch (s) {
-              if (!i) (i = !0), n(`Dropping log batch for ${e}: ${s instanceof Error ? s.message : String(s)}`);
+              if (!i) (i = true), n(`Dropping log batch for ${e}: ${s instanceof Error ? s.message : String(s)}`);
             }
           });
         },

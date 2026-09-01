@@ -45,9 +45,9 @@ var r = {
       min_version: i()
         .refine((e) => {
           try {
-            return _$(e, "0.0.0"), !0;
+            return _$(e, "0.0.0"), true;
           } catch {
-            return !1;
+            return false;
           }
         })
         .default("0.0.0"),

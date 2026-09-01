@@ -400,7 +400,7 @@ async function se(o, i) {
     if (!X(u)) return await Pn("cli_auto_mode_reset", "settings_file_unreadable"), Es(`Could not read ${s}: ${l(u)}`);
   }
   let g = a !== null && a.trim() !== "",
-    c = g ? Ut(a, !1) : null;
+    c = g ? Ut(a, false) : null;
   if (g && !He(c)) return await Pn("cli_auto_mode_reset", "settings_file_invalid"), Es(YJt(s, "reset"));
   let d = He(c) ? c.autoMode : void 0;
   if (d === void 0) {
@@ -544,8 +544,8 @@ Run \`claude auto-mode defaults\` to see the default rules for reference.`,
         model: c,
         credentials: s,
         system: O,
-        skipSystemPromptPrefix: !0,
-        forceAttributionHeader: !0,
+        skipSystemPromptPrefix: true,
+        forceAttributionHeader: true,
         max_tokens: 4096,
         messages: [
           {

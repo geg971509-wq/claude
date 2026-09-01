@@ -17,12 +17,12 @@ function s(t) {
 }
 var i = [
   { value: "sync", description: "Push your local design system to claude.ai/design" },
-  { value: "login", description: "Authorize design access with your claude.ai account", isFinal: !0 },
-  { value: "consent", description: "Grant Claude agent access to your Design projects", isFinal: !0 },
-  { value: "revoke", description: "Revoke Claude agent access to your Design projects", isFinal: !0 },
+  { value: "login", description: "Authorize design access with your claude.ai account", isFinal: true },
+  { value: "consent", description: "Grant Claude agent access to your Design projects", isFinal: true },
+  { value: "revoke", description: "Revoke Claude agent access to your Design projects", isFinal: true },
   { value: "import", description: "Pull a Claude Design project into the working directory" },
   { value: "export", description: "Push the working directory into a new Claude Design project" },
-  { value: "status", description: "Show design-system auth and available design systems", isFinal: !0 },
+  { value: "status", description: "Show design-system auth and available design systems", isFinal: true },
 ];
 function r(t) {
   let n = t.trim(),
@@ -93,8 +93,8 @@ function QDn() {
     argumentHint: "[sync|login|consent|revoke|import|export|status|<prompt>]",
     isEnabled: () => vhe(),
     policyGate: yz,
-    disableModelInvocation: !0,
-    userInvocable: !0,
+    disableModelInvocation: true,
+    userInvocable: true,
     async getArgumentCompletions(t, n) {
       if (t.length > 0) return [];
       let e = n.toLowerCase();

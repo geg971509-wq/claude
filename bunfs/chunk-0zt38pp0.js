@@ -154,7 +154,7 @@ async function vMn(e, t, s) {
   if (!t?.source || !Ip(t.source)) return "ineligible";
   if (!c5(e, t, dk()[e]?.autoUpdate)) return "ineligible";
   try {
-    return await ED(e, s, void 0, { skipIfRecent: !0 }), Jt().marketplaces.delete(e), "refreshed";
+    return await ED(e, s, void 0, { skipIfRecent: true }), Jt().marketplaces.delete(e), "refreshed";
   } catch (i) {
     return (
       n(`Failed to refresh marketplace '${e}' on catalog miss; using cached data: ${l(i)}`, { level: "warn" }),
@@ -177,7 +177,7 @@ async function ske(e, t, s) {
     return { outcome: "ineligible" };
   }
   try {
-    return await ED(e, s, void 0, { skipIfRecent: !0 }), Jt().marketplaces.delete(e), { outcome: "refreshed" };
+    return await ED(e, s, void 0, { skipIfRecent: true }), Jt().marketplaces.delete(e), { outcome: "refreshed" };
   } catch (r) {
     return (
       n(`Failed to refresh marketplace '${e}' before scoped install; using cached data: ${l(r)}`, { level: "warn" }),
@@ -237,9 +237,9 @@ function qBe(e) {
 }
 function RMn(e) {
   let t = ye("projectSettings")?.enabledPlugins;
-  if (!t) return !1;
+  if (!t) return false;
   let s = NI(Object.keys(t), e);
-  return s !== void 0 && t[s] === !0;
+  return s !== void 0 && t[s] === true;
 }
 function kMn(e) {
   return _e[e] === "sad";
@@ -278,7 +278,7 @@ function GBe(e) {
   return e;
 }
 function ake(e, t, s) {
-  return OTe(e, fWn(e, s))?.enabled ?? t.defaultEnabled !== !1;
+  return OTe(e, fWn(e, s))?.enabled ?? t.defaultEnabled !== false;
 }
 function $e(e, t = ["local", "project", "user"]) {
   let s = e.includes("@"),
@@ -294,9 +294,9 @@ function $e(e, t = ["local", "project", "user"]) {
 function je(e, t) {
   let { name: s, marketplace: i } = KX(e);
   return t.find((r) => {
-    if (Vy(r.name, e) || Vy(r.name, s)) return !0;
+    if (Vy(r.name, e) || Vy(r.name, s)) return true;
     if (i && r.source) return Vy(r.name, s) && r.source.toLowerCase().includes(`@${i.toLowerCase()}`);
-    return !1;
+    return false;
   });
 }
 function ze(e, t, s) {
@@ -326,28 +326,28 @@ function L0t(e) {
   return { scope: i[0].scope, projectPath: i[0].projectPath };
 }
 async function EXt(e, t, s) {
-  if (!(await Rpt(e, t, s))) return !1;
+  if (!(await Rpt(e, t, s))) return false;
   return !(await JYt(e, s)).some((r) => r.type !== "dependency-unsatisfied" || r.reason !== "not-found");
 }
 async function HMn(e, t = "user", { shownSourceCommand: s, shownEntryHelper: i, announceRefreshResult: r } = {}, o) {
   Ee(t), (e = BF(e));
   let { name: d, marketplace: P } = KX(e),
     a = we(e, P, "install");
-  if (a !== void 0) return { success: !1, message: a };
+  if (a !== void 0) return { success: false, message: a };
   let _,
     v,
     E,
-    G = !1,
+    G = false,
     L,
-    c = !1,
-    w = !1;
+    c = false,
+    w = false;
   if (P) {
     let R = (await zl(o))[P],
       S = R !== void 0 && Ip(R.source);
     c = R !== void 0 && !S;
     let T = r ?? (await ske(P, R, o));
-    if ((rse(T.outcome), T.outcome === "refreshed")) G = !0;
-    else if (T.outcome === "refresh-failed") (w = !0), (L = `marketplace not refreshed (${T.errorMessage})`);
+    if ((rse(T.outcome), T.outcome === "refreshed")) G = true;
+    else if (T.outcome === "refresh-failed") (w = true), (L = `marketplace not refreshed (${T.errorMessage})`);
     let F = await xv(e, o);
     if (F) (_ = F.entry), (v = P), (E = F.marketplaceInstallLocation);
   } else {
@@ -367,18 +367,18 @@ async function HMn(e, t = "user", { shownSourceCommand: s, shownEntryHelper: i, 
         c ? "marketplace_policy_blocked" : w ? "refresh_failed_stale_lookup" : "not_found",
         { scoped: P !== void 0 },
       ),
-      { success: !1, message: `Plugin "${d}" not found in ${u}${S}` }
+      { success: false, message: `Plugin "${d}" not found in ${u}${S}` }
     );
   }
   let B = _,
     C = `${B.name}@${v}`;
-  if (c) p("plugin_marketplace_resolve", "marketplace_policy_blocked", { scoped: !0 });
+  if (c) p("plugin_marketplace_resolve", "marketplace_policy_blocked", { scoped: true });
   else y("plugin_marketplace_resolve", { scoped: P !== void 0 });
   if (await EXt(C, t, o)) {
     let u = await GGn(C, t, qBe(t), o),
       R = await Bke(C, o);
     return {
-      success: !0,
+      success: true,
       message: `Plugin "${C}" is already installed (scope: ${t})${u ? " \u2014 marked as manually installed" : ""}${R?.suffix ?? ""}`,
       pluginId: C,
       pluginName: B.name,
@@ -399,7 +399,7 @@ This install runs that command; confirm it by running \`claude plugin install\` 
     scope: t,
     marketplaceInstallLocation: E,
     trigger: "cli",
-    explicit: !0,
+    explicit: true,
     consentedEntryHelper: W,
     commandSourceConsent:
       s !== void 0
@@ -411,40 +411,40 @@ This install runs that command; confirm it by running \`claude plugin install\` 
     switch (I.reason) {
       case "local-source-no-location":
         return {
-          success: !1,
+          success: false,
           message: `Cannot install local plugin "${I.pluginName}" without marketplace install location`,
         };
       case "settings-write-failed":
-        return { success: !1, message: `Failed to update settings: ${I.message}` };
+        return { success: false, message: `Failed to update settings: ${I.message}` };
       case "resolution-failed":
-        return { success: !1, message: ocn(I.resolution) };
+        return { success: false, message: ocn(I.resolution) };
       case "blocked-by-policy":
         return {
-          success: !1,
+          success: false,
           message: `Plugin "${I.pluginName}" is blocked by your organization's policy and cannot be installed`,
         };
       case "dependency-blocked-by-policy":
         return {
-          success: !1,
+          success: false,
           message: `Plugin "${I.pluginName}" depends on "${I.blockedDependency}", which is blocked by your organization's policy`,
         };
       case "marketplace-blocked-by-policy":
         return {
-          success: !1,
+          success: false,
           message: `Plugin "${I.pluginName}" is from marketplace "${I.marketplaceName}", which is blocked by your organization's policy`,
         };
       case "dependency-marketplace-blocked-by-policy":
         return {
-          success: !1,
+          success: false,
           message: `Plugin "${I.pluginName}" depends on "${I.blockedDependency}" from marketplace "${I.marketplaceName}", which is blocked by your organization's policy`,
         };
       case "range-conflict": {
         let u = I.dep === C ? "Plugin" : "Dependency";
-        return { success: !1, message: Rct(u, I.dep, I.ranges, I.why, I.installed) };
+        return { success: false, message: Rct(u, I.dep, I.ranges, I.why, I.installed) };
       }
       case "no-matching-tag": {
         let u = I.dep === C ? "Plugin" : "Dependency";
-        return { success: !1, message: CNt(u, I.dep, I.range) };
+        return { success: false, message: CNt(u, I.dep, I.range) };
       }
     }
   let re = Ra("plugin enable", C),
@@ -456,17 +456,17 @@ This install runs that command; confirm it by running \`claude plugin install\` 
       : "",
     b = L ? `. Warning: ${L} \u2014 installed from the cached catalog, so the version may be stale` : "";
   return {
-    success: !0,
+    success: true,
     message: `Successfully installed plugin: ${C} (scope: ${t})${I.depNote}${A}${b}`,
     pluginId: C,
     pluginName: B.name,
     scope: t,
   };
 }
-async function bq(e, t = "user", s = !0, i) {
+async function bq(e, t = "user", s = true, i) {
   Ee(t), (e = BF(e));
   let r = we(e, KX(e).marketplace, "uninstall");
-  if (r !== void 0) return { success: !1, message: r };
+  if (r !== void 0) return { success: false, message: r };
   let { enabled: o, disabled: d } = await Dh(i),
     P = [...o, ...d],
     a = je(e, P),
@@ -502,7 +502,7 @@ async function bq(e, t = "user", s = !0, i) {
       (G = a.name);
   } else {
     let u = ze(e, t, w);
-    if (!u) return { success: !1, message: `Plugin "${e}" not found in installed plugins` };
+    if (!u) return { success: false, message: `Plugin "${e}" not found in installed plugins` };
     (E = u.pluginId), (G = u.pluginName);
   }
   E = NI(c, E) ?? E;
@@ -514,17 +514,17 @@ async function bq(e, t = "user", s = !0, i) {
       if (u === "project") {
         let R = Ra("plugin disable", e, "--scope local");
         return {
-          success: !1,
+          success: false,
           message: `Plugin "${e}" is enabled at project scope (.claude/settings.json, shared with your team). To disable just for you${R ? `: ${R}` : ", use claude plugin disable with --scope local"}`,
         };
       }
       return {
-        success: !1,
+        success: false,
         message: `Plugin "${e}" is installed in ${u} scope, not ${t}. Use --scope ${u} to uninstall.`,
       };
     }
     return {
-      success: !1,
+      success: false,
       message: `Plugin "${e}" is not installed in ${t} scope. Use --scope to specify the correct scope.`,
     };
   }
@@ -550,7 +550,7 @@ async function bq(e, t = "user", s = !0, i) {
   let A = kct(E, P),
     b = zin(A);
   return {
-    success: !0,
+    success: true,
     message: `Successfully uninstalled plugin: ${G} (scope: ${t})${b}`,
     pluginId: E,
     pluginName: G,
@@ -571,7 +571,7 @@ async function pe(e, t, s, i, r) {
       let R = await Dh(r);
       if (![...R.enabled, ...R.disabled].some((T) => Vy(T.name, e) && !ale(T.source))) return pe(A, t, s, i, r);
       return {
-        success: !1,
+        success: false,
         message: `Plugin "${e}" names both a built-in and another loaded plugin. Use plugin@marketplace format.`,
       };
     }
@@ -586,7 +586,7 @@ async function pe(e, t, s, i, r) {
     let R,
       S,
       T,
-      F = !1,
+      F = false,
       ne = "";
     if (uc(a)) {
       let m = await Dh(r),
@@ -594,18 +594,18 @@ async function pe(e, t, s, i, r) {
           e,
           [...m.enabled, ...m.disabled].filter((N) => Ud(N.source) === a),
         );
-      if (M) (b = M.source), (R = M.manifest.defaultEnabled === !1);
+      if (M) (b = M.source), (R = M.manifest.defaultEnabled === false);
       let z = t ? He(b) : void 0;
       if (z !== void 0)
         return {
-          success: !1,
+          success: false,
           message: `Plugin "${b}" cannot be ${o}d here: "${z}" is locked by your organization's managed settings, so this ${We(a)} copy is never loaded`,
         };
       if (t && a === um) {
         let N = new Set(m.errors.filter(ZTe).map((H) => H.source)),
           Q = mcn(P, [
             ...m.enabled.filter((H) => !H.isBuiltin),
-            ...m.disabled.filter((H) => N.has(H.source)).map((H) => ({ ...H, enabled: !0 })),
+            ...m.disabled.filter((H) => N.has(H.source)).map((H) => ({ ...H, enabled: true })),
             ...m.enabled.filter((H) => H.isBuiltin),
           ]);
         if (Q !== void 0)
@@ -614,7 +614,7 @@ async function pe(e, t, s, i, r) {
       if (t && a === Nm) {
         let { name: N } = Zz(b),
           Q = `${N}@${um}`,
-          H = ZU.filter((de) => he(de, b, d)?.value === !1 && he(de, Q, d) === void 0);
+          H = ZU.filter((de) => he(de, b, d)?.value === false && he(de, Q, d) === void 0);
         if (H.length > 0) S = { syncedId: Q, scopes: H };
       }
       let D = Xe(b, s, d);
@@ -625,20 +625,20 @@ async function pe(e, t, s, i, r) {
           D.atRequested === void 0 && D.found && ae[D.found.scope] > ae[s])
         )
           return {
-            success: !1,
+            success: false,
             message: `Plugin "${b}" is set at ${D.found.scope} scope (which overrides ${s}). Use --scope ${D.found.scope} or omit --scope to auto-detect.`,
           };
         A = s;
       } else (A = D.decidingScope ?? D.found?.scope ?? "user"), (b = he(A, b, d)?.key ?? b);
     }
     if (t && a === nu) {
-      if (!wz()) return { success: !1, message: Zze(Yd(Le(be(), "skills"))) };
+      if (!wz()) return { success: false, message: Zze(Yd(Le(be(), "skills"))) };
     }
     if (t && Fd(b))
-      return { success: !1, message: `Plugin "${b}" is blocked by your organization's policy and cannot be enabled` };
+      return { success: false, message: `Plugin "${b}" is blocked by your organization's policy and cannot be enabled` };
     if (a === um && T && T.enabling !== t) return Oe(b, t, T.source, T.key);
     let x = Gv(A),
-      ie = t && uc(a) && x === "userSettings" && R === !1 && (a !== um || Xgn(b, Ve(x, b)) !== !1) ? void 0 : t,
+      ie = t && uc(a) && x === "userSettings" && R === false && (a !== um || Xgn(b, Ve(x, b)) !== false) ? void 0 : t,
       oe = "";
     if (a === um) {
       let m = Fe(x, b, ie),
@@ -646,14 +646,14 @@ async function pe(e, t, s, i, r) {
           b,
           m.map(({ record: N }) => N),
         ),
-        z = M?.enabled ?? R !== !0,
+        z = M?.enabled ?? R !== true,
         D = M === void 0 ? void 0 : m[M.index]?.source;
       if (z !== t && D !== void 0) {
         let N = yw(D),
           Q = D === "localSettings" || D === "projectSettings" || D === "userSettings" ? ` (--scope ${JOe[D]})` : "";
         if (!F)
           return {
-            success: !1,
+            success: false,
             message: `Plugin "${b}" would still be ${t ? "disabled" : "enabled"} after writing ${A} settings: ${N} settings govern it. Change it there${Q}.`,
           };
         oe = ` (still ${t ? "disabled" : "enabled"} here: ${N} settings govern it${Q})`;
@@ -664,16 +664,16 @@ async function pe(e, t, s, i, r) {
       let { syncedId: m, scopes: M } = S;
       for (let z of M) {
         if (z === A) continue;
-        let { error: D } = await Me(Gv(z), m, !1, {}, r);
-        if (D) return { success: !1, message: `Failed to ${o} plugin: ${D.message}` };
+        let { error: D } = await Me(Gv(z), m, false, {}, r);
+        if (D) return { success: false, message: `Failed to ${o} plugin: ${D.message}` };
       }
     }
-    let { error: se } = await Me(x, b, ie, S?.scopes.includes(A) ? { [S.syncedId]: !1 } : {}, r);
-    if (se) return { success: !1, message: `Failed to ${o} plugin: ${se.message}` };
+    let { error: se } = await Me(x, b, ie, S?.scopes.includes(A) ? { [S.syncedId]: false } : {}, r);
+    if (se) return { success: false, message: `Failed to ${o} plugin: ${se.message}` };
     Qu(r);
     let { name: ce } = Zz(b);
     return {
-      success: !0,
+      success: true,
       message: `Successfully ${o}d plugin: ${ce}${oe}${ne}`,
       pluginId: b,
       pluginName: ce,
@@ -687,29 +687,29 @@ async function pe(e, t, s, i, r) {
   if (s)
     if (((v = s), E)) _ = E.pluginId;
     else if (e.includes("@")) _ = e;
-    else return { success: !1, message: `Plugin "${e}" not found in settings. Use plugin@marketplace format.` };
+    else return { success: false, message: `Plugin "${e}" not found in settings. Use plugin@marketplace format.` };
   else if (E) (_ = E.pluginId), (v = E.scope);
   else if (e.includes("@")) (_ = e), (v = "user");
   else
     return {
-      success: !1,
+      success: false,
       message: `Plugin "${e}" not found in any editable settings scope. Use plugin@marketplace format.`,
     };
   if (t && Fd(_))
-    return { success: !1, message: `Plugin "${_}" is blocked by your organization's policy and cannot be enabled` };
+    return { success: false, message: `Plugin "${_}" is blocked by your organization's policy and cannot be enabled` };
   let G = Gv(v),
     L = ye(G)?.enabledPlugins?.[_],
     c = s && E && ae[s] > ae[E.scope];
   if (s && L === void 0 && E && E.scope !== s && !c)
     return {
-      success: !1,
+      success: false,
       message: `Plugin "${e}" is installed at ${E.scope} scope, not ${s}. Use --scope ${E.scope} or omit --scope to auto-detect.`,
     };
-  let w = s && !c ? L === !0 : m1().has(_);
+  let w = s && !c ? L === true : m1().has(_);
   if (t === w)
     return {
-      success: !1,
-      alreadyInGoalState: !0,
+      success: false,
+      alreadyInGoalState: true,
       message: `Plugin "${e}" is already ${t ? "enabled" : "disabled"}${s ? ` at ${s} scope` : ""}`,
     };
   let B;
@@ -727,7 +727,7 @@ async function pe(e, t, s, i, r) {
           ? `, or disable everything together: ${x.join(" && ")}`
           : ", or disable them together in /plugin.";
       return {
-        success: !1,
+        success: false,
         message: `${F} is still required by ${T.map(Oo).join(", ")}. Disable ${k(T.length, "that plugin", "those plugins")} first${ie}`,
         reverseDependents: T,
       };
@@ -742,7 +742,7 @@ async function pe(e, t, s, i, r) {
         M = R.map((D) => Ra("plugin install", D)),
         z = M.every((D) => D !== null) ? `: ${M.join(" && ")}` : " from /plugin.";
       return {
-        success: !1,
+        success: false,
         message: `${m} depends on ${R.join(", ")}, which ${k(R.length, "is", "are")} not installed. Install ${k(R.length, "it", "them")} first${z}`,
       };
     }
@@ -756,7 +756,7 @@ async function pe(e, t, s, i, r) {
         z = ne.map((N) => Ra("plugin enable", N)),
         D = z.every((N) => N !== null) ? `: ${z.join(" && ")}` : " in /plugin.";
       return {
-        success: !1,
+        success: false,
         message: `${m} depends on ${ne.join(", ")}, ${k(M, "a local copy that is", "local copies that are")} currently disabled. Enable ${k(M, "it", "them")} first${D}`,
       };
     }
@@ -765,7 +765,7 @@ async function pe(e, t, s, i, r) {
     if (ie.length > 0) {
       let { name: m } = Vt(_);
       return {
-        success: !1,
+        success: false,
         message: `${m} depends on ${ie.join(", ")}, which ${k(ie.length, "is", "are")} blocked by your organization's plugin policy. Ask an admin to allow ${k(ie.length, "it", "them")}.`,
       };
     }
@@ -776,7 +776,7 @@ async function pe(e, t, s, i, r) {
         if (ae[M] <= ae[v]) continue;
         let z = ye(Gv(M))?.enabledPlugins?.[m];
         if (z === void 0) continue;
-        if (z === !1) se.push({ dep: m, scope: M });
+        if (z === false) se.push({ dep: m, scope: M });
         break;
       }
     if (se.length > 0) {
@@ -785,7 +785,7 @@ async function pe(e, t, s, i, r) {
         z = te(se.map((N) => N.scope)),
         D = z.length === 1 ? `, or use --scope ${z[0]} to write where the override lives` : "";
       return {
-        success: !1,
+        success: false,
         message: `${m} depends on ${M}, which ${k(se.length, "is", "are")} disabled there. Enable ${k(se.length, "it", "them")} at that scope${D}.`,
       };
     }
@@ -794,11 +794,11 @@ async function pe(e, t, s, i, r) {
   }
   let { error: W } = await Os(
     G,
-    (A) => ({ enabledPlugins: { ...A?.enabledPlugins, [_]: t, ...Object.fromEntries(C.map((b) => [b, !0])) } }),
+    (A) => ({ enabledPlugins: { ...A?.enabledPlugins, [_]: t, ...Object.fromEntries(C.map((b) => [b, true])) } }),
     void 0,
     r,
   );
-  if (W) return { success: !1, message: `Failed to ${o} plugin: ${W.message}` };
+  if (W) return { success: false, message: `Failed to ${o} plugin: ${W.message}` };
   if ((Qu(r), t)) fNt([_, ...C], r), aWn([_, ...C], r);
   let { name: I } = Vt(_),
     re = zin(B),
@@ -807,7 +807,7 @@ async function pe(e, t, s, i, r) {
         ? ` (also enabled ${C.length} ${k(C.length, "dependency", "dependencies")}: ${C.map((A) => Vt(A).name).join(", ")})`
         : "";
   return {
-    success: !0,
+    success: true,
     message: `Successfully ${o}d plugin: ${I} (scope: ${v})${re}${f}`,
     pluginId: _,
     pluginName: I,
@@ -816,10 +816,10 @@ async function pe(e, t, s, i, r) {
   };
 }
 async function lke(e, t, s) {
-  return pe(e, !0, t, void 0, s);
+  return pe(e, true, t, void 0, s);
 }
 async function cke(e, t, s) {
-  return pe(e, !1, t, void 0, s);
+  return pe(e, false, t, void 0, s);
 }
 async function xMn(e) {
   let t = m1();
@@ -836,18 +836,18 @@ async function xMn(e) {
       .enabled.map((w) => w.source)
       .filter((w) => !(IS(w) ? v : _).has(w)),
     G = [...P, ...E];
-  if (t.size === 0 && G.length === 0) return { success: !0, message: "No enabled plugins to disable" };
+  if (t.size === 0 && G.length === 0) return { success: true, message: "No enabled plugins to disable" };
   let L = [],
     c = [];
   for (let [w] of t) {
-    let B = await pe(w, !1, void 0, { bypassDependentsBlock: !0 }, e);
+    let B = await pe(w, false, void 0, { bypassDependentsBlock: true }, e);
     if (B.success) L.push(w);
     else c.push(Oo(`${w}: ${B.message}`));
   }
   for (let w of G) {
     let { error: B } = await Os(
       "userSettings",
-      (C) => ({ enabledPlugins: { ...C?.enabledPlugins, [w]: !1 } }),
+      (C) => ({ enabledPlugins: { ...C?.enabledPlugins, [w]: false } }),
       void 0,
       e,
     );
@@ -857,12 +857,12 @@ async function xMn(e) {
   if (G.length > 0) Qu(e);
   if (c.length > 0)
     return {
-      success: !1,
+      success: false,
       message: `Disabled ${L.length} ${k(L.length, "plugin")}, ${c.length} failed:
 ${c.join(`
 `)}`,
     };
-  return { success: !0, message: `Disabled ${L.length} ${k(L.length, "plugin")}` };
+  return { success: true, message: `Disabled ${L.length} ${k(L.length, "plugin")}` };
 }
 async function hge(e, t, s = {}, i) {
   let r;
@@ -905,10 +905,10 @@ async function Ke(
   e,
   t,
   {
-    skipMarketplaceRefresh: s = !1,
-    skipCommandSources: i = !1,
+    skipMarketplaceRefresh: s = false,
+    skipCommandSources: i = false,
     announceCommandSource: r,
-    explicit: o = !1,
+    explicit: o = false,
     consentedEntryHelper: d,
     onEntryHelperDisclosure: P,
   },
@@ -944,7 +944,7 @@ async function Ke(
   if (B) (c = B), ({ marketplace: L } = Vt(c));
   let C = B ? w.plugins[B] : void 0,
     W,
-    I = !1;
+    I = false;
   if (Fd(c))
     return {
       outcome: "failed",
@@ -965,7 +965,7 @@ async function Ke(
       };
     if (!s && U && (U.source === "github" || U.source === "git" || U.source === "url"))
       try {
-        await ED(L, a, void 0, { skipIfRecent: !0 });
+        await ED(L, a, void 0, { skipIfRecent: true });
       } catch (K) {
         (I = K instanceof Ys),
           (W = I
@@ -1072,7 +1072,7 @@ async function Ke(
           newVersion: S.version,
           oldVersion: x,
           scope: t,
-          refreshFailed: W !== void 0 ? !0 : void 0,
+          refreshFailed: W !== void 0 ? true : void 0,
           refreshRefusedByPolicy: I || void 0,
         };
       else if (
@@ -1089,7 +1089,7 @@ async function Ke(
     Q,
     H,
     de,
-    ve = !1,
+    ve = false,
     ke,
     Re;
   if (typeof f.source !== "string") {
@@ -1135,7 +1135,7 @@ async function Ke(
           newVersion: x,
           oldVersion: x,
           scope: t,
-          refreshFailed: W !== void 0 ? !0 : void 0,
+          refreshFailed: W !== void 0 ? true : void 0,
           refreshRefusedByPolicy: I || void 0,
         };
       }
@@ -1185,7 +1185,7 @@ async function Ke(
           ? { kind: "shown", command: F, pluginId: c }
           : { kind: "recorded", command: aue() ? void 0 : S.sourceCommand, pluginId: c },
     });
-    (N = Z.path), (Q = Z.producerPath), (ve = !0), (ke = M?.sha ?? Z.gitCommitSha), (de = Z.manifest?.version);
+    (N = Z.path), (Q = Z.producerPath), (ve = true), (ke = M?.sha ?? Z.gitCommitSha), (de = Z.manifest?.version);
     let Pe = await JG(c, f.source, Z.manifest, Z.path, f.version, M?.sha ?? Z.gitCommitSha, Z.contentSha256);
     H = M && (Z.manifest?.version || f.version) ? `${Pe}-${M.sha.substring(0, 12)}` : Pe;
   } else {
@@ -1240,14 +1240,14 @@ async function Ke(
       U = H === "unknown",
       K = ice(c, H),
       Y = !U && (S.version === H || S.installPath === h || S.installPath === K),
-      q = !1;
+      q = false;
     if (Y && typeof f.source === "object" && f.source.source === "command") {
       let V = pC(S.installPath, { trustedRoots: ule(c, D, VA()) }),
         ee = V.absolute;
       q =
         V.suspect ||
         !(await (RF(f.source) ? Xze(ee) : ee.endsWith(".zip") ? $a(ee) : tte(ee, a))) ||
-        (RF(f.source) ? await Ge(ee, Q ?? S.sourceProducerPath) : await Xze(ee, { unclassifiableIsFarm: !0 }));
+        (RF(f.source) ? await Ge(ee, Q ?? S.sourceProducerPath) : await Xze(ee, { unclassifiableIsFarm: true }));
     }
     if (Y && !q) {
       if (
@@ -1275,7 +1275,7 @@ async function Ke(
         newVersion: H,
         oldVersion: x,
         scope: t,
-        refreshFailed: W !== void 0 ? !0 : void 0,
+        refreshFailed: W !== void 0 ? true : void 0,
         refreshRefusedByPolicy: I || void 0,
       };
     }
@@ -1314,12 +1314,12 @@ async function Ke(
       newVersion: H,
       oldVersion: x,
       scope: t,
-      refreshFailed: W !== void 0 ? !0 : void 0,
+      refreshFailed: W !== void 0 ? true : void 0,
       refreshRefusedByPolicy: I || void 0,
     };
   } finally {
     let h = cF(c, H);
-    if (ve && N !== h && !De(h).startsWith(De(N) + Ue)) await ne.rm(N, { recursive: !0, force: !0 });
+    if (ve && N !== h && !De(h).startsWith(De(N) + Ue)) await ne.rm(N, { recursive: true, force: true });
   }
 }
 async function uke(e, t, s) {
@@ -1429,13 +1429,13 @@ function Oe(e, t, s, i) {
     o = r ? ` (remove that entry, or add "${e}": true beside it)` : "";
   if (s === "policySettings")
     return {
-      success: !1,
+      success: false,
       message: t
         ? `Plugin "${e}" is blocked by your organization's policy${r} and cannot be enabled here \u2014 ask an admin${o}`
         : `Plugin "${e}" is turned on by your organization's managed settings and cannot be disabled here`,
     };
   return {
-    success: !1,
+    success: false,
     message: t
       ? `Plugin "${e}" is turned off by this session's --settings flag${r}, which overrides your settings files. Change it in --settings to enable it${o}.`
       : `Plugin "${e}" is turned on by this session's --settings flag, which overrides your settings files. Remove it from --settings to disable it.`,
@@ -1448,7 +1448,7 @@ function Je(e, t) {
     if (!s.has(i)) continue;
     let r = ye(i)?.enabledPlugins?.[e];
     if (r === void 0) continue;
-    return (r === !0) === t ? void 0 : i;
+    return (r === true) === t ? void 0 : i;
   }
   return;
 }
@@ -1492,15 +1492,15 @@ function Fe(e, t, s) {
 }
 var en = [...Is].reverse();
 var eB = "claude-cli";
-function xe(e, { allowNewlineAndTab: t = !1 } = {}) {
+function xe(e, { allowNewlineAndTab: t = false } = {}) {
   for (let s = 0; s < e.length; s++) {
     let i = e.charCodeAt(s);
     if (i <= 31 || (i >= 127 && i <= 159)) {
       if (t && (i === 10 || i === 9)) continue;
-      return !0;
+      return true;
     }
   }
-  return !1;
+  return false;
 }
 var nn = /^[\w.-]+\/[\w.-]+$/,
   Ne = 5000,
@@ -1524,7 +1524,7 @@ function CXt(e) {
     `
 `,
   );
-  if (xe(t, { allowNewlineAndTab: !0 })) throw Error("Deep link query contains disallowed control characters");
+  if (xe(t, { allowNewlineAndTab: true })) throw Error("Deep link query contains disallowed control characters");
   if (t.length > Ne) throw Error(`Deep link query exceeds ${Ne} characters (got ${t.length})`);
   return t;
 }

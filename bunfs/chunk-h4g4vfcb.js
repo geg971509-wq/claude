@@ -22,7 +22,7 @@ function LXn(e) {
 ${'Set `noop: true` if nothing changed \u2014 you checked and there\'s nothing to report ("no change", "still waiting", "quiet hold"). Set `noop: false` if something happened worth keeping \u2014 you edited a file, posted a message, advanced state, or surfaced a finding. Consecutive `noop: true` ticks are collapsed in the user\'s terminal view and tracked as a streak, so long quiet holds stay legible to the user without scrolling. Omit `noop` when stopping (`stop: true`).'}
 
 ${
-  e === !0
+  e === true
     ? `## Picking delaySeconds
 
 This session's requests use a 1-hour Anthropic prompt-cache TTL, so effectively every allowed delay (the runtime clamps to [60, 3600]) wakes up with your conversation context still cached. There is no cache cliff inside that range to pace around, and scheduling extra wakeups just to keep the cache warm is pure waste \u2014 never do that. (If the session enters usage overage, later requests drop to the 5-minute TTL; don't try to track or preempt that \u2014 the guidance here stays the same.)
@@ -34,7 +34,7 @@ Match the delay to what you're actually waiting for:
 - **Idle ticks with no specific signal to watch**: default to **1200s\u20131800s** (20\u201330 min). The loop still checks back regularly, and the user can always interrupt if they need you sooner.
 
 Don't think in cache windows \u2014 think about what you're actually waiting for.`
-    : e === !1
+    : e === false
       ? `## Picking delaySeconds
 
 This session's requests use the default 5-minute Anthropic prompt-cache TTL. Sleeping past 300 seconds means the next wake-up reads your full conversation context uncached \u2014 slower and more expensive. So the natural breakpoints:

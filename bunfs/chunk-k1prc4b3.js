@@ -172,15 +172,15 @@ function h(e, t) {
   return /^[A-Z]/.test(e) ? t.charAt(0).toUpperCase() + t.slice(1) : t;
 }
 function y(e) {
-  if (e.length < 2 || e.length > 16) return !1;
-  if (!/^[A-Za-z]+$/.test(e)) return !1;
-  if (e === e.toUpperCase()) return !1;
+  if (e.length < 2 || e.length > 16) return false;
+  if (!/^[A-Za-z]+$/.test(e)) return false;
+  if (e === e.toUpperCase()) return false;
   let t = e.toLowerCase();
-  if (w.has(t)) return !1;
-  if (Object.hasOwn(o, t)) return !0;
-  if (/ing$/i.test(e) && e.length > 4) return !1;
-  if (/ed$/i.test(e) && !/eed$/i.test(e) && e.length > 3) return !1;
-  if (/s$/i.test(e) && !/(ss|us)$/i.test(e) && e.length > 3) return !1;
+  if (w.has(t)) return false;
+  if (Object.hasOwn(o, t)) return true;
+  if (/ing$/i.test(e) && e.length > 4) return false;
+  if (/ed$/i.test(e) && !/eed$/i.test(e) && e.length > 3) return false;
+  if (/s$/i.test(e) && !/(ss|us)$/i.test(e) && e.length > 3) return false;
   return x.test(e) || /y/i.test(e);
 }
 var b = new Set([

@@ -176,15 +176,15 @@ function Plr(e) {
   return e === vJ || e === vm || e === ove;
 }
 function re(e) {
-  return { ok: !0, value: e };
+  return { ok: true, value: e };
 }
 function P(e) {
-  return { ok: !1, error: e };
+  return { ok: false, error: e };
 }
 class ue extends Error {
   constructor(e) {
     super("Result was an error (see .error)");
-    (this.name = "ResultError"), Object.defineProperty(this, "error", { value: e, enumerable: !1 });
+    (this.name = "ResultError"), Object.defineProperty(this, "error", { value: e, enumerable: false });
   }
 }
 function fkn(e) {
@@ -222,15 +222,15 @@ function hkn(e, t, r) {
   let i = T(e);
   for (let a of t.heldRoots ?? []) {
     let u = T(a);
-    if (i === u || bVt(i, u)) return !0;
+    if (i === u || bVt(i, u)) return true;
   }
   let o = T(t.globalConfigFile);
-  if (i === o || (H(i) === H(o) && N(i).startsWith(N(o) + "."))) return !0;
-  if (r?.configHomeRuleOff === !0) return !1;
+  if (i === o || (H(i) === H(o) && N(i).startsWith(N(o) + "."))) return true;
+  if (r?.configHomeRuleOff === true) return false;
   let s = T(t.configHome);
-  if (i === s) return r?.admitRoot !== !0;
-  if (!bVt(i, s)) return !1;
-  return !(r?.admitSanctionedFiles === !0 && H(i) === s && nt.includes(N(i)));
+  if (i === s) return r?.admitRoot !== true;
+  if (!bVt(i, s)) return false;
+  return !(r?.admitSanctionedFiles === true && H(i) === s && nt.includes(N(i)));
 }
 function bVt(e, t) {
   let r = t.endsWith(de) ? t : t + de;
@@ -290,7 +290,7 @@ function Olr(e, t, r) {
     return Fe("opts", "symlinks must be 'refuse' or 'through'");
   let a =
     R(o.refuseLinkedParent, "opts", "refuseLinkedParent") ??
-    (o.refuseLinkedParent === !0 && o.symlinks === "through"
+    (o.refuseLinkedParent === true && o.symlinks === "through"
       ? Fe("opts", "refuseLinkedParent cannot hold under symlinks 'through'")
       : void 0);
   if (a !== void 0 || o.stagingFolder === void 0) return a;
@@ -347,7 +347,7 @@ function M({
   flushIntervalMs: r = 1000,
   maxBufferSize: i = 100,
   maxBufferBytes: o = 1 / 0,
-  immediateMode: s = !1,
+  immediateMode: s = false,
 }) {
   let a = [],
     u = 0,
@@ -415,7 +415,7 @@ function it(e) {
 }
 class W {
   #e = new Set();
-  #t = !1;
+  #t = false;
   get drainStarted() {
     return this.#t;
   }
@@ -428,7 +428,7 @@ class W {
     return Object.assign(r, { [Symbol.dispose]: r });
   }
   async drain() {
-    this.#t = !0;
+    this.#t = true;
     let e = Array.from(this.#e);
     this.#e.clear();
     let r = (await Promise.allSettled(e.map(async (i) => i()))).find((i) => i.status === "rejected");
@@ -516,13 +516,13 @@ function at(e) {
   return Array.from(new Set(t));
 }
 function ut(e, t) {
-  if (!t) return !0;
-  if (e.length === 0) return !1;
+  if (!t) return true;
+  if (e.length === 0) return false;
   if (t.isExclusive) return !e.some((r) => t.exclude.includes(r));
   else return e.some((r) => t.include.includes(r));
 }
 function ye(e, t) {
-  if (!t) return !0;
+  if (!t) return true;
   let r = at(e);
   return ut(r, t);
 }
@@ -718,7 +718,7 @@ function* Oe(e, t) {
     }
     let m = k;
     if ((Bn(m) && !Ms(m) && I(m, r)) || (_r(m) && C(m, r)) || Z(m)) return a.shift(), xe(m, a, t?.onCollapsedLanding);
-    if (t?.surfaceNetworkRaw === !0 && oc(m)) return a.shift(), a.length === 0 ? m : m + l.sep + a.join(l.sep);
+    if (t?.surfaceNetworkRaw === true && oc(m)) return a.shift(), a.length === 0 ? m : m + l.sep + a.join(l.sep);
     a.shift();
     let S = l.parse(m).root || l.sep;
     (s = S), (a = [...m.slice(S.length).split(j).filter(Boolean), ...a]);
@@ -727,20 +727,20 @@ function* Oe(e, t) {
   return;
 }
 function Qo(e, t) {
-  if ((Bn(t) && !Ms(t)) || _r(t)) return { resolvedPath: t, isSymlink: !1, isCanonical: !1 };
+  if ((Bn(t) && !Ms(t)) || _r(t)) return { resolvedPath: t, isSymlink: false, isCanonical: false };
   let r = Kg(e, t);
-  if (r !== void 0) return { resolvedPath: r, isSymlink: !0, isCanonical: !1 };
+  if (r !== void 0) return { resolvedPath: r, isSymlink: true, isCanonical: false };
   try {
     let i = e.realpathSync(t);
-    return { resolvedPath: i, isSymlink: i !== t, isCanonical: !0 };
+    return { resolvedPath: i, isSymlink: i !== t, isCanonical: true };
   } catch (i) {
-    return { resolvedPath: t, isSymlink: !1, isCanonical: !1 };
+    return { resolvedPath: t, isSymlink: false, isCanonical: false };
   }
 }
 function O5(e, t, r) {
   let { resolvedPath: i } = Qo(e, t);
-  if (r.has(i)) return !0;
-  return r.add(i), !1;
+  if (r.has(i)) return true;
+  return r.add(i), false;
 }
 var Y = /(^|[\\/])\.\.([\\/]|$)/;
 function Tt(e, t = "darwin") {
@@ -756,11 +756,11 @@ function tx(e, t, r) {
       return Kg(e, t, { anchors: i, surfaceNetworkRaw: r?.surfaceNetworkRaw });
     return t;
   }
-  let o = Kg(e, t, r?.surfaceNetworkRaw === !0 ? { surfaceNetworkRaw: !0, anchors: i } : void 0);
+  let o = Kg(e, t, r?.surfaceNetworkRaw === true ? { surfaceNetworkRaw: true, anchors: i } : void 0);
   if (o !== void 0) return o;
   let s = t,
     a = [],
-    u = r?.surfaceDotDotTargets === !0,
+    u = r?.surfaceDotDotTargets === true,
     d = (c) => (a.length === 0 ? c : u && Y.test(c) ? [c, ...a].join(l.sep) : l.join(c, ...a));
   while (s !== l.dirname(s)) {
     let c, p;
@@ -772,8 +772,8 @@ function tx(e, t, r) {
     if (c !== void 0) {
       if (u && Y.test(c)) return d(l.isAbsolute(c) ? c : l.dirname(s) + l.sep + c);
       let g = l.isAbsolute(c) ? c : l.resolve(l.dirname(s), c);
-      if ((Bn(g) && !Ms(g)) || _r(g) || (r?.surfaceNetworkRaw === !0 && oc(g)))
-        return r?.surfaceNetworkRaw === !0 && a.length > 0 ? g + l.sep + a.join(l.sep) : d(g);
+      if ((Bn(g) && !Ms(g)) || _r(g) || (r?.surfaceNetworkRaw === true && oc(g)))
+        return r?.surfaceNetworkRaw === true && a.length > 0 ? g + l.sep + a.join(l.sep) : d(g);
       try {
         let h = e.realpathSync(s);
         return d(h);
@@ -793,7 +793,7 @@ function tx(e, t, r) {
             break;
           }
           let S = l.isAbsolute(y) ? (u ? Tt(y) : y) : l.resolve(l.dirname(h), y);
-          if ((Bn(S) && !Ms(S) && I(S, i)) || (_r(S) && C(S, i)) || (r?.surfaceNetworkRaw === !0 && oc(S))) {
+          if ((Bn(S) && !Ms(S) && I(S, i)) || (_r(S) && C(S, i)) || (r?.surfaceNetworkRaw === true && oc(S))) {
             h = S;
             break;
           }
@@ -810,8 +810,8 @@ function tx(e, t, r) {
           }
           (h = S), k++;
         }
-        if (k >= m && r?.surfaceNetworkRaw === !0) return D5;
-        return r?.surfaceNetworkRaw === !0 && a.length > 0 && ((Bn(h) && !Ms(h)) || _r(h) || oc(h))
+        if (k >= m && r?.surfaceNetworkRaw === true) return D5;
+        return r?.surfaceNetworkRaw === true && a.length > 0 && ((Bn(h) && !Ms(h)) || _r(h) || oc(h))
           ? h + l.sep + a.join(l.sep)
           : d(h);
       }
@@ -834,10 +834,10 @@ function ve(e) {
   return (Bn(e) && !Ms(e)) || ns(e) || JO(e);
 }
 function Skn(e) {
-  return Re(e, !1) ?? e;
+  return Re(e, false) ?? e;
 }
 function Blr(e) {
-  return Re(e, !0);
+  return Re(e, true);
 }
 function Re(e, t) {
   if (ve(e)) return e;
@@ -918,10 +918,10 @@ var _A = {
     return z(e);
   },
   async lstatBigint(e) {
-    return z(e, { bigint: !0 });
+    return z(e, { bigint: true });
   },
   async readdir(e) {
-    return yt(e, { withFileTypes: !0 });
+    return yt(e, { withFileTypes: true });
   },
   async unlink(e) {
     return Rt(e);
@@ -934,7 +934,7 @@ var _A = {
   },
   async mkdir(e, t) {
     try {
-      await mt(e, { recursive: !0, ...t });
+      await mt(e, { recursive: true, ...t });
     } catch (r) {
       if (E(r) !== "EEXIST") throw r;
     }
@@ -1042,7 +1042,7 @@ var _A = {
   },
   mkdirSync(e, t) {
     using r = Jd`fs.mkdirSync(${e})`;
-    let i = { recursive: !0 };
+    let i = { recursive: true };
     if (t?.mode !== void 0) i.mode = t.mode;
     try {
       f.mkdirSync(e, i);
@@ -1052,7 +1052,7 @@ var _A = {
   },
   readdirSync(e) {
     using t = Jd`fs.readdirSync(${e})`;
-    return f.readdirSync(e, { withFileTypes: !0 });
+    return f.readdirSync(e, { withFileTypes: true });
   },
   rmSync(e, t) {
     using r = Jd`fs.rmSync(${e})`;
@@ -1157,7 +1157,7 @@ async function* jlr(e, t = 65536) {
     s = [],
     a = 0;
   try {
-    while (!0) {
+    while (true) {
       let { bytesRead: u } = await r.read(i, 0, t, o);
       if (u === 0) break;
       o += u;
@@ -1415,7 +1415,7 @@ class He {
   displayRules = null;
   resultCache = new Map();
   scan(e) {
-    this.testRules ??= Ce(!1);
+    this.testRules ??= Ce(false);
     let t = [];
     for (let r of this.testRules)
       if (r.confidence === "high" && r.re.test(e))
@@ -1435,7 +1435,7 @@ class He {
       let i = this.resultCache.get(e);
       if (i !== void 0) return i;
     }
-    this.redactRules ??= Ce(!0);
+    this.redactRules ??= Ce(true);
     let r = Bt(e);
     for (let i of this.redactRules) r = r.replace(i.re, Ne);
     if (t) {
@@ -1533,7 +1533,7 @@ function $e(e) {
   return RP(e) ? null : Ve(e);
 }
 function We() {}
-var Xt = { sessionId: "", fromBackend: !1 };
+var Xt = { sessionId: "", fromBackend: false };
 function qlr(e, t, r, i) {
   let o = v(t, "debug"),
     s = v(o, `${e.sessionId}.txt`),
@@ -1561,7 +1561,7 @@ function Mwr(e, t = fe) {
 }
 async function ze(e, t, r, i) {
   let o = { namespace: "log", sessionId: t, channel: "debug" },
-    s = await U.run(!0, () => e.append(o, [{ data: r }], i ? { markLatest: !0 } : void 0));
+    s = await U.run(true, () => e.append(o, [{ data: r }], i ? { markLatest: true } : void 0));
   if (s.ok) return "landed";
   return i && s.error.code === "InvalidArgument" && s.error.argument === "opts.markLatest" ? "refused" : "dropped";
 }
@@ -1571,8 +1571,8 @@ class Glr {
   filter;
   toStderr;
   filePath;
-  runtimeDebugEnabled = !1;
-  hasFormattedOutput = !1;
+  runtimeDebugEnabled = false;
+  hasFormattedOutput = false;
   debugFromLaunch;
   storageV5;
   writer = null;
@@ -1580,16 +1580,16 @@ class Glr {
   pendingWrite = Promise.resolve();
   unflushedChunks = [];
   backendLinesLogged = 0;
-  exiting = !1;
-  exitHandlerRegistered = !1;
+  exiting = false;
+  exitHandlerRegistered = false;
   successor = null;
   writtenBytes = -1;
-  rotating = !1;
+  rotating = false;
   resolvedLogPath = null;
   overrideDirectory = null;
   rotationTarget = null;
-  latestMarked = !1;
-  latestRefused = !1;
+  latestMarked = false;
+  latestRefused = false;
   constructor(e) {
     this.deps = e;
     if (((this.storageV5 = Mwr(e.storageV5)), e.launchIdentity !== void 0)) {
@@ -1634,7 +1634,7 @@ class Glr {
     return this.runtimeDebugEnabled || this.debugFromLaunch;
   }
   drainsSyncAtExit() {
-    return !(O() && this.storageV5 !== void 0 && this.deps.syncExitDrain === !1);
+    return !(O() && this.storageV5 !== void 0 && this.deps.syncExitDrain === false);
   }
   launchIdentity() {
     return {
@@ -1649,7 +1649,7 @@ class Glr {
   }
   enableDebugLogging() {
     let e = this.isDebugMode() || this.deps.isAnt;
-    return (this.runtimeDebugEnabled = !0), e;
+    return (this.runtimeDebugEnabled = true), e;
   }
   logPath() {
     return (
@@ -1692,7 +1692,7 @@ class Glr {
     let t = this.getWriter(),
       r = Xt;
     if (this.storageV5 !== void 0) {
-      if (((r = { sessionId: this.deps.sessionId(), fromBackend: U.getStore() === !0 }), r.fromBackend))
+      if (((r = { sessionId: this.deps.sessionId(), fromBackend: U.getStore() === true }), r.fromBackend))
         this.backendLinesLogged++;
     }
     if ((t.write({ origin: r, content: e }), this.exiting)) t.flush();
@@ -1728,7 +1728,7 @@ class Glr {
       this.successor.handleExit();
       return;
     }
-    (this.exiting = !0), this.writer?.flush(), this.drainSync();
+    (this.exiting = true), this.writer?.flush(), this.drainSync();
   }
   async maybeRotate(e, t, r = Lwr) {
     let i = O() && this.storageV5 !== void 0 ? this.storageV5.hostFiles : void 0;
@@ -1742,7 +1742,7 @@ class Glr {
           .catch(() => 0);
     else this.writtenBytes += t;
     if (this.writtenBytes <= r || this.rotating) return;
-    this.rotating = !0;
+    this.rotating = true;
     try {
       let o = e.endsWith(".txt") ? `${e.slice(0, -4)}.1.txt` : `${e}.1`;
       if (i) {
@@ -1750,7 +1750,7 @@ class Glr {
           a = ne(o),
           u = await i.rename(s, a);
         if (!u.ok && !Qt(u.error)) {
-          if ((await i.delete(a, { missingOk: !0 }), !(await i.rename(s, a)).ok)) await i.delete(s, { missingOk: !0 });
+          if ((await i.delete(a, { missingOk: true }), !(await i.rename(s, a)).ok)) await i.delete(s, { missingOk: true });
         }
       } else
         try {
@@ -1760,13 +1760,13 @@ class Glr {
         }
       this.writtenBytes = 0;
     } finally {
-      this.rotating = !1;
+      this.rotating = false;
     }
   }
   shouldLog(e) {
-    if (this.deps.isTestEnvironment && !this.toStderr && this.filePath === null) return !1;
-    if (!this.deps.isAnt && !this.isDebugMode()) return !1;
-    if (typeof process > "u" || typeof process.versions > "u" || typeof process.versions.node > "u") return !1;
+    if (this.deps.isTestEnvironment && !this.toStderr && this.filePath === null) return false;
+    if (!this.deps.isAnt && !this.isDebugMode()) return false;
+    if (typeof process > "u" || typeof process.versions > "u" || typeof process.versions.node > "u") return false;
     return ye(e, this.filter);
   }
   resolveDirToFile(e) {
@@ -1777,7 +1777,7 @@ class Glr {
       await this.appendV5AndMark(this.storageV5, t, r);
       return;
     }
-    if (i) await Be(_(e.target), { recursive: !0 }).catch(() => {});
+    if (i) await Be(_(e.target), { recursive: true }).catch(() => {});
     let o = e;
     try {
       await ee(e.target, r);
@@ -1789,7 +1789,7 @@ class Glr {
           await this.appendV5AndMark(this.storageV5, t, r);
           return;
         }
-        await Be(_(o.target), { recursive: !0 }).catch(() => {});
+        await Be(_(o.target), { recursive: true }).catch(() => {});
         try {
           await ee(o.target, r);
         } catch {
@@ -1809,18 +1809,18 @@ class Glr {
       o = i && !this.latestMarked && !this.latestRefused,
       s = await ze(e, t.sessionId, r, o);
     if (s === "refused")
-      (this.latestRefused = !0),
-        (s = await ze(e, t.sessionId, r, !1)),
+      (this.latestRefused = true),
+        (s = await ze(e, t.sessionId, r, false)),
         this.log(
           "debug log: the storage backend refused markLatest; <debug folder>/latest is not pointed in this process",
           { level: "warn" },
         );
     if (s !== "landed") return;
-    if (o && !this.latestRefused) this.latestMarked = !0;
+    if (o && !this.latestRefused) this.latestMarked = true;
     else if (!i) this.markLatestSymlink();
   }
   markLatestSymlink() {
-    if (!this.latestMarked) (this.latestMarked = !0), this.updateLatestSymlink();
+    if (!this.latestMarked) (this.latestMarked = true), this.updateLatestSymlink();
   }
   shiftUnflushedChunk() {
     this.unflushedChunks.shift();
@@ -1873,7 +1873,7 @@ class Glr {
     if (this.storageV5 === void 0)
       return [
         {
-          decision: { target: this.logPath(), arm: "raw", configHome: "", rotate: !0, pointLatest: !0 },
+          decision: { target: this.logPath(), arm: "raw", configHome: "", rotate: true, pointLatest: true },
           origin: t.origin,
           lines: e,
         },
@@ -1946,7 +1946,7 @@ class Glr {
       }),
       !this.exitHandlerRegistered)
     )
-      (this.exitHandlerRegistered = !0), this.deps.onExit(this.handleExit.bind(this));
+      (this.exitHandlerRegistered = true), this.deps.onExit(this.handleExit.bind(this));
     return this.writer;
   }
   async updateLatestSymlink() {
@@ -1986,8 +1986,8 @@ function oe(e, t) {
     writeToStderr: (r) => {
       H4(r);
     },
-    isAnt: t?.isAnt ?? !1,
-    isTestEnvironment: t?.isTestEnvironment ?? !1,
+    isAnt: t?.isAnt ?? false,
+    isTestEnvironment: t?.isTestEnvironment ?? false,
     launchIdentity: t,
     storageV5: e.init.storageV5 !== void 0 && e.init.configHome === be() ? e.init.storageV5 : void 0,
     syncExitDrain: e.init.syncExitDrain,
@@ -2001,7 +2001,7 @@ function ER(e) {
     let i = oe(t, r.launchIdentity());
     t.setInstance(i), i.succeed(r);
   }
-  if (e.syncExitDrain === !1 && !w().drainsSyncAtExit())
+  if (e.syncExitDrain === false && !w().drainsSyncAtExit())
     n("Sync exit drain off for this process: debug lines still queued at exit are dropped, so this log may end short");
 }
 function w() {
@@ -2052,10 +2052,10 @@ function Ckn(e, t) {
   return e === w().defaultLogPath(t);
 }
 function MHr() {
-  return L().instance?.isArmed() ?? !1;
+  return L().instance?.isArmed() ?? false;
 }
 function NHr() {
-  return L().instance?.drainsSyncAtExit() ?? !0;
+  return L().instance?.drainsSyncAtExit() ?? true;
 }
 function wj(e, t) {
   return;

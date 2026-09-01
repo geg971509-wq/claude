@@ -719,11 +719,11 @@ function $t({
   debug: te,
   mainThreadAgentDefinition: ne,
   autoConnectIdeFlag: $e,
-  strictMcpConfig: Re = !1,
+  strictMcpConfig: Re = false,
   systemPrompt: Ue,
   appendSystemPrompt: ze,
   initialSearchQuery: Qe,
-  disableSlashCommands: Ve = !1,
+  disableSlashCommands: Ve = false,
   forkSession: U,
   filterByPr: N,
   thinkingConfig: Xe,
@@ -741,11 +741,11 @@ function $t({
     D = At(),
     no = wq(),
     [re, j] = u([]),
-    [Ae, Q] = u(!0),
-    [so, ro] = u(!1),
-    Me = C(!1),
+    [Ae, Q] = u(true),
+    [so, ro] = u(false),
+    Me = C(false),
     [be, Te] = u(null),
-    [P, io] = u(!1),
+    [P, io] = u(false),
     [L, ao] = u(null),
     [Le, lo] = u(null),
     [ve, co] = u(null),
@@ -756,7 +756,7 @@ function $t({
     ke = z(() => {
       let i = re.filter((m) => !m.isSidechain);
       if (N !== void 0) {
-        if (N === !0) i = i.filter((m) => m.prNumber !== void 0);
+        if (N === true) i = i.filter((m) => m.prNumber !== void 0);
         else if (typeof N === "number") i = i.filter((m) => m.prNumber === N);
         else if (typeof N === "string") {
           let m = Oo(N);
@@ -771,20 +771,20 @@ function $t({
     A(() => {
       ebe(S, void 0, void 0, g)
         .then((i) => {
-          (E.current = i), (V.current = i.logs.length), j(i.logs), Q(!1), y("screen_resume_conversation");
+          (E.current = i), (V.current = i.logs.length), j(i.logs), Q(false), y("screen_resume_conversation");
         })
         .catch((i) => {
-          p("screen_resume_conversation", "resume_conversation_load_failed"), h(i), Q(!1);
+          p("screen_resume_conversation", "resume_conversation_load_failed"), h(i), Q(false);
         });
     }, [S, g]);
-  let ie = C(!1),
+  let ie = C(false),
     Fe = B(
       (i) => {
         if (ie.current) return;
         let m = E.current;
         if (!m || m.nextIndex >= m.allStatLogs.length) return;
-        ie.current = !0;
-        let T = !1;
+        ie.current = true;
+        let T = false;
         ute(m.allStatLogs, m.nextIndex, i, g)
           .then((v) => {
             if (E.current !== m) return;
@@ -795,17 +795,17 @@ function $t({
               }),
                 j((f) => f.concat(v.logs)),
                 (V.current += v.logs.length);
-            } else if (m.nextIndex < m.allStatLogs.length) T = !0;
+            } else if (m.nextIndex < m.allStatLogs.length) T = true;
           })
           .finally(() => {
-            if (((ie.current = !1), T)) Fe(i);
+            if (((ie.current = false), T)) Fe(i);
           });
       },
       [g],
     ),
     ae = B(
       (i) => {
-        Q(!0);
+        Q(true);
         let m = ++X.current,
           T = E.current;
         (E.current = null),
@@ -822,7 +822,7 @@ function $t({
             })
             .finally(() => {
               if (X.current !== m) return;
-              Q(!1);
+              Q(false);
             });
       },
       [S, g],
@@ -836,7 +836,7 @@ function $t({
   }
   async function Co(i) {
     if (Me.current) return;
-    (Me.current = !0), ro(!0);
+    (Me.current = true), ro(true);
     let m = performance.now();
     try {
       let n = await ntt(i, P, S);
@@ -858,19 +858,19 @@ function $t({
       h(ft(we(n), "resume picker: pre-load failed")), Te({ sessionId: Jc(i) ?? void 0 });
       return;
     }
-    let T = !1,
+    let T = false,
       v = "load_error";
     try {
       let n = await NG(i, void 0, {
-        forkSession: U ?? !1,
+        forkSession: U ?? false,
         storageV5: g,
         credentials: ye,
         ...O7(x.precompute, g, { forkSession: !!U }),
       });
       if (!n)
         throw (
-          (s("tengu_session_resumed", { entrypoint: w("picker"), success: !1, failure_reason: w("not_found_picker") }),
-          (T = !0),
+          (s("tengu_session_resumed", { entrypoint: w("picker"), success: false, failure_reason: w("not_found_picker") }),
+          (T = true),
           Error("Failed to load conversation"))
         );
       v = "processing_error";
@@ -887,7 +887,7 @@ function $t({
       if (f) Gp(f, "resume", i.fullPath ? Po(i.fullPath) : null), await Iet(x, g), await JL();
       else if (M) {
         if (
-          (await ite(n, { stripWorktreeSession: !0, stripRelocatedCwd: !0, destSid: xe, storageV5: g }),
+          (await ite(n, { stripWorktreeSession: true, stripRelocatedCwd: true, destSid: xe, storageV5: g }),
           n.contentReplacements?.length)
         )
           await zSe(n.contentReplacements, void 0, g);
@@ -920,7 +920,7 @@ function $t({
       if (ce) D((l) => ({ ...l, standaloneAgentContext: ce }));
       if (
         (Zce(ce?.name, g, { autoOnly: !n.customTitle && !se?.name }),
-        rH(M ? kPe(n, { stripWorktreeSession: !0, stripRelocatedCwd: !0 }) : n, { taintSid: xe, storageV5: g }),
+        rH(M ? kPe(n, { stripWorktreeSession: true, stripRelocatedCwd: true }) : n, { taintSid: xe, storageV5: g }),
         Wqe(Hte(n), D),
         r8t(n.messages, D, no),
         iRe(x.host),
@@ -929,7 +929,7 @@ function $t({
         D((l) =>
           l.replBridgeEnabled && !l.replBridgeOutboundOnly
             ? l
-            : { ...l, replBridgeEnabled: !0, replBridgeOutboundOnly: !1 },
+            : { ...l, replBridgeEnabled: true, replBridgeOutboundOnly: false },
         );
       if (!M) {
         let l = SK(dL.of(x.host), n.worktreeSession, void 0, { storageV5: g });
@@ -940,7 +940,7 @@ function $t({
       }
       s("tengu_session_resumed", {
         entrypoint: w("picker"),
-        success: !0,
+        success: true,
         resume_duration_ms: Math.round(performance.now() - m),
       }),
         j([]),
@@ -957,7 +957,7 @@ function $t({
         let f = v;
         s("tengu_session_resumed", {
           entrypoint: w("picker"),
-          success: !1,
+          success: false,
           failure_reason: c(f),
           error_name: Oj(we(n)),
         });
@@ -1040,7 +1040,7 @@ function qe(Qt) {
     : "Run claude to start a new session.";
   let vo;
   if (Ie[2] !== Ne)
-    (vo = r(o, { flexDirection: "column", gap: 1, children: [wo, e(t, { dimColor: !0, children: Ne })] })),
+    (vo = r(o, { flexDirection: "column", gap: 1, children: [wo, e(t, { dimColor: true, children: Ne })] })),
       (Ie[2] = Ne),
       (Ie[3] = vo);
   else vo = Ie[3];
@@ -1064,7 +1064,7 @@ function Ge(Vt) {
     (de = r(o, { flexDirection: "column", children: [xo, r(t, { children: [" ", je] })] })), (G[3] = je), (G[4] = de);
   else de = G[4];
   let Do;
-  if (G[5] === d) (Do = e(t, { dimColor: !0, children: "(Command copied to clipboard)" })), (G[5] = Do);
+  if (G[5] === d) (Do = e(t, { dimColor: true, children: "(Command copied to clipboard)" })), (G[5] = Do);
   else Do = G[5];
   let _o;
   if (G[6] !== de) (_o = r(o, { flexDirection: "column", gap: 1, children: [Fo, de, Do] })), (G[6] = de), (G[7] = _o);
@@ -1098,10 +1098,10 @@ function We(Xt) {
       ? r(t, {
           children: [
             "Run ",
-            r(t, { bold: !0, children: ["claude attach ", b] }),
+            r(t, { bold: true, children: ["claude attach ", b] }),
             " to open it, or",
             " ",
-            r(t, { bold: !0, children: ["claude stop ", b] }),
+            r(t, { bold: true, children: ["claude stop ", b] }),
             " first to resume it here.",
           ],
         })
@@ -1116,7 +1116,7 @@ function We(Xt) {
       : r(t, {
           children: [
             "Run ",
-            e(t, { bold: !0, children: "claude agents" }),
+            e(t, { bold: true, children: "claude agents" }),
             " to find its id and attach to it, or run:",
           ],
         })),
@@ -1136,7 +1136,7 @@ function We(Xt) {
   else Ce = I[15];
   let he;
   if (I[16] !== b)
-    (he = b ? null : e(t, { dimColor: !0, children: "to branch off a copy." })), (I[16] = b), (I[17] = he);
+    (he = b ? null : e(t, { dimColor: true, children: "to branch off a copy." })), (I[16] = b), (I[17] = he);
   else he = I[17];
   let jo;
   if (I[18] !== ue || I[19] !== fe || I[20] !== Ce || I[21] !== he)

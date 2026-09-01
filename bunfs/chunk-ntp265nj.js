@@ -31,7 +31,7 @@ Everything else: keep working.`,
     tools: ["*"],
     source: "built-in",
     baseDir: "built-in",
-    appendSystemPrompt: !0,
+    appendSystemPrompt: true,
     getSystemPrompt: () => e,
   };
 export { zae };

@@ -79,7 +79,7 @@ function GYt(t, o) {
   let r = $Oe(t);
   return r ? { value: r } : null;
 }
-function g(t, o = !1) {
+function g(t, o = false) {
   if (!Gr()) return null;
   if (!ba()) return " (applied locally \u2014 this remote transport can\u2019t change server effort)";
   return (
@@ -98,7 +98,7 @@ async function _(t, o, n, r) {
     return {
       message: `${e} is session-scoped and won't reach the remote process. Use low, medium, high, or xhigh instead.`,
     };
-  n?.({ value: e, ultracode: !1 });
+  n?.({ value: e, ultracode: false });
   let u = g(i),
     m = await Gz(e, f, o, r);
   if (m) return { message: `Failed to set effort level: ${m.message}` };
@@ -109,26 +109,26 @@ async function _(t, o, n, r) {
     if (i === void 0)
       return {
         message: `Not applied: CLAUDE_CODE_EFFORT_LEVEL=${L} overrides effort this session, and ${PM(e)} is session-only (nothing saved)`,
-        effortUpdate: { value: e, ultracode: !1 },
+        effortUpdate: { value: e, ultracode: false },
       };
     return {
       message: `CLAUDE_CODE_EFFORT_LEVEL=${L} overrides this session \u2014 clear it and ${PM(e)} takes over`,
-      effortUpdate: { value: e, ultracode: !1 },
+      effortUpdate: { value: e, ultracode: false },
     };
   }
   if (!o && DM(f))
     return {
       message: `Not applied: the launch-effort pin holds effort at ${VD(f)} this session. Run /effort ${PM(e)} in an interactive terminal to release the pin.`,
-      effortUpdate: { value: e, ultracode: !1 },
+      effortUpdate: { value: e, ultracode: false },
     };
   let p = Ign(e),
     v = i !== void 0 && o && !Gr() ? " (saved as your default for new sessions)" : " (this session only)";
   if (l)
     return {
       message: `Effort '${t}' exceeds your organization's limit for ${f}; set to '${e}' instead${v}: ${p}${u ?? ""}`,
-      effortUpdate: { value: e, ultracode: !1 },
+      effortUpdate: { value: e, ultracode: false },
     };
-  return { message: `Set effort level to ${PM(e)}${v}: ${p}${u ?? ""}`, effortUpdate: { value: e, ultracode: !1 } };
+  return { message: `Set effort level to ${PM(e)}${v}: ${p}${u ?? ""}`, effortUpdate: { value: e, ultracode: false } };
 }
 function E2e(t, o, n) {
   if (jv(o, t, n))
@@ -145,7 +145,7 @@ function E2e(t, o, n) {
   return { message: `Current effort level: ${PM(e)} (${l})` };
 }
 async function x(t, o, n) {
-  o?.({ value: void 0, ultracode: !1 });
+  o?.({ value: void 0, ultracode: false });
   let r = g(void 0),
     f = await Gz(void 0, at(), t, n);
   if (f) return { message: `Failed to set effort level: ${f.message}` };
@@ -156,10 +156,10 @@ async function x(t, o, n) {
     let i = a.CLAUDE_CODE_EFFORT_LEVEL;
     return {
       message: `${t ? "Cleared effort from settings, but" : "Effort set to auto for this session, but"} CLAUDE_CODE_EFFORT_LEVEL=${i} still controls this session`,
-      effortUpdate: { value: void 0, ultracode: !1 },
+      effortUpdate: { value: void 0, ultracode: false },
     };
   }
-  return { message: `Effort level set to auto${e}${r ?? ""}`, effortUpdate: { value: void 0, ultracode: !1 } };
+  return { message: `Effort level set to auto${e}${r ?? ""}`, effortUpdate: { value: void 0, ultracode: false } };
 }
 function C(t, o, n) {
   let r = at();
@@ -176,22 +176,22 @@ function C(t, o, n) {
     return {
       message: `Not applied: the launch-effort pin holds effort at ${VD(r)} this session, and ultracode needs xhigh. Run /effort ultracode in an interactive terminal to release the pin.`,
     };
-  o?.({ value: "xhigh", ultracode: !0 });
-  let f = g("xhigh", !0);
+  o?.({ value: "xhigh", ultracode: true });
+  let f = g("xhigh", true);
   if (t) Mm(n);
   s("tengu_effort_command", { effort: w("ultracode"), is_remote: Gr() !== null });
   let e = Gr() ? void 0 : pH();
   if (e !== void 0 && e !== "xhigh")
     return {
       message: `CLAUDE_CODE_EFFORT_LEVEL=${a.CLAUDE_CODE_EFFORT_LEVEL} overrides effort this session \u2014 clear it and ultracode takes over`,
-      effortUpdate: { value: "xhigh", ultracode: !0 },
+      effortUpdate: { value: "xhigh", ultracode: true },
     };
   return {
     message: `Set effort level to ultracode (this session only): xhigh + dynamic workflow orchestration${f ?? ""}`,
-    effortUpdate: { value: "xhigh", ultracode: !0 },
+    effortUpdate: { value: "xhigh", ultracode: true },
   };
 }
-async function U(t, o = !0, n, r) {
+async function U(t, o = true, n, r) {
   let f = t.toLowerCase();
   if (f === "auto" || f === "unset") return x(o, n, r);
   if (f === "ultracode") return C(o, n, r);
@@ -199,20 +199,20 @@ async function U(t, o = !0, n, r) {
   if (!e) return { message: `Invalid argument: ${t}. Valid options are: ${E(at())}` };
   return _(e, o, n, r);
 }
-async function wse(t, o, n = !0, r) {
-  let f = !1,
+async function wse(t, o, n = true, r) {
+  let f = false,
     e = null,
     l = await U(
       t,
       n,
       (i) => {
-        f = !0;
+        f = true;
         let u = qz(i.value),
-          m = i.ultracode ?? !1;
+          m = i.ultracode ?? false;
         o((d) => {
           if (
-            ((e ??= { sessionEffort: d.sessionEffort, ultracode: d.ultracode ?? !1 }),
-            n3(d.sessionEffort, u) && (d.ultracode ?? !1) === m)
+            ((e ??= { sessionEffort: d.sessionEffort, ultracode: d.ultracode ?? false }),
+            n3(d.sessionEffort, u) && (d.ultracode ?? false) === m)
           )
             return d;
           return { ...d, sessionEffort: u, ultracode: m };
@@ -223,7 +223,7 @@ async function wse(t, o, n = !0, r) {
   if (f && !l.effortUpdate)
     o((i) => {
       if (e === null) return i;
-      if (n3(i.sessionEffort, e.sessionEffort) && (i.ultracode ?? !1) === e.ultracode) return i;
+      if (n3(i.sessionEffort, e.sessionEffort) && (i.ultracode ?? false) === e.ultracode) return i;
       return { ...i, sessionEffort: e.sessionEffort, ultracode: e.ultracode };
     });
   return l;

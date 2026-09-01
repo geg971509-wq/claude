@@ -35,7 +35,7 @@ async function qnn({ gitRoot: e, remoteName: i, revision: r, deadlineMs: t, sign
   let a = Date.now();
   if (Rt(o)) return { probedAtMs: a, durationMs: 0, verdict: _("aborted") };
   let d = Number.isFinite(t) ? Math.max(1, Math.floor(t)) : 1,
-    u = Ja(o, { timeoutMs: d, refTimer: !0 });
+    u = Ja(o, { timeoutMs: d, refTimer: true });
   try {
     let c = await yae(Xwe(e), u.signal);
     if (c === null)
@@ -44,17 +44,17 @@ async function qnn({ gitRoot: e, remoteName: i, revision: r, deadlineMs: t, sign
         durationMs: Date.now() - a,
         verdict:
           r === "HEAD" && !Rt(o)
-            ? { reason: "detached_head", diverged: !0, remote: null }
+            ? { reason: "detached_head", diverged: true, remote: null }
             : _(uWe(o, u.signal, "deadline")),
       };
     let s = cDt(c);
     if (s !== null)
-      return { probedAtMs: a, durationMs: Date.now() - a, verdict: { reason: s, diverged: !0, remote: null } };
+      return { probedAtMs: a, durationMs: Date.now() - a, verdict: { reason: s, diverged: true, remote: null } };
     if (r === "HEAD")
       return {
         probedAtMs: a,
         durationMs: Date.now() - a,
-        verdict: { reason: "detached_head", diverged: !0, remote: null },
+        verdict: { reason: "detached_head", diverged: true, remote: null },
       };
     let m = await V({ gitRoot: e, signal: u.signal, timeoutMs: d }, i, r);
     return {
@@ -73,7 +73,7 @@ async function V(e, i, r) {
   let t = await yae(q(e, `refs/remotes/${i}/${r}`), e.signal);
   if (t === null || "detail" in t) return B(t?.detail ?? "deadline or abort during the first reads");
   if (t.remoteSha === null)
-    return { reason: "remote_ref_unknown", diverged: !0, remote: null, fallback: await yae(X(e, t, i), e.signal) };
+    return { reason: "remote_ref_unknown", diverged: true, remote: null, fallback: await yae(X(e, t, i), e.signal) };
   let o = await yae(L(e, t, t.remoteSha), e.signal);
   if (o === null || "detail" in o) return B(o?.detail ?? "deadline or abort during the comparison");
   let { remote: a, head: d, headDiffers: u } = o,
@@ -89,8 +89,8 @@ async function V(e, i, r) {
               ? "head_behind_remote"
               : "head_not_at_remote";
   return c === "clean"
-    ? { reason: c, diverged: !1, remote: a, head: d }
-    : { reason: c, diverged: !0, remote: a, head: d };
+    ? { reason: c, diverged: false, remote: a, head: d }
+    : { reason: c, diverged: true, remote: a, head: d };
 }
 async function q(e, i) {
   let [r, t, o, a, d, u] = await Promise.all([
@@ -187,7 +187,7 @@ async function L(e, { headSha: i, headRecords: r, realRoot: t }, o) {
         C.filter((g) => g.status !== "D" && R(g, T)),
         (g) => g.path,
         () => null,
-        () => !0,
+        () => true,
       ).eligible.length,
       digestedPathCount: y.length,
       ...I,
@@ -249,7 +249,7 @@ function B(e) {
   return n(`dir-sync: local divergence probe failed (${e})`, { level: "warn" }), _("git");
 }
 function _(e) {
-  return { reason: "probe_failed", diverged: !1, remote: null, failure: e };
+  return { reason: "probe_failed", diverged: false, remote: null, failure: e };
 }
 function cDt(e) {
   if (e.kind !== "refused") return null;
@@ -273,24 +273,24 @@ async function Pb({ gitRoot: e, signal: i, timeoutMs: r }, t, o) {
   return qe(cH(), S(t), {
     cwd: e,
     env: a,
-    extendEnv: !1,
+    extendEnv: false,
     abortSignal: i,
     timeout: r,
     maxBuffer: Y,
-    preserveOutputOnError: !1,
+    preserveOutputOnError: false,
     ...(o === void 0 ? { stdin: "ignore" } : { input: o }),
   });
 }
 async function uDt({ gitRoot: e, signal: i, timeoutMs: r }, t, { input: o, limitBytes: a }) {
   let d = 0,
-    u = !1,
+    u = false,
     c = await H(e);
   if (c === null) return { bytes: d, overLimit: u };
   try {
     let s = oJ(cH(), S(t), {
       cwd: e,
       env: c,
-      extendEnv: !1,
+      extendEnv: false,
       signal: i,
       timeout: r,
       input: o,
@@ -299,7 +299,7 @@ async function uDt({ gitRoot: e, signal: i, timeoutMs: r }, t, { input: o, limit
     });
     s.stdin?.on("error", () => {}),
       s.stdout?.on("data", (b) => {
-        if (((d += b.length), !u && d > a)) (u = !0), s.kill();
+        if (((d += b.length), !u && d > a)) (u = true), s.kill();
       });
     let m = s.stdout ? W(s.stdout).catch(() => {}) : Promise.resolve(),
       p = await s;
@@ -354,7 +354,7 @@ function S(e) {
 }
 async function H(e) {
   let i = await Xwe(e),
-    r = i.kind === "pinned" ? x6t(i, { filterDriversOff: !1 }) : null;
+    r = i.kind === "pinned" ? x6t(i, { filterDriversOff: false }) : null;
   if (r === null) return null;
   return { ...gne(r), GIT_GRAFT_FILE: "/dev/null", GIT_NO_REPLACE_OBJECTS: "1" };
 }
@@ -367,7 +367,7 @@ async function yae(e, i) {
     return await Promise.race([
       e,
       new Promise((t) => {
-        if (((r = () => t(null)), i.addEventListener("abort", r, { once: !0 }), i.aborted)) t(null);
+        if (((r = () => t(null)), i.addEventListener("abort", r, { once: true }), i.aborted)) t(null);
       }),
     ]);
   } finally {
@@ -386,8 +386,8 @@ async function F(e, i, r, t, o) {
 function Q(e) {
   let i = e.split(/\r?\n/);
   if (i.length !== v.length) return null;
-  let r = i.map((t, o) => (w.test(t) ? !0 : t === `${v[o]} missing` ? !1 : null));
-  return r.includes(null) ? null : r.map((t) => t === !0);
+  let r = i.map((t, o) => (w.test(t) ? true : t === `${v[o]} missing` ? false : null));
+  return r.includes(null) ? null : r.map((t) => t === true);
 }
 function D(e) {
   let i = e.split("\x00");

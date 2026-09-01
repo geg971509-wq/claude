@@ -196,12 +196,12 @@ async function YDn(
 }
 function S(a, t) {
   let r = c.coerce(t);
-  if (!r) return !1;
+  if (!r) return false;
   return !Object.keys(d(a)).some((i) => {
     try {
       return ph(i, r.version);
     } catch {
-      return !1;
+      return false;
     }
   });
 }

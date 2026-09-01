@@ -28,13 +28,13 @@ var m = () => {
   ];
 };
 function b0t(t) {
-  if (t === null) return !1;
-  if (t.statusLine) return !0;
-  if (t.fileSuggestion) return !0;
-  if (t.subagentStatusLine) return !0;
-  if (!t.hooks) return !1;
-  for (let e of Object.values(t.hooks)) if (e.length > 0) return !0;
-  return !1;
+  if (t === null) return false;
+  if (t.statusLine) return true;
+  if (t.fileSuggestion) return true;
+  if (t.subagentStatusLine) return true;
+  if (!t.hooks) return false;
+  for (let e of Object.values(t.hooks)) if (e.length > 0) return true;
+  return false;
 }
 function tXt(
   t = {
@@ -191,7 +191,7 @@ function lXt() {
   return t;
 }
 function f(t) {
-  if (!t?.env) return !1;
+  if (!t?.env) return false;
   return Object.entries(t.env).some(([e, s]) => !WNe(e, s));
 }
 function cXt() {

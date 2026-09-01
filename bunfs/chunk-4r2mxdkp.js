@@ -359,7 +359,7 @@ function M(go) {
     { message: w, args: S, onDone: po } = go;
   Yn(po, 0);
   let u;
-  if (U[0] !== S) (u = r(t, { dimColor: !0, children: [L.pointer, " /add-dir ", S] })), (U[0] = S), (U[1] = u);
+  if (U[0] !== S) (u = r(t, { dimColor: true, children: [L.pointer, " /add-dir ", S] })), (U[0] = S), (U[1] = u);
   else u = U[1];
   let y;
   if (U[2] !== w) (y = e(Pe, { children: e(t, { children: w }) })), (U[2] = w), (U[3] = y);
@@ -373,7 +373,7 @@ function M(go) {
 async function co(m, i, c) {
   let C = (c ?? "").trim(),
     p = he(i),
-    D = async (s, h = !1) => {
+    D = async (s, h = false) => {
       let A = { type: "addDirectories", directories: [s], destination: h ? "localSettings" : "session" };
       i.setToolPermissionContext((a) => Uc(a, A));
       let P = Xm();
@@ -412,18 +412,18 @@ async function co(m, i, c) {
               value: v.join(`
 `),
               mode: "task-notification",
-              skipAttachments: !0,
+              skipAttachments: true,
               agentId: et(),
-              isMeta: !0,
+              isMeta: true,
             });
         })
         .catch((a) => {
           i.messageQueue.enqueuePendingNotification({
             value: `DirectoryAdded hook execution failed: ${a instanceof Error ? a.message : String(a)}`,
             mode: "task-notification",
-            skipAttachments: !0,
+            skipAttachments: true,
             agentId: et(),
-            isMeta: !0,
+            isMeta: true,
           });
         });
     };

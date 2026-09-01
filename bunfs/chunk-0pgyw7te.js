@@ -15,7 +15,7 @@ import { execFileSync as p } from "child_process";
 import { lstatSync as g } from "fs";
 import { join as m } from "path";
 function w() {
-  return !1;
+  return false;
 }
 class elr {
   resolved = new Map();
@@ -33,9 +33,9 @@ var Hwr = new J(() => new elr()),
   E = 5000;
 function u(e) {
   try {
-    return g(e, { throwIfNoEntry: !1 }) === void 0;
+    return g(e, { throwIfNoEntry: false }) === void 0;
   } catch {
-    return !1;
+    return false;
   }
 }
 var h = new Set([".com", ".exe", ".bat", ".cmd"]);
@@ -47,7 +47,7 @@ function b(e) {
     n = t.lastIndexOf(".");
   return n > 0 && h.has(t.slice(n));
 }
-function uVt(e, t = !1) {
+function uVt(e, t = false) {
   let n = Hwr.of(G().host),
     o = n.lookup(e);
   if (o !== void 0)
@@ -61,16 +61,16 @@ function uVt(e, t = !1) {
   let f = a.SYSTEMROOT || "C:\\Windows",
     c = m(f, "System32", "where.exe");
   try {
-    let i = p(c, [e], { stdio: "pipe", encoding: "utf8", timeout: E, windowsHide: !0, env: process.env })
+    let i = p(c, [e], { stdio: "pipe", encoding: "utf8", timeout: E, windowsHide: true, env: process.env })
         .trim()
         .split(/\r?\n/)
         .filter(Boolean),
       d = process.cwd(),
-      l = !1;
+      l = false;
     for (let r of i) {
       if (u(r)) continue;
       if (GCt(r, d)) {
-        l = !0;
+        l = true;
         continue;
       }
       if (!b(r)) continue;
@@ -84,13 +84,13 @@ function uVt(e, t = !1) {
   }
 }
 function v(e) {
-  if (e === null || typeof e !== "object") return !1;
+  if (e === null || typeof e !== "object") return false;
   let t = "status" in e ? e.status : void 0,
     n = "signal" in e ? e.signal : void 0,
     o = "code" in e ? e.code : void 0;
   return t === 1 && !n && !o;
 }
-function TP(e, t = !1) {
+function TP(e, t = false) {
   if (!w()) return e;
   if (e.includes("/") || e.includes("\\")) return e;
   return uVt(e, t);

@@ -125,11 +125,11 @@ class Age {
   #i = void 0;
   #m = Ue();
   #d = 0;
-  #s = !1;
-  #c = !0;
+  #s = false;
+  #c = true;
   #e = null;
   #t = null;
-  #a = !1;
+  #a = false;
   #o = 0;
   #n = null;
   #g;
@@ -142,12 +142,12 @@ class Age {
   subscribe = (t) => {
     let o = this.#m.subscribe(t);
     if ((this.#d++, !this.#s))
-      if (((this.#s = !0), this.#i === void 0)) this.#r();
+      if (((this.#s = true), this.#i === void 0)) this.#r();
       else (this.#e = setTimeout(() => void this.#r(), this.#l)), this.#e.unref();
-    let r = !1;
+    let r = false;
     return () => {
       if (r) return;
-      if (((r = !0), o(), this.#d--, this.#d === 0)) this.#y();
+      if (((r = true), o(), this.#d--, this.#d === 0)) this.#y();
     };
   };
   refetch = () => this.#r();
@@ -165,10 +165,10 @@ class Age {
     return this.#i;
   }
   #r() {
-    if ((this.#u(), this.#t)) return (this.#a = !0), this.#t;
+    if ((this.#u(), this.#t)) return (this.#a = true), this.#t;
     return (
       (this.#t = this.#h().finally(() => {
-        if (((this.#t = null), this.#a)) (this.#a = !1), this.#r();
+        if (((this.#t = null), this.#a)) (this.#a = false), this.#r();
       })),
       this.#t
     );
@@ -222,7 +222,7 @@ class Age {
     if (this.#n) clearTimeout(this.#n), (this.#n = null);
   }
   #y() {
-    this.#u(), (this.#a = !1), (this.#s = !1);
+    this.#u(), (this.#a = false), (this.#s = false);
   }
 }
 function LTr(t, o) {
@@ -311,7 +311,7 @@ var nr = m(() => Vo(or)),
       kind: T.literal("loop").optional(),
       scheduledFor: T.number().optional(),
       reason: T.string().optional(),
-      keepalive: T.literal(!0).optional(),
+      keepalive: T.literal(true).optional(),
     }),
   ),
   ir = m(() =>
@@ -381,7 +381,7 @@ async function jXt(t, o) {
         } catch {}
         return null;
       },
-      f = !1;
+      f = false;
     try {
       if (Qi(i) || ns(i)) throw Error("network-spelled output path");
       if (Kg(_A, i) !== void 0) throw Error("output path traverses a junction to remote UNC");
@@ -395,7 +395,7 @@ async function jXt(t, o) {
       }
       let v = await Se(i),
         M = await me(v);
-      f = !0;
+      f = true;
       let x = await Se(l).catch(() => l);
       if (!v.startsWith(x + $t)) {
         if (
@@ -407,7 +407,7 @@ async function jXt(t, o) {
         let W = ve(l, "rerooted", `${t.id}.output`),
           H;
         try {
-          H = await Fk(W, [W], { createParents: !0, leaf: "replace" });
+          H = await Fk(W, [W], { createParents: true, leaf: "replace" });
         } catch {
           return await k("reroot directory not trustworthy");
         }
@@ -547,17 +547,17 @@ async function r2e(t, o) {
       .filter((P) => MP(P) && P.frameLive !== void 0 && N.has(P.frameLive.slug))
       .map((P) => P.id);
   if (S.length === 0 && v.length === 0 && M.length === 0 && f.length === 0 && x.length === 0) return null;
-  let W = !1,
-    H = !1,
+  let W = false,
+    H = false,
     j = (P) => {
       if (H) return;
-      (H = !0), U6e(N), kot(N);
+      (H = true), U6e(N), kot(N);
       let L = new Set(I);
       if (N.size > 0) {
         for (let K of Object.values(P.all()))
           if (Ev(K) && K.status === "running" && K.frameLive !== void 0 && N.has(K.frameLive.slug)) L.add(K.id);
       }
-      for (let K of L) em(K, P, { quiet: !0 });
+      for (let K of L) em(K, P, { quiet: true });
     };
   return {
     payload: {
@@ -601,7 +601,7 @@ async function r2e(t, o) {
     },
     abandon: () => {
       if (W) return;
-      W = !0;
+      W = true;
       for (let P of i)
         try {
           P.shellCommand?.kill();
@@ -711,7 +711,7 @@ async function zXt(t, o = {}) {
   let r = ve(t, "adopt.json"),
     i = `${r}.${process.pid}`,
     l = Date.now() + (o.waitMs ?? 0),
-    k = !1;
+    k = false;
   for (;;)
     try {
       k = await Ii(r, i);
@@ -755,7 +755,7 @@ async function zXt(t, o = {}) {
           ...(x.data.origin !== void 0 && { origin: x.data.origin }),
           shells: [],
           cron: [],
-          frameLive: I.map((W) => ({ ...W, writtenAtMs: W.writtenAtMs ?? x.data.writtenAtMs, stale: !0 })),
+          frameLive: I.map((W) => ({ ...W, writtenAtMs: W.writtenAtMs ?? x.data.writtenAtMs, stale: true })),
         }
       );
     }
@@ -763,7 +763,7 @@ async function zXt(t, o = {}) {
       let I = x.data.frameLive.map((H) => {
           let j = H.writtenAtMs ?? x.data.writtenAtMs,
             P = f - j;
-          return P >= -Gur && P <= Cge ? { ...H, writtenAtMs: j } : { ...H, writtenAtMs: j, stale: !0 };
+          return P >= -Gur && P <= Cge ? { ...H, writtenAtMs: j } : { ...H, writtenAtMs: j, stale: true };
         }),
         W = Q(I, (H) => "stale" in H);
       if (W > 0) n(`[adopt] ${W}/${I.length} frameLive entries marked stale`, { level: "warn" });
@@ -872,7 +872,7 @@ async function mr(t, o, r) {
         code: "ADOPT_IDENTITY_MISMATCH",
       });
     let k = await ot(o, "wx", wy),
-      f = !1;
+      f = false;
     try {
       let S = Buffer.allocUnsafe(ur);
       for (;;) {
@@ -891,7 +891,7 @@ async function mr(t, o, r) {
           n(`[adopt] copied file keeps fresh timestamps (${E(x) ?? "error"})`, { level: "warn" });
         }),
         await k.close(),
-        (f = !0),
+        (f = true),
         { dev: v, ino: M }
       );
     } finally {
@@ -994,7 +994,7 @@ async function hr(t) {
     })) === t.transcriptPath
   )
     return { forkedSkillNameFromSidecar: l };
-  if ((await Kt(Re(o), { recursive: !0 }), i))
+  if ((await Kt(Re(o), { recursive: true }), i))
     await pe(i.fork.provenanceMarker).catch(() => {}),
       await uFt(i.fork.provenanceMarker, t.forkedSkillName ?? l),
       await pe(i.fork.scoping).catch(() => {}),
@@ -1076,7 +1076,7 @@ async function Sr(t, o) {
     return;
   });
   if (M !== void 0 && ve(M, Ve(r)) === t.transcriptPath) return { forkedSkillNameFromSidecar: S, method: "noop" };
-  if ((await Kt(Re(r), { recursive: !0 }), f))
+  if ((await Kt(Re(r), { recursive: true }), f))
     await pe(f.fork.provenanceMarker).catch(() => {}),
       await uFt(f.fork.provenanceMarker, t.forkedSkillName ?? S),
       await pe(f.fork.scoping).catch(() => {}),
@@ -1094,7 +1094,7 @@ async function Sr(t, o) {
     I = await Ht(i(r), i(t.transcriptPath), k, o, N),
     W;
   try {
-    W = await Ht(r, t.transcriptPath, l, o, !0);
+    W = await Ht(r, t.transcriptPath, l, o, true);
   } catch (j) {
     if (I.created !== null) {
       let P = I.created;
@@ -1142,7 +1142,7 @@ async function tYt({ storageV5: t, linkFn: o = Wo } = {}) {
 async function Ar(t, o) {
   let r;
   try {
-    r = await Xn(t, { withFileTypes: !0 });
+    r = await Xn(t, { withFileTypes: true });
   } catch {
     return;
   }
@@ -1279,28 +1279,28 @@ async function Lo(t) {
   return o.subarray(0, r);
 }
 function Pr(t, o) {
-  if (t[0] !== "{") return !1;
+  if (t[0] !== "{") return false;
   let r = `"agentId":"${o}"`,
     i = 0,
-    l = !1,
-    k = !1;
+    l = false,
+    k = false;
   for (let f = 0; f < t.length; f++) {
     let S = t[f];
     if (l) {
-      if (k) k = !1;
-      else if (S === "\\") k = !0;
-      else if (S === '"') l = !1;
+      if (k) k = false;
+      else if (S === "\\") k = true;
+      else if (S === '"') l = false;
       continue;
     }
     if (S === "{" || S === "[") i++;
     else if (S === "}" || S === "]") {
-      if ((i--, i === 0)) return !1;
+      if ((i--, i === 0)) return false;
     } else if (S === '"') {
-      if (i === 1 && t.startsWith(r, f) && (t[f - 1] === "{" || t[f - 1] === ",")) return !0;
-      l = !0;
+      if (i === 1 && t.startsWith(r, f) && (t[f - 1] === "{" || t[f - 1] === ",")) return true;
+      l = true;
     }
   }
-  return !1;
+  return false;
 }
 async function No(t, o, r, i, { besideDir: l } = {}) {
   let k = ve(t, o),
@@ -1337,7 +1337,7 @@ async function _r(t, o) {
   return l === void 0 ? null : `transcript ${l}`;
 }
 async function Oo(t, o) {
-  return (await Ht(t.linkPath, t.real, t.gate, o, !0)).method;
+  return (await Ht(t.linkPath, t.real, t.gate, o, true)).method;
 }
 function nYt(t) {
   return kge(t.pid, t.startTimeTicks, t.procStart);
@@ -1351,7 +1351,7 @@ async function rYt(t) {
     })) === t.transcriptDir
   )
     return;
-  await $o(ve(t.transcriptDir, "journal.jsonl")), await Kt(Re(o), { recursive: !0 });
+  await $o(ve(t.transcriptDir, "journal.jsonl")), await Kt(Re(o), { recursive: true });
   try {
     await pe(o);
   } catch (r) {
@@ -1359,7 +1359,7 @@ async function rYt(t) {
       try {
         await er(o);
       } catch (l) {
-        if (E(l) === "ENOTEMPTY") await Zn(o, { recursive: !0, force: !0 });
+        if (E(l) === "ENOTEMPTY") await Zn(o, { recursive: true, force: true });
       }
   }
   await Ho(t.transcriptDir, o, void 0);
@@ -1381,7 +1381,7 @@ function tt(t, o, r, i = et()) {
 </${Ol}>`,
     agentId: i,
     mode: "task-notification",
-    skipAttachments: !0,
+    skipAttachments: true,
     priority: "next",
     taskId: t,
   }),
@@ -1393,7 +1393,7 @@ function oYt(t) {
   return o.data;
 }
 function uHt(t) {
-  return t.mcp.clientsInitialized === !0 && !t.mcp.clients.some((o) => o.type === "pending");
+  return t.mcp.clientsInitialized === true && !t.mcp.clients.some((o) => o.type === "pending");
 }
 function iYt(t) {
   let o = t.parentAgentId !== void 0,
@@ -1444,7 +1444,7 @@ function pL(t) {
           f.workflowRunId !== void 0 &&
           f.abortController !== void 0
         );
-      return !1;
+      return false;
     },
     k = (f, S) => {
       S.push(f.id);
@@ -1461,19 +1461,19 @@ function pL(t) {
   return o;
 }
 function aYt(t, o) {
-  return Zg(t) && (o.get(t.id) ?? !1);
+  return Zg(t) && (o.get(t.id) ?? false);
 }
 function $K(t, o) {
-  return BK() && (t.agentId === void 0 || (o.get(t.agentId) ?? !1));
+  return BK() && (t.agentId === void 0 || (o.get(t.agentId) ?? false));
 }
 function lYt(t, o) {
-  return Cr(t) && (o.get(t.id) ?? !1);
+  return Cr(t) && (o.get(t.id) ?? false);
 }
 function dHt(t, o) {
-  return Cit(t) && (o.get(t.id) ?? !1);
+  return Cit(t) && (o.get(t.id) ?? false);
 }
 function IQ(t, o) {
-  return o.get(t.id) ?? !1;
+  return o.get(t.id) ?? false;
 }
 function Rge(t, o = pL(t)) {
   let r = Zj(t);
@@ -1533,18 +1533,18 @@ function oB() {
     agentNameRegistry: new Map(),
     sendMessagePins: {},
     agentTypesInvokedThisSession: new Set(),
-    verbose: !1,
-    showMessageTimestamps: !1,
+    verbose: false,
+    showMessageTimestamps: false,
     mainLoopModel: null,
     mainLoopModelForSession: null,
-    isBriefOnly: !1,
-    slackTagConnected: !1,
-    briefTranscript: !1,
-    replBridgeEnabled: !1,
-    replBridgeExplicit: !1,
-    replBridgeOutboundOnly: !1,
-    replBridgeSessionActive: !1,
-    replBridgeSkipNextArchive: !1,
+    isBriefOnly: false,
+    slackTagConnected: false,
+    briefTranscript: false,
+    replBridgeEnabled: false,
+    replBridgeExplicit: false,
+    replBridgeOutboundOnly: false,
+    replBridgeSessionActive: false,
+    replBridgeSkipNextArchive: false,
     replBridgeSessionGroupingId: void 0,
     toolPermissionContext: { ...pm(), mode: o },
     attentionBudget: Ylt,
@@ -1555,7 +1555,7 @@ function oB() {
     fileHistory: { snapshots: [], trackedFiles: new Set(), snapshotSequence: 0 },
     attribution: $ye(),
     mcp: {
-      clientsInitialized: !1,
+      clientsInitialized: false,
       clients: [],
       tools: [],
       commands: [],
@@ -1571,17 +1571,17 @@ function oB() {
       errors: [],
       warnings: [],
       installationStatus: { marketplaces: [], plugins: [] },
-      needsRefresh: !1,
+      needsRefresh: false,
     },
     todos: {},
     queuedRemoteNotifications: { pending: [], drainedIds: [], nudge: null },
-    prResolvedThisSession: !1,
+    prResolvedThisSession: false,
     frameUrls: {},
     frameOpenFailedPath: null,
-    frameOpenFailedSeen: !1,
-    artifactWatchApproved: !1,
-    artifactDbWriteApproved: !1,
-    artifactDbWriteHumanApproved: !1,
+    frameOpenFailedSeen: false,
+    artifactWatchApproved: false,
+    artifactDbWriteApproved: false,
+    artifactDbWriteHumanApproved: false,
     artifactDbReadConsentSlugs: rot,
     artifactDbReadHumanConsentSlugs: oot,
     artifactReadConsentSlugs: iot,
@@ -1590,10 +1590,10 @@ function oB() {
     artifactAssetReadConsentSlugs: sot,
     artifactAssetReadHumanConsentSlugs: aot,
     artifactRoomJoinConsentSlugs: phe,
-    artifactReadPageDataApproved: !1,
-    artifactReadPageDataHumanApproved: !1,
+    artifactReadPageDataApproved: false,
+    artifactReadPageDataHumanApproved: false,
     artifactPlanPublishConsentPaths: not,
-    ultrareviewOverageConfirmed: !1,
+    ultrareviewOverageConfirmed: false,
     elicitation: { queue: [] },
     thinkingEnabled: rN(),
     promptSuggestionEnabled: dpt(),
@@ -1611,7 +1611,7 @@ function oB() {
     settingsEffortTable: { default: void 0, byModel: {} },
     ultracode: void 0,
     cacheMissAckedAtOutputTokens: -1,
-    fastMode: !1,
+    fastMode: false,
     storedImagePaths: new Map(),
     imageDescriptions: new Map(),
     classifierApprovals: { approvals: new Map(), checking: new Set() },
@@ -1626,11 +1626,11 @@ function i2e() {
     taskDecorations: {},
     statusLineText: void 0,
     prStatus: null,
-    prNeedsAuth: !1,
+    prNeedsAuth: false,
     expandedView: "none",
     replTab: "convo",
     panelFileView: null,
-    diffPanelVisible: !1,
+    diffPanelVisible: false,
     coordinatorTaskIndex: -1,
     workflowFooterIndex: 0,
     viewSelectionMode: "none",
@@ -1642,10 +1642,10 @@ function i2e() {
     remoteConnectionStatus: "connecting",
     remoteBootstrap: null,
     remoteBackgroundTaskCount: 0,
-    hasRemoteReplyChannel: !1,
-    replBridgeAutoOnByDefault: !1,
-    replBridgeConnected: !1,
-    replBridgeReconnecting: !1,
+    hasRemoteReplyChannel: false,
+    replBridgeAutoOnByDefault: false,
+    replBridgeConnected: false,
+    replBridgeReconnecting: false,
     replBridgeConnectUrl: void 0,
     replBridgeSessionUrl: void 0,
     replBridgeEnvironmentId: void 0,
@@ -1669,7 +1669,7 @@ function i2e() {
     notifications: { current: null, queue: [], pinned: [] },
     autoUpdaterResult: null,
     frameNavPath: null,
-    frameExpanded: !1,
+    frameExpanded: false,
     authVersion: 0,
     activeOverlays: new Set(),
   };
@@ -1792,13 +1792,13 @@ function kt(Ka) {
     Nr;
   if (sn[1] !== yt || sn[2] !== Fe)
     (Lr = () => {
-      let Or = !1;
+      let Or = false;
       let qa =
         O() && yt !== void 0
           ? BC(async () => {
               let Br = Fe.getAll();
               if (Object.keys(Br).length > 0) await jc((Va) => ({ ...Va, lastSessionMetrics: Br }), yt);
-              Or = !0;
+              Or = true;
             })
           : void 0;
       let Wr = () => {
@@ -1835,10 +1835,10 @@ class Vt extends R8 {
   isChordCompletion;
   origin;
   constructor(t, o) {
-    super("action", { bubbles: !0, cancelable: !0 });
+    super("action", { bubbles: true, cancelable: true });
     (this.action = t),
       (this.sourceEvent = o?.sourceEvent ?? null),
-      (this.isChordCompletion = o?.isChordCompletion ?? !1),
+      (this.isChordCompletion = o?.isChordCompletion ?? false),
       (this.origin = o?.origin ?? "single");
   }
   consume() {
@@ -1967,15 +1967,15 @@ function bn(Tl) {
     (Gr = (Rl, Pl, _l, El) => {
       for (const xl of dn.current) {
         try {
-          if (xl.handler(Rl, Pl, _l) === !0) {
-            return El(), !0;
+          if (xl.handler(Rl, Pl, _l) === true) {
+            return El(), true;
           }
         } catch (Jt) {
           let Cl = Jt;
           h(Cl);
         }
       }
-      return !1;
+      return false;
     }),
       (Le[1] = dn),
       (Le[2] = Gr);
@@ -1984,7 +1984,7 @@ function bn(Tl) {
     Jt;
   if (Le[3] !== qt || Le[4] !== _e || Le[5] !== it || Le[6] !== Ee || Le[7] !== qe || Le[8] !== fe)
     (Jt = (Vr, Ml, Dl, Il, st, At) => {
-      let Fl = At === void 0 ? !1 : At;
+      let Fl = At === void 0 ? false : At;
       let Tt = it.current;
       let qr = new Set();
       if (Tt) {
@@ -2044,7 +2044,7 @@ function bn(Tl) {
             (Rt = Xr.type === "match" ? Xr.action : null), Qr.set(at.context, Rt);
           }
           if (Rt === at.action) {
-            if (at.handler() !== !1) {
+            if (at.handler() !== false) {
               he(Rt), st();
               return;
             }
@@ -2075,17 +2075,17 @@ function bn(Tl) {
       let eo = cn;
       let ue = ci;
       if (eo.swallowAll.size > 0) {
-        ue(null, !0), be();
+        ue(null, true), be();
         return;
       }
       if (Ee.current !== null && bt.current === "legacy") {
-        ue(null, !1), Ne(xe, Oe, Be, je, be);
+        ue(null, false), Ne(xe, Oe, Be, je, be);
         return;
       }
       let pn = wn(ze.target);
       let fn = Ee.current !== null && bt.current === "scopeChain";
       if (pn.length === 0 && eo.preemptiveScopes.size === 0 && !fn) {
-        ue(null, !1), Ne(xe, Oe, Be, je, be);
+        ue(null, false), Ne(xe, Oe, Be, je, be);
         return;
       }
       let $e = ct(ze.target);
@@ -2093,8 +2093,8 @@ function bn(Tl) {
         let $l = [...eo.preemptiveScopes.keys(), "Global"];
         let to = qOe(xe, $l, _e, null);
         if (to.type === "match" && $e) {
-          if (Ye($e, ze, to.action, !1, ze.type === "wheel" ? "wheel" : "single")) {
-            ue(to.action, !0), he(to.action);
+          if (Ye($e, ze, to.action, false, ze.type === "wheel" ? "wheel" : "single")) {
+            ue(to.action, true), he(to.action);
             return;
           }
         }
@@ -2102,7 +2102,7 @@ function bn(Tl) {
       if (fn) {
         let Ce = qOe(xe, zt.current, _e, Ee.current);
         if (Ce.type === "chord_started") {
-          (bt.current = "scopeChain"), fe(Ce.pending), be(), ue(null, !0);
+          (bt.current = "scopeChain"), fe(Ce.pending), be(), ue(null, true);
           return;
         }
         if (Ce.type === "match") {
@@ -2111,57 +2111,57 @@ function bn(Tl) {
           (Yt.current = null), (zt.current = []);
           let Zr = mn && $e && EB(mn, fxe($e)) ? mn : $e;
           if (Zr) {
-            if (Ye(Zr, ze, Ce.action, !0, "chord")) {
-              ue(Ce.action, !0), he(Ce.action);
+            if (Ye(Zr, ze, Ce.action, true, "chord")) {
+              ue(Ce.action, true), he(Ce.action);
               return;
             }
           }
-          let ei = !1;
+          let ei = false;
           let ti = it.current?.get(Ce.action);
           if (ti) {
             for (const Hl of ti) {
-              Hl.handler(), he(Ce.action), be(), (ei = !0);
+              Hl.handler(), he(Ce.action), be(), (ei = true);
               break;
             }
           }
           ue(Ce.action, ei);
           return;
         }
-        (Yt.current = null), (zt.current = []), ue(null, !1), Ne(xe, Oe, Be, je, be);
+        (Yt.current = null), (zt.current = []), ue(null, false), Ne(xe, Oe, Be, je, be);
         return;
       }
       let He = qOe(xe, pn, _e, null);
       switch (He.type) {
         case "chord_started": {
-          (zt.current = pn), (Yt.current = $e ?? null), (bt.current = "scopeChain"), fe(He.pending), be(), ue(null, !0);
+          (zt.current = pn), (Yt.current = $e ?? null), (bt.current = "scopeChain"), fe(He.pending), be(), ue(null, true);
           return;
         }
         case "match": {
           if (!$e) {
-            ue(He.action, !1), Ne(xe, Oe, Be, je, be);
+            ue(He.action, false), Ne(xe, Oe, Be, je, be);
             return;
           }
           if (qe(Oe, Be, je, be)) {
-            fe(null), ue(He.action, !0);
+            fe(null), ue(He.action, true);
             return;
           }
-          if (Ye($e, ze, He.action, !1, ze.type === "wheel" ? "wheel" : "single")) {
-            fe(null), ue(He.action, !0), he(He.action);
+          if (Ye($e, ze, He.action, false, ze.type === "wheel" ? "wheel" : "single")) {
+            fe(null), ue(He.action, true), he(He.action);
             return;
           }
-          ue(He.action, !1), Ne(xe, Oe, Be, je, be, !0);
+          ue(He.action, false), Ne(xe, Oe, Be, je, be, true);
           return;
         }
         case "unbound": {
           if (qe(Oe, Be, je, be)) {
-            fe(null), ue(null, !0);
+            fe(null), ue(null, true);
             return;
           }
-          fe(null), ue(null, !1);
+          fe(null), ue(null, false);
           return;
         }
         default: {
-          ue(null, !1), Ne(xe, Oe, Be, je, be);
+          ue(null, false), Ne(xe, Oe, Be, je, be);
           return;
         }
       }
@@ -2198,28 +2198,28 @@ function bn(Tl) {
         ctrl: ke.ctrl,
         shift: ke.shift,
         meta: ke.meta,
-        superKey: !1,
+        superKey: false,
       };
       let ql = {
-        upArrow: !1,
-        downArrow: !1,
-        leftArrow: !1,
-        rightArrow: !1,
-        pageDown: !1,
-        pageUp: !1,
+        upArrow: false,
+        downArrow: false,
+        leftArrow: false,
+        rightArrow: false,
+        pageDown: false,
+        pageUp: false,
         wheelUp: ke.deltaY < 0,
         wheelDown: ke.deltaY > 0,
-        home: !1,
-        end: !1,
-        return: !1,
-        escape: !1,
-        tab: !1,
-        backspace: !1,
-        delete: !1,
+        home: false,
+        end: false,
+        return: false,
+        escape: false,
+        tab: false,
+        backspace: false,
+        delete: false,
         ctrl: ke.ctrl,
         shift: ke.shift,
         meta: ke.meta,
-        super: !1,
+        super: false,
       };
       lt(ke, Vl, "", ql, "", () => Et(ke));
     }),
@@ -2293,10 +2293,10 @@ function kn(t, o) {
   let r = ct(t),
     i = ct(o);
   while (r && r !== i) {
-    if (r._eventHandlers?.onWheel) return !0;
+    if (r._eventHandlers?.onWheel) return true;
     r = r.parentNode;
   }
-  return !1;
+  return false;
 }
 function wn(t) {
   let o = [],
@@ -2326,7 +2326,7 @@ function Ke(Zl) {
       setHandler: (ed) => {
         ui.current = ed;
       },
-      tryDelete: (td) => ui.current?.(td) ?? !1,
+      tryDelete: (td) => ui.current?.(td) ?? false,
     }),
       (pi[0] = fi);
   else fi = pi[0];
@@ -2369,12 +2369,12 @@ class Mt {
     }
     this.queue.push(t), this.notify();
   }
-  poll(t = () => !0) {
+  poll(t = () => true) {
     let o = this.queue.findIndex(t);
     if (o === -1) return;
     return this.queue.splice(o, 1)[0];
   }
-  receive(t = () => !0) {
+  receive(t = () => true) {
     let o = this.queue.findIndex(t);
     if (o !== -1) {
       let r = this.queue.splice(o, 1)[0];
@@ -2414,7 +2414,7 @@ function u1(t) {
   return t.open.findLast((o) => !o.userInvoked) ?? null;
 }
 function t2e(t) {
-  return t.open.findLast((o) => o.userInvoked === !0) ?? null;
+  return t.open.findLast((o) => o.userInvoked === true) ?? null;
 }
 function wke(t, o) {
   return t.open.some((r) => r.kind === o);
@@ -2429,9 +2429,9 @@ function io() {
     },
     k = (S) => {
       let { removed: v, closedBlockingTopBare: M } = wi(t, S);
-      if (!v) return !1;
+      if (!v) return false;
       if (M) r = Date.now();
-      return l(S), !0;
+      return l(S), true;
     },
     f = {
       getState: t.getState,
@@ -2440,10 +2440,10 @@ function io() {
       open(S) {
         t.setState((v) => {
           let M = u1(v),
-            x = M?.queuesLaterAsksBehind === !0 && ro(M, S) && S.replacesAnswered !== !0;
-          if ((S.queueBehind === !0 || x) && v.open.some((H) => H.userInvoked !== !0)) return { open: [S, ...v.open] };
-          let N = v.open.some((H) => ro(H, S)) || (S.userInvoked !== !0 && v.open.some((H) => H.userInvoked === !0)),
-            I = S.userInvoked !== !0 && bc(r),
+            x = M?.queuesLaterAsksBehind === true && ro(M, S) && S.replacesAnswered !== true;
+          if ((S.queueBehind === true || x) && v.open.some((H) => H.userInvoked !== true)) return { open: [S, ...v.open] };
+          let N = v.open.some((H) => ro(H, S)) || (S.userInvoked !== true && v.open.some((H) => H.userInvoked === true)),
+            I = S.userInvoked !== true && bc(r),
             W = N || I ? { ...S, swappedAt: Date.now() } : S;
           return { open: [...v.open, W] };
         });
@@ -2465,10 +2465,10 @@ function io() {
         o.emit({ id: S, type: "dismissed" });
       },
       firstReveal(S, v) {
-        if (!t.getState().open.some((x) => x.id === S)) return !1;
+        if (!t.getState().open.some((x) => x.id === S)) return false;
         let M = `${S}:${v}`;
-        if (i.has(M)) return !1;
-        return i.add(M), !0;
+        if (i.has(M)) return false;
+        return i.add(M), true;
       },
       dismissKind(S) {
         for (let v of t.getState().open) if (v.kind === S) f.dismiss(v.id);
@@ -2477,25 +2477,25 @@ function io() {
   return f;
 }
 function wi(t, o) {
-  let r = !1,
-    i = !1;
+  let r = false,
+    i = false;
   return (
     t.setState((l) => {
       let k = l.open.find((x) => x.id === o);
       if (!k) return l;
-      r = !0;
+      r = true;
       let f = l.open.filter((x) => x !== k),
         S = l.open.filter((x) => ro(x, k)),
         v = S.at(-1) === k,
         M = S.at(-2);
-      if (((i = v && !M && k.userInvoked !== !0), !v || !M)) return { open: f };
+      if (((i = v && !M && k.userInvoked !== true), !v || !M)) return { open: f };
       return { open: f.map((x) => (x === M ? { ...M, swappedAt: Date.now(), revealSeq: (M.revealSeq ?? 0) + 1 } : x)) };
     }),
     { removed: r, closedBlockingTopBare: i }
   );
 }
 function ro(t, o) {
-  return (t.userInvoked === !0) === (o.userInvoked === !0);
+  return (t.userInvoked === true) === (o.userInvoked === true);
 }
 var Tge = yn(null);
 function Xp() {
@@ -2539,7 +2539,7 @@ function GMn() {
 }
 function Tn(t) {
   let o = Xp(),
-    r = () => u1(o.getState())?.[t] === !0;
+    r = () => u1(o.getState())?.[t] === true;
   return Lt(o.subscribe, r, r);
 }
 function xnt() {
@@ -2797,11 +2797,11 @@ function Lnt(t, o, r, i) {
   n(`Settings changed from ${t}, updating app state`), hpe();
   let k = d3();
   OD({ userLayer: "retain" }), yk();
-  let f = !1;
+  let f = false;
   if (
     (o((S) => {
       let v = uqe(S.toolPermissionContext, k);
-      v = fYt(v, S.settings.permissions?.additionalDirectories, sde(), t, i?.trustFlip === !0, i?.prevCwd);
+      v = fYt(v, S.settings.permissions?.additionalDirectories, sde(), t, i?.trustFlip === true, i?.prevCwd);
       let M = pYt(v, k);
       (v = M.context), (f = M.exitedAutoMode);
       let x = Oke();
@@ -2841,7 +2841,7 @@ function pYt(t, o) {
   if (i) r = gFt(r);
   return { context: A4e(r), exitedAutoMode: i };
 }
-function fYt(t, o, r, i, l = !1, k) {
+function fYt(t, o, r, i, l = false, k) {
   let f = new Set((o ?? []).flatMap((I) => Nt(I, k))),
     S = new Set((r ?? []).flatMap((I) => Nt(I))),
     v = t.additionalWorkingDirectories,
@@ -2852,11 +2852,11 @@ function fYt(t, o, r, i, l = !1, k) {
   if (i === "flagSettings") {
     let I = new Set((ye("flagSettings")?.permissions?.additionalDirectories ?? []).flatMap((j) => Nt(j))),
       W = new Map(N.trustedNetworkDirectories ?? []),
-      H = !1;
+      H = false;
     for (let j of [...W.keys()])
       if (!I.has(j) && v.get(j)?.source !== "cliArg") {
         for (let P of W.get(j) ?? []) if (P !== j) M.push(P);
-        W.delete(j), (H = !0);
+        W.delete(j), (H = true);
       }
     for (let j of I)
       if (!W.has(j)) {
@@ -2864,7 +2864,7 @@ function fYt(t, o, r, i, l = !1, k) {
         if (P.length > 0) {
           W.set(j, P);
           for (let L of P) if (L !== j) x.push(L);
-          H = !0;
+          H = true;
         }
       }
     if (H) N = { ...N, trustedNetworkDirectories: W };
@@ -2903,7 +2903,7 @@ function wq() {
   if (!t) throw ReferenceError("useSessionHooksRegistry cannot be called outside of an <AppStateProvider />");
   return t;
 }
-var Bt = yn(!1),
+var Bt = yn(false),
   Me = null;
 function jt(Su) {
   let se = _(56),
@@ -2915,7 +2915,7 @@ function jt(Su) {
       writesExitHandoff: Pi,
       sessionHooks: In,
     } = Su,
-    yu = Pi === void 0 ? !1 : Pi;
+    yu = Pi === void 0 ? false : Pi;
   if (We(Bt)) {
     throw Error("AppStateProvider can not be nested within another AppStateProvider");
   }
@@ -2973,7 +2973,7 @@ function jt(Su) {
   if (se[20] !== ee)
     (Bi = () =>
       f5t((wu, vu) => {
-        let Wi = !1;
+        let Wi = false;
         return (
           ee.setState((Ui) => {
             let $i = MHe(Ui, wu, vu);
@@ -3048,7 +3048,7 @@ function jt(Su) {
   else wo = se[52];
   let zi;
   if (se[53] !== ee || se[54] !== wo)
-    (zi = e(Bt.Provider, { value: !0, children: e(NP.Provider, { value: ee, children: wo }) })),
+    (zi = e(Bt.Provider, { value: true, children: e(NP.Provider, { value: ee, children: wo }) })),
       (se[53] = ee),
       (se[54] = wo),
       (se[55] = zi);
@@ -3071,7 +3071,7 @@ function vp(Uu) {
       keybindings: Yi,
       children: Ao,
     } = Uu,
-    Yn = Yi === void 0 ? !0 : Yi,
+    Yn = Yi === void 0 ? true : Yi,
     Ji;
   if (De[0] !== bo) (Ji = uEe(bo)), (De[0] = bo), (De[1] = Ji);
   else Ji = De[1];

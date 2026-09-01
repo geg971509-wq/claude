@@ -355,13 +355,13 @@ var Ee = 5000,
   Sn = { teardown: () => {}, pulseIfClientPresent: () => {} };
 async function _n() {
   let o = a.CLAUDE_CLIENT_PRESENCE_FILE;
-  if (!o) return !1;
-  if (Bn(o) && !Ms(o)) return !1;
+  if (!o) return false;
+  if (Bn(o) && !Ms(o)) return false;
   try {
-    return await hn(o), !0;
+    return await hn(o), true;
   } catch (u) {
     if (!X(u)) n(`[presence] client-presence-marker stat failed: ${u}`);
-    return !1;
+    return false;
   }
 }
 function mt(o, u, d) {
@@ -382,7 +382,7 @@ function mt(o, u, d) {
             {
               headers: { ...r.getAuthHeaders(), "anthropic-version": "2023-06-01", "anthropic-client-platform": Cg() },
               timeout: Ee,
-              validateStatus: () => !0,
+              validateStatus: () => true,
             },
           )
           .then(
@@ -394,7 +394,7 @@ function mt(o, u, d) {
       );
     },
     B = () => {
-      if (PJ() === !1) {
+      if (PJ() === false) {
         n("[presence] pulse skipped (terminal blurred)");
         return;
       }
@@ -404,14 +404,14 @@ function mt(o, u, d) {
     m = $5(B),
     _ = d0n(() => {
       let h = PJ();
-      if ((n(`[presence] terminal focus \u2192 ${h === void 0 ? "unknown" : h ? "focused" : "blurred"}`), h === !0))
+      if ((n(`[presence] terminal focus \u2192 ${h === void 0 ? "unknown" : h ? "focused" : "blurred"}`), h === true))
         B();
     });
   n(`[presence] wired for session ${o}`);
-  let w = !1;
+  let w = false;
   return {
     teardown() {
-      (w = !0), m?.(), (m = null), _?.(), (_ = null), (i = null);
+      (w = true), m?.(), (m = null), _?.(), (_ = null), (i = null);
     },
     pulseIfClientPresent() {
       if (w || Date.now() - S < Ee) return;
@@ -464,7 +464,7 @@ async function yt(o) {
     if (r.pid === process.pid || r.bridgeSessionId === void 0 || Tr(r.bridgeSessionId) !== u) continue;
     let i = r.procStartFt ?? r.procStart;
     if (i === void 0 || !ms(r.pid)) continue;
-    let S = await Ga(r.pid, { skipCache: !0 });
+    let S = await Ga(r.pid, { skipCache: true });
     if (S === void 0) {
       n(
         `[bridge:repl] pid ${r.pid} advertises bridge session ${o} but its start token is unreadable \u2014 not treated as a holder`,
@@ -521,7 +521,7 @@ async function vt(o, u, d, r) {
       ),
       { uploadedMain: 0, uploadedSubagents: 0 }
     );
-  let h = await bt(b, _, !0, r);
+  let h = await bt(b, _, true, r);
   if (h === "budget-exhausted") {
     let k = c2(Ta(i));
     if ((ZL(Ta(i)), h9(Ta(i)), !k)) zqe(Ta(i));
@@ -540,7 +540,7 @@ async function vt(o, u, d, r) {
     );
   for (let k of h)
     o("transcript", k, {
-      ...(Ou(k) && { isCompaction: !0, preservedEventIds: k.compactMetadata?.preservedMessages?.uuids }),
+      ...(Ou(k) && { isCompaction: true, preservedEventIds: k.compactMetadata?.preservedMessages?.uuids }),
     }).catch(w);
   if (i !== K())
     return (
@@ -549,7 +549,7 @@ async function vt(o, u, d, r) {
     );
   let T = 0;
   for (let { agentId: k, path: D } of await An(d, r)) {
-    let M = await bt(D, _, !1, r);
+    let M = await bt(D, _, false, r);
     if (M === "budget-exhausted") {
       let F = c2(Ta(i));
       if ((ZL(Ta(i)), h9(Ta(i)), !F)) zqe(Ta(i));
@@ -561,7 +561,7 @@ async function vt(o, u, d, r) {
     }
     for (let F of M)
       o("transcript", F, {
-        ...(Ou(F) && { isCompaction: !0, preservedEventIds: F.compactMetadata?.preservedMessages?.uuids }),
+        ...(Ou(F) && { isCompaction: true, preservedEventIds: F.compactMetadata?.preservedMessages?.uuids }),
         agentId: k,
       }).catch(w);
     T += M.length;
@@ -583,10 +583,10 @@ async function An(o, u) {
     );
   return S;
 }
-async function bt(o, u, d = !0, r) {
+async function bt(o, u, d = true, r) {
   let i = r ? At(o) : null,
     S = [],
-    b = !1;
+    b = false;
   try {
     let B = 0,
       m = r && i ? tNt(r, i) : cve(o);
@@ -612,7 +612,7 @@ async function bt(o, u, d = !0, r) {
       if (!u.has(w.uuid)) S.push(w);
       if (Ou(w)) {
         if (!d) break;
-        b = !0;
+        b = true;
       }
     }
   } catch (B) {
@@ -660,7 +660,7 @@ async function Cn(o, u) {
             (F) =>
               o.listEntries(
                 { namespace: "transcript", projectKey: _, sessionId: w, ...(h !== void 0 && { agentRelPath: h }) },
-                { skipScopeStats: !0, ...(F !== void 0 && { cursor: F }) },
+                { skipScopeStats: true, ...(F !== void 0 && { cursor: F }) },
               ),
             (F) => {
               for (let H of F)
@@ -729,7 +729,7 @@ function Rt(o) {
   if (typeof i === "string") throw new R(`work secret rejected: ${i}`, "work secret rejected");
   let S = Qse(d, u),
     b = null,
-    B = !1;
+    B = false;
   async function m() {
     if (!r) return n("[bridge:work-secret] the host offers no refresh path"), null;
     let w;
@@ -749,7 +749,7 @@ function Rt(o) {
       return n("[bridge:work-secret] host returned a secret no fresher than the registered one"), null;
     return h;
   }
-  async function _(w, h = !1) {
+  async function _(w, h = false) {
     let T = w.session_ingress_token,
       k;
     try {
@@ -760,13 +760,13 @@ function Rt(o) {
         (n(`[bridge:work-secret] /worker/register failed kind=${H} status=${G ?? "none"}: ${l(F)}`, { level: "warn" }),
         H === "other")
       )
-        return { terminal: !0, reason: "malformed_response", status: 200 };
+        return { terminal: true, reason: "malformed_response", status: 200 };
       if (G === void 0 || G === 408 || G === 429 || G >= 500) return null;
-      if (h && (G === 401 || G === 403)) return (B = !0), null;
-      return { terminal: !0, reason: "request_rejected", status: G };
+      if (h && (G === 401 || G === 403)) return (B = true), null;
+      return { terminal: true, reason: "request_rejected", status: G };
     }
     let D = cR(T);
-    (b = { secret: w, exp: D }), (B = !1);
+    (b = { secret: w, exp: D }), (B = false);
     let M = D === null ? En : Math.max(0, D - Math.floor(Date.now() / 1000));
     return (
       n(`[bridge:work-secret] registered worker epoch=${k} expires_in=${M}s`),
@@ -784,7 +784,7 @@ function Rt(o) {
       if (b !== null && !B && h?.reuseHeldAboveS !== void 0 && k > h.reuseHeldAboveS)
         return (
           n(`[bridge:work-secret] nothing fresher from the host; re-registering the held secret (${k}s left)`),
-          _(b.secret, !0)
+          _(b.secret, true)
         );
       return null;
     },
@@ -862,7 +862,7 @@ async function Ui(o) {
     Be = gl() ?? void 0,
     Se = Be !== void 0 && A !== void 0 && !j7(A, Be),
     De = Se ? void 0 : Be,
-    _e = !1,
+    _e = false,
     I = Boolean(Ke) || QL() || c2(A) || ZG(A),
     ke = () => q7(Ta(K())),
     le = (e) => {
@@ -871,7 +871,7 @@ async function Ui(o) {
       return t ? e(t) : void 0;
     };
   async function Ve(e, t, p) {
-    if (((I = !0), (_e = !0), Se)) g("rc_cross_account_suppression", "torn_entry_pair");
+    if (((I = true), (_e = true), Se)) g("rc_cross_account_suppression", "torn_entry_pair");
     else y("rc_cross_account_suppression");
     if (Se)
       ZL(A),
@@ -938,7 +938,7 @@ async function Ui(o) {
   let ce = te ? (Xe ? Number.parseInt(Xe, 10) || void 0 : void 0) : Lt,
     oe = $t,
     se = te ? "env" : Ne ? "option" : void 0,
-    Je = !1,
+    Je = false,
     Ie,
     be = (e, t) => e !== void 0 && t !== void 0 && Tr(e) === Tr(t),
     C = je === void 0 ? dF() : (je ?? void 0);
@@ -962,10 +962,10 @@ async function Ui(o) {
           (se = void 0);
       else {
         let f = e && Xh(t, { accountUuid: C.ownerAccountUuid, organizationUuid: C.ownerOrganizationUuid });
-        if (C.noHistoryBackfill) I = !0;
+        if (C.noHistoryBackfill) I = true;
         if (E && be(E, C.id)) E = C.id;
         if (!E) {
-          if (((E = C.id), (ce = C.seq), !f || !kyn())) oe = !0;
+          if (((E = C.id), (ce = C.seq), !f || !kyn())) oe = true;
           (se = f
             ? oe
               ? "restored_owner_match_pinned"
@@ -973,19 +973,19 @@ async function Ui(o) {
             : e
               ? "restored_identity_unreadable"
               : "restored_owner_unknown"),
-            (Je = !0),
+            (Je = true),
             n(
               `[bridge:repl] Reattaching to persisted bridge session ${C.id} at seq ${C.seq} (${oe ? "reattach-or-fail" : "fresh-mint fallback"}, ${se})`,
             );
         } else if (f) {
           if (!be(E, C.id)) Ie = { accountUuid: C.ownerAccountUuid, organizationUuid: C.ownerOrganizationUuid };
         } else if (be(E, C.id))
-          (oe = !0),
+          (oe = true),
             n(
               `[bridge:repl] Reattaching to the recorded bridge session ${C.id} as named by the carrier; owner unconfirmed \u2014 reattach-or-fail`,
             );
         else
-          (I = !0),
+          (I = true),
             ZL(A),
             ste(A),
             n(
@@ -996,7 +996,7 @@ async function Ui(o) {
     }
   }
   if (te && E) {
-    if (Qt) (I = !0), ZL(A), ste(A);
+    if (Qt) (I = true), ZL(A), ste(A);
     let e = await tb(P).catch(() => {
       return;
     });
@@ -1011,19 +1011,19 @@ async function Ui(o) {
             { level: "warn" },
           );
     } else
-      (oe = !0),
+      (oe = true),
         (se = "env_or_fail"),
         n("[bridge:repl] Env-handoff reattach: owner identity unavailable \u2014 reattach-or-fail");
   }
   let Qe = be(E, C?.id);
   if (Qe) {
-    if (C?.noHistoryBackfill) I = !0;
+    if (C?.noHistoryBackfill) I = true;
     ce ??= C?.seq;
   }
   let ue,
     Ze = () =>
-      Vcn(A) && !Ke && !_e && !QL() && !ZG(A) && C?.noHistoryBackfill !== !0 && K() === A
-        ? { uncertaintyOnly: !0 }
+      Vcn(A) && !Ke && !_e && !QL() && !ZG(A) && C?.noHistoryBackfill !== true && K() === A
+        ? { uncertaintyOnly: true }
         : void 0;
   if (I) (ue = Ze()), Pe?.(ue);
   let et = _e ? [] : _6(C?.declaredDialogKinds);
@@ -1039,8 +1039,8 @@ async function Ui(o) {
     let f = await XV(P, U).catch(() => {
       return;
     });
-    if (Xh(f, e)) return !0;
-    return KS(t, p), W?.("failed", KGe, "terminal"), !1;
+    if (Xh(f, e)) return true;
+    return KS(t, p), W?.("failed", KGe, "terminal"), false;
   };
   if (
     ze &&
@@ -1071,7 +1071,7 @@ async function Ui(o) {
       W?.("policy_disabled", "session mirroring is disabled by your organization's policy (allow_remote_sessions)"),
       null
     );
-  let rt = !1;
+  let rt = false;
   if (Re && Je && E && Ryn()) {
     let e = await yt(E);
     if (e) {
@@ -1085,7 +1085,7 @@ async function Ui(o) {
           Re.onDeclined(e),
           null
         );
-      n(`[bridge:repl] Explicit enable is taking over bridge session ${E} from local pid ${e.pid}`), (rt = !0);
+      n(`[bridge:repl] Explicit enable is taking over bridge session ${E} from local pid ${e.pid}`), (rt = true);
     }
   }
   let ae = Ta(K());
@@ -1100,7 +1100,7 @@ async function Ui(o) {
       if ((ZL(ae), h9(ae), !t)) zqe(ae);
     }
   }
-  if (!I && (QL() || c2(A) || ZG(A) || K() !== A)) (I = !0), (ue = Ze()), Pe?.(ue);
+  if (!I && (QL() || c2(A) || ZG(A) || K() !== A)) (I = true), (ue = Ze()), Pe?.(ue);
   if (!_H()) {
     let e = ie();
     if (
@@ -1142,14 +1142,14 @@ async function Ui(o) {
     );
   let J = Yue(),
     z = `${Lne()}-${P$()}`,
-    Q = !1,
-    N = !1;
-  if (Le) (z = Le), (Q = !0), (N = !0);
+    Q = false,
+    N = false;
+  if (Le) (z = Le), (Q = true), (N = true);
   else if (!I) {
     let e = le(Yc),
       t = le(d2);
-    if (e) (z = e), (Q = !0), (N = !0);
-    else if (t) (z = t), (Q = !0);
+    if (e) (z = e), (Q = true), (N = true);
+    else if (t) (z = t), (Q = true);
     else if (de && de.length > 0)
       for (let p = de.length - 1; p >= 0; p--) {
         let f = de[p];
@@ -1158,7 +1158,7 @@ async function Ui(o) {
         if (!v) continue;
         let x = On(v);
         if (!x) continue;
-        (z = x), (Q = !0);
+        (z = x), (Q = true);
         break;
       }
   }
@@ -1166,8 +1166,8 @@ async function Ui(o) {
     ve,
     Y = null,
     Fe = 0,
-    Z = !1,
-    Ue = !1,
+    Z = false,
+    Ue = false,
     xe,
     en = (e) => xe?.bridgeSessionId === e && xe.sessionId === K(),
     j = jnt({
@@ -1191,9 +1191,9 @@ async function Ui(o) {
     He = (e, t, p, f) => {
       let v = () => f && (gce() || ke()),
         x = () => !Ue;
-      if (Z || v() || $y(t)) return !1;
+      if (Z || v() || $y(t)) return false;
       return (
-        (Q = !0),
+        (Q = true),
         (z = e),
         ee.add(e),
         une(t, e),
@@ -1203,12 +1203,12 @@ async function Ui(o) {
             baseUrl: J,
             getAccessToken: __,
             shouldSend: () => {
-              if (Z || v() || !x()) return !1;
+              if (Z || v() || !x()) return false;
               return !$y(t);
             },
           })
           .catch(() => {}),
-        !0
+        true
       );
     },
     dt = (e, t, p) => {
@@ -1239,8 +1239,8 @@ async function Ui(o) {
     },
     tn = (e) => {
       let t = Us(e);
-      if (!t) return { ok: !1, error: "title must be non-empty" };
-      if (((z = t), (Q = !0), (N = !0), ee.add(t), ee.add(e), Y)) {
+      if (!t) return { ok: false, error: "title must be non-empty" };
+      if (((z = t), (Q = true), (N = true), ee.add(t), ee.add(e), Y)) {
         if (((Y.selfTitle = t), j.noteRemoteTitle(Y.bridgeSessionId, t), e !== t))
           j.noteRemoteTitle(Y.bridgeSessionId, e);
       }
@@ -1262,12 +1262,12 @@ async function Ui(o) {
             n(`onRenameSession: name propagation failed: ${l(v)}`);
           }
         });
-      return { ok: !0 };
+      return { ok: true };
     },
     lt = (e) => {
       let t = K(),
         p = le(d2);
-      if (!p || fe(e, p)) return !1;
+      if (!p || fe(e, p)) return false;
       let f = q;
       return (
         uwe(e, { baseUrl: J, getAccessToken: __ })
@@ -1280,9 +1280,9 @@ async function Ui(o) {
               return;
             }
             if (K() !== t || le(d2) !== p) return;
-            if ((Fe++, He(p, e, f, !0))) xe = { bridgeSessionId: e, sessionId: t };
+            if ((Fe++, He(p, e, f, true))) xe = { bridgeSessionId: e, sessionId: t };
           }),
-        !0
+        true
       );
     },
     nn = () => {
@@ -1291,8 +1291,8 @@ async function Ui(o) {
       lt(e);
     },
     rn = (e, t) => {
-      if (Z) return !0;
-      if (N || en(t) || ne === t) return !0;
+      if (Z) return true;
+      if (N || en(t) || ne === t) return true;
       let p = le(Yc);
       if (p) {
         if (!fe(t, p))
@@ -1305,13 +1305,13 @@ async function Ui(o) {
                 une(t, f.title), j.noteRemoteTitle(t, f.title), (ne = t);
                 return;
               }
-              He(p, t, q, !0), (N = !0);
+              He(p, t, q, true), (N = true);
             });
-        return !0;
+        return true;
       }
-      if (lt(t)) return !0;
+      if (lt(t)) return true;
       if (ve !== void 0 && ve !== t) q = 0;
-      if (((ve = t), q++, q === 1 && !Q)) dt(e, t, !1);
+      if (((ve = t), q++, q === 1 && !Q)) dt(e, t, false);
       else if (q === 3) {
         let f = I || gce() || ke() ? void 0 : xt?.(),
           v = f ? nrt(il(f)) : e;
@@ -1328,14 +1328,14 @@ async function Ui(o) {
     ut = await Vot();
   if (ut)
     return (
-      KS("version_too_old", `[bridge:repl] Skipping: ${ut}`, !0),
+      KS("version_too_old", `[bridge:repl] Skipping: ${ut}`, true),
       W?.("failed", "run `claude update` to upgrade", "terminal"),
       null
     );
   let { branch: ln, gitRepoUrl: cn, defaultBranch: un } = await Tvn(),
     ge;
   function pt() {
-    if (((Z = !0), ge?.teardown(), Y)) j.forget(Y.bridgeSessionId), w6t(Y, P);
+    if (((Z = true), ge?.teardown(), Y)) j.forget(Y.bridgeSessionId), w6t(Y, P);
   }
   if (Ie) {
     if (
@@ -1356,7 +1356,7 @@ async function Ui(o) {
           "[bridge:repl] Skipping: work secret supplied but this init has no session to reattach (no target, or the target was vetoed)",
           { level: "error" },
         ),
-        KS("work_secret_no_target", void 0, !0),
+        KS("work_secret_no_target", void 0, true),
         W?.("failed", "Remote Control could not attach: no session to attach the host credential to", "terminal"),
         null
       );
@@ -1365,7 +1365,7 @@ async function Ui(o) {
     } catch (e) {
       return (
         n(`[bridge:repl] Skipping: ${l(e)}`, { level: "error" }),
-        KS("work_secret_rejected", void 0, !0),
+        KS("work_secret_rejected", void 0, true),
         W?.("failed", `Remote Control could not attach: ${l(e)}`, "terminal"),
         null
       );
@@ -1379,10 +1379,10 @@ async function Ui(o) {
     me,
     L = (Y = await sUn({
       titleWriter: j,
-      noHistoryBackfill: I && ue?.uncertaintyOnly !== !0,
+      noHistoryBackfill: I && ue?.uncertaintyOnly !== true,
       neutralFallbackTitle: it,
       onReattachGoneBounce: () => {
-        ee.add(it), (I = !0), Pe?.(), ZL(A), h9(A), ste(A);
+        ee.add(it), (I = true), Pe?.(), ZL(A), h9(A), ste(A);
       },
       reattachSessionId: E,
       reattachSequenceNum: ce,
@@ -1392,7 +1392,7 @@ async function Ui(o) {
       neverArchive: Gt,
       onAuthProven: Kt,
       onReattachPointerDead: () => {
-        if ((ZL(A), h9(A), ste(A), !Se)) u2(A, De, De ? { targetExists: !0 } : void 0, P);
+        if ((ZL(A), h9(A), ste(A), !Se)) u2(A, De, De ? { targetExists: true } : void 0, P);
         Nt?.();
       },
       baseUrl: J,
@@ -1445,7 +1445,7 @@ async function Ui(o) {
       onRenameSession: tn,
       onSetColor: H,
       async onFileSuggestions(e) {
-        return (await i6e(Pq, e, !0, P)).map((p) => ({ path: p.displayText }));
+        return (await i6e(Pq, e, true, P)).map((p) => ({ path: p.displayText }));
       },
       onReadFile: (e, t, p) => qZe(e, t, u?.() ?? pm(), p, "repl_bridge"),
       onGetWorkspaceDiff: d
@@ -1480,7 +1480,7 @@ async function Ui(o) {
                   () => {
                     v.pendingWaiters--;
                   },
-                  { once: !0 },
+                  { once: true },
                 );
             return v.promise;
           }
@@ -1511,7 +1511,7 @@ async function Ui(o) {
     let t = L.teardown.bind(L);
     if (
       ((L.teardown = async (p) => {
-        (Ue = !0), j.forget(L.bridgeSessionId), await t(p);
+        (Ue = true), j.forget(L.bridgeSessionId), await t(p);
       }),
       Z)
     )

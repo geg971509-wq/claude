@@ -318,7 +318,7 @@ async function y({
     },
     s = await fge({
       draft: p,
-      includeTranscript: d == null ? !0 : d === !0,
+      includeTranscript: d == null ? true : d === true,
       currentSessionMessages: u,
       surface: c ?? "sdk",
       storageV5: n,

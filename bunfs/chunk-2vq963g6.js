@@ -306,7 +306,7 @@ function m(o) {
     type: "prompt",
     name: o.name,
     description: o.description,
-    hasUserSpecifiedDescription: !0,
+    hasUserSpecifiedDescription: true,
     whenToUse: o.whenToUse,
     progressMessage: "running dynamic workflow",
     contentLength: o.script.length,

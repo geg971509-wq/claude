@@ -59,7 +59,7 @@ import { te } from "/$bunfs/root/chunk-wag5ye9w.js";
 import { d, fn } from "/$bunfs/root/chunk-yz031c9r.js";
 var de = Symbol("ConsentRow mint token");
 class ie {
-  #e = !0;
+  #e = true;
   node;
   applies;
   constructor(n, D, i) {
@@ -102,7 +102,7 @@ function Ow(n, D) {
     try {
       let p = n[x],
         w = p !== null && typeof p === "object" ? { ...p } : p,
-        N = !1;
+        N = false;
       if (w !== null && typeof w === "object") {
         let y = w;
         for (let P of ["rules", "directories"]) {
@@ -110,7 +110,7 @@ function Ow(n, D) {
           if (!Array.isArray(S)) continue;
           let H = S.length;
           if (typeof H !== "number" || !Number.isSafeInteger(H) || H < 0) {
-            N = !0;
+            N = true;
             break;
           }
           if (((a += H), a > oq * wK)) return null;
@@ -149,7 +149,7 @@ var RD = {
   bypassPermissions: "BYPASS PERMISSIONS (no further prompts)",
 };
 function hK(n, D) {
-  if (n === "bypassPermissions" && D?.isBypassPermissionsModeAvailable === !1) return null;
+  if (n === "bypassPermissions" && D?.isBypassPermissionsModeAvailable === false) return null;
   let i = je([{ type: "setMode", destination: "session", mode: n }]);
   if (i === null) throw Error("setModeRow: schema rejected a designed setMode update");
   if (D?.labelVariant === "plan-keep-context") {
@@ -158,7 +158,7 @@ function hK(n, D) {
   }
   return new ie(
     de,
-    r(t, { children: ["Yes, and switch to ", e(t, { bold: !0, children: RD[n] }), " for this session"] }),
+    r(t, { children: ["Yes, and switch to ", e(t, { bold: true, children: RD[n] }), " for this session"] }),
     i,
   );
 }
@@ -188,7 +188,7 @@ function hRt(n) {
   return new ie(
     de,
     r(t, {
-      children: ["Yes, and always allow access to ", e(t, { bold: !0, children: l.join(", ") }), " for this session"],
+      children: ["Yes, and always allow access to ", e(t, { bold: true, children: l.join(", ") }), " for this session"],
     }),
     c,
   );
@@ -229,7 +229,7 @@ function yRt(n, ...D) {
   if (l === null) throw Error("combineRows: schema rejected already-minted updates");
   return new ie(de, e(t, { children: i.map((c, g) => r(t, { children: [g > 0 ? "; " : "", c.node] }, g)) }), l);
 }
-function Lu({ onlyFirst: n = !1 } = {}) {
+function Lu({ onlyFirst: n = false } = {}) {
   let i = [
     "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?(?:\\u0007|\\u001B\\u005C|\\u009C))",
     "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-nq-uy=><~]))",
@@ -247,7 +247,7 @@ var PD = new Intl.Segmenter(),
   MD = /^\p{Default_Ignorable_Code_Point}$/u;
 function Me(n, D = {}) {
   if (typeof n !== "string" || n.length === 0) return 0;
-  let { ambiguousIsNarrow: i = !0, countAnsiEscapeCodes: a = !1 } = D;
+  let { ambiguousIsNarrow: i = true, countAnsiEscapeCodes: a = false } = D;
   if (!a) n = We(n);
   if (n.length === 0) return 0;
   let l = 0,
@@ -287,18 +287,18 @@ var pu = new Set(["\x1B", "\x9B"]),
   ID = (n) => n.split(" ").map((D) => Me(D)),
   Iu = (n, D, i) => {
     let a = [...D],
-      l = !1,
-      c = !1,
+      l = false,
+      c = false,
       g = Me(We(n.at(-1)));
     for (let [f, T] of a.entries()) {
       let x = Me(T);
       if (g + x <= i) n[n.length - 1] += T;
       else n.push(T), (g = 0);
-      if (pu.has(T)) (l = !0), (c = a.slice(f + 1, f + 1 + fu.length).join("") === fu);
+      if (pu.has(T)) (l = true), (c = a.slice(f + 1, f + 1 + fu.length).join("") === fu);
       if (l) {
         if (c) {
-          if (T === Ou) (l = !1), (c = !1);
-        } else if (T === et) l = !1;
+          if (T === Ou) (l = false), (c = false);
+        } else if (T === et) l = false;
         continue;
       }
       if (((g += x), g === i && f < a.length - 1)) n.push(""), (g = 0);
@@ -316,18 +316,18 @@ var pu = new Set(["\x1B", "\x9B"]),
     return D.slice(0, i).join(" ") + D.slice(i).join("");
   },
   $D = (n, D, i = {}) => {
-    if (i.trim !== !1 && n.trim() === "") return "";
+    if (i.trim !== false && n.trim() === "") return "";
     let a = "",
       l,
       c,
       g = ID(n),
       f = [""];
     for (let [w, N] of n.split(" ").entries()) {
-      if (i.trim !== !1) f[f.length - 1] = f.at(-1).trimStart();
+      if (i.trim !== false) f[f.length - 1] = f.at(-1).trimStart();
       let y = Me(f.at(-1));
       if (w !== 0) {
-        if (y >= D && (i.wordWrap === !1 || i.trim === !1)) f.push(""), (y = 0);
-        if (y > 0 || i.trim === !1) (f[f.length - 1] += " "), y++;
+        if (y >= D && (i.wordWrap === false || i.trim === false)) f.push(""), (y = 0);
+        if (y > 0 || i.trim === false) (f[f.length - 1] += " "), y++;
       }
       if (i.hard && g[w] > D) {
         let P = D - y,
@@ -337,19 +337,19 @@ var pu = new Set(["\x1B", "\x9B"]),
         continue;
       }
       if (y + g[w] > D && y > 0 && g[w] > 0) {
-        if (i.wordWrap === !1 && y < D) {
+        if (i.wordWrap === false && y < D) {
           Iu(f, N, D);
           continue;
         }
         f.push("");
       }
-      if (y + g[w] > D && i.wordWrap === !1) {
+      if (y + g[w] > D && i.wordWrap === false) {
         Iu(f, N, D);
         continue;
       }
       f[f.length - 1] += N;
     }
-    if (i.trim !== !1) f = f.map((w) => OD(w));
+    if (i.trim !== false) f = f.map((w) => OD(w));
     let T = f.join(`
 `),
       x = [...T],
@@ -567,7 +567,7 @@ function Hg(Oi) {
       }
       let QD = $i;
       let uo = Math.max(20, Je - 8);
-      let vu = ve(JD, uo, { trim: !0, hard: !0 })
+      let vu = ve(JD, uo, { trim: true, hard: true })
         .split(`
 `)
         .map((Ui) => rt(Ui, uo));
@@ -599,7 +599,7 @@ function Hg(Oi) {
       let ji = Math.max(20, Je - 8);
       return (
         Dn(
-          ve(ro, ji, { trim: !0, hard: !0 }),
+          ve(ro, ji, { trim: true, hard: true }),
           `
 `,
         ) + 1
@@ -649,7 +649,7 @@ function Hg(Oi) {
   else Wu = Ne[11];
   let Gu;
   if (Ne[12] !== X)
-    (Gu = X?.configString && e(t, { dimColor: !0, children: X.configString })), (Ne[12] = X), (Ne[13] = Gu);
+    (Gu = X?.configString && e(t, { dimColor: true, children: X.configString })), (Ne[12] = X), (Ne[13] = Gu);
   else Gu = Ne[13];
   let qu;
   if (Ne[14] !== re || Ne[15] !== Ku || Ne[16] !== X?.configString)
@@ -658,7 +658,7 @@ function Hg(Oi) {
       r(U, {
         children: [
           ot(Ku ?? re.reasonString, e(t, { children: e(oo, { children: Ku ?? re.reasonString }) })),
-          re.configString && re.configString !== X?.configString && e(t, { dimColor: !0, children: re.configString }),
+          re.configString && re.configString !== X?.configString && e(t, { dimColor: true, children: re.configString }),
         ],
       })),
       (Ne[14] = re),
@@ -706,10 +706,10 @@ function ZJ(Ji) {
     st = At(),
     [nu, Qi] = u(""),
     [tu, us] = u(""),
-    [pe, at] = u(!1),
-    [me, lt] = u(!1),
-    [Ft, ns] = u(!1),
-    [ct, ts] = u(!1),
+    [pe, at] = u(false),
+    [me, lt] = u(false),
+    [Ft, ns] = u(false),
+    [ct, ts] = u(false),
     [Xu, Ds] = u(void 0),
     fo;
   if (He[0] !== Re || He[1] !== Xu || He[2] !== it)
@@ -722,11 +722,11 @@ function ZJ(Ji) {
       let Co = Re(os);
       let Zu = { toolName: Qe, isMcp: eu };
       if (Co === "accept") {
-        if (pe) at(!1), s("tengu_accept_feedback_mode_collapsed", Zu);
-        else at(!0), ns(!0), s("tengu_accept_feedback_mode_entered", Zu);
+        if (pe) at(false), s("tengu_accept_feedback_mode_collapsed", Zu);
+        else at(true), ns(true), s("tengu_accept_feedback_mode_entered", Zu);
       } else if (Co === "reject") {
-        if (me) lt(!1), s("tengu_reject_feedback_mode_collapsed", Zu);
-        else lt(!0), ts(!0), s("tengu_reject_feedback_mode_entered", Zu);
+        if (me) lt(false), s("tengu_reject_feedback_mode_collapsed", Zu);
+        else lt(true), ts(true), s("tengu_reject_feedback_mode_entered", Zu);
       }
     }),
       (He[4] = pe),
@@ -741,8 +741,8 @@ function ZJ(Ji) {
   if (He[10] !== nu || He[11] !== pe || He[12] !== Re || He[13] !== tu || He[14] !== me)
     (Eo = (go) => {
       let ho = Re(go);
-      if (ho !== "accept" && pe && !nu.trim()) at(!1);
-      if (ho !== "reject" && me && !tu.trim()) lt(!1);
+      if (ho !== "accept" && pe && !nu.trim()) at(false);
+      if (ho !== "reject" && me && !tu.trim()) lt(false);
       Ds(go);
     }),
       (He[10] = nu),
@@ -850,7 +850,7 @@ function Fj({
       logSubmitted: K,
       logEscape: v,
       hintNode: j,
-    } = ZJ({ feedbackTypeOf: x, toolName: l?.toolName, isMcp: l?.isMcp ?? !1 }),
+    } = ZJ({ feedbackTypeOf: x, toolName: l?.toolName, isMcp: l?.isMcp ?? false }),
     Z = z(
       () =>
         n.map((V) => {
@@ -867,7 +867,7 @@ function Fj({
               value: O,
               placeholder: Pe ?? Nu,
               onChange: du,
-              allowEmptySubmitToCancel: !0,
+              allowEmptySubmitToCancel: true,
             };
           return { label: L, value: O, description: V.description };
         }),
@@ -883,7 +883,7 @@ function Fj({
         if (L) {
           if (((ne = (L.type === "accept" ? p : w).trim()), ne)) q = ne;
         }
-        if (D(V, q) === !1) return !1;
+        if (D(V, q) === false) return false;
         if (L) K(L.type, ne);
       },
       [n, p, w, D, K],
@@ -896,7 +896,7 @@ function Fj({
     }, [n, P, S, H, Q]);
   ht(Y, { context: "Confirmation" });
   let ee = B(() => {
-    if (i?.() === !1) return;
+    if (i?.() === false) return;
     v();
   }, [i, v]);
   return r(o, {
@@ -908,7 +908,7 @@ function Fj({
         options: Z,
         defaultFocusValue: f,
         hideIndexes: g,
-        inlineDescriptions: !0,
+        inlineDescriptions: true,
         onChange: Q,
         onCancel: ee,
         onFocus: G,
@@ -917,7 +917,7 @@ function Fj({
       e(o, {
         marginTop: 1,
         children: e(t, {
-          dimColor: !0,
+          dimColor: true,
           children: r(fe, { children: [e(M, { chord: "escape", action: "cancel" }), j] }),
         }),
       }),
@@ -967,10 +967,10 @@ function Z$e(Os) {
             color: "warning",
             priority: "high",
           }),
-          !1
+          false
         );
       }
-      return !0;
+      return true;
     }),
       (Gt[2] = Wt),
       (Gt[3] = Yt),
@@ -1136,12 +1136,12 @@ function Mn(n, D, i = ru) {
         kind: "inline",
         key: "input",
         text: "(parameters are not an object \u2014 deny unless expected)",
-        unrenderable: !0,
+        unrenderable: true,
       },
     ];
   let a = Object.entries(n),
     l = NO(n);
-  if (l !== null) return [{ kind: "inline", key: "input", text: l, unrenderable: !0, parseFailureSentinel: !0 }];
+  if (l !== null) return [{ kind: "inline", key: "input", text: l, unrenderable: true, parseFailureSentinel: true }];
   let c = [],
     g = a.length;
   if (g > Jo)
@@ -1150,7 +1150,7 @@ function Mn(n, D, i = ru) {
         kind: "inline",
         key: "input",
         text: `(${g} parameters \u2014 too many to show \u2014 deny unless expected)`,
-        unrenderable: !0,
+        unrenderable: true,
       },
     ];
   let f = [],
@@ -1169,7 +1169,7 @@ function Mn(n, D, i = ru) {
         kind: "inline",
         key: "input",
         text: `(parameters total ${x.toLocaleString()} characters \u2014 too much to show \u2014 deny unless expected)`,
-        unrenderable: !0,
+        unrenderable: true,
       },
     ];
   if (T > 0)
@@ -1177,7 +1177,7 @@ function Mn(n, D, i = ru) {
       kind: "inline",
       key: "input",
       text: `(${T} parameter ${T === 1 ? "name is" : "names are"} too large to show \u2014 deny unless expected)`,
-      unrenderable: !0,
+      unrenderable: true,
     });
   let p = H4e(f),
     w = a.find(([y]) => y === "language")?.[1],
@@ -1192,16 +1192,16 @@ function Mn(n, D, i = ru) {
     if (typeof P === "string") {
       if (P.length > Oe) {
         let L = `(value of ${P.length.toLocaleString()} characters cannot be shown \u2014 deny unless expected)`;
-        if (!Te(S, L, void 0, i)) c.push({ kind: "block", key: S, text: L, unrenderable: !0 });
-        else c.push({ kind: "inline", key: S, text: L, unrenderable: !0 });
+        if (!Te(S, L, void 0, i)) c.push({ kind: "block", key: S, text: L, unrenderable: true });
+        else c.push({ kind: "inline", key: S, text: L, unrenderable: true });
         continue;
       }
       let v = Hs(P),
         j = Od(v);
       if (qLe.test(j) || j !== v) {
         let L = `(value of ${P.length.toLocaleString()} characters cannot be shown in full \u2014 deny unless expected)`;
-        if (!Te(S, L, void 0, i)) c.push({ kind: "block", key: S, text: L, unrenderable: !0 });
-        else c.push({ kind: "inline", key: S, text: L, unrenderable: !0 });
+        if (!Te(S, L, void 0, i)) c.push({ kind: "block", key: S, text: L, unrenderable: true });
+        else c.push({ kind: "inline", key: S, text: L, unrenderable: true });
         continue;
       }
       let Z = j.replace(/\t/g, " ");
@@ -1247,8 +1247,8 @@ function Mn(n, D, i = ru) {
       let v = Pn(P, 0);
       if (((K = v.length), v.length > Oe)) {
         let j = `(value of ${v.length.toLocaleString()} formatted characters cannot be shown \u2014 deny unless expected)`;
-        if (!Te(S, j, void 0, i)) c.push({ kind: "block", key: S, text: j, unrenderable: !0 });
-        else c.push({ kind: "inline", key: S, text: j, unrenderable: !0 });
+        if (!Te(S, j, void 0, i)) c.push({ kind: "block", key: S, text: j, unrenderable: true });
+        else c.push({ kind: "inline", key: S, text: j, unrenderable: true });
         continue;
       }
       (G = Hs(v)), (H = Od(G));
@@ -1258,14 +1258,14 @@ function Mn(n, D, i = ru) {
           kind: "block",
           key: S,
           text: "(value too large or too deeply nested to render \u2014 deny unless expected)",
-          unrenderable: !0,
+          unrenderable: true,
         });
       else
         c.push({
           kind: "inline",
           key: S,
           text: "(value too large or too deeply nested to render \u2014 deny unless expected)",
-          unrenderable: !0,
+          unrenderable: true,
         });
       continue;
     }
@@ -1275,13 +1275,13 @@ function Mn(n, D, i = ru) {
           kind: "inline",
           key: "input",
           text: `(parameters total over ${_n.toLocaleString()} rendered characters \u2014 too much to show \u2014 deny unless expected)`,
-          unrenderable: !0,
+          unrenderable: true,
         },
       ];
     if (qLe.test(H) || Od(G) !== G) {
       let v = `(value of ${K.toLocaleString()} formatted characters cannot be shown in full \u2014 deny unless expected)`;
-      if (!Te(S, v, void 0, i)) c.push({ kind: "block", key: S, text: v, unrenderable: !0 });
-      else c.push({ kind: "inline", key: S, text: v, unrenderable: !0 });
+      if (!Te(S, v, void 0, i)) c.push({ kind: "block", key: S, text: v, unrenderable: true });
+      else c.push({ kind: "inline", key: S, text: v, unrenderable: true });
       continue;
     }
     if (
@@ -1297,7 +1297,7 @@ function Mn(n, D, i = ru) {
       kind: "inline",
       key: "input",
       text: `(${N} parameter ${N === 1 ? "name" : "names"} cannot be shown in full \u2014 deny unless expected)`,
-      unrenderable: !0,
+      unrenderable: true,
     });
   return c;
 }
@@ -1326,28 +1326,28 @@ function nD(oa) {
   if (an[0] !== sn || an[1] !== Xt) {
     Zt = fn;
     bb0: {
-      let Sn = Nf(`${Xt}:`, Math.max(10, sn - 2), { hard: !0, trim: !1 });
+      let Sn = Nf(`${Xt}:`, Math.max(10, sn - 2), { hard: true, trim: false });
       let Jt = Sn.indexOf(`
 `);
       if (Jt === -1) {
-        Zt = e(t, { dimColor: !0, children: Sn });
+        Zt = e(t, { dimColor: true, children: Sn });
         break bb0;
       }
       cn = o;
       Cn = "column";
-      En = e(t, { dimColor: !0, children: Sn.slice(0, Jt) });
+      En = e(t, { dimColor: true, children: Sn.slice(0, Jt) });
       Fn = o;
       Bn = 2;
       An = "single";
-      bn = !0;
-      yn = !1;
-      kn = !1;
-      xn = !1;
-      wn = !0;
+      bn = true;
+      yn = false;
+      kn = false;
+      xn = false;
+      wn = true;
       pn = 1;
       ln = t;
-      dn = !0;
-      gn = Nf(Sn.slice(Jt + 1).replace(/\n/g, ""), Math.max(10, sn - 4), { hard: !0, trim: !1 });
+      dn = true;
+      gn = Nf(Sn.slice(Jt + 1).replace(/\n/g, ""), Math.max(10, sn - 4), { hard: true, trim: false });
     }
     (an[0] = sn),
       (an[1] = Xt),
@@ -1438,7 +1438,7 @@ function nD(oa) {
 }
 function Nn({ entries: n, contentColumns: D }) {
   let [i] = mn(),
-    l = Ts().syntaxHighlightingDisabled ?? !1,
+    l = Ts().syntaxHighlightingDisabled ?? false,
     c = C(new Map()),
     g = z(() => {
       let p = l ? null : OR(),
@@ -1458,10 +1458,10 @@ function Nn({ entries: n, contentColumns: D }) {
         });
       return (c.current = w), N;
     }, [n, i, l]),
-    f = z(() => g.map((p) => (p === null ? null : Nf(p, Math.max(10, D - 4), { hard: !0, trim: !1 }))), [g, D]),
+    f = z(() => g.map((p) => (p === null ? null : Nf(p, Math.max(10, D - 4), { hard: true, trim: false }))), [g, D]),
     T = ese(),
-    x = n.length === 1 && n[0].kind === "inline" && n[0].parseFailureSentinel === !0 ? n[0] : null;
-  if (x !== null) return e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: x.text }) });
+    x = n.length === 1 && n[0].kind === "inline" && n[0].parseFailureSentinel === true ? n[0] : null;
+  if (x !== null) return e(o, { marginTop: 1, children: e(t, { dimColor: true, children: x.text }) });
   if (n.length === 0) return null;
   return e(o, {
     flexDirection: "column",
@@ -1472,9 +1472,9 @@ function Nn({ entries: n, contentColumns: D }) {
             t,
             {
               children: [
-                r(t, { dimColor: !0, children: [p.key, ": "] }),
+                r(t, { dimColor: true, children: [p.key, ": "] }),
                 e(oo, { children: p.linkUrl !== void 0 && T ? Yg(p.linkUrl, p.text) : p.text }),
-                p.annotation !== void 0 && r(t, { dimColor: !0, children: [" (", p.annotation, ")"] }),
+                p.annotation !== void 0 && r(t, { dimColor: true, children: [" (", p.annotation, ")"] }),
               ],
             },
             w,
@@ -1488,16 +1488,16 @@ function Nn({ entries: n, contentColumns: D }) {
                 e(o, {
                   marginLeft: 2,
                   borderStyle: "single",
-                  borderLeft: !0,
-                  borderRight: !1,
-                  borderTop: !1,
-                  borderBottom: !1,
-                  borderDimColor: !0,
+                  borderLeft: true,
+                  borderRight: false,
+                  borderTop: false,
+                  borderBottom: false,
+                  borderDimColor: true,
                   paddingLeft: 1,
                   children: e(oo, { children: f[w] ?? p.text }),
                 }),
                 p.annotation !== void 0 &&
-                  e(o, { marginLeft: 2, children: r(t, { dimColor: !0, children: ["(", p.annotation, ")"] }) }),
+                  e(o, { marginLeft: 2, children: r(t, { dimColor: true, children: ["(", p.annotation, ")"] }) }),
               ],
             },
             w,
@@ -1506,7 +1506,7 @@ function Nn({ entries: n, contentColumns: D }) {
   });
 }
 function _r(Wa) {
-  return Wa.unrenderable === !0;
+  return Wa.unrenderable === true;
 }
 function Pr(Ga) {
   return n2(Ga);
@@ -1615,7 +1615,7 @@ function XKt(Ia) {
     if (E.renderedToolUseMessage != null) {
       let Ve;
       if (I[11] !== E.renderedToolUseMessage)
-        (Ve = { node: E.renderedToolUseMessage, threw: !1 }), (I[11] = E.renderedToolUseMessage), (I[12] = Ve);
+        (Ve = { node: E.renderedToolUseMessage, threw: false }), (I[11] = E.renderedToolUseMessage), (I[12] = Ve);
       else Ve = I[12];
       Ln = Ve;
       break bb0;
@@ -1623,14 +1623,14 @@ function XKt(Ia) {
     try {
       let Ae;
       if (I[13] !== E.input || I[14] !== E.toolName || I[15] !== oD)
-        (Ae = URe(E.toolName, E.input, { theme: oD, verbose: !0 })),
+        (Ae = URe(E.toolName, E.input, { theme: oD, verbose: true })),
           (I[13] = E.input),
           (I[14] = E.toolName),
           (I[15] = oD),
           (I[16] = Ae);
       else Ae = I[16];
       let Su;
-      if (I[17] !== Ae) (Su = { node: Ae, threw: !1 }), (I[17] = Ae), (I[18] = Su);
+      if (I[17] !== Ae) (Su = { node: Ae, threw: false }), (I[17] = Ae), (I[18] = Su);
       else Su = I[18];
       Ln = Su;
     } catch (Ve) {
@@ -1644,7 +1644,7 @@ function XKt(Ia) {
               "Error rendering tool use line (permission dialog table fallback)",
             ),
           ),
-          { node: null, threw: !0 })),
+          { node: null, threw: true })),
           (I[19] = E.toolName),
           (I[20] = Ae);
       else Ae = I[20];
@@ -1658,7 +1658,7 @@ function XKt(Ia) {
   let _e = Ve,
     Ae;
   if (I[23] !== Ke || I[24] !== _e?.kind || I[25] !== E.toolUseRenderFailed || I[26] !== rD)
-    (Ae = (Ke?.some(_r) ?? !1) || E.toolUseRenderFailed === !0 || rD || _e?.kind === "withheld"),
+    (Ae = (Ke?.some(_r) ?? false) || E.toolUseRenderFailed === true || rD || _e?.kind === "withheld"),
       (I[23] = Ke),
       (I[24] = _e?.kind),
       (I[25] = E.toolUseRenderFailed),
@@ -1694,7 +1694,7 @@ function XKt(Ia) {
     (Cr = sD && !su && !lD ? ket("workflow") : null), (I[38] = sD), (I[39] = su), (I[40] = lD), (I[41] = Cr);
   else Cr = I[41];
   let Ye = Cr,
-    ce = E.permissionResult.defaultToNo === !0,
+    ce = E.permissionResult.defaultToNo === true,
     [Er, va] = u(null),
     gr;
   if (I[42] !== tD || I[43] !== be || I[44] !== iu || I[45] !== aD || I[46] !== ce || I[47] !== E)
@@ -1703,7 +1703,7 @@ function XKt(Ia) {
         va((Ka) => ({ epoch: (Ka?.epoch ?? 0) + 1, focus: FD === "yes" && !ce ? "yes" : "no" }));
       };
       if (!tD()) {
-        return cD(), !1;
+        return cD(), false;
       }
       if (FD === "yes-enable-auto-mode") aD();
       return iu(BD(FD, E, be, Ha));
@@ -1762,7 +1762,7 @@ function XKt(Ia) {
   else Ar = I[60];
   let On = Ar,
     Fu = On !== Pu,
-    [$n, Va] = u(!1),
+    [$n, Va] = u(false),
     mD = uu("app:toggleTranscript", "Global", "ctrl+o"),
     br;
   if (I[61] === d) (br = [{ action: "app:toggleTranscript", run: () => Va(Mr) }]), (I[61] = br);
@@ -1814,15 +1814,15 @@ function XKt(Ia) {
       ? r(o, {
           flexDirection: "row",
           children: [
-            e(t, { wrap: "truncate-end", children: r(t, { bold: !0, children: [E.userFacingName, " Tool:"] }) }),
-            E.hasMcpSuffix ? e(o, { flexShrink: 0, children: e(t, { dimColor: !0, children: " (MCP)" }) }) : null,
+            e(t, { wrap: "truncate-end", children: r(t, { bold: true, children: [E.userFacingName, " Tool:"] }) }),
+            E.hasMcpSuffix ? e(o, { flexShrink: 0, children: e(t, { dimColor: true, children: " (MCP)" }) }) : null,
           ],
         })
       : r(t, {
           children: [
             E.userFacingName,
             _u != null && _u !== "" && r(U, { children: ["(", _u, ")"] }),
-            E.hasMcpSuffix ? e(t, { dimColor: !0, children: " (MCP)" }) : "",
+            E.hasMcpSuffix ? e(t, { dimColor: true, children: " (MCP)" }) : "",
           ],
         })),
       (I[77] = _u),
@@ -1854,27 +1854,27 @@ function XKt(Ia) {
         children: [
           E.isMcp &&
             r(t, {
-              italic: !0,
+              italic: true,
               wrap: "truncate-end",
-              children: ["About the ", e(t, { bold: !0, children: E.userFacingName }), " Tool:"],
+              children: ["About the ", e(t, { bold: true, children: E.userFacingName }), " Tool:"],
             }),
           e(o, {
             borderStyle: "single",
-            borderLeft: !0,
-            borderRight: !1,
-            borderTop: !1,
-            borderBottom: !1,
-            borderDimColor: !0,
+            borderLeft: true,
+            borderRight: false,
+            borderTop: false,
+            borderBottom: false,
+            borderDimColor: true,
             paddingLeft: 1,
-            children: e(t, { dimColor: !0, italic: E.isMcp, children: $n ? On : Pu }),
+            children: e(t, { dimColor: true, italic: E.isMcp, children: $n ? On : Pu }),
           }),
           Fu &&
             e(t, {
-              dimColor: !0,
+              dimColor: true,
               children: e(M, {
                 chord: mD,
                 action: $n ? "collapse description" : "expand description",
-                parens: !0,
+                parens: true,
                 format: { keyCase: "lower" },
               }),
             }),

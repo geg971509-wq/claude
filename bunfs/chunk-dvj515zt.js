@@ -17,7 +17,7 @@ import { i, q, H, f, un } from "/$bunfs/root/chunk-saay52v7.js";
 var tae = m(() => un({ name: i().optional() })),
   d = m(() => f({ results: H(tae()), opt_in_required: q().optional(), message: i().nullish() }));
 function o8(e) {
-  return !Array.isArray(e) && e.opt_in_required === !0;
+  return !Array.isArray(e) && e.opt_in_required === true;
 }
 class nae extends Error {
   constructor(e) {
@@ -49,13 +49,13 @@ async function u(e, r, s, t) {
   if (!a.success) throw Error("malformed connector response");
   if (a.data.opt_in_required)
     return {
-      opt_in_required: !0,
+      opt_in_required: true,
       message: a.data.message ?? "Enable connector suggestions in your Claude settings to use this.",
     };
   return a.data.results;
 }
 async function vUn(e, r, s) {
-  let t = await u(C, { keywords: e, include_custom: !0 }, r, s);
+  let t = await u(C, { keywords: e, include_custom: true }, r, s);
   if (!o8(t)) y("connector_suggest_search");
   return t;
 }

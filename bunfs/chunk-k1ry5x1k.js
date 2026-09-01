@@ -28,8 +28,8 @@ F();
 function c0t(le) {
   let n = _(28),
     { configHome: D, storageV5: U, origin: a, onDone: w } = le,
-    [_e, he] = u(!1),
-    L = C(!1),
+    [_e, he] = u(false),
+    L = C(false),
     T,
     j;
   if (n[0] !== a)
@@ -49,8 +49,8 @@ function c0t(le) {
         return;
       }
       if (
-        ((L.current = !0),
-        he(!0),
+        ((L.current = true),
+        he(true),
         s("tengu_home_settings_mode_prompt", { choice: c(f), origin: c(a) }),
         f === "not_now")
       ) {
@@ -96,7 +96,7 @@ function c0t(le) {
   if (n[10] !== D) (H = nr(D)), (n[10] = D), (n[11] = H);
   else H = n[11];
   let b;
-  if (n[12] !== H) (b = e(t, { bold: !0, children: H })), (n[12] = H), (n[13] = b);
+  if (n[12] !== H) (b = e(t, { bold: true, children: H })), (n[12] = H), (n[13] = b);
   else b = n[13];
   let J, K;
   if (n[14] === d)
@@ -105,7 +105,7 @@ function c0t(le) {
         "Send the CLAUDE.md, rules, output styles, and preferences in this folder, plus the permission rules that don't name paths on this machine, into each cloud session you start with claude --cloud, so it follows the same instructions and preferences. It skips credential files and anything your Read rules deny, never sends hooks, environment variables, MCP servers, or plugins, and sends nothing outside this folder, even through a link or an @import. What is sent is encrypted at rest, and each launch tells you what it sent.",
     })),
       (K = e(t, {
-        dimColor: !0,
+        dimColor: true,
         children:
           "Without this, cloud sessions keep their own default settings, as they do today. Yes and No are saved for this machine; /config changes it later, from a session started without --cloud.",
       })),

@@ -142,7 +142,7 @@ function c(e) {
 function I(e, i) {
   let o,
     r = new Map(),
-    a = !1,
+    a = false,
     n = -1;
   for (let s = 0; s < i.length; s++) {
     let d = i[s];
@@ -160,7 +160,7 @@ function I(e, i) {
   let f = n === -1 ? i : [...i.slice(0, n), ...i.slice(n + 1)];
   for (let s = 0; s < f.length; s++) {
     let d = f[s];
-    if (d === "--json") a = !0;
+    if (d === "--json") a = true;
     else if (d.startsWith("--")) {
       let m = d.indexOf("="),
         p = m !== -1 ? d.slice(2, m) : d.slice(2);
@@ -202,7 +202,7 @@ function D(e) {
       n.id ?? n.name ?? "",
       n.dir,
       n.kind === "scheduled"
-        ? `${n.cron ?? ""}${n.enabled === !1 ? " (disabled)" : ""}`
+        ? `${n.cron ?? ""}${n.enabled === false ? " (disabled)" : ""}`
         : n.kind === "remote-control"
           ? (n.spawnMode ?? "")
           : "",

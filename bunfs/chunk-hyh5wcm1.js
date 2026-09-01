@@ -250,7 +250,7 @@ function BN(e) {
     case "memory":
     case "agentMemory":
     case "scratch":
-      return !0;
+      return true;
     case "sessionLog":
       return e.projectKey !== void 0;
     case "userConfigDir":
@@ -273,7 +273,7 @@ function BN(e) {
     case "fileHistory":
     case "globalConfig":
     case "bridgeSpawn":
-      return !1;
+      return false;
   }
 }
 function x(e) {
@@ -290,7 +290,7 @@ function ge(e, n, t) {
     case "agentMemory":
       return n.layer !== "user" && t === P(e.configHome, n);
     default:
-      return !1;
+      return false;
   }
 }
 function j(e) {
@@ -340,16 +340,16 @@ function YH(e) {
   return Ar(e) ? void 0 : Fe("stream", `${e.namespace} keys are values, not record streams`);
 }
 function HAt(e, n) {
-  if (n.includes("\\")) return !1;
-  if ((e.kind === "key" ? T(e.key) : oe(e.scope)) !== void 0) return !1;
-  if (!n.startsWith(".") && !n.includes("..") && !n.includes(" ") && !n.toLowerCase().includes(".aside")) return !0;
+  if (n.includes("\\")) return false;
+  if ((e.kind === "key" ? T(e.key) : oe(e.scope)) !== void 0) return false;
+  if (!n.startsWith(".") && !n.includes("..") && !n.includes(" ") && !n.toLowerCase().includes(".aside")) return true;
   let a = e.kind === "key" ? se(e.key) : oFe(e.scope);
-  if (a === void 0) return !1;
+  if (a === void 0) return false;
   for (let [, s] of a) {
     let i = Array.isArray(s) ? s.at(-1) : s;
-    if (i !== void 0 && !Zt(i)) return !1;
+    if (i !== void 0 && !Zt(i)) return false;
   }
-  return !0;
+  return true;
 }
 function Kn(e) {
   if (typeof e !== "object" || e === null) return Fe("key", "expected a key object");
@@ -495,7 +495,7 @@ function ke(e) {
         );
   }
   if ("journal" in e) {
-    if (e.journal !== !0) return Fe("key.journal", "must be true");
+    if (e.journal !== true) return Fe("key.journal", "must be true");
     if (!Array.isArray(e.agentRelPath)) return Fe("key.agentRelPath", "a run journal key carries its run directory");
     return e.agentId === void 0
       ? void 0
@@ -592,8 +592,8 @@ function Ne(e) {
       "key.highWaterMark",
       "a task key names an item, the list metadata or the list high-water mark, never more than one",
     );
-  if ("meta" in e && e.meta !== !0) return Fe("key.meta", "must be true");
-  if ("highWaterMark" in e && e.highWaterMark !== !0) return Fe("key.highWaterMark", "must be true");
+  if ("meta" in e && e.meta !== true) return Fe("key.meta", "must be true");
+  if ("highWaterMark" in e && e.highWaterMark !== true) return Fe("key.highWaterMark", "must be true");
   if (typeof e.listId !== "string") return Fe("key.listId", "a task key carries its listId");
   if ("meta" in e || "highWaterMark" in e) return;
   if (typeof e.taskId !== "string") return Fe("key.taskId", "a task item key carries its taskId");
@@ -1028,7 +1028,7 @@ function Jo(e, n) {
   let { configHome: t, globalConfigFile: a } = e;
   switch (n.namespace) {
     case "transcript":
-      if (n.journal === !0)
+      if (n.journal === true)
         return r(t, "projects", n.projectKey, n.sessionId, "subagents", ...n.agentRelPath, "journal.jsonl");
       if (n.sessionJournal !== void 0) return r(t, "projects", n.projectKey, n.sessionId, `${n.sessionJournal}${O}`);
       return n.agentId === void 0
@@ -1154,7 +1154,7 @@ function xar(e) {
     case "log":
       return qCe;
     case "transcript":
-      return e.journal === !0 || e.sessionJournal !== void 0 ? qCe : wy;
+      return e.journal === true || e.sessionJournal !== void 0 ? qCe : wy;
     case "history":
     case "recording":
     case "sessionLog":
@@ -1196,13 +1196,13 @@ function m4(e) {
   switch (e.namespace) {
     case "team":
     case "mailbox":
-      return !0;
+      return true;
     case "globalConfig":
       return !("kind" in e);
     case "jobsRoot":
       return "file" in e && e.file === "pins";
     default:
-      return !1;
+      return false;
   }
 }
 function IRn(e) {
@@ -1348,9 +1348,9 @@ function uj(e, n, t, a) {
     case "task":
       if (e.listId === void 0) return t ? { kind: "scope", scope: { namespace: "task", listId: n } } : void 0;
       if (t) return;
-      if (n === E) return { kind: "key", key: { namespace: "task", listId: e.listId, meta: !0 } };
+      if (n === E) return { kind: "key", key: { namespace: "task", listId: e.listId, meta: true } };
       if (n === ".highwatermark")
-        return { kind: "key", key: { namespace: "task", listId: e.listId, highWaterMark: !0 }, unlisted: !0 };
+        return { kind: "key", key: { namespace: "task", listId: e.listId, highWaterMark: true }, unlisted: true };
       if (X(n)) return;
       return c(n, ".json", (s) => ({ kind: "key", key: { namespace: "task", listId: e.listId ?? "", taskId: s } }));
     case "mailbox":
@@ -1435,7 +1435,7 @@ function uj(e, n, t, a) {
       if (e.jobId === void 0) return t && !y(n) ? { kind: "scope", scope: { namespace: "job", jobId: n } } : void 0;
       if (t) return { kind: "scope", scope: { ...e, relPath: [...(e.relPath ?? []), n] } };
       if ((e.relPath ?? []).length === 0 && n === g)
-        return { kind: "key", key: { namespace: "jobTimeline", jobId: e.jobId }, unlisted: !0 };
+        return { kind: "key", key: { namespace: "jobTimeline", jobId: e.jobId }, unlisted: true };
       return { kind: "key", key: { namespace: "job", jobId: e.jobId, relPath: [...(e.relPath ?? []), n] } };
     case "daemon":
       return t
@@ -1607,7 +1607,7 @@ function sn(e, n, t) {
     if (t) return jN(n) ? void 0 : { kind: "scope", scope: { ...e, agentRelPath: [...o, n] } };
     if (n === "journal.jsonl")
       return o.length > 0
-        ? { kind: "key", key: { namespace: "transcript", projectKey: s, sessionId: i, agentRelPath: o, journal: !0 } }
+        ? { kind: "key", key: { namespace: "transcript", projectKey: s, sessionId: i, agentRelPath: o, journal: true } }
         : void 0;
     return c(n, ".jsonl", (d) =>
       d.startsWith("agent-") && d.length > 6
@@ -1716,21 +1716,21 @@ function pJ(e, n) {
 }
 function MAt(e, n) {
   if (e.namespace === "sidecar") return (e.relPath ?? []).length === 0 && n.length === 1 && HJe(n[0]) !== void 0;
-  if (e.namespace !== "job") return !1;
+  if (e.namespace !== "job") return false;
   let t = e.jobId === void 0 ? n[0] : void 0;
-  if (t !== void 0 && y(t)) return !1;
+  if (t !== void 0 && y(t)) return false;
   let a = e.jobId === void 0 ? n.slice(1) : n;
   return (e.relPath ?? []).length === 0 && a.length === 1 && a[0] === g;
 }
 function $oe(e, n, t) {
-  if (yc(e, t) !== void 0) return !1;
+  if (yc(e, t) !== void 0) return false;
   let a = Jo(e, t);
   return JH(e, n).some((s) => aU(s.directory, a) && un(s.scope, t));
 }
 function un(e, n) {
-  if (e.namespace !== n.namespace) return !1;
-  if (ln(e, n)) return !1;
-  if (e.namespace === "marketplaceCache" && n.namespace === "marketplaceCache" && !("relPath" in n)) return !1;
+  if (e.namespace !== n.namespace) return false;
+  if (ln(e, n)) return false;
+  if (e.namespace === "marketplaceCache" && n.namespace === "marketplaceCache" && !("relPath" in n)) return false;
   return (oFe(e) ?? []).every(([t, a]) => gn(fn(n, t), a));
 }
 function ln(e, n) {
@@ -1744,7 +1744,7 @@ function fn(e, n) {
   return typeof t === "string" || Array.isArray(t) ? t : void 0;
 }
 function gn(e, n) {
-  if (n === void 0) return !0;
+  if (n === void 0) return true;
   if (Array.isArray(n)) return n.length === 0 || (Array.isArray(e) && n.every((t, a) => e[a] === t));
   return e === n;
 }

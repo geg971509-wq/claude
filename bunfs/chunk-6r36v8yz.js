@@ -78,7 +78,7 @@ function HOn(e) {
       (o.length === 2 && (o[1] === "filePath" || o[1] === "notebook_path" || o[1] === "file")) ||
       (o.length === 3 && o[1] === "file" && o[2] === "filePath")
     );
-  return !1;
+  return false;
 }
 function xOn(e) {
   let t = DUe(e),
@@ -99,13 +99,13 @@ var Q =
   W = /^(?:https?|s3|gs|ftps?|mailto|data):[^\p{Cc}\p{Cf}\p{Z}\s]*$/iu,
   ee = 4,
   O = 256;
-function P(e, t, o, r, a, s = 0, p = !1, c = !1) {
+function P(e, t, o, r, a, s = 0, p = false, c = false) {
   if (s > ee || (s > 0 && a.members <= 0)) {
     if (typeof e === "object" && e !== null) R(r, t);
     return e;
   }
   if (Array.isArray(e)) {
-    let u = !1,
+    let u = false,
       m = e.map((f, h) => {
         let k = `${t}/${h}`;
         if (k in r.paths || r.listed.has(k)) return f;
@@ -117,7 +117,7 @@ function P(e, t, o, r, a, s = 0, p = !1, c = !1) {
   }
   if (!y(e)) return e;
   let d = e,
-    i = !1;
+    i = false;
   for (let [u, m] of Object.entries(e)) {
     let f = `${t}/${PUe(u)}`;
     if (s > 0) {
@@ -127,18 +127,18 @@ function P(e, t, o, r, a, s = 0, p = !1, c = !1) {
       }
     }
     let h = m,
-      k = !1;
+      k = false;
     if ((p || jie(u)) && !(f in r.paths) && !r.listed.has(f)) {
       let _ = c || C.test(u);
-      if (typeof m === "string") (k = !0), (h = _ && W.test(m) ? m : v(m, f, o, r));
-      else if (Array.isArray(m)) (k = !0), (h = P(m, f, o, r, a, s + 1, !0, _));
+      if (typeof m === "string") (k = true), (h = _ && W.test(m) ? m : v(m, f, o, r));
+      else if (Array.isArray(m)) (k = true), (h = P(m, f, o, r, a, s + 1, true, _));
     }
     if (!k && h === m && typeof m === "object" && m !== null) {
       let w = (p || jie(u)) && !(y(m) && Object.keys(m).some(jie));
       h = P(m, f, o, r, a, s + 1, w, w && (c || C.test(u)));
     }
     if (h !== m) {
-      if (!i) (d = { ...e }), (i = !0);
+      if (!i) (d = { ...e }), (i = true);
       d[u] = h;
     }
   }
@@ -184,7 +184,7 @@ function M(e, t, o, r, a) {
 }
 function te(e, t, o, r, a) {
   if (!y(e) || !Array.isArray(e[t])) return e;
-  let s = !1,
+  let s = false,
     p = e[t].map((c, d) => {
       let i = v(c, `${o}/${d}`, r, a);
       return (s ||= i !== c), i;
@@ -195,9 +195,9 @@ function F(e, t, o, r, a) {
   let s = K(e.tool_name, a);
   if (s === void 0 || !y(e.tool_input)) {
     let i = { members: O },
-      u = B(e.tool_input, `${t}/tool_input`, o, r, i, !0);
+      u = B(e.tool_input, `${t}/tool_input`, o, r, i, true);
     return "tool_response" in e
-      ? { ...e, tool_input: u, tool_response: B(e.tool_response, `${t}/tool_response`, o, r, i, !1) }
+      ? { ...e, tool_input: u, tool_response: B(e.tool_response, `${t}/tool_response`, o, r, i, false) }
       : { ...e, tool_input: u };
   }
   let p = s.input === void 0 ? e.tool_input : M(e.tool_input, s.input, `${t}/tool_input/${s.input}`, o, r);
@@ -279,8 +279,8 @@ function aTr(e) {
       e.telemetry.forwarded({
         event: d.event,
         outcome: i,
-        fieldsDropped: u.fieldsDropped ?? !1,
-        blocked: u.blocked ?? !1,
+        fieldsDropped: u.fieldsDropped ?? false,
+        blocked: u.blocked ?? false,
         rttMs: u.rttMs ?? 0,
         errorRepliesIgnored: u.errorRepliesIgnored ?? 0,
         malformedRepliesIgnored: u.malformedRepliesIgnored ?? 0,
@@ -304,7 +304,7 @@ function aTr(e) {
           );
         let _ = null,
           w = 0,
-          N = !1;
+          N = false;
         try {
           let g = Wp(m);
           (N = !(await iur(g, e.toolAliases(), { realpath: e.realpath ?? ie, readlink: e.readlink ?? se }))),
@@ -428,10 +428,10 @@ var ie = (e) => ne(e),
   ae = 40;
 async function iur(e, t, o) {
   let r = "tool_calls" in e && Array.isArray(e.tool_calls) ? e.tool_calls : [e],
-    a = !0;
+    a = true;
   for (let s of r) {
     let p = le(s, t);
-    if (p !== null && !(await ce(p, o))) a = !1;
+    if (p !== null && !(await ce(p, o))) a = false;
   }
   return a;
 }
@@ -453,7 +453,7 @@ async function ce({ fields: e, member: t, value: o }, r) {
       let c = await r.realpath(a),
         d = s.length === 0 ? c : b.join(c, ...s);
       if (d !== o) e[t] = d;
-      return !0;
+      return true;
     } catch {
       let c = await r.readlink(a).catch(() => null);
       if (c !== null) {
@@ -463,9 +463,9 @@ async function ce({ fields: e, member: t, value: o }, r) {
         continue;
       }
       let d = b.dirname(a);
-      if (d === a) return !0;
+      if (d === a) return true;
       s.unshift(b.basename(a)), (a = d);
     }
-  return !1;
+  return false;
 }
 export { gtt, PUe, DUe, HOn, xOn, jie, htt, IOn, nur, akt, rur, POn, our, aTr, lTr, iur };

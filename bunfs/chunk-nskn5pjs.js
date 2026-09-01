@@ -102,7 +102,7 @@ async function qe(e, t) {
   return { resource: n.resource, authorization_servers: n.authorization_servers };
 }
 async function Ge(e, t) {
-  let n = await jHe(e, { fetchFn: t?.fetchFn ?? ce, skipIssuerValidation: !0 });
+  let n = await jHe(e, { fetchFn: t?.fetchFn ?? ce, skipIssuerValidation: true });
   if (!n?.issuer || !n.token_endpoint) throw Error(`XAA: AS metadata discovery failed: no valid metadata at ${e}`);
   if (ae(n.issuer) !== ae(e))
     throw Error(`XAA: AS metadata discovery failed: issuer mismatch: expected ${e}, got ${n.issuer}`);
@@ -142,14 +142,14 @@ async function Je(e) {
   try {
     d = await r.json();
   } catch {
-    throw new q(`XAA: token exchange returned non-JSON (captive portal?) at ${e.tokenEndpoint}`, !1);
+    throw new q(`XAA: token exchange returned non-JSON (captive portal?) at ${e.tokenEndpoint}`, false);
   }
   let u = We().safeParse(d);
-  if (!u.success) throw new q(`XAA: token exchange response did not match expected shape: ${ie(d)}`, !0);
+  if (!u.success) throw new q(`XAA: token exchange response did not match expected shape: ${ie(d)}`, true);
   let o = u.data;
-  if (!o.access_token) throw new q(`XAA: token exchange response missing access_token: ${ie(o)}`, !0);
+  if (!o.access_token) throw new q(`XAA: token exchange response missing access_token: ${ie(o)}`, true);
   if (o.issued_token_type !== Ce)
-    throw new q(`XAA: token exchange returned unexpected issued_token_type: ${o.issued_token_type}`, !0);
+    throw new q(`XAA: token exchange returned unexpected issued_token_type: ${o.issued_token_type}`, true);
   return { jwtAuthGrant: o.access_token, expiresIn: o.expires_in, scope: o.scope };
 }
 async function Ye(e) {
@@ -237,8 +237,8 @@ var nt = 30000,
   Re = 600000,
   ot = new Set([...lH, ...EI, "ETIMEDOUT"]);
 function at(e) {
-  if (It(e)) return !0;
-  if (e instanceof Error && e.name === "TimeoutError") return !0;
+  if (It(e)) return true;
+  if (e instanceof Error && e.name === "TimeoutError") return true;
   let t = Ug(e);
   return t !== null && ot.has(t.code);
 }
@@ -353,7 +353,7 @@ async function ue(e, t, n) {
     let { authorizationServerUrl: v, authorizationServerMetadata: S } = await cOt(t, {
       fetchFn: _,
       ...(u && { resourceMetadataUrl: u }),
-      skipIssuerMetadataValidation: !0,
+      skipIssuerMetadataValidation: true,
     });
     if (S)
       return (
@@ -366,7 +366,7 @@ async function ue(e, t, n) {
   let h = new URL(t);
   if (h.pathname === "/") return;
   try {
-    let v = await jHe(h, { fetchFn: _, skipIssuerValidation: !0 });
+    let v = await jHe(h, { fetchFn: _, skipIssuerValidation: true });
     if (v)
       nat({
         serverName: e,
@@ -398,9 +398,9 @@ class kx extends R {
 }
 function de() {
   try {
-    return I("tengu_mcp_issuer_strict_echo", !1) === !0;
+    return I("tengu_mcp_issuer_strict_echo", false) === true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function ft(e, t) {
@@ -493,11 +493,11 @@ function xe() {
   return a.MCP_OAUTH_CLIENT_METADATA_URL || Voe;
 }
 function Ie(e) {
-  if (!Pe(e)) return !1;
+  if (!Pe(e)) return false;
   try {
     return new URL(e).pathname === "/callback";
   } catch {
-    return !1;
+    return false;
   }
 }
 function mt(e) {
@@ -654,7 +654,7 @@ async function eAr(e, t, n) {
   if (r) g("mcp_oauth_revoke", r);
   else y("mcp_oauth_revoke");
 }
-async function tAr(e, t, { preserveStepUpState: n = !1 } = {}) {
+async function tAr(e, t, { preserveStepUpState: n = false } = {}) {
   let r = vn(),
     d = await r.readAsync();
   if (!d?.mcpOAuth) {
@@ -862,7 +862,7 @@ async function nAr(e, t, n, r, d) {
         `XAA is not enabled (set CLAUDE_CODE_ENABLE_XAA=1). Remove 'oauth.xaa' from server '${e}' to use the standard consent flow.`,
       );
     s("tengu_mcp_oauth_flow_start", {
-      isOAuthFlow: !0,
+      isOAuthFlow: true,
       authMethod: w("xaa"),
       transportType: c(t.type),
       ...(Og(t) && { mcpServerBaseUrl: Og(t) }),
@@ -887,11 +887,11 @@ async function nAr(e, t, n, r, d) {
     U = Qe();
   s("tengu_mcp_oauth_flow_start", {
     flowAttemptId: ve(U),
-    isOAuthFlow: !0,
+    isOAuthFlow: true,
     transportType: c(t.type),
     ...(Og(t) && { mcpServerBaseUrl: Og(t) }),
   });
-  let x = !1;
+  let x = false;
   try {
     let T = t.oauth?.callbackPort,
       k = !!d?.redirectUri,
@@ -912,7 +912,7 @@ async function nAr(e, t, n, r, d) {
     let z = qt(),
       G = new AbortController();
     if (!k) z.oauthCallbackListeners.get(O)?.abort(), z.oauthCallbackListeners.set(O, G);
-    let K = new xWe(e, t, N, !0, n, d?.skipBrowserOpen),
+    let K = new xWe(e, t, N, true, n, d?.skipBrowserOpen),
       B = Boolean(t.oauth?.scopes || t.oauth?.authServerMetadataUrl);
     if (A.scope && !B) K.markStepUpPending(A.scope);
     try {
@@ -940,14 +940,14 @@ async function nAr(e, t, n, r, d) {
         Z(e, "MCP OAuth server cleaned up");
       },
       { code: Fe, iss: ze } = await new Promise((X, Le) => {
-        let se = !1,
+        let se = false,
           we = (P, H) => {
             if (se) return;
-            (se = !0), X({ code: P, iss: H });
+            (se = true), X({ code: P, iss: H });
           },
           Y = (P) => {
             if (se) return;
-            (se = !0), Le(P);
+            (se = true), Le(P);
           };
         if (
           ((J = () => {
@@ -967,16 +967,16 @@ async function nAr(e, t, n, r, d) {
                 pe = j.searchParams.get("state"),
                 Q = j.searchParams.get("error"),
                 re = FWe(j.searchParams.get("iss"));
-              if (!ee && !Q) return !1;
-              if (pe !== F) return W(), Y(Error("OAuth state mismatch - possible CSRF attack")), !0;
+              if (!ee && !Q) return false;
+              if (pe !== F) return W(), Y(Error("OAuth state mismatch - possible CSRF attack")), true;
               if (Q) {
                 let oe = j.searchParams.get("error_description") || "";
-                return W(), Y(Error(`OAuth error: ${Q} - ${oe}`)), !0;
+                return W(), Y(Error(`OAuth error: ${Q} - ${oe}`)), true;
               }
-              if (!ee) return !1;
-              return Z(e, "Received auth code via manual callback URL"), W(), we(ee, re), !0;
+              if (!ee) return false;
+              return Z(e, "Received auth code via manual callback URL"), W(), we(ee, re), true;
             } catch {
-              return !1;
+              return false;
             }
           };
           (ye = P), z.oauthCallbackSubmitters.set(e, P), d?.onWaitingForCallback?.(P, O, F);
@@ -989,7 +989,7 @@ async function nAr(e, t, n, r, d) {
               scope: A.scope,
               resourceMetadataUrl: A.resourceMetadataUrl,
               fetchFn: KDt(),
-              skipIssuerMetadataValidation: !0,
+              skipIssuerMetadataValidation: true,
             });
             if ((Z(e, `Initial auth result: ${P}`), P !== "REDIRECT"))
               Z(e, `Unexpected auth result, expected REDIRECT: ${P}`);
@@ -1000,7 +1000,7 @@ async function nAr(e, t, n, r, d) {
         if (k) Te();
         else
           (L = et((P, H) => {
-            let j = rt(P.url || "", !0);
+            let j = rt(P.url || "", true);
             if (j.pathname === "/callback") {
               let ee = j.query.code,
                 pe = j.query.state,
@@ -1012,7 +1012,7 @@ async function nAr(e, t, n, r, d) {
                 H.writeHead(400, { "Content-Type": "text/html" }),
                   H.end(
                     cE({
-                      ok: !1,
+                      ok: false,
                       heading: "Authentication failed",
                       message: "Invalid state parameter. Close this tab and try again from Claude Code.",
                     }),
@@ -1023,7 +1023,7 @@ async function nAr(e, t, n, r, d) {
                 H.writeHead(200, { "Content-Type": "text/html" }),
                   H.end(
                     cE({
-                      ok: !1,
+                      ok: false,
                       heading: "Authentication failed",
                       message: "Close this tab and try again from Claude Code.",
                       detail: `${String(Q)}: ${re ?? ""}`,
@@ -1040,7 +1040,7 @@ async function nAr(e, t, n, r, d) {
                 H.writeHead(200, { "Content-Type": "text/html" }),
                   H.end(
                     cE({
-                      ok: !0,
+                      ok: true,
                       heading: "Authentication successful",
                       message: "You can close this tab and return to Claude Code.",
                     }),
@@ -1051,7 +1051,7 @@ async function nAr(e, t, n, r, d) {
               H.writeHead(404, { "Content-Type": "text/html" }),
                 H.end(
                   cE({
-                    ok: !1,
+                    ok: false,
                     heading: "Not found",
                     message: `This is the Claude Code MCP OAuth callback listener. It only handles /callback. If your OAuth provider redirected here, the registered redirect_uri must be ${N}.`,
                   }),
@@ -1080,14 +1080,14 @@ async function nAr(e, t, n, r, d) {
         )),
           te.unref();
       });
-    (x = !0), Z(e, "Completing auth flow with authorization code");
+    (x = true), Z(e, "Completing auth flow with authorization code");
     let fe = await BHe(K, {
       serverUrl: t.url,
       authorizationCode: Fe,
       iss: ze,
       resourceMetadataUrl: A.resourceMetadataUrl,
       fetchFn: KDt(),
-      skipIssuerMetadataValidation: !0,
+      skipIssuerMetadataValidation: true,
     });
     if ((Z(e, `Auth result: ${fe}`), fe === "AUTHORIZED")) {
       let X = await K.tokens().catch(() => {
@@ -1175,7 +1175,7 @@ async function nAr(e, t, n, r, d) {
 function rat(e, t) {
   return async (n, r) => {
     let d = await e(n, r);
-    if (d.status === 401 || d.status === 403) t.sawAuthChallenge = !0;
+    if (d.status === 401 || d.status === 403) t.sawAuthChallenge = true;
     if (d.status === 403) {
       let u = d.headers.get("WWW-Authenticate");
       if (u?.includes("insufficient_scope")) {
@@ -1207,13 +1207,13 @@ class xWe {
   _lastServedRefreshToken;
   onAuthorizationUrlCallback;
   skipBrowserOpen;
-  constructor(e, t, n = UHe(), r = !1, d, u) {
+  constructor(e, t, n = UHe(), r = false, d, u) {
     (this.serverName = e),
       (this.serverConfig = t),
       (this.redirectUri = n),
       (this.handleRedirection = r),
       (this.onAuthorizationUrlCallback = d),
-      (this.skipBrowserOpen = u ?? !1);
+      (this.skipBrowserOpen = u ?? false);
   }
   get redirectUrl() {
     return this.redirectUri;
@@ -1258,7 +1258,7 @@ class xWe {
   markStepUpPending(e) {
     (this._pendingStepUpScope = e), Z(this.serverName, `Marked step-up pending: ${e}`);
   }
-  sawAuthChallenge = !1;
+  sawAuthChallenge = false;
   async readCredentialStore() {
     let e = await Are();
     if (e === Eu)
@@ -1634,12 +1634,12 @@ class xWe {
     if (this._scopes && !this.handleRedirection && this._pendingStepUpScope) {
       let U = ga(this.serverName, this.serverConfig),
         x = this._scopes,
-        T = !1;
+        T = false;
       try {
         await vn().mutate((k) => {
           let O = k.mcpOAuth?.[U];
           if (!O) return k;
-          return (T = !0), { ...k, mcpOAuth: { ...k.mcpOAuth, [U]: { ...O, stepUpScope: x } } };
+          return (T = true), { ...k, mcpOAuth: { ...k.mcpOAuth, [U]: { ...O, stepUpScope: x } } };
         });
       } catch (k) {
         Z(this.serverName, `step-up scope persist failed: ${l(k)}`);
@@ -1664,7 +1664,7 @@ class xWe {
     let C = xL();
     if (C) Z(this.serverName, `Skipping browser open (headless environment). URL: ${S}`);
     else Z(this.serverName, `Opening authorization URL: ${S}`);
-    let A = C ? !1 : await Lr(v);
+    let A = C ? false : await Lr(v);
     if ((s("tengu_mcp_oauth_browser_open", { success: A, headless: C, platform: c(D()) }), !C && !A))
       Z(this.serverName, "Browser didn't open automatically. URL is shown in UI.");
   }
@@ -1682,7 +1682,7 @@ class xWe {
     }
     let t = e,
       n = ga(this.serverName, this.serverConfig),
-      r = !1;
+      r = false;
     try {
       let d = this._lastServedClientId,
         u = this._lastServedAccessToken,
@@ -1732,7 +1732,7 @@ class xWe {
             break;
           }
         }
-        return (r = !0), { ..._, mcpOAuth: v };
+        return (r = true), { ..._, mcpOAuth: v };
       });
     } catch (d) {
       Z(this.serverName, `invalidateCredentials persist failed: ${l(d)}`);
@@ -1846,7 +1846,7 @@ class xWe {
       try {
         Z(this.serverName, `Acquiring refresh lock (attempt ${o + 1})`),
           (u = await Gi(d, {
-            realpath: !1,
+            realpath: false,
             stale: 60000,
             update: 5000,
             onCompromised: () => {
@@ -1941,7 +1941,7 @@ class xWe {
           else if (S?.authorizationServerUrl) {
             Z(this.serverName, `Re-discovering metadata from persisted auth server URL: ${S.authorizationServerUrl}`);
             let C = S.authorizationServerUrl;
-            if (((h = await jHe(C, { fetchFn: o, skipIssuerValidation: !0 })), h))
+            if (((h = await jHe(C, { fetchFn: o, skipIssuerValidation: true })), h))
               nat({
                 serverName: this.serverName,
                 site: "refresh_rediscovery",
@@ -2069,7 +2069,7 @@ async function rAr() {
   if (!process.stdin.isTTY)
     throw Error("No TTY available to prompt for client secret. Set MCP_CLIENT_SECRET env var instead.");
   return new Promise((t, n) => {
-    process.stderr.write("Enter OAuth client secret: "), process.stdin.setRawMode?.(!0);
+    process.stderr.write("Enter OAuth client secret: "), process.stdin.setRawMode?.(true);
     let r = "",
       d = (u) => {
         let o = u.toString();
@@ -2079,13 +2079,13 @@ async function rAr() {
 ` ||
           o === "\r"
         )
-          process.stdin.setRawMode?.(!1),
+          process.stdin.setRawMode?.(false),
             process.stdin.removeListener("data", d),
             process.stderr.write(`
 `),
             t(r);
         else if (o === "\x03")
-          process.stdin.setRawMode?.(!1), process.stdin.removeListener("data", d), n(Error("Cancelled"));
+          process.stdin.setRawMode?.(false), process.stdin.removeListener("data", d), n(Error("Cancelled"));
         else if (o === "\x7F" || o === "\b") r = r.slice(0, -1);
         else r += o;
       };
@@ -2100,7 +2100,7 @@ async function oAr(e, t, n) {
       mcpOAuthClientConfig: { ...d.mcpOAuthClientConfig, [r]: { clientSecret: n } },
     }));
   } catch (d) {
-    return { success: !1, warning: l(d) };
+    return { success: false, warning: l(d) };
   }
 }
 async function iAr(e, t) {
@@ -2139,7 +2139,7 @@ function Vfr(e) {
     let t = (typeof e === "string" ? new URL(e) : e).hostname;
     return vt.includes(t) || St.some((n) => t.endsWith(n));
   } catch {
-    return !1;
+    return false;
   }
 }
 export {

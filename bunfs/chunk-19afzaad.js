@@ -92,7 +92,7 @@ async function xcr({
     _;
   try {
     let f = AF(o ?? PD().id);
-    _ = Ja(t, { timeoutMs: r, refTimer: !0 });
+    _ = Ja(t, { timeoutMs: r, refTimer: true });
     let m = _,
       u = await yae(
         L({ explicitRef: e, selfHostedPool: f, onMeasuring: i, folderMaxFiles: l }, m.signal).catch(
@@ -135,10 +135,10 @@ async function L({ explicitRef: e, selfHostedPool: o, onMeasuring: t, folderMaxF
   if (l === null) return z({ explicitRef: e, selfHostedPool: o, onMeasuring: t, maxFiles: i }, r);
   let d = o ? "self_hosted_pool" : e !== void 0 ? "named_revision" : YYe().blocked() ? "untrusted_workspace" : null;
   if (d !== null) return { offer: O(d, e), facts: null, forecast: { kind: "deferred", why: d } };
-  let _ = a.CCR_FORCE_BUNDLE === !0 ? null : await x_(),
+  let _ = a.CCR_FORCE_BUNDLE === true ? null : await x_(),
     f = _ === null ? null : qo(_.host) ? "github" : "other",
     [m, u] = await Promise.all([
-      a.CCR_ENABLE_BUNDLE === !0 ? Promise.resolve(!0) : Mp("tengu_ccr_bundle_seed_enabled"),
+      a.CCR_ENABLE_BUNDLE === true ? Promise.resolve(true) : Mp("tengu_ccr_bundle_seed_enabled"),
       f === null ? Promise.resolve(null) : D(l, r),
     ]);
   if (Rt(r)) return { offer: k("aborted"), facts: null, forecast: null };
@@ -148,18 +148,18 @@ async function L({ explicitRef: e, selfHostedPool: o, onMeasuring: t, folderMaxF
     if (cDt(v) !== null)
       return { offer: O("layout_unserved", e), facts: null, forecast: { kind: "deferred", why: "layout_unserved" } };
   }
-  let p = f === null || u?.diverged === !0 ? await vIe() : null,
+  let p = f === null || u?.diverged === true ? await vIe() : null,
     w = {
       host: f,
       bundlingAvailable: m,
       pullSupported: Oee(),
-      repositoryTooLarge: p?.tooLarge === !0,
+      repositoryTooLarge: p?.tooLarge === true,
       verdict: u,
-      overlayAvailable: !0,
+      overlayAvailable: true,
     },
-    S = !1,
+    S = false,
     P = () => {
-      if (!S) (S = !0), t();
+      if (!S) (S = true), t();
     },
     C = await R(NPn(w), w, { gitRoot: l, signal: r, timeoutMs: kKt }, P),
     b = (v) => ({ offer: v, facts: w, forecast: C });
@@ -180,10 +180,10 @@ async function L({ explicitRef: e, selfHostedPool: o, onMeasuring: t, folderMaxF
       if (y.kind === "blocked") return b(O("index_state", void 0));
       if (y.kind === "unborn") return b(O("unborn", void 0));
       if (y.kind === "measured" && Hcr(y.seed) === "too_large")
-        return b({ offer: !1, reason: "too_large", seed: y.seed, untracked: F, line: H(y.seed, f, u?.reason ?? null) });
+        return b({ offer: false, reason: "too_large", seed: y.seed, untracked: F, line: H(y.seed, f, u?.reason ?? null) });
       if (F.seedBytes > hWe)
         return b({
-          offer: !1,
+          offer: false,
           reason: "untracked_too_large",
           untracked: F,
           seed: y.kind === "measured" ? y.seed : null,
@@ -191,8 +191,8 @@ async function L({ explicitRef: e, selfHostedPool: o, onMeasuring: t, folderMaxF
         });
       return b(
         y.kind === "measured"
-          ? { offer: !0, reason: "fits", seed: y.seed, untracked: F }
-          : { offer: !0, reason: "not_size_bound", untracked: F },
+          ? { offer: true, reason: "fits", seed: y.seed, untracked: F }
+          : { offer: true, reason: "not_size_bound", untracked: F },
       );
     }
   }
@@ -213,7 +213,7 @@ async function R(e, o, t, i) {
 `,
     limitBytes: jnn - HKt,
   });
-  return l.overLimit || l.exitCode !== 0 ? NPn({ ...o, overlayAvailable: !1 }) : e;
+  return l.overLimit || l.exitCode !== 0 ? NPn({ ...o, overlayAvailable: false }) : e;
 }
 async function x(e) {
   return (await Pb(e, ["rev-parse", "-q", "--verify", "HEAD^{commit}"])).exitCode === 1;
@@ -331,7 +331,7 @@ function H(e, o, t) {
 function U(e, o) {
   let t = e === null ? "" : ` (${Ft(e)} of packed git objects)`;
   return {
-    offer: !1,
+    offer: false,
     reason: "repository_too_large",
     sizePackBytes: e,
     line:
@@ -342,14 +342,14 @@ function U(e, o) {
 }
 async function z({ explicitRef: e, selfHostedPool: o, onMeasuring: t, maxFiles: i = gWe }, r) {
   if (!PX() || !bue(ee()))
-    return { offer: { offer: !1, reason: "folder_not_opted_in", line: null }, facts: null, forecast: null };
+    return { offer: { offer: false, reason: "folder_not_opted_in", line: null }, facts: null, forecast: null };
   let l = o ? "self_hosted_pool" : e !== void 0 ? "named_revision" : !Oee() ? "pull_unsupported" : null;
   if (l !== null) return { offer: O(l, e), facts: null, forecast: { kind: "deferred", why: l } };
   let d = ee();
   if (await qwe(d))
     return {
       offer: {
-        offer: !1,
+        offer: false,
         reason: "folder_is_repository",
         line: "File sync is not offered for this folder: it is (inside) a bare git repository, not a project folder.",
       },
@@ -359,7 +359,7 @@ async function z({ explicitRef: e, selfHostedPool: o, onMeasuring: t, maxFiles: 
   if (await Jgt(d))
     return {
       offer: {
-        offer: !1,
+        offer: false,
         reason: "folder_is_repository",
         line: "File sync is not offered for this folder: it has a .git entry that could not be read as a git checkout (a link, or something git did not write).",
       },
@@ -378,7 +378,7 @@ async function z({ explicitRef: e, selfHostedPool: o, onMeasuring: t, maxFiles: 
     S = await p(d),
     P =
       S.kind === "unusable"
-        ? { ok: !1, reason: "ignore_unreadable" }
+        ? { ok: false, reason: "ignore_unreadable" }
         : await f({ root: d, ignores: _(S.lines, { ignoreCase: u(d) }), withheldOf: m, signal: r, maxFiles: i });
   if (Rt(r)) return { offer: k("aborted"), facts: null, forecast: null };
   if (!P.ok)
@@ -386,12 +386,12 @@ async function z({ explicitRef: e, selfHostedPool: o, onMeasuring: t, maxFiles: 
       offer:
         P.reason === "too_many_files"
           ? {
-              offer: !1,
+              offer: false,
               reason: "folder_too_many_files",
               line: `File sync is not offered for this folder: it holds more than ${i.toLocaleString()} files, more than one sync can carry.`,
             }
           : {
-              offer: !1,
+              offer: false,
               reason: "folder_unreadable",
               line:
                 S.kind === "unusable"
@@ -401,7 +401,7 @@ async function z({ explicitRef: e, selfHostedPool: o, onMeasuring: t, maxFiles: 
       facts: null,
       forecast: null,
     };
-  return { offer: { offer: !0, reason: "folder", files: P.listing.files.length }, facts: null, forecast: null };
+  return { offer: { offer: true, reason: "folder", files: P.listing.files.length }, facts: null, forecast: null };
 }
 function O(e, o) {
   let t = {
@@ -423,7 +423,7 @@ function O(e, o) {
       "this checkout is a linked working tree (git worktree add) or keeps its git directory elsewhere, which directory sync does not run git in yet \u2014 start once from the repository's main checkout to choose",
   }[e];
   return {
-    offer: !1,
+    offer: false,
     reason: "deferred",
     deferral: e,
     line: `File sync is not available for this launch (${t}); you will be asked on a launch that can sync.`,
@@ -431,7 +431,7 @@ function O(e, o) {
 }
 function k(e) {
   return {
-    offer: !1,
+    offer: false,
     reason: "probe_failed",
     failure: e,
     line:

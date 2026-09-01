@@ -107,25 +107,25 @@ import "/$bunfs/root/chunk-56sxk8k2.js";
 import "/$bunfs/root/chunk-a4q326ap.js";
 import { createPublicKey as l, verify as g } from "crypto";
 function y(t) {
-  let r = { header: !1, verify: !0, checkExpiry: !0, help: !1 };
+  let r = { header: false, verify: true, checkExpiry: true, help: false };
   for (let e = 0; e < t.length; e++) {
     let n = t[e];
     switch (n) {
       case "--help":
       case "-h":
-        r.help = !0;
+        r.help = true;
         break;
       case "--header":
-        r.header = !0;
+        r.header = true;
         break;
       case "--verify":
-        r.verify = !0;
+        r.verify = true;
         break;
       case "--no-verify":
-        r.verify = !1;
+        r.verify = false;
         break;
       case "--no-check-expiry":
-        r.checkExpiry = !1;
+        r.checkExpiry = false;
         break;
       case "--api-url": {
         let o = t[++e];
@@ -203,7 +203,7 @@ async function m(t) {
     k = Buffer.from(`${t.headerB64}.${t.payloadB64}`, "utf8"),
     f = Buffer.from(t.signatureB64, "base64url");
   if (!g(c, k, d, f)) throw Error("decode-token: signature verification FAILED");
-  if (t.checkExpiry !== !1) S(t.payload);
+  if (t.checkExpiry !== false) S(t.payload);
   return { kid: e };
 }
 var h = 16384,

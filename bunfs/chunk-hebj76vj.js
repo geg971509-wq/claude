@@ -24,13 +24,13 @@ var Kl = "ToolSearch",
   sEe = "DeferredToolPlaceholder",
   Dyt = "Reserved placeholder that keeps deferred tool loading active; never call this tool.";
 function DQn(e) {
-  return !1;
+  return false;
 }
 function OQn(e) {
   return pn(e) === "claude-opus-4-8";
 }
 function LQn(e) {
-  return !1;
+  return false;
 }
 var R = new Set([
   "claude-opus-4-6",
@@ -68,7 +68,7 @@ function NWt(e) {
 }
 function A(e, o) {
   let r = $l()?.[e];
-  return typeof r === "object" && r !== null && Object.entries(r).some(([t, u]) => u === !0 && o.includes(t));
+  return typeof r === "object" && r !== null && Object.entries(r).some(([t, u]) => u === true && o.includes(t));
 }
 function MQn(e) {
   return a.CLAUDE_CODE_BASALT_COVE || A("basalt_cove", e);
@@ -79,18 +79,18 @@ function F() {
 }
 function M() {
   let e = gV(at());
-  if ($l()?.[O] === !0 || hh(Ye(e), "thrifty_sonic") === !0) return "forced";
+  if ($l()?.[O] === true || hh(Ye(e), "thrifty_sonic") === true) return "forced";
   return Wde(e) ? "cohort" : "none";
 }
 function FWt() {
   if (a.CLAUDE_CODE_THRIFTY_SONIC !== void 0) return a.CLAUDE_CODE_THRIFTY_SONIC;
   switch (F()) {
     case "forced":
-      return !0;
+      return true;
     case "none":
-      return !1;
+      return false;
     case "cohort":
-      return I(O, !1);
+      return I(O, false);
   }
 }
 var T = "tengu_gault_kestrel",
@@ -102,12 +102,12 @@ var T = "tengu_gault_kestrel",
   f = "tengu_willow_tern",
   v = "tengu_fennel_godwit";
 function $Wt(e) {
-  if (e === void 0) return !1;
-  if (hh(Ye(e), "opus_5_prompt_bundle") !== !0) return !1;
-  return !I(v, !1);
+  if (e === void 0) return false;
+  if (hh(Ye(e), "opus_5_prompt_bundle") !== true) return false;
+  return !I(v, false);
 }
 function l(e, o, r) {
-  return e || $Wt(r) || $l()?.[o] === !0 || I(o, !1);
+  return e || $Wt(r) || $l()?.[o] === true || I(o, false);
 }
 function NQn(e) {
   return l(a.CLAUDE_CODE_GAULT_KESTREL, T, e);
@@ -131,18 +131,18 @@ function WKe() {
   if (e !== void 0) {
     let o = d();
     if (!o.unusableWritingOverrideTold)
-      (o.unusableWritingOverrideTold = !0),
+      (o.unusableWritingOverrideTold = true),
         n(`willow_tern: ignoring non-boolean clientData ${f} value of type ${typeof e}`);
   }
   return;
 }
 function Oyt(e) {
-  if (a.CLAUDE_CODE_WILLOW_TERN) return !0;
+  if (a.CLAUDE_CODE_WILLOW_TERN) return true;
   let o = WKe();
   if (o !== void 0) return o;
-  if (e === void 0) return !1;
-  if (hh(Ye(e), "opus_5_prompt_bundle") !== !0) return !1;
-  return I(f, !1);
+  if (e === void 0) return false;
+  if (hh(Ye(e), "opus_5_prompt_bundle") !== true) return false;
+  return I(f, false);
 }
 function u6() {
   return a.CLAUDE_CODE_SIMPLE;
@@ -151,14 +151,14 @@ function WLe(e) {
   return d().preReadLineDropped(e);
 }
 function U(e) {
-  if (e === void 0) return !1;
-  if (jLe(Ye(e))) return !1;
+  if (e === void 0) return false;
+  if (jLe(Ye(e))) return false;
   return l(a.CLAUDE_CODE_PARCHMENT_FERN, N, void 0);
 }
 function w(e) {
-  if (Vne(e)) return !1;
+  if (Vne(e)) return false;
   let o = Ye(e);
-  if (hh(o, "lean_prompt") || o === "claude-mythos-5") return !1;
+  if (hh(o, "lean_prompt") || o === "claude-mythos-5") return false;
   if (
     o.includes("claude-3-") ||
     o.includes("haiku") ||
@@ -169,18 +169,18 @@ function w(e) {
     o === "claude-opus-4-6" ||
     o === "claude-opus-4-7"
   )
-    return !0;
+    return true;
   return !ra();
 }
 function td(e) {
   return d().leanPrompt(e);
 }
 function B(e) {
-  if (!e) return !1;
-  if (Me(a.CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT)) return !0;
-  if (bo(a.CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT)) return !1;
-  if (!w(e)) return !0;
-  if (I("tengu_velvet_tide", !1)) return !0;
+  if (!e) return false;
+  if (Me(a.CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT)) return true;
+  if (bo(a.CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT)) return false;
+  if (!w(e)) return true;
+  if (I("tengu_velvet_tide", false)) return true;
   return A("simple_system_prompt", Ye(e));
 }
 var k = "breezy_horizon";
@@ -206,7 +206,7 @@ class b {
   preReadLineDropped = ai(U);
   leanPrompt = ai(B);
   modelForPrompt = ai(z);
-  unusableWritingOverrideTold = !1;
+  unusableWritingOverrideTold = false;
 }
 var Y = new J(() => new b());
 function d() {

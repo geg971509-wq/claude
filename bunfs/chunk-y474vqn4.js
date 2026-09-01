@@ -327,9 +327,9 @@ function u() {
     description: i,
     argumentHint: "[what to design]",
     subcommands: R8t,
-    subcommandsBareOnly: !0,
+    subcommandsBareOnly: true,
     isEnabled: o,
-    userInvocable: !0,
+    userInvocable: true,
     files: () => a().then((e) => e.loadSkillFiles()),
     async getPromptForCommand(e) {
       let { SKILL_MD: t } = await a(),

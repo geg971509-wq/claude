@@ -23,23 +23,23 @@ import { D } from "/$bunfs/root/chunk-7s7jqj2f.js";
 import { Bn, _r, Ms } from "/$bunfs/root/chunk-56sxk8k2.js";
 import { te } from "/$bunfs/root/chunk-wag5ye9w.js";
 function ct(t) {
-  if (!JN(t)) return !1;
-  if (Kr(t)) return !0;
+  if (!JN(t)) return false;
+  if (Kr(t)) return true;
   return /^[A-Za-z0-9][A-Za-z0-9_]*$/.test(t) && JV(t) !== void 0;
 }
 function Ut(t, e = {}) {
   return e.acceptCustomIds ? JN(t) : ct(t);
 }
 function H_t(t, e, i = {}) {
-  if (e) return { adoptedSessionId: null, effectiveFork: !0 };
-  if (t === void 0) return { adoptedSessionId: null, effectiveFork: !1 };
-  if (Ut(t, i)) return { adoptedSessionId: t, effectiveFork: !1 };
+  if (e) return { adoptedSessionId: null, effectiveFork: true };
+  if (t === void 0) return { adoptedSessionId: null, effectiveFork: false };
+  if (Ut(t, i)) return { adoptedSessionId: t, effectiveFork: false };
   return (
     n(
       `resume: transcript session id (${typeof t}) rejected by the adoption gate; continuing as a fork under the fresh session id`,
     ),
     g("session_resume", "unadoptable_session_id"),
-    { adoptedSessionId: null, effectiveFork: !0 }
+    { adoptedSessionId: null, effectiveFork: true }
   );
 }
 import { constants as _, fstat as jt } from "fs";
@@ -66,7 +66,7 @@ async function Ot(t, e, i, o, r) {
   if (!r) return s;
   let c,
     a = new Promise((u, f) => {
-      (c = () => f(r.reason ?? Error("aborted"))), r.addEventListener("abort", c, { once: !0 });
+      (c = () => f(r.reason ?? Error("aborted"))), r.addEventListener("abort", c, { once: true });
     });
   try {
     return await Promise.race([s, a]);
@@ -98,12 +98,12 @@ async function a3(t, e, i) {
   }
 }
 async function Lt(t, e, i) {
-  if (i !== "macos") return !1;
+  if (i !== "macos") return false;
   for (let r = t; ; r = L(r)) {
     try {
-      if (!(await J(r)).isDirectory()) return !1;
+      if (!(await J(r)).isDirectory()) return false;
     } catch {
-      return !1;
+      return false;
     }
     if (L(r) === r) break;
   }
@@ -111,13 +111,13 @@ async function Lt(t, e, i) {
   try {
     o = await rt(t, v.O_RDONLY | v.O_DIRECTORY | _t);
   } catch {
-    return !1;
+    return false;
   }
   try {
-    let [r, s] = await Promise.all([o.stat({ bigint: !0 }), e.stat({ bigint: !0 })]);
+    let [r, s] = await Promise.all([o.stat({ bigint: true }), e.stat({ bigint: true })]);
     return r.ino === s.ino && r.dev === s.dev;
   } catch {
-    return !1;
+    return false;
   } finally {
     await o.close();
   }
@@ -147,20 +147,20 @@ async function Wjt(t, e, i) {
       }
       return { ioPath: m, canonicalPath: m, handle: T, close: () => T.close() };
     };
-  if (nt(t, r)) return a(t, !1);
+  if (nt(t, r)) return a(t, false);
   let u = Qo(le(), t),
     f = Xt(t) && !Yt(u.resolvedPath) && /^(?:pipe|socket|anon_inode):\[/.test(u.resolvedPath) && o.has(u.resolvedPath);
   if (!u.isCanonical && !f) {
     if (u.isSymlink || u.resolvedPath !== t) {
       if (o.has(u.resolvedPath) && nt(u.resolvedPath, r)) {
-        let y = r === "macos" ? await a(u.resolvedPath, !1) : await a(t, !0),
+        let y = r === "macos" ? await a(u.resolvedPath, false) : await a(t, true),
           T = Qo(le(), t);
         if (T.isCanonical || T.resolvedPath !== u.resolvedPath) throw (await y.close(), Y(t));
         return y;
       }
       throw Y(t);
     }
-    throw (await (await Ot(t, s, r, !1, i)).close(), Y(t));
+    throw (await (await Ot(t, s, r, false, i)).close(), Y(t));
   }
   if (!o.has(u.resolvedPath)) throw Y(t);
   let d = f ? t : u.resolvedPath,
@@ -197,7 +197,7 @@ function A(t) {
     `Refusing to write ${t}: its parent-directory symlink resolution changed after permission was checked.`,
   );
 }
-async function it(t, e, i, o, r = !1) {
+async function it(t, e, i, o, r = false) {
   let s = () => new Gm(`Refusing to write ${e}: it is a symbolic link. Write to the link's target path instead.`);
   if (i === "windows")
     try {
@@ -238,11 +238,11 @@ async function Fk(t, e, i) {
           n(`pinWriteTarget: ${w} resolves to ${O}: not the same directory by a link-free route; refused`, {
             level: "warn",
           }),
-          !1
+          false
         );
       return (
         n(`pinWriteTarget: ${w} is rendered ${O} by realpath; same directory (device and inode), treated as an alias`),
-        !0
+        true
       );
     },
     d = (w) => o.has(b(w, r)),
@@ -282,7 +282,7 @@ async function Fk(t, e, i) {
       canonicalPath: t,
       readExisting: async (p) => {
         await O();
-        let S = await it(t, t, s, p, !1);
+        let S = await it(t, t, s, p, false);
         return await O(), S;
       },
       recheckBeforeWrite: O,
@@ -351,12 +351,12 @@ async function Fk(t, e, i) {
       throw w;
     }
   try {
-    let w = !1,
+    let w = false,
       O = async (N, B) => {
         if (s === "linux" || s === "wsl")
           try {
             let z = await Tt(`/proc/self/fd/${N.fd}`);
-            return (w = !0), z;
+            return (w = true), z;
           } catch {}
         return k(B);
       },
@@ -368,7 +368,7 @@ async function Fk(t, e, i) {
         Z.length === 0 &&
         (await J(b(w ? `/proc/self/fd/${F.fd}` : p, r)).then(
           (B) => B.isSymbolicLink(),
-          () => !1,
+          () => false,
         ))
       )
         throw new Gm(`Refusing to write ${t}: it is a symbolic link. Write to the link's target path instead.`);
@@ -498,12 +498,12 @@ class x_t {
   #n = null;
   #t = [];
   #f = 0;
-  #o = !1;
+  #o = false;
   #e = 0;
   #s = 0;
-  #i = !1;
+  #i = false;
   #a = new Set();
-  #l = !1;
+  #l = false;
   #r = null;
   #c = null;
   constructor(t, e) {
@@ -511,7 +511,7 @@ class x_t {
   }
   append(t) {
     if (this.#o) return;
-    if (((this.#f += t.length), this.#f > nLe)) this.#o = !0;
+    if (((this.#f += t.length), this.#f > nLe)) this.#o = true;
     let e = this.#o
       ? `
 [output truncated: exceeded ${qjt} disk cap]
@@ -539,15 +539,15 @@ class x_t {
     (this.#s += 1), (this.#t.length = 0), (this.#e = 0);
   }
   async #d() {
-    while (!0) {
+    while (true) {
       try {
         if (!this.#n) this.#n = await iLe(this.#u);
-        while (!0) {
+        while (true) {
           let t = this.#s;
           try {
             await this.#h();
           } catch (e) {
-            if (this.#s === t) (this.#l = !0), this.#t.unshift(ft), (this.#e += ft.length);
+            if (this.#s === t) (this.#l = true), this.#t.unshift(ft), (this.#e += ft.length);
             throw e;
           }
           if (this.#t.length === 0) break;
@@ -579,7 +579,7 @@ class x_t {
     try {
       await this.#d(), this.#w();
     } catch (t) {
-      if (!this.#i) (this.#i = !0), n(`Task output drain failed (will retry once): ${t}`, { level: "error" });
+      if (!this.#i) (this.#i = true), n(`Task output drain failed (will retry once): ${t}`, { level: "error" });
       if (this.#t.length > 0)
         try {
           await this.#d(), this.#w();
@@ -592,7 +592,7 @@ class x_t {
     }
   }
   #w() {
-    (this.#i = !1), this.#a.clear();
+    (this.#i = false), this.#a.clear();
   }
   #m(t) {
     let e = E(t),
@@ -611,7 +611,7 @@ class x_t {
       n(`Task output still cannot be written (${e ?? "no errno"}); dropped ${this.#e} chars of unwritten output`, {
         level: "error",
       }),
-        (this.#l = !0),
+        (this.#l = true),
         (this.#t.length = 0),
         this.#t.push(ft),
         (this.#e = ft.length);
@@ -756,7 +756,7 @@ async function Qt(t, e, i, o, r) {
       u = s.get(a),
       f;
     try {
-      f = D() === "windows" ? void 0 : await q(a, { replaceLeaf: !0 });
+      f = D() === "windows" ? void 0 : await q(a, { replaceLeaf: true });
       let d = f?.ioPath ?? a;
       if (u === void 0 && t === dr().outputDir)
         u = await Ct(a, d).catch(() => {
@@ -774,8 +774,8 @@ async function Qt(t, e, i, o, r) {
   }
 }
 async function at(t, e, i = 0) {
-  if (D() === "windows") return await Dt(x(t), { recursive: !0 }), gt(t, e.windowsFlags);
-  let o = await q(t, { replaceLeaf: !0 });
+  if (D() === "windows") return await Dt(x(t), { recursive: true }), gt(t, e.windowsFlags);
+  let o = await q(t, { replaceLeaf: true });
   try {
     let r = await Ft(o.ioPath);
     if (r?.isSymbolicLink()) {
@@ -790,7 +790,7 @@ async function at(t, e, i = 0) {
     try {
       c = await a3(o.ioPath, _.O_WRONLY | _.O_APPEND | (s ? _.O_CREAT | _.O_EXCL : 0) | st | (_.O_NONBLOCK ?? 0), D());
     } catch (a) {
-      if (!e.exclusive && E(a) === "EEXIST" && !e.retried) return await o.close(), at(t, { ...e, retried: !0 }, i);
+      if (!e.exclusive && E(a) === "EEXIST" && !e.retried) return await o.close(), at(t, { ...e, retried: true }, i);
       throw a;
     }
     if (i > 0 && r === null) {
@@ -819,11 +819,11 @@ async function XX(t, e = 0) {
     }
     if (!o.isFile()) P(t, "not a regular file");
     let r = await gt(t, "r");
-    return await Nt(r, o, t, { anyLinkCount: !0 }), r;
+    return await Nt(r, o, t, { anyLinkCount: true }), r;
   }
   let i;
   try {
-    i = await q(t, { replaceLeaf: !0, create: !1 });
+    i = await q(t, { replaceLeaf: true, create: false });
   } catch (o) {
     if (E(o) === "ENOENT") return null;
     throw o;
@@ -915,7 +915,7 @@ async function St(t, e) {
   dr().linkedOutputs.set(t, e);
 }
 async function It(t) {
-  let e = await q(t, { replaceLeaf: !0, create: !1 });
+  let e = await q(t, { replaceLeaf: true, create: false });
   try {
     let i = await a3(e.ioPath, _.O_RDONLY | st | (_.O_NONBLOCK ?? 0), D()).catch((o) => {
       throw kt(o, t);
@@ -1036,8 +1036,8 @@ async function D_t(t) {
     ioPath:
       (i === "linux" || i === "wsl") &&
       (await lt(`/proc/self/fd/${e.fd}`).then(
-        () => !0,
-        () => !1,
+        () => true,
+        () => false,
       ))
         ? `/proc/${process.pid}/fd/${e.fd}`
         : i === "macos"
@@ -1066,7 +1066,7 @@ async function Gjt(t) {
   }
   let i;
   try {
-    i = await q(t, { replaceLeaf: !0, create: !1 });
+    i = await q(t, { replaceLeaf: true, create: false });
   } catch (o) {
     if (E(o) === "ENOENT") return;
     throw o;
@@ -1078,7 +1078,7 @@ async function Gjt(t) {
   }
 }
 async function lhn(t, e) {
-  let i = await at(t, { exclusive: !1, windowsFlags: "w" });
+  let i = await at(t, { exclusive: false, windowsFlags: "w" });
   try {
     await i.truncate(0), await i.writeFile(e);
   } finally {
@@ -1094,7 +1094,7 @@ async function q(t, e) {
     if (f !== null) {
       let k = (await Promise.all([f.handleStat(), G(i)]).then(
         ([m, y]) => m.nlink > 0 && y.isDirectory() && y.ino === m.ino && y.dev === m.dev,
-        () => !1,
+        () => false,
       ))
         ? f.viewFor(o)
         : null;
@@ -1108,11 +1108,11 @@ async function q(t, e) {
   let c = (async () => {
       let f;
       try {
-        f = await Fk(t, [t], { createParents: e?.create ?? !0, ...(e?.replaceLeaf && { leaf: "replace" }) });
+        f = await Fk(t, [t], { createParents: e?.create ?? true, ...(e?.replaceLeaf && { leaf: "replace" }) });
       } catch (F) {
         if (F instanceof Gm) {
           if (!(await ee())) {
-            if (e?.create ?? !0) await Dt(x(t), { recursive: !0, mode: 448 });
+            if (e?.create ?? true) await Dt(x(t), { recursive: true, mode: 448 });
             return {
               ioPath: t,
               canonicalPath: t,
@@ -1135,25 +1135,25 @@ async function q(t, e) {
       let k = f.ioPath.slice(0, f.ioPath.length - o.length - 1),
         m = Number(d[1]),
         y = 0,
-        T = !1,
-        M = !1,
+        T = false,
+        M = false,
         W = async () => {
-          if (T && y === 0 && !M) (M = !0), await f.close();
+          if (T && y === 0 && !M) (M = true), await f.close();
         };
       return {
         handleStat: () => ne(m),
-        release: () => ((T = !0), W()),
+        release: () => ((T = true), W()),
         viewFor: (F) => {
           if (T) return null;
           y++;
-          let tt = !1;
+          let tt = false;
           return {
             ioPath: `${k}/${F}`,
             canonicalPath: H(i, F),
             readExisting: (w) => it(`${k}/${F}`, H(i, F), D(), w),
             recheckBeforeWrite: () => {},
             close: async () => {
-              if (!tt) (tt = !0), y--, await W();
+              if (!tt) (tt = true), y--, await W();
             },
           };
         },
@@ -1190,10 +1190,10 @@ async function ee() {
   let t = wd();
   if (bt?.root === t) return bt.ok;
   let e = await wt(t).then(
-    () => !0,
+    () => true,
     (i) => E(i) !== "EPERM",
   );
-  if (e) bt = { root: t, ok: Promise.resolve(!0) };
+  if (e) bt = { root: t, ok: Promise.resolve(true) };
   return e;
 }
 var I = new Map();
@@ -1202,13 +1202,13 @@ function ne(t) {
 }
 var ie = 8;
 function iLe(t, e = "a") {
-  return at(t, { exclusive: !1, windowsFlags: e });
+  return at(t, { exclusive: false, windowsFlags: e });
 }
 function FTe(t) {
   return mt(
     (async () => {
       let e = G5e(t);
-      return await (await at(e, { exclusive: !0, windowsFlags: "wx" })).close(), e;
+      return await (await at(e, { exclusive: true, windowsFlags: "wx" })).close(), e;
     })(),
   );
 }
@@ -1218,7 +1218,7 @@ function O_t(t) {
 }
 function P(t, e, i) {
   let o = `task output swap refused (${e}): ${t}` + (i === void 0 ? "" : `. To recover: ${i}.`),
-    r = Object.assign(new R(o, "task output swap refused"), { [Ht]: !0 });
+    r = Object.assign(new R(o, "task output swap refused"), { [Ht]: true });
   n(o, { level: "error" });
   let s = `${e}\x00${t}`;
   if (!dt.has(s)) {
@@ -1239,7 +1239,7 @@ async function L_t(t, e) {
     throw c;
   }
   if (!i.isFile() || i.nlink !== 1) P(t, "not a regular nlink-1 file");
-  let o = !1,
+  let o = false,
     r = i.size > e,
     s;
   try {
@@ -1312,12 +1312,12 @@ async function K5e(t, e, i) {
   }
 }
 async function oe(t, e, i = t) {
-  if (t === e) return !0;
+  if (t === e) return true;
   try {
-    if (!(await G(i)).isFile()) return !1;
+    if (!(await G(i)).isFile()) return false;
     return (await wt(i)) === (await wt(e));
   } catch {
-    return !1;
+    return false;
   }
 }
 function tV(t, e, i) {
@@ -1325,7 +1325,7 @@ function tV(t, e, i) {
     (async () => {
       try {
         let o = G5e(t),
-          r = await q(o, { replaceLeaf: !0 });
+          r = await q(o, { replaceLeaf: true });
         try {
           if (await oe(o, e, r.ioPath)) {
             let s = await lt(r.ioPath).catch(() => e);

@@ -399,7 +399,7 @@ function je(e, t) {
   return t === "true" || t === "input" ? "auto" : "binary";
 }
 function be(e, t, r) {
-  if (r.crlf === 0) return !1;
+  if (r.crlf === 0) return false;
   let i = je(e, t);
   return i === "text" || (i === "auto" && !$e(r));
 }
@@ -585,7 +585,7 @@ async function Pe(e, t, r) {
   let i = new Map(),
     o = async (s) => {
       try {
-        let u = await Z(W(e, s), { bigint: !0 });
+        let u = await Z(W(e, s), { bigint: true });
         return u.isFile() && u.ino !== 0n ? `${u.dev}:${u.ino}:${u.size}:${u.mtimeNs}:${u.ctimeNs}` : null;
       } catch {
         return null;
@@ -595,7 +595,7 @@ async function Pe(e, t, r) {
     let u = await Promise.all(s.map(o)),
       f = s.filter((p, b) => u[b] !== null);
     if (f.length === 0) continue;
-    let g = await Ml(e, [...R, ...et, "hash-object", "--", ...f], r, void 0, v, void 0, { filterDriversOff: !0 }),
+    let g = await Ml(e, [...R, ...et, "hash-object", "--", ...f], r, void 0, v, void 0, { filterDriversOff: true }),
       c = g.stdout
         .split(`
 `)
@@ -655,9 +655,9 @@ async function Te(e, t) {
       vx(u)
         ? Z(W(e, u)).then(
             (f) => f.isFile(),
-            () => !1,
+            () => false,
           )
-        : Promise.resolve(!1),
+        : Promise.resolve(false),
     ),
     s = await Promise.all(i.map(o));
   return new Set(i.flatMap((u, f) => (s[f] ? [] : [u.split("/").slice(0, -1).join("/")])));
@@ -728,12 +728,12 @@ async function Fe(e, t, r, i, o, s) {
       !p.path.split("/").some(yDt),
     f = De(e),
     g = async (p) => {
-      for (let b of ee(p)) if (!(await f(b).catch(() => !1))) return !1;
-      return !0;
+      for (let b of ee(p)) if (!(await f(b).catch(() => false))) return false;
+      return true;
     },
     c = No(K, async (p) => {
       s?.throwIfAborted();
-      let b = { unchanged: !1, checkin: null };
+      let b = { unchanged: false, checkin: null };
       if (!u(p)) return b;
       if (p.oldMode === V) {
         if (!(await g(p.path))) return b;
@@ -746,8 +746,8 @@ async function Fe(e, t, r, i, o, s) {
       let m = await OF(e, t, p.path, r);
       if (m.kind !== "read") return b;
       return kA(m.content, o) === p.oldId
-        ? { unchanged: !0, checkin: null }
-        : { unchanged: !1, checkin: p.oldMode === V ? null : ie(p, m.content, o) };
+        ? { unchanged: true, checkin: null }
+        : { unchanged: false, checkin: p.oldMode === V ? null : ie(p, m.content, o) };
     }),
     y = await kk(i.map(c), s);
   if (y === null) return null;
@@ -795,8 +795,8 @@ async function at({
     ),
     b = (a) => a.status === "D" && f === "windows" && LE(a.path),
     m = (a) => {
-      if (a.status === "D") return !1;
-      let x = u(a.path, !0);
+      if (a.status === "D") return false;
+      let x = u(a.path, true);
       return x !== null && Be(x);
     },
     A = y.filter((a) => !p.has(a.path) && !b(a)),
@@ -835,7 +835,7 @@ async function at({
     T = await Oe(e, s),
     H = No(K, async (a) => {
       if ((s?.throwIfAborted(), a.status === "D" && a.oldMode === V))
-        return { kind: "unchanged", path: a.path, resurfaced: !1 };
+        return { kind: "unchanged", path: a.path, resurfaced: false };
       let x = a.status === "D" ? (M.get(a.path) ?? "unreadable") : null;
       if (x === "unreadable") return { kind: "skip", reason: "unreadable" };
       if (x === "gone" || x === "other") return { kind: "removed", removal: { path: a.path, base: a.oldId } };
@@ -933,10 +933,10 @@ async function ot({
     w = Dz(
       y,
       (d) => d.path,
-      (d) => u(d.path, !1) ?? (OX(d.path) ? "sensitive" : null),
+      (d) => u(d.path, false) ?? (OX(d.path) ? "sensitive" : null),
       (d) => d.status !== "A",
     ),
-    p = c.map((d) => u(d.path, !0));
+    p = c.map((d) => u(d.path, true));
   if (p.includes("rules_unreadable") || w.withheld.some(({ reason: d }) => d === "rules_unreadable"))
     return se("rules_unreadable", t.length);
   let b = new Set(w.eligible.map((d) => d.path)),
@@ -1085,7 +1085,7 @@ async function Ge({
       },
       g,
     ),
-    { ok: !0, manifest: I, trackedPaths: k.rows.map((_) => _.path), note: P.note }
+    { ok: true, manifest: I, trackedPaths: k.rows.map((_) => _.path), note: P.note }
   );
 }
 var le = 60000,
@@ -1094,7 +1094,7 @@ var le = 60000,
 async function un({ gitRoot: e, pin: t, head: r, signal: i }) {
   let o = AbortSignal.timeout(de),
     s = await jt(
-      K9(e, i === void 0 ? o : AbortSignal.any([i, o]), { bound: !0 }).catch(() => ({ kind: "failed" })),
+      K9(e, i === void 0 ? o : AbortSignal.any([i, o]), { bound: true }).catch(() => ({ kind: "failed" })),
       de,
     );
   if (s === void 0 || s.kind === "failed") return { kind: "not_planned", whyNot: Rt(i) ? "aborted" : "unavailable" };
@@ -1118,10 +1118,10 @@ async function un({ gitRoot: e, pin: t, head: r, signal: i }) {
         createUploadFilter: z0,
         filterAttributed: r_e(e),
         purpose: "create_check",
-      }).catch((w) => (h(w), { ok: !1, reason: "aborted" })),
+      }).catch((w) => (h(w), { ok: false, reason: "aborted" })),
       le,
-    )) ?? { ok: !1, reason: "aborted" };
-  if (y.ok) return (await jt(ut(e, r, c), de)) === !0 ? u : { kind: "not_planned", whyNot: "head_moved" };
+    )) ?? { ok: false, reason: "aborted" };
+  if (y.ok) return (await jt(ut(e, r, c), de)) === true ? u : { kind: "not_planned", whyNot: "head_moved" };
   if (y.reason === "refused") return { kind: "not_planned", whyNot: "inventory_refused", refusal: y.refusal };
   return Rt(i)
     ? { kind: "not_planned", whyNot: "aborted" }

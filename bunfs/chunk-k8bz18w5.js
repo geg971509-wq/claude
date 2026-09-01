@@ -131,9 +131,9 @@ var $n = {
   On = new Set(Oe.properties.action.enum);
 function M_e(e, n, t) {
   let o = $n[n],
-    r = e.adaptiveResolution !== !1,
+    r = e.adaptiveResolution !== false,
     i = r ? Oe : Mn,
-    s = (g) => (e.saveToDisk === !1 ? {} : { save_to_disk: { type: "boolean", description: g } }),
+    s = (g) => (e.saveToDisk === false ? {} : { save_to_disk: { type: "boolean", description: g } }),
     c =
       t && t.length > 0
         ? `
@@ -483,7 +483,7 @@ Applications currently installed on this machine are listed below. This list is 
       },
     },
     ...(e.teachMode ? qn(o, l, i) : []),
-    ...(e.appScoped ? Ln(e.appScoped.supportsRawInput ?? !1) : []),
+    ...(e.appScoped ? Ln(e.appScoped.supportsRawInput ?? false) : []),
   ];
 }
 function Ln(e) {
@@ -1126,20 +1126,20 @@ var Un = new Set([
   Gn = new Set(["plex.exe", "plexamp.exe", "plex htpc.exe"]);
 function z(e, n) {
   if (e) {
-    if (e.startsWith("<")) return !0;
-    if (tt.has(e)) return !0;
-    if (Gn.has(Le(e))) return !0;
+    if (e.startsWith("<")) return true;
+    if (tt.has(e)) return true;
+    if (Gn.has(Le(e))) return true;
   }
   let t = n.toLowerCase(),
     o = t.replace(/\s+/g, "");
   for (let r of Wn) {
-    if (t.includes(r)) return !0;
+    if (t.includes(r)) return true;
     if (!r.includes(" ")) continue;
     let i = r.replace(/\s+/g, "");
     if (i === "playbooks") continue;
-    if (o.includes(i)) return !0;
+    if (o.includes(i)) return true;
   }
-  return !1;
+  return false;
 }
 var jn = new Set([
     "Microsoft.MicrosoftEdge.Stable_8wekyb3d8bbwe!MSEDGE",
@@ -1405,7 +1405,7 @@ function nt(e, n, t = {}) {
 }
 class ke {
   kind = "explicit";
-  wantsHideBeforeAction = !0;
+  wantsHideBeforeAction = true;
   explicitGrants;
   policyDeniedBundleIds;
   grantByBundleId;
@@ -1426,12 +1426,12 @@ class ke {
   lookup(e, n) {
     if (e !== void 0) {
       let t = this.grantByBundleId.get(e);
-      if (t !== void 0) return { granted: !0, grant: t, tier: t.tier ?? "full" };
+      if (t !== void 0) return { granted: true, grant: t, tier: t.tier ?? "full" };
     }
     if ((e !== void 0 && this.policyDeniedBundleIds.includes(e)) || z(e, n ?? e ?? ""))
-      return { granted: !1, reason: "policy_denied" };
-    if (e !== void 0 && this.userDeniedBundleIdSet.has(e)) return { granted: !1, reason: "user_denied" };
-    return { granted: !1, reason: "not_granted" };
+      return { granted: false, reason: "policy_denied" };
+    if (e !== void 0 && this.userDeniedBundleIdSet.has(e)) return { granted: false, reason: "user_denied" };
+    return { granted: false, reason: "not_granted" };
   }
   captureAllowedBundleIds(e) {
     return Promise.resolve(this.explicitGrants.map((n) => n.bundleId));
@@ -1439,7 +1439,7 @@ class ke {
 }
 class ot {
   kind = "wildcard";
-  wantsHideBeforeAction = !1;
+  wantsHideBeforeAction = false;
   explicitGrants = [];
   isDeniedPredicate;
   deniedBundleIdSet;
@@ -1455,22 +1455,22 @@ class ot {
       (this.grantedAt = e.grantedAt ?? Date.now());
   }
   isEmpty() {
-    return !1;
+    return false;
   }
   denies(e, n) {
-    if (e !== void 0 && this.deniedBundleIdSet.has(e)) return !0;
+    if (e !== void 0 && this.deniedBundleIdSet.has(e)) return true;
     try {
       return this.isDeniedPredicate(e, n);
     } catch {
-      return !0;
+      return true;
     }
   }
   lookup(e, n) {
-    if (e === void 0 || e.trim() === "") return { granted: !1, reason: "policy_denied" };
+    if (e === void 0 || e.trim() === "") return { granted: false, reason: "policy_denied" };
     let t = n !== void 0 && n !== "" ? n : e;
-    if (this.denies(e, t)) return { granted: !1, reason: "policy_denied" };
+    if (this.denies(e, t)) return { granted: false, reason: "policy_denied" };
     return {
-      granted: !0,
+      granted: true,
       grant: { bundleId: e, displayName: t, grantedAt: this.grantedAt, tier: "full" },
       tier: "full",
     };
@@ -1552,8 +1552,8 @@ function qe(e) {
       if (r.length === 1) i = r;
       else continue;
     let s = no[i];
-    if (s !== void 0) n.push({ name: s, isMod: !0 });
-    else n.push({ name: oo[i] ?? i, isMod: !1 });
+    if (s !== void 0) n.push({ name: s, isMod: true });
+    else n.push({ name: oo[i] ?? i, isMod: false });
   }
   let t = Tt(n.filter((r) => r.isMod).map((r) => r.name)),
     o = n.filter((r) => !r.isMod).map((r) => r.name);
@@ -1597,16 +1597,16 @@ function rt(e, n) {
   let { mods: t, keys: o, ordered: r } = qe(e);
   if (o.length === 0) return n.has(t.join("+"));
   let i = t.length > 0 ? t.join("+") + "+" : "";
-  for (let c of o) if (n.has(i + c)) return !0;
+  for (let c of o) if (n.has(i + c)) return true;
   let s = [];
   for (let c of r)
     if (c.isMod) s.push(c.name);
     else {
       let l = Tt(s),
         a = l.length > 0 ? l.join("+") + "+" : "";
-      if (n.has(a + c.name)) return !0;
+      if (n.has(a + c.name)) return true;
     }
-  return !1;
+  return false;
 }
 var ao = 1148,
   lo = new Set(["ComboBox", "ComboBoxEx32"]),
@@ -1627,11 +1627,11 @@ function Pt(e) {
   return e.ownerHasCommonFileDialog;
 }
 function Dt(e) {
-  if (Ce(e, Et)) return { allowed: !1, reason: "address_bar" };
-  if (Ce(e, ho)) return { allowed: !1, reason: "search_band" };
-  if (go(e, ao)) return { allowed: !0 };
-  if (po.has(e.leafClass) && e.ancestorClasses.some((n) => lo.has(n)) && Ce(e, co) && Ce(e, uo)) return { allowed: !0 };
-  return { allowed: !1, reason: "not_file_name_box" };
+  if (Ce(e, Et)) return { allowed: false, reason: "address_bar" };
+  if (Ce(e, ho)) return { allowed: false, reason: "search_band" };
+  if (go(e, ao)) return { allowed: true };
+  if (po.has(e.leafClass) && e.ancestorClasses.some((n) => lo.has(n)) && Ce(e, co) && Ce(e, uo)) return { allowed: true };
+  return { allowed: false, reason: "not_file_name_box" };
 }
 function it(e) {
   return mo.test(e);
@@ -1643,11 +1643,11 @@ function $t(e) {
   return de(e).length > 0;
 }
 function Nt(e, n) {
-  if (n.kind === "drag") return { allowed: !1, reason: "drag" };
-  if (n.button === "right") return { allowed: !1, reason: "context_menu" };
-  if (n.chord !== void 0 && he(n.chord).includes("alt")) return { allowed: !1, reason: "alt_click" };
-  if (Ce(e, Et)) return { allowed: !1, reason: "address_bar" };
-  return { allowed: !0 };
+  if (n.kind === "drag") return { allowed: false, reason: "drag" };
+  if (n.button === "right") return { allowed: false, reason: "context_menu" };
+  if (n.chord !== void 0 && he(n.chord).includes("alt")) return { allowed: false, reason: "alt_click" };
+  if (Ce(e, Et)) return { allowed: false, reason: "address_bar" };
+  return { allowed: true };
 }
 function at(e) {
   return rt(e, fo);
@@ -1668,27 +1668,27 @@ function yo(e, n, t, o, r) {
 }
 function wo(e, n, t, o, r, i = 9) {
   let s = yo(t.width, t.height, o, r, i);
-  if (!s) return !1;
+  if (!s) return false;
   let c = e(n.base64, s),
     l = e(t.base64, s);
-  if (!c || !l) return !1;
+  if (!c || !l) return false;
   return c.equals(l);
 }
 async function Mt(e, n, t, o, r, i, s = 9) {
-  if (!n) return { valid: !0, skipped: !0 };
-  if (n.frameWidth !== void 0) return { valid: !0, skipped: !0 };
+  if (!n) return { valid: true, skipped: true };
+  if (n.frameWidth !== void 0) return { valid: true, skipped: true };
   try {
     let c = await r();
-    if (!c) return { valid: !0, skipped: !0 };
-    if (wo(e, n, c, t, o, s)) return { valid: !0, skipped: !1 };
+    if (!c) return { valid: true, skipped: true };
+    if (wo(e, n, c, t, o, s)) return { valid: true, skipped: false };
     return {
-      valid: !1,
-      skipped: !1,
+      valid: false,
+      skipped: false,
       warning:
         "Screen content at the target location changed since the last screenshot. Take a new screenshot before clicking.",
     };
   } catch (c) {
-    return i.debug("[pixelCompare] validation error, skipping", c), { valid: !0, skipped: !0 };
+    return i.debug("[pixelCompare] validation error, skipping", c), { valid: true, skipped: true };
   }
 }
 var Ot = "CancelButton";
@@ -1731,23 +1731,23 @@ function Ao(e) {
   return Co.has(qt(e));
 }
 function lt(e) {
-  if (e.windowDocumentReadFailed) return { allowed: !1, reason: "document_read_failed" };
-  if (e.documentPathIsProtected) return { allowed: !1, reason: "protected_document" };
-  return { allowed: !0 };
+  if (e.windowDocumentReadFailed) return { allowed: false, reason: "document_read_failed" };
+  if (e.documentPathIsProtected) return { allowed: false, reason: "protected_document" };
+  return { allowed: true };
 }
 function Ut(e) {
   let n = e.trim();
   return n.includes("/") || n.startsWith("..") || n.startsWith("~");
 }
 function Bt(e, n) {
-  if (Ue(e) && e.focusIdentifier === "PathTextField") return { allowed: !1, reason: "goto_path_unverifiable" };
+  if (Ue(e) && e.focusIdentifier === "PathTextField") return { allowed: false, reason: "goto_path_unverifiable" };
   if (e.focusIdentifier === "saveAsNameTextField") {
-    if (n !== null && Ut(n)) return { allowed: !1, reason: "name_is_path" };
-    if (n !== null && Ft(n)) return { allowed: !1, reason: "name_protected" };
-    return { allowed: !0 };
+    if (n !== null && Ut(n)) return { allowed: false, reason: "name_is_path" };
+    if (n !== null && Ft(n)) return { allowed: false, reason: "name_protected" };
+    return { allowed: true };
   }
-  if (e.focusIdentifier === "Search") return { allowed: !0 };
-  return { allowed: !1, reason: "not_a_typing_field" };
+  if (e.focusIdentifier === "Search") return { allowed: true };
+  return { allowed: false, reason: "not_a_typing_field" };
 }
 var Ht = new Set([
   "return",
@@ -1771,10 +1771,10 @@ var Ht = new Set([
 ]);
 function ct(e) {
   let { saveNameValue: n, saveWhereDisplayName: t } = e;
-  if (n === null || t === null) return { allowed: !1, reason: "confirm_target_unreadable" };
-  if (Ft(n) || Ut(n)) return { allowed: !1, reason: "confirm_name_protected" };
-  if (Ao(t)) return { allowed: !1, reason: "confirm_folder_protected" };
-  return { allowed: !0 };
+  if (n === null || t === null) return { allowed: false, reason: "confirm_target_unreadable" };
+  if (Ft(n) || Ut(n)) return { allowed: false, reason: "confirm_name_protected" };
+  if (Ao(t)) return { allowed: false, reason: "confirm_folder_protected" };
+  return { allowed: true };
 }
 var Re = "com.apple.finder",
   an = "com.anthropic.cu.systemMenuBar",
@@ -1793,18 +1793,18 @@ var Ge = process.env.WINDIR ? `${process.env.WINDIR}\\`.toLowerCase() : void 0,
   fe = Ge ? `${Ge}explorer.exe` : void 0,
   Wt = Ge ? `${Ge}systemapps\\` : void 0;
 function ft(e) {
-  if (e === Re) return !0;
-  if (!fe || !Wt) return !1;
+  if (e === Re) return true;
+  if (!fe || !Wt) return false;
   let n = e.toLowerCase();
-  if (n === fe) return !0;
-  if (!To.has(Le(e))) return !1;
+  if (n === fe) return true;
+  if (!To.has(Le(e))) return false;
   return n.startsWith(Wt);
 }
 function Xe(e, n, t) {
   return n.find((o) => o.bundleId === e)?.tier ?? (ft(e) ? vo(n, t)?.tier : void 0);
 }
 function p(e, n) {
-  return { content: [{ type: "text", text: e }], isError: !0, telemetry: n ? { error_kind: n } : void 0 };
+  return { content: [{ type: "text", text: e }], isError: true, telemetry: n ? { error_kind: n } : void 0 };
 }
 function E(e) {
   return { content: [{ type: "text", text: e }] };
@@ -1923,7 +1923,7 @@ function No(e, n, t, o) {
 }
 function ln(e, n) {
   let t = e ?? "full";
-  if (n === "mouse_position") return !0;
+  if (n === "mouse_position") return true;
   if (n === "keyboard" || n === "mouse_full") return t === "full";
   return t === "click" || t === "full";
 }
@@ -2066,7 +2066,7 @@ async function Mo(e, n, t, o) {
         `[computer-use] off-display backstop skipped: listDisplays threw; falling through to the legacy hit-test path (point=${n},${t} source=${o})`,
         s,
       ),
-      !1
+      false
     );
   }
   if (r.length === 0)
@@ -2074,7 +2074,7 @@ async function Mo(e, n, t, o) {
       e.logger.warn(
         `[computer-use] off-display backstop skipped: listDisplays returned zero displays; falling through to the legacy hit-test path (point=${n},${t} source=${o})`,
       ),
-      !1
+      false
     );
   let i = o === "cursor";
   return !r.some((s) => {
@@ -2137,7 +2137,7 @@ async function ue(e, n, t, o, r, i, s, c) {
       "app_not_granted",
     );
   }
-  if (t.clipboardGuard && h === "click") await Ye(e, n, !0);
+  if (t.clipboardGuard && h === "click") await Ye(e, n, true);
   if (ln(h, i)) return null;
   if (i === "mouse_full" && h === "click")
     return p(
@@ -2202,7 +2202,7 @@ var Oo = new Set([
 function qo(e) {
   let n = he(e),
     t = de(e);
-  if (t.length !== 1) return !1;
+  if (t.length !== 1) return false;
   let o = t[0];
   if (Oo.has(o)) return !n.includes("ctrl");
   return n.includes("meta") && n.every((i) => i === "meta" || i === "shift") && Lo.has(o);
@@ -2571,11 +2571,11 @@ async function Jo(e, n, t) {
     c = r.axSummary
       .map((d, h) => ({ n: d, i: h }))
       .filter(({ n: d }) => {
-        if (i && d.role !== i) return !1;
+        if (i && d.role !== i) return false;
         if (s) {
-          if (!(d.title ?? "").toLowerCase().includes(s)) return !1;
+          if (!(d.title ?? "").toLowerCase().includes(s)) return false;
         }
-        return !0;
+        return true;
       }),
     l = c.slice(0, 50);
   if (l.length === 0)
@@ -2602,7 +2602,7 @@ async function pe(e, n, t, o) {
   let r = e.executor.appScoped;
   if (!r) return p("Per-app background tools are not available in this build.", "feature_unavailable");
   if ((await r.sessionGuardState()).screenLocked) {
-    if (r.allowWhileLocked === !1)
+    if (r.allowWhileLocked === false)
       return p("The screen is locked. Background app tools are blocked until the user unlocks it.", "state_conflict");
     if (o !== "read")
       return p(
@@ -2837,12 +2837,12 @@ async function er(e, n, t) {
       `Window ${a} doesn't belong to ${I(s)} (or no longer exists). Take a fresh app_list_windows and pass one of that app's window ids.`,
       "app_not_granted",
     );
-  let h = t.getAppLockHeld?.()?.some((g) => g.bundleId === i && g.windowId === a) ?? !1,
+  let h = t.getAppLockHeld?.()?.some((g) => g.bundleId === i && g.windowId === a) ?? false,
     y = await Ve(t, i, a);
   if (y) return y;
-  let f = !1;
+  let f = false;
   try {
-    let g = await r.bringWindowToActiveSpace({ bundleId: s.bundleId, windowId: a, dryRun: !0 }),
+    let g = await r.bringWindowToActiveSpace({ bundleId: s.bundleId, windowId: a, dryRun: true }),
       m = Xt(g.code, s);
     if (g.alreadyHere)
       return E(
@@ -2877,7 +2877,7 @@ async function er(e, n, t) {
         R?.errorKind ?? "state_conflict",
       );
     return (
-      (f = !0),
+      (f = true),
       E(
         `Window ${a} of ${I(s)} is now on the current Space (the app did not take focus). Take a fresh app_screenshot ` +
           "next \u2014 the window is here and actionable.",
@@ -2888,26 +2888,26 @@ async function er(e, n, t) {
   }
 }
 async function tr(e) {
-  if (e.isTakeoverApproved === !0 || e.preferredMode === "full_control")
+  if (e.isTakeoverApproved === true || e.preferredMode === "full_control")
     return E(
       "Full-screen control is already available for this session \u2014 the " +
         "display-scope tools (screenshot, left_click, type, ...) will proceed. No further approval is needed.",
     );
-  if (e.isUnattended === !0)
+  if (e.isUnattended === true)
     return p(
       "Full-screen control needs your approval, which can't be given during a scheduled run. Stay with the app_* tools for the granted background apps, or send a message in this conversation so the approval card can appear. (Retrying returns this same result.)",
       "unattended_no_approver",
     );
   if (e.onTakeoverRequest) {
-    let n = await e.onTakeoverRequest({ becausePreferredBackground: !0 });
-    if (e.dialogSignal?.aborted === !0)
+    let n = await e.onTakeoverRequest({ becausePreferredBackground: true });
+    if (e.dialogSignal?.aborted === true)
       return p(
         "No response to the full-screen approval within the time limit. " +
           "Ask the user to watch for the approval prompt, then try again \u2014 " +
           "or continue with the app_* tools for the granted background apps.",
         "takeover_not_answered",
       );
-    if (n?.allowed !== !0)
+    if (n?.allowed !== true)
       return p(
         "Full-screen control was not approved (declined or not confirmed). Stay with the app_* tools for the granted background apps, or explain what full-screen access is needed for and let the user decide.",
         "takeover_declined",
@@ -2957,8 +2957,8 @@ function Xt(e, n) {
   }
 }
 function Yt(e, n) {
-  if (n === void 0) return !1;
-  return e.find((t) => t.windowId === n)?.isOffSpace ?? !1;
+  if (n === void 0) return false;
+  return e.find((t) => t.windowId === n)?.isOffSpace ?? false;
 }
 async function or(e, n, t) {
   let o = gt(n);
@@ -2986,7 +2986,7 @@ async function or(e, n, t) {
   let f = await Ve(t, r.app, d.resolvedWindowId);
   if (f) return f;
   let g = t.getLastAppSnapshot?.(r.app, d.resolvedWindowId);
-  t.onAppSnapshotCaptured?.(r.app, { ...d, lastWindowPt: g?.lastWindowPt }, { fromScreenshot: !0 });
+  t.onAppSnapshotCaptured?.(r.app, { ...d, lastWindowPt: g?.lastWindowPt }, { fromScreenshot: true });
   let m = g === void 0,
     b = Yt(c, d.resolvedWindowId),
     S =
@@ -3250,7 +3250,7 @@ async function Se(e, n, t, o, r) {
   if (k.reasonCode === "foreign_pid" || k.foreignPid !== null) {
     T("gate_blocked", "foreign_pid");
     let A =
-      k.partialDelivery === !0
+      k.partialDelivery === true
         ? " Part of the text was already typed before the block \u2014 take a " +
           "fresh app_screenshot and do NOT re-type the whole string (that would append on top of the prefix). Type only the remainder, or clear the field first."
         : "";
@@ -3270,7 +3270,7 @@ async function Se(e, n, t, o, r) {
         ? void 0
         : g;
   if (f) t.onAppSnapshotCaptured?.(c, { ...f, lastWindowPt: x ?? f.lastWindowPt });
-  let C = t.getAppLockHeld?.().some((A) => A.bundleId === c && A.windowId === b) ?? !0;
+  let C = t.getAppLockHeld?.().some((A) => A.bundleId === c && A.windowId === b) ?? true;
   if (k.screenPt && C) s.setPhantomCursor(k.screenPt.x, k.screenPt.y, b, _.kind === "click");
   let v = k.title ? N(k.title) : void 0,
     M = v ? ` '${v}'` : k.title ? " (title withheld)" : "",
@@ -3302,7 +3302,7 @@ async function Se(e, n, t, o, r) {
             "working in that focus target right now."
           : "Options: call app_release then use the display-scope tools (which take over the screen), or describe the goal and try a different path.",
       j =
-        k.partialDelivery === !0
+        k.partialDelivery === true
           ? " Part of the text was already typed before this refusal \u2014 take " +
             "a fresh app_screenshot and do NOT re-type the whole string (that would append on top of the prefix). Type only the remainder, or clear the field first."
           : "",
@@ -3318,7 +3318,7 @@ async function Se(e, n, t, o, r) {
     );
   }
   if (k.outcome === "ineffective") {
-    if (k.partialDelivery === !0)
+    if (k.partialDelivery === true)
       return p(
         "Typing was interrupted after part of the text was already " +
           "delivered. Take a fresh app_screenshot to see what landed \u2014 do " +
@@ -3397,9 +3397,9 @@ async function un(e, n, t, o) {
         return {
           kind: "type",
           text: i,
-          overwriteExisting: r.overwrite_existing === !0,
+          overwriteExisting: r.overwrite_existing === true,
           mode: r.mode === "replace" ? "replace" : "insert",
-          disableSubstitutions: r.disable_substitutions === !0,
+          disableSubstitutions: r.disable_substitutions === true,
         };
       });
     case "app_key":
@@ -3455,10 +3455,10 @@ async function rr(e, n, t) {
   }
   let s = [],
     c = (a) => {
-      let u = !1,
+      let u = false,
         d = a.filter((h) => {
-          if (h.type === "image") return (u = !0), !1;
-          return !0;
+          if (h.type === "image") return (u = true), false;
+          return true;
         });
       if (u) d.push({ type: "text", text: "[Image omitted due to error]" });
       return d;
@@ -3468,7 +3468,7 @@ async function rr(e, n, t) {
     if (t.isAborted?.())
       return (
         s.push({ type: "text", text: `Batch aborted after ${a} of ${i.length} actions (user interrupt).` }),
-        { content: c(s), isError: !0 }
+        { content: c(s), isError: true }
       );
     if (a > 0) await be(10);
     let d = u,
@@ -3516,7 +3516,7 @@ async function ir(e, n) {
       "bad_args",
     );
   await n.releaseAppLock?.(t, o), n.clearAppSnapshot?.(t, o);
-  let r = t !== void 0 && (n.consumeCollisionEvicted?.(t) ?? !1);
+  let r = t !== void 0 && (n.consumeCollisionEvicted?.(t) ?? false);
   if (r && t !== void 0) He.set(t, Date.now() + ze);
   let i = r
     ? " Note: the user had clicked into this app, taking it over \u2014 " +
@@ -3570,14 +3570,14 @@ function hn(e) {
     .map((n) => n.trim())
     .filter(Boolean);
 }
-var U = !1,
-  X = !1;
+var U = false,
+  X = false;
 function Je() {
-  (U = !1), (X = !1);
+  (U = false), (X = false);
 }
 async function ge(e) {
   if (!U) return;
-  await e.executor.mouseUp(), (U = !1), (X = !1);
+  await e.executor.mouseUp(), (U = false), (X = false);
 }
 function Ee(e) {
   return (
@@ -3613,7 +3613,7 @@ function Pe(e) {
   return e === "app_release" || e === "request_full_control" || e === "release_full_control" || Object.hasOwn(jo, e);
 }
 async function cr(e) {
-  return (await e.acquireTeachLockPostConsent?.()) ?? !0;
+  return (await e.acquireTeachLockPostConsent?.()) ?? true;
 }
 function dr(e, n, t, o, r = []) {
   let i = (u) => u.path.startsWith("/System/Applications/"),
@@ -3656,8 +3656,8 @@ function dr(e, n, t, o, r = []) {
       requestedName: u,
       resolved: h,
       didYouMean: y,
-      isSentinel: m ? $6n(m) : !1,
-      alreadyGranted: f ? t.has(f) : !1,
+      isSentinel: m ? $6n(m) : false,
+      alreadyGranted: f ? t.has(f) : false,
       proposedTier: _e(m, h?.displayName ?? u),
     };
   });
@@ -3728,9 +3728,9 @@ async function hr(e, n, t, o) {
     return p('"apps" must be an array of strings.', "bad_args");
   let s = i,
     c = {};
-  if (n.clipboardRead === !0 && !t.grantFlags.clipboardRead) c.clipboardRead = !0;
-  if (n.clipboardWrite === !0 && !t.grantFlags.clipboardWrite) c.clipboardWrite = !0;
-  if (n.systemKeyCombos === !0 && !t.grantFlags.systemKeyCombos) c.systemKeyCombos = !0;
+  if (n.clipboardRead === true && !t.grantFlags.clipboardRead) c.clipboardRead = true;
+  if (n.clipboardWrite === true && !t.grantFlags.clipboardWrite) c.clipboardWrite = true;
+  if (n.systemKeyCombos === true && !t.grantFlags.systemKeyCombos) c.systemKeyCombos = true;
   let {
     needDialog: l,
     skipDialogGrants: a,
@@ -3762,7 +3762,7 @@ async function hr(e, n, t, o) {
       P = { browser: ur, terminal: pr },
       x = [];
     for (let C of ["browser", "terminal"])
-      if (T.has(C) && t.getAccessWarned?.(C) !== !0) t.onAccessWarned(C), x.push(P[C]);
+      if (T.has(C) && t.getAccessWarned?.(C) !== true) t.onAccessWarned(C), x.push(P[C]);
     if (x.length > 0)
       return p(
         x.join(`
@@ -3848,7 +3848,7 @@ async function fr(e, n) {
 async function wn(e, n, t, o, r, i) {
   let s = new Set(t.map((w) => w.bundleId)),
     c = await e.executor.listInstalledApps(),
-    l = e.executor.isAppIndexIncomplete?.() ?? !1,
+    l = e.executor.isAppIndexIncomplete?.() ?? false,
     a = [];
   try {
     a = await e.executor.listRunningApps();
@@ -4144,10 +4144,10 @@ async function yr(e, n, t, o) {
       {
         granted: l,
         denied: [],
-        notInstalled: { apps: f, guidance: kn(f, !1, g) },
+        notInstalled: { apps: f, guidance: kn(f, false, g) },
         ...(h.length > 0 && { policyDenied: { apps: h, guidance: Ie(h) } }),
         ...(d.length > 0 && { userDenied: { apps: d, guidance: ve(d) } }),
-        teachModeActive: !1,
+        teachModeActive: false,
         screenshotFiltering: e.executor.capabilities.screenshotFiltering,
       },
       { granted_count: 0, denied_count: f.length },
@@ -4159,7 +4159,7 @@ async function yr(e, n, t, o) {
         denied: [],
         ...(h.length > 0 && { policyDenied: { apps: h, guidance: Ie(h) } }),
         ...(d.length > 0 && { userDenied: { apps: d, guidance: ve(d) } }),
-        teachModeActive: !1,
+        teachModeActive: false,
         screenshotFiltering: e.executor.capabilities.screenshotFiltering,
       },
       { granted_count: 0, denied_count: 0 },
@@ -4173,14 +4173,14 @@ async function yr(e, n, t, o) {
     },
     b = await t.onTeachPermissionRequest(m),
     _ = [...l, ...b.granted];
-  if (b.userConsented !== !0)
+  if (b.userConsented !== true)
     return p(
       "The user declined to start the guided walkthrough (teach mode). Do not call request_teach_access again for this same request. Ask the user " +
         "how they would like to proceed \u2014 for example, whether you should just " +
         "do the task directly instead of guiding them through it.",
       "teach_declined",
     );
-  let S = b.userConsented === !0 && _.length > 0;
+  let S = b.userConsented === true && _.length > 0;
   if (S) {
     if (!(await cr(t)))
       return p(
@@ -4249,7 +4249,7 @@ async function An(e, n, t, o) {
     );
     if (c.length > 0) t.onAppsHidden?.(c);
   }
-  let i = { ...o, hideBeforeAction: !1, pixelValidation: !1, autoTargetDisplay: !1 },
+  let i = { ...o, hideBeforeAction: false, pixelValidation: false, autoTargetDisplay: false },
     s = [];
   for (let [c, l] of e.actions.entries()) {
     if (t.isAborted?.()) return await ge(n), { kind: "exit" };
@@ -4290,7 +4290,7 @@ async function wr(e, n, t, o) {
   let r = await Cn(n, e, t, "teach_step");
   if (r instanceof Error) return p(r.message, "bad_args");
   let i = await An(r, e, t, o);
-  if (i.kind === "exit") return L({ exited: !0 });
+  if (i.kind === "exit") return L({ exited: true });
   if (i.kind === "action_error")
     return L({ executed: i.executed, failed: i.failed, remaining: i.remaining }, i.telemetry);
   if (r.actions.length === 0) return L({ executed: 0, results: [] });
@@ -4310,7 +4310,7 @@ async function br(e, n, t, o) {
   let s = [];
   for (let [a, u] of i.entries()) {
     let d = await An(u, e, t, o);
-    if (d.kind === "exit") return L({ exited: !0, stepsCompleted: a });
+    if (d.kind === "exit") return L({ exited: true, stepsCompleted: a });
     if (d.kind === "action_error")
       return L(
         {
@@ -4533,7 +4533,7 @@ async function _r(e, n, t) {
   };
 }
 async function Te(e, n, t, o, r, i) {
-  if (U) await e.executor.mouseUp(), (U = !1), (X = !1);
+  if (U) await e.executor.mouseUp(), (U = false), (X = false);
   let s = ye(n);
   if (s instanceof Error) return p(s.message, "bad_args");
   let [c, l] = s,
@@ -4601,7 +4601,7 @@ async function kr(e, n, t, o) {
   ) {
     let u = await me(e, s, "Paste aborted before delivery");
     if (u) return u;
-    return await e.executor.type(r, { viaClipboard: !0 }), E("Typed (via clipboard).");
+    return await e.executor.type(r, { viaClipboard: true }), E("Typed (via clipboard).");
   }
   if (e.executor.typePaced) {
     let u = await me(e, s, "Typing aborted before delivery");
@@ -4625,7 +4625,7 @@ async function kr(e, n, t, o) {
     )
       await e.executor.key("return");
     else if (d === "\t") await e.executor.key("tab");
-    else await e.executor.type(d, { viaClipboard: !1 });
+    else await e.executor.type(d, { viaClipboard: false });
   }
   return E(`Typed ${a.length} grapheme(s).`);
 }
@@ -4678,11 +4678,11 @@ async function Cr(e, n, t, o) {
   let { x: f, y: g } = y,
     m = await ue(e, t, o, f, g, U ? "mouse_full" : "mouse", "scaled", U ? { kind: "drag" } : void 0);
   if (m) return m;
-  if (U) X = !0;
+  if (U) X = true;
   return await e.executor.scroll(f, g, a, u), E("Scrolled.");
 }
 async function Ar(e, n, t, o) {
-  if (U) await e.executor.mouseUp(), (U = !1), (X = !1);
+  if (U) await e.executor.mouseUp(), (U = false), (X = false);
   let r = ye(n, "coordinate");
   if (r instanceof Error) return p(r.message, "bad_args");
   let i = r,
@@ -4720,7 +4720,7 @@ async function Sr(e, n, t, o) {
     let y = await ue(e, t, o, d, h, "mouse_full", "scaled", { kind: "drag" });
     if (y) return y;
   }
-  if ((await e.executor.moveMouse(d, h), U)) X = !0;
+  if ((await e.executor.moveMouse(d, h), U)) X = true;
   return E("Moved.");
 }
 async function Tr(e, n, t) {
@@ -4733,7 +4733,7 @@ async function Tr(e, n, t) {
   if (!i || !r.lookup(i).granted)
     return p(`"${o}" is not granted for this session. Call request_access first.`, "app_not_granted");
   if ((t.getAppLockHeld?.() ?? []).length > 0 && e.executor.appScoped !== void 0 && e.executor.appScoped.isEnabled()) {
-    let l = await e.executor.openApp(i, { activates: !1 }),
+    let l = await e.executor.openApp(i, { activates: false }),
       a = l && l.firstWindowId !== null ? ` (window_id ${l.firstWindowId})` : "";
     return E(
       `Opened "${N(o) ?? i}" in the background${a} \u2014 the user's frontmost app was not ` +
@@ -4785,7 +4785,7 @@ async function Rr(e, n, t) {
   if (!o || e.executor.appScoped === void 0)
     return p("list_apps is not available on this platform.", "feature_unavailable");
   let r = typeof n.query === "string" ? n.query.toLowerCase() : void 0,
-    i = n.running_first !== !1,
+    i = n.running_first !== false,
     s = typeof n.limit === "number" && n.limit >= 1 ? Math.min(200, Math.trunc(n.limit)) : 25,
     c = 0;
   if (typeof n.cursor === "string" && n.cursor.length > 0)
@@ -4810,7 +4810,7 @@ async function Rr(e, n, t) {
       bundleId: Po(m.bundleId) ?? "(id withheld)",
       displayName: N(m.displayName) ?? "(name withheld)",
       isRunning: m.isRunning,
-      ...(m.isRunning && m.isFromDevPath ? { isRunningFromDevPath: !0 } : {}),
+      ...(m.isRunning && m.isFromDevPath ? { isRunningFromDevPath: true } : {}),
       ...(m.pid !== void 0 ? { pid: m.pid } : {}),
     })),
     ...(g ? { nextCursor: g } : {}),
@@ -4940,10 +4940,10 @@ async function Mr(e, n, t) {
   let i = await e.executor.getCursorPosition(),
     s = await ue(e, n, t, i.x, i.y, "mouse", "cursor", { kind: "drag" });
   if (s) return s;
-  return await e.executor.mouseDown(), (U = !0), (X = !1), E("Mouse button pressed.");
+  return await e.executor.mouseDown(), (U = true), (X = false), E("Mouse button pressed.");
 }
 async function Or(e, n, t) {
-  let o = async (c) => (await e.executor.mouseUp(), (U = !1), (X = !1), c),
+  let o = async (c) => (await e.executor.mouseUp(), (U = false), (X = false), c),
     r = await te(e, n, t, "mouse");
   if (r.block) return o(r.block);
   let i = await e.executor.getCursorPosition(),
@@ -4958,7 +4958,7 @@ async function Or(e, n, t) {
       X ? { kind: "drag" } : { kind: "click", button: "left" },
     );
   if (s) return o(s);
-  return await e.executor.mouseUp(), (U = !1), (X = !1), E("Mouse button released.");
+  return await e.executor.mouseUp(), (U = false), (X = false), E("Mouse button released.");
 }
 var ht = new Set([
     "key",
@@ -5014,7 +5014,7 @@ async function Lr(e, n, t, o) {
     );
     if (u.length > 0) t.onAppsHidden?.(u);
   }
-  let i = { ...o, hideBeforeAction: !1, pixelValidation: !1, autoTargetDisplay: !1 },
+  let i = { ...o, hideBeforeAction: false, pixelValidation: false, autoTargetDisplay: false },
     s = r.length,
     c = [],
     l;
@@ -5036,17 +5036,17 @@ async function Lr(e, n, t, o) {
     if ((c.push({ action: y, inner: m }), m.isError)) {
       await ge(e);
       let b = s - c.length,
-        _ = c.flatMap((S, R) => sn(R, s, S, !0));
+        _ = c.flatMap((S, R) => sn(R, s, S, true));
       return (
         _.push({
           type: "text",
           text: `Batch stopped at actions[${u}] (${y}). ${c.length - 1} completed, ${b} remaining.`,
         }),
-        { content: _, isError: !0, telemetry: m.telemetry }
+        { content: _, isError: true, telemetry: m.telemetry }
       );
     }
   }
-  return { content: c.flatMap((u, d) => sn(d, s, u, !1)), screenshot: l };
+  return { content: c.flatMap((u, d) => sn(d, s, u, false)), screenshot: l };
 }
 function qr(e) {
   let n = e.content[0];
@@ -5108,7 +5108,7 @@ async function _t(e, n, t, o, r) {
 }
 async function In(e, n, t, o) {
   let { logger: r, serverName: i } = e,
-    s = nt(o.allowedApps, o.userDeniedBundleIds, { forceFullTier: o.cuOnlyMode === !0 }),
+    s = nt(o.allowedApps, o.userDeniedBundleIds, { forceFullTier: o.cuOnlyMode === true }),
     c = s.policyDeniedBundleIds ?? o.policyDeniedBundleIds,
     l = {
       ...o,
@@ -5185,7 +5185,7 @@ var De =
 function Rn(e, n, t) {
   let o = new Set(e.map((c) => c.bundleId)),
     r = [...e, ...t.granted.filter((c) => !o.has(c.bundleId))],
-    i = Object.fromEntries(Object.entries(t.flags).filter(([, c]) => c === !0)),
+    i = Object.fromEntries(Object.entries(t.flags).filter(([, c]) => c === true)),
     s = { ...kL, ...n, ...i };
   return { apps: r, flags: s };
 }
@@ -5199,7 +5199,7 @@ function Fr(e) {
 function ULt(e, n, t) {
   let { logger: o, serverName: r } = e,
     i,
-    s = t.skipFirstRequestWarnings === !0,
+    s = t.skipFirstRequestWarnings === true,
     c = { browser: s, terminal: s };
   if (e.executor.appScoped !== void 0 && t.sessionId === void 0)
     throw Error(
@@ -5234,11 +5234,11 @@ function ULt(e, n, t) {
             isDenied: (v, M) => z(v, M) || (v !== void 0 && C.includes(v)),
             deniedBundleIds: [...tt, e.executor.capabilities.hostBundleId],
           })
-        : new ke(x, C, { forceFullTier: t.cuOnlyMode === !0 });
+        : new ke(x, C, { forceFullTier: t.cuOnlyMode === true });
     if ((yt(y) ? void 0 : g(t.getAllowedApps(), t.getUserDeniedBundleIds()))?.isEmpty())
       return {
         content: [{ type: "text", text: "No applications are granted for this session. Call request_access first." }],
-        isError: !0,
+        isError: true,
         telemetry: { error_kind: "allowlist_empty" },
       };
     if (Pe(y) && t.checkCuLock) {
@@ -5246,7 +5246,7 @@ function ULt(e, n, t) {
       if (y !== "app_release" && x.holder !== void 0 && !x.isSelf)
         return {
           content: [{ type: "text", text: t.formatLockHeldMessage?.(x.holder) ?? De }],
-          isError: !0,
+          isError: true,
           telemetry: { error_kind: "cu_lock_held" },
         };
     } else if (t.checkCuLock) {
@@ -5254,14 +5254,14 @@ function ULt(e, n, t) {
       if (x.holder !== void 0 && !x.isSelf)
         return {
           content: [{ type: "text", text: t.formatLockHeldMessage?.(x.holder) ?? De }],
-          isError: !0,
+          isError: true,
           telemetry: { error_kind: "cu_lock_held" },
         };
       let C = (t.getAppLockHeld?.() ?? []).length > 0;
       if (C && (y === "read_clipboard" || y === "write_clipboard"))
         return {
           content: [{ type: "text", text: bt(y === "read_clipboard" ? "read" : "write") }],
-          isError: !0,
+          isError: true,
           telemetry: { error_kind: "state_conflict" },
         };
       if (C && y === "cursor_position")
@@ -5272,12 +5272,12 @@ function ULt(e, n, t) {
               text: "cursor_position reads the live host cursor and is not available in background app-mode. Use the last app_screenshot's coordinates instead.",
             },
           ],
-          isError: !0,
+          isError: true,
           telemetry: { error_kind: "feature_unavailable" },
         };
       let v = Ee(y) || ((y === "wait" || y === "cursor_position" || y === "switch_display") && C),
         M = e.getPreferredMode?.(),
-        w = t.isTakeoverApproved?.() ?? !1,
+        w = t.isTakeoverApproved?.() ?? false,
         B = t.needsTakeoverConsent?.(),
         J = B !== void 0 && B.length > 0 ? B : void 0,
         se = fn(y) && !w && (J !== void 0 || M === "background");
@@ -5286,7 +5286,7 @@ function ULt(e, n, t) {
         if (H.holder !== void 0 && !H.isSelf)
           return {
             content: [{ type: "text", text: t.formatLockHeldMessage?.(H.holder) ?? De }],
-            isError: !0,
+            isError: true,
             telemetry: { error_kind: "cu_lock_held" },
           };
       }
@@ -5362,7 +5362,7 @@ function ULt(e, n, t) {
                   ],
                 };
               }
-              let Z = await e.executor.openApp(A.bundleId, { activates: !1 });
+              let Z = await e.executor.openApp(A.bundleId, { activates: false });
               return {
                 content: [
                   {
@@ -5393,7 +5393,7 @@ function ULt(e, n, t) {
                       : "Taking over the screen needs the user's approval, and nobody is present to answer (unattended session). Stay with the app_* tools on already-running granted apps.",
                 },
               ],
-              isError: !0,
+              isError: true,
               telemetry: { error_kind: "unattended_no_approver" },
             };
           let q = (J ?? []).map((Z) => {
@@ -5412,13 +5412,13 @@ function ULt(e, n, t) {
                     "session), the display-scope tools proceed. Until then, stay with the app_* tools for the granted background apps.",
                 },
               ],
-              isError: !0,
+              isError: true,
               telemetry: { error_kind: "takeover_unavailable" },
             };
           let A = new AbortController(),
-            O = !1,
+            O = false,
             oe = setTimeout(() => {
-              (O = !0), A.abort();
+              (O = true), A.abort();
             }, En);
           try {
             if (
@@ -5426,7 +5426,7 @@ function ULt(e, n, t) {
                 await t.onTakeoverRequest(
                   J !== void 0 && J.length > 0
                     ? { bundleId: J[0], displayName: ne, displayNames: q }
-                    : { becausePreferredBackground: !0 },
+                    : { becausePreferredBackground: true },
                   A.signal,
                 )
               )?.allowed
@@ -5443,7 +5443,7 @@ function ULt(e, n, t) {
                       "the screen-takeover card, then try again.",
                   },
                 ],
-                isError: !0,
+                isError: true,
                 telemetry: { error_kind: "takeover_not_answered" },
               };
             else
@@ -5457,7 +5457,7 @@ function ULt(e, n, t) {
                       "next time a display-scope tool is called. Stay with the app_* tools, or explain to the user why full-screen control is needed before trying again.",
                   },
                 ],
-                isError: !0,
+                isError: true,
                 telemetry: { error_kind: "takeover_declined" },
               };
           } finally {
@@ -5472,7 +5472,7 @@ function ULt(e, n, t) {
               content: [
                 { type: "text", text: (q.holder !== void 0 ? t.formatLockHeldMessage?.(q.holder) : void 0) ?? De },
               ],
-              isError: !0,
+              isError: true,
               telemetry: { error_kind: "cu_lock_held" },
             };
           if (H) t.approveTakeover?.(H);
@@ -5484,7 +5484,7 @@ function ULt(e, n, t) {
               content: [
                 { type: "text", text: (q.holder !== void 0 ? t.formatLockHeldMessage?.(q.holder) : void 0) ?? De },
               ],
-              isError: !0,
+              isError: true,
               telemetry: { error_kind: "cu_lock_held" },
             };
           t.approveTakeover?.(H);
@@ -5523,7 +5523,7 @@ function ULt(e, n, t) {
         onClipboardStashChanged: t.onClipboardStashChanged,
         getAccessWarned: (x) => c[x],
         onAccessWarned: (x) => {
-          c[x] = !0;
+          c[x] = true;
         },
         onResolvedDisplayUpdated: t.onResolvedDisplayUpdated,
         onDisplayPinned: t.onDisplayPinned,
@@ -5619,7 +5619,7 @@ function hon(e, n, t) {
               text: "This computer-use server instance is not wired to a session. Per-session app permissions are not available on this code path.",
             },
           ],
-          isError: !0,
+          isError: true,
         }
       ),
     ),

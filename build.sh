@@ -15,7 +15,7 @@ command -v "$BUN_BIN" >/dev/null 2>&1 || {
   exit 1
 }
 
-for required in cli.original.js pathmap.json bunfs/small-js-sources.json; do
+for required in src/cli.js pathmap.json; do
   [[ -f "$ROOT/$required" ]] || {
     echo "error: missing $ROOT/$required" >&2
     exit 1
@@ -43,18 +43,6 @@ const [root, stage, outfile] = process.argv.slice(2);
 const prefix = "/$bunfs/root/";
 const rootResolved = path.resolve(root);
 const map = JSON.parse(fs.readFileSync(path.join(rootResolved, "pathmap.json"), "utf8"));
-const packedSourceFile = path.join(rootResolved, "bunfs/small-js-sources.json");
-const packedSourceDocument = JSON.parse(fs.readFileSync(packedSourceFile, "utf8"));
-if (packedSourceDocument.version !== 1 || packedSourceDocument.files === null || typeof packedSourceDocument.files !== "object") {
-  throw new Error(`Invalid packed JS source document: ${packedSourceFile}`);
-}
-const packedSources = new Map(Object.entries(packedSourceDocument.files));
-const mappedLocalPaths = new Set(Object.values(map));
-for (const [localPath, text] of packedSources) {
-  if (!mappedLocalPaths.has(localPath) || !localPath.startsWith("bunfs/chunk-") || !localPath.endsWith(".js") || typeof text !== "string") {
-    throw new Error(`Invalid packed JS source entry: ${localPath}`);
-  }
-}
 
 function isZstd(file) {
   const fd = fs.openSync(file, "r");
@@ -83,17 +71,12 @@ for (const [virtualPath, localPath] of Object.entries(map)) {
     throw new Error(`Invalid mapped source: ${localPath}`);
   }
 
-  const packedText = packedSources.get(localPath);
-  const existsOnDisk = fs.existsSync(src);
-  if (!existsOnDisk && packedText === undefined) {
+  if (!fs.existsSync(src)) {
     throw new Error(`Missing mapped source: ${localPath}`);
   }
-  if (existsOnDisk && packedText !== undefined && fs.readFileSync(src, "utf8") !== packedText) {
-    throw new Error(`Packed JS source differs from on-disk source: ${localPath}`);
-  }
 
-  if (rel.endsWith(".js") && (packedText !== undefined || !isZstd(src))) {
-    executable.set(rel, packedText !== undefined ? { text: packedText } : { file: src });
+  if (rel.endsWith(".js") && !isZstd(src)) {
+    executable.set(rel, { file: src });
     moduleMap.set(rel, rel);
   } else {
     assets.push([rel, src]);
@@ -133,7 +116,7 @@ function collectRuntimeTargets(text) {
 
 for (const [rel, source] of executable) {
   const dst = path.join(stage, ...rel.split("/"));
-  const sourceText = source.text ?? fs.readFileSync(source.file, "utf8");
+  const sourceText = fs.readFileSync(source.file, "utf8");
   const text = rewrite(sourceText, rel);
   fs.mkdirSync(path.dirname(dst), { recursive: true });
   fs.writeFileSync(dst, text);
@@ -147,7 +130,7 @@ for (const [rel, src] of assets) {
 }
 
 const mainRel = "__main__.js";
-const mainText = rewrite(fs.readFileSync(path.join(rootResolved, "cli.original.js"), "utf8"), mainRel);
+const mainText = rewrite(fs.readFileSync(path.join(rootResolved, "src/cli.js"), "utf8"), mainRel);
 fs.writeFileSync(path.join(stage, mainRel), mainText);
 collectRuntimeTargets(mainText);
 

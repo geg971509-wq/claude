@@ -413,11 +413,11 @@ async function qe({ tool: e, sessionId: s, message: u, context: o, canUseTool: d
     },
     C,
     K = [],
-    z = !1;
+    z = false;
   for await (let H of i9(r, _, B, o, () => new Date().toISOString())) {
     if (eH(H)) continue;
     if (H.message.type === "attachment") {
-      if (H.message.attachment.type === "hook_deferred_tool") z = !0;
+      if (H.message.attachment.type === "hook_deferred_tool") z = true;
       else K.push(H.message);
       continue;
     }
@@ -514,7 +514,7 @@ async function Fe({ resumableAgentId: e, prompt: s, senderName: u, meta: o, fall
         prompt: s,
         description: o.description,
         color: o.color,
-        planModeRequired: o.planModeRequired ?? !1,
+        planModeRequired: o.planModeRequired ?? false,
         model: o.model,
         permissionMode:
           o.permissionMode !== void 0 && o.permissionMode !== "bypassPermissions" && gy.includes(o.permissionMode)
@@ -669,11 +669,11 @@ function re({
   let C = {
     route: c(e),
     duration_ms: Date.now() - s,
-    ...(d && { blocked_wait: !0 }),
+    ...(d && { blocked_wait: true }),
     ...(_ !== void 0 && { via: c(_) }),
-    ...(r && { exact_unique: !0 }),
-    ...(w && { previously_pinned: !0 }),
-    ...(B && { search_truncated: !0 }),
+    ...(r && { exact_unique: true }),
+    ...(w && { previously_pinned: true }),
+    ...(B && { search_truncated: true }),
   };
   if (u !== void 0) p("send_message_delivery", u, C);
   else if (o !== void 0) g("send_message_delivery", o, C);
@@ -758,8 +758,8 @@ function ys(e) {
     }),
   });
 }
-var bs = m(() => ys(!1)),
-  _s = m(() => ys(!0)),
+var bs = m(() => ys(false)),
+  _s = m(() => ys(true)),
   Ms = m(() => bs().extend({ message: Re() })),
   Ds = m(() => _s().extend({ message: Re(fs).default(hs) }));
 function we() {
@@ -817,12 +817,12 @@ function Te() {
   g("cross_session_notify_idle", "subscribe_refused_principal");
 }
 function Ss(e, s, u) {
-  if (typeof e.message === "string" && e.message.trim().length > 0) return !1;
+  if (typeof e.message === "string" && e.message.trim().length > 0) return false;
   let o = vs(s, u)?.message;
   return (typeof o === "string" && o.trim().length > 0) || pe(e, s, u);
 }
 function pe(e, s, u) {
-  return !ne(e) && Y2t(vs(s, u)?.notify_when_idle) === !0;
+  return !ne(e) && Y2t(vs(s, u)?.notify_when_idle) === true;
 }
 function Ps(e, s, u) {
   return ne(e) || pe(e, s, u);
@@ -841,11 +841,11 @@ function vs(e, s) {
   };
 }
 function Us(e) {
-  return { data: { success: !1, message: e ? ye : ws } };
+  return { data: { success: false, message: e ? ye : ws } };
 }
 function ne(e) {
-  if (!("notify_when_idle" in e)) return !1;
-  return Y2t(e.notify_when_idle) === !0;
+  if (!("notify_when_idle" in e)) return false;
+  return Y2t(e.notify_when_idle) === true;
 }
 var ue =
     "notify_when_idle is only supported for Claude sessions on this machine in this release (not teammates, subagents, Remote Control or cloud sessions).",
@@ -856,20 +856,20 @@ function Ke(e) {
 }
 var xs = {
     data: {
-      success: !1,
+      success: false,
       message:
         "A permission handler emptied this message; nothing was sent, and no idle subscription was made (a blanked delivery is never reinterpreted as a pure subscription \u2014 send notify_when_idle without a message if that is what you want).",
     },
   },
   ks = {
     data: {
-      success: !1,
+      success: false,
       message: "A permission handler emptied this message; nothing was sent, and no idle subscription was made.",
     },
   },
   Ae = {
     data: {
-      success: !1,
+      success: false,
       message:
         "A permission handler rewrote this call so that nothing was left to send or subscribe; nothing was sent.",
     },
@@ -921,7 +921,7 @@ function Ce(e, s) {
 }
 var ve = {
   data: {
-    success: !1,
+    success: false,
     message: "That agent cannot receive messages (it is a background observer, or its status could not be verified).",
   },
 };
@@ -935,7 +935,7 @@ async function Ws(e, s, u, o, d, _) {
   if (!w)
     return {
       data: {
-        success: !1,
+        success: false,
         message: `No agent named '${e}' is currently addressable. Spawn a new one or use the agent ID.`,
       },
       errorClass: "not_reachable",
@@ -949,7 +949,7 @@ async function Ws(e, s, u, o, d, _) {
     else if (d !== void 0 && _ === "team-context")
       return {
         data: {
-          success: !1,
+          success: false,
           message: `The member this message was resolved to has left team '${w}' \u2014 nothing was sent. Another member may share the same display name '${e}', so a bare re-send could reach someone you did not choose: pick again explicitly with a fresh 'name [ref]', or message the lead.`,
         },
         errorClass: "not_reachable",
@@ -961,7 +961,7 @@ async function Ws(e, s, u, o, d, _) {
         if (J.length > 1)
           return {
             data: {
-              success: !1,
+              success: false,
               message: `The team roster lists the member this message was resolved to more than once \u2014 nothing was sent. Ask the lead to repair team '${w}''s file.`,
             },
             errorClass: "not_reachable",
@@ -971,14 +971,14 @@ async function Ws(e, s, u, o, d, _) {
           if (d !== void 0)
             return {
               data: {
-                success: !1,
+                success: false,
                 message: `The member this message was resolved to has left team '${w}' \u2014 nothing was sent. Another member may share the same display name '${e}', so a bare re-send could reach someone you did not choose: pick again explicitly with a fresh 'name [ref]', or message the lead.`,
               },
               errorClass: "not_reachable",
             };
           return {
             data: {
-              success: !1,
+              success: false,
               message:
                 vc(o.agentContext) < jS()
                   ? `No teammate named '${e}' is currently on team '${w}'. Spawn one with ${yt}({name: '${e}'}) \u2014 or message the lead to do so.`
@@ -991,7 +991,7 @@ async function Ws(e, s, u, o, d, _) {
       } else if (d !== void 0)
         return {
           data: {
-            success: !1,
+            success: false,
             message: `Couldn't read the roster of team '${w}' to locate the member this message was resolved to \u2014 nothing was sent. Try again, or message the lead.`,
           },
           errorClass: "not_reachable",
@@ -1004,7 +1004,7 @@ async function Ws(e, s, u, o, d, _) {
   if (z === void 0)
     return {
       data: {
-        success: !1,
+        success: false,
         message: `Failed to write to ${e}'s inbox \u2014 nothing was sent. Try again, or message the lead.`,
       },
       errorClass: "mailbox_write_failed",
@@ -1013,7 +1013,7 @@ async function Ws(e, s, u, o, d, _) {
   let W = Xs(r, B);
   return {
     data: {
-      success: !0,
+      success: true,
       message: `Message sent to ${e}'s inbox`,
       msg_id: z,
       routing: { sender: C, senderColor: K, target: `@${e}`, targetColor: W, summary: u, content: ir(s, 50) },
@@ -1030,7 +1030,7 @@ async function ss(e, s, u, o, d, _) {
   if (r === void 0)
     return {
       data: {
-        success: !1,
+        success: false,
         message: `Teammate "${d}" is running, but writing to its inbox failed \u2014 nothing was queued. Try again.`,
       },
     };
@@ -1038,7 +1038,7 @@ async function ss(e, s, u, o, d, _) {
     e.retryWake?.emit(),
     {
       data: {
-        success: !0,
+        success: true,
         message: `Teammate "${d}" is already running; queued your message for its next turn.`,
         msg_id: r,
         ..._,
@@ -1064,7 +1064,7 @@ function as(e, s) {
       harnessTailCount: s.harnessTailCount,
       harnessSectionHash: s.harnessSectionHash,
     },
-    ...(s.handoffReviewSkipped && { handoffReviewSkipped: !0 }),
+    ...(s.handoffReviewSkipped && { handoffReviewSkipped: true }),
   };
 }
 async function Vs(e, s, u, o) {
@@ -1078,7 +1078,7 @@ async function Vs(e, s, u, o) {
   )
     return {
       data: {
-        success: !1,
+        success: false,
         message: `Failed to write the shutdown request to ${s}'s inbox \u2014 nothing was sent.`,
         request_id: w,
         target: s,
@@ -1086,7 +1086,7 @@ async function Vs(e, s, u, o) {
     };
   if (_) mtn(o.getAppState().tasks, e, _);
   return {
-    data: { success: !0, message: `Shutdown request sent to ${s}. Request ID: ${w}`, request_id: w, target: s },
+    data: { success: true, message: `Shutdown request sent to ${s}. Request ID: ${w}`, request_id: w, target: s },
   };
 }
 async function Gs(e, s) {
@@ -1125,7 +1125,7 @@ async function Gs(e, s) {
           W.abortController.abort(),
           {
             data: {
-              success: !0,
+              success: true,
               message: `Shutdown approved (fallback path). Agent ${d} is now exiting.`,
               request_id: e,
             },
@@ -1137,7 +1137,7 @@ async function Gs(e, s) {
       await Ln(0, "other");
     });
   }
-  return { data: { success: !0, message: `Shutdown approved. ${C} Agent ${d} is now exiting.`, request_id: e }, ...K };
+  return { data: { success: true, message: `Shutdown approved. ${C} Agent ${d} is now exiting.`, request_id: e }, ...K };
 }
 async function Ys(e, s, u) {
   let o = ds(),
@@ -1148,13 +1148,13 @@ async function Ys(e, s, u) {
   )
     return {
       data: {
-        success: !1,
+        success: false,
         message: "Failed to write the shutdown rejection to team-lead's inbox \u2014 nothing was sent. Try again.",
         request_id: e,
       },
     };
   return {
-    data: { success: !0, message: `Shutdown rejected. Reason: "${ir(s, 50)}". Continuing to work.`, request_id: e },
+    data: { success: true, message: `Shutdown rejected. Reason: "${ir(s, 50)}". Continuing to work.`, request_id: e },
   };
 }
 class Me extends Error {
@@ -1172,7 +1172,7 @@ async function zs(e, s, u, o, d) {
     B = {
       type: "plan_approval_response",
       requestId: u,
-      approved: !0,
+      approved: true,
       ...(o !== void 0 && { feedback: o }),
       timestamp: new Date().toISOString(),
       permissionMode: w,
@@ -1180,14 +1180,14 @@ async function zs(e, s, u, o, d) {
   if ((await $g(e, { from: vi, text: b(B), timestamp: new Date().toISOString() }, r, d.storageV5)) === void 0)
     return {
       data: {
-        success: !1,
+        success: false,
         message: `Failed to write the plan approval to ${s}'s inbox \u2014 nothing was sent. Try again.`,
         request_id: u,
       },
     };
   return {
     data: {
-      success: !0,
+      success: true,
       message: `Plan approved for ${s}. They will receive the approval and can proceed with implementation.`,
       request_id: u,
     },
@@ -1201,19 +1201,19 @@ async function Ks(e, s, u, o, d) {
   let w = {
     type: "plan_approval_response",
     requestId: u,
-    approved: !1,
+    approved: false,
     feedback: o,
     timestamp: new Date().toISOString(),
   };
   if ((await $g(e, { from: vi, text: b(w), timestamp: new Date().toISOString() }, r, d.storageV5)) === void 0)
     return {
       data: {
-        success: !1,
+        success: false,
         message: `Failed to write the plan rejection to ${s}'s inbox \u2014 nothing was sent. Try again.`,
         request_id: u,
       },
     };
-  return { data: { success: !0, message: `Plan rejected for ${s} with feedback: "${ir(o, 50)}"`, request_id: u } };
+  return { data: { success: true, message: `Plan rejected for ${s} with feedback: "${ir(o, 50)}"`, request_id: u } };
 }
 var ns =
   "Cross-machine messaging is unavailable: it sends the message through Anthropic servers, which is not allowed on a third-party provider or with nonessential traffic disabled. Messages to sessions on this machine still work.";
@@ -1222,19 +1222,19 @@ function os() {
 }
 function rs() {
   if (jwe()?.live) return;
-  if (a.CLAUDE_CODE_REMOTE === !0) return Uz() === void 0 ? "no-container-address" : void 0;
+  if (a.CLAUDE_CODE_REMOTE === true) return Uz() === void 0 ? "no-container-address" : void 0;
   return "rc-disconnected";
 }
 function is(e) {
   return e === "rc-disconnected" ? "Remote Control is not connected" : "this session has no reply address";
 }
 function ls(e) {
-  return a.CLAUDE_CODE_REMOTE === !0 && !e && Uz() !== void 0
+  return a.CLAUDE_CODE_REMOTE === true && !e && Uz() !== void 0
     ? "; note: this session has no name yet, so the receiver can answer only by the address on the message, not by name"
     : "";
 }
 function Is() {
-  return I("tengu_deep_feather", !0);
+  return I("tengu_deep_feather", true);
 }
 var ms = kt({
   name: Xr,
@@ -1247,7 +1247,7 @@ var ms = kt({
     return we();
   },
   coerceInput: (e) => Z2t(e, { applySplit: Is() }),
-  shouldDefer: !0,
+  shouldDefer: true,
   isReadOnly(e) {
     return typeof e.message === "string";
   },
@@ -1326,7 +1326,7 @@ var ms = kt({
             decisionReason: {
               type: "safetyCheck",
               reason: "isolatePeerMachines is enabled \u2014 cross-machine message requires explicit approval",
-              classifierApprovable: !1,
+              classifierApprovable: false,
               circuitBreaker: "isolatePeerMachines",
             },
           }
@@ -1348,7 +1348,7 @@ var ms = kt({
               decisionReason: {
                 type: "safetyCheck",
                 reason: "isolatePeerMachines is enabled \u2014 cross-machine message requires explicit approval",
-                classifierApprovable: !1,
+                classifierApprovable: false,
                 circuitBreaker: "isolatePeerMachines",
               },
             }
@@ -1402,7 +1402,7 @@ var ms = kt({
               decisionReason: {
                 type: "safetyCheck",
                 reason: "isolatePeerMachines is enabled \u2014 cross-machine message requires explicit approval",
-                classifierApprovable: !1,
+                classifierApprovable: false,
                 circuitBreaker: "isolatePeerMachines",
               },
             }
@@ -1424,7 +1424,7 @@ var ms = kt({
             decisionReason: {
               type: "safetyCheck",
               reason: "isolatePeerMachines is enabled \u2014 cross-machine message requires explicit approval",
-              classifierApprovable: !1,
+              classifierApprovable: false,
               circuitBreaker: "isolatePeerMachines",
             },
           };
@@ -1439,56 +1439,56 @@ var ms = kt({
   async validateInput(e, s) {
     if (e.to === "*")
       return {
-        result: !1,
+        result: false,
         message: 'broadcast (to: "*") is no longer supported \u2014 send a message per recipient',
         errorCode: 9,
       };
     {
       let o = mf(e.to).scheme;
-      if ((o === "uds" || o === "bridge") && !Yo()) return { result: !1, message: W5e, errorCode: 9 };
+      if ((o === "uds" || o === "bridge") && !Yo()) return { result: false, message: W5e, errorCode: 9 };
     }
     if (ne(e)) {
       if (typeof e.message !== "string")
         return {
-          result: !1,
+          result: false,
           message:
             "notify_when_idle cannot ride a structured message \u2014 send plain text, or omit the message for a pure subscription",
           errorCode: 9,
         };
       if (Se(e, s).refusedForPrincipal && e.message.trim().length === 0)
-        return { result: !1, message: ye, errorCode: 9 };
+        return { result: false, message: ye, errorCode: 9 };
       let o = mf(e.to).scheme;
-      if (o === "bridge" || o === "did") return { result: !1, message: ue, errorCode: 9 };
+      if (o === "bridge" || o === "did") return { result: false, message: ue, errorCode: 9 };
     }
     let u = Sbt(e.to, Js);
-    if (u !== void 0) return { result: !1, message: u, errorCode: 9 };
+    if (u !== void 0) return { result: false, message: u, errorCode: 9 };
     {
       let o = mf(e.to);
-      if (o.scheme === "uds" && iZ(o.target)) return { result: !1, message: v1(e.to, xb(s)), errorCode: 9 };
+      if (o.scheme === "uds" && iZ(o.target)) return { result: false, message: v1(e.to, xb(s)), errorCode: 9 };
     }
     if (e.to.includes("@"))
       return {
-        result: !1,
+        result: false,
         message: "to must be a bare teammate name \u2014 there is only one team per session",
         errorCode: 9,
       };
     if (typeof e.message === "string" && e.message.trim().length === 0 && !ne(e))
-      return { result: !1, message: ws, errorCode: 9 };
+      return { result: false, message: ws, errorCode: 9 };
     if (mf(e.to).scheme === "bridge") {
-      if (dB(mf(e.to).target)) return { result: !1, message: v1(e.to, xb(s)), errorCode: 9 };
+      if (dB(mf(e.to).target)) return { result: false, message: v1(e.to, xb(s)), errorCode: 9 };
       if (typeof e.message !== "string")
         return {
-          result: !1,
+          result: false,
           message: "structured messages cannot be sent cross-session \u2014 only plain text",
           errorCode: 9,
         };
-      return { result: !0 };
+      return { result: true };
     }
-    if (mf(e.to).scheme === "uds" && typeof e.message === "string") return { result: !0 };
+    if (mf(e.to).scheme === "uds" && typeof e.message === "string") return { result: true };
     if (typeof e.message === "string") {
       if (bI(e.message))
         return {
-          result: !1,
+          result: false,
           message:
             'message text must not be a teammate protocol frame (permission/mode/plan/shutdown JSON) \u2014 to respond to a plan or shutdown request, use the structured object form ({"message": {"type": ...}}); otherwise send plain text',
           errorCode: 9,
@@ -1509,31 +1509,31 @@ var ms = kt({
           ].includes(o.type)
         )
           return {
-            result: !1,
+            result: false,
             message:
               "message text must not be a teammate lifecycle/task frame (idle/terminated/task/shutdown JSON) \u2014 send plain text instead",
             errorCode: 9,
           };
       } catch {}
-      return { result: !0 };
+      return { result: true };
     }
     if (!io())
       return {
-        result: !1,
+        result: false,
         message: "Structured team-protocol messages are only available with agent teams enabled.",
         errorCode: 9,
       };
     if (mf(e.to).scheme !== "other")
       return {
-        result: !1,
+        result: false,
         message: "structured messages cannot be sent cross-session \u2014 only plain text",
         errorCode: 9,
       };
     if (e.message.type === "shutdown_response" && e.to !== vi)
-      return { result: !1, message: `shutdown_response must be sent to "${vi}"`, errorCode: 9 };
+      return { result: false, message: `shutdown_response must be sent to "${vi}"`, errorCode: 9 };
     if (e.message.type === "shutdown_response" && e.message.approve && e.message.reason !== void 0)
       return {
-        result: !1,
+        result: false,
         message:
           "reason is only delivered on rejections (approve: false) \u2014 approvals are sent as a silent confirmation with no reason text; omit reason or reject instead",
         errorCode: 9,
@@ -1543,8 +1543,8 @@ var ms = kt({
       !e.message.approve &&
       (!e.message.reason || e.message.reason.trim().length === 0)
     )
-      return { result: !1, message: "reason is required when rejecting a shutdown request", errorCode: 9 };
-    return { result: !0 };
+      return { result: false, message: "reason is required when rejecting a shutdown request", errorCode: 9 };
+    return { result: true };
   },
   async description() {
     return Xe;
@@ -1561,9 +1561,9 @@ var ms = kt({
         handoffReviewSkipped: _,
         ...r
       } = { display: void 0, inlineHandback: void 0, handoffReviewSkipped: void 0, ...e },
-      w = (B) => b({ success: !0, message: B });
+      w = (B) => b({ success: true, message: B });
     if (d) {
-      if (vee() || _ === !0) {
+      if (vee() || _ === true) {
         let B = n1t(d.content, d.harnessNoteCount, d.harnessTailCount, d.harnessSectionHash);
         return {
           tool_use_id: s,
@@ -1579,7 +1579,7 @@ ${B[0].text}`,
       }
       return { tool_use_id: s, type: "tool_result", content: [{ type: "text", text: b({ ...r, message: ien(d) }) }] };
     }
-    if (_ === !0) return { tool_use_id: s, type: "tool_result", content: [{ type: "text", text: w(Y$n) }] };
+    if (_ === true) return { tool_use_id: s, type: "tool_result", content: [{ type: "text", text: w(Y$n) }] };
     return { tool_use_id: s, type: "tool_result", content: [{ type: "text", text: b(r) }] };
   },
   async call(e, s, u, o) {
@@ -1594,21 +1594,21 @@ ${B[0].text}`,
         r("unresolved", "not_reachable"),
         {
           data: {
-            success: !1,
+            success: false,
             message:
               "Observers report via ObserverReport, not SendMessage. SendMessage is not available from an observer.",
           },
         }
       );
     if (Ke(e.to)) {
-      if (!Yo()) return r("desktop_host", "not_reachable"), { data: { success: !1, message: W5e } };
-      let h = !1;
+      if (!Yo()) return r("desktop_host", "not_reachable"), { data: { success: false, message: W5e } };
+      let h = false;
       if (((h = ne(e)), typeof e.message !== "string"))
         return (
           r("desktop_host", "invalid_target"),
           {
             data: {
-              success: !1,
+              success: false,
               message: `Not sent: a Claude Desktop session takes a plain-text message, not a structured ${e.message.type}.`,
             },
           }
@@ -1617,7 +1617,7 @@ ${B[0].text}`,
         if (Ss(e, o, s.toolUseId)) return r("desktop_host", "handler_rewrite"), h ? ks : Ae;
         return (
           r("desktop_host", h ? "not_reachable" : "empty_message"),
-          { data: { success: !1, message: h ? `Nothing was subscribed: ${ue}` : "Not sent: the message is empty." } }
+          { data: { success: false, message: h ? `Nothing was subscribed: ${ue}` : "Not sent: the message is empty." } }
         );
       }
       let k = Le(s);
@@ -1628,7 +1628,7 @@ ${B[0].text}`,
               r("unresolved", "desktop_session_id"),
               {
                 data: {
-                  success: !1,
+                  success: false,
                   message: `No agent named '${e.to}' is reachable. It has the shape of a Claude Desktop session id, but Claude Desktop's session messaging tool is not available in this session, so SendMessage cannot deliver to it.`,
                 },
               }
@@ -1638,7 +1638,7 @@ ${B[0].text}`,
               r("desktop_host", void 0, { degradedClass: "hop_loop" }),
               {
                 data: {
-                  success: !1,
+                  success: false,
                   message: `Not delivered: this session has already messaged Claude Desktop sessions ${k.forwards} times since your user last typed here, which looks like sessions messaging each other automatically. Paused until your user's next message in this session.`,
                 },
               }
@@ -1646,9 +1646,9 @@ ${B[0].text}`,
         }
       let P = d ? Ce(s, d).from : void 0,
         D = d !== void 0 && P !== void 0 ? Spe(P, e.message) : e.message,
-        M = nje(d, P, { oneWay: !1 }),
+        M = nje(d, P, { oneWay: false }),
         S = await qe({ tool: k.tool, sessionId: e.to, message: D, context: s, canUseTool: u, assistantMessage: o }),
-        x = S.blockedWait ? { blockedWait: !0 } : void 0,
+        x = S.blockedWait ? { blockedWait: true } : void 0,
         U = S.attachments.length > 0 ? S.attachments : void 0;
       switch (S.kind) {
         case "sent":
@@ -1656,7 +1656,7 @@ ${B[0].text}`,
             r("desktop_host", void 0, x),
             {
               data: {
-                success: !0,
+                success: true,
                 message: `Forwarded to Claude Desktop's session messaging: ${S.detail || "sent."}${M.message}${h ? Bs : ""}`,
               },
               ...(U && { newMessages: U }),
@@ -1666,7 +1666,7 @@ ${B[0].text}`,
           return (
             r("desktop_host", "desktop_refused", x),
             {
-              data: { success: !1, message: `Not delivered to Claude Desktop session ${e.to}: ${S.message}` },
+              data: { success: false, message: `Not delivered to Claude Desktop session ${e.to}: ${S.message}` },
               ...(U && { newMessages: U }),
             }
           );
@@ -1676,26 +1676,26 @@ ${B[0].text}`,
       C = B?.from;
     if (typeof e.message === "string") {
       let h = mf(e.to),
-        k = !1;
+        k = false;
       if (h.scheme === "bridge" && s.toolUseId) {
         let D = s.toolState.get(ge);
         (k = D.take(s.toolUseId, $e(e)) !== void 0), D.dropToolUse(s.toolUseId);
       }
-      if ((h.scheme === "bridge" || h.scheme === "uds") && !Yo()) return { data: { success: !1, message: W5e } };
+      if ((h.scheme === "bridge" || h.scheme === "uds") && !Yo()) return { data: { success: false, message: W5e } };
       let P = Vqe(h.scheme === "bridge" ? "bridge" : "uds");
       if (h.scheme === "bridge") {
         if (dB(h.target))
-          return r("bridge", "invalid_target"), { data: { success: !1, message: v1(e.to, xb(s)), display: whe(e.to) } };
-        if (!os()) return { data: { success: !1, message: ns } };
+          return r("bridge", "invalid_target"), { data: { success: false, message: v1(e.to, xb(s)), display: whe(e.to) } };
+        if (!os()) return { data: { success: false, message: ns } };
         let {
             postInterClaudeMessage: D,
             isLikelyStaleBridgeError: M,
             classifyBridgeSendError: S,
           } = import.meta.require("/$bunfs/root/chunk-7vf10vwz.js"),
           x = xDe(s.session, h.target, e.to);
-        if (x) return r("bridge", "bridge_auth", { via: "address" }), { data: { success: !1, message: x } };
+        if (x) return r("bridge", "bridge_auth", { via: "address" }), { data: { success: false, message: x } };
         let U = qte(s.session, h.target, e.to);
-        if (U) return r("bridge", "recipient_gate_off", { via: "address" }), { data: { success: !1, message: U } };
+        if (U) return r("bridge", "recipient_gate_off", { via: "address" }), { data: { success: false, message: U } };
         let v = await tje({
           tool: ms,
           input: e,
@@ -1709,10 +1709,10 @@ ${B[0].text}`,
         if (!v.proceed)
           return (
             r("bridge", v.reason === "denied" ? "permission_denied" : "handler_rewrite", {
-              blockedWait: !0,
+              blockedWait: true,
               via: "address",
             }),
-            { data: { success: !1, message: v.message } }
+            { data: { success: false, message: v.message } }
           );
         let L = v.input,
           A = typeof L.message === "string" ? L.message : e.message,
@@ -1725,28 +1725,28 @@ ${B[0].text}`,
           Y = await D(h.target, Z, P, void 0, epe(s.messages), w, s.credentials),
           te = L.summary || ir(A, 50);
         if (Y.ok) {
-          r("bridge", void 0, { via: "address", ...(v.asked && { blockedWait: !0 }) });
+          r("bridge", void 0, { via: "address", ...(v.asked && { blockedWait: true }) });
           let oe = F
             ? `\u201C${te}\u201D \u2192 ${e.to} (one-way: ${is(F)}, so the receiver cannot address a reply to this session)`
             : `\u201C${te}\u201D \u2192 ${e.to}${ls(P)}`;
           return {
             data: {
-              success: !0,
+              success: true,
               message: `${oe}${Q.message}${j.message}`,
               ...((Q.display || j.display) && { display: `${oe}${Q.display}${j.display}` }),
               msg_id: Y.msgId,
             },
           };
         }
-        r("bridge", S(Y.error), { via: "address", ...(v.asked && { blockedWait: !0 }) });
+        r("bridge", S(Y.error), { via: "address", ...(v.asked && { blockedWait: true }) });
         let ae = M(Y.error)
           ? ` \u2014 the peer session may have ended or restarted, so this bridge ID is stale. Call ${Js} to get the current address.`
           : "";
-        return { data: { success: !1, message: `Failed to send to ${e.to}: ${Y.error ?? "unknown"}${ae}` } };
+        return { data: { success: false, message: `Failed to send to ${e.to}: ${Y.error ?? "unknown"}${ae}` } };
       }
       if (h.scheme === "uds") {
         if (iZ(h.target))
-          return r("uds", "invalid_target"), { data: { success: !1, message: v1(e.to, xb(s)), display: whe(e.to) } };
+          return r("uds", "invalid_target"), { data: { success: false, message: v1(e.to, xb(s)), display: whe(e.to) } };
         let { sendToUdsSocket: D, ownMessagingSocket: M } = import.meta.require("/$bunfs/root/chunk-j0bs780t.js"),
           { subscribeToPeerIdle: S, idleSubscriptionLines: x } = import.meta.require("/$bunfs/root/chunk-ery7jqc3.js"),
           { notify: U, refusedForPrincipal: v } = Se(e, s),
@@ -1775,7 +1775,7 @@ ${B[0].text}`,
             ae = Y ? void 0 : Qe(v, e, o, s.toolUseId);
           return {
             data: {
-              success: F !== void 0 || j?.ok === !0,
+              success: F !== void 0 || j?.ok === true,
               message: `${te.join(`
 `)}${ae?.model ?? ""}`,
               ...((Y || ae || Z.display) && {
@@ -1793,13 +1793,13 @@ ${B[0].text}`,
           let j = $z(F),
             Q = j === "gone" ? gTe(Js) : j === "busy" ? Oht(F) : "";
           return {
-            data: { success: !1, message: `Failed to send to ${e.to}: ${l(F)}${Q}${es(v, e, o, s.toolUseId)}` },
+            data: { success: false, message: `Failed to send to ${e.to}: ${l(F)}${Q}${es(v, e, o, s.toolUseId)}` },
           };
         }
       }
     }
     let K = s.toolState.get(ge),
-      z = !1,
+      z = false,
       W;
     if (s.toolUseId) {
       let h = K.take(s.toolUseId, $e(e));
@@ -1807,18 +1807,18 @@ ${B[0].text}`,
     }
     let t = W ?? (await rje(s.session, e.to, e.message, s.getAppState(), s.storageV5, s.credentials));
     if ((t.kind === "local-session" || t.kind === "cloud-session") && !Yo())
-      return { data: { success: !1, message: W5e } };
+      return { data: { success: false, message: W5e } };
     if (t.kind === "cloud-session" && dB(t.sessionId))
-      return r("unresolved", "invalid_target"), { data: { success: !1, message: v1(e.to, xb(s)), display: whe(e.to) } };
+      return r("unresolved", "invalid_target"), { data: { success: false, message: v1(e.to, xb(s)), display: whe(e.to) } };
     if (t.kind === "local-session" && P0e(t.sock))
-      return r("unresolved", "invalid_target"), { data: { success: !1, message: v1(e.to, xb(s)), display: whe(e.to) } };
+      return r("unresolved", "invalid_target"), { data: { success: false, message: v1(e.to, xb(s)), display: whe(e.to) } };
     if (t.kind === "local-session" && oje(e.to, t.sock))
       return (
         r("unresolved", void 0, { degradedClass: "claimed_locally" }),
-        { data: { success: !1, message: ije(e.to), display: oUn(e.to) } }
+        { data: { success: false, message: ije(e.to), display: oUn(e.to) } }
       );
     if (t.kind === "local-session" && iZ(t.sock))
-      return r("unresolved", "invalid_target"), { data: { success: !1, message: v1(e.to, xb(s)), display: whe(e.to) } };
+      return r("unresolved", "invalid_target"), { data: { success: false, message: v1(e.to, xb(s)), display: whe(e.to) } };
     if (Ps(e, o, s.toolUseId) && t.kind !== "local-session" && t.kind !== "ambiguous" && t.kind !== "not-found") {
       let { idleSelfTargetMessage: h } = import.meta.require("/$bunfs/root/chunk-ery7jqc3.js");
       return (
@@ -1826,7 +1826,7 @@ ${B[0].text}`,
         g("cross_session_notify_idle", t.kind === "main" ? "subscribe_self_target" : "subscribe_refused_target"),
         {
           data: {
-            success: !1,
+            success: false,
             message: `${t.kind === "main" ? h('"main"') : ue}${typeof e.message !== "string" || e.message.trim().length > 0 ? Ls : ""}`,
           },
         }
@@ -1849,14 +1849,14 @@ ${B[0].text}`,
         k = t.closest.some((U) => Sr(U.name) === Sr(lO(e.to)?.name ?? e.to));
       if (h === "categorical" && !k && O0e(t))
         return (
-          r("unresolved", "invalid_target"), { data: { success: !1, message: v1(e.to, xb(s)), display: whe(e.to) } }
+          r("unresolved", "invalid_target"), { data: { success: false, message: v1(e.to, xb(s)), display: whe(e.to) } }
         );
       let P =
           t.closest.length > 0
             ? ` Did you mean: ${t.closest.map((U) => (typeof e.message === "string" && U.where === "in-process" ? w$(U) : U.name)).join(", ")}?`
             : "",
         D =
-          typeof e.message === "string" && !0 && H
+          typeof e.message === "string" && true && H
             ? `Use ${Js} to see everyone you can message.`
             : typeof e.message === "string"
               ? "Check the spelling, or use the agent ID from a background agent's spawn result."
@@ -1884,11 +1884,11 @@ The sessions on this machine could not be listed just now, so they were not sear
             : t.localUnavailable
               ? "local_unlisted"
               : "not_reachable",
-          t.searchTruncated ? { searchTruncated: !0 } : void 0,
+          t.searchTruncated ? { searchTruncated: true } : void 0,
         ),
         {
           data: {
-            success: !1,
+            success: false,
             message: `No agent named '${e.to}' is reachable.${P}${M}${S}${x}${t.searchTruncated ? I0e : ""}${h !== "no" ? D0e(e.to, xb(s)) : ""}
 ${D}`,
             display: `Not sent \u2014 no agent named '${e.to}' is reachable.${t.closest.length > 0 ? ` Did you mean: ${t.closest.map((U) => U.name).join(", ")}?` : ""}${t.bridgeUnavailable || t.cloudUnavailable || t.localUnavailable ? ` Note: ${_en(t)} \u2014 it may exist there; a retry searches again.` : ""}${t.searchTruncated ? ` Note: ${Sen} \u2014 it may exist beyond what was searched.` : ""}${t.pinnedIdentityClaimedLocally ? ` ${yen(t.pinnedIdentityClaimedLocally)} \u2014 that is suspicious if you did not set it up.` : ""}`,
@@ -1900,7 +1900,7 @@ ${D}`,
       let h = typeof e.message === "string" ? L0e(e.to) : "no";
       if (h === "categorical" && t.matchedBy === "prefix" && O0e(t))
         return (
-          r("unresolved", "invalid_target"), { data: { success: !1, message: v1(e.to, xb(s)), display: whe(e.to) } }
+          r("unresolved", "invalid_target"), { data: { success: false, message: v1(e.to, xb(s)), display: whe(e.to) } }
         );
       let k = Date.now(),
         P = t.candidates
@@ -1947,7 +1947,7 @@ Note: earlier in this conversation '${t.pinnedIdentityClaimedLocally}' was confi
             ? `
 e.g. {"to": "${w$(t.candidates[0])}", ...}`
             : "",
-        A = t.searchTruncated ? { searchTruncated: !0 } : void 0;
+        A = t.searchTruncated ? { searchTruncated: true } : void 0;
       if (t.bridgeUnavailable === "timeout" || t.cloudUnavailable === "timeout") r("unresolved", "timeout", A);
       else if (t.bridgeUnavailable === "fetch_failed" || t.cloudUnavailable === "fetch_failed")
         r("unresolved", "not_reachable", A);
@@ -1963,14 +1963,14 @@ e.g. {"to": "${w$(t.candidates[0])}", ...}`
         Q = `${t.total === 1 ? (t.matchedBy === "prefix" ? `Not sent \u2014 no agent is named '${e.to}' exactly${M ? ` among the sessions that could be checked (${F})` : ""}; asked Claude to confirm it means '${G.name}'.` : t.pinnedIdentityClaimedLocally ? `Not sent \u2014 '${e.to}' needs a confirm before this send.` : M ? `Not sent yet \u2014 '${e.to}' matches '${G.name}', but ${F}; asked Claude to confirm.` : `Not sent \u2014 '${e.to}' needs a one-time confirm before this send; asked Claude to confirm it means '${G.name}'.`) : t.matchedBy === "prefix" ? `Not sent \u2014 '${e.to}' matches ${t.total} agents by prefix (${j}${t.total > t.candidates.length ? ", \u2026" : ""}); asked Claude to pick one.` : `Not sent \u2014 ${t.total} agents are named '${e.to}' (${j}${t.total > t.candidates.length ? ", \u2026" : ""}); asked Claude to pick one.`}${M && t.total !== 1 ? ` Note: ${F}.` : ""}${x}${Z}`;
       return {
         data: {
-          success: !1,
+          success: false,
           message: `${U}
 ${P}${D}${L}${v}${S}${h !== "no" ? D0e(e.to, xb(s)) : ""}`,
           display: Q,
         },
       };
     }
-    await Yfn({ refresh: !0, credentials: s.credentials });
+    await Yfn({ refresh: true, credentials: s.credentials });
     let O = await z$n({
       session: s.session,
       to: e.to,
@@ -1996,7 +1996,7 @@ ${P}${D}${L}${v}${S}${h !== "no" ? D0e(e.to, xb(s)) : ""}`,
           : "Check the spelling, or use the agent ID from a background agent's spawn result.";
         return {
           data: {
-            success: !1,
+            success: false,
             message: `${h}
 ${M}`,
             display: k,
@@ -2005,7 +2005,7 @@ ${M}`,
       }
       return {
         data: {
-          success: !1,
+          success: false,
           message: `${h}
 It now resolves to:
   ${o7e(O.next, Date.now())}
@@ -2028,7 +2028,7 @@ ${D}`,
             r("mailbox", "not_reachable"),
             {
               data: {
-                success: !1,
+                success: false,
                 message:
                   "Structured team-protocol messages (shutdown/plan responses and requests) are acts of the session itself and cannot be sent by a background subagent. Send a plain text message instead.",
               },
@@ -2045,7 +2045,7 @@ ${D}`,
             r("mailbox", "not_reachable"),
             {
               data: {
-                success: !1,
+                success: false,
                 message: `The member this message was resolved to has left team '${ds(M.teamContext) ?? ""}' \u2014 nothing was sent. Another member may share the same display name '${k}'. Check the roster, or message the lead.`,
               },
             }
@@ -2059,7 +2059,7 @@ ${D}`,
                 r("mailbox", "not_reachable"),
                 {
                   data: {
-                    success: !1,
+                    success: false,
                     message: `Couldn't read the roster of team '${x}' to locate the member this message was resolved to \u2014 nothing was sent. Try again, or message the lead.`,
                   },
                 }
@@ -2070,7 +2070,7 @@ ${D}`,
                 r("mailbox", "not_reachable"),
                 {
                   data: {
-                    success: !1,
+                    success: false,
                     message: `The team roster lists the member this message was resolved to more than once \u2014 nothing was sent. Ask the lead to repair team '${x}''s file.`,
                   },
                 }
@@ -2081,7 +2081,7 @@ ${D}`,
                 r("mailbox", "not_reachable"),
                 {
                   data: {
-                    success: !1,
+                    success: false,
                     message: `The member this message was resolved to has left team '${x}' \u2014 nothing was sent. Another member may share the same display name '${k}'. Check the roster, or message the lead.`,
                   },
                 }
@@ -2132,7 +2132,7 @@ ${D}`,
             r("in_process", "not_reachable"),
             {
               data: {
-                success: !1,
+                success: false,
                 message: `You are the main conversation \u2014 "${yp}" addresses you. Send to a named agent instead.`,
               },
             }
@@ -2144,21 +2144,21 @@ ${D}`,
             value: se,
             priority: "next",
             origin: ie,
-            skipSlashCommands: !0,
-            isMeta: !0,
-            skipAttachments: !0,
+            skipSlashCommands: true,
+            isMeta: true,
+            skipAttachments: true,
           }),
           r("in_process"),
-          { data: { success: !0, message: "Message queued for the main conversation's next turn." } }
+          { data: { success: true, message: "Message queued for the main conversation's next turn." } }
         );
       }
       case "agent-live":
         return (
-          Zle(t.agentId, se, s.taskRegistry, { origin: ie, isMeta: !0 }),
+          Zle(t.agentId, se, s.taskRegistry, { origin: ie, isMeta: true }),
           r("in_process"),
           {
             data: {
-              success: !0,
+              success: true,
               message: `Message queued for delivery to ${t.agentName} at its next tool round.`,
               ...J,
             },
@@ -2169,7 +2169,7 @@ ${D}`,
           r("resume", "not_reachable"),
           {
             data: {
-              success: !1,
+              success: false,
               message: `Agent "${t.agentName}" was stopped by the user and was not resumed. Treat its work as cancelled; only start a new agent for it if the user explicitly asks.`,
             },
           }
@@ -2189,10 +2189,10 @@ ${D}`,
             P = s.getAppState().tasks[t.agentId],
             D = !Cr(P) || !P.ownerAgentId || P.ownerAgentId === et();
           return (
-            r("resume", void 0, k ? { blockedWait: !0 } : void 0),
+            r("resume", void 0, k ? { blockedWait: true } : void 0),
             {
               data: {
-                success: !0,
+                success: true,
                 ...(h.inlineHandback
                   ? as(t.agentName, h.inlineHandback)
                   : { message: `Resuming agent ${Ee(t.agentName)}` }),
@@ -2203,7 +2203,7 @@ ${D}`,
           );
         } catch (h) {
           if (h instanceof mW) {
-            let k = Zle(t.agentId, se, s.taskRegistry, { origin: ie, isMeta: !0 });
+            let k = Zle(t.agentId, se, s.taskRegistry, { origin: ie, isMeta: true });
             return (
               r("in_process", k ? void 0 : "not_reachable"),
               {
@@ -2218,10 +2218,10 @@ ${D}`,
             );
           }
           return (
-            r("resume", ts(h), cen(h) ? { blockedWait: !0 } : void 0),
+            r("resume", ts(h), cen(h) ? { blockedWait: true } : void 0),
             {
               data: {
-                success: !1,
+                success: false,
                 message:
                   h instanceof SL
                     ? l(h)
@@ -2241,7 +2241,7 @@ ${D}`,
             x = S ? s.getAppState().tasks[S] : void 0;
           if (x && Dd(x)) {
             let U = await ss(x, e.message, e.summary, s, t.agentName, J);
-            return r("mailbox", U.data.success ? void 0 : "mailbox_write_failed", { blockedWait: !0 }), U;
+            return r("mailbox", U.data.success ? void 0 : "mailbox_write_failed", { blockedWait: true }), U;
           }
         }
         let D = Promise.withResolvers();
@@ -2274,7 +2274,7 @@ ${D}`,
               r("resume"),
               {
                 data: {
-                  success: !0,
+                  success: true,
                   message:
                     L.resumedMessageCount > 0
                       ? `Teammate "${t.agentName}" was not running; resumed it as an in-process teammate with ${L.resumedMessageCount} prior messages and your message as its next prompt.`
@@ -2296,10 +2296,10 @@ ${D}`,
             }),
             x = S.inlineHandback !== void 0;
           return (
-            r("resume", void 0, x ? { blockedWait: !0 } : void 0),
+            r("resume", void 0, x ? { blockedWait: true } : void 0),
             {
               data: {
-                success: !0,
+                success: true,
                 ...(S.inlineHandback
                   ? as(t.agentName, S.inlineHandback)
                   : { message: `Resuming agent ${Ee(t.agentName)}` }),
@@ -2311,10 +2311,10 @@ ${D}`,
         } catch (S) {
           return (
             D.resolve(null),
-            r("resume", ts(S), cen(S) ? { blockedWait: !0 } : void 0),
+            r("resume", ts(S), cen(S) ? { blockedWait: true } : void 0),
             {
               data: {
-                success: !1,
+                success: false,
                 message:
                   S instanceof SL
                     ? l(S)
@@ -2353,9 +2353,9 @@ ${D}`,
             L = v.ok || v.reason === "send-uncertain";
           if (L) bhe(s.setAppState, t.displayName, { kind: "session", id: t.sock });
           Ye(v, r, {
-            ...(t.exactUnique && { exactUnique: !0 }),
-            ...(t.previouslyPinned && { previouslyPinned: !0 }),
-            ...(t.searchTruncated && { searchTruncated: !0 }),
+            ...(t.exactUnique && { exactUnique: true }),
+            ...(t.previouslyPinned && { previouslyPinned: true }),
+            ...(t.searchTruncated && { searchTruncated: true }),
           });
           let A = L ? HIt(t, X, "live session", "subscription") : "",
             G = L ? xIt(t, "live session", "subscription") : "",
@@ -2380,9 +2380,9 @@ ${A.model}`
               : (G?.model ?? "");
           bhe(s.setAppState, t.displayName, { kind: "session", id: t.sock }),
             r("uds", void 0, {
-              ...(t.exactUnique && { exactUnique: !0 }),
-              ...(t.previouslyPinned && { previouslyPinned: !0 }),
-              ...(t.searchTruncated && { searchTruncated: !0 }),
+              ...(t.exactUnique && { exactUnique: true }),
+              ...(t.previouslyPinned && { previouslyPinned: true }),
+              ...(t.searchTruncated && { searchTruncated: true }),
               ...(L && !L.ok && { degradedClass: fe(L) }),
             });
           let F = e.summary || ir(e.message, 50),
@@ -2391,7 +2391,7 @@ ${A.model}`
             Y = HIt(t, X);
           return {
             data: {
-              success: !0,
+              success: true,
               message: `\u201C${F}\u201D \u2192 ${t.displayName} (${Vse}${Q}${j.message})${Y}${Z}`,
               display: `\u201C${F}\u201D \u2192 sent to ${t.displayName} \u2014 ${Vse}${Q}${j.display}${xIt(t)}${
                 A
@@ -2408,9 +2408,9 @@ ${G.display}`
         } catch (v) {
           let L = E(v);
           r("uds", me(v), {
-            ...(t.exactUnique && { exactUnique: !0 }),
-            ...(t.previouslyPinned && { previouslyPinned: !0 }),
-            ...(t.searchTruncated && { searchTruncated: !0 }),
+            ...(t.exactUnique && { exactUnique: true }),
+            ...(t.previouslyPinned && { previouslyPinned: true }),
+            ...(t.searchTruncated && { searchTruncated: true }),
           });
           let A = $z(v),
             G =
@@ -2425,14 +2425,14 @@ ${G.display}`
                     : "";
           return {
             data: {
-              success: !1,
+              success: false,
               message: `Failed to send to ${t.displayName}${L ? ` (${L})` : ""}${G || "."}${es(x, e, o, s.toolUseId)}`,
             },
           };
         }
       }
       case "cloud-session": {
-        if (!os()) return { data: { success: !1, message: ns } };
+        if (!os()) return { data: { success: false, message: ns } };
         let h = t.via === "cloud" ? "cloud session" : "Remote Control session",
           k = t.via === "cloud" ? "cloud_name" : "remote_control_name",
           {
@@ -2444,9 +2444,9 @@ ${G.display}`
             "/$bunfs/root/chunk-m90nqn8m.js",
           );
         if (t.via === "remote-control" && S())
-          return r("bridge", "bridge_auth", { via: k }), { data: { success: !1, message: x(t.displayName) } };
+          return r("bridge", "bridge_auth", { via: k }), { data: { success: false, message: x(t.displayName) } };
         let U = qte(s.session, t.sessionId, t.displayName);
-        if (U) return r("bridge", "recipient_gate_off", { via: k }), { data: { success: !1, message: U } };
+        if (U) return r("bridge", "recipient_gate_off", { via: k }), { data: { success: false, message: U } };
         let v = await tje({
           tool: ms,
           input: e,
@@ -2459,8 +2459,8 @@ ${G.display}`
         });
         if (!v.proceed)
           return (
-            r("bridge", v.reason === "denied" ? "permission_denied" : "handler_rewrite", { blockedWait: !0, via: k }),
-            { data: { success: !1, message: v.message } }
+            r("bridge", v.reason === "denied" ? "permission_denied" : "handler_rewrite", { blockedWait: true, via: k }),
+            { data: { success: false, message: v.message } }
           );
         let L = v.input,
           A = typeof L.message === "string" ? L.message : e.message,
@@ -2473,17 +2473,17 @@ ${G.display}`
         if (
           (r("bridge", j.ok ? void 0 : M(j.error), {
             via: k,
-            ...(v.asked && { blockedWait: !0 }),
-            ...(t.exactUnique && { exactUnique: !0 }),
-            ...(t.previouslyPinned && { previouslyPinned: !0 }),
-            ...(t.searchTruncated && { searchTruncated: !0 }),
+            ...(v.asked && { blockedWait: true }),
+            ...(t.exactUnique && { exactUnique: true }),
+            ...(t.previouslyPinned && { previouslyPinned: true }),
+            ...(t.searchTruncated && { searchTruncated: true }),
           }),
           !j.ok)
         ) {
           let be = D(j.error)
             ? ` \u2014 that ${h} may have ended${t.via === "cloud" ? " or been archived" : " or disconnected"}.${H ? ` Call ${Js} to see who is reachable now.` : ""}`
             : "";
-          return { data: { success: !1, message: `Failed to send to ${t.displayName}: ${j.error ?? "unknown"}${be}` } };
+          return { data: { success: false, message: `Failed to send to ${t.displayName}: ${j.error ?? "unknown"}${be}` } };
         }
         bhe(s.setAppState, t.displayName, { kind: t.refKind, id: t.sessionId });
         let Y = HIt(t, X, "agent"),
@@ -2499,7 +2499,7 @@ ${G.display}`
                 : ls(F);
         return {
           data: {
-            success: !0,
+            success: true,
             message: `\u201C${Q}\u201D \u2192 ${t.displayName} (${Not(t.via)}${De.message}${$s}${ae}${oe.message})${Y}`,
             display: `\u201C${Q}\u201D \u2192 sent to ${t.displayName} \u2014 ${t.via === "cloud" ? "a cloud session (can't reply yet)" : `a session on another machine via Remote Control${te ? ` (one-way: ${te === "rc-disconnected" ? "Remote Control is not connected here" : "no reply address here"})` : ""}`}${De.display}${ae}${oe.display}${xIt(t, "agent")}`,
             msg_id: j.msgId,

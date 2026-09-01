@@ -62,20 +62,20 @@ async function r0e(o, s, t, i = m1n, a = Pv, e, S) {
       p("auto_mode_setup_propose", "recon_failed"),
       n(`auto-mode-setup gather failed: ${l(d)}`, { level: "error" }),
       {
-        ok: !1,
+        ok: false,
         code: "recon_failed",
         reason: "Couldn\u2019t scan the repo and recent sessions. Re-run to try again, and check --debug for details.",
       }
     );
   }
-  if (t?.aborted) return { ok: !1, code: "aborted", reason: "Cancelled." };
+  if (t?.aborted) return { ok: false, code: "aborted", reason: "Cancelled." };
   let v = Ebe(),
     r = v.value;
   if (r === "")
     return (
       p("auto_mode_setup_propose", "no_model"),
       {
-        ok: !1,
+        ok: false,
         code: "no_model",
         reason:
           "No model is available for the scan in this session\u2019s auto-mode configuration. Check with whoever manages your organization\u2019s Claude models, or re-run after it changes.",
@@ -88,7 +88,7 @@ async function r0e(o, s, t, i = m1n, a = Pv, e, S) {
         let _ = await a({
           model: r,
           querySource: "auto_mode_setup_propose",
-          skipSystemPromptPrefix: !0,
+          skipSystemPromptPrefix: true,
           system: L(o),
           messages: d,
           max_tokens: I + b,
@@ -100,9 +100,9 @@ async function r0e(o, s, t, i = m1n, a = Pv, e, S) {
         if (_.stop_reason !== "end_turn") {
           let C = Lun(_.stop_reason) ? "truncated" : _.stop_reason === "refusal" ? "refused" : "unexpected_stop";
           return {
-            ok: !1,
+            ok: false,
             result: {
-              ok: !1,
+              ok: false,
               code: C,
               reason:
                 C === "refused"
@@ -111,15 +111,15 @@ async function r0e(o, s, t, i = m1n, a = Pv, e, S) {
             },
           };
         }
-        return { ok: !0, text: zr(_.content) };
+        return { ok: true, text: zr(_.content) };
       } catch (_) {
-        if (t?.aborted) return { ok: !1, result: { ok: !1, code: "aborted", reason: "Cancelled." } };
+        if (t?.aborted) return { ok: false, result: { ok: false, code: "aborted", reason: "Cancelled." } };
         return (
           n(`auto-mode-setup sideQuery failed: ${l(_)}`, { level: "error" }),
           {
-            ok: !1,
+            ok: false,
             result: {
-              ok: !1,
+              ok: false,
               code: "api_failed",
               reason: "The model call didn\u2019t complete. This is usually temporary \u2014 re-run to try again.",
             },
@@ -128,7 +128,7 @@ async function r0e(o, s, t, i = m1n, a = Pv, e, S) {
       }
     },
     u = await E([{ role: "user", content: c }]),
-    x = !1;
+    x = false;
   if (!u.ok && u.result.code === "api_failed" && !t?.aborted) {
     let d = Qzn(v);
     if (d !== void 0)
@@ -136,7 +136,7 @@ async function r0e(o, s, t, i = m1n, a = Pv, e, S) {
         (r = d),
         ([f] = H3(r)),
         (b = f === void 0 ? R : 0),
-        (x = !0),
+        (x = true),
         (u = await E([{ role: "user", content: c }]));
   }
   if (!u.ok) {
@@ -144,7 +144,7 @@ async function r0e(o, s, t, i = m1n, a = Pv, e, S) {
     return u.result;
   }
   let h = sxt(u.text),
-    P = !1;
+    P = false;
   if (!h.ok && h.code === "parse_failed" && u.text.trim() !== "") {
     let d = await E([
       { role: "user", content: c },
@@ -155,7 +155,7 @@ async function r0e(o, s, t, i = m1n, a = Pv, e, S) {
       if (d.result.code === "aborted") return d.result;
     } else {
       let _ = sxt(d.text);
-      if (_.ok) (h = _), (P = !0);
+      if (_.ok) (h = _), (P = true);
     }
   }
   if (!h.ok) return p("auto_mode_setup_propose", h.code), h;
@@ -165,14 +165,14 @@ async function r0e(o, s, t, i = m1n, a = Pv, e, S) {
   else if (P) g("auto_mode_setup_propose", "parse_repaired");
   else if (x) g("auto_mode_setup_propose", "model_fell_back");
   else y("auto_mode_setup_propose");
-  return { ok: !0, proposal: { ...h.proposal, mode: "append", scope: o.scope }, gathered: c };
+  return { ok: true, proposal: { ...h.proposal, mode: "append", scope: o.scope }, gathered: c };
 }
 function sxt(o) {
-  let s = Ut(h0(o), !1),
+  let s = Ut(h0(o), false),
     t = M().safeParse(s);
   if (!t.success)
     return {
-      ok: !1,
+      ok: false,
       code: "parse_failed",
       reason: "The model returned a proposal in an unexpected shape. Re-run to try again.",
     };
@@ -190,8 +190,8 @@ function sxt(o) {
     S = e.allow.length;
   if (e.allow.length <= VK)
     e.allow = e.allow.filter((r) => {
-      if (r === sp) return !0;
-      if (r.length > Zge) return !0;
+      if (r === sp) return true;
+      if (r.length > Zge) return true;
       let { toolName: f, ruleContent: b } = Ur(r);
       return !xKe(f, b);
     });
@@ -205,9 +205,9 @@ function sxt(o) {
       },
       removeFromPermissionsAllow: e.remove_from_permissions_allow,
     });
-  if (c) return { ok: !1, code: "invalid_proposal", reason: c };
+  if (c) return { ok: false, code: "invalid_proposal", reason: c };
   let v = nhe("notes", e.notes);
-  if (v) return { ok: !1, code: "invalid_proposal", reason: v };
+  if (v) return { ok: false, code: "invalid_proposal", reason: v };
   for (let r of Drt) {
     let f = e[r];
     if (f.length > 0 && f.every((b) => b === sp)) e[r] = [];
@@ -216,7 +216,7 @@ function sxt(o) {
     e.notes.push(
       `Dropped ${w} proposed allow ${k(w, "entry", "entries")} \u2014 too broad for auto mode to honor safely.`,
     );
-  return { ok: !0, proposal: e, droppedUnsafeAllowCount: w };
+  return { ok: true, proposal: e, droppedUnsafeAllowCount: w };
 }
 function N(o, s) {
   if (o.length === 0) return null;
@@ -230,7 +230,7 @@ function N(o, s) {
     )
       continue;
     return {
-      ok: !1,
+      ok: false,
       code: "unknown_removal",
       reason:
         "The proposal offered to remove a permissions.allow rule the scan of your settings didn\u2019t flag, so it wasn\u2019t kept. Re-run to try again, or try a narrower scope if it keeps happening.",
@@ -410,7 +410,7 @@ function U() {
     type: "object",
     properties: { environment: o, allow: o, soft_deny: o, hard_deny: o, remove_from_permissions_allow: o, notes: o },
     required: ["environment", "allow", "soft_deny", "hard_deny", "remove_from_permissions_allow", "notes"],
-    additionalProperties: !1,
+    additionalProperties: false,
   };
 }
 export { r0e, sxt };

@@ -48,28 +48,28 @@ function E(e, t, o, r) {
 }
 async function g(e) {
   let t = gl();
-  if (!t) return !1;
+  if (!t) return false;
   return v(t, e);
 }
 async function v(e, t) {
   if (
     await T(e).then(
       (a) => a.size > 0,
-      () => !1,
+      () => false,
     )
   )
-    return !0;
+    return true;
   let r = Nc(e, t);
-  if (r === void 0) return !1;
+  if (r === void 0) return false;
   try {
     let a = await r.backend.statMeta(r.key);
     if (!a.ok && a.error.code !== "NotFound") n(`transcriptHasBytes: backend statMeta failed: ${a.error.code}`);
     return a.ok && a.value.size > 0;
   } catch (a) {
-    return h(a), !1;
+    return h(a), false;
   }
 }
-async function p1(e, t, { responseStreaming: o = !1 } = {}, r) {
+async function p1(e, t, { responseStreaming: o = false } = {}, r) {
   let a = wrt(t);
   if (!a || o) return a;
   try {
@@ -77,9 +77,9 @@ async function p1(e, t, { responseStreaming: o = !1 } = {}, r) {
   } catch (s) {
     throw (VQ(), s);
   }
-  return !0;
+  return true;
 }
-async function HHt(e, { responseStreaming: t = !1 } = {}, o) {
+async function HHt(e, { responseStreaming: t = false } = {}, o) {
   try {
     await p1(e, "process_exit", { responseStreaming: t }, o);
   } catch (r) {
@@ -95,7 +95,7 @@ var f = "the automatic continue at the usage-limit reset was cancelled (/rate-li
 function iB(e, t) {
   return t.includes(f) || t.includes(d) || t.includes(A) ? `${e} ${d}` : e;
 }
-function f1(e, t, { as: o = "sentence", exitsAfterward: r = !1 } = {}) {
+function f1(e, t, { as: o = "sentence", exitsAfterward: r = false } = {}) {
   if ((VQ(), !t)) return e;
   if (o === "clause") return `${e} \u2014 ${f}`;
   return `${e}

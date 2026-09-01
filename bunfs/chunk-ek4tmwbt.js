@@ -13,7 +13,7 @@ import { xt } from "/$bunfs/root/chunk-8cv6dqkz.js";
 import { B, A, br, qn, C, u, F } from "/$bunfs/root/chunk-twm95mhz.js";
 F();
 function Be(e, i, s = {}) {
-  let { context: n = "Global", isActive: o = !0 } = s,
+  let { context: n = "Global", isActive: o = true } = s,
     r = wc(),
     [t] = u(() => ({ handler: i }));
   qn(() => {
@@ -21,11 +21,11 @@ function Be(e, i, s = {}) {
   }),
     A(() => {
       if (!r || !o) return;
-      return r.registerHandler({ action: e, context: n, handler: () => t.handler(), singleKey: !0 });
+      return r.registerHandler({ action: e, context: n, handler: () => t.handler(), singleKey: true });
     }, [e, n, r, o, t]);
 }
 function ht(e, i = {}) {
-  let { context: s = "Global", isActive: n = !0 } = i,
+  let { context: s = "Global", isActive: n = true } = i,
     o = wc(),
     [r] = u(() => ({ handlers: e })),
     t = Object.keys(e).sort().join("|");
@@ -35,14 +35,14 @@ function ht(e, i = {}) {
     A(() => {
       if (!o || !n) return;
       let d = Object.keys(r.handlers).map((c) =>
-        o.registerHandler({ action: c, context: s, handler: () => r.handlers[c]?.(), singleKey: !0 }),
+        o.registerHandler({ action: c, context: s, handler: () => r.handlers[c]?.(), singleKey: true }),
       );
       return () => {
         for (let c of d) c();
       };
     }, [s, t, o, n, r]);
 }
-function w8(e, { isActive: i = !0 } = {}) {
+function w8(e, { isActive: i = true } = {}) {
   let s = wc(),
     [n] = u(() => ({ handler: e }));
   qn(() => {
@@ -59,7 +59,7 @@ function JP(e, i, s, n = a) {
   let o = xt(),
     r = C(0),
     t = C(void 0),
-    d = br(() => e(!1)),
+    d = br(() => e(false)),
     c = B(() => {
       if (t.current) t.current(), (t.current = void 0);
     }, []);
@@ -72,13 +72,13 @@ function JP(e, i, s, n = a) {
     ),
     B(() => {
       let l = Date.now();
-      if (l - r.current <= n && t.current !== void 0) c(), e(!1), i();
+      if (l - r.current <= n && t.current !== void 0) c(), e(false), i();
       else
         s?.(),
-          e(!0),
+          e(true),
           c(),
           (t.current = o.setTimeout(() => {
-            e(!1), (t.current = void 0);
+            e(false), (t.current = void 0);
           }, n));
       r.current = l;
     }, [e, i, s, c, o, n])

@@ -20,11 +20,11 @@ var h = [
     "runner_prep_remote_refetch_ms",
   ],
   f = {
-    prewarm_vda_outcome: !0,
-    prewarm_stat_outcome: !0,
-    prewarm_idx_outcome: !0,
-    prefetch_phase: !0,
-    prefetch_phase_reason: !0,
+    prewarm_vda_outcome: true,
+    prewarm_stat_outcome: true,
+    prewarm_idx_outcome: true,
+    prefetch_phase: true,
+    prefetch_phase_reason: true,
   },
   l = /^[a-z0-9_]{1,32}$/,
   m = 604800,
@@ -92,7 +92,7 @@ function p(e) {
 class c {
   phases = {};
   phaseStarts = {};
-  warmSpareClaimed = !1;
+  warmSpareClaimed = false;
   hydratePrefetchSettledAt = void 0;
   resumeHydratePrefetch = void 0;
   resumeHydrateOnDiskBytes = void 0;
@@ -101,9 +101,9 @@ class c {
   resumeHydrateDeltaEvents = void 0;
   resumeHydrateDeltaFetchAttempted = void 0;
   resumeHydrateAnchorWalkback = void 0;
-  consumed = !1;
+  consumed = false;
   apiRequestSentFromSpawnMs = void 0;
-  apiRequestSentFromSpawnConsumed = !1;
+  apiRequestSentFromSpawnConsumed = false;
   recordPhase(e, r, t) {
     if (this.consumed) return;
     if (e === "skills_load_ms" && this.phases[e] !== void 0) return;
@@ -118,7 +118,7 @@ class c {
     this.recordPhase("spawn_to_exec_ms", Date.now() - process.uptime() * 1000 - e, e - performance.timeOrigin);
   }
   markWarmSpareClaimed() {
-    this.warmSpareClaimed = !0;
+    this.warmSpareClaimed = true;
   }
   wasWarmSpareClaimed() {
     return this.warmSpareClaimed;
@@ -155,7 +155,7 @@ class c {
   consume() {
     if (!a.CLAUDE_CODE_REMOTE) return;
     if (this.consumed || Object.keys(this.phases).length === 0) return;
-    this.consumed = !0;
+    this.consumed = true;
     let e = p(Zn.CCR_RUNNER_STARTUP_TIMING);
     return {
       ...e?.fields,
@@ -186,7 +186,7 @@ class c {
   consumeApiRequestSentFromSpawn() {
     if (this.apiRequestSentFromSpawnConsumed || this.apiRequestSentFromSpawnMs === void 0) return;
     return (
-      (this.apiRequestSentFromSpawnConsumed = !0),
+      (this.apiRequestSentFromSpawnConsumed = true),
       {
         ms: this.apiRequestSentFromSpawnMs,
         warmSpareClaimed: this.warmSpareClaimed,

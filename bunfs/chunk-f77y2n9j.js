@@ -79,19 +79,19 @@ function npr(e) {
   }
 }
 function rpr(e) {
-  if (e === !0) return { enabled: !0, allowedEntrypoints: n };
+  if (e === true) return { enabled: true, allowedEntrypoints: n };
   if (typeof e === "object" && e !== null && !Array.isArray(e)) {
     let t = e.scope;
-    return { enabled: !0, allowedEntrypoints: npr(t) ?? n };
+    return { enabled: true, allowedEntrypoints: npr(t) ?? n };
   }
-  return { enabled: !1, allowedEntrypoints: n };
+  return { enabled: false, allowedEntrypoints: n };
 }
 function PIt(e) {
   let t = N$();
-  if (t === void 0) return !1;
-  if (!tpr(e)) return !1;
-  let { enabled: o, allowedEntrypoints: s } = rpr(I(B_n, !1));
-  if (nmt()) return !1;
+  if (t === void 0) return false;
+  if (!tpr(e)) return false;
+  let { enabled: o, allowedEntrypoints: s } = rpr(I(B_n, false));
+  if (nmt()) return false;
   return o && s.test(t);
 }
 function wEr(e) {

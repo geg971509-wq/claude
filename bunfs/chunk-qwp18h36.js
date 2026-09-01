@@ -43,9 +43,9 @@ function Mjn() {
 }
 async function se(e, t, r) {
   try {
-    return await Ue(e, t, { encoding: "utf8", flag: "wx", mode: r }), !0;
+    return await Ue(e, t, { encoding: "utf8", flag: "wx", mode: r }), true;
   } catch (o) {
-    if (E(o) === "EEXIST") return !1;
+    if (E(o) === "EEXIST") return false;
     throw o;
   }
 }
@@ -53,7 +53,7 @@ async function Ne() {
   try {
     let e = W();
     await le().mkdir(e),
-      await se(N(e, "package.json"), b({ name: "claude-local", version: "0.0.1", private: !0 }, null, 2));
+      await se(N(e, "package.json"), b({ name: "claude-local", version: "0.0.1", private: true }, null, 2));
     let t = N(e, "claude");
     if (
       await se(
@@ -64,9 +64,9 @@ exec "${e}/node_modules/.bin/claude" "$@"`,
       )
     )
       await Ie(t, 493);
-    return !0;
+    return true;
   } catch (e) {
-    return n(`Failed to set up local package environment: ${e}`, { level: "error" }), !1;
+    return n(`Failed to set up local package environment: ${e}`, { level: "error" }), false;
   }
 }
 async function Q_e(e, t, r) {
@@ -79,7 +79,7 @@ async function Q_e(e, t, r) {
           "install",
           `${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.PACKAGE_URL}@${o}`,
         ],
-        { cwd: W(), maxBuffer: 1e6, useToolMemoryCgroup: !1 },
+        { cwd: W(), maxBuffer: 1e6, useToolMemoryCgroup: false },
       );
     if (i.code !== 0)
       return (
@@ -94,9 +94,9 @@ async function Q_e(e, t, r) {
 }
 async function ree() {
   try {
-    return await Oe(N(W(), "node_modules", ".bin", "claude")), !0;
+    return await Oe(N(W(), "node_modules", ".bin", "claude")), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function Z_e() {
@@ -129,17 +129,17 @@ function Jae(e) {
   };
 }
 function LMt(e) {
-  let t = !1;
+  let t = false;
   return {
     filtered: e.filter((o) => {
       if (de.test(o)) {
         let i = o.match(/alias\s+claude\s*=\s*["']([^"']+)["']/);
         if (!i) i = o.match(/alias\s+claude\s*=\s*([^#\n]+)/);
         if (i && i[1]) {
-          if (i[1].trim() === ce()) return (t = !0), !1;
+          if (i[1].trim() === ce()) return (t = true), false;
         }
       }
-      return !0;
+      return true;
     }),
     hadAlias: t,
   };
@@ -288,27 +288,27 @@ function eye() {
   let e = te(),
     t = Date.now();
   if (t - e.lastAutoUpdateCheckAt < je)
-    return n(`auto-update check throttled (last check ${Math.round((t - e.lastAutoUpdateCheckAt) / 1000)}s ago)`), !0;
-  return (e.lastAutoUpdateCheckAt = t), !1;
+    return n(`auto-update check throttled (last check ${Math.round((t - e.lastAutoUpdateCheckAt) / 1000)}s ago)`), true;
+  return (e.lastAutoUpdateCheckAt = t), false;
 }
 async function Blt() {
   return (await oee()).maxVersion;
 }
 async function oee() {
   let e = await xe(),
-    t = !1,
+    t = false,
     r = e.external || void 0,
     o = r ? (I.parse(r)?.version ?? void 0) : void 0;
   if (r && !o)
     n(`tengu_max_version_config has invalid version '${r}' \u2014 ignoring`, { level: "error" }),
       s("tengu_max_version_config_invalid", { raw_value: us(r) });
-  return { maxVersion: o, forceDowngradeEnabled: e.external_force_downgrade === !0 };
+  return { maxVersion: o, forceDowngradeEnabled: e.external_force_downgrade === true };
 }
 function Qae(e, t, r) {
   let o = r === "native_update" ? "Native installer" : "AutoUpdater",
     i = I.parse(e);
-  if (i && i.compare(t) > 0) return n(`${o}: force-downgrade active \u2014 moving from ${e} to ${t}`), !0;
-  return n(`${o}: force-downgrade flag set but current ${e} is not above ${t} \u2014 taking normal upgrade path`), !1;
+  if (i && i.compare(t) > 0) return n(`${o}: force-downgrade active \u2014 moving from ${e} to ${t}`), true;
+  return n(`${o}: force-downgrade flag set but current ${e} is not above ${t} \u2014 taking normal upgrade path`), false;
 }
 async function $jn() {
   return (await xe()).external_message || void 0;
@@ -347,20 +347,20 @@ async function Ze(e) {
   let t = Z(),
     r = await e.statMeta(t);
   if (r.ok) {
-    if (Date.now() - r.value.mtimeMs < Y) return !1;
+    if (Date.now() - r.value.mtimeMs < Y) return false;
     let u = await e.statMeta(t);
     if (u.ok) {
-      if (Date.now() - u.value.mtimeMs < Y) return !1;
+      if (Date.now() - u.value.mtimeMs < Y) return false;
       let R = await e.delete(t);
-      if (!R.ok) return n(`AutoUpdater: failed to remove stale update lock: ${R.error.code}`, { level: "error" }), !1;
+      if (!R.ok) return n(`AutoUpdater: failed to remove stale update lock: ${R.error.code}`, { level: "error" }), false;
     } else if (u.error.code !== "NotFound")
-      return n(`AutoUpdater: failed to re-stat stale update lock: ${u.error.code}`, { level: "error" }), !1;
+      return n(`AutoUpdater: failed to re-stat stale update lock: ${u.error.code}`, { level: "error" }), false;
   } else if (r.error.code !== "NotFound")
-    return n(`AutoUpdater: failed to stat update lock: ${r.error.code}`, { level: "error" }), !1;
+    return n(`AutoUpdater: failed to stat update lock: ${r.error.code}`, { level: "error" }), false;
   let o = await e.write(t, `${process.pid}`, { precondition: { type: "ifAbsent" }, mode: 438 & ~process.umask() });
-  if (o.ok) return !0;
-  if (o.error.code === "AlreadyExists") return !1;
-  return n(`AutoUpdater: failed to create update lock: ${o.error.code}`, { level: "error" }), !1;
+  if (o.ok) return true;
+  if (o.error.code === "AlreadyExists") return false;
+  return n(`AutoUpdater: failed to create update lock: ${o.error.code}`, { level: "error" }), false;
 }
 async function Xe(e) {
   if (O() && e) return Ze(e);
@@ -368,30 +368,30 @@ async function Xe(e) {
     r = Pe();
   try {
     let o = await t.stat(r);
-    if (Date.now() - o.mtimeMs < Y) return !1;
+    if (Date.now() - o.mtimeMs < Y) return false;
     try {
       let u = await t.stat(r);
-      if (Date.now() - u.mtimeMs < Y) return !1;
+      if (Date.now() - u.mtimeMs < Y) return false;
       await t.unlink(r);
     } catch (u) {
-      if (!X(u)) return h(u), !1;
+      if (!X(u)) return h(u), false;
     }
   } catch (o) {
-    if (!X(o)) return h(o), !1;
+    if (!X(o)) return h(o), false;
   }
   try {
-    return await me(r, `${process.pid}`, { encoding: "utf8", flag: "wx" }), !0;
+    return await me(r, `${process.pid}`, { encoding: "utf8", flag: "wx" }), true;
   } catch (o) {
     let i = E(o);
-    if (i === "EEXIST") return !1;
+    if (i === "EEXIST") return false;
     if (i === "ENOENT")
       try {
-        return await t.mkdir(be()), await me(r, `${process.pid}`, { encoding: "utf8", flag: "wx" }), !0;
+        return await t.mkdir(be()), await me(r, `${process.pid}`, { encoding: "utf8", flag: "wx" }), true;
       } catch (u) {
-        if (E(u) === "EEXIST") return !1;
-        return n(`Failed to create config dir or update lock file: ${u}`, { level: "error" }), !1;
+        if (E(u) === "EEXIST") return false;
+        return n(`Failed to create config dir or update lock file: ${u}`, { level: "error" }), false;
       }
-    return n(`AutoUpdater: failed to create update lock file ${r}: ${o}`, { level: "error" }), !1;
+    return n(`AutoUpdater: failed to create update lock file ${r}: ${o}`, { level: "error" }), false;
   }
 }
 async function Qe(e) {
@@ -427,8 +427,8 @@ function re() {
 async function ke() {
   let e = re() === "bun",
     t = null;
-  if (e) t = await qe("bun", ["pm", "bin", "-g"], { cwd: B(), useToolMemoryCgroup: !1 });
-  else t = await qe("npm", ["-g", "config", "get", "prefix"], { cwd: B(), useToolMemoryCgroup: !1 });
+  if (e) t = await qe("bun", ["pm", "bin", "-g"], { cwd: B(), useToolMemoryCgroup: false });
+  else t = await qe("npm", ["-g", "config", "get", "prefix"], { cwd: B(), useToolMemoryCgroup: false });
   if (t.code !== 0)
     return (
       n(`Failed to check ${e ? "bun" : "npm"} permissions (exit ${t.code}): ${t.stderr.trim()}`, { level: "error" }),
@@ -446,16 +446,16 @@ async function et() {
 async function Ujn() {
   try {
     let e = await ke();
-    if (!e) return { hasPermissions: !1, npmPrefix: null };
+    if (!e) return { hasPermissions: false, npmPrefix: null };
     try {
-      return await _e(e, we.W_OK), { hasPermissions: !0, npmPrefix: e };
+      return await _e(e, we.W_OK), { hasPermissions: true, npmPrefix: e };
     } catch {
       return (
-        n("Insufficient permissions for global npm install.", { level: "error" }), { hasPermissions: !1, npmPrefix: e }
+        n("Insufficient permissions for global npm install.", { level: "error" }), { hasPermissions: false, npmPrefix: e }
       );
     }
   } catch (e) {
-    return h(e), { hasPermissions: !1, npmPrefix: null };
+    return h(e), { hasPermissions: false, npmPrefix: null };
   }
 }
 async function tye(e) {
@@ -468,7 +468,7 @@ async function tye(e) {
         "version",
         "--prefer-online",
       ],
-      { abortSignal: AbortSignal.timeout(5000), cwd: B(), useToolMemoryCgroup: !1 },
+      { abortSignal: AbortSignal.timeout(5000), cwd: B(), useToolMemoryCgroup: false },
     );
   if (r.code !== 0) {
     let o = r.stdout.trim();
@@ -544,8 +544,8 @@ async function rt(e) {
 }
 function oe(e) {
   return _e(e, we.F_OK).then(
-    () => !0,
-    () => !1,
+    () => true,
+    () => false,
   );
 }
 function Se() {
@@ -556,7 +556,7 @@ async function Re() {
   return (
     await Promise.all(
       Se().map((t) =>
-        U(t, { withFileTypes: !0 })
+        U(t, { withFileTypes: true })
           .then((r) => r.filter((o) => o.isDirectory() && o.name.startsWith(".")).map((o) => k(t, o.name)))
           .catch(() => []),
       ),
@@ -564,7 +564,7 @@ async function Re() {
   ).flat();
 }
 async function Q(e, t) {
-  let r = await H(t, { bigint: !0 }).then(
+  let r = await H(t, { bigint: true }).then(
     (o) => o.ino,
     () => 0n,
   );
@@ -732,11 +732,11 @@ To fix this issue:
       if (v.length > 0)
         if (await oe(process.execPath))
           await Promise.all(
-            v.map((d) => Ge(d, { recursive: !0, force: !0 }).catch((m) => n(`retired-dir cleanup failed: ${m}`))),
+            v.map((d) => Ge(d, { recursive: true, force: true }).catch((m) => n(`retired-dir cleanup failed: ${m}`))),
           );
         else await nt(r, v);
       let C = Date.now(),
-        T = await H(process.execPath, { bigint: !0 })
+        T = await H(process.execPath, { bigint: true })
           .then((d) => d.ino)
           .catch(() => 0n),
         A = [process.execPath];
@@ -744,7 +744,7 @@ To fix this issue:
         for (let m of ["claude.exe", "cli.exe"]) {
           let S = k(_, d, m);
           if (S === process.execPath) continue;
-          let P = await H(S, { bigint: !0 })
+          let P = await H(S, { bigint: true })
             .then((M) => M.ino)
             .catch(() => -1n);
           if (T && P === T) A.push(S);
@@ -757,14 +757,14 @@ To fix this issue:
           continue;
         }
         f.push([d, m]);
-        let S = await H(m, { bigint: !0 }).then(
+        let S = await H(m, { bigint: true }).then(
           (P) => P.ino,
           () => 0n,
         );
         if (S !== 0n) r.mintedPreservedInodes.add(S);
       }
     }
-    let x = await qe(i, ["install", "-g", u], { cwd: B(), useToolMemoryCgroup: !1 }),
+    let x = await qe(i, ["install", "-g", u], { cwd: B(), useToolMemoryCgroup: false }),
       F = 0,
       ie = 0,
       z = [];
@@ -825,12 +825,12 @@ To fix this issue:
         let A = await et(),
           d = e ? I.parse(e)?.version : void 0,
           m,
-          S = !1;
+          S = false;
         for (let P of A) {
           let M = await qe(P, ["--version"], {
             abortSignal: AbortSignal.timeout(45000),
             cwd: B(),
-            useToolMemoryCgroup: !1,
+            useToolMemoryCgroup: false,
           });
           if (
             ((m = I.parse(M.stdout.trim().split(/\s+/)[0])?.version),
@@ -960,7 +960,7 @@ import { lstat as Fe, readlink as st, realpath as lt } from "fs/promises";
 import { dirname as ct, join as ut, resolve as dt, sep as Ce } from "path";
 var pt = Ce + ut("claude", "versions") + Ce;
 async function Ixe(e) {
-  if (D() === "windows") return !0;
+  if (D() === "windows") return true;
   try {
     return await Me(e, await Fe(e));
   } catch (t) {
@@ -968,7 +968,7 @@ async function Ixe(e) {
   }
 }
 async function Me(e, t) {
-  if (!t.isSymbolicLink()) return !1;
+  if (!t.isSymbolicLink()) return false;
   let r = await st(e);
   return dt(ct(e), r).includes(pt);
 }
@@ -977,13 +977,13 @@ async function rye(e) {
   return t.endsWith(".js") || t.includes("node_modules");
 }
 async function Bjn(e) {
-  if (D() === "windows") return !0;
+  if (D() === "windows") return true;
   try {
     let t = await Fe(e);
-    if (!t.isSymbolicLink()) return !1;
+    if (!t.isSymbolicLink()) return false;
     return (await Me(e, t)) || (await rye(e));
   } catch (t) {
-    if (E(t) !== void 0) return !1;
+    if (E(t) !== void 0) return false;
     throw t;
   }
 }

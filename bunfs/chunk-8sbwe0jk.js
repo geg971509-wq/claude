@@ -14,15 +14,15 @@ var x = /^\[M[\x60-\x7f][\x20-\uffff]?$/;
 function Xne(p) {
   let f = "ground",
     c = "",
-    d = p?.x10Mouse ?? !1,
-    i = p?.forOutput ?? !1;
+    d = p?.x10Mouse ?? false,
+    i = p?.forOutput ?? false;
   return {
     feed(l) {
-      let r = h(l, f, c, !1, d, i);
+      let r = h(l, f, c, false, d, i);
       return (f = r.state.state), (c = r.state.buffer), r.tokens;
     },
     flush() {
-      let l = h("", f, c, !0, d, i);
+      let l = h("", f, c, true, d, i);
       return (f = l.state.state), (c = l.state.buffer), l.tokens;
     },
     reset() {

@@ -52,7 +52,7 @@ function c(e) {
   try {
     t = sJ(new URL(e).hostname);
   } catch {
-    t = !1;
+    t = false;
   }
   if (t) return "loopback";
   return A() ? "opted-in" : "refused";
@@ -102,10 +102,10 @@ function x() {
   if (!h()) st.interceptors.request.use(E);
 }
 function h() {
-  return st.interceptors.request.handlers?.some((e) => e?.fulfilled === E) ?? !1;
+  return st.interceptors.request.handlers?.some((e) => e?.fulfilled === E) ?? false;
 }
 function d() {
-  return !1;
+  return false;
 }
 function b5() {
   return;

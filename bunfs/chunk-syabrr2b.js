@@ -15,7 +15,7 @@ import { Pne, UF, GX } from "/$bunfs/root/chunk-m1andcps.js";
 var dv = 16;
 F();
 F();
-var l = yn({ isTerminalFocused: !0, terminalFocusState: "unknown" });
+var l = yn({ isTerminalFocused: true, terminalFocusState: "unknown" });
 l.displayName = "TerminalFocusContext";
 function Fon(H) {
   let w = _(6),
@@ -78,10 +78,10 @@ function S(n) {
   }
   return {
     subscribeKeepAlive(o) {
-      return f(o, !0);
+      return f(o, true);
     },
     subscribeFollower(o) {
-      return f(o, !1);
+      return f(o, false);
     },
     now() {
       if (t && s) return s;

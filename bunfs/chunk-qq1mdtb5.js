@@ -9,21 +9,21 @@
 
 // Version: 2.1.252
 function Me(e) {
-  if (!e) return !1;
+  if (!e) return false;
   if (typeof e === "boolean") return e;
   let n = String(e).toLowerCase().trim();
   return ["1", "true", "yes", "on"].includes(n);
 }
 function bo(e) {
-  if (e === void 0) return !1;
+  if (e === void 0) return false;
   if (typeof e === "boolean") return !e;
   let n = String(e).toLowerCase().trim();
   return ["0", "false", "no", "off"].includes(n);
 }
 function wS(e) {
-  if (!e || e.startsWith("-") || e.startsWith("/")) return !1;
-  if (e.includes("..")) return !1;
-  if (e.split("/").some((n) => n === "." || n === "")) return !1;
+  if (!e || e.startsWith("-") || e.startsWith("/")) return false;
+  if (e.includes("..")) return false;
+  if (e.split("/").some((n) => n === "." || n === "")) return false;
   return /^[a-zA-Z0-9/._+@-]+$/.test(e);
 }
 var s = globalThis.process?.getBuiltinModule?.("async_hooks"),

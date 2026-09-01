@@ -363,7 +363,7 @@ function h(K) {
   else p = u[6];
   let d;
   if (u[7] !== f)
-    (d = f > 0 ? r(t, { dimColor: !0, children: ["\u2026 +", f, " more lines"] }) : null), (u[7] = f), (u[8] = d);
+    (d = f > 0 ? r(t, { dimColor: true, children: ["\u2026 +", f, " more lines"] }) : null), (u[7] = f), (u[8] = d);
   else d = u[8];
   let k;
   if (u[9] !== p || u[10] !== d) (k = r(U, { children: [p, d] })), (u[9] = p), (u[10] = d), (u[11] = k);
@@ -371,7 +371,7 @@ function h(K) {
   return k;
 }
 function F(n) {
-  if (n?.outcome !== "ok" || typeof n.content !== "string") return !1;
+  if (n?.outcome !== "ok" || typeof n.content !== "string") return false;
   let i = Ndt(n.content);
   return i.length > C || i.some((s) => s.length > E);
 }

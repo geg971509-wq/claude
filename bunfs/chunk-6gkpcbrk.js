@@ -69,10 +69,10 @@ async function pMn(e, t) {
           `
 `,
       ),
-      !0
+      true
     );
   } catch (r) {
-    return n(`cloud-plugins consent: answer not saved (${l(r)})`, { level: "warn" }), !1;
+    return n(`cloud-plugins consent: answer not saved (${l(r)})`, { level: "warn" }), false;
   }
 }
 function pge(e) {
@@ -104,16 +104,16 @@ function pge(e) {
   };
 }
 function fMn() {
-  return { value: null, persisted: !1, given: !1 };
+  return { value: null, persisted: false, given: false };
 }
 async function tse(e, t, r) {
   let { answer: s, given: a } = await J(e, t);
-  if (s !== "accepted" || a || r === void 0 || !(await r.storeUntrusted().catch(() => !0))) return s;
+  if (s !== "accepted" || a || r === void 0 || !(await r.storeUntrusted().catch(() => true))) return s;
   return ee(r.onUntrusted), "unset";
 }
 async function J(e, t) {
-  let r = !1;
-  if (e.value === null) (r = !0), (e.value = Y(t).then((P) => ((e.persisted = P !== "unset"), P))), (e.given = !1);
+  let r = false;
+  if (e.value === null) (r = true), (e.value = Y(t).then((P) => ((e.persisted = P !== "unset"), P))), (e.given = false);
   let { value: s, given: a } = e,
     d = await s;
   if (d !== "accepted" || r) return { answer: d, given: a };
@@ -121,9 +121,9 @@ async function J(e, t) {
     c = e.value,
     o = e.given;
   if (c !== null && c !== s) return { answer: await c, given: o };
-  if (p === "accepted") e.persisted = !0;
+  if (p === "accepted") e.persisted = true;
   let u = q(e.persisted, p);
-  if (u === "declined") return (e.value = Promise.resolve(u)), (e.given = !1), { answer: u, given: !1 };
+  if (u === "declined") return (e.value = Promise.resolve(u)), (e.given = false), { answer: u, given: false };
   return { answer: u, given: a };
 }
 function ee(e) {
@@ -198,10 +198,10 @@ function ZRe(e) {
     }
     a.push({
       id: g,
-      value: _.value === !0,
+      value: _.value === true,
       ownMention: _.ownMention,
       marketplace: S,
-      declaration: y.kind === "declare" && _.value === !0 ? y.source : void 0,
+      declaration: y.kind === "declare" && _.value === true ? y.source : void 0,
     });
   }
   let c = We(Ve(a, t, r), t, r),
@@ -293,8 +293,8 @@ function Le(e, t) {
       let P = r.get(o);
       r.set(o, {
         value: u,
-        ownChoice: (P?.ownChoice ?? !1) || (p && u === !0),
-        ownMention: (P?.ownMention ?? !1) || (p && typeof u === "boolean"),
+        ownChoice: (P?.ownChoice ?? false) || (p && u === true),
+        ownMention: (P?.ownMention ?? false) || (p && typeof u === "boolean"),
       });
     }
   }
@@ -325,7 +325,7 @@ function xe({ enabledPluginsByTier: e }) {
   return new Set(
     He(t)
       ? Object.keys(t)
-          .filter((r) => t[r] === !1)
+          .filter((r) => t[r] === false)
           .map((r) => r.toLowerCase())
       : [],
   );
@@ -490,8 +490,8 @@ function Ve(e, t, r) {
       c.add(Uf(qY(d))), s.set(p, c);
     }
   return e.filter(({ id: a, marketplace: d, declaration: p }) => {
-    if (p === void 0 || (s.get(d.toLowerCase())?.size ?? 0) <= 1) return !0;
-    return t.ambiguous_marketplace++, r.push({ id: a, reason: "ambiguous_marketplace" }), !1;
+    if (p === void 0 || (s.get(d.toLowerCase())?.size ?? 0) <= 1) return true;
+    return t.ambiguous_marketplace++, r.push({ id: a, reason: "ambiguous_marketplace" }), false;
   });
 }
 function We(e, t, r) {

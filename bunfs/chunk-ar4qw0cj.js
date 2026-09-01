@@ -77,10 +77,10 @@ function pe(e) {
   if (typeof e === "object" && e !== null) t.push({ value: e, depth: 1 });
   while (t.length > 0) {
     let { value: o, depth: r } = t.pop();
-    if (r > G) return !0;
+    if (r > G) return true;
     for (let a of Object.values(o)) if (typeof a === "object" && a !== null) t.push({ value: a, depth: r + 1 });
   }
-  return !1;
+  return false;
 }
 function xe(e) {
   let t = 0,
@@ -108,36 +108,36 @@ function Ne(e) {
 }
 function Ke(e) {
   let t = B(e);
-  if (t === null) return !1;
+  if (t === null) return false;
   let o = U();
   return (o.assistantByType.get(t) ?? (t.endsWith("_tool_result") ? o.toolResultLike : o.generic)).safeParse(e).success;
 }
 function He(e) {
   let t = e.content;
-  if (t === void 0 || typeof t === "string") return !0;
+  if (t === void 0 || typeof t === "string") return true;
   if (Array.isArray(t)) {
     let o = t.filter((r) => {
       let a = B(r);
-      if (a === null) return !1;
+      if (a === null) return false;
       return a === "text" ? U().text.safeParse(r).success : U().generic.safeParse(r).success;
     });
     if (o.length !== t.length) e.content = o;
-    return !0;
+    return true;
   }
-  if (!E(t)) return (e.content = String(t)), !0;
+  if (!E(t)) return (e.content = String(t)), true;
   try {
-    return (e.content = b(t)), !0;
+    return (e.content = b(t)), true;
   } catch {
-    return !1;
+    return false;
   }
 }
 function Le(e) {
   let t = B(e);
-  if (t === null || !E(e)) return !1;
+  if (t === null || !E(e)) return false;
   let o = U();
   if (t === "text") return o.text.safeParse(e).success;
   if (t === "tool_result") {
-    if (!o.toolResult.safeParse(e).success) return !1;
+    if (!o.toolResult.safeParse(e).success) return false;
     return He(e);
   }
   return o.generic.safeParse(e).success;
@@ -149,11 +149,11 @@ function he(e, t, o, r) {
   let a = [],
     u = e.filter((d) => {
       try {
-        if (t(d)) return !0;
+        if (t(d)) return true;
       } catch (S) {
-        return a.push(`unreadable block (${l(S)})`), !1;
+        return a.push(`unreadable block (${l(S)})`), false;
       }
-      return a.push(Ne(d)), !1;
+      return a.push(Ne(d)), false;
     });
   if (a.length === 0) return e;
   return C(o, r, `dropped ${a.length} malformed content block(s): ${a.join(", ")}`), u;
@@ -163,18 +163,18 @@ function Ve(e) {
   if (typeof e.uuid === "string" && e.uuid !== "") t = e.uuid;
   else C("assistant", e.uuid, "minted a uuid \u2014 original was not a non-empty string"), (t = ce()), (e.uuid = t);
   let o = e.message;
-  if (!E(o)) return C("assistant", e.uuid, "dropped \u2014 message is not an object"), !1;
+  if (!E(o)) return C("assistant", e.uuid, "dropped \u2014 message is not an object"), false;
   if (o.id !== void 0 && typeof o.id !== "string")
     (o.id = typeof o.id === "number" && Number.isFinite(o.id) ? String(o.id) : e.uuid),
       C("assistant", e.uuid, "coerced a non-string message.id");
   if (typeof o.content === "string") o.content = [{ type: "text", text: o.content }];
   let r = o.content;
-  if (!Array.isArray(r)) return C("assistant", e.uuid, "dropped \u2014 message.content is not an array"), !1;
+  if (!Array.isArray(r)) return C("assistant", e.uuid, "dropped \u2014 message.content is not an array"), false;
   let a = he(r, Ke, "assistant", e.uuid);
   if (a.length === 0 && r.length > 0)
-    return C("assistant", e.uuid, "dropped \u2014 no valid content blocks remain"), !1;
+    return C("assistant", e.uuid, "dropped \u2014 no valid content blocks remain"), false;
   if (a !== r) o.content = a;
-  return je(o, t), !0;
+  return je(o, t), true;
 }
 function je(e, t) {
   let o = [];
@@ -188,23 +188,23 @@ function We(e) {
   if (e.uuid !== void 0 && (typeof e.uuid !== "string" || e.uuid === ""))
     C("user", e.uuid, "minted a uuid \u2014 original was not a non-empty string"), (e.uuid = ce());
   let t = e.message;
-  if (!E(t)) return C("user", e.uuid, "dropped \u2014 message is not an object"), !1;
+  if (!E(t)) return C("user", e.uuid, "dropped \u2014 message is not an object"), false;
   let o = t.content;
-  if (typeof o === "string") return !0;
-  if (!Array.isArray(o)) return C("user", e.uuid, "dropped \u2014 message.content is neither string nor array"), !1;
+  if (typeof o === "string") return true;
+  if (!Array.isArray(o)) return C("user", e.uuid, "dropped \u2014 message.content is neither string nor array"), false;
   let r = he(o, Le, "user", e.uuid);
-  if (r.length === 0 && o.length > 0) return C("user", e.uuid, "dropped \u2014 no valid content blocks remain"), !1;
+  if (r.length === 0 && o.length > 0) return C("user", e.uuid, "dropped \u2014 no valid content blocks remain"), false;
   if (r !== o) t.content = r;
-  return !0;
+  return true;
 }
 function oe(e) {
-  if (!E(e)) return !1;
+  if (!E(e)) return false;
   switch (e.type) {
     case "message_start":
       return E(e.message) && typeof e.message.id === "string";
     case "content_block_start": {
       let t = e.content_block;
-      if (!E(t) || typeof t.type !== "string") return !1;
+      if (!E(t) || typeof t.type !== "string") return false;
       switch (t.type) {
         case "tool_use":
         case "server_tool_use":
@@ -214,12 +214,12 @@ function oe(e) {
         case "thinking":
           return typeof t.thinking === "string";
         default:
-          return !0;
+          return true;
       }
     }
     case "content_block_delta": {
       let t = e.delta;
-      if (!E(t)) return !1;
+      if (!E(t)) return false;
       switch (t.type) {
         case "text_delta":
           return typeof t.text === "string";
@@ -230,17 +230,17 @@ function oe(e) {
         case "thinking_delta":
           return typeof t.thinking === "string";
         default:
-          return !0;
+          return true;
       }
     }
     default:
-      return !0;
+      return true;
   }
 }
 function QJ(e) {
-  if (!E(e)) return !0;
+  if (!E(e)) return true;
   try {
-    let t = !0;
+    let t = true;
     try {
       let r = xe(e);
       if (r > 0)
@@ -250,7 +250,7 @@ function QJ(e) {
           `replaced ${r} subtree(s) nested deeper than ${G} levels with a marker`,
         );
     } catch {
-      t = !1;
+      t = false;
     }
     let o;
     switch (e.type) {
@@ -264,16 +264,16 @@ function QJ(e) {
         if (((o = oe(e.event)), !o)) C("stream_event", e.uuid, "dropped \u2014 inner event is malformed");
         break;
       default:
-        o = !0;
+        o = true;
         break;
     }
     if (o && !t && pe(e))
       return (
-        C(typeof e.type === "string" ? e.type : "unknown", e.uuid, `dropped \u2014 nested deeper than ${G} levels`), !1
+        C(typeof e.type === "string" ? e.type : "unknown", e.uuid, `dropped \u2014 nested deeper than ${G} levels`), false
       );
     return o;
   } catch (t) {
-    return C(typeof e.type === "string" ? e.type : "unknown", e.uuid, `dropped \u2014 conformance threw: ${l(t)}`), !1;
+    return C(typeof e.type === "string" ? e.type : "unknown", e.uuid, `dropped \u2014 conformance threw: ${l(t)}`), false;
   }
 }
 var Ge = [
@@ -287,7 +287,7 @@ var Ge = [
   ],
   Be = ["classifier_approvable", "suppress_always_allow_rule", "default_to_no", "requires_user_interaction"];
 function eDn(e) {
-  if (!E(e)) return !1;
+  if (!E(e)) return false;
   try {
     if (typeof e.tool_name !== "string" || typeof e.tool_use_id !== "string" || !E(e.input) || pe(e))
       return (
@@ -295,7 +295,7 @@ function eDn(e) {
           "[wireFrameShape] can_use_tool request dropped \u2014 tool_name/tool_use_id not strings, input not an object, or nested too deep",
           { level: "error" },
         ),
-        !1
+        false
       );
     let t = [];
     for (let o of Ge) if (e[o] !== void 0 && typeof e[o] !== "string") delete e[o], t.push(o);
@@ -327,9 +327,9 @@ function eDn(e) {
       n(`[wireFrameShape] can_use_tool request ${e.tool_use_id}: removed malformed field(s): ${t.join(", ")}`, {
         level: "error",
       });
-    return !0;
+    return true;
   } catch (t) {
-    return n(`[wireFrameShape] can_use_tool request dropped \u2014 conformance threw: ${l(t)}`, { level: "error" }), !1;
+    return n(`[wireFrameShape] can_use_tool request dropped \u2014 conformance threw: ${l(t)}`, { level: "error" }), false;
   }
 }
 function Eet(e) {
@@ -353,8 +353,8 @@ function ge(e) {
     e.startsWith(`<${E0} `) ||
     e.startsWith(`<${E0}>`)
   )
-    return !0;
-  if (Jte(e)) return !0;
+    return true;
+  if (Jte(e)) return true;
   if (
     (e.startsWith(bk) || e.startsWith(RX)) &&
     e.startsWith(
@@ -363,10 +363,10 @@ function ge(e) {
 `) + 1,
     )
   )
-    return !0;
+    return true;
   let t = N9.find((o) => e.startsWith(o));
-  if (t !== void 0 && e.startsWith("<", t.length)) return !0;
-  if (Xe(e)) return !0;
+  if (t !== void 0 && e.startsWith("<", t.length)) return true;
+  if (Xe(e)) return true;
   return (
     e.includes("<bash-input>") ||
     e.includes(`<${wp}>`) ||
@@ -379,7 +379,7 @@ function ge(e) {
   );
 }
 function xie(e) {
-  if (e.tool_use_result !== void 0) return !0;
+  if (e.tool_use_result !== void 0) return true;
   let t = e.message?.content;
   if (typeof t === "string") return ge(t);
   return (
@@ -404,7 +404,7 @@ function WKt(e) {
   return xie(e) || oRe(e);
 }
 function qKt(e) {
-  if (WKt(e)) return !0;
+  if (WKt(e)) return true;
   let t = e.message?.content;
   return (
     typeof t === "string"
@@ -465,7 +465,7 @@ function rt(e) {
 var at = 2000;
 function Re(e, t) {
   let o = typeof e.created_at === "string" ? Date.parse(e.created_at) : NaN;
-  return Number.isNaN(o) ? { replayed: !0 } : { sentAt: o, replayed: o < t + at };
+  return Number.isNaN(o) ? { replayed: true } : { sentAt: o, replayed: o < t + at };
 }
 var dt = m(() => f({ error: f({ type: N("session_not_active") }) }));
 function ke(e) {
@@ -480,7 +480,7 @@ class re {
   state = "idle";
   abortController = null;
   reconnectAttempts = 0;
-  exhaustedBudget = !1;
+  exhaustedBudget = false;
   reconnectTimer = null;
   livenessTimer = null;
   driftTimer = null;
@@ -489,26 +489,26 @@ class re {
   issuedRequestIds = new Set();
   ownRequestUuids = new Map();
   trustedDeviceToken;
-  deviceProofRenewed = !1;
+  deviceProofRenewed = false;
   sendsInFlight;
   servesSession;
-  rediallingPastBudget = !1;
+  rediallingPastBudget = false;
   connectedSince = 0;
   eventSigner;
-  constructor(e, t, o, r, a, u, { trackSends: d = !1, keepRedialling: S, eventSigner: R } = {}) {
+  constructor(e, t, o, r, a, u, { trackSends: d = false, keepRedialling: S, eventSigner: R } = {}) {
     this.sessionId = e;
     this.orgUuid = t;
     this.getAccessToken = o;
     this.callbacks = r;
     this.onAuth401 = a;
     if (u !== void 0 && u > 0) this.lastSequenceNum = u;
-    (this.sendsInFlight = d ? new Set() : null), (this.servesSession = S ?? (() => !1)), (this.eventSigner = R);
+    (this.sendsInFlight = d ? new Set() : null), (this.servesSession = S ?? (() => false)), (this.eventSigner = R);
   }
   get keepRedialling() {
     try {
       return this.servesSession();
     } catch {
-      return !1;
+      return false;
     }
   }
   async flushSends(e) {
@@ -559,7 +559,7 @@ class re {
   }
   renewDeviceProof() {
     if (this.deviceProofRenewed) return;
-    this.deviceProofRenewed = !0;
+    this.deviceProofRenewed = true;
     let e = this.trustedDeviceToken,
       t = void 0,
       o = () => {
@@ -581,12 +581,12 @@ class re {
   }
   async recoverTrustedDeviceToken(e) {
     try {
-      if (!(await Ec())) return !1;
+      if (!(await Ec())) return false;
       let t = await vV(e || void 0);
-      if (!t) return !1;
-      return (this.trustedDeviceToken = Promise.resolve(t)), !0;
+      if (!t) return false;
+      return (this.trustedDeviceToken = Promise.resolve(t)), true;
     } catch (t) {
-      return n(`[SessionsV2Client] trusted-device re-enrollment failed: ${l(t)}`), !1;
+      return n(`[SessionsV2Client] trusted-device re-enrollment failed: ${l(t)}`), false;
     }
   }
   async postEvents(e, t, o, r = nt) {
@@ -600,20 +600,20 @@ class re {
     if (a.ok) {
       let R = (await a.json()).results?.[0],
         _ = R ? parseInt(String(R.sequence_num), 10) : NaN;
-      return { ok: !0, sequence_num: isNaN(_) ? 0 : _ };
+      return { ok: true, sequence_num: isNaN(_) ? 0 : _ };
     }
     let u,
-      d = !1;
+      d = false;
     if (a.status === 403 && Gs()) u = await Ce(a);
     else if (a.status === 409) d = await lt(a);
     else await R1(a);
-    return { ok: !1, status: a.status, refusal: u, inactive: d, sentDeviceToken: o["X-Trusted-Device-Token"] };
+    return { ok: false, status: a.status, refusal: u, inactive: d, sentDeviceToken: o["X-Trusted-Device-Token"] };
   }
   async readStream(e, t, o) {
     let r,
-      a = !1,
+      a = false,
       u = setTimeout(() => {
-        (a = !0), o.abort();
+        (a = true), o.abort();
       }, ye);
     try {
       r = await fetch(e.href, { method: "GET", headers: t, signal: o.signal, ...Ri({ url: e.href }) });
@@ -644,7 +644,7 @@ class re {
         if (!P && this.reconnectAttempts >= F && this.keepRedialling) {
           p("remote_connect", "remote_connect_reconnect_exhausted"),
             (this.state = "closed"),
-            (this.exhaustedBudget = !0),
+            (this.exhaustedBudget = true),
             this.callbacks.onClose?.();
           return;
         }
@@ -673,7 +673,7 @@ class re {
     if (!Number.isNaN(d)) this.connectedSince = d;
     (this.state = "connected"),
       (this.reconnectAttempts = 0),
-      (this.rediallingPastBudget = !1),
+      (this.rediallingPastBudget = false),
       this.resetLivenessTimer(),
       this.startDriftWatch(),
       n("[SessionsV2Client] Connected"),
@@ -682,7 +682,7 @@ class re {
     let S = r.body.getReader(),
       R = new cje();
     try {
-      while (!0) {
+      while (true) {
         let { done: _, value: P } = await S.read();
         if (_) break;
         for (let k of R.push(P))
@@ -855,13 +855,13 @@ class re {
       n(`[SessionsV2Client] Reconnect budget exhausted (${F}), closing`),
         p("remote_connect", "remote_connect_reconnect_exhausted"),
         (this.state = "closed"),
-        (this.exhaustedBudget = !0),
+        (this.exhaustedBudget = true),
         this.callbacks.onClose?.();
       return;
     }
     if (!e) this.reconnectAttempts++;
     else if (!this.rediallingPastBudget)
-      (this.rediallingPastBudget = !0), g("remote_connect", "remote_connect_redialling_past_budget");
+      (this.rediallingPastBudget = true), g("remote_connect", "remote_connect_redialling_past_budget");
     this.state = "idle";
     let t = e ? ve : Math.min(et * 2 ** (this.reconnectAttempts - 1), ve);
     if (
@@ -937,11 +937,11 @@ class re {
         )
           d = await this.postEvents(o, a, await this.authHeaders(), t.timeoutMs);
       }
-      let S = !1;
+      let S = false;
       if (!d.ok && d.refusal === "untrusted_device" && (await this.recoverTrustedDeviceToken(d.sentDeviceToken)))
         n("[SessionsV2Client] untrusted_device on POST \u2014 re-enrolled, retrying"),
           (d = await this.postEvents(o, a, await this.authHeaders(), t.timeoutMs)),
-          (S = !0);
+          (S = true);
       if (!d.ok) {
         if (
           (n(`[SessionsV2Client] POST /events returned ${d.status}${d.inactive ? " (session not active)" : ""}`, {
@@ -1002,7 +1002,7 @@ class re {
     if (
       (n("[SessionsV2Client] Closing"),
       (this.state = "closed"),
-      (this.exhaustedBudget = !1),
+      (this.exhaustedBudget = false),
       this.clearLivenessTimer(),
       this.clearDriftWatch(),
       this.reconnectTimer)
@@ -1014,7 +1014,7 @@ class re {
     if (
       (n("[SessionsV2Client] Force reconnect"),
       (this.reconnectAttempts = 0),
-      (this.exhaustedBudget = !1),
+      (this.exhaustedBudget = false),
       this.clearLivenessTimer(),
       this.clearDriftWatch(),
       this.reconnectTimer)
@@ -1030,8 +1030,8 @@ class re {
       !(this.keepRedialling && this.state === "idle" && this.reconnectAttempts >= F && this.reconnectTimer !== null) &&
       (this.state !== "closed" || !this.exhaustedBudget)
     )
-      return !1;
-    return g("remote_connect", "remote_connect_revived_by_user_send"), this.reconnect(), !0;
+      return false;
+    return g("remote_connect", "remote_connect_revived_by_user_send"), this.reconnect(), true;
   }
   async authHeaders() {
     let e = await (this.trustedDeviceToken ??= this.loadTrustedDeviceToken());
@@ -1136,7 +1136,7 @@ class X$e {
   pendingDialogRequests = new Set();
   pendingForwardedHooks = new Set();
   settledForwardedHookIds = new Set();
-  workerSeenThisConnection = !1;
+  workerSeenThisConnection = false;
   pendingServedRequests = new Map();
   settledServedRequestIds = new Set();
   seenControlResponseIds = new Set();
@@ -1147,17 +1147,17 @@ class X$e {
   heldSends = new Set();
   chainedSends = 0;
   lifetime = new AbortController();
-  serving = !1;
-  firstSendReleased = !1;
-  exitFlushRequested = !1;
+  serving = false;
+  firstSendReleased = false;
+  exitFlushRequested = false;
   withheldPromptInFlight = null;
-  sentAMessage = !1;
+  sentAMessage = false;
   lastHeld = { issued: Promise.resolve(), posted: Promise.resolve() };
   pendingInterrupt = null;
   constructor(e, t) {
     this.config = e;
     this.callbacks = t;
-    if (e.homeSeed !== void 0 && e.homeSeedHoldsFirstSend !== !1) this.gateSendsOnSettings(e.homeSeed);
+    if (e.homeSeed !== void 0 && e.homeSeedHoldsFirstSend !== false) this.gateSendsOnSettings(e.homeSeed);
     if (e.withheldInitialPrompt !== void 0) {
       let o = e.withheldInitialPrompt;
       queueMicrotask(() => void this.sendWithheldInitialPrompt(o));
@@ -1171,7 +1171,7 @@ class X$e {
         n("[RemoteSessionManager] Connected"), this.config.dirSync?.sync.afterConnect();
         for (let t of this.undeliveredResponses.values())
           if (((t.failures = 0), t.giveUpOnSettle === "undelivered")) t.giveUpOnSettle = null;
-        this.resendUndeliveredResponses(), (this.workerSeenThisConnection = !1), this.callbacks.onConnected?.();
+        this.resendUndeliveredResponses(), (this.workerSeenThisConnection = false), this.callbacks.onConnected?.();
       },
       onClose: (t) => {
         if ((n("[RemoteSessionManager] Disconnected"), this.client?.isRevivable())) this.giveUpUndeliveredResponses();
@@ -1179,7 +1179,7 @@ class X$e {
         this.callbacks.onDisconnected?.(t);
       },
       onReconnecting: () => {
-        (this.workerSeenThisConnection = !1),
+        (this.workerSeenThisConnection = false),
           n("[RemoteSessionManager] Reconnecting"),
           this.callbacks.onReconnecting?.();
       },
@@ -1195,7 +1195,7 @@ class X$e {
           t === "connected")
         )
           this.noteWorkerLive();
-        else if (t === "disconnected") (this.workerSeenThisConnection = !1), this.callbacks.onWorkerGone?.();
+        else if (t === "disconnected") (this.workerSeenThisConnection = false), this.callbacks.onWorkerGone?.();
       },
       onCatchUpTruncated: () => {
         n("[RemoteSessionManager] Catch-up truncated"), this.callbacks.onCatchUpTruncated?.();
@@ -1212,15 +1212,15 @@ class X$e {
       this.config.onAuth401,
       this.config.initialSequenceNum,
       {
-        trackSends: this.config.trackSendsInFlight === !0,
-        keepRedialling: () => this.config.keepStreamRedialling === !0 || this.serving,
+        trackSends: this.config.trackSendsInFlight === true,
+        keepRedialling: () => this.config.keepStreamRedialling === true || this.serving,
         ...this.signedOpts({}),
       },
     )),
       this.client.connect();
   }
   handleMessage(e, t = {}) {
-    if ((T("in", e, t), t.source === "worker" && t.replayed !== !0)) this.noteWorkerLive();
+    if ((T("in", e, t), t.source === "worker" && t.replayed !== true)) this.noteWorkerLive();
     if (e.type === "control_request") {
       this.handleControlRequest(e);
       return;
@@ -1231,7 +1231,7 @@ class X$e {
       if (a?.kind === "hook" || a?.kind === "tool") this.giveUp(a, "overtaken");
       else if (a) this.dropKept(a);
       else if (
-        this.config.keepUndeliveredResponses === !0 &&
+        this.config.keepUndeliveredResponses === true &&
         this.settledForwardedHookIds.has(r) &&
         !this.hookGiveUpsTold.has(r)
       )
@@ -1326,11 +1326,11 @@ class X$e {
       return;
     }
     if (
-      this.config.keepOwnModelSwitchBreadcrumb !== !0 &&
+      this.config.keepOwnModelSwitchBreadcrumb !== true &&
       this.pendingModelSwitchIds.size > 0 &&
       e.type === "user" &&
       "isReplay" in e &&
-      e.isReplay === !0 &&
+      e.isReplay === true &&
       typeof e.message?.content === "string" &&
       e.message.content.startsWith(mGe)
     ) {
@@ -1343,7 +1343,7 @@ class X$e {
     if (e.type === "result") {
       if (
         (this.config.dirSync?.sync.afterResult(),
-        this.sentAMessage || this.config.homeSeedHoldsFirstSend !== !1 || this.config.initialPromptUuid !== void 0)
+        this.sentAMessage || this.config.homeSeedHoldsFirstSend !== false || this.config.initialPromptUuid !== void 0)
       )
         this.config.homeSeed?.afterFirstReply(this.lifetime.signal);
       for (let [r, a] of this.pendingPermissionRequests)
@@ -1375,11 +1375,11 @@ class X$e {
       n(`[RemoteSessionManager] Permission request for tool: ${o.tool_name}`);
       let r = this.pendingPermissionRequests.get(t);
       if (r !== void 0) {
-        let a = !1;
+        let a = false;
         try {
           a = pt(r, o);
         } catch {
-          a = !1;
+          a = false;
         }
         if (a)
           n(`[RemoteSessionManager] Duplicate permission request ${ZT(String(t))} \u2014 already pending, skipping`);
@@ -1479,10 +1479,10 @@ class X$e {
     return { ...(e ?? {}), ...(this.config.eventSigner && { eventSigner: this.config.eventSigner }) };
   }
   async sendMessage(e, t) {
-    return this.send(e, t, (o, r) => Xde(this.config.sessionId, o, this.signedOpts(r)), !1);
+    return this.send(e, t, (o, r) => Xde(this.config.sessionId, o, this.signedOpts(r)), false);
   }
   async sendMessageVia(e, t, o) {
-    return this.send(e, t, o, !0);
+    return this.send(e, t, o, true);
   }
   async send(e, t, o, r) {
     n(`[RemoteSessionManager] Sending message to session ${this.config.sessionId}`),
@@ -1515,7 +1515,7 @@ class X$e {
         level: "error",
       }),
         p("remote_send_message", "remote_send_message_failed");
-    else if ((y("remote_send_message"), (this.sentAMessage = !0), t?.uuid !== void 0))
+    else if ((y("remote_send_message"), (this.sentAMessage = true), t?.uuid !== void 0))
       this.config.dirSync?.sync.messageSent(t.uuid);
     return d;
   }
@@ -1539,7 +1539,7 @@ class X$e {
     t = this.addSendGate(
       (r) => (
         r.released.then(() => {
-          if (!r.exiting()) this.firstSendReleased = !0;
+          if (!r.exiting()) this.firstSendReleased = true;
         }),
         o(r)
       ),
@@ -1548,7 +1548,7 @@ class X$e {
   }
   async sendWithheldInitialPrompt(e) {
     if (e.sent) return;
-    e.sent = !0;
+    e.sent = true;
     let t = Date.now(),
       o = this.config.withheldPromptBackoffMs ?? mt,
       r = 0,
@@ -1568,7 +1568,7 @@ class X$e {
           return (r += 1), Xde(this.config.sessionId, k, this.signedOpts(I));
         return this.lifetime.signal.aborted || this.firstSendReleased ? D : u(k, I);
       },
-      d = this.sendMessageVia(e.content, { uuid: e.uuid }, u).catch((k) => ({ ok: !1, reason: l(k) }));
+      d = this.sendMessageVia(e.content, { uuid: e.uuid }, u).catch((k) => ({ ok: false, reason: l(k) }));
     this.withheldPromptInFlight = d.then(
       () => {
         return;
@@ -1592,7 +1592,7 @@ class X$e {
       }),
       S.ok)
     )
-      (e.sent = !0), this.callbacks.onWithheldPromptSent?.();
+      (e.sent = true), this.callbacks.onWithheldPromptSent?.();
     if (R || S.ok) return;
     let _ = X(S),
       P = _ === "timeout" || _ === "network" || _ === "unknown";
@@ -1616,8 +1616,8 @@ class X$e {
   }
   async sendBehindGates(e, t, o, r) {
     this.chainedSends++;
-    let a = !1,
-      u = !1,
+    let a = false,
+      u = false,
       d = () => {},
       S = new Promise((w) => {
         d = w;
@@ -1640,8 +1640,8 @@ class X$e {
       }),
       de = this.lastHeld,
       J = () => {},
-      le = !1,
-      ue = !1,
+      le = false,
+      ue = false,
       Z = e.map(() => {
         return;
       }),
@@ -1657,23 +1657,23 @@ class X$e {
         Promise.all(te).then(Y),
         Ue,
         S.then(() => Y(Z) ?? Ae(ee, a) ?? Promise.all(te.filter((w, M) => a && e[M]?.onExit === "await")).then(Y)),
-        P.then(() => Me(!0)),
+        P.then(() => Me(true)),
       ]);
     se.then(k, k);
     let j = se
         .then((w) => Promise.race([de.posted, S.then(() => de.issued)]).then(() => w))
         .then((w) => {
           let M = w ?? Me(le);
-          if ((J(), (ue = !0), L(), M !== void 0)) return qe(M);
+          if ((J(), (ue = true), L(), M !== void 0)) return qe(M);
           return this.reviveStreamForUserSend(), r(t, o);
         }),
       W = {
         messageUuid: o?.uuid,
         release: R,
         issuedYet: () => ue,
-        withheldOnRelease: () => Y(Z) !== void 0 || Ae(ee, !1) !== void 0,
+        withheldOnRelease: () => Y(Z) !== void 0 || Ae(ee, false) !== void 0,
         withdraw: () => {
-          (le = !0), J(), _();
+          (le = true), J(), _();
         },
         issued: ae,
         posted: j,
@@ -1709,8 +1709,8 @@ class X$e {
   leaveChain(e, t) {
     this.chainedSends--, this.heldSends.delete(e), t();
   }
-  async releaseHeldSends(e = _t, { exiting: t = !1, final: o = !1, keepWithheld: r = !1 } = {}) {
-    if (t) this.exitFlushRequested = !0;
+  async releaseHeldSends(e = _t, { exiting: t = false, final: o = false, keepWithheld: r = false } = {}) {
+    if (t) this.exitFlushRequested = true;
     let a = [...this.heldSends].filter((d) => !(r && d.withheldOnRelease()));
     a.forEach((d) => d.release(t, o));
     let u = a.map(() => ({ kind: "waiting" }));
@@ -1762,7 +1762,7 @@ class X$e {
   sendResponse(e, t) {
     let o = this.client;
     if (!o) return;
-    if (t === null || this.config.keepUndeliveredResponses !== !0) {
+    if (t === null || this.config.keepUndeliveredResponses !== true) {
       o.sendControlResponse(e, void 0, Pe(t));
       return;
     }
@@ -1772,15 +1772,15 @@ class X$e {
         kind: t,
         uuid: ct(),
         failures: 0,
-        inFlight: !1,
+        inFlight: false,
         giveUpOnSettle: null,
         timer: null,
-        told: !1,
+        told: false,
       };
     (u.response = e), this.undeliveredResponses.set(r, u), this.postKeptResponse(o, u);
   }
   postKeptResponse(e, t) {
-    (t.inFlight = !0),
+    (t.inFlight = true),
       e.sendControlResponse(t.response, t.uuid, Pe(t.kind)).then(
         (o) => this.settleResponsePost(t, o),
         (o) => {
@@ -1790,7 +1790,7 @@ class X$e {
       );
   }
   settleResponsePost(e, t) {
-    e.inFlight = !1;
+    e.inFlight = false;
     let o = e.response.response.request_id;
     if (this.undeliveredResponses.get(o) !== e) return;
     if (t.outcome === "accepted") {
@@ -1854,7 +1854,7 @@ class X$e {
     if (t === "undelivered" && e.kind === "dialog") this.seenControlResponseIds.delete(r);
     if (t === "undelivered" && e.kind === "hook" && o !== "refused") A(this.undeliveredHookIds, r);
     if ((p("remote_control_response", o), e.told)) return;
-    (e.told = !0), this.callbacks.onResponseUndelivered?.(r, e.kind, t);
+    (e.told = true), this.callbacks.onResponseUndelivered?.(r, e.kind, t);
   }
   scheduleResponseResend(e) {
     this.clearResendTimer(e);
@@ -1881,12 +1881,12 @@ class X$e {
   }
   giveUpKeptServedResults() {
     for (let e of [...this.undeliveredResponses.values()])
-      if (e.kind === "tool") (e.inFlight = !1), this.giveUp(e, e.giveUpOnSettle ?? "undelivered");
+      if (e.kind === "tool") (e.inFlight = false), this.giveUp(e, e.giveUpOnSettle ?? "undelivered");
   }
   dropUndeliveredResponses() {
     for (let e of [...this.undeliveredResponses.values()]) {
       if (e.giveUpOnSettle === "overtaken") {
-        (e.inFlight = !1), this.giveUp(e, "overtaken");
+        (e.inFlight = false), this.giveUp(e, "overtaken");
         continue;
       }
       this.dropKept(e), g("remote_control_response", "session_gone");
@@ -1900,7 +1900,7 @@ class X$e {
       return;
     }
     this.retirePermissionRequest(e), this.reviveStreamForUserSend();
-    let r = $Me(e, t, this.config.nameToolOnPermissionAllow === !0 ? o.tool_name : void 0);
+    let r = $Me(e, t, this.config.nameToolOnPermissionAllow === true ? o.tool_name : void 0);
     n(`[RemoteSessionManager] Sending permission response: ${t.behavior}`),
       T("out", r),
       this.sendResponse(r, "permission"),
@@ -1925,27 +1925,27 @@ class X$e {
   respondToForwardedHook(e, t) {
     if (!this.pendingForwardedHooks.delete(e))
       return (
-        n(`[RemoteSessionManager] Forwarded hook request ${ZT(e)} is no longer pending \u2014 answer not sent`), !1
+        n(`[RemoteSessionManager] Forwarded hook request ${ZT(e)} is no longer pending \u2014 answer not sent`), false
       );
-    if (!this.client) return !1;
+    if (!this.client) return false;
     this.recordSeenControlResponseId(e), this.recordSettledForwardedHookId(e), this.reviveStreamForUserSend();
     let r = { type: "control_response", response: { subtype: "success", request_id: e, response: t } };
-    return T("out", r), this.sendResponse(r, "hook"), !0;
+    return T("out", r), this.sendResponse(r, "hook"), true;
   }
   respondToServedChannelRequest(e, t) {
     let o = this.pendingServedRequests.get(e);
-    if (!o) return n(`[RemoteSessionManager] served request ${ZT(e)} is no longer pending \u2014 result not sent`), !1;
-    if ((this.pendingServedRequests.delete(e), !this.client)) return !1;
+    if (!o) return n(`[RemoteSessionManager] served request ${ZT(e)} is no longer pending \u2014 result not sent`), false;
+    if ((this.pendingServedRequests.delete(e), !this.client)) return false;
     this.recordSeenControlResponseId(e), A(this.settledServedRequestIds, e), this.reviveStreamForUserSend();
     let a = { type: "control_response", response: { subtype: "success", request_id: e, response: bt(t) } };
-    return T("out", a), this.sendResponse(a, o.subtype === "remote_tools_probe" ? null : "tool"), !0;
+    return T("out", a), this.sendResponse(a, o.subtype === "remote_tools_probe" ? null : "tool"), true;
   }
   releaseServedChannelRequest(e) {
     this.pendingServedRequests.delete(e);
   }
   retireServedRequest(e, t) {
     let o = this.pendingServedRequests.get(e);
-    if (!o) return !1;
+    if (!o) return false;
     return (
       this.pendingServedRequests.delete(e),
       n(
@@ -1953,15 +1953,15 @@ class X$e {
       ),
       o.abort.abort(),
       this.callbacks.onServedChannelRequestCancelled?.(e, t),
-      !0
+      true
     );
   }
   isConnected() {
-    return this.client?.isConnected() ?? !1;
+    return this.client?.isConnected() ?? false;
   }
   noteWorkerLive() {
     if (this.workerSeenThisConnection) return;
-    (this.workerSeenThisConnection = !0), this.callbacks.onWorkerLive?.();
+    (this.workerSeenThisConnection = true), this.callbacks.onWorkerLive?.();
   }
   markServing(e) {
     this.serving = e;
@@ -1973,7 +1973,7 @@ class X$e {
     return this.client?.flushSends(e) ?? Promise.resolve();
   }
   cancelSession() {
-    n("[RemoteSessionManager] Sending interrupt signal"), (this.firstSendReleased = !0), this.reviveStreamForUserSend();
+    n("[RemoteSessionManager] Sending interrupt signal"), (this.firstSendReleased = true), this.reviveStreamForUserSend();
     let e = () => {
       T("out", { kind: "control_request", subtype: "interrupt" }),
         this.client?.sendControlRequest({ subtype: "interrupt" });
@@ -2008,7 +2008,7 @@ class X$e {
         }
         return d.posted.then(r, () => r(Ee)), this.awaitControlResponse(d.requestId, e, t);
       },
-      u = t?.answerExpected === !1 ? a() : QNn("remote_control_rpc", a);
+      u = t?.answerExpected === false ? a() : QNn("remote_control_rpc", a);
     return { posted: o, response: u };
   }
   awaitControlResponse(e, t, o) {
@@ -2018,7 +2018,7 @@ class X$e {
       let d = setTimeout(this.onControlRequestTimeout, r, e, t.subtype, r),
         S = o?.signal,
         R = S ? () => this.cancelControlRequest(e) : void 0;
-      if (S && R) S.addEventListener("abort", R, { once: !0 });
+      if (S && R) S.addEventListener("abort", R, { once: true });
       this.pendingControlRequests.set(e, {
         resolve: (_) => a(_),
         reject: u,
@@ -2027,7 +2027,7 @@ class X$e {
         subtype: t.subtype,
         onProgress: o?.onProgress,
         removeAbortListener: S && R ? () => S.removeEventListener("abort", R) : void 0,
-        ...(o?.background && { background: !0 }),
+        ...(o?.background && { background: true }),
         ...(o?.onEchoed && { onEchoed: o.onEchoed }),
       });
     });
@@ -2068,10 +2068,10 @@ class X$e {
   disconnect() {
     n("[RemoteSessionManager] Disconnecting");
     let e = this.config.withheldInitialPrompt;
-    if (e !== void 0 && this.withheldPromptInFlight !== null && !this.firstSendReleased) e.sent = !1;
+    if (e !== void 0 && this.withheldPromptInFlight !== null && !this.firstSendReleased) e.sent = false;
     this.lifetime.abort(), this.pendingInterrupt?.(), this.client?.close(), (this.client = null);
     for (let t of [...this.undeliveredResponses.values()])
-      if ((this.clearResendTimer(t), t.giveUpOnSettle !== null)) (t.inFlight = !1), this.giveUp(t, t.giveUpOnSettle);
+      if ((this.clearResendTimer(t), t.giveUpOnSettle !== null)) (t.inFlight = false), this.giveUp(t, t.giveUpOnSettle);
     this.undeliveredResponses.clear(),
       this.undeliveredHookIds.clear(),
       this.hookGiveUpsTold.clear(),
@@ -2081,7 +2081,7 @@ class X$e {
     for (let t of this.pendingForwardedHooks) this.callbacks.onForwardedHookCancelled?.(t, "disconnected");
     this.pendingForwardedHooks.clear();
     for (let t of [...this.pendingServedRequests.keys()]) this.retireServedRequest(t, "disconnected");
-    this.workerSeenThisConnection = !1;
+    this.workerSeenThisConnection = false;
     for (let t of this.pendingControlRequests.values())
       clearTimeout(t.timer), t.removeAbortListener?.(), t.reject(Error("[RemoteSessionManager] Disconnected"));
     this.pendingControlRequests.clear(), this.pendingModelSwitchIds.clear();
@@ -2115,7 +2115,7 @@ function bt(e) {
   return {
     result: {
       content: [{ type: "text", text: `(the result was too large to return: ${t} bytes, over the ${LRt}-byte limit)` }],
-      isError: !0,
+      isError: true,
     },
   };
 }
@@ -2131,13 +2131,13 @@ function Et(e, t) {
   }
 }
 function Tt(e) {
-  return typeof e === "object" && e !== null && e.go === !1 && typeof e.reason === "string";
+  return typeof e === "object" && e !== null && e.go === false && typeof e.reason === "string";
 }
 function Y(e) {
   return e.find((t) => t !== void 0);
 }
 function qe(e) {
-  return { ok: !1, reason: e.reason, withheld: !0 };
+  return { ok: false, reason: e.reason, withheld: true };
 }
 function Pt(e) {
   if (e.ok) return { kind: "sent" };
@@ -2156,11 +2156,11 @@ function Pt(e) {
   }
 }
 function Me(e) {
-  return e ? { go: !1, reason: K$e } : void 0;
+  return e ? { go: false, reason: K$e } : void 0;
 }
 function Ae(e, t) {
   return [...e].some(({ onRelease: o, onExit: r }) => o === "withhold" && !(t && r === "await"))
-    ? { go: !1, reason: Aet }
+    ? { go: false, reason: Aet }
     : void 0;
 }
 var Y$e = 100,
@@ -2179,7 +2179,7 @@ async function Oe(e, t, o, r) {
       headers: e.headers,
       params: t,
       timeout: 15000,
-      validateStatus: () => !0,
+      validateStatus: () => true,
       maxContentLength: r ?? -1,
     })
     .catch(() => null);
@@ -2196,7 +2196,7 @@ async function Oe(e, t, o, r) {
 }
 async function vet(e, t = Y$e, o) {
   let r = await Oe(e, { limit: t, sort_order: "desc" }, "fetchLatestEvents");
-  if (o?.reportFeatureHealth !== !1)
+  if (o?.reportFeatureHealth !== false)
     if (r === null) p("assistant_history_load", "http_error");
     else y("assistant_history_load");
   return r;

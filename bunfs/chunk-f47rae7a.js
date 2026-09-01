@@ -549,7 +549,7 @@ ${mt("error", V)(`Could not import ${qt}: ${Vt}`)}
   } else (_e = E[37]), (ve = E[38]);
   let J;
   if (E[41] !== Z || E[42] !== Q || E[43] !== _e || E[44] !== ve)
-    (J = e($w, { options: _e, defaultValue: ve, onSubmit: Q, onCancel: Z, hideIndexes: !0 })),
+    (J = e($w, { options: _e, defaultValue: ve, onSubmit: Q, onCancel: Z, hideIndexes: true })),
       (E[41] = Z),
       (E[42] = Q),
       (E[43] = _e),
@@ -563,7 +563,7 @@ ${mt("error", V)(`Could not import ${qt}: ${Vt}`)}
       subtitle: ce,
       color: "success",
       onCancel: Z,
-      hideInputGuide: !0,
+      hideInputGuide: true,
       children: [ue, Ze, J],
     })),
       (E[46] = Z),
@@ -577,8 +577,8 @@ ${mt("error", V)(`Could not import ${qt}: ${Vt}`)}
     (et = e(o, {
       paddingX: 1,
       children: e(t, {
-        dimColor: !0,
-        italic: !0,
+        dimColor: true,
+        italic: true,
         children: r(fe, {
           children: [
             e(M, { chord: "space", action: "select" }),
@@ -658,7 +658,7 @@ async function Ir({ debug: v, verbose: s, transport: g, port: a, resultFormat: p
   }
   try {
     let { setup: S } = await import("/$bunfs/root/chunk-x5de9qrh.js");
-    await S(h, "default", !1, !1, void 0, !1, void 0, void 0, void 0, m);
+    await S(h, "default", false, false, void 0, false, void 0, void 0, void 0, m);
     let { SandboxManager: y } = await import("/$bunfs/root/chunk-e15r39gd.js"),
       R = y.getSandboxUnavailableReason();
     if (R) {
@@ -686,7 +686,7 @@ async function Ir({ debug: v, verbose: s, transport: g, port: a, resultFormat: p
     }
     {
       let { startMCPServer: j } = await import("/$bunfs/root/chunk-787k7py5.js");
-      await j(h, v ?? !1, s ?? !1, m, "raw");
+      await j(h, v ?? false, s ?? false, m, "raw");
     }
     await Zs("cli_mcp_serve");
   } catch (S) {
@@ -768,7 +768,7 @@ function De(v) {
   for (let [a, p] of Object.entries(v))
     if (p.scope === "local" || p.scope === "user" || p.scope === "project" || p.scope === "enterprise") {
       let m = s.get(p.scope);
-      if (!m) (m = kp(p.scope, { expandVars: !1 }).servers), s.set(p.scope, m);
+      if (!m) (m = kp(p.scope, { expandVars: false }).servers), s.set(p.scope, m);
       g[a] = m[a] ?? p;
     } else g[a] = SU(p);
   return g;
@@ -811,9 +811,9 @@ var Ne = "\u23F8 Pending approval (run `claude` to approve)",
   lt = `${L.cross} Rejected (see disabledMcpjsonServers in settings)`,
   Be = "\u2298 Disabled for this project (re-enable via /mcp)";
 async function Dr(v, s, g) {
-  await Ss("tengu_mcp_list", {}), await oL({ hasDynamicMcpConfig: !1 });
+  await Ss("tengu_mcp_list", {}), await oL({ hasDynamicMcpConfig: false });
   let { servers: a, pendingProjectServers: p } = await EE({
-    includePendingProjectServers: !0,
+    includePendingProjectServers: true,
     storageV5: s,
     credentials: g,
   });
@@ -856,12 +856,12 @@ async function Dr(v, s, g) {
     await Ln(0);
 }
 async function Hr(v, s, g, a) {
-  await Ss("tengu_mcp_get", { name: s }), await oL({ hasDynamicMcpConfig: !1 });
+  await Ss("tengu_mcp_get", { name: s }), await oL({ hasDynamicMcpConfig: false });
   let {
       servers: p,
       pendingProjectServers: m,
       rejectedProjectServers: h,
-    } = await EE({ includePendingProjectServers: !0, includeRejectedProjectServers: !0, storageV5: g, credentials: a }),
+    } = await EE({ includePendingProjectServers: true, includeRejectedProjectServers: true, storageV5: g, credentials: a }),
     i = p[s] ?? null,
     C = m.has(s) ? "pending" : h.has(s) ? "rejected" : null;
   if (!i) {
@@ -918,7 +918,7 @@ async function Nr(v, s, g, a, p) {
   let m, h;
   try {
     m = lIe(a.scope);
-    let i = Ut(g, !1);
+    let i = Ut(g, false);
     if (i === null) n("mcp add-json: user-provided JSON was empty, invalid, or null", { level: "error" });
     let x =
       a.clientSecret &&
@@ -985,7 +985,7 @@ async function Br(v, s) {
           },
         }),
       }),
-      { exitOnCtrlC: !0, patchConsole: !1 },
+      { exitOnCtrlC: true, patchConsole: false },
     );
   } catch (g) {
     return await Pn("cli_mcp_add_from_desktop", "cli_mcp_add_from_desktop_failed"), Es(l(g));

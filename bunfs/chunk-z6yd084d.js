@@ -85,8 +85,8 @@ var q = (e) => {
   };
 var B = (e) =>
     Object.assign(e, {
-      useDualstackEndpoint: e.useDualstackEndpoint ?? !1,
-      useFipsEndpoint: e.useFipsEndpoint ?? !1,
+      useDualstackEndpoint: e.useDualstackEndpoint ?? false,
+      useFipsEndpoint: e.useFipsEndpoint ?? false,
       defaultSigningName: "cognito-identity",
     }),
   y = {
@@ -115,7 +115,7 @@ var W = {
   main: "./dist-cjs/index.js",
   types: "./dist-types/index.d.ts",
   module: "./dist-es/index.js",
-  sideEffects: !1,
+  sideEffects: false,
   dependencies: {
     "@aws-crypto/sha256-browser": "5.2.0",
     "@aws-crypto/sha256-js": "5.2.0",
@@ -199,16 +199,16 @@ var ce = j(gg(), 1),
   P = j(yg(), 1);
 var pe = j(vO(), 1),
   d = j(VH(), 1);
-var J = { ["required"]: !1, type: "string" },
-  Y = { ["required"]: !0, default: !1, type: "boolean" },
+var J = { ["required"]: false, type: "string" },
+  Y = { ["required"]: true, default: false, type: "boolean" },
   Q = { ["ref"]: "Endpoint" },
-  ne = { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseFIPS" }, !0] },
-  re = { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseDualStack" }, !0] },
+  ne = { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseFIPS" }, true] },
+  re = { ["fn"]: "booleanEquals", ["argv"]: [{ ["ref"]: "UseDualStack" }, true] },
   n = {},
   _ = { ["ref"]: "Region" },
   X = { ["fn"]: "getAttr", ["argv"]: [{ ["ref"]: "PartitionResult" }, "supportsFIPS"] },
   ie = { ["ref"]: "PartitionResult" },
-  Z = { ["fn"]: "booleanEquals", ["argv"]: [!0, { ["fn"]: "getAttr", ["argv"]: [ie, "supportsDualStack"] }] },
+  Z = { ["fn"]: "booleanEquals", ["argv"]: [true, { ["fn"]: "getAttr", ["argv"]: [ie, "supportsDualStack"] }] },
   ee = [ne],
   te = [re],
   oe = [_],
@@ -239,7 +239,7 @@ var J = { ["required"]: !1, type: "string" },
                 conditions: [ne, re],
                 rules: [
                   {
-                    conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [!0, X] }, Z],
+                    conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [true, X] }, Z],
                     rules: [
                       {
                         conditions: [{ ["fn"]: "stringEquals", ["argv"]: [_, "us-east-1"] }],
@@ -299,7 +299,7 @@ var J = { ["required"]: !1, type: "string" },
                 conditions: ee,
                 rules: [
                   {
-                    conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [X, !0] }],
+                    conditions: [{ ["fn"]: "booleanEquals", ["argv"]: [X, true] }],
                     rules: [
                       {
                         endpoint: {
@@ -369,7 +369,7 @@ var ue = (e) => ({
   apiVersion: "2014-06-30",
   base64Decoder: e?.base64Decoder ?? g.fromBase64,
   base64Encoder: e?.base64Encoder ?? g.toBase64,
-  disableHostPrefix: e?.disableHostPrefix ?? !1,
+  disableHostPrefix: e?.disableHostPrefix ?? false,
   endpointProvider: e?.endpointProvider ?? ae,
   extensions: e?.extensions ?? [],
   httpAuthSchemeProvider: e?.httpAuthSchemeProvider ?? q,
@@ -391,7 +391,7 @@ var ue = (e) => ({
     new de.AwsJson1_1Protocol({
       defaultNamespace: "com.amazonaws.cognitoidentity",
       serviceTarget: "AWSCognitoIdentityService",
-      awsQueryCompatible: !1,
+      awsQueryCompatible: false,
     }),
   serviceId: e?.serviceId ?? "Cognito Identity",
   urlParser: e?.urlParser ?? _e.parseUrl,

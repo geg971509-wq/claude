@@ -29,7 +29,7 @@ async function p(e, t, r, i, o) {
   let s = await bt.post(
     R,
     { op: e, ...t },
-    { auth: "session-jwt", timeout: w, validateStatus: () => !0, signal: i, maxContentLength: o },
+    { auth: "session-jwt", timeout: w, validateStatus: () => true, signal: i, maxContentLength: o },
   );
   if (s.ok && s.status >= 300) throw new U9e(r, s.status, D(s.data));
   return u(s, r);
@@ -42,7 +42,7 @@ function d(e, t) {
     auth: "teleport-org",
     timeout: w,
     headers: { "anthropic-beta": ud },
-    validateStatus: () => !0,
+    validateStatus: () => true,
     signal: e,
     credentials: t,
   };
@@ -136,31 +136,31 @@ function E(e) {
 var P = "user:projects:read",
   x = "user:projects:write";
 async function IMt(e) {
-  if (!Mt("allow_projects_tool")) return { ok: !1, reason: "policy_disabled" };
-  if (!pr()) return { ok: !1, reason: "wrong_provider" };
-  if (Ct()) return { ok: !1, reason: "essential_traffic_only" };
+  if (!Mt("allow_projects_tool")) return { ok: false, reason: "policy_disabled" };
+  if (!pr()) return { ok: false, reason: "wrong_provider" };
+  if (Ct()) return { ok: false, reason: "essential_traffic_only" };
   let t = rl();
-  if (t) return { ok: !0, accessToken: t, expanded: !1 };
+  if (t) return { ok: true, accessToken: t, expanded: false };
   try {
     await Cs({ credentials: e });
   } catch {}
   let r = Yt();
-  if (!r?.accessToken) return { ok: !1, reason: "no_token" };
-  if (h(r.scopes)) return { ok: !0, accessToken: r.accessToken, expanded: !1 };
-  if (r.clientId) return { ok: !1, reason: "custom_client" };
-  if (!r.refreshToken) return { ok: !1, reason: "no_refresh" };
-  if (await Qk(e)) return { ok: !1, reason: "no_refresh" };
-  let i = !1;
+  if (!r?.accessToken) return { ok: false, reason: "no_token" };
+  if (h(r.scopes)) return { ok: true, accessToken: r.accessToken, expanded: false };
+  if (r.clientId) return { ok: false, reason: "custom_client" };
+  if (!r.refreshToken) return { ok: false, reason: "no_refresh" };
+  if (await Qk(e)) return { ok: false, reason: "no_refresh" };
+  let i = false;
   try {
     return await x7e(async ({ lockedTokens: o, isCompromised: s, signal: m }) => {
-      if (!o?.refreshToken) return { ok: !1, reason: "no_refresh" };
-      if (s()) return { ok: !1, reason: "lock_contended" };
-      if (h(o.scopes) && o.accessToken) return { ok: !0, accessToken: o.accessToken, expanded: !1 };
-      if (o.clientId) return { ok: !1, reason: "custom_client" };
-      if (await Qk(e)) return { ok: !1, reason: "no_refresh" };
+      if (!o?.refreshToken) return { ok: false, reason: "no_refresh" };
+      if (s()) return { ok: false, reason: "lock_contended" };
+      if (h(o.scopes) && o.accessToken) return { ok: true, accessToken: o.accessToken, expanded: false };
+      if (o.clientId) return { ok: false, reason: "custom_client" };
+      if (await Qk(e)) return { ok: false, reason: "no_refresh" };
       let c;
       try {
-        (i = !0),
+        (i = true),
           (c = await C$(o.refreshToken, {
             clientId: o.clientId,
             scopes: te([...x5, ...Ife(o.scopes), P, x]),
@@ -169,23 +169,23 @@ async function IMt(e) {
           }));
       } catch (_) {
         if (v$(_) && !s()) await iNe(o.refreshToken, e);
-        if (s() || It(_)) return { ok: !1, reason: "lock_contended" };
+        if (s() || It(_)) return { ok: false, reason: "lock_contended" };
         throw _;
       }
       let j = await oNe({ isCompromised: s, postedRefreshToken: o.refreshToken, refreshedTokens: c, credentials: e });
-      if (j === "adopted_sibling") return { ok: !1, reason: "lock_contended" };
-      if (j === "save_failed") return g("projects_scope_expansion", "save_failed"), { ok: !1, reason: "save_failed" };
+      if (j === "adopted_sibling") return { ok: false, reason: "lock_contended" };
+      if (j === "save_failed") return g("projects_scope_expansion", "save_failed"), { ok: false, reason: "save_failed" };
       if (!h(c.scopes))
         return (
           g("projects_scope_expansion", "expand_failed"),
-          { ok: !1, reason: "expand_failed", detail: "refresh succeeded but projects scopes not granted" }
+          { ok: false, reason: "expand_failed", detail: "refresh succeeded but projects scopes not granted" }
         );
-      return y("projects_scope_expansion"), { ok: !0, accessToken: c.accessToken, expanded: !0 };
+      return y("projects_scope_expansion"), { ok: true, accessToken: c.accessToken, expanded: true };
     }, e);
   } catch (o) {
-    if (o instanceof dpe || It(o)) return { ok: !1, reason: "lock_contended" };
-    if (!i) return { ok: !1, reason: "lock_contended", detail: l(o) };
-    return g("projects_scope_expansion", "expand_failed"), { ok: !1, reason: "expand_failed", detail: l(o) };
+    if (o instanceof dpe || It(o)) return { ok: false, reason: "lock_contended" };
+    if (!i) return { ok: false, reason: "lock_contended", detail: l(o) };
+    return g("projects_scope_expansion", "expand_failed"), { ok: false, reason: "expand_failed", detail: l(o) };
   }
 }
 function h(e) {

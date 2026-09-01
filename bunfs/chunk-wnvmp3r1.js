@@ -67,7 +67,7 @@ function ARe() {
   return { version: o, cwd: e, billingType: n, agentName: s };
 }
 function s7t(o, r, t) {
-  if (se(o) + 3 + se(r) > t) return { shouldSplit: !0, truncatedModel: ir(o, t), truncatedBilling: ir(r, t) };
-  return { shouldSplit: !1, truncatedModel: ir(o, Math.max(t - se(r) - 3, 10)), truncatedBilling: r };
+  if (se(o) + 3 + se(r) > t) return { shouldSplit: true, truncatedModel: ir(o, t), truncatedBilling: ir(r, t) };
+  return { shouldSplit: false, truncatedModel: ir(o, Math.max(t - se(r) - 3, 10)), truncatedBilling: r };
 }
 export { i7t, fQ, ARe, s7t };

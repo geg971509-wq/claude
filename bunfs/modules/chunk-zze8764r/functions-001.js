@@ -13,7 +13,7 @@ import { $Be, $u, AYt, Ae, BBe, BC, BCt, BI, BKt, Bte, CYt, Csr, D, DE, DVt, Dde
 
 async function HB(e, t = 0, r, o, u, d) {
   u?.throwIfAborted();
-  let _ = d?.truncateOnByteLimit ?? !1,
+  let _ = d?.truncateOnByteLimit ?? false,
     C = d?.maxSelectedBytes,
     A = d?.handle,
     x = A ? await A.stat() : await KGt(e);
@@ -78,7 +78,7 @@ function QGt(e, t, r, o, u, d, _) {
       totalBytes: t,
       readBytes: Buffer.byteLength(me, "utf8"),
       mtimeMs: r,
-      truncatedByBytes: !1,
+      truncatedByBytes: false,
     };
   }
   let x = u !== void 0 ? o + u : 1 / 0,
@@ -87,16 +87,16 @@ function QGt(e, t, r, o, u, d, _) {
     U = 0,
     B,
     W = 0,
-    z = !1;
+    z = false;
   function pe(me) {
     if (_ !== void 0 || d !== void 0) {
       let ge = M.length > 0 ? 1 : 0,
         Ce = W + ge + Buffer.byteLength(me);
-      if (d !== void 0 && Ce > d) return (z = !0), !1;
+      if (d !== void 0 && Ce > d) return (z = true), false;
       if (_ !== void 0 && Ce > _) throw new CI(Ce, _);
       W = Ce;
     }
-    return M.push(me), !0;
+    return M.push(me), true;
   }
   while (
     (B = A.indexOf(
@@ -140,7 +140,7 @@ function JGt(e) {
 function ZGt(e) {
   let t = e;
   if (this.isFirstChunk) {
-    if (((this.isFirstChunk = !1), t.charCodeAt(0) === 65279)) t = t.slice(1);
+    if (((this.isFirstChunk = false), t.charCodeAt(0) === 65279)) t = t.slice(1);
   }
   let r = Buffer.byteLength(t);
   if (((this.totalBytesRead += r), this.hardCapBytes !== void 0 && this.totalBytesRead > this.hardCapBytes)) {
@@ -170,7 +170,7 @@ function ZGt(e) {
       if (A || this.maxSelectedBytes !== void 0) {
         let x = this.selectedLines.length > 0 ? 1 : 0,
           M = this.selectedBytes + x + Buffer.byteLength(C);
-        if (A && M > this.maxBytes) (this.truncatedByBytes = !0), (this.endLine = this.currentLineIndex);
+        if (A && M > this.maxBytes) (this.truncatedByBytes = true), (this.endLine = this.currentLineIndex);
         else if (this.maxSelectedBytes !== void 0 && M > this.maxSelectedBytes) {
           this.stream.destroy(new CI(M, this.maxSelectedBytes));
           return;
@@ -188,7 +188,7 @@ function ZGt(e) {
         let M = this.selectedLines.length > 0 ? 1 : 0,
           F = this.selectedBytes + M + A;
         if (x && F > this.maxBytes) {
-          (this.truncatedByBytes = !0), (this.endLine = this.currentLineIndex);
+          (this.truncatedByBytes = true), (this.endLine = this.currentLineIndex);
           return;
         }
         if (this.maxSelectedBytes !== void 0 && F > this.maxSelectedBytes) {
@@ -207,7 +207,7 @@ function tqt() {
   if (this.currentLineIndex >= this.offset && this.currentLineIndex < this.endLine)
     if (this.truncateOnByteLimit && this.maxBytes !== void 0) {
       let o = this.selectedLines.length > 0 ? 1 : 0;
-      if (this.selectedBytes + o + Buffer.byteLength(e) > this.maxBytes) this.truncatedByBytes = !0;
+      if (this.selectedBytes + o + Buffer.byteLength(e) > this.maxBytes) this.truncatedByBytes = true;
       else this.selectedLines.push(e);
     } else this.selectedLines.push(e);
   this.currentLineIndex++;
@@ -242,12 +242,12 @@ function nqt(e, t, r, o, u, d, _, C, A) {
       resolve: x,
       totalBytesRead: 0,
       selectedBytes: 0,
-      truncatedByBytes: !1,
+      truncatedByBytes: false,
       currentLineIndex: 0,
       selectedLines: [],
       partial: "",
       partialBytes: 0,
-      isFirstChunk: !0,
+      isFirstChunk: true,
       resolveMtime: () => {},
       mtimeReady: null,
     };
@@ -263,19 +263,19 @@ function nqt(e, t, r, o, u, d, _, C, A) {
   });
 }
 
-function Eue(e, t, r, o = !1) {
+function Eue(e, t, r, o = false) {
   let d = o ? null : new WGt("utf8"),
     _ = Buffer.allocUnsafe(524288),
     C = t ? 0 : null,
-    A = !1,
+    A = false,
     x = new zGt({
       ...(o ? {} : { encoding: "utf8" }),
       read() {
         if (A) return;
-        (A = !0),
+        (A = true),
           e.read(_, 0, 524288, C).then(
             ({ bytesRead: M }) => {
-              if (((A = !1), x.destroyed)) return;
+              if (((A = false), x.destroyed)) return;
               if (M === 0) {
                 let U = d?.end();
                 if (U) x.push(U);
@@ -287,7 +287,7 @@ function Eue(e, t, r, o = !1) {
               x.push(d ? d.write(F) : F);
             },
             (M) => {
-              (A = !1), x.destroy(we(M));
+              (A = false), x.destroy(we(M));
             },
           );
       },
@@ -297,7 +297,7 @@ function Eue(e, t, r, o = !1) {
       x.destroy(r.reason instanceof Error ? r.reason : new Ze());
     };
     if (r.aborted) M();
-    else r.addEventListener("abort", M, { once: !0 }), x.once("close", () => r.removeEventListener("abort", M));
+    else r.addEventListener("abort", M, { once: true }), x.once("close", () => r.removeEventListener("abort", M));
   }
   return x;
 }
@@ -311,8 +311,8 @@ function lb(e) {
 
 function tD(e) {
   let t = e.split("/");
-  if (t.length === 0) return !0;
-  if (t.some((r) => r.startsWith("."))) return !0;
+  if (t.length === 0) return true;
+  if (t.some((r) => r.startsWith("."))) return true;
   return PI.includes(lb(t[0]));
 }
 
@@ -365,7 +365,7 @@ function oye(e) {
 }
 
 function z9e(e, t) {
-  if (t === null) return !0;
+  if (t === null) return true;
   let r = e.split(/[\\/]/);
   if (lb(r[0]) === "team") return r.length < 3 || t.has(r[1]);
   return !tD(r.join("/"));
@@ -397,16 +397,16 @@ function i0e(e) {
 async function Ain(e, t, r = {}, o) {
   if (o) {
     let x = zF(e);
-    if (x !== void 0 && (await jTe(e))) return await _qt(o, x, e, t, r.regularFilesOnly ?? !1);
+    if (x !== void 0 && (await jTe(e))) return await _qt(o, x, e, t, r.regularFilesOnly ?? false);
   }
   let u = Jlt(),
     d = oye(e),
-    C = (await pqt(e, r.regularFilesOnly ?? !1)).filter((x) => Ein(x, u, d));
+    C = (await pqt(e, r.regularFilesOnly ?? false)).filter((x) => Ein(x, u, d));
   return (
     await Promise.allSettled(
       C.map(async (x) => {
         let M = cb(e, x),
-          { content: F, mtimeMs: U } = await HB(M, 0, b3, yV, t, { truncateOnByteLimit: !0 }),
+          { content: F, mtimeMs: U } = await HB(M, 0, b3, yV, t, { truncateOnByteLimit: true }),
           { frontmatter: B, body: W } = zv(F, M),
           z = Que(B, "modified"),
           pe = z === null ? NaN : Date.parse(z);
@@ -437,11 +437,11 @@ async function WMt(e, t, r) {
 }
 
 async function pqt(e, t) {
-  return t ? await a0e(e, "") : await s0e(e, { recursive: !0 });
+  return t ? await a0e(e, "") : await s0e(e, { recursive: true });
 }
 
 async function a0e(e, t) {
-  let r = await s0e(cb(e, t), { withFileTypes: !0 });
+  let r = await s0e(cb(e, t), { withFileTypes: true });
   return (
     await Promise.all(
       r.map(async (u) => {
@@ -475,10 +475,10 @@ async function hqt(e, t, r) {
   let o = [],
     u;
   do {
-    let d = await e.listRecursive({ namespace: "memory", projectKey: t }, { cursor: u, skipKeyStats: !0 });
+    let d = await e.listRecursive({ namespace: "memory", projectKey: t }, { cursor: u, skipKeyStats: true });
     if (!d.ok) throw new Cue(`memory scan listing failed: ${Ge(d.error)}`, "memory scan listing failed (storage v5)");
     for (let _ of d.value.items) {
-      if (_.key.namespace !== "memory" || (r && _.viaSymlink === !0)) continue;
+      if (_.key.namespace !== "memory" || (r && _.viaSymlink === true)) continue;
       o.push({ relativePath: cb(..._.key.relPath), key: _.key });
     }
     u = d.value.cursor;
@@ -492,12 +492,12 @@ function yqt(e, t) {
     d = o.charCodeAt(0) === 65279 ? o.slice(1) : o,
     _ = [],
     C = 0,
-    A = !1;
+    A = false;
   function x(B) {
     let W = _.length > 0 ? 1 : 0,
       z = C + W + Buffer.byteLength(B);
     if (z > yV) {
-      A = !0;
+      A = true;
       return;
     }
     (C = z), _.push(B);
@@ -524,7 +524,7 @@ function yqt(e, t) {
       let B = d.slice(F);
       if (B.endsWith("\r")) B = B.slice(0, -1);
       x(B);
-    } else A = !0;
+    } else A = true;
   return _.join(`
 `);
 }
@@ -622,15 +622,15 @@ function g0e(e) {
       );
     if (t === "ERR_HTTP2_SESSION_ERROR")
       return typeof e.message === "string" && vqt.test(e.message) && Aue(e.stack, "goaway (node:http2:");
-    return !1;
+    return false;
   } catch {
-    return !1;
+    return false;
   }
 }
 
 function Cqt(e, t) {
   return (
-    e.addEventListener("abort", t, { once: !0 }),
+    e.addEventListener("abort", t, { once: true }),
     {
       [Symbol.dispose]() {
         e.removeEventListener("abort", t);
@@ -676,8 +676,8 @@ function Zlt() {
 async function Bqt(e) {
   try {
     let t = Dqt(e),
-      r = await Iqt(t, { bigint: !0 }),
-      o = (r.bavail * r.bsize) / (1024n * 1024n),
+      r = await Iqt(t, { bigint: true }),
+      o = (r.bavail * r.bsize) / (1048576n),
       u = "Free up space or set CLAUDE_CODE_TMPDIR to a directory on a filesystem with room.";
     if (o < 0n) return null;
     if (o < 10n)
@@ -688,7 +688,7 @@ async function Bqt(e) {
   return null;
 }
 
-function LK(e, t, r, o, u = !1, d = nLe, _ = "inner") {
+function LK(e, t, r, o, u = false, d = nLe, _ = "inner") {
   return new Due(e, t, r, o, u, d, _);
 }
 
@@ -699,21 +699,21 @@ function Fue() {
 function _0e(e) {
   for (let t of [-e, e])
     try {
-      return process.kill(t, 0), !1;
+      return process.kill(t, 0), false;
     } catch (r) {
-      if (E(r) !== "ESRCH") return !1;
+      if (E(r) !== "ESRCH") return false;
     }
-  return !0;
+  return true;
 }
 
 function Zk(e) {
   let t = new Bx(Oh("local_bash"), null);
   return {
     status: "completed",
-    result: Promise.resolve({ code: 1, stdout: "", stderr: e, interrupted: !1, preSpawnError: e }),
+    result: Promise.resolve({ code: 1, stdout: "", stderr: e, interrupted: false, preSpawnError: e }),
     taskOutput: t,
     background() {
-      return !1;
+      return false;
     },
     kill() {
       return Promise.resolve();
@@ -727,7 +727,7 @@ function k0e() {
     scrolls: 0,
     pageJumps: 0,
     jumpToBottomClicks: 0,
-    reachedScrollbackCap: !1,
+    reachedScrollbackCap: false,
     scrolledUpMs: 0,
     unpinnedSince: null,
   };
@@ -746,7 +746,7 @@ function Iin(e = PR) {
 }
 
 function uct(e = PR) {
-  e.reachedScrollbackCap = !0;
+  e.reachedScrollbackCap = true;
 }
 
 function Pin(e, t = Date.now(), r = PR) {
@@ -840,7 +840,7 @@ async function Kqt(e, t, r, o) {
       if (C) A["Last-Uuid"] = C;
       let x = await st.put(r, t, { headers: A, timeout: 30000, validateStatus: (M) => M < 500 });
       if (x.status === 200 || x.status === 201)
-        return u.set(e, t.uuid), n(`Successfully persisted session log entry for session ${e}`), !0;
+        return u.set(e, t.uuid), n(`Successfully persisted session log entry for session ${e}`), true;
       if (x.status === 409) {
         let M = x.headers["x-last-uuid"];
         if (M === t.uuid)
@@ -848,7 +848,7 @@ async function Kqt(e, t, r, o) {
             u.set(e, t.uuid),
             n(`Session entry ${t.uuid} already present on server, recovering from stale state`),
             Y("info", "session_persist_recovered_from_409"),
-            !0
+            true
           );
         if (M) u.set(e, M), n(`Session 409: adopting server lastUuid=${M} from header, retrying entry ${t.uuid}`);
         else {
@@ -864,7 +864,7 @@ async function Kqt(e, t, r, o) {
                 level: "error",
               }),
               Y("error", "session_persist_fail_concurrent_modification"),
-              !1
+              false
             );
           }
         }
@@ -872,7 +872,7 @@ async function Kqt(e, t, r, o) {
         continue;
       }
       if (x.status === 401)
-        return n("Session token expired or invalid"), Y("error", "session_persist_fail_bad_token"), !1;
+        return n("Session token expired or invalid"), Y("error", "session_persist_fail_bad_token"), false;
       n(`Failed to persist session log: ${x.status} ${x.statusText}`),
         Y("error", "session_persist_fail_status", { status: x.status, attempt: d });
     } catch (C) {
@@ -883,18 +883,18 @@ async function Kqt(e, t, r, o) {
       return (
         n(`Remote persistence failed after ${FK} attempts`),
         Y("error", "session_persist_error_retries_exhausted", { attempt: d }),
-        !1
+        false
       );
     let _ = Math.min(Gqt * Math.pow(2, d - 1), 8000);
     n(`Remote persistence attempt ${d}/${FK} failed, retrying in ${_}ms\u2026`), await ne(_);
   }
-  return !1;
+  return false;
 }
 
 async function A0e(e, t, r) {
   let o = rl();
   if (!o)
-    return n("No session token available for session persistence"), Y("error", "session_persist_fail_jwt_no_token"), !1;
+    return n("No session token available for session persistence"), Y("error", "session_persist_fail_jwt_no_token"), false;
   let u = { Authorization: `Bearer ${o}`, "Content-Type": "application/json" };
   return qqt.run(e, () => Kqt(e, t, r, u));
 }
@@ -1003,7 +1003,7 @@ async function Bue(e, t, r) {
       headers: r,
       timeout: 20000,
       validateStatus: (u) => u < 500,
-      params: Me(process.env.CLAUDE_AFTER_LAST_COMPACT) ? { after_last_compact: !0 } : void 0,
+      params: Me(process.env.CLAUDE_AFTER_LAST_COMPACT) ? { after_last_compact: true } : void 0,
     });
     if (o.status === 200) {
       let u = o.data;
@@ -1059,21 +1059,21 @@ function Qjn() {
 }
 
 function NA(e) {
-  if (e.type !== "user") return !1;
+  if (e.type !== "user") return false;
   let t = e.message?.content;
   if (typeof t === "string") return NK.some((r) => t.startsWith(r));
-  if (!Array.isArray(t)) return !1;
+  if (!Array.isArray(t)) return false;
   return (
     t.length > 0 &&
     t.every((r) => {
-      let o = r.type === "text" ? r.text : r.type === "tool_result" && r.is_error === !0 ? r.content : void 0;
+      let o = r.type === "text" ? r.text : r.type === "tool_result" && r.is_error === true ? r.content : void 0;
       return typeof o === "string" && NK.some((u) => o.startsWith(u));
     })
   );
 }
 
 function MI(e) {
-  if (e.type !== "user" || e.interruptedByShutdown !== !0) return !1;
+  if (e.type !== "user" || e.interruptedByShutdown !== true) return false;
   let t = e.message?.content;
   return Array.isArray(t) && t.some((r) => r.type === "tool_result");
 }
@@ -1083,13 +1083,13 @@ function BU(e, t) {
 }
 
 function M0e(e) {
-  if (e.type !== "user" || e.isMeta !== !0) return !1;
+  if (e.type !== "user" || e.isMeta !== true) return false;
   let t = e.message?.content,
     r = Array.isArray(t) ? t[0] : void 0,
     o = typeof t === "string" ? t : r?.type === "text" && typeof r.text === "string" ? r.text : void 0;
-  if (typeof o !== "string") return !1;
-  if (Xqt.some((u) => o.startsWith(u))) return !0;
-  if (Qqt.includes(o)) return !0;
+  if (typeof o !== "string") return false;
+  if (Xqt.some((u) => o.startsWith(u))) return true;
+  if (Qqt.includes(o)) return true;
   return Sin.some((u) => o.startsWith(`${u}${BMt}`));
 }
 
@@ -1098,16 +1098,16 @@ async function LW(e) {
     { stdout: r, code: o } = await qe(
       it(),
       ["-c", "core.hooksPath=/dev/null", "-c", "core.fsmonitor=", "worktree", "list", "--porcelain"],
-      { cwd: e, preserveOutputOnError: !1 },
+      { cwd: e, preserveOutputOnError: false },
     ),
     u = Date.now() - t;
-  if (o !== 0) return s("tengu_worktree_detection", { duration_ms: u, worktree_count: 0, success: !1 }), [];
+  if (o !== 0) return s("tengu_worktree_detection", { duration_ms: u, worktree_count: 0, success: false }), [];
   let d = r
     .split(`
 `)
     .filter((A) => A.startsWith("worktree "))
     .map((A) => tr(A.slice(9)));
-  s("tengu_worktree_detection", { duration_ms: u, worktree_count: d.length, success: !0 });
+  s("tengu_worktree_detection", { duration_ms: u, worktree_count: d.length, success: true });
   let _ = d.find((A) => e === A || e.startsWith(A + Jqt)),
     C = d.filter((A) => A !== _).sort((A, x) => A.localeCompare(x));
   return _ ? [_, ...C] : C;
@@ -1138,7 +1138,7 @@ function xm(e) {
 
 function Ll() {
   let e = Fa();
-  return (e.staticSystemPromptEnabled ??= a.CLAUDE_CODE_CARVED_SLATE ?? I(eKt, !1)), e.staticSystemPromptEnabled;
+  return (e.staticSystemPromptEnabled ??= a.CLAUDE_CODE_CARVED_SLATE ?? I(eKt, false)), e.staticSystemPromptEnabled;
 }
 
 function $0e() {
@@ -1216,11 +1216,11 @@ function H0e(e, t) {
 }
 
 async function zue(e) {
-  return H0e(await Wue(e), !1);
+  return H0e(await Wue(e), false);
 }
 
 function j0e(e) {
-  return [jU, jK, H0e(e, !0)].join(`
+  return [jU, jK, H0e(e, true)].join(`
 `);
 }
 
@@ -1295,7 +1295,7 @@ function q0e() {
 }
 
 function bc(e, t) {
-  return { name: e, compute: t, cacheBreak: !1 };
+  return { name: e, compute: t, cacheBreak: false };
 }
 
 async function K0e(e, t, r) {
@@ -1503,20 +1503,20 @@ function lUe(e) {
 }
 
 function cUe(e) {
-  if (!e.includes("<!--")) return { content: e, stripped: !1 };
-  return gde(new SM({ gfm: !1 }).lex(e));
+  if (!e.includes("<!--")) return { content: e, stripped: false };
+  return gde(new SM({ gfm: false }).lex(e));
 }
 
 function gde(e) {
   let t = "",
-    r = !1,
+    r = false,
     o = /<!--[\s\S]*?-->/g;
   for (let u of e) {
     if (u.type === "html") {
       let d = u.raw.trimStart();
       if (d.startsWith("<!--") && d.includes("-->")) {
         let _ = u.raw.replace(o, "");
-        if (((r = !0), _.trim().length > 0)) t += _;
+        if (((r = true), _.trim().length > 0)) t += _;
         continue;
       }
     }
@@ -1532,19 +1532,19 @@ function XK() {
 async function LKt(e) {
   let t = [],
     r = 0,
-    o = !1,
+    o = false,
     u = async (d, _, C) => {
       if (C >= AKt) {
-        o = !0;
+        o = true;
         return;
       }
-      let A = await kKt(d, { withFileTypes: !0 }).catch((x) => {
+      let A = await kKt(d, { withFileTypes: true }).catch((x) => {
         if (C > 0) return [];
         throw x;
       });
       for (let x of A) {
         if (++r > RKt) {
-          o = !0;
+          o = true;
           return;
         }
         let M = _ === "" ? x.name : `${_}/${x.name}`;
@@ -1553,7 +1553,7 @@ async function LKt(e) {
       }
     };
   try {
-    return await u(e, "", 0), { files: t, listingFailed: !1, walkTruncated: o };
+    return await u(e, "", 0), { files: t, listingFailed: false, walkTruncated: o };
   } catch (d) {
     if (E(d) !== "ENOENT") n(`assembleMemoryIndex: readdir ${e} failed: ${d}`);
     return { files: t, listingFailed: E(d) !== "ENOENT", walkTruncated: o };
@@ -1650,10 +1650,10 @@ async function GKt(e) {
     t = await ede();
   } catch (r) {
     let o = E(r);
-    if (o === "ENOENT" || o === "ENOTDIR") return !0;
-    return !1;
+    if (o === "ENOENT" || o === "ENOTDIR") return true;
+    return false;
   }
-  if (e === t) return !0;
+  if (e === t) return true;
   return e.startsWith(t + _de);
 }
 
@@ -1684,7 +1684,7 @@ async function qKt() {
 function MR(e) {
   let t = kUe(e).normalize("NFC").toLowerCase(),
     r = JK().normalize("NFC").toLowerCase();
-  if (!t.startsWith(r)) return !1;
+  if (!t.startsWith(r)) return false;
   let o = t.slice(r.length).replaceAll(_de, "/");
   return !tD(o);
 }
@@ -1712,8 +1712,8 @@ function YKt(e, t) {
 
 function L8(e, t) {
   return e.filter((r) => {
-    if (Qlt(r) === null) return !0;
-    return YKt(t, r), !1;
+    if (Qlt(r) === null) return true;
+    return YKt(t, r), false;
   });
 }
 
@@ -1870,14 +1870,14 @@ function AUe(e, t) {
 }
 
 function kde(e, t) {
-  let r = !1;
+  let r = false;
   for (let o of e) {
     let u = o.deref();
     if (u === void 0) e.delete(o);
-    else if (u === t) r = !0;
+    else if (u === t) r = true;
   }
-  if (r) return !1;
-  return e.add(new WeakRef(t)), !0;
+  if (r) return false;
+  return e.add(new WeakRef(t)), true;
 }
 
 function w2(e) {
@@ -1912,7 +1912,7 @@ function FUe() {
 }
 
 function T2(e, t) {
-  if (e.type !== t.type) return !1;
+  if (e.type !== t.type) return false;
   let r = (o, u) => (o.if ?? "") === (u.if ?? "");
   switch (e.type) {
     case "command": {
@@ -1940,7 +1940,7 @@ function T2(e, t) {
         r(e, t)
       );
     case "function":
-      return !1;
+      return false;
   }
 }
 
@@ -1989,15 +1989,15 @@ function* h2t() {
 }
 
 function ole(e) {
-  for (let { event: t, hook: r } of UUe()) if (!E2.has(t) && r.type === "mcp_tool" && r.server === e) return !0;
+  for (let { event: t, hook: r } of UUe()) if (!E2.has(t) && r.type === "mcp_tool" && r.server === e) return true;
   for (let t of h2t()) {
     if (!t) continue;
     for (let [r, o] of Object.entries(t)) {
       if (E2.has(r) || !o) continue;
-      for (let u of o) for (let d of u.hooks ?? []) if (d.type === "mcp_tool" && d.server === e) return !0;
+      for (let u of o) for (let d of u.hooks ?? []) if (d.type === "mcp_tool" && d.server === e) return true;
     }
   }
-  return !1;
+  return false;
 }
 
 function vde() {
@@ -2038,7 +2038,7 @@ function HUe(e, t) {
     if (!r.servers.some((o) => o.name === e)) return;
     Ade(r),
       (r.servers = r.servers.filter((o) => {
-        if (o.name !== e) return !0;
+        if (o.name !== e) return true;
         let u = iAt(o.pid, o.starttime, o.fs);
         return (
           n(
@@ -2329,7 +2329,7 @@ function zUe(e) {
     o = [],
     u = [],
     d = [],
-    _ = !1,
+    _ = false,
     C = "unknown";
   if (t.length > 0) {
     let M = t[0],
@@ -2347,7 +2347,7 @@ function zUe(e) {
         pe = z.type === "StringConstantExpressionAst" || z.type === "ExpandableStringExpressionAst";
       o.push(M8(pe && z.value != null ? z.value : z.text)), u.push(YU(z.type, z.expressionType));
       let fe = ry(z.children);
-      if (fe.length > 0) (_ = !0), d.push(fe.map((me) => ({ type: YU(me.type), text: M8(me.text) })));
+      if (fe.length > 0) (_ = true), d.push(fe.map((me) => ({ type: YU(me.type), text: M8(me.text) })));
       else d.push(void 0);
     }
   }
@@ -2372,8 +2372,8 @@ function dVt(e) {
 }
 
 function VU(e) {
-  if (e.type === "MergingRedirectionAst") return { operator: "2>&1", target: "", isMerging: !0 };
-  let t = e.append ?? !1,
+  if (e.type === "MergingRedirectionAst") return { operator: "2>&1", target: "", isMerging: true };
+  let t = e.append ?? false,
     r = e.fromStream ?? "Output",
     o;
   if (t)
@@ -2400,7 +2400,7 @@ function VU(e) {
         o = ">";
         break;
     }
-  return { operator: o, target: e.locationText ?? "", isMerging: !1 };
+  return { operator: o, target: e.locationText ?? "", isMerging: false };
 }
 
 function pVt(e) {
@@ -2445,9 +2445,9 @@ function mVt(e) {
     },
     r = ry(e.typeLiterals);
   if (r.length > 0) t.typeLiterals = r;
-  if (e.hasUsingStatements) t.hasUsingStatements = !0;
-  if (e.hasScriptRequirements) t.hasScriptRequirements = !0;
-  if (e.hasBackgroundJob) t.hasBackgroundJob = !0;
+  if (e.hasUsingStatements) t.hasUsingStatements = true;
+  if (e.hasScriptRequirements) t.hasScriptRequirements = true;
+  if (e.hasBackgroundJob) t.hasBackgroundJob = true;
   return t;
 }
 
@@ -2473,20 +2473,20 @@ async function fVt(e) {
     A = "",
     x = "",
     M = null,
-    F = !1,
+    F = false,
     U = null;
   for (let W = 0; W < H2t; W++) {
-    (U = null), (F = !1);
+    (U = null), (F = false);
     let z;
     try {
-      let pe = Ff(r, d, { timeout: _, reject: !1, useToolMemoryCgroup: !1 }),
+      let pe = Ff(r, d, { timeout: _, reject: false, useToolMemoryCgroup: false }),
         fe = await Promise.race([
           pe,
           new Promise((me) => {
             z = setTimeout((ge) => ge(null), C, me);
           }),
         ]);
-      if (fe === null) pe.catch(() => {}), (F = !0), (M = 1);
+      if (fe === null) pe.catch(() => {}), (F = true), (M = 1);
       else (A = fe.stdout), (x = fe.stderr), (F = fe.timedOut), (M = fe.failed ? (fe.exitCode ?? 1) : 0);
     } catch (pe) {
       (U = pe instanceof Error ? pe.message : String(pe)), (M = null);
@@ -2561,13 +2561,13 @@ function Hin(e, t) {
   let r = t.toLowerCase(),
     o = DW[r]?.toLowerCase();
   for (let u of kin(e)) {
-    if (u === r) return !0;
+    if (u === r) return true;
     let d = DW[u]?.toLowerCase();
-    if (d === r) return !0;
-    if (o && u === o) return !0;
-    if (d && o && d === o) return !0;
+    if (d === r) return true;
+    if (o && u === o) return true;
+    if (d && o && d === o) return true;
   }
-  return !1;
+  return false;
 }
 
 function cee(e, t) {
@@ -2603,12 +2603,12 @@ function oct(e) {
 
 function j1(e) {
   let t = {
-    hasSubExpressions: !1,
-    hasScriptBlocks: !1,
-    hasSplatting: !1,
-    hasExpandableStrings: !1,
-    hasMemberInvocations: !1,
-    hasAssignments: !1,
+    hasSubExpressions: false,
+    hasScriptBlocks: false,
+    hasSplatting: false,
+    hasExpandableStrings: false,
+    hasMemberInvocations: false,
+    hasAssignments: false,
     hasStopParsing: e.hasStopParsing,
   };
   function r(o) {
@@ -2616,33 +2616,33 @@ function j1(e) {
     for (let u of o.elementTypes)
       switch (u) {
         case "ScriptBlock":
-          t.hasScriptBlocks = !0;
+          t.hasScriptBlocks = true;
           break;
         case "SubExpression":
-          t.hasSubExpressions = !0;
+          t.hasSubExpressions = true;
           break;
         case "ExpandableString":
-          t.hasExpandableStrings = !0;
+          t.hasExpandableStrings = true;
           break;
         case "MemberInvocation":
-          t.hasMemberInvocations = !0;
+          t.hasMemberInvocations = true;
           break;
       }
   }
   for (let o of e.statements) {
-    if (o.statementType === "AssignmentStatementAst") t.hasAssignments = !0;
+    if (o.statementType === "AssignmentStatementAst") t.hasAssignments = true;
     for (let u of o.commands) r(u);
     if (o.nestedCommands) for (let u of o.nestedCommands) r(u);
     if (o.securityPatterns) {
-      if (o.securityPatterns.hasMemberInvocations) t.hasMemberInvocations = !0;
-      if (o.securityPatterns.hasSubExpressions) t.hasSubExpressions = !0;
-      if (o.securityPatterns.hasExpandableStrings) t.hasExpandableStrings = !0;
-      if (o.securityPatterns.hasScriptBlocks) t.hasScriptBlocks = !0;
+      if (o.securityPatterns.hasMemberInvocations) t.hasMemberInvocations = true;
+      if (o.securityPatterns.hasSubExpressions) t.hasSubExpressions = true;
+      if (o.securityPatterns.hasExpandableStrings) t.hasExpandableStrings = true;
+      if (o.securityPatterns.hasScriptBlocks) t.hasScriptBlocks = true;
     }
   }
   for (let o of e.variables)
     if (o.isSplatted) {
-      t.hasSplatting = !0;
+      t.hasSplatting = true;
       break;
     }
   return t;
@@ -2697,7 +2697,7 @@ function YUe(e) {
   return {
     type: "powershell",
     shellPath: e,
-    detached: !1,
+    detached: false,
     stdin: "ignore",
     async buildExecCommand(r, o) {
       t = o.useSandbox ? o.sandboxTmpDir : void 0;
@@ -2706,7 +2706,7 @@ function YUe(e) {
         u = (D() === "windows" ? KUe : bVt)(o.sandboxTmpDir, `claude-pwd-ps-${o.id}`);
       else {
         let M = xl();
-        await SVt(M, { recursive: !0, mode: 448 }).catch(() => {}), (u = KUe(M, `claude-pwd-ps-${o.id}`));
+        await SVt(M, { recursive: true, mode: 448 }).catch(() => {}), (u = KUe(M, `claude-pwd-ps-${o.id}`));
       }
       let _ = `
 ; $_ec = if ($null -ne $LASTEXITCODE) { $LASTEXITCODE } elseif ($?) { 0 } else { 1 }
@@ -2768,11 +2768,11 @@ async function xde(e) {
 }
 
 function Mde(e) {
-  if (g4(e)) return !1;
-  for (let r of e.split(/[/\\]/)) if (/^\.\. [ .]*$/.test(r)) return !1;
+  if (g4(e)) return false;
+  for (let r of e.split(/[/\\]/)) if (/^\.\. [ .]*$/.test(r)) return false;
   let t = MVt(e);
-  if (xVt(t)) return !1;
-  return !0;
+  if (xVt(t)) return false;
+  return true;
 }
 
 function IVt(e, t) {
@@ -2790,7 +2790,7 @@ function IVt(e, t) {
   let d = t.totalUncompressedSize / t.compressedSize;
   if (d > Dv.MAX_COMPRESSION_RATIO)
     r = `Suspicious compression ratio detected: ${d.toFixed(1)}:1 (max: ${Dv.MAX_COMPRESSION_RATIO}:1). This may be a zip bomb.`;
-  return r ? { isValid: !1, error: r } : { isValid: !0 };
+  return r ? { isValid: false, error: r } : { isValid: true };
 }
 
 async function sye(e) {
@@ -2800,7 +2800,7 @@ async function sye(e) {
       filter: (d) => {
         let _ = IVt(d, o);
         if (!_.isValid) throw new R(_.error, "MCPB zip entry validation failed");
-        return !0;
+        return true;
       },
     });
   return (
@@ -2932,7 +2932,7 @@ async function sct(e, t, r, o, u, d) {
     let _ = {},
       C = {};
     for (let [z, pe] of Object.entries(r))
-      if (o[z]?.sensitive === !0) C[z] = String(pe);
+      if (o[z]?.sensitive === true) C[z] = String(pe);
       else _[z] = pe;
     let A = new Set(Object.keys(C)),
       x = new Set(Object.keys(_)),
@@ -3023,7 +3023,7 @@ async function Ide(e, t, r) {
 async function HVt(e, t, r) {
   if ((n(`Downloading MCPB from ${e}`), r)) r(`Downloading ${e}...`);
   let o = performance.now(),
-    u = !1;
+    u = false;
   try {
     let _ = await (iJ(e) ? O9.get : Dl.get)(e, {
         timeout: 120000,
@@ -3039,7 +3039,7 @@ async function HVt(e, t, r) {
       C = new Uint8Array(_.data);
     if (
       (DE("mcpb", e, "success", performance.now() - o),
-      (u = !0),
+      (u = true),
       await Dde(t, Buffer.from(C)),
       n(`Downloaded ${C.length} bytes to ${t}`),
       r)
@@ -3087,13 +3087,13 @@ async function GVt(e, t) {
   let r = le(),
     o = JUe(t),
     u = await tBe(o, e);
-  if (!u) return !0;
+  if (!u) return true;
   try {
     await r.stat(u.extractedPath);
   } catch (d) {
     if (E(d) === "ENOENT") n(`MCPB extraction path missing: ${u.extractedPath}`);
     else n(`MCPB extraction path inaccessible: ${u.extractedPath}: ${d}`, { level: "error" });
-    return !0;
+    return true;
   }
   if (!QUe(e)) {
     let d = Uv(t, e),
@@ -3103,19 +3103,19 @@ async function GVt(e, t) {
     } catch (A) {
       if (E(A) === "ENOENT") n(`MCPB source file missing: ${d}`);
       else n(`MCPB source file inaccessible: ${d}: ${A}`, { level: "error" });
-      return !0;
+      return true;
     }
-    if (u.sourceMtimeMs === void 0) return !0;
+    if (u.sourceMtimeMs === void 0) return true;
     let C = Math.floor(_.mtimeMs);
     if (C !== u.sourceMtimeMs)
       return (
         n(
           `MCPB file modified: mtime ${new Date(C).toISOString()} != cached ${new Date(u.sourceMtimeMs).toISOString()}`,
         ),
-        !0
+        true
       );
   }
-  return !1;
+  return false;
 }
 
 async function act(e, t, r, o, u, d, _, C) {
@@ -3288,7 +3288,7 @@ async function lye(e, t, r, o, u) {
   let d = {},
     _ = {};
   for (let [U, B] of Object.entries(t))
-    if (r[U]?.sensitive === !0) _[U] = String(B);
+    if (r[U]?.sensitive === true) _[U] = String(B);
     else d[U] = B;
   let C = new Set(Object.keys(_)),
     A = new Set(Object.keys(d)),
@@ -3350,7 +3350,7 @@ async function Mxe(e, t) {
     u = {};
   for (let [d, _] of Object.entries(r)) {
     let C = o[d];
-    if (C === void 0 || C === "" || (_.sensitive !== !0 && !uee({ [d]: C }, { [d]: _ }).valid)) u[d] = _;
+    if (C === void 0 || C === "" || (_.sensitive !== true && !uee({ [d]: C }, { [d]: _ }).valid)) u[d] = _;
   }
   return u;
 }
@@ -3389,13 +3389,13 @@ function X9e(e, t) {
   try {
     return OR(e, t) !== e;
   } catch {
-    return !0;
+    return true;
   }
 }
 
 function N2(e, t, r, o) {
   return e.replace(/\$\{user_config\.([^}]+)\}/g, (u, d) => {
-    if (r[d]?.sensitive === !0) return `[sensitive option '${d}' not available in skill content]`;
+    if (r[d]?.sensitive === true) return `[sensitive option '${d}' not available in skill content]`;
     let _ = t[d];
     if (_ === void 0) return u;
     let C = String(_);
@@ -3429,7 +3429,7 @@ function OW() {
   let e = ye("policySettings")?.enabledPlugins;
   if (!e) return null;
   let t = new Set();
-  for (let [r, o] of Object.entries(e)) if (o === !0 && r.includes("@")) t.add(r);
+  for (let [r, o] of Object.entries(e)) if (o === true && r.includes("@")) t.add(r);
   return t.size > 0 ? t : null;
 }
 
@@ -3467,7 +3467,7 @@ function Jw(e) {
 }
 
 function iBe(e, t) {
-  if (!jI.exitFlushRegistered) (jI.exitFlushRegistered = !0), process.on("exit", t.flushAtExit);
+  if (!jI.exitFlushRegistered) (jI.exitFlushRegistered = true), process.on("exit", t.flushAtExit);
   if (!e.flushTimer) (e.flushTimer = setTimeout(t.flush, XVt)), e.flushTimer.unref?.();
 }
 
@@ -3861,7 +3861,7 @@ function G1({ rawName: e, canonicalName: t, isMcp: r, isBuiltIn: o, isBundled: u
 }
 
 function VI(e) {
-  if (e.source !== "plugin" || !e.pluginInfo?.repository) return !1;
+  if (e.source !== "plugin" || !e.pluginInfo?.repository) return false;
   return Pp(Vt(e.pluginInfo.repository).marketplace);
 }
 
@@ -3956,7 +3956,7 @@ function ABe(e) {
 }
 
 function lYt(e) {
-  return e.isBuiltin === !0 || ABe(e.repository);
+  return e.isBuiltin === true || ABe(e.repository);
 }
 
 function Win(e) {
@@ -4020,7 +4020,7 @@ function dWn(e, t, r, o, u) {
       plugin_id_hash: nk(M.name, F),
       has_hooks: M.hooksConfig !== void 0,
       has_mcp: !M.skipMcpDiscovery && M.mcpServers !== void 0,
-      host_owned_mcp: M.skipMcpDiscovery === !0,
+      host_owned_mcp: M.skipMcpDiscovery === true,
       skill_path_count: fe,
       command_path_count: me,
       agent_path_count: ge,
@@ -4036,7 +4036,7 @@ function dWn(e, t, r, o, u) {
         agent_path_count: ge,
         ...cYt(lYt(M) ? null : o, M.repository),
         has_mcp: !M.skipMcpDiscovery && M.mcpServers !== void 0,
-        host_owned_mcp: M.skipMcpDiscovery === !0,
+        host_owned_mcp: M.skipMcpDiscovery === true,
         has_lsp: M.lspServers !== void 0,
         has_hooks: M.hooksConfig !== void 0,
         has_settings: M.settings !== void 0,
@@ -4084,16 +4084,16 @@ function pWn(e, t, r) {
       _ = "plugin" in o && o.plugin ? o.plugin : u;
     s("tengu_plugin_load_failed", {
       error_category: c(o.type),
-      cache_only: r?.cacheOnly ?? !1,
+      cache_only: r?.cacheOnly ?? false,
       ...("component" in o && { component: c(o.component) }),
       ...("errno" in o && o.errno && { errno: o.errno }),
       ...z1(_, d, t),
       ...(o.type === "marketplace-load-failed" &&
-        o.untrustedReservedName === !0 && {
+        o.untrustedReservedName === true && {
           plugin_name_redacted: w(Yw),
           marketplace_name_redacted: uYt(o.marketplace),
           plugin_scope: c("user-local"),
-          is_official_plugin: !1,
+          is_official_plugin: false,
         }),
     });
   }
@@ -4178,11 +4178,11 @@ function vsn(e) {
 }
 
 function ip(e) {
-  return !("async" in e && e.async === !0);
+  return !("async" in e && e.async === true);
 }
 
 function G_(e) {
-  return "async" in e && e.async === !0;
+  return "async" in e && e.async === true;
 }
 
 function CD(e) {
@@ -4194,7 +4194,7 @@ function hzn(e) {
 }
 
 function $de(e, t) {
-  if (e === void 0) return !1;
+  if (e === void 0) return false;
   let r = Vd(e);
   return xBe.has(r) || Z6(r, t).some((o) => xBe.has(Vd(o)));
 }
@@ -4207,13 +4207,13 @@ function _zn(e, t) {
     case "PostToolBatch":
       return (e.tool_calls ?? []).some((r) => $de(r.tool_name, t));
     default:
-      return !1;
+      return false;
   }
 }
 
 function yzn(e, t, r) {
-  if (e !== "PostToolUse" && e !== "PostToolUseFailure") return !1;
-  if (!t || t === "*" || !_ce.test(t)) return !1;
+  if (e !== "PostToolUse" && e !== "PostToolUseFailure") return false;
+  if (!t || t === "*" || !_ce.test(t)) return false;
   let o = t
     .split(/[|,]/)
     .map((u) => u.trim())
@@ -4227,8 +4227,8 @@ function tbe(e) {
 }
 
 function PUt(e, t) {
-  if (e === void 0 || tbe(e)) return !0;
-  if (tbe(t) || !_ce.test(t) || !_ce.test(e)) return !1;
+  if (e === void 0 || tbe(e)) return true;
+  if (tbe(t) || !_ce.test(t) || !_ce.test(e)) return false;
   let r = new Set(
       e
         .split(/[|,]/)
@@ -4247,7 +4247,7 @@ function Hde(e) {
 }
 
 function MBe(e, t, r) {
-  if (!Hde(e) || e.deviceOwner !== t) return !1;
+  if (!Hde(e) || e.deviceOwner !== t) return false;
   let o = e.deviceTemplate !== void 0;
   return r === "both" || (r === "templates") === o;
 }
@@ -4334,10 +4334,10 @@ async function eGe({
   let B = new Set();
   for (;;) {
     let W = () => Is.filter((me) => !t.has(me) && !B.has(me));
-    for (let me = !0; me; ) {
-      me = !1;
+    for (let me = true; me; ) {
+      me = false;
       let ge = [...e, ...[...t].flatMap((Ce) => A(Ce, null))];
-      for (let Ce of W()) if (F(Ce, [...ge, ...A(Ce, u.get(Ce) ?? [])])) U(Ce), (me = !0);
+      for (let Ce of W()) if (F(Ce, [...ge, ...A(Ce, u.get(Ce) ?? [])])) U(Ce), (me = true);
     }
     let z = W();
     if (z.length === 0) return [...e];
@@ -4372,7 +4372,7 @@ async function Y7(e) {
       if (
         await NBe(r).then(
           (_) => _.isSymbolicLink(),
-          () => !1,
+          () => false,
         )
       )
         return "unreadable";
@@ -4384,12 +4384,12 @@ async function Y7(e) {
 
 async function DUt(e, t = Na(), r = t) {
   let o = async (M) => {
-      if (!eB(M)) return !1;
+      if (!eB(M)) return false;
       let F = await Y7(M);
       return F !== "unreadable" && !rh([M, ...(F === "absent" ? [] : [F])].map(kf), e);
     },
     u = async (M) => {
-      if (!eB(M)) return !1;
+      if (!eB(M)) return false;
       let F = await Y7(M);
       return F === "unreadable" || rh([M, ...(F === "absent" ? [] : [F])].map(kf), e);
     },
@@ -4420,14 +4420,14 @@ async function tGe(e, t, r, o = 0) {
     let d = Wde(u, e);
     if (
       !(await CYt(d, FBe.X_OK).then(
-        () => !0,
-        () => !1,
+        () => true,
+        () => false,
       ))
     ) {
       if (
         await NBe(d).then(
           (M) => M.isSymbolicLink(),
-          () => !1,
+          () => false,
         )
       ) {
         let M = await AYt(d).then(
@@ -4462,7 +4462,7 @@ async function tGe(e, t, r, o = 0) {
 
 async function Szn(e) {
   let t = await zde(e).catch((r) => (r.code === "ENOENT" || r.code === "ENOTDIR" ? "absent" : "unreadable"));
-  if (t === "absent") return !1;
+  if (t === "absent") return false;
   return t === "unreadable" || (t.nlink > 1 && !(await qde(e)));
 }
 
@@ -4470,11 +4470,11 @@ async function qde(e) {
   let t = await $Be(e, "r").catch(() => {
     return;
   });
-  if (t === void 0) return !1;
+  if (t === void 0) return false;
   try {
     let r = Buffer.alloc(4),
       { bytesRead: o } = await t.read(r, 0, 4, 0);
-    if (o < 4) return !1;
+    if (o < 4) return false;
     let u = r.readUInt32BE(0);
     return (
       u === 2135247942 ||
@@ -4593,7 +4593,7 @@ function fk(e) {
 
 function bzn(e) {
   let t = [];
-  if (ye("policySettings")?.allowManagedHooksOnly !== !0) {
+  if (ye("policySettings")?.allowManagedHooksOnly !== true) {
     let d = UH,
       _ = new Set();
     for (let C of d) {
@@ -4648,7 +4648,7 @@ function QBe(e) {
 }
 
 function CV() {
-  return I("tengu_disable_live_host_context", !1);
+  return I("tengu_disable_live_host_context", false);
 }
 
 function tpe(e) {
@@ -4671,7 +4671,7 @@ function DYt(e) {
 }
 
 function LYt(e) {
-  if (/^4;[0-4](;(100|\d{1,2})?)?$/.test(e)) return !0;
+  if (/^4;[0-4](;(100|\d{1,2})?)?$/.test(e)) return true;
   return !/^[\s\u180e\u200b]*[+-]?\p{Nd}/u.test(e);
 }
 
@@ -4748,7 +4748,7 @@ function tHe() {
 }
 
 function xV(e) {
-  if ($Yt.includes(e)) return !0;
+  if ($Yt.includes(e)) return true;
   return tHe().allHookEventsEnabled && _y.includes(e);
 }
 

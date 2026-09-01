@@ -39,7 +39,7 @@ function l(t) {
   for (let [e, o] of Object.entries(t)) if (!G.has(e.toUpperCase())) s[e] = o;
   return s;
 }
-var R = Object.freeze({ managedByHost: !1, managedByHostFlag: !1, desktopHost: !1, hostOrchestrated: !1 });
+var R = Object.freeze({ managedByHost: false, managedByHostFlag: false, desktopHost: false, hostOrchestrated: false });
 function T() {
   let t = Me(process.env.CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST),
     s = Uu(),
@@ -155,7 +155,7 @@ var B = new Set([
   "CLAUDE_CODE_SESSION_KIND",
   "CLAUDE_CODE_PROJECT_DIR_NAME",
 ]);
-function p(t, s, e, o = !1) {
+function p(t, s, e, o = false) {
   if (t.has(s)) return;
   t.add(s),
     n(
@@ -258,7 +258,7 @@ function L(t) {
   let s = {};
   for (let [e, o] of Object.entries(t)) {
     let i = e.toUpperCase();
-    if (!V.has(i) && !F.has(i) && !b.has(i) && !w.has(i) && !0 && !W.has(i)) s[e] = o;
+    if (!V.has(i) && !F.has(i) && !b.has(i) && !w.has(i) && true && !W.has(i)) s[e] = o;
   }
   return s;
 }

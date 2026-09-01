@@ -53,15 +53,15 @@ function nR(e) {
 function Fyn(e) {
   try {
     if (e.type === "user")
-      return nR(e.origin) && e.toolUseResult === void 0 && e.isCompactSummary !== !0 && e.verifiedSlackHumanTurn !== !0;
+      return nR(e.origin) && e.toolUseResult === void 0 && e.isCompactSummary !== true && e.verifiedSlackHumanTurn !== true;
     return (
       e.type === "attachment" &&
       e.attachment.type === "queued_command" &&
       nR(e.attachment.origin) &&
-      e.attachment.verifiedSlackHumanTurn !== !0
+      e.attachment.verifiedSlackHumanTurn !== true
     );
   } catch {
-    return !1;
+    return false;
   }
 }
 function pSt(e) {
@@ -77,9 +77,9 @@ function R9t(e) {
   return e?.kind === "human" || e?.kind === "auto-continuation";
 }
 function ire(e) {
-  return k9t(e).decider?.userDriven === !0;
+  return k9t(e).decider?.userDriven === true;
 }
-var C = { decider: null, referentTail: void 0, scheduledTrigger: !1 };
+var C = { decider: null, referentTail: void 0, scheduledTrigger: false };
 function k9t(e) {
   try {
     return be(e);
@@ -98,13 +98,13 @@ function Q(e) {
       let r = e[t];
       if (r == null) continue;
       if (r.type === "attachment" && r.attachment.type === "queued_command") {
-        if (I(r.attachment.origin)) return !0;
-        if (Z(r.attachment)) return !1;
+        if (I(r.attachment.origin)) return true;
+        if (Z(r.attachment)) return false;
         continue;
       }
       if (r.type === "user") {
         if (J(r)) {
-          if (I(r.origin)) return !0;
+          if (I(r.origin)) return true;
           continue;
         }
         return I(r.origin);
@@ -112,26 +112,26 @@ function Q(e) {
     } catch {
       continue;
     }
-  return !1;
+  return false;
 }
 function be(e) {
   let t = null,
     r = -1,
-    o = !1,
+    o = false,
     u = () => ({ ...C, scheduledTrigger: o || Q(e) });
   for (let i = e.length - 1; i >= 0; i--) {
     let b = e[i];
     if (b == null) return u();
     try {
       if (b.type === "attachment" && b.attachment.type === "queued_command") {
-        if (I(b.attachment.origin)) o = !0;
+        if (I(b.attachment.origin)) o = true;
         if (Z(b.attachment)) {
           let T = b.attachment.origin;
           (t = {
             index: i,
             origin: T,
             text: Y(Se(b.attachment.prompt)),
-            userDriven: !0,
+            userDriven: true,
             strictHuman: nR(T),
             scheduledTrigger: I(T),
           }),
@@ -141,17 +141,17 @@ function be(e) {
         continue;
       }
       if (b.type !== "user" || J(b) || Ee(e, i)) {
-        if (b.type === "user" && I(b.origin)) o = !0;
+        if (b.type === "user" && I(b.origin)) o = true;
         continue;
       }
       let h = b.origin,
-        E = b.isMeta === !0 && nR(h);
+        E = b.isMeta === true && nR(h);
       (t = {
         index: i,
         origin: h,
         text: Y(ke(b)),
-        userDriven: E || (b.isMeta !== !0 && R9t(h)),
-        strictHuman: E || (b.isMeta !== !0 && nR(h)),
+        userDriven: E || (b.isMeta !== true && R9t(h)),
+        strictHuman: E || (b.isMeta !== true && nR(h)),
         scheduledTrigger: I(h),
       }),
         (r = i);
@@ -168,7 +168,7 @@ function be(e) {
       let b = e[i];
       if (b == null) break;
       if (b.type !== "assistant") break;
-      if (b.isApiErrorMessage === !0 || b.isVirtual === !0 || b.message?.model === rd) continue;
+      if (b.isApiErrorMessage === true || b.isVirtual === true || b.message?.model === rd) continue;
       let E = he(b);
       if (E !== null) {
         _ = E;
@@ -220,24 +220,24 @@ function Se(e) {
     : null;
 }
 function Z(e) {
-  return nR(e.origin) || (e.isMeta !== !0 && R9t(e.origin));
+  return nR(e.origin) || (e.isMeta !== true && R9t(e.origin));
 }
 function J(e) {
-  return ee(e) || e.isCompactSummary === !0;
+  return ee(e) || e.isCompactSummary === true;
 }
 function ee(e) {
   return (
     e.toolUseResult !== void 0 ||
     e.sourceToolAssistantUUID !== void 0 ||
     e.sourceToolUseID !== void 0 ||
-    e.turnCompanion === !0
+    e.turnCompanion === true
   );
 }
 function Ee(e, t) {
   let r = e[t];
-  if (r?.type !== "user" || !(r.origin === void 0 || nR(r.origin))) return !1;
+  if (r?.type !== "user" || !(r.origin === void 0 || nR(r.origin))) return false;
   let o = X(r);
-  if (o === null) return !1;
+  if (o === null) return false;
   let u = new Set(o),
     S;
   for (let _ = t - 1; _ >= 0 && u.size > 0; _--) {
@@ -249,10 +249,10 @@ function Ee(e, t) {
       for (let h of Array.isArray(b) ? b : [])
         if (typeof h === "object" && h !== null && h.type === "tool_use") u.delete(h.id);
     } else if (i?.type === "user") {
-      if (i.replacesSpan === !0) break;
+      if (i.replacesSpan === true) break;
       let b = ee(i) ? ve(i) : X(i);
       if (b === null) break;
-      if (b.some((h) => u.has(h))) return !1;
+      if (b.some((h) => u.has(h))) return false;
     }
   }
   return u.size === 0;
@@ -302,7 +302,7 @@ function Uyn(e, t) {
   return typeof e === "object" && e !== null && "kind" in e && e.kind === "human" ? { kind: "human" } : void 0;
 }
 function gSt(e, t) {
-  return (t === !0 || (e !== void 0 && e !== null)) && Uyn(e, t) === void 0;
+  return (t === true || (e !== void 0 && e !== null)) && Uyn(e, t) === void 0;
 }
 function RV(e) {
   return e.type === "user" && !e.isMeta && e.toolUseResult === void 0;
@@ -359,10 +359,10 @@ function oer(e) {
   oi().bridgeStateFramesGate = e;
 }
 function Mde(e) {
-  if ((e.type === "user" || e.type === "assistant") && e.isVirtual) return !1;
+  if ((e.type === "user" || e.type === "assistant") && e.isVirtual) return false;
   if (e.type === "attachment") {
-    if (e.attachment.type === "hook_system_message") return !0;
-    if (e.attachment.type === "tool_host_result_lines") return !0;
+    if (e.attachment.type === "hook_system_message") return true;
+    if (e.attachment.type === "tool_host_result_lines") return true;
     return (
       e.attachment.type === "queued_command" &&
       e.attachment.commandMode === "prompt" &&
@@ -374,7 +374,7 @@ function Mde(e) {
     e.type === "user" ||
     e.type === "assistant" ||
     (e.type === "system" &&
-      (e.subtype === "local_command" || (e.subtype === "compact_boundary" && (oi().bridgeStateFramesGate?.() ?? !0))))
+      (e.subtype === "local_command" || (e.subtype === "compact_boundary" && (oi().bridgeStateFramesGate?.() ?? true))))
   );
 }
 function H9t(e) {
@@ -431,7 +431,7 @@ function ser(e, t, r, o, u, S) {
       return;
     }
     if ((n(`[bridge:repl] Ingress message type=${_.type}${i ? ` uuid=${i}` : ""}`), _.type === "user")) {
-      if ("isReplay" in _ && _.isReplay === !0) {
+      if ("isReplay" in _ && _.isReplay === true) {
         n(`[bridge:repl] Ignoring replay echo: uuid=${i ?? "none"}`);
         return;
       }
@@ -440,7 +440,7 @@ function ser(e, t, r, o, u, S) {
         return;
       }
       if (i) r.add(i);
-      s("tengu_bridge_message_received", { is_repl: !0 }), y("bridge_message_receive"), o?.(_);
+      s("tengu_bridge_message_received", { is_repl: true }), y("bridge_message_receive"), o?.(_);
     } else n(`[bridge:repl] Ignoring non-user inbound message: type=${_.type}`);
   } catch (_) {
     n(`[bridge:repl] Failed to parse ingress message: ${l(_)}`),
@@ -506,13 +506,13 @@ function Oe(e, t, r, o, u = Pe) {
           session_id: r,
         });
     },
-    _ = !1,
+    _ = false,
     i = {
-      ok: !1,
+      ok: false,
       error:
         "This model switch is still pending (an earlier model request or a PreModelSwitch hook has not finished); it will apply when that completes unless it is refused",
     },
-    b = o.then((h) => h ?? { ok: !0 });
+    b = o.then((h) => h ?? { ok: true });
   jt(b, u)
     .then((h) => {
       _ = h === void 0;
@@ -685,9 +685,9 @@ function ler(e, t) {
       let a = Lf(e.request.mode),
         d =
           a === void 0
-            ? { ok: !1, error: uoe }
+            ? { ok: false, error: uoe }
             : (ce?.(a) ?? {
-                ok: !1,
+                ok: false,
                 error:
                   "set_permission_mode is not supported in this context (onSetPermissionMode callback not registered)",
               });
@@ -705,7 +705,7 @@ function ler(e, t) {
         break;
       }
       let d = pe?.(e.request.title) ?? {
-        ok: !1,
+        ok: false,
         error: "rename_session is not supported in this context (onRenameSession callback not registered)",
       };
       if (d.ok) k = { type: "control_response", response: { subtype: "success", request_id: e.request_id } };
@@ -715,7 +715,7 @@ function ler(e, t) {
     }
     case "set_color": {
       let a = ge?.(e.request.color) ?? {
-        ok: !1,
+        ok: false,
         error: "set_color is not supported in this context (onSetColor callback not registered)",
       };
       if (a.ok) k = { type: "control_response", response: { subtype: "success", request_id: e.request_id } };
@@ -874,7 +874,7 @@ function ler(e, t) {
       else if (!O)
         p("bridge_flag_settings", "not_registered"),
           (d = {
-            ok: !1,
+            ok: false,
             error: "apply_flag_settings is not supported in this context (onApplyFlagSettings callback not registered)",
           });
       else d = O(a.settings);
@@ -887,10 +887,10 @@ function ler(e, t) {
     case "mcp_set_servers": {
       let a = e.request.servers,
         d;
-      if (!te(a)) d = { ok: !1, error: "mcp_set_servers: servers must be an object" };
+      if (!te(a)) d = { ok: false, error: "mcp_set_servers: servers must be an object" };
       else if (!z)
         d = {
-          ok: !1,
+          ok: false,
           error: "mcp_set_servers is not supported in this context (onMcpSetServers callback not registered)",
         };
       else
@@ -898,7 +898,7 @@ function ler(e, t) {
           d = z(a);
         } catch (A) {
           n(`[bridge:repl] mcp_set_servers handler threw: ${l(A)}`, { level: "error" }),
-            (d = { ok: !1, error: "mcp_set_servers failed to apply" });
+            (d = { ok: false, error: "mcp_set_servers failed to apply" });
         }
       k = d.ok
         ? {
@@ -965,7 +965,7 @@ function $e(e, t) {
 function Fe(e) {
   if (!te(e))
     return (
-      p("bridge_flag_settings", "invalid_shape"), { ok: !1, error: "apply_flag_settings: settings must be an object" }
+      p("bridge_flag_settings", "invalid_shape"), { ok: false, error: "apply_flag_settings: settings must be an object" }
     );
   let t = Object.keys(e).filter((o) => !Ae.has(o));
   if (t.length > 0) {
@@ -973,7 +973,7 @@ function Fe(e) {
     let o = t.slice(0, Te).map((S) => or(S, xe)),
       u = t.length > o.length ? ` (+${t.length - o.length} more)` : "";
     return {
-      ok: !1,
+      ok: false,
       error: `apply_flag_settings: ${o.join(", ")}${u} cannot be changed over Remote Control (only effortLevel and ultracode can)`,
     };
   }
@@ -983,7 +983,7 @@ function Fe(e) {
     if (o !== null && typeof o !== "string")
       return (
         p("bridge_flag_settings", "invalid_type"),
-        { ok: !1, error: "apply_flag_settings: effortLevel must be a string or null" }
+        { ok: false, error: "apply_flag_settings: effortLevel must be a string or null" }
       );
     r.effortLevel = o;
   }
@@ -991,7 +991,7 @@ function Fe(e) {
     let o = e.ultracode;
     if (typeof o !== "boolean")
       return (
-        p("bridge_flag_settings", "invalid_type"), { ok: !1, error: "apply_flag_settings: ultracode must be a boolean" }
+        p("bridge_flag_settings", "invalid_type"), { ok: false, error: "apply_flag_settings: ultracode must be a boolean" }
       );
     r.ultracode = o;
   }
@@ -999,12 +999,12 @@ function Fe(e) {
     return (
       p("bridge_flag_settings", "nothing_to_apply"),
       {
-        ok: !1,
+        ok: false,
         error:
           "apply_flag_settings: nothing to apply \u2014 only effortLevel and ultracode can be changed over Remote Control",
       }
     );
-  return { ok: !0, settings: r };
+  return { ok: true, settings: r };
 }
 function jyn(e, t) {
   return {
@@ -1013,7 +1013,7 @@ function jyn(e, t) {
     ...(t && { user_message_uuid: t }),
     duration_ms: 0,
     duration_api_ms: 0,
-    is_error: !1,
+    is_error: false,
     num_turns: 0,
     result: "",
     stop_reason: null,
@@ -1047,7 +1047,7 @@ function cer(e, t) {
       context_management: null,
     },
     parent_tool_use_id: null,
-    is_meta: !0,
+    is_meta: true,
     session_id: t,
     uuid: v(),
   };
@@ -1117,18 +1117,18 @@ function qyn(e) {
 }
 var P = ["VERIFIED", "VERIFIED_KEYLESS_DEVICE", "VERIFIED_BY_GATE"];
 function Gyn(e, t) {
-  if (e === "SERVICE_VOUCHED") return !0;
+  if (e === "SERVICE_VOUCHED") return true;
   let r = P.findIndex((o) => o === e);
   return r !== -1 && r <= P.indexOf(t);
 }
-var I9t = { enforce: !1, acceptLevel: "VERIFIED", acceptStatuses: new Set() },
+var I9t = { enforce: false, acceptLevel: "VERIFIED", acceptStatuses: new Set() },
   Be = ["UNSPECIFIED", "ABSENT", "INVALID", "UNCHECKED"],
   je = m(() => f({ accept_level: oe(P).default("VERIFIED"), accept_statuses: H(oe(Be)).default([]) }));
 function uer(e) {
   let t = oi().attestation,
     r = je().safeParse(e);
   if (!r.success && !t.malformedConfigReported) {
-    t.malformedConfigReported = !0;
+    t.malformedConfigReported = true;
     try {
       n(
         `[bridge:attestation] malformed enforce config \u2014 failing closed to accept_level=VERIFIED with no accept_statuses: ${r.error.message}`,
@@ -1140,7 +1140,7 @@ function uer(e) {
     }
   }
   return {
-    enforce: !0,
+    enforce: true,
     acceptLevel: r.success ? r.data.accept_level : "VERIFIED",
     acceptStatuses: new Set(r.success ? r.data.accept_statuses : []),
   };
@@ -1230,7 +1230,7 @@ function SSt(e, { automated: t }) {
 }
 function Xe(e) {
   let t = e.payload?.response;
-  if (typeof t !== "object" || t === null) return !1;
+  if (typeof t !== "object" || t === null) return false;
   let r = fMe(t);
   return r !== void 0 && oi().attestation.automatedOutboundRequestIds.has(r);
 }
@@ -1240,7 +1240,7 @@ function bSt(e) {
 }
 function Ze(e) {
   let t = e.payload?.response;
-  if (typeof t !== "object" || t === null) return !1;
+  if (typeof t !== "object" || t === null) return false;
   let r = fMe(t);
   return r !== void 0 && oi().attestation.resolvedPromptRequestIds.has(r);
 }
@@ -1260,7 +1260,7 @@ function ie(e, t) {
       status: e.status,
       payloadType: e.payloadType,
       ...(e.subtype !== void 0 && { subtype: e.subtype }),
-      windowCapped: !0,
+      windowCapped: true,
     });
 }
 function ae(e) {
@@ -1309,17 +1309,17 @@ function wSt(e) {
     u = oi().attestation.filterPolicy?.() ?? I9t;
   if (Gyn(o, u.acceptLevel)) {
     if (r) y("bridge_event_attestation");
-    return N(e, t), !1;
+    return N(e, t), false;
   }
   if (!u.enforce) {
-    if ((N(e, t), o === "UNSPECIFIED")) return !1;
+    if ((N(e, t), o === "UNSPECIFIED")) return false;
     if (r)
       n(`[bridge:attestation] accepting unverified ${t} event_id=${e.event_id} status=${o}`, { level: "info" }),
         g("bridge_event_attestation", `${o.toLowerCase()}_${t}`);
-    return !1;
+    return false;
   }
   let S = u.acceptStatuses.has(o),
-    _ = !1;
+    _ = false;
   if (r) {
     let i = `${o.toLowerCase()}_${t}`;
     if (
@@ -1331,24 +1331,24 @@ function wSt(e) {
     )
       g("bridge_event_attestation", i);
     else if (t === "control_response" && Xe(e))
-      (_ = !0),
+      (_ = true),
         n(
           `[bridge:attestation] dropped ${t} event_id=${e.event_id} status=${o} answers an automated outbound request; notice suppressed`,
           { level: "info" },
         ),
         p("bridge_event_attestation", `${i}_automated_reply`);
     else if (t === "control_response" && Ze(e))
-      (_ = !0),
+      (_ = true),
         n(
           `[bridge:attestation] dropped ${t} event_id=${e.event_id} status=${o} is a duplicate answer to an already-resolved prompt; notice suppressed`,
           { level: "info" },
         ),
         p("bridge_event_attestation", `${i}_resolved_duplicate`);
-    else (_ = !0), p("bridge_event_attestation", i), ie({ status: o, payloadType: t }, e.event_id);
+    else (_ = true), p("bridge_event_attestation", i), ie({ status: o, payloadType: t }, e.event_id);
   } else if (t === "control_request" && !S) {
     let i = de(e);
     if (i) {
-      _ = !0;
+      _ = true;
       let b = i.requestId !== void 0 && Ye(i.requestId) ? void 0 : i.requestId;
       n(
         `[bridge:attestation] DROPPING unverified control_request subtype=${i.subtype} event_id=${e.event_id} status=${o}${b === void 0 && i.requestId !== void 0 ? " (forged-id refusal suppressed)" : ""}`,

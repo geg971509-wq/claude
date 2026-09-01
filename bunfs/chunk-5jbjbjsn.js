@@ -59,8 +59,8 @@ var C = S(function (vt, T) {
 var N = S(function (gt, I) {
   var L = _Me(),
     De = (r, t) => {
-      let e = L(r, null, !0),
-        s = L(t, null, !0),
+      let e = L(r, null, true),
+        s = L(t, null, true),
         n = e.compare(s);
       if (n === 0) return null;
       let o = n > 0,
@@ -112,7 +112,7 @@ var G = S(function (Et, Y) {
 });
 var U = S(function (Vt, z) {
   var Je = HV(),
-    Ke = (r, t) => Je(r, t, !0);
+    Ke = (r, t) => Je(r, t, true);
   z.exports = Ke;
 });
 var h = S(function (Rt, F) {
@@ -267,7 +267,7 @@ var v = S(function (Nt, me) {
         default:
           throw TypeError('Must provide a hilo val of "<" or ">"');
       }
-      if (vr(r, t, s)) return !1;
+      if (vr(r, t, s)) return false;
       for (let p = 0; p < t.set.length; ++p) {
         let a = t.set[p],
           l = null,
@@ -280,11 +280,11 @@ var v = S(function (Nt, me) {
           }),
           l.operator === u || l.operator === m)
         )
-          return !1;
-        if ((!f.operator || f.operator === u) && o(r, f.semver)) return !1;
-        else if (f.operator === m && c(r, f.semver)) return !1;
+          return false;
+        if ((!f.operator || f.operator === u) && o(r, f.semver)) return false;
+        else if (f.operator === m && c(r, f.semver)) return false;
       }
-      return !0;
+      return true;
     };
   me.exports = Sr;
 });
@@ -338,28 +338,28 @@ var ye = S(function (Dt, Pe) {
     q = yMe(),
     d = HV(),
     yr = (r, t, e = {}) => {
-      if (r === t) return !0;
+      if (r === t) return true;
       (r = new Ee(r, e)), (t = new Ee(t, e));
-      let s = !1;
+      let s = false;
       e: for (let n of r.set) {
         for (let o of t.set) {
           let c = Cr(n, o, e);
           if (((s = s || c !== null), c)) continue e;
         }
-        if (s) return !1;
+        if (s) return false;
       }
-      return !0;
+      return true;
     },
     Tr = [new x(">=0.0.0-0")],
     Ve = [new x(">=0.0.0")],
     Cr = (r, t, e) => {
-      if (r === t) return !0;
+      if (r === t) return true;
       if (r.length === 1 && r[0].semver === w)
-        if (t.length === 1 && t[0].semver === w) return !0;
+        if (t.length === 1 && t[0].semver === w) return true;
         else if (e.includePrerelease) r = Tr;
         else r = Ve;
       if (t.length === 1 && t[0].semver === w)
-        if (e.includePrerelease) return !0;
+        if (e.includePrerelease) return true;
         else t = Ve;
       let s = new Set(),
         n,
@@ -377,16 +377,16 @@ var ye = S(function (Dt, Pe) {
       for (let i of s) {
         if (n && !q(i, String(n), e)) return null;
         if (o && !q(i, String(o), e)) return null;
-        for (let Ie of t) if (!q(i, String(Ie), e)) return !1;
-        return !0;
+        for (let Ie of t) if (!q(i, String(Ie), e)) return false;
+        return true;
       }
       let u,
         m,
         p,
         a,
-        l = o && !e.includePrerelease && o.semver.prerelease.length ? o.semver : !1,
-        f = n && !e.includePrerelease && n.semver.prerelease.length ? n.semver : !1;
-      if (l && l.prerelease.length === 1 && o.operator === "<" && l.prerelease[0] === 0) l = !1;
+        l = o && !e.includePrerelease && o.semver.prerelease.length ? o.semver : false,
+        f = n && !e.includePrerelease && n.semver.prerelease.length ? n.semver : false;
+      if (l && l.prerelease.length === 1 && o.operator === "<" && l.prerelease[0] === 0) l = false;
       for (let i of t) {
         if (
           ((a = a || i.operator === ">" || i.operator === ">="),
@@ -401,11 +401,11 @@ var ye = S(function (Dt, Pe) {
               i.semver.minor === f.minor &&
               i.semver.patch === f.patch
             )
-              f = !1;
+              f = false;
           }
           if (i.operator === ">" || i.operator === ">=") {
-            if (((u = Re(n, i, e)), u === i && u !== n)) return !1;
-          } else if (n.operator === ">=" && !q(n.semver, String(i), e)) return !1;
+            if (((u = Re(n, i, e)), u === i && u !== n)) return false;
+          } else if (n.operator === ">=" && !q(n.semver, String(i), e)) return false;
         }
         if (o) {
           if (l) {
@@ -416,18 +416,18 @@ var ye = S(function (Dt, Pe) {
               i.semver.minor === l.minor &&
               i.semver.patch === l.patch
             )
-              l = !1;
+              l = false;
           }
           if (i.operator === "<" || i.operator === "<=") {
-            if (((m = je(o, i, e)), m === i && m !== o)) return !1;
-          } else if (o.operator === "<=" && !q(o.semver, String(i), e)) return !1;
+            if (((m = je(o, i, e)), m === i && m !== o)) return false;
+          } else if (o.operator === "<=" && !q(o.semver, String(i), e)) return false;
         }
-        if (!i.operator && (o || n) && c !== 0) return !1;
+        if (!i.operator && (o || n) && c !== 0) return false;
       }
-      if (n && p && !o && c !== 0) return !1;
-      if (o && a && !n && c !== 0) return !1;
-      if (f || l) return !1;
-      return !0;
+      if (n && p && !o && c !== 0) return false;
+      if (o && a && !n && c !== 0) return false;
+      if (f || l) return false;
+      return true;
     },
     Re = (r, t, e) => {
       if (!r) return t;

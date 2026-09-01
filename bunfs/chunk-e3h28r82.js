@@ -25,7 +25,7 @@ import "/$bunfs/root/chunk-g2s7kk3r.js";
 import { yg } from "/$bunfs/root/chunk-3m9p2z28.js";
 import { S } from "/$bunfs/root/chunk-yz031c9r.js";
 var A = S(function (N) {
-  Object.defineProperty(N, "__esModule", { value: !0 });
+  Object.defineProperty(N, "__esModule", { value: true });
   N.resolveHttpAuthSchemeConfig =
     N.defaultSSOOIDCHttpAuthSchemeProvider =
     N.defaultSSOOIDCHttpAuthSchemeParametersProvider =
@@ -71,13 +71,13 @@ var A = S(function (N) {
   N.resolveHttpAuthSchemeConfig = Ye;
 });
 var te = S(function (Z) {
-  Object.defineProperty(Z, "__esModule", { value: !0 });
+  Object.defineProperty(Z, "__esModule", { value: true });
   Z.ruleSet = void 0;
   var W = "required",
     p = "fn",
     d = "argv",
     m = "ref",
-    F = !0,
+    F = true,
     M = "isSet",
     I = "booleanEquals",
     f = "error",
@@ -85,15 +85,15 @@ var te = S(function (Z) {
     E = "tree",
     D = "PartitionResult",
     R = "getAttr",
-    G = { [W]: !1, type: "string" },
-    j = { [W]: !0, default: !1, type: "boolean" },
+    G = { [W]: false, type: "string" },
+    j = { [W]: true, default: false, type: "boolean" },
     z = { [m]: "Endpoint" },
-    J = { [p]: I, [d]: [{ [m]: "UseFIPS" }, !0] },
-    X = { [p]: I, [d]: [{ [m]: "UseDualStack" }, !0] },
+    J = { [p]: I, [d]: [{ [m]: "UseFIPS" }, true] },
+    X = { [p]: I, [d]: [{ [m]: "UseDualStack" }, true] },
     a = {},
     K = { [p]: R, [d]: [{ [m]: D }, "supportsFIPS"] },
     Q = { [m]: D },
-    L = { [p]: I, [d]: [!0, { [p]: R, [d]: [Q, "supportsDualStack"] }] },
+    L = { [p]: I, [d]: [true, { [p]: R, [d]: [Q, "supportsDualStack"] }] },
     V = [J],
     B = [X],
     Y = [{ [m]: "Region" }],
@@ -203,7 +203,7 @@ var te = S(function (Z) {
   Z.ruleSet = Xe;
 });
 var ne = S(function (re) {
-  Object.defineProperty(re, "__esModule", { value: !0 });
+  Object.defineProperty(re, "__esModule", { value: true });
   re.defaultEndpointResolver = void 0;
   var Qe = vO(),
     T = VH(),
@@ -214,7 +214,7 @@ var ne = S(function (re) {
   T.customEndpointFunctions.aws = Qe.awsEndpointFunctions;
 });
 var pe = S(function (ce) {
-  Object.defineProperty(ce, "__esModule", { value: !0 });
+  Object.defineProperty(ce, "__esModule", { value: true });
   ce.getRuntimeConfig = void 0;
   var rt = gg(),
     ot = xN(),
@@ -229,7 +229,7 @@ var pe = S(function (ce) {
       apiVersion: "2019-06-10",
       base64Decoder: e?.base64Decoder ?? ie.fromBase64,
       base64Encoder: e?.base64Encoder ?? ie.toBase64,
-      disableHostPrefix: e?.disableHostPrefix ?? !1,
+      disableHostPrefix: e?.disableHostPrefix ?? false,
       endpointProvider: e?.endpointProvider ?? at.defaultEndpointResolver,
       extensions: e?.extensions ?? [],
       httpAuthSchemeProvider: e?.httpAuthSchemeProvider ?? ct.defaultSSOOIDCHttpAuthSchemeProvider,
@@ -255,7 +255,7 @@ var pe = S(function (ce) {
   ce.getRuntimeConfig = pt;
 });
 var ge = S(function (_e) {
-  Object.defineProperty(_e, "__esModule", { value: !0 });
+  Object.defineProperty(_e, "__esModule", { value: true });
   _e.getRuntimeConfig = void 0;
   var dt = Coe(),
     ut = dt.__importDefault(CYe()),
@@ -330,8 +330,8 @@ var Wr = S(function (U) {
     Ie = Pl(),
     Ot = (e) =>
       Object.assign(e, {
-        useDualstackEndpoint: e.useDualstackEndpoint ?? !1,
-        useFipsEndpoint: e.useFipsEndpoint ?? !1,
+        useDualstackEndpoint: e.useDualstackEndpoint ?? false,
+        useFipsEndpoint: e.useFipsEndpoint ?? false,
         defaultSigningName: "sso-oauth",
       }),
     At = {
@@ -665,13 +665,13 @@ var Wr = S(function (U) {
       KMS_KEY_NOT_FOUND: "KMS_NotFoundException",
     };
   Object.defineProperty(U, "$Command", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return g.Command;
     },
   });
   Object.defineProperty(U, "__Client", {
-    enumerable: !0,
+    enumerable: true,
     get: function () {
       return g.Client;
     },

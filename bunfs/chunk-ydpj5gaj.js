@@ -319,7 +319,7 @@ async function x(t, o, i) {
     s("tengu_workflow_authoring_skill_autoload", { trigger: c(r) }),
     y("workflow_authoring_autoload");
   let { formatSkillLoadingMetadata: d } = await import("/$bunfs/root/chunk-pnnd1g13.js");
-  return [xe({ content: d(IE), isMeta: !0, turnCompanion: !0 }), xe({ content: l, isMeta: !0, turnCompanion: !0 })];
+  return [xe({ content: d(IE), isMeta: true, turnCompanion: true }), xe({ content: l, isMeta: true, turnCompanion: true })];
 }
 function m(t, o, i) {
   return t.type === "attachment" && i(t.attachment) && !o?.some((r) => r.uuid === t.uuid);

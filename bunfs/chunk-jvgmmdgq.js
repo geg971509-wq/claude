@@ -74,21 +74,21 @@ function Re(e) {
   }
 }
 function at(e) {
-  for (let t of e) if (t <= " " || t > "~" || t === "\\" || t === "%") return !0;
-  return !1;
+  for (let t of e) if (t <= " " || t > "~" || t === "\\" || t === "%") return true;
+  return false;
 }
 import { sep as Pt } from "path";
 function oe(e, t, r, o, s = D()) {
-  if (o(e)) return !0;
-  if (t === r) return !1;
+  if (o(e)) return true;
+  if (t === r) return false;
   for (let [l, i] of [
     [t, r],
     [r, t],
   ]) {
     let d = Pn(e, l, i, s);
-    if (d !== null && o(d)) return !0;
+    if (d !== null && o(d)) return true;
   }
-  return !1;
+  return false;
 }
 function Pn(e, t, r, o) {
   let s = (f) => (o === "windows" ? f.toLowerCase() : f),
@@ -129,7 +129,7 @@ async function Ot(e) {
   let t = e?.platform ?? D(),
     r = e?.home ?? ut();
   if (r === null) return { repos: [], limit: "home-unreadable" };
-  let o = e?.isReadDenied ?? (() => !1),
+  let o = e?.isReadDenied ?? (() => false),
     s = e?.thisRepoHost ?? null,
     l = e?.maxDirsVisited ?? jn,
     i = e?.maxRepos ?? On,
@@ -138,7 +138,7 @@ async function Ot(e) {
   if (Dse(r)) return { repos: [], limit: "network-home" };
   let c = [],
     m = "none",
-    u = !1,
+    u = false,
     h = new AbortController(),
     _ = async () => {
       let S = await Be.realpath(r).catch((T) => (tJe(T) ? r : null));
@@ -164,7 +164,7 @@ async function Ot(e) {
         O++;
         let R;
         try {
-          R = await Be.readdir(T, { withFileTypes: !0 });
+          R = await Be.readdir(T, { withFileTypes: true });
         } catch {
           if (T === S) {
             m = "home-unreadable";
@@ -201,7 +201,7 @@ async function Ot(e) {
     await Promise.race([
       _(),
       ne(f, h.signal).then(() => {
-        if (!h.signal.aborted) (u = !0), (m = "timeout");
+        if (!h.signal.aborted) (u = true), (m = "timeout");
       }),
     ]);
   } finally {
@@ -213,7 +213,7 @@ async function Gn(e, t, r, o, s, l = null) {
   let i = e;
   if (t) {
     if (s(e)) return { remotes: [] };
-    let m = await bP(e, $t, { noFollow: !0, requireNlink1: !0 }),
+    let m = await bP(e, $t, { noFollow: true, requireNlink1: true }),
       u = m === null ? null : Vn(m);
     if (u === null || Nt(u, kt(e))) return null;
     if (((i = lt(kt(e), u)), !ct(i, r, o))) return { remotes: [], note: "gitdir-outside-home" };
@@ -221,7 +221,7 @@ async function Gn(e, t, r, o, s, l = null) {
     let h = await jt(i, r, o, s);
     if (h === "missing") return null;
     if (h === "refused") return { remotes: [] };
-    let _ = await bP(Fe(i, "commondir"), $t, { noFollow: !0, requireNlink1: !0 });
+    let _ = await bP(Fe(i, "commondir"), $t, { noFollow: true, requireNlink1: true });
     if (_ === "") return null;
     let S = _ === null ? "" : _.replace(/[\r\n]+$/, "");
     if (S !== "") {
@@ -235,7 +235,7 @@ async function Gn(e, t, r, o, s, l = null) {
   }
   let d = Fe(i, "config");
   if (s(i) || s(d)) return { remotes: [] };
-  let f = await bP(d, Mn, { noFollow: !0, requireNlink1: !0 });
+  let f = await bP(d, Mn, { noFollow: true, requireNlink1: true });
   if (f === null) return t ? null : { remotes: [] };
   let c = Wn(f, l);
   if (c.length === 0 && Byt(f).length === 0) return { remotes: c, note: "no-remote" };
@@ -290,10 +290,10 @@ async function jt(e, t, r, o) {
   }
 }
 function qn(e, t) {
-  if (Hn.has(e)) return !0;
+  if (Hn.has(e)) return true;
   let r = e.toLowerCase();
-  if (Fn.some((o) => r === o || r.startsWith(o + " "))) return !0;
-  if (t === "windows" && Un.has(r)) return !0;
+  if (Fn.some((o) => r === o || r.startsWith(o + " "))) return true;
+  if (t === "windows" && Un.has(r)) return true;
   return t === "macos" && zn.has(r);
 }
 function Ye(e, t) {
@@ -395,9 +395,9 @@ function Ht(e) {
   let t = e.toLowerCase();
   for (let s of t.matchAll(/(\S+)\s+<\(\s*(?:curl|wget)\b/g)) {
     let l = s[1];
-    if (Lt.has(l) || It(l)) return !0;
+    if (Lt.has(l) || It(l)) return true;
   }
-  if (/\b(?:iex|invoke-expression)\s*\(\s*(?:iwr|invoke-webrequest|curl|wget)\b/.test(t)) return !0;
+  if (/\b(?:iex|invoke-expression)\s*\(\s*(?:iwr|invoke-webrequest|curl|wget)\b/.test(t)) return true;
   let r = t.split("|"),
     o = r.slice(0, -1).some((s) => Qn.has(er(s)));
   for (let s of r.slice(1)) {
@@ -407,13 +407,13 @@ function Ht(e) {
     let d = l[i];
     if (d === void 0) continue;
     if ((Zn.has(d) || ((Lt.has(d) || It(d)) && l.slice(i + 1).every((c) => c.startsWith("-")))) && (o || Ze(e)))
-      return !0;
+      return true;
   }
-  return !1;
+  return false;
 }
 function tr(e) {
   let t = e[0];
-  if (t === void 0) return !1;
+  if (t === void 0) return false;
   switch (t) {
     case "kubectl":
     case "gcloud":
@@ -428,50 +428,50 @@ function tr(e) {
     case "helm":
       return e.includes("uninstall") || e.includes("delete");
     default:
-      return !1;
+      return false;
   }
 }
 function nr(e) {
-  if (Ht(e)) return !0;
-  if (ft.test(e)) return !0;
+  if (Ht(e)) return true;
+  if (ft.test(e)) return true;
   let t = e.trim().toLowerCase(),
     r = Ze(t),
     o = Jn(dt(t)),
     s = o[0] ?? "";
-  if (s === "rm" && r) return !0;
-  if (s === "chmod" && (r || Xn.test(t))) return !0;
-  if ((s === "chown" || s === "chgrp") && r) return !0;
+  if (s === "rm" && r) return true;
+  if (s === "chmod" && (r || Xn.test(t))) return true;
+  if ((s === "chown" || s === "chgrp") && r) return true;
   if (s === "git" && o[1] === "push" && r) {
     if (/(^|\s)--force(?!-with-lease)\b/.test(t) || /(^|\s)-[a-z]*f[a-z]*(\s|$|:)/.test(t) || /(^|\s)\+\S/.test(t))
-      return !0;
+      return true;
   }
   if (
     r &&
     (["dd", "fdisk", "parted", "shutdown", "reboot", "halt", "poweroff", "wipefs", "blkdiscard"].includes(s) ||
       /^mkfs(\.|$)/.test(s))
   )
-    return !0;
-  if (r && tr(o)) return !0;
-  return !1;
+    return true;
+  if (r && tr(o)) return true;
+  return false;
 }
 var rr = new Set(["remove-item", "ri", "rm", "del", "erase", "rd", "rmdir"]);
 function or(e) {
-  if (Ht(e)) return !0;
-  if (ft.test(e)) return !0;
+  if (Ht(e)) return true;
+  if (ft.test(e)) return true;
   let t = e.trim().toLowerCase(),
     o = dt(t).split(/\s+/).filter(Boolean)[0] ?? "";
-  if (rr.has(o) && Ze(t)) return !0;
-  if (o === "format-volume" || o === "format.com") return !0;
+  if (rr.has(o) && Ze(t)) return true;
+  if (o === "format-volume" || o === "format.com") return true;
   if ((o === "clear-disk" || o === "initialize-disk" || o === "stop-computer" || o === "restart-computer") && Ze(t))
-    return !0;
-  return !1;
+    return true;
+  return false;
 }
 function Ft(e, t) {
-  if (t === void 0 || t === "") return !1;
+  if (t === void 0 || t === "") return false;
   if (e === Qe) return nr(t);
   if (e === Bt) return or(t);
   if (e === _t) return ft.test(t);
-  return !1;
+  return false;
 }
 var ze = /^(?!\.{1,2}$)[A-Za-z0-9_.][A-Za-z0-9_.-]*$/,
   a6e = "Repo visibility & branch protection (via gh)",
@@ -498,7 +498,7 @@ async function Gt(e, t) {
   let r = await $e("git", ["-C", t, ...S1, "remote", "get-url", "origin"], {
       timeout: Ut,
       maxBuffer: 65536,
-      stripFinalNewline: !1,
+      stripFinalNewline: false,
     }),
     o = r.code === 0 ? Xe(r.stdout) : "",
     s = o === "" ? null : Ue(o, null),
@@ -658,19 +658,19 @@ function et(e) {
 ${e.trim()}
 `;
 }
-var tt = Object.freeze({ allProjects: !1, shellHistory: !1, homeRepos: !1 });
+var tt = Object.freeze({ allProjects: false, shellHistory: false, homeRepos: false });
 function o0e(e) {
   if (e === void 0 || (e.scope !== "all" && e.scope !== "project")) return tt;
   let t = e.scope === "all";
   switch (e.depth) {
     case "both":
-      return { allProjects: t, shellHistory: !0, homeRepos: !0 };
+      return { allProjects: t, shellHistory: true, homeRepos: true };
     case "shell":
-      return { allProjects: t, shellHistory: !0, homeRepos: !1 };
+      return { allProjects: t, shellHistory: true, homeRepos: false };
     case "repos":
-      return { allProjects: t, shellHistory: !1, homeRepos: !0 };
+      return { allProjects: t, shellHistory: false, homeRepos: true };
     case "here":
-      return { allProjects: t, shellHistory: !1, homeRepos: !1 };
+      return { allProjects: t, shellHistory: false, homeRepos: false };
     default:
       return tt;
   }
@@ -771,10 +771,10 @@ function en(e, t, r) {
 }
 function yt(e, t, r = 1 / 0) {
   let o = [],
-    s = !1;
+    s = false;
   for (let l of e) {
     if (performance.now() > r) {
-      s = !0;
+      s = true;
       break;
     }
     let i, d, f;
@@ -886,13 +886,13 @@ async function m1n(e, t = tt, r, o) {
         W(ee, () => Lr(t.allProjects, s)),
         W("Existing auto-mode settings (selective read)", () => Mr(s, void 0, o)),
         W("Recent usage in this project (names only)", () => Wr(s)),
-        W(he, () => (r === void 0 ? rn(!1) : rn(t.shellHistory, r))),
+        W(he, () => (r === void 0 ? rn(false) : rn(t.shellHistory, r))),
         W(ke, async () =>
-          r === void 0 ? on(!1) : on(t.homeRepos, r, void 0, (await l.catch(() => null))?.thisRepoHost),
+          r === void 0 ? on(false) : on(t.homeRepos, r, void 0, (await l.catch(() => null))?.thisRepoHost),
         ),
         W(Ce, () =>
           r === void 0
-            ? sn(!1)
+            ? sn(false)
             : sn(
                 t.allProjects,
                 r,
@@ -920,14 +920,14 @@ function $r(e, t) {
         cwd: void 0,
         stdio: ["ignore", "pipe", "ignore"],
         timeout: xe,
-        windowsHide: !0,
+        windowsHide: true,
         ...qi("helper"),
       });
     } catch {
       return r(0);
     }
     let l = 0,
-      i = !1;
+      i = false;
     s.stdout.on("data", (d) => {
       let f = d.toString("utf8");
       (i = i || f.length > 0),
@@ -945,7 +945,7 @@ async function pe(e, t) {
   let { stdout: r, code: o } = await $e("git", ["-C", e, ...S1, ...t], {
     timeout: xe,
     maxBuffer: 8388608,
-    stripFinalNewline: !1,
+    stripFinalNewline: false,
   });
   return o === 0 ? Xe(r) : "";
 }
@@ -986,7 +986,7 @@ async function Ne(e, t, r = ye) {
     d = Ar(i, l.resolvedPath);
   if (d === "" || d.startsWith("..") || Sr(d)) return null;
   if (l.resolvedPath !== L(i, t)) return null;
-  return bP(l.resolvedPath, r, { noFollow: !0 });
+  return bP(l.resolvedPath, r, { noFollow: true });
 }
 var bt = 256;
 function gn(e, t = B) {
@@ -1347,7 +1347,7 @@ function tn(e) {
 function _n(e) {
   let t = {};
   for (let r of ["environment", "allow", "soft_deny", "hard_deny", "deny"])
-    if (e[r] != null && e[r] !== !1) t[r] = e[r];
+    if (e[r] != null && e[r] !== false) t[r] = e[r];
   return wn(b(t, null, 1));
 }
 async function Ir(e) {
@@ -1391,7 +1391,7 @@ Present but ${u} \u2014 skipped. Tell the user; do not read or rewrite this file
 Present but SKIPPED: failed the indirection gate (requires a regular non-symlink file with link count 1 inside a real .claude directory). Tell the user; do not read or rewrite this file.`
     );
   if (i.size > 1e6) return s("oversized");
-  let d = await bP(r, 1e6, { noFollow: !0, requireNlink1: !0 });
+  let d = await bP(r, 1e6, { noFollow: true, requireNlink1: true });
   if (d == null) return s("unreadable");
   let f;
   try {
@@ -1652,7 +1652,7 @@ async function rn(e, t, r) {
     l.abort();
   }
   if (i !== ce && i.networkHome) return C(he, nn);
-  let { words: d, filesRead: f, partial: c } = i === ce ? { words: [], filesRead: [], partial: !0 } : i,
+  let { words: d, filesRead: f, partial: c } = i === ce ? { words: [], filesRead: [], partial: true } : i,
     m = ge(d, B * 2),
     u = [
       `Status: ${c ? "partial" : "complete"} \u2014 ${f.length} file(s) read: ${f.map(z).join(", ") || "none"}`,
@@ -1676,50 +1676,50 @@ async function Kr(e, t, r) {
   let o = [],
     s = [],
     l = new Set(),
-    i = !1,
+    i = false,
     d = performance.now() + ht(e.platform) - 50,
     f = await M.realpath(e.homeDir).catch((m) => (tJe(m) ? e.homeDir : null));
-  if (f === null) return { words: [], filesRead: [], partial: !0 };
-  if (Dse(f)) return { words: [], filesRead: [], partial: !0, networkHome: !0 };
+  if (f === null) return { words: [], filesRead: [], partial: true };
+  if (Dse(f)) return { words: [], filesRead: [], partial: true, networkHome: true };
   let c = (m) => TD(m, t);
   for (let m of Qt(e)) {
     if (r.aborted || performance.now() > d) {
-      i = !0;
+      i = true;
       break;
     }
     if (Dse(m.path) || oe(m.path, e.homeDir, f, c, e.platform)) {
-      i = !0;
+      i = true;
       continue;
     }
     let u = await M.realpath(m.path).catch((v) => (tJe(v) ? m.path : null));
     if (u === null) {
-      i = !0;
+      i = true;
       continue;
     }
     if (u !== m.path && (Dse(u) || oe(u, f, e.homeDir, c, e.platform))) {
-      i = !0;
+      i = true;
       continue;
     }
     let h = Ye(u, e.platform);
     if (l.has(h)) continue;
     if ((l.add(h), r.aborted || performance.now() > d)) {
-      i = !0;
+      i = true;
       break;
     }
-    let _ = await bP(m.path, Zt, { fromTail: !0, sniffEncoding: m.format === "psreadline", requireNlink1: !0 });
+    let _ = await bP(m.path, Zt, { fromTail: true, sniffEncoding: m.format === "psreadline", requireNlink1: true });
     if (_ === "unreadable") {
-      i = !0;
+      i = true;
       continue;
     }
     if (_ === null) continue;
     o.push(m.label);
     let S = en(_.content, m.format, _.truncated),
       A = S.slice(-gt);
-    if (_.truncated || A.length < S.length) i = !0;
+    if (_.truncated || A.length < S.length) i = true;
     let P = yt(A, m.format, d);
     for (let v of P.words) s.push(v);
     if (P.hitDeadline) {
-      i = !0;
+      i = true;
       break;
     }
   }
@@ -1804,7 +1804,7 @@ async function sn(
           Ee;
         do {
           if (Date.now() >= c) throw Error("enumeration deadline reached");
-          let J = await f.listEntries({ namespace: "transcript" }, { skipScopeStats: !0, ...(Ee && { cursor: Ee }) });
+          let J = await f.listEntries({ namespace: "transcript" }, { skipScopeStats: true, ...(Ee && { cursor: Ee }) });
           if (!J.ok) throw Error("projects enumeration failed");
           for (let Ae of J.value.items)
             if (Ae.kind === "scope" && Ae.scope.namespace === "transcript" && Ae.scope.projectKey !== void 0)
@@ -1824,7 +1824,7 @@ async function sn(
                   if (Date.now() >= c) throw Error("enumeration deadline reached");
                   let it = await f.listEntries(
                     { namespace: "transcript", projectKey: J },
-                    { skipScopeStats: !0, ...(Ve && { cursor: Ve }) },
+                    { skipScopeStats: true, ...(Ve && { cursor: Ve }) },
                   );
                   if (!it.ok) return F++, [];
                   for (let He of it.value.items) {
@@ -1846,8 +1846,8 @@ async function sn(
         let vt = 0;
         return {
           candidates: vn.filter(({ path: J }) => {
-            if (oe(J, o.projectsDir, Tn, i, l)) return vt++, !1;
-            return !0;
+            if (oe(J, o.projectsDir, Tn, i, l)) return vt++, false;
+            return true;
           }),
           enumeratedTotal: Rt.length,
           deniedCount: vt,
@@ -1924,27 +1924,27 @@ async function sn(
     re = 0,
     q = 0,
     j = 0,
-    je = !1,
-    _e = !1,
+    je = false,
+    _e = false,
     Et = new AbortController(),
     rt = ne(Math.max(0, c - Date.now()), Et.signal).then(() => ce),
     ot = await Promise.race([m, rt]),
     qe = ot === ce ? o.projectsDir : ot;
-  if (ot === ce) (_e = !0), (j = R.length);
+  if (ot === ce) (_e = true), (j = R.length);
   try {
     for (let [H, { path: ie }] of R.entries()) {
       if (_e) break;
       if (G >= o.aggregateCap) {
-        (je = !0), (j = R.length - H);
+        (je = true), (j = R.length - H);
         break;
       }
       if (Date.now() >= c) {
-        (_e = !0), (j = R.length - H);
+        (_e = true), (j = R.length - H);
         break;
       }
       let we = await Promise.race([M.realpath(ie).catch(() => null), rt]);
       if (we === ce) {
-        (_e = !0), (j = R.length - H);
+        (_e = true), (j = R.length - H);
         break;
       }
       if (we === null) {
@@ -1958,15 +1958,15 @@ async function sn(
       }
       let de = await Promise.race([
         bP(ue, o.perFileCap, {
-          fromTail: !0,
-          noFollow: !0,
-          requireNlink1: !0,
+          fromTail: true,
+          noFollow: true,
+          requireNlink1: true,
           verifyHandlePath: (Y) => Y === ue || (!oe(Y, qe, o.projectsDir, i, l) && tan(Y, qe)),
         }),
         rt,
       ]);
       if (de === ce) {
-        (_e = !0), (j = R.length - H);
+        (_e = true), (j = R.length - H);
         break;
       }
       if (de === null || de === "unreadable") {
@@ -2092,11 +2092,11 @@ var cn = /(^|\/)(helm|iam|prod|k8s|kubernetes|rbac)\//,
   Zr = 10;
 async function Qr(e, t = Yr) {
   let r = new Map(),
-    o = !1,
+    o = false,
     s = new AbortController(),
     l = AbortSignal.timeout(Vr),
     i = AbortSignal.any([l, s.signal]),
-    d = !1;
+    d = false;
   try {
     let f = await ZXn(
       [
@@ -2130,7 +2130,7 @@ async function Qr(e, t = Yr) {
             let S = r.get(_);
             if (S === void 0) {
               if (r.size >= t) {
-                (o = !0), s.abort();
+                (o = true), s.abort();
                 return;
               }
               r.set(_, { occurrences: 1, files: 1, lastFile: h });
@@ -2139,10 +2139,10 @@ async function Qr(e, t = Yr) {
         }
       },
     );
-    if (f === "external-kill" || f === "error-exit-2") d = !0;
+    if (f === "external-kill" || f === "error-exit-2") d = true;
   } catch {
     if (!i.aborted && r.size === 0) return null;
-    d = !0;
+    d = true;
   }
   return {
     top: [...r.entries()].sort((f, c) => c[1].occurrences - f[1].occurrences || f[0].localeCompare(c[0])).slice(0, B),
@@ -2428,7 +2428,7 @@ async function ao(e, t) {
     i = e.removeFromPermissionsAllow ?? [],
     d = [],
     f = [],
-    c = !1,
+    c = false,
     m = 0,
     u = null,
     h = [],
@@ -2477,7 +2477,7 @@ async function ao(e, t) {
         let P = () => (Object.keys(A).length > 0 ? A : null);
         if (i.length === 0) return P();
         let v = S?.permissions?.allow;
-        if (!Array.isArray(v)) return (c = !0), P();
+        if (!Array.isArray(v)) return (c = true), P();
         let O = new Set(i),
           T = v.filter((R) => !O.has(R));
         d = v.filter((R) => O.has(R));
@@ -2535,12 +2535,12 @@ function lo(e, t) {
   let d = o.length,
     f = "",
     c = -1,
-    m = !1,
+    m = false,
     u = () => {
       if (c !== -1 && !m) {
         if ((o.splice(c, 1), d > c)) d--;
       }
-      (c = -1), (m = !1);
+      (c = -1), (m = false);
     };
   for (let h of t) {
     if (r(h)) {
@@ -2556,7 +2556,7 @@ function lo(e, t) {
     }
     let _ = bx(h);
     if (l.has(s(f, h)) || l.has(s("", h)) || (f === "" && i.has(_))) continue;
-    if ((o.splice(d++, 0, h), l.add(s(f, h)), i.add(_), c !== -1)) m = !0;
+    if ((o.splice(d++, 0, h), l.add(s(f, h)), i.add(_), c !== -1)) m = true;
   }
   return u(), o;
 }
@@ -2599,9 +2599,9 @@ function nhe(e, t) {
 function fo(e) {
   for (let t = 0; t < e.length; t++) {
     let r = e.charCodeAt(t);
-    if ((r < 32 && r !== 9) || (r >= 127 && r <= 159) || r === 8232 || r === 8233) return !0;
+    if ((r < 32 && r !== 9) || (r >= 127 && r <= 159) || r === 8232 || r === 8233) return true;
   }
-  return !1;
+  return false;
 }
 var mo = /[\p{Cf}\p{Default_Ignorable_Code_Point}\u2028\u2029\u2800\uFFF9-\uFFFB\u{1D173}-\u{1D17A}]/u;
 function po(e) {

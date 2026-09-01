@@ -19,9 +19,9 @@ import { m8e } from "/$bunfs/root/chunk-k8xha1qv.js";
 import { ri } from "/$bunfs/root/chunk-8tgj5dp2.js";
 function Nd(o) {
   let t = ye("policySettings")?.strictPluginOnlyCustomization;
-  if (t === !0) return !0;
+  if (t === true) return true;
   if (Array.isArray(t)) return t.includes(o);
-  return !1;
+  return false;
 }
 var f = new Set(["plugin", "policySettings", "built-in", "builtin", "bundled"]);
 function k2(o) {
@@ -60,11 +60,11 @@ function FCr(o) {
 }
 function l() {
   let o = ye("policySettings");
-  if (o?.disableAllHooks === !0) return {};
-  if (o?.allowManagedHooksOnly === !0 || Dr()) return o?.hooks ?? {};
+  if (o?.disableAllHooks === true) return {};
+  if (o?.allowManagedHooksOnly === true || Dr()) return o?.hooks ?? {};
   if (Nd("hooks")) return o?.hooks ?? {};
   let t = En();
-  if (t.disableAllHooks === !0) return o?.hooks ?? {};
+  if (t.disableAllHooks === true) return o?.hooks ?? {};
   return t.hooks ?? {};
 }
 function f_() {
@@ -72,12 +72,12 @@ function f_() {
 }
 function gwe() {
   let o = ye("policySettings");
-  if (o?.allowManagedHooksOnly === !0) return !0;
-  if (En().disableAllHooks === !0 && o?.disableAllHooks !== !0) return !0;
-  return !1;
+  if (o?.allowManagedHooksOnly === true) return true;
+  if (En().disableAllHooks === true && o?.disableAllHooks !== true) return true;
+  return false;
 }
 function egt() {
-  return Dr() || ye("policySettings")?.allowManagedHooksOnly === !0;
+  return Dr() || ye("policySettings")?.allowManagedHooksOnly === true;
 }
 function Jhr() {
   return egt() || toe(K3()).length > 0 || (nme() && xpe());
@@ -86,7 +86,7 @@ function jpn() {
   return Jhr() || Nd("hooks");
 }
 function Fv() {
-  return ye("policySettings")?.disableAllHooks === !0;
+  return ye("policySettings")?.disableAllHooks === true;
 }
 function tgt() {
   return Fv() || gwe();
@@ -178,7 +178,7 @@ function _we(o, t, n) {
   let S = { condition: o, iterations: 0, setAt: Date.now(), origin: e, tokensAtStart: Cu() };
   return (
     t.setAppState((u) => ({ ...u, activeGoal: S })),
-    t.applyMessageOp({ type: "append", messages: [O2t(!1, o)] }),
+    t.applyMessageOp({ type: "append", messages: [O2t(false, o)] }),
     s("tengu_stop_hook_added", { promptLength: o.length, via: w("goal"), origin: c(e) }),
     y("goal_set"),
     null
@@ -194,7 +194,7 @@ function ywe(o) {
   if (i !== void 0) CF(i, "user_clear");
   return (
     o.setAppState((r) => (r.activeGoal === void 0 ? r : { ...r, activeGoal: void 0 })),
-    o.applyMessageOp({ type: "append", messages: [O2t(!0, e)] }),
+    o.applyMessageOp({ type: "append", messages: [O2t(true, e)] }),
     s("tengu_stop_hook_removed", { via: w("goal") }),
     e
   );
@@ -204,7 +204,7 @@ function O2t(o, t) {
     type: "attachment",
     uuid: m(),
     timestamp: new Date().toISOString(),
-    attachment: { type: "goal_status", met: o, sentinel: !0, condition: t },
+    attachment: { type: "goal_status", met: o, sentinel: true, condition: t },
   };
 }
 export {

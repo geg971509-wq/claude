@@ -21,7 +21,7 @@ if (typeof z > "u") {
     onabort;
     _onabort = [];
     reason;
-    aborted = !1;
+    aborted = false;
     addEventListener(s, n) {
       this._onabort.push(n);
     }
@@ -33,7 +33,7 @@ if (typeof z > "u") {
       signal = new W();
       abort(s) {
         if (this.signal.aborted) return;
-        (this.signal.reason = s), (this.signal.aborted = !0);
+        (this.signal.reason = s), (this.signal.aborted = true);
         for (let n of this.signal._onabort) n(s);
         this.signal.onabort?.(s);
       }
@@ -41,7 +41,7 @@ if (typeof z > "u") {
   let t = C.env?.LRU_CACHE_IGNORE_AC_WARNING !== "1",
     e = () => {
       if (!t) return;
-      (t = !1),
+      (t = false),
         L(
           "AbortController is not defined. If using lru-cache in node 14, load an AbortController polyfill from the `node-abort-controller` package. A minimal polyfill is provided for use by LRUCache.fetch(), but it should not be relied upon in other contexts (eg, passing it to other APIs that use AbortController/AbortSignal might have undesirable effects). You may disable this with LRU_CACHE_IGNORE_AC_WARNING=1 in the env.",
           "NO_ABORT_CONTROLLER",
@@ -74,13 +74,13 @@ class O extends Array {
 class T {
   heap;
   length;
-  static #l = !1;
+  static #l = false;
   static create(t) {
     let e = x(t);
     if (!e) return [];
-    T.#l = !0;
+    T.#l = true;
     let i = new T(t, e);
-    return (T.#l = !1), i;
+    return (T.#l = false), i;
   }
   constructor(t, e) {
     if (!T.#l) throw TypeError("instantiate Stack using Stack.create(n)");
@@ -340,7 +340,7 @@ class cd {
   #z = () => {};
   #E = () => {};
   #M = () => {};
-  #g = () => !1;
+  #g = () => false;
   #P() {
     let t = new O(this.#l);
     (this.#_ = 0),
@@ -363,7 +363,7 @@ class cd {
       (this.#D = (e, i, s) => {
         if (((t[e] = i), this.#c)) {
           let n = this.#c - t[e];
-          while (this.#_ > n) this.#L(!0);
+          while (this.#_ > n) this.#L(true);
         }
         if (((this.#_ += t[e]), s)) (s.entrySize = i), (s.totalCalculatedSize = this.#_);
       });
@@ -450,8 +450,8 @@ class cd {
     }
   }
   purgeStale() {
-    let t = !1;
-    for (let e of this.#F({ allowStale: !0 })) if (this.#g(e)) this.#T(this.#i[e], "expire"), (t = !0);
+    let t = false;
+    for (let e of this.#F({ allowStale: true })) if (this.#g(e)) this.#T(this.#i[e], "expire"), (t = true);
     return t;
   }
   info(t) {
@@ -474,7 +474,7 @@ class cd {
   }
   dump() {
     let t = [];
-    for (let e of this.#A({ allowStale: !0 })) {
+    for (let e of this.#A({ allowStale: true })) {
       let i = this.#i[e],
         s = this.#t[e],
         n = this.#e(s) ? s.__staleWhileFetching : s;
@@ -512,14 +512,14 @@ class cd {
       { noUpdateTTL: d = this.noUpdateTTL } = i,
       S = this.#G(t, e, i.size || 0, r);
     if (this.maxEntrySize && S > this.maxEntrySize) {
-      if (o) (o.set = "miss"), (o.maxEntrySizeExceeded = !0);
+      if (o) (o.set = "miss"), (o.maxEntrySizeExceeded = true);
       return this.#T(t, "set"), this;
     }
     let a = this.#n === 0 ? void 0 : this.#s.get(t);
     if (a === void 0) {
       if (
         ((a =
-          this.#n === 0 ? this.#h : this.#S.length !== 0 ? this.#S.pop() : this.#n === this.#l ? this.#L(!1) : this.#n),
+          this.#n === 0 ? this.#h : this.#S.length !== 0 ? this.#S.pop() : this.#n === this.#l ? this.#L(false) : this.#n),
         (this.#i[a] = t),
         (this.#t[a] = e),
         this.#s.set(t, a),
@@ -531,7 +531,7 @@ class cd {
         o)
       )
         o.set = "add";
-      d = !1;
+      d = false;
     } else {
       this.#C(a);
       let c = this.#t[a];
@@ -570,7 +570,7 @@ class cd {
     try {
       while (this.#n) {
         let t = this.#t[this.#r];
-        if ((this.#L(!0), this.#e(t))) {
+        if ((this.#L(true), this.#e(t))) {
           if (t.__staleWhileFetching) return t.__staleWhileFetching;
         } else if (t !== void 0) return t;
       }
@@ -601,14 +601,14 @@ class cd {
       n = this.#s.get(t);
     if (n !== void 0) {
       let h = this.#t[n];
-      if (this.#e(h) && h.__staleWhileFetching === void 0) return !1;
+      if (this.#e(h) && h.__staleWhileFetching === void 0) return false;
       if (!this.#g(n)) {
         if (i) this.#z(n);
         if (s) (s.has = "hit"), this.#E(s, n);
-        return !0;
+        return true;
       } else if (s) (s.has = "stale"), this.#E(s, n);
     } else if (s) s.has = "miss";
-    return !1;
+    return false;
   }
   peek(t, e = {}) {
     let { allowStale: i = this.allowStale } = e,
@@ -624,14 +624,14 @@ class cd {
       { signal: r } = i;
     r?.addEventListener("abort", () => h.abort(r.reason), { signal: h.signal });
     let o = { signal: h.signal, options: i, context: s },
-      d = (u, w = !1) => {
+      d = (u, w = false) => {
         let { aborted: l } = h.signal,
           p = i.ignoreFetchAbort && u !== void 0;
         if (i.status)
           if (l && !w) {
-            if (((i.status.fetchAborted = !0), (i.status.fetchError = h.signal.reason), p))
-              i.status.fetchAbortIgnored = !0;
-          } else i.status.fetchResolved = !0;
+            if (((i.status.fetchAborted = true), (i.status.fetchError = h.signal.reason), p))
+              i.status.fetchAbortIgnored = true;
+          } else i.status.fetchResolved = true;
         if (l && !p && !w) return a(h.signal.reason);
         let m = f;
         if (this.#t[e] === f)
@@ -639,13 +639,13 @@ class cd {
             if (m.__staleWhileFetching) this.#t[e] = m.__staleWhileFetching;
             else this.#T(t, "fetch");
           else {
-            if (i.status) i.status.fetchUpdated = !0;
+            if (i.status) i.status.fetchUpdated = true;
             this.set(t, u, o.options);
           }
         return u;
       },
       S = (u) => {
-        if (i.status) (i.status.fetchRejected = !0), (i.status.fetchError = u);
+        if (i.status) (i.status.fetchRejected = true), (i.status.fetchError = u);
         return a(u);
       },
       a = (u) => {
@@ -659,7 +659,7 @@ class cd {
           else if (!l) this.#t[e] = g.__staleWhileFetching;
         }
         if (p) {
-          if (i.status && g.__staleWhileFetching !== void 0) i.status.returnedStale = !0;
+          if (i.status && g.__staleWhileFetching !== void 0) i.status.returnedStale = true;
           return g.__staleWhileFetching;
         } else if (g.__returned === g) throw u;
       },
@@ -668,11 +668,11 @@ class cd {
         if (l && l instanceof Promise) l.then((p) => u(p === void 0 ? void 0 : p), w);
         h.signal.addEventListener("abort", () => {
           if (!i.ignoreFetchAbort || i.allowStaleOnFetchAbort) {
-            if ((u(void 0), i.allowStaleOnFetchAbort)) u = (p) => d(p, !0);
+            if ((u(void 0), i.allowStaleOnFetchAbort)) u = (p) => d(p, true);
           }
         });
       };
-    if (i.status) i.status.fetchDispatched = !0;
+    if (i.status) i.status.fetchDispatched = true;
     let f = new Promise(c).then(d, S),
       A = Object.assign(f, { __abortController: h, __staleWhileFetching: n, __returned: void 0 });
     if (e === void 0) this.set(t, A, { ...o.options, status: void 0 }), (e = this.#s.get(t));
@@ -680,7 +680,7 @@ class cd {
     return A;
   }
   #e(t) {
-    if (!this.#O) return !1;
+    if (!this.#O) return false;
     let e = t;
     return !!e && e instanceof Promise && e.hasOwnProperty("__staleWhileFetching") && e.__abortController instanceof z;
   }
@@ -699,7 +699,7 @@ class cd {
       ignoreFetchAbort: f = this.ignoreFetchAbort,
       allowStaleOnFetchAbort: A = this.allowStaleOnFetchAbort,
       context: u,
-      forceRefresh: w = !1,
+      forceRefresh: w = false,
       status: l,
       signal: p,
     } = e;
@@ -733,7 +733,7 @@ class cd {
       if (this.#e(_)) {
         let R = i && _.__staleWhileFetching !== void 0;
         if (l) {
-          if (((l.fetch = "inflight"), R)) l.returnedStale = !0;
+          if (((l.fetch = "inflight"), R)) l.returnedStale = true;
         }
         return R ? _.__staleWhileFetching : (_.__returned = _);
       }
@@ -747,7 +747,7 @@ class cd {
       let b = this.#x(t, g, m, u),
         v = b.__staleWhileFetching !== void 0 && i;
       if (l) {
-        if (((l.fetch = E ? "stale" : "refresh"), v && E)) l.returnedStale = !0;
+        if (((l.fetch = E ? "stale" : "refresh"), v && E)) l.returnedStale = true;
       }
       return v ? b.__staleWhileFetching : (b.__returned = b);
     }
@@ -782,10 +782,10 @@ class cd {
         if (h) h.get = "stale";
         if (!d) {
           if (!n) this.#T(t, "expire");
-          if (h && i) h.returnedStale = !0;
+          if (h && i) h.returnedStale = true;
           return i ? o : void 0;
         } else {
-          if (h && i && o.__staleWhileFetching !== void 0) h.returnedStale = !0;
+          if (h && i && o.__staleWhileFetching !== void 0) h.returnedStale = true;
           return i ? o.__staleWhileFetching : void 0;
         }
       } else {
@@ -810,11 +810,11 @@ class cd {
     return this.#T(t, "delete");
   }
   #T(t, e) {
-    let i = !1;
+    let i = false;
     if (this.#n !== 0) {
       let s = this.#s.get(t);
       if (s !== void 0)
-        if (((i = !0), this.#n === 1)) this.#N(e);
+        if (((i = true), this.#n === 1)) this.#N(e);
         else {
           this.#v(s);
           let n = this.#t[s];
@@ -845,7 +845,7 @@ class cd {
     return this.#N("delete");
   }
   #N(t) {
-    for (let e of this.#F({ allowStale: !0 })) {
+    for (let e of this.#F({ allowStale: true })) {
       let i = this.#t[e];
       if (this.#e(i)) i.__abortController.abort(Error("deleted"));
       else {

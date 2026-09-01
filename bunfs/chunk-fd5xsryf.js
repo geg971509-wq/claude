@@ -134,7 +134,7 @@ function y(G) {
     { storageV5: f } = ge(),
     p = ct().host,
     { columns: l } = Ee(),
-    D = C(!1),
+    D = C(false),
     I,
     R;
   if (M[0] !== l || M[1] !== p || M[2] !== s || M[3] !== m || M[4] !== n || M[5] !== r || M[6] !== f)
@@ -142,7 +142,7 @@ function y(G) {
       if (D.current) {
         return;
       }
-      if (((D.current = !0), m !== "diff")) {
+      if (((D.current = true), m !== "diff")) {
         if (!rM()) {
           s("The diff panel isn\u2019t available right now \u2014 run /diff again to see your changes", {
             display: "system",

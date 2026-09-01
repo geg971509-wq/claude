@@ -23,7 +23,7 @@ function Jj(or) {
     { frame: er, messageColor: s, stalledIntensity: U, thinkingIntensity: q, reducedMotion: z, time: E } = or,
     S = U === void 0 ? 0 : U,
     h = q === void 0 ? 0 : q,
-    cr = z === void 0 ? !1 : z,
+    cr = z === void 0 ? false : z,
     tr = E === void 0 ? 0 : E,
     x = c_();
   if (cr) {
@@ -41,7 +41,7 @@ function Jj(or) {
           const c = e(t, { color: s_(dr), bold: h >= 0.5, children: R });
           let r;
           if (n[4] !== c)
-            (r = e(o, { "aria-hidden": !0, flexWrap: "wrap", height: 1, width: 2, children: c })),
+            (r = e(o, { "aria-hidden": true, flexWrap: "wrap", height: 1, width: 2, children: c })),
               (n[4] = c),
               (n[5] = r);
           else r = n[5];
@@ -57,7 +57,7 @@ function Jj(or) {
     let w;
     if (n[6] !== v || n[7] !== c || n[8] !== r)
       (w = e(o, {
-        "aria-hidden": !0,
+        "aria-hidden": true,
         flexWrap: "wrap",
         height: 1,
         width: 2,
@@ -87,7 +87,7 @@ function Jj(or) {
           const r = e(t, { color: s_(hr), children: a });
           let w;
           if (n[15] !== r)
-            (w = e(o, { "aria-hidden": !0, flexWrap: "wrap", height: 1, width: 2, children: r })),
+            (w = e(o, { "aria-hidden": true, flexWrap: "wrap", height: 1, width: 2, children: r })),
               (n[15] = r),
               (n[16] = w);
           else w = n[16];
@@ -102,7 +102,7 @@ function Jj(or) {
     let r;
     if (n[17] !== L || n[18] !== a)
       (r = e(o, {
-        "aria-hidden": !0,
+        "aria-hidden": true,
         flexWrap: "wrap",
         height: 1,
         width: 2,
@@ -128,7 +128,7 @@ function Jj(or) {
           const r = e(t, { bold: P, color: s_(nr), children: a });
           let w;
           if (n[26] !== r)
-            (w = e(o, { "aria-hidden": !0, flexWrap: "wrap", height: 1, width: 2, children: r })),
+            (w = e(o, { "aria-hidden": true, flexWrap: "wrap", height: 1, width: 2, children: r })),
               (n[26] = r),
               (n[27] = w);
           else w = n[27];
@@ -143,7 +143,7 @@ function Jj(or) {
     let r;
     if (n[28] !== P || n[29] !== M || n[30] !== a)
       (r = e(o, {
-        "aria-hidden": !0,
+        "aria-hidden": true,
         flexWrap: "wrap",
         height: 1,
         width: 2,
@@ -158,7 +158,7 @@ function Jj(or) {
   }
   let c;
   if (n[32] !== s || n[33] !== a)
-    (c = e(o, { "aria-hidden": !0, flexWrap: "wrap", height: 1, width: 2, children: e(t, { color: s, children: a }) })),
+    (c = e(o, { "aria-hidden": true, flexWrap: "wrap", height: 1, width: 2, children: e(t, { color: s, children: a }) })),
       (n[32] = s),
       (n[33] = a),
       (n[34] = c);

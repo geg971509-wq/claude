@@ -41,10 +41,10 @@ import { Q } from "/$bunfs/root/chunk-wag5ye9w.js";
 import { lstat as Z, mkdir as pe, readdir as Se, readFile as re, rm as te, stat as Le } from "fs/promises";
 import { basename as B, dirname as Ue, isAbsolute as ye, join as F, relative as Je } from "path";
 function he(e) {
-  if (e === void 0 || !e.kinds.includes("session_cron")) return !1;
+  if (e === void 0 || !e.kinds.includes("session_cron")) return false;
   let t = e.wake;
-  if (t === void 0) return !0;
-  return t.fires >= 1 && t.keepalive !== !0;
+  if (t === void 0) return true;
+  return t.fires >= 1 && t.keepalive !== true;
 }
 function Ice(e) {
   if (!e || e.target <= 0) return -1;
@@ -107,10 +107,10 @@ function NVn() {
 function lX(e, t) {
   let r = we(e.additionalWorkingDirectories),
     o = [],
-    d = !1;
+    d = false;
   for (let k of AU())
-    if (d) d = !1;
-    else if (k === "--add-dir") d = !0;
+    if (d) d = false;
+    else if (k === "--add-dir") d = true;
     else o.push(k);
   let g = qX(t),
     p = tdn(),
@@ -203,26 +203,26 @@ class ce {
     this.#t.delete(e);
   }
   shouldReportTransient(e) {
-    if (this.#t.has(e)) return !1;
-    return this.#t.add(e), !0;
+    if (this.#t.has(e)) return false;
+    return this.#t.add(e), true;
   }
   shouldReportRecovered(e) {
-    if (this.#n.has(e)) return !1;
-    return this.#n.add(e), !0;
+    if (this.#n.has(e)) return false;
+    return this.#n.add(e), true;
   }
   noteCleanRead(e) {
     this.#n.delete(e);
   }
   shouldReportPruned(e) {
-    if (this.#i.has(e)) return !1;
-    return this.#i.add(e), !0;
+    if (this.#i.has(e)) return false;
+    return this.#i.add(e), true;
   }
   notePruneCandidateLive(e) {
     this.#i.delete(e);
   }
   shouldLogSidecarFallback(e) {
-    if (this.#r.has(e)) return !1;
-    return this.#r.add(e), !0;
+    if (this.#r.has(e)) return false;
+    return this.#r.add(e), true;
   }
 }
 class be {
@@ -273,7 +273,7 @@ var le = m(() =>
           at: v().optional(),
           reason: i().optional(),
           fires: v().int().nonnegative(),
-          keepalive: N(!0).optional(),
+          keepalive: N(true).optional(),
         })
           .optional()
           .catch(void 0),
@@ -438,7 +438,7 @@ async function ICr(e) {
     }
     return t.ids;
   }
-  return Se(Gb(), { withFileTypes: !0 })
+  return Se(Gb(), { withFileTypes: true })
     .then((t) => t.filter((r) => r.isDirectory()).map((r) => r.name))
     .catch((t) => {
       if (X(t)) return [];
@@ -463,7 +463,7 @@ function Dft(e) {
 }
 function rdn(e, t) {
   let r = F(cr(e), W),
-    o = !1,
+    o = false,
     d = Number.NaN;
   function g(A) {
     if (o) return;
@@ -485,7 +485,7 @@ function rdn(e, t) {
     k = setTimeout(u, 1e4);
   function u() {
     if (o) return;
-    (o = !0), clearInterval(S), clearTimeout(k);
+    (o = true), clearInterval(S), clearTimeout(k);
   }
   return u;
 }
@@ -493,10 +493,10 @@ function kBt() {
   return mI().ownStateWriteDepth > 0;
 }
 async function xs(e, t, r) {
-  let o = t.inFlight?.kinds.includes("session_cron") === !0,
+  let o = t.inFlight?.kinds.includes("session_cron") === true,
     d =
       o && !t.selfWake && he(t.inFlight)
-        ? { ...t, selfWake: !0 }
+        ? { ...t, selfWake: true }
         : !o && t.selfWake && Xi(t)
           ? { ...t, selfWake: void 0 }
           : t,
@@ -532,7 +532,7 @@ function xGe(e, t) {
   return {
     ownerAccountUuid: r ? t.ownerAccountUuid : void 0,
     ownerOrganizationUuid: r ? t.ownerOrganizationUuid : void 0,
-    noHistoryBackfill: e?.noHistoryBackfill || (t !== void 0 && !r ? !0 : t?.noHistoryBackfill),
+    noHistoryBackfill: e?.noHistoryBackfill || (t !== void 0 && !r ? true : t?.noHistoryBackfill),
   };
 }
 function lz(e, t, r, o, d) {
@@ -543,7 +543,7 @@ function lz(e, t, r, o, d) {
   if (d?.ownerAccountUuid) g.CLAUDE_BRIDGE_REATTACH_OWNER_ACCT = d.ownerAccountUuid;
   if (d?.ownerOrganizationUuid) g.CLAUDE_BRIDGE_REATTACH_OWNER_ORG = d.ownerOrganizationUuid;
   if (d?.noHistoryBackfill) g.CLAUDE_BRIDGE_REATTACH_NO_BACKFILL = "1";
-  if (r !== !1) g.CLAUDE_BRIDGE_REATTACH_OUTBOUND_ONLY = "1";
+  if (r !== false) g.CLAUDE_BRIDGE_REATTACH_OUTBOUND_ONLY = "1";
   return g;
 }
 var _ = new ce();
@@ -562,7 +562,7 @@ function Re(e) {
 }
 var We = new Set(["invariant", "permission", "environment"]);
 function He(e) {
-  if (e.code === "Unavailable") return !0;
+  if (e.code === "Unavailable") return true;
   return e.code === "Failed" && !We.has(e.failureClass) && ue(e) === void 0 && !Re(e);
 }
 async function Ke(e, t) {
@@ -610,7 +610,7 @@ async function qe(e, t, r) {
     if (_.shouldLogSidecarFallback(t))
       n(`[jobs] ${B(t)}: a sidecar could not be read as a regular file; using state.json alone`);
     let I = await e.read([g]);
-    S = I.ok ? { ok: !0, value: { items: [I.value.items[0], { found: !1 }, { found: !1 }, { found: !1 }] } } : I;
+    S = I.ok ? { ok: true, value: { items: [I.value.items[0], { found: false }, { found: false }, { found: false }] } } : I;
   }
   let k = _.peek(t);
   if (!S.ok) {
@@ -807,39 +807,39 @@ async function ae(e) {
   let t = await Z(M()).catch(() => {
     return;
   });
-  if (t === void 0 || (t.isFile() && !(e?.evenRegular && t.size > D))) return !1;
-  return await te(M(), { recursive: !0, force: !0 }).catch(() => {}), !0;
+  if (t === void 0 || (t.isFile() && !(e?.evenRegular && t.size > D))) return false;
+  return await te(M(), { recursive: true, force: true }).catch(() => {}), true;
 }
 async function iM(e, t, r, o, d) {
   let g = cr(e),
     p = await fr(g, o);
-  if (!p) return !1;
-  if (p.name === t) return !0;
+  if (!p) return false;
+  if (p.name === t) return true;
   hd(g);
   let S = (await fr(g, o)) ?? p;
-  if (S.name === t || (r === "auto" && S.name)) return !0;
-  if (!Pe(S, d)) return !1;
+  if (S.name === t || (r === "auto" && S.name)) return true;
+  if (!Pe(S, d)) return false;
   return xs(g, { ...S, name: t, nameSource: r, updatedAt: new Date().toISOString() }, o).then(
-    () => !0,
+    () => true,
     (k) => {
       if (!X(k)) Aa(k);
-      return !1;
+      return false;
     },
   );
 }
 async function IGe(e, t, r) {
   let o = cr(e),
     d = await fr(o, r);
-  if (!d) return !1;
-  if (d.color === t) return !0;
+  if (!d) return false;
+  if (d.color === t) return true;
   hd(o);
   let g = (await fr(o, r)) ?? d;
-  if (g.color === t) return !0;
+  if (g.color === t) return true;
   return xs(o, { ...g, color: t, updatedAt: new Date().toISOString() }, r).then(
-    () => !0,
+    () => true,
     (p) => {
       if (!X(p)) Aa(p);
-      return !1;
+      return false;
     },
   );
 }
@@ -914,8 +914,8 @@ async function Ate(e, t) {
   });
 }
 function Pe(e, t) {
-  if (t === void 0 || !e.name) return !0;
-  if (e.nameSource === "auto" || e.nameSource === "collision") return !0;
+  if (t === void 0 || !e.name) return true;
+  if (e.nameSource === "auto" || e.nameSource === "collision") return true;
   return t.includes(Us(e.name));
 }
 async function kD(e, t, r, o, d, g) {
@@ -969,12 +969,12 @@ async function adn(e, t, r) {
   );
 }
 async function fe(e, t) {
-  await te(e, { force: !0 });
+  await te(e, { force: true });
   let r = await Rfe(e, t);
   try {
     await Ii(r, e);
   } catch (o) {
-    throw (await te(r, { force: !0 }).catch(() => {}), o);
+    throw (await te(r, { force: true }).catch(() => {}), o);
   }
 }
 async function me(e, t, r) {
@@ -1010,14 +1010,14 @@ async function Lft(e, t, r) {
       if (!p.ok) throw new R(`[jobs] v5 sidecar delete failed: ${p.error.code}`, "[jobs] v5 sidecar delete failed");
     }
   else if (d) await fe(o, d);
-  else await te(o, { force: !0 });
+  else await te(o, { force: true });
   hd(e);
 }
 async function udn(e) {
   let t = F(Gb(), ".order");
-  await pe(Gb(), { recursive: !0 });
+  await pe(Gb(), { recursive: true });
   await using r = await Gi(t, {
-    realpath: !1,
+    realpath: false,
     stale: 5000,
     retries: { retries: 5, minTimeout: 20 },
     onCompromised: (o) =>
@@ -1033,9 +1033,9 @@ function Mft(e, t, r) {
   return Ee.run("pins.json", async () => {
     if (O() && r) return Ze(e, t, r);
     let o = M();
-    await pe(Ue(o), { recursive: !0 });
+    await pe(Ue(o), { recursive: true });
     await using d = await Gi(o, {
-      realpath: !1,
+      realpath: false,
       stale: Uhr,
       retries: { retries: 5, minTimeout: 20 },
       onCompromised: (p) =>
@@ -1056,20 +1056,20 @@ function Mft(e, t, r) {
 async function Ze(e, t, r) {
   let o = (k) => {
       let u = ge(k?.value);
-      if (t ? u.has(e) : !u.has(e)) return { skip: !0, result: !1 };
+      if (t ? u.has(e) : !u.has(e)) return { skip: true, result: false };
       if (t) u.add(e);
       else u.delete(e);
-      return { write: b([...u], null, 2), result: !0 };
+      return { write: b([...u], null, 2), result: true };
     },
     d = Ie(),
     g = await r.statMeta(Te.jobPins());
-  if (g.ok && g.value.size > D) await ae({ evenRegular: !0 }), d.delete(M());
+  if (g.ok && g.value.size > D) await ae({ evenRegular: true }), d.delete(M());
   else if (!g.ok && ue(g.error) !== void 0) await ae(), d.delete(M());
   let p = { publishDiscipline: "atomic", mode: 438 & ~process.umask() },
     S = await r.updateText(Te.jobPins(), o, p);
   if (!S.ok && (await ae())) S = await r.updateText(Te.jobPins(), o, p);
   if (!S.ok) throw new R(`[jobs] v5 pins update failed: ${S.error.code}`, "[jobs] v5 pins update failed");
-  if (!t && S.value.result === !0) {
+  if (!t && S.value.result === true) {
     let k = Ae(e, ["order"]);
     if (k) {
       let u = await r.delete(k);
@@ -1085,7 +1085,7 @@ async function d_(e, t) {
   if (t) return Qe(t, e);
   let r;
   try {
-    r = await Se(Gb(), { withFileTypes: !0 });
+    r = await Se(Gb(), { withFileTypes: true });
   } catch {
     return [];
   }
@@ -1100,7 +1100,7 @@ async function d_(e, t) {
           }),
       ),
     ]),
-    g = d.filter((p) => p !== null).map((p) => (o.has(p.id) ? { ...p, state: { ...p.state, pinned: !0 } } : p));
+    g = d.filter((p) => p !== null).map((p) => (o.has(p.id) ? { ...p, state: { ...p.state, pinned: true } } : p));
   return e ? Pbe(g, e) : g;
 }
 async function Oe(e) {
@@ -1109,9 +1109,9 @@ async function Oe(e) {
   do {
     let o = await e.listEntries(
       { namespace: "job" },
-      r === void 0 ? { skipScopeStats: !0 } : { cursor: r, skipScopeStats: !0 },
+      r === void 0 ? { skipScopeStats: true } : { cursor: r, skipScopeStats: true },
     );
-    if (!o.ok) return { ok: !1, error: o.error };
+    if (!o.ok) return { ok: false, error: o.error };
     for (let d of o.value.items)
       if (
         d.kind === "scope" &&
@@ -1123,7 +1123,7 @@ async function Oe(e) {
         t.push(d.scope.jobId);
     r = o.value.cursor;
   } while (r !== void 0);
-  return { ok: !0, ids: t };
+  return { ok: true, ids: t };
 }
 async function Qe(e, t) {
   let r = await Oe(e);
@@ -1138,7 +1138,7 @@ async function Qe(e, t) {
         }),
       ),
     ]),
-    p = g.filter((S) => S !== null).map((S) => (d.has(S.id) ? { ...S, state: { ...S.state, pinned: !0 } } : S));
+    p = g.filter((S) => S !== null).map((S) => (d.has(S.id) ? { ...S, state: { ...S.state, pinned: true } } : S));
   return t ? Pbe(p, t) : p;
 }
 function Pbe(e, t) {
@@ -1218,7 +1218,7 @@ async function ddn(e, t, r) {
   let o = new Set(e.map((u) => u.id)),
     d = t.filter((u) => ve.test(u.short) && !o.has(u.short) && u.source !== "spare" && !u.dying);
   if (d.length === 0) return e;
-  let g = await cT({ silent: !0 }, r),
+  let g = await cT({ silent: true }, r),
     p = await Promise.all(
       d.map((u) => {
         let A = g.workers[u.short];
@@ -1263,7 +1263,7 @@ async function ddn(e, t, r) {
           Aa(new R(`[jobs] v5 orphan seed write failed: ${y.error.code}`, "[jobs] v5 orphan seed write failed"));
       });
     else
-      pe(P, { recursive: !0 })
+      pe(P, { recursive: true })
         .then(() => KAt(F(P, "state.json"), b(A), 384))
         .then(() => s("tengu_bg_roster_orphan_adopted", {}))
         .catch((y) => {
@@ -1299,16 +1299,16 @@ function w2(e) {
   return SS(t);
 }
 function DGe(e, t) {
-  if (e.backend === "remote") return !0;
+  if (e.backend === "remote") return true;
   let r = Je(t, w2(e));
   return r.split(/[/\\]/, 1)[0] !== ".." && !ye(r);
 }
 function Mbe(e) {
-  let t = (r) => r?.trim().toLowerCase().startsWith("/loop") ?? !1;
+  let t = (r) => r?.trim().toLowerCase().startsWith("/loop") ?? false;
   return t(e.intent) || t(e.initialPrompt);
 }
 function HD(e) {
-  return e.routine !== void 0 || e.selfWake === !0 || (e.inFlight?.kinds.includes("session_cron") ?? !1) || Mbe(e);
+  return e.routine !== void 0 || e.selfWake === true || (e.inFlight?.kinds.includes("session_cron") ?? false) || Mbe(e);
 }
 function Oce(e, t, r, o, d) {
   let g = cr(e);

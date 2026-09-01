@@ -154,9 +154,9 @@ function Ho(vo, ns) {
   if (bo[4] !== lt || bo[5] !== ct || bo[6] !== st || bo[7] !== vn)
     (os = () => {
       if (lt() || st(vn)) {
-        return ct(), !0;
+        return ct(), true;
       }
-      return !1;
+      return false;
     }),
       (bo[4] = lt),
       (bo[5] = ct),
@@ -169,9 +169,9 @@ function Ho(vo, ns) {
   if (bo[9] !== lt || bo[10] !== ct || bo[11] !== st || bo[12] !== vn)
     (rs = () => {
       if (!lt() && !st(vn)) {
-        return !1;
+        return false;
       }
-      return ct(), !0;
+      return ct(), true;
     }),
       (bo[9] = lt),
       (bo[10] = ct),
@@ -198,8 +198,8 @@ function LK(zc) {
       defaultValue: ft,
       refuseInput: Zr,
     } = zc,
-    Sn = ls === void 0 ? !1 : ls,
-    bn = ss === void 0 ? !1 : ss,
+    Sn = ls === void 0 ? false : ls,
+    bn = ss === void 0 ? false : ss,
     [ho, pt, Qe] = An(),
     [yo, go] = u(null),
     [mt, ei] = u(null),
@@ -217,7 +217,7 @@ function LK(zc) {
           go("Enter some text, or Escape for the list.");
           return;
         }
-        if (xo?.(Fe.value) === !1) {
+        if (xo?.(Fe.value) === false) {
           return;
         }
         Qe(tu), ei(null);
@@ -239,7 +239,7 @@ function LK(zc) {
         Qe(() => cs), bt.onChange(cs), dt?.(bt.value);
         return;
       }
-      if (xo?.(bt.value) === !1) {
+      if (xo?.(bt.value) === false) {
         return;
       }
       Qe(iu);
@@ -290,7 +290,7 @@ function LK(zc) {
       if (_e.key === "backspace" || _e.key === "delete") {
         _e.preventDefault();
         let ms = pt.current.slice(0, -1);
-        if (Fe && Fe.onChange(ms) === !1) {
+        if (Fe && Fe.onChange(ms) === false) {
           return;
         }
         Qe(() => ms);
@@ -300,7 +300,7 @@ function LK(zc) {
         if (_e.key.length === 1 && !_e.ctrl && !_e.meta) {
           _e.preventDefault();
           let vs = pt.current + _e.key;
-          if (Fe.onChange(vs) === !1) {
+          if (Fe.onChange(vs) === false) {
             return;
           }
           Qe(() => vs);
@@ -347,7 +347,7 @@ function LK(zc) {
   const ri = !Sn && !bn;
   let ys;
   if (ln[26] !== To || ln[27] !== ri)
-    (ys = { line: 0, column: To, active: ri, visible: !0 }), (ln[26] = To), (ln[27] = ri), (ln[28] = ys);
+    (ys = { line: 0, column: To, active: ri, visible: true }), (ln[26] = To), (ln[27] = ri), (ln[28] = ys);
   else ys = ln[28];
   let ii = Xf(ys),
     So;
@@ -405,18 +405,18 @@ function G0t(Jc) {
   if (ke[0] !== wo) (Ss = wo === void 0 ? [] : wo), (ke[0] = wo), (ke[1] = Ss);
   else Ss = ke[1];
   let yn = Ss,
-    On = Ts === void 0 ? !1 : Ts,
+    On = Ts === void 0 ? false : Ts,
     [ko, Kt, Me] = An(),
     [Mo, zn] = u(null),
     [Gn, Os] = u(null),
-    Do = C(!1),
-    Vo = C(!1),
+    Do = C(false),
+    Vo = C(false),
     Is;
   if (ke[2] !== ui || ke[3] !== Gn)
     (Is = () => {
       if (Gn !== null) {
         let Xc = [...Gn];
-        Os(null), (Do.current = !1), ui?.(Xc);
+        Os(null), (Do.current = false), ui?.(Xc);
       }
     }),
       (ke[2] = ui),
@@ -434,8 +434,8 @@ function G0t(Jc) {
   let ks;
   if (ke[7] !== si || ke[8] !== Me)
     (ks = (Ms) => {
-      if (((Do.current = !0), si?.([...Ms]) === !1)) {
-        Do.current = !1;
+      if (((Do.current = true), si?.([...Ms]) === false)) {
+        Do.current = false;
         return;
       }
       Os(Ms), Me(uu), ai(null);
@@ -554,7 +554,7 @@ function G0t(Jc) {
       if (Ge.key === "return") {
         if ((Ge.preventDefault(), Vo.current)) {
           Tt?.(),
-            (Vo.current = !1),
+            (Vo.current = false),
             Me(mu),
             zn("Part of that entry arrived before the list was ready \u2014 enter your selection again.");
           return;
@@ -568,7 +568,7 @@ function G0t(Jc) {
       if (Ge.key === "backspace" || Ge.key === "delete") {
         Ge.preventDefault();
         let Ws = Kt.current.slice(0, -1);
-        if (Ke && Ke.onChange(Ws) === !1) {
+        if (Ke && Ke.onChange(Ws) === false) {
           return;
         }
         Me(() => Ws);
@@ -578,7 +578,7 @@ function G0t(Jc) {
         if (Ge.key.length === 1 && !Ge.ctrl && !Ge.meta) {
           Ge.preventDefault();
           let Ls = Kt.current + Ge.key;
-          if (Ke.onChange(Ls) === !1) {
+          if (Ke.onChange(Ls) === false) {
             return;
           }
           Me(() => Ls);
@@ -592,7 +592,7 @@ function G0t(Jc) {
           return;
         }
         if (Tt?.()) {
-          Vo.current = !0;
+          Vo.current = true;
           return;
         }
         zn(null), Me((Qc) => Qc + Us);
@@ -640,7 +640,7 @@ function G0t(Jc) {
   const vi = !On;
   let _s;
   if (ke[39] !== Fo || ke[40] !== vi)
-    (_s = { line: 0, column: Fo, active: vi, visible: !0 }), (ke[39] = Fo), (ke[40] = vi), (ke[41] = _s);
+    (_s = { line: 0, column: Fo, active: vi, visible: true }), (ke[39] = Fo), (ke[40] = vi), (ke[41] = _s);
   else _s = ke[41];
   let bi = Xf(_s),
     js;
@@ -723,12 +723,12 @@ function z0t(od) {
     [ld, Vi, Dn] = An(),
     [Lo, qs] = u(null),
     Js = C(null);
-  Cp(Js, !0), fs("select", !0);
+  Cp(Js, true), fs("select", true);
   let { refuse: Ei, refuseCharacter: Ai } = Ho(rd, id),
     Xs;
   if (He[0] !== Ct || He[1] !== Ei)
     (Xs = function Vn() {
-      return (Ct?.() ?? !1) || Ei();
+      return (Ct?.() ?? false) || Ei();
     }),
       (He[0] = Ct),
       (He[1] = Ei),
@@ -738,7 +738,7 @@ function z0t(od) {
     Ys;
   if (He[3] !== Ct || He[4] !== Ai)
     (Ys = function Gt() {
-      return (Ct?.() ?? !1) || Ai();
+      return (Ct?.() ?? false) || Ai();
     }),
       (He[3] = Ct),
       (He[4] = Ai),
@@ -805,7 +805,7 @@ function z0t(od) {
   if (He[18] !== kt) (Uo = se(kt)), (He[18] = kt), (He[19] = Uo);
   else Uo = He[19];
   let eu;
-  if (He[20] !== Uo) (eu = { line: 0, column: Uo, active: !0, visible: !0 }), (He[20] = Uo), (He[21] = eu);
+  if (He[20] !== Uo) (eu = { line: 0, column: Uo, active: true, visible: true }), (He[20] = Uo), (He[21] = eu);
   else eu = He[21];
   let Ri = Xf(eu),
     $o;
@@ -858,10 +858,10 @@ function fl(hd) {
       onClick: Li,
       onHoverChange: Xo,
     } = hd,
-    Dt = hu === void 0 ? !1 : hu,
-    Vt = yu === void 0 ? !0 : yu,
-    We = gu === void 0 ? !1 : gu,
-    [gd, Td] = u(!1),
+    Dt = hu === void 0 ? false : hu,
+    Vt = yu === void 0 ? true : yu,
+    We = gu === void 0 ? false : gu,
+    [gd, Td] = u(false),
     Tu = !We && Li !== void 0,
     Et = !We && (Li !== void 0 || Xo !== void 0),
     Su;
@@ -897,17 +897,17 @@ function fl(hd) {
   else Iu = sn[6];
   let $i = Iu,
     _i = $i();
-  const ji = Xn && !We && yd !== !1;
+  const ji = Xn && !We && yd !== false;
   let wu;
   if (sn[7] !== ji) (wu = { line: 0, column: 0, active: ji }), (sn[7] = ji), (sn[8] = wu);
   else wu = sn[8];
   let Bi = Xf(wu);
   const Ki = Tu ? Li : void 0;
   let Yo;
-  if (sn[9] !== Et || sn[10] !== At) (Yo = Et ? () => At(!0) : void 0), (sn[9] = Et), (sn[10] = At), (sn[11] = Yo);
+  if (sn[9] !== Et || sn[10] !== At) (Yo = Et ? () => At(true) : void 0), (sn[9] = Et), (sn[10] = At), (sn[11] = Yo);
   else Yo = sn[11];
   let Qo;
-  if (sn[12] !== Et || sn[13] !== At) (Qo = Et ? () => At(!1) : void 0), (sn[12] = Et), (sn[13] = At), (sn[14] = Qo);
+  if (sn[12] !== Et || sn[13] !== At) (Qo = Et ? () => At(false) : void 0), (sn[12] = Et), (sn[13] = At), (sn[14] = Qo);
   else Qo = sn[14];
   const zi = gd && Tu;
   let Zo;
@@ -978,36 +978,36 @@ function rr(Sd) {
     { disabled: Od, isFocused: Id, showScrollUp: wd, showScrollDown: Cd, hovered: kd } = Sd;
   if (Od) {
     let De;
-    if (Ft[0] === d) (De = e(t, { "aria-hidden": !0, children: " " })), (Ft[0] = De);
+    if (Ft[0] === d) (De = e(t, { "aria-hidden": true, children: " " })), (Ft[0] = De);
     else De = Ft[0];
     return De;
   }
   if (Id) {
     let De;
-    if (Ft[1] === d) (De = e(t, { "aria-hidden": !0, color: "suggestion", children: L.pointer })), (Ft[1] = De);
+    if (Ft[1] === d) (De = e(t, { "aria-hidden": true, color: "suggestion", children: L.pointer })), (Ft[1] = De);
     else De = Ft[1];
     return De;
   }
   if (Cd) {
     let De;
-    if (Ft[2] === d) (De = e(t, { "aria-label": "(more below)", dimColor: !0, children: L.arrowDown })), (Ft[2] = De);
+    if (Ft[2] === d) (De = e(t, { "aria-label": "(more below)", dimColor: true, children: L.arrowDown })), (Ft[2] = De);
     else De = Ft[2];
     return De;
   }
   if (wd) {
     let De;
-    if (Ft[3] === d) (De = e(t, { "aria-label": "(more above)", dimColor: !0, children: L.arrowUp })), (Ft[3] = De);
+    if (Ft[3] === d) (De = e(t, { "aria-label": "(more above)", dimColor: true, children: L.arrowUp })), (Ft[3] = De);
     else De = Ft[3];
     return De;
   }
   if (kd) {
     let De;
-    if (Ft[4] === d) (De = e(t, { "aria-hidden": !0, dimColor: !0, children: L.pointer })), (Ft[4] = De);
+    if (Ft[4] === d) (De = e(t, { "aria-hidden": true, dimColor: true, children: L.pointer })), (Ft[4] = De);
     else De = Ft[4];
     return De;
   }
   let De;
-  if (Ft[5] === d) (De = e(t, { "aria-hidden": !0, children: " " })), (Ft[5] = De);
+  if (Ft[5] === d) (De = e(t, { "aria-hidden": true, children: " " })), (Ft[5] = De);
   else De = Ft[5];
   return De;
 }
@@ -1016,7 +1016,7 @@ F();
 function Ht(Wd) {
   let lr = _(15),
     { imageId: ku, backgroundColor: Qn, isSelected: Mu } = Wd,
-    Fn = Mu === void 0 ? !1 : Mu,
+    Fn = Mu === void 0 ? false : Mu,
     ir = ki((Ld) => Ld.storedImagePaths.get(ku) ?? null) ?? null,
     Zn = `[Image #${ku}]`,
     Du;
@@ -1079,7 +1079,7 @@ function nB(Bd) {
       description: Ji,
       showScrollDown: Xi,
       showScrollUp: Yi,
-      styled: !1,
+      styled: false,
       declareCursor: Qi,
       onClick: Zi,
       children: qi,
@@ -1134,23 +1134,23 @@ function MK(cf) {
       extraChromeWidth: Nu,
       onClick: il,
     } = cf,
-    ll = Au === void 0 ? !1 : Au,
-    df = Fu === void 0 ? !1 : Fu,
-    Rt = Pu === void 0 ? !1 : Pu,
+    ll = Au === void 0 ? false : Au,
+    df = Fu === void 0 ? false : Fu,
+    Rt = Pu === void 0 ? false : Pu,
     un = Ru === void 0 ? 0 : Ru,
     sl = Nu === void 0 ? 0 : Nu,
     Wu;
   if (ie[0] !== fr) (Wu = fr ? Object.values(fr).filter(ua) : []), (ie[0] = fr), (ie[1] = Wu);
   else Wu = ie[1];
   let pe = Wu,
-    pr = df || Y.showLabelWithValue === !0,
+    pr = df || Y.showLabelWithValue === true,
     [Rn, Jt] = u(ae.length),
-    Nt = C(!1),
+    Nt = C(false),
     Lu;
   if (ie[2] !== ae.length || ie[3] !== Z || ie[4] !== Rt)
     (Lu = () => {
       if (Rt && Z) {
-        if (Nt.current) Nt.current = !1;
+        if (Nt.current) Nt.current = false;
         else Jt(ae.length);
       }
     }),
@@ -1185,7 +1185,7 @@ function MK(cf) {
       if (!wn) {
         return;
       }
-      if (rl?.() === !1) {
+      if (rl?.() === false) {
         return;
       }
       _z(Ya(at())).then((mr) => {
@@ -1234,10 +1234,10 @@ function MK(cf) {
     (hr = () => {
       let Gu = pe[un];
       if (Gu && Cn) {
-        if (Cn(Gu.id) === !1) {
+        if (Cn(Gu.id) === false) {
           return;
         }
-        if (pe.length <= 1) gn?.(!1);
+        if (pe.length <= 1) gn?.(false);
         else nt?.(Math.min(un, pe.length - 2));
       }
     }),
@@ -1251,7 +1251,7 @@ function MK(cf) {
   let yr;
   if (ie[37] !== gn)
     (yr = () => {
-      gn?.(!1);
+      gn?.(false);
     }),
       (ie[37] = gn),
       (ie[38] = yr);
@@ -1273,7 +1273,7 @@ function MK(cf) {
   let Ju, Xu;
   if (ie[46] !== qe || ie[47] !== Z || ie[48] !== gn)
     (Ju = () => {
-      if (!Z && qe) gn?.(!1);
+      if (!Z && qe) gn?.(false);
     }),
       (Xu = [Z, qe, gn]),
       (ie[46] = qe),
@@ -1294,7 +1294,7 @@ function MK(cf) {
   const vl = qt === "compact" ? 0 : void 0;
   let Tr;
   if (ie[56] !== ll || ie[57] !== tl || ie[58] !== Pn)
-    (Tr = !ll && e(o, { flexShrink: 0, children: e(t, { dimColor: !0, children: `${tl}.`.padEnd(Pn + 2) }) })),
+    (Tr = !ll && e(o, { flexShrink: 0, children: e(t, { dimColor: true, children: `${tl}.`.padEnd(Pn + 2) }) })),
       (ie[56] = ll),
       (ie[57] = tl),
       (ie[58] = Pn),
@@ -1322,17 +1322,17 @@ function MK(cf) {
               e(xn, {
                 value: ae,
                 onChange: (Qu) => {
-                  if (Y.onChange(Qu) === !1) {
+                  if (Y.onChange(Qu) === false) {
                     return;
                   }
-                  (Nt.current = !0), In(Qu);
+                  (Nt.current = true), In(Qu);
                 },
                 onSubmit: ar,
                 onExit: cr,
                 placeholder: Y.placeholder,
                 focus: !qe,
-                showCursor: !0,
-                multiline: !0,
+                showCursor: true,
+                multiline: true,
                 cursorOffset: Rn,
                 onChangeCursorOffset: Jt,
                 columns: gr,
@@ -1341,10 +1341,10 @@ function MK(cf) {
                   let ea = ae.slice(0, Rn);
                   let ff = ae.slice(Rn);
                   let na = ea + Zu + ff;
-                  if (Y.onChange(na) === !1) {
+                  if (Y.onChange(na) === false) {
                     return;
                   }
-                  (Nt.current = !0), In(na), Jt(ea.length + Zu.length);
+                  (Nt.current = true), In(na), Jt(ea.length + Zu.length);
                 },
               }),
             ],
@@ -1354,17 +1354,17 @@ function MK(cf) {
         ? e(xn, {
             value: ae,
             onChange: (ta) => {
-              if (Y.onChange(ta) === !1) {
+              if (Y.onChange(ta) === false) {
                 return;
               }
-              (Nt.current = !0), In(ta);
+              (Nt.current = true), In(ta);
             },
             onSubmit: ar,
             onExit: cr,
             placeholder: Y.placeholder || (typeof Y.label === "string" ? Y.label : void 0),
             focus: !qe,
-            showCursor: !0,
-            multiline: !0,
+            showCursor: true,
+            multiline: true,
             cursorOffset: Rn,
             onChangeCursorOffset: Jt,
             columns: gr,
@@ -1373,10 +1373,10 @@ function MK(cf) {
               let ra = ae.slice(0, Rn);
               let pf = ae.slice(Rn);
               let ia = ra + oa + pf;
-              if (Y.onChange(ia) === !1) {
+              if (Y.onChange(ia) === false) {
                 return;
               }
-              (Nt.current = !0), In(ia), Jt(ra.length + oa.length);
+              (Nt.current = true), In(ia), Jt(ra.length + oa.length);
             },
           })
         : e(t, { color: ae ? void 0 : "inactive", children: ae || Y.placeholder || Y.label })),
@@ -1409,7 +1409,7 @@ function MK(cf) {
       isSelected: Pt,
       shouldShowDownArrow: el,
       shouldShowUpArrow: nl,
-      declareCursor: !1,
+      declareCursor: false,
       onClick: il,
       children: Or,
     })),
@@ -1428,7 +1428,7 @@ function MK(cf) {
       e(o, {
         paddingLeft: Wt,
         children: e(t, {
-          dimColor: Y.dimDescription !== !1,
+          dimColor: Y.dimDescription !== false,
           color: Pt ? "success" : Z ? "suggestion" : void 0,
           children: Y.description,
         }),
@@ -1455,7 +1455,7 @@ function MK(cf) {
             justifyContent: "flex-start",
             flexDirection: "row",
             children: e(t, {
-              dimColor: !0,
+              dimColor: true,
               children: qe
                 ? r(fe, {
                     children: [
@@ -1491,7 +1491,7 @@ function MK(cf) {
                     ],
                   })
                 : Z
-                  ? e(M, { chord: "down", action: "select", parens: !0 })
+                  ? e(M, { chord: "down", action: "select", parens: true })
                   : null,
             }),
           }),
@@ -1520,19 +1520,19 @@ function MK(cf) {
 }
 F();
 var Mr = ({
-  isDisabled: i = !1,
-  disableSelection: l = !1,
+  isDisabled: i = false,
+  disableSelection: l = false,
   state: a,
   options: c,
-  isMultiSelect: f = !1,
+  isMultiSelect: f = false,
   onUpFromFirstItem: p,
   onDownFromLastItem: x,
   onInputModeToggle: T,
   inputValues: S,
-  imagesSelected: I = !1,
+  imagesSelected: I = false,
   onEnterImageSelection: V,
   onExitImageSelection: R,
-  hasInkFocus: ne = !0,
+  hasInkFocus: ne = true,
 }) => {
   let { focusDirection: j } = pxe();
   fs("select", !!a.onCancel);
@@ -1561,11 +1561,11 @@ var Mr = ({
             a.focusPreviousOption();
           }),
           (y["select:accept"] = () => {
-            if (l === !0) return;
+            if (l === true) return;
             let E = a.getFocusedValue();
             if (E === void 0) return;
             let N = c.find((P) => P.value === E);
-            if (N?.disabled === !0) return;
+            if (N?.disabled === true) return;
             if (N?.type === "input") return;
             a.selectFocusedOption?.(), a.onChange?.(E);
           });
@@ -1576,7 +1576,7 @@ var Mr = ({
       return y;
     }, [c, a, x, p, te, l, j]);
   return (
-    ht(H, { context: "Select", isActive: !i && !0 }),
+    ht(H, { context: "Select", isActive: !i && true }),
     {
       handleKeyDown: (y) => {
         if (i) return;
@@ -1653,9 +1653,9 @@ var Mr = ({
           y.preventDefault(), a.focusPreviousPage();
           return;
         }
-        if (l !== !0) {
+        if (l !== true) {
           if (f && NU(y.key) === " " && N !== void 0) {
-            if (P?.disabled !== !0) y.preventDefault(), a.selectFocusedOption?.(), a.onChange?.(N);
+            if (P?.disabled !== true) y.preventDefault(), a.selectFocusedOption?.(), a.onChange?.(N);
             return;
           }
           if (l !== "numeric" && /^[0-9]$/.test(E)) {
@@ -1663,7 +1663,7 @@ var Mr = ({
             let h = parseInt(E) - 1;
             if (h >= 0 && h < a.options.length) {
               let D = a.options[h];
-              if (D.disabled === !0) return;
+              if (D.disabled === true) return;
               if (D.type === "input") {
                 if ((S?.get(D.value) ?? "").trim()) {
                   a.onChange?.(D.value);
@@ -1944,7 +1944,7 @@ function YBe() {
   return B(
     (a) => {
       let c = i.now();
-      if (!pa(a, l, c)) return !1;
+      if (!pa(a, l, c)) return false;
       let f = a.isWindowActivation ? w("window_activation") : w("mount_settle");
       return (
         n(
@@ -1952,7 +1952,7 @@ function YBe() {
         ),
         s("tengu_select_stray_click_dropped", { reason: f }),
         a.dropAsStray(),
-        !0
+        true
       );
     },
     [i, l],
@@ -1971,7 +1971,7 @@ function hc(cm) {
   return cm.type === "image";
 }
 function yc() {
-  return { bold: !0 };
+  return { bold: true };
 }
 function gc(dm) {
   return dm.type === "image";
@@ -2057,13 +2057,13 @@ function Hr(cp) {
       pastedContents: Pe,
       onRemoveImage: eo,
     } = cp,
-    Le = ba === void 0 ? !1 : ba,
-    le = xa === void 0 ? !1 : xa,
+    Le = ba === void 0 ? false : ba,
+    le = xa === void 0 ? false : xa,
     dp = ha === void 0 ? 5 : ha,
     Ut = ya === void 0 ? "compact" : ya,
-    Er = ga === void 0 ? !1 : ga,
-    kn = Ta === void 0 ? !1 : Ta,
-    [Wn, no] = u(!1),
+    Er = ga === void 0 ? false : ga,
+    kn = Ta === void 0 ? false : Ta,
+    [Wn, no] = u(false),
     [to, Ar] = u(0),
     Sa;
   if (Ve[0] !== J)
@@ -2144,12 +2144,12 @@ function Hr(cp) {
       (Ve[15] = Va);
   else Va = Ve[15];
   let m = Vr(Va),
-    [Ml, Ea] = u(!0),
+    [Ml, Ea] = u(true),
     Dl = YBe(),
     Aa;
   if (Ve[16] !== Er || Ve[17] !== Le || Ve[18] !== Dl || Ve[19] !== m)
     (Aa = (Rr) =>
-      Le || Er === !0 || Rr.disabled === !0
+      Le || Er === true || Rr.disabled === true
         ? void 0
         : (vp) => {
             if (Dl(vp)) {
@@ -2165,15 +2165,15 @@ function Hr(cp) {
       (Ve[20] = Aa);
   else Aa = Ve[20];
   let cn = Aa;
-  const Vl = Er || (le ? "numeric" : !1);
+  const Vl = Er || (le ? "numeric" : false);
   let Nr;
   if (Ve[21] !== Pe)
     (Nr = () => {
       if (Pe && Object.values(Pe).some(xc)) {
         let bp = Q(Object.values(Pe), hc);
-        return no(!0), Ar(bp - 1), !0;
+        return no(true), Ar(bp - 1), true;
       }
-      return !1;
+      return false;
     }),
       (Ve[21] = Pe),
       (Ve[22] = Nr);
@@ -2181,7 +2181,7 @@ function Hr(cp) {
   let Fa;
   if (Ve[23] === d)
     (Fa = () => {
-      no(!1);
+      no(false);
     }),
       (Ve[23] = Fa);
   else Fa = Ve[23];
@@ -2205,7 +2205,7 @@ function Hr(cp) {
       disableSelection: Vl,
       state: m,
       options: J,
-      isMultiSelect: !1,
+      isMultiSelect: false,
       onUpFromFirstItem: Ol,
       onDownFromLastItem: Il,
       onInputModeToggle: wl,
@@ -2264,7 +2264,7 @@ function Hr(cp) {
         container: () => ({
           flexDirection: "column",
           ref: Ra,
-          ...(Le ? {} : { tabIndex: 0, onKeyDown: El, onFocus: () => Ea(!0), onBlur: () => Ea(!1) }),
+          ...(Le ? {} : { tabIndex: 0, onKeyDown: El, onFocus: () => Ea(true), onBlur: () => Ea(false) }),
         }),
         highlightedText: yc,
       };
@@ -2335,7 +2335,7 @@ function Hr(cp) {
                 children: [Pl.slice(0, ja), e(t, { ...Ln.highlightedText(), children: me }), Pl.slice(ja + me.length)],
               });
             }
-            let Rl = oe.disabled === !0;
+            let Rl = oe.disabled === true;
             let Ba = Rl ? void 0 : Fl ? "success" : Al ? "suggestion" : void 0;
             return r(
               o,
@@ -2355,7 +2355,7 @@ function Hr(cp) {
                     e(o, {
                       paddingLeft: 2,
                       children: e(t, {
-                        dimColor: Rl || oe.dimDescription !== !1,
+                        dimColor: Rl || oe.dimDescription !== false,
                         color: Ba,
                         children: e(oo, { children: oe.description }),
                       }),
@@ -2436,7 +2436,7 @@ function Hr(cp) {
                 children: [Wl.slice(0, Qa), e(t, { ...Ln.highlightedText(), children: me }), Wl.slice(Qa + me.length)],
               });
             }
-            let jr = re.disabled === !0;
+            let jr = re.disabled === true;
             return r(
               o,
               {
@@ -2451,7 +2451,7 @@ function Hr(cp) {
                     onClick: cn(re),
                     children: r(U, {
                       children: [
-                        !le && e(t, { dimColor: !0, children: `${qa}.`.padEnd(Nl + 1) }),
+                        !le && e(t, { dimColor: true, children: `${qa}.`.padEnd(Nl + 1) }),
                         e(t, {
                           dimColor: jr,
                           color: jr ? void 0 : _r ? "success" : $r ? "suggestion" : void 0,
@@ -2464,7 +2464,7 @@ function Hr(cp) {
                     e(o, {
                       paddingLeft: le ? 4 : Nl + 4,
                       children: e(t, {
-                        dimColor: jr || re.dimDescription !== !1,
+                        dimColor: jr || re.dimDescription !== false,
                         color: jr ? void 0 : _r ? "success" : $r ? "suggestion" : void 0,
                         children: e(oo, { children: re.description }),
                       }),
@@ -2517,7 +2517,7 @@ function Hr(cp) {
           let $p = m.visibleFromIndex + Rp + 1;
           let _p = !Le && m.focusedValue === _n.value;
           let ec = m.value === _n.value;
-          let jp = _n.disabled === !0;
+          let jp = _n.disabled === true;
           let nc = ec ? 2 : 0;
           let uo = rE(_n.label);
           let $t = _n.label;
@@ -2571,7 +2571,7 @@ function Hr(cp) {
                             : ce.isFocused
                               ? "suggestion"
                               : void 0,
-                        children: [!le && e(t, { dimColor: !0, children: `${ce.index}.`.padEnd(Un + 2) }), ce.label],
+                        children: [!le && e(t, { dimColor: true, children: `${ce.index}.`.padEnd(Un + 2) }), ce.label],
                       }),
                       ce.isSelected && r(t, { children: [" ", e(tt, { status: "success" })] }),
                       rc > 0 && e(t, { children: " ".repeat(rc) }),
@@ -2584,7 +2584,7 @@ function Hr(cp) {
                       wrap: "wrap",
                       dimColor:
                         ce.option.descriptionColor === void 0 &&
-                        (ce.isOptionDisabled || ce.option.dimDescription !== !1),
+                        (ce.isOptionDisabled || ce.option.dimDescription !== false),
                       color: ce.isOptionDisabled
                         ? ce.option.descriptionColor
                         : ce.isSelected
@@ -2677,7 +2677,7 @@ function Hr(cp) {
         let lm = m.visibleFromIndex + ic + 1;
         let _l = !Le && m.focusedValue === G.value;
         let jl = m.value === G.value;
-        let ao = G.disabled === !0;
+        let ao = G.disabled === true;
         return r(
           nB,
           {
@@ -2691,7 +2691,7 @@ function Hr(cp) {
                 flexDirection: "row",
                 flexShrink: 0,
                 children: [
-                  !le && e(t, { dimColor: !0, children: `${lm}.`.padEnd(Un + 2) }),
+                  !le && e(t, { dimColor: true, children: `${lm}.`.padEnd(Un + 2) }),
                   r(t, {
                     dimColor: ao,
                     color: ao ? void 0 : jl ? "success" : _l ? "suggestion" : void 0,
@@ -2699,7 +2699,7 @@ function Hr(cp) {
                       sc,
                       kn &&
                         G.description &&
-                        r(t, { dimColor: ao || G.dimDescription !== !1, children: [" ", G.description] }),
+                        r(t, { dimColor: ao || G.dimDescription !== false, children: [" ", G.description] }),
                     ],
                   }),
                 ],
@@ -2711,7 +2711,7 @@ function Hr(cp) {
                   marginLeft: 2,
                   children: e(t, {
                     wrap: "wrap-trim",
-                    dimColor: ao || G.dimDescription !== !1,
+                    dimColor: ao || G.dimDescription !== false,
                     color: ao ? void 0 : jl ? "success" : _l ? "suggestion" : void 0,
                     children: e(oo, { children: G.description }),
                   }),
@@ -2771,17 +2771,17 @@ function JBe(bm, ac) {
 function qr(gm) {
   let co = _(19),
     { isFocused: _t, shouldShowDownArrow: Bl, shouldShowUpArrow: Kl, onClick: Br, children: zl } = gm,
-    [Gl, dc] = u(!1),
+    [Gl, dc] = u(false),
     Mn = Br !== void 0,
     fc;
   if (co[0] !== _t) (fc = { line: 0, column: 0, active: _t }), (co[0] = _t), (co[1] = fc);
   else fc = co[1];
   let Hl = Xf(fc),
     Kr;
-  if (co[2] !== Mn) (Kr = Mn ? () => dc(!0) : void 0), (co[2] = Mn), (co[3] = Kr);
+  if (co[2] !== Mn) (Kr = Mn ? () => dc(true) : void 0), (co[2] = Mn), (co[3] = Kr);
   else Kr = co[3];
   let zr;
-  if (co[4] !== Mn) (zr = Mn ? () => dc(!1) : void 0), (co[4] = Mn), (co[5] = zr);
+  if (co[4] !== Mn) (zr = Mn ? () => dc(false) : void 0), (co[4] = Mn), (co[5] = zr);
   else zr = co[5];
   let Gr;
   if (co[6] !== Mn || co[7] !== Gl || co[8] !== _t || co[9] !== Bl || co[10] !== Kl)
@@ -2790,11 +2790,11 @@ function qr(gm) {
       children: _t
         ? e(t, { color: "suggestion", children: L.pointer })
         : Bl
-          ? e(t, { dimColor: !0, children: L.arrowDown })
+          ? e(t, { dimColor: true, children: L.arrowDown })
           : Kl
-            ? e(t, { dimColor: !0, children: L.arrowUp })
+            ? e(t, { dimColor: true, children: L.arrowUp })
             : Mn && Gl
-              ? e(t, { dimColor: !0, children: L.pointer })
+              ? e(t, { dimColor: true, children: L.pointer })
               : e(t, { children: " " }),
     })),
       (co[6] = Mn),

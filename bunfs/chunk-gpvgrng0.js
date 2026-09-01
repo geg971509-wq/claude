@@ -55,7 +55,7 @@ function f(e, t = new WeakMap()) {
       throw TypeError("deepFreezePlainData: symbol-keyed property in mint input \u2014 plain data only");
     for (let n of Object.keys(a)) {
       let i = a[n];
-      if (i && i.enumerable === !1 && !(Array.isArray(e) && n === "length"))
+      if (i && i.enumerable === false && !(Array.isArray(e) && n === "length"))
         throw TypeError("deepFreezePlainData: non-enumerable property in mint input \u2014 plain data only");
     }
     let l = Array.isArray(e) ? [] : {};
@@ -65,7 +65,7 @@ function f(e, t = new WeakMap()) {
       if (n === "__proto__" || n === "constructor")
         throw TypeError("deepFreezePlainData: prototype-key property in mint input \u2014 plain data only");
       let i = a[n];
-      Object.defineProperty(l, n, { value: f(i?.value, t), enumerable: !0, writable: !1, configurable: !1 });
+      Object.defineProperty(l, n, { value: f(i?.value, t), enumerable: true, writable: false, configurable: false });
     }
     return Object.freeze(l), l;
   }
@@ -117,7 +117,7 @@ async function b(e, t, o, r) {
     i = () => n.abort();
   if (r?.signal)
     if (r.signal.aborted) n.abort();
-    else r.signal.addEventListener("abort", i, { once: !0 });
+    else r.signal.addEventListener("abort", i, { once: true });
   let { replied: P, update: m } = e.request(
       {
         kind: t.kind,

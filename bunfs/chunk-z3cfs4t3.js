@@ -55,9 +55,9 @@ function kh(e) {
     case "sdk":
     case "sse-ide":
     case "ws-ide":
-      return !1;
+      return false;
     default:
-      return !0;
+      return true;
   }
 }
 function pat(e) {
@@ -113,9 +113,9 @@ var W = [
   {
     prop: "discoveryCache",
     reason: "opt-out",
-    excludes: (e) => e === !1,
-    normalize: (e) => (e === !1 ? !1 : void 0),
-    valueDomain: [void 0, !1],
+    excludes: (e) => e === false,
+    normalize: (e) => (e === false ? false : void 0),
+    valueDomain: [void 0, false],
   },
   {
     prop: "headersHelper",
@@ -137,11 +137,11 @@ function ge(e) {
 }
 function Fe(e) {
   let t = e;
-  if (typeof t.url === "string" && Fin(t.url)) return !0;
+  if (typeof t.url === "string" && Fin(t.url)) return true;
   if (t.headers && typeof t.headers === "object") {
-    for (let r of Object.values(t.headers)) if (typeof r === "string" && Fin(r)) return !0;
+    for (let r of Object.values(t.headers)) if (typeof r === "string" && Fin(r)) return true;
   }
-  return !1;
+  return false;
 }
 function me(e) {
   let t = Ssn();
@@ -159,7 +159,7 @@ function L() {
   return z(be(), "mcp-discovery-cache");
 }
 async function $e(e, t) {
-  if (!S8(t)) return !1;
+  if (!S8(t)) return false;
   return (await ve(e, t)).kind !== "degenerate";
 }
 async function ve(e, t) {
@@ -322,7 +322,7 @@ async function Q(e, t) {
     }
     let o;
     try {
-      o = await O().readTail(e, F + 1, { noFollow: !0 });
+      o = await O().readTail(e, F + 1, { noFollow: true });
     } catch (s) {
       let c = E(s);
       if (c === "ELOOP") throw new U(e);
@@ -364,7 +364,7 @@ async function Ue(e) {
   let t = [],
     r;
   do {
-    let o = await e.listEntries(Ke, { skipKeyStats: !0, skipScopeStats: !0, ...(r !== void 0 && { cursor: r }) });
+    let o = await e.listEntries(Ke, { skipKeyStats: true, skipScopeStats: true, ...(r !== void 0 && { cursor: r }) });
     if (!o.ok) throw Error("discovery-cache: list failed", { cause: o.error });
     for (let s of o.value.items)
       if (s.kind === "key" && s.key.namespace === "userConfigDir") {
@@ -424,7 +424,7 @@ async function fat(e, t, r = Date.now()) {
     return Z(e, `discovery-cache: read failed: ${S}`), { kind: "miss", reason: "absent" };
   }
   if (d === void 0) return { kind: "miss", reason: "absent" };
-  let w = B().safeParse(Ut(d, !1));
+  let w = B().safeParse(Ut(d, false));
   if (!w.success) return Z(e, "discovery-cache: corrupt entry, deleting"), h();
   let k = w.data;
   if (k.cacheKey !== A(e, t)) return Z(e, "discovery-cache: entry keyed for another server, deleting"), h();
@@ -460,7 +460,7 @@ function We(e) {
     .split(",")
     .map((r) => r.trim())
     .filter(Boolean);
-  if (t.length === 0) return !1;
+  if (t.length === 0) return false;
   return t.every((r) => je.test(r) || Ye.test(r) || Xe.test(r));
 }
 async function qe(e, t) {
@@ -534,20 +534,20 @@ function ot(e, t, r, o = []) {
     w = typeof s.url === "string" ? new URL(s.url) : void 0;
   } catch {}
   let k = (u) => {
-    if (!w) return !1;
-    if (u === w.origin || u === w.host) return !0;
+    if (!w) return false;
+    if (u === w.origin || u === w.host) return true;
     try {
       return new URL(u).origin === w.origin;
     } catch {
-      return !1;
+      return false;
     }
   };
   for (let [u, S] of Object.entries(s.headers ?? {})) {
     let C = u.toLowerCase();
     if (de.test(C) || (typeof S === "string" && Je.test(S)))
-      d(S, { splitComposite: !0, exemptTransportBoilerplate: !0 });
+      d(S, { splitComposite: true, exemptTransportBoilerplate: true });
     else if (!Ze.has(C) && !Qe.test(C))
-      d(S, { splitComposite: !0, exemptTransportBoilerplate: !0, exemptSelectorValues: !0, keepPart: (D) => !k(D) });
+      d(S, { splitComposite: true, exemptTransportBoilerplate: true, exemptSelectorValues: true, keepPart: (D) => !k(D) });
   }
   for (let u of Object.values(s.env ?? {})) d(u);
   if (w) {
@@ -576,13 +576,13 @@ function ot(e, t, r, o = []) {
   }
   for (let u of o) d(u);
   let R = (u) => {
-    if (e.includes(u) || e.includes(b(u).slice(1, -1))) return !0;
+    if (e.includes(u) || e.includes(b(u).slice(1, -1))) return true;
     let S = encodeURIComponent(u);
     return S !== u && e.includes(S);
   };
-  for (let u of c) if (R(u)) return !0;
-  for (let u of h) if (R(u)) return !0;
-  return !1;
+  for (let u of c) if (R(u)) return true;
+  for (let u of h) if (R(u)) return true;
+  return false;
 }
 function T({ verdict: e, code: t }) {
   if (e === "written") y("mcp_discovery_cache");
@@ -659,7 +659,7 @@ async function st(e, t) {
       () => {},
       () => {},
     ),
-    ne(t, void 0, { unref: !0 }),
+    ne(t, void 0, { unref: true }),
   ]);
 }
 async function CW(e, t = 1500) {
@@ -723,7 +723,7 @@ async function mat(e, t, r, o) {
         S = void 0;
       }
       if (S !== void 0) {
-        let C = B().safeParse(Ut(S, !1));
+        let C = B().safeParse(Ut(S, false));
         if (C.success && ie(C.data) > s) {
           u = { verdict: "superseded", code: "fresher_on_disk" };
           return;
@@ -755,7 +755,7 @@ async function ke(e) {
     throw o;
   }
   if (t === void 0) return;
-  let r = B().safeParse(Ut(t, !1));
+  let r = B().safeParse(Ut(t, false));
   if (!r.success) {
     await Y(e, _());
     return;
@@ -890,7 +890,7 @@ async function Ce(e, t) {
         throw d;
       }
       if (c === void 0) continue;
-      let h = B().safeParse(Ut(c, !1));
+      let h = B().safeParse(Ut(c, false));
       if (!h.success) {
         await x(s, e, void 0);
         continue;
@@ -906,7 +906,7 @@ async function fe(e, t) {
 }
 function at(e, t, r) {
   let o = L(),
-    s = !1;
+    s = false;
   return K(o, e, async () => {
     let c;
     try {
@@ -915,7 +915,7 @@ function at(e, t, r) {
       c = void 0;
     }
     if (c === void 0) {
-      await Ce(e, r), (s = !0);
+      await Ce(e, r), (s = true);
       return;
     }
     let h = [];
@@ -923,7 +923,7 @@ function at(e, t, r) {
       let w = d;
       for (let k of XNt) h.push(x(z(o, te(d, c, k)), e, w)), (w = void 0);
     }
-    await Promise.all(h), (s = !0);
+    await Promise.all(h), (s = true);
   }).then(() => s);
 }
 function ct(e, t) {
@@ -986,7 +986,7 @@ async function _at(e, t) {
     return (
       await O().mkdir(L(), he),
       await Gi(r, {
-        realpath: !1,
+        realpath: false,
         retries: 0,
         stale: 60000,
         onCompromised: (o) => Z(e, `discovery-cache: refresh lock compromised, skipping refresh: ${o}`),

@@ -164,7 +164,7 @@ function b(n, i) {
   return Pa(d, i, y);
 }
 var v = "CLAUDE_CODE_SCROLL_SPEED";
-function X({ onDone: n, showDemoRuler: i = !0, editorSensitivity: d = null }) {
+function X({ onDone: n, showDemoRuler: i = true, editorSensitivity: d = null }) {
   let { storageV5: w } = ge(),
     T = C(process.env[v]),
     c = YR(),
@@ -172,32 +172,32 @@ function X({ onDone: n, showDemoRuler: i = !0, editorSensitivity: d = null }) {
     D = c.useDecayCurve ? G : ee,
     [m, I] = u(() => b(c.base, D)),
     [O, V] = u(T.current !== void 0),
-    L = C(!1),
-    N = C(!1),
-    g = C(!1),
+    L = C(false),
+    N = C(false),
+    g = C(false),
     M = !c.xtermJs && !c.wheelFlood;
   A(() => {
-    Ion(!0, { demoRuler: i });
+    Ion(true, { demoRuler: i });
     let l = M
       ? YZ(() => {
           let S = ijn();
           if (!S) return;
-          if (S.wheelMode) L.current = !0;
-          else N.current = !0;
+          if (S.wheelMode) L.current = true;
+          else N.current = true;
         })
       : void 0;
     return () => {
-      l?.(), Ion(!1);
+      l?.(), Ion(false);
     };
   }, [i, M]);
   function W(l) {
     let S = l < 0 ? (m <= 1 ? -E : -1) : m < 1 ? E : 1,
       p = b(m + S, D);
     if (p === m) return;
-    (process.env[v] = String(p)), dMt(), V(!0), I(p);
+    (process.env[v] = String(p)), dMt(), V(true), I(p);
   }
   function q() {
-    delete process.env[v], dMt(), I(b(f, D)), V(!1);
+    delete process.env[v], dMt(), I(b(f, D)), V(false);
   }
   function j() {
     if (T.current === void 0) delete process.env[v];
@@ -206,11 +206,11 @@ function X({ onDone: n, showDemoRuler: i = !0, editorSensitivity: d = null }) {
   }
   function U() {
     if (g.current) return;
-    (g.current = !0), j(), n("Scroll speed unchanged");
+    (g.current = true), j(), n("Scroll speed unchanged");
   }
   async function Q() {
     if (g.current) return;
-    g.current = !0;
+    g.current = true;
     let l = !O,
       S = { [v]: l ? void 0 : String(m) },
       { error: p } = await rn("userSettings", { env: S }, void 0, w);
@@ -254,14 +254,14 @@ function X({ onDone: n, showDemoRuler: i = !0, editorSensitivity: d = null }) {
       children: r(o, {
         flexDirection: "column",
         children: [
-          e(t, { bold: !0, children: "Scroll speed" }),
+          e(t, { bold: true, children: "Scroll speed" }),
           e(o, { height: 1 }),
           r(o, {
             children: [
               e(t, { color: "permission", children: te(m) }),
               r(t, { children: ["  ", m, " ", k(m, "line"), " per wheel notch"] }),
-              B && e(t, { dimColor: !0, children: " (auto)" }),
-              !B && r(t, { dimColor: !0, children: [" \xB7 auto is ", f] }),
+              B && e(t, { dimColor: true, children: " (auto)" }),
+              !B && r(t, { dimColor: true, children: [" \xB7 auto is ", f] }),
             ],
           }),
           e(o, { height: 1 }),
@@ -269,7 +269,7 @@ function X({ onDone: n, showDemoRuler: i = !0, editorSensitivity: d = null }) {
           d && e(x, { label: "Editor", value: ne(d) }),
           e(o, { height: 1 }),
           e(t, {
-            dimColor: !0,
+            dimColor: true,
             children:
               "Scroll to feel it \xB7 \u2190/\u2192 adjust \xB7 r reset to auto \xB7 Enter save \xB7 Esc cancel",
           }),
@@ -282,7 +282,7 @@ function x(De) {
   let H = _(7),
     { label: K, value: z } = De,
     R;
-  if (H[0] !== K) (R = e(o, { width: 12, children: e(t, { dimColor: !0, children: K }) })), (H[0] = K), (H[1] = R);
+  if (H[0] !== K) (R = e(o, { width: 12, children: e(t, { dimColor: true, children: K }) })), (H[0] = K), (H[1] = R);
   else R = H[1];
   let P;
   if (H[2] !== z) (P = e(t, { children: z })), (H[2] = z), (H[3] = P);

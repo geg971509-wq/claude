@@ -121,11 +121,11 @@ async function T(e) {
   let r = await Ch(1, e).catch(() => null),
     t = r?.logPath ?? tW(),
     [n, i, o, a, b, w] = await Promise.all([
-      Kp({ op: "ping", proto: Ca }, { timeoutMs: 1000 }).catch((l) => ({ ok: !1, code: "ENOCONN", error: String(l) })),
-      cT({ silent: !0 }, e),
+      Kp({ op: "ping", proto: Ca }, { timeoutMs: 1000 }).catch((l) => ({ ok: false, code: "ENOCONN", error: String(l) })),
+      cT({ silent: true }, e),
       v(e),
       y(t, e),
-      aL().catch(() => !1),
+      aL().catch(() => false),
       B(Rb(), e),
     ]),
     u;
@@ -138,7 +138,7 @@ async function T(e) {
     g = null,
     p = [];
   if (n.ok) {
-    let l = { ok: !1 },
+    let l = { ok: false },
       [c, m] = await Promise.all([
         Kp({ op: "list", proto: Ca }, { timeoutMs: 1000 }).catch(() => l),
         Kp({ op: "leases", proto: Ca }, { timeoutMs: 1000 }).catch(() => l),
@@ -172,7 +172,7 @@ async function T(e) {
     workersSkewed: g,
     workersRoster: Object.keys(i.workers).length,
     rosterAgeSec: o ? Math.floor((Date.now() - o.mtimeMs) / 1000) : null,
-    bgDisabled: r?.bgDisabled === !0,
+    bgDisabled: r?.bgDisabled === true,
     logPath: t,
     logSizeBytes: a?.size ?? null,
     serviceInstalled: b,
@@ -212,7 +212,7 @@ async function B(e, r) {
     } catch {
       return 0;
     }
-  let n = Ut(t, !1);
+  let n = Ut(t, false);
   if (n === null || typeof n !== "object") return 0;
   let i = 0;
   for (let [o, a] of Object.entries(n)) {

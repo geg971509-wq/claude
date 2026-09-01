@@ -235,15 +235,15 @@ async function Nt(n, s) {
 function Ze(Zo) {
   let H = _(42),
     { server: V, onBack: te, onDone: Be, refresh: wt, storageV5: St } = Zo,
-    [we, _o] = u(!1),
-    [en, kt] = u(!1),
+    [we, _o] = u(false),
+    [en, kt] = u(false),
     Zt;
   if (H[0] !== we || H[1] !== Be || H[2] !== wt || H[3] !== V.dir || H[4] !== St)
     (Zt = async function ie(tn) {
       if (we) {
         return;
       }
-      _o(!0);
+      _o(true);
       try {
         if (tn === "remove")
           await c2e(V.dir, void 0, St),
@@ -273,19 +273,19 @@ function Ze(Zo) {
     else ge = H[6];
     const ae = `Stop serving ${ke} to claude.ai. The ${ge} will stop the worker on its next reconcile.`;
     let Re;
-    if (H[7] === d) (Re = () => kt(!1)), (H[7] = Re);
+    if (H[7] === d) (Re = () => kt(false)), (H[7] = Re);
     else Re = H[7];
     let oe;
     if (H[8] !== ie) (oe = () => void ie("remove")), (H[8] = ie), (H[9] = oe);
     else oe = H[9];
     let De;
-    if (H[10] === d) (De = () => kt(!1)), (H[10] = De);
+    if (H[10] === d) (De = () => kt(false)), (H[10] = De);
     else De = H[10];
     let ne;
     if (H[11] !== oe)
       (ne = e(wn, {
-        hideIndexes: !0,
-        cancelFirst: !0,
+        hideIndexes: true,
+        cancelFirst: true,
         focus: "cancel",
         confirmLabel: "Yes, remove",
         cancelLabel: "No, cancel",
@@ -315,20 +315,20 @@ function Ze(Zo) {
   else ke = H[16];
   let on = ke,
     ge;
-  if (H[17] !== V.dir) (ge = r(t, { dimColor: !0, children: ["Directory ", V.dir] })), (H[17] = V.dir), (H[18] = ge);
+  if (H[17] !== V.dir) (ge = r(t, { dimColor: true, children: ["Directory ", V.dir] })), (H[17] = V.dir), (H[18] = ge);
   else ge = H[18];
   let ae;
   if (H[19] !== V.spawnMode)
-    (ae = r(t, { dimColor: !0, children: ["Spawn mode ", V.spawnMode] })), (H[19] = V.spawnMode), (H[20] = ae);
+    (ae = r(t, { dimColor: true, children: ["Spawn mode ", V.spawnMode] })), (H[19] = V.spawnMode), (H[20] = ae);
   else ae = H[20];
   const Re = V.isRunning ? "success" : "pending";
   let oe;
-  if (H[21] !== Re) (oe = e(tt, { status: Re, withSpace: !0 })), (H[21] = Re), (H[22] = oe);
+  if (H[21] !== Re) (oe = e(tt, { status: Re, withSpace: true })), (H[21] = Re), (H[22] = oe);
   else oe = H[22];
   const De = V.isRunning ? "running" : "not running";
   let ne;
   if (H[23] !== oe || H[24] !== De)
-    (ne = r(t, { dimColor: !0, children: ["Status", "     ", oe, De] })), (H[23] = oe), (H[24] = De), (H[25] = ne);
+    (ne = r(t, { dimColor: true, children: ["Status", "     ", oe, De] })), (H[23] = oe), (H[24] = De), (H[25] = ne);
   else ne = H[25];
   let he;
   if (H[26] !== ge || H[27] !== ae || H[28] !== ne)
@@ -345,7 +345,7 @@ function Ze(Zo) {
         return te();
       }
       if (Ct === "remove") {
-        return kt(!0);
+        return kt(true);
       }
       ie(Ct);
     }),
@@ -383,13 +383,13 @@ function _e(nn) {
     (to = { dir: N, name: Je, spawnMode: "same-dir" }), (P[2] = N), (P[3] = Je), (P[4] = to);
   else to = P[4];
   let [W, rn] = u(to),
-    [Ae, sn] = u(!1),
+    [Ae, sn] = u(false),
     [Z, Xe] = u(null),
-    [je, oo] = u(!1),
+    [je, oo] = u(false),
     no;
   if (P[5] !== N || P[6] !== Ae)
     (no = function Oe(We, Dt) {
-      if (We === "name") sn(!0);
+      if (We === "name") sn(true);
       rn((Tt) => {
         if (Tt[We] === Dt) {
           return Tt;
@@ -412,7 +412,7 @@ function _e(nn) {
   if (P[11] !== N)
     (qe = (an) => {
       let so = be(km(an.trim() || N));
-      return N6(so, { advisoryNoFsProbe: !0 })
+      return N6(so, { advisoryNoFsProbe: true })
         ? "Available on claude.ai/code and the Claude mobile app."
         : `${so} is not yet trusted \u2014 you'll be asked to trust it on submit.`;
     }),
@@ -421,7 +421,7 @@ function _e(nn) {
   else qe = P[12];
   let ze;
   if (P[13] !== N || P[14] !== qe)
-    (ze = { type: "text", key: "dir", label: "Directory", placeholder: N, required: !0, hint: qe }),
+    (ze = { type: "text", key: "dir", label: "Directory", placeholder: N, required: true, hint: qe }),
       (P[13] = N),
       (P[14] = qe),
       (P[15] = ze);
@@ -458,14 +458,14 @@ function _e(nn) {
     co;
   if (P[22] !== Rt || P[23] !== xe || P[24] !== Te || P[25] !== W.name || P[26] !== W.spawnMode)
     (co = async function le(It) {
-      oo(!0);
+      oo(true);
       let ln = W.name?.trim() || ce(It);
       let cn = W.spawnMode ?? "same-dir";
       try {
         await l2e({ dir: It, name: ln, spawnMode: cn }, void 0, Te), Rt(It, void 0);
       } catch (Ge) {
         let dn = Ge;
-        h(dn), oo(!1), xe();
+        h(dn), oo(false), xe();
       }
     }),
       (P[22] = Rt),
@@ -519,8 +519,8 @@ function _e(nn) {
     let Qe;
     if (P[38] !== Ue)
       (Qe = e(wn, {
-        hideIndexes: !0,
-        cancelFirst: !0,
+        hideIndexes: true,
+        cancelFirst: true,
         focus: "cancel",
         confirmLabel: "Yes, trust and add server",
         cancelLabel: "No, go back",
@@ -571,8 +571,8 @@ async function bt(n) {
       i.then((T) => Nt(T !== null, n)),
       rOn(n).catch(() => null),
       eNn(n).catch(() => null),
-      cT({ silent: !0 }, n),
-      s ? aL() : Promise.resolve(!1),
+      cT({ silent: true }, n),
+      s ? aL() : Promise.resolve(false),
     ]);
   return {
     tasks: f,
@@ -586,7 +586,7 @@ async function bt(n) {
   };
 }
 function Ut() {
-  return dM(!1).map((n) => ({ label: n.label, value: n.value ?? "", description: n.description }));
+  return dM(false).map((n) => ({ label: n.label, value: n.value ?? "", description: n.description }));
 }
 async function En(n, s) {
   let i = await bt(s.storageV5);
@@ -599,7 +599,7 @@ function Qt({ initialData: n, modelOptions: s, onDone: i, storageV5: R }) {
     [p, b] = u(x.wall),
     [T, m] = u({ type: "hub" }),
     [J, E] = u("scheduled"),
-    [g, a] = u(!1),
+    [g, a] = u(false),
     [y, c] = u(null);
   async function v() {
     let I = await bt(R);
@@ -614,7 +614,7 @@ function Qt({ initialData: n, modelOptions: s, onDone: i, storageV5: R }) {
   );
   async function j(I) {
     if (g) return;
-    a(!0), c(null);
+    a(true), c(null);
     let Pe;
     try {
       switch (I) {
@@ -630,7 +630,7 @@ function Qt({ initialData: n, modelOptions: s, onDone: i, storageV5: R }) {
       try {
         await v();
       } catch {}
-      a(!1);
+      a(false);
     }
   }
   function pe() {
@@ -710,7 +710,7 @@ function Qt({ initialData: n, modelOptions: s, onDone: i, storageV5: R }) {
     e(me, {
       title: "Claude daemon",
       onCancel: () => i(),
-      hideInputGuide: !0,
+      hideInputGuide: true,
       children: e(Pg, { title: null, color: "permission", selectedTab: J, onTabChange: (I) => E(I), children: yt }),
     })
   );
@@ -790,7 +790,7 @@ function gt(jn) {
     Un = "column",
     Lt = "  " + q.header;
   let et;
-  if (B[17] !== Lt) (et = e(t, { dimColor: !0, children: Lt })), (B[17] = Lt), (B[18] = et);
+  if (B[17] !== Lt) (et = e(t, { dimColor: true, children: Lt })), (B[17] = Lt), (B[18] = et);
   else et = B[18];
   let ot;
   if (B[19] !== X.length || B[20] !== de)
@@ -836,14 +836,14 @@ function gt(jn) {
     Qn = 1,
     Zn = "column",
     _n = "single",
-    er = !1,
-    tr = !1,
-    or = !1,
-    nr = !0;
+    er = false,
+    tr = false,
+    or = false,
+    nr = true;
   let So, Co;
   if (B[36] === d)
-    (So = e(t, { bold: !0, children: "Daemon service" })),
-      (Co = e(t, { dimColor: !0, children: " \xB7 " })),
+    (So = e(t, { bold: true, children: "Daemon service" })),
+      (Co = e(t, { dimColor: true, children: " \xB7 " })),
       (B[36] = So),
       (B[37] = Co);
   else (So = B[36]), (Co = B[37]);
@@ -887,7 +887,7 @@ function gt(jn) {
     (xo = e(o, {
       marginTop: 1,
       children: e(t, {
-        dimColor: !0,
+        dimColor: true,
         children: r(fe, {
           children: [
             Do,
@@ -923,7 +923,7 @@ function Fe(ir) {
   else lt = Ao[3];
   let Io;
   if (Ao[4] !== ye || Ao[5] !== lt)
-    (Io = e(fl, { isFocused: ye, styled: !1, children: lt })), (Ao[4] = ye), (Ao[5] = lt), (Ao[6] = Io);
+    (Io = e(fl, { isFocused: ye, styled: false, children: lt })), (Ao[4] = ye), (Ao[5] = lt), (Ao[6] = Io);
   else Io = Ao[6];
   return Io;
 }
@@ -981,7 +981,7 @@ function zt(n, s, i, R) {
 }
 function Mo(n, s) {
   let i = n + " ".repeat(Math.max(0, s - se(n)));
-  return n === "running" ? e(t, { color: "success", children: i }) : e(t, { dimColor: !0, children: i });
+  return n === "running" ? e(t, { color: "success", children: i }) : e(t, { dimColor: true, children: i });
 }
 function Fo(n, s) {
   let i = HI(n);
@@ -1001,14 +1001,14 @@ function vt(lr) {
     { data: S, message: ct } = lr;
   if (ct) {
     let Y;
-    if (Q[0] !== ct) (Y = e(t, { dimColor: !0, children: ct })), (Q[0] = ct), (Q[1] = Y);
+    if (Q[0] !== ct) (Y = e(t, { dimColor: true, children: ct })), (Q[0] = ct), (Q[1] = Y);
     else Y = Q[1];
     return Y;
   }
   if (!S.serviceSupported) {
     let Y;
     if (Q[2] === d)
-      (Y = e(t, { dimColor: !0, children: "service install not available on this platform \u2014 runs on demand" })),
+      (Y = e(t, { dimColor: true, children: "service install not available on this platform \u2014 runs on demand" })),
         (Q[2] = Y);
     else Y = Q[2];
     return Y;
@@ -1016,7 +1016,7 @@ function vt(lr) {
   if (S.lock === null) {
     const Y = S.serviceInstalled ? "installed \xB7 not running" : "not installed (runs on demand)";
     let Ve;
-    if (Q[3] !== Y) (Ve = e(t, { dimColor: !0, children: Y })), (Q[3] = Y), (Q[4] = Ve);
+    if (Q[3] !== Y) (Ve = e(t, { dimColor: true, children: Y })), (Q[3] = Y), (Q[4] = Ve);
     else Ve = Q[4];
     return Ve;
   }
@@ -1068,7 +1068,7 @@ function vt(lr) {
   else ft = Q[18];
   let No;
   if (Q[19] !== dt || Q[20] !== ut || Q[21] !== mt || Q[22] !== pt || Q[23] !== ft)
-    (No = e(t, { dimColor: !0, children: r(fe, { children: [Ve, dt, ut, mt, pt, ft] }) })),
+    (No = e(t, { dimColor: true, children: r(fe, { children: [Ve, dt, ut, mt, pt, ft] }) })),
       (Q[19] = dt),
       (Q[20] = ut),
       (Q[21] = mt),
@@ -1087,7 +1087,7 @@ async function Jn(n) {
     { getEraseScreenSequence: f } = await import("/$bunfs/root/chunk-287n61a7.js"),
     O = await bt(n);
   process.stdout.write(f());
-  let D = await s(i(!1));
+  let D = await s(i(false));
   await new Promise((x) => {
     D.render(
       e(R, {

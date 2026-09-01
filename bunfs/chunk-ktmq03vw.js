@@ -1,0 +1,35 @@
+// @bun @bytecode
+// Claude Code is a Beta product per Anthropic's Commercial Terms of Service.
+// By using Claude Code, you agree that all code acceptance or rejection decisions you make,
+// and the associated conversations in context, constitute Feedback under Anthropic's Commercial Terms,
+// and may be used to improve Anthropic's products, including training models.
+// You are responsible for reviewing any code suggestions before use.
+
+// (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
+
+// Version: 2.1.252
+import { _ } from "/$bunfs/root/chunk-haan6f8z.js";
+import { o, t } from "/$bunfs/root/chunk-he2phymk.js";
+import { e, r } from "/$bunfs/root/chunk-8s7kcbyw.js";
+import { L } from "/$bunfs/root/chunk-v4qqyykc.js";
+import { d } from "/$bunfs/root/chunk-yz031c9r.js";
+function zc(R) {
+  let h = _(4),
+    { children: i, color: f } = R,
+    m;
+  if (h[0] === d)
+    (m = e(o, { "aria-hidden": true, width: 2, flexShrink: 0, children: e(t, { children: L.bullet }) })), (h[0] = m);
+  else m = h[0];
+  let p;
+  if (h[1] !== i || h[2] !== f)
+    (p = r(o, {
+      flexDirection: "row",
+      children: [m, e(o, { flexGrow: 1, flexShrink: 1, children: e(t, { color: f, children: i }) })],
+    })),
+      (h[1] = i),
+      (h[2] = f),
+      (h[3] = p);
+  else p = h[3];
+  return p;
+}
+export { zc };

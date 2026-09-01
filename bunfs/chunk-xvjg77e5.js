@@ -23,16 +23,16 @@ var k = "not reachable from this cloud session",
   A =
     "(session list too long to fetch completely \u2014 sessions beyond the first pages are missing from this listing)";
 async function GZt(e, n, i) {
-  let s = !1,
+  let s = false,
     t = Yo();
-  if (t) await pwe({ refresh: !0, credentials: i });
-  let l = t ? Umt(e, i) : Promise.resolve({ rows: [], failed: !1, identityKey: null }),
+  if (t) await pwe({ refresh: true, credentials: i });
+  let l = t ? Umt(e, i) : Promise.resolve({ rows: [], failed: false, identityKey: null }),
     p = Promise.resolve({ peers: [], warnings: [] }),
-    u = !1,
+    u = false,
     [g, c, r, o] = await Promise.all([
       t
         ? cgn().catch((d) => {
-            if (d instanceof Mht) return (u = !0), [];
+            if (d instanceof Mht) return (u = true), [];
             throw d;
           })
         : Promise.resolve([]),
@@ -58,10 +58,10 @@ async function GZt(e, n, i) {
     cloudListFailed: HDe(r.unavailable),
     localListFailed: u,
     messagingDisabled: !t,
-    listTruncated: r.truncated === !0 || c.truncated === !0,
+    listTruncated: r.truncated === true || c.truncated === true,
   };
 }
-function Ydr(e = !1) {
+function Ydr(e = false) {
   let n = MF(),
     i = i7e(nS()?.name);
   if (!n || i === null) return null;
@@ -99,12 +99,12 @@ function SEr(
   n,
   {
     didWarnings: i = [],
-    didFocused: s = !1,
-    bridgeWalkFailed: t = !1,
-    cloudListFailed: l = !1,
-    localListFailed: p = !1,
-    messagingDisabled: u = !1,
-    listTruncated: g = !1,
+    didFocused: s = false,
+    bridgeWalkFailed: t = false,
+    cloudListFailed: l = false,
+    localListFailed: p = false,
+    messagingDisabled: u = false,
+    listTruncated: g = false,
   } = {},
 ) {
   let c = e.flatMap((f) => (f.transport === "uds" ? [f.session] : [])),
@@ -172,7 +172,7 @@ var E =
 function N(e, n, i) {
   let s = e.teamContext;
   if (!s && !n) return [];
-  let t = i === null ? void 0 : (i ?? (s ? (s.selfAgentId ?? (s.isLeader === !1 ? void 0 : s.leadAgentId)) : rb())),
+  let t = i === null ? void 0 : (i ?? (s ? (s.selfAgentId ?? (s.isLeader === false ? void 0 : s.leadAgentId)) : rb())),
     l = new Map();
   for (let o of Object.values(e.tasks))
     if (o.type === "in_process_teammate") l.set(o.identity.agentId, o.isIdle ? "idle" : o.status);
@@ -193,7 +193,7 @@ function N(e, n, i) {
       status: a ? l.get(o) : void 0,
       backend: a ? "in-process" : "pane",
       since: m.spawnedAt,
-      nameShadowed: !1,
+      nameShadowed: false,
     });
   }
   for (let o of n?.members ?? []) {
@@ -213,7 +213,7 @@ function N(e, n, i) {
 }
 function B(e, n, i) {
   let s = x3(e) ?? e;
-  if (!i.has(Sr(s))) return !1;
+  if (!i.has(Sr(s))) return false;
   return n.agentNameRegistry.has(e) || s !== e ? "unreachable" : "bare-only";
 }
 function _(e, n) {
@@ -259,7 +259,7 @@ function H(e, n) {
 function W(e, n) {
   let i = Date.now();
   return F("Teammates", e, (s) => {
-    let t = s.nameShadowed !== !1 ? void 0 : n.get(`teammate\x00${s.teammateId}`);
+    let t = s.nameShadowed !== false ? void 0 : n.get(`teammate\x00${s.teammateId}`);
     return P(t ? w$(t) : (I3(s.name) ?? "(unnamed)"), [
       I3(s.agentType) ?? void 0,
       I3(s.status) ?? (s.backend === "in-process" ? void 0 : s.backend),
@@ -294,12 +294,12 @@ function G(e, n, i, s, t, l, p, u) {
           I(a.workerStatus, a.workerStatus),
           a.lastActive === void 0 ? void 0 : `active ${y(g - a.lastActive)} ago`,
           a.unreachableFromHere ? k : void 0,
-          a.acceptsPeerMessages === !1 ? Pze : void 0,
+          a.acceptsPeerMessages === false ? Pze : void 0,
         ]);
       }),
       ...s.map(({ session: a }) => {
         let d = n.get(`bridge-session\x00${a.id}`);
-        return P(d ? w$(d) : DKn(a.title), [Rpn(a), M(a, a.status), a.acceptsPeerMessages === !1 ? Pze : void 0]);
+        return P(d ? w$(d) : DKn(a.title), [Rpn(a), M(a, a.status), a.acceptsPeerMessages === false ? Pze : void 0]);
       }),
     ],
     r = c.length > 0 ? R("Peer sessions", c) : "",
@@ -331,12 +331,12 @@ function VZt(
   e,
   n,
   {
-    bridgeWalkFailed: i = !1,
-    cloudListFailed: s = !1,
-    localListFailed: t = !1,
-    messagingDisabled: l = !1,
-    listTruncated: p = !1,
-    omitDirectories: u = !1,
+    bridgeWalkFailed: i = false,
+    cloudListFailed: s = false,
+    localListFailed: t = false,
+    messagingDisabled: l = false,
+    listTruncated: p = false,
+    omitDirectories: u = false,
   } = {},
 ) {
   let g = L(n.appState),
@@ -418,14 +418,14 @@ function I(e, n) {
 }
 function M(e, n) {
   if (ZEe(e)) return I(e.status, n);
-  return e.connected === !1 ? "offline" : n;
+  return e.connected === false ? "offline" : n;
 }
 function b(e) {
   if (!e) return;
   let n = x3(e);
   return n === null || n === "untitled session" ? void 0 : n;
 }
-function q(e, n = !1) {
+function q(e, n = false) {
   let i = Date.now();
   return R(
     "Other Claude sessions",
@@ -441,11 +441,11 @@ function q(e, n = !1) {
         }
         case "cloud": {
           let t = s.session;
-          return `  [${I(t.workerStatus, t.workerStatus ?? "unknown")}]  \xB7  ${b(t.title) ?? "(untitled)"}  \xB7  ${t.remoteControl ? H2t : "cloud"}${t.unreachableFromHere ? `  \xB7  ${k}` : ""}${t.acceptsPeerMessages === !1 ? `  \xB7  ${Pze}` : ""}`;
+          return `  [${I(t.workerStatus, t.workerStatus ?? "unknown")}]  \xB7  ${b(t.title) ?? "(untitled)"}  \xB7  ${t.remoteControl ? H2t : "cloud"}${t.unreachableFromHere ? `  \xB7  ${k}` : ""}${t.acceptsPeerMessages === false ? `  \xB7  ${Pze}` : ""}`;
         }
         case "bridge": {
           let t = s.session;
-          return `  [${M(t, b(t.status) ?? "unknown")}]  \xB7  ${b(t.title) ?? "(untitled)"}  \xB7  ${Rpn(t)}${t.acceptsPeerMessages === !1 ? `  \xB7  ${Pze}` : ""}`;
+          return `  [${M(t, b(t.status) ?? "unknown")}]  \xB7  ${b(t.title) ?? "(untitled)"}  \xB7  ${Rpn(t)}${t.acceptsPeerMessages === false ? `  \xB7  ${Pze}` : ""}`;
         }
         case "did":
           return "";
@@ -454,6 +454,6 @@ function q(e, n = !1) {
   );
 }
 function y(e) {
-  return $t(Math.max(0, e), { mostSignificantOnly: !0 });
+  return $t(Math.max(0, e), { mostSignificantOnly: true });
 }
 export { GZt, Ydr, zZt, SEr, VZt };

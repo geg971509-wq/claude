@@ -83,7 +83,7 @@ class q {
 class W {
   replRequester = null;
   requesterWaiters = [];
-  noConsentSurface = !1;
+  noConsentSurface = false;
   pendingReview = null;
   registerRequester(e) {
     if (((this.replRequester = e), e && this.requesterWaiters.length > 0)) {
@@ -136,7 +136,7 @@ class W {
   }
   consentHandoffHolds = new Set();
   consentHandoffSignal = Ue();
-  consentHandoffRevealActive = !1;
+  consentHandoffRevealActive = false;
 }
 var Pe = new J(() => new W());
 function E() {
@@ -184,7 +184,7 @@ function WNn(e) {
   );
 }
 function qNn() {
-  E().noConsentSurface = !0;
+  E().noConsentSurface = true;
 }
 function Z() {
   return E().noConsentSurface;
@@ -211,14 +211,14 @@ async function ee(e, t, r) {
       try {
         (R = cJt()), await a.fireConsentNeededRelease();
         let S = a.replRequester;
-        if (S) return (a.consentHandoffRevealActive = !0), await a.review(S, t, o);
+        if (S) return (a.consentHandoffRevealActive = true), await a.review(S, t, o);
         if (Io.has(process.stdout)) {
           let k = await K();
-          if (k) return (a.consentHandoffRevealActive = !0), await a.review(k, t, o);
+          if (k) return (a.consentHandoffRevealActive = true), await a.review(k, t, o);
         }
         return "deferred_no_consent_surface";
       } finally {
-        (a.consentHandoffRevealActive = !1), R?.();
+        (a.consentHandoffRevealActive = false), R?.();
       }
     } else return a.review(a.replRequester, t, o);
   if (a.noConsentSurface) return "deferred_no_consent_surface";
@@ -253,15 +253,15 @@ async function ee(e, t, r) {
 function te(e) {
   switch (e) {
     case "rejected":
-      return Jr(1), !1;
+      return Jr(1), false;
     case "deferred_no_consent_surface":
-      return !1;
+      return false;
     case "superseded":
-      return !1;
+      return false;
     case "approved":
     case "no_check_needed":
     case "deferred_non_interactive":
-      return !0;
+      return true;
   }
 }
 import { createHash as Ne } from "crypto";
@@ -288,16 +288,16 @@ async function oe(e) {
     } catch (a) {
       return (
         n(`Remote settings: Consent records unreadable - ${l(a)}`),
-        { records: new Map(), newerVersion: !1, unreadable: !0 }
+        { records: new Map(), newerVersion: false, unreadable: true }
       );
     }
     if (!r.ok)
       return (
         n(`Remote settings: Consent records unreadable - ${Ge(r.error)}`),
-        { records: new Map(), newerVersion: !1, unreadable: !0 }
+        { records: new Map(), newerVersion: false, unreadable: true }
       );
     let o = r.value.items[0];
-    if (!o.found) return { records: new Map(), newerVersion: !1, unreadable: !1 };
+    if (!o.found) return { records: new Map(), newerVersion: false, unreadable: false };
     t = o.value;
   } else
     try {
@@ -305,24 +305,24 @@ async function oe(e) {
       if (r.length > x)
         return (
           n(`Remote settings: Consent records file exceeds ${x} bytes; treating it as unreadable`),
-          { records: new Map(), newerVersion: !1, unreadable: !0 }
+          { records: new Map(), newerVersion: false, unreadable: true }
         );
       t = r.toString("utf8");
     } catch (r) {
-      return { records: new Map(), newerVersion: !1, unreadable: !X(r) };
+      return { records: new Map(), newerVersion: false, unreadable: !X(r) };
     }
   try {
     let r = V(t),
       o = Ie().safeParse(r);
-    if (!o.success) return { records: new Map(), newerVersion: xe().safeParse(r).success, unreadable: !1 };
+    if (!o.success) return { records: new Map(), newerVersion: xe().safeParse(r).success, unreadable: false };
     let a = new Map();
     for (let [d, c] of Object.entries(o.data.records)) {
       let u = He().safeParse(c);
       if (u.success) a.set(d, u.data);
     }
-    return { records: a, newerVersion: !1, unreadable: !1 };
+    return { records: a, newerVersion: false, unreadable: false };
   } catch {
-    return { records: new Map(), newerVersion: !1, unreadable: !1 };
+    return { records: new Map(), newerVersion: false, unreadable: false };
   }
 }
 async function ie(e, t) {
@@ -430,7 +430,7 @@ function le(e, t, r) {
   if (!a.settings && Object.keys(o).length > 0 && !Xe(d))
     return (
       n("Remote settings: Settings validation failed - no fields could be salvaged"),
-      { rejected: { success: !1, error: r, errorKind: "invalid_settings", skipRetry: !0 } }
+      { rejected: { success: false, error: r, errorKind: "invalid_settings", skipRetry: true } }
     );
   if (a.errors.length > 0)
     n(`Remote settings: Payload contains ${a.errors.length} invalid entries; applying the salvaged subset`);
@@ -452,19 +452,19 @@ function Qe(e, t) {
 async function Ze(e) {
   let t = Uqt();
   if (t === void 0) return null;
-  if (t === "fail") return { success: !1, error: "mocked fetch failure", errorKind: "unknown_error", skipRetry: !0 };
-  if (t === "empty") return { success: !0, settings: {}, checksum: void 0, consentIdentity: await j(e) };
+  if (t === "fail") return { success: false, error: "mocked fetch failure", errorKind: "unknown_error", skipRetry: true };
+  if (t === "empty") return { success: true, settings: {}, checksum: void 0, consentIdentity: await j(e) };
   try {
     let r = qXe(),
       o = r !== void 0 ? await Be(r, "utf-8") : t,
       a = V(o);
     if (!a || typeof a !== "object" || Array.isArray(a))
-      return { success: !1, error: "mock JSON parse failed", errorKind: "parse_error", skipRetry: !0 };
+      return { success: false, error: "mock JSON parse failed", errorKind: "parse_error", skipRetry: true };
     let d = le(a, "mock remote settings", "mock JSON parse failed");
     if ("rejected" in d) return d.rejected;
-    return { success: !0, ...d, checksum: "mock", consentIdentity: await j(e) };
+    return { success: true, ...d, checksum: "mock", consentIdentity: await j(e) };
   } catch {
-    return { success: !1, error: "mock JSON parse failed", errorKind: "parse_error", skipRetry: !0 };
+    return { success: false, error: "mock JSON parse failed", errorKind: "parse_error", skipRetry: true };
   }
 }
 function pJt() {
@@ -489,7 +489,7 @@ async function et(e) {
     return { headers: { Authorization: `Bearer ${t.jwt}` }, consentIdentity: he(t, o), pinnedFingerprint: o };
   }
   try {
-    let { key: o } = qg({ skipRetrievingKeyFromApiKeyHelper: !0 });
+    let { key: o } = qg({ skipRetrievingKeyFromApiKeyHelper: true });
     if (o) return { headers: { "x-api-key": o } };
   } catch {}
   let r = Yt();
@@ -548,11 +548,11 @@ async function L(e, t, r, o) {
   await ae(e, t, r);
 }
 function A(e) {
-  if (GY() === e) return !1;
+  if (GY() === e) return false;
   return (
     n("Remote settings: Cache was reset (login/logout) during this fetch; discarding its result"),
     g("remote_managed_settings_pull", "reset_during_fetch"),
-    !0
+    true
   );
 }
 function F(e) {
@@ -564,7 +564,7 @@ async function nt(e, t = {}) {
   let o = null,
     a = (mi() && !t.background) || t.singleAttempt ? 0 : qe;
   for (let d = 1; d <= a + 1; d++) {
-    if (((o = await ye(e, !1, t.credentials)), o.success)) return o;
+    if (((o = await ye(e, false, t.credentials)), o.success)) return o;
     if (o.skipRetry) return o;
     if (d > a) return o;
     let c = kV(d);
@@ -575,7 +575,7 @@ async function nt(e, t = {}) {
   }
   return o;
 }
-async function ye(e, t = !1, r) {
+async function ye(e, t = false, r) {
   let o,
     a,
     d = (c) => (
@@ -589,10 +589,10 @@ async function ye(e, t = !1, r) {
     let c = await et(r);
     if (((o = c.accessToken), (a = c.consentIdentity), c.error))
       return d({
-        success: !1,
+        success: false,
         error: "Authentication required for remote settings",
         errorKind: "no_auth_available",
-        skipRetry: !0,
+        skipRetry: true,
       });
     let u = Ye(),
       R = { ...c.headers, "User-Agent": Ka(), "Cache-Control": "no-cache", Pragma: "no-cache" };
@@ -615,73 +615,73 @@ async function ye(e, t = !1, r) {
     if (_.status === 304)
       return (
         n("Remote settings: Using cached settings (304)"),
-        { success: !0, settings: null, checksum: e, consentIdentity: a }
+        { success: true, settings: null, checksum: e, consentIdentity: a }
       );
     if (_.status === 204 || _.status === 404)
       return (
         n(`Remote settings: No settings found (${_.status})`),
-        { success: !0, settings: {}, checksum: void 0, consentIdentity: a }
+        { success: true, settings: {}, checksum: void 0, consentIdentity: a }
       );
     let C = ce().safeParse(_.data);
     if (!C.success)
       return (
         n(`Remote settings: Invalid response format - ${C.error.message}`),
-        { success: !1, error: "Invalid remote settings format", errorKind: "parse_error", skipRetry: !0 }
+        { success: false, error: "Invalid remote settings format", errorKind: "parse_error", skipRetry: true }
       );
     let P = le(C.data.settings, "remote managed settings", "Invalid settings structure");
     if ("rejected" in P) return P.rejected;
     return (
-      n("Remote settings: Fetched successfully"), { success: !0, ...P, checksum: C.data.checksum, consentIdentity: a }
+      n("Remote settings: Fetched successfully"), { success: true, ...P, checksum: C.data.checksum, consentIdentity: a }
     );
   } catch (c) {
     let u = l(c?.cause);
     if (l(c).includes(_7e))
       return d({
-        success: !1,
+        success: false,
         error: "Cloud gateway TLS pin is in a symlinked credentials file",
         errorKind: "gateway_pin_refused",
-        skipRetry: !0,
+        skipRetry: true,
       });
     if (l(c).includes(nNe))
       return d({
-        success: !1,
+        success: false,
         error: "Cloud gateway TLS pin could not be read from the credentials file",
         errorKind: "gateway_pin_unreadable",
       });
     if (l(c).includes(Pbt) || u.includes(Pbt)) {
       let _ = inr(c);
       return d({
-        success: !1,
+        success: false,
         error: "Cloud gateway TLS certificate does not match stored pin",
         errorKind: "gateway_cert_mismatch",
         ...(_ && { gatewayPinMismatch: _ }),
-        skipRetry: !0,
+        skipRetry: true,
       });
     }
     let { kind: R, status: S, message: k } = os(c);
-    if (S === 404) return { success: !0, settings: {}, checksum: "", consentIdentity: a };
+    if (S === 404) return { success: true, settings: {}, checksum: "", consentIdentity: a };
     switch (R) {
       case "auth": {
         let _ = {
-          success: !1,
+          success: false,
           error: "Not authorized for remote settings",
           errorKind: S === 401 ? "http_401" : "http_403",
-          skipRetry: !0,
+          skipRetry: true,
         };
         if (S === 401 && o && !t) {
           await ym(o, r);
           let C = Yt()?.accessToken;
-          if (C && C !== o) return d(_), s("tengu_remote_settings_401_force_refresh_retry", {}), ye(e, !0, r);
+          if (C && C !== o) return d(_), s("tengu_remote_settings_401_force_refresh_retry", {}), ye(e, true, r);
         }
         return d(_);
       }
       case "timeout":
-        return d({ success: !1, error: "Remote settings request timeout", errorKind: "timeout" });
+        return d({ success: false, error: "Remote settings request timeout", errorKind: "timeout" });
       case "network":
-        return d({ success: !1, error: "Cannot connect to server", errorKind: "network_error" });
+        return d({ success: false, error: "Cannot connect to server", errorKind: "network_error" });
       default:
         return d({
-          success: !1,
+          success: false,
           error: k,
           errorKind: S !== void 0 && S >= 500 ? "http_5xx" : S !== void 0 && S >= 400 ? "http_4xx" : "unknown_error",
           ...(S !== void 0 && S >= 400 && { httpStatus: S }),
@@ -693,7 +693,7 @@ async function de(e, t) {
   let r = b(e, null, 2),
     o = Nqt(e);
   if (O() && t !== void 0 && !BT()) {
-    let a = await t.write(Te.state("remote-settings"), r, { publishDiscipline: "inPlace", mode: 384, flush: !0 });
+    let a = await t.write(Te.state("remote-settings"), r, { publishDiscipline: "inPlace", mode: 384, flush: true });
     if (!a.ok) {
       n(`Remote settings: Failed to save - ${Ge(a.error)}`);
       return;
@@ -738,7 +738,7 @@ async function lrt(e) {
   let t =
     O() && e !== void 0
       ? await e.delete(Te.state(jXe)).then((r) => (r.ok ? void 0 : Ge(r.error)))
-      : await je(dTt(), { force: !0 }).then(() => {
+      : await je(dTt(), { force: true }).then(() => {
           return;
         }, l);
   if (t !== void 0) {
@@ -767,12 +767,12 @@ async function z(e = {}) {
   }
 }
 async function rt(e) {
-  if (!QD()) return { settings: null, fetchSucceeded: !0 };
+  if (!QD()) return { settings: null, fetchSucceeded: true };
   let t = BT();
   if (t)
     return (
       n(`Remote settings: Using override file ${t} (CLAUDE_CODE_REMOTE_SETTINGS_PATH), skipping API fetch`),
-      { settings: J3(), fetchSucceeded: !0 }
+      { settings: J3(), fetchSucceeded: true }
     );
   let r = Bqt(),
     o = _N(),
@@ -780,7 +780,7 @@ async function rt(e) {
     d = GY();
   try {
     let c = await nt(a, e);
-    if (A(d)) return { settings: null, fetchSucceeded: !1 };
+    if (A(d)) return { settings: null, fetchSucceeded: false };
     if (!c.success) {
       p("remote_managed_settings_pull", c.errorKind ?? "remote_managed_settings_fetch_failed");
       let S = {
@@ -793,22 +793,22 @@ async function rt(e) {
         return (
           n(`Remote settings: Using stale cache after fetch failure (${F(S)})`),
           zNe(r),
-          { settings: r, fetchSucceeded: !1, failure: S }
+          { settings: r, fetchSucceeded: false, failure: S }
         );
       return (
         n(`Remote settings: Fetch failed (${F(S)}) and no cached settings`),
-        { settings: null, fetchSucceeded: !1, failure: S }
+        { settings: null, fetchSucceeded: false, failure: S }
       );
     }
     if (c.settings === null && r && r === pTt()) {
-      if ((n("Remote settings: Cache still valid (304 Not Modified)"), zNe(r, { verified: !0 }), !o)) {
-        if ((await B(), A(d))) return { settings: null, fetchSucceeded: !1 };
+      if ((n("Remote settings: Cache still valid (304 Not Modified)"), zNe(r, { verified: true }), !o)) {
+        if ((await B(), A(d))) return { settings: null, fetchSucceeded: false };
         if (r === pTt()) {
           if ((await L(c.consentIdentity, U(r), e.storageV5, e.credentials), A(d)))
-            return { settings: null, fetchSucceeded: !1 };
+            return { settings: null, fetchSucceeded: false };
         }
       }
-      return y("remote_managed_settings_pull", { status: w("not_modified") }), { settings: r, fetchSucceeded: !0 };
+      return y("remote_managed_settings_pull", { status: w("not_modified") }), { settings: r, fetchSucceeded: true };
     }
     let u = c.settings ?? r ?? {};
     if (Object.keys(u).length > 0) {
@@ -820,12 +820,12 @@ async function rt(e) {
             : { source: "consented_payload", settings: k },
         C = U(u),
         P = await ee(_, C, e.showSecurityDialog);
-      if (A(d)) return { settings: null, fetchSucceeded: !1 };
+      if (A(d)) return { settings: null, fetchSucceeded: false };
       if (!te(P)) {
         if (P === "superseded")
           return (
             n("Remote settings: A newer fetch took over the pending consent review; leaving the decision to it"),
-            { settings: r, fetchSucceeded: !0 }
+            { settings: r, fetchSucceeded: true }
           );
         if (P === "deferred_no_consent_surface") {
           if (Z())
@@ -836,20 +836,20 @@ async function rt(e) {
           else
             n("Remote settings: No consent surface in this interactive session; keeping the consented baseline"),
               p("remote_managed_settings_pull", "remote_managed_settings_no_consent_surface");
-          return { settings: r, fetchSucceeded: !1 };
+          return { settings: r, fetchSucceeded: false };
         }
         return (
-          n("Remote settings: User rejected new settings, using cached settings"), { settings: r, fetchSucceeded: !0 }
+          n("Remote settings: User rejected new settings, using cached settings"), { settings: r, fetchSucceeded: true }
         );
       }
-      if ((zNe(u, { verified: !0 }), !o)) {
-        if ((await B(), A(d))) return { settings: null, fetchSucceeded: !1 };
+      if ((zNe(u, { verified: true }), !o)) {
+        if ((await B(), A(d))) return { settings: null, fetchSucceeded: false };
       }
       switch (P) {
         case "approved":
         case "no_check_needed":
           if (($qt(u), await L(c.consentIdentity, C, e.storageV5, e.credentials), A(d)))
-            return { settings: null, fetchSucceeded: !1 };
+            return { settings: null, fetchSucceeded: false };
           await de(c.salvagedSettings ?? (c.settings === null ? ge(C ?? {}, u) : u), e.storageV5),
             n("Remote settings: Applied new settings successfully"),
             y("remote_managed_settings_pull", { status: w("updated") });
@@ -865,28 +865,28 @@ async function rt(e) {
         case "superseded":
           break;
       }
-      return { settings: u, fetchSucceeded: !0 };
+      return { settings: u, fetchSucceeded: true };
     }
-    if ((zNe(u, { verified: !0 }), !o)) {
-      if ((await B(), A(d))) return { settings: null, fetchSucceeded: !1 };
+    if ((zNe(u, { verified: true }), !o)) {
+      if ((await B(), A(d))) return { settings: null, fetchSucceeded: false };
     }
     if (($qt(u), await L(c.consentIdentity, u, e.storageV5, e.credentials), A(d)))
-      return { settings: null, fetchSucceeded: !1 };
+      return { settings: null, fetchSucceeded: false };
     return (
       await de({}, e.storageV5),
       n("Remote settings: Saved empty sentinel (404 response)"),
       y("remote_managed_settings_pull", { status: w("no_content") }),
-      { settings: u, fetchSucceeded: !0 }
+      { settings: u, fetchSucceeded: true }
     );
   } catch {
-    if (A(d)) return { settings: null, fetchSucceeded: !1 };
+    if (A(d)) return { settings: null, fetchSucceeded: false };
     p("remote_managed_settings_pull", "remote_managed_settings_unexpected");
     let c = { errorKind: "unknown_error", message: "Unexpected error while applying remote settings" };
     if (r)
       return (
-        n("Remote settings: Using stale cache after error"), zNe(r), { settings: r, fetchSucceeded: !1, failure: c }
+        n("Remote settings: Using stale cache after error"), zNe(r), { settings: r, fetchSucceeded: false, failure: c }
       );
-    return { settings: null, fetchSucceeded: !1, failure: c };
+    return { settings: null, fetchSucceeded: false, failure: c };
   }
 }
 function H(e) {
@@ -955,7 +955,7 @@ async function fJt(e, t, r) {
   let o = GY(),
     a = T(),
     d = a.detachBarrier();
-  if (!QD()) return d?.(), H({ settings: null, fetchSucceeded: !0 }), I(), { fetchSucceeded: !0 };
+  if (!QD()) return d?.(), H({ settings: null, fetchSucceeded: true }), I(), { fetchSucceeded: true };
   dJt();
   let c = a.loadingCompleteResolve;
   if (d)
@@ -1014,11 +1014,11 @@ var it =
   "Your organization requires remote managed settings to load, but they could not be loaded. Run `claude auth login` to re-authenticate, check your network connection, or contact your administrator.";
 async function zHt(e) {
   try {
-    if (await e()) return { valid: !0 };
+    if (await e()) return { valid: true };
   } catch (t) {
     h(t);
   }
-  return { valid: !1, message: it };
+  return { valid: false, message: it };
 }
 async function at(e, t, r) {
   if (!QD()) return;
@@ -1026,7 +1026,7 @@ async function at(e, t, r) {
     a = o ? b(o) : null,
     d = GY();
   try {
-    let c = await z({ background: !0, showSecurityDialog: e, storageV5: t, credentials: r });
+    let c = await z({ background: true, showSecurityDialog: e, storageV5: t, credentials: r });
     if (GY() !== d) {
       n("Remote settings: Background poll superseded by a login/logout reset; not notifying");
       return;
@@ -1040,7 +1040,7 @@ function we(e, t, r) {
   let o = T();
   if (o.poller !== null) return;
   if (!QD()) return;
-  let d = B9t(() => void at(e, t, r), Je, { unref: !0 });
+  let d = B9t(() => void at(e, t, r), Je, { unref: true });
   o.startPoller(d), vt(d);
 }
 function ve() {

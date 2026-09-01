@@ -27,11 +27,11 @@ function l5e() {
 }
 function s(n) {
   let t = "act_as_bot" in n ? n.act_as_bot : void 0;
-  return t === !0 || t === "true";
+  return t === true || t === "true";
 }
 function Nht() {
   let n = c();
-  if (n === null) return !1;
+  if (n === null) return false;
   let t = (e) => typeof e === "string" && e !== "";
   return (
     !("account_uuid" in n || "sub" in n) &&
@@ -43,7 +43,7 @@ function Nht() {
 }
 function qXn() {
   let n = c();
-  if (n === null || !s(n)) return !1;
+  if (n === null || !s(n)) return false;
   let t = (o) => typeof o === "string" && o !== "",
     r = ("account_uuid" in n && t(n.account_uuid)) || ("sub" in n && t(n.sub)),
     e = (o) => o !== void 0 && o !== null && o !== "",

@@ -120,14 +120,14 @@ function Rt(t, e) {
   for (let r of e) {
     let i = K(r);
     if (i === "") continue;
-    if (i === "*") return !0;
+    if (i === "*") return true;
     if (i.startsWith("*.")) {
       let c = i.slice(1);
-      if (o.endsWith(c)) return !0;
+      if (o.endsWith(c)) return true;
       continue;
     }
     if (!i.includes("*")) {
-      if (o === i) return !0;
+      if (o === i) return true;
       continue;
     }
     if (
@@ -140,9 +140,9 @@ function Rt(t, e) {
           "$",
       ).test(o)
     )
-      return !0;
+      return true;
   }
-  return !1;
+  return false;
 }
 function Ot(t) {
   let e = K(t);
@@ -249,7 +249,7 @@ function Ge(t, e, o) {
   }
   if (r.writeBufBytes > e.limits.pendingBytesCap) {
     S(e.ctx, "direct_writebuf_cap", `direct-upstream write buffer exceeded ${e.limits.pendingBytesCap} bytes`, C(e)),
-      (e.closed = !0);
+      (e.closed = true);
     try {
       r.end();
     } catch {}
@@ -298,34 +298,34 @@ function It(t, e, o) {
     downloadBytes: 0,
     pendingPeakBytes: 0,
     uploadPauses: 0,
-    uploadAborted: !1,
-    connectRejected: !1,
-    wsOpen: !1,
-    established: !1,
-    closed: !1,
+    uploadAborted: false,
+    connectRejected: false,
+    wsOpen: false,
+    established: false,
+    closed: false,
     connectLine: "",
     connectAuthority: "",
     clientProcess: Be,
     wsAttempt: 0,
-    paused: !1,
+    paused: false,
     sendStallBuffered: 0,
     sendStallSince: 0,
-    readPaused: !1,
+    readPaused: false,
     limits: t,
     pool: e,
-    finSeen: !1,
-    localClosed: !1,
+    finSeen: false,
+    localClosed: false,
     ctx: o,
   };
 }
 function Dt(t, e, o, r) {
   let i = () =>
     new Promise((f, c) => {
-      let u = !1,
+      let u = false,
         d = Qe(t, e),
         m = setTimeout(() => {
           if (u) return;
-          u = !0;
+          u = true;
           try {
             d.close();
           } catch {}
@@ -333,7 +333,7 @@ function Dt(t, e, o, r) {
         }, o);
       (d.onopen = () => {
         if (u) return;
-        (u = !0), clearTimeout(m);
+        (u = true), clearTimeout(m);
         try {
           d.close();
         } catch {}
@@ -341,7 +341,7 @@ function Dt(t, e, o, r) {
       }),
         (d.onerror = (h) => {
           if (u) return;
-          (u = !0), clearTimeout(m), c(Error(h?.message ?? "WebSocket error"));
+          (u = true), clearTimeout(m), c(Error(h?.message ?? "WebSocket error"));
         });
     });
   return (async () => {
@@ -360,7 +360,7 @@ var Lt = 1048576,
   Ht = 33554432;
 function Gt(t) {
   return new Promise((e, o) => {
-    let r = !1,
+    let r = false,
       i = Buffer.alloc(0),
       f = Bun.listen({
         hostname: "127.0.0.1",
@@ -384,21 +384,21 @@ Connection: Upgrade\r
 Sec-WebSocket-Accept: ${_}\r
 \r
 `),
-              (r = !0),
+              (r = true),
               typeof h.pause === "function")
             )
               h.pause();
           },
         },
       }),
-      c = !1,
+      c = false,
       u = (h) => {
         if (c) return;
-        (c = !0), clearTimeout(d);
+        (c = true), clearTimeout(d);
         try {
           m.close();
         } catch {}
-        if ((f.stop(!0), h instanceof Error)) o(h);
+        if ((f.stop(true), h instanceof Error)) o(h);
         else e(h);
       },
       d = setTimeout((h) => h(Error("handshake timeout")), t, u),
@@ -411,14 +411,14 @@ Sec-WebSocket-Accept: ${_}\r
         try {
           for (let x = 0; x < Ht; x += h.length)
             if ((m.send(h), m.bufferedAmount > 0)) {
-              u(!0);
+              u(true);
               return;
             }
         } catch {
           u(Error("send failed"));
           return;
         }
-        u(!1);
+        u(false);
       });
   });
 }
@@ -502,8 +502,8 @@ function Ut(t, e, o, r) {
               writeBuf: [],
               writeBufBytes: 0,
               writeBufPeakBytes: 0,
-              endAfterDrain: !1,
-              destroyAfterDrain: !1,
+              endAfterDrain: false,
+              destroyAfterDrain: false,
             }),
             typeof c.pause === "function")
           )
@@ -531,14 +531,14 @@ function Ut(t, e, o, r) {
             },
             end: () => {
               if ((W(d), d.writeBuf.length > 0)) {
-                d.endAfterDrain = !0;
+                d.endAfterDrain = true;
                 return;
               }
               c.end();
             },
             destroy: () => {
               if ((W(d), d.writeBuf.length > 0)) {
-                d.destroyAfterDrain = !0;
+                d.destroyAfterDrain = true;
                 return;
               }
               c.terminate();
@@ -561,10 +561,10 @@ function Ut(t, e, o, r) {
           if (u.writeBufBytes <= u.limits.receiveLowWater) Z(u);
           if (u.writeBuf.length > 0) return;
           if (u.destroyAfterDrain) {
-            (u.destroyAfterDrain = !1), c.terminate();
+            (u.destroyAfterDrain = false), c.terminate();
             return;
           }
-          if (u.endAfterDrain) (u.endAfterDrain = !1), c.end();
+          if (u.endAfterDrain) (u.endAfterDrain = false), c.end();
         },
         close(c) {
           let u = c.data;
@@ -584,7 +584,7 @@ function Ut(t, e, o, r) {
   return {
     port: f.port,
     stop: () => {
-      zt(i), f.stop(!0);
+      zt(i), f.stop(true);
     },
   };
 }
@@ -598,7 +598,7 @@ function Ft(t, e, o, r, i) {
           "tls_to_relay",
           "client opened TLS to the relay port; HTTPS_PROXY must be an http:// URL pointing at this port",
         ),
-        (e.closed = !0),
+        (e.closed = true),
         t.end();
       return;
     }
@@ -607,7 +607,7 @@ function Ft(t, e, o, r, i) {
 `);
     if (f === -1) {
       if (e.connectBuf.length > 8192)
-        (e.closed = !0),
+        (e.closed = true),
           A(t, 400, "Bad Request", "request headers exceeded 8 KiB before the end of the CONNECT request"),
           t.end(),
           p("agent_proxy_request", "agent_proxy_request_header_too_long"),
@@ -646,11 +646,11 @@ function Ft(t, e, o, r, i) {
             `
 `,
         ),
-          (e.closed = !0),
+          (e.closed = true),
           t.end();
         return;
       }
-      (e.closed = !0),
+      (e.closed = true),
         A(
           t,
           405,
@@ -674,7 +674,7 @@ function Ft(t, e, o, r, i) {
       if ((se(t, e, Buffer.from(m)), e.closed)) return;
     }
     if (((e.connectBuf = Buffer.alloc(0)), e.ctx.startupError)) {
-      (e.closed = !0),
+      (e.closed = true),
         A(t, 502, "Bad Gateway", e.ctx.startupError),
         t.end(),
         S(e.ctx, "startup_probe", e.ctx.startupError, C(e));
@@ -709,7 +709,7 @@ function Ft(t, e, o, r, i) {
     if ((se(t, e, Buffer.from(o)), !e.closed && e.pendingBytes > e.limits.sendPauseAfterPendingBytes)) Yt(e);
     return;
   }
-  if (((e.redialEligible = !1), e.ws)) me(e, e.ws, o), Xe(e);
+  if (((e.redialEligible = false), e.ws)) me(e, e.ws, o), Xe(e);
 }
 function se(t, e, o) {
   if ((e.pending.push(o), (e.pendingBytes += o.length), e.pendingBytes > e.pendingPeakBytes))
@@ -729,8 +729,8 @@ function Ye(t, e, o, r) {
   if (
     (p("agent_proxy_request", `agent_proxy_request_${o}`),
     S(e.ctx, o, r, C(e)),
-    (e.closed = !0),
-    (e.uploadAborted = !0),
+    (e.closed = true),
+    (e.uploadAborted = true),
     !e.established)
   )
     A(t, 502, "Bad Gateway", r), t.end();
@@ -744,7 +744,7 @@ function Ye(t, e, o, r) {
 function Xe(t) {
   if (t.paused || !t.ws) return;
   if (t.ws.bufferedAmount > t.limits.sendHighWater)
-    (t.paused = !0),
+    (t.paused = true),
       (t.sendStallBuffered = t.ws.bufferedAmount),
       (t.sendStallSince = Date.now()),
       (t.drainTimer = setInterval(Wt, t.limits.drainPollMs, t));
@@ -767,44 +767,44 @@ function Wt(t) {
   if (e.bufferedAmount > t.limits.sendLowWater) return;
   while (t.pending.length > 0 && e.bufferedAmount <= t.limits.sendHighWater) {
     let r = t.pending.shift();
-    (t.pendingBytes -= r.length), (t.redialEligible = !1), me(t, e, r);
+    (t.pendingBytes -= r.length), (t.redialEligible = false), me(t, e, r);
   }
   if (((t.sendStallBuffered = e.bufferedAmount), (t.sendStallSince = o), t.pending.length === 0))
-    (t.paused = !1), F(t), W(t);
+    (t.paused = false), F(t), W(t);
 }
 function F(t) {
   if (t.drainTimer) clearInterval(t.drainTimer), (t.drainTimer = void 0);
 }
 function Yt(t) {
   if (t.readPaused || !t.clientRead) return;
-  (t.readPaused = !0), t.uploadPauses++, t.ctx.uploadPausedClients++, t.ctx.uploadPauses++, t.clientRead.pause();
+  (t.readPaused = true), t.uploadPauses++, t.ctx.uploadPausedClients++, t.ctx.uploadPauses++, t.clientRead.pause();
 }
 function W(t) {
   if (!t.readPaused || !t.clientRead) return;
-  (t.readPaused = !1), t.ctx.uploadPausedClients--, t.clientRead.resume();
+  (t.readPaused = false), t.ctx.uploadPausedClients--, t.clientRead.resume();
 }
 function jt(t) {
   let e = t.ws;
-  if (!e?.pause || e.readyState !== WebSocket.OPEN || e.isPaused === !0) return;
+  if (!e?.pause || e.readyState !== WebSocket.OPEN || e.isPaused === true) return;
   e.pause();
 }
 function Z(t) {
   let e = t.ws;
-  if (!e?.resume || e.readyState !== WebSocket.OPEN || e.isPaused === !1) return;
+  if (!e?.resume || e.readyState !== WebSocket.OPEN || e.isPaused === false) return;
   e.resume();
 }
 function Kt(t, e, o, r) {
   let i = qt(e);
   if (i) {
-    (e.ws = i.ws), (e.wsOpen = !0), (e.pinger = i.pinger), (e.wsMeta = i.meta);
+    (e.ws = i.ws), (e.wsOpen = true), (e.pinger = i.pinger), (e.wsMeta = i.meta);
     let f = e.pending.slice();
-    e.redialEligible = !0;
-    let c = !1,
+    e.redialEligible = true;
+    let c = false,
       u = (d) => {
         if (c || e.closed) return;
         if (
-          ((c = !0),
-          (e.redialEligible = !1),
+          ((c = true),
+          (e.redialEligible = false),
           n(`[agent-proxy] pooled ws failed before response (${d}); falling through to fresh dial`),
           e.openTimer)
         )
@@ -816,10 +816,10 @@ function Kt(t, e, o, r) {
         } catch {}
         if (
           ((e.ws = void 0),
-          (e.wsOpen = !1),
+          (e.wsOpen = false),
           (e.wsMeta = void 0),
           F(e),
-          (e.paused = !1),
+          (e.paused = false),
           (e.pending = [...f, ...e.pending]),
           (e.pendingBytes = e.pending.reduce((m, h) => m + h.length, 0)),
           e.pendingBytes > e.pendingPeakBytes)
@@ -833,7 +833,7 @@ function Kt(t, e, o, r) {
         u("pooled ws unresponsive");
         return;
       }
-      (e.closed = !0),
+      (e.closed = true),
         p("agent_proxy_request", "agent_proxy_request_ws_error"),
         A(
           t,
@@ -855,7 +855,7 @@ function Kt(t, e, o, r) {
 function Vt(t, e, o, r) {
   let i = Ot(o);
   if (i) {
-    (e.closed = !0),
+    (e.closed = true),
       A(t, 403, "Forbidden", `agent-proxy selective relay: normal-networking refused ${o} (${i})`),
       t.end(),
       p("agent_proxy_request", "agent_proxy_direct_blocked_" + i),
@@ -863,20 +863,20 @@ function Vt(t, e, o, r) {
     return;
   }
   if (!Number.isInteger(r) || r < 1 || r > 65535) {
-    (e.closed = !0),
+    (e.closed = true),
       A(t, 400, "Bad Request", "invalid CONNECT port"),
       t.end(),
       p("agent_proxy_request", "agent_proxy_request_bad_connect_port"),
       S(e.ctx, "bad_connect_port", "invalid CONNECT port", C(e));
     return;
   }
-  e.directDialing = !0;
-  let f = !1,
+  e.directDialing = true;
+  let f = false,
     c = setTimeout(() => {
       if (e.closed) return;
-      (f = !0),
-        (e.closed = !0),
-        (e.directDialing = !1),
+      (f = true),
+        (e.closed = true),
+        (e.directDialing = false),
         A(
           t,
           504,
@@ -898,8 +898,8 @@ function Vt(t, e, o, r) {
         let d = Bt(u.remoteAddress);
         if (d) {
           u.end(),
-            (e.closed = !0),
-            (e.directDialing = !1),
+            (e.closed = true),
+            (e.directDialing = false),
             A(
               t,
               403,
@@ -913,11 +913,11 @@ function Vt(t, e, o, r) {
           return;
         }
         (e.directUpstream = { write: (m) => u.write(m), end: () => u.end(), writeBuf: [], writeBufBytes: 0 }),
-          (e.directDialing = !1),
+          (e.directDialing = false),
           t.write(`HTTP/1.1 200 Connection Established\r
 \r
 `),
-          (e.established = !0);
+          (e.established = true);
         for (let m of e.pending) Ge(t, e, m);
         (e.pending = []), (e.pendingBytes = 0);
       },
@@ -943,19 +943,19 @@ function Vt(t, e, o, r) {
         }
       },
       close() {
-        if (!e.closed) (e.closed = !0), t.end();
+        if (!e.closed) (e.closed = true), t.end();
       },
       error(u, d) {
         if ((clearTimeout(c), e.closed)) return;
-        if (((e.closed = !0), !e.established))
+        if (((e.closed = true), !e.established))
           A(t, 502, "Bad Gateway", `normal-networking dial failed: ${d?.message ?? String(d)}`), t.end();
         else t.destroy();
         S(e.ctx, e.established ? "direct_upstream_error" : "direct_dial_failed", d?.message ?? String(d), C(e));
       },
     },
   }).catch((u) => {
-    if ((clearTimeout(c), (e.directDialing = !1), e.closed)) return;
-    (e.closed = !0),
+    if ((clearTimeout(c), (e.directDialing = false), e.closed)) return;
+    (e.closed = true),
       A(t, 502, "Bad Gateway", `normal-networking dial failed: ${u?.message ?? String(u)}`),
       t.end(),
       S(e.ctx, "direct_dial_failed", u?.message ?? String(u), C(e));
@@ -993,7 +993,7 @@ function je(t) {
     t.pool.length >= t.limits.poolMax ||
     Date.now() - o.openedAt > t.limits.poolMaxAgeMs
   )
-    return !1;
+    return false;
   F(t), Z(t), W(t), (e.onmessage = null), (e.onerror = null);
   let r = t.pool;
   return (
@@ -1002,7 +1002,7 @@ function je(t) {
     (t.ws = void 0),
     (t.pinger = void 0),
     (t.wsMeta = void 0),
-    !0
+    true
   );
 }
 function Qt(t, e) {
@@ -1034,19 +1034,19 @@ function Ke(t, e, o, r) {
       }
       if (e.localClosed) return;
       if (!e.established) {
-        e.established = !0;
+        e.established = true;
         let u = Buffer.from(c.data.subarray(0, 16))
           .toString("utf8")
           .match(/^HTTP\/1\.[01] ([45]\d\d)/);
         if (u)
-          (e.connectRejected = !0),
+          (e.connectRejected = true),
             S(
               e.ctx,
               "connect_rejected",
               `gateway answered ${u[1]} to CONNECT (policy denial or upstream failure)`,
               C(e),
             );
-        if (((e.redialEligible = !1), e.pooledDeadline)) {
+        if (((e.redialEligible = false), e.pooledDeadline)) {
           if (e.openTimer) clearTimeout(e.openTimer), (e.openTimer = void 0);
           e.pooledDeadline = void 0;
         }
@@ -1062,7 +1062,7 @@ function Ke(t, e, o, r) {
         r(`ws error: ${f}`);
         return;
       }
-      if (((e.closed = !0), e.localClosed)) {
+      if (((e.closed = true), e.localClosed)) {
         R(e);
         return;
       }
@@ -1085,7 +1085,7 @@ function Ke(t, e, o, r) {
         r("closed before response");
         return;
       }
-      if (((e.closed = !0), e.localClosed)) {
+      if (((e.closed = true), e.localClosed)) {
         R(e);
         return;
       }
@@ -1127,7 +1127,7 @@ function Jt(t, e, o, r) {
         ge(t, e, `server acknowledged protocol version ${r.version}, expected ${le}`);
         return;
       }
-      if (((e.wsMeta.v2 = !0), e.helloAckDeadline)) {
+      if (((e.wsMeta.v2 = true), e.helloAckDeadline)) {
         if (e.openTimer) clearTimeout(e.openTimer), (e.openTimer = void 0);
         e.helloAckDeadline = void 0;
       }
@@ -1144,15 +1144,15 @@ function Jt(t, e, o, r) {
 function Zt(t, e, o) {
   if (e.finSeen) return;
   if (e.closed) {
-    if (e.finCloseTimer && o.readyState === WebSocket.OPEN) (e.finSeen = !0), o.send(ue(ke)), R(e);
+    if (e.finCloseTimer && o.readyState === WebSocket.OPEN) (e.finSeen = true), o.send(ue(ke)), R(e);
     return;
   }
-  if (((e.finSeen = !0), e.finCloseTimer)) clearTimeout(e.finCloseTimer), (e.finCloseTimer = void 0);
+  if (((e.finSeen = true), e.finCloseTimer)) clearTimeout(e.finCloseTimer), (e.finCloseTimer = void 0);
   if (!e.localClosed) t.end();
   if ((F(e), e.openTimer)) clearTimeout(e.openTimer), (e.openTimer = void 0);
-  (e.pooledDeadline = void 0), (e.paused = !1), (e.pending = []), (e.pendingBytes = 0), o.send(ue(ke));
+  (e.pooledDeadline = void 0), (e.paused = false), (e.pending = []), (e.pendingBytes = 0), o.send(ue(ke));
   let r = je(e);
-  if (((e.closed = !0), !r)) R(e);
+  if (((e.closed = true), !r)) R(e);
 }
 function Ve(t, e, o) {
   let r = `${t.connectLine}\r
@@ -1171,7 +1171,7 @@ function Qe(t, e) {
 }
 function fe(t, e, o, r) {
   let i = Qe(o, r);
-  (e.ws = i), (e.wsOpen = !1), (e.wsMeta = void 0);
+  (e.ws = i), (e.wsOpen = false), (e.wsMeta = void 0);
   let f = () => {
       i.onopen = i.onmessage = i.onerror = i.onclose = null;
       try {
@@ -1188,7 +1188,7 @@ function fe(t, e, o, r) {
         return;
       }
       n(`[agent-proxy] ws open failed (${u}); attempts exhausted`),
-        (e.closed = !0),
+        (e.closed = true),
         p("agent_proxy_request", "agent_proxy_request_ws_error"),
         A(
           t,
@@ -1211,8 +1211,8 @@ function fe(t, e, o, r) {
       if (e.closed) return;
       if (e.openTimer) clearTimeout(e.openTimer), (e.openTimer = void 0);
       (e.failOrRetry = void 0),
-        (e.wsOpen = !0),
-        (e.wsMeta = { v2: !1, openedAt: Date.now() }),
+        (e.wsOpen = true),
+        (e.wsMeta = { v2: false, openedAt: Date.now() }),
         Ke(t, e, i),
         i.send(ue(bt, le)),
         Ve(e, i, r.connectHeader()),
@@ -1245,7 +1245,7 @@ function rn(t) {
 }
 function ge(t, e, o) {
   if (e.closed) return;
-  (e.closed = !0),
+  (e.closed = true),
     n(`[agent-proxy] tunnel protocol v2 negotiation failed: ${o}`, { level: "warn" }),
     p("agent_proxy_request", "agent_proxy_request_v2_not_acked"),
     A(
@@ -1259,9 +1259,9 @@ function ge(t, e, o) {
     R(e);
 }
 function ze(t) {
-  if (!t.wsMeta?.v2 || t.finSeen || t.localClosed || t.ws?.readyState !== WebSocket.OPEN) return !1;
-  if (((t.localClosed = !0), (t.redialEligible = !1), t.openTimer)) clearTimeout(t.openTimer), (t.openTimer = void 0);
-  return (t.pooledDeadline = void 0), (t.finCloseTimer = setTimeout(on, t.limits.finGraceMs, t)), !0;
+  if (!t.wsMeta?.v2 || t.finSeen || t.localClosed || t.ws?.readyState !== WebSocket.OPEN) return false;
+  if (((t.localClosed = true), (t.redialEligible = false), t.openTimer)) clearTimeout(t.openTimer), (t.openTimer = void 0);
+  return (t.pooledDeadline = void 0), (t.finCloseTimer = setTimeout(on, t.limits.finGraceMs, t)), true;
 }
 function on(t) {
   if (((t.finCloseTimer = void 0), t.finSeen)) return;
@@ -1283,7 +1283,7 @@ function R(t) {
     } catch {}
     t.directUpstream = void 0;
   }
-  if (((t.closed = !0), t.pinger)) clearInterval(t.pinger);
+  if (((t.closed = true), t.pinger)) clearInterval(t.pinger);
   if (t.openTimer) clearTimeout(t.openTimer), (t.openTimer = void 0);
   if (t.finCloseTimer) clearTimeout(t.finCloseTimer), (t.finCloseTimer = void 0);
   if (
@@ -1293,7 +1293,7 @@ function R(t) {
     (t.pending = []),
     (t.pendingBytes = 0),
     (t.failOrRetry = void 0),
-    (t.redialEligible = !1),
+    (t.redialEligible = false),
     (t.pooledDeadline = void 0),
     (t.helloAckDeadline = void 0),
     t.ws && t.ws.readyState <= WebSocket.OPEN)
@@ -1321,7 +1321,7 @@ async function ot(t) {
     o = { failureCodes: e },
     r = H(t.stateDir, "agent-proxy-ca.crt");
   try {
-    await _e(t.stateDir, { recursive: !0 }), await Q(r, t.ccrCa, "utf8");
+    await _e(t.stateDir, { recursive: true }), await Q(r, t.ccrCa, "utf8");
   } catch (c) {
     return (
       n(`[agent-proxy] tool trust setup skipped: cannot write CA file: ${l(c)}`, { level: "warn" }),
@@ -1492,9 +1492,9 @@ ${r}`
 async function dn(t, e, o, r) {
   for (let i of e) {
     if (
-      !(await _e(i, { recursive: !0 }).then(
-        () => !0,
-        (m) => (n(`[agent-proxy] could not create NSS dir ${i}: ${l(m)}`), !1),
+      !(await _e(i, { recursive: true }).then(
+        () => true,
+        (m) => (n(`[agent-proxy] could not create NSS dir ${i}: ${l(m)}`), false),
       ))
     ) {
       r.push("nss_add_failed");
@@ -1544,7 +1544,7 @@ async function pn(t, e, o) {
 `;
   try {
     return (
-      await _e(ye(e), { recursive: !0 }),
+      await _e(ye(e), { recursive: true }),
       await Q(e, i, { mode: 420 }),
       n(`[agent-proxy] wrote ${e} for login-shell trust`),
       e
@@ -1561,9 +1561,9 @@ function at(t) {
   return `'${t.replace(/'/g, "'\\''")}'`;
 }
 async function Y(t, e) {
-  let o = await $e(t, e, { timeout: 20000, preserveOutputOnError: !0, useCwd: !1 });
-  if (o.code === 0) return { ok: !0, stdout: o.stdout, detail: "" };
-  return { ok: !1, stdout: o.stdout, detail: `${o.error ?? `exit ${o.code}`} ${o.stderr.slice(0, 200)}`.trim() };
+  let o = await $e(t, e, { timeout: 20000, preserveOutputOnError: true, useCwd: false });
+  if (o.code === 0) return { ok: true, stdout: o.stdout, detail: "" };
+  return { ok: false, stdout: o.stdout, detail: `${o.error ?? `exit ${o.code}`} ${o.stderr.slice(0, 200)}`.trim() };
 }
 var xur = "/run/ccr/session_token",
   ft = ["/etc/ssl/certs/ca-certificates.crt", "/etc/pki/tls/certs/ca-bundle.crt", "/etc/ssl/cert.pem"],
@@ -1615,13 +1615,13 @@ var xur = "/run/ccr/session_token",
     "*.svc.cluster.local",
   ].join(",");
 class pt {
-  state = { enabled: !1, noProxy: vXt };
+  state = { enabled: false, noProxy: vXt };
   relay = void 0;
   activate(t, e) {
     (this.state = t), (this.relay = e), Vun(`${Re(e.port)}/__agentproxy/status`);
   }
   reset() {
-    (this.state = { enabled: !1, noProxy: vXt }),
+    (this.state = { enabled: false, noProxy: vXt }),
       vft(void 0),
       Pnn(void 0),
       Vun(void 0),
@@ -1708,7 +1708,7 @@ ${D}`
         token: re,
         getToken: r ? () => re : () => rl() || re,
         selective: j,
-        startupProbe: !0,
+        startupProbe: true,
         limits: {
           ...(c && { receiveHighWater: 1 / 0 }),
           ...(u && { sendPauseAfterPendingBytes: 1 / 0, sendStallTimeoutMs: 1 / 0 }),
@@ -1718,7 +1718,7 @@ ${D}`
       });
     vt(async () => L.stop());
     let k = {
-      enabled: !0,
+      enabled: true,
       port: L.port,
       caBundlePath: _,
       hasSystemCa: v !== "",
@@ -1730,23 +1730,23 @@ ${D}`
     };
     if ((e.activate(k, L), !j && !o && !N)) Pnn({ proxyUrl: Re(L.port), ca: ht(I, M) });
     if (N) {
-      let T = !1,
+      let T = false,
         [oe, ie] = await Promise.all([
           a.CLAUDE_CODE_AGENT_PROXY_GIT_CONFIG
             ? Tn(L.port, _).catch(
                 (ae) => (
                   n(`[agent-proxy] governed git config append failed: ${l(ae)}`, { level: "warn" }),
                   g("agent_proxy_tool_scoped", "git_config_append_failed"),
-                  (T = !0),
-                  !1
+                  (T = true),
+                  false
                 ),
               )
-            : !1,
+            : false,
           a.CLAUDE_CODE_AGENT_PROXY_GH_SHIM
             ? Sn(L.port, _).catch((ae) => {
                 n(`[agent-proxy] gh shim write failed: ${l(ae)}`, { level: "warn" }),
                   g("agent_proxy_tool_scoped", "gh_shim_write_failed"),
-                  (T = !0);
+                  (T = true);
                 return;
               })
             : void 0,
@@ -1778,8 +1778,8 @@ ${D}`
       !N)
     )
       Lur(M, t?.systemTrustTargets ?? Bn).catch(() => {});
-    if (t?.toolTrust !== !1 && !N)
-      ot({ ccrCa: M, caBundlePath: _, hasSystemCa: k.hasSystemCa ?? !1, stateDir: O(_, ".."), ...(t?.toolTrust ?? {}) })
+    if (t?.toolTrust !== false && !N)
+      ot({ ccrCa: M, caBundlePath: _, hasSystemCa: k.hasSystemCa ?? false, stateDir: O(_, ".."), ...(t?.toolTrust ?? {}) })
         .then((T) => {
           if (e.state !== k) return;
           if (T.javaTrustStorePath) k.javaTrustStorePath = T.javaTrustStorePath;
@@ -1884,14 +1884,14 @@ async function Tn(t, e) {
         "[agent-proxy] governed git config arm set but GIT_CONFIG_GLOBAL is unset; skipping (refusing to write a shared global config)",
         { level: "warn" },
       ),
-      !1
+      false
     );
   if (/[\n\r"]/.test(e))
     return (
       n("[agent-proxy] governed git: CA bundle path contains a newline or quote; skipping git config arm", {
         level: "warn",
       }),
-      !1
+      false
     );
   let r = [
     ut,
@@ -1933,7 +1933,7 @@ async function Tn(t, e) {
       384,
     ),
     n(`[agent-proxy] governed git: relay routing for ${vs} appended to ${o}`),
-    !0
+    true
   );
 }
 async function bn(t, e) {
@@ -1968,7 +1968,7 @@ async function Sn(t, e) {
     n("[agent-proxy] governed git: path contains a single quote; skipping gh shim", { level: "warn" });
     return;
   }
-  await Pe(o, { recursive: !0, mode: 448 });
+  await Pe(o, { recursive: true, mode: 448 });
   let i = `http://127.0.0.1:${t}`,
     f =
       `#!/bin/sh
@@ -2092,7 +2092,7 @@ async function Pn() {
   let t = new Set(),
     e = await Promise.all(
       ["--global", "--system"].map((o) =>
-        qe("git", ["config", o, "--list", "--name-only"], { timeout: 5000, preserveOutputOnError: !0, cwd: En() }),
+        qe("git", ["config", o, "--list", "--name-only"], { timeout: 5000, preserveOutputOnError: true, cwd: En() }),
       ),
     );
   for (let o of e) {
@@ -2205,12 +2205,12 @@ administrator or Anthropic support so the policy or tooling can be fixed.
 }
 async function vn(t) {
   try {
-    return { existed: !0, token: (await z(t, "utf8")).trim() || null };
+    return { existed: true, token: (await z(t, "utf8")).trim() || null };
   } catch (e) {
-    if (X(e)) return { existed: !1, token: null };
+    if (X(e)) return { existed: false, token: null };
     return (
       n(`[agent-proxy] token read failed: ${e instanceof Error ? e.message : String(e)}`, { level: "warn" }),
-      { existed: !1, token: null }
+      { existed: false, token: null }
     );
   }
 }
@@ -2266,7 +2266,7 @@ async function Lur(t, e) {
     try {
       await ee(O(o, r), t, "utf8");
       let f = await new Promise((c) => {
-        gn(i[0], i.slice(1), { timeout: 1e4, cwd: "/", windowsHide: !0, ...qi("helper") }, (u) =>
+        gn(i[0], i.slice(1), { timeout: 1e4, cwd: "/", windowsHide: true, ...qi("helper") }, (u) =>
           c(u ? (X(u) ? 127 : 1) : 0),
         );
       });
@@ -2299,7 +2299,7 @@ async function $n(t, e, o) {
         return;
       }
       let u = await c.text();
-      return await Pe(O(o, ".."), { recursive: !0 }), await ee(o, ht(e, u), "utf8"), u;
+      return await Pe(O(o, ".."), { recursive: true }), await ee(o, ht(e, u), "utf8"), u;
     } catch (c) {
       i = c instanceof Error ? c.message : String(c);
     }
@@ -2309,7 +2309,7 @@ async function $n(t, e, o) {
 }
 async function Nn(t) {
   try {
-    await Pe(O(t, ".."), { recursive: !0, mode: 448 }),
+    await Pe(O(t, ".."), { recursive: true, mode: 448 }),
       await ee(
         t,
         `[default]

@@ -22,10 +22,10 @@ import { Y2n } from "/$bunfs/root/chunk-t9fztcxk.js";
 import { HZ, h8 } from "/$bunfs/root/chunk-mh40wjx4.js";
 async function CKt(e) {
   let i = e.session.then(
-    (o) => ({ read: !0, session: o }),
-    (o) => ({ read: !1, error: o }),
+    (o) => ({ read: true, session: o }),
+    (o) => ({ read: false, error: o }),
   );
-  if (!(await (e.isEnabled ?? Ec)().catch(() => !1))) return { status: "disabled" };
+  if (!(await (e.isEnabled ?? Ec)().catch(() => false))) return { status: "disabled" };
   let r = await i;
   if (!r.read) return v("session_unreadable", r.error);
   if (r.session.archived) return { status: "disabled" };
@@ -42,15 +42,15 @@ async function CKt(e) {
   try {
     d = (e.isEgressAllowed ?? h8)();
   } catch {
-    d = !1;
+    d = false;
   }
   if (!d) return u("egress");
   let t = await (e.getAccount ?? HZ)();
   if (t.status === "missing") return u("account");
   if (t.status === "mismatch") return u("account_mismatch");
   let a = await (e.readLocalDeviceId ?? Y2n)(t.accountUuid).then(
-    (o) => ({ read: !0, deviceId: o?.toLowerCase() }),
-    (o) => ({ read: !1, error: o }),
+    (o) => ({ read: true, deviceId: o?.toLowerCase() }),
+    (o) => ({ read: false, error: o }),
   );
   if (!a.read) return v("local_device_unreadable", a.error);
   if (a.deviceId === void 0) return u("no_device_here");
@@ -64,11 +64,11 @@ async function CKt(e) {
 function vKt(e) {
   return e.then(
     (i) => i.status === "bound",
-    () => !1,
+    () => false,
   );
 }
 function zwr({ viewerOnly: e, binding: i }) {
-  return !e && i.status === "bound" ? { owner: !0, deviceId: i.deviceId } : { owner: !1 };
+  return !e && i.status === "bound" ? { owner: true, deviceId: i.deviceId } : { owner: false };
 }
 async function Vwr({ binding: e, deviceBridge: i, onNotice: r }) {
   return;
@@ -77,7 +77,7 @@ function RKt(e) {
   let i = e.binding.catch(
       (t) => (n(`[deviceBind] attach binding failed unexpectedly: ${l(t)}`), { status: "disabled" }),
     ),
-    r = !1,
+    r = false,
     d;
   return (
     i
@@ -104,7 +104,7 @@ function RKt(e) {
         t.status === "unbound" ? kut(t.reason) : t.status === "created_unbound" ? Rut(t.reason) : void 0,
       ),
       stop: async () => {
-        (r = !0), await d?.stop();
+        (r = true), await d?.stop();
       },
       heldServedCall: (t) => d?.heldServedCall(t) ?? Z4,
     }

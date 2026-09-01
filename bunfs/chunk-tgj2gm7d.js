@@ -45,8 +45,8 @@ function H(e) {
 }
 class v {
   socket = null;
-  connected = !1;
-  connecting = !1;
+  connected = false;
+  connecting = false;
   connectEpoch = 0;
   responseCallback = null;
   notificationHandler = null;
@@ -57,7 +57,7 @@ class v {
   reconnectTimer = null;
   connectTimer = null;
   context;
-  disableAutoReconnect = !1;
+  disableAutoReconnect = false;
   constructor(e) {
     this.context = e;
   }
@@ -67,14 +67,14 @@ class v {
       t.info(`[${e}] Already connecting, skipping duplicate attempt`);
       return;
     }
-    this.closeSocket(), (this.connecting = !0);
+    this.closeSocket(), (this.connecting = true);
     let n = this.connectEpoch,
       o = this.context.getSocketPath?.() ?? this.context.socketPath;
     t.info(`[${e}] Attempting to connect to: ${o}`);
     try {
       await this.validateSocketSecurity(o);
     } catch (l) {
-      if (n === this.connectEpoch) this.connecting = !1;
+      if (n === this.connectEpoch) this.connecting = false;
       t.info(`[${e}] Security validation failed:`, l);
       return;
     }
@@ -86,8 +86,8 @@ class v {
       }, 5000)),
       this.socket.on("connect", () => {
         this.clearConnectTimer(),
-          (this.connected = !0),
-          (this.connecting = !1),
+          (this.connected = true),
+          (this.connecting = false),
           (this.reconnectAttempts = 0),
           t.info(`[${e}] Successfully connected to bridge server`);
       }),
@@ -114,14 +114,14 @@ class v {
         if (
           (this.clearConnectTimer(),
           t.info(`[${e}] Socket error (code: ${l.code}):`, l),
-          (this.connected = !1),
-          (this.connecting = !1),
+          (this.connected = false),
+          (this.connecting = false),
           l.code && ["ECONNREFUSED", "ECONNRESET", "EPIPE", "ENOENT", "EOPNOTSUPP", "ECONNABORTED"].includes(l.code))
         )
           this.scheduleReconnect();
       }),
       this.socket.on("close", () => {
-        this.clearConnectTimer(), (this.connected = !1), (this.connecting = !1), this.scheduleReconnect();
+        this.clearConnectTimer(), (this.connected = false), (this.connecting = false), this.scheduleReconnect();
       });
   }
   scheduleReconnect() {
@@ -157,7 +157,7 @@ class v {
   }
   async ensureConnected() {
     let { serverName: e } = this.context;
-    if (this.connected && this.socket) return !0;
+    if (this.connected && this.socket) return true;
     if (!this.socket && !this.connecting) await this.connect();
     return new Promise((t, n) => {
       let o = null,
@@ -166,7 +166,7 @@ class v {
           n(new DA(`[${e}] Connection attempt timed out after 5000ms`));
         }, 5000),
         c = () => {
-          if (this.connected) clearTimeout(l), t(!0);
+          if (this.connected) clearTimeout(l), t(true);
           else o = setTimeout(c, 500);
         };
       c();
@@ -226,7 +226,7 @@ class v {
   closeSocket() {
     if (((this.connectEpoch += 1), this.clearConnectTimer(), this.socket))
       this.socket.removeAllListeners(), this.socket.end(), this.socket.destroy(), (this.socket = null);
-    (this.connected = !1), (this.connecting = !1);
+    (this.connected = false), (this.connecting = false);
   }
   cleanup() {
     if (this.reconnectTimer) clearTimeout(this.reconnectTimer), (this.reconnectTimer = null);
@@ -303,7 +303,7 @@ async function V(e) {
   if (e.getScreenshotSaveDir) {
     let n = e.getScreenshotSaveDir();
     if (n === void 0) return;
-    return await q(n, { recursive: !0, mode: 448 }), n;
+    return await q(n, { recursive: true, mode: 448 }), n;
   }
   let t = await E();
   try {
@@ -351,18 +351,18 @@ async function _(e, t) {
       ],
     };
   let o = [],
-    l = !1,
-    c = !1;
+    l = false,
+    c = false;
   for (let s of e.content) {
     if ((o.push(s), s.type !== "image")) continue;
     let r = Object.hasOwn(S, s.mimeType) ? S[s.mimeType] : "png",
       i = R(n, `screenshot-${Date.now()}-${X++}.${r}`);
     try {
       await G(i, Buffer.from(s.data, "base64"), { flag: "wx", mode: 384 }),
-        (l = !0),
+        (l = true),
         o.push({ type: "text", text: `${z}${i}` });
     } catch (a) {
-      (c = !0),
+      (c = true),
         t.logger.warn(
           `[${t.serverName}] save_to_disk: failed to write screenshot: ${a instanceof Error ? a.message : String(a)}`,
         );
@@ -389,17 +389,17 @@ function b(e, t) {
   return n.length > 50 ? `${n.slice(0, 50)}\u2026` : n;
 }
 async function K(e, t) {
-  if (!t.listConnectedExtensions) return h.set(t, !0), null;
+  if (!t.listConnectedExtensions) return h.set(t, true), null;
   if (h.get(t) && t.hasActiveSelection?.()) return null;
   h.delete(t);
   let n = await t.listConnectedExtensions(),
     o = n.map((r) => r.deviceId);
   if (n.length === 0) return null;
-  if (n.length === 1) return h.set(t, !0), null;
+  if (n.length === 1) return h.set(t, true), null;
   let l = t.getSelectedDeviceId?.();
   if (l && n.some((r) => r.deviceId === l)) {
     let r = e.getPairedFromDeviceIds?.();
-    if (!(r !== void 0 && r.length > 0 && o.some((a) => !r.includes(a)))) return h.set(t, !0), null;
+    if (!(r !== void 0 && r.length > 0 && o.some((a) => !r.includes(a)))) return h.set(t, true), null;
   }
   let c = n
       .slice(0, 8)
@@ -421,7 +421,7 @@ Connected browsers:
 ${c}${s}`,
       },
     ],
-    isError: !0,
+    isError: true,
   };
 }
 function B(e) {
@@ -466,20 +466,20 @@ function Q(e) {
 }
 async function Y(e, t, n, o, l, c) {
   try {
-    if (!(await t.ensureConnected())) return { ok: !1, reason: "disconnected" };
+    if (!(await t.ensureConnected())) return { ok: false, reason: "disconnected" };
     let s = await t.callTool(
         "computer",
         { action: "type", text: l, tabId: o, ...(c !== void 0 ? { expected_origin: c } : {}) },
         { ...n, permissionMode: "skip_all_permission_checks", onPermissionRequest: void 0 },
       ),
       r = typeof s === "object" && s !== null && !("error" in s) ? s.result : void 0,
-      i = typeof r === "object" && r !== null && (r.isError === !0 || r.is_error === !0);
-    if (r !== void 0 && r !== null && r !== !1 && !i) return { ok: !0 };
+      i = typeof r === "object" && r !== null && (r.isError === true || r.is_error === true);
+    if (r !== void 0 && r !== null && r !== false && !i) return { ok: true };
     let d = i ? (r.content ?? "") : "";
-    if ((C(Q(s)) || C(d)).startsWith("Origin mismatch")) return { ok: !1, reason: "origin_mismatch" };
-    return { ok: !1, reason: "tool_error" };
+    if ((C(Q(s)) || C(d)).startsWith("Origin mismatch")) return { ok: false, reason: "origin_mismatch" };
+    return { ok: false, reason: "tool_error" };
   } catch (s) {
-    return e.logger.debug(`[${e.serverName}] typeIntoTab failed`, s), { ok: !1, reason: "transport" };
+    return e.logger.debug(`[${e.serverName}] typeIntoTab failed`, s), { ok: false, reason: "transport" };
   }
 }
 function N(e, t, n, o) {
@@ -493,20 +493,20 @@ function N(e, t, n, o) {
 function Z(e, t) {
   if (e === "browser_batch" && Array.isArray(t.actions)) {
     let { save_to_disk: l, ...c } = t,
-      s = l === !0,
+      s = l === true,
       r = t.actions.map((i) => {
         if (typeof i !== "object" || i === null) return i;
         let a = i;
         if (typeof a.input !== "object" || a.input === null) return i;
         let { save_to_disk: d, ...u } = a.input;
-        if (d === !0 && a.name === "computer") s = !0;
+        if (d === true && a.name === "computer") s = true;
         return { ...a, input: u };
       });
     return { args: { ...c, actions: r }, wantsSave: s };
   }
-  if (!("save_to_disk" in t)) return { args: t, wantsSave: !1 };
+  if (!("save_to_disk" in t)) return { args: t, wantsSave: false };
   let { save_to_disk: n, ...o } = t;
-  return { args: o, wantsSave: e === "computer" && n === !0 };
+  return { args: o, wantsSave: e === "computer" && n === true };
 }
 var tlt = async (e, t, n, o, l) => {
   let { args: c, wantsSave: s } = Z(n, o);
@@ -541,14 +541,14 @@ var tlt = async (e, t, n, o, l) => {
   }
 };
 function g(e, t) {
-  return { content: [{ type: "text", text: e }], isError: !0, ...(t && { _meta: t }) };
+  return { content: [{ type: "text", text: e }], isError: true, ...(t && { _meta: t }) };
 }
 function ee(e, t, n) {
   if ((n.logger.info(`[${n.serverName}] Error calling tool:`, e), e instanceof DA || e instanceof sxe)) return y(n);
   if (e instanceof axe)
     return g(
       `The "${t}" tool did not respond in time. The Chrome extension is connected but the page may be loading, unresponsive, or waiting on a permission prompt in the extension side panel. Try a lighter operation (e.g., "get_page_text" instead of a screenshot) or ask the user to check the page and any pending prompts.`,
-      { isBridgeTimeout: !0 },
+      { isBridgeTimeout: true },
     );
   if (e instanceof Bae)
     return g(
@@ -602,7 +602,7 @@ async function ne(e, t, n, o, l) {
   if (!r) (r = new Map()), A.set(t, r);
   let i = r.get(s);
   if (!i)
-    (i = t.callTool("tabs_context_mcp", { createIfEmpty: !0 }, { ...l, permissionMode: "ask" }).finally(() => {
+    (i = t.callTool("tabs_context_mcp", { createIfEmpty: true }, { ...l, permissionMode: "ask" }).finally(() => {
       if (r.get(s) === i) r.delete(s);
     })),
       r.set(s, i);
@@ -612,14 +612,14 @@ async function ne(e, t, n, o, l) {
       args: o,
       error: g(
         `The hidden tabs_context_mcp lookup did not respond within ${P / 1000}s. The Chrome extension may be slow to start or waiting on a permission prompt. Retry navigate, or call tabs_context_mcp explicitly to get a tabId first.`,
-        { isFrontLoadBoundExceeded: !0 },
+        { isFrontLoadBoundExceeded: true },
       ),
     };
   let d = a?.error;
   if (d) {
     let f = Array.isArray(d.content) ? d.content : [{ type: "text", text: "tabs_context_mcp returned an error." }];
     if (D(f)) e.onAuthenticationError();
-    return { args: o, error: { content: f, isError: !0 } };
+    return { args: o, error: { content: f, isError: true } };
   }
   let { tabId: u, tabGroupId: p, json: k } = l9e(a);
   if (u === void 0) return { args: o, tabGroupId: p };
@@ -661,7 +661,7 @@ async function oe(e, t, n, o, l) {
           if (typeof f === "object" && f !== null && "type" in f) return f;
           return { type: "text", text: String(f) };
         }),
-        isError: !0,
+        isError: true,
         ...(a && { _meta: a }),
       };
     return {
@@ -695,7 +695,7 @@ async function re(e, t) {
   if (!e.bridgeConfig)
     return {
       content: [{ type: "text", text: "Browser switching is only available with bridge connections." }],
-      isError: !0,
+      isError: true,
     };
   if (!(await t.ensureConnected())) return y(e);
   let o = (await t.switchBrowser?.()) ?? null;
@@ -707,9 +707,9 @@ async function re(e, t) {
           text: "No other browsers available to switch to. Open Chrome with the Claude extension in another browser to switch.",
         },
       ],
-      isError: !1,
+      isError: false,
     };
-  if (o) return h.set(t, !0), { content: [{ type: "text", text: `Connected to browser "${b(o, 0)}".` }] };
+  if (o) return h.set(t, true), { content: [{ type: "text", text: `Connected to browser "${b(o, 0)}".` }] };
   return {
     content: [
       {
@@ -717,14 +717,14 @@ async function re(e, t) {
         text: "No browser responded within the timeout. Make sure Chrome is open with the Claude extension installed, then try again.",
       },
     ],
-    isError: !0,
+    isError: true,
   };
 }
 async function se(e, t) {
   if (!e.bridgeConfig || !t.listConnectedExtensions)
     return {
       content: [{ type: "text", text: "Listing browsers is only available with bridge connections." }],
-      isError: !0,
+      isError: true,
     };
   if (!(await t.ensureConnected())) return y(e);
   let o = await t.listConnectedExtensions(),
@@ -738,7 +738,7 @@ async function ie(e, t, n) {
   if (!e.bridgeConfig || !t.selectExtensionById || !t.listConnectedExtensions || !o)
     return {
       content: [{ type: "text", text: "select_browser requires a bridge connection and a deviceId argument." }],
-      isError: !0,
+      isError: true,
     };
   if (!(await t.ensureConnected())) return y(e);
   let c = await t.listConnectedExtensions(),
@@ -751,11 +751,11 @@ async function ie(e, t, n) {
           text: `No connected browser has deviceId "${o}". Call list_connected_browsers to see currently connected browsers.`,
         },
       ],
-      isError: !0,
+      isError: true,
     };
   let r = b(s, c.indexOf(s));
   return (
-    t.selectExtensionById(o, r), h.set(t, !0), { content: [{ type: "text", text: `Connected to browser "${r}".` }] }
+    t.selectExtensionById(o, r), h.set(t, true), { content: [{ type: "text", text: `Connected to browser "${r}".` }] }
   );
 }
 function C(e) {

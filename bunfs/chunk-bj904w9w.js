@@ -97,14 +97,14 @@ function Bu(e) {
   for (let t of e) {
     if (!t) continue;
     let n = "",
-      s = !1;
+      s = false;
     for (let o of t)
       switch (o) {
         case "(":
-          (s = !0), (n += o);
+          (s = true), (n += o);
           break;
         case ")":
-          (s = !1), (n += o);
+          (s = false), (n += o);
           break;
         case ",":
           if (s) n += o;

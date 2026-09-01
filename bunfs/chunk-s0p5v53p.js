@@ -24,7 +24,7 @@ F();
 var x = yn({
   selectedTab: void 0,
   width: void 0,
-  headerFocused: !1,
+  headerFocused: false,
   focusHeader: () => {},
   blurHeader: () => {},
   registerOptIn: () => () => {},
@@ -40,9 +40,9 @@ function Pg({
   onTabChange: R,
   banner: D,
   disableNavigation: b,
-  initialHeaderFocused: O = !0,
+  initialHeaderFocused: O = true,
   contentHeight: q,
-  navFromContent: ge = !1,
+  navFromContent: ge = false,
 }) {
   let { columns: J } = Ee(),
     h = c.map((n) => [n.props.id ?? n.props.title, n.props.title]),
@@ -69,17 +69,17 @@ function Pg({
     M = g !== null && k !== null,
     Ce = M ? Re - K : void 0,
     De = z(() => (E && M ? { ...E, claimScrollBox: null } : null), [E, M]),
-    s = !1,
+    s = false,
     W = C(null),
     { focus: ee, focusDirection: Ie, blur: te } = pxe(),
     [y, w] = u(O),
     ne = B(() => {
       if (s && W.current) ee(W.current);
-      w(!0);
+      w(true);
     }, [s, ee]),
     Be = B(() => {
       if (s) te();
-      w(!1);
+      w(false);
     }, [s, te]),
     [Fe, oe] = u(0),
     Me = B(() => (oe((n) => n + 1), () => oe((n) => n - 1)), []),
@@ -104,12 +104,12 @@ function Pg({
         return;
       }
       if (n.key === "left" || n.key === "right" || n.key === "tab") n.preventDefault();
-      else if (n.key === "down" && T) n.preventDefault(), Ie("down"), w(!1);
+      else if (n.key === "down" && T) n.preventDefault(), Ie("down"), w(false);
       return;
     }
     if (!T) return;
     if (n.key === "up" || n.key === "down") {
-      if ((n.preventDefault(), y && n.key === "down")) w(!1);
+      if ((n.preventDefault(), y && n.key === "down")) w(false);
     }
   };
   ht(
@@ -135,15 +135,15 @@ function Pg({
             ref: s ? W : void 0,
             tabIndex: s ? 0 : void 0,
             autoFocus: s ? O : void 0,
-            onFocus: s ? () => w(!0) : void 0,
-            onBlur: s ? () => w(!1) : void 0,
+            onFocus: s ? () => w(true) : void 0,
+            onBlur: s ? () => w(false) : void 0,
             onKeyDown: s ? ae : void 0,
             flexDirection: "row",
             gap: 1,
             flexShrink: k ? 0 : void 0,
             alignSelf: s && !p ? "flex-start" : void 0,
             children: [
-              i !== void 0 && e(t, { bold: !0, color: l, children: i }),
+              i !== void 0 && e(t, { bold: true, color: l, children: i }),
               h.map(([n, m], de) =>
                 e(
                   pnt,
@@ -173,7 +173,7 @@ function Pg({
                   flexDirection: "column",
                   flexShrink: 0,
                   maxHeight: Ce,
-                  stickyScroll: !1,
+                  stickyScroll: false,
                   children: e(My, { value: De, children: c }),
                 },
                 I,
@@ -194,7 +194,7 @@ function Pg({
 function pnt(at) {
   let G = _(15),
     { title: V, isCurrent: S, headerFocused: Pe, color: j, onClick: L } = at,
-    [ce, Ke] = u(!1),
+    [ce, Ke] = u(false),
     ue = L !== void 0;
   const fe = S && Pe;
   let Ne;
@@ -204,12 +204,12 @@ function pnt(at) {
     pe = j && S && Pe,
     Ve,
     je;
-  if (G[2] === d) (Ve = () => Ke(!0)), (je = () => Ke(!1)), (G[2] = Ve), (G[3] = je);
+  if (G[2] === d) (Ve = () => Ke(true)), (je = () => Ke(false)), (G[2] = Ve), (G[3] = je);
   else (Ve = G[2]), (je = G[3]);
   let U;
   if (G[4] !== ue || G[5] !== j || G[6] !== pe || G[7] !== ce || G[8] !== S || G[9] !== V)
     (U = pe
-      ? e(Dc, { color: j, bold: !0, padded: !0, children: V })
+      ? e(Dc, { color: j, bold: true, padded: true, children: V })
       : r(t, { inverse: S, bold: S, underline: ce && ue, children: [" ", V, " "] })),
       (G[4] = ue),
       (G[5] = j),

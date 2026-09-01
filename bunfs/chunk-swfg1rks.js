@@ -214,19 +214,19 @@ function Z(so) {
   else v = s[19];
   let T;
   if (s[20] !== C || s[21] !== v)
-    (T = r(t, { bold: !0, children: [C, "/", v] })), (s[20] = C), (s[21] = v), (s[22] = T);
+    (T = r(t, { bold: true, children: [C, "/", v] })), (s[20] = C), (s[21] = v), (s[22] = T);
   else T = s[22];
   let y;
-  if (s[23] !== n.id) (y = r(t, { dimColor: !0, children: [" \xB7 ", n.id] })), (s[23] = n.id), (s[24] = y);
+  if (s[23] !== n.id) (y = r(t, { dimColor: true, children: [" \xB7 ", n.id] })), (s[23] = n.id), (s[24] = y);
   else y = s[24];
   let I;
   if (s[25] !== y || s[26] !== T) (I = r(t, { children: [T, y] })), (s[25] = y), (s[26] = T), (s[27] = I);
   else I = s[27];
   let x;
-  if (s[28] !== a) (x = a && r(t, { dimColor: !0, children: ["server task ", oOe(a)] })), (s[28] = a), (s[29] = x);
+  if (s[28] !== a) (x = a && r(t, { dimColor: true, children: ["server task ", oOe(a)] })), (s[28] = a), (s[29] = x);
   else x = s[29];
   let X;
-  if (s[30] === d) (X = e(t, { dimColor: !0, children: "status " })), (s[30] = X);
+  if (s[30] === d) (X = e(t, { dimColor: true, children: "status " })), (s[30] = X);
   else X = s[30];
   let h;
   if (s[31] !== n.mcpStatus || s[32] !== n.status)
@@ -237,7 +237,7 @@ function Z(so) {
   else h = s[33];
   let D;
   if (s[34] !== n.statusMessage)
-    (D = n.statusMessage && r(t, { dimColor: !0, children: [" ", "\xB7 ", sg(n.statusMessage)] })),
+    (D = n.statusMessage && r(t, { dimColor: true, children: [" ", "\xB7 ", sg(n.statusMessage)] })),
       (s[34] = n.statusMessage),
       (s[35] = D);
   else D = s[35];
@@ -249,7 +249,7 @@ function Z(so) {
     (N =
       n.mcpStatus === "input_required" &&
       n.status === "running" &&
-      e(t, { dimColor: !0, children: "waiting for your answer in the elicitation dialog" })),
+      e(t, { dimColor: true, children: "waiting for your answer in the elicitation dialog" })),
       (s[39] = n.mcpStatus),
       (s[40] = n.status),
       (s[41] = N);
@@ -258,14 +258,14 @@ function Z(so) {
     A = V !== void 0 && ` \xB7 polls every ${V}`;
   let P;
   if (s[42] !== b || s[43] !== z || s[44] !== A)
-    (P = r(t, { dimColor: !0, children: [z, b, A] })), (s[42] = b), (s[43] = z), (s[44] = A), (s[45] = P);
+    (P = r(t, { dimColor: true, children: [z, b, A] })), (s[42] = b), (s[43] = z), (s[44] = A), (s[45] = P);
   else P = s[45];
   let R;
   if (s[46] !== n.protocol || s[47] !== n.status)
     (R =
       n.protocol === "sep2663" &&
       n.status === "running" &&
-      e(t, { dimColor: !0, children: "runs on the server; survives exiting this session" })),
+      e(t, { dimColor: true, children: "runs on the server; survives exiting this session" })),
       (s[46] = n.protocol),
       (s[47] = n.status),
       (s[48] = R);

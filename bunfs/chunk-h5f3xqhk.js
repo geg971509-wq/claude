@@ -184,7 +184,7 @@ async function Su(a, b, S, x) {
   if (v === null) return "activated";
   if (v === "plugin_load_error") return "load-failed";
   return (
-    b((R) => (R.plugins.needsRefresh ? R : { ...R, plugins: { ...R.plugins, needsRefresh: !0 } })), "reload-required"
+    b((R) => (R.plugins.needsRefresh ? R : { ...R, plugins: { ...R.plugins, needsRefresh: true } })), "reload-required"
   );
 }
 async function xg(a, b, S, x) {
@@ -209,8 +209,8 @@ async function xg(a, b, S, x) {
   }
 }
 function Sg(a, b) {
-  if ("orphan" in a && a.orphan) return !1;
-  if (fde(a) === void 0) return !1;
+  if ("orphan" in a && a.orphan) return false;
+  if (fde(a) === void 0) return false;
   let S = "pluginId" in a && a.pluginId ? a.pluginId : "plugin" in a && a.plugin ? a.plugin : void 0,
     x = S !== void 0 && S.includes("@") ? S : a.source.includes("@") ? a.source : (S ?? a.source);
   return x.includes("@") ? b.includes(x) : b.some((v) => St(v, "@") === x);
@@ -227,11 +227,11 @@ function vu({
   setResult: K,
   setViewState: T,
   onAddComplete: N,
-  cliMode: H = !1,
+  cliMode: H = false,
 }) {
   let { storageV5: G, credentials: E } = ge(),
-    J = C(!1),
-    [pe, ue] = u(!1),
+    J = C(false),
+    [pe, ue] = u(false),
     [Pe, _e] = u(""),
     be = async () => {
       let ve = a.trim();
@@ -250,7 +250,7 @@ function vu({
       }
       R(null);
       try {
-        ue(!0), _e("");
+        ue(true), _e("");
         let { name: st, resolvedSource: Tt } = await F7(
             Je,
             (xe) => {
@@ -274,18 +274,18 @@ function vu({
           n(`marketplace add: dep auto-resolve skipped: ${l(xe)}`, { level: "warn" });
         }
         if (re.length > 0) Qu(G, E);
-        if ((await N(), _e(""), ue(!1), H)) K(`Successfully added marketplace: ${st}${DB(re)}`);
+        if ((await N(), _e(""), ue(false), H)) K(`Successfully added marketplace: ${st}${DB(re)}`);
         else T({ type: "browse-marketplace", targetMarketplace: st });
       } catch (st) {
         let Tt = we(st);
-        if ((n(`marketplace add failed: ${l(Tt)}`, { level: "error" }), R(Tt.message), _e(""), ue(!1), H))
+        if ((n(`marketplace add failed: ${l(Tt)}`, { level: "error" }), R(Tt.message), _e(""), ue(false), H))
           K(`Error: ${Tt.message}`);
         else K(null);
       }
     };
   return (
     A(() => {
-      if (a && !J.current && !v && !j) (J.current = !0), be();
+      if (a && !J.current && !v && !j) (J.current = true), be();
     }, []),
     r(o, {
       flexDirection: "column",
@@ -295,16 +295,16 @@ function vu({
           paddingX: 1,
           borderStyle: "round",
           children: [
-            e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Add Marketplace" }) }),
+            e(o, { marginBottom: 1, children: e(t, { bold: true, children: "Add Marketplace" }) }),
             r(o, {
               flexDirection: "column",
               children: [
                 e(t, { children: "Enter marketplace source:" }),
-                e(t, { dimColor: !0, children: "Examples:" }),
-                e(t, { dimColor: !0, children: " \xB7 owner/repo (GitHub)" }),
-                e(t, { dimColor: !0, children: " \xB7 git@github.com:owner/repo.git (SSH)" }),
-                e(t, { dimColor: !0, children: " \xB7 https://example.com/marketplace.json" }),
-                e(t, { dimColor: !0, children: " \xB7 ./path/to/marketplace" }),
+                e(t, { dimColor: true, children: "Examples:" }),
+                e(t, { dimColor: true, children: " \xB7 owner/repo (GitHub)" }),
+                e(t, { dimColor: true, children: " \xB7 git@github.com:owner/repo.git (SSH)" }),
+                e(t, { dimColor: true, children: " \xB7 https://example.com/marketplace.json" }),
+                e(t, { dimColor: true, children: " \xB7 ./path/to/marketplace" }),
                 e(o, {
                   marginTop: 1,
                   children: e(xn, {
@@ -314,8 +314,8 @@ function vu({
                     columns: 80,
                     cursorOffset: S,
                     onChangeCursorOffset: x,
-                    focus: !0,
-                    showCursor: !0,
+                    focus: true,
+                    showCursor: true,
                   }),
                 }),
               ],
@@ -332,8 +332,8 @@ function vu({
         e(o, {
           marginLeft: 3,
           children: e(t, {
-            dimColor: !0,
-            italic: !0,
+            dimColor: true,
+            italic: true,
             children: r(fe, {
               children: [
                 e(M, { chord: "enter", action: "add" }),
@@ -355,9 +355,9 @@ function Eu(a, b, S, x) {
     let j = S[R],
       T = ((b[R] ?? "").split(/\r\n|\r|\n/, 1)[0] ?? "").trim();
     if (T === "") {
-      if (j?.sensitive === !0 && x?.[R] !== void 0) continue;
+      if (j?.sensitive === true && x?.[R] !== void 0) continue;
       if (j?.type === "number") continue;
-      if (j?.required !== !0 && x?.[R] === void 0) continue;
+      if (j?.required !== true && x?.[R] === void 0) continue;
     }
     if (j?.type === "number") {
       let N = Number(T);
@@ -379,7 +379,7 @@ function ki(Xx) {
     (wg = () => {
       let Cg = {};
       for (const Iu of So) {
-        let Tg = io[Iu]?.sensitive === !0 ? void 0 : Lo?.[Iu];
+        let Tg = io[Iu]?.sensitive === true ? void 0 : Lo?.[Iu];
         Cg[Iu] = Tg === void 0 ? "" : String(Tg);
       }
       return Cg;
@@ -394,13 +394,13 @@ function ki(Xx) {
   if (Yi[6] !== io || Yi[7] !== So || Yi[8] !== Lo)
     (Rg = So.map((nl) => {
       let ol = io[nl];
-      let Eg = ol?.sensitive === !0;
+      let Eg = ol?.sensitive === true;
       let Mg = Eg && Lo?.[nl] !== void 0;
       return {
         type: "text",
         key: nl,
         label: ol?.title || nl,
-        required: ol?.required === !0 && !Mg,
+        required: ol?.required === true && !Mg,
         mask: Eg ? "*" : void 0,
         placeholder: Mg ? "(unchanged)" : void 0,
         hint: () => ol?.description,
@@ -475,16 +475,16 @@ async function ua(a, b, S, x) {
     let T = ye(K)?.enabledPlugins?.[a];
     if (T !== void 0) R = T;
   }
-  let j = R !== void 0 ? R === !1 : v.manifest.defaultEnabled === !1;
+  let j = R !== void 0 ? R === false : v.manifest.defaultEnabled === false;
   return {
     type: "plugin-options",
     plugin: v,
     pluginId: a,
     depNote: b?.suffix ?? "",
-    alreadyInstalled: !0,
-    depsResolved: b?.changed ?? !1,
+    alreadyInstalled: true,
+    depsResolved: b?.changed ?? false,
     installedDisabled: j,
-    installedDisabledByDefault: R === void 0 && v.manifest.defaultEnabled === !1,
+    installedDisabledByDefault: R === void 0 && v.manifest.defaultEnabled === false,
   };
 }
 function ur(vS) {
@@ -500,13 +500,13 @@ function ur(vS) {
       installedDisabledByDefault: Du,
     } = wS,
     Xi = ia ? "Already installed" : "Installed",
-    [PS, TS] = u(!1),
-    Bg = C(!1),
+    [PS, TS] = u(false),
+    Bg = C(false),
     Ag,
     Og;
   if (ra[0] === d)
     (Ag = () => () => {
-      Bg.current = !0;
+      Bg.current = true;
     }),
       (Og = []),
       (ra[0] = Ag),
@@ -568,7 +568,7 @@ function ur(vS) {
   )
     (vi = (RS, Vg, Bu) => {
       (async () => {
-        TS(!0);
+        TS(true);
         let rl = (ES) => {
           if (!Bg.current) Mu(ES);
         };
@@ -589,7 +589,7 @@ function ur(vS) {
             break bb50;
           }
           case "error": {
-            let Hg = !1;
+            let Hg = false;
             if (er || Boolean(Bu)) Hg = (await bi?.([vo])) === "load-failed";
             rl(
               `${Xi} but failed to save config: ${Vg}${Hg ? " The plugin couldn't be loaded \u2014 see /plugin for details." : ""}`,
@@ -665,8 +665,8 @@ function or(DS) {
       (Go[9] = zg);
   else zg = Go[9];
   let [wi] = u(zg),
-    Qg = C(!1),
-    [LS, NS] = u(!1);
+    Qg = C(false),
+    [LS, NS] = u(false);
   if (!(wi instanceof Promise)) {
     let Ci;
     if (Go[10] !== _o || Go[11] !== wi)
@@ -683,13 +683,13 @@ function or(DS) {
       if (Qg.current) {
         return;
       }
-      (Qg.current = !0), NS(!0), _o("skipped", void 0, !1);
+      (Qg.current = true), NS(true), _o("skipped", void 0, false);
     }),
       (Go[13] = _o),
       (Go[14] = Ci);
   else Ci = Go[14];
   let Yg;
-  if (Go[15] === d) (Yg = e(rr, { message: "Loading\u2026", dimColor: !0 })), (Go[15] = Yg);
+  if (Go[15] === d) (Yg = e(rr, { message: "Loading\u2026", dimColor: true })), (Go[15] = Yg);
   else Yg = Go[15];
   let ll;
   if (Go[16] !== Ci) (ll = e(cr, { onCancel: Ci, children: Yg })), (Go[16] = Ci), (Go[17] = ll);
@@ -718,9 +718,9 @@ function ir(KS) {
     { loaded: qS, onDone: _u } = KS,
     { steps: uo, error: Co } = qS,
     [cl, WS] = u(0),
-    dl = C(!1),
-    Fu = C(!1),
-    pl = C(!1),
+    dl = C(false),
+    Fu = C(false),
+    pl = C(false),
     Zg;
   if (Po[0] !== _u)
     (Zg = function Wn(...ml) {
@@ -728,7 +728,7 @@ function ir(KS) {
       if (Fu.current) {
         return;
       }
-      (Fu.current = !0), _u(...zS);
+      (Fu.current = true), _u(...zS);
     }),
       (Po[0] = _u),
       (Po[1] = Zg);
@@ -763,11 +763,11 @@ function ir(KS) {
     of;
   if (Po[12] !== Wn || Po[13] !== uo.length)
     (of = (rf, af) => {
-      if (((pl.current = !1), nf(null), af !== void 0)) {
+      if (((pl.current = false), nf(null), af !== void 0)) {
         Wn("error", l(af), dl.current);
         return;
       }
-      if (Object.keys(rf.values).length > 0) dl.current = !0;
+      if (Object.keys(rf.values).length > 0) dl.current = true;
       let lf = rf.index + 1;
       if (lf < uo.length) WS(lf);
       else Wn("configured", void 0, dl.current);
@@ -803,7 +803,7 @@ function ir(KS) {
       if (Fu.current || pl.current || To !== null) {
         return;
       }
-      (pl.current = !0), nf({ index: cl, values: pf, saveOutcome: (async () => Bn.save(pf))().then(wf, Cf) });
+      (pl.current = true), nf({ index: cl, values: pf, saveOutcome: (async () => Bn.save(pf))().then(wf, Cf) });
     }),
       (Po[20] = Bn),
       (Po[21] = cl),
@@ -927,8 +927,8 @@ function da() {
       children: [
         Rf,
         r(t, {
-          dimColor: !0,
-          italic: !0,
+          dimColor: true,
+          italic: true,
           children: [
             "Make sure you trust a plugin before installing, updating, or using it. Anthropic does not control what MCP servers, files, or other software are included in plugins and cannot verify that they will work as intended or that they won't change. See each plugin's homepage for more information.",
             If ? ` ${If}` : "",
@@ -948,7 +948,7 @@ function Iy() {
 }
 function Ry(kd) {
   let [Zf, ew] = kd;
-  return r(t, { dimColor: !0, children: ["\xB7 ", Zf, ": ", ew.map(Oo).join(", ")] }, Zf);
+  return r(t, { dimColor: true, children: ["\xB7 ", Zf, ": ", ew.map(Oo).join(", ")] }, Zf);
 }
 function Ey() {
   return null;
@@ -959,7 +959,7 @@ function My(ka) {
 }
 function $y(ka) {
   let [Py, dw] = ka;
-  return r(t, { dimColor: !0, children: ["\xB7 ", Py, ": ", dw.map(Oo).join(", ")] }, Py);
+  return r(t, { dimColor: true, children: ["\xB7 ", Py, ": ", dw.map(Oo).join(", ")] }, Py);
 }
 function ba(a) {
   if (
@@ -1083,24 +1083,24 @@ function hr(Uv) {
     } = Uv,
     Cl;
   if ($n[0] !== td)
-    (Cl = e(o, { marginBottom: 1, children: e(t, { bold: !0, children: td }) })), ($n[0] = td), ($n[1] = Cl);
+    (Cl = e(o, { marginBottom: 1, children: e(t, { bold: true, children: td }) })), ($n[0] = td), ($n[1] = Cl);
   else Cl = $n[1];
   let Pl;
   if ($n[2] !== Ft.entry) (Pl = id(Ft.entry)), ($n[2] = Ft.entry), ($n[3] = Pl);
   else Pl = $n[3];
   let Tl;
-  if ($n[4] !== Pl) (Tl = e(t, { bold: !0, children: Pl })), ($n[4] = Pl), ($n[5] = Tl);
+  if ($n[4] !== Pl) (Tl = e(t, { bold: true, children: Pl })), ($n[4] = Pl), ($n[5] = Tl);
   else Tl = $n[5];
   let Il;
   if ($n[6] !== Ft.marketplaceName || $n[7] !== od)
-    (Il = od && r(t, { dimColor: !0, children: ["from ", Oo(Ft.marketplaceName)] })),
+    (Il = od && r(t, { dimColor: true, children: ["from ", Oo(Ft.marketplaceName)] })),
       ($n[6] = Ft.marketplaceName),
       ($n[7] = od),
       ($n[8] = Il);
   else Il = $n[8];
   let Rl;
   if ($n[9] !== Ft.entry.version)
-    (Rl = Ft.entry.version && r(t, { dimColor: !0, children: ["Version: ", Oo(Ft.entry.version)] })),
+    (Rl = Ft.entry.version && r(t, { dimColor: true, children: ["Version: ", Oo(Ft.entry.version)] })),
       ($n[9] = Ft.entry.version),
       ($n[10] = Rl);
   else Rl = $n[10];
@@ -1120,7 +1120,7 @@ function hr(Uv) {
       e(o, {
         marginTop: 1,
         children: r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: ["By:", " ", Oo(typeof Ft.entry.author === "string" ? Ft.entry.author : Ft.entry.author.name)],
         }),
       })),
@@ -1167,8 +1167,8 @@ function hr(Uv) {
           {
             active: Nl,
             children: [
-              Nl && e(t, { "aria-hidden": !0, children: "> " }),
-              !Nl && e(t, { "aria-hidden": !0, children: "  " }),
+              Nl && e(t, { "aria-hidden": true, children: "> " }),
+              !Nl && e(t, { "aria-hidden": true, children: "  " }),
               e(t, { bold: Nl, children: ga && sd.action.startsWith("install-") ? "Installing\u2026" : sd.label }),
             ],
           },
@@ -1188,7 +1188,7 @@ function hr(Uv) {
   let Ff;
   if ($n[42] === d)
     (Ff = e(t, {
-      dimColor: !0,
+      dimColor: true,
       children: r(fe, {
         children: [
           e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "select" }),
@@ -1231,7 +1231,7 @@ function kr(jv) {
     Fl;
   if (pr[0] !== cd)
     (Fl =
-      cd && e(ze, { action: "plugin:install", context: "Plugin", fallback: "i", description: "install", bold: !0 })),
+      cd && e(ze, { action: "plugin:install", context: "Plugin", fallback: "i", description: "install", bold: true })),
       (pr[0] = cd),
       (pr[1] = Fl);
   else Fl = pr[1];
@@ -1258,7 +1258,7 @@ function kr(jv) {
   if (pr[8] !== Fl || pr[9] !== Ul || pr[10] !== Vl)
     (Hf = e(o, {
       marginTop: 1,
-      children: e(t, { dimColor: !0, italic: !0, children: r(fe, { children: [Fl, Vf, Ul, Vl, jf] }) }),
+      children: e(t, { dimColor: true, italic: true, children: r(fe, { children: [Fl, Vf, Ul, Vl, jf] }) }),
     })),
       (pr[8] = Fl),
       (pr[9] = Ul),
@@ -1291,7 +1291,7 @@ function cs(zv) {
     return null;
   }
   let Gf;
-  if (qf[2] !== Hl) (Gf = r(t, { dimColor: !0, children: ["Last updated: ", Hl] })), (qf[2] = Hl), (qf[3] = Gf);
+  if (qf[2] !== Hl) (Gf = r(t, { dimColor: true, children: ["Last updated: ", Hl] })), (qf[2] = Hl), (qf[3] = Gf);
   else Gf = qf[3];
   return Gf;
 }
@@ -1323,7 +1323,7 @@ function us(Jv) {
       (mr[4] = Kl);
   else Kl = mr[4];
   let Yf;
-  if (mr[5] === d) (Yf = e(t, { bold: !0, children: "Will install:" })), (mr[5] = Yf);
+  if (mr[5] === d) (Yf = e(t, { bold: true, children: "Will install:" })), (mr[5] = Yf);
   else Yf = mr[5];
   let ql;
   if (mr[6] !== Gn.entry) (ql = e(yr, { entry: Gn.entry })), (mr[6] = Gn.entry), (mr[7] = ql);
@@ -1384,7 +1384,7 @@ function ps(tw) {
   else ty = Yo[1];
   let Eo = ty,
     ny;
-  if (Yo[2] === d) (ny = e(tt, { status: "warning", withSpace: !0 })), (Yo[2] = ny);
+  if (Yo[2] === d) (ny = e(tt, { status: "warning", withSpace: true })), (Yo[2] = ny);
   else ny = Yo[2];
   let Xl;
   if (Yo[3] !== Sd)
@@ -1403,7 +1403,7 @@ function ps(tw) {
       (Yo[8] = ts);
   else ts = Yo[8];
   let oy;
-  if (Yo[9] === d) (oy = r(t, { dimColor: !0, children: ["  ", "The command:"] })), (Yo[9] = oy);
+  if (Yo[9] === d) (oy = r(t, { dimColor: true, children: ["  ", "The command:"] })), (Yo[9] = oy);
   else oy = Yo[9];
   let ns;
   if (Yo[10] !== Eo.command) (ns = r(t, { children: ["  ", Eo.command] })), (Yo[10] = Eo.command), (Yo[11] = ns);
@@ -1427,7 +1427,7 @@ function ms(nw) {
   }
   let ry;
   if (Ri[0] === d)
-    (ry = e(t, { dimColor: !0, children: "Installed by running a command on this machine:" })), (Ri[0] = ry);
+    (ry = e(t, { dimColor: true, children: "Installed by running a command on this machine:" })), (Ri[0] = ry);
   else ry = Ri[0];
   let os;
   if (Ri[1] !== po.source.command)
@@ -1439,7 +1439,7 @@ function ms(nw) {
   if (Ri[3] !== po.source) (is = Vze(po.source)), (Ri[3] = po.source), (Ri[4] = is);
   else is = Ri[4];
   let rs;
-  if (Ri[5] !== is) (rs = e(t, { dimColor: !0, children: is })), (Ri[5] = is), (Ri[6] = rs);
+  if (Ri[5] !== is) (rs = e(t, { dimColor: true, children: is })), (Ri[5] = is), (Ri[6] = rs);
   else rs = Ri[6];
   let ay;
   if (Ri[7] === d) (ay = FS() && e(t, { color: "warning", children: hM })), (Ri[7] = ay);
@@ -1563,7 +1563,7 @@ function yr(ka) {
             ? "\xB7 Component summary not available for remote plugin"
             : "\xB7 Components will be discovered at installation";
         let Cy;
-        if (xy[9] !== Dd) (Cy = e(t, { dimColor: !0, children: Dd })), (xy[9] = Dd), (xy[10] = Cy);
+        if (xy[9] !== Dd) (Cy = e(t, { dimColor: true, children: Dd })), (xy[9] = Dd), (xy[10] = Cy);
         else Cy = xy[10];
         $d = Cy;
         break bb0;
@@ -1685,7 +1685,7 @@ async function Od({
             ? ` ${be === 1 ? "Plugin is" : "Plugins are"} now active.`
             : " Run /reload-plugins to activate.";
     v(`\u2713 Installed ${H} ${k(H, "plugin")}.${ve}${_e}`);
-  } else if (H === 0) R(`Failed to install: ${Qln(E, !0)}`);
+  } else if (H === 0) R(`Failed to install: ${Qln(E, true)}`);
   else {
     let ve =
       Pe === "load-failed"
@@ -1697,7 +1697,7 @@ async function Od({
               ? " The successfully installed plugin is now active."
               : " Successfully installed plugins are now active."
             : " Run /reload-plugins to activate successfully installed plugins.";
-    v(`\u2713 Installed ${H} of ${H + G} plugins. Failed: ${Qln(E, !1)}.${ve}${_e}`);
+    v(`\u2713 Installed ${H} of ${H + G} plugins. Failed: ${Qln(E, false)}.${ve}${_e}`);
   }
   j({ type: "menu" });
 }
@@ -1713,7 +1713,7 @@ async function Ld({
   consentedEntryHelper: T,
   storageV5: N,
 }) {
-  S(!0), x(null);
+  S(true), x(null);
   let H = await yPe({
     pluginId: a.pluginId,
     entry: a.entry,
@@ -1730,7 +1730,7 @@ async function Ld({
   if (H.success) {
     let G = await Sl(a.pluginId, N);
     if (G) {
-      S(!1),
+      S(false),
         v({
           type: "plugin-options",
           plugin: G,
@@ -1754,7 +1754,7 @@ async function Ld({
             : `${H.message} Run /reload-plugins to activate.`,
     ),
       j({ type: "menu" });
-  } else S(!1), x(H.error);
+  } else S(false), x(H.error);
 }
 F();
 var Dy = 5;
@@ -1825,8 +1825,8 @@ function Sa({
     ue = pe && !x,
     Pe = T === "plugin-details" && !!H && !x,
     _e = Xe(a, Mi),
-    [be, ve] = u(!1),
-    Je = () => ve(!1),
+    [be, ve] = u(false),
+    Je = () => ve(false),
     {
       query: st,
       setQuery: Tt,
@@ -1839,7 +1839,7 @@ function Sa({
   A(() => {
     j(Ht);
   }, [Ht, j]),
-    A(() => () => j(!1), [j]);
+    A(() => () => j(false), [j]);
   let Le = Ba(),
     { columns: ot } = Ee(),
     dt = z(() => {
@@ -1860,7 +1860,7 @@ function Sa({
   A(() => {
     gt(0);
   }, [st]);
-  let [In, kn] = u(!1),
+  let [In, kn] = u(false),
     [Dn, $t] = u(null),
     Ut = () =>
       Od({
@@ -1897,8 +1897,8 @@ function Sa({
       return;
     }
     if (qe.ctrl || qe.meta || x) return;
-    if (qe.key === "/") qe.preventDefault(), ve(!0), Tt("");
-    else if (qe.key.length === 1 && qe.key !== " ") qe.preventDefault(), ve(!0), Tt(qe.key);
+    if (qe.key === "/") qe.preventDefault(), ve(true), Tt("");
+    else if (qe.key.length === 1 && qe.key !== " ") qe.preventDefault(), ve(true), Tt(qe.key);
   }
   function Qe(qe) {
     if (be) {
@@ -1908,13 +1908,13 @@ function Sa({
     if (x) return;
     let Re = (qe.text.split(/\r\n|\r|\n/, 2)[0] ?? "").trim();
     if (!Re) return;
-    qe.preventDefault(), ve(!0), Tt(Re);
+    qe.preventDefault(), ve(true), Tt(Re);
   }
   ht(
     {
       "select:previous": () => {
         if (pt === 0) {
-          if (!x && S.length > 0) ve(!0);
+          if (!x && S.length > 0) ve(true);
         } else Et.handleSelectionChange(pt - 1, gt);
       },
       "select:next": () => {
@@ -1950,7 +1950,7 @@ function Sa({
           }
         },
         "plugin:install": () => {
-          if (se.size === 0) return !1;
+          if (se.size === 0) return false;
           if (Bt.size > 0) return;
           Ut();
         },
@@ -1981,7 +1981,7 @@ function Sa({
       width: ot - 4,
       cursorOffset: it,
       onCursorOffsetChange: re,
-      onFocus: () => ve(!0),
+      onFocus: () => ve(true),
     },
     keyHintProps: {
       hasSelection: se.size > 0,
@@ -2012,7 +2012,7 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
     [G, E] = u(null),
     [J, pe] = u([]),
     [ue, Pe] = u([]),
-    [_e, be] = u(!0),
+    [_e, be] = u(true),
     [ve, Je] = u("Loading\u2026"),
     [st, Tt] = u(null),
     {
@@ -2046,7 +2046,7 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
       initialViewState: "marketplace-list",
       availablePlugins: ue,
       loading: _e,
-      searchMarketplaceName: !1,
+      searchMarketplaceName: false,
       onInstallComplete: b,
       onSearchModeChange: S,
     }),
@@ -2062,7 +2062,7 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
     }, [it, re, Ht, x, H, J.length, kn, Et]);
   Be("confirm:no", Ot, { context: "Settings", isActive: typeof it === "string" && !(it === "plugin-list" && ot) }),
     A(() => {
-      let oe = !1;
+      let oe = false;
       async function et() {
         try {
           let Dt = await zl(R),
@@ -2141,13 +2141,13 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
           if (oe) return;
           T(Dt instanceof Error ? Dt.message : "Failed to load marketplaces");
         } finally {
-          if (!oe) be(!1);
+          if (!oe) be(false);
         }
       }
       return (
         et(),
         () => {
-          oe = !0;
+          oe = true;
         }
       );
     }, [T, N, re, Ge, b, x, v, R, j]);
@@ -2155,10 +2155,10 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
   if (
     (A(() => {
       if (!G) return;
-      let oe = !1,
+      let oe = false,
         et = ++Pt.current;
       async function Dt(Mt) {
-        be(!0), Je("Loading\u2026");
+        be(true), Je("Loading\u2026");
         try {
           let Jt = await Hv(Mt, R);
           if (oe) return;
@@ -2185,18 +2185,18 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
             n(`Failed to fetch install counts: ${l(It)}`),
               Xt.sort((ee, Ne) => ee.entry.name.localeCompare(Ne.entry.name));
           }
-          Pe(Xt), Et(0), kn(new Set()), dt(!1), gt("");
+          Pe(Xt), Et(0), kn(new Set()), dt(false), gt("");
         } catch (Jt) {
           if (oe) return;
           T(Jt instanceof Error ? Jt.message : "Failed to load plugins");
         } finally {
-          if (Pt.current === et) be(!1);
+          if (Pt.current === et) be(false);
         }
       }
       return (
         Dt(G),
         () => {
-          oe = !0;
+          oe = true;
         }
       );
     }, [G, T, gt, Et, kn, dt, R]),
@@ -2231,14 +2231,14 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
       return r(o, {
         flexDirection: "column",
         children: [
-          e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Select marketplace" }) }),
+          e(o, { marginBottom: 1, children: e(t, { bold: true, children: "Select marketplace" }) }),
           e(t, { children: "No marketplaces configured." }),
-          r(t, { dimColor: !0, children: ["Add a marketplace first using ", "'Add marketplace'", "."] }),
+          r(t, { dimColor: true, children: ["Add a marketplace first using ", "'Add marketplace'", "."] }),
           e(o, {
             marginTop: 1,
             paddingLeft: 1,
             children: e(t, {
-              dimColor: !0,
+              dimColor: true,
               children: e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
             }),
           }),
@@ -2247,12 +2247,12 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
     return r(o, {
       flexDirection: "column",
       children: [
-        e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Select marketplace" }) }),
+        e(o, { marginBottom: 1, children: e(t, { bold: true, children: "Select marketplace" }) }),
         _t &&
           e(o, {
             marginBottom: 1,
             flexDirection: "column",
-            children: r(t, { color: "warning", children: [e(tt, { status: "warning", withSpace: !0 }), _t] }),
+            children: r(t, { color: "warning", children: [e(tt, { status: "warning", withSpace: true }), _t] }),
           }),
         J.map((oe, et) =>
           r(
@@ -2265,13 +2265,13 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
                 e(o, {
                   children: r(t, {
                     color: Gt === et ? "suggestion" : void 0,
-                    children: [r(t, { "aria-hidden": !0, children: [Gt === et ? L.pointer : " ", " "] }), Oo(oe.name)],
+                    children: [r(t, { "aria-hidden": true, children: [Gt === et ? L.pointer : " ", " "] }), Oo(oe.name)],
                   }),
                 }),
                 e(o, {
                   marginLeft: 2,
                   children: e(t, {
-                    dimColor: !0,
+                    dimColor: true,
                     children: r(fe, {
                       children: [
                         r(U, { children: [oe.totalPlugins, " ", k(oe.totalPlugins, "plugin"), " available"] }),
@@ -2289,8 +2289,8 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
         e(o, {
           marginTop: 1,
           children: e(t, {
-            dimColor: !0,
-            italic: !0,
+            dimColor: true,
+            italic: true,
             children: r(fe, {
               children: [
                 e(ze, { action: "select:accept", context: "Select", fallback: "Enter", description: "select" }),
@@ -2310,7 +2310,7 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
           e(o, {
             marginBottom: 1,
             flexDirection: "column",
-            children: r(t, { color: "warning", children: [e(tt, { status: "warning", withSpace: !0 }), Re] }),
+            children: r(t, { color: "warning", children: [e(tt, { status: "warning", withSpace: true }), Re] }),
           }),
         e(hr, {
           onEntryHelperShown: Le,
@@ -2329,7 +2329,7 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
     return r(o, {
       flexDirection: "column",
       children: [
-        e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Install plugins" }) }),
+        e(o, { marginBottom: 1, children: e(t, { bold: true, children: "Install plugins" }) }),
         e(sr, {
           hint: "All plugins from this marketplace are already installed.",
           children: "No new plugins available to install.",
@@ -2337,8 +2337,8 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
         e(o, {
           marginLeft: 3,
           children: e(t, {
-            dimColor: !0,
-            italic: !0,
+            dimColor: true,
+            italic: true,
             children: e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
           }),
         }),
@@ -2348,15 +2348,15 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
   return r(o, {
     flexDirection: "column",
     tabIndex: 0,
-    autoFocus: !0,
+    autoFocus: true,
     onKeyDown: Qe,
     onPaste: kt,
     children: [
       r(o, {
         children: [
-          e(t, { bold: !0, children: "Install Plugins" }),
+          e(t, { bold: true, children: "Install Plugins" }),
           $t.needsPagination &&
-            r(t, { dimColor: !0, children: [" ", "(", $t.scrollPosition.current, "/", $t.scrollPosition.total, ")"] }),
+            r(t, { dimColor: true, children: [" ", "(", $t.scrollPosition.current, "/", $t.scrollPosition.total, ")"] }),
         ],
       }),
       e(o, { marginBottom: 1, children: e(Hd, { ...se }) }),
@@ -2364,7 +2364,7 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
         pt &&
         e(o, { marginBottom: 1, children: r(sr, { children: ['No plugins match "', pt, '"'] }) }),
       $t.scrollPosition.canScrollUp &&
-        e(o, { children: r(t, { dimColor: !0, children: [" ", L.arrowUp, " more above"] }) }),
+        e(o, { children: r(t, { dimColor: true, children: [" ", L.arrowUp, " more above"] }) }),
       yt.map((oe, et) => {
         let Dt = $t.toActualIndex(et),
           Mt = Gt === Dt,
@@ -2382,7 +2382,7 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
               r(o, {
                 children: [
                   r(t, {
-                    "aria-hidden": !0,
+                    "aria-hidden": true,
                     color: Mt && !ot ? "suggestion" : void 0,
                     children: [Mt && !ot ? L.pointer : " ", " "],
                   }),
@@ -2392,11 +2392,11 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
                       oe.isInstalled ? L.tick : Xt ? L.ellipsis : Jt ? L.radioOn : L.radioOff,
                       " ",
                       id(oe.entry),
-                      oe.entry.category && r(t, { dimColor: !0, children: [" ", "[", Oo(oe.entry.category), "]"] }),
+                      oe.entry.category && r(t, { dimColor: true, children: [" ", "[", Oo(oe.entry.category), "]"] }),
                       oe.entry.tags?.includes("community-managed") &&
-                        e(t, { dimColor: !0, children: " [Community Managed]" }),
+                        e(t, { dimColor: true, children: " [Community Managed]" }),
                       e(DR, { when: oe.isInstalled, children: "installed" }),
-                      ee !== void 0 && G === ag && r(t, { dimColor: !0, children: [" \xB7 ", O0t(ee), " installs"] }),
+                      ee !== void 0 && G === ag && r(t, { dimColor: true, children: [" \xB7 ", O0t(ee), " installs"] }),
                     ],
                   }),
                 ],
@@ -2405,8 +2405,8 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
                 r(o, {
                   marginLeft: 4,
                   children: [
-                    e(t, { dimColor: !0, children: rt(Oo(oe.entry.description), 60) }),
-                    oe.entry.version && r(t, { dimColor: !0, children: [" ", "\xB7 v", Oo(oe.entry.version)] }),
+                    e(t, { dimColor: true, children: rt(Oo(oe.entry.description), 60) }),
+                    oe.entry.version && r(t, { dimColor: true, children: [" ", "\xB7 v", Oo(oe.entry.version)] }),
                   ],
                 }),
             ],
@@ -2415,11 +2415,11 @@ function Vd({ screen: a, onInstallComplete: b, onSearchModeChange: S, targetMark
         );
       }),
       $t.scrollPosition.canScrollDown &&
-        e(o, { children: r(t, { dimColor: !0, children: [" ", L.arrowDown, " more below"] }) }),
+        e(o, { children: r(t, { dimColor: true, children: [" ", L.arrowDown, " more below"] }) }),
       K &&
         e(o, {
           marginTop: 1,
-          children: r(t, { color: "error", children: [e(tt, { status: "error", withSpace: !0 }), K] }),
+          children: r(t, { color: "error", children: [e(tt, { status: "error", withSpace: true }), K] }),
         }),
       e(kr, { ...tn }),
     ],
@@ -2435,7 +2435,7 @@ function jd(PC) {
   if (Jo[0] !== hs || Jo[1] !== ks)
     (Ay = () => {
       By(null);
-      let Ly = !1;
+      let Ly = false;
       return (
         wXt(hs, Ye(at()), ks)
           .then((TC) => {
@@ -2443,7 +2443,7 @@ function jd(PC) {
           })
           .catch(Fy),
         () => {
-          Ly = !0;
+          Ly = true;
         }
       );
     }),
@@ -2459,10 +2459,10 @@ function jd(PC) {
   let Ny = go.alwaysOn >= bXt,
     bs;
   if (Jo[4] !== go.isEstimate)
-    (bs = go.isEstimate && e(t, { dimColor: !0, children: " (estimated)" })), (Jo[4] = go.isEstimate), (Jo[5] = bs);
+    (bs = go.isEstimate && e(t, { dimColor: true, children: " (estimated)" })), (Jo[4] = go.isEstimate), (Jo[5] = bs);
   else bs = Jo[5];
   let xs;
-  if (Jo[6] !== bs) (xs = r(t, { bold: !0, children: ["Context cost", bs, ":"] })), (Jo[6] = bs), (Jo[7] = xs);
+  if (Jo[6] !== bs) (xs = r(t, { bold: true, children: ["Context cost", bs, ":"] })), (Jo[6] = bs), (Jo[7] = xs);
   else xs = Jo[7];
   const Nd = Ny ? "warning" : void 0,
     _d = !Ny;
@@ -2482,7 +2482,7 @@ function jd(PC) {
   else ws = Jo[15];
   let Cs;
   if (Jo[16] !== ws)
-    (Cs = r(t, { dimColor: !0, children: ["\xB7 When invoked: ", ws, " tokens"] })), (Jo[16] = ws), (Jo[17] = Cs);
+    (Cs = r(t, { dimColor: true, children: ["\xB7 When invoked: ", ws, " tokens"] })), (Jo[16] = ws), (Jo[17] = Cs);
   else Cs = Jo[17];
   let _y;
   if (Jo[18] !== Cs || Jo[19] !== xs || Jo[20] !== vs)
@@ -2510,7 +2510,7 @@ function qd({
     { setError: H, setResult: G } = a,
     E = a.setViewState,
     [J, pe] = u([]),
-    [ue, Pe] = u(!0),
+    [ue, Pe] = u(true),
     [_e, be] = u("Loading\u2026"),
     [ve, Je] = u(null),
     [st, Tt] = u(new Map()),
@@ -2541,14 +2541,14 @@ function qd({
       initialViewState: "plugin-list",
       availablePlugins: J,
       loading: ue,
-      searchMarketplaceName: !0,
+      searchMarketplaceName: true,
       onInstallComplete: b,
       onSearchModeChange: S,
     }),
     [le, je] = u(null),
     [Qe, kt] = u(null);
   A(() => {
-    let Re = !1;
+    let Re = false;
     async function an() {
       try {
         let Ot = await zl(j),
@@ -2621,29 +2621,29 @@ function qd({
           else throw Error(It.message);
         if (R) {
           let ee = oe.find((ke) => ke.entry.name === R),
-            Ne = !1,
-            he = !1,
-            Ke = !1,
-            wt = !1;
+            Ne = false,
+            he = false,
+            Ke = false,
+            wt = false;
           if (!ee) {
             for (let [ke, He] of Object.entries(Ot)) {
               be(`Checking ${ke} for new plugins\u2026`);
               let Nt = await vMn(ke, He, j);
               if (Re) return;
-              if (Nt === "refresh-failed") he = !0;
-              else if (Nt === "refreshed") wt = !0;
+              if (Nt === "refresh-failed") he = true;
+              else if (Nt === "refreshed") wt = true;
               if (Nt !== "refreshed") continue;
               try {
                 let Fn = (await Hv(ke, j)).plugins.find((ln) => ln.name === R);
                 if (Fn) {
                   let ln = lF(Fn.name, ke);
                   (ee = { entry: Fn, marketplaceName: ke, pluginId: ln, isInstalled: tH(ln) }),
-                    (Ne = !0),
+                    (Ne = true),
                     y("plugin_install_catalog_refresh");
                   break;
                 }
               } catch (Kn) {
-                (Ke = !0), n(`Post-refresh reload of marketplace '${ke}' failed: ${l(Kn)}`, { level: "warn" });
+                (Ke = true), n(`Post-refresh reload of marketplace '${ke}' failed: ${l(Kn)}`, { level: "warn" });
               }
               if (Re) return;
             }
@@ -2680,21 +2680,21 @@ function qd({
         if (Re) return;
         H(Ot instanceof Error ? Ot.message : "Failed to load plugins");
       } finally {
-        if (!Re) Pe(!1);
+        if (!Re) Pe(false);
       }
     }
     return (
       an(),
       () => {
-        Re = !0;
+        Re = true;
       }
     );
   }, [H, G, re, Ge, b, x, v, R, j, K]);
-  let _t = C(!1);
+  let _t = C(false);
   if (
     (A(() => {
       if (_t.current || ue || T !== null || N !== null || it !== "plugin-list" || st.size === 0) return;
-      _t.current = !0;
+      _t.current = true;
       let Re = [...st.keys()];
       for (let an of Re) v?.add(an);
       kNn(Re, j);
@@ -2723,7 +2723,7 @@ function qd({
       onEntryHelperShown: Le,
       title: "Plugin details",
       plugin: xe,
-      showMarketplace: !0,
+      showMarketplace: true,
       installError: Dn,
       menuOptions: $t,
       detailsMenuIndex: In,
@@ -2733,14 +2733,14 @@ function qd({
     return r(o, {
       flexDirection: "column",
       children: [
-        e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Discover plugins" }) }),
+        e(o, { marginBottom: 1, children: e(t, { bold: true, children: "Discover plugins" }) }),
         le && e(o, { marginBottom: 1, children: e(yf, { status: "warning", children: le }) }),
         e(Wd, { reason: Qe }),
         e(o, {
           marginTop: 1,
           children: e(t, {
-            dimColor: !0,
-            italic: !0,
+            dimColor: true,
+            italic: true,
             children: e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
           }),
         }),
@@ -2750,15 +2750,15 @@ function qd({
   return r(o, {
     flexDirection: "column",
     tabIndex: 0,
-    autoFocus: !0,
+    autoFocus: true,
     onKeyDown: Ut,
     onPaste: Lt,
     children: [
       r(o, {
         children: [
-          e(t, { bold: !0, children: "Discover plugins" }),
+          e(t, { bold: true, children: "Discover plugins" }),
           Et.needsPagination &&
-            r(t, { dimColor: !0, children: [" ", "(", Et.scrollPosition.current, "/", Et.scrollPosition.total, ")"] }),
+            r(t, { dimColor: true, children: [" ", "(", Et.scrollPosition.current, "/", Et.scrollPosition.total, ")"] }),
         ],
       }),
       e(o, { marginBottom: 1, children: e(Hd, { ...pt }) }),
@@ -2767,7 +2767,7 @@ function qd({
         dt &&
         e(o, { marginBottom: 1, children: r(sr, { children: ['No plugins match "', dt, '"'] }) }),
       Et.scrollPosition.canScrollUp &&
-        e(o, { children: r(t, { dimColor: !0, children: [" ", L.arrowUp, " more above"] }) }),
+        e(o, { children: r(t, { dimColor: true, children: [" ", L.arrowUp, " more above"] }) }),
       qe.map((Re, an) => {
         let Ot = Et.toActualIndex(an),
           Pt = tn === Ot,
@@ -2786,7 +2786,7 @@ function qd({
               r(o, {
                 children: [
                   r(t, {
-                    "aria-hidden": !0,
+                    "aria-hidden": true,
                     color: Pt && !ot ? "suggestion" : void 0,
                     children: [Pt && !ot ? L.pointer : " ", " "],
                   }),
@@ -2795,26 +2795,26 @@ function qd({
                       oe ? L.ellipsis : yt ? L.radioOn : L.radioOff,
                       " ",
                       id(Re.entry),
-                      r(t, { dimColor: !0, children: [" ", "\xB7 ", Oo(Re.marketplaceName)] }),
-                      Dt && r(t, { dimColor: !0, children: [" ", "\xB7 ", jy(Dt)] }),
+                      r(t, { dimColor: true, children: [" ", "\xB7 ", Oo(Re.marketplaceName)] }),
+                      Dt && r(t, { dimColor: true, children: [" ", "\xB7 ", jy(Dt)] }),
                       Re.entry.tags?.includes("community-managed") &&
-                        e(t, { dimColor: !0, children: " [Community Managed]" }),
+                        e(t, { dimColor: true, children: " [Community Managed]" }),
                       et !== void 0 &&
                         Re.marketplaceName === ag &&
-                        r(t, { dimColor: !0, children: [" \xB7 ", O0t(et), " installs"] }),
+                        r(t, { dimColor: true, children: [" \xB7 ", O0t(et), " installs"] }),
                     ],
                   }),
                 ],
               }),
               Re.entry.description &&
-                e(o, { marginLeft: 4, children: e(t, { dimColor: !0, children: rt(Oo(Re.entry.description), 60) }) }),
+                e(o, { marginLeft: 4, children: e(t, { dimColor: true, children: rt(Oo(Re.entry.description), 60) }) }),
             ],
           },
           `${Et.startIndex}-${Re.pluginId}`,
         );
       }),
       Et.scrollPosition.canScrollDown &&
-        e(o, { children: r(t, { dimColor: !0, children: [" ", L.arrowDown, " more below"] }) }),
+        e(o, { children: r(t, { dimColor: true, children: [" ", L.arrowDown, " more below"] }) }),
       e(kr, { ...gt }),
     ],
   });
@@ -2828,8 +2828,8 @@ function Wd(dP) {
       if ($i[0] === d)
         (wn = r(U, {
           children: [
-            e(t, { dimColor: !0, children: "Git is required to install marketplaces." }),
-            e(t, { dimColor: !0, children: "Please install git and restart Claude Code." }),
+            e(t, { dimColor: true, children: "Git is required to install marketplaces." }),
+            e(t, { dimColor: true, children: "Please install git and restart Claude Code." }),
           ],
         })),
           ($i[0] = wn);
@@ -2841,8 +2841,8 @@ function Wd(dP) {
       if ($i[1] === d)
         (wn = r(U, {
           children: [
-            e(t, { dimColor: !0, children: "Your organization policy does not allow any external marketplaces." }),
-            e(t, { dimColor: !0, children: "Contact your administrator." }),
+            e(t, { dimColor: true, children: "Your organization policy does not allow any external marketplaces." }),
+            e(t, { dimColor: true, children: "Contact your administrator." }),
           ],
         })),
           ($i[1] = wn);
@@ -2854,8 +2854,8 @@ function Wd(dP) {
       if ($i[2] === d)
         (wn = r(U, {
           children: [
-            e(t, { dimColor: !0, children: "Your organization restricts which marketplaces can be added." }),
-            e(t, { dimColor: !0, children: "Switch to the Marketplaces tab to view allowed sources." }),
+            e(t, { dimColor: true, children: "Your organization restricts which marketplaces can be added." }),
+            e(t, { dimColor: true, children: "Switch to the Marketplaces tab to view allowed sources." }),
           ],
         })),
           ($i[2] = wn);
@@ -2867,8 +2867,8 @@ function Wd(dP) {
       if ($i[3] === d)
         (wn = r(U, {
           children: [
-            e(t, { dimColor: !0, children: "Failed to load marketplace data." }),
-            e(t, { dimColor: !0, children: "Check your network connection." }),
+            e(t, { dimColor: true, children: "Failed to load marketplace data." }),
+            e(t, { dimColor: true, children: "Check your network connection." }),
           ],
         })),
           ($i[3] = wn);
@@ -2880,8 +2880,8 @@ function Wd(dP) {
       if ($i[4] === d)
         (wn = r(U, {
           children: [
-            e(t, { dimColor: !0, children: "All available plugins are already installed." }),
-            e(t, { dimColor: !0, children: "Check for new plugins later or add more marketplaces." }),
+            e(t, { dimColor: true, children: "All available plugins are already installed." }),
+            e(t, { dimColor: true, children: "Check for new plugins later or add more marketplaces." }),
           ],
         })),
           ($i[4] = wn);
@@ -2893,8 +2893,8 @@ function Wd(dP) {
       if ($i[5] === d)
         (wn = r(U, {
           children: [
-            e(t, { dimColor: !0, children: "All available plugins are installed for this project." }),
-            e(t, { dimColor: !0, children: "Use the Browse tab to install at user scope." }),
+            e(t, { dimColor: true, children: "All available plugins are installed for this project." }),
+            e(t, { dimColor: true, children: "Use the Browse tab to install at user scope." }),
           ],
         })),
           ($i[5] = wn);
@@ -3164,22 +3164,22 @@ function Jd({
 }) {
   let { storageV5: T, credentials: N } = ge(),
     [H, G] = u([]),
-    [E, J] = u(!0),
+    [E, J] = u(true),
     [pe, ue] = u(0),
-    [Pe, _e] = u(!1),
+    [Pe, _e] = u(false),
     [be, ve] = u(null),
     [Je, st] = u(null),
     [Tt, it] = u(null),
     [re, xe] = u("list"),
     [Ge, Ht] = u(null),
     [Le, ot] = u(0),
-    dt = C(!1),
+    dt = C(false),
     pt = xt(),
     gt = C(void 0),
-    se = C(!0);
+    se = C(true);
   A(
     () => () => {
-      (se.current = !1), gt.current?.();
+      (se.current = false), gt.current?.();
     },
     [],
   ),
@@ -3200,8 +3200,8 @@ function Jd({
               lastUpdated: et.lastUpdated,
               pluginCount: Dt?.plugins.length,
               installedPlugins: Mt,
-              pendingUpdate: !1,
-              pendingRemove: !1,
+              pendingUpdate: false,
+              pendingRemove: false,
               autoUpdate: c5(oe, et, an[oe]?.autoUpdate),
             });
           }
@@ -3217,7 +3217,7 @@ function Jd({
             if (yt.type === "warning") ve(yt.message);
             else throw Error(yt.message);
           if (j && !dt.current && !b) {
-            dt.current = !0;
+            dt.current = true;
             let oe = Ot.findIndex((et) => et.name === j);
             if (oe >= 0) {
               let et = Ot[oe];
@@ -3234,7 +3234,7 @@ function Jd({
           let Qe = gR(je);
           S(Qe), ve(Qe);
         } finally {
-          J(!1);
+          J(false);
         }
       }
       le();
@@ -3248,7 +3248,7 @@ function Jd({
     Gt = async (le) => {
       let je = le || H,
         Qe = re === "details";
-      _e(!0), ve(null), st(null), it(null);
+      _e(true), ve(null), st(null), it(null);
       try {
         let kt = 0,
           _t = 0,
@@ -3264,7 +3264,7 @@ function Jd({
                   let Nt = { ...He?.enabledPlugins };
                   for (let Kn of ke.installedPlugins) {
                     let Fn = lF(Kn.name, ke.name);
-                    Nt[Fn] = !1;
+                    Nt[Fn] = false;
                   }
                   return { enabledPlugins: Nt };
                 },
@@ -3308,7 +3308,7 @@ function Jd({
             blocked: He,
             updateFailedCount: Nt,
             commandSourceSkipped: Kn,
-          } = await L8t(an, new Set(), { skipCommandSources: !0 }, T);
+          } = await L8t(an, new Set(), { skipCommandSources: true }, T);
           (Ot = ke.length),
             (Mt = Kn),
             (Pt = Q(He, (ln) => ln.type === "autoupdate-deferred-entry-helper")),
@@ -3321,7 +3321,7 @@ function Jd({
               ln.type !== "autoupdate-disabled-by-policy" &&
               ln.type !== "autoupdate-blocked-by-pinner",
           );
-          if (Fn.length > 0 || ke.length > 0) ZRt(ke, Fn, [], { announce: !1 });
+          if (Fn.length > 0 || ke.length > 0) ZRt(ke, Fn, [], { announce: false });
           Dt = Fn.flatMap((ln) => ("plugin" in ln && typeof ln.plugin === "string" ? [ln.plugin] : []));
         }
         if ((Qu(T, N), await R(), !se.current)) return;
@@ -3341,8 +3341,8 @@ function Jd({
             lastUpdated: He.lastUpdated,
             pluginCount: Nt?.plugins.length,
             installedPlugins: Kn,
-            pendingUpdate: !1,
-            pendingRemove: !1,
+            pendingUpdate: false,
+            pendingRemove: false,
             autoUpdate: c5(ke, He, he[ke]?.autoUpdate),
           });
         }
@@ -3400,12 +3400,12 @@ function Jd({
         if (!se.current) return;
         ve(_t), S(_t);
       } finally {
-        if (se.current) _e(!1), it(null);
+        if (se.current) _e(false), it(null);
       }
     },
     Et = async () => {
       if (!Ge) return;
-      let le = H.map((je) => (je.name === Ge.name ? { ...je, pendingRemove: !0 } : je));
+      let le = H.map((je) => (je.name === Ge.name ? { ...je, pendingRemove: true } : je));
       G(le), await Gt(le);
     },
     In = (le) => {
@@ -3442,7 +3442,7 @@ function Jd({
     Be(
       "confirm:no",
       () => {
-        gt.current?.(), G((le) => le.map((je) => ({ ...je, pendingUpdate: !1, pendingRemove: !1 }))), ue(0);
+        gt.current?.(), G((le) => le.map((je) => ({ ...je, pendingUpdate: false, pendingRemove: false }))), ue(0);
       },
       { context: "Confirmation", isActive: !Pe && re === "list" && tn() },
     ),
@@ -3482,7 +3482,7 @@ function Jd({
         G((Qe) =>
           Qe.map((kt, _t) =>
             _t === je
-              ? { ...kt, pendingUpdate: !kt.pendingUpdate, pendingRemove: kt.pendingUpdate ? kt.pendingRemove : !1 }
+              ? { ...kt, pendingUpdate: !kt.pendingUpdate, pendingRemove: kt.pendingUpdate ? kt.pendingRemove : false }
               : kt,
           ),
         );
@@ -3503,7 +3503,7 @@ function Jd({
         let je = In(Ge)[Le];
         if (je?.value === "browse") a({ type: "browse-marketplace", targetMarketplace: Ge.name });
         else if (je?.value === "update") {
-          let Qe = H.map((kt) => (kt.name === Ge.name ? { ...kt, pendingUpdate: !0 } : kt));
+          let Qe = H.map((kt) => (kt.name === Ge.name ? { ...kt, pendingUpdate: true } : kt));
           G(Qe), Gt(Qe);
         } else if (je?.value === "toggle-auto-update") kn(Ge);
         else if (je?.value === "remove") xe("confirm-remove");
@@ -3521,21 +3521,21 @@ function Jd({
     return r(o, {
       flexDirection: "column",
       children: [
-        e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Manage marketplaces" }) }),
+        e(o, { marginBottom: 1, children: e(t, { bold: true, children: "Manage marketplaces" }) }),
         r(Ig, {
-          active: !0,
+          active: true,
           flexDirection: "row",
           gap: 1,
           children: [
-            r(t, { color: "suggestion", children: [r(t, { "aria-hidden": !0, children: [L.pointer, " "] }), "+"] }),
-            e(t, { bold: !0, color: "suggestion", children: "Add Marketplace" }),
+            r(t, { color: "suggestion", children: [r(t, { "aria-hidden": true, children: [L.pointer, " "] }), "+"] }),
+            e(t, { bold: true, color: "suggestion", children: "Add Marketplace" }),
           ],
         }),
         e(o, {
           marginTop: 1,
           children: e(t, {
-            dimColor: !0,
-            italic: !0,
+            dimColor: true,
+            italic: true,
             children: v.pending
               ? r(U, { children: ["Press ", v.keyName, " again to go back"] })
               : r(fe, {
@@ -3554,9 +3554,9 @@ function Jd({
       onKeyDown: $t,
       children: [
         r(t, {
-          bold: !0,
+          bold: true,
           color: "warning",
-          children: ["Remove marketplace", " ", e(t, { italic: !0, children: Oo(Ge.name) }), "?"],
+          children: ["Remove marketplace", " ", e(t, { italic: true, children: Oo(Ge.name) }), "?"],
         }),
         r(o, {
           flexDirection: "column",
@@ -3575,7 +3575,7 @@ function Jd({
                 marginTop: 1,
                 marginLeft: 2,
                 children: Ge.installedPlugins.map((je) =>
-                  e(zc, { children: e(t, { dimColor: !0, children: Oo(je.name) }) }, je.name),
+                  e(zc, { children: e(t, { dimColor: true, children: Oo(je.name) }) }, je.name),
                 ),
               }),
             e(o, {
@@ -3583,9 +3583,9 @@ function Jd({
               children: r(t, {
                 children: [
                   "Press ",
-                  e(t, { bold: !0, children: "y" }),
+                  e(t, { bold: true, children: "y" }),
                   " to confirm or ",
-                  e(t, { bold: !0, children: "n" }),
+                  e(t, { bold: true, children: "n" }),
                   " to cancel",
                 ],
               }),
@@ -3601,8 +3601,8 @@ function Jd({
     return r(o, {
       flexDirection: "column",
       children: [
-        e(t, { bold: !0, children: Oo(Ge.name) }),
-        e(t, { dimColor: !0, children: Oo(Ge.source) }),
+        e(t, { bold: true, children: Oo(Ge.name) }),
+        e(t, { dimColor: true, children: Oo(Ge.source) }),
         e(o, {
           marginTop: 1,
           children: r(t, { children: [Ge.pluginCount || 0, " available", " ", k(Ge.pluginCount || 0, "plugin")] }),
@@ -3612,7 +3612,7 @@ function Jd({
             flexDirection: "column",
             marginTop: 1,
             children: [
-              r(t, { bold: !0, children: ["Installed plugins (", Ge.installedPlugins.length, "):"] }),
+              r(t, { bold: true, children: ["Installed plugins (", Ge.installedPlugins.length, "):"] }),
               e(o, {
                 flexDirection: "column",
                 marginLeft: 1,
@@ -3624,7 +3624,7 @@ function Jd({
                         Oo(Qe.name),
                         `
 `,
-                        e(t, { dimColor: !0, children: Of(Qe.manifest.description ?? "") }),
+                        e(t, { dimColor: true, children: Of(Qe.manifest.description ?? "") }),
                       ],
                     },
                     Qe.name,
@@ -3639,7 +3639,7 @@ function Jd({
             flexDirection: "column",
             children: [
               e(t, { color: "claude", children: "Updating marketplace\u2026" }),
-              Tt && e(t, { dimColor: !0, children: Oo(Tt) }),
+              Tt && e(t, { dimColor: true, children: Oo(Tt) }),
             ],
           }),
         !le && Je && e(o, { marginTop: 1, children: e(t, { color: "claude", children: Oo(Je) }) }),
@@ -3654,7 +3654,7 @@ function Jd({
                 fl,
                 {
                   isFocused: kt === Le,
-                  children: [Qe.label, Qe.secondaryLabel && r(t, { dimColor: !0, children: [" ", Qe.secondaryLabel] })],
+                  children: [Qe.label, Qe.secondaryLabel && r(t, { dimColor: true, children: [" ", Qe.secondaryLabel] })],
                 },
                 Qe.value,
               );
@@ -3666,7 +3666,7 @@ function Jd({
           e(o, {
             marginTop: 1,
             children: e(t, {
-              dimColor: !0,
+              dimColor: true,
               children:
                 "Auto-update enabled. Claude Code will automatically update this marketplace and its installed plugins.",
             }),
@@ -3674,8 +3674,8 @@ function Jd({
         e(o, {
           marginTop: 1,
           children: e(t, {
-            dimColor: !0,
-            italic: !0,
+            dimColor: true,
+            italic: true,
             children: le
               ? e(U, { children: "Please wait\u2026" })
               : r(fe, {
@@ -3693,7 +3693,7 @@ function Jd({
   return r(xr, {
     onKeyDown: Dn,
     children: [
-      e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Manage marketplaces" }) }),
+      e(o, { marginBottom: 1, children: e(t, { bold: true, children: "Manage marketplaces" }) }),
       r(Ig, {
         active: pe === 0,
         flexDirection: "row",
@@ -3702,9 +3702,9 @@ function Jd({
         children: [
           r(t, {
             color: pe === 0 ? "suggestion" : void 0,
-            children: [r(t, { "aria-hidden": !0, children: [pe === 0 ? L.pointer : " ", " "] }), "+"],
+            children: [r(t, { "aria-hidden": true, children: [pe === 0 ? L.pointer : " ", " "] }), "+"],
           }),
-          e(t, { bold: !0, color: pe === 0 ? "suggestion" : void 0, children: "Add Marketplace" }),
+          e(t, { bold: true, color: pe === 0 ? "suggestion" : void 0, children: "Add Marketplace" }),
         ],
       }),
       e(o, {
@@ -3725,7 +3725,7 @@ function Jd({
                 r(t, {
                   color: Qe ? "suggestion" : void 0,
                   children: [
-                    r(t, { "aria-hidden": !0, children: [Qe ? L.pointer : " ", " "] }),
+                    r(t, { "aria-hidden": true, children: [Qe ? L.pointer : " ", " "] }),
                     le.pendingRemove ? L.cross : L.bullet,
                   ],
                 }),
@@ -3738,7 +3738,7 @@ function Jd({
                       gap: 1,
                       children: [
                         r(t, {
-                          bold: !0,
+                          bold: true,
                           strikethrough: le.pendingRemove,
                           dimColor: le.pendingRemove,
                           children: [
@@ -3750,9 +3750,9 @@ function Jd({
                         kt.length > 0 && r(t, { color: "warning", children: ["[", kt.join(", "), "]"] }),
                       ],
                     }),
-                    e(t, { dimColor: !0, children: Oo(le.source) }),
+                    e(t, { dimColor: true, children: Oo(le.source) }),
                     r(t, {
-                      dimColor: !0,
+                      dimColor: true,
                       children: [
                         le.pluginCount !== void 0 && r(U, { children: [le.pluginCount, " available"] }),
                         le.installedPlugins.length > 0 &&
@@ -3778,10 +3778,10 @@ function Jd({
           children: [
             r(t, {
               children: [
-                e(t, { bold: !0, children: "Pending changes:" }),
+                e(t, { bold: true, children: "Pending changes:" }),
                 " ",
                 e(t, {
-                  dimColor: !0,
+                  dimColor: true,
                   children: e(ze, {
                     action: "select:accept",
                     context: "Select",
@@ -3809,7 +3809,7 @@ function Xd(kT) {
     if (Di[0] !== Ds.keyName)
       (Bi = e(o, {
         marginTop: 1,
-        children: r(t, { dimColor: !0, italic: !0, children: ["Press ", Ds.keyName, " again to go back"] }),
+        children: r(t, { dimColor: true, italic: true, children: ["Press ", Ds.keyName, " again to go back"] }),
       })),
         (Di[0] = Ds.keyName),
         (Di[1] = Bi);
@@ -3845,7 +3845,7 @@ function Xd(kT) {
   if (Di[12] !== Bi || Di[13] !== Bs || Di[14] !== Ls || Di[15] !== Ns || Di[16] !== _s)
     (Zy = e(o, {
       marginTop: 1,
-      children: e(t, { dimColor: !0, italic: !0, children: r(fe, { children: [Bi, Bs, Ls, Ns, _s] }) }),
+      children: e(t, { dimColor: true, italic: true, children: r(fe, { children: [Bi, Bs, Ls, Ns, _s] }) }),
     })),
       (Di[12] = Bi),
       (Di[13] = Bs),
@@ -3858,7 +3858,7 @@ function Xd(kT) {
 }
 F();
 F();
-var Fs = yn(!1);
+var Fs = yn(false);
 function QRt() {
   return We(Fs);
 }
@@ -3867,8 +3867,8 @@ function th({
   visibleCount: b,
   onSelect: S,
   onFocus: x,
-  isDisabled: v = !1,
-  wrap: R = !1,
+  isDisabled: v = false,
+  wrap: R = false,
   overflowHint: j = "glyph",
   emptyMessage: K,
 }) {
@@ -3887,7 +3887,7 @@ function th({
       ref: H.containerRef,
       flexDirection: "column",
       tabIndex: 0,
-      children: K && e(t, { dimColor: !0, children: K }),
+      children: K && e(t, { dimColor: true, children: K }),
     });
   let E = j === "glyph" && b === 1 ? "count" : j,
     J = T.slice(H.windowStart, H.windowEnd);
@@ -3897,7 +3897,7 @@ function th({
     children: [
       E === "count" &&
         H.moreAbove > 0 &&
-        e(o, { paddingLeft: 2, children: r(t, { dimColor: !0, children: [qH, " ", H.moreAbove, " more above"] }) }),
+        e(o, { paddingLeft: 2, children: r(t, { dimColor: true, children: [qH, " ", H.moreAbove, " more above"] }) }),
       J.map((pe, ue) => {
         let Pe = H.windowStart + ue,
           _e = H.isCursor(Pe),
@@ -3911,7 +3911,7 @@ function th({
               isFocused: _e,
               showScrollUp: E === "glyph" && be,
               showScrollDown: E === "glyph" && ve,
-              styled: !1,
+              styled: false,
               children: pe,
             }),
           },
@@ -3920,7 +3920,7 @@ function th({
       }),
       E === "count" &&
         H.moreBelow > 0 &&
-        e(o, { paddingLeft: 2, children: r(t, { dimColor: !0, children: [mR, " ", H.moreBelow, " more below"] }) }),
+        e(o, { paddingLeft: 2, children: r(t, { dimColor: true, children: [mR, " ", H.moreBelow, " more below"] }) }),
     ],
   });
 }
@@ -3951,7 +3951,7 @@ function Pr(FT) {
     (Us[0] = op), (Us[1] = ip), (Us[2] = tp), (Us[3] = Xo);
   } else Xo = Us[3];
   let nh;
-  if (Us[4] === d) (nh = e(t, { bold: !0, children: "Capabilities: " })), (Us[4] = nh);
+  if (Us[4] === d) (nh = e(t, { bold: true, children: "Capabilities: " })), (Us[4] = nh);
   else nh = Us[4];
   let Vs;
   if (Us[5] !== Xo) (Vs = Xo.length > 0 ? e(fe, { children: Xo }) : "none"), (Us[5] = Xo), (Us[6] = Vs);
@@ -3962,7 +3962,7 @@ function Pr(FT) {
   return oh;
 }
 function dh() {
-  return !1;
+  return false;
 }
 var JRt =
   "Can't authenticate MCP servers while no terminal is attached to this background session. Attach to it and try again.";
@@ -3979,25 +3979,25 @@ function uh(a, b, S) {
   if (a.type === "disabled") return r(t, { children: [mt("inactive", S)(L.radioOff), " disabled"] });
   if (a.type === "connected") {
     if (a.discoveryBearerRejected)
-      return r(t, { children: [e(tt, { status: "warning", withSpace: !0 }), "connected \xB7 session token rejected"] });
+      return r(t, { children: [e(tt, { status: "warning", withSpace: true }), "connected \xB7 session token rejected"] });
     if (a.toolsListError)
-      return r(t, { children: [e(tt, { status: "warning", withSpace: !0 }), "connected \xB7 tools fetch failed"] });
+      return r(t, { children: [e(tt, { status: "warning", withSpace: true }), "connected \xB7 tools fetch failed"] });
     if (a.capabilities?.tools && b === 0)
-      return r(t, { children: [e(tt, { status: "warning", withSpace: !0 }), "connected \xB7 no tools"] });
-    return r(t, { children: [e(tt, { status: "success", withSpace: !0 }), "connected"] });
+      return r(t, { children: [e(tt, { status: "warning", withSpace: true }), "connected \xB7 no tools"] });
+    return r(t, { children: [e(tt, { status: "success", withSpace: true }), "connected"] });
   }
   if (a.type === "cached") {
     let x = Fme(a.cacheSavedAt, b);
     return r(t, { children: [mt(x.tone, S)(x.glyph), " ", x.statusText] });
   }
   if (a.type === "pending")
-    return r(t, { children: [e(t, { dimColor: !0, children: L.radioOff }), " connecting\u2026"] });
+    return r(t, { children: [e(t, { dimColor: true, children: L.radioOff }), " connecting\u2026"] });
   if (a.type === "needs-auth")
     return r(t, { children: [mt("warning", S)(L.triangleUpOutline), " needs authentication"] });
   if (a.errorCode === "UNCONFIGURED")
-    return r(t, { children: [e(t, { dimColor: !0, children: L.radioOff }), " not configured"] });
+    return r(t, { children: [e(t, { dimColor: true, children: L.radioOff }), " not configured"] });
   return r(t, {
-    children: [e(tt, { status: "error", withSpace: !0 }), a.errorCode === "INVALID_CONFIG" ? "config issue" : "failed"],
+    children: [e(tt, { status: "error", withSpace: true }), a.errorCode === "INVALID_CONFIG" ? "config issue" : "failed"],
   });
 }
 function $me(ao) {
@@ -4006,7 +4006,7 @@ function $me(ao) {
     Tr = (ti.type === "sse" || ti.type === "http") && !!Yt()?.accessToken,
     ih;
   if (ni[0] !== ti || ni[1] !== Tr)
-    (ih = (ti.type === "sse" || ti.type === "http") && Jde(ti, Tr) !== Jde(ti, !0)),
+    (ih = (ti.type === "sse" || ti.type === "http") && Jde(ti, Tr) !== Jde(ti, true)),
       (ni[0] = ti),
       (ni[1] = Tr),
       (ni[2] = ih);
@@ -4027,7 +4027,7 @@ function $me(ao) {
     (lh = e(fe, {
       children: e(ze, { action: "confirm:no", context: "Confirmation", fallback: "Esc", description: "back" }),
     })),
-      (sh = e(t, { dimColor: !0, children: "Checking credentials\u2026" })),
+      (sh = e(t, { dimColor: true, children: "Checking credentials\u2026" })),
       (ni[7] = lh),
       (ni[8] = sh);
   else (lh = ni[7]), (sh = ni[8]);
@@ -4063,7 +4063,7 @@ function up({
   onViewTools: S,
   onCancel: x,
   onComplete: v,
-  borderless: R = !1,
+  borderless: R = false,
   hasClaudeAiToken: j,
   designCredential: K,
 }) {
@@ -4072,17 +4072,17 @@ function up({
     [H] = mn();
   Hi();
   let { columns: G } = Ee(),
-    [E, J] = u(!1),
+    [E, J] = u(false),
     [pe, ue] = u(null),
     Pe = W((ee) => ee.mcp),
     _e = At(),
     [be, ve] = u(null),
-    [Je, st] = u(!1),
+    [Je, st] = u(false),
     Tt = C(null),
-    [it, re] = u(!1),
+    [it, re] = u(false),
     [xe, Ge] = u(null),
-    [Ht, Le] = u(!1),
-    [ot, dt] = u(!1),
+    [Ht, Le] = u(false),
+    [ot, dt] = u(false),
     pt = be || xe || (ot ? PG() : null),
     { copiedVia: gt, copy: se } = Yj(pt),
     [tn, Bt] = u(""),
@@ -4097,9 +4097,9 @@ function up({
   let Dn = a.isAuthenticated || (Zo(a.client) && b > 0),
     $t = Uie(),
     Ut = B(async () => {
-      re(!1), Ge(null), st(!0);
+      re(false), Ge(null), st(true);
       try {
-        let ee = await $t(a.name, { discardDiscovery: !1 }),
+        let ee = await $t(a.name, { discardDiscovery: false }),
           Ne = ee.client.type === "connected";
         if ((s("tengu_claudeai_mcp_auth_completed", { success: Ne }), Ne))
           T(`Authentication successful. Connected to ${Rr(a.name)}.`);
@@ -4124,9 +4124,9 @@ function up({
           }
         }
       } catch (ee) {
-        s("tengu_claudeai_mcp_auth_completed", { success: !1 }), T(Ant(ee, a.name, { persistsOffBox: mo(N) }));
+        s("tengu_claudeai_mcp_auth_completed", { success: false }), T(Ant(ee, a.name, { persistsOffBox: mo(N) }));
       } finally {
-        st(!1);
+        st(false);
       }
     }, [$t, a.name, T]),
     Lt = B(async () => {
@@ -4142,27 +4142,27 @@ function up({
         }),
         s("tengu_claudeai_mcp_clear_auth_completed", {}),
         T(`Disconnected from ${Rr(a.name)}.`),
-        Le(!1),
-        dt(!1);
+        Le(false),
+        dt(false);
     }, [a.name, a.config, a.scope, _e, T]);
   Be(
     "confirm:no",
     () => {
-      Tt.current?.abort(), (Tt.current = null), J(!1), ve(null);
+      Tt.current?.abort(), (Tt.current = null), J(false), ve(null);
     },
     { context: "Confirmation", isActive: E },
   ),
     Be(
       "confirm:no",
       () => {
-        re(!1), Ge(null);
+        re(false), Ge(null);
       },
       { context: "Confirmation", isActive: it },
     ),
     Be(
       "confirm:no",
       () => {
-        Le(!1), dt(!1);
+        Le(false), dt(false);
       },
       { context: "Confirmation", isActive: Ht },
     );
@@ -4170,11 +4170,11 @@ function up({
     if (ee.key === "return" && it) ee.preventDefault(), Ut();
     if (ee.key === "return" && Ht) {
       if ((ee.preventDefault(), hm())) {
-        Le(!1), dt(!1), ue(JRt);
+        Le(false), dt(false), ue(JRt);
         return;
       }
       if (ot) Lt();
-      else dt(!0), Lr(PG());
+      else dt(true), Lr(PG());
     }
     if (ee.key === "c" && !ee.ctrl && !ee.meta && pt) ee.preventDefault(), se(pt);
   }
@@ -4182,18 +4182,18 @@ function up({
     Qe = JNt(Pe.commands, a.name).length,
     kt = TK(),
     _t = B(() => {
-      if (As(a.name, a.client.config)) return ue(drt(a.name)), !0;
+      if (As(a.name, a.client.config)) return ue(drt(a.name)), true;
       let ee = yi(a.name);
-      if (a.client.type !== "disabled" && !ee) return ue(null), !1;
-      return ue(a.client.type === "disabled" ? BQ(a.name) : _1(a.name)), !0;
+      if (a.client.type !== "disabled" && !ee) return ue(null), false;
+      return ue(a.client.type === "disabled" ? BQ(a.name) : _1(a.name)), true;
     }, [a.client.type, a.name, a.client.config]),
     qe = B(async () => {
       if (_t()) return;
       let ee = (a.config.type === "claudeai-proxy" ? Q8(a.config) : null) ?? PG();
-      Ge(ee), re(!0), s("tengu_claudeai_mcp_auth_started", {}), await Lr(ee);
+      Ge(ee), re(true), s("tengu_claudeai_mcp_auth_started", {}), await Lr(ee);
     }, [a.config, _t]),
     Re = B(() => {
-      Le(!0), s("tengu_claudeai_mcp_clear_auth_started", {});
+      Le(true), s("tengu_claudeai_mcp_clear_auth_started", {});
     }, []),
     an = B(async () => {
       let ee = a.client.type !== "disabled";
@@ -4213,7 +4213,7 @@ function up({
         return;
       }
       if (ee.kind !== "oauth") return;
-      J(!0), ue(null);
+      J(true), ue(null);
       let Ne = new AbortController();
       Tt.current = Ne;
       try {
@@ -4224,7 +4224,7 @@ function up({
           },
         }),
           s("tengu_mcp_auth_config_authenticate", { wasAuthenticated: a.isAuthenticated });
-        let Ke = await $t(a.name, { discardDiscovery: !1 });
+        let Ke = await $t(a.name, { discardDiscovery: false });
         if (Ke.client.type === "connected") {
           if (he) await Ir().revokeReplacedServerTokens(a.name, ee.config, he);
           let wt = Dn
@@ -4255,7 +4255,7 @@ function up({
       } catch (he) {
         if (he instanceof Error && !(he instanceof Ir().AuthenticationCancelledError)) ue(he.message);
       } finally {
-        J(!1), (Tt.current = null), kn(null), Bt(""), ve(null);
+        J(false), (Tt.current = null), kn(null), Bt(""), ve(null);
       }
     }, [a.isAuthenticated, a.config, a.name, a.scope, T, $t, Dn, _t]),
     Pt = async () => {
@@ -4293,7 +4293,7 @@ function up({
       gap: 1,
       padding: 1,
       tabIndex: 0,
-      autoFocus: !0,
+      autoFocus: true,
       onKeyDown: le,
       children: [
         r(t, { color: "claude", children: ["Authenticating with ", a.name, "\u2026"] }),
@@ -4305,14 +4305,14 @@ function up({
               r(o, {
                 children: [
                   r(t, {
-                    dimColor: !0,
+                    dimColor: true,
                     children: ["If your browser doesn't open automatically, copy this URL manually", " "],
                   }),
                   e(cL, { via: gt }),
                 ],
               }),
               e(uL, { via: gt }),
-              e(ut, { url: be, assumeSupport: !0 }),
+              e(ut, { url: be, assumeSupport: true }),
             ],
           }),
         E &&
@@ -4323,13 +4323,13 @@ function up({
             marginTop: 1,
             children: [
               e(t, {
-                dimColor: !0,
+                dimColor: true,
                 children:
                   "If the redirect page shows a connection error, paste the URL from your browser's address bar:",
               }),
               r(o, {
                 children: [
-                  r(t, { dimColor: !0, children: ["URL ", ">", " "] }),
+                  r(t, { dimColor: true, children: ["URL ", ">", " "] }),
                   e(xn, {
                     value: tn,
                     onChange: Bt,
@@ -4347,7 +4347,7 @@ function up({
         e(o, {
           marginLeft: 3,
           children: r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
               "Return here after authenticating in your browser. Press",
               " ",
@@ -4365,7 +4365,7 @@ function up({
       gap: 1,
       padding: 1,
       tabIndex: 0,
-      autoFocus: !0,
+      autoFocus: true,
       onKeyDown: le,
       children: [
         r(t, { color: "claude", children: ["Authenticating with ", a.name, "\u2026"] }),
@@ -4377,14 +4377,14 @@ function up({
               r(o, {
                 children: [
                   r(t, {
-                    dimColor: !0,
+                    dimColor: true,
                     children: ["If your browser doesn't open automatically, copy this URL manually", " "],
                   }),
                   e(cL, { via: gt }),
                 ],
               }),
               e(uL, { via: gt }),
-              e(ut, { url: xe, assumeSupport: !0 }),
+              e(ut, { url: xe, assumeSupport: true }),
             ],
           }),
         r(o, {
@@ -4393,11 +4393,11 @@ function up({
           children: [
             r(t, {
               color: "permission",
-              children: ["Press ", e(t, { bold: !0, children: "Enter" }), " after authenticating in your browser."],
+              children: ["Press ", e(t, { bold: true, children: "Enter" }), " after authenticating in your browser."],
             }),
             e(t, {
-              dimColor: !0,
-              italic: !0,
+              dimColor: true,
+              italic: true,
               children: e(ze, { action: "confirm:no", context: "Confirmation", fallback: "Esc", description: "back" }),
             }),
           ],
@@ -4410,7 +4410,7 @@ function up({
       gap: 1,
       padding: 1,
       tabIndex: 0,
-      autoFocus: !0,
+      autoFocus: true,
       onKeyDown: le,
       children: [
         r(t, { color: "claude", children: ["Clear authentication for ", a.name] }),
@@ -4424,7 +4424,7 @@ function up({
                     r(o, {
                       children: [
                         r(t, {
-                          dimColor: !0,
+                          dimColor: true,
                           children: ["If your browser didn't open automatically, copy this URL manually", " "],
                         }),
                         e(cL, { via: gt }),
@@ -4440,11 +4440,11 @@ function up({
                   children: [
                     r(t, {
                       color: "permission",
-                      children: ["Press ", e(t, { bold: !0, children: "Enter" }), " when done."],
+                      children: ["Press ", e(t, { bold: true, children: "Enter" }), " when done."],
                     }),
                     e(t, {
-                      dimColor: !0,
-                      italic: !0,
+                      dimColor: true,
+                      italic: true,
                       children: e(ze, {
                         action: "confirm:no",
                         context: "Confirmation",
@@ -4468,11 +4468,11 @@ function up({
                   children: [
                     r(t, {
                       color: "permission",
-                      children: ["Press", " ", e(M, { chord: "enter", action: "open the browser", bold: !0 }), "."],
+                      children: ["Press", " ", e(M, { chord: "enter", action: "open the browser", bold: true }), "."],
                     }),
                     e(t, {
-                      dimColor: !0,
-                      italic: !0,
+                      dimColor: true,
+                      italic: true,
                       children: e(ze, {
                         action: "confirm:no",
                         context: "Confirmation",
@@ -4492,9 +4492,9 @@ function up({
       gap: 1,
       padding: 1,
       children: [
-        r(t, { color: "text", children: ["Connecting to ", e(t, { bold: !0, children: a.name }), "\u2026"] }),
+        r(t, { color: "text", children: ["Connecting to ", e(t, { bold: true, children: a.name }), "\u2026"] }),
         r(o, { children: [e(wo, {}), e(t, { children: " Establishing connection to MCP server" })] }),
-        e(t, { dimColor: !0, children: "This may take a few moments." }),
+        e(t, { dimColor: true, children: "This may take a few moments." }),
       ],
     });
   let yt = [];
@@ -4542,7 +4542,7 @@ function up({
           gap: 0,
           children: [
             r(zs, {
-              columns: [{ bold: !0 }, {}],
+              columns: [{ bold: true }, {}],
               children: [
                 r(zs.Row, { children: [e(U, { children: "Status:" }), uh(a.client, b, H)] }),
                 (a.client.type === "failed" || a.client.type === "needs-auth") &&
@@ -4551,7 +4551,7 @@ function up({
                     children: [
                       e(U, { children: "Issue:" }),
                       e(t, {
-                        dimColor: !0,
+                        dimColor: true,
                         children: fI(
                           a.client.type === "failed" && a.client.displayDetail
                             ? `${a.client.error} ${a.client.displayDetail}`
@@ -4565,8 +4565,8 @@ function up({
                     children: [
                       e(U, { children: "Auth:" }),
                       Dn
-                        ? r(t, { children: [e(tt, { status: "success", withSpace: !0 }), "authenticated"] })
-                        : r(t, { children: [e(tt, { status: "error", withSpace: !0 }), "not authenticated"] }),
+                        ? r(t, { children: [e(tt, { status: "success", withSpace: true }), "authenticated"] })
+                        : r(t, { children: [e(tt, { status: "error", withSpace: true }), "not authenticated"] }),
                     ],
                   }),
                 a.client.type === "connected" &&
@@ -4575,7 +4575,7 @@ function up({
                   r(zs.Row, {
                     children: [
                       e(U, { children: "Protocol:" }),
-                      e(t, { dimColor: !0, children: Q1(a.client.negotiatedProtocolVersion) }),
+                      e(t, { dimColor: true, children: Q1(a.client.negotiatedProtocolVersion) }),
                     ],
                   }),
                 a.transport === "claudeai-proxy" &&
@@ -4584,12 +4584,12 @@ function up({
                   r(zs.Row, {
                     children: [
                       e(U, { children: "Managed:" }),
-                      e(t, { dimColor: !0, children: "by your organization" }),
+                      e(t, { dimColor: true, children: "by your organization" }),
                     ],
                   }),
-                r(zs.Row, { children: [e(U, { children: "URL:" }), e(t, { dimColor: !0, children: a.config.url })] }),
+                r(zs.Row, { children: [e(U, { children: "URL:" }), e(t, { dimColor: true, children: a.config.url })] }),
                 r(zs.Row, {
-                  children: [e(U, { children: "Config location:" }), e(t, { dimColor: !0, children: tT(a.scope) })],
+                  children: [e(U, { children: "Config location:" }), e(t, { dimColor: true, children: tT(a.scope) })],
                 }),
               ],
             }),
@@ -4603,8 +4603,8 @@ function up({
               b > 0 &&
               r(o, {
                 children: [
-                  e(t, { bold: !0, children: "Tools: " }),
-                  r(t, { dimColor: !0, children: [b, " ", k(b, "tool")] }),
+                  e(t, { bold: true, children: "Tools: " }),
+                  r(t, { dimColor: true, children: [b, " ", k(b, "tool")] }),
                 ],
               }),
             a.client.type === "connected" &&
@@ -4612,8 +4612,8 @@ function up({
               r(o, {
                 flexDirection: "column",
                 children: [
-                  e(t, { bold: !0, children: "Issue: " }),
-                  e(t, { dimColor: !0, children: "claude.ai rejected the session token. Run /login, then reconnect." }),
+                  e(t, { bold: true, children: "Issue: " }),
+                  e(t, { dimColor: true, children: "claude.ai rejected the session token. Run /login, then reconnect." }),
                 ],
               }),
             a.client.type === "connected" &&
@@ -4622,8 +4622,8 @@ function up({
               r(o, {
                 flexDirection: "column",
                 children: [
-                  e(t, { bold: !0, children: "Issue: " }),
-                  e(t, { dimColor: !0, children: a.client.toolsListError }),
+                  e(t, { bold: true, children: "Issue: " }),
+                  e(t, { dimColor: true, children: a.client.toolsListError }),
                 ],
               }),
           ],
@@ -4664,7 +4664,7 @@ function up({
                     Re();
                     break;
                   case "reconnectMcpServer":
-                    st(!0);
+                    st(true);
                     try {
                       let Ne = await $t(a.name);
                       if (a.config.type === "claudeai-proxy")
@@ -4672,10 +4672,10 @@ function up({
                       let { message: he } = q0t(Ne, a.name, { persistsOffBox: mo(N) }, { hasHeadersHelper: Jt });
                       T(he);
                     } catch (Ne) {
-                      if (a.config.type === "claudeai-proxy") s("tengu_claudeai_mcp_reconnect", { success: !1 });
+                      if (a.config.type === "claudeai-proxy") s("tengu_claudeai_mcp_reconnect", { success: false });
                       T(Ant(Ne, a.name, { persistsOffBox: mo(N) }));
                     } finally {
-                      st(!1);
+                      st(false);
                     }
                     break;
                   case "toggle-enabled":
@@ -4698,23 +4698,23 @@ function ph(a, b, S) {
   if (a.type === "disabled") return r(t, { children: [mt("inactive", S)(L.radioOff), " disabled"] });
   if (a.type === "connected") {
     if (a.toolsListError)
-      return r(t, { children: [e(tt, { status: "warning", withSpace: !0 }), "connected \xB7 tools fetch failed"] });
+      return r(t, { children: [e(tt, { status: "warning", withSpace: true }), "connected \xB7 tools fetch failed"] });
     if (a.capabilities?.tools && b === 0)
-      return r(t, { children: [e(tt, { status: "warning", withSpace: !0 }), "connected \xB7 no tools"] });
-    return r(t, { children: [e(tt, { status: "success", withSpace: !0 }), "connected"] });
+      return r(t, { children: [e(tt, { status: "warning", withSpace: true }), "connected \xB7 no tools"] });
+    return r(t, { children: [e(tt, { status: "success", withSpace: true }), "connected"] });
   }
   if (a.type === "pending")
-    return r(t, { children: [e(tt, { status: "pending", withSpace: !0 }), "connecting\u2026"] });
-  return r(t, { children: [e(tt, { status: "error", withSpace: !0 }), "failed"] });
+    return r(t, { children: [e(tt, { status: "pending", withSpace: true }), "connecting\u2026"] });
+  return r(t, { children: [e(tt, { status: "error", withSpace: true }), "failed"] });
 }
-function ott({ server: a, serverToolsCount: b, onViewTools: S, onCancel: x, onComplete: v, borderless: R = !1 }) {
+function ott({ server: a, serverToolsCount: b, onViewTools: S, onCancel: x, onComplete: v, borderless: R = false }) {
   let j = B((be, ...ve) => v(typeof be === "string" ? Qn(be) : be, ...ve), [v]),
     K = ct(),
     [T] = mn(),
     N = W((be) => be.mcp),
     H = Uie(),
     G = TK(),
-    [E, J] = u(!1),
+    [E, J] = u(false),
     pe = B(async () => {
       let be = a.client.type !== "disabled";
       try {
@@ -4733,11 +4733,11 @@ function ott({ server: a, serverToolsCount: b, onViewTools: S, onCancel: x, onCo
       title: `${ue} MCP Server`,
       onCancel: () => {},
       hideBorder: R,
-      hideInputGuide: !0,
+      hideInputGuide: true,
       children: [
-        r(t, { color: "text", children: ["Reconnecting to ", e(t, { bold: !0, children: a.name })] }),
+        r(t, { color: "text", children: ["Reconnecting to ", e(t, { bold: true, children: a.name })] }),
         r(o, { children: [e(wo, {}), e(t, { children: " Restarting MCP server process" })] }),
-        e(t, { dimColor: !0, children: "This may take a few moments." }),
+        e(t, { dimColor: true, children: "This may take a few moments." }),
       ],
     });
   return r(me, {
@@ -4757,11 +4757,11 @@ function ott({ server: a, serverToolsCount: b, onViewTools: S, onCancel: x, onCo
         gap: 0,
         children: [
           r(zs, {
-            columns: [{ bold: !0 }, {}],
+            columns: [{ bold: true }, {}],
             children: [
               r(zs.Row, { children: [e(U, { children: "Status:" }), ph(a.client, b, T)] }),
               r(zs.Row, {
-                children: [e(U, { children: "Command:" }), e(t, { dimColor: !0, children: a.config.command })],
+                children: [e(U, { children: "Command:" }), e(t, { dimColor: true, children: a.config.command })],
               }),
               a.client.type === "connected" &&
                 a.client.protocolEra === "modern" &&
@@ -4769,18 +4769,18 @@ function ott({ server: a, serverToolsCount: b, onViewTools: S, onCancel: x, onCo
                 r(zs.Row, {
                   children: [
                     e(U, { children: "Protocol:" }),
-                    e(t, { dimColor: !0, children: Q1(a.client.negotiatedProtocolVersion) }),
+                    e(t, { dimColor: true, children: Q1(a.client.negotiatedProtocolVersion) }),
                   ],
                 }),
               a.config.args &&
                 a.config.args.length > 0 &&
                 r(zs.Row, {
-                  children: [e(U, { children: "Args:" }), e(t, { dimColor: !0, children: a.config.args.join(" ") })],
+                  children: [e(U, { children: "Args:" }), e(t, { dimColor: true, children: a.config.args.join(" ") })],
                 }),
               r(zs.Row, {
                 children: [
                   e(U, { children: "Config location:" }),
-                  e(t, { dimColor: !0, children: tT(eI(a.name)?.scope ?? "dynamic") }),
+                  e(t, { dimColor: true, children: tT(eI(a.name)?.scope ?? "dynamic") }),
                 ],
               }),
             ],
@@ -4795,8 +4795,8 @@ function ott({ server: a, serverToolsCount: b, onViewTools: S, onCancel: x, onCo
             b > 0 &&
             r(o, {
               children: [
-                e(t, { bold: !0, children: "Tools: " }),
-                r(t, { dimColor: !0, children: [b, " ", k(b, "tool")] }),
+                e(t, { bold: true, children: "Tools: " }),
+                r(t, { dimColor: true, children: [b, " ", k(b, "tool")] }),
               ],
             }),
           a.client.type === "connected" &&
@@ -4804,8 +4804,8 @@ function ott({ server: a, serverToolsCount: b, onViewTools: S, onCancel: x, onCo
             r(o, {
               flexDirection: "column",
               children: [
-                e(t, { bold: !0, children: "Issue: " }),
-                e(t, { dimColor: !0, children: a.client.toolsListError }),
+                e(t, { bold: true, children: "Issue: " }),
+                e(t, { dimColor: true, children: a.client.toolsListError }),
               ],
             }),
         ],
@@ -4816,7 +4816,7 @@ function ott({ server: a, serverToolsCount: b, onViewTools: S, onCancel: x, onCo
           onChange: async (be) => {
             if (be === "tools") S();
             else if (be === "reconnectMcpServer") {
-              J(!0);
+              J(true);
               try {
                 let ve = await H(a.name),
                   { message: Je } = q0t(ve, a.name, { persistsOffBox: mo(K) });
@@ -4824,7 +4824,7 @@ function ott({ server: a, serverToolsCount: b, onViewTools: S, onCancel: x, onCo
               } catch (ve) {
                 j?.(Ant(ve, a.name, { persistsOffBox: mo(K) }));
               } finally {
-                J(!1);
+                J(false);
               }
             } else if (be === "toggle-enabled") await pe();
           },
@@ -4851,15 +4851,15 @@ function kUe(IR) {
   } else (gh = On[2]), (wa = On[3]);
   let mp = gh,
     fh;
-  if (On[4] !== jt) (fh = jt.isReadOnly?.({}) ?? !1), (On[4] = jt), (On[5] = fh);
+  if (On[4] !== jt) (fh = jt.isReadOnly?.({}) ?? false), (On[4] = jt), (On[5] = fh);
   else fh = On[5];
   let gp = fh,
     yh;
-  if (On[6] !== jt) (yh = jt.isDestructive?.({}) ?? !1), (On[6] = jt), (On[7] = yh);
+  if (On[6] !== jt) (yh = jt.isDestructive?.({}) ?? false), (On[6] = jt), (On[7] = yh);
   else yh = On[7];
   let yp = yh,
     hh;
-  if (On[8] !== jt) (hh = jt.isOpenWorld?.({}) ?? !1), (On[8] = jt), (On[9] = hh);
+  if (On[8] !== jt) (hh = jt.isOpenWorld?.({}) ?? false), (On[8] = jt), (On[9] = hh);
   else hh = On[9];
   let hp = hh,
     bh,
@@ -4871,14 +4871,14 @@ function kUe(IR) {
           let ER = await jt.description(
             {},
             {
-              isNonInteractiveSession: !1,
+              isNonInteractiveSession: false,
               toolPermissionContext: {
                 mode: "default",
                 additionalWorkingDirectories: new Map(),
                 alwaysAllowRules: {},
                 alwaysDenyRules: {},
                 alwaysAskRules: {},
-                isBypassPermissionsModeAvailable: !1,
+                isBypassPermissionsModeAvailable: false,
                 mcpPermissionModeOverrides: {},
               },
               tools: [],
@@ -4904,7 +4904,7 @@ function kUe(IR) {
   if (On[15] !== yp) (Gs = yp && e(t, { color: "error", children: " [destructive]" })), (On[15] = yp), (On[16] = Gs);
   else Gs = On[16];
   let Qs;
-  if (On[17] !== hp) (Qs = hp && e(t, { dimColor: !0, children: " [open-world]" })), (On[17] = hp), (On[18] = Qs);
+  if (On[17] !== hp) (Qs = hp && e(t, { dimColor: true, children: " [open-world]" })), (On[17] = hp), (On[18] = Qs);
   else Qs = On[18];
   let Sh;
   if (On[19] !== mp || On[20] !== Ws || On[21] !== Gs || On[22] !== Qs)
@@ -4922,18 +4922,18 @@ function kUe(IR) {
       (On[24] = vh);
   else vh = On[24];
   let wh;
-  if (On[25] === d) (wh = e(t, { bold: !0, children: "Tool name: " })), (On[25] = wh);
+  if (On[25] === d) (wh = e(t, { bold: true, children: "Tool name: " })), (On[25] = wh);
   else wh = On[25];
   let Js;
   if (On[26] !== wa)
-    (Js = r(o, { children: [wh, e(t, { dimColor: !0, children: wa })] })), (On[26] = wa), (On[27] = Js);
+    (Js = r(o, { children: [wh, e(t, { dimColor: true, children: wa })] })), (On[26] = wa), (On[27] = Js);
   else Js = On[27];
   let Ch;
-  if (On[28] === d) (Ch = e(t, { bold: !0, children: "Full name: " })), (On[28] = Ch);
+  if (On[28] === d) (Ch = e(t, { bold: true, children: "Full name: " })), (On[28] = Ch);
   else Ch = On[28];
   let Xs;
   if (On[29] !== jt.name)
-    (Xs = r(o, { children: [Ch, e(t, { dimColor: !0, children: jt.name })] })), (On[29] = jt.name), (On[30] = Xs);
+    (Xs = r(o, { children: [Ch, e(t, { dimColor: true, children: jt.name })] })), (On[29] = jt.name), (On[30] = Xs);
   else Xs = On[30];
   let Zs;
   if (On[31] !== va)
@@ -4943,10 +4943,10 @@ function kUe(IR) {
         flexDirection: "column",
         marginTop: 1,
         children: [
-          e(t, { bold: !0, children: "Description:" }),
+          e(t, { bold: true, children: "Description:" }),
           e(t, { wrap: "wrap", children: Ku(va, Sp) }),
           va.length > Gx &&
-            r(t, { dimColor: !0, children: ["The model receives only about the first", " ", Gx, " characters."] }),
+            r(t, { dimColor: true, children: ["The model receives only about the first", " ", Gx, " characters."] }),
         ],
       })),
       (On[31] = va),
@@ -4962,7 +4962,7 @@ function kUe(IR) {
         flexDirection: "column",
         marginTop: 1,
         children: [
-          e(t, { bold: !0, children: "Parameters:" }),
+          e(t, { bold: true, children: "Parameters:" }),
           e(o, {
             marginLeft: 2,
             flexDirection: "column",
@@ -4974,17 +4974,17 @@ function kUe(IR) {
                 {
                   children: [
                     xp,
-                    e(DR, { when: MR ?? !1, children: "required" }),
+                    e(DR, { when: MR ?? false, children: "required" }),
                     ":",
                     " ",
                     e(t, {
-                      dimColor: !0,
+                      dimColor: true,
                       children: typeof oi === "object" && oi && "type" in oi ? String(oi.type) : "unknown",
                     }),
                     typeof oi === "object" &&
                       oi &&
                       "description" in oi &&
-                      r(t, { dimColor: !0, children: [" - ", Ku(String(oi.description), vp)] }),
+                      r(t, { dimColor: true, children: [" - ", Ku(String(oi.description), vp)] }),
                   ],
                 },
                 xp,
@@ -5057,15 +5057,15 @@ function HUe(YR) {
         let JR = MXe(Ai.name, $o.name);
         let XR = Ai.userFacingName ? Ai.userFacingName({}) : JR;
         let Ih = NXe(XR);
-        let ZR = Ai.isReadOnly?.({}) ?? !1;
-        let eE = Ai.isDestructive?.({}) ?? !1;
-        let tE = Ai.isOpenWorld?.({}) ?? !1;
+        let ZR = Ai.isReadOnly?.({}) ?? false;
+        let eE = Ai.isDestructive?.({}) ?? false;
+        let tE = Ai.isOpenWorld?.({}) ?? false;
         let Rh = Ai.mcpInfo?.effectiveMaxPermission;
         if (Rh === "blocked") {
           return {
             label: Ih,
             value: Th.toString(),
-            disabled: !0,
+            disabled: true,
             description: "disabled by your organization",
             descriptionColor: "warning",
           };
@@ -5148,12 +5148,12 @@ function _h(a, b) {
   return (a.skillHealthMap ??= Fh(b)), a.skillHealthMap;
 }
 async function Fh(a) {
-  if (!I("tengu_skills_dashboard_enabled", !1)) return null;
+  if (!I("tengu_skills_dashboard_enabled", false)) return null;
   try {
     let b = await bt.get("/api/claude_code/skills", {
       auth: "async",
       timeout: 5000,
-      validateStatus: () => !0,
+      validateStatus: () => true,
       credentials: a,
     });
     if (!b.ok) return n(`Skill health fetch skipped: ${b.reason}`), null;
@@ -5172,13 +5172,13 @@ function $p() {
     [b, S] = u(null);
   return (
     A(() => {
-      let x = !1;
+      let x = false;
       return (
         _h(Lu(), a).then((v) => {
           if (!x && v) S(v);
         }),
         () => {
-          x = !0;
+          x = true;
         }
       );
     }, [a]),
@@ -5198,11 +5198,11 @@ async function Ap(a, b) {
 }
 async function Kh(a, b) {
   let S = SWn();
-  if (Bp(dc(), b.path) || (S !== null && Bp(S, b.path))) return !1;
+  if (Bp(dc(), b.path) || (S !== null && Bp(S, b.path))) return false;
   let x = MI(b.source);
   if (x !== void 0) return x === Nm;
   let v = Ud(b.source);
-  if (v === void 0) return !1;
+  if (v === void 0) return false;
   let R = (await cc(a))[v];
   return R !== void 0 && Wm(R.source) && jb(R.installLocation) === void 0;
 }
@@ -5397,8 +5397,8 @@ function ik(_p) {
     {
       flexDirection: "row",
       children: [
-        e(o, { width: 32, children: r(t, { dimColor: !0, children: ["/", _p.name] }) }),
-        r(t, { dimColor: !0, children: ["~", _p.approxTokens, " tok/turn"] }),
+        e(o, { width: 32, children: r(t, { dimColor: true, children: ["/", _p.name] }) }),
+        r(t, { dimColor: true, children: ["~", _p.approxTokens, " tok/turn"] }),
       ],
     },
     _p.name,
@@ -5413,9 +5413,9 @@ function ak(Nr) {
     {
       flexDirection: "row",
       children: [
-        e(o, { width: 32, children: r(t, { dimColor: !0, children: ["/", Nr.name] }) }),
+        e(o, { width: 32, children: r(t, { dimColor: true, children: ["/", Nr.name] }) }),
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             Nr.count,
             " ",
@@ -5465,13 +5465,13 @@ function ac(qE) {
   let ai = zh,
     Li;
   if (Oi[7] !== yo.manifest.name)
-    (Li = r(t, { bold: !0, children: [yo.manifest.name, " \xB7 Usage"] })), (Oi[7] = yo.manifest.name), (Oi[8] = Li);
+    (Li = r(t, { bold: true, children: [yo.manifest.name, " \xB7 Usage"] })), (Oi[7] = yo.manifest.name), (Oi[8] = Li);
   else Li = Oi[8];
   let Gh, Qh;
   if (Oi[9] === d)
-    (Gh = e(t, { bold: !0, children: "Skill-listing footprint" })),
+    (Gh = e(t, { bold: true, children: "Skill-listing footprint" })),
       (Qh = e(t, {
-        dimColor: !0,
+        dimColor: true,
         wrap: "wrap",
         children:
           "What this plugin's skill descriptions add to the system prompt (cached input after the first turn). Agents and MCP tools not yet counted.",
@@ -5511,7 +5511,7 @@ function ac(qE) {
                 }),
               ],
             })
-          : e(t, { dimColor: !0, children: "No model-invocable skills loaded for this plugin" }),
+          : e(t, { dimColor: true, children: "No model-invocable skills loaded for this plugin" }),
       ],
     })),
       (Oi[11] = ai),
@@ -5542,9 +5542,9 @@ function rc(YE) {
     Xh,
     Zh;
   if (jp[3] === d)
-    (Xh = e(t, { bold: !0, children: "Activity" })),
+    (Xh = e(t, { bold: true, children: "Activity" })),
       (Zh = e(t, {
-        dimColor: !0,
+        dimColor: true,
         wrap: "wrap",
         children: "Skill invocations on this machine. See /usage for cost attribution.",
       })),
@@ -5559,7 +5559,7 @@ function rc(YE) {
         Xh,
         Zh,
         lo.totalCount === 0
-          ? e(t, { dimColor: !0, children: "No activity yet" })
+          ? e(t, { dimColor: true, children: "No activity yet" })
           : r(o, {
               flexDirection: "column",
               marginTop: 1,
@@ -5656,7 +5656,7 @@ function sc(dM) {
     else qt = Te[24];
     let on;
     if (Te[25] !== de.marketplace)
-      (on = r(t, { dimColor: !0, children: [" \xB7 ", de.marketplace] })), (Te[25] = de.marketplace), (Te[26] = on);
+      (on = r(t, { dimColor: true, children: [" \xB7 ", de.marketplace] })), (Te[25] = de.marketplace), (Te[26] = on);
     else on = Te[26];
     const Wt = !nt;
     let Zt;
@@ -5673,7 +5673,7 @@ function sc(dM) {
       (hn =
         de.activity && de.activity.skillCount > 0
           ? r(t, {
-              dimColor: !0,
+              dimColor: true,
               children: [
                 " ",
                 "\xB7 ",
@@ -5695,7 +5695,7 @@ function sc(dM) {
     if (Te[35] !== de.unusedDays)
       (_n =
         de.unusedDays !== void 0 &&
-        r(t, { dimColor: !0, children: [" ", "\xB7 not used in ", de.unusedDays, " ", k(de.unusedDays, "day")] })),
+        r(t, { dimColor: true, children: [" ", "\xB7 not used in ", de.unusedDays, " ", k(de.unusedDays, "day")] })),
         (Te[35] = de.unusedDays),
         (Te[36] = _n);
     else _n = Te[36];
@@ -5723,7 +5723,7 @@ function sc(dM) {
     else so = Te[45];
     let Ia;
     if (Te[46] !== nt || Te[47] !== so)
-      (Ia = e(fl, { isFocused: nt, styled: !1, children: so })), (Te[46] = nt), (Te[47] = so), (Te[48] = Ia);
+      (Ia = e(fl, { isFocused: nt, styled: false, children: so })), (Te[46] = nt), (Te[47] = so), (Te[48] = Ia);
     else Ia = Te[48];
     return Ia;
   }
@@ -5747,7 +5747,7 @@ function sc(dM) {
     else pn = Te[56];
     let qt;
     if (Te[57] !== de.marketplace)
-      (qt = r(t, { dimColor: !0, children: [" \xB7 ", de.marketplace] })), (Te[57] = de.marketplace), (Te[58] = qt);
+      (qt = r(t, { dimColor: true, children: [" \xB7 ", de.marketplace] })), (Te[57] = de.marketplace), (Te[58] = qt);
     else qt = Te[58];
     const on = !nt;
     let Wt;
@@ -5770,7 +5770,7 @@ function sc(dM) {
     else en = Te[69];
     let hn;
     if (Te[70] !== nt || Te[71] !== en)
-      (hn = e(fl, { isFocused: nt, styled: !1, children: en })), (Te[70] = nt), (Te[71] = en), (Te[72] = hn);
+      (hn = e(fl, { isFocused: nt, styled: false, children: en })), (Te[70] = nt), (Te[71] = en), (Te[72] = hn);
     else hn = Te[72];
     return hn;
   }
@@ -5799,7 +5799,7 @@ function sc(dM) {
     else on = Te[82];
     let Wt;
     if (Te[83] !== de.marketplace)
-      (Wt = r(t, { dimColor: !0, children: [" \xB7 ", de.marketplace] })), (Te[83] = de.marketplace), (Te[84] = Wt);
+      (Wt = r(t, { dimColor: true, children: [" \xB7 ", de.marketplace] })), (Te[83] = de.marketplace), (Te[84] = Wt);
     else Wt = Te[84];
     const Zt = !nt;
     let zt;
@@ -5823,7 +5823,7 @@ function sc(dM) {
     else _n = Te[96];
     let so;
     if (Te[97] !== nt || Te[98] !== _n)
-      (so = e(fl, { isFocused: nt, styled: !1, children: _n })), (Te[97] = nt), (Te[98] = _n), (Te[99] = so);
+      (so = e(fl, { isFocused: nt, styled: false, children: _n })), (Te[97] = nt), (Te[98] = _n), (Te[99] = so);
     else so = Te[99];
     return so;
   }
@@ -5853,7 +5853,7 @@ function sc(dM) {
     else pn = Te[109];
     let qt;
     if (Te[110] !== de.source)
-      (qt = r(t, { dimColor: !0, children: [" \xB7 ", de.source] })), (Te[110] = de.source), (Te[111] = qt);
+      (qt = r(t, { dimColor: true, children: [" \xB7 ", de.source] })), (Te[110] = de.source), (Te[111] = qt);
     else qt = Te[111];
     const on = !nt;
     const Wt = de.lockSource ? "\uD83D\uDD12 " : "";
@@ -5872,7 +5872,7 @@ function sc(dM) {
     else en = Te[118];
     let hn;
     if (Te[119] !== de.tokenEstimate)
-      (hn = r(t, { dimColor: !0, children: [" \xB7 ~", de.tokenEstimate, " tok"] })),
+      (hn = r(t, { dimColor: true, children: [" \xB7 ~", de.tokenEstimate, " tok"] })),
         (Te[119] = de.tokenEstimate),
         (Te[120] = hn);
     else hn = Te[120];
@@ -5880,7 +5880,7 @@ function sc(dM) {
     if (Te[121] !== de.usage)
       (_n = de.usage
         ? r(t, {
-            dimColor: !0,
+            dimColor: true,
             children: [
               " ",
               "\xB7 ",
@@ -5916,7 +5916,7 @@ function sc(dM) {
     else so = Te[130];
     let Ia;
     if (Te[131] !== nt || Te[132] !== so)
-      (Ia = e(fl, { isFocused: nt, styled: !1, children: so })), (Te[131] = nt), (Te[132] = so), (Te[133] = Ia);
+      (Ia = e(fl, { isFocused: nt, styled: false, children: so })), (Te[131] = nt), (Te[132] = so), (Te[133] = Ia);
     else Ia = Te[133];
     return Ia;
   }
@@ -5955,7 +5955,7 @@ function sc(dM) {
     (Pn = mt("error", lt)(L.cross)), (Tn = "failed"), (Te[153] = lt), (Te[154] = Pn), (Te[155] = Tn);
   else (Pn = Te[154]), (Tn = Te[155]);
   let Qp = de.client.config,
-    _r = Qp?.type === "claudeai-proxy" && Qp.scope === "claudeai" && Qp.enterpriseManaged === !0;
+    _r = Qp?.type === "claudeai-proxy" && Qp.scope === "claudeai" && Qp.enterpriseManaged === true;
   if (de.indented) {
     const Cn = !nt;
     let cn;
@@ -6001,7 +6001,7 @@ function sc(dM) {
     else hn = Te[179];
     let _n;
     if (Te[180] !== nt || Te[181] !== hn)
-      (_n = e(fl, { isFocused: nt, styled: !1, children: hn })), (Te[180] = nt), (Te[181] = hn), (Te[182] = _n);
+      (_n = e(fl, { isFocused: nt, styled: false, children: hn })), (Te[180] = nt), (Te[181] = hn), (Te[182] = _n);
     else _n = Te[182];
     return _n;
   }
@@ -6044,7 +6044,7 @@ function sc(dM) {
   else zt = Te[203];
   let en;
   if (Te[204] !== nt || Te[205] !== zt)
-    (en = e(fl, { isFocused: nt, styled: !1, children: zt })), (Te[204] = nt), (Te[205] = zt), (Te[206] = en);
+    (en = e(fl, { isFocused: nt, styled: false, children: zt })), (Te[204] = nt), (Te[205] = zt), (Te[206] = en);
   else en = Te[206];
   return en;
 }
@@ -6057,11 +6057,11 @@ function lk(a) {
       return a.isEnabled && a.errorCount > 0;
     case "failed-plugin":
     case "flagged-plugin":
-      return !0;
+      return true;
     case "mcp":
       return (a.status === "needs-auth" || a.status === "failed") && !mc(a);
     case "skill":
-      return !1;
+      return false;
   }
 }
 var pc = ["on", "name-only", "user-invocable-only", "off"];
@@ -6079,7 +6079,7 @@ function Xp(a) {
   );
 }
 function mc(a) {
-  return a.type === "mcp" && (a.status === "needs-auth" || a.status === "failed") && a.everConnected === !1;
+  return a.type === "mcp" && (a.status === "needs-auth" || a.status === "failed") && a.everConnected === false;
 }
 function tm(a, { searchQuery: b, favoriteIds: S, showDisabled: x, disusedDays: v, keepInPlaceIds: R }) {
   if (b) {
@@ -6111,7 +6111,7 @@ function tm(a, { searchQuery: b, favoriteIds: S, showDisabled: x, disusedDays: v
           J.parentId !== void 0 &&
           ((K?.item.type === "plugin" && K.item.id === J.parentId) ||
             (K?.item.type === "mcp" && K.item.indented && K.item.parentId === J.parentId)),
-        Pe = J.type === "mcp" && J.indented && !ue ? { ...J, indented: !1 } : J;
+        Pe = J.type === "mcp" && J.indented && !ue ? { ...J, indented: false } : J;
       j.push({ kind: "item", section: E, item: Pe }), (K = { section: E, item: Pe });
     },
     N = new Set();
@@ -6166,7 +6166,7 @@ function im(a, b, S) {
 }
 function wk(rm) {
   let [fk, Y$] = rm;
-  return e(zc, { children: r(t, { dimColor: !0, children: [fk, ": ", Y$.join(", ")] }) }, fk);
+  return e(zc, { children: r(t, { dimColor: true, children: [fk, ": ", Y$.join(", ")] }) }, fk);
 }
 var yk = ["on", "name-only", "user-invocable-only", "off"];
 function cm(a, b) {
@@ -6210,7 +6210,7 @@ function dm(rm) {
     uk;
   if (Ma[0] !== yc || Ma[1] !== fc)
     (ck = () => {
-      let am = !1;
+      let am = false;
       return (
         j0t(fc, yc)
           .then((Q$) => {
@@ -6220,7 +6220,7 @@ function dm(rm) {
             if (!am) G$(pk instanceof Error ? pk.message : "Failed to load components");
           }),
         () => {
-          am = !0;
+          am = true;
         }
       );
     }),
@@ -6232,14 +6232,14 @@ function dm(rm) {
   else (ck = Ma[2]), (uk = Ma[3]);
   if ((A(ck, uk), kc)) {
     let $a;
-    if (Ma[4] === d) ($a = e(t, { bold: !0, children: "Components:" })), (Ma[4] = $a);
+    if (Ma[4] === d) ($a = e(t, { bold: true, children: "Components:" })), (Ma[4] = $a);
     else $a = Ma[4];
     let Fr;
     if (Ma[5] !== kc)
       (Fr = r(o, {
         flexDirection: "column",
         marginBottom: 1,
-        children: [$a, r(t, { dimColor: !0, children: ["Error: ", kc] })],
+        children: [$a, r(t, { dimColor: true, children: ["Error: ", kc] })],
       })),
         (Ma[5] = kc),
         (Ma[6] = Fr);
@@ -6259,7 +6259,7 @@ function dm(rm) {
         break bb0;
       }
       let gk;
-      if (Ma[10] === d) (gk = e(t, { bold: !0, children: "Installed components:" })), (Ma[10] = gk);
+      if (Ma[10] === d) (gk = e(t, { bold: true, children: "Installed components:" })), (Ma[10] = gk);
       else gk = Ma[10];
       $a = r(o, { flexDirection: "column", marginBottom: 1, children: [gk, mk.map(wk)] });
     }
@@ -6289,7 +6289,7 @@ function vc(J$) {
   else bc = Aa[2];
   let xc;
   if (Aa[3] !== li || Aa[4] !== Bo.length || Aa[5] !== bc)
-    (xc = r(t, { bold: !0, color: li, children: [X$, " ", bc, ":"] })),
+    (xc = r(t, { bold: true, color: li, children: [X$, " ", bc, ":"] })),
       (Aa[3] = li),
       (Aa[4] = Bo.length),
       (Aa[5] = bc),
@@ -6307,7 +6307,7 @@ function vc(J$) {
             marginLeft: 2,
             children: [
               e(t, { color: li, children: sm.message }),
-              sm.guidance && r(t, { dimColor: !0, italic: !0, children: [L.arrowRight, " ", sm.guidance] }),
+              sm.guidance && r(t, { dimColor: true, italic: true, children: [L.arrowRight, " ", sm.guidance] }),
             ],
           },
           Z$,
@@ -6341,8 +6341,8 @@ function pm({
     J = W((P) => P.plugins.warnings),
     pe = Bme(),
     ue = $p(),
-    [Pe, _e] = u(!1),
-    be = () => _e(!1),
+    [Pe, _e] = u(false),
+    be = () => _e(false),
     ve = Ba(),
     Je = Ua(),
     st = Ee(),
@@ -6361,7 +6361,7 @@ function pm({
   A(() => {
     x(gt);
   }, [gt, x]),
-    A(() => () => x(!1), [x]);
+    A(() => () => x(false), [x]);
   let [se, tn] = u(null),
     Bt = z(() => (se ? GBe(se.plugin.source) : null), [se]),
     Gt = Sr(Bt),
@@ -6369,21 +6369,21 @@ function pm({
     [kn, Dn] = u([]),
     [$t, Ut] = u([]),
     Lt = Op(jxe, gWn),
-    [le, je] = u(!0),
+    [le, je] = u(true),
     [Qe, kt] = u(0),
     [_t, qe] = u(() => new Set()),
     [Re, an] = u(new Map()),
-    [Ot, Pt] = u(!1),
+    [Ot, Pt] = u(false),
     [yt, oe] = u(null),
     [et, Dt] = u(null),
     [Mt, Jt] = u(0),
     Xt = B(
       (P) => {
-        Dt(P), Pt(!1), tn(null), xe("plugin-list"), Jt((Y) => Y + 1), S();
+        Dt(P), Pt(false), tn(null), xe("plugin-list"), Jt((Y) => Y + 1), S();
       },
       [S],
     ),
-    It = C(!1),
+    It = C(false),
     ee = C(new Set()),
     Ne = C(new Set()),
     he = C(void 0),
@@ -6593,7 +6593,7 @@ function pm({
             scope: De,
             status: ke(Sn),
             client: Sn,
-            indented: !0,
+            indented: true,
             parentId: Oe.id,
           });
         }
@@ -6674,17 +6674,17 @@ function pm({
       },
       [ln, T],
     ),
-    [Ja, fu] = u(!1),
+    [Ja, fu] = u(false),
     [Jr, yu] = u(() => new Map());
   A(() => {
-    let P = !1;
+    let P = false;
     return (
       Ase().then((Y) => {
         if (P || Y.length === 0) return;
         yu(new Map(Y.map((ne) => [GBe(ne.pluginId), ne.daysSinceLastUse])));
       }),
       () => {
-        P = !0;
+        P = true;
       }
     );
   }, []);
@@ -6738,16 +6738,16 @@ function pm({
     fi = xa({ totalItems: bn.length, selectedIndex: Un, maxVisible: sg, firstSelectableIndex: cg }),
     [qo, Xr] = u(0),
     [hi, Zr] = u(null),
-    [cx, Za] = u(!1),
-    [hu, ku] = u(!1);
+    [cx, Za] = u(false),
+    [hu, ku] = u(false);
   A(() => {
     if (!se) {
-      ku(!1);
+      ku(false);
       return;
     }
     async function P() {
       let ne = se.plugin.manifest.mcpServers,
-        ae = !1;
+        ae = false;
       if (ne)
         ae =
           (typeof ne === "string" && PL(ne)) ||
@@ -6769,12 +6769,12 @@ function pm({
         }
       if (!Y) ku(ae);
     }
-    let Y = !1;
+    let Y = false;
     return (
       P(),
       O() && T !== void 0
         ? () => {
-            Y = !0;
+            Y = true;
           }
         : void 0
     );
@@ -6782,7 +6782,7 @@ function pm({
     A(() => {
       let P = Mt > 0;
       async function Y() {
-        if (!P) je(!0);
+        if (!P) je(true);
         try {
           let { enabled: ne, disabled: ae } = await Dh(T, N),
             ce = bk([...ne, ...ae]),
@@ -6812,11 +6812,11 @@ function pm({
           for (let Ve of vt)
             for (let Ze of Ve.installedPlugins) {
               let jn = Ze.isBuiltin ? "builtin" : (Ze.scope ?? L0t(Ze.source).scope);
-              Ie.push({ plugin: Ze, marketplace: Ve.name, scope: jn, pendingEnable: void 0, pendingUpdate: !1 });
+              Ie.push({ plugin: Ze, marketplace: Ve.name, scope: jn, pendingEnable: void 0, pendingUpdate: false });
             }
           if ((Ut(Ie), !P)) xo(0);
         } finally {
-          je(!1);
+          je(false);
         }
       }
       Y();
@@ -6833,8 +6833,8 @@ function pm({
           let Ie = Fe.installedPlugins.find((Ve) => Vy(Ve.name, Y) || Vy(Vt(Ve.source).name, Y));
           if (Ie) {
             let Ve = Ie.scope ?? L0t(Ie.source).scope,
-              Ze = { plugin: Ie, marketplace: Fe.name, scope: Ve, pendingEnable: void 0, pendingUpdate: !1 };
-            tn(Ze), xe("plugin-details"), (he.current = j), (It.current = !0);
+              Ze = { plugin: Ie, marketplace: Fe.name, scope: Ve, pendingEnable: void 0, pendingUpdate: false };
+            tn(Ze), xe("plugin-details"), (he.current = j), (It.current = true);
             return;
           }
         }
@@ -6844,8 +6844,8 @@ function pm({
             type: "failed-plugin-details",
             plugin: { id: vt.id, name: vt.name, marketplace: vt.marketplace, errors: vt.errors, scope: vt.scope },
           }),
-            (It.current = !0);
-        if (!It.current && j) (It.current = !0), b(`Plugin "${v}" is not installed in this project`);
+            (It.current = true);
+        if (!It.current && j) (It.current = true), b(`Plugin "${v}" is not installed in this project`);
       }
     }, [v, R, kn, le, He, j, b]);
   let ea = async (P) => {
@@ -6860,7 +6860,7 @@ function pm({
         oe("This plugin is managed by your organization. Contact your admin to disable it.");
         return;
       }
-      Pt(!0), oe(null);
+      Pt(true), oe(null);
       try {
         let ae = Bt,
           ce;
@@ -6880,13 +6880,13 @@ function pm({
             if (ne) break;
             if (!WBe(Y)) break;
             if (RMn(ae)) {
-              Pt(!1), xe("confirm-project-uninstall");
+              Pt(false), xe("confirm-project-uninstall");
               return;
             }
             let Ve = nm().plugins[ae],
               jn = !Ve || Ve.length <= 1 ? await mQn(ae) : null;
             if (jn) {
-              Pt(!1), xe({ type: "confirm-data-cleanup", size: jn });
+              Pt(false), xe({ type: "confirm-data-cleanup", size: jn });
               return;
             }
             let co = await bq(ae, Y, void 0, T);
@@ -6896,7 +6896,7 @@ function pm({
           }
           case "update": {
             if (ne) break;
-            let Ve = await hge(ae, Y, { explicit: !0, consentedEntryHelper: Gt.pinned() }, T);
+            let Ve = await hge(ae, Y, { explicit: true, consentedEntryHelper: Gt.pinned() }, T);
             switch (Ve.outcome) {
               case "failed":
                 if (
@@ -6928,7 +6928,7 @@ function pm({
           gi(P, Bt);
         let $e = ake(ae, se.plugin.manifest, jxe());
         if (P !== "uninstall" && P !== "update" && $e) {
-          Pt(!1), xe({ type: "plugin-options" });
+          Pt(false), xe({ type: "plugin-options" });
           return;
         }
         let vt = P === "enable" ? "Enabled" : P === "disable" ? "Disabled" : P === "update" ? "Updated" : "Uninstalled",
@@ -6937,7 +6937,7 @@ function pm({
         if (P === "update") b(Ie), await S(), a({ type: "menu" });
         else Xt(Ie);
       } catch (ae) {
-        Pt(!1);
+        Pt(false);
         let ce = ae instanceof Error ? ae.message : String(ae);
         oe(`Failed to ${P}: ${ce}`), n(`Failed to ${P} plugin: ${ce}`, { level: "error" });
       }
@@ -7031,7 +7031,7 @@ function pm({
         oe(null);
         let ne = Y.client.type !== "disabled" ? "disable" : "enable";
         Ke(Y.client.name).catch((ae) => {
-          oe(RQ(ae, Y.client.name, ne, { persistsOffBox: !1 }));
+          oe(RQ(ae, Y.client.name, ne, { persistsOffBox: false }));
         });
       } else if (Y.type === "skill") {
         if (ee.current.has(Y.id)) return;
@@ -7085,7 +7085,7 @@ function pm({
       "select:previous": () => {
         let P = Gi(Un - 1, -1);
         if (P === -1) {
-          if (!le && He.length > 0) _e(!0);
+          if (!le && He.length > 0) _e(true);
         } else fi.handleSelectionChange(P, xo);
       },
       "select:next": () => {
@@ -7098,7 +7098,7 @@ function pm({
   );
   let mg = B(() => {
     let P = bn[Un];
-    if (P?.kind !== "item") return !1;
+    if (P?.kind !== "item") return false;
     (Xa.current = { section: P.section, id: P.item.id }), Yr(P.item.id);
   }, [bn, Un, Yr]);
   ht({ "plugin:toggle": dg, "plugin:favorite": mg }, { context: "Plugin", isActive: re === "plugin-list" && !Pe });
@@ -7143,7 +7143,7 @@ function pm({
         ce.push({
           label: "Configure",
           action: async () => {
-            Za(!0);
+            Za(true);
             try {
               let Fe = se.plugin.manifest.mcpServers,
                 Ie = null;
@@ -7156,18 +7156,18 @@ function pm({
                   }
               }
               if (!Ie) {
-                oe("No MCPB file found in plugin"), Za(!1);
+                oe("No MCPB file found in plugin"), Za(false);
                 return;
               }
               let Ve = Bt,
-                Ze = await act(Ie, se.plugin.path, Ve, void 0, void 0, !0, T);
+                Ze = await act(Ie, se.plugin.path, Ve, void 0, void 0, true, T);
               if ("status" in Ze && Ze.status === "needs-config") Zr(Ze), xe("configuring");
               else oe("Failed to load MCPB for configuration");
             } catch (Fe) {
               let Ie = l(Fe);
               oe(`Failed to load configuration: ${Ie}`);
             } finally {
-              Za(!1);
+              Za(false);
             }
           },
         });
@@ -7215,20 +7215,20 @@ function pm({
         "select:accept": () => {
           if (typeof re === "object" && re.type === "failed-plugin-details")
             (async () => {
-              Pt(!0), oe(null);
+              Pt(true), oe(null);
               let P = re.plugin.id,
                 Y = re.plugin.scope,
-                ne = WBe(Y) ? await bq(P, Y, !1, T) : await bq(P, "user", !1, T),
+                ne = WBe(Y) ? await bq(P, Y, false, T) : await bq(P, "user", false, T),
                 ae = ne.success;
               if (!ae) {
                 for (let ce of UH)
                   if (ye(ce)?.enabledPlugins?.[P] !== void 0)
                     await Os(ce, (vt) => ({ enabledPlugins: { ...vt?.enabledPlugins, [P]: void 0 } }), void 0, T),
-                      (ae = !0);
+                      (ae = true);
                 Qu(T, N);
               }
-              if (ae) await S(), Pt(!1), xe("plugin-list");
-              else Pt(!1), oe(ne.message);
+              if (ae) await S(), Pt(false), xe("plugin-list");
+              else Pt(false), oe(ne.message);
             })();
         },
       },
@@ -7247,30 +7247,30 @@ function pm({
     let Y = Bt;
     if (P.key === "y" || P.key === "Y" || P.key === "return")
       P.preventDefault(),
-        Pt(!0),
+        Pt(true),
         oe(null),
         (async () => {
           try {
             let { error: ne } = await Os(
               "localSettings",
-              (ae) => ({ enabledPlugins: { ...ae?.enabledPlugins, [Y]: !1 } }),
+              (ae) => ({ enabledPlugins: { ...ae?.enabledPlugins, [Y]: false } }),
               void 0,
               T,
             );
             if (ne) {
-              Pt(!1), oe(`Failed to write settings: ${ne.message}`);
+              Pt(false), oe(`Failed to write settings: ${ne.message}`);
               return;
             }
             Qu(T, N),
               gi("disable", Y),
               Xt(`${L.tick} Disabled ${id(se.plugin)} in .claude/settings.local.json. Run /reload-plugins to apply.`);
           } catch (ne) {
-            Pt(!1), oe(l(ne));
+            Pt(false), oe(l(ne));
           }
         })();
     else if (P.key === "u" || P.key === "U")
       P.preventDefault(),
-        Pt(!0),
+        Pt(true),
         oe(null),
         (async () => {
           try {
@@ -7278,9 +7278,9 @@ function pm({
               ae = (nm().plugins[Y] ?? []).some(($e) => $e.scope === "project" && $e.projectPath === ne),
               ce;
             if (ae) {
-              let $e = await bq(Y, "project", !1, T);
+              let $e = await bq(Y, "project", false, T);
               if (!$e.success) {
-                Pt(!1), oe($e.message);
+                Pt(false), oe($e.message);
                 return;
               }
               ce = $e.message;
@@ -7296,14 +7296,14 @@ function pm({
                 T,
               );
               if ($e) {
-                Pt(!1), oe(`Failed to write settings: ${$e.message}`);
+                Pt(false), oe(`Failed to write settings: ${$e.message}`);
                 return;
               }
               ce = `Removed ${id(se.plugin)} from .claude/settings.json`;
             }
             Qu(T, N), gi("uninstall", Y), Xt(`${L.tick} ${ce}. Run /reload-plugins to apply.`);
           } catch (ne) {
-            Pt(!1), oe(l(ne));
+            Pt(false), oe(l(ne));
           }
         })();
     else if (P.key === "n" || P.key === "N" || P.key === "escape") P.preventDefault(), xe("plugin-details"), oe(null);
@@ -7315,7 +7315,7 @@ function pm({
       ne = se.scope;
     if (!ne || ne === "builtin" || !WBe(ne)) return;
     let ae = async (ce) => {
-      Pt(!0), oe(null);
+      Pt(true), oe(null);
       try {
         let $e = await bq(Y, ne, ce, T);
         if (!$e.success) throw Error($e.message);
@@ -7323,11 +7323,11 @@ function pm({
         let vt = ce ? "" : " \xB7 data preserved";
         Xt(`${L.tick} ${$e.message}${vt}`);
       } catch ($e) {
-        Pt(!1), oe($e instanceof Error ? $e.message : String($e));
+        Pt(false), oe($e instanceof Error ? $e.message : String($e));
       }
     };
-    if (P.key === "y" || P.key === "Y") P.preventDefault(), ae(!0);
-    else if (P.key === "n" || P.key === "N") P.preventDefault(), ae(!1);
+    if (P.key === "y" || P.key === "Y") P.preventDefault(), ae(true);
+    else if (P.key === "n" || P.key === "N") P.preventDefault(), ae(false);
     else if (P.key === "escape") P.preventDefault(), xe("plugin-details"), oe(null);
   }
   A(() => {
@@ -7339,8 +7339,8 @@ function pm({
       return;
     }
     if (P.ctrl || P.meta) return;
-    if (P.key === "/") P.preventDefault(), _e(!0), Ht(""), xo(0);
-    else if (P.key.length === 1 && P.key !== " ") P.preventDefault(), _e(!0), Ht(P.key), xo(0);
+    if (P.key === "/") P.preventDefault(), _e(true), Ht(""), xo(0);
+    else if (P.key.length === 1 && P.key !== " ") P.preventDefault(), _e(true), Ht(P.key), xo(0);
   }
   function kg(P) {
     if (Pe) {
@@ -7349,20 +7349,20 @@ function pm({
     }
     let Y = (P.text.split(/\r\n|\r|\n/, 2)[0] ?? "").trim();
     if (!Y) return;
-    P.preventDefault(), _e(!0), Ht(Y), xo(0);
+    P.preventDefault(), _e(true), Ht(Y), xo(0);
   }
   if (le) return e(t, { children: "Loading installed plugins\u2026" });
   if (He.length === 0)
     return r(o, {
       flexDirection: "column",
       children: [
-        e(o, { marginBottom: 1, children: e(t, { bold: !0, children: "Manage plugins" }) }),
+        e(o, { marginBottom: 1, children: e(t, { bold: true, children: "Manage plugins" }) }),
         et && e(o, { marginBottom: 1, paddingLeft: 2, children: e(t, { color: "success", children: et }) }),
         e(sr, { children: "No plugins or MCP servers installed." }),
         e(o, {
           marginTop: 1,
           children: e(t, {
-            dimColor: !0,
+            dimColor: true,
             children: e(ze, { action: "confirm:no", context: "Settings", fallback: "Esc", description: "go back" }),
           }),
         }),
@@ -7391,7 +7391,7 @@ function pm({
                 ? `Failed to save configuration: ${ne}`
                 : `Configuration not applied: could not read the saved options (${ne})`,
             ),
-              Pt(!1),
+              Pt(false),
               Jt(($e) => $e + 1),
               xe("plugin-details"),
               S();
@@ -7473,10 +7473,10 @@ function pm({
     return r(o, {
       flexDirection: "column",
       children: [
-        e(o, { children: r(t, { bold: !0, children: [P.name, " @ ", P.marketplace] }) }),
+        e(o, { children: r(t, { bold: true, children: [P.name, " @ ", P.marketplace] }) }),
         r(o, {
           marginBottom: 1,
-          children: [e(t, { dimColor: !0, children: "Status: " }), e(t, { color: "error", children: "Removed" })],
+          children: [e(t, { dimColor: true, children: "Status: " }), e(t, { color: "error", children: "Removed" })],
         }),
         r(o, {
           marginBottom: 1,
@@ -7484,16 +7484,16 @@ function pm({
           children: [
             r(t, { color: "error", children: ["Removed from marketplace \xB7 reason: ", P.reason] }),
             e(t, { children: P.text }),
-            r(t, { dimColor: !0, children: ["Flagged on ", new Date(P.flaggedAt).toLocaleDateString()] }),
+            r(t, { dimColor: true, children: ["Flagged on ", new Date(P.flaggedAt).toLocaleDateString()] }),
           ],
         }),
         e(o, {
           marginTop: 1,
           flexDirection: "column",
           children: r(Ig, {
-            active: !0,
+            active: true,
             children: [
-              r(t, { "aria-hidden": !0, children: [L.pointer, " "] }),
+              r(t, { "aria-hidden": true, children: [L.pointer, " "] }),
               e(t, { color: "suggestion", children: "Dismiss" }),
             ],
           }),
@@ -7513,7 +7513,7 @@ function pm({
       onKeyDown: fg,
       children: [
         r(t, {
-          bold: !0,
+          bold: true,
           color: "warning",
           children: [id(se.plugin), " is enabled in .claude/settings.json (shared with your team)"],
         }),
@@ -7523,7 +7523,7 @@ function pm({
           children: [
             e(t, { children: "Disable it just for you in .claude/settings.local.json?" }),
             e(t, {
-              dimColor: !0,
+              dimColor: true,
               children: "The plugin stays installed for the project; only your local override changes.",
             }),
           ],
@@ -7532,12 +7532,12 @@ function pm({
         e(o, {
           marginTop: 1,
           children: Ot
-            ? e(t, { dimColor: !0, children: "Processing\u2026" })
+            ? e(t, { dimColor: true, children: "Processing\u2026" })
             : r(fe, {
                 children: [
-                  e(M, { chord: "y", action: "disable for me", bold: !0 }),
-                  e(M, { chord: "u", action: "uninstall for everyone", bold: !0 }),
-                  e(M, { chord: "escape", action: "cancel", bold: !0, format: { keyCase: "lower" } }),
+                  e(M, { chord: "y", action: "disable for me", bold: true }),
+                  e(M, { chord: "u", action: "uninstall for everyone", bold: true }),
+                  e(M, { chord: "escape", action: "cancel", bold: true, format: { keyCase: "lower" } }),
                 ],
               }),
         }),
@@ -7547,22 +7547,22 @@ function pm({
     return r(xr, {
       onKeyDown: yg,
       children: [
-        r(t, { bold: !0, children: [id(se.plugin), " has", " ", re.size.human, " of persistent data"] }),
+        r(t, { bold: true, children: [id(se.plugin), " has", " ", re.size.human, " of persistent data"] }),
         r(o, {
           marginTop: 1,
           flexDirection: "column",
-          children: [e(t, { children: "Delete it along with the plugin?" }), e(t, { dimColor: !0, children: gyt(Bt) })],
+          children: [e(t, { children: "Delete it along with the plugin?" }), e(t, { dimColor: true, children: gyt(Bt) })],
         }),
         yt && e(o, { marginTop: 1, children: e(Br, { error: yt }) }),
         e(o, {
           marginTop: 1,
           children: Ot
-            ? e(t, { dimColor: !0, children: "Uninstalling\u2026" })
+            ? e(t, { dimColor: true, children: "Uninstalling\u2026" })
             : r(fe, {
                 children: [
-                  e(M, { chord: "y", action: "delete", bold: !0 }),
-                  e(M, { chord: "n", action: "keep", bold: !0 }),
-                  e(M, { chord: "escape", action: "cancel", bold: !0, format: { keyCase: "lower" } }),
+                  e(M, { chord: "y", action: "delete", bold: true }),
+                  e(M, { chord: "n", action: "keep", bold: true }),
+                  e(M, { chord: "escape", action: "cancel", bold: true, format: { keyCase: "lower" } }),
                 ],
               }),
         }),
@@ -7593,22 +7593,22 @@ function pm({
     return r(o, {
       flexDirection: "column",
       children: [
-        e(o, { children: r(t, { bold: !0, children: [id(se.plugin), " @", " ", Oo(se.marketplace)] }) }),
-        r(o, { children: [e(t, { dimColor: !0, children: "Scope: " }), e(t, { children: se.scope || "user" })] }),
+        e(o, { children: r(t, { bold: true, children: [id(se.plugin), " @", " ", Oo(se.marketplace)] }) }),
+        r(o, { children: [e(t, { dimColor: true, children: "Scope: " }), e(t, { children: se.scope || "user" })] }),
         Fe.version &&
-          r(o, { children: [e(t, { dimColor: !0, children: "Version: " }), e(t, { children: Fe.version })] }),
+          r(o, { children: [e(t, { dimColor: true, children: "Version: " }), e(t, { children: Fe.version })] }),
         Fe.description && e(o, { marginBottom: 1, children: e(t, { children: Fe.description }) }),
         Fe.author &&
-          r(o, { children: [e(t, { dimColor: !0, children: "Author: " }), e(t, { children: Fe.author.name })] }),
+          r(o, { children: [e(t, { dimColor: true, children: "Author: " }), e(t, { children: Fe.author.name })] }),
         r(o, {
           marginBottom: 1,
           children: [
-            e(t, { dimColor: !0, children: "Status: " }),
+            e(t, { dimColor: true, children: "Status: " }),
             e(t, { color: Y ? "success" : "warning", children: Y ? "Enabled" : "Disabled" }),
             se.pendingUpdate && e(t, { color: "suggestion", children: " \xB7 Marked for update" }),
             $e !== null &&
               r(t, {
-                dimColor: !0,
+                dimColor: true,
                 children: [" ", "\xB7 Last used:", " ", $e === 0 ? "today" : `${$e} ${k($e, "day")} ago`],
               }),
           ],
@@ -7626,8 +7626,8 @@ function pm({
               {
                 active: Ze,
                 children: [
-                  Ze && r(t, { "aria-hidden": !0, children: [L.pointer, " "] }),
-                  !Ze && e(t, { "aria-hidden": !0, children: "  " }),
+                  Ze && r(t, { "aria-hidden": true, children: [L.pointer, " "] }),
+                  !Ze && e(t, { "aria-hidden": true, children: "  " }),
                   e(t, {
                     bold: Ze,
                     color: Ie.label.includes("Uninstall")
@@ -7648,8 +7648,8 @@ function pm({
         e(o, {
           marginTop: 1,
           children: e(t, {
-            dimColor: !0,
-            italic: !0,
+            dimColor: true,
+            italic: true,
             children: r(fe, {
               children: [
                 e(ze, { action: "select:previous", context: "Select", fallback: "\u2191", description: "navigate" }),
@@ -7671,35 +7671,35 @@ function pm({
       children: [
         r(t, {
           children: [
-            e(t, { bold: !0, children: Oo(P.name) }),
-            r(t, { dimColor: !0, children: [" ", "@ ", Oo(P.marketplace)] }),
-            r(t, { dimColor: !0, children: [" (", P.scope, ")"] }),
+            e(t, { bold: true, children: Oo(P.name) }),
+            r(t, { dimColor: true, children: [" ", "@ ", Oo(P.marketplace)] }),
+            r(t, { dimColor: true, children: [" (", P.scope, ")"] }),
           ],
         }),
         e(t, { color: "error", children: ne }),
         P.scope === "managed"
           ? e(o, {
               marginTop: 1,
-              children: e(t, { dimColor: !0, children: "Managed by your organization \u2014 contact your admin" }),
+              children: e(t, { dimColor: true, children: "Managed by your organization \u2014 contact your admin" }),
             })
           : uc(P.marketplace)
             ? null
             : r(Ig, {
-                active: !0,
+                active: true,
                 marginTop: 1,
                 children: [
-                  r(t, { "aria-hidden": !0, color: "suggestion", children: [L.pointer, " "] }),
-                  e(t, { bold: !0, children: "Remove" }),
+                  r(t, { "aria-hidden": true, color: "suggestion", children: [L.pointer, " "] }),
+                  e(t, { bold: true, children: "Remove" }),
                 ],
               }),
         Ot && e(t, { children: "Processing\u2026" }),
         e(Br, { error: yt }),
-        uc(P.marketplace) && e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: vk(P.marketplace) }) }),
+        uc(P.marketplace) && e(o, { marginTop: 1, children: e(t, { dimColor: true, children: vk(P.marketplace) }) }),
         e(o, {
           marginTop: 1,
           children: e(t, {
-            dimColor: !0,
-            italic: !0,
+            dimColor: true,
+            italic: true,
             children: r(fe, {
               children: [
                 P.scope !== "managed" &&
@@ -7731,12 +7731,12 @@ function pm({
       flexDirection: "column",
       gap: 1,
       children: [
-        e(t, { bold: !0, children: P.name }),
-        P.description && e(t, { dimColor: !0, children: P.description }),
-        P.whenToUse && r(t, { dimColor: !0, children: ["When to use: ", P.whenToUse] }),
-        r(t, { dimColor: !0, children: ["Source: ", P.source, " \xB7 ~", P.tokenEstimate, " tokens"] }),
+        e(t, { bold: true, children: P.name }),
+        P.description && e(t, { dimColor: true, children: P.description }),
+        P.whenToUse && r(t, { dimColor: true, children: ["When to use: ", P.whenToUse] }),
+        r(t, { dimColor: true, children: ["Source: ", P.source, " \xB7 ~", P.tokenEstimate, " tokens"] }),
         r(t, {
-          dimColor: !0,
+          dimColor: true,
           children: [
             "Usage:",
             " ",
@@ -7747,10 +7747,10 @@ function pm({
         }),
         P.allowedTools &&
           P.allowedTools.length > 0 &&
-          r(t, { dimColor: !0, children: ["Allowed tools: ", xk(P.allowedTools)] }),
-        P.skillRoot && r(t, { dimColor: !0, children: ["Path: ", P.skillRoot] }),
+          r(t, { dimColor: true, children: ["Allowed tools: ", xk(P.allowedTools)] }),
+        P.skillRoot && r(t, { dimColor: true, children: ["Path: ", P.skillRoot] }),
         P.lockSource === "policy" || P.lockSource === "flag"
-          ? r(t, { dimColor: !0, children: ["State: ", P.override, " (locked by ", P.lockSource, " settings)"] })
+          ? r(t, { dimColor: true, children: ["State: ", P.override, " (locked by ", P.lockSource, " settings)"] })
           : r(o, {
               flexDirection: "column",
               children: [
@@ -7759,7 +7759,7 @@ function pm({
                     "State:",
                     P.lockSource === "author" &&
                       r(t, {
-                        dimColor: !0,
+                        dimColor: true,
                         children: [" ", "(on/name-only locked by frontmatter disable-model-invocation)"],
                       }),
                   ],
@@ -7797,7 +7797,7 @@ function pm({
         r(fe, {
           children: [
             e(M, { chord: "Enter", action: "set state" }),
-            e(t, { dimColor: !0, children: " \xB7 " }),
+            e(t, { dimColor: true, children: " \xB7 " }),
             e(M, { chord: "Esc", action: "go back" }),
           ],
         }),
@@ -7821,13 +7821,13 @@ function pm({
       vt = P.config.type ?? "stdio";
     if (vt === "stdio") {
       let Fe = { name: P.name, client: P, scope: $e, transport: "stdio", config: P.config };
-      return e(ott, { server: Fe, serverToolsCount: Y, onViewTools: ne, onCancel: ae, onComplete: ce, borderless: !0 });
+      return e(ott, { server: Fe, serverToolsCount: Y, onViewTools: ne, onCancel: ae, onComplete: ce, borderless: true });
     } else if (vt === "sse") {
       let Fe = { name: P.name, client: P, scope: $e, transport: "sse", isAuthenticated: void 0, config: P.config };
-      return e($me, { server: Fe, serverToolsCount: Y, onViewTools: ne, onCancel: ae, onComplete: ce, borderless: !0 });
+      return e($me, { server: Fe, serverToolsCount: Y, onViewTools: ne, onCancel: ae, onComplete: ce, borderless: true });
     } else if (vt === "http") {
       let Fe = { name: P.name, client: P, scope: $e, transport: "http", isAuthenticated: void 0, config: P.config };
-      return e($me, { server: Fe, serverToolsCount: Y, onViewTools: ne, onCancel: ae, onComplete: ce, borderless: !0 });
+      return e($me, { server: Fe, serverToolsCount: Y, onViewTools: ne, onCancel: ae, onComplete: ce, borderless: true });
     } else if (vt === "claudeai-proxy") {
       let Fe = {
         name: P.name,
@@ -7837,7 +7837,7 @@ function pm({
         isAuthenticated: void 0,
         config: P.config,
       };
-      return e($me, { server: Fe, serverToolsCount: Y, onViewTools: ne, onCancel: ae, onComplete: ce, borderless: !0 });
+      return e($me, { server: Fe, serverToolsCount: Y, onViewTools: ne, onCancel: ae, onComplete: ce, borderless: true });
     }
     return r(o, {
       flexDirection: "column",
@@ -7902,7 +7902,7 @@ function pm({
   return r(o, {
     flexDirection: "column",
     tabIndex: 0,
-    autoFocus: !0,
+    autoFocus: true,
     onKeyDown: hg,
     onPaste: kg,
     children: [
@@ -7915,7 +7915,7 @@ function pm({
           width: Tt - 4,
           cursorOffset: Le,
           onCursorOffsetChange: ot,
-          onFocus: () => _e(!0),
+          onFocus: () => _e(true),
         }),
       }),
       Dr() &&
@@ -7935,7 +7935,7 @@ function pm({
       et && e(o, { marginBottom: 1, paddingLeft: 2, children: e(t, { color: "success", children: et }) }),
       bn.length === 0 && Ge && e(o, { marginBottom: 1, children: r(sr, { children: ['No items match "', Ge, '"'] }) }),
       fi.scrollPosition.canScrollUp &&
-        e(o, { children: r(t, { dimColor: !0, children: [" ", L.arrowUp, " more above"] }) }),
+        e(o, { children: r(t, { dimColor: true, children: [" ", L.arrowUp, " more above"] }) }),
       bg.map((P, Y) => {
         let ne = fi.toActualIndex(Y),
           ae = ne === Un && !Pe;
@@ -7950,7 +7950,7 @@ function pm({
                 children: e(t, {
                   dimColor: P.section !== "attention",
                   color: P.section === "attention" ? "warning" : void 0,
-                  bold: !0,
+                  bold: true,
                   children:
                     P.section === "attention"
                       ? "Needs attention"
@@ -7962,7 +7962,7 @@ function pm({
               `section:${P.section}`,
             );
           case "scope-header":
-            return e(o, { paddingLeft: 4, children: e(t, { dimColor: !0, children: hk(P.scope) }) }, `scope:${ne}`);
+            return e(o, { paddingLeft: 4, children: e(t, { dimColor: true, children: hk(P.scope) }) }, `scope:${ne}`);
           case "disabled-header":
             return e(
               Ig,
@@ -7972,12 +7972,12 @@ function pm({
                 children: r(t, {
                   color: ae ? "suggestion" : void 0,
                   children: [
-                    e(t, { "aria-hidden": !0, children: ae ? `${L.pointer} ` : "  " }),
+                    e(t, { "aria-hidden": true, children: ae ? `${L.pointer} ` : "  " }),
                     Ja ? L.arrowDown : L.arrowRight,
                     " Show",
                     P.disabledCount > 0 &&
                       r(U, {
-                        children: [" ", "disabled ", r(t, { dimColor: !0, children: ["(", P.disabledCount, ")"] })],
+                        children: [" ", "disabled ", r(t, { dimColor: true, children: ["(", P.disabledCount, ")"] })],
                       }),
                     P.disabledCount > 0 && P.unusedConnectorCount > 0 && " \xB7",
                     P.unusedConnectorCount > 0 &&
@@ -7986,7 +7986,7 @@ function pm({
                           " ",
                           "unused claude.ai connectors",
                           " ",
-                          r(t, { dimColor: !0, children: ["(", P.unusedConnectorCount, ")"] }),
+                          r(t, { dimColor: true, children: ["(", P.unusedConnectorCount, ")"] }),
                         ],
                       }),
                   ],
@@ -8003,13 +8003,13 @@ function pm({
         }
       }),
       fi.scrollPosition.canScrollDown &&
-        e(o, { children: r(t, { dimColor: !0, children: [" ", L.arrowDown, " more below"] }) }),
+        e(o, { children: r(t, { dimColor: true, children: [" ", L.arrowDown, " more below"] }) }),
       e(o, {
         marginTop: 1,
         marginLeft: 1,
         children: e(t, {
-          dimColor: !0,
-          italic: !0,
+          dimColor: true,
+          italic: true,
           children: r(fe, {
             children: [
               e(t, { children: "Type to search" }),
@@ -8025,7 +8025,7 @@ function pm({
       Re.size > 0 &&
         e(o, {
           marginLeft: 1,
-          children: e(t, { dimColor: !0, italic: !0, children: "Run /reload-plugins to apply changes" }),
+          children: e(t, { dimColor: true, italic: true, children: "Run /reload-plugins to apply changes" }),
         }),
     ],
   });
@@ -8148,7 +8148,7 @@ function Vk(Rm) {
       children: [
         "  ",
         e(t, { color: "warning", children: Fp(Rm.name) }),
-        e(t, { dimColor: !0, children: `  last used ${Rm.daysSinceLastUse} days ago` }),
+        e(t, { dimColor: true, children: `  last used ${Rm.daysSinceLastUse} days ago` }),
       ],
     },
     Rm.pluginId,
@@ -8160,12 +8160,12 @@ function Em(a) {
       if (b.rows.length === 0) g("cli_skill_doctor", "no_user_skills");
       else if (b.weekTokensNote !== null) g("cli_skill_doctor", "scan_policy_denied");
       else y("cli_skill_doctor");
-      return { ok: !0, report: b };
+      return { ok: true, report: b };
     },
     (b) => {
       let S = b instanceof $Q ? b.cause : b;
       return (
-        h(S), p("cli_skill_doctor", b instanceof $Q ? b.featureErrorCode : "render_failed"), { ok: !1, message: l(S) }
+        h(S), p("cli_skill_doctor", b instanceof $Q ? b.featureErrorCode : "render_failed"), { ok: false, message: l(S) }
       );
     },
   );
@@ -8183,14 +8183,14 @@ function Wc(kD) {
   else Pk = Ur[2];
   Be("confirm:no", bD, Pk);
   let Tk;
-  if (Ur[3] === d) (Tk = e(t, { bold: !0, children: "Skills loaded this session" })), (Ur[3] = Tk);
+  if (Ur[3] === d) (Tk = e(t, { bold: true, children: "Skills loaded this session" })), (Ur[3] = Tk);
   else Tk = Ur[3];
   const ym = xD.allowed ? "Scanning local sessions\u2026" : "Computing skill usage\u2026";
   let Ik;
   if (Ur[4] !== ym)
     (Ik = r(o, {
       flexDirection: "column",
-      children: [Tk, e(o, { marginTop: 1, children: e(t, { dimColor: !0, children: ym }) })],
+      children: [Tk, e(o, { marginTop: 1, children: e(t, { dimColor: true, children: ym }) })],
     })),
       (Ur[4] = ym),
       (Ur[5] = Ik);
@@ -8213,7 +8213,7 @@ function jc(SD) {
     let Na;
     if (_i[0] !== La.message)
       (Na = r(t, {
-        dimColor: !0,
+        dimColor: true,
         wrap: "wrap",
         children: ["Couldn't compute skill usage. Run with --debug for details. (", La.message, ")"],
       })),
@@ -8233,7 +8233,7 @@ function jc(SD) {
       weekTokensNote: Cc,
     } = La.report,
     Na;
-  if (_i[2] === d) (Na = e(t, { bold: !0, children: "Skills loaded this session" })), (_i[2] = Na);
+  if (_i[2] === d) (Na = e(t, { bold: true, children: "Skills loaded this session" })), (_i[2] = Na);
   else Na = _i[2];
   let Pc;
   if (_i[3] !== jo)
@@ -8248,12 +8248,12 @@ function jc(SD) {
         marginTop: 1,
         children: [
           r(t, {
-            dimColor: !0,
+            dimColor: true,
             wrap: "wrap",
             children: ["  ", "context = this skill's one-line listing in the system prompt, included every turn"],
           }),
           r(t, {
-            dimColor: !0,
+            dimColor: true,
             wrap: "wrap",
             children: [
               "  ",
@@ -8262,14 +8262,14 @@ function jc(SD) {
           }),
           Cc === null
             ? r(t, {
-                dimColor: !0,
+                dimColor: true,
                 wrap: "wrap",
                 children: [
                   "  ",
                   "7d tokens = tokens attributed to the skill over the last 7 days of sessions on this machine",
                 ],
               })
-            : r(t, { dimColor: !0, wrap: "wrap", children: ["  ", "7d tokens: ", Cc] }),
+            : r(t, { dimColor: true, wrap: "wrap", children: ["  ", "7d tokens: ", Cc] }),
         ],
       })),
       (_i[5] = jo.length),
@@ -8313,7 +8313,7 @@ function Hc(wD) {
     { rows: _a } = wD;
   if (_a.length === 0) {
     let Fa;
-    if (Ec[0] === d) (Fa = e(t, { dimColor: !0, children: "  (no skills loaded)" })), (Ec[0] = Fa);
+    if (Ec[0] === d) (Fa = e(t, { dimColor: true, children: "  (no skills loaded)" })), (Ec[0] = Fa);
     else Fa = Ec[0];
     return Fa;
   }
@@ -8330,7 +8330,7 @@ function Hc(wD) {
     else Mk = Ec[4];
     const Tm = `  ${PD}  ${TD}  ${ID}  ${RD}  ${Mk}  last used`;
     let $k;
-    if (Ec[5] !== Tm) ($k = e(t, { dimColor: !0, children: Tm })), (Ec[5] = Tm), (Ec[6] = $k);
+    if (Ec[5] !== Tm) ($k = e(t, { dimColor: true, children: Tm })), (Ec[5] = Tm), (Ec[6] = $k);
     else $k = Ec[6];
     Fa = r(o, {
       flexDirection: "column",
@@ -8344,7 +8344,7 @@ function Hc(wD) {
               color: Va.usageCount === 0 ? "warning" : void 0,
               children: [
                 `  ${h1(Va.name, Ao.name)}  `,
-                e(t, { dimColor: !0, children: h1(Va.source, Ao.source) }),
+                e(t, { dimColor: true, children: h1(Va.source, Ao.source) }),
                 `  ${ov(Im.context, Ao.context)}  ${ov(Im.week, Ao.week)}  ${ov(String(Va.usageCount), Ao.uses)}\xD7  ${Im.lastUsed}`,
               ],
             },
@@ -8475,7 +8475,7 @@ function qc(BD) {
     return null;
   }
   let Ok;
-  if (Wa[0] === d) (Ok = e(t, { bold: !0, children: "Plugins not used recently" })), (Wa[0] = Ok);
+  if (Wa[0] === d) (Ok = e(t, { bold: true, children: "Plugins not used recently" })), (Wa[0] = Ok);
   else Ok = Wa[0];
   let Uc;
   if (Wa[1] !== _c) (Uc = _c.map(Vk)), (Wa[1] = _c), (Wa[2] = Uc);
@@ -8487,7 +8487,7 @@ function qc(BD) {
   if (Wa[5] === d)
     (Lk = e(o, {
       marginTop: 1,
-      children: r(t, { dimColor: !0, children: ["  ", "Manage these in the Installed tab"] }),
+      children: r(t, { dimColor: true, children: ["  ", "Manage these in the Installed tab"] }),
     })),
       (Wa[5] = Lk);
   else Lk = Wa[5];
@@ -8954,10 +8954,10 @@ function Ym(a) {
   );
 }
 function Jm(a) {
-  if (Wb.has(a.type)) return !0;
-  if (a.type === "marketplace-load-failed" && a.reason === "cache-miss") return !0;
-  if (a.type === "marketplace-not-found") return !0;
-  return !1;
+  if (Wb.has(a.type)) return true;
+  if (a.type === "marketplace-load-failed" && a.reason === "cache-miss") return true;
+  if (a.type === "marketplace-not-found") return true;
+  return false;
 }
 function Xm(a, b, S) {
   let x = MI(a.source),
@@ -9044,7 +9044,7 @@ function Zm(a, b, S, x, v, R, j, K, T) {
         guidance: bWt(E),
         action: { kind: "none" },
         scope: J.scope,
-        isAdvisory: !0,
+        isAdvisory: true,
       });
   }
   return N;
@@ -9059,9 +9059,9 @@ function eg(a, b, S) {
         if (v.extraKnownMarketplaces?.[a]) R.extraKnownMarketplaces = { ...v.extraKnownMarketplaces, [a]: void 0 };
         if (v.enabledPlugins) {
           let j = `@${a}`,
-            K = !1,
+            K = false,
             T = { ...v.enabledPlugins };
-          for (let N in T) if (N.endsWith(j)) (T[N] = void 0), (K = !0);
+          for (let N in T) if (N.endsWith(j)) (T[N] = void 0), (K = true);
           if (K) R.enabledPlugins = T;
         }
         return Object.keys(R).length > 0 ? R : null;
@@ -9209,8 +9209,8 @@ function lg(SA) {
           e(o, {
             marginTop: 1,
             children: e(t, {
-              dimColor: !0,
-              italic: !0,
+              dimColor: true,
+              italic: true,
               children: e(ze, {
                 action: "confirm:no",
                 context: "Confirmation",
@@ -9245,14 +9245,14 @@ function lg(SA) {
               children: [
                 r(t, { "aria-hidden": Ya, color: Ya ? "suggestion" : Fb, children: [UA, " "] }),
                 e(t, { bold: Ya, children: Oo(mi.label) }),
-                mi.scope && r(t, { dimColor: !0, children: [" (", mi.scope, ")"] }),
+                mi.scope && r(t, { dimColor: true, children: [" (", mi.scope, ")"] }),
               ],
             }),
             e(o, { marginLeft: 3, children: e(t, { color: Fb, wrap: "wrap-trim", children: Of(mi.message) }) }),
             mi.guidance &&
               e(o, {
                 marginLeft: 3,
-                children: e(t, { dimColor: !0, italic: !0, wrap: "wrap-trim", children: Of(mi.guidance) }),
+                children: e(t, { dimColor: true, italic: true, wrap: "wrap-trim", children: Of(mi.guidance) }),
               }),
           ],
         },
@@ -9287,7 +9287,7 @@ function lg(SA) {
   else Vb = Hn[19];
   let mu;
   if (Hn[20] !== pu)
-    (mu = e(o, { children: e(t, { dimColor: !0, italic: !0, children: r(fe, { children: [Ub, pu, Vb] }) }) })),
+    (mu = e(o, { children: e(t, { dimColor: true, italic: true, children: r(fe, { children: [Ub, pu, Vb] }) }) })),
       (Hn[20] = pu),
       (Hn[21] = mu);
   else mu = Hn[21];
@@ -9376,7 +9376,7 @@ function itt({
     [st, Tt] = u(Gb(H)),
     [it, re] = u(E.type === "add-marketplace" ? E.initialValue || "" : ""),
     [xe, Ge] = u(0),
-    [Ht, Le] = u(!1),
+    [Ht, Le] = u(false),
     ot = At(),
     dt = Xn(),
     { storageV5: pt } = ge(),
@@ -9390,7 +9390,7 @@ function itt({
     Bt = N.type === "marketplace" && N.action === "add" && N.target !== void 0,
     Gt = j !== void 0 && Sk(),
     Et = B(() => {
-      ot((Ut) => (Ut.plugins.needsRefresh ? Ut : { ...Ut, plugins: { ...Ut.plugins, needsRefresh: !0 } }));
+      ot((Ut) => (Ut.plugins.needsRefresh ? Ut : { ...Ut, plugins: { ...Ut.plugins, needsRefresh: true } }));
     }, [ot]),
     In = B(
       async (Ut) => {
@@ -9448,15 +9448,15 @@ function itt({
     return r(o, {
       flexDirection: "column",
       children: [
-        e(t, { bold: !0, children: "Plugin Command Usage:" }),
+        e(t, { bold: true, children: "Plugin Command Usage:" }),
         e(t, { children: " " }),
-        e(t, { dimColor: !0, children: "Installation:" }),
+        e(t, { dimColor: true, children: "Installation:" }),
         e(t, { children: " /plugin install - Browse and install plugins" }),
         r(t, { children: [" ", "/plugin install <marketplace> - Install from specific marketplace"] }),
         e(t, { children: " /plugin install <plugin> - Install specific plugin" }),
         r(t, { children: [" ", "/plugin install <plugin>@<market> - Install plugin from marketplace"] }),
         e(t, { children: " " }),
-        e(t, { dimColor: !0, children: "Management:" }),
+        e(t, { dimColor: true, children: "Management:" }),
         r(t, { children: [" ", "/plugin list [--enabled|--disabled] - List installed plugins"] }),
         e(t, { children: " /plugin manage - Manage installed plugins" }),
         Sk() && e(t, { children: " /plugin stats - Show skill usage and context costs" }),
@@ -9465,7 +9465,7 @@ function itt({
         e(t, { children: " /plugin configure <plugin> - Set userConfig options" }),
         e(t, { children: " /plugin uninstall <plugin> - Uninstall a plugin" }),
         e(t, { children: " " }),
-        e(t, { dimColor: !0, children: "Marketplaces:" }),
+        e(t, { dimColor: true, children: "Marketplaces:" }),
         e(t, { children: " /plugin marketplace - Marketplace management menu" }),
         e(t, { children: " /plugin marketplace add - Add a marketplace" }),
         r(t, { children: [" ", "/plugin marketplace add <path/url> - Add marketplace directly"] }),
@@ -9475,11 +9475,11 @@ function itt({
         r(t, { children: [" ", "/plugin marketplace remove <name> - Remove specific marketplace"] }),
         e(t, { children: " /plugin marketplace list - List all marketplaces" }),
         e(t, { children: " " }),
-        e(t, { dimColor: !0, children: "Validation:" }),
+        e(t, { dimColor: true, children: "Validation:" }),
         r(t, { children: [" ", "/plugin validate <path> - Validate a manifest file or directory"] }),
         r(t, { children: [" ", "/plugin tag [path] [--push] [--dry-run] [-f] - Create a release tag for the plugin"] }),
         e(t, { children: " " }),
-        e(t, { dimColor: !0, children: "Other:" }),
+        e(t, { dimColor: true, children: "Other:" }),
         e(t, { children: " /plugin - Main plugin menu" }),
         e(t, { children: " /plugin help - Show this help" }),
         e(t, { children: " /plugins - Alias for /plugin" }),

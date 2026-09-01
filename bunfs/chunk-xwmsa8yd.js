@@ -78,8 +78,8 @@ async function Q(e, o, u = {}) {
     let d = await e.postControlRequest(ee(o), {
         signal: u.signal ? AbortSignal.any([u.signal, r.signal]) : r.signal,
         ...(u.timeoutMs !== void 0 && { timeoutMs: u.timeoutMs }),
-        ...(u.answerExpected === !1 && { answerExpected: !1 }),
-        background: !0,
+        ...(u.answerExpected === false && { answerExpected: false }),
+        background: true,
         onEchoed: (E) => {
           if (E === "unverified") r.abort();
         },
@@ -120,8 +120,8 @@ function ue(e) {
 var ce = [2000, 4000, 8000, 16000],
   te = 1048576;
 function me(e) {
-  if (e.passthrough.length === 0 || b(ee(e)).length <= te) return { body: e, trimmed: !1 };
-  return { body: { ...e, passthrough: [] }, trimmed: !0 };
+  if (e.passthrough.length === 0 || b(ee(e)).length <= te) return { body: e, trimmed: false };
+  return { body: { ...e, passthrough: [] }, trimmed: true };
 }
 function pe(e) {
   let { passthroughAdopted: o, ...u } = e;
@@ -136,14 +136,14 @@ function re(e) {
         let q = setTimeout(_, T);
         return { clear: () => clearTimeout(q) };
       }),
-    r = !1,
-    d = !1,
+    r = false,
+    d = false,
     S = null,
     E = 0,
     R = null,
     C = null,
     M = null,
-    P = !1,
+    P = false,
     D,
     N = null,
     t = 0,
@@ -158,15 +158,15 @@ function re(e) {
       }
       let { body: a, trimmed: w } = me(q);
       if (w && !P)
-        (P = !0),
+        (P = true),
           g("remote_tools_client_announce", "passthrough_over_frame"),
           n(
             `[remoteToolsAnnounce] the announce with this machine's ${q.passthrough.length} MCP tools is larger than the worker reads (${te} chars); announcing without them \u2014 they stay on the device bridge`,
             { level: "warn" },
           );
-      (S = null), U(), (d = !0), (D = a);
+      (S = null), U(), (d = true), (D = a);
       let W = await Q(T, a, { ...(e.signal && { signal: e.signal }), timeoutMs: de });
-      if (((d = !1), r)) return;
+      if (((d = false), r)) return;
       let K = w && W.kind === "announced" ? pe(W) : W,
         X = K.kind === "failed" && K.reason === "no_answer",
         J = K.kind === "refused" && K.reason === j;
@@ -252,18 +252,18 @@ function re(e) {
       },
       async withdraw() {
         if (r) return;
-        (r = !0), R?.clear(), U();
+        (r = true), R?.clear(), U();
         let _ = e.session(),
           T = D === void 0 ? void 0 : (e.build() ?? D);
         if (_ === null || T === void 0 || !e.workerLive()) return;
         await Q(
           _,
           { ...T, tools: [], passthrough: [], plumbing: [] },
-          { signal: AbortSignal.timeout(Z), timeoutMs: Z, answerExpected: !1 },
+          { signal: AbortSignal.timeout(Z), timeoutMs: Z, answerExpected: false },
         );
       },
       dispose() {
-        (r = !0), R?.clear(), (R = null), U();
+        (r = true), R?.clear(), (R = null), U();
       },
     };
   return B;
@@ -298,7 +298,7 @@ async function fe(e, o, u) {
   let S = await ge(e, d);
   if (S === void 0) return r("not this client's to answer");
   if (e.signal.aborted) return;
-  if (u()?.respondToServedChannelRequest(e.requestId, S) !== !0)
+  if (u()?.respondToServedChannelRequest(e.requestId, S) !== true)
     n(`[servedChannel] ${e.subtype} ${ZT(e.requestId)} answered after it was withdrawn \u2014 result dropped`);
 }
 async function ge(e, o) {
@@ -345,7 +345,7 @@ function Re(e) {
 function het(e) {
   let o = `cc-${he()}`,
     u = null,
-    r = !1,
+    r = false,
     d = null,
     S = null,
     E = () => {},
@@ -355,12 +355,12 @@ function het(e) {
     P,
     D,
     N,
-    t = !1,
-    k = !1,
-    O = !1,
+    t = false,
+    k = false,
+    O = false,
     A = re({
       session: e.manager,
-      workerLive: () => e.manager()?.workerLive() ?? !1,
+      workerLive: () => e.manager()?.workerLive() ?? false,
       build: () => {
         let a = u?.servedTools?.();
         if (a === void 0) return;
@@ -377,7 +377,7 @@ function het(e) {
         else if (((C = void 0), a.kind === "refused" && a.reason === "no_answer_parked")) P = W;
         else if (a.kind === "refused" || a.kind === "unsupported") {
           if (((M = W), a.kind === "refused" && a.reason === j && !O))
-            (O = !0), e.onNotice?.("announce_unverified", Se());
+            (O = true), e.onNotice?.("announce_unverified", Se());
         } else if (a.kind === "retry" && a.reason === "stale_worker_epoch") R = void 0;
         Re(a), e.onAnnounceOutcome?.(a, w);
       },
@@ -449,11 +449,11 @@ function het(e) {
     z = () => {},
     B = () => (
       (S ??= (async () => {
-        (r = !0), z();
+        (r = true), z();
         let a = u?.servedTools?.(),
           w = a === void 0 || Y(a),
           W = k && t && w ? Promise.resolve(A.dispose()) : A.withdraw();
-        e.manager()?.markServing(!1), await V, E(), await W, u?.dispose(), A.dispose();
+        e.manager()?.markServing(false), await V, E(), await W, u?.dispose(), A.dispose();
       })()),
       S
     ),
@@ -492,7 +492,7 @@ function met(e) {
       launchDir: e.launchDir,
       memory: e.memory,
       getTools: e.getTools,
-      respond: (t, k) => e.manager()?.respondToForwardedHook(t, k) ?? !1,
+      respond: (t, k) => e.manager()?.respondToForwardedHook(t, k) ?? false,
       release: (t) => e.manager()?.releaseForwardedHook(t),
       onLine: e.onLine,
       ...(e.trustAccepted && { trustAccepted: e.trustAccepted }),
@@ -525,7 +525,7 @@ function met(e) {
       }
     },
     D = e.memory.noteAttached(e.launchDir),
-    N = !1;
+    N = false;
   return {
     callbacks: {
       onForwardedHookCallback: (t) => {
@@ -547,7 +547,7 @@ function met(e) {
     snapshot: () => d.snapshot(),
     dispose: () => {
       if (N) return;
-      (N = !0), D(), E(), R(), M(), S();
+      (N = true), D(), E(), R(), M(), S();
       let t = d.unregister(ptt);
       d.dispose();
       let k = e.registerCleanup(() => t);
@@ -606,13 +606,13 @@ function yet({
     },
     P = () => {
       let t = S?.();
-      return d() || (t !== void 0 && t !== o && (t !== "default" || (E?.() ?? !1)));
+      return d() || (t !== void 0 && t !== o && (t !== "default" || (E?.() ?? false)));
     },
     D = async (t, k, O = Date.now(), A = 1) => {
       let F = new AbortController(),
         x = e.postControlRequest(
           { subtype: "set_permission_mode", mode: t },
-          { answerExpected: !1, background: !0, timeoutMs: we, signal: F.signal },
+          { answerExpected: false, background: true, timeoutMs: we, signal: F.signal },
         );
       x.response.catch(() => {});
       let I = await x.posted;
@@ -679,7 +679,7 @@ function wet(e) {
 }
 function Tet({ report: e, scheduleTimeout: o, isStillConnected: u }) {
   let r = null,
-    d = !1;
+    d = false;
   return (
     e().then((S) => {
       if (d || !u() || S === null || !Number.isFinite(S) || S < 1) return;
@@ -690,7 +690,7 @@ function Tet({ report: e, scheduleTimeout: o, isStillConnected: u }) {
       r = o(R, E);
     }),
     () => {
-      (d = !0), r?.(), (r = null);
+      (d = true), r?.(), (r = null);
     }
   );
 }

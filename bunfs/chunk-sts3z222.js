@@ -539,7 +539,7 @@ function et(e, t) {
   }
 }
 function Lr(e) {
-  if (!e) return { supportsFormMode: !1, supportsUrlMode: !1 };
+  if (!e) return { supportsFormMode: false, supportsUrlMode: false };
   let t = e.form !== void 0,
     r = e.url !== void 0;
   return { supportsFormMode: t || (!t && !r), supportsUrlMode: r };
@@ -832,7 +832,7 @@ class tt extends xYe {
     return o;
   }
   isToolTask(e) {
-    if (!this._serverCapabilities?.tasks?.requests?.tools?.call) return !1;
+    if (!this._serverCapabilities?.tasks?.requests?.tools?.call) return false;
     return this._cachedKnownTaskTools.has(e);
   }
   isToolTaskRequired(e) {
@@ -1098,7 +1098,7 @@ class ft {
         ((this._process = Ft.default(this._serverParams.command, this._serverParams.args ?? [], {
           env: { ...mt(), ...this._serverParams.env },
           stdio: ["pipe", "pipe", this._serverParams.stderr ?? "inherit"],
-          shell: !1,
+          shell: false,
           windowsHide: pt.platform === "win32",
           cwd: this._serverParams.cwd,
         })),
@@ -1133,7 +1133,7 @@ class ft {
     return this._process?.pid ?? null;
   }
   processReadBuffer() {
-    while (!0)
+    while (true)
       try {
         let e = this._readBuffer.readMessage();
         if (e === null) break;
@@ -1193,17 +1193,17 @@ class Nt extends Error {
 function $r(e) {
   let t = 0,
     r = 0,
-    o = !1;
+    o = false;
   return new TransformStream({
     transform(d, u) {
       let f = -1;
       for (let _ = 0; _ < d.length; _++) {
         let S = d[_];
         if (o && S === 10) {
-          o = !1;
+          o = false;
           continue;
         }
-        if (((o = !1), S === 10 || S === 13)) {
+        if (((o = false), S === 10 || S === 13)) {
           if (r === 0) f = _;
           (r = 0), (o = S === 13);
         } else r++;
@@ -1243,8 +1243,8 @@ class $t {
   onOverflow;
   chunks = [];
   byteLength = 0;
-  overflowed = !1;
-  overflowThrown = !1;
+  overflowed = false;
+  overflowThrown = false;
   constructor(e, t) {
     this.capBytes = e;
     this.onOverflow = t;
@@ -1252,7 +1252,7 @@ class $t {
   append(e) {
     if (this.overflowed) return;
     if (this.byteLength + e.length > this.capBytes) {
-      (this.chunks = []), (this.byteLength = 0), (this.overflowed = !0), this.onOverflow(new ze(this.capBytes));
+      (this.chunks = []), (this.byteLength = 0), (this.overflowed = true), this.onOverflow(new ze(this.capBytes));
       return;
     }
     this.chunks.push(e), (this.byteLength += e.length);
@@ -1260,7 +1260,7 @@ class $t {
   readMessage() {
     if (this.overflowed) {
       if (this.overflowThrown) return null;
-      throw ((this.overflowThrown = !0), new ze(this.capBytes));
+      throw ((this.overflowThrown = true), new ze(this.capBytes));
     }
     if (this.chunks.length === 0) return null;
     let e = this.chunks.at(-1),
@@ -1286,7 +1286,7 @@ class Ve extends ft {
   }
 }
 function We(e) {
-  return e.type === "claudeai-proxy" && e.stateless === !0 && k3e();
+  return e.type === "claudeai-proxy" && e.stateless === true && k3e();
 }
 function Ut(e) {
   if (!We(e) || e.type !== "claudeai-proxy") return;
@@ -1370,8 +1370,8 @@ function ka(e, t) {
   });
 }
 function ar(e) {
-  if (e instanceof W0) return !0;
-  if (e instanceof Er) return !1;
+  if (e instanceof W0) return true;
+  if (e instanceof Er) return false;
   let t = "code" in e ? e.code : void 0;
   if (t === 404) return !(e instanceof PW && e.message.includes("Failed to open SSE stream"));
   return t === 400 && /Server not initialized|No valid session ID|Mcp-Session-Id header is required/i.test(e.message);
@@ -1386,7 +1386,7 @@ function dr(e, t, r) {
   return ce(e, Gx) + "\u2026 [truncated]";
 }
 function zr(e) {
-  if (e.name === "AbortError") return !0;
+  if (e.name === "AbortError") return true;
   let t = e.message;
   return (
     t.includes("ECONNRESET") ||
@@ -1404,9 +1404,9 @@ var Vr = 1e8,
   Gt = 20,
   Wr = [250, 500, 1000];
 function Gr(e) {
-  if (Mst(e)) return !1;
-  if (Aae(e)) return !1;
-  if (e instanceof DOMException && e.name === "TimeoutError") return !1;
+  if (Mst(e)) return false;
+  if (Aae(e)) return false;
+  if (e instanceof DOMException && e.name === "TimeoutError") return false;
   if (
     e instanceof Error &&
     !(e instanceof Er) &&
@@ -1415,7 +1415,7 @@ function Gr(e) {
     e.code >= 400 &&
     e.code < 500
   )
-    return !1;
+    return false;
   if (e instanceof Er)
     return (
       e.code !== Ir.RequestTimeout &&
@@ -1423,15 +1423,15 @@ function Gr(e) {
       e.code !== Ir.InvalidRequest &&
       e.code !== Ir.InvalidParams
     );
-  return !0;
+  return true;
 }
 async function lt(e, t, r, o, d) {
-  let u = !1;
+  let u = false;
   for (let f = 0; ; f++) {
     let _ = [],
       S,
       h = 0,
-      P = !1;
+      P = false;
     try {
       do {
         let L = await e.request({ method: r, ...(S && { params: { cursor: S } }) }, o, { timeout: $c() });
@@ -1439,7 +1439,7 @@ async function lt(e, t, r, o, d) {
         let W = d(L);
         if (W) _.push(...W);
         if (((S = L.nextCursor), S && h >= Gt)) {
-          P = !0;
+          P = true;
           break;
         }
       } while (S);
@@ -1447,7 +1447,7 @@ async function lt(e, t, r, o, d) {
       if (h > 1) Kt(r, h, _.length, P ? "capped" : "complete");
       return _;
     } catch (L) {
-      if (h > 0 && !u) (u = !0), Kt(r, h, _.length, "error");
+      if (h > 0 && !u) (u = true), Kt(r, h, _.length, "error");
       let W = Wr[f];
       if (W === void 0 || !Gr(L)) throw L;
       Z(t, `${r} failed (${l(L)}); retrying in ${W}ms`), await ne(W);
@@ -1480,11 +1480,11 @@ var Zr = () => import.meta.require("/$bunfs/root/chunk-pk3favgm.js"),
   no = 90000;
 async function Jt(e, t, r) {
   let d = (await Rae(r))[e];
-  if (!d) return !1;
-  if (t.type === "claudeai-proxy" && d.id !== t.id) return !1;
-  if ((t.type === "stdio" || t.type === void 0) && t.pluginSource === void 0) return !1;
-  if ((t.type === "stdio" || t.type === void 0) && t.pluginSource !== void 0 && d.id !== MM(t)) return !1;
-  if ((t.type === "http" || t.type === "sse") && t.pluginSource !== void 0 && d.id !== void 0) return !1;
+  if (!d) return false;
+  if (t.type === "claudeai-proxy" && d.id !== t.id) return false;
+  if ((t.type === "stdio" || t.type === void 0) && t.pluginSource === void 0) return false;
+  if ((t.type === "stdio" || t.type === void 0) && t.pluginSource !== void 0 && d.id !== MM(t)) return false;
+  if ((t.type === "http" || t.type === "sse") && t.pluginSource !== void 0 && d.id !== void 0) return false;
   let u =
       t.type === "claudeai-proxy" || (t.pluginSource !== void 0 && (t.type === "http" || t.type === "sse") && !qMe(t)),
     f = d.ttlMs ?? (u ? oo : ro);
@@ -1528,7 +1528,7 @@ function st(e, t) {
       .catch(() => {});
   return (r.authCacheWriteChain = o), o;
 }
-function Ga(e = new Set(), t = !0) {
+function Ga(e = new Set(), t = true) {
   if (!Ho()) return;
   if (t) NWe();
   MWe();
@@ -1745,8 +1745,8 @@ function lo(e, t) {
     let { response: f, sentToken: _ } = await d();
     if (f.status !== 401) return u(f);
     let S = f.headers.get("X-Mcp-Error-Code") ?? void 0;
-    if (S) return s("tengu_mcp_claudeai_proxy_401", { tokenChanged: !1, proxyErrorCode: S }), f;
-    let h = await ym(_, t).catch(() => !1);
+    if (S) return s("tengu_mcp_claudeai_proxy_401", { tokenChanged: false, proxyErrorCode: S }), f;
+    let h = await ym(_, t).catch(() => false);
     if ((s("tengu_mcp_claudeai_proxy_401", { tokenChanged: h }), !h)) {
       let L = O() && t !== void 0 ? await HY(t) : Yt()?.accessToken;
       if (!L || L === _) throw new Et();
@@ -1804,7 +1804,7 @@ function fo(e, t, r) {
       type: "safetyCheck",
       reason:
         "tokenless design writes are native-tool-only \u2014 this connector surface has no reserved-path or grant-approval flow",
-      classifierApprovable: !1,
+      classifierApprovable: false,
     },
   };
 }
@@ -1817,12 +1817,12 @@ function go(e, t, r) {
     behavior: "ask",
     message: e,
     updatedInput: { ...t, __consentNonce: r },
-    localDisplayOnly: !0,
+    localDisplayOnly: true,
     decisionReason: {
       type: "safetyCheck",
       reason:
         "design agent consent \u2014 approving records a server-side grant for Claude agents to write your design projects",
-      classifierApprovable: !1,
+      classifierApprovable: false,
     },
   };
 }
@@ -1850,7 +1850,7 @@ function yo(e) {
   for (let d of e.permissionLayers ?? []) {
     if (d.kind === "permission_mode" && !(d.mode === "bypassPermissions" && !t.isBypassPermissionsModeAvailable))
       r = d.mode;
-    if (d.kind === "avoid_prompts") o = !0;
+    if (d.kind === "avoid_prompts") o = true;
   }
   return r !== "bypassPermissions" && r !== "dontAsk" && !(r === "plan" && t.isBypassPermissionsModeAvailable) && !o;
 }
@@ -1881,14 +1881,14 @@ function To(e, t) {
     let _ = xae();
     try {
       let S = await e(f);
-      if (o !== null && !f.aborted) _?.seedDesignConsentBit(r, o, !0);
+      if (o !== null && !f.aborted) _?.seedDesignConsentBit(r, o, true);
       return S;
     } catch (S) {
       if (!(S instanceof FZ) || !_) throw S;
       let h = S.consent;
       if (h !== o)
         throw (
-          (_.seedDesignConsentBit(r, h, !1),
+          (_.seedDesignConsentBit(r, h, false),
           new R(
             `${_.consentPromptFor(h)} The user hasn't granted this yet \u2014 ask them to retry (the prompt will show on the next call) or run /design consent.`,
             "first-party design MCP needs_consent (not shown)",
@@ -1896,7 +1896,7 @@ function To(e, t) {
         );
       if (!d)
         throw (
-          (_.seedDesignConsentBit(r, h, !1),
+          (_.seedDesignConsentBit(r, h, false),
           new R(
             `${_.consentPromptFor(h)} The user hasn't granted this \u2014 run /design consent to grant it (it can't be approved automatically in this permission mode).`,
             "first-party design MCP needs_consent (no prompt)",
@@ -1926,7 +1926,7 @@ function _t(e, t, r) {
     await _(S);
     let { response: h, sentToken: P } = S;
     if (h.status !== 401 || !P) return h;
-    if (!(await ym(P, t).catch(() => !1))) {
+    if (!(await ym(P, t).catch(() => false))) {
       let M = O() && t !== void 0 ? await HY(t) : Yt()?.accessToken;
       if (!M || M === P) return h;
     }
@@ -1947,7 +1947,7 @@ function Eo(e, t, r) {
 }
 var vo = new Set(["image/jpeg", "image/png", "image/gif", "image/webp"]);
 function er(e) {
-  if (!e) return !1;
+  if (!e) return false;
   let t = St(e, ";").trim().toLowerCase();
   return vo.has(t === "image/jpg" ? "image/jpeg" : t);
 }
@@ -1975,7 +1975,7 @@ function ot(e, t) {
     S.unref?.();
     let h = d?.signal;
     if (h?.aborted) _.abort(h.reason);
-    else h?.addEventListener("abort", () => _.abort(h.reason), { once: !0 });
+    else h?.addEventListener("abort", () => _.abort(h.reason), { once: true });
     try {
       return await e(o, { ...d, headers: f, signal: _.signal });
     } finally {
@@ -2001,18 +2001,18 @@ function Ao(e) {
 }
 function vr(e, t) {
   let r = I(e, []);
-  if (!Array.isArray(r) || r.length === 0) return !1;
-  if (r.includes("*")) return !0;
-  if (!("url" in t) || typeof t.url !== "string") return !1;
+  if (!Array.isArray(r) || r.length === 0) return false;
+  if (r.includes("*")) return true;
+  if (!("url" in t) || typeof t.url !== "string") return false;
   try {
     let o = new URL(t.url).hostname.toLowerCase();
     return r.some((d) => {
-      if (typeof d !== "string" || d === "") return !1;
+      if (typeof d !== "string" || d === "") return false;
       let u = d.toLowerCase();
       return o === u || o.endsWith(`.${u}`);
     });
   } catch {
-    return !1;
+    return false;
   }
 }
 function Io(e) {
@@ -2028,7 +2028,7 @@ function Ka(e) {
 function Ja(e) {
   qt().reauthDecisionSinkForTest = e;
 }
-function Oo(e = !1) {
+function Oo(e = false) {
   let t = [];
   if (e)
     try {
@@ -2047,12 +2047,12 @@ function Oo(e = !1) {
 }
 var Lo = new Set(["documents"]);
 function xo(e) {
-  if (D() === "windows") return !1;
-  if (!e.pluginSource) return !1;
+  if (D() === "windows") return false;
+  if (!e.pluginSource) return false;
   try {
     return Lo.has(Vt(e.pluginSource).name.toLowerCase());
   } catch {
-    return !1;
+    return false;
   }
 }
 function Xa() {
@@ -2072,7 +2072,7 @@ var Fo = [
 ];
 function No(e) {
   let t = new R(e, "MCP connection timeout");
-  if (I("tengu_mcp_connect_timeout_retry", !0)) return Object.assign(t, { code: "CONNECT_TIMEOUT" });
+  if (I("tengu_mcp_connect_timeout_retry", true)) return Object.assign(t, { code: "CONNECT_TIMEOUT" });
   return t;
 }
 var Ae = $st(
@@ -2114,8 +2114,8 @@ var Ae = $st(
     }
     let h,
       P,
-      L = !1,
-      W = !1,
+      L = false,
+      W = false,
       M;
     try {
       let _e = function () {
@@ -2241,7 +2241,7 @@ var Ae = $st(
           { createLinkedTransportPair: te } = await import("/$bunfs/root/chunk-eg7d3v5s.js"),
           { setChromeBinding: me } = await import("/$bunfs/root/chunk-v34fst4n.js"),
           { registerChromeTabGroupCleanup: Ce } = await import("/$bunfs/root/chunk-z86fbdnb.js"),
-          he = T(t.env, { availabilityFunnel: !0, credentials: d }),
+          he = T(t.env, { availabilityFunnel: true, credentials: d }),
           Le = F(he);
         me(he, Le), Ce(), (h = N(he, Le));
         let [ve, Te] = te();
@@ -2260,7 +2260,7 @@ var Ae = $st(
             args: te,
             pending: me,
             capped: Ce,
-          } = ole(e) ? { command: T, args: F, pending: !1, capped: !1 } : rAt("mcp", T, F);
+          } = ole(e) ? { command: T, args: F, pending: false, capped: false } : rAt("mcp", T, F);
         (L = me), (W = Ce);
         let he = s8e() ? { ...mt(), ...Ide() } : Na(),
           { CLAUDE_CODE_CHILD_SESSION: Le, ...ve } = he;
@@ -2390,7 +2390,7 @@ var Ae = $st(
             transportType: "sse",
             error: T,
             statusCode: T.code,
-            sawAuthChallenge: P?.sawAuthChallenge === !0,
+            sawAuthChallenge: P?.sawAuthChallenge === true,
             hasUserAuthHeader: ee,
             helperMintsAuthHeader: le,
             cliOwnedBearer: q,
@@ -2413,7 +2413,7 @@ var Ae = $st(
             transportType: "http",
             error: T,
             statusCode: T.code,
-            sawAuthChallenge: P?.sawAuthChallenge === !0,
+            sawAuthChallenge: P?.sawAuthChallenge === true,
             hasUserAuthHeader: ee,
             helperMintsAuthHeader: le,
             cliOwnedBearer: q,
@@ -2446,7 +2446,7 @@ var Ae = $st(
               );
             return me;
           }
-          if (N === 401 || N === 403) return yr(e, t, "claudeai-proxy", void 0, !1, f, o);
+          if (N === 401 || N === 403) return yr(e, t, "claudeai-proxy", void 0, false, f, o);
         } else if (t.type === "sse-ide" || t.type === "ws-ide")
           s("tengu_mcp_ide_server_connection_failed", { connectionDurationMs: F });
         if (h) h.close().catch(() => {});
@@ -2477,7 +2477,7 @@ var Ae = $st(
           });
       }
       let Ie = Date.now(),
-        ye = !1,
+        ye = false,
         X = U.onerror,
         ge = U.onclose,
         V = 3,
@@ -2487,10 +2487,10 @@ var Ae = $st(
           pendingElicitations: 0,
           lastElicitationClosedAt: 0,
         },
-        Pe = !1,
+        Pe = false,
         ue = (T) => {
           if (Pe) return;
-          (Pe = !0),
+          (Pe = true),
             Z(e, `Closing transport (${T})`),
             U.close().catch((F) => {
               Z(e, `Error during close: ${l(F)}`);
@@ -2505,20 +2505,20 @@ var Ae = $st(
           }
           if (T instanceof FZ) return;
           if (F === "stdio" && T instanceof ze) {
-            if ((to(e, T.message), (ye = !0), ue("stdout overflow"), X)) X(T);
+            if ((to(e, T.message), (ye = true), ue("stdout overflow"), X)) X(T);
             return;
           }
           if ((F === "sse" || F === "sse-ide" || F === "http" || F === "claudeai-proxy") && T.message.includes(ht)) {
-            if ((to(e, T.message), (ye = !0), ue("http body overflow"), X)) X(T);
+            if ((to(e, T.message), (ye = true), ue("http body overflow"), X)) X(T);
             return;
           }
           if ((F === "sse" || F === "http" || F === "claudeai-proxy") && T instanceof SyntaxError) {
-            if (((ye = !0), _e(), ue("malformed JSON-RPC message (response truncated)"), X)) X(T);
+            if (((ye = true), _e(), ue("malformed JSON-RPC message (response truncated)"), X)) X(T);
             return;
           }
           let N = Date.now() - Ie;
           if (
-            ((ye = !0), Z(e, `${F.toUpperCase()} connection dropped after ${Math.floor(N / 1000)}s uptime`), T.message)
+            ((ye = true), Z(e, `${F.toUpperCase()} connection dropped after ${Math.floor(N / 1000)}s uptime`), T.message)
           ) {
             let te = Fo.find(([me]) => T.message.includes(me))?.[1];
             Z(e, te ?? `Connection error: ${T.message}`);
@@ -2614,16 +2614,16 @@ var Ae = $st(
                   return;
                 }
                 await new Promise(async (N) => {
-                  let te = !1,
+                  let te = false,
                     me = () => {
                       if (te) return;
-                      (te = !0), clearInterval(he), clearTimeout(Le), N();
+                      (te = true), clearInterval(he), clearTimeout(Le), N();
                     },
                     Ce = (ve) => {
                       try {
-                        return process.kill(ve, 0), !0;
+                        return process.kill(ve, 0), true;
                       } catch {
-                        return !1;
+                        return false;
                       }
                     },
                     he = setInterval(
@@ -2833,14 +2833,14 @@ function it(e, t, r) {
       error: r === "policy" ? NS : dwe,
       errorCode: r === "policy" ? "POLICY_BLOCKED" : "DISABLED",
     },
-    !1,
+    false,
   );
 }
 async function $o(e, t) {
   let r = ur(e, t),
     o = mr().connections.get(r);
-  if (!o) return !1;
-  if ((await $e(o))?.type !== "connected") return !1;
+  if (!o) return false;
+  if ((await $e(o))?.type !== "connected") return false;
   return !qt().swrRefreshDialsInFlight.has(o);
 }
 async function Uo(e, t) {
@@ -2918,14 +2918,14 @@ async function at(e, t) {
 }
 async function ec(e, t) {
   let r = ur(e, t);
-  if (!Ho()) return mr().connections.delete(r), !0;
+  if (!Ho()) return mr().connections.delete(r), true;
   let o = mr().connections.get(r);
   if (o !== void 0) {
     let d = await $e(o);
-    if (d === void 0 || d.type === "connected") return !1;
-    if (mr().connections.get(r) !== o) return !1;
+    if (d === void 0 || d.type === "connected") return false;
+    if (mr().connections.get(r) !== o) return false;
   }
-  return mr().connections.delete(r), !0;
+  return mr().connections.delete(r), true;
 }
 function tc(e) {
   let t = ur(e.name, e.config);
@@ -2997,7 +2997,7 @@ async function Ot(e, t) {
 }
 function He(e, t, r) {
   let o = Ae.cache;
-  if (!o?.get) return !1;
+  if (!o?.get) return false;
   return o.get(ur(t, r)) !== e;
 }
 function De(e) {
@@ -3118,17 +3118,17 @@ function br() {
 function lc() {
   let e = qt();
   if (e.identitySeedAttempted) return;
-  e.identitySeedAttempted = !0;
+  e.identitySeedAttempted = true;
   let t = br();
   if (t !== void 0) e.identityBaseline = t;
 }
 function uc() {
   let e = br(),
     t = qt();
-  if (e === void 0) return (t.identityBaseline = void 0), !0;
-  if (t.identityBaseline === void 0) return (t.identityBaseline = e), !0;
-  if (t.identityBaseline === e) return !1;
-  return (t.identityBaseline = e), !0;
+  if (e === void 0) return (t.identityBaseline = void 0), true;
+  if (t.identityBaseline === void 0) return (t.identityBaseline = e), true;
+  if (t.identityBaseline === e) return false;
+  return (t.identityBaseline = e), true;
 }
 function or(e, t) {
   if (!Ho()) return;
@@ -3158,18 +3158,18 @@ function Vo(e) {
 async function Mt(e, t) {
   Ne();
   let r = qt();
-  if (r.persistedDiscoveryRounds.has(t.tools)) return !0;
-  if (!lE(t.identityEpoch)) return !0;
+  if (r.persistedDiscoveryRounds.has(t.tools)) return true;
+  if (!lE(t.identityEpoch)) return true;
   let o = r.rawToolsByResult.get(t.tools),
     d = r.rawCommandsByResult.get(t.commands),
     u = r.rawResourcesByResult.get(t.resources);
-  if (o === void 0 || d === void 0 || u === void 0 || t.templates === void 0) return !1;
+  if (o === void 0 || d === void 0 || u === void 0 || t.templates === void 0) return false;
   let f = Math.min(
     r.rawFetchedAtByResult.get(t.tools) ?? Number.POSITIVE_INFINITY,
     r.rawFetchedAtByResult.get(t.commands) ?? Number.POSITIVE_INFINITY,
     r.rawFetchedAtByResult.get(t.resources) ?? Number.POSITIVE_INFINITY,
   );
-  if (!Number.isFinite(f)) return !0;
+  if (!Number.isFinite(f)) return true;
   let _ = f,
     S = [t.tools, t.commands, t.resources].map((P) => [P, r.rawFetchedAtByResult.get(P)]);
   r.rawToolsByResult.delete(t.tools),
@@ -3193,7 +3193,7 @@ async function Mt(e, t) {
     },
     { identityEpoch: t.identityEpoch, grantLeg: t.grantLeg, now: _ },
   );
-  if (h === "terminal") return r.persistedDiscoveryRounds.delete(t.tools), !1;
+  if (h === "terminal") return r.persistedDiscoveryRounds.delete(t.tools), false;
   if (h === "transient") {
     r.rawToolsByResult.set(t.tools, o),
       r.rawCommandsByResult.set(t.commands, d),
@@ -3201,7 +3201,7 @@ async function Mt(e, t) {
     for (let [P, L] of S) if (L !== void 0) r.rawFetchedAtByResult.set(P, L);
     r.persistedDiscoveryRounds.delete(t.tools);
   }
-  return !0;
+  return true;
 }
 async function mc(e, t, r) {
   if ((Ne(), !lE(r.identityEpoch))) return;
@@ -3230,13 +3230,13 @@ function Ko(e) {
     case "corrupt":
     case "strike-threshold":
     case "no-fingerprint":
-      return !0;
+      return true;
     case "disabled":
     case "transport":
     case "live-connection":
     case "skills-capable":
     case "channel-capable":
-      return !1;
+      return false;
     default:
       return e.reason;
   }
@@ -3417,7 +3417,7 @@ ${v.description}`
       let ie = xc(e.name, v.name),
         ae = v._meta?.["anthropic/maxResultSizeChars"],
         de = typeof ae === "number" && Number.isFinite(ae) && ae > 0,
-        Ee = v._meta?.["anthropic/requiresUserInteraction"] === !0,
+        Ee = v._meta?.["anthropic/requiresUserInteraction"] === true,
         Re = U?.tools?.[v.name] ?? v.description ?? "",
         Ie = dr(Re, `Tool "${v.name}" description`, e.name),
         ye =
@@ -3434,16 +3434,16 @@ ${v.description}`
             displayName: "displayName" in e.config ? e.config.displayName : void 0,
             iconUrl: "iconUrl" in e.config ? e.config.iconUrl : void 0,
             serverInfoName: i4(e.serverInfo?.name ?? "") || void 0,
-            ...(G && { cliOwned: !0 }),
+            ...(G && { cliOwned: true }),
             toolName: v.name,
             title: v.annotations?.title?.replace(/\s+/g, " ").trim() || void 0,
             execution: v.execution,
             role: "role" in e.config ? e.config.role : void 0,
             effectiveMaxPermission: P?.[v.name],
           },
-          isMcp: !0,
+          isMcp: true,
           searchHint: ye?.replace(/\s+/g, " ").trim() || void 0,
-          alwaysLoad: e.config.alwaysLoad === !0 || v._meta?.["anthropic/alwaysLoad"] === !0,
+          alwaysLoad: e.config.alwaysLoad === true || v._meta?.["anthropic/alwaysLoad"] === true,
           async description() {
             return Re;
           },
@@ -3451,20 +3451,20 @@ ${v.description}`
             return Ie;
           },
           isConcurrencySafe() {
-            return v.annotations?.readOnlyHint ?? !1;
+            return v.annotations?.readOnlyHint ?? false;
           },
           isReadOnly() {
-            return v.annotations?.readOnlyHint ?? !1;
+            return v.annotations?.readOnlyHint ?? false;
           },
           readOnlyHint: v.annotations?.readOnlyHint,
           toAutoClassifierInput(V) {
             return zo(V, v.name);
           },
           isDestructive() {
-            return v.annotations?.destructiveHint ?? !1;
+            return v.annotations?.destructiveHint ?? false;
           },
           isOpenWorld() {
-            return v.annotations?.openWorldHint ?? !1;
+            return v.annotations?.openWorldHint ?? false;
           },
           requiresUserInteraction() {
             return Ee;
@@ -3489,7 +3489,7 @@ ${v.description}`
                 behavior: "ask",
                 message: "MCPTool requires permission.",
                 suggestions: [],
-                suppressAlwaysAllowRule: !0,
+                suppressAlwaysAllowRule: true,
               };
             return {
               behavior: "passthrough",
@@ -3509,7 +3509,7 @@ ${v.description}`
           async call(V, B, _e, Pe, ue) {
             let pe = nn(Pe),
               oe = pe ? { "claudecode/toolUseId": pe } : {},
-              Me = !1;
+              Me = false;
             function be(he) {
               if (!ue || !pe || Me) return;
               ue({ type: "progress", toolUseID: pe, data: he });
@@ -3517,7 +3517,7 @@ ${v.description}`
             be({ type: "mcp_progress", status: "started", serverName: e.name, toolName: v.name });
             let Ue = Date.now(),
               T = e,
-              F = !1,
+              F = false,
               N = typeof V.__consentNonce === "string" ? V.__consentNonce : void 0;
             if ("__consentNonce" in V) {
               let { __consentNonce: he, ...Le } = V;
@@ -3610,7 +3610,7 @@ ${v.description}`
               Ce = To(me, {
                 designSession: B.toolState.get(HA),
                 approvedConsentBit: te?.bit ?? null,
-                consentAskReachesUser: (te?.askReachesUser ?? !1) && Qt(B),
+                consentAskReachesUser: (te?.askReachesUser ?? false) && Qt(B),
                 credentials: B.credentials,
               });
             if (gt && !B.agentId && B.taskRegistry !== bB && X.name !== CU()) {
@@ -3631,7 +3631,7 @@ ${v.description}`
                   hasPendingElicitation: () =>
                     F || ((T.type === "connected" ? T.transportErrorState?.pendingElicitations : void 0) ?? 0) > 0,
                   onBackgrounded: () => {
-                    Me = !0;
+                    Me = true;
                   },
                 });
             }
@@ -3668,7 +3668,7 @@ ${v.description}`
             Jw(e.config.pluginSource), sk(e.config.pluginSource, "mcp", { kind: "mcp-server", name: e.name });
           let pe = E();
           if (pe) yct(e.name);
-          return ge(Gct(V, v.name, e.name, pe, I("tengu_mcp_strip_trailing_xml_tags", !1), f), B, _e, Pe, ue);
+          return ge(Gct(V, v.name, e.name, pe, I("tengu_mcp_strip_trailing_xml_tags", false), f), B, _e, Pe, ue);
         }),
         X
       );
@@ -3678,7 +3678,7 @@ ${v.description}`
       transportType: c(e.config.type ?? "stdio"),
       listDurationMs: Date.now() - r,
       toolCount: fe.length,
-      alwaysLoadCount: Q(fe, (v) => v.alwaysLoad === !0),
+      alwaysLoadCount: Q(fe, (v) => v.alwaysLoad === true),
       discoverySource: c(o),
       ..._,
       mcpServerName: EA(ln(e.name), xT(e.name, e.config)),
@@ -3719,7 +3719,7 @@ var Xe = _8(
         return (
           g("mcp_list_tools", "mcp_list_tools_needs_auth"),
           Z(e.name, "tools/list 401/403 on claude.ai proxy \u2014 flagging needs-auth"),
-          (e.discoveryAuthFailure = !0),
+          (e.discoveryAuthFailure = true),
           mr().toolLists.delete(ur(e.name, e.config)),
           []
         );
@@ -3733,7 +3733,7 @@ var Xe = _8(
               ? "mcp_list_tools_timeout"
               : "mcp_list_tools_failed";
       if ((g("mcp_list_tools", _), (f ? Z : to)(e.name, `Failed to fetch tools: ${u}`), (e.toolsListError = u), f))
-        e.discoveryBearerRejected = !0;
+        e.discoveryBearerRejected = true;
       let h = [];
       if ((qt().toolsListErrorByResult.set(h, u), !f)) {
         let P = Oe(e.config, e.name);
@@ -3754,7 +3754,7 @@ function Ar(e, t, r, o, d, u) {
   let f = l(t),
     _ = e.config.type === "claudeai-proxy" && Mst(t),
     S = e.config.type === "claudeai-proxy" && Aae(t);
-  if (S) e.discoveryBearerRejected = !0;
+  if (S) e.discoveryBearerRejected = true;
   let h = _
     ? `${r}_needs_auth`
     : S
@@ -3883,9 +3883,9 @@ function Dr(e, t) {
       description: h ?? "",
       hasUserSpecifiedDescription: !!h,
       contentLength: 0,
-      isEnabled: () => !0,
-      isHidden: !1,
-      isMcp: !0,
+      isEnabled: () => true,
+      isHidden: false,
+      isMcp: true,
       progressMessage: "running",
       userFacingName() {
         return d ? f.name : `${e.name}:${f.name} (MCP)`;
@@ -4054,7 +4054,7 @@ async function Yo(e, t, r, o) {
       if (!u(C.client.config)) e(C);
     };
   Ne();
-  let _ = !1,
+  let _ = false,
     S = Object.entries(t ?? (await EE()).servers),
     h = [];
   for (let C of S)
@@ -4127,7 +4127,7 @@ async function Yo(e, t, r, o) {
             Ie = (v.templates ?? []).map((ge) => ({ ...ge, server: C })),
             ye = !!v.capabilities.resources || Re.length > 0,
             X = [];
-          if (ye && !_) (_ = !0), X.push(UA, BA, cD);
+          if (ye && !_) (_ = true), X.push(UA, BA, cD);
           if (
             (s("tengu_mcp_discovery_source", {
               source: w(U.kind === "fresh" ? "cache_fresh" : "cache_stale"),
@@ -4170,23 +4170,23 @@ async function Yo(e, t, r, o) {
                   let be = qt().cachedFirstDialArmsRan;
                   if (be.has(oe)) return;
                   if ((be.add(oe), oe.type === "needs-auth")) wt(C, E);
-                  else if (oe.type === "failed") At(oe, !1);
+                  else if (oe.type === "failed") At(oe, false);
                 },
                 ue = (oe) => {
                   let Me = qt().cachedFirstDialArmsRan;
                   if (Me.has(oe)) return;
                   Me.add(oe), wt(C, E);
                 },
-                pe = !1;
+                pe = false;
               try {
                 (V = Ae(C, E, le, r, o)),
                   qt().swrRefreshDialsInFlight.add(V),
                   V.then(
                     () => {
-                      pe = !0;
+                      pe = true;
                     },
                     () => {
-                      pe = !0;
+                      pe = true;
                     },
                   );
                 let oe = await __e(V, { serverName: C, context: "MCP discovery-cache stale refresh" });
@@ -4320,7 +4320,7 @@ async function Yo(e, t, r, o) {
                     ? void 0
                     : Mt(G, { tools: ae, commands: de, resources: Re, templates: X, identityEpoch: d, grantLeg: ie }),
                 B = [];
-              if (v && !_) (_ = !0), B.push(UA, BA, cD);
+              if (v && !_) (_ = true), B.push(UA, BA, cD);
               f({
                 client: G,
                 tools: [...ae, ...B],
@@ -4353,10 +4353,10 @@ function Cc(e, t, r) {
     let f = [],
       _ = [],
       S = [],
-      h = !1,
+      h = false,
       P = () => {
         if (h) return;
-        h = !0;
+        h = true;
         let L = S.reduce((W, M) => {
           let A = M.name.length + (M.description ?? "").length + (M.argumentHint ?? "").length;
           return W + A;
@@ -4383,7 +4383,7 @@ function Cc(e, t, r) {
       });
   });
 }
-async function Rt(e, t, r, o, d = !1) {
+async function Rt(e, t, r, o, d = false) {
   switch (e.type) {
     case "text": {
       let u = { type: "text", text: e.text };
@@ -4464,7 +4464,7 @@ async function Xo(e, t, r, o, d) {
       if ("content" in e && Array.isArray(e.content)) {
         let S = e.content.filter((h) => h && typeof h === "object" && "type" in h && h.type !== "text");
         if (S.length > 0) {
-          let h = (await Promise.all(S.map((P) => Rt(P, r, o, d, !0)))).flat();
+          let h = (await Promise.all(S.map((P) => Rt(P, r, o, d, true)))).flat();
           if (h.length > 0) {
             let P = [...h, { type: "text", text: f }];
             return { content: P, type: "contentArray", schema: Ye(iG(P)) };
@@ -4474,7 +4474,7 @@ async function Xo(e, t, r, o, d) {
       return { content: f, type: "structuredContent", schema: _ };
     }
     if ("content" in e && Array.isArray(e.content)) {
-      let f = (await Promise.all(e.content.map((_) => Rt(_, r, o, d, !0)))).flat();
+      let f = (await Promise.all(e.content.map((_) => Rt(_, r, o, d, true)))).flat();
       return { content: f, type: "contentArray", schema: Ye(iG(f)) };
     }
   }
@@ -4484,7 +4484,7 @@ async function Xo(e, t, r, o, d) {
   );
 }
 function ir(e) {
-  if (!e || typeof e === "string") return !1;
+  if (!e || typeof e === "string") return false;
   return e.some((t) => t.type === "image");
 }
 async function Qo(e, t, r, o, d, u, f) {
@@ -4493,7 +4493,7 @@ async function Qo(e, t, r, o, d, u, f) {
   if (d && !ir(_)) return _;
   if (!(await kWe(_, f))) return _;
   let P = Iae(_);
-  if (a.ENABLE_MCP_LARGE_OUTPUT_FILES === !1)
+  if (a.ENABLE_MCP_LARGE_OUTPUT_FILES === false)
     return (
       s("tengu_mcp_large_result_handled", {
         outcome: w("truncated"),
@@ -4515,7 +4515,7 @@ async function Qo(e, t, r, o, d, u, f) {
   let L = Date.now(),
     W = `mcp-${ln(r)}-${ln(t)}-${L}`,
     M = iG(_),
-    A = R3e() || I("tengu_mcp_singleton_unwrap", !0),
+    A = R3e() || I("tengu_mcp_singleton_unwrap", true),
     q = Array.isArray(M) ? M.length : void 0,
     ee =
       A && Array.isArray(M) && M.length === 1 && M[0]?.type === "text" && !("annotations" in M[0]) && !("_meta" in M[0])
@@ -4573,7 +4573,7 @@ async function tn({
   onProgress: f,
   callToolFn: _ = Lt,
   requestDialog: S,
-  hasResultSizeAnnotation: h = !1,
+  hasResultSizeAnnotation: h = false,
   imageLimits: P,
   toolExecution: L,
   taskRegistry: W,
@@ -4583,7 +4583,7 @@ async function tn({
   storageV5: ee,
   credentials: J,
 }) {
-  let z = !1;
+  let z = false;
   for (let se = 0; ; se++)
     try {
       let C = () =>
@@ -4633,7 +4633,7 @@ async function tn({
                   !!q &&
                   !!M &&
                   !z &&
-                  I("tengu_mcp_proxy_needs_approval_retry", !0))),
+                  I("tengu_mcp_proxy_needs_approval_retry", true))),
           },
           C,
         );
@@ -4653,9 +4653,9 @@ async function tn({
         q &&
         M &&
         !z &&
-        I("tengu_mcp_proxy_needs_approval_retry", !0)
+        I("tengu_mcp_proxy_needs_approval_retry", true)
       ) {
-        z = !0;
+        z = true;
         let U = C.data ?? {},
           { canUseTool: re, tool: G, fullyQualifiedName: fe, toolUseContext: v, parentMessage: ie } = q;
         Z(
@@ -4664,10 +4664,10 @@ async function tn({
             "approval card",
         ),
           s("tengu_mcp_proxy_needs_approval_retry", { attempt: se }),
-          A?.(!0);
+          A?.(true);
         let ae = {
             behavior: "ask",
-            suppressAlwaysAllowRule: !0,
+            suppressAlwaysAllowRule: true,
             message: `The ${fe} connector requires approval for this call.`,
             decisionReason: { type: "other", reason: "This connector call requires your approval to proceed." },
           },
@@ -4675,7 +4675,7 @@ async function tn({
         try {
           de = await re(G, o, v, ie, M, ae);
         } finally {
-          A?.(!1);
+          A?.(false);
         }
         if (u.aborted) throw new Ze();
         if (de.behavior === "allow") {
@@ -4716,16 +4716,16 @@ async function tn({
             return {
               content: `URL elicitation was ${G.action === "decline" ? "declined" : G.action + "ed"} by a hook. The tool "${r}" could not complete because it requires the user to open a URL.`,
               urlElicitationDeclined: { url: U.url },
-              isError: !0,
+              isError: true,
             };
           continue;
         }
         let fe;
-        A?.(!0);
+        A?.(true);
         try {
           fe = S ? await S(SB, { serverName: x, params: U }, { signal: u }) : { action: "cancel" };
         } finally {
-          A?.(!1);
+          A?.(false);
         }
         let v = await WDt(x, fe, u, "url", re);
         if (v.action !== "accept")
@@ -4734,7 +4734,7 @@ async function tn({
             {
               content: `URL elicitation was ${v.action === "decline" ? "declined" : v.action + "ed"} by the user. The tool "${r}" could not complete because it requires the user to open a URL.`,
               urlElicitationDeclined: { url: U.url },
-              isError: !0,
+              isError: true,
             }
           );
         Z(x, `Elicitation ${re} completed, retrying tool call`);
@@ -4781,13 +4781,13 @@ async function Lt({
   meta: f,
   signal: _,
   onProgress: S,
-  hasResultSizeAnnotation: h = !1,
+  hasResultSizeAnnotation: h = false,
   imageLimits: P,
   toolExecution: L,
   taskRegistry: W,
   toolUseId: M,
   idleTimeoutMs: A,
-  isAuthRetry: q = !1,
+  isAuthRetry: q = false,
   storageV5: ee,
   credentials: J,
 }) {
@@ -4896,7 +4896,7 @@ async function Lt({
             : `${Math.floor(Ee / 60000)}m ${Math.floor((Ee % 60000) / 1000)}s`;
     Z(t, `Tool '${d}' completed successfully in ${Re}`);
     let Ie = jct(t);
-    if (Ie) s("tengu_code_indexing_tool_used", { tool: c(Ie), source: w("mcp"), success: !0 });
+    if (Ie) s("tengu_code_indexing_tool_used", { tool: c(Ie), source: w("mcp"), success: true });
     return { content: await Qo(de, d, t, P, h, ee, J), _meta: de._meta, structuredContent: de.structuredContent };
   } catch (x) {
     if (C !== void 0) clearInterval(C);
@@ -4979,7 +4979,7 @@ async function Lt({
               taskRegistry: W,
               toolUseId: M,
               idleTimeoutMs: A,
-              isAuthRetry: !0,
+              isAuthRetry: true,
               storageV5: ee,
               credentials: J,
             });
@@ -5009,7 +5009,7 @@ async function Lt({
         );
       if (ae) {
         Z(t, "Tool call returned 401 Unauthorized - token may have expired");
-        let ye = r.type === "claudeai-proxy" && r.eligible === !1,
+        let ye = r.type === "claudeai-proxy" && r.eligible === false,
           X = Oe(r, t),
           ge = xT(t, r);
         throw (
@@ -5060,7 +5060,7 @@ async function Lt({
     if (x instanceof OC || ((re?.name === "ZodError" || re?.name === "$ZodError") && Array.isArray(re?.issues)))
       throw new tIe(t, x);
     if (!(x instanceof Error) || x.name !== "AbortError") throw x;
-    return { content: nIe, interrupted: !0, isError: !0 };
+    return { content: nIe, interrupted: true, isError: true };
   } finally {
     if (C !== void 0) clearInterval(C);
   }

@@ -374,28 +374,28 @@ function N({ repo: e, refs: t, sessionId: i, onReceive: d, signal: h, now: m = D
     },
     p = async ({ content: r, targets: o, heldBases: u, heldRefs: b }) => {
       let O = m();
-      if (Rt(h)) return { ok: !1, reason: "aborted" };
-      if (r.length > wW) return { ok: !1, reason: "too_large", sizeBytes: r.length };
+      if (Rt(h)) return { ok: false, reason: "aborted" };
+      if (r.length > wW) return { ok: false, reason: "too_large", sizeBytes: r.length };
       let E = arn(r, { refNames: [...o.keys()] });
       if (!E.ok) return E;
       let { header: _ } = E;
-      if (_.refs.length === 0) return { ok: !1, reason: "unexpected_refs" };
+      if (_.refs.length === 0) return { ok: false, reason: "unexpected_refs" };
       let C = new Set([...u, ...t.matching(b.glob).map((R) => R.id)]),
         S = [];
       for (let R of _.prerequisites) if (!(await z(e, R, C))) S.push(R);
-      if (S.length > 0) return { ok: !1, reason: "prerequisites_missing", missingCount: S.length, missing: S };
+      if (S.length > 0) return { ok: false, reason: "prerequisites_missing", missingCount: S.length, missing: S };
       let P = await i2n(r.subarray(_.packOffset), { objectFormat: y, maxInflatedBytes: X, maxObjects: K });
       if (!P.ok)
         return P.reason === "not_a_pack"
-          ? { ok: !1, reason: "not_a_bundle" }
-          : { ok: !1, reason: "unpack_failed", detail: `${P.reason}: ${P.detail}` };
+          ? { ok: false, reason: "not_a_bundle" }
+          : { ok: false, reason: "unpack_failed", detail: `${P.reason}: ${P.detail}` };
       let v = P.objects.find((R) => !Q(R, y));
       if (v !== void 0)
-        return { ok: !1, reason: "unpack_failed", detail: `${v.type} ${v.id} is not one git would accept` };
+        return { ok: false, reason: "unpack_failed", detail: `${v.type} ${v.id} is not one git would accept` };
       let T = P.objects.find((R) => R.body.length > Yhe);
       if (T !== void 0)
         return {
-          ok: !1,
+          ok: false,
           reason: "unpack_failed",
           detail: `${T.type} ${T.id} is ${String(T.body.length)} bytes, more than this machine stores`,
         };
@@ -404,24 +404,24 @@ function N({ repo: e, refs: t, sessionId: i, onReceive: d, signal: h, now: m = D
       for (let R of _.refs) {
         let B = a.get(R.id);
         if (B === void 0 || B.type !== "commit")
-          return { ok: !1, reason: "unpack_failed", detail: `tip ${R.id} is not a commit in the pack` };
+          return { ok: false, reason: "unpack_failed", detail: `tip ${R.id} is not a commit in the pack` };
         j.push(B);
       }
       let A = await ee(e, a, j, C, y);
       if (A.unaccounted !== null)
         return {
-          ok: !1,
+          ok: false,
           reason: "unpack_failed",
           detail: `the pack does not account for ${A.unaccounted} (a tree it names, or a parent outside it that is not history this session holds)`,
         };
       let L = P.objects.find((R) => !A.reached.has(R.id));
       if (L !== void 0)
         return {
-          ok: !1,
+          ok: false,
           reason: "unpack_failed",
           detail: `the pack carries ${L.type} ${L.id}, which none of its tips reaches`,
         };
-      if (Rt(h)) return { ok: !1, reason: "aborted" };
+      if (Rt(h)) return { ok: false, reason: "aborted" };
       for (let R of ["blob", "tree", "commit"])
         for (let B of P.objects) if (B.type === R) await e.store.put(B.type, B.body);
       await e.store.flush();
@@ -432,7 +432,7 @@ function N({ repo: e, refs: t, sessionId: i, onReceive: d, signal: h, now: m = D
       return (
         t.write(M),
         d?.({ objectsRead: P.objects.length, decodeMs: m() - O, packBytes: r.length - _.packOffset }),
-        { ok: !0, refs: M, prerequisiteCount: _.prerequisites.length }
+        { ok: true, refs: M, prerequisiteCount: _.prerequisites.length }
       );
     };
   return {
@@ -464,20 +464,20 @@ function N({ repo: e, refs: t, sessionId: i, onReceive: d, signal: h, now: m = D
       } catch (o) {
         return (
           n(`folder sync: receive failed: ${String(o)}`),
-          { ok: !1, reason: "git_error", stage: "threw", detail: String(o) }
+          { ok: false, reason: "git_error", stage: "threw", detail: String(o) }
         );
       }
     },
     async deleteRefs(r) {
-      return t.remove(r), !0;
+      return t.remove(r), true;
     },
     async firstCommitCarrying(r, o) {
       if (o.length === 0) return "unknown";
-      let u = !0;
+      let u = true;
       for (let b of o) {
         let O = await g(b);
         if (O === null || O === "too_large") {
-          u = !1;
+          u = false;
           continue;
         }
         if (H(O).has(r)) return "found";
@@ -501,22 +501,22 @@ function N({ repo: e, refs: t, sessionId: i, onReceive: d, signal: h, now: m = D
       });
     },
     async openBlobReader({ maxBytes: r }) {
-      let o = !1;
+      let o = false;
       return {
         read: async (b) => {
           if (o || Rt(h) || !Xq(b, y)) return { kind: "unavailable" };
           if (e.store.deflatedSize(b) === null) return { kind: "unavailable" };
-          let _ = (await F(!1, () => e.store.hasHere(b)))
+          let _ = (await F(false, () => e.store.hasHere(b)))
             ? await F({ kind: "absent" }, () => e.store.get(b))
             : { kind: "absent" };
           if (_.kind !== "ok" || _.object.type !== "blob") return { kind: "unavailable" };
           return _.object.body.length > r ? { kind: "too_large" } : { kind: "ok", bytes: _.object.body };
         },
         close: () => {
-          o = !0;
+          o = true;
         },
         [Symbol.asyncDispose]: async () => {
-          o = !0;
+          o = true;
         },
       };
     },
@@ -529,16 +529,16 @@ function Q(e, t) {
   switch (e.type) {
     case "tree": {
       let i = tst(e.body, t);
-      if (i === null) return !1;
+      if (i === null) return false;
       let d = dDt(i, t);
       return d.ok && d.tree.id === e.id;
     }
     case "commit":
       return nst(e.body, t) !== null && Z(e.body);
     case "blob":
-      return !0;
+      return true;
     case "tag":
-      return !1;
+      return false;
   }
 }
 function Z(e) {
@@ -546,7 +546,7 @@ function Z(e) {
 
 `),
     i = (t < 0 ? e : e.subarray(0, t)).toString("latin1");
-  if (i.includes("\x00")) return !1;
+  if (i.includes("\x00")) return false;
   let d = i.split(`
 `),
     h = /^[^<>\n]+ <[^<>\n]*> \d+ [+-]\d{4}$/,
@@ -609,10 +609,10 @@ async function te(e, t) {
 }
 async function z(e, t, i) {
   let d = await e.commitParents(t);
-  if (d === "none" || d === "unknown") return !1;
-  if (i.has(t)) return !0;
-  for (let h of i) if ((await e.isAncestor(t, h)) === !0) return !0;
-  return !1;
+  if (d === "none" || d === "unknown") return false;
+  if (i.has(t)) return true;
+  for (let h of i) if ((await e.isAncestor(t, h)) === true) return true;
+  return false;
 }
 import { createHash as oe } from "crypto";
 function G({ repo: e, refs: t, onPass: i, signal: d, now: h = Date.now }) {
@@ -656,7 +656,7 @@ function G({ repo: e, refs: t, onPass: i, signal: d, now: h = Date.now }) {
         });
       },
       async writeRefs(p) {
-        return t.write(p), !0;
+        return t.write(p), true;
       },
       async createBundle(p) {
         try {
@@ -664,7 +664,7 @@ function G({ repo: e, refs: t, onPass: i, signal: d, now: h = Date.now }) {
         } catch (f) {
           return (
             n(`folder sync: bundle failed: ${String(f)}`),
-            Rt(d) ? { ok: !1, reason: "aborted" } : I("range", `the local store could not be read: ${String(f)}`)
+            Rt(d) ? { ok: false, reason: "aborted" } : I("range", `the local store could not be read: ${String(f)}`)
           );
         }
       },
@@ -672,24 +672,24 @@ function G({ repo: e, refs: t, onPass: i, signal: d, now: h = Date.now }) {
         return t.list(p);
       },
       async deleteRefs(p) {
-        return t.remove(p), !0;
+        return t.remove(p), true;
       },
     },
     F = async ({ tips: p, prerequisites: f, maxBytes: r }) => {
-      if (Rt(d)) return { ok: !1, reason: "aborted" };
+      if (Rt(d)) return { ok: false, reason: "aborted" };
       let o = p.map((a) => ({ name: a, id: t.read(a) })),
         u = o.find((a) => a.id === null);
       if (u !== void 0 || o.length === 0) return I("tips", `no ref ${u?.name ?? "(none asked)"}`);
       let b = o.flatMap((a) => (a.id === null ? [] : [{ name: a.name, id: a.id }]));
       if (!f.every((a) => Xq(a, m))) return I("arguments", "a prerequisite is not an object id");
-      if (f.length > ey) return { ok: !1, reason: "too_many_prerequisites", prerequisiteCount: f.length };
+      if (f.length > ey) return { ok: false, reason: "too_many_prerequisites", prerequisiteCount: f.length };
       let O = await g.presentCommits(f);
       if (O === null) return I("range", "the store could not say which prerequisites it holds");
       if (O.size !== new Set(f).size)
-        return { ok: !1, reason: "prerequisites_missing", missingCount: new Set(f).size - O.size };
+        return { ok: false, reason: "prerequisites_missing", missingCount: new Set(f).size - O.size };
       let E = b.filter((a) => O.has(a.id)),
         _ = b.filter((a) => !O.has(a.id));
-      if (_.length === 0) return { ok: !1, reason: "nothing_to_send", omitted: E };
+      if (_.length === 0) return { ok: false, reason: "nothing_to_send", omitted: E };
       let C = h(),
         S = [],
         P = 0;
@@ -700,10 +700,10 @@ function G({ repo: e, refs: t, onPass: i, signal: d, now: h = Date.now }) {
             "range",
             `${j.missing.length} object(s) the upload needs are not in this folder's local store (first: ${j.missing[0]})`,
           );
-        if (j.bytesEstimate > r) return { ok: !1, reason: "too_large", sizeBytes: j.bytesEstimate };
+        if (j.bytesEstimate > r) return { ok: false, reason: "too_large", sizeBytes: j.bytesEstimate };
         P += j.ids.commits.length;
         for (let A of [...j.ids.commits, ...j.ids.trees, ...j.ids.blobs]) {
-          if (Rt(d)) return { ok: !1, reason: "aborted" };
+          if (Rt(d)) return { ok: false, reason: "aborted" };
           let L = await e.store.getDeflated(A);
           if (L.kind !== "ok") return I("range", `object ${A} is ${L.kind} in this folder's local store`);
           S.push(L.object);
@@ -720,11 +720,11 @@ function G({ repo: e, refs: t, onPass: i, signal: d, now: h = Date.now }) {
           }),
           v,
         ]);
-      if (T.length > r) return { ok: !1, reason: "too_large", sizeBytes: T.length };
+      if (T.length > r) return { ok: false, reason: "too_large", sizeBytes: T.length };
       return (
         i?.({ objects: S.length, packBytes: v.length, packMs: h() - C }),
         {
-          ok: !0,
+          ok: true,
           content: T,
           sizeBytes: T.length,
           sha256: oe("sha256").update(T).digest("hex"),
@@ -738,7 +738,7 @@ function G({ repo: e, refs: t, onPass: i, signal: d, now: h = Date.now }) {
   return g;
 }
 function I(e, t) {
-  return { ok: !1, reason: "git_error", stage: e, detail: t };
+  return { ok: false, reason: "git_error", stage: e, detail: t };
 }
 function U() {
   let e = new Map();
@@ -795,7 +795,7 @@ async function bt({
     O = await lst(t, p),
     E = d2n(O, o),
     _ = q(E, u2n);
-  await ne(_, { recursive: !0, mode: se });
+  await ne(_, { recursive: true, mode: se });
   let C = he(y),
     S = await ue({
       folder: t,
@@ -832,7 +832,7 @@ async function bt({
   let { ports: P, close: v } = S;
   try {
     if (d !== void 0) {
-      if (h?.aborted === !0) throw new Ze();
+      if (h?.aborted === true) throw new Ze();
       if (
         (await i_e(u.path, Sst({ sessionId: o, armedAtMs: d.armedAtMs, start: i, uploadOnly: d.uploadOnly }), u.v5),
         d.startLine !== void 0)
