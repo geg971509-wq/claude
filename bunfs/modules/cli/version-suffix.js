@@ -8,8 +8,8 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function k0(
-  e = {
+function getVersionSuffixForBuildRef(
+  buildRef = {
     ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues",
     PACKAGE_URL: "@anthropic-ai/claude-code",
     README_URL: "https://code.claude.com/docs/en/overview",
@@ -23,4 +23,5 @@ function k0(
 ) {
   return "";
 }
-export { k0 };
+
+export { getVersionSuffixForBuildRef, getVersionSuffixForBuildRef as k0 };

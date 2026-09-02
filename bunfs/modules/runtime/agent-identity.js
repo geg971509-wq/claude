@@ -8,10 +8,13 @@
 // (c) Anthropic PBC. All rights reserved. Use is subject to the Legal Agreements outlined here: https://code.claude.com/docs/en/legal-and-compliance.
 
 // Version: 2.1.252
-function Ka() {
-  return `claude-code/${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION}`;
+const CLAUDE_CODE_VERSION = "2.1.252";
+
+function getClaudeCodeUserAgent() {
+  return `claude-code/${CLAUDE_CODE_VERSION}`;
 }
-function Cg() {
+
+function getEntrypointEventSource() {
   switch (process.env.CLAUDE_CODE_ENTRYPOINT) {
     case "claude-vscode":
       return "claude_code_vscode";
@@ -42,15 +45,27 @@ function Cg() {
       return "claude_code_cli";
   }
 }
-function Kxn(e) {
-  return `claude-code_${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION.replace(/\./g, "-")}_${e}`;
+
+function formatAiAgentIdentifier(component) {
+  return `claude-code_${CLAUDE_CODE_VERSION.replace(/\./g, "-")}_${component}`;
 }
-function JCt() {
+
+function initializeAiAgentEnvironment() {
   if (
     !process.env.AI_AGENT ||
     process.env.AI_AGENT.startsWith("claude-code_") ||
     process.env.AI_AGENT.startsWith("claude-code/")
   )
-    process.env.AI_AGENT = Kxn("harness");
+    process.env.AI_AGENT = formatAiAgentIdentifier("harness");
 }
-export { Ka, Cg, Kxn, JCt };
+
+export {
+  getClaudeCodeUserAgent,
+  getEntrypointEventSource,
+  formatAiAgentIdentifier,
+  initializeAiAgentEnvironment,
+  getClaudeCodeUserAgent as Ka,
+  getEntrypointEventSource as Cg,
+  formatAiAgentIdentifier as Kxn,
+  initializeAiAgentEnvironment as JCt,
+};

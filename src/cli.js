@@ -9,76 +9,91 @@
 
 // Version: 2.1.252
 import { w } from "/$bunfs/root/chunk-4xj01xwv.js";
-import { XCt, xve, Ive, acr, YCt } from "/$bunfs/root/chunk-jgrgqwj9.js";
-import { k0 } from "/$bunfs/root/chunk-phnty5cg.js";
-import { JCt } from "/$bunfs/root/chunk-fxb0gsq0.js";
+import {
+  parseAgentViewArguments,
+  resolveDispatchConfigPaths,
+  buildDispatchExtraArgs,
+  extractDaemonArguments,
+  validateHandleUriArguments,
+} from "/$bunfs/root/chunk-jgrgqwj9.js";
+import { getVersionSuffixForBuildRef } from "/$bunfs/root/chunk-phnty5cg.js";
+import { initializeAiAgentEnvironment } from "/$bunfs/root/chunk-fxb0gsq0.js";
 import { O } from "/$bunfs/root/chunk-dqkj2bph.js";
-function Z() {
+function getWorkingDirectoryError() {
   try {
     process.cwd();
     return;
-  } catch (n) {
-    let t = n instanceof Error && "code" in n && typeof n.code === "string" ? n.code : void 0;
-    if (t === "ENOENT")
+  } catch (error) {
+    const errorCode =
+      error instanceof Error && "code" in error && typeof error.code === "string" ? error.code : void 0;
+    if (errorCode === "ENOENT")
       return "The current directory no longer exists (it was deleted or moved). Start Claude Code from an existing directory.";
-    return `Can't read the current directory${t ? ` (${t})` : ""}. Start Claude Code from a different directory.`;
+    return `Can't read the current directory${errorCode ? ` (${errorCode})` : ""}. Start Claude Code from a different directory.`;
   }
 }
 process.env.NoDefaultCurrentDirectoryInExePath = "1";
 process.env.COREPACK_ENABLE_AUTO_PIN = "0";
-JCt();
+initializeAiAgentEnvironment();
 if (process.env.CLAUDE_CODE_REMOTE === "true") {
   let n = process.env.NODE_OPTIONS || "";
   process.env.NODE_OPTIONS = n ? `${n} --max-old-space-size=8192` : "--max-old-space-size=8192";
 }
-function tt(n) {
-  for (let t = 0; t < n.length; t++) {
-    let E = n[t];
+function hasOnlyDebugFlags(args) {
+  for (let index = 0; index < args.length; index++) {
+    const argument = args[index];
     if (
-      E === "--debug" ||
-      E === "-d" ||
-      E === "--debug-to-stderr" ||
-      E === "-d2e" ||
-      E.startsWith("--debug=") ||
-      E.startsWith("--debug-file=")
+      argument === "--debug" ||
+      argument === "-d" ||
+      argument === "--debug-to-stderr" ||
+      argument === "-d2e" ||
+      argument.startsWith("--debug=") ||
+      argument.startsWith("--debug-file=")
     )
       continue;
-    if (E === "--debug-file" && t + 1 < n.length) {
-      t++;
+    if (argument === "--debug-file" && index + 1 < args.length) {
+      index++;
       continue;
     }
     return false;
   }
   return true;
 }
-function Dt(n) {
-  let t,
-    E,
-    m,
-    x,
-    s,
-    d = [];
-  for (let u = 0; u < n.length; u++) {
-    let M = n[u],
-      R = M.indexOf("="),
-      [F, b] = R > 0 ? [M.slice(0, R), M.slice(R + 1)] : [M, void 0],
-      B = b !== void 0 || u + 1 < n.length;
-    if (F === "--dangerously-skip-permissions") t = "bypassPermissions";
-    else if (F === "--allow-dangerously-skip-permissions") s = true;
-    else if (F === "--permission-mode" && B) t = b ?? n[++u];
-    else if (F === "--model" && B) E = b ?? n[++u];
-    else if (F === "--effort" && B) m = b ?? n[++u];
-    else if (F === "--agent" && B) x = b ?? n[++u];
-    else d.push(M);
+function extractDispatchDefaults(args) {
+  let permissionMode;
+  let model;
+  let effort;
+  let agent;
+  let allowBypass;
+  const remainingArgs = [];
+
+  for (let index = 0; index < args.length; index++) {
+    const argument = args[index];
+    const equalsIndex = argument.indexOf("=");
+    const [flag, inlineValue] =
+      equalsIndex > 0
+        ? [argument.slice(0, equalsIndex), argument.slice(equalsIndex + 1)]
+        : [argument, void 0];
+    const hasValue = inlineValue !== void 0 || index + 1 < args.length;
+
+    if (flag === "--dangerously-skip-permissions") permissionMode = "bypassPermissions";
+    else if (flag === "--allow-dangerously-skip-permissions") allowBypass = true;
+    else if (flag === "--permission-mode" && hasValue) permissionMode = inlineValue ?? args[++index];
+    else if (flag === "--model" && hasValue) model = inlineValue ?? args[++index];
+    else if (flag === "--effort" && hasValue) effort = inlineValue ?? args[++index];
+    else if (flag === "--agent" && hasValue) agent = inlineValue ?? args[++index];
+    else remainingArgs.push(argument);
   }
+
   return {
     dispatchDefaults:
-      t || E || m || x || s ? { permissionMode: t, model: E, effort: m, agent: x, allowBypass: s } : void 0,
-    rest: d,
+      permissionMode || model || effort || agent || allowBypass
+        ? { permissionMode, model, effort, agent, allowBypass }
+        : void 0,
+    rest: remainingArgs,
   };
 }
-async function At() {
-  let n = YCt(process.argv);
+async function runCliEntry() {
+  let n = validateHandleUriArguments(process.argv);
   if (n) console.error(n), process.exit(1);
   let t = process.argv.slice(2);
   if (
@@ -87,7 +102,7 @@ async function At() {
   ) {
     if (
       (console.log(
-        `${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION} (Claude Code)${k0()}`,
+        `${{ ISSUES_EXPLAINER: "report the issue at https://github.com/anthropics/claude-code/issues", PACKAGE_URL: "@anthropic-ai/claude-code", README_URL: "https://code.claude.com/docs/en/overview", VERSION: "2.1.252", FEEDBACK_CHANNEL: "https://github.com/anthropics/claude-code/issues", BUILD_TIME: "2026-08-31T16:02:57Z", GIT_SHA: "c0778c45886d8f1ed8bd5e7c972b8507d299a548", HOOKS_WORKER_URL: "/$bunfs/root/src/plugins/functionHooks/hooks-worker/hooks-worker.js", DD_SOURCEMAP_GROUP: "darwin" }.VERSION} (Claude Code)${getVersionSuffixForBuildRef()}`,
       ),
       t.length === 2 &&
         {
@@ -107,7 +122,7 @@ async function At() {
       );
     return;
   }
-  let E = Z();
+  let E = getWorkingDirectoryError();
   if (E) console.error(E), process.exit(1);
   let { profileCheckpoint: m } = await import("/$bunfs/root/chunk-hbpx3g37.js");
   m("cli_entry");
@@ -242,7 +257,7 @@ async function At() {
     return;
   }
   {
-    let e = acr(t);
+    let e = extractDaemonArguments(t);
     if (e !== null) {
       m("cli_daemon_path");
       let { ensureFastPathSettingsLoaded: r } = await import("/$bunfs/root/chunk-bx27bawb.js");
@@ -368,13 +383,13 @@ async function At() {
     }
     return;
   }
-  let d = XCt(t);
+  let d = parseAgentViewArguments(t);
   d.config.restricted ||= ["1", "true", "yes", "on"].includes(
     (process.env.CLAUDE_CODE_RESTRICTED ?? "").toLowerCase().trim(),
   );
-  let { dispatchDefaults: u, rest: M } = Dt(d.rest),
-    R = d.hasAgentsPositional && tt(M);
-  if ((R || (tt(t) && process.stdin.isTTY)) && process.stdout.isTTY) {
+  let { dispatchDefaults: u, rest: M } = extractDispatchDefaults(d.rest),
+    R = d.hasAgentsPositional && hasOnlyDebugFlags(M);
+  if ((R || (hasOnlyDebugFlags(t) && process.stdin.isTTY)) && process.stdout.isTTY) {
     let { startCapturingEarlyInput: e, consumeEarlyInput: r } = await import("/$bunfs/root/chunk-wmawqmyv.js");
     e();
     let [{ startMdmRawRead: o }, { startKeychainPrefetch: y }] = await Promise.all([
@@ -556,7 +571,7 @@ async function At() {
         let ut = await import("/$bunfs/root/chunk-3474m0yz.js"),
           ft = {
             cwdFilter: d.cwdFilter,
-            dispatchExtraArgs: Ive(xve(d.config, I)),
+            dispatchExtraArgs: buildDispatchExtraArgs(resolveDispatchConfigPaths(d.config, I)),
             dispatchDefaults: Q,
             entryChannel: ut.isListReturnRelaunch() ? "list_return" : R ? "cli_agents" : "default_home",
             storageV5: l,
@@ -668,4 +683,4 @@ async function At() {
   let { main: st } = await import("/$bunfs/root/chunk-qmprj3b6.js");
   m("cli_after_main_import"), await st(s), m("cli_after_main_complete");
 }
-At();
+runCliEntry();

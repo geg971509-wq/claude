@@ -15,7 +15,7 @@ command -v "$BUN_BIN" >/dev/null 2>&1 || {
   exit 1
 }
 
-for required in src/cli.js pathmap.json; do
+for required in src/cli.js pathmap.json semantic-paths.json; do
   [[ -f "$ROOT/$required" ]] || {
     echo "error: missing $ROOT/$required" >&2
     exit 1
@@ -43,6 +43,13 @@ const [root, stage, outfile] = process.argv.slice(2);
 const prefix = "/$bunfs/root/";
 const rootResolved = path.resolve(root);
 const map = JSON.parse(fs.readFileSync(path.join(rootResolved, "pathmap.json"), "utf8"));
+const semanticPaths = JSON.parse(fs.readFileSync(path.join(rootResolved, "semantic-paths.json"), "utf8"));
+
+for (const virtualPath of Object.keys(semanticPaths)) {
+  if (!Object.hasOwn(map, virtualPath)) {
+    throw new Error(`Unknown semantic path override: ${virtualPath}`);
+  }
+}
 
 function isZstd(file) {
   const fd = fs.openSync(file, "r");
@@ -66,13 +73,14 @@ for (const [virtualPath, localPath] of Object.entries(map)) {
     throw new Error(`Unsafe virtual path: ${virtualPath}`);
   }
 
-  const src = path.resolve(rootResolved, localPath);
+  const sourcePath = semanticPaths[virtualPath] ?? localPath;
+  const src = path.resolve(rootResolved, sourcePath);
   if (!(src === rootResolved || src.startsWith(`${rootResolved}${path.sep}`))) {
-    throw new Error(`Invalid mapped source: ${localPath}`);
+    throw new Error(`Invalid mapped source: ${sourcePath}`);
   }
 
   if (!fs.existsSync(src)) {
-    throw new Error(`Missing mapped source: ${localPath}`);
+    throw new Error(`Missing mapped source: ${sourcePath} (${virtualPath})`);
   }
 
   if (rel.endsWith(".js") && !isZstd(src)) {
