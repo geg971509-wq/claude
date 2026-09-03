@@ -20,6 +20,18 @@ function resolveRepositoryPath(relativePath) {
   return absolutePath;
 }
 
+const opaquePathComponentPatterns = [
+  /^chunk-[a-z0-9]+(?:\.js)?$/,
+  /^(?:module|functions)-\d+\.js$/,
+  /^core\.js$/,
+];
+
+function hasOpaquePathComponent(relativePath) {
+  return relativePath.split(/[\\/]/).some((component) =>
+    opaquePathComponentPatterns.some((pattern) => pattern.test(component)),
+  );
+}
+
 const pathMap = readJson("pathmap.json");
 const semanticPaths = readJson("semantic-paths.json");
 const destinations = new Set();
@@ -27,16 +39,18 @@ const destinations = new Set();
 for (const [virtualPath, semanticPath] of Object.entries(semanticPaths)) {
   assert.ok(Object.hasOwn(pathMap, virtualPath), `semantic override has no pathmap entry: ${virtualPath}`);
   assert.ok(virtualPath.startsWith("/$bunfs/root/"), `unexpected virtual path: ${virtualPath}`);
-  assert.doesNotMatch(path.basename(semanticPath), /^chunk-[a-z0-9]+\.js$/, `opaque destination: ${semanticPath}`);
+  assert.ok(!hasOpaquePathComponent(semanticPath), `opaque semantic destination: ${semanticPath}`);
   assert.ok(!destinations.has(semanticPath), `duplicate semantic destination: ${semanticPath}`);
   destinations.add(semanticPath);
   assert.ok(fs.statSync(resolveRepositoryPath(semanticPath)).isFile(), `missing semantic source: ${semanticPath}`);
 }
 
+let unresolvedOpaqueSources = 0;
 for (const [virtualPath, extractedPath] of Object.entries(pathMap)) {
   if (virtualPath === "/$bunfs/root/cli") continue;
   const effectivePath = semanticPaths[virtualPath] ?? extractedPath;
   assert.ok(fs.existsSync(resolveRepositoryPath(effectivePath)), `missing mapped source: ${effectivePath}`);
+  if (hasOpaquePathComponent(effectivePath)) unresolvedOpaqueSources++;
 }
 
 assert.ok(!fs.existsSync(path.join(repositoryRoot, ".DS_Store")), "root .DS_Store must not be tracked");
@@ -123,4 +137,7 @@ for (const generatedName of ["Z", "tt", "Dt", "At"]) {
   assert.doesNotMatch(cliSource, new RegExp(`function ${generatedName}\\b`), `generated CLI function remains: ${generatedName}`);
 }
 
-console.log(`validated ${Object.keys(semanticPaths).length} semantic source paths and compatibility aliases`);
+console.log(
+  `validated ${Object.keys(semanticPaths).length} semantic source paths and compatibility aliases; ` +
+    `${unresolvedOpaqueSources} opaque physical source paths remain to migrate`,
+);
