@@ -1,4 +1,10 @@
 {
+  "/$bunfs/root/chunk-yz031c9r.js": "bunfs/modules/runtime/bundler-interop.js",
+  "/$bunfs/root/chunk-seg02tvx.js": "bunfs/modules/native/image-processor-binding.js",
+  "/$bunfs/root/chunk-zfv3p7fr.js": "bunfs/modules/native/audio-capture-binding.js",
+  "/$bunfs/root/chunk-7y61rbtd.js": "bunfs/modules/native/url-handler-binding.js",
+  "/$bunfs/root/chunk-7jz6r17g.js": "bunfs/modules/native/computer-use-swift-binding.js",
+  "/$bunfs/root/chunk-6cxt7ghw.js": "bunfs/modules/native/computer-use-input-binding.js",
   "/$bunfs/root/chunk-jgrgqwj9.js": "bunfs/modules/cli/argument-parser.js",
   "/$bunfs/root/chunk-phnty5cg.js": "bunfs/modules/cli/version-suffix.js",
   "/$bunfs/root/chunk-fxb0gsq0.js": "bunfs/modules/runtime/agent-identity.js",
