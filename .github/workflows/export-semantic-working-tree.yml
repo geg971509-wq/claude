@@ -22,7 +22,13 @@ jobs:
           git fetch origin codex/semantic-chunk-audit-20260903
           git show origin/codex/semantic-chunk-audit-20260903:semantic-paths.json > /tmp/audit-semantic-paths.json
       - name: Apply semantic names to every physical chunk file
-        run: python3 scripts/semantic-rename-all.py --audit /tmp/audit-semantic-paths.json --apply
+        shell: bash
+        run: |
+          if ! python3 scripts/semantic-rename-all.py --audit /tmp/audit-semantic-paths.json --apply; then
+            echo 'Residual physical chunks after primary migration:'
+            find bunfs -type f -name 'chunk-*.js' -print
+            exit 1
+          fi
       - name: Verify zero physical chunk filenames remain
         shell: bash
         run: |
