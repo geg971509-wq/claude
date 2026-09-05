@@ -1,0 +1,29 @@
+name: Semantic source audit (temporary)
+on:
+  push:
+    branches: [refactor/semantic-chunk-filenames]
+    paths: [.github/workflows/semantic-source-audit.yml]
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Collect tracked source files for semantic review
+        run: |
+          git archive --format=tar HEAD bunfs src scripts pathmap.json semantic-paths.json SOURCE_NAMING.md build.sh | gzip > semantic-source-snapshot.tar.gz
+          git rev-parse HEAD > source-commit.txt
+          printf 'Opaque JavaScript paths: '
+          git ls-files | grep -E '(^|/)chunk-[^/]+\.js$' | wc -l
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: semantic-source-snapshot
+          path: |
+            semantic-source-snapshot.tar.gz
+            source-commit.txt
+          retention-days: 1
+          if-no-files-found: error
