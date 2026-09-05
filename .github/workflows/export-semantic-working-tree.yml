@@ -13,8 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Archive working tree
-        run: tar --exclude=.git --exclude=semantic-working-tree.tar.gz -czf semantic-working-tree.tar.gz .
+      - name: Archive JavaScript analysis inputs
+        shell: bash
+        run: |
+          { printf '%s\0' pathmap.json semantic-paths.json SOURCE_NAMING.md scripts/check-semantic-names.mjs; find bunfs -type f -name '*.js' -print0; } \
+            | tar --null -T - -czf semantic-working-tree.tar.gz
       - name: Upload working tree
         uses: actions/upload-artifact@v4
         with:
