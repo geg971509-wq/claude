@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Archive working tree
-        run: tar --exclude=.git -czf semantic-working-tree.tar.gz .
+        run: tar --exclude=.git --exclude=semantic-working-tree.tar.gz -czf semantic-working-tree.tar.gz .
       - name: Upload working tree
         uses: actions/upload-artifact@v4
         with:
