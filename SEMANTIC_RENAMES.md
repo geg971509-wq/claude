@@ -1,0 +1,13 @@
+# 全量 chunk 语义重命名
+
+本分支已对 `bunfs` 下所有物理文件名匹配 `chunk-*.js` 的 JavaScript 文件执行语义化迁移。
+
+命名证据按优先级使用：已有人工审计映射、模块语义导出别名、模块自身协议/API/错误/工具字符串、直接依赖与直接调用者语义，以及模块结构角色。虚拟 `/$bunfs/root/...` 标识保持不变，物理文件移动到 `bunfs/modules/<area>/<responsibility>.js`，`semantic-paths.json` 负责从原 Bun 虚拟路径映射到维护用物理路径。
+
+验收条件：
+
+- `find bunfs -type f -name 'chunk-*.js'` 返回 0 个文件。
+- `node scripts/check-semantic-names.mjs` 通过。
+- JavaScript 文件通过 `git mv` 移动，内容不因重命名而改写。
+
+`scripts/semantic-rename-all.py` 保留了可复现的全量分类和命名过程；对已有 `codex/semantic-chunk-audit-20260903` 高置信度人工审计映射，始终优先采用该映射。
